@@ -1,3 +1,40 @@
+void sub_10003E1D4(id *a1, void *a2)
+{
+  v3 = a1[4];
+  v4 = a2;
+  v5 = [v3 error];
+
+  if (v5)
+  {
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10003E338;
+    v12[3] = &unk_1000C1920;
+    v6 = &v13;
+    v13 = a1[4];
+    v14 = a1[5];
+    sub_10003E338(v12);
+    v7 = v14;
+  }
+
+  else
+  {
+    v8 = [a1[4] fetchedObject];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10003E38C;
+    v9[3] = &unk_1000C4470;
+    v6 = v10;
+    v10[0] = a1[6];
+    v10[1] = v4;
+    v11 = a1[7];
+    [v8 enumerateObjectsUsingBlock:v9];
+
+    dispatch_group_leave(a1[5]);
+    v7 = v11;
+  }
+}
+
 void sub_10003E338(uint64_t a1)
 {
   v2 = FCDefaultLog;
@@ -128,12 +165,15 @@ void sub_10003E69C(uint64_t a1)
 uint64_t sub_10003EA50(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) objectForKey:a2];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 40) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 void sub_10003EB78(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -371,9 +411,9 @@ void sub_10003FF40(uint64_t a1)
   }
 }
 
-void sub_1000404DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000404DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -410,9 +450,9 @@ void sub_100040564(uint64_t a1)
   *(v4 + 40) = 0;
 }
 
-void sub_100040800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100040800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -445,9 +485,9 @@ void sub_10004088C(uint64_t a1)
   *(v2 + 40) = 0;
 }
 
-void sub_100040AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100040AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -765,9 +805,9 @@ void sub_100041488(id *a1)
   _Block_object_dispose(&v27, 8);
 }
 
-void sub_100041870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100041870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -855,9 +895,9 @@ void sub_100041A70(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100041D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100041D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1370,12 +1410,12 @@ void sub_1000440F4(uint64_t a1)
   }
 }
 
-void sub_100044500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100044500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  objc_destroyWeak((v14 + 48));
+  va_start(va, a21);
+  objc_destroyWeak((v21 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v15 - 56));
+  objc_destroyWeak((v22 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -1680,9 +1720,9 @@ void sub_100045D38(uint64_t a1)
   sub_100045DC0(v1);
 }
 
-void sub_10004607C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004607C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2522,6 +2562,13 @@ LABEL_11:
 LABEL_12:
 }
 
+void sub_10004CE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10004CEAC(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -3137,10 +3184,11 @@ void sub_10005091C(uint64_t a1)
   qword_1000E6300 = v19;
 }
 
-void sub_100051388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100051388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3151,9 +3199,12 @@ uint64_t sub_1000513D0(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) operation];
+  v5 = [*(a1 + 32) operation];
+  v6 = *(*(a1 + 48) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v5, v7);
 }
 
 void sub_10005144C(uint64_t a1)
@@ -3164,9 +3215,9 @@ void sub_10005144C(uint64_t a1)
   (*(v2 + 16))(v2, v3);
 }
 
-void sub_1000515EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000515EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3286,14 +3337,14 @@ uint64_t sub_100052300(uint64_t a1)
   return (*(*(a1 + 48) + 16))();
 }
 
-void sub_100053178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100053178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4053,16 +4104,16 @@ void sub_100056C5C(uint64_t a1)
   [v2 dataManagerFeedPrepared:*(a1 + 32)];
 }
 
-id NNSetupCompanionSyncLog()
+id NNSetupCompanionSyncLog(uint64_t a1)
 {
   if (qword_1000E6320 != -1)
   {
     sub_100072BBC();
   }
 
-  v1 = qword_1000E6318;
+  v2 = qword_1000E6318;
 
-  return v1;
+  return v2;
 }
 
 void sub_100056E0C(id a1)
@@ -4074,11 +4125,11 @@ void sub_100056E0C(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_100057164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100057164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4315,9 +4366,9 @@ uint64_t sub_1000592B0(uint64_t a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_100059674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100059674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5822,7 +5873,7 @@ unint64_t sub_1000663B4()
   result = qword_1000E59E8;
   if (!qword_1000E59E8)
   {
-    sub_100066418(&unk_1000E59F0);
+    sub_100066418(&unk_1000E59F0, &qword_1000B6F60);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1000E59E8);
   }
@@ -5830,7 +5881,7 @@ unint64_t sub_1000663B4()
   return result;
 }
 
-uint64_t sub_100066418(uint64_t *a1)
+uint64_t sub_100066418(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5977,29 +6028,29 @@ uint64_t sub_1000669B8()
 
 id sub_100066A50()
 {
-  type metadata accessor for Logger();
-  (__chkstk_darwin)();
-  v0 = type metadata accessor for URL();
-  v1 = *(v0 - 8);
-  v2 = (__chkstk_darwin)();
-  v3 = __chkstk_darwin(v2);
-  v5 = &v12 - v4;
-  __chkstk_darwin(v3);
-  v6 = [objc_opt_self() defaultManager];
-  v7 = [v6 temporaryDirectory];
+  v0 = type metadata accessor for Logger();
+  __chkstk_darwin(v0 - 8);
+  v1 = type metadata accessor for URL();
+  v2 = *(v1 - 8);
+  v3 = __chkstk_darwin(v1);
+  v4 = __chkstk_darwin(v3);
+  v6 = &v13 - v5;
+  __chkstk_darwin(v4);
+  v7 = [objc_opt_self() defaultManager];
+  v8 = [v7 temporaryDirectory];
 
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   URL.appendingPathComponent(_:)();
-  (*(v1 + 8))(v5, v0);
+  (*(v2 + 8))(v6, v1);
   result = FRDiagnosticFileListURL();
   if (result)
   {
-    v9 = result;
+    v10 = result;
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v10 = FCDiagnosticsLog;
+    v11 = FCDiagnosticsLog;
     Logger.init(_:)();
-    v11 = objc_allocWithZone(type metadata accessor for DiagnosticFileCollector());
+    v12 = objc_allocWithZone(type metadata accessor for DiagnosticFileCollector());
     return DiagnosticFileCollector.init(diagnosticDumpDir:diagnosticFileListURL:logger:)();
   }
 
@@ -6011,7 +6062,7 @@ id sub_100066A50()
   return result;
 }
 
-uint64_t type metadata accessor for BundleSessionDebugDataSource()
+uint64_t type metadata accessor for BundleSessionDebugDataSource(uint64_t a1)
 {
   result = qword_1000E5B70;
   if (!qword_1000E5B70)
@@ -6024,9 +6075,9 @@ uint64_t type metadata accessor for BundleSessionDebugDataSource()
 
 uint64_t sub_100066D54()
 {
-  sub_1000073C4(v0 + qword_1000E5B58);
+  sub_1000073C4((v0 + qword_1000E5B58));
 
-  v1 = v0 + qword_1000E5B68;
+  v1 = (v0 + qword_1000E5B68);
 
   return sub_1000073C4(v1);
 }
@@ -6036,9 +6087,9 @@ uint64_t sub_100066DA4()
   v0 = DebugDataSource.deinit();
   v1 = qword_1000E5B58;
 
-  sub_1000073C4(v2 + v1);
+  sub_1000073C4((v2 + v1));
 
-  sub_1000073C4(v0 + qword_1000E5B68);
+  sub_1000073C4((v0 + qword_1000E5B68));
 
   return _swift_deallocClassInstance(v0, 104, 7);
 }
@@ -6064,7 +6115,7 @@ id sub_100066E40(SEL *a1)
   return result;
 }
 
-uint64_t sub_100066EC8(uint64_t *a1)
+uint64_t sub_100066EC8(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6076,10 +6127,10 @@ uint64_t sub_100066EC8(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_100066F1C(uint64_t a1, uint64_t *a2)
+uint64_t sub_100066F1C(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_100066EC8(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_100066EC8(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -6088,7 +6139,7 @@ uint64_t sub_100066F7C()
   sub_1000671E4(v0 + OBJC_IVAR____TtC4News32BundleSubscriptionDebugViewModel__initialPurchaseTimestamp);
   sub_1000671E4(v0 + OBJC_IVAR____TtC4News32BundleSubscriptionDebugViewModel__newSubscriptionDetectionTimestamp);
   swift_unknownObjectRelease();
-  sub_1000073C4(v0 + OBJC_IVAR____TtC4News32BundleSubscriptionDebugViewModel_bundleSubscriptionDetectionManager);
+  sub_1000073C4((v0 + OBJC_IVAR____TtC4News32BundleSubscriptionDebugViewModel_bundleSubscriptionDetectionManager));
   v1 = OBJC_IVAR____TtC4News32BundleSubscriptionDebugViewModel___observationRegistrar;
   v2 = type metadata accessor for ObservationRegistrar();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
@@ -6098,7 +6149,7 @@ uint64_t sub_100066F7C()
   return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t type metadata accessor for BundleSubscriptionDebugViewModel()
+uint64_t type metadata accessor for BundleSubscriptionDebugViewModel(uint64_t a1)
 {
   result = qword_1000E5CE0;
   if (!qword_1000E5CE0)
@@ -6109,35 +6160,35 @@ uint64_t type metadata accessor for BundleSubscriptionDebugViewModel()
   return result;
 }
 
-void sub_1000670AC()
+void sub_1000670AC(uint64_t a1)
 {
-  sub_10006718C();
-  if (v0 <= 0x3F)
+  sub_10006718C(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ObservationRegistrar();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_10006718C()
+void sub_10006718C(uint64_t a1)
 {
   if (!qword_1000E5CF0)
   {
     type metadata accessor for Date();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1000E5CF0);
+      atomic_store(v1, &qword_1000E5CF0);
     }
   }
 }
 
 uint64_t sub_1000671E4(uint64_t a1)
 {
-  v2 = sub_100066EC8(&unk_1000E5DF0);
+  v2 = sub_100066EC8(&unk_1000E5DF0, qword_1000B7160);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -6330,13 +6381,13 @@ uint64_t sub_10006795C()
   v29 = v0;
   __chkstk_darwin(v0);
   v27 = v23 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_100066EC8(&qword_1000E5E20);
+  v2 = sub_100066EC8(&qword_1000E5E20, &qword_1000B72F0);
   __chkstk_darwin(v2 - 8);
   v26 = v23 - v3;
-  v4 = sub_100066EC8(&qword_1000E5E28);
+  v4 = sub_100066EC8(&qword_1000E5E28, &qword_1000B72F8);
   __chkstk_darwin(v4 - 8);
   v25 = v23 - v5;
-  v6 = sub_100066EC8(&qword_1000E5E30);
+  v6 = sub_100066EC8(&qword_1000E5E30, &qword_1000B7300);
   __chkstk_darwin(v6 - 8);
   v24 = v23 - v7;
   v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6350,7 +6401,7 @@ uint64_t sub_10006795C()
   v14 = type metadata accessor for LocalizedStringResource();
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v23[1] = sub_100066EC8(&qword_1000E5E38);
+  v23[1] = sub_100066EC8(&qword_1000E5E38, &qword_1000B7308);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   v16 = enum case for LocalizedStringResource.BundleDescription.main(_:);
@@ -6370,7 +6421,7 @@ uint64_t sub_10006795C()
   (*(*(v20 - 8) + 56))(v26, 1, 1, v20);
   (*(v28 + 104))(v27, enum case for InputConnectionBehavior.default(_:), v29);
   v21 = IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
-  sub_100066EC8(&qword_1000E5E40);
+  sub_100066EC8(&qword_1000E5E40, &unk_1000B7310);
   type metadata accessor for AppDependencyManager();
   v30 = 0u;
   v31 = 0u;
@@ -6405,7 +6456,7 @@ uint64_t *sub_100067EFC(uint64_t a1, uint64_t *a2)
 uint64_t sub_100067F60()
 {
   sub_10006819C(v0 + OBJC_IVAR____TtC4News27BundleSessionDebugViewModel__session);
-  sub_1000073C4(v0 + OBJC_IVAR____TtC4News27BundleSessionDebugViewModel_bundleSessionManager);
+  sub_1000073C4((v0 + OBJC_IVAR____TtC4News27BundleSessionDebugViewModel_bundleSessionManager));
   v1 = OBJC_IVAR____TtC4News27BundleSessionDebugViewModel___observationRegistrar;
   v2 = type metadata accessor for ObservationRegistrar();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
@@ -6415,7 +6466,7 @@ uint64_t sub_100067F60()
   return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t type metadata accessor for BundleSessionDebugViewModel()
+uint64_t type metadata accessor for BundleSessionDebugViewModel(uint64_t a1)
 {
   result = qword_1000E5E88;
   if (!qword_1000E5E88)
@@ -6426,46 +6477,46 @@ uint64_t type metadata accessor for BundleSessionDebugViewModel()
   return result;
 }
 
-void sub_100068070()
+void sub_100068070(uint64_t a1)
 {
-  sub_100068144();
-  if (v0 <= 0x3F)
+  sub_100068144(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ObservationRegistrar();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_100068144()
+void sub_100068144(uint64_t a1)
 {
   if (!qword_1000E5E98)
   {
     type metadata accessor for BundleSession();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1000E5E98);
+      atomic_store(v1, &qword_1000E5E98);
     }
   }
 }
 
 uint64_t sub_10006819C(uint64_t a1)
 {
-  v2 = sub_100066EC8(&qword_1000E5F28);
+  v2 = sub_100066EC8(&qword_1000E5F28, &qword_1000B7378);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 void sub_100068228()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "cloudContext", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000682EC()
@@ -6482,38 +6533,38 @@ void sub_1000682EC()
 
 void sub_1000683C0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "block"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "block", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068484()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "self.lastAppOpenDate"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "self.lastAppOpenDate", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068548()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "self.lastAppOpenDate"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "self.lastAppOpenDate", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006860C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "userIDDeterminationGroup"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "userIDDeterminationGroup", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000686D0()
@@ -6544,38 +6595,38 @@ void sub_1000687A4()
 
 void sub_100068884()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "appActivityMonitor"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appActivityMonitor", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068948()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "URL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068A0C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "URL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068AD0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "[URL nss_isNewsURL]"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[URL nss_isNewsURL]", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068B94()
@@ -6616,38 +6667,38 @@ void sub_100068D68()
 
 void sub_100068E3C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "font"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "font", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068F00()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "font"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "font", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100068FC4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "font"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "font", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069088()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "map[UIContentSizeCategoryLarge]"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "map[UIContentSizeCategoryLarge]", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006914C()
@@ -6664,128 +6715,135 @@ void sub_10006914C()
 
 void sub_100069220()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "referralItem"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "referralItem", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000692E4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "sharedDirectoryFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sharedDirectoryFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000693A8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "sourceFilePath"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sourceFilePath", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006946C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069530()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "itemClass"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "itemClass", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000695F4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "queryValue"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "queryValue", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000696B8()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires configurable values"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069770()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires a subscription controller"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069828()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires a tag controller"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000698E0()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires user info"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069998()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires a tag ranker"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069A50()
 {
   v0 = [[NSString alloc] initWithFormat:@"auto-favorites operation requires an aggregate store"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069B08()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069BD0()
 {
   v0 = [[NSString alloc] initWithFormat:@"We can't process signals without a whitelist"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100069C8C(uint64_t a1, void *a2)
@@ -6800,182 +6858,183 @@ void sub_100069C8C(uint64_t a1, void *a2)
 
 void sub_100069D34()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "defaultCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "defaultCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069E04()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "internalSignalAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "internalSignalAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069ED4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "existingInternalSignalAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "existingInternalSignalAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100069FA4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "internalSignalGroupableFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "internalSignalGroupableFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A074()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "existingInternalSignalGroupableFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "existingInternalSignalGroupableFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A144()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "portraitAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "portraitAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A214()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "appUsageAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appUsageAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A2E4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "safariAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "safariAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A3B4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "locationAutoFavoriteCandidates"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "locationAutoFavoriteCandidates", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A484()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A548()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A680()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "appSignals"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appSignals", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A744()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "safariSignals"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "safariSignals", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A808()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "unwrappedCompletion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "unwrappedCompletion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A8CC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "urlMapping"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "urlMapping", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006A990()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "bundleIDMapping"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "bundleIDMapping", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006AA54()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "favorabilityScores"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "favorabilityScores", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006AB50()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006AC14()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006ACD8()
 {
   v0 = [[NSString alloc] initWithFormat:@"This condition should never happen as we are using siri preferences to manage this now"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006AD90(uint64_t a1, uint64_t a2, os_log_t log)
@@ -6996,11 +7055,11 @@ void sub_10006AE18(uint64_t a1, NSObject *a2)
 
 void sub_10006AE90()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "tagID"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006AF54()
@@ -7071,56 +7130,56 @@ void sub_10006B2B4()
 
 void sub_10006B3A0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "JSONArray"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "JSONArray", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B464()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "flintDocumentURLAssetHandlesByRemoteURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "flintDocumentURLAssetHandlesByRemoteURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B528()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B5EC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "encodableElement"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "encodableElement", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B6B0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetHandlesByRemoteURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetHandlesByRemoteURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B774()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "JSONArray"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "JSONArray", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006B838()
@@ -7194,29 +7253,29 @@ void sub_10006BAD8(void *a1, void *a2)
 
 void sub_10006BBF4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "applicationProxy"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "applicationProxy", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006BCB8(uint64_t a1)
 {
-  v1 = [[NSString alloc] initWithFormat:@"Can't get version from LSApplicationProxy (current value: %@)"];
+  v1 = [[NSString alloc] initWithFormat:@"Can't get version from LSApplicationProxy (current value: %@)", a1];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, a1, v8, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10006BD8C(uint64_t a1)
 {
-  v1 = [[NSString alloc] initWithFormat:@"Operating system version string is missing or not valid (current value: %@)"];
+  v1 = [[NSString alloc] initWithFormat:@"Operating system version string is missing or not valid (current value: %@)", a1];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, a1, v8, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10006BE4C()
@@ -7265,182 +7324,180 @@ void sub_10006C0E8(void *a1, void *a2)
 
 void sub_10006C300()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "cloudContext"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "cloudContext", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C3C4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "bundleIDMappingResource"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "bundleIDMappingResource", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C488()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "urlMappingResource"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "urlMappingResource", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C54C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "whitelistResource"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "whitelistResource", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C610()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "favorabilityResource"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "favorabilityResource", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C6D4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "bundleIDMappingResourceFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "bundleIDMappingResourceFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C798()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "urlMappingResourceFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "urlMappingResourceFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C85C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "whitelistResourceFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "whitelistResourceFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C920()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "favorabilityResourceFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "favorabilityResourceFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006C9E4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "bundleIDMappingResourceData"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "bundleIDMappingResourceData", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006CAA8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "urlMappingResourceData"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "urlMappingResourceData", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006CB6C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "whitelistResourceData"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "whitelistResourceData", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006CC30()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "favorabilityResourceData"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "favorabilityResourceData", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006CCF4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "resourceIdentifier"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "resourceIdentifier", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006CDB8()
 {
   v0 = [[NSString alloc] initWithFormat:@"This operation must not be performed on the main thread."];
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_10006CE88(uint64_t a1)
 {
-  v2 = [NSString alloc];
-  v9 = *(a1 + 32);
-  v3 = [v2 initWithFormat:@"Found a subscription with no tagID: %@"];
+  v1 = [[NSString alloc] initWithFormat:@"Found a subscription with no tagID: %@", *(a1 + 32)];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v4, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v5, v6, v7, v8, v9, v10, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10006CF4C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "tagAdditionError"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagAdditionError", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D010()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "tagToRemove"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagToRemove", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D0D4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "tagToAdd"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagToAdd", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D198()
 {
   v0 = [[NSString alloc] initWithFormat:@"Asked for origin of a TagID I didn't ask to subscribe to"];
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_10006D268(void *a1, void *a2)
@@ -7492,38 +7549,38 @@ void sub_10006D4D0()
 
 void sub_10006D5B4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "queryItemName"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "queryItemName", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D678()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "queryItemName"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "queryItemName", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D740()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D804()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "tagID.length != 0"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID.length != 0", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006D8C8()
@@ -7552,29 +7609,29 @@ void sub_10006D99C()
 
 void sub_10006DA70()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "pathComponent"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "pathComponent", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006DB34()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006DBF8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "tagID.length != 0"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagID.length != 0", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006DCBC()
@@ -7594,55 +7651,58 @@ void sub_10006DCBC()
 void sub_10006DDA8()
 {
   v0 = [[NSString alloc] initWithFormat:@"can't onboard user without a cloud context"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006DE60()
 {
   v0 = [[NSString alloc] initWithFormat:@"can't onboard user without an analytics controller"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006DF18()
 {
   v0 = [[NSString alloc] initWithFormat:@"can't onboard user without a presubscribe service"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006DFD0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected inequality between %s and %s"];
+  v0 = [[NSString alloc] initWithFormat:@"expected inequality between %s and %s", "index", "NSNotFound"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "index", "NSNotFound", 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E09C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected equality between %s and %s"];
+  v0 = [[NSString alloc] initWithFormat:@"expected equality between %s and %s", "alphabeticalCount", "self.recentlyOpenedTags.count"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "alphabeticalCount", "self.recentlyOpenedTags.count", 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E168()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected equality between %s and %s"];
+  v0 = [[NSString alloc] initWithFormat:@"expected equality between %s and %s", "alphabeticalCount", "self.mostFrequentlyVisitedTags.count"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "alphabeticalCount", "self.mostFrequentlyVisitedTags.count", 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E234()
@@ -7671,56 +7731,56 @@ void sub_10006E314()
 
 void sub_10006E3F4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "resolver"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "resolver", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E4B8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "appConfigManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appConfigManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E57C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "privateDataContext"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "privateDataContext", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E640()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "subscriptionController"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "subscriptionController", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E704()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "privateDataUpdateCoordinator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "privateDataUpdateCoordinator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E7C8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "todayAgent"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "todayAgent", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006E88C()
@@ -7783,128 +7843,136 @@ void sub_10006EBF4(uint64_t a1, void *a2)
 
 void sub_10006EC9C(uint64_t a1)
 {
-  v1 = [[NSString alloc] initWithFormat:@"%p is already an observer"];
+  v1 = [[NSString alloc] initWithFormat:@"%p is already an observer", a1];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, a1, v8, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v2, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10006ED5C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "observer != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006EE20()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "observer != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006EEE4()
 {
   v0 = [[NSString alloc] initWithFormat:@"We only support one observer with this guarantee of being called last at this time"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EF9C()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot be notified of app launch twice"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F054()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F10C()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F1C4()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F27C()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F334()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F3EC()
 {
   v0 = [[NSString alloc] initWithFormat:@"cannot react to other application lifecycle events without first being notified of app launch"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F4A4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialItemEntryManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialItemEntryManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F568()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "thumbnailCreator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "thumbnailCreator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F62C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialItemCreator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialItemCreator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F6F0(uint64_t a1, NSObject *a2)
@@ -7917,29 +7985,29 @@ void sub_10006F6F0(uint64_t a1, NSObject *a2)
 
 void sub_10006F76C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "analyticsReferralFactory"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "analyticsReferralFactory", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F830()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "redirectService"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "redirectService", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F8F4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "routerManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "routerManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006F9B8()
@@ -7979,65 +8047,65 @@ void sub_10006FB1C()
 
 void sub_10006FC08()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "cloudContext != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006FCCC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialItemEntryManager != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialItemEntryManager != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006FD90()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "articleEditorialItemDownloader != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleEditorialItemDownloader != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006FE54()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "tagEditorialItemDownloader != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tagEditorialItemDownloader != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006FF18()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialConfigurationProvider != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialConfigurationProvider != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10006FFDC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "thumbnailCreator != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "thumbnailCreator != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000700A0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "ANFHelper != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "ANFHelper != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100070164(uint64_t a1, void *a2)
@@ -8045,25 +8113,27 @@ void sub_100070164(uint64_t a1, void *a2)
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 error];
-  sub_100009724(&_mh_execute_header, v5, v6, "ToC Editorial Manager: Error while fetching editorial item headline=%@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_100009724(&_mh_execute_header, v5, v6, "ToC Editorial Manager: Error while fetching editorial item headline=%@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_1000701FC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleID", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000702C0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100070384(uint64_t a1, NSObject *a2)
@@ -8218,47 +8288,47 @@ void sub_10007110C()
 
 void sub_1000711EC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "dataProviderFactory"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "dataProviderFactory", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000712B0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialItemEntryManager"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialItemEntryManager", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071374()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "articleEditorialItemProvider"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleEditorialItemProvider", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071438()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "thumbnailCreator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "thumbnailCreator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000714FC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "editorialItemCreator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "editorialItemCreator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000715C0(uint64_t a1, void *a2)
@@ -8311,10 +8381,11 @@ void sub_10007180C()
 void sub_100071914()
 {
   v0 = [[NSString alloc] initWithFormat:@"Unknown header type is not supported."];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000719CC()
@@ -8334,82 +8405,84 @@ void sub_1000719CC()
 void sub_100071AB8()
 {
   v0 = [[NSString alloc] initWithFormat:@"Unknown not handled."];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100071B70()
 {
   v0 = [[NSString alloc] initWithFormat:@"Unknown not handled."];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100071C28()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "feedPersonalizer"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedPersonalizer", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071CEC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "purchaseController"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "purchaseController", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071DB0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionController"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "subscriptionController", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071E74()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "localNewsChannelService"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "localNewsChannelService", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071F38()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "personalizationDataGenerator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "personalizationDataGenerator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100071FFC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "privateDataContext"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "privateDataContext", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000720C0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "userEmbeddingGenerator"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "userEmbeddingGenerator", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072184()
@@ -8428,110 +8501,118 @@ void sub_100072184()
 
 void sub_100072270()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "consumptionBlock"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "consumptionBlock", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072334()
 {
   v0 = [[NSString alloc] initWithFormat:@"must not have consumed destructive"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000723EC()
 {
   v0 = [[NSString alloc] initWithFormat:@"must not have consumed non-destructive"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000724A4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "consumptionBlock"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "consumptionBlock", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072568()
 {
   v0 = [[NSString alloc] initWithFormat:@"must have consumed destructive"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100072620()
 {
   v0 = [[NSString alloc] initWithFormat:@"must not have consumed non-destructive"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000726D8()
 {
   v0 = [[NSString alloc] initWithFormat:@"must have consumed destructive and non-destructive"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100072790()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "test"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "test", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072854()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "consumptionBlock"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "consumptionBlock", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072918()
 {
   v0 = [[NSString alloc] initWithFormat:@"Editorial Item entry must have an editorial item ID"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000729D0()
 {
   v0 = [[NSString alloc] initWithFormat:@"Editorial Item entry must have an entryID"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100072A88()
 {
   v0 = [[NSString alloc] initWithFormat:@"Editorial Item entry must have an entryID"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100072B40(uint64_t a1, NSObject *a2)
@@ -8544,47 +8625,48 @@ void sub_100072B40(uint64_t a1, NSObject *a2)
 
 void sub_100072BD0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072C98()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072D5C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072E20()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100072EE4()
 {
   v0 = [[NSString alloc] initWithFormat:@"Failed to unregister font while reference count was 0"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100072F9C(void *a1, void *a2)
@@ -8598,65 +8680,67 @@ void sub_100072F9C(void *a1, void *a2)
 
 void sub_100073044()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073108()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000731CC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073290()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "*error"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "*error", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073354()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "fontFileURL"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fontFileURL", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073418()
 {
   v0 = [[NSString alloc] initWithFormat:@"Could not create, or found to many, font descriptors for font file"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000734D0()
 {
   v0 = [[NSString alloc] initWithFormat:@"Attribute returned by font descriptor is not a CFStringRef"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000735B0()
@@ -8713,38 +8797,38 @@ void sub_100073864(__CFError **a1, void *a2)
 
 void sub_100073900()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "error"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "error", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000739C4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "error"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "error", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073A88()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "error"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "error", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073B4C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "error"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "error", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073C10()
@@ -8773,128 +8857,136 @@ void sub_100073CF0()
 
 void sub_100073DD0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "contentContext"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "contentContext", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100073E94()
 {
   v0 = [[NSString alloc] initWithFormat:@"Cannot be zero capacity"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100073F4C()
 {
   v0 = [[NSString alloc] initWithFormat:@"Initializing FRRingBuffer with a dictionay with no values"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100074004()
 {
   v0 = [[NSString alloc] initWithFormat:@"Initializing FRRingBuffer with a dictionay with no position"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000740BC()
 {
   v0 = [[NSString alloc] initWithFormat:@"Initializing FRRingBuffer with a dictionay with no min"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100074174()
 {
   v0 = [[NSString alloc] initWithFormat:@"Initializing FRRingBuffer with a dictionay with no max"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10007422C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000742F0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000743B4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleID != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100074478()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline != nil"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline != nil", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10007453C()
 {
   v0 = [[NSString alloc] initWithFormat:@"imbalanced calls to push/pop prefetch suspended"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000745F4()
 {
   v0 = [[NSString alloc] initWithFormat:@"unsupported prefetch component for Flint articles"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000746AC()
 {
   v0 = [[NSString alloc] initWithFormat:@"unsupported prefetch component for web articles"];
+  v6 = 136315906;
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
+  sub_100017954(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100074778()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "[CSSearchableIndex defaultSearchableIndex].indexDelegate"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[CSSearchableIndex defaultSearchableIndex].indexDelegate", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10007483C()
@@ -8903,19 +8995,19 @@ void sub_10007483C()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_1000748FC()
 {
   v1 = [NSString alloc];
   v2 = [sub_100061960() description];
-  v3 = [v0 initWithFormat:@"Couldn't remove the spotlight file. %@"];
+  v3 = [v0 initWithFormat:@"Couldn't remove the spotlight file. %@", v2];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v4, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v5, v6, v7, v8, v2, v9, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v4, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_1000749D4()
@@ -8924,8 +9016,8 @@ void sub_1000749D4()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_100074B10()
@@ -8934,8 +9026,8 @@ void sub_100074B10()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_100074BD0(void *a1)
@@ -8944,29 +9036,29 @@ void sub_100074BD0(void *a1)
   objc_claimAutoreleasedReturnValue();
   [sub_100061960() code];
   sub_10006196C();
-  sub_100009718();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v2, "Couldn't exclude spotlight thumbnails from backup - URL %@, Error: %ld, %@");
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void sub_100074C78()
 {
   sub_10006193C();
-  sub_100009718();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  sub_100009718(&_mh_execute_header, v0, v1, "Could not delete items from CoreSpotlight");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void sub_100074CB4()
 {
   sub_10006193C();
-  sub_100009718();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  sub_100009718(&_mh_execute_header, v0, v1, "Could not delete all items from CoreSpotlight");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void sub_100074CF0()
 {
   sub_10006193C();
-  sub_100009718();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  sub_100009718(&_mh_execute_header, v0, v1, "Error deleting items from index");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void sub_100074D2C(uint64_t a1, NSObject *a2)
@@ -8980,8 +9072,8 @@ void sub_100074D2C(uint64_t a1, NSObject *a2)
 void sub_100074DA8()
 {
   sub_10006193C();
-  sub_100009718();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  sub_100009718(&_mh_execute_header, v0, v1, "Could not index items in CoreSpotlight");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void sub_100074DE4(void *a1)
@@ -8989,35 +9081,35 @@ void sub_100074DE4(void *a1)
   [a1 code];
   v1 = [sub_100061960() description];
   sub_100061948();
-  sub_100009718();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v2, "Couldn't get thumbnails to remove: %ld - %@");
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_100074E80()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100074F44()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "articleID"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleID", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100075008()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "articleID"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleID", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000750CC()
@@ -9026,17 +9118,17 @@ void sub_1000750CC()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_10007518C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "thumbnail"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "thumbnail", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100075250()
@@ -9045,17 +9137,17 @@ void sub_100075250()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_100075310()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000753D4(void *a1)
@@ -9063,17 +9155,17 @@ void sub_1000753D4(void *a1)
   [a1 code];
   v1 = [sub_100061960() description];
   sub_100061948();
-  sub_100009718();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v2, "Error copying file: %ld, %@");
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_100075470()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "articleID"];
   sub_10000C2E0();
   sub_1000096B0();
   sub_10000969C();
-  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleID", v6, 2u);
+  sub_1000096C0(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_100075534()
@@ -9082,8 +9174,8 @@ void sub_100075534()
   sub_100009C90();
   sub_1000096F0();
   sub_1000096DC();
-  sub_100009718();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_1000755F4(uint64_t a1, void *a2)
@@ -9091,8 +9183,8 @@ void sub_1000755F4(uint64_t a1, void *a2)
   [a2 code];
   v3 = [a2 description];
   sub_10006196C();
-  sub_100009718();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
+  sub_100009718(&_mh_execute_header, &_os_log_default, v4, "Error deleting spotlight thumbnail at path %@ : %ld, %@");
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 void sub_1000756B4(uint64_t a1, NSObject *a2)

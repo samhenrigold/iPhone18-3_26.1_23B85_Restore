@@ -63,7 +63,7 @@ void __39__IPDataDetectorsFeatureExtractor_init__block_invoke()
     {
       if (sScanner)
       {
-        goto LABEL_14;
+        return result;
       }
     }
 
@@ -79,35 +79,32 @@ void __39__IPDataDetectorsFeatureExtractor_init__block_invoke()
   {
     DDScannerEnableOptionalSource();
     standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v8 = [standardUserDefaults2 arrayForKey:@"AppleLanguages"];
-    firstObject2 = [v8 firstObject];
-    v10 = sLastPreferredLanguage;
+    v9 = [standardUserDefaults2 arrayForKey:@"AppleLanguages"];
+    firstObject2 = [v9 firstObject];
+    v11 = sLastPreferredLanguage;
     sLastPreferredLanguage = firstObject2;
   }
 
   else
   {
-    v11 = _IPLogHandle;
+    v12 = _IPLogHandle;
     if (!_IPLogHandle)
     {
-      IPInitLogging();
-      v11 = _IPLogHandle;
+      IPInitLogging(0, v7);
+      v12 = _IPLogHandle;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v14 = 0;
-      _os_log_impl(&dword_2485E4000, v11, OS_LOG_TYPE_ERROR, "standardScanner creation failed: %@ #Generic", buf, 0xCu);
+      _os_log_impl(&dword_2485E4000, v12, OS_LOG_TYPE_ERROR, "standardScanner creation failed: %@ #Generic", buf, 0xCu);
     }
 
     CFRelease(0);
   }
 
-  result = sScanner;
-LABEL_14:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return sScanner;
 }
 
 - (BOOL)stringContainsNonTimeStrings:(id)strings aroundRange:(_NSRange)range
@@ -157,7 +154,7 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
 
 - (id)featuresForTextString:(id)string inMessageUnit:(id)unit context:(id)context
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   unitCopy = unit;
   contextCopy = context;
@@ -165,31 +162,31 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
   originalMessage = [unitCopy originalMessage];
   dateSent = [originalMessage dateSent];
 
-  v116[0] = 0;
-  v116[1] = v116;
-  v116[2] = 0x3032000000;
-  v116[3] = __Block_byref_object_copy__1;
-  v116[4] = __Block_byref_object_dispose__1;
+  v115[0] = 0;
+  v115[1] = v115;
+  v115[2] = 0x3032000000;
+  v115[3] = __Block_byref_object_copy__1;
+  v115[4] = __Block_byref_object_dispose__1;
   array = [MEMORY[0x277CBEB18] array];
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
-  v115 = 0;
+  v111 = 0;
+  v112 = &v111;
+  v113 = 0x2020000000;
+  v114 = 0;
   v11 = [contextCopy objectForKey:@"IPFeatureExtractorDetectedDateInSubjectFeatureData"];
   value = [v11 value];
-  v83 = v11;
+  v82 = v11;
   contextDictionary = [v11 contextDictionary];
   v14 = [contextDictionary objectForKeyedSubscript:?];
   bOOLValue = [v14 BOOLValue];
 
-  contextDictionary2 = [v83 contextDictionary];
+  contextDictionary2 = [v82 contextDictionary];
   v17 = [contextDictionary2 objectForKeyedSubscript:@"timeIsApproximate"];
   bOOLValue2 = [v17 BOOLValue];
 
   v19 = [stringCopy length];
   v20 = [contextCopy objectForKey:@"IPFeatureExtractorContextText"];
-  v93 = [stringCopy copy];
-  v86 = v20;
+  v92 = [stringCopy copy];
+  v85 = v20;
   if (v20)
   {
     v19 = [stringCopy length];
@@ -210,33 +207,33 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
   block[1] = 3221225472;
   block[2] = __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_context___block_invoke;
   block[3] = &unk_278F23078;
-  v109 = stringCopy;
+  v108 = stringCopy;
   block[4] = self;
-  v107 = v116;
-  v87 = stringCopy;
-  v103 = v87;
+  v106 = v115;
+  v86 = stringCopy;
+  v102 = v86;
   v24 = v22;
-  v104 = v24;
-  v81 = value;
-  v105 = v81;
-  v110 = bOOLValue;
-  v111 = bOOLValue2;
-  v90 = dateSent;
-  v106 = v90;
-  v108 = &v112;
+  v103 = v24;
+  v80 = value;
+  v104 = v80;
+  v109 = bOOLValue;
+  v110 = bOOLValue2;
+  v89 = dateSent;
+  v105 = v89;
+  v107 = &v111;
   dispatch_sync(v23, block);
   v25 = objc_autoreleasePoolPush();
-  lowercaseString = [v87 lowercaseString];
+  lowercaseString = [v86 lowercaseString];
   objc_autoreleasePoolPop(v25);
-  if ((v113[3] & 1) == 0)
+  if ((v112[3] & 1) == 0)
   {
-    if (v90)
+    if (v89)
     {
-      v27 = [(IPDataDetectorsFeatureExtractor *)self textRangeReferencingTomorrow:lowercaseString, v81];
+      v27 = [(IPDataDetectorsFeatureExtractor *)self textRangeReferencingTomorrow:lowercaseString, v80];
       if (v27 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v28 = v26;
-        v29 = [(IPDataDetectorsFeatureExtractor *)self tomorrowDateFromReferenceDate:v90];
+        v29 = [(IPDataDetectorsFeatureExtractor *)self tomorrowDateFromReferenceDate:v89];
         v30 = [IPFeatureData featureDataWithType:1 value:v29 matchRange:v27, v28];
         contextDictionary3 = [v30 contextDictionary];
         [contextDictionary3 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"allDay"];
@@ -247,21 +244,21 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
         contextDictionary5 = [v30 contextDictionary];
         [contextDictionary5 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"IPFeatureDataContextDateTimeFromIpsosOverlay"];
 
-        [v30 setTextUnit:v87];
+        [v30 setTextUnit:v86];
         [v24 addObject:v30];
       }
     }
   }
 
-  if ((v113[3] & 1) == 0)
+  if ((v112[3] & 1) == 0)
   {
-    if (v90)
+    if (v89)
     {
       v35 = [(IPDataDetectorsFeatureExtractor *)self textRangeReferencingValentineDay:lowercaseString];
       if (v35 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v36 = v34;
-        v37 = [(IPDataDetectorsFeatureExtractor *)self valentineDayDateFromReferenceDate:v90];
+        v37 = [(IPDataDetectorsFeatureExtractor *)self valentineDayDateFromReferenceDate:v89];
         v38 = [IPFeatureData featureDataWithType:1 value:v37 matchRange:v35, v36];
         contextDictionary6 = [v38 contextDictionary];
         [contextDictionary6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"allDay"];
@@ -276,13 +273,13 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
         contextDictionary9 = [v38 contextDictionary];
         [contextDictionary9 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"IPFeatureDataContextDateTimeFromIpsosOverlay"];
 
-        [v38 setTextUnit:v87];
+        [v38 setTextUnit:v86];
         [v24 addObject:v38];
       }
     }
   }
 
-  if ((v113[3] & 1) == 0 && v90)
+  if ((v112[3] & 1) == 0 && v89)
   {
     if (IPGregorianCalendar_once_0 != -1)
     {
@@ -290,14 +287,14 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
     }
 
     v44 = IPGregorianCalendar_calendar_0;
-    v45 = [v44 components:8 fromDate:v90];
+    v45 = [v44 components:8 fromDate:v89];
     if ([v45 month] == 12)
     {
       v47 = [(IPDataDetectorsFeatureExtractor *)self textRangeReferencingNewYearsEve:lowercaseString];
       if (v47 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v48 = v46;
-        v49 = [(IPDataDetectorsFeatureExtractor *)self newYearsEveDayDateFromReferenceDate:v90];
+        v49 = [(IPDataDetectorsFeatureExtractor *)self newYearsEveDayDateFromReferenceDate:v89];
         v50 = [IPFeatureData featureDataWithType:1 value:v49 matchRange:v47, v48];
         contextDictionary10 = [v50 contextDictionary];
         [contextDictionary10 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"allDay"];
@@ -312,18 +309,18 @@ id __76__IPDataDetectorsFeatureExtractor_stringContainsNonTimeStrings_aroundRang
         contextDictionary13 = [v50 contextDictionary];
         [contextDictionary13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"IPFeatureDataContextDateTimeFromIpsosOverlay"];
 
-        [v50 setTextUnit:v87];
+        [v50 setTextUnit:v86];
         [v24 addObject:v50];
       }
     }
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   obj = v24;
-  v56 = [obj countByEnumeratingWithState:&v98 objects:v119 count:16];
+  v56 = [obj countByEnumeratingWithState:&v97 objects:v118 count:16];
   if (!v56)
   {
 LABEL_42:
@@ -335,17 +332,17 @@ LABEL_43:
   }
 
   v57 = 0;
-  v58 = *v99;
+  v58 = *v98;
   while (2)
   {
     for (i = 0; i != v56; ++i)
     {
-      if (*v99 != v58)
+      if (*v98 != v58)
       {
         objc_enumerationMutation(obj);
       }
 
-      v60 = *(*(&v98 + 1) + 8 * i);
+      v60 = *(*(&v97 + 1) + 8 * i);
       if (![v60 type] || objc_msgSend(v60, "type") == 1)
       {
         contextDictionary14 = [v60 contextDictionary];
@@ -372,7 +369,7 @@ LABEL_43:
       }
     }
 
-    v56 = [obj countByEnumeratingWithState:&v98 objects:v119 count:16];
+    v56 = [obj countByEnumeratingWithState:&v97 objects:v118 count:16];
     if (v56)
     {
       continue;
@@ -404,7 +401,7 @@ LABEL_43:
             contextDictionary16 = [v66 contextDictionary];
             [contextDictionary16 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"prefersAllDay"];
 
-            [v66 setTextUnit:v87];
+            [v66 setTextUnit:v86];
             v65 = v57;
             [obj addObject:v66];
             [obj removeObject:v57];
@@ -413,7 +410,7 @@ LABEL_43:
           else
           {
             v66 = [(IPDataDetectorsFeatureExtractor *)self featureDataComplementingFeatureData:v57 hour:19 minute:0 duration:7200.0];
-            [v66 setTextUnit:v87];
+            [v66 setTextUnit:v86];
             [obj addObject:v66];
             [obj removeObject:v57];
           }
@@ -422,7 +419,7 @@ LABEL_43:
         else
         {
           v66 = [(IPDataDetectorsFeatureExtractor *)self featureDataComplementingFeatureData:v57 hour:15 minute:0 duration:7200.0];
-          [v66 setTextUnit:v87];
+          [v66 setTextUnit:v86];
           [obj addObject:v66];
           [obj removeObject:v57];
         }
@@ -431,7 +428,7 @@ LABEL_43:
       else
       {
         v66 = [(IPDataDetectorsFeatureExtractor *)self featureDataComplementingFeatureData:v57 hour:12 minute:0 duration:3600.0];
-        [v66 setTextUnit:v87];
+        [v66 setTextUnit:v86];
         [obj addObject:v66];
         [obj removeObject:v57];
       }
@@ -440,7 +437,7 @@ LABEL_43:
     else
     {
       v66 = [(IPDataDetectorsFeatureExtractor *)self featureDataComplementingFeatureData:v57 hour:9 minute:0 duration:7200.0];
-      [v66 setTextUnit:v87];
+      [v66 setTextUnit:v86];
       [obj addObject:v66];
       [obj removeObject:v57];
     }
@@ -449,60 +446,58 @@ LABEL_43:
   }
 
 LABEL_44:
-  [(IPDataDetectorsFeatureExtractor *)self standardizeTimezonesForDetectedFeatures:obj, v81];
-  if (v86)
+  [(IPDataDetectorsFeatureExtractor *)self standardizeTimezonesForDetectedFeatures:obj, v80];
+  if (v85)
   {
-    v92 = v65;
-    v69 = [v86 length];
+    v91 = v65;
+    v69 = [v85 length];
     v70 = objc_opt_new();
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
     v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     v71 = obj;
-    v72 = [v71 countByEnumeratingWithState:&v94 objects:v118 count:16];
+    v72 = [v71 countByEnumeratingWithState:&v93 objects:v117 count:16];
     if (v72)
     {
-      v73 = *v95;
+      v73 = *v94;
       do
       {
         for (j = 0; j != v72; ++j)
         {
-          if (*v95 != v73)
+          if (*v94 != v73)
           {
             objc_enumerationMutation(v71);
           }
 
-          v75 = *(*(&v94 + 1) + 8 * j);
-          v122.location = [v75 matchRange];
-          v123.location = v20;
-          v123.length = v19;
-          if (NSIntersectionRange(v122, v123).length)
+          v75 = *(*(&v93 + 1) + 8 * j);
+          v121.location = [v75 matchRange];
+          v122.location = v20;
+          v122.length = v19;
+          if (NSIntersectionRange(v121, v122).length)
           {
             matchRange = [v75 matchRange];
             [v75 matchRange];
             [v75 setMatchRange:{matchRange - v69, v77}];
-            [v75 setTextUnit:v93];
+            [v75 setTextUnit:v92];
             [v70 addObject:v75];
           }
         }
 
-        v72 = [v71 countByEnumeratingWithState:&v94 objects:v118 count:16];
+        v72 = [v71 countByEnumeratingWithState:&v93 objects:v117 count:16];
       }
 
       while (v72);
     }
 
     obj = [v70 copy];
-    v65 = v92;
+    v65 = v91;
   }
 
   v78 = obj;
 
-  _Block_object_dispose(&v112, 8);
-  _Block_object_dispose(v116, 8);
-
-  v79 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(v115, 8);
 
   return v78;
 }
@@ -510,153 +505,143 @@ LABEL_44:
 void __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_context___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v209 = *MEMORY[0x277D85DE8];
+  v199 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) standardScanner];
   v2 = [*(v1 + 32) timeScanner];
-  v3 = *(v1 + 88);
   if (DDScannerScanString())
   {
-    v4 = *MEMORY[0x277D041E8];
-    v5 = *(*(*(v1 + 72) + 8) + 40);
-    v6 = DDScannerCopyResultsWithOptions();
-    [v5 addObjectsFromArray:v6];
+    v3 = *(*(*(v1 + 72) + 8) + 40);
+    v4 = DDScannerCopyResultsWithOptions();
+    [v3 addObjectsFromArray:v4];
   }
 
   if ([*(*(*(v1 + 72) + 8) + 40) count])
   {
-    v7 = v2 == 0;
+    v5 = v2 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v5 = 1;
   }
 
-  if (!v7)
+  if (!v5 && DDScannerScanString())
   {
-    v8 = *(v1 + 88);
-    if (DDScannerScanString())
+    v6 = DDScannerCopyResultsWithOptions();
+    v7 = [MEMORY[0x277CBEB18] array];
+    v191 = 0u;
+    v192 = 0u;
+    v193 = 0u;
+    v194 = 0u;
+    v8 = v6;
+    v9 = [v8 countByEnumeratingWithState:&v191 objects:v198 count:16];
+    if (v9)
     {
-      v9 = DDScannerCopyResultsWithOptions();
-      v10 = [MEMORY[0x277CBEB18] array];
-      v201 = 0u;
-      v202 = 0u;
-      v203 = 0u;
-      v204 = 0u;
-      v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v201 objects:v208 count:16];
-      if (v12)
+      v10 = v9;
+      v11 = *v192;
+      v12 = *MEMORY[0x277D04198];
+      do
       {
-        v13 = v12;
-        v14 = *v202;
-        v15 = *MEMORY[0x277D04198];
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v192 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v14 = *(*(&v191 + 1) + 8 * i);
+          Type = DDResultGetType();
+          if (CFStringCompare(Type, v12, 0) == kCFCompareEqualTo)
+          {
+            Range = DDResultGetRange();
+            if (([*(v1 + 32) stringContainsNonTimeStrings:*(v1 + 40) aroundRange:{Range, v17}] & 1) == 0)
+            {
+              [v7 addObject:v14];
+            }
+          }
+        }
+
+        v10 = [v8 countByEnumeratingWithState:&v191 objects:v198 count:16];
+      }
+
+      while (v10);
+    }
+
+    if ([v7 count])
+    {
+      [v7 addObjectsFromArray:*(*(*(v1 + 72) + 8) + 40)];
+      v200.length = CFArrayGetCount(v7);
+      v200.location = 0;
+      CFArraySortValues(v7, v200, IPDDResultRangeCompare, 0);
+      if (CFArrayGetCount(v7) >= 2)
+      {
+        v18 = 0;
         do
         {
-          for (i = 0; i != v13; ++i)
+          CFArrayGetValueAtIndex(v7, v18);
+          v19 = DDResultGetRange();
+          v21 = v20;
+          v22 = v18 + 1;
+          CFArrayGetValueAtIndex(v7, v18 + 1);
+          v23 = DDResultGetRange();
+          if (v23 < v19 + v21)
           {
-            if (*v202 != v14)
+            if (v24 >= v21 && v19 == v23)
             {
-              objc_enumerationMutation(v11);
+              v26 = v18;
             }
 
-            v17 = *(*(&v201 + 1) + 8 * i);
-            Type = DDResultGetType();
-            if (CFStringCompare(Type, v15, 0) == kCFCompareEqualTo)
+            else
             {
-              Range = DDResultGetRange();
-              if (([*(v1 + 32) stringContainsNonTimeStrings:*(v1 + 40) aroundRange:{Range, v20}] & 1) == 0)
-              {
-                [v10 addObject:v17];
-              }
+              v26 = v18 + 1;
             }
+
+            CFArrayRemoveValueAtIndex(v7, v26);
+            v22 = v18;
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v201 objects:v208 count:16];
+          v18 = v22;
         }
 
-        while (v13);
+        while (v22 < CFArrayGetCount(v7) - 1);
       }
 
-      if ([v10 count])
-      {
-        [v10 addObjectsFromArray:*(*(*(v1 + 72) + 8) + 40)];
-        v210.length = CFArrayGetCount(v10);
-        v210.location = 0;
-        CFArraySortValues(v10, v210, IPDDResultRangeCompare, 0);
-        if (CFArrayGetCount(v10) >= 2)
-        {
-          v21 = 0;
-          do
-          {
-            CFArrayGetValueAtIndex(v10, v21);
-            v22 = DDResultGetRange();
-            v24 = v23;
-            v25 = v21 + 1;
-            CFArrayGetValueAtIndex(v10, v21 + 1);
-            v26 = DDResultGetRange();
-            if (v26 < v22 + v24)
-            {
-              if (v27 >= v24 && v22 == v26)
-              {
-                v29 = v21;
-              }
-
-              else
-              {
-                v29 = v21 + 1;
-              }
-
-              CFArrayRemoveValueAtIndex(v10, v29);
-              v25 = v21;
-            }
-
-            v21 = v25;
-          }
-
-          while (v25 < CFArrayGetCount(v10) - 1);
-        }
-
-        objc_storeStrong((*(*(v1 + 72) + 8) + 40), v10);
-      }
+      objc_storeStrong((*(*(v1 + 72) + 8) + 40), v7);
     }
   }
 
-  v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(*(*(v1 + 72) + 8) + 40), "count")}];
-  v31 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(*(*(v1 + 72) + 8) + 40), "count")}];
-  v197 = 0u;
-  v199 = 0u;
-  v200 = 0u;
-  v198 = 0u;
+  v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(*(*(v1 + 72) + 8) + 40), "count")}];
+  v28 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(*(*(v1 + 72) + 8) + 40), "count")}];
+  v187 = 0u;
+  v189 = 0u;
+  v190 = 0u;
+  v188 = 0u;
   obj = *(*(*(v1 + 72) + 8) + 40);
-  v188 = [obj countByEnumeratingWithState:&v197 objects:v207 count:16];
-  v190 = v1;
-  v182 = v30;
-  v183 = v31;
-  if (v188)
+  v178 = [obj countByEnumeratingWithState:&v187 objects:v197 count:16];
+  v180 = v1;
+  v172 = v27;
+  v173 = v28;
+  if (v178)
   {
-    v186 = *v198;
-    v180 = *MEMORY[0x277D040D0];
-    v176 = *MEMORY[0x277D04180];
-    v178 = *MEMORY[0x277D041A0];
-    v172 = *MEMORY[0x277D04150];
+    v176 = *v188;
     do
     {
-      v32 = 0;
+      v29 = 0;
       do
       {
-        if (*v198 != v186)
+        if (*v188 != v176)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v197 + 1) + 8 * v32);
+        v30 = *(*(&v187 + 1) + 8 * v29);
         Category = DDResultGetCategory();
-        v35 = DDResultGetRange();
-        v37 = v36;
-        v191 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld %ld", v35, v36];
-        if (([v31 containsObject:?] & 1) == 0)
+        v32 = DDResultGetRange();
+        v34 = v33;
+        v181 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld %ld", v32, v33];
+        if (([v28 containsObject:?] & 1) == 0)
         {
-          [v31 addObject:v191];
+          [v28 addObject:v181];
           if (Category > 2)
           {
             switch(Category)
@@ -667,9 +652,9 @@ void __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_c
                   goto LABEL_87;
                 }
 
-                v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:5];
+                v37 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:5];
                 DDResultCopyFullAddressComponents();
-                v41 = 3;
+                v38 = 3;
                 break;
               case 4:
                 goto LABEL_49;
@@ -677,9 +662,9 @@ void __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_c
                 if (DDResultHasType())
                 {
                   MatchedString = DDResultGetMatchedString();
-                  v39 = CFRetain(MatchedString);
-                  v31 = v183;
-                  v64 = [IPFeatureData featureDataWithType:11 value:v39 matchRange:v35, v37];
+                  v36 = CFRetain(MatchedString);
+                  v28 = v173;
+                  v61 = [IPFeatureData featureDataWithType:11 value:v36 matchRange:v32, v34];
 
                   goto LABEL_85;
                 }
@@ -690,19 +675,19 @@ void __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_c
                   goto LABEL_87;
                 }
 
-                v62 = qword_24860E090[ParsecDomain];
-                v63 = DDResultGetMatchedString();
-                v40 = CFRetain(v63);
-                v41 = v62;
-                v31 = v183;
+                v59 = qword_24860E090[ParsecDomain];
+                v60 = DDResultGetMatchedString();
+                v37 = CFRetain(v60);
+                v38 = v59;
+                v28 = v173;
                 break;
               default:
                 goto LABEL_87;
             }
 
-            v64 = [IPFeatureData featureDataWithType:v41 value:v40 matchRange:v35, v37];
+            v61 = [IPFeatureData featureDataWithType:v38 value:v37 matchRange:v32, v34];
 
-            v30 = v182;
+            v27 = v172;
           }
 
           else
@@ -715,7 +700,7 @@ void __79__IPDataDetectorsFeatureExtractor_featuresForTextString_inMessageUnit_c
               }
 
 LABEL_49:
-              [v30 addObject:v33];
+              [v27 addObject:v30];
               goto LABEL_87;
             }
 
@@ -727,354 +712,353 @@ LABEL_49:
               }
 
               DDResultCopyPhoneValue();
-              v64 = 0;
+              v61 = 0;
               goto LABEL_85;
             }
 
-            v42 = DDResultCopyExtractedURLWithOptions();
-            if (v42)
+            v39 = DDResultCopyExtractedURLWithOptions();
+            if (v39)
             {
-              v43 = [MEMORY[0x277CBEBC0] URLWithString:v42];
-              v44 = v43;
-              if (v43)
+              v40 = [MEMORY[0x277CBEBC0] URLWithString:v39];
+              v41 = v40;
+              if (v40)
               {
-                v45 = [(__CFString *)v43 scheme];
-                v46 = [v45 lowercaseString];
+                v42 = [(__CFString *)v40 scheme];
+                v43 = [v42 lowercaseString];
 
-                v47 = [(__CFString *)v44 resourceSpecifier];
-                if ([(__CFString *)v47 hasPrefix:@"//"])
+                v44 = [(__CFString *)v41 resourceSpecifier];
+                if ([(__CFString *)v44 hasPrefix:@"//"])
                 {
-                  v48 = [(__CFString *)v47 substringFromIndex:2];
-                  v49 = v47;
-                  v47 = v48;
+                  v45 = [(__CFString *)v44 substringFromIndex:2];
+                  v46 = v44;
+                  v44 = v45;
                 }
 
-                v174 = v47;
-                v50 = [(__CFString *)v47 length];
-                v31 = v183;
-                if (v50 && [v46 length])
+                v167 = v44;
+                v47 = [(__CFString *)v44 length];
+                v28 = v173;
+                if (v47 && [v43 length])
                 {
-                  if ([v46 isEqualToString:@"mailto"])
+                  if ([v43 isEqualToString:@"mailto"])
                   {
-                    v170 = v46;
-                    v167 = v44;
-                    v51 = [(__CFString *)v174 componentsSeparatedByString:@"?"];
-                    v52 = [v51 firstObject];
-                    v53 = [v52 componentsSeparatedByString:{@", "}];
+                    v164 = v43;
+                    v161 = v41;
+                    v48 = [(__CFString *)v167 componentsSeparatedByString:@"?"];
+                    v49 = [v48 firstObject];
+                    v50 = [v49 componentsSeparatedByString:{@", "}];
 
-                    v195 = 0u;
-                    v196 = 0u;
-                    v193 = 0u;
-                    v194 = 0u;
-                    v54 = v53;
-                    v55 = [v54 countByEnumeratingWithState:&v193 objects:v206 count:16];
-                    if (v55)
+                    v185 = 0u;
+                    v186 = 0u;
+                    v183 = 0u;
+                    v184 = 0u;
+                    v51 = v50;
+                    v52 = [v51 countByEnumeratingWithState:&v183 objects:v196 count:16];
+                    if (v52)
                     {
-                      v56 = v55;
-                      v57 = *v194;
+                      v53 = v52;
+                      v54 = *v184;
                       do
                       {
-                        for (j = 0; j != v56; ++j)
+                        for (j = 0; j != v53; ++j)
                         {
-                          if (*v194 != v57)
+                          if (*v184 != v54)
                           {
-                            objc_enumerationMutation(v54);
+                            objc_enumerationMutation(v51);
                           }
 
-                          v59 = *(*(&v193 + 1) + 8 * j);
-                          if ([v59 containsString:@"@"])
+                          v56 = *(*(&v183 + 1) + 8 * j);
+                          if ([v56 containsString:@"@"])
                           {
-                            v60 = [IPFeatureData featureDataWithType:5 value:v59 matchRange:v35, v37];
-                            [v60 setTextUnit:*(v190 + 40)];
-                            [*(v190 + 48) addObject:v60];
+                            v57 = [IPFeatureData featureDataWithType:5 value:v56 matchRange:v32, v34];
+                            [v57 setTextUnit:*(v180 + 40)];
+                            [*(v180 + 48) addObject:v57];
                           }
                         }
 
-                        v56 = [v54 countByEnumeratingWithState:&v193 objects:v206 count:16];
+                        v53 = [v51 countByEnumeratingWithState:&v183 objects:v196 count:16];
                       }
 
-                      while (v56);
+                      while (v53);
                     }
 
-                    v64 = 0;
-                    v1 = v190;
-                    v30 = v182;
-                    v31 = v183;
-                    v44 = v167;
+                    v61 = 0;
+                    v1 = v180;
+                    v27 = v172;
+                    v28 = v173;
+                    v41 = v161;
 LABEL_71:
-                    v46 = v170;
+                    v43 = v164;
                   }
 
                   else
                   {
-                    if (([v46 isEqualToString:@"tel"] & 1) != 0 || objc_msgSend(v46, "isEqualToString:", @"telprompt"))
+                    if (([v43 isEqualToString:@"tel"] & 1) != 0 || objc_msgSend(v43, "isEqualToString:", @"telprompt"))
                     {
-                      v65 = 6;
-                      v66 = v174;
+                      v62 = 6;
+                      v63 = v167;
                     }
 
                     else
                     {
-                      if (([v46 isEqualToString:@"facetime"] & 1) != 0 || objc_msgSend(v46, "isEqualToString:", @"facetime-audio"))
+                      if (([v43 isEqualToString:@"facetime"] & 1) != 0 || objc_msgSend(v43, "isEqualToString:", @"facetime-audio"))
                       {
-                        v67 = [(__CFString *)v174 componentsSeparatedByString:@"?"];
-                        [v67 firstObject];
-                        v68 = v170 = v46;
+                        v64 = [(__CFString *)v167 componentsSeparatedByString:@"?"];
+                        [v64 firstObject];
+                        v65 = v164 = v43;
 
-                        v31 = v183;
-                        if ([v68 containsString:@"@"])
+                        v28 = v173;
+                        if ([v65 containsString:@"@"])
                         {
-                          v69 = 5;
+                          v66 = 5;
                         }
 
                         else
                         {
-                          v69 = 6;
+                          v66 = 6;
                         }
 
-                        v64 = [IPFeatureData featureDataWithType:v69 value:v68 matchRange:v35, v37];
+                        v61 = [IPFeatureData featureDataWithType:v66 value:v65 matchRange:v32, v34];
 
                         goto LABEL_71;
                       }
 
-                      v65 = 4;
-                      v66 = v44;
+                      v62 = 4;
+                      v63 = v41;
                     }
 
-                    v64 = [IPFeatureData featureDataWithType:v65 value:v66 matchRange:v35, v37];
+                    v61 = [IPFeatureData featureDataWithType:v62 value:v63 matchRange:v32, v34];
                   }
                 }
 
                 else
                 {
-                  v64 = 0;
+                  v61 = 0;
                 }
               }
 
               else
               {
-                v64 = 0;
+                v61 = 0;
               }
             }
 
             else
             {
-              v64 = 0;
+              v61 = 0;
             }
           }
 
 LABEL_85:
-          if (v64)
+          if (v61)
           {
-            [v64 setTextUnit:*(v1 + 40)];
-            [*(v1 + 48) addObject:v64];
+            [v61 setTextUnit:*(v1 + 40)];
+            [*(v1 + 48) addObject:v61];
           }
         }
 
 LABEL_87:
 
-        ++v32;
+        ++v29;
       }
 
-      while (v32 != v188);
-      v70 = [obj countByEnumeratingWithState:&v197 objects:v207 count:16];
-      v188 = v70;
+      while (v29 != v178);
+      v67 = [obj countByEnumeratingWithState:&v187 objects:v197 count:16];
+      v178 = v67;
     }
 
-    while (v70);
+    while (v67);
   }
 
-  v71 = [v30 count];
-  v153 = v71 - 1;
-  if (v71 >= 1)
+  v68 = [v27 count];
+  v148 = v68 - 1;
+  if (v68 >= 1)
   {
-    v72 = v71;
-    v171 = 0;
-    v157 = 0;
-    v73 = 0;
-    v162 = *MEMORY[0x277D041A0];
+    v69 = v68;
+    v165 = 0;
+    v152 = 0;
+    v70 = 0;
     theString2 = *MEMORY[0x277D04198];
-    v160 = *MEMORY[0x277D04190];
+    v155 = *MEMORY[0x277D04190];
     obja = *MEMORY[0x277D040A8];
-    v159 = *MEMORY[0x277D040A0];
-    v175 = *MEMORY[0x277D040B0];
-    v179 = -1;
-    v177 = 1;
-    v169 = -3;
-    v154 = v71;
+    v154 = *MEMORY[0x277D040A0];
+    v168 = *MEMORY[0x277D040B0];
+    v170 = -1;
+    v169 = 1;
+    v163 = -3;
+    v149 = v68;
     while (1)
     {
-      v74 = [v30 objectAtIndexedSubscript:v73];
+      v71 = [v27 objectAtIndexedSubscript:v70];
 
-      v75 = DDResultGetType();
+      v72 = DDResultGetType();
       HasType = DDResultHasType();
-      v77 = CFStringCompare(v75, theString2, 0);
-      v78 = CFStringCompare(v75, v160, 0);
-      v192 = CFStringCompare(v75, obja, 0);
-      v181 = CFStringCompare(v75, v159, 0);
-      v187 = HasType;
+      v74 = CFStringCompare(v72, theString2, 0);
+      v75 = CFStringCompare(v72, v155, 0);
+      v182 = CFStringCompare(v72, obja, 0);
+      v171 = CFStringCompare(v72, v154, 0);
+      v177 = HasType;
       if (HasType)
       {
-        v79 = 0;
-        v189 = 1;
+        v76 = 0;
+        v179 = 1;
       }
 
       else
       {
-        v189 = CFStringCompare(v75, v175, 0) == kCFCompareEqualTo;
-        v79 = DDResultTimeIsApprox() != 0;
+        v179 = CFStringCompare(v72, v168, 0) == kCFCompareEqualTo;
+        v76 = DDResultTimeIsApprox() != 0;
       }
 
-      v168 = v79;
-      v80 = v192 && (!v189 || !v79) || DDResultDateExtractionDependsOnContextTense() == 0;
-      v163 = v80;
-      v81 = v77 == kCFCompareEqualTo || v78 == kCFCompareEqualTo;
-      v82 = v81;
-      v166 = v82;
-      if (!v81)
+      v162 = v76;
+      v77 = v182 && (!v179 || !v76) || DDResultDateExtractionDependsOnContextTense() == 0;
+      v157 = v77;
+      v78 = v74 == kCFCompareEqualTo || v75 == kCFCompareEqualTo;
+      v79 = v78;
+      v160 = v79;
+      if (!v78)
       {
         break;
       }
 
-      v85 = *(v1 + 56);
-      if (!v85)
+      v82 = *(v1 + 56);
+      if (!v82)
       {
-        v128 = v73 + ~v169;
-        if (v128 >= 2)
+        v125 = v70 + ~v163;
+        if (v125 >= 2)
         {
-          v128 = 2;
+          v125 = 2;
         }
 
-        v129 = v128 + v73;
-        if (v129 >= v153)
+        v126 = v125 + v70;
+        if (v126 >= v148)
         {
-          v129 = v153;
+          v126 = v148;
         }
 
-        if (v73 < v129)
+        if (v70 < v126)
         {
-          v130 = v177;
-          v131 = v179 - v169;
-          if (v179 - v169 >= 2)
+          v127 = v169;
+          v128 = v170 - v163;
+          if (v170 - v163 >= 2)
           {
-            v131 = 2;
+            v128 = 2;
           }
 
-          v132 = v131 + v73;
-          if (v132 >= v153)
+          v129 = v128 + v70;
+          if (v129 >= v148)
           {
-            v132 = v153;
+            v129 = v148;
           }
 
-          v133 = v73 - v132;
+          v130 = v70 - v129;
           do
           {
-            [v30 objectAtIndexedSubscript:v130];
+            [v27 objectAtIndexedSubscript:v127];
 
-            v134 = DDResultGetType();
-            if (CFStringCompare(v134, v175, 0) && CFStringCompare(v134, obja, 0) || (v135 = *(v1 + 64), !DDResultCopyExtractedDateFromReferenceDate()))
+            v131 = DDResultGetType();
+            if (CFStringCompare(v131, v168, 0) && CFStringCompare(v131, obja, 0) || !DDResultCopyExtractedDateFromReferenceDate())
             {
-              v31 = v183;
+              v28 = v173;
             }
 
             else
             {
-              v31 = v183;
+              v28 = v173;
             }
 
-            ++v130;
+            ++v127;
           }
 
-          while (!__CFADD__(v133++, 1));
+          while (!__CFADD__(v130++, 1));
         }
 
-        v83 = v154;
-        v171 = 0;
+        v80 = v149;
+        v165 = 0;
         goto LABEL_115;
       }
 
-      v83 = v72;
-      v173 = v85;
-      v84 = 0;
+      v80 = v69;
+      v166 = v82;
+      v81 = 0;
 LABEL_118:
-      v87 = DDResultGetRange();
-      v88 = v187;
-      if (v192 == kCFCompareEqualTo)
+      v84 = DDResultGetRange();
+      v85 = v177;
+      if (v182 == kCFCompareEqualTo)
       {
-        v88 = 1;
+        v85 = 1;
       }
 
-      v89 = v88 | v189;
-      if (v77)
+      v86 = v85 | v179;
+      if (v74)
       {
-        v90 = 1;
+        v87 = 1;
       }
 
       else
       {
-        v90 = v84;
+        v87 = v81;
       }
 
-      if (v89 & 1) == 0 && (v90)
+      if (v86 & 1) == 0 && (v87)
       {
-        if (v78 && v181)
+        if (v75 && v171)
         {
-          v72 = v83;
+          v69 = v80;
         }
 
         else
         {
-          v124 = v86;
-          v165 = v84;
+          v121 = v83;
+          v159 = v81;
           if (DDResultCopyExtractedStartDateEndDate())
           {
             if (DDResultDateExtractionDependsOnContextTense())
             {
-              v125 = 1;
+              v122 = 1;
             }
 
             else
             {
-              v125 = v77 == kCFCompareEqualTo;
+              v122 = v74 == kCFCompareEqualTo;
             }
 
-            v126 = v125;
+            v123 = v122;
             DDResultIsPartialDateRangeOrTimeRange();
-            v102 = [IPFeatureData featureDataWithType:1 value:0 matchRange:v87, v124];
+            v99 = [IPFeatureData featureDataWithType:1 value:0 matchRange:v84, v121];
 
-            v72 = v154;
-            v137 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:0];
-            v138 = [v102 contextDictionary];
-            [v138 setObject:v137 forKeyedSubscript:@"allDay"];
+            v69 = v149;
+            v133 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:0];
+            v134 = [v99 contextDictionary];
+            [v134 setObject:v133 forKeyedSubscript:@"allDay"];
 
-            v139 = [MEMORY[0x277CCABB0] numberWithBool:v168];
-            v140 = [v102 contextDictionary];
-            [v140 setObject:v139 forKeyedSubscript:@"timeIsApproximate"];
+            v135 = [MEMORY[0x277CCABB0] numberWithBool:v162];
+            v136 = [v99 contextDictionary];
+            [v136 setObject:v135 forKeyedSubscript:@"timeIsApproximate"];
 
-            v141 = [MEMORY[0x277CCABB0] numberWithBool:v126];
-            v142 = [v102 contextDictionary];
-            [v142 setObject:v141 forKeyedSubscript:@"dateTimeIsTenseDependent"];
+            v137 = [MEMORY[0x277CCABB0] numberWithBool:v123];
+            v138 = [v99 contextDictionary];
+            [v138 setObject:v137 forKeyedSubscript:@"dateTimeIsTenseDependent"];
 
-            v143 = [MEMORY[0x277CCABB0] numberWithBool:v166 & v165];
-            v144 = [v102 contextDictionary];
-            [v144 setObject:v143 forKeyedSubscript:@"dateIsTimeOnlyAndReferrengingToSentDate"];
+            v139 = [MEMORY[0x277CCABB0] numberWithBool:v160 & v159];
+            v140 = [v99 contextDictionary];
+            [v140 setObject:v139 forKeyedSubscript:@"dateIsTimeOnlyAndReferrengingToSentDate"];
 
-            v145 = [MEMORY[0x277CCABB0] numberWithInt:v166];
-            v146 = [v102 contextDictionary];
-            [v146 setObject:v145 forKeyedSubscript:@"dateOnlyContainsTimeInformation"];
+            v141 = [MEMORY[0x277CCABB0] numberWithInt:v160];
+            v142 = [v99 contextDictionary];
+            [v142 setObject:v141 forKeyedSubscript:@"dateOnlyContainsTimeInformation"];
 
-            v147 = [MEMORY[0x277CCABB0] numberWithBool:v181 == kCFCompareEqualTo];
-            v148 = [v102 contextDictionary];
-            [v148 setObject:v147 forKeyedSubscript:@"isDateRange"];
+            v143 = [MEMORY[0x277CCABB0] numberWithBool:v171 == kCFCompareEqualTo];
+            v144 = [v99 contextDictionary];
+            [v144 setObject:v143 forKeyedSubscript:@"isDateRange"];
 
-            v149 = [MEMORY[0x277CCABB0] numberWithBool:DDResultNeedsMeridianGuess() != 0];
-            v150 = [v102 contextDictionary];
-            [v150 setObject:v149 forKeyedSubscript:@"timeNeedsMeridianGuess"];
+            v145 = [MEMORY[0x277CCABB0] numberWithBool:DDResultNeedsMeridianGuess() != 0];
+            v146 = [v99 contextDictionary];
+            [v146 setObject:v145 forKeyedSubscript:@"timeNeedsMeridianGuess"];
 
             *(*(*(v1 + 80) + 8) + 24) = 1;
-            v30 = v182;
-            v31 = v183;
-            if (!v102)
+            v27 = v172;
+            v28 = v173;
+            if (!v99)
             {
               goto LABEL_195;
             }
@@ -1082,231 +1066,229 @@ LABEL_118:
             goto LABEL_194;
           }
 
-          v72 = v83;
+          v69 = v80;
         }
 
         goto LABEL_195;
       }
 
-      v164 = v84;
-      v158 = v86;
-      if (!v157 || v77)
+      v158 = v81;
+      v153 = v83;
+      if (!v152 || v74)
       {
-        if (v157)
+        if (v152)
         {
 LABEL_134:
-          v72 = v83;
-          v93 = v173;
+          v69 = v80;
+          v90 = v166;
         }
 
         else
         {
-          v127 = *(v1 + 56);
-          v72 = v83;
-          v93 = v173;
-          if (v127 != 0 && !v163)
+          v124 = *(v1 + 56);
+          v69 = v80;
+          v90 = v166;
+          if (v124 != 0 && !v157)
           {
-            v93 = [v127 dateByAddingTimeInterval:-86399.0];
+            v90 = [v124 dateByAddingTimeInterval:-86399.0];
           }
         }
 
-        v92 = 0;
-        v173 = v93;
+        v89 = 0;
+        v166 = v90;
         goto LABEL_136;
       }
 
       if ((DDResultHasType() & 1) == 0)
       {
         IsApprox = DDResultTimeIsApprox();
-        v7 = IsApprox == DDResultTimeIsApprox();
-        v31 = v183;
-        if (v7)
+        v5 = IsApprox == DDResultTimeIsApprox();
+        v28 = v173;
+        if (v5)
         {
           goto LABEL_134;
         }
       }
 
-      v205[0] = v74;
-      v205[1] = v157;
-      [MEMORY[0x277CBEA60] arrayWithObjects:v205 count:2];
-      v74 = DDResultCreateFromDateTimeResults();
-      CFAutorelease(v74);
-      v92 = 1;
-      v72 = v83;
+      v195[0] = v71;
+      v195[1] = v152;
+      [MEMORY[0x277CBEA60] arrayWithObjects:v195 count:2];
+      v71 = DDResultCreateFromDateTimeResults();
+      CFAutorelease(v71);
+      v89 = 1;
+      v69 = v80;
 LABEL_136:
       if (DDResultCopyExtractedDateFromReferenceDate())
       {
-        v94 = 0;
+        v91 = 0;
         if (DDResultDateExtractionDependsOnContextTense())
         {
-          v95 = 1;
+          v92 = 1;
         }
 
         else
         {
-          v95 = v77 == kCFCompareEqualTo;
+          v92 = v74 == kCFCompareEqualTo;
         }
 
-        v96 = v95;
-        v155 = v96;
-        v97 = *(v1 + 56);
-        if (!v97 || ([v97 timeIntervalSinceDate:v94], fabs(v98) >= 43200.0) || (*(v1 + 96) & 1) != 0 || (*(v1 + 97) & 1) != 0)
+        v93 = v92;
+        v150 = v93;
+        v94 = *(v1 + 56);
+        if (!v94 || ([v94 timeIntervalSinceDate:v91], fabs(v95) >= 43200.0) || (*(v1 + 96) & 1) != 0 || (*(v1 + 97) & 1) != 0)
         {
-          v99 = v94;
+          v96 = v91;
         }
 
         else
         {
-          v99 = v94;
-          if (v168)
+          v96 = v91;
+          if (v162)
           {
-            v1 = v190;
-            v151 = *(v190 + 56);
+            v1 = v180;
+            v147 = *(v180 + 56);
 
-            v168 = 0;
-            v99 = v151;
+            v162 = 0;
+            v96 = v147;
           }
 
           else
           {
-            v168 = 0;
-            v1 = v190;
+            v162 = 0;
+            v1 = v180;
           }
         }
 
-        v156 = v94;
-        if (v187)
+        v151 = v91;
+        if (v177)
         {
-          [v99 timeIntervalSinceReferenceDate];
-          v101 = [v99 dateByAddingTimeInterval:-(v100 + -round(v100 / 600.0) * 600.0)];
+          [v96 timeIntervalSinceReferenceDate];
+          v98 = [v96 dateByAddingTimeInterval:-(v97 + -round(v97 / 600.0) * 600.0)];
 
-          v99 = v101;
+          v96 = v98;
         }
 
-        v102 = [IPFeatureData featureDataWithType:1 value:v99 matchRange:v87, v158];
-        v103 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:0];
-        v104 = [v102 contextDictionary];
-        [v104 setObject:v103 forKeyedSubscript:@"allDay"];
+        v99 = [IPFeatureData featureDataWithType:1 value:v96 matchRange:v84, v153];
+        v100 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:0];
+        v101 = [v99 contextDictionary];
+        [v101 setObject:v100 forKeyedSubscript:@"allDay"];
 
-        v105 = [MEMORY[0x277CCABB0] numberWithBool:v168];
-        v106 = [v102 contextDictionary];
-        [v106 setObject:v105 forKeyedSubscript:@"timeIsApproximate"];
+        v102 = [MEMORY[0x277CCABB0] numberWithBool:v162];
+        v103 = [v99 contextDictionary];
+        [v103 setObject:v102 forKeyedSubscript:@"timeIsApproximate"];
 
-        v107 = [MEMORY[0x277CCABB0] numberWithBool:v187];
-        v108 = [v102 contextDictionary];
-        [v108 setObject:v107 forKeyedSubscript:@"isTimeOffset"];
+        v104 = [MEMORY[0x277CCABB0] numberWithBool:v177];
+        v105 = [v99 contextDictionary];
+        [v105 setObject:v104 forKeyedSubscript:@"isTimeOffset"];
 
-        v109 = [MEMORY[0x277CCABB0] numberWithBool:v155];
-        v110 = [v102 contextDictionary];
-        [v110 setObject:v109 forKeyedSubscript:@"dateTimeIsTenseDependent"];
+        v106 = [MEMORY[0x277CCABB0] numberWithBool:v150];
+        v107 = [v99 contextDictionary];
+        [v107 setObject:v106 forKeyedSubscript:@"dateTimeIsTenseDependent"];
 
-        v111 = [MEMORY[0x277CCABB0] numberWithBool:v166 & v164];
-        v112 = [v102 contextDictionary];
-        [v112 setObject:v111 forKeyedSubscript:@"dateIsTimeOnlyAndReferrengingToSentDate"];
+        v108 = [MEMORY[0x277CCABB0] numberWithBool:v160 & v158];
+        v109 = [v99 contextDictionary];
+        [v109 setObject:v108 forKeyedSubscript:@"dateIsTimeOnlyAndReferrengingToSentDate"];
 
-        v113 = [MEMORY[0x277CCABB0] numberWithInt:(v166 | v187) & 1];
-        v114 = [v102 contextDictionary];
-        [v114 setObject:v113 forKeyedSubscript:@"dateOnlyContainsTimeInformation"];
+        v110 = [MEMORY[0x277CCABB0] numberWithInt:(v160 | v177) & 1];
+        v111 = [v99 contextDictionary];
+        [v111 setObject:v110 forKeyedSubscript:@"dateOnlyContainsTimeInformation"];
 
-        v115 = [MEMORY[0x277CCABB0] numberWithBool:v181 == kCFCompareEqualTo];
-        v116 = [v102 contextDictionary];
-        [v116 setObject:v115 forKeyedSubscript:@"isDateRange"];
+        v112 = [MEMORY[0x277CCABB0] numberWithBool:v171 == kCFCompareEqualTo];
+        v113 = [v99 contextDictionary];
+        [v113 setObject:v112 forKeyedSubscript:@"isDateRange"];
 
-        v117 = [MEMORY[0x277CCABB0] numberWithBool:DDResultNeedsMeridianGuess() != 0];
-        v118 = [v102 contextDictionary];
-        [v118 setObject:v117 forKeyedSubscript:@"timeNeedsMeridianGuess"];
+        v114 = [MEMORY[0x277CCABB0] numberWithBool:DDResultNeedsMeridianGuess() != 0];
+        v115 = [v99 contextDictionary];
+        [v115 setObject:v114 forKeyedSubscript:@"timeNeedsMeridianGuess"];
 
-        v119 = v171;
-        if (v192 == kCFCompareEqualTo || v189)
+        v116 = v165;
+        if (v182 == kCFCompareEqualTo || v179)
         {
-          v119 = 0;
+          v116 = 0;
         }
 
-        v120 = v169;
-        if (v192 == kCFCompareEqualTo || v189)
+        v117 = v163;
+        if (v182 == kCFCompareEqualTo || v179)
         {
-          v120 = v73;
+          v117 = v70;
         }
 
-        if (v181)
+        if (v171)
         {
-          v121 = v119;
+          v118 = v116;
         }
 
         else
         {
-          v121 = 0;
+          v118 = 0;
         }
 
-        v122 = -3;
-        if (v181)
+        v119 = -3;
+        if (v171)
         {
-          v122 = v120;
+          v119 = v117;
         }
 
-        v169 = v122;
-        v171 = v121;
+        v163 = v119;
+        v165 = v118;
         *(*(*(v1 + 80) + 8) + 24) = 1;
-        v31 = v183;
-        v72 = v154;
-        if ((v92 & 1) == 0)
+        v28 = v173;
+        v69 = v149;
+        if ((v89 & 1) == 0)
         {
-          if (v173)
+          if (v166)
           {
-            v123 = CFRetain(v173);
-            CFAutorelease(v123);
+            v120 = CFRetain(v166);
+            CFAutorelease(v120);
           }
 
-          v157 = v74;
+          v152 = v71;
         }
 
-        v30 = v182;
-        if (!v102)
+        v27 = v172;
+        if (!v99)
         {
           goto LABEL_195;
         }
 
 LABEL_194:
-        [v102 setTextUnit:*(v1 + 40)];
-        [*(v1 + 48) addObject:v102];
+        [v99 setTextUnit:*(v1 + 40)];
+        [*(v1 + 48) addObject:v99];
 
         goto LABEL_195;
       }
 
-      v30 = v182;
+      v27 = v172;
 LABEL_195:
-      ++v73;
-      ++v177;
-      ++v179;
-      if (v73 == v72)
+      ++v70;
+      ++v169;
+      ++v170;
+      if (v70 == v69)
       {
         goto LABEL_202;
       }
     }
 
-    v83 = v72;
+    v80 = v69;
 LABEL_115:
-    v173 = *(v1 + 64);
-    v84 = 1;
+    v166 = *(v1 + 64);
+    v81 = 1;
     goto LABEL_118;
   }
 
 LABEL_202:
-
-  v152 = *MEMORY[0x277D85DE8];
 }
 
 - (void)standardizeTimezonesForDetectedFeatures:(id)features
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = featuresCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   obj = v5;
   if (!v6)
   {
@@ -1317,18 +1299,18 @@ LABEL_20:
 
   v7 = v6;
   v5 = 0;
-  v8 = *v22;
+  v8 = *v21;
   do
   {
     v9 = 0;
     do
     {
-      if (*v22 != v8)
+      if (*v21 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v21 + 1) + 8 * v9);
+      v10 = *(*(&v20 + 1) + 8 * v9);
       if (![v10 type] || objc_msgSend(v10, "type") == 1)
       {
         contextDictionary = [v10 contextDictionary];
@@ -1364,7 +1346,7 @@ LABEL_12:
     }
 
     while (v7 != v9);
-    v17 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v17 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     v7 = v17;
   }
 
@@ -1377,45 +1359,43 @@ LABEL_12:
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTimeZone:(id)zone forDateFeatures:(id)features
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   featuresCopy = features;
   localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
   secondsFromGMT = [zoneCopy secondsFromGMT];
-  v30 = localTimeZone;
+  v29 = localTimeZone;
   secondsFromGMT2 = [localTimeZone secondsFromGMT];
-  v33 = zoneCopy;
+  v32 = zoneCopy;
   secondsFromGMT3 = [zoneCopy secondsFromGMT];
   v11 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
   secondsFromGMT4 = [v11 secondsFromGMT];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = featuresCopy;
-  v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
-    v32 = secondsFromGMT3 - secondsFromGMT4 + 82800;
-    v15 = *v35;
+    v31 = secondsFromGMT3 - secondsFromGMT4 + 82800;
+    v15 = *v34;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v35 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * i);
+        v17 = *(*(&v33 + 1) + 8 * i);
         contextDictionary = [v17 contextDictionary];
         v19 = [contextDictionary objectForKeyedSubscript:@"allDay"];
         bOOLValue = [v19 BOOLValue];
@@ -1423,7 +1403,7 @@ LABEL_21:
         v21 = secondsFromGMT - secondsFromGMT2;
         if (bOOLValue)
         {
-          v21 = v32;
+          v21 = v31;
         }
 
         v22 = v21;
@@ -1432,7 +1412,7 @@ LABEL_21:
         [v17 setValue:v24];
 
         contextDictionary2 = [v17 contextDictionary];
-        [contextDictionary2 setObject:v33 forKeyedSubscript:@"startDateTimeZone"];
+        [contextDictionary2 setObject:v32 forKeyedSubscript:@"startDateTimeZone"];
 
         contextDictionary3 = [v17 contextDictionary];
         v27 = [contextDictionary3 objectForKeyedSubscript:@"endDate"];
@@ -1444,13 +1424,11 @@ LABEL_21:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)featureDataComplementingFeatureData:(id)data hour:(unint64_t)hour minute:(unint64_t)minute duration:(double)duration
@@ -1506,31 +1484,31 @@ LABEL_21:
 
 - (id)stringByReplacingDetectedDataWithNGramMarkersInString:(id)string
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = [(IPDataDetectorsFeatureExtractor *)self featuresForTextString:stringCopy inMessageUnit:0 context:0];
   v6 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if ([v13 matchRange] >= v10 && v10 < objc_msgSend(v13, "matchRange"))
         {
           v14 = [stringCopy substringWithRange:{v10, objc_msgSend(v13, "matchRange") - v10}];
@@ -1544,7 +1522,7 @@ LABEL_21:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -1557,8 +1535,6 @@ LABEL_21:
 
   v18 = [stringCopy substringWithRange:{v10, objc_msgSend(stringCopy, "length") - v10}];
   [v6 appendString:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

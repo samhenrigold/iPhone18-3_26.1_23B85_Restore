@@ -14,11 +14,11 @@
   v9 = objc_alloc_init(objc_opt_self());
   v10 = [v8 identifierForDataAggregator:deviceCopy];
 
-  v11 = [v10 copy];
+  v11 = objc_msgSend_copy(v10);
   v12 = v9[1];
   v9[1] = v11;
 
-  v13 = [collectorCopy copy];
+  v13 = objc_msgSend_copy(collectorCopy);
   v14 = v9[2];
   v9[2] = v13;
 

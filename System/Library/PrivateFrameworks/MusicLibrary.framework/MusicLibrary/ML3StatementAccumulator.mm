@@ -118,7 +118,7 @@ void __48__ML3StatementAccumulator__onQueueFlushAndWait___block_invoke(uint64_t 
   return v4;
 }
 
-uint64_t __40__ML3StatementAccumulator_flushAndWait___block_invoke(uint64_t a1)
+void *__40__ML3StatementAccumulator_flushAndWait___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueueFlushAndWait:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

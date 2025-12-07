@@ -43,7 +43,7 @@ void __110___PRUISPosterSnapshotControllerImpl__snapshotRequestDidFinishWithResu
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogSnapshotting();
+  v4 = PRUISLogSnapshotting(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -64,7 +64,7 @@ void __110___PRUISPosterSnapshotControllerImpl__snapshotRequestDidFinishWithResu
 void __110___PRUISPosterSnapshotControllerImpl__snapshotRequestDidFinishWithResult_snapshotterError_request_completion___block_invoke_128(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRUISLogSnapshotting();
+  v4 = PRUISLogSnapshotting(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __110___PRUISPosterSnapshotControllerImpl__snapshotRequestDidFinishWithResult_snapshotterError_request_completion___block_invoke_128_cold_1(a1, v3, v4);

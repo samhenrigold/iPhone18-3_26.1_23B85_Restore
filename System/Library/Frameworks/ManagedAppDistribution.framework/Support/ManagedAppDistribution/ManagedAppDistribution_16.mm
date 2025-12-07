@@ -41,8 +41,8 @@ uint64_t sub_1002A4F30()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -74,7 +74,7 @@ uint64_t sub_1002A4F30()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -115,14 +115,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8);
-  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8);
+  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -168,7 +168,7 @@ uint64_t sub_1002A556C()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -199,7 +199,7 @@ uint64_t sub_1002A556C()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -216,8 +216,8 @@ uint64_t sub_1002A556C()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8);
-  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8);
+  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -259,8 +259,8 @@ uint64_t sub_1002A5B2C()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8);
-  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8);
+  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -318,7 +318,7 @@ uint64_t sub_1002A5D44()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -349,7 +349,7 @@ uint64_t sub_1002A5D44()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -366,8 +366,8 @@ uint64_t sub_1002A5D44()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8);
-  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8);
+  sub_100213FA0(&qword_10077FED0, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FED8, &qword_10077FEB8, &qword_1006A1268, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -425,8 +425,8 @@ uint64_t sub_1002A631C()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -458,7 +458,7 @@ uint64_t sub_1002A631C()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -498,14 +498,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0);
-  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0);
+  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -552,7 +552,7 @@ uint64_t sub_1002A6944()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -582,7 +582,7 @@ uint64_t sub_1002A6944()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -599,8 +599,8 @@ uint64_t sub_1002A6944()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0);
-  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0);
+  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -642,8 +642,8 @@ uint64_t sub_1002A6EF0()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0);
-  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0);
+  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -702,7 +702,7 @@ uint64_t sub_1002A7108()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -732,7 +732,7 @@ uint64_t sub_1002A7108()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -749,8 +749,8 @@ uint64_t sub_1002A7108()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0);
-  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0);
+  sub_100213FA0(&qword_10077FEC0, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FEC8, &qword_10077FEB0, &qword_1006A1260, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -793,12 +793,12 @@ uint64_t sub_1002A75A0(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FE60);
+  v12 = sub_1001F0C48(&qword_10077FE60, &qword_1006A1208);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FE68);
+  v13 = sub_1001F0C48(&qword_10077FE68, &qword_1006A1210);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -860,7 +860,7 @@ uint64_t sub_1002A7858()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -868,8 +868,8 @@ uint64_t sub_1002A7858()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -900,7 +900,7 @@ uint64_t sub_1002A7858()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -930,14 +930,14 @@ uint64_t sub_1002A7858()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FE70, &qword_10077FE60);
-        sub_100213FA0(&qword_10077FE78, &qword_10077FE60);
+        sub_100213FA0(&qword_10077FE70, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FE78, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -971,7 +971,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -979,8 +979,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -1011,7 +1011,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -1042,14 +1042,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FE80, &qword_10077FE68);
-        sub_100213FA0(&qword_10077FE88, &qword_10077FE68);
+        sub_100213FA0(&qword_10077FE80, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FE88, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -1152,8 +1152,8 @@ uint64_t sub_1002A861C()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -1185,7 +1185,7 @@ uint64_t sub_1002A861C()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -1226,14 +1226,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FE80, &qword_10077FE68);
-  sub_100213FA0(&qword_10077FE88, &qword_10077FE68);
+  sub_100213FA0(&qword_10077FE80, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FE88, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -1279,7 +1279,7 @@ uint64_t sub_1002A8C58()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -1310,7 +1310,7 @@ uint64_t sub_1002A8C58()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -1327,8 +1327,8 @@ uint64_t sub_1002A8C58()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FE80, &qword_10077FE68);
-  sub_100213FA0(&qword_10077FE88, &qword_10077FE68);
+  sub_100213FA0(&qword_10077FE80, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FE88, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -1370,8 +1370,8 @@ uint64_t sub_1002A9218()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FE80, &qword_10077FE68);
-  sub_100213FA0(&qword_10077FE88, &qword_10077FE68);
+  sub_100213FA0(&qword_10077FE80, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FE88, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -1429,7 +1429,7 @@ uint64_t sub_1002A9430()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -1460,7 +1460,7 @@ uint64_t sub_1002A9430()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -1477,8 +1477,8 @@ uint64_t sub_1002A9430()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FE80, &qword_10077FE68);
-  sub_100213FA0(&qword_10077FE88, &qword_10077FE68);
+  sub_100213FA0(&qword_10077FE80, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FE88, &qword_10077FE68, &qword_1006A1210, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -1536,8 +1536,8 @@ uint64_t sub_1002A9A08()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -1569,7 +1569,7 @@ uint64_t sub_1002A9A08()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -1609,14 +1609,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FE70, &qword_10077FE60);
-  sub_100213FA0(&qword_10077FE78, &qword_10077FE60);
+  sub_100213FA0(&qword_10077FE70, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FE78, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -1663,7 +1663,7 @@ uint64_t sub_1002AA030()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -1693,7 +1693,7 @@ uint64_t sub_1002AA030()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -1710,8 +1710,8 @@ uint64_t sub_1002AA030()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FE70, &qword_10077FE60);
-  sub_100213FA0(&qword_10077FE78, &qword_10077FE60);
+  sub_100213FA0(&qword_10077FE70, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FE78, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -1753,8 +1753,8 @@ uint64_t sub_1002AA5DC()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FE70, &qword_10077FE60);
-  sub_100213FA0(&qword_10077FE78, &qword_10077FE60);
+  sub_100213FA0(&qword_10077FE70, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FE78, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -1813,7 +1813,7 @@ uint64_t sub_1002AA7F4()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -1843,7 +1843,7 @@ uint64_t sub_1002AA7F4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -1860,8 +1860,8 @@ uint64_t sub_1002AA7F4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FE70, &qword_10077FE60);
-  sub_100213FA0(&qword_10077FE78, &qword_10077FE60);
+  sub_100213FA0(&qword_10077FE70, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FE78, &qword_10077FE60, &qword_1006A1208, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -1904,12 +1904,12 @@ uint64_t sub_1002AAC8C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FD40);
+  v12 = sub_1001F0C48(&qword_10077FD40, &qword_1006A1020);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FD48);
+  v13 = sub_1001F0C48(&qword_10077FD48, &qword_1006A1028);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -1971,7 +1971,7 @@ uint64_t sub_1002AAF44()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -1979,8 +1979,8 @@ uint64_t sub_1002AAF44()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -2011,7 +2011,7 @@ uint64_t sub_1002AAF44()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -2041,14 +2041,14 @@ uint64_t sub_1002AAF44()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FD50, &qword_10077FD40);
-        sub_100213FA0(&qword_10077FD58, &qword_10077FD40);
+        sub_100213FA0(&qword_10077FD50, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FD58, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -2082,7 +2082,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -2090,8 +2090,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -2122,7 +2122,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -2153,14 +2153,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FD60, &qword_10077FD48);
-        sub_100213FA0(&qword_10077FD68, &qword_10077FD48);
+        sub_100213FA0(&qword_10077FD60, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FD68, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -2263,8 +2263,8 @@ uint64_t sub_1002ABD08()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -2296,7 +2296,7 @@ uint64_t sub_1002ABD08()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -2337,14 +2337,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FD60, &qword_10077FD48);
-  sub_100213FA0(&qword_10077FD68, &qword_10077FD48);
+  sub_100213FA0(&qword_10077FD60, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD68, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -2390,7 +2390,7 @@ uint64_t sub_1002AC344()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -2421,7 +2421,7 @@ uint64_t sub_1002AC344()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -2438,8 +2438,8 @@ uint64_t sub_1002AC344()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD60, &qword_10077FD48);
-  sub_100213FA0(&qword_10077FD68, &qword_10077FD48);
+  sub_100213FA0(&qword_10077FD60, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD68, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -2481,8 +2481,8 @@ uint64_t sub_1002AC904()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FD60, &qword_10077FD48);
-  sub_100213FA0(&qword_10077FD68, &qword_10077FD48);
+  sub_100213FA0(&qword_10077FD60, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD68, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -2540,7 +2540,7 @@ uint64_t sub_1002ACB1C()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -2571,7 +2571,7 @@ uint64_t sub_1002ACB1C()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -2588,8 +2588,8 @@ uint64_t sub_1002ACB1C()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD60, &qword_10077FD48);
-  sub_100213FA0(&qword_10077FD68, &qword_10077FD48);
+  sub_100213FA0(&qword_10077FD60, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD68, &qword_10077FD48, &qword_1006A1028, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -2647,8 +2647,8 @@ uint64_t sub_1002AD0F4()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -2680,7 +2680,7 @@ uint64_t sub_1002AD0F4()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -2720,14 +2720,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FD50, &qword_10077FD40);
-  sub_100213FA0(&qword_10077FD58, &qword_10077FD40);
+  sub_100213FA0(&qword_10077FD50, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD58, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -2774,7 +2774,7 @@ uint64_t sub_1002AD71C()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -2804,7 +2804,7 @@ uint64_t sub_1002AD71C()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -2821,8 +2821,8 @@ uint64_t sub_1002AD71C()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD50, &qword_10077FD40);
-  sub_100213FA0(&qword_10077FD58, &qword_10077FD40);
+  sub_100213FA0(&qword_10077FD50, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD58, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -2864,8 +2864,8 @@ uint64_t sub_1002ADCC8()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FD50, &qword_10077FD40);
-  sub_100213FA0(&qword_10077FD58, &qword_10077FD40);
+  sub_100213FA0(&qword_10077FD50, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD58, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -2924,7 +2924,7 @@ uint64_t sub_1002ADEE0()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -2954,7 +2954,7 @@ uint64_t sub_1002ADEE0()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -2971,8 +2971,8 @@ uint64_t sub_1002ADEE0()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD50, &qword_10077FD40);
-  sub_100213FA0(&qword_10077FD58, &qword_10077FD40);
+  sub_100213FA0(&qword_10077FD50, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD58, &qword_10077FD40, &qword_1006A1020, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -3015,12 +3015,12 @@ uint64_t sub_1002AE378(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FD00);
+  v12 = sub_1001F0C48(&qword_10077FD00, &qword_1006A0FB0);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FD08);
+  v13 = sub_1001F0C48(&qword_10077FD08, &qword_1006A0FB8);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -3082,7 +3082,7 @@ uint64_t sub_1002AE630()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -3090,8 +3090,8 @@ uint64_t sub_1002AE630()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -3122,7 +3122,7 @@ uint64_t sub_1002AE630()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -3152,14 +3152,14 @@ uint64_t sub_1002AE630()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FD10, &qword_10077FD00);
-        sub_100213FA0(&qword_10077FD18, &qword_10077FD00);
+        sub_100213FA0(&qword_10077FD10, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FD18, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -3193,7 +3193,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -3201,8 +3201,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -3233,7 +3233,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -3264,14 +3264,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FD20, &qword_10077FD08);
-        sub_100213FA0(&qword_10077FD28, &qword_10077FD08);
+        sub_100213FA0(&qword_10077FD20, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FD28, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -3374,8 +3374,8 @@ uint64_t sub_1002AF3F4()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -3407,7 +3407,7 @@ uint64_t sub_1002AF3F4()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -3448,14 +3448,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FD20, &qword_10077FD08);
-  sub_100213FA0(&qword_10077FD28, &qword_10077FD08);
+  sub_100213FA0(&qword_10077FD20, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD28, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -3501,7 +3501,7 @@ uint64_t sub_1002AFA30()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -3532,7 +3532,7 @@ uint64_t sub_1002AFA30()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -3549,8 +3549,8 @@ uint64_t sub_1002AFA30()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD20, &qword_10077FD08);
-  sub_100213FA0(&qword_10077FD28, &qword_10077FD08);
+  sub_100213FA0(&qword_10077FD20, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD28, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -3592,8 +3592,8 @@ uint64_t sub_1002AFFF0()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FD20, &qword_10077FD08);
-  sub_100213FA0(&qword_10077FD28, &qword_10077FD08);
+  sub_100213FA0(&qword_10077FD20, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD28, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -3651,7 +3651,7 @@ uint64_t sub_1002B0208()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -3682,7 +3682,7 @@ uint64_t sub_1002B0208()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -3699,8 +3699,8 @@ uint64_t sub_1002B0208()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD20, &qword_10077FD08);
-  sub_100213FA0(&qword_10077FD28, &qword_10077FD08);
+  sub_100213FA0(&qword_10077FD20, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FD28, &qword_10077FD08, &qword_1006A0FB8, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -3758,8 +3758,8 @@ uint64_t sub_1002B07E0()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -3791,7 +3791,7 @@ uint64_t sub_1002B07E0()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -3831,14 +3831,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FD10, &qword_10077FD00);
-  sub_100213FA0(&qword_10077FD18, &qword_10077FD00);
+  sub_100213FA0(&qword_10077FD10, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD18, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -3885,7 +3885,7 @@ uint64_t sub_1002B0E08()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -3915,7 +3915,7 @@ uint64_t sub_1002B0E08()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -3932,8 +3932,8 @@ uint64_t sub_1002B0E08()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD10, &qword_10077FD00);
-  sub_100213FA0(&qword_10077FD18, &qword_10077FD00);
+  sub_100213FA0(&qword_10077FD10, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD18, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -3975,8 +3975,8 @@ uint64_t sub_1002B13B4()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FD10, &qword_10077FD00);
-  sub_100213FA0(&qword_10077FD18, &qword_10077FD00);
+  sub_100213FA0(&qword_10077FD10, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD18, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -4035,7 +4035,7 @@ uint64_t sub_1002B15CC()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -4065,7 +4065,7 @@ uint64_t sub_1002B15CC()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -4082,8 +4082,8 @@ uint64_t sub_1002B15CC()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FD10, &qword_10077FD00);
-  sub_100213FA0(&qword_10077FD18, &qword_10077FD00);
+  sub_100213FA0(&qword_10077FD10, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FD18, &qword_10077FD00, &qword_1006A0FB0, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -4126,12 +4126,12 @@ uint64_t sub_1002B1A64(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FCA0);
+  v12 = sub_1001F0C48(&qword_10077FCA0, &qword_1006A0F00);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FCA8);
+  v13 = sub_1001F0C48(&qword_10077FCA8, &qword_1006A0F08);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -4193,7 +4193,7 @@ uint64_t sub_1002B1D1C()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -4201,8 +4201,8 @@ uint64_t sub_1002B1D1C()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -4233,7 +4233,7 @@ uint64_t sub_1002B1D1C()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -4263,14 +4263,14 @@ uint64_t sub_1002B1D1C()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0);
-        sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0);
+        sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -4304,7 +4304,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -4312,8 +4312,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -4344,7 +4344,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -4375,14 +4375,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8);
-        sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8);
+        sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -4485,8 +4485,8 @@ uint64_t sub_1002B2AE0()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -4518,7 +4518,7 @@ uint64_t sub_1002B2AE0()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -4559,14 +4559,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8);
-  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8);
+  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -4612,7 +4612,7 @@ uint64_t sub_1002B311C()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -4643,7 +4643,7 @@ uint64_t sub_1002B311C()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -4660,8 +4660,8 @@ uint64_t sub_1002B311C()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8);
-  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8);
+  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -4703,8 +4703,8 @@ uint64_t sub_1002B36DC()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8);
-  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8);
+  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -4762,7 +4762,7 @@ uint64_t sub_1002B38F4()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -4793,7 +4793,7 @@ uint64_t sub_1002B38F4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -4810,8 +4810,8 @@ uint64_t sub_1002B38F4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8);
-  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8);
+  sub_100213FA0(&qword_10077FCC0, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FCC8, &qword_10077FCA8, &qword_1006A0F08, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -4869,8 +4869,8 @@ uint64_t sub_1002B3ECC()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -4902,7 +4902,7 @@ uint64_t sub_1002B3ECC()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -4942,14 +4942,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0);
-  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0);
+  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -4996,7 +4996,7 @@ uint64_t sub_1002B44F4()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -5026,7 +5026,7 @@ uint64_t sub_1002B44F4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -5043,8 +5043,8 @@ uint64_t sub_1002B44F4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0);
-  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0);
+  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -5086,8 +5086,8 @@ uint64_t sub_1002B4AA0()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0);
-  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0);
+  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -5146,7 +5146,7 @@ uint64_t sub_1002B4CB8()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -5176,7 +5176,7 @@ uint64_t sub_1002B4CB8()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -5193,8 +5193,8 @@ uint64_t sub_1002B4CB8()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0);
-  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0);
+  sub_100213FA0(&qword_10077FCB0, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FCB8, &qword_10077FCA0, &qword_1006A0F00, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -5237,12 +5237,12 @@ uint64_t sub_1002B5150(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FC60);
+  v12 = sub_1001F0C48(&qword_10077FC60, &qword_1006A0EB8);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FC68);
+  v13 = sub_1001F0C48(&qword_10077FC68, &qword_1006A0EC0);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -5304,7 +5304,7 @@ uint64_t sub_1002B5408()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -5312,8 +5312,8 @@ uint64_t sub_1002B5408()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -5344,7 +5344,7 @@ uint64_t sub_1002B5408()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -5374,14 +5374,14 @@ uint64_t sub_1002B5408()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FC70, &qword_10077FC60);
-        sub_100213FA0(&qword_10077FC78, &qword_10077FC60);
+        sub_100213FA0(&qword_10077FC70, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FC78, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -5415,7 +5415,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -5423,8 +5423,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -5455,7 +5455,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -5486,14 +5486,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FC80, &qword_10077FC68);
-        sub_100213FA0(&qword_10077FC88, &qword_10077FC68);
+        sub_100213FA0(&qword_10077FC80, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FC88, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -5596,8 +5596,8 @@ uint64_t sub_1002B61CC()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -5629,7 +5629,7 @@ uint64_t sub_1002B61CC()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -5670,14 +5670,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FC80, &qword_10077FC68);
-  sub_100213FA0(&qword_10077FC88, &qword_10077FC68);
+  sub_100213FA0(&qword_10077FC80, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC88, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -5723,7 +5723,7 @@ uint64_t sub_1002B6808()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -5754,7 +5754,7 @@ uint64_t sub_1002B6808()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -5771,8 +5771,8 @@ uint64_t sub_1002B6808()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FC80, &qword_10077FC68);
-  sub_100213FA0(&qword_10077FC88, &qword_10077FC68);
+  sub_100213FA0(&qword_10077FC80, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC88, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -5814,8 +5814,8 @@ uint64_t sub_1002B6DC8()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FC80, &qword_10077FC68);
-  sub_100213FA0(&qword_10077FC88, &qword_10077FC68);
+  sub_100213FA0(&qword_10077FC80, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC88, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -5873,7 +5873,7 @@ uint64_t sub_1002B6FE0()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -5904,7 +5904,7 @@ uint64_t sub_1002B6FE0()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -5921,8 +5921,8 @@ uint64_t sub_1002B6FE0()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FC80, &qword_10077FC68);
-  sub_100213FA0(&qword_10077FC88, &qword_10077FC68);
+  sub_100213FA0(&qword_10077FC80, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC88, &qword_10077FC68, &qword_1006A0EC0, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -5980,8 +5980,8 @@ uint64_t sub_1002B75B8()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -6013,7 +6013,7 @@ uint64_t sub_1002B75B8()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -6053,14 +6053,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FC70, &qword_10077FC60);
-  sub_100213FA0(&qword_10077FC78, &qword_10077FC60);
+  sub_100213FA0(&qword_10077FC70, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FC78, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -6107,7 +6107,7 @@ uint64_t sub_1002B7BE0()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -6137,7 +6137,7 @@ uint64_t sub_1002B7BE0()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -6154,8 +6154,8 @@ uint64_t sub_1002B7BE0()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FC70, &qword_10077FC60);
-  sub_100213FA0(&qword_10077FC78, &qword_10077FC60);
+  sub_100213FA0(&qword_10077FC70, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FC78, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -6197,8 +6197,8 @@ uint64_t sub_1002B818C()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FC70, &qword_10077FC60);
-  sub_100213FA0(&qword_10077FC78, &qword_10077FC60);
+  sub_100213FA0(&qword_10077FC70, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FC78, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -6257,7 +6257,7 @@ uint64_t sub_1002B83A4()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -6287,7 +6287,7 @@ uint64_t sub_1002B83A4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -6304,8 +6304,8 @@ uint64_t sub_1002B83A4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FC70, &qword_10077FC60);
-  sub_100213FA0(&qword_10077FC78, &qword_10077FC60);
+  sub_100213FA0(&qword_10077FC70, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FC78, &qword_10077FC60, &qword_1006A0EB8, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -6348,12 +6348,12 @@ uint64_t sub_1002B883C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FBD8);
+  v12 = sub_1001F0C48(&qword_10077FBD8, &qword_1006A0E28);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FBE0);
+  v13 = sub_1001F0C48(&qword_10077FBE0, &qword_1006A0E30);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -6415,7 +6415,7 @@ uint64_t sub_1002B8AF4()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -6423,8 +6423,8 @@ uint64_t sub_1002B8AF4()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -6455,7 +6455,7 @@ uint64_t sub_1002B8AF4()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -6485,14 +6485,14 @@ uint64_t sub_1002B8AF4()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8);
-        sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8);
+        sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -6526,7 +6526,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -6534,8 +6534,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -6566,7 +6566,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -6597,14 +6597,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0);
-        sub_100213FA0(&qword_10077FC00, &qword_10077FBE0);
+        sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FC00, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -6707,8 +6707,8 @@ uint64_t sub_1002B98B8()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -6740,7 +6740,7 @@ uint64_t sub_1002B98B8()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -6781,14 +6781,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0);
-  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0);
+  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -6834,7 +6834,7 @@ uint64_t sub_1002B9EF4()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -6865,7 +6865,7 @@ uint64_t sub_1002B9EF4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -6882,8 +6882,8 @@ uint64_t sub_1002B9EF4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0);
-  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0);
+  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -6925,8 +6925,8 @@ uint64_t sub_1002BA4B4()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0);
-  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0);
+  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -6984,7 +6984,7 @@ uint64_t sub_1002BA6CC()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -7015,7 +7015,7 @@ uint64_t sub_1002BA6CC()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -7032,8 +7032,8 @@ uint64_t sub_1002BA6CC()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0);
-  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0);
+  sub_100213FA0(&qword_10077FBF8, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FC00, &qword_10077FBE0, &qword_1006A0E30, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -7091,8 +7091,8 @@ uint64_t sub_1002BACA4()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -7124,7 +7124,7 @@ uint64_t sub_1002BACA4()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -7164,14 +7164,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8);
-  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8);
+  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -7218,7 +7218,7 @@ uint64_t sub_1002BB2CC()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -7248,7 +7248,7 @@ uint64_t sub_1002BB2CC()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -7265,8 +7265,8 @@ uint64_t sub_1002BB2CC()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8);
-  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8);
+  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -7308,8 +7308,8 @@ uint64_t sub_1002BB878()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8);
-  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8);
+  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -7368,7 +7368,7 @@ uint64_t sub_1002BBA90()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -7398,7 +7398,7 @@ uint64_t sub_1002BBA90()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -7415,8 +7415,8 @@ uint64_t sub_1002BBA90()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8);
-  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8);
+  sub_100213FA0(&qword_10077FBE8, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FBF0, &qword_10077FBD8, &qword_1006A0E28, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -7459,12 +7459,12 @@ uint64_t sub_1002BBF28(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FB50);
+  v12 = sub_1001F0C48(&qword_10077FB50, &qword_1006A0D90);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FB58);
+  v13 = sub_1001F0C48(&qword_10077FB58, &qword_1006A0D98);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -7526,7 +7526,7 @@ uint64_t sub_1002BC1E0()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -7534,8 +7534,8 @@ uint64_t sub_1002BC1E0()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -7566,7 +7566,7 @@ uint64_t sub_1002BC1E0()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -7596,14 +7596,14 @@ uint64_t sub_1002BC1E0()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FB60, &qword_10077FB50);
-        sub_100213FA0(&qword_10077FB68, &qword_10077FB50);
+        sub_100213FA0(&qword_10077FB60, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FB68, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -7637,7 +7637,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -7645,8 +7645,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -7677,7 +7677,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -7708,14 +7708,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FB70, &qword_10077FB58);
-        sub_100213FA0(&qword_10077FB78, &qword_10077FB58);
+        sub_100213FA0(&qword_10077FB70, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FB78, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -7818,8 +7818,8 @@ uint64_t sub_1002BCFA4()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -7851,7 +7851,7 @@ uint64_t sub_1002BCFA4()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -7892,14 +7892,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FB70, &qword_10077FB58);
-  sub_100213FA0(&qword_10077FB78, &qword_10077FB58);
+  sub_100213FA0(&qword_10077FB70, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB78, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -7945,7 +7945,7 @@ uint64_t sub_1002BD5E0()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -7976,7 +7976,7 @@ uint64_t sub_1002BD5E0()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -7993,8 +7993,8 @@ uint64_t sub_1002BD5E0()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB70, &qword_10077FB58);
-  sub_100213FA0(&qword_10077FB78, &qword_10077FB58);
+  sub_100213FA0(&qword_10077FB70, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB78, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -8036,8 +8036,8 @@ uint64_t sub_1002BDBA0()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FB70, &qword_10077FB58);
-  sub_100213FA0(&qword_10077FB78, &qword_10077FB58);
+  sub_100213FA0(&qword_10077FB70, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB78, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -8095,7 +8095,7 @@ uint64_t sub_1002BDDB8()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -8126,7 +8126,7 @@ uint64_t sub_1002BDDB8()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -8143,8 +8143,8 @@ uint64_t sub_1002BDDB8()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB70, &qword_10077FB58);
-  sub_100213FA0(&qword_10077FB78, &qword_10077FB58);
+  sub_100213FA0(&qword_10077FB70, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB78, &qword_10077FB58, &qword_1006A0D98, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -8202,8 +8202,8 @@ uint64_t sub_1002BE390()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -8235,7 +8235,7 @@ uint64_t sub_1002BE390()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -8275,14 +8275,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FB60, &qword_10077FB50);
-  sub_100213FA0(&qword_10077FB68, &qword_10077FB50);
+  sub_100213FA0(&qword_10077FB60, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB68, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -8329,7 +8329,7 @@ uint64_t sub_1002BE9B8()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -8359,7 +8359,7 @@ uint64_t sub_1002BE9B8()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -8376,8 +8376,8 @@ uint64_t sub_1002BE9B8()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB60, &qword_10077FB50);
-  sub_100213FA0(&qword_10077FB68, &qword_10077FB50);
+  sub_100213FA0(&qword_10077FB60, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB68, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -8419,8 +8419,8 @@ uint64_t sub_1002BEF64()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FB60, &qword_10077FB50);
-  sub_100213FA0(&qword_10077FB68, &qword_10077FB50);
+  sub_100213FA0(&qword_10077FB60, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB68, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -8479,7 +8479,7 @@ uint64_t sub_1002BF17C()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -8509,7 +8509,7 @@ uint64_t sub_1002BF17C()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -8526,8 +8526,8 @@ uint64_t sub_1002BF17C()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB60, &qword_10077FB50);
-  sub_100213FA0(&qword_10077FB68, &qword_10077FB50);
+  sub_100213FA0(&qword_10077FB60, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB68, &qword_10077FB50, &qword_1006A0D90, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -8570,12 +8570,12 @@ uint64_t sub_1002BF614(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FB00);
+  v12 = sub_1001F0C48(&qword_10077FB00, &qword_1006A0D40);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FB08);
+  v13 = sub_1001F0C48(&qword_10077FB08, &unk_1006A0D48);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -8637,7 +8637,7 @@ uint64_t sub_1002BF8CC()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -8645,8 +8645,8 @@ uint64_t sub_1002BF8CC()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -8677,7 +8677,7 @@ uint64_t sub_1002BF8CC()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -8707,14 +8707,14 @@ uint64_t sub_1002BF8CC()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FB10, &qword_10077FB00);
-        sub_100213FA0(&qword_10077FB18, &qword_10077FB00);
+        sub_100213FA0(&qword_10077FB10, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FB18, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -8748,7 +8748,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -8756,8 +8756,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -8788,7 +8788,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -8819,14 +8819,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FB20, &qword_10077FB08);
-        sub_100213FA0(&qword_10077FB28, &qword_10077FB08);
+        sub_100213FA0(&qword_10077FB20, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FB28, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);
@@ -8929,8 +8929,8 @@ uint64_t sub_1002C0690()
     return v44(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -8962,7 +8962,7 @@ uint64_t sub_1002C0690()
     *(v19 + 14) = v25;
     *v20 = v25;
     _os_log_impl(&_mh_execute_header, v13, v14, "Error in %s: %{public}@", v19, 0x16u);
-    sub_1000032A8(v20, &qword_10077F920);
+    sub_1000032A8(v20, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v21);
 
@@ -9003,14 +9003,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+  sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
   v35._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v35);
 
   (*(v33 + 8))(v32, v34);
 LABEL_14:
-  sub_100213FA0(&qword_10077FB20, &qword_10077FB08);
-  sub_100213FA0(&qword_10077FB28, &qword_10077FB08);
+  sub_100213FA0(&qword_10077FB20, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB28, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v36 = encodeXPCValues<A>(_:)();
   v38 = v37;
   v39 = *(v0 + 280);
@@ -9056,7 +9056,7 @@ uint64_t sub_1002C0CCC()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -9087,7 +9087,7 @@ uint64_t sub_1002C0CCC()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -9104,8 +9104,8 @@ uint64_t sub_1002C0CCC()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB20, &qword_10077FB08);
-  sub_100213FA0(&qword_10077FB28, &qword_10077FB08);
+  sub_100213FA0(&qword_10077FB20, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB28, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -9147,8 +9147,8 @@ uint64_t sub_1002C128C()
   (*(v4 + 104))(v1, enum case for MarketplaceKitServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 312);
-  sub_100213FA0(&qword_10077FB20, &qword_10077FB08);
-  sub_100213FA0(&qword_10077FB28, &qword_10077FB08);
+  sub_100213FA0(&qword_10077FB20, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB28, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -9206,7 +9206,7 @@ uint64_t sub_1002C14A4()
     *(v7 + 14) = v13;
     *v8 = v13;
     _os_log_impl(&_mh_execute_header, v1, v2, "Error in %s: %{public}@", v7, 0x16u);
-    sub_1000032A8(v8, &qword_10077F920);
+    sub_1000032A8(v8, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v9);
 
@@ -9237,7 +9237,7 @@ uint64_t sub_1002C14A4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+      sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
       v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v23);
 
@@ -9254,8 +9254,8 @@ uint64_t sub_1002C14A4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB20, &qword_10077FB08);
-  sub_100213FA0(&qword_10077FB28, &qword_10077FB08);
+  sub_100213FA0(&qword_10077FB20, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+  sub_100213FA0(&qword_10077FB28, &qword_10077FB08, &unk_1006A0D48, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
   v24 = encodeXPCValues<A>(_:)();
   v26 = v25;
   v27 = *(v0 + 280);
@@ -9313,8 +9313,8 @@ uint64_t sub_1002C1A7C()
     return v45(v11, v5, v1 | (v6 << 32), v2 | (v7 << 32), v3 | (v8 << 32), v4 | (v9 << 32));
   }
 
-  type metadata accessor for InternalError();
-  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+  type metadata accessor for InternalError(0);
+  sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
   v13 = swift_allocError();
   swift_storeEnumTagMultiPayload();
   swift_willThrow();
@@ -9346,7 +9346,7 @@ uint64_t sub_1002C1A7C()
     *(v20 + 14) = v26;
     *v21 = v26;
     _os_log_impl(&_mh_execute_header, v14, v15, "Error in %s: %{public}@", v20, 0x16u);
-    sub_1000032A8(v21, &qword_10077F920);
+    sub_1000032A8(v21, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v22);
 
@@ -9386,14 +9386,14 @@ LABEL_13:
   }
 
   swift_getObjectType();
-  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+  sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
   v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   XPCClientProtocol.logMessage(_:)(v36);
 
   (*(v34 + 8))(v33, v35);
 LABEL_14:
-  sub_100213FA0(&qword_10077FB10, &qword_10077FB00);
-  sub_100213FA0(&qword_10077FB18, &qword_10077FB00);
+  sub_100213FA0(&qword_10077FB10, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB18, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
   v37 = encodeXPCValues<A>(_:)();
   v39 = v38;
   v40 = *(v0 + 248);
@@ -9440,7 +9440,7 @@ uint64_t sub_1002C20A4()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -9470,7 +9470,7 @@ uint64_t sub_1002C20A4()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -9487,8 +9487,8 @@ uint64_t sub_1002C20A4()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB10, &qword_10077FB00);
-  sub_100213FA0(&qword_10077FB18, &qword_10077FB00);
+  sub_100213FA0(&qword_10077FB10, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB18, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -9530,8 +9530,8 @@ uint64_t sub_1002C2650()
   (*(v4 + 104))(v1, enum case for ServiceResult.success<A>(_:), v3);
   (*(v4 + 32))(v2, v1, v3);
   v5 = *(v0 + 344);
-  sub_100213FA0(&qword_10077FB10, &qword_10077FB00);
-  sub_100213FA0(&qword_10077FB18, &qword_10077FB00);
+  sub_100213FA0(&qword_10077FB10, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB18, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
   v6 = encodeXPCValues<A>(_:)();
   if (v5)
   {
@@ -9590,7 +9590,7 @@ uint64_t sub_1002C2868()
     *(v8 + 14) = v14;
     *v9 = v14;
     _os_log_impl(&_mh_execute_header, v2, v3, "Error in %s: %{public}@", v8, 0x16u);
-    sub_1000032A8(v9, &qword_10077F920);
+    sub_1000032A8(v9, &qword_10077F920, &qword_10069E6A0);
 
     sub_10000710C(v10);
 
@@ -9620,7 +9620,7 @@ uint64_t sub_1002C2868()
     if (*(v0 + 48))
     {
       swift_getObjectType();
-      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+      sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
       v24._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       XPCClientProtocol.logMessage(_:)(v24);
 
@@ -9637,8 +9637,8 @@ uint64_t sub_1002C2868()
   }
 
 LABEL_10:
-  sub_100213FA0(&qword_10077FB10, &qword_10077FB00);
-  sub_100213FA0(&qword_10077FB18, &qword_10077FB00);
+  sub_100213FA0(&qword_10077FB10, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
+  sub_100213FA0(&qword_10077FB18, &qword_10077FB00, &qword_1006A0D40, &protocol conformance descriptor for ServiceResult<A>);
   v25 = encodeXPCValues<A>(_:)();
   v27 = v26;
   v28 = *(v0 + 248);
@@ -9681,12 +9681,12 @@ uint64_t sub_1002C2D00(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 200) = swift_task_alloc();
   *(v8 + 208) = swift_task_alloc();
   *(v8 + 216) = swift_task_alloc();
-  v12 = sub_1001F0C48(&qword_10077FAC0);
+  v12 = sub_1001F0C48(&qword_10077FAC0, &qword_1006A0CF8);
   *(v8 + 224) = v12;
   *(v8 + 232) = *(v12 - 8);
   *(v8 + 240) = swift_task_alloc();
   *(v8 + 248) = swift_task_alloc();
-  v13 = sub_1001F0C48(&qword_10077FAC8);
+  v13 = sub_1001F0C48(&qword_10077FAC8, &qword_1006A0D00);
   *(v8 + 256) = v13;
   *(v8 + 264) = *(v13 - 8);
   *(v8 + 272) = swift_task_alloc();
@@ -9748,7 +9748,7 @@ uint64_t sub_1002C2FB8()
       *(v27 + 4) = v29;
       *v28 = v29;
       _os_log_impl(&_mh_execute_header, v25, v26, "[%@] Unable to obtain XPC connection, client, and audit token", v27, 0xCu);
-      sub_1000032A8(v28, &qword_10077F920);
+      sub_1000032A8(v28, &qword_10077F920, &qword_10069E6A0);
     }
 
     v31 = *(v0 + 184);
@@ -9756,8 +9756,8 @@ uint64_t sub_1002C2FB8()
     v32 = *(v0 + 176);
 
     (*(v31 + 8))(v30, v32);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     v33 = swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -9788,7 +9788,7 @@ uint64_t sub_1002C2FB8()
       *(v40 + 14) = v46;
       *v41 = v46;
       _os_log_impl(&_mh_execute_header, v34, v35, "Error in %s: %{public}@", v40, 0x16u);
-      sub_1000032A8(v41, &qword_10077F920);
+      sub_1000032A8(v41, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v42);
 
@@ -9818,14 +9818,14 @@ uint64_t sub_1002C2FB8()
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError);
+        sub_100302E04(&qword_10077F918, &type metadata accessor for ManagedAppDistributionError, &protocol conformance descriptor for ManagedAppDistributionError);
         v66._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v66);
 
         (*(v64 + 8))(v63, v65);
 LABEL_34:
-        sub_100213FA0(&qword_10077FAD0, &qword_10077FAC0);
-        sub_100213FA0(&qword_10077FAD8, &qword_10077FAC0);
+        sub_100213FA0(&qword_10077FAD0, &qword_10077FAC0, &qword_1006A0CF8, &protocol conformance descriptor for ServiceResult<A>);
+        sub_100213FA0(&qword_10077FAD8, &qword_10077FAC0, &qword_1006A0CF8, &protocol conformance descriptor for ServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v97;
         v94 = *(v0 + 248);
@@ -9859,7 +9859,7 @@ LABEL_34:
       *(v5 + 4) = v7;
       *v6 = v7;
       _os_log_impl(&_mh_execute_header, v3, v4, "[%@] Unable to obtain XPC connection, client, and audit token", v5, 0xCu);
-      sub_1000032A8(v6, &qword_10077F920);
+      sub_1000032A8(v6, &qword_10077F920, &qword_10069E6A0);
     }
 
     v8 = *(v0 + 208);
@@ -9867,8 +9867,8 @@ LABEL_34:
     v10 = *(v0 + 184);
 
     (*(v10 + 8))(v8, v9);
-    type metadata accessor for InternalError();
-    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError);
+    type metadata accessor for InternalError(0);
+    sub_100302E04(&qword_10077F900, type metadata accessor for InternalError, byte_1006B8E64);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
@@ -9899,7 +9899,7 @@ LABEL_34:
       *(v17 + 14) = v23;
       *v18 = v23;
       _os_log_impl(&_mh_execute_header, v11, v12, "Error in %s: %{public}@", v17, 0x16u);
-      sub_1000032A8(v18, &qword_10077F920);
+      sub_1000032A8(v18, &qword_10077F920, &qword_10069E6A0);
 
       sub_10000710C(v19);
 
@@ -9930,14 +9930,14 @@ LABEL_34:
       if (*(v0 + 48))
       {
         swift_getObjectType();
-        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError);
+        sub_100302E04(&qword_10077F938, &type metadata accessor for MarketplaceKitError, &protocol conformance descriptor for MarketplaceKitError);
         v56._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         XPCClientProtocol.logMessage(_:)(v56);
 
         (*(v54 + 8))(v53, v55);
 LABEL_31:
-        sub_100213FA0(&qword_10077FAE0, &qword_10077FAC8);
-        sub_100213FA0(&qword_10077FAE8, &qword_10077FAC8);
+        sub_100213FA0(&qword_10077FAE0, &qword_10077FAC8, &qword_1006A0D00, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
+        sub_100213FA0(&qword_10077FAE8, &qword_10077FAC8, &qword_1006A0D00, &protocol conformance descriptor for MarketplaceKitServiceResult<A>);
         v91 = encodeXPCValues<A>(_:)();
         v93 = v92;
         v94 = *(v0 + 280);

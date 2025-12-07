@@ -131,17 +131,11 @@
 
   v10 = [CSEndpointerMetrics alloc];
   [(CSEndpointerMetrics *)self totalAudioRecorded];
-  trailingSilenceDurationAtEndpoint = self->_trailingSilenceDurationAtEndpoint;
-  blkHepAudioOrigin = self->_blkHepAudioOrigin;
-  vtExtraAudioAtStartInMs = self->_vtExtraAudioAtStartInMs;
-  endpointHostTime = self->_endpointHostTime;
-  endpointerThreshold = self->_endpointerThreshold;
-  endpointerScore = self->_endpointerScore;
-  LOBYTE(v20) = self->_isAnchorTimeBuffered;
-  LOBYTE(v19) = self->_isRequestTimeOut;
-  v17 = [CSEndpointerMetrics initWithTotalAudioRecorded:v10 endpointBufferHostTime:"initWithTotalAudioRecorded:endpointBufferHostTime:featuresAtEndpoint:endpointerType:asrFeatureLatencyDistribution:additionalMetrics:trailingSilenceDurationAtEndpoint:requestId:osdFeatures:asrFeatures:isRequestTimeOut:assetConfigVersion:blkHepAudioOrigin:vtExtraAudioAtStartInMs:firstAudioSampleSensorTimestamp:isAnchorTimeBuffered:endpointHostTime:audioDeliveryHostTimeDelta:endpointerThreshold:endpointerScore:" featuresAtEndpoint:self->_endpointBufferHostTime endpointerType:self->_featuresAtEndpoint asrFeatureLatencyDistribution:self->_endpointerType additionalMetrics:self->_asrFeatureLatencyDistribution trailingSilenceDurationAtEndpoint:v8 requestId:idCopy osdFeatures:self->_osdFeaturesAtEndpoint asrFeatures:self->_asrFeaturesAtEndpoint isRequestTimeOut:v19 assetConfigVersion:self->_assetConfigVersion blkHepAudioOrigin:self->_firstAudioSampleSensorTimestamp vtExtraAudioAtStartInMs:v20 firstAudioSampleSensorTimestamp:endpointHostTime isAnchorTimeBuffered:self->_audioDeliveryHostTimeDelta endpointHostTime:? audioDeliveryHostTimeDelta:? endpointerThreshold:? endpointerScore:?];
+  LOBYTE(v14) = self->_isAnchorTimeBuffered;
+  LOBYTE(v13) = self->_isRequestTimeOut;
+  v11 = [CSEndpointerMetrics initWithTotalAudioRecorded:v10 endpointBufferHostTime:"initWithTotalAudioRecorded:endpointBufferHostTime:featuresAtEndpoint:endpointerType:asrFeatureLatencyDistribution:additionalMetrics:trailingSilenceDurationAtEndpoint:requestId:osdFeatures:asrFeatures:isRequestTimeOut:assetConfigVersion:blkHepAudioOrigin:vtExtraAudioAtStartInMs:firstAudioSampleSensorTimestamp:isAnchorTimeBuffered:endpointHostTime:audioDeliveryHostTimeDelta:endpointerThreshold:endpointerScore:" featuresAtEndpoint:self->_endpointBufferHostTime endpointerType:self->_featuresAtEndpoint asrFeatureLatencyDistribution:self->_endpointerType additionalMetrics:self->_asrFeatureLatencyDistribution trailingSilenceDurationAtEndpoint:v8 requestId:idCopy osdFeatures:self->_osdFeaturesAtEndpoint asrFeatures:self->_asrFeaturesAtEndpoint isRequestTimeOut:v13 assetConfigVersion:self->_assetConfigVersion blkHepAudioOrigin:self->_firstAudioSampleSensorTimestamp vtExtraAudioAtStartInMs:v14 firstAudioSampleSensorTimestamp:self->_endpointHostTime isAnchorTimeBuffered:self->_audioDeliveryHostTimeDelta endpointHostTime:? audioDeliveryHostTimeDelta:? endpointerThreshold:? endpointerScore:?];
 
-  return v17;
+  return v11;
 }
 
 - (CSEndpointerMetrics)initWithTotalAudioRecorded:(double)recorded endpointBufferHostTime:(unint64_t)time featuresAtEndpoint:(id)endpoint endpointerType:(int64_t)type asrFeatureLatencyDistribution:(id)distribution additionalMetrics:(id)metrics trailingSilenceDurationAtEndpoint:(double)atEndpoint requestId:(id)self0 osdFeatures:(id)self1 asrFeatures:(id)self2 isRequestTimeOut:(BOOL)self3 assetConfigVersion:(id)self4 blkHepAudioOrigin:(double)self5 vtExtraAudioAtStartInMs:(double)self6 firstAudioSampleSensorTimestamp:(unint64_t)self7 isAnchorTimeBuffered:(BOOL)self8 endpointHostTime:(unint64_t)self9 audioDeliveryHostTimeDelta:(unint64_t)delta endpointerThreshold:(float)threshold endpointerScore:(float)score

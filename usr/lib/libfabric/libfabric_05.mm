@@ -1,468 +1,3 @@
-_BYTE *ofi_cswap_OFI_OP_CSWAP_GE_uint8_t(_BYTE *result, _BYTE *a2, unsigned __int8 *a3, _BYTE *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = v5;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-__int16 *ofi_cswap_OFI_OP_CSWAP_GE_int16_t(__int16 *result, __int16 *a2, __int16 *a3, _WORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-_WORD *ofi_cswap_OFI_OP_CSWAP_GE_uint16_t(_WORD *result, _WORD *a2, unsigned __int16 *a3, _WORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = v5;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-int *ofi_cswap_OFI_OP_CSWAP_GE_int32_t(int *result, int *a2, int *a3, int *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-unsigned int *ofi_cswap_OFI_OP_CSWAP_GE_uint32_t(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-uint64_t *ofi_cswap_OFI_OP_CSWAP_GE_int64_t(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-unint64_t *ofi_cswap_OFI_OP_CSWAP_GE_uint64_t(unint64_t *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-float *ofi_cswap_OFI_OP_CSWAP_GE_float(float *result, float *a2, float *a3, _DWORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-double *ofi_cswap_OFI_OP_CSWAP_GE_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-double *ofi_cswap_OFI_OP_CSWAP_GE_long_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 >= v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-_BYTE *ofi_cswap_OFI_OP_CSWAP_GT_int8_t(_BYTE *result, _BYTE *a2, char *a3, _BYTE *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-_BYTE *ofi_cswap_OFI_OP_CSWAP_GT_uint8_t(_BYTE *result, _BYTE *a2, unsigned __int8 *a3, _BYTE *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = v5;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-__int16 *ofi_cswap_OFI_OP_CSWAP_GT_int16_t(__int16 *result, __int16 *a2, __int16 *a3, _WORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-_WORD *ofi_cswap_OFI_OP_CSWAP_GT_uint16_t(_WORD *result, _WORD *a2, unsigned __int16 *a3, _WORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = v5;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-int *ofi_cswap_OFI_OP_CSWAP_GT_int32_t(int *result, int *a2, int *a3, int *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-unsigned int *ofi_cswap_OFI_OP_CSWAP_GT_uint32_t(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-uint64_t *ofi_cswap_OFI_OP_CSWAP_GT_int64_t(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-unint64_t *ofi_cswap_OFI_OP_CSWAP_GT_uint64_t(unint64_t *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    v6 = *a3++;
-    if (v6 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-float *ofi_cswap_OFI_OP_CSWAP_GT_float(float *result, float *a2, float *a3, _DWORD *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-double *ofi_cswap_OFI_OP_CSWAP_GT_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-double *ofi_cswap_OFI_OP_CSWAP_GT_long_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4 = *result;
-    if (*a3 > v5)
-    {
-      *result = *a2;
-    }
-
-    ++a2;
-    ++a3;
-    ++a4;
-    ++result;
-  }
-
-  return result;
-}
-
-char *ofi_cswap_OFI_OP_MSWAP_int8_t(char *result, char *a2, char *a3, char *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4++ = *result;
-    v7 = *a2++;
-    v6 = v7;
-    v8 = *a3++;
-    *result++ = v5 & ~v8 | v8 & v6;
-  }
-
-  return result;
-}
-
-char *ofi_cswap_OFI_OP_MSWAP_uint8_t(char *result, char *a2, char *a3, char *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4++ = *result;
-    v7 = *a2++;
-    v6 = v7;
-    v8 = *a3++;
-    *result++ = v5 & ~v8 | v8 & v6;
-  }
-
-  return result;
-}
-
-__int16 *ofi_cswap_OFI_OP_MSWAP_int16_t(__int16 *result, __int16 *a2, __int16 *a3, __int16 *a4, uint64_t a5)
-{
-  for (; a5; --a5)
-  {
-    v5 = *result;
-    *a4++ = *result;
-    v7 = *a2++;
-    v6 = v7;
-    v8 = *a3++;
-    *result++ = v5 & ~v8 | v8 & v6;
-  }
-
-  return result;
-}
-
 __int16 *ofi_cswap_OFI_OP_MSWAP_uint16_t(__int16 *result, __int16 *a2, __int16 *a3, __int16 *a4, uint64_t a5)
 {
   for (; a5; --a5)
@@ -732,7 +267,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t ofi_import_monitor_cleanup(uint64_t a1)
+uint64_t ofi_import_monitor_cleanup(uint64_t a1, uint64_t a2)
 {
   if (off_2A1C52378)
   {
@@ -755,54 +290,52 @@ uint64_t ofi_import_monitor_start()
   }
 }
 
-uint64_t ofi_import_monitor_stop()
+uint64_t ofi_import_monitor_stop(uint64_t a1, uint64_t a2)
 {
   if (!off_2A1C52378)
   {
     ofi_import_monitor_stop_cold_1();
   }
 
-  v1 = *(*(off_2A1C52378 + 3) + 16);
+  v3 = *(*(off_2A1C52378 + 3) + 16);
 
-  return v1();
+  return v3();
 }
 
-uint64_t ofi_import_monitor_subscribe()
+uint64_t ofi_import_monitor_subscribe(uint64_t a1, uint64_t a2)
 {
   if (!off_2A1C52378)
   {
     ofi_import_monitor_subscribe_cold_1();
   }
 
-  v1 = *(*(off_2A1C52378 + 3) + 24);
+  v3 = *(*(off_2A1C52378 + 3) + 24);
 
-  return v1();
+  return v3();
 }
 
-uint64_t ofi_import_monitor_unsubscribe()
+uint64_t ofi_import_monitor_unsubscribe(uint64_t a1, uint64_t a2)
 {
   if (!off_2A1C52378)
   {
     ofi_import_monitor_unsubscribe_cold_1();
   }
 
-  v1 = *(*(off_2A1C52378 + 3) + 32);
+  v3 = *(*(off_2A1C52378 + 3) + 32);
 
-  return v1();
+  return v3();
 }
 
-uint64_t ofi_import_monitor_valid(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t ofi_import_monitor_valid(uint64_t a1, uint64_t a2)
 {
   if (!off_2A1C52378)
   {
     ofi_import_monitor_valid_cold_1();
   }
 
-  v4 = *(*(off_2A1C52378 + 3) + 40);
-  v5 = *a3;
-  v6 = a3[1];
+  v3 = *(*(off_2A1C52378 + 3) + 40);
 
-  return v4();
+  return v3();
 }
 
 uint64_t ofi_close_import()
@@ -889,7 +422,7 @@ uint64_t ofi_domain_close(uint64_t a1)
   *(v5 + 8) = v6;
   pthread_mutex_unlock((*(a1 + 56) + 56));
   free(*(a1 + 192));
-  ofi_genlock_destroy((a1 + 80));
+  ofi_genlock_destroy((a1 + 80), v7);
   result = 0;
   atomic_fetch_add((*(a1 + 56) + 120), 0xFFFFFFFF);
   return result;
@@ -930,13 +463,13 @@ uint64_t ofi_domain_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int
       else
       {
         pthread_mutex_lock((a1 + 56));
-        v17 = *(a1 + 152);
-        v18 = *v17;
-        *(a3 + 40) = *v17;
-        *(a3 + 48) = v17;
-        v19 = a3 + 40;
-        *(v18 + 8) = v19;
-        *v17 = v19;
+        v18 = *(a1 + 152);
+        v19 = *v18;
+        *(a3 + 40) = *v18;
+        *(a3 + 48) = v18;
+        v20 = a3 + 40;
+        *(v19 + 8) = v20;
+        *v18 = v20;
         pthread_mutex_unlock((a1 + 56));
         atomic_fetch_add((a1 + 120), 1u);
       }
@@ -944,7 +477,7 @@ uint64_t ofi_domain_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int
 
     else
     {
-      ofi_genlock_destroy((a3 + 80));
+      ofi_genlock_destroy((a3 + 80), v17);
       return 4294967284;
     }
   }
@@ -2246,20 +1779,20 @@ LABEL_24:
   return 0;
 }
 
-uint64_t ofi_ns_start_server(uint64_t a1)
+uint64_t ofi_ns_start_server(_DWORD *a1)
 {
-  if (!*(a1 + 60))
+  if (!a1[15])
   {
     ofi_ns_start_server_cold_1();
   }
 
-  if (atomic_fetch_add((a1 + 64), 1u) > 0)
+  if (atomic_fetch_add(a1 + 16, 1u) > 0)
   {
     return 0;
   }
 
-  v3 = rbtNew(*(a1 + 72));
-  *(a1 + 16) = v3;
+  v3 = rbtNew(*(a1 + 9));
+  *(a1 + 2) = v3;
   if (v3)
   {
     v4 = util_ns_listen(a1, 2);
@@ -2267,27 +1800,27 @@ uint64_t ofi_ns_start_server(uint64_t a1)
     {
       if (v4 == -48 || (v2 = util_ns_listen(a1, 30), v2 == -48))
       {
-        rbtDelete(*(a1 + 16));
+        rbtDelete(*(a1 + 2));
         return 0;
       }
     }
 
     else
     {
-      *(a1 + 56) = 1;
-      v5 = pthread_create((a1 + 8), 0, util_ns_accept_handler, a1);
+      a1[14] = 1;
+      v5 = pthread_create(a1 + 1, 0, util_ns_accept_handler, a1);
       if (!v5)
       {
         return 0;
       }
 
       v2 = -v5;
-      *(a1 + 56) = 0;
+      a1[14] = 0;
       close(*a1);
       *a1 = -1;
     }
 
-    rbtDelete(*(a1 + 16));
+    rbtDelete(*(a1 + 2));
   }
 
   else
@@ -2302,7 +1835,7 @@ uint64_t ofi_ns_start_server(uint64_t a1)
     *__error() = v6;
   }
 
-  atomic_fetch_add((a1 + 64), 0xFFFFFFFF);
+  atomic_fetch_add(a1 + 16, 0xFFFFFFFF);
   return v2;
 }
 
@@ -2633,7 +2166,7 @@ void ofi_ns_stop_server(uint64_t a1)
   }
 }
 
-uint64_t ofi_ns_init(uint64_t result)
+uint64_t ofi_ns_init(uint64_t result, uint64_t a2)
 {
   if (!result || !*(result + 40) || !*(result + 48) || !*(result + 72))
   {
@@ -2856,7 +2389,7 @@ LABEL_15:
   return v7;
 }
 
-uint64_t util_put_peer(_DWORD *a1)
+uint64_t util_put_peer(uint64_t *a1)
 {
   v2 = *a1;
   (*(*a1 + 128))(*a1 + 56);
@@ -2950,7 +2483,7 @@ uint64_t rxm_av_set(uint64_t a1)
   }
 }
 
-uint64_t rxm_util_av_open(uint64_t a1, _DWORD *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t rxm_util_av_open(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v14 = malloc_type_calloc(1uLL, 0x1D0uLL, 0x10E2040797805E1uLL);
   if (!v14)
@@ -2959,57 +2492,57 @@ uint64_t rxm_util_av_open(uint64_t a1, _DWORD *a2, void *a3, uint64_t a4, uint64
   }
 
   v15 = v14;
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  v28 = 184;
-  v29 = 0u;
-  v30 = 0u;
-  memset(v31, 0, 24);
-  *(&v31[1] + 1) = 6;
-  attr = ofi_bufpool_create_attr(&v28, v14 + 49);
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  v25 = 184;
+  v26 = 0u;
+  v27 = 0u;
+  memset(v28, 0, 24);
+  *(&v28[1] + 1) = 6;
+  attr = ofi_bufpool_create_attr(&v25, v14 + 49);
   if (!attr)
   {
-    v28 = a5;
-    v29 = 0u;
-    v30 = 0u;
-    memset(v31, 0, sizeof(v31));
-    attr = ofi_bufpool_create_attr(&v28, v15 + 50);
+    v25 = a5;
+    v26 = 0u;
+    v27 = 0u;
+    memset(v28, 0, sizeof(v28));
+    attr = ofi_bufpool_create_attr(&v25, v15 + 50);
     if (!attr)
     {
       ofi_rbmap_init((v15 + 41), rxm_addr_compare);
-      v26 = 8;
-      LODWORD(v27) = 0;
-      v20 = *(a1 + 220) - 1;
-      if (v20 >= 4)
+      v23 = 8;
+      LODWORD(v24) = 0;
+      v17 = *(a1 + 220) - 1;
+      if (v17 >= 4)
       {
         if (fi_log_enabled(&core_prov, 0, 0))
         {
-          v22 = *__error();
-          fi_log(&core_prov, 0, 0, "ofi_sizeof_addr_format", 738, "Unsupported address format\n", v25, v26, v27);
-          v23 = __error();
-          v21 = 0;
-          *v23 = v22;
+          v19 = *__error();
+          fi_log(&core_prov, 0, 0, "ofi_sizeof_addr_format", 738, "Unsupported address format\n", v22, v23, v24);
+          v20 = __error();
+          v18 = 0;
+          *v20 = v19;
         }
 
         else
         {
-          v21 = 0;
+          v18 = 0;
         }
       }
 
       else
       {
-        v21 = qword_29ED12CA0[v20];
+        v18 = qword_29ED12CA0[v17];
       }
 
-      v25 = v21;
+      v22 = v18;
       if (!*a2)
       {
         *a2 = 2;
       }
 
-      attr = ofi_av_init(a1, a2, &v25, v15, a4, v17, v18, v19);
+      attr = ofi_av_init(a1, a2, &v22, v15, a4);
       if (!attr)
       {
         v15[2] = &rxm_av_fi_ops;
@@ -3250,7 +2783,7 @@ uint64_t rxm_av_remove(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v8 = a3 - 1;
   if (a3 - 1 >= 0)
   {
-    v9 = a1 + 152;
+    v9 = (a1 + 152);
     do
     {
       if (fi_log_enabled(*(a1 + 144), 2, 5))
@@ -3374,7 +2907,7 @@ void *rxm_put_peer_addr(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t rxm_av_close(uint64_t *a1)
+uint64_t rxm_av_close(uint64_t **a1)
 {
   v2 = a1[55];
   if (v2)
@@ -3391,7 +2924,7 @@ uint64_t rxm_av_close(uint64_t *a1)
   v4 = ofi_av_close(a1);
   if (!v4)
   {
-    ofi_rbmap_cleanup((a1 + 41));
+    ofi_rbmap_cleanup(a1 + 41);
     ofi_bufpool_destroy(a1[50]);
     ofi_bufpool_destroy(a1[49]);
     free(a1);
@@ -3603,11 +3136,11 @@ uint64_t *ofi_mr_map_get(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ofi_mr_map_verify(uint64_t a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t ofi_mr_map_verify(uint64_t *a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v36 = a5;
-  v37 = a4;
-  v11 = ofi_rbmap_find(*(a1 + 8), &v37);
+  v24 = a5;
+  v25 = a4;
+  v11 = ofi_rbmap_find(a1[1], &v25);
   if (v11)
   {
     v12 = v11[4];
@@ -3622,18 +3155,18 @@ uint64_t ofi_mr_map_verify(uint64_t a1, char **a2, uint64_t a3, uint64_t a4, uin
       {
         v18 = *__error();
         v19 = *a1;
-        v26 = fi_tostr(v12 + 4, 21, v20, v21, v22, v23, v24, v25);
-        fi_log(v19, 0, 8, "ofi_mr_map_verify", 134, "invalid access: permitted %s\n", v26);
+        v20 = fi_tostr(v12 + 2, 21);
+        fi_log(v19, 0, 8, "ofi_mr_map_verify", 134, "invalid access: permitted %s\n", v20);
         *__error() = v18;
       }
 
       if (fi_log_enabled(*a1, 0, 8))
       {
-        v27 = *__error();
-        v28 = *a1;
-        v35 = fi_tostr(&v36, 21, v29, v30, v31, v32, v33, v34);
-        fi_log(v28, 0, 8, "ofi_mr_map_verify", 137, "invalid access: requested %s\n", v35);
-        *__error() = v27;
+        v21 = *__error();
+        v22 = *a1;
+        v23 = fi_tostr(&v24, 21);
+        fi_log(v22, 0, 8, "ofi_mr_map_verify", 137, "invalid access: requested %s\n", v23);
+        *__error() = v21;
       }
 
       return 4294967283;
@@ -3667,7 +3200,7 @@ uint64_t ofi_mr_map_verify(uint64_t a1, char **a2, uint64_t a3, uint64_t a4, uin
     if (fi_log_enabled(*a1, 0, 8))
     {
       v16 = *__error();
-      fi_log(*a1, 0, 8, "ofi_mr_map_verify", 124, "unknown key: %llu\n", v37);
+      fi_log(*a1, 0, 8, "ofi_mr_map_verify", 124, "unknown key: %llu\n", v25);
       *__error() = v16;
     }
 
@@ -3948,12 +3481,12 @@ uint64_t ofi_mr_reg(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return ofi_mr_regattr(a1, v11, a7, a8);
 }
 
-uint64_t ofi_mr_verify(uint64_t a1, uint64_t a2, char **a3, uint64_t a4, uint64_t a5)
+uint64_t ofi_mr_verify(uint64_t *a1, uint64_t a2, char **a3, uint64_t a4, uint64_t a5)
 {
-  v10 = a1 - 144;
-  (*(a1 - 72))(a1 - 144);
+  v10 = a1 - 18;
+  (*(a1 - 9))(a1 - 18);
   v11 = ofi_mr_map_verify(a1, a3, a2, a4, a5, 0);
-  (*(a1 - 64))(v10);
+  (*(a1 - 8))(v10);
   return v11;
 }
 
@@ -4150,7 +3683,7 @@ LABEL_26:
   return fid_list_insert2(v7, v8, a1);
 }
 
-uint64_t ofi_ep_bind(void *a1, uint64_t a2, unint64_t a3)
+uint64_t ofi_ep_bind(void *a1, atomic_uint *a2, unint64_t a3)
 {
   result = ofi_ep_bind_valid(*(a1[10] + 184), a2, a3);
   if (!result)
@@ -4188,7 +3721,7 @@ uint64_t ofi_ep_bind(void *a1, uint64_t a2, unint64_t a3)
 
       result = 0;
       a1[14] = a2;
-      atomic_fetch_add((a2 + 112), 1u);
+      atomic_fetch_add(a2 + 28, 1u);
     }
   }
 
@@ -4259,7 +3792,7 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      ofi_genlock_destroy((a4 + 304));
+      ofi_genlock_destroy((a4 + 304), v16);
       return 4294967284;
     }
   }
@@ -4284,66 +3817,66 @@ __n128 util_coll_init_cid_mask(void *a1)
   return result;
 }
 
-uint64_t ofi_endpoint_close(uint64_t a1)
+uint64_t ofi_endpoint_close(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 136);
-  if (v2)
-  {
-    fid_list_remove2((v2 + 56), v2 + 72, a1);
-    atomic_fetch_add((*(a1 + 136) + 48), 0xFFFFFFFF);
-  }
-
-  v3 = *(a1 + 120);
+  v3 = *(a1 + 136);
   if (v3)
   {
     fid_list_remove2((v3 + 56), v3 + 72, a1);
+    atomic_fetch_add((*(a1 + 136) + 48), 0xFFFFFFFF);
+  }
+
+  v4 = *(a1 + 120);
+  if (v4)
+  {
+    fid_list_remove2((v4 + 56), v4 + 72, a1);
     atomic_fetch_add((*(a1 + 120) + 48), 0xFFFFFFFF);
   }
 
   for (i = 176; i != 224; i += 8)
   {
-    v5 = *(a1 + i);
-    if (v5)
+    v6 = *(a1 + i);
+    if (v6)
     {
-      fid_list_remove2((v5 + 88), v5 + 104, a1);
+      fid_list_remove2((v6 + 88), v6 + 104, a1);
       atomic_fetch_add((*(a1 + i) + 48), 0xFFFFFFFF);
     }
   }
 
-  v6 = *(a1 + 88);
-  if (v6)
+  v7 = *(a1 + 88);
+  if (v7)
   {
-    (*(v6 + 304))(v6 + 232);
-    v8 = *(a1 + 96);
-    v7 = *(a1 + 104);
-    v9 = *(a1 + 88);
-    *v7 = v8;
-    *(v8 + 8) = v7;
-    (*(v9 + 312))(v9 + 232);
+    (*(v7 + 304))(v7 + 232, a2);
+    v9 = *(a1 + 96);
+    v8 = *(a1 + 104);
+    v10 = *(a1 + 88);
+    *v8 = v9;
+    *(v9 + 8) = v8;
+    (*(v10 + 312))(v10 + 232);
     atomic_fetch_add((*(a1 + 88) + 40), 0xFFFFFFFF);
   }
 
-  v10 = *(a1 + 400);
-  if (v10)
+  v11 = *(a1 + 400);
+  if (v11)
   {
-    free(*(v10 + 8));
-    *(v10 + 8) = 0;
+    free(*(v11 + 8));
+    *(v11 + 8) = 0;
     free(*(a1 + 400));
   }
 
-  v11 = *(a1 + 112);
-  if (v11)
+  v12 = *(a1 + 112);
+  if (v12)
   {
-    ofi_eq_remove_fid_events(v11, a1);
+    ofi_eq_remove_fid_events(v12, a1);
     atomic_fetch_add((*(a1 + 112) + 112), 0xFFFFFFFF);
   }
 
   atomic_fetch_add((*(a1 + 80) + 176), 0xFFFFFFFF);
-  ofi_genlock_destroy((a1 + 304));
+  ofi_genlock_destroy((a1 + 304), a2);
   return 0;
 }
 
-uint64_t ofi_match_addr_format(unsigned int a1, int a2)
+BOOL ofi_match_addr_format(unsigned int a1, int a2)
 {
   v2 = a1 == a2;
   if (a2 == 1)
@@ -4359,7 +3892,7 @@ uint64_t ofi_match_addr_format(unsigned int a1, int a2)
   return !a1 || v2;
 }
 
-uint64_t ofi_valid_addr_format(int a1, unsigned int a2)
+BOOL ofi_valid_addr_format(int a1, unsigned int a2)
 {
   result = 1;
   if (a1 && a2)
@@ -4410,7 +3943,7 @@ char *ofi_strdup_append_internal(const char *a1, const char *a2, int a3)
   return v9;
 }
 
-uint64_t ofi_exclude_prov_name(const char **a1, char *__s)
+uint64_t ofi_exclude_prov_name(char **a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = malloc_type_malloc(v4 + 2, 0x8EC81B54uLL);
@@ -4459,16 +3992,16 @@ LABEL_7:
 
 uint64_t ofi_get_core_info(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t, void *))
 {
-  v16 = *a5;
-  v17 = fi_dupinfo(0);
-  if (!v17)
+  v15 = *a5;
+  v16 = fi_dupinfo(0);
+  if (!v16)
   {
     return 4294967284;
   }
 
-  v18 = v17;
-  v19 = a8(a1, a6, a7, v17);
-  if (v19)
+  v17 = v16;
+  v18 = a8(a1, a6, a7, v16);
+  if (v18)
   {
     goto LABEL_3;
   }
@@ -4478,29 +4011,29 @@ uint64_t ofi_get_core_info(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     goto LABEL_26;
   }
 
-  v19 = ofi_dup_addr(a6, v18);
-  if (!v19)
+  v18 = ofi_dup_addr(a6, v17);
+  if (!v18)
   {
-    v22 = *(a6 + 104);
-    if (!v22)
+    v21 = *(a6 + 104);
+    if (!v21)
     {
       goto LABEL_23;
     }
 
-    v23 = *(v22 + 8);
-    if (v23)
+    v22 = *(v21 + 8);
+    if (v22)
     {
-      v24 = strdup(v23);
-      v25 = v18[13];
-      *(v25 + 8) = v24;
-      if (!v24)
+      v23 = strdup(v22);
+      v24 = v17[13];
+      *(v24 + 8) = v23;
+      if (!v23)
       {
-        if (fi_log_enabled(v16, 0, 1))
+        if (fi_log_enabled(v15, 0, 1))
         {
-          v26 = *__error();
-          fi_log(v16, 0, 1, "ofi_info_to_core", 230, "Unable to allocate fabric name\n");
+          v25 = *__error();
+          fi_log(v15, 0, 1, "ofi_info_to_core", 230, "Unable to allocate fabric name\n");
 LABEL_29:
-          *__error() = v26;
+          *__error() = v25;
           goto LABEL_30;
         }
 
@@ -4510,69 +4043,68 @@ LABEL_29:
 
     else
     {
-      v25 = v18[13];
+      v24 = v17[13];
     }
 
-    v27 = *(v22 + 16);
-    if (v27 || a7 && (v30 = *(a7 + 104)) != 0 && (v27 = *(v30 + 16)) != 0)
+    v26 = *(v21 + 16);
+    if (v26 || a7 && (v29 = *(a7 + 104)) != 0 && (v26 = *(v29 + 16)) != 0)
     {
-      v28 = v25;
-      v29 = strdup(v27);
-      v25 = v28;
-      *(v28 + 16) = v29;
-      if (!v29)
+      v27 = v24;
+      v28 = strdup(v26);
+      v24 = v27;
+      *(v27 + 16) = v28;
+      if (!v28)
       {
         goto LABEL_30;
       }
     }
 
-    v32 = *(v25 + 16);
-    v31 = (v25 + 16);
-    if (!v32 || (v19 = ofi_exclude_prov_name(v31, *(v16 + 40)), !v19))
+    v31 = *(v24 + 16);
+    v30 = (v24 + 16);
+    if (!v31 || (v18 = ofi_exclude_prov_name(v30, *(v15 + 40)), !v18))
     {
 LABEL_23:
-      v33 = *(a6 + 96);
-      if (v33)
+      v32 = *(a6 + 96);
+      if (v32)
       {
-        v34 = *(v33 + 8);
-        if (v34)
+        v33 = *(v32 + 8);
+        if (v33)
         {
-          v35 = strdup(v34);
-          *(v18[12] + 8) = v35;
-          if (!v35)
+          v34 = strdup(v33);
+          *(v17[12] + 8) = v34;
+          if (!v34)
           {
-            if (fi_log_enabled(v16, 0, 1))
+            if (fi_log_enabled(v15, 0, 1))
             {
-              v26 = *__error();
-              fi_log(v16, 0, 1, "ofi_info_to_core", 247, "Unable to allocate domain name\n");
+              v25 = *__error();
+              fi_log(v15, 0, 1, "ofi_info_to_core", 247, "Unable to allocate domain name\n");
               goto LABEL_29;
             }
 
 LABEL_30:
-            v20 = 4294967284;
+            v19 = 4294967284;
             goto LABEL_4;
           }
         }
       }
 
 LABEL_26:
-      v36 = *(*a5 + 40);
-      v37 = log_prefix();
-      *v37 = v38;
-      v20 = fi_getinfo(a1, a2, a3, a4 | 0x800000000000000, v18, v39);
-      *v37 = &unk_29ED0916E;
+      v35 = log_prefix();
+      *v35 = v36;
+      v19 = fi_getinfo(a1, a2, a3, a4 | 0x800000000000000, v17, v37);
+      *v35 = &unk_29ED0916E;
       goto LABEL_4;
     }
   }
 
 LABEL_3:
-  v20 = v19;
+  v19 = v18;
 LABEL_4:
-  fi_freeinfo(v18);
-  return v20;
+  fi_freeinfo(v17);
+  return v19;
 }
 
-uint64_t ofix_getinfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, void *), unsigned int (*a8)(uint64_t, void *, void *, void *), void **a9)
+uint64_t ofix_getinfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, void *a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, void *), unsigned int (*a8)(uint64_t, void *, void *, void *), void *a9)
 {
   *a9 = 0;
   v9 = a5[1];
@@ -4721,19 +4253,20 @@ LABEL_30:
   return v18;
 }
 
-uint64_t ofi_check_info(uint64_t *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t ofi_check_info(uint64_t *a1, void *a2, uint64_t a3, void *a4)
 {
   if (!a4)
   {
     return 0;
   }
 
+  v5 = a3;
   v8 = *a1;
-  v9 = *(a4 + 88);
-  if (!v9 || (result = ofi_check_ep_type(*a1, *(a2 + 88), v9), !result))
+  v9 = a4[11];
+  if (!v9 || (result = ofi_check_ep_type(*a1, a2[11], v9), !result))
   {
-    v11 = (a2 + 8);
-    if ((*(a4 + 8) & ~*(a2 + 8)) != 0)
+    v11 = a2 + 1;
+    if ((a4[1] & ~a2[1]) != 0)
     {
       if (fi_log_enabled(v8, 2, 0))
       {
@@ -4745,8 +4278,8 @@ uint64_t ofi_check_info(uint64_t *a1, uint64_t a2, unsigned int a3, uint64_t a4)
       if (fi_log_enabled(v8, 2, 0))
       {
         v13 = *__error();
-        v20 = fi_tostr(v11, 2, v14, v15, v16, v17, v18, v19);
-        fi_log(v8, 2, 0, "ofi_check_info", 1125, "Supported: %s\n", v20);
+        v14 = fi_tostr(v11, 2);
+        fi_log(v8, 2, 0, "ofi_check_info", 1125, "Supported: %s\n", v14);
         *__error() = v13;
       }
 
@@ -4755,41 +4288,41 @@ uint64_t ofi_check_info(uint64_t *a1, uint64_t a2, unsigned int a3, uint64_t a4)
         return 4294967200;
       }
 
-      v21 = *__error();
-      fi_tostr((a4 + 8), 2, v22, v23, v24, v25, v26, v27);
+      v15 = *__error();
+      fi_tostr(a4 + 1, 2);
       fi_log(v8, 2, 0, "ofi_check_info", 1125, "Requested: %s\n");
 LABEL_36:
-      *__error() = v21;
+      *__error() = v15;
       return 4294967200;
     }
 
-    if (a3 >= 0x10005 && ((v28 = *(a4 + 96)) == 0 || (*(v28 + 36) & 4) != 0))
+    if (v5 >= 0x10005 && ((v16 = a4[12]) == 0 || (*(v16 + 36) & 4) != 0))
     {
-      v29 = *(a2 + 16);
+      v17 = a2[2];
     }
 
     else
     {
-      v29 = *(a2 + 16) | ((*(*(a2 + 96) + 36) & 4) << 53);
+      v17 = a2[2] | ((*(a2[12] + 36) & 4) << 53);
     }
 
-    v66 = v29;
-    v30 = (a4 + 16);
-    if ((v29 & ~*(a4 + 16)) != 0)
+    v30 = v17;
+    v18 = a4 + 2;
+    if ((v17 & ~a4[2]) != 0)
     {
       if (fi_log_enabled(v8, 2, 0))
       {
-        v34 = *__error();
+        v22 = *__error();
         fi_log(v8, 2, 0, "ofi_check_info", 1132, "needed mode not set\n");
-        *__error() = v34;
+        *__error() = v22;
       }
 
       if (fi_log_enabled(v8, 2, 0))
       {
-        v35 = *__error();
-        v42 = fi_tostr(&v66, 14, v36, v37, v38, v39, v40, v41);
-        fi_log(v8, 2, 0, "ofi_check_info", 1133, "Expected: %s\n", v42);
-        *__error() = v35;
+        v23 = *__error();
+        v24 = fi_tostr(&v30, 14);
+        fi_log(v8, 2, 0, "ofi_check_info", 1133, "Expected: %s\n", v24);
+        *__error() = v23;
       }
 
       if (!fi_log_enabled(v8, 2, 0))
@@ -4797,57 +4330,57 @@ LABEL_36:
         return 4294967200;
       }
 
-      v21 = *__error();
-      fi_tostr((a4 + 16), 14, v43, v44, v45, v46, v47, v48);
+      v15 = *__error();
+      fi_tostr(a4 + 2, 14);
       fi_log(v8, 2, 0, "ofi_check_info", 1133, "Given: %s\n");
       goto LABEL_36;
     }
 
-    if (!ofi_valid_addr_format(*(a2 + 24), *(a4 + 24)))
+    if (!ofi_valid_addr_format(*(a2 + 6), *(a4 + 6)))
     {
       if (fi_log_enabled(v8, 2, 0))
       {
-        v49 = *__error();
+        v25 = *__error();
         fi_log(v8, 2, 0, "ofi_check_info", 1139, "address format not supported\n");
-        *__error() = v49;
+        *__error() = v25;
       }
 
       if (fi_log_enabled(v8, 2, 0))
       {
-        v50 = *__error();
-        v57 = fi_tostr((a2 + 24), 4, v51, v52, v53, v54, v55, v56);
-        fi_log(v8, 2, 0, "ofi_check_info", 1141, "Supported: %s\n", v57);
-        *__error() = v50;
+        v26 = *__error();
+        v27 = fi_tostr(a2 + 3, 4);
+        fi_log(v8, 2, 0, "ofi_check_info", 1141, "Supported: %s\n", v27);
+        *__error() = v26;
       }
 
       if (fi_log_enabled(v8, 2, 0))
       {
-        v58 = *__error();
-        v65 = fi_tostr((a4 + 24), 4, v59, v60, v61, v62, v63, v64);
-        fi_log(v8, 2, 0, "ofi_check_info", 1141, "Requested: %s\n", v65);
-        *__error() = v58;
+        v28 = *__error();
+        v29 = fi_tostr(a4 + 3, 4);
+        fi_log(v8, 2, 0, "ofi_check_info", 1141, "Requested: %s\n", v29);
+        *__error() = v28;
       }
 
       return 4294967200;
     }
 
-    v31 = *(a4 + 104);
-    if (!v31 || (result = ofi_check_fabric_attr(v8, *(a2 + 104), v31), !result))
+    v19 = a4[13];
+    if (!v19 || (result = ofi_check_fabric_attr(v8, a2[13], v19), !result))
     {
-      if (!*(a4 + 96) || (result = ofi_check_domain_attr(v8, a3, *(a2 + 96), a4), !result))
+      if (!a4[12] || (result = ofi_check_domain_attr(v8, v5, a2[12], a4), !result))
       {
-        if (!*(a4 + 88) || (result = ofi_check_ep_attr(a1, a3, a2, a4), !result))
+        if (!a4[11] || (result = ofi_check_ep_attr(a1, v5, a2, a4), !result))
         {
-          v32 = *(a4 + 80);
-          if (!v32 || (result = ofi_check_rx_attr(v8, a2, v32, *v30), !result))
+          v20 = a4[10];
+          if (!v20 || (result = ofi_check_rx_attr(v8, a2, v20, *v18), !result))
           {
-            v33 = *(a4 + 72);
-            if (!v33)
+            v21 = a4[9];
+            if (!v21)
             {
               return 0;
             }
 
-            result = ofi_check_tx_attr(v8, *(a2 + 72), v33, *v30);
+            result = ofi_check_tx_attr(v8, a2[9], v21, *v18);
             if (!result)
             {
               return 0;
@@ -4861,7 +4394,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t ofi_alter_info(uint64_t result, uint64_t *a2, unsigned int a3)
+uint64_t ofi_alter_info(uint64_t result, void *a2, unsigned int a3)
 {
   if (result)
   {
@@ -5275,8 +4808,6 @@ uint64_t ofi_check_fabric_attr(uint64_t a1, uint64_t a2, uint64_t a3)
     if (fi_log_enabled(a1, 2, 0))
     {
       v8 = *__error();
-      v10 = *(a3 + 16);
-      v11 = *(a2 + 16);
       fi_log(a1, 2, 0, "ofi_check_fabric_attr", 437, "Requesting provider %s, skipping %s\n");
       goto LABEL_13;
     }
@@ -5324,8 +4855,7 @@ uint64_t ofi_thread_level(unsigned int a1)
 uint64_t ofi_check_mr_mode(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(*(a4 + 96) + 36);
-  v28 = v5;
-  v29 = a3;
+  v16 = __PAIR64__(a3, v5);
   if ((a3 & 4) != 0 && (*(a4 + 22) & 0x80) == 0 && (v5 & 4) == 0)
   {
     goto LABEL_12;
@@ -5353,33 +4883,33 @@ uint64_t ofi_check_mr_mode(uint64_t a1, unsigned int a2, unsigned int a3, uint64
       goto LABEL_12;
     }
 
-    v25 = *(a4 + 8);
-    if ((v25 & 0x800000000000) != 0)
+    v13 = *(a4 + 8);
+    if ((v13 & 0x800000000000) != 0)
     {
-      v26 = a3;
+      v14 = a3;
     }
 
     else
     {
-      v26 = a3 & 0xFFFFFBFF;
+      v14 = a3 & 0xFFFFFBFF;
     }
 
-    if (!ofi_rma_target_allowed(v25))
+    if (!ofi_rma_target_allowed(v13))
     {
-      if ((v26 & 0x404) == 0)
+      if ((v14 & 0x404) == 0)
       {
-        v27 = 0;
+        v15 = 0;
         goto LABEL_28;
       }
 
-      v26 &= 0xFFFFFEA7;
+      v14 &= 0xFFFFFEA7;
     }
 
-    v27 = v26 & 0xFFFFFFFC;
+    v15 = v14 & 0xFFFFFFFC;
 LABEL_28:
     result = 0;
-    v29 = v27;
-    if (!v5 || (v5 & v27) == v27)
+    HIDWORD(v16) = v15;
+    if (!v5 || (v5 & v15) == v15)
     {
       return result;
     }
@@ -5434,17 +4964,17 @@ LABEL_12:
   if (fi_log_enabled(a1, 2, 0))
   {
     v8 = *__error();
-    v15 = fi_tostr(&v29, 21, v9, v10, v11, v12, v13, v14);
-    fi_log(a1, 2, 0, "ofi_check_mr_mode", 579, "Expected: %s\n", v15);
+    v9 = fi_tostr((&v16 + 4), 21);
+    fi_log(a1, 2, 0, "ofi_check_mr_mode", 579, "Expected: %s\n", v9);
     *__error() = v8;
   }
 
   if (fi_log_enabled(a1, 2, 0))
   {
-    v16 = *__error();
-    v23 = fi_tostr(&v28, 21, v17, v18, v19, v20, v21, v22);
-    fi_log(a1, 2, 0, "ofi_check_mr_mode", 579, "Given: %s\n", v23);
-    *__error() = v16;
+    v10 = *__error();
+    v11 = fi_tostr(&v16, 21);
+    fi_log(a1, 2, 0, "ofi_check_mr_mode", 579, "Given: %s\n", v11);
+    *__error() = v10;
   }
 
   return 4294967200;
@@ -5595,7 +5125,6 @@ LABEL_39:
     }
 
     v12 = *__error();
-    v25 = *(v7 + 48);
     fi_log(a1, 2, 0, "ofi_check_domain_attr", 618, "Requested: %zd\n");
     goto LABEL_39;
   }
@@ -5609,23 +5138,23 @@ LABEL_39:
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v27 = *__error();
+      v26 = *__error();
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 626, "max_ep_stx_ctx greater than supported\n");
+      *__error() = v26;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v27 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_domain_attr", 627, "Supported: %zd\n", *(a3 + 104));
       *__error() = v27;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
       v28 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_domain_attr", 627, "Supported: %zd\n", *(a3 + 104));
-      *__error() = v28;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v29 = *__error();
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 627, "Requested: %zd\n", *(v7 + 104));
-      *__error() = v29;
+      *__error() = v28;
     }
   }
 
@@ -5633,23 +5162,23 @@ LABEL_39:
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v30 = *__error();
+      v29 = *__error();
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 631, "max_ep_srx_ctx greater than supported\n");
+      *__error() = v29;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v30 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_domain_attr", 632, "Supported: %zd\n", *(a3 + 112));
       *__error() = v30;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
       v31 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_domain_attr", 632, "Supported: %zd\n", *(a3 + 112));
-      *__error() = v31;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v32 = *__error();
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 632, "Requested: %zd\n", *(v7 + 112));
-      *__error() = v32;
+      *__error() = v31;
     }
   }
 
@@ -5663,7 +5192,7 @@ LABEL_39:
       }
 
       v12 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_domain_attr", 640, "Cntr count too large\n", v79);
+      fi_log(a1, 2, 0, "ofi_check_domain_attr", 640, "Cntr count too large\n", v49);
       goto LABEL_39;
     }
 
@@ -5671,16 +5200,16 @@ LABEL_39:
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v33 = *__error();
+        v32 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 645, "MR iov limit too large\n");
-        *__error() = v33;
+        *__error() = v32;
       }
 
       if (fi_log_enabled(a1, 2, 0))
       {
-        v34 = *__error();
+        v33 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 646, "Supported: %zd\n", *(a3 + 128));
-        *__error() = v34;
+        *__error() = v33;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5689,27 +5218,26 @@ LABEL_39:
       }
 
       v12 = *__error();
-      v35 = *(v7 + 128);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 646, "Requested: %zd\n");
       goto LABEL_39;
     }
 
-    v36 = (a3 + 136);
+    v34 = (a3 + 136);
     if ((*(v7 + 136) & ~*(a3 + 136)) != 0)
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v37 = *__error();
+        v35 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 651, "Requested domain caps not supported\n");
-        *__error() = v37;
+        *__error() = v35;
       }
 
       if (fi_log_enabled(a1, 2, 0))
       {
-        v38 = *__error();
-        v45 = fi_tostr(v36, 2, v39, v40, v41, v42, v43, v44);
-        fi_log(a1, 2, 0, "ofi_check_domain_attr", 652, "Supported: %s\n", v45);
-        *__error() = v38;
+        v36 = *__error();
+        v37 = fi_tostr(v34, 2);
+        fi_log(a1, 2, 0, "ofi_check_domain_attr", 652, "Supported: %s\n", v37);
+        *__error() = v36;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5718,27 +5246,27 @@ LABEL_39:
       }
 
       v12 = *__error();
-      fi_tostr((v7 + 136), 2, v46, v47, v48, v49, v50, v51);
+      fi_tostr((v7 + 136), 2);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 652, "Requested: %s\n");
       goto LABEL_39;
     }
 
-    v52 = (a3 + 144);
+    v38 = (a3 + 144);
     if ((*(a3 + 144) & ~*(v7 + 144)) != 0)
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v56 = *__error();
+        v41 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 657, "Required domain mode missing\n");
-        *__error() = v56;
+        *__error() = v41;
       }
 
       if (fi_log_enabled(a1, 2, 0))
       {
-        v57 = *__error();
-        v64 = fi_tostr(v52, 14, v58, v59, v60, v61, v62, v63);
-        fi_log(a1, 2, 0, "ofi_check_domain_attr", 658, "Expected: %s\n", v64);
-        *__error() = v57;
+        v42 = *__error();
+        v43 = fi_tostr(v38, 14);
+        fi_log(a1, 2, 0, "ofi_check_domain_attr", 658, "Expected: %s\n", v43);
+        *__error() = v42;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5747,7 +5275,7 @@ LABEL_39:
       }
 
       v12 = *__error();
-      fi_tostr((v7 + 144), 14, v65, v66, v67, v68, v69, v70);
+      fi_tostr((v7 + 144), 14);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 658, "Given: %s\n");
       goto LABEL_39;
     }
@@ -5756,16 +5284,16 @@ LABEL_39:
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v53 = *__error();
+        v39 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 663, "Max err data too large\n");
-        *__error() = v53;
+        *__error() = v39;
       }
 
       if (fi_log_enabled(a1, 2, 0))
       {
-        v54 = *__error();
+        v40 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 664, "Supported: %zd\n", *(a3 + 168));
-        *__error() = v54;
+        *__error() = v40;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5774,7 +5302,6 @@ LABEL_39:
       }
 
       v12 = *__error();
-      v55 = *(v7 + 168);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 664, "Requested: %zd\n");
       goto LABEL_39;
     }
@@ -5783,16 +5310,16 @@ LABEL_39:
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v71 = *__error();
+        v44 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 669, "MR count too large\n");
-        *__error() = v71;
+        *__error() = v44;
       }
 
       if (fi_log_enabled(a1, 2, 0))
       {
-        v72 = *__error();
+        v45 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 670, "Supported: %zd\n", *(a3 + 176));
-        *__error() = v72;
+        *__error() = v45;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5801,13 +5328,12 @@ LABEL_39:
       }
 
       v12 = *__error();
-      v73 = *(v7 + 176);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 670, "Requested: %zd\n");
       goto LABEL_39;
     }
 
-    v74 = *(v7 + 160);
-    if (a2 > 0x10013 && v74 == -1)
+    v46 = *(v7 + 160);
+    if (a2 > 0x10013 && v46 == -1)
     {
       if (*(v7 + 152))
       {
@@ -5817,20 +5343,20 @@ LABEL_39:
         }
 
         v12 = *__error();
-        fi_log(a1, 2, 0, "ofi_check_domain_attr", 678, "Authentication key must be NULL with FI_AV_AUTH_KEY\n", v79);
+        fi_log(a1, 2, 0, "ofi_check_domain_attr", 678, "Authentication key must be NULL with FI_AV_AUTH_KEY\n", v49);
         goto LABEL_39;
       }
     }
 
     else
     {
-      if (v74 && v74 != *(a3 + 160))
+      if (v46 && v46 != *(a3 + 160))
       {
         if (fi_log_enabled(a1, 2, 0))
         {
-          v77 = *__error();
+          v48 = *__error();
           fi_log(a1, 2, 0, "ofi_check_domain_attr", 685, "Supported: %zd\n", *(a3 + 160));
-          *__error() = v77;
+          *__error() = v48;
         }
 
         if (!fi_log_enabled(a1, 2, 0))
@@ -5839,7 +5365,6 @@ LABEL_39:
         }
 
         v12 = *__error();
-        v78 = *(v7 + 160);
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 685, "Requested: %zd\n");
         goto LABEL_39;
       }
@@ -5854,9 +5379,9 @@ LABEL_39:
     {
       if (fi_log_enabled(a1, 2, 0))
       {
-        v75 = *__error();
+        v47 = *__error();
         fi_log(a1, 2, 0, "ofi_check_domain_attr", 693, "Supported: %zd\n", *(a3 + 192));
-        *__error() = v75;
+        *__error() = v47;
       }
 
       if (!fi_log_enabled(a1, 2, 0))
@@ -5865,7 +5390,6 @@ LABEL_39:
       }
 
       v12 = *__error();
-      v76 = *(v7 + 192);
       fi_log(a1, 2, 0, "ofi_check_domain_attr", 693, "Requested: %zd\n");
       goto LABEL_39;
     }
@@ -5874,7 +5398,7 @@ LABEL_39:
   return 0;
 }
 
-uint64_t ofi_check_ep_type(uint64_t a1, unsigned int *a2, unsigned int *a3)
+uint64_t ofi_check_ep_type(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   if (!*a3)
   {
@@ -5906,17 +5430,17 @@ uint64_t ofi_check_ep_type(uint64_t a1, unsigned int *a2, unsigned int *a3)
   if (fi_log_enabled(a1, 2, 0))
   {
     v10 = *__error();
-    v17 = fi_tostr(a2, 1, v11, v12, v13, v14, v15, v16);
-    fi_log(a1, 2, 0, "ofi_check_ep_type", 708, "Supported: %s\n", v17);
+    v11 = fi_tostr(a2, 1);
+    fi_log(a1, 2, 0, "ofi_check_ep_type", 708, "Supported: %s\n", v11);
     *__error() = v10;
   }
 
   if (fi_log_enabled(a1, 2, 0))
   {
-    v18 = *__error();
-    v25 = fi_tostr(a3, 1, v19, v20, v21, v22, v23, v24);
-    fi_log(a1, 2, 0, "ofi_check_ep_type", 708, "Requested: %s\n", v25);
-    *__error() = v18;
+    v12 = *__error();
+    v13 = fi_tostr(a3, 1);
+    fi_log(a1, 2, 0, "ofi_check_ep_type", 708, "Requested: %s\n", v13);
+    *__error() = v12;
   }
 
   return 4294967200;
@@ -5950,17 +5474,17 @@ unint64_t ofi_check_ep_attr(uint64_t *a1, unsigned int a2, uint64_t a3, void *a4
     {
       if (fi_log_enabled(v9, 2, 0))
       {
-        v19 = *__error();
+        v18 = *__error();
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 735, "Unsupported protocol\n");
-        *__error() = v19;
+        *__error() = v18;
       }
 
       if (fi_log_enabled(v9, 2, 0))
       {
-        v20 = *__error();
-        v27 = fi_tostr((v7 + 4), 12, v21, v22, v23, v24, v25, v26);
-        fi_log(v9, 2, 0, "ofi_check_ep_attr", 736, "Supported: %s\n", v27);
-        *__error() = v20;
+        v19 = *__error();
+        v20 = fi_tostr((v7 + 4), 12);
+        fi_log(v9, 2, 0, "ofi_check_ep_attr", 736, "Supported: %s\n", v20);
+        *__error() = v19;
       }
 
       if (!fi_log_enabled(v9, 2, 0))
@@ -5969,7 +5493,7 @@ unint64_t ofi_check_ep_attr(uint64_t *a1, unsigned int a2, uint64_t a3, void *a4
       }
 
       v15 = *__error();
-      fi_tostr(v13, 12, v28, v29, v30, v31, v32, v33);
+      fi_tostr(v13, 12);
       fi_log(v9, 2, 0, "ofi_check_ep_attr", 736, "Requested: %s\n");
       goto LABEL_25;
     }
@@ -6011,16 +5535,15 @@ LABEL_25:
       }
 
       v15 = *__error();
-      v18 = *(v8 + 16);
       fi_log(v9, 2, 0, "ofi_check_ep_attr", 748, "Requested: %zd\n");
       goto LABEL_25;
     }
 
-    v34 = *(v8 + 64);
-    v35 = *(a3 + 96);
-    if (v34 <= v35[11])
+    v21 = *(v8 + 64);
+    v22 = *(a3 + 96);
+    if (v21 <= v22[11])
     {
-      if (!v34 && *(v7 + 64) == -1)
+      if (!v21 && *(v7 + 64) == -1)
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6035,7 +5558,7 @@ LABEL_25:
 
     else
     {
-      if (v34 != -1)
+      if (v21 != -1)
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6043,13 +5566,11 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v36 = *(*(a3 + 96) + 88);
-        v56 = *(v8 + 64);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 764, "Requested tx_ctx_cnt exceeds supported. Expected:%zd, Requested%zd\n");
         goto LABEL_25;
       }
 
-      if (!v35[13])
+      if (!v22[13])
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6062,10 +5583,10 @@ LABEL_25:
       }
     }
 
-    v37 = *(v8 + 72);
-    if (v37 <= v35[12])
+    v23 = *(v8 + 72);
+    if (v23 <= v22[12])
     {
-      if (!v37 && *(v7 + 72) == -1)
+      if (!v23 && *(v7 + 72) == -1)
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6080,7 +5601,7 @@ LABEL_25:
 
     else
     {
-      if (v37 != -1)
+      if (v23 != -1)
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6088,13 +5609,11 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v38 = *(*(a3 + 96) + 96);
-        v57 = *(v8 + 72);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 786, "Requested rx_ctx_cnt exceeds supported. Expected: %zd, Requested:%zd\n");
         goto LABEL_25;
       }
 
-      if (!v35[14])
+      if (!v22[14])
       {
         if (!fi_log_enabled(v9, 2, 0))
         {
@@ -6107,23 +5626,23 @@ LABEL_25:
       }
     }
 
-    v39 = a4[1];
-    if ((v39 & 0x14) != 0)
+    v24 = a4[1];
+    if ((v24 & 0x14) != 0)
     {
       if (*(v8 + 32) > *(v7 + 32))
       {
         if (fi_log_enabled(v9, 2, 0))
         {
-          v40 = *__error();
+          v25 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 800, "Max order RAW size exceeds supported size\n");
-          *__error() = v40;
+          *__error() = v25;
         }
 
         if (fi_log_enabled(v9, 2, 0))
         {
-          v41 = *__error();
+          v26 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 802, "Supported: %zd\n", *(v7 + 32));
-          *__error() = v41;
+          *__error() = v26;
         }
 
         if (!fi_log_enabled(v9, 2, 0))
@@ -6132,7 +5651,6 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v42 = *(v8 + 32);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 802, "Requested: %zd\n");
         goto LABEL_25;
       }
@@ -6141,16 +5659,16 @@ LABEL_25:
       {
         if (fi_log_enabled(v9, 2, 0))
         {
-          v43 = *__error();
+          v27 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 809, "Max order WAR size exceeds supported size\n");
-          *__error() = v43;
+          *__error() = v27;
         }
 
         if (fi_log_enabled(v9, 2, 0))
         {
-          v44 = *__error();
+          v28 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 811, "Supported: %zd\n", *(v7 + 40));
-          *__error() = v44;
+          *__error() = v28;
         }
 
         if (!fi_log_enabled(v9, 2, 0))
@@ -6159,7 +5677,6 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v45 = *(v8 + 40);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 811, "Requested: %zd\n");
         goto LABEL_25;
       }
@@ -6168,16 +5685,16 @@ LABEL_25:
       {
         if (fi_log_enabled(v9, 2, 0))
         {
-          v46 = *__error();
+          v29 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 818, "Max order WAW size exceeds supported size\n");
-          *__error() = v46;
+          *__error() = v29;
         }
 
         if (fi_log_enabled(v9, 2, 0))
         {
-          v47 = *__error();
+          v30 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 820, "Supported: %zd\n", *(v7 + 48));
-          *__error() = v47;
+          *__error() = v30;
         }
 
         if (!fi_log_enabled(v9, 2, 0))
@@ -6186,7 +5703,6 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v48 = *(v8 + 48);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 820, "Requested: %zd\n");
         goto LABEL_25;
       }
@@ -6221,14 +5737,14 @@ LABEL_25:
 
     else
     {
-      v49 = *(v8 + 80);
-      if (v49 && v49 != *(v7 + 80))
+      v31 = *(v8 + 80);
+      if (v31 && v31 != *(v7 + 80))
       {
         if (fi_log_enabled(v9, 2, 0))
         {
-          v50 = *__error();
+          v32 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 841, "Supported: %zd\n", *(v7 + 80));
-          *__error() = v50;
+          *__error() = v32;
         }
 
         if (!fi_log_enabled(v9, 2, 0))
@@ -6237,13 +5753,12 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v51 = *(v8 + 80);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 841, "Requested: %zd\n");
         goto LABEL_25;
       }
     }
 
-    if ((v39 & 8) == 0)
+    if ((v24 & 8) == 0)
     {
       return 0;
     }
@@ -6251,21 +5766,21 @@ LABEL_25:
     result = *(v8 + 56);
     if (result)
     {
-      v52 = ofi_max_tag(result);
-      if (v52 > ofi_max_tag(*(v7 + 56)))
+      v33 = ofi_max_tag(result);
+      if (v33 > ofi_max_tag(*(v7 + 56)))
       {
         if (fi_log_enabled(v9, 2, 0))
         {
-          v53 = *__error();
+          v34 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 849, "Tag size exceeds supported size\n");
-          *__error() = v53;
+          *__error() = v34;
         }
 
         if (fi_log_enabled(v9, 2, 0))
         {
-          v54 = *__error();
+          v35 = *__error();
           fi_log(v9, 2, 0, "ofi_check_ep_attr", 850, "Supported: %llu\n", *(v7 + 56));
-          *__error() = v54;
+          *__error() = v35;
         }
 
         if (!fi_log_enabled(v9, 2, 0))
@@ -6274,7 +5789,6 @@ LABEL_25:
         }
 
         v15 = *__error();
-        v55 = *(v8 + 56);
         fi_log(v9, 2, 0, "ofi_check_ep_attr", 850, "Requested: %llu\n");
         goto LABEL_25;
       }
@@ -6286,7 +5800,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t ofi_check_rx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t ofi_check_rx_attr(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v7 = *(a2 + 80);
   if ((*a3 & 0xFBFFFFFFFFDFF4DFLL) != 0 && fi_log_enabled(a1, 2, 0))
@@ -6308,8 +5822,8 @@ uint64_t ofi_check_rx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (fi_log_enabled(a1, 2, 0))
     {
       v10 = *__error();
-      v17 = fi_tostr(v7, 2, v11, v12, v13, v14, v15, v16);
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 868, "Supported: %s\n", v17);
+      v11 = fi_tostr(v7, 2);
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 868, "Supported: %s\n", v11);
       *__error() = v10;
     }
 
@@ -6318,36 +5832,36 @@ uint64_t ofi_check_rx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(a3, 2, v19, v20, v21, v22, v23, v24);
+    v12 = *__error();
+    fi_tostr(a3, 2);
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 868, "Requested: %s\n");
 LABEL_27:
-    *__error() = v18;
+    *__error() = v12;
     return 4294967200;
   }
 
-  v26 = (a3 + 8);
-  v25 = *(a3 + 8);
-  if (!v25)
+  v14 = a3 + 1;
+  v13 = a3[1];
+  if (!v13)
   {
-    v25 = a4;
+    v13 = a4;
   }
 
-  if ((*(v7 + 8) & ~v25) != 0)
+  if ((v7[1] & ~v13) != 0)
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v43 = *__error();
+      v19 = *__error();
       fi_log(a1, 2, 0, "ofi_check_rx_attr", 874, "needed mode not set\n");
-      *__error() = v43;
+      *__error() = v19;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v44 = *__error();
-      v51 = fi_tostr((v7 + 8), 14, v45, v46, v47, v48, v49, v50);
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 875, "Expected: %s\n", v51);
-      *__error() = v44;
+      v20 = *__error();
+      v21 = fi_tostr(v7 + 1, 14);
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 875, "Expected: %s\n", v21);
+      *__error() = v20;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6355,27 +5869,85 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(v26, 14, v52, v53, v54, v55, v56, v57);
+    v12 = *__error();
+    fi_tostr(v14, 14);
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 875, "Given: %s\n");
     goto LABEL_27;
   }
 
-  v27 = (a3 + 16);
-  if ((*(a3 + 16) & ~*(v7 + 16)) != 0)
+  v15 = a3 + 2;
+  if ((a3[2] & ~v7[2]) != 0)
+  {
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v16 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 880, "op_flags not supported\n");
+      *__error() = v16;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v17 = *__error();
+      v18 = fi_tostr(v7 + 2, 3);
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 882, "Supported: %s\n", v18);
+      *__error() = v17;
+    }
+
+    if (!fi_log_enabled(a1, 2, 0))
+    {
+      return 4294967200;
+    }
+
+    v12 = *__error();
+    fi_tostr(v15, 3);
+    fi_log(a1, 2, 0, "ofi_check_rx_attr", 882, "Requested: %s\n");
+    goto LABEL_27;
+  }
+
+  v23 = a3 + 3;
+  if ((a3[3] & ~v7[3]) != 0)
+  {
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v24 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 887, "msg_order not supported\n");
+      *__error() = v24;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v25 = *__error();
+      v26 = fi_tostr(v7 + 3, 13);
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 889, "Supported: %s\n", v26);
+      *__error() = v25;
+    }
+
+    if (!fi_log_enabled(a1, 2, 0))
+    {
+      return 4294967200;
+    }
+
+    v12 = *__error();
+    fi_tostr(v23, 13);
+    fi_log(a1, 2, 0, "ofi_check_rx_attr", 889, "Requested: %s\n");
+    goto LABEL_27;
+  }
+
+  v27 = a3 + 4;
+  if (a3[4])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
       v28 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 880, "op_flags not supported\n");
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 894, "comp_order not supported\n");
       *__error() = v28;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
       v29 = *__error();
-      v36 = fi_tostr((v7 + 16), 3, v30, v31, v32, v33, v34, v35);
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 882, "Supported: %s\n", v36);
+      v30 = fi_tostr(v7 + 4, 13);
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 896, "Supported: %s\n", v30);
       *__error() = v29;
     }
 
@@ -6384,84 +5956,26 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(v27, 3, v37, v38, v39, v40, v41, v42);
-    fi_log(a1, 2, 0, "ofi_check_rx_attr", 882, "Requested: %s\n");
-    goto LABEL_27;
-  }
-
-  v59 = (a3 + 24);
-  if ((*(a3 + 24) & ~*(v7 + 24)) != 0)
-  {
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v60 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 887, "msg_order not supported\n");
-      *__error() = v60;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v61 = *__error();
-      v68 = fi_tostr((v7 + 24), 13, v62, v63, v64, v65, v66, v67);
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 889, "Supported: %s\n", v68);
-      *__error() = v61;
-    }
-
-    if (!fi_log_enabled(a1, 2, 0))
-    {
-      return 4294967200;
-    }
-
-    v18 = *__error();
-    fi_tostr(v59, 13, v69, v70, v71, v72, v73, v74);
-    fi_log(a1, 2, 0, "ofi_check_rx_attr", 889, "Requested: %s\n");
-    goto LABEL_27;
-  }
-
-  v75 = (a3 + 32);
-  if (*(a3 + 32))
-  {
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v76 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 894, "comp_order not supported\n");
-      *__error() = v76;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v77 = *__error();
-      v84 = fi_tostr((v7 + 32), 13, v78, v79, v80, v81, v82, v83);
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 896, "Supported: %s\n", v84);
-      *__error() = v77;
-    }
-
-    if (!fi_log_enabled(a1, 2, 0))
-    {
-      return 4294967200;
-    }
-
-    v18 = *__error();
-    fi_tostr(v75, 13, v85, v86, v87, v88, v89, v90);
+    v12 = *__error();
+    fi_tostr(v27, 13);
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 896, "Requested: %s\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 40))
+  if (a3[5])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v91 = *__error();
+      v31 = *__error();
       fi_log(a1, 2, 0, "ofi_check_rx_attr", 901, "total_buffered_recv too large\n");
-      *__error() = v91;
+      *__error() = v31;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v92 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 903, "Supported: %zd\n", *(v7 + 40));
-      *__error() = v92;
+      v32 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 903, "Supported: %zd\n", v7[5]);
+      *__error() = v32;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6469,26 +5983,25 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v93 = *(a3 + 40);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 903, "Requested: %zd\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 48) > *(v7 + 48))
+  if (a3[6] > v7[6])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v94 = *__error();
+      v33 = *__error();
       fi_log(a1, 2, 0, "ofi_check_rx_attr", 908, "size is greater than supported\n");
-      *__error() = v94;
+      *__error() = v33;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v95 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 909, "Supported: %zd\n", *(v7 + 48));
-      *__error() = v95;
+      v34 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 909, "Supported: %zd\n", v7[6]);
+      *__error() = v34;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6496,26 +6009,25 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v96 = *(a3 + 48);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 909, "Requested: %zd\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 56) > *(v7 + 56))
+  if (a3[7] > v7[7])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v97 = *__error();
+      v35 = *__error();
       fi_log(a1, 2, 0, "ofi_check_rx_attr", 914, "iov_limit too large\n");
-      *__error() = v97;
+      *__error() = v35;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v98 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_rx_attr", 915, "Supported: %zd\n", *(v7 + 56));
-      *__error() = v98;
+      v36 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_rx_attr", 915, "Supported: %zd\n", v7[7]);
+      *__error() = v36;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6523,8 +6035,7 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v99 = *(a3 + 56);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_rx_attr", 915, "Requested: %zd\n");
     goto LABEL_27;
   }
@@ -6546,8 +6057,8 @@ uint64_t ofi_check_attr_subset(uint64_t a1, uint64_t a2, uint64_t a3)
     v4 |= 0x3300uLL;
   }
 
-  v25 = v4;
-  v26 = a3;
+  v13 = v4;
+  v14 = a3;
   if ((a3 & ~v4) == 0)
   {
     return 0;
@@ -6563,23 +6074,23 @@ uint64_t ofi_check_attr_subset(uint64_t a1, uint64_t a2, uint64_t a3)
   if (fi_log_enabled(a1, 2, 0))
   {
     v8 = *__error();
-    v15 = fi_tostr(&v25, 2, v9, v10, v11, v12, v13, v14);
-    fi_log(a1, 2, 0, "ofi_check_attr_subset", 941, "Supported: %s\n", v15);
+    v9 = fi_tostr(&v13, 2);
+    fi_log(a1, 2, 0, "ofi_check_attr_subset", 941, "Supported: %s\n", v9);
     *__error() = v8;
   }
 
   if (fi_log_enabled(a1, 2, 0))
   {
-    v16 = *__error();
-    v23 = fi_tostr(&v26, 2, v17, v18, v19, v20, v21, v22);
-    fi_log(a1, 2, 0, "ofi_check_attr_subset", 941, "Requested: %s\n", v23);
-    *__error() = v16;
+    v10 = *__error();
+    v11 = fi_tostr(&v14, 2);
+    fi_log(a1, 2, 0, "ofi_check_attr_subset", 941, "Requested: %s\n", v11);
+    *__error() = v10;
   }
 
   return 4294967200;
 }
 
-uint64_t ofi_check_tx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t ofi_check_tx_attr(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if ((*a3 & 0xF4FBFFFFFFFECBFFLL) != 0 && fi_log_enabled(a1, 2, 0))
   {
@@ -6600,8 +6111,8 @@ uint64_t ofi_check_tx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (fi_log_enabled(a1, 2, 0))
     {
       v10 = *__error();
-      v17 = fi_tostr(a2, 2, v11, v12, v13, v14, v15, v16);
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 957, "Supported: %s\n", v17);
+      v11 = fi_tostr(a2, 2);
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 957, "Supported: %s\n", v11);
       *__error() = v10;
     }
 
@@ -6610,36 +6121,36 @@ uint64_t ofi_check_tx_attr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(a3, 2, v19, v20, v21, v22, v23, v24);
+    v12 = *__error();
+    fi_tostr(a3, 2);
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 957, "Requested: %s\n");
 LABEL_27:
-    *__error() = v18;
+    *__error() = v12;
     return 4294967200;
   }
 
-  v26 = (a3 + 8);
-  v25 = *(a3 + 8);
-  if (!v25)
+  v14 = a3 + 1;
+  v13 = a3[1];
+  if (!v13)
   {
-    v25 = a4;
+    v13 = a4;
   }
 
-  if ((*(a2 + 8) & ~v25) != 0)
+  if ((a2[1] & ~v13) != 0)
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v43 = *__error();
+      v19 = *__error();
       fi_log(a1, 2, 0, "ofi_check_tx_attr", 963, "needed mode not set\n");
-      *__error() = v43;
+      *__error() = v19;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v44 = *__error();
-      v51 = fi_tostr((a2 + 8), 14, v45, v46, v47, v48, v49, v50);
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 964, "Expected: %s\n", v51);
-      *__error() = v44;
+      v20 = *__error();
+      v21 = fi_tostr(a2 + 1, 14);
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 964, "Expected: %s\n", v21);
+      *__error() = v20;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6647,27 +6158,85 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(v26, 14, v52, v53, v54, v55, v56, v57);
+    v12 = *__error();
+    fi_tostr(v14, 14);
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 964, "Given: %s\n");
     goto LABEL_27;
   }
 
-  v27 = (a3 + 16);
-  if ((*(a3 + 16) & ~*(a2 + 16)) != 0)
+  v15 = a3 + 2;
+  if ((a3[2] & ~a2[2]) != 0)
+  {
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v16 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 969, "op_flags not supported\n");
+      *__error() = v16;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v17 = *__error();
+      v18 = fi_tostr(a2 + 2, 3);
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 971, "Supported: %s\n", v18);
+      *__error() = v17;
+    }
+
+    if (!fi_log_enabled(a1, 2, 0))
+    {
+      return 4294967200;
+    }
+
+    v12 = *__error();
+    fi_tostr(v15, 3);
+    fi_log(a1, 2, 0, "ofi_check_tx_attr", 971, "Requested: %s\n");
+    goto LABEL_27;
+  }
+
+  v23 = a3 + 3;
+  if ((a3[3] & ~a2[3]) != 0)
+  {
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v24 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 976, "msg_order not supported\n");
+      *__error() = v24;
+    }
+
+    if (fi_log_enabled(a1, 2, 0))
+    {
+      v25 = *__error();
+      v26 = fi_tostr(a2 + 3, 13);
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 978, "Supported: %s\n", v26);
+      *__error() = v25;
+    }
+
+    if (!fi_log_enabled(a1, 2, 0))
+    {
+      return 4294967200;
+    }
+
+    v12 = *__error();
+    fi_tostr(v23, 13);
+    fi_log(a1, 2, 0, "ofi_check_tx_attr", 978, "Requested: %s\n");
+    goto LABEL_27;
+  }
+
+  v27 = a3 + 4;
+  if (a3[4])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
       v28 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 969, "op_flags not supported\n");
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 983, "comp_order not supported\n");
       *__error() = v28;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
       v29 = *__error();
-      v36 = fi_tostr((a2 + 16), 3, v30, v31, v32, v33, v34, v35);
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 971, "Supported: %s\n", v36);
+      v30 = fi_tostr(a2 + 4, 13);
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 985, "Supported: %s\n", v30);
       *__error() = v29;
     }
 
@@ -6676,84 +6245,26 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    fi_tostr(v27, 3, v37, v38, v39, v40, v41, v42);
-    fi_log(a1, 2, 0, "ofi_check_tx_attr", 971, "Requested: %s\n");
-    goto LABEL_27;
-  }
-
-  v59 = (a3 + 24);
-  if ((*(a3 + 24) & ~*(a2 + 24)) != 0)
-  {
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v60 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 976, "msg_order not supported\n");
-      *__error() = v60;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v61 = *__error();
-      v68 = fi_tostr((a2 + 24), 13, v62, v63, v64, v65, v66, v67);
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 978, "Supported: %s\n", v68);
-      *__error() = v61;
-    }
-
-    if (!fi_log_enabled(a1, 2, 0))
-    {
-      return 4294967200;
-    }
-
-    v18 = *__error();
-    fi_tostr(v59, 13, v69, v70, v71, v72, v73, v74);
-    fi_log(a1, 2, 0, "ofi_check_tx_attr", 978, "Requested: %s\n");
-    goto LABEL_27;
-  }
-
-  v75 = (a3 + 32);
-  if (*(a3 + 32))
-  {
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v76 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 983, "comp_order not supported\n");
-      *__error() = v76;
-    }
-
-    if (fi_log_enabled(a1, 2, 0))
-    {
-      v77 = *__error();
-      v84 = fi_tostr((a2 + 32), 13, v78, v79, v80, v81, v82, v83);
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 985, "Supported: %s\n", v84);
-      *__error() = v77;
-    }
-
-    if (!fi_log_enabled(a1, 2, 0))
-    {
-      return 4294967200;
-    }
-
-    v18 = *__error();
-    fi_tostr(v75, 13, v85, v86, v87, v88, v89, v90);
+    v12 = *__error();
+    fi_tostr(v27, 13);
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 985, "Requested: %s\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 40) > *(a2 + 40))
+  if (a3[5] > a2[5])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v91 = *__error();
+      v31 = *__error();
       fi_log(a1, 2, 0, "ofi_check_tx_attr", 990, "inject_size too large\n");
-      *__error() = v91;
+      *__error() = v31;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v92 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 991, "Supported: %zd\n", *(a2 + 40));
-      *__error() = v92;
+      v32 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 991, "Supported: %zd\n", a2[5]);
+      *__error() = v32;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6761,26 +6272,25 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v93 = *(a3 + 40);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 991, "Requested: %zd\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 48) > *(a2 + 48))
+  if (a3[6] > a2[6])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v94 = *__error();
+      v33 = *__error();
       fi_log(a1, 2, 0, "ofi_check_tx_attr", 996, "size is greater than supported\n");
-      *__error() = v94;
+      *__error() = v33;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v95 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 997, "Supported: %zd\n", *(a2 + 48));
-      *__error() = v95;
+      v34 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 997, "Supported: %zd\n", a2[6]);
+      *__error() = v34;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6788,26 +6298,25 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v96 = *(a3 + 48);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 997, "Requested: %zd\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 56) > *(a2 + 56))
+  if (a3[7] > a2[7])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v97 = *__error();
+      v35 = *__error();
       fi_log(a1, 2, 0, "ofi_check_tx_attr", 1002, "iov_limit too large\n");
-      *__error() = v97;
+      *__error() = v35;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v98 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 1003, "Supported: %zd\n", *(a2 + 56));
-      *__error() = v98;
+      v36 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 1003, "Supported: %zd\n", a2[7]);
+      *__error() = v36;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6815,26 +6324,25 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v99 = *(a3 + 56);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 1003, "Requested: %zd\n");
     goto LABEL_27;
   }
 
-  if (*(a3 + 64) > *(a2 + 64))
+  if (a3[8] > a2[8])
   {
     if (fi_log_enabled(a1, 2, 0))
     {
-      v100 = *__error();
+      v37 = *__error();
       fi_log(a1, 2, 0, "ofi_check_tx_attr", 1008, "rma_iov_limit too large\n");
-      *__error() = v100;
+      *__error() = v37;
     }
 
     if (fi_log_enabled(a1, 2, 0))
     {
-      v101 = *__error();
-      fi_log(a1, 2, 0, "ofi_check_tx_attr", 1009, "Supported: %zd\n", *(a2 + 64));
-      *__error() = v101;
+      v38 = *__error();
+      fi_log(a1, 2, 0, "ofi_check_tx_attr", 1009, "Supported: %zd\n", a2[8]);
+      *__error() = v38;
     }
 
     if (!fi_log_enabled(a1, 2, 0))
@@ -6842,8 +6350,7 @@ LABEL_27:
       return 4294967200;
     }
 
-    v18 = *__error();
-    v102 = *(a3 + 64);
+    v12 = *__error();
     fi_log(a1, 2, 0, "ofi_check_tx_attr", 1009, "Requested: %zd\n");
     goto LABEL_27;
   }
@@ -6851,7 +6358,7 @@ LABEL_27:
   return 0;
 }
 
-uint64_t ofi_prov_check_info(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t ofi_prov_check_info(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   if (a3)
@@ -6903,7 +6410,7 @@ uint64_t ofi_prov_check_info(uint64_t *a1, unsigned int a2, uint64_t a3)
   return v3;
 }
 
-uint64_t ofi_prov_check_dup_info(uint64_t *a1, uint64_t a2, uint64_t a3, void **a4)
+uint64_t ofi_prov_check_dup_info(uint64_t *a1, uint64_t a2, void *a3, void **a4)
 {
   if (!a4)
   {
@@ -7190,7 +6697,7 @@ LABEL_8:
   return a4;
 }
 
-uint64_t ofi_eq_write(uint64_t a1, int a2, const void *a3, size_t a4, uint64_t a5)
+size_t ofi_eq_write(uint64_t a1, int a2, const void *a3, size_t a4, uint64_t a5)
 {
   v6 = a4;
   v10 = malloc_type_calloc(1uLL, a4 + 24, 0x102004024DAA5DEuLL);
@@ -7285,7 +6792,7 @@ uint64_t ofi_eq_sread(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5
   return result;
 }
 
-const char *ofi_eq_strerror(uint64_t a1, int a2, uint64_t a3, char *a4, size_t a5)
+const char *ofi_eq_strerror(uint64_t a1, unsigned int a2, uint64_t a3, char *a4, size_t a5)
 {
   result = fi_strerror(a2);
   if (a4 && a5)
@@ -7581,33 +7088,33 @@ uint64_t util_eq_close(void *a1)
 
 void *ofi_mr_cache_notify(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   ++*(a1 + 400);
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = a2;
-  v10 = a3;
-  result = ofi_rbmap_search((a1 + 168), &v9, util_mr_find_overlap);
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = a2;
+  v9 = a3;
+  result = ofi_rbmap_search((a1 + 168), &v8, util_mr_find_overlap);
   if (result)
   {
     for (i = result[4]; i; i = result[4])
     {
       util_mr_uncache_entry(a1, i);
-      v17 = 0;
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
+      v16 = 0;
       v14 = 0u;
-      v11 = 0u;
+      v15 = 0u;
       v12 = 0u;
-      v9 = a2;
-      v10 = a3;
-      result = ofi_rbmap_search((a1 + 168), &v9, util_mr_find_overlap);
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
+      v8 = a2;
+      v9 = a3;
+      result = ofi_rbmap_search((a1 + 168), &v8, util_mr_find_overlap);
       if (!result)
       {
         break;
@@ -7615,7 +7122,6 @@ void *ofi_mr_cache_notify(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7677,7 +7183,7 @@ BOOL ofi_mr_cache_flush(void *a1, int a2)
       *(v10 + 8) = v11;
       *i = i;
       i[1] = i;
-      util_mr_uncache_entry_storage(a1, i - 17);
+      util_mr_uncache_entry_storage(a1, (i - 17));
       v12 = v21;
       v13 = *v21;
       *i = *v21;
@@ -7713,17 +7219,15 @@ BOOL ofi_mr_cache_flush(void *a1, int a2)
   return v14 != &v20;
 }
 
-uint64_t util_mr_uncache_entry_storage(void *a1, uint64_t *a2)
+uint64_t util_mr_uncache_entry_storage(void *a1, uint64_t a2)
 {
-  v4 = a1[*(a2 + 4) + 2];
-  ofi_rbmap_delete(a1 + 21, a2[15]);
-  a2[15] = 0;
-  v5 = *a2;
-  v6 = a2[1];
+  v4 = a1[*(a2 + 16) + 2];
+  ofi_rbmap_delete(a1 + 21, *(a2 + 120));
+  *(a2 + 120) = 0;
   result = ofi_monitor_unsubscribe(v4);
-  v8 = a1[42] - a2[1];
+  v6 = a1[42] - *(a2 + 8);
   --a1[41];
-  a1[42] = v8;
+  a1[42] = v6;
   return result;
 }
 
@@ -7776,14 +7280,14 @@ uint64_t ofi_mr_cache_search(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v3 = a1 + 16;
   v4 = (a2 + 16);
-  v51 = *(a1 + 16 + 8 * *(a2 + 16));
-  if (!v51)
+  v44 = *(a1 + 16 + 8 * *(a2 + 16));
+  if (!v44)
   {
     if (fi_log_enabled(&core_prov, 0, 8))
     {
       v34 = *__error();
-      v41 = fi_tostr(v4, 25, v35, v36, v37, v38, v39, v40);
-      fi_log(&core_prov, 0, 8, "ofi_mr_cache_search", 352, "MR cache disabled for %s memory\n", v41);
+      v35 = fi_tostr(v4, 25);
+      fi_log(&core_prov, 0, 8, "ofi_mr_cache_search", 352, "MR cache disabled for %s memory\n", v35);
       *__error() = v34;
     }
 
@@ -7791,7 +7295,7 @@ uint64_t ofi_mr_cache_search(uint64_t a1, uint64_t a2, uint64_t *a3)
   }
 
   v6 = a2;
-  v50 = (a1 + 328);
+  v43 = (a1 + 328);
   v8 = (a1 + 248);
   while (1)
   {
@@ -7856,39 +7360,39 @@ LABEL_36:
     v17 = *v6;
     v18 = *(v6 + 16);
     v19 = *(v6 + 48);
-    *(v16 + 32) = *(v6 + 32);
-    *(v16 + 48) = v19;
+    *(v16 + 2) = *(v6 + 32);
+    *(v16 + 3) = v19;
     *v16 = v17;
-    *(v16 + 16) = v18;
+    *(v16 + 1) = v18;
     v20 = *(v6 + 64);
     v21 = *(v6 + 80);
     v22 = *(v6 + 96);
-    *(v16 + 112) = *(v6 + 112);
-    *(v16 + 80) = v21;
-    *(v16 + 96) = v22;
-    *(v16 + 64) = v20;
+    v16[14] = *(v6 + 112);
+    *(v16 + 5) = v21;
+    *(v16 + 6) = v22;
+    *(v16 + 4) = v20;
     *(*a3 + 128) = 1;
     v23 = (*(a1 + 416))(a1);
     if (!v23)
     {
       v24 = *a3;
       v25 = **a3;
-      if (*v6 < v25 || *v6 + *(v6 + 8) > v25 + *(v24 + 8))
+      if (*v6 < v25 || *v6 + *(v6 + 8) > v25 + *(v24 + 1))
       {
         ofi_mr_cache_search_cold_1();
       }
 
       v26 = *v24;
-      v27 = *(v24 + 16);
-      v28 = *(v24 + 48);
-      *(v6 + 32) = *(v24 + 32);
+      v27 = v24[1];
+      v28 = v24[3];
+      *(v6 + 32) = v24[2];
       *(v6 + 48) = v28;
       *v6 = v26;
       *(v6 + 16) = v27;
-      v29 = *(v24 + 64);
-      v30 = *(v24 + 80);
-      v31 = *(v24 + 96);
-      *(v6 + 112) = *(v24 + 112);
+      v29 = v24[4];
+      v30 = v24[5];
+      v31 = v24[6];
+      *(v6 + 112) = *(v24 + 14);
       *(v6 + 80) = v30;
       *(v6 + 96) = v31;
       *(v6 + 64) = v29;
@@ -7915,13 +7419,12 @@ LABEL_33:
           goto LABEL_33;
         }
 
-        v42.i64[0] = vdupq_n_s64(1uLL).u64[0];
-        v43 = *v6;
-        v44 = *(v6 + 8);
-        v42.i64[1] = v44;
-        *v50 = vaddq_s64(*v50, v42);
-        v45 = *a3;
-        if (!ofi_monitor_subscribe(v14, v43, v44))
+        v36.i64[0] = vdupq_n_s64(1uLL).u64[0];
+        v37 = *v6;
+        v38 = *(v6 + 8);
+        v36.i64[1] = v38;
+        *v43 = vaddq_s64(*v43, v36);
+        if (!ofi_monitor_subscribe(v14, v37, v38))
         {
           goto LABEL_48;
         }
@@ -7978,7 +7481,7 @@ LABEL_17:
     }
   }
 
-  v12 = (*(v51 + 72))(v51, v6);
+  v12 = (*(v44 + 72))(v44, v6);
   v11 = *a3;
   if ((v12 & 1) == 0)
   {
@@ -7986,17 +7489,17 @@ LABEL_17:
   }
 
   ++*(a1 + 392);
-  v46 = *(v11 + 128);
-  *(v11 + 128) = v46 + 1;
-  if (!v46)
+  v39 = *(v11 + 128);
+  *(v11 + 128) = v39 + 1;
+  if (!v39)
   {
-    v48 = *(v11 + 136);
-    v49 = *(v11 + 144);
-    v47 = (v11 + 136);
-    *v49 = v48;
-    *(v48 + 8) = v49;
-    *v47 = v47;
-    v47[1] = v47;
+    v41 = *(v11 + 136);
+    v42 = *(v11 + 144);
+    v40 = (v11 + 136);
+    *v42 = v41;
+    *(v41 + 8) = v42;
+    *v40 = v40;
+    v40[1] = v40;
   }
 
 LABEL_48:
@@ -8006,7 +7509,7 @@ LABEL_48:
 
 uint64_t ofi_mr_cache_find(uint64_t a1, unint64_t **a2, uint64_t a3)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (a2[1] != 1)
   {
     ofi_mr_cache_find_cold_1();
@@ -8020,32 +7523,32 @@ uint64_t ofi_mr_cache_find(uint64_t a1, unint64_t **a2, uint64_t a3)
     pthread_mutex_lock(&mm_lock);
   }
 
-  v33 = 0;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v32 = 0;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
   ++*(a1 + 376);
-  *(&v28 + 1) = 0;
+  *(&v27 + 1) = 0;
   v6 = *a2;
   if ((a3 & 0x10000000000) != 0)
   {
     v7 = v6[1];
     v9 = v6 + 2;
     v8 = v6[2];
-    *&v26 = v7 + v9[1];
-    *(&v26 + 1) = v8;
+    *&v25 = v7 + v9[1];
+    *(&v25 + 1) = v8;
   }
 
   else
   {
-    v26 = *v6;
+    v25 = *v6;
   }
 
-  v10 = ofi_rbmap_find((a1 + 168), &v26);
+  v10 = ofi_rbmap_find((a1 + 168), &v25);
   if (!v10)
   {
 LABEL_17:
@@ -8061,7 +7564,7 @@ LABEL_17:
 
   v17 = **a2;
   v18 = *v16;
-  if (v17 < *v16 || v17 + (*a2)[1] > v18 + *(v16 + 8) || (v19 = *(a1 + 8 * *(v16 + 16) + 16), !(*(v19 + 72))(v19, v18, v16, v11, v12, v13, v14, v15, v26, *(&v26 + 1), v27, *(&v27 + 1), v28, *(&v28 + 1), v29, *(&v29 + 1))))
+  if (v17 < *v16 || v17 + (*a2)[1] > v18 + *(v16 + 8) || (v19 = *(a1 + 8 * *(v16 + 16) + 16), !(*(v19 + 72))(v19, v18, v16, v11, v12, v13, v14, v15, v25, *(&v25 + 1), v26, *(&v26 + 1), v27, *(&v27 + 1), v28, *(&v28 + 1))))
   {
     while (1)
     {
@@ -8095,7 +7598,6 @@ LABEL_17:
 
 LABEL_18:
   pthread_mutex_unlock(&mm_lock);
-  v24 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -8135,8 +7637,8 @@ uint64_t ofi_mr_cache_reg(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
   }
 
   v16 = *a3;
-  *(v16 + 128) = 1;
-  *(v16 + 120) = 0;
+  *(v16 + 32) = 1;
+  v16[15] = 0;
   v12 = (*(a1 + 416))(a1, *a3);
   if (v12)
   {
@@ -8276,7 +7778,7 @@ void ofi_mr_cache_cleanup(uint64_t a1)
 
     pthread_mutex_destroy((a1 + 264));
     ofi_monitors_del_cache(a1);
-    ofi_rbmap_cleanup(a1 + 168);
+    ofi_rbmap_cleanup((a1 + 168));
     if (*a1)
     {
       atomic_fetch_add((*a1 + 176), 0xFFFFFFFF);
@@ -8370,7 +7872,7 @@ uint64_t ofi_mr_cache_init(uint64_t a1, uint64_t a2, uint64_t a3)
     ofi_monitors_del_cache(a3);
   }
 
-  ofi_rbmap_cleanup(a3 + 168);
+  ofi_rbmap_cleanup((a3 + 168));
   if (a1)
   {
     atomic_fetch_add((*a3 + 176), 0xFFFFFFFF);
@@ -8743,7 +8245,7 @@ LABEL_7:
   return 4294967274;
 }
 
-uint64_t ofi_cq_readfrom(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t ofi_cq_readfrom(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   (*(a1 + 280))();
   v23 = a2;
@@ -9107,7 +8609,7 @@ uint64_t ofi_cq_signal(uint64_t a1)
   return 0;
 }
 
-uint64_t ofi_cq_cleanup(uint64_t a1)
+uint64_t ofi_cq_cleanup(uint64_t a1, uint64_t a2)
 {
   if (atomic_load((a1 + 48)))
   {
@@ -9119,25 +8621,25 @@ uint64_t ofi_cq_cleanup(uint64_t a1)
     util_peer_cq_cleanup(a1);
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(*(*(v4 + 40) + 24) + 24))();
+    (*(*(*(v5 + 40) + 24) + 24))();
     if (*(a1 + 272))
     {
       (*(*(*(a1 + 40) + 16) + 8))();
     }
   }
 
-  v5 = *(a1 + 296);
-  if (v5)
+  v6 = *(a1 + 296);
+  if (v6)
   {
-    free(v5);
+    free(v6);
     *(a1 + 296) = 0;
   }
 
-  ofi_genlock_destroy((a1 + 168));
-  ofi_genlock_destroy((a1 + 72));
+  ofi_genlock_destroy((a1 + 168), a2);
+  ofi_genlock_destroy((a1 + 72), v7);
   result = 0;
   atomic_fetch_add((*(a1 + 32) + 176), 0xFFFFFFFF);
   return result;
@@ -9288,95 +8790,95 @@ uint64_t ofi_cq_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
         goto LABEL_53;
       }
 
-      v18 = *(a3 + 8);
-      *(a4 + 264) = v18;
+      v19 = *(a3 + 8);
+      *(a4 + 264) = v19;
       *a4 = 14;
       *(a4 + 8) = a6;
-      if ((v18 & 0x80000000000) != 0)
+      if ((v19 & 0x80000000000) != 0)
       {
         *(a4 + 288) = *(a6 + 8);
         *(a4 + 24) = &util_peer_cq_ops;
         goto LABEL_34;
       }
 
-      v19 = malloc_type_calloc(1uLL, 0x20uLL, 0x10A0040DCAF80CAuLL);
-      *(a4 + 288) = v19;
-      if (v19)
+      v20 = malloc_type_calloc(1uLL, 0x20uLL, 0x10A0040DCAF80CAuLL);
+      *(a4 + 288) = v20;
+      if (v20)
       {
         *(a4 + 320) = 0;
         *(a4 + 328) = 0;
-        v20 = *(a3 + 16);
-        if (v20 >= 5)
+        v22 = *(a3 + 16);
+        if (v22 >= 5)
         {
           ofi_cq_init_cold_1();
         }
 
-        *(a4 + 336) = *(&off_2A2557D60 + v20);
-        v21 = *a3;
+        *(a4 + 336) = *(&off_2A2557D60 + v22);
+        v23 = *a3;
         if (!*a3)
         {
-          v21 = 1024;
+          v23 = 1024;
         }
 
-        v22 = 2 << ~__clz(v21 - 1);
-        if (v21 >= 2)
+        v24 = 2 << ~__clz(v23 - 1);
+        if (v23 >= 2)
         {
-          v23 = v22;
+          v25 = v24;
         }
 
         else
         {
-          v23 = v21;
+          v25 = v23;
         }
 
-        v24 = malloc_type_calloc(1uLL, 48 * v23 + 32, 0x1000040E0EAB150uLL);
-        if (v24)
+        v26 = malloc_type_calloc(1uLL, 48 * v25 + 32, 0x1000040E0EAB150uLL);
+        if (v26)
         {
-          v25 = v23 - 1;
-          if (v23 >= 2 && 2 << ~__clz(v25) != v23)
+          v27 = v25 - 1;
+          if (v25 >= 2 && 2 << ~__clz(v27) != v25)
           {
             ofi_cq_init_cold_2();
           }
 
-          *v24 = v23;
-          v24[1] = v25;
-          v24[2] = 0;
-          v24[3] = 0;
-          *(a4 + 304) = v24;
+          *v26 = v25;
+          v26[1] = v27;
+          v26[2] = 0;
+          v26[3] = 0;
+          *(a4 + 304) = v26;
           if ((*(*(a4 + 32) + 207) & 2) == 0)
           {
-            v26 = &util_peer_cq_owner_ops;
+            v28 = &util_peer_cq_owner_ops;
 LABEL_33:
-            v28 = *(a4 + 288);
-            *v28 = 24;
-            v28[1] = a4;
-            v28[2] = &util_peer_cq_fi_ops;
-            v28[3] = v26;
+            v30 = *(a4 + 288);
+            *v30 = 24;
+            v30[1] = a4;
+            v30[2] = &util_peer_cq_fi_ops;
+            v30[3] = v28;
 LABEL_34:
-            v29 = *(a3 + 20);
-            if (v29 <= 2)
+            v31 = *(a3 + 20);
+            if (v31 <= 2)
             {
-              if (!v29)
+              if (!v31)
               {
                 goto LABEL_48;
               }
 
-              if (v29 != 1)
+              if (v31 != 1)
               {
-                if (v29 != 2)
+                if (v31 != 2)
                 {
                   goto LABEL_57;
                 }
 
-                v30 = *(a3 + 32);
+                v32 = *(a3 + 32);
 LABEL_44:
-                if (v30)
+                if (v32)
                 {
-                  *(a4 + 40) = v30;
-                  v31 = (*(*(*(v30 + 40) + 24) + 16))();
-                  if (v31)
+                  *(a4 + 40) = v32;
+                  v33 = (*(*(*(v32 + 40) + 24) + 16))();
+                  if (v33)
                   {
-                    v13 = v31;
+                    v13 = v33;
                     if (*(a4 + 272))
                     {
                       (*(*(*(a4 + 40) + 16) + 8))();
@@ -9394,7 +8896,7 @@ LABEL_48:
               }
             }
 
-            else if ((v29 - 3) >= 4)
+            else if ((v31 - 3) >= 4)
             {
 LABEL_57:
               ofi_cq_init_cold_3();
@@ -9407,21 +8909,21 @@ LABEL_57:
 LABEL_42:
               util_peer_cq_cleanup(a4);
 LABEL_52:
-              ofi_genlock_destroy((a4 + 72));
+              ofi_genlock_destroy((a4 + 72), v21);
 LABEL_53:
-              ofi_genlock_destroy((a4 + 168));
+              ofi_genlock_destroy((a4 + 168), v18);
               return v13;
             }
 
-            v30 = 0;
+            v32 = 0;
             goto LABEL_44;
           }
 
-          v27 = malloc_type_calloc(v23, 8uLL, 0x100004000313F17uLL);
-          *(a4 + 312) = v27;
-          if (v27)
+          v29 = malloc_type_calloc(v25, 8uLL, 0x100004000313F17uLL);
+          *(a4 + 312) = v29;
+          if (v29)
           {
-            v26 = &util_peer_cq_src_owner_ops;
+            v28 = &util_peer_cq_src_owner_ops;
             goto LABEL_33;
           }
 
@@ -9444,15 +8946,15 @@ LABEL_53:
   return v11;
 }
 
-uint64_t util_cq_close(void *a1)
+uint64_t util_cq_close(void *a1, uint64_t a2)
 {
-  v2 = ofi_cq_cleanup(a1);
-  if (!v2)
+  v3 = ofi_cq_cleanup(a1, a2);
+  if (!v3)
   {
     free(a1);
   }
 
-  return v2;
+  return v3;
 }
 
 __n128 util_cq_read_msg(__n128 **a1, __n128 *a2)
@@ -9574,7 +9076,7 @@ uint64_t util_peer_cq_write(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   return v16;
 }
 
-uint64_t ofi_trywait(uint64_t a1, uint64_t **a2, int a3)
+uint64_t ofi_trywait(uint64_t a1, uint64_t **a2, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -9703,7 +9205,7 @@ uint64_t ofi_wait_init(uint64_t a1, _DWORD *a2, uint64_t a3)
 
 uint64_t ofi_wait_fdset_del(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   ++*(a1 + 272);
   if (*(a1 + 64) == 3)
   {
@@ -9711,33 +9213,28 @@ uint64_t ofi_wait_fdset_del(uint64_t a1, int a2)
     changelist.ident = a2;
     *&changelist.filter = 196607;
     memset(&changelist.fflags, 0, 20);
-    v8 = a2;
-    v9 = 196606;
-    v11 = 0;
+    v6 = a2;
+    v7 = 196606;
+    v9 = 0;
+    v8 = 0;
     v10 = 0;
-    v12 = 0;
     if (kevent(v2, &changelist, 2, 0, 0, 0) < 0 && *__error() != 2)
     {
-      result = -*__error();
+      return -*__error();
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
-
-    v4 = *MEMORY[0x29EDCA608];
   }
 
   else
   {
-    v5 = *(*(a1 + 264) + 224);
-    v6 = *MEMORY[0x29EDCA608];
+    v4 = *(*(a1 + 264) + 224);
 
-    return v5();
+    return v4();
   }
-
-  return result;
 }
 
 uint64_t ofi_wait_del_fd(uint64_t a1, int a2)
@@ -9782,27 +9279,29 @@ LABEL_10:
   return v7;
 }
 
-uint64_t ofi_wait_add_fd(uint64_t a1, int a2, char a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t ofi_wait_add_fd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v9 = a3;
+  v10 = a2;
   pthread_mutex_lock((a1 + 104));
-  v12 = a1 + 248;
+  v12 = (a1 + 248);
   while (1)
   {
     v12 = *v12;
-    if (v12 == a1 + 248)
+    if (v12 == (a1 + 248))
     {
       break;
     }
 
-    if (*(v12 + 16) == a2)
+    if (v12[4] == v10)
     {
       v13 = 0;
-      atomic_fetch_add((v12 + 40), 1u);
+      atomic_fetch_add(v12 + 10, 1u);
       goto LABEL_11;
     }
   }
 
-  v14 = ofi_wait_fdset_add(a1, a2, a3, a6);
+  v14 = ofi_wait_fdset_add(a1, v10, v9, a6);
   if (v14)
   {
     v13 = v14;
@@ -9820,7 +9319,7 @@ uint64_t ofi_wait_add_fd(uint64_t a1, int a2, char a3, uint64_t a4, uint64_t a5,
     if (v16)
     {
       v13 = 0;
-      v16[4] = a2;
+      v16[4] = v10;
       *(v16 + 3) = a4;
       *(v16 + 4) = a5;
       v16[10] = 1;
@@ -9834,7 +9333,7 @@ uint64_t ofi_wait_add_fd(uint64_t a1, int a2, char a3, uint64_t a4, uint64_t a5,
 
     else
     {
-      ofi_wait_fdset_del(a1, a2);
+      ofi_wait_fdset_del(a1, v10);
       v13 = 4294967284;
     }
   }
@@ -9846,7 +9345,7 @@ LABEL_11:
 
 uint64_t ofi_wait_fdset_add(uint64_t a1, int a2, char a3, void *a4)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   ++*(a1 + 272);
   if (*(a1 + 64) == 3)
   {
@@ -9860,16 +9359,7 @@ uint64_t ofi_wait_fdset_add(uint64_t a1, int a2, char a3, void *a4)
       v5 = 1;
       if ((a3 & 4) == 0)
       {
-LABEL_10:
-        v10 = kevent(v4, changelist, v5, 0, 0, 0);
-        result = 0;
-        if (v10 < 0)
-        {
-          result = -*__error();
-        }
-
-        v11 = *MEMORY[0x29EDCA608];
-        return result;
+        goto LABEL_10;
       }
     }
 
@@ -9878,21 +9368,525 @@ LABEL_10:
       v5 = 0;
       if ((a3 & 4) == 0)
       {
-        goto LABEL_10;
+LABEL_10:
+        v9 = kevent(v4, changelist, v5, 0, 0, 0);
+        result = 0;
+        if (v9 < 0)
+        {
+          return -*__error();
+        }
+
+        return result;
       }
     }
 
-    v9 = &changelist[v5];
-    v9->ident = a2;
-    *&v9->filter = 131070;
+    v8 = &changelist[v5];
+    v8->ident = a2;
+    *&v8->filter = 131070;
     ++v5;
-    v9->data = 0;
-    v9->udata = a4;
+    v8->data = 0;
+    v8->udata = a4;
     goto LABEL_10;
   }
 
   v6 = *(*(a1 + 264) + 216);
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6();
+}
+
+uint64_t ofi_wait_fd_open(uint64_t a1, _DWORD *a2, uint64_t *a3)
+{
+  v6 = *(a1 + 136);
+  v7 = ofi_check_wait_attr(v6, a2);
+  if (!v7)
+  {
+    if (*a2 > 6u || ((1 << *a2) & 0x4A) == 0)
+    {
+      if (fi_log_enabled(v6, 0, 1))
+      {
+        v12 = *__error();
+        fi_log(v6, 0, 1, "util_verify_wait_fd_attr", 516, "unsupported wait object\n");
+        *__error() = v12;
+      }
+
+      return 4294967274;
+    }
+
+    else
+    {
+      v9 = malloc_type_calloc(1uLL, 0x118uLL, 0x10E2040F22BC9A2uLL);
+      if (v9)
+      {
+        v10 = v9;
+        v7 = ofi_wait_init(a1, a2, v9);
+        if (v7)
+        {
+LABEL_25:
+          free(v10);
+          return v7;
+        }
+
+        *(v10 + 72) = util_wait_fd_signal;
+        *(v10 + 80) = util_wait_fd_try;
+        if (socketpair(1, 1, 0, (v10 + 232)) < 0)
+        {
+          v13 = *__error();
+          if (v13)
+          {
+            v7 = -v13;
+            goto LABEL_24;
+          }
+        }
+
+        else
+        {
+          *(v10 + 240) = 0;
+          v7 = pthread_mutex_init((v10 + 168), 0);
+          if (v7)
+          {
+LABEL_12:
+            close(*(v10 + 232));
+            close(*(v10 + 236));
+LABEL_24:
+            fi_wait_cleanup(v10);
+            goto LABEL_25;
+          }
+
+          v11 = fi_fd_nonblock(*(v10 + 232));
+          if (v11)
+          {
+            v7 = v11;
+            pthread_mutex_destroy((v10 + 168));
+            goto LABEL_12;
+          }
+        }
+
+        v14 = (v10 + 264);
+        v15 = (v10 + 264);
+        if (*(v10 + 64) == 3)
+        {
+          v16 = ofi_epoll_create(v15);
+        }
+
+        else
+        {
+          v16 = ofi_pollfds_create(v15);
+        }
+
+        v7 = v16;
+        if (!v16)
+        {
+          v7 = ofi_wait_fdset_add(v10, *(v10 + 232), 1, v10);
+          if (!v7)
+          {
+            *(v10 + 16) = &util_wait_fd_fi_ops;
+            *(v10 + 24) = &util_wait_fd_ops;
+            *(v10 + 248) = v10 + 248;
+            *(v10 + 256) = v10 + 248;
+            *a3 = v10;
+            return v7;
+          }
+
+          if (*(v10 + 64) == 3)
+          {
+            close(*v14);
+          }
+
+          else
+          {
+            ofi_pollfds_close(*v14, v18);
+          }
+        }
+
+        close(*(v10 + 232));
+        close(*(v10 + 236));
+        pthread_mutex_destroy((v10 + 168));
+        goto LABEL_24;
+      }
+
+      return 4294967284;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t util_wait_fd_signal(uint64_t a1)
+{
+  v3 = 0;
+  pthread_mutex_lock((a1 + 168));
+  if (!*(a1 + 240))
+  {
+    if (send(*(a1 + 236), &v3, 1uLL, 0) != 1)
+    {
+      sock_conn_stop_listener_thread_cold_1();
+    }
+
+    ++*(a1 + 240);
+  }
+
+  return pthread_mutex_unlock((a1 + 168));
+}
+
+uint64_t util_wait_fd_try(uint64_t a1)
+{
+  LOBYTE(v28) = 0;
+  pthread_mutex_lock((a1 + 168));
+  while (*(a1 + 240))
+  {
+    while (recv(*(a1 + 232), &v28, 1uLL, 0) == 1)
+    {
+      v2 = *(a1 + 240) - 1;
+      *(a1 + 240) = v2;
+      if (!v2)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    if (*__error() != 35 && *__error() != 35)
+    {
+      sock_conn_listener_thread_cold_1();
+    }
+
+    if (fi_poll_fd(*(a1 + 232), 10000) < 1)
+    {
+      sock_conn_listener_thread_cold_2();
+    }
+  }
+
+LABEL_9:
+  pthread_mutex_unlock((a1 + 168));
+  pthread_mutex_lock((a1 + 104));
+  v3 = (a1 + 248);
+  while (1)
+  {
+    v3 = *v3;
+    if (v3 == (a1 + 248))
+    {
+      break;
+    }
+
+    v4 = (v3[3])(v3[4]);
+    if (v4)
+    {
+LABEL_21:
+      v7 = v4;
+      goto LABEL_22;
+    }
+  }
+
+  v5 = (a1 + 88);
+  while (1)
+  {
+    v5 = *v5;
+    if (v5 == (a1 + 88))
+    {
+      pthread_mutex_unlock((a1 + 104));
+      v8 = (*(*(*(a1 + 40) + 24) + 8))();
+      if (v8 == -35)
+      {
+        v9 = 0;
+      }
+
+      else
+      {
+        v9 = v8;
+      }
+
+      if (v8 <= 0)
+      {
+        return v9;
+      }
+
+      else
+      {
+        return 4294967261;
+      }
+    }
+
+    if (*(v5 + 8) == 6)
+    {
+      count = 0;
+      v30 = 0;
+      v28 = 0;
+      v6 = (*(*(v5[3] + 16) + 24))();
+      if (v6 != 257)
+      {
+        v7 = v6;
+        if (v6)
+        {
+          goto LABEL_22;
+        }
+
+        goto LABEL_20;
+      }
+
+      if (v28 != v5[6])
+      {
+        break;
+      }
+    }
+
+LABEL_20:
+    v4 = (v5[2])(v5[3]);
+    if (v4)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  v11 = v5[7];
+  if (v11)
+  {
+    v12 = 0;
+    v13 = v5[8];
+    do
+    {
+      v14 = ofi_wait_fdset_del(a1, *v13);
+      if (v14)
+      {
+        v15 = v14;
+        if (fi_log_enabled(*(a1 + 56), 0, 3))
+        {
+          v16 = *__error();
+          v17 = *(a1 + 56);
+          v18 = fi_strerror(v15);
+          fi_log(v17, 0, 3, "util_wait_update_pollfd", 300, "epoll_del failed %s\n", v18);
+          *__error() = v16;
+        }
+      }
+
+      ++v12;
+      v11 = v5[7];
+    }
+
+    while (v12 < v11);
+  }
+
+  if (v11 < count)
+  {
+    v19 = malloc_type_calloc(count, 8uLL, 0x100004000313F17uLL);
+    if (v19)
+    {
+      v20 = v19;
+      free(v5[8]);
+      v5[7] = count;
+      v5[8] = v20;
+      goto LABEL_39;
+    }
+
+    v7 = 4294967284;
+    goto LABEL_22;
+  }
+
+LABEL_39:
+  v21 = (*(*(v5[3] + 16) + 24))();
+  if (v21)
+  {
+    v7 = v21;
+    if (!fi_log_enabled(*(a1 + 56), 0, 3))
+    {
+      goto LABEL_22;
+    }
+
+    v22 = *__error();
+    v23 = *(a1 + 56);
+    fi_strerror(v7);
+    fi_log(v23, 0, 3, "util_wait_update_pollfd", 317, "unable to get wait pollfd %s\n");
+    goto LABEL_42;
+  }
+
+  if (!v5[7])
+  {
+LABEL_47:
+    v7 = 4294967261;
+    goto LABEL_22;
+  }
+
+  v24 = 0;
+  v25 = (v5[8] + 4);
+  while (1)
+  {
+    v26 = ofi_wait_fdset_add(a1, *(v25 - 1), *v25, *(v5[3] + 8));
+    if (v26)
+    {
+      break;
+    }
+
+    v25 += 4;
+    if (++v24 >= v5[7])
+    {
+      goto LABEL_47;
+    }
+  }
+
+  v7 = v26;
+  if (fi_log_enabled(*(a1 + 56), 0, 3))
+  {
+    v22 = *__error();
+    v27 = *(a1 + 56);
+    fi_strerror(v7);
+    fi_log(v27, 0, 3, "util_wait_update_pollfd", 327, "unable to add fd %s\n");
+LABEL_42:
+    *__error() = v22;
+  }
+
+LABEL_22:
+  pthread_mutex_unlock((a1 + 104));
+  return v7;
+}
+
+uint64_t ofi_epoll_create(int *a1)
+{
+  v2 = kqueue();
+  *a1 = v2;
+  if (v2 < 0)
+  {
+    return -*__error();
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t ofi_wait_yield_open(uint64_t a1, _DWORD *a2, void *a3)
+{
+  v6 = *(a1 + 136);
+  v7 = ofi_check_wait_attr(v6, a2);
+  if (!v7)
+  {
+    if ((*a2 | 4) == 5)
+    {
+      *a2 = 5;
+      v9 = malloc_type_calloc(1uLL, 0xF0uLL, 0x10E0040B47D32F7uLL);
+      if (v9)
+      {
+        v10 = v9;
+        v7 = ofi_wait_init(a1, a2, v9);
+        if (v7)
+        {
+          free(v10);
+        }
+
+        else
+        {
+          *(v10 + 9) = util_wait_yield_signal;
+          *(v10 + 42) = 0;
+          *(v10 + 2) = &util_wait_yield_fi_ops;
+          *(v10 + 3) = &util_wait_yield_ops;
+          pthread_mutex_init((v10 + 176), 0);
+          *a3 = v10;
+        }
+      }
+
+      else
+      {
+        return 4294967284;
+      }
+    }
+
+    else
+    {
+      if (fi_log_enabled(v6, 0, 1))
+      {
+        v11 = *__error();
+        fi_log(v6, 0, 1, "util_verify_wait_yield_attr", 678, "unsupported wait object\n");
+        *__error() = v11;
+      }
+
+      return 4294967274;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t util_wait_yield_signal(uint64_t a1)
+{
+  pthread_mutex_lock((a1 + 176));
+  *(a1 + 168) = 1;
+
+  return pthread_mutex_unlock((a1 + 176));
+}
+
+uint64_t ofi_wait_del_fid(uint64_t a1, const void *a2)
+{
+  pthread_mutex_lock((a1 + 104));
+  v4 = (a1 + 88);
+  while (1)
+  {
+    v4 = *v4;
+    if (v4 == (a1 + 88))
+    {
+      break;
+    }
+
+    if (*(v4 + 3) == a2)
+    {
+      if (atomic_fetch_add(v4 + 10, 0xFFFFFFFF) == 1)
+      {
+        v5 = *(v4 + 8);
+        if (*(v4 + 7))
+        {
+          if (!v5)
+          {
+            ofi_wait_del_fid_cold_1();
+          }
+
+          v6 = 0;
+          do
+          {
+            v7 = ofi_wait_fdset_del(a1, *v5);
+            if (v7 && fi_log_enabled(*(a1 + 56), 0, 3))
+            {
+              v8 = *__error();
+              v9 = *(a1 + 56);
+              v10 = fi_strerror(v7);
+              fi_log(v9, 0, 3, "ofi_wait_del_fid", 760, "epoll_del failed %s\n", v10);
+              *__error() = v8;
+            }
+
+            ++v6;
+          }
+
+          while (v6 < *(v4 + 7));
+          v5 = *(v4 + 8);
+        }
+
+        else
+        {
+          v7 = 0;
+        }
+
+        v12 = *v4;
+        v13 = *(v4 + 1);
+        *v13 = *v4;
+        *(v12 + 1) = v13;
+        free(v5);
+        free(v4);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  if (fi_log_enabled(*(a1 + 56), 2, 3))
+  {
+    v11 = *__error();
+    fi_log(*(a1 + 56), 2, 3, "ofi_wait_del_fid", 744, "Given fid (%p) not found in wait list - %p\n", a2, a1);
+    *__error() = v11;
+  }
+
+  v7 = 4294967274;
+LABEL_19:
+  pthread_mutex_unlock((a1 + 104));
+  return v7;
 }

@@ -19,7 +19,7 @@
     v10 = v5;
     v8.receiver = self;
     v8.super_class = &off_1F39FEB60;
-    return objc_msgSendSuper2(&v8, sel_downcastWithAVTViewHandler_recordViewHandler_);
+    return objc_msgSendSuper2(&v8, sel_downcastWithAVTViewHandler_recordViewHandler_, a3);
   }
 }
 

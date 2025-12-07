@@ -11,7 +11,7 @@
   v12 = a5;
   v13 = a6;
   selfCopy = self;
-  v15 = sub_2705868A0();
+  v15 = sub_2705868A0(lookupCopy, v11, v12, v13);
 
   return v15;
 }

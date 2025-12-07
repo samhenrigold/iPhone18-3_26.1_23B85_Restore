@@ -8,7 +8,7 @@
 
 - (id)createFactory
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   admLibrary = [(DSP_ADM *)self admLibrary];
   v4 = admLibrary;
   v5 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
@@ -39,11 +39,11 @@
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315394;
-      v21 = "DSP_ADM.mm";
-      v22 = 1024;
-      v23 = 52;
-      _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d [hal_dsp] Calling dlsym() on ADM.", &v20, 0x12u);
+      v19 = 136315394;
+      v20 = "DSP_ADM.mm";
+      v21 = 1024;
+      v22 = 52;
+      _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d [hal_dsp] Calling dlsym() on ADM.", &v19, 0x12u);
     }
 
     v10 = dlsym([(DSP_ADM *)self admLibrary], "CreateAudioDSPManager");
@@ -81,13 +81,13 @@
 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315650;
-      v21 = "DSP_ADM.mm";
-      v22 = 1024;
-      v23 = 58;
-      v24 = 2080;
-      v25 = v13;
-      _os_log_error_impl(&dword_1DE1F9000, v17, OS_LOG_TYPE_ERROR, "%32s:%-5d [hal_dsp] ADM dlsym failed: %s", &v20, 0x1Cu);
+      v19 = 136315650;
+      v20 = "DSP_ADM.mm";
+      v21 = 1024;
+      v22 = 58;
+      v23 = 2080;
+      v24 = v13;
+      _os_log_error_impl(&dword_1DE1F9000, v17, OS_LOG_TYPE_ERROR, "%32s:%-5d [hal_dsp] ADM dlsym failed: %s", &v19, 0x1Cu);
     }
   }
 
@@ -111,24 +111,23 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "DSP_ADM.mm";
-      v22 = 1024;
-      v23 = 48;
-      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d [hal_dsp] ADM library unavailable.  Cannot call createFactory.", &v20, 0x12u);
+      v19 = 136315394;
+      v20 = "DSP_ADM.mm";
+      v21 = 1024;
+      v22 = 48;
+      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d [hal_dsp] ADM library unavailable.  Cannot call createFactory.", &v19, 0x12u);
     }
   }
 
   v11 = 0;
 LABEL_26:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_admLibrary)
   {
     v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
@@ -158,9 +157,9 @@ LABEL_26:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v10 = "DSP_ADM.mm";
-      v11 = 1024;
-      v12 = 38;
+      v9 = "DSP_ADM.mm";
+      v10 = 1024;
+      v11 = 38;
       _os_log_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_INFO, "%32s:%-5d [hal_dsp] Calling dlclose() on ADM.", buf, 0x12u);
     }
 
@@ -168,18 +167,17 @@ LABEL_26:
     self->_admLibrary = 0;
   }
 
-  v8.receiver = self;
-  v8.super_class = DSP_ADM;
-  [(DSP_ADM *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = DSP_ADM;
+  [(DSP_ADM *)&v7 dealloc];
 }
 
 - (DSP_ADM)init
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = DSP_ADM;
-  v2 = [(DSP_ADM *)&v17 init];
+  v23 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = DSP_ADM;
+  v2 = [(DSP_ADM *)&v16 init];
   v3 = v2;
   if (v2)
   {
@@ -210,9 +208,9 @@ LABEL_26:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v19 = "DSP_ADM.mm";
-      v20 = 1024;
-      v21 = 22;
+      v18 = "DSP_ADM.mm";
+      v19 = 1024;
+      v20 = 22;
       _os_log_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_INFO, "%32s:%-5d [hal_dsp] Calling dlopen() on ADM.", buf, 0x12u);
     }
 
@@ -249,17 +247,16 @@ LABEL_26:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v19 = "DSP_ADM.mm";
-        v20 = 1024;
-        v21 = 28;
-        v22 = 2080;
-        v23 = v10;
+        v18 = "DSP_ADM.mm";
+        v19 = 1024;
+        v20 = 28;
+        v21 = 2080;
+        v22 = v10;
         _os_log_error_impl(&dword_1DE1F9000, v14, OS_LOG_TYPE_ERROR, "%32s:%-5d [hal_dsp] ADM dlopen() failed: %s", buf, 0x1Cu);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

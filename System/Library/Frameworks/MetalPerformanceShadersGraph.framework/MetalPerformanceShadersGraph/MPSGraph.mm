@@ -11490,7 +11490,7 @@ LABEL_22:
   Autodiff::recurseForUses(&v39, WeakRetained, v15);
   v46 = WeakRetained;
   v47[0] = &v46;
-  v20 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v43, &v46);
+  v20 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v43, &v46, &std::piecewise_construct, v47);
   for (i = 0; i < [(NSArray *)v40 count]; ++i)
   {
     v22 = [(NSArray *)v40 objectAtIndexedSubscript:i];
@@ -11506,7 +11506,7 @@ LABEL_22:
     }
   }
 
-  v47[0] = v39;
+  v47[0] = &v39->super.super.isa;
   v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
   v25 = Autodiff::getFilledLike(&v39, v39, 1.0, &cfstr_Initialgrad.isa);
   v46 = v25;

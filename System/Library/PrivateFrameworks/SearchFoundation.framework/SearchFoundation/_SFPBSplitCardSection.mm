@@ -17,7 +17,7 @@
 
 - (_SFPBSplitCardSection)initWithFacade:(id)facade
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBSplitCardSection *)self init];
   if (v5)
@@ -61,32 +61,32 @@
       v17 = 0;
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     listItems2 = [facadeCopy listItems];
-    v19 = [listItems2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v19 = [listItems2 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(listItems2);
           }
 
-          if (*(*(&v36 + 1) + 8 * i))
+          if (*(*(&v35 + 1) + 8 * i))
           {
             [v17 addObject:?];
           }
         }
 
-        v20 = [listItems2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v20 = [listItems2 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v20);
@@ -124,17 +124,16 @@
     v33 = v5;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBSplitCardSection)initWithDictionary:(id)dictionary
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v35.receiver = self;
-  v35.super_class = _SFPBSplitCardSection;
-  v5 = [(_SFPBSplitCardSection *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = _SFPBSplitCardSection;
+  v5 = [(_SFPBSplitCardSection *)&v34 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"topTitle"];
@@ -165,29 +164,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v29 = v8;
-      v30 = v6;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v28 = v8;
+      v29 = v6;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v32;
+        v16 = *v31;
         do
         {
           v17 = 0;
           do
           {
-            if (*v32 != v16)
+            if (*v31 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v31 + 1) + 8 * v17);
+            v18 = *(*(&v30 + 1) + 8 * v17);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -199,17 +198,17 @@
           }
 
           while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
         }
 
         while (v15);
       }
 
-      v8 = v29;
-      v6 = v30;
+      v8 = v28;
+      v6 = v29;
     }
 
-    v20 = [dictionaryCopy objectForKeyedSubscript:{@"listMoreString", v29, v30, v31}];
+    v20 = [dictionaryCopy objectForKeyedSubscript:{@"listMoreString", v28, v29, v30}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -236,7 +235,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -572,7 +570,7 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
   topTitle = [(_SFPBSplitCardSection *)self topTitle];
   if (topTitle)
@@ -593,32 +591,31 @@ LABEL_38:
   }
 
   listItems = [(_SFPBSplitCardSection *)self listItems];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v9 = [listItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [listItems countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(listItems);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * v12);
         PBDataWriterWriteStringField();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [listItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [listItems countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -641,15 +638,11 @@ LABEL_38:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setListMoreString:(id)string
 {
-  v4 = [string copy];
-  listMoreString = self->_listMoreString;
-  self->_listMoreString = v4;
+  self->_listMoreString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -674,18 +667,14 @@ LABEL_38:
 
 - (void)setListItems:(id)items
 {
-  v4 = [items copy];
-  listItems = self->_listItems;
-  self->_listItems = v4;
+  self->_listItems = [items copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setListPrefix:(id)prefix
 {
-  v4 = [prefix copy];
-  listPrefix = self->_listPrefix;
-  self->_listPrefix = v4;
+  self->_listPrefix = [prefix copy];
 
   MEMORY[0x1EEE66BB8]();
 }

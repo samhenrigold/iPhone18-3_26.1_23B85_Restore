@@ -1,13 +1,13 @@
-id CarPlayFrameworkACCNavLogging()
+id CarPlayFrameworkACCNavLogging(uint64_t a1)
 {
   if (CarPlayFrameworkACCNavLogging_onceToken != -1)
   {
     CarPlayFrameworkACCNavLogging_cold_1();
   }
 
-  v1 = CarPlayFrameworkACCNavLogging_facility;
+  v2 = CarPlayFrameworkACCNavLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromCPGuidanceState(uint64_t a1)
@@ -278,17 +278,20 @@ __CFString *NSStringFromCPStopType(uint64_t a1)
   return v5;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t __CarPlayFrameworkACCNavLogging_block_invoke()
 {
-  CarPlayFrameworkACCNavLogging_facility = os_log_create("com.apple.carplayframework", "ACCNav");
+  v0 = os_log_create("com.apple.carplayframework", "ACCNav");
+  v1 = CarPlayFrameworkACCNavLogging_facility;
+  CarPlayFrameworkACCNavLogging_facility = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id CPLocalizedStringForKey(void *a1)
@@ -360,9 +363,9 @@ id CPSanitizeImage(void *a1, objc_class *a2)
   return v6;
 }
 
-void sub_236ED8A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_236ED8A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -381,10 +384,11 @@ void sub_236ED909C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_6(uint64_t result, float a2)
@@ -400,9 +404,9 @@ void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, os_log_type_t a3, const char *a
   _os_log_debug_impl(a1, a2, a3, a4, v4, 0xCu);
 }
 
-void sub_236EE2E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EE2E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -414,16 +418,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_236EE3044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EE3044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_236EE31E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EE31E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -443,9 +447,9 @@ void sub_236EE5E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236EE73E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EE73E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -513,101 +517,115 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (CPCurrentProcessHasQuickOrderingEntitlement())
+  HasQuickOrderingEntitlement = CPCurrentProcessHasQuickOrderingEntitlement();
+  if (HasQuickOrderingEntitlement)
   {
-    v1 = CPQuickOrderingTemplateClasses();
-  }
-
-  else if (CPCurrentProcessHasPublicSafetyEntitlement())
-  {
-    v1 = CPPublicSafetyTemplateClasses();
-  }
-
-  else if (CPCurrentProcessHasFuelingEntitlement())
-  {
-    v1 = CPFuelingTemplateClasses();
-  }
-
-  else if (CPCurrentProcessHasDrivingTaskEntitlement())
-  {
-    v1 = CPDrivingTaskTemplateClasses();
+    v1 = CPQuickOrderingTemplateClasses(HasQuickOrderingEntitlement);
   }
 
   else
   {
-    result = CPCurrentProcessHasVideoEntitlement();
-    if (!result)
+    HasPublicSafetyEntitlement = CPCurrentProcessHasPublicSafetyEntitlement();
+    if (HasPublicSafetyEntitlement)
     {
-      return result;
+      v1 = CPPublicSafetyTemplateClasses(HasPublicSafetyEntitlement);
     }
 
-    v1 = CPVideoTemplateClasses();
+    else
+    {
+      HasFuelingEntitlement = CPCurrentProcessHasFuelingEntitlement();
+      if (HasFuelingEntitlement)
+      {
+        v1 = CPFuelingTemplateClasses(HasFuelingEntitlement);
+      }
+
+      else
+      {
+        HasDrivingTaskEntitlement = CPCurrentProcessHasDrivingTaskEntitlement();
+        if (HasDrivingTaskEntitlement)
+        {
+          v1 = CPDrivingTaskTemplateClasses(HasDrivingTaskEntitlement);
+        }
+
+        else
+        {
+          result = CPCurrentProcessHasVideoEntitlement();
+          if (!result)
+          {
+            return result;
+          }
+
+          v1 = CPVideoTemplateClasses(result);
+        }
+      }
+    }
   }
 
 LABEL_19:
+  v2 = CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses;
   CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
-id CPQuickOrderingTemplateClasses()
+id CPQuickOrderingTemplateClasses(uint64_t a1)
 {
   if (CPQuickOrderingTemplateClasses_onceToken != -1)
   {
     CPQuickOrderingTemplateClasses_cold_1();
   }
 
-  v1 = CPQuickOrderingTemplateClasses_classes;
+  v2 = CPQuickOrderingTemplateClasses_classes;
 
-  return v1;
+  return v2;
 }
 
-id CPPublicSafetyTemplateClasses()
+id CPPublicSafetyTemplateClasses(uint64_t a1)
 {
   if (CPPublicSafetyTemplateClasses_onceToken != -1)
   {
     CPPublicSafetyTemplateClasses_cold_1();
   }
 
-  v1 = CPPublicSafetyTemplateClasses_classes;
+  v2 = CPPublicSafetyTemplateClasses_classes;
 
-  return v1;
+  return v2;
 }
 
-id CPFuelingTemplateClasses()
+id CPFuelingTemplateClasses(uint64_t a1)
 {
   if (CPFuelingTemplateClasses_onceToken != -1)
   {
     CPFuelingTemplateClasses_cold_1();
   }
 
-  v1 = CPFuelingTemplateClasses_classes;
+  v2 = CPFuelingTemplateClasses_classes;
 
-  return v1;
+  return v2;
 }
 
-id CPDrivingTaskTemplateClasses()
+id CPDrivingTaskTemplateClasses(uint64_t a1)
 {
   if (CPDrivingTaskTemplateClasses_onceToken != -1)
   {
     CPDrivingTaskTemplateClasses_cold_1();
   }
 
-  v1 = CPDrivingTaskTemplateClasses_classes;
+  v2 = CPDrivingTaskTemplateClasses_classes;
 
-  return v1;
+  return v2;
 }
 
-id CPVideoTemplateClasses()
+id CPVideoTemplateClasses(uint64_t a1)
 {
   if (CPVideoTemplateClasses_onceToken != -1)
   {
     CPVideoTemplateClasses_cold_1();
   }
 
-  v1 = CPVideoTemplateClasses_classes;
+  v2 = CPVideoTemplateClasses_classes;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CPNavigationTemplateClasses_block_invoke()
@@ -622,9 +640,11 @@ uint64_t __CPNavigationTemplateClasses_block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  CPNavigationTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v11 = CPNavigationTemplateClasses_classes;
+  CPNavigationTemplateClasses_classes = v10;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v10, v11);
 }
 
 uint64_t __CPAudioTemplateClasses_block_invoke()
@@ -636,9 +656,11 @@ uint64_t __CPAudioTemplateClasses_block_invoke()
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  CPAudioTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v7 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v8 = CPAudioTemplateClasses_classes;
+  CPAudioTemplateClasses_classes = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 uint64_t __CPCommunicationTemplateClasses_block_invoke()
@@ -652,9 +674,11 @@ uint64_t __CPCommunicationTemplateClasses_block_invoke()
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  CPCommunicationTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
+  v9 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
+  v10 = CPCommunicationTemplateClasses_classes;
+  CPCommunicationTemplateClasses_classes = v9;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v9, v10);
 }
 
 uint64_t __CPChargingParkingTemplateClasses_block_invoke()
@@ -667,9 +691,11 @@ uint64_t __CPChargingParkingTemplateClasses_block_invoke()
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  CPChargingParkingTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v9 = CPChargingParkingTemplateClasses_classes;
+  CPChargingParkingTemplateClasses_classes = v8;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v8, v9);
 }
 
 uint64_t __CPQuickOrderingTemplateClasses_block_invoke()
@@ -682,9 +708,11 @@ uint64_t __CPQuickOrderingTemplateClasses_block_invoke()
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  CPQuickOrderingTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v9 = CPQuickOrderingTemplateClasses_classes;
+  CPQuickOrderingTemplateClasses_classes = v8;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v8, v9);
 }
 
 uint64_t __CPPublicSafetyTemplateClasses_block_invoke()
@@ -699,9 +727,11 @@ uint64_t __CPPublicSafetyTemplateClasses_block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  CPPublicSafetyTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v11 = CPPublicSafetyTemplateClasses_classes;
+  CPPublicSafetyTemplateClasses_classes = v10;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v10, v11);
 }
 
 uint64_t __CPFuelingTemplateClasses_block_invoke()
@@ -713,9 +743,11 @@ uint64_t __CPFuelingTemplateClasses_block_invoke()
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  CPFuelingTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v7 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v8 = CPFuelingTemplateClasses_classes;
+  CPFuelingTemplateClasses_classes = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 uint64_t __CPDrivingTaskTemplateClasses_block_invoke()
@@ -728,9 +760,11 @@ uint64_t __CPDrivingTaskTemplateClasses_block_invoke()
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  CPDrivingTaskTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v9 = CPDrivingTaskTemplateClasses_classes;
+  CPDrivingTaskTemplateClasses_classes = v8;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v8, v9);
 }
 
 uint64_t __CPVideoTemplateClasses_block_invoke()
@@ -742,9 +776,11 @@ uint64_t __CPVideoTemplateClasses_block_invoke()
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  CPVideoTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v7 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v8 = CPVideoTemplateClasses_classes;
+  CPVideoTemplateClasses_classes = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 uint64_t __CPPushableTemplateClasses_block_invoke()
@@ -757,9 +793,11 @@ uint64_t __CPPushableTemplateClasses_block_invoke()
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  CPPushableTemplateClasses_classes = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v9 = CPPushableTemplateClasses_classes;
+  CPPushableTemplateClasses_classes = v8;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v8, v9);
 }
 
 uint64_t __CPPresentableTemplateClasses_block_invoke()
@@ -767,9 +805,11 @@ uint64_t __CPPresentableTemplateClasses_block_invoke()
   v0 = MEMORY[0x277CBEB98];
   v1 = objc_opt_class();
   v2 = objc_opt_class();
-  CPPresentableTemplateClasses_classes = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
+  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
+  v4 = CPPresentableTemplateClasses_classes;
+  CPPresentableTemplateClasses_classes = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -779,9 +819,9 @@ void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_236EE99E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_236EE99E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -793,9 +833,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_236EEAECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EEAECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -882,31 +922,33 @@ void __CPWhiteListedTemplates_block_invoke()
   CPWhiteListedTemplates_classes = v2;
 }
 
-uint64_t __CPTabTemplates_block_invoke()
+uint64_t __CPTabTemplates_block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((CPCurrentProcessHasAudioEntitlement() & 1) != 0 || CPCurrentProcessHasVideoEntitlement())
   {
-    v0 = MEMORY[0x277CBEB98];
-    v1 = objc_opt_class();
-    [v0 setWithObjects:{v1, objc_opt_class(), 0, v7, v8}];
+    v2 = MEMORY[0x277CBEB98];
+    v3 = objc_opt_class();
+    [v2 setWithObjects:{v3, objc_opt_class(), 0, v11, v12}];
   }
 
   else
   {
-    v2 = MEMORY[0x277CBEB98];
-    v3 = objc_opt_class();
-    v4 = objc_opt_class();
+    v4 = MEMORY[0x277CBEB98];
     v5 = objc_opt_class();
-    [v2 setWithObjects:{v3, v4, v5, objc_opt_class(), 0}];
+    v6 = objc_opt_class();
+    v7 = objc_opt_class();
+    [v4 setWithObjects:{v5, v6, v7, objc_opt_class(), 0}];
   }
-  CPTabTemplates_classes = ;
+  v8 = ;
+  v9 = CPTabTemplates_classes;
+  CPTabTemplates_classes = v8;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v8, v9);
 }
 
-void sub_236EF2024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_236EF2024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -925,11 +967,11 @@ void sub_236EF2774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236EF4B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_236EF4B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -954,9 +996,9 @@ void sub_236EF5808(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236EF6360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EF6360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -968,6 +1010,13 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_236EF6F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_236EF9D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
 {
   objc_destroyWeak((v20 + 32));
@@ -976,9 +1025,9 @@ void sub_236EF9D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236EFD7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_236EFD7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -990,9 +1039,9 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_236EFE2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236EFE2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1004,9 +1053,9 @@ void sub_236F03238(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236F03524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_236F03524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1025,9 +1074,9 @@ void sub_236F07D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236F080EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236F080EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1047,9 +1096,9 @@ void sub_236F0BBC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236F0BFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236F0BFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1076,16 +1125,16 @@ void sub_236F12280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id CarPlayFrameworkGeneralLogging()
+id CarPlayFrameworkGeneralLogging(uint64_t a1)
 {
   if (CarPlayFrameworkGeneralLogging_onceToken != -1)
   {
     CarPlayFrameworkGeneralLogging_cold_1();
   }
 
-  v1 = CarPlayFrameworkGeneralLogging_facility;
+  v2 = CarPlayFrameworkGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarPlayFrameworkGeneralLogging_block_invoke()
@@ -1097,16 +1146,16 @@ uint64_t __CarPlayFrameworkGeneralLogging_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id CarPlayFrameworkStateCaptureLogging()
+id CarPlayFrameworkStateCaptureLogging(uint64_t a1)
 {
   if (CarPlayFrameworkStateCaptureLogging_onceToken != -1)
   {
     CarPlayFrameworkStateCaptureLogging_cold_1();
   }
 
-  v1 = CarPlayFrameworkStateCaptureLogging_facility;
+  v2 = CarPlayFrameworkStateCaptureLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarPlayFrameworkStateCaptureLogging_block_invoke()
@@ -1333,33 +1382,33 @@ id CPImageByScalingImageToSize(void *a1, double a2, double a3)
 
 id CPSanitizedBackgroundColor(void *a1)
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277D75C80];
   v2 = a1;
   v3 = [v1 _currentTraitCollection];
   v4 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceIdiom:3];
   v5 = MEMORY[0x277D75C80];
-  v42[0] = v4;
+  v41[0] = v4;
   v6 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-  v42[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   v8 = [v5 traitCollectionWithTraitsFromCollections:v7];
 
   v9 = MEMORY[0x277D75C80];
-  v36 = v4;
-  v41[0] = v4;
+  v35 = v4;
+  v40[0] = v4;
   v10 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-  v41[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v40[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
   v12 = [v9 traitCollectionWithTraitsFromCollections:v11];
 
-  v35 = v8;
+  v34 = v8;
   [MEMORY[0x277D75C80] _setCurrentTraitCollection:v8];
   v13 = [MEMORY[0x277D75348] tableBackgroundColor];
   v14 = [MEMORY[0x277D75348] colorWithCGColor:{objc_msgSend(v2, "CGColor")}];
   v15 = [v14 colorWithAlphaComponent:1.0];
 
-  v34 = v12;
+  v33 = v12;
   [MEMORY[0x277D75C80] _setCurrentTraitCollection:v12];
   v16 = [MEMORY[0x277D75348] tableBackgroundColor];
   v17 = MEMORY[0x277D75348];
@@ -1368,7 +1417,7 @@ id CPSanitizedBackgroundColor(void *a1)
   v19 = [v17 colorWithCGColor:v18];
   v20 = [v19 colorWithAlphaComponent:1.0];
 
-  v37 = v3;
+  v36 = v3;
   [MEMORY[0x277D75C80] _setCurrentTraitCollection:v3];
   if (CPColorMeetsContrastRequirement(v15))
   {
@@ -1386,25 +1435,23 @@ id CPSanitizedBackgroundColor(void *a1)
 
   v23 = MEMORY[0x277D75C80];
   v24 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:0];
-  v40[0] = v24;
+  v39[0] = v24;
   v25 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceIdiom:-1];
-  v40[1] = v25;
+  v39[1] = v25;
   v26 = [MEMORY[0x277D75C80] traitCollectionWithDisplayGamut:-1];
-  v40[2] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
+  v39[2] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
   v28 = [v23 traitCollectionWithTraitsFromCollections:v27];
 
   v29 = MEMORY[0x277D75348];
-  v38[0] = v35;
-  v38[1] = v34;
-  v39[0] = v13;
-  v39[1] = v16;
-  v38[2] = v28;
-  v39[2] = v16;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v37[0] = v34;
+  v37[1] = v33;
+  v38[0] = v13;
+  v38[1] = v16;
+  v37[2] = v28;
+  v38[2] = v16;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
   v31 = [v29 _dynamicColorWithColorsByTraitCollection:v30];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -1422,7 +1469,7 @@ __CFString *CPSStringFromBOOL(int a1)
   }
 }
 
-uint64_t CPCurrentProcessHasTemplateEntitlement()
+uint64_t CPCurrentProcessHasTemplateEntitlement(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4)
 {
   if (CPCurrentProcessHasMapsEntitlement() & 1) != 0 || (CPCurrentProcessHasAudioEntitlement() & 1) != 0 || (CPCurrentProcessHasCommunicationEntitlement() & 1) != 0 || (CPCurrentProcessHasChargingEntitlement() & 1) != 0 || (CPCurrentProcessHasParkingEntitlement() & 1) != 0 || (CPCurrentProcessHasQuickOrderingEntitlement() & 1) != 0 || (CPCurrentProcessHasPublicSafetyEntitlement() & 1) != 0 || (CPCurrentProcessHasFuelingEntitlement() & 1) != 0 || (CPCurrentProcessHasDrivingTaskEntitlement())
   {
@@ -1441,11 +1488,11 @@ uint64_t CPCurrentProcessHasMapsEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-maps"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares maps entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares maps entitlement.", v7, 2u);
     }
   }
 
@@ -1461,11 +1508,11 @@ uint64_t CPCurrentProcessHasAudioEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-audio"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares audio entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares audio entitlement.", v7, 2u);
     }
   }
 
@@ -1481,11 +1528,11 @@ uint64_t CPCurrentProcessHasCommunicationEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-communication"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares communications entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares communications entitlement.", v7, 2u);
     }
   }
 
@@ -1501,11 +1548,11 @@ uint64_t CPCurrentProcessHasChargingEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-charging"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares charging entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares charging entitlement.", v7, 2u);
     }
   }
 
@@ -1521,11 +1568,11 @@ uint64_t CPCurrentProcessHasParkingEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-parking"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares parking entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares parking entitlement.", v7, 2u);
     }
   }
 
@@ -1541,11 +1588,11 @@ uint64_t CPCurrentProcessHasQuickOrderingEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-quick-ordering"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares quick ordering entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares quick ordering entitlement.", v7, 2u);
     }
   }
 
@@ -1561,11 +1608,11 @@ uint64_t CPCurrentProcessHasPublicSafetyEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-public-safety"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares public safety entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares public safety entitlement.", v7, 2u);
     }
   }
 
@@ -1581,11 +1628,11 @@ uint64_t CPCurrentProcessHasFuelingEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-fueling"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares fueling entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares fueling entitlement.", v7, 2u);
     }
   }
 
@@ -1601,11 +1648,11 @@ uint64_t CPCurrentProcessHasDrivingTaskEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-driving-task"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares driving task entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares driving task entitlement.", v7, 2u);
     }
   }
 
@@ -1621,11 +1668,11 @@ uint64_t CPCurrentProcessHasVideoEntitlement()
   v3 = [v2 BOOLForKey:@"com.apple.developer.carplay-video"];
   if (v3)
   {
-    v4 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Application declares video entitlement.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Application declares video entitlement.", v7, 2u);
     }
   }
 
@@ -1831,9 +1878,9 @@ void sub_236F18994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_236F1B648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_236F1B648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1945,7 +1992,7 @@ uint64_t Optional<A>.coordinates(count:)(uint64_t result, uint64_t a2)
   }
 
   v2 = result;
-  v12 = MEMORY[0x277D84F90];
+  v11 = MEMORY[0x277D84F90];
   if (result < 0)
   {
     __break(1u);
@@ -1965,9 +2012,8 @@ uint64_t Optional<A>.coordinates(count:)(uint64_t result, uint64_t a2)
       *&v10 = v6;
       [v7 initWithAltitude:v8 latitude:v9 longitude:v10];
       MEMORY[0x2383C23A0]();
-      if (*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v11 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v11 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -1977,7 +2023,7 @@ uint64_t Optional<A>.coordinates(count:)(uint64_t result, uint64_t a2)
     }
 
     while (v2);
-    return v12;
+    return v11;
   }
 
   else
@@ -1988,7 +2034,7 @@ uint64_t Optional<A>.coordinates(count:)(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CPBridgeRouteLine.legs.getter()
+id CPBridgeRouteLine.legs.getter()
 {
   v1 = [v0 routeLegs];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16CPBridgeRouteLeg_pMd, &_sSo16CPBridgeRouteLeg_pMR);
@@ -2007,29 +2053,28 @@ LABEL_14:
     type metadata accessor for CAFCoordinate(0, &lazy cache variable for type metadata for CAFRouteLeg, 0x277CF85F0);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v10 = [objc_opt_self() routeLegsWithRouteLegs_];
+    v8 = [objc_opt_self() routeLegsWithRouteLegs_];
 
-    return v10;
+    return v8;
   }
 
   if (v2 < 0)
   {
-    v8 = v2;
+    v6 = v2;
   }
 
   else
   {
-    v8 = v2 & 0xFFFFFFFFFFFFFF8;
+    v6 = v2 & 0xFFFFFFFFFFFFFF8;
   }
 
-  v3 = MEMORY[0x2383C24D0](v8);
+  v3 = MEMORY[0x2383C24D0](v6);
   if (!v3)
   {
     goto LABEL_14;
   }
 
 LABEL_3:
-  v11 = MEMORY[0x277D84F90];
   result = specialized ContiguousArray.reserveCapacity(_:)();
   if ((v3 & 0x8000000000000000) == 0)
   {
@@ -2043,7 +2088,6 @@ LABEL_3:
 
       else
       {
-        v7 = *(v2 + 8 * v5 + 32);
         swift_unknownObjectRetain();
       }
 
@@ -2052,7 +2096,6 @@ LABEL_3:
       CPBridgeRouteLeg.caf.getter();
       swift_unknownObjectRelease_n();
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v6 = *(v11 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -2096,7 +2139,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2104,12 +2146,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t type metadata accessor for CAFCoordinate(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for CAFCoordinate(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2317,136 +2358,135 @@ uint64_t RouteSharingState.description.getter()
   v2 = 0x65736C6166;
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v38 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v9 = &v38 - v8;
-  v39 = 0;
-  v40 = 0xE000000000000000;
+  MEMORY[0x28223BE20](v3);
+  v37 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v37 - v7;
+  v38 = 0;
+  v39 = 0xE000000000000000;
   _StringGuts.grow(_:)(124);
+  v40 = v38;
   v41 = v39;
-  v42 = v40;
   MEMORY[0x2383C2380](0xD00000000000001CLL, 0x8000000236F31390);
   Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong && (v11 = Strong, v12 = [Strong vehicleEnabled], v11, v12) && (v13 = swift_unknownObjectWeakLoadStrong()) != 0 && (v14 = v13, v15 = objc_msgSend(v13, sel_userEnabled), v14, v15) && *(v1 + 32) == 1 && (*(v1 + 33) & 1) != 0)
+  if (Strong && (v10 = Strong, v11 = [Strong vehicleEnabled], v10, v11) && (v12 = swift_unknownObjectWeakLoadStrong()) != 0 && (v13 = v12, v14 = objc_msgSend(v12, sel_userEnabled), v13, v14) && *(v1 + 32) == 1 && (*(v1 + 33) & 1) != 0)
   {
-    v16 = 0xE400000000000000;
-    v17 = 1702195828;
+    v15 = 0xE400000000000000;
+    v16 = 1702195828;
   }
 
   else
   {
-    v16 = 0xE500000000000000;
-    v17 = 0x65736C6166;
+    v15 = 0xE500000000000000;
+    v16 = 0x65736C6166;
   }
 
-  MEMORY[0x2383C2380](v17, v16);
+  MEMORY[0x2383C2380](v16, v15);
 
   MEMORY[0x2383C2380](0xD000000000000010, 0x8000000236F313B0);
-  v18 = swift_unknownObjectWeakLoadStrong();
-  if (v18 && (v19 = v18, v20 = [v18 vehicleEnabled], v19, (v20 & 1) != 0))
+  v17 = swift_unknownObjectWeakLoadStrong();
+  if (v17 && (v18 = v17, v19 = [v17 vehicleEnabled], v18, (v19 & 1) != 0))
   {
-    v21 = 0xE400000000000000;
-    v22 = 1702195828;
+    v20 = 0xE400000000000000;
+    v21 = 1702195828;
   }
 
   else
   {
-    v21 = 0xE500000000000000;
-    v22 = 0x65736C6166;
+    v20 = 0xE500000000000000;
+    v21 = 0x65736C6166;
   }
 
-  MEMORY[0x2383C2380](v22, v21);
+  MEMORY[0x2383C2380](v21, v20);
 
   MEMORY[0x2383C2380](0x616E457265737520, 0xED00003D64656C62);
-  v23 = swift_unknownObjectWeakLoadStrong();
-  if (v23 && (v24 = v23, v25 = [v23 userEnabled], v24, (v25 & 1) != 0))
+  v22 = swift_unknownObjectWeakLoadStrong();
+  if (v22 && (v23 = v22, v24 = [v22 userEnabled], v23, (v24 & 1) != 0))
   {
-    v26 = 0xE400000000000000;
+    v25 = 0xE400000000000000;
     v2 = 1702195828;
   }
 
   else
   {
-    v26 = 0xE500000000000000;
+    v25 = 0xE500000000000000;
   }
 
-  MEMORY[0x2383C2380](v2, v26);
+  MEMORY[0x2383C2380](v2, v25);
 
   MEMORY[0x2383C2380](0xD000000000000016, 0x8000000236F313D0);
   if (*(v1 + 32))
   {
-    v27 = 1702195828;
+    v26 = 1702195828;
   }
 
   else
   {
-    v27 = 0x65736C6166;
+    v26 = 0x65736C6166;
   }
 
   if (*(v1 + 32))
   {
-    v28 = 0xE400000000000000;
+    v27 = 0xE400000000000000;
   }
 
   else
   {
-    v28 = 0xE500000000000000;
+    v27 = 0xE500000000000000;
   }
 
-  MEMORY[0x2383C2380](v27, v28);
+  MEMORY[0x2383C2380](v26, v27);
 
   MEMORY[0x2383C2380](0xD000000000000010, 0x8000000236F313F0);
   if (*(v1 + 33))
   {
-    v29 = 1702195828;
+    v28 = 1702195828;
   }
 
   else
   {
-    v29 = 0x65736C6166;
+    v28 = 0x65736C6166;
   }
 
   if (*(v1 + 33))
   {
-    v30 = 0xE400000000000000;
+    v29 = 0xE400000000000000;
   }
 
   else
   {
-    v30 = 0xE500000000000000;
+    v29 = 0xE500000000000000;
   }
 
-  MEMORY[0x2383C2380](v29, v30);
+  MEMORY[0x2383C2380](v28, v29);
 
   MEMORY[0x2383C2380](0xD000000000000010, 0x8000000236F31410);
-  v31 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
+  v30 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
   swift_beginAccess();
-  outlined init with copy of UUID?(v1 + v31, v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  if ((*(v4 + 48))(v9, 1, v3))
+  outlined init with copy of UUID?(v1 + v30, v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if ((*(v4 + 48))(v8, 1, v3))
   {
-    outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v32 = 0xE300000000000000;
-    v33 = 7104878;
+    outlined destroy of UUID?(v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v31 = 0xE300000000000000;
+    v32 = 7104878;
   }
 
   else
   {
-    v34 = v38;
-    (*(v4 + 16))(v38, v9, v3);
-    outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v35 = UUID.uuidString.getter();
-    v32 = v36;
-    (*(v4 + 8))(v34, v3);
-    v33 = v35;
+    v33 = v37;
+    (*(v4 + 16))(v37, v8, v3);
+    outlined destroy of UUID?(v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v34 = UUID.uuidString.getter();
+    v31 = v35;
+    (*(v4 + 8))(v33, v3);
+    v32 = v34;
   }
 
-  MEMORY[0x2383C2380](v33, v32);
+  MEMORY[0x2383C2380](v32, v31);
 
   MEMORY[0x2383C2380](62, 0xE100000000000000);
-  return v41;
+  return v40;
 }
 
 id @objc CPVehicleStateManager.currentCar.getter(void *a1, uint64_t a2, SEL *a3, SEL *a4)
@@ -2458,34 +2498,31 @@ id @objc CPVehicleStateManager.currentCar.getter(void *a1, uint64_t a2, SEL *a3,
   return v8;
 }
 
-char *CPVehicleStateManager.init(delegate:)()
+char *CPVehicleStateManager.init(delegate:)(uint64_t a1)
 {
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakAssign();
-  v1 = [objc_allocWithZone(MEMORY[0x277CF83A0]) init];
-  *&v0[OBJC_IVAR___CPVehicleStateManager_carManager] = v1;
-  v2 = type metadata accessor for RouteSharingState();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  v5 = swift_allocObject();
+  v2 = [objc_allocWithZone(MEMORY[0x277CF83A0]) init];
+  *&v1[OBJC_IVAR___CPVehicleStateManager_carManager] = v2;
+  type metadata accessor for RouteSharingState(0);
+  v3 = swift_allocObject();
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
-  *(v5 + 32) = 0;
-  v6 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
-  v7 = type metadata accessor for UUID();
-  (*(*(v7 - 8) + 56))(v5 + v6, 1, 1, v7);
-  *&v0[OBJC_IVAR___CPVehicleStateManager_routeSharingState] = v5;
-  v13.receiver = v0;
-  v13.super_class = CPVehicleStateManager;
-  v8 = objc_msgSendSuper2(&v13, sel_init);
-  v9 = *&v8[OBJC_IVAR___CPVehicleStateManager_routeSharingState];
+  *(v3 + 32) = 0;
+  v4 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
+  v5 = type metadata accessor for UUID();
+  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
+  *&v1[OBJC_IVAR___CPVehicleStateManager_routeSharingState] = v3;
+  v10.receiver = v1;
+  v10.super_class = CPVehicleStateManager;
+  v6 = objc_msgSendSuper2(&v10, sel_init);
   swift_unknownObjectWeakAssign();
-  v10 = *&v8[OBJC_IVAR___CPVehicleStateManager_carManager];
-  v11 = v8;
-  [v10 registerObserver_];
+  v7 = *&v6[OBJC_IVAR___CPVehicleStateManager_carManager];
+  v8 = v6;
+  [v7 registerObserver_];
 
   swift_unknownObjectRelease();
-  return v11;
+  return v8;
 }
 
 Swift::Void __swiftcall CPVehicleStateManager.willReleaseNavigationOwnership()()
@@ -2529,8 +2566,8 @@ Swift::Void __swiftcall CPVehicleStateManager.willReleaseNavigationOwnership()()
 
 Swift::Void __swiftcall CPVehicleStateManager.didUpdateNavigationOwnership()()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v34[-1] - v2;
   if (one-time initialization token for vehicleStateManager != -1)
   {
@@ -3056,22 +3093,20 @@ void CPVehicleStateManager.send(_:)(void *a1)
   v2 = v1;
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  (MEMORY[0x28223BE20])();
-  v134 = (&v124 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
-  v9 = (*(*(v8 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x28223BE20])();
-  v11 = &v124 - v10;
-  v12 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64);
-  v13 = (MEMORY[0x28223BE20])();
-  v15 = &v124 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v13);
-  v17 = MEMORY[0x28223BE20](v16);
-  v19 = &v124 - v18;
-  MEMORY[0x28223BE20](v17);
-  v22 = &v124 - v21;
-  v23 = OBJC_IVAR___CPVehicleStateManager_routeSharingState;
+  MEMORY[0x28223BE20](v4);
+  v131 = (&v121 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v121 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v121 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v11);
+  v15 = MEMORY[0x28223BE20](v14);
+  v17 = &v121 - v16;
+  MEMORY[0x28223BE20](v15);
+  v20 = &v121 - v19;
+  v21 = OBJC_IVAR___CPVehicleStateManager_routeSharingState;
   if (*(*&v2[OBJC_IVAR___CPVehicleStateManager_routeSharingState] + 33) != 1)
   {
     if (one-time initialization token for vehicleStateManager != -1)
@@ -3079,177 +3114,177 @@ void CPVehicleStateManager.send(_:)(void *a1)
       swift_once();
     }
 
-    v39 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v39, static Logger.vehicleStateManager);
-    v134 = Logger.logObject.getter();
-    v40 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v134, v40))
+    v37 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v37, static Logger.vehicleStateManager);
+    v131 = Logger.logObject.getter();
+    v38 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v131, v38))
     {
-      v41 = swift_slowAlloc();
-      v42 = swift_slowAlloc();
-      v137[0] = v42;
-      *v41 = 136315138;
-      *(v41 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v137);
-      v43 = "%s failed: routeLineSupport.ownsNavigation is false";
+      v39 = swift_slowAlloc();
+      v40 = swift_slowAlloc();
+      v134[0] = v40;
+      *v39 = 136315138;
+      *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v134);
+      v41 = "%s failed: routeLineSupport.ownsNavigation is false";
 LABEL_16:
-      _os_log_impl(&dword_236ED4000, v134, v40, v43, v41, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v42);
-      MEMORY[0x2383C2D60](v42, -1, -1);
-      MEMORY[0x2383C2D60](v41, -1, -1);
+      _os_log_impl(&dword_236ED4000, v131, v38, v41, v39, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v40);
+      MEMORY[0x2383C2D60](v40, -1, -1);
+      MEMORY[0x2383C2D60](v39, -1, -1);
 LABEL_17:
 
       return;
     }
 
 LABEL_47:
-    v82 = v134;
+    v79 = v131;
 
     return;
   }
 
-  v131 = v20;
-  v132 = v5;
-  v133 = a1;
+  v128 = v18;
+  v129 = v5;
+  v130 = a1;
   CPVehicleStateManager.forceUserEnabledIfAllowed(reason:)(2u);
-  v24 = *&v2[v23];
+  v22 = *&v2[v21];
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v26 = Strong;
-    v130 = v4;
+    v24 = Strong;
+    v127 = v4;
 
-    v27 = [v26 vehicleEnabled];
+    v25 = [v24 vehicleEnabled];
 
-    if (v27 && (v28 = swift_unknownObjectWeakLoadStrong()) != 0 && (v29 = v28, v30 = [v28 userEnabled], v29, v30) && (*(v24 + 32) & 1) != 0)
+    if (v25 && (v26 = swift_unknownObjectWeakLoadStrong()) != 0 && (v27 = v26, v28 = [v26 userEnabled], v27, v28) && (*(v22 + 32) & 1) != 0)
     {
-      v31 = *(v24 + 33);
+      v29 = *(v22 + 33);
 
-      v32 = v130;
-      if (v31)
+      v30 = v127;
+      if (v29)
       {
-        v33 = [v2 delegate];
-        if (v33)
+        v31 = [v2 delegate];
+        if (v31)
         {
-          v34 = v33;
-          v129 = [v2 route];
-          if (v129)
+          v32 = v31;
+          v126 = [v2 route];
+          if (v126)
           {
-            v127 = v34;
-            if (v133)
+            v124 = v32;
+            if (v130)
             {
-              v35 = [v133 identifier];
+              v33 = [v130 identifier];
               static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-              v36 = *(v132 + 56);
-              v37 = v22;
-              v38 = 0;
+              v34 = *(v129 + 56);
+              v35 = v20;
+              v36 = 0;
             }
 
             else
             {
-              v36 = *(v132 + 56);
-              v37 = v22;
-              v38 = 1;
+              v34 = *(v129 + 56);
+              v35 = v20;
+              v36 = 1;
             }
 
-            v125 = v36;
-            v36(v37, v38, 1, v32);
-            v60 = *&v2[v23];
-            v61 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
+            v122 = v34;
+            v34(v35, v36, 1, v30);
+            v57 = *&v2[v21];
+            v58 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
             swift_beginAccess();
-            v62 = *(v8 + 48);
-            outlined init with copy of UUID?(v22, v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-            v128 = v62;
-            outlined init with copy of UUID?(v60 + v61, &v11[v62], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-            v63 = v132;
-            v64 = *(v132 + 48);
-            v65 = v130;
-            v126 = v132 + 48;
-            if (v64(v11, 1, v130) == 1)
+            v59 = *(v7 + 48);
+            outlined init with copy of UUID?(v20, v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+            v125 = v59;
+            outlined init with copy of UUID?(v57 + v58, &v9[v59], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+            v60 = v129;
+            v61 = *(v129 + 48);
+            v62 = v127;
+            v123 = v129 + 48;
+            if (v61(v9, 1, v127) == 1)
             {
-              outlined destroy of UUID?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-              if (v64(&v11[v128], 1, v65) == 1)
+              outlined destroy of UUID?(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+              if (v61(&v9[v125], 1, v62) == 1)
               {
-                v124 = v64;
-                outlined destroy of UUID?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                v121 = v61;
+                outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 LABEL_51:
                 if (one-time initialization token for vehicleStateManager != -1)
                 {
                   swift_once();
                 }
 
-                v85 = type metadata accessor for Logger();
-                __swift_project_value_buffer(v85, static Logger.vehicleStateManager);
+                v82 = type metadata accessor for Logger();
+                __swift_project_value_buffer(v82, static Logger.vehicleStateManager);
                 swift_unknownObjectRetain();
-                v86 = v2;
-                v87 = Logger.logObject.getter();
-                v88 = static os_log_type_t.debug.getter();
+                v83 = v2;
+                v84 = Logger.logObject.getter();
+                v85 = static os_log_type_t.debug.getter();
 
-                v89 = v133;
+                v86 = v130;
                 swift_unknownObjectRelease();
-                if (os_log_type_enabled(v87, v88))
+                if (os_log_type_enabled(v84, v85))
                 {
-                  LODWORD(v131) = v88;
-                  v90 = swift_slowAlloc();
-                  v128 = swift_slowAlloc();
-                  v135 = v128;
-                  *v90 = 136315650;
-                  *(v90 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, &v135);
-                  *(v90 + 12) = 2080;
-                  if (v89)
+                  LODWORD(v128) = v85;
+                  v87 = swift_slowAlloc();
+                  v125 = swift_slowAlloc();
+                  v132 = v125;
+                  *v87 = 136315650;
+                  *(v87 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, &v132);
+                  *(v87 + 12) = 2080;
+                  if (v86)
                   {
-                    v91 = [v89 identifier];
-                    v92 = v134;
+                    v88 = [v86 identifier];
+                    v89 = v131;
                     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                    v93 = UUID.uuidString.getter();
-                    v95 = v94;
-                    v96 = v130;
-                    (*(v132 + 8))(v92, v130);
+                    v90 = UUID.uuidString.getter();
+                    v92 = v91;
+                    v93 = v127;
+                    (*(v129 + 8))(v89, v127);
                   }
 
                   else
                   {
-                    v95 = 0xE300000000000000;
-                    v93 = 7104878;
-                    v96 = v130;
+                    v92 = 0xE300000000000000;
+                    v90 = 7104878;
+                    v93 = v127;
                   }
 
-                  v113 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v93, v95, &v135);
+                  v110 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v90, v92, &v132);
 
-                  *(v90 + 14) = v113;
-                  *(v90 + 22) = 2080;
-                  v114 = *&v2[v23];
-                  v115 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
+                  *(v87 + 14) = v110;
+                  *(v87 + 22) = 2080;
+                  v111 = *&v2[v21];
+                  v112 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
                   swift_beginAccess();
-                  outlined init with copy of UUID?(v114 + v115, v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-                  if (v124(v15, 1, v96))
+                  outlined init with copy of UUID?(v111 + v112, v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                  if (v121(v13, 1, v93))
                   {
-                    outlined destroy of UUID?(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-                    v116 = 0xE300000000000000;
-                    v117 = 7104878;
+                    outlined destroy of UUID?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                    v113 = 0xE300000000000000;
+                    v114 = 7104878;
                   }
 
                   else
                   {
-                    v118 = v132;
-                    v119 = v134;
-                    (*(v132 + 16))(v134, v15, v96);
-                    outlined destroy of UUID?(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-                    v120 = UUID.uuidString.getter();
-                    v116 = v121;
-                    (*(v118 + 8))(v119, v96);
-                    v117 = v120;
+                    v115 = v129;
+                    v116 = v131;
+                    (*(v129 + 16))(v131, v13, v93);
+                    outlined destroy of UUID?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                    v117 = UUID.uuidString.getter();
+                    v113 = v118;
+                    (*(v115 + 8))(v116, v93);
+                    v114 = v117;
                   }
 
-                  v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v117, v116, &v135);
+                  v119 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v114, v113, &v132);
 
-                  *(v90 + 24) = v122;
-                  _os_log_impl(&dword_236ED4000, v87, v131, "%s failed: routeLine.identifier=%s  lastRouteLineIdentifier=%s", v90, 0x20u);
-                  v123 = v128;
+                  *(v87 + 24) = v119;
+                  _os_log_impl(&dword_236ED4000, v84, v128, "%s failed: routeLine.identifier=%s  lastRouteLineIdentifier=%s", v87, 0x20u);
+                  v120 = v125;
                   swift_arrayDestroy();
-                  MEMORY[0x2383C2D60](v123, -1, -1);
-                  MEMORY[0x2383C2D60](v90, -1, -1);
+                  MEMORY[0x2383C2D60](v120, -1, -1);
+                  MEMORY[0x2383C2D60](v87, -1, -1);
                 }
 
                 swift_unknownObjectRelease();
@@ -3260,21 +3295,21 @@ LABEL_51:
 
             else
             {
-              outlined init with copy of UUID?(v11, v19, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-              if (v64(&v11[v128], 1, v65) != 1)
+              outlined init with copy of UUID?(v9, v17, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+              if (v61(&v9[v125], 1, v62) != 1)
               {
-                v124 = v64;
-                v83 = v134;
-                (*(v63 + 32))(v134, &v11[v128], v65);
+                v121 = v61;
+                v80 = v131;
+                (*(v60 + 32))(v131, &v9[v125], v62);
                 lazy protocol witness table accessor for type UUID and conformance UUID();
-                LODWORD(v128) = dispatch thunk of static Equatable.== infix(_:_:)();
-                v84 = *(v63 + 8);
-                v84(v83, v65);
-                outlined destroy of UUID?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-                v84(v19, v65);
-                outlined destroy of UUID?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-                v66 = v133;
-                if (v128)
+                LODWORD(v125) = dispatch thunk of static Equatable.== infix(_:_:)();
+                v81 = *(v60 + 8);
+                v81(v80, v62);
+                outlined destroy of UUID?(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                v81(v17, v62);
+                outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+                v63 = v130;
+                if (v125)
                 {
                   goto LABEL_51;
                 }
@@ -3282,117 +3317,117 @@ LABEL_51:
                 goto LABEL_41;
               }
 
-              outlined destroy of UUID?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-              (*(v63 + 8))(v19, v65);
+              outlined destroy of UUID?(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+              (*(v60 + 8))(v17, v62);
             }
 
-            outlined destroy of UUID?(v11, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
-            v66 = v133;
+            outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+            v63 = v130;
 LABEL_41:
             if (one-time initialization token for vehicleStateManager != -1)
             {
               swift_once();
             }
 
-            v67 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v67, static Logger.vehicleStateManager);
+            v64 = type metadata accessor for Logger();
+            __swift_project_value_buffer(v64, static Logger.vehicleStateManager);
             swift_unknownObjectRetain();
-            v68 = Logger.logObject.getter();
-            v69 = static os_log_type_t.debug.getter();
+            v65 = Logger.logObject.getter();
+            v66 = static os_log_type_t.debug.getter();
             swift_unknownObjectRelease();
-            v70 = os_log_type_enabled(v68, v69);
-            v71 = v127;
-            if (v70)
+            v67 = os_log_type_enabled(v65, v66);
+            v68 = v124;
+            if (v67)
             {
-              v72 = v66;
-              v73 = swift_slowAlloc();
-              v74 = swift_slowAlloc();
-              v136[0] = v74;
-              *v73 = 136315394;
-              *(v73 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v136);
-              *(v73 + 12) = 2080;
-              v75 = v132;
-              if (v72)
+              v69 = v63;
+              v70 = swift_slowAlloc();
+              v71 = swift_slowAlloc();
+              v133[0] = v71;
+              *v70 = 136315394;
+              *(v70 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v133);
+              *(v70 + 12) = 2080;
+              v72 = v129;
+              if (v69)
               {
-                v76 = [v72 identifier];
-                v77 = v134;
+                v73 = [v69 identifier];
+                v74 = v131;
                 static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                v78 = UUID.uuidString.getter();
-                v80 = v79;
-                v81 = v77;
-                v71 = v127;
-                (*(v75 + 8))(v81, v130);
+                v75 = UUID.uuidString.getter();
+                v77 = v76;
+                v78 = v74;
+                v68 = v124;
+                (*(v72 + 8))(v78, v127);
               }
 
               else
               {
-                v78 = 7104878;
-                v80 = 0xE300000000000000;
+                v75 = 7104878;
+                v77 = 0xE300000000000000;
               }
 
-              v97 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v80, v136);
+              v94 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, v77, v133);
 
-              *(v73 + 14) = v97;
-              _os_log_impl(&dword_236ED4000, v68, v69, "%s sending routeLine.identifier %s", v73, 0x16u);
+              *(v70 + 14) = v94;
+              _os_log_impl(&dword_236ED4000, v65, v66, "%s sending routeLine.identifier %s", v70, 0x16u);
               swift_arrayDestroy();
-              MEMORY[0x2383C2D60](v74, -1, -1);
-              MEMORY[0x2383C2D60](v73, -1, -1);
+              MEMORY[0x2383C2D60](v71, -1, -1);
+              MEMORY[0x2383C2D60](v70, -1, -1);
             }
 
-            v98 = v129;
-            v99 = v133;
-            if (v133)
+            v95 = v126;
+            v96 = v130;
+            if (v130)
             {
               swift_getObjectType();
-              v100 = [swift_unknownObjectRetain() geodeticSystem];
-              if (v100 == 2)
+              v97 = [swift_unknownObjectRetain() geodeticSystem];
+              if (v97 == 2)
               {
-                v101 = 2;
+                v98 = 2;
               }
 
               else
               {
-                v101 = v100 == 1;
+                v98 = v97 == 1;
               }
 
-              [v98 setGeodeticSystem_];
-              v102 = CPBridgeRouteLine.legs.getter();
-              [v98 setLegs_];
+              [v95 setGeodeticSystem_];
+              v99 = CPBridgeRouteLine.legs.getter();
+              [v95 setLegs_];
 
-              v103 = [v99 originLocation];
+              v100 = [v96 originLocation];
               swift_getObjectType();
-              v104 = CPBridgeNavigationWaypoint.caf.getter();
+              v101 = CPBridgeNavigationWaypoint.caf.getter();
               swift_unknownObjectRelease();
-              [v98 setOrigin_];
+              [v95 setOrigin_];
 
-              v105 = [v99 destinationLocation];
+              v102 = [v96 destinationLocation];
               swift_getObjectType();
-              v106 = CPBridgeNavigationWaypoint.caf.getter();
+              v103 = CPBridgeNavigationWaypoint.caf.getter();
               swift_unknownObjectRelease();
-              [v98 setDestination_];
+              [v95 setDestination_];
 
-              v107 = [v71 identifier];
-              if (!v107)
+              v104 = [v68 identifier];
+              if (!v104)
               {
-                v108 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                v107 = MEMORY[0x2383C2360](v108);
+                v105 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v104 = MEMORY[0x2383C2360](v105);
               }
 
-              [v98 setUserVisibleApplicationName_];
+              [v95 setUserVisibleApplicationName_];
 
-              v109 = *&v2[v23];
+              v106 = *&v2[v21];
 
-              v110 = [v99 identifier];
-              v111 = v131;
+              v107 = [v96 identifier];
+              v108 = v128;
               static UUID._unconditionallyBridgeFromObjectiveC(_:)();
               swift_unknownObjectRelease();
               swift_unknownObjectRelease();
 
-              v125(v111, 0, 1, v130);
-              v112 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
+              v122(v108, 0, 1, v127);
+              v109 = OBJC_IVAR____TtC7CarPlay17RouteSharingState_lastIdentifier;
               swift_beginAccess();
-              outlined assign with take of UUID?(v111, v109 + v112);
+              outlined assign with take of UUID?(v108, v106 + v109);
               swift_endAccess();
             }
 
@@ -3410,21 +3445,21 @@ LABEL_41:
             swift_once();
           }
 
-          v56 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v56, static Logger.vehicleStateManager);
-          v134 = Logger.logObject.getter();
-          v57 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v134, v57))
+          v53 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v53, static Logger.vehicleStateManager);
+          v131 = Logger.logObject.getter();
+          v54 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v131, v54))
           {
-            v58 = swift_slowAlloc();
-            v59 = swift_slowAlloc();
-            v137[0] = v59;
-            *v58 = 136315138;
-            *(v58 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v137);
-            _os_log_impl(&dword_236ED4000, v134, v57, "%s failed: route is nil", v58, 0xCu);
-            __swift_destroy_boxed_opaque_existential_0(v59);
-            MEMORY[0x2383C2D60](v59, -1, -1);
-            MEMORY[0x2383C2D60](v58, -1, -1);
+            v55 = swift_slowAlloc();
+            v56 = swift_slowAlloc();
+            v134[0] = v56;
+            *v55 = 136315138;
+            *(v55 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v134);
+            _os_log_impl(&dword_236ED4000, v131, v54, "%s failed: route is nil", v55, 0xCu);
+            __swift_destroy_boxed_opaque_existential_0(v56);
+            MEMORY[0x2383C2D60](v56, -1, -1);
+            MEMORY[0x2383C2D60](v55, -1, -1);
             swift_unknownObjectRelease();
             goto LABEL_17;
           }
@@ -3438,18 +3473,18 @@ LABEL_41:
           swift_once();
         }
 
-        v55 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v55, static Logger.vehicleStateManager);
-        v134 = Logger.logObject.getter();
-        v40 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v134, v40))
+        v52 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v52, static Logger.vehicleStateManager);
+        v131 = Logger.logObject.getter();
+        v38 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v131, v38))
         {
-          v41 = swift_slowAlloc();
-          v42 = swift_slowAlloc();
-          v137[0] = v42;
-          *v41 = 136315138;
-          *(v41 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v137);
-          v43 = "%s failed: delegate is nil";
+          v39 = swift_slowAlloc();
+          v40 = swift_slowAlloc();
+          v134[0] = v40;
+          *v39 = 136315138;
+          *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v134);
+          v41 = "%s failed: delegate is nil";
           goto LABEL_16;
         }
 
@@ -3467,35 +3502,34 @@ LABEL_41:
     swift_once();
   }
 
-  v44 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v44, static Logger.vehicleStateManager);
-  v45 = v2;
-  v46 = Logger.logObject.getter();
-  v47 = static os_log_type_t.debug.getter();
+  v42 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v42, static Logger.vehicleStateManager);
+  v43 = v2;
+  v44 = Logger.logObject.getter();
+  v45 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v46, v47))
+  if (os_log_type_enabled(v44, v45))
   {
-    v48 = swift_slowAlloc();
-    v49 = swift_slowAlloc();
-    v137[0] = v49;
-    *v48 = 136315394;
-    *(v48 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v137);
-    *(v48 + 12) = 2080;
-    v50 = *&v2[v23];
+    v46 = swift_slowAlloc();
+    v47 = swift_slowAlloc();
+    v134[0] = v47;
+    *v46 = 136315394;
+    *(v46 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x293A5F28646E6573, 0xE800000000000000, v134);
+    *(v46 + 12) = 2080;
 
-    v51 = RouteSharingState.description.getter();
-    v53 = v52;
+    v48 = RouteSharingState.description.getter();
+    v50 = v49;
 
-    v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v137);
+    v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v134);
 
-    *(v48 + 14) = v54;
-    _os_log_impl(&dword_236ED4000, v46, v47, "%s failed: routeLineSupport.enabled is false - %s", v48, 0x16u);
+    *(v46 + 14) = v51;
+    _os_log_impl(&dword_236ED4000, v44, v45, "%s failed: routeLineSupport.enabled is false - %s", v46, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x2383C2D60](v49, -1, -1);
-    MEMORY[0x2383C2D60](v48, -1, -1);
+    MEMORY[0x2383C2D60](v47, -1, -1);
+    MEMORY[0x2383C2D60](v46, -1, -1);
   }
 
-  [v45 clearRouteLine];
+  [v43 clearRouteLine];
 }
 
 id CPVehicleStateManager.clearRoute()()
@@ -3586,9 +3620,8 @@ void CPVehicleStateManager.carDidUpdateAccessories(_:)()
   v1 = [v0 route];
   if (v1)
   {
-    v3 = v1;
+    v2 = v1;
     [v1 registerObserver_];
-    v2 = *&v0[OBJC_IVAR___CPVehicleStateManager_routeSharingState];
     swift_unknownObjectWeakAssign();
   }
 }
@@ -3632,21 +3665,20 @@ LABEL_11:
 
 void @objc CPVehicleStateManager.routeService(_:didUpdateApplicationEnabled:)(void *a1)
 {
-  v5 = a1;
-  v1 = [v5 delegate];
+  v4 = a1;
+  v1 = [v4 delegate];
   if (v1)
   {
     v2 = v1;
-    v3 = *&v5[OBJC_IVAR___CPVehicleStateManager_routeSharingState];
 
-    v4 = RouteSharingState.enabled.getter();
+    v3 = RouteSharingState.enabled.getter();
 
-    [v2 vehicleStateManager:v5 didUpdateRouteSharingEnabled:v4 & 1];
+    [v2 vehicleStateManager:v4 didUpdateRouteSharingEnabled:v3 & 1];
     swift_unknownObjectRelease();
   }
 }
 
-uint64_t type metadata accessor for RouteSharingState()
+uint64_t type metadata accessor for RouteSharingState(uint64_t a1)
 {
   result = type metadata singleton initialization cache for RouteSharingState;
   if (!type metadata singleton initialization cache for RouteSharingState)
@@ -3657,30 +3689,29 @@ uint64_t type metadata accessor for RouteSharingState()
   return result;
 }
 
-void type metadata completion function for RouteSharingState()
+void type metadata completion function for RouteSharingState(uint64_t a1)
 {
-  type metadata accessor for UUID?();
+  type metadata accessor for UUID?(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata accessor for UUID?()
+void type metadata accessor for UUID?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for UUID?)
   {
     type metadata accessor for UUID();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for UUID?);
+      atomic_store(v1, &lazy cache variable for type metadata for UUID?);
     }
   }
 }
 
-unint64_t type metadata accessor for CPVehicleStateManager()
+unint64_t type metadata accessor for CPVehicleStateManager(uint64_t a1, uint64_t a2)
 {
   result = lazy cache variable for type metadata for CPVehicleStateManager;
   if (!lazy cache variable for type metadata for CPVehicleStateManager)
@@ -3693,7 +3724,7 @@ unint64_t type metadata accessor for CPVehicleStateManager()
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -3791,16 +3822,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -3897,7 +3926,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -3911,15 +3939,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -3934,15 +3962,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3951,12 +3979,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -4169,15 +4197,17 @@ _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined assign with take of UUID?(uint64_t a1, uint64_t a2)
@@ -4217,14 +4247,11 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -4232,14 +4259,12 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 void CPSanitizeImage_cold_1(objc_class *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(a1);
   v2 = [MEMORY[0x277CCACC8] callStackSymbols];
-  v4 = 138412546;
-  v5 = v1;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_236ED4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Animated images are not supported by %@. Using the first image instead.\n%@", &v4, 0x16u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = v1;
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_236ED4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Animated images are not supported by %@. Using the first image instead.\n%@", &v3, 0x16u);
 }

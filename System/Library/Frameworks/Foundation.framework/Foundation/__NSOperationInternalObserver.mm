@@ -19,9 +19,9 @@
       goto LABEL_88;
     }
 
-    if (([path isEqualToString:{@"isFinished", object, kind, value, newValue, indexes}] & 1) == 0 && (objc_msgSend(path, "isEqualToString:", @"finished") & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(path, a2, @"isFinished", object, kind, value, newValue, indexes) & 1) == 0 && (objc_msgSend_isEqualToString_(path) & 1) == 0)
     {
-      if ([path isEqualToString:@"isExecuting"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"executing"))
+      if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
       {
 LABEL_18:
         isExecuting = [object isExecuting];
@@ -35,7 +35,7 @@ LABEL_18:
         goto LABEL_81;
       }
 
-      if (([path isEqualToString:@"isReady"] & 1) == 0 && (objc_msgSend(path, "isEqualToString:", @"ready") & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(path) & 1) == 0 && (objc_msgSend_isEqualToString_(path) & 1) == 0)
       {
         return;
       }

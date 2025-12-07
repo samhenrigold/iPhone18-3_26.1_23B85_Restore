@@ -10,6 +10,7 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setPreferredContentSize:(CGSize)size;
 - (void)viewTapped:(id)tapped;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -17,12 +18,12 @@
 
 - (AMSUIUserNotificationContentViewController)initWithNotification:(id)notification delegate:(id)delegate
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   delegateCopy = delegate;
-  v70.receiver = self;
-  v70.super_class = AMSUIUserNotificationContentViewController;
-  v9 = [(AMSUIUserNotificationContentViewController *)&v70 initWithNibName:0 bundle:0];
+  v69.receiver = self;
+  v69.super_class = AMSUIUserNotificationContentViewController;
+  v9 = [(AMSUIUserNotificationContentViewController *)&v69 initWithNibName:0 bundle:0];
   v10 = v9;
   if (v9)
   {
@@ -53,80 +54,80 @@
       v10->_imageView = v23;
 
       v25 = dispatch_get_global_queue(2, 0);
-      v64 = MEMORY[0x1E69E9820];
-      v65 = 3221225472;
-      v66 = __76__AMSUIUserNotificationContentViewController_initWithNotification_delegate___block_invoke;
-      v67 = &unk_1E7F243C0;
-      v68 = notificationCopy;
-      v69 = v10;
-      dispatch_async(v25, &v64);
+      v63 = MEMORY[0x1E69E9820];
+      v64 = 3221225472;
+      v65 = __76__AMSUIUserNotificationContentViewController_initWithNotification_delegate___block_invoke;
+      v66 = &unk_1E7F243C0;
+      v67 = notificationCopy;
+      v68 = v10;
+      dispatch_async(v25, &v63);
     }
 
     videoUrl = [notificationCopy videoUrl];
 
     if (videoUrl)
     {
-      v71 = 0;
-      v72 = &v71;
-      v73 = 0x2050000000;
+      v70 = 0;
+      v71 = &v70;
+      v72 = 0x2050000000;
       v27 = getAVPlayerItemClass_softClass;
-      v74 = getAVPlayerItemClass_softClass;
+      v73 = getAVPlayerItemClass_softClass;
       if (!getAVPlayerItemClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAVPlayerItemClass_block_invoke;
-        v76 = &unk_1E7F241B0;
-        v77 = &v71;
+        v75 = &unk_1E7F241B0;
+        v76 = &v70;
         __getAVPlayerItemClass_block_invoke(buf);
-        v27 = v72[3];
+        v27 = v71[3];
       }
 
       v28 = v27;
-      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(&v70, 8);
       videoUrl2 = [notificationCopy videoUrl];
       v30 = [v27 playerItemWithURL:videoUrl2];
 
-      v71 = 0;
-      v72 = &v71;
-      v73 = 0x2050000000;
+      v70 = 0;
+      v71 = &v70;
+      v72 = 0x2050000000;
       v31 = getAVPlayerViewControllerClass_softClass;
-      v74 = getAVPlayerViewControllerClass_softClass;
+      v73 = getAVPlayerViewControllerClass_softClass;
       if (!getAVPlayerViewControllerClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAVPlayerViewControllerClass_block_invoke;
-        v76 = &unk_1E7F241B0;
-        v77 = &v71;
+        v75 = &unk_1E7F241B0;
+        v76 = &v70;
         __getAVPlayerViewControllerClass_block_invoke(buf);
-        v31 = v72[3];
+        v31 = v71[3];
       }
 
       v32 = v31;
-      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(&v70, 8);
       v33 = objc_alloc_init(v31);
       videoPlayerController = v10->_videoPlayerController;
       v10->_videoPlayerController = v33;
 
-      v71 = 0;
-      v72 = &v71;
-      v73 = 0x2050000000;
+      v70 = 0;
+      v71 = &v70;
+      v72 = 0x2050000000;
       v35 = getAVPlayerClass_softClass;
-      v74 = getAVPlayerClass_softClass;
+      v73 = getAVPlayerClass_softClass;
       if (!getAVPlayerClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAVPlayerClass_block_invoke;
-        v76 = &unk_1E7F241B0;
-        v77 = &v71;
+        v75 = &unk_1E7F241B0;
+        v76 = &v70;
         __getAVPlayerClass_block_invoke(buf);
-        v35 = v72[3];
+        v35 = v71[3];
       }
 
       v36 = v35;
-      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(&v70, 8);
       v37 = [v35 playerWithPlayerItem:v30];
       [(AVPlayerViewController *)v10->_videoPlayerController setPlayer:v37];
 
@@ -213,7 +214,6 @@
     [(UILabel *)v10->_textLabel setText:informativeText];
   }
 
-  v62 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -245,7 +245,7 @@ void __76__AMSUIUserNotificationContentViewController_initWithNotification_deleg
 
 void __76__AMSUIUserNotificationContentViewController_initWithNotification_delegate___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69DCAB8];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) traitCollection];
@@ -272,20 +272,17 @@ void __76__AMSUIUserNotificationContentViewController_initWithNotification_deleg
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 48);
-      v11 = v9;
-      v12 = [v10 logKey];
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v12;
-      _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to find artwork at url", &v14, 0x16u);
+      v8 = objc_opt_class();
+      v9 = *(a1 + 48);
+      v10 = v8;
+      v11 = [v9 logKey];
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v11;
+      _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to find artwork at url", &v12, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -518,9 +515,27 @@ LABEL_13:
   [(AMSUIUserNotificationContentViewController *)self setPreferredContentSize:?];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = AMSUIUserNotificationContentViewController;
+  [(AMSUIUserNotificationContentViewController *)&v8 viewWillAppear:appear];
+  if (![(AMSUIUserNotificationContentViewController *)self hasAppeared])
+  {
+    v4 = MEMORY[0x1E698CBE8];
+    userNotification = [(AMSUIUserNotificationContentViewController *)self userNotification];
+    v6 = [v4 eventForContentEngagementWithNotification:userNotification];
+
+    metrics = [(AMSUIUserNotificationContentViewController *)self metrics];
+    [metrics enqueueEvent:v6];
+  }
+
+  [(AMSUIUserNotificationContentViewController *)self setHasAppeared:1];
+}
+
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -618,33 +633,33 @@ LABEL_13:
         [imageView removeFromSuperview];
 
         sharedInstance3 = [getAVAudioSessionClass() sharedInstance];
-        v53 = 0;
-        v54 = &v53;
-        v55 = 0x2020000000;
+        v52 = 0;
+        v53 = &v52;
+        v54 = 0x2020000000;
         v45 = getAVAudioSessionCategoryPlaybackSymbolLoc_ptr;
-        v56 = getAVAudioSessionCategoryPlaybackSymbolLoc_ptr;
+        v55 = getAVAudioSessionCategoryPlaybackSymbolLoc_ptr;
         if (!getAVAudioSessionCategoryPlaybackSymbolLoc_ptr)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getAVAudioSessionCategoryPlaybackSymbolLoc_block_invoke;
-          v58 = &unk_1E7F241B0;
-          v59 = &v53;
+          v57 = &unk_1E7F241B0;
+          v58 = &v52;
           v46 = AVFoundationLibrary();
           v47 = dlsym(v46, "AVAudioSessionCategoryPlayback");
-          *(v59[1] + 24) = v47;
-          getAVAudioSessionCategoryPlaybackSymbolLoc_ptr = *(v59[1] + 24);
-          v45 = v54[3];
+          *(v58[1] + 24) = v47;
+          getAVAudioSessionCategoryPlaybackSymbolLoc_ptr = *(v58[1] + 24);
+          v45 = v53[3];
         }
 
-        _Block_object_dispose(&v53, 8);
+        _Block_object_dispose(&v52, 8);
         if (!v45)
         {
           [AIDAMutableServiceContext(AppleMediaServicesUI) _ams_installCDPUIWithCDPUIController:flowControllerDelegate:];
           __break(1u);
         }
 
-        [sharedInstance3 setCategory:*v45 withOptions:1 error:{0, v53}];
+        [sharedInstance3 setCategory:*v45 withOptions:1 error:{0, v52}];
 
         if (![(AMSUIUserNotificationContentViewController *)self hasPlayedVideo])
         {
@@ -660,8 +675,6 @@ LABEL_13:
       }
     }
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)expectedContentSize

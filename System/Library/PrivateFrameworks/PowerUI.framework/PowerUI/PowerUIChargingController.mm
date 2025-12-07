@@ -66,7 +66,7 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
 - (__CFString)loadChargeLimitTokenForPreferenceKey:(id)key forReason:(id)reason verbose:(BOOL)verbose
 {
   verboseCopy = verbose;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   reasonCopy = reason;
   v10 = [(NSMutableDictionary *)self->_tokenDict objectForKeyedSubscript:reasonCopy];
@@ -79,7 +79,7 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v32 = v10;
+        v31 = v10;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "Charge limit token already exists: %@", buf, 0xCu);
       }
     }
@@ -90,51 +90,51 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
     v10 = [PowerUISmartChargeUtilities readStringForPreferenceKey:keyCopy inDomain:@"com.apple.smartcharging.topoffprotection"];
     if (v10)
     {
-      v24 = verboseCopy;
-      v25 = keyCopy;
+      v23 = verboseCopy;
+      v24 = keyCopy;
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v12 = IOPSCopyBatteryLevelLimits();
-      v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v27;
+        v15 = *v26;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v27 != v15)
+            if (*v26 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = [*(*(&v26 + 1) + 8 * i) objectForKeyedSubscript:@"chargeSocLimitReason"];
+            v17 = [*(*(&v25 + 1) + 8 * i) objectForKeyedSubscript:@"chargeSocLimitReason"];
             v18 = [v17 isEqualToString:reasonCopy];
 
             if (v18)
             {
 
               [(NSMutableDictionary *)self->_tokenDict setObject:v10 forKeyedSubscript:reasonCopy];
-              if (v24)
+              if (v23)
               {
                 v20 = self->_log;
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v32 = v10;
+                  v31 = v10;
                   _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Loaded charge limit token from defaults: %@", buf, 0xCu);
                 }
               }
 
-              keyCopy = v25;
+              keyCopy = v24;
               goto LABEL_26;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v14)
           {
             continue;
@@ -144,18 +144,18 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
         }
       }
 
-      if (v24)
+      if (v23)
       {
         v19 = self->_log;
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v10;
+          v31 = v10;
           _os_log_impl(&dword_21B766000, v19, OS_LOG_TYPE_DEFAULT, "Token %@ does not seem to exist anymore", buf, 0xCu);
         }
       }
 
-      keyCopy = v25;
+      keyCopy = v24;
     }
 
     else if (verboseCopy)
@@ -164,7 +164,7 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = keyCopy;
+        v31 = keyCopy;
         _os_log_impl(&dword_21B766000, v21, OS_LOG_TYPE_DEFAULT, "Did not get string value for key %@", buf, 0xCu);
       }
     }
@@ -174,13 +174,12 @@ void __43__PowerUIChargingController_sharedInstance__block_invoke()
 
 LABEL_26:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (__CFString)registerNewTokenForPreferenceKey:(id)key forReason:(id)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   reasonCopy = reason;
   v8 = IOPSLimitBatteryLevelRegister();
@@ -209,20 +208,19 @@ LABEL_26:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v16 = 0;
-      v17 = 2112;
-      v18 = reasonCopy;
+      v15 = 0;
+      v16 = 2112;
+      v17 = reasonCopy;
       _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "Created new charge limit token: %@ for reason: %@", buf, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)clearChargeLimitForLimitType:(unint64_t)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_chargeLimitLock lock];
   v5 = type - 1;
   if (type - 1 >= 5)
@@ -248,9 +246,9 @@ LABEL_26:
         tokenDict = self->_tokenDict;
         v11 = log;
         v12 = [(NSMutableDictionary *)tokenDict objectForKeyedSubscript:v6];
-        v14 = 138412290;
-        v15 = v12;
-        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Clearing current charge limit token for (%@)", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v12;
+        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Clearing current charge limit token for (%@)", &v13, 0xCu);
       }
 
       [(NSMutableDictionary *)self->_tokenDict objectForKeyedSubscript:v6];
@@ -268,7 +266,6 @@ LABEL_26:
   }
 
   [(NSLock *)self->_chargeLimitLock unlock];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllChargeLimits
@@ -284,7 +281,7 @@ LABEL_26:
 - (BOOL)setChargeLimitTo:(int64_t)to forLimitType:(unint64_t)type setNoChargeToFull:(BOOL)full
 {
   fullCopy = full;
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_chargeLimitLock lock];
   v9 = type - 1;
   if (type - 1 >= 5)
@@ -297,39 +294,38 @@ LABEL_26:
 
   else
   {
-    v10 = qword_21B848440[v9];
-    v11 = off_2782D43C0[v9];
-    v12 = off_2782D43E8[v9];
+    v10 = off_2782D43C0[v9];
+    v11 = off_2782D43E8[v9];
     if (fullCopy)
     {
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
-        *v26 = 138412290;
-        *&v26[4] = v11;
-        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "Forcing noChargeToFullFlag for charge limit '%@' ", v26, 0xCu);
+        *v24 = 138412290;
+        *&v24[4] = v10;
+        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "Forcing noChargeToFullFlag for charge limit '%@' ", v24, 0xCu);
       }
     }
 
-    v14 = [(PowerUIChargingController *)self loadChargeLimitTokenForPreferenceKey:v12 forReason:v11 verbose:1];
-    v15 = v14 == 0;
-    if (v14)
+    v13 = [(PowerUIChargingController *)self loadChargeLimitTokenForPreferenceKey:v11 forReason:v10 verbose:1];
+    v14 = v13 == 0;
+    if (v13)
     {
-      v16 = IOPSLimitBatteryLevel();
-      if (!v16)
+      v15 = IOPSLimitBatteryLevel();
+      if (!v15)
       {
-        v17 = self->_log;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v16 = self->_log;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          *v26 = 134218242;
-          *&v26[4] = to;
-          *&v26[12] = 2112;
-          *&v26[14] = v11;
-          v18 = "Continue limiting to %lu%% for reason '%@'";
-          v19 = v17;
-          v20 = OS_LOG_TYPE_INFO;
+          *v24 = 134218242;
+          *&v24[4] = to;
+          *&v24[12] = 2112;
+          *&v24[14] = v10;
+          v17 = "Continue limiting to %lu%% for reason '%@'";
+          v18 = v16;
+          v19 = OS_LOG_TYPE_INFO;
 LABEL_21:
-          _os_log_impl(&dword_21B766000, v19, v20, v18, v26, 0x16u);
+          _os_log_impl(&dword_21B766000, v18, v19, v17, v24, 0x16u);
           goto LABEL_22;
         }
 
@@ -337,39 +333,39 @@ LABEL_21:
       }
 
 LABEL_14:
-      v21 = v16;
-      v22 = self->_log;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = v15;
+      v21 = self->_log;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [PowerUIChargingController setChargeLimitTo:v22 forLimitType:v21 setNoChargeToFull:?];
+        [PowerUIChargingController setChargeLimitTo:v21 forLimitType:v20 setNoChargeToFull:?];
       }
 
       [(NSLock *)self->_chargeLimitLock unlock];
       [(PowerUIChargingController *)self clearChargeLimitForLimitType:type];
-      goto LABEL_17;
+      return 0;
     }
 
-    if ([(PowerUIChargingController *)self registerNewTokenForPreferenceKey:v12 forReason:v11])
+    if ([(PowerUIChargingController *)self registerNewTokenForPreferenceKey:v11 forReason:v10])
     {
-      v16 = IOPSLimitBatteryLevel();
-      if (!v16)
+      v15 = IOPSLimitBatteryLevel();
+      if (!v15)
       {
-        v25 = self->_log;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v23 = self->_log;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          *v26 = 134218242;
-          *&v26[4] = to;
-          *&v26[12] = 2112;
-          *&v26[14] = v11;
-          v18 = "Limited charging to %lu%% for reason '%@'";
-          v19 = v25;
-          v20 = OS_LOG_TYPE_DEFAULT;
+          *v24 = 134218242;
+          *&v24[4] = to;
+          *&v24[12] = 2112;
+          *&v24[14] = v10;
+          v17 = "Limited charging to %lu%% for reason '%@'";
+          v18 = v23;
+          v19 = OS_LOG_TYPE_DEFAULT;
           goto LABEL_21;
         }
 
 LABEL_22:
-        [(NSLock *)self->_chargeLimitLock unlock:*v26];
-        goto LABEL_18;
+        [(NSLock *)self->_chargeLimitLock unlock:*v24];
+        return v14;
       }
 
       goto LABEL_14;
@@ -377,68 +373,54 @@ LABEL_22:
   }
 
   [(NSLock *)self->_chargeLimitLock unlock];
-LABEL_17:
-  v15 = 0;
-LABEL_18:
-  v23 = *MEMORY[0x277D85DE8];
-  return v15;
+  return 0;
 }
 
 - (void)registerNewTokenForPreferenceKey:(int)a1 forReason:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Could not get charge limit token, error code: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Could not get charge limit token, error code: %d", v2, 8u);
 }
 
 - (void)registerNewTokenForPreferenceKey:(void *)a1 forReason:(mach_error_t)a2 .cold.2(void *a1, mach_error_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   mach_error_string(a2);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v4, v5, "Error code string value: %s", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v4, v5, "Error code string value: %s", v6, v7, v8, v9);
 }
 
 - (void)clearChargeLimitForLimitType:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "trying to clear invalid charge token: %lu", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "trying to clear invalid charge token: %lu", v1, 0xCu);
 }
 
 - (void)clearChargeLimitForLimitType:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_21B766000, v1, OS_LOG_TYPE_DEBUG, "No token to clear for preferencekey %@, reason %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_21B766000, v1, OS_LOG_TYPE_DEBUG, "No token to clear for preferencekey %@, reason %@", v2, 0x16u);
 }
 
 - (void)setChargeLimitTo:forLimitType:setNoChargeToFull:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "trying to set invalid charge token: %lu", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21B766000, v0, OS_LOG_TYPE_ERROR, "trying to set invalid charge token: %lu", v1, 0xCu);
 }
 
 - (void)setChargeLimitTo:(void *)a1 forLimitType:(mach_error_t)a2 setNoChargeToFull:.cold.2(void *a1, mach_error_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   mach_error_string(a2);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v4, v5, "Error trying to limit the battery level: %s", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v4, v5, "Error trying to limit the battery level: %s", v6, v7, v8, v9);
 }
 
 @end

@@ -72,7 +72,7 @@
   v5 = fromCopy;
   if (fromCopy)
   {
-    [fromCopy timestamp];
+    objc_msgSend_timestamp(fromCopy);
   }
 
   else

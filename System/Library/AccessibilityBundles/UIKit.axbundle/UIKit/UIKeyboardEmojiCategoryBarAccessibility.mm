@@ -70,7 +70,7 @@
   return v3;
 }
 
-void __64__UIKeyboardEmojiCategoryBarAccessibility_accessibilityElements__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void __64__UIKeyboardEmojiCategoryBarAccessibility_accessibilityElements__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   location[1] = a1;
   location[0] = 0;
@@ -234,7 +234,7 @@ double __64__UIKeyboardEmojiCategoryBarAccessibility_accessibilityElements__bloc
   objc_storeStrong(&v10, 0);
 }
 
-void __60__UIKeyboardEmojiCategoryBarAccessibility_setSelectedIndex___block_invoke(void **a1, void *a2, uint64_t a3)
+void __60__UIKeyboardEmojiCategoryBarAccessibility_setSelectedIndex___block_invoke(void **a1, void *a2, void *a3)
 {
   location[1] = a1;
   location[0] = 0;

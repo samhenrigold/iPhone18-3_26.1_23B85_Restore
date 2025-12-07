@@ -86,288 +86,283 @@
 
 - (BOOL)prepareTablesWithError:(id *)error
 {
-  v95[2] = *MEMORY[0x277D85DE8];
-  if (__reloadSQLQueryMetadata(self, error))
+  v94[2] = *MEMORY[0x277D85DE8];
+  if (!__reloadSQLQueryMetadata(self, error))
   {
-    queryTables = [(HMBLocalSQLContext *)self queryTables];
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke;
-    v85[3] = &unk_2786E1EC8;
-    v85[4] = self;
-    [queryTables enumerateKeysAndObjectsUsingBlock:v85];
+    return 0;
+  }
 
-    v95[0] = @"CREATE TABLE IF NOT EXISTS index_sentinel(                 store_id            INTEGER NOT NULL, type                TEXT NOT NULL, CONSTRAINT fk_index_sentinel FOREIGN KEY (store_id) REFERENCES store_v2 (id) ON DELETE CASCADE);";
-    v95[1] = @"CREATE UNIQUE INDEX IF NOT EXISTS index_sentinel_unique ON index_sentinel (store_id, type);";
-    [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v6 = v84 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v81 objects:v94 count:16];
-    if (v7)
+  queryTables = [(HMBLocalSQLContext *)self queryTables];
+  v84[0] = MEMORY[0x277D85DD0];
+  v84[1] = 3221225472;
+  v84[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke;
+  v84[3] = &unk_2786E1EC8;
+  v84[4] = self;
+  [queryTables enumerateKeysAndObjectsUsingBlock:v84];
+
+  v94[0] = @"CREATE TABLE IF NOT EXISTS index_sentinel(                 store_id            INTEGER NOT NULL, type                TEXT NOT NULL, CONSTRAINT fk_index_sentinel FOREIGN KEY (store_id) REFERENCES store_v2 (id) ON DELETE CASCADE);";
+  v94[1] = @"CREATE UNIQUE INDEX IF NOT EXISTS index_sentinel_unique ON index_sentinel (store_id, type);";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
+  v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v6 = v83 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v80 objects:v93 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v81;
+    while (2)
     {
-      v8 = v7;
-      v9 = *v82;
-      while (2)
+      for (i = 0; i != v8; ++i)
       {
-        for (i = 0; i != v8; ++i)
+        if (*v81 != v9)
         {
-          if (*v82 != v9)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          uTF8String = [*(*(&v81 + 1) + 8 * i) UTF8String];
-          v80 = 0;
-          v12 = [(HMBSQLContext *)self runSQLite3:uTF8String error:&v80];
-          v13 = v80;
-          v14 = v13;
-          if (!v12)
-          {
-            v47 = objc_autoreleasePoolPush();
-            selfCopy = self;
-            v49 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
-            {
-              v50 = HMFGetLogIdentifier();
-              *buf = 138543618;
-              v87 = v50;
-              v88 = 2112;
-              v89 = v14;
-              _os_log_impl(&dword_22AD27000, v49, OS_LOG_TYPE_ERROR, "%{public}@Adding sentinel table failed: %@", buf, 0x16u);
-            }
-
-            objc_autoreleasePoolPop(v47);
-            if (error)
-            {
-              v51 = v14;
-              v46 = 0;
-              *error = v14;
-            }
-
-            else
-            {
-              v46 = 0;
-            }
-
-            v30 = v6;
-            goto LABEL_49;
-          }
+          objc_enumerationMutation(v6);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v81 objects:v94 count:16];
-        if (v8)
+        uTF8String = [*(*(&v80 + 1) + 8 * i) UTF8String];
+        v79 = 0;
+        v12 = [(HMBSQLContext *)self runSQLite3:uTF8String error:&v79];
+        v13 = v79;
+        v14 = v13;
+        if (!v12)
         {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    errorCopy = error;
-    v61 = v6;
-
-    v15 = +[HMBModel hmbModelClassesWithQueries];
-    v16 = [MEMORY[0x277CBEB58] set];
-    queryTables2 = [(HMBLocalSQLContext *)self queryTables];
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_51;
-    v77[3] = &unk_2786E1F18;
-    v62 = v15;
-    v78 = v62;
-    v18 = v16;
-    v79 = v18;
-    [queryTables2 enumerateKeysAndObjectsUsingBlock:v77];
-
-    v76 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v73 = 0u;
-    v14 = v18;
-    v19 = [(HMBLocalSQLQueryTable *)v14 countByEnumeratingWithState:&v73 objects:v93 count:16];
-    if (v19)
-    {
-      v20 = v19;
-      v21 = *v74;
-      while (2)
-      {
-        for (j = 0; j != v20; ++j)
-        {
-          if (*v74 != v21)
+          v47 = objc_autoreleasePoolPush();
+          selfCopy = self;
+          v49 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            objc_enumerationMutation(v14);
-          }
-
-          v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", *(*(&v73 + 1) + 8 * j)];
-          uTF8String2 = [v23 UTF8String];
-          v72 = 0;
-          v25 = [(HMBSQLContext *)self runSQLite3:uTF8String2 error:&v72];
-          v26 = v72;
-          if (!v25)
-          {
-            v52 = objc_autoreleasePoolPush();
-            selfCopy2 = self;
-            v54 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
-            {
-              v55 = HMFGetLogIdentifier();
-              *buf = 138543618;
-              v87 = v55;
-              v88 = 2112;
-              v89 = v26;
-              _os_log_impl(&dword_22AD27000, v54, OS_LOG_TYPE_ERROR, "%{public}@Failed to clean up queryable table: %@", buf, 0x16u);
-            }
-
-            objc_autoreleasePoolPop(v52);
-            v35 = v26;
-            obj = v14;
-LABEL_44:
-            v6 = v61;
-            if (errorCopy)
-            {
-              v57 = v26;
-              *errorCopy = v26;
-            }
-
-            v46 = 0;
-            goto LABEL_47;
-          }
-        }
-
-        v20 = [(HMBLocalSQLQueryTable *)v14 countByEnumeratingWithState:&v73 objects:v93 count:16];
-        if (v20)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    v27 = objc_autoreleasePoolPush();
-    selfCopy3 = self;
-    v29 = HMFGetOSLogHandle();
-    v30 = v62;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
-    {
-      v31 = HMFGetLogIdentifier();
-      hmbDescription = [v62 hmbDescription];
-      *buf = 138543618;
-      v87 = v31;
-      v88 = 2112;
-      v89 = hmbDescription;
-      _os_log_impl(&dword_22AD27000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Preparing query contexts for %@", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v27);
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    obj = v62;
-    v66 = [(HMBLocalSQLQueryTable *)obj countByEnumeratingWithState:&v68 objects:v92 count:16];
-    if (v66)
-    {
-      v65 = *v69;
-      v63 = selfCopy3;
-      while (2)
-      {
-        for (k = 0; k != v66; ++k)
-        {
-          if (*v69 != v65)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v34 = *(*(&v68 + 1) + 8 * k);
-          v35 = [[HMBLocalSQLQueryTable alloc] initWithContext:selfCopy3 queryModel:v34];
-          v67 = 0;
-          v36 = [(HMBLocalSQLQueryTable *)v35 prepareWithError:&v67];
-          v26 = v67;
-          v37 = objc_autoreleasePoolPush();
-          v38 = selfCopy3;
-          v39 = HMFGetOSLogHandle();
-          v40 = v39;
-          if (!v36)
-          {
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-            {
-              v56 = HMFGetLogIdentifier();
-              *buf = 138543874;
-              v87 = v56;
-              v88 = 2112;
-              v89 = v34;
-              v90 = 2112;
-              v91 = v26;
-              _os_log_impl(&dword_22AD27000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare query context for %@: %@", buf, 0x20u);
-            }
-
-            objc_autoreleasePoolPop(v37);
-            v23 = v26;
-            goto LABEL_44;
-          }
-
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
-          {
-            v41 = HMFGetLogIdentifier();
-            modelType = [(HMBLocalSQLQueryTable *)v35 modelType];
+            v50 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v87 = v41;
-            v88 = 2112;
-            v89 = modelType;
-            _os_log_impl(&dword_22AD27000, v40, OS_LOG_TYPE_DEBUG, "%{public}@Prepared query context for %@", buf, 0x16u);
+            v86 = v50;
+            v87 = 2112;
+            v88 = v14;
+            _os_log_impl(&dword_22AD27000, v49, OS_LOG_TYPE_ERROR, "%{public}@Adding sentinel table failed: %@", buf, 0x16u);
+          }
 
-            selfCopy3 = v63;
+          objc_autoreleasePoolPop(v47);
+          if (error)
+          {
+            v51 = v14;
+            v46 = 0;
+            *error = v14;
+          }
+
+          else
+          {
+            v46 = 0;
+          }
+
+          v30 = v6;
+          goto LABEL_49;
+        }
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v80 objects:v93 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  errorCopy = error;
+  v60 = v6;
+
+  v15 = +[HMBModel hmbModelClassesWithQueries];
+  v16 = [MEMORY[0x277CBEB58] set];
+  queryTables2 = [(HMBLocalSQLContext *)self queryTables];
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_51;
+  v76[3] = &unk_2786E1F18;
+  v61 = v15;
+  v77 = v61;
+  v18 = v16;
+  v78 = v18;
+  [queryTables2 enumerateKeysAndObjectsUsingBlock:v76];
+
+  v75 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v72 = 0u;
+  v14 = v18;
+  v19 = [(HMBLocalSQLQueryTable *)v14 countByEnumeratingWithState:&v72 objects:v92 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v73;
+    while (2)
+    {
+      for (j = 0; j != v20; ++j)
+      {
+        if (*v73 != v21)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", *(*(&v72 + 1) + 8 * j)];
+        uTF8String2 = [v23 UTF8String];
+        v71 = 0;
+        v25 = [(HMBSQLContext *)self runSQLite3:uTF8String2 error:&v71];
+        v26 = v71;
+        if (!v25)
+        {
+          v52 = objc_autoreleasePoolPush();
+          selfCopy2 = self;
+          v54 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          {
+            v55 = HMFGetLogIdentifier();
+            *buf = 138543618;
+            v86 = v55;
+            v87 = 2112;
+            v88 = v26;
+            _os_log_impl(&dword_22AD27000, v54, OS_LOG_TYPE_ERROR, "%{public}@Failed to clean up queryable table: %@", buf, 0x16u);
+          }
+
+          objc_autoreleasePoolPop(v52);
+          v35 = v26;
+          obj = v14;
+LABEL_44:
+          v6 = v60;
+          if (errorCopy)
+          {
+            v57 = v26;
+            *errorCopy = v26;
+          }
+
+          v46 = 0;
+          goto LABEL_47;
+        }
+      }
+
+      v20 = [(HMBLocalSQLQueryTable *)v14 countByEnumeratingWithState:&v72 objects:v92 count:16];
+      if (v20)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v27 = objc_autoreleasePoolPush();
+  selfCopy3 = self;
+  v29 = HMFGetOSLogHandle();
+  v30 = v61;
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  {
+    v31 = HMFGetLogIdentifier();
+    hmbDescription = [v61 hmbDescription];
+    *buf = 138543618;
+    v86 = v31;
+    v87 = 2112;
+    v88 = hmbDescription;
+    _os_log_impl(&dword_22AD27000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Preparing query contexts for %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v27);
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  obj = v61;
+  v65 = [(HMBLocalSQLQueryTable *)obj countByEnumeratingWithState:&v67 objects:v91 count:16];
+  if (v65)
+  {
+    v64 = *v68;
+    v62 = selfCopy3;
+    while (2)
+    {
+      for (k = 0; k != v65; ++k)
+      {
+        if (*v68 != v64)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v34 = *(*(&v67 + 1) + 8 * k);
+        v35 = [[HMBLocalSQLQueryTable alloc] initWithContext:selfCopy3 queryModel:v34];
+        v66 = 0;
+        v36 = [(HMBLocalSQLQueryTable *)v35 prepareWithError:&v66];
+        v26 = v66;
+        v37 = objc_autoreleasePoolPush();
+        v38 = selfCopy3;
+        v39 = HMFGetOSLogHandle();
+        v40 = v39;
+        if (!v36)
+        {
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          {
+            v56 = HMFGetLogIdentifier();
+            *buf = 138543874;
+            v86 = v56;
+            v87 = 2112;
+            v88 = v34;
+            v89 = 2112;
+            v90 = v26;
+            _os_log_impl(&dword_22AD27000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare query context for %@: %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v37);
-          queryContextsByClass = [(HMBLocalSQLContext *)v38 queryContextsByClass];
-          [queryContextsByClass setObject:v35 forKey:v34];
-
-          queryContextsByModelType = [(HMBLocalSQLContext *)v38 queryContextsByModelType];
-          modelType2 = [(HMBLocalSQLQueryTable *)v35 modelType];
-          [queryContextsByModelType setObject:v35 forKey:modelType2];
+          v23 = v26;
+          goto LABEL_44;
         }
 
-        v46 = 1;
-        v66 = [(HMBLocalSQLQueryTable *)obj countByEnumeratingWithState:&v68 objects:v92 count:16];
-        if (v66)
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
-          continue;
+          v41 = HMFGetLogIdentifier();
+          modelType = [(HMBLocalSQLQueryTable *)v35 modelType];
+          *buf = 138543618;
+          v86 = v41;
+          v87 = 2112;
+          v88 = modelType;
+          _os_log_impl(&dword_22AD27000, v40, OS_LOG_TYPE_DEBUG, "%{public}@Prepared query context for %@", buf, 0x16u);
+
+          selfCopy3 = v62;
         }
 
-        break;
+        objc_autoreleasePoolPop(v37);
+        queryContextsByClass = [(HMBLocalSQLContext *)v38 queryContextsByClass];
+        [queryContextsByClass setObject:v35 forKey:v34];
+
+        queryContextsByModelType = [(HMBLocalSQLContext *)v38 queryContextsByModelType];
+        modelType2 = [(HMBLocalSQLQueryTable *)v35 modelType];
+        [queryContextsByModelType setObject:v35 forKey:modelType2];
       }
 
-      v6 = v61;
-LABEL_47:
-      v30 = v62;
-    }
-
-    else
-    {
       v46 = 1;
-      v6 = v61;
+      v65 = [(HMBLocalSQLQueryTable *)obj countByEnumeratingWithState:&v67 objects:v91 count:16];
+      if (v65)
+      {
+        continue;
+      }
+
+      break;
     }
 
-LABEL_49:
+    v6 = v60;
+LABEL_47:
+    v30 = v61;
   }
 
   else
   {
-    v46 = 0;
+    v46 = 1;
+    v6 = v60;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
+LABEL_49:
   return v46;
 }
 
 void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -380,24 +375,22 @@ void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke(u
     v12 = [v11 allObjects];
     v13 = [v12 componentsJoinedByString:{@", "}];
     *buf = 138543874;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v13;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v13;
     _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Query Table: %@ <%@>", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   v14 = [v6 indexes];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_45;
-  v16[3] = &unk_2786E1EA0;
-  v16[4] = *(a1 + 32);
-  [v14 enumerateKeysAndObjectsUsingBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_45;
+  v15[3] = &unk_2786E1EA0;
+  v15[4] = *(a1 + 32);
+  [v14 enumerateKeysAndObjectsUsingBlock:v15];
 }
 
 void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_51(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -444,7 +437,7 @@ void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_2
 
 void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_45(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -455,17 +448,16 @@ void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_4
     v10 = HMFGetLogIdentifier();
     v11 = [v6 columns];
     v12 = [v11 componentsJoinedByString:{@", "}];
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEBUG, "%{public}@    %@ <%@>", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEBUG, "%{public}@    %@ <%@>", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadSQLQueryMetadata
@@ -493,7 +485,7 @@ void __56__HMBLocalSQLContext_Queryable__prepareTablesWithError___block_invoke_4
 
 id __28__HMBLocalSQLContext_flush___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = v3;
@@ -502,61 +494,61 @@ id __28__HMBLocalSQLContext_flush___block_invoke(uint64_t a1, void *a2)
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v36 = v7;
+    v35 = v7;
     _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@removing all records and transactions from local", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v33 = 0;
-  [v5 runSQLite3:"DELETE FROM transaction_v2" error:&v33];
-  v8 = v33;
-  v32 = v8;
-  [v5 runSQLite3:"DELETE FROM record_v2" error:&v32];
-  v9 = v32;
+  v32 = 0;
+  [v5 runSQLite3:"DELETE FROM transaction_v2" error:&v32];
+  v8 = v32;
+  v31 = v8;
+  [v5 runSQLite3:"DELETE FROM record_v2" error:&v31];
+  v9 = v31;
 
-  v31 = v9;
-  [v5 runSQLite3:"DELETE FROM block_v2" error:&v31];
-  v10 = v31;
+  v30 = v9;
+  [v5 runSQLite3:"DELETE FROM block_v2" error:&v30];
+  v10 = v30;
 
-  v30 = v10;
-  [v5 runSQLite3:"DELETE FROM index_sentinel" error:&v30];
-  v11 = v30;
+  v29 = v10;
+  [v5 runSQLite3:"DELETE FROM index_sentinel" error:&v29];
+  v11 = v29;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v12 = [*(a1 + 32) queryContextsByClass];
   v13 = [v12 keyEnumerator];
 
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       v17 = 0;
       v18 = v11;
       do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = [*(*(&v26 + 1) + 8 * v17) dropTableSQL];
+        v19 = [*(*(&v25 + 1) + 8 * v17) dropTableSQL];
         v20 = [v19 UTF8String];
-        v25 = v18;
-        [v5 runSQLite3:v20 error:&v25];
-        v11 = v25;
+        v24 = v18;
+        [v5 runSQLite3:v20 error:&v24];
+        v11 = v24;
 
         ++v17;
         v18 = v11;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v15);
@@ -564,14 +556,12 @@ id __28__HMBLocalSQLContext_flush___block_invoke(uint64_t a1, void *a2)
 
   if (*(a1 + 40) == 1)
   {
-    v24 = v11;
-    [v5 runSQLite3:"DELETE FROM store_v2" error:&v24];
-    v21 = v24;
+    v23 = v11;
+    [v5 runSQLite3:"DELETE FROM store_v2" error:&v23];
+    v21 = v23;
 
     v11 = v21;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -596,13 +586,13 @@ id __28__HMBLocalSQLContext_flush___block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
-id __61__HMBLocalSQLContext__deleteIndexSentinelsWithZoneRow_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+id __61__HMBLocalSQLContext__deleteIndexSentinelsWithZoneRow_error___block_invoke(void *a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 48);
+  v4 = a1[6];
   v7 = 0;
   hmbBindIntSQLite3(a2, 1, v4, &v7);
   v5 = v7;
-  *(*(*(a1 + 40) + 8) + 24) = __execAndSetError(*(a1 + 32), a2, v5, *(a1 + 56));
+  *(*(a1[5] + 8) + 24) = __execAndSetError(a1[4], a2, v5, a1[7]);
 
   return v5;
 }
@@ -1221,28 +1211,28 @@ id __113__HMBLocalSQLContext__updateItemWithZoneRow_blockRow_type_externalID_ext
   return v15;
 }
 
-id __75__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_modelType_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+id __75__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_modelType_error___block_invoke(void *a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 56);
+  v4 = a1[7];
   v16 = 0;
   hmbBindIntSQLite3(a2, 1, v4, &v16);
   v5 = v16;
-  v6 = *(a1 + 64);
+  v6 = a1[8];
   v15 = v5;
   hmbBindIntSQLite3(a2, 2, v6, &v15);
   v7 = v15;
 
-  v8 = *(a1 + 72);
+  v8 = a1[9];
   v14 = v7;
   hmbBindIntSQLite3(a2, 3, v8, &v14);
   v9 = v14;
 
-  v10 = *(a1 + 32);
+  v10 = a1[4];
   v13 = v9;
   hmbBindStringSQLite3(a2, 4, v10, &v13);
   v11 = v13;
 
-  *(*(*(a1 + 48) + 8) + 24) = __execRowAndSetError(*(a1 + 40), a2, v11, *(a1 + 80));
+  *(*(a1[6] + 8) + 24) = __execRowAndSetError(a1[5], a2, v11, a1[10]);
 
   return v11;
 }
@@ -1479,43 +1469,43 @@ id __113__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_externalID_ext
 
 - (unint64_t)_insertBlockWithZoneRow:(unint64_t)row type:(unint64_t)type options:(id)options items:(id)items error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   itemsCopy = items;
-  v40 = 0;
+  v39 = 0;
   rowCopy = row;
   selfCopy = self;
   typeCopy = type;
-  v34 = [(HMBLocalSQLContext *)self _insertBlockWithZoneRow:row type:type error:&v40];
-  v13 = v40;
+  v33 = [(HMBLocalSQLContext *)self _insertBlockWithZoneRow:row type:type error:&v39];
+  v13 = v39;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v14 = itemsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v37;
+    v17 = *v36;
     obj = v14;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v37 != v17)
+        if (*v36 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v36 + 1) + 8 * i);
+        v19 = *(*(&v35 + 1) + 8 * i);
         externalID = [v19 externalID];
         externalData = [v19 externalData];
         modelEncoding = [v19 modelEncoding];
         modelData = [v19 modelData];
-        v35 = v13;
-        [(HMBLocalSQLContext *)selfCopy _insertItemWithZoneRow:rowCopy blockRow:v34 type:typeCopy externalID:externalID externalData:externalData modelEncoding:modelEncoding modelData:modelData error:&v35];
-        v24 = v35;
+        v34 = v13;
+        [(HMBLocalSQLContext *)selfCopy _insertItemWithZoneRow:rowCopy blockRow:v33 type:typeCopy externalID:externalID externalData:externalData modelEncoding:modelEncoding modelData:modelData error:&v34];
+        v24 = v34;
 
         if (v24)
         {
@@ -1527,7 +1517,7 @@ id __113__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_externalID_ext
 
           v14 = obj;
 
-          v34 = 0;
+          v33 = 0;
           v26 = optionsCopy;
           goto LABEL_15;
         }
@@ -1536,7 +1526,7 @@ id __113__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_externalID_ext
       }
 
       v14 = obj;
-      v16 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v16 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
       v13 = 0;
       v24 = 0;
       if (v16)
@@ -1554,11 +1544,10 @@ id __113__HMBLocalSQLContext__insertItemWithZoneRow_blockRow_type_externalID_ext
   }
 
   v26 = optionsCopy;
-  [(HMBLocalSQLContext *)selfCopy _updateBlockWithRow:v34 options:optionsCopy error:error];
+  [(HMBLocalSQLContext *)selfCopy _updateBlockWithRow:v33 options:optionsCopy error:error];
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v33;
 }
 
 - (BOOL)_deleteNullBlocksWithZoneRow:(unint64_t)row error:(id *)error
@@ -2134,7 +2123,7 @@ id __63__HMBLocalSQLContext__insertZoneWithIdentification_name_error___block_inv
 
 - (int64_t)migrateFromSchemaVersion:(int64_t)version error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (version >= 2)
   {
     v6 = objc_autoreleasePoolPush();
@@ -2144,34 +2133,32 @@ id __63__HMBLocalSQLContext__insertZoneWithIdentification_name_error___block_inv
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v38 = v9;
-      v39 = 2048;
+      v37 = v9;
+      v38 = 2048;
       versionCopy = version;
-      v41 = 2048;
-      v42 = 1;
+      v40 = 2048;
+      v41 = 1;
       _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failing database migration because the database has a later version than our current known version (%ld > %ld).", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   if (!version && [(HMBLocalSQLContext *)self migrateToSchema01WithError:error]!= 3)
   {
 LABEL_10:
-    v35.receiver = self;
-    v35.super_class = HMBLocalSQLContext;
-    result = [(HMBSQLContext *)&v35 migrateFromSchemaVersion:version error:error];
-    goto LABEL_20;
+    v34.receiver = self;
+    v34.super_class = HMBLocalSQLContext;
+    return [(HMBSQLContext *)&v34 migrateFromSchemaVersion:version error:error];
   }
 
   selfCopy2 = self;
   v13 = [MEMORY[0x277CBEB98] setWithArray:&unk_283EB9F18];
   connection = [(HMBSQLContext *)selfCopy2 connection];
-  v36 = 0;
-  v15 = selectSQLite3(connection, "SELECT name FROM sqlite_master WHERE type = 'table'", MEMORY[0x277CBEC10], &v36);
-  v16 = v36;
+  v35 = 0;
+  v15 = selectSQLite3(connection, "SELECT name FROM sqlite_master WHERE type = 'table'", MEMORY[0x277CBEC10], &v35);
+  v16 = v35;
   if (v15)
   {
     v17 = MEMORY[0x277CBEB98];
@@ -2192,16 +2179,16 @@ LABEL_10:
       v26 = HMFGetLogIdentifier();
       hmbDescription = [v19 hmbDescription];
       [v13 hmbDescription];
-      v28 = v34 = v24;
+      v28 = v33 = v24;
       *buf = 138543874;
-      v38 = v26;
-      v39 = 2112;
+      v37 = v26;
+      v38 = 2112;
       versionCopy = hmbDescription;
-      v41 = 2112;
-      v42 = v28;
+      v40 = 2112;
+      v41 = v28;
       _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_ERROR, "%{public}@Set of found tables: %@ does not contain all required tables: %@", buf, 0x20u);
 
-      v24 = v34;
+      v24 = v33;
     }
 
     objc_autoreleasePoolPop(v24);
@@ -2216,8 +2203,8 @@ LABEL_10:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2112;
+      v37 = v23;
+      v38 = 2112;
       versionCopy = v16;
       _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to query all required tables: %@", buf, 0x16u);
     }
@@ -2232,15 +2219,12 @@ LABEL_10:
   {
     v32 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v32;
+    v37 = v32;
     _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Requiring re-init after migration because all required tables do not exist", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v29);
-  result = 1;
-LABEL_20:
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)finalize
@@ -2268,28 +2252,28 @@ LABEL_20:
 
 - (BOOL)initializeNewlyCreatedDatabaseWithError:(id *)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   [MEMORY[0x277CBEA60] arrayWithObjects:{@"CREATE TABLE IF NOT EXISTS store_v2(                              id                  INTEGER PRIMARY KEY AUTOINCREMENT, label               STRING  NOT NULL, identifier_data     BLOB UNIQUE NOT NULL, replication_data    BLOB                                             );", @"CREATE TABLE IF NOT EXISTS block_v2(                              id                  INTEGER PRIMARY KEY AUTOINCREMENT, store_v2_id         INTEGER NOT NULL CONSTRAINT fetch_store_v2_id_fkey REFERENCES store_v2 (id) ON DELETE RESTRICT, type                INTEGER NOT NULL, options_data        BLOB                                             );", @"CREATE TABLE IF NOT EXISTS transaction_v2(                        id                  INTEGER PRIMARY KEY AUTOINCREMENT, store_v2_id         INTEGER NOT NULL CONSTRAINT fetch_store_v2_id_fkey REFERENCES store_v2 (id) ON DELETE RESTRICT, block_id            INTEGER NOT NULL CONSTRAINT transaction_v2_block_v2_id_fkey REFERENCES block_v2 (id) ON DELETE RESTRICT, type                INTEGER NOT NULL, external_id         BLOB    NOT NULL, external_data       BLOB, model_encoding      INTEGER NOT NULL, model_data          BLOB                                             );", @"CREATE TABLE IF NOT EXISTS record_v2(                             id                  INTEGER PRIMARY KEY AUTOINCREMENT, store_v2_id         INTEGER NOT NULL CONSTRAINT record_v2_group_id_fkey REFERENCES store_v2 (id) ON DELETE RESTRICT, uuid                BLOB    NOT NULL, parent_uuid         BLOB    NOT NULL, type                TEXT, model_schema        BLOB, external_id         BLOB, external_data       BLOB, model_encoding      INTEGER NOT NULL, model_data          BLOB, push_encoding       INTEGER NOT NULL, push_data           BLOB, push_block_id       INTEGER CONSTRAINT record_v2_block_v2_fkey REFERENCES block_v2 (id) ON DELETE RESTRICT            );", @"CREATE TABLE IF NOT EXISTS index_sentinel(                 store_id            INTEGER NOT NULL, type                TEXT NOT NULL, CONSTRAINT fk_index_sentinel FOREIGN KEY (store_id) REFERENCES store_v2 (id) ON DELETE CASCADE);", 0}];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v5 = v55 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v52 objects:v68 count:16];
+  v5 = v54 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v51 objects:v67 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v53;
+    v8 = *v52;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v53 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         v11 = -[HMBSQLContext runSQLite3:](selfCopy, "runSQLite3:", [v10 UTF8String]);
         if (v11)
         {
@@ -2301,11 +2285,11 @@ LABEL_20:
           {
             v26 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v63 = v26;
-            v64 = 2112;
-            v65 = v10;
-            v66 = 2112;
-            v67 = v22;
+            v62 = v26;
+            v63 = 2112;
+            v64 = v10;
+            v65 = 2112;
+            v66 = v22;
             _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize SQL table %@: %@", buf, 0x20u);
           }
 
@@ -2318,7 +2302,7 @@ LABEL_20:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v52 objects:v68 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v51 objects:v67 count:16];
       if (v7)
       {
         continue;
@@ -2329,25 +2313,25 @@ LABEL_20:
   }
 
   [MEMORY[0x277CBEA60] arrayWithObjects:{@"CREATE UNIQUE INDEX IF NOT EXISTS transaction_v2_ukey ON transaction_v2 (store_v2_id, type, external_id);", @"CREATE UNIQUE INDEX IF NOT EXISTS record_v2_external_store_v2_id_ukey ON record_v2 (store_v2_id, external_id);", @"CREATE UNIQUE INDEX IF NOT EXISTS record_v2_uuid_store_v2_id_ukey ON record_v2 (store_v2_id, uuid);", @"CREATE INDEX IF NOT EXISTS block_v2_store_type ON block_v2 (store_v2_id, type, id);", @"CREATE INDEX IF NOT EXISTS transaction_v2_block_id ON transaction_v2 (block_id, id);", @"CREATE INDEX IF NOT EXISTS record_v2_push_id ON record_v2 (push_block_id, id);", @"CREATE INDEX IF NOT EXISTS record_v2_store ON record_v2 (store_v2_id);", @"CREATE INDEX IF NOT EXISTS record_v2_store_uuid ON record_v2 (store_v2_id, uuid);", @"CREATE INDEX IF NOT EXISTS record_v2_store_parent_uuid ON record_v2 (store_v2_id, parent_uuid);", @"CREATE INDEX IF NOT EXISTS record_v2_store_type_parent_uuid ON record_v2 (store_v2_id, parent_uuid, type);", @"CREATE INDEX IF NOT EXISTS record_v2_store_external ON record_v2 (store_v2_id, external_id);", @"CREATE UNIQUE INDEX IF NOT EXISTS index_sentinel_unique ON index_sentinel (store_id, type);", 0}];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v12 = v51 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v48 objects:buf count:16];
+  v12 = v50 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v47 objects:buf count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v49;
+    v15 = *v48;
     while (2)
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v49 != v15)
+        if (*v48 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v48 + 1) + 8 * j);
+        v17 = *(*(&v47 + 1) + 8 * j);
         v18 = -[HMBSQLContext runSQLite3:](selfCopy, "runSQLite3:", [v17 UTF8String]);
         if (v18)
         {
@@ -2358,13 +2342,13 @@ LABEL_20:
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             v32 = HMFGetLogIdentifier();
-            *v56 = 138543874;
-            v57 = v32;
-            v58 = 2112;
-            v59 = v17;
-            v60 = 2112;
-            v61 = v28;
-            _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize SQL index %@: %@", v56, 0x20u);
+            *v55 = 138543874;
+            v56 = v32;
+            v57 = 2112;
+            v58 = v17;
+            v59 = 2112;
+            v60 = v28;
+            _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize SQL index %@: %@", v55, 0x20u);
           }
 
           objc_autoreleasePoolPop(v29);
@@ -2376,7 +2360,7 @@ LABEL_20:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v48 objects:buf count:16];
+      v14 = [v12 countByEnumeratingWithState:&v47 objects:buf count:16];
       if (v14)
       {
         continue;
@@ -2386,9 +2370,9 @@ LABEL_20:
     }
   }
 
-  v47 = 0;
-  v19 = [(HMBSQLContext *)selfCopy setSchemaVersion:1 error:&v47];
-  v20 = v47;
+  v46 = 0;
+  v19 = [(HMBSQLContext *)selfCopy setSchemaVersion:1 error:&v46];
+  v20 = v46;
   if (v19)
   {
     v21 = 0;
@@ -2396,23 +2380,23 @@ LABEL_20:
 
   else
   {
-    v42 = objc_autoreleasePoolPush();
-    v43 = selfCopy;
-    v44 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v41 = objc_autoreleasePoolPush();
+    v42 = selfCopy;
+    v43 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      v45 = HMFGetLogIdentifier();
-      *v56 = 138543874;
-      v57 = v45;
-      v58 = 2048;
-      v59 = 1;
-      v60 = 2112;
-      v61 = v20;
-      _os_log_impl(&dword_22AD27000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to updated schema version to current version %lu: %@", v56, 0x20u);
+      v44 = HMFGetLogIdentifier();
+      *v55 = 138543874;
+      v56 = v44;
+      v57 = 2048;
+      v58 = 1;
+      v59 = 2112;
+      v60 = v20;
+      _os_log_impl(&dword_22AD27000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to updated schema version to current version %lu: %@", v55, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v42);
-    sqlite3_close([(HMBSQLContext *)v43 connection]);
+    objc_autoreleasePoolPop(v41);
+    sqlite3_close([(HMBSQLContext *)v42 connection]);
     v27 = v20;
     v20 = v27;
 LABEL_22:
@@ -2430,13 +2414,13 @@ LABEL_26:
     {
       v36 = HMFGetLogIdentifier();
       v37 = [(HMBSQLContext *)v34 url];
-      *v68 = 138543874;
-      v69 = v36;
-      v70 = 2112;
-      v71 = v37;
-      v72 = 2112;
-      v73 = v21;
-      _os_log_impl(&dword_22AD27000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to create SQLite datastore %@: %@", v68, 0x20u);
+      *v67 = 138543874;
+      v68 = v36;
+      v69 = 2112;
+      v70 = v37;
+      v71 = 2112;
+      v72 = v21;
+      _os_log_impl(&dword_22AD27000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to create SQLite datastore %@: %@", v67, 0x20u);
     }
 
     objc_autoreleasePoolPop(v33);
@@ -2455,55 +2439,50 @@ LABEL_26:
 
   else
   {
-    v46.receiver = selfCopy;
-    v46.super_class = HMBLocalSQLContext;
-    v39 = [(HMBSQLContext *)&v46 initializeNewlyCreatedDatabaseWithError:error];
+    v45.receiver = selfCopy;
+    v45.super_class = HMBLocalSQLContext;
+    v39 = [(HMBSQLContext *)&v45 initializeNewlyCreatedDatabaseWithError:error];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HMBLocalSQLContext;
-  if ([(HMBSQLContext *)&v15 prepareWithError:?])
+  v19 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HMBLocalSQLContext;
+  if (![(HMBSQLContext *)&v14 prepareWithError:?])
   {
-    v14 = 0;
-    v5 = [(HMBLocalSQLContext *)self prepareTablesWithError:&v14];
-    v6 = v14;
-    if (!v5)
-    {
-      v7 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v9 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v10 = HMFGetLogIdentifier();
-        *buf = 138543618;
-        v17 = v10;
-        v18 = 2112;
-        v19 = v6;
-        _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare tables: %@", buf, 0x16u);
-      }
+    return 0;
+  }
 
-      objc_autoreleasePoolPop(v7);
-      if (error)
-      {
-        v11 = v6;
-        *error = v6;
-      }
+  v13 = 0;
+  v5 = [(HMBLocalSQLContext *)self prepareTablesWithError:&v13];
+  v6 = v13;
+  if (!v5)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare tables: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    if (error)
+    {
+      v11 = v6;
+      *error = v6;
     }
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2611,7 +2590,7 @@ LABEL_26:
 
 - (BOOL)sqlTransactionWithActivity:(id)activity error:(id *)error block:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   blockCopy = block;
   if (error && *error)
@@ -2623,11 +2602,11 @@ LABEL_26:
     {
       v13 = HMFGetLogIdentifier();
       v14 = *error;
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring SQL block request due to previous error: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring SQL block request due to previous error: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -2647,13 +2626,12 @@ LABEL_26:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)sqlBlockWithActivity:(id)activity error:(id *)error block:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   blockCopy = block;
   if (error && *error)
@@ -2665,11 +2643,11 @@ LABEL_26:
     {
       v13 = HMFGetLogIdentifier();
       v14 = *error;
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring SQL block request due to previous error: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring SQL block request due to previous error: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -2689,7 +2667,6 @@ LABEL_26:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2758,12 +2735,11 @@ LABEL_26:
 
 uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24;
-  logCategory__hmf_once_v24 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24;
+  logCategory__hmf_once_v24 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)openWithURL:(id)l error:(id *)error
@@ -2777,16 +2753,16 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
 + (void)unlinkDatastoreAt:(id)at everything:(BOOL)everything
 {
   everythingCopy = everything;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   atCopy = at;
   absoluteString = [atCopy absoluteString];
   v8 = MEMORY[0x277CCACA8];
   lastPathComponent = [absoluteString lastPathComponent];
   v10 = [v8 stringWithFormat:@"^%@(?:|-shm|-wal)(\\..*)?$", lastPathComponent];
 
-  v47 = 0;
-  v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v10 options:0 error:&v47];
-  v12 = v47;
+  v46 = 0;
+  v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v10 options:0 error:&v46];
+  v12 = v46;
   if (v12)
   {
     v13 = v12;
@@ -2797,9 +2773,9 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v17;
-      v51 = 2112;
-      v52 = v13;
+      v49 = v17;
+      v50 = 2112;
+      v51 = v13;
       _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@unable to compile expression: %@", buf, 0x16u);
     }
 
@@ -2808,15 +2784,15 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
 
   else
   {
-    v41 = v10;
+    v40 = v10;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     stringByDeletingLastPathComponent = [absoluteString stringByDeletingLastPathComponent];
-    v46 = 0;
-    v20 = [defaultManager contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:&v46];
-    v13 = v46;
+    v45 = 0;
+    v20 = [defaultManager contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:&v45];
+    v13 = v45;
     v21 = [v20 mutableCopy];
 
-    v40 = v21;
+    v39 = v21;
     if (v13)
     {
       v22 = objc_autoreleasePoolPush();
@@ -2826,11 +2802,11 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v50 = v25;
-        v51 = 2112;
-        v52 = stringByDeletingLastPathComponent;
-        v53 = 2112;
-        v54 = v13;
+        v49 = v25;
+        v50 = 2112;
+        v51 = stringByDeletingLastPathComponent;
+        v52 = 2112;
+        v53 = v13;
         _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@unable to get files in %@ (%@)", buf, 0x20u);
       }
 
@@ -2839,28 +2815,28 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
 
     else
     {
-      v38 = absoluteString;
-      v39 = atCopy;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
+      v37 = absoluteString;
+      v38 = atCopy;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v26 = v21;
-      v27 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v43;
+        v29 = *v42;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v43 != v29)
+            if (*v42 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v42 + 1) + 8 * i);
+            v31 = *(*(&v41 + 1) + 8 * i);
             v32 = [v11 firstMatchInString:v31 options:0 range:{0, objc_msgSend(v31, "length")}];
             v33 = v32;
             if (v32)
@@ -2874,21 +2850,19 @@ uint64_t __33__HMBLocalSQLContext_logCategory__block_invoke()
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v28);
       }
 
-      absoluteString = v38;
-      atCopy = v39;
+      absoluteString = v37;
+      atCopy = v38;
       v13 = 0;
     }
 
-    v10 = v41;
+    v10 = v40;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_resetOutputForRecordsWithBlockRow:(unint64_t)row error:(id *)error
@@ -3693,16 +3667,16 @@ uint64_t __79__HMBLocalSQLContext_Record___selectRecordModelIDWithZoneRow_extern
 
 - (BOOL)_deleteZombieRecordsWithZoneRow:(unint64_t)row error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v7 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id = ?1 AND (model_encoding = 0 OR model_data IS NULL) AND (push_block_id IS NULL OR push_block_id NOT IN (SELECT id FROM block_v2))", &v20);
-  v8 = v20;
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v7 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id = ?1 AND (model_encoding = 0 OR model_data IS NULL) AND (push_block_id IS NULL OR push_block_id NOT IN (SELECT id FROM block_v2))", &v19);
+  v8 = v19;
   v9 = v8;
   if (v7)
   {
-    v19 = v8;
-    hmbBindIntSQLite3(v7, 1, row, &v19);
-    v10 = v19;
+    v18 = v8;
+    hmbBindIntSQLite3(v7, 1, row, &v18);
+    v10 = v18;
 
     v11 = __execAndSetError(self, v7, v10, error);
     sqlite3_finalize(v7);
@@ -3718,9 +3692,9 @@ uint64_t __79__HMBLocalSQLContext_Record___selectRecordModelIDWithZoneRow_extern
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v9;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v9;
       _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statement: %@", buf, 0x16u);
     }
 
@@ -3738,22 +3712,21 @@ uint64_t __79__HMBLocalSQLContext_Record___selectRecordModelIDWithZoneRow_extern
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_deleteRecordsWithZoneRow:(unint64_t)row error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v7 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id=?1;", &v20);
-  v8 = v20;
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v7 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id=?1;", &v19);
+  v8 = v19;
   v9 = v8;
   if (v7)
   {
-    v19 = v8;
-    hmbBindIntSQLite3(v7, 1, row, &v19);
-    v10 = v19;
+    v18 = v8;
+    hmbBindIntSQLite3(v7, 1, row, &v18);
+    v10 = v18;
 
     v11 = __execAndSetError(self, v7, v10, error);
     sqlite3_finalize(v7);
@@ -3769,9 +3742,9 @@ uint64_t __79__HMBLocalSQLContext_Record___selectRecordModelIDWithZoneRow_extern
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v9;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v9;
       _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statement: %@", buf, 0x16u);
     }
 
@@ -3789,7 +3762,6 @@ uint64_t __79__HMBLocalSQLContext_Record___selectRecordModelIDWithZoneRow_extern
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -3978,21 +3950,21 @@ id __57__HMBLocalSQLContext_Record___deleteRecordWithRow_error___block_invoke(ui
 
 - (BOOL)_deleteRecordWithZoneRow:(unint64_t)row externalID:(id)d error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v23 = 0;
-  v9 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id=?1 AND external_id=?2;", &v23);
-  v10 = v23;
+  v22 = 0;
+  v9 = prepareSQLite3([(HMBSQLContext *)self connection], "DELETE FROM record_v2 WHERE store_v2_id=?1 AND external_id=?2;", &v22);
+  v10 = v22;
   v11 = v10;
   if (v9)
   {
-    v22 = v10;
-    hmbBindIntSQLite3(v9, 1, row, &v22);
-    v12 = v22;
+    v21 = v10;
+    hmbBindIntSQLite3(v9, 1, row, &v21);
+    v12 = v21;
 
-    v21 = v12;
-    hmbBindDataSQLite3(v9, 2, dCopy, &v21);
-    v11 = v21;
+    v20 = v12;
+    hmbBindDataSQLite3(v9, 2, dCopy, &v20);
+    v11 = v20;
 
     v13 = __execAndSetError(self, v9, v11, error);
     sqlite3_finalize(v9);
@@ -4007,9 +3979,9 @@ id __57__HMBLocalSQLContext_Record___deleteRecordWithRow_error___block_invoke(ui
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v11;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statement: %@", buf, 0x16u);
     }
 
@@ -4027,7 +3999,6 @@ id __57__HMBLocalSQLContext_Record___deleteRecordWithRow_error___block_invoke(ui
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

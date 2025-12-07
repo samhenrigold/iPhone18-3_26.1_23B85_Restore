@@ -46,7 +46,6 @@
     PBDataWriterWriteStringField();
   }
 
-  usageInBytes = self->_usageInBytes;
   PBDataWriterWriteUint64Field();
 }
 

@@ -11,9 +11,11 @@
 - (id)_installed3PAppsWithWidgetsSortedByUsage;
 - (id)_installedAppsSortedByAppUsage;
 - (id)_setOfTopTwentyInstalled3PApps;
+- (id)_shortDescriptionForAlgorithm:(int)algorithm;
 - (id)_topTwentyInstalled3PAppsSortedByUsage;
 - (id)_uniqueDaysAppHasBeenLaunchedOverLast28Days:(id)days;
 - (id)dryRunResult;
+- (void)_generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer:(id)producer descriptors:(id)descriptors appMetrics:(id)metrics algorithm:(int)algorithm;
 - (void)_logAdblClassificationForUser;
 - (void)_logRankBasedMetricsWithOnboardingStacks:(id)stacks algorithm:(int)algorithm;
 - (void)_populateDistributionBasedMetricsWithAppMetrics:(id)metrics;
@@ -82,7 +84,7 @@
       goto LABEL_9;
     }
 
-    v5 = __atxlog_handle_home_screen();
+    v5 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)v5 _globalPopularityDictionary:v6];
@@ -91,7 +93,7 @@
 
   else
   {
-    v5 = __atxlog_handle_home_screen();
+    v5 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)v5 _globalPopularityDictionary:v13];
@@ -109,69 +111,125 @@ LABEL_9:
 {
   activityCopy = activity;
   mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
-  v19 = 0;
-  v6 = [mEMORY[0x277CEB998] fetchHomeScreenWidgetDescriptorMetadataWithError:&v19];
-  v7 = v19;
+  v21 = 0;
+  v6 = [mEMORY[0x277CEB998] fetchHomeScreenWidgetDescriptorMetadataWithError:&v21];
+  v7 = v21;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)v7 generateWidgetDiscoverabilityMetricsWithActivity:v8];
+      [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)v8 generateWidgetDiscoverabilityMetricsWithActivity:v9];
     }
   }
 
   else
   {
-    v9 = +[_ATXAppLaunchHistogramManager sharedInstance];
-    v8 = [v9 histogramForLaunchType:1];
+    v10 = +[_ATXAppLaunchHistogramManager sharedInstance];
+    v9 = [v10 histogramForLaunchType:1];
 
-    v10 = objc_opt_new();
-    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v10 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v11 = objc_opt_new();
+    rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v11 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    v12 = objc_alloc(MEMORY[0x277CEB458]);
+    v13 = objc_alloc(MEMORY[0x277CEB458]);
     homeScreenDescriptors = [mEMORY[0x277CEB998] homeScreenDescriptors];
-    v14 = [v12 initWithDescriptors:homeScreenDescriptors descriptorInstallDates:v6 homeScreenConfig:MEMORY[0x277CBEBF8] isDayZeroExperience:0 isiPad:self->_isiPad spotlightAppLaunchHistogram:v8 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+    v15 = [v13 initWithDescriptors:homeScreenDescriptors descriptorInstallDates:v6 homeScreenConfig:MEMORY[0x277CBEBF8] isDayZeroExperience:0 isiPad:self->_isiPad spotlightAppLaunchHistogram:v9 adblDrainClassification:1 appLaunchCounts:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
-    v15 = [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _generateSummaryMetricsWithDescriptorCache:v6 withActivity:activityCopy];
-    if (v15 && ([activityCopy didDefer] & 1) == 0)
+    v16 = [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _generateSummaryMetricsWithDescriptorCache:v6 withActivity:activityCopy];
+    v17 = v16;
+    if (v16 && (v16 = [activityCopy didDefer], (v16 & 1) == 0))
     {
-      v17 = 0;
+      v19 = 0;
       do
       {
-        [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer:v14 descriptors:v6 appMetrics:v15 algorithm:v17];
-        v17 = (v17 + 1);
+        [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer:v15 descriptors:v6 appMetrics:v17 algorithm:v19];
+        v19 = (v19 + 1);
       }
 
-      while (v17 != 4);
+      while (v19 != 4);
     }
 
     else
     {
-      v16 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_home_screen(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Deferring metric harvesting for default stacks.", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Deferring metric harvesting for default stacks.", buf, 2u);
       }
     }
   }
+}
+
+- (id)_shortDescriptionForAlgorithm:(int)algorithm
+{
+  v4 = [MEMORY[0x277CEB460] stringForAlgorithmType:*&algorithm];
+  v5 = [(NSUserDefaults *)self->_defaults objectForKey:*MEMORY[0x277CEBD90]];
+  v6 = v5;
+  v7 = @"(onboarding_outcome_unset)";
+  if (v5)
+  {
+    v7 = v5;
+  }
+
+  v8 = v7;
+
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v4, v8];
+
+  return v9;
+}
+
+- (void)_generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer:(id)producer descriptors:(id)descriptors appMetrics:(id)metrics algorithm:(int)algorithm
+{
+  v6 = *&algorithm;
+  v20[2] = *MEMORY[0x277D85DE8];
+  metricsCopy = metrics;
+  producerCopy = producer;
+  v11 = objc_opt_new();
+  widgetDiscoverabilityDictionaries = self->_widgetDiscoverabilityDictionaries;
+  self->_widgetDiscoverabilityDictionaries = v11;
+
+  v13 = [producerCopy personalizedOnboardingStacksWithRankingAlgorithm:v6];
+
+  stack1 = [v13 stack1];
+  v20[0] = stack1;
+  stack2 = [v13 stack2];
+  v20[1] = stack2;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+
+  v17 = [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _shortDescriptionForAlgorithm:v6];
+  [(NSMutableDictionary *)self->_widgetDiscoverabilityDictionaries setObject:v17 forKeyedSubscript:@"algorithm"];
+
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer_descriptors_appMetrics_algorithm___block_invoke;
+  v19[3] = &unk_2785983F0;
+  v19[4] = self;
+  [v16 enumerateObjectsUsingBlock:v19];
+  sortedThirdPartyWidgets = [v13 sortedThirdPartyWidgets];
+  [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _logRankBasedMetricsWithOnboardingStacks:sortedThirdPartyWidgets algorithm:v6];
+
+  [(NSMutableDictionary *)self->_widgetDiscoverabilityDictionaries addEntriesFromDictionary:metricsCopy];
+  [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _logAdblClassificationForUser];
+  [(NSMutableArray *)self->_metricsPerAlgorithm addObject:self->_widgetDiscoverabilityDictionaries];
 }
 
 void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer_descriptors_appMetrics_algorithm___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v13 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) _fetchStackSuggestionsWithDefaultStack:a2];
-  if ([v5 count] != 4)
+  v6 = [v5 count];
+  if (v6 != 4)
   {
-    v6 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = __atxlog_handle_home_screen(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
       v10 = 4;
       v11 = 2048;
       v12 = [v5 count];
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Expected default stack to contain %lu widgets. %lu widgets found", buf, 0x16u);
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Expected default stack to contain %lu widgets. %lu widgets found", buf, 0x16u);
     }
   }
 
@@ -182,8 +240,6 @@ void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscov
   v8[4] = *(a1 + 32);
   v8[5] = a3;
   [v5 enumerateObjectsUsingBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscoverabilityMetricsWithHomeScreenItemProducer_descriptors_appMetrics_algorithm___block_invoke_160(uint64_t a1, void *a2, uint64_t a3)
@@ -230,40 +286,38 @@ void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscov
 
 - (id)_initializeMetricsAccumulatorWithKeys:(id)keys
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = keysCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = objc_opt_new();
-        [v4 setObject:v11 forKeyedSubscript:{v10, v14}];
+        [v4 setObject:v11 forKeyedSubscript:{v10, v13}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -285,16 +339,17 @@ void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscov
   self->_appMetricsAccumulator = v9;
 
   [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _queryAppUsageForAllInstalledApps];
-  if ([activityCopy didDefer])
+  didDefer = [activityCopy didDefer];
+  if (didDefer)
   {
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_home_screen(didDefer);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Deferring metric harvesting for default stacks.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Deferring metric harvesting for default stacks.", buf, 2u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
@@ -306,48 +361,46 @@ void __147__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateWidgetDiscov
     v30[4] = self;
     v25 = cacheCopy;
     [cacheCopy enumerateKeysAndObjectsUsingBlock:v30];
-    v12 = objc_opt_new();
+    v13 = objc_opt_new();
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v24 = v8;
-    v13 = v8;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
-    if (v14)
+    v14 = v8;
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v27;
+      v16 = v15;
+      v17 = *v27;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v27 != v16)
+          if (*v27 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
-          v19 = MEMORY[0x277CCABB0];
-          v20 = [(NSMutableDictionary *)self->_appMetricsAccumulator objectForKeyedSubscript:v18];
-          v21 = [v19 numberWithUnsignedInteger:{objc_msgSend(v20, "count")}];
-          [v12 setObject:v21 forKeyedSubscript:v18];
+          v19 = *(*(&v26 + 1) + 8 * i);
+          v20 = MEMORY[0x277CCABB0];
+          v21 = [(NSMutableDictionary *)self->_appMetricsAccumulator objectForKeyedSubscript:v19];
+          v22 = [v20 numberWithUnsignedInteger:{objc_msgSend(v21, "count")}];
+          [v13 setObject:v22 forKeyedSubscript:v19];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _populateDistributionBasedMetricsWithAppMetrics:v12];
+    [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self _populateDistributionBasedMetricsWithAppMetrics:v13];
     cacheCopy = v25;
     v8 = v24;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 void __106__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateSummaryMetricsWithDescriptorCache_withActivity___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -359,58 +412,58 @@ void __106__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateSummaryMetri
 
   if (v8)
   {
-    v9 = [v6 containerBundleId];
-    if (![ATXHomeScreenLogUploaderUtilities isFirstPartyApp:v9])
+    v10 = [v6 containerBundleId];
+    if (![ATXHomeScreenLogUploaderUtilities isFirstPartyApp:v10])
     {
-      v10 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howMany3PAppsHaveWidgets"];
-      [v10 addObject:v9];
+      v11 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howMany3PAppsHaveWidgets"];
+      [v11 addObject:v10];
 
-      if ([*(a1 + 32) _isRegularlyUsedApp:v9])
+      if ([*(a1 + 32) _isRegularlyUsedApp:v10])
       {
-        v11 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsed3PAppsHaveWidgets"];
-        [v11 addObject:v9];
+        v12 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsed3PAppsHaveWidgets"];
+        [v12 addObject:v10];
 
-        v12 = *(*(a1 + 32) + 40);
-        v13 = [v5 extensionBundleId];
-        v14 = [v5 kind];
-        v15 = [v12 globalDiverseSchemaRawNumber:v13 kind:v14];
+        v13 = *(*(a1 + 32) + 40);
+        v14 = [v5 extensionBundleId];
+        v15 = [v5 kind];
+        v16 = [v13 globalDiverseSchemaRawNumber:v14 kind:v15];
 
-        if (v15)
+        if (v16)
         {
-          v16 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsed3PAppsAdoptedTimelineRelevance"];
-          [v16 addObject:v9];
+          v17 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsed3PAppsAdoptedTimelineRelevance"];
+          [v17 addObject:v10];
         }
       }
     }
 
-    v17 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyAppsHaveWidgets"];
-    [v17 addObject:v9];
+    v18 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyAppsHaveWidgets"];
+    [v18 addObject:v10];
 
-    if ([*(a1 + 32) _isRegularlyUsedApp:v9])
+    if ([*(a1 + 32) _isRegularlyUsedApp:v10])
     {
-      v18 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsedAppsHaveWidgets"];
-      [v18 addObject:v9];
+      v19 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyRegularlyUsedAppsHaveWidgets"];
+      [v19 addObject:v10];
     }
 
-    v19 = [*(a1 + 32) _setOfTopTwentyInstalled3PApps];
-    v20 = [v19 containsObject:v9];
+    v20 = [*(a1 + 32) _setOfTopTwentyInstalled3PApps];
+    v21 = [v20 containsObject:v10];
 
-    if (v20)
+    if (v21)
     {
-      v21 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyTop20AppsHaveWidgets"];
-      [v21 addObject:v9];
+      v22 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:@"howManyTop20AppsHaveWidgets"];
+      [v22 addObject:v10];
     }
   }
 
   else
   {
-    v22 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_home_screen(v9);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      __106__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateSummaryMetricsWithDescriptorCache_withActivity___block_invoke_cold_1(v5, v22);
+      __106__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateSummaryMetricsWithDescriptorCache_withActivity___block_invoke_cold_1(v5, v23);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 }
 
@@ -722,57 +775,53 @@ LABEL_13:
 
 - (void)sendToCoreAnalytics
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: sending logs to Core Analytics", buf, 2u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_metricsPerAlgorithm;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
         AnalyticsSendEvent();
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dryRunResult
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   metricsPerAlgorithm = self->_metricsPerAlgorithm;
-  v6 = @"data";
-  v7[0] = metricsPerAlgorithm;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"data";
+  v6[0] = metricsPerAlgorithm;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -806,7 +855,7 @@ LABEL_13:
 
   else
   {
-    v6 = __atxlog_handle_home_screen();
+    v6 = __atxlog_handle_home_screen(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)v6 _isRegularlyUsedApp:v7, v8, v9, v10, v11, v12, v13];
@@ -972,25 +1021,22 @@ uint64_t __90__ATXHomeScreenWidgetDiscoverabilityLogHarvester__installed3PAppsWi
 
 - (void)generateWidgetDiscoverabilityMetricsWithActivity:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Error when attempting to fetch widget descriptors with additional data - %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: Error when attempting to fetch widget descriptors with additional data - %{public}@", &v2, 0xCu);
 }
 
 void __106__ATXHomeScreenWidgetDiscoverabilityLogHarvester__generateSummaryMetricsWithDescriptorCache_withActivity___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 extensionBundleId];
   v5 = [a1 kind];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: unable to get bundleId for extensionBundleId: %@, kind: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenWidgetDiscoverabilityLogHarvester: unable to get bundleId for extensionBundleId: %@, kind: %@", &v6, 0x16u);
 }
 
 @end

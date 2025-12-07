@@ -1,6 +1,6 @@
 @interface BCProgressIndicatorView
 - (BCProgressIndicatorView)init;
-- (uint64_t)hide;
+- (void)hide;
 - (void)show;
 @end
 
@@ -21,7 +21,7 @@
   return v2;
 }
 
-- (uint64_t)hide
+- (void)hide
 {
   if (result)
   {

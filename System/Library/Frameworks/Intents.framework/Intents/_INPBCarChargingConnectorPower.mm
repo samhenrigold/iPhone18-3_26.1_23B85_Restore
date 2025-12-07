@@ -1,6 +1,7 @@
 @interface _INPBCarChargingConnectorPower
 - (BOOL)isEqual:(id)equal;
 - (_INPBCarChargingConnectorPower)initWithCoder:(id)coder;
+- (id)chargingConnectorAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsChargingConnector:(id)connector;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBCarChargingConnectorPower *)self hasChargingConnector])
   {
-    chargingConnector = self->_chargingConnector;
     PBDataWriterWriteInt32Field();
   }
 
   maximumPower = [(_INPBCarChargingConnectorPower *)self maximumPower];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (maximumPower)
   {
     maximumPower2 = [(_INPBCarChargingConnectorPower *)self maximumPower];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -216,6 +216,21 @@ LABEL_12:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)chargingConnectorAsString:(int)string
+{
+  if ((string - 2) >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72885D0[string - 2];
   }
 
   return v4;

@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilitySetAccessibilityElementsIfNeeded;
+- (void)_accessibilitySuperShowTrainingInstruction:(int64_t)instruction afterDelay:(double)delay isRetry:(BOOL)retry animate:(BOOL)animate;
 - (void)_axAnnounceInstructionWithNumber:(int64_t)number;
 - (void)_axAnnounceString:(id)string;
 - (void)_axHandleAnnouncementDidFinishNotification:(id)notification;
@@ -18,6 +19,7 @@
 - (void)_showGMIntroView;
 - (void)_showSiriDataSharingOptIn;
 - (void)_showStatusMessage:(id)message afterDelay:(double)delay completion:(id)completion;
+- (void)_showTrainingInstruction:(int64_t)instruction afterDelay:(double)delay isRetry:(BOOL)retry animate:(BOOL)animate;
 - (void)_showVoiceSelectionViewForRecognitionLanguage:(id)language;
 - (void)_startEnrollment;
 - (void)dealloc;
@@ -172,10 +174,47 @@
   __UIAccessibilitySetAssociatedObject();
 }
 
+- (void)_showTrainingInstruction:(int64_t)instruction afterDelay:(double)delay isRetry:(BOOL)retry animate:(BOOL)animate
+{
+  animateCopy = animate;
+  retryCopy = retry;
+  if (UIAccessibilityIsVoiceOverRunning())
+  {
+    [(VTUIEnrollTrainingViewControllerAccessibility *)self _axAnnounceInstructionWithNumber:instruction];
+    objc_initWeak(&location, self);
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 3221225472;
+    v12[2] = __101__VTUIEnrollTrainingViewControllerAccessibility__showTrainingInstruction_afterDelay_isRetry_animate___block_invoke;
+    v12[3] = &unk_29F31DFA0;
+    objc_copyWeak(v13, &location);
+    v13[1] = instruction;
+    v13[2] = *&delay;
+    v14 = retryCopy;
+    v15 = animateCopy;
+    [(VTUIEnrollTrainingViewControllerAccessibility *)self _axSetShowTrainingInstructionBlock:v12];
+    objc_destroyWeak(v13);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = VTUIEnrollTrainingViewControllerAccessibility;
+    [(VTUIEnrollTrainingViewControllerAccessibility *)&v11 _showTrainingInstruction:instruction afterDelay:retryCopy isRetry:animateCopy animate:delay];
+  }
+}
+
 void __101__VTUIEnrollTrainingViewControllerAccessibility__showTrainingInstruction_afterDelay_isRetry_animate___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _accessibilitySuperShowTrainingInstruction:*(a1 + 40) afterDelay:*(a1 + 56) isRetry:*(a1 + 57) animate:*(a1 + 48)];
+}
+
+- (void)_accessibilitySuperShowTrainingInstruction:(int64_t)instruction afterDelay:(double)delay isRetry:(BOOL)retry animate:(BOOL)animate
+{
+  v6.receiver = self;
+  v6.super_class = VTUIEnrollTrainingViewControllerAccessibility;
+  [(VTUIEnrollTrainingViewControllerAccessibility *)&v6 _showTrainingInstruction:instruction afterDelay:retry isRetry:animate animate:delay];
 }
 
 - (void)_showStatusMessage:(id)message afterDelay:(double)delay completion:(id)completion
@@ -326,10 +365,7 @@ uint64_t __82__VTUIEnrollTrainingViewControllerAccessibility__axAnnounceInstruct
   v11 = *(v10 + 40);
   *(v10 + 40) = v8;
 
-  v12 = [*(a1 + 32) VTUIDeviceSpecificString:v9];
-  v13 = *(*(a1 + 72) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  *(*(*(a1 + 72) + 8) + 40) = [*(a1 + 32) VTUIDeviceSpecificString:v9];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -414,10 +450,7 @@ uint64_t __82__VTUIEnrollTrainingViewControllerAccessibility__axAnnounceInstruct
 
 uint64_t __85__VTUIEnrollTrainingViewControllerAccessibility__axHandleElementFocusedNotification___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsInstructionLabel"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsInstructionLabel"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -442,7 +475,7 @@ void __65__VTUIEnrollTrainingViewControllerAccessibility__axSuspendAudio___block
 
 - (void)_accessibilitySetAccessibilityElementsIfNeeded
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   v3 = [(VTUIEnrollTrainingViewControllerAccessibility *)self safeUIViewForKey:@"view"];
   if (PSIsRunningInAssistant())
   {
@@ -455,14 +488,14 @@ void __65__VTUIEnrollTrainingViewControllerAccessibility__axSuspendAudio___block
 
     if ([v5 accessibilityViewIsModal] && objc_msgSend(v5, "_accessibilityViewIsVisible"))
     {
-      v14[0] = v5;
-      v9 = v14;
+      v13[0] = v5;
+      v9 = v13;
     }
 
     else if ([v6 accessibilityViewIsModal] && objc_msgSend(v6, "_accessibilityViewIsVisible"))
     {
-      v13 = v6;
-      v9 = &v13;
+      v12 = v6;
+      v9 = &v12;
     }
 
     else
@@ -473,11 +506,11 @@ void __65__VTUIEnrollTrainingViewControllerAccessibility__axSuspendAudio___block
         goto LABEL_14;
       }
 
-      v12 = v8;
-      v9 = &v12;
+      v11 = v8;
+      v9 = &v11;
     }
 
-    v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:{1, v12, v13, v14[0]}];
+    v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:{1, v11, v12, v13[0]}];
 LABEL_14:
     [v3 setAccessibilityElements:v10];
 
@@ -486,8 +519,6 @@ LABEL_14:
 
   [v3 setAccessibilityElements:0];
 LABEL_15:
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 @end

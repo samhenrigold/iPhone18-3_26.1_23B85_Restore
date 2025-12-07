@@ -528,37 +528,37 @@ void __44__VUILibraryEpisodeFrameView_setPlayButton___block_invoke(uint64_t a1)
 
 void __63__VUILibraryEpisodeFrameView__isPlaybackUIBeingShownDidChange___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[VUIPlaybackManager sharedInstance];
   v3 = [v2 isPlaybackUIBeingShown];
 
   if ((v3 & 1) == 0)
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [WeakRetained mediaItem];
-      v6 = [v5 title];
-      v7 = [WeakRetained mediaItem];
-      v8 = [v7 bookmark];
-      [v8 floatValue];
-      v10 = v9;
-      v11 = [WeakRetained mediaItem];
-      v12 = [v11 playedState];
-      [v12 integerValue];
-      v13 = VUIBoolLogString();
-      v15 = 138412802;
-      v16 = v6;
-      v17 = 2048;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUILibraryEpisodeFrameView:: playback dismissed. Update progress for item %@ # bookmark time %f # isFullyWatched %@", &v15, 0x20u);
+      v6 = [WeakRetained mediaItem];
+      v7 = [v6 title];
+      v8 = [WeakRetained mediaItem];
+      v9 = [v8 bookmark];
+      [v9 floatValue];
+      v11 = v10;
+      v12 = [WeakRetained mediaItem];
+      v13 = [v12 playedState];
+      [v13 integerValue];
+      v14 = VUIBoolLogString();
+      v16 = 138412802;
+      v17 = v7;
+      v18 = 2048;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUILibraryEpisodeFrameView:: playback dismissed. Update progress for item %@ # bookmark time %f # isFullyWatched %@", &v16, 0x20u);
     }
 
-    v14 = [WeakRetained mediaItem];
-    [WeakRetained updateProgress:v14];
+    v15 = [WeakRetained mediaItem];
+    [WeakRetained updateProgress:v15];
   }
 }
 

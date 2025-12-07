@@ -459,10 +459,10 @@
     versionAtCreation = [v10 versionAtCreation];
     width = [input width];
     height = [input height];
-    [(PAESharedDefaultBase *)self getImageBoundary:input];
+    objc_msgSend_getImageBoundary_(self);
     v16 = v51;
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    objc_msgSend_getPixelTransformForImage_(self);
     v17 = v86;
     v18 = v87;
     v19 = v82;
@@ -480,7 +480,7 @@
     [v9 getBoolValue:&v74 fromParm:1 atFxTime:info->var0.var1];
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

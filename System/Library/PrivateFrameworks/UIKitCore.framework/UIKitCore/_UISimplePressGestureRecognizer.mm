@@ -67,7 +67,7 @@
         v17 = 0u;
         if (v12)
         {
-          [v12 _UIPressTriggerValue];
+          objc_msgSend__UIPressTriggerValue(v12);
           v13 = v16;
         }
 
@@ -153,7 +153,7 @@
           v17 = *(*(&v25 + 1) + 8 * v16);
           if (v17)
           {
-            [v17 _UIPressTriggerValue];
+            objc_msgSend__UIPressTriggerValue(v17);
           }
 
           if (![anyObject type])

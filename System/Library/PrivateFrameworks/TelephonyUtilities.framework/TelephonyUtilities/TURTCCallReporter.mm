@@ -39,7 +39,7 @@
 {
   v25 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -55,16 +55,16 @@
 
   if (!callUUID)
   {
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138412546;
-      v22 = v11;
+      v22 = v12;
       v23 = 2112;
       v24 = object;
-      v12 = v11;
-      _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "%@ is ignoring notification because callUUID is nil: %@", buf, 0x16u);
+      v13 = v12;
+      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "%@ is ignoring notification because callUUID is nil: %@", buf, 0x16u);
     }
 
     goto LABEL_12;
@@ -78,9 +78,9 @@
     }
 
     callCenter = [(TURTCCallReporter *)self callCenter];
-    v10 = [callCenter activeConversationForCall:object];
+    v11 = [callCenter activeConversationForCall:object];
 
-    if (v10)
+    if (v11)
     {
       queue = [(TURTCCallReporter *)self queue];
       v16[0] = MEMORY[0x1E69E9820];
@@ -89,7 +89,7 @@
       v16[3] = &unk_1E7424FD8;
       v16[4] = self;
       v17 = object;
-      v18 = v10;
+      v18 = v11;
       dispatch_async(queue, v16);
     }
 
@@ -111,8 +111,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke(uint64_t a1)
@@ -139,7 +137,7 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
 
 - (void)report:(id)report withConversation:(id)conversation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   conversationCopy = conversation;
   reportCopy = report;
   queue = [(TURTCCallReporter *)self queue];
@@ -148,52 +146,51 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
   v9 = [(TURTCCallReporter *)self reportingSessionForCall:reportCopy withConversation:conversationCopy];
   v10 = [(TURTCCallReporter *)self rtcCallInfoDictionary:reportCopy withConversation:conversationCopy];
 
-  v11 = TUDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = TUDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "RTCReporter: Reporting message with session %@ userInfo %@", buf, 0x16u);
+    v18 = v9;
+    v19 = 2112;
+    v20 = v10;
+    _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "RTCReporter: Reporting message with session %@ userInfo %@", buf, 0x16u);
   }
 
-  v15 = 0;
-  [v9 sendMessageWithDictionary:v10 error:&v15];
-  v12 = v15;
-  if (v12)
+  v16 = 0;
+  [v9 sendMessageWithDictionary:v10 error:&v16];
+  v13 = v16;
+  v14 = v13;
+  if (v13)
   {
-    v13 = TUDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = TUDefaultLog(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v12;
-      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "[WARN] RTCReporter: Error while sending message with error: %@", buf, 0xCu);
+      v18 = v14;
+      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "[WARN] RTCReporter: Error while sending message with error: %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)rtcCallInfoDictionary:(id)dictionary withConversation:(id)conversation
 {
-  v77[10] = *MEMORY[0x1E69E9840];
+  v76[10] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   conversationCopy = conversation;
   queue = [(TURTCCallReporter *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v9 = MEMORY[0x1E695DF90];
-  v76[0] = *MEMORY[0x1E69C6AE8];
+  v75[0] = *MEMORY[0x1E69C6AE8];
   v10 = [(TURTCCallReporter *)self serviceName:dictionaryCopy withConversation:conversationCopy];
-  v77[0] = v10;
-  v76[1] = @"callUUID";
+  v76[0] = v10;
+  v75[1] = @"callUUID";
   callUUID = [dictionaryCopy callUUID];
-  v77[1] = callUUID;
-  v76[2] = @"endReason";
+  v76[1] = callUUID;
+  v75[2] = @"endReason";
   v12 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(dictionaryCopy, "disconnectedReason")}];
-  v77[2] = v12;
-  v76[3] = @"incoming";
+  v76[2] = v12;
+  v75[3] = @"incoming";
   isIncoming = [dictionaryCopy isIncoming];
   v14 = MEMORY[0x1E695E110];
   v15 = MEMORY[0x1E695E118];
@@ -207,8 +204,8 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v16 = MEMORY[0x1E695E110];
   }
 
-  v77[3] = v16;
-  v76[4] = @"connected";
+  v76[3] = v16;
+  v75[4] = @"connected";
   if ([dictionaryCopy isConnected])
   {
     v17 = v15;
@@ -219,8 +216,8 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v17 = v14;
   }
 
-  v77[4] = v17;
-  v76[5] = @"currentlyGrouped";
+  v76[4] = v17;
+  v75[5] = @"currentlyGrouped";
   if ([dictionaryCopy isConferenced])
   {
     v18 = v15;
@@ -231,8 +228,8 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v18 = v14;
   }
 
-  v77[5] = v18;
-  v76[6] = @"relay";
+  v76[5] = v18;
+  v75[6] = @"relay";
   if ([dictionaryCopy isHostedOnCurrentDevice])
   {
     v19 = v14;
@@ -243,8 +240,8 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v19 = v15;
   }
 
-  v77[6] = v19;
-  v76[7] = @"isConversation";
+  v76[6] = v19;
+  v75[7] = @"isConversation";
   if ([dictionaryCopy isConversation])
   {
     v20 = v15;
@@ -255,8 +252,8 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v20 = v14;
   }
 
-  v77[7] = v20;
-  v76[8] = @"fromLink";
+  v76[7] = v20;
+  v75[8] = @"fromLink";
   if ([dictionaryCopy joinedFromLink])
   {
     v21 = v15;
@@ -267,11 +264,11 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
     v21 = v14;
   }
 
-  v77[8] = v21;
-  v76[9] = @"originatingUIType";
+  v76[8] = v21;
+  v75[9] = @"originatingUIType";
   v22 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(dictionaryCopy, "originatingUIType")}];
-  v77[9] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:10];
+  v76[9] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:10];
   v24 = [v9 dictionaryWithDictionary:v23];
 
   provider = [dictionaryCopy provider];
@@ -418,22 +415,20 @@ void __51__TURTCCallReporter_callStatusChangedNotification___block_invoke_2(uint
 
 LABEL_39:
   v70 = *MEMORY[0x1E69C6A98];
-  v74[0] = *MEMORY[0x1E69C6A88];
-  v74[1] = v70;
-  v75[0] = &unk_1F09C5F80;
-  v75[1] = &unk_1F09C5F98;
-  v74[2] = *MEMORY[0x1E69C6A90];
-  v75[2] = v24;
-  v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:3];
-
-  v72 = *MEMORY[0x1E69E9840];
+  v73[0] = *MEMORY[0x1E69C6A88];
+  v73[1] = v70;
+  v74[0] = &unk_1F09C5F80;
+  v74[1] = &unk_1F09C5F98;
+  v73[2] = *MEMORY[0x1E69C6A90];
+  v74[2] = v24;
+  v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:3];
 
   return v71;
 }
 
 - (id)reportingSessionForCall:(id)call withConversation:(id)conversation
 {
-  v38[5] = *MEMORY[0x1E69E9840];
+  v37[5] = *MEMORY[0x1E69E9840];
   callCopy = call;
   conversationCopy = conversation;
   queue = [(TURTCCallReporter *)self queue];
@@ -441,11 +436,11 @@ LABEL_39:
 
   v10 = MEMORY[0x1E695DF90];
   v11 = *MEMORY[0x1E69C6AB8];
-  v37[0] = *MEMORY[0x1E69C6AB0];
-  v37[1] = v11;
-  v38[0] = &unk_1F09C5FB0;
-  v38[1] = @"0.1";
-  v37[2] = *MEMORY[0x1E69C6AD8];
+  v36[0] = *MEMORY[0x1E69C6AB0];
+  v36[1] = v11;
+  v37[0] = &unk_1F09C5FB0;
+  v37[1] = @"0.1";
+  v36[2] = *MEMORY[0x1E69C6AD8];
   if (conversationCopy)
   {
     uUID = [conversationCopy UUID];
@@ -458,13 +453,13 @@ LABEL_39:
   }
   v12 = ;
   v13 = *MEMORY[0x1E69C6AA0];
-  v38[2] = v12;
-  v38[3] = MEMORY[0x1E695E118];
+  v37[2] = v12;
+  v37[3] = MEMORY[0x1E695E118];
   v14 = *MEMORY[0x1E69C6AA8];
-  v37[3] = v13;
-  v37[4] = v14;
-  v38[4] = @"com.apple.TelephonyUtilities";
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:5];
+  v36[3] = v13;
+  v36[4] = v14;
+  v37[4] = @"com.apple.TelephonyUtilities";
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:5];
   v16 = [v10 dictionaryWithDictionary:v15];
 
   if (conversationCopy)
@@ -486,43 +481,40 @@ LABEL_39:
   v21 = [(TURTCCallReporter *)self clientName:callCopy];
   v22 = [(TURTCCallReporter *)self serviceName:callCopy withConversation:conversationCopy];
   v23 = *MEMORY[0x1E69C6AE8];
-  v35[0] = *MEMORY[0x1E69C6AE0];
-  v35[1] = v23;
-  v36[0] = v21;
-  v36[1] = v22;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v34[0] = *MEMORY[0x1E69C6AE0];
+  v34[1] = v23;
+  v35[0] = v21;
+  v35[1] = v22;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
   v25 = [objc_alloc(MEMORY[0x1E69C6A80]) initWithSessionInfo:v16 userInfo:v24 frameworksToCheck:0];
-  v26 = TUDefaultLog();
+  v26 = TUDefaultLog(v25);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 138412802;
-    v30 = v25;
-    v31 = 2112;
-    v32 = v16;
-    v33 = 2112;
-    v34 = v24;
-    _os_log_impl(&dword_1956FD000, v26, OS_LOG_TYPE_DEFAULT, "RTCReporter: Created reporting session %@ with sessionInfo: %@, userInfo: %@", &v29, 0x20u);
+    v28 = 138412802;
+    v29 = v25;
+    v30 = 2112;
+    v31 = v16;
+    v32 = 2112;
+    v33 = v24;
+    _os_log_impl(&dword_1956FD000, v26, OS_LOG_TYPE_DEFAULT, "RTCReporter: Created reporting session %@ with sessionInfo: %@, userInfo: %@", &v28, 0x20u);
   }
 
   [v25 startConfigurationWithCompletionHandler:&__block_literal_global_31];
-  v27 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 void __62__TURTCCallReporter_reportingSessionForCall_withConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "RTCReporter: Received backends %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "RTCReporter: Received backends %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)clientName:(id)name

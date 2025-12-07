@@ -431,9 +431,9 @@ LABEL_6:
 - (BOOL)_isApplicationDomainContainerURL:(id)l
 {
   lastPathComponent = [l lastPathComponent];
-  v4 = [lastPathComponent isEqualToString:@"com.apple.photos"];
+  isEqualToString = objc_msgSend_isEqualToString_(lastPathComponent);
 
-  return v4 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (PLPhotoLibraryFinder)initWithSearchCriteria:(id)criteria
@@ -491,9 +491,9 @@ LABEL_6:
         {
           pathExtension = [v14 pathExtension];
           photosLibraryTombstoneExtension = [MEMORY[0x1E69BF2A0] photosLibraryTombstoneExtension];
-          v20 = [pathExtension isEqualToString:photosLibraryTombstoneExtension];
+          isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-          if (v20)
+          if (isEqualToString)
           {
             [array addObject:v14];
           }
@@ -589,9 +589,9 @@ LABEL_6:
         v18 = *(*(&v59 + 1) + 8 * i);
         pathExtension = [v18 pathExtension];
         photosLibraryTombstoneExtension = [MEMORY[0x1E69BF2A0] photosLibraryTombstoneExtension];
-        v21 = [pathExtension isEqualToString:photosLibraryTombstoneExtension];
+        isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-        if (v21)
+        if (isEqualToString)
         {
           lastPathComponent = [v18 lastPathComponent];
           stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -610,7 +610,7 @@ LABEL_6:
           {
             pathExtension2 = [v18 pathExtension];
             photosLibraryExtension = [MEMORY[0x1E69BF2A0] photosLibraryExtension];
-            v29 = [pathExtension2 isEqualToString:photosLibraryExtension];
+            v29 = objc_msgSend_isEqualToString_(pathExtension2);
 
             if (v29)
             {
@@ -670,7 +670,7 @@ LABEL_6:
           v37 = v53;
           if (v40)
           {
-            if (!v51 || ([v40 uuid], v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v51, "isEqualToString:", v41), v41, v42))
+            if (!v51 || ([v40 uuid], v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend_isEqualToString_(v51), v41, v42))
             {
               [array addObject:v40];
             }

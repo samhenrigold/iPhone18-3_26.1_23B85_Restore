@@ -207,18 +207,18 @@
 {
   animatedCopy = animated;
   v17 = *MEMORY[0x1E69E9840];
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(MRUFlippingArtworkLayer *)self state];
+    objc_msgSend_state(self);
     *buf = 134218242;
     layerCopy = layer;
     v15 = 2112;
-    v16 = v12;
+    v16 = v12[0];
     _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].Layer setImageToCurrentLayer:<%p> currentState:%@", buf, 0x16u);
   }
 
-  [(MRUFlippingArtworkLayer *)self state];
+  objc_msgSend_state(self);
   if (self)
   {
     v8 = [(MRUFlippingArtworkLayer *)self imageLayerForState:v11];
@@ -231,12 +231,12 @@
   }
 
   [(MRUFlippingArtworkLayer *)self setImage:layer toLayer:v8];
-  [(MRUFlippingArtworkLayer *)self state];
+  objc_msgSend_state(self);
   if (self)
   {
     if ([(MRUFlippingArtworkLayer *)self isLayerForStateGlowing:v10])
     {
-      [(MRUFlippingArtworkLayer *)self state];
+      objc_msgSend_state(self);
       [(MRUFlippingArtworkLayer *)self updateGlowForState:&v9 reverse:layer == 0 animated:animatedCopy];
     }
   }
@@ -248,68 +248,68 @@
 
 - (void)transitionToImage:(CGImage *)image transitionDirection:(int64_t)direction
 {
-  v37 = *MEMORY[0x1E69E9840];
-  memset(v28, 0, sizeof(v28));
-  [(MRUFlippingArtworkLayer *)self nextState];
-  v7 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v38 = *MEMORY[0x1E69E9840];
+  memset(v29, 0, sizeof(v29));
+  State = objc_msgSend_nextState(self, a2);
+  v8 = MCLogCategoryDefault(State);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [(MRUFlippingArtworkLayer *)self state];
-    v8 = MRUFlippingArtworkTransitionDirectionDescription(direction);
+    objc_msgSend_state(self);
+    v9 = MRUFlippingArtworkTransitionDirectionDescription(direction);
     *buf = 134218754;
     imageCopy = image;
-    v31 = 2112;
-    v32 = v27;
-    v33 = 2112;
-    v34 = *&v28[0];
-    v35 = 2112;
-    v36 = v8;
-    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].Layer transitionToImage:<%p> currentState:%@ nextState:%@ transitionDirection:%@", buf, 0x2Au);
+    v32 = 2112;
+    v33 = v28[0];
+    v34 = 2112;
+    v35 = *&v29[0];
+    v36 = 2112;
+    v37 = v9;
+    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].Layer transitionToImage:<%p> currentState:%@ nextState:%@ transitionDirection:%@", buf, 0x2Au);
   }
 
-  v9 = *&v28[0];
-  v23 = *(v28 + 8);
-  v24 = *(&v28[1] + 8);
-  v25 = *(&v28[2] + 8);
-  v22 = v9;
-  v26 = *(&v28[3] + 1);
+  v10 = *&v29[0];
+  v24 = *(v29 + 8);
+  v25 = *(&v29[1] + 8);
+  v26 = *(&v29[2] + 8);
+  v23 = v10;
+  v27 = *(&v29[3] + 1);
   if (self)
   {
-    v10 = [(MRUFlippingArtworkLayer *)self imageLayerForState:&v22];
+    v11 = [(MRUFlippingArtworkLayer *)self imageLayerForState:&v23];
   }
 
   else
   {
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  [(MRUFlippingArtworkLayer *)self setImage:image toLayer:v10];
-  v11 = *&v28[0];
-  v17 = v11;
-  v18 = *(v28 + 8);
-  v19 = *(&v28[1] + 8);
-  v20 = *(&v28[2] + 8);
-  v21 = *(&v28[3] + 1);
+  [(MRUFlippingArtworkLayer *)self setImage:image toLayer:v11];
+  v12 = *&v29[0];
+  v18 = v12;
+  v19 = *(v29 + 8);
+  v20 = *(&v29[1] + 8);
+  v21 = *(&v29[2] + 8);
+  v22 = *(&v29[3] + 1);
   if (self)
   {
-    [(MRUFlippingArtworkLayer *)self animateGlowForState:&v17 reverse:image == 0];
-    v12 = *&v28[0];
-    v13 = *(v28 + 8);
-    v14 = *(&v28[1] + 8);
-    v15 = *(&v28[2] + 8);
-    v16 = *(&v28[3] + 1);
-    [(MRUFlippingArtworkLayer *)self setState:&v12 transitionDirection:direction];
+    [(MRUFlippingArtworkLayer *)self animateGlowForState:&v18 reverse:image == 0];
+    v13 = *&v29[0];
+    v14 = *(v29 + 8);
+    v15 = *(&v29[1] + 8);
+    v16 = *(&v29[2] + 8);
+    v17 = *(&v29[3] + 1);
+    [(MRUFlippingArtworkLayer *)self setState:&v13 transitionDirection:direction];
   }
 
   else
   {
 
-    v12 = *&v28[0];
-    v13 = *(v28 + 8);
-    v14 = *(&v28[1] + 8);
-    v15 = *(&v28[2] + 8);
-    v16 = *(&v28[3] + 1);
+    v13 = *&v29[0];
+    v14 = *(v29 + 8);
+    v15 = *(&v29[1] + 8);
+    v16 = *(&v29[2] + 8);
+    v17 = *(&v29[3] + 1);
   }
 }
 
@@ -445,7 +445,7 @@
 - (void)setState:(id *)state transitionDirection:(int64_t)direction
 {
   v23 = *MEMORY[0x1E69E9840];
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     var0 = state->var0;
@@ -524,7 +524,7 @@
   animatedCopy = animated;
   reverseCopy = reverse;
   v30 = *MEMORY[0x1E69E9840];
-  v9 = MCLogCategoryDefault();
+  v9 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     var0 = state->var0;
@@ -746,8 +746,8 @@
 
 - ($39264E51B7BBB828B9E6209281CB03F6)nextState
 {
-  [(MRUFlippingArtworkLayer *)self state];
-  if ([v6 isEqualToString:@"Front"])
+  objc_msgSend_state(self, a3);
+  if ([v6[0] isEqualToString:@"Front"])
   {
     *&retstr->var1 = xmmword_1E7665CF0;
     *&retstr->var3 = unk_1E7665D00;

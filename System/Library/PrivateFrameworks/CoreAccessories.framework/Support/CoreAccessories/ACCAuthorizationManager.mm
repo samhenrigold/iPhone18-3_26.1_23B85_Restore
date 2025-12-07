@@ -2,6 +2,7 @@
 + (id)sharedManager;
 + (unint64_t)authorizationStatusForCertSerial:(id)serial;
 + (unint64_t)promptUserForAuthorizationOfAccessoryWithName:(id)name providesPower:(BOOL)power certSerial:(id)serial;
++ (void)forceRequestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler;
 + (void)requestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler;
 - (ACCAuthorizationManager)init;
 - (BOOL)bypassAuthorization;
@@ -27,26 +28,27 @@
 - (BOOL)bypassAuthorization
 {
   v2 = +[ACCUserDefaults sharedDefaults];
-  if ([v2 BOOLForKey:@"EnableTrustDialog"])
+  v3 = [v2 BOOLForKey:@"EnableTrustDialog"];
+  if (v3)
   {
-    if (systemInfo_isInternalBuild())
+    if (systemInfo_isInternalBuild(v3, v4))
     {
-      v3 = +[ACCUserDefaults sharedDefaults];
-      v4 = [v3 BOOLForKey:@"BypassTrustDialog"];
+      v5 = +[ACCUserDefaults sharedDefaults];
+      v6 = [v5 BOOLForKey:@"BypassTrustDialog"];
     }
 
     else
     {
-      v4 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v4 = 1;
+    v6 = 1;
   }
 
-  return v4;
+  return v6;
 }
 
 + (id)sharedManager
@@ -161,6 +163,38 @@ LABEL_3:
   }
 
 LABEL_7:
+}
+
++ (void)forceRequestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler
+{
+  powerCopy = power;
+  serialCopy = serial;
+  nameCopy = name;
+  handlerCopy = handler;
+  v11 = [ACCAuthorizationManager promptUserForAuthorizationOfAccessoryWithName:nameCopy providesPower:powerCopy certSerial:serialCopy];
+  if (serialCopy && [serialCopy length] && !v11)
+  {
+    v12 = objc_alloc_init(ACCAccessoryAuthorizationEntry);
+    [(ACCAccessoryAuthorizationEntry *)v12 setCertSerialString:serialCopy];
+    [(ACCAccessoryAuthorizationEntry *)v12 setAuthorized:1];
+    if (nameCopy)
+    {
+      v13 = nameCopy;
+    }
+
+    else
+    {
+      v13 = &stru_10022D360;
+    }
+
+    [(ACCAccessoryAuthorizationEntry *)v12 setDisplayName:v13];
+    [ACCAccessoryAuthorizationStore storeAccessory:v12];
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v11 == 0);
+  }
 }
 
 + (unint64_t)promptUserForAuthorizationOfAccessoryWithName:(id)name providesPower:(BOOL)power certSerial:(id)serial

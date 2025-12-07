@@ -413,7 +413,7 @@ LABEL_9:
 {
   [(SBLockScreenPreviewView *)self bounds];
   MaxY = CGRectGetMaxY(v15);
-  [(CSPageControl *)self->_dashBoardPageControl frame];
+  objc_msgSend_frame(self->_dashBoardPageControl);
   v5 = MaxY - (v4 + 5.0);
   [(SBUICallToActionLabel *)self->_callToActionLabel baselineOffset];
   v7 = v6 + v5;

@@ -121,7 +121,7 @@
         for (j = 0; j != itemCount; ++j)
         {
           geometries = self->_geometries;
-          [(PXEditorialLayoutGenerator *)self _geometryFromFrame:j index:self->_rects[v25].origin.x, self->_rects[v25].origin.y, self->_rects[v25].size.width, self->_rects[v25].size.height];
+          objc_msgSend__geometryFromFrame_index_(self, self->_rects[v25].origin.x, self->_rects[v25].origin.y, self->_rects[v25].size.width, self->_rects[v25].size.height);
           v29 = &geometries[v26];
           *&v29->var0 = v43;
           *&v29->var1.y = v44;
@@ -177,13 +177,13 @@ double __46__PXEditorialLayoutGenerator__prepareIfNeeded__block_invoke(uint64_t 
   return v12;
 }
 
-void __46__PXEditorialLayoutGenerator__prepareIfNeeded__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+void __46__PXEditorialLayoutGenerator__prepareIfNeeded__block_invoke_2(uint64_t a1, const char *a2, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
   if (!a3)
   {
     v12 = *(a1 + 32);
     v13 = v12[9] + 152 * a2;
-    [v12 _geometryFromFrame:a2 index:?];
+    objc_msgSend__geometryFromFrame_index_(v12, a2, a2);
     *v13 = v16;
     *(v13 + 16) = v17;
     *(v13 + 64) = v20;

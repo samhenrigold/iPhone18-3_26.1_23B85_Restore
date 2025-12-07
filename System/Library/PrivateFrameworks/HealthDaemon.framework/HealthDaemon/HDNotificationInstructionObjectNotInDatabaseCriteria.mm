@@ -52,9 +52,9 @@ id __93__HDNotificationInstructionObjectNotInDatabaseCriteria_isValidWithDatabas
   return v2;
 }
 
-void __93__HDNotificationInstructionObjectNotInDatabaseCriteria_isValidWithDatabaseTransaction_error___block_invoke_2(uint64_t a1)
+void __93__HDNotificationInstructionObjectNotInDatabaseCriteria_isValidWithDatabaseTransaction_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(a1 + 32) UUID];
+  v2 = [*(a1 + 32) UUID];
   HDSQLiteBindFoundationValueToStatement();
 }
 

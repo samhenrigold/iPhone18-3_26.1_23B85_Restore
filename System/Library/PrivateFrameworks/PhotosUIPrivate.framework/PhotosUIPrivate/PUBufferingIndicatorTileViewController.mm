@@ -357,7 +357,7 @@ LABEL_9:
   }
 }
 
-uint64_t __70__PUBufferingIndicatorTileViewController__setIndicatorStyle_animated___block_invoke(uint64_t a1)
+void *__70__PUBufferingIndicatorTileViewController__setIndicatorStyle_animated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 40))

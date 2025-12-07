@@ -67,7 +67,6 @@ LABEL_12:
   to;
   if ([(_CPButtonFeedback *)self commandType])
   {
-    commandType = self->_commandType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -75,19 +74,16 @@ LABEL_12:
 
   if (commandDetail)
   {
-    commandDetail = self->_commandDetail;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPButtonFeedback *)self uniqueId])
   {
-    uniqueId = self->_uniqueId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPButtonFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 

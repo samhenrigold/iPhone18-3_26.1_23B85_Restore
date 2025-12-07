@@ -106,7 +106,7 @@
     data = self->_data;
     self->_data = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, data);
   }
 }
 
@@ -376,7 +376,7 @@ LABEL_8:
 
 - (id)_wbxmlPolicyDict
 {
-  v45[3] = *MEMORY[0x277D85DE8];
+  v44[3] = *MEMORY[0x277D85DE8];
   _policyForWAPProvisioningXMLData = [(ASWAPXMLPolicy *)self _policyForWAPProvisioningXMLData];
   v3 = [_policyForWAPProvisioningXMLData objectForKeyedSubscript:@"ASPolicyEnabled"];
   bOOLValue = [v3 BOOLValue];
@@ -386,13 +386,13 @@ LABEL_8:
     v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(_policyForWAPProvisioningXMLData, "count")}];
     if (!_wbxmlPolicyDict_policyMapping)
     {
-      v44[0] = @"MinimumPasswordLength";
-      v44[1] = @"DeviceWipeThreshold";
-      v45[0] = @"MinDevicePasswordLength";
-      v45[1] = @"MaxDevicePasswordFailedAttempts";
-      v44[2] = @"ASPolicyEnabled";
-      v45[2] = @"DevicePasswordEnabled";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
+      v43[0] = @"MinimumPasswordLength";
+      v43[1] = @"DeviceWipeThreshold";
+      v44[0] = @"MinDevicePasswordLength";
+      v44[1] = @"MaxDevicePasswordFailedAttempts";
+      v43[2] = @"ASPolicyEnabled";
+      v44[2] = @"DevicePasswordEnabled";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
       v7 = _wbxmlPolicyDict_policyMapping;
       _wbxmlPolicyDict_policyMapping = v6;
 
@@ -401,28 +401,28 @@ LABEL_8:
       _wbxmlPolicyDict_ignorablePolicies = v8;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     allKeys = [_policyForWAPProvisioningXMLData allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v36;
+      v13 = *v35;
       type = *(MEMORY[0x277D03988] + 3);
       do
       {
         v14 = 0;
         do
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * v14);
+          v15 = *(*(&v34 + 1) + 8 * v14);
           v16 = [_wbxmlPolicyDict_policyMapping objectForKeyedSubscript:v15];
           if (v16)
           {
@@ -448,7 +448,7 @@ LABEL_8:
                   if (os_log_type_enabled(v27, type))
                   {
                     *buf = 67109120;
-                    LODWORD(v40) = intValue;
+                    LODWORD(v39) = intValue;
                     _os_log_impl(&dword_24A0AC000, v27, type, "Unknown value %d set for 2003 password complexity value", buf, 8u);
                   }
                 }
@@ -470,9 +470,9 @@ LABEL_8:
                 {
                   v28 = [_policyForWAPProvisioningXMLData objectForKeyedSubscript:v15];
                   *buf = 138412546;
-                  v40 = v15;
-                  v41 = 2112;
-                  v42 = v28;
+                  v39 = v15;
+                  v40 = 2112;
+                  v41 = v28;
                   v29 = v28;
                   _os_log_impl(&dword_24A0AC000, v17, type, "Ignoring unknown EAS 2003 policy %@ (%@)", buf, 0x16u);
                 }
@@ -503,7 +503,7 @@ LABEL_12:
         }
 
         while (v12 != v14);
-        v30 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v30 = [allKeys countByEnumeratingWithState:&v34 objects:v42 count:16];
         v12 = v30;
       }
 
@@ -523,8 +523,6 @@ LABEL_12:
 
     v5 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

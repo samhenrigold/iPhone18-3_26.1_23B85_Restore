@@ -48,10 +48,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -71,7 +70,7 @@
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objc_msgSend_hasUserQueryResponse(objectCopy, v5, v6) && (objc_msgSend_userQueryResponse(objectCopy, v7, v8), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend_user(v9, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v9, v12))
   {
@@ -81,18 +80,18 @@
       if (objc_msgSend_hasName(v15, v16, v17))
       {
         v20 = objc_msgSend_identifier(v12, v18, v19);
-        v167 = objc_msgSend_name(v20, v21, v22);
+        v166 = objc_msgSend_name(v20, v21, v22);
       }
 
       else
       {
-        v167 = 0;
+        v166 = 0;
       }
     }
 
     else
     {
-      v167 = 0;
+      v166 = 0;
     }
 
     if (objc_msgSend_hasFirstName(v12, v13, v14))
@@ -129,7 +128,7 @@
 
   else
   {
-    v167 = 0;
+    v166 = 0;
     v12 = 0;
     v23 = 0;
     v24 = 0;
@@ -160,13 +159,13 @@
       v45 = *MEMORY[0x277CBC860];
       if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
       {
-        v154 = v45;
-        v157 = objc_msgSend_requestUUID(self, v155, v156);
+        v153 = v45;
+        v156 = objc_msgSend_requestUUID(self, v154, v155);
         *buf = 138543618;
-        v169 = v157;
-        v170 = 2112;
-        v171 = v35;
-        _os_log_error_impl(&dword_22506F000, v154, OS_LOG_TYPE_ERROR, "req: %{public}@, Inlining fake response operation result for item id %@", buf, 0x16u);
+        v168 = v156;
+        v169 = 2112;
+        v170 = v35;
+        _os_log_error_impl(&dword_22506F000, v153, OS_LOG_TYPE_ERROR, "req: %{public}@, Inlining fake response operation result for item id %@", buf, 0x16u);
       }
 
       objc_msgSend_setResult_(objectCopy, v46, inited);
@@ -189,8 +188,8 @@
 
   if (v59 == 1)
   {
-    v62 = v167;
-    if (!v167)
+    v62 = v166;
+    if (!v166)
     {
       goto LABEL_38;
     }
@@ -204,8 +203,8 @@
 
   if (v67 == 2)
   {
-    v62 = v167;
-    if (!v167)
+    v62 = v166;
+    if (!v166)
     {
       goto LABEL_38;
     }
@@ -218,7 +217,7 @@
   v71 = objc_msgSend_type(v68, v69, v70);
 
   v62 = 0;
-  if (v71 == 3 && v167)
+  if (v71 == 3 && v166)
   {
     v63 = 3;
 LABEL_37:
@@ -232,7 +231,7 @@ LABEL_38:
     if (v62)
     {
       v72 = objc_alloc(MEMORY[0x277CBC5D0]);
-      v74 = objc_msgSend_initWithRecordName_(v72, v73, v167);
+      v74 = objc_msgSend_initWithRecordName_(v72, v73, v166);
       v75 = objc_alloc(MEMORY[0x277CBC7C0]);
       inited = objc_msgSend_initWithUserRecordID_(v75, v76, v74);
     }
@@ -282,11 +281,11 @@ LABEL_55:
     v79 = *MEMORY[0x277CBC860];
     if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_DEBUG))
     {
-      v158 = v79;
-      v161 = objc_msgSend_requestUUID(self, v159, v160);
+      v157 = v79;
+      v160 = objc_msgSend_requestUUID(self, v158, v159);
       *buf = 138543362;
-      v169 = v161;
-      _os_log_debug_impl(&dword_22506F000, v158, OS_LOG_TYPE_DEBUG, "req: %{public}@, Received no public key when discovering user identity, though it was requested, this is an OON case", buf, 0xCu);
+      v168 = v160;
+      _os_log_debug_impl(&dword_22506F000, v157, OS_LOG_TYPE_DEBUG, "req: %{public}@, Received no public key when discovering user identity, though it was requested, this is an OON case", buf, 0xCu);
     }
 
     v80 = objc_alloc(MEMORY[0x277CBC7C0]);
@@ -307,13 +306,13 @@ LABEL_55:
     v44 = v23;
     if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_DEBUG))
     {
-      v162 = v92;
-      v165 = objc_msgSend_requestUUID(self, v163, v164);
+      v161 = v92;
+      v164 = objc_msgSend_requestUUID(self, v162, v163);
       *buf = 138543618;
-      v169 = v165;
-      v170 = 2112;
-      v171 = inited;
-      _os_log_debug_impl(&dword_22506F000, v162, OS_LOG_TYPE_DEBUG, "req: %{public}@, OON user identity detected: %@", buf, 0x16u);
+      v168 = v164;
+      v169 = 2112;
+      v170 = inited;
+      _os_log_debug_impl(&dword_22506F000, v161, OS_LOG_TYPE_DEBUG, "req: %{public}@, OON user identity detected: %@", buf, 0x16u);
     }
 
     v95 = objc_msgSend_isInNetwork(v12, v93, v94);
@@ -323,26 +322,26 @@ LABEL_55:
 
   if (v62)
   {
-    v121 = objc_alloc(MEMORY[0x277CBC5D0]);
-    v123 = objc_msgSend_initWithRecordName_(v121, v122, v167);
-    v124 = objc_alloc(MEMORY[0x277CBC7C0]);
-    v166 = v123;
-    v126 = objc_msgSend_initWithUserRecordID_(v124, v125, v123);
-    objc_msgSend_setLookupInfo_(v126, v127, v35);
-    v130 = objc_msgSend_nameComponents(v126, v128, v129);
+    v120 = objc_alloc(MEMORY[0x277CBC5D0]);
+    v122 = objc_msgSend_initWithRecordName_(v120, v121, v166);
+    v123 = objc_alloc(MEMORY[0x277CBC7C0]);
+    v165 = v122;
+    v125 = objc_msgSend_initWithUserRecordID_(v123, v124, v122);
+    objc_msgSend_setLookupInfo_(v125, v126, v35);
+    v129 = objc_msgSend_nameComponents(v125, v127, v128);
     v44 = v23;
-    objc_msgSend_setGivenName_(v130, v131, v23);
+    objc_msgSend_setGivenName_(v129, v130, v23);
 
-    v134 = objc_msgSend_nameComponents(v126, v132, v133);
-    objc_msgSend_setFamilyName_(v134, v135, v24);
+    v133 = objc_msgSend_nameComponents(v125, v131, v132);
+    objc_msgSend_setFamilyName_(v133, v134, v24);
 
-    v138 = objc_msgSend_progressBlock(self, v136, v137);
+    v137 = objc_msgSend_progressBlock(self, v135, v136);
 
-    if (v138)
+    if (v137)
     {
-      v141 = objc_msgSend_progressBlock(self, v139, v140);
-      v144 = objc_msgSend_result(objectCopy, v142, v143);
-      (v141)[2](v141, v35, v126, v144);
+      v140 = objc_msgSend_progressBlock(self, v138, v139);
+      v143 = objc_msgSend_result(objectCopy, v141, v142);
+      (v140)[2](v140, v35, v125, v143);
     }
   }
 
@@ -351,26 +350,25 @@ LABEL_55:
     v44 = v23;
     if (objc_msgSend_shouldReportMissingIdentity(v35, v60, v61))
     {
-      v147 = objc_msgSend_progressBlock(self, v145, v146);
+      v146 = objc_msgSend_progressBlock(self, v144, v145);
 
-      if (v147)
+      if (v146)
       {
-        v150 = objc_msgSend_progressBlock(self, v148, v149);
-        v153 = objc_msgSend_result(objectCopy, v151, v152);
-        (v150)[2](v150, v35, 0, v153);
+        v149 = objc_msgSend_progressBlock(self, v147, v148);
+        v152 = objc_msgSend_result(objectCopy, v150, v151);
+        (v149)[2](v149, v35, 0, v152);
       }
     }
   }
 
 LABEL_57:
 
-  v119 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   submittedInfos = self->_submittedInfos;
   v8 = objc_msgSend_response(failureCopy, v6, v7);
@@ -388,13 +386,13 @@ LABEL_57:
     v17 = v14;
     v20 = objc_msgSend_requestUUID(self, v18, v19);
     v23 = objc_msgSend_result(failureCopy, v21, v22);
-    v32 = 138543874;
-    v33 = v20;
-    v34 = 2112;
-    v35 = v13;
-    v36 = 2112;
-    v37 = v23;
-    _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "req: %{public}@, Node level failure for info %@: %@", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v20;
+    v33 = 2112;
+    v34 = v13;
+    v35 = 2112;
+    v36 = v23;
+    _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "req: %{public}@, Node level failure for info %@: %@", &v31, 0x20u);
   }
 
   v24 = objc_msgSend_progressBlock(self, v15, v16);
@@ -405,8 +403,6 @@ LABEL_57:
     v30 = objc_msgSend_result(failureCopy, v28, v29);
     (v27)[2](v27, v13, 0, v30);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

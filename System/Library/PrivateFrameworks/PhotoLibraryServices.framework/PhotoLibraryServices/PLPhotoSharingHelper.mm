@@ -1384,32 +1384,32 @@ uint64_t __52__PLPhotoSharingHelper__markStreamVideosAsPurgeable__block_invoke(u
   }
 }
 
-uint64_t __66__PLPhotoSharingHelper_applicationIsInForeground_photoLibraryURL___block_invoke(uint64_t a1)
+uint64_t __66__PLPhotoSharingHelper_applicationIsInForeground_photoLibraryURL___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "about to call connection setIsUIForeground:%@ personID:%@", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "about to call connection setIsUIForeground:%@ personID:%@", &v8, 0x16u);
   }
 
-  v5 = [MEMORY[0x1E69B14F8] sharedConnection];
-  [v5 setIsUIForeground:*(a1 + 48) forPersonID:*(a1 + 32)];
+  v6 = [MEMORY[0x1E69B14F8] sharedConnection];
+  [v6 setIsUIForeground:*(a1 + 48) forPersonID:*(a1 + 32)];
 
   return [*(a1 + 40) stillAlive];
 }
@@ -1968,72 +1968,72 @@ void __62__PLPhotoSharingHelper_checkServerModelForAlbum_photoLibrary___block_in
   [v4 performBlock:v12];
 }
 
-void __62__PLPhotoSharingHelper_checkServerModelForAlbum_photoLibrary___block_invoke_2(uint64_t a1)
+void __62__PLPhotoSharingHelper_checkServerModelForAlbum_photoLibrary___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) count];
-  if (v2 != [*(a1 + 40) assetsCount])
+  v36 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_count(*(a1 + 32), a2);
+  if (v3 != [*(a1 + 40) assetsCount])
   {
-    v3 = [*(a1 + 40) assets];
-    v4 = [v3 valueForKey:@"cloudAssetGUID"];
+    v4 = [*(a1 + 40) assets];
+    v5 = [v4 valueForKey:@"cloudAssetGUID"];
 
-    v5 = [MEMORY[0x1E695DFA8] setWithArray:*(a1 + 32)];
-    v20 = v4;
-    v6 = [v4 set];
-    [v5 minusSet:v6];
+    v6 = [MEMORY[0x1E695DFA8] setWithArray:*(a1 + 32)];
+    v21 = v5;
+    v7 = [v5 set];
+    [v6 minusSet:v7];
 
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v7)
+    v32 = 0u;
+    obj = v6;
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v31;
+      v9 = v8;
+      v10 = *v32;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v31 != v9)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * v10);
-          v12 = [MEMORY[0x1E6997F88] album];
-          v13 = [*(a1 + 40) cloudGUID];
-          [v12 setGUID:v13];
+          v12 = *(*(&v31 + 1) + 8 * v11);
+          v13 = [MEMORY[0x1E6997F88] album];
+          v14 = [*(a1 + 40) cloudGUID];
+          [v13 setGUID:v14];
 
-          v14 = [*(a1 + 48) libraryServicesManager];
-          v16 = *(a1 + 56);
-          v15 = *(a1 + 64);
-          v22[0] = MEMORY[0x1E69E9820];
-          v22[1] = 3221225472;
-          v22[2] = __62__PLPhotoSharingHelper_checkServerModelForAlbum_photoLibrary___block_invoke_3;
-          v22[3] = &unk_1E7571048;
-          v23 = v12;
-          v17 = v15;
-          v24 = v17;
-          v25 = v14;
-          v26 = *(a1 + 56);
-          v27 = v11;
-          v28 = *(a1 + 72);
-          v29 = *(a1 + 80);
-          v18 = v14;
-          v19 = v12;
-          [v16 assetCollectionWithGUID:v11 personID:v17 completionBlock:v22];
+          v15 = [*(a1 + 48) libraryServicesManager];
+          v17 = *(a1 + 56);
+          v16 = *(a1 + 64);
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __62__PLPhotoSharingHelper_checkServerModelForAlbum_photoLibrary___block_invoke_3;
+          v23[3] = &unk_1E7571048;
+          v24 = v13;
+          v18 = v16;
+          v25 = v18;
+          v26 = v15;
+          v27 = *(a1 + 56);
+          v28 = v12;
+          v29 = *(a1 + 72);
+          v30 = *(a1 + 80);
+          v19 = v15;
+          v20 = v13;
+          [v17 assetCollectionWithGUID:v12 personID:v18 completionBlock:v23];
 
-          ++v10;
+          ++v11;
         }
 
-        while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        while (v9 != v11);
+        v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 }
@@ -2533,7 +2533,7 @@ void __86__PLPhotoSharingHelper_temporaryUploadDerivativesPathForCollectionGUID_
   assetCopy = asset;
   specificationsCopy = specifications;
   array = [MEMORY[0x1E695DF70] array];
-  if (![specificationsCopy count])
+  if (!objc_msgSend_count(specificationsCopy))
   {
     v35 = 0;
     v36 = 0;
@@ -2563,7 +2563,7 @@ void __86__PLPhotoSharingHelper_temporaryUploadDerivativesPathForCollectionGUID_
   }
 
   v16 = [MEMORY[0x1E6997FB0] assetsToGenerateFromImageWithInputSize:specificationsCopy toConformToSpecifications:{v11, v14}];
-  if (![v16 count])
+  if (!objc_msgSend_count(v16))
   {
     v35 = 0;
     v59 = 0;
@@ -3978,7 +3978,7 @@ uint64_t __74__PLPhotoSharingHelper_acceptPendingInvitationForAlbum_completionHa
     _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEFAULT, "%@ %@ %@", buf, 0x20u);
   }
 
-  if (dsCopy && [dsCopy count])
+  if (dsCopy && objc_msgSend_count(dsCopy))
   {
     v13 = [MEMORY[0x1E695DFD8] setWithArray:dsCopy];
   }
@@ -4020,192 +4020,192 @@ uint64_t __74__PLPhotoSharingHelper_acceptPendingInvitationForAlbum_completionHa
   _Block_object_dispose(buf, 8);
 }
 
-void __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke(uint64_t a1)
+void __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v42 = *MEMORY[0x1E69E9840];
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [v3 invitationRecords];
+    v4 = *(a1 + 32);
+    v5 = [v4 invitationRecords];
     *buf = 138412546;
-    v38 = v3;
-    v39 = 2048;
-    v40 = [v4 count];
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "found plAlbum %@ with invitationRecords %lu", buf, 0x16u);
+    v39 = v4;
+    v40 = 2048;
+    v41 = objc_msgSend_count(v5);
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "found plAlbum %@ with invitationRecords %lu", buf, 0x16u);
   }
 
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v5 = [*(a1 + 32) invitationRecords];
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v6)
+  v34 = 0u;
+  v6 = [*(a1 + 32) invitationRecords];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v7)
   {
-    v8 = v6;
-    v9 = *v33;
-    *&v7 = 138412290;
-    v31 = v7;
+    v9 = v7;
+    v10 = *v34;
+    *&v8 = 138412290;
+    v32 = v8;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v9)
+        if (*v34 != v10)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
-        v12 = PLPhotoSharingGetLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = *(*(&v33 + 1) + 8 * i);
+        v13 = PLPhotoSharingGetLog();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v31;
-          v38 = v11;
-          _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "invitation record %@", buf, 0xCu);
+          *buf = v32;
+          v39 = v12;
+          _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "invitation record %@", buf, 0xCu);
         }
 
-        v13 = [v11 invitationState];
-        if ([v13 intValue] == 1)
+        v14 = [v12 invitationState];
+        if ([v14 intValue] == 1)
         {
         }
 
         else
         {
-          v14 = *(a1 + 40);
+          v15 = *(a1 + 40);
 
-          if (!v14)
+          if (!v15)
           {
             continue;
           }
         }
 
-        v15 = *(a1 + 40);
-        if (v15)
+        v16 = *(a1 + 40);
+        if (v16)
         {
-          v16 = [v11 cloudGUID];
-          v17 = [v15 containsObject:v16];
+          v17 = [v12 cloudGUID];
+          v18 = [v16 containsObject:v17];
 
-          if (!v17)
+          if (!v18)
           {
             continue;
           }
         }
 
-        v18 = PLPhotoSharingGetLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = PLPhotoSharingGetLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "record state is kMSASRelationshipStatePending, will send invitation", buf, 2u);
+          _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "record state is kMSASRelationshipStatePending, will send invitation", buf, 2u);
         }
 
-        v19 = objc_alloc_init(MEMORY[0x1E6997FA0]);
-        v20 = [v11 cloudGUID];
-        [v19 setGUID:v20];
+        v20 = objc_alloc_init(MEMORY[0x1E6997FA0]);
+        v21 = [v12 cloudGUID];
+        [v20 setGUID:v21];
 
-        v21 = [v11 inviteeEmails];
-        [v19 setEmails:v21];
+        v22 = [v12 inviteeEmails];
+        [v20 setEmails:v22];
 
-        v22 = [v11 inviteePhones];
-        [v19 setPhones:v22];
+        v23 = [v12 inviteePhones];
+        [v20 setPhones:v23];
 
-        v23 = [v11 inviteeFirstName];
-        [v19 setFirstName:v23];
+        v24 = [v12 inviteeFirstName];
+        [v20 setFirstName:v24];
 
-        v24 = [v11 inviteeLastName];
-        [v19 setLastName:v24];
+        v25 = [v12 inviteeLastName];
+        [v20 setLastName:v25];
 
-        v25 = [v11 inviteeFullName];
-        [v19 setFullName:v25];
+        v26 = [v12 inviteeFullName];
+        [v20 setFullName:v26];
 
-        v26 = [v11 inviteeHashedPersonID];
-        [v19 setPersonID:v26];
+        v27 = [v12 inviteeHashedPersonID];
+        [v20 setPersonID:v27];
 
-        [v19 setState:1];
-        v27 = *(*(*(a1 + 48) + 8) + 40);
-        if (!v27)
+        [v20 setState:1];
+        v28 = *(*(*(a1 + 48) + 8) + 40);
+        if (!v28)
         {
-          v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v29 = *(*(a1 + 48) + 8);
-          v30 = *(v29 + 40);
-          *(v29 + 40) = v28;
+          v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v30 = *(*(a1 + 48) + 8);
+          v31 = *(v30 + 40);
+          *(v30 + 40) = v29;
 
-          v27 = *(*(*(a1 + 48) + 8) + 40);
+          v28 = *(*(*(a1 + 48) + 8) + 40);
         }
 
-        [v27 addObject:{v19, v31}];
+        [v28 addObject:{v20, v32}];
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 }
 
-void __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke_649(uint64_t a1)
+void __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke_649(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v2 = *(*(*(a1 + 56) + 8) + 40);
-  v3 = PLPhotoSharingGetLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v30 = *MEMORY[0x1E69E9840];
+  v3 = *(*(*(a1 + 56) + 8) + 40);
+  v4 = PLPhotoSharingGetLog();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = objc_opt_class();
-      v6 = *(*(*(a1 + 56) + 8) + 40);
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = [v7 cloudGUID];
-      v10 = *(a1 + 40);
+      v6 = objc_opt_class();
+      v7 = *(*(*(a1 + 56) + 8) + 40);
+      v8 = *(a1 + 32);
+      v9 = v6;
+      v10 = [v8 cloudGUID];
+      v11 = *(a1 + 40);
       *buf = 138413058;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v10;
+      v28 = 2112;
+      v29 = v11;
+      _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
     }
 
-    v11 = [MEMORY[0x1E69B14F8] sharedConnection];
-    v12 = *(*(*(a1 + 56) + 8) + 40);
-    v13 = [*(a1 + 32) cloudGUID];
-    v14 = *(a1 + 40);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke_650;
-    v19[3] = &unk_1E7570F30;
-    v20 = *(a1 + 56);
-    [v11 addAccessControlEntries:v12 toAlbumWithGUID:v13 personID:v14 completionBlock:v19];
+    v12 = [MEMORY[0x1E69B14F8] sharedConnection];
+    v13 = *(*(*(a1 + 56) + 8) + 40);
+    v14 = [*(a1 + 32) cloudGUID];
+    v15 = *(a1 + 40);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationGUIDs___block_invoke_650;
+    v20[3] = &unk_1E7570F30;
+    v21 = *(a1 + 56);
+    [v12 addAccessControlEntries:v13 toAlbumWithGUID:v14 personID:v15 completionBlock:v20];
 
 LABEL_5:
     return;
   }
 
-  if (v4)
+  if (v5)
   {
     *buf = 138412290;
-    v22 = objc_opt_class();
-    v15 = v22;
-    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%@: no sharing invitations to send", buf, 0xCu);
+    v23 = objc_opt_class();
+    v16 = v23;
+    _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "%@: no sharing invitations to send", buf, 0xCu);
   }
 
   if (*(a1 + 48))
   {
-    v11 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = *(a1 + 48);
+      v17 = objc_opt_class();
+      v18 = *(a1 + 48);
       *buf = 138412546;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
-      v18 = v16;
-      _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "%@: failed to find invitation GUIDs %@ to resend", buf, 0x16u);
+      v23 = v17;
+      v24 = 2112;
+      v25 = v18;
+      v19 = v17;
+      _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_ERROR, "%@: failed to find invitation GUIDs %@ to resend", buf, 0x16u);
     }
 
     goto LABEL_5;
@@ -4257,71 +4257,70 @@ void __77__PLPhotoSharingHelper_sendPendingInvitationsForAlbum_resendInvitationG
 
 + (BOOL)removeCloudSharingDirectories:(id *)directories
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   systemLibraryPathManager = [MEMORY[0x1E69BF2A0] systemLibraryPathManager];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v6 = [systemLibraryPathManager photoDirectoryWithType:23];
-  v29 = 0;
-  v7 = [defaultManager removeItemAtPath:v6 error:&v29];
-  v8 = v29;
+  v28 = 0;
+  v7 = [defaultManager removeItemAtPath:v6 error:&v28];
+  v8 = v28;
 
   v9 = MEMORY[0x1E696AA08];
-  v10 = MEMORY[0x1E696A798];
   if (v7)
   {
-    v11 = 1;
+    v10 = 1;
     goto LABEL_11;
   }
 
   userInfo = [v8 userInfo];
-  v13 = [userInfo objectForKey:*v9];
+  v12 = [userInfo objectForKey:*v9];
 
-  domain = [v13 domain];
-  if (![domain isEqualToString:*v10])
+  domain = [v12 domain];
+  if (!objc_msgSend_isEqualToString_(domain))
   {
 
 LABEL_7:
     if (directories)
     {
-      v16 = v8;
-      v11 = 0;
+      v15 = v8;
+      v10 = 0;
       *directories = v8;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
     goto LABEL_10;
   }
 
-  code = [v13 code];
+  code = [v12 code];
 
   if (code != 2)
   {
     goto LABEL_7;
   }
 
-  v11 = 1;
+  v10 = 1;
 LABEL_10:
 
 LABEL_11:
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v18 = [systemLibraryPathManager photoDirectoryWithType:24];
-  v28 = 0;
-  v19 = [defaultManager2 removeItemAtPath:v18 error:&v28];
-  v20 = v28;
+  v17 = [systemLibraryPathManager photoDirectoryWithType:24];
+  v27 = 0;
+  v18 = [defaultManager2 removeItemAtPath:v17 error:&v27];
+  v19 = v27;
 
-  if ((v19 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
-    userInfo2 = [v20 userInfo];
-    v22 = [userInfo2 objectForKey:*v9];
+    userInfo2 = [v19 userInfo];
+    v21 = [userInfo2 objectForKey:*v9];
 
-    domain2 = [v22 domain];
-    if ([domain2 isEqualToString:*v10])
+    domain2 = [v21 domain];
+    if (objc_msgSend_isEqualToString_(domain2))
     {
-      code2 = [v22 code];
+      code2 = [v21 code];
 
       if (code2 == 2)
       {
@@ -4335,15 +4334,15 @@ LABEL_19:
     {
     }
 
-    v25 = PLMigrationGetLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = PLMigrationGetLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = [systemLibraryPathManager photoDirectoryWithType:24];
+      v25 = [systemLibraryPathManager photoDirectoryWithType:24];
       *buf = 138412546;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v20;
-      _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "Unable to delete %@: %@", buf, 0x16u);
+      v30 = v25;
+      v31 = 2112;
+      v32 = v19;
+      _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_ERROR, "Unable to delete %@: %@", buf, 0x16u);
     }
 
     goto LABEL_19;
@@ -4351,7 +4350,7 @@ LABEL_19:
 
 LABEL_20:
 
-  return v11;
+  return v10;
 }
 
 + (void)requestVideoPlaybackURLForAsset:(id)asset videoType:(unint64_t)type completion:(id)completion
@@ -4588,7 +4587,7 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
   assetsCopy = assets;
   if (PLIsAssetsd())
   {
-    v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+    v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(assetsCopy)];
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
@@ -4625,7 +4624,7 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
       while (v7);
     }
 
-    if ([v4 count])
+    if (objc_msgSend_count(v4))
     {
       v11 = +[PLNotificationManager sharedManager];
       [v11 noteUserDidDeleteSharedAssetsWithUUIDs:v4];
@@ -4640,7 +4639,7 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
 
 + (void)enqueueCloudSharedAssetsForPublishToServer:(id)server inSharedAlbum:(id)album
 {
-  v128 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   albumCopy = album;
   v7 = PLPhotoSharingGetLog();
@@ -4655,51 +4654,51 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
     LOWORD(buf.flags) = 2112;
     *(&buf.flags + 2) = v10;
     HIWORD(buf.epoch) = 2112;
-    v125 = v11;
-    v126 = 2112;
-    v127 = albumCopy;
+    v130 = v11;
+    v131 = 2112;
+    v132 = albumCopy;
     _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "%@ %@ asset uuids %@ album %@", &buf, 0x2Au);
   }
 
-  v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(serverCopy, "count")}];
-  v119 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v122 = 0u;
+  v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(serverCopy)];
+  v124 = 0u;
+  v125 = 0u;
+  v126 = 0u;
+  v127 = 0u;
   obj = serverCopy;
-  v102 = [obj countByEnumeratingWithState:&v119 objects:v123 count:16];
+  v107 = [obj countByEnumeratingWithState:&v124 objects:v128 count:16];
   v13 = 0;
-  if (v102)
+  if (v107)
   {
-    v101 = *v120;
-    v107 = *MEMORY[0x1E695DB50];
-    v105 = *MEMORY[0x1E6998070];
-    v103 = *MEMORY[0x1E6998078];
-    v104 = *MEMORY[0x1E6998080];
-    v100 = *MEMORY[0x1E6998028];
-    v92 = *MEMORY[0x1E6982F80];
+    v106 = *v125;
+    v112 = *MEMORY[0x1E695DB50];
+    v110 = *MEMORY[0x1E6998070];
+    v108 = *MEMORY[0x1E6998078];
+    v109 = *MEMORY[0x1E6998080];
+    v105 = *MEMORY[0x1E6998028];
+    v97 = *MEMORY[0x1E6982F80];
     v14 = *MEMORY[0x1E695F060];
     v15 = *(MEMORY[0x1E695F060] + 8);
-    v87 = *MEMORY[0x1E6998008];
-    v86 = *MEMORY[0x1E6998010];
-    v85 = *MEMORY[0x1E6998018];
-    v97 = *MEMORY[0x1E6997FF8];
+    v92 = *MEMORY[0x1E6998008];
+    v91 = *MEMORY[0x1E6998010];
+    v90 = *MEMORY[0x1E6998018];
+    v102 = *MEMORY[0x1E6997FF8];
     v16 = 0x1E696A000uLL;
-    v96 = *MEMORY[0x1E6997FF0];
-    v95 = *MEMORY[0x1E6998000];
-    v90 = *MEMORY[0x1E6998030];
-    v88 = *MEMORY[0x1E6998020];
-    v93 = v12;
+    v101 = *MEMORY[0x1E6997FF0];
+    v100 = *MEMORY[0x1E6998000];
+    v95 = *MEMORY[0x1E6998030];
+    v93 = *MEMORY[0x1E6998020];
+    v98 = v12;
     do
     {
-      for (i = 0; i != v102; ++i)
+      for (i = 0; i != v107; ++i)
       {
-        if (*v120 != v101)
+        if (*v125 != v106)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v119 + 1) + 8 * i);
+        v18 = *(*(&v124 + 1) + 8 * i);
         v19 = objc_alloc_init(MEMORY[0x1E6997FA8]);
         cloudAssetGUID = [v18 cloudAssetGUID];
         [v19 setGUID:cloudAssetGUID];
@@ -4719,34 +4718,34 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
         pathForOriginalFile2 = [v18 pathForOriginalFile];
         v25 = [v23 fileURLWithPath:pathForOriginalFile2 isDirectory:0];
 
-        v118 = 0;
-        v111 = v25;
-        [v25 getResourceValue:&v118 forKey:v107 error:0];
-        v110 = v118;
+        v123 = 0;
+        v116 = v25;
+        [v25 getResourceValue:&v123 forKey:v112 error:0];
+        v115 = v123;
         [dictionary setObject:? forKey:?];
         v26 = [*(v16 + 3480) numberWithLongLong:{objc_msgSend(v18, "width")}];
         v27 = [*(v16 + 3480) numberWithLongLong:{objc_msgSend(v18, "height")}];
-        v109 = v26;
-        [dictionary setObject:v26 forKey:v104];
-        v108 = v27;
-        [dictionary setObject:v27 forKey:v103];
+        v114 = v26;
+        [dictionary setObject:v26 forKey:v109];
+        v113 = v27;
+        [dictionary setObject:v27 forKey:v108];
         [v19 setMetadata:dictionary];
         array = [MEMORY[0x1E695DF70] array];
-        v113 = v19;
+        v118 = v19;
         [array addObject:v19];
         v28 = objc_alloc_init(MEMORY[0x1E6997F90]);
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         v30 = [*(v16 + 3480) numberWithUnsignedShort:{objc_msgSend(v18, "playbackVariation")}];
-        [dictionary2 setObject:v30 forKey:v100];
+        [dictionary2 setObject:v30 forKey:v105];
 
         mediaGroupUUID = [v18 mediaGroupUUID];
         if ([v18 isPhotoIris] && mediaGroupUUID)
         {
-          v99 = v13;
+          v104 = v13;
           pathForVideoComplementFile = [v18 pathForVideoComplementFile];
           pathExtension = [pathForVideoComplementFile pathExtension];
-          identifier = [v92 identifier];
-          v98 = pathExtension;
+          identifier = [v97 identifier];
+          v103 = pathExtension;
           if (pathExtension)
           {
             v34 = [PLManagedAsset uniformTypeIdentifierFromPathExtension:pathExtension assetType:1];
@@ -4779,16 +4778,16 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
           dictionary3 = [MEMORY[0x1E695DF90] dictionary];
           if (pathForVideoComplementFile && ([MEMORY[0x1E696AC08] defaultManager], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "fileExistsAtPath:", pathForVideoComplementFile), v42, v43))
           {
-            v89 = identifier;
+            v94 = identifier;
             v44 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathForVideoComplementFile isDirectory:0];
-            v116 = 0;
-            v117 = 0;
-            v45 = [v44 getResourceValue:&v117 forKey:v107 error:&v116];
-            v46 = v117;
-            v91 = v116;
+            v121 = 0;
+            v122 = 0;
+            v45 = [v44 getResourceValue:&v122 forKey:v112 error:&v121];
+            v46 = v122;
+            v96 = v121;
             if (v45)
             {
-              [dictionary3 setObject:v46 forKey:v105];
+              [dictionary3 setObject:v46 forKey:v110];
               [PLManagedAsset dimensionsForVideoAtURL:v44];
               v48 = v47;
               if (v49 == v14 && v47 == v15)
@@ -4808,17 +4807,17 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
               }
 
               v55 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-              [dictionary3 setObject:v55 forKey:v104];
+              [dictionary3 setObject:v55 forKey:v109];
 
               v56 = [MEMORY[0x1E696AD98] numberWithDouble:v48];
-              [dictionary3 setObject:v56 forKey:v103];
+              [dictionary3 setObject:v56 forKey:v108];
 
               [v38 setMetadata:dictionary3];
-              [dictionary2 setObject:mediaGroupUUID forKey:v87];
+              [dictionary2 setObject:mediaGroupUUID forKey:v92];
               v57 = MEMORY[0x1E696AD98];
               if (v18)
               {
-                [v18 photoIrisStillDisplayTime];
+                objc_msgSend_photoIrisStillDisplayTime(v18);
               }
 
               else
@@ -4827,12 +4826,12 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
               }
 
               v58 = [v57 numberWithDouble:CMTimeGetSeconds(&buf)];
-              [dictionary2 setObject:v58 forKey:v86];
+              [dictionary2 setObject:v58 forKey:v91];
 
               v59 = MEMORY[0x1E696AD98];
               if (v18)
               {
-                [v18 photoIrisVideoDuration];
+                objc_msgSend_photoIrisVideoDuration(v18);
               }
 
               else
@@ -4841,7 +4840,7 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
               }
 
               v60 = [v59 numberWithDouble:CMTimeGetSeconds(&buf)];
-              [dictionary2 setObject:v60 forKey:v85];
+              [dictionary2 setObject:v60 forKey:v90];
 
               [array addObject:v38];
             }
@@ -4854,7 +4853,7 @@ uint64_t __77__PLPhotoSharingHelper_requestVideoPlaybackURLForAsset_videoType_co
                 LODWORD(buf.value) = 138412546;
                 *(&buf.value + 4) = pathForVideoComplementFile;
                 LOWORD(buf.flags) = 2112;
-                *(&buf.flags + 2) = v91;
+                *(&buf.flags + 2) = v96;
                 v51 = v50;
                 v52 = "ERROR: Unable to get Iris video complement file size for %@: %@";
                 v53 = 22;
@@ -4865,9 +4864,9 @@ LABEL_29:
 LABEL_30:
             }
 
-            v54 = v98;
+            v54 = v103;
 
-            identifier = v89;
+            identifier = v94;
           }
 
           else
@@ -4880,11 +4879,11 @@ LABEL_30:
               _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_ERROR, "ERROR: Iris video complement file path is nil or does not exist: %@", &buf, 0xCu);
             }
 
-            v54 = v98;
+            v54 = v103;
           }
 
-          v12 = v93;
-          v13 = v99;
+          v12 = v98;
+          v13 = v104;
           v16 = 0x1E696A000uLL;
         }
 
@@ -4902,7 +4901,7 @@ LABEL_30:
         if (cloudBatchID)
         {
           cloudBatchID2 = [v18 cloudBatchID];
-          [dictionary2 setObject:cloudBatchID2 forKey:v97];
+          [dictionary2 setObject:cloudBatchID2 forKey:v102];
         }
 
         cloudBatchPublishDate = [v18 cloudBatchPublishDate];
@@ -4910,13 +4909,13 @@ LABEL_30:
         if (cloudBatchPublishDate)
         {
           cloudBatchPublishDate2 = [v18 cloudBatchPublishDate];
-          [dictionary2 setObject:cloudBatchPublishDate2 forKey:v96];
+          [dictionary2 setObject:cloudBatchPublishDate2 forKey:v101];
         }
 
         dateCreated = [v18 dateCreated];
         if (dateCreated)
         {
-          [dictionary2 setObject:dateCreated forKey:v95];
+          [dictionary2 setObject:dateCreated forKey:v100];
         }
 
         v68 = [*(v16 + 3480) numberWithBool:1];
@@ -4924,12 +4923,12 @@ LABEL_30:
 
         if ([v18 isVideo])
         {
-          [v18 duration];
+          objc_msgSend_duration(v18);
           if (v69 != 0.0)
           {
             [PLSlalomUtilities durationForManagedAsset:v18 applyVideoAdjustments:1];
             v70 = [*(v16 + 3480) numberWithDouble:?];
-            [dictionary2 setObject:v70 forKey:v90];
+            [dictionary2 setObject:v70 forKey:v95];
           }
 
           location = [v18 location];
@@ -4941,7 +4940,7 @@ LABEL_30:
             v75 = iso6709Notation;
             if (iso6709Notation && [iso6709Notation length])
             {
-              [dictionary2 setObject:v75 forKey:v88];
+              [dictionary2 setObject:v75 forKey:v93];
             }
 
             v13 = v73;
@@ -4960,13 +4959,13 @@ LABEL_30:
         }
       }
 
-      v102 = [obj countByEnumeratingWithState:&v119 objects:v123 count:16];
+      v107 = [obj countByEnumeratingWithState:&v124 objects:v128 count:16];
     }
 
-    while (v102);
+    while (v107);
   }
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     mEMORY[0x1E69B14F8] = [MEMORY[0x1E69B14F8] sharedConnection];
     sharingPersonID = [self sharingPersonID];
@@ -4979,7 +4978,7 @@ LABEL_30:
       LOWORD(buf.flags) = 2112;
       *(&buf.flags + 2) = cloudGUID;
       HIWORD(buf.epoch) = 2112;
-      v125 = sharingPersonID;
+      v130 = sharingPersonID;
       _os_log_impl(&dword_19BF1F000, v79, OS_LOG_TYPE_DEFAULT, " about to call connection addAssetCollections:%@ toAlbumWithGUID:%@ personID:%@", &buf, 0x20u);
     }
 
@@ -5004,7 +5003,7 @@ LABEL_30:
     if (v13 >= 1)
     {
       title = [albumCopy title];
-      plslogGreenTea();
+      plslogGreenTea(@"com.apple.mobileslideshow", 0, @"Added %li photo(s) with location data to shared album '%@'", v82, v83, v84, v85, v86, v13);
     }
 
     if (PLIsForegroundApplication())
@@ -5104,7 +5103,7 @@ LABEL_30:
   }
 
   pathExtension = [lCopy pathExtension];
-  if ([pathExtension isEqualToString:*MEMORY[0x1E69C09D0]])
+  if (objc_msgSend_isEqualToString_(pathExtension))
   {
     v13 = [objc_alloc(MEMORY[0x1E69C0918]) initWithBundleAtURL:lCopy];
     imagePath = [v13 imagePath];
@@ -5202,7 +5201,7 @@ LABEL_30:
   infoCopy = info;
   pathInfoCopy = pathInfo;
   albumCopy = album;
-  v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(dsCopy)];
   photoLibrary = [albumCopy photoLibrary];
   pathManager = [photoLibrary pathManager];
   capabilities = [pathManager capabilities];
@@ -5307,14 +5306,14 @@ void __177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_withB
     }
 
     v1 = [PLManagedAsset assetsWithUUIDs:*(a1 + 48) options:1 inLibrary:*(a1 + 32)];
-    v2 = [v1 count];
-    if (v2 != [*(a1 + 48) count])
+    v2 = objc_msgSend_count(v1);
+    if (v2 != objc_msgSend_count(*(a1 + 48)))
     {
       v3 = PLPhotoSharingGetLog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v4 = [v1 count];
-        v5 = [*(a1 + 48) count];
+        v4 = objc_msgSend_count(v1);
+        v5 = objc_msgSend_count(*(a1 + 48));
         *buf = 134218240;
         *&buf[4] = v4;
         *&buf[12] = 2048;
@@ -5323,7 +5322,7 @@ void __177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_withB
       }
     }
 
-    v178 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
+    v178 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(v1)];
     v210 = 0u;
     v211 = 0u;
     v208 = 0u;
@@ -5357,7 +5356,7 @@ void __177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_withB
     v160 = [MEMORY[0x1E695DF00] date];
     v158 = [*(a1 + 40) mutableAssets];
     v157 = [*(a1 + 56) length];
-    v11 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 64), "count")}];
+    v11 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(*(a1 + 64))];
     v12 = *(a1 + 64);
     v206[0] = MEMORY[0x1E69E9820];
     v206[1] = 3221225472;
@@ -5736,8 +5735,8 @@ LABEL_95:
                 if (v180)
                 {
                   v121 = [v17 mediaGroupUUID];
-                  [v17 photoIrisVideoDuration];
-                  [v17 photoIrisStillDisplayTime];
+                  objc_msgSend_photoIrisVideoDuration(v17);
+                  objc_msgSend_photoIrisStillDisplayTime(v17);
                   [v72 becomePhotoIrisWithMediaGroupUUID:v121 mainFileMetadata:0 videoURL:v180 videoDuration:buf stillDisplayTime:&v191 options:v66];
                 }
 
@@ -5981,9 +5980,9 @@ LABEL_98:
   }
 }
 
-uint64_t __177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_withBatchCommentText_assetsSharingInfos_customExportsInfo_andTrimmedVideoPathInfo_sharedAlbum_isNewAlbum_error___block_invoke_616(uint64_t a1)
+void *__177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_withBatchCommentText_assetsSharingInfos_customExportsInfo_andTrimmedVideoPathInfo_sharedAlbum_isNewAlbum_error___block_invoke_616(uint64_t a1, const char *a2)
 {
-  result = [*(a1 + 32) count];
+  result = objc_msgSend_count(*(a1 + 32), a2);
   if (result)
   {
     result = [*(a1 + 40) isUnitTesting];
@@ -5992,9 +5991,9 @@ uint64_t __177__PLPhotoSharingHelper_prepareToEnqueueBatchOfOriginalAssetUUIDs_w
       result = [*(a1 + 64) enqueueCloudSharedAssetsForPublishToServer:*(a1 + 32) inSharedAlbum:*(a1 + 48)];
       if (*(*(*(a1 + 56) + 8) + 40))
       {
-        v3 = *(a1 + 64);
+        v5 = *(a1 + 64);
 
-        return [v3 publishCloudSharedCommentToServer:?];
+        return [v5 publishCloudSharedCommentToServer:?];
       }
     }
   }
@@ -6547,19 +6546,19 @@ void __69__PLPhotoSharingHelper_updateCloudSharedAlbumPublicURLStateOnServer___b
 
 + (void)updateLocalAlbumMetadataForMSASAlbum:(id)album info:(id)info
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   albumCopy = album;
   infoCopy = info;
   v8 = PLPhotoSharingGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v56 = objc_opt_class();
-    v57 = 2112;
-    v58 = albumCopy;
-    v59 = 2112;
-    v60 = infoCopy;
-    v9 = v56;
+    v55 = objc_opt_class();
+    v56 = 2112;
+    v57 = albumCopy;
+    v58 = 2112;
+    v59 = infoCopy;
+    v9 = v55;
     _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "%@ updateLocalAlbumMetadataForMSASAlbum %@ info %@", buf, 0x20u);
   }
 
@@ -6590,7 +6589,7 @@ void __69__PLPhotoSharingHelper_updateCloudSharedAlbumPublicURLStateOnServer___b
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = v17;
+        v55 = v17;
         _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Checking blocked state for inviter %@.", buf, 0xCu);
       }
 
@@ -6604,7 +6603,7 @@ void __69__PLPhotoSharingHelper_updateCloudSharedAlbumPublicURLStateOnServer___b
         if (v22)
         {
           *buf = 138412290;
-          v56 = v17;
+          v55 = v17;
           _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "Ignoring: Not calling updateSharedAlbumMetadata as inviter %@ is blocked.", buf, 0xCu);
         }
 
@@ -6616,12 +6615,12 @@ LABEL_52:
       if (v22)
       {
         *buf = 138412290;
-        v56 = v17;
+        v55 = v17;
         _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "inviter %@ is not blocked.", buf, 0xCu);
       }
     }
 
-    v50 = v17;
+    v49 = v17;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v21 = dictionary;
     if (infoCopy)
@@ -6638,23 +6637,23 @@ LABEL_52:
     }
 
     [albumCopy metadata];
-    v54 = v53 = v15;
-    if (v54)
+    v53 = v52 = v15;
+    if (v53)
     {
-      [v21 setObject:v54 forKey:@"album-metadata"];
+      [v21 setObject:v53 forKey:@"album-metadata"];
       [v21 setObject:v11 forKey:@"album-name"];
       gUID3 = [albumCopy GUID];
       [self writeAlbumNameBreadCrumb:v11 forAlbumGUID:gUID3 isUpload:0];
 
-      v27 = [v54 objectForKey:*MEMORY[0x1E6997FD8]];
+      v27 = [v53 objectForKey:*MEMORY[0x1E6997FD8]];
       v28 = v27;
       if (v27)
       {
-        v29 = [v27 isEqualToString:@"1"];
-        v30 = [MEMORY[0x1E696AD98] numberWithBool:v29];
+        isEqualToString = objc_msgSend_isEqualToString_(v27);
+        v30 = [MEMORY[0x1E696AD98] numberWithBool:isEqualToString];
         [v21 setObject:v30 forKey:@"album-isPublic"];
 
-        if (v29)
+        if (isEqualToString)
         {
           publicURLString = [albumCopy publicURLString];
           if (publicURLString)
@@ -6664,33 +6663,32 @@ LABEL_52:
         }
       }
 
-      v32 = [v54 objectForKey:*MEMORY[0x1E6997FB8]];
+      v32 = [v53 objectForKey:*MEMORY[0x1E6997FB8]];
       v33 = v32;
       if (v32)
       {
-        v34 = [v32 isEqualToString:@"1"];
-        v35 = [MEMORY[0x1E696AD98] numberWithBool:v34];
-        [v21 setObject:v35 forKey:@"album-allowsMultipleContributors"];
+        v34 = [MEMORY[0x1E696AD98] numberWithBool:objc_msgSend_isEqualToString_(v32)];
+        [v21 setObject:v34 forKey:@"album-allowsMultipleContributors"];
       }
 
-      v36 = [v54 objectForKey:*MEMORY[0x1E6997FC0]];
-      if (v36)
+      v35 = [v53 objectForKey:*MEMORY[0x1E6997FC0]];
+      if (v35)
       {
-        [v21 setObject:v36 forKey:@"album-creationDate"];
+        [v21 setObject:v35 forKey:@"album-creationDate"];
       }
 
-      v15 = v53;
+      v15 = v52;
     }
 
-    v51 = v11;
-    v37 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(albumCopy, "relationshipState")}];
-    [v21 setObject:v37 forKey:@"album-relationshipState"];
+    v50 = v11;
+    v36 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(albumCopy, "relationshipState")}];
+    [v21 setObject:v36 forKey:@"album-relationshipState"];
 
-    v38 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(albumCopy, "isFamilySharedAlbum")}];
-    [v21 setObject:v38 forKey:@"album-isFamilySharedAlbum"];
+    v37 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(albumCopy, "isFamilySharedAlbum")}];
+    [v21 setObject:v37 forKey:@"album-isFamilySharedAlbum"];
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    v40 = dictionary2;
+    v39 = dictionary2;
     if (v15)
     {
       [dictionary2 setObject:v15 forKey:@"kPLAlbumOwnerEmailKey"];
@@ -6699,62 +6697,62 @@ LABEL_52:
     ownerFirstName = [albumCopy ownerFirstName];
     if (ownerFirstName)
     {
-      [v40 setObject:ownerFirstName forKey:@"kPLAlbumOwnerFirstNameKey"];
+      [v39 setObject:ownerFirstName forKey:@"kPLAlbumOwnerFirstNameKey"];
     }
 
     ownerLastName = [albumCopy ownerLastName];
     if (ownerLastName)
     {
-      [v40 setObject:ownerLastName forKey:@"kPLAlbumOwnerLastNameKey"];
+      [v39 setObject:ownerLastName forKey:@"kPLAlbumOwnerLastNameKey"];
     }
 
     ownerFullName = [albumCopy ownerFullName];
     if (ownerFullName)
     {
-      [v40 setObject:ownerFullName forKey:@"kPLAlbumOwnerFullNameKey"];
+      [v39 setObject:ownerFullName forKey:@"kPLAlbumOwnerFullNameKey"];
     }
 
-    v52 = infoCopy;
+    v51 = infoCopy;
     ownerPersonID = [albumCopy ownerPersonID];
     if (ownerPersonID)
     {
-      [v40 setObject:ownerPersonID forKey:@"kPLAlbumOwnerHashedPersonIDKey"];
+      [v39 setObject:ownerPersonID forKey:@"kPLAlbumOwnerHashedPersonIDKey"];
     }
 
     ownerIsWhitelisted = [albumCopy ownerIsWhitelisted];
-    v46 = [MEMORY[0x1E696AD98] numberWithBool:ownerIsWhitelisted];
-    [v40 setObject:v46 forKey:@"kPLAlbumOwnerIsWhitelistedKey"];
+    v45 = [MEMORY[0x1E696AD98] numberWithBool:ownerIsWhitelisted];
+    [v39 setObject:v45 forKey:@"kPLAlbumOwnerIsWhitelistedKey"];
 
     subscriptionDate = [albumCopy subscriptionDate];
     if (subscriptionDate)
     {
-      [v40 setObject:subscriptionDate forKey:@"kPLAlbumOwnerSubscriptionDateKey"];
+      [v39 setObject:subscriptionDate forKey:@"kPLAlbumOwnerSubscriptionDateKey"];
     }
 
-    if (v40)
+    if (v39)
     {
-      [v21 setObject:v40 forKey:@"kPLAlbumOwnerDictionaryKey"];
+      [v21 setObject:v39 forKey:@"kPLAlbumOwnerDictionaryKey"];
     }
 
     if (+[PLPhotoSharingHelper debugAutoAcceptInvitation])
     {
-      v48 = [MEMORY[0x1E696AD98] numberWithBool:1];
-      [v21 setObject:v48 forKey:@"album-autoAcceptInvitation"];
+      v47 = [MEMORY[0x1E696AD98] numberWithBool:1];
+      [v21 setObject:v47 forKey:@"album-autoAcceptInvitation"];
     }
 
-    v49 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v48 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v21;
-      _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_DEFAULT, "about to call updateSharedAlbumMetadata with arguments %@", buf, 0xCu);
+      v55 = v21;
+      _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_DEFAULT, "about to call updateSharedAlbumMetadata with arguments %@", buf, 0xCu);
     }
 
     [PLCloudSharedUpdateAlbumMetadataJob updateAlbumMetadata:v21];
-    v11 = v51;
-    infoCopy = v52;
-    v15 = v53;
-    v17 = v50;
+    v11 = v50;
+    infoCopy = v51;
+    v15 = v52;
+    v17 = v49;
     goto LABEL_52;
   }
 
@@ -6802,7 +6800,7 @@ LABEL_53:
 + (id)_localizationKeyForAssets:(id)assets
 {
   assetsCopy = assets;
-  v4 = [assetsCopy count];
+  v4 = objc_msgSend_count(assetsCopy, 0, 0);
   v5 = [MEMORY[0x1E695DFB8] orderedSetWithSet:assetsCopy];
 
   PLAssetCountsByType();
@@ -7051,7 +7049,7 @@ LABEL_9:
   maxSubscribedStreams = [self maxSubscribedStreams];
   v6 = [libraryCopy albumListForContentMode:1];
   albums = [v6 albums];
-  v8 = [albums count];
+  v8 = objc_msgSend_count(albums);
 
   if (v8 >= maxSubscribedStreams)
   {
@@ -7115,7 +7113,7 @@ LABEL_15:
   maxOwnedStreams = [self maxOwnedStreams];
   v6 = [libraryCopy albumListForContentMode:1];
   albums = [v6 albums];
-  v8 = [albums count];
+  v8 = objc_msgSend_count(albums);
 
   if (v8 >= maxOwnedStreams)
   {
@@ -7213,7 +7211,7 @@ LABEL_15:
   if (v3)
   {
     v4 = [v3 componentsSeparatedByString:@":"];
-    if ([v4 count] == 2)
+    if (objc_msgSend_count(v4) == 2)
     {
       v5 = [v4 objectAtIndex:0];
       [v5 floatValue];
@@ -7522,13 +7520,13 @@ void __41__PLPhotoSharingHelper_streamdVideoCache__block_invoke()
   return v3;
 }
 
-id __44__PLPhotoSharingHelper_initializeMSPlatform__block_invoke()
+id __44__PLPhotoSharingHelper_initializeMSPlatform__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_19BF1F000, v0, OS_LOG_TYPE_DEFAULT, "initializeMSPlatform", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "initializeMSPlatform", v4, 2u);
   }
 
   return [MEMORY[0x1E69B14F8] sharedConnection];
@@ -7719,7 +7717,7 @@ id __44__PLPhotoSharingHelper_initializeMSPlatform__block_invoke()
     cachedPrimaryAppleAccount = [v4 cachedPrimaryAppleAccount];
     aa_primaryEmail = [cachedPrimaryAppleAccount aa_primaryEmail];
 
-    if (([aa_primaryEmail isEqualToString:emailCopy]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(aa_primaryEmail))
     {
 LABEL_16:
       aa_appleIDAliases = PLPhotoSharingGetLog();
@@ -7756,7 +7754,7 @@ LABEL_16:
               objc_enumerationMutation(aa_appleIDAliases);
             }
 
-            if ([*(*(&v14 + 1) + 8 * i) isEqualToString:emailCopy])
+            if (objc_msgSend_isEqualToString_(*(*(&v14 + 1) + 8 * i)))
             {
 
               goto LABEL_16;

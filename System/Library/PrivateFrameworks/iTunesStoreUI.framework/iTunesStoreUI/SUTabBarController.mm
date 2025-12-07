@@ -178,7 +178,7 @@
 
 - (BOOL)loadFromDefaultsAndSetSections:(id)sections
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
 
   self->_preloadedViewController = 0;
   self->_preloadedViewControllerIdentifier = 0;
@@ -189,46 +189,33 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v54 = 0;
+    v56 = 0;
     v7 = MEMORY[0x1E696ACD0];
     v8 = MEMORY[0x1E695DFD8];
     v9 = objc_opt_class();
-    v10 = [v7 unarchivedObjectOfClasses:objc_msgSend(v8 fromData:"setWithObjects:" error:{v9, objc_opt_class(), 0), v6, &v54}];
-    if (v54)
+    v10 = [v7 unarchivedObjectOfClasses:objc_msgSend(v8 fromData:"setWithObjects:" error:{v9, objc_opt_class(), 0), v6, &v56}];
+    if (v56)
     {
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-      if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-      {
-        v13 = shouldLog | 2;
-      }
-
-      else
-      {
-        v13 = shouldLog;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v13 &= 2u;
-      }
-
+      LODWORD(v13) = [mEMORY[0x1E69D4938] shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      v13 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR) ? v13 : v13 & 2u;
       if (v13)
       {
-        v14 = objc_opt_class();
-        v58 = 138543618;
-        v59 = v14;
-        v60 = 2114;
-        v61 = v54;
-        LODWORD(v45) = 22;
-        v44 = &v58;
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
+        v15 = objc_opt_class();
+        v60 = 138543618;
+        v61 = v15;
+        v62 = 2114;
+        v63 = v56;
+        LODWORD(v47) = 22;
+        v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to unarchive array. Error = %{public}@", &v60, v47);
+        if (v16)
         {
-          v16 = v15;
-          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v58, v45}];
-          free(v16);
-          v44 = v17;
+          v17 = v16;
+          v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+          free(v17);
+          v46 = v18;
           SSFileLog();
         }
       }
@@ -244,51 +231,38 @@
 
   if (!self->_preloadedViewController)
   {
-    v18 = [standardUserDefaults objectForKey:@"SUSectionNavigationPath"];
+    v19 = [standardUserDefaults objectForKey:@"SUSectionNavigationPath"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v54 = 0;
-      v19 = MEMORY[0x1E696ACD0];
-      v20 = MEMORY[0x1E695DFD8];
-      v57[0] = objc_opt_class();
-      v57[1] = objc_opt_class();
-      v21 = [v19 unarchivedObjectOfClasses:objc_msgSend(v20 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v57, 2)), v18, &v54}];
-      if (v54)
+      v56 = 0;
+      v20 = MEMORY[0x1E696ACD0];
+      v21 = MEMORY[0x1E695DFD8];
+      v59[0] = objc_opt_class();
+      v59[1] = objc_opt_class();
+      v22 = [v20 unarchivedObjectOfClasses:objc_msgSend(v21 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v59, 2)), v19, &v56}];
+      if (v56)
       {
         mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
         shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-        if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
+        LODWORD(v25) = [mEMORY[0x1E69D4938]2 shouldLogToDisk] ? shouldLog2 | 2 : shouldLog2;
+        oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+        v25 = os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR) ? v25 : v25 & 2u;
+        if (v25)
         {
-          v24 = shouldLog2 | 2;
-        }
-
-        else
-        {
-          v24 = shouldLog2;
-        }
-
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_ERROR))
-        {
-          v24 &= 2u;
-        }
-
-        if (v24)
-        {
-          v25 = objc_opt_class();
-          v58 = 138543618;
-          v59 = v25;
-          v60 = 2114;
-          v61 = v54;
-          LODWORD(v45) = 22;
-          v44 = &v58;
-          v26 = _os_log_send_and_compose_impl();
-          if (v26)
+          v27 = objc_opt_class();
+          v60 = 138543618;
+          v61 = v27;
+          v62 = 2114;
+          v63 = v56;
+          LODWORD(v47) = 22;
+          v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 16, "%{public}@: Failed to unarchive array. Error = %{public}@", &v60, v47);
+          if (v28)
           {
-            v27 = v26;
-            v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v58, v45}];
-            free(v27);
-            v44 = v28;
+            v29 = v28;
+            v30 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+            free(v29);
+            v46 = v30;
             SSFileLog();
           }
         }
@@ -297,54 +271,54 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ([v21 count])
+        if ([v22 count])
         {
-          v29 = [objc_msgSend(v21 objectAtIndex:{0), "sectionIdentifier"}];
+          v31 = [objc_msgSend(v22 objectAtIndex:{0), "sectionIdentifier"}];
         }
 
         else
         {
-          v29 = 0;
+          v31 = 0;
         }
 
+        v54 = 0u;
+        v55 = 0u;
         v52 = 0u;
         v53 = 0u;
-        v50 = 0u;
-        v51 = 0u;
-        v30 = [v21 countByEnumeratingWithState:&v50 objects:v56 count:{16, v44}];
-        if (v30)
+        v32 = [v22 countByEnumeratingWithState:&v52 objects:v58 count:{16, v46}];
+        if (v32)
         {
-          v31 = v30;
-          v32 = 0;
-          v33 = *v51;
+          v33 = v32;
+          v34 = 0;
+          v35 = *v53;
           while (2)
           {
-            for (i = 0; i != v31; ++i)
+            for (i = 0; i != v33; ++i)
             {
-              if (*v51 != v33)
+              if (*v53 != v35)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v22);
               }
 
-              if ([*(*(&v50 + 1) + 8 * i) type])
+              if ([*(*(&v52 + 1) + 8 * i) type])
               {
-                if (v32 > 0)
+                if (v34 > 0)
                 {
-                  if ([objc_msgSend(v21 "lastObject")])
+                  if ([objc_msgSend(v22 "lastObject")])
                   {
-                    self->_preloadedViewController = -[SUTabBarController _viewControllerForContext:](self, "_viewControllerForContext:", [v21 lastObject]);
+                    self->_preloadedViewController = -[SUTabBarController _viewControllerForContext:](self, "_viewControllerForContext:", [v22 lastObject]);
                     self->_preloadedViewControllerKey = @"SUSectionNavigationPath";
                   }
 
-                  goto LABEL_42;
+                  goto LABEL_44;
                 }
 
-                v32 = 1;
+                v34 = 1;
               }
             }
 
-            v31 = [v21 countByEnumeratingWithState:&v50 objects:v56 count:16];
-            if (v31)
+            v33 = [v22 countByEnumeratingWithState:&v52 objects:v58 count:16];
+            if (v33)
             {
               continue;
             }
@@ -353,48 +327,48 @@
           }
         }
 
-LABEL_42:
-        if (!self->_preloadedViewController && v29)
+LABEL_44:
+        if (!self->_preloadedViewController && v31)
         {
+          v50 = 0u;
+          v51 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v35 = [sections countByEnumeratingWithState:&v46 objects:v55 count:16];
-          if (v35)
+          v37 = [sections countByEnumeratingWithState:&v48 objects:v57 count:16];
+          if (v37)
           {
-            v36 = v35;
-            v37 = 0;
-            v38 = *v47;
+            v38 = v37;
+            v39 = 0;
+            v40 = *v49;
             do
             {
-              for (j = 0; j != v36; ++j)
+              for (j = 0; j != v38; ++j)
               {
-                if (*v47 != v38)
+                if (*v49 != v40)
                 {
                   objc_enumerationMutation(sections);
                 }
 
-                v40 = *(*(&v46 + 1) + 8 * j);
-                if ([objc_msgSend(v40 "identifier")])
+                v42 = *(*(&v48 + 1) + 8 * j);
+                if ([objc_msgSend(v42 "identifier")])
                 {
-                  v37 = v40;
+                  v39 = v42;
                 }
               }
 
-              v36 = [sections countByEnumeratingWithState:&v46 objects:v55 count:16];
+              v38 = [sections countByEnumeratingWithState:&v48 objects:v57 count:16];
             }
 
-            while (v36);
+            while (v38);
           }
 
           else
           {
-            v37 = 0;
+            v39 = 0;
           }
 
-          self->_preloadedViewController = [(SUTabBarController *)self _rootViewControllerForSection:v37];
-          self->_preloadedViewControllerIdentifier = v29;
+          self->_preloadedViewController = [(SUTabBarController *)self _rootViewControllerForSection:v39];
+          self->_preloadedViewControllerIdentifier = v31;
         }
       }
     }
@@ -410,7 +384,7 @@ LABEL_42:
     [(SUViewController *)preloadedViewController setLoadsWhenHidden:loadsWhenHidden];
   }
 
-  [(SUTabBarController *)self setSections:sections, v44];
+  [(SUTabBarController *)self setSections:sections, v46];
   [(SUTabBarController *)self loadFromDefaults];
 
   self->_preloadedViewController = 0;
@@ -421,7 +395,7 @@ LABEL_42:
 
 - (BOOL)loadFromDefaults
 {
-  v50[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   [MEMORY[0x1E696ACD0] setClass:objc_opt_class() forClassName:@"ISURLRequest"];
   v4 = [standardUserDefaults objectForKey:@"SURootSections"];
@@ -435,47 +409,33 @@ LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = 0;
+    v46 = 0;
     v6 = MEMORY[0x1E696ACD0];
     v7 = MEMORY[0x1E695DFD8];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v8 = [v6 unarchivedObjectOfClasses:objc_msgSend(v7 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v50, 2)), v5, &v43}];
-    if (v43)
+    v53[0] = objc_opt_class();
+    v53[1] = objc_opt_class();
+    v8 = [v6 unarchivedObjectOfClasses:objc_msgSend(v7 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v53, 2)), v5, &v46}];
+    if (v46)
     {
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-      if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-      {
-        v11 = shouldLog | 2;
-      }
-
-      else
-      {
-        v11 = shouldLog;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v11 &= 2u;
-      }
-
+      LODWORD(v11) = [mEMORY[0x1E69D4938] shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      v11 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR) ? v11 : v11 & 2u;
       if (v11)
       {
-        v12 = objc_opt_class();
-        v46 = 138543618;
-        v47 = v12;
-        v48 = 2114;
-        v49 = v43;
-        LODWORD(v42) = 22;
-        v39 = &v46;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v13 = objc_opt_class();
+        v49 = 138543618;
+        v50 = v13;
+        v51 = 2114;
+        v52 = v46;
+        v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to unarchive section nav context array. Error = %{public}@", &v49, 22);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v46, v42}];
-          free(v14);
-          v39 = v15;
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          v42 = v16;
           SSFileLog();
         }
       }
@@ -488,51 +448,38 @@ LABEL_42:
     }
   }
 
-  v16 = [standardUserDefaults objectForKey:{@"SUOverlayContexts", v39}];
+  v17 = [standardUserDefaults objectForKey:{@"SUOverlayContexts", v42}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = 0;
-    v17 = MEMORY[0x1E696ACD0];
-    v18 = MEMORY[0x1E695DFD8];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v19 = [v17 unarchivedObjectOfClasses:objc_msgSend(v18 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v45, 2)), v16, &v43}];
-    if (v43)
+    v46 = 0;
+    v18 = MEMORY[0x1E696ACD0];
+    v19 = MEMORY[0x1E695DFD8];
+    v48[0] = objc_opt_class();
+    v48[1] = objc_opt_class();
+    v20 = [v18 unarchivedObjectOfClasses:objc_msgSend(v19 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v48, 2)), v17, &v46}];
+    if (v46)
     {
       mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-      if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
+      LODWORD(v23) = [mEMORY[0x1E69D4938]2 shouldLogToDisk] ? shouldLog2 | 2 : shouldLog2;
+      oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+      v23 = os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR) ? v23 : v23 & 2u;
+      if (v23)
       {
-        v22 = shouldLog2 | 2;
-      }
-
-      else
-      {
-        v22 = shouldLog2;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v22 &= 2u;
-      }
-
-      if (v22)
-      {
-        v23 = objc_opt_class();
-        v46 = 138543618;
-        v47 = v23;
-        v48 = 2114;
-        v49 = v43;
-        LODWORD(v42) = 22;
-        v40 = &v46;
-        v24 = _os_log_send_and_compose_impl();
-        if (v24)
+        v25 = objc_opt_class();
+        v49 = 138543618;
+        v50 = v25;
+        v51 = 2114;
+        v52 = v46;
+        LODWORD(v45) = 22;
+        v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 16, "%{public}@: Failed to unarchive overlay context array. Error = %{public}@", &v49, v45);
+        if (v26)
         {
-          v25 = v24;
-          v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v46, v42}];
-          free(v25);
-          v40 = v26;
+          v27 = v26;
+          v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+          free(v27);
+          v43 = v28;
           SSFileLog();
         }
       }
@@ -541,7 +488,7 @@ LABEL_42:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [(SUTabBarController *)self _restoreOverlayContexts:v19];
+      [(SUTabBarController *)self _restoreOverlayContexts:v20];
     }
   }
 
@@ -552,51 +499,38 @@ LABEL_42:
     self->_ignoreTabReselection = 0;
   }
 
-  v27 = [standardUserDefaults objectForKey:@"SUTransientNavigationPath"];
+  v29 = [standardUserDefaults objectForKey:@"SUTransientNavigationPath"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = 0;
-    v28 = MEMORY[0x1E696ACD0];
-    v29 = MEMORY[0x1E695DFD8];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v30 = [v28 unarchivedObjectOfClasses:objc_msgSend(v29 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v44, 2)), v27, &v43}];
-    if (v43)
+    v46 = 0;
+    v30 = MEMORY[0x1E696ACD0];
+    v31 = MEMORY[0x1E695DFD8];
+    v47[0] = objc_opt_class();
+    v47[1] = objc_opt_class();
+    v32 = [v30 unarchivedObjectOfClasses:objc_msgSend(v31 fromData:"setWithArray:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v47, 2)), v29, &v46}];
+    if (v46)
     {
       mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
-      if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
+      LODWORD(v35) = [mEMORY[0x1E69D4938]3 shouldLogToDisk] ? shouldLog3 | 2 : shouldLog3;
+      oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+      v35 = os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR) ? v35 : v35 & 2u;
+      if (v35)
       {
-        v33 = shouldLog3 | 2;
-      }
-
-      else
-      {
-        v33 = shouldLog3;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v33 &= 2u;
-      }
-
-      if (v33)
-      {
-        v34 = objc_opt_class();
-        v46 = 138543618;
-        v47 = v34;
-        v48 = 2114;
-        v49 = v43;
-        LODWORD(v42) = 22;
-        v41 = &v46;
-        v35 = _os_log_send_and_compose_impl();
-        if (v35)
+        v37 = objc_opt_class();
+        v49 = 138543618;
+        v50 = v37;
+        v51 = 2114;
+        v52 = v46;
+        LODWORD(v45) = 22;
+        v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "%{public}@: Failed to unarchive nav context array. Error = %{public}@", &v49, v45);
+        if (v38)
         {
-          v36 = v35;
-          v37 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:{4, &v46, v42}];
-          free(v36);
-          v41 = v37;
+          v39 = v38;
+          v40 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
+          free(v39);
+          v44 = v40;
           SSFileLog();
         }
       }
@@ -605,7 +539,7 @@ LABEL_42:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [(SUTabBarController *)self _restoreArchivedTransientContexts:v30];
+      [(SUTabBarController *)self _restoreArchivedTransientContexts:v32];
     }
   }
 
@@ -2177,33 +2111,38 @@ uint64_t __51__SUTabBarController__showPreviewOverlay_animated___block_invoke(ui
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v17 = objc_opt_class();
+      v18 = objc_opt_class();
       v27 = 138543618;
-      v28 = v17;
+      v28 = v18;
       v29 = 2114;
       v30 = v22;
-      LODWORD(v21) = 22;
-      v18 = _os_log_send_and_compose_impl();
-      if (v18)
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to archive contexts. Error = %{public}@", &v27, 22);
+      if (v19)
       {
-        v19 = v18;
-        [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v27, v21}];
-        free(v19);
+        v20 = v19;
+        [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+        free(v20);
         SSFileLog();
       }
     }
@@ -2870,15 +2809,21 @@ LABEL_3:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -2889,15 +2834,13 @@ LABEL_3:
       v14 = objc_opt_class();
       v15 = 2112;
       object = [change object];
-      LODWORD(v12) = 22;
-      v11 = &v13;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Reconfiguring for partner change: %@", &v13, 22);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v13, v12}];
-        free(v9);
-        v11 = v10;
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        v12 = v11;
         SSFileLog();
       }
     }

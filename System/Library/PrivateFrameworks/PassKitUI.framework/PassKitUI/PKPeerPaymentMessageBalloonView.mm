@@ -9,28 +9,28 @@
 - (PKPeerPaymentMessageBalloonView)initWithBubbleView:(id)view peerPaymentType:(int64_t)type
 {
   viewCopy = view;
-  v15.receiver = self;
-  v15.super_class = PKPeerPaymentMessageBalloonView;
-  v8 = [(PKPeerPaymentMessageBalloonView *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = PKPeerPaymentMessageBalloonView;
+  v8 = [(PKPeerPaymentMessageBalloonView *)&v16 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_bubbleView, view);
-    [(PKPeerPaymentBubbleView *)v9->_bubbleView setOutOfTranscript:1];
+    v10 = [(PKPeerPaymentBubbleView *)v9->_bubbleView setOutOfTranscript:1];
     v9->_peerPaymentType = type;
-    v10 = objc_alloc_init(getCKTranscriptPluginBalloonViewClass());
-    [v10 setCanUseOpaqueMask:0];
-    [v10 setTextAlignmentInsets:{*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)}];
-    [v10 setPluginView:viewCopy];
-    [v10 setIsInteractive:1];
-    [v10 setBalloonCorners:-1];
+    v11 = objc_alloc_init(getCKTranscriptPluginBalloonViewClass(v10));
+    [v11 setCanUseOpaqueMask:0];
+    [v11 setTextAlignmentInsets:{*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)}];
+    [v11 setPluginView:viewCopy];
+    [v11 setIsInteractive:1];
+    [v11 setBalloonCorners:-1];
     mEMORY[0x1E6993C90] = [MEMORY[0x1E6993C90] sharedBehaviors];
     [mEMORY[0x1E6993C90] balloonCornerRadius];
-    [v10 setCornerRadius:?];
+    [v11 setCornerRadius:?];
 
     balloonView = v9->_balloonView;
-    v9->_balloonView = v10;
-    v13 = v10;
+    v9->_balloonView = v11;
+    v14 = v11;
 
     [(PKPeerPaymentMessageBalloonView *)v9 _updateTailOrientation];
     [(CKTranscriptPluginBalloonView *)v9->_balloonView prepareForDisplay];
@@ -51,7 +51,7 @@
 
 - (void)_updateTailOrientation
 {
-  sharedBehaviors = [(objc_class *)getCKUIBehaviorClass() sharedBehaviors];
+  v13 = [getCKUIBehaviorClass(self a2)];
   peerPaymentType = self->_peerPaymentType;
   balloonView = self->_balloonView;
   if (peerPaymentType == 2)
@@ -59,8 +59,8 @@
     [(CKTranscriptPluginBalloonView *)balloonView setHasTail:1];
     [(CKTranscriptPluginBalloonView *)self->_balloonView setOrientation:0];
     bubbleView = self->_bubbleView;
-    v6 = sharedBehaviors;
-    if (sharedBehaviors)
+    v6 = v13;
+    if (v13)
     {
       v7 = 0;
       goto LABEL_7;
@@ -88,8 +88,8 @@ LABEL_9:
   [(CKTranscriptPluginBalloonView *)balloonView setHasTail:1];
   [(CKTranscriptPluginBalloonView *)self->_balloonView setOrientation:1];
   bubbleView = self->_bubbleView;
-  v6 = sharedBehaviors;
-  if (!sharedBehaviors)
+  v6 = v13;
+  if (!v13)
   {
     goto LABEL_9;
   }

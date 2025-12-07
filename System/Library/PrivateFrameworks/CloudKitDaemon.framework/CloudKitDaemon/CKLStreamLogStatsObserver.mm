@@ -52,32 +52,32 @@
 
 - (void)finish
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
   v6 = objc_msgSend_totalSizeByLine(self, v4, v5);
   v9 = objc_msgSend_allKeys(v6, v7, v8);
 
   obj = v9;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v99, v103, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v98, v102, 16);
   if (v11)
   {
     v14 = v11;
-    v15 = *v100;
+    v15 = *v99;
     do
     {
       v16 = 0;
       do
       {
-        if (*v100 != v15)
+        if (*v99 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v99 + 1) + 8 * v16);
+        v17 = *(*(&v98 + 1) + 8 * v16);
         v18 = objc_msgSend_totalCountByLine(self, v12, v13);
         v20 = objc_msgSend_objectForKeyedSubscript_(v18, v19, v17);
         v23 = objc_msgSend_intValue(v20, v21, v22);
@@ -96,7 +96,7 @@
       }
 
       while (v14 != v16);
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v99, v103, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v98, v102, 16);
     }
 
     while (v14);
@@ -153,8 +153,6 @@
     v96 = objc_msgSend_UTF8String(v93, v94, v95);
     puts(v96);
   }
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 @end

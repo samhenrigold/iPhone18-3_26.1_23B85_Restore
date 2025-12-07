@@ -52,9 +52,9 @@
   messageViewController = [(MFExpandedMessageCell *)self messageViewController];
   [messageViewController setConfiguredForSingleMessageDisplay:displayCopy];
 
-  v6 = sub_10048B594(self);
+  v7 = sub_10048B594(self, v6);
 
-  [(MFMessageConversationViewCell *)self setRoundedCorners:v6];
+  [(MFMessageConversationViewCell *)self setRoundedCorners:v7];
 }
 
 - (void)setMessageFlags:(unint64_t)flags conversationFlags:(unint64_t)conversationFlags

@@ -15,6 +15,7 @@
 - (void)_dropLocalCache:(id)cache;
 - (void)_dropLocalCacheForGroupID:(id)d compeltion:(id)compeltion;
 - (void)_fetchAllLocalKnownGroups:(id)groups;
+- (void)_fetchGroupWithGroupID:(id)d skipCache:(BOOL)cache completion:(id)completion;
 - (void)_groupFromPublicDataRepresentation:(id)representation completion:(id)completion;
 - (void)_noteDecryptionFailureForGroup:(id)group completion:(id)completion;
 - (void)_noteRegistrationIdentityUpdate;
@@ -88,21 +89,21 @@
 
 - (void)fetchLatestGroupWithStableID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   queue = [(ENGroupContext *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v23 = _os_activity_create(&dword_24A04B000, "Fetch latest group by StableGroupID", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v22 = _os_activity_create(&dword_24A04B000, "Fetch latest group by StableGroupID", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v23, &state);
+  os_activity_scope_enter(v22, &state);
   v9 = +[ENLog groupContext];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = dCopy;
+    v24 = dCopy;
     _os_log_impl(&dword_24A04B000, v9, OS_LOG_TYPE_DEFAULT, "!setState stableGroupID=%@", buf, 0xCu);
   }
 
@@ -110,72 +111,68 @@
   _qCacheMiddlewares = [(ENGroupContext *)self _qCacheMiddlewares];
   v12 = [v10 initWithInput:_qCacheMiddlewares initialValue:0];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = sub_24A050DBC;
-  v20[3] = &unk_278FC3490;
-  v20[4] = self;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_24A050DBC;
+  v19[3] = &unk_278FC3490;
+  v19[4] = self;
   v13 = dCopy;
-  v21 = v13;
-  [v12 setReducerBlock:v20];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_24A050FD0;
-  v17[3] = &unk_278FC34B8;
+  v20 = v13;
+  [v12 setReducerBlock:v19];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_24A050FD0;
+  v16[3] = &unk_278FC34B8;
   v14 = completionCopy;
-  v19 = v14;
+  v18 = v14;
   v15 = v13;
-  v18 = v15;
-  [v12 reduceWithCompletion:v17];
+  v17 = v15;
+  [v12 reduceWithCompletion:v16];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheIncomingGroup:(id)group completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   completionCopy = completion;
   queue = [(ENGroupContext *)self queue];
   dispatch_assert_queue_V2(queue);
 
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v19 = _os_activity_create(&dword_24A04B000, "Cache Incoming Group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v18 = _os_activity_create(&dword_24A04B000, "Cache Incoming Group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v19, &state);
+  os_activity_scope_enter(v18, &state);
   v9 = +[ENLog groupContext];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = groupCopy;
+    v20 = groupCopy;
     _os_log_impl(&dword_24A04B000, v9, OS_LOG_TYPE_DEFAULT, "!setState newGroup=%@", buf, 0xCu);
   }
 
   groupID = [groupCopy groupID];
   stableGroupID = [groupID stableGroupID];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_24A05144C;
-  v15[3] = &unk_278FC3580;
-  v15[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_24A05144C;
+  v14[3] = &unk_278FC3580;
+  v14[4] = self;
   v12 = groupCopy;
-  v16 = v12;
+  v15 = v12;
   v13 = completionCopy;
-  v17 = v13;
-  [(ENGroupContext *)self fetchLatestGroupWithStableID:stableGroupID completion:v15];
+  v16 = v13;
+  [(ENGroupContext *)self fetchLatestGroupWithStableID:stableGroupID completion:v14];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendMiddleware:(id)middleware
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   middlewareCopy = middleware;
   queue = [(ENGroupContext *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -183,20 +180,18 @@
   v6 = +[ENLog groupContext];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = middlewareCopy;
-    _os_log_impl(&dword_24A04B000, v6, OS_LOG_TYPE_INFO, "Adding middleware {middleware: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = middlewareCopy;
+    _os_log_impl(&dword_24A04B000, v6, OS_LOG_TYPE_INFO, "Adding middleware {middleware: %{public}@", &v8, 0xCu);
   }
 
   middlewares = [(ENGroupContext *)self middlewares];
   [middlewares addObject:middlewareCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMiddleware:(id)middleware
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   middlewareCopy = middleware;
   queue = [(ENGroupContext *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -204,15 +199,13 @@
   v6 = +[ENLog groupContext];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = middlewareCopy;
-    _os_log_impl(&dword_24A04B000, v6, OS_LOG_TYPE_INFO, "Removing middleware {middleware: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = middlewareCopy;
+    _os_log_impl(&dword_24A04B000, v6, OS_LOG_TYPE_INFO, "Removing middleware {middleware: %{public}@", &v8, 0xCu);
   }
 
   middlewares = [(ENGroupContext *)self middlewares];
   [middlewares removeObject:middlewareCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allMiddlewares
@@ -387,7 +380,7 @@
 
 - (void)_groupFromPublicDataRepresentation:(id)representation completion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   completionCopy = completion;
   queue = [(ENGroupContext *)self queue];
@@ -396,27 +389,87 @@
   if ([representationCopy length])
   {
     dataSource = [(ENGroupContext *)self dataSource];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_24A052AFC;
-    v15[3] = &unk_278FC3558;
-    v15[4] = self;
-    v16 = completionCopy;
-    [dataSource groupFromPublicDataRepresentation:representationCopy inContext:self completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_24A052AFC;
+    v14[3] = &unk_278FC3558;
+    v14[4] = self;
+    v15 = completionCopy;
+    [dataSource groupFromPublicDataRepresentation:representationCopy inContext:self completion:v14];
   }
 
   else
   {
     v10 = MEMORY[0x277CCA9B8];
     v11 = ENGroupIDErrorDomain;
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"Received group data is nil or empty";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"Received group data is nil or empty";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v13 = [v10 errorWithDomain:v11 code:-4000 userInfo:v12];
     (*(completionCopy + 2))(completionCopy, 0, v13);
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_fetchGroupWithGroupID:(id)d skipCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v28 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  completionCopy = completion;
+  queue = [(ENGroupContext *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v25 = _os_activity_create(&dword_24A04B000, "Fetch group by GroupID", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+  state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+  os_activity_scope_enter(v25, &state);
+  v11 = +[ENLog groupContext];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v27 = dCopy;
+    _os_log_impl(&dword_24A04B000, v11, OS_LOG_TYPE_DEFAULT, "!setState groupID=%@", buf, 0xCu);
+  }
+
+  v12 = +[ENLog groupContext];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:cacheCopy];
+    *buf = 138412290;
+    v27 = v13;
+    _os_log_impl(&dword_24A04B000, v12, OS_LOG_TYPE_DEFAULT, "!setState skipCache=%@", buf, 0xCu);
+  }
+
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_24A052E90;
+  v21[3] = &unk_278FC3698;
+  v21[4] = self;
+  v14 = dCopy;
+  v22 = v14;
+  v15 = completionCopy;
+  v23 = v15;
+  v16 = MEMORY[0x24C20E5A0](v21);
+  v17 = v16;
+  if (cacheCopy)
+  {
+    (*(v16 + 16))(v16);
+  }
+
+  else
+  {
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_24A0530CC;
+    v18[3] = &unk_278FC36C0;
+    v18[4] = self;
+    v19 = v15;
+    v20 = v17;
+    [(ENGroupContext *)self _qFetchCachedGroupWithGroupID:v14 completion:v18];
+  }
+
+  os_activity_scope_leave(&state);
+  cut_arc_os_release();
 }
 
 - (void)_participantsForCypher:(id)cypher completion:(id)completion
@@ -564,105 +617,101 @@
 
 - (id)_middlwareConformingToProtocol:(id)protocol
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   middlewares = [(ENGroupContext *)self middlewares];
-  v7 = [middlewares countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [middlewares countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(middlewares);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v11 conformsToProtocol:protocolCopy])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [middlewares countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [middlewares countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_qCacheMiddlewaresContainedInCost:(int64_t)cost
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _qCacheMiddlewares = [(ENGroupContext *)self _qCacheMiddlewares];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = _qCacheMiddlewares;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
-        if ([v12 middlewareCacheCostForContext:{self, v15}] <= cost)
+        v12 = *(*(&v14 + 1) + 8 * i);
+        if ([v12 middlewareCacheCostForContext:{self, v14}] <= cost)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)_qUpsertGroupWithParticipants:(id)participants previousGroup:(id)group sharedApplicationData:(id)data completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   groupCopy = group;
   dataCopy = data;
   completionCopy = completion;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v34 = _os_activity_create(&dword_24A04B000, "Create Group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v33 = _os_activity_create(&dword_24A04B000, "Create Group", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v34, &state);
+  os_activity_scope_enter(v33, &state);
   v14 = +[ENLog groupContext];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
     *buf = 138412290;
-    v36 = v15;
+    v35 = v15;
     _os_log_impl(&dword_24A04B000, v14, OS_LOG_TYPE_DEFAULT, "!setState applicationData.length=%@", buf, 0xCu);
   }
 
@@ -673,7 +722,7 @@
     middlewares = [(ENGroupContext *)self middlewares];
     v19 = [v17 numberWithUnsignedInteger:{objc_msgSend(middlewares, "count")}];
     *buf = 138412290;
-    v36 = v19;
+    v35 = v19;
     _os_log_impl(&dword_24A04B000, v16, OS_LOG_TYPE_DEFAULT, "!setState middlewares.count=%@", buf, 0xCu);
   }
 
@@ -682,7 +731,7 @@
   {
     v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(participantsCopy, "count")}];
     *buf = 138412290;
-    v36 = v21;
+    v35 = v21;
     _os_log_impl(&dword_24A04B000, v20, OS_LOG_TYPE_DEFAULT, "!setState participatns.count=%@", buf, 0xCu);
   }
 
@@ -690,7 +739,7 @@
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v36 = participantsCopy;
+    v35 = participantsCopy;
     _os_log_impl(&dword_24A04B000, v22, OS_LOG_TYPE_INFO, "Creating group {participants: %{private}@}", buf, 0xCu);
   }
 
@@ -699,21 +748,19 @@
   v25 = [(_ENGroupInfo *)v23 initWithAccountIdentity:accountIdentity paricipants:participantsCopy sharedApplicationData:dataCopy];
 
   dataSource = [(ENGroupContext *)self dataSource];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = sub_24A054560;
-  v30[3] = &unk_278FC37D0;
-  v30[4] = self;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = sub_24A054560;
+  v29[3] = &unk_278FC37D0;
+  v29[4] = self;
   v27 = completionCopy;
-  v32 = v27;
+  v31 = v27;
   v28 = groupCopy;
-  v31 = v28;
-  [dataSource groupContext:self upsertGroupWithInfo:v25 previousGroup:v28 completion:v30];
+  v30 = v28;
+  [dataSource groupContext:self upsertGroupWithInfo:v25 previousGroup:v28 completion:v29];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_qFetchCachedGroupWithGroupID:(id)d completion:(id)completion
@@ -773,29 +820,29 @@
 
 - (void)_qDidCreateGroup:(id)group
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   groupCopy = group;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _qObserverMiddlewares = [(ENGroupContext *)self _qObserverMiddlewares];
-  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(_qObserverMiddlewares);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 groupContext:self didCreateGroup:groupCopy];
@@ -805,40 +852,38 @@
       }
 
       while (v7 != v9);
-      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_qDidCacheGroup:(id)group
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   groupCopy = group;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _qObserverMiddlewares = [(ENGroupContext *)self _qObserverMiddlewares];
-  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(_qObserverMiddlewares);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 groupContext:self didCacheGroup:groupCopy];
@@ -848,41 +893,39 @@
       }
 
       while (v7 != v9);
-      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_qDidUpdateGroup:(id)group withGroup:(id)withGroup
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   withGroupCopy = withGroup;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _qObserverMiddlewares = [(ENGroupContext *)self _qObserverMiddlewares];
-  v9 = [_qObserverMiddlewares countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [_qObserverMiddlewares countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(_qObserverMiddlewares);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
+        v13 = *(*(&v14 + 1) + 8 * v12);
         if (objc_opt_respondsToSelector())
         {
           [v13 groupContext:self didUpdateGroup:groupCopy withNewGroup:withGroupCopy];
@@ -892,40 +935,38 @@
       }
 
       while (v10 != v12);
-      v10 = [_qObserverMiddlewares countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [_qObserverMiddlewares countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_qDidReceiveDecryptionFailureForGroup:(id)group
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   groupCopy = group;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _qObserverMiddlewares = [(ENGroupContext *)self _qObserverMiddlewares];
-  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(_qObserverMiddlewares);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 groupContext:self didReceiveDecryptionFailureForGroup:groupCopy];
@@ -935,48 +976,46 @@
       }
 
       while (v7 != v9);
-      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [_qObserverMiddlewares countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_qDidReceiveRegistrationIdentityUpdate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = +[ENLog groupContext];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     _qObserverMiddlewares = [(ENGroupContext *)self _qObserverMiddlewares];
     *buf = 138543362;
-    v18 = _qObserverMiddlewares;
+    v17 = _qObserverMiddlewares;
     _os_log_impl(&dword_24A04B000, v3, OS_LOG_TYPE_INFO, "Did receive registration identity update {observerMiddlewares: %{public}@}", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   _qObserverMiddlewares2 = [(ENGroupContext *)self _qObserverMiddlewares];
-  v6 = [_qObserverMiddlewares2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [_qObserverMiddlewares2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(_qObserverMiddlewares2);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 groupContextDidReceiveRegistrationIdentityUpdate:self];
@@ -986,61 +1025,59 @@
       }
 
       while (v7 != v9);
-      v7 = [_qObserverMiddlewares2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [_qObserverMiddlewares2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_errorWithNotFoundItems:(id)items
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   if ([itemsCopy count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = itemsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = MEMORY[0x277CCA9B8];
-          v25 = @"ENGroupContextErrorItemKey";
-          v26 = v10;
-          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+          v24 = @"ENGroupContextErrorItemKey";
+          v25 = v10;
+          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
           v13 = [v11 errorWithDomain:@"ENGroupContextErrorDomain" code:-2000 userInfo:v12];
 
           [v4 setObject:v13 forKey:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v7);
     }
 
     v14 = MEMORY[0x277CCA9B8];
-    v23 = @"ENGroupContextErrorItemKey";
-    v24 = v4;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = @"ENGroupContextErrorItemKey";
+    v23 = v4;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v16 = [v14 errorWithDomain:@"ENGroupContextErrorDomain" code:-3000 userInfo:v15];
   }
 
@@ -1049,37 +1086,35 @@
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)_missingItemsInNotFoundError:(id)error remainingErrors:(id *)errors
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v45 = _os_activity_create(&dword_24A04B000, "Find missing items in error", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v44 = _os_activity_create(&dword_24A04B000, "Find missing items in error", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v45, &state);
-  v38 = errorCopy;
+  os_activity_scope_enter(v44, &state);
+  v37 = errorCopy;
   if (!errorCopy)
   {
     v12 = +[ENLog groupContext];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v51 = 0;
+      v50 = 0;
       v13 = "No error -- Fail {error: %{public}@}";
 LABEL_12:
       _os_log_impl(&dword_24A04B000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
     }
 
 LABEL_13:
-    v39 = MEMORY[0x277CBEBF8];
+    v38 = MEMORY[0x277CBEBF8];
 LABEL_14:
 
-    v11 = v39;
+    v11 = v38;
     v10 = v11;
     goto LABEL_15;
   }
@@ -1093,7 +1128,7 @@ LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v51 = v38;
+      v50 = v37;
       v13 = "Unexpected domain -- Fail {error: %{public}@}";
       goto LABEL_12;
     }
@@ -1101,9 +1136,9 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  if ([v38 code] != -2000)
+  if ([v37 code] != -2000)
   {
-    if ([v38 code] != -3000)
+    if ([v37 code] != -3000)
     {
       v12 = +[ENLog groupContext];
       if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -1112,135 +1147,135 @@ LABEL_14:
       }
 
       *buf = 138543362;
-      v51 = v38;
+      v50 = v37;
       v13 = "Unexpected code -- Fail {error: %{public}@}";
       goto LABEL_12;
     }
 
-    userInfo = [v38 userInfo];
-    v36 = [userInfo objectForKeyedSubscript:@"ENGroupContextErrorItemKey"];
+    userInfo = [v37 userInfo];
+    v35 = [userInfo objectForKeyedSubscript:@"ENGroupContextErrorItemKey"];
 
-    if (!v36)
+    if (!v35)
     {
-      v17 = +[ENLog groupContext];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = +[ENLog groupContext];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v51 = v38;
-        _os_log_impl(&dword_24A04B000, v17, OS_LOG_TYPE_DEFAULT, "No items -- Fail {error: %{public}@}", buf, 0xCu);
+        v50 = v37;
+        _os_log_impl(&dword_24A04B000, v16, OS_LOG_TYPE_DEFAULT, "No items -- Fail {error: %{public}@}", buf, 0xCu);
       }
 
-      v39 = MEMORY[0x277CBEBF8];
+      v38 = MEMORY[0x277CBEBF8];
 LABEL_57:
 
-      v12 = v36;
+      v12 = v35;
       goto LABEL_14;
     }
 
-    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSObject count](v36, "count")}];
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSObject count](v35, "count")}];
     v41 = 0u;
-    v18 = v36;
-    v19 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
-    if (!v19)
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v17 = v35;
+    v18 = [v17 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    if (!v18)
     {
       goto LABEL_39;
     }
 
-    v20 = *v41;
+    v19 = *v40;
 LABEL_22:
-    v21 = 0;
+    v20 = 0;
     while (1)
     {
-      if (*v41 != v20)
+      if (*v40 != v19)
       {
-        objc_enumerationMutation(v18);
+        objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v40 + 1) + 8 * v21);
-      domain2 = [v22 domain];
+      v21 = *(*(&v39 + 1) + 8 * v20);
+      domain2 = [v21 domain];
       if (![domain2 isEqualToString:@"ENGroupContextErrorDomain"])
       {
         break;
       }
 
-      v24 = [v22 code] == -2000;
+      v23 = [v21 code] == -2000;
 
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_30;
       }
 
-      userInfo2 = [v22 userInfo];
-      v26 = [userInfo2 objectForKeyedSubscript:@"ENGroupContextErrorItemKey"];
+      userInfo2 = [v21 userInfo];
+      v25 = [userInfo2 objectForKeyedSubscript:@"ENGroupContextErrorItemKey"];
 
-      if (v26)
+      if (v25)
       {
-        [v39 addObject:v26];
+        [v38 addObject:v25];
       }
 
       else
       {
-        v28 = +[ENLog groupContext];
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v27 = +[ENLog groupContext];
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v51 = v22;
-          _os_log_impl(&dword_24A04B000, v28, OS_LOG_TYPE_DEFAULT, "Missing item -- Ignore {suberror: %{public}@}", buf, 0xCu);
+          v50 = v21;
+          _os_log_impl(&dword_24A04B000, v27, OS_LOG_TYPE_DEFAULT, "Missing item -- Ignore {suberror: %{public}@}", buf, 0xCu);
         }
       }
 
 LABEL_37:
-      if (v19 == ++v21)
+      if (v18 == ++v20)
       {
-        v19 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
-        if (!v19)
+        v18 = [v17 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        if (!v18)
         {
 LABEL_39:
 
-          if ([v17 count])
+          if ([v16 count])
           {
-            v29 = +[ENLog groupContext];
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            v28 = +[ENLog groupContext];
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              v30 = [v17 count];
+              v29 = [v16 count];
               *buf = 134217984;
-              v51 = v30;
-              _os_log_impl(&dword_24A04B000, v29, OS_LOG_TYPE_DEFAULT, "Found remaining errors {remainingErrors.count: %ld}", buf, 0xCu);
+              v50 = v29;
+              _os_log_impl(&dword_24A04B000, v28, OS_LOG_TYPE_DEFAULT, "Found remaining errors {remainingErrors.count: %ld}", buf, 0xCu);
             }
 
             if (errors)
             {
-              v31 = MEMORY[0x277CCA9B8];
-              v46 = @"ENGroupContextErrorItemKey";
-              v47 = v17;
-              v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-              *errors = [v31 errorWithDomain:@"ENGroupContextErrorDomain" code:-3000 userInfo:v32];
+              v30 = MEMORY[0x277CCA9B8];
+              v45 = @"ENGroupContextErrorItemKey";
+              v46 = v16;
+              v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+              *errors = [v30 errorWithDomain:@"ENGroupContextErrorDomain" code:-3000 userInfo:v31];
             }
 
             else
             {
-              v32 = +[ENLog groupContext];
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+              v31 = +[ENLog groupContext];
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
-                v33 = [v17 count];
+                v32 = [v16 count];
                 *buf = 134217984;
-                v51 = v33;
-                _os_log_impl(&dword_24A04B000, v32, OS_LOG_TYPE_DEFAULT, "Ignorning remaining errors due to missing out error parameter {remainingErrors.count: %ld}", buf, 0xCu);
+                v50 = v32;
+                _os_log_impl(&dword_24A04B000, v31, OS_LOG_TYPE_DEFAULT, "Ignorning remaining errors due to missing out error parameter {remainingErrors.count: %ld}", buf, 0xCu);
               }
             }
           }
 
-          v34 = +[ENLog groupContext];
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          v33 = +[ENLog groupContext];
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
           {
-            v35 = [v39 count];
+            v34 = [v38 count];
             *buf = 134217984;
-            v51 = v35;
-            _os_log_impl(&dword_24A04B000, v34, OS_LOG_TYPE_INFO, "Found missing items -- Done {items.count: %ld}", buf, 0xCu);
+            v50 = v34;
+            _os_log_impl(&dword_24A04B000, v33, OS_LOG_TYPE_INFO, "Found missing items -- Done {items.count: %ld}", buf, 0xCu);
           }
 
           goto LABEL_57;
@@ -1251,19 +1286,19 @@ LABEL_39:
     }
 
 LABEL_30:
-    v27 = +[ENLog groupContext];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = +[ENLog groupContext];
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v51 = v22;
-      _os_log_impl(&dword_24A04B000, v27, OS_LOG_TYPE_DEFAULT, "Unexpected error -- Collect {suberror: %{public}@}", buf, 0xCu);
+      v50 = v21;
+      _os_log_impl(&dword_24A04B000, v26, OS_LOG_TYPE_DEFAULT, "Unexpected error -- Collect {suberror: %{public}@}", buf, 0xCu);
     }
 
-    [v17 addObject:v22];
+    [v16 addObject:v21];
     goto LABEL_37;
   }
 
-  userInfo3 = [v38 userInfo];
+  userInfo3 = [v37 userInfo];
   v8 = [userInfo3 objectForKeyedSubscript:@"ENGroupContextErrorItemKey"];
 
   if (!v8)
@@ -1275,7 +1310,7 @@ LABEL_30:
     }
 
     *buf = 138543362;
-    v51 = v38;
+    v50 = v37;
     v13 = "Missing item -- Fail {error: %{public}@";
     goto LABEL_12;
   }
@@ -1284,20 +1319,18 @@ LABEL_30:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v51 = v8;
+    v50 = v8;
     _os_log_impl(&dword_24A04B000, v9, OS_LOG_TYPE_INFO, "Found one item {item: %{public}@}", buf, 0xCu);
   }
 
-  v49 = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v48 = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
 
   v11 = MEMORY[0x277CBEBF8];
 LABEL_15:
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

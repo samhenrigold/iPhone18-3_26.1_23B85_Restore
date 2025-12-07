@@ -12,7 +12,7 @@
 
 - (HMMTRAttributeDescriptor)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMTRAD.nodeID"];
   v6 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"HMMTRAD.attributePaths"];
@@ -29,11 +29,11 @@
     }
 
     v13 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v13;
+    v16 = 138543362;
+    v17 = v13;
     v14 = "%{public}@Could not initialize due to nil node id after decoding";
 LABEL_11:
-    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, v14, &v17, 0xCu);
+    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, v14, &v16, 0xCu);
 
     goto LABEL_12;
   }
@@ -49,8 +49,8 @@ LABEL_11:
     }
 
     v13 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v13;
+    v16 = 138543362;
+    v17 = v13;
     v14 = "%{public}@Could not initialize due to nil attribute paths after decoding";
     goto LABEL_11;
   }
@@ -63,8 +63,8 @@ LABEL_11:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v13;
+      v16 = 138543362;
+      v17 = v13;
       v14 = "%{public}@Could not initialize due to nil controller id after decoding";
       goto LABEL_11;
     }
@@ -80,7 +80,6 @@ LABEL_12:
   v10 = selfCopy3;
 LABEL_13:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

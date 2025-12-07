@@ -43,7 +43,7 @@
 - (void)_clearSpecificsExceptScale;
 - (void)_deriveGlyphSize:(int64_t *)size weight:(int64_t *)weight pointSize:(double *)pointSize;
 - (void)_setPrefersMonochrome:(uint64_t)monochrome;
-- (void)_setPrefersMulticolor:(uint64_t)multicolor;
+- (void)_setPrefersMulticolor:(uint64_t)result;
 - (void)_setUsesHierarchical:(void *)hierarchical colors:;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -379,9 +379,9 @@ LABEL_25:
     goto LABEL_32;
   }
 
-  v22 = [v20 isEqual:v19];
+  isEqual = objc_msgSend_isEqual_(v20);
 
-  if ((v22 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_32:
     [(UIFont *)v3 pointSize];
@@ -438,9 +438,9 @@ LABEL_40:
   return _init;
 }
 
-- (void)_setPrefersMulticolor:(uint64_t)multicolor
+- (void)_setPrefersMulticolor:(uint64_t)result
 {
-  if (multicolor)
+  if (result)
   {
     if (a2)
     {
@@ -452,13 +452,13 @@ LABEL_40:
       v2 = 0;
     }
 
-    *(multicolor + 40) = *(multicolor + 40) & 0xFFFB | v2;
-    *(multicolor + 40) |= 8u;
+    *(result + 40) = *(result + 40) & 0xFFFB | v2;
+    *(result + 40) |= 8u;
     if (a2)
     {
-      *(multicolor + 40) &= ~0x10u;
-      *(multicolor + 40) |= 0x20u;
-      [(UIImageSymbolConfiguration *)multicolor _setUsesHierarchical:0 colors:?];
+      *(result + 40) &= ~0x10u;
+      *(result + 40) |= 0x20u;
+      [(UIImageSymbolConfiguration *)result _setUsesHierarchical:0 colors:?];
     }
   }
 }
@@ -1593,9 +1593,9 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    v15 = [v12 isEqual:v13];
+    isEqual = objc_msgSend_isEqual_(v12);
 
-    if ((v15 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_43;
     }
@@ -1811,9 +1811,9 @@ LABEL_39:
               goto LABEL_6;
             }
 
-            v14 = [v11 isEqual:v12];
+            isEqual = objc_msgSend_isEqual_(v11);
 
-            if (!v14)
+            if (!isEqual)
             {
               goto LABEL_39;
             }
@@ -2015,19 +2015,19 @@ LABEL_3:
       goto LABEL_4;
     }
 
-    if ([styleCopy isEqualToString:@"white"])
+    if (objc_msgSend_isEqualToString_(styleCopy))
     {
       v18 = +[UIColor whiteColor];
     }
 
     else
     {
-      if (![styleCopy isEqualToString:@"black"])
+      if (!objc_msgSend_isEqualToString_(styleCopy))
       {
         goto LABEL_17;
       }
 
-      v18 = +[UIColor blackColor];
+      v18 = objc_msgSend_blackColor(UIColor);
     }
 
     v12 = v18;
@@ -2037,7 +2037,7 @@ LABEL_3:
     }
 
 LABEL_17:
-    if (([styleCopy isEqualToString:@"controlAccentColor"] & 1) != 0 || objc_msgSend(styleCopy, "isEqualToString:", @"tintColor"))
+    if ((objc_msgSend_isEqualToString_(styleCopy) & 1) != 0 || objc_msgSend_isEqualToString_(styleCopy))
     {
       v13 = +[UIColor tintColor];
       if (v13)
@@ -2109,7 +2109,7 @@ LABEL_4:
     if ([traitCollectionForResolvingDynamicColors userInterfaceStyle] == 2)
     {
       v17 = +[UIColor systemRedColor];
-      if ([firstObject isEqual:v17])
+      if (objc_msgSend_isEqual_(firstObject))
       {
 
 LABEL_16:
@@ -2118,10 +2118,10 @@ LABEL_16:
       }
 
       v21 = +[UIColor systemPinkColor];
-      v22 = [firstObject isEqual:v21];
+      isEqual = objc_msgSend_isEqual_(firstObject);
 
       v20 = 0.25;
-      if (v22)
+      if (isEqual)
       {
         goto LABEL_16;
       }
@@ -2130,7 +2130,7 @@ LABEL_16:
     else
     {
       v18 = +[UIColor systemYellowColor];
-      v19 = [firstObject isEqual:v18];
+      v19 = objc_msgSend_isEqual_(firstObject);
 
       if (v19)
       {

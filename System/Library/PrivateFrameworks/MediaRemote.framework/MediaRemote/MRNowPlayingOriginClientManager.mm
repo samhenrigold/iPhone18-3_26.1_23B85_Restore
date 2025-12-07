@@ -87,17 +87,18 @@ void __48__MRNowPlayingOriginClientManager_sharedManager__block_invoke()
   }
 
   v1 = +[MRUserSettings currentSettings];
-  if ([v1 supportMultiplayerHost])
+  supportMultiplayerHost = [v1 supportMultiplayerHost];
+  if (supportMultiplayerHost)
   {
-    v2 = __57__MRNowPlayingOriginClientManager__allowLocalOriginUsage__block_invoke();
+    v4 = __57__MRNowPlayingOriginClientManager__allowLocalOriginUsage__block_invoke(supportMultiplayerHost, v3);
   }
 
   else
   {
-    v2 = 1;
+    v4 = 1;
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)localOriginClient
@@ -354,19 +355,26 @@ uint64_t __72__MRNowPlayingOriginClientManager_playbackQueueDataSourceOperationQ
   return v11;
 }
 
-uint64_t __57__MRNowPlayingOriginClientManager__allowLocalOriginUsage__block_invoke()
+uint64_t __57__MRNowPlayingOriginClientManager__allowLocalOriginUsage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (MRProcessIsMediaRemoteDaemon() & 1) != 0 || (MRProcessIsAirPlayDaemon())
+  IsMediaRemoteDaemon = MRProcessIsMediaRemoteDaemon(a1, a2);
+  if (IsMediaRemoteDaemon)
   {
     return 1;
   }
 
-  return MRProcessIsHomePodCannedDemo();
+  IsAirPlayDaemon = MRProcessIsAirPlayDaemon(IsMediaRemoteDaemon, v3);
+  if (IsAirPlayDaemon)
+  {
+    return 1;
+  }
+
+  return MRProcessIsHomePodCannedDemo(IsAirPlayDaemon, v5);
 }
 
 - (id)originClientForPlayerPath:(id)path
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [MRPlayerPath localResolvedPlayerPathFromPlayerPath:path];
   origin = [v4 origin];
   if (![origin isLocal])
@@ -391,11 +399,11 @@ LABEL_3:
     if (os_log_type_enabled(callStackSymbols2, OS_LOG_TYPE_DEFAULT))
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v15 = 138412546;
-      v16 = v4;
-      v17 = 2112;
-      v18 = callStackSymbols;
-      _os_log_impl(&dword_1A2860000, callStackSymbols2, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Cannot implicitly create a custom originClient for %@: %@. Instead MediaRemote should be explicitly creating this originClient in NowPlayingSessionManager", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v4;
+      v16 = 2112;
+      v17 = callStackSymbols;
+      _os_log_impl(&dword_1A2860000, callStackSymbols2, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Cannot implicitly create a custom originClient for %@: %@. Instead MediaRemote should be explicitly creating this originClient in NowPlayingSessionManager", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -408,18 +416,16 @@ LABEL_3:
   }
 
   callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v15 = 138412546;
-  v16 = v4;
-  v17 = 2112;
-  v18 = callStackSymbols2;
-  _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Cannot create a local originClient in framework for %@: %@", &v15, 0x16u);
+  v14 = 138412546;
+  v15 = v4;
+  v16 = 2112;
+  v17 = callStackSymbols2;
+  _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Cannot create a local originClient in framework for %@: %@", &v14, 0x16u);
 LABEL_8:
 
 LABEL_9:
   v9 = 0;
 LABEL_10:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -529,73 +535,71 @@ LABEL_10:
 
 - (void)restoreNowPlayingClientState
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   originClientRequests = [(MRNowPlayingOriginClientManager *)self originClientRequests];
-  v4 = [originClientRequests countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v4 = [originClientRequests countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(originClientRequests);
         }
 
-        [*(*(&v18 + 1) + 8 * v7++) restoreNowPlayingClientState];
+        [*(*(&v17 + 1) + 8 * v7++) restoreNowPlayingClientState];
       }
 
       while (v5 != v7);
-      v5 = [originClientRequests countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [originClientRequests countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   originClients = [(MRNowPlayingOriginClientManager *)self originClients];
-  v9 = [originClients countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v9 = [originClients countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(originClients);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) restoreNowPlayingClientState];
+        [*(*(&v13 + 1) + 8 * v12++) restoreNowPlayingClientState];
       }
 
       while (v10 != v12);
-      v10 = [originClients countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [originClients countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeOrigin:(id)origin
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   originCopy = origin;
   if (!originCopy)
   {
@@ -613,9 +617,9 @@ LABEL_10:
     v9 = _MRLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = originCopy;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] RemoveOrigin: Could not find originClient for origin %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = originCopy;
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] RemoveOrigin: Could not find originClient for origin %{public}@", &v12, 0xCu);
     }
   }
 
@@ -624,7 +628,6 @@ LABEL_10:
   [(NSMutableDictionary *)v10 removeObjectForKey:v11];
 
   objc_sync_exit(v5);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeOriginRequests:(id)requests
@@ -646,7 +649,7 @@ LABEL_10:
 
 - (void)updateActiveSystemEndpointOutputDeviceUID:(id)d forType:(int64_t)type reason:(id)reason
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   reasonCopy = reason;
   selfCopy = self;
@@ -684,24 +687,23 @@ LABEL_10:
   v22 = _MRLogForCategory(0);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138544130;
-    v25 = active;
-    v26 = 2114;
-    v27 = v15;
-    v28 = 2114;
-    v29 = v17;
-    v30 = 2114;
-    v31 = reasonCopy;
-    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] %{public}@SystemEndpoint changed from %{public}@ to %{public}@ because %{public}@", &v24, 0x2Au);
+    v23 = 138544130;
+    v24 = active;
+    v25 = 2114;
+    v26 = v15;
+    v27 = 2114;
+    v28 = v17;
+    v29 = 2114;
+    v30 = reasonCopy;
+    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] %{public}@SystemEndpoint changed from %{public}@ to %{public}@ because %{public}@", &v23, 0x2Au);
   }
 
   objc_sync_exit(selfCopy);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearActiveSystemEndpointsWithReason:(id)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -711,13 +713,12 @@ LABEL_10:
   v7 = _MRLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = reasonCopy;
-    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Clearing system endpoint UIDs because %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = reasonCopy;
+    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientManager] Clearing system endpoint UIDs because %{public}@", &v8, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleActiveSystemEndpointOutputDeviceUIDForType:(int64_t)type queue:(id)queue completion:(id)completion
@@ -733,13 +734,13 @@ LABEL_10:
 
 - (void)handleActiveSystemEndpointOutputDeviceUIDForType:(void *)type requestID:(void *)d queue:(void *)queue completion:
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dCopy = d;
   queueCopy = queue;
   if (self)
   {
-    v44 = queueCopy;
+    v43 = queueCopy;
     if (!queueCopy)
     {
       [MRNowPlayingOriginClientManager handleActiveSystemEndpointOutputDeviceUIDForType:self requestID:? queue:? completion:?];
@@ -762,27 +763,27 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v61 = v17;
+      v60 = v17;
       _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
 
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke;
-    v52[3] = &unk_1E76A4138;
-    v43 = v15;
-    v53 = v43;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke;
+    v51[3] = &unk_1E76A4138;
+    v42 = v15;
+    v52 = v42;
     v19 = active;
-    v54 = v19;
-    v55 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
+    v53 = v19;
+    v54 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
     v20 = typeCopy;
-    v56 = v20;
-    v42 = date;
-    v57 = v42;
-    v41 = dCopy;
-    v58 = v41;
-    v59 = v44;
-    v21 = MEMORY[0x1A58E3570](v52);
+    v55 = v20;
+    v41 = date;
+    v56 = v41;
+    v40 = dCopy;
+    v57 = v40;
+    v58 = v43;
+    v21 = MEMORY[0x1A58E3570](v51);
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v23 = selfCopy[6];
@@ -837,29 +838,29 @@ LABEL_10:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
-          v61 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
-          v62 = 2114;
-          v63 = v20;
-          v64 = 2112;
-          v65 = 0;
-          v66 = 2112;
-          v67 = v19;
+          v60 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
+          v61 = 2114;
+          v62 = v20;
+          v63 = 2112;
+          v64 = 0;
+          v65 = 2112;
+          v66 = v19;
           _os_log_impl(&dword_1A2860000, v37, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
         }
 
         v38 = MRGetSharedService();
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke_62;
-        v46[3] = &unk_1E76A4160;
-        v51 = a2;
-        v46[4] = selfCopy;
-        v47 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
-        v48 = v20;
-        v49 = v19;
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke_62;
+        v45[3] = &unk_1E76A4160;
+        v50 = a2;
+        v45[4] = selfCopy;
+        v46 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
+        v47 = v20;
+        v48 = v19;
         v28 = v28;
-        v50 = v28;
-        MRMediaRemoteServiceGetActiveSystemEndpointUID(v38, a2, v41, v46);
+        v49 = v28;
+        MRMediaRemoteServiceGetActiveSystemEndpointUID(v38, a2, v40, v45);
       }
 
       else
@@ -870,15 +871,13 @@ LABEL_10:
     }
 
     objc_sync_exit(selfCopy);
-    queueCopy = v44;
+    queueCopy = v43;
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) disarm];
@@ -898,15 +897,15 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
         *buf = 138544386;
-        v45 = v12;
-        v46 = 2114;
-        v47 = v11;
-        v48 = 2112;
-        v49 = v5;
-        v50 = 2114;
-        v51 = v13;
-        v52 = 2048;
-        v53 = v15;
+        v44 = v12;
+        v45 = 2114;
+        v46 = v11;
+        v47 = 2112;
+        v48 = v5;
+        v49 = 2114;
+        v50 = v13;
+        v51 = 2048;
+        v52 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
@@ -928,13 +927,13 @@ LABEL_16:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
     *buf = 138544130;
-    v45 = v29;
-    v46 = 2114;
-    v47 = v30;
-    v48 = 2112;
-    v49 = v5;
-    v50 = 2048;
-    v51 = v31;
+    v44 = v29;
+    v45 = 2114;
+    v46 = v30;
+    v47 = 2112;
+    v48 = v5;
+    v49 = 2048;
+    v50 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -955,15 +954,15 @@ LABEL_15:
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
         *buf = 138544386;
-        v45 = v21;
-        v46 = 2114;
-        v47 = v20;
-        v48 = 2114;
-        v49 = v6;
-        v50 = 2114;
-        v51 = v22;
-        v52 = 2048;
-        v53 = v23;
+        v44 = v21;
+        v45 = 2114;
+        v46 = v20;
+        v47 = 2114;
+        v48 = v6;
+        v49 = 2114;
+        v50 = v22;
+        v51 = 2048;
+        v52 = v23;
         _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_17:
 
@@ -992,11 +991,11 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
     *buf = 138543874;
-    v45 = v32;
-    v46 = 2114;
-    v47 = v33;
-    v48 = 2048;
-    v49 = v34;
+    v44 = v32;
+    v45 = 2114;
+    v46 = v33;
+    v47 = 2048;
+    v48 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -1011,13 +1010,13 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
     *buf = 138544130;
-    v45 = v26;
-    v46 = 2114;
-    v47 = v25;
-    v48 = 2114;
-    v49 = v27;
-    v50 = 2048;
-    v51 = v28;
+    v44 = v26;
+    v45 = 2114;
+    v46 = v25;
+    v47 = 2114;
+    v48 = v27;
+    v49 = 2048;
+    v50 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -1030,19 +1029,17 @@ LABEL_22:
   block[3] = &unk_1E769AC18;
   v35 = *(a1 + 72);
   v36 = *(a1 + 80);
-  v42 = v6;
-  v43 = v36;
-  v41 = v5;
+  v41 = v6;
+  v42 = v36;
+  v40 = v5;
   v37 = v6;
   v38 = v5;
   dispatch_async(v35, block);
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke_62(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   objc_sync_enter(v4);
@@ -1059,13 +1056,13 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
       v10 = *(a1 + 48);
       v11 = *(a1 + 56);
       *buf = 138544130;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v10;
-      v27 = 2112;
-      v28 = @"request completed however response is already stale";
-      v29 = 2112;
-      v30 = v11;
+      v23 = v9;
+      v24 = 2114;
+      v25 = v10;
+      v26 = 2112;
+      v27 = @"request completed however response is already stale";
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
     }
   }
@@ -1076,31 +1073,31 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
   }
 
   v12 = [*(a1 + 32) activeSystemEndpointOutputDeviceUIDForType:*(a1 + 72)];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v13 = *(a1 + 64);
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v16) + 16))(*(*(&v18 + 1) + 8 * v16));
+        (*(*(*(&v17 + 1) + 8 * v16) + 16))(*(*(&v17 + 1) + 8 * v16));
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
@@ -1108,8 +1105,6 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
 
   [*(a1 + 64) removeAllObjects];
   objc_sync_exit(v4);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activeSystemEndpointOutputDeviceUIDForType:(int64_t)type
@@ -1142,9 +1137,9 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
   }
 
   v12 = +[MRAVOutputDevice localDeviceUID];
-  v13 = [v7 isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v13)
+  if (isEqualToString)
   {
 
     v7 = 0;
@@ -1157,7 +1152,7 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
 
 - (void)resolveActiveSystemEndpointWithType:(int64_t)type timeout:(double)timeout queue:(id)queue completion:(id)completion
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   active = MRMediaRemoteActiveEndpointTypeCopyDescription(type);
@@ -1176,26 +1171,26 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v45 = v17;
+    v44 = v17;
     _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke;
-  v37[3] = &unk_1E76A4188;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke;
+  v36[3] = &unk_1E76A4188;
   v19 = active;
-  v38 = v19;
-  v39 = @"ResolveActiveEndpoint";
+  v37 = v19;
+  v38 = @"ResolveActiveEndpoint";
   v20 = uUIDString;
-  v40 = v20;
-  v41 = date;
-  v42 = queueCopy;
-  v43 = completionCopy;
+  v39 = v20;
+  v40 = date;
+  v41 = queueCopy;
+  v42 = completionCopy;
   v21 = queueCopy;
   v22 = completionCopy;
   v23 = date;
-  v24 = MEMORY[0x1A58E3570](v37);
+  v24 = MEMORY[0x1A58E3570](v36);
   if (resolveActiveSystemEndpointWithType_timeout_queue_completion__onceToken != -1)
   {
     [MRNowPlayingOriginClientManager resolveActiveSystemEndpointWithType:timeout:queue:completion:];
@@ -1207,23 +1202,21 @@ void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDevi
   block[2] = __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke_3;
   block[3] = &unk_1E76A41B0;
   block[4] = self;
-  v31 = @"ResolveActiveEndpoint";
-  v32 = v19;
-  v33 = v20;
+  v30 = @"ResolveActiveEndpoint";
+  v31 = v19;
+  v32 = v20;
   timeoutCopy = timeout;
-  v34 = v24;
+  v33 = v24;
   typeCopy = type;
   v26 = v24;
   v27 = v20;
   v28 = v19;
   dispatch_async(v25, block);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1249,15 +1242,15 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
         v21 = [MEMORY[0x1E695DF00] date];
         [v21 timeIntervalSinceDate:a1[7]];
         *buf = 138544386;
-        v48 = v18;
-        v49 = 2114;
-        v50 = v19;
-        v51 = 2112;
-        v52 = v13;
-        v53 = 2114;
-        v54 = v20;
-        v55 = 2048;
-        v56 = v22;
+        v47 = v18;
+        v48 = 2114;
+        v49 = v19;
+        v50 = 2112;
+        v51 = v13;
+        v52 = 2114;
+        v53 = v20;
+        v54 = 2048;
+        v55 = v22;
         v23 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v24 = v8;
         v25 = 52;
@@ -1276,13 +1269,13 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
         v21 = [MEMORY[0x1E695DF00] date];
         [v21 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v33;
-        v49 = 2114;
-        v50 = v34;
-        v51 = 2112;
-        v52 = v13;
-        v53 = 2048;
-        v54 = v35;
+        v47 = v33;
+        v48 = 2114;
+        v49 = v34;
+        v50 = 2112;
+        v51 = v13;
+        v52 = 2048;
+        v53 = v35;
         v23 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v24 = v8;
         v25 = 42;
@@ -1306,13 +1299,13 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v27;
-        v49 = 2114;
-        v50 = v26;
-        v51 = 2114;
-        v52 = v28;
-        v53 = 2048;
-        v54 = v29;
+        v47 = v27;
+        v48 = 2114;
+        v49 = v26;
+        v50 = 2114;
+        v51 = v28;
+        v52 = 2048;
+        v53 = v29;
         v30 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v31 = v8;
         v32 = 42;
@@ -1330,11 +1323,11 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:a1[7]];
         *buf = 138543874;
-        v48 = v36;
-        v49 = 2114;
-        v50 = v37;
-        v51 = 2048;
-        v52 = v38;
+        v47 = v36;
+        v48 = 2114;
+        v49 = v37;
+        v50 = 2048;
+        v51 = v38;
         v30 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v31 = v8;
         v32 = 32;
@@ -1362,15 +1355,15 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v48 = v11;
-    v49 = 2114;
-    v50 = v10;
-    v51 = 2114;
-    v52 = v6;
-    v53 = 2114;
-    v54 = v12;
-    v55 = 2048;
-    v56 = v14;
+    v47 = v11;
+    v48 = 2114;
+    v49 = v10;
+    v50 = 2114;
+    v51 = v6;
+    v52 = 2114;
+    v53 = v12;
+    v54 = 2048;
+    v55 = v14;
     _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
 
@@ -1396,19 +1389,17 @@ LABEL_21:
       v39 = a1[9];
     }
 
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke_79;
-    v44[3] = &unk_1E769AB28;
-    v46 = v39;
-    v45 = v5;
-    dispatch_async(v41, v44);
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke_79;
+    v43[3] = &unk_1E769AB28;
+    v45 = v39;
+    v44 = v5;
+    dispatch_async(v41, v43);
     if (!v40)
     {
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_timeout_queue_completion___block_invoke_2()
@@ -1488,7 +1479,7 @@ void __96__MRNowPlayingOriginClientManager_resolveActiveSystemEndpointWithType_t
 
 void __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[MRAVOutputDevice localDeviceUID];
   v5 = v4;
@@ -1523,11 +1514,11 @@ LABEL_5:
           v11 = *(a1 + 32);
           v12 = *(a1 + 40);
           *buf = 138543874;
-          v46 = v11;
-          v47 = 2114;
-          v48 = v12;
-          v49 = 2112;
-          v50 = @"Will override with local for supported client hosting GroupSession.";
+          v45 = v11;
+          v46 = 2114;
+          v47 = v12;
+          v48 = 2112;
+          v49 = @"Will override with local for supported client hosting GroupSession.";
           _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
         }
 
@@ -1554,11 +1545,11 @@ LABEL_5:
               v17 = *(a1 + 32);
               v18 = *(a1 + 40);
               *buf = 138543874;
-              v46 = v17;
-              v47 = 2114;
-              v48 = v18;
-              v49 = 2112;
-              v50 = @"Will override with remote GroupSession endpoint for supported client.";
+              v45 = v17;
+              v46 = 2114;
+              v47 = v18;
+              v48 = 2112;
+              v49 = @"Will override with remote GroupSession endpoint for supported client.";
               _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
             }
 
@@ -1574,55 +1565,53 @@ LABEL_5:
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@<%@>", *(a1 + 32), *(a1 + 40)];
   v21 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
   v22 = *(a1 + 96);
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92;
-  v32[3] = &unk_1E76A4200;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92;
+  v31[3] = &unk_1E76A4200;
   v24 = *(a1 + 48);
   v23 = *(a1 + 56);
   v25 = *(a1 + 64);
-  v33 = v21;
-  v34 = v23;
-  v35 = v25;
+  v32 = v21;
+  v33 = v23;
+  v34 = v25;
   v26 = *(a1 + 40);
   v27 = *(a1 + 88);
-  v36 = v26;
-  v42 = v27;
+  v35 = v26;
+  v41 = v27;
   v28 = *(a1 + 32);
-  v43 = *(a1 + 104);
-  v37 = v28;
-  v38 = v3;
-  v39 = *(a1 + 72);
-  v44 = *(a1 + 96);
-  v40 = *(a1 + 48);
-  v41 = *(a1 + 80);
+  v42 = *(a1 + 104);
+  v36 = v28;
+  v37 = v3;
+  v38 = *(a1 + 72);
+  v43 = *(a1 + 96);
+  v39 = *(a1 + 48);
+  v40 = *(a1 + 80);
   v29 = v3;
   v30 = v21;
-  [(MRAVLightweightReconnaissanceSession *)v30 searchEndpointsForOutputDeviceUID:v29 timeout:v20 reason:v24 queue:v32 completion:v22];
-
-  v31 = *MEMORY[0x1E69E9840];
+  [(MRAVLightweightReconnaissanceSession *)v30 searchEndpointsForOutputDeviceUID:v29 timeout:v20 reason:v24 queue:v31 completion:v22];
 }
 
 void __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92(uint64_t a1, void *a2, void *a3)
 {
-  v73[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__46;
-  v62 = __Block_byref_object_dispose__46;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__46;
+  v59 = __Block_byref_object_dispose__46;
   v8 = v5;
-  v63 = v8;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = __Block_byref_object_copy__46;
-  v56[4] = __Block_byref_object_dispose__46;
+  v60 = v8;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = __Block_byref_object_copy__46;
+  v53[4] = __Block_byref_object_dispose__46;
   v9 = v6;
-  v57 = v9;
+  v54 = v9;
   v10 = *(a1 + 40);
   objc_sync_enter(v10);
   v11 = [*(a1 + 48) objectForKey:*(a1 + 56)];
@@ -1662,72 +1651,72 @@ void __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType
         v19 = v15;
       }
 
-      v33 = *(a1 + 72);
-      v34 = v19;
-      v35 = v33;
-      v36 = v35;
-      if (v34 == v35)
+      v31 = *(a1 + 72);
+      v32 = v19;
+      v33 = v31;
+      v34 = v33;
+      if (v32 == v33)
       {
       }
 
       else
       {
-        v37 = [v34 isEqual:v35];
+        v35 = [v32 isEqual:v33];
 
-        if (!v37)
+        if (!v35)
         {
           if (v12)
           {
             if (*(a1 + 104) == 4)
             {
-              v38 = _MRLogForCategory(0);
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+              v36 = _MRLogForCategory(0);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
               {
-                __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92_cold_1(v34, v38);
+                __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92_cold_1(v32, v36);
               }
 
-              v39 = _MRLogForCategory(0xAuLL);
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+              v37 = _MRLogForCategory(0xAuLL);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
-                v41 = *(a1 + 56);
-                v40 = *(a1 + 64);
+                v39 = *(a1 + 56);
+                v38 = *(a1 + 64);
                 *buf = 138543874;
-                v66 = v40;
-                v67 = 2114;
-                v68 = v41;
-                v69 = 2112;
-                v70 = @"Failed to find endpoint for group session. Return local.";
-                _os_log_impl(&dword_1A2860000, v39, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
+                v63 = v38;
+                v64 = 2114;
+                v65 = v39;
+                v66 = 2112;
+                v67 = @"Failed to find endpoint for group session. Return local.";
+                _os_log_impl(&dword_1A2860000, v37, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
               }
 
-              v42 = MEMORY[0x1A58E3570](v12);
-              v73[0] = v42;
-              v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:1];
+              v40 = MEMORY[0x1A58E3570](v12);
+              v70[0] = v40;
+              v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
 
-              v43 = +[MRAVLocalEndpoint sharedLocalEndpoint];
-              v44 = v59[5];
-              v59[5] = v43;
+              v41 = +[MRAVLocalEndpoint sharedLocalEndpoint];
+              v42 = v56[5];
+              v56[5] = v41;
 
               [*(a1 + 48) removeObjectForKey:*(a1 + 56)];
               MRAVEndpointUpdateActiveSystemEndpointWithReason(0, 1, @"Failed to resolve group session endpoint", 0, 0);
               goto LABEL_40;
             }
 
-            v50 = _MRLogForCategory(0xAuLL);
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+            v48 = _MRLogForCategory(0xAuLL);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
-              v52 = *(a1 + 56);
-              v51 = *(a1 + 64);
-              v53 = *(a1 + 80);
+              v50 = *(a1 + 56);
+              v49 = *(a1 + 64);
+              v51 = *(a1 + 80);
               *buf = 138544130;
-              v66 = v51;
-              v67 = 2114;
-              v68 = v52;
-              v69 = 2112;
-              v70 = @"response is already stale";
-              v71 = 2112;
-              v72 = v53;
-              _os_log_impl(&dword_1A2860000, v50, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
+              v63 = v49;
+              v64 = 2114;
+              v65 = v50;
+              v66 = 2112;
+              v67 = @"response is already stale";
+              v68 = 2112;
+              v69 = v51;
+              _os_log_impl(&dword_1A2860000, v48, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
             }
 
             [(MRNowPlayingOriginClientManager *)*(a1 + 40) _resolveActiveSystemEndpointWithType:*(a1 + 64) requestName:*(a1 + 80) requestType:*(a1 + 56) requestID:*(a1 + 88) timeout:*(a1 + 96) queue:*(a1 + 120) completion:?];
@@ -1735,58 +1724,58 @@ void __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType
 
           else
           {
-            v46 = _MRLogForCategory(0xAuLL);
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v44 = _MRLogForCategory(0xAuLL);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
-              v48 = *(a1 + 56);
-              v47 = *(a1 + 64);
-              v49 = *(a1 + 80);
+              v46 = *(a1 + 56);
+              v45 = *(a1 + 64);
+              v47 = *(a1 + 80);
               *buf = 138544130;
-              v66 = v47;
-              v67 = 2114;
-              v68 = v48;
-              v69 = 2112;
-              v70 = @"resolve completed however previous response already fulfilled request (informational only, not further action required)";
-              v71 = 2112;
-              v72 = v49;
-              _os_log_impl(&dword_1A2860000, v46, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
+              v63 = v45;
+              v64 = 2114;
+              v65 = v46;
+              v66 = 2112;
+              v67 = @"resolve completed however previous response already fulfilled request (informational only, not further action required)";
+              v68 = 2112;
+              v69 = v47;
+              _os_log_impl(&dword_1A2860000, v44, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", buf, 0x2Au);
             }
           }
 
-          v26 = 0;
+          v24 = 0;
 LABEL_40:
 
           goto LABEL_41;
         }
       }
 
-      v45 = [*(a1 + 48) allValues];
-      v26 = [v45 copy];
+      v43 = [*(a1 + 48) allValues];
+      v24 = [v43 copy];
 
       [*(a1 + 48) removeAllObjects];
       goto LABEL_40;
     }
 
-    v27 = _MRLogForCategory(0xAuLL);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v25 = _MRLogForCategory(0xAuLL);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = *(a1 + 56);
-      v28 = *(a1 + 64);
+      v27 = *(a1 + 56);
+      v26 = *(a1 + 64);
       *buf = 138543874;
-      v66 = v28;
-      v67 = 2114;
-      v68 = v29;
-      v69 = 2112;
-      v70 = @"ASE is remote GroupSession, will override with local for unsupported client.";
-      _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
+      v63 = v26;
+      v64 = 2114;
+      v65 = v27;
+      v66 = 2112;
+      v67 = @"ASE is remote GroupSession, will override with local for unsupported client.";
+      _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
-    v30 = +[MRAVLocalEndpoint sharedLocalEndpoint];
-    v31 = v59[5];
-    v59[5] = v30;
+    v28 = +[MRAVLocalEndpoint sharedLocalEndpoint];
+    v29 = v56[5];
+    v56[5] = v28;
 
-    v32 = [*(a1 + 48) allValues];
-    v26 = [v32 copy];
+    v30 = [*(a1 + 48) allValues];
+    v24 = [v30 copy];
 
     [*(a1 + 48) removeAllObjects];
   }
@@ -1795,42 +1784,39 @@ LABEL_40:
   {
     if ([*(a1 + 48) count] == 1)
     {
-      v20 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v21 = *(a1 + 72);
-      v22 = [v20 initWithFormat:@"Could not discover %@ for ResolveActiveEndpoint<%@> in <%lf> seconds", v21, *(a1 + 56), *(a1 + 120)];
-      [(MRNowPlayingOriginClientManager *)*(a1 + 40) _clearSystemEndpointForType:v22 reason:*(a1 + 88) queue:?];
+      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Could not discover %@ for ResolveActiveEndpoint<%@> in <%lf> seconds", *(a1 + 72), *(a1 + 56), *(a1 + 120)];
+      [(MRNowPlayingOriginClientManager *)*(a1 + 40) _clearSystemEndpointForType:v20 reason:*(a1 + 88) queue:?];
     }
 
-    v23 = +[MRAVLocalEndpoint sharedLocalEndpoint];
-    v24 = v59[5];
-    v59[5] = v23;
+    v21 = +[MRAVLocalEndpoint sharedLocalEndpoint];
+    v22 = v56[5];
+    v56[5] = v21;
 
-    v25 = MEMORY[0x1A58E3570](v12);
-    v64 = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+    v23 = MEMORY[0x1A58E3570](v12);
+    v61 = v23;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
 
     [*(a1 + 48) removeObjectForKey:*(a1 + 56)];
   }
 
   else
   {
-    v26 = 0;
+    v24 = 0;
   }
 
 LABEL_41:
 
   objc_sync_exit(v10);
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_113;
-  v55[3] = &unk_1E76A41D8;
-  v55[4] = &v58;
-  v55[5] = v56;
-  [v26 enumerateObjectsUsingBlock:v55];
-  _Block_object_dispose(v56, 8);
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_113;
+  v52[3] = &unk_1E76A41D8;
+  v52[4] = &v55;
+  v52[5] = v53;
+  [v24 enumerateObjectsUsingBlock:v52];
+  _Block_object_dispose(v53, 8);
 
-  _Block_object_dispose(&v58, 8);
-  v54 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v55, 8);
 }
 
 - (void)_clearSystemEndpointForType:(void *)type reason:(void *)reason queue:
@@ -1894,43 +1880,35 @@ LABEL_41:
 
 - (void)handleActiveSystemEndpointOutputDeviceUIDForType:(uint64_t)a3 requestID:queue:completion:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138544130;
-    v8 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
-    v9 = 2114;
-    v10 = a2;
-    v11 = 2112;
-    v12 = @"waiting for previously batched request to respond";
-    v13 = 2112;
-    v14 = a3;
-    _os_log_impl(&dword_1A2860000, a1, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", &v7, 0x2Au);
+    v6 = 138544130;
+    v7 = @"handleActiveSystemEndpointOutputDeviceUIDForType";
+    v8 = 2114;
+    v9 = a2;
+    v10 = 2112;
+    v11 = @"waiting for previously batched request to respond";
+    v12 = 2112;
+    v13 = a3;
+    _os_log_impl(&dword_1A2860000, a1, OS_LOG_TYPE_DEFAULT, "Cache Miss: Request: %{public}@<%{public}@> for %@ %@", &v6, 0x2Au);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke_cold_1(void *a1)
+void __111__MRNowPlayingOriginClientManager_handleActiveSystemEndpointOutputDeviceUIDForType_requestID_queue_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = a1[6];
-  v3 = a1[7];
-  v4 = [MEMORY[0x1E695DF00] date];
-  [v4 timeIntervalSinceDate:a1[8]];
+  v2 = [MEMORY[0x1E695DF00] date];
+  [v2 timeIntervalSinceDate:*(a1 + 64)];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
 }
 
 void __131__MRNowPlayingOriginClientManager__resolveActiveSystemEndpointWithType_requestName_requestType_requestID_timeout_queue_completion___block_invoke_92_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A2860000, a2, OS_LOG_TYPE_FAULT, "[MRNowPlayingOriginClientManager] Could not find endpoint for %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A2860000, a2, OS_LOG_TYPE_FAULT, "[MRNowPlayingOriginClientManager] Could not find endpoint for %@.", &v2, 0xCu);
 }
 
 @end

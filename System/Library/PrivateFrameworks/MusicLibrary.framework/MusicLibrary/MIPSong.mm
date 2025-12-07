@@ -227,7 +227,7 @@ LABEL_32:
       goto LABEL_47;
     }
 
-    [(MIPPlaybackInfo *)playbackInfo mergeFrom:?];
+    playbackInfo = [(MIPPlaybackInfo *)playbackInfo mergeFrom:?];
   }
 
   else
@@ -237,7 +237,7 @@ LABEL_32:
       goto LABEL_47;
     }
 
-    [(MIPSong *)self setPlaybackInfo:?];
+    playbackInfo = [(MIPSong *)self setPlaybackInfo:?];
   }
 
   fromCopy = v16;
@@ -250,10 +250,11 @@ LABEL_47:
 
   if (*(fromCopy + 8))
   {
-    [(MIPSong *)self setHlsPlaylistURL:?];
+    playbackInfo = [(MIPSong *)self setHlsPlaylistURL:?];
+    fromCopy = v16;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](playbackInfo, fromCopy);
 }
 
 - (unint64_t)hash

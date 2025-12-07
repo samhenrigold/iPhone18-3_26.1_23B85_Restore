@@ -459,17 +459,17 @@ void __66__PKPaymentSetupHeroViewController__didContinueWithSelectedMethod__bloc
   }
 }
 
-uint64_t __61__PKPaymentSetupHeroViewController__preflightWithCompletion___block_invoke(uint64_t a1)
+uint64_t __61__PKPaymentSetupHeroViewController__preflightWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  v3 = PKTimeProfileEnd();
+  v3 = PKLogFacilityTypeGetObject();
+  v4 = PKTimeProfileEnd();
 
   result = *(a1 + 32);
   if (result)
   {
-    v5 = *(result + 16);
+    v6 = *(result + 16);
 
-    return v5();
+    return v6();
   }
 
   return result;

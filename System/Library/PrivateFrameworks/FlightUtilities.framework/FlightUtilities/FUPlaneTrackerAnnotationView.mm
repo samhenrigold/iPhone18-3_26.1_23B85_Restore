@@ -177,42 +177,41 @@
 
 - (void)didMoveToSuperview
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = FUPlaneTrackerAnnotationView;
-  [(MKAnnotationView *)&v13 didMoveToSuperview];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = FUPlaneTrackerAnnotationView;
+  [(MKAnnotationView *)&v12 didMoveToSuperview];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   viewAddedBlock = [(FUPlaneTrackerAnnotationView *)self viewAddedBlock];
-  v4 = [viewAddedBlock countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [viewAddedBlock countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(viewAddedBlock);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v8 + 1) + 8 * v7++) + 16))();
       }
 
       while (v5 != v7);
-      v5 = [viewAddedBlock countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [viewAddedBlock countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(FUPlaneTrackerAnnotationView *)self setViewAddedBlock:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWhenIsVisibleWithBlock:(id)block

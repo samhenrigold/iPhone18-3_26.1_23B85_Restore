@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)state;
 - (unint64_t)hash;
@@ -24,6 +25,96 @@
   {
     return 100;
   }
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string > 159)
+  {
+    if (string > 189)
+    {
+      switch(string)
+      {
+        case 190:
+          v4 = @"SuspendedCustom";
+
+          return v4;
+        case 200:
+          v4 = @"RemovedByIssuer";
+
+          return v4;
+        case 250:
+          v4 = @"InTermination";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 160:
+          v4 = @"SuspendedByIssuer";
+
+          return v4;
+        case 170:
+          v4 = @"SuspendedLostMode";
+
+          return v4;
+        case 180:
+          v4 = @"SuspendedPasscodeDisabled";
+
+          return v4;
+      }
+    }
+
+LABEL_52:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 129)
+  {
+    switch(string)
+    {
+      case 130:
+        v4 = @"RequiresVerification";
+
+        return v4;
+      case 140:
+        v4 = @"PersonalizedRequiresVerification";
+
+        return v4;
+      case 150:
+        v4 = @"VerificationTerminated";
+
+        return v4;
+    }
+
+    goto LABEL_52;
+  }
+
+  switch(string)
+  {
+    case 'd':
+      v4 = @"PaymentApplicationStateUnknown";
+
+      break;
+    case 'n':
+      v4 = @"Personalized";
+
+      break;
+    case 'x':
+      v4 = @"Personalizing";
+
+      return v4;
+    default:
+      goto LABEL_52;
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -198,7 +289,6 @@ LABEL_31:
 {
   if (*&self->_has)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 }

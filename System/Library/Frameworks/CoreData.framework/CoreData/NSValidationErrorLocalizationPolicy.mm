@@ -6,8 +6,8 @@
 - (id)localizedEntityNameForEntity:(id)entity;
 - (id)localizedModelStringForKey:(id)key;
 - (id)localizedPropertyNameForProperty:(id)property;
-- (uint64_t)_localizedPropertyNameForProperty:(void *)property entity:;
 - (void)_ensureFullLocalizationDictionaryIsLoaded;
+- (void)_localizedPropertyNameForProperty:(void *)property entity:;
 - (void)dealloc;
 - (void)setLocalizationDictionary:(id)dictionary;
 @end
@@ -172,7 +172,7 @@ LABEL_5:
   return [(NSValidationErrorLocalizationPolicy *)self _cachedObjectForKey:v5 value:name];
 }
 
-- (uint64_t)_localizedPropertyNameForProperty:(void *)property entity:
+- (void)_localizedPropertyNameForProperty:(void *)property entity:
 {
   v3 = 0;
   if (self && property)

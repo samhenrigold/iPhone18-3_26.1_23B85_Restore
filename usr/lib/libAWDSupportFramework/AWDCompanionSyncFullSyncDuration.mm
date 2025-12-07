@@ -92,7 +92,6 @@
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    isMaster = self->_isMaster;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    syncDuration = self->_syncDuration;
 
     PBDataWriterWriteUint64Field();
   }
@@ -182,7 +179,6 @@
   }
 
   has = self->_has;
-  v7 = *(equal + 36);
   if ((has & 2) != 0)
   {
     if ((*(equal + 36) & 2) == 0 || self->_timestamp != *(equal + 2))
@@ -212,7 +208,6 @@
   {
     if ((*(equal + 36) & 4) != 0)
     {
-      v9 = *(equal + 32);
       if (self->_isMaster)
       {
         if ((*(equal + 32) & 1) == 0)

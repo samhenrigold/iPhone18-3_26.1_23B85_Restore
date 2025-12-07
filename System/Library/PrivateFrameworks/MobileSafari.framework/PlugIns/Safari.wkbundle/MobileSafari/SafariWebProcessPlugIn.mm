@@ -9,34 +9,33 @@
   controllerCopy = controller;
   if (objc_opt_respondsToSelector())
   {
-    v10 = objc_msgSend__groupIdentifier(controllerCopy, v5, v6, v7);
+    _groupIdentifier = [controllerCopy _groupIdentifier];
   }
 
   else
   {
-    v13 = objc_msgSend_pageGroup(controllerCopy, v5, v6, v7);
-    v10 = objc_msgSend_identifier(v13, v14, v15, v16);
+    pageGroup = [controllerCopy pageGroup];
+    _groupIdentifier = [pageGroup identifier];
   }
 
-  if (objc_msgSend_isEqualToString_(v10, v8, *MEMORY[0x277CDB9E8], v9))
+  if ([_groupIdentifier isEqualToString:*MEMORY[0x277CDB9E8]])
   {
-    v17 = 0x277CDB888;
+    v7 = 0x277CDB888;
   }
 
   else
   {
-    isEqualToString = objc_msgSend_isEqualToString_(v10, v11, *MEMORY[0x277D4A988], v12);
-    v17 = &off_2798ED200;
-    if (isEqualToString)
+    v8 = [_groupIdentifier isEqualToString:*MEMORY[0x277D4A988]];
+    v7 = &off_2798ED200;
+    if (v8)
     {
-      v17 = 0x277D4A870;
+      v7 = 0x277D4A870;
     }
   }
 
-  v19 = objc_alloc(*v17);
-  v21 = objc_msgSend_initWithPlugIn_contextController_(v19, v20, self, controllerCopy);
+  v9 = [objc_alloc(*v7) initWithPlugIn:self contextController:controllerCopy];
 
-  return v21;
+  return v9;
 }
 
 @end

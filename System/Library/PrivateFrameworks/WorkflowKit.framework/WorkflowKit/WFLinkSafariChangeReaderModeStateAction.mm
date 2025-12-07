@@ -10,46 +10,42 @@
 
 - (id)parameterOverrides
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = WFLinkSafariChangeReaderModeStateAction;
-  parameterOverrides = [(WFOverridableLinkAction *)&v12 parameterOverrides];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = WFLinkSafariChangeReaderModeStateAction;
+  parameterOverrides = [(WFOverridableLinkAction *)&v11 parameterOverrides];
   v3 = [parameterOverrides mutableCopy];
 
-  v16 = @"ItemDisplayNames";
+  v15 = @"ItemDisplayNames";
   v4 = WFLocalizedStringResourceWithKey(@"Hide (changeOperation)", @"Hide");
-  v15[0] = v4;
+  v14[0] = v4;
   v5 = WFLocalizedStringResourceWithKey(@"Show (changeOperation)", @"Show");
-  v15[1] = v5;
+  v14[1] = v5;
   v6 = WFLocalizedStringResourceWithKey(@"Toggle (changeOperation)", @"Toggle");
-  v15[2] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
-  v17[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[2] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v16[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   WFAddEntriesToDictionary(v3, @"changeOperation", v8);
 
-  v13 = @"Hidden";
-  v14 = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = @"Hidden";
+  v13 = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   WFAddEntriesToDictionary(v3, @"setting", v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)overrideDefaultValuesByParameter
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = WFLinkSafariChangeReaderModeStateAction;
-  overrideDefaultValuesByParameter = [(WFLinkChangeBinarySettingAction *)&v7 overrideDefaultValuesByParameter];
-  v8 = @"setting";
-  v9[0] = @"reader";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = WFLinkSafariChangeReaderModeStateAction;
+  overrideDefaultValuesByParameter = [(WFLinkChangeBinarySettingAction *)&v6 overrideDefaultValuesByParameter];
+  v7 = @"setting";
+  v8[0] = @"reader";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [overrideDefaultValuesByParameter if_dictionaryByAddingEntriesFromDictionary:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

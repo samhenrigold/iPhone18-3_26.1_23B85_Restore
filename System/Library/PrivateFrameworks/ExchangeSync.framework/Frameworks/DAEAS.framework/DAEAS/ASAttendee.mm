@@ -14,6 +14,7 @@
 - (void)applyPlaceHolder;
 - (void)encodeWithCoder:(id)coder;
 - (void)saveToCalendarWithParentASEvent:(id)event existingRecord:(void *)record isDefaultCalendar:(BOOL)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
+- (void)setObject:(id)object forDCCPT:(int)t;
 @end
 
 @implementation ASAttendee
@@ -190,10 +191,33 @@
   [(ASAttendee *)self setPlaceHolder:0];
 }
 
+- (void)setObject:(id)object forDCCPT:(int)t
+{
+  v4 = *&t;
+  objectCopy = object;
+  placeHolder = [(ASAttendee *)self placeHolder];
+
+  if (!placeHolder)
+  {
+    v7 = objc_opt_new();
+    [(ASAttendee *)self setPlaceHolder:v7];
+  }
+
+  v8 = objectCopy;
+  if (objectCopy)
+  {
+    placeHolder2 = [(ASAttendee *)self placeHolder];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    [placeHolder2 setObject:objectCopy forKeyedSubscript:v10];
+
+    v8 = objectCopy;
+  }
+}
+
 - (void)saveToCalendarWithParentASEvent:(id)event existingRecord:(void *)record isDefaultCalendar:(BOOL)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
 {
   calendarCopy = calendar;
-  v39 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (-[ASAttendee localId](self, "localId") == -1 || (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v11 = objc_claimAutoreleasedReturnValue(), [accountCopy accountID], v12 = objc_claimAutoreleasedReturnValue(), Attendee = MEMORY[0x24C210A30](objc_msgSend(v11, "calDatabaseForAccountID:", v12), -[ASAttendee localId](self, "localId")), v12, v11, !Attendee))
   {
@@ -230,10 +254,8 @@
 
   [(ASAttendee *)self role];
   CalAttendeeSetType();
-  role = [(ASAttendee *)self role];
-  if (role <= 3)
+  if ([(ASAttendee *)self role]<= 3)
   {
-    v21 = dword_24A14DD50[role];
     CalAttendeeSetRole();
   }
 
@@ -269,13 +291,13 @@ LABEL_21:
   Status = CalAttendeeGetStatus();
   if (Status != *MEMORY[0x277CF7138])
   {
-    v34 = Status;
+    v31 = Status;
     log = DALoggingwithCategory();
     type = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(log, type))
     {
       *buf = 67109120;
-      v38 = v34;
+      v35 = v31;
       _os_log_impl(&dword_24A0AC000, log, type, "We're being asked to save an attendee with a deleted status, but that attendee has a non-deleted status %d", buf, 8u);
     }
   }
@@ -283,21 +305,21 @@ LABEL_21:
 LABEL_22:
   CalAttendeeSetPendingStatus();
   proposedStartTime = [(ASAttendee *)self proposedStartTime];
-  v24 = MEMORY[0x277CF78F0];
+  v22 = MEMORY[0x277CF78F0];
   if (proposedStartTime)
   {
     proposedStartTime2 = [(ASAttendee *)self proposedStartTime];
     [proposedStartTime2 timeIntervalSinceReferenceDate];
-    v27 = v26;
+    v25 = v24;
   }
 
   else
   {
-    v27 = *MEMORY[0x277CF78F0];
+    v25 = *MEMORY[0x277CF78F0];
   }
 
   CalAttendeeGetProposedStartDate();
-  if (v28 != v27)
+  if (v26 != v25)
   {
     CalParticipantSetProposedStartDateChanged();
     CalEventAddInvitationChangedProperties();
@@ -308,13 +330,13 @@ LABEL_22:
   }
 
   CalAttendeeSetProposedStartDate();
-  v29 = MEMORY[0x24C2105A0](Attendee);
-  if (v27 == *v24)
+  v27 = MEMORY[0x24C2105A0](Attendee);
+  if (v25 == *v22)
   {
-    v30 = EKAutoCommentPrefix();
-    v31 = [v30 substringFromIndex:1];
+    v28 = EKAutoCommentPrefix();
+    v29 = [v28 substringFromIndex:1];
 
-    if ([v29 hasPrefix:v31])
+    if ([v27 hasPrefix:v29])
     {
       MEMORY[0x24C210670](Attendee, &stru_285D39BD0);
     }
@@ -326,8 +348,6 @@ LABEL_22:
   }
 
   CFRelease(Attendee);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (ASAttendee)init

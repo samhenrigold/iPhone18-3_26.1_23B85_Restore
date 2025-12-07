@@ -29,7 +29,7 @@
     v16 = _Block_copy(v11);
     [v15 setObject:v16 forKeyedSubscript:@"HMDStateEventCompletionKey"];
 
-    v17 = [v15 copy];
+    v17 = objc_msgSend_copy(v15);
     v18 = [self initWithName:v8 userInfo:v17];
 
     return v18;

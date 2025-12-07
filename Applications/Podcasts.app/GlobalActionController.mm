@@ -53,21 +53,21 @@
 {
   v3 = type metadata accessor for TextFieldAlertAction();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   static TextFieldAlertAction.followShowByURL(initialText:then:)();
   memset(v8, 0, sizeof(v8));
-  sub_100251430(v6, v8, 0, selfCopy, &type metadata accessor for TextFieldAlertAction, &qword_100579A18, &type metadata accessor for TextFieldAlertAction);
+  sub_100251430(v6, v8, 0, selfCopy, &type metadata accessor for TextFieldAlertAction, &qword_100579A18, &type metadata accessor for TextFieldAlertAction, &protocol conformance descriptor for TextFieldAlertAction);
 
-  sub_100009104(v8, &unk_1005783D0);
+  sub_100009104(v8, &unk_1005783D0, &qword_1004031E0);
   (*(v4 + 8))(v6, v3);
 }
 
 - (void)focusSearchField
 {
   selfCopy = self;
-  sub_10024A654();
+  sub_10024A654(v2);
 }
 
 - (void)refreshCommand
@@ -91,45 +91,24 @@
 - (void)showNotificationSettings
 {
   selfCopy = self;
-  sub_10024B864();
+  sub_10024B864(v2);
 }
 
 - (void)playPause
 {
-  v3 = sub_100168088(&qword_100578010);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v11 - v4;
+  sub_100168088(&qword_100578010, &qword_100401F60);
+  __chkstk_darwin();
+  v4 = &v10 - v3;
   selfCopy = self;
   if (_UIAccessibilityFullKeyboardAccessEnabled() || sub_100256714())
   {
-    v6 = selfCopy;
+    v5 = selfCopy;
   }
 
   else
   {
-    v7 = type metadata accessor for TaskPriority();
-    (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
-    type metadata accessor for MainActor();
-    v8 = selfCopy;
-    v9 = static MainActor.shared.getter();
-    v10 = swift_allocObject();
-    v10[2] = v9;
-    v10[3] = &protocol witness table for MainActor;
-    v10[4] = v8;
-    sub_10023EE80(0, 0, v5, &unk_100406CE8, v10);
-  }
-}
-
-- (void)alternatePlayPause
-{
-  v3 = sub_100168088(&qword_100578010);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v11 - v4;
-  selfCopy = self;
-  if (_UIAccessibilityFullKeyboardAccessEnabled())
-  {
     v6 = type metadata accessor for TaskPriority();
-    (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+    (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
     type metadata accessor for MainActor();
     v7 = selfCopy;
     v8 = static MainActor.shared.getter();
@@ -137,12 +116,33 @@
     v9[2] = v8;
     v9[3] = &protocol witness table for MainActor;
     v9[4] = v7;
-    sub_10023EE80(0, 0, v5, &unk_100406CD8, v9);
+    sub_10023EE80(0, 0, v4, &unk_100406CE8, v9);
+  }
+}
+
+- (void)alternatePlayPause
+{
+  sub_100168088(&qword_100578010, &qword_100401F60);
+  __chkstk_darwin();
+  v4 = &v10 - v3;
+  selfCopy = self;
+  if (_UIAccessibilityFullKeyboardAccessEnabled())
+  {
+    v5 = type metadata accessor for TaskPriority();
+    (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
+    type metadata accessor for MainActor();
+    v6 = selfCopy;
+    v7 = static MainActor.shared.getter();
+    v8 = swift_allocObject();
+    v8[2] = v7;
+    v8[3] = &protocol witness table for MainActor;
+    v8[4] = v6;
+    sub_10023EE80(0, 0, v4, &unk_100406CD8, v8);
   }
 
   else
   {
-    v10 = selfCopy;
+    v9 = selfCopy;
   }
 }
 
@@ -200,7 +200,7 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -231,7 +231,7 @@
 {
   v3 = type metadata accessor for Notification();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = objc_opt_self();
@@ -251,7 +251,7 @@
 {
   v3 = type metadata accessor for Notification();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   mainSystem = [objc_opt_self() mainSystem];
@@ -263,14 +263,14 @@
 - (void)manageAccount
 {
   selfCopy = self;
-  sub_10024E330();
+  sub_10024E330(v2);
 }
 
 - (void)manageFavoriteCategories
 {
   v3 = type metadata accessor for ActionMetrics();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for FlowAction();
   selfCopy = self;
@@ -281,7 +281,7 @@
   v9 = UIResponder.firstViewInResponderChain.getter();
   sub_1002516A8(v8, v10, v9, selfCopy, &type metadata accessor for FlowAction, &unk_10057A0D0, &type metadata accessor for FlowAction);
 
-  sub_100009104(v10, &unk_1005783D0);
+  sub_100009104(v10, &unk_1005783D0, &qword_1004031E0);
 }
 
 - (void)reportAConcern
@@ -316,7 +316,7 @@
 
   v8 = sub_10024EA68(action, v10);
 
-  sub_100009104(v10, &unk_1005783D0);
+  sub_100009104(v10, &unk_1005783D0, &qword_1004031E0);
   return v8 & 1;
 }
 
@@ -338,46 +338,46 @@
 {
   v3 = type metadata accessor for TextFieldAlertAction();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   static TextFieldAlertAction.newStation(then:)();
   memset(v8, 0, sizeof(v8));
-  sub_100251430(v6, v8, 0, selfCopy, &type metadata accessor for TextFieldAlertAction, &qword_100579A18, &type metadata accessor for TextFieldAlertAction);
+  sub_100251430(v6, v8, 0, selfCopy, &type metadata accessor for TextFieldAlertAction, &qword_100579A18, &type metadata accessor for TextFieldAlertAction, &protocol conformance descriptor for TextFieldAlertAction);
 
-  sub_100009104(v8, &unk_1005783D0);
+  sub_100009104(v8, &unk_1005783D0, &qword_1004031E0);
   (*(v4 + 8))(v6, v3);
 }
 
 - (uint64_t)presentPreferences
 {
-  v0 = sub_100168088(&qword_100574040);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v13 - v1;
-  v3 = type metadata accessor for URL();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100168088(&qword_100574040, &unk_100400AD0);
+  __chkstk_darwin();
+  v1 = &v12 - v0;
+  v2 = type metadata accessor for URL();
+  v3 = *(v2 - 8);
+  __chkstk_darwin();
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   URL.init(string:)();
 
-  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
-    return sub_100009104(v2, &qword_100574040);
+    return sub_100009104(v1, &qword_100574040, &unk_100400AD0);
   }
 
-  (*(v4 + 32))(v6, v2, v3);
+  (*(v3 + 32))(v5, v1, v2);
   sharedApplication = [objc_opt_self() sharedApplication];
-  URL._bridgeToObjectiveC()(v9);
-  v11 = v10;
+  URL._bridgeToObjectiveC()(v8);
+  v10 = v9;
   sub_10016A31C(_swiftEmptyArrayStorage);
   type metadata accessor for OpenExternalURLOptionsKey(0);
-  sub_100252880(&qword_100573120, type metadata accessor for OpenExternalURLOptionsKey);
+  sub_100252880(&qword_100573120, type metadata accessor for OpenExternalURLOptionsKey, &unk_100400148);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  [sharedApplication openURL:v11 options:isa completionHandler:0];
+  [sharedApplication openURL:v10 options:isa completionHandler:0];
 
-  return (*(v4 + 8))(v6, v3);
+  return (*(v3 + 8))(v5, v2);
 }
 
 - (void)showPrivacyInfo
@@ -425,8 +425,8 @@
   sharedApplication = [v0 sharedApplication];
   connectedScenes = [sharedApplication connectedScenes];
 
-  sub_100009F1C(0, &qword_100579A38);
-  sub_100024384(&qword_100579A40, &qword_100579A38);
+  sub_100009F1C(0, &qword_100579A38, UIScene_ptr);
+  sub_100024384(&qword_100579A40, &qword_100579A38, UIScene_ptr, &protocol conformance descriptor for NSObject);
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
   v25 = v0;
@@ -470,7 +470,7 @@
     if (!v17 || (v26 = v17, swift_dynamicCast(), v16 = v27[0], v14 = v6, v15 = v7, !v27[0]))
     {
 LABEL_25:
-      sub_1000319D8();
+      sub_1000319D8(v3);
 
       session2 = 0;
       goto LABEL_26;
@@ -490,7 +490,7 @@ LABEL_19:
 
         if (swift_dynamicCast() & 1) != 0 && (v26)
         {
-          sub_1000319D8();
+          sub_1000319D8(v3);
 
           session2 = [v16 session];
 

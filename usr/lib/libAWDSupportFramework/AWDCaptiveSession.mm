@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)redirectURLTypeAsString:(int)string;
+- (id)whiteListProbeStatusAsString:(int)string;
 - (int)StringAsRedirectURLType:(id)type;
 - (int)StringAsWhiteListProbeStatus:(id)status;
 - (int)redirectURLType;
@@ -343,6 +345,19 @@
   self->_has = (*&self->_has & 0xFFFFFF7F | v3);
 }
 
+- (id)redirectURLTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32460[string];
+  }
+}
+
 - (int)StringAsRedirectURLType:(id)type
 {
   if ([type isEqualToString:@"REDIRECT_URLTYPE_NONE"])
@@ -394,6 +409,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFEFFF | v3);
+}
+
+- (id)whiteListProbeStatusAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32480[string];
+  }
 }
 
 - (int)StringAsWhiteListProbeStatus:(id)status
@@ -742,11 +770,10 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x100) == 0)
@@ -766,7 +793,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = self->_result;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -781,7 +807,6 @@ LABEL_4:
   }
 
 LABEL_42:
-  websheetProbeCount = self->_websheetProbeCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -796,43 +821,40 @@ LABEL_5:
   }
 
 LABEL_43:
-  websheetScraped = self->_websheetScraped;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_6:
-    websheetScrapeResult = self->_websheetScrapeResult;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_7:
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   installedCNPDisplayIDs = self->_installedCNPDisplayIDs;
-  v7 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v37;
+    v7 = v6;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v9)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(installedCNPDisplayIDs);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v8 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v7 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_handlerCNP)
@@ -840,16 +862,15 @@ LABEL_7:
     PBDataWriterWriteStringField();
   }
 
-  v12 = self->_has;
-  if ((*&v12 & 0x4000) != 0)
+  v10 = self->_has;
+  if ((*&v10 & 0x4000) != 0)
   {
-    detectedNotCaptiveHandledByCNP = self->_detectedNotCaptiveHandledByCNP;
     PBDataWriterWriteBOOLField();
-    v12 = self->_has;
-    if ((*&v12 & 2) == 0)
+    v10 = self->_has;
+    if ((*&v10 & 2) == 0)
     {
 LABEL_18:
-      if ((*&v12 & 0x2000) == 0)
+      if ((*&v10 & 0x2000) == 0)
       {
         goto LABEL_20;
       }
@@ -858,17 +879,15 @@ LABEL_18:
     }
   }
 
-  else if ((*&v12 & 2) == 0)
+  else if ((*&v10 & 2) == 0)
   {
     goto LABEL_18;
   }
 
-  autoLoginType = self->_autoLoginType;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_19:
-    autoLoginFailed = self->_autoLoginFailed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -878,16 +897,15 @@ LABEL_20:
     PBDataWriterWriteStringField();
   }
 
-  v14 = self->_has;
-  if ((*&v14 & 0x100000) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x100000) != 0)
   {
-    wisprDetected = self->_wisprDetected;
     PBDataWriterWriteBOOLField();
-    v14 = self->_has;
-    if ((*&v14 & 0x40000) == 0)
+    v11 = self->_has;
+    if ((*&v11 & 0x40000) == 0)
     {
 LABEL_24:
-      if ((*&v14 & 0x10) == 0)
+      if ((*&v11 & 0x10) == 0)
       {
         goto LABEL_25;
       }
@@ -896,18 +914,17 @@ LABEL_24:
     }
   }
 
-  else if ((*&v14 & 0x40000) == 0)
+  else if ((*&v11 & 0x40000) == 0)
   {
     goto LABEL_24;
   }
 
-  passiveCaptivityDetected = self->_passiveCaptivityDetected;
   PBDataWriterWriteBOOLField();
-  v14 = self->_has;
-  if ((*&v14 & 0x10) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10) == 0)
   {
 LABEL_25:
-    if ((*&v14 & 0x20) == 0)
+    if ((*&v11 & 0x20) == 0)
     {
       goto LABEL_26;
     }
@@ -916,13 +933,12 @@ LABEL_25:
   }
 
 LABEL_50:
-  passiveCaptivityCorrectDetection = self->_passiveCaptivityCorrectDetection;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x20) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x20) == 0)
   {
 LABEL_26:
-    if ((*&v14 & 0x8000) == 0)
+    if ((*&v11 & 0x8000) == 0)
     {
       goto LABEL_27;
     }
@@ -931,13 +947,12 @@ LABEL_26:
   }
 
 LABEL_51:
-  passiveCaptivityIncorrectDetection = self->_passiveCaptivityIncorrectDetection;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x8000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x8000) == 0)
   {
 LABEL_27:
-    if ((*&v14 & 0x10000) == 0)
+    if ((*&v11 & 0x10000) == 0)
     {
       goto LABEL_28;
     }
@@ -946,13 +961,12 @@ LABEL_27:
   }
 
 LABEL_52:
-  handlerCNPTriggeredLogOff = self->_handlerCNPTriggeredLogOff;
   PBDataWriterWriteBOOLField();
-  v14 = self->_has;
-  if ((*&v14 & 0x10000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000) == 0)
   {
 LABEL_28:
-    if ((*&v14 & 8) == 0)
+    if ((*&v11 & 8) == 0)
     {
       goto LABEL_29;
     }
@@ -961,13 +975,12 @@ LABEL_28:
   }
 
 LABEL_53:
-  isDetectedCaptive = self->_isDetectedCaptive;
   PBDataWriterWriteBOOLField();
-  v14 = self->_has;
-  if ((*&v14 & 8) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 8) == 0)
   {
 LABEL_29:
-    if ((*&v14 & 4) == 0)
+    if ((*&v11 & 4) == 0)
     {
       goto LABEL_30;
     }
@@ -976,13 +989,12 @@ LABEL_29:
   }
 
 LABEL_54:
-  durationOnNetwork = self->_durationOnNetwork;
   PBDataWriterWriteUint32Field();
-  v14 = self->_has;
-  if ((*&v14 & 4) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 4) == 0)
   {
 LABEL_30:
-    if ((*&v14 & 0x40) == 0)
+    if ((*&v11 & 0x40) == 0)
     {
       goto LABEL_32;
     }
@@ -991,12 +1003,10 @@ LABEL_30:
   }
 
 LABEL_55:
-  durationNetworkNotCaptive = self->_durationNetworkNotCaptive;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_31:
-    passiveCaptivitySymptom = self->_passiveCaptivitySymptom;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1006,55 +1016,50 @@ LABEL_32:
     PBDataWriterWriteStringField();
   }
 
-  v16 = self->_has;
-  if ((*&v16 & 0x20000) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x20000) != 0)
   {
-    nonCaptiveDetectedAsCaptive = self->_nonCaptiveDetectedAsCaptive;
     PBDataWriterWriteBOOLField();
-    v16 = self->_has;
-    if ((*&v16 & 0x80) == 0)
+    v12 = self->_has;
+    if ((*&v12 & 0x80) == 0)
     {
 LABEL_36:
-      if ((*&v16 & 0x1000) == 0)
+      if ((*&v12 & 0x1000) == 0)
       {
         goto LABEL_37;
       }
 
-LABEL_59:
-      whiteListProbeStatus = self->_whiteListProbeStatus;
-      PBDataWriterWriteInt32Field();
-      if ((*&self->_has & 0x800) == 0)
-      {
-        goto LABEL_39;
-      }
-
-      goto LABEL_38;
+      goto LABEL_59;
     }
   }
 
-  else if ((*&v16 & 0x80) == 0)
+  else if ((*&v12 & 0x80) == 0)
   {
     goto LABEL_36;
   }
 
-  redirectURLType = self->_redirectURLType;
   PBDataWriterWriteInt32Field();
-  v16 = self->_has;
-  if ((*&v16 & 0x1000) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x1000) == 0)
   {
-    goto LABEL_59;
-  }
-
 LABEL_37:
-  if ((*&v16 & 0x800) != 0)
-  {
-LABEL_38:
-    whiteListProbeCompletionTime = self->_whiteListProbeCompletionTime;
-    PBDataWriterWriteUint32Field();
+    if ((*&v12 & 0x800) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_38;
   }
 
-LABEL_39:
-  v18 = *MEMORY[0x29EDCA608];
+LABEL_59:
+  PBDataWriterWriteInt32Field();
+  if ((*&self->_has & 0x800) == 0)
+  {
+    return;
+  }
+
+LABEL_38:
+  PBDataWriterWriteUint32Field();
 }
 
 - (void)copyTo:(id)to
@@ -1359,7 +1364,7 @@ LABEL_35:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1425,30 +1430,30 @@ LABEL_6:
   }
 
 LABEL_7:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   installedCNPDisplayIDs = self->_installedCNPDisplayIDs;
-  v9 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(installedCNPDisplayIDs);
         }
 
-        v13 = [*(*(&v19 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v18 + 1) + 8 * i) copyWithZone:zone];
         [v6 addInstalledCNPDisplayIDs:v13];
       }
 
-      v10 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSMutableArray *)installedCNPDisplayIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -1634,7 +1639,7 @@ LABEL_53:
       *(v6 + 108) |= 0x1000u;
       if ((*&self->_has & 0x800) == 0)
       {
-        goto LABEL_33;
+        return v6;
       }
 
       goto LABEL_32;
@@ -1662,8 +1667,6 @@ LABEL_32:
     *(v6 + 108) |= 0x800u;
   }
 
-LABEL_33:
-  v17 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1723,7 +1726,6 @@ LABEL_33:
       goto LABEL_140;
     }
 
-    v8 = *(equal + 106);
     if (self->_websheetScraped)
     {
       if ((*(equal + 106) & 1) == 0)
@@ -1762,16 +1764,15 @@ LABEL_33:
     handlerCNP = self->_handlerCNP;
     if (!(handlerCNP | *(equal + 6)) || (v5 = [(NSString *)handlerCNP isEqual:?]) != 0)
     {
-      v11 = self->_has;
-      v12 = *(equal + 27);
-      if ((*&v11 & 0x4000) != 0)
+      v10 = self->_has;
+      v11 = *(equal + 27);
+      if ((*&v10 & 0x4000) != 0)
       {
-        if ((v12 & 0x4000) == 0)
+        if ((v11 & 0x4000) == 0)
         {
           goto LABEL_140;
         }
 
-        v13 = *(equal + 101);
         if (self->_detectedNotCaptiveHandledByCNP)
         {
           if ((*(equal + 101) & 1) == 0)
@@ -1786,32 +1787,31 @@ LABEL_33:
         }
       }
 
-      else if ((v12 & 0x4000) != 0)
+      else if ((v11 & 0x4000) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 2) != 0)
+      if ((*&v10 & 2) != 0)
       {
-        if ((v12 & 2) == 0 || self->_autoLoginType != *(equal + 8))
+        if ((v11 & 2) == 0 || self->_autoLoginType != *(equal + 8))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v12 & 2) != 0)
+      else if ((v11 & 2) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x2000) != 0)
+      if ((*&v10 & 0x2000) != 0)
       {
-        if ((v12 & 0x2000) == 0)
+        if ((v11 & 0x2000) == 0)
         {
           goto LABEL_140;
         }
 
-        v16 = *(equal + 100);
         if (self->_autoLoginFailed)
         {
           if ((*(equal + 100) & 1) == 0)
@@ -1826,7 +1826,7 @@ LABEL_33:
         }
       }
 
-      else if ((v12 & 0x2000) != 0)
+      else if ((v11 & 0x2000) != 0)
       {
         goto LABEL_140;
       }
@@ -1840,18 +1840,17 @@ LABEL_33:
           return v5;
         }
 
-        v11 = self->_has;
+        v10 = self->_has;
       }
 
-      v15 = *(equal + 27);
-      if ((*&v11 & 0x100000) != 0)
+      v13 = *(equal + 27);
+      if ((*&v10 & 0x100000) != 0)
       {
-        if ((v15 & 0x100000) == 0)
+        if ((v13 & 0x100000) == 0)
         {
           goto LABEL_140;
         }
 
-        v17 = *(equal + 107);
         if (self->_wisprDetected)
         {
           if ((*(equal + 107) & 1) == 0)
@@ -1866,19 +1865,18 @@ LABEL_33:
         }
       }
 
-      else if ((v15 & 0x100000) != 0)
+      else if ((v13 & 0x100000) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x40000) != 0)
+      if ((*&v10 & 0x40000) != 0)
       {
-        if ((v15 & 0x40000) == 0)
+        if ((v13 & 0x40000) == 0)
         {
           goto LABEL_140;
         }
 
-        v18 = *(equal + 105);
         if (self->_passiveCaptivityDetected)
         {
           if ((*(equal + 105) & 1) == 0)
@@ -1893,45 +1891,44 @@ LABEL_33:
         }
       }
 
-      else if ((v15 & 0x40000) != 0)
+      else if ((v13 & 0x40000) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x10) != 0)
+      if ((*&v10 & 0x10) != 0)
       {
-        if ((v15 & 0x10) == 0 || self->_passiveCaptivityCorrectDetection != *(equal + 16))
+        if ((v13 & 0x10) == 0 || self->_passiveCaptivityCorrectDetection != *(equal + 16))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v15 & 0x10) != 0)
+      else if ((v13 & 0x10) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x20) != 0)
+      if ((*&v10 & 0x20) != 0)
       {
-        if ((v15 & 0x20) == 0 || self->_passiveCaptivityIncorrectDetection != *(equal + 17))
+        if ((v13 & 0x20) == 0 || self->_passiveCaptivityIncorrectDetection != *(equal + 17))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v15 & 0x20) != 0)
+      else if ((v13 & 0x20) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x8000) != 0)
+      if ((*&v10 & 0x8000) != 0)
       {
-        if ((v15 & 0x8000) == 0)
+        if ((v13 & 0x8000) == 0)
         {
           goto LABEL_140;
         }
 
-        v19 = *(equal + 102);
         if (self->_handlerCNPTriggeredLogOff)
         {
           if ((*(equal + 102) & 1) == 0)
@@ -1946,19 +1943,18 @@ LABEL_33:
         }
       }
 
-      else if ((v15 & 0x8000) != 0)
+      else if ((v13 & 0x8000) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x10000) != 0)
+      if ((*&v10 & 0x10000) != 0)
       {
-        if ((v15 & 0x10000) == 0)
+        if ((v13 & 0x10000) == 0)
         {
           goto LABEL_140;
         }
 
-        v20 = *(equal + 103);
         if (self->_isDetectedCaptive)
         {
           if ((*(equal + 103) & 1) == 0)
@@ -1973,46 +1969,46 @@ LABEL_33:
         }
       }
 
-      else if ((v15 & 0x10000) != 0)
+      else if ((v13 & 0x10000) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 8) != 0)
+      if ((*&v10 & 8) != 0)
       {
-        if ((v15 & 8) == 0 || self->_durationOnNetwork != *(equal + 10))
+        if ((v13 & 8) == 0 || self->_durationOnNetwork != *(equal + 10))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v15 & 8) != 0)
+      else if ((v13 & 8) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 4) != 0)
+      if ((*&v10 & 4) != 0)
       {
-        if ((v15 & 4) == 0 || self->_durationNetworkNotCaptive != *(equal + 9))
+        if ((v13 & 4) == 0 || self->_durationNetworkNotCaptive != *(equal + 9))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v15 & 4) != 0)
+      else if ((v13 & 4) != 0)
       {
         goto LABEL_140;
       }
 
-      if ((*&v11 & 0x40) != 0)
+      if ((*&v10 & 0x40) != 0)
       {
-        if ((v15 & 0x40) == 0 || self->_passiveCaptivitySymptom != *(equal + 18))
+        if ((v13 & 0x40) == 0 || self->_passiveCaptivitySymptom != *(equal + 18))
         {
           goto LABEL_140;
         }
       }
 
-      else if ((v15 & 0x40) != 0)
+      else if ((v13 & 0x40) != 0)
       {
         goto LABEL_140;
       }
@@ -2026,13 +2022,13 @@ LABEL_33:
           return v5;
         }
 
-        v11 = self->_has;
+        v10 = self->_has;
       }
 
-      v22 = *(equal + 27);
-      if ((*&v11 & 0x20000) == 0)
+      v15 = *(equal + 27);
+      if ((*&v10 & 0x20000) == 0)
       {
-        if ((v22 & 0x20000) != 0)
+        if ((v15 & 0x20000) != 0)
         {
           goto LABEL_140;
         }
@@ -2040,9 +2036,8 @@ LABEL_33:
         goto LABEL_126;
       }
 
-      if ((v22 & 0x20000) != 0)
+      if ((v15 & 0x20000) != 0)
       {
-        v23 = *(equal + 104);
         if (self->_nonCaptiveDetectedAsCaptive)
         {
           if ((*(equal + 104) & 1) == 0)
@@ -2056,36 +2051,36 @@ LABEL_33:
         if ((*(equal + 104) & 1) == 0)
         {
 LABEL_126:
-          if ((*&v11 & 0x80) != 0)
+          if ((*&v10 & 0x80) != 0)
           {
-            if ((v22 & 0x80) == 0 || self->_redirectURLType != *(equal + 19))
+            if ((v15 & 0x80) == 0 || self->_redirectURLType != *(equal + 19))
             {
               goto LABEL_140;
             }
           }
 
-          else if ((v22 & 0x80) != 0)
+          else if ((v15 & 0x80) != 0)
           {
             goto LABEL_140;
           }
 
-          if ((*&v11 & 0x1000) != 0)
+          if ((*&v10 & 0x1000) != 0)
           {
-            if ((v22 & 0x1000) == 0 || self->_whiteListProbeStatus != *(equal + 24))
+            if ((v15 & 0x1000) == 0 || self->_whiteListProbeStatus != *(equal + 24))
             {
               goto LABEL_140;
             }
           }
 
-          else if ((v22 & 0x1000) != 0)
+          else if ((v15 & 0x1000) != 0)
           {
             goto LABEL_140;
           }
 
           LOBYTE(v5) = (*(equal + 27) & 0x800) == 0;
-          if ((*&v11 & 0x800) != 0)
+          if ((*&v10 & 0x800) != 0)
           {
-            if ((v22 & 0x800) == 0 || self->_whiteListProbeCompletionTime != *(equal + 23))
+            if ((v15 & 0x800) == 0 || self->_whiteListProbeCompletionTime != *(equal + 23))
             {
               goto LABEL_140;
             }
@@ -2389,7 +2384,7 @@ LABEL_42:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = *(from + 27);
   if (v5)
   {
@@ -2453,29 +2448,29 @@ LABEL_6:
   }
 
 LABEL_7:
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = *(from + 7);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCaptiveSession *)self addInstalledCNPDisplayIDs:*(*(&v15 + 1) + 8 * i)];
+        [(AWDCaptiveSession *)self addInstalledCNPDisplayIDs:*(*(&v14 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -2666,15 +2661,7 @@ LABEL_36:
         goto LABEL_37;
       }
 
-LABEL_59:
-      self->_whiteListProbeStatus = *(from + 24);
-      *&self->_has |= 0x1000u;
-      if ((*(from + 27) & 0x800) == 0)
-      {
-        goto LABEL_39;
-      }
-
-      goto LABEL_38;
+      goto LABEL_59;
     }
   }
 
@@ -2686,21 +2673,28 @@ LABEL_59:
   self->_redirectURLType = *(from + 19);
   *&self->_has |= 0x80u;
   v13 = *(from + 27);
-  if ((v13 & 0x1000) != 0)
+  if ((v13 & 0x1000) == 0)
   {
-    goto LABEL_59;
-  }
-
 LABEL_37:
-  if ((v13 & 0x800) != 0)
-  {
-LABEL_38:
-    self->_whiteListProbeCompletionTime = *(from + 23);
-    *&self->_has |= 0x800u;
+    if ((v13 & 0x800) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_38;
   }
 
-LABEL_39:
-  v14 = *MEMORY[0x29EDCA608];
+LABEL_59:
+  self->_whiteListProbeStatus = *(from + 24);
+  *&self->_has |= 0x1000u;
+  if ((*(from + 27) & 0x800) == 0)
+  {
+    return;
+  }
+
+LABEL_38:
+  self->_whiteListProbeCompletionTime = *(from + 23);
+  *&self->_has |= 0x800u;
 }
 
 @end

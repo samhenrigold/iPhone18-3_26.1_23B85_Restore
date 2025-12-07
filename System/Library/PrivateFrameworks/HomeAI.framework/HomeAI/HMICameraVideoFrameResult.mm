@@ -65,16 +65,16 @@
     v15->_regionOfInterest.size.width = width;
     v15->_regionOfInterest.size.height = height;
     objc_storeStrong(&v15->_analyzerEvents, events);
-    v15->_events = [objc_opt_class() _eventsFromAnalyzerEvents:eventsCopy];
-    v16 = [objc_opt_class() _annotationScoresFromAnalyzerEvents:eventsCopy];
+    v15->_events = [objc_opt_class() _eventsFromAnalyzerEvents:?];
+    v16 = [objc_opt_class() _annotationScoresFromAnalyzerEvents:?];
     annotationScores = v15->_annotationScores;
     v15->_annotationScores = v16;
 
-    v18 = [objc_opt_class() _detectionsFromAnalyzerEvents:eventsCopy];
+    v18 = [objc_opt_class() _detectionsFromAnalyzerEvents:?];
     detections = v15->_detections;
     v15->_detections = v18;
 
-    v20 = [objc_opt_class() _faceClassificationsFromAnalyzerEvents:eventsCopy];
+    v20 = [objc_opt_class() _faceClassificationsFromAnalyzerEvents:?];
     faceClassifications = v15->_faceClassifications;
     v15->_faceClassifications = v20;
   }
@@ -85,20 +85,15 @@
 + (id)_faceClassificationsFromAnalyzerEvents:(id)events
 {
   eventsCopy = events;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__2;
-  v11 = __Block_byref_object_dispose__2;
-  v12 = [MEMORY[0x277CBEB58] set];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __68__HMICameraVideoFrameResult__faceClassificationsFromAnalyzerEvents___block_invoke;
-  v6[3] = &unk_278752EF8;
-  v6[4] = &v7;
-  [eventsCopy na_each:v6];
-  v4 = [v8[5] copy];
-  _Block_object_dispose(&v7, 8);
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__2;
+  v10 = __Block_byref_object_dispose__2;
+  v11 = [MEMORY[0x277CBEB58] set];
+  [eventsCopy na_each:?];
+  v4 = [v7[5] copy];
+  _Block_object_dispose(&v6, 8);
 
   return v4;
 }
@@ -136,7 +131,7 @@ void __68__HMICameraVideoFrameResult__faceClassificationsFromAnalyzerEvents___bl
         v12 = *(*(*(a1 + 32) + 8) + 40);
         v13 = [v11 classifications];
         v14 = [v13 allObjects];
-        [v12 addObjectsFromArray:v14];
+        [v12 addObjectsFromArray:?];
       }
     }
   }
@@ -149,29 +144,26 @@ void __68__HMICameraVideoFrameResult__faceClassificationsFromAnalyzerEvents___bl
   v11 = &v10;
   v12 = 0x2020000000;
   v13 = 0;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke;
-  v7[3] = &unk_278753228;
+  v7 = MEMORY[0x277D85DD0];
   v4 = eventsCopy;
   v8 = v4;
   v9 = &v10;
-  [v4 na_each:v7];
+  [v4 na_each:{v7, 3221225472, __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke, &unk_278753228}];
   v5 = v11[3];
 
   _Block_object_dispose(&v10, 8);
   return v5;
 }
 
-uint64_t __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke(uint64_t a1)
+void *__55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke(uint64_t a1)
 {
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke_2;
-  v3[3] = &unk_278752EF8;
+  v3 = MEMORY[0x277D85DD0];
+  v4 = 3221225472;
+  v5 = __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke_2;
+  v6 = &unk_278752EF8;
   v1 = *(a1 + 32);
-  v3[4] = *(a1 + 40);
-  return [v1 na_each:v3];
+  v7 = *(a1 + 40);
+  return [v1 na_each:?];
 }
 
 void __55__HMICameraVideoFrameResult__eventsFromAnalyzerEvents___block_invoke_2(uint64_t a1, void *a2)
@@ -207,20 +199,15 @@ LABEL_9:
 + (id)_annotationScoresFromAnalyzerEvents:(id)events
 {
   eventsCopy = events;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__2;
-  v11 = __Block_byref_object_dispose__2;
-  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __65__HMICameraVideoFrameResult__annotationScoresFromAnalyzerEvents___block_invoke;
-  v6[3] = &unk_278752EF8;
-  v6[4] = &v7;
-  [eventsCopy na_each:v6];
-  v4 = v8[5];
-  _Block_object_dispose(&v7, 8);
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__2;
+  v10 = __Block_byref_object_dispose__2;
+  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [eventsCopy na_each:?];
+  v4 = v7[5];
+  _Block_object_dispose(&v6, 8);
 
   return v4;
 }
@@ -236,17 +223,18 @@ void __65__HMICameraVideoFrameResult__annotationScoresFromAnalyzerEvents___block
   v6 = MEMORY[0x277CCABB0];
   v7 = objc_opt_class();
 
-  v8 = [v6 numberWithInteger:HMIEventClassToCameraVideoAnalyzerEventType(v7)];
-  v9 = [*(*(*(a1 + 32) + 8) + 40) objectForKey:v8];
+  HMIEventClassToCameraVideoAnalyzerEventType(v7);
+  v8 = [v6 numberWithInteger:?];
+  v9 = [*(*(*(a1 + 32) + 8) + 40) objectForKey:?];
   if (!v9 || ([v13 doubleValue], v11 = v10, objc_msgSend(v9, "doubleValue"), v11 > v12))
   {
-    [*(*(*(a1 + 32) + 8) + 40) setObject:v13 forKey:v8];
+    [*(*(*(a1 + 32) + 8) + 40) setObject:? forKey:?];
   }
 }
 
 + (id)_detectionsFromAnalyzerEvents:(id)events
 {
-  v3 = [events na_map:&__block_literal_global_8];
+  v3 = [events na_map:?];
   allObjects = [v3 allObjects];
 
   return allObjects;
@@ -256,70 +244,41 @@ HMIObjectDetection *__59__HMICameraVideoFrameResult__detectionsFromAnalyzerEvent
 {
   v2 = a2;
   v3 = objc_opt_class();
-  if (v3 == objc_opt_class())
-  {
-    v6 = 1;
-  }
-
-  else
+  if (v3 != objc_opt_class())
   {
     v4 = objc_opt_class();
-    if (v4 == objc_opt_class())
+    if (v4 != objc_opt_class())
     {
-      v6 = 3;
-    }
-
-    else
-    {
-      v5 = objc_opt_class();
-      if (v5 == objc_opt_class())
-      {
-        v6 = 2;
-      }
-
-      else
-      {
-        v6 = 7;
-      }
+      objc_opt_class();
+      objc_opt_class();
     }
   }
 
-  v7 = [HMIObjectDetection alloc];
-  v8 = [v2 confidence];
-  [v8 value];
-  v10 = v9;
+  v5 = [HMIObjectDetection alloc];
+  v6 = [v2 confidence];
+  [v6 value];
   [v2 boundingBox];
-  v15 = [(HMIObjectDetection *)v7 initWithLabelIndex:v6 confidence:0 boundingBox:0 yaw:v10 roll:v11, v12, v13, v14];
+  v7 = [HMIObjectDetection initWithLabelIndex:v5 confidence:"initWithLabelIndex:confidence:boundingBox:yaw:roll:" boundingBox:? yaw:? roll:?];
 
-  return v15;
+  return v7;
 }
 
 - (id)maxConfidenceEventForEventClass:(Class)class
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__2;
-  v14 = __Block_byref_object_dispose__2;
-  v15 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy__2;
+  v11 = __Block_byref_object_dispose__2;
+  v12 = 0;
   analyzerEvents = [(HMICameraVideoFrameResult *)self analyzerEvents];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__HMICameraVideoFrameResult_maxConfidenceEventForEventClass___block_invoke;
-  v9[3] = &__block_descriptor_40_e31_B16__0__HMIVideoAnalyzerEvent_8lu32l8;
-  v9[4] = class;
-  v5 = [analyzerEvents na_filter:v9];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __61__HMICameraVideoFrameResult_maxConfidenceEventForEventClass___block_invoke_2;
-  v8[3] = &unk_278752EF8;
-  v8[4] = &v10;
-  [v5 na_each:v8];
+  v4 = [analyzerEvents na_filter:?];
+  [v4 na_each:{MEMORY[0x277D85DD0], 3221225472, __61__HMICameraVideoFrameResult_maxConfidenceEventForEventClass___block_invoke_2, &unk_278752EF8, &v7}];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v5 = v8[5];
+  _Block_object_dispose(&v7, 8);
 
-  return v6;
+  return v5;
 }
 
 void __61__HMICameraVideoFrameResult_maxConfidenceEventForEventClass___block_invoke_2(uint64_t a1, void *a2)
@@ -366,35 +325,31 @@ LABEL_5:
 
 - (HMICameraVideoFrameResult)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMICVFR.f"];
-  [coderCopy decodeRectForKey:@"HMICVFR.roi"];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v14 = MEMORY[0x277CBEB98];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v16 = [v14 setWithArray:v15];
-  v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"HMICVFR.ae"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeRectForKey:?];
+  v6 = MEMORY[0x277CBEB98];
+  objc_opt_class();
+  objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v8 = [v6 setWithArray:?];
+  v9 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v18 = [(HMICameraVideoFrameResult *)self initWithFrame:v5 regionOfInterest:v17 analyzerEvents:v7, v9, v11, v13];
-  return v18;
+  v10 = [HMICameraVideoFrameResult initWithFrame:"initWithFrame:regionOfInterest:analyzerEvents:" regionOfInterest:? analyzerEvents:?];
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   frame = [(HMICameraVideoFrameResult *)self frame];
-  [coderCopy encodeObject:frame forKey:@"HMICVFR.f"];
+  [coderCopy encodeObject:? forKey:?];
 
   [(HMICameraVideoFrameResult *)self regionOfInterest];
-  [coderCopy encodeRect:@"HMICVFR.roi" forKey:?];
+  [coderCopy encodeRect:? forKey:?];
   analyzerEvents = [(HMICameraVideoFrameResult *)self analyzerEvents];
-  [coderCopy encodeObject:analyzerEvents forKey:@"HMICVFR.ae"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -413,12 +368,12 @@ LABEL_5:
       v5 = equalCopy;
       frame = [(HMICameraVideoFrameResult *)self frame];
       frame2 = [(HMICameraVideoFrameResult *)v5 frame];
-      v8 = [frame isEqual:frame2];
+      v8 = [frame isEqual:?];
 
       analyzerEvents = [(HMICameraVideoFrameResult *)self analyzerEvents];
       analyzerEvents2 = [(HMICameraVideoFrameResult *)v5 analyzerEvents];
 
-      v11 = v8 & [analyzerEvents isEqualToSet:analyzerEvents2];
+      v11 = v8 & [analyzerEvents isEqualToSet:?];
     }
 
     else

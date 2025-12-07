@@ -171,14 +171,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    displayType = self->_displayType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    displayRoles = self->_displayRoles;
     PBDataWriterWriteInt32Field();
   }
 
@@ -212,33 +210,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v8 = self->_otherButtonInfos;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_otherButtonInfos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v15;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 }
 
@@ -406,7 +403,6 @@
     }
   }
 
-  v6 = *(equalCopy + 80);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_displayType != *(equalCopy + 13))
@@ -418,7 +414,7 @@
   else if ((*(equalCopy + 80) & 2) != 0)
   {
 LABEL_28:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_29;
   }
 
@@ -489,17 +485,17 @@ LABEL_28:
   otherButtonInfos = self->_otherButtonInfos;
   if (otherButtonInfos | *(equalCopy + 8))
   {
-    v14 = [(NSMutableArray *)otherButtonInfos isEqual:?];
+    v13 = [(NSMutableArray *)otherButtonInfos isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_29:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

@@ -325,47 +325,47 @@
 
 - (id)_vk_flattenWithPath:()Utilities clipType:
 {
-  v19[18] = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  memset(v10, 0, sizeof(v10));
-  ClipperLib::Clipper::Clipper(&v11, 0);
+  v20[18] = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  memset(v11, 0, sizeof(v11));
+  ClipperLib::Clipper::Clipper(&v12, 0);
   selfCopy = self;
-  if (v4 && ([v4 isEmpty] & 1) == 0)
+  if (v5 && ([v5 isEmpty] & 1) == 0)
   {
-    memset(&v9, 0, sizeof(v9));
-    CGAffineTransformMakeScale(&v9, 10000.0, 10000.0);
+    memset(&v10, 0, sizeof(v10));
+    CGAffineTransformMakeScale(&v10, 10000.0, 10000.0);
     if (([selfCopy isEmpty] & 1) == 0)
     {
-      v6 = MEMORY[0x1B8C75EB0]([selfCopy vk_CGPath], &v9);
-      VKMClipperPathsFromCGPath(v6, 1.0);
+      v7 = MEMORY[0x1B8C75EB0]([selfCopy vk_CGPath], &v10);
+      VKMClipperPathsFromCGPath(v7, 1.0);
     }
 
-    v7 = MEMORY[0x1B8C75EB0]([v4 vk_CGPath], &v9);
-    VKMClipperPathsFromCGPath(v7, 1.0);
+    v8 = MEMORY[0x1B8C75EB0]([v5 vk_CGPath], &v10);
+    VKMClipperPathsFromCGPath(v8, 1.0);
   }
 
-  std::__list_imp<long long>::clear(v18);
+  std::__list_imp<long long>::clear(v19);
   if (__p)
   {
-    v17 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
-  if (v14)
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = v12;
-    operator delete(v12);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  ClipperLib::ClipperBase::~ClipperBase(v19);
-  v11 = v10;
-  std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v11);
+  ClipperLib::ClipperBase::~ClipperBase(v20);
+  v12 = v11;
+  std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v12);
 
   return selfCopy;
 }
@@ -383,30 +383,30 @@
 
 + (id)vk_groupAndRoundPaths:()Utilities radius:offset:
 {
-  v16[36] = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __63__UIBezierPath_Utilities__vk_groupAndRoundPaths_radius_offset___block_invoke;
-  v9[3] = &__block_descriptor_40_e29_B32__0__UIBezierPath_8Q16_B24l;
-  v9[4] = self;
-  if (([v4 vk_containsObjectPassingTest:v9] & 1) == 0)
+  v18[36] = *MEMORY[0x1E69E9840];
+  v6 = a5;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63__UIBezierPath_Utilities__vk_groupAndRoundPaths_radius_offset___block_invoke;
+  v11[3] = &__block_descriptor_40_e29_B32__0__UIBezierPath_8Q16_B24l;
+  v11[4] = self;
+  if (([v6 vk_containsObjectPassingTest:v11] & 1) == 0)
   {
-    memset(v8, 0, sizeof(v8));
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x15012000000;
-    v13 = __Block_byref_object_copy__16;
-    v14 = __Block_byref_object_dispose__17;
-    v15 = &unk_1B44420A2;
-    v5 = ClipperLib::Clipper::Clipper(v16, 0);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __63__UIBezierPath_Utilities__vk_groupAndRoundPaths_radius_offset___block_invoke_19;
-    v7[3] = &unk_1E7BE6C08;
-    v7[4] = &v10;
-    [v4 enumerateObjectsUsingBlock:{v7, v5}];
-    ClipperLib::Clipper::Execute((v11 + 6), 1, v8, 0);
+    memset(v10, 0, sizeof(v10));
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x15012000000;
+    v15 = __Block_byref_object_copy__16;
+    v16 = __Block_byref_object_dispose__17;
+    v17 = &unk_1B44420A2;
+    v7 = ClipperLib::Clipper::Clipper(v18, 0);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __63__UIBezierPath_Utilities__vk_groupAndRoundPaths_radius_offset___block_invoke_19;
+    v9[3] = &unk_1E7BE6C08;
+    v9[4] = &v12;
+    [v6 enumerateObjectsUsingBlock:{v9, v7}];
+    ClipperLib::Clipper::Execute((v13 + 6), 1, v10, 0);
     operator new();
   }
 
@@ -713,19 +713,19 @@
 
 + (void)vk_roundAndGroupNormalizedQuadsForHighlight:()Utilities aspectRatio:expansionScale:radiusToAvgHeightRatio:
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = a3;
-  v4 = objc_alloc_init(MEMORY[0x1E69DC728]);
-  v6[0] = 0;
-  v6[1] = v6;
-  v6[2] = 0x13812000000;
-  v6[3] = __Block_byref_object_copy__25;
-  v6[4] = __Block_byref_object_dispose__26;
-  v6[5] = &unk_1B44420A2;
-  ClipperLib::ClipperOffset::ClipperOffset(&v7, 2.0, 0.25);
-  v5[0] = 0;
-  v5[1] = v5;
-  v5[2] = 0x2020000000;
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = a6;
+  v7 = objc_alloc_init(MEMORY[0x1E69DC728]);
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x13812000000;
+  v9[3] = __Block_byref_object_copy__25;
+  v9[4] = __Block_byref_object_dispose__26;
+  v9[5] = &unk_1B44420A2;
+  ClipperLib::ClipperOffset::ClipperOffset(&v10, 2.0, 0.25);
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2020000000;
   operator new();
 }
 

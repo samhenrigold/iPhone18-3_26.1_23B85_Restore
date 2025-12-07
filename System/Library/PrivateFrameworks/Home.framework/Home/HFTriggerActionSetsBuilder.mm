@@ -80,28 +80,28 @@
 
 - (id)_generateSummaryInformationForStandardTrigger
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(HFTriggerActionsSetsUISummary);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   namedActionSets = [(HFTriggerActionSetsBuilder *)self namedActionSets];
-  v5 = [namedActionSets countByEnumeratingWithState:&v63 objects:v70 count:16];
+  v5 = [namedActionSets countByEnumeratingWithState:&v62 objects:v69 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v64;
+    v7 = *v63;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v64 != v7)
+        if (*v63 != v7)
         {
           objc_enumerationMutation(namedActionSets);
         }
 
-        v9 = *(*(&v63 + 1) + 8 * i);
+        v9 = *(*(&v62 + 1) + 8 * i);
         name = [v9 name];
         [(HFTriggerActionsSetsUISummary *)v3 addSceneNamed:name];
 
@@ -114,7 +114,7 @@
         }
       }
 
-      v6 = [namedActionSets countByEnumeratingWithState:&v63 objects:v70 count:16];
+      v6 = [namedActionSets countByEnumeratingWithState:&v62 objects:v69 count:16];
     }
 
     while (v6);
@@ -131,27 +131,27 @@
     [(HFTriggerActionsSetsUISummary *)v3 setUniqueServiceGroupName:name2];
   }
 
-  v50 = v16;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v49 = v16;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v18 = v13;
-  v19 = [v18 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v60;
+    v21 = *v59;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v60 != v21)
+        if (*v59 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v59 + 1) + 8 * j);
+        v23 = *(*(&v58 + 1) + 8 * j);
         name3 = [v23 name];
         [(HFTriggerActionsSetsUISummary *)v3 addServiceNamed:name3];
 
@@ -159,34 +159,34 @@
         [(HFTriggerActionsSetsUISummary *)v3 addIconDescriptor:hf_iconDescriptor2];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
     while (v20);
   }
 
-  v49 = v18;
+  v48 = v18;
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v26 = v14;
-  v27 = [v26 countByEnumeratingWithState:&v55 objects:v68 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v54 objects:v67 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v56;
+    v29 = *v55;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v56 != v29)
+        if (*v55 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v55 + 1) + 8 * k);
+        v31 = *(*(&v54 + 1) + 8 * k);
         hf_serviceNameComponents = [v31 hf_serviceNameComponents];
         composedString = [hf_serviceNameComponents composedString];
         [(HFTriggerActionsSetsUISummary *)v3 addMediaAccessoryNamed:composedString];
@@ -195,7 +195,7 @@
         [(HFTriggerActionsSetsUISummary *)v3 addIconDescriptor:v34];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v55 objects:v68 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v54 objects:v67 count:16];
     }
 
     while (v28);
@@ -203,26 +203,26 @@
 
   v35 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [(HFTriggerActionSetsBuilder *)self _generateMatterRepresentables:v35];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v36 = v35;
-  v37 = [v36 countByEnumeratingWithState:&v51 objects:v67 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v50 objects:v66 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v52;
+    v39 = *v51;
     do
     {
       for (m = 0; m != v38; ++m)
       {
-        if (*v52 != v39)
+        if (*v51 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = *(*(&v51 + 1) + 8 * m);
+        v41 = *(*(&v50 + 1) + 8 * m);
         hf_serviceNameComponents2 = [v41 hf_serviceNameComponents];
         serviceName = [hf_serviceNameComponents2 serviceName];
         [(HFTriggerActionsSetsUISummary *)v3 addMatterRepresentableNamed:serviceName];
@@ -234,44 +234,42 @@
         [(HFTriggerActionsSetsUISummary *)v3 addIconDescriptor:v46];
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v51 objects:v67 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v50 objects:v66 count:16];
     }
 
     while (v38);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_generateStandaloneServices:(id)services andMediaAccessories:(id)accessories
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   accessoriesCopy = accessories;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
   actions = [anonymousActionSetBuilder actions];
 
-  v9 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [actions countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(actions);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         getOrCreateAction = [v13 getOrCreateAction];
         if (getOrCreateAction)
         {
@@ -292,24 +290,24 @@
           if (v17)
           {
             characteristic = [v17 characteristic];
-            service = [characteristic service];
+            action = objc_msgSend_service(characteristic);
 
-            if (!service)
+            if (!action)
             {
               characteristic2 = [v17 characteristic];
               NSLog(&cfstr_UnexpectedlyGo.isa, v17, characteristic2);
             }
 
-            [servicesCopy na_safeAddObject:service];
+            [servicesCopy na_safeAddObject:action];
           }
 
           else
           {
             objc_opt_class();
-            service = [v13 action];
+            action = [v13 action];
             if (objc_opt_isKindOfClass())
             {
-              v21 = service;
+              v21 = action;
             }
 
             else
@@ -327,47 +325,45 @@
 
             else
             {
-              service = 0;
+              action = 0;
             }
           }
         }
       }
 
-      v10 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [actions countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateMatterRepresentables:(id)representables
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   representablesCopy = representables;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
   actions = [anonymousActionSetBuilder actions];
 
-  v7 = [actions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(actions);
         }
 
-        getOrCreateAction = [*(*(&v18 + 1) + 8 * i) getOrCreateAction];
+        getOrCreateAction = [*(*(&v17 + 1) + 8 * i) getOrCreateAction];
         if (getOrCreateAction)
         {
           objc_opt_class();
@@ -401,43 +397,41 @@
         }
       }
 
-      v8 = [actions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_uniqueServiceGroupForServices:(id)services
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
-  home = [anonymousActionSetBuilder home];
-  serviceGroups = [home serviceGroups];
+  v6 = objc_msgSend_home(anonymousActionSetBuilder);
+  serviceGroups = [v6 serviceGroups];
 
-  v8 = [serviceGroups countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [serviceGroups countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(serviceGroups);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         if ([v13 hf_isSupported])
         {
           v14 = objc_alloc(MEMORY[0x277CBEB98]);
@@ -458,7 +452,7 @@
         }
       }
 
-      v9 = [serviceGroups countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [serviceGroups countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -476,8 +470,6 @@
   v10 = v10;
   v17 = v10;
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -499,7 +491,7 @@ void *__68__HFTriggerActionSetsBuilder_UI__mediaAccessoriesForPlaybackAction___b
 {
   v3 = a2;
   v4 = [*(a1 + 32) anonymousActionSetBuilder];
-  v5 = [v4 home];
+  v5 = objc_msgSend_home(v4);
   v6 = [v5 mediaSystems];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
@@ -565,12 +557,12 @@ uint64_t __68__HFTriggerActionSetsBuilder_UI__mediaAccessoriesForPlaybackAction_
 - (HFTriggerActionSetsBuilder)initWithActionSets:(id)sets inHome:(id)home filterEmptyActionSets:(BOOL)actionSets
 {
   actionSetsCopy = actionSets;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   homeCopy = home;
-  v39.receiver = self;
-  v39.super_class = HFTriggerActionSetsBuilder;
-  v10 = [(HFTriggerActionSetsBuilder *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = HFTriggerActionSetsBuilder;
+  v10 = [(HFTriggerActionSetsBuilder *)&v38 init];
   v11 = v10;
   if (v10)
   {
@@ -583,26 +575,26 @@ uint64_t __68__HFTriggerActionSetsBuilder_UI__mediaAccessoriesForPlaybackAction_
       v12 = v13;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
 LABEL_6:
       v18 = 0;
       while (1)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        hf_shortcutAction = [*(*(&v35 + 1) + 8 * v18) hf_shortcutAction];
+        hf_shortcutAction = [*(*(&v34 + 1) + 8 * v18) hf_shortcutAction];
         [(HFTriggerActionSetsBuilder *)v11 setShortcutAction:hf_shortcutAction];
 
         shortcutAction = [(HFTriggerActionSetsBuilder *)v11 shortcutAction];
@@ -614,7 +606,7 @@ LABEL_6:
 
         if (v16 == ++v18)
         {
-          v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
           if (v16)
           {
             goto LABEL_6;
@@ -625,13 +617,13 @@ LABEL_6:
       }
     }
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __78__HFTriggerActionSetsBuilder_initWithActionSets_inHome_filterEmptyActionSets___block_invoke;
-    v33[3] = &unk_277DFA398;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __78__HFTriggerActionSetsBuilder_initWithActionSets_inHome_filterEmptyActionSets___block_invoke;
+    v32[3] = &unk_277DFA398;
     v21 = homeCopy;
-    v34 = v21;
-    v22 = [v14 na_map:v33];
+    v33 = v21;
+    v22 = [v14 na_map:v32];
     v23 = [v22 mutableCopy];
 
     v24 = [v14 na_firstObjectPassingTest:&__block_literal_global_88];
@@ -655,7 +647,6 @@ LABEL_6:
     [(HFTriggerActionSetsBuilder *)v11 setAnonymousActionSetBuilder:v29];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -677,59 +668,59 @@ HFActionSetBuilder *__78__HFTriggerActionSetsBuilder_initWithActionSets_inHome_f
 
 - (id)_removeDuplicateActionSets:(id)sets
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   v4 = [MEMORY[0x277CBEB58] set];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = setsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        uniqueIdentifier = [*(*(&v27 + 1) + 8 * i) uniqueIdentifier];
+        uniqueIdentifier = [*(*(&v26 + 1) + 8 * i) uniqueIdentifier];
         [v4 addObject:uniqueIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v12 = v5;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * j);
+        v17 = *(*(&v22 + 1) + 8 * j);
         uniqueIdentifier2 = [v17 uniqueIdentifier];
         v19 = [v4 containsObject:uniqueIdentifier2];
 
@@ -742,13 +733,11 @@ HFActionSetBuilder *__78__HFTriggerActionSetsBuilder_initWithActionSets_inHome_f
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v14);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -771,8 +760,8 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
   [(HFTriggerActionSetsBuilder *)self setActionSetBuilders:v8];
 
   v9 = [HFTriggerAnonymousActionSetBuilder alloc];
-  home = [(HFTriggerActionSetsBuilder *)self home];
-  v11 = [(HFItemBuilder *)v9 initWithHome:home];
+  v10 = objc_msgSend_home(self);
+  v11 = [(HFItemBuilder *)v9 initWithHome:v10];
   [(HFTriggerActionSetsBuilder *)self setAnonymousActionSetBuilder:v11];
 
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
@@ -885,17 +874,17 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
 
 - (NSArray)anonymousActionBuilder
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   shortcutAction = [(HFTriggerActionSetsBuilder *)self shortcutAction];
 
   if (shortcutAction)
   {
     shortcutAction2 = [(HFTriggerActionSetsBuilder *)self shortcutAction];
-    home = [(HFTriggerActionSetsBuilder *)self home];
-    anonymousActionSetBuilder = [HFActionBuilder actionBuilderForAction:shortcutAction2 inHome:home];
+    v5 = objc_msgSend_home(self);
+    anonymousActionSetBuilder = [HFActionBuilder actionBuilderForAction:shortcutAction2 inHome:v5];
 
-    v11[0] = anonymousActionSetBuilder;
-    actions = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = anonymousActionSetBuilder;
+    actions = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
@@ -905,8 +894,6 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
   }
 
   v8 = actions;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -955,35 +942,35 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
 
 - (void)removeAllActionsAndActionSets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   namedActionSets = [(HFTriggerActionSetsBuilder *)self namedActionSets];
   v4 = [namedActionSets copy];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HFTriggerActionSetsBuilder *)self removeActionSetBuilder:*(*(&v12 + 1) + 8 * v9++), v12];
+        [(HFTriggerActionSetsBuilder *)self removeActionSetBuilder:*(*(&v11 + 1) + 8 * v9++), v11];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -991,8 +978,6 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
 
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
   [anonymousActionSetBuilder removeAllActions];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)areActionsAffectedByEndEvents
@@ -1007,7 +992,7 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
 
 - (void)resetAllActionSets
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB98] set];
   actionSetBuilders = [(HFTriggerActionSetsBuilder *)self actionSetBuilders];
   toSet = [actionSetBuilders toSet];
@@ -1017,31 +1002,31 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
 
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
   v9 = [HFTriggerAnonymousActionSetBuilder alloc];
-  home = [(HFTriggerActionSetsBuilder *)self home];
-  v11 = [(HFItemBuilder *)v9 initWithHome:home];
+  v10 = objc_msgSend_home(self);
+  v11 = [(HFItemBuilder *)v9 initWithHome:v10];
   [(HFTriggerActionSetsBuilder *)self setAnonymousActionSetBuilder:v11];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   actions = [anonymousActionSetBuilder actions];
-  v13 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       v16 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(actions);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * v16);
+        v17 = *(*(&v20 + 1) + 8 * v16);
         anonymousActionSetBuilder2 = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
         copyForCreatingNewAction = [v17 copyForCreatingNewAction];
         [anonymousActionSetBuilder2 addAction:copyForCreatingNewAction];
@@ -1050,13 +1035,11 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
       }
 
       while (v14 != v16);
-      v14 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetActionSetBuilders
@@ -1083,8 +1066,8 @@ BOOL __53__HFTriggerActionSetsBuilder__removeEmptyActionSets___block_invoke(uint
   if (v6 && (v7 & 1) == 0)
   {
     v8 = [HFActionSetBuilder alloc];
-    home = [(HFTriggerActionSetsBuilder *)self home];
-    v10 = [(HFActionSetBuilder *)v8 initWithExistingObject:v6 inHome:home];
+    v9 = objc_msgSend_home(self);
+    v10 = [(HFActionSetBuilder *)v8 initWithExistingObject:v6 inHome:v9];
 
     [(HFTriggerActionSetsBuilder *)self addActionSetBuilder:v10];
   }
@@ -1185,41 +1168,39 @@ uint64_t __55__HFTriggerActionSetsBuilder_removeActionSetIfPresent___block_invok
 
 - (NSArray)allActionBuilders
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   anonymousActionBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionBuilder];
   v5 = [v3 initWithArray:anonymousActionBuilder];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   namedActionSets = [(HFTriggerActionSetsBuilder *)self namedActionSets];
-  v7 = [namedActionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [namedActionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(namedActionSets);
         }
 
-        actions = [*(*(&v14 + 1) + 8 * i) actions];
+        actions = [*(*(&v13 + 1) + 8 * i) actions];
         [v5 addObjectsFromArray:actions];
       }
 
-      v8 = [namedActionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [namedActionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1238,8 +1219,8 @@ uint64_t __55__HFTriggerActionSetsBuilder_removeActionSetIfPresent___block_invok
   if (shortcutAction)
   {
     shortcutAction2 = [(HFTriggerActionSetsBuilder *)self shortcutAction];
-    home = [(HFTriggerActionSetsBuilder *)self home];
-    v7 = [HFActionBuilder actionBuilderForAction:shortcutAction2 inHome:home];
+    v5 = objc_msgSend_home(self);
+    v7 = [HFActionBuilder actionBuilderForAction:shortcutAction2 inHome:v5];
 
     anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
     [anonymousActionSetBuilder addAction:v7 actionSetType:1];
@@ -1256,31 +1237,31 @@ uint64_t __55__HFTriggerActionSetsBuilder_removeActionSetIfPresent___block_invok
 
 - (void)defaultActionsForShortcut
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   anonymousActionSetBuilder = [(HFTriggerActionSetsBuilder *)self anonymousActionSetBuilder];
   actionBuilders = [anonymousActionSetBuilder actionBuilders];
   toSet = [actionBuilders toSet];
 
-  v5 = [toSet countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [toSet countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(toSet);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         objc_opt_class();
         v10 = v9;
         if (objc_opt_isKindOfClass())
@@ -1304,13 +1285,11 @@ uint64_t __55__HFTriggerActionSetsBuilder_removeActionSetIfPresent___block_invok
       }
 
       while (v6 != v8);
-      v6 = [toSet countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [toSet countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1321,8 +1300,8 @@ uint64_t __55__HFTriggerActionSetsBuilder_removeActionSetIfPresent___block_invok
   v8 = [allObjects na_map:&__block_literal_global_26_0];
 
   v9 = [objc_opt_class() allocWithZone:zone];
-  home = [(HFTriggerActionSetsBuilder *)self home];
-  v11 = [v9 initWithActionSets:v8 inHome:home];
+  v10 = objc_msgSend_home(self);
+  v11 = [v9 initWithActionSets:v8 inHome:v10];
 
   actionSetBuilders2 = [(HFTriggerActionSetsBuilder *)self actionSetBuilders];
   v13 = [actionSetBuilders2 mutableCopyWithZone:zone];

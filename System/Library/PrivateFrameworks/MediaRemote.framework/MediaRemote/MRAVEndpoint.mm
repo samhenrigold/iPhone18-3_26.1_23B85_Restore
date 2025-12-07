@@ -10,7 +10,9 @@
 + (void)_notifyEndpointDidDisconnect:(id)disconnect withError:(id)error;
 + (void)_notifyGroupSessionHostingEligibilityDidChangeForEndpoint:(id)endpoint;
 + (void)_notifyGroupSessionInfoDidChange:(id)change endpoint:(id)endpoint;
++ (void)_notifyVolumeCapabilitiesDidChange:(unsigned int)change outputDevice:(id)device endpoint:(id)endpoint;
 + (void)_notifyVolumeDidChange:(float)change outputDevice:(id)device endpoint:(id)endpoint;
++ (void)_notifyVolumeMutedDidChange:(BOOL)change outputDevice:(id)device endpoint:(id)endpoint;
 + (void)addOutputDevicesWithUIDs:(id)ds toGroupContainingOutputDeviceWithUID:(id)d details:(id)details queue:(id)queue completion:(id)completion;
 + (void)connectToEndpointContainingOutputDeviceUID:(id)d options:(unsigned int)options details:(id)details completion:(id)completion;
 + (void)createEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue completion:(id)completion;
@@ -90,6 +92,7 @@
 - (void)addOutputDevices:(id)devices initiator:(id)initiator withReplyQueue:(id)queue completion:(id)completion;
 - (void)adjustOutputDeviceVolume:(int64_t)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion;
 - (void)canMigrateToEndpoint:(id)endpoint queue:(id)queue completion:(id)completion;
+- (void)connectToExternalDeviceWithOptions:(unsigned int)options details:(id)details completion:(id)completion;
 - (void)connectToExternalDeviceWithOptions:(unsigned int)options userInfo:(id)info completion:(id)completion;
 - (void)createHostedEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue completion:(id)completion;
 - (void)createHostedEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue groupUIDCompletion:(id)completion;
@@ -274,7 +277,7 @@ LABEL_6:
 
 - (MROutputContextDataSource)outputContextDataSource
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   outputContextDataSource = selfCopy->_outputContextDataSource;
@@ -295,8 +298,6 @@ LABEL_6:
 
   v7 = outputContextDataSource;
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -382,7 +383,7 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
 
 - (_MRAVEndpointDescriptorProtobuf)descriptor
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(_MRAVEndpointDescriptorProtobuf);
   localizedName = [(MRAVEndpoint *)self localizedName];
   [(_MRAVEndpointDescriptorProtobuf *)v3 setName:localizedName];
@@ -396,36 +397,34 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
 
   [(_MRAVEndpointDescriptorProtobuf *)v3 setConnectionType:[(MRAVEndpoint *)self connectionType]];
   [(_MRAVEndpointDescriptorProtobuf *)v3 setCanModifyGroupMembership:[(MRAVEndpoint *)self canModifyGroupMembership]];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   outputDevices = [(MRAVEndpoint *)self outputDevices];
-  v9 = [outputDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [outputDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        descriptor2 = [*(*(&v16 + 1) + 8 * i) descriptor];
+        descriptor2 = [*(*(&v15 + 1) + 8 * i) descriptor];
         [(_MRAVEndpointDescriptorProtobuf *)v3 addOutputDevices:descriptor2];
       }
 
-      v10 = [outputDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [outputDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -452,29 +451,29 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
 
 - (NSArray)outputDeviceUIDs
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   outputDevices = [(MRAVEndpoint *)self outputDevices];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = outputDevices;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [v9 uid];
 
         if (v10)
@@ -484,20 +483,18 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (float)volume
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
@@ -515,7 +512,7 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = v6;
+    v24 = v6;
     _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -537,13 +534,13 @@ void __66__MRAVEndpoint_scheduleEndpointOutputDevicesDidChangeNotification__bloc
       date2 = [MEMORY[0x1E695DF00] date];
       [date2 timeIntervalSinceDate:date];
       *buf = 138544130;
-      v25 = @"Endpoint.volume";
-      v26 = 2114;
-      v27 = uUIDString;
-      v28 = 2112;
-      v29 = date3;
-      v30 = 2048;
-      v31 = v20;
+      v24 = @"Endpoint.volume";
+      v25 = 2114;
+      v26 = uUIDString;
+      v27 = 2112;
+      v28 = date3;
+      v29 = 2048;
+      v30 = v20;
       _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", buf, 0x2Au);
 
 LABEL_10:
@@ -555,16 +552,15 @@ LABEL_10:
     date3 = [MEMORY[0x1E695DF00] date];
     [date3 timeIntervalSinceDate:date];
     *buf = 138543874;
-    v25 = @"Endpoint.volume";
-    v26 = 2114;
-    v27 = uUIDString;
-    v28 = 2048;
-    v29 = v21;
+    v24 = @"Endpoint.volume";
+    v25 = 2114;
+    v26 = uUIDString;
+    v27 = 2048;
+    v28 = v21;
     _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
     goto LABEL_10;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -666,7 +662,7 @@ LABEL_10:
     v5 = equalCopy;
     if (self == v5)
     {
-      v10 = 1;
+      isEqualToString = 1;
     }
 
     else
@@ -679,28 +675,28 @@ LABEL_10:
         {
           uniqueIdentifier3 = [(MRAVEndpoint *)self uniqueIdentifier];
           uniqueIdentifier4 = [(MRAVEndpoint *)v5 uniqueIdentifier];
-          v10 = [uniqueIdentifier3 isEqualToString:uniqueIdentifier4];
+          isEqualToString = objc_msgSend_isEqualToString_(uniqueIdentifier3);
         }
 
         else
         {
-          v10 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (BOOL)isEqualToEndpoint:(id)endpoint
@@ -723,7 +719,7 @@ LABEL_10:
 
 MRAVDistantOutputDevice *__35__MRAVEndpoint_syncedOutputDevices__block_invoke_2(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) externalDevice];
   v5 = [v4 deviceInfo];
@@ -735,8 +731,8 @@ MRAVDistantOutputDevice *__35__MRAVEndpoint_syncedOutputDevices__block_invoke_2(
     goto LABEL_9;
   }
 
-  v21[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   v8 = [v5 groupedDevices];
   v9 = v8;
   if (v8)
@@ -751,13 +747,13 @@ MRAVDistantOutputDevice *__35__MRAVEndpoint_syncedOutputDevices__block_invoke_2(
 
   v11 = [v7 arrayByAddingObjectsFromArray:v10];
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3;
-  v19[3] = &unk_1E76A2678;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3;
+  v18[3] = &unk_1E76A2678;
   v12 = v3;
-  v20 = v12;
-  v13 = [v11 msv_firstWhere:v19];
+  v19 = v12;
+  v13 = [v11 msv_firstWhere:v18];
   v14 = [v13 modelID];
 
   if (v14)
@@ -775,8 +771,6 @@ LABEL_9:
     v12 = v3;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
@@ -784,9 +778,9 @@ uint64_t __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3(uint64_t a1, voi
 {
   v3 = [a2 deviceUID];
   v4 = [*(a1 + 32) uid];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (NSArray)personalOutputDevices
@@ -799,13 +793,13 @@ uint64_t __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3(uint64_t a1, voi
 
 - (NSArray)effectiveOutputDevices
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predictedOutputDevice = [(MRAVEndpoint *)self predictedOutputDevice];
   v4 = predictedOutputDevice;
   if (predictedOutputDevice)
   {
-    v9[0] = predictedOutputDevice;
-    outputDevices = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = predictedOutputDevice;
+    outputDevices = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -815,36 +809,34 @@ uint64_t __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3(uint64_t a1, voi
 
   v6 = outputDevices;
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (unint64_t)logicalOutputDeviceCount
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   outputDevices = [(MRAVEndpoint *)self outputDevices];
   v3 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = outputDevices;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         logicalDeviceID = [v9 logicalDeviceID];
         v11 = [logicalDeviceID length];
 
@@ -869,14 +861,13 @@ uint64_t __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3(uint64_t a1, voi
         [v3 addObject:logicalDeviceID2];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   v15 = [v3 count];
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -901,7 +892,7 @@ uint64_t __35__MRAVEndpoint_syncedOutputDevices__block_invoke_3(uint64_t a1, voi
     airPlayGroupID = [designatedGroupLeader airPlayGroupID];
     v11 = MRComputeBaseGroupID(airPlayGroupID);
 
-    v12 = v11 && v9 && ![v9 isEqualToString:v11];
+    v12 = v11 && v9 && !objc_msgSend_isEqualToString_(v9);
   }
 
   else
@@ -1058,23 +1049,13 @@ uint64_t __34__MRAVEndpoint_isProxyGroupPlayer__block_invoke(uint64_t a1, void *
   else
   {
     deviceInfo = [(MRAVEndpoint *)self deviceInfo];
-    if (!deviceInfo)
-    {
-      goto LABEL_5;
-    }
-
-    v5 = deviceInfo;
-    deviceInfo2 = [(MRAVEndpoint *)self deviceInfo];
-    deviceUID = [deviceInfo2 deviceUID];
-
-    if (!deviceUID)
+    if (deviceInfo && (v5 = deviceInfo, -[MRAVEndpoint deviceInfo](self, "deviceInfo"), v6 = objc_claimAutoreleasedReturnValue(), [v6 deviceUID], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, !v7))
     {
       LOBYTE(v3) = 0;
     }
 
     else
     {
-LABEL_5:
       designatedGroupLeader = [(MRAVEndpoint *)self designatedGroupLeader];
       v9 = designatedGroupLeader;
       if (designatedGroupLeader)
@@ -1107,8 +1088,8 @@ LABEL_5:
 
 - (NSDictionary)jsonEncodableDictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v13[0] = @"uid";
+  v13[2] = *MEMORY[0x1E69E9840];
+  v12[0] = @"uid";
   uniqueIdentifier = [(MRAVEndpoint *)self uniqueIdentifier];
   v4 = uniqueIdentifier;
   if (uniqueIdentifier)
@@ -1121,8 +1102,8 @@ LABEL_5:
     v5 = &stru_1F1513E38;
   }
 
-  v13[1] = @"output-devices";
-  v14[0] = v5;
+  v12[1] = @"output-devices";
+  v13[0] = v5;
   outputDevices = [(MRAVEndpoint *)self outputDevices];
   v7 = [outputDevices valueForKey:@"jsonEncodableDictionaryRepresentation"];
   v8 = v7;
@@ -1132,10 +1113,8 @@ LABEL_5:
     v9 = v7;
   }
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }
@@ -1340,9 +1319,25 @@ uint64_t __71__MRAVEndpoint_connectToExternalDeviceWithOptions_userInfo_completi
   return result;
 }
 
+- (void)connectToExternalDeviceWithOptions:(unsigned int)options details:(id)details completion:(id)completion
+{
+  v6 = *&options;
+  v8 = MEMORY[0x1E695DF90];
+  completionCopy = completion;
+  detailsCopy = details;
+  v13 = objc_alloc_init(v8);
+  requestID = [detailsCopy requestID];
+  [v13 setObject:requestID forKeyedSubscript:@"MREndpointConnectionCorrelationIDUserInfoKey"];
+
+  reason = [detailsCopy reason];
+
+  [v13 setObject:reason forKeyedSubscript:@"MREndpointConnectionReasonUserInfoKey"];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithOptions:v6 userInfo:v13 completion:completionCopy];
+}
+
 + (void)connectToEndpointContainingOutputDeviceUID:(id)d options:(unsigned int)options details:(id)details completion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   completionCopy = completion;
@@ -1373,23 +1368,23 @@ uint64_t __71__MRAVEndpoint_connectToExternalDeviceWithOptions_userInfo_completi
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v42 = v14;
+    v41 = v14;
     _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke;
-  v36[3] = &unk_1E76A2708;
-  v37 = dCopy;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke;
+  v35[3] = &unk_1E76A2708;
+  v36 = dCopy;
   v18 = detailsCopy;
-  v38 = v18;
-  v39 = v11;
-  v40 = completionCopy;
+  v37 = v18;
+  v38 = v11;
+  v39 = completionCopy;
   v19 = completionCopy;
   v20 = v11;
   v21 = dCopy;
-  v22 = MEMORY[0x1A58E3570](v36);
+  v22 = MEMORY[0x1A58E3570](v35);
   v23 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
   v24 = +[MRUserSettings currentSettings];
   [v24 discoverEndpointTimeoutInterval];
@@ -1397,22 +1392,20 @@ uint64_t __71__MRAVEndpoint_connectToExternalDeviceWithOptions_userInfo_completi
   requestReasonID = [v18 requestReasonID];
   v28 = qos_class_self();
   v29 = dispatch_get_global_queue(v28, 0);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_206;
-  v33[3] = &unk_1E769C360;
-  v34 = v18;
-  v35 = v22;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_206;
+  v32[3] = &unk_1E769C360;
+  v33 = v18;
+  v34 = v22;
   v30 = v22;
   v31 = v18;
-  [(MRAVLightweightReconnaissanceSession *)v23 searchEndpointsForOutputDeviceUID:v21 timeout:requestReasonID reason:v29 queue:v33 completion:v26];
-
-  v32 = *MEMORY[0x1E69E9840];
+  [(MRAVLightweightReconnaissanceSession *)v23 searchEndpointsForOutputDeviceUID:v21 timeout:requestReasonID reason:v29 queue:v32 completion:v26];
 }
 
 void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1436,16 +1429,16 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
         v17 = *(a1 + 32);
         v18 = [MEMORY[0x1E695DF00] date];
         [v18 timeIntervalSinceDate:*(a1 + 48)];
-        v32 = 138544386;
-        v33 = @"connectToEndpointWithOutputDeviceUID";
-        v34 = 2114;
-        v35 = v10;
-        v36 = 2112;
-        v37 = v12;
-        v38 = 2114;
-        v39 = v17;
-        v40 = 2048;
-        v41 = v19;
+        v31 = 138544386;
+        v32 = @"connectToEndpointWithOutputDeviceUID";
+        v33 = 2114;
+        v34 = v10;
+        v35 = 2112;
+        v36 = v12;
+        v37 = 2114;
+        v38 = v17;
+        v39 = 2048;
+        v40 = v19;
         v20 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v21 = v8;
         v22 = 52;
@@ -1462,20 +1455,20 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
         v12 = [v5 debugName];
         v18 = [MEMORY[0x1E695DF00] date];
         [v18 timeIntervalSinceDate:*(a1 + 48)];
-        v32 = 138544130;
-        v33 = @"connectToEndpointWithOutputDeviceUID";
-        v34 = 2114;
-        v35 = v10;
-        v36 = 2112;
-        v37 = v12;
-        v38 = 2048;
-        v39 = v28;
+        v31 = 138544130;
+        v32 = @"connectToEndpointWithOutputDeviceUID";
+        v33 = 2114;
+        v34 = v10;
+        v35 = 2112;
+        v36 = v12;
+        v37 = 2048;
+        v38 = v28;
         v20 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v21 = v8;
         v22 = 42;
       }
 
-      _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, v20, &v32, v22);
+      _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, v20, &v31, v22);
     }
 
     else
@@ -1491,14 +1484,14 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
         v23 = *(a1 + 32);
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:*(a1 + 48)];
-        v32 = 138544130;
-        v33 = @"connectToEndpointWithOutputDeviceUID";
-        v34 = 2114;
-        v35 = v10;
-        v36 = 2114;
-        v37 = v23;
-        v38 = 2048;
-        v39 = v24;
+        v31 = 138544130;
+        v32 = @"connectToEndpointWithOutputDeviceUID";
+        v33 = 2114;
+        v34 = v10;
+        v35 = 2114;
+        v36 = v23;
+        v37 = 2048;
+        v38 = v24;
         v25 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v26 = v8;
         v27 = 42;
@@ -1514,18 +1507,18 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
         v10 = [*(a1 + 40) requestID];
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:*(a1 + 48)];
-        v32 = 138543874;
-        v33 = @"connectToEndpointWithOutputDeviceUID";
-        v34 = 2114;
-        v35 = v10;
-        v36 = 2048;
-        v37 = v29;
+        v31 = 138543874;
+        v32 = @"connectToEndpointWithOutputDeviceUID";
+        v33 = 2114;
+        v34 = v10;
+        v35 = 2048;
+        v36 = v29;
         v25 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v26 = v8;
         v27 = 32;
       }
 
-      _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, v25, &v32, v27);
+      _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, v25, &v31, v27);
     }
 
     goto LABEL_20;
@@ -1545,17 +1538,17 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
     v11 = *(a1 + 32);
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:*(a1 + 48)];
-    v32 = 138544386;
-    v33 = @"connectToEndpointWithOutputDeviceUID";
-    v34 = 2114;
-    v35 = v10;
-    v36 = 2114;
-    v37 = v6;
-    v38 = 2114;
-    v39 = v11;
-    v40 = 2048;
-    v41 = v13;
-    _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v32, 0x34u);
+    v31 = 138544386;
+    v32 = @"connectToEndpointWithOutputDeviceUID";
+    v33 = 2114;
+    v34 = v10;
+    v35 = 2114;
+    v36 = v6;
+    v37 = 2114;
+    v38 = v11;
+    v39 = 2048;
+    v40 = v13;
+    _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v31, 0x34u);
 LABEL_20:
 
     goto LABEL_21;
@@ -1563,7 +1556,7 @@ LABEL_20:
 
   if (v9)
   {
-    __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_cold_1(a1, v6, v8);
+    __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_cold_1();
   }
 
 LABEL_21:
@@ -1573,8 +1566,6 @@ LABEL_21:
   {
     (*(v30 + 16))(v30, v5, v6);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_206(uint64_t a1, void *a2)
@@ -1600,7 +1591,7 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
 
 - (void)migrateToOrAddOutputDevices:(id)devices initiator:(id)initiator withReplyQueue:(id)queue completion:(id)completion
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   initiatorCopy = initiator;
   queueCopy = queue;
@@ -1615,12 +1606,12 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
   [(MRPlaybackSessionMigrateRequest *)v15 setInitiator:@"routePicker"];
   date = [MEMORY[0x1E695DF00] date];
   requestID = [(MRPlaybackSessionMigrateRequest *)v15 requestID];
-  v50 = initiatorCopy;
-  v45 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
+  v49 = initiatorCopy;
+  v44 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
   v18 = objc_alloc(MEMORY[0x1E696AEC0]);
   selfCopy = self;
   debugName = [(MRAVEndpoint *)self debugName];
-  v46 = devicesCopy;
+  v45 = devicesCopy;
   v20 = MRAVOutputDeviceArrayDescription(devicesCopy);
   v21 = [v18 initWithFormat:@"source=%@ destination=%@", debugName, v20];
 
@@ -1635,58 +1626,58 @@ void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_detai
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v68 = v23;
+    v67 = v23;
     _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke;
-  v59[3] = &unk_1E76A2730;
-  v60 = v21;
-  v61 = @"migrateToOrAddOutputDevices";
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke;
+  v58[3] = &unk_1E76A2730;
+  v59 = v21;
+  v60 = @"migrateToOrAddOutputDevices";
   v25 = requestID;
-  v62 = v25;
-  v63 = date;
+  v61 = v25;
+  v62 = date;
   v26 = v15;
-  v64 = v26;
-  v66 = completionCopy;
+  v63 = v26;
+  v65 = completionCopy;
   v27 = queueCopy;
-  v65 = v27;
-  v49 = completionCopy;
-  v48 = date;
-  v47 = v21;
-  v28 = MEMORY[0x1A58E3570](v59);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke_2;
-  v52[3] = &unk_1E76A2758;
+  v64 = v27;
+  v48 = completionCopy;
+  v47 = date;
+  v46 = v21;
+  v28 = MEMORY[0x1A58E3570](v58);
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke_2;
+  v51[3] = &unk_1E76A2758;
   v29 = v26;
-  v53 = v29;
-  v54 = selfCopy;
-  v30 = v46;
-  v55 = v30;
-  v56 = v45;
+  v52 = v29;
+  v53 = selfCopy;
+  v30 = v45;
+  v54 = v30;
+  v55 = v44;
   v31 = v27;
-  v57 = v31;
+  v56 = v31;
   v32 = v28;
-  v58 = v32;
-  v33 = v45;
-  v34 = MEMORY[0x1A58E3570](v52);
+  v57 = v32;
+  v33 = v44;
+  v34 = MEMORY[0x1A58E3570](v51);
   v35 = MRMediaRemoteCopyDeviceUID();
 
   if (v35)
   {
     v36 = _MRLogForCategory(0xAuLL);
-    v37 = v50;
+    v37 = v49;
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v68 = @"migrateToOrAddOutputDevices";
-      v69 = 2114;
-      v70 = v25;
-      v71 = 2112;
-      v72 = @"Not attempting to migrate because local device is groupable...";
+      v67 = @"migrateToOrAddOutputDevices";
+      v68 = 2114;
+      v69 = v25;
+      v70 = 2112;
+      v71 = @"Not attempting to migrate because local device is groupable...";
       _os_log_impl(&dword_1A2860000, v36, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -1701,15 +1692,15 @@ LABEL_19:
   if (!MRGroupSessionAllowsMigrationForEndpoint(selfCopy))
   {
     v43 = _MRLogForCategory(0xAuLL);
-    v37 = v50;
+    v37 = v49;
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v68 = @"migrateToOrAddOutputDevices";
-      v69 = 2114;
-      v70 = v25;
-      v71 = 2112;
-      v72 = @"Not attempting to migrate because endpoint is migration-restricted group session endpoint";
+      v67 = @"migrateToOrAddOutputDevices";
+      v68 = 2114;
+      v69 = v25;
+      v70 = 2112;
+      v71 = @"Not attempting to migrate because endpoint is migration-restricted group session endpoint";
       _os_log_impl(&dword_1A2860000, v43, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -1727,17 +1718,17 @@ LABEL_19:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v68 = @"migrateToOrAddOutputDevices";
-      v69 = 2114;
-      v70 = v25;
-      v71 = 2112;
-      v72 = @"Not attempting to migrate because device doesn't support migration..";
+      v67 = @"migrateToOrAddOutputDevices";
+      v68 = 2114;
+      v69 = v25;
+      v70 = 2112;
+      v71 = @"Not attempting to migrate because device doesn't support migration..";
       _os_log_impl(&dword_1A2860000, v42, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
     [(MRPlaybackSessionMigrateRequest *)v29 setFallbackReason:3];
     v34[2](v34);
-    v37 = v50;
+    v37 = v49;
   }
 
   else
@@ -1748,18 +1739,16 @@ LABEL_19:
     -[MRPlaybackSessionMigrateRequest setEndpointOptions:](v29, "setEndpointOptions:", -[MRPlaybackSessionMigrateRequest endpointOptions](v29, "endpointOptions") & 0xFFFFFFFFFFFFFFEFLL | (16 * ([v30 count] > 1)));
     [(MRPlaybackSessionMigrateRequest *)v29 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v29 endpointOptions]& 0xFFFFFFFFFFFFFFDFLL];
     [(MRPlaybackSessionMigrateRequest *)v29 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v29 endpointOptions]& 0xFFFFFFFFFFFFFFBFLL];
-    v37 = v50;
-    [(MRAVEndpoint *)selfCopy migrateToOutputDevices:v30 request:v29 initiator:v50 queue:v31 completion:v32];
+    v37 = v49;
+    [(MRAVEndpoint *)selfCopy migrateToOutputDevices:v30 request:v29 initiator:v49 queue:v31 completion:v32];
   }
 
 LABEL_20:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -1780,13 +1769,13 @@ void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_com
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -1804,11 +1793,11 @@ void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_com
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -1832,15 +1821,15 @@ void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_com
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -1849,7 +1838,7 @@ LABEL_13:
 
   if (v7)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v3, v6);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_14:
@@ -1858,13 +1847,10 @@ LABEL_14:
   v24 = *(a1 + 80);
   if (v24)
   {
-    v25 = *(a1 + 72);
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_completion___block_invoke_2(uint64_t a1)
@@ -1895,7 +1881,7 @@ void __80__MRAVEndpoint_migrateToOrAddOutputDevices_initiator_withReplyQueue_com
 
 void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -1916,13 +1902,13 @@ void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_com
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -1940,11 +1926,11 @@ void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_com
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -1968,15 +1954,15 @@ void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_com
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -1985,7 +1971,7 @@ LABEL_13:
 
   if (v7)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v3, v6);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_14:
@@ -1994,13 +1980,10 @@ LABEL_14:
   v24 = *(a1 + 80);
   if (v24)
   {
-    v25 = *(a1 + 72);
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke_2(uint64_t a1)
@@ -2031,7 +2014,7 @@ void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_com
 
 - (void)migrateToOutputDevice:(id)device request:(id)request initiator:(id)initiator queue:(id)queue completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   v12 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
@@ -2041,8 +2024,7 @@ void __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_com
   deviceCopy2 = device;
   v18 = [v12 arrayWithObjects:&deviceCopy count:1];
 
-  [(MRAVEndpoint *)self migrateToOutputDevices:v18 request:requestCopy initiator:initiatorCopy queue:queueCopy completion:completionCopy, deviceCopy, v21];
-  v19 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self migrateToOutputDevices:v18 request:requestCopy initiator:initiatorCopy queue:queueCopy completion:completionCopy, deviceCopy, v20];
 }
 
 - (void)migrateToOutputDevices:(id)devices request:(id)request initiator:(id)initiator queue:(id)queue completion:(id)completion
@@ -2159,7 +2141,7 @@ uint64_t __121__MRAVEndpoint_migrateToEndpointOrModifyTopology_migrationRequest_
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -2180,13 +2162,13 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -2204,11 +2186,11 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -2232,15 +2214,15 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -2249,7 +2231,7 @@ LABEL_13:
 
   if (v7)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v3, v6);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_14:
@@ -2262,18 +2244,15 @@ LABEL_14:
   v24 = *(a1 + 88);
   if (v24)
   {
-    v25 = *(a1 + 80);
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([*(a1 + 32) endpointOptions] & 8) != 0)
   {
@@ -2284,11 +2263,11 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       v6 = *(a1 + 40);
       v7 = *(a1 + 48);
       *buf = 138543874;
-      v21 = v6;
-      v22 = 2114;
-      v23 = v7;
-      v24 = 2112;
-      v25 = v4;
+      v20 = v6;
+      v21 = 2114;
+      v22 = v7;
+      v23 = 2112;
+      v24 = v4;
       _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -2298,23 +2277,21 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     v11 = *(a1 + 64);
     v12 = *(a1 + 72);
     v13 = *(a1 + 80);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_257;
-    v15[3] = &unk_1E76A27F8;
-    v16 = *(a1 + 32);
-    v19 = v8;
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 88);
-    [v10 addOutputDevices:v11 initiator:v12 fadeAudio:v9 withReplyQueue:v13 completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_257;
+    v14[3] = &unk_1E76A27F8;
+    v15 = *(a1 + 32);
+    v18 = v8;
+    v16 = *(a1 + 40);
+    v17 = *(a1 + 88);
+    [v10 addOutputDevices:v11 initiator:v12 fadeAudio:v9 withReplyQueue:v13 completion:v14];
   }
 
   else
   {
     (*(*(a1 + 88) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_257(uint64_t a1, void *a2)
@@ -2389,7 +2366,7 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2397,11 +2374,11 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     *buf = 138543874;
-    v21 = v5;
-    v22 = 2114;
-    v23 = v6;
-    v24 = 2112;
-    v25 = @"Migrating back to local. Route to selected output device then migrate.";
+    v20 = v5;
+    v21 = 2114;
+    v22 = v6;
+    v23 = 2112;
+    v24 = @"Migrating back to local. Route to selected output device then migrate.";
     _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -2410,28 +2387,26 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
   v8 = *(a1 + 56);
   v9 = *(a1 + 64);
   v10 = *(a1 + 72);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_266;
-  v12[3] = &unk_1E76A2898;
-  objc_copyWeak(&v18, buf);
-  v13 = *(a1 + 48);
-  v19 = v7;
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v16 = *(a1 + 80);
-  v17 = *(a1 + 88);
-  [v3 setOutputDevices:v8 initiator:v9 withReplyQueue:v10 completion:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_266;
+  v11[3] = &unk_1E76A2898;
+  objc_copyWeak(&v17, buf);
+  v12 = *(a1 + 48);
+  v18 = v7;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  v15 = *(a1 + 80);
+  v16 = *(a1 + 88);
+  [v3 setOutputDevices:v8 initiator:v9 withReplyQueue:v10 completion:v11];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_266(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
@@ -2445,13 +2420,13 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       {
         v7 = *(a1 + 40);
         v8 = *(a1 + 48);
-        v17 = 138543874;
-        v18 = v7;
-        v19 = 2114;
-        v20 = v8;
-        v21 = 2112;
-        v22 = @"Failed to set route. Cancel migration.";
-        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v7;
+        v18 = 2114;
+        v19 = v8;
+        v20 = 2112;
+        v21 = @"Failed to set route. Cancel migration.";
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v16, 0x20u);
       }
 
       v9 = *(*(a1 + 56) + 16);
@@ -2463,13 +2438,13 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       {
         v14 = *(a1 + 40);
         v15 = *(a1 + 48);
-        v17 = 138543874;
-        v18 = v14;
-        v19 = 2114;
-        v20 = v15;
-        v21 = 2112;
-        v22 = @"Successfully set route. Begin migration.";
-        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v14;
+        v18 = 2114;
+        v19 = v15;
+        v20 = 2112;
+        v21 = @"Successfully set route. Begin migration.";
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v16, 0x20u);
       }
 
       v9 = *(*(a1 + 64) + 16);
@@ -2485,21 +2460,19 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     {
       v11 = *(a1 + 40);
       v12 = *(a1 + 48);
-      v17 = 138543874;
-      v18 = v11;
-      v19 = 2114;
-      v20 = v12;
-      v21 = 2112;
-      v22 = @"Failed to set route. Cancel migration.";
-      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2112;
+      v21 = @"Failed to set route. Cancel migration.";
+      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v16, 0x20u);
     }
 
     v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:118];
     [*(a1 + 32) endEventWithID:*(a1 + 80) error:v3];
     (*(*(a1 + 56) + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_273(id *a1, void *a2)
@@ -2555,22 +2528,22 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_290(id *a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1[4] startEvent:@"ExpanseMigration" role:1];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5_294;
-  v24[3] = &unk_1E76A2960;
-  v25 = a1[4];
-  v31 = v4;
-  v28 = a1[7];
-  v26 = a1[5];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5_294;
+  v23[3] = &unk_1E76A2960;
+  v24 = a1[4];
+  v30 = v4;
+  v27 = a1[7];
+  v25 = a1[5];
   v5 = v3;
-  v27 = v5;
-  v29 = a1[8];
-  v30 = a1[9];
-  v6 = MEMORY[0x1A58E3570](v24);
+  v26 = v5;
+  v28 = a1[8];
+  v29 = a1[9];
+  v6 = MEMORY[0x1A58E3570](v23);
   [a1[4] setRequestType:3];
   v7 = [a1[6] groupLeader];
   v8 = [v7 containsUID:v5];
@@ -2583,23 +2556,23 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     {
       v11 = a1[5];
       *buf = 138543874;
-      v33 = v11;
-      v34 = 2114;
-      v35 = v5;
-      v36 = 2112;
-      v37 = @"Removing Apple TV from Expanse session.";
+      v32 = v11;
+      v33 = 2114;
+      v34 = v5;
+      v35 = 2112;
+      v36 = @"Removing Apple TV from Expanse session.";
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
     v12 = +[MRExpanseManager sharedManager];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_303;
-    v22[3] = &unk_1E769AD80;
-    v13 = &v23;
-    v23 = v6;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_303;
+    v21[3] = &unk_1E769AD80;
+    v13 = &v22;
+    v22 = v6;
     v14 = v6;
-    [v12 removeTelevisionWithRouteIdentifierFromSession:v5 completion:v22];
+    [v12 removeTelevisionWithRouteIdentifierFromSession:v5 completion:v21];
   }
 
   else
@@ -2608,34 +2581,32 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     {
       v15 = a1[5];
       *buf = 138543874;
-      v33 = v15;
-      v34 = 2114;
-      v35 = v5;
-      v36 = 2112;
-      v37 = @"Migrating to Apple TV using Expanse handoff.";
+      v32 = v15;
+      v33 = 2114;
+      v34 = v5;
+      v35 = 2112;
+      v36 = @"Migrating to Apple TV using Expanse handoff.";
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
     v16 = +[MRExpanseManager sharedManager];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_307;
-    v19[3] = &unk_1E769AB50;
-    v13 = &v21;
-    v21 = v6;
-    v20 = v5;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_307;
+    v18[3] = &unk_1E769AB50;
+    v13 = &v20;
+    v20 = v6;
+    v19 = v5;
     v17 = v6;
-    [v16 addTelevisionWithRouteIdentifierToSession:v20 completion:v19];
+    [v16 addTelevisionWithRouteIdentifierToSession:v19 completion:v18];
 
-    v12 = v20;
+    v12 = v19;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5_294(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) endEventWithID:*(a1 + 80) error:v6];
@@ -2652,13 +2623,13 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
       {
         v11 = *(a1 + 40);
         v12 = *(a1 + 48);
-        v15 = 138543874;
-        v16 = v11;
-        v17 = 2114;
-        v18 = v12;
-        v19 = 2112;
-        v20 = @"Expanse fallback due to insufficient capabilities.";
-        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v15, 0x20u);
+        v14 = 138543874;
+        v15 = v11;
+        v16 = 2114;
+        v17 = v12;
+        v18 = 2112;
+        v19 = @"Expanse fallback due to insufficient capabilities.";
+        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v14, 0x20u);
       }
 
       [*(a1 + 32) setFallbackReason:14];
@@ -2677,13 +2648,11 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_318(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([*(a1 + 32) endpointOptions] & 0x40) == 0 || objc_msgSend(v3, "logicalOutputDeviceCount") < 2)
   {
@@ -2704,7 +2673,7 @@ LABEL_11:
   v5 = [v4 uid];
   v6 = [*(a1 + 40) firstObject];
   v7 = [v6 uid];
-  if ([v5 isEqualToString:v7])
+  if (objc_msgSend_isEqualToString_(v5))
   {
 
 LABEL_8:
@@ -2714,11 +2683,11 @@ LABEL_8:
       v14 = *(a1 + 48);
       v15 = *(a1 + 56);
       *buf = 138543874;
-      v30 = v14;
-      v31 = 2114;
-      v32 = v15;
-      v33 = 2112;
-      v34 = @"Migrating to group leader with group break behavior. Will reset output context on destination.";
+      v29 = v14;
+      v30 = 2114;
+      v31 = v15;
+      v32 = 2112;
+      v33 = @"Migrating to group leader with group break behavior. Will reset output context on destination.";
       _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -2730,42 +2699,41 @@ LABEL_8:
   v10 = [v9 logicalDeviceID];
   v11 = [*(a1 + 40) firstObject];
   v12 = [v11 logicalDeviceID];
-  v23 = [v10 isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  if (v23)
+  if (isEqualToString)
   {
     goto LABEL_8;
   }
 
-  v17 = _MRLogForCategory(0xAuLL);
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v16 = _MRLogForCategory(0xAuLL);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(a1 + 48);
-    v19 = *(a1 + 56);
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 56);
     *buf = 138543874;
-    v30 = v18;
-    v31 = 2114;
-    v32 = v19;
-    v33 = 2112;
-    v34 = @"Migrating to secondary with group break behavior. Will form endpoint for secondary and migrate.";
-    _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
+    v29 = v17;
+    v30 = 2114;
+    v31 = v18;
+    v32 = 2112;
+    v33 = @"Migrating to secondary with group break behavior. Will form endpoint for secondary and migrate.";
+    _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
-  v20 = [*(a1 + 40) mr_map:&__block_literal_global_327];
-  v21 = [*(a1 + 32) startEvent:@"CreateSecondaryEndpoint" role:1];
-  v22 = *(a1 + 64);
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_331;
-  v24[3] = &unk_1E76A29B0;
-  v25 = *(a1 + 32);
-  v28 = v21;
-  v26 = *(a1 + 72);
-  v27 = *(a1 + 80);
-  [MRAVEndpoint directEndpointForOutputDeviceUIDs:v20 queue:v22 completion:v24];
+  v19 = [*(a1 + 40) mr_map:&__block_literal_global_327];
+  v20 = [*(a1 + 32) startEvent:@"CreateSecondaryEndpoint" role:1];
+  v21 = *(a1 + 64);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_331;
+  v23[3] = &unk_1E76A29B0;
+  v24 = *(a1 + 32);
+  v27 = v20;
+  v25 = *(a1 + 72);
+  v26 = *(a1 + 80);
+  [MRAVEndpoint directEndpointForOutputDeviceUIDs:v19 queue:v21 completion:v23];
 
 LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_331(uint64_t a1, void *a2, void *a3)
@@ -2789,7 +2757,7 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3_332(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2797,11 +2765,11 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     *buf = 138543874;
-    v56 = v5;
-    v57 = 2114;
-    v58 = v6;
-    v59 = 2112;
-    v60 = @"Checking for conversation handoff support.";
+    v55 = v5;
+    v56 = 2114;
+    v57 = v6;
+    v58 = 2112;
+    v59 = @"Checking for conversation handoff support.";
     _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -2836,11 +2804,11 @@ LABEL_34:
       v35 = *(a1 + 32);
       v36 = *(a1 + 40);
       *buf = 138543874;
-      v56 = v35;
-      v57 = 2114;
-      v58 = v36;
-      v59 = 2112;
-      v60 = @"Evaluating possible conversation push.";
+      v55 = v35;
+      v56 = 2114;
+      v57 = v36;
+      v58 = 2112;
+      v59 = @"Evaluating possible conversation push.";
       _os_log_impl(&dword_1A2860000, v34, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -2871,20 +2839,20 @@ LABEL_34:
 
     else
     {
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3_358;
-      v53[3] = &unk_1E769CA28;
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3_358;
+      v52[3] = &unk_1E769CA28;
       v46 = v3;
-      v54 = v46;
-      v47 = [(__CFString *)v31 msv_firstWhere:v53];
+      v53 = v46;
+      v47 = [(__CFString *)v31 msv_firstWhere:v52];
       v48 = +[MRExpanseManager sharedManager];
       v49 = [v48 canAddTelevisionWithRouteIdentifierToSession:v47];
 
       if (!v47 || (-[NSObject groupLeader](v46, "groupLeader"), v50 = objc_claimAutoreleasedReturnValue(), v51 = [v50 supportsSharePlayHandoff] & v49, v50, v51 != 1))
       {
 
-        v43 = v54;
+        v43 = v53;
 LABEL_32:
 
         goto LABEL_33;
@@ -2892,7 +2860,7 @@ LABEL_32:
 
       (*(*(a1 + 64) + 16))();
 
-      v42 = v54;
+      v42 = v53;
     }
 
     goto LABEL_35;
@@ -2904,11 +2872,11 @@ LABEL_32:
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
     *buf = 138543874;
-    v56 = v10;
-    v57 = 2114;
-    v58 = v11;
-    v59 = 2112;
-    v60 = @"Evaluating possible conversation pull.";
+    v55 = v10;
+    v56 = 2114;
+    v57 = v11;
+    v58 = 2112;
+    v59 = @"Evaluating possible conversation pull.";
     _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -2931,11 +2899,11 @@ LABEL_32:
       v44 = *(a1 + 32);
       v45 = *(a1 + 40);
       *buf = 138543874;
-      v56 = v44;
-      v57 = 2114;
-      v58 = v45;
-      v59 = 2112;
-      v60 = v31;
+      v55 = v44;
+      v56 = 2114;
+      v57 = v45;
+      v58 = 2112;
+      v59 = v31;
       _os_log_impl(&dword_1A2860000, v43, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -2950,11 +2918,11 @@ LABEL_32:
     v22 = *(a1 + 32);
     v23 = *(a1 + 40);
     *buf = 138543874;
-    v56 = v22;
-    v57 = 2114;
-    v58 = v23;
-    v59 = 2112;
-    v60 = v20;
+    v55 = v22;
+    v56 = 2114;
+    v57 = v23;
+    v58 = 2112;
+    v59 = v20;
     _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -2983,7 +2951,6 @@ LABEL_32:
   (*(*(a1 + 64) + 16))();
 
 LABEL_35:
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 id __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_352(uint64_t a1, void *a2)
@@ -3021,7 +2988,7 @@ uint64_t __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_qu
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_360(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -3036,13 +3003,13 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
         {
           v17 = *(a1 + 32);
           v18 = *(a1 + 40);
-          v22 = 138543874;
-          v23 = v17;
-          v24 = 2114;
-          v25 = v18;
-          v26 = 2112;
-          v27 = @"Not attempting to migrate because device is not remote controllable.";
-          _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v22, 0x20u);
+          v21 = 138543874;
+          v22 = v17;
+          v23 = 2114;
+          v24 = v18;
+          v25 = 2112;
+          v26 = @"Not attempting to migrate because device is not remote controllable.";
+          _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v21, 0x20u);
         }
 
         [*(a1 + 48) setFallbackReason:3];
@@ -3086,8 +3053,6 @@ LABEL_16:
 
   v13();
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_382(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
@@ -3104,7 +3069,7 @@ void __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_
 
 - (void)performMigrationToEndpoint:(id)endpoint request:(id)request queue:(id)queue completion:(id)completion
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   requestCopy = request;
   queueCopy = queue;
@@ -3151,7 +3116,7 @@ LABEL_8:
   requestID = [(MRPlaybackSessionMigrateRequest *)v15 requestID];
   v18 = objc_alloc(MEMORY[0x1E696AEC0]);
   debugName = [(MRAVEndpoint *)self debugName];
-  v65 = endpointCopy;
+  v64 = endpointCopy;
   debugName2 = [endpointCopy debugName];
   v21 = [v18 initWithFormat:@"source=%@ destination=%@", debugName, debugName2];
 
@@ -3166,42 +3131,42 @@ LABEL_8:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v93 = v23;
+    v92 = v23;
     _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v83[0] = MEMORY[0x1E69E9820];
-  v83[1] = 3221225472;
-  v83[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke;
-  v83[3] = &unk_1E76A27D0;
-  v63 = v21;
-  v84 = v63;
-  v85 = @"migrateToEndpoint";
+  v82[0] = MEMORY[0x1E69E9820];
+  v82[1] = 3221225472;
+  v82[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke;
+  v82[3] = &unk_1E76A27D0;
+  v62 = v21;
+  v83 = v62;
+  v84 = @"migrateToEndpoint";
   v25 = requestID;
-  v86 = v25;
-  v62 = date;
-  v87 = v62;
-  v64 = requestCopy;
-  v88 = v64;
+  v85 = v25;
+  v61 = date;
+  v86 = v61;
+  v63 = requestCopy;
+  v87 = v63;
   v26 = v15;
-  v89 = v26;
-  v61 = completionCopy;
-  v91 = v61;
+  v88 = v26;
+  v60 = completionCopy;
+  v90 = v60;
   v27 = queueCopy;
-  v90 = v27;
-  v28 = MEMORY[0x1A58E3570](v83);
-  if (-[MRAVEndpoint isLocalEndpoint](self, "isLocalEndpoint") && [v65 isLocalEndpoint])
+  v89 = v27;
+  v28 = MEMORY[0x1A58E3570](v82);
+  if (-[MRAVEndpoint isLocalEndpoint](self, "isLocalEndpoint") && [v64 isLocalEndpoint])
   {
     v29 = _MRLogForCategory(0xAuLL);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       requestID2 = [(MRPlaybackSessionMigrateRequest *)v26 requestID];
       *buf = 138543874;
-      v93 = @"migrateToEndpoint";
-      v94 = 2114;
-      v95 = requestID2;
-      v96 = 2112;
-      v97 = @"Already airplaying to device. Removing All outputDevices instead...";
+      v92 = @"migrateToEndpoint";
+      v93 = 2114;
+      v94 = requestID2;
+      v95 = 2112;
+      v96 = @"Already airplaying to device. Removing All outputDevices instead...";
       _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -3213,15 +3178,15 @@ LABEL_8:
     initiator = [(MRPlaybackSessionMigrateRequest *)v26 initiator];
     requestID3 = [(MRPlaybackSessionMigrateRequest *)v26 requestID];
     v37 = [v34 initWithFormat:@"%@-%@", initiator, requestID3];
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_395;
-    v78[3] = &unk_1E76A27F8;
-    v82 = v31;
-    v79 = v26;
-    v80 = @"migrateToEndpoint";
-    v81 = v28;
-    [ErrorWithDescription setOutputDevices:0 initiator:v37 fadeAudio:v33 withReplyQueue:v27 completion:v78];
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_395;
+    v77[3] = &unk_1E76A27F8;
+    v81 = v31;
+    v78 = v26;
+    v79 = @"migrateToEndpoint";
+    v80 = v28;
+    [ErrorWithDescription setOutputDevices:0 initiator:v37 fadeAudio:v33 withReplyQueue:v27 completion:v77];
 
     goto LABEL_20;
   }
@@ -3242,49 +3207,49 @@ LABEL_8:
 
       (v28)[2](v28, ErrorWithDescription);
 LABEL_20:
-      v45 = v65;
+      v45 = v64;
       goto LABEL_25;
     }
   }
 
-  v45 = v65;
-  if ((-[MRPlaybackSessionMigrateRequest endpointOptions](v26, "endpointOptions") & 0x10) != 0 || ([v65 outputDevices], v46 = objc_claimAutoreleasedReturnValue(), v47 = MRAVOutputDeviceArrayNumberOfLogicalDevices(v46), v46, v47 < 2))
+  v45 = v64;
+  if ((-[MRPlaybackSessionMigrateRequest endpointOptions](v26, "endpointOptions") & 0x10) != 0 || ([v64 outputDevices], v46 = objc_claimAutoreleasedReturnValue(), v47 = MRAVOutputDeviceArrayNumberOfLogicalDevices(v46), v46, v47 < 2))
   {
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_4;
-    v73[3] = &unk_1E76A2938;
+    v72[0] = MEMORY[0x1E69E9820];
+    v72[1] = 3221225472;
+    v72[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_4;
+    v72[3] = &unk_1E76A2938;
     v53 = v26;
-    v74 = v53;
-    v75 = v25;
+    v73 = v53;
+    v74 = v25;
     v54 = v27;
-    v76 = v54;
+    v75 = v54;
     v55 = v28;
-    v77 = v55;
-    v56 = MEMORY[0x1A58E3570](v73);
+    v76 = v55;
+    v56 = MEMORY[0x1A58E3570](v72);
     v57 = [(MRPlaybackSessionMigrateRequest *)v53 startEvent:@"Connect" role:1];
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_6;
-    v66[3] = &unk_1E76A2AE8;
-    v67 = v53;
-    v72 = v57;
-    v45 = v65;
-    v68 = v54;
-    v69 = v65;
-    v70 = v56;
-    v71 = v55;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_6;
+    v65[3] = &unk_1E76A2AE8;
+    v66 = v53;
+    v71 = v57;
+    v45 = v64;
+    v67 = v54;
+    v68 = v64;
+    v69 = v56;
+    v70 = v55;
     v58 = v56;
-    [(MRAVEndpoint *)self _prepareToMigrateToEndpoint:v69 queue:v68 completion:v66];
+    [(MRAVEndpoint *)self _prepareToMigrateToEndpoint:v68 queue:v67 completion:v65];
 
-    ErrorWithDescription = v74;
+    ErrorWithDescription = v73;
   }
 
   else
   {
     v48 = objc_alloc(MEMORY[0x1E696AEC0]);
     v49 = MRMediaRemotePlaybackSessionMigrateEndpointOptionsCopyDescription(16);
-    outputDevices2 = [v65 outputDevices];
+    outputDevices2 = [v64 outputDevices];
     v51 = MRAVOutputDeviceArrayDescription(outputDevices2);
     v52 = [v48 initWithFormat:@"%@ option is not present and destination contains %@", v49, v51];
     ErrorWithDescription = MRMediaRemoteCreateErrorWithDescription(151, v52);
@@ -3293,13 +3258,11 @@ LABEL_20:
   }
 
 LABEL_25:
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -3320,13 +3283,13 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -3344,11 +3307,11 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -3372,15 +3335,15 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -3389,7 +3352,7 @@ LABEL_13:
 
   if (v7)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v3, v6);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_14:
@@ -3402,13 +3365,10 @@ LABEL_14:
   v24 = *(a1 + 88);
   if (v24)
   {
-    v25 = *(a1 + 80);
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_395(uint64_t a1, void *a2)
@@ -3516,44 +3476,43 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) groupLeader];
-    v6 = [v5 uid];
+    v4 = [*(a1 + 32) groupLeader];
+    v5 = [v4 uid];
 
-    v7 = [*(a1 + 32) outputDeviceUIDs];
-    if ([v7 containsObject:v6])
+    v6 = [*(a1 + 32) outputDeviceUIDs];
+    if ([v6 containsObject:v5])
     {
-      v8 = v6;
+      v7 = v5;
     }
 
     else
     {
-      v9 = [*(a1 + 32) outputDeviceUIDs];
-      v8 = [v9 firstObject];
+      v8 = [*(a1 + 32) outputDeviceUIDs];
+      v7 = [v8 firstObject];
     }
 
     if (([*(a1 + 40) endpointOptions] & 0x40) != 0)
     {
-      v10 = [*(a1 + 40) startEvent:@"DiscoverDestinationEndpoint" role:1];
-      v11 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_8;
-      v14[3] = &unk_1E76A2A98;
-      v15 = v11;
-      v12 = *(a1 + 48);
-      v16 = *(a1 + 40);
-      v18 = v10;
-      v17 = *(a1 + 56);
-      v13 = v11;
-      [(MRAVLightweightReconnaissanceSession *)v13 searchEndpointsForLeaderOutputDeviceUID:v8 timeout:@"discoverDestinationEndpoint" reason:v12 queue:v14 completion:7.0];
+      v9 = [*(a1 + 40) startEvent:@"DiscoverDestinationEndpoint" role:1];
+      v10 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___block_invoke_8;
+      v13[3] = &unk_1E76A2A98;
+      v14 = v10;
+      v11 = *(a1 + 48);
+      v15 = *(a1 + 40);
+      v17 = v9;
+      v16 = *(a1 + 56);
+      v12 = v10;
+      [(MRAVLightweightReconnaissanceSession *)v12 searchEndpointsForLeaderOutputDeviceUID:v7 timeout:@"discoverDestinationEndpoint" reason:v11 queue:v13 completion:7.0];
     }
 
     else
@@ -3579,7 +3538,7 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
 
 - (void)_prepareToMigrateToEndpoint:(void *)endpoint queue:(void *)queue completion:
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   endpointCopy = endpoint;
   queueCopy = queue;
@@ -3596,80 +3555,78 @@ void __68__MRAVEndpoint_performMigrationToEndpoint_request_queue_completion___bl
       v10 = MEMORY[0x1E69E96A0];
     }
 
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x3032000000;
-    v44[3] = __Block_byref_object_copy__37;
-    v44[4] = __Block_byref_object_dispose__37;
-    v45 = 0;
-    v42[0] = 0;
-    v42[1] = v42;
-    v42[2] = 0x3032000000;
-    v42[3] = __Block_byref_object_copy__37;
-    v42[4] = __Block_byref_object_dispose__37;
-    v43 = 0;
-    v40[0] = 0;
-    v40[1] = v40;
-    v40[2] = 0x3032000000;
-    v40[3] = __Block_byref_object_copy__37;
-    v40[4] = __Block_byref_object_dispose__37;
-    v41 = 0;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = __Block_byref_object_copy__37;
+    v43[4] = __Block_byref_object_dispose__37;
+    v44 = 0;
+    v41[0] = 0;
+    v41[1] = v41;
+    v41[2] = 0x3032000000;
+    v41[3] = __Block_byref_object_copy__37;
+    v41[4] = __Block_byref_object_dispose__37;
+    v42 = 0;
+    v39[0] = 0;
+    v39[1] = v39;
+    v39[2] = 0x3032000000;
+    v39[3] = __Block_byref_object_copy__37;
+    v39[4] = __Block_byref_object_dispose__37;
+    v40 = 0;
     v11 = dispatch_group_create();
-    v46 = @"MREndpointConnectionReasonUserInfoKey";
-    v47[0] = @"prepareToMigrateToEndpoint";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = @"MREndpointConnectionReasonUserInfoKey";
+    v46[0] = @"prepareToMigrateToEndpoint";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     dispatch_group_enter(v11);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke;
-    v36[3] = &unk_1E769D630;
-    v38 = v40;
-    v39 = v44;
-    v36[4] = self;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke;
+    v35[3] = &unk_1E769D630;
+    v37 = v39;
+    v38 = v43;
+    v35[4] = self;
     v13 = v11;
-    v37 = v13;
-    [self connectToExternalDeviceWithUserInfo:v12 completion:v36];
+    v36 = v13;
+    [self connectToExternalDeviceWithUserInfo:v12 completion:v35];
     dispatch_group_enter(v13);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_2;
-    v31[3] = &unk_1E769D630;
-    v34 = v40;
-    v35 = v42;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_2;
+    v30[3] = &unk_1E769D630;
+    v33 = v39;
+    v34 = v41;
     v14 = v7;
-    v32 = v14;
+    v31 = v14;
     v15 = v13;
-    v33 = v15;
-    [v14 connectToExternalDeviceWithUserInfo:v12 completion:v31];
+    v32 = v15;
+    [v14 connectToExternalDeviceWithUserInfo:v12 completion:v30];
     v16 = [MRBlockGuard alloc];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_3;
-    v29[3] = &unk_1E769AD80;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_3;
+    v28[3] = &unk_1E769AD80;
     v17 = queueCopy;
-    v30 = v17;
-    v18 = [(MRBlockGuard *)v16 initWithTimeout:@"prepareToMigrateToEndpoint" reason:endpointCopy queue:v29 handler:7.0];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_4;
-    v21[3] = &unk_1E76A2B60;
-    v22 = v18;
-    v25 = v17;
-    v26 = v40;
-    v27 = v44;
-    v28 = v42;
-    v23 = v14;
+    v29 = v17;
+    v18 = [(MRBlockGuard *)v16 initWithTimeout:@"prepareToMigrateToEndpoint" reason:endpointCopy queue:v28 handler:7.0];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_4;
+    v20[3] = &unk_1E76A2B60;
+    v21 = v18;
+    v24 = v17;
+    v25 = v39;
+    v26 = v43;
+    v27 = v41;
+    v22 = v14;
     selfCopy = self;
     v19 = v18;
-    dispatch_group_notify(v15, endpointCopy, v21);
+    dispatch_group_notify(v15, endpointCopy, v20);
 
-    _Block_object_dispose(v40, 8);
-    _Block_object_dispose(v42, 8);
+    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v41, 8);
 
-    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(v43, 8);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)canMigrateToEndpoint:(id)endpoint queue:(id)queue completion:(id)completion
@@ -3722,9 +3679,8 @@ void __54__MRAVEndpoint_canMigrateToEndpoint_queue_completion___block_invoke(uin
   v4 = *(a1 + 40);
   if (v4)
   {
-    v5 = *(a1 + 32);
-    v7 = v4;
-    v6 = v3;
+    v6 = v4;
+    v5 = v3;
     msv_dispatch_async_on_queue();
   }
 }
@@ -3793,7 +3749,7 @@ uint64_t __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block
   return result;
 }
 
-uint64_t __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_4(uint64_t a1)
+void *__61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) disarm];
   if (result)
@@ -3816,14 +3772,11 @@ uint64_t __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block
         *(v6 + 40) = v5;
 
         result = *(a1 + 56);
-        v8 = *(*(*(a1 + 64) + 8) + 40);
       }
 
-      v9 = *(*(*(a1 + 72) + 8) + 40);
-      v10 = *(*(*(a1 + 80) + 8) + 40);
-      v11 = *(result + 16);
+      v8 = result[2];
 
-      return v11();
+      return v8();
     }
   }
 
@@ -3832,7 +3785,7 @@ uint64_t __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block
 
 - (void)removeOutputDeviceFromParentGroup:(id)group queue:(id)queue completion:(id)completion
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   groupCopy = group;
   queueCopy = queue;
   completionCopy = completion;
@@ -3842,23 +3795,21 @@ uint64_t __61__MRAVEndpoint__prepareToMigrateToEndpoint_queue_completion___block
     v11 = MEMORY[0x1E69E96A0];
   }
 
-  v21 = @"MREndpointConnectionReasonUserInfoKey";
-  v22[0] = @"removeOutputDeviceFromParentGroup";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___block_invoke;
-  v17[3] = &unk_1E76A2B88;
-  v17[4] = self;
-  v18 = groupCopy;
-  v19 = queueCopy;
-  v20 = completionCopy;
+  v20 = @"MREndpointConnectionReasonUserInfoKey";
+  v21[0] = @"removeOutputDeviceFromParentGroup";
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___block_invoke;
+  v16[3] = &unk_1E76A2B88;
+  v16[4] = self;
+  v17 = groupCopy;
+  v18 = queueCopy;
+  v19 = completionCopy;
   v13 = completionCopy;
   v14 = queueCopy;
   v15 = groupCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v12 completion:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v12 completion:v16];
 }
 
 void __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -3906,7 +3857,7 @@ void __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___blo
 
 - (void)requestGroupSessionWithDetails:(id)details queue:(id)queue completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   queueCopy = queue;
   completionCopy = completion;
@@ -3926,42 +3877,40 @@ void __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___blo
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = v16;
+    v36 = v16;
     _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke;
-  v31[3] = &unk_1E76A2BB0;
-  v32 = debugName;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke;
+  v30[3] = &unk_1E76A2BB0;
+  v31 = debugName;
   v18 = detailsCopy;
-  v33 = v18;
-  v34 = v11;
-  v35 = completionCopy;
+  v32 = v18;
+  v33 = v11;
+  v34 = completionCopy;
   v19 = completionCopy;
   v20 = v11;
   v21 = debugName;
-  v22 = MEMORY[0x1A58E3570](v31);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_433;
-  v27[3] = &unk_1E76A2B88;
-  v27[4] = self;
-  v28 = v18;
-  v29 = queueCopy;
-  v30 = v22;
+  v22 = MEMORY[0x1A58E3570](v30);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_433;
+  v26[3] = &unk_1E76A2B88;
+  v26[4] = self;
+  v27 = v18;
+  v28 = queueCopy;
+  v29 = v22;
   v23 = v22;
   v24 = queueCopy;
   v25 = v18;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithOptions:0 details:v25 completion:v27];
-
-  v26 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithOptions:0 details:v25 completion:v26];
 }
 
 void __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -3979,21 +3928,21 @@ void __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_
         v13 = *(a1 + 32);
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 48)];
-        v28 = 138544386;
-        v29 = v11;
-        v30 = 2114;
-        v31 = v12;
-        v32 = 2112;
-        v33 = v5;
-        v34 = 2114;
-        v35 = v13;
-        v36 = 2048;
-        v37 = v15;
+        v27 = 138544386;
+        v28 = v11;
+        v29 = 2114;
+        v30 = v12;
+        v31 = 2112;
+        v32 = v5;
+        v33 = 2114;
+        v34 = v13;
+        v35 = 2048;
+        v36 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v28, v18);
+        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v27, v18);
         goto LABEL_17;
       }
 
@@ -4009,14 +3958,14 @@ LABEL_16:
     v12 = [*(a1 + 40) requestID];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 48)];
-    v28 = 138544130;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 2112;
-    v33 = v5;
-    v34 = 2048;
-    v35 = v25;
+    v27 = 138544130;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v12;
+    v31 = 2112;
+    v32 = v5;
+    v33 = 2048;
+    v34 = v25;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -4036,17 +3985,17 @@ LABEL_15:
         v20 = *(a1 + 32);
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 48)];
-        v28 = 138544386;
-        v29 = v11;
-        v30 = 2114;
-        v31 = v12;
-        v32 = 2114;
-        v33 = v6;
-        v34 = 2114;
-        v35 = v20;
-        v36 = 2048;
-        v37 = v21;
-        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v28, 0x34u);
+        v27 = 138544386;
+        v28 = v11;
+        v29 = 2114;
+        v30 = v12;
+        v31 = 2114;
+        v32 = v6;
+        v33 = 2114;
+        v34 = v20;
+        v35 = 2048;
+        v36 = v21;
+        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v27, 0x34u);
 LABEL_17:
 
         goto LABEL_22;
@@ -4055,7 +4004,7 @@ LABEL_17:
 
     else if (v19)
     {
-      __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_cold_1(a1, v6, v9);
+      __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_cold_1();
     }
 
     goto LABEL_22;
@@ -4073,12 +4022,12 @@ LABEL_17:
     v12 = [*(a1 + 40) requestID];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 48)];
-    v28 = 138543874;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 2048;
-    v33 = v26;
+    v27 = 138543874;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v12;
+    v31 = 2048;
+    v32 = v26;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -4092,14 +4041,14 @@ LABEL_17:
     v23 = *(a1 + 32);
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 48)];
-    v28 = 138544130;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v23;
-    v34 = 2048;
-    v35 = v24;
+    v27 = 138544130;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v12;
+    v31 = 2114;
+    v32 = v23;
+    v33 = 2048;
+    v34 = v24;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -4107,7 +4056,6 @@ LABEL_17:
 LABEL_22:
 
   (*(*(a1 + 56) + 16))();
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_433(uint64_t a1, void *a2)
@@ -4146,7 +4094,7 @@ void __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_
 
 void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -4169,14 +4117,14 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
         v26 = *(a1 + 32);
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:*(a1 + 48)];
-        v34 = 138544130;
-        v35 = v9;
-        v36 = 2114;
-        v37 = v10;
-        v38 = 2114;
-        v39 = v26;
-        v40 = 2048;
-        v41 = v27;
+        v33 = 138544130;
+        v34 = v9;
+        v35 = 2114;
+        v36 = v10;
+        v37 = 2114;
+        v38 = v26;
+        v39 = 2048;
+        v40 = v27;
         v28 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v29 = v7;
         v30 = 42;
@@ -4193,18 +4141,18 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
         v10 = [*(a1 + 40) requestID];
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:*(a1 + 48)];
-        v34 = 138543874;
-        v35 = v9;
-        v36 = 2114;
-        v37 = v10;
-        v38 = 2048;
-        v39 = v32;
+        v33 = 138543874;
+        v34 = v9;
+        v35 = 2114;
+        v36 = v10;
+        v37 = 2048;
+        v38 = v32;
         v28 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v29 = v7;
         v30 = 32;
       }
 
-      _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, v28, &v34, v30);
+      _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, v28, &v33, v30);
       goto LABEL_20;
     }
 
@@ -4221,16 +4169,16 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
       v20 = *(a1 + 32);
       v21 = [MEMORY[0x1E695DF00] date];
       [v21 timeIntervalSinceDate:*(a1 + 48)];
-      v34 = 138544386;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v18;
-      v38 = 2112;
-      v39 = v19;
-      v40 = 2114;
-      v41 = v20;
-      v42 = 2048;
-      v43 = v22;
+      v33 = 138544386;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v18;
+      v37 = 2112;
+      v38 = v19;
+      v39 = 2114;
+      v40 = v20;
+      v41 = 2048;
+      v42 = v22;
       v23 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v24 = v7;
       v25 = 52;
@@ -4248,20 +4196,20 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
       v19 = [MEMORY[0x1E696AD98] numberWithInteger:a2];
       v21 = [MEMORY[0x1E695DF00] date];
       [v21 timeIntervalSinceDate:*(a1 + 48)];
-      v34 = 138544130;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v18;
-      v38 = 2112;
-      v39 = v19;
-      v40 = 2048;
-      v41 = v31;
+      v33 = 138544130;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v18;
+      v37 = 2112;
+      v38 = v19;
+      v39 = 2048;
+      v40 = v31;
       v23 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v24 = v7;
       v25 = 42;
     }
 
-    _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, v23, &v34, v25);
+    _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, v23, &v33, v25);
 
     goto LABEL_21;
   }
@@ -4278,30 +4226,29 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
       v11 = *(a1 + 32);
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 48)];
-      v34 = 138544386;
-      v35 = v9;
-      v36 = 2114;
-      v37 = v10;
-      v38 = 2114;
-      v39 = v5;
-      v40 = 2114;
-      v41 = v11;
-      v42 = 2048;
-      v43 = v13;
-      _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v34, 0x34u);
+      v33 = 138544386;
+      v34 = v9;
+      v35 = 2114;
+      v36 = v10;
+      v37 = 2114;
+      v38 = v5;
+      v39 = 2114;
+      v40 = v11;
+      v41 = 2048;
+      v42 = v13;
+      _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v33, 0x34u);
 LABEL_20:
     }
   }
 
   else if (v8)
   {
-    __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_cold_1(a1, v5, v7);
+    __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_21:
 
   (*(*(a1 + 56) + 16))();
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke_439(uint64_t a1, void *a2)
@@ -4328,70 +4275,66 @@ void __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion_
 
 - (BOOL)hasPotentialGroupLeader
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   designatedGroupLeader = [(MRAVEndpoint *)self designatedGroupLeader];
   isGroupLeader = [designatedGroupLeader isGroupLeader];
 
   if (isGroupLeader)
   {
-    v5 = 1;
+    return 1;
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  outputDevices = [(MRAVEndpoint *)self outputDevices];
+  v7 = [outputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(outputDevices);
+        }
+
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([v11 isGroupLeader] & 1) != 0 || objc_msgSend(v11, "canRelayCommunicationChannel") && !objc_msgSend(v11, "isRemoteControllable") || (objc_msgSend(v11, "groupContainsGroupLeader") & 1) == 0 && objc_msgSend(v11, "isRemoteControllable") && (objc_msgSend(v11, "isAirPlayReceiverSessionActive"))
+        {
+          v5 = 1;
+          goto LABEL_19;
+        }
+      }
+
+      v8 = [outputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = 0;
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    outputDevices = [(MRAVEndpoint *)self outputDevices];
-    v7 = [outputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v15;
-      while (2)
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v15 != v9)
-          {
-            objc_enumerationMutation(outputDevices);
-          }
-
-          v11 = *(*(&v14 + 1) + 8 * i);
-          if ([v11 isGroupLeader] & 1) != 0 || objc_msgSend(v11, "canRelayCommunicationChannel") && !objc_msgSend(v11, "isRemoteControllable") || (objc_msgSend(v11, "groupContainsGroupLeader") & 1) == 0 && objc_msgSend(v11, "isRemoteControllable") && (objc_msgSend(v11, "isAirPlayReceiverSessionActive"))
-          {
-            v5 = 1;
-            goto LABEL_19;
-          }
-        }
-
-        v8 = [outputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
-        v5 = 0;
-        if (v8)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-LABEL_19:
+    v5 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+LABEL_19:
+
   return v5;
 }
 
 - (void)outputDeviceVolumeControlCapabilities:(id)capabilities queue:(id)queue completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   queueCopy = queue;
   completionCopy = completion;
@@ -4414,65 +4357,63 @@ LABEL_19:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v18;
+    v53 = v18;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke;
-  v44[3] = &unk_1E76A2C00;
-  v45 = capabilitiesCopy;
-  v46 = @"outputDeviceVolumeControlCapabilities";
-  v47 = uUIDString;
-  v48 = v11;
-  v49 = queueCopy;
-  v50 = completionCopy;
-  v35 = queueCopy;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke;
+  v43[3] = &unk_1E76A2C00;
+  v44 = capabilitiesCopy;
+  v45 = @"outputDeviceVolumeControlCapabilities";
+  v46 = uUIDString;
+  v47 = v11;
+  v48 = queueCopy;
+  v49 = completionCopy;
+  v34 = queueCopy;
   v20 = completionCopy;
   v21 = v11;
   v22 = uUIDString;
   v23 = capabilitiesCopy;
-  v24 = MEMORY[0x1A58E3570](v44);
+  v24 = MEMORY[0x1A58E3570](v43);
   v25 = [MRBlockGuard alloc];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_2;
-  v42[3] = &unk_1E769AD80;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_2;
+  v41[3] = &unk_1E769AD80;
   v26 = v24;
-  v43 = v26;
-  v27 = [(MRBlockGuard *)v25 initWithTimeout:@"outputDeviceVolumeControlCapabilities" reason:v42 handler:7.0];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_3;
-  v39[3] = &unk_1E769BD98;
-  v40 = v27;
-  v41 = v26;
+  v42 = v26;
+  v27 = [(MRBlockGuard *)v25 initWithTimeout:@"outputDeviceVolumeControlCapabilities" reason:v41 handler:7.0];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_3;
+  v38[3] = &unk_1E769BD98;
+  v39 = v27;
+  v40 = v26;
   v28 = v26;
   v29 = v27;
-  v30 = MEMORY[0x1A58E3570](v39);
-  v51[0] = @"MREndpointConnectionReasonUserInfoKey";
-  v51[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
-  v52[0] = @"outputDeviceVolumeControlCapabilities";
-  v52[1] = v22;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_4;
-  v36[3] = &unk_1E769AE80;
-  v36[4] = self;
-  v37 = capabilitiesCopy;
-  v38 = v30;
+  v30 = MEMORY[0x1A58E3570](v38);
+  v50[0] = @"MREndpointConnectionReasonUserInfoKey";
+  v50[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
+  v51[0] = @"outputDeviceVolumeControlCapabilities";
+  v51[1] = v22;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_4;
+  v35[3] = &unk_1E769AE80;
+  v35[4] = self;
+  v36 = capabilitiesCopy;
+  v37 = v30;
   v32 = v30;
   v33 = capabilitiesCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v31 completion:v36];
-
-  v34 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v31 completion:v35];
 }
 
 void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke(void *a1, int a2, void *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -4497,15 +4438,15 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
         v20 = [MEMORY[0x1E695DF00] date];
         [v20 timeIntervalSinceDate:a1[7]];
         *buf = 138544386;
-        v48 = v17;
-        v49 = 2114;
-        v50 = v18;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 2114;
-        v54 = v19;
-        v55 = 2048;
-        v56 = v21;
+        v47 = v17;
+        v48 = 2114;
+        v49 = v18;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 2114;
+        v53 = v19;
+        v54 = 2048;
+        v55 = v21;
         v22 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v23 = v7;
         v24 = 52;
@@ -4524,13 +4465,13 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
         v20 = [MEMORY[0x1E695DF00] date];
         [v20 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v32;
-        v49 = 2114;
-        v50 = v33;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 2048;
-        v54 = v34;
+        v47 = v32;
+        v48 = 2114;
+        v49 = v33;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 2048;
+        v53 = v34;
         v22 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v23 = v7;
         v24 = 42;
@@ -4554,13 +4495,13 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v26;
-        v49 = 2114;
-        v50 = v25;
-        v51 = 2114;
-        v52 = v27;
-        v53 = 2048;
-        v54 = v28;
+        v47 = v26;
+        v48 = 2114;
+        v49 = v25;
+        v50 = 2114;
+        v51 = v27;
+        v52 = 2048;
+        v53 = v28;
         v29 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v30 = v7;
         v31 = 42;
@@ -4578,11 +4519,11 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:a1[7]];
         *buf = 138543874;
-        v48 = v35;
-        v49 = 2114;
-        v50 = v36;
-        v51 = 2048;
-        v52 = v37;
+        v47 = v35;
+        v48 = 2114;
+        v49 = v36;
+        v50 = 2048;
+        v51 = v37;
         v29 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v30 = v7;
         v31 = 32;
@@ -4610,15 +4551,15 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v48 = v10;
-    v49 = 2114;
-    v50 = v9;
-    v51 = 2114;
-    v52 = v5;
-    v53 = 2114;
-    v54 = v11;
-    v55 = 2048;
-    v56 = v13;
+    v47 = v10;
+    v48 = 2114;
+    v49 = v9;
+    v50 = 2114;
+    v51 = v5;
+    v52 = 2114;
+    v53 = v11;
+    v54 = 2048;
+    v55 = v13;
     _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
 
@@ -4627,7 +4568,7 @@ LABEL_20:
 
   if (v8)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v5, v7);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_21:
@@ -4648,16 +4589,14 @@ LABEL_21:
     block[1] = 3221225472;
     block[2] = __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_446;
     block[3] = &unk_1E769BD70;
-    v45 = v38;
-    v46 = a2;
-    v44 = v5;
+    v44 = v38;
+    v45 = a2;
+    v43 = v5;
     dispatch_async(v40, block);
     if (!v39)
     {
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -4692,7 +4631,7 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
 
 - (void)setOutputDeviceVolume:(float)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   detailsCopy = details;
   queueCopy = queue;
@@ -4717,12 +4656,12 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
 
   else
   {
-    volume = [v19 initWithFormat:@"endpoint=%@, volume=%lf", volumeCopy, debugName, volume, v48];
+    volume = [v19 initWithFormat:@"endpoint=%@, volume=%lf", volumeCopy, debugName, volume, v47];
   }
 
   v24 = volume;
 
-  v50 = detailsCopy;
+  v49 = detailsCopy;
   if (detailsCopy)
   {
     v25 = detailsCopy;
@@ -4749,54 +4688,52 @@ void __71__MRAVEndpoint_outputDeviceVolumeControlCapabilities_queue_completion__
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v65 = v31;
+    v64 = v31;
     _os_log_impl(&dword_1A2860000, v32, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
-  v56[3] = &unk_1E76A2C28;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
+  v55[3] = &unk_1E76A2C28;
   volumeCopy2 = volume;
-  v57 = v24;
-  v58 = v18;
-  v59 = v25;
-  v60 = v16;
-  v61 = queueCopy;
-  v62 = completionCopy;
+  v56 = v24;
+  v57 = v18;
+  v58 = v25;
+  v59 = v16;
+  v60 = queueCopy;
+  v61 = completionCopy;
   v33 = queueCopy;
   v34 = completionCopy;
   v35 = v16;
   v36 = v25;
   v37 = v18;
   v38 = v24;
-  v39 = MEMORY[0x1A58E3570](v56);
+  v39 = MEMORY[0x1A58E3570](v55);
   v40 = [MRBlockGuard alloc];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_2;
-  v54[3] = &unk_1E769AD80;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_2;
+  v53[3] = &unk_1E769AD80;
   v41 = v39;
-  v55 = v41;
-  v42 = [(MRBlockGuard *)v40 initWithTimeout:v37 reason:v54 handler:7.0];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3;
-  v51[3] = &unk_1E769BCD0;
-  v52 = v42;
-  v53 = v41;
+  v54 = v41;
+  v42 = [(MRBlockGuard *)v40 initWithTimeout:v37 reason:v53 handler:7.0];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3;
+  v50[3] = &unk_1E769BCD0;
+  v51 = v42;
+  v52 = v41;
   v43 = v41;
   v44 = v42;
-  v45 = MEMORY[0x1A58E3570](v51);
+  v45 = MEMORY[0x1A58E3570](v50);
   *&v46 = volume;
   [(MRAVEndpoint *)selfCopy _setOutputDeviceVolume:deviceCopy outputDevice:v36 details:v33 queue:v45 completion:v46];
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -4823,15 +4760,15 @@ void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_complet
         v19 = [MEMORY[0x1E695DF00] date];
         [v19 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v44 = v16;
-        v45 = 2114;
-        v46 = v9;
-        v47 = 2112;
-        v48 = v11;
-        v49 = 2114;
-        v50 = v18;
-        v51 = 2048;
-        v52 = v20;
+        v43 = v16;
+        v44 = 2114;
+        v45 = v9;
+        v46 = 2112;
+        v47 = v11;
+        v48 = 2114;
+        v49 = v18;
+        v50 = 2048;
+        v51 = v20;
         v21 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v22 = v6;
         v23 = 52;
@@ -4851,13 +4788,13 @@ void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_complet
         v19 = [MEMORY[0x1E695DF00] date];
         [v19 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v44 = v30;
-        v45 = 2114;
-        v46 = v9;
-        v47 = 2112;
-        v48 = v11;
-        v49 = 2048;
-        v50 = v32;
+        v43 = v30;
+        v44 = 2114;
+        v45 = v9;
+        v46 = 2112;
+        v47 = v11;
+        v48 = 2048;
+        v49 = v32;
         v21 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v22 = v6;
         v23 = 42;
@@ -4881,13 +4818,13 @@ void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_complet
         v11 = [MEMORY[0x1E695DF00] date];
         [v11 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v44 = v24;
-        v45 = 2114;
-        v46 = v9;
-        v47 = 2114;
-        v48 = v25;
-        v49 = 2048;
-        v50 = v26;
+        v43 = v24;
+        v44 = 2114;
+        v45 = v9;
+        v46 = 2114;
+        v47 = v25;
+        v48 = 2048;
+        v49 = v26;
         v27 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v28 = v6;
         v29 = 42;
@@ -4905,11 +4842,11 @@ void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_complet
         v11 = [MEMORY[0x1E695DF00] date];
         [v11 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v44 = v33;
-        v45 = 2114;
-        v46 = v9;
-        v47 = 2048;
-        v48 = v34;
+        v43 = v33;
+        v44 = 2114;
+        v45 = v9;
+        v46 = 2048;
+        v47 = v34;
         v27 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v28 = v6;
         v29 = 32;
@@ -4937,15 +4874,15 @@ void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_complet
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v44 = v8;
-    v45 = 2114;
-    v46 = v9;
-    v47 = 2114;
-    v48 = v3;
-    v49 = 2114;
-    v50 = v10;
-    v51 = 2048;
-    v52 = v12;
+    v43 = v8;
+    v44 = 2114;
+    v45 = v9;
+    v46 = 2114;
+    v47 = v3;
+    v48 = 2114;
+    v49 = v10;
+    v50 = 2048;
+    v51 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
 
@@ -4954,7 +4891,7 @@ LABEL_20:
 
   if (v7)
   {
-    __109__MRAVLightweightReconnaissanceSession_searchEndpointsForRoutingContextUID_timeout_details_queue_completion___block_invoke_cold_1(a1, v3, v6);
+    __109__MRAVLightweightReconnaissanceSession_searchEndpointsForRoutingContextUID_timeout_details_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_21:
@@ -4971,19 +4908,17 @@ LABEL_21:
       v35 = *(a1 + 72);
     }
 
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_466;
-    v40[3] = &unk_1E769AB28;
-    v42 = v35;
-    v41 = v3;
-    dispatch_async(v37, v40);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_466;
+    v39[3] = &unk_1E769AB28;
+    v41 = v35;
+    v40 = v3;
+    dispatch_async(v37, v39);
     if (!v36)
     {
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MRAVEndpoint_setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -5035,7 +4970,7 @@ void __77__MRAVEndpoint__setOutputDeviceVolume_outputDevice_details_queue_comple
 
 - (void)outputDeviceVolume:(id)volume queue:(id)queue completion:(id)completion
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   volumeCopy = volume;
   queueCopy = queue;
   completionCopy = completion;
@@ -5060,7 +4995,7 @@ void __77__MRAVEndpoint__setOutputDeviceVolume_outputDevice_details_queue_comple
 
   else
   {
-    volumeCopy = [v16 initWithFormat:@"endpoint=%@", debugName, v39];
+    volumeCopy = [v16 initWithFormat:@"endpoint=%@", debugName, v38];
   }
 
   v20 = volumeCopy;
@@ -5076,66 +5011,64 @@ void __77__MRAVEndpoint__setOutputDeviceVolume_outputDevice_details_queue_comple
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v60 = v22;
+    v59 = v22;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke;
-  v50[3] = &unk_1E76A2C78;
-  v51 = v20;
-  v52 = v15;
-  v53 = uUIDString;
-  v54 = v11;
-  v55 = queueCopy;
-  v56 = completionCopy;
-  v41 = queueCopy;
-  v40 = completionCopy;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke;
+  v49[3] = &unk_1E76A2C78;
+  v50 = v20;
+  v51 = v15;
+  v52 = uUIDString;
+  v53 = v11;
+  v54 = queueCopy;
+  v55 = completionCopy;
+  v40 = queueCopy;
+  v39 = completionCopy;
   v24 = v11;
   v25 = uUIDString;
   v26 = v15;
   v27 = v20;
-  v28 = MEMORY[0x1A58E3570](v50);
+  v28 = MEMORY[0x1A58E3570](v49);
   v29 = [MRBlockGuard alloc];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_2;
-  v48[3] = &unk_1E769AD80;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_2;
+  v47[3] = &unk_1E769AD80;
   v30 = v28;
-  v49 = v30;
-  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v48 handler:7.0];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_3;
-  v45[3] = &unk_1E769BE10;
-  v46 = v31;
-  v47 = v30;
+  v48 = v30;
+  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v47 handler:7.0];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_3;
+  v44[3] = &unk_1E769BE10;
+  v45 = v31;
+  v46 = v30;
   v32 = v30;
   v33 = v31;
-  v34 = MEMORY[0x1A58E3570](v45);
-  v57[0] = @"MREndpointConnectionReasonUserInfoKey";
-  v57[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
-  v58[0] = v26;
-  v58[1] = v25;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4;
-  v42[3] = &unk_1E769AE80;
-  v42[4] = self;
-  v43 = volumeCopy;
-  v44 = v34;
+  v34 = MEMORY[0x1A58E3570](v44);
+  v56[0] = @"MREndpointConnectionReasonUserInfoKey";
+  v56[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
+  v57[0] = v26;
+  v57[1] = v25;
+  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4;
+  v41[3] = &unk_1E769AE80;
+  v41[4] = self;
+  v42 = volumeCopy;
+  v43 = v34;
   v36 = v34;
   v37 = volumeCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v35 completion:v42];
-
-  v38 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v35 completion:v41];
 }
 
 void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void *a1, void *a2, float a3)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!v5)
   {
@@ -5162,15 +5095,15 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void 
         v22 = [MEMORY[0x1E695DF00] date];
         [v22 timeIntervalSinceDate:a1[7]];
         *buf = 138544386;
-        v50 = v19;
-        v51 = 2114;
-        v52 = v20;
-        v53 = 2112;
-        v54 = v13;
-        v55 = 2114;
-        v56 = v21;
-        v57 = 2048;
-        v58 = v23;
+        v49 = v19;
+        v50 = 2114;
+        v51 = v20;
+        v52 = 2112;
+        v53 = v13;
+        v54 = 2114;
+        v55 = v21;
+        v56 = 2048;
+        v57 = v23;
         v24 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v25 = v8;
         v26 = 52;
@@ -5190,13 +5123,13 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void 
         v22 = [MEMORY[0x1E695DF00] date];
         [v22 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v50 = v34;
-        v51 = 2114;
-        v52 = v35;
-        v53 = 2112;
-        v54 = v13;
-        v55 = 2048;
-        v56 = v36;
+        v49 = v34;
+        v50 = 2114;
+        v51 = v35;
+        v52 = 2112;
+        v53 = v13;
+        v54 = 2048;
+        v55 = v36;
         v24 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v25 = v8;
         v26 = 42;
@@ -5220,13 +5153,13 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void 
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v50 = v28;
-        v51 = 2114;
-        v52 = v27;
-        v53 = 2114;
-        v54 = v29;
-        v55 = 2048;
-        v56 = v30;
+        v49 = v28;
+        v50 = 2114;
+        v51 = v27;
+        v52 = 2114;
+        v53 = v29;
+        v54 = 2048;
+        v55 = v30;
         v31 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v32 = v8;
         v33 = 42;
@@ -5244,11 +5177,11 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void 
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:a1[7]];
         *buf = 138543874;
-        v50 = v37;
-        v51 = 2114;
-        v52 = v38;
-        v53 = 2048;
-        v54 = v39;
+        v49 = v37;
+        v50 = 2114;
+        v51 = v38;
+        v52 = 2048;
+        v53 = v39;
         v31 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v32 = v8;
         v33 = 32;
@@ -5276,15 +5209,15 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke(void 
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v50 = v11;
-    v51 = 2114;
-    v52 = v10;
-    v53 = 2114;
-    v54 = v5;
-    v55 = 2114;
-    v56 = v12;
-    v57 = 2048;
-    v58 = v14;
+    v49 = v11;
+    v50 = 2114;
+    v51 = v10;
+    v52 = 2114;
+    v53 = v5;
+    v54 = 2114;
+    v55 = v12;
+    v56 = 2048;
+    v57 = v14;
     _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
 
@@ -5293,7 +5226,7 @@ LABEL_20:
 
   if (v9)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v5, v8);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_21:
@@ -5314,16 +5247,14 @@ LABEL_21:
     block[1] = 3221225472;
     block[2] = __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_473;
     block[3] = &unk_1E769BD70;
-    v47 = v40;
-    v48 = a3;
-    v46 = v5;
+    v46 = v40;
+    v47 = a3;
+    v45 = v5;
     dispatch_async(v42, block);
     if (!v41)
     {
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_3(uint64_t a1, void *a2, float a3)
@@ -5352,7 +5283,7 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4(uin
 
 - (void)adjustOutputDeviceVolume:(int64_t)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   detailsCopy = details;
   queueCopy = queue;
@@ -5375,7 +5306,7 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4(uin
 
   else
   {
-    deviceCopy = [v17 initWithFormat:@"endpoint=%@", debugName, v37];
+    deviceCopy = [v17 initWithFormat:@"endpoint=%@", debugName, v36];
   }
 
   v21 = deviceCopy;
@@ -5406,33 +5337,31 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4(uin
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v47 = v28;
+    v46 = v28;
     _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
-  v40[3] = &unk_1E76A2CA0;
-  v41 = v21;
-  v42 = v16;
-  v44 = queueCopy;
-  v45 = completionCopy;
-  v43 = v22;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
+  v39[3] = &unk_1E76A2CA0;
+  v40 = v21;
+  v41 = v16;
+  v43 = queueCopy;
+  v44 = completionCopy;
+  v42 = v22;
   v30 = queueCopy;
   v31 = completionCopy;
   v32 = v22;
   v33 = v16;
   v34 = v21;
-  v35 = MEMORY[0x1A58E3570](v40);
+  v35 = MEMORY[0x1A58E3570](v39);
   [(MRAVEndpoint *)selfCopy _adjustOutputDeviceVolume:volume outputDevice:deviceCopy details:v32 queue:v30 completion:v35];
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -5454,13 +5383,13 @@ void __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_comp
       v12 = [*(a1 + 48) startDate];
       [v11 timeIntervalSinceDate:v12];
       *buf = 138544130;
-      v29 = v15;
+      v27 = v15;
+      v28 = 2114;
+      v29 = v9;
       v30 = 2114;
-      v31 = v9;
-      v32 = 2114;
-      v33 = v16;
-      v34 = 2048;
-      v35 = v17;
+      v31 = v16;
+      v32 = 2048;
+      v33 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -5479,11 +5408,11 @@ void __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_comp
       v12 = [*(a1 + 48) startDate];
       [v11 timeIntervalSinceDate:v12];
       *buf = 138543874;
-      v29 = v21;
-      v30 = 2114;
-      v31 = v9;
-      v32 = 2048;
-      v33 = v22;
+      v27 = v21;
+      v28 = 2114;
+      v29 = v9;
+      v30 = 2048;
+      v31 = v22;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -5508,15 +5437,15 @@ void __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_comp
     v12 = [*(a1 + 48) startDate];
     [v11 timeIntervalSinceDate:v12];
     *buf = 138544386;
-    v29 = v8;
+    v27 = v8;
+    v28 = 2114;
+    v29 = v9;
     v30 = 2114;
-    v31 = v9;
+    v31 = v3;
     v32 = 2114;
-    v33 = v3;
-    v34 = 2114;
-    v35 = v10;
-    v36 = 2048;
-    v37 = v13;
+    v33 = v10;
+    v34 = 2048;
+    v35 = v13;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -5525,7 +5454,7 @@ LABEL_13:
 
   if (v7)
   {
-    __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_cold_1(a1, v3, v6);
+    __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_14:
@@ -5533,13 +5462,10 @@ LABEL_14:
   v23 = *(a1 + 64);
   if (v23)
   {
-    v24 = *(a1 + 56);
-    v27 = v23;
-    v26 = v3;
+    v25 = v23;
+    v24 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_adjustOutputDeviceVolume:(int64_t)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion
@@ -5583,7 +5509,7 @@ void __80__MRAVEndpoint__adjustOutputDeviceVolume_outputDevice_details_queue_com
 - (void)muteOutputDeviceVolume:(BOOL)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion
 {
   volumeCopy = volume;
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   detailsCopy = details;
   queueCopy = queue;
@@ -5607,12 +5533,12 @@ void __80__MRAVEndpoint__adjustOutputDeviceVolume_outputDevice_details_queue_com
 
   else
   {
-    deviceCopy = [v18 initWithFormat:@"endpoint=%@", debugName, v46];
+    deviceCopy = [v18 initWithFormat:@"endpoint=%@", debugName, v45];
   }
 
   v22 = deviceCopy;
 
-  v49 = detailsCopy;
+  v48 = detailsCopy;
   if (detailsCopy)
   {
     v23 = detailsCopy;
@@ -5639,54 +5565,52 @@ void __80__MRAVEndpoint__adjustOutputDeviceVolume_outputDevice_details_queue_com
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v63 = v29;
+    v62 = v29;
     _os_log_impl(&dword_1A2860000, v30, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
-  v55[3] = &unk_1E769FBE0;
-  v56 = v22;
-  v57 = v17;
-  v58 = v23;
-  v59 = v15;
-  v60 = queueCopy;
-  v61 = completionCopy;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
+  v54[3] = &unk_1E769FBE0;
+  v55 = v22;
+  v56 = v17;
+  v57 = v23;
+  v58 = v15;
+  v59 = queueCopy;
+  v60 = completionCopy;
   v31 = queueCopy;
   v32 = completionCopy;
   v33 = v15;
   v34 = v23;
   v35 = v17;
   v36 = v22;
-  v37 = MEMORY[0x1A58E3570](v55);
+  v37 = MEMORY[0x1A58E3570](v54);
   v38 = [MRBlockGuard alloc];
   name = [(MRRequestDetails *)v34 name];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_2;
-  v53[3] = &unk_1E769AD80;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_2;
+  v52[3] = &unk_1E769AD80;
   v40 = v37;
-  v54 = v40;
-  v41 = [(MRBlockGuard *)v38 initWithTimeout:name reason:v53 handler:7.0];
+  v53 = v40;
+  v41 = [(MRBlockGuard *)v38 initWithTimeout:name reason:v52 handler:7.0];
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3;
-  v50[3] = &unk_1E769BCD0;
-  v51 = v41;
-  v52 = v40;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3;
+  v49[3] = &unk_1E769BCD0;
+  v50 = v41;
+  v51 = v40;
   v42 = v40;
   v43 = v41;
-  v44 = MEMORY[0x1A58E3570](v50);
+  v44 = MEMORY[0x1A58E3570](v49);
   [(MRAVEndpoint *)selfCopy _muteOutputDeviceVolume:volumeCopy outputDevice:deviceCopy details:v34 queue:v31 completion:v44];
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = _MRLogForCategory(0xAuLL);
@@ -5707,13 +5631,13 @@ void __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_comple
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v28 = v14;
+      v26 = v14;
+      v27 = 2114;
+      v28 = v9;
       v29 = 2114;
-      v30 = v9;
-      v31 = 2114;
-      v32 = v15;
-      v33 = 2048;
-      v34 = v16;
+      v30 = v15;
+      v31 = 2048;
+      v32 = v16;
       v17 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v18 = v6;
       v19 = 42;
@@ -5731,11 +5655,11 @@ void __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_comple
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v28 = v20;
-      v29 = 2114;
-      v30 = v9;
-      v31 = 2048;
-      v32 = v21;
+      v26 = v20;
+      v27 = 2114;
+      v28 = v9;
+      v29 = 2048;
+      v30 = v21;
       v17 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v18 = v6;
       v19 = 32;
@@ -5759,15 +5683,15 @@ void __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_comple
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v28 = v8;
+    v26 = v8;
+    v27 = 2114;
+    v28 = v9;
     v29 = 2114;
-    v30 = v9;
+    v30 = v3;
     v31 = 2114;
-    v32 = v3;
-    v33 = 2114;
-    v34 = v10;
-    v35 = 2048;
-    v36 = v12;
+    v32 = v10;
+    v33 = 2048;
+    v34 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -5776,7 +5700,7 @@ LABEL_13:
 
   if (v7)
   {
-    __109__MRAVLightweightReconnaissanceSession_searchEndpointsForRoutingContextUID_timeout_details_queue_completion___block_invoke_cold_1(a1, v3, v6);
+    __109__MRAVLightweightReconnaissanceSession_searchEndpointsForRoutingContextUID_timeout_details_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_14:
@@ -5784,13 +5708,10 @@ LABEL_14:
   v22 = *(a1 + 72);
   if (v22)
   {
-    v23 = *(a1 + 64);
-    v26 = v22;
-    v25 = v3;
+    v24 = v22;
+    v23 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MRAVEndpoint_muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -5882,7 +5803,7 @@ void __78__MRAVEndpoint__muteOutputDeviceVolume_outputDevice_details_queue_compl
 
 - (void)outputDeviceVolumeMuted:(id)muted queue:(id)queue completion:(id)completion
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   mutedCopy = muted;
   queueCopy = queue;
   completionCopy = completion;
@@ -5907,7 +5828,7 @@ void __78__MRAVEndpoint__muteOutputDeviceVolume_outputDevice_details_queue_compl
 
   else
   {
-    mutedCopy = [v16 initWithFormat:@"endpoint=%@", debugName, v39];
+    mutedCopy = [v16 initWithFormat:@"endpoint=%@", debugName, v38];
   }
 
   v20 = mutedCopy;
@@ -5923,66 +5844,64 @@ void __78__MRAVEndpoint__muteOutputDeviceVolume_outputDevice_details_queue_compl
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v60 = v22;
+    v59 = v22;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke;
-  v50[3] = &unk_1E76A2D40;
-  v51 = v20;
-  v52 = v15;
-  v53 = uUIDString;
-  v54 = v11;
-  v55 = queueCopy;
-  v56 = completionCopy;
-  v41 = queueCopy;
-  v40 = completionCopy;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke;
+  v49[3] = &unk_1E76A2D40;
+  v50 = v20;
+  v51 = v15;
+  v52 = uUIDString;
+  v53 = v11;
+  v54 = queueCopy;
+  v55 = completionCopy;
+  v40 = queueCopy;
+  v39 = completionCopy;
   v24 = v11;
   v25 = uUIDString;
   v26 = v15;
   v27 = v20;
-  v28 = MEMORY[0x1A58E3570](v50);
+  v28 = MEMORY[0x1A58E3570](v49);
   v29 = [MRBlockGuard alloc];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_2;
-  v48[3] = &unk_1E769AD80;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_2;
+  v47[3] = &unk_1E769AD80;
   v30 = v28;
-  v49 = v30;
-  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v48 handler:7.0];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_3;
-  v45[3] = &unk_1E76A2D68;
-  v46 = v31;
-  v47 = v30;
+  v48 = v30;
+  v31 = [(MRBlockGuard *)v29 initWithTimeout:v26 reason:v47 handler:7.0];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_3;
+  v44[3] = &unk_1E76A2D68;
+  v45 = v31;
+  v46 = v30;
   v32 = v30;
   v33 = v31;
-  v34 = MEMORY[0x1A58E3570](v45);
-  v57[0] = @"MREndpointConnectionReasonUserInfoKey";
-  v57[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
-  v58[0] = v26;
-  v58[1] = v25;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_4;
-  v42[3] = &unk_1E769AE80;
-  v42[4] = self;
-  v43 = mutedCopy;
-  v44 = v34;
+  v34 = MEMORY[0x1A58E3570](v44);
+  v56[0] = @"MREndpointConnectionReasonUserInfoKey";
+  v56[1] = @"MREndpointConnectionCorrelationIDUserInfoKey";
+  v57[0] = v26;
+  v57[1] = v25;
+  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_4;
+  v41[3] = &unk_1E769AE80;
+  v41[4] = self;
+  v42 = mutedCopy;
+  v43 = v34;
   v36 = v34;
   v37 = mutedCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v35 completion:v42];
-
-  v38 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v35 completion:v41];
 }
 
 void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -6007,15 +5926,15 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(
         v20 = [MEMORY[0x1E695DF00] date];
         [v20 timeIntervalSinceDate:a1[7]];
         *buf = 138544386;
-        v48 = v17;
-        v49 = 2114;
-        v50 = v18;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 2114;
-        v54 = v19;
-        v55 = 2048;
-        v56 = v21;
+        v47 = v17;
+        v48 = 2114;
+        v49 = v18;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 2114;
+        v53 = v19;
+        v54 = 2048;
+        v55 = v21;
         v22 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v23 = v7;
         v24 = 52;
@@ -6034,13 +5953,13 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(
         v20 = [MEMORY[0x1E695DF00] date];
         [v20 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v32;
-        v49 = 2114;
-        v50 = v33;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 2048;
-        v54 = v34;
+        v47 = v32;
+        v48 = 2114;
+        v49 = v33;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 2048;
+        v53 = v34;
         v22 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
         v23 = v7;
         v24 = 42;
@@ -6064,13 +5983,13 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:a1[7]];
         *buf = 138544130;
-        v48 = v26;
-        v49 = 2114;
-        v50 = v25;
-        v51 = 2114;
-        v52 = v27;
-        v53 = 2048;
-        v54 = v28;
+        v47 = v26;
+        v48 = 2114;
+        v49 = v25;
+        v50 = 2114;
+        v51 = v27;
+        v52 = 2048;
+        v53 = v28;
         v29 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v30 = v7;
         v31 = 42;
@@ -6088,11 +6007,11 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(
         v12 = [MEMORY[0x1E695DF00] date];
         [v12 timeIntervalSinceDate:a1[7]];
         *buf = 138543874;
-        v48 = v35;
-        v49 = 2114;
-        v50 = v36;
-        v51 = 2048;
-        v52 = v37;
+        v47 = v35;
+        v48 = 2114;
+        v49 = v36;
+        v50 = 2048;
+        v51 = v37;
         v29 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v30 = v7;
         v31 = 32;
@@ -6120,15 +6039,15 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke(
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v48 = v10;
-    v49 = 2114;
-    v50 = v9;
-    v51 = 2114;
-    v52 = v5;
-    v53 = 2114;
-    v54 = v11;
-    v55 = 2048;
-    v56 = v13;
+    v47 = v10;
+    v48 = 2114;
+    v49 = v9;
+    v50 = 2114;
+    v51 = v5;
+    v52 = 2114;
+    v53 = v11;
+    v54 = 2048;
+    v55 = v13;
     _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
 
@@ -6137,7 +6056,7 @@ LABEL_20:
 
   if (v8)
   {
-    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v5, v7);
+    __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
   }
 
 LABEL_21:
@@ -6158,16 +6077,14 @@ LABEL_21:
     block[1] = 3221225472;
     block[2] = __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_505;
     block[3] = &unk_1E76A2D18;
-    v45 = v38;
-    v46 = a2;
-    v44 = v5;
+    v44 = v38;
+    v45 = a2;
+    v43 = v5;
     dispatch_async(v40, block);
     if (!v39)
     {
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -6199,7 +6116,7 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
 
 - (void)waitForPlaybackWithTimeout:(double)timeout queue:(id)queue completion:(id)completion
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   v10 = [MEMORY[0x1E695DF00] now];
@@ -6228,46 +6145,46 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
   v19 = objc_alloc_init(MRNowPlayingControllerHelper);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__37;
-  v64 = __Block_byref_object_dispose__37;
-  v65 = 0;
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke;
-  v52[3] = &unk_1E76A2D90;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__37;
+  v63 = __Block_byref_object_dispose__37;
+  v64 = 0;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke;
+  v51[3] = &unk_1E76A2D90;
   v20 = v19;
-  v53 = v20;
+  v52 = v20;
   p_buf = &buf;
   v21 = v15;
-  v54 = v21;
-  v55 = @"Endpoint.waitForPlaybackWithTimeout";
+  v53 = v21;
+  v54 = @"Endpoint.waitForPlaybackWithTimeout";
   v22 = uUIDString;
-  v56 = v22;
+  v55 = v22;
   v23 = v10;
-  v57 = v23;
-  v40 = completionCopy;
-  v59 = v40;
-  v39 = queueCopy;
+  v56 = v23;
+  v39 = completionCopy;
   v58 = v39;
-  v24 = MEMORY[0x1A58E3570](v52);
+  v38 = queueCopy;
+  v57 = v38;
+  v24 = MEMORY[0x1A58E3570](v51);
   v25 = [MRBlockGuard alloc];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_2;
-  v50[3] = &unk_1E769AD80;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_2;
+  v49[3] = &unk_1E769AD80;
   v26 = v24;
-  v51 = v26;
-  v27 = [(MRBlockGuard *)v25 initWithTimeout:@"Endpoint.waitForPlaybackWithTimeout" reason:v50 handler:timeout];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_3;
-  v47[3] = &unk_1E769BCD0;
+  v50 = v26;
+  v27 = [(MRBlockGuard *)v25 initWithTimeout:@"Endpoint.waitForPlaybackWithTimeout" reason:v49 handler:timeout];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_3;
+  v46[3] = &unk_1E769BCD0;
   v28 = v27;
-  v48 = v28;
+  v47 = v28;
   v29 = v26;
-  v49 = v29;
-  v30 = MEMORY[0x1A58E3570](v47);
+  v48 = v29;
+  v30 = MEMORY[0x1A58E3570](v46);
   v31 = [[MRDestination alloc] initWithEndpoint:self];
   v32 = [[MRNowPlayingControllerConfiguration alloc] initWithDestination:v31];
   [(MRNowPlayingControllerConfiguration *)v32 setRequestPlaybackState:1];
@@ -6275,37 +6192,36 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
   v34 = *(*(&buf + 1) + 40);
   *(*(&buf + 1) + 40) = v33;
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_4;
-  v45[3] = &unk_1E76A2DB8;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_4;
+  v44[3] = &unk_1E76A2DB8;
   v35 = v30;
-  v46 = v35;
-  [(MRNowPlayingControllerHelper *)v20 setDidLoadResponse:v45];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_5;
-  v43[3] = &unk_1E769AD80;
+  v45 = v35;
+  [(MRNowPlayingControllerHelper *)v20 setDidLoadResponse:v44];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_5;
+  v42[3] = &unk_1E769AD80;
   v36 = v35;
-  v44 = v36;
-  [(MRNowPlayingControllerHelper *)v20 setDidFailWithError:v43];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_6;
-  v41[3] = &unk_1E769F0B0;
+  v43 = v36;
+  [(MRNowPlayingControllerHelper *)v20 setDidFailWithError:v42];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_6;
+  v40[3] = &unk_1E769F0B0;
   v37 = v36;
-  v42 = v37;
-  [(MRNowPlayingControllerHelper *)v20 setPlaybackStateDidChange:v41];
+  v41 = v37;
+  [(MRNowPlayingControllerHelper *)v20 setPlaybackStateDidChange:v40];
   [*(*(&buf + 1) + 40) setDelegate:v20];
   [*(*(&buf + 1) + 40) beginLoadingUpdates];
 
   _Block_object_dispose(&buf, 8);
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   [*(*(*(a1 + 88) + 8) + 40) endLoadingUpdates];
@@ -6328,13 +6244,13 @@ void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invo
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 64)];
       *buf = 138544130;
-      v34 = v16;
-      v35 = 2114;
-      v36 = v15;
-      v37 = 2114;
-      v38 = v17;
-      v39 = 2048;
-      v40 = v18;
+      v33 = v16;
+      v34 = 2114;
+      v35 = v15;
+      v36 = 2114;
+      v37 = v17;
+      v38 = 2048;
+      v39 = v18;
       v19 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v20 = v7;
       v21 = 42;
@@ -6352,11 +6268,11 @@ void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invo
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 64)];
       *buf = 138543874;
-      v34 = v22;
-      v35 = 2114;
-      v36 = v23;
-      v37 = 2048;
-      v38 = v24;
+      v33 = v22;
+      v34 = 2114;
+      v35 = v23;
+      v36 = 2048;
+      v37 = v24;
       v19 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v20 = v7;
       v21 = 32;
@@ -6380,15 +6296,15 @@ void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invo
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:*(a1 + 64)];
     *buf = 138544386;
-    v34 = v10;
-    v35 = 2114;
-    v36 = v9;
-    v37 = 2114;
-    v38 = v3;
-    v39 = 2114;
-    v40 = v11;
-    v41 = 2048;
-    v42 = v13;
+    v33 = v10;
+    v34 = 2114;
+    v35 = v9;
+    v36 = 2114;
+    v37 = v3;
+    v38 = 2114;
+    v39 = v11;
+    v40 = 2048;
+    v41 = v13;
     _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -6397,7 +6313,7 @@ LABEL_13:
 
   if (v8)
   {
-    __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_cold_1(a1, v3, v7);
+    __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_14:
@@ -6414,19 +6330,17 @@ LABEL_14:
       v25 = *(a1 + 80);
     }
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_514;
-    v30[3] = &unk_1E769AB28;
-    v32 = v25;
-    v31 = v3;
-    dispatch_async(v27, v30);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_514;
+    v29[3] = &unk_1E769AB28;
+    v31 = v25;
+    v30 = v3;
+    dispatch_async(v27, v29);
     if (!v26)
     {
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -6466,7 +6380,7 @@ uint64_t __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_
 
 - (void)setListeningMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   modeCopy = mode;
   dCopy = d;
   queueCopy = queue;
@@ -6477,25 +6391,23 @@ uint64_t __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_
     v14 = MEMORY[0x1E69E96A0];
   }
 
-  v26 = @"MREndpointConnectionReasonUserInfoKey";
-  v27[0] = @"setListeningMode";
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __66__MRAVEndpoint_setListeningMode_outputDeviceUID_queue_completion___block_invoke;
-  v21[3] = &unk_1E76A1BC0;
-  v21[4] = self;
-  v22 = modeCopy;
-  v23 = dCopy;
-  v24 = queueCopy;
-  v25 = completionCopy;
+  v25 = @"MREndpointConnectionReasonUserInfoKey";
+  v26[0] = @"setListeningMode";
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __66__MRAVEndpoint_setListeningMode_outputDeviceUID_queue_completion___block_invoke;
+  v20[3] = &unk_1E76A1BC0;
+  v20[4] = self;
+  v21 = modeCopy;
+  v22 = dCopy;
+  v23 = queueCopy;
+  v24 = completionCopy;
   v16 = completionCopy;
   v17 = queueCopy;
   v18 = dCopy;
   v19 = modeCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v15 completion:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v15 completion:v20];
 }
 
 void __66__MRAVEndpoint_setListeningMode_outputDeviceUID_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -6564,7 +6476,7 @@ void __66__MRAVEndpoint_setListeningMode_outputDeviceUID_queue_completion___bloc
 
 - (void)setConversationDetectionEnabled:(BOOL)enabled outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   queueCopy = queue;
   completionCopy = completion;
@@ -6574,24 +6486,22 @@ void __66__MRAVEndpoint_setListeningMode_outputDeviceUID_queue_completion___bloc
     v13 = MEMORY[0x1E69E96A0];
   }
 
-  v24 = @"MREndpointConnectionReasonUserInfoKey";
-  v25[0] = @"setConversationDetectionEnabled";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __81__MRAVEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_completion___block_invoke;
-  v19[3] = &unk_1E76A2DE0;
+  v23 = @"MREndpointConnectionReasonUserInfoKey";
+  v24[0] = @"setConversationDetectionEnabled";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __81__MRAVEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_completion___block_invoke;
+  v18[3] = &unk_1E76A2DE0;
   enabledCopy = enabled;
-  v19[4] = self;
-  v20 = dCopy;
-  v21 = queueCopy;
-  v22 = completionCopy;
+  v18[4] = self;
+  v19 = dCopy;
+  v20 = queueCopy;
+  v21 = completionCopy;
   v15 = completionCopy;
   v16 = queueCopy;
   v17 = dCopy;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v14 completion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(MRAVEndpoint *)self connectToExternalDeviceWithUserInfo:v14 completion:v18];
 }
 
 void __81__MRAVEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -6622,87 +6532,83 @@ void __81__MRAVEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_co
 
 - (id)outputDevicesMatchingPredicate:(id)predicate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (predicateCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     outputDevices = [(MRAVEndpoint *)self outputDevices];
-    v7 = [outputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [outputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(outputDevices);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if (predicateCopy[2](predicateCopy, v11))
           {
             [v5 addObject:v11];
           }
         }
 
-        v8 = [outputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [outputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)outputDeviceUIDsMatchingPredicate:(id)predicate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [(MRAVEndpoint *)self outputDevicesMatchingPredicate:predicate];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) uid];
+        v10 = [*(*(&v12 + 1) + 8 * i) uid];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -6710,29 +6616,22 @@ void __81__MRAVEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_co
 - (BOOL)effectivelyEqual:(id)equal
 {
   equalCopy = equal;
-  if (![(MRAVEndpoint *)self isEqual:equalCopy])
+  v11 = 0;
+  if ([(MRAVEndpoint *)self isEqual:equalCopy])
   {
-    goto LABEL_4;
-  }
+    v5 = objc_alloc(MEMORY[0x1E695DFB8]);
+    outputDeviceUIDs = [(MRAVEndpoint *)self outputDeviceUIDs];
+    v7 = [v5 initWithArray:outputDeviceUIDs];
 
-  v5 = objc_alloc(MEMORY[0x1E695DFB8]);
-  outputDeviceUIDs = [(MRAVEndpoint *)self outputDeviceUIDs];
-  v7 = [v5 initWithArray:outputDeviceUIDs];
+    v8 = objc_alloc(MEMORY[0x1E695DFB8]);
+    outputDeviceUIDs2 = [equalCopy outputDeviceUIDs];
+    v10 = [v8 initWithArray:outputDeviceUIDs2];
 
-  v8 = objc_alloc(MEMORY[0x1E695DFB8]);
-  outputDeviceUIDs2 = [equalCopy outputDeviceUIDs];
-  v10 = [v8 initWithArray:outputDeviceUIDs2];
-
-  LOBYTE(outputDeviceUIDs2) = [v7 isEqualToOrderedSet:v10];
-  if (outputDeviceUIDs2)
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v11 = 0;
+    LOBYTE(outputDeviceUIDs2) = [v7 isEqualToOrderedSet:v10];
+    if (outputDeviceUIDs2)
+    {
+      v11 = 1;
+    }
   }
 
   return v11;
@@ -6912,6 +6811,30 @@ LABEL_4:
   [defaultCenter postNotificationName:@"kMRAVEndpointVolumeDidChangeNotification" object:endpointCopy userInfo:v12];
 }
 
++ (void)_notifyVolumeMutedDidChange:(BOOL)change outputDevice:(id)device endpoint:(id)endpoint
+{
+  changeCopy = change;
+  endpointCopy = endpoint;
+  v11 = [self _userInfoFromEndpoint:endpointCopy outputDevice:device];
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:changeCopy];
+  [v11 setObject:v9 forKeyedSubscript:@"MRAVEndpointVolumeMutedUserInfoKey"];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter postNotificationName:@"MRAVEndpointVolumeMutedDidChangeNotification" object:endpointCopy userInfo:v11];
+}
+
++ (void)_notifyVolumeCapabilitiesDidChange:(unsigned int)change outputDevice:(id)device endpoint:(id)endpoint
+{
+  v6 = *&change;
+  endpointCopy = endpoint;
+  v11 = [self _userInfoFromEndpoint:endpointCopy outputDevice:device];
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  [v11 setObject:v9 forKeyedSubscript:@"kMRAVEndpointVolumeControlCapabilitiesUserInfoKey"];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter postNotificationName:@"kMRAVEndpointVolumeControlCapabilitiesDidChangeNotification" object:endpointCopy userInfo:v11];
+}
+
 + (void)_notifyDidAddOutputDevice:(id)device endpoint:(id)endpoint
 {
   deviceCopy = device;
@@ -7030,7 +6953,7 @@ LABEL_4:
 
 + (void)hostedEndpointForOutputDeviceUIDs:(id)ds queue:(id)queue completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   v9 = MEMORY[0x1E695DF00];
@@ -7040,20 +6963,20 @@ LABEL_4:
   uUIDString = [uUID UUIDString];
 
   dsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UIDs=(%@)", dsCopy];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke;
-  v31[3] = &unk_1E76A2378;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke;
+  v30[3] = &unk_1E76A2378;
   v15 = dsCopy;
-  v32 = v15;
-  v33 = @"hostedEndpointForOutputDeviceUIDs";
+  v31 = v15;
+  v32 = @"hostedEndpointForOutputDeviceUIDs";
   v16 = uUIDString;
-  v34 = v16;
+  v33 = v16;
   v17 = date;
-  v35 = v17;
+  v34 = v17;
   v18 = completionCopy;
-  v36 = v18;
-  v19 = MEMORY[0x1A58E3570](v31);
+  v35 = v18;
+  v19 = MEMORY[0x1A58E3570](v30);
   v20 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"hostedEndpointForOutputDeviceUIDs", v16];
   v21 = v20;
   if (v15)
@@ -7065,28 +6988,26 @@ LABEL_4:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v38 = v21;
+    v37 = v21;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v23 = MRGetSharedService();
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke_554;
-  v27[3] = &unk_1E76A2E08;
-  v28 = @"hostedEndpointForOutputDeviceUIDs";
-  v29 = v16;
-  v30 = v19;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke_554;
+  v26[3] = &unk_1E76A2E08;
+  v27 = @"hostedEndpointForOutputDeviceUIDs";
+  v28 = v16;
+  v29 = v19;
   v24 = v19;
   v25 = v16;
-  MRMediaRemoteServiceCreateHostedEndpointForDevices(v23, dsCopy, queueCopy, v27);
-
-  v26 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceCreateHostedEndpointForDevices(v23, dsCopy, queueCopy, v26);
 }
 
 void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -7104,21 +7025,21 @@ void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___blo
         v13 = a1[4];
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:a1[7]];
-        v36 = 138544386;
-        v37 = v12;
-        v38 = 2114;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v5;
-        v42 = 2114;
-        v43 = v13;
-        v44 = 2048;
-        v45 = v15;
+        v35 = 138544386;
+        v36 = v12;
+        v37 = 2114;
+        v38 = v11;
+        v39 = 2112;
+        v40 = v5;
+        v41 = 2114;
+        v42 = v13;
+        v43 = 2048;
+        v44 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v36, v18);
+        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v35, v18);
         goto LABEL_17;
       }
 
@@ -7134,14 +7055,14 @@ LABEL_16:
     v30 = a1[6];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v29;
-    v38 = 2114;
-    v39 = v30;
-    v40 = 2112;
-    v41 = v5;
-    v42 = 2048;
-    v43 = v31;
+    v35 = 138544130;
+    v36 = v29;
+    v37 = 2114;
+    v38 = v30;
+    v39 = 2112;
+    v40 = v5;
+    v41 = 2048;
+    v42 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -7161,17 +7082,17 @@ LABEL_15:
         v22 = a1[4];
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:a1[7]];
-        v36 = 138544386;
-        v37 = v21;
-        v38 = 2114;
-        v39 = v20;
-        v40 = 2114;
-        v41 = v6;
-        v42 = 2114;
-        v43 = v22;
-        v44 = 2048;
-        v45 = v23;
-        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+        v35 = 138544386;
+        v36 = v21;
+        v37 = 2114;
+        v38 = v20;
+        v39 = 2114;
+        v40 = v6;
+        v41 = 2114;
+        v42 = v22;
+        v43 = 2048;
+        v44 = v23;
+        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
 LABEL_17:
 
         goto LABEL_22;
@@ -7180,7 +7101,7 @@ LABEL_17:
 
     else if (v19)
     {
-      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v6, v9);
+      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
     }
 
     goto LABEL_22;
@@ -7198,12 +7119,12 @@ LABEL_17:
     v33 = a1[6];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138543874;
-    v37 = v32;
-    v38 = 2114;
-    v39 = v33;
-    v40 = 2048;
-    v41 = v34;
+    v35 = 138543874;
+    v36 = v32;
+    v37 = 2114;
+    v38 = v33;
+    v39 = 2048;
+    v40 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -7217,14 +7138,14 @@ LABEL_17:
     v27 = a1[4];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v26;
-    v38 = 2114;
-    v39 = v25;
-    v40 = 2114;
-    v41 = v27;
-    v42 = 2048;
-    v43 = v28;
+    v35 = 138544130;
+    v36 = v26;
+    v37 = 2114;
+    v38 = v25;
+    v39 = 2114;
+    v40 = v27;
+    v41 = 2048;
+    v42 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -7232,12 +7153,11 @@ LABEL_17:
 LABEL_22:
 
   (*(a1[8] + 16))();
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___block_invoke_554(void *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Endpoint: %@", v5];
@@ -7247,11 +7167,11 @@ void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___blo
     v9 = a1[4];
     v10 = a1[5];
     *buf = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v7;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -7266,13 +7186,11 @@ void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___blo
   }
 
   v11();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)directEndpointForOutputDeviceUIDs:(id)ds queue:(id)queue completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   v9 = MEMORY[0x1E695DF00];
@@ -7282,20 +7200,20 @@ void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___blo
   uUIDString = [uUID UUIDString];
 
   dsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UIDs=(%@)", dsCopy];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke;
-  v31[3] = &unk_1E76A2378;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke;
+  v30[3] = &unk_1E76A2378;
   v15 = dsCopy;
-  v32 = v15;
-  v33 = @"directEndpointForOutputDeviceUIDs";
+  v31 = v15;
+  v32 = @"directEndpointForOutputDeviceUIDs";
   v16 = uUIDString;
-  v34 = v16;
+  v33 = v16;
   v17 = date;
-  v35 = v17;
+  v34 = v17;
   v18 = completionCopy;
-  v36 = v18;
-  v19 = MEMORY[0x1A58E3570](v31);
+  v35 = v18;
+  v19 = MEMORY[0x1A58E3570](v30);
   v20 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"directEndpointForOutputDeviceUIDs", v16];
   v21 = v20;
   if (v15)
@@ -7307,28 +7225,26 @@ void __67__MRAVEndpoint_hostedEndpointForOutputDeviceUIDs_queue_completion___blo
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v38 = v21;
+    v37 = v21;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v23 = MRGetSharedService();
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke_561;
-  v27[3] = &unk_1E76A2E08;
-  v28 = @"directEndpointForOutputDeviceUIDs";
-  v29 = v16;
-  v30 = v19;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke_561;
+  v26[3] = &unk_1E76A2E08;
+  v27 = @"directEndpointForOutputDeviceUIDs";
+  v28 = v16;
+  v29 = v19;
   v24 = v19;
   v25 = v16;
-  MRMediaRemoteServiceCreateDirectEndpointForDevices(v23, dsCopy, queueCopy, v27);
-
-  v26 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceCreateDirectEndpointForDevices(v23, dsCopy, queueCopy, v26);
 }
 
 void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -7346,21 +7262,21 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
         v13 = a1[4];
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:a1[7]];
-        v36 = 138544386;
-        v37 = v12;
-        v38 = 2114;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v5;
-        v42 = 2114;
-        v43 = v13;
-        v44 = 2048;
-        v45 = v15;
+        v35 = 138544386;
+        v36 = v12;
+        v37 = 2114;
+        v38 = v11;
+        v39 = 2112;
+        v40 = v5;
+        v41 = 2114;
+        v42 = v13;
+        v43 = 2048;
+        v44 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v36, v18);
+        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v35, v18);
         goto LABEL_17;
       }
 
@@ -7376,14 +7292,14 @@ LABEL_16:
     v30 = a1[6];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v29;
-    v38 = 2114;
-    v39 = v30;
-    v40 = 2112;
-    v41 = v5;
-    v42 = 2048;
-    v43 = v31;
+    v35 = 138544130;
+    v36 = v29;
+    v37 = 2114;
+    v38 = v30;
+    v39 = 2112;
+    v40 = v5;
+    v41 = 2048;
+    v42 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -7403,17 +7319,17 @@ LABEL_15:
         v22 = a1[4];
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:a1[7]];
-        v36 = 138544386;
-        v37 = v21;
-        v38 = 2114;
-        v39 = v20;
-        v40 = 2114;
-        v41 = v6;
-        v42 = 2114;
-        v43 = v22;
-        v44 = 2048;
-        v45 = v23;
-        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+        v35 = 138544386;
+        v36 = v21;
+        v37 = 2114;
+        v38 = v20;
+        v39 = 2114;
+        v40 = v6;
+        v41 = 2114;
+        v42 = v22;
+        v43 = 2048;
+        v44 = v23;
+        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
 LABEL_17:
 
         goto LABEL_22;
@@ -7422,7 +7338,7 @@ LABEL_17:
 
     else if (v19)
     {
-      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v6, v9);
+      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
     }
 
     goto LABEL_22;
@@ -7440,12 +7356,12 @@ LABEL_17:
     v33 = a1[6];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138543874;
-    v37 = v32;
-    v38 = 2114;
-    v39 = v33;
-    v40 = 2048;
-    v41 = v34;
+    v35 = 138543874;
+    v36 = v32;
+    v37 = 2114;
+    v38 = v33;
+    v39 = 2048;
+    v40 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -7459,14 +7375,14 @@ LABEL_17:
     v27 = a1[4];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[7]];
-    v36 = 138544130;
-    v37 = v26;
-    v38 = 2114;
-    v39 = v25;
-    v40 = 2114;
-    v41 = v27;
-    v42 = 2048;
-    v43 = v28;
+    v35 = 138544130;
+    v36 = v26;
+    v37 = 2114;
+    v38 = v25;
+    v39 = 2114;
+    v40 = v27;
+    v41 = 2048;
+    v42 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -7474,12 +7390,11 @@ LABEL_17:
 LABEL_22:
 
   (*(a1[8] + 16))();
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___block_invoke_561(void *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Endpoint: %@", v5];
@@ -7489,11 +7404,11 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
     v9 = a1[4];
     v10 = a1[5];
     *buf = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v7;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -7508,8 +7423,6 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
   }
 
   v11();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createEndpointWithOutputDeviceUIDs:(id)ds queue:(id)queue completion:(id)completion
@@ -7523,7 +7436,7 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
 
 + (void)createEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   detailsCopy = details;
   queueCopy = queue;
@@ -7539,22 +7452,22 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
   v16 = [dsCopy componentsJoinedByString:{@", "}];
   v17 = [v15 stringWithFormat:@"UIDs=(%@)", v16];
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke;
-  v39[3] = &unk_1E76A2E30;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke;
+  v38[3] = &unk_1E76A2E30;
   v18 = v17;
-  v40 = v18;
-  v41 = @"createEndpointWithOutputDeviceUIDs.endpoint";
+  v39 = v18;
+  v40 = @"createEndpointWithOutputDeviceUIDs.endpoint";
   v19 = requestID;
-  v42 = v19;
+  v41 = v19;
   v20 = startDate;
-  v43 = v20;
+  v42 = v20;
   v21 = queueCopy;
-  v44 = v21;
+  v43 = v21;
   v22 = completionCopy;
-  v45 = v22;
-  v23 = MEMORY[0x1A58E3570](v39);
+  v44 = v22;
+  v23 = MEMORY[0x1A58E3570](v38);
   v24 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"createEndpointWithOutputDeviceUIDs.endpoint", v19];
   v25 = v24;
   if (v18)
@@ -7566,31 +7479,29 @@ void __67__MRAVEndpoint_directEndpointForOutputDeviceUIDs_queue_completion___blo
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v47 = v25;
+    v46 = v25;
     _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v27 = qos_class_self();
   v28 = dispatch_get_global_queue(v27, 0);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke_572;
-  v34[3] = &unk_1E76A2E58;
-  v35 = v19;
-  v36 = dsCopy;
-  v37 = @"createEndpointWithOutputDeviceUIDs.endpoint";
-  v38 = v23;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke_572;
+  v33[3] = &unk_1E76A2E58;
+  v34 = v19;
+  v35 = dsCopy;
+  v36 = @"createEndpointWithOutputDeviceUIDs.endpoint";
+  v37 = v23;
   v29 = dsCopy;
   v30 = v19;
   v31 = v23;
-  [self createEndpointWithOutputDeviceUIDs:v29 details:detailsCopy queue:v28 groupUIDCompletion:v34];
-
-  v32 = *MEMORY[0x1E69E9840];
+  [self createEndpointWithOutputDeviceUIDs:v29 details:detailsCopy queue:v28 groupUIDCompletion:v33];
 }
 
 void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -7609,15 +7520,15 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v45 = v12;
-        v46 = 2114;
-        v47 = v11;
-        v48 = 2112;
-        v49 = v5;
-        v50 = 2114;
-        v51 = v13;
-        v52 = 2048;
-        v53 = v15;
+        v44 = v12;
+        v45 = 2114;
+        v46 = v11;
+        v47 = 2112;
+        v48 = v5;
+        v49 = 2114;
+        v50 = v13;
+        v51 = 2048;
+        v52 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
@@ -7639,13 +7550,13 @@ LABEL_16:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v45 = v29;
-    v46 = 2114;
-    v47 = v30;
-    v48 = 2112;
-    v49 = v5;
-    v50 = 2048;
-    v51 = v31;
+    v44 = v29;
+    v45 = 2114;
+    v46 = v30;
+    v47 = 2112;
+    v48 = v5;
+    v49 = 2048;
+    v50 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -7666,15 +7577,15 @@ LABEL_15:
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v45 = v21;
-        v46 = 2114;
-        v47 = v20;
-        v48 = 2114;
-        v49 = v6;
-        v50 = 2114;
-        v51 = v22;
-        v52 = 2048;
-        v53 = v23;
+        v44 = v21;
+        v45 = 2114;
+        v46 = v20;
+        v47 = 2114;
+        v48 = v6;
+        v49 = 2114;
+        v50 = v22;
+        v51 = 2048;
+        v52 = v23;
         _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_17:
 
@@ -7684,7 +7595,7 @@ LABEL_17:
 
     else if (v19)
     {
-      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v6, v9);
+      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
     }
 
     goto LABEL_22;
@@ -7703,11 +7614,11 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138543874;
-    v45 = v32;
-    v46 = 2114;
-    v47 = v33;
-    v48 = 2048;
-    v49 = v34;
+    v44 = v32;
+    v45 = 2114;
+    v46 = v33;
+    v47 = 2048;
+    v48 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -7722,13 +7633,13 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v45 = v26;
-    v46 = 2114;
-    v47 = v25;
-    v48 = 2114;
-    v49 = v27;
-    v50 = 2048;
-    v51 = v28;
+    v44 = v26;
+    v45 = 2114;
+    v46 = v25;
+    v47 = 2114;
+    v48 = v27;
+    v49 = 2048;
+    v50 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -7741,14 +7652,12 @@ LABEL_22:
   block[3] = &unk_1E769AC18;
   v35 = *(a1 + 64);
   v36 = *(a1 + 72);
-  v42 = v6;
-  v43 = v36;
-  v41 = v5;
+  v41 = v6;
+  v42 = v36;
+  v40 = v5;
   v37 = v6;
   v38 = v5;
   dispatch_async(v35, block);
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke_572(id *a1, void *a2, void *a3)
@@ -7780,7 +7689,7 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
 
 void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [v6 outputDeviceUIDs];
@@ -7800,11 +7709,11 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
       v16 = *(a1 + 40);
       v17 = *(a1 + 48);
       *buf = 138543874;
-      v33 = v16;
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2112;
-      v37 = v14;
+      v32 = v16;
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2112;
+      v36 = v14;
       _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
   }
@@ -7812,9 +7721,9 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
   v18 = [v6 outputDevices];
   v19 = [v18 firstObject];
   v20 = [v19 groupID];
-  v21 = [v20 isEqualToString:*(a1 + 56)];
+  isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-  if ((v21 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v22 = MEMORY[0x1E696AEC0];
     v23 = *(a1 + 56);
@@ -7829,23 +7738,21 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
       v29 = *(a1 + 40);
       v30 = *(a1 + 48);
       *buf = 138543874;
-      v33 = v29;
-      v34 = 2114;
-      v35 = v30;
-      v36 = 2112;
-      v37 = v27;
+      v32 = v29;
+      v33 = 2114;
+      v34 = v30;
+      v35 = 2112;
+      v36 = v27;
       _os_log_impl(&dword_1A2860000, v28, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
   }
 
   (*(*(a1 + 64) + 16))();
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue groupUIDCompletion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   detailsCopy = details;
   queueCopy = queue;
@@ -7866,24 +7773,24 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
   v20 = [dsCopy componentsJoinedByString:{@", "}];
   v21 = [v19 stringWithFormat:@"UIDs=(%@)", v20];
 
-  v36 = MEMORY[0x1E69E9820];
-  v37 = 3221225472;
-  v38 = __84__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_groupUIDCompletion___block_invoke;
-  v39 = &unk_1E76A2E80;
+  v35 = MEMORY[0x1E69E9820];
+  v36 = 3221225472;
+  v37 = __84__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_groupUIDCompletion___block_invoke;
+  v38 = &unk_1E76A2E80;
   v22 = v21;
-  v40 = v22;
-  v41 = @"createEndpointWithOutputDeviceUIDs.groupID";
+  v39 = v22;
+  v40 = @"createEndpointWithOutputDeviceUIDs.groupID";
   v23 = uUIDString;
-  v42 = v23;
+  v41 = v23;
   v24 = date;
-  v43 = v24;
+  v42 = v24;
   v25 = queueCopy;
-  v44 = v25;
+  v43 = v25;
   v26 = completionCopy;
-  v45 = v26;
-  v27 = MEMORY[0x1A58E3570](&v36);
+  v44 = v26;
+  v27 = MEMORY[0x1A58E3570](&v35);
   v28 = objc_alloc(MEMORY[0x1E696AD60]);
-  v29 = [v28 initWithFormat:@"%@<%@>", @"createEndpointWithOutputDeviceUIDs.groupID", v23, v36, v37, v38, v39];
+  v29 = [v28 initWithFormat:@"%@<%@>", @"createEndpointWithOutputDeviceUIDs.groupID", v23, v35, v36, v37, v38];
   v30 = v29;
   if (v22)
   {
@@ -7894,7 +7801,7 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v47 = v30;
+    v46 = v30;
     _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -7902,13 +7809,11 @@ void __76__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_complet
   v33 = qos_class_self();
   v34 = dispatch_get_global_queue(v33, 0);
   MRMediaRemoteServiceCreateGroupWithDevices(v32, dsCopy, detailsCopy, v34, v27);
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __84__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_groupUIDCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -7927,15 +7832,15 @@ void __84__MRAVEndpoint_createEndpointWithOutputDeviceUIDs_details_queue_groupUI
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v45 = v12;
-        v46 = 2114;
-        v47 = v11;
-        v48 = 2112;
-        v49 = v5;
-        v50 = 2114;
-        v51 = v13;
-        v52 = 2048;
-        v53 = v15;
+        v44 = v12;
+        v45 = 2114;
+        v46 = v11;
+        v47 = 2112;
+        v48 = v5;
+        v49 = 2114;
+        v50 = v13;
+        v51 = 2048;
+        v52 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
@@ -7957,13 +7862,13 @@ LABEL_16:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v45 = v29;
-    v46 = 2114;
-    v47 = v30;
-    v48 = 2112;
-    v49 = v5;
-    v50 = 2048;
-    v51 = v31;
+    v44 = v29;
+    v45 = 2114;
+    v46 = v30;
+    v47 = 2112;
+    v48 = v5;
+    v49 = 2048;
+    v50 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -7984,15 +7889,15 @@ LABEL_15:
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544386;
-        v45 = v21;
-        v46 = 2114;
-        v47 = v20;
-        v48 = 2114;
-        v49 = v6;
-        v50 = 2114;
-        v51 = v22;
-        v52 = 2048;
-        v53 = v23;
+        v44 = v21;
+        v45 = 2114;
+        v46 = v20;
+        v47 = 2114;
+        v48 = v6;
+        v49 = 2114;
+        v50 = v22;
+        v51 = 2048;
+        v52 = v23;
         _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_17:
 
@@ -8002,7 +7907,7 @@ LABEL_17:
 
     else if (v19)
     {
-      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1(a1, v6, v9);
+      __86__MRV2NowPlayingController__loadNowPlayingStateForConfiguration_requestID_completion___block_invoke_53_cold_1();
     }
 
     goto LABEL_22;
@@ -8021,11 +7926,11 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138543874;
-    v45 = v32;
-    v46 = 2114;
-    v47 = v33;
-    v48 = 2048;
-    v49 = v34;
+    v44 = v32;
+    v45 = 2114;
+    v46 = v33;
+    v47 = 2048;
+    v48 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -8040,13 +7945,13 @@ LABEL_17:
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v45 = v26;
-    v46 = 2114;
-    v47 = v25;
-    v48 = 2114;
-    v49 = v27;
-    v50 = 2048;
-    v51 = v28;
+    v44 = v26;
+    v45 = 2114;
+    v46 = v25;
+    v47 = 2114;
+    v48 = v27;
+    v49 = 2048;
+    v50 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
@@ -8059,19 +7964,17 @@ LABEL_22:
   block[3] = &unk_1E769AC18;
   v35 = *(a1 + 64);
   v36 = *(a1 + 72);
-  v42 = v6;
-  v43 = v36;
-  v41 = v5;
+  v41 = v6;
+  v42 = v36;
+  v40 = v5;
   v37 = v6;
   v38 = v5;
   dispatch_async(v35, block);
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pauseOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   detailsCopy = details;
   queueCopy = queue;
@@ -8107,24 +8010,24 @@ LABEL_22:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v43 = v19;
+    v42 = v19;
     _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_invoke;
-  v36[3] = &unk_1E76A1BC0;
-  v37 = requestID;
-  v38 = dsCopy;
-  v39 = @"pauseOutputDeviceUIDs";
-  v40 = date;
-  v41 = completionCopy;
-  v32 = completionCopy;
-  v31 = date;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_invoke;
+  v35[3] = &unk_1E76A1BC0;
+  v36 = requestID;
+  v37 = dsCopy;
+  v38 = @"pauseOutputDeviceUIDs";
+  v39 = date;
+  v40 = completionCopy;
+  v31 = completionCopy;
+  v30 = date;
   v21 = dsCopy;
   v22 = requestID;
-  v23 = MEMORY[0x1A58E3570](v36);
+  v23 = MEMORY[0x1A58E3570](v35);
   v24 = MRCreateXPCMessage(0x30000000000002FuLL);
   MRAddPropertyListToXPCMessage(v24, dsCopy, "MRXPC_OUTPUT_DEVICE_UID_ARRAY_DATA_KEY");
   MRAddRequestDetailsToXPCMessage(v24, detailsCopy);
@@ -8132,20 +8035,18 @@ LABEL_22:
   v26 = v25 = dsCopy;
   service = [v26 service];
   mrXPCConnection = [service mrXPCConnection];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_invoke_588;
-  v34[3] = &unk_1E769B338;
-  v35 = v23;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_invoke_588;
+  v33[3] = &unk_1E769B338;
+  v34 = v23;
   v29 = v23;
-  [mrXPCConnection sendMessage:v24 queue:queueCopy reply:v34];
-
-  v30 = *MEMORY[0x1E69E9840];
+  [mrXPCConnection sendMessage:v24 queue:queueCopy reply:v33];
 }
 
 void __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(2uLL);
   v5 = [*(a1 + 32) hash];
@@ -8154,8 +8055,8 @@ void __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_i
     v6 = v5;
     if (os_signpost_enabled(v4))
     {
-      LOWORD(v34) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A2860000, v4, OS_SIGNPOST_INTERVAL_END, v6, "pauseOutputDeviceUIDs.xpcInterface", &unk_1A2BB0121, &v34, 2u);
+      LOWORD(v33) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1A2860000, v4, OS_SIGNPOST_INTERVAL_END, v6, "pauseOutputDeviceUIDs.xpcInterface", &unk_1A2BB0121, &v33, 2u);
     }
   }
 
@@ -8177,14 +8078,14 @@ void __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_i
       v22 = *(a1 + 32);
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 56)];
-      v34 = 138544130;
-      v35 = v20;
-      v36 = 2114;
-      v37 = v22;
-      v38 = 2114;
-      v39 = v21;
-      v40 = 2048;
-      v41 = v23;
+      v33 = 138544130;
+      v34 = v20;
+      v35 = 2114;
+      v36 = v22;
+      v37 = 2114;
+      v38 = v21;
+      v39 = 2048;
+      v40 = v23;
       v24 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v25 = v9;
       v26 = 42;
@@ -8201,18 +8102,18 @@ void __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_i
       v31 = *(a1 + 32);
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 56)];
-      v34 = 138543874;
-      v35 = v30;
-      v36 = 2114;
-      v37 = v31;
-      v38 = 2048;
-      v39 = v32;
+      v33 = 138543874;
+      v34 = v30;
+      v35 = 2114;
+      v36 = v31;
+      v37 = 2048;
+      v38 = v32;
       v24 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v25 = v9;
       v26 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, v24, &v34, v26);
+    _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, v24, &v33, v26);
     goto LABEL_17;
   }
 
@@ -8226,21 +8127,21 @@ void __63__MRAVEndpoint_pauseOutputDeviceUIDs_details_queue_completion___block_i
       v13 = *(a1 + 32);
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 56)];
-      v34 = 138544386;
-      v35 = v11;
-      v36 = 2114;
-      v37 = v13;
-      v38 = 2114;
-      v39 = v3;
-      v40 = 2114;
-      v41 = v12;
-      v42 = 2048;
-      v43 = v15;
+      v33 = 138544386;
+      v34 = v11;
+      v35 = 2114;
+      v36 = v13;
+      v37 = 2114;
+      v38 = v3;
+      v39 = 2114;
+      v40 = v12;
+      v41 = 2048;
+      v42 = v15;
       v16 = "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds";
       v17 = v9;
       v18 = 52;
 LABEL_13:
-      _os_log_error_impl(&dword_1A2860000, v17, OS_LOG_TYPE_ERROR, v16, &v34, v18);
+      _os_log_error_impl(&dword_1A2860000, v17, OS_LOG_TYPE_ERROR, v16, &v33, v18);
 LABEL_17:
     }
   }
@@ -8251,14 +8152,14 @@ LABEL_17:
     v28 = *(a1 + 32);
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 56)];
-    v34 = 138544130;
-    v35 = v27;
-    v36 = 2114;
-    v37 = v28;
-    v38 = 2114;
-    v39 = v3;
-    v40 = 2048;
-    v41 = v29;
+    v33 = 138544130;
+    v34 = v27;
+    v35 = 2114;
+    v36 = v28;
+    v37 = 2114;
+    v38 = v3;
+    v39 = 2048;
+    v40 = v29;
     v16 = "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds";
     v17 = v9;
     v18 = 42;
@@ -8268,7 +8169,6 @@ LABEL_17:
 LABEL_18:
 
   (*(*(a1 + 64) + 16))();
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addOutputDevicesWithUIDs:(id)ds toGroupContainingOutputDeviceWithUID:(id)d details:(id)details queue:(id)queue completion:(id)completion
@@ -8297,7 +8197,7 @@ LABEL_18:
 
 + (void)sendCommand:(unsigned int)command withOptions:(id)options toEachEndpointContainingOutputDeviceUIDs:(id)ds timeout:(double)timeout queue:(id)queue completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   v15 = MEMORY[0x1E695DF90];
@@ -8317,18 +8217,18 @@ LABEL_18:
   date = [MEMORY[0x1E695DF00] date];
   v22 = [v17 objectForKeyedSubscript:@"kMRMediaRemoteOptionCommandID"];
   dsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UIDs=(%@)", dsCopy];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke;
-  v41[3] = &unk_1E76A2EA8;
-  v42 = @"sendCommandToOutputDeviceUIDs";
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke;
+  v40[3] = &unk_1E76A2EA8;
+  v41 = @"sendCommandToOutputDeviceUIDs";
   v24 = v22;
-  v43 = v24;
-  v36 = date;
+  v42 = v24;
+  v35 = date;
+  v43 = v35;
+  v36 = completionCopy;
   v44 = v36;
-  v37 = completionCopy;
-  v45 = v37;
-  v25 = MEMORY[0x1A58E3570](v41);
+  v25 = MEMORY[0x1A58E3570](v40);
   v26 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"sendCommandToOutputDeviceUIDs", v24];
   v27 = v26;
   if (dsCopy)
@@ -8340,7 +8240,7 @@ LABEL_18:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v47 = v27;
+    v46 = v27;
     _os_log_impl(&dword_1A2860000, v28, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -8353,20 +8253,18 @@ LABEL_18:
   v31 = +[MRMediaRemoteServiceClient sharedServiceClient];
   service = [v31 service];
   mrXPCConnection = [service mrXPCConnection];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_597;
-  v39[3] = &unk_1E769B338;
-  v40 = v25;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_597;
+  v38[3] = &unk_1E769B338;
+  v39 = v25;
   v34 = v25;
-  [mrXPCConnection sendMessage:v29 queue:queueCopy reply:v39];
-
-  v35 = *MEMORY[0x1E69E9840];
+  [mrXPCConnection sendMessage:v29 queue:queueCopy reply:v38];
 }
 
 void __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(0xAuLL);
@@ -8382,19 +8280,19 @@ void __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputD
     v10 = a1[5];
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:a1[6]];
-    v21 = 138544130;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v5;
-    v27 = 2048;
-    v28 = v12;
+    v20 = 138544130;
+    v21 = v9;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v5;
+    v26 = 2048;
+    v27 = v12;
     v13 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v14 = v8;
     v15 = 42;
 LABEL_10:
-    _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, v13, &v21, v15);
+    _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, v13, &v20, v15);
 
     goto LABEL_11;
   }
@@ -8410,12 +8308,12 @@ LABEL_10:
     v17 = a1[5];
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:a1[6]];
-    v21 = 138543874;
-    v22 = v16;
-    v23 = 2114;
-    v24 = v17;
-    v25 = 2048;
-    v26 = v18;
+    v20 = 138543874;
+    v21 = v16;
+    v22 = 2114;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v18;
     v13 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v14 = v8;
     v15 = 32;
@@ -8424,7 +8322,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_cold_1(a1, v6, v8);
+    __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_11:
@@ -8434,8 +8332,6 @@ LABEL_11:
   {
     (*(v19 + 16))(v19, v5, v6);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_597(uint64_t a1, void *a2, void *a3)
@@ -8457,7 +8353,7 @@ MRCommandResult *__106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointConta
 
 + (void)sendCommand:(unsigned int)command withOptions:(id)options toNewEndpointContainingOutputDeviceUIDs:(id)ds nowPlayingClient:(id)client timeout:(double)timeout queue:(id)queue completion:(id)completion
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   v16 = MEMORY[0x1E695DF90];
@@ -8478,18 +8374,18 @@ MRCommandResult *__106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointConta
   date = [MEMORY[0x1E695DF00] date];
   v23 = [v18 objectForKeyedSubscript:@"kMRMediaRemoteOptionCommandID"];
   dsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UIDs=(%@)", dsCopy];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke;
-  v45[3] = &unk_1E76A2ED0;
-  v46 = @"sendCommandToNewGroupContainingOutputDeviceUIDs";
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke;
+  v44[3] = &unk_1E76A2ED0;
+  v45 = @"sendCommandToNewGroupContainingOutputDeviceUIDs";
   v25 = v23;
-  v47 = v25;
-  v40 = date;
+  v46 = v25;
+  v39 = date;
+  v47 = v39;
+  v40 = completionCopy;
   v48 = v40;
-  v41 = completionCopy;
-  v49 = v41;
-  v26 = MEMORY[0x1A58E3570](v45);
+  v26 = MEMORY[0x1A58E3570](v44);
   v27 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"sendCommandToNewGroupContainingOutputDeviceUIDs", v25];
   v28 = v27;
   if (dsCopy)
@@ -8501,7 +8397,7 @@ MRCommandResult *__106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointConta
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v51 = v28;
+    v50 = v28;
     _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -8517,20 +8413,18 @@ MRCommandResult *__106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointConta
   v33 = +[MRMediaRemoteServiceClient sharedServiceClient];
   service = [v33 service];
   mrXPCConnection = [service mrXPCConnection];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_608;
-  v43[3] = &unk_1E769B338;
-  v44 = v26;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_608;
+  v42[3] = &unk_1E769B338;
+  v43 = v26;
   v36 = v26;
-  [mrXPCConnection sendMessage:v30 queue:queueCopy reply:v43];
-
-  v37 = *MEMORY[0x1E69E9840];
+  [mrXPCConnection sendMessage:v30 queue:queueCopy reply:v42];
 }
 
 void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 error];
@@ -8550,21 +8444,21 @@ void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDe
         v13 = [v5 debugName];
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:a1[6]];
-        v41 = 138544386;
-        v42 = v11;
-        v43 = 2114;
-        v44 = v12;
-        v45 = 2112;
-        v46 = v6;
-        v47 = 2114;
-        v48 = v13;
-        v49 = 2048;
-        v50 = v15;
+        v40 = 138544386;
+        v41 = v11;
+        v42 = 2114;
+        v43 = v12;
+        v44 = 2112;
+        v45 = v6;
+        v46 = 2114;
+        v47 = v13;
+        v48 = 2048;
+        v49 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_13:
-        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v41, v18);
+        _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, v16, &v40, v18);
         goto LABEL_14;
       }
 
@@ -8580,19 +8474,19 @@ LABEL_13:
     v32 = a1[5];
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[6]];
-    v41 = 138544130;
-    v42 = v31;
-    v43 = 2114;
-    v44 = v32;
-    v45 = 2112;
-    v46 = v6;
-    v47 = 2048;
-    v48 = v33;
+    v40 = 138544130;
+    v41 = v31;
+    v42 = 2114;
+    v43 = v32;
+    v44 = 2112;
+    v45 = v6;
+    v46 = 2048;
+    v47 = v33;
     v34 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v35 = v9;
     v36 = 42;
 LABEL_21:
-    _os_log_impl(&dword_1A2860000, v35, OS_LOG_TYPE_DEFAULT, v34, &v41, v36);
+    _os_log_impl(&dword_1A2860000, v35, OS_LOG_TYPE_DEFAULT, v34, &v40, v36);
     goto LABEL_22;
   }
 
@@ -8615,17 +8509,17 @@ LABEL_21:
         v14 = [v5 debugName];
         v25 = [MEMORY[0x1E695DF00] date];
         [v25 timeIntervalSinceDate:a1[6]];
-        v41 = 138544386;
-        v42 = v23;
-        v43 = 2114;
-        v44 = v24;
-        v45 = 2114;
-        v46 = v13;
-        v47 = 2114;
-        v48 = v14;
-        v49 = 2048;
-        v50 = v26;
-        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v41, 0x34u);
+        v40 = 138544386;
+        v41 = v23;
+        v42 = 2114;
+        v43 = v24;
+        v44 = 2114;
+        v45 = v13;
+        v46 = 2114;
+        v47 = v14;
+        v48 = 2048;
+        v49 = v26;
+        _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v40, 0x34u);
 
 LABEL_14:
 LABEL_22:
@@ -8636,7 +8530,7 @@ LABEL_22:
 
     else if (v22)
     {
-      __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_cold_1(a1, v6, v9);
+      __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_cold_1();
     }
 
     goto LABEL_23;
@@ -8654,12 +8548,12 @@ LABEL_22:
     v38 = a1[5];
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[6]];
-    v41 = 138543874;
-    v42 = v37;
-    v43 = 2114;
-    v44 = v38;
-    v45 = 2048;
-    v46 = v39;
+    v40 = 138543874;
+    v41 = v37;
+    v42 = 2114;
+    v43 = v38;
+    v44 = 2048;
+    v45 = v39;
     v34 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v35 = v9;
     v36 = 32;
@@ -8673,14 +8567,14 @@ LABEL_22:
     v13 = [v5 debugName];
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:a1[6]];
-    v41 = 138544130;
-    v42 = v28;
-    v43 = 2114;
-    v44 = v29;
-    v45 = 2114;
-    v46 = v13;
-    v47 = 2048;
-    v48 = v30;
+    v40 = 138544130;
+    v41 = v28;
+    v42 = 2114;
+    v43 = v29;
+    v44 = 2114;
+    v45 = v13;
+    v46 = 2048;
+    v47 = v30;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     v17 = v9;
     v18 = 42;
@@ -8690,7 +8584,6 @@ LABEL_22:
 LABEL_23:
 
   (*(a1[7] + 16))();
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_608(uint64_t a1, void *a2, void *a3)
@@ -8709,7 +8602,7 @@ void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDe
 
 + (void)findMyGroupLeaderWithTimeout:(double)timeout details:(id)details queue:(id)queue completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   queueCopy = queue;
   completionCopy = completion;
@@ -8722,24 +8615,24 @@ void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDe
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v43 = v15;
+    v42 = v15;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke;
-  v35[3] = &unk_1E76A23A0;
-  v36 = @"findMyGroupLeader";
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke;
+  v34[3] = &unk_1E76A23A0;
+  v35 = @"findMyGroupLeader";
   v17 = detailsCopy;
-  v37 = v17;
+  v36 = v17;
   v18 = date;
-  v38 = v18;
+  v37 = v18;
   v19 = completionCopy;
-  v40 = v19;
+  v39 = v19;
   v20 = queueCopy;
-  v39 = v20;
-  v21 = MEMORY[0x1A58E3570](v35);
+  v38 = v20;
+  v21 = MEMORY[0x1A58E3570](v34);
   v22 = +[MRDeviceInfoRequest localDeviceInfo];
   groupContainsDiscoverableGroupLeader = [v22 groupContainsDiscoverableGroupLeader];
   isAirPlayActive = [v22 isAirPlayActive];
@@ -8768,18 +8661,18 @@ void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDe
       if (v26)
       {
         v27 = [MRAVReconnaissanceSession alloc];
-        v41 = v26;
-        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+        v40 = v26;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
         v29 = [(MRAVReconnaissanceSession *)v27 initWithOutputDeviceUIDs:v28 features:8 details:v17];
 
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_2;
-        v32[3] = &unk_1E76A23C8;
-        v33 = v29;
-        v34 = v21;
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_2;
+        v31[3] = &unk_1E76A23C8;
+        v32 = v29;
+        v33 = v21;
         v30 = v29;
-        [(MRAVReconnaissanceSession *)v30 beginSearchWithTimeout:v32 completion:timeout];
+        [(MRAVReconnaissanceSession *)v30 beginSearchWithTimeout:v31 completion:timeout];
       }
 
       else
@@ -8794,13 +8687,11 @@ void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDe
   {
     v21[2](v21, 0, 0);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(0xAuLL);
@@ -8817,13 +8708,13 @@ void __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138544130;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v10;
-    v30 = 2112;
-    v31 = v5;
-    v32 = 2048;
-    v33 = v12;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v10;
+    v29 = 2112;
+    v30 = v5;
+    v31 = 2048;
+    v32 = v12;
     v13 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v14 = v8;
     v15 = 42;
@@ -8845,11 +8736,11 @@ LABEL_10:
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138543874;
-    v27 = v16;
-    v28 = 2114;
-    v29 = v10;
-    v30 = 2048;
-    v31 = v17;
+    v26 = v16;
+    v27 = 2114;
+    v28 = v10;
+    v29 = 2048;
+    v30 = v17;
     v13 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v14 = v8;
     v15 = 32;
@@ -8858,7 +8749,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_cold_1(a1, v6, v8);
+    __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_cold_1();
   }
 
 LABEL_11:
@@ -8867,18 +8758,16 @@ LABEL_11:
   if (v18)
   {
     v19 = *(a1 + 56);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_612;
-    v22[3] = &unk_1E769AC18;
-    v25 = v18;
-    v23 = v5;
-    v24 = v6;
-    v20 = MRCreateDonatedQosBlock(v22);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_612;
+    v21[3] = &unk_1E769AC18;
+    v24 = v18;
+    v22 = v5;
+    v23 = v6;
+    v20 = MRCreateDonatedQosBlock(v21);
     dispatch_async(v19, v20);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -8891,7 +8780,7 @@ void __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___
 
 + (void)prepareGroupForPlaybackWithOutputDeviceUIDs:(id)ds forBundleID:(id)d timeout:(double)timeout details:(id)details queue:(id)queue completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   detailsCopy = details;
@@ -8935,18 +8824,18 @@ LABEL_5:
     detailsCopy = [[MRRequestDetails alloc] initWithInitiator:@"Infer" requestID:0 reason:@"API"];
   }
 
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke;
-  v43[3] = &unk_1E76A2708;
-  v44 = @"prepareGroupForPlaybackWithOutputDeviceUIDs";
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke;
+  v42[3] = &unk_1E76A2708;
+  v43 = @"prepareGroupForPlaybackWithOutputDeviceUIDs";
   v20 = detailsCopy;
-  v45 = v20;
-  v40 = v19;
-  v46 = v40;
-  v39 = completionCopy;
-  v47 = v39;
-  v21 = MEMORY[0x1A58E3570](v43);
+  v44 = v20;
+  v39 = v19;
+  v45 = v39;
+  v38 = completionCopy;
+  v46 = v38;
+  v21 = MEMORY[0x1A58E3570](v42);
   v22 = dCopy;
   v23 = dsCopy;
   dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"UIDs=(%@), bundleID=%@", dsCopy, dCopy];
@@ -8967,12 +8856,12 @@ LABEL_5:
     [v27 appendFormat:@" because %@", reason2];
   }
 
-  v38 = dCopy;
+  v37 = dCopy;
   v30 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v49 = v27;
+    v48 = v27;
     _os_log_impl(&dword_1A2860000, v30, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -8985,20 +8874,18 @@ LABEL_5:
   v33 = +[MRMediaRemoteServiceClient sharedServiceClient];
   service = [v33 service];
   mrXPCConnection = [service mrXPCConnection];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke_626;
-  v41[3] = &unk_1E769B338;
-  v42 = v21;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke_626;
+  v40[3] = &unk_1E769B338;
+  v41 = v21;
   v36 = v21;
-  [mrXPCConnection sendMessage:v31 queue:queueCopy reply:v41];
-
-  v37 = *MEMORY[0x1E69E9840];
+  [mrXPCConnection sendMessage:v31 queue:queueCopy reply:v40];
 }
 
 void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -9006,7 +8893,7 @@ void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID
     v7 = _MRLogForCategory(0xAuLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_cold_1(a1, v6, v7);
+      __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_cold_1();
     }
   }
 
@@ -9028,15 +8915,15 @@ void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID
       v12 = [v5 debugName];
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 48)];
-      v19 = 138544130;
-      v20 = v10;
-      v21 = 2114;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2048;
-      v26 = v14;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2048;
+      v25 = v14;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", &v18, 0x2Au);
     }
 
     else
@@ -9050,13 +8937,13 @@ void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID
       v11 = [*(a1 + 40) requestID];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 48)];
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v11;
-      v23 = 2048;
-      v24 = v16;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v11;
+      v22 = 2048;
+      v23 = v16;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v18, 0x20u);
     }
   }
 
@@ -9067,8 +8954,6 @@ LABEL_10:
   {
     (*(v17 + 16))(v17, v5, v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID_timeout_details_queue_completion___block_invoke_626(uint64_t a1, void *a2, void *a3)
@@ -9091,7 +8976,7 @@ void __105__MRAVEndpoint_prepareGroupForPlaybackWithOutputDeviceUIDs_forBundleID
 
 - (void)willStartingPlaybackToOutputDevicesInterruptPlayback:(id)playback originatingOutputDeviceUID:(id)d duration:(double)duration queue:(id)queue completion:(id)completion
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   playbackCopy = playback;
   dCopy = d;
   queueCopy = queue;
@@ -9118,7 +9003,7 @@ LABEL_3:
   v15 = objc_alloc(MEMORY[0x1E696AEC0]);
   uniqueIdentifier = [(MRAVEndpoint *)self uniqueIdentifier];
   localizedName = [(MRAVEndpoint *)self localizedName];
-  v51 = dCopy;
+  v50 = dCopy;
   dCopy = [v15 initWithFormat:@"endpoint=%@(%@), outputDevices=%@ originatingOutputDeviceUID=%@", uniqueIdentifier, localizedName, playbackCopy, dCopy];
 
   date = [MEMORY[0x1E695DF00] date];
@@ -9136,26 +9021,26 @@ LABEL_3:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v65 = v23;
+    v64 = v23;
     _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke;
-  v57[3] = &unk_1E76A2EF8;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke;
+  v56[3] = &unk_1E76A2EF8;
   v25 = dCopy;
-  v58 = v25;
-  v59 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+  v57 = v25;
+  v58 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
   v26 = uUIDString;
-  v60 = v26;
+  v59 = v26;
   v27 = date;
-  v61 = v27;
+  v60 = v27;
   v28 = queueCopy;
-  v62 = v28;
+  v61 = v28;
   v29 = completionCopy;
-  v63 = v29;
-  v30 = MEMORY[0x1A58E3570](v57);
+  v62 = v29;
+  v30 = MEMORY[0x1A58E3570](v56);
   v31 = +[MRDeviceInfoRequest localDeviceInfo];
   v32 = +[MRUserSettings currentSettings];
   canHostMultiplayerStream = [v32 canHostMultiplayerStream];
@@ -9170,13 +9055,13 @@ LABEL_3:
     else
     {
       v34 = [playbackCopy mutableCopy];
-      wHAIdentifier = v51;
-      if (!v51)
+      wHAIdentifier = v50;
+      if (!v50)
       {
         wHAIdentifier = [v31 WHAIdentifier];
       }
 
-      v51 = wHAIdentifier;
+      v50 = wHAIdentifier;
       [v34 addObject:?];
     }
 
@@ -9190,11 +9075,11 @@ LABEL_3:
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v65 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
-        v66 = 2114;
-        v67 = v26;
-        v68 = 2112;
-        v69 = v35;
+        v64 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+        v65 = 2114;
+        v66 = v26;
+        v67 = 2112;
+        v68 = v35;
         _os_log_impl(&dword_1A2860000, v41, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
       }
 
@@ -9207,47 +9092,45 @@ LABEL_3:
       MRAddPropertyListToXPCMessage(v35, v34, "MRXPC_OUTPUT_DEVICE_UID_ARRAY_DATA_KEY");
       v42 = +[MRMediaRemoteServiceClient sharedServiceClient];
       [v42 service];
-      v49 = v29;
-      v50 = v31;
+      v48 = v29;
+      v49 = v31;
       v43 = v26;
       v45 = v44 = v25;
       [v45 mrXPCConnection];
       v47 = v46 = v27;
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_646;
-      v52[3] = &unk_1E769B338;
-      v53 = v30;
-      [v47 sendMessage:v35 queue:v28 reply:v52];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_646;
+      v51[3] = &unk_1E769B338;
+      v52 = v30;
+      [v47 sendMessage:v35 queue:v28 reply:v51];
 
       v27 = v46;
       v25 = v44;
       v26 = v43;
-      v29 = v49;
-      v31 = v50;
+      v29 = v48;
+      v31 = v49;
     }
   }
 
   else
   {
     v35 = objc_alloc_init(MRNowPlayingRequest);
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_2;
-    v54[3] = &unk_1E76A2F20;
-    v56 = v30;
-    v55 = v31;
-    [(MRNowPlayingRequest *)v35 requestIsPlayingOnQueue:v28 completion:v54];
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_2;
+    v53[3] = &unk_1E76A2F20;
+    v55 = v30;
+    v54 = v31;
+    [(MRNowPlayingRequest *)v35 requestIsPlayingOnQueue:v28 completion:v53];
 
     v34 = playbackCopy;
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 void __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithBool:a2];
 
   v5 = *(a1 + 32);
@@ -9268,13 +9151,13 @@ void __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_or
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v36 = v18;
-      v37 = 2114;
-      v38 = v17;
-      v39 = 2114;
-      v40 = v19;
-      v41 = 2048;
-      v42 = v20;
+      v35 = v18;
+      v36 = 2114;
+      v37 = v17;
+      v38 = 2114;
+      v39 = v19;
+      v40 = 2048;
+      v41 = v20;
       v21 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v22 = v6;
       v23 = 42;
@@ -9292,11 +9175,11 @@ void __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_or
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v36 = v27;
-      v37 = 2114;
-      v38 = v28;
-      v39 = 2048;
-      v40 = v29;
+      v35 = v27;
+      v36 = 2114;
+      v37 = v28;
+      v38 = 2048;
+      v39 = v29;
       v21 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v22 = v6;
       v23 = 32;
@@ -9317,15 +9200,15 @@ void __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_or
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v36 = v8;
-      v37 = 2114;
-      v38 = v9;
-      v39 = 2112;
-      v40 = v10;
-      v41 = 2114;
-      v42 = v11;
-      v43 = 2048;
-      v44 = v13;
+      v35 = v8;
+      v36 = 2114;
+      v37 = v9;
+      v38 = 2112;
+      v39 = v10;
+      v40 = 2114;
+      v41 = v11;
+      v42 = 2048;
+      v43 = v13;
       v14 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v15 = v6;
       v16 = 52;
@@ -9344,13 +9227,13 @@ LABEL_14:
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v36 = v24;
-    v37 = 2114;
-    v38 = v25;
-    v39 = 2112;
-    v40 = v10;
-    v41 = 2048;
-    v42 = v26;
+    v35 = v24;
+    v36 = 2114;
+    v37 = v25;
+    v38 = 2112;
+    v39 = v10;
+    v40 = 2048;
+    v41 = v26;
     v14 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v15 = v6;
     v16 = 42;
@@ -9359,16 +9242,14 @@ LABEL_14:
 
 LABEL_15:
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_639;
-  v32[3] = &unk_1E769AB78;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_639;
+  v31[3] = &unk_1E769AB78;
   v30 = *(a1 + 64);
-  v33 = *(a1 + 72);
-  v34 = a2;
-  dispatch_async(v30, v32);
-
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *(a1 + 72);
+  v33 = a2;
+  dispatch_async(v30, v31);
 }
 
 uint64_t __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlayback_originatingOutputDeviceUID_duration_queue_completion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -9395,23 +9276,12 @@ uint64_t __122__MRAVEndpoint_willStartingPlaybackToOutputDevicesInterruptPlaybac
 
 void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  if (!v5)
+  if (!v5 || (v8 = objc_alloc(MEMORY[0x1E696AEC0]), [v6 metadata], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "title"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "initWithFormat:", @"Will interrupt %@ on %@", v10, v5), v10, v9, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v9 = [v6 metadata];
-  v10 = [v9 title];
-  v11 = [v8 initWithFormat:@"Will interrupt %@ on %@", v10, v5];
-
-  if (!v11)
-  {
-LABEL_6:
     v23 = *(a1 + 40);
     v13 = _MRLogForCategory(0xAuLL);
     v24 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
@@ -9425,13 +9295,13 @@ LABEL_6:
         v28 = [MEMORY[0x1E695DF00] date];
         [v28 timeIntervalSinceDate:*(a1 + 64)];
         *buf = 138544130;
-        v49 = v26;
-        v50 = 2114;
-        v51 = v25;
-        v52 = 2114;
-        v53 = v27;
-        v54 = 2048;
-        v55 = v29;
+        v48 = v26;
+        v49 = 2114;
+        v50 = v25;
+        v51 = 2114;
+        v52 = v27;
+        v53 = 2048;
+        v54 = v29;
         v30 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v31 = v13;
         v32 = 42;
@@ -9447,11 +9317,11 @@ LABEL_11:
       v28 = [MEMORY[0x1E695DF00] date];
       [v28 timeIntervalSinceDate:*(a1 + 64)];
       *buf = 138543874;
-      v49 = v33;
-      v50 = 2114;
-      v51 = v34;
-      v52 = 2048;
-      v53 = v35;
+      v48 = v33;
+      v49 = 2114;
+      v50 = v34;
+      v51 = 2048;
+      v52 = v35;
       v30 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v31 = v13;
       v32 = 32;
@@ -9475,15 +9345,15 @@ LABEL_11:
       v18 = [MEMORY[0x1E695DF00] date];
       [v18 timeIntervalSinceDate:*(a1 + 64)];
       *buf = 138544386;
-      v49 = v16;
-      v50 = 2114;
-      v51 = v15;
-      v52 = 2112;
-      v53 = v11;
-      v54 = 2114;
-      v55 = v17;
-      v56 = 2048;
-      v57 = v19;
+      v48 = v16;
+      v49 = 2114;
+      v50 = v15;
+      v51 = 2112;
+      v52 = v11;
+      v53 = 2114;
+      v54 = v17;
+      v55 = 2048;
+      v56 = v19;
       v20 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v21 = v13;
       v22 = 52;
@@ -9499,13 +9369,13 @@ LABEL_15:
     v18 = [MEMORY[0x1E695DF00] date];
     [v18 timeIntervalSinceDate:*(a1 + 64)];
     *buf = 138544130;
-    v49 = v36;
-    v50 = 2114;
-    v51 = v37;
-    v52 = 2112;
-    v53 = v11;
-    v54 = 2048;
-    v55 = v38;
+    v48 = v36;
+    v49 = 2114;
+    v50 = v37;
+    v51 = 2112;
+    v52 = v11;
+    v53 = 2048;
+    v54 = v38;
     v20 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v21 = v13;
     v22 = 42;
@@ -9520,36 +9390,33 @@ LABEL_16:
   block[3] = &unk_1E769AC18;
   v39 = *(a1 + 72);
   v40 = *(a1 + 80);
-  v46 = v6;
-  v47 = v40;
-  v45 = v5;
+  v45 = v6;
+  v46 = v40;
+  v44 = v5;
   v41 = v6;
   v42 = v5;
   dispatch_async(v39, block);
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v8 = 138543874;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v8, 0x20u);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v7, 0x20u);
   }
 
   (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_658(uint64_t a1, void *a2, void *a3)
@@ -9564,15 +9431,15 @@ void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_du
 
 uint64_t __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_663(uint64_t a1, void *a2)
 {
-  v3 = [a2 uid];
-  LODWORD(a1) = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 uid];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return a1 ^ 1;
+  return isEqualToString ^ 1u;
 }
 
 void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_670(double *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -9591,11 +9458,11 @@ LABEL_3:
     v9 = *(a1 + 4);
     v10 = *(a1 + 5);
     *buf = 138543874;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v7;
+    v21 = v9;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v7;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     goto LABEL_4;
   }
@@ -9622,13 +9489,11 @@ LABEL_3:
 LABEL_7:
   v16 = a1 + 6;
   v14 = *(a1 + 6);
-  v15 = v16[1];
+  v15 = *(v16 + 1);
   v17 = [v5 playbackQueue];
   v18 = [v17 contentItems];
   v19 = [v18 firstObject];
   (*(v15 + 16))(v15, v14, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)discoverySessionWithConfiguration:(id)configuration
@@ -9854,23 +9719,24 @@ LABEL_4:
     _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  if (MSVDeviceOSIsInternalInstall())
+  v25 = MSVDeviceOSIsInternalInstall();
+  if (v25)
   {
-    v25 = MRLogCategoryDiscoveryOversize();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = MRLogCategoryDiscoveryOversize(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       requestDetails2 = [requestCopy requestDetails];
       requestID2 = [requestDetails2 requestID];
       [MEMORY[0x1E696AF00] callStackSymbols];
       v35 = v17;
-      v29 = v28 = v16;
+      v30 = v29 = v16;
       *buf = 138412546;
       v44 = requestID2;
       v45 = 2112;
-      v46 = v29;
-      _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, "Endpoint.modifyTopologyWithRequest<%@> %@", buf, 0x16u);
+      v46 = v30;
+      _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "Endpoint.modifyTopologyWithRequest<%@> %@", buf, 0x16u);
 
-      v16 = v28;
+      v16 = v29;
       v17 = v35;
     }
   }
@@ -9886,18 +9752,16 @@ LABEL_4:
   v40 = fabs(v14);
   v42 = v17;
   v41 = v16;
-  v30 = completionCopy;
-  v31 = v12;
-  v32 = requestCopy;
-  v33 = MEMORY[0x1A58E3570](v36);
-  [(MRAVEndpoint *)self _modifyTopologyWithRequest:v32 withReplyQueue:queueCopy completion:v33];
-
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = completionCopy;
+  v32 = v12;
+  v33 = requestCopy;
+  v34 = MEMORY[0x1A58E3570](v36);
+  [(MRAVEndpoint *)self _modifyTopologyWithRequest:v33 withReplyQueue:queueCopy completion:v34];
 }
 
 void __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 32) debugName];
@@ -9918,13 +9782,13 @@ void __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___bl
       v10 = [v9 requestID];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 48)];
-      v28 = 138543874;
-      v29 = @"Endpoint.modifyTopologyWithRequest";
-      v30 = 2114;
-      v31 = v10;
-      v32 = 2048;
-      v33 = v16;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = @"Endpoint.modifyTopologyWithRequest";
+      v29 = 2114;
+      v30 = v10;
+      v31 = 2048;
+      v32 = v16;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v27, 0x20u);
       goto LABEL_13;
     }
 
@@ -9938,15 +9802,15 @@ void __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___bl
     v11 = [*(a1 + 32) debugName];
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:*(a1 + 48)];
-    v28 = 138544130;
-    v29 = @"Endpoint.modifyTopologyWithRequest";
-    v30 = 2114;
-    v31 = v10;
-    v32 = 2114;
-    v33 = v11;
-    v34 = 2048;
-    v35 = v15;
-    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds", &v28, 0x2Au);
+    v27 = 138544130;
+    v28 = @"Endpoint.modifyTopologyWithRequest";
+    v29 = 2114;
+    v30 = v10;
+    v31 = 2114;
+    v32 = v11;
+    v33 = 2048;
+    v34 = v15;
+    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds", &v27, 0x2Au);
 LABEL_8:
 
 LABEL_13:
@@ -9966,23 +9830,23 @@ LABEL_13:
     v11 = [*(a1 + 32) debugName];
     v12 = [MEMORY[0x1E695DF00] date];
     [v12 timeIntervalSinceDate:*(a1 + 48)];
-    v28 = 138544386;
-    v29 = @"Endpoint.modifyTopologyWithRequest";
-    v30 = 2114;
-    v31 = v10;
-    v32 = 2114;
-    v33 = v3;
-    v34 = 2114;
-    v35 = v11;
-    v36 = 2048;
-    v37 = v13;
-    _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v28, 0x34u);
+    v27 = 138544386;
+    v28 = @"Endpoint.modifyTopologyWithRequest";
+    v29 = 2114;
+    v30 = v10;
+    v31 = 2114;
+    v32 = v3;
+    v33 = 2114;
+    v34 = v11;
+    v35 = 2048;
+    v36 = v13;
+    _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v27, 0x34u);
     goto LABEL_8;
   }
 
   if (v8)
   {
-    __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_cold_1(a1, v3, v7);
+    __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_cold_1();
   }
 
 LABEL_14:
@@ -10035,49 +9899,46 @@ LABEL_24:
   }
 
 LABEL_26:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_modifyTopologyWithRequest:(id)request withReplyQueue:(id)queue completion:(id)completion
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   queueCopy = queue;
   completionCopy = completion;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x3032000000;
-  v26[3] = __Block_byref_object_copy__37;
-  v26[4] = __Block_byref_object_dispose__37;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3032000000;
+  v25[3] = __Block_byref_object_copy__37;
+  v25[4] = __Block_byref_object_dispose__37;
   v11 = requestCopy;
-  v27 = v11;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke;
-  v23[3] = &unk_1E769AB50;
+  v26 = v11;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke;
+  v22[3] = &unk_1E769AB50;
   v12 = completionCopy;
-  v25 = v12;
+  v24 = v12;
   v13 = queueCopy;
-  v24 = v13;
-  v14 = MEMORY[0x1A58E3570](v23);
-  v28 = @"MREndpointConnectionReasonUserInfoKey";
-  v29[0] = @"modifyOutputContext";
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_3;
-  v19[3] = &unk_1E76A3060;
-  v22 = v26;
-  v19[4] = self;
+  v23 = v13;
+  v14 = MEMORY[0x1A58E3570](v22);
+  v27 = @"MREndpointConnectionReasonUserInfoKey";
+  v28[0] = @"modifyOutputContext";
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_3;
+  v18[3] = &unk_1E76A3060;
+  v21 = v25;
+  v18[4] = self;
   v16 = v13;
-  v20 = v16;
+  v19 = v16;
   v17 = v14;
-  v21 = v17;
-  [(MRAVEndpoint *)self connectToExternalDeviceWithOptions:1 userInfo:v15 completion:v19];
+  v20 = v17;
+  [(MRAVEndpoint *)self connectToExternalDeviceWithOptions:1 userInfo:v15 completion:v18];
 
-  _Block_object_dispose(v26, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v25, 8);
 }
 
 void __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke(uint64_t a1, void *a2)
@@ -10086,9 +9947,8 @@ void __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___b
   v4 = *(a1 + 40);
   if (v4)
   {
-    v5 = *(a1 + 32);
-    v7 = v4;
-    v6 = v3;
+    v6 = v4;
+    v5 = v3;
     msv_dispatch_async_on_queue();
   }
 }
@@ -10097,37 +9957,36 @@ void __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___b
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(*(*(a1 + 56) + 8) + 40) outputDevices];
-    v6 = [v5 count];
+    v4 = [*(*(*(a1 + 56) + 8) + 40) outputDevices];
+    v5 = [v4 count];
 
-    if (v6)
+    if (v5)
     {
-      v7 = MRMediaRemoteCopyDeviceUID();
-      v8 = [*(*(*(a1 + 56) + 8) + 40) outputDevices];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_4;
-      v15[3] = &unk_1E769B6F8;
-      v16 = v7;
-      v9 = v7;
-      v10 = [v8 msv_map:v15];
+      v6 = MRMediaRemoteCopyDeviceUID();
+      v7 = [*(*(*(a1 + 56) + 8) + 40) outputDevices];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_4;
+      v14[3] = &unk_1E769B6F8;
+      v15 = v6;
+      v8 = v6;
+      v9 = [v7 msv_map:v14];
 
-      v11 = [*(*(*(a1 + 56) + 8) + 40) copyWithOutputDeviceUIDs:v10];
-      v12 = *(*(a1 + 56) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v10 = [*(*(*(a1 + 56) + 8) + 40) copyWithOutputDeviceUIDs:v9];
+      v11 = *(*(a1 + 56) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = v10;
     }
 
-    v14 = [*(a1 + 32) externalDevice];
-    [v14 modifyTopologyWithRequest:*(*(*(a1 + 56) + 8) + 40) withReplyQueue:*(a1 + 40) completion:*(a1 + 48)];
+    v13 = [*(a1 + 32) externalDevice];
+    [v13 modifyTopologyWithRequest:*(*(*(a1 + 56) + 8) + 40) withReplyQueue:*(a1 + 40) completion:*(a1 + 48)];
   }
 }
 
@@ -10247,7 +10106,7 @@ id __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___blo
 
 - (__CFString)_createLocalizedNameWithBuiltInDeviceNameBlock:(void *)block
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!block)
   {
@@ -10258,32 +10117,32 @@ id __69__MRAVEndpoint__modifyTopologyWithRequest_withReplyQueue_completion___blo
   outputDevices = [block outputDevices];
   if ([outputDevices count] > 1)
   {
-    v44 = v3;
+    v43 = v3;
     firstObject = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
     groupLeader4 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v14 = outputDevices;
-    v15 = [v14 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (!v15)
     {
       goto LABEL_26;
     }
 
     v16 = v15;
-    v17 = *v46;
+    v17 = *v45;
     while (1)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v46 != v17)
+        if (*v45 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * i);
+        v19 = *(*(&v44 + 1) + 8 * i);
         name = [v19 name];
         if ([name length])
         {
@@ -10302,7 +10161,7 @@ LABEL_22:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (!v16)
       {
 LABEL_26:
@@ -10312,10 +10171,10 @@ LABEL_26:
 
         if (isProxyGroupPlayer)
         {
-          v3 = v44;
+          v3 = v43;
           if ([block isLocalEndpoint])
           {
-            name2 = v44[2](v44);
+            name2 = v43[2](v43);
           }
 
           else
@@ -10350,7 +10209,7 @@ LABEL_26:
           [firstObject sortUsingSelector:sel_localizedCaseInsensitiveCompare_];
           name2 = MRLocalizedString(@"ROUTE_NAMES_CONCAT_DELIMITER");
           name3 = [firstObject componentsJoinedByString:name2];
-          v3 = v44;
+          v3 = v43;
         }
 
         goto LABEL_43;
@@ -10395,12 +10254,12 @@ LABEL_43:
 
     if (!hasPlaceholderName)
     {
-      v39 = MEMORY[0x1E696AEC0];
-      v40 = MRLocalizedStringWithFormat(@"ROUTE_NAME_ARROW_FORMAT");
+      v38 = MEMORY[0x1E696AEC0];
+      v39 = MRLocalizedStringWithFormat(@"ROUTE_NAME_ARROW_FORMAT");
       groupLeader6 = [block groupLeader];
       name4 = [groupLeader6 name];
       name5 = [firstObject name];
-      name3 = [v39 stringWithFormat:v40, name4, name5];
+      name3 = [v38 stringWithFormat:v39, name4, name5];
 
       goto LABEL_44;
     }
@@ -10420,7 +10279,6 @@ LABEL_44:
   v36 = v35;
 
 LABEL_47:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
@@ -10450,7 +10308,7 @@ LABEL_47:
 
 - (void)migrateToOrSetOutputDevices:(id)devices initiator:(id)initiator withReplyQueue:(id)queue completion:(id)completion
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   initiatorCopy = initiator;
   queueCopy = queue;
@@ -10465,11 +10323,11 @@ LABEL_47:
   [(MRPlaybackSessionMigrateRequest *)v15 setInitiator:@"routePicker"];
   date = [MEMORY[0x1E695DF00] date];
   requestID = [(MRPlaybackSessionMigrateRequest *)v15 requestID];
-  v57 = initiatorCopy;
-  v53 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
+  v56 = initiatorCopy;
+  v52 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
   v18 = objc_alloc(MEMORY[0x1E696AEC0]);
   debugName = [(MRAVEndpoint *)self debugName];
-  v54 = devicesCopy;
+  v53 = devicesCopy;
   v20 = MRAVOutputDeviceArrayDescription(devicesCopy);
   v21 = [v18 initWithFormat:@"source=%@ destination=%@", debugName, v20];
 
@@ -10483,53 +10341,53 @@ LABEL_47:
   v24 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v73 = 138543362;
-    v74 = v23;
-    OUTLINED_FUNCTION_25_0(&dword_1A2860000, v24, v25, "Request: %{public}@", &v73);
+    v72 = 138543362;
+    v73 = v23;
+    OUTLINED_FUNCTION_25_0(&dword_1A2860000, v24, v25, "Request: %{public}@", &v72);
   }
 
-  v65[0] = MEMORY[0x1E69E9820];
-  v65[1] = 3221225472;
-  v65[2] = __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke;
-  v65[3] = &unk_1E76A2730;
-  v66 = v21;
-  v67 = @"migrateToOrSetOutputDevices";
+  v64[0] = MEMORY[0x1E69E9820];
+  v64[1] = 3221225472;
+  v64[2] = __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke;
+  v64[3] = &unk_1E76A2730;
+  v65 = v21;
+  v66 = @"migrateToOrSetOutputDevices";
   v26 = requestID;
-  v68 = v26;
-  v69 = date;
+  v67 = v26;
+  v68 = date;
   v27 = v15;
-  v70 = v27;
-  v72 = completionCopy;
+  v69 = v27;
+  v71 = completionCopy;
   v28 = queueCopy;
-  v71 = v28;
-  v56 = completionCopy;
-  v55 = date;
+  v70 = v28;
+  v55 = completionCopy;
+  v54 = date;
   v29 = v21;
-  v30 = MEMORY[0x1A58E3570](v65);
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke_2;
-  v58[3] = &unk_1E76A2758;
+  v30 = MEMORY[0x1A58E3570](v64);
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = __80__MRAVEndpoint_migrateToOrSetOutputDevices_initiator_withReplyQueue_completion___block_invoke_2;
+  v57[3] = &unk_1E76A2758;
   v31 = v27;
-  v59 = v31;
+  v58 = v31;
   selfCopy = self;
-  v32 = v54;
-  v61 = v32;
-  v62 = v53;
+  v32 = v53;
+  v60 = v32;
+  v61 = v52;
   v33 = v28;
-  v63 = v33;
+  v62 = v33;
   v34 = v30;
-  v64 = v34;
-  v35 = v53;
-  v36 = MEMORY[0x1A58E3570](v58);
+  v63 = v34;
+  v35 = v52;
+  v36 = MEMORY[0x1A58E3570](v57);
   if ([(MRAVEndpoint *)self isCompanionEndpoint])
   {
     v37 = _MRLogForCategory(0xAuLL);
     if (OUTLINED_FUNCTION_29_0(v37))
     {
-      v73 = 138543874;
+      v72 = 138543874;
       OUTLINED_FUNCTION_4_10(@"migrateToOrSetOutputDevices");
-      v75 = @"Not attempting to migrate because destination is companion...";
+      v74 = @"Not attempting to migrate because destination is companion...";
       OUTLINED_FUNCTION_17_0(&dword_1A2860000, v38, v39, "Update: %{public}@<%{public}@> %@");
     }
 
@@ -10548,9 +10406,9 @@ LABEL_24:
     v43 = _MRLogForCategory(0xAuLL);
     if (OUTLINED_FUNCTION_29_0(v43))
     {
-      v73 = 138543874;
+      v72 = 138543874;
       OUTLINED_FUNCTION_4_10(@"migrateToOrSetOutputDevices");
-      v75 = @"Not attempting to migrate because local device is groupable...";
+      v74 = @"Not attempting to migrate because local device is groupable...";
       OUTLINED_FUNCTION_17_0(&dword_1A2860000, v44, v45, "Update: %{public}@<%{public}@> %@");
     }
 
@@ -10564,9 +10422,9 @@ LABEL_24:
     v46 = _MRLogForCategory(0xAuLL);
     if (OUTLINED_FUNCTION_29_0(v46))
     {
-      v73 = 138543874;
+      v72 = 138543874;
       OUTLINED_FUNCTION_4_10(@"migrateToOrSetOutputDevices");
-      v75 = @"Not attempting to migrate because endpoint is migration-restricted group session endpoint";
+      v74 = @"Not attempting to migrate because endpoint is migration-restricted group session endpoint";
       OUTLINED_FUNCTION_17_0(&dword_1A2860000, v47, v48, "Update: %{public}@<%{public}@> %@");
     }
 
@@ -10580,9 +10438,9 @@ LABEL_24:
     v49 = _MRLogForCategory(0xAuLL);
     if (OUTLINED_FUNCTION_29_0(v49))
     {
-      v73 = 138543874;
+      v72 = 138543874;
       OUTLINED_FUNCTION_4_10(@"migrateToOrSetOutputDevices");
-      v75 = @"Not attempting to migrate because more than one logical device requested...";
+      v74 = @"Not attempting to migrate because more than one logical device requested...";
       OUTLINED_FUNCTION_17_0(&dword_1A2860000, v50, v51, "Update: %{public}@<%{public}@> %@");
     }
 
@@ -10597,15 +10455,13 @@ LABEL_24:
   [(MRPlaybackSessionMigrateRequest *)v31 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v31 endpointOptions]| 0x20];
   [(MRPlaybackSessionMigrateRequest *)v31 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v31 endpointOptions]| 0x10];
   [(MRPlaybackSessionMigrateRequest *)v31 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v31 endpointOptions]& 0xFFFFFFFFFFFFFFBFLL];
-  [(MRAVEndpoint *)self migrateToOutputDevices:v32 request:v31 initiator:v57 queue:v33 completion:v34];
+  [(MRAVEndpoint *)self migrateToOutputDevices:v32 request:v31 initiator:v56 queue:v33 completion:v34];
 LABEL_25:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMigrationToOutputDevices:(id)devices request:(id)request initiator:(id)initiator queue:(id)queue completion:(id)completion
 {
-  v192 = *MEMORY[0x1E69E9840];
+  v191 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   requestCopy = request;
   initiatorCopy = initiator;
@@ -10651,8 +10507,8 @@ LABEL_8:
   v20 = v17;
   date = [MEMORY[0x1E695DF00] date];
   requestID = [(MRPlaybackSessionMigrateRequest *)v20 requestID];
-  v101 = initiatorCopy;
-  v103 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
+  v100 = initiatorCopy;
+  v102 = [(MRAVEndpoint *)self _initiatorStringWithInitiator:initiatorCopy uid:requestID];
   v22 = objc_alloc(MEMORY[0x1E696AEC0]);
   debugName = [(MRAVEndpoint *)self debugName];
   v24 = MRAVOutputDeviceArrayDescription(devicesCopy);
@@ -10669,112 +10525,112 @@ LABEL_8:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v189 = v27;
+    v188 = v27;
     OUTLINED_FUNCTION_25_0(&dword_1A2860000, v28, v29, "Request: %{public}@", buf);
   }
 
-  v179[0] = MEMORY[0x1E69E9820];
-  v179[1] = 3221225472;
-  v179[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke;
-  v179[3] = &unk_1E76A27D0;
-  v107 = v25;
-  v180 = v107;
-  v181 = @"migrateToOutputDevice";
+  v178[0] = MEMORY[0x1E69E9820];
+  v178[1] = 3221225472;
+  v178[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke;
+  v178[3] = &unk_1E76A27D0;
+  v106 = v25;
+  v179 = v106;
+  v180 = @"migrateToOutputDevice";
   v30 = requestID;
-  v182 = v30;
-  v106 = date;
-  v183 = v106;
-  v109 = requestCopy;
-  v184 = v109;
+  v181 = v30;
+  v105 = date;
+  v182 = v105;
+  v108 = requestCopy;
+  v183 = v108;
   v31 = v20;
-  v185 = v31;
-  v105 = completionCopy;
-  v187 = v105;
+  v184 = v31;
+  v104 = completionCopy;
+  v186 = v104;
   v32 = queueCopy;
-  v186 = v32;
-  v33 = MEMORY[0x1A58E3570](v179);
-  v170[0] = MEMORY[0x1E69E9820];
-  v170[1] = 3221225472;
-  v170[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2;
-  v170[3] = &unk_1E76A2820;
+  v185 = v32;
+  v33 = MEMORY[0x1A58E3570](v178);
+  v169[0] = MEMORY[0x1E69E9820];
+  v169[1] = 3221225472;
+  v169[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2;
+  v169[3] = &unk_1E76A2820;
   v34 = v31;
-  v171 = v34;
-  v172 = @"migrateToOutputDevice";
+  v170 = v34;
+  v171 = @"migrateToOutputDevice";
   v35 = v30;
-  v173 = v35;
+  v172 = v35;
   selfCopy = self;
   v36 = devicesCopy;
-  v175 = v36;
-  v104 = v103;
-  v176 = v104;
+  v174 = v36;
+  v103 = v102;
+  v175 = v103;
   v37 = v32;
-  v177 = v37;
+  v176 = v37;
   v38 = v33;
-  v178 = v38;
-  v39 = MEMORY[0x1A58E3570](v170);
-  v165[0] = MEMORY[0x1E69E9820];
-  v165[1] = 3221225472;
-  v165[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3;
-  v165[3] = &unk_1E76A2870;
-  v165[4] = self;
+  v177 = v38;
+  v39 = MEMORY[0x1A58E3570](v169);
+  v164[0] = MEMORY[0x1E69E9820];
+  v164[1] = 3221225472;
+  v164[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3;
+  v164[3] = &unk_1E76A2870;
+  v164[4] = self;
   selfCopy2 = self;
   v40 = v34;
-  v166 = v40;
+  v165 = v40;
   v41 = v37;
-  v167 = v41;
+  v166 = v41;
   v42 = v38;
-  v168 = v42;
+  v167 = v42;
   v43 = v39;
-  v169 = v43;
-  v44 = MEMORY[0x1A58E3570](v165);
-  v156[0] = MEMORY[0x1E69E9820];
-  v156[1] = 3221225472;
-  v156[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5;
-  v156[3] = &unk_1E76A28C0;
-  v157 = @"migrateToOutputDevice";
+  v168 = v43;
+  v44 = MEMORY[0x1A58E3570](v164);
+  v155[0] = MEMORY[0x1E69E9820];
+  v155[1] = 3221225472;
+  v155[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_5;
+  v155[3] = &unk_1E76A28C0;
+  v156 = @"migrateToOutputDevice";
   v45 = v35;
-  v158 = v45;
+  v157 = v45;
   v46 = v40;
-  v159 = v46;
+  v158 = v46;
   v47 = v36;
-  v160 = v47;
-  v102 = v101;
-  v161 = v102;
+  v159 = v47;
+  v101 = v100;
+  v160 = v101;
   v48 = v41;
-  v162 = v48;
+  v161 = v48;
   v49 = v42;
-  v163 = v49;
+  v162 = v49;
   v50 = v44;
-  v164 = v50;
-  v51 = MEMORY[0x1A58E3570](v156);
-  v151[0] = MEMORY[0x1E69E9820];
-  v151[1] = 3221225472;
-  v151[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_273;
-  v151[3] = &unk_1E76A2938;
+  v163 = v50;
+  v51 = MEMORY[0x1A58E3570](v155);
+  v150[0] = MEMORY[0x1E69E9820];
+  v150[1] = 3221225472;
+  v150[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_273;
+  v150[3] = &unk_1E76A2938;
   v52 = v46;
-  v152 = v52;
+  v151 = v52;
   v53 = v48;
-  v153 = v53;
+  v152 = v53;
   v54 = v45;
-  v154 = v54;
+  v153 = v54;
   v55 = v49;
-  v155 = v55;
-  v56 = MEMORY[0x1A58E3570](v151);
-  v144[0] = MEMORY[0x1E69E9820];
-  v144[1] = 3221225472;
-  v144[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_290;
-  v144[3] = &unk_1E76A2988;
+  v154 = v55;
+  v56 = MEMORY[0x1A58E3570](v150);
+  v143[0] = MEMORY[0x1E69E9820];
+  v143[1] = 3221225472;
+  v143[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_290;
+  v143[3] = &unk_1E76A2988;
   v57 = v52;
-  v145 = v57;
-  v99 = v56;
-  v148 = v99;
-  v146 = @"migrateToOutputDevice";
+  v144 = v57;
+  v98 = v56;
+  v147 = v98;
+  v145 = @"migrateToOutputDevice";
   v58 = v43;
-  v149 = v58;
-  v100 = v55;
-  v150 = v100;
-  v147 = selfCopy2;
-  v59 = MEMORY[0x1A58E3570](v144);
+  v148 = v58;
+  v99 = v55;
+  v149 = v99;
+  v146 = selfCopy2;
+  v59 = MEMORY[0x1A58E3570](v143);
   v60 = [v47 mr_filter:&__block_literal_global_310];
   v61 = [v60 count];
 
@@ -10786,79 +10642,79 @@ LABEL_8:
       *buf = 138543874;
       OUTLINED_FUNCTION_6_7(@"migrateToOutputDevice");
       *(v63 + 14) = v54;
-      v190 = 2112;
-      v191 = @"Migrating to silent primary. Will break any pre-existing groups...";
+      v189 = 2112;
+      v190 = @"Migrating to silent primary. Will break any pre-existing groups...";
       _os_log_impl(&dword_1A2860000, v62, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
     [(MRPlaybackSessionMigrateRequest *)v57 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v57 endpointOptions]| 4];
   }
 
-  v96 = [v47 mr_map:&__block_literal_global_317];
-  v135[0] = MEMORY[0x1E69E9820];
-  v135[1] = 3221225472;
-  v135[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_318;
-  v135[3] = &unk_1E76A29D8;
+  v95 = [v47 mr_map:&__block_literal_global_317];
+  v134[0] = MEMORY[0x1E69E9820];
+  v134[1] = 3221225472;
+  v134[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_318;
+  v134[3] = &unk_1E76A29D8;
   v64 = v57;
-  v136 = v64;
+  v135 = v64;
   v65 = v47;
-  v137 = v65;
-  v138 = @"migrateToOutputDevice";
+  v136 = v65;
+  v137 = @"migrateToOutputDevice";
   v66 = v54;
-  v139 = v66;
-  v98 = v50;
-  v141 = v98;
+  v138 = v66;
+  v97 = v50;
+  v140 = v97;
   v67 = v53;
-  v140 = v67;
+  v139 = v67;
   v68 = v58;
-  v142 = v68;
-  v97 = v51;
-  v143 = v97;
-  v69 = MEMORY[0x1A58E3570](v135);
-  v128[0] = MEMORY[0x1E69E9820];
-  v128[1] = 3221225472;
-  v128[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3_332;
-  v128[3] = &unk_1E76A2A20;
-  v129 = @"migrateToOutputDevice";
+  v141 = v68;
+  v96 = v51;
+  v142 = v96;
+  v69 = MEMORY[0x1A58E3570](v134);
+  v127[0] = MEMORY[0x1E69E9820];
+  v127[1] = 3221225472;
+  v127[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_3_332;
+  v127[3] = &unk_1E76A2A20;
+  v128 = @"migrateToOutputDevice";
   v70 = v66;
-  v130 = v70;
-  v131 = selfCopy2;
-  v112 = v59;
-  v133 = v112;
+  v129 = v70;
+  v130 = selfCopy2;
+  v111 = v59;
+  v132 = v111;
   v71 = v65;
-  v132 = v71;
+  v131 = v71;
   v72 = v69;
-  v134 = v72;
-  v73 = MEMORY[0x1A58E3570](v128);
-  v121[0] = MEMORY[0x1E69E9820];
-  v121[1] = 3221225472;
-  v121[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_360;
-  v121[3] = &unk_1E76A2A48;
-  v122 = @"migrateToOutputDevice";
+  v133 = v72;
+  v73 = MEMORY[0x1A58E3570](v127);
+  v120[0] = MEMORY[0x1E69E9820];
+  v120[1] = 3221225472;
+  v120[2] = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_4_360;
+  v120[3] = &unk_1E76A2A48;
+  v121 = @"migrateToOutputDevice";
   v74 = v70;
-  v123 = v74;
+  v122 = v74;
   v75 = v64;
-  v124 = v75;
+  v123 = v75;
   v76 = v68;
-  v125 = v76;
+  v124 = v76;
   v77 = v73;
-  v126 = v77;
+  v125 = v77;
   v78 = v72;
-  v127 = v78;
-  v79 = MEMORY[0x1A58E3570](v121);
+  v126 = v78;
+  v79 = MEMORY[0x1A58E3570](v120);
   if ([v71 mr_all:&__block_literal_global_373])
   {
     LocalEndpoint = MRAVEndpointGetLocalEndpoint(0);
     (v79)[2](v79, 0, LocalEndpoint, 0);
-    v81 = v96;
+    v81 = v95;
   }
 
   else
   {
-    v95 = v74;
+    v94 = v74;
     v82 = [v75 startEvent:@"Search" role:1];
     v83 = [MRRequestDetails alloc];
-    v94 = v76;
+    v93 = v76;
     v84 = v67;
     [v75 requestID];
     v85 = v75;
@@ -10867,31 +10723,29 @@ LABEL_8:
 
     v71 = v86;
     v75 = v85;
-    v81 = v96;
-    v89 = [[MRAVReconnaissanceSession alloc] initWithOutputDeviceUIDs:v96 features:8 details:v88];
+    v81 = v95;
+    v89 = [[MRAVReconnaissanceSession alloc] initWithOutputDeviceUIDs:v95 features:8 details:v88];
     OUTLINED_FUNCTION_13_2();
-    v114 = 3221225472;
-    v115 = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_382;
-    v116 = &unk_1E76A2A70;
-    v117 = v90;
-    v118 = v75;
-    v120 = v82;
-    v119 = v79;
+    v113 = 3221225472;
+    v114 = __83__MRAVEndpoint_performMigrationToOutputDevices_request_initiator_queue_completion___block_invoke_2_382;
+    v115 = &unk_1E76A2A70;
+    v116 = v90;
+    v117 = v75;
+    v119 = v82;
+    v118 = v79;
     v91 = v89;
     v67 = v84;
-    v76 = v94;
+    v76 = v93;
     v92 = v91;
-    [(MRAVReconnaissanceSession *)v91 beginSearchWithTimeout:&v113 endpointsCompletion:7.0];
+    [(MRAVReconnaissanceSession *)v91 beginSearchWithTimeout:&v112 endpointsCompletion:7.0];
 
-    v74 = v95;
+    v74 = v94;
   }
-
-  v93 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestMicrophoneConnectionWithDetails:(void *)details queue:(void *)queue completion:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   detailsCopy = details;
   queueCopy = queue;
@@ -10912,39 +10766,37 @@ LABEL_8:
     v16 = _MRLogForCategory(0xAuLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 138543362;
-      v37 = v15;
-      OUTLINED_FUNCTION_25_0(&dword_1A2860000, v16, v17, "Request: %{public}@", &v36);
+      v35 = 138543362;
+      v36 = v15;
+      OUTLINED_FUNCTION_25_0(&dword_1A2860000, v16, v17, "Request: %{public}@", &v35);
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke;
-    v29[3] = &unk_1E76A2BD8;
-    v30 = debugName;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke;
+    v28[3] = &unk_1E76A2BD8;
+    v29 = debugName;
     v18 = v7;
-    v31 = v18;
-    v32 = v10;
-    v33 = queueCopy;
+    v30 = v18;
+    v31 = v10;
+    v32 = queueCopy;
     v19 = v10;
     v20 = debugName;
-    v21 = MEMORY[0x1A58E3570](v29);
-    v34 = @"MREndpointConnectionReasonUserInfoKey";
-    v35 = @"requestMicrophoneConnection";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke_439;
-    v25[3] = &unk_1E76A2B88;
-    v25[4] = self;
-    v26 = v18;
-    v27 = detailsCopy;
-    v28 = v21;
+    v21 = MEMORY[0x1A58E3570](v28);
+    v33 = @"MREndpointConnectionReasonUserInfoKey";
+    v34 = @"requestMicrophoneConnection";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __72__MRAVEndpoint_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke_439;
+    v24[3] = &unk_1E76A2B88;
+    v24[4] = self;
+    v25 = v18;
+    v26 = detailsCopy;
+    v27 = v21;
     v23 = v21;
-    [self connectToExternalDeviceWithUserInfo:v22 completion:v25];
+    [self connectToExternalDeviceWithUserInfo:v22 completion:v24];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)translateClusterUIDIfNeeded:(void *)needed
@@ -10954,12 +10806,12 @@ LABEL_8:
   {
     outputDevices = [needed outputDevices];
     OUTLINED_FUNCTION_0_3();
-    v15 = 3221225472;
-    v16 = __44__MRAVEndpoint_translateClusterUIDIfNeeded___block_invoke;
-    v17 = &unk_1E769CDC0;
+    v16 = 3221225472;
+    v17 = __44__MRAVEndpoint_translateClusterUIDIfNeeded___block_invoke;
+    v18 = &unk_1E769CDC0;
     v5 = v3;
-    v18 = v5;
-    v6 = [outputDevices mr_first:v14];
+    v19 = v5;
+    v6 = [outputDevices mr_first:v15];
 
     externalDevice = [needed externalDevice];
     deviceInfo = [externalDevice deviceInfo];
@@ -10969,9 +10821,10 @@ LABEL_8:
     {
       [v6 uid];
       objc_claimAutoreleasedReturnValue();
-      v10 = [OUTLINED_FUNCTION_22_0() isEqualToString:externalDevice];
+      v10 = OUTLINED_FUNCTION_22_0();
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if (v10)
+      if (isEqualToString)
       {
         primaryID = [v6 primaryID];
 
@@ -10981,20 +10834,20 @@ LABEL_8:
 
     v3 = v5;
 
-    v12 = v3;
+    v13 = v3;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (unsigned)volumeControlCapabilitiesForOutputDeviceUID:(id)d
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   debugName = [(MRAVEndpoint *)self debugName];
@@ -11006,7 +10859,7 @@ LABEL_8:
 
   else
   {
-    dCopy = [v5 initWithFormat:@"endpoint=%@", debugName, v46];
+    dCopy = [v5 initWithFormat:@"endpoint=%@", debugName, v45];
   }
 
   v9 = dCopy;
@@ -11026,16 +10879,16 @@ LABEL_8:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v49 = v14;
+    v48 = v14;
     OUTLINED_FUNCTION_20_0();
     _os_log_impl(v16, v17, v18, v19, v20, 0xCu);
   }
 
   outputContextDataSource = [(MRAVEndpoint *)self outputContextDataSource];
   v22 = [(MRAVEndpoint *)self translateClusterUIDIfNeeded:dCopy];
-  v47 = 0;
-  v23 = [outputContextDataSource volumeControlCapabilitiesForOutputDeviceUID:v22 error:&v47];
-  v24 = v47;
+  v46 = 0;
+  v23 = [outputContextDataSource volumeControlCapabilitiesForOutputDeviceUID:v22 error:&v46];
+  v24 = v46;
 
   if (v24)
   {
@@ -11045,10 +10898,10 @@ LABEL_8:
       date2 = [MEMORY[0x1E695DF00] date];
       [date2 timeIntervalSinceDate:date];
       OUTLINED_FUNCTION_10_5();
-      v50 = v27;
-      v51 = v24;
-      v52 = 2048;
-      v53 = v28;
+      v49 = v27;
+      v50 = v24;
+      v51 = 2048;
+      v52 = v28;
       _os_log_error_impl(&dword_1A2860000, v25, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", buf, 0x2Au);
 LABEL_16:
     }
@@ -11068,10 +10921,10 @@ LABEL_16:
         date3 = [MEMORY[0x1E695DF00] date];
         [date3 timeIntervalSinceDate:date];
         OUTLINED_FUNCTION_10_5();
-        v50 = 2112;
-        v51 = date2;
-        v52 = 2048;
-        v53 = v32;
+        v49 = 2112;
+        v50 = date2;
+        v51 = 2048;
+        v52 = v32;
         OUTLINED_FUNCTION_20_0();
         _os_log_impl(v33, v34, v35, v36, v37, 0x2Au);
 
@@ -11084,15 +10937,14 @@ LABEL_16:
       date2 = [MEMORY[0x1E695DF00] date];
       [date2 timeIntervalSinceDate:date];
       OUTLINED_FUNCTION_10_5();
-      v50 = 2048;
-      v51 = v38;
+      v49 = 2048;
+      v50 = v38;
       OUTLINED_FUNCTION_20_0();
       _os_log_impl(v39, v40, v41, v42, v43, 0x20u);
       goto LABEL_16;
     }
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -11125,7 +10977,7 @@ LABEL_16:
 
 - (void)_willStartingPlaybackToOutputDeviceInterruptPlayback:(void *)playback duration:(void *)duration requestID:(void *)d queue:(double)queue completion:
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v11 = a2;
   playbackCopy = playback;
   durationCopy = duration;
@@ -11135,7 +10987,7 @@ LABEL_16:
     goto LABEL_20;
   }
 
-  v52 = dCopy;
+  v51 = dCopy;
   if (!dCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -11176,27 +11028,27 @@ LABEL_4:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v86 = v21;
+    v85 = v21;
     OUTLINED_FUNCTION_25_0(&dword_1A2860000, v22, v23, "Request: %{public}@", buf);
   }
 
-  v78[0] = MEMORY[0x1E69E9820];
-  v78[1] = 3221225472;
-  v78[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke;
-  v78[3] = &unk_1E76A2F48;
-  v78[4] = self;
-  v50 = v19;
-  v79 = v50;
-  v80 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke;
+  v77[3] = &unk_1E76A2F48;
+  v77[4] = self;
+  v49 = v19;
+  v78 = v49;
+  v79 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
   v24 = playbackCopy;
-  v81 = v24;
+  v80 = v24;
   v25 = v15;
-  v82 = v25;
-  v51 = durationCopy;
+  v81 = v25;
+  v50 = durationCopy;
   v26 = durationCopy;
-  v83 = v26;
-  v84 = v52;
-  v27 = MEMORY[0x1A58E3570](v78);
+  v82 = v26;
+  v83 = v51;
+  v27 = MEMORY[0x1A58E3570](v77);
   v28 = +[MRUserSettings currentSettings];
   supportMultiplayerHost = [v28 supportMultiplayerHost];
 
@@ -11208,53 +11060,53 @@ LABEL_4:
   else
   {
     v30 = [MRBlockGuard alloc];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2;
-    v74[3] = &unk_1E769AE80;
-    v75 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2;
+    v73[3] = &unk_1E769AE80;
+    v74 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
     v31 = v24;
-    v76 = v31;
+    v75 = v31;
     v32 = v27;
-    v77 = v32;
-    v33 = [(MRBlockGuard *)v30 initWithTimeout:@"willStartingPlaybackToOutputDeviceInterruptPlayback" reason:v74 handler:3.0];
-    v71[0] = MEMORY[0x1E69E9820];
-    v71[1] = 3221225472;
-    v71[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_658;
-    v71[3] = &unk_1E76A2F70;
-    v49 = v33;
-    v72 = v49;
-    v73 = v32;
-    v34 = MEMORY[0x1A58E3570](v71);
+    v76 = v32;
+    v33 = [(MRBlockGuard *)v30 initWithTimeout:@"willStartingPlaybackToOutputDeviceInterruptPlayback" reason:v73 handler:3.0];
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_658;
+    v70[3] = &unk_1E76A2F70;
+    v48 = v33;
+    v71 = v48;
+    v72 = v32;
+    v34 = MEMORY[0x1A58E3570](v70);
     if ([self isLocalEndpoint] && (+[MRAVClusterController sharedController](MRAVClusterController, "sharedController"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "clusterStatus"), v35, v36 == 2))
     {
       v37 = +[MRAVClusterController sharedController];
-      v64[0] = MEMORY[0x1E69E9820];
-      v64[1] = 3221225472;
-      v64[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2_659;
-      v64[3] = &unk_1E76A2F98;
-      v38 = &v65;
-      v65 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
-      v66 = v31;
-      v67 = v11;
+      v63[0] = MEMORY[0x1E69E9820];
+      v63[1] = 3221225472;
+      v63[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2_659;
+      v63[3] = &unk_1E76A2F98;
+      v38 = &v64;
+      v64 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+      v65 = v31;
+      v66 = v11;
       queueCopy = queue;
-      v68 = v26;
-      v69 = v34;
-      [v37 getClusterLeaderEndpoint:v64];
+      v67 = v26;
+      v68 = v34;
+      [v37 getClusterLeaderEndpoint:v63];
 
-      v39 = v66;
+      v39 = v65;
     }
 
     else
     {
       outputDevices = [self outputDevices];
       OUTLINED_FUNCTION_13_2();
-      v60 = 3221225472;
-      v61 = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_663;
-      v62 = &unk_1E769CDC0;
+      v59 = 3221225472;
+      v60 = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_663;
+      v61 = &unk_1E769CDC0;
       v38 = (v41 + 32);
-      v63 = v11;
-      v39 = [outputDevices mr_filter:v59];
+      v62 = v11;
+      v39 = [outputDevices mr_filter:v58];
 
       if ([v39 count])
       {
@@ -11263,17 +11115,17 @@ LABEL_4:
         [(MRNowPlayingControllerConfiguration *)v42 setRequestPlaybackState:1];
         [(MRNowPlayingControllerConfiguration *)v42 setLabel:@"CheckForInterrupt"];
         v43 = [[MRNowPlayingController alloc] initWithConfiguration:v42];
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_670;
-        v53[3] = &unk_1E76A2FC0;
-        v54 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
-        v55 = v31;
-        v57 = v34;
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_670;
+        v52[3] = &unk_1E76A2FC0;
+        v53 = @"willStartingPlaybackToOutputDeviceInterruptPlayback";
+        v54 = v31;
+        v56 = v34;
         queueCopy2 = queue;
         v39 = v39;
-        v56 = v39;
-        [(MRNowPlayingController *)v43 performRequestWithCompletion:v53];
+        v55 = v39;
+        [(MRNowPlayingController *)v43 performRequestWithCompletion:v52];
       }
 
       else
@@ -11284,8 +11136,8 @@ LABEL_4:
           *buf = 138543874;
           OUTLINED_FUNCTION_6_7(@"willStartingPlaybackToOutputDeviceInterruptPlayback");
           *(v45 + 14) = v31;
-          v87 = 2112;
-          v88 = @"Endpoint is routed to specified outputDevice";
+          v86 = 2112;
+          v87 = @"Endpoint is routed to specified outputDevice";
           _os_log_impl(&dword_1A2860000, v44, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
         }
 
@@ -11294,33 +11146,29 @@ LABEL_4:
     }
   }
 
-  durationCopy = v51;
-  dCopy = v52;
+  durationCopy = v50;
+  dCopy = v51;
 LABEL_20:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __105__MRAVEndpoint__willStartingPlaybackToOutputDeviceInterruptPlayback_duration_requestID_queue_completion___block_invoke_2_659(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v9 = 138543874;
-    v10 = v5;
+    v7 = 138543874;
+    v8 = v5;
     OUTLINED_FUNCTION_4_1();
-    v11 = v7;
-    v12 = 2112;
-    v13 = @"Redirected to cluster groupLeader";
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v9, 0x20u);
+    v9 = v6;
+    v10 = 2112;
+    v11 = @"Redirected to cluster groupLeader";
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v7, 0x20u);
   }
 
   [(MRAVEndpoint *)v3 _willStartingPlaybackToOutputDeviceInterruptPlayback:*(a1 + 40) duration:*(a1 + 56) requestID:*(a1 + 64) queue:*(a1 + 72) completion:?];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)supportsExternalDiscovery
@@ -11401,6 +11249,20 @@ LABEL_10:
   [v0 handleFailureInMethod:@"details" object:? file:? lineNumber:? description:?];
 }
 
+void __86__MRAVEndpoint_connectToEndpointContainingOutputDeviceUID_options_details_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  [v3 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_4_1();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_10();
+}
+
 - (void)performMigrationToEndpoint:request:queue:completion:.cold.1()
 {
   OUTLINED_FUNCTION_1_6();
@@ -11431,6 +11293,21 @@ void __67__MRAVEndpoint_removeOutputDeviceFromParentGroup_queue_completion___blo
   [v1 handleFailureInFunction:v0 file:@"MRAVEndpoint.m" lineNumber:1439 description:{@"Invalid parameter not satisfying: %@", @"externalDevice"}];
 }
 
+void __64__MRAVEndpoint_requestGroupSessionWithDetails_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_8_7();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) name];
+  v3 = [*(v0 + 40) requestID];
+  v4 = [MEMORY[0x1E695DF00] date];
+  [v4 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_4_1();
+  OUTLINED_FUNCTION_2_11();
+  OUTLINED_FUNCTION_16_0(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
 void __77__MRAVEndpoint__setOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_cold_1(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_21_0(a1);
@@ -11452,6 +11329,21 @@ void __52__MRAVEndpoint_outputDeviceVolume_queue_completion___block_invoke_4_col
   v12 = *v5;
   *a4 = *v5;
   v13 = v12;
+}
+
+void __79__MRAVEndpoint_adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_8_7();
+  v2 = [*(v1 + 48) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  v4 = [*(v0 + 48) startDate];
+  [v3 timeIntervalSinceDate:v4];
+  OUTLINED_FUNCTION_4_9();
+  OUTLINED_FUNCTION_2_11();
+  OUTLINED_FUNCTION_16_0(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
 }
 
 void __80__MRAVEndpoint__adjustOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke_cold_1(uint64_t a1)
@@ -11483,6 +11375,18 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
   v12 = v11;
 }
 
+void __60__MRAVEndpoint_waitForPlaybackWithTimeout_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 64)];
+  OUTLINED_FUNCTION_0_6();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
+
+  OUTLINED_FUNCTION_10();
+}
+
 - (void)outputContextDataSource
 {
   *buf = 138412290;
@@ -11512,6 +11416,46 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_0_0();
   [v0 handleFailureInMethod:@"outputDevice" object:? file:? lineNumber:? description:?];
+}
+
+void __106__MRAVEndpoint_sendCommand_withOptions_toEachEndpointContainingOutputDeviceUIDs_timeout_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_0_6();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __122__MRAVEndpoint_sendCommand_withOptions_toNewEndpointContainingOutputDeviceUIDs_nowPlayingClient_timeout_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  v1 = v0;
+  v3 = [v2 error];
+  v4 = [MEMORY[0x1E695DF00] date];
+  [v4 timeIntervalSinceDate:*(v1 + 48)];
+  OUTLINED_FUNCTION_4_1();
+  OUTLINED_FUNCTION_2_11();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __70__MRAVEndpoint_findMyGroupLeaderWithTimeout_details_queue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [*(v1 + 40) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  [v3 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_4_9();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_10();
 }
 
 + (void)prepareGroupForPlaybackWithOutputDeviceUIDs:forBundleID:timeout:details:queue:completion:.cold.1()
@@ -11552,6 +11496,21 @@ void __57__MRAVEndpoint_outputDeviceVolumeMuted_queue_completion___block_invoke_
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_0_0();
   [v0 handleFailureInMethod:@"request" object:? file:? lineNumber:? description:?];
+}
+
+void __68__MRAVEndpoint_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_8_7();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestDetails];
+  v3 = [v2 requestID];
+  v4 = [MEMORY[0x1E695DF00] date];
+  [v4 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_4_1();
+  OUTLINED_FUNCTION_2_11();
+  OUTLINED_FUNCTION_16_0(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
 }
 
 @end

@@ -70,7 +70,7 @@
               [v23 addObject:v13];
             }
 
-            goto LABEL_22;
+            goto LABEL_23;
           }
 
           v13 = +[SSLogConfig sharedDaemonConfig];
@@ -79,19 +79,24 @@
             v13 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog = [v13 shouldLog];
+          LODWORD(v14) = [v13 shouldLog];
           if ([v13 shouldLogToDisk])
           {
-            shouldLog |= 2u;
+            LODWORD(v14) = v14 | 2;
           }
 
           oSLogObject = [v13 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
           {
-            shouldLog &= 2u;
+            v14 = v14;
           }
 
-          if (shouldLog)
+          else
+          {
+            v14 &= 2u;
+          }
+
+          if (v14)
           {
             v16 = objc_opt_class();
             v32 = 138543874;
@@ -102,25 +107,24 @@
             v37 = v5;
             v17 = v16;
             LODWORD(v22) = 32;
-            v21 = &v32;
-            v18 = _os_log_send_and_compose_impl();
+            v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to get an application record for the store item identifier “%{public}@”: %{public}@", &v32, v22);
 
             if (v18)
             {
-              oSLogObject = [NSString stringWithCString:v18 encoding:4, &v32, v22];
+              oSLogObject = [NSString stringWithCString:v18 encoding:4];
               free(v18);
               v21 = oSLogObject;
               SSFileLog();
-              goto LABEL_21;
+              goto LABEL_22;
             }
           }
 
           else
           {
-LABEL_21:
+LABEL_22:
           }
 
-LABEL_22:
+LABEL_23:
 
           objc_autoreleasePoolPop(context);
           continue;
@@ -130,13 +134,13 @@ LABEL_22:
       v4 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v38 count:16];
       if (!v4)
       {
-        goto LABEL_27;
+        goto LABEL_28;
       }
     }
   }
 
   v5 = 0;
-LABEL_27:
+LABEL_28:
 
   [(SoftwareLibraryLookupOperation *)selfCopy lock];
   v19 = [v23 copy];
@@ -167,42 +171,46 @@ LABEL_27:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v17 = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
-    LODWORD(v15) = 12;
-    v10 = _os_log_send_and_compose_impl();
+    v16 = 138543362;
+    v17 = objc_opt_class();
+    v9 = v17;
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Using bundle identifiers for a software-library lookup operation…", &v16, 12);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v17, v15];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
   }
 
-LABEL_12:
-  v16.receiver = self;
-  v16.super_class = SoftwareLibraryLookupOperation;
-  v11 = [(SoftwareLibraryLookupOperation *)&v16 init];
+LABEL_13:
+  v15.receiver = self;
+  v15.super_class = SoftwareLibraryLookupOperation;
+  v11 = [(SoftwareLibraryLookupOperation *)&v15 init];
   if (v11)
   {
     v12 = [identifiersCopy copy];
@@ -225,42 +233,46 @@ LABEL_12:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v17 = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
-    LODWORD(v15) = 12;
-    v10 = _os_log_send_and_compose_impl();
+    v16 = 138543362;
+    v17 = objc_opt_class();
+    v9 = v17;
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Using store item identifiers for a software-library lookup operation…", &v16, 12);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v17, v15];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
   }
 
-LABEL_12:
-  v16.receiver = self;
-  v16.super_class = SoftwareLibraryLookupOperation;
-  v11 = [(SoftwareLibraryLookupOperation *)&v16 init];
+LABEL_13:
+  v15.receiver = self;
+  v15.super_class = SoftwareLibraryLookupOperation;
+  v11 = [(SoftwareLibraryLookupOperation *)&v15 init];
   if (v11)
   {
     v12 = [identifiersCopy copy];
@@ -361,9 +373,8 @@ LABEL_12:
         v82 = v13;
         v21 = v20;
         LODWORD(v57) = 32;
-        v56 = &v77;
         v4 = &CFDictionaryGetValue_ptr;
-        v22 = _os_log_send_and_compose_impl();
+        v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to get an application record for the bundle identifier “%{public}@”: %{public}@", &v77, v57);
 
         v5 = &kCFTypeDictionaryValueCallBacks_ptr;
         if (!v22)
@@ -371,7 +382,7 @@ LABEL_12:
           goto LABEL_23;
         }
 
-        oSLogObject = [NSString stringWithCString:v22 encoding:4, &v77, v57];
+        oSLogObject = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         v56 = oSLogObject;
         SSFileLog();
@@ -432,12 +443,11 @@ LABEL_29:
           v82 = v7;
           v32 = v31;
           LODWORD(v57) = 32;
-          v56 = &v77;
-          v12 = _os_log_send_and_compose_impl();
+          v12 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed to get an application record for the system-placeholder bundle identifier “%{public}@”: %{public}@", &v77, v57);
 
           if (v12)
           {
-            oSLogObject2 = [NSString stringWithCString:v12 encoding:4, &v77, v57];
+            oSLogObject2 = [NSString stringWithCString:v12 encoding:4];
             free(v12);
             v56 = oSLogObject2;
             SSFileLog();
@@ -542,13 +552,12 @@ LABEL_49:
       v78 = v40;
       v41 = v40;
       LODWORD(v57) = 12;
-      v56 = &v77;
-      v42 = _os_log_send_and_compose_impl();
+      v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject3, 2, "%{public}@: The array of bundle identifiers is empty; enumerating all installed applications…", &v77, v57);
 
       v43 = &kCFTypeDictionaryValueCallBacks_ptr;
       if (v42)
       {
-        oSLogObject3 = [NSString stringWithCString:v42 encoding:4, &v77, v57];
+        oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
         free(v42);
         v56 = oSLogObject3;
         SSFileLog();

@@ -13,9 +13,9 @@
   taggerCopy = tagger;
   columnCopy = column;
   selectionCopy = selection;
-  v72.receiver = self;
-  v72.super_class = TSAPdfTaggerTextColumnContext;
-  v14 = [(TSAPdfTaggerContext *)&v72 initWithStateOfTagger:taggerCopy];
+  v54.receiver = self;
+  v54.super_class = TSAPdfTaggerTextColumnContext;
+  v14 = [(TSAPdfTaggerContext *)&v54 initWithStateOfTagger:taggerCopy];
   if (!v14)
   {
     goto LABEL_31;
@@ -30,110 +30,110 @@
 
   if ((v15 & 1) == 0)
   {
-    sub_2760CB2EC(0, "The parent of a column must be a column owner", v17, v18, v19, v20, v21, v22, v68);
+    sub_2760CB2EC(0, "The parent of a column must be a column owner");
   }
 
   objc_storeWeak(&v14->_column, columnCopy);
   objc_storeWeak(&v14->_limitSelection, selectionCopy);
-  v29 = objc_msgSend_range(columnCopy, v23, v24, v25);
+  v23 = objc_msgSend_range(columnCopy, v17, v18, v19);
   p_range = &v14->_range;
-  v14->_range.location = v29;
-  v14->_range.length = v26;
+  v14->_range.location = v23;
+  v14->_range.length = v20;
   if (selectionCopy)
   {
-    v31 = objc_msgSend_range(columnCopy, v26, v27, v28);
-    v33 = v32;
-    v73.location = objc_msgSend_superRange(selectionCopy, v32, v34, v35);
-    location = v73.location;
-    length = v73.length;
-    v74.location = v31;
-    v74.length = v33;
-    v38 = NSIntersectionRange(v73, v74);
-    v26 = v38.length;
+    v25 = objc_msgSend_range(columnCopy, v20, v21, v22);
+    v27 = v26;
+    v55.location = objc_msgSend_superRange(selectionCopy, v26, v28, v29);
+    location = v55.location;
+    length = v55.length;
+    v56.location = v25;
+    v56.length = v27;
+    v32 = NSIntersectionRange(v55, v56);
+    v20 = v32.length;
     if (length)
     {
-      v39 = v38.length;
-      if (!v38.length)
+      v33 = v32.length;
+      if (!v32.length)
       {
-        v40 = 0;
-        v29 = 0x7FFFFFFFFFFFFFFFLL;
+        v34 = 0;
+        v23 = 0x7FFFFFFFFFFFFFFFLL;
         goto LABEL_25;
       }
 
-      location = v38.location;
+      location = v32.location;
     }
 
     else
     {
-      v29 = 0x7FFFFFFFFFFFFFFFLL;
-      if (location < v31)
+      v23 = 0x7FFFFFFFFFFFFFFFLL;
+      if (location < v25)
       {
 LABEL_12:
-        v40 = 0;
+        v34 = 0;
         goto LABEL_25;
       }
 
-      v40 = 0;
-      if (location - v31 >= v33)
+      v34 = 0;
+      if (location - v25 >= v27)
       {
 LABEL_25:
-        *p_range = v29;
-        v14->_range.length = v40;
+        *p_range = v23;
+        v14->_range.length = v34;
         goto LABEL_26;
       }
 
-      v39 = 0;
+      v33 = 0;
     }
 
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
+    v23 = 0x7FFFFFFFFFFFFFFFLL;
     if (location != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v41 = 0;
-      v49 = objc_msgSend_lineCount(columnCopy, v38.length, v27, v28);
-      if (v49)
+      v35 = 0;
+      v38 = objc_msgSend_lineCount(columnCopy, v32.length, v21, v22);
+      if (v38)
       {
         while (1)
         {
-          v29 = objc_msgSend_rangeOfLineFragmentAtIndex_(columnCopy, v42, v41, v44);
-          if (location >= v29 && location - v29 < v42)
+          v23 = objc_msgSend_rangeOfLineFragmentAtIndex_(columnCopy, v36, v35, v37);
+          if (location >= v23 && location - v23 < v36)
           {
             break;
           }
 
-          if (v49 == ++v41)
+          if (v38 == ++v35)
           {
-            v29 = 0x7FFFFFFFFFFFFFFFLL;
-            v41 = v49;
+            v23 = 0x7FFFFFFFFFFFFFFFLL;
+            v35 = v38;
             break;
           }
         }
       }
 
-      v70 = v39;
-      sub_2760CB2EC(v29 != 0x7FFFFFFFFFFFFFFFLL, "Range start couldn't be found", v43, v44, v45, v46, v47, v48, v68);
-      v57 = 0x7FFFFFFFFFFFFFFFLL;
-      if (v41 < v49)
+      v52 = v33;
+      sub_2760CB2EC(v23 != 0x7FFFFFFFFFFFFFFFLL, "Range start couldn't be found");
+      v41 = 0x7FFFFFFFFFFFFFFFLL;
+      if (v35 < v38)
       {
-        v58 = location + v70;
+        v42 = location + v52;
         while (1)
         {
-          v59 = objc_msgSend_rangeOfLineFragmentAtIndex_(columnCopy, v50, v41, v52);
-          v57 = &v50[v59];
-          if (v58 <= &v50[v59])
+          v43 = objc_msgSend_rangeOfLineFragmentAtIndex_(columnCopy, v39, v35, v40);
+          v41 = &v39[v43];
+          if (v42 <= &v39[v43])
           {
             break;
           }
 
-          if (v49 == ++v41)
+          if (v38 == ++v35)
           {
-            v57 = 0x7FFFFFFFFFFFFFFFLL;
+            v41 = 0x7FFFFFFFFFFFFFFFLL;
             break;
           }
         }
       }
 
-      sub_2760CB2EC(v57 != 0x7FFFFFFFFFFFFFFFLL, "Range end couldn't be found", v51, v52, v53, v54, v55, v56, v69);
-      v40 = v57 - v29;
+      sub_2760CB2EC(v41 != 0x7FFFFFFFFFFFFFFFLL, "Range end couldn't be found");
+      v34 = v41 - v23;
       goto LABEL_25;
     }
 
@@ -141,13 +141,13 @@ LABEL_25:
   }
 
 LABEL_26:
-  if (v29 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v23 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v60 = objc_msgSend_storage(columnCopy, v26, v27, v28);
-    v62 = v60;
-    if (v60)
+    v44 = objc_msgSend_storage(columnCopy, v20, v21, v22);
+    v46 = v44;
+    if (v44)
     {
-      objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_requireHidden_(v60, v61, *p_range, v14->_range.length, 0, 1);
+      objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_requireHidden_(v44, v45, *p_range, v14->_range.length, 0, 1);
       storage = obj._storage;
     }
 
@@ -159,13 +159,13 @@ LABEL_26:
 
     objc_storeStrong(&v14->_paragraphEnumerator._storage, storage);
     objc_storeStrong(&v14->_paragraphEnumerator._styleProvider, obj._styleProvider);
-    v64 = *&obj._parIndex;
-    v65 = *&obj._firstParIndex;
-    v66 = *&obj._requireHidden;
+    v48 = *&obj._parIndex;
+    v49 = *&obj._firstParIndex;
+    v50 = *&obj._requireHidden;
     v14->_paragraphEnumerator._currentTextRange.length = obj._currentTextRange.length;
-    *&v14->_paragraphEnumerator._firstParIndex = v65;
-    *&v14->_paragraphEnumerator._requireHidden = v66;
-    *&v14->_paragraphEnumerator._parIndex = v64;
+    *&v14->_paragraphEnumerator._firstParIndex = v49;
+    *&v14->_paragraphEnumerator._requireHidden = v50;
+    *&v14->_paragraphEnumerator._parIndex = v48;
     TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&obj);
   }
 

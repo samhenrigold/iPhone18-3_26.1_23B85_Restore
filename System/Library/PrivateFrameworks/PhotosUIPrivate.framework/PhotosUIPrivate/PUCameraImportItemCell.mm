@@ -370,7 +370,7 @@
   placeholderCopy = placeholder;
   imageCopy = image;
   representedImportItem = [(PUCameraImportItemCell *)self representedImportItem];
-  [representedImportItem duration];
+  objc_msgSend_duration(representedImportItem);
 
   delegate = [(PUCameraImportItemCell *)self delegate];
   v8 = [delegate contentFillModeForImportCell:self];

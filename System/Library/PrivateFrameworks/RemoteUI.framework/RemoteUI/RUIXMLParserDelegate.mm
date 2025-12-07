@@ -47,10 +47,10 @@
     sub_21BA87CBC();
   }
 
-  sub_21BA87BCC();
+  v14 = sub_21BA87BCC();
   parserCopy = parser;
   selfCopy = self;
-  sub_21BA65BA8(v11, v13);
+  sub_21BA65BA8(v11, v13, v14);
 }
 
 - (void)parser:(id)parser foundCDATA:(id)a
@@ -61,7 +61,7 @@
   v8 = sub_21BA864DC();
   v10 = v9;
 
-  sub_21BA65D80();
+  sub_21BA65D80(v8, v10);
   sub_21B9B37F0(v8, v10);
 }
 

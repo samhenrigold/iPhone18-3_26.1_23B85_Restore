@@ -113,7 +113,7 @@ void __78__VUIFamilyInviteManager_presentFamilySetupScreenIfEligible_checkEligib
 {
   v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if (a2)
@@ -156,7 +156,7 @@ void __78__VUIFamilyInviteManager_presentFamilySetupScreenIfEligible_checkEligib
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 eligibilityStatus];
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6 == 1)
   {
@@ -183,7 +183,7 @@ void __78__VUIFamilyInviteManager_presentFamilySetupScreenIfEligible_checkEligib
 
 - (void)presentFamilySetupScreenWithBuyParams:(id)params
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (params)
   {
     v4 = [VUIActionCommerceTransaction extractSalableAdamIDFromBuyParams:?];
@@ -191,30 +191,30 @@ void __78__VUIFamilyInviteManager_presentFamilySetupScreenIfEligible_checkEligib
 
     if (v5)
     {
-      v8 = @"salableAdamId";
-      v9[0] = v5;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-      [(VUIFamilyInviteManager *)self presentFamilySetupScreenIfEligible:v6 checkEligibility:1];
+      v9 = @"salableAdamId";
+      v10[0] = v5;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      [(VUIFamilyInviteManager *)self presentFamilySetupScreenIfEligible:v7 checkEligibility:1];
     }
 
     else
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIFamilyInviteManager::Failed to find salableAdamId from buyparams. Not presenting family setup screen.", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIFamilyInviteManager::Failed to find salableAdamId from buyparams. Not presenting family setup screen.", v8, 2u);
       }
     }
   }
 
   else
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIFamilyInviteManager::Missing buyparams. Not presenting family setup screen.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIFamilyInviteManager::Missing buyparams. Not presenting family setup screen.", v8, 2u);
     }
   }
 }

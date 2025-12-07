@@ -15,6 +15,8 @@
 - (BOOL)isSuspendedOnInterface:(int64_t)interface;
 - (BOOL)keepAliveV2SupportedOnInterface:(int64_t)interface;
 - (BOOL)parseMessage:(id)message parameters:(id *)parameters isInvalid:(BOOL *)invalid lengthParsed:(unint64_t *)parsed onInterface:(int64_t)interface;
+- (BOOL)sendMessageWithTopicHash:(id)hash identifier:(unint64_t)identifier payload:(id)payload token:(id)token isPlistFormat:(BOOL)format lastRTT:(id)t onInterface:(int64_t)interface;
+- (BOOL)setIsConnected:(BOOL)connected onInterface:(int64_t)interface withDisconnectReason:(unsigned int)reason;
 - (BOOL)shouldClientScheduleReconnectDueToFailureOnInterface:(int64_t)interface;
 - (BOOL)shouldConnectOnInterface:(int64_t)interface;
 - (NSDictionary)connectionDebugInfo;
@@ -49,6 +51,7 @@
 - (unint64_t)countConnectedInterfaces;
 - (unint64_t)countOfGrowthActionsOnInterface:(int64_t)interface;
 - (unint64_t)countOpenConnections;
+- (unint64_t)tcpStream:(id)stream dataReceived:(id)received isWakingMessage:(BOOL)message;
 - (void)__updateConnectionManagerKeepAliveIntervalNonCellular;
 - (void)__updateConnectionManagerKeepAliveIntervalWWAN;
 - (void)_connectionEstablishTimerFired:(id)fired;
@@ -60,15 +63,28 @@
 - (void)clearConnectionEstablishTimerOnInterface:(int64_t)interface;
 - (void)clearKeepAliveResponseTimerOnInterface:(int64_t)interface;
 - (void)closeStreamForInterface:(int64_t)interface;
+- (void)connectToEnvironment:(id)environment onInterface:(int64_t)interface allowedInterfaceConstraint:(int64_t)constraint useAlternatePort:(BOOL)port keepAliveProxyMode:(unint64_t)mode offloadInfo:(id)info;
+- (void)connectionManager:(id)manager handleEvent:(int)event context:(id)context;
 - (void)dealloc;
 - (void)holdPowerAssertionUntilStreamsQuiesce;
 - (void)protocolParser:(id)parser receiveAPNSPackError:(id)error;
+- (void)resumeManagerWithAction:(int)action onInterface:(int64_t)interface;
+- (void)saveKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth;
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp onInterface:(int64_t)interface;
 - (void)sendConnectMessageWithToken:(id)token interface:(int64_t)interface activeInterval:(unsigned int)interval presenceFlags:(int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)self0 hostCertificateInfo:(id)self1 redirectCount:(unsigned __int8)self2 tcpHandshakeTimeMilliseconds:(double)self3 dnsResolveTimeMilliseconds:(double)self4 tlsHandshakeTimeMilliseconds:(double)self5 consecutiveConnectionFailureReason:(id)self6 onInterface:(int64_t)self7 numberOfPSKToRequest:(unint64_t)self8;
 - (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags interface:(int64_t)interface activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)certificates nonce:(id)self0 signature:(id)self1 redirectCount:(unsigned __int8)self2 onInterface:(int64_t)self3;
 - (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)self0 redirectCount:(unsigned __int8)self1 onInterface:(int64_t)self2;
 - (void)sendFilterMessageWithEnabledHashes:(id)hashes ignoredHashes:(id)ignoredHashes opportunisticHashes:(id)opportunisticHashes nonWakingHashes:(id)wakingHashes pausedHashes:(id)pausedHashes token:(id)token version:(unint64_t)version onInterface:(int64_t)self0;
+- (void)sendFlushMessageWithWantPaddingLength:(int)length paddingLength:(int)paddingLength onInterface:(int64_t)interface;
+- (void)sendFlushResponseMessageWithPaddingLength:(int)length onInterface:(int64_t)interface;
 - (void)sendKeepAliveMessageWithMetadata:(id)metadata onInterface:(int64_t)interface;
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id token:(id)token onInterface:(int64_t)interface;
+- (void)sendMessageTracingAckWithTopicHash:(id)hash tracingUUID:(id)d status:(int)status token:(id)token onInterface:(int64_t)interface;
 - (void)sendMessageTransportAcknowledgeMessageOnInterface:(int64_t)interface;
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d onInterface:(int64_t)interface;
+- (void)sendSetActiveIntervalMessageWithInterval:(unsigned int)interval onInterface:(int64_t)interface;
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval onInterface:(int64_t)interface;
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type onInterface:(int64_t)interface;
 - (void)setConnectionAttemptsInExpensiveConditions:(id)conditions;
 - (void)setDelegate:(id)delegate;
 - (void)setIsConnecting:(BOOL)connecting onInterface:(int64_t)interface;
@@ -77,6 +93,7 @@
 - (void)setKeepAliveConfiguration:(unint64_t)configuration;
 - (void)setKeepAliveGracePeriod:(double)period onInterface:(int64_t)interface;
 - (void)setKeepAliveV2Supported:(BOOL)supported onInterface:(int64_t)interface;
+- (void)setMinimumIntervalFallbackEnabled:(BOOL)enabled;
 - (void)setObject:(id)object forKey:(id)key onInterface:(int64_t)interface;
 - (void)setPowerOptimizationsForExpensiveNetworkingDisabled:(BOOL)disabled;
 - (void)setRemainsConnectedWhenWWANSuspends:(BOOL)suspends;
@@ -91,10 +108,14 @@
 - (void)stopAndResetManagerOnInterface:(int64_t)interface;
 - (void)stopManagerOnInterface:(int64_t)interface;
 - (void)stopManagers;
+- (void)tcpStream:(id)stream errorOccured:(id)occured disconnectReason:(unsigned int)reason;
 - (void)tcpStream:(id)stream hasDeterminedServerHostname:(id)hostname;
 - (void)tcpStream:(id)stream receivedOffloadInfo:(id)info;
 - (void)tcpStreamDidFailToFindKeepAliveProxyInterface:(id)interface;
 - (void)tcpStreamDidFailToForceKeepAliveProxyInterface:(id)interface;
+- (void)tcpStreamDidFailToObtainKeepAliveProxy:(id)proxy willRetry:(BOOL)retry;
+- (void)tcpStreamEndEncountered:(id)encountered withReason:(unsigned int)reason;
+- (void)tcpStreamHasConnected:(id)connected context:(id)context enabledPackedFormat:(BOOL)format maxEncoderTableSize:(unint64_t)size maxDecoderTableSize:(unint64_t)tableSize secureHandshakeEnabled:(BOOL)enabled;
 - (void)updateConnectionManagerKeepAliveIntervalOnInterface:(int64_t)interface;
 - (void)writeDataInBackground:(id)background;
 - (void)writeDataInBackground:(id)background onInterface:(int64_t)interface;
@@ -799,6 +820,106 @@ LABEL_6:
   return v7;
 }
 
+- (void)connectToEnvironment:(id)environment onInterface:(int64_t)interface allowedInterfaceConstraint:(int64_t)constraint useAlternatePort:(BOOL)port keepAliveProxyMode:(unint64_t)mode offloadInfo:(id)info
+{
+  portCopy = port;
+  environmentCopy = environment;
+  infoCopy = info;
+  if (interface < 2)
+  {
+    if (!self->_isDualChannelAllowed)
+    {
+      connectingInterface = [(APSCourierConnection *)self connectingInterface];
+      if (connectingInterface != 3)
+      {
+        v17 = connectingInterface;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+        {
+          v18 = sub_1000067F8(v17);
+          v29 = 138412546;
+          selfCopy4 = self;
+          v31 = 2112;
+          v32 = v18;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ - INTEGRITY CHECK FAILED: closing the pending connection on %@", &v29, 0x16u);
+        }
+
+        [(APSCourierConnection *)self stopAndResetManagerOnInterface:v17];
+        [(APSCourierConnectionDelegate *)self->_delegate courierConnection:self disconnectStreamOnInterface:v17 withReason:1040];
+      }
+    }
+
+    if (interface == 1)
+    {
+      [(PCConnectionManager *)self->_connectionManagers[1] setEnableNonCellularConnections:1];
+    }
+
+    streams = self->_streams;
+    v20 = self->_streams[interface];
+    v21 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+    if (v20)
+    {
+      if (v21)
+      {
+        v22 = sub_1000067F8(interface);
+        v23 = streams[interface];
+        v29 = 138412802;
+        selfCopy4 = self;
+        v31 = 2112;
+        v32 = v22;
+        v33 = 2112;
+        v34 = v23;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ request to connect with preference %@ but we already have a stream %@", &v29, 0x20u);
+      }
+    }
+
+    else
+    {
+      if (v21)
+      {
+        v24 = sub_1000067F8(interface);
+        v29 = 138412546;
+        selfCopy4 = self;
+        v31 = 2112;
+        v32 = v24;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ Opening stream on interface %@", &v29, 0x16u);
+      }
+
+      self->_lastAttemptedInterface = interface;
+      v25 = +[PCCarrierBundleHelper helper];
+      v26 = [v25 BOOLValueFromPushBundleForKey:APSForceKeepAliveV1Key error:0];
+
+      if ((v26 & 1) == 0)
+      {
+        self->_keepAliveV2Supported[interface] = 1;
+      }
+
+      v27 = [(APSCourierConnection *)self TCPStreamWithEnvironment:environmentCopy];
+      v28 = streams[interface];
+      streams[interface] = v27;
+
+      [(APSTCPStream *)streams[interface] setDelegate:self];
+      [(APSTCPStream *)streams[interface] setForceWWANInterface:interface == 0];
+      [(APSTCPStream *)streams[interface] setUseAlternatePort:portCopy];
+      [(APSTCPStream *)streams[interface] setRedirectHostname:self->_redirectHost];
+      [(APSTCPStream *)streams[interface] setCachedIPAddress:self->_usingCachedIPAddress[interface]];
+      [(APSTCPStream *)streams[interface] setRemainsConnectedWhenWWANSuspends:self->_remainsConnectedWhenWWANSuspends];
+      [(APSTCPStream *)streams[interface] setAllowedInterfaceConstraint:constraint];
+      [(APSCourierConnection *)self setIsConnecting:1 onInterface:interface];
+      [(APSTCPStream *)streams[interface] openWithOffloadInfo:infoCopy];
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = sub_1000067F8(interface);
+    v29 = 138412546;
+    selfCopy4 = self;
+    v31 = 2112;
+    v32 = v15;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to connect with invalid interface %@", &v29, 0x16u);
+  }
+}
+
 - (id)TCPStreamWithEnvironment:(id)environment
 {
   environmentCopy = environment;
@@ -966,6 +1087,39 @@ LABEL_5:
   return isNetworkingPowerExpensiveToUse;
 }
 
+- (void)resumeManagerWithAction:(int)action onInterface:(int64_t)interface
+{
+  v5 = *&action;
+  if (interface < 2)
+  {
+    v8 = [(APSCourierConnection *)self keepAliveV2SupportedOnInterface:interface];
+    v9 = self->_connectionManagers[interface];
+    if (v8)
+    {
+
+      [(PCConnectionManager *)v9 resumeManagerWithAction:v5 forceGrow:?];
+    }
+
+    else
+    {
+
+      [(PCConnectionManager *)v9 resumeManagerWithAction:v5];
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = sub_1000067F8(interface);
+    v10 = 138412802;
+    selfCopy = self;
+    v12 = 1024;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to resumeManager with action %d with invalid interface %@", &v10, 0x1Cu);
+  }
+}
+
 - (void)setServerStatsMaxKeepAlive:(double)alive onInterface:(int64_t)interface
 {
   if (interface < 2)
@@ -1114,6 +1268,15 @@ LABEL_5:
   }
 }
 
+- (void)setMinimumIntervalFallbackEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(PCConnectionManager *)self->_connectionManagers[0] setMinimumIntervalFallbackEnabled:?];
+  v5 = self->_connectionManagers[1];
+
+  [(PCConnectionManager *)v5 setMinimumIntervalFallbackEnabled:enabledCopy];
+}
+
 - (void)updateConnectionManagerKeepAliveIntervalOnInterface:(int64_t)interface
 {
   if (interface < 2)
@@ -1211,6 +1374,21 @@ LABEL_5:
 
     return 0;
   }
+}
+
+- (void)saveKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth
+{
+  growthCopy = growth;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 134218240;
+    intervalCopy = interval;
+    v9 = 1024;
+    v10 = growthCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Saving keep alive info from AOP. Interval: %f isInInitialGrowth: %{BOOL}d", &v7, 0x12u);
+  }
+
+  [(PCConnectionManager *)self->_connectionManagers[0] saveKeepAliveInterval:growthCopy isInitialGrowth:interval];
 }
 
 - (void)__updateConnectionManagerKeepAliveIntervalWWAN
@@ -1314,15 +1492,14 @@ LABEL_5:
 
   if (v7 <= 1)
   {
-    v9 = firedCopy;
+    v8 = firedCopy;
     [(APSCourierConnection *)self clearConnectionEstablishTimerOnInterface:v7];
-    delegate = self->_delegate;
     firedCopy = objc_opt_respondsToSelector();
-    v5 = v9;
+    v5 = v8;
     if (firedCopy)
     {
       firedCopy = [(APSCourierConnectionDelegate *)self->_delegate courierConnection:self connectionEstablishTimerFiredOnInterface:v7];
-      v5 = v9;
+      v5 = v8;
     }
   }
 
@@ -1403,15 +1580,14 @@ LABEL_5:
 
   if (v7 <= 1)
   {
-    v9 = firedCopy;
+    v8 = firedCopy;
     [(APSCourierConnection *)self clearKeepAliveResponseTimerOnInterface:v7];
-    delegate = self->_delegate;
     firedCopy = objc_opt_respondsToSelector();
-    v5 = v9;
+    v5 = v8;
     if (firedCopy)
     {
       firedCopy = [(APSCourierConnectionDelegate *)self->_delegate courierConnection:self keepAliveResponseTimerFiredOnInterface:v7];
-      v5 = v9;
+      v5 = v8;
     }
   }
 
@@ -1729,6 +1905,138 @@ LABEL_5:
   return type;
 }
 
+- (BOOL)setIsConnected:(BOOL)connected onInterface:(int64_t)interface withDisconnectReason:(unsigned int)reason
+{
+  v5 = *&reason;
+  connectedCopy = connected;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = sub_1000067F8(interface);
+    *buf = 138413058;
+    selfCopy5 = self;
+    v25 = 1024;
+    *v26 = connectedCopy;
+    *&v26[4] = 2112;
+    *&v26[6] = v9;
+    *&v26[14] = 1024;
+    *&v26[16] = v5;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: Setting is connected %d on interface %@ with reason %u", buf, 0x22u);
+  }
+
+  if (interface < 2)
+  {
+    if (connectedCopy && !self->_isDualChannelAllowed && [(APSCourierConnection *)self countConnectedInterfaces]>= 2)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        selfCopy5 = self;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ - INTEGRITY CHECK FAILED: closing the old connections", buf, 0xCu);
+      }
+
+      v14 = 0;
+      v15 = 1;
+      *&v13 = 138412546;
+      v22 = v13;
+      do
+      {
+        v16 = v15;
+        if ([(APSTCPStream *)self->_streams[v14] isConnected])
+        {
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+          {
+            v17 = sub_1000067F8(v14);
+            *buf = v22;
+            selfCopy5 = self;
+            v25 = 2112;
+            *v26 = v17;
+            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ closing old connection on %@", buf, 0x16u);
+          }
+
+          [(APSCourierConnection *)self stopAndResetManagerOnInterface:v14];
+          [(APSCourierConnectionDelegate *)self->_delegate courierConnection:self disconnectStreamOnInterface:v14 withReason:5];
+        }
+
+        v15 = 0;
+        v14 = 1;
+      }
+
+      while ((v16 & 1) != 0);
+    }
+
+    v18 = self->_streams[interface];
+    isConnected = [(APSTCPStream *)v18 isConnected];
+    if (v18)
+    {
+      [(APSTCPStream *)v18 setIsConnected:connectedCopy];
+    }
+
+    else if (connectedCopy)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = sub_1000067F8(interface);
+        *buf = 138412802;
+        selfCopy5 = self;
+        v25 = 2112;
+        *v26 = @"YES";
+        *&v26[8] = 2112;
+        *&v26[10] = v19;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: Uh oh! Asked to set isConnected %@ on interface %@ but we have no stream for that interface!", buf, 0x20u);
+      }
+
+      goto LABEL_32;
+    }
+
+    if (interface == 1 && !connectedCopy)
+    {
+      [(PCConnectionManager *)self->_connectionManagers[1] setEnableNonCellularConnections:0];
+    }
+
+    if (!connectedCopy)
+    {
+      v20 = +[NSDate date];
+      [(APSCourierConnection *)self setLastConnected:v20];
+
+      if (v5 <= 0x3E7 && ![(APSCourierConnection *)self disconnectReason])
+      {
+        [(APSCourierConnection *)self setDisconnectReason:v5];
+      }
+    }
+
+LABEL_32:
+
+    return isConnected;
+  }
+
+  isConnected = 0;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    if (connectedCopy)
+    {
+      v11 = @"YES";
+    }
+
+    else
+    {
+      v11 = @"NO";
+    }
+
+    v12 = sub_1000067F8(interface);
+    *buf = 138412802;
+    selfCopy5 = self;
+    v25 = 2112;
+    *v26 = v11;
+    *&v26[8] = 2112;
+    *&v26[10] = v12;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: asked to set isConnected %@ on invalid interface %@", buf, 0x20u);
+
+    return 0;
+  }
+
+  return isConnected;
+}
+
 - (BOOL)isConnectedOnInterface:(int64_t)interface
 {
   if (interface <= 1)
@@ -1939,7 +2247,6 @@ LABEL_5:
     while (1)
     {
       v5 = v4;
-      v6 = streams[v2];
       if (objc_opt_respondsToSelector())
       {
         break;
@@ -1976,7 +2283,6 @@ LABEL_5:
   }
 
   streams = self->_streams;
-  v6 = self->_streams[interface];
   return (objc_opt_respondsToSelector() & 1) != 0 && ([(APSTCPStream *)streams[interface] didPushCauseWake]& 1) != 0;
 }
 
@@ -2001,7 +2307,6 @@ LABEL_5:
   do
   {
     v5 = v4;
-    v6 = streams[v2];
     if (objc_opt_respondsToSelector())
     {
       [(APSTCPStream *)streams[v2] holdPowerAssertionUntilStreamQuiesces];
@@ -2117,6 +2422,56 @@ LABEL_5:
   [(APSCourierConnection *)self setDisconnectReason:0];
 }
 
+- (void)sendFlushMessageWithWantPaddingLength:(int)length paddingLength:(int)paddingLength onInterface:(int64_t)interface
+{
+  v6 = *&paddingLength;
+  v7 = *&length;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v10 = self->_parsers[interface];
+  v9 = [(APSProtocolParser *)v10 copyFlushMessageWithWantPaddingLength:v7 paddingLength:v6];
+  [(APSCourierConnection *)self writeDataInBackground:v9 onInterface:interface];
+}
+
+- (void)sendFlushResponseMessageWithPaddingLength:(int)length onInterface:(int64_t)interface
+{
+  v5 = *&length;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v8 = self->_parsers[interface];
+  v7 = [(APSProtocolParser *)v8 copyFlushResponseMessageWithPaddingLength:v5];
+  [(APSCourierConnection *)self writeDataInBackground:v7 onInterface:interface];
+}
+
+- (void)sendSetActiveIntervalMessageWithInterval:(unsigned int)interval onInterface:(int64_t)interface
+{
+  v5 = *&interval;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v8 = self->_parsers[interface];
+  v7 = [(APSProtocolParser *)v8 copySetActiveIntervalMessageWithInterval:v5];
+  [(APSCourierConnection *)self writeDataInBackground:v7 onInterface:interface];
+}
+
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval onInterface:(int64_t)interface
+{
+  v6 = *&interval;
+  stateCopy = state;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v10 = self->_parsers[interface];
+  v9 = [(APSProtocolParser *)v10 copySetActiveState:stateCopy forInterval:v6];
+  [(APSCourierConnection *)self writeDataInBackground:v9 onInterface:interface];
+}
+
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id token:(id)token onInterface:(int64_t)interface
+{
+  v8 = *&response;
+  tokenCopy = token;
+  idCopy = id;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v13 = self->_parsers[interface];
+  v12 = [(APSProtocolParser *)v13 copyMessageAcknowledgeMessageWithResponse:v8 messageId:idCopy token:tokenCopy];
+
+  [(APSCourierConnection *)self writeDataInBackground:v12 onInterface:interface];
+}
+
 - (void)sendMessageTransportAcknowledgeMessageOnInterface:(int64_t)interface
 {
   [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:?];
@@ -2135,11 +2490,85 @@ LABEL_5:
   [(APSCourierConnection *)self writeDataInBackground:v7 onInterface:interface];
 }
 
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type onInterface:(int64_t)interface
+{
+  v10 = *&l;
+  idCopy = id;
+  keyHashCopy = keyHash;
+  tokenCopy = token;
+  hashCopy = hash;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v19 = self->_parsers[interface];
+  v18 = [(APSProtocolParser *)v19 copyTokenGenerateMessageWithTopicHash:hashCopy baseToken:tokenCopy appId:idCopy expirationTTL:v10 vapidPublicKeyHash:keyHashCopy type:type];
+
+  [(APSCourierConnection *)self writeDataInBackground:v18 onInterface:interface];
+}
+
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp onInterface:(int64_t)interface
+{
+  v10 = *&flag;
+  tokenCopy = token;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v16 = self->_parsers[interface];
+  v15 = [(APSProtocolParser *)v16 copyPresenceTrackingRequestWithMessageID:d pushToken:tokenCopy salt:salt trackingFlag:v10 timestamp:timestamp];
+
+  [(APSCourierConnection *)self writeDataInBackground:v15 onInterface:interface];
+}
+
+- (void)sendMessageTracingAckWithTopicHash:(id)hash tracingUUID:(id)d status:(int)status token:(id)token onInterface:(int64_t)interface
+{
+  v8 = *&status;
+  tokenCopy = token;
+  dCopy = d;
+  hashCopy = hash;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v16 = self->_parsers[interface];
+  v15 = [(APSProtocolParser *)v16 copyMessageTracingAckWithTopicHash:hashCopy status:v8 tracingUUID:dCopy token:tokenCopy];
+
+  [(APSCourierConnection *)self writeDataInBackground:v15 onInterface:interface];
+}
+
 - (void)sendFilterMessageWithEnabledHashes:(id)hashes ignoredHashes:(id)ignoredHashes opportunisticHashes:(id)opportunisticHashes nonWakingHashes:(id)wakingHashes pausedHashes:(id)pausedHashes token:(id)token version:(unint64_t)version onInterface:(int64_t)self0
 {
   v18 = self->_parsers[interface];
   v17 = [(APSProtocolParser *)v18 copyFilterMessageWithEnabledHashes:hashes ignoredHashes:ignoredHashes opportunisticHashes:opportunisticHashes nonWakingHashes:wakingHashes pausedHashes:pausedHashes token:token version:version];
   [(APSCourierConnection *)self writeDataInBackground:v17 onInterface:interface];
+}
+
+- (BOOL)sendMessageWithTopicHash:(id)hash identifier:(unint64_t)identifier payload:(id)payload token:(id)token isPlistFormat:(BOOL)format lastRTT:(id)t onInterface:(int64_t)interface
+{
+  formatCopy = format;
+  tCopy = t;
+  tokenCopy = token;
+  payloadCopy = payload;
+  hashCopy = hash;
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v19 = self->_parsers[interface];
+  v20 = [(APSProtocolParser *)v19 copyMessageWithTopicHash:hashCopy identifier:identifier payload:payloadCopy token:tokenCopy isPlistFormat:formatCopy lastRTT:tCopy];
+
+  [(APSCourierConnection *)self writeDataInBackground:v20 onInterface:interface];
+  return v20 != 0;
+}
+
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d onInterface:(int64_t)interface
+{
+  v7 = *&d;
+  metadataCopy = metadata;
+  tokenCopy = token;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = sub_1000067F8(interface);
+    v15 = 138412546;
+    selfCopy = self;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ Sending pubsub message on interface %@", &v15, 0x16u);
+  }
+
+  [(APSCourierConnection *)self _prepareToParseOutgoingDataOnInterface:interface];
+  v13 = self->_parsers[interface];
+  v14 = [(APSProtocolParser *)v13 copyPubSubChannelListWithInput:metadataCopy baseToken:tokenCopy messageID:v7];
+  [(APSCourierConnection *)self writeDataInBackground:v14 onInterface:interface];
 }
 
 - (BOOL)parseMessage:(id)message parameters:(id *)parameters isInvalid:(BOOL *)invalid lengthParsed:(unint64_t *)parsed onInterface:(int64_t)interface
@@ -2158,11 +2587,66 @@ LABEL_5:
   return isPackedFormat;
 }
 
+- (void)connectionManager:(id)manager handleEvent:(int)event context:(id)context
+{
+  v5 = *&event;
+  delegate = self->_delegate;
+  contextCopy = context;
+  managerCopy = manager;
+  [(APSCourierConnectionDelegate *)delegate courierConnection:self connectionManager:managerCopy handleEvent:v5 context:contextCopy onInterface:[(APSCourierConnection *)self _interfaceForConnectionManager:managerCopy]];
+}
+
 - (void)protocolParser:(id)parser receiveAPNSPackError:(id)error
 {
   delegate = self->_delegate;
   errorCopy = error;
   [(APSCourierConnectionDelegate *)delegate courierConnection:self parserErrorMessage:errorCopy OnInterface:[(APSCourierConnection *)self _interfaceForProtocolParser:parser]];
+}
+
+- (unint64_t)tcpStream:(id)stream dataReceived:(id)received isWakingMessage:(BOOL)message
+{
+  messageCopy = message;
+  delegate = self->_delegate;
+  receivedCopy = received;
+  streamCopy = stream;
+  v11 = [(APSCourierConnection *)self _interfaceForStream:streamCopy];
+  generation = [streamCopy generation];
+
+  v13 = [(APSCourierConnectionDelegate *)delegate courierConnection:self dataReceived:receivedCopy onInterface:v11 withGeneration:generation isWakingMessage:messageCopy];
+  return v13;
+}
+
+- (void)tcpStreamEndEncountered:(id)encountered withReason:(unsigned int)reason
+{
+  v4 = *&reason;
+  delegate = self->_delegate;
+  v7 = [(APSCourierConnection *)self _interfaceForStream:encountered];
+
+  [(APSCourierConnectionDelegate *)delegate courierConnection:self streamEndedOnInterface:v7 withReason:v4];
+}
+
+- (void)tcpStream:(id)stream errorOccured:(id)occured disconnectReason:(unsigned int)reason
+{
+  v5 = *&reason;
+  streamCopy = stream;
+  occuredCopy = occured;
+  v10 = +[APSLog networking];
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+
+  if (v11)
+  {
+    tcpInfoDescription = [streamCopy tcpInfoDescription];
+    if (tcpInfoDescription)
+    {
+      v13 = +[APSLog networking];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10010C374(tcpInfoDescription, v13);
+      }
+    }
+  }
+
+  [(APSCourierConnectionDelegate *)self->_delegate courierConnection:self errorOccured:occuredCopy disconnectReason:v5 onInterface:[(APSCourierConnection *)self _interfaceForStream:streamCopy]];
 }
 
 - (void)tcpStream:(id)stream receivedOffloadInfo:(id)info
@@ -2179,12 +2663,39 @@ LABEL_5:
   [(APSCourierConnectionDelegate *)delegate courierConnection:self hasDeterminedServerHostname:hostnameCopy onInterface:[(APSCourierConnection *)self _interfaceForStream:stream]];
 }
 
+- (void)tcpStreamHasConnected:(id)connected context:(id)context enabledPackedFormat:(BOOL)format maxEncoderTableSize:(unint64_t)size maxDecoderTableSize:(unint64_t)tableSize secureHandshakeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  formatCopy = format;
+  contextCopy = context;
+  v14 = [(APSCourierConnection *)self _interfaceForStream:connected];
+  v15 = (&self->super.isa + v14);
+  [v15[8] setCurrentAddressFamily:{objc_msgSend(v15[2], "ipAddressFamily") != 2}];
+  v16 = objc_alloc_init(APSProtocolParser);
+  v17 = v15[4];
+  v15[4] = v16;
+  v18 = v16;
+
+  [(APSProtocolParser *)v18 setDelegate:self];
+  [(APSProtocolParser *)v18 setIsPackedFormat:formatCopy maxEncoderTableSize:size maxDecoderTableSize:tableSize interface:v14];
+  [(APSCourierConnection *)self setEstablishingOffload:0];
+  [(APSCourierConnectionDelegate *)self->_delegate courierConnectionHasConnected:self context:contextCopy enabledPackedFormat:formatCopy secureHandshakeEnabled:enabledCopy onInterface:v14];
+}
+
 - (void)tcpStreamDidFailToForceKeepAliveProxyInterface:(id)interface
 {
   delegate = self->_delegate;
   v5 = [(APSCourierConnection *)self _interfaceForStream:interface];
 
   [(APSCourierConnectionDelegate *)delegate courierConnection:self failedToForceKeepAliveProxyOnInterface:v5];
+}
+
+- (void)tcpStreamDidFailToObtainKeepAliveProxy:(id)proxy willRetry:(BOOL)retry
+{
+  delegate = self->_delegate;
+  retry = [(APSCourierConnection *)self _interfaceForStream:proxy, retry];
+
+  [(APSCourierConnectionDelegate *)delegate courierConnection:self failedToObtainKeepAliveProxyOnInterface:retry];
 }
 
 - (void)tcpStreamDidFailToFindKeepAliveProxyInterface:(id)interface

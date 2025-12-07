@@ -18,6 +18,7 @@
 - (void)_reevaluateASE;
 - (void)_reevaluateWithEndpoint:(id)endpoint;
 - (void)setActiveEndpoint:(id)endpoint;
+- (void)setIsLocalDeviceAirPlayActive:(BOOL)active;
 @end
 
 @implementation MRActiveRoutesObserver
@@ -79,7 +80,7 @@ uint64_t __64__MRActiveRoutesObserver_initWithActiveRouteIDsChangedCallback___bl
 
 + (void)fetchActiveRouteIDsWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -96,38 +97,36 @@ uint64_t __64__MRActiveRoutesObserver_initWithActiveRouteIDsChangedCallback___bl
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = v10;
+    v27 = v10;
     _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke;
-  v22[3] = &unk_1E76A3BB8;
-  v23 = uUIDString;
-  v24 = date;
-  v26 = v6;
-  v25 = completionCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke;
+  v21[3] = &unk_1E76A3BB8;
+  v22 = uUIDString;
+  v23 = date;
+  v25 = v6;
+  v24 = completionCopy;
   v12 = completionCopy;
   v13 = date;
   v14 = uUIDString;
-  v15 = MEMORY[0x1A58E3570](v22);
+  v15 = MEMORY[0x1A58E3570](v21);
   v16 = dispatch_get_global_queue(v6, 0);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke_2;
-  v19[3] = &unk_1E76A3BE0;
-  v20 = v15;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke_2;
+  v18[3] = &unk_1E76A3BE0;
+  v19 = v15;
   selfCopy = self;
   v17 = v15;
-  [self fetchActiveEndpointOnQueue:v16 withCompletion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [self fetchActiveEndpointOnQueue:v16 withCompletion:v18];
 }
 
 void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -139,13 +138,13 @@ void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invo
       v7 = [MEMORY[0x1E695DF00] date];
       [v7 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544130;
-      v22 = @"MRActiveRoutesObserver.fetchActiveRouteIDsWithCompletion";
-      v23 = 2114;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v3;
-      v27 = 2048;
-      v28 = v8;
+      v21 = @"MRActiveRoutesObserver.fetchActiveRouteIDsWithCompletion";
+      v22 = 2114;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v3;
+      v26 = 2048;
+      v27 = v8;
       v9 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v10 = v4;
       v11 = 42;
@@ -160,11 +159,11 @@ LABEL_6:
     v7 = [MEMORY[0x1E695DF00] date];
     [v7 timeIntervalSinceDate:*(a1 + 40)];
     *buf = 138543874;
-    v22 = @"MRActiveRoutesObserver.fetchActiveRouteIDsWithCompletion";
-    v23 = 2114;
-    v24 = v12;
-    v25 = 2048;
-    v26 = v13;
+    v21 = @"MRActiveRoutesObserver.fetchActiveRouteIDsWithCompletion";
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2048;
+    v25 = v13;
     v9 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v10 = v4;
     v11 = 32;
@@ -172,17 +171,15 @@ LABEL_6:
   }
 
   v14 = dispatch_get_global_queue(*(a1 + 56), 0);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke_29;
-  v18[3] = &unk_1E769AB28;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke_29;
+  v17[3] = &unk_1E769AB28;
   v15 = *(a1 + 48);
-  v19 = v3;
-  v20 = v15;
+  v18 = v3;
+  v19 = v15;
   v16 = v3;
-  dispatch_async(v14, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  dispatch_async(v14, v17);
 }
 
 void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -198,7 +195,7 @@ void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invo
 
 + (void)fetchActiveEndpointOnQueue:(id)queue withCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   if (!completionCopy)
@@ -215,37 +212,37 @@ void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invo
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v34 = v12;
+    v33 = v12;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke;
-  v28[3] = &unk_1E76A2708;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke;
+  v27[3] = &unk_1E76A2708;
   v14 = uUIDString;
-  v29 = v14;
+  v28 = v14;
   v15 = date;
-  v30 = v15;
+  v29 = v15;
   v16 = queueCopy;
-  v31 = v16;
+  v30 = v16;
   v17 = completionCopy;
-  v32 = v17;
-  v18 = MEMORY[0x1A58E3570](v28);
+  v31 = v17;
+  v18 = MEMORY[0x1A58E3570](v27);
   v19 = +[MRUserSettings currentSettings];
   supportRoutingContinuity = [v19 supportRoutingContinuity];
 
   if (supportRoutingContinuity)
   {
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_2;
-    v25[3] = &unk_1E76A3C08;
-    v26 = v14;
-    v27 = v18;
-    MRAVEndpointResolveActiveSystemEndpointWithTimeout(v16, v25, 7.0);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_2;
+    v24[3] = &unk_1E76A3C08;
+    v25 = v14;
+    v26 = v18;
+    MRAVEndpointResolveActiveSystemEndpointWithTimeout(v16, v24, 7.0);
 
-    v21 = v26;
+    v21 = v25;
   }
 
   else
@@ -265,13 +262,11 @@ void __60__MRActiveRoutesObserver_fetchActiveRouteIDsWithCompletion___block_invo
       (v18)[2](v18, 0, v21);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(0xAuLL);
@@ -292,11 +287,11 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138543874;
-      v23 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2048;
-      v27 = v14;
+      v22 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2048;
+      v26 = v14;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
     }
 
@@ -314,29 +309,27 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544130;
-      v23 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2112;
-      v27 = v5;
-      v28 = 2048;
-      v29 = v11;
+      v22 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
+      v23 = 2114;
+      v24 = v9;
+      v25 = 2112;
+      v26 = v5;
+      v27 = 2048;
+      v28 = v11;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", buf, 0x2Au);
     }
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_37;
-  v19[3] = &unk_1E769AB28;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_37;
+  v18[3] = &unk_1E769AB28;
   v15 = *(a1 + 48);
   v16 = *(a1 + 56);
-  v20 = v5;
-  v21 = v16;
+  v19 = v5;
+  v20 = v16;
   v17 = v5;
-  dispatch_async(v15, v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  dispatch_async(v15, v18);
 }
 
 void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -373,15 +366,15 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
 
 - (void)setActiveEndpoint:(id)endpoint
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   v6 = _MRLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     debugName = [endpointCopy debugName];
-    v20 = 138412290;
-    v21 = debugName;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] ActiveEndpoint -> %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = debugName;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] ActiveEndpoint -> %@", &v19, 0xCu);
   }
 
   selfCopy = self;
@@ -415,15 +408,13 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
   v18 = _MRLogForCategory(0);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v17;
-    _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] Snapshot Init: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v17;
+    _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] Snapshot Init: %@", &v19, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
   [(MRActiveRoutesObserver *)selfCopy _reevaluateWithEndpoint:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (MRAVEndpoint)activeEndpoint
@@ -444,6 +435,40 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
   objc_sync_exit(selfCopy);
 
   return v3;
+}
+
+- (void)setIsLocalDeviceAirPlayActive:(BOOL)active
+{
+  activeCopy = active;
+  v11 = *MEMORY[0x1E69E9840];
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_localDeviceAirPlayActive == activeCopy)
+  {
+    objc_sync_exit(obj);
+  }
+
+  else
+  {
+    obj->_localDeviceAirPlayActive = activeCopy;
+    v4 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      localDeviceAirPlayActive = obj->_localDeviceAirPlayActive;
+      *buf = 67109120;
+      v10 = localDeviceAirPlayActive;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] LocalDeviceAirPlayActive -> %u", buf, 8u);
+    }
+
+    objc_sync_exit(obj);
+    isLocalDeviceAirPlayActiveCallback = [(MRActiveRoutesObserver *)obj isLocalDeviceAirPlayActiveCallback];
+
+    if (isLocalDeviceAirPlayActiveCallback)
+    {
+      isLocalDeviceAirPlayActiveCallback2 = [(MRActiveRoutesObserver *)obj isLocalDeviceAirPlayActiveCallback];
+      isLocalDeviceAirPlayActiveCallback2[2](isLocalDeviceAirPlayActiveCallback2, activeCopy);
+    }
+  }
 }
 
 - (BOOL)isLocalDeviceAirPlayActive
@@ -484,7 +509,7 @@ void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___bl
 
 void __72__MRActiveRoutesObserver__handleActiveSystemEndpointDidAddOutputDevice___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   if ([*(*(a1 + 32) + 48) isLocalEndpoint])
@@ -504,11 +529,11 @@ void __72__MRActiveRoutesObserver__handleActiveSystemEndpointDidAddOutputDevice_
     {
       v10 = [*(a1 + 40) debugName];
       v11 = *(*(a1 + 32) + 48);
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] Snapshot Added %@ -> %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] Snapshot Added %@ -> %@", &v13, 0x16u);
     }
   }
 
@@ -516,7 +541,6 @@ void __72__MRActiveRoutesObserver__handleActiveSystemEndpointDidAddOutputDevice_
   objc_sync_exit(v2);
 
   [*(a1 + 32) _onWorkerQueue_reevaluateWithEndpoint:v12];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActiveSystemEndpointDidRemoveOutputDevice:(id)device
@@ -543,19 +567,19 @@ void __72__MRActiveRoutesObserver__handleActiveSystemEndpointDidAddOutputDevice_
 
 void __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   if ([*(*(a1 + 32) + 48) isLocalEndpoint])
   {
     v3 = [*(*(a1 + 32) + 48) descriptor];
     v4 = [v3 outputDevices];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_2;
-    v33[3] = &unk_1E76A3C30;
-    v34 = *(a1 + 40);
-    v5 = [v4 msv_filter:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_2;
+    v32[3] = &unk_1E76A3C30;
+    v33 = *(a1 + 40);
+    v5 = [v4 msv_filter:v32];
     v6 = [v5 mutableCopy];
     [v3 setOutputDevices:v6];
 
@@ -570,9 +594,9 @@ void __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevi
       v11 = [*(a1 + 40) debugName];
       v12 = *(*(a1 + 32) + 48);
       *buf = 138412546;
-      v36 = v11;
-      v37 = 2112;
-      v38 = v12;
+      v35 = v11;
+      v36 = 2112;
+      v37 = v12;
       _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] Snapshot Removed %@ -> %@", buf, 0x16u);
     }
   }
@@ -580,13 +604,13 @@ void __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevi
   v13 = *(*(a1 + 32) + 48);
   objc_sync_exit(v2);
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_53;
-  v31[3] = &unk_1E769DAB8;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_53;
+  v30[3] = &unk_1E769DAB8;
   v14 = v13;
-  v32 = v14;
-  if (__75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_53(v31))
+  v31 = v14;
+  if (__75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_53(v30))
   {
     v15 = *(a1 + 32);
     objc_sync_enter(v15);
@@ -602,17 +626,17 @@ void __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevi
     [*(a1 + 32) deviceRemovedWaitInterval];
     v21 = v20;
     v22 = [*(a1 + 32) workerQueue];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_3;
-    v29[3] = &unk_1E769B178;
-    objc_copyWeak(&v30, buf);
-    v23 = [v19 initWithInterval:0 repeats:v22 queue:v29 block:v21];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_3;
+    v28[3] = &unk_1E769B178;
+    objc_copyWeak(&v29, buf);
+    v23 = [v19 initWithInterval:0 repeats:v22 queue:v28 block:v21];
     v24 = *(a1 + 32);
     v25 = *(v24 + 88);
     *(v24 + 88) = v23;
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(buf);
     objc_sync_exit(v15);
 
@@ -621,14 +645,12 @@ void __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevi
     {
       v27 = *(*(a1 + 32) + 72);
       *buf = 138412290;
-      v36 = v27;
+      v35 = v27;
       _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] DeviceRemovedSnapshot Added: %@", buf, 0xCu);
     }
   }
 
   [*(a1 + 32) _onWorkerQueue_reevaluateWithEndpoint:v14];
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__MRActiveRoutesObserver__handleActiveSystemEndpointDidRemoveOutputDevice___block_invoke_2(uint64_t a1, void *a2)
@@ -762,25 +784,25 @@ void __54__MRActiveRoutesObserver__onWorkerQueue_reevaluateASE__block_invoke(uin
 
 - (void)_onWorkerQueue_reevaluateWithEndpoint:(id)endpoint
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   workerQueue = [(MRActiveRoutesObserver *)self workerQueue];
   dispatch_assert_queue_V2(workerQueue);
 
   v7 = +[MRDeviceInfoRequest localDeviceInfo];
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke;
-  v26 = &unk_1E76A3C80;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke;
+  v25 = &unk_1E76A3C80;
   selfCopy = self;
-  v30 = a2;
+  v29 = a2;
   v8 = endpointCopy;
-  v28 = v8;
+  v27 = v8;
   v9 = v7;
-  v29 = v9;
-  if (__64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke(&v23))
+  v28 = v9;
+  if (__64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke(&v22))
   {
-    v10 = [objc_opt_class() _computeActiveRouteIDsFromEndpoint:v8 localDeviceInfo:{v9, v23, v24}];
+    v10 = [objc_opt_class() _computeActiveRouteIDsFromEndpoint:v8 localDeviceInfo:{v9, v22, v23}];
     activeRouteIDs = [(MRActiveRoutesObserver *)self activeRouteIDs];
     v12 = activeRouteIDs;
     if (v10 == activeRouteIDs)
@@ -797,7 +819,7 @@ void __54__MRActiveRoutesObserver__onWorkerQueue_reevaluateASE__block_invoke(uin
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v10;
+          v31 = v10;
           _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] ActiveRouteIDs -> %@", buf, 0xCu);
         }
 
@@ -840,13 +862,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) deviceRemovedSnapshot];
   v4 = v3;
@@ -876,10 +896,10 @@ uint64_t __64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___bl
         v11 = _MRLogForCategory(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
+          LOWORD(v23) = 0;
           v12 = "[MRActiveRoutesObserver] DeviceRemovedSnapshot: removed due to new activeEndpoint";
 LABEL_13:
-          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, v12, &v24, 2u);
+          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, v12, &v23, 2u);
           goto LABEL_14;
         }
 
@@ -903,7 +923,7 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v12 = "[MRActiveRoutesObserver] DeviceRemovedSnapshot: removed due to airPlayActive + !parentGroupSupportsGroupCohesion";
         goto LABEL_13;
       }
@@ -915,9 +935,9 @@ LABEL_13:
         {
           v20 = [v4 date];
           [v20 timeIntervalSinceNow];
-          v24 = 134217984;
-          v25 = v21;
-          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] DeviceRemovedSnapshot: ActiveRouteIDs update ignored due to snapshot %lf seconds ago", &v24, 0xCu);
+          v23 = 134217984;
+          v24 = v21;
+          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRActiveRoutesObserver] DeviceRemovedSnapshot: ActiveRouteIDs update ignored due to snapshot %lf seconds ago", &v23, 0xCu);
         }
 
         v13 = 0;
@@ -927,7 +947,7 @@ LABEL_13:
       v11 = _MRLogForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v12 = "[MRActiveRoutesObserver] DeviceRemovedSnapshot: removed due to airPlayActive + parentGroupSupportsGroupCohesion + leaderDeviceInfo";
         goto LABEL_13;
       }
@@ -938,7 +958,7 @@ LABEL_13:
       v11 = _MRLogForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v12 = "[MRActiveRoutesObserver] DeviceRemovedSnapshot: removed due to deviceRemovedWaitInterval";
         goto LABEL_13;
       }
@@ -954,13 +974,12 @@ LABEL_25:
   v13 = 1;
 LABEL_26:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (id)_computeActiveRouteIDsFromEndpoint:(id)endpoint localDeviceInfo:(id)info
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   infoCopy = info;
   v7 = +[MRUserSettings currentSettings];
@@ -968,15 +987,15 @@ LABEL_26:
 
   if (supportTopologyHealing)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke;
-    v20[3] = &unk_1E76A3130;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke;
+    v19[3] = &unk_1E76A3130;
     v9 = endpointCopy;
-    v21 = v9;
+    v20 = v9;
     v10 = infoCopy;
-    v22 = v10;
-    if ((__77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke)(v20))
+    v21 = v10;
+    if ((__77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke)(v19))
     {
       leaderDeviceInfo = [v10 leaderDeviceInfo];
       groupedDevices = [leaderDeviceInfo groupedDevices];
@@ -986,16 +1005,16 @@ LABEL_26:
     else
     {
       leaderDeviceInfo = [v9 resolvedOutputDevices];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke_3;
-      v18[3] = &unk_1E769B6F8;
-      v19 = v10;
-      v13 = [leaderDeviceInfo msv_map:v18];
-      groupedDevices = v19;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceInfo___block_invoke_3;
+      v17[3] = &unk_1E769B6F8;
+      v18 = v10;
+      v13 = [leaderDeviceInfo msv_map:v17];
+      groupedDevices = v18;
     }
 
-    v15 = v21;
+    v15 = v20;
   }
 
   else
@@ -1004,8 +1023,8 @@ LABEL_26:
     v15 = effectiveID;
     if (effectiveID)
     {
-      v23[0] = effectiveID;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v22[0] = effectiveID;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     }
 
     else
@@ -1013,8 +1032,6 @@ LABEL_26:
       v13 = 0;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1094,21 +1111,19 @@ id __77__MRActiveRoutesObserver__computeActiveRouteIDsFromEndpoint_localDeviceIn
 
 void __68__MRActiveRoutesObserver_fetchActiveEndpointOnQueue_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x1E695DF00] date];
   [v7 timeIntervalSinceDate:*(a1 + 40)];
-  v10 = 138544130;
-  v11 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2114;
-  v15 = a2;
-  v16 = 2048;
-  v17 = v8;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138544130;
+  v10 = @"MRActiveRoutesObserver.fetchActiveEndpointOnQueue";
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2114;
+  v14 = a2;
+  v15 = 2048;
+  v16 = v8;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v9, 0x2Au);
 }
 
 void __64__MRActiveRoutesObserver__onWorkerQueue_reevaluateWithEndpoint___block_invoke_cold_1(uint64_t a1, void *a2)

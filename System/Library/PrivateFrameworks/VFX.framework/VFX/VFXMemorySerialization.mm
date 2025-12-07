@@ -44,7 +44,7 @@
 + (void)writeKeyframeAnimation:(id)animation to:(void *)to
 {
   animationCopy = animation;
-  _s3VFX22VFXMemorySerializationC22writeKeyframeAnimation_2toySo010CAKeyframeF0C_SvtFZ_0(animationCopy);
+  _s3VFX22VFXMemorySerializationC22writeKeyframeAnimation_2toySo010CAKeyframeF0C_SvtFZ_0(animationCopy, to);
 }
 
 - (VFXMemorySerialization)init

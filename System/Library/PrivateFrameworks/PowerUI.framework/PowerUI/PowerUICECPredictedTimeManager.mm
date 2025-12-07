@@ -18,12 +18,12 @@
 
 - (PowerUICECPredictedTimeManager)initWithContextStore:(id)store withHandler:(id)handler
 {
-  v45[4] = *MEMORY[0x277D85DE8];
+  v44[4] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   handlerCopy = handler;
-  v44.receiver = self;
-  v44.super_class = PowerUICECPredictedTimeManager;
-  v9 = [(PowerUICECPredictedTimeManager *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = PowerUICECPredictedTimeManager;
+  v9 = [(PowerUICECPredictedTimeManager *)&v43 init];
   if (v9)
   {
     v10 = os_log_create("com.apple.powerui.cec", "predictedTimeManager");
@@ -92,14 +92,14 @@
     }
 
     v34 = [PowerUIAlarmSignalMonitor monitorWithDelegate:v9 trialManager:v9->_trialManager withContext:v9->_context];
-    v45[0] = v34;
+    v44[0] = v34;
     v35 = [PowerUIWalletSignalMonitor monitorWithDelegate:v9];
-    v45[1] = v35;
+    v44[1] = v35;
     v36 = [PowerUICalendarSignalMonitor monitorWithDelegate:v9 trialManager:v9->_trialManager withContext:v9->_context];
-    v45[2] = v36;
+    v44[2] = v36;
     v37 = [PowerUILocationSignalMonitor monitorWithDelegate:v9 trialManager:v9->_trialManager withContext:v9->_context];
-    v45[3] = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
+    v44[3] = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
     monitors = v9->_monitors;
     v9->_monitors = v38;
 
@@ -108,7 +108,6 @@
     v9->_handler = v40;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -145,74 +144,70 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
 
 - (void)startAllMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_monitors;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) startMonitoring];
+        [*(*(&v7 + 1) + 8 * v6++) startMonitoring];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAllMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_monitors;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) stopMonitoring];
+        [*(*(&v7 + 1) + 8 * v6++) stopMonitoring];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)testOverrideForSignalMonitors
@@ -233,7 +228,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
 
 - (id)deadlineFromMonitors
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   testOverrideForSignalMonitors = [(PowerUICECPredictedTimeManager *)self testOverrideForSignalMonitors];
   self->_tBypassSignals = testOverrideForSignalMonitors;
   if (testOverrideForSignalMonitors)
@@ -257,27 +252,27 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   else
   {
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = self->_monitors;
-    v11 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v11 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v11)
     {
       v12 = v11;
       v7 = 0;
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           requiredFullChargeDate = [v15 requiredFullChargeDate];
           if (requiredFullChargeDate)
           {
@@ -285,9 +280,9 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
             if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v33 = v15;
-              v34 = 2112;
-              v35 = requiredFullChargeDate;
+              v32 = v15;
+              v33 = 2112;
+              v34 = requiredFullChargeDate;
               _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Monitor %@ suggested %@", buf, 0x16u);
             }
 
@@ -306,7 +301,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
           }
         }
 
-        v12 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v12 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v12);
@@ -325,19 +320,17 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = distantFuture;
+      v32 = distantFuture;
       _os_log_impl(&dword_21B766000, v24, OS_LOG_TYPE_DEFAULT, "Monitors suggested: %@", buf, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return distantFuture;
 }
 
 - (BOOL)hasSufficientTimeForFullCharge
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   debugStatus = self->_debugStatus;
   self->_debugStatus = &stru_282D0B728;
 
@@ -348,7 +341,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = predictedUnplugTime;
+    v41 = predictedUnplugTime;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Model Deadline is %@", buf, 0xCu);
   }
 
@@ -356,7 +349,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = deadlineFromMonitors;
+    v41 = deadlineFromMonitors;
     _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Signal Deadline is %@", buf, 0xCu);
   }
 
@@ -364,7 +357,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = v6;
+    v41 = v6;
     _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Deadline is %@", buf, 0xCu);
   }
 
@@ -374,7 +367,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = v10;
+    v41 = v10;
     _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Deadline post buffer is %@", buf, 0xCu);
   }
 
@@ -389,7 +382,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = v10;
+    v41 = v10;
     _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "Deadline post battery mitigations is %@", buf, 0xCu);
   }
 
@@ -402,7 +395,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
     v18 = v16;
     v19 = [v17 numberWithDouble:v15];
     *buf = 138412290;
-    v42 = v19;
+    v41 = v19;
     _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Time to full charge is %@", buf, 0xCu);
   }
 
@@ -415,7 +408,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v10;
+      v41 = v10;
       _os_log_impl(&dword_21B766000, v23, OS_LOG_TYPE_DEFAULT, "Setting new deadline %@", buf, 0xCu);
     }
 
@@ -430,7 +423,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   {
     deadline = self->_deadline;
     *buf = 138412290;
-    v42 = deadline;
+    v41 = deadline;
     _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Final deadline is %@", buf, 0xCu);
   }
 
@@ -453,13 +446,12 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
   [(NSDate *)self->_deadline timeIntervalSinceNow];
   v38 = v37 > v15;
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (id)testingOverrideForPredictedUnplugTime
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [(NSUserDefaults *)self->_defaults objectForKey:@"testModelDuration"];
   v4 = v3;
   if (v3)
@@ -474,22 +466,21 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       v9 = self->_tModelPredition;
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TestMode: ModelPrediction set to %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v9;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TestMode: ModelPrediction set to %@", &v13, 0xCu);
     }
   }
 
   v10 = self->_tModelPredition;
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (double)leewayForConfidence:(double)confidence
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(PowerUITrialManager *)self->_trialManager doubleFactorForName:@"thresholdForCECWithPluginModel"];
   v6 = v5;
   [(PowerUITrialManager *)self->_trialManager doubleFactorForName:@"leewayForCECWithPluginModel"];
@@ -505,7 +496,7 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
       goto LABEL_8;
     }
 
-    LOWORD(v17) = 0;
+    LOWORD(v16) = 0;
     v11 = "Trial parameter loading failed resorting to defaults";
     v12 = log;
     v13 = 2;
@@ -518,42 +509,41 @@ uint64_t __70__PowerUICECPredictedTimeManager_managerWithContextStore_withHandle
       goto LABEL_8;
     }
 
-    v17 = 134218240;
+    v16 = 134218240;
     confidenceCopy = v6;
-    v19 = 2048;
-    v20 = v8;
+    v18 = 2048;
+    v19 = v8;
     v11 = "Loaded threshold %f and leeway %f from trial ";
     v12 = log;
     v13 = 22;
   }
 
-  _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_INFO, v11, &v17, v13);
+  _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_INFO, v11, &v16, v13);
 LABEL_8:
   v14 = self->_log;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v17 = 134218496;
+    v16 = 134218496;
     confidenceCopy = confidence;
-    v19 = 2048;
-    v20 = v6;
-    v21 = 2048;
-    v22 = v8;
-    _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_INFO, "Evaluating confidence %f with threshold of %f and leeway of %f", &v17, 0x20u);
+    v18 = 2048;
+    v19 = v6;
+    v20 = 2048;
+    v21 = v8;
+    _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_INFO, "Evaluating confidence %f with threshold of %f and leeway of %f", &v16, 0x20u);
   }
 
   result = INFINITY;
   if (v6 < confidence)
   {
-    result = v8;
+    return v8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)predictedUnplugTime
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   testingOverrideForPredictedUnplugTime = [(PowerUICECPredictedTimeManager *)self testingOverrideForPredictedUnplugTime];
   if (testingOverrideForPredictedUnplugTime)
   {
@@ -581,52 +571,52 @@ LABEL_5:
   }
 
   pluggedInPredictor = self->_pluggedInPredictor;
-  v35 = 0;
-  v15 = [(_OSChargingPredictor *)pluggedInPredictor chargePredictionOutputOfScheme:1 withError:&v35];
-  v16 = v35;
-  if (v16)
+  v34 = 0;
+  v14 = [(_OSChargingPredictor *)pluggedInPredictor chargePredictionOutputOfScheme:1 withError:&v34];
+  v15 = v34;
+  if (v15)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = log;
-      localizedDescription = [v16 localizedDescription];
+      v17 = log;
+      localizedDescription = [v15 localizedDescription];
       *buf = 138412290;
-      v37 = *&localizedDescription;
-      _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Error querying the predictor through the client %@", buf, 0xCu);
+      v36 = *&localizedDescription;
+      _os_log_impl(&dword_21B766000, v17, OS_LOG_TYPE_DEFAULT, "Error querying the predictor through the client %@", buf, 0xCu);
     }
   }
 
-  [v15 confidence];
-  v21 = v20;
-  [v15 chargingDuration];
-  v23 = v22;
-  [(PowerUICECPredictedTimeManager *)self leewayForConfidence:v21];
-  self->_predictionLeeway = v24;
-  v25 = fmin(fmax(v23 - v24, 0.0), 36000.0);
-  v26 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v25];
-  v27 = self->_log;
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  [v14 confidence];
+  v20 = v19;
+  [v14 chargingDuration];
+  v22 = v21;
+  [(PowerUICECPredictedTimeManager *)self leewayForConfidence:v20];
+  self->_predictionLeeway = v23;
+  v24 = fmin(fmax(v22 - v23, 0.0), 36000.0);
+  v25 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v24];
+  v26 = self->_log;
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     predictionLeeway = self->_predictionLeeway;
     *buf = 134218754;
-    v37 = v25;
-    v38 = 2112;
-    v39 = v26;
-    v40 = 2048;
-    v41 = predictionLeeway;
-    v42 = 2048;
-    v43 = v21;
-    _os_log_impl(&dword_21B766000, v27, OS_LOG_TYPE_DEFAULT, "OSIntelligence predicts device to be plugged in for %lf until %@ after leeway of %lf with confidence %lf", buf, 0x2Au);
+    v36 = v24;
+    v37 = 2112;
+    v38 = v25;
+    v39 = 2048;
+    v40 = predictionLeeway;
+    v41 = 2048;
+    v42 = v20;
+    _os_log_impl(&dword_21B766000, v26, OS_LOG_TYPE_DEFAULT, "OSIntelligence predicts device to be plugged in for %lf until %@ after leeway of %lf with confidence %lf", buf, 0x2Au);
   }
 
-  if (v21 <= 0.575)
+  if (v20 <= 0.575)
   {
-    v30 = self->_log;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = self->_log;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B766000, v30, OS_LOG_TYPE_DEFAULT, "Prediction model not confident. Setting an earlier date", buf, 2u);
+      _os_log_impl(&dword_21B766000, v29, OS_LOG_TYPE_DEFAULT, "Prediction model not confident. Setting an earlier date", buf, 2u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -634,24 +624,23 @@ LABEL_5:
 
   else
   {
-    date = v26;
+    date = v25;
   }
 
-  v31 = self->_modelDeadline;
+  v30 = self->_modelDeadline;
   self->_modelDeadline = date;
 
   defaults = self->_defaults;
   [(NSDate *)self->_modelDeadline timeIntervalSinceReferenceDate];
   [(NSUserDefaults *)defaults setDouble:@"predictedModelDeadline" forKey:?];
-  v33 = MEMORY[0x277CCACA8];
-  v34 = [MEMORY[0x277CCA968] localizedStringFromDate:self->_modelDeadline dateStyle:1 timeStyle:1];
-  v6 = [v33 stringWithFormat:@"ML model predicted deadline %@ (confidence %lf)", v34, *&v21];
+  v32 = MEMORY[0x277CCACA8];
+  v33 = [MEMORY[0x277CCA968] localizedStringFromDate:self->_modelDeadline dateStyle:1 timeStyle:1];
+  v6 = [v32 stringWithFormat:@"ML model predicted deadline %@ (confidence %lf)", v33, *&v20];
 
   objc_storeStrong(&self->_debugStatus, v6);
   v11 = self->_modelDeadline;
 
 LABEL_6:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

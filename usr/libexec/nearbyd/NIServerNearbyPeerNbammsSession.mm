@@ -11,6 +11,7 @@
 - (id)printableState;
 - (id)run;
 - (optional<SecondarySchedulingParameters>)_getSecondarySchedulingParameters;
+- (optional<rose::RoseServiceRequest>)_prepareGenericUseCaseServiceRequestForDiscoveryToken:(SEL)token nbUwbAcquisitionBandChannel:(id)channel mmsNumFragments:(unsigned __int16)fragments;
 - (optional<unsigned)_getDitherConst;
 - (shared_ptr<rose::objects::NBAMMSSession>)_buildRoseSession:(const void *)session;
 - (unsigned)_getNbUwbAcquisitionBandChannel:(id)channel;
@@ -47,7 +48,7 @@
     v14 = getResourcesManager;
     if (getResourcesManager)
     {
-      [getResourcesManager protobufLogger];
+      objc_msgSend_protobufLogger(getResourcesManager);
       v15 = v19;
     }
 
@@ -269,17 +270,17 @@ LABEL_39:
         }
 
         peerDiscoveryToken3 = [v6 peerDiscoveryToken];
-        v64 = 0;
-        v39 = [WeakRetained shouldInitiate:discoveryToken peerDiscoveryToken:peerDiscoveryToken3 error:&v64];
-        v63 = v64;
+        v63 = 0;
+        v39 = [WeakRetained shouldInitiate:discoveryToken peerDiscoveryToken:peerDiscoveryToken3 error:&v63];
+        v62 = v63;
         self->_isInitiator = v39;
 
-        if (v63)
+        if (v62)
         {
           v40 = qword_1009F9820;
           if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            v59 = [v63 description];
+            v59 = [v62 description];
             v60 = v59;
             uTF8String = [v59 UTF8String];
             *buf = 136315138;
@@ -299,7 +300,7 @@ LABEL_39:
             peerDiscoveryToken4 = [v6 peerDiscoveryToken];
           }
 
-          v62 = [(NIServerNearbyPeerNbammsSession *)self _getNbUwbAcquisitionBandChannel:peerDiscoveryToken4];
+          [(NIServerNearbyPeerNbammsSession *)self _getNbUwbAcquisitionBandChannel:peerDiscoveryToken4];
           if (!isInitiator)
           {
           }
@@ -331,12 +332,12 @@ LABEL_39:
           }
 
           peerDiscoveryToken6 = [v6 peerDiscoveryToken];
-          [(NIServerNearbyPeerNbammsSession *)self _prepareGenericUseCaseServiceRequestForDiscoveryToken:peerDiscoveryToken6 nbUwbAcquisitionBandChannel:v62 mmsNumFragments:v53];
+          objc_msgSend__prepareGenericUseCaseServiceRequestForDiscoveryToken_nbUwbAcquisitionBandChannel_mmsNumFragments_(self);
           memcpy(buf, __src, 0x241uLL);
 
           if (buf[576] == 1)
           {
-            [(NIServerNearbyPeerNbammsSession *)self _buildRoseSession:buf];
+            objc_msgSend__buildRoseSession_(self);
             v56 = __src[0];
             __src[0] = 0uLL;
             cntrl = self->_nbammsSession.__cntrl_;
@@ -483,7 +484,8 @@ LABEL_45:
       v8 = v7;
       if (v7 && [v7 length])
       {
-        sub_100025100(__p, [v8 length]);
+        v9 = 0;
+        sub_100025100(__p, [v8 length], &v9);
         [v8 getBytes:__p[0] length:{objc_msgSend(v8, "length")}];
         sub_100340788(self->_nbammsSession.__ptr_, __p);
         if (__p[0])
@@ -1085,7 +1087,7 @@ LABEL_19:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_100342F8C(v33, v39);
-        sub_1004BB67C(v39);
+        sub_1004BB67C();
       }
 
       v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:0];
@@ -1112,11 +1114,12 @@ LABEL_50:
 
 - (void)_nbammsSessionInvalidatedWithReason:(int)reason
 {
+  v3 = *&reason;
   v5 = qword_1009F9820;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_100342FC8(reason, v7);
-    sub_1004BB708(v7);
+    sub_100342FC8(v3, v7);
+    sub_1004BB708();
   }
 
   dispatch_assert_queue_V2(self->_clientQueue);
@@ -1133,6 +1136,670 @@ LABEL_50:
   sub_100004A08(&__p, [getContainerUniqueIdentifier UTF8String]);
 
   operator new();
+}
+
+- (optional<rose::RoseServiceRequest>)_prepareGenericUseCaseServiceRequestForDiscoveryToken:(SEL)token nbUwbAcquisitionBandChannel:(id)channel mmsNumFragments:(unsigned __int16)fragments
+{
+  v6 = a6;
+  channelCopy = channel;
+  WeakRetained = objc_loadWeakRetained(&self->_dataSource);
+  dispatch_assert_queue_V2(self->_clientQueue);
+  getNIConfiguration = [WeakRetained getNIConfiguration];
+  v10 = [getNIConfiguration copy];
+
+  getResourcesManager = [WeakRetained getResourcesManager];
+  discoveryToken = [getResourcesManager discoveryToken];
+
+  v204 = discoveryToken;
+  if (!discoveryToken)
+  {
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004BB414();
+    }
+
+    goto LABEL_120;
+  }
+
+  v211 = 0;
+  v215 = 0;
+  LOBYTE(intValue2) = 0;
+  v217 = 0;
+  v221 = 0;
+  v209 = 0;
+  LOBYTE(intValue) = 0;
+  LODWORD(v214) = 0;
+  *(&v214 + 3) = 0;
+  v219 = 0;
+  LOBYTE(intValue4) = 0;
+  memset(v222, 0, sizeof(v222));
+  LOBYTE(v224) = 0;
+  v225 = 0;
+  memset(&v223 + 1, 0, 7);
+  v227 = 0;
+  v226 = 0;
+  v228 = 1;
+  v229 = 0;
+  v230 = 0;
+  LOBYTE(v231) = 0;
+  v232 = 0;
+  LOBYTE(longLongValue) = 0;
+  v234 = 0;
+  v235 = 0uLL;
+  fragmentsCopy = fragments;
+  v213 = 1;
+  v218 = v6 | 0x100;
+  v13 = sub_1000054A8();
+  LOBYTE(v223) = sub_100460ADC(v13);
+  debugParameters = [v10 debugParameters];
+  if (debugParameters)
+  {
+    debugParameters2 = [v10 debugParameters];
+    v16 = [debugParameters2 objectForKey:@"nbTxAntenna"];
+
+    if (v16)
+    {
+      debugParameters3 = [v10 debugParameters];
+      v18 = [debugParameters3 objectForKey:@"nbTxAntenna"];
+      LOWORD(v209) = [v18 intValue] | 0x100;
+    }
+  }
+
+  debugParameters4 = [v10 debugParameters];
+  if (debugParameters4)
+  {
+    debugParameters5 = [v10 debugParameters];
+    v21 = [debugParameters5 objectForKey:@"nbRxAntenna"];
+
+    if (v21)
+    {
+      debugParameters6 = [v10 debugParameters];
+      v23 = [debugParameters6 objectForKey:@"nbRxAntenna"];
+      HIWORD(v209) = [v23 intValue] | 0x100;
+    }
+  }
+
+  debugParameters7 = [v10 debugParameters];
+  if (debugParameters7)
+  {
+    debugParameters8 = [v10 debugParameters];
+    v26 = [debugParameters8 objectForKey:@"nbPacketType"];
+
+    if (v26)
+    {
+      debugParameters9 = [v10 debugParameters];
+      v28 = [debugParameters9 objectForKey:@"nbPacketType"];
+      intValue = [v28 intValue];
+      v211 = 1;
+    }
+  }
+
+  debugParameters10 = [v10 debugParameters];
+  if (debugParameters10)
+  {
+    debugParameters11 = [v10 debugParameters];
+    v31 = [debugParameters11 objectForKey:@"nbBandChannel"];
+
+    if (v31)
+    {
+      debugParameters12 = [v10 debugParameters];
+      v33 = [debugParameters12 objectForKey:@"nbBandChannel"];
+      fragmentsCopy = [v33 intValue];
+      v213 = 1;
+    }
+  }
+
+  debugParameters13 = [v10 debugParameters];
+  if (debugParameters13)
+  {
+    debugParameters14 = [v10 debugParameters];
+    v36 = [debugParameters14 objectForKey:@"mmsTxAntenna"];
+
+    if (v36)
+    {
+      debugParameters15 = [v10 debugParameters];
+      v38 = [debugParameters15 objectForKey:@"mmsTxAntenna"];
+      LOWORD(v214) = [v38 intValue] | 0x100;
+    }
+  }
+
+  debugParameters16 = [v10 debugParameters];
+  if (debugParameters16)
+  {
+    debugParameters17 = [v10 debugParameters];
+    v41 = [debugParameters17 objectForKey:@"mmsRxAntenna"];
+
+    if (v41)
+    {
+      debugParameters18 = [v10 debugParameters];
+      v43 = [debugParameters18 objectForKey:@"mmsRxAntenna"];
+      WORD1(v214) = [v43 intValue] | 0x100;
+    }
+  }
+
+  debugParameters19 = [v10 debugParameters];
+  if (debugParameters19)
+  {
+    debugParameters20 = [v10 debugParameters];
+    v46 = [debugParameters20 objectForKey:@"mmsRxSyncAntenna"];
+
+    if (v46)
+    {
+      debugParameters21 = [v10 debugParameters];
+      v48 = [debugParameters21 objectForKey:@"mmsRxSyncAntenna"];
+      WORD2(v214) = [v48 intValue] | 0x100;
+    }
+  }
+
+  debugParameters22 = [v10 debugParameters];
+  if (debugParameters22)
+  {
+    debugParameters23 = [v10 debugParameters];
+    v51 = [debugParameters23 objectForKey:@"mmsPacketType"];
+
+    if (v51)
+    {
+      debugParameters24 = [v10 debugParameters];
+      v53 = [debugParameters24 objectForKey:@"mmsPacketType"];
+      HIWORD(v214) = [v53 intValue];
+      v215 = 1;
+    }
+  }
+
+  debugParameters25 = [v10 debugParameters];
+  if (debugParameters25)
+  {
+    debugParameters26 = [v10 debugParameters];
+    v56 = [debugParameters26 objectForKey:@"mmsPSR"];
+
+    if (v56)
+    {
+      debugParameters27 = [v10 debugParameters];
+      v58 = [debugParameters27 objectForKey:@"mmsPSR"];
+      *v222 = [v58 intValue] | 0x100;
+    }
+  }
+
+  debugParameters28 = [v10 debugParameters];
+  if (debugParameters28)
+  {
+    debugParameters29 = [v10 debugParameters];
+    v61 = [debugParameters29 objectForKey:@"mmsGap"];
+
+    if (v61)
+    {
+      debugParameters30 = [v10 debugParameters];
+      v63 = [debugParameters30 objectForKey:@"mmsGap"];
+      *&v222[2] = [v63 intValue] | 0x100;
+    }
+  }
+
+  debugParameters31 = [v10 debugParameters];
+  if (debugParameters31)
+  {
+    debugParameters32 = [v10 debugParameters];
+    v66 = [debugParameters32 objectForKey:@"mmsSeqIdx"];
+
+    if (v66)
+    {
+      debugParameters33 = [v10 debugParameters];
+      v68 = [debugParameters33 objectForKey:@"mmsSeqIdx"];
+      *&v222[4] = [v68 intValue] | 0x100;
+    }
+  }
+
+  debugParameters34 = [v10 debugParameters];
+  if (debugParameters34)
+  {
+    debugParameters35 = [v10 debugParameters];
+    v71 = [debugParameters35 objectForKey:@"mmsBandChannel"];
+
+    if (v71)
+    {
+      debugParameters36 = [v10 debugParameters];
+      v73 = [debugParameters36 objectForKey:@"mmsBandChannel"];
+      intValue2 = [v73 intValue];
+      v217 = 1;
+    }
+  }
+
+  debugParameters37 = [v10 debugParameters];
+  if (debugParameters37)
+  {
+    debugParameters38 = [v10 debugParameters];
+    v76 = [debugParameters38 objectForKey:@"nbSlotSize"];
+
+    if (v76)
+    {
+      debugParameters39 = [v10 debugParameters];
+      v78 = [debugParameters39 objectForKey:@"nbSlotSize"];
+      HIWORD(v218) = [v78 intValue] | 0x100;
+    }
+  }
+
+  debugParameters40 = [v10 debugParameters];
+  if (debugParameters40)
+  {
+    debugParameters41 = [v10 debugParameters];
+    v81 = [debugParameters41 objectForKey:@"mmsSlotSize"];
+
+    if (v81)
+    {
+      debugParameters42 = [v10 debugParameters];
+      v83 = [debugParameters42 objectForKey:@"mmsSlotSize"];
+      v219 = [v83 intValue] | 0x100;
+    }
+  }
+
+  debugParameters43 = [v10 debugParameters];
+  if (debugParameters43)
+  {
+    debugParameters44 = [v10 debugParameters];
+    v86 = [debugParameters44 objectForKey:@"mmsNumFragments"];
+
+    if (v86)
+    {
+      debugParameters45 = [v10 debugParameters];
+      v88 = [debugParameters45 objectForKey:@"mmsNumFragments"];
+      intValue3 = [v88 intValue];
+      LOWORD(v218) = intValue3 | 0x100;
+
+      v90 = qword_1009F9820;
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        LODWORD(v208) = intValue3;
+        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "#peer-nba,MMSNumFragments is overwritten via config plist: %d", buf, 8u);
+      }
+    }
+  }
+
+  debugParameters46 = [v10 debugParameters];
+  if (debugParameters46)
+  {
+    debugParameters47 = [v10 debugParameters];
+    v93 = [debugParameters47 objectForKey:@"interval"];
+    v94 = v93 == 0;
+
+    if (!v94)
+    {
+      debugParameters48 = [v10 debugParameters];
+      v96 = [debugParameters48 objectForKey:@"interval"];
+      intValue4 = [v96 intValue];
+      v221 = 1;
+    }
+  }
+
+  debugParameters49 = [v10 debugParameters];
+  if (debugParameters49)
+  {
+    debugParameters50 = [v10 debugParameters];
+    v99 = [debugParameters50 objectForKey:@"enableNonInterlacedMMS"];
+    v100 = v99 == 0;
+
+    if (!v100)
+    {
+      debugParameters51 = [v10 debugParameters];
+      v102 = [debugParameters51 objectForKey:@"enableNonInterlacedMMS"];
+      v222[6] = [v102 BOOLValue];
+    }
+  }
+
+  debugParameters52 = [v10 debugParameters];
+  if (debugParameters52)
+  {
+    debugParameters53 = [v10 debugParameters];
+    v105 = [debugParameters53 objectForKey:@"enableAntennaDiversity"];
+    v106 = v105 == 0;
+
+    if (!v106)
+    {
+      debugParameters54 = [v10 debugParameters];
+      v108 = [debugParameters54 objectForKey:@"enableAntennaDiversity"];
+      LOBYTE(v223) = [v108 BOOLValue];
+    }
+  }
+
+  debugParameters55 = [v10 debugParameters];
+  if (debugParameters55)
+  {
+    debugParameters56 = [v10 debugParameters];
+    v111 = [debugParameters56 objectForKey:@"useDedicatedAntennas"];
+    v112 = v111 == 0;
+
+    if (!v112)
+    {
+      debugParameters57 = [v10 debugParameters];
+      v114 = [debugParameters57 objectForKey:@"useDedicatedAntennas"];
+      BYTE2(v223) = [v114 BOOLValue];
+    }
+  }
+
+  debugParameters58 = [v10 debugParameters];
+  if (debugParameters58)
+  {
+    debugParameters59 = [v10 debugParameters];
+    v117 = [debugParameters59 objectForKey:@"overrideDefaultAntenna"];
+    v118 = v117 == 0;
+
+    if (!v118)
+    {
+      debugParameters60 = [v10 debugParameters];
+      v120 = [debugParameters60 objectForKey:@"overrideDefaultAntenna"];
+      BYTE3(v223) = [v120 BOOLValue];
+    }
+  }
+
+  debugParameters61 = [v10 debugParameters];
+  if (debugParameters61)
+  {
+    debugParameters62 = [v10 debugParameters];
+    v123 = [debugParameters62 objectForKey:@"useTestNbammsMode"];
+    v124 = v123 == 0;
+
+    if (!v124)
+    {
+      debugParameters63 = [v10 debugParameters];
+      v126 = [debugParameters63 objectForKey:@"useTestNbammsMode"];
+      HIBYTE(v223) = [v126 BOOLValue];
+    }
+  }
+
+  debugParameters64 = [v10 debugParameters];
+  if (debugParameters64)
+  {
+    debugParameters65 = [v10 debugParameters];
+    v129 = [debugParameters65 objectForKey:@"antennaDiversityMask"];
+    v130 = v129 == 0;
+
+    if (!v130)
+    {
+      debugParameters66 = [v10 debugParameters];
+      v132 = [debugParameters66 objectForKey:@"antennaDiversityMask"];
+      BYTE6(v223) = [v132 intValue];
+    }
+  }
+
+  v133 = sub_1000054A8();
+  BYTE1(v223) = sub_100460AC0(v133);
+  v134 = +[NSUserDefaults standardUserDefaults];
+  v135 = [v134 BOOLForKey:@"DisableDualRxChain"];
+
+  if (v135)
+  {
+    BYTE1(v223) = 0;
+  }
+
+  useTestNbammsMode = self->_useTestNbammsMode;
+  v137 = qword_1009F9820;
+  v138 = os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT);
+  if (useTestNbammsMode)
+  {
+    if (v138)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_DEFAULT, "#peer-nba,Test NBAMMS mode enabled", buf, 2u);
+    }
+
+    HIBYTE(v223) = 1;
+    longLongValue = 0x1010101010101010;
+    v234 = 1;
+    debugParameters67 = [v10 debugParameters];
+    if (debugParameters67)
+    {
+      debugParameters68 = [v10 debugParameters];
+      v141 = [debugParameters68 objectForKey:@"baseMacAddress"];
+      v142 = v141 == 0;
+
+      if (!v142)
+      {
+        debugParameters69 = [v10 debugParameters];
+        v144 = [debugParameters69 objectForKey:@"baseMacAddress"];
+
+        if (v144)
+        {
+          longLongValue = [v144 longLongValue];
+          v234 = 1;
+        }
+      }
+    }
+
+    if ((v232 & 1) == 0)
+    {
+      v232 = 1;
+    }
+
+    v231 = 4864;
+    goto LABEL_83;
+  }
+
+  if (v138)
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_DEFAULT, "#peer-nba,POR NBAMMS mode enabled", buf, 2u);
+  }
+
+  HIBYTE(v223) = 0;
+  debugParameters70 = [v10 debugParameters];
+  if (debugParameters70)
+  {
+    debugParameters71 = [v10 debugParameters];
+    v147 = [debugParameters71 objectForKey:@"nbChannelSelectionMask"];
+    v148 = v147 == 0;
+
+    if (!v148)
+    {
+      debugParameters72 = [v10 debugParameters];
+      v150 = [debugParameters72 objectForKey:@"nbChannelSelectionMask"];
+      intValue5 = [v150 intValue];
+      if ((v225 & 1) == 0)
+      {
+        v225 = 1;
+      }
+
+      v224 = intValue5;
+    }
+  }
+
+  debugParameters73 = [v10 debugParameters];
+  if (debugParameters73)
+  {
+    debugParameters74 = [v10 debugParameters];
+    v154 = [debugParameters74 objectForKey:@"napSlotSize"];
+    v155 = v154 == 0;
+
+    if (!v155)
+    {
+      debugParameters75 = [v10 debugParameters];
+      v157 = [debugParameters75 objectForKey:@"napSlotSize"];
+      intValue6 = [v157 intValue];
+      if ((v226 & 0x100) == 0)
+      {
+        BYTE1(v226) = 1;
+      }
+
+      LOBYTE(v226) = intValue6;
+    }
+  }
+
+  debugParameters76 = [v10 debugParameters];
+  if (debugParameters76)
+  {
+    debugParameters77 = [v10 debugParameters];
+    v161 = [debugParameters77 objectForKey:@"dataSlotSize"];
+    v162 = v161 == 0;
+
+    if (!v162)
+    {
+      debugParameters78 = [v10 debugParameters];
+      v164 = [debugParameters78 objectForKey:@"dataSlotSize"];
+      intValue7 = [v164 intValue];
+      if ((v226 & 0x1000000) == 0)
+      {
+        HIBYTE(v226) = 1;
+      }
+
+      BYTE2(v226) = intValue7;
+    }
+  }
+
+  debugParameters79 = [v10 debugParameters];
+  if (debugParameters79)
+  {
+    debugParameters80 = [v10 debugParameters];
+    v168 = [debugParameters80 objectForKey:@"useType2Addr"];
+    v169 = v168 == 0;
+
+    if (!v169)
+    {
+      debugParameters81 = [v10 debugParameters];
+      v171 = [debugParameters81 objectForKey:@"useType2Addr"];
+      v228 = [v171 intValue] != 0;
+    }
+  }
+
+  if (!channelCopy)
+  {
+    __assert_rtn("[NIServerNearbyPeerNbammsSession _prepareGenericUseCaseServiceRequestForDiscoveryToken:nbUwbAcquisitionBandChannel:mmsNumFragments:]", "NIServerNearbyPeerNbammsSession.mm", 983, "token != nil");
+  }
+
+  getIRK = [channelCopy getIRK];
+  v173 = getIRK;
+  if (!getIRK)
+  {
+    v183 = qword_1009F9820;
+    if (os_log_type_enabled(v183, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004BB820();
+    }
+
+LABEL_120:
+    retstr->var0.__null_state_ = 0;
+    retstr->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
+    goto LABEL_121;
+  }
+
+  if ([getIRK length] != 16)
+  {
+    __assert_rtn("[NIServerNearbyPeerNbammsSession _prepareGenericUseCaseServiceRequestForDiscoveryToken:nbUwbAcquisitionBandChannel:mmsNumFragments:]", "NIServerNearbyPeerNbammsSession.mm", 991, "[peerIRK length] == kNbammsIRKLengthBytes");
+  }
+
+  getIRK2 = [discoveryToken getIRK];
+  v175 = getIRK2;
+  if (getIRK2)
+  {
+    if ([getIRK2 length] != 16)
+    {
+      __assert_rtn("[NIServerNearbyPeerNbammsSession _prepareGenericUseCaseServiceRequestForDiscoveryToken:nbUwbAcquisitionBandChannel:mmsNumFragments:]", "NIServerNearbyPeerNbammsSession.mm", 998, "[selfIRK length] == kNbammsIRKLengthBytes");
+    }
+
+    v176 = v175;
+    v202 = v173;
+    if ([v176 length] == 16 && objc_msgSend(v202, "length") == 16)
+    {
+      v177 = v176;
+      bytes = [v176 bytes];
+      v179 = v202;
+      bytes2 = [v202 bytes];
+      v181 = objc_alloc_init(NSMutableData);
+      for (i = 0; i != 16; ++i)
+      {
+        buf[0] = bytes2[i] ^ bytes[i];
+        [v181 appendBytes:buf length:1];
+      }
+
+      if ([v181 length] != 16)
+      {
+        __assert_rtn("generateCombinedIRK", "NIServerNearbyPeerNbammsSession.mm", 1496, "[xorIRK length] == kNbammsIRKLengthBytes");
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+      {
+        sub_1004BB7B8();
+      }
+
+      v181 = 0;
+    }
+
+    if (v181)
+    {
+      v185 = v181;
+      bytes3 = [v181 bytes];
+      debugParameters82 = [v10 debugParameters];
+      if (debugParameters82)
+      {
+        debugParameters83 = [v10 debugParameters];
+        v189 = [debugParameters83 objectForKey:@"irk"];
+        v190 = v189 == 0;
+
+        if (!v190)
+        {
+          v191 = qword_1009F9820;
+          if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
+          {
+            debugParameters84 = [v10 debugParameters];
+            v193 = [debugParameters84 objectForKey:@"irk"];
+            *buf = 138412290;
+            v208 = v193;
+            _os_log_impl(&_mh_execute_header, v191, OS_LOG_TYPE_DEFAULT, "#peer-nba,Hardcoded IRK from debug parameters: %@", buf, 0xCu);
+          }
+
+          debugParameters85 = [v10 debugParameters];
+          v195 = [debugParameters85 objectForKey:@"irk"];
+          v196 = v195;
+          bytes3 = [v195 bytes];
+        }
+      }
+
+      v235 = *bytes3;
+      v197 = v181;
+      v198 = v197;
+      [v197 bytes];
+      v199 = SipHash();
+
+      longLongValue = v199;
+      v234 = 1;
+      if ((v232 & 1) == 0)
+      {
+        v232 = 1;
+      }
+
+      v231 = 4864;
+
+LABEL_83:
+      v236 = 6;
+      sub_10019DD0C(&v209, !self->_isInitiator, buf);
+      operator new();
+    }
+
+    v201 = qword_1009F9820;
+    if (os_log_type_enabled(v201, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004BB7EC();
+    }
+
+    retstr->var0.__null_state_ = 0;
+    retstr->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
+  }
+
+  else
+  {
+    v200 = qword_1009F9820;
+    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004BB820();
+    }
+
+    retstr->var0.__null_state_ = 0;
+    retstr->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
+  }
+
+LABEL_121:
+
+  return result;
 }
 
 - (unsigned)_getRangingTimeoutWithKey:(id)key timeoutIfNoOverride:(unsigned __int16)override

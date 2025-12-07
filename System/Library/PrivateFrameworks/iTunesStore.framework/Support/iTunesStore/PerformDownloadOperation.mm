@@ -63,9 +63,8 @@
 
     if (v7)
     {
-      v10[0] = 0;
-      LODWORD(v9) = 2;
-      v8 = _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[Download]: waiting for task completion", v9, 2);
 
       if (!v8)
       {
@@ -75,7 +74,7 @@ LABEL_14:
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v8 encoding:4, v10, v9];
+      oSLogObject = [NSString stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog();
     }
@@ -119,13 +118,12 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v10[0] = 0;
-  LODWORD(v9) = 2;
-  v8 = _os_log_send_and_compose_impl();
+  v9[0] = 0;
+  v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[Download]: download task complete!", v9, 2);
 
   if (v8)
   {
-    oSLogObject = [NSString stringWithCString:v8 encoding:4, v10, v9];
+    oSLogObject = [NSString stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
 LABEL_12:

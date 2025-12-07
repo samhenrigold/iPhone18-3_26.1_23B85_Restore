@@ -1,5 +1,6 @@
 @interface LibcoreIcuNativeDecimalFormat
 + (id)openWithNSString:(id)string withNSString:(id)sString withChar:(unsigned __int16)char withChar:(unsigned __int16)withChar withNSString:(id)nSString withChar:(unsigned __int16)a8 withNSString:(id)withNSString withNSString:(id)self0 withChar:(unsigned __int16)self1 withChar:(unsigned __int16)self2 withNSString:(id)self3 withChar:(unsigned __int16)self4 withChar:(unsigned __int16)self5 withChar:(unsigned __int16)self6 withChar:(unsigned __int16)self7;
++ (void)setDecimalFormatSymbolsWithId:(id)id withNSString:(id)string withChar:(unsigned __int16)char withChar:(unsigned __int16)withChar withNSString:(id)sString withChar:(unsigned __int16)a8 withNSString:(id)nSString withNSString:(id)self0 withChar:(unsigned __int16)self1 withChar:(unsigned __int16)self2 withNSString:(id)self3 withChar:(unsigned __int16)self4 withChar:(unsigned __int16)self5 withChar:(unsigned __int16)self6 withChar:(unsigned __int16)self7;
 - (BOOL)isEqual:(id)equal;
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -513,6 +514,16 @@ LABEL_16:
   LOWORD(v21) = a15;
   HIWORD(v21) = a16;
   return sub_1001EFE78(string, sString, char, nSString, a8, withNSString, a10, a11, a12, a13, v21, a17);
+}
+
++ (void)setDecimalFormatSymbolsWithId:(id)id withNSString:(id)string withChar:(unsigned __int16)char withChar:(unsigned __int16)withChar withNSString:(id)sString withChar:(unsigned __int16)a8 withNSString:(id)nSString withNSString:(id)self0 withChar:(unsigned __int16)self1 withChar:(unsigned __int16)self2 withNSString:(id)self3 withChar:(unsigned __int16)self4 withChar:(unsigned __int16)self5 withChar:(unsigned __int16)self6 withChar:(unsigned __int16)self7
+{
+  nSStringCopy = nSString;
+  LOWORD(v21) = a15;
+  WORD1(v21) = a16;
+  WORD2(v21) = a17;
+  LOWORD(nSString) = a12;
+  sub_1001EEEAC(id, string, char, sString, a8, nSStringCopy, withNSString, a11, nSString, a13, v21);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

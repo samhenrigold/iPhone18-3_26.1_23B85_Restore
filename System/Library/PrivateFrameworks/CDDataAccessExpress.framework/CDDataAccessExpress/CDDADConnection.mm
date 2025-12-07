@@ -1,6 +1,7 @@
 @interface CDDADConnection
 + (id)sharedConnection;
 + (unint64_t)_nextStopMonitoringStatusToken;
+- (BOOL)_performOofSettingsRequest:(id)request forAccountWithID:(id)d forUpdate:(BOOL)update;
 - (BOOL)_validateXPCReply:(id)reply;
 - (BOOL)performServerContactsSearch:(id)search forAccountWithID:(id)d;
 - (BOOL)processFolderChange:(id)change forAccountWithID:(id)d;
@@ -12,7 +13,11 @@
 - (BOOL)setFolderIdsThatExternalClientsCareAboutAdded:(id)added deleted:(id)deleted foldersTag:(id)tag forAccountID:(id)d;
 - (BOOL)stopWatchingFoldersWithKeys:(id)keys forAccountID:(id)d;
 - (BOOL)suspendWatchingFoldersWithKeys:(id)keys forAccountID:(id)d;
+- (BOOL)updateContentsOfAllFoldersForAccountID:(id)d andDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested;
+- (BOOL)updateContentsOfFoldersWithKeys:(id)keys forAccountID:(id)d andDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested;
+- (BOOL)updateFolderListForAccountID:(id)d andDataclasses:(int64_t)dataclasses requireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested;
 - (BOOL)watchFoldersWithKeys:(id)keys forAccountID:(id)d persistent:(BOOL)persistent;
+- (BOOL)watchFoldersWithSyncKeyMap:(id)map forAccountID:(id)d persistent:(BOOL)persistent;
 - (CDDADConnection)init;
 - (id)_connection;
 - (id)_createReplyToRequest:(id)request withProperties:(id)properties;
@@ -73,296 +78,295 @@
 
 - (void)_tearDownInFlightObjects
 {
-  v130 = *MEMORY[0x277D85DE8];
-  v118 = 0;
-  v119 = &v118;
-  v120 = 0x3032000000;
-  v121 = __Block_byref_object_copy_;
-  v122 = __Block_byref_object_dispose_;
-  v123 = 0;
+  v129 = *MEMORY[0x277D85DE8];
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x3032000000;
+  v120 = __Block_byref_object_copy_;
+  v121 = __Block_byref_object_dispose_;
+  v122 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke;
   block[3] = &unk_278D54308;
-  block[5] = &v118;
+  block[5] = &v117;
   block[4] = self;
   dispatch_sync(muckingWithInFlightCollections, block);
-  v4 = v119[5];
+  v4 = v118[5];
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:0 userInfo:0];
   [v4 makeObjectsPerformSelector:sel_sendFinishedToConsumerWithError_ withObject:v5];
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x3032000000;
-  v114 = __Block_byref_object_copy_;
-  v115 = __Block_byref_object_dispose_;
-  v116 = 0;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x3032000000;
+  v113 = __Block_byref_object_copy_;
+  v114 = __Block_byref_object_dispose_;
+  v115 = 0;
   v6 = self->_muckingWithInFlightCollections;
-  v110[0] = MEMORY[0x277D85DD0];
-  v110[1] = 3221225472;
-  v110[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_105;
-  v110[3] = &unk_278D54308;
-  v110[5] = &v111;
-  v110[4] = self;
-  dispatch_sync(v6, v110);
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
+  v109[0] = MEMORY[0x277D85DD0];
+  v109[1] = 3221225472;
+  v109[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_105;
+  v109[3] = &unk_278D54308;
+  v109[5] = &v110;
+  v109[4] = self;
+  dispatch_sync(v6, v109);
   v107 = 0u;
-  v7 = v112[5];
-  v8 = [v7 countByEnumeratingWithState:&v106 objects:v129 count:16];
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
+  v7 = v111[5];
+  v8 = [v7 countByEnumeratingWithState:&v105 objects:v128 count:16];
   if (v8)
   {
-    v9 = *v107;
+    v9 = *v106;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v107 != v9)
+        if (*v106 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v106 + 1) + 8 * i);
+        v11 = *(*(&v105 + 1) + 8 * i);
         consumer = [v11 consumer];
         v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:0 userInfo:0];
         [consumer folderChange:v11 finishedWithStatus:0 error:v13];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v106 objects:v129 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v105 objects:v128 count:16];
     }
 
     while (v8);
   }
 
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x3032000000;
-  v103 = __Block_byref_object_copy_;
-  v104 = __Block_byref_object_dispose_;
-  v105 = 0;
+  v99 = 0;
+  v100 = &v99;
+  v101 = 0x3032000000;
+  v102 = __Block_byref_object_copy_;
+  v103 = __Block_byref_object_dispose_;
+  v104 = 0;
   v14 = self->_muckingWithInFlightCollections;
-  v99[0] = MEMORY[0x277D85DD0];
-  v99[1] = 3221225472;
-  v99[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_106;
-  v99[3] = &unk_278D54308;
-  v99[5] = &v100;
-  v99[4] = self;
-  dispatch_sync(v14, v99);
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
+  v98[0] = MEMORY[0x277D85DD0];
+  v98[1] = 3221225472;
+  v98[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_106;
+  v98[3] = &unk_278D54308;
+  v98[5] = &v99;
+  v98[4] = self;
+  dispatch_sync(v14, v98);
   v96 = 0u;
-  v15 = v101[5];
-  v16 = [v15 countByEnumeratingWithState:&v95 objects:v128 count:16];
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v15 = v100[5];
+  v16 = [v15 countByEnumeratingWithState:&v94 objects:v127 count:16];
   if (v16)
   {
-    v17 = *v96;
+    v17 = *v95;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v96 != v17)
+        if (*v95 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v95 + 1) + 8 * j);
+        v19 = *(*(&v94 + 1) + 8 * j);
         v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:0 userInfo:0];
         [v19 finishedWithError:v20];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v95 objects:v128 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v94 objects:v127 count:16];
     }
 
     while (v16);
   }
 
-  v89 = 0;
-  v90 = &v89;
-  v91 = 0x3032000000;
-  v92 = __Block_byref_object_copy_;
-  v93 = __Block_byref_object_dispose_;
-  v94 = 0;
+  v88 = 0;
+  v89 = &v88;
+  v90 = 0x3032000000;
+  v91 = __Block_byref_object_copy_;
+  v92 = __Block_byref_object_dispose_;
+  v93 = 0;
   v21 = self->_muckingWithInFlightCollections;
-  v88[0] = MEMORY[0x277D85DD0];
-  v88[1] = 3221225472;
-  v88[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_107;
-  v88[3] = &unk_278D54308;
-  v88[5] = &v89;
-  v88[4] = self;
-  dispatch_sync(v21, v88);
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_107;
+  v87[3] = &unk_278D54308;
+  v87[5] = &v88;
+  v87[4] = self;
+  dispatch_sync(v21, v87);
   v85 = 0u;
-  v22 = v90[5];
-  v23 = [v22 countByEnumeratingWithState:&v84 objects:v127 count:16];
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v22 = v89[5];
+  v23 = [v22 countByEnumeratingWithState:&v83 objects:v126 count:16];
   if (v23)
   {
-    v24 = *v85;
+    v24 = *v84;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v85 != v24)
+        if (*v84 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        v26 = *(*(&v84 + 1) + 8 * k);
+        v26 = *(*(&v83 + 1) + 8 * k);
         v27 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
         [v26 finishedWithError:v27];
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v84 objects:v127 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v83 objects:v126 count:16];
     }
 
     while (v23);
   }
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = __Block_byref_object_copy_;
-  v82 = __Block_byref_object_dispose_;
-  v83 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = __Block_byref_object_copy_;
+  v81 = __Block_byref_object_dispose_;
+  v82 = 0;
   v28 = self->_muckingWithInFlightCollections;
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_108;
-  v77[3] = &unk_278D54308;
-  v77[4] = self;
-  v77[5] = &v78;
-  dispatch_sync(v28, v77);
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_108;
+  v76[3] = &unk_278D54308;
+  v76[4] = self;
+  v76[5] = &v77;
+  dispatch_sync(v28, v76);
   v74 = 0u;
-  v29 = v79[5];
-  v30 = [v29 countByEnumeratingWithState:&v73 objects:v126 count:16];
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v29 = v78[5];
+  v30 = [v29 countByEnumeratingWithState:&v72 objects:v125 count:16];
   if (v30)
   {
-    v31 = *v74;
+    v31 = *v73;
     do
     {
       for (m = 0; m != v30; ++m)
       {
-        if (*v74 != v31)
+        if (*v73 != v31)
         {
           objc_enumerationMutation(v29);
         }
 
-        v33 = *(*(&v73 + 1) + 8 * m);
+        v33 = *(*(&v72 + 1) + 8 * m);
         v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
         [v33 finishedWithError:v34 exceededResultLimit:0];
       }
 
-      v30 = [v29 countByEnumeratingWithState:&v73 objects:v126 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v72 objects:v125 count:16];
     }
 
     while (v30);
   }
 
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy_;
-  v71 = __Block_byref_object_dispose_;
-  v72 = 0;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy_;
+  v70 = __Block_byref_object_dispose_;
+  v71 = 0;
   v35 = self->_muckingWithInFlightCollections;
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_109;
-  v66[3] = &unk_278D54308;
-  v66[4] = self;
-  v66[5] = &v67;
-  dispatch_sync(v35, v66);
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_109;
+  v65[3] = &unk_278D54308;
+  v65[4] = self;
+  v65[5] = &v66;
+  dispatch_sync(v35, v65);
   v63 = 0u;
-  v36 = v68[5];
-  v37 = [v36 countByEnumeratingWithState:&v62 objects:v125 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v36 = v67[5];
+  v37 = [v36 countByEnumeratingWithState:&v61 objects:v124 count:16];
   if (v37)
   {
-    v38 = *v63;
+    v38 = *v62;
     do
     {
       for (n = 0; n != v37; ++n)
       {
-        if (*v63 != v38)
+        if (*v62 != v38)
         {
           objc_enumerationMutation(v36);
         }
 
-        v40 = *(*(&v62 + 1) + 8 * n);
+        v40 = *(*(&v61 + 1) + 8 * n);
         v41 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
         [v40 finishedWithError:v41];
       }
 
-      v37 = [v36 countByEnumeratingWithState:&v62 objects:v125 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v61 objects:v124 count:16];
     }
 
     while (v37);
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy_;
-  v60 = __Block_byref_object_dispose_;
-  v61 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy_;
+  v59 = __Block_byref_object_dispose_;
+  v60 = 0;
   v42 = self->_muckingWithInFlightCollections;
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_110;
-  v55[3] = &unk_278D54308;
-  v55[4] = self;
-  v55[5] = &v56;
-  dispatch_sync(v42, v55);
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __43__CDDADConnection__tearDownInFlightObjects__block_invoke_110;
+  v54[3] = &unk_278D54308;
+  v54[4] = self;
+  v54[5] = &v55;
+  dispatch_sync(v42, v54);
   v52 = 0u;
-  v43 = v57[5];
-  v44 = [v43 countByEnumeratingWithState:&v51 objects:v124 count:16];
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v43 = v56[5];
+  v44 = [v43 countByEnumeratingWithState:&v50 objects:v123 count:16];
   if (v44)
   {
-    v45 = *v52;
+    v45 = *v51;
     do
     {
       for (ii = 0; ii != v44; ++ii)
       {
-        if (*v52 != v45)
+        if (*v51 != v45)
         {
           objc_enumerationMutation(v43);
         }
 
-        v47 = *(*(&v51 + 1) + 8 * ii);
+        v47 = *(*(&v50 + 1) + 8 * ii);
         consumer2 = [v47 consumer];
         v49 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
         [consumer2 oofRequestInfo:v47 finishedWithResult:0 error:v49];
       }
 
-      v44 = [v43 countByEnumeratingWithState:&v51 objects:v124 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v50 objects:v123 count:16];
     }
 
     while (v44);
   }
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v66, 8);
 
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v89, 8);
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v88, 8);
 
-  _Block_object_dispose(&v100, 8);
-  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v99, 8);
+  _Block_object_dispose(&v110, 8);
 
-  _Block_object_dispose(&v118, 8);
-  v50 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v117, 8);
 }
 
 uint64_t __43__CDDADConnection__tearDownInFlightObjects__block_invoke(uint64_t a1)
@@ -553,7 +557,7 @@ LABEL_9:
 
 void __40__CDDADConnection__initializeConnection__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [@"com.apple.remindd.dataaccess" UTF8String];
   v3 = dispatch_get_global_queue(0, 0);
   mach_service = xpc_connection_create_mach_service(v2, v3, 0);
@@ -564,22 +568,19 @@ void __40__CDDADConnection__initializeConnection__block_invoke(uint64_t a1)
   v7 = *(a1 + 32);
   if (v7[1])
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [v7 _initializeXPCConnection:?];
   }
 
   else
   {
-    v9 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = @"com.apple.remindd.dataaccess";
-      _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_ERROR, "Couldn't create a connection to [%@]", &v11, 0xCu);
+      v9 = 138412290;
+      v10 = @"com.apple.remindd.dataaccess";
+      _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_ERROR, "Couldn't create a connection to [%@]", &v9, 0xCu);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -599,7 +600,7 @@ void __40__CDDADConnection__initializeConnection__block_invoke(uint64_t a1)
 
 void __56__CDDADConnection__initializeConnectionWithXPCEndpoint___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = xpc_connection_create_from_endpoint(*(a1 + 40));
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
@@ -608,23 +609,20 @@ void __56__CDDADConnection__initializeConnectionWithXPCEndpoint___block_invoke(u
   v5 = *(a1 + 32);
   if (v5[1])
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     [v5 _initializeXPCConnection:?];
   }
 
   else
   {
-    v7 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_ERROR, "Couldn't create a connection to endpoint: [%@]", &v10, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_ERROR, "Couldn't create a connection to endpoint: [%@]", &v8, 0xCu);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -686,20 +684,20 @@ LABEL_6:
 
 - (id)decodedErrorFromData:(id)data
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
-    v11 = 0;
-    v4 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v10];
+    v5 = v10;
     if (!v4)
     {
       v6 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = v5;
+        v12 = v5;
         _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEFAULT, "Unable to read data to decode error: %@", buf, 0xCu);
       }
     }
@@ -712,8 +710,6 @@ LABEL_6:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -732,53 +728,50 @@ LABEL_6:
 
 void __37__CDDADConnection__policyKeyChanged___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = _CFXPCCreateCFObjectFromXPCObject();
-  v3 = [v2 objectForKeyedSubscript:@"kDAEPolicyKeyKey"];
-  v4 = [v2 objectForKeyedSubscript:@"kDAEPolicyErrorCodeKey"];
-  v5 = [v2 objectForKeyedSubscript:@"kDAEAccountIdKey"];
-  if (v5)
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = _CFXPCCreateCFObjectFromXPCObject();
+  v2 = [v1 objectForKeyedSubscript:@"kDAEPolicyKeyKey"];
+  v3 = [v1 objectForKeyedSubscript:@"kDAEPolicyErrorCodeKey"];
+  v4 = [v1 objectForKeyedSubscript:@"kDAEAccountIdKey"];
+  if (v4)
   {
-    v6 = [MEMORY[0x277CCAB98] defaultCenter];
-    if (v4)
+    v5 = [MEMORY[0x277CCAB98] defaultCenter];
+    if (v3)
     {
-      v13 = @"ASPolicyKey";
-      v14 = @"ASPolicyErrorCodeKey";
-      v15 = v3;
-      v16 = v4;
-      v7 = MEMORY[0x277CBEAC0];
-      v8 = &v15;
-      v9 = &v13;
-      v10 = 2;
+      v11 = @"ASPolicyKey";
+      v12 = @"ASPolicyErrorCodeKey";
+      v13 = v2;
+      v14 = v3;
+      v6 = MEMORY[0x277CBEAC0];
+      v7 = &v13;
+      v8 = &v11;
+      v9 = 2;
     }
 
     else
     {
-      v17 = @"ASPolicyKey";
-      v18 = v3;
-      v7 = MEMORY[0x277CBEAC0];
-      v8 = &v18;
-      v9 = &v17;
-      v10 = 1;
+      v15 = @"ASPolicyKey";
+      v16 = v2;
+      v6 = MEMORY[0x277CBEAC0];
+      v7 = &v16;
+      v8 = &v15;
+      v9 = 1;
     }
 
-    v11 = [v7 dictionaryWithObjects:v8 forKeys:v9 count:{v10, v13, v14, v15, v16, v17, v18}];
-    [v6 postNotificationName:@"ASPolicyKeyChangedNotification" object:v5 userInfo:v11];
+    v10 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:{v9, v11, v12, v13, v14, v15, v16}];
+    [v5 postNotificationName:@"ASPolicyKeyChangedNotification" object:v4 userInfo:v10];
   }
 
   else
   {
-    v6 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v2;
-      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_ERROR, "Malformed callback message from dataaccess daemon: bad account id (%@)", buf, 0xCu);
+      v18 = v1;
+      _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_ERROR, "Malformed callback message from dataaccess daemon: bad account id (%@)", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_foldersUpdated:(id)updated
@@ -795,52 +788,50 @@ void __37__CDDADConnection__policyKeyChanged___block_invoke(uint64_t a1)
 
 void __35__CDDADConnection__foldersUpdated___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = _CFXPCCreateCFObjectFromXPCObject();
-  v3 = [v2 objectForKeyedSubscript:@"kDAEFolderIDsKey"];
-  v4 = [v2 objectForKeyedSubscript:@"kDAEAccountIdKey"];
-  v5 = v4;
-  if (!v3)
+  v12 = *MEMORY[0x277D85DE8];
+  v1 = _CFXPCCreateCFObjectFromXPCObject();
+  v2 = [v1 objectForKeyedSubscript:@"kDAEFolderIDsKey"];
+  v3 = [v1 objectForKeyedSubscript:@"kDAEAccountIdKey"];
+  v4 = v3;
+  if (!v2)
   {
-    v6 = DALoggingwithCategory(0);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = DALoggingwithCategory(0);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
     *buf = 138412290;
-    v13 = v2;
-    v8 = "Malformed callback message from dataaccess daemon: no folders (%@)";
+    v11 = v1;
+    v7 = "Malformed callback message from dataaccess daemon: no folders (%@)";
 LABEL_8:
-    _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
+    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_ERROR, v7, buf, 0xCu);
     goto LABEL_9;
   }
 
-  if (!v4)
+  if (!v3)
   {
-    v6 = DALoggingwithCategory(0);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = DALoggingwithCategory(0);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
     *buf = 138412290;
-    v13 = v2;
-    v8 = "Malformed callback message from dataaccess daemon: bad account id (%@)";
+    v11 = v1;
+    v7 = "Malformed callback message from dataaccess daemon: bad account id (%@)";
     goto LABEL_8;
   }
 
-  v6 = [MEMORY[0x277CCAB98] defaultCenter];
-  v10[0] = @"DAChangedFolders";
-  v10[1] = @"DAChangedAccountID";
-  v11[0] = v3;
-  v11[1] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  [v6 postNotificationName:@"DataAccessMonitoredFolderUpdated" object:0 userInfo:v7];
+  v5 = [MEMORY[0x277CCAB98] defaultCenter];
+  v8[0] = @"DAChangedFolders";
+  v8[1] = @"DAChangedAccountID";
+  v9[0] = v2;
+  v9[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  [v5 postNotificationName:@"DataAccessMonitoredFolderUpdated" object:0 userInfo:v6];
 
 LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CDDADConnection__logDataAccessStatus___block_invoke()
@@ -851,7 +842,7 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
 
 - (void)_serverContactsSearchQueryFinished:(id)finished
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
   v5 = _CFXPCCreateCFObjectFromXPCObject();
   v6 = [v5 objectForKeyedSubscript:@"kDAESearchIDKey"];
@@ -866,10 +857,10 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -878,24 +869,24 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
   p_buf = &buf;
   block[4] = self;
   v10 = v6;
-  v25 = v10;
+  v24 = v10;
   dispatch_sync(muckingWithInFlightCollections, block);
   if (*(*(&buf + 1) + 40))
   {
     v11 = [v5 objectForKeyedSubscript:@"kDAESearchResultsKey"];
     if (v11)
     {
-      v23 = 0;
-      v12 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v11 error:&v23];
-      v13 = v23;
+      v22 = 0;
+      v12 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v11 error:&v22];
+      v13 = v22;
       if (!v12)
       {
         v14 = DALoggingwithCategory(0);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 138412290;
-          v28 = v13;
-          _os_log_impl(&dword_242505000, v14, OS_LOG_TYPE_DEFAULT, "Unable to read data to decode search results: %@", v27, 0xCu);
+          *v26 = 138412290;
+          v27 = v13;
+          _os_log_impl(&dword_242505000, v14, OS_LOG_TYPE_DEFAULT, "Unable to read data to decode search results: %@", v26, 0xCu);
         }
       }
 
@@ -910,8 +901,8 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
       v13 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v27 = 0;
-        _os_log_impl(&dword_242505000, v13, OS_LOG_TYPE_INFO, "Could not deserialize search results from the xpc message", v27, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_242505000, v13, OS_LOG_TYPE_INFO, "Could not deserialize search results from the xpc message", v26, 2u);
       }
 
       v18 = 0;
@@ -920,9 +911,9 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
     v19 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      *v27 = 138412290;
-      v28 = v18;
-      _os_log_impl(&dword_242505000, v19, OS_LOG_TYPE_DEBUG, "Search results: %@", v27, 0xCu);
+      *v26 = 138412290;
+      v27 = v18;
+      _os_log_impl(&dword_242505000, v19, OS_LOG_TYPE_DEBUG, "Search results: %@", v26, 0xCu);
     }
 
     [*(*(&buf + 1) + 40) sendResultsToConsumer:v18];
@@ -936,18 +927,17 @@ void __40__CDDADConnection__logDataAccessStatus___block_invoke()
     v18 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_242505000, v18, OS_LOG_TYPE_ERROR, "received results for an unknown search query", v27, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_242505000, v18, OS_LOG_TYPE_ERROR, "received results for an unknown search query", v26, 2u);
     }
   }
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__CDDADConnection__serverContactsSearchQueryFinished___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 56) objectForKeyedSubscript:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -958,21 +948,19 @@ uint64_t __54__CDDADConnection__serverContactsSearchQueryFinished___block_invoke
   {
     v6 = a1[5];
     v7 = *(*(a1[6] + 8) + 40);
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing query %@ for key %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing query %@ for key %@", &v9, 0x16u);
   }
 
-  result = [*(a1[4] + 56) removeObjectForKey:a1[5]];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 56) removeObjectForKey:a1[5]];
 }
 
 - (void)_folderChangeFinished:(id)finished
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
   v4 = _CFXPCCreateCFObjectFromXPCObject();
   v5 = [v4 objectForKeyedSubscript:@"kDAETaskIDKey"];
@@ -995,18 +983,18 @@ uint64_t __54__CDDADConnection__serverContactsSearchQueryFinished___block_invoke
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v24 = __Block_byref_object_copy_;
-  v25 = __Block_byref_object_dispose_;
-  v26 = 0;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __41__CDDADConnection__folderChangeFinished___block_invoke;
   block[3] = &unk_278D543A0;
-  v22 = buf;
+  v21 = buf;
   block[4] = self;
   v13 = v5;
-  v21 = v13;
+  v20 = v13;
   dispatch_sync(muckingWithInFlightCollections, block);
   v14 = *&buf[8];
   v15 = *(*&buf[8] + 40);
@@ -1033,18 +1021,17 @@ uint64_t __54__CDDADConnection__serverContactsSearchQueryFinished___block_invoke
     consumer = DALoggingwithCategory(0);
     if (os_log_type_enabled(consumer, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_242505000, consumer, OS_LOG_TYPE_ERROR, "received results for an unknown folderChange", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_242505000, consumer, OS_LOG_TYPE_ERROR, "received results for an unknown folderChange", v18, 2u);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__CDDADConnection__folderChangeFinished___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 64) objectForKeyedSubscript:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -1055,16 +1042,14 @@ uint64_t __41__CDDADConnection__folderChangeFinished___block_invoke(void *a1)
   {
     v6 = a1[5];
     v7 = *(*(a1[6] + 8) + 40);
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing folder change %@ for key %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing folder change %@ for key %@", &v9, 0x16u);
   }
 
-  result = [*(a1[4] + 64) removeObjectForKey:a1[5]];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 64) removeObjectForKey:a1[5]];
 }
 
 - (void)_getStatusReportsFromClient:(id)client
@@ -1083,7 +1068,7 @@ uint64_t __41__CDDADConnection__folderChangeFinished___block_invoke(void *a1)
 
 void __47__CDDADConnection__getStatusReportsFromClient___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = *(*(a1 + 32) + 48);
   if (v3)
@@ -1091,34 +1076,34 @@ void __47__CDDADConnection__getStatusReportsFromClient___block_invoke(uint64_t a
     v4 = (*(v3 + 16))();
     if ([v4 count])
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v17;
+        v8 = *v16;
         do
         {
           v9 = 0;
           do
           {
-            if (*v17 != v8)
+            if (*v16 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = [*(*(&v16 + 1) + 8 * v9) dictionaryRepresentation];
+            v10 = [*(*(&v15 + 1) + 8 * v9) dictionaryRepresentation];
             [v2 addObject:v10];
 
             ++v9;
           }
 
           while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
         }
 
         while (v7);
@@ -1126,9 +1111,9 @@ void __47__CDDADConnection__getStatusReportsFromClient___block_invoke(uint64_t a
     }
   }
 
-  v20 = @"kDAEStatusReportsKey";
-  v21 = v2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:{1, v16}];
+  v19 = @"kDAEStatusReportsKey";
+  v20 = v2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:{1, v15}];
   v12 = [*(a1 + 32) _createReplyToRequest:*(a1 + 40) withProperties:v11];
   v13 = xpc_dictionary_get_remote_connection(*(a1 + 40));
   v14 = *(*(a1 + 32) + 8);
@@ -1136,141 +1121,132 @@ void __47__CDDADConnection__getStatusReportsFromClient___block_invoke(uint64_t a
   {
     xpc_connection_send_message(v14, v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadProgress:(id)progress
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
-  v16 = _CFXPCCreateCFObjectFromXPCObject();
-  v4 = [v16 objectForKeyedSubscript:@"kDAEAttachmentIdsKey"];
-  v5 = [v16 objectForKeyedSubscript:@"kDAEDownloadedBytesKey"];
+  v15 = _CFXPCCreateCFObjectFromXPCObject();
+  v4 = [v15 objectForKeyedSubscript:@"kDAEAttachmentIdsKey"];
+  v5 = [v15 objectForKeyedSubscript:@"kDAEDownloadedBytesKey"];
   longLongValue = [v5 longLongValue];
 
-  v7 = [v16 objectForKeyedSubscript:@"kDAETotalBytesKey"];
+  v7 = [v15 objectForKeyedSubscript:@"kDAETotalBytesKey"];
   longLongValue2 = [v7 longLongValue];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v4;
-  v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
-        v19 = 0;
-        v20 = &v19;
-        v21 = 0x3032000000;
-        v22 = __Block_byref_object_copy_;
-        v23 = __Block_byref_object_dispose_;
-        v24 = 0;
+        v12 = *(*(&v24 + 1) + 8 * v11);
+        v18 = 0;
+        v19 = &v18;
+        v20 = 0x3032000000;
+        v21 = __Block_byref_object_copy_;
+        v22 = __Block_byref_object_dispose_;
+        v23 = 0;
         muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __37__CDDADConnection__downloadProgress___block_invoke;
         block[3] = &unk_278D543A0;
         block[5] = v12;
-        block[6] = &v19;
+        block[6] = &v18;
         block[4] = self;
         dispatch_sync(muckingWithInFlightCollections, block);
-        [v20[5] updateProgressDownloadedByteCount:longLongValue totalByteCount:{longLongValue2, progressCopy}];
-        _Block_object_dispose(&v19, 8);
+        [v19[5] updateProgressDownloadedByteCount:longLongValue totalByteCount:{longLongValue2, progressCopy}];
+        _Block_object_dispose(&v18, 8);
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__CDDADConnection__downloadProgress___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)_downloadFinished:(id)finished
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
-  v14 = _CFXPCCreateCFObjectFromXPCObject();
-  v4 = [v14 objectForKeyedSubscript:@"kDAEAttachmentIdsKey"];
-  v5 = [v14 objectForKeyedSubscript:@"kDAEErrorDataKey"];
+  v13 = _CFXPCCreateCFObjectFromXPCObject();
+  v4 = [v13 objectForKeyedSubscript:@"kDAEAttachmentIdsKey"];
+  v5 = [v13 objectForKeyedSubscript:@"kDAEErrorDataKey"];
   v6 = [(CDDADConnection *)self decodedErrorFromData:v5];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
-        v17 = 0;
-        v18 = &v17;
-        v19 = 0x3032000000;
-        v20 = __Block_byref_object_copy_;
-        v21 = __Block_byref_object_dispose_;
-        v22 = 0;
+        v10 = *(*(&v22 + 1) + 8 * v9);
+        v16 = 0;
+        v17 = &v16;
+        v18 = 0x3032000000;
+        v19 = __Block_byref_object_copy_;
+        v20 = __Block_byref_object_dispose_;
+        v21 = 0;
         muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __37__CDDADConnection__downloadFinished___block_invoke;
         block[3] = &unk_278D543A0;
         block[5] = v10;
-        block[6] = &v17;
+        block[6] = &v16;
         block[4] = self;
         dispatch_sync(muckingWithInFlightCollections, block);
-        [v18[5] finishedWithError:{v6, finishedCopy}];
-        _Block_object_dispose(&v17, 8);
+        [v17[5] finishedWithError:{v6, finishedCopy}];
+        _Block_object_dispose(&v16, 8);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__CDDADConnection__downloadFinished___block_invoke(void *a1)
@@ -1330,7 +1306,7 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
 
 - (void)_oofSettingsRequestsFinished:(id)finished
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
   v5 = _CFXPCCreateCFObjectFromXPCObject();
   v6 = [v5 objectForKeyedSubscript:@"kDAEOofRequestIDKey"];
@@ -1345,10 +1321,10 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -1357,7 +1333,7 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
   p_buf = &buf;
   block[4] = self;
   v10 = v6;
-  v26 = v10;
+  v25 = v10;
   dispatch_sync(muckingWithInFlightCollections, block);
   if (*(*(&buf + 1) + 40))
   {
@@ -1382,9 +1358,9 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
             v20 = DALoggingwithCategory(0);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
-              *v28 = 138412290;
-              v29 = consumer3;
-              _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_DEBUG, "Oof settings request results: %@", v28, 0xCu);
+              *v27 = 138412290;
+              v28 = consumer3;
+              _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_DEBUG, "Oof settings request results: %@", v27, 0xCu);
             }
 
             consumer2 = [*(*(&buf + 1) + 40) consumer];
@@ -1396,8 +1372,8 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
             v22 = DALoggingwithCategory(0);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
-              *v28 = 0;
-              _os_log_impl(&dword_242505000, v22, OS_LOG_TYPE_INFO, "Could not deserialize search results from the xpc message", v28, 2u);
+              *v27 = 0;
+              _os_log_impl(&dword_242505000, v22, OS_LOG_TYPE_INFO, "Could not deserialize search results from the xpc message", v27, 2u);
             }
 
             consumer3 = [*(*(&buf + 1) + 40) consumer];
@@ -1422,8 +1398,8 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
       v14 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        *v28 = 0;
-        _os_log_impl(&dword_242505000, v14, OS_LOG_TYPE_INFO, "Status missing from the xpc message", v28, 2u);
+        *v27 = 0;
+        _os_log_impl(&dword_242505000, v14, OS_LOG_TYPE_INFO, "Status missing from the xpc message", v27, 2u);
       }
 
       consumer4 = [*(*(&buf + 1) + 40) consumer];
@@ -1438,18 +1414,17 @@ uint64_t __42__CDDADConnection__shareResponseFinished___block_invoke(void *a1)
     consumer4 = DALoggingwithCategory(0);
     if (os_log_type_enabled(consumer4, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 0;
-      _os_log_impl(&dword_242505000, consumer4, OS_LOG_TYPE_ERROR, "received results for an unknown oof settings request", v28, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_242505000, consumer4, OS_LOG_TYPE_ERROR, "received results for an unknown oof settings request", v27, 2u);
     }
   }
 
   _Block_object_dispose(&buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__CDDADConnection__oofSettingsRequestsFinished___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -1460,16 +1435,14 @@ uint64_t __48__CDDADConnection__oofSettingsRequestsFinished___block_invoke(void 
   {
     v6 = a1[5];
     v7 = *(*(a1[6] + 8) + 40);
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing from inflight dictionary: oof settings request %@ for key %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_242505000, v5, OS_LOG_TYPE_DEBUG, "Removing from inflight dictionary: oof settings request %@ for key %@", &v9, 0x16u);
   }
 
-  result = [*(a1[4] + 104) removeObjectForKey:a1[5]];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 104) removeObjectForKey:a1[5]];
 }
 
 + (id)sharedConnection
@@ -1495,31 +1468,31 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
 - (BOOL)watchFoldersWithKeys:(id)keys forAccountID:(id)d persistent:(BOOL)persistent
 {
   persistentCopy = persistent;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   dCopy = d;
   v9 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = keysCopy;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         null = [MEMORY[0x277CBEB68] null];
         [v9 setObject:null forKey:v15];
 
@@ -1527,44 +1500,77 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
 
   v17 = [(CDDADConnection *)self watchFoldersWithSyncKeyMap:v9 forAccountID:dCopy persistent:persistentCopy];
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
+}
+
+- (BOOL)watchFoldersWithSyncKeyMap:(id)map forAccountID:(id)d persistent:(BOOL)persistent
+{
+  persistentCopy = persistent;
+  v21[4] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  mapCopy = map;
+  [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:127 isUserRequested:0];
+  v20[0] = @"kDAEMessageNameKey";
+  v20[1] = @"kDAEAccountIdKey";
+  v21[0] = @"kDAEBeginMonitoringFolders";
+  v21[1] = dCopy;
+  v21[2] = mapCopy;
+  v20[2] = @"kDAESyncKeyMapKey";
+  v20[3] = @"kDAEPersistentMonitoringKey";
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:persistentCopy];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+
+  v12 = DALoggingwithCategory(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v18 = 136315138;
+    v19 = "[CDDADConnection watchFoldersWithSyncKeyMap:forAccountID:persistent:]";
+    _os_log_impl(&dword_242505000, v12, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v18, 0xCu);
+  }
+
+  v13 = _CFXPCCreateXPCObjectFromCFObject();
+  _connection = [(CDDADConnection *)self _connection];
+  v15 = xpc_connection_send_message_with_reply_sync(_connection, v13);
+
+  v16 = [(CDDADConnection *)self _validateXPCReply:v15];
+  return v16;
 }
 
 - (BOOL)resumeWatchingFoldersWithKeys:(id)keys forAccountID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   dCopy = d;
   v8 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = keysCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         null = [MEMORY[0x277CBEB68] null];
         [v8 setObject:null forKey:v14];
 
@@ -1572,38 +1578,37 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v16 = [(CDDADConnection *)self resumeWatchingFoldersWithSyncKeyMap:v8 forAccountID:dCopy];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)resumeWatchingFoldersWithSyncKeyMap:(id)map forAccountID:(id)d
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   mapCopy = map;
   dCopy = d;
   if (self->_conn)
   {
     [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:127 isUserRequested:0];
-    v18[0] = @"kDAEMessageNameKey";
-    v18[1] = @"kDAEAccountIdKey";
-    v19[0] = @"kDAEResumeMonitoringFolders";
-    v19[1] = dCopy;
-    v18[2] = @"kDAESyncKeyMapKey";
-    v19[2] = mapCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v17[0] = @"kDAEMessageNameKey";
+    v17[1] = @"kDAEAccountIdKey";
+    v18[0] = @"kDAEResumeMonitoringFolders";
+    v18[1] = dCopy;
+    v17[2] = @"kDAESyncKeyMapKey";
+    v18[2] = mapCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     v9 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "[CDDADConnection resumeWatchingFoldersWithSyncKeyMap:forAccountID:]";
-      _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CDDADConnection resumeWatchingFoldersWithSyncKeyMap:forAccountID:]";
+      _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v15, 0xCu);
     }
 
     v10 = _CFXPCCreateXPCObjectFromCFObject();
@@ -1618,37 +1623,36 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
     v8 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_INFO, "[DADConnection resumeWatchingFoldersWithKeys:forAccountID] called without a connection. Will not resume.", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_INFO, "[DADConnection resumeWatchingFoldersWithKeys:forAccountID] called without a connection. Will not resume.", &v15, 2u);
     }
 
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)suspendWatchingFoldersWithKeys:(id)keys forAccountID:(id)d
 {
-  v20[3] = *MEMORY[0x277D85DE8];
-  v19[0] = @"kDAEMessageNameKey";
-  v19[1] = @"kDAEAccountIdKey";
-  v20[0] = @"kDAESuspendMonitoringFolders";
-  v20[1] = d;
-  v19[2] = @"kDAEFolderIDsKey";
-  v20[2] = keys;
+  v19[3] = *MEMORY[0x277D85DE8];
+  v18[0] = @"kDAEMessageNameKey";
+  v18[1] = @"kDAEAccountIdKey";
+  v19[0] = @"kDAESuspendMonitoringFolders";
+  v19[1] = d;
+  v18[2] = @"kDAEFolderIDsKey";
+  v19[2] = keys;
   v6 = MEMORY[0x277CBEAC0];
   dCopy = d;
   keysCopy = keys;
-  v9 = [v6 dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v9 = [v6 dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   v10 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[CDDADConnection suspendWatchingFoldersWithKeys:forAccountID:]";
-    _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[CDDADConnection suspendWatchingFoldersWithKeys:forAccountID:]";
+    _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v16, 0xCu);
   }
 
   v11 = _CFXPCCreateXPCObjectFromCFObject();
@@ -1656,30 +1660,29 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
   v13 = xpc_connection_send_message_with_reply_sync(_connection, v11);
 
   v14 = [(CDDADConnection *)self _validateXPCReply:v13];
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)stopWatchingFoldersWithKeys:(id)keys forAccountID:(id)d
 {
-  v20[3] = *MEMORY[0x277D85DE8];
-  v19[0] = @"kDAEMessageNameKey";
-  v19[1] = @"kDAEAccountIdKey";
-  v20[0] = @"kDAEStopMonitoringFolders";
-  v20[1] = d;
-  v19[2] = @"kDAEFolderIDsKey";
-  v20[2] = keys;
+  v19[3] = *MEMORY[0x277D85DE8];
+  v18[0] = @"kDAEMessageNameKey";
+  v18[1] = @"kDAEAccountIdKey";
+  v19[0] = @"kDAEStopMonitoringFolders";
+  v19[1] = d;
+  v18[2] = @"kDAEFolderIDsKey";
+  v19[2] = keys;
   v6 = MEMORY[0x277CBEAC0];
   dCopy = d;
   keysCopy = keys;
-  v9 = [v6 dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v9 = [v6 dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   v10 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[CDDADConnection stopWatchingFoldersWithKeys:forAccountID:]";
-    _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[CDDADConnection stopWatchingFoldersWithKeys:forAccountID:]";
+    _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_INFO, "XPC call performed in: %s", &v16, 0xCu);
   }
 
   v11 = _CFXPCCreateXPCObjectFromCFObject();
@@ -1687,13 +1690,12 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
   v13 = xpc_connection_send_message_with_reply_sync(_connection, v11);
 
   v14 = [(CDDADConnection *)self _validateXPCReply:v13];
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)_validateXPCReply:(id)reply
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v4 = MEMORY[0x245D11100]();
   if (v4 == MEMORY[0x277D86468])
@@ -1707,9 +1709,9 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
       v10 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = v8;
-        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "XPC Reply Failure. Status Code: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v8;
+        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "XPC Reply Failure. Status Code: %@", &v12, 0xCu);
       }
     }
   }
@@ -1720,52 +1722,50 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
     v6 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_ERROR, "Unsupported XPC reply type. Reply Type: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_ERROR, "Unsupported XPC reply type. Reply Type: %@", &v12, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)requestPolicyUpdateForAccountID:(id)d
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:127 isUserRequested:0];
-  v10[0] = @"kDAEMessageNameKey";
-  v10[1] = @"kDAEAccountIdKey";
-  v11[0] = @"kDAERequestPolicyUpdate";
-  v11[1] = dCopy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"kDAEMessageNameKey";
+  v9[1] = @"kDAEAccountIdKey";
+  v10[0] = @"kDAERequestPolicyUpdate";
+  v10[1] = dCopy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v6 = _CFXPCCreateXPCObjectFromCFObject();
   _connection = [(CDDADConnection *)self _connection];
   xpc_connection_send_message(_connection, v6);
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)currentPolicyKeyForAccountID:(id)d
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = 0;
-  v23[0] = @"kDAEMessageNameKey";
-  v23[1] = @"kDAEAccountIdKey";
-  v24[0] = @"kDAEGetCurrentPolicyKey";
-  v24[1] = dCopy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  v22[0] = @"kDAEMessageNameKey";
+  v22[1] = @"kDAEAccountIdKey";
+  v23[0] = @"kDAEGetCurrentPolicyKey";
+  v23[1] = dCopy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
   v6 = _CFXPCCreateXPCObjectFromCFObject();
   v7 = dispatch_semaphore_create(0);
   _connection = [(CDDADConnection *)self _connection];
@@ -1774,23 +1774,22 @@ uint64_t __35__CDDADConnection_sharedConnection__block_invoke()
   handler[1] = 3221225472;
   handler[2] = __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke;
   handler[3] = &unk_278D543C8;
-  v16 = &v17;
+  v15 = &v16;
   v10 = v7;
-  v15 = v10;
+  v14 = v10;
   xpc_connection_send_message_with_reply(_connection, v6, v9, handler);
 
   dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-  v11 = v18[5];
+  v11 = v17[5];
 
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 
   return v11;
 }
 
 void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MEMORY[0x245D11100]() == MEMORY[0x277D86468])
   {
@@ -1807,18 +1806,16 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
       v10 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315394;
-        v13 = "[CDDADConnection currentPolicyKeyForAccountID:]_block_invoke";
-        v14 = 2112;
-        v15 = v9;
-        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[CDDADConnection currentPolicyKeyForAccountID:]_block_invoke";
+        v13 = 2112;
+        v14 = v9;
+        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v11, 0x16u);
       }
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_nextStopMonitoringStatusToken
@@ -1833,7 +1830,7 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
 {
   replyCopy = reply;
   statusCopy = status;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v9 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
@@ -1843,9 +1840,9 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
       v10 = @"start";
     }
 
-    v22 = 138412290;
-    v23 = v10;
-    _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_INFO, "Requesting that DataAccess %@ monitoring agents.", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v10;
+    _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_INFO, "Requesting that DataAccess %@ monitoring agents.", &v21, 0xCu);
   }
 
   v11 = kDAEStopMonitoringAgents;
@@ -1875,11 +1872,11 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
         v20 = DALoggingwithCategory(0);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315394;
-          v23 = "[CDDADConnection _requestDaemonChangeAgentMonitoringStatus:withToken:waitForReply:]";
-          v24 = 2112;
-          v25 = v19;
-          _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v22, 0x16u);
+          v21 = 136315394;
+          v22 = "[CDDADConnection _requestDaemonChangeAgentMonitoringStatus:withToken:waitForReply:]";
+          v23 = 2112;
+          v24 = v19;
+          _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v21, 0x16u);
         }
       }
     }
@@ -1891,8 +1888,6 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
     _connection2 = [(CDDADConnection *)self _connection];
     xpc_connection_send_message(_connection2, v14);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)requestDaemonStopMonitoringAgents
@@ -1911,31 +1906,145 @@ void __48__CDDADConnection_currentPolicyKeyForAccountID___block_invoke(uint64_t 
 
 - (void)removeStoresForAccountWithID:(id)d
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"kDAEMessageNameKey";
-  v10[1] = @"kDAEAccountIdKey";
-  v11[0] = @"kDAERemoveStoresForAccountWithID";
-  v11[1] = d;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"kDAEMessageNameKey";
+  v9[1] = @"kDAEAccountIdKey";
+  v10[0] = @"kDAERemoveStoresForAccountWithID";
+  v10[1] = d;
   v4 = MEMORY[0x277CBEAC0];
   dCopy = d;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v7 = _CFXPCCreateXPCObjectFromCFObject();
   _connection = [(CDDADConnection *)self _connection];
   xpc_connection_send_message(_connection, v7);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (BOOL)updateFolderListForAccountID:(id)d andDataclasses:(int64_t)dataclasses requireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  foldersCopy = folders;
+  v29 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v11 = DALoggingwithCategory(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138413058;
+    v22 = dCopy;
+    v23 = 2048;
+    dataclassesCopy = dataclasses;
+    v25 = 1024;
+    v26 = foldersCopy;
+    v27 = 1024;
+    v28 = requestedCopy;
+    _os_log_impl(&dword_242505000, v11, OS_LOG_TYPE_DEBUG, "updateFolderListForAccountID %@, dataclasses %lx, requireChangedFolders %d, isUserRequested %d", buf, 0x22u);
+  }
+
+  [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:dataclasses isUserRequested:requestedCopy];
+  [(CDDADConnection *)self _resetThrottleTimersForAccountId:dCopy];
+  v20[0] = @"kDAERequestFolderListUpdate";
+  v20[1] = dCopy;
+  v12 = [MEMORY[0x277CCABB0] numberWithInteger:{dataclasses, @"kDAEMessageNameKey", @"kDAEAccountIdKey", @"kDAEDataclassesBitmaskKey"}];
+  v20[2] = v12;
+  v19[3] = @"kDAERequireChangedFoldersKey";
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:foldersCopy];
+  v20[3] = v13;
+  v19[4] = @"kDAEIsUserRequestedKey";
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:requestedCopy];
+  v20[4] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+
+  v16 = _CFXPCCreateXPCObjectFromCFObject();
+  _connection = [(CDDADConnection *)self _connection];
+  xpc_connection_send_message(_connection, v16);
+
+  return 1;
+}
+
+- (BOOL)updateContentsOfFoldersWithKeys:(id)keys forAccountID:(id)d andDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  v29 = *MEMORY[0x277D85DE8];
+  keysCopy = keys;
+  dCopy = d;
+  v12 = DALoggingwithCategory(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138413058;
+    v22 = keysCopy;
+    v23 = 2112;
+    v24 = dCopy;
+    v25 = 2048;
+    dataclassesCopy = dataclasses;
+    v27 = 1024;
+    v28 = requestedCopy;
+    _os_log_impl(&dword_242505000, v12, OS_LOG_TYPE_DEBUG, "updateContentsOfFoldersWithKeys %@ for account id %@, dataclasses 0x%lx isUserRequested %d", buf, 0x26u);
+  }
+
+  [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:dataclasses isUserRequested:requestedCopy];
+  [(CDDADConnection *)self _resetThrottleTimersForAccountId:dCopy];
+  v20[0] = @"kDAERequestFolderContentsUpdate";
+  v20[1] = dCopy;
+  v13 = [MEMORY[0x277CCABB0] numberWithInteger:{dataclasses, @"kDAEMessageNameKey", @"kDAEAccountIdKey", @"kDAEDataclassesBitmaskKey"}];
+  v20[2] = v13;
+  v19[3] = @"kDAEIsUserRequestedKey";
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:requestedCopy];
+  v19[4] = @"kDAEFolderIDsKey";
+  v20[3] = v14;
+  v20[4] = keysCopy;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+
+  v16 = _CFXPCCreateXPCObjectFromCFObject();
+  _connection = [(CDDADConnection *)self _connection];
+  xpc_connection_send_message(_connection, v16);
+
+  return 1;
+}
+
+- (BOOL)updateContentsOfAllFoldersForAccountID:(id)d andDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  v24 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v9 = DALoggingwithCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412802;
+    v19 = dCopy;
+    v20 = 2048;
+    dataclassesCopy = dataclasses;
+    v22 = 1024;
+    v23 = requestedCopy;
+    _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_DEBUG, "updateContentsOfAllFoldersForAccountID %@, dataclasses 0x%lxx isUserRequested %d", buf, 0x1Cu);
+  }
+
+  [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:dataclasses isUserRequested:requestedCopy];
+  [(CDDADConnection *)self _resetThrottleTimersForAccountId:dCopy];
+  v17[0] = @"kDAERequestAllFolderContentsUpdate";
+  v17[1] = dCopy;
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:{dataclasses, @"kDAEMessageNameKey", @"kDAEAccountIdKey", @"kDAEDataclassesBitmaskKey"}];
+  v17[2] = v10;
+  v16[3] = @"kDAEIsUserRequestedKey";
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:requestedCopy];
+  v17[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+
+  v13 = _CFXPCCreateXPCObjectFromCFObject();
+  _connection = [(CDDADConnection *)self _connection];
+  xpc_connection_send_message(_connection, v13);
+
+  return 1;
 }
 
 - (BOOL)performServerContactsSearch:(id)search forAccountWithID:(id)d
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   searchCopy = search;
   dCopy = d;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   [(CDDADConnection *)self _resetCertWarningsForAccountId:dCopy andDataclasses:8 isUserRequested:0];
   if (!dCopy)
   {
@@ -1969,37 +2078,36 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v31[0] = @"kDAEMessageNameKey";
-  v31[1] = @"kDAEAccountIdKey";
-  v32[0] = @"kDAEOpenServerContactsSearch";
-  v32[1] = dCopy;
-  v31[2] = @"kDAESearchQueryKey";
+  v30[0] = @"kDAEMessageNameKey";
+  v30[1] = @"kDAEAccountIdKey";
+  v31[0] = @"kDAEOpenServerContactsSearch";
+  v31[1] = dCopy;
+  v30[2] = @"kDAESearchQueryKey";
   dictionaryRepresentation = [searchCopy dictionaryRepresentation];
-  v32[2] = dictionaryRepresentation;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v31[2] = dictionaryRepresentation;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
   v12 = _CFXPCCreateXPCObjectFromCFObject();
   v13 = dispatch_semaphore_create(0);
   _connection = [(CDDADConnection *)self _connection];
   v15 = dispatch_get_global_queue(0, 0);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__CDDADConnection_performServerContactsSearch_forAccountWithID___block_invoke;
-  v21[3] = &unk_278D54418;
-  v22 = searchCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __64__CDDADConnection_performServerContactsSearch_forAccountWithID___block_invoke;
+  v20[3] = &unk_278D54418;
+  v21 = searchCopy;
   selfCopy = self;
-  v25 = &v27;
+  v24 = &v26;
   v16 = v13;
-  v24 = v16;
-  xpc_connection_send_message_with_reply(_connection, v12, v15, v21);
+  v23 = v16;
+  xpc_connection_send_message_with_reply(_connection, v12, v15, v20);
 
   dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-  v17 = *(v28 + 24);
+  v17 = *(v27 + 24);
 
 LABEL_10:
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
@@ -2029,27 +2137,25 @@ void __64__CDDADConnection_performServerContactsSearch_forAccountWithID___block_
 
 uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___block_invoke_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Setting search query %@ for key %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Setting search query %@ for key %@", &v6, 0x16u);
   }
 
-  result = [*(a1[6] + 56) setObject:a1[4] forKeyedSubscript:a1[5]];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[6] + 56) setObject:a1[4] forKeyedSubscript:a1[5]];
 }
 
 - (void)cancelServerContactsSearch:(id)search
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   searchCopy = search;
   searchID = [searchCopy searchID];
   v6 = [searchID length];
@@ -2062,16 +2168,16 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v25 = searchCopy;
+      v24 = searchCopy;
       _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_DEBUG, "Cancelling search task %p", buf, 0xCu);
     }
 
     searchID2 = [searchCopy searchID];
-    v22[0] = @"kDAEMessageNameKey";
-    v22[1] = @"kDAESearchIDKey";
-    v23[0] = @"kDAECancelServerContactsSearch";
-    v23[1] = searchID2;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[0] = @"kDAEMessageNameKey";
+    v21[1] = @"kDAESearchIDKey";
+    v22[0] = @"kDAECancelServerContactsSearch";
+    v22[1] = searchID2;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     v10 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)self _connection];
     xpc_connection_send_message(_connection, v10);
@@ -2080,28 +2186,26 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v25 = searchID2;
+      v24 = searchID2;
       _os_log_impl(&dword_242505000, v12, OS_LOG_TYPE_DEBUG, "Removing search query for key %@", buf, 0xCu);
     }
 
     muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __46__CDDADConnection_cancelServerContactsSearch___block_invoke;
-    v19 = &unk_278D542B8;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __46__CDDADConnection_cancelServerContactsSearch___block_invoke;
+    v18 = &unk_278D542B8;
     selfCopy = self;
-    v21 = searchID2;
+    v20 = searchID2;
     v14 = searchID2;
-    dispatch_sync(muckingWithInFlightCollections, &v16);
-    [searchCopy setSearchID:{&stru_2854C3900, v16, v17, v18, v19, selfCopy}];
+    dispatch_sync(muckingWithInFlightCollections, &v15);
+    [searchCopy setSearchID:{&stru_2854C3900, v15, v16, v17, v18, selfCopy}];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processMeetingRequests:(id)requests deliveryIdsToClear:(id)clear deliveryIdsToSoftClear:(id)softClear inFolderWithId:(id)id forAccountWithId:(id)withId
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   clearCopy = clear;
   softClearCopy = softClear;
@@ -2129,7 +2233,7 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDDADConnection processMeetingRequests:deliveryIdsToClear:deliveryIdsToSoftClear:inFolderWithId:forAccountWithId:]";
+    v25 = "[CDDADConnection processMeetingRequests:deliveryIdsToClear:deliveryIdsToSoftClear:inFolderWithId:forAccountWithId:]";
     _os_log_impl(&dword_242505000, v18, OS_LOG_TYPE_INFO, "XPC call performed in: %s", buf, 0xCu);
   }
 
@@ -2138,7 +2242,6 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
   v21 = xpc_connection_send_message_with_reply_sync(_connection, v19);
 
   v22 = [(CDDADConnection *)self _validateXPCReply:v21];
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -2174,7 +2277,7 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
 
 - (BOOL)setFolderIdsThatExternalClientsCareAboutAdded:(id)added deleted:(id)deleted foldersTag:(id)tag forAccountID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   deletedCopy = deleted;
   tagCopy = tag;
@@ -2201,7 +2304,7 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v24 = "[CDDADConnection setFolderIdsThatExternalClientsCareAboutAdded:deleted:foldersTag:forAccountID:]";
+    v23 = "[CDDADConnection setFolderIdsThatExternalClientsCareAboutAdded:deleted:foldersTag:forAccountID:]";
     _os_log_impl(&dword_242505000, v16, OS_LOG_TYPE_INFO, "XPC call performed in: %s", buf, 0xCu);
   }
 
@@ -2210,18 +2313,17 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
   v19 = xpc_connection_send_message_with_reply_sync(_connection, v17);
 
   v20 = [(CDDADConnection *)self _validateXPCReply:v19];
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)reportFolderItemsSyncSuccess:(BOOL)success forFolderWithID:(id)d withItemsCount:(unint64_t)count andAccountWithID:(id)iD
 {
-  v20[5] = *MEMORY[0x277D85DE8];
+  v19[5] = *MEMORY[0x277D85DE8];
   if (d)
   {
-    v20[0] = @"kDAEReportFolderItemsSyncResult";
-    v19[0] = @"kDAEMessageNameKey";
-    v19[1] = @"kDAEStatusKey";
+    v19[0] = @"kDAEReportFolderItemsSyncResult";
+    v18[0] = @"kDAEMessageNameKey";
+    v18[1] = @"kDAEStatusKey";
     v9 = MEMORY[0x277CCABB0];
     if (success)
     {
@@ -2236,34 +2338,32 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
     iDCopy = iD;
     dCopy = d;
     v13 = [v9 numberWithInteger:v10];
-    v20[1] = v13;
-    v20[2] = dCopy;
-    v19[2] = @"kDAEFolderIDKey";
-    v19[3] = @"kDAEFolderSyncItemsCountKey";
+    v19[1] = v13;
+    v19[2] = dCopy;
+    v18[2] = @"kDAEFolderIDKey";
+    v18[3] = @"kDAEFolderSyncItemsCountKey";
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
-    v19[4] = @"kDAEAccountIdKey";
-    v20[3] = v14;
-    v20[4] = iDCopy;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+    v18[4] = @"kDAEAccountIdKey";
+    v19[3] = v14;
+    v19[4] = iDCopy;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
 
     v16 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)self _connection];
     xpc_connection_send_message(_connection, v16);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:(id)l
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   absoluteString = [l absoluteString];
   v5 = CFURLCreateStringByAddingPercentEscapes(*MEMORY[0x277CBECE8], absoluteString, 0, @"&=", 0x8000100u);
-  v10[0] = @"kDAEMessageNameKey";
-  v10[1] = @"kDAEURLStringKey";
-  v11[0] = @"kDAEHandleURL";
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"kDAEMessageNameKey";
+  v9[1] = @"kDAEURLStringKey";
+  v10[0] = @"kDAEHandleURL";
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = _CFXPCCreateXPCObjectFromCFObject();
   _connection = [(CDDADConnection *)self _connection];
   xpc_connection_send_message(_connection, v7);
@@ -2272,8 +2372,6 @@ uint64_t __64__CDDADConnection_performServerContactsSearch_forAccountWithID___bl
   {
     CFRelease(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendSynchronousXPCMessageWithParameters:(id)parameters handlerBlock:(id)block
@@ -2312,7 +2410,7 @@ void __73__CDDADConnection__sendSynchronousXPCMessageWithParameters_handlerBlock
 
 - (id)beginDownloadingAttachmentWithUUID:(id)d accountID:(id)iD queue:(id)queue progressBlock:(id)block completionBlock:(id)completionBlock
 {
-  v37[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   queueCopy = queue;
@@ -2329,43 +2427,42 @@ void __73__CDDADConnection__sendSynchronousXPCMessageWithParameters_handlerBlock
   }
 
   v18 = [[DADownloadContext alloc] initWithAttachmentUUID:dCopy accountID:iDCopy queue:queueCopy downloadProgressBlock:blockCopy completionBlock:completionBlockCopy];
-  v36[0] = @"kDAEMessageNameKey";
-  v36[1] = @"kDAEAttachmentUUIDKey";
-  v37[0] = @"kDAEBeginDownloadingAttachment";
-  v37[1] = dCopy;
-  v36[2] = @"kDAEAccountIdKey";
-  v37[2] = iDCopy;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+  v35[0] = @"kDAEMessageNameKey";
+  v35[1] = @"kDAEAttachmentUUIDKey";
+  v36[0] = @"kDAEBeginDownloadingAttachment";
+  v36[1] = dCopy;
+  v35[2] = @"kDAEAccountIdKey";
+  v36[2] = iDCopy;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
-  v35 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_progressBlock_completionBlock___block_invoke;
-  v26[3] = &unk_278D54490;
-  v31 = buf;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_progressBlock_completionBlock___block_invoke;
+  v25[3] = &unk_278D54490;
+  v30 = buf;
   v20 = dCopy;
-  v27 = v20;
+  v26 = v20;
   v21 = iDCopy;
-  v28 = v21;
+  v27 = v21;
   selfCopy = self;
   v22 = v18;
-  v30 = v22;
-  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v19 handlerBlock:v26];
+  v29 = v22;
+  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v19 handlerBlock:v25];
   v23 = *(*&buf[8] + 40);
 
   _Block_object_dispose(buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 void __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_progressBlock_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"kDAEAttachmentDownloadIdKey"];
   v4 = *(*(a1 + 64) + 8);
   v5 = *(v4 + 40);
@@ -2378,11 +2475,11 @@ void __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_p
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
     *buf = 138412802;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
     _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_INFO, "Download context %@ set up for downloading attachment UUID %@ on accountID %@", buf, 0x20u);
   }
 
@@ -2393,68 +2490,64 @@ void __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_p
   block[2] = __100__CDDADConnection_beginDownloadingAttachmentWithUUID_accountID_queue_progressBlock_completionBlock___block_invoke_141;
   block[3] = &unk_278D54468;
   block[4] = v10;
-  v14 = *(a1 + 56);
-  v12 = v14;
-  v16 = v14;
+  v13 = *(a1 + 56);
+  v12 = v13;
+  v15 = v13;
   dispatch_sync(v11, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelDownloadsWithIDs:(id)ds error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   errorCopy = error;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = dsCopy;
-  v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
-        v16 = 0;
-        v17 = &v16;
-        v18 = 0x3032000000;
-        v19 = __Block_byref_object_copy_;
-        v20 = __Block_byref_object_dispose_;
-        v21 = 0;
+        v11 = *(*(&v21 + 1) + 8 * v10);
+        v15 = 0;
+        v16 = &v15;
+        v17 = 0x3032000000;
+        v18 = __Block_byref_object_copy_;
+        v19 = __Block_byref_object_dispose_;
+        v20 = 0;
         muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __49__CDDADConnection__cancelDownloadsWithIDs_error___block_invoke;
         block[3] = &unk_278D543A0;
         block[5] = v11;
-        block[6] = &v16;
+        block[6] = &v15;
         block[4] = self;
         dispatch_sync(muckingWithInFlightCollections, block);
-        [v17[5] finishedWithError:errorCopy];
-        _Block_object_dispose(&v16, 8);
+        [v16[5] finishedWithError:errorCopy];
+        _Block_object_dispose(&v15, 8);
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__CDDADConnection__cancelDownloadsWithIDs_error___block_invoke(void *a1)
@@ -2472,38 +2565,36 @@ uint64_t __49__CDDADConnection__cancelDownloadsWithIDs_error___block_invoke(void
 
 - (void)cancelDownloadingAttachmentWithDownloadID:(id)d error:(id)error
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v18[0] = @"kDAECancelDownloadingAttachment";
-  v17[0] = @"kDAEMessageNameKey";
-  v17[1] = @"kDAEErrorDataKey";
+  v17[0] = @"kDAECancelDownloadingAttachment";
+  v16[0] = @"kDAEMessageNameKey";
+  v16[1] = @"kDAEErrorDataKey";
   v7 = MEMORY[0x277CCAAB0];
   errorCopy = error;
   v9 = [v7 archivedDataWithRootObject:errorCopy];
-  v17[2] = @"kDAEAttachmentDownloadIdKey";
-  v18[1] = v9;
-  v18[2] = dCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v16[2] = @"kDAEAttachmentDownloadIdKey";
+  v17[1] = v9;
+  v17[2] = dCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   v11 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = dCopy;
+    v15 = dCopy;
     _os_log_impl(&dword_242505000, v11, OS_LOG_TYPE_INFO, "Cancelling Download of attachment with downloadID %@", buf, 0xCu);
   }
 
   [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v10 handlerBlock:0];
-  v14 = dCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = dCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   [(CDDADConnection *)self _cancelDownloadsWithIDs:v12 error:errorCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)respondToSharedCalendarInvite:(int64_t)invite forCalendarWithID:(id)d accountID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   blockCopy = block;
@@ -2513,45 +2604,43 @@ uint64_t __49__CDDADConnection__cancelDownloadsWithIDs_error___block_invoke(void
   {
     *buf = 134218498;
     inviteCopy = invite;
-    v33 = 2112;
-    v34 = dCopy;
-    v35 = 2112;
-    v36 = iDCopy;
+    v32 = 2112;
+    v33 = dCopy;
+    v34 = 2112;
+    v35 = iDCopy;
     _os_log_impl(&dword_242505000, v16, OS_LOG_TYPE_DEBUG, "Requesting share response %ld for calendar %@ for accountID %@", buf, 0x20u);
   }
 
   v17 = [[DASharedCalendarContext alloc] initWithCalendarID:dCopy accountID:iDCopy queue:queueCopy completionBlock:blockCopy];
   [(DASharedCalendarContext *)v17 setShouldSyncCalendar:invite == 1];
-  v29[0] = @"kDAEMessageNameKey";
-  v29[1] = @"kDAEAccountIdKey";
-  v30[0] = @"kDAERespondToSharedCalendar";
-  v30[1] = iDCopy;
-  v29[2] = @"kDAESharedCalendarReponseTypeKey";
+  v28[0] = @"kDAEMessageNameKey";
+  v28[1] = @"kDAEAccountIdKey";
+  v29[0] = @"kDAERespondToSharedCalendar";
+  v29[1] = iDCopy;
+  v28[2] = @"kDAESharedCalendarReponseTypeKey";
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:invite];
-  v29[3] = @"kDAESharedCalendarResponseCalendarIDKey";
-  v30[2] = v18;
-  v30[3] = dCopy;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+  v28[3] = @"kDAESharedCalendarResponseCalendarIDKey";
+  v29[2] = v18;
+  v29[3] = dCopy;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accountID_queue_completionBlock___block_invoke;
-  v24[3] = &unk_278D544B8;
-  v25 = dCopy;
-  v26 = iDCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accountID_queue_completionBlock___block_invoke;
+  v23[3] = &unk_278D544B8;
+  v24 = dCopy;
+  v25 = iDCopy;
   selfCopy = self;
-  v28 = v17;
+  v27 = v17;
   v20 = v17;
   v21 = iDCopy;
   v22 = dCopy;
-  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v19 handlerBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v19 handlerBlock:v23];
 }
 
 void __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accountID_queue_completionBlock___block_invoke(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"kDAESharedCalendarActionIdKey"];
   v4 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -2559,11 +2648,11 @@ void __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accou
     v5 = a1[4];
     v6 = a1[5];
     *buf = 138412802;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
     _os_log_impl(&dword_242505000, v4, OS_LOG_TYPE_DEBUG, "Share request %@ set up for sharing calendar id %@ on accountID %@", buf, 0x20u);
   }
 
@@ -2575,17 +2664,15 @@ void __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accou
   block[2] = __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accountID_queue_completionBlock___block_invoke_145;
   block[3] = &unk_278D543F0;
   block[4] = v8;
-  v13 = v3;
-  v14 = v7;
+  v12 = v3;
+  v13 = v7;
   v10 = v3;
   dispatch_sync(v9, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportSharedCalendarInviteAsJunkForCalendarWithID:(id)d accountID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   blockCopy = block;
@@ -2594,40 +2681,38 @@ void __99__CDDADConnection_respondToSharedCalendarInvite_forCalendarWithID_accou
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = iDCopy;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = iDCopy;
     _os_log_impl(&dword_242505000, v14, OS_LOG_TYPE_DEBUG, "Reporting calendar %@ for accountID %@ as junk", buf, 0x16u);
   }
 
   v15 = [[DASharedCalendarContext alloc] initWithCalendarID:dCopy accountID:iDCopy queue:queueCopy completionBlock:blockCopy];
   [(DASharedCalendarContext *)v15 setShouldSyncCalendar:0];
-  v26[0] = @"kDAEMessageNameKey";
-  v26[1] = @"kDAEAccountIdKey";
-  v27[0] = @"kDAEReportSharedCalendarAsJunk";
-  v27[1] = iDCopy;
-  v26[2] = @"kDAESharedCalendarResponseCalendarIDKey";
-  v27[2] = dCopy;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_accountID_queue_completionBlock___block_invoke;
-  v21[3] = &unk_278D544B8;
-  v22 = dCopy;
-  v23 = iDCopy;
+  v25[0] = @"kDAEMessageNameKey";
+  v25[1] = @"kDAEAccountIdKey";
+  v26[0] = @"kDAEReportSharedCalendarAsJunk";
+  v26[1] = iDCopy;
+  v25[2] = @"kDAESharedCalendarResponseCalendarIDKey";
+  v26[2] = dCopy;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_accountID_queue_completionBlock___block_invoke;
+  v20[3] = &unk_278D544B8;
+  v21 = dCopy;
+  v22 = iDCopy;
   selfCopy = self;
-  v25 = v15;
+  v24 = v15;
   v17 = v15;
   v18 = iDCopy;
   v19 = dCopy;
-  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v16 handlerBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v16 handlerBlock:v20];
 }
 
 void __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_accountID_queue_completionBlock___block_invoke(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"kDAESharedCalendarActionIdKey"];
   v4 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -2635,11 +2720,11 @@ void __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_ac
     v5 = a1[4];
     v6 = a1[5];
     *buf = 138412802;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
     _os_log_impl(&dword_242505000, v4, OS_LOG_TYPE_DEBUG, "Share request %@ set up for sharing calendar id %@ on accountID %@", buf, 0x20u);
   }
 
@@ -2651,17 +2736,15 @@ void __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_ac
   block[2] = __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_accountID_queue_completionBlock___block_invoke_146;
   block[3] = &unk_278D543F0;
   block[4] = v8;
-  v13 = v3;
-  v14 = v7;
+  v12 = v3;
+  v13 = v7;
   v10 = v3;
   dispatch_sync(v9, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processFolderChange:(id)change forAccountWithID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v7 = MEMORY[0x277CCAAB0];
   dCopy = d;
@@ -2672,7 +2755,7 @@ void __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_ac
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDDADConnection processFolderChange:forAccountWithID:]";
+    v25 = "[CDDADConnection processFolderChange:forAccountWithID:]";
     _os_log_impl(&dword_242505000, v11, OS_LOG_TYPE_INFO, "XPC call performed in: %s", buf, 0xCu);
   }
 
@@ -2692,50 +2775,47 @@ void __101__CDDADConnection_reportSharedCalendarInviteAsJunkForCalendarWithID_ac
     block[2] = __56__CDDADConnection_processFolderChange_forAccountWithID___block_invoke;
     block[3] = &unk_278D544E0;
     selfCopy = self;
-    v24 = unsignedIntegerValue;
-    v22 = changeCopy;
+    v23 = unsignedIntegerValue;
+    v21 = changeCopy;
     dispatch_sync(muckingWithInFlightCollections, block);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __56__CDDADConnection_processFolderChange_forAccountWithID___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     v4 = a1[6];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v4;
-    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Setting folder change %@ for key %lu", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v4;
+    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Setting folder change %@ for key %lu", &v8, 0x16u);
   }
 
   v5 = a1[4];
   v6 = *(a1[5] + 64);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
   [v6 setObject:v5 forKeyedSubscript:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)statusReports
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
-  v22 = @"kDAEMessageNameKey";
-  v23[0] = @"kDAEGetStatusReports";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[1] = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
+  v21 = @"kDAEMessageNameKey";
+  v22[0] = @"kDAEGetStatusReports";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v4 = _CFXPCCreateXPCObjectFromCFObject();
   v5 = dispatch_semaphore_create(0);
   _connection = [(CDDADConnection *)self _connection];
@@ -2744,24 +2824,23 @@ void __56__CDDADConnection_processFolderChange_forAccountWithID___block_invoke(v
   handler[1] = 3221225472;
   handler[2] = __32__CDDADConnection_statusReports__block_invoke;
   handler[3] = &unk_278D543C8;
-  v15 = &v16;
+  v14 = &v15;
   v8 = v5;
-  v14 = v8;
+  v13 = v8;
   xpc_connection_send_message_with_reply(_connection, v4, v7, handler);
 
   v9 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v8, v9);
-  v10 = v17[5];
+  v10 = v16[5];
 
-  _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v10;
 }
 
 void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MEMORY[0x245D11100]() == MEMORY[0x277D86468])
   {
@@ -2778,42 +2857,38 @@ void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
       v10 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315394;
-        v13 = "[CDDADConnection statusReports]_block_invoke";
-        v14 = 2112;
-        v15 = v9;
-        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[CDDADConnection statusReports]_block_invoke";
+        v13 = 2112;
+        v14 = v9;
+        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Server error in %s communicating with daemon: %@", &v11, 0x16u);
       }
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reallyRegisterForInterrogation
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_statusReportBlock && ![(CDDADConnection *)self registered])
   {
     [(CDDADConnection *)self setRegistered:1];
     v3 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_242505000, v3, OS_LOG_TYPE_INFO, "Sending message: kDAERegisterForInterrogation", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_242505000, v3, OS_LOG_TYPE_INFO, "Sending message: kDAERegisterForInterrogation", v7, 2u);
     }
 
-    v9 = @"kDAEMessageNameKey";
-    v10[0] = @"kDAERegisterForInterrogation";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"kDAEMessageNameKey";
+    v9[0] = @"kDAERegisterForInterrogation";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v5 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)self _connection];
     xpc_connection_send_message(_connection, v5);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerForInterrogationWithBlock:(id)block
@@ -2842,38 +2917,37 @@ void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
 
 - (void)fillOutCurrentEASTimeZoneInfo
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"kDAEMessageNameKey";
-  v13[0] = @"kDAEFillOutEASTimeZoneInfo";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"kDAEMessageNameKey";
+  v12[0] = @"kDAEFillOutEASTimeZoneInfo";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v4 = _CFXPCCreateXPCObjectFromCFObject();
   v5 = dispatch_semaphore_create(0);
   _connection = [(CDDADConnection *)self _connection];
   v7 = dispatch_get_global_queue(0, 0);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__CDDADConnection_fillOutCurrentEASTimeZoneInfo__block_invoke;
-  v10[3] = &unk_278D54508;
-  v11 = v5;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__CDDADConnection_fillOutCurrentEASTimeZoneInfo__block_invoke;
+  v9[3] = &unk_278D54508;
+  v10 = v5;
   v8 = v5;
-  xpc_connection_send_message_with_reply(_connection, v4, v7, v10);
+  xpc_connection_send_message_with_reply(_connection, v4, v7, v9);
 
   dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)activeSyncDeviceIdentifier
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
-  v23 = 0;
-  v24 = @"kDAEMessageNameKey";
-  v25[0] = @"kDAEGetActiveSyncDeviceIdentifier";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
+  v23 = @"kDAEMessageNameKey";
+  v24[0] = @"kDAEGetActiveSyncDeviceIdentifier";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v4 = 3;
   while (1)
   {
@@ -2885,13 +2959,13 @@ void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
     handler[1] = 3221225472;
     handler[2] = __45__CDDADConnection_activeSyncDeviceIdentifier__block_invoke;
     handler[3] = &unk_278D543C8;
-    v17 = &v18;
+    v16 = &v17;
     v9 = v6;
-    v16 = v9;
+    v15 = v9;
     xpc_connection_send_message_with_reply(_connection, v5, v8, handler);
 
     dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-    if (v19[5])
+    if (v18[5])
     {
       break;
     }
@@ -2899,8 +2973,8 @@ void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
     v10 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Error getting activesync device identifier, will try again", v14, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Error getting activesync device identifier, will try again", v13, 2u);
     }
 
     if (!--v4)
@@ -2910,10 +2984,9 @@ void __32__CDDADConnection_statusReports__block_invoke(uint64_t a1, void *a2)
   }
 
 LABEL_8:
-  v11 = v19[5];
+  v11 = v18[5];
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 
   return v11;
 }
@@ -2931,6 +3004,71 @@ void __45__CDDADConnection_activeSyncDeviceIdentifier__block_invoke(uint64_t a1,
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
+}
+
+- (BOOL)_performOofSettingsRequest:(id)request forAccountWithID:(id)d forUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v34[3] = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  dCopy = d;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  if (dCopy)
+  {
+    v10 = objc_alloc(MEMORY[0x277CBEB38]);
+    v33[0] = @"kDAEMessageNameKey";
+    v33[1] = @"kDAEAccountIdKey";
+    v34[0] = @"kDAEOofSettings";
+    v34[1] = dCopy;
+    v33[2] = @"kDAEOofIsUpdateKey";
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:updateCopy];
+    v34[2] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v13 = [v10 initWithDictionary:v12];
+
+    if (updateCopy)
+    {
+      dictionaryRepresentation = [requestCopy dictionaryRepresentation];
+      [v13 setObject:dictionaryRepresentation forKeyedSubscript:@"kDAEOofSettingsRequestKey"];
+    }
+
+    v15 = _CFXPCCreateXPCObjectFromCFObject();
+    v16 = dispatch_semaphore_create(0);
+    _connection = [(CDDADConnection *)self _connection];
+    v18 = dispatch_get_global_queue(0, 0);
+    handler[0] = MEMORY[0x277D85DD0];
+    handler[1] = 3221225472;
+    handler[2] = __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUpdate___block_invoke;
+    handler[3] = &unk_278D54558;
+    v23 = requestCopy;
+    selfCopy = self;
+    v27 = updateCopy;
+    v26 = &v29;
+    v19 = v16;
+    v25 = v19;
+    xpc_connection_send_message_with_reply(_connection, v15, v18, handler);
+
+    dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+    v20 = *(v30 + 24);
+  }
+
+  else
+  {
+    v13 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_242505000, v13, OS_LOG_TYPE_ERROR, "nil accountID passed to performASSettingsRequest. Cannot continue.", buf, 2u);
+    }
+
+    v20 = 0;
+  }
+
+  _Block_object_dispose(&v29, 8);
+  return v20 & 1;
 }
 
 void __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUpdate___block_invoke(uint64_t a1, void *a2)
@@ -2960,7 +3098,7 @@ void __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUpdate
 
 uint64_t __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUpdate___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -2976,32 +3114,30 @@ uint64_t __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUp
 
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Adding to inflight dictionary: oof %@ request %@ for key %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_242505000, v2, OS_LOG_TYPE_DEBUG, "Adding to inflight dictionary: oof %@ request %@ for key %@", &v7, 0x20u);
   }
 
-  result = [*(*(a1 + 48) + 104) setObject:*(a1 + 32) forKeyedSubscript:*(a1 + 40)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 48) + 104) setObject:*(a1 + 32) forKeyedSubscript:*(a1 + 40)];
 }
 
 - (void)isOofSettingsSupportedForAccountWithID:(id)d completionBlock:(id)block
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   if (dCopy)
   {
-    v16[0] = @"kDAEMessageNameKey";
-    v16[1] = @"kDAEAccountIdKey";
-    v17[0] = @"kDAEIsOofSettingsSupported";
-    v17[1] = dCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"kDAEMessageNameKey";
+    v15[1] = @"kDAEAccountIdKey";
+    v16[0] = @"kDAEIsOofSettingsSupported";
+    v16[1] = dCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v9 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)self _connection];
     v11 = dispatch_get_global_queue(0, 0);
@@ -3009,7 +3145,7 @@ uint64_t __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUp
     handler[1] = 3221225472;
     handler[2] = __74__CDDADConnection_isOofSettingsSupportedForAccountWithID_completionBlock___block_invoke;
     handler[3] = &unk_278D54580;
-    v14 = blockCopy;
+    v13 = blockCopy;
     xpc_connection_send_message_with_reply(_connection, v9, v11, handler);
   }
 
@@ -3022,8 +3158,6 @@ uint64_t __73__CDDADConnection__performOofSettingsRequest_forAccountWithID_forUp
       _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_ERROR, "nil accountID passed to isOofSettingsSupportedForAccountWithID. Cannot continue.", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CDDADConnection_isOofSettingsSupportedForAccountWithID_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -3055,7 +3189,7 @@ void __74__CDDADConnection_isOofSettingsSupportedForAccountWithID_completionBloc
 
 - (id)requestCalendarAvailabilityWithAccountID:(id)d startDate:(id)date endDate:(id)endDate ignoredEventID:(id)iD addresses:(id)addresses resultsBlock:(id)block completionBlock:(id)completionBlock
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   endDateCopy = endDate;
@@ -3063,12 +3197,12 @@ void __74__CDDADConnection_isOofSettingsSupportedForAccountWithID_completionBloc
   addressesCopy = addresses;
   blockCopy = block;
   completionBlockCopy = completionBlock;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy_;
-  v55 = __Block_byref_object_dispose_;
-  v56 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy_;
+  v54 = __Block_byref_object_dispose_;
+  v55 = 0;
   v20 = dCopy;
   if (!dCopy)
   {
@@ -3076,7 +3210,7 @@ void __74__CDDADConnection_isOofSettingsSupportedForAccountWithID_completionBloc
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = 0;
+      v57 = 0;
       v22 = "Invalid 'accountID' provided: [%@].";
       v23 = v21;
       v24 = 12;
@@ -3095,9 +3229,9 @@ LABEL_10:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v58 = dateCopy;
-      v59 = 2112;
-      v60 = endDateCopy;
+      v57 = dateCopy;
+      v58 = 2112;
+      v59 = endDateCopy;
       v22 = "Invalid 'startDate' [%@] and/or 'endDate' [%@] provided.";
       v23 = v21;
       v24 = 22;
@@ -3111,61 +3245,61 @@ LABEL_9:
 
   if (addressesCopy && [addressesCopy count])
   {
-    v37 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v36 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413314;
-      v58 = v20;
-      v59 = 2112;
-      v60 = dateCopy;
-      v61 = 2112;
-      v62 = endDateCopy;
-      v63 = 2112;
-      v64 = iDCopy;
-      v65 = 2112;
-      v66 = addressesCopy;
-      _os_log_impl(&dword_242505000, v37, OS_LOG_TYPE_DEBUG, "Preparing calendar availability request.  accountID: [%@] startDate: [%@] endDate: [%@] ignoredEventID: [%@] addresses: [%@]", buf, 0x34u);
+      v57 = v20;
+      v58 = 2112;
+      v59 = dateCopy;
+      v60 = 2112;
+      v61 = endDateCopy;
+      v62 = 2112;
+      v63 = iDCopy;
+      v64 = 2112;
+      v65 = addressesCopy;
+      _os_log_impl(&dword_242505000, v36, OS_LOG_TYPE_DEBUG, "Preparing calendar availability request.  accountID: [%@] startDate: [%@] endDate: [%@] ignoredEventID: [%@] addresses: [%@]", buf, 0x34u);
     }
 
-    v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v38 setObject:@"kDAERequestCalendarAvailability" forKey:@"kDAEMessageNameKey"];
-    [v38 setObject:v20 forKey:@"kDAEAccountIdKey"];
-    [v38 setObject:dateCopy forKey:@"kDAEStartDateKey"];
-    [v38 setObject:endDateCopy forKey:@"kDAEEndDateKey"];
-    [v38 setObject:addressesCopy forKey:@"kDAEAddressesKey"];
+    v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v37 setObject:@"kDAERequestCalendarAvailability" forKey:@"kDAEMessageNameKey"];
+    [v37 setObject:v20 forKey:@"kDAEAccountIdKey"];
+    [v37 setObject:dateCopy forKey:@"kDAEStartDateKey"];
+    [v37 setObject:endDateCopy forKey:@"kDAEEndDateKey"];
+    [v37 setObject:addressesCopy forKey:@"kDAEAddressesKey"];
     if (iDCopy)
     {
-      [v38 setObject:iDCopy forKey:@"kDAEIgnoredEventIDKey"];
+      [v37 setObject:iDCopy forKey:@"kDAEIgnoredEventIDKey"];
     }
 
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_153;
-    v43[3] = &unk_278D545D0;
-    v47[1] = &v51;
-    v46 = blockCopy;
-    v47[0] = completionBlockCopy;
-    v30 = v38;
-    v44 = v30;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_153;
+    v42[3] = &unk_278D545D0;
+    v46[1] = &v50;
+    v45 = blockCopy;
+    v46[0] = completionBlockCopy;
+    v30 = v37;
+    v43 = v30;
     selfCopy = self;
-    [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v30 handlerBlock:v43];
+    [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v30 handlerBlock:v42];
 
     v32 = completionBlockCopy;
-    v40 = dateCopy;
+    v39 = dateCopy;
     v27 = endDateCopy;
     v28 = v20;
     v29 = addressesCopy;
     v25 = 0;
-    v31 = &v46;
-    v33 = v47;
+    v31 = &v45;
+    v33 = v46;
     goto LABEL_15;
   }
 
-  v39 = DALoggingwithCategory(0);
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v38 = DALoggingwithCategory(0);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_242505000, v39, OS_LOG_TYPE_DEBUG, "No 'addresses' provided.", buf, 2u);
+    _os_log_impl(&dword_242505000, v38, OS_LOG_TYPE_DEBUG, "No 'addresses' provided.", buf, 2u);
   }
 
   v25 = 0;
@@ -3179,7 +3313,7 @@ LABEL_11:
 
   if (completionBlockCopy)
   {
-    v40 = dateCopy;
+    v39 = dateCopy;
     v27 = endDateCopy;
     v28 = v20;
     v29 = addressesCopy;
@@ -3188,33 +3322,32 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke;
     block[3] = &unk_278D545A8;
-    v31 = &v50;
+    v31 = &v49;
     v32 = completionBlockCopy;
-    v50 = completionBlockCopy;
-    v33 = &v49;
+    v49 = completionBlockCopy;
+    v33 = &v48;
     v25 = v25;
-    v49 = v25;
+    v48 = v25;
     dispatch_async(v30, block);
 LABEL_15:
 
     addressesCopy = v29;
-    dateCopy = v40;
+    dateCopy = v39;
     v20 = v28;
     endDateCopy = v27;
     completionBlockCopy = v32;
   }
 
-  v34 = v52[5];
+  v34 = v51[5];
 
-  _Block_object_dispose(&v51, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 
   return v34;
 }
 
 void __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_153(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"kDAECalendarAvailabilityRequestIDKey"];
   v4 = *(a1[8] + 8);
   v5 = *(v4 + 40);
@@ -3227,11 +3360,11 @@ void __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_e
     v8 = *(*(a1[8] + 8) + 40);
     v9 = a1[4];
     *buf = 138412802;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v6;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v6;
     _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_DEBUG, "Received request ID [%@] for request with attributes: [%@].  Associated context: [%@]", buf, 0x20u);
   }
 
@@ -3242,45 +3375,43 @@ void __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_e
   block[2] = __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_155;
   block[3] = &unk_278D54468;
   v12 = a1[8];
-  v16 = v6;
-  v17 = v12;
+  v15 = v6;
+  v16 = v12;
   block[4] = v10;
   v13 = v6;
   dispatch_sync(v11, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCalendarAvailabilityRequestWithID:(id)d
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    v19[0] = @"kDAEMessageNameKey";
-    v19[1] = @"kDAECalendarAvailabilityRequestIDKey";
-    v20[0] = @"kDAECancelCalendarAvailabilityRequest";
-    v20[1] = dCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = @"kDAEMessageNameKey";
+    v18[1] = @"kDAECalendarAvailabilityRequestIDKey";
+    v19[0] = @"kDAECancelCalendarAvailabilityRequest";
+    v19[1] = dCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v6 handlerBlock:0];
     *buf = 0;
-    v14 = buf;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy_;
-    v17 = __Block_byref_object_dispose_;
-    v18 = 0;
+    v13 = buf;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy_;
+    v16 = __Block_byref_object_dispose_;
+    v17 = 0;
     muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_invoke;
     block[3] = &unk_278D543A0;
-    v12 = buf;
+    v11 = buf;
     block[4] = self;
-    v11 = v5;
+    v10 = v5;
     dispatch_sync(muckingWithInFlightCollections, block);
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
-    [*(v14 + 5) finishedWithError:v8];
+    [*(v13 + 5) finishedWithError:v8];
 
     _Block_object_dispose(buf, 8);
   }
@@ -3294,8 +3425,6 @@ void __132__CDDADConnection_requestCalendarAvailabilityWithAccountID_startDate_e
       _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEBUG, "nil 'requestID' provided.  Will not cancel any calendar availability requests.", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_invoke(void *a1)
@@ -3313,7 +3442,7 @@ uint64_t __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_i
 
 - (void)_calendarAvailabilityRequestReturnedResults:(id)results
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v5 = _CFXPCCreateCFObjectFromXPCObject();
   v6 = [v5 objectForKeyedSubscript:@"kDAECalendarAvailabilityRequestIDKey"];
@@ -3324,9 +3453,9 @@ uint64_t __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_i
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = [v9 setWithObjects:{v10, v11, v12, objc_opt_class(), 0}];
-  v23 = 0;
-  v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v7 error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v7 error:&v22];
+  v15 = v22;
 
   if (!v14)
   {
@@ -3341,10 +3470,10 @@ uint64_t __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_i
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -3353,20 +3482,16 @@ uint64_t __59__CDDADConnection_cancelCalendarAvailabilityRequestWithID___block_i
   p_buf = &buf;
   block[4] = self;
   v18 = v6;
-  v21 = v18;
+  v20 = v18;
   dispatch_sync(muckingWithInFlightCollections, block);
   [*(*(&buf + 1) + 40) resultsReturned:v14];
 
   _Block_object_dispose(&buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__CDDADConnection__calendarAvailabilityRequestReturnedResults___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 80) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 80) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -3414,18 +3539,18 @@ uint64_t __56__CDDADConnection__calendarAvailabilityRequestFinished___block_invo
 
 - (id)performCalendarDirectorySearchWithAccountID:(id)d terms:(id)terms recordTypes:(id)types resultLimit:(unint64_t)limit resultsBlock:(id)block completionBlock:(id)completionBlock
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dCopy = d;
   termsCopy = terms;
   typesCopy = types;
   blockCopy = block;
   completionBlockCopy = completionBlock;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
-  v48 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = 0;
   if (dCopy)
   {
     if (termsCopy && [termsCopy count])
@@ -3436,13 +3561,13 @@ uint64_t __56__CDDADConnection__calendarAvailabilityRequestFinished___block_invo
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138413058;
-          v50 = dCopy;
-          v51 = 2112;
-          v52 = typesCopy;
-          v53 = 2048;
+          v49 = dCopy;
+          v50 = 2112;
+          v51 = typesCopy;
+          v52 = 2048;
           limitCopy = limit;
-          v55 = 2112;
-          v56 = termsCopy;
+          v54 = 2112;
+          v55 = termsCopy;
           _os_log_impl(&dword_242505000, v19, OS_LOG_TYPE_DEBUG, "Preparing calendar directory search.  accountID: [%@] recordTypes:[%@] resultLimit: [%lu] terms: [%@]", buf, 0x2Au);
         }
 
@@ -3458,21 +3583,21 @@ uint64_t __56__CDDADConnection__calendarAvailabilityRequestFinished___block_invo
         v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
         [v20 setObject:v23 forKey:@"kDAECalendarDirectorySearchResultLimitKey"];
 
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_recordTypes_resultLimit_resultsBlock_completionBlock___block_invoke_157;
-        v35[3] = &unk_278D545D0;
-        v39[1] = &v43;
-        v38 = blockCopy;
-        v39[0] = completionBlockCopy;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_recordTypes_resultLimit_resultsBlock_completionBlock___block_invoke_157;
+        v34[3] = &unk_278D545D0;
+        v38[1] = &v42;
+        v37 = blockCopy;
+        v38[0] = completionBlockCopy;
         v24 = v20;
-        v36 = v24;
+        v35 = v24;
         selfCopy = self;
-        [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v24 handlerBlock:v35];
+        [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v24 handlerBlock:v34];
 
         v25 = 0;
-        v26 = &v38;
-        v27 = v39;
+        v26 = &v37;
+        v27 = v38;
         goto LABEL_22;
       }
 
@@ -3509,7 +3634,7 @@ LABEL_17:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v50 = 0;
+    v49 = 0;
     _os_log_impl(&dword_242505000, v30, OS_LOG_TYPE_DEFAULT, "Invalid 'accountID' provided: [%@].", buf, 0xCu);
   }
 
@@ -3529,26 +3654,25 @@ LABEL_18:
     block[1] = 3221225472;
     block[2] = __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_recordTypes_resultLimit_resultsBlock_completionBlock___block_invoke;
     block[3] = &unk_278D545A8;
-    v26 = &v42;
-    v42 = completionBlockCopy;
-    v27 = &v41;
+    v26 = &v41;
+    v41 = completionBlockCopy;
+    v27 = &v40;
     v25 = v25;
-    v41 = v25;
+    v40 = v25;
     dispatch_async(v24, block);
 LABEL_22:
   }
 
-  v32 = v44[5];
+  v32 = v43[5];
 
-  _Block_object_dispose(&v43, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 
   return v32;
 }
 
 void __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_recordTypes_resultLimit_resultsBlock_completionBlock___block_invoke_157(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"kDAECalendarDirectorySearchIDKey"];
   v4 = *(a1[8] + 8);
   v5 = *(v4 + 40);
@@ -3561,11 +3685,11 @@ void __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_re
     v8 = *(*(a1[8] + 8) + 40);
     v9 = a1[4];
     *buf = 138412802;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v6;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v6;
     _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_DEBUG, "Received search ID [%@] for search with attributes: [%@].  Associated context: [%@]", buf, 0x20u);
   }
 
@@ -3576,55 +3700,53 @@ void __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_re
   block[2] = __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_recordTypes_resultLimit_resultsBlock_completionBlock___block_invoke_159;
   block[3] = &unk_278D54468;
   v12 = a1[8];
-  v16 = v6;
-  v17 = v12;
+  v15 = v6;
+  v16 = v12;
   block[4] = v10;
   v13 = v6;
   dispatch_sync(v11, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCalendarDirectorySearchWithID:(id)d
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    v23[0] = @"kDAEMessageNameKey";
-    v23[1] = @"kDAECalendarDirectorySearchIDKey";
-    v24[0] = @"kDAECancelCalendarDirectorySearch";
-    v24[1] = dCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = @"kDAEMessageNameKey";
+    v22[1] = @"kDAECalendarDirectorySearchIDKey";
+    v23[0] = @"kDAECancelCalendarDirectorySearch";
+    v23[1] = dCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v6 handlerBlock:0];
-    *v15 = 0;
-    v16 = v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy_;
-    v19 = __Block_byref_object_dispose_;
-    v20 = 0;
+    *v14 = 0;
+    v15 = v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy_;
+    v18 = __Block_byref_object_dispose_;
+    v19 = 0;
     muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invoke;
     block[3] = &unk_278D543A0;
-    v14 = v15;
+    v13 = v14;
     block[4] = self;
     v8 = v5;
-    v13 = v8;
+    v12 = v8;
     dispatch_sync(muckingWithInFlightCollections, block);
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:-1 userInfo:0];
-    [*(v16 + 5) finishedWithError:v9 exceededResultLimit:0];
+    [*(v15 + 5) finishedWithError:v9 exceededResultLimit:0];
     v10 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v22 = v8;
+      v21 = v8;
       _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_DEBUG, "Cancelled calendar directory search with ID: [%@].", buf, 0xCu);
     }
 
-    _Block_object_dispose(v15, 8);
+    _Block_object_dispose(v14, 8);
   }
 
   else
@@ -3632,12 +3754,10 @@ void __122__CDDADConnection_performCalendarDirectorySearchWithAccountID_terms_re
     v6 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEBUG, "nil 'searchID' provided.  Will not cancel any calendar directory searches.", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEBUG, "nil 'searchID' provided.  Will not cancel any calendar directory searches.", v14, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invoke(void *a1)
@@ -3655,7 +3775,7 @@ uint64_t __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invok
 
 - (void)_calendarDirectorySearchReturnedResults:(id)results
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v5 = _CFXPCCreateCFObjectFromXPCObject();
   v6 = [v5 objectForKeyedSubscript:@"kDAECalendarDirectorySearchIDKey"];
@@ -3666,9 +3786,9 @@ uint64_t __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invok
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = [v9 setWithObjects:{v10, v11, v12, objc_opt_class(), 0}];
-  v28 = 0;
-  v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v7 error:&v28];
-  v15 = v28;
+  v27 = 0;
+  v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v7 error:&v27];
+  v15 = v27;
 
   if (!v14)
   {
@@ -3683,10 +3803,10 @@ uint64_t __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invok
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   muckingWithInFlightCollections = self->_muckingWithInFlightCollections;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -3695,29 +3815,25 @@ uint64_t __55__CDDADConnection_cancelCalendarDirectorySearchWithID___block_invok
   p_buf = &buf;
   block[4] = self;
   v18 = v6;
-  v26 = v18;
+  v25 = v18;
   dispatch_sync(muckingWithInFlightCollections, block);
   v19 = [v14 count];
   v20 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v19];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __59__CDDADConnection__calendarDirectorySearchReturnedResults___block_invoke_2;
-  v23[3] = &unk_278D545F8;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __59__CDDADConnection__calendarDirectorySearchReturnedResults___block_invoke_2;
+  v22[3] = &unk_278D545F8;
   v21 = v20;
-  v24 = v21;
-  [v14 enumerateKeysAndObjectsUsingBlock:v23];
+  v23 = v21;
+  [v14 enumerateKeysAndObjectsUsingBlock:v22];
   [*(*(&buf + 1) + 40) resultsReturned:v21];
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__CDDADConnection__calendarDirectorySearchReturnedResults___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 88) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 88) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -3787,49 +3903,49 @@ uint64_t __52__CDDADConnection__calendarDirectorySearchFinished___block_invoke(v
 
 - (void)externalIdentificationForAccountID:(id)d resultsBlock:(id)block
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
   v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = -1;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = -1;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
   if (blockCopy)
   {
     if (dCopy)
     {
-      v37[0] = @"kDAEMessageNameKey";
-      v37[1] = @"kDAEAccountIdKey";
-      v38[0] = @"kDAERequestCalendarExternalIdentification";
-      v38[1] = dCopy;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___block_invoke;
-      v13[3] = &unk_278D54620;
-      v13[4] = &v31;
-      v13[5] = &v25;
-      v13[6] = &v21;
-      v13[7] = &v15;
-      [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v8 handlerBlock:v13];
+      v36[0] = @"kDAEMessageNameKey";
+      v36[1] = @"kDAEAccountIdKey";
+      v37[0] = @"kDAERequestCalendarExternalIdentification";
+      v37[1] = dCopy;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___block_invoke;
+      v12[3] = &unk_278D54620;
+      v12[4] = &v30;
+      v12[5] = &v24;
+      v12[6] = &v20;
+      v12[7] = &v14;
+      [(CDDADConnection *)self _sendSynchronousXPCMessageWithParameters:v8 handlerBlock:v12];
     }
 
     else
@@ -3842,11 +3958,11 @@ uint64_t __52__CDDADConnection__calendarDirectorySearchFinished___block_invoke(v
       }
 
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DAErrorDomain" code:86 userInfo:0];
-      v8 = v32[5];
-      v32[5] = v11;
+      v8 = v31[5];
+      v31[5] = v11;
     }
 
-    blockCopy[2](blockCopy, v32[5], v26[5], v22[3], v16[5]);
+    blockCopy[2](blockCopy, v31[5], v25[5], v21[3], v15[5]);
   }
 
   else
@@ -3859,13 +3975,12 @@ uint64_t __52__CDDADConnection__calendarDirectorySearchFinished___block_invoke(v
     }
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v31, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___block_invoke(uint64_t a1, void *a2)
@@ -3977,14 +4092,14 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
 - (void)_resetCertWarningsForAccountId:(id)id andDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
 {
   requestedCopy = requested;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v9 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     accountIdsWithAlreadyResetCerts = self->_accountIdsWithAlreadyResetCerts;
     *buf = 138412290;
-    v22 = accountIdsWithAlreadyResetCerts;
+    v21 = accountIdsWithAlreadyResetCerts;
     _os_log_impl(&dword_242505000, v9, OS_LOG_TYPE_DEBUG, "in _resetCertWarningsForAccount, _accountIdsWithAlreadyResetCerts is %@", buf, 0xCu);
   }
 
@@ -4005,8 +4120,8 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
   if (((idCopy != 0) & (v12 | requestedCopy)) == 1)
   {
     v13 = [MEMORY[0x277CCABB0] numberWithInteger:{dataclasses, @"kDAEMessageNameKey", @"kDAEAccountIdKey", @"kDAEDataclassesBitmaskKey", @"kDAEResetCertWarnings", idCopy}];
-    v20[2] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:3];
+    v19[2] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:3];
 
     v15 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)selfCopy _connection];
@@ -4017,13 +4132,11 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
     [v17[4] addObject:idCopy];
     objc_sync_exit(v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetThrottleTimersForAccountId:(id)id
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -4031,9 +4144,9 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
     Name = sel_getName(a2);
     accountIdsWithAlreadyResetThrottleTimers = self->_accountIdsWithAlreadyResetThrottleTimers;
     *buf = 136315394;
-    v19 = Name;
-    v20 = 2112;
-    v21 = accountIdsWithAlreadyResetThrottleTimers;
+    v18 = Name;
+    v19 = 2112;
+    v20 = accountIdsWithAlreadyResetThrottleTimers;
     _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEBUG, "in %s, _accountIdsWithAlreadyResetThrottleTimers is %@", buf, 0x16u);
   }
 
@@ -4051,11 +4164,11 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
 
   if ((v10 & 1) == 0)
   {
-    v16[0] = @"kDAEMessageNameKey";
-    v16[1] = @"kDAEAccountIdKey";
-    v17[0] = @"kDAEResetThrottleTimers";
-    v17[1] = idCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"kDAEMessageNameKey";
+    v15[1] = @"kDAEAccountIdKey";
+    v16[0] = @"kDAEResetThrottleTimers";
+    v16[1] = idCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v12 = _CFXPCCreateXPCObjectFromCFObject();
     _connection = [(CDDADConnection *)selfCopy _connection];
     xpc_connection_send_message(_connection, v12);
@@ -4067,8 +4180,6 @@ void __67__CDDADConnection_externalIdentificationForAccountID_resultsBlock___blo
 
 LABEL_7:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetTimersAndWarnings
@@ -4095,7 +4206,7 @@ LABEL_7:
 
 - (void)_dispatchMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = _CFXPCCreateCFObjectFromXPCObject();
   v6 = [v5 objectForKeyedSubscript:@"kDAEMessageNameKey"];
@@ -4174,20 +4285,18 @@ LABEL_7:
     v7 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_ERROR, "unknown request sent to connection.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_242505000, v7, OS_LOG_TYPE_ERROR, "unknown request sent to connection.", &v9, 2u);
     }
 
     v8 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_ERROR, "request: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_ERROR, "request: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

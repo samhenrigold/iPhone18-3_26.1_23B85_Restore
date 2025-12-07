@@ -166,18 +166,8 @@ LABEL_12:
   }
 
   containingSignerInfo = [(MSCMSCounterSignerInfo *)self containingSignerInfo];
-  if (!containingSignerInfo)
+  if (!containingSignerInfo || (v7 = containingSignerInfo, -[MSCMSCounterSignerInfo containingSignerInfo](self, "containingSignerInfo"), v8 = objc_claimAutoreleasedReturnValue(), [v8 signature], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, !v9))
   {
-    goto LABEL_18;
-  }
-
-  v7 = containingSignerInfo;
-  containingSignerInfo2 = [(MSCMSCounterSignerInfo *)self containingSignerInfo];
-  signature = [containingSignerInfo2 signature];
-
-  if (!signature)
-  {
-LABEL_18:
     v27 = MSErrorCMSDomain[0];
     v28 = @"counter signer has no reference to a signer with a signature";
 LABEL_19:
@@ -218,11 +208,11 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  containingSignerInfo3 = [(MSCMSCounterSignerInfo *)self containingSignerInfo];
+  containingSignerInfo2 = [(MSCMSCounterSignerInfo *)self containingSignerInfo];
   digestAlgorithm3 = [(MSCMSSignerInfo *)self digestAlgorithm];
   algorithm = [digestAlgorithm3 algorithm];
   v34 = v5;
-  v19 = [containingSignerInfo3 calculateSignatureDigestWithAlgorithm:algorithm error:&v34];
+  v19 = [containingSignerInfo2 calculateSignatureDigestWithAlgorithm:algorithm error:&v34];
   v20 = v34;
 
   if (!v19)

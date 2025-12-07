@@ -3,6 +3,7 @@
 - (id)exposedPlatformItemKinds;
 - (id)stateForLibraryItem:(id)item;
 - (void)enumerateStatesForLibraryItems:(id)items usingBlock:(id)block;
+- (void)exposedPlatformItemKinds;
 @end
 
 @implementation SKUISoftwareLibraryInterface
@@ -252,6 +253,30 @@ void __52__SKUISoftwareLibraryInterface_stateForLibraryItem___block_invoke(uint6
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
+}
+
+- (void)enumerateStatesForLibraryItems:(uint64_t)a3 usingBlock:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISoftwareLibraryInterface enumerateStatesForLibraryItems:usingBlock:]";
+}
+
+- (void)exposedPlatformItemKinds
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISoftwareLibraryInterface exposedPlatformItemKinds]";
+}
+
+- (void)performActionForLibraryItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISoftwareLibraryInterface performActionForLibraryItem:]";
+}
+
+- (void)stateForLibraryItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISoftwareLibraryInterface stateForLibraryItem:]";
 }
 
 @end

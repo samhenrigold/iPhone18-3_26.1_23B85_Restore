@@ -6,25 +6,25 @@
 
 + (BOOL)shouldPlaySiriSounds
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2050000000;
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2050000000;
   v2 = getAXSettingsClass_softClass;
-  v13 = getAXSettingsClass_softClass;
+  v12 = getAXSettingsClass_softClass;
   if (!getAXSettingsClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAXSettingsClass_block_invoke;
-    v15 = &unk_1E865C120;
-    v16 = &v10;
+    v14 = &unk_1E865C120;
+    v15 = &v9;
     __getAXSettingsClass_block_invoke(buf);
-    v2 = v11[3];
+    v2 = v10[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v9, 8);
   sharedInstance = [v2 sharedInstance];
   v5 = [sharedInstance valueForKey:@"voiceOverUseSiriSounds"];
   bOOLValue = [v5 BOOLValue];
@@ -39,7 +39,6 @@
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s shouldPlaySiriSounds: %d", buf, 0x12u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 

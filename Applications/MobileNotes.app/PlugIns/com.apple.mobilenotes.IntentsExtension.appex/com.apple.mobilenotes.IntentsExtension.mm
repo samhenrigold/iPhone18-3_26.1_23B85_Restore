@@ -52,10 +52,11 @@ void sub_1000021F8(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100002574(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002574(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sub_100002A78(uint64_t result, uint64_t a2)
@@ -73,31 +74,29 @@ void sub_100002A90(uint64_t a1)
   if ((v3 & 1) == 0)
   {
     objc_opt_class();
-    v4 = *(a1 + 32);
-    v5 = ICDynamicCast();
-    v6 = v5;
-    if (v5)
+    v4 = ICDynamicCast();
+    v5 = v4;
+    if (v4)
     {
-      v17 = v5;
+      v15 = v4;
     }
 
     else
     {
       objc_opt_class();
-      v7 = *(a1 + 32);
-      v8 = ICDynamicCast();
-      v17 = [v8 account];
+      v6 = ICDynamicCast();
+      v15 = [v6 account];
     }
 
-    v9 = *(a1 + 40);
-    v10 = [ICAppURLUtilities appURLForFolder:v17];
-    v11 = [v10 absoluteString];
-    v12 = [v17 allItemsFolderLocalizedTitle];
-    v13 = +[ICFolder defaultSystemImageName];
-    v14 = [v9 initWithIdentifier:v11 title:v12 depth:0 shareDescription:0 systemImageName:v13];
-    v15 = *(*(a1 + 48) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v7 = *(a1 + 40);
+    v8 = [ICAppURLUtilities appURLForFolder:v15];
+    v9 = [v8 absoluteString];
+    v10 = [v15 allItemsFolderLocalizedTitle];
+    v11 = +[ICFolder defaultSystemImageName];
+    v12 = [v7 initWithIdentifier:v9 title:v10 depth:0 shareDescription:0 systemImageName:v11];
+    v13 = *(*(a1 + 48) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
   }
 }
 
@@ -108,18 +107,17 @@ void sub_100002C0C(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
-    v13 = ICClassAndProtocolCast();
-    v5 = *(a1 + 40);
-    v6 = [ICAppURLUtilities appURLForHTMLFolder:v13, &OBJC_PROTOCOL___ICLegacyAccount];
-    v7 = [v6 absoluteString];
-    v8 = [v13 allItemsFolderLocalizedTitle];
-    v9 = +[ICFolder defaultSystemImageName];
-    v10 = [v5 initWithIdentifier:v7 title:v8 depth:0 shareDescription:0 systemImageName:v9];
-    v11 = *(*(a1 + 48) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v12 = ICClassAndProtocolCast();
+    v4 = *(a1 + 40);
+    v5 = [ICAppURLUtilities appURLForHTMLFolder:v12, &OBJC_PROTOCOL___ICLegacyAccount];
+    v6 = [v5 absoluteString];
+    v7 = [v12 allItemsFolderLocalizedTitle];
+    v8 = +[ICFolder defaultSystemImageName];
+    v9 = [v4 initWithIdentifier:v6 title:v7 depth:0 shareDescription:0 systemImageName:v8];
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 }
 
@@ -131,19 +129,18 @@ void sub_100002D60(uint64_t a1)
   if ((v3 & 1) == 0)
   {
     objc_opt_class();
-    v4 = *(a1 + 32);
-    v15 = ICDynamicCast();
-    v5 = *(a1 + 40);
-    v6 = [ICAppURLUtilities appURLForFolder:v15];
-    v7 = [v6 absoluteString];
-    v8 = [v15 localizedTitle];
-    v9 = [v15 depth];
-    v10 = [v15 shareDescription];
-    v11 = [v15 systemImageName];
-    v12 = [v5 initWithIdentifier:v7 title:v8 depth:v9 shareDescription:v10 systemImageName:v11];
-    v13 = *(*(a1 + 48) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v14 = ICDynamicCast();
+    v4 = *(a1 + 40);
+    v5 = [ICAppURLUtilities appURLForFolder:v14];
+    v6 = [v5 absoluteString];
+    v7 = [v14 localizedTitle];
+    v8 = [v14 depth];
+    v9 = [v14 shareDescription];
+    v10 = [v14 systemImageName];
+    v11 = [v4 initWithIdentifier:v6 title:v7 depth:v8 shareDescription:v9 systemImageName:v10];
+    v12 = *(*(a1 + 48) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 }
 
@@ -154,25 +151,24 @@ void sub_100002EC4(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
-    v14 = ICClassAndProtocolCast();
-    v5 = *(a1 + 40);
-    v6 = [ICAppURLUtilities appURLForHTMLFolder:v14, &OBJC_PROTOCOL___ICLegacyFolder];
-    v7 = [v6 absoluteString];
-    v8 = [v14 localizedTitle];
-    v9 = [v14 depth];
-    v10 = +[ICFolder defaultSystemImageName];
-    v11 = [v5 initWithIdentifier:v7 title:v8 depth:v9 shareDescription:0 systemImageName:v10];
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v13 = ICClassAndProtocolCast();
+    v4 = *(a1 + 40);
+    v5 = [ICAppURLUtilities appURLForHTMLFolder:v13, &OBJC_PROTOCOL___ICLegacyFolder];
+    v6 = [v5 absoluteString];
+    v7 = [v13 localizedTitle];
+    v8 = [v13 depth];
+    v9 = +[ICFolder defaultSystemImageName];
+    v10 = [v4 initWithIdentifier:v6 title:v7 depth:v8 shareDescription:0 systemImageName:v9];
+    v11 = *(*(a1 + 48) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 }
 
-void sub_100003DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_100003DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -190,30 +186,29 @@ void sub_100003E2C(uint64_t a1)
   [v2 submitNoteCreateEventForSearchIndexableNote:*(a1 + 40) createApproach:1];
 
   objc_opt_class();
-  v3 = *(a1 + 40);
-  v17 = ICDynamicCast();
-  if (v17)
+  v16 = ICDynamicCast();
+  if (v16)
   {
-    v4 = *(a1 + 32);
-    v5 = [v17 folder];
-    v6 = [v5 objectID];
-    v7 = [*(a1 + 32) noteContext];
-    v8 = [v7 htmlNoteContext];
-    [v4 refreshNotesForCollectionWithId:v6 andContext:v8];
+    v3 = *(a1 + 32);
+    v4 = [v16 folder];
+    v5 = [v4 objectID];
+    v6 = [*(a1 + 32) noteContext];
+    v7 = [v6 htmlNoteContext];
+    [v3 refreshNotesForCollectionWithId:v5 andContext:v7];
   }
 
-  v9 = [NSUserActivity alloc];
-  v10 = objc_opt_class();
-  v11 = NSStringFromClass(v10);
-  v12 = [v9 initWithActivityType:v11];
+  v8 = [NSUserActivity alloc];
+  v9 = objc_opt_class();
+  v10 = NSStringFromClass(v9);
+  v11 = [v8 initWithActivityType:v10];
 
-  v13 = [[INCreateNoteIntentResponse alloc] initWithCode:3 userActivity:v12];
-  v14 = *(*(a1 + 48) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = v13;
+  v12 = [[INCreateNoteIntentResponse alloc] initWithCode:3 userActivity:v11];
+  v13 = *(*(a1 + 48) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v12;
 
-  v16 = [*(a1 + 32) intentNoteForSearchIndexableNote:*(a1 + 40) includeContent:1];
-  [*(*(*(a1 + 48) + 8) + 40) setCreatedNote:v16];
+  v15 = [*(a1 + 32) intentNoteForSearchIndexableNote:*(a1 + 40) includeContent:1];
+  [*(*(*(a1 + 48) + 8) + 40) setCreatedNote:v15];
 }
 
 void sub_100004350(uint64_t a1)
@@ -341,11 +336,11 @@ LABEL_9:
   return v12;
 }
 
-void sub_100004824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100004824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 96), 8);
+  _Block_object_dispose((v24 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -367,10 +362,7 @@ void sub_100004860(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -387,10 +379,7 @@ void sub_100004928(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -571,10 +560,11 @@ LABEL_24:
   (*(v39 + 16))(v39, v38, v40);
 }
 
-void sub_1000052FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1000052FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -589,10 +579,7 @@ void sub_100005330(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -609,10 +596,7 @@ void sub_1000053F8(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -638,11 +622,11 @@ void sub_1000056B0(uint64_t a1, void *a2)
   (*(v2 + 16))(v2, v3);
 }
 
-void sub_100005B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100005B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -657,10 +641,7 @@ void sub_100005BBC(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -677,10 +658,7 @@ void sub_100005C84(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v7 = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNote alloc] initWithObject:*(*(*(a1 + 48) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -867,10 +845,7 @@ void sub_100006848(uint64_t a1)
 
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v7 = [[ICIntentNotesFolder alloc] initWithObject:*(*(*(a1 + 40) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNotesFolder alloc] initWithObject:*(*(*(a1 + 40) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -887,10 +862,7 @@ void sub_100006918(uint64_t a1)
 
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v7 = [[ICIntentNotesFolder alloc] initWithObject:*(*(*(a1 + 40) + 8) + 40)];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 56) + 8) + 40) = [[ICIntentNotesFolder alloc] initWithObject:*(*(*(a1 + 40) + 8) + 40)];
 
     _objc_release_x1();
   }
@@ -919,11 +891,11 @@ void sub_100006D50(id a1)
   _objc_release_x1();
 }
 
-void sub_100007264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100007264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v6 - 96), 8);
+  _Block_object_dispose((v11 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1382,9 +1354,9 @@ LABEL_6:
   [v10 unlock];
 }
 
-void sub_100008CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100008CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1775,32 +1747,30 @@ void sub_10000A6E4(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
     (*(*(a1 + 48) + 16))();
   }
 
-  v4 = [*(a1 + 32) appendLock];
-  [v4 unlock];
+  v3 = [*(a1 + 32) appendLock];
+  [v3 unlock];
 
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v4);
 }
 
 void sub_10000A744(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
     (*(*(a1 + 48) + 16))();
   }
 
-  v4 = [*(a1 + 32) appendLock];
-  [v4 unlock];
+  v3 = [*(a1 + 32) appendLock];
+  [v3 unlock];
 
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v4);
 }
 
 void sub_10000AAD0(uint64_t a1, void *a2)
@@ -1882,10 +1852,18 @@ uint64_t sub_10000AD04(uint64_t a1)
   return result;
 }
 
-void sub_10000B19C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000B19C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
+}
+
+void sub_10000B7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000B830(uint64_t result, uint64_t a2)
@@ -1909,9 +1887,9 @@ void sub_10000B848(uint64_t a1)
   }
 }
 
-void sub_10000BEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000BEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1934,29 +1912,26 @@ void sub_10000BF2C(uint64_t a1)
 
   if ([*(a1 + 32) isPasswordProtected])
   {
-    v7 = [NSError errorWithDomain:ICErrorDomain code:206 userInfo:0];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 48) + 8) + 40) = [NSError errorWithDomain:ICErrorDomain code:206 userInfo:0];
 
     _objc_release_x1();
   }
 
   else
   {
-    v10 = +[ICSharingExtensionAttachmentsManager sharedManager];
-    v11 = *(a1 + 32);
-    v12 = *(*(*(a1 + 40) + 8) + 40);
-    v13 = *(*(a1 + 48) + 8);
-    obj = *(v13 + 40);
-    [v10 addString:v12 toNote:v11 error:&obj];
-    objc_storeStrong((v13 + 40), obj);
+    v7 = +[ICSharingExtensionAttachmentsManager sharedManager];
+    v8 = *(a1 + 32);
+    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v10 = *(*(a1 + 48) + 8);
+    obj = *(v10 + 40);
+    [v7 addString:v9 toNote:v8 error:&obj];
+    objc_storeStrong((v10 + 40), obj);
   }
 }
 
-void sub_10000C324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10000C324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1968,76 +1943,75 @@ void sub_10000C358(uint64_t a1)
   if (([*(a1 + 32) isPlainText] & 1) == 0)
   {
     v3 = [v2 ic_HTMLInsertionPoint];
-    v4 = *(*(*(a1 + 56) + 8) + 40);
-    v5 = ICNoteHTMLFromPlainText();
-    v6 = *(*(a1 + 56) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v4 = ICNoteHTMLFromPlainText();
+    v5 = *(*(a1 + 56) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 
   if (v3)
   {
     if ([*(a1 + 32) isPlainText])
     {
-      v8 = [v2 characterAtIndex:v3 - 1];
-      v9 = +[NSCharacterSet newlineCharacterSet];
-      LOBYTE(v8) = [v9 characterIsMember:v8];
+      v7 = [v2 characterAtIndex:v3 - 1];
+      v8 = +[NSCharacterSet newlineCharacterSet];
+      LOBYTE(v7) = [v8 characterIsMember:v7];
 
-      if (v8)
+      if (v7)
       {
         goto LABEL_9;
       }
 
-      v10 = @"\n%@";
+      v9 = @"\n%@";
     }
 
     else
     {
-      v10 = @"<div>%@</div>";
+      v9 = @"<div>%@</div>";
     }
 
-    v11 = [NSString localizedStringWithFormat:v10, *(*(*(a1 + 56) + 8) + 40)];
-    v12 = *(*(a1 + 56) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v10 = [NSString localizedStringWithFormat:v9, *(*(*(a1 + 56) + 8) + 40)];
+    v11 = *(*(a1 + 56) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 
 LABEL_9:
-  v14 = [v2 mutableCopy];
-  [v14 insertString:*(*(*(a1 + 56) + 8) + 40) atIndex:v3];
-  v15 = +[NSDate date];
-  [*(a1 + 32) setModificationDate:v15];
+  v13 = [v2 mutableCopy];
+  [v13 insertString:*(*(*(a1 + 56) + 8) + 40) atIndex:v3];
+  v14 = +[NSDate date];
+  [*(a1 + 32) setModificationDate:v14];
 
-  v16 = [v14 copy];
-  [*(a1 + 32) setContent:v16];
+  v15 = [v13 copy];
+  [*(a1 + 32) setContent:v15];
 
-  v17 = [*(a1 + 32) title];
-  v18 = [v17 length];
+  v16 = [*(a1 + 32) title];
+  v17 = [v16 length];
 
-  if (!v18)
+  if (!v17)
   {
-    v19 = [*(a1 + 40) text];
-    v20 = ICNoteTitleFromPlainText();
-    [*(a1 + 32) setTitle:v20];
+    v18 = [*(a1 + 40) text];
+    v19 = ICNoteTitleFromPlainText();
+    [*(a1 + 32) setTitle:v19];
   }
 
   objc_opt_class();
-  v21 = [*(a1 + 48) noteContext];
-  v22 = [v21 htmlNoteContext];
-  v23 = ICCheckedDynamicCast();
-  v24 = *(*(a1 + 64) + 8);
-  obj = *(v24 + 40);
-  v25 = [v23 save:&obj];
-  objc_storeStrong((v24 + 40), obj);
+  v20 = [*(a1 + 48) noteContext];
+  v21 = [v20 htmlNoteContext];
+  v22 = ICCheckedDynamicCast();
+  v23 = *(*(a1 + 64) + 8);
+  obj = *(v23 + 40);
+  v24 = [v22 save:&obj];
+  objc_storeStrong((v23 + 40), obj);
 
-  if (v25)
+  if (v24)
   {
-    v26 = *(a1 + 48);
-    v27 = [*(a1 + 32) store];
-    v28 = [v27 objectID];
-    v29 = [*(a1 + 48) noteContext];
-    v30 = [v29 htmlNoteContext];
-    [v26 refreshNotesForCollectionWithId:v28 andContext:v30];
+    v25 = *(a1 + 48);
+    v26 = [*(a1 + 32) store];
+    v27 = [v26 objectID];
+    v28 = [*(a1 + 48) noteContext];
+    v29 = [v28 htmlNoteContext];
+    [v25 refreshNotesForCollectionWithId:v27 andContext:v29];
   }
 }
 
@@ -2097,9 +2071,9 @@ id sub_10000CA70(uint64_t a1)
   return [v9 setRestricted:0];
 }
 
-void sub_10000CE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000CE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2232,7 +2206,6 @@ void sub_10000D98C(uint64_t a1, void *a2, void *a3)
   v12 = a3;
   v6 = *(a1 + 56);
   v13 = v5;
-  v15 = *(a1 + 64);
   v11 = *(a1 + 32);
   v7 = *(&v11 + 1);
   *&v8 = *(a1 + 48);
@@ -2261,10 +2234,10 @@ LABEL_5:
 
   if (!*(a1 + 40))
   {
-    v8 = os_log_create("com.apple.notes", "SharingExtension");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = os_log_create("com.apple.notes", "SharingExtension");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100013844(v8);
+      sub_100013844(v7);
     }
 
     goto LABEL_5;
@@ -2273,59 +2246,58 @@ LABEL_5:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [*(a1 + 40) isFileURL])
   {
-    v23 = [[ICAddAttachmentsManagerAttachmentInfo alloc] initWithFileURL:*(a1 + 40)];
+    v22 = [[ICAddAttachmentsManagerAttachmentInfo alloc] initWithFileURL:*(a1 + 40)];
     (*(*(a1 + 72) + 16))();
 LABEL_12:
 
     return;
   }
 
-  v4 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 80);
-    v7 = *(a1 + 40);
-    v23 = [v5 getAttachmentInfoWithImage:v7 useTempFile:v6];
+    v4 = *(a1 + 48);
+    v5 = *(a1 + 80);
+    v6 = *(a1 + 40);
+    v22 = [v4 getAttachmentInfoWithImage:v6 useTempFile:v5];
     (*(*(a1 + 72) + 16))();
 
     goto LABEL_12;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
-  v9 = [*(a1 + 56) registeredTypeIdentifiers];
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v10)
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v8 = [*(a1 + 56) registeredTypeIdentifiers];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v25;
+    v10 = v9;
+    v11 = *v24;
 LABEL_20:
-    v13 = 0;
+    v12 = 0;
     while (1)
     {
-      if (*v25 != v12)
+      if (*v24 != v11)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v24 + 1) + 8 * v13);
-      v15 = [ICUTType typeWithIdentifier:v14];
-      v16 = [ICUTType typeWithIdentifier:*(a1 + 64)];
-      v17 = [v15 conformsToType:v16];
+      v13 = *(*(&v23 + 1) + 8 * v12);
+      v14 = [ICUTType typeWithIdentifier:v13];
+      v15 = [ICUTType typeWithIdentifier:*(a1 + 64)];
+      v16 = [v14 conformsToType:v15];
 
-      if (v17)
+      if (v16)
       {
         break;
       }
 
-      if (v11 == ++v13)
+      if (v10 == ++v12)
       {
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v11)
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v10)
         {
           goto LABEL_20;
         }
@@ -2334,19 +2306,19 @@ LABEL_20:
       }
     }
 
-    v19 = [ICUTType typeWithIdentifier:v14];
-    v20 = [v19 preferredFilenameExtension];
+    v18 = [ICUTType typeWithIdentifier:v13];
+    v19 = [v18 preferredFilenameExtension];
 
-    v18 = v14;
-    if (!v20)
+    v17 = v13;
+    if (!v19)
     {
       goto LABEL_29;
     }
 
-    v21 = objc_opt_new();
-    [v21 setMediaUTI:v18];
-    [v21 setMediaData:*(a1 + 40)];
-    [v21 setMediaFilenameExtension:v20];
+    v20 = objc_opt_new();
+    [v20 setMediaUTI:v17];
+    [v20 setMediaData:*(a1 + 40)];
+    [v20 setMediaFilenameExtension:v19];
     (*(*(a1 + 72) + 16))();
   }
 
@@ -2354,12 +2326,12 @@ LABEL_20:
   {
 LABEL_26:
 
-    v18 = 0;
+    v17 = 0;
 LABEL_29:
-    v22 = os_log_create("com.apple.notes", "SharingExtension");
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = os_log_create("com.apple.notes", "SharingExtension");
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_1000137A8((a1 + 56), v22);
+      sub_1000137A8((a1 + 56), v21);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -2434,11 +2406,11 @@ void sub_10000F1AC(uint64_t a1)
   }
 }
 
-void sub_1000100A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000100A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 144), 8);
+  _Block_object_dispose((v22 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2525,54 +2497,54 @@ LABEL_13:
     v23 = os_log_create("com.apple.notes", "Intents");
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_100013958(v16);
+      sub_100013958();
     }
   }
 }
 
-void sub_1000108C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1000108C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 176), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 176), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100010908(uint64_t a1)
 {
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
         objc_opt_class();
-        v8 = ICDynamicCast();
-        v10 = ICProtocolCast();
-        if (v8 && (v11 = [v8 isVisible], v9 = v8, (v11 & 1) != 0) || v10 && (objc_msgSend(v10, "isMarkedForDeletion", v9) & 1) == 0 && (v12 = objc_opt_respondsToSelector(), v9 = v10, (v12 & 1) != 0))
+        v7 = ICDynamicCast();
+        v9 = ICProtocolCast();
+        if (v7 && (v10 = [v7 isVisible], v8 = v7, (v10 & 1) != 0) || v9 && (objc_msgSend(v9, "isMarkedForDeletion", v8) & 1) == 0 && (v11 = objc_opt_respondsToSelector(), v8 = v9, (v11 & 1) != 0))
         {
-          [*(*(*(a1 + 40) + 8) + 40) addObject:{v9, v13}];
+          [*(*(*(a1 + 40) + 8) + 40) addObject:{v8, v12}];
         }
 
-        v6 = v6 + 1;
+        ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -2624,7 +2596,7 @@ void sub_100010A90(uint64_t a1)
     v12 = os_log_create("com.apple.notes", "Intents");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100013958(a1 + 56);
+      sub_100013958();
     }
   }
 
@@ -2667,7 +2639,7 @@ void sub_100010CC0(void *a1)
     v11 = os_log_create("com.apple.notes", "Intents");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1000139C4((a1 + 6));
+      sub_1000139C4();
     }
   }
 
@@ -2792,10 +2764,11 @@ void sub_100010F70(void *a1)
   [v19 sortUsingDescriptors:v20];
 }
 
-void sub_1000114B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000114B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 96), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2885,23 +2858,41 @@ void sub_1000117AC(uint64_t a1)
   *(v20 + 40) = v19;
 }
 
-uint64_t sub_100011F44@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_100011E3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int128 a10, uint64_t a11)
 {
-  *(v2 - 8) = a2;
-  v3 = *(*(*result + 8) + 40);
-  return result;
+  if (a2 == 1)
+  {
+    v12 = objc_begin_catch(exception_object);
+    v13 = os_log_create("com.apple.notes", "Intents");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = [v11 externalIdentifier];
+      a9 = 138412802;
+      WORD2(a10) = 2112;
+      *(&a10 + 6) = v14;
+      HIWORD(a10) = 2112;
+      a11 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Exception raised when attempting to refresh notes for %@ with store %@: %@", &a9, 0x20u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x100011DECLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
-void sub_100011F58(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100011F58(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t sub_1000123C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5, uint64_t a6)
+uint64_t sub_1000123C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t), uint64_t a5, uint64_t a6)
 {
   v11 = a3;
-  v12 = a4();
+  v12 = a4(a1, a2);
   v9[0] = a5;
   v9[1] = a6;
   v10 = 2;
@@ -2910,11 +2901,11 @@ uint64_t sub_1000123C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
   return a6 & 1;
 }
 
-id sub_100012460()
+id sub_100012460(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_1000124BC()
@@ -3041,14 +3032,6 @@ uint64_t _s38com_apple_mobilenotes_IntentsExtension25TelephonyUtilitiesFeatureVw
   return result;
 }
 
-uint64_t sub_100012774()
-{
-  result = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
-  return result;
-}
-
 unint64_t sub_1000127BC()
 {
   result = qword_100027E60;
@@ -3061,11 +3044,8 @@ unint64_t sub_1000127BC()
   return result;
 }
 
-uint64_t sub_1000128A0()
+uint64_t sub_1000128A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
   v5 = sub_100013B30();
   v6._countAndFlagsBits = 47;
   v6._object = 0xE100000000000000;
@@ -3112,9 +3092,9 @@ unint64_t sub_100012A4C()
   return result;
 }
 
-uint64_t sub_100012ACC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t sub_100012ACC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
 {
-  *(a1 + 8) = a4();
+  *(a1 + 8) = a4(a1, a2, a3);
   result = a5();
   *(a1 + 16) = result;
   return result;
@@ -3200,7 +3180,7 @@ void sub_100013194()
   sub_10000B1D0();
   v0 = [UTTypeURL identifier];
   sub_10000B184();
-  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6, v7);
+  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6);
 }
 
 void sub_10001322C()
@@ -3208,7 +3188,7 @@ void sub_10001322C()
   sub_10000B1D0();
   v0 = [UTTypeRTF identifier];
   sub_10000B184();
-  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6, v7);
+  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6);
 }
 
 void sub_1000132C4()
@@ -3216,7 +3196,7 @@ void sub_1000132C4()
   sub_10000B1D0();
   v0 = [UTTypeFlatRTFD identifier];
   sub_10000B184();
-  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6, v7);
+  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6);
 }
 
 void sub_10001335C()
@@ -3224,7 +3204,7 @@ void sub_10001335C()
   sub_10000B1D0();
   v0 = [UTTypePlainText identifier];
   sub_10000B184();
-  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6, v7);
+  sub_10000B19C(&_mh_execute_header, v1, v2, "Can't load item for type identifier %@: %@", v3, v4, v5, v6);
 }
 
 void sub_1000133F4()
@@ -3297,6 +3277,22 @@ void sub_100013888(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Cannot save temporary file to disk: %@", &v2, 0xCu);
+}
+
+void sub_100013958()
+{
+  sub_100011F44(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  sub_100011F58(&_mh_execute_header, v1, v2, "Error fetching all modern notes %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_1000139C4()
+{
+  sub_100011F44(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  sub_100011F58(&_mh_execute_header, v1, v2, "Error fetching all HTML notes %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100013A30(void *a1, uint64_t a2, uint64_t a3)

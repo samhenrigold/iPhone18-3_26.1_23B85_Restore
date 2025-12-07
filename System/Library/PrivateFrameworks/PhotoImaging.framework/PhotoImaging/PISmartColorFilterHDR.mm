@@ -169,7 +169,7 @@ LABEL_28:
       {
 LABEL_34:
         _kernelCast = [(PISmartColorFilterHDR *)self _kernelCast];
-        [(CIImage *)v3 extent];
+        objc_msgSend_extent(v3);
         v58 = v57;
         v60 = v59;
         v62 = v61;
@@ -227,7 +227,7 @@ LABEL_33:
     [(PISmartColorFilterHDR *)self _kernelV_lt1];
   }
   v17 = ;
-  [imageByUnpremultiplyingAlpha3 extent];
+  objc_msgSend_extent(imageByUnpremultiplyingAlpha3);
   v19 = v18;
   v21 = v20;
   v23 = v22;
@@ -251,7 +251,7 @@ LABEL_17:
       v42 = [(CIImage *)v3 imageByApplyingFilter:@"CIVibrance" withInputParameters:v41];
 
       _kernelCNeg = [(PISmartColorFilterHDR *)self _kernelCNeg];
-      [(CIImage *)v42 extent];
+      objc_msgSend_extent(v42);
       v31 = v43;
       v33 = v44;
       v35 = v45;
@@ -266,7 +266,7 @@ LABEL_17:
     else
     {
       _kernelCNeg = [(PISmartColorFilterHDR *)self _kernelCPos];
-      [(CIImage *)v3 extent];
+      objc_msgSend_extent(v3);
       v31 = v30;
       v33 = v32;
       v35 = v34;

@@ -25,24 +25,7 @@
 - (id)evaluateXPath:(id)path
 {
   pathCopy = path;
-  if ([(POXMLNode *)self node][8] != 1)
-  {
-    goto LABEL_7;
-  }
-
-  node = [(POXMLNode *)self node];
-  uTF8String = [pathCopy UTF8String];
-  xpathResultSet = [(POXMLNode *)self xpathResultSet];
-  xpathContext = [xpathResultSet xpathContext];
-  v9 = xmlXPathNodeEval(node, uTF8String, [xpathContext xpathCtx]);
-
-  if (!v9)
-  {
-    goto LABEL_7;
-  }
-
-  nodesetval = v9->nodesetval;
-  if (nodesetval && nodesetval->nodeNr && nodesetval->nodeTab)
+  if (-[POXMLNode node](self, "node")[8] == 1 && (v5 = -[POXMLNode node](self, "node"), v6 = [pathCopy UTF8String], -[POXMLNode xpathResultSet](self, "xpathResultSet"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "xpathContext"), v8 = objc_claimAutoreleasedReturnValue(), v9 = xmlXPathNodeEval(v5, v6, objc_msgSend(v8, "xpathCtx")), v8, v7, v9) && (nodesetval = v9->nodesetval) != 0 && nodesetval->nodeNr && nodesetval->nodeTab)
   {
     v11 = objc_alloc_init(POXMLXPathResult);
     [(POXMLXPathResult *)v11 setXpathObj:v9];
@@ -50,7 +33,6 @@
 
   else
   {
-LABEL_7:
     v11 = 0;
   }
 

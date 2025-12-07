@@ -3,13 +3,13 @@ std::string *amt::TriangleMesh::operator=(std::string *a1, uint64_t a2)
   if (a1 != a2)
   {
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1[1].__r_.__value_.__r.__words, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 4);
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1[2].__r_.__value_.__r.__words, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 4);
-    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[3].__r_.__value_.__l.__data_, *(a2 + 72), *(a2 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1[4].__r_.__value_.__r.__words, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
-    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[5].__r_.__value_.__l.__data_, *(a2 + 120), *(a2 + 128), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 128) - *(a2 + 120)) >> 2));
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1[6].__r_.__value_.__r.__words, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 4);
-    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[7].__r_.__value_.__l.__data_, *(a2 + 168), *(a2 + 176), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 176) - *(a2 + 168)) >> 2));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&a1[1], *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 4);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&a1[2], *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 4);
+    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[3], *(a2 + 72), *(a2 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 80) - *(a2 + 72)) >> 2));
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&a1[4].__r_.__value_.__l.__data_, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[5], *(a2 + 120), *(a2 + 128), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 128) - *(a2 + 120)) >> 2));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&a1[6], *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 4);
+    std::vector<amt::Vec<int,3>>::__assign_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&a1[7], *(a2 + 168), *(a2 + 176), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 176) - *(a2 + 168)) >> 2));
   }
 
   std::string::operator=(a1 + 8, (a2 + 192));
@@ -88,23 +88,23 @@ uint64_t std::__function::__value_func<BOOL ()(float)>::~__value_func[abi:ne2001
   return a1;
 }
 
-void std::vector<amt::Vec<int,3>>::resize(uint64_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<amt::Vec<int,3>>::resize(void **result, unint64_t a2, uint64_t *a3)
 {
-  v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v3 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v4 = a2 >= v3;
   v5 = a2 - v3;
   if (v5 != 0 && v4)
   {
-    std::vector<amt::Vec<int,3>>::__append(a1, v5, a3);
+    std::vector<amt::Vec<int,3>>::__append(result, v5, a3);
   }
 
   else if (!v4)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-void std::vector<amt::Vec<int,3>>::__append(uint64_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<amt::Vec<int,3>>::__append(void **a1, unint64_t a2, uint64_t *a3)
 {
   v5 = a1[1];
   v6 = a1[2];
@@ -174,10 +174,10 @@ void std::vector<amt::Vec<int,3>>::__append(uint64_t *a1, unint64_t a2, uint64_t
     while (v14);
     v17 = *a1;
     v18 = a1[1];
-    v19 = 12 * v7 + *a1 - v18;
+    v19 = *a1 + 12 * v7 - v18;
     if (v18 != *a1)
     {
-      v20 = 12 * v7 + *a1 - v18;
+      v20 = *a1 + 12 * v7 - v18;
       do
       {
         v21 = *v17;
@@ -192,7 +192,7 @@ void std::vector<amt::Vec<int,3>>::__append(uint64_t *a1, unint64_t a2, uint64_t
     }
 
     *a1 = v19;
-    a1[1] = 12 * v7 + 12 * a2;
+    a1[1] = (12 * v7 + 12 * a2);
     a1[2] = 0;
     if (v17)
     {
@@ -202,7 +202,7 @@ void std::vector<amt::Vec<int,3>>::__append(uint64_t *a1, unint64_t a2, uint64_t
   }
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -277,7 +277,7 @@ void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IP
   return result;
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -352,7 +352,7 @@ void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IP
   return result;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -370,9 +370,9 @@ void amt::TriangleMesh::computeTriangleNormals(uint64_t a1, void *a2, char a3)
   operator new();
 }
 
-void sub_23E765CD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E765CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -480,7 +480,7 @@ uint64_t amt::removeDuplicatedTriangles(void *a1, void *a2, void *a3, std::vecto
       else
       {
         v42 = v38;
-        v29 = _ZNSt3__112__hash_tableINS_17__hash_value_typeIN3amt3VecIiLi3EEEZNS2_25removeDuplicatedTrianglesERKNS_6vectorIS4_NS_9allocatorIS4_EEEERKNS5_IDv3_fNS6_ISB_EEEERKNS2_9AdjacencyIiEERNS5_IiNS6_IiEEEEbE12TriangleInfoEENS_22__unordered_map_hasherIS4_SO_NS2_7HashVecIiLi3EEENS_8equal_toIS4_EELb1EEENS_21__unordered_map_equalIS4_SO_ST_SR_Lb1EEENS6_ISO_EEE25__emplace_unique_key_argsIS4_JRKNS_21piecewise_construct_tENS_5tupleIJRKS4_EEENS13_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeISO_PvEEEEbEERKT_DpOT0_(&v39, v38);
+        v29 = _ZNSt3__112__hash_tableINS_17__hash_value_typeIN3amt3VecIiLi3EEEZNS2_25removeDuplicatedTrianglesERKNS_6vectorIS4_NS_9allocatorIS4_EEEERKNS5_IDv3_fNS6_ISB_EEEERKNS2_9AdjacencyIiEERNS5_IiNS6_IiEEEEbE12TriangleInfoEENS_22__unordered_map_hasherIS4_SO_NS2_7HashVecIiLi3EEENS_8equal_toIS4_EELb1EEENS_21__unordered_map_equalIS4_SO_ST_SR_Lb1EEENS6_ISO_EEE25__emplace_unique_key_argsIS4_JRKNS_21piecewise_construct_tENS_5tupleIJRKS4_EEENS13_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeISO_PvEEEEbEERKT_DpOT0_(&v39, v38, &std::piecewise_construct, &v42);
       }
 
       *(v29 + 7) = v21;
@@ -520,9 +520,9 @@ LABEL_28:
   return 0;
 }
 
-void sub_23E765F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23E765F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__hash_table<std::__hash_value_type<amt::Vec<long long,3>,int>,std::__unordered_map_hasher<amt::Vec<long long,3>,std::__hash_value_type<amt::Vec<long long,3>,int>,amt::HashVec<long long,3>,std::equal_to<amt::Vec<long long,3>>,true>,std::__unordered_map_equal<amt::Vec<long long,3>,std::__hash_value_type<amt::Vec<long long,3>,int>,std::equal_to<amt::Vec<long long,3>>,amt::HashVec<long long,3>,true>,std::allocator<std::__hash_value_type<amt::Vec<long long,3>,int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -540,11 +540,11 @@ float32x4_t _ZNSt3__110__function6__funcIZNK3amt12TriangleMesh22computeTriangleN
 {
   v3 = *a2;
   v4 = *(a1 + 8);
-  amt::TriangleMesh::triangle(v4, *a2, v16);
-  v5 = *(v4 + 24);
-  v6 = *(v5 + 16 * v16[0]);
-  v7 = vsubq_f32(*(v5 + 16 * v16[1]), v6);
-  v8 = vsubq_f32(*(v5 + 16 * v16[2]), v6);
+  amt::TriangleMesh::triangle(&v16, v4, *a2);
+  v5 = v4[3];
+  v6 = *(v5 + 16 * v16);
+  v7 = vsubq_f32(*(v5 + 16 * SHIDWORD(v16)), v6);
+  v8 = vsubq_f32(*(v5 + 16 * v17), v6);
   v9 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v8, v8), v8, 0xCuLL), vnegq_f32(v7)), v8, vextq_s8(vuzp1q_s32(v7, v7), v7, 0xCuLL));
   result = vextq_s8(vuzp1q_s32(v9, v9), v9, 0xCuLL);
   *(**(a1 + 16) + 16 * v3) = result;
@@ -586,7 +586,7 @@ uint64_t _ZNKSt3__110__function6__funcIZNK3amt12TriangleMesh22computeTriangleNor
   }
 }
 
-uint64_t amt::Adjacency<int>::neighborsStartIndex(void *a1, int a2)
+uint64_t amt::Adjacency<int>::neighborsStartIndex(void *a1, uint64_t a2)
 {
   if (((a1[4] - a1[3]) >> 2) <= a2)
   {
@@ -596,7 +596,7 @@ uint64_t amt::Adjacency<int>::neighborsStartIndex(void *a1, int a2)
   return *(*a1 + 4 * a2);
 }
 
-uint64_t amt::Adjacency<int>::neighborsEndIndex(void *a1, int a2)
+uint64_t amt::Adjacency<int>::neighborsEndIndex(void *a1, uint64_t a2)
 {
   v2 = a1[3];
   if (((a1[4] - v2) >> 2) <= a2)
@@ -607,7 +607,7 @@ uint64_t amt::Adjacency<int>::neighborsEndIndex(void *a1, int a2)
   return (*(v2 + 4 * a2) + *(*a1 + 4 * a2));
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -656,7 +656,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -736,40 +736,40 @@ uint64_t *_ZNSt3__112__hash_tableINS_17__hash_value_typeIN3amt3VecIiLi3EEEZNS2_2
   return result;
 }
 
-uint64_t *_ZNSt3__112__hash_tableINS_17__hash_value_typeIN3amt3VecIiLi3EEEZNS2_25removeDuplicatedTrianglesERKNS_6vectorIS4_NS_9allocatorIS4_EEEERKNS5_IDv3_fNS6_ISB_EEEERKNS2_9AdjacencyIiEERNS5_IiNS6_IiEEEEbE12TriangleInfoEENS_22__unordered_map_hasherIS4_SO_NS2_7HashVecIiLi3EEENS_8equal_toIS4_EELb1EEENS_21__unordered_map_equalIS4_SO_ST_SR_Lb1EEENS6_ISO_EEE25__emplace_unique_key_argsIS4_JRKNS_21piecewise_construct_tENS_5tupleIJRKS4_EEENS13_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeISO_PvEEEEbEERKT_DpOT0_(void *a1, int *a2)
+uint64_t *_ZNSt3__112__hash_tableINS_17__hash_value_typeIN3amt3VecIiLi3EEEZNS2_25removeDuplicatedTrianglesERKNS_6vectorIS4_NS_9allocatorIS4_EEEERKNS5_IDv3_fNS6_ISB_EEEERKNS2_9AdjacencyIiEERNS5_IiNS6_IiEEEEbE12TriangleInfoEENS_22__unordered_map_hasherIS4_SO_NS2_7HashVecIiLi3EEENS_8equal_toIS4_EELb1EEENS_21__unordered_map_equalIS4_SO_ST_SR_Lb1EEENS6_ISO_EEE25__emplace_unique_key_argsIS4_JRKNS_21piecewise_construct_tENS_5tupleIJRKS4_EEENS13_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeISO_PvEEEEbEERKT_DpOT0_(void *a1, int *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = 0;
-  v3 = *a2;
+  v4 = 0;
+  v5 = *a2;
   do
   {
-    v3 ^= (v3 << 6) + (v3 >> 2) + 2654435769u + a2[++v2];
+    v5 ^= (v5 << 6) + (v5 >> 2) + 2654435769u + a2[++v4];
   }
 
-  while (v2 != 2);
-  v4 = a1[1];
-  if (!*&v4)
+  while (v4 != 2);
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v3;
-    if (v3 >= *&v4)
+    v8 = v5;
+    if (v5 >= *&v6)
     {
-      v6 = v3 % *&v4;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v3;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -777,57 +777,57 @@ LABEL_22:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v3)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v8 + 4) != *a2 || *(v8 + 5) != a2[1] || *(v8 + 6) != a2[2])
+  if (*(v10 + 4) != *a2 || *(v10 + 5) != a2[1] || *(v10 + 6) != a2[2])
   {
     goto LABEL_21;
   }
 
-  return v8;
+  return v10;
 }
 
-void *std::vector<amt::Vec<int,3>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<amt::Vec<int,3>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<amt::Vec<int,3>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<amt::Vec<int,3>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E766684(_Unwind_Exception *exception_object)
@@ -868,8 +868,9 @@ uint64_t amt::Adjacency<int>::~Adjacency(uint64_t a1)
   return a1;
 }
 
-uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::TriangleMesh *a3, std::vector<unsigned int> *this, uint64_t *a5)
+uint64_t amt::extractConnectedComponents(uint64_t *a1, uint64_t a2, amt::TriangleMesh *a3, std::vector<unsigned int> *this, uint64_t *a5)
 {
+  v8 = a2;
   if (a5)
   {
     std::vector<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](a5);
@@ -943,40 +944,40 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
   v68 = v23;
   __x[0] = -1;
   std::vector<int>::resize(this, v23, __x);
-  v88 = 0;
-  v86 = 0u;
-  v87 = 0u;
-  *__x = 0u;
+  v87 = 0;
   v85 = 0u;
-  amt::computeVertexToTriangle(a1, a2, __x);
-  memset(&v83, 0, sizeof(v83));
+  v86 = 0u;
+  *__x = 0u;
+  v84 = 0u;
+  amt::computeVertexToTriangle(a1, v8, __x);
   memset(&v82, 0, sizeof(v82));
   memset(&v81, 0, sizeof(v81));
   memset(&v80, 0, sizeof(v80));
+  memset(&v79, 0, sizeof(v79));
   if (v70)
   {
     if (-1431655765 * ((*(a3 + 10) - *(a3 + 9)) >> 2))
     {
-      LODWORD(v79.__begin_) = -1;
-      std::vector<int>::resize(&v83, ((v17 - v18) >> 4), &v79);
+      LODWORD(v78.__begin_) = -1;
+      std::vector<int>::resize(&v82, ((v17 - v18) >> 4), &v78);
     }
 
     if (-1431655765 * ((*(a3 + 16) - *(a3 + 15)) >> 2))
     {
-      LODWORD(v79.__begin_) = -1;
-      std::vector<int>::resize(&v82, ((v19 - v20) >> 3), &v79);
+      LODWORD(v78.__begin_) = -1;
+      std::vector<int>::resize(&v81, ((v19 - v20) >> 3), &v78);
     }
 
     if (-1431655765 * ((*(a3 + 22) - *(a3 + 21)) >> 2))
     {
-      LODWORD(v79.__begin_) = -1;
-      std::vector<int>::resize(&v81, ((v21 - v22) >> 4), &v79);
+      LODWORD(v78.__begin_) = -1;
+      std::vector<int>::resize(&v80, ((v21 - v22) >> 4), &v78);
     }
   }
 
-  memset(&v79, 0, sizeof(v79));
-  std::vector<unsigned int>::reserve(&v79, v23);
-  v78 = 0;
+  memset(&v78, 0, sizeof(v78));
+  std::vector<unsigned int>::reserve(&v78, v23);
+  v77 = 0;
   v24 = v23;
   v25 = v70;
   v26 = v71;
@@ -989,16 +990,16 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
       if (this->__begin_[v28] == -1)
       {
         this->__begin_[v28] = v27;
-        std::vector<int>::push_back[abi:ne200100](&v79.__begin_, &v78);
+        std::vector<int>::push_back[abi:ne200100](&v78.__begin_, &v77);
+        v75 = 0;
         v76 = 0;
-        v77 = 0;
         if (v25)
         {
           operator new();
         }
 
-        end = v79.__end_;
-        if (v79.__begin_ != v79.__end_)
+        end = v78.__end_;
+        if (v78.__begin_ != v78.__end_)
         {
           v30 = 0;
           v31 = 0;
@@ -1006,84 +1007,84 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
           do
           {
             v33 = *(end - 1);
-            v75 = v33;
-            v79.__end_ = end - 1;
+            v74 = v33;
+            v78.__end_ = end - 1;
             if (v70)
             {
-              std::vector<int>::push_back[abi:ne200100](&v80.__begin_, &v75);
-              if (-1431655765 * ((*(v26 + 10) - *(v26 + 9)) >> 2))
+              std::vector<int>::push_back[abi:ne200100](&v79.__begin_, &v74);
+              if (-1431655765 * ((v26[10] - v26[9]) >> 2))
               {
-                amt::TriangleMesh::triangle(v26, v75, &v72);
+                amt::TriangleMesh::triangle(&v72, v26, v74);
                 for (i = 0; i != 12; i += 4)
                 {
                   v35 = *(&v72 + i);
-                  if (v83.__begin_[v35] == -1)
+                  if (v82.__begin_[v35] == -1)
                   {
-                    v83.__begin_[v35] = v30;
-                    v36 = v76;
+                    v82.__begin_[v35] = v30;
+                    v36 = v75;
                     v37 = amt::TriangleMesh::position(v26, v35);
                     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100ERKS1_((v36 + 3), v37);
                     ++v30;
                   }
                 }
 
-                v38 = v83.__begin_[v73];
-                v39 = v83.__begin_[v74];
-                LODWORD(v89) = v83.__begin_[v72];
-                HIDWORD(v89) = v38;
-                v90 = v39;
-                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v76 + 9, &v89);
+                v38 = v82.__begin_[SHIDWORD(v72)];
+                v39 = v82.__begin_[v73];
+                LODWORD(v88) = v82.__begin_[v72];
+                HIDWORD(v88) = v38;
+                v89 = v39;
+                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v75 + 9, &v88);
               }
 
-              if (-1431655765 * ((*(v26 + 16) - *(v26 + 15)) >> 2))
+              if (-1431655765 * ((v26[16] - v26[15]) >> 2))
               {
-                amt::TriangleMesh::texCoordTriangle(v26, v75, &v72);
+                amt::TriangleMesh::texCoordTriangle(&v72, v26, v74);
                 for (j = 0; j != 12; j += 4)
                 {
                   v41 = *(&v72 + j);
-                  if (v82.__begin_[v41] == -1)
+                  if (v81.__begin_[v41] == -1)
                   {
-                    v82.__begin_[v41] = v31;
-                    v42 = v76;
+                    v81.__begin_[v41] = v31;
+                    v42 = v75;
                     v43 = amt::TriangleMesh::texCoord(v71, v41);
                     amt::TriangleMesh::addTexCoord(v42, v43);
                     ++v31;
                   }
                 }
 
-                v44 = v82.__begin_[v73];
-                v45 = v82.__begin_[v74];
-                LODWORD(v89) = v82.__begin_[v72];
-                HIDWORD(v89) = v44;
-                v90 = v45;
-                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v76 + 15, &v89);
+                v44 = v81.__begin_[SHIDWORD(v72)];
+                v45 = v81.__begin_[v73];
+                LODWORD(v88) = v81.__begin_[v72];
+                HIDWORD(v88) = v44;
+                v89 = v45;
+                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v75 + 15, &v88);
                 v26 = v71;
               }
 
-              v33 = v75;
-              if (-1431655765 * ((*(v26 + 22) - *(v26 + 21)) >> 2))
+              v33 = v74;
+              if (-1431655765 * ((v26[22] - v26[21]) >> 2))
               {
-                amt::TriangleMesh::normalTriangle(v26, v75, &v72);
+                amt::TriangleMesh::normalTriangle(&v72, v26, v74);
                 for (k = 0; k != 12; k += 4)
                 {
                   v47 = *(&v72 + k);
-                  if (v81.__begin_[v47] == -1)
+                  if (v80.__begin_[v47] == -1)
                   {
-                    v81.__begin_[v47] = v32;
-                    v48 = v76;
+                    v80.__begin_[v47] = v32;
+                    v48 = v75;
                     v49 = amt::TriangleMesh::normal(v26, v47);
                     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100ERKS1_((v48 + 18), v49);
                     ++v32;
                   }
                 }
 
-                v50 = v81.__begin_[v73];
-                v51 = v81.__begin_[v74];
-                LODWORD(v89) = v81.__begin_[v72];
-                HIDWORD(v89) = v50;
-                v90 = v51;
-                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v76 + 21, &v89);
-                v33 = v75;
+                v50 = v80.__begin_[SHIDWORD(v72)];
+                v51 = v80.__begin_[v73];
+                LODWORD(v88) = v80.__begin_[v72];
+                HIDWORD(v88) = v50;
+                v89 = v51;
+                std::vector<amt::Vec<int,3>>::push_back[abi:ne200100](v75 + 21, &v88);
+                v33 = v74;
               }
             }
 
@@ -1092,23 +1093,23 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
             do
             {
               v54 = *(v53 + 4 * v52);
-              if (v54 >= ((v86 - *(&v85 + 1)) >> 2))
+              if (v54 >= ((v85 - *(&v84 + 1)) >> 2))
               {
                 __assert_rtn("neighborsStartIndex", "AMTAdjacency.hpp", 96, "i < size()");
               }
 
-              v55 = *(*(&v85 + 1) + 4 * v54);
+              v55 = *(*(&v84 + 1) + 4 * v54);
               if (v55 >= 1)
               {
                 v56 = *(*__x + 4 * v54);
                 v57 = v55 + v56;
                 do
                 {
-                  LODWORD(v89) = *(v87 + 4 * v56);
-                  if (this->__begin_[v89] == -1)
+                  LODWORD(v88) = *(v86 + 4 * v56);
+                  if (this->__begin_[v88] == -1)
                   {
-                    this->__begin_[v89] = v27;
-                    std::vector<int>::push_back[abi:ne200100](&v79.__begin_, &v89);
+                    this->__begin_[v88] = v27;
+                    std::vector<int>::push_back[abi:ne200100](&v78.__begin_, &v88);
                   }
 
                   ++v56;
@@ -1121,57 +1122,57 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
             }
 
             while (v52 != 3);
-            end = v79.__end_;
+            end = v78.__end_;
             v26 = v71;
           }
 
-          while (v79.__begin_ != v79.__end_);
+          while (v78.__begin_ != v78.__end_);
         }
 
         v25 = v70;
         if (v70)
         {
-          begin = v80.__begin_;
-          v59 = v80.__end_;
+          begin = v79.__begin_;
+          v59 = v79.__end_;
           while (begin != v59)
           {
             v60 = *begin;
-            if (-1431655765 * ((*(v26 + 10) - *(v26 + 9)) >> 2))
+            if (-1431655765 * ((v26[10] - v26[9]) >> 2))
             {
-              amt::TriangleMesh::triangle(v26, *begin, &v89);
+              amt::TriangleMesh::triangle(&v88, v26, *begin);
               v61 = 0;
-              v62 = v83.__begin_;
+              v62 = v82.__begin_;
               do
               {
-                v62[*(&v89 + v61)] = -1;
+                v62[*(&v88 + v61)] = -1;
                 v61 += 4;
               }
 
               while (v61 != 12);
             }
 
-            if (-1431655765 * ((*(v26 + 16) - *(v26 + 15)) >> 2))
+            if (-1431655765 * ((v26[16] - v26[15]) >> 2))
             {
-              amt::TriangleMesh::texCoordTriangle(v26, v60, &v89);
+              amt::TriangleMesh::texCoordTriangle(&v88, v26, v60);
               v63 = 0;
-              v64 = v82.__begin_;
+              v64 = v81.__begin_;
               do
               {
-                v64[*(&v89 + v63)] = -1;
+                v64[*(&v88 + v63)] = -1;
                 v63 += 4;
               }
 
               while (v63 != 12);
             }
 
-            if (-1431655765 * ((*(v26 + 22) - *(v26 + 21)) >> 2))
+            if (-1431655765 * ((v26[22] - v26[21]) >> 2))
             {
-              amt::TriangleMesh::normalTriangle(v26, v60, &v89);
+              amt::TriangleMesh::normalTriangle(&v88, v26, v60);
               v65 = 0;
-              v66 = v81.__begin_;
+              v66 = v80.__begin_;
               do
               {
-                v66[*(&v89 + v65)] = -1;
+                v66[*(&v88 + v65)] = -1;
                 v65 += 4;
               }
 
@@ -1182,20 +1183,26 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
           }
         }
 
-        if (v77)
+        if (v76)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v77);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v76);
         }
 
         v27 = (v27 + 1);
-        v28 = v78;
+        v28 = v77;
         v24 = v68;
       }
 
-      v78 = ++v28;
+      v77 = ++v28;
     }
 
     while (v28 < v24);
+  }
+
+  if (v78.__begin_)
+  {
+    v78.__end_ = v78.__begin_;
+    operator delete(v78.__begin_);
   }
 
   if (v79.__begin_)
@@ -1220,12 +1227,6 @@ uint64_t amt::extractConnectedComponents(uint64_t *a1, unsigned int a2, amt::Tri
   {
     v82.__end_ = v82.__begin_;
     operator delete(v82.__begin_);
-  }
-
-  if (v83.__begin_)
-  {
-    v83.__end_ = v83.__begin_;
-    operator delete(v83.__begin_);
   }
 
   amt::Adjacency<int>::~Adjacency(__x);
@@ -1265,14 +1266,14 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
   v4 = (this + 24);
   v44 = v4 + 9;
   v40 = v4 + 15;
-  v41 = v4 + 6;
+  v41 = (v4 + 6);
   v7 = (v6 - v5) >> 4;
   v8 = (v4[10] - v4[9]) >> 3;
   v9 = (v4[16] - v4[15]) >> 4;
   v35 = v4[13] - v4[12];
   v38 = (v4[7] - v4[6]) >> 2;
-  v42 = v4 + 12;
-  v43 = v4 + 18;
+  v42 = (v4 + 12);
+  v43 = (v4 + 18);
   v32 = v4[19];
   v33 = v4[18];
   v10 = (*(a2 + 4) - *(a2 + 3)) >> 4;
@@ -1290,7 +1291,7 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
     do
     {
       v15 = amt::TriangleMesh::position(a2, v14);
-      amt::TriangleMesh::setPosition(this, v7 + v14++, v15);
+      amt::TriangleMesh::setPosition(this, (v7 + v14++), v15);
     }
 
     while (v10 != v14);
@@ -1309,7 +1310,7 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
     do
     {
       v19 = amt::TriangleMesh::texCoord(a2, v18);
-      amt::TriangleMesh::setTexCoord(this, v8 + v18++, v19);
+      amt::TriangleMesh::setTexCoord(this, (v8 + v18++), v19);
     }
 
     while (v11 != v18);
@@ -1325,7 +1326,7 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
     do
     {
       v21 = amt::TriangleMesh::normal(a2, v20);
-      amt::TriangleMesh::setNormal(this, v9 + v20++, v21);
+      amt::TriangleMesh::setNormal(this, (v9 + v20++), v21);
     }
 
     while (v12 != v20);
@@ -1339,13 +1340,13 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
   {
     for (i = 0; i != v17; ++i)
     {
-      amt::TriangleMesh::triangle(a2, i, v46);
+      amt::TriangleMesh::triangle(&v46, a2, i);
       for (j = 0; j != 12; j += 4)
       {
-        *(&v47 + j) = *&v46[j] + v7;
+        *(&v47 + j) = *(&v46 + j) + v7;
       }
 
-      amt::TriangleMesh::setTriangle(this, i + v16, &v47);
+      amt::TriangleMesh::setTriangle(this, (i + v16), &v47);
     }
   }
 
@@ -1356,13 +1357,13 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
   {
     for (k = 0; k != v45; ++k)
     {
-      amt::TriangleMesh::texCoordTriangle(a2, k, v46);
+      amt::TriangleMesh::texCoordTriangle(&v46, a2, k);
       for (m = 0; m != 12; m += 4)
       {
-        *(&v47 + m) = *&v46[m] + v8;
+        *(&v47 + m) = *(&v46 + m) + v8;
       }
 
-      amt::TriangleMesh::setTexCoordTriangle(this, k + v37, &v47);
+      amt::TriangleMesh::setTexCoordTriangle(this, (k + v37), &v47);
     }
   }
 
@@ -1374,10 +1375,10 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
     v26 = 0;
     do
     {
-      amt::TriangleMesh::normalTriangle(a2, v26, v46);
+      amt::TriangleMesh::normalTriangle(&v46, a2, v26);
       for (n = 0; n != 12; n += 4)
       {
-        *(&v47 + n) = *&v46[n] + v9;
+        *(&v47 + n) = *(&v46 + n) + v9;
       }
 
       amt::TriangleMesh::setNormalTriangle(this, v26 - 1431655765 * (v34 >> 2), &v47);
@@ -1388,10 +1389,10 @@ void amt::TriangleMesh::append(amt::TriangleMesh *this, const amt::TriangleMesh 
   }
 }
 
-void std::vector<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](uint64_t *a1)
+void std::vector<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -1400,7 +1401,7 @@ void std::vector<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](uint64
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 void std::vector<int>::resize(std::vector<int> *this, std::vector<int>::size_type __sz, std::vector<int>::const_reference __x)
@@ -1450,7 +1451,7 @@ void **std::vector<std::shared_ptr<amt::TriangleMesh>>::push_back[abi:ne200100](
       v11 = v9;
     }
 
-    v18[4] = result;
+    v19[4] = result;
     if (v11)
     {
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<amt::TriangleMesh>>>(result, v11);
@@ -1466,18 +1467,18 @@ void **std::vector<std::shared_ptr<amt::TriangleMesh>>::push_back[abi:ne200100](
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
     v3[1] = v7;
     v17 = v3[2];
     v3[2] = 0;
-    v18[2] = v16;
-    v18[3] = v17;
-    v18[0] = v16;
-    v18[1] = v16;
-    result = std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::~__split_buffer(v18);
+    v19[2] = v16;
+    v19[3] = v17;
+    v19[0] = v16;
+    v19[1] = v16;
+    result = std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::~__split_buffer(v19, v18);
   }
 
   else
@@ -1695,9 +1696,9 @@ void std::shared_ptr<amt::TriangleMesh>::shared_ptr[abi:ne200100]<amt::TriangleM
   operator new();
 }
 
-void sub_23E76789C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76789C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<amt::TriangleMesh>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1757,9 +1758,9 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<amt::
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void **std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::~__split_buffer(void **a1)
+void **std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::~__split_buffer(void **a1, uint64_t a2)
 {
-  std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](a1);
+  std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](a1, a2);
   if (*a1)
   {
     operator delete(*a1);
@@ -1768,23 +1769,23 @@ void **std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::~__split_buffer(
   return a1;
 }
 
-void std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](uint64_t a1)
+void std::__split_buffer<std::shared_ptr<amt::TriangleMesh>>::clear[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  v2 = *(a1 + 8);
-  v1 = *(a1 + 16);
-  while (v1 != v2)
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  while (v2 != v3)
   {
-    *(a1 + 16) = v1 - 16;
-    v4 = *(v1 - 8);
-    if (v4)
+    *(result + 16) = v2 - 16;
+    v5 = *(v2 - 8);
+    if (v5)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      v1 = *(a1 + 16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      v2 = *(result + 16);
     }
 
     else
     {
-      v1 -= 16;
+      v2 -= 16;
     }
   }
 }
@@ -1799,9 +1800,9 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-__n128 amt::TriangleMesh::setPosition(uint64_t a1, int a2, __n128 *a3)
+__n128 amt::TriangleMesh::setPosition(uint64_t a1, uint64_t a2, __n128 *a3)
 {
-  if (a2 < 0 || (v3 = *(a1 + 24), ((*(a1 + 32) - v3) >> 4) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 24), ((*(a1 + 32) - v3) >> 4) <= a2))
   {
     amt::TriangleMesh::setPosition();
   }
@@ -1811,9 +1812,9 @@ __n128 amt::TriangleMesh::setPosition(uint64_t a1, int a2, __n128 *a3)
   return result;
 }
 
-double amt::TriangleMesh::setTexCoord(uint64_t a1, int a2, double *a3)
+double amt::TriangleMesh::setTexCoord(uint64_t a1, uint64_t a2, double *a3)
 {
-  if (a2 < 0 || (v3 = *(a1 + 96), ((*(a1 + 104) - v3) >> 3) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 96), ((*(a1 + 104) - v3) >> 3) <= a2))
   {
     amt::TriangleMesh::setTexCoord();
   }
@@ -1823,9 +1824,9 @@ double amt::TriangleMesh::setTexCoord(uint64_t a1, int a2, double *a3)
   return result;
 }
 
-__n128 amt::TriangleMesh::setNormal(uint64_t a1, int a2, __n128 *a3)
+__n128 amt::TriangleMesh::setNormal(uint64_t a1, uint64_t a2, __n128 *a3)
 {
-  if (a2 < 0 || (v3 = *(a1 + 144), ((*(a1 + 152) - v3) >> 4) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 144), ((*(a1 + 152) - v3) >> 4) <= a2))
   {
     amt::TriangleMesh::setNormal();
   }
@@ -1835,9 +1836,9 @@ __n128 amt::TriangleMesh::setNormal(uint64_t a1, int a2, __n128 *a3)
   return result;
 }
 
-uint64_t amt::TriangleMesh::setTriangle(uint64_t result, signed int a2, uint64_t *a3)
+uint64_t amt::TriangleMesh::setTriangle(uint64_t result, uint64_t a2, uint64_t *a3)
 {
-  if (a2 < 0 || (v3 = *(result + 72), (-1431655765 * ((*(result + 80) - v3) >> 2)) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(result + 72), (-1431655765 * ((*(result + 80) - v3) >> 2)) <= a2))
   {
     amt::TriangleMesh::setTriangle();
   }
@@ -1849,9 +1850,9 @@ uint64_t amt::TriangleMesh::setTriangle(uint64_t result, signed int a2, uint64_t
   return result;
 }
 
-uint64_t amt::TriangleMesh::setTexCoordTriangle(uint64_t result, signed int a2, uint64_t *a3)
+uint64_t amt::TriangleMesh::setTexCoordTriangle(uint64_t result, uint64_t a2, uint64_t *a3)
 {
-  if (a2 < 0 || (v3 = *(result + 120), (-1431655765 * ((*(result + 128) - v3) >> 2)) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(result + 120), (-1431655765 * ((*(result + 128) - v3) >> 2)) <= a2))
   {
     amt::TriangleMesh::setTexCoordTriangle();
   }
@@ -1863,9 +1864,9 @@ uint64_t amt::TriangleMesh::setTexCoordTriangle(uint64_t result, signed int a2, 
   return result;
 }
 
-uint64_t amt::TriangleMesh::setNormalTriangle(uint64_t result, signed int a2, uint64_t *a3)
+uint64_t amt::TriangleMesh::setNormalTriangle(uint64_t result, uint64_t a2, uint64_t *a3)
 {
-  if (a2 < 0 || (v3 = *(result + 168), (-1431655765 * ((*(result + 176) - v3) >> 2)) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(result + 168), (-1431655765 * ((*(result + 176) - v3) >> 2)) <= a2))
   {
     amt::TriangleMesh::setNormalTriangle();
   }
@@ -1877,20 +1878,20 @@ uint64_t amt::TriangleMesh::setNormalTriangle(uint64_t result, signed int a2, ui
   return result;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEmRKS1_(void *a1, unint64_t a2, uint64_t *a3)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEmRKS1_(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEmRKS1_(a1, a2 - v3, a3);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEmRKS1_(result, a2 - v3, a3);
   }
 }
 
@@ -1988,21 +1989,20 @@ void std::vector<std::shared_ptr<amt::TriangleMesh>>::__destroy_vector::operator
   }
 }
 
-void amt::subdivideMesh(amt *this@<X0>, std::vector<unsigned int> *a2@<X1>, amt::MeshSubdivisionInfo *a3@<X2>, std::string *a4@<X8>)
+void amt::subdivideMesh(std::string *__return_ptr a1@<X8>, amt *this@<X0>, const amt::TriangleMesh *a3@<X1>, amt::MeshSubdivisionInfo *a4@<X2>)
 {
-  v4 = a3;
-  amt::TriangleMesh::TriangleMesh(a4, this);
-  if (v4)
+  amt::TriangleMesh::TriangleMesh(a1, this);
+  if (a4)
   {
-    amt::TriangleMesh::subdivideMidPoint(a4, a2, v4);
-    if (((a4[6].__r_.__value_.__l.__size_ - a4[6].__r_.__value_.__r.__words[0]) & 0xFFFFFFFF0) != 0)
+    amt::TriangleMesh::subdivideMidPoint(a1, a3, a4);
+    if (((a1[6].__r_.__value_.__l.__size_ - a1[6].__r_.__value_.__r.__words[0]) & 0xFFFFFFFF0) != 0)
     {
-      v7 = ((a4[1].__r_.__value_.__l.__size_ - a4[1].__r_.__value_.__r.__words[0]) >> 4);
+      v7 = ((a1[1].__r_.__value_.__l.__size_ - a1[1].__r_.__value_.__r.__words[0]) >> 4);
       v15 = 0u;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a4[6].__r_.__value_.__r.__words, v7, &v15);
-      _ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(&a4[6], a2);
-      data = a4[6].__r_.__value_.__l.__data_;
-      for (i = a4[6].__r_.__value_.__l.__size_; data != i; ++data)
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEmRKS1_(a1[6].__r_.__value_.__r.__words, v7, &v15);
+      _ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(a1[6].__r_.__value_.__r.__words, a3);
+      data = a1[6].__r_.__value_.__l.__data_;
+      for (i = a1[6].__r_.__value_.__l.__size_; data != i; ++data)
       {
         v10 = 0;
         v11 = *data;
@@ -2048,14 +2048,14 @@ uint64_t amt::TriangleMesh::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::TriangleMesh *a3, int a4, float a5)
+void amt::fitMidPointSubdivision(amt *this, uint64_t **a2, amt::TriangleMesh *a3, int a4, float a5)
 {
   v6 = a3;
   v8 = a2;
   v124 = 0;
   v125 = 0;
   v126 = 0;
-  std::vector<amt::Vec<int,3>>::__init_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&v124, *(a2 + 9), *(v8 + 10), 0xAAAAAAAAAAAAAAABLL * ((*(v8 + 10) - *(a2 + 9)) >> 2));
+  std::vector<amt::Vec<int,3>>::__init_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(&v124, a2[9], v8[10], 0xAAAAAAAAAAAAAAABLL * ((v8[10] - a2[9]) >> 2));
   v123 = 0;
   v121 = 0u;
   v122 = 0u;
@@ -2064,23 +2064,23 @@ void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::Tr
   v116 = 0;
   v117 = 0;
   v118 = 0;
-  amt::subdivideMeshMidPoint((*(v8 + 4) - *(v8 + 3)) >> 4, -1431655765 * ((*(v8 + 10) - *(v8 + 9)) >> 2), v6, &v119, &v124, &v116);
+  amt::subdivideMeshMidPoint((v8[4] - v8[3]) >> 4, -1431655765 * ((v8[10] - v8[9]) >> 2), v6, &v119, &v124, &v116);
   std::vector<amt::SparseMatrix<float>>::vector[abi:ne200100](v115, v6);
   v98 = a4;
   v93 = v8;
   std::vector<amt::SparseMatrix<float>>::vector[abi:ne200100](v114, v6);
   v100 = this;
   v96 = v6;
-  std::vector<AMTPair>::vector[abi:ne200100](v113, v116[2 * v6]);
+  std::vector<AMTPair>::vector[abi:ne200100](v113, SLODWORD(v116[v6]));
   v101 = v6;
   if (v6 >= 1)
   {
     v10 = 0;
     do
     {
-      v11 = v116[2 * v10];
+      v11 = LODWORD(v116[v10]);
       v12 = v10 + 1;
-      v13 = v116[2 * v10 + 2];
+      v13 = v116[v10 + 1];
       if (v11 >= 1)
       {
         v14 = 0;
@@ -2166,15 +2166,15 @@ void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::Tr
       }
 
       amt::SparseMatrix<float>::transpose(v25, &v107);
-      v34 = (v114[0] + 80 * v10);
+      v34 = v114[0] + 80 * v10;
       if (v34 != &v107)
       {
         std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v114[0] + 80 * v10), v107.__begin_, v107.__end_, v107.__end_ - v107.__begin_);
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v34[1].__begin_, v108, v109, (v109 - v108) >> 2);
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v34[2].__begin_, v110, v111, (v111 - v110) >> 2);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v34 + 24), v108, v109, (v109 - v108) >> 2);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v34 + 48), v110, v111, (v111 - v110) >> 2);
       }
 
-      v34[3].__begin_ = v112;
+      *(v34 + 72) = v112;
       amt::Adjacency<int>::~Adjacency(&v107);
       ++v10;
     }
@@ -2182,7 +2182,7 @@ void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::Tr
     while (v12 != v101);
   }
 
-  v35 = *(v8 + 4) - *(v8 + 3);
+  v35 = v8[4] - v8[3];
   v36 = 2 * (v35 >> 4);
   if (v98 != -1)
   {
@@ -2255,7 +2255,7 @@ void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::Tr
         amt::operator*(v115[0] + v49, &v103[0][v50 - 1], &__p);
         if (&v103[0][v50] != &__p)
         {
-          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v103[0][v50].__begin_, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v103[0][v50], __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
         }
 
         if (__p.__begin_)
@@ -2271,7 +2271,7 @@ void amt::fitMidPointSubdivision(amt *this, const amt::TriangleMesh *a2, amt::Tr
       while (v43 != v49);
     }
 
-    amt::operator-(&v107, &v103[0][v96], &__p);
+    amt::operator-(&v103[0][v96], &__p, &v107);
     v51 = (v106[0] + 24 * v96);
     if (v51 != &__p)
     {
@@ -2606,13 +2606,14 @@ void sub_23E768B3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, std::vector<unsigned int> *a2, int a3)
+void amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, amt::MeshSubdivisionInfo *a2, uint64_t a3)
 {
+  v3 = a3;
   amt::Adjacency<AMTPair>::clear(a2);
-  a2[3].__end_ = a2[3].__begin_;
+  *(a2 + 10) = *(a2 + 9);
   amt::Adjacency<AMTPair>::clear(a2 + 4);
-  a2[7].__end_ = a2[7].__begin_;
-  if (a3 >= 1)
+  *(a2 + 22) = *(a2 + 21);
+  if (v3 >= 1)
   {
     v6 = -1431655765 * ((*(this + 16) - *(this + 15)) >> 2);
     if (v6)
@@ -2620,12 +2621,12 @@ void amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, std::vector<u
       v7 = (*(this + 13) - *(this + 12)) >> 3;
       if (v7)
       {
-        amt::subdivideMeshMidPoint(v7, v6, a3, &a2[4], this + 15, &a2[7].__begin_);
-        amt::Adjacency<AMTPair>::optimize(&a2[4].__begin_);
-        v8 = a2[7].__begin_[2 * a3];
+        amt::subdivideMeshMidPoint(v7, v6, v3, a2 + 4, this + 15, a2 + 21);
+        amt::Adjacency<AMTPair>::optimize(a2 + 12);
+        v8 = *(*(a2 + 21) + 8 * v3);
         *&v16 = 0;
         _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEmRKS1_(this + 12, v8, &v16);
-        _ZN3amt19interpolateMidPointIDv2_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(this + 96, &a2[4].__begin_);
+        _ZN3amt19interpolateMidPointIDv2_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(this + 12, a2 + 12);
       }
     }
 
@@ -2639,9 +2640,9 @@ void amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, std::vector<u
       v14 = (v12 - v11) >> 4;
       if (v14)
       {
-        amt::subdivideMeshMidPoint(v14, v10, a3, a2, v9, &a2[3].__begin_);
+        amt::subdivideMeshMidPoint(v14, v10, v3, a2, v9, a2 + 9);
         amt::Adjacency<AMTPair>::optimize(a2);
-        v15 = a2[3].__begin_[2 * a3];
+        v15 = *(*(a2 + 9) + 8 * v3);
         v16 = 0u;
         _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEmRKS1_(v13, v15, &v16);
         _ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(v13, a2);
@@ -2650,7 +2651,7 @@ void amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, std::vector<u
   }
 }
 
-uint64_t _ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(uint64_t result, void *a2)
+void *_ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(void *result, void *a2)
 {
   v2 = a2[4] - a2[3];
   if ((v2 >> 2) >= 1)
@@ -2703,8 +2704,7 @@ uint64_t _ZN3amt19interpolateMidPointIDv3_fEEvRNSt3__16vectorIT_NS2_9allocatorIS
 
 std::string *amt::TriangleMesh::TriangleMesh(std::string *this, const amt::TriangleMesh *a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(this, *a2, *(a2 + 1), (*(a2 + 1) - *a2) >> 4);
   this[1].__r_.__value_.__r.__words[0] = 0;
@@ -2811,7 +2811,7 @@ void sub_23E7690A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<amt::Vec<int,3>>::__init_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<amt::Vec<int,3>>::__init_with_size[abi:ne200100]<amt::Vec<int,3>*,amt::Vec<int,3>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2833,7 +2833,7 @@ void sub_23E7691D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2908,7 +2908,7 @@ void amt::Adjacency<AMTPair>::optimize(void *a1)
       }
 
       v5 += v7;
-      ++v4;
+      v4 = (v4 + 1);
     }
 
     while (v4 != v3);
@@ -2934,7 +2934,7 @@ void amt::Adjacency<AMTPair>::optimize(void *a1)
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(a1 + 6, v18);
 }
 
-uint64_t _ZN3amt19interpolateMidPointIDv2_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(uint64_t result, void *a2)
+void *_ZN3amt19interpolateMidPointIDv2_fEEvRNSt3__16vectorIT_NS2_9allocatorIS4_EEEERKNS_9AdjacencyI7AMTPairEE(void *result, void *a2)
 {
   v2 = a2[4] - a2[3];
   if ((v2 >> 2) >= 1)
@@ -3012,7 +3012,7 @@ __n128 _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE13__move_assignERS4_NS_17integr
   return result;
 }
 
-uint64_t amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, int a2)
+uint64_t amt::TriangleMesh::subdivideMidPoint(amt::TriangleMesh *this, uint64_t a2)
 {
   v9 = 0;
   *__p = 0u;
@@ -3087,19 +3087,19 @@ uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,
   return a1;
 }
 
-void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::init(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v3 = **(a1 + 136);
+  v3 = **(result + 136);
   if (!v3)
   {
     nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::init();
   }
 
   v6 = (v3[1] - *v3) >> 4;
-  *(a1 + 48) = v6;
-  *(a1 + 56) = v6;
-  *(a1 + 64) = 3;
-  *(a1 + 32) = *a3;
+  *(result + 48) = v6;
+  *(result + 56) = v6;
+  *(result + 64) = 3;
+  *(result + 32) = *a3;
   v7 = *(a3 + 12);
   if (!v7)
   {
@@ -3115,11 +3115,11 @@ void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt:
     }
   }
 
-  *(a1 + 40) = v7;
+  *(result + 40) = v7;
   if ((*(a3 + 8) & 1) == 0)
   {
 
-    nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::buildIndex(a1);
+    nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::buildIndex(result);
   }
 }
 
@@ -3138,7 +3138,7 @@ uint64_t nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflan
 
 void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::buildIndex(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = **(a1 + 136);
   if (!v1)
   {
@@ -3162,15 +3162,13 @@ void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt:
 
     else
     {
-      v6 = 0;
-      v7.__m_.__sig = 850045863;
-      memset(v7.__m_.__opaque, 0, sizeof(v7.__m_.__opaque));
-      *(a1 + 24) = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(a1, a1, 0, *(a1 + 48), (a1 + 68), &v6, &v7);
-      std::mutex::~mutex(&v7);
+      v5 = 0;
+      v6.__m_.__sig = 850045863;
+      memset(v6.__m_.__opaque, 0, sizeof(v6.__m_.__opaque));
+      *(a1 + 24) = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(a1, a1, 0, *(a1 + 48), (a1 + 68), &v5, &v6);
+      std::mutex::~mutex(&v6);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::init_vind(std::vector<unsigned int> *this)
@@ -3395,14 +3393,14 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
   return v11;
 }
 
-void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(std::__assoc_sub_state *a1, uint64_t a2, uint64_t a3, unint64_t a4, float *a5, atomic_uint *a6, std::mutex *a7)
+void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(atomic_ullong *a1, size_t *a2, uint64_t a3, unint64_t a4, float *a5, atomic_uint *a6, std::mutex *a7)
 {
   v52 = a4;
   v53 = a3;
   std::mutex::lock(a7);
-  v14 = nanoflann::PooledAllocator::malloc((a2 + 96), 32);
+  v14 = nanoflann::PooledAllocator::malloc(a2 + 12, 32);
   std::mutex::unlock(a7);
-  if (a4 - a3 <= *(a2 + 32))
+  if (a4 - a3 <= a2[4])
   {
     v19 = 0;
     v14[2] = 0;
@@ -3412,8 +3410,8 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
     v14[1] = a4;
     do
     {
-      *(v20 - 1) = amt::PointCloudWrapper::kdtree_get_pt(*(a2 + 136), *(*a2 + 4 * a3), v19);
-      *v20 = amt::PointCloudWrapper::kdtree_get_pt(*(a2 + 136), *(*a2 + 4 * a3), v19);
+      *(v20 - 1) = amt::PointCloudWrapper::kdtree_get_pt(a2[17], *(*a2 + 4 * a3), v19);
+      *v20 = amt::PointCloudWrapper::kdtree_get_pt(a2[17], *(*a2 + 4 * a3), v19);
       v20 += 2;
       ++v19;
     }
@@ -3429,7 +3427,7 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
         v24 = v22;
         do
         {
-          pt = amt::PointCloudWrapper::kdtree_get_pt(*(a2 + 136), *(*a2 + 4 * v21), v23);
+          pt = amt::PointCloudWrapper::kdtree_get_pt(a2[17], *(*a2 + 4 * v21), v23);
           if (*(v24 - 1) > pt)
           {
             *(v24 - 1) = pt;
@@ -3464,7 +3462,7 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
     v46 = *a5;
     v47 = *(a5 + 2);
     *(&v46 + 2 * v15 + 1) = v50;
-    if (*&a1->__mut_.__m_.__opaque[8] <= (atomic_fetch_add(a6, 1u) + 1))
+    if (a1[5] <= (atomic_fetch_add(a6, 1u) + 1))
     {
       atomic_fetch_add(a6, 0xFFFFFFFF);
       v14[2] = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(a1, a2, v53, v51 + v53, &v46, a6, a7);
@@ -3477,12 +3475,12 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
       v44 = a2;
       v45 = a1;
       v42 = &v46;
-      v43 = v51 + v53;
+      v43 = (v51 + v53);
       v40 = a7;
       v41 = a6;
-      std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long const&,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>(1, &v38, &v45, &v44, &v53, &v43, &v42, &v41, &v37, &v40);
-      v16 = v37;
-      *&v37 = 0;
+      std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long const&,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>(1, v37, &v40);
+      v16 = v37[0];
+      v37[0] = 0;
       v17 = v49;
       v49 = v16;
       if (v17)
@@ -3492,8 +3490,8 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
           (v17->__on_zero_shared)(v17);
         }
 
-        v18 = v37;
-        if (v37 && !atomic_fetch_add((v37 + 8), 0xFFFFFFFFFFFFFFFFLL))
+        v18 = v37[0];
+        if (v37[0] && !atomic_fetch_add((v37[0] + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
           (*(*v18 + 16))(v18);
         }
@@ -3503,7 +3501,7 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
     v38 = *a5;
     v39 = *(a5 + 2);
     *(&v38 + 2 * SHIDWORD(v50)) = v50;
-    if (*&a1->__mut_.__m_.__opaque[8] <= (atomic_fetch_add(a6, 1u) + 1))
+    if (a1[5] <= (atomic_fetch_add(a6, 1u) + 1))
     {
       atomic_fetch_add(a6, 0xFFFFFFFF);
       v14[3] = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent(a1, a2, v51 + v53, v52, &v38, a6, a7);
@@ -3511,15 +3509,15 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
 
     else
     {
-      *&v37 = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent;
-      *(&v37 + 1) = 0;
+      v37[0] = nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::divideTreeConcurrent;
+      v37[1] = 0;
       v43 = a2;
       v44 = a1;
       v41 = &v38;
       v42 = (v51 + v53);
       v40 = a6;
       v36 = a7;
-      std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long const&,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>(1, &v37, &v44, &v43, &v42, &v52, &v41, &v40, &v45, &v36);
+      std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long const&,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>(1, &v45, &v36);
       v26 = v45;
       v45 = 0;
       v27 = v48;
@@ -3532,7 +3530,7 @@ void *nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::
         }
 
         v28 = v45;
-        if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v45 && !atomic_fetch_add(v45 + 1, 0xFFFFFFFFFFFFFFFFLL))
         {
           (*(*v28 + 16))(v28);
         }
@@ -3919,31 +3917,15 @@ LABEL_28:
   *a8 = v12;
 }
 
-uint64_t std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long const&,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>@<X0>(uint64_t result@<X0>, __int128 *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, uint64_t *a8@<X7>, void *a9@<X8>, uint64_t *a10)
+uint64_t std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long const&,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>@<X0>(uint64_t result@<X0>, void *a9@<X8>, uint64_t *a10)
 {
   if (result)
   {
-    v10 = *a2;
-    v12 = *a3;
-    v14 = *a4;
-    v16 = *a5;
-    v18 = *a6;
-    v20 = *a7;
-    v22 = *a8;
-    v24 = *a10;
     std::__make_async_assoc_state[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>();
   }
 
   if ((result & 2) != 0)
   {
-    v11 = *a2;
-    v13 = *a3;
-    v15 = *a4;
-    v17 = *a5;
-    v19 = *a6;
-    v21 = *a7;
-    v23 = *a8;
-    v25 = *a10;
     std::__make_deferred_assoc_state[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>();
   }
 
@@ -3951,31 +3933,15 @@ uint64_t std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSi
   return result;
 }
 
-uint64_t std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long const&,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>@<X0>(uint64_t result@<X0>, __int128 *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, uint64_t *a8@<X7>, void *a9@<X8>, uint64_t *a10)
+uint64_t std::async[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long const&,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>@<X0>(uint64_t result@<X0>, void *a9@<X8>, uint64_t *a10)
 {
   if (result)
   {
-    v10 = *a2;
-    v12 = *a3;
-    v14 = *a4;
-    v16 = *a5;
-    v18 = *a6;
-    v20 = *a7;
-    v22 = *a8;
-    v24 = *a10;
     std::__make_async_assoc_state[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>();
   }
 
   if ((result & 2) != 0)
   {
-    v11 = *a2;
-    v13 = *a3;
-    v15 = *a4;
-    v17 = *a5;
-    v19 = *a6;
-    v21 = *a7;
-    v23 = *a8;
-    v25 = *a10;
     std::__make_deferred_assoc_state[abi:ne200100]<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>();
   }
 
@@ -4007,11 +3973,11 @@ void sub_23E76AC48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_23E76AD98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::thread a12)
+void sub_23E76AD98(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::thread a12)
 {
   if (!atomic_fetch_add(v13, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v12 + 16))(v12);
+    (*(*v12 + 16))(v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4110,14 +4076,14 @@ void std::__throw_future_error[abi:ne200100](unsigned int a1)
   __cxa_throw(exception, MEMORY[0x277D82710], MEMORY[0x277D82648]);
 }
 
-void sub_23E76B37C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76B37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>::*)(void),std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>*>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>::*)(void),std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>*>>(const void **a1)
 {
   v8 = a1;
   v2 = std::__thread_local_data();
@@ -4137,9 +4103,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_23E76B44C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76B44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,void (std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>::*)(void),std::__async_assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node *,std::__async_func<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Node * (nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::*)(nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>&,unsigned long,unsigned long,std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul> &,std::atomic<unsigned int> &,std::mutex &),nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>*,std::reference_wrapper<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>>,unsigned long,unsigned long,std::reference_wrapper<std::array<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>,nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::Interval,3ul>>,std::reference_wrapper<std::atomic<unsigned int>>,std::reference_wrapper<std::mutex>>>*>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4232,23 +4198,19 @@ void std::__assoc_state<nanoflann::KDTreeBaseClass<nanoflann::KDTreeSingleIndexA
   std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
   ptr = a1->__exception_.__ptr_;
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
   if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, &a1->__exception_);
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = a1[1].__vftable;
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -4276,33 +4238,33 @@ __n128 std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::
   return result;
 }
 
-void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::TriangleMesh const&,amt::TriangleMesh&,amt::FittingParameters const&)::$_0,std::allocator<amt::initialDeform(amt::TriangleMesh const&,amt::TriangleMesh const&,amt::TriangleMesh&,amt::FittingParameters const&)::$_0>,void ()(long long)>::operator()(uint64_t a1, int *a2)
+void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::TriangleMesh const&,amt::TriangleMesh&,amt::FittingParameters const&)::$_0,std::allocator<amt::initialDeform(amt::TriangleMesh const&,amt::TriangleMesh const&,amt::TriangleMesh&,amt::FittingParameters const&)::$_0>,void ()(long long)>::operator()(uint64_t a1, unsigned int *a2)
 {
   v3 = *a2;
-  std::vector<unsigned long>::vector[abi:ne200100](v45, **(a1 + 8));
-  std::vector<float>::vector[abi:ne200100](v44, **(a1 + 8));
+  std::vector<unsigned long>::vector[abi:ne200100](v44, **(a1 + 8));
+  std::vector<float>::vector[abi:ne200100](v43, **(a1 + 8));
+  v40 = 0;
   v41 = 0;
-  v42 = 0;
-  v43 = xmmword_23E786AE0;
-  v40.i32[2] = 0;
-  v40.i64[0] = 0;
-  v40 = *amt::TriangleMesh::position(*(a1 + 16), v3);
+  v42 = xmmword_23E786AE0;
+  v39.i32[2] = 0;
+  v39.i64[0] = 0;
+  v39 = *amt::TriangleMesh::position(*(a1 + 16), v3);
   v34 = *amt::TriangleMesh::normal(*(a1 + 16), v3);
-  v41 = v45[0];
-  v42 = v44[0];
-  *(&v43 + 1) = 0;
-  *v44[0] = 2139095039;
+  v40 = v44[0];
+  v41 = v43[0];
+  *(&v42 + 1) = 0;
+  *v43[0] = 2139095039;
   v4 = *(a1 + 24);
   v36.i32[0] = 0;
   v36.i8[4] = 1;
-  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v4, &v41, &v40, v36.f32);
-  if (SDWORD2(v43) >= 1)
+  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v4, &v40, &v39, v36.f32, v34);
+  if (SDWORD2(v42) >= 1)
   {
     v5 = 0;
-    v6 = DWORD2(v43) & 0x7FFFFFFF;
+    v6 = DWORD2(v42) & 0x7FFFFFFF;
     while (1)
     {
-      v7 = *(v45[0] + v5);
+      v7 = *(v44[0] + v5);
       v8 = vmulq_f32(v34, *amt::TriangleMesh::normal(*(a1 + 32), v7));
       if (*(*(a1 + 40) + 56) <= (v8.f32[2] + vaddv_f32(*v8.f32)))
       {
@@ -4334,15 +4296,15 @@ void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::Tr
             __assert_rtn("operator()", "AMTPipeline.cpp", 424, "tindex < target.triangleCount()");
           }
 
-          amt::TriangleMesh::triangle(*(a1 + 56), v13, &v37);
+          amt::TriangleMesh::triangle(&v37, *(a1 + 56), v13);
           v14 = amt::TriangleMesh::position(*(a1 + 56), v37);
-          v15 = amt::TriangleMesh::position(*(a1 + 56), v38);
-          v16 = amt::TriangleMesh::position(*(a1 + 56), v39);
+          v15 = amt::TriangleMesh::position(*(a1 + 56), SHIDWORD(v37));
+          v16 = amt::TriangleMesh::position(*(a1 + 56), v38);
           v36.i32[2] = 0;
           v36.i64[0] = 0;
-          *v17.i64 = amt::closestPointInTriangle(v14, v15, v16, &v36, v40);
+          *v17.i64 = amt::closestPointInTriangle(v14, v15, v16, &v36, v39);
           v18 = 0;
-          v19 = vsubq_f32(v40, v17);
+          v19 = vsubq_f32(v39, v17);
           v20 = 0.0;
           do
           {
@@ -4360,10 +4322,10 @@ void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::Tr
             v23 = amt::TriangleMesh::position(*(a1 + 32), v37);
             v29 = *v14;
             v31 = *v23;
-            v24 = amt::TriangleMesh::position(*(a1 + 32), v38);
+            v24 = amt::TriangleMesh::position(*(a1 + 32), SHIDWORD(v37));
             v27 = *v15;
             v28 = *v24;
-            v25 = amt::TriangleMesh::position(*(a1 + 32), v39);
+            v25 = amt::TriangleMesh::position(*(a1 + 32), v38);
             v30 = vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(vsubq_f32(v28, v27), *v36.f32, 1), vsubq_f32(v31, v29), v36.f32[0]), vsubq_f32(*v25, *v16), v36, 2);
             v12 = v22;
           }
@@ -4377,7 +4339,7 @@ void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::Tr
       v26 = *(a1 + 16);
       if (*(*(a1 + 40) + 65))
       {
-        v36 = vmlaq_f32(v40, v34, vmulq_f32(v34, vsubq_f32(vaddq_f32(v30, v33), v40)));
+        v36 = vmlaq_f32(v39, v34, vmulq_f32(v34, vsubq_f32(vaddq_f32(v30, v33), v39)));
       }
 
       else
@@ -4390,16 +4352,16 @@ void std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt::Tr
   }
 
 LABEL_19:
+  if (v43[0])
+  {
+    v43[1] = v43[0];
+    operator delete(v43[0]);
+  }
+
   if (v44[0])
   {
     v44[1] = v44[0];
     operator delete(v44[0]);
-  }
-
-  if (v45[0])
-  {
-    v45[1] = v45[0];
-    operator delete(v45[0]);
   }
 }
 
@@ -4434,7 +4396,7 @@ uint64_t std::__function::__func<amt::initialDeform(amt::TriangleMesh const&,amt
   }
 }
 
-BOOL nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(uint64_t a1, uint64_t *a2, uint64_t a3, float *a4)
+BOOL nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(uint64_t a1, uint64_t *a2, uint64_t a3, float *a4, __n128 a5)
 {
   if (!a3)
   {
@@ -4446,44 +4408,44 @@ BOOL nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt:
     return 0;
   }
 
-  v5 = *(a1 + 24);
-  if (!v5)
+  v6 = *(a1 + 24);
+  if (!v6)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x23EF11B00](exception, "[nanoflann] findNeighbors() called before building the index.");
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v7 = 0;
-  v8 = *a4;
+  v8 = 0;
+  v9 = *a4;
   v18 = 0;
-  v9 = (a1 + 72);
-  v10 = 0.0;
+  v10 = (a1 + 72);
+  a5.n128_u64[0] = 0;
   v17 = 0;
   do
   {
-    v11 = *(a3 + v7);
-    v12 = *(v9 - 1);
+    v11 = *(a3 + v8);
+    v12 = *(v10 - 1);
     if (v11 < v12)
     {
       v13 = (v11 - v12) * (v11 - v12);
-      *(&v17 + v7) = v13;
-      v10 = v10 + v13;
+      *(&v17 + v8) = v13;
+      a5.n128_f32[0] = a5.n128_f32[0] + v13;
     }
 
-    if (v11 > *v9)
+    if (v11 > *v10)
     {
-      v14 = (v11 - *v9) * (v11 - *v9);
-      *(&v17 + v7) = v14;
-      v10 = v10 + v14;
+      v14 = (v11 - *v10) * (v11 - *v10);
+      *(&v17 + v8) = v14;
+      a5.n128_f32[0] = a5.n128_f32[0] + v14;
     }
 
-    v7 += 4;
-    v9 += 2;
+    v8 += 4;
+    v10 += 2;
   }
 
-  while (v7 != 12);
-  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v5, &v17, v10, v8 + 1.0);
+  while (v8 != 12);
+  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v6, &v17, a5, v9 + 1.0);
   return a2[3] == a2[2];
 }
 
@@ -4723,17 +4685,17 @@ double amt::closestPointInTriangle(float32x4_t *a1, float32x4_t *a2, float32x4_t
   return *v7.i64;
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E76C220(_Unwind_Exception *exception_object)
@@ -4748,17 +4710,17 @@ void sub_23E76C220(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E76C298(_Unwind_Exception *exception_object)
@@ -4773,7 +4735,7 @@ void sub_23E76C298(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4783,45 +4745,85 @@ void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<AMTMeshSourceSemantic>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(uint64_t a1, uint64_t *a2, uint64_t a3, int *a4, uint64_t a5, float a6, float a7)
+uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(uint64_t a1, uint64_t *a2, uint64_t a3, float *a4, uint64_t a5, __n128 a6, float a7)
 {
   if (!a4)
   {
     return 0;
   }
 
+  v9 = a6.n128_f32[0];
   v14 = *(a4 + 2);
-  if (v14 || *(a4 + 3))
+  if (*(a4 + 1) == 0)
+  {
+    v28 = *a4;
+    if (*a4 >= *(a4 + 1))
+    {
+      return 1;
+    }
+
+    v29 = *(a2[1] + 4 * a2[2] - 4);
+    do
+    {
+      v30 = 0;
+      v31 = *(*a1 + 4 * v28);
+      v32 = 0.0;
+      do
+      {
+        v33 = *(a3 + 4 * v30);
+        pt = amt::PointCloudWrapper::kdtree_get_pt(*(a1 + 160), v31, v30);
+        v32 = v32 + ((v33 - pt) * (v33 - pt));
+        ++v30;
+      }
+
+      while (v30 != 3);
+      if (v32 < v29)
+      {
+        result = nanoflann::KNNResultSet<float,unsigned long,unsigned long>::addPoint(a2, *(*a1 + 4 * v28), v32);
+        if (!result)
+        {
+          break;
+        }
+      }
+
+      ++v28;
+      result = 1;
+    }
+
+    while (v28 < *(a4 + 1));
+  }
+
+  else
   {
     v15 = *a4;
     v16 = *(a3 + 4 * v15);
-    v17 = *(a4 + 1);
-    v18 = *(a4 + 2);
+    v17 = a4[1];
+    v18 = a4[2];
     v19 = v16 - v17;
     v20 = v16 - v18;
     v21 = (v16 - v17) + (v16 - v18);
-    v22 = *(a4 + 3);
     if (v21 >= 0.0)
+    {
+      v22 = *(a4 + 3);
+    }
+
+    else
+    {
+      v22 = *(a4 + 2);
+    }
+
+    if (v21 >= 0.0)
+    {
+      v23 = v14;
+    }
+
+    else
     {
       v23 = *(a4 + 3);
     }
 
-    else
-    {
-      v23 = *(a4 + 2);
-    }
-
-    if (v21 >= 0.0)
-    {
-      v24 = v14;
-    }
-
-    else
-    {
-      v24 = *(a4 + 3);
-    }
-
-    result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v23, a5, a6, a7);
+    a6.n128_f32[0] = v9;
+    result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v22, a5, a6, a7);
     if (result)
     {
       v26 = v19 * v19;
@@ -4831,53 +4833,14 @@ uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,
       }
 
       v27 = *(a5 + 4 * v15);
-      v28 = (v26 + a6) - v27;
+      v25.n128_f32[0] = (v26 + v9) - v27;
       *(a5 + 4 * v15) = v26;
-      if ((v28 * a7) > *(a2[1] + 4 * a2[2] - 4) || (result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v24, a5, v28, a7), result))
+      if ((v25.n128_f32[0] * a7) > *(a2[1] + 4 * a2[2] - 4) || (result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(a1, a2, a3, v23, a5, v25, a7), result))
       {
         *(a5 + 4 * v15) = v27;
         return 1;
       }
     }
-  }
-
-  else
-  {
-    v29 = *a4;
-    if (*a4 >= *(a4 + 1))
-    {
-      return 1;
-    }
-
-    v30 = *(a2[1] + 4 * a2[2] - 4);
-    do
-    {
-      v31 = 0;
-      v32 = *(*a1 + 4 * v29);
-      v33 = 0.0;
-      do
-      {
-        v34 = *(a3 + 4 * v31);
-        pt = amt::PointCloudWrapper::kdtree_get_pt(*(a1 + 160), v32, v31);
-        v33 = v33 + ((v34 - pt) * (v34 - pt));
-        ++v31;
-      }
-
-      while (v31 != 3);
-      if (v33 < v30)
-      {
-        result = nanoflann::KNNResultSet<float,unsigned long,unsigned long>::addPoint(a2, *(*a1 + 4 * v29), v33);
-        if (!result)
-        {
-          break;
-        }
-      }
-
-      ++v29;
-      result = 1;
-    }
-
-    while (v29 < *(a4 + 1));
   }
 
   return result;
@@ -4970,7 +4933,7 @@ void sub_23E76C7B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4984,13 +4947,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -5015,15 +4978,15 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return a1;
 }
 
-void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, uint64_t *a3, void *a4, int a5, float a6, float a7)
+void amt::smoothWithTriangleCentroidConstraints<float>(amt::TriangleMesh *a1, void *a2, uint64_t *a3, void *a4, int a5, float a6, float a7)
 {
-  v106 = *MEMORY[0x277D85DE8];
-  v7 = a1 + 9;
-  v91 = a1[4] - a1[3];
-  v8 = v91 >> 4;
-  v9 = 0xAAAAAAAAAAAAAAABLL * ((a1[10] - a1[9]) >> 2);
-  v89 = v9;
-  if ((v91 >> 4))
+  v104[10] = *MEMORY[0x277D85DE8];
+  v7 = (a1 + 72);
+  v90 = *(a1 + 4) - *(a1 + 3);
+  v8 = v90 >> 4;
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 10) - *(a1 + 9)) >> 2);
+  v88 = v9;
+  if ((v90 >> 4))
   {
     v10 = v9 == 0;
   }
@@ -5035,20 +4998,20 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
 
   if (!v10 && ((a2[4] - a2[3]) >> 2) == v8 && a4[1] - *a4 == v8)
   {
-    memset(&v104, 0, sizeof(v104));
-    amt::SparseMatrix<float>::SparseMatrix(v101, v9 + v8, v91 >> 4);
-    v90 = (v91 >> 4) & 0x7FFFFFFF;
-    v85 = v8 - 1;
-    v88 = v91 >> 4;
+    memset(&v103, 0, sizeof(v103));
+    amt::SparseMatrix<float>::SparseMatrix(v100, v9 + v8, v90 >> 4);
+    v89 = (v90 >> 4) & 0x7FFFFFFF;
+    v84 = v8 - 1;
+    v87 = v90 >> 4;
     if (v8 >= 1)
     {
       v17 = 0;
       do
       {
-        amt::computeAdjacentVertices(v17, v7, a2, a4, &v104);
-        begin = v104.__begin_;
-        v19 = v104.__end_ - v104.__begin_;
-        v20 = (v104.__end_ - v104.__begin_) >> 2;
+        amt::computeAdjacentVertices(v17, v7, a2, a4, &v103);
+        begin = v103.__begin_;
+        v19 = v103.__end_ - v103.__begin_;
+        v20 = (v103.__end_ - v103.__begin_) >> 2;
         v21 = *a3;
         if (*(*a3 + v17))
         {
@@ -5068,14 +5031,14 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
             v24 = (v19 >> 2) & 0x7FFFFFFF;
             do
             {
-              amt::SparseMatrix<float>::addElementInOrder(v101, v17, v104.__begin_[v23++], -a6);
+              amt::SparseMatrix<float>::addElementInOrder(v100, v17, v103.__begin_[v23++], -a6);
             }
 
             while (v24 != v23);
           }
 
-          amt::SparseMatrix<float>::addElementInOrder(v101, v17, v17, v20 * a6);
-          LODWORD(v8) = v91 >> 4;
+          amt::SparseMatrix<float>::addElementInOrder(v100, v17, v17, v20 * a6);
+          LODWORD(v8) = v90 >> 4;
         }
 
         else
@@ -5092,7 +5055,7 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
               v29 = v30;
               if (*(v21 + v30))
               {
-                v105[v26++] = v29;
+                *(v104 + v26++) = v29;
               }
 
               if (v28 >= v27)
@@ -5106,33 +5069,33 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
             while (v26 < 3);
             if (v26 == 2)
             {
-              amt::SparseMatrix<float>::addElementInOrder(v101, v17, v105[0], -a6);
-              amt::SparseMatrix<float>::addElementInOrder(v101, v17, v105[1], -a6);
+              amt::SparseMatrix<float>::addElementInOrder(v100, v17, v104[0], -a6);
+              amt::SparseMatrix<float>::addElementInOrder(v100, v17, SHIDWORD(v104[0]), -a6);
               v25 = a6 + a6;
             }
           }
 
-          amt::SparseMatrix<float>::addElementInOrder(v101, v17, v17, v25);
+          amt::SparseMatrix<float>::addElementInOrder(v100, v17, v17, v25);
         }
 
         ++v17;
       }
 
-      while (v17 != v90);
+      while (v17 != v89);
     }
 
-    if (v89 >= 1)
+    if (v88 >= 1)
     {
       v31 = 0;
-      v32 = v89 & 0x7FFFFFFF;
+      v32 = v88 & 0x7FFFFFFF;
       v33 = v8;
       do
       {
         v34 = *v7;
-        amt::SparseMatrix<float>::addElementInOrder(v101, v33, *(*v7 + v31), 1.0);
+        amt::SparseMatrix<float>::addElementInOrder(v100, v33, *(*v7 + v31), 1.0);
         v35 = v34 + v31;
-        amt::SparseMatrix<float>::addElementInOrder(v101, v33, *(v35 + 4), 1.0);
-        amt::SparseMatrix<float>::addElementInOrder(v101, v33++, *(v35 + 8), 1.0);
+        amt::SparseMatrix<float>::addElementInOrder(v100, v33, *(v35 + 4), 1.0);
+        amt::SparseMatrix<float>::addElementInOrder(v100, v33++, *(v35 + 8), 1.0);
         v31 += 12;
         --v32;
       }
@@ -5140,93 +5103,93 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
       while (v32);
     }
 
-    if (v103 >= 1)
+    if (v102 >= 1)
     {
       v36 = 0;
-      v37 = v102 + 1;
-      v38 = *v102;
+      v37 = v101 + 1;
+      v38 = *v101;
       do
       {
         v38 += v37[v36];
         v37[v36++] = v38;
       }
 
-      while (v36 < v103);
+      while (v36 < v102);
     }
 
-    amt::SparseMatrix<float>::transpose(v101, v105);
+    amt::SparseMatrix<float>::transpose(v100, v104);
     v39 = 2 * v8;
     if (a5 != -1)
     {
       v39 = a5;
     }
 
-    v87 = v39;
-    amt::Vector<float>::Vector(&v100, v89 + v8);
-    amt::Vector<float>::Vector(&v99, v8);
-    amt::Vector<float>::Vector(&v98, v89 + v8);
-    amt::Vector<float>::Vector(&v97, v8);
+    v86 = v39;
+    amt::Vector<float>::Vector(&v99, v88 + v8);
+    amt::Vector<float>::Vector(&v98, v8);
+    amt::Vector<float>::Vector(&v97, v88 + v8);
     amt::Vector<float>::Vector(&v96, v8);
     amt::Vector<float>::Vector(&v95, v8);
-    v40 = (v91 >> 4);
-    if (((v100.__end_ - v100.__begin_) >> 2) >= 1)
+    amt::Vector<float>::Vector(&v94, v8);
+    v40 = (v90 >> 4);
+    if (((v99.__end_ - v99.__begin_) >> 2) >= 1)
     {
-      bzero(v100.__begin_, (v100.__end_ - v100.__begin_) & 0x1FFFFFFFCLL);
+      bzero(v99.__begin_, (v99.__end_ - v99.__begin_) & 0x1FFFFFFFCLL);
     }
 
     v41 = 0;
     v42 = v8;
     do
     {
-      if (((v99.__end_ - v99.__begin_) >> 2) >= 1)
+      if (((v98.__end_ - v98.__begin_) >> 2) >= 1)
       {
-        bzero(v99.__begin_, (v99.__end_ - v99.__begin_) & 0x1FFFFFFFCLL);
+        bzero(v98.__begin_, (v98.__end_ - v98.__begin_) & 0x1FFFFFFFCLL);
       }
 
-      if (v89 >= 1)
+      if (v88 >= 1)
       {
         v43 = 0;
         v44 = v40;
         do
         {
-          v45 = a1[9];
-          v92 = *amt::TriangleMesh::position(a1, *(v45 + v43));
+          v45 = *(a1 + 9);
+          v91 = *amt::TriangleMesh::position(a1, *(v45 + v43));
           v46 = v45 + v43;
           v47 = amt::TriangleMesh::position(a1, *(v46 + 4));
-          v93 = v92;
-          v48 = *(&v93 & 0xFFFFFFFFFFFFFFF3 | (4 * (v41 & 3)));
+          v92 = v91;
+          v48 = *(&v92 & 0xFFFFFFFFFFFFFFF3 | (4 * (v41 & 3)));
           v49 = *(v47 + 4 * (v41 & 3));
           v50 = amt::TriangleMesh::position(a1, *(v46 + 8));
-          if (v44 >= ((v100.__end_ - v100.__begin_) >> 2))
+          if (v44 >= ((v99.__end_ - v99.__begin_) >> 2))
           {
             __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
           }
 
-          *&v100.__begin_[v44++] = (v48 + v49) + *(v50 + 4 * (v41 & 3));
+          *&v99.__begin_[v44++] = (v48 + v49) + *(v50 + 4 * (v41 & 3));
           v43 += 12;
         }
 
-        while (12 * (v89 & 0x7FFFFFFF) != v43);
+        while (12 * (v88 & 0x7FFFFFFF) != v43);
       }
 
-      amt::operator*(v105, &v100, &__p);
-      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v96, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+      amt::operator*(v104, &v99, &__p);
+      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v95, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
       if (__p.__begin_)
       {
         __p.__end_ = __p.__begin_;
         operator delete(__p.__begin_);
       }
 
-      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v97, v96.__begin_, v96.__end_, v96.__end_ - v96.__begin_);
-      if (v88 < 1)
+      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v96, v95.__begin_, v95.__end_, v95.__end_ - v95.__begin_);
+      if (v87 < 1)
       {
         v52 = 0.0;
       }
 
       else
       {
-        v51 = v96.__begin_;
-        if ((((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31)) <= v85)
+        v51 = v95.__begin_;
+        if ((((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31)) <= v84)
         {
           __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
         }
@@ -5243,46 +5206,46 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
         while (v53);
       }
 
-      if (v87 >= 1 && sqrtf(v52 / v42) > a7)
+      if (v86 >= 1 && sqrtf(v52 / v42) > a7)
       {
         v55 = 0;
         do
         {
-          amt::operator*(v101, &v97, &__p);
-          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v98, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+          amt::operator*(v100, &v96, &__p);
+          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v97, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
           if (__p.__begin_)
           {
             __p.__end_ = __p.__begin_;
             operator delete(__p.__begin_);
           }
 
-          amt::operator*(v105, &v98, &__p);
-          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v95, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+          amt::operator*(v104, &v97, &__p);
+          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v94, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
           if (__p.__begin_)
           {
             __p.__end_ = __p.__begin_;
             operator delete(__p.__begin_);
           }
 
-          if (v88 < 1)
+          if (v87 < 1)
           {
             v52 = 0.0;
           }
 
           else
           {
-            v56 = ((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31);
-            if (v56 >= v85)
+            v56 = ((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31);
+            if (v56 >= v84)
             {
-              v57 = v85;
+              v57 = v84;
             }
 
             else
             {
-              v57 = ((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31);
+              v57 = ((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31);
             }
 
-            if ((((v97.__end_ - v97.__begin_) >> 2) & ~(((v97.__end_ - v97.__begin_) >> 2) >> 31)) <= v57 || v56 == v57)
+            if ((((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31)) <= v57 || v56 == v57)
             {
               __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
             }
@@ -5291,21 +5254,21 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
             v60 = 0.0;
             do
             {
-              v60 = v60 + (*&v97.__begin_[v59] * *&v95.__begin_[v59]);
+              v60 = v60 + (*&v96.__begin_[v59] * *&v94.__begin_[v59]);
               ++v59;
             }
 
             while (v40 != v59);
             v61 = 0;
-            v62 = v97.__begin_;
-            v63 = v99.__begin_;
-            v64 = v95.__begin_;
-            v65 = v96.__begin_;
+            v62 = v96.__begin_;
+            v63 = v98.__begin_;
+            v64 = v94.__begin_;
+            v65 = v95.__begin_;
             v66 = v52 / v60;
-            v67 = 4 * (((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31));
-            v68 = 4 * (((v99.__end_ - v99.__begin_) >> 2) & ~(((v99.__end_ - v99.__begin_) >> 2) >> 31));
-            v69 = 4 * (((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31));
-            v70 = 4 * (((v97.__end_ - v97.__begin_) >> 2) & ~(((v97.__end_ - v97.__begin_) >> 2) >> 31));
+            v67 = 4 * (((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31));
+            v68 = 4 * (((v98.__end_ - v98.__begin_) >> 2) & ~(((v98.__end_ - v98.__begin_) >> 2) >> 31));
+            v69 = 4 * (((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31));
+            v70 = 4 * (((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31));
             do
             {
               if (v70 == v61 || v68 == v61 || (*&v63[v61 / 4] = *&v63[v61 / 4] + (v66 * *&v62[v61 / 4]), v69 == v61) || v67 == v61)
@@ -5317,9 +5280,9 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
               v61 += 4;
             }
 
-            while (4 * v90 != v61);
-            v71 = v96.__begin_;
-            if ((((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31)) <= v85)
+            while (4 * v89 != v61);
+            v71 = v95.__begin_;
+            if ((((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31)) <= v84)
             {
               __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
             }
@@ -5334,11 +5297,11 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
             }
 
             while (v73);
-            v75 = v96.__begin_;
-            v76 = v97.__begin_;
-            v77 = ((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31);
-            v78 = ((v97.__end_ - v97.__begin_) >> 2) & ~(((v97.__end_ - v97.__begin_) >> 2) >> 31);
-            v79 = v90;
+            v75 = v95.__begin_;
+            v76 = v96.__begin_;
+            v77 = ((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31);
+            v78 = ((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31);
+            v79 = v89;
             do
             {
               if (!v77 || !v78)
@@ -5361,16 +5324,16 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
           ++v55;
         }
 
-        while (v55 < v87 && sqrtf(v52 / v42) > a7);
+        while (v55 < v86 && sqrtf(v52 / v42) > a7);
       }
 
-      if (v88 >= 1)
+      if (v87 >= 1)
       {
         v81 = 0;
         do
         {
           v82 = amt::TriangleMesh::position(a1, v81);
-          if (v81 >= ((v99.__end_ - v99.__begin_) >> 2))
+          if (v81 >= ((v98.__end_ - v98.__begin_) >> 2))
           {
             __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
           }
@@ -5381,16 +5344,22 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
             v83 = 2;
           }
 
-          *(v82 + 4 * v83) = v99.__begin_[v81++];
+          *(v82 + 4 * v83) = v98.__begin_[v81++];
         }
 
-        while (v90 != v81);
+        while (v89 != v81);
       }
 
       ++v41;
     }
 
     while (v41 != 3);
+    if (v94.__begin_)
+    {
+      v94.__end_ = v94.__begin_;
+      operator delete(v94.__begin_);
+    }
+
     if (v95.__begin_)
     {
       v95.__end_ = v95.__begin_;
@@ -5421,26 +5390,19 @@ void amt::smoothWithTriangleCentroidConstraints<float>(uint64_t *a1, void *a2, u
       operator delete(v99.__begin_);
     }
 
-    if (v100.__begin_)
+    amt::Adjacency<int>::~Adjacency(v104);
+    amt::Adjacency<int>::~Adjacency(v100);
+    if (v103.__begin_)
     {
-      v100.__end_ = v100.__begin_;
-      operator delete(v100.__begin_);
-    }
-
-    amt::Adjacency<int>::~Adjacency(v105);
-    amt::Adjacency<int>::~Adjacency(v101);
-    if (v104.__begin_)
-    {
-      v104.__end_ = v104.__begin_;
-      operator delete(v104.__begin_);
+      v103.__end_ = v103.__begin_;
+      operator delete(v103.__begin_);
     }
   }
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23E76D2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, char a38)
+void sub_23E76D2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   if (__p)
   {
     operator delete(__p);
@@ -5466,29 +5428,27 @@ void sub_23E76D2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a35);
   }
 
-  amt::Adjacency<int>::~Adjacency(v38 - 208);
-  amt::Adjacency<int>::~Adjacency(&a38);
-  v40 = *(v38 - 232);
-  if (v40)
+  amt::Adjacency<int>::~Adjacency(v37 - 208);
+  amt::Adjacency<int>::~Adjacency(va);
+  v39 = *(v37 - 232);
+  if (v39)
   {
-    *(v38 - 224) = v40;
-    operator delete(v40);
+    *(v37 - 224) = v39;
+    operator delete(v39);
   }
 
   _Unwind_Resume(a1);
 }
 
-void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, int a5, float a6, float a7)
+void amt::smoothWithVertexConstraints(amt::TriangleMesh *a1, void *a2, void *a3, void *a4, int a5, float a6, float a7)
 {
-  v103 = *MEMORY[0x277D85DE8];
-  v7 = a1 + 9;
-  v8 = a1[4] - a1[3];
+  v101[10] = *MEMORY[0x277D85DE8];
+  v7 = (a1 + 72);
+  v8 = *(a1 + 4) - *(a1 + 3);
   v9 = v8 >> 4;
   if ((v8 >> 4))
   {
-    v10 = -1431655765 * ((a1[10] - a1[9]) >> 2) == 0;
-    a1[10];
-    a1[9];
+    v10 = -1431655765 * ((*(a1 + 10) - *(a1 + 9)) >> 2) == 0;
   }
 
   else
@@ -5502,25 +5462,25 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
     if (a4[1] - *a4 == v9)
     {
       v17 = a1;
-      memset(&v101, 0, sizeof(v101));
+      memset(&v100, 0, sizeof(v100));
       v18 = 2 * v9;
-      amt::SparseMatrix<float>::SparseMatrix(v98, 2 * v9, v8 >> 4);
-      v90 = v9 - 1;
-      v87 = v8 >> 4;
+      amt::SparseMatrix<float>::SparseMatrix(v97, 2 * v9, v8 >> 4);
+      v89 = v9 - 1;
+      v86 = v8 >> 4;
       if (v9 >= 1)
       {
-        v84 = 2 * v9;
-        v85 = a5;
+        v83 = 2 * v9;
+        v84 = a5;
         v19 = 0;
-        v86 = v8;
+        v85 = v8;
         v20 = (v8 >> 4) & 0x7FFFFFFF;
-        v88 = v12;
+        v87 = v12;
         do
         {
-          amt::computeAdjacentVertices(v19, v7, a2, v12, &v101);
-          begin = v101.__begin_;
-          v22 = v101.__end_ - v101.__begin_;
-          v23 = (v101.__end_ - v101.__begin_) >> 2;
+          amt::computeAdjacentVertices(v19, v7, a2, v12, &v100);
+          begin = v100.__begin_;
+          v22 = v100.__end_ - v100.__begin_;
+          v23 = (v100.__end_ - v100.__begin_) >> 2;
           v24 = *a3;
           if (*(*a3 + v19))
           {
@@ -5543,17 +5503,17 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               v30 = (v22 >> 2) & 0x7FFFFFFF;
               do
               {
-                amt::SparseMatrix<float>::addElementInOrder(v98, v19, v101.__begin_[v29++], -a6);
+                amt::SparseMatrix<float>::addElementInOrder(v97, v19, v100.__begin_[v29++], -a6);
               }
 
               while (v30 != v29);
             }
 
-            amt::SparseMatrix<float>::addElementInOrder(v98, v19, v19, v23 * a6);
+            amt::SparseMatrix<float>::addElementInOrder(v97, v19, v19, v23 * a6);
             v20 = v28;
             a3 = v27;
             v17 = v26;
-            v12 = v88;
+            v12 = v87;
           }
 
           else
@@ -5570,7 +5530,7 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
                 v35 = v36;
                 if (*(v24 + v36))
                 {
-                  v102[v32++] = v35;
+                  *(v101 + v32++) = v35;
                 }
 
                 if (v34 >= v33)
@@ -5584,13 +5544,13 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               while (v32 < 3);
               if (v32 == 2)
               {
-                amt::SparseMatrix<float>::addElementInOrder(v98, v19, v102[0], -a6);
-                amt::SparseMatrix<float>::addElementInOrder(v98, v19, v102[1], -a6);
+                amt::SparseMatrix<float>::addElementInOrder(v97, v19, v101[0], -a6);
+                amt::SparseMatrix<float>::addElementInOrder(v97, v19, SHIDWORD(v101[0]), -a6);
                 v31 = a6 + a6;
               }
             }
 
-            amt::SparseMatrix<float>::addElementInOrder(v98, v19, v19, v31);
+            amt::SparseMatrix<float>::addElementInOrder(v97, v19, v19, v31);
           }
 
           ++v19;
@@ -5598,34 +5558,34 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
 
         while (v19 != v20);
         v37 = 0;
-        v8 = v86;
-        LODWORD(v9) = v87;
-        v18 = v84;
-        a5 = v85;
+        v8 = v85;
+        LODWORD(v9) = v86;
+        v18 = v83;
+        a5 = v84;
         do
         {
-          amt::SparseMatrix<float>::addElementInOrder(v98, v87 + v37, v37, 1.0);
+          amt::SparseMatrix<float>::addElementInOrder(v97, v86 + v37, v37, 1.0);
           ++v37;
         }
 
-        while (v87 != v37);
+        while (v86 != v37);
       }
 
-      if (v100 >= 1)
+      if (v99 >= 1)
       {
         v38 = 0;
-        v39 = v99 + 1;
-        v40 = *v99;
+        v39 = v98 + 1;
+        v40 = *v98;
         do
         {
           v40 += v39[v38];
           v39[v38++] = v40;
         }
 
-        while (v38 < v100);
+        while (v38 < v99);
       }
 
-      amt::SparseMatrix<float>::transpose(v98, v102);
+      amt::SparseMatrix<float>::transpose(v97, v101);
       if (a5 == -1)
       {
         v41 = v18;
@@ -5636,17 +5596,17 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
         v41 = a5;
       }
 
-      v89 = v41;
-      amt::Vector<float>::Vector(&v97, v18);
-      amt::Vector<float>::Vector(&v96, v9);
-      amt::Vector<float>::Vector(&v95, v18);
-      amt::Vector<float>::Vector(&v94, v9);
+      v88 = v41;
+      amt::Vector<float>::Vector(&v96, v18);
+      amt::Vector<float>::Vector(&v95, v9);
+      amt::Vector<float>::Vector(&v94, v18);
       amt::Vector<float>::Vector(&v93, v9);
       amt::Vector<float>::Vector(&v92, v9);
+      amt::Vector<float>::Vector(&v91, v9);
       v42 = (v8 >> 4);
-      if (((v97.__end_ - v97.__begin_) >> 2) >= 1)
+      if (((v96.__end_ - v96.__begin_) >> 2) >= 1)
       {
-        bzero(v97.__begin_, (v97.__end_ - v97.__begin_) & 0x1FFFFFFFCLL);
+        bzero(v96.__begin_, (v96.__end_ - v96.__begin_) & 0x1FFFFFFFCLL);
       }
 
       v43 = 0;
@@ -5654,25 +5614,25 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
       v45 = (v8 >> 4);
       do
       {
-        if (((v96.__end_ - v96.__begin_) >> 2) >= 1)
+        if (((v95.__end_ - v95.__begin_) >> 2) >= 1)
         {
-          bzero(v96.__begin_, (v96.__end_ - v96.__begin_) & 0x1FFFFFFFCLL);
+          bzero(v95.__begin_, (v95.__end_ - v95.__begin_) & 0x1FFFFFFFCLL);
         }
 
         if (v9 >= 1)
         {
           v46 = 0;
-          v47 = v87;
+          v47 = v86;
           v48 = v45;
           do
           {
             v49 = amt::TriangleMesh::position(v17, v46);
-            if (v47 >= ((v97.__end_ - v97.__begin_) >> 2))
+            if (v47 >= ((v96.__end_ - v96.__begin_) >> 2))
             {
               __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
             }
 
-            v97.__begin_[v48] = *(v49 + 4 * (v43 & 3));
+            v96.__begin_[v48] = *(v49 + 4 * (v43 & 3));
             ++v46;
             ++v48;
             ++v47;
@@ -5681,25 +5641,25 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
           while (v45 != v46);
         }
 
-        amt::operator*(v102, &v97, &__p);
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v93, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
-        LODWORD(v9) = v87;
+        amt::operator*(v101, &v96, &__p);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v92, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+        LODWORD(v9) = v86;
         if (__p.__begin_)
         {
           __p.__end_ = __p.__begin_;
           operator delete(__p.__begin_);
         }
 
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v94, v93.__begin_, v93.__end_, v93.__end_ - v93.__begin_);
-        if (v87 < 1)
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v93, v92.__begin_, v92.__end_, v92.__end_ - v92.__begin_);
+        if (v86 < 1)
         {
           v51 = 0.0;
         }
 
         else
         {
-          v50 = v93.__begin_;
-          if ((((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31)) <= v90)
+          v50 = v92.__begin_;
+          if ((((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31)) <= v89)
           {
             __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
           }
@@ -5716,42 +5676,42 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
           while (v52);
         }
 
-        if (v89 >= 1 && sqrtf(v51 / v44) > a7)
+        if (v88 >= 1 && sqrtf(v51 / v44) > a7)
         {
           v54 = 0;
           do
           {
-            amt::operator*(v98, &v94, &__p);
-            std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v95, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+            amt::operator*(v97, &v93, &__p);
+            std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v94, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
             if (__p.__begin_)
             {
               __p.__end_ = __p.__begin_;
               operator delete(__p.__begin_);
             }
 
-            amt::operator*(v102, &v95, &__p);
-            std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v92, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
+            amt::operator*(v101, &v94, &__p);
+            std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v91, __p.__begin_, __p.__end_, __p.__end_ - __p.__begin_);
             if (__p.__begin_)
             {
               __p.__end_ = __p.__begin_;
               operator delete(__p.__begin_);
             }
 
-            if (v87 < 1)
+            if (v86 < 1)
             {
               v51 = 0.0;
             }
 
             else
             {
-              v55 = ((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31);
-              v56 = v90;
-              if (v55 < v90)
+              v55 = ((v91.__end_ - v91.__begin_) >> 2) & ~(((v91.__end_ - v91.__begin_) >> 2) >> 31);
+              v56 = v89;
+              if (v55 < v89)
               {
-                v56 = ((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31);
+                v56 = ((v91.__end_ - v91.__begin_) >> 2) & ~(((v91.__end_ - v91.__begin_) >> 2) >> 31);
               }
 
-              if ((((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31)) <= v56 || v55 == v56)
+              if ((((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31)) <= v56 || v55 == v56)
               {
                 __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
               }
@@ -5760,21 +5720,21 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               v59 = 0.0;
               do
               {
-                v59 = v59 + (*&v94.__begin_[v58] * *&v92.__begin_[v58]);
+                v59 = v59 + (*&v93.__begin_[v58] * *&v91.__begin_[v58]);
                 ++v58;
               }
 
               while (v42 != v58);
               v60 = 0;
-              v61 = v94.__begin_;
-              v62 = v96.__begin_;
-              v63 = v92.__begin_;
-              v64 = v93.__begin_;
+              v61 = v93.__begin_;
+              v62 = v95.__begin_;
+              v63 = v91.__begin_;
+              v64 = v92.__begin_;
               v65 = v51 / v59;
-              v66 = 4 * (((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31));
-              v67 = 4 * (((v96.__end_ - v96.__begin_) >> 2) & ~(((v96.__end_ - v96.__begin_) >> 2) >> 31));
-              v68 = 4 * (((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31));
-              v69 = 4 * (((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31));
+              v66 = 4 * (((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31));
+              v67 = 4 * (((v95.__end_ - v95.__begin_) >> 2) & ~(((v95.__end_ - v95.__begin_) >> 2) >> 31));
+              v68 = 4 * (((v91.__end_ - v91.__begin_) >> 2) & ~(((v91.__end_ - v91.__begin_) >> 2) >> 31));
+              v69 = 4 * (((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31));
               do
               {
                 if (v69 == v60 || v67 == v60 || (*&v62[v60 / 4] = *&v62[v60 / 4] + (v65 * *&v61[v60 / 4]), v68 == v60) || v66 == v60)
@@ -5787,8 +5747,8 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               }
 
               while (4 * v45 != v60);
-              v70 = v93.__begin_;
-              if ((((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31)) <= v90)
+              v70 = v92.__begin_;
+              if ((((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31)) <= v89)
               {
                 __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
               }
@@ -5803,10 +5763,10 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               }
 
               while (v72);
-              v74 = v93.__begin_;
-              v75 = v94.__begin_;
-              v76 = ((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31);
-              v77 = ((v94.__end_ - v94.__begin_) >> 2) & ~(((v94.__end_ - v94.__begin_) >> 2) >> 31);
+              v74 = v92.__begin_;
+              v75 = v93.__begin_;
+              v76 = ((v92.__end_ - v92.__begin_) >> 2) & ~(((v92.__end_ - v92.__begin_) >> 2) >> 31);
+              v77 = ((v93.__end_ - v93.__begin_) >> 2) & ~(((v93.__end_ - v93.__begin_) >> 2) >> 31);
               v78 = v45;
               do
               {
@@ -5830,16 +5790,16 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
             ++v54;
           }
 
-          while (v54 < v89 && sqrtf(v51 / v44) > a7);
+          while (v54 < v88 && sqrtf(v51 / v44) > a7);
         }
 
-        if (v87 >= 1)
+        if (v86 >= 1)
         {
           v80 = 0;
           do
           {
             v81 = amt::TriangleMesh::position(v17, v80);
-            if (v80 >= ((v96.__end_ - v96.__begin_) >> 2))
+            if (v80 >= ((v95.__end_ - v95.__begin_) >> 2))
             {
               __assert_rtn("operator[]", "AMTMatrix.hpp", 314, "index < size()");
             }
@@ -5850,7 +5810,7 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
               v82 = 2;
             }
 
-            *(v81 + 4 * v82) = v96.__begin_[v80++];
+            *(v81 + 4 * v82) = v95.__begin_[v80++];
           }
 
           while (v45 != v80);
@@ -5860,6 +5820,12 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
       }
 
       while (v43 != 3);
+      if (v91.__begin_)
+      {
+        v91.__end_ = v91.__begin_;
+        operator delete(v91.__begin_);
+      }
+
       if (v92.__begin_)
       {
         v92.__end_ = v92.__begin_;
@@ -5890,27 +5856,20 @@ void amt::smoothWithVertexConstraints(void *a1, void *a2, void *a3, void *a4, in
         operator delete(v96.__begin_);
       }
 
-      if (v97.__begin_)
+      amt::Adjacency<int>::~Adjacency(v101);
+      amt::Adjacency<int>::~Adjacency(v97);
+      if (v100.__begin_)
       {
-        v97.__end_ = v97.__begin_;
-        operator delete(v97.__begin_);
-      }
-
-      amt::Adjacency<int>::~Adjacency(v102);
-      amt::Adjacency<int>::~Adjacency(v98);
-      if (v101.__begin_)
-      {
-        v101.__end_ = v101.__begin_;
-        operator delete(v101.__begin_);
+        v100.__end_ = v100.__begin_;
+        operator delete(v100.__begin_);
       }
     }
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23E76DCA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, char a36)
+void sub_23E76DCA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   if (__p)
   {
     operator delete(__p);
@@ -5936,29 +5895,29 @@ void sub_23E76DCA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a33);
   }
 
-  amt::Adjacency<int>::~Adjacency(v36 - 208);
-  amt::Adjacency<int>::~Adjacency(&a36);
-  v38 = *(v36 - 232);
-  if (v38)
+  amt::Adjacency<int>::~Adjacency(v35 - 208);
+  amt::Adjacency<int>::~Adjacency(va);
+  v37 = *(v35 - 232);
+  if (v37)
   {
-    *(v36 - 224) = v38;
-    operator delete(v38);
+    *(v35 - 224) = v37;
+    operator delete(v37);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<signed char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<signed char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<AMTMeshSourceSemantic>::__vallocate[abi:ne200100](result, a2);
+    std::vector<AMTMeshSourceSemantic>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E76DE28(_Unwind_Exception *exception_object)
@@ -5982,7 +5941,7 @@ __n128 std::__function::__func<amt::fitMesh(amt::TriangleMesh const&,nanoflann::
   return result;
 }
 
-double std::__function::__func<amt::fitMesh(amt::TriangleMesh const&,nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int> const&,amt::TriangleMesh&)::$_0,std::allocator<amt::fitMesh(amt::TriangleMesh const&,nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int> const&,amt::TriangleMesh&)::$_0>,void ()(long long)>::operator()(uint64_t a1, int *a2)
+double std::__function::__func<amt::fitMesh(amt::TriangleMesh const&,nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int> const&,amt::TriangleMesh&)::$_0,std::allocator<amt::fitMesh(amt::TriangleMesh const&,nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int> const&,amt::TriangleMesh&)::$_0>,void ()(long long)>::operator()(uint64_t a1, unsigned int *a2)
 {
   v3 = *a2;
   v13 = 0;
@@ -5996,7 +5955,7 @@ double std::__function::__func<amt::fitMesh(amt::TriangleMesh const&,nanoflann::
   v4 = *(a1 + 16);
   v9.i32[0] = 0;
   v9.i8[4] = 1;
-  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v4, v11, &v10, v9.f32);
+  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>(v4, v11, &v10, v9.f32, v8);
   v5 = amt::TriangleMesh::position(*(a1 + 24), v13);
   v6 = vmulq_f32(v8, vsubq_f32(*v5, v10));
   v9 = vmlaq_n_f32(v10, v8, v6.f32[2] + vaddv_f32(*v6.f32));
@@ -6032,16 +5991,13 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 void std::vector<signed char>::__append(char **a1, size_t a2)
@@ -6173,14 +6129,14 @@ void amt::SparseMatrix<float>::addElementInOrder(uint64_t a1, int a2, int a3, fl
   *(a1 + 8) = v9;
 }
 
-void amt::SparseMatrix<float>::transpose(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void amt::SparseMatrix<float>::transpose(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   amt::SparseMatrix<float>::SparseMatrix(a2, *(a1 + 72), *(a1 + 76));
   v4 = *(a1 + 48);
   v5 = *(a1 + 56);
   if (v4 != v5)
   {
-    v6 = *(a2 + 24) + 4;
+    v6 = a2[3] + 4;
     do
     {
       v7 = *v4++;
@@ -6190,10 +6146,10 @@ void amt::SparseMatrix<float>::transpose(uint64_t a1@<X0>, uint64_t a2@<X8>)
     while (v4 != v5);
   }
 
-  if (*(a2 + 76) >= 1)
+  if (*(a2 + 19) >= 1)
   {
     v8 = 0;
-    v9 = *(a2 + 24);
+    v9 = a2[3];
     v12 = *v9;
     v10 = v9 + 1;
     v11 = v12;
@@ -6203,19 +6159,19 @@ void amt::SparseMatrix<float>::transpose(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v10[v8++] = v11;
     }
 
-    while (v8 < *(a2 + 76));
+    while (v8 < *(a2 + 19));
   }
 
-  v13 = *(*(a2 + 32) - 4);
-  std::vector<int>::resize((a2 + 48), v13);
+  v13 = *(a2[4] - 4);
+  std::vector<int>::resize(a2 + 2, v13);
   std::vector<int>::resize(a2, v13);
   v14 = *(a1 + 76);
-  v15 = *(a2 + 24);
+  v15 = a2[3];
   if (v14 >= 1)
   {
     v16 = 0;
     v17 = *(a1 + 24);
-    v18 = *(a2 + 48);
+    v18 = a2[6];
     v19 = *a2;
     do
     {
@@ -6389,7 +6345,7 @@ void sub_23E76E654(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6488,20 +6444,20 @@ void sub_23E76E83C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<amt::SparseMatrix<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<amt::SparseMatrix<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<amt::SparseMatrix<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<amt::SparseMatrix<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<amt::SparseMatrix<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<amt::SparseMatrix<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -6546,17 +6502,17 @@ void std::vector<amt::SparseMatrix<float>>::__destroy_vector::operator()[abi:ne2
   }
 }
 
-void *std::vector<AMTPair>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<AMTPair>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E76EA80(_Unwind_Exception *exception_object)
@@ -6571,20 +6527,20 @@ void sub_23E76EA80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<amt::Vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<amt::Vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<amt::Vector<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<amt::Vector<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<amt::Vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<amt::Vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6771,9 +6727,9 @@ const void **_ZN3amt9Operation5ostatIDv3_fEEvPK10__CFStringRKNSt3__16vectorIT_NS
   return result;
 }
 
-void sub_23E76EEF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76EEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -6803,18 +6759,18 @@ CFMutableDictionaryRef _ZN3amt28CFDictionaryCreateWithVectorIDv3_fEEPK14__CFDict
   return v5;
 }
 
-void sub_23E76EFE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76EFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va1);
   _Unwind_Resume(a1);
 }
 
-_OWORD *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6assignEmRKS1_(void *a1, unint64_t a2, _OWORD *a3)
+_OWORD *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6assignEmRKS1_(uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -6904,7 +6860,7 @@ uint64_t amt::MeshSubdivisionInfo::MeshSubdivisionInfo(uint64_t a1, uint64_t a2)
   *(a2 + 72) = 0;
   *(a2 + 80) = 0;
   *(a2 + 88) = 0;
-  amt::Adjacency<AMTPair>::Adjacency(v4 + 12, (a2 + 96));
+  amt::Adjacency<AMTPair>::Adjacency(v4 + 12, a2 + 96);
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
@@ -6917,20 +6873,20 @@ uint64_t amt::MeshSubdivisionInfo::MeshSubdivisionInfo(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *amt::Adjacency<AMTPair>::Adjacency(void *a1, uint64_t *a2)
+uint64_t *amt::Adjacency<AMTPair>::Adjacency(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), a2[3], a2[4], (a2[4] - a2[3]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 3, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<AMTPair>::__init_with_size[abi:ne200100]<AMTPair*,AMTPair*>((a1 + 6), a2[6], a2[7], (a2[7] - a2[6]) >> 3);
+  std::vector<AMTPair>::__init_with_size[abi:ne200100]<AMTPair*,AMTPair*>(a1 + 6, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
   return a1;
 }
 
@@ -6953,7 +6909,7 @@ void sub_23E76F234(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6975,7 +6931,7 @@ void sub_23E76F2C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<AMTPair>::__init_with_size[abi:ne200100]<AMTPair*,AMTPair*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<AMTPair>::__init_with_size[abi:ne200100]<AMTPair*,AMTPair*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7009,13 +6965,13 @@ void amt::SubdivisionInfo::~SubdivisionInfo(amt::SubdivisionInfo *this)
   amt::Adjacency<int>::~Adjacency(this);
 }
 
-char **amt::Adjacency<AMTPair>::operator=(char **a1, char **a2)
+uint64_t amt::Adjacency<AMTPair>::operator=(uint64_t a1, char **a2)
 {
   if (a1 != a2)
   {
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 3, a2[3], a2[4], (a2[4] - a2[3]) >> 2);
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1 + 6, a2[6], a2[7], (a2[7] - a2[6]) >> 3);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a1 + 24), a2[3], a2[4], (a2[4] - a2[3]) >> 2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l((a1 + 48), a2[6], a2[7], (a2[7] - a2[6]) >> 3);
   }
 
   return a1;
@@ -7046,9 +7002,9 @@ const void **amt::Operation::ostat(const void **this, const __CFString *a2, int 
   return this;
 }
 
-void sub_23E76F524(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76F524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -7098,11 +7054,11 @@ CFMutableDictionaryRef amt::CFDictionaryCreateWithBox(const __CFAllocator *a1, u
   return v8;
 }
 
-void sub_23E76F6BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E76F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   amt::AMTWrapper<__CFArray const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va1);
   _Unwind_Resume(a1);
@@ -7137,10 +7093,10 @@ void std::__function::__func<amt::assignPointCloudColors(amt::TriangleMesh &,__C
         do
         {
           v11 = amt::TriangleMesh::texCoord(*(a1 + 24), v9);
-          v12.n128_f64[0] = amt::AMTImageWrapper::bilinear(v15, COERCE_FLOAT(*v11), COERCE_FLOAT(HIDWORD(*v11)));
+          *&v12 = amt::AMTImageWrapper::bilinear(v15, COERCE_FLOAT(*v11), COERCE_FLOAT(HIDWORD(*v11)));
           v13 = *(a1 + 24);
           v14 = v12;
-          amt::TriangleMesh::setColor(v13, v10 + v9++, &v14);
+          amt::TriangleMesh::setColor(v13, (v10 + v9++), &v14);
         }
 
         while (v9 < **(a1 + 16));
@@ -7151,9 +7107,9 @@ void std::__function::__func<amt::assignPointCloudColors(amt::TriangleMesh &,__C
   }
 }
 
-void sub_23E76F8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23E76F8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   amt::AMTImageWrapper::~AMTImageWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -7264,9 +7220,9 @@ double amt::AMTImageWrapper::bilinear(amt::AMTImageWrapper *this, double a2, dou
   return result;
 }
 
-__n128 amt::TriangleMesh::setColor(uint64_t a1, int a2, __n128 *a3)
+__n128 amt::TriangleMesh::setColor(uint64_t a1, uint64_t a2, __n128 *a3)
 {
-  if (a2 < 0 || (v3 = *(a1 + 48), ((*(a1 + 56) - v3) >> 4) <= a2))
+  if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 48), ((*(a1 + 56) - v3) >> 4) <= a2))
   {
     amt::TriangleMesh::setColor();
   }
@@ -7394,183 +7350,185 @@ void amt::AMTImageWrapper::~AMTImageWrapper(amt::AMTImageWrapper *this)
   }
 }
 
-uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(uint64_t a1, uint64_t a2, int *a3, uint64_t *a4, uint64_t a5)
+uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::radiusSearch(uint64_t a1, uint64_t a2, unsigned __int32 *a3, uint64_t *a4, uint64_t a5, __n128 a6)
 {
-  v13 = *a3;
-  v14 = a4;
+  v14 = *a3;
+  a6.n128_u32[0] = v14;
+  v15 = a4;
   a4[1] = *a4;
-  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::RadiusResultSet<float,unsigned int>>(a1, &v13, a2, a5);
-  v8 = *v14;
-  v7 = v14[1];
+  nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a6, &v14, a2, a5);
+  v9 = *v15;
+  v8 = v15[1];
   if (*(a5 + 4) == 1)
   {
-    v9 = a4[1];
-    v10 = 126 - 2 * __clz((v9 - *a4) >> 3);
-    if (v9 == *a4)
+    v10 = a4[1];
+    v11 = 126 - 2 * __clz((v10 - *a4) >> 3);
+    if (v10 == *a4)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *,false>(*a4, v9, &v15, v11, 1);
+    std::__introsort<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *,false>(*a4, v10, &v16, v12, 1);
   }
 
-  return (v7 - v8) >> 3;
+  return (v8 - v9) >> 3;
 }
 
-BOOL nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::RadiusResultSet<float,unsigned int>>(uint64_t a1, uint64_t a2, uint64_t a3, float *a4)
+BOOL nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::RadiusResultSet<float,unsigned int>>(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, float *a5)
 {
-  if (!a3)
+  if (!a4)
   {
     nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::findNeighbors<nanoflann::KNNResultSet<float,unsigned long,unsigned long>>();
   }
 
-  v4 = *(a1 + 48);
-  if (v4)
+  v5 = *(a1 + 48);
+  if (v5)
   {
-    v6 = *(a1 + 24);
-    if (!v6)
+    v7 = *(a1 + 24);
+    if (!v7)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x23EF11B00](exception, "[nanoflann] findNeighbors() called before building the index.");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v7 = 0;
-    v8 = *a4;
+    v8 = 0;
+    v9 = *a5;
     v18 = 0;
-    v9 = (a1 + 72);
-    v10 = 0.0;
+    v10 = (a1 + 72);
+    a2.n128_u64[0] = 0;
     v17 = 0;
     do
     {
-      v11 = *(a3 + v7);
-      v12 = *(v9 - 1);
+      v11 = *(a4 + v8);
+      v12 = *(v10 - 1);
       if (v11 < v12)
       {
         v13 = (v11 - v12) * (v11 - v12);
-        *(&v17 + v7) = v13;
-        v10 = v10 + v13;
+        *(&v17 + v8) = v13;
+        a2.n128_f32[0] = a2.n128_f32[0] + v13;
       }
 
-      if (v11 > *v9)
+      if (v11 > *v10)
       {
-        v14 = (v11 - *v9) * (v11 - *v9);
-        *(&v17 + v7) = v14;
-        v10 = v10 + v14;
+        v14 = (v11 - *v10) * (v11 - *v10);
+        *(&v17 + v8) = v14;
+        a2.n128_f32[0] = a2.n128_f32[0] + v14;
       }
 
-      v7 += 4;
-      v9 += 2;
+      v8 += 4;
+      v10 += 2;
     }
 
-    while (v7 != 12);
-    nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a2, a3, v6, &v17, v10, v8 + 1.0);
+    while (v8 != 12);
+    nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a3, a4, v7, &v17, a2, v9 + 1.0);
   }
 
-  return v4 != 0;
+  return v5 != 0;
 }
 
-uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, float a6, float a7)
+uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, __n128 a6, float a7)
 {
   if (!a4)
   {
     return 0;
   }
 
+  v9 = a6.n128_f32[0];
   v14 = *(a4 + 2);
-  if (!v14 && !*(a4 + 3))
+  if (*(a4 + 1) == 0)
   {
-    v29 = *a4;
+    v28 = *a4;
     if (*a4 < *(a4 + 1))
     {
-      v30 = *a2;
+      v29 = *a2;
       do
       {
-        v31 = 0;
-        v32 = *(*a1 + 4 * v29);
-        v33 = 0.0;
+        v30 = 0;
+        v31 = *(*a1 + 4 * v28);
+        v32 = 0.0;
         do
         {
-          v34 = *(a3 + 4 * v31);
-          pt = amt::PointCloudWrapper::kdtree_get_pt(*(a1 + 160), v32, v31);
-          v33 = v33 + ((v34 - pt) * (v34 - pt));
-          ++v31;
+          v33 = *(a3 + 4 * v30);
+          pt = amt::PointCloudWrapper::kdtree_get_pt(*(a1 + 160), v31, v30);
+          v32 = v32 + ((v33 - pt) * (v33 - pt));
+          ++v30;
         }
 
-        while (v31 != 3);
-        if (v33 < v30 && *a2 > v33)
+        while (v30 != 3);
+        if (v32 < v29 && *a2 > v32)
         {
-          v36 = *(*a1 + 4 * v29);
-          v37 = *(a2 + 8);
-          v39 = *(v37 + 8);
-          v38 = *(v37 + 16);
-          if (v39 >= v38)
+          v35 = *(*a1 + 4 * v28);
+          v36 = *(a2 + 8);
+          v38 = *(v36 + 8);
+          v37 = *(v36 + 16);
+          if (v38 >= v37)
           {
-            v41 = *v37;
-            v42 = v39 - *v37;
-            v43 = v42 >> 3;
-            v44 = (v42 >> 3) + 1;
-            if (v44 >> 61)
+            v40 = *v36;
+            v41 = v38 - *v36;
+            v42 = v41 >> 3;
+            v43 = (v41 >> 3) + 1;
+            if (v43 >> 61)
             {
               std::vector<AMTMeshSourceSemantic>::__throw_length_error[abi:ne200100]();
             }
 
-            v45 = v38 - v41;
-            if (v45 >> 2 > v44)
+            v44 = v37 - v40;
+            if (v44 >> 2 > v43)
             {
-              v44 = v45 >> 2;
+              v43 = v44 >> 2;
             }
 
-            if (v45 >= 0x7FFFFFFFFFFFFFF8)
+            if (v44 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v46 = 0x1FFFFFFFFFFFFFFFLL;
+              v45 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v46 = v44;
+              v45 = v43;
             }
 
-            if (v46)
+            if (v45)
             {
-              _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(*(a2 + 8), v46);
+              _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(*(a2 + 8), v45);
             }
 
-            v47 = 8 * v43;
-            *v47 = v36;
-            *(v47 + 4) = v33;
-            v40 = 8 * v43 + 8;
-            v48 = (v47 - 8 * (v42 >> 3));
-            memcpy(v48, v41, v42);
-            v49 = *v37;
-            *v37 = v48;
-            *(v37 + 8) = v40;
-            *(v37 + 16) = 0;
-            if (v49)
+            v46 = 8 * v42;
+            *v46 = v35;
+            *(v46 + 4) = v32;
+            v39 = 8 * v42 + 8;
+            v47 = (v46 - 8 * (v41 >> 3));
+            memcpy(v47, v40, v41);
+            v48 = *v36;
+            *v36 = v47;
+            *(v36 + 8) = v39;
+            *(v36 + 16) = 0;
+            if (v48)
             {
-              operator delete(v49);
+              operator delete(v48);
             }
           }
 
           else
           {
-            *v39 = v36;
-            *(v39 + 4) = v33;
-            v40 = v39 + 8;
+            *v38 = v35;
+            *(v38 + 4) = v32;
+            v39 = v38 + 8;
           }
 
-          *(v37 + 8) = v40;
+          *(v36 + 8) = v39;
         }
 
-        ++v29;
+        ++v28;
       }
 
-      while (v29 < *(a4 + 1));
+      while (v28 < *(a4 + 1));
     }
 
     return 1;
@@ -7583,28 +7541,28 @@ uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,
   v19 = v16 - v17;
   v20 = v16 - v18;
   v21 = (v16 - v17) + (v16 - v18);
-  v22 = *(a4 + 3);
   if (v21 >= 0.0)
+  {
+    v22 = *(a4 + 3);
+  }
+
+  else
+  {
+    v22 = *(a4 + 2);
+  }
+
+  if (v21 >= 0.0)
+  {
+    v23 = v14;
+  }
+
+  else
   {
     v23 = *(a4 + 3);
   }
 
-  else
-  {
-    v23 = *(a4 + 2);
-  }
-
-  if (v21 >= 0.0)
-  {
-    v24 = v14;
-  }
-
-  else
-  {
-    v24 = *(a4 + 3);
-  }
-
-  result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a2, a3, v23, a5, a6, a7);
+  a6.n128_f32[0] = v9;
+  result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a2, a3, v22, a5, a6, a7);
   if (result)
   {
     v26 = v19 * v19;
@@ -7614,9 +7572,9 @@ uint64_t nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,
     }
 
     v27 = *(a5 + 4 * v15);
-    v28 = (v26 + a6) - v27;
+    v25.n128_f32[0] = (v26 + v9) - v27;
     *(a5 + 4 * v15) = v26;
-    if ((v28 * a7) > *a2 || (result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a2, a3, v24, a5, v28, a7), result))
+    if ((v25.n128_f32[0] * a7) > *a2 || (result = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<float,amt::PointCloudWrapper,float,unsigned int>,amt::PointCloudWrapper,3,unsigned int>::searchLevel<nanoflann::RadiusResultSet<float,unsigned int>>(a1, a2, a3, v23, a5, v25, a7), result))
     {
       *(a5 + 4 * v15) = v27;
       return 1;
@@ -7763,14 +7721,14 @@ LABEL_11:
             do
             {
               v61 = v60;
-              v62 = *(v60 - 1);
-              v60 -= 2;
+              v62 = *(v60 - 8);
+              v60 -= 8;
               *v61 = v62;
             }
 
             while (*(v61 - 3) > v57);
             *v60 = v59;
-            v60[1] = v57;
+            *(v60 + 4) = v57;
           }
         }
       }
@@ -8030,8 +7988,8 @@ LABEL_64:
     }
 
     v44 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(v9, v42);
-    v9 = (v42 + 8);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(v42 + 8, a2);
+    v9 = v42 + 2;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(v42 + 2, a2);
     if (result)
     {
       a4 = -v11;
@@ -8049,7 +8007,7 @@ LABEL_64:
     {
 LABEL_67:
       result = std::__introsort<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *,false>(v8, v42, a3, -v11, a5 & 1);
-      v9 = (v42 + 8);
+      v9 = v42 + 2;
 LABEL_69:
       a5 = 0;
       a4 = -v11;
@@ -8188,12 +8146,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(uint64_t result, _DWORD *a2)
+_DWORD *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(_DWORD *result, _DWORD *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 8);
-    if ((result + 8) != a2)
+    v2 = result + 2;
+    if (result + 2 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -8218,7 +8176,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::I
             v8 -= 8;
             if (v9 <= v5)
             {
-              v10 = result + v8 + 8;
+              v10 = (result + v8 + 8);
               goto LABEL_10;
             }
           }
@@ -8226,7 +8184,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::I
           v10 = result;
 LABEL_10:
           *v10 = v7;
-          *(v10 + 4) = v5;
+          v10[1] = v5;
         }
 
         v2 = v4 + 2;
@@ -8245,7 +8203,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   v2 = a1[1];
   if (*(a2 - 1) <= v2)
   {
-    v6 = (a1 + 2);
+    v6 = a1 + 2;
     do
     {
       v4 = v6;
@@ -8254,8 +8212,8 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         break;
       }
 
-      v7 = *(v6 + 4);
-      v6 += 8;
+      v7 = v6[1];
+      v6 += 2;
     }
 
     while (v7 <= v2);
@@ -8323,7 +8281,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v4;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::ResultItem<unsigned int,float> *,nanoflann::IndexDist_Sorter &>(float *a1, float *a2)
+float *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::ResultItem<unsigned int,float> *,nanoflann::IndexDist_Sorter &>(float *a1, float *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -8376,8 +8334,8 @@ LABEL_9:
       *v11 = v12;
       do
       {
-        v13 = *(v10 + 12);
-        v10 += 8;
+        v13 = v10[3];
+        v10 += 2;
       }
 
       while (v13 < v4);
@@ -8393,33 +8351,33 @@ LABEL_9:
     while (v10 < v11);
   }
 
-  if ((v10 - 8) != a1)
+  if (v10 - 2 != a1)
   {
-    *a1 = *(v10 - 8);
+    *a1 = *(v10 - 1);
   }
 
-  *(v10 - 8) = v3;
-  *(v10 - 4) = v4;
-  return v10 - 8;
+  *(v10 - 2) = v3;
+  *(v10 - 1) = v4;
+  return v10 - 2;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *>(float *a1, uint64_t *a2)
 {
   v2 = (a2 - a1) >> 3;
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v4 = *(a1 + 12);
-      v5 = *(a2 - 4);
-      if (v4 >= *(a1 + 4))
+      v4 = a1[3];
+      v5 = *(a2 - 1);
+      if (v4 >= a1[1])
       {
         if (v5 < v4)
         {
-          v15 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 8);
-          *(a2 - 8) = v15;
-          if (*(a1 + 12) < *(a1 + 4))
+          v15 = *(a1 + 1);
+          *(a1 + 1) = *(a2 - 1);
+          *(a2 - 1) = v15;
+          if (a1[3] < a1[1])
           {
             *a1 = vextq_s8(*a1, *a1, 8uLL);
           }
@@ -8431,21 +8389,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nanof
       v3 = *a1;
       if (v5 >= v4)
       {
-        *a1 = *(a1 + 8);
-        *(a1 + 8) = v3;
-        if (*(a2 - 4) >= *(&v3 + 1))
+        *a1 = *(a1 + 1);
+        *(a1 + 1) = v3;
+        if (*(a2 - 1) >= *(&v3 + 1))
         {
           return 1;
         }
 
-        *(a1 + 8) = *(a2 - 8);
+        *(a1 + 1) = *(a2 - 1);
         goto LABEL_13;
       }
 
 LABEL_12:
-      *a1 = *(a2 - 8);
+      *a1 = *(a2 - 1);
 LABEL_13:
-      *(a2 - 8) = v3;
+      *(a2 - 1) = v3;
       return 1;
     }
 
@@ -8453,30 +8411,30 @@ LABEL_13:
     {
       if (v2 == 5)
       {
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *,0>(a1, (a1 + 8), (a1 + 16), (a1 + 24), (a2 - 8));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDist_Sorter &,nanoflann::ResultItem<unsigned int,float> *,0>(a1, a1 + 2, a1 + 4, a1 + 6, a2 - 2);
         return 1;
       }
 
       goto LABEL_14;
     }
 
-    v10 = *(a1 + 12);
-    v11 = *(a1 + 4);
-    v12 = *(a1 + 20);
+    v10 = a1[3];
+    v11 = a1[1];
+    v12 = a1[5];
     if (v10 >= v11)
     {
       if (v12 < v10)
       {
-        v20 = *(a1 + 8);
-        v19 = *(a1 + 16);
-        *(a1 + 8) = v19;
-        *(a1 + 16) = v20;
+        v20 = *(a1 + 1);
+        v19 = *(a1 + 2);
+        *(a1 + 1) = v19;
+        *(a1 + 2) = v20;
         v12 = *(&v20 + 1);
         if (v11 > *(&v19 + 1))
         {
           v21 = *a1;
           *a1 = v19;
-          *(a1 + 8) = v21;
+          *(a1 + 1) = v21;
         }
       }
 
@@ -8487,27 +8445,27 @@ LABEL_13:
     LODWORD(v14) = HIDWORD(*a1);
     if (v12 >= v10)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v13;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v13;
       if (v12 >= v14)
       {
 LABEL_48:
-        if (*(a2 - 4) < v12)
+        if (*(a2 - 1) < v12)
         {
-          v31 = *(a1 + 16);
-          *(a1 + 16) = *(a2 - 8);
-          *(a2 - 8) = v31;
-          if (*(a1 + 20) < *(a1 + 12))
+          v31 = *(a1 + 2);
+          *(a1 + 2) = *(a2 - 1);
+          *(a2 - 1) = v31;
+          if (a1[5] < a1[3])
           {
-            v33 = *(a1 + 8);
-            v32 = *(a1 + 16);
-            *(a1 + 8) = v32;
-            *(a1 + 16) = v33;
-            if (*(a1 + 4) > *(&v32 + 1))
+            v33 = *(a1 + 1);
+            v32 = *(a1 + 2);
+            *(a1 + 1) = v32;
+            *(a1 + 2) = v33;
+            if (a1[1] > *(&v32 + 1))
             {
               v34 = *a1;
               *a1 = v32;
-              *(a1 + 8) = v34;
+              *(a1 + 1) = v34;
             }
           }
         }
@@ -8515,15 +8473,15 @@ LABEL_48:
         return 1;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v13;
+    *(a1 + 2) = v13;
     v12 = v14;
     goto LABEL_48;
   }
@@ -8535,7 +8493,7 @@ LABEL_48:
 
   if (v2 == 2)
   {
-    if (*(a2 - 4) < *(a1 + 4))
+    if (*(a2 - 1) < a1[1])
     {
       v3 = *a1;
       goto LABEL_12;
@@ -8545,22 +8503,22 @@ LABEL_48:
   }
 
 LABEL_14:
-  v6 = *(a1 + 12);
-  v7 = *(a1 + 4);
-  v8 = *(a1 + 20);
+  v6 = a1[3];
+  v7 = a1[1];
+  v8 = a1[5];
   if (v6 >= v7)
   {
     if (v8 < v6)
     {
-      v17 = *(a1 + 8);
-      v16 = *(a1 + 16);
-      *(a1 + 8) = v16;
-      *(a1 + 16) = v17;
+      v17 = *(a1 + 1);
+      v16 = *(a1 + 2);
+      *(a1 + 1) = v16;
+      *(a1 + 2) = v17;
       if (v7 > *(&v16 + 1))
       {
         v18 = *a1;
         *a1 = v16;
-        *(a1 + 8) = v18;
+        *(a1 + 1) = v18;
       }
     }
   }
@@ -8570,38 +8528,38 @@ LABEL_14:
     v9 = *a1;
     if (v8 >= v6)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v9;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v9;
       if (v8 >= *(&v9 + 1))
       {
         goto LABEL_34;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v9;
+    *(a1 + 2) = v9;
   }
 
 LABEL_34:
-  v22 = a1 + 24;
-  if (a1 + 24 == a2)
+  v22 = a1 + 6;
+  if (a1 + 6 == a2)
   {
     return 1;
   }
 
   v23 = 0;
   v24 = 0;
-  v25 = a1 + 16;
+  v25 = a1 + 4;
   while (1)
   {
-    v26 = *(v22 + 4);
-    if (v26 < *(v25 + 4))
+    v26 = v22[1];
+    if (v26 < v25[1])
     {
       v27 = *v22;
       v28 = v23;
@@ -8628,13 +8586,13 @@ LABEL_42:
       *(v30 + 4) = v26;
       if (++v24 == 8)
       {
-        return v22 + 8 == a2;
+        return v22 + 2 == a2;
       }
     }
 
     v25 = v22;
     v23 += 8;
-    v22 += 8;
+    v22 += 2;
     if (v22 == a2)
     {
       return 1;
@@ -8833,7 +8791,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,nanoflann::IndexDis
   return result;
 }
 
-void std::vector<amt::TriangleMesh>::resize(void *a1, unint64_t a2)
+void std::vector<amt::TriangleMesh>::resize(char **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = 0x84BDA12F684BDA13 * ((v3 - *a1) >> 3);
@@ -8847,30 +8805,30 @@ void std::vector<amt::TriangleMesh>::resize(void *a1, unint64_t a2)
 
   else if (!v5)
   {
-    v7 = *a1 + 216 * a2;
+    v7 = &(*a1)[216 * a2];
     while (v3 != v7)
     {
-      amt::TriangleMesh::~TriangleMesh((v3 - 216));
+      amt::TriangleMesh::~TriangleMesh(v3 - 27);
     }
 
     a1[1] = v7;
   }
 }
 
-void std::vector<unsigned long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long>::__append(a1, a2 - v2);
+    std::vector<unsigned long>::__append(result, a2 - v2);
   }
 }
 
@@ -8887,27 +8845,27 @@ const void **amt::Operation::ostat<amt::TriangleMesh>(const void **result, const
   return result;
 }
 
-void sub_23E771368(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E771368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::set<unsigned long>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::set<unsigned long>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::set<unsigned long>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::set<unsigned long>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::set<unsigned long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::set<unsigned long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8939,8 +8897,8 @@ void std::vector<std::set<unsigned long>>::__destroy_vector::operator()[abi:ne20
     {
       do
       {
-        v6 = v4 - 24;
-        std::__tree<unsigned long>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 3;
+        std::__tree<unsigned long>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 
@@ -8965,20 +8923,20 @@ void std::__tree<unsigned long>::destroy(uint64_t a1, void *a2)
   }
 }
 
-void std::vector<amt::TriangleMesh>::__append(uint64_t a1, unint64_t a2)
+void std::vector<amt::TriangleMesh>::__append(char **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (0x84BDA12F684BDA13 * ((v4 - v5) >> 3) >= a2)
   {
     if (a2)
     {
       v10 = 216 * ((216 * a2 - 216) / 0xD8) + 216;
-      bzero(*(a1 + 8), v10);
+      bzero(a1[1], v10);
       v5 += v10;
     }
 
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
@@ -9017,13 +8975,13 @@ void std::vector<amt::TriangleMesh>::__append(uint64_t a1, unint64_t a2)
     v11 = 216 * ((216 * a2 - 216) / 0xD8) + 216;
     bzero((216 * v6), v11);
     v18 = 216 * v6 + v11;
-    v12 = *(a1 + 8);
-    v13 = 216 * v6 + *a1 - v12;
+    v12 = a1[1];
+    v13 = (216 * v6 + *a1 - v12);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<amt::TriangleMesh>,amt::TriangleMesh*>(a1, *a1, v12, v13);
     v14 = *a1;
     *a1 = v13;
-    v15 = *(a1 + 16);
-    *(a1 + 8) = v18;
+    v15 = a1[2];
+    *(a1 + 1) = v18;
     *&v18 = v14;
     *(&v18 + 1) = v15;
     v16 = v14;
@@ -9032,9 +8990,9 @@ void std::vector<amt::TriangleMesh>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_23E771734(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E771734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<amt::TriangleMesh>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9218,48 +9176,48 @@ void std::vector<unsigned long>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<unsigned long>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned long>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -9285,12 +9243,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -9304,22 +9262,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -9353,13 +9311,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -9415,12 +9373,12 @@ CFMutableDictionaryRef amt::CFDictionaryCreateWithVector<amt::TriangleMesh>(cons
   return v5;
 }
 
-void sub_23E771E10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E771E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va1);
   _Unwind_Resume(a1);
@@ -9439,122 +9397,122 @@ uint64_t amt::AMTImageWrapper::alphaInfo(amt::AMTImageWrapper *this)
   return CGImageGetAlphaInfo(v4);
 }
 
-void amt::padAttributeMap(uint64_t a1, uint64_t a2, void **a3, uint64_t a4, char a5)
+void amt::padAttributeMap(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, char a5)
 {
-  amt::Matrix<unsigned char>::Matrix(&v25, 1, 1);
+  amt::Matrix<unsigned char>::Matrix(&v26, 1, 1);
   if (a1)
   {
     do
     {
-      v10 = amt::dilatePadding(a2, a3, &v25, a1);
+      v10 = amt::dilatePadding(a2, a3, &v26, a1);
       amt::Matrix<unsigned char>::Matrix(&__p, a3);
-      if (&v25 != a3)
+      if (&v26 != a3)
       {
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, v25, v26, v26 - v25);
+        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, v26, v27, v27 - v26);
       }
 
       v11 = __p;
-      a3[3] = v27;
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v25, v11, v29, v29 - v11);
-      v27 = v30;
+      a3[3] = v28;
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v26, v11, v30, v30 - v11);
+      v28 = v31;
       if (__p)
       {
-        v29 = __p;
+        v30 = __p;
         operator delete(__p);
       }
     }
 
     while (!v10);
-    v12 = *(a2 + 24);
-    if (*(a1 + 24) != v12 || (v13 = *(a2 + 28), *(a1 + 28) != v13))
+    v13 = *(a2 + 24);
+    if (*(a1 + 24) != v13 || (v14 = *(a2 + 28), *(a1 + 28) != v14))
     {
-      v15 = "mask.columnCount() == width && mask.rowCount() == height";
-      v24 = 1687;
-      v16 = "AMTPipeline.cpp";
-      v17 = "trim";
+      v16 = "mask.columnCount() == width && mask.rowCount() == height";
+      v25 = 1687;
+      v17 = "AMTPipeline.cpp";
+      v18 = "trim";
       goto LABEL_34;
     }
 
-    if (v13 >= 1)
+    if (v14 >= 1)
     {
-      v14 = 0;
-      v15 = "rowIndex < _rowCount";
-      v16 = "AMTMatrix.hpp";
-      v17 = "row";
+      v15 = 0;
+      v16 = "rowIndex < _rowCount";
+      v17 = "AMTMatrix.hpp";
+      v18 = "row";
       while (1)
       {
-        if (*(a1 + 28) <= v14)
+        if (*(a1 + 28) <= v15)
         {
-          v24 = 521;
+          v25 = 521;
           goto LABEL_34;
         }
 
-        if (*(a2 + 28) <= v14)
+        if (*(a2 + 28) <= v15)
         {
           break;
         }
 
-        if (v12 >= 1)
+        if (v13 >= 1)
         {
-          v18 = (*a2 + 16 * *(a2 + 24) * v14);
-          v19 = (*a1 + *(a1 + 24) * v14);
-          v20 = v12;
+          v19 = (*a2 + 16 * *(a2 + 24) * v15);
+          v20 = (*a1 + *(a1 + 24) * v15);
+          v21 = v13;
           do
           {
-            if (!*v19++)
+            if (!*v20++)
             {
-              *v18 = 0;
-              v18[1] = 0;
+              *v19 = 0;
+              v19[1] = 0;
             }
 
-            v18 += 2;
-            --v20;
+            v19 += 2;
+            --v21;
           }
 
-          while (v20);
+          while (v21);
         }
 
-        if (++v14 == v13)
+        if (++v15 == v14)
         {
           goto LABEL_19;
         }
       }
 
-      v24 = 517;
+      v25 = 517;
 LABEL_34:
-      __assert_rtn(v17, v16, v24, v15);
+      __assert_rtn(v18, v17, v25, v16);
     }
 
 LABEL_19:
-    amt::Matrix<unsigned char>::operator&=(a3, a1);
+    amt::Matrix<unsigned char>::operator&=(a3, a1, v12);
   }
 
   if (*(a4 + 8) >= 1)
   {
-    v22 = 0;
+    v23 = 0;
     do
     {
-      amt::dilatePadding(a2, a3, &v25, 0);
+      amt::dilatePadding(a2, a3, &v26, 0);
       amt::Matrix<unsigned char>::Matrix(&__p, a3);
-      if (&v25 != a3)
+      if (&v26 != a3)
       {
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, v25, v26, v26 - v25);
+        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, v26, v27, v27 - v26);
       }
 
-      v23 = __p;
-      a3[3] = v27;
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v25, v23, v29, v29 - v23);
-      v27 = v30;
+      v24 = __p;
+      a3[3] = v28;
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v26, v24, v30, v30 - v24);
+      v28 = v31;
       if (__p)
       {
-        v29 = __p;
+        v30 = __p;
         operator delete(__p);
       }
 
-      ++v22;
+      ++v23;
     }
 
-    while (v22 < *(a4 + 8));
+    while (v23 < *(a4 + 8));
   }
 
   if (a5)
@@ -9562,10 +9520,10 @@ LABEL_19:
     _ZN3amt15pushPullPaddingIDv4_fEEvRNS_6MatrixIT_EERKNS2_IhEE(a2, a3);
   }
 
-  if (v25)
+  if (v26)
   {
-    v26 = v25;
-    operator delete(v25);
+    v27 = v26;
+    operator delete(v26);
   }
 }
 
@@ -9760,37 +9718,37 @@ LABEL_41:
   return v12 & 1;
 }
 
-uint64_t amt::Matrix<unsigned char>::operator&=(uint64_t result, uint64_t a2)
+uint64_t amt::Matrix<unsigned char>::operator&=(uint64_t result, uint64_t a2, __n128 a3)
 {
-  LODWORD(v2) = *(result + 24);
-  if (v2 != *(a2 + 24) || (v3 = *(result + 28), v3 != *(a2 + 28)))
+  LODWORD(v3) = *(result + 24);
+  if (v3 != *(a2 + 24) || (v4 = *(result + 28), v4 != *(a2 + 28)))
   {
     amt::Matrix<unsigned char>::operator&=();
   }
 
-  if (v3 >= 1)
+  if (v4 >= 1)
   {
-    for (i = 0; i < v3; ++i)
+    for (i = 0; i < v4; ++i)
     {
       if (*(a2 + 28) <= i)
       {
         amt::dilatePadding();
       }
 
-      if (v2 >= 1)
+      if (v3 >= 1)
       {
-        v5 = 0;
-        v6 = *result + v2 * i;
-        v7 = *a2 + *(a2 + 24) * i;
+        v6 = 0;
+        v7 = *result + v3 * i;
+        v8 = *a2 + *(a2 + 24) * i;
         do
         {
-          *(v6 + v5) &= *(v7 + v5);
-          ++v5;
-          v2 = *(result + 24);
+          *(v7 + v6) &= *(v8 + v6);
+          ++v6;
+          v3 = *(result + 24);
         }
 
-        while (v5 < v2);
-        v3 = *(result + 28);
+        while (v6 < v3);
+        v4 = *(result + 28);
       }
     }
   }
@@ -9798,34 +9756,34 @@ uint64_t amt::Matrix<unsigned char>::operator&=(uint64_t result, uint64_t a2)
   return result;
 }
 
-void _ZN3amt15pushPullPaddingIDv4_fEEvRNS_6MatrixIT_EERKNS2_IhEE(uint64_t a1, unsigned __int8 **a2)
+void _ZN3amt15pushPullPaddingIDv4_fEEvRNS_6MatrixIT_EERKNS2_IhEE(uint64_t result, unsigned __int8 **a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 24);
-  v3 = *(a1 + 28);
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = *(result + 24);
+  v3 = *(result + 28);
   if (v2 >= 2 && v3 >= 2)
   {
     if (v3 >= v2)
     {
-      v7 = *(a1 + 24);
+      v7 = *(result + 24);
     }
 
     else
     {
-      v7 = *(a1 + 28);
+      v7 = *(result + 28);
     }
 
-    _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEEC2B8ne200100Em(v23, __clz(v7 + 1) ^ 0x1F);
-    v8 = v23[0];
-    _ZN3amt6MatrixIDv4_fEC2ERKS2_(__p, v23[0]);
-    _ZN3amt6MatrixIDv4_fEaSERKS2_(v8, a1);
-    if (__p != a1)
+    _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEEC2B8ne200100Em(v22, __clz(v7 + 1) ^ 0x1F);
+    v8 = v22[0];
+    _ZN3amt6MatrixIDv4_fEC2ERKS2_(__p, v22[0]);
+    _ZN3amt6MatrixIDv4_fEaSERKS2_(v8, result);
+    if (__p != result)
     {
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1, __p[0], __p[1], (__p[1] - __p[0]) >> 4);
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, __p[0], __p[1], (__p[1] - __p[0]) >> 4);
     }
 
     v9 = __p[0];
-    *(a1 + 24) = *(&v28 + 1);
+    *(result + 24) = *(&v27 + 1);
     if (v9)
     {
       __p[1] = v9;
@@ -9875,23 +9833,23 @@ void _ZN3amt15pushPullPaddingIDv4_fEEvRNS_6MatrixIT_EERKNS2_IhEE(uint64_t a1, un
     while (v11 != v3);
     if (v12)
     {
-      v29 = 1031798784;
+      v28 = 1031798784;
       *__p = xmmword_23E787580;
-      v28 = unk_23E787590;
-      _ZN3amt4pullIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(v23, __p);
-      _ZN3amt4pushIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(v23, __p);
-      _ZN3amt6MatrixIDv4_fEC2ERKS2_(&v24, v8);
-      _ZN3amt6MatrixIDv4_fEaSERKS2_(v8, a1);
-      if (&v24 != a1)
+      v27 = unk_23E787590;
+      _ZN3amt4pullIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(v22, __p);
+      _ZN3amt4pushIDv4_fLi3EEEvRNSt3__16vectorINS_6MipmapIT_EENS2_9allocatorIS6_EEEERAT0__AT0__Kf(v22, __p);
+      _ZN3amt6MatrixIDv4_fEC2ERKS2_(&v23, v8);
+      _ZN3amt6MatrixIDv4_fEaSERKS2_(v8, result);
+      if (&v23 != result)
       {
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1, v24, v25, (v25 - v24) >> 4);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, v23, v24, (v24 - v23) >> 4);
       }
 
-      v20 = v24;
-      *(a1 + 24) = v26;
+      v20 = v23;
+      *(result + 24) = v25;
       if (v20)
       {
-        v25 = v20;
+        v24 = v20;
         operator delete(v20);
       }
     }
@@ -9907,9 +9865,7 @@ void _ZN3amt15pushPullPaddingIDv4_fEEvRNS_6MatrixIT_EERKNS2_IhEE(uint64_t a1, un
       }
     }
 
-    __p[0] = v23;
+    __p[0] = v22;
     _ZNSt3__16vectorIN3amt6MipmapIDv4_fEENS_9allocatorIS4_EEE16__destroy_vectorclB8ne200100Ev(__p);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }

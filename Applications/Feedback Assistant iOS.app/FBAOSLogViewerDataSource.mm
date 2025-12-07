@@ -36,7 +36,7 @@ LABEL_11:
   v36 = 0;
   v15 = [archiveCopy checkResourceIsReachableAndReturnError:&v36];
   v16 = v36;
-  v17 = sub_10000A588();
+  v17 = sub_10000A588(v16);
   v18 = v17;
   if (v15)
   {
@@ -82,8 +82,7 @@ LABEL_11:
 
       if ((fba_hasValidStartAndEndDates & 1) == 0)
       {
-        [(FBAOSLogViewerDataSource *)v14 setFoundCorruptDate:1];
-        v31 = sub_10000A588();
+        v31 = sub_10000A588([(FBAOSLogViewerDataSource *)v14 setFoundCorruptDate:1]);
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           sub_1000922D8(v14, v31);
@@ -124,11 +123,11 @@ LABEL_15:
 
   if (fba_hasValidStartAndEndDates)
   {
-    v5 = sub_10000A588();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_10000A588(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Next Page", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Next Page", v7, 2u);
     }
 
     if ([(FBAOSLogViewerDataSource *)self pendingNextPageRequest]< 1)
@@ -219,7 +218,7 @@ LABEL_15:
 
 - (void)fetchNextBatch
 {
-  v3 = sub_10000A588();
+  v3 = sub_10000A588(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100092400(self);
@@ -238,36 +237,37 @@ LABEL_15:
     startDate = [loggerLib startDate];
   }
 
-  v8 = 10.0;
-  if ([(FBAOSLogViewerDataSource *)self numberOfEmptyFetches]>= 2)
+  numberOfEmptyFetches = [(FBAOSLogViewerDataSource *)self numberOfEmptyFetches];
+  v9 = 10.0;
+  if (numberOfEmptyFetches >= 2)
   {
-    v8 = fmin(__exp10([(FBAOSLogViewerDataSource *)self numberOfEmptyFetches]), 1.79769313e308);
+    v9 = fmin(__exp10([(FBAOSLogViewerDataSource *)self numberOfEmptyFetches]), 1.79769313e308);
   }
 
-  v9 = sub_10000A588();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sub_10000A588(numberOfEmptyFetches);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v15 = 134217984;
-    v16 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Time delta: [%f]", &v15, 0xCu);
+    v16 = 134217984;
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Time delta: [%f]", &v16, 0xCu);
   }
 
-  v10 = [startDate dateByAddingTimeInterval:v8];
-  v11 = sub_10000A588();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v11 = [startDate dateByAddingTimeInterval:v9];
+  v12 = sub_10000A588(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     fba_toString = [startDate fba_toString];
-    fba_toString2 = [v10 fba_toString];
-    v15 = 138543618;
-    v16 = *&fba_toString;
-    v17 = 2114;
-    v18 = fba_toString2;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "start date: [%{public}@]  end date: [%{public}@] ", &v15, 0x16u);
+    fba_toString2 = [v11 fba_toString];
+    v16 = 138543618;
+    v17 = *&fba_toString;
+    v18 = 2114;
+    v19 = fba_toString2;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "start date: [%{public}@]  end date: [%{public}@] ", &v16, 0x16u);
   }
 
   [(FBAOSLogViewerDataSource *)self prepareForNextDateRangeFetch];
   loggerLib2 = [(FBAOSLogViewerDataSource *)self loggerLib];
-  [loggerLib2 fetchFromStartDate:startDate toEndDate:v10];
+  [loggerLib2 fetchFromStartDate:startDate toEndDate:v11];
 }
 
 - (id)loggerLibWithArchive:(id)archive pageSize:(unint64_t)size
@@ -278,21 +278,21 @@ LABEL_15:
   [v6 setBatchSize:size];
   [v6 setLogArchive:archiveCopy];
 
-  v7 = sub_10000A588();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10000A588(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     archiveVersion = [v6 archiveVersion];
     startDate = [v6 startDate];
     fba_toString = [startDate fba_toString];
     endDate = [v6 endDate];
     fba_toString2 = [endDate fba_toString];
-    v14 = 134218498;
-    v15 = archiveVersion;
-    v16 = 2114;
-    v17 = fba_toString;
-    v18 = 2114;
-    v19 = fba_toString2;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Log archive version is [%lu] start date: [%{public}@] end date [%{public}@]", &v14, 0x20u);
+    v15 = 134218498;
+    v16 = archiveVersion;
+    v17 = 2114;
+    v18 = fba_toString;
+    v19 = 2114;
+    v20 = fba_toString2;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Log archive version is [%lu] start date: [%{public}@] end date [%{public}@]", &v15, 0x20u);
   }
 
   return v6;
@@ -312,58 +312,58 @@ LABEL_15:
 {
   resultsCopy = results;
   errorCopy = error;
-  [(FBAOSLogViewerDataSource *)self setGotDelegateCallbackInLastFetch:1];
-  v9 = sub_10000A588();
+  v9 = sub_10000A588([(FBAOSLogViewerDataSource *)self setGotDelegateCallbackInLastFetch:1]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_100092484();
   }
 
-  if ([resultsCopy count])
+  v10 = [resultsCopy count];
+  if (v10)
   {
     if (!errorCopy)
     {
       fetchErrorBlock2 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(resultsCopy, "count")}];
-      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v14 = resultsCopy;
-      v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
-      if (v15)
+      v32 = 0u;
+      v15 = resultsCopy;
+      v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      if (v16)
       {
-        v16 = v15;
-        v17 = *v29;
+        v17 = v16;
+        v18 = *v30;
 LABEL_14:
-        v18 = 0;
+        v19 = 0;
         while (1)
         {
-          if (*v29 != v17)
+          if (*v30 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * v18);
+          v20 = *(*(&v29 + 1) + 8 * v19);
           eventCountForCurrentPage = [(FBAOSLogViewerDataSource *)self eventCountForCurrentPage];
-          v21 = [fetchErrorBlock2 count]+ eventCountForCurrentPage;
-          if (v21 >= [(FBAOSLogViewerDataSource *)self pageSize])
+          v22 = [fetchErrorBlock2 count]+ eventCountForCurrentPage;
+          if (v22 >= [(FBAOSLogViewerDataSource *)self pageSize])
           {
             break;
           }
 
-          machTimestamp = [v19 machTimestamp];
+          machTimestamp = [v20 machTimestamp];
           if (machTimestamp > [(FBAOSLogViewerDataSource *)self oldestEventMachTime])
           {
-            [fetchErrorBlock2 addObject:v19];
-            -[FBAOSLogViewerDataSource setOldestEventMachTime:](self, "setOldestEventMachTime:", [v19 machTimestamp]);
-            timestamp = [v19 timestamp];
+            [fetchErrorBlock2 addObject:v20];
+            -[FBAOSLogViewerDataSource setOldestEventMachTime:](self, "setOldestEventMachTime:", [v20 machTimestamp]);
+            timestamp = [v20 timestamp];
             [(FBAOSLogViewerDataSource *)self setOldestEventTimestamp:timestamp];
           }
 
-          if (v16 == ++v18)
+          if (v17 == ++v19)
           {
-            v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
-            if (v16)
+            v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            if (v17)
             {
               goto LABEL_14;
             }
@@ -374,25 +374,24 @@ LABEL_14:
       }
 
       [(FBAOSLogViewerDataSource *)self setEventCountForCurrentPage:[fetchErrorBlock2 count]+ [(FBAOSLogViewerDataSource *)self eventCountForCurrentPage]];
-      [(FBAOSLogViewerDataSource *)self setNumberOfEventsInLastFetch:[fetchErrorBlock2 count]];
-      v24 = sub_10000A588();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v25 = sub_10000A588([(FBAOSLogViewerDataSource *)self setNumberOfEventsInLastFetch:[fetchErrorBlock2 count]]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         sub_100092530(fetchErrorBlock2);
       }
 
       savedEvents = [(FBAOSLogViewerDataSource *)self savedEvents];
-      v26 = [fetchErrorBlock2 copy];
-      [savedEvents addObjectsFromArray:v26];
+      v27 = [fetchErrorBlock2 copy];
+      [savedEvents addObjectsFromArray:v27];
 
       shouldContinue = [(FBAOSLogViewerDataSource *)self shouldContinue];
       goto LABEL_25;
     }
 
-    v10 = sub_10000A588();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_10000A588(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1000924B8(errorCopy, v10);
+      sub_1000924B8(errorCopy, v11);
     }
 
     fetchErrorBlock = [(FBAOSLogViewerDataSource *)self fetchErrorBlock];
@@ -409,7 +408,7 @@ LABEL_14:
 
   else
   {
-    fetchErrorBlock2 = sub_10000A588();
+    fetchErrorBlock2 = sub_10000A588(0);
     if (os_log_type_enabled(fetchErrorBlock2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -442,11 +441,12 @@ LABEL_26:
   if (fetchWatchdog < 1000)
   {
     shouldContinue = [(FBAOSLogViewerDataSource *)self shouldContinue];
-    v11 = sub_10000A588();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
-    if (shouldContinue)
+    v11 = shouldContinue;
+    v12 = sub_10000A588(shouldContinue);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+    if (v11)
     {
-      if (v12)
+      if (v13)
       {
         sub_1000926B0();
       }
@@ -461,7 +461,7 @@ LABEL_26:
 
     else
     {
-      if (v12)
+      if (v13)
       {
         sub_1000925B4();
       }
@@ -470,8 +470,8 @@ LABEL_26:
 
       if (pageFetchCompletion)
       {
-        v14 = sub_10000A588();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = sub_10000A588(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           sub_1000925E8(self);
         }
@@ -480,10 +480,11 @@ LABEL_26:
         (pageFetchCompletion2)[2](pageFetchCompletion2, self);
       }
 
-      if ([(FBAOSLogViewerDataSource *)self pendingNextPageRequest]>= 1)
+      pendingNextPageRequest = [(FBAOSLogViewerDataSource *)self pendingNextPageRequest];
+      if (pendingNextPageRequest >= 1)
       {
-        v16 = sub_10000A588();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v19 = sub_10000A588(pendingNextPageRequest);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           sub_10009267C();
         }
@@ -496,8 +497,7 @@ LABEL_26:
 
   else
   {
-    [(FBAOSLogViewerDataSource *)self setFoundCorruptDate:1];
-    v7 = sub_10000A588();
+    v7 = sub_10000A588([(FBAOSLogViewerDataSource *)self setFoundCorruptDate:1]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000926E4();

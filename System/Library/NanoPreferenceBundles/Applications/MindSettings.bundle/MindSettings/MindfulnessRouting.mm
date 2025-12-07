@@ -8,17 +8,14 @@
 + (id)HPRFMindfulnessRoutingStateOfMindOptionsRoute
 {
   v2 = sub_B124(&qword_1DB78, &qword_110E8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
+  __chkstk_darwin(v2 - 8, v3);
   v5 = &v23 - v4;
   v6 = sub_B124(&qword_1DB80, &qword_110F0);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
+  __chkstk_darwin(v6 - 8, v7);
   v9 = &v23 - v8;
   v10 = sub_EBF8();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v10, v12);
   v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = enum case for Route.options(_:);
   v16 = sub_EE08();

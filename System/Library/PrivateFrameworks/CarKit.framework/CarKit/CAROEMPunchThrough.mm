@@ -8,9 +8,9 @@
 - (CAROEMPunchThrough)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v36.receiver = self;
-  v36.super_class = CAROEMPunchThrough;
-  v5 = [(CAROEMPunchThrough *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = CAROEMPunchThrough;
+  v5 = [(CAROEMPunchThrough *)&v38 init];
   if (!v5)
   {
     goto LABEL_21;
@@ -30,78 +30,78 @@
 
   if (!v7)
   {
-    v7 = CarGeneralLogging();
+    v7 = CarGeneralLogging(v8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v7, v14, v15, v16, v17, v18, v19];
+      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v7, v16, v17, v18, v19, v20, v21];
     }
 
     goto LABEL_28;
   }
 
-  v8 = [v7 copy];
+  v9 = [v7 copy];
   identifier = v5->_identifier;
-  v5->_identifier = v8;
+  v5->_identifier = v9;
 
   objc_opt_class();
-  v10 = [dictionaryCopy objectForKey:@"viewArea"];
-  if (v10 && (objc_opt_isKindOfClass() & 1) != 0)
+  v11 = [dictionaryCopy objectForKey:@"viewArea"];
+  if (v11 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (!v11)
+  if (!v12)
   {
-    v11 = CarGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = CarGeneralLogging(v13);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v11, v22, v23, v24, v25, v26, v27];
+      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v12, v24, v25, v26, v27, v28, v29];
     }
 
     goto LABEL_27;
   }
 
-  CRSizeFromAirPlayDictionary(v11, &v5->_size.width);
+  CRSizeFromAirPlayDictionary(v12, &v5->_size.width);
   objc_opt_class();
-  v12 = [dictionaryCopy objectForKey:@"inputStreamType"];
-  if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
+  v14 = [dictionaryCopy objectForKey:@"inputStreamType"];
+  if (v14 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v13 = v12;
+    v15 = v14;
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  unsignedIntValue = [v13 unsignedIntValue];
-  if (!v13 || unsignedIntValue >= 4)
+  unsignedIntValue = [v15 unsignedIntValue];
+  if (!v15 || unsignedIntValue >= 4)
   {
-    v28 = CarGeneralLogging();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = CarGeneralLogging(unsignedIntValue);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v28, v29, v30, v31, v32, v33, v34];
+      [(CAROEMPunchThrough *)dictionaryCopy initWithDictionary:v30, v31, v32, v33, v34, v35, v36];
     }
 
 LABEL_27:
 LABEL_28:
 
-    v21 = 0;
+    v23 = 0;
     goto LABEL_29;
   }
 
   v5->_type = unsignedIntValue;
 
 LABEL_21:
-  v21 = v5;
+  v23 = v5;
 LABEL_29:
 
-  return v21;
+  return v23;
 }
 
 - (CGSize)size
@@ -111,6 +111,27 @@ LABEL_29:
   result.height = height;
   result.width = width;
   return result;
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "Unable to parse punch through type: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "Unable to parse punch through size: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDictionary:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "Unable to parse punch through identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

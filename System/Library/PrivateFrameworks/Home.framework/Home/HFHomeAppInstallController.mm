@@ -334,46 +334,43 @@ void __59__HFHomeAppInstallController_request_didCompleteWithError___block_invok
 
 void __52__HFHomeAppInstallController__dispatchStatusUpdate___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ([WeakRetained lastReportedStatus] != *(a1 + 40))
   {
     [WeakRetained setLastReportedStatus:?];
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = [WeakRetained statusUpdaters];
     v4 = [v3 copy];
 
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(a1 + 40);
-          (*(*(*(&v11 + 1) + 8 * v8++) + 16))();
+          (*(*(*(&v9 + 1) + 8 * v8++) + 16))();
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanup

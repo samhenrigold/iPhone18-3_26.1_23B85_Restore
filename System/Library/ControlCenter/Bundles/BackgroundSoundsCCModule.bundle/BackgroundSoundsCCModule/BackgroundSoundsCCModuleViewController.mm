@@ -137,7 +137,7 @@
 
 - (id)containerViewsForPlatterTreatment
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v6[1] = *MEMORY[0x29EDCA608];
   if ([(CCUIButtonModuleViewController *)self isExpanded])
   {
     containerViewsForPlatterTreatment = [(HACCShortcutViewController *)self->_shortcutController containerViewsForPlatterTreatment];
@@ -146,11 +146,9 @@
   else
   {
     buttonView = [(CCUIButtonModuleViewController *)self buttonView];
-    v7[0] = buttonView;
-    containerViewsForPlatterTreatment = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
+    v6[0] = buttonView;
+    containerViewsForPlatterTreatment = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 
   return containerViewsForPlatterTreatment;
 }

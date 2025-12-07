@@ -44,7 +44,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10071C000();
+  sub_10071C000(selfCopy);
 }
 
 - (_TtC22SubscribePageExtension30PurchasesLoadingViewController)initWithNibName:(id)name bundle:(id)bundle

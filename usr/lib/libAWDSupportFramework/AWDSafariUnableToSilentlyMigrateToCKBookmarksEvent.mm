@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reasonsAsString:(int)string;
 - (int)StringAsReasons:(id)reasons;
 - (int)reasonAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -32,6 +33,19 @@
   }
 
   return p_reasons->list[index];
+}
+
+- (id)reasonsAsString:(int)string
+{
+  if (string >= 9)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32FA0[string];
+  }
 }
 
 - (int)StringAsReasons:(id)reasons
@@ -136,22 +150,20 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   p_reasons = &self->_reasons;
   if (p_reasons->count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = p_reasons->list[v6];
       PBDataWriterWriteInt32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < p_reasons->count);
+    while (v5 < p_reasons->count);
   }
 }
 
@@ -199,7 +211,6 @@
     return 0;
   }
 
-  v5 = *(equal + 40);
   if (*&self->_has)
   {
     if ((*(equal + 40) & 1) == 0 || self->_timestamp != *(equal + 4))

@@ -342,10 +342,11 @@ void __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke(uint64_t 
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke_cold_1();
     }
@@ -359,11 +360,11 @@ void __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke(uint64_t 
       goto LABEL_7;
     }
 
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "EMVIPManager getAllVIPsWithCompletion returned nil VIP set", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "EMVIPManager getAllVIPsWithCompletion returned nil VIP set", v10, 2u);
     }
   }
 
@@ -371,10 +372,10 @@ LABEL_7:
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke_377()
+void __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke_377(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __48__ATXContactModeEntity_vipContactEmailAddresses__block_invoke_377_cold_1();
   }
@@ -450,10 +451,11 @@ void __55__ATXContactModeEntity_cnContactIdsOfEmergencyContacts__block_invoke(ui
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __55__ATXContactModeEntity_cnContactIdsOfEmergencyContacts__block_invoke_cold_1();
     }
@@ -467,11 +469,11 @@ void __55__ATXContactModeEntity_cnContactIdsOfEmergencyContacts__block_invoke(ui
       goto LABEL_7;
     }
 
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "HKMedicalIDStore fetchMedicalIDEmergencyContactsWithCompletion returned nil emergencyContacts array", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "HKMedicalIDStore fetchMedicalIDEmergencyContactsWithCompletion returned nil emergencyContacts array", v10, 2u);
     }
   }
 
@@ -565,7 +567,7 @@ LABEL_7:
             }
 
             value = [*(*(&v20 + 1) + 8 * i) value];
-            v18 = [psCopy containsObject:value];
+            v18 = objc_msgSend_containsObject_(psCopy);
 
             if (v18)
             {
@@ -625,7 +627,7 @@ LABEL_14:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForDisplayName" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.contactModeEntity" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -634,7 +636,7 @@ LABEL_14:
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_notification_management();
+    v13 = __atxlog_handle_notification_management(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForRawIdentifier" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.contactModeEntity" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -649,7 +651,7 @@ LABEL_20:
 
     v16 = MEMORY[0x1E69C5D78];
     v17 = objc_opt_class();
-    v18 = __atxlog_handle_notification_management();
+    v18 = __atxlog_handle_notification_management(v17);
     v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForCnContactId" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.contactModeEntity" errorCode:-1 logHandle:v18];
 
     error3 = [coderCopy error];
@@ -664,7 +666,7 @@ LABEL_19:
 
     v21 = MEMORY[0x1E69C5D78];
     v22 = objc_opt_class();
-    v23 = __atxlog_handle_notification_management();
+    v23 = __atxlog_handle_notification_management(v22);
     v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"codingKeyForStableContactIdentifier" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.contactModeEntity" errorCode:-1 logHandle:v23];
 
     error4 = [coderCopy error];
@@ -679,7 +681,7 @@ LABEL_18:
 
     v26 = MEMORY[0x1E69C5D78];
     v27 = objc_opt_class();
-    v28 = __atxlog_handle_notification_management();
+    v28 = __atxlog_handle_notification_management(v27);
     v29 = [v26 robustDecodeObjectOfClass:v27 forKey:@"codingKeyForScoreMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.contactModeEntity" errorCode:-1 logHandle:v28];
 
     error5 = [coderCopy error];
@@ -694,8 +696,8 @@ LABEL_18:
         goto LABEL_17;
       }
 
-      v31 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = __atxlog_handle_notification_management(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [ATXContactModeEntity initWithCoder:];
       }

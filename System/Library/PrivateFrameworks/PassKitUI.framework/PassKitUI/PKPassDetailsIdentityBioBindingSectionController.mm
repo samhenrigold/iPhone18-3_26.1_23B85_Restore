@@ -71,13 +71,13 @@
 
   else
   {
-    v9 = getNPKIDVRemoteDeviceSessionClass[0]();
+    NPKIDVRemoteDeviceSessionClass = getNPKIDVRemoteDeviceSessionClass();
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
     v10[2] = __95__PKPassDetailsIdentityBioBindingSectionController_loadBioBindingStateWithAnimated_completion___block_invoke_3;
     v10[3] = &unk_1E8014020;
     v11 = v8;
-    [(objc_class *)v9 sessionForDeviceID:0 completion:v10];
+    [(objc_class *)NPKIDVRemoteDeviceSessionClass sessionForDeviceID:0 completion:v10];
   }
 }
 

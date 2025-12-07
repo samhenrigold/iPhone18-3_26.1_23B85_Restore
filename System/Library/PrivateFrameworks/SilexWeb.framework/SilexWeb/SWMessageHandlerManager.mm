@@ -51,7 +51,7 @@
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   body = [messageCopy body];
   objc_opt_class();
@@ -68,8 +68,7 @@
       logger = [(SWMessageHandlerManager *)self logger];
       v12 = MEMORY[0x1E696AEC0];
       name = [(SWMessage *)v10 name];
-      body3 = [(SWMessage *)v10 body];
-      v15 = objc_claimAutoreleasedReturnValue();
+      v15 = body3 = [(SWMessage *)v10 body];
       [logger log:v15];
 
       frameInfo = [messageCopy frameInfo];
@@ -86,39 +85,37 @@
       name2 = [(SWMessage *)v10 name];
       v26 = [messageHandlers objectForKey:name2];
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v27 = v26;
-      v28 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v34;
+        v30 = *v33;
         do
         {
           v31 = 0;
           do
           {
-            if (*v34 != v30)
+            if (*v33 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            [*(*(&v33 + 1) + 8 * v31++) didReceiveMessage:v10 securityOrigin:v23];
+            [*(*(&v32 + 1) + 8 * v31++) didReceiveMessage:v10 securityOrigin:v23];
           }
 
           while (v29 != v31);
-          v29 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v29);
       }
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 @end

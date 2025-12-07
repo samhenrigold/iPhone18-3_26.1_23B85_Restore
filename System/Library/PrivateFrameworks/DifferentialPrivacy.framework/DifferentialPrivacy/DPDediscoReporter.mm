@@ -9,7 +9,7 @@ void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storag
   v4 = +[_DPLog daemon];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_cold_1(a1);
+    __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -30,7 +30,7 @@ void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storag
 
 void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53(void *a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[_DPLog daemon];
   v7 = v6;
@@ -39,9 +39,9 @@ void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storag
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = a1[4];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_22622D000, v7, OS_LOG_TYPE_INFO, "Donation was successfully submitted to Dedisco for key: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_22622D000, v7, OS_LOG_TYPE_INFO, "Donation was successfully submitted to Dedisco for key: %@", &v9, 0xCu);
     }
 
 LABEL_9:
@@ -53,7 +53,7 @@ LABEL_9:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53_cold_1(a1);
+    __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53_cold_1();
   }
 
   if ([v5 code] == 205)
@@ -68,8 +68,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59___DPDediscoReporter_scheduleMaintenanceWithName_database___block_invoke(uint64_t a1, void *a2)
@@ -79,24 +77,6 @@ void __59___DPDediscoReporter_scheduleMaintenanceWithName_database___block_invok
   v4 = objc_autoreleasePoolPush();
   [*(a1 + 32) reportDediscoRecords:*(a1 + 40)];
   objc_autoreleasePoolPop(v4);
-}
-
-void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v2, v3, "Could not create connection to %@ : error=%@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __74___DPDediscoReporter_reportToDediscoRecords_forKey_keyProperties_storage___block_invoke_53_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v2, v3, "Failed to submit donation to Dedisco for key %@ with error: %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

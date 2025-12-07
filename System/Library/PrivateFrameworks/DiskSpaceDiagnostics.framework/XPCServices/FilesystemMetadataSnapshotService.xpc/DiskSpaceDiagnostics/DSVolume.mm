@@ -50,70 +50,70 @@
 + (BOOL)__checkAttributionTagsCapabilityForVolume:(id)volume
 {
   volumeCopy = volume;
-  v13 = 0;
+  v14 = 0;
   mountPoint = [volumeCopy mountPoint];
-  v5 = fsctl([mountPoint UTF8String], 0xC0044A75uLL, &v13, 0);
+  v5 = fsctl([mountPoint UTF8String], 0xC0044A75uLL, &v14, 0);
 
   if (v5)
   {
-    v6 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = shared_filesystem_metadata_snapshot_service_log_handle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = __error();
-      v8 = strerror(*v7);
+      v8 = __error();
+      v9 = strerror(*v8);
       mountPoint2 = [volumeCopy mountPoint];
       uTF8String = [mountPoint2 UTF8String];
       *buf = 136315394;
-      v15 = v8;
-      v16 = 2080;
-      v17 = uTF8String;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Failed to get attribution tags flags with error (%s) (%s)", buf, 0x16u);
+      v16 = v9;
+      v17 = 2080;
+      v18 = uTF8String;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failed to get attribution tags flags with error (%s) (%s)", buf, 0x16u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v13 == 1;
+    v12 = v14 == 1;
   }
 
-  return v11;
+  return v12;
 }
 
 + (BOOL)__checkCloneMappingCapabilityForVolume:(id)volume
 {
   volumeCopy = volume;
-  v14 = 0;
-  memset(v13, 0, sizeof(v13));
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   mountPoint = [volumeCopy mountPoint];
-  v5 = getattrlist([mountPoint UTF8String], &v12, v13, 0x24uLL, 0);
+  v5 = getattrlist([mountPoint UTF8String], &v13, v14, 0x24uLL, 0);
 
   if (v5)
   {
-    v6 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = shared_filesystem_metadata_snapshot_service_log_handle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = __error();
-      v8 = strerror(*v7);
+      v8 = __error();
+      v9 = strerror(*v8);
       mountPoint2 = [volumeCopy mountPoint];
       uTF8String = [mountPoint2 UTF8String];
       *buf = 136315394;
-      v16 = v8;
-      v17 = 2080;
-      v18 = uTF8String;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Attrlist failed with error (%s) (%s)", buf, 0x16u);
+      v17 = v9;
+      v18 = 2080;
+      v19 = uTF8String;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Attrlist failed with error (%s) (%s)", buf, 0x16u);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v7) = 0;
   }
 
   else
   {
-    LODWORD(v6) = (BYTE7(v13[0]) >> 2) & 1;
+    LODWORD(v7) = (BYTE7(v14[0]) >> 2) & 1;
   }
 
-  return v6;
+  return v7;
 }
 
 + (BOOL)__checkCloneGroupCapabilityForVolume:(id)volume
@@ -122,49 +122,49 @@
   if (![self __checkCloneMappingCapabilityForVolume:volumeCopy])
   {
 LABEL_11:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
   v5 = malloc_type_malloc(0x400uLL, 0x35957D06uLL);
   if (!v5)
   {
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = shared_filesystem_metadata_snapshot_service_log_handle(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100030A14(v11);
+      sub_100030A14(v12);
     }
 
     goto LABEL_11;
   }
 
   v6 = v5;
-  v14 = 0u;
-  DWORD2(v14) = 1;
+  v15 = 0u;
+  DWORD2(v15) = 1;
   mountPoint = [volumeCopy mountPoint];
-  v8 = fsctl([mountPoint fileSystemRepresentation], 0xC0684A87uLL, &v13, 0);
+  v8 = fsctl([mountPoint fileSystemRepresentation], 0xC0684A87uLL, &v14, 0);
 
-  v9 = v8 == 0;
+  v10 = v8 == 0;
   if (v8)
   {
-    v10 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = shared_filesystem_metadata_snapshot_service_log_handle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100030948(volumeCopy, v10);
+      sub_100030948(volumeCopy, v11);
     }
   }
 
   free(v6);
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 + (id)_volumeInfoFromStatFS:(statfs *)s count:(int)count usedBytesProvider:(id)provider volumeManager:(id)manager
 {
   providerCopy = provider;
   managerCopy = manager;
-  v11 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v11 = shared_filesystem_metadata_snapshot_service_log_handle(managerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v17[0] = 67109120;
@@ -240,32 +240,34 @@ LABEL_12:
     goto LABEL_6;
   }
 
-  v6 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v6 = shared_filesystem_metadata_snapshot_service_log_handle(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100030A6C();
   }
 
-  v5 = [NSString stringWithCString:string encoding:4];
-  if (v5)
+  v7 = [NSString stringWithCString:string encoding:4];
+  v5 = v7;
+  if (v7)
   {
 LABEL_6:
-    if ([(__CFString *)v5 length])
+    v7 = [(__CFString *)v5 length];
+    if (v7)
     {
       goto LABEL_10;
     }
   }
 
-  v7 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_100030AD4();
   }
 
   v5 = @"UNKNOWN";
 LABEL_10:
-  v8 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_100030B3C();
   }
@@ -285,9 +287,9 @@ LABEL_10:
   {
     v8 = v7;
     v9 = open([directoryCopy fileSystemRepresentation], 1048832);
-    if (v9 < 0)
+    if ((v9 & 0x80000000) != 0)
     {
-      v29 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v29 = shared_filesystem_metadata_snapshot_service_log_handle(v9);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         sub_100030C4C(directoryCopy);
@@ -337,7 +339,7 @@ LABEL_4:
             v26 = v12[6];
             if (v26)
             {
-              v27 = shared_filesystem_metadata_snapshot_service_log_handle();
+              v27 = shared_filesystem_metadata_snapshot_service_log_handle(v13);
               if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 fileSystemRepresentation = [v36 fileSystemRepresentation];
@@ -367,11 +369,12 @@ LABEL_14:
                 *&buf[8] = 0u;
                 v39 = 0u;
                 *buf = v24;
-                if (!fsctl([v11 fileSystemRepresentation], 0xC1284A72uLL, buf, 0))
+                v13 = fsctl([v11 fileSystemRepresentation], 0xC1284A72uLL, buf, 0);
+                if (!v13)
                 {
                   v25 = [NSString stringWithUTF8String:v40];
 
-                  v34[2](v34, v11, v25, *buf);
+                  v13 = v34[2](v34, v11, v25, *buf);
                   v35 = v25;
                 }
               }
@@ -402,7 +405,7 @@ LABEL_13:
         }
       }
 
-      v30 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v30 = shared_filesystem_metadata_snapshot_service_log_handle(v13);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_100030BC0();
@@ -419,7 +422,7 @@ LABEL_37:
 
   else
   {
-    v28 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v28 = shared_filesystem_metadata_snapshot_service_log_handle(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_100030CE0(directoryCopy);
@@ -430,54 +433,56 @@ LABEL_37:
 + (BOOL)_isDirectoryPartOfSAFHierarchy:(id)hierarchy
 {
   hierarchyCopy = hierarchy;
-  v6 = 0;
-  if (fsctl([hierarchyCopy fileSystemRepresentation], 0x40084A25uLL, &v6, 0))
+  v7 = 0;
+  v4 = fsctl([hierarchyCopy fileSystemRepresentation], 0x40084A25uLL, &v7, 0);
+  if (v4)
   {
-    v4 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = shared_filesystem_metadata_snapshot_service_log_handle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100030D74(hierarchyCopy);
     }
 
-    LOBYTE(v4) = 0;
+    LOBYTE(v5) = 0;
   }
 
   else
   {
-    LODWORD(v4) = (BYTE3(v6) >> 5) & 1;
+    LODWORD(v5) = (BYTE3(v7) >> 5) & 1;
   }
 
-  return v4;
+  return v5;
 }
 
 + (void)_getDirStatsType:(id)type reply:(id)reply
 {
   typeCopy = type;
   replyCopy = reply;
-  v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0;
-  v9 = 1;
-  if (fsctl([typeCopy fileSystemRepresentation], 0xC1104A71uLL, &v8, 0))
+  v12 = 0u;
+  v9 = 0;
+  v10 = 1;
+  if (fsctl([typeCopy fileSystemRepresentation], 0xC1104A71uLL, &v9, 0))
   {
-    if (*__error() != 45)
+    v7 = __error();
+    if (*v7 != 45)
     {
-      v7 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100030DF8(typeCopy);
       }
@@ -488,7 +493,7 @@ LABEL_37:
 
   else
   {
-    (*(replyCopy + 2))(replyCopy, typeCopy, 1, (v9 >> 2) & 1);
+    (*(replyCopy + 2))(replyCopy, typeCopy, 1, (v10 >> 2) & 1);
   }
 }
 
@@ -500,30 +505,36 @@ LABEL_37:
   if (v7)
   {
     v8 = v7;
-    v24 = 0u;
     v25 = 0u;
-    v26 = v7;
-    LODWORD(v25) = 160000;
+    v26 = 0u;
+    v27 = v7;
+    LODWORD(v26) = 160000;
     v9 = v7 + 16;
-    while (!fsctl(fileSystemRepresentation, 0xC0284A7DuLL, &v24, 0))
+    while (1)
     {
-      if (DWORD1(v25))
+      v10 = fsctl(fileSystemRepresentation, 0xC0284A7DuLL, &v25, 0);
+      if (v10)
       {
-        v10 = 0;
-        v11 = DWORD2(v25);
-        v12 = v9;
+        break;
+      }
+
+      if (DWORD1(v26))
+      {
+        v11 = 0;
+        v12 = DWORD2(v26);
+        v13 = v9;
         do
         {
-          v13 = *(v12 - 2);
-          v14 = *v12;
-          (*(replyCopy + 2))(replyCopy, v13 * v11, *(v12 - 1), *v12 * v11, *(v12 + 2));
-          *&v24 = v14 + v13;
-          ++v10;
-          v12 += 32;
+          v14 = *(v13 - 2);
+          v15 = *v13;
+          (*(replyCopy + 2))(replyCopy, v14 * v12, *(v13 - 1), *v13 * v12, *(v13 + 2));
+          *&v25 = v15 + v14;
+          ++v11;
+          v13 += 32;
         }
 
-        while (v10 < DWORD1(v25));
-        if (DWORD1(v25))
+        while (v11 < DWORD1(v26));
+        if (DWORD1(v26))
         {
           continue;
         }
@@ -532,8 +543,8 @@ LABEL_37:
       goto LABEL_15;
     }
 
-    v23 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_100030E8C();
     }
@@ -544,10 +555,10 @@ LABEL_15:
 
   else
   {
-    v15 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = shared_filesystem_metadata_snapshot_service_log_handle(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100030F18(v15, v16, v17, v18, v19, v20, v21, v22);
+      sub_100030F18(v16, v17, v18, v19, v20, v21, v22, v23);
     }
   }
 }
@@ -631,7 +642,7 @@ LABEL_15:
                   {
                     v20 = *v19;
                     byte_10006E598 = 1;
-                    v21 = shared_filesystem_metadata_snapshot_service_log_handle();
+                    v21 = shared_filesystem_metadata_snapshot_service_log_handle(v19);
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 67109120;
@@ -712,37 +723,43 @@ LABEL_38:
   if (v7)
   {
     v8 = v7;
-    v14[1] = 0;
-    v15 = 0u;
+    v15[1] = 0;
     v16 = 0u;
-    v14[2] = 512;
-    v17 = v7;
-    v14[0] = 6;
+    v17 = 0u;
+    v15[2] = 512;
+    v18 = v7;
+    v15[0] = 6;
     v9 = v7 + 24;
-    while (!fsctl(fileSystemRepresentation, 0xC0404A83uLL, v14, 0))
+    while (1)
     {
-      if (*(&v16 + 1))
+      v10 = fsctl(fileSystemRepresentation, 0xC0404A83uLL, v15, 0);
+      if (v10)
       {
-        v10 = 0;
-        v11 = v9;
-        do
-        {
-          (*(replyCopy + 2))(replyCopy, *(v11 - 3), *(v11 - 2), *v11, v11[3]);
-          ++v10;
-          v11 += 8;
-        }
-
-        while (*(&v16 + 1) > v10);
+        break;
       }
 
-      if (!v16)
+      if (*(&v17 + 1))
+      {
+        v11 = 0;
+        v12 = v9;
+        do
+        {
+          (*(replyCopy + 2))(replyCopy, *(v12 - 3), *(v12 - 2), *v12, v12[3]);
+          ++v11;
+          v12 += 8;
+        }
+
+        while (*(&v17 + 1) > v11);
+      }
+
+      if (!v17)
       {
         goto LABEL_15;
       }
     }
 
-    v13 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100030F90();
     }
@@ -753,10 +770,10 @@ LABEL_15:
 
   else
   {
-    v12 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = shared_filesystem_metadata_snapshot_service_log_handle(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10003101C(v12);
+      sub_10003101C(v13);
     }
   }
 }
@@ -774,28 +791,29 @@ LABEL_15:
     LODWORD(v3) = (_flags >> 12) & 1;
     if ((_flags & 0x1000) == 0)
     {
-      v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v5 = shared_filesystem_metadata_snapshot_service_log_handle(_flags);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138543618;
+        v9 = 138543618;
         selfCopy2 = self;
-        v10 = 1024;
+        v11 = 1024;
         _flags2 = [(DSVolume *)self _flags];
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Skipping non-local volume %{public}@ (flags: %u)", &v8, 0x12u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Skipping non-local volume %{public}@ (flags: %u)", &v9, 0x12u);
       }
     }
 
-    if (([(DSVolume *)self _flags]& 0x40000000) != 0)
+    _flags3 = [(DSVolume *)self _flags];
+    if ((_flags3 & 0x40000000) != 0)
     {
-      v3 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v3 = shared_filesystem_metadata_snapshot_service_log_handle(_flags3);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        _flags3 = [(DSVolume *)self _flags];
-        v8 = 138543618;
+        _flags4 = [(DSVolume *)self _flags];
+        v9 = 138543618;
         selfCopy2 = self;
-        v10 = 1024;
-        _flags2 = _flags3;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Skipping snapshot volume %{public}@ (flags: %u)", &v8, 0x12u);
+        v11 = 1024;
+        _flags2 = _flags4;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Skipping snapshot volume %{public}@ (flags: %u)", &v9, 0x12u);
       }
 
       LOBYTE(v3) = 0;
@@ -888,10 +906,9 @@ LABEL_9:
           v28 = __error();
           if ((byte_10006E599 & 1) == 0)
           {
-            v29 = *v28;
             byte_10006E599 = 1;
-            v30 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+            v29 = shared_filesystem_metadata_snapshot_service_log_handle(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
               sub_10002FC44();
             }
@@ -933,9 +950,10 @@ LABEL_29:
   }
 
   selfCopy = self;
-  if (![(DSVolume *)selfCopy shouldListContents])
+  shouldListContents = [(DSVolume *)selfCopy shouldListContents];
+  if ((shouldListContents & 1) == 0)
   {
-    snapshotFileManager = shared_filesystem_metadata_snapshot_service_log_handle();
+    snapshotFileManager = shared_filesystem_metadata_snapshot_service_log_handle(shouldListContents);
     if (os_log_type_enabled(snapshotFileManager, OS_LOG_TYPE_DEFAULT))
     {
       buf.st_dev = 138412290;
@@ -953,12 +971,12 @@ LABEL_29:
   snapshotFileManager = [_snapshotRequest snapshotFileManager];
 
   sharedLogFile = [snapshotFileManager sharedLogFile];
-  v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = shared_filesystem_metadata_snapshot_service_log_handle(sharedLogFile);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     buf.st_dev = 138412290;
     *&buf.st_mode = selfCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Listing files for volume %@", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Listing files for volume %@", &buf, 0xCu);
   }
 
   if (qword_10006E580 != -1)
@@ -966,11 +984,11 @@ LABEL_29:
     sub_10003109C();
   }
 
-  v12 = *&qword_10006E578;
+  v13 = *&qword_10006E578;
   safeFilenameForListing = [(DSVolume *)selfCopy safeFilenameForListing];
-  v14 = [snapshotFileManager createFileForWritingWithName:safeFilenameForListing error:errorCopy];
+  v15 = [snapshotFileManager createFileForWritingWithName:safeFilenameForListing error:errorCopy];
 
-  if (!v14)
+  if (!v15)
   {
     goto LABEL_314;
   }
@@ -978,38 +996,38 @@ LABEL_29:
   if (selfCopy->_supportsAttributionTags)
   {
     safeFilenameForAttributionTagsListing = [(DSVolume *)selfCopy safeFilenameForAttributionTagsListing];
-    v16 = [snapshotFileManager createFileForWritingWithName:safeFilenameForAttributionTagsListing error:errorCopy];
+    v18 = [snapshotFileManager createFileForWritingWithName:safeFilenameForAttributionTagsListing error:errorCopy];
 
-    v247 = v16;
-    if (!v16)
+    v212 = v18;
+    if (!v18)
     {
 LABEL_314:
-      LOBYTE(v17) = 0;
+      LOBYTE(v19) = 0;
       goto LABEL_315;
     }
   }
 
   else
   {
-    v18 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       mountPoint = [(DSVolume *)selfCopy mountPoint];
       uTF8String = [mountPoint UTF8String];
       buf.st_dev = 136315138;
       *&buf.st_mode = uTF8String;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Attribution tags is not supported/enabled on volume %s", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Attribution tags is not supported/enabled on volume %s", &buf, 0xCu);
     }
 
-    v247 = 0;
+    v212 = 0;
   }
 
   if (selfCopy->_shouldCollectDirStatsData)
   {
     safeFilenameForDirStatsDataListing = [(DSVolume *)selfCopy safeFilenameForDirStatsDataListing];
-    v22 = [snapshotFileManager createFileForWritingWithName:safeFilenameForDirStatsDataListing error:errorCopy];
+    v24 = [snapshotFileManager createFileForWritingWithName:safeFilenameForDirStatsDataListing error:errorCopy];
 
-    if (!v22)
+    if (!v24)
     {
       goto LABEL_314;
     }
@@ -1017,69 +1035,68 @@ LABEL_314:
 
   else
   {
-    v22 = 0;
+    v24 = 0;
   }
 
   fileSystemRepresentation = 0;
-  v272 = 0;
+  v237 = 0;
   mountPoint2 = [(DSVolume *)selfCopy mountPoint];
   fileSystemRepresentation = [mountPoint2 fileSystemRepresentation];
-  v272 = 0;
+  v237 = 0;
 
-  v255 = fts_open(&fileSystemRepresentation, 80, 0);
-  if (!v255)
+  v220 = fts_open(&fileSystemRepresentation, 80, 0);
+  if (!v220)
   {
-    v84 = *__error();
+    v68 = *__error();
     mountPoint3 = [(DSVolume *)selfCopy mountPoint];
-    v17 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Error opening volume at %s: %d (%s)", [mountPoint3 fileSystemRepresentation], v84, strerror(v84));
+    v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Error opening volume at %s: %d (%s)", [mountPoint3 fileSystemRepresentation], v68, strerror(v68));
 
-    if (fprintf(sharedLogFile, "%s\n", [(FILE *)v17 UTF8String]) == -1)
+    v70 = fprintf(sharedLogFile, "%s\n", [(FILE *)v19 UTF8String]);
+    if (v70 == -1)
     {
-      v86 = __error();
+      v70 = __error();
       if ((byte_10006E59A & 1) == 0)
       {
-        v87 = *v86;
         byte_10006E59A = 1;
-        v88 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+        v71 = shared_filesystem_metadata_snapshot_service_log_handle(v70);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v89 = snapshotFileManager;
-    v90 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+    v72 = snapshotFileManager;
+    v73 = shared_filesystem_metadata_snapshot_service_log_handle(v70);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
-      sub_100031308(v17);
+      sub_100031308(v19);
     }
 
     if (errorCopy)
     {
-      v91 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v84 userInfo:0];
-      v269[0] = NSUnderlyingErrorKey;
-      v269[1] = NSLocalizedDescriptionKey;
-      v270[0] = v91;
-      v270[1] = v17;
-      v92 = [NSDictionary dictionaryWithObjects:v270 forKeys:v269 count:2];
-      *errorCopy = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65544 userInfo:v92];
+      v74 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v68 userInfo:0];
+      v234[0] = NSUnderlyingErrorKey;
+      v234[1] = NSLocalizedDescriptionKey;
+      v235[0] = v74;
+      v235[1] = v19;
+      v75 = [NSDictionary dictionaryWithObjects:v235 forKeys:v234 count:2];
+      *errorCopy = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65544 userInfo:v75];
     }
 
-    LOBYTE(v17) = 0;
-    snapshotFileManager = v89;
+    LOBYTE(v19) = 0;
+    snapshotFileManager = v72;
     goto LABEL_315;
   }
 
-  if (fprintf(v14, "%s\t%s\n", "Version:", "1013") == -1)
+  if (fprintf(v15, "%s\t%s\n", "Version:", "1013") == -1)
   {
-    v24 = __error();
+    v26 = __error();
     if ((byte_10006E59B & 1) == 0)
     {
-      v25 = *v24;
       byte_10006E59B = 1;
-      v26 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v27 = shared_filesystem_metadata_snapshot_service_log_handle(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
@@ -1087,20 +1104,19 @@ LABEL_314:
   }
 
   shouldHashVolumeListings = [snapshotFileManager shouldHashVolumeListings];
-  v28 = "NO";
+  v29 = "NO";
   if (shouldHashVolumeListings)
   {
-    v28 = "YES";
+    v29 = "YES";
   }
 
-  if (fprintf(v14, "%s\t%s\n", "Hashed:", v28) == -1)
+  if (fprintf(v15, "%s\t%s\n", "Hashed:", v29) == -1)
   {
-    v29 = __error();
+    v30 = __error();
     if ((byte_10006E59C & 1) == 0)
     {
-      v30 = *v29;
       byte_10006E59C = 1;
-      v31 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v31 = shared_filesystem_metadata_snapshot_service_log_handle(v30);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
@@ -1108,29 +1124,41 @@ LABEL_314:
     }
   }
 
-  if (fprintf(v14, "%s\t%lld\n", "Total:", [(DSVolume *)selfCopy capacityBytes]) == -1)
+  if (fprintf(v15, "%s\t%lld\n", "Total:", [(DSVolume *)selfCopy capacityBytes]) == -1)
   {
     v32 = __error();
     if ((byte_10006E59D & 1) == 0)
     {
-      v33 = *v32;
       byte_10006E59D = 1;
-      v34 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v33 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  if (fprintf(v14, "%s\t%lld\n", "Used:", [(DSVolume *)selfCopy usedBytes]) == -1)
+  if (fprintf(v15, "%s\t%lld\n", "Used:", [(DSVolume *)selfCopy usedBytes]) == -1)
   {
-    v35 = __error();
+    v34 = __error();
     if ((byte_10006E59E & 1) == 0)
     {
-      v36 = *v35;
       byte_10006E59E = 1;
-      v37 = shared_filesystem_metadata_snapshot_service_log_handle();
+      v35 = shared_filesystem_metadata_snapshot_service_log_handle(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      {
+        sub_10002FC44();
+      }
+    }
+  }
+
+  if (fprintf(v15, "%s\t%lld\n", "Free:", [(DSVolume *)selfCopy freeBytes]) == -1)
+  {
+    v36 = __error();
+    if ((byte_10006E59F & 1) == 0)
+    {
+      byte_10006E59F = 1;
+      v37 = shared_filesystem_metadata_snapshot_service_log_handle(v36);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
@@ -1138,29 +1166,43 @@ LABEL_314:
     }
   }
 
-  if (fprintf(v14, "%s\t%lld\n", "Free:", [(DSVolume *)selfCopy freeBytes]) == -1)
+  if (fprintf(v15, "------------------------------------------------------------------------------------------------\n") == -1)
   {
     v38 = __error();
-    if ((byte_10006E59F & 1) == 0)
+    if ((byte_10006E5A0 & 1) == 0)
     {
-      v39 = *v38;
-      byte_10006E59F = 1;
-      v40 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+      byte_10006E5A0 = 1;
+      v39 = shared_filesystem_metadata_snapshot_service_log_handle(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  if (fprintf(v14, "------------------------------------------------------------------------------------------------\n") == -1)
+  v208 = v24;
+  v218 = sharedLogFile;
+  if (fprintf(v15, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", "Size-On-Disk", "File-Size", "Compression", "FS-Purgeable-Flags", "mtime", "Mode", "UID", "GID", "Path") == -1)
   {
-    v41 = __error();
-    if ((byte_10006E5A0 & 1) == 0)
+    v40 = __error();
+    if ((byte_10006E5A1 & 1) == 0)
     {
-      v42 = *v41;
-      byte_10006E5A0 = 1;
-      v43 = shared_filesystem_metadata_snapshot_service_log_handle();
+      byte_10006E5A1 = 1;
+      v41 = shared_filesystem_metadata_snapshot_service_log_handle(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+      {
+        sub_10002FC44();
+      }
+    }
+  }
+
+  if (fprintf(v15, "------------------------------------------------------------------------------------------------\n") == -1)
+  {
+    v42 = __error();
+    if ((byte_10006E5A2 & 1) == 0)
+    {
+      byte_10006E5A2 = 1;
+      v43 = shared_filesystem_metadata_snapshot_service_log_handle(v42);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
@@ -1168,47 +1210,14 @@ LABEL_314:
     }
   }
 
-  v243 = v22;
-  v253 = sharedLogFile;
-  if (fprintf(v14, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", "Size-On-Disk", "File-Size", "Compression", "FS-Purgeable-Flags", "mtime", "Mode", "UID", "GID", "Path") == -1)
+  if (fprintf(v15, "<BEGIN>\n") == -1)
   {
     v44 = __error();
-    if ((byte_10006E5A1 & 1) == 0)
-    {
-      v45 = *v44;
-      byte_10006E5A1 = 1;
-      v46 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
-      {
-        sub_10002FC44();
-      }
-    }
-  }
-
-  if (fprintf(v14, "------------------------------------------------------------------------------------------------\n") == -1)
-  {
-    v47 = __error();
-    if ((byte_10006E5A2 & 1) == 0)
-    {
-      v48 = *v47;
-      byte_10006E5A2 = 1;
-      v49 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
-      {
-        sub_10002FC44();
-      }
-    }
-  }
-
-  if (fprintf(v14, "<BEGIN>\n") == -1)
-  {
-    v50 = __error();
     if ((byte_10006E5A3 & 1) == 0)
     {
-      v51 = *v50;
       byte_10006E5A3 = 1;
-      v52 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+      v45 = shared_filesystem_metadata_snapshot_service_log_handle(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
@@ -1217,60 +1226,56 @@ LABEL_314:
 
   if (selfCopy->_supportsAttributionTags)
   {
-    if (fprintf(v247, "------------------------------------------------------------------------------------------------\n") == -1)
+    if (fprintf(v212, "------------------------------------------------------------------------------------------------\n") == -1)
     {
-      v53 = __error();
+      v46 = __error();
       if ((byte_10006E5A4 & 1) == 0)
       {
-        v54 = *v53;
         byte_10006E5A4 = 1;
-        v55 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+        v47 = shared_filesystem_metadata_snapshot_service_log_handle(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v247, "%s\t%s\t%s\n", "Tag-Owner", "Tag-Hash", "Path") == -1)
+    if (fprintf(v212, "%s\t%s\t%s\n", "Tag-Owner", "Tag-Hash", "Path") == -1)
     {
-      v56 = __error();
+      v48 = __error();
       if ((byte_10006E5A5 & 1) == 0)
       {
-        v57 = *v56;
         byte_10006E5A5 = 1;
-        v58 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+        v49 = shared_filesystem_metadata_snapshot_service_log_handle(v48);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v247, "------------------------------------------------------------------------------------------------\n") == -1)
+    if (fprintf(v212, "------------------------------------------------------------------------------------------------\n") == -1)
     {
-      v59 = __error();
+      v50 = __error();
       if ((byte_10006E5A6 & 1) == 0)
       {
-        v60 = *v59;
         byte_10006E5A6 = 1;
-        v61 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
+        v51 = shared_filesystem_metadata_snapshot_service_log_handle(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v247, "<BEGIN>\n") == -1)
+    if (fprintf(v212, "<BEGIN>\n") == -1)
     {
-      v62 = __error();
+      v52 = __error();
       if ((byte_10006E5A7 & 1) == 0)
       {
-        v63 = *v62;
         byte_10006E5A7 = 1;
-        v64 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+        v53 = shared_filesystem_metadata_snapshot_service_log_handle(v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
@@ -1280,60 +1285,56 @@ LABEL_314:
 
   if (selfCopy->_shouldCollectDirStatsData)
   {
-    if (fprintf(v22, "------------------------------------------------------------------------------------------------\n") == -1)
+    if (fprintf(v24, "------------------------------------------------------------------------------------------------\n") == -1)
     {
-      v65 = __error();
+      v54 = __error();
       if ((byte_10006E5A8 & 1) == 0)
       {
-        v66 = *v65;
         byte_10006E5A8 = 1;
-        v67 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+        v55 = shared_filesystem_metadata_snapshot_service_log_handle(v54);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v22, "%s\t%s\n", "Path", "SAFDirStats") == -1)
+    if (fprintf(v24, "%s\t%s\n", "Path", "SAFDirStats") == -1)
     {
-      v68 = __error();
+      v56 = __error();
       if ((byte_10006E5A9 & 1) == 0)
       {
-        v69 = *v68;
         byte_10006E5A9 = 1;
-        v70 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
+        v57 = shared_filesystem_metadata_snapshot_service_log_handle(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v22, "------------------------------------------------------------------------------------------------\n") == -1)
+    if (fprintf(v24, "------------------------------------------------------------------------------------------------\n") == -1)
     {
-      v71 = __error();
+      v58 = __error();
       if ((byte_10006E5AA & 1) == 0)
       {
-        v72 = *v71;
         byte_10006E5AA = 1;
-        v73 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
+        v59 = shared_filesystem_metadata_snapshot_service_log_handle(v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (fprintf(v22, "<BEGIN>\n") == -1)
+    if (fprintf(v24, "<BEGIN>\n") == -1)
     {
-      v74 = __error();
+      v60 = __error();
       if ((byte_10006E5AB & 1) == 0)
       {
-        v75 = *v74;
         byte_10006E5AB = 1;
-        v76 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+        v61 = shared_filesystem_metadata_snapshot_service_log_handle(v60);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
@@ -1344,377 +1345,378 @@ LABEL_314:
   memset(&buf, 0, sizeof(buf));
   if (!fstatat(-2, fileSystemRepresentation, &buf, 544))
   {
-    v242 = snapshotFileManager;
-    v93 = fts_read(v255);
-    if (v93)
+    v207 = snapshotFileManager;
+    v76 = fts_read(v220);
+    if (v76)
     {
-      v94 = v93;
-      v249 = 0;
-      v254 = 0;
-      v244 = 0;
-      v95 = 1000.0 / v12;
-      v248 = v14;
-      v245 = errorCopy;
+      v77 = v76;
+      v214 = 0;
+      v219 = 0;
+      v209 = 0;
+      v78 = 1000.0 / v13;
+      v213 = v15;
+      v210 = errorCopy;
       while (1)
       {
-        v96 = objc_autoreleasePoolPush();
-        fts_info = v94->fts_info;
+        v79 = objc_autoreleasePoolPush();
+        fts_info = v77->fts_info;
         if (fts_info <= 0xD)
         {
           if (((1 << fts_info) & 0x490) != 0)
           {
-            v99 = v96;
-            v100 = *__error();
-            fts_path = v94->fts_path;
-            v102 = strerror(v100);
-            if (fprintf(v253, "Error reading file at %s: %d (%s)\n", fts_path, v100, v102) == -1)
+            v82 = v79;
+            v83 = *__error();
+            fts_path = v77->fts_path;
+            v85 = strerror(v83);
+            v86 = fprintf(v218, "Error reading file at %s: %d (%s)\n", fts_path, v83, v85);
+            if (v86 == -1)
             {
-              v103 = __error();
+              v86 = __error();
               if ((byte_10006E5AD & 1) == 0)
               {
-                v104 = *v103;
+                v87 = *v86;
                 byte_10006E5AD = 1;
-                v105 = shared_filesystem_metadata_snapshot_service_log_handle();
-                if (os_log_type_enabled(v105, OS_LOG_TYPE_FAULT))
+                v88 = shared_filesystem_metadata_snapshot_service_log_handle(v86);
+                if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
                 {
-                  *v264 = 67109120;
-                  LODWORD(v265) = v104;
-                  _os_log_fault_impl(&_mh_execute_header, v105, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v264, 8u);
+                  *v229 = 67109120;
+                  LODWORD(v230) = v87;
+                  _os_log_fault_impl(&_mh_execute_header, v88, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v229, 8u);
                 }
               }
             }
 
-            v106 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v89 = shared_filesystem_metadata_snapshot_service_log_handle(v86);
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
             {
-              v156 = v94->fts_path;
-              v157 = strerror(v100);
-              *v264 = 136315650;
-              v265 = v156;
-              v266 = 1024;
-              *v267 = v100;
-              *&v267[4] = 2080;
-              *&v267[6] = v157;
-              _os_log_error_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "Error reading file at %s: %d (%s)", v264, 0x1Cu);
+              v140 = v77->fts_path;
+              v141 = strerror(v83);
+              *v229 = 136315650;
+              v230 = v140;
+              v231 = 1024;
+              *v232 = v83;
+              *&v232[4] = 2080;
+              *&v232[6] = v141;
+              _os_log_error_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "Error reading file at %s: %d (%s)", v229, 0x1Cu);
             }
 
-            v96 = v99;
+            v79 = v82;
           }
 
           else
           {
             if (((1 << fts_info) & 0x3100) != 0)
             {
-              context = v96;
-              v98 = 0;
+              context = v79;
+              v81 = 0;
               goto LABEL_153;
             }
 
             if (fts_info == 1)
             {
-              context = v96;
-              v107 = [NSString stringWithUTF8String:v94->fts_path];
-              if (selfCopy->_supportsAttributionTags && ![DSVolume _isDirectoryPartOfSAFHierarchy:v107])
+              context = v79;
+              v90 = [NSString stringWithUTF8String:v77->fts_path];
+              if (selfCopy->_supportsAttributionTags && ![DSVolume _isDirectoryPartOfSAFHierarchy:v90])
               {
-                v261[0] = _NSConcreteStackBlock;
-                v261[1] = 3221225472;
-                v261[2] = sub_10000F664;
-                v261[3] = &unk_100068970;
-                v261[4] = selfCopy;
-                v261[5] = v253;
-                v261[6] = v247;
-                [DSVolume _getAttributionTagPathsInDirectory:v107 reply:v261];
+                v226[0] = _NSConcreteStackBlock;
+                v226[1] = 3221225472;
+                v226[2] = sub_10000F664;
+                v226[3] = &unk_100068970;
+                v226[4] = selfCopy;
+                v226[5] = v218;
+                v226[6] = v212;
+                [DSVolume _getAttributionTagPathsInDirectory:v90 reply:v226];
               }
 
               if (selfCopy->_shouldCollectDirStatsData)
               {
-                v260[0] = _NSConcreteStackBlock;
-                v260[1] = 3221225472;
-                v260[2] = sub_10000F8CC;
-                v260[3] = &unk_100068998;
-                v260[4] = selfCopy;
-                v260[5] = v94;
-                v260[6] = v253;
-                v260[7] = v243;
-                [DSVolume _getDirStatsType:v107 reply:v260];
+                v225[0] = _NSConcreteStackBlock;
+                v225[1] = 3221225472;
+                v225[2] = sub_10000F8CC;
+                v225[3] = &unk_100068998;
+                v225[4] = selfCopy;
+                v225[5] = v77;
+                v225[6] = v218;
+                v225[7] = v208;
+                [DSVolume _getDirStatsType:v90 reply:v225];
               }
 
-              v98 = 1;
+              v81 = 1;
 LABEL_153:
-              v108 = v94->fts_path;
-              v109 = &off_100068958;
-              v110 = "/System/Library/Caches/com.apple.factorydata";
-              while (strcmp(v110, v108))
+              v91 = v77->fts_path;
+              v92 = &off_100068958;
+              v93 = "/System/Library/Caches/com.apple.factorydata";
+              while (strcmp(v93, v91))
               {
-                v111 = *v109++;
-                v110 = v111;
-                if (!v111)
+                v94 = *v92++;
+                v93 = v94;
+                if (!v94)
                 {
                   goto LABEL_165;
                 }
               }
 
-              if (fprintf(v253, "Skipping descendents of blocklisted directory at %s\n", v108) == -1)
+              v95 = fprintf(v218, "Skipping descendents of blocklisted directory at %s\n", v91);
+              if (v95 == -1)
               {
-                v112 = __error();
+                v95 = __error();
                 if ((byte_10006E5B3 & 1) == 0)
                 {
-                  v113 = *v112;
+                  v96 = *v95;
                   byte_10006E5B3 = 1;
-                  v114 = shared_filesystem_metadata_snapshot_service_log_handle();
-                  if (os_log_type_enabled(v114, OS_LOG_TYPE_FAULT))
+                  v97 = shared_filesystem_metadata_snapshot_service_log_handle(v95);
+                  if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
                   {
-                    *v264 = 67109120;
-                    LODWORD(v265) = v113;
-                    _os_log_fault_impl(&_mh_execute_header, v114, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v264, 8u);
+                    *v229 = 67109120;
+                    LODWORD(v230) = v96;
+                    _os_log_fault_impl(&_mh_execute_header, v97, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v229, 8u);
                   }
                 }
               }
 
-              v115 = shared_filesystem_metadata_snapshot_service_log_handle();
-              if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+              v98 = shared_filesystem_metadata_snapshot_service_log_handle(v95);
+              if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
               {
-                v116 = v94->fts_path;
-                *v264 = 136315138;
-                v265 = v116;
-                _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "Skipping descendents of blocklisted directory at %s", v264, 0xCu);
+                v99 = v77->fts_path;
+                *v229 = 136315138;
+                v230 = v99;
+                _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "Skipping descendents of blocklisted directory at %s", v229, 0xCu);
               }
 
-              fts_set(v255, v94, 4);
+              fts_set(v220, v77, 4);
 LABEL_165:
-              fts_statp = v94->fts_statp;
+              fts_statp = v77->fts_statp;
               st_blocks = fts_statp->st_blocks;
               st_size = fts_statp->st_size;
-              if (v98)
+              if (v81)
               {
-                v119 = 45;
+                v102 = 45;
               }
 
               else if ((fts_statp->st_flags & 0x20) != 0)
               {
-                v119 = 99;
+                v102 = 99;
               }
 
               else
               {
-                v119 = 45;
+                v102 = 45;
               }
 
-              v259 = 0;
-              if (hasPurgeableFilesCapability && v94->fts_info == 8 && fsctl(v94->fts_path, 0x40084A47uLL, &v259, 0))
+              v224 = 0;
+              if (hasPurgeableFilesCapability && v77->fts_info == 8 && fsctl(v77->fts_path, 0x40084A47uLL, &v224, 0))
               {
-                v120 = *__error();
-                v121 = v94->fts_path;
-                v122 = strerror(v120);
-                if (fprintf(v253, "Error getting purgeable flags for file at %s: %d (%s)\n", v121, v120, v122) == -1)
+                v103 = *__error();
+                v104 = v77->fts_path;
+                v105 = strerror(v103);
+                v106 = fprintf(v218, "Error getting purgeable flags for file at %s: %d (%s)\n", v104, v103, v105);
+                if (v106 == -1)
                 {
-                  v123 = __error();
+                  v106 = __error();
                   if ((byte_10006E5B4 & 1) == 0)
                   {
-                    v124 = *v123;
+                    v107 = *v106;
                     byte_10006E5B4 = 1;
-                    v125 = shared_filesystem_metadata_snapshot_service_log_handle();
-                    if (os_log_type_enabled(v125, OS_LOG_TYPE_FAULT))
+                    v108 = shared_filesystem_metadata_snapshot_service_log_handle(v106);
+                    if (os_log_type_enabled(v108, OS_LOG_TYPE_FAULT))
                     {
-                      *v264 = 67109120;
-                      LODWORD(v265) = v124;
-                      _os_log_fault_impl(&_mh_execute_header, v125, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v264, 8u);
+                      *v229 = 67109120;
+                      LODWORD(v230) = v107;
+                      _os_log_fault_impl(&_mh_execute_header, v108, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v229, 8u);
                     }
                   }
                 }
 
-                v126 = shared_filesystem_metadata_snapshot_service_log_handle();
-                if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+                v109 = shared_filesystem_metadata_snapshot_service_log_handle(v106);
+                if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
                 {
-                  v159 = v94->fts_path;
-                  v160 = strerror(v120);
-                  *v264 = 136315650;
-                  v265 = v159;
-                  v266 = 1024;
-                  *v267 = v120;
-                  *&v267[4] = 2080;
-                  *&v267[6] = v160;
-                  _os_log_error_impl(&_mh_execute_header, v126, OS_LOG_TYPE_ERROR, "Error getting purgeable flags for file at %s: %d (%s)", v264, 0x1Cu);
+                  v143 = v77->fts_path;
+                  v144 = strerror(v103);
+                  *v229 = 136315650;
+                  v230 = v143;
+                  v231 = 1024;
+                  *v232 = v103;
+                  *&v232[4] = 2080;
+                  *&v232[6] = v144;
+                  _os_log_error_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "Error getting purgeable flags for file at %s: %d (%s)", v229, 0x1Cu);
                 }
 
-                v259 = -1;
+                v224 = -1;
               }
 
-              v127 = st_blocks << 9;
-              v128 = v94->fts_statp;
-              tv_sec = v128->st_mtimespec.tv_sec;
-              st_mode = v128->st_mode;
-              st_uid = v128->st_uid;
-              st_gid = v128->st_gid;
-              v133 = [(DSVolume *)selfCopy _pathRepresentationForListing:v94->fts_path isDirectory:v98];
-              v134 = v133;
-              if (v133)
+              v110 = st_blocks << 9;
+              v111 = v77->fts_statp;
+              tv_sec = v111->st_mtimespec.tv_sec;
+              st_mode = v111->st_mode;
+              st_uid = v111->st_uid;
+              st_gid = v111->st_gid;
+              v116 = [(DSVolume *)selfCopy _pathRepresentationForListing:v77->fts_path isDirectory:v81];
+              v117 = v116;
+              if (v116)
               {
-                v14 = v248;
-                v135 = v254;
-                if (fprintf(v248, "%llu\t%llu\t%c\t%llu\t%ld\t%u\t%u\t%u\t%s\n", v127, st_size, v119, v259, tv_sec, st_mode, st_uid, st_gid, [v133 UTF8String]) == -1)
+                v15 = v213;
+                v118 = v219;
+                if (fprintf(v213, "%llu\t%llu\t%c\t%llu\t%ld\t%u\t%u\t%u\t%s\n", v110, st_size, v102, v224, tv_sec, st_mode, st_uid, st_gid, [v116 UTF8String]) == -1)
                 {
-                  v136 = __error();
+                  v119 = __error();
                   if ((byte_10006E5B6 & 1) == 0)
                   {
-                    v137 = *v136;
+                    v120 = *v119;
                     byte_10006E5B6 = 1;
-                    v138 = shared_filesystem_metadata_snapshot_service_log_handle();
-                    if (os_log_type_enabled(v138, OS_LOG_TYPE_FAULT))
+                    v121 = shared_filesystem_metadata_snapshot_service_log_handle(v119);
+                    if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
                     {
-                      *v264 = 67109120;
-                      LODWORD(v265) = v137;
-                      _os_log_fault_impl(&_mh_execute_header, v138, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v264, 8u);
+                      *v229 = 67109120;
+                      LODWORD(v230) = v120;
+                      _os_log_fault_impl(&_mh_execute_header, v121, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v229, 8u);
                     }
                   }
                 }
 
-                ++v249;
+                ++v214;
               }
 
               else
               {
-                if (fprintf(v253, "Error getting hashed path for %s (isDir: %d)\n", v94->fts_path, v98) == -1)
+                v122 = fprintf(v218, "Error getting hashed path for %s (isDir: %d)\n", v77->fts_path, v81);
+                if (v122 == -1)
                 {
-                  v139 = __error();
+                  v122 = __error();
                   if ((byte_10006E5B5 & 1) == 0)
                   {
-                    v140 = *v139;
+                    v123 = *v122;
                     byte_10006E5B5 = 1;
-                    v141 = shared_filesystem_metadata_snapshot_service_log_handle();
-                    if (os_log_type_enabled(v141, OS_LOG_TYPE_FAULT))
+                    v124 = shared_filesystem_metadata_snapshot_service_log_handle(v122);
+                    if (os_log_type_enabled(v124, OS_LOG_TYPE_FAULT))
                     {
-                      *v264 = 67109120;
-                      LODWORD(v265) = v140;
-                      _os_log_fault_impl(&_mh_execute_header, v141, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v264, 8u);
+                      *v229 = 67109120;
+                      LODWORD(v230) = v123;
+                      _os_log_fault_impl(&_mh_execute_header, v124, OS_LOG_TYPE_FAULT, "Failed to write to file: %{darwin.errno}d", v229, 8u);
                     }
                   }
                 }
 
-                v142 = shared_filesystem_metadata_snapshot_service_log_handle();
-                if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+                v125 = shared_filesystem_metadata_snapshot_service_log_handle(v122);
+                if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
                 {
-                  v158 = v94->fts_path;
-                  *v264 = 136315394;
-                  v265 = v158;
-                  v266 = 1024;
-                  *v267 = v98;
-                  _os_log_error_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "Error getting hashed path for %s (isDir: %d)", v264, 0x12u);
+                  v142 = v77->fts_path;
+                  *v229 = 136315394;
+                  v230 = v142;
+                  v231 = 1024;
+                  *v232 = v81;
+                  _os_log_error_impl(&_mh_execute_header, v125, OS_LOG_TYPE_ERROR, "Error getting hashed path for %s (isDir: %d)", v229, 0x12u);
                 }
 
-                v14 = v248;
-                v135 = v254;
+                v15 = v213;
+                v118 = v219;
               }
 
-              v143 = v127 + v135;
+              v126 = v110 + v118;
               progress = [(DSVolume *)selfCopy progress];
               [progress fractionCompleted];
-              v146 = v145;
+              v129 = v128;
 
-              v254 = v143;
-              if (v146 >= 1.0)
+              v219 = v126;
+              if (v129 >= 1.0)
               {
-                errorCopy = v245;
+                errorCopy = v210;
               }
 
               else
               {
-                errorCopy = v245;
-                if (v143 >= 10485760)
+                errorCopy = v210;
+                if (v126 >= 10485760)
                 {
-                  v147 = mach_absolute_time();
-                  if (v95 <= (v147 - v244))
+                  v130 = mach_absolute_time();
+                  if (v78 <= (v130 - v209))
                   {
-                    v148 = v147;
+                    v131 = v130;
                     progress2 = [(DSVolume *)selfCopy progress];
-                    v150 = [progress2 completedUnitCount] + v254;
+                    v133 = [progress2 completedUnitCount] + v219;
 
                     progress3 = [(DSVolume *)selfCopy progress];
                     totalUnitCount = [progress3 totalUnitCount];
 
-                    if (v150 >= totalUnitCount)
+                    if (v133 >= totalUnitCount)
                     {
-                      v153 = totalUnitCount;
+                      v136 = totalUnitCount;
                     }
 
                     else
                     {
-                      v153 = v150;
+                      v136 = v133;
                     }
 
                     progress4 = [(DSVolume *)selfCopy progress];
-                    [progress4 setCompletedUnitCount:v153];
+                    [progress4 setCompletedUnitCount:v136];
 
-                    v155 = shared_filesystem_metadata_snapshot_service_log_handle();
-                    if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
+                    v139 = shared_filesystem_metadata_snapshot_service_log_handle(v138);
+                    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
                     {
-                      sub_100031168(v262, selfCopy, &v263, v155);
+                      sub_100031168(v227, selfCopy, &v228, v139);
                     }
 
-                    v254 = 0;
-                    v244 = v148;
-                    v14 = v248;
+                    v219 = 0;
+                    v209 = v131;
+                    v15 = v213;
                   }
                 }
               }
 
-              v96 = context;
+              v79 = context;
             }
           }
         }
 
-        objc_autoreleasePoolPop(v96);
-        v94 = fts_read(v255);
-        if (!v94)
+        objc_autoreleasePoolPop(v79);
+        v77 = fts_read(v220);
+        if (!v77)
         {
           goto LABEL_210;
         }
       }
     }
 
-    v249 = 0;
+    v214 = 0;
 LABEL_210:
-    fts_close(v255);
-    snapshotFileManager = v242;
-    if (fprintf(v14, "<END>\n") == -1)
+    fts_close(v220);
+    snapshotFileManager = v207;
+    if (fprintf(v15, "<END>\n") == -1)
     {
-      v161 = __error();
+      v145 = __error();
       if ((byte_10006E5B7 & 1) == 0)
       {
-        v162 = *v161;
         byte_10006E5B7 = 1;
-        v163 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v163, OS_LOG_TYPE_FAULT))
+        v146 = shared_filesystem_metadata_snapshot_service_log_handle(v145);
+        if (os_log_type_enabled(v146, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (selfCopy->_supportsAttributionTags && fprintf(v247, "<END>\n") == -1)
+    if (selfCopy->_supportsAttributionTags && fprintf(v212, "<END>\n") == -1)
     {
-      v164 = __error();
+      v147 = __error();
       if ((byte_10006E5B8 & 1) == 0)
       {
-        v165 = *v164;
         byte_10006E5B8 = 1;
-        v166 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v166, OS_LOG_TYPE_FAULT))
+        v148 = shared_filesystem_metadata_snapshot_service_log_handle(v147);
+        if (os_log_type_enabled(v148, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    if (selfCopy->_shouldCollectDirStatsData && fprintf(v243, "<END>\n") == -1)
+    if (selfCopy->_shouldCollectDirStatsData && fprintf(v208, "<END>\n") == -1)
     {
-      v167 = __error();
+      v149 = __error();
       if ((byte_10006E5B9 & 1) == 0)
       {
-        v168 = *v167;
         byte_10006E5B9 = 1;
-        v169 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v169, OS_LOG_TYPE_FAULT))
+        v150 = shared_filesystem_metadata_snapshot_service_log_handle(v149);
+        if (os_log_type_enabled(v150, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
@@ -1724,67 +1726,63 @@ LABEL_210:
     if (selfCopy->_supportsSharedExtents)
     {
       safeFilenameForSharedExtentsListing = [(DSVolume *)selfCopy safeFilenameForSharedExtentsListing];
-      v17 = [v242 createFileForWritingWithName:safeFilenameForSharedExtentsListing error:errorCopy];
+      v19 = [v207 createFileForWritingWithName:safeFilenameForSharedExtentsListing error:errorCopy];
 
-      if (!v17)
+      if (!v19)
       {
         goto LABEL_315;
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v171 = __error();
+        v152 = __error();
         if ((byte_10006E5BA & 1) == 0)
         {
-          v172 = *v171;
           byte_10006E5BA = 1;
-          v173 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v173, OS_LOG_TYPE_FAULT))
+          v153 = shared_filesystem_metadata_snapshot_service_log_handle(v152);
+          if (os_log_type_enabled(v153, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "%s\t%s\t%s\t%s\n", "Physical-Block-Number", "Owning-Obj-Id", "Size", "Reference-Count") == -1)
+      if (fprintf(v19, "%s\t%s\t%s\t%s\n", "Physical-Block-Number", "Owning-Obj-Id", "Size", "Reference-Count") == -1)
       {
-        v174 = __error();
+        v154 = __error();
         if ((byte_10006E5BB & 1) == 0)
         {
-          v175 = *v174;
           byte_10006E5BB = 1;
-          v176 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v176, OS_LOG_TYPE_FAULT))
+          v155 = shared_filesystem_metadata_snapshot_service_log_handle(v154);
+          if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v177 = __error();
+        v156 = __error();
         if ((byte_10006E5BC & 1) == 0)
         {
-          v178 = *v177;
           byte_10006E5BC = 1;
-          v179 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v179, OS_LOG_TYPE_FAULT))
+          v157 = shared_filesystem_metadata_snapshot_service_log_handle(v156);
+          if (os_log_type_enabled(v157, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "<BEGIN>\n") == -1)
+      if (fprintf(v19, "<BEGIN>\n") == -1)
       {
-        v180 = __error();
+        v158 = __error();
         if ((byte_10006E5BD & 1) == 0)
         {
-          v181 = *v180;
           byte_10006E5BD = 1;
-          v182 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+          v159 = shared_filesystem_metadata_snapshot_service_log_handle(v158);
+          if (os_log_type_enabled(v159, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -1792,22 +1790,21 @@ LABEL_210:
       }
 
       mountPoint4 = [(DSVolume *)selfCopy mountPoint];
-      v258[0] = _NSConcreteStackBlock;
-      v258[1] = 3221225472;
-      v258[2] = sub_10000FA44;
-      v258[3] = &unk_1000689B8;
-      v258[4] = v17;
-      [DSVolume _getSharedExtensInfo:mountPoint4 reply:v258];
+      v223[0] = _NSConcreteStackBlock;
+      v223[1] = 3221225472;
+      v223[2] = sub_10000FA44;
+      v223[3] = &unk_1000689B8;
+      v223[4] = v19;
+      [DSVolume _getSharedExtensInfo:mountPoint4 reply:v223];
 
-      if (fprintf(v17, "<END>\n") == -1)
+      if (fprintf(v19, "<END>\n") == -1)
       {
-        v184 = __error();
+        v161 = __error();
         if ((byte_10006E5BF & 1) == 0)
         {
-          v185 = *v184;
           byte_10006E5BF = 1;
-          v186 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v186, OS_LOG_TYPE_FAULT))
+          v162 = shared_filesystem_metadata_snapshot_service_log_handle(v161);
+          if (os_log_type_enabled(v162, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -1818,67 +1815,63 @@ LABEL_210:
     if (selfCopy->_supportsPurgeableRecords)
     {
       safeFilenameForPurgeableRecordsListing = [(DSVolume *)selfCopy safeFilenameForPurgeableRecordsListing];
-      v17 = [v242 createFileForWritingWithName:safeFilenameForPurgeableRecordsListing error:errorCopy];
+      v19 = [v207 createFileForWritingWithName:safeFilenameForPurgeableRecordsListing error:errorCopy];
 
-      if (!v17)
+      if (!v19)
       {
         goto LABEL_315;
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v188 = __error();
+        v164 = __error();
         if ((byte_10006E5C0 & 1) == 0)
         {
-          v189 = *v188;
           byte_10006E5C0 = 1;
-          v190 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v190, OS_LOG_TYPE_FAULT))
+          v165 = shared_filesystem_metadata_snapshot_service_log_handle(v164);
+          if (os_log_type_enabled(v165, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "%s\t%s\t%s\t%s\n", "Inode-Number", "Purgeable-Flags", "Last-Access-Time", "Purgeable-Size") == -1)
+      if (fprintf(v19, "%s\t%s\t%s\t%s\n", "Inode-Number", "Purgeable-Flags", "Last-Access-Time", "Purgeable-Size") == -1)
       {
-        v191 = __error();
+        v166 = __error();
         if ((byte_10006E5C1 & 1) == 0)
         {
-          v192 = *v191;
           byte_10006E5C1 = 1;
-          v193 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v193, OS_LOG_TYPE_FAULT))
+          v167 = shared_filesystem_metadata_snapshot_service_log_handle(v166);
+          if (os_log_type_enabled(v167, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v194 = __error();
+        v168 = __error();
         if ((byte_10006E5C2 & 1) == 0)
         {
-          v195 = *v194;
           byte_10006E5C2 = 1;
-          v196 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v196, OS_LOG_TYPE_FAULT))
+          v169 = shared_filesystem_metadata_snapshot_service_log_handle(v168);
+          if (os_log_type_enabled(v169, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "<BEGIN>\n") == -1)
+      if (fprintf(v19, "<BEGIN>\n") == -1)
       {
-        v197 = __error();
+        v170 = __error();
         if ((byte_10006E5C3 & 1) == 0)
         {
-          v198 = *v197;
           byte_10006E5C3 = 1;
-          v199 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v199, OS_LOG_TYPE_FAULT))
+          v171 = shared_filesystem_metadata_snapshot_service_log_handle(v170);
+          if (os_log_type_enabled(v171, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -1886,22 +1879,21 @@ LABEL_210:
       }
 
       mountPoint5 = [(DSVolume *)selfCopy mountPoint];
-      v257[0] = _NSConcreteStackBlock;
-      v257[1] = 3221225472;
-      v257[2] = sub_10000FAD0;
-      v257[3] = &unk_1000689D8;
-      v257[4] = v17;
-      [DSVolume _getPurgeableRecordsInfo:mountPoint5 reply:v257];
+      v222[0] = _NSConcreteStackBlock;
+      v222[1] = 3221225472;
+      v222[2] = sub_10000FAD0;
+      v222[3] = &unk_1000689D8;
+      v222[4] = v19;
+      [DSVolume _getPurgeableRecordsInfo:mountPoint5 reply:v222];
 
-      if (fprintf(v17, "<END>\n") == -1)
+      if (fprintf(v19, "<END>\n") == -1)
       {
-        v201 = __error();
+        v173 = __error();
         if ((byte_10006E5C5 & 1) == 0)
         {
-          v202 = *v201;
           byte_10006E5C5 = 1;
-          v203 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
+          v174 = shared_filesystem_metadata_snapshot_service_log_handle(v173);
+          if (os_log_type_enabled(v174, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -1912,67 +1904,63 @@ LABEL_210:
     if (selfCopy->_supportsCloneGroups)
     {
       safeFilenameForCloneGroupsListing = [(DSVolume *)selfCopy safeFilenameForCloneGroupsListing];
-      v17 = [v242 createFileForWritingWithName:safeFilenameForCloneGroupsListing error:errorCopy];
+      v19 = [v207 createFileForWritingWithName:safeFilenameForCloneGroupsListing error:errorCopy];
 
-      if (!v17)
+      if (!v19)
       {
         goto LABEL_315;
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v205 = __error();
+        v176 = __error();
         if ((byte_10006E5C6 & 1) == 0)
         {
-          v206 = *v205;
           byte_10006E5C6 = 1;
-          v207 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v207, OS_LOG_TYPE_FAULT))
+          v177 = shared_filesystem_metadata_snapshot_service_log_handle(v176);
+          if (os_log_type_enabled(v177, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n", "Inode-Number", "Group", "Private-ID", "Flags", "Physical-Size", "DirStat-ID", "Tag-Hash") == -1)
+      if (fprintf(v19, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n", "Inode-Number", "Group", "Private-ID", "Flags", "Physical-Size", "DirStat-ID", "Tag-Hash") == -1)
       {
-        v208 = __error();
+        v178 = __error();
         if ((byte_10006E5C7 & 1) == 0)
         {
-          v209 = *v208;
           byte_10006E5C7 = 1;
-          v210 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v210, OS_LOG_TYPE_FAULT))
+          v179 = shared_filesystem_metadata_snapshot_service_log_handle(v178);
+          if (os_log_type_enabled(v179, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "------------------------------------------------------------------------------------------------\n") == -1)
+      if (fprintf(v19, "------------------------------------------------------------------------------------------------\n") == -1)
       {
-        v211 = __error();
+        v180 = __error();
         if ((byte_10006E5C8 & 1) == 0)
         {
-          v212 = *v211;
           byte_10006E5C8 = 1;
-          v213 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v213, OS_LOG_TYPE_FAULT))
+          v181 = shared_filesystem_metadata_snapshot_service_log_handle(v180);
+          if (os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      if (fprintf(v17, "<BEGIN>\n") == -1)
+      if (fprintf(v19, "<BEGIN>\n") == -1)
       {
-        v214 = __error();
+        v182 = __error();
         if ((byte_10006E5C9 & 1) == 0)
         {
-          v215 = *v214;
           byte_10006E5C9 = 1;
-          v216 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v216, OS_LOG_TYPE_FAULT))
+          v183 = shared_filesystem_metadata_snapshot_service_log_handle(v182);
+          if (os_log_type_enabled(v183, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -1980,56 +1968,54 @@ LABEL_210:
       }
 
       mountPoint6 = [(DSVolume *)selfCopy mountPoint];
-      v256 = 0;
-      [DSVolume _writeCloneGroupsRecordsForVolume:mountPoint6 toFile:v17 error:&v256];
-      v218 = v256;
+      v221 = 0;
+      [DSVolume _writeCloneGroupsRecordsForVolume:mountPoint6 toFile:v19 error:&v221];
+      v185 = v221;
 
-      if (v218)
+      if (v185)
       {
-        snapshotFileManager = v242;
+        snapshotFileManager = v207;
         if (errorCopy)
         {
-          v219 = v218;
-          *errorCopy = v218;
+          v186 = v185;
+          *errorCopy = v185;
         }
 
-        v220 = [v218 description];
-        v221 = fprintf(v253, "Failed to get clone groups records with %s\n", [v220 fileSystemRepresentation]);
+        v187 = [v185 description];
+        v188 = fprintf(v218, "Failed to get clone groups records with %s\n", [v187 fileSystemRepresentation]);
 
-        if (v221 == -1)
+        if (v188 == -1)
         {
-          v222 = __error();
+          v189 = __error();
           if ((byte_10006E5CA & 1) == 0)
           {
-            v223 = *v222;
             byte_10006E5CA = 1;
-            v224 = shared_filesystem_metadata_snapshot_service_log_handle();
-            if (os_log_type_enabled(v224, OS_LOG_TYPE_FAULT))
+            v190 = shared_filesystem_metadata_snapshot_service_log_handle(v189);
+            if (os_log_type_enabled(v190, OS_LOG_TYPE_FAULT))
             {
               sub_10002FC44();
             }
           }
         }
 
-        v225 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v225, OS_LOG_TYPE_ERROR))
+        v191 = shared_filesystem_metadata_snapshot_service_log_handle(v189);
+        if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
         {
-          sub_1000311E0(v218);
+          sub_1000311E0(v185);
         }
 
         goto LABEL_314;
       }
 
-      snapshotFileManager = v242;
-      if (fprintf(v17, "<END>\n") == -1)
+      snapshotFileManager = v207;
+      if (fprintf(v19, "<END>\n") == -1)
       {
-        v227 = __error();
+        v193 = __error();
         if ((byte_10006E5CB & 1) == 0)
         {
-          v228 = *v227;
           byte_10006E5CB = 1;
-          v229 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v229, OS_LOG_TYPE_FAULT))
+          v194 = shared_filesystem_metadata_snapshot_service_log_handle(v193);
+          if (os_log_type_enabled(v194, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
@@ -2037,81 +2023,80 @@ LABEL_210:
       }
     }
 
-    fflush(v14);
+    fflush(v15);
     progress5 = [(DSVolume *)selfCopy progress];
     totalUnitCount2 = [progress5 totalUnitCount];
     progress6 = [(DSVolume *)selfCopy progress];
     [progress6 setCompletedUnitCount:totalUnitCount2];
 
-    v233 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v233, OS_LOG_TYPE_DEBUG))
+    v199 = shared_filesystem_metadata_snapshot_service_log_handle(v198);
+    if (os_log_type_enabled(v199, OS_LOG_TYPE_DEBUG))
     {
-      sub_100031274(selfCopy, v233);
+      sub_100031274(selfCopy, v199);
     }
 
-    v234 = [(DSVolume *)selfCopy description];
-    v235 = fprintf(v253, "Done listing contents (%llu entries) for %s\n", v249, [v234 UTF8String]);
+    v200 = [(DSVolume *)selfCopy description];
+    v201 = fprintf(v218, "Done listing contents (%llu entries) for %s\n", v214, [v200 UTF8String]);
 
-    if (v235 == -1)
+    if (v201 == -1)
     {
-      v236 = __error();
+      v202 = __error();
       if ((byte_10006E5CC & 1) == 0)
       {
-        v237 = *v236;
         byte_10006E5CC = 1;
-        v238 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v238, OS_LOG_TYPE_FAULT))
+        v203 = shared_filesystem_metadata_snapshot_service_log_handle(v202);
+        if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v239 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v239, OS_LOG_TYPE_DEFAULT))
+    v204 = shared_filesystem_metadata_snapshot_service_log_handle(v202);
+    if (os_log_type_enabled(v204, OS_LOG_TYPE_DEFAULT))
     {
-      v240 = [(DSVolume *)selfCopy description];
-      uTF8String2 = [v240 UTF8String];
-      *v264 = 134218242;
-      v265 = v249;
-      v266 = 2080;
-      *v267 = uTF8String2;
-      _os_log_impl(&_mh_execute_header, v239, OS_LOG_TYPE_DEFAULT, "Done listing contents (%llu entries) for %s", v264, 0x16u);
+      v205 = [(DSVolume *)selfCopy description];
+      uTF8String2 = [v205 UTF8String];
+      *v229 = 134218242;
+      v230 = v214;
+      v231 = 2080;
+      *v232 = uTF8String2;
+      _os_log_impl(&_mh_execute_header, v204, OS_LOG_TYPE_DEFAULT, "Done listing contents (%llu entries) for %s", v229, 0x16u);
     }
 
     if (countCopy)
     {
-      *countCopy = v249;
+      *countCopy = v214;
     }
 
 LABEL_14:
-    LOBYTE(v17) = 1;
+    LOBYTE(v19) = 1;
     goto LABEL_315;
   }
 
-  v77 = __error();
-  v17 = *v77;
-  v78 = fileSystemRepresentation;
-  v79 = strerror(*v77);
-  if (fprintf(v253, "fstatat() failed for [parent] file at %s/..: %d (%s)\n", v78, v17, v79) == -1)
+  v62 = __error();
+  v19 = *v62;
+  v63 = fileSystemRepresentation;
+  v64 = strerror(*v62);
+  v65 = fprintf(v218, "fstatat() failed for [parent] file at %s/..: %d (%s)\n", v63, v19, v64);
+  if (v65 == -1)
   {
-    v80 = __error();
+    v65 = __error();
     if ((byte_10006E5AC & 1) == 0)
     {
-      v81 = *v80;
       byte_10006E5AC = 1;
-      v82 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
+      v66 = shared_filesystem_metadata_snapshot_service_log_handle(v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
       {
         sub_10002FC44();
       }
     }
   }
 
-  v83 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+  v67 = shared_filesystem_metadata_snapshot_service_log_handle(v65);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
   {
-    sub_1000310C4(&fileSystemRepresentation, v17);
+    sub_1000310C4(&fileSystemRepresentation, v19);
   }
 
   if (!errorCopy)
@@ -2119,11 +2104,11 @@ LABEL_14:
     goto LABEL_314;
   }
 
-  [NSError errorWithDomain:NSPOSIXErrorDomain code:v17 userInfo:0];
-  *errorCopy = LOBYTE(v17) = 0;
+  [NSError errorWithDomain:NSPOSIXErrorDomain code:v19 userInfo:0];
+  *errorCopy = LOBYTE(v19) = 0;
 LABEL_315:
 
-  return v17;
+  return v19;
 }
 
 - (NSString)debugDescription
@@ -2172,86 +2157,87 @@ LABEL_315:
   managerCopy = manager;
   if (managerCopy)
   {
-    v38.receiver = self;
-    v38.super_class = DSVolume;
-    v10 = [(DSVolume *)&v38 init];
+    v39.receiver = self;
+    v39.super_class = DSVolume;
+    v10 = [(DSVolume *)&v39 init];
+    v11 = v10;
     if (v10)
     {
-      v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = shared_filesystem_metadata_snapshot_service_log_handle(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 136446466;
         f_mntonname = s->f_mntonname;
-        v41 = 2082;
+        v42 = 2082;
         f_mntfromname = s->f_mntfromname;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Creating DSVolume for %{public}s (%{public}s)", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Creating DSVolume for %{public}s (%{public}s)", buf, 0x16u);
       }
 
-      objc_storeWeak(&v10->__volumeManager, managerCopy);
-      v12 = [objc_opt_class() _safeStringFromStatFSCString:s->f_mntonname];
-      mountPoint = v10->_mountPoint;
-      v10->_mountPoint = v12;
+      objc_storeWeak(&v11->__volumeManager, managerCopy);
+      v13 = [objc_opt_class() _safeStringFromStatFSCString:s->f_mntonname];
+      mountPoint = v11->_mountPoint;
+      v11->_mountPoint = v13;
 
-      v14 = [objc_opt_class() _safeStringFromStatFSCString:s->f_mntfromname];
-      mountedFrom = v10->_mountedFrom;
-      v10->_mountedFrom = v14;
+      v15 = [objc_opt_class() _safeStringFromStatFSCString:s->f_mntfromname];
+      mountedFrom = v11->_mountedFrom;
+      v11->_mountedFrom = v15;
 
-      v16 = [objc_opt_class() _safeStringFromStatFSCString:s->f_fstypename];
-      filesystemTypeName = v10->__filesystemTypeName;
-      v10->__filesystemTypeName = v16;
+      v17 = [objc_opt_class() _safeStringFromStatFSCString:s->f_fstypename];
+      filesystemTypeName = v11->__filesystemTypeName;
+      v11->__filesystemTypeName = v17;
 
       f_bsize = s->f_bsize;
-      v10->_capacityBytes = s->f_blocks * f_bsize;
-      v10->_freeBytes = s->f_bavail * f_bsize;
-      v10->_usedBytes = providerCopy[2](providerCopy, s);
+      v11->_capacityBytes = s->f_blocks * f_bsize;
+      v11->_freeBytes = s->f_bavail * f_bsize;
+      v11->_usedBytes = providerCopy[2](providerCopy, s);
       f_flags = s->f_flags;
-      v10->__flags = f_flags;
+      v11->__flags = f_flags;
       if ((f_flags & 0x4000) != 0)
       {
-        v10->_isRootVolume = 1;
+        v11->_isRootVolume = 1;
       }
 
-      v20 = objc_alloc_init(NSMutableSet);
-      hashes = v10->___hashes;
-      v10->___hashes = v20;
+      v21 = objc_alloc_init(NSMutableSet);
+      hashes = v11->___hashes;
+      v11->___hashes = v21;
 
-      v22 = [NSProgress progressWithTotalUnitCount:v10->_usedBytes];
-      progress = v10->_progress;
-      v10->_progress = v22;
+      v23 = [NSProgress progressWithTotalUnitCount:v11->_usedBytes];
+      progress = v11->_progress;
+      v11->_progress = v23;
 
-      v24 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"fslisting"];
-      safeFilenameForListing = v10->_safeFilenameForListing;
-      v10->_safeFilenameForListing = v24;
+      v25 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"fslisting"];
+      safeFilenameForListing = v11->_safeFilenameForListing;
+      v11->_safeFilenameForListing = v25;
 
-      v26 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"attrstaglisting"];
-      safeFilenameForAttributionTagsListing = v10->_safeFilenameForAttributionTagsListing;
-      v10->_safeFilenameForAttributionTagsListing = v26;
+      v27 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"attrstaglisting"];
+      safeFilenameForAttributionTagsListing = v11->_safeFilenameForAttributionTagsListing;
+      v11->_safeFilenameForAttributionTagsListing = v27;
 
-      v28 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"dirstatsdatalisting"];
-      safeFilenameForDirStatsDataListing = v10->_safeFilenameForDirStatsDataListing;
-      v10->_safeFilenameForDirStatsDataListing = v28;
+      v29 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"dirstatsdatalisting"];
+      safeFilenameForDirStatsDataListing = v11->_safeFilenameForDirStatsDataListing;
+      v11->_safeFilenameForDirStatsDataListing = v29;
 
-      v30 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"sharedextentslisting"];
-      safeFilenameForSharedExtentsListing = v10->_safeFilenameForSharedExtentsListing;
-      v10->_safeFilenameForSharedExtentsListing = v30;
+      v31 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"sharedextentslisting"];
+      safeFilenameForSharedExtentsListing = v11->_safeFilenameForSharedExtentsListing;
+      v11->_safeFilenameForSharedExtentsListing = v31;
 
-      v32 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"purgeablerecordslisting"];
-      safeFilenameForPurgeableRecordsListing = v10->_safeFilenameForPurgeableRecordsListing;
-      v10->_safeFilenameForPurgeableRecordsListing = v32;
+      v33 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"purgeablerecordslisting"];
+      safeFilenameForPurgeableRecordsListing = v11->_safeFilenameForPurgeableRecordsListing;
+      v11->_safeFilenameForPurgeableRecordsListing = v33;
 
-      v34 = [objc_opt_class() _safeFilenameForListingVolume:v10 pathExtension:@"clonegrouplisting"];
-      safeFilenameForCloneGroupsListing = v10->_safeFilenameForCloneGroupsListing;
-      v10->_safeFilenameForCloneGroupsListing = v34;
+      v35 = [objc_opt_class() _safeFilenameForListingVolume:v11 pathExtension:@"clonegrouplisting"];
+      safeFilenameForCloneGroupsListing = v11->_safeFilenameForCloneGroupsListing;
+      v11->_safeFilenameForCloneGroupsListing = v35;
 
-      v10->_hasPurgeableFilesCapability = [objc_opt_class() __checkPurgeableFilesCapabilityForVolume:v10];
-      v10->_supportsAttributionTags = [objc_opt_class() __checkAttributionTagsCapabilityForVolume:v10];
-      v10->_shouldCollectDirStatsData = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v10];
-      v10->_supportsSharedExtents = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v10];
-      v10->_supportsPurgeableRecords = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v10];
-      v10->_supportsCloneGroups = [objc_opt_class() __checkCloneGroupCapabilityForVolume:v10];
+      v11->_hasPurgeableFilesCapability = [objc_opt_class() __checkPurgeableFilesCapabilityForVolume:v11];
+      v11->_supportsAttributionTags = [objc_opt_class() __checkAttributionTagsCapabilityForVolume:v11];
+      v11->_shouldCollectDirStatsData = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v11];
+      v11->_supportsSharedExtents = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v11];
+      v11->_supportsPurgeableRecords = [objc_opt_class() __checkDirStatsDataCapabilityForVolume:v11];
+      v11->_supportsCloneGroups = [objc_opt_class() __checkCloneGroupCapabilityForVolume:v11];
     }
 
-    self = v10;
+    self = v11;
     selfCopy = self;
   }
 

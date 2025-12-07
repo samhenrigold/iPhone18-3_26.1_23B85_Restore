@@ -7,7 +7,7 @@
 
 - (DAEASOAuthTokenResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   responseCopy = response;
   errorCopy = error;
@@ -17,17 +17,17 @@
   if (os_log_type_enabled(v11, v13))
   {
     *buf = 134218498;
-    v54 = [dataCopy length];
-    v55 = 2112;
-    v56 = responseCopy;
-    v57 = 2112;
-    v58 = errorCopy;
+    v53 = [dataCopy length];
+    v54 = 2112;
+    v55 = responseCopy;
+    v56 = 2112;
+    v57 = errorCopy;
     _os_log_impl(&dword_247E05000, v11, v13, "DAEASOAuthOAuth2TokenResponse initWithData: %lu length urlResponse: %@ error: %@", buf, 0x20u);
   }
 
-  v52.receiver = self;
-  v52.super_class = DAEASOAuthTokenResponse;
-  v14 = [(DAEASOAuthTokenResponse *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = DAEASOAuthTokenResponse;
+  v14 = [(DAEASOAuthTokenResponse *)&v51 init];
   v15 = v14;
   if (v14)
   {
@@ -53,7 +53,7 @@
     {
       statusCode = v15->_statusCode;
       *buf = 134217984;
-      v54 = statusCode;
+      v53 = statusCode;
       _os_log_impl(&dword_247E05000, v17, v13, "DAEASOAuthOAuth2TokenResponse httpResponse status code %ld", buf, 0xCu);
     }
 
@@ -64,9 +64,9 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v51 = 0;
-    v19 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v51];
-    v20 = v51;
+    v50 = 0;
+    v19 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v50];
+    v20 = v50;
     if (v20)
     {
       error = v15->_error;
@@ -78,7 +78,7 @@ LABEL_15:
       if (os_log_type_enabled(v23, v24))
       {
         *buf = 138412290;
-        v54 = v22;
+        v53 = v22;
         _os_log_impl(&dword_247E05000, v23, v24, "DAEASOAuthTokenResponse response JSON data does not represent NSDictionary. Game over. %@", buf, 0xCu);
       }
 
@@ -86,31 +86,31 @@ LABEL_15:
     }
 
     objc_storeStrong(&v15->_data, v19);
-    v28 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"error"];
+    v27 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"error"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v30 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"error_description"];
+      v29 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"error_description"];
       errorMessage = v15->_errorMessage;
-      v15->_errorMessage = v30;
+      v15->_errorMessage = v29;
 
       v22 = DALoggingwithCategory();
-      v32 = *(v12 + 3);
-      if (os_log_type_enabled(v22, v32))
+      v31 = *(v12 + 3);
+      if (os_log_type_enabled(v22, v31))
       {
-        v33 = v15->_errorMessage;
+        v32 = v15->_errorMessage;
         *buf = 138543618;
-        v54 = v33;
-        v55 = 2112;
-        v56 = v19;
-        v34 = "DAEASOAuthTokenResponse received an error: %{public}@ %@";
-        v35 = v22;
-        v36 = v32;
-        v37 = 22;
+        v53 = v32;
+        v54 = 2112;
+        v55 = v19;
+        v33 = "DAEASOAuthTokenResponse received an error: %{public}@ %@";
+        v34 = v22;
+        v35 = v31;
+        v36 = 22;
 LABEL_25:
-        _os_log_impl(&dword_247E05000, v35, v36, v34, buf, v37);
+        _os_log_impl(&dword_247E05000, v34, v35, v33, buf, v36);
       }
     }
 
@@ -120,43 +120,43 @@ LABEL_25:
       if (objc_opt_isKindOfClass())
       {
         v22 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"id_token"];
-        v38 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"id_token"];
+        v37 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"id_token"];
         idToken = v15->_idToken;
-        v15->_idToken = v38;
+        v15->_idToken = v37;
 
         if (v22)
         {
-          v40 = [(DAEASOAuthTokenResponse *)v15 usernameFromJWTToken:v22];
+          v39 = [(DAEASOAuthTokenResponse *)v15 usernameFromJWTToken:v22];
           user_id = v15->_user_id;
-          v15->_user_id = v40;
+          v15->_user_id = v39;
 
-          v42 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"access_token"];
+          v41 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"access_token"];
           accessToken = v15->_accessToken;
-          v15->_accessToken = v42;
+          v15->_accessToken = v41;
 
-          v44 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"refresh_token"];
+          v43 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"refresh_token"];
           refreshToken = v15->_refreshToken;
-          v15->_refreshToken = v44;
+          v15->_refreshToken = v43;
 
-          v46 = MEMORY[0x277CBEAA8];
-          v47 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"expires_in"];
-          v48 = [v46 dateWithTimeIntervalSinceNow:{objc_msgSend(v47, "integerValue")}];
+          v45 = MEMORY[0x277CBEAA8];
+          v46 = [(NSDictionary *)v15->_data objectForKeyedSubscript:@"expires_in"];
+          v47 = [v45 dateWithTimeIntervalSinceNow:{objc_msgSend(v46, "integerValue")}];
           expiryDate = v15->_expiryDate;
-          v15->_expiryDate = v48;
+          v15->_expiryDate = v47;
         }
 
         goto LABEL_12;
       }
 
       v22 = DALoggingwithCategory();
-      v50 = *(v12 + 3);
-      if (os_log_type_enabled(v22, v50))
+      v49 = *(v12 + 3);
+      if (os_log_type_enabled(v22, v49))
       {
         *buf = 0;
-        v34 = "DAEASOAuthOAuth2TokenResponse response JSON data does not represent NSDictionary.";
-        v35 = v22;
-        v36 = v50;
-        v37 = 2;
+        v33 = "DAEASOAuthOAuth2TokenResponse response JSON data does not represent NSDictionary.";
+        v34 = v22;
+        v35 = v49;
+        v36 = 2;
         goto LABEL_25;
       }
     }
@@ -168,7 +168,6 @@ LABEL_12:
 
 LABEL_16:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

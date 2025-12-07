@@ -304,7 +304,7 @@ LABEL_10:
 - (BOOL)monochromeRichComplicationsEnabled
 {
   device = [(NTKFaceView *)self device];
-  v3 = NTKMonochromeComplicationsEnabledForDevice();
+  v3 = NTKMonochromeComplicationsEnabledForDevice(device);
 
   return v3;
 }
@@ -1398,7 +1398,7 @@ LABEL_12:
   if (v9)
   {
     memset(&v12, 0, sizeof(v12));
-    [(NTKFaceView *)self _displayEditingTransformForComplicationSlot:slotCopy displayWrapper:v9];
+    objc_msgSend__displayEditingTransformForComplicationSlot_displayWrapper_(self);
     v10 = v12;
     CGAffineTransformScale(&v11, &v10, v8, v8);
     v12 = v11;
@@ -2886,7 +2886,7 @@ void __62__NTKFaceView__setTransitionFraction_fromEditMode_toEditMode___block_in
     {
       if (v13)
       {
-        [v13 editingTransform];
+        objc_msgSend_editingTransform(v13);
       }
 
       else
@@ -2904,7 +2904,7 @@ void __62__NTKFaceView__setTransitionFraction_fromEditMode_toEditMode___block_in
 
     if (v12)
     {
-      [v12 editingTransform];
+      objc_msgSend_editingTransform(v12);
       if (!v13)
       {
 LABEL_15:
@@ -2920,7 +2920,7 @@ LABEL_16:
       goto LABEL_15;
     }
 
-    [v13 editingTransform];
+    objc_msgSend_editingTransform(v13);
     goto LABEL_15;
   }
 
@@ -2928,7 +2928,7 @@ LABEL_16:
   v12 = v14;
   if (v14)
   {
-    [v14 editingTransform];
+    objc_msgSend_editingTransform(v14);
   }
 
   else
@@ -2963,7 +2963,7 @@ LABEL_17:
     {
       if (v13)
       {
-        [v13 contentTransform];
+        objc_msgSend_contentTransform(v13);
       }
 
       else
@@ -2981,7 +2981,7 @@ LABEL_17:
 
     if (v12)
     {
-      [v12 contentTransform];
+      objc_msgSend_contentTransform(v12);
       if (!v13)
       {
 LABEL_15:
@@ -2997,7 +2997,7 @@ LABEL_16:
       goto LABEL_15;
     }
 
-    [v13 contentTransform];
+    objc_msgSend_contentTransform(v13);
     goto LABEL_15;
   }
 
@@ -3005,7 +3005,7 @@ LABEL_16:
   v12 = v14;
   if (v14)
   {
-    [v14 contentTransform];
+    objc_msgSend_contentTransform(v14);
   }
 
   else
@@ -3231,7 +3231,7 @@ void __39__NTKFaceView__layoutComplicationViews__block_invoke(uint64_t a1, void 
     v15 = 0u;
     v16 = 0u;
     v14 = 0u;
-    [(NTKFaceView *)self _displayEditingTransformForComplicationSlot:slotCopy displayWrapper:wrapperCopy];
+    objc_msgSend__displayEditingTransformForComplicationSlot_displayWrapper_(self);
     v11 = v14;
     v12 = v15;
     v13 = v16;
@@ -3248,7 +3248,7 @@ void __39__NTKFaceView__layoutComplicationViews__block_invoke(uint64_t a1, void 
   }
 
   [wrapperCopy setEditingTransform:{v8, v11, v12, v13, v14, v15, v16}];
-  [(NTKFaceView *)self _displayContentTransformForComplicationSlot:slotCopy displayWrapper:wrapperCopy];
+  objc_msgSend__displayContentTransformForComplicationSlot_displayWrapper_(self);
   [wrapperCopy setContentTransform:&v14];
   v10 = [(NTKFaceView *)self _complicationContainerViewForSlot:slotCopy];
   [v10 bringSubviewToFront:wrapperCopy];

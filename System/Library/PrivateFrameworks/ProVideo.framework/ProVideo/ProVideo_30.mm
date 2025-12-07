@@ -321,7 +321,7 @@ char *map_insert(char **a1, unint64_t a2)
 
   else
   {
-    v6 = (v4 & 0xFFFFFFFFFFFFFFF0) + 16;
+    v6 = ((v4 & 0xFFFFFFFFFFFFFFF0) + 16);
     v7 = *a1;
     if (v5 != v6)
     {
@@ -340,12 +340,12 @@ char *map_insert(char **a1, unint64_t a2)
 
   if (v4 > a2)
   {
-    memmove(&v7[88 * a2 + 88], &v7[88 * a2], 88 * (v4 - a2));
+    memmove(&v7[88 * a2 + 88], &v7[88 * a2], 88 * &v4[-a2]);
     v7 = *a1;
     v4 = a1[1];
   }
 
-  a1[1] = (v4 + 1);
+  a1[1] = v4 + 1;
   return &v7[88 * a2];
 }
 
@@ -2270,7 +2270,7 @@ LABEL_22:
   return this;
 }
 
-unsigned __int8 *arb::obj_write_op(uint64_t *a1, string_t *a2, _BYTE *__src)
+unsigned __int8 *arb::obj_write_op(uint64_t *a1, string_t *a2, unsigned __int8 *__src)
 {
   v5 = *__src;
   if (__PAIR64__(__src[1], v5) == 0x5700000053)
@@ -2288,7 +2288,7 @@ unsigned __int8 *arb::obj_write_op(uint64_t *a1, string_t *a2, _BYTE *__src)
     if ((ctype[2 * v5] & 0x40) != 0)
     {
 LABEL_17:
-      v16 = __src - 1;
+      v16 = (__src - 1);
       do
       {
         v17 = v5;
@@ -3097,7 +3097,7 @@ LABEL_170:
   return v7;
 }
 
-unsigned __int8 *arb::obj_write_dest(uint64_t a1, string_t *a2, arb *this, char *a4, const char **a5, int a6, int a7)
+unsigned __int8 *arb::obj_write_dest(uint64_t *a1, string_t *a2, arb *this, char *a4, const char **a5, int a6, int a7)
 {
   v10 = a4;
   v13 = this;
@@ -3348,7 +3348,7 @@ LABEL_45:
   v87 = v10;
   v88 = a5;
   v86 = a6;
-  v45 = *(a1 + 8);
+  v45 = a1[1];
   if (!v45)
   {
 LABEL_61:
@@ -3449,7 +3449,7 @@ LABEL_62:
   v79 = *a2;
   ++a2[1];
   v79[v65] = 114;
-  v80 = *(a1 + 60);
+  v80 = *(a1 + 15);
   v82 = a2[1];
   v81 = a2[2];
   v83 = (v82 + 20);
@@ -3707,12 +3707,12 @@ char *arb::obj_write_symbol(uint64_t *a1, uint64_t a2, const char *a3, const cha
       v95 = *a2 + v19;
       while (1)
       {
-        v96 = v94[a3];
+        v96 = a3[v94];
         if ((v96 - 33) <= 0xFFFFFFDF)
         {
           *(v95 + v93++) = v96;
-          v97 = &(++v94)[a3];
-          if (v94[a3] == 35)
+          v97 = &a3[++v94];
+          if (a3[v94] == 35)
           {
 LABEL_113:
             v98 = 35;
@@ -3745,14 +3745,14 @@ LABEL_113:
             }
 
 LABEL_107:
-            v94 = (v97 - a3);
+            v94 = v97 - a3;
           }
         }
 
         else
         {
-          v97 = &(++v94)[a3];
-          if (v94[a3] == 35)
+          v97 = &a3[++v94];
+          if (a3[v94] == 35)
           {
             goto LABEL_113;
           }
@@ -4262,12 +4262,12 @@ LABEL_17:
       v53 = *a2 + v35;
       while (1)
       {
-        v54 = v52[a3];
+        v54 = a3[v52];
         if ((v54 - 33) <= 0xFFFFFFDF)
         {
           *(v53 + v51++) = v54;
-          v55 = &(++v52)[a3];
-          if (v52[a3] == 35)
+          v55 = &a3[++v52];
+          if (a3[v52] == 35)
           {
 LABEL_55:
             v56 = 35;
@@ -4300,14 +4300,14 @@ LABEL_55:
             }
 
 LABEL_49:
-            v52 = (v55 - a3);
+            v52 = v55 - a3;
           }
         }
 
         else
         {
-          v55 = &(++v52)[a3];
-          if (v52[a3] == 35)
+          v55 = &a3[++v52];
+          if (a3[v52] == 35)
           {
             goto LABEL_55;
           }
@@ -4408,7 +4408,7 @@ LABEL_66:
 
     v77 = *(a2 + 8);
     v76 = *(a2 + 16);
-    v78 = v77 + a6 - v75;
+    v78 = (v77 + a6 - v75);
     if (v76)
     {
       if (v78 >= *v76)
@@ -4432,12 +4432,12 @@ LABEL_66:
     v83 = *a2 + v77;
     while (1)
     {
-      v84 = v82[v75];
+      v84 = v75[v82];
       if ((v84 - 33) <= 0xFFFFFFDF)
       {
         *(v83 + v40++) = v84;
-        v85 = &(++v82)[v75];
-        if (v82[v75] == 35)
+        v85 = &v75[++v82];
+        if (v75[v82] == 35)
         {
 LABEL_86:
           v86 = 35;
@@ -4473,14 +4473,14 @@ LABEL_88:
             }
           }
 
-          v82 = (v85 - v75);
+          v82 = v85 - v75;
         }
       }
 
       else
       {
-        v85 = &(++v82)[v75];
-        if (v82[v75] == 35)
+        v85 = &v75[++v82];
+        if (v75[v82] == 35)
         {
           goto LABEL_86;
         }
@@ -4495,12 +4495,12 @@ LABEL_94:
     }
   }
 
-  v27 = (a6 - a3);
+  v27 = a6 - a3;
   if (a6 != a3)
   {
     v29 = *(a2 + 8);
     v28 = *(a2 + 16);
-    v30 = &v27[v29];
+    v30 = v29 + v27;
     if (v28)
     {
       if (v30 >= *v28)
@@ -4524,12 +4524,12 @@ LABEL_94:
     v42 = *a2 + v29;
     while (1)
     {
-      v43 = v41[a3];
+      v43 = a3[v41];
       if ((v43 - 33) <= 0xFFFFFFDF)
       {
         *(v42 + v40++) = v43;
-        v44 = &(++v41)[a3];
-        if (v41[a3] == 35)
+        v44 = &a3[++v41];
+        if (a3[v41] == 35)
         {
 LABEL_37:
           v45 = 35;
@@ -4565,14 +4565,14 @@ LABEL_39:
             }
           }
 
-          v41 = (v44 - a3);
+          v41 = v44 - a3;
         }
       }
 
       else
       {
-        v44 = &(++v41)[a3];
-        if (v41[a3] == 35)
+        v44 = &a3[++v41];
+        if (a3[v41] == 35)
         {
           goto LABEL_37;
         }
@@ -5378,7 +5378,7 @@ void string_t::~string_t(string_t *this)
 
 void HGString::sample2d()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0B8))
+  if (__cxa_guard_acquire(byte_280C5D0B8))
   {
     qword_280C5D500 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture7;\nvarying highp vec4 hg_TexCoord7;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture7, hg_TexCoord7.xy);\n}\n//MD5=bbf4ec74:245e90b8:e9ac0fd8:351c5b3a\n//SIG=00000000:00000080:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0008:08:0:1:0\n";
     qword_280C5D508 = 413;
@@ -5387,12 +5387,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D500, v1);
 
-    __cxa_guard_release(&qword_280C5D0B8);
+    __cxa_guard_release(byte_280C5D0B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D0B0))
+  if (__cxa_guard_acquire(byte_280C5D0B0))
   {
     qword_280C5D4D0 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture6;\nvarying highp vec4 hg_TexCoord6;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture6, hg_TexCoord6.xy);\n}\n//MD5=22ccfeea:0aa3beb7:0667a734:f532af78\n//SIG=00000000:00000040:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0007:07:0:1:0\n";
     qword_280C5D4D8 = 413;
@@ -5401,12 +5401,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D4D0, v1);
 
-    __cxa_guard_release(&qword_280C5D0B0);
+    __cxa_guard_release(byte_280C5D0B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D0A8))
+  if (__cxa_guard_acquire(byte_280C5D0A8))
   {
     qword_280C5D4A0 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture5;\nvarying highp vec4 hg_TexCoord5;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture5, hg_TexCoord5.xy);\n}\n//MD5=05661ebe:db59835f:7507946b:b29cf29a\n//SIG=00000000:00000020:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0006:06:0:1:0\n";
     qword_280C5D4A8 = 413;
@@ -5415,12 +5415,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D4A0, v1);
 
-    __cxa_guard_release(&qword_280C5D0A8);
+    __cxa_guard_release(byte_280C5D0A8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D0A0))
+  if (__cxa_guard_acquire(byte_280C5D0A0))
   {
     qword_280C5D470 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture4;\nvarying highp vec4 hg_TexCoord4;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture4, hg_TexCoord4.xy);\n}\n//MD5=a55c80ef:87e7f7dc:a3f787cf:27bdb14f\n//SIG=00000000:00000010:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0005:05:0:1:0\n";
     qword_280C5D478 = 413;
@@ -5429,12 +5429,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D470, v1);
 
-    __cxa_guard_release(&qword_280C5D0A0);
+    __cxa_guard_release(byte_280C5D0A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D098))
+  if (__cxa_guard_acquire(byte_280C5D098))
   {
     qword_280C5D440 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture3;\nvarying highp vec4 hg_TexCoord3;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture3, hg_TexCoord3.xy);\n}\n//MD5=59bfeda2:66444b75:343be20d:f7a096c6\n//SIG=00000000:00000008:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0004:04:0:1:0\n";
     qword_280C5D448 = 413;
@@ -5443,12 +5443,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D440, v1);
 
-    __cxa_guard_release(&qword_280C5D098);
+    __cxa_guard_release(byte_280C5D098);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D090))
+  if (__cxa_guard_acquire(byte_280C5D090))
   {
     qword_280C5D410 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture2;\nvarying highp vec4 hg_TexCoord2;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture2, hg_TexCoord2.xy);\n}\n//MD5=64d01b6e:569dc44a:d1f1e083:2b518d16\n//SIG=00000000:00000004:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0003:03:0:1:0\n";
     qword_280C5D418 = 413;
@@ -5457,12 +5457,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D410, v1);
 
-    __cxa_guard_release(&qword_280C5D090);
+    __cxa_guard_release(byte_280C5D090);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D088))
+  if (__cxa_guard_acquire(byte_280C5D088))
   {
     qword_280C5D3E0 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture1;\nvarying highp vec4 hg_TexCoord1;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture1, hg_TexCoord1.xy);\n}\n//MD5=ac6d4b6f:fe3ac506:6576bd5e:27c645c3\n//SIG=00000000:00000002:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0002:02:0:1:0\n";
     qword_280C5D3E8 = 413;
@@ -5471,12 +5471,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D3E0, v1);
 
-    __cxa_guard_release(&qword_280C5D088);
+    __cxa_guard_release(byte_280C5D088);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D080))
+  if (__cxa_guard_acquire(byte_280C5D080))
   {
     qword_280C5D3B0 = "//GLfs2.0      \n//LEN=000000019d\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp sampler2D hg_Texture0;\nvarying highp vec4 hg_TexCoord0;\nvoid main(void)\n{\n    gl_FragColor = texture2D(hg_Texture0, hg_TexCoord0.xy);\n}\n//MD5=1d8d1a82:d291bc55:596ea65f:a606ed93\n//SIG=00000000:00000001:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0001:01:0:1:0\n";
     qword_280C5D3B8 = 413;
@@ -5485,12 +5485,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D3B0, v1);
 
-    __cxa_guard_release(&qword_280C5D080);
+    __cxa_guard_release(byte_280C5D080);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D078))
+  if (__cxa_guard_acquire(byte_280C5D078))
   {
     qword_280C5D380 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f7=fragment.texcoord[7];\n##%\n##@\n##7\nTEX $o0,$f7,texture[7],2D;\nEND\n##MD5=4ef19759:2d6000ec:2c5f0d39:0e366cec\n##SIG=00000000:00000080:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0008:08:0:1:0\n";
     qword_280C5D388 = 411;
@@ -5499,12 +5499,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D380, v1);
 
-    __cxa_guard_release(&qword_280C5D078);
+    __cxa_guard_release(byte_280C5D078);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D070))
+  if (__cxa_guard_acquire(byte_280C5D070))
   {
     qword_280C5D350 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f6=fragment.texcoord[6];\n##%\n##@\n##6\nTEX $o0,$f6,texture[6],2D;\nEND\n##MD5=dc6255ee:ec02b910:da88252c:9affa0c5\n##SIG=00000000:00000040:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0007:07:0:1:0\n";
     qword_280C5D358 = 411;
@@ -5513,12 +5513,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D350, v1);
 
-    __cxa_guard_release(&qword_280C5D070);
+    __cxa_guard_release(byte_280C5D070);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D068))
+  if (__cxa_guard_acquire(byte_280C5D068))
   {
     qword_280C5D320 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f5=fragment.texcoord[5];\n##%\n##@\n##5\nTEX $o0,$f5,texture[5],2D;\nEND\n##MD5=3383524a:11b3f71a:c55ccc0e:8d9dc0e3\n##SIG=00000000:00000020:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0006:06:0:1:0\n";
     qword_280C5D328 = 411;
@@ -5527,12 +5527,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D320, v1);
 
-    __cxa_guard_release(&qword_280C5D068);
+    __cxa_guard_release(byte_280C5D068);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D060))
+  if (__cxa_guard_acquire(byte_280C5D060))
   {
     qword_280C5D2F0 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f4=fragment.texcoord[4];\n##%\n##@\n##4\nTEX $o0,$f4,texture[4],2D;\nEND\n##MD5=7dc2386c:febf27ca:d6e811c9:91dd69db\n##SIG=00000000:00000010:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0005:05:0:1:0\n";
     qword_280C5D2F8 = 411;
@@ -5541,12 +5541,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D2F0, v1);
 
-    __cxa_guard_release(&qword_280C5D060);
+    __cxa_guard_release(byte_280C5D060);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D058))
+  if (__cxa_guard_acquire(byte_280C5D058))
   {
     qword_280C5D2C0 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f3=fragment.texcoord[3];\n##%\n##@\n##3\nTEX $o0,$f3,texture[3],2D;\nEND\n##MD5=3899c790:e60c7f5f:7881594e:b87c7ab6\n##SIG=00000000:00000008:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0004:04:0:1:0\n";
     qword_280C5D2C8 = 411;
@@ -5555,12 +5555,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D2C0, v1);
 
-    __cxa_guard_release(&qword_280C5D058);
+    __cxa_guard_release(byte_280C5D058);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D050))
+  if (__cxa_guard_acquire(byte_280C5D050))
   {
     qword_280C5D290 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f2=fragment.texcoord[2];\n##%\n##@\n##2\nTEX $o0,$f2,texture[2],2D;\nEND\n##MD5=f65ae3b0:67c9ec7f:86a5b786:54ad4649\n##SIG=00000000:00000004:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0003:03:0:1:0\n";
     qword_280C5D298 = 411;
@@ -5569,12 +5569,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D290, v1);
 
-    __cxa_guard_release(&qword_280C5D050);
+    __cxa_guard_release(byte_280C5D050);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D048))
+  if (__cxa_guard_acquire(byte_280C5D048))
   {
     qword_280C5D260 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f1=fragment.texcoord[1];\n##%\n##@\n##1\nTEX $o0,$f1,texture[1],2D;\nEND\n##MD5=b736e8a9:2ce9f250:7cba081b:ac720bf8\n##SIG=00000000:00000002:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0002:02:0:1:0\n";
     qword_280C5D268 = 411;
@@ -5583,12 +5583,12 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D260, v1);
 
-    __cxa_guard_release(&qword_280C5D048);
+    __cxa_guard_release(byte_280C5D048);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_15))
+  if (__cxa_guard_acquire(_MergedGlobals_15))
   {
     qword_280C5D230 = "!!ARBfp1.0     \n##LEN=000000019b\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f0=fragment.texcoord[0];\n##%\n##@\n##0\nTEX $o0,$f0,texture[0],2D;\nEND\n##MD5=16e93a90:20a9533a:c6576d6f:12e8ee4d\n##SIG=00000000:00000001:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0001:01:0:1:0\n";
     unk_280C5D238 = 411;
@@ -5597,13 +5597,13 @@ void HGString::sample2d()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D230, v1);
 
-    __cxa_guard_release(&_MergedGlobals_15);
+    __cxa_guard_release(_MergedGlobals_15);
   }
 }
 
 void metal_sample2d0_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0C0))
+  if (__cxa_guard_acquire(byte_280C5D0C0))
   {
     qword_280C5D530 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture0 [[ texture(0) ]], \n    sampler hg_Sampler0 [[ sampler(0) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture0.sample(hg_Sampler0, frag._texCoord0.xy);\n    return output;\n}\n//MD5=17b31ac2:0d32b286:d460af2f:68ac1617\n//SIG=00400000:00000001:00000000:00000001:0000:0000:0000:0000:0000:0000:0002:0000:0001:01:0:1:0\n";
     qword_280C5D538 = 519;
@@ -5612,13 +5612,13 @@ void metal_sample2d0_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D530, v1);
 
-    __cxa_guard_release(&qword_280C5D0C0);
+    __cxa_guard_release(byte_280C5D0C0);
   }
 }
 
 void metal_sample2d1_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0C8))
+  if (__cxa_guard_acquire(byte_280C5D0C8))
   {
     qword_280C5D560 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture1 [[ texture(1) ]], \n    sampler hg_Sampler1 [[ sampler(1) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture1.sample(hg_Sampler1, frag._texCoord1.xy);\n    return output;\n}\n//MD5=66126f08:7a0a0541:50cb14b8:dc20ab48\n//SIG=00400000:00000002:00000000:00000002:0000:0000:0000:0000:0000:0000:0004:0000:0002:02:0:1:0\n";
     qword_280C5D568 = 519;
@@ -5627,13 +5627,13 @@ void metal_sample2d1_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D560, v1);
 
-    __cxa_guard_release(&qword_280C5D0C8);
+    __cxa_guard_release(byte_280C5D0C8);
   }
 }
 
 void metal_sample2d2_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0D0))
+  if (__cxa_guard_acquire(byte_280C5D0D0))
   {
     qword_280C5D590 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture2 [[ texture(2) ]], \n    sampler hg_Sampler2 [[ sampler(2) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture2.sample(hg_Sampler2, frag._texCoord2.xy);\n    return output;\n}\n//MD5=e29ca5bf:3aefc427:e9cb6767:1fb5bfae\n//SIG=00400000:00000004:00000000:00000004:0000:0000:0000:0000:0000:0000:0008:0000:0003:03:0:1:0\n";
     qword_280C5D598 = 519;
@@ -5642,13 +5642,13 @@ void metal_sample2d2_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D590, v1);
 
-    __cxa_guard_release(&qword_280C5D0D0);
+    __cxa_guard_release(byte_280C5D0D0);
   }
 }
 
 void metal_sample2d3_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0D8))
+  if (__cxa_guard_acquire(byte_280C5D0D8))
   {
     qword_280C5D5C0 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture3 [[ texture(3) ]], \n    sampler hg_Sampler3 [[ sampler(3) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture3.sample(hg_Sampler3, frag._texCoord3.xy);\n    return output;\n}\n//MD5=26246cf2:677801c1:4ecdf5a0:4b8d05e2\n//SIG=00400000:00000008:00000000:00000008:0000:0000:0000:0000:0000:0000:0010:0000:0004:04:0:1:0\n";
     qword_280C5D5C8 = 519;
@@ -5657,13 +5657,13 @@ void metal_sample2d3_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D5C0, v1);
 
-    __cxa_guard_release(&qword_280C5D0D8);
+    __cxa_guard_release(byte_280C5D0D8);
   }
 }
 
 void metal_sample2d4_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0E0))
+  if (__cxa_guard_acquire(byte_280C5D0E0))
   {
     qword_280C5D5F0 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture4 [[ texture(4) ]], \n    sampler hg_Sampler4 [[ sampler(4) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture4.sample(hg_Sampler4, frag._texCoord4.xy);\n    return output;\n}\n//MD5=e58b568d:54c2b894:b659516b:b176e5ac\n//SIG=00400000:00000010:00000000:00000010:0000:0000:0000:0000:0000:0000:0020:0000:0005:05:0:1:0\n";
     qword_280C5D5F8 = 519;
@@ -5672,13 +5672,13 @@ void metal_sample2d4_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D5F0, v1);
 
-    __cxa_guard_release(&qword_280C5D0E0);
+    __cxa_guard_release(byte_280C5D0E0);
   }
 }
 
 void metal_sample2d5_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0E8))
+  if (__cxa_guard_acquire(byte_280C5D0E8))
   {
     qword_280C5D620 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float5* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture5 [[ texture(5) ]], \n    sampler hg_Sampler5 [[ sampler(5) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture5.sample(hg_Sampler5, frag._texCoord5.xy);\n    return output;\n}\n//MD5=66f8f1b6:850d7b58:5ce020bb:4d7656a8\n//SIG=00400000:00000020:00000000:00000020:0000:0000:0000:0000:0000:0000:0040:0000:0006:06:0:1:0\n";
     qword_280C5D628 = 519;
@@ -5687,13 +5687,13 @@ void metal_sample2d5_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D620, v1);
 
-    __cxa_guard_release(&qword_280C5D0E8);
+    __cxa_guard_release(byte_280C5D0E8);
   }
 }
 
 void metal_sample2d6_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0F0))
+  if (__cxa_guard_acquire(byte_280C5D0F0))
   {
     qword_280C5D650 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture6 [[ texture(6) ]], \n    sampler hg_Sampler6 [[ sampler(6) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture6.sample(hg_Sampler6, frag._texCoord6.xy);\n    return output;\n}\n//MD5=71cedd26:3f95a3bd:40380951:bd74d411\n//SIG=00400000:00000040:00000000:00000040:0000:0000:0000:0000:0000:0000:0080:0000:0007:07:0:1:0\n";
     qword_280C5D658 = 519;
@@ -5702,13 +5702,13 @@ void metal_sample2d6_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D650, v1);
 
-    __cxa_guard_release(&qword_280C5D0F0);
+    __cxa_guard_release(byte_280C5D0F0);
   }
 }
 
 void metal_sample2d7_half_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D0F8))
+  if (__cxa_guard_acquire(byte_280C5D0F8))
   {
     qword_280C5D680 = "//Metal1.0     \n//LEN=0000000207\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< half > hg_Texture7 [[ texture(7) ]], \n    sampler hg_Sampler7 [[ sampler(7) ]])\n{\n    FragmentOut output;\n\n    output.color0 = (float4) hg_Texture7.sample(hg_Sampler7, frag._texCoord7.xy);\n    return output;\n}\n//MD5=366faa97:74f51e41:1aae0693:9870a122\n//SIG=00400000:00000080:00000000:00000080:0000:0000:0000:0000:0000:0000:0100:0000:0008:08:0:1:0\n";
     qword_280C5D688 = 519;
@@ -5717,13 +5717,13 @@ void metal_sample2d7_half_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D680, v1);
 
-    __cxa_guard_release(&qword_280C5D0F8);
+    __cxa_guard_release(byte_280C5D0F8);
   }
 }
 
 void metal_sample2d0_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D100))
+  if (__cxa_guard_acquire(byte_280C5D100))
   {
     qword_280C5D6B0 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture0 [[ texture(0) ]], \n    sampler hg_Sampler0 [[ sampler(0) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture0.sample(hg_Sampler0, frag._texCoord0.xy);\n    return output;\n}\n//MD5=6f669bc0:cf2c4116:fad604f7:6fdb36bb\n//SIG=00000000:00000001:00000000:00000000:0000:0000:0000:0000:0000:0000:0002:0000:0001:01:0:1:0\n";
     qword_280C5D6B8 = 511;
@@ -5732,13 +5732,13 @@ void metal_sample2d0_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D6B0, v1);
 
-    __cxa_guard_release(&qword_280C5D100);
+    __cxa_guard_release(byte_280C5D100);
   }
 }
 
 void metal_sample2d1_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D108))
+  if (__cxa_guard_acquire(byte_280C5D108))
   {
     qword_280C5D6E0 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture1 [[ texture(1) ]], \n    sampler hg_Sampler1 [[ sampler(1) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture1.sample(hg_Sampler1, frag._texCoord1.xy);\n    return output;\n}\n//MD5=337083c6:b5efb30c:e0498c87:962e883b\n//SIG=00000000:00000002:00000000:00000000:0000:0000:0000:0000:0000:0000:0004:0000:0002:02:0:1:0\n";
     qword_280C5D6E8 = 511;
@@ -5747,13 +5747,13 @@ void metal_sample2d1_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D6E0, v1);
 
-    __cxa_guard_release(&qword_280C5D108);
+    __cxa_guard_release(byte_280C5D108);
   }
 }
 
 void metal_sample2d2_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D110))
+  if (__cxa_guard_acquire(byte_280C5D110))
   {
     qword_280C5D710 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture2 [[ texture(2) ]], \n    sampler hg_Sampler2 [[ sampler(2) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture2.sample(hg_Sampler2, frag._texCoord2.xy);\n    return output;\n}\n//MD5=78787321:d0f473ee:95960d97:3438eca2\n//SIG=00000000:00000004:00000000:00000000:0000:0000:0000:0000:0000:0000:0008:0000:0003:03:0:1:0\n";
     qword_280C5D718 = 511;
@@ -5762,13 +5762,13 @@ void metal_sample2d2_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D710, v1);
 
-    __cxa_guard_release(&qword_280C5D110);
+    __cxa_guard_release(byte_280C5D110);
   }
 }
 
 void metal_sample2d3_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D118))
+  if (__cxa_guard_acquire(byte_280C5D118))
   {
     qword_280C5D740 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture3 [[ texture(3) ]], \n    sampler hg_Sampler3 [[ sampler(3) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture3.sample(hg_Sampler3, frag._texCoord3.xy);\n    return output;\n}\n//MD5=cd8bb6cc:4819f5f1:ddf3db57:3dfec92f\n//SIG=00000000:00000008:00000000:00000000:0000:0000:0000:0000:0000:0000:0010:0000:0004:04:0:1:0\n";
     qword_280C5D748 = 511;
@@ -5777,13 +5777,13 @@ void metal_sample2d3_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D740, v1);
 
-    __cxa_guard_release(&qword_280C5D118);
+    __cxa_guard_release(byte_280C5D118);
   }
 }
 
 void metal_sample2d4_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D120))
+  if (__cxa_guard_acquire(byte_280C5D120))
   {
     qword_280C5D770 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture4 [[ texture(4) ]], \n    sampler hg_Sampler4 [[ sampler(4) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture4.sample(hg_Sampler4, frag._texCoord4.xy);\n    return output;\n}\n//MD5=2e9dff36:f2698c51:cfa8aed7:24c4c84e\n//SIG=00000000:00000010:00000000:00000000:0000:0000:0000:0000:0000:0000:0020:0000:0005:05:0:1:0\n";
     qword_280C5D778 = 511;
@@ -5792,13 +5792,13 @@ void metal_sample2d4_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D770, v1);
 
-    __cxa_guard_release(&qword_280C5D120);
+    __cxa_guard_release(byte_280C5D120);
   }
 }
 
 void metal_sample2d5_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D128))
+  if (__cxa_guard_acquire(byte_280C5D128))
   {
     qword_280C5D7A0 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture5 [[ texture(5) ]], \n    sampler hg_Sampler5 [[ sampler(5) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture5.sample(hg_Sampler5, frag._texCoord5.xy);\n    return output;\n}\n//MD5=cc86252f:23fe64ab:2c3c7c52:1bfd6a43\n//SIG=00000000:00000020:00000000:00000000:0000:0000:0000:0000:0000:0000:0040:0000:0006:06:0:1:0\n";
     qword_280C5D7A8 = 511;
@@ -5807,13 +5807,13 @@ void metal_sample2d5_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D7A0, v1);
 
-    __cxa_guard_release(&qword_280C5D128);
+    __cxa_guard_release(byte_280C5D128);
   }
 }
 
 void metal_sample2d6_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D130))
+  if (__cxa_guard_acquire(byte_280C5D130))
   {
     qword_280C5D7D0 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture6 [[ texture(6) ]], \n    sampler hg_Sampler6 [[ sampler(6) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture6.sample(hg_Sampler6, frag._texCoord6.xy);\n    return output;\n}\n//MD5=99bcb848:93607e3e:f6e46520:b61c284e\n//SIG=00000000:00000040:00000000:00000000:0000:0000:0000:0000:0000:0000:0080:0000:0007:07:0:1:0\n";
     qword_280C5D7D8 = 511;
@@ -5822,13 +5822,13 @@ void metal_sample2d6_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D7D0, v1);
 
-    __cxa_guard_release(&qword_280C5D130);
+    __cxa_guard_release(byte_280C5D130);
   }
 }
 
 void metal_sample2d7_s()
 {
-  if (__cxa_guard_acquire(&qword_280C5D138))
+  if (__cxa_guard_acquire(byte_280C5D138))
   {
     qword_280C5D800 = "//Metal1.0     \n//LEN=00000001ff\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]], \n    texture2d< float > hg_Texture7 [[ texture(7) ]], \n    sampler hg_Sampler7 [[ sampler(7) ]])\n{\n    FragmentOut output;\n\n    output.color0 = hg_Texture7.sample(hg_Sampler7, frag._texCoord7.xy);\n    return output;\n}\n//MD5=5dc21ffb:da771f51:4ded01d3:f8c247ab\n//SIG=00000000:00000080:00000000:00000000:0000:0000:0000:0000:0000:0000:0100:0000:0008:08:0:1:0\n";
     qword_280C5D808 = 511;
@@ -5837,13 +5837,13 @@ void metal_sample2d7_s()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D800, v1);
 
-    __cxa_guard_release(&qword_280C5D138);
+    __cxa_guard_release(byte_280C5D138);
   }
 }
 
 void HGString::sampleRect()
 {
-  if (__cxa_guard_acquire(&qword_280C5D178))
+  if (__cxa_guard_acquire(byte_280C5D178))
   {
     qword_280C5D980 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f7=fragment.texcoord[7];\n##%\n##@\n##7\nTEX $o0,$f7,texture[7],RECT;\nEND\n##MD5=dd11faf4:09e5515e:92d0cd6f:ce9e10ae\n##SIG=00000000:00000080:00000080:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0008:08:0:1:0\n";
     qword_280C5D988 = 413;
@@ -5852,12 +5852,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D980, v1);
 
-    __cxa_guard_release(&qword_280C5D178);
+    __cxa_guard_release(byte_280C5D178);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D170))
+  if (__cxa_guard_acquire(byte_280C5D170))
   {
     qword_280C5D950 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f6=fragment.texcoord[6];\n##%\n##@\n##6\nTEX $o0,$f6,texture[6],RECT;\nEND\n##MD5=612cfe17:9d77fa2d:25c645b8:3fc04f19\n##SIG=00000000:00000040:00000040:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0007:07:0:1:0\n";
     qword_280C5D958 = 413;
@@ -5866,12 +5866,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D950, v1);
 
-    __cxa_guard_release(&qword_280C5D170);
+    __cxa_guard_release(byte_280C5D170);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D168))
+  if (__cxa_guard_acquire(byte_280C5D168))
   {
     qword_280C5D920 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f5=fragment.texcoord[5];\n##%\n##@\n##5\nTEX $o0,$f5,texture[5],RECT;\nEND\n##MD5=05fcc9b2:9b232369:60268b6e:77392bc9\n##SIG=00000000:00000020:00000020:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0006:06:0:1:0\n";
     qword_280C5D928 = 413;
@@ -5880,12 +5880,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D920, v1);
 
-    __cxa_guard_release(&qword_280C5D168);
+    __cxa_guard_release(byte_280C5D168);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D160))
+  if (__cxa_guard_acquire(byte_280C5D160))
   {
     qword_280C5D8F0 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f4=fragment.texcoord[4];\n##%\n##@\n##4\nTEX $o0,$f4,texture[4],RECT;\nEND\n##MD5=0d4c4995:9892fdda:25d75c20:e69d0655\n##SIG=00000000:00000010:00000010:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0005:05:0:1:0\n";
     qword_280C5D8F8 = 413;
@@ -5894,12 +5894,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D8F0, v1);
 
-    __cxa_guard_release(&qword_280C5D160);
+    __cxa_guard_release(byte_280C5D160);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D158))
+  if (__cxa_guard_acquire(byte_280C5D158))
   {
     qword_280C5D8C0 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f3=fragment.texcoord[3];\n##%\n##@\n##3\nTEX $o0,$f3,texture[3],RECT;\nEND\n##MD5=f09d8453:c175c072:e9ec1c7d:df7723d4\n##SIG=00000000:00000008:00000008:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0004:04:0:1:0\n";
     qword_280C5D8C8 = 413;
@@ -5908,12 +5908,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D8C0, v1);
 
-    __cxa_guard_release(&qword_280C5D158);
+    __cxa_guard_release(byte_280C5D158);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D150))
+  if (__cxa_guard_acquire(byte_280C5D150))
   {
     qword_280C5D890 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f2=fragment.texcoord[2];\n##%\n##@\n##2\nTEX $o0,$f2,texture[2],RECT;\nEND\n##MD5=040e4cc4:32c92579:c792bf9b:f6c58a30\n##SIG=00000000:00000004:00000004:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0003:03:0:1:0\n";
     qword_280C5D898 = 413;
@@ -5922,12 +5922,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D890, v1);
 
-    __cxa_guard_release(&qword_280C5D150);
+    __cxa_guard_release(byte_280C5D150);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D148))
+  if (__cxa_guard_acquire(byte_280C5D148))
   {
     qword_280C5D860 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f1=fragment.texcoord[1];\n##%\n##@\n##1\nTEX $o0,$f1,texture[1],RECT;\nEND\n##MD5=187ebb5e:75f053ee:b9cd2328:68d3c628\n##SIG=00000000:00000002:00000002:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0002:02:0:1:0\n";
     qword_280C5D868 = 413;
@@ -5936,12 +5936,12 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D860, v1);
 
-    __cxa_guard_release(&qword_280C5D148);
+    __cxa_guard_release(byte_280C5D148);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D140))
+  if (__cxa_guard_acquire(byte_280C5D140))
   {
     qword_280C5D830 = "!!ARBfp1.0     \n##LEN=000000019d\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nATTRIB $f0=fragment.texcoord[0];\n##%\n##@\n##0\nTEX $o0,$f0,texture[0],RECT;\nEND\n##MD5=13e335a2:9b4d2bf6:db2e47e2:03487278\n##SIG=00000000:00000001:00000001:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0001:01:0:1:0\n";
     qword_280C5D838 = 413;
@@ -5950,13 +5950,13 @@ void HGString::sampleRect()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D830, v1);
 
-    __cxa_guard_release(&qword_280C5D140);
+    __cxa_guard_release(byte_280C5D140);
   }
 }
 
 void HGString::zero()
 {
-  if (__cxa_guard_acquire(&qword_280C5D1A0))
+  if (__cxa_guard_acquire(byte_280C5D1A0))
   {
     qword_280C5DA70 = "//GLfs2.0      \n//LEN=0000000142\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nvoid main()\n{\n\n    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);\n}\n//MD5=7adfdc9a:833a3e83:3a6b376d:41cc225f\n//SIG=00000000:00000000:00000000:00000000:0008:0000:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5DA78 = 322;
@@ -5965,12 +5965,12 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DA70, v1);
 
-    __cxa_guard_release(&qword_280C5D1A0);
+    __cxa_guard_release(byte_280C5D1A0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D198))
+  if (__cxa_guard_acquire(byte_280C5D198))
   {
     qword_280C5DA40 = "!!ARBfp1.0     \n##LEN=00000001db\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\nOUTPUT $o2=result.color[2];\nOUTPUT $o3=result.color[3];\n##%\n##@\nMOV $o0,0;\nMOV $o1,0;\nMOV $o2,0;\nMOV $o3,0;\nEND\n##MD5=cadf4aa4:08ce60f0:fa35326a:3fdb468b\n##SIG=00000000:00000000:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0000:00:0:4:0\n";
     qword_280C5DA48 = 475;
@@ -5979,12 +5979,12 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DA40, v1);
 
-    __cxa_guard_release(&qword_280C5D198);
+    __cxa_guard_release(byte_280C5D198);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D190))
+  if (__cxa_guard_acquire(byte_280C5D190))
   {
     qword_280C5DA10 = "!!ARBfp1.0     \n##LEN=00000001b4\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\nOUTPUT $o2=result.color[2];\n##%\n##@\nMOV $o0,0;\nMOV $o1,0;\nMOV $o2,0;\nEND\n##MD5=c57659bc:b333a723:e93c4b2e:3d8afb44\n##SIG=00000000:00000000:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0000:00:0:3:0\n";
     qword_280C5DA18 = 436;
@@ -5993,12 +5993,12 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DA10, v1);
 
-    __cxa_guard_release(&qword_280C5D190);
+    __cxa_guard_release(byte_280C5D190);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D188))
+  if (__cxa_guard_acquire(byte_280C5D188))
   {
     qword_280C5D9E0 = "!!ARBfp1.0     \n##LEN=000000018d\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\n##%\n##@\nMOV $o0,0;\nMOV $o1,0;\nEND\n##MD5=4220a7e0:dd39f279:15beca1d:51f222cf\n##SIG=00000000:00000000:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0000:00:0:2:0\n";
     qword_280C5D9E8 = 397;
@@ -6007,12 +6007,12 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D9E0, v1);
 
-    __cxa_guard_release(&qword_280C5D188);
+    __cxa_guard_release(byte_280C5D188);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D180))
+  if (__cxa_guard_acquire(byte_280C5D180))
   {
     qword_280C5D9B0 = "!!ARBfp1.0     \n##LEN=0000000166\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\n##%\n##@\nMOV $o0,0;\nEND\n##MD5=3ceff9da:f8e4fe0b:1f0d94c2:9c9fb061\n##SIG=00000000:00000000:00000000:00000000:0000:0000:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5D9B8 = 358;
@@ -6021,12 +6021,12 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5D9B0, v1);
 
-    __cxa_guard_release(&qword_280C5D180);
+    __cxa_guard_release(byte_280C5D180);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1A8))
+  if (__cxa_guard_acquire(byte_280C5D1A8))
   {
     qword_280C5DAA0 = "//Metal1.0     \n//LEN=0000000144\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]])\n{\n    FragmentOut out;\n    out.color0 = float4(0.0, 0.0, 0.0, 0.0);\n    return out;\n}\n//MD5=0e8c5223:95470a31:cf2258f7:9d6891f3\n//SIG=00000000:00000000:00000000:00000000:0004:0000:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5DAA8 = 324;
@@ -6035,13 +6035,13 @@ void HGString::zero()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DAA0, v1);
 
-    __cxa_guard_release(&qword_280C5D1A8);
+    __cxa_guard_release(byte_280C5D1A8);
   }
 }
 
 void HGString::uniform()
 {
-  if (__cxa_guard_acquire(&qword_280C5D1D0))
+  if (__cxa_guard_acquire(byte_280C5D1D0))
   {
     qword_280C5DB90 = "//GLfs2.0      \n//LEN=0000000161\n#ifndef GL_ES\n#define lowp\n#define mediump\n#define highp\n#endif\n#define defaultp mediump\nuniform defaultp vec4 hg_ProgramLocal0;\nvoid main()\n{\n    gl_FragColor = hg_ProgramLocal0;\n}\n//MD5=6f46fc08:7f6efe98:42430a53:9b0c48ab\n//SIG=00000000:00000000:00000000:00000000:0000:0001:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5DB98 = 353;
@@ -6050,12 +6050,12 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DB90, v1);
 
-    __cxa_guard_release(&qword_280C5D1D0);
+    __cxa_guard_release(byte_280C5D1D0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1C8))
+  if (__cxa_guard_acquire(byte_280C5D1C8))
   {
     qword_280C5DB60 = "!!ARBfp1.0     \n##LEN=0000000253\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\nOUTPUT $o2=result.color[2];\nOUTPUT $o3=result.color[3];\nPARAM $p0=program.local[0];\nPARAM $p1=program.local[1];\nPARAM $p2=program.local[2];\nPARAM $p3=program.local[3];\n##%\n##@\nMOV $o0,$p0;\nMOV $o1,$p1;\nMOV $o2,$p2;\nMOV $o3,$p3;\nEND\n##MD5=b167705d:4bee0a9e:4099e1d1:d66d666c\n##SIG=00000000:00000000:00000000:00000000:0000:0004:0000:0000:0000:0000:0000:0000:0000:00:0:4:0\n";
     qword_280C5DB68 = 595;
@@ -6064,12 +6064,12 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DB60, v1);
 
-    __cxa_guard_release(&qword_280C5D1C8);
+    __cxa_guard_release(byte_280C5D1C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1C0))
+  if (__cxa_guard_acquire(byte_280C5D1C0))
   {
     qword_280C5DB30 = "!!ARBfp1.0     \n##LEN=000000020e\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\nOUTPUT $o2=result.color[2];\nPARAM $p0=program.local[0];\nPARAM $p1=program.local[1];\nPARAM $p2=program.local[2];\n##%\n##@\nMOV $o0,$p0;\nMOV $o1,$p1;\nMOV $o2,$p2;\nEND\n##MD5=f7bc6585:49c7c440:b099ae3e:eb448ac4\n##SIG=00000000:00000000:00000000:00000000:0000:0003:0000:0000:0000:0000:0000:0000:0000:00:0:3:0\n";
     qword_280C5DB38 = 526;
@@ -6078,12 +6078,12 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DB30, v1);
 
-    __cxa_guard_release(&qword_280C5D1C0);
+    __cxa_guard_release(byte_280C5D1C0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1B8))
+  if (__cxa_guard_acquire(byte_280C5D1B8))
   {
     qword_280C5DB00 = "!!ARBfp1.0     \n##LEN=00000001c9\n##                          \nOPTION ARB_draw_buffers;      \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nOUTPUT $o1=result.color[1];\nPARAM $p0=program.local[0];\nPARAM $p1=program.local[1];\n##%\n##@\nMOV $o0,$p0;\nMOV $o1,$p1;\nEND\n##MD5=738a1d38:64b2f1bf:c3afc4a3:dc2a01ed\n##SIG=00000000:00000000:00000000:00000000:0000:0002:0000:0000:0000:0000:0000:0000:0000:00:0:2:0\n";
     qword_280C5DB08 = 457;
@@ -6092,12 +6092,12 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DB00, v1);
 
-    __cxa_guard_release(&qword_280C5D1B8);
+    __cxa_guard_release(byte_280C5D1B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1B0))
+  if (__cxa_guard_acquire(byte_280C5D1B0))
   {
     qword_280C5DAD0 = "!!ARBfp1.0     \n##LEN=0000000184\n##                          \n##                            \n##                                \n##                                     \n##$\nOUTPUT $o0=result.color;\nPARAM $p0=program.local[0];\n##%\n##@\nMOV $o0,$p0;\nEND\n##MD5=d462425f:378ab328:d024cd98:47c08aa4\n##SIG=00000000:00000000:00000000:00000000:0000:0001:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5DAD8 = 388;
@@ -6106,12 +6106,12 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DAD0, v1);
 
-    __cxa_guard_release(&qword_280C5D1B0);
+    __cxa_guard_release(byte_280C5D1B0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1D8))
+  if (__cxa_guard_acquire(byte_280C5D1D8))
   {
     qword_280C5DBC0 = "//Metal1.0     \n//LEN=000000016d\nfragment FragmentOut fragmentFunc(VertexInOut frag [[ stage_in ]], \n    const constant float4* hg_Params [[ buffer(0) ]])\n{\n    FragmentOut out;\n    out.color0 = hg_Params[0];\n    return out;\n}\n//MD5=4c294923:0d8b5516:557382a3:0e90cae8\n//SIG=00000000:00000000:00000000:00000000:0000:0001:0000:0000:0000:0000:0000:0000:0000:00:0:1:0\n";
     qword_280C5DBC8 = 365;
@@ -6120,13 +6120,13 @@ void HGString::uniform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DBC0, v1);
 
-    __cxa_guard_release(&qword_280C5D1D8);
+    __cxa_guard_release(byte_280C5D1D8);
   }
 }
 
 void HGString::transform()
 {
-  if (__cxa_guard_acquire(qword_280C5D220))
+  if (__cxa_guard_acquire(byte_280C5D220))
   {
     qword_280C5DD70 = "//GLvs2.0      \n//LEN=00000005ea\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nuniform mat4 hg_TextureMatrix3;\nuniform mat4 hg_TextureMatrix4;\nuniform mat4 hg_TextureMatrix5;\nuniform mat4 hg_TextureMatrix6;\nuniform mat4 hg_TextureMatrix7;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nattribute vec4 hg_MultiTexCoord3;\nattribute vec4 hg_MultiTexCoord4;\nattribute vec4 hg_MultiTexCoord5;\nattribute vec4 hg_MultiTexCoord6;\nattribute vec4 hg_MultiTexCoord7;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvarying vec4 hg_TexCoord3;\nvarying vec4 hg_TexCoord4;\nvarying vec4 hg_TexCoord5;\nvarying vec4 hg_TexCoord6;\nvarying vec4 hg_TexCoord7;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n    hg_TexCoord3 = hg_TextureMatrix3 * hg_MultiTexCoord3;\n    hg_TexCoord4 = hg_TextureMatrix4 * hg_MultiTexCoord4;\n    hg_TexCoord5 = hg_TextureMatrix5 * hg_MultiTexCoord5;\n    hg_TexCoord6 = hg_TextureMatrix6 * hg_MultiTexCoord6;\n    hg_TexCoord7 = hg_TextureMatrix7 * hg_MultiTexCoord7;\n}\n//MD5=b215da98:d83418c2:544c293f:9ac9d419\n//SIG=00000000:00000000:00000000:00000000:0000:0024:0000:0000:0000:0000:0000:0000:0008:00:0:0:0\n";
     qword_280C5DD78 = 1514;
@@ -6135,12 +6135,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DD70, v1);
 
-    __cxa_guard_release(qword_280C5D220);
+    __cxa_guard_release(byte_280C5D220);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D218))
+  if (__cxa_guard_acquire(byte_280C5D218))
   {
     qword_280C5DD40 = "//GLvs2.0      \n//LEN=0000000553\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nuniform mat4 hg_TextureMatrix3;\nuniform mat4 hg_TextureMatrix4;\nuniform mat4 hg_TextureMatrix5;\nuniform mat4 hg_TextureMatrix6;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nattribute vec4 hg_MultiTexCoord3;\nattribute vec4 hg_MultiTexCoord4;\nattribute vec4 hg_MultiTexCoord5;\nattribute vec4 hg_MultiTexCoord6;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvarying vec4 hg_TexCoord3;\nvarying vec4 hg_TexCoord4;\nvarying vec4 hg_TexCoord5;\nvarying vec4 hg_TexCoord6;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n    hg_TexCoord3 = hg_TextureMatrix3 * hg_MultiTexCoord3;\n    hg_TexCoord4 = hg_TextureMatrix4 * hg_MultiTexCoord4;\n    hg_TexCoord5 = hg_TextureMatrix5 * hg_MultiTexCoord5;\n    hg_TexCoord6 = hg_TextureMatrix6 * hg_MultiTexCoord6;\n}\n//MD5=7dfc62a1:3d3ce3a2:d06f47b1:41964040\n//SIG=00000000:00000000:00000000:00000000:0000:0020:0000:0000:0000:0000:0000:0000:0007:00:0:0:0\n";
     qword_280C5DD48 = 1363;
@@ -6149,12 +6149,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DD40, v1);
 
-    __cxa_guard_release(&qword_280C5D218);
+    __cxa_guard_release(byte_280C5D218);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D210))
+  if (__cxa_guard_acquire(byte_280C5D210))
   {
     qword_280C5DD10 = "//GLvs2.0      \n//LEN=00000004bc\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nuniform mat4 hg_TextureMatrix3;\nuniform mat4 hg_TextureMatrix4;\nuniform mat4 hg_TextureMatrix5;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nattribute vec4 hg_MultiTexCoord3;\nattribute vec4 hg_MultiTexCoord4;\nattribute vec4 hg_MultiTexCoord5;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvarying vec4 hg_TexCoord3;\nvarying vec4 hg_TexCoord4;\nvarying vec4 hg_TexCoord5;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n    hg_TexCoord3 = hg_TextureMatrix3 * hg_MultiTexCoord3;\n    hg_TexCoord4 = hg_TextureMatrix4 * hg_MultiTexCoord4;\n    hg_TexCoord5 = hg_TextureMatrix5 * hg_MultiTexCoord5;\n}\n//MD5=450acf6f:24c8abd8:64c7ce12:3c4bd63d\n//SIG=00000000:00000000:00000000:00000000:0000:001c:0000:0000:0000:0000:0000:0000:0006:00:0:0:0\n";
     qword_280C5DD18 = 1212;
@@ -6163,12 +6163,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DD10, v1);
 
-    __cxa_guard_release(&qword_280C5D210);
+    __cxa_guard_release(byte_280C5D210);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D208))
+  if (__cxa_guard_acquire(byte_280C5D208))
   {
     qword_280C5DCE0 = "//GLvs2.0      \n//LEN=0000000425\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nuniform mat4 hg_TextureMatrix3;\nuniform mat4 hg_TextureMatrix4;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nattribute vec4 hg_MultiTexCoord3;\nattribute vec4 hg_MultiTexCoord4;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvarying vec4 hg_TexCoord3;\nvarying vec4 hg_TexCoord4;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n    hg_TexCoord3 = hg_TextureMatrix3 * hg_MultiTexCoord3;\n    hg_TexCoord4 = hg_TextureMatrix4 * hg_MultiTexCoord4;\n}\n//MD5=9d94f62f:3562211b:261ee061:c15dfe35\n//SIG=00000000:00000000:00000000:00000000:0000:0018:0000:0000:0000:0000:0000:0000:0005:00:0:0:0\n";
     qword_280C5DCE8 = 1061;
@@ -6177,12 +6177,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DCE0, v1);
 
-    __cxa_guard_release(&qword_280C5D208);
+    __cxa_guard_release(byte_280C5D208);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D200))
+  if (__cxa_guard_acquire(byte_280C5D200))
   {
     qword_280C5DCB0 = "//GLvs2.0      \n//LEN=000000038e\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nuniform mat4 hg_TextureMatrix3;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nattribute vec4 hg_MultiTexCoord3;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvarying vec4 hg_TexCoord3;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n    hg_TexCoord3 = hg_TextureMatrix3 * hg_MultiTexCoord3;\n}\n//MD5=50ca4534:b10918ea:75eb3624:be748584\n//SIG=00000000:00000000:00000000:00000000:0000:0014:0000:0000:0000:0000:0000:0000:0004:00:0:0:0\n";
     qword_280C5DCB8 = 910;
@@ -6191,12 +6191,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DCB0, v1);
 
-    __cxa_guard_release(&qword_280C5D200);
+    __cxa_guard_release(byte_280C5D200);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1F8))
+  if (__cxa_guard_acquire(byte_280C5D1F8))
   {
     qword_280C5DC80 = "//GLvs2.0      \n//LEN=00000002f7\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nuniform mat4 hg_TextureMatrix2;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nattribute vec4 hg_MultiTexCoord2;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvarying vec4 hg_TexCoord2;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n    hg_TexCoord2 = hg_TextureMatrix2 * hg_MultiTexCoord2;\n}\n//MD5=46e1660d:64e5cba3:90dbf667:6da3c1bc\n//SIG=00000000:00000000:00000000:00000000:0000:0010:0000:0000:0000:0000:0000:0000:0003:00:0:0:0\n";
     qword_280C5DC88 = 759;
@@ -6205,12 +6205,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DC80, v1);
 
-    __cxa_guard_release(&qword_280C5D1F8);
+    __cxa_guard_release(byte_280C5D1F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1F0))
+  if (__cxa_guard_acquire(byte_280C5D1F0))
   {
     qword_280C5DC50 = "//GLvs2.0      \n//LEN=0000000260\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nuniform mat4 hg_TextureMatrix1;\nattribute vec4 hg_MultiTexCoord0;\nattribute vec4 hg_MultiTexCoord1;\nvarying vec4 hg_TexCoord0;\nvarying vec4 hg_TexCoord1;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n    hg_TexCoord1 = hg_TextureMatrix1 * hg_MultiTexCoord1;\n}\n//MD5=0d16a22d:f5ee5b44:fa0fdd4e:171d7327\n//SIG=00000000:00000000:00000000:00000000:0000:000c:0000:0000:0000:0000:0000:0000:0002:00:0:0:0\n";
     qword_280C5DC58 = 608;
@@ -6219,12 +6219,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DC50, v1);
 
-    __cxa_guard_release(&qword_280C5D1F0);
+    __cxa_guard_release(byte_280C5D1F0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1E8))
+  if (__cxa_guard_acquire(byte_280C5D1E8))
   {
     qword_280C5DC20 = "//GLvs2.0      \n//LEN=00000001c9\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nuniform mat4 hg_TextureMatrix0;\nattribute vec4 hg_MultiTexCoord0;\nvarying vec4 hg_TexCoord0;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n    hg_TexCoord0 = hg_TextureMatrix0 * hg_MultiTexCoord0;\n}\n//MD5=71174425:010f0f7c:df2f36ee:91448d34\n//SIG=00000000:00000000:00000000:00000000:0000:0008:0000:0000:0000:0000:0000:0000:0001:00:0:0:0\n";
     qword_280C5DC28 = 457;
@@ -6233,12 +6233,12 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DC20, v1);
 
-    __cxa_guard_release(&qword_280C5D1E8);
+    __cxa_guard_release(byte_280C5D1E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5D1E0))
+  if (__cxa_guard_acquire(byte_280C5D1E0))
   {
     qword_280C5DBF0 = "//GLvs2.0      \n//LEN=0000000132\nattribute vec4 hg_Position;\nuniform mat4 hg_ProjectionMatrix;\nvoid main(void)\n{\n    gl_Position = hg_ProjectionMatrix * hg_Position;\n}\n//MD5=798335e4:f8112073:f251d283:ad257ca6\n//SIG=00000000:00000000:00000000:00000000:0000:0004:0000:0000:0000:0000:0000:0000:0000:00:0:0:0\n";
     qword_280C5DBF8 = 306;
@@ -6247,7 +6247,7 @@ void HGString::transform()
     v0 = OUTLINED_FUNCTION_0_5();
     __cxa_atexit(v0, &qword_280C5DBF0, v1);
 
-    __cxa_guard_release(&qword_280C5D1E0);
+    __cxa_guard_release(byte_280C5D1E0);
   }
 }
 
@@ -6282,7 +6282,7 @@ void HGSynchronizable::~HGSynchronizable(HGSynchronizable *this)
   JUMPOUT(0x2666E9F00);
 }
 
-_opaque_pthread_t *HGSynchronizable::Lock(HGSynchronizable *this)
+pthread_t HGSynchronizable::Lock(HGSynchronizable *this)
 {
   var2 = this->var2;
   result = pthread_self();
@@ -6333,7 +6333,7 @@ pthread_t HGSynchronizable::Wait(HGSynchronizable *this)
   return result;
 }
 
-uint64_t HGMultiTexBlendBase::create(HGMultiTexBlendBase *this)
+void *HGMultiTexBlendBase::create(HGMultiTexBlendBase *this)
 {
   if (this <= 4)
   {
@@ -7231,7 +7231,7 @@ LABEL_32:
   v15 = HGObject::operator new(0x1D0uLL);
   HGTextureWrap::HGTextureWrap(v15);
   HGTextureWrap::SetTextureWrapMode(v15, 3, v16);
-  v17 = HGRectMake4i(0, 0, 0, 1u);
+  v17 = HGRectMake4i(0, 0, 0, 1);
   *&v39.var0 = HGRectGrow(v13, v14, v17);
   *&v39.var2 = v18;
   HGTextureWrap::SetCropRect(v15, &v39);
@@ -7907,7 +7907,7 @@ double HGTransform::PreMultiply(HGTransform *this, const HGTransform *a2)
   return result;
 }
 
-float64x2_t *HGTransform::Transform(float64x2_t *this, float32x4_t *a2, const float *a3, int a4)
+float64x2_t *HGTransform::Transform(float64x2_t *this, float32x4_t *a2, const float *a3, unsigned int a4)
 {
   if (a4 >= 1)
   {
@@ -8287,8 +8287,7 @@ float64x2_t HGTransform::Invert2D(float64x2_t *this)
   this[8].f64[0] = 0.0;
   this[4].f64[0] = 0.0;
   this[2].f64[0] = 0.0;
-  this[5].f64[0] = 0.0;
-  this[5].f64[1] = 0.0;
+  this[5] = 0uLL;
   result = vdivq_f64(v17, vdupq_lane_s64(*&v18, 0));
   this[6] = xmmword_2603426F0;
   this[7] = result;
@@ -9253,7 +9252,7 @@ __n128 HGProgramDescriptor::SetReturnBinding(uint64_t a1, uint64_t a2)
 
 void HGProgramDescriptor::SetArgumentBindings(uint64_t *a1, uint64_t *a2)
 {
-  v4 = (a1 + 29);
+  v4 = a1 + 29;
   if (v4 != a2)
   {
     std::vector<HGBinding>::__assign_with_size[abi:ne200100]<HGBinding*,HGBinding*>(v4, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 4));
@@ -9420,13 +9419,13 @@ void *HGProgramDescriptor::SetInput(void *result, unint64_t a2, int a3)
   return result;
 }
 
-uint64_t HGProgramDescriptor::EncodeShaderDeclarations(uint64_t result, std::string *this)
+std::string *HGProgramDescriptor::EncodeShaderDeclarations(std::string *result, std::string *this)
 {
-  v3 = *(result + 87);
-  if (v3 < 0)
+  data = result[3].__r_.__value_.__s.__data_[15];
+  if ((data & 0x8000000000000000) != 0)
   {
-    v3 = *(result + 72);
-    v4 = *(result + 111);
+    data = result[3].__r_.__value_.__l.__data_;
+    v4 = result[4].__r_.__value_.__s.__data_[15];
     if ((v4 & 0x8000000000000000) == 0)
     {
 LABEL_3:
@@ -9441,18 +9440,18 @@ LABEL_3:
 
   else
   {
-    v4 = *(result + 111);
+    v4 = result[4].__r_.__value_.__s.__data_[15];
     if ((v4 & 0x8000000000000000) == 0)
     {
       goto LABEL_3;
     }
   }
 
-  if (*(result + 96))
+  if (result[4].__r_.__value_.__r.__words[0])
   {
 LABEL_4:
     v5 = 1;
-    if (!v3)
+    if (!data)
     {
       return result;
     }
@@ -9461,14 +9460,14 @@ LABEL_4:
   }
 
 LABEL_8:
-  v6 = *(result + 183);
-  if (v6 < 0)
+  v6 = result[7].__r_.__value_.__s.__data_[15];
+  if ((v6 & 0x8000000000000000) != 0)
   {
-    v6 = *(result + 168);
+    v6 = result[7].__r_.__value_.__l.__data_;
   }
 
   v5 = v6 != 0;
-  if (v3)
+  if (data)
   {
 LABEL_11:
     if (v5)
@@ -9484,7 +9483,7 @@ LABEL_11:
       }
 
       std::string::reserve(this, v7);
-      HGMetalUtils::stringForMetalHeader(v8);
+      HGMetalUtils::stringForMetalHeader();
     }
   }
 

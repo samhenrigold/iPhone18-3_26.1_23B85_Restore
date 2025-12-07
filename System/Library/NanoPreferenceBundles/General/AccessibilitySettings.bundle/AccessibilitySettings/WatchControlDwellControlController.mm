@@ -5,17 +5,18 @@
 - (void)setDwellControlEnabled:(id)enabled;
 - (void)setDwellControlShakeToStartEnabled:(id)enabled;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlDwellControlController
 
 - (id)specifiers
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v36 = *MEMORY[0x277D3FC48];
+    v35 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [array addObject:emptyGroupSpecifier];
@@ -32,32 +33,32 @@
 
     [v11 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
     v12 = array;
-    v35 = v11;
+    v34 = v11;
     [array addObject:v11];
     mEMORY[0x277D7A910] = [MEMORY[0x277D7A910] sharedInstance];
     dwellControlTimerAction = [mEMORY[0x277D7A910] dwellControlTimerAction];
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v15 = [&unk_284E7E730 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v15 = [&unk_284E7E730 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v39;
+      v18 = *v38;
       v19 = *MEMORY[0x277D401A8];
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v39 != v18)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(&unk_284E7E730);
           }
 
-          unsignedIntegerValue = [*(*(&v38 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v37 + 1) + 8 * i) unsignedIntegerValue];
           v22 = MEMORY[0x277D3FAD8];
           v23 = WCNameForAction();
           v24 = [v22 preferenceSpecifierNamed:v23 target:0 set:0 get:0 detail:0 cell:3 edit:0];
@@ -74,7 +75,7 @@
           }
         }
 
-        v16 = [&unk_284E7E730 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v16 = [&unk_284E7E730 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v16);
@@ -85,7 +86,7 @@
       v17 = 0;
     }
 
-    [v35 setProperty:v17 forKey:*MEMORY[0x277D40090]];
+    [v34 setProperty:v17 forKey:*MEMORY[0x277D40090]];
     emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [v12 addObject:emptyGroupSpecifier2];
 
@@ -94,16 +95,46 @@
     v30 = [v28 preferenceSpecifierNamed:v29 target:selfCopy set:sel_setDwellControlShakeToStartEnabled_ get:sel_dwellControlShakeToStartEnabled detail:0 cell:6 edit:0];
     [v12 addObject:v30];
 
-    v31 = *(&selfCopy->super.super.super.super.super.super.isa + v36);
-    *(&selfCopy->super.super.super.super.super.super.isa + v36) = v12;
+    v31 = *(&selfCopy->super.super.super.super.super.super.isa + v35);
+    *(&selfCopy->super.super.super.super.super.super.isa + v35) = v12;
     v32 = v12;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v36);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v35);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v21[3] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = WatchControlDwellControlController;
+  [(AccessibilityBridgeBaseController *)&v20 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"WATCH_CONTROL_DWELL_CONTROL_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = [WatchControlStringLookup stringResourceForKey:@"input.source.motion.pointer"];
+  v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v12 = [v9 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v13 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v16 = [v13 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v17 = MEMORY[0x277CF3470];
+  v21[0] = v16;
+  v21[1] = v12;
+  v21[2] = v8;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v19 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/MOTION_POINTER_ID/DWELL_CONTROL_ID"];
+  [v17 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v18 deepLink:v19];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

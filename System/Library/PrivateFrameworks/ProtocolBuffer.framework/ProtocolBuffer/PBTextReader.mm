@@ -1,10 +1,10 @@
 @interface PBTextReader
 - (PBTextReader)init;
+- (char)_readTag:(uint64_t *)tag andType:;
 - (id)_readString;
 - (id)readMessageType:(Class)type fromString:(id)string;
 - (objc_class)_readObject:(uint64_t)object;
 - (uint64_t)_rangeOfCharactersInSetAtCurrentPosition:(uint64_t)position;
-- (uint64_t)_readTag:(uint64_t *)tag andType:;
 - (uint64_t)_readValue;
 - (void)_parseNumber:(void *)number maxValue:(unint64_t)value isSigned:(int)signed;
 - (void)dealloc;
@@ -34,10 +34,10 @@
 
 - (objc_class)_readObject:(uint64_t)object
 {
-  v130[1] = *MEMORY[0x1E69E9840];
+  v129[1] = *MEMORY[0x1E69E9840];
   if (!object)
   {
-    goto LABEL_190;
+    return 0;
   }
 
   v2 = a2;
@@ -52,33 +52,33 @@
 LABEL_19:
         if (*(objectCopy14 + 32) >= *(objectCopy14 + 40))
         {
-          goto LABEL_191;
+          return v2;
         }
 
+        v116 = 0;
         v117 = 0;
-        v118 = 0;
-        [(PBTextReader *)objectCopy14 _readTag:&v117 andType:?];
-        v15 = v118;
-        if ([v118 length])
+        [(PBTextReader *)objectCopy14 _readTag:&v116 andType:?];
+        v15 = v117;
+        if ([v117 length])
         {
           break;
         }
 
         v19 = 0;
 LABEL_29:
-        if (v117 > 2)
+        if (v116 > 2)
         {
-          switch(v117)
+          switch(v116)
           {
             case 3:
               _readString = [(PBTextReader *)objectCopy14 _readString];
               if (_readString)
               {
-                v129[0] = _readString;
+                v128[0] = _readString;
                 if (v19)
                 {
 LABEL_56:
-                  [*(v19 + 40) setArgument:v129 atIndex:2];
+                  [*(v19 + 40) setArgument:v128 atIndex:2];
                   [*(v19 + 40) invokeWithTarget:v2];
                 }
               }
@@ -201,7 +201,7 @@ LABEL_187:
 
                 else
                 {
-                  v129[0] = v64;
+                  v128[0] = v64;
                   if (v19)
                   {
                     goto LABEL_56;
@@ -211,13 +211,13 @@ LABEL_187:
 
               break;
             case 5:
-              goto LABEL_191;
+              return v2;
           }
         }
 
         else
         {
-          switch(v117)
+          switch(v116)
           {
             case 0:
               v26 = *(objectCopy14 + 32);
@@ -239,13 +239,13 @@ LABEL_187:
               }
 
               v30 = [*(object + 48) substringWithRange:{v28 - 20, v29}];
-              v31 = v118;
-              camelCase = [(NSString *)v118 camelCase];
-              v115 = v19;
-              v109 = v30;
-              v110 = v31;
-              v104 = v26;
-              v105 = v27;
+              v31 = v117;
+              camelCase = [(NSString *)v117 camelCase];
+              v114 = v19;
+              v108 = v30;
+              v109 = v31;
+              v103 = v26;
+              v104 = v27;
               objectCopy14 = object;
               v32 = @"read unknown tag";
               goto LABEL_53;
@@ -270,7 +270,7 @@ LABEL_187:
                 v21 = [(PBTextReader *)objectCopy14 _readObject:v20];
                 if (v21)
                 {
-                  v129[0] = v21;
+                  v128[0] = v21;
                   goto LABEL_56;
                 }
 
@@ -293,17 +293,17 @@ LABEL_187:
                 }
 
                 v75 = [*(object + 48) substringWithRange:{v73 - 20, v74}];
-                v76 = v118;
-                camelCase = [(NSString *)v118 camelCase];
-                v115 = v19;
-                v109 = v75;
-                v110 = v76;
-                v104 = v71;
-                v105 = v72;
+                v76 = v117;
+                camelCase = [(NSString *)v117 camelCase];
+                v114 = v19;
+                v108 = v75;
+                v109 = v76;
+                v103 = v71;
+                v104 = v72;
                 objectCopy14 = object;
                 v32 = @"unable to parse object";
 LABEL_53:
-                NSLog(&cfstr_AtIITagForProp.isa, v32, v104, v105, v109, v110, camelCase, v115);
+                NSLog(&cfstr_AtIITagForProp.isa, v32, v103, v104, v108, v109, camelCase, v114);
               }
 
               else
@@ -330,13 +330,13 @@ LABEL_156:
                   }
 
                   v92 = [*(object + 48) substringWithRange:{v90 - 20, v91}];
-                  v93 = v118;
-                  camelCase = [(NSString *)v118 camelCase];
-                  v115 = v19;
-                  v109 = v92;
-                  v110 = v93;
-                  v104 = v88;
-                  v105 = v89;
+                  v93 = v117;
+                  camelCase = [(NSString *)v117 camelCase];
+                  v114 = v19;
+                  v108 = v92;
+                  v109 = v93;
+                  v103 = v88;
+                  v104 = v89;
                   objectCopy14 = object;
                   v32 = @"expected object/struct type";
                   goto LABEL_53;
@@ -345,12 +345,12 @@ LABEL_156:
                 v44 = objc_alloc_init(MEMORY[0x1E695DF90]);
                 while (*(objectCopy14 + 32) < *(objectCopy14 + 40))
                 {
-                  v129[0] = 0;
-                  *&v124 = 0;
-                  [(PBTextReader *)objectCopy14 _readTag:v129 andType:&v124];
-                  if (v124 > 2)
+                  v128[0] = 0;
+                  *&v123 = 0;
+                  [(PBTextReader *)objectCopy14 _readTag:v128 andType:&v123];
+                  if (v123 > 2)
                   {
-                    switch(v124)
+                    switch(v123)
                     {
                       case 3:
                         _readString2 = [(PBTextReader *)objectCopy14 _readString];
@@ -369,10 +369,10 @@ LABEL_156:
                         }
 
 LABEL_100:
-                        v59 = v129[0];
-                        if (v129[0] && _readString2)
+                        v59 = v128[0];
+                        if (v128[0] && _readString2)
                         {
-                          v60 = [v44 objectForKeyedSubscript:v129[0]];
+                          v60 = [v44 objectForKeyedSubscript:v128[0]];
                           if (v60 && ((v61 = v60, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (v62 = objc_alloc_init(MEMORY[0x1E695DF70]), [v62 addObject:v61], objc_msgSend(v44, "setObject:forKeyedSubscript:", v62, v59), (v61 = v62) != 0)))
                           {
                             [v61 addObject:_readString2];
@@ -390,9 +390,9 @@ LABEL_100:
                     }
                   }
 
-                  else if (v124)
+                  else if (v123)
                   {
-                    if (v124 == 1)
+                    if (v123 == 1)
                     {
                       v45 = *(objectCopy14 + 32);
                       v46 = *(object + 40);
@@ -413,14 +413,14 @@ LABEL_100:
                       }
 
                       v49 = [*(object + 48) substringWithRange:{v47 - 20, v48}];
-                      v50 = v129[0];
-                      camelCase2 = [(NSString *)v129[0] camelCase];
-                      v106 = v46;
+                      v50 = v128[0];
+                      camelCase2 = [(NSString *)v128[0] camelCase];
+                      v105 = v46;
                       objectCopy14 = object;
-                      NSLog(&cfstr_AtIITagForProp.isa, @"unexpected nested tag", v45, v106, v49, v50, camelCase2, v19);
+                      NSLog(&cfstr_AtIITagForProp.isa, @"unexpected nested tag", v45, v105, v49, v50, camelCase2, v19);
                     }
 
-                    else if (v124 == 2)
+                    else if (v123 == 2)
                     {
                       break;
                     }
@@ -447,11 +447,11 @@ LABEL_100:
                     }
 
                     v57 = [*(object + 48) substringWithRange:{v55 - 20, v56}];
-                    v58 = v129[0];
-                    camelCase3 = [(NSString *)v129[0] camelCase];
-                    v107 = v54;
+                    v58 = v128[0];
+                    camelCase3 = [(NSString *)v128[0] camelCase];
+                    v106 = v54;
                     objectCopy14 = object;
-                    NSLog(&cfstr_AtIITagForProp.isa, @"read unrecoginzed struct tag", v53, v107, v57, v58, camelCase3, v19);
+                    NSLog(&cfstr_AtIITagForProp.isa, @"read unrecoginzed struct tag", v53, v106, v57, v58, camelCase3, v19);
                   }
                 }
 
@@ -477,13 +477,13 @@ LABEL_130:
                   }
 
                   v98 = [*(object + 48) substringWithRange:{v96 - 20, v97}];
-                  v99 = v118;
-                  camelCase = [(NSString *)v118 camelCase];
-                  v115 = v19;
-                  v109 = v98;
-                  v110 = v99;
-                  v104 = v94;
-                  v105 = v95;
+                  v99 = v117;
+                  camelCase = [(NSString *)v117 camelCase];
+                  v114 = v19;
+                  v108 = v98;
+                  v109 = v99;
+                  v103 = v94;
+                  v104 = v95;
                   objectCopy14 = object;
                   v32 = @"unable to parse struct";
                   goto LABEL_53;
@@ -494,29 +494,29 @@ LABEL_130:
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    v130[0] = v44;
-                    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:1];
+                    v129[0] = v44;
+                    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:1];
                   }
 
-                  v126 = 0u;
-                  v127 = 0u;
-                  v124 = 0u;
                   v125 = 0u;
-                  v78 = [v44 countByEnumeratingWithState:&v124 objects:v129 count:16];
+                  v126 = 0u;
+                  v123 = 0u;
+                  v124 = 0u;
+                  v78 = [v44 countByEnumeratingWithState:&v123 objects:v128 count:16];
                   if (v78)
                   {
                     v79 = v78;
-                    v80 = *v125;
+                    v80 = *v124;
                     do
                     {
                       for (i = 0; i != v79; ++i)
                       {
-                        if (*v125 != v80)
+                        if (*v124 != v80)
                         {
                           objc_enumerationMutation(v44);
                         }
 
-                        v82 = *(*(&v124 + 1) + 8 * i);
+                        v82 = *(*(&v123 + 1) + 8 * i);
                         v83 = *(v19 + 120);
                         if (v83)
                         {
@@ -525,17 +525,17 @@ LABEL_130:
 
                         (*(v19 + 96))(v82, [v83 mutableBytes]);
                         bytes = [v83 bytes];
-                        v123 = bytes;
+                        v122 = bytes;
                         if (*(v19 + 32) == 94)
                         {
                           if (-[NSString hasPrefix:](NSStringFromSelector([*(v19 + 40) selector]), "hasPrefix:", @"set"))
                           {
                             v85 = *(v19 + 40);
-                            bytes = &v123;
+                            bytes = &v122;
                             goto LABEL_147;
                           }
 
-                          bytes = v123;
+                          bytes = v122;
                         }
 
                         v85 = *(v19 + 40);
@@ -544,7 +544,7 @@ LABEL_147:
                         [*(v19 + 40) invokeWithTarget:v2];
                       }
 
-                      v79 = [v44 countByEnumeratingWithState:&v124 objects:v129 count:16];
+                      v79 = [v44 countByEnumeratingWithState:&v123 objects:v128 count:16];
                     }
 
                     while (v79);
@@ -556,7 +556,7 @@ LABEL_147:
 
               break;
             case 2:
-              goto LABEL_191;
+              return v2;
           }
         }
       }
@@ -571,7 +571,7 @@ LABEL_147:
           goto LABEL_29;
         }
 
-        v15 = v118;
+        v15 = v117;
       }
 
       v34 = objectCopy14;
@@ -598,9 +598,9 @@ LABEL_147:
       camelCase5 = [(NSString *)v15 camelCase];
       NSLog(&cfstr_AtIITagForProp.isa, @"read unrecoginzed tag", v35, v36, v40, v15, camelCase5, 0);
       _readString3 = 0;
-      if (v117 <= 2)
+      if (v116 <= 2)
       {
-        if (v117 == 1)
+        if (v116 == 1)
         {
           objectCopy12 = object;
           _readString3 = [(PBTextReader *)object _readObject:?];
@@ -609,14 +609,14 @@ LABEL_147:
         else
         {
           objectCopy12 = object;
-          if (v117 == 2)
+          if (v116 == 2)
           {
-            goto LABEL_191;
+            return v2;
           }
         }
       }
 
-      else if (v117 == 3)
+      else if (v116 == 3)
       {
         objectCopy12 = object;
         _readString3 = [(PBTextReader *)object _readString];
@@ -625,7 +625,7 @@ LABEL_147:
       else
       {
         objectCopy12 = object;
-        if (v117 == 4)
+        if (v116 == 4)
         {
           _readString3 = [(PBTextReader *)object _readValue];
         }
@@ -652,9 +652,9 @@ LABEL_147:
 
       v70 = [*(object + 48) substringWithRange:{v68 - 20, v69}];
       camelCase6 = [(NSString *)v15 camelCase];
-      v108 = v67;
+      v107 = v67;
       objectCopy14 = object;
-      NSLog(&cfstr_AtIITagForProp.isa, v65, v66, v108, v70, v15, camelCase6, 0);
+      NSLog(&cfstr_AtIITagForProp.isa, v65, v66, v107, v70, v15, camelCase6, 0);
     }
   }
 
@@ -672,26 +672,26 @@ LABEL_17:
   {
     v7 = v6;
     v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v6, "count")}];
+    v118 = 0u;
     v119 = 0u;
     v120 = 0u;
     v121 = 0u;
-    v122 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v119 objects:v128 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v118 objects:v127 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v120;
+      v10 = *v119;
       do
       {
         v11 = 0;
         do
         {
-          if (*v120 != v10)
+          if (*v119 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v119 + 1) + 8 * v11);
+          v12 = *(*(&v118 + 1) + 8 * v11);
           if (v12)
           {
             v13 = *(v12 + 8);
@@ -707,7 +707,7 @@ LABEL_17:
         }
 
         while (v9 != v11);
-        v14 = [v7 countByEnumeratingWithState:&v119 objects:v128 count:16];
+        v14 = [v7 countByEnumeratingWithState:&v118 objects:v127 count:16];
         v9 = v14;
       }
 
@@ -719,14 +719,10 @@ LABEL_17:
     goto LABEL_17;
   }
 
-LABEL_190:
-  v2 = 0;
-LABEL_191:
-  v102 = *MEMORY[0x1E69E9840];
-  return v2;
+  return 0;
 }
 
-- (uint64_t)_readTag:(uint64_t *)tag andType:
+- (char)_readTag:(uint64_t *)tag andType:
 {
   v6 = [(PBTextReader *)self _rangeOfCharactersInSetAtCurrentPosition:?];
   if (v6 == *(self + 32))
@@ -738,8 +734,8 @@ LABEL_191:
   v10 = result;
   if (result == *(self + 32) && v9 != 0)
   {
-    *(self + 32) = result + v9;
-    result = [*(self + 48) substringWithRange:{result, v9 - (objc_msgSend(*(self + 48), "characterAtIndex:", result + v9 - 1) == 58)}];
+    *(self + 32) = &result[v9];
+    result = [*(self + 48) substringWithRange:{result, v9 - (objc_msgSend(*(self + 48), "characterAtIndex:", &result[v9 - 1]) == 58)}];
     *a2 = result;
   }
 
@@ -750,7 +746,7 @@ LABEL_191:
     {
       if (v12)
       {
-        *(self + 32) = result + v12;
+        *(self + 32) = &result[v12];
       }
     }
   }
@@ -845,22 +841,21 @@ LABEL_21:
     return 0;
   }
 
-  v7 = *(self + 32);
   *(self + 32) = v2 + 1;
-  v8 = [*(self + 48) substringWithRange:?];
+  v7 = [*(self + 48) substringWithRange:?];
   if ([indexSet count])
   {
-    v9 = [v8 mutableCopy];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __27__PBTextReader__readString__block_invoke;
-    v11[3] = &unk_1E833D548;
-    v11[4] = v9;
-    [indexSet enumerateRangesWithOptions:2 usingBlock:v11];
-    return [v9 copy];
+    v8 = [v7 mutableCopy];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __27__PBTextReader__readString__block_invoke;
+    v10[3] = &unk_1E833D548;
+    v10[4] = v8;
+    [indexSet enumerateRangesWithOptions:2 usingBlock:v10];
+    return [v8 copy];
   }
 
-  return v8;
+  return v7;
 }
 
 - (uint64_t)_readValue
@@ -991,9 +986,9 @@ LABEL_25:
 - (uint64_t)_rangeOfCharactersInSetAtCurrentPosition:(uint64_t)position
 {
   v4 = [*(position + 48) rangeOfCharacterFromSet:a2 options:0 range:{*(position + 32), *(position + 40) - *(position + 32)}];
-  if (v4 != 0x7FFFFFFFFFFFFFFFLL && [*(position + 48) rangeOfCharacterFromSet:objc_msgSend(a2 options:"invertedSet") range:{0, v4, *(position + 40) - v4}] == 0x7FFFFFFFFFFFFFFFLL)
+  if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = *(position + 40);
+    [*(position + 48) rangeOfCharacterFromSet:objc_msgSend(a2 options:"invertedSet") range:{0, v4, *(position + 40) - v4}];
   }
 
   return v4;

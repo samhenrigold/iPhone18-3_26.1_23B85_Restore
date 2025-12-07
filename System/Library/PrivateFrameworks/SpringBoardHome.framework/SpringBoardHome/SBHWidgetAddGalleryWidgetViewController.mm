@@ -108,7 +108,7 @@
   [(SBHWidgetAddGalleryWidgetViewController *)self addChildViewController:contentViewController];
   [view addSubview:view2];
   [contentViewController didMoveToParentViewController:self];
-  [(SBHWidgetAddGalleryWidgetViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v7 = v6;
   [view _setContinuousCornerRadius:v6];
   [view2 _setContinuousCornerRadius:v7];
@@ -121,14 +121,14 @@
   v10.super_class = SBHWidgetAddGalleryWidgetViewController;
   [(SBHWidgetAddGalleryWidgetViewController *)&v10 viewDidLayoutSubviews];
   view = [(SBHWidgetAddGalleryWidgetViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   UIRectGetCenter();
   v5 = v4;
   v7 = v6;
   contentView = [(SBHWidgetAddGalleryWidgetViewController *)self contentView];
   [contentView setCenter:{v5, v7}];
   backgroundView = [(SBHWidgetAddGalleryWidgetViewController *)self backgroundView];
-  [contentView bounds];
+  objc_msgSend_bounds(contentView);
   [backgroundView setBounds:?];
   [backgroundView setCenter:{v5, v7}];
 }
@@ -249,16 +249,16 @@
   {
     v6 = contentViewController;
     snapshotView = [v6 snapshotView];
-    metrics = [v6 metrics];
+    view = objc_msgSend_metrics(v6);
 
-    [metrics scaleFactor];
+    [view scaleFactor];
     v10 = 1.0 / v9;
   }
 
   else
   {
-    metrics = [(SBHWidgetAddGalleryWidgetViewController *)self view];
-    snapshotView = [metrics snapshotViewAfterScreenUpdates:0];
+    view = [(SBHWidgetAddGalleryWidgetViewController *)self view];
+    snapshotView = [view snapshotViewAfterScreenUpdates:0];
     v10 = 1.0;
   }
 
@@ -269,7 +269,7 @@
   v17 = CGRectApplyAffineTransform(v16, &v13);
   v11 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v17.origin.x, v17.origin.y, v17.size.width, v17.size.height}];
   [v11 addSubview:snapshotView];
-  [v11 bounds];
+  objc_msgSend_bounds(v11);
   UIRectGetCenter();
   [snapshotView setCenter:?];
   v13 = v14;
@@ -281,7 +281,7 @@
 - (CGRect)visibleBounds
 {
   view = [(SBHWidgetAddGalleryWidgetViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -344,7 +344,7 @@
   }
   v4 = ;
   [v4 setClipsToBounds:!self->_showsSquareCorners];
-  [(SBHWidgetAddGalleryWidgetViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   [v4 _setContinuousCornerRadius:v5];
 
   return v4;

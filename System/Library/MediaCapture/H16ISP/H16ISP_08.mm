@@ -207,119 +207,119 @@ uint64_t CopyMaxPerFrameExposureDelta(uint64_t a1, CFNumberRef *a2, uint64_t a3,
   return v7;
 }
 
-uint64_t CopyFocusLastScanHistory(uint64_t a1, uint64_t a2)
+uint64_t CopyFocusLastScanHistory(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v33 = 0;
-  v8 = *MEMORY[0x277CBECE8];
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v32 = 0;
+  v7 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    v34[0] = 0;
-    v10 = CFArrayCreateMutable(v8, 0, MEMORY[0x277CBF128]);
-    if (!v10)
+    v33[0] = 0;
+    v9 = CFArrayCreateMutable(v7, 0, MEMORY[0x277CBF128]);
+    if (!v9)
     {
-      v13 = 4294954510;
+      v12 = 4294954510;
       goto LABEL_12;
     }
 
-    v11 = v10;
-    v32 = 0;
-    if (H16ISP::H16ISPDevice::GetFocusMode(*(v3 + 24), *(v5 + 156), &v32) || (v32 ? (v12 = MEMORY[0x277CF3D78]) : (v12 = MEMORY[0x277CF3D80]), CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DA8], *v12), bzero(v26, 0x8250uLL), v27 = -31730, v28 = *(v5 + 156), H16ISP::H16ISPDevice::ISP_SendCommand(*(v3 + 24), v26, 0x8250u, 0, 0xFFFFFFFF)))
+    v10 = v9;
+    v31 = 0;
+    if (H16ISP::H16ISPDevice::GetFocusMode(*(v2 + 24), *(v4 + 156), &v31) || (v31 ? (v11 = MEMORY[0x277CF3D78]) : (v11 = MEMORY[0x277CF3D80]), CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DA8], *v11), bzero(v25, 0x8250uLL), v26 = -31730, v27 = *(v4 + 156), H16ISP::H16ISPDevice::ISP_SendCommand(*(v2 + 24), v25, 0x8250u, 0, 0xFFFFFFFF)))
     {
-      v13 = 4294954516;
+      v12 = 4294954516;
 LABEL_9:
-      CFRelease(v11);
+      CFRelease(v10);
 LABEL_12:
       CFRelease(Mutable);
       Mutable = 0;
       goto LABEL_13;
     }
 
-    HIDWORD(v33) = v29;
-    v15 = CFNumberCreate(0, kCFNumberIntType, &v33 + 4);
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DB0], v15);
-    CFRelease(v15);
-    if (!HIDWORD(v33))
+    HIDWORD(v32) = v28;
+    v14 = CFNumberCreate(0, kCFNumberIntType, &v32 + 4);
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DB0], v14);
+    CFRelease(v14);
+    if (!HIDWORD(v32))
     {
-      v13 = 4294954513;
+      v12 = 4294954513;
       goto LABEL_9;
     }
 
-    v16 = CFArrayCreateMutable(v8, 0, MEMORY[0x277CBF128]);
-    if (!v16)
+    v15 = CFArrayCreateMutable(v7, 0, MEMORY[0x277CBF128]);
+    if (!v15)
     {
-      v13 = 4294954510;
+      v12 = 4294954510;
       goto LABEL_9;
     }
 
-    v17 = v16;
-    if (HIDWORD(v33))
+    v16 = v15;
+    if (HIDWORD(v32))
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        v34[0] = v30[v18];
-        v19 = CFNumberCreate(0, kCFNumberIntType, v34);
-        CFArrayAppendValue(v17, v19);
-        CFRelease(v19);
-        ++v18;
+        v33[0] = v29[v17];
+        v18 = CFNumberCreate(0, kCFNumberIntType, v33);
+        CFArrayAppendValue(v16, v18);
+        CFRelease(v18);
+        ++v17;
       }
 
-      while (v18 < HIDWORD(v33));
+      while (v17 < HIDWORD(v32));
     }
 
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DB8], v17);
-    CFRelease(v17);
-    v20 = 0;
-    v21 = v31;
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DB8], v16);
+    CFRelease(v16);
+    v19 = 0;
+    v20 = v30;
     do
     {
-      if (LOBYTE(v31[513 * v20 + 512]) != 1)
+      if (LOBYTE(v30[513 * v19 + 512]) != 1)
       {
         break;
       }
 
-      LODWORD(v33) = ++v20;
-      if (HIDWORD(v33))
+      LODWORD(v32) = ++v19;
+      if (HIDWORD(v32))
       {
-        v22 = 0;
-        v23 = v21;
+        v21 = 0;
+        v22 = v20;
         do
         {
-          v24 = CFNumberCreate(0, kCFNumberLongLongType, v23);
-          CFArrayAppendValue(v11, v24);
-          CFRelease(v24);
-          ++v22;
-          v23 += 8;
+          v23 = CFNumberCreate(0, kCFNumberLongLongType, v22);
+          CFArrayAppendValue(v10, v23);
+          CFRelease(v23);
+          ++v21;
+          v22 += 8;
         }
 
-        while (v22 < HIDWORD(v33));
+        while (v21 < HIDWORD(v32));
       }
 
-      v21 += 2052;
+      v20 += 2052;
     }
 
-    while (v20 != 16);
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DC0], v11);
-    CFRelease(v11);
-    v25 = CFNumberCreate(0, kCFNumberIntType, &v33);
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DC8], v25);
-    CFRelease(v25);
-    v13 = 0;
+    while (v19 != 16);
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DC0], v10);
+    CFRelease(v10);
+    v24 = CFNumberCreate(0, kCFNumberIntType, &v32);
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CF3DC8], v24);
+    CFRelease(v24);
+    v12 = 0;
   }
 
   else
   {
-    v13 = 4294954510;
+    v12 = 4294954510;
   }
 
 LABEL_13:
-  *v7 = Mutable;
-  return v13;
+  *v6 = Mutable;
+  return v12;
 }
 
 uint64_t CopySphereMode(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2121,7 +2121,7 @@ LABEL_28:
     v11 = *(a3 + 156);
   }
 
-  H16ISP::H16ISPDevice::RunAFIdentificationCalibration(*(a5 + 24), v11, &v33);
+  H16ISP::H16ISPDevice::RunAFIdentificationCalibration(*(a5 + 24), v11, v33);
   v17 = v16;
   v18 = *(a5 + 112);
   if (v18)
@@ -2160,10 +2160,10 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  *bytes = v33;
-  if (v33)
+  *bytes = v33[0];
+  if (v33[0])
   {
-    if (v33 != 1)
+    if (v33[0] != 1)
     {
       goto LABEL_35;
     }
@@ -3883,13 +3883,13 @@ uint64_t CopyTimeLapseCaptureConfiguration(const __CFAllocator *a1, __CFDictiona
   return result;
 }
 
-uint64_t CopyBackWideCalibratedExtrinsics(uint64_t a1, uint64_t a2)
+uint64_t CopyBackWideCalibratedExtrinsics(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v11 = *MEMORY[0x277D85DE8];
-  DistortionData = H16ISP::H16ISPDevice::GetDistortionData(*(v4 + 24), *(v5 + 156), 1, v10);
-  v7 = 0;
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v10 = *MEMORY[0x277D85DE8];
+  DistortionData = H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v4 + 156), 1, v9);
+  v6 = 0;
   if (DistortionData)
   {
     result = 4294954513;
@@ -3899,13 +3899,13 @@ uint64_t CopyBackWideCalibratedExtrinsics(uint64_t a1, uint64_t a2)
   {
     do
     {
-      v9[v7] = vcvt_hight_f32_f64(vcvt_f32_f64(*&v10[32 * v7 + 2232]), *&v10[32 * v7 + 2248]);
-      v7 = (v7 + 1);
+      v8[v6] = vcvt_hight_f32_f64(vcvt_f32_f64(*&v9[32 * v6 + 2232]), *&v9[32 * v6 + 2248]);
+      v6 = (v6 + 1);
     }
 
-    while (v7 != 3);
-    v7 = CFDataCreate(*MEMORY[0x277CBECE8], v9, 48);
-    if (v7)
+    while (v6 != 3);
+    v6 = CFDataCreate(*MEMORY[0x277CBECE8], v8, 48);
+    if (v6)
     {
       result = 0;
     }
@@ -3916,78 +3916,78 @@ uint64_t CopyBackWideCalibratedExtrinsics(uint64_t a1, uint64_t a2)
     }
   }
 
-  *v3 = v7;
+  *v2 = v6;
   return result;
 }
 
-uint64_t CopyBackWideCalibratedGDCCoefficients(uint64_t a1, uint64_t a2)
+uint64_t CopyBackWideCalibratedGDCCoefficients(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  *&v26[4116] = *MEMORY[0x277D85DE8];
-  v8 = *MEMORY[0x277CBECE8];
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  *&v25[4116] = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    if (H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v5 + 156), 1, v24))
+    if (H16ISP::H16ISPDevice::GetDistortionData(*(v2 + 24), *(v4 + 156), 1, v23))
     {
-      v10 = 4294954513;
+      v9 = 4294954513;
 LABEL_12:
       CFRelease(Mutable);
       Mutable = 0;
       goto LABEL_13;
     }
 
-    if (v25 == 49926)
+    if (v24 == 49926)
     {
-      v11 = &v23;
-      v12 = v26;
-      v13 = &v21;
-      v14 = 8;
+      v10 = &v22;
+      v11 = v25;
+      v12 = &v20;
+      v13 = 8;
       do
       {
-        v11[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(v12[-4]), v12[-3]);
-        *v11++ = vcvt_hight_f32_f64(vcvt_f32_f64(v12[-12]), v12[-11]);
-        v13[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*v12), v12[1]);
-        *v13++ = vcvt_hight_f32_f64(vcvt_f32_f64(v12[-8]), v12[-7]);
-        v12 += 2;
-        v14 -= 4;
+        v10[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(v11[-4]), v11[-3]);
+        *v10++ = vcvt_hight_f32_f64(vcvt_f32_f64(v11[-12]), v11[-11]);
+        v12[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*v11), v11[1]);
+        *v12++ = vcvt_hight_f32_f64(vcvt_f32_f64(v11[-8]), v11[-7]);
+        v11 += 2;
+        v13 -= 4;
       }
 
-      while (v14);
+      while (v13);
     }
 
-    v15 = CFDataCreate(v8, bytes, 64);
-    if (!v15 || (v16 = v15, CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4538], v15), CFRelease(v16), (v17 = CFDataCreate(v8, v20, 64)) == 0))
+    v14 = CFDataCreate(v7, bytes, 64);
+    if (!v14 || (v15 = v14, CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4538], v14), CFRelease(v15), (v16 = CFDataCreate(v7, v19, 64)) == 0))
     {
-      v10 = 4294954510;
+      v9 = 4294954510;
       goto LABEL_12;
     }
 
-    v18 = v17;
-    CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4540], v17);
-    CFRelease(v18);
-    v10 = 0;
+    v17 = v16;
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4540], v16);
+    CFRelease(v17);
+    v9 = 0;
   }
 
   else
   {
-    v10 = 4294954510;
+    v9 = 4294954510;
   }
 
 LABEL_13:
-  *v7 = Mutable;
-  return v10;
+  *v6 = Mutable;
+  return v9;
 }
 
-uint64_t CopyBackWideCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
+uint64_t CopyBackWideCalibratedOpticalCenter(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v9 = *MEMORY[0x277D85DE8];
-  if (H16ISP::H16ISPDevice::GetDistortionData(*(v4 + 24), *(v5 + 156), 1, v8))
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v8 = *MEMORY[0x277D85DE8];
+  if (H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v4 + 156), 1, v7))
   {
     DictionaryRepresentation = 0;
     result = 4294954513;
@@ -3995,9 +3995,9 @@ uint64_t CopyBackWideCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
 
   else
   {
-    v10.x = v8[548];
-    v10.y = v8[549];
-    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v10);
+    v9.x = v7[548];
+    v9.y = v7[549];
+    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v9);
     if (DictionaryRepresentation)
     {
       result = 0;
@@ -4009,7 +4009,7 @@ uint64_t CopyBackWideCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
     }
   }
 
-  *v3 = DictionaryRepresentation;
+  *v2 = DictionaryRepresentation;
   return result;
 }
 
@@ -6283,32 +6283,32 @@ LABEL_17:
   return 4294954514;
 }
 
-uint64_t CopyValidateCalibration(uint64_t a1, uint64_t a2)
+uint64_t CopyValidateCalibration(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = v4;
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 24577;
-  v11 = *(v6 + 156);
-  bzero(v12, 0x344CuLL);
-  result = H16ISP::H16ISPDevice::ISP_SendCommand(*(v3 + 24), v9, 0x3458u, 0, 0xFFFFFFFF);
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v12 = *MEMORY[0x277D85DE8];
+  v9 = 24577;
+  v10 = *(v5 + 156);
+  bzero(v11, 0x344CuLL);
+  result = H16ISP::H16ISPDevice::ISP_SendCommand(*(v2 + 24), v8, 0x3458u, 0, 0xFFFFFFFF);
   if (result)
   {
     return 4294954516;
   }
 
-  if (v12[0])
+  if (v11[0])
   {
-    v8 = MEMORY[0x277CBED28];
+    v7 = MEMORY[0x277CBED28];
   }
 
   else
   {
-    v8 = MEMORY[0x277CBED10];
+    v7 = MEMORY[0x277CBED10];
   }
 
-  *v5 = *v8;
+  *v4 = *v7;
   return result;
 }
 
@@ -6896,31 +6896,31 @@ uint64_t SetForceSingleChannelCommands(const void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t SetTorchManualParameters(uint64_t a1, uint64_t a2)
+uint64_t SetTorchManualParameters(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  v27 = *MEMORY[0x277D85DE8];
-  LODWORD(v25) = 101;
-  v8 = CFGetTypeID(v2);
-  if (v8 != CFDictionaryGetTypeID())
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  v26 = *MEMORY[0x277D85DE8];
+  LODWORD(v24) = 101;
+  v7 = CFGetTypeID(v1);
+  if (v7 != CFDictionaryGetTypeID())
   {
     return 4294954516;
   }
 
-  v22[0] = 0;
-  Value = CFDictionaryGetValue(v7, @"WarmLED0Level");
-  v10 = CFDictionaryGetValue(v7, @"WarmLED1Level");
-  v11 = CFDictionaryGetValue(v7, @"CoolLED0Level");
-  v12 = CFDictionaryGetValue(v7, @"CoolLED1Level");
-  v13 = v12;
-  if (v10)
+  v21[0] = 0;
+  Value = CFDictionaryGetValue(v6, @"WarmLED0Level");
+  v9 = CFDictionaryGetValue(v6, @"WarmLED1Level");
+  v10 = CFDictionaryGetValue(v6, @"CoolLED0Level");
+  v11 = CFDictionaryGetValue(v6, @"CoolLED1Level");
+  v12 = v11;
+  if (v9)
   {
-    CFNumberGetValue(v10, kCFNumberIntType, v22);
-    v14 = LOBYTE(v22[0]);
-    if (!v13)
+    CFNumberGetValue(v9, kCFNumberIntType, v21);
+    v13 = LOBYTE(v21[0]);
+    if (!v12)
     {
       goto LABEL_5;
     }
@@ -6928,47 +6928,47 @@ uint64_t SetTorchManualParameters(uint64_t a1, uint64_t a2)
     goto LABEL_4;
   }
 
-  v14 = 0;
-  if (v12)
+  v13 = 0;
+  if (v11)
   {
 LABEL_4:
-    CFNumberGetValue(v13, kCFNumberIntType, v22);
-    v14 = v14 & 0xFFFF00FF | (LOBYTE(v22[0]) << 8);
+    CFNumberGetValue(v12, kCFNumberIntType, v21);
+    v13 = v13 & 0xFFFF00FF | (LOBYTE(v21[0]) << 8);
   }
 
 LABEL_5:
   if (Value)
   {
-    CFNumberGetValue(Value, kCFNumberIntType, v22);
-    v14 = v14 & 0xFF00FFFF | (LOBYTE(v22[0]) << 16);
+    CFNumberGetValue(Value, kCFNumberIntType, v21);
+    v13 = v13 & 0xFF00FFFF | (LOBYTE(v21[0]) << 16);
   }
 
-  if (v11)
+  if (v10)
   {
-    CFNumberGetValue(v11, kCFNumberIntType, v22);
-    v14 |= v22[0] << 24;
+    CFNumberGetValue(v10, kCFNumberIntType, v21);
+    v13 |= v21[0] << 24;
   }
 
-  if (v14)
+  if (v13)
   {
-    if (!*(v6 + 160))
+    if (!*(v5 + 160))
     {
-      H16ISP::H16ISPDevice::ISP_EnableSensorPower(*(v4 + 24), *(v6 + 156), 1u, 1u);
+      H16ISP::H16ISPDevice::ISP_EnableSensorPower(*(v3 + 24), *(v5 + 156), 1u, 1u);
     }
 
-    v15 = *(v4 + 232);
+    v14 = *(v3 + 232);
+    if (v14)
+    {
+      v25 = 1;
+      H16ISP::H16ISPServicesRemote::SetProperty(v14, &v24);
+    }
+
+    v15 = H16ISP::H16ISPDevice::SetIndividualTorchLEDLevels(*(v3 + 24), *(v5 + 156), v13);
     if (v15)
     {
-      v26 = 1;
-      H16ISP::H16ISPServicesRemote::SetProperty(v15, &v25);
-    }
-
-    v16 = H16ISP::H16ISPDevice::SetIndividualTorchLEDLevels(*(v4 + 24), *(v6 + 156), v14);
-    if (v16)
-    {
-      v17 = *(v4 + 232);
-      v18 = 4294954516;
-      if (!v17)
+      v16 = *(v3 + 232);
+      v17 = 4294954516;
+      if (!v16)
       {
         goto LABEL_27;
       }
@@ -6976,58 +6976,58 @@ LABEL_5:
       goto LABEL_26;
     }
 
-    v18 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
-  v19 = H16ISP::H16ISPDevice::SetIndividualTorchLEDLevels(*(v4 + 24), *(v6 + 156), 0);
-  v16 = v19;
-  if (*(v6 + 160))
+  v18 = H16ISP::H16ISPDevice::SetIndividualTorchLEDLevels(*(v3 + 24), *(v5 + 156), 0);
+  v15 = v18;
+  if (*(v5 + 160))
   {
-    if (v19)
+    if (v18)
     {
 LABEL_22:
-      v18 = 4294954516;
+      v17 = 4294954516;
       goto LABEL_27;
     }
   }
 
   else
   {
-    H16ISP::H16ISPDevice::ISP_EnableSensorPower(*(v4 + 24), *(v6 + 156), 0, 0);
-    if (v16)
+    H16ISP::H16ISPDevice::ISP_EnableSensorPower(*(v3 + 24), *(v5 + 156), 0, 0);
+    if (v15)
     {
       goto LABEL_22;
     }
   }
 
-  v18 = 0;
-  v17 = *(v4 + 232);
-  if (v17)
+  v17 = 0;
+  v16 = *(v3 + 232);
+  if (v16)
   {
 LABEL_26:
-    v26 = 0;
-    H16ISP::H16ISPServicesRemote::SetProperty(v17, &v25);
+    v25 = 0;
+    H16ISP::H16ISPServicesRemote::SetProperty(v16, &v24);
   }
 
 LABEL_27:
-  v20 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+  v19 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
   {
-    v20 = os_log_create("com.apple.isp", "plugin");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v20;
+    v19 = os_log_create("com.apple.isp", "plugin");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v19;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v22[0] = 67109376;
-    v22[1] = v14;
-    v23 = 1024;
-    v24 = v16;
-    _os_log_impl(&dword_2247DB000, v20, OS_LOG_TYPE_INFO, "H16ISPCaptureDevice: Setting individual LED levels to %x. result=0x%08X\n\n", v22, 0xEu);
+    v21[0] = 67109376;
+    v21[1] = v13;
+    v22 = 1024;
+    v23 = v15;
+    _os_log_impl(&dword_2247DB000, v19, OS_LOG_TYPE_INFO, "H16ISPCaptureDevice: Setting individual LED levels to %x. result=0x%08X\n\n", v21, 0xEu);
   }
 
-  return v18;
+  return v17;
 }
 
 uint64_t SetLPDPFilterEnable(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7695,7 +7695,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t CopySensorNVM(uint64_t a1, void *a2, uint64_t a3)
+uint64_t CopySensorNVM(const __CFAllocator *a1, CFDataRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!*(a3 + 160))
   {
@@ -7706,93 +7706,93 @@ uint64_t CopySensorNVM(uint64_t a1, void *a2, uint64_t a3)
   return 4294954612;
 }
 
-uint64_t SetPCECalibration(uint64_t a1, uint64_t a2)
+uint64_t SetPCECalibration(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v17 = *MEMORY[0x277D85DE8];
-  if (!v2)
+  v1 = MEMORY[0x28223BE20](a1);
+  v16 = *MEMORY[0x277D85DE8];
+  if (!v1)
   {
     return 4294954516;
   }
 
-  v4 = v3;
-  v5 = v2;
-  v6 = CFGetTypeID(v2);
-  if (v6 != CFDataGetTypeID())
+  v3 = v2;
+  v4 = v1;
+  v5 = CFGetTypeID(v1);
+  if (v5 != CFDataGetTypeID())
   {
     return 4294954516;
   }
 
-  BytePtr = CFDataGetBytePtr(v5);
+  BytePtr = CFDataGetBytePtr(v4);
   if (!BytePtr)
   {
     return 4294954516;
   }
 
-  v8 = BytePtr;
-  v9 = *(v4 + 24);
-  SensorChannel = H16ISP::H16ISPDevice::getSensorChannel(v9, 1718186595, 1852793709);
+  v7 = BytePtr;
+  v8 = *(v3 + 24);
+  SensorChannel = H16ISP::H16ISPDevice::getSensorChannel(v8, 1718186595, 1852793709);
   if (SensorChannel == -1)
   {
     return 4294954514;
   }
 
-  v11 = SensorChannel;
-  bzero(v13, 0x340CuLL);
-  v14 = 24581;
-  v15 = v11;
-  memcpy(v16, v8, sizeof(v16));
-  return H16ISP::H16ISPDevice::ISP_SendCommand(v9, v13, 0x340Cu, 0, 0xFFFFFFFF);
+  v10 = SensorChannel;
+  bzero(v12, 0x340CuLL);
+  v13 = 24581;
+  v14 = v10;
+  memcpy(v15, v7, sizeof(v15));
+  return H16ISP::H16ISPDevice::ISP_SendCommand(v8, v12, 0x340Cu, 0, 0xFFFFFFFF);
 }
 
-uint64_t CopyPCECalibration(uint64_t a1, uint64_t a2)
+uint64_t CopyPCECalibration(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v5 = v2;
-  v10 = *MEMORY[0x277D85DE8];
-  if (!getPCECalib(*(v6 + 24), bytes))
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v4 = v1;
+  v9 = *MEMORY[0x277D85DE8];
+  if (!getPCECalib(*(v5 + 24)))
   {
     return 4294954516;
   }
 
-  v7 = CFDataCreate(v5, bytes, 13312);
+  v6 = CFDataCreate(v4, bytes, 13312);
   result = 0;
-  *v4 = v7;
+  *v3 = v6;
   return result;
 }
 
-uint64_t CopyPCEShiftParams(uint64_t a1, uint64_t a2)
+uint64_t CopyPCEShiftParams(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v5 = v2;
-  v11 = *MEMORY[0x277D85DE8];
-  if (!getPCECalib(*(v6 + 24), v10))
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v4 = v1;
+  v9 = *MEMORY[0x277D85DE8];
+  if (!getPCECalib(*(v5 + 24)))
   {
     return 4294954516;
   }
 
-  v7 = CFDataCreate(v5, bytes, 28);
+  v6 = CFDataCreate(v4, bytes, 28);
   result = 0;
-  *v4 = v7;
+  *v3 = v6;
   return result;
 }
 
-uint64_t CopyPCEDepthConfig(uint64_t a1, uint64_t a2)
+uint64_t CopyPCEDepthConfig(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v5 = v2;
-  v11 = *MEMORY[0x277D85DE8];
-  if (!getPCECalib(*(v6 + 24), v10))
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v4 = v1;
+  v9 = *MEMORY[0x277D85DE8];
+  if (!getPCECalib(*(v5 + 24)))
   {
     return 4294954516;
   }
 
-  v7 = CFDataCreate(v5, v9, 40);
+  v6 = CFDataCreate(v4, v8, 40);
   result = 0;
-  *v4 = v7;
+  *v3 = v6;
   return result;
 }
 
@@ -9549,7 +9549,7 @@ uint64_t CopyTimeOfFlightConfiguration(const __CFAllocator *a1, H16ISP::JasperCo
   return result;
 }
 
-uint64_t CopySupportedTimeOfFlightProjectorModes(const __CFAllocator *a1, __CFArray **a2)
+uint64_t CopySupportedTimeOfFlightProjectorModes(const __CFAllocator *a1, CFMutableArrayRef *a2)
 {
   Mutable = CFArrayCreateMutable(a1, 0, MEMORY[0x277CBF128]);
   v6[0] = MEMORY[0x277D85DD0];
@@ -9565,45 +9565,45 @@ uint64_t CopySupportedTimeOfFlightProjectorModes(const __CFAllocator *a1, __CFAr
   return 0;
 }
 
-uint64_t SetJasperWideExtrinsics(uint64_t a1, uint64_t a2)
+uint64_t SetJasperWideExtrinsics(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  v23[1659] = *MEMORY[0x277D85DE8];
-  isSensorType = H16ISP::H16ISPDevice::isSensorType(*(v3 + 24), *(v5 + 156), 1785950322);
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  v22[1659] = *MEMORY[0x277D85DE8];
+  isSensorType = H16ISP::H16ISPDevice::isSensorType(*(v2 + 24), *(v4 + 156), 1785950322);
   result = 4294954516;
-  if (v7 && isSensorType)
+  if (v6 && isSensorType)
   {
-    v10 = CFGetTypeID(v7);
-    if (v10 == CFArrayGetTypeID() && !*(v6 + 160) && CFArrayGetCount(v7) >= 3)
+    v9 = CFGetTypeID(v6);
+    if (v9 == CFArrayGetTypeID() && !*(v5 + 160) && CFArrayGetCount(v6) >= 3)
     {
-      LODWORD(v17) = 13;
-      ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
-      CFNumberGetValue(ValueAtIndex, kCFNumberFloat64Type, &v18);
-      v12 = CFArrayGetValueAtIndex(v7, 1);
+      LODWORD(v16) = 13;
+      ValueAtIndex = CFArrayGetValueAtIndex(v6, 0);
+      CFNumberGetValue(ValueAtIndex, kCFNumberFloat64Type, &v17);
+      v11 = CFArrayGetValueAtIndex(v6, 1);
+      CFNumberGetValue(v11, kCFNumberFloat64Type, &v18);
+      v12 = CFArrayGetValueAtIndex(v6, 2);
       CFNumberGetValue(v12, kCFNumberFloat64Type, &v19);
-      v13 = CFArrayGetValueAtIndex(v7, 2);
-      CFNumberGetValue(v13, kCFNumberFloat64Type, &v20);
-      if (CFArrayGetCount(v7) > 5)
+      if (CFArrayGetCount(v6) > 5)
       {
-        v14 = CFArrayGetValueAtIndex(v7, 3);
+        v13 = CFArrayGetValueAtIndex(v6, 3);
+        CFNumberGetValue(v13, kCFNumberFloat64Type, &v20);
+        v14 = CFArrayGetValueAtIndex(v6, 4);
         CFNumberGetValue(v14, kCFNumberFloat64Type, &v21);
-        v15 = CFArrayGetValueAtIndex(v7, 4);
-        CFNumberGetValue(v15, kCFNumberFloat64Type, &v22);
-        v16 = CFArrayGetValueAtIndex(v7, 5);
-        CFNumberGetValue(v16, kCFNumberFloat64Type, v23);
+        v15 = CFArrayGetValueAtIndex(v6, 5);
+        CFNumberGetValue(v15, kCFNumberFloat64Type, v22);
       }
 
       else
       {
+        v20 = 0;
         v21 = 0;
-        v22 = 0;
-        v23[0] = 0;
+        v22[0] = 0;
       }
 
-      if (H16ISP::H16ISPServicesRemote::SetProperty(*(v4 + 232), &v17))
+      if (H16ISP::H16ISPServicesRemote::SetProperty(*(v3 + 232), &v16))
       {
         return 4294954516;
       }
@@ -9779,12 +9779,12 @@ uint64_t CopyRgbjReport(const __CFAllocator *a1, __CFDictionary **a2, uint64_t a
   return result;
 }
 
-uint64_t RgbjForceSaveCalib(uint64_t a1, uint64_t a2)
+uint64_t RgbjForceSaveCalib(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v4[1665] = *MEMORY[0x277D85DE8];
-  LODWORD(v4[0]) = 12;
-  if (H16ISP::H16ISPServicesRemote::SetProperty(*(v2 + 232), v4))
+  MEMORY[0x28223BE20](a1);
+  v3[1665] = *MEMORY[0x277D85DE8];
+  LODWORD(v3[0]) = 12;
+  if (H16ISP::H16ISPServicesRemote::SetProperty(*(v1 + 232), v3))
   {
     return 4294954516;
   }

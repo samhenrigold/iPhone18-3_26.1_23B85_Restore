@@ -91,13 +91,14 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
 - (void)completeWithError:(id)error
 {
   errorCopy = error;
+  v6 = errorCopy;
   if (errorCopy)
   {
-    OspreyLoggingInit();
-    v5 = OspreyLogContextGRPC;
+    OspreyLoggingInit(errorCopy, v5);
+    v7 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
     {
-      [(OspreyGRPCStreamingContext *)v5 completeWithError:errorCopy];
+      [(OspreyGRPCStreamingContext *)v7 completeWithError:v6];
     }
   }
 
@@ -119,8 +120,8 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
   completion = self->_completion;
   if (completion)
   {
-    completion[2](completion, errorCopy);
-    v11 = self->_completion;
+    completion[2](completion, v6);
+    v13 = self->_completion;
     self->_completion = 0;
   }
 }
@@ -129,8 +130,8 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
 {
   dataCopy = data;
   messageReader = self->_messageReader;
-  OspreyLoggingInit();
-  v6 = OspreyLogContextGRPC;
+  OspreyLoggingInit(dataCopy, v6);
+  v7 = OspreyLogContextGRPC;
   if (messageReader)
   {
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
@@ -144,7 +145,7 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
 
   else if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
   {
-    [(OspreyGRPCStreamingContext *)v6 handleResponseData:v7, v8, v9, v10, v11, v12, v13];
+    [(OspreyGRPCStreamingContext *)v7 handleResponseData:v8, v9, v10, v11, v12, v13, v14];
   }
 }
 
@@ -152,13 +153,14 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
 {
   compressedCopy = compressed;
   frameCopy = frame;
+  v10 = frameCopy;
   if (self->_closed)
   {
-    OspreyLoggingInit();
-    v9 = OspreyLogContextGRPC;
+    OspreyLoggingInit(frameCopy, v9);
+    v11 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
     {
-      [(OspreyGRPCStreamingContext *)v9 _writeFrame:v10 compressed:v11 error:v12, v13, v14, v15, v16];
+      [(OspreyGRPCStreamingContext *)v11 _writeFrame:v12 compressed:v13 error:v14, v15, v16, v17, v18];
     }
   }
 
@@ -166,38 +168,38 @@ uint64_t __71__OspreyGRPCStreamingContext_initWithQueue_responseHandler_completi
   {
     if (compressedCopy && !self->_compressionEnabled)
     {
-      OspreyLoggingInit();
-      v17 = OspreyLogContextGRPC;
+      OspreyLoggingInit(frameCopy, v9);
+      v19 = OspreyLogContextGRPC;
       if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
       {
-        [(OspreyGRPCStreamingContext *)v17 _writeFrame:v18 compressed:v19 error:v20, v21, v22, v23, v24];
+        [(OspreyGRPCStreamingContext *)v19 _writeFrame:v20 compressed:v21 error:v22, v23, v24, v25, v26];
       }
 
       LOBYTE(compressedCopy) = 0;
     }
 
     queue = self->_queue;
-    v26 = qos_class_self();
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke;
-    v28[3] = &unk_2799F1D58;
-    v29 = frameCopy;
+    v28 = qos_class_self();
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke;
+    v30[3] = &unk_2799F1D58;
+    v31 = v10;
     selfCopy = self;
-    v32 = compressedCopy;
+    v34 = compressedCopy;
     errorCopy = error;
-    v27 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v26, 0, v28);
-    dispatch_async(queue, v27);
+    v29 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v28, 0, v30);
+    dispatch_async(queue, v29);
   }
 }
 
-uint64_t __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke(uint64_t a1)
+uint64_t __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  OspreyLoggingInit();
-  v2 = OspreyLogContextGRPC;
+  OspreyLoggingInit(a1, a2);
+  v3 = OspreyLogContextGRPC;
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
-    __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke_cold_1(a1, v2);
+    __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke_cold_1(a1, v3);
   }
 
   return [*(*(a1 + 40) + 32) writeMessageData:*(a1 + 32) toStream:*(*(a1 + 40) + 48) compressionEnabled:*(a1 + 56) error:*(a1 + 48)];
@@ -221,6 +223,27 @@ uint64_t __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_i
   v4 = v0;
   v5 = v1;
   _os_log_debug_impl(&dword_25DDE6000, v2, OS_LOG_TYPE_DEBUG, "%s %@ handling %@", v3, 0x20u);
+}
+
+- (void)handleResponseData:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyGRPCStreamingContext handleResponseData:]";
+  OUTLINED_FUNCTION_0(&dword_25DDE6000, a1, a3, "%s Attempted to handle response data when context is closed.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_writeFrame:(uint64_t)a3 compressed:(uint64_t)a4 error:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyGRPCStreamingContext _writeFrame:compressed:error:]";
+  OUTLINED_FUNCTION_0(&dword_25DDE6000, a1, a3, "%s Attempted to compress data frame on request that hasn't negotiated compression.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_writeFrame:(uint64_t)a3 compressed:(uint64_t)a4 error:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyGRPCStreamingContext _writeFrame:compressed:error:]";
+  OUTLINED_FUNCTION_0(&dword_25DDE6000, a1, a3, "%s Attempted to write frame when context is closed.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __59__OspreyGRPCStreamingContext__writeFrame_compressed_error___block_invoke_cold_1(uint64_t a1, void *a2)

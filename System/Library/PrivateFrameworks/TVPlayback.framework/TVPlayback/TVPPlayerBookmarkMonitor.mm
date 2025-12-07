@@ -5,6 +5,7 @@
 - (void)_playerCurrentMediaItemWillChange:(id)change;
 - (void)_playerErrorDidOccur:(id)occur;
 - (void)_playerStateWillChange:(id)change;
+- (void)_updateBookmarkTimeForMediaItem:(id)item player:(id)player playbackOfMediaItemIsEnding:(BOOL)ending;
 - (void)_updatePlayCountForMediaItem:(id)item player:(id)player;
 - (void)dealloc;
 @end
@@ -204,17 +205,38 @@ LABEL_22:
   }
 }
 
+- (void)_updateBookmarkTimeForMediaItem:(id)item player:(id)player playbackOfMediaItemIsEnding:(BOOL)ending
+{
+  endingCopy = ending;
+  itemCopy = item;
+  playerCopy = player;
+  if (objc_opt_respondsToSelector())
+  {
+    objc_msgSend_duration(playerCopy);
+    v10 = v9;
+    v11 = v9 == 0.0 || v9 == 3.40282347e38;
+    if (!v11 && [(TVPPlayerBookmarkMonitor *)self playerHasFinishedLoading])
+    {
+      objc_msgSend_elapsedTime(playerCopy);
+      v13 = v12;
+      v14 = [itemCopy mediaItemMetadataForProperty:@"TVPMediaItemMetadataWatchedTime"];
+      [TVPPlaybackUtilities suggestedBookmarkTimeForElapsedTime:v14 duration:v13 playedThreshold:v10];
+      [itemCopy updateBookmarkWithSuggestedTime:endingCopy forElapsedTime:? duration:? playbackOfMediaItemIsEnding:?];
+    }
+  }
+}
+
 - (void)_updatePlayCountForMediaItem:(id)item player:(id)player
 {
   itemCopy = item;
   playerCopy = player;
   if (objc_opt_respondsToSelector())
   {
-    [playerCopy duration];
+    objc_msgSend_duration(playerCopy);
     v8 = v7 == 0.0 || v7 == 3.40282347e38;
     if (!v8 && [(TVPPlayerBookmarkMonitor *)self playerHasFinishedLoading])
     {
-      [playerCopy elapsedTime];
+      objc_msgSend_elapsedTime(playerCopy);
       [itemCopy updatePlayCountForElapsedTime:? duration:?];
     }
   }

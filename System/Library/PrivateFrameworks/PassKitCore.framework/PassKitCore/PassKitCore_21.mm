@@ -1,3 +1,50 @@
+__CFString *PKDecryptionSchemeVersionToString(uint64_t a1)
+{
+  v1 = @"EC_v3";
+  if (a1 != 1)
+  {
+    v1 = 0;
+  }
+
+  if (a1 == 2)
+  {
+    return @"hpke";
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+void sub_1AD628970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 160), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD62D49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+__CFString *PKPassShareActivationOptionTypeToString(uint64_t a1)
+{
+  if ((a1 - 1) > 3)
+  {
+    return @"unknown";
+  }
+
+  else
+  {
+    return off_1E79CC238[a1 - 1];
+  }
+}
+
 uint64_t PKPassShareActivationOptionTypeFromString(void *a1)
 {
   v1 = a1;
@@ -14,26 +61,26 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"pinCode"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"externallyEnteredPin" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"externallyEnteredPin"], v6, (v7 & 1) != 0))
+    if (v5 == @"externallyEnteredPin" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_15;
     }
 
     v8 = v6;
-    if (v8 == @"secondaryKey" || (v9 = v8, v10 = [(__CFString *)v8 isEqualToString:@"secondaryKey"], v9, (v10 & 1) != 0))
+    if (v8 == @"secondaryKey" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(v8), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_15;
     }
 
     v11 = v9;
-    if (v11 == @"onlineSharingPin" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"onlineSharingPin"], v12, v13))
+    if (v11 == @"onlineSharingPin" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, v13))
     {
       v4 = 4;
       goto LABEL_15;
@@ -85,7 +132,7 @@ Class initSTSCredential()
 
   result = objc_getClass("STSCredential");
   qword_1ED6D18B8 = result;
-  getSTSCredentialClass[0] = STSCredentialFunction;
+  getSTSCredentialClass = STSCredentialFunction;
   return result;
 }
 
@@ -118,12 +165,12 @@ __CFString *PKProxCardTypeToString(uint64_t a1)
 uint64_t PKIdentityProofingDisplayMessageActionTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"PKIdentityProofingDisplayMessageActionTypeRetryProofing"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"PKIdentityProofingDisplayMessageActionTypeOpenURL"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
@@ -152,12 +199,12 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"phone"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"watch" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"watch"], v6, v7))
+    if (v5 == @"watch" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, v7))
     {
       v4 = 2;
       goto LABEL_9;
@@ -189,82 +236,82 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  v3 = [@"actionRequired" isEqualToString:v1];
+  isEqualToString = objc_msgSend_isEqualToString_(@"actionRequired");
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"pending" || (v6 = v5, v7 = [@"pending" isEqualToString:v5], v6, (v7 & 1) != 0))
+    if (v5 == @"pending" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(@"pending"), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_39;
     }
 
     v8 = v6;
-    if (v8 == @"readyToAdd" || (v9 = v8, v10 = [@"readyToAdd" isEqualToString:v8], v9, (v10 & 1) != 0))
+    if (v8 == @"readyToAdd" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(@"readyToAdd"), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_39;
     }
 
     v11 = v9;
-    if (v11 == @"none" || (v12 = v11, v13 = [@"none" isEqualToString:v11], v12, (v13 & 1) != 0))
+    if (v11 == @"none" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"none"), v12, (v13 & 1) != 0))
     {
       v4 = 4;
       goto LABEL_39;
     }
 
     v14 = v12;
-    if (v14 == @"enterAuthCode" || (v15 = v14, v16 = [@"enterAuthCode" isEqualToString:v14], v15, (v16 & 1) != 0))
+    if (v14 == @"enterAuthCode" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"enterAuthCode"), v15, (v16 & 1) != 0))
     {
       v4 = 5;
       goto LABEL_39;
     }
 
     v17 = v15;
-    if (v17 == @"retryAddingID" || (v18 = v17, v19 = [@"retryAddingID" isEqualToString:v17], v18, (v19 & 1) != 0))
+    if (v17 == @"retryAddingID" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(@"retryAddingID"), v18, (v19 & 1) != 0))
     {
       v4 = 6;
       goto LABEL_39;
     }
 
     v20 = v18;
-    if (v20 == @"processingRequest" || (v21 = v20, v22 = [@"processingRequest" isEqualToString:v20], v21, (v22 & 1) != 0))
+    if (v20 == @"processingRequest" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(@"processingRequest"), v21, (v22 & 1) != 0))
     {
       v4 = 7;
       goto LABEL_39;
     }
 
     v23 = v21;
-    if (v23 == @"cannotAddID" || (v24 = v23, v25 = [@"cannotAddID" isEqualToString:v23], v24, (v25 & 1) != 0))
+    if (v23 == @"cannotAddID" || (v24 = v23, v25 = objc_msgSend_isEqualToString_(@"cannotAddID"), v24, (v25 & 1) != 0))
     {
       v4 = 8;
       goto LABEL_39;
     }
 
     v26 = v24;
-    if (v26 == @"unableToAddID" || (v27 = v26, v28 = [@"unableToAddID" isEqualToString:v26], v27, (v28 & 1) != 0))
+    if (v26 == @"unableToAddID" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(@"unableToAddID"), v27, (v28 & 1) != 0))
     {
       v4 = 9;
       goto LABEL_39;
     }
 
     v29 = v27;
-    if (v29 == @"waitingForWifi" || (v30 = v29, v31 = [@"waitingForWifi" isEqualToString:v29], v30, (v31 & 1) != 0))
+    if (v29 == @"waitingForWifi" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(@"waitingForWifi"), v30, (v31 & 1) != 0))
     {
       v4 = 10;
       goto LABEL_39;
     }
 
     v32 = v30;
-    if (v32 == @"retryAuthCode" || (v33 = v32, v34 = [@"retryAuthCode" isEqualToString:v32], v33, (v34 & 1) != 0))
+    if (v32 == @"retryAuthCode" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(@"retryAuthCode"), v33, (v34 & 1) != 0))
     {
       v4 = 11;
       goto LABEL_39;
     }
 
     v35 = v33;
-    if (v35 == @"livenessStepUp" || (v36 = v35, v37 = [@"livenessStepUp" isEqualToString:v35], v36, v37))
+    if (v35 == @"livenessStepUp" || (v36 = v35, v37 = objc_msgSend_isEqualToString_(@"livenessStepUp"), v36, v37))
     {
       v4 = 12;
       goto LABEL_39;
@@ -395,7 +442,7 @@ id PKSearchAmountComparisonsFromAmountItems(void *a1)
   return v11;
 }
 
-id PKSearchTokensOfGroupTypeFromTokens(uint64_t a1, void *a2)
+id PKSearchTokensOfGroupTypeFromTokens(void *a1, void *a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -444,7 +491,7 @@ id PKSearchTokensOfGroupTypeFromTokens(uint64_t a1, void *a2)
   return v14;
 }
 
-id PKSearchTokensOfTypeFromTokens(uint64_t a1, void *a2)
+id PKSearchTokensOfTypeFromTokens(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -525,9 +572,9 @@ LABEL_32:
         goto LABEL_30;
       }
 
-      v8 = [(__CFString *)v4 isEqualToString:@"wallet.apple.com"];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-      if (!v8)
+      if (!isEqualToString)
       {
         goto LABEL_30;
       }
@@ -536,7 +583,7 @@ LABEL_32:
     v9 = [v1 pathComponents];
     v10 = [v9 count];
 
-    if (v10 < 3 || (([v1 pathComponents], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectAtIndexedSubscript:", 1), v12 = objc_claimAutoreleasedReturnValue(), v13 = v12, v12 == @"dashboard") ? (v14 = 0) : !v12 ? (v14 = 1) : (v14 = -[__CFString isEqualToString:](v12, "isEqualToString:", @"dashboard") ^ 1), (v13, v13, v11, objc_msgSend(v1, "pathComponents"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectAtIndexedSubscript:", 2), v16 = objc_claimAutoreleasedReturnValue(), v17 = v16, v16 == @"action") ? (v18 = 0) : !v16 ? (v18 = 1) : (v18 = -[__CFString isEqualToString:](v16, "isEqualToString:", @"action") ^ 1), v17, v17, v15, ((v14 | v18) & 1) != 0))
+    if (v10 < 3 || (([v1 pathComponents], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectAtIndexedSubscript:", 1), v12 = objc_claimAutoreleasedReturnValue(), v13 = v12, v12 == @"dashboard") ? (v14 = 0) : !v12 ? (v14 = 1) : (v14 = objc_msgSend_isEqualToString_(v12) ^ 1), (v13, v13, v11, objc_msgSend(v1, "pathComponents"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectAtIndexedSubscript:", 2), v16 = objc_claimAutoreleasedReturnValue(), v17 = v16, v16 == @"action") ? (v18 = 0) : !v16 ? (v18 = 1) : (v18 = objc_msgSend_isEqualToString_(v16) ^ 1), v17, v17, v15, ((v14 | v18) & 1) != 0))
     {
       v7 = 2;
       goto LABEL_32;
@@ -1489,19 +1536,19 @@ uint64_t __PKUpdateAllCalendarEventsOriginatingFromPass_block_invoke_40(uint64_t
   v9 = v8;
   if (v7 == v8)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
     if (v7 && v8)
     {
-      v10 = [v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
     }
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 Class initMKMapItem()
@@ -2026,26 +2073,26 @@ uint64_t PKPayLaterEnvironmentTypeFromString(void *a1)
   v2 = v1;
   if (v1 != @"production" && v1 != 0)
   {
-    v4 = [@"production" isEqualToString:v1];
+    isEqualToString = objc_msgSend_isEqualToString_(@"production");
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v2;
-      if (v7 == @"develop" || (v8 = v7, v9 = [@"develop" isEqualToString:v7], v8, (v9 & 1) != 0))
+      if (v7 == @"develop" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(@"develop"), v8, (v9 & 1) != 0))
       {
         v5 = 1;
         goto LABEL_7;
       }
 
       v10 = v8;
-      if (v10 == @"QA" || (v11 = v10, v12 = [@"QA" isEqualToString:v10], v11, (v12 & 1) != 0))
+      if (v10 == @"QA" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(@"QA"), v11, (v12 & 1) != 0))
       {
         v5 = 2;
         goto LABEL_7;
       }
 
       v13 = v11;
-      if (v13 == @"UAT" || (v14 = v13, v15 = [@"UAT" isEqualToString:v13], v14, v15))
+      if (v13 == @"UAT" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(@"UAT"), v14, v15))
       {
         v5 = 3;
         goto LABEL_7;
@@ -2076,19 +2123,19 @@ uint64_t PKPayLaterThemeFromString(void *a1)
   v2 = v1;
   if (v1 != @"auto" && v1 != 0)
   {
-    v4 = [(__CFString *)v1 isEqualToString:@"auto"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v2;
-      if (v7 == @"light" || (v8 = v7, v9 = [(__CFString *)v7 isEqualToString:@"light"], v8, (v9 & 1) != 0))
+      if (v7 == @"light" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(v7), v8, (v9 & 1) != 0))
       {
         v5 = 1;
         goto LABEL_7;
       }
 
       v10 = v8;
-      if (v10 == @"dark" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"dark"], v11, v12))
+      if (v10 == @"dark" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, v12))
       {
         v5 = 2;
         goto LABEL_7;
@@ -2119,26 +2166,26 @@ uint64_t PKPayLaterDisplayStyleFromString(void *a1)
   v2 = v1;
   if (v1 != @"plain" && v1 != 0)
   {
-    v4 = [(__CFString *)v1 isEqualToString:@"plain"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v2;
-      if (v7 == @"badge" || (v8 = v7, v9 = [(__CFString *)v7 isEqualToString:@"badge"], v8, (v9 & 1) != 0))
+      if (v7 == @"badge" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(v7), v8, (v9 & 1) != 0))
       {
         v5 = 1;
         goto LABEL_7;
       }
 
       v10 = v8;
-      if (v10 == @"checkout" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"checkout"], v11, (v12 & 1) != 0))
+      if (v10 == @"checkout" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, (v12 & 1) != 0))
       {
         v5 = 2;
         goto LABEL_7;
       }
 
       v13 = v11;
-      if (v13 == @"price" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"price"], v14, v15))
+      if (v13 == @"price" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v15))
       {
         v5 = 3;
         goto LABEL_7;
@@ -2176,12 +2223,12 @@ BOOL PKPayLaterActionFromString(void *a1)
   v8 = 0;
   if (!v3)
   {
-    v4 = [(__CFString *)v1 isEqualToString:@"learn-more"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v5 = v2;
-      if (v5 == @"calculator" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"calculator"], v6, v7))
+      if (v5 == @"calculator" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, v7))
       {
         v8 = 1;
       }
@@ -2536,9 +2583,9 @@ LABEL_25:
   return v20;
 }
 
-void sub_1AD663B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD663B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2546,182 +2593,182 @@ void sub_1AD663B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t PKBillPaymentSuggestedAmountCategoryFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"MinimumRemainingPayment"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"LastPayment"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"LastPaymentPlusMerchantCategory1"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"LastPaymentPlusMerchantCategory2"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"NewPurchases"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"PayInNineMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"PayInEightMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"PayInSevenMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"PayInSixMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"PayInFiveMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"PayInFourMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"PayInThreeMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"PayInTwoMonths"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"PayInNineMonthsFromUtilization"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"PayInSixMonthsFromUtilization"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"PayInThreeMonthsFromUtilization"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"PayInPlanCompletion"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"RemainingStatementBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"CurrentBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"OneThirdOfCurrentBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"OneSixthOfCurrentBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"OneNinthOfCurrentBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
 
-  else if ([v1 isEqualToString:@"PayInThreeMonthsForTransactor"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 23;
   }
 
-  else if ([v1 isEqualToString:@"PayInSixMonthsForTransactor"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"PayInNineMonthsForTransactor"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 25;
   }
 
-  else if ([v1 isEqualToString:@"OneThirdOfStatementBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 26;
   }
 
-  else if ([v1 isEqualToString:@"OneSixthOfStatementBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 27;
   }
 
-  else if ([v1 isEqualToString:@"OneNinthOfStatementBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 28;
   }
 
-  else if ([v1 isEqualToString:@"AverageOfMinimumAndStatetmentBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 29;
   }
 
-  else if ([v1 isEqualToString:@"CardBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 30;
   }
 
-  else if ([v1 isEqualToString:@"CombinedBalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 31;
   }
 
-  else if ([v1 isEqualToString:@"VeryExpensivePurchase"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 32;
   }
 
-  else if ([v1 isEqualToString:@"RecurringExpenses"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 33;
   }
 
-  else if ([v1 isEqualToString:@"TopMerchant"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 34;
   }
 
-  else if ([v1 isEqualToString:@"RecentTrip"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 35;
   }
 
-  else if ([v1 isEqualToString:@"PeakSpendDay"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 36;
   }
@@ -2814,23 +2861,23 @@ uint64_t PKBillPaymentSuggestedAmountCategoryToPaymentRingInstrumentation(unint6
   }
 }
 
-void sub_1AD668320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD668320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD668DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD668DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD6727B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD6727B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2846,17 +2893,17 @@ void sub_1AD674254(_Unwind_Exception *a1)
 uint64_t PKPeerPaymentDynamicFraudPageBodyContentTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([@"text" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"text"))
   {
     v2 = 1;
   }
 
-  else if ([@"link" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"link"))
   {
     v2 = 2;
   }
 
-  else if ([@"bulletedList" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"bulletedList"))
   {
     v2 = 3;
   }
@@ -2885,17 +2932,17 @@ __CFString *PKPeerPaymentDynamicFraudPageBodyContentTypeToString(uint64_t a1)
 uint64_t PKPeerPaymentDynamicFraudPageBodyTextContentFormatTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([@"bold" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"bold"))
   {
     v2 = 1;
   }
 
-  else if ([@"italic" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"italic"))
   {
     v2 = 2;
   }
 
-  else if ([@"underline" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"underline"))
   {
     v2 = 3;
   }
@@ -3119,7 +3166,7 @@ id PKEnrouteTransitTypesForTransactionsInProgress(void *a1)
   return v3;
 }
 
-uint64_t PKDeviceEnvironmentClientToString(uint64_t a1, void **a2)
+uint64_t PKDeviceEnvironmentClientToString(uint64_t a1, __CFString **a2)
 {
   if (a2)
   {
@@ -3216,7 +3263,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
 {
   v1 = a1;
   v2 = v1;
-  if (v1 == @"twoLineDefault" || v1 && (v3 = [(__CFString *)v1 isEqualToString:@"twoLineDefault"], v2, v2, (v3 & 1) != 0))
+  if (v1 == @"twoLineDefault" || v1 && (v3 = objc_msgSend_isEqualToString_(v1), v2, v2, (v3 & 1) != 0))
   {
     v4 = 0;
   }
@@ -3224,7 +3271,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
   else
   {
     v5 = v2;
-    if (v5 == @"twoLineCompact" || (v6 = v5, v2) && (v7 = [(__CFString *)v5 isEqualToString:@"twoLineCompact"], v6, v6, (v7 & 1) != 0))
+    if (v5 == @"twoLineCompact" || (v6 = v5, v2) && (v7 = objc_msgSend_isEqualToString_(v5), v6, v6, (v7 & 1) != 0))
     {
       v4 = 1;
     }
@@ -3232,7 +3279,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
     else
     {
       v8 = v6;
-      if (v8 == @"threeLineDefault" || (v9 = v8, v2) && (v10 = [(__CFString *)v8 isEqualToString:@"threeLineDefault"], v9, v9, (v10 & 1) != 0))
+      if (v8 == @"threeLineDefault" || (v9 = v8, v2) && (v10 = objc_msgSend_isEqualToString_(v8), v9, v9, (v10 & 1) != 0))
       {
         v4 = 2;
       }
@@ -3240,7 +3287,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
       else
       {
         v11 = v9;
-        if (v11 == @"threeLineCompact" || (v12 = v11, v2) && (v13 = [(__CFString *)v11 isEqualToString:@"threeLineCompact"], v12, v12, (v13 & 1) != 0))
+        if (v11 == @"threeLineCompact" || (v12 = v11, v2) && (v13 = objc_msgSend_isEqualToString_(v11), v12, v12, (v13 & 1) != 0))
         {
           v4 = 3;
         }
@@ -3248,7 +3295,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
         else
         {
           v14 = v12;
-          if (v14 == @"dynamicDefault" || (v15 = v14, v2) && (v16 = [(__CFString *)v14 isEqualToString:@"dynamicDefault"], v15, v15, (v16 & 1) != 0))
+          if (v14 == @"dynamicDefault" || (v15 = v14, v2) && (isEqualToString = objc_msgSend_isEqualToString_(v14), v15, v15, (isEqualToString & 1) != 0))
           {
             v4 = 4;
           }
@@ -3269,7 +3316,7 @@ uint64_t PKPassTileStateStyleFromString(void *a1)
 
             if (v17 != @"dynamicCompact" && v2)
             {
-              if ([(__CFString *)v17 isEqualToString:@"dynamicCompact"])
+              if (objc_msgSend_isEqualToString_(v17))
               {
                 v4 = 5;
               }
@@ -3341,13 +3388,13 @@ LABEL_29:
 
   v10 = [(__CFString *)v8 host];
   v11 = [v5 host];
-  v12 = [v10 isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  if (v12)
+  if (isEqualToString)
   {
     v13 = [(__CFString *)v8 path];
     v14 = [v5 path];
-    v15 = [v13 isEqualToString:v14];
+    v15 = objc_msgSend_isEqualToString_(v13);
 
     if (v15)
     {
@@ -4006,7 +4053,7 @@ void PKCheckRevocationStatus(void *a1, void *a2)
     goto LABEL_17;
   }
 
-  v10 = _PKVerifySignatureLocally(v3, v8);
+  v10 = _PKVerifySignatureLocally(v3, v8, 1, &trust, 0);
 
   if (v10 || !trust)
   {
@@ -4879,9 +4926,9 @@ id _PKValidateApplicationStateMessagingOverrideDict(void *a1)
   return v2;
 }
 
-void sub_1AD688A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD688A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5031,7 +5078,7 @@ LABEL_19:
 
 id _PKValidateAssociatedReaderDict(void *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_opt_class();
   v3 = _PKVerifyDictionaryKey(v1, @"readerID", 0, v2, 0);
@@ -5042,9 +5089,9 @@ id _PKValidateAssociatedReaderDict(void *a1)
     goto LABEL_24;
   }
 
-  v31 = 0;
+  v32 = 0;
   v6 = objc_opt_class();
-  v7 = _PKVerifyDictionaryKey(v1, @"readerCAs", 0, v6, &v31);
+  v7 = _PKVerifyDictionaryKey(v1, @"readerCAs", 0, v6, &v32);
   if (v7)
   {
     v4 = v7;
@@ -5052,34 +5099,34 @@ id _PKValidateAssociatedReaderDict(void *a1)
     goto LABEL_23;
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v8 = v31;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v29 = 0u;
+  v8 = v32;
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (!v9)
   {
     goto LABEL_19;
   }
 
   v10 = v9;
-  v11 = *v28;
+  v11 = *v29;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v28 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v27 + 1) + 8 * i);
+      v13 = *(*(&v28 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v19 = objc_opt_class();
-        v5 = PKValidationErrorWithReason(@"entry in readerCAs needs to be a dictionary. Found object of class %@.", v20, v21, v22, v23, v24, v25, v26, v19);
+        v20 = objc_opt_class();
+        v5 = PKValidationErrorWithReason(@"entry in readerCAs needs to be a dictionary. Found object of class %@.", v21, v22, v23, v24, v25, v26, v27, v20);
         v4 = 0;
 LABEL_22:
 
@@ -5087,12 +5134,12 @@ LABEL_22:
       }
 
       v14 = v13;
-      v32 = 0;
+      v33 = 0;
       v15 = objc_opt_class();
-      v16 = _PKVerifyDictionaryKey(v14, @"scheme", 0, v15, &v32);
-      if (!v16)
+      v17 = _PKVerifyDictionaryKey(v14, @"scheme", 0, v15, &v33);
+      if (!v17)
       {
-        result = PKTerminalPublicKeySchemeFromString(v32);
+        result = PKTerminalPublicKeySchemeFromString(v33, v16);
         if (result)
         {
           if (result != 1)
@@ -5101,25 +5148,25 @@ LABEL_22:
             return result;
           }
 
-          v18 = objc_opt_class();
-          v16 = _PKVerifyDictionaryKey(v14, @"publicKey", 0, v18, 0);
+          v19 = objc_opt_class();
+          v17 = _PKVerifyDictionaryKey(v14, @"publicKey", 0, v19, 0);
         }
 
         else
         {
-          v16 = 0;
+          v17 = 0;
         }
       }
 
-      if (v16)
+      if (v17)
       {
-        v4 = v16;
+        v4 = v17;
         v5 = v4;
         goto LABEL_22;
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v10)
     {
       continue;
@@ -6258,7 +6305,7 @@ LABEL_360:
 
             v355 = v393;
             v356 = _PKEnumValueToString(1, @"PKPassSharingMethod", @"PKPassSharingMethodDisabled, PKPassSharingMethodPass, PKPassSharingMethodURL", v350, v351, v352, v353, v354, -1);
-            LODWORD(v355) = [v355 isEqualToString:v356];
+            LODWORD(v355) = objc_msgSend_isEqualToString_(v355);
 
             if (v355)
             {
@@ -6967,9 +7014,9 @@ id _PKValidateSemanticsDict(void *a1, void *a2)
   return v6;
 }
 
-void sub_1AD68CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD68CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7673,9 +7720,9 @@ id _PKValidateFieldDict(void *a1, void *a2, void *a3, char a4)
       goto LABEL_27;
     }
 
-    v32 = [(__CFString *)v30 isEqualToString:@"auto_top_up_field_value"];
+    isEqualToString = objc_msgSend_isEqualToString_(v30);
 
-    if (!v32)
+    if (!isEqualToString)
     {
       goto LABEL_27;
     }
@@ -8009,7 +8056,7 @@ LABEL_113:
 
       else
       {
-        if (v151 && [v151 unsignedIntegerValue] >= 2 && objc_msgSend(v9, "isEqualToString:", @"auxiliaryFields"))
+        if (v151 && [v151 unsignedIntegerValue] >= 2 && objc_msgSend_isEqualToString_(v9))
         {
           v148 = PKValidationWarningWithReason(@"row in field with key %@ must have the value of 0 or 1.", v141, v142, v143, v144, v145, v146, v147, v170);
 
@@ -8908,9 +8955,9 @@ void sub_1AD691DE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AD692460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD692460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8922,10 +8969,10 @@ void sub_1AD6926B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AD6928A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD6928A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 48));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 48));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9010,17 +9057,17 @@ void PDScheduledActivityClientRegister(void *a1, void *a2, void *a3)
   }
 }
 
-void __PDScheduledActivityClientRegister_block_invoke(uint64_t a1)
+void __PDScheduledActivityClientRegister_block_invoke(void *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = _RegisteredClients();
-  v3 = [v2 objectForKeyedSubscript:*(a1 + 32)];
+  v3 = [v2 objectForKeyedSubscript:a1[4]];
 
   if (v3)
   {
     v4 = [v3 isValid];
-    [v3 setClientInstance:*(a1 + 40)];
-    [v3 setActivityQueue:*(a1 + 48)];
+    [v3 setClientInstance:a1[5]];
+    [v3 setActivityQueue:a1[6]];
     if ((v4 & 1) == 0)
     {
       v5 = [v3 activityRegistrations];
@@ -9046,7 +9093,7 @@ void __PDScheduledActivityClientRegister_block_invoke(uint64_t a1)
               objc_enumerationMutation(v7);
             }
 
-            _RegisterXPCActivity(*(a1 + 32), *(*(&v14 + 1) + 8 * v11++));
+            _RegisterXPCActivity(a1[4], *(*(&v14 + 1) + 8 * v11++));
           }
 
           while (v9 != v11);
@@ -9060,9 +9107,9 @@ void __PDScheduledActivityClientRegister_block_invoke(uint64_t a1)
 
   else
   {
-    v12 = [[PDScheduledActivityClient alloc] initWithClientInstance:*(a1 + 40) activityQueue:*(a1 + 48)];
+    v12 = [[PDScheduledActivityClient alloc] initWithClientInstance:a1[5] activityQueue:a1[6]];
     v13 = _RegisteredClients();
-    [v13 setObject:v12 forKeyedSubscript:*(a1 + 32)];
+    [v13 setObject:v12 forKeyedSubscript:a1[4]];
 
     _ArchiveRegisteredClients();
   }
@@ -9177,26 +9224,5 @@ void _PDScheduledActivityRemoveAll(void *a1, void *a2)
     }
 
     while (v9);
-  }
-}
-
-void _PDScheduledActivityRegister(void *a1, void *a2, void *a3, void *a4)
-{
-  v7 = a1;
-  v8 = a2;
-  v9 = a3;
-  v10 = a4;
-  if ([v7 length] && objc_msgSend(v8, "length"))
-  {
-    v11 = _ScheduledActivityQueue();
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = ___PDScheduledActivityRegister_block_invoke;
-    v12[3] = &unk_1E79C9668;
-    v13 = v7;
-    v14 = v8;
-    v15 = v9;
-    v16 = v10;
-    dispatch_sync(v11, v12);
   }
 }

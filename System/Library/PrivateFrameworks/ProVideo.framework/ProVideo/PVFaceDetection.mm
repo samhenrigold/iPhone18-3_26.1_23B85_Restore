@@ -87,10 +87,10 @@
   v5 = [(PVFaceDetection *)self ID];
   if (v5 == [detectionCopy ID] && (v6 = -[PVFaceDetection hasRollAngle](self, "hasRollAngle"), v6 == objc_msgSend(detectionCopy, "hasRollAngle")) && (!-[PVFaceDetection hasRollAngle](self, "hasRollAngle") || (-[PVFaceDetection rollAngleInDegrees](self, "rollAngleInDegrees"), v8 = v7, objc_msgSend(detectionCopy, "rollAngleInDegrees"), v8 == v9)) && (v10 = -[PVFaceDetection hasYawAngle](self, "hasYawAngle"), v10 == objc_msgSend(detectionCopy, "hasYawAngle")) && (!-[PVFaceDetection hasYawAngle](self, "hasYawAngle") || (-[PVFaceDetection yawAngleInDegrees](self, "yawAngleInDegrees"), v12 = v11, objc_msgSend(detectionCopy, "yawAngleInDegrees"), v12 == v13)) && (-[PVFaceDetection boundingBox](self, "boundingBox"), v15 = v14, v17 = v16, v19 = v18, v21 = v20, objc_msgSend(detectionCopy, "boundingBox"), v34.origin.x = v22, v34.origin.y = v23, v34.size.width = v24, v34.size.height = v25, v33.origin.x = v15, v33.origin.y = v17, v33.size.width = v19, v33.size.height = v21, CGRectEqualToRect(v33, v34)) && (-[PVFaceDetection detectionHorizonAngle](self, "detectionHorizonAngle"), v27 = v26, objc_msgSend(detectionCopy, "detectionHorizonAngle"), v27 == v28))
   {
-    [(PVFaceDetection *)self time];
+    objc_msgSend_time(self);
     if (detectionCopy)
     {
-      [detectionCopy time];
+      objc_msgSend_time(detectionCopy);
     }
 
     else

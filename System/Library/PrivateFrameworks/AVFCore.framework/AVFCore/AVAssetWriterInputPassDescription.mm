@@ -89,7 +89,7 @@
         memset(&v15, 0, sizeof(v15));
         if (v10)
         {
-          [v10 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v10);
         }
 
         range = v15;

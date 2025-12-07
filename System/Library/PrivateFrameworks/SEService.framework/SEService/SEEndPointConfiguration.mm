@@ -60,15 +60,15 @@
 + (id)configurationWithOpt1:(unsigned __int8)opt1 opt2:(unsigned __int8)opt2
 {
   opt2Copy = opt2;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ((opt2 & 0x30) != 0)
   {
     v5 = SESDefaultLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = 67109120;
-      v14 = opt2Copy;
-      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Option group 2 value has some RFU bits set 0x%02X", &v13, 8u);
+      v12 = 67109120;
+      v13 = opt2Copy;
+      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Option group 2 value has some RFU bits set 0x%02X", &v12, 8u);
     }
 
     v6 = 0;
@@ -81,14 +81,14 @@ LABEL_5:
   v6 = objc_opt_new();
   if (v6)
   {
-    v10 = SESDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v9 = SESDefaultLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 67109376;
-      v14 = opt1Copy;
-      v15 = 1024;
-      v16 = opt2Copy;
-      _os_log_impl(&dword_1C7B9A000, v10, OS_LOG_TYPE_DEBUG, "Creating SEEndPointConfiguration with Opt1 %02X and Opt2 %02X", &v13, 0xEu);
+      v12 = 67109376;
+      v13 = opt1Copy;
+      v14 = 1024;
+      v15 = opt2Copy;
+      _os_log_impl(&dword_1C7B9A000, v9, OS_LOG_TYPE_DEBUG, "Creating SEEndPointConfiguration with Opt1 %02X and Opt2 %02X", &v12, 0xEu);
     }
 
     [v6 setStandardFlowAllowedOnContactless:opt1Copy & 1];
@@ -110,18 +110,17 @@ LABEL_5:
     {
       opt1 = [v6 opt1];
       opt2 = [v6 opt2];
-      v13 = 67109376;
-      v14 = opt1;
-      v15 = 1024;
-      v16 = opt2;
-      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "SEEndPointConfiguration created with Opt1 %02X and Opt2 %02X", &v13, 0xEu);
+      v12 = 67109376;
+      v13 = opt1;
+      v14 = 1024;
+      v15 = opt2;
+      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "SEEndPointConfiguration created with Opt1 %02X and Opt2 %02X", &v12, 0xEu);
     }
 
     goto LABEL_5;
   }
 
 LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -325,7 +324,7 @@ LABEL_6:
 
 - (unsigned)opt1
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   standardFlowAllowedOnContactless = [(SEEndPointConfiguration *)self standardFlowAllowedOnContactless];
   if ([(SEEndPointConfiguration *)self fastFlowAllowedOnContactless])
   {
@@ -365,18 +364,17 @@ LABEL_6:
   v4 = SESDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = standardFlowAllowedOnContactless;
-    _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration Opt1 %02X", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = standardFlowAllowedOnContactless;
+    _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration Opt1 %02X", v6, 8u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return standardFlowAllowedOnContactless;
 }
 
 - (unsigned)opt2
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   signAllowed = [(SEEndPointConfiguration *)self signAllowed];
   if ([(SEEndPointConfiguration *)self exportEraseConfidentialMailBox])
   {
@@ -406,18 +404,17 @@ LABEL_6:
   v4 = SESDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = signAllowed;
-    _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration Opt2 %02X", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = signAllowed;
+    _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration Opt2 %02X", v6, 8u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return signAllowed;
 }
 
 - (unsigned)optA
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   nfcExpressOnlyInLPM = [(SEEndPointConfiguration *)self nfcExpressOnlyInLPM];
   if ([(SEEndPointConfiguration *)self terminationNotPersisted])
   {
@@ -432,12 +429,11 @@ LABEL_6:
   v5 = SESDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = v4;
-    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration OptA %02X", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v4;
+    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "Returning SEEndPointConfiguration OptA %02X", v7, 8u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

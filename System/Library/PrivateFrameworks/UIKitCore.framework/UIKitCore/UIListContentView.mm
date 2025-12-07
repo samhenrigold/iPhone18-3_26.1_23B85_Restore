@@ -1169,8 +1169,8 @@ void __86__UIListContentView__intrinsicSizeForLabel_inAvailableSpace_outRequires
   v11 = &OBJC_IVAR____UITabContainerView__alongsideAnimator;
   imageProperties = [a2[56] imageProperties];
   [imageProperties maximumSize];
-  *v84.i64 = v13;
-  *&v84.i64[1] = v14;
+  v84.i64[0] = v13;
+  v84.i64[1] = v14;
 
   v15 = 0;
   if (_UIContentViewShouldUseAccessibilityLargeTextLayout(traitCollection))

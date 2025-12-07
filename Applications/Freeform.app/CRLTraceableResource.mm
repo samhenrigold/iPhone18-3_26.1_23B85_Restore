@@ -157,12 +157,12 @@
       sub_10130DA10(v7);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", v8, v9, v10, v11, v12, v13, v14, "[CRLTraceableResource didAcquireResourceWithToken:]");
-    v15 = [NSString stringWithUTF8String:"[CRLTraceableResource didAcquireResourceWithToken:]"];
-    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
-    [CRLAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:149 isFatal:1 description:"Token cannot be nil."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", "[CRLTraceableResource didAcquireResourceWithToken:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 149);
+    v8 = [NSString stringWithUTF8String:"[CRLTraceableResource didAcquireResourceWithToken:]"];
+    v9 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
+    [CRLAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:149 isFatal:1 description:"Token cannot be nil."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v17, v18);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v10, v11);
     abort();
   }
 
@@ -171,7 +171,7 @@
   block[1] = 3221225472;
   block[2] = sub_1004D5C48;
   block[3] = &unk_10183AB38;
-  v20 = tokenCopy;
+  v13 = tokenCopy;
   v6 = tokenCopy;
   dispatch_async(queue, block);
 }
@@ -204,12 +204,12 @@
       sub_10130DA10(v11);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", v12, v13, v14, v15, v16, v17, v18, "[CRLTraceableResource didRelinquishResourceWithToken:]");
-    v19 = [NSString stringWithUTF8String:"[CRLTraceableResource didRelinquishResourceWithToken:]"];
-    v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
-    [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:157 isFatal:1 description:"Token cannot be nil."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", "[CRLTraceableResource didRelinquishResourceWithToken:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 157);
+    v12 = [NSString stringWithUTF8String:"[CRLTraceableResource didRelinquishResourceWithToken:]"];
+    v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
+    [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:157 isFatal:1 description:"Token cannot be nil."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v21, v22);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v14, v15);
     abort();
   }
 
@@ -221,9 +221,9 @@
   block[1] = 3221225472;
   block[2] = sub_1004D5ED8;
   block[3] = &unk_10185B8F8;
-  v24 = v5;
-  v25 = v6;
-  v27 = v8;
+  v17 = v5;
+  v18 = v6;
+  v20 = v8;
   selfCopy = self;
   v9 = v6;
   v10 = v5;
@@ -259,13 +259,13 @@
       sub_10138415C(v14);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", v15, v16, v17, v18, v19, v20, v21, "[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]");
-    v22 = [NSString stringWithUTF8String:"[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]"];
-    v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
-    [CRLAssertionHandler handleFailureInFunction:v22 file:v23 lineNumber:180 isFatal:1 description:"Token cannot be nil."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Token cannot be nil.", "[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 180);
+    v15 = [NSString stringWithUTF8String:"[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]"];
+    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
+    [CRLAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:180 isFatal:1 description:"Token cannot be nil."];
 
 LABEL_22:
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v24, *&v25);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v17, *&v18);
     abort();
   }
 
@@ -296,45 +296,45 @@ LABEL_22:
       sub_101383FC0();
     }
 
-    v27 = off_1019EDA68;
+    v20 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_101383FE8(v27);
+      sub_101383FE8(v20);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Attempted to temporarily relinquish token that has already been relinquished: %{public}@", v28, v29, v30, v31, v32, v33, v34, "[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]");
-    v35 = [NSString stringWithUTF8String:"[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]"];
-    v36 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
-    [CRLAssertionHandler handleFailureInFunction:v35 file:v36 lineNumber:187 isFatal:1 description:"Attempted to temporarily relinquish token that has already been relinquished: %{public}@", tokenCopy, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 187, tokenCopy];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Attempted to temporarily relinquish token that has already been relinquished: %{public}@", "[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 187, tokenCopy);
+    v21 = [NSString stringWithUTF8String:"[CRLTraceableResource temporarilyRelinquishForToken:usingBlock:]"];
+    v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
+    [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:187 isFatal:1 description:"Attempted to temporarily relinquish token that has already been relinquished: %{public}@", tokenCopy];
 
     goto LABEL_22;
   }
 
   v10 = [(NSMutableArray *)self->_tokens copy];
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_1004D6758;
-  v44[3] = &unk_101868E38;
-  v44[4] = self;
-  [v10 enumerateObjectsWithOptions:2 usingBlock:v44];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1004D6758;
+  v30[3] = &unk_101868E38;
+  v30[4] = self;
+  [v10 enumerateObjectsWithOptions:2 usingBlock:v30];
   v11 = objc_alloc_init(CRLTraceableResourceTemporaryRelinquishToken);
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v43 = 0;
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_1004D6768;
-  v37[3] = &unk_101868EA0;
-  v41 = v42;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v29 = 0;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1004D6768;
+  v23[3] = &unk_101868EA0;
+  v27 = v28;
   v12 = v10;
-  v38 = v12;
+  v24 = v12;
   selfCopy = self;
   v13 = v11;
-  v40 = v13;
-  (v8)[2](v8, v37);
+  v26 = v13;
+  (v8)[2](v8, v23);
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 - (void)addToken:(id)token isForTemporaryRelinquish:(BOOL)relinquish

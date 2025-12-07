@@ -39,7 +39,7 @@
   return 1;
 }
 
-uint64_t __85__NCNotificationStructuredListViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__85__NCNotificationStructuredListViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dismissModalFullScreenAnimated:1];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -9,6 +9,7 @@
 - (void)_updateVisualStylingIfNecessary;
 - (void)layoutSubviews;
 - (void)setHighlighted:(BOOL)highlighted;
+- (void)setHighlighted:(BOOL)highlighted withFeedbackRetargetBehavior:(id)behavior;
 - (void)setImagePosition:(int64_t)position;
 - (void)willMoveToSuperview:(id)superview;
 @end
@@ -109,38 +110,52 @@
   return result;
 }
 
+- (void)setHighlighted:(BOOL)highlighted withFeedbackRetargetBehavior:(id)behavior
+{
+  highlightedCopy = highlighted;
+  behaviorCopy = behavior;
+  if ([(SBUIActionView *)self isHighlighted]!= highlightedCopy)
+  {
+    [(SBUIActionView *)self setHighlighted:highlightedCopy];
+    if (highlightedCopy)
+    {
+      [behaviorCopy selectionChanged];
+    }
+  }
+}
+
 - (void)_setupSubviews
 {
-  v156[7] = *MEMORY[0x277D85DE8];
+  v155[7] = *MEMORY[0x277D85DE8];
   action = [(SBUIActionView *)self action];
   title = [action title];
   subtitle = [action subtitle];
   image = [action image];
   systemImageName = [action systemImageName];
-  v151 = action;
+  v150 = action;
   badgeView = [action badgeView];
-  v154 = subtitle;
-  v146 = [subtitle length];
+  v153 = subtitle;
+  v145 = [subtitle length];
   v8 = *MEMORY[0x277D76918];
   v9 = *MEMORY[0x277D76968];
   v10 = *MEMORY[0x277D76828];
   if (self->_interfaceOrientationIsPortrait)
   {
-    v152 = badgeView;
+    v151 = badgeView;
     v11 = v8;
     preferredContentSizeCategory = [*MEMORY[0x277D76620] preferredContentSizeCategory];
     v13 = *MEMORY[0x277D76820];
     v14 = *MEMORY[0x277D76818];
-    v156[0] = *MEMORY[0x277D76820];
-    v156[1] = v14;
+    v155[0] = *MEMORY[0x277D76820];
+    v155[1] = v14;
     v15 = *MEMORY[0x277D76800];
-    v156[2] = *MEMORY[0x277D76808];
-    v156[3] = v15;
+    v155[2] = *MEMORY[0x277D76808];
+    v155[3] = v15;
     v16 = *MEMORY[0x277D767F0];
-    v156[4] = *MEMORY[0x277D767F8];
-    v156[5] = v16;
-    v156[6] = *MEMORY[0x277D767E8];
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v156 count:7];
+    v155[4] = *MEMORY[0x277D767F8];
+    v155[5] = v16;
+    v155[6] = *MEMORY[0x277D767E8];
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v155 count:7];
     v18 = [v17 containsObject:preferredContentSizeCategory];
 
     if (v18)
@@ -150,10 +165,10 @@
       v10 = v19;
     }
 
-    v153 = v9;
+    v152 = v9;
 
     v20 = v11;
-    badgeView = v152;
+    badgeView = v151;
     v21 = v10;
   }
 
@@ -165,12 +180,12 @@
     v23 = *MEMORY[0x277D76920];
 
     v21 = v22;
-    v153 = v23;
+    v152 = v23;
   }
 
-  v149 = [MEMORY[0x277D75C80] traitCollectionWithPreferredContentSizeCategory:{v21, v146}];
+  v148 = [MEMORY[0x277D75C80] traitCollectionWithPreferredContentSizeCategory:{v21, v145}];
   v24 = [MEMORY[0x277D74300] preferredFontForTextStyle:v20 compatibleWithTraitCollection:?];
-  v150 = v20;
+  v149 = v20;
   if (image)
   {
     [image size];
@@ -234,10 +249,10 @@ LABEL_15:
   self->_titleLabel = v39;
 
   [(SBUIActionViewLabel *)self->_titleLabel _setLayoutDebuggingIdentifier:@"titleLabel"];
-  v148 = v24;
+  v147 = v24;
   [(SBUIActionViewLabel *)self->_titleLabel setFont:v24];
   [(SBUIActionViewLabel *)self->_titleLabel setLineBreakMode:4];
-  if (v147)
+  if (v146)
   {
     v41 = 1;
   }
@@ -252,7 +267,7 @@ LABEL_15:
   [(SBUIActionViewLabel *)self->_titleLabel setTextAlignment:4];
   [(SBUIActionViewLabel *)self->_titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_textContainer addSubview:self->_titleLabel];
-  if (v147)
+  if (v146)
   {
     v42 = [[SBUIActionViewLabel alloc] initWithFrame:v30, v31, v32, v33];
     subtitleLabel = self->_subtitleLabel;
@@ -262,12 +277,12 @@ LABEL_15:
     v44 = self->_subtitleLabel;
     v45 = MEMORY[0x277D74300];
     v46 = [MEMORY[0x277D75C80] traitCollectionWithPreferredContentSizeCategory:v21];
-    v47 = [v45 preferredFontForTextStyle:v153 compatibleWithTraitCollection:v46];
+    v47 = [v45 preferredFontForTextStyle:v152 compatibleWithTraitCollection:v46];
     [(SBUIActionViewLabel *)v44 setFont:v47];
 
     [(SBUIActionViewLabel *)self->_subtitleLabel setLineBreakMode:4];
     [(SBUIActionViewLabel *)self->_subtitleLabel setNumberOfLines:1];
-    [(SBUIActionViewLabel *)self->_subtitleLabel setText:v154];
+    [(SBUIActionViewLabel *)self->_subtitleLabel setText:v153];
     [(SBUIActionViewLabel *)self->_subtitleLabel setTextAlignment:4];
     [(SBUIActionViewLabel *)self->_subtitleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIView *)self->_textContainer addSubview:self->_subtitleLabel];
@@ -283,19 +298,19 @@ LABEL_15:
     v53 = v52;
     v55 = v54;
     widthAnchor = [badgeView widthAnchor];
+    v156.origin.x = v49;
+    v156.origin.y = v51;
+    v156.size.width = v53;
+    v156.size.height = v55;
+    v57 = [widthAnchor constraintEqualToConstant:CGRectGetWidth(v156)];
+    [v57 setActive:1];
+
+    heightAnchor = [badgeView heightAnchor];
     v157.origin.x = v49;
     v157.origin.y = v51;
     v157.size.width = v53;
     v157.size.height = v55;
-    v57 = [widthAnchor constraintEqualToConstant:CGRectGetWidth(v157)];
-    [v57 setActive:1];
-
-    heightAnchor = [badgeView heightAnchor];
-    v158.origin.x = v49;
-    v158.origin.y = v51;
-    v158.size.width = v53;
-    v158.size.height = v55;
-    v59 = [heightAnchor constraintEqualToConstant:CGRectGetHeight(v158)];
+    v59 = [heightAnchor constraintEqualToConstant:CGRectGetHeight(v157)];
     [v59 setActive:1];
   }
 
@@ -526,7 +541,6 @@ LABEL_15:
   [v144 setActive:1];
 
   [(UIView *)self->_highlightView setHidden:!self->_highlighted];
-  v145 = *MEMORY[0x277D85DE8];
 }
 
 id __32__SBUIActionView__setupSubviews__block_invoke(float a1, uint64_t a2, void *a3)
@@ -540,7 +554,7 @@ id __32__SBUIActionView__setupSubviews__block_invoke(float a1, uint64_t a2, void
 
 - (void)_updateImageViewLayoutConstraints
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   if (self->_imageView && self->_textContainer)
   {
     [MEMORY[0x277CCAAD0] deactivateConstraints:self->_imageViewLayoutConstraints];
@@ -556,32 +570,30 @@ id __32__SBUIActionView__setupSubviews__block_invoke(float a1, uint64_t a2, void
     }
 
     v5 = MEMORY[0x277CCAAD0];
-    v19[0] = @"trailingContentOffset";
+    v18[0] = @"trailingContentOffset";
     v6 = MEMORY[0x277CCABB0];
     [(SBUIActionView *)self trailingContentMargin];
     v7 = [v6 numberWithDouble:?];
-    v19[1] = @"leadingContentOffset";
-    v20[0] = v7;
+    v18[1] = @"leadingContentOffset";
+    v19[0] = v7;
     v8 = MEMORY[0x277CCABB0];
     [(SBUIActionView *)self leadingContentMargin];
     v9 = [v8 numberWithDouble:?];
-    v20[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v19[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     imageView = self->_imageView;
-    v17[0] = @"imageView";
-    v17[1] = @"textContainer";
+    v16[0] = @"imageView";
+    v16[1] = @"textContainer";
     textContainer = self->_textContainer;
-    v18[0] = imageView;
-    v18[1] = textContainer;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[0] = imageView;
+    v17[1] = textContainer;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v14 = [v5 constraintsWithVisualFormat:@"H:|-(leadingContentOffset)-[imageView]-(leadingContentOffset)-[textContainer]-(trailingContentOffset)-|" options:v4 metrics:v10 views:v13];
     imageViewLayoutConstraints = self->_imageViewLayoutConstraints;
     self->_imageViewLayoutConstraints = v14;
 
     [MEMORY[0x277CCAAD0] activateConstraints:self->_imageViewLayoutConstraints];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateVisualStyling

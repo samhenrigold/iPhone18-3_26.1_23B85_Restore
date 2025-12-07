@@ -10,6 +10,7 @@
 - (id)_accessRecordsForReportFrom:(id)from to:(id)to error:(id *)error;
 - (id)getOrCreateStreamsWithError:(id *)error;
 - (id)publisherForAllSince:(double)since error:(id *)error;
+- (id)publisherForAllSince:(id)since until:(id)until reversed:(BOOL)reversed error:(id *)error;
 - (id)publisherForReportWithError:(id *)error;
 - (id)requestSandboxExtensionWithError:(id *)error;
 - (void)dealloc;
@@ -17,6 +18,8 @@
 - (void)handleEnabledChangeNotification;
 - (void)lockedNotifyDidSetLoggingEnabled:(BOOL)enabled;
 - (void)lockedSetEnabledStateForLoggingEnabled:(BOOL)enabled;
+- (void)setEnabledStateForLoggingEnabled:(BOOL)enabled;
+- (void)setLoggingEnabled:(BOOL)enabled;
 @end
 
 @implementation PAAccessReader
@@ -71,6 +74,14 @@ uint64_t __32__PAAccessReader_sharedInstance__block_invoke()
   return v3;
 }
 
+- (void)setLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(PAAccessReader *)self setEnabledStateForLoggingEnabled:?];
+  remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
+  [remoteObjectProxy setLoggingEnabled:enabledCopy];
+}
+
 + (id)fileNameForExport
 {
   if (fileNameForExport_onceToken[0] != -1)
@@ -98,43 +109,42 @@ void __35__PAAccessReader_fileNameForExport__block_invoke()
 
 + (BOOL)exportFromPublisher:(id)publisher toStream:(id)stream withCancellationToken:(id)token error:(id *)error
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   publisherCopy = publisher;
   streamCopy = stream;
   tokenCopy = token;
   localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
   array = [MEMORY[0x1E695DF70] array];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke;
-  v33[3] = &unk_1E86AC0D8;
-  v34 = array;
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_38;
-  v28 = &unk_1E86AC100;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke;
+  v32[3] = &unk_1E86AC0D8;
+  v33 = array;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_38;
+  v27 = &unk_1E86AC100;
   v14 = tokenCopy;
-  v29 = v14;
-  v15 = v34;
-  v30 = v15;
+  v28 = v14;
+  v15 = v33;
+  v29 = v15;
   v16 = localTimeZone;
-  v31 = v16;
+  v30 = v16;
   v17 = streamCopy;
-  v32 = v17;
-  v18 = [publisherCopy sinkWithCompletion:v33 shouldContinue:&v25];
+  v31 = v17;
+  v18 = [publisherCopy sinkWithCompletion:v32 shouldContinue:&v24];
   v19 = [v15 count];
   if (error && v19)
   {
     v20 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A750];
-    v36[0] = v15;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A750];
+    v35[0] = v15;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     *error = [v20 errorWithDomain:@"PAErrorDomain" code:13 userInfo:v21];
   }
 
   v22 = [v15 count] == 0;
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -143,7 +153,7 @@ void __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_err
   v3 = a2;
   if ([v3 state] == 1)
   {
-    v4 = logger_0();
+    v4 = logger_0(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_cold_1(v3, v4);
@@ -189,14 +199,14 @@ BOOL __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_err
 
     [v10 setObject:v19 forKeyedSubscript:@"timeStamp"];
     v20 = *(a1 + 56);
-    v31 = 0;
+    v32 = 0;
     v21 = v20;
-    v22 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v10 options:2 error:&v31];
+    v22 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v10 options:2 error:&v32];
     v23 = v22;
-    if (v22 && (v24 = v22, v25 = v21, v26 = writeBytesToStream(v25, [v23 bytes], objc_msgSend(v23, "length"), &v31), v25, v26))
+    if (v22 && (v24 = v22, v25 = v21, v26 = writeBytesToStream(v25, [v23 bytes], objc_msgSend(v23, "length"), &v32), v25, v26))
     {
       v27 = v25;
-      v7 = writeBytesToStream(v27, [@"\n" UTF8String], objc_msgSend(@"\n", "lengthOfBytesUsingEncoding:", 4), &v31);
+      v7 = writeBytesToStream(v27, [@"\n" UTF8String], objc_msgSend(@"\n", "lengthOfBytesUsingEncoding:", 4), &v32);
     }
 
     else
@@ -204,16 +214,17 @@ BOOL __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_err
       v7 = 0;
     }
 
-    v28 = v31;
+    v28 = v32;
+    v29 = v28;
     if (!v7)
     {
-      v29 = logger_0();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = logger_0(v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_38_cold_1(v10, v28, v29);
+        __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_38_cold_1(v10, v29, v30);
       }
 
-      [*(a1 + 40) addObject:v28];
+      [*(a1 + 40) addObject:v29];
     }
   }
 
@@ -247,6 +258,88 @@ BOOL __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_err
   v7 = [(PAAccessReader *)self publisherForAllSince:v6 until:0 reversed:0 error:error];
 
   return v7;
+}
+
+- (id)publisherForAllSince:(id)since until:(id)until reversed:(BOOL)reversed error:(id *)error
+{
+  reversedCopy = reversed;
+  v35 = *MEMORY[0x1E69E9840];
+  sinceCopy = since;
+  untilCopy = until;
+  v12 = [(PAAccessReader *)self getOrCreateStreamsWithError:error];
+  v13 = v12;
+  if (v12)
+  {
+    v26 = untilCopy;
+    v27 = sinceCopy;
+    v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v15 = v13;
+    v16 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v31;
+      if (reversedCopy)
+      {
+        v19 = untilCopy;
+      }
+
+      else
+      {
+        v19 = v27;
+      }
+
+      if (reversedCopy)
+      {
+        v20 = v27;
+      }
+
+      else
+      {
+        v20 = untilCopy;
+      }
+
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v31 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v22 = [*(*(&v30 + 1) + 8 * i) publisherWithStartTime:v19 endTime:v20 maxEvents:0 lastN:0 reversed:reversedCopy];
+          [v14 addObject:v22];
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      }
+
+      while (v17);
+    }
+
+    v23 = objc_alloc(MEMORY[0x1E698F0D8]);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __60__PAAccessReader_publisherForAllSince_until_reversed_error___block_invoke;
+    v28[3] = &__block_descriptor_33_e39_q24__0__BMStoreEvent_8__BMStoreEvent_16l;
+    v29 = reversedCopy;
+    v24 = [v23 initWithPublishers:v14 comparator:v28];
+
+    untilCopy = v26;
+    sinceCopy = v27;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  return v24;
 }
 
 uint64_t __60__PAAccessReader_publisherForAllSince_until_reversed_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -334,13 +427,14 @@ LABEL_9:
     handler[3] = &unk_1E86AC088;
     objc_copyWeak(&v26, &location);
     v19 = notify_register_dispatch(uTF8String, &v12->_enablementChangedNotificationToken, queue, handler);
-    v20 = logger_0();
-    v21 = v20;
-    if (v19)
+    v20 = v19;
+    v21 = logger_0(v19);
+    v22 = v21;
+    if (v20)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [PAAccessReader initWithConnection:nameCopy queue:v19 enablementChangedNotificationName:v21];
+        [PAAccessReader initWithConnection:nameCopy queue:v20 enablementChangedNotificationName:v22];
       }
 
       v12->_enablementChangedNotificationToken = -1;
@@ -348,14 +442,14 @@ LABEL_9:
 
     else
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         enablementChangedNotificationToken = v12->_enablementChangedNotificationToken;
         *buf = 138543618;
         v32 = nameCopy;
         v33 = 1024;
         v34 = enablementChangedNotificationToken;
-        _os_log_impl(&dword_1DF25B000, v21, OS_LOG_TYPE_INFO, "Registered for %{public}@ notifications with token=%d", buf, 0x12u);
+        _os_log_impl(&dword_1DF25B000, v22, OS_LOG_TYPE_INFO, "Registered for %{public}@ notifications with token=%d", buf, 0x12u);
       }
     }
 
@@ -364,13 +458,12 @@ LABEL_9:
     objc_destroyWeak(&location);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __77__PAAccessReader_initWithConnection_queue_enablementChangedNotificationName___block_invoke(uint64_t a1)
 {
-  v2 = logger_0();
+  v2 = logger_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -383,19 +476,17 @@ void __77__PAAccessReader_initWithConnection_queue_enablementChangedNotification
 
 void __77__PAAccessReader_initWithConnection_queue_enablementChangedNotificationName___block_invoke_112(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = logger_0();
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = logger_0(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_1DF25B000, v4, OS_LOG_TYPE_INFO, "Received enablement changed notification with token=%d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_1DF25B000, v4, OS_LOG_TYPE_INFO, "Received enablement changed notification with token=%d", v6, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained handleEnabledChangeNotification];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEnabledChangeNotification
@@ -509,7 +600,7 @@ void __51__PAAccessReader_requestSandboxExtensionWithError___block_invoke_2(uint
 
 - (id)getOrCreateStreamsWithError:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if ([(PAAccessReader *)self lockedEnsureSandboxExtensionWithError:error])
   {
@@ -527,25 +618,25 @@ void __51__PAAccessReader_requestSandboxExtensionWithError___block_invoke_2(uint
 
       v10 = +[PAAccess allAccessClasses];
       v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v10, "count")}];
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v13)
       {
-        v14 = *v25;
+        v14 = *v24;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v24 + 1) + 8 * i);
+            v16 = *(*(&v23 + 1) + 8 * i);
             v17 = objc_alloc(MEMORY[0x1E698F318]);
             eventStreamIdentifier = [v16 eventStreamIdentifier];
             v19 = [v17 initWithPrivateStreamIdentifier:eventStreamIdentifier storeConfig:v9];
@@ -553,7 +644,7 @@ void __51__PAAccessReader_requestSandboxExtensionWithError___block_invoke_2(uint
             [v11 addObject:v19];
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v13);
@@ -573,9 +664,17 @@ void __51__PAAccessReader_requestSandboxExtensionWithError___block_invoke_2(uint
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v22 = *MEMORY[0x1E69E9840];
 
   return v6;
+}
+
+- (void)setEnabledStateForLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  os_unfair_lock_lock(&self->_lock);
+  [(PAAccessReader *)self lockedSetEnabledStateForLoggingEnabled:enabledCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)lockedNotifyDidSetLoggingEnabled:(BOOL)enabled
@@ -855,53 +954,48 @@ LABEL_16:
 {
   v5 = sub_1DF27BA98();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v5, v8);
-  v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v19[-v13];
+  v8 = MEMORY[0x1EEE9AC00](v5, v7);
+  v10 = &v18[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v8, v11);
+  v13 = &v18[-v12];
   sub_1DF27BA88();
   sub_1DF27BA88();
-  v15 = sub_1DF2796D0(v14, v11);
-  v16 = *(v6 + 8);
-  v17 = v15;
-  v16(v11, v5);
-  v16(v14, v5);
+  v14 = sub_1DF2796D0(v13, v10);
+  v15 = *(v6 + 8);
+  v16 = v14;
+  v15(v10, v5);
+  v15(v13, v5);
 
-  return v17;
+  return v16;
 }
 
 void __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Export publisher completed with error=%{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Export publisher completed with error=%{public}@", &v4, 0xCu);
 }
 
 void __75__PAAccessReader_exportFromPublisher_toStream_withCancellationToken_error___block_invoke_38_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to export entry=%@ with error=%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to export entry=%@ with error=%{public}@", &v3, 0x16u);
 }
 
 - (void)initWithConnection:(uint64_t)a1 queue:(int)a2 enablementChangedNotificationName:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to register for %{public}@ notifications with code=%u", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to register for %{public}@ notifications with code=%u", &v3, 0x12u);
 }
 
 @end

@@ -6,234 +6,233 @@
 
 - (BOOL)copyDatabase:(id)database
 {
-  v62 = *MEMORY[0x1E69E9840];
-  DowngradeHelper = objc_msgSend_createDowngradeHelper(self, a2, database);
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3052000000;
-  v58 = sub_1B7AE19E4;
-  v59 = sub_1B7AE2500;
-  v60 = 0;
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = sub_1B7B621D4;
-  v54[3] = &unk_1E7CB66D8;
-  v54[4] = &v55;
-  objc_msgSend_open_(DowngradeHelper, v6, v54);
-  v7 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v74 = *MEMORY[0x1E69E9840];
+  DowngradeHelper = objc_msgSend_createDowngradeHelper(self, a2, database, v3);
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3052000000;
+  v70 = sub_1B7AE19E4;
+  v71 = sub_1B7AE2500;
+  v72 = 0;
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = sub_1B7B621D4;
+  v66[3] = &unk_1E7CB66D8;
+  v66[4] = &v67;
+  objc_msgSend_open_(DowngradeHelper, v7, v66, v8);
+  v9 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Downgrade: Opening new coral database", buf, 2u);
+    _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "Downgrade: Opening new coral database", buf, 2u);
   }
 
-  if (!v56[5])
+  if (!v68[5])
   {
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = sub_1B7B621E4;
-    v53[3] = &unk_1E7CB66D8;
-    v53[4] = &v55;
-    objc_msgSend_beginTransaction_(DowngradeHelper, v8, v53);
-    if (!v56[5])
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = sub_1B7B621E4;
+    v65[3] = &unk_1E7CB66D8;
+    v65[4] = &v67;
+    objc_msgSend_beginTransaction_(DowngradeHelper, v10, v65, v12);
+    if (!v68[5])
     {
-      v10 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Downgrade: Creating Tables", buf, 2u);
-      }
-
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = sub_1B7B621F4;
-      v52[3] = &unk_1E7CB66D8;
-      v52[4] = &v55;
-      objc_msgSend_createTables_(DowngradeHelper, v11, v52);
-      if (v56[5])
-      {
-        goto LABEL_11;
-      }
-
       v13 = IMDatabaseLogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Downgrade: Creating Indexes", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Downgrade: Creating Tables", buf, 2u);
       }
 
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = sub_1B7B62204;
-      v51[3] = &unk_1E7CB66D8;
-      v51[4] = &v55;
-      objc_msgSend_createIndexes_(DowngradeHelper, v14, v51);
-      if (v56[5])
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = sub_1B7B621F4;
+      v64[3] = &unk_1E7CB66D8;
+      v64[4] = &v67;
+      objc_msgSend_createTables_(DowngradeHelper, v14, v64, v15);
+      if (v68[5])
+      {
+        goto LABEL_11;
+      }
+
+      v18 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(buf[0]) = 0;
+        _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "Downgrade: Creating Indexes", buf, 2u);
+      }
+
+      v63[0] = MEMORY[0x1E69E9820];
+      v63[1] = 3221225472;
+      v63[2] = sub_1B7B62204;
+      v63[3] = &unk_1E7CB66D8;
+      v63[4] = &v67;
+      objc_msgSend_createIndexes_(DowngradeHelper, v19, v63, v20);
+      if (v68[5])
       {
 LABEL_11:
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = sub_1B7B62214;
-        v50[3] = &unk_1E7CB66D8;
-        v50[4] = &v55;
-        objc_msgSend_revertTransaction_(DowngradeHelper, v12, v50);
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = sub_1B7B62214;
+        v62[3] = &unk_1E7CB66D8;
+        v62[4] = &v67;
+        objc_msgSend_revertTransaction_(DowngradeHelper, v16, v62, v17);
       }
 
       else
       {
-        v40 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v51 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_1B7AD5000, v40, OS_LOG_TYPE_INFO, "Downgrade: Committing phase 1", buf, 2u);
+          _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "Downgrade: Committing phase 1", buf, 2u);
         }
 
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = sub_1B7B62224;
-        v49[3] = &unk_1E7CB66D8;
-        v49[4] = &v55;
-        objc_msgSend_commitTransaction_(DowngradeHelper, v41, v49);
+        v61[0] = MEMORY[0x1E69E9820];
+        v61[1] = 3221225472;
+        v61[2] = sub_1B7B62224;
+        v61[3] = &unk_1E7CB66D8;
+        v61[4] = &v67;
+        objc_msgSend_commitTransaction_(DowngradeHelper, v52, v61, v53);
       }
 
-      if (!v56[5])
+      if (!v68[5])
       {
-        v15 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Downgrade: Beginning to copy tables", buf, 2u);
-        }
-
-        memset(buf, 0, sizeof(buf));
-        v18 = objc_msgSend_sourcePath(self, v16, v17);
-        IMDSqlOperationInitAndCreateIfNeededWithPath(v18, buf);
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = sub_1B7B62234;
-        v48[3] = &unk_1E7CB66D8;
-        v48[4] = &v55;
-        objc_msgSend_importDataFromWhitetailDatabaseWithSqlOperation_resultBlock_(DowngradeHelper, v19, buf, v48);
-        IMDSqlOperationRelease(buf, v56 + 5);
-        if (v56[5])
-        {
-          goto LABEL_23;
-        }
-
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = sub_1B7B62244;
-        v47[3] = &unk_1E7CB66D8;
-        v47[4] = &v55;
-        objc_msgSend_beginTransaction_(DowngradeHelper, v20, v47);
-        if (v56[5])
-        {
-          goto LABEL_23;
-        }
-
         v21 = IMDatabaseLogHandle();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          *v46 = 0;
-          _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Downgrade: Creating triggers", v46, 2u);
+          LOWORD(buf[0]) = 0;
+          _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Downgrade: Beginning to copy tables", buf, 2u);
         }
 
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = sub_1B7B62254;
-        v45[3] = &unk_1E7CB66D8;
-        v45[4] = &v55;
-        objc_msgSend_createTriggers_(DowngradeHelper, v22, v45);
-        if (v56[5])
+        memset(buf, 0, sizeof(buf));
+        v25 = objc_msgSend_sourcePath(self, v22, v23, v24);
+        IMDSqlOperationInitAndCreateIfNeededWithPath(v25, buf);
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = sub_1B7B62234;
+        v60[3] = &unk_1E7CB66D8;
+        v60[4] = &v67;
+        objc_msgSend_importDataFromWhitetailDatabaseWithSqlOperation_resultBlock_(DowngradeHelper, v26, buf, v60);
+        IMDSqlOperationRelease(buf, v68 + 5);
+        if (v68[5])
         {
           goto LABEL_23;
         }
 
-        v23 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v59[0] = MEMORY[0x1E69E9820];
+        v59[1] = 3221225472;
+        v59[2] = sub_1B7B62244;
+        v59[3] = &unk_1E7CB66D8;
+        v59[4] = &v67;
+        objc_msgSend_beginTransaction_(DowngradeHelper, v27, v59, v28);
+        if (v68[5])
         {
-          *v46 = 0;
-          _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "Downgrade: Updating Version", v46, 2u);
+          goto LABEL_23;
         }
 
-        v26 = objc_msgSend_downgradesToVersion(DowngradeHelper, v24, v25);
-        v44[0] = MEMORY[0x1E69E9820];
-        v44[1] = 3221225472;
-        v44[2] = sub_1B7B62264;
-        v44[3] = &unk_1E7CB66D8;
-        v44[4] = &v55;
-        objc_msgSend_writeDatabaseVersion_resultBlock_(DowngradeHelper, v27, v26, v44);
-        if (v56[5])
+        v29 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        {
+          *v58 = 0;
+          _os_log_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_INFO, "Downgrade: Creating triggers", v58, 2u);
+        }
+
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = sub_1B7B62254;
+        v57[3] = &unk_1E7CB66D8;
+        v57[4] = &v67;
+        objc_msgSend_createTriggers_(DowngradeHelper, v30, v57, v31);
+        if (v68[5])
+        {
+          goto LABEL_23;
+        }
+
+        v32 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        {
+          *v58 = 0;
+          _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "Downgrade: Updating Version", v58, 2u);
+        }
+
+        v36 = objc_msgSend_downgradesToVersion(DowngradeHelper, v33, v34, v35);
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = sub_1B7B62264;
+        v56[3] = &unk_1E7CB66D8;
+        v56[4] = &v67;
+        objc_msgSend_writeDatabaseVersion_resultBlock_(DowngradeHelper, v37, v36, v56);
+        if (v68[5])
         {
 LABEL_23:
-          objc_msgSend_revertTransaction_(DowngradeHelper, v20, &unk_1F2FA02B0);
+          objc_msgSend_revertTransaction_(DowngradeHelper, v27, &unk_1F2FA02B0, v28);
         }
 
         else
         {
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = sub_1B7B62278;
-          v43[3] = &unk_1E7CB66D8;
-          v43[4] = &v55;
-          objc_msgSend_commitTransaction_(DowngradeHelper, v20, v43);
-          v42 = IMDatabaseLogHandle();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+          v55[0] = MEMORY[0x1E69E9820];
+          v55[1] = 3221225472;
+          v55[2] = sub_1B7B62278;
+          v55[3] = &unk_1E7CB66D8;
+          v55[4] = &v67;
+          objc_msgSend_commitTransaction_(DowngradeHelper, v27, v55, v28);
+          v54 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
-            *v46 = 0;
-            _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_INFO, "Downgrade: Committing phase 2", v46, 2u);
+            *v58 = 0;
+            _os_log_impl(&dword_1B7AD5000, v54, OS_LOG_TYPE_INFO, "Downgrade: Committing phase 2", v58, 2u);
           }
         }
       }
     }
   }
 
-  if (objc_msgSend_isOpen(DowngradeHelper, v8, v9))
+  if (objc_msgSend_isOpen(DowngradeHelper, v10, v11, v12))
   {
-    objc_msgSend_close_(DowngradeHelper, v28, &unk_1F2FA0C50);
+    objc_msgSend_close_(DowngradeHelper, v38, &unk_1F2FA0C50, v39);
   }
 
-  if (!v56[5])
+  if (!v68[5])
   {
-    v36 = IMDatabaseLogHandle();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v48 = IMDatabaseLogHandle();
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
     {
       goto LABEL_33;
     }
 
     LOWORD(buf[0]) = 0;
-    v33 = "Downgrade completed ok! :-D";
-    v34 = v36;
-    v35 = 2;
+    v45 = "Downgrade completed ok! :-D";
+    v46 = v48;
+    v47 = 2;
     goto LABEL_32;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v29 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v40 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      v32 = objc_msgSend_localizedDescription(v56[5], v30, v31);
+      v44 = objc_msgSend_localizedDescription(v68[5], v41, v42, v43);
       LODWORD(buf[0]) = 138412290;
-      *(buf + 4) = v32;
-      v33 = "Database downgrade failed with error: %@";
-      v34 = v29;
-      v35 = 12;
+      *(buf + 4) = v44;
+      v45 = "Database downgrade failed with error: %@";
+      v46 = v40;
+      v47 = 12;
 LABEL_32:
-      _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, v33, buf, v35);
+      _os_log_impl(&dword_1B7AD5000, v46, OS_LOG_TYPE_INFO, v45, buf, v47);
     }
   }
 
 LABEL_33:
   if (database)
   {
-    (*(database + 2))(database, v56[5] == 0);
+    (*(database + 2))(database, v68[5] == 0);
   }
 
-  v37 = v56[5] == 0;
-  _Block_object_dispose(&v55, 8);
-  v38 = *MEMORY[0x1E69E9840];
-  return v37;
+  v49 = v68[5] == 0;
+  _Block_object_dispose(&v67, 8);
+  return v49;
 }
 
 @end

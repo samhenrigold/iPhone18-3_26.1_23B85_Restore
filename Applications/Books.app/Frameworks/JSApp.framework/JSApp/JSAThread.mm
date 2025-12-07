@@ -90,31 +90,32 @@
 - (void)enqueueBlockSync:(id)sync
 {
   syncCopy = sync;
-  if ([(JSAThread *)self isRunningOnThread])
+  isRunningOnThread = [(JSAThread *)self isRunningOnThread];
+  if (isRunningOnThread)
   {
-    v7 = JSALog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = JSALog(isRunningOnThread);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      sub_807CC(v7);
+      sub_807CC(v8);
     }
 
-    v8 = [NSString stringWithFormat:@"%s called on its own JSAThread", "[JSAThread enqueueBlockSync:]"];
-    v9 = [NSException exceptionWithName:NSInvalidArgumentException reason:v8 userInfo:0];
-    v10 = v9;
+    v9 = [NSString stringWithFormat:@"%s called on its own JSAThread", "[JSAThread enqueueBlockSync:]"];
+    v10 = [NSException exceptionWithName:NSInvalidArgumentException reason:v9 userInfo:0];
+    v11 = v10;
 
-    objc_exception_throw(v9);
+    objc_exception_throw(v10);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10928;
-  v11[3] = &unk_B2A60;
-  v12 = dispatch_semaphore_create(0);
-  v13 = syncCopy;
-  v5 = v12;
-  v6 = syncCopy;
-  [(JSAThread *)self enqueueBlock:v11];
-  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10928;
+  v12[3] = &unk_B2A60;
+  v13 = dispatch_semaphore_create(0);
+  v14 = syncCopy;
+  v6 = v13;
+  v7 = syncCopy;
+  [(JSAThread *)self enqueueBlock:v12];
+  dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 - (void)_performPendingBlocks

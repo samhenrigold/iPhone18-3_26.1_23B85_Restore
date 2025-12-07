@@ -118,16 +118,16 @@
     v6 = self->_titleLabel;
     self->_titleLabel = v5;
 
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)self->_titleLabel setText:v8];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)self->_titleLabel setText:v9];
 
-    v9 = +[CKUIBehavior sharedBehaviors];
-    signInTitleFont = [v9 signInTitleFont];
+    v10 = +[CKUIBehavior sharedBehaviors];
+    signInTitleFont = [v10 signInTitleFont];
     [(UILabel *)self->_titleLabel setFont:signInTitleFont];
 
-    v11 = +[CKUIBehavior sharedBehaviors];
-    theme = [v11 theme];
+    v12 = +[CKUIBehavior sharedBehaviors];
+    theme = [v12 theme];
     primaryLabelColor = [theme primaryLabelColor];
     [(UILabel *)self->_titleLabel setTextColor:primaryLabelColor];
 
@@ -155,27 +155,28 @@
     self->_verbiageLabel = v5;
 
     v7 = MGGetBoolAnswer();
-    v8 = CKFrameworkBundle();
-    v9 = v8;
-    if (v7)
+    v8 = v7;
+    v9 = CKFrameworkBundle(v7);
+    v10 = v9;
+    if (v8)
     {
-      v10 = @"IMESSAGE_REGISTRATION_BLURB_GREENTEA";
+      v11 = @"IMESSAGE_REGISTRATION_BLURB_GREENTEA";
     }
 
     else
     {
-      v10 = @"IMESSAGE_REGISTRATION_BLURB";
+      v11 = @"IMESSAGE_REGISTRATION_BLURB";
     }
 
-    v11 = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)self->_verbiageLabel setText:v11];
+    v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)self->_verbiageLabel setText:v12];
 
-    v12 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDCF8]];
-    v13 = [MEMORY[0x1E69DB878] fontWithDescriptor:v12 size:0.0];
-    [(UILabel *)self->_verbiageLabel setFont:v13];
+    v13 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDCF8]];
+    v14 = [MEMORY[0x1E69DB878] fontWithDescriptor:v13 size:0.0];
+    [(UILabel *)self->_verbiageLabel setFont:v14];
 
-    v14 = +[CKUIBehavior sharedBehaviors];
-    theme = [v14 theme];
+    v15 = +[CKUIBehavior sharedBehaviors];
+    theme = [v15 theme];
     primaryLabelColor = [theme primaryLabelColor];
     [(UILabel *)self->_verbiageLabel setTextColor:primaryLabelColor];
 
@@ -206,15 +207,15 @@
     v6 = self->_signingInLabel;
     self->_signingInLabel = v5;
 
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"IMESSAGE_REGISTRATION_SIGNING_IN" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)self->_signingInLabel setText:v8];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"IMESSAGE_REGISTRATION_SIGNING_IN" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)self->_signingInLabel setText:v9];
 
-    v9 = [MEMORY[0x1E69DB878] systemFontOfSize:17.0];
-    [(UILabel *)self->_signingInLabel setFont:v9];
+    v10 = [MEMORY[0x1E69DB878] systemFontOfSize:17.0];
+    [(UILabel *)self->_signingInLabel setFont:v10];
 
-    v10 = +[CKUIBehavior sharedBehaviors];
-    theme = [v10 theme];
+    v11 = +[CKUIBehavior sharedBehaviors];
+    theme = [v11 theme];
     primaryLabelColor = [theme primaryLabelColor];
     [(UILabel *)self->_signingInLabel setTextColor:primaryLabelColor];
 
@@ -262,17 +263,17 @@
     self->_learnMoreButton = v4;
 
     v6 = self->_learnMoreButton;
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"IMESSAGE_REGISTRATION_LEARN_MORE" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UIButton *)v6 setTitle:v8 forState:0];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"IMESSAGE_REGISTRATION_LEARN_MORE" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UIButton *)v6 setTitle:v9 forState:0];
 
-    v9 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDCF8]];
+    v10 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDCF8]];
     titleLabel = [(UIButton *)self->_learnMoreButton titleLabel];
-    v11 = [MEMORY[0x1E69DB878] fontWithDescriptor:v9 size:0.0];
-    [titleLabel setFont:v11];
+    v12 = [MEMORY[0x1E69DB878] fontWithDescriptor:v10 size:0.0];
+    [titleLabel setFont:v12];
 
-    v12 = +[CKUIBehavior sharedBehaviors];
-    signInTintColor = [v12 signInTintColor];
+    v13 = +[CKUIBehavior sharedBehaviors];
+    signInTintColor = [v13 signInTintColor];
 
     if (signInTintColor)
     {

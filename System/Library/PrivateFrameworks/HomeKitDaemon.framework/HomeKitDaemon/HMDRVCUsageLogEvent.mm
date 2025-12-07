@@ -1,4 +1,5 @@
 @interface HMDRVCUsageLogEvent
++ (id)eventWithSource:(unint64_t)source wholeHouse:(BOOL)house roomCount:(id)count roomsInHome:(id)home cleanModes:(id)modes;
 - (NSDictionary)coreAnalyticsEventDictionary;
 @end
 
@@ -27,9 +28,26 @@
   cleanModes = [(HMDRVCUsageLogEvent *)self cleanModes];
   [dictionary setObject:cleanModes forKeyedSubscript:@"cleanModes"];
 
-  v12 = [dictionary copy];
+  v12 = objc_msgSend_copy(dictionary);
 
   return v12;
+}
+
++ (id)eventWithSource:(unint64_t)source wholeHouse:(BOOL)house roomCount:(id)count roomsInHome:(id)home cleanModes:(id)modes
+{
+  houseCopy = house;
+  modesCopy = modes;
+  homeCopy = home;
+  countCopy = count;
+  v14 = objc_alloc_init(HMDRVCUsageLogEvent);
+  [(HMDRVCUsageLogEvent *)v14 setSource:source];
+  [(HMDRVCUsageLogEvent *)v14 setWholeHouse:houseCopy];
+  [(HMDRVCUsageLogEvent *)v14 setRoomCount:countCopy];
+
+  [(HMDRVCUsageLogEvent *)v14 setRoomsInHome:homeCopy];
+  [(HMDRVCUsageLogEvent *)v14 setCleanModes:modesCopy];
+
+  return v14;
 }
 
 @end

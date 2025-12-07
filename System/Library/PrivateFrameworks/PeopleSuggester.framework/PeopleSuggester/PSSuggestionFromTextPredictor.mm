@@ -20,7 +20,7 @@ BOOL __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScore
 
 BOOL __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_83(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 contactIdentifier];
   v5 = [_PSInteractionStoreUtils someInteractionWithMatchingIdentifier:v4 store:*(a1[4] + 16) bundleIds:a1[5] afterStartDate:a1[6]];
@@ -31,19 +31,18 @@ BOOL __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScore
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [v3 contactIdentifier];
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "Contact %@ hasn't been interacted with recently enough", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "Contact %@ hasn't been interacted with recently enough", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 
 _PSRecipient *__98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_85(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_PSContactCache sharedInstance];
   v5 = [v3 contactIdentifier];
@@ -93,16 +92,14 @@ LABEL_6:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = [v3 contactIdentifier];
-      v25 = 138412290;
-      v26 = v22;
-      _os_log_impl(&dword_1B5ED1000, v21, OS_LOG_TYPE_DEFAULT, "Unable to match contact for identifier %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = v22;
+      _os_log_impl(&dword_1B5ED1000, v21, OS_LOG_TYPE_DEFAULT, "Unable to match contact for identifier %@", &v24, 0xCu);
     }
   }
 
   v20 = 0;
 LABEL_11:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -129,20 +126,18 @@ id __125___PSSuggestionFromTextPredictor_suggestionsFromPortraitExtractionsWithC
 
 id __125___PSSuggestionFromTextPredictor_suggestionsFromPortraitExtractionsWithContext_startDate_endDate_priorScoreThreshold_reason___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   [v4 setContactIdentifier:v3];
 
   v5 = *(a1 + 32);
-  v13[0] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v4;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v7 = *(a1 + 56);
   v8 = [*(a1 + 40) bundleID];
   LODWORD(v9) = v7;
   v10 = [v5 suggestionFromContactPriors:v6 priorScoreThreshold:v8 bundleID:*(a1 + 48) reason:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -170,19 +165,17 @@ id __125___PSSuggestionFromTextPredictor_suggestionsFromUnstructuredCalendarEven
 
 void __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = [a1 contactIdentifier];
   [a1 priorScore];
   v7 = *(a2 + 32);
-  v10 = 138412802;
-  v11 = v6;
-  v12 = 2048;
-  v13 = v8;
-  v14 = 2048;
-  v15 = v7;
-  _os_log_debug_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_DEBUG, "Contact %@ has prior score %f, thresholding with %f", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138412802;
+  v10 = v6;
+  v11 = 2048;
+  v12 = v8;
+  v13 = 2048;
+  v14 = v7;
+  _os_log_debug_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_DEBUG, "Contact %@ has prior score %f, thresholding with %f", &v9, 0x20u);
 }
 
 @end

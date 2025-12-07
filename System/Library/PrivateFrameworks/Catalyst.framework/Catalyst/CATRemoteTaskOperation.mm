@@ -120,7 +120,7 @@ LABEL_3:
   v5[3] = &unk_278DA72D0;
   v5[4] = self;
   v3 = v5;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_6;
@@ -131,7 +131,7 @@ LABEL_3:
 
 - (void)cancelOperationIfNeeded
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATOperation *)self isExecuting])
@@ -244,7 +244,7 @@ LABEL_10:
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_6;
@@ -280,7 +280,7 @@ void __39__CATRemoteTaskOperation_fetchProgress__block_invoke(uint64_t a1)
   v8 = v13;
   v9 = infoCopy;
   v10 = nameCopy;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(v10);
   v12 = v8;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -306,7 +306,7 @@ void __60__CATRemoteTaskOperation_postNotificationWithName_userInfo___block_invo
 - (void)processMessage:(id)message
 {
   messageCopy = message;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v4);
 
   objc_opt_class();
@@ -359,7 +359,7 @@ void __60__CATRemoteTaskOperation_postNotificationWithName_userInfo___block_invo
   v10 = errorCopy;
   v5 = v9;
   v6 = errorCopy;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(v6);
   v8 = v5;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -390,7 +390,7 @@ void __48__CATRemoteTaskOperation_clientFailedWithError___block_invoke(uint64_t 
 
 - (void)updateCompletedUnitCount:(int64_t)count andTotalUnitCount:(int64_t)unitCount
 {
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v7);
 
   if ([(CATOperation *)self totalUnitCount]!= unitCount)
@@ -408,7 +408,7 @@ void __48__CATRemoteTaskOperation_clientFailedWithError___block_invoke(uint64_t 
 - (void)updateProgressWithRemoteProgress:(id)progress
 {
   progressCopy = progress;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(progressCopy);
   CATAssertIsQueue(v4);
 
   if ([(CATOperation *)self isExecuting])
@@ -487,13 +487,12 @@ LABEL_14:
 
 - (void)processNotificationWithName:(os_log_t)log userInfo:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_24329F000, log, OS_LOG_TYPE_ERROR, "%@ dropping notification '%@', either the client didn't expect it, or it wasn't allowlisted", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_24329F000, log, OS_LOG_TYPE_ERROR, "%@ dropping notification '%@', either the client didn't expect it, or it wasn't allowlisted", &v3, 0x16u);
 }
 
 - (void)clientFailedWithError:.cold.1()

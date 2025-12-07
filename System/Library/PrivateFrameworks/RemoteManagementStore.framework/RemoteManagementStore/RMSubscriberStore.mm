@@ -24,6 +24,7 @@
 - (void)configurationNotSupported:(id)supported error:(id)error completionHandler:(id)handler;
 - (void)publishStatus:(id)status completionHandler:(id)handler;
 - (void)resolveAsset:(id)asset completionHandler:(id)handler;
+- (void)setConfigurationUI:(id)i visible:(BOOL)visible ui:(id)ui completionHandler:(id)handler;
 @end
 
 @implementation RMSubscriberStore
@@ -132,7 +133,7 @@ void __55__RMSubscriberStore_storesWithScope_completionHandler___block_invoke(ui
 
 void __55__RMSubscriberStore_storesWithScope_completionHandler___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -153,29 +154,29 @@ void __55__RMSubscriberStore_storesWithScope_completionHandler___block_invoke_5(
       _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched stores", buf, 2u);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v14}];
+          [*(*(&v13 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v10);
@@ -185,8 +186,6 @@ void __55__RMSubscriberStore_storesWithScope_completionHandler___block_invoke_5(
   }
 
   v7();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (void)storeForStoreDeclarationKeyString:(id)string scope:(int64_t)scope completionHandler:(id)handler
@@ -250,7 +249,7 @@ void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationT
 
 void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationTypes_completionHandler___block_invoke_9(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -272,29 +271,29 @@ void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationT
       _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched stores and declarations", buf, 2u);
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v17 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v17}];
+          [*(*(&v16 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v16}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v13);
@@ -304,8 +303,6 @@ void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationT
   }
 
   v10();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)subscribedStoreConfigurationsVisibleUIWithScope:(int64_t)scope configurationTypes:(id)types completionHandler:(id)handler
@@ -346,7 +343,7 @@ void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_co
 
 void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_configurationTypes_completionHandler___block_invoke_11(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -368,29 +365,29 @@ void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_co
       _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched stores and configurations with visible UI", buf, 2u);
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v17 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v17}];
+          [*(*(&v16 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v16}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v13);
@@ -400,8 +397,6 @@ void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_co
   }
 
   v10();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveAsset:(id)asset completionHandler:(id)handler
@@ -790,6 +785,37 @@ void __60__RMSubscriberStore_certificateStatusWithCompletionHandler___block_invo
   [*(a1 + 32) xpcConnection];
 }
 
+- (void)setConfigurationUI:(id)i visible:(BOOL)visible ui:(id)ui completionHandler:(id)handler
+{
+  visibleCopy = visible;
+  iCopy = i;
+  handlerCopy = handler;
+  uiCopy = ui;
+  xpcConnection = [(RMBaseStore *)self xpcConnection];
+  connection = [xpcConnection connection];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke;
+  v26[3] = &unk_279B05310;
+  v15 = handlerCopy;
+  v27 = v15;
+  v16 = [connection remoteObjectProxyWithErrorHandler:v26];
+
+  identifier = [(RMBaseStore *)self identifier];
+  declarationIdentifier = [iCopy declarationIdentifier];
+  declarationServerToken = [iCopy declarationServerToken];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke_75;
+  v22[3] = &unk_279B06080;
+  selfCopy = self;
+  v25 = v15;
+  v23 = iCopy;
+  v20 = v15;
+  v21 = iCopy;
+  [v16 setConfigurationUIWithStoreIdentifier:identifier declarationIdentifier:declarationIdentifier declarationServerToken:declarationServerToken visible:visibleCopy ui:uiCopy completionHandler:v22];
+}
+
 void __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1068,196 +1094,29 @@ void __100__RMSubscriberStore__removeStatusForDeclarationIdentifier_declarationS
   return [(RMBaseStore *)&v4 isEqualToStore:store];
 }
 
-+ (void)storeForStoreDeclarationKeyString:scope:completionHandler:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "declarationKey is invalid: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationTypes_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching stores and declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __95__RMSubscriberStore_subscribedStoreDeclarationsWithScope_configurationTypes_completionHandler___block_invoke_9_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch stores and declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_configurationTypes_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching stores and configurations with missing UI: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __106__RMSubscriberStore_subscribedStoreConfigurationsVisibleUIWithScope_configurationTypes_completionHandler___block_invoke_11_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch stores and configurations with visible UI: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)resolveAsset:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 downloadURL];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_5_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveAsset:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2[0] = 67109120;
-  v2[1] = v0;
-  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to issue sandbox extension for file: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __52__RMSubscriberStore_resolveAsset_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while resolving asset: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__RMSubscriberStore_resolveAsset_completionHandler___block_invoke_13_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to resolve: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__RMSubscriberStore_unassignAssets_scope_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while unassigning assets: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__RMSubscriberStore_unassignAssets_scope_completionHandler___block_invoke_15_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to unassign assets: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMSubscriberStore_certificatePersistentRefForAssetKey_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching certificate persistent ref: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMSubscriberStore_certificatePersistentRefForAssetKey_completionHandler___block_invoke_71_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch certificate persistent ref: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__RMSubscriberStore_certificateStatusWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching certificate status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__RMSubscriberStore_certificateStatusWithCompletionHandler___block_invoke_73_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch certificate status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while publishing status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke_75_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Could not set configuration UI: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = v0;
+  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to issue sandbox extension for file: %d", v1, 8u);
 }
 
 void __69__RMSubscriberStore_setConfigurationUI_visible_ui_completionHandler___block_invoke_75_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) declarationIdentifier];
-  v9 = [*(a1 + 32) declarationServerToken];
+  v8 = [*(a1 + 32) declarationServerToken];
   OUTLINED_FUNCTION_5_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMSubscriberStore_publishStatus_completionHandler___block_invoke_76_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Could not publish status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __83__RMSubscriberStore__writeStatusForDeclaration_validity_reasons_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while writing status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __83__RMSubscriberStore__writeStatusForDeclaration_validity_reasons_completionHandler___block_invoke_81_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Could not write status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __100__RMSubscriberStore__removeStatusForDeclarationIdentifier_declarationServerToken_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while removing status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __100__RMSubscriberStore__removeStatusForDeclarationIdentifier_declarationServerToken_completionHandler___block_invoke_82_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Could not remove status: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

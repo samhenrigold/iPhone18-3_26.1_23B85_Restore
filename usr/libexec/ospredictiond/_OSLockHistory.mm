@@ -524,30 +524,14 @@ LABEL_7:
 {
   eventCopy = event;
   v4 = eventCopy;
-  if (!eventCopy)
+  if (eventCopy && ([eventCopy eventBody], (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, objc_msgSend(v4, "eventBody"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "hasStarting"), v7, v6, v8))
   {
-    goto LABEL_5;
-  }
-
-  eventBody = [eventCopy eventBody];
-  if (!eventBody)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = eventBody;
-  eventBody2 = [v4 eventBody];
-  hasStarting = [eventBody2 hasStarting];
-
-  if (hasStarting)
-  {
-    eventBody3 = [v4 eventBody];
-    starting = [eventBody3 starting];
+    eventBody = [v4 eventBody];
+    starting = [eventBody starting];
   }
 
   else
   {
-LABEL_5:
     starting = 1;
   }
 

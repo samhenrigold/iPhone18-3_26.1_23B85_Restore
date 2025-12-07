@@ -1,14 +1,18 @@
 @interface SUIOpenInAppActivity
++ (id)_activitiesForFileURL:(id)l isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data includeSourceApplicationInResults:(BOOL)results supportedTypeIdentifiers:(id)identifiers;
++ (id)openInActivitiesForItems:(id)items isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data includeSourceApplicationInResults:(BOOL)results supportedTypeIdentifiers:(id)identifiers;
 - (BOOL)canPerformWithActivityItems:(id)items;
 - (BOOL)openByImportWillHandlePromiseURLs;
 - (NSString)applicationIdentifier;
 - (NSString)description;
+- (SUIOpenInAppActivity)initWithApplicationProxy:(id)proxy documentProxy:(id)documentProxy isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data appIsDocumentTypeOwner:(BOOL)owner supportedTypeIdentifiers:(id)identifiers;
 - (id)_bookmarkWithSandboxExtensionForExport;
 - (id)_firstMatchingDocumentProxyForActivityItems:(id)items;
 - (id)activityTitle;
 - (id)activityType;
 - (id)ss_activitySpecificExtensionItemDataRequestInfo;
 - (void)_performLaunchServicesOpenWithDocumentOpenURL:(id)l launchServiceOptions:(id)options completion:(id)completion;
+- (void)activityDidFinish:(BOOL)finish items:(id)items error:(id)error;
 - (void)openResourceOperation:(id)operation didFailWithError:(id)error;
 - (void)performActivity;
 - (void)performLaunchServicesImportOpenWithCompletion:(id)completion;
@@ -28,6 +32,38 @@
   return v3;
 }
 
+- (SUIOpenInAppActivity)initWithApplicationProxy:(id)proxy documentProxy:(id)documentProxy isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data appIsDocumentTypeOwner:(BOOL)owner supportedTypeIdentifiers:(id)identifiers
+{
+  ownerCopy = owner;
+  managedCopy = managed;
+  proxyCopy = proxy;
+  documentProxyCopy = documentProxy;
+  dataCopy = data;
+  identifiersCopy = identifiers;
+  v18 = objc_opt_class();
+  if (v18 == objc_opt_class())
+  {
+    sub_1001FC1F4();
+  }
+
+  v23.receiver = self;
+  v23.super_class = SUIOpenInAppActivity;
+  v19 = [(SUIOpenInAppActivity *)&v23 init];
+  v20 = v19;
+  if (v19)
+  {
+    [(SUIOpenInAppActivity *)v19 setApplicationProxy:proxyCopy];
+    [(SUIOpenInAppActivity *)v20 setDocumentProxy:documentProxyCopy];
+    [(SUIOpenInAppActivity *)v20 setIsContentManaged:managedCopy];
+    [(SUIOpenInAppActivity *)v20 setSourceApplicationAuditTokenData:dataCopy];
+    [(SUIOpenInAppActivity *)v20 _setAppIsDocumentTypeOwner:ownerCopy];
+    v21 = [identifiersCopy copy];
+    [(SUIOpenInAppActivity *)v20 setSupportedTypeIdentifiers:v21];
+  }
+
+  return v20;
+}
+
 - (NSString)applicationIdentifier
 {
   applicationProxy = [(SUIOpenInAppActivity *)self applicationProxy];
@@ -45,6 +81,61 @@
   v5 = [NSString stringWithFormat:@"%@ '%@'", v3, activityTitle];
 
   return v5;
+}
+
++ (id)openInActivitiesForItems:(id)items isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data includeSourceApplicationInResults:(BOOL)results supportedTypeIdentifiers:(id)identifiers
+{
+  resultsCopy = results;
+  managedCopy = managed;
+  dataCopy = data;
+  identifiersCopy = identifiers;
+  itemsCopy = items;
+  v15 = [NSPredicate predicateWithBlock:&stru_1008D4090];
+  v16 = [itemsCopy filteredArrayUsingPredicate:v15];
+
+  if ([v16 count])
+  {
+
+    identifiersCopy = 0;
+  }
+
+  else
+  {
+    memset(v27, 0, sizeof(v27));
+    if ([identifiersCopy countByEnumeratingWithState:v27 objects:v31 count:16])
+    {
+      v17 = [UTType typeWithIdentifier:**(&v27[0] + 1)];
+      preferredFilenameExtension = [v17 preferredFilenameExtension];
+      v19 = [NSString stringWithFormat:@"fake.%@", preferredFilenameExtension];
+      v20 = [NSURL fileURLWithPath:v19 isDirectory:0];
+
+      v22 = share_sheet_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v30 = v20;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "SUIOpenInAppActivity: using fake fileURL:%@", buf, 0xCu);
+      }
+
+      v28 = v20;
+      v23 = [NSArray arrayWithObjects:&v28 count:1];
+
+      v16 = v23;
+    }
+  }
+
+  if ([v16 count])
+  {
+    firstObject = [v16 firstObject];
+    v25 = [self _activitiesForFileURL:firstObject isContentManaged:managedCopy sourceApplicationAuditTokenData:dataCopy includeSourceApplicationInResults:resultsCopy supportedTypeIdentifiers:identifiersCopy];
+  }
+
+  else
+  {
+    v25 = &__NSArray0__struct;
+  }
+
+  return v25;
 }
 
 - (void)_performLaunchServicesOpenWithDocumentOpenURL:(id)l launchServiceOptions:(id)options completion:(id)completion
@@ -109,8 +200,7 @@
   v30[2] = sub_1001FA2F8;
   v30[3] = &unk_1008CDEA0;
   v30[4] = self;
-  [v27 setCompletionBlock:v30];
-  v28 = share_sheet_log();
+  v28 = share_sheet_log([v27 setCompletionBlock:v30]);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     applicationIdentifier2 = [(LSApplicationProxy *)self->_applicationProxy applicationIdentifier];
@@ -127,7 +217,7 @@
 - (void)openResourceOperation:(id)operation didFailWithError:(id)error
 {
   errorCopy = error;
-  v5 = share_sheet_log();
+  v5 = share_sheet_log(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -383,6 +473,15 @@
   [(SUIOpenInAppActivity *)selfCopy prepareWithActivityItems:v19];
 }
 
+- (void)activityDidFinish:(BOOL)finish items:(id)items error:(id)error
+{
+  v7.receiver = self;
+  v7.super_class = SUIOpenInAppActivity;
+  [(SUIOpenInAppActivity *)&v7 activityDidFinish:finish items:items error:error];
+  securityContext = [(SUIOpenInAppActivity *)self securityContext];
+  [securityContext deactivate];
+}
+
 - (BOOL)canPerformWithActivityItems:(id)items
 {
   itemsCopy = items;
@@ -417,97 +516,157 @@
   return v3;
 }
 
++ (id)_activitiesForFileURL:(id)l isContentManaged:(BOOL)managed sourceApplicationAuditTokenData:(id)data includeSourceApplicationInResults:(BOOL)results supportedTypeIdentifiers:(id)identifiers
+{
+  managedCopy = managed;
+  lCopy = l;
+  dataCopy = data;
+  identifiersCopy = identifiers;
+  v14 = objc_opt_new();
+  v15 = lCopy;
+  isFileURL = [v15 isFileURL];
+  v17 = v15;
+  v18 = v17;
+  if (isFileURL)
+  {
+    if (_UIIsIWorkArchiveURL())
+    {
+      lastPathComponent = [v17 lastPathComponent];
+      v20 = _UIStringByDeletingArchiveExtensions();
+
+      uRLByDeletingLastPathComponent = [v17 URLByDeletingLastPathComponent];
+      v18 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v20];
+    }
+
+    else
+    {
+      v18 = v17;
+    }
+  }
+
+  v22 = sub_1001FB61C(v18, managedCopy, dataCopy);
+  if (results)
+  {
+    v23 = 0;
+LABEL_10:
+    v25 = &__NSArray0__struct;
+    goto LABEL_11;
+  }
+
+  v24 = sub_1001FA2C0(dataCopy);
+  v23 = v24;
+  if (!v24)
+  {
+    goto LABEL_10;
+  }
+
+  v37 = v24;
+  v25 = [NSArray arrayWithObjects:&v37 count:1];
+LABEL_11:
+  v26 = sub_1001FB61C(v17, managedCopy, dataCopy);
+  v36 = identifiersCopy;
+  v33 = v14;
+  v34 = v26;
+  v35 = dataCopy;
+  v27 = identifiersCopy;
+  v28 = dataCopy;
+  v29 = v26;
+  v30 = v17;
+  _UIEnumerateApplicationsInPreferredOrderForOpeningDocument();
+  v31 = v33;
+
+  return v33;
+}
+
 - (id)_firstMatchingDocumentProxyForActivityItems:(id)items
 {
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   itemsCopy = items;
-  v5 = [itemsCopy countByEnumeratingWithState:&v46 objects:v57 count:16];
+  v5 = [itemsCopy countByEnumeratingWithState:&v45 objects:v56 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v47;
-    v9 = &kSFNodeProtocolWebDAVS_ptr;
-    v10 = &OBJC_IVAR___SharingDaemon__collaborationUserDefaultsServer;
+    v8 = *v46;
+    v9 = &OBJC_IVAR___SharingDaemon__collaborationUserDefaultsServer;
     *&v6 = 138412802;
-    v35 = v6;
-    v39 = itemsCopy;
+    v34 = v6;
+    v38 = itemsCopy;
     selfCopy = self;
-    v36 = *v47;
+    v35 = *v46;
     while (2)
     {
-      v11 = 0;
-      v37 = v7;
+      v10 = 0;
+      v36 = v7;
       do
       {
-        if (*v47 != v8)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        v12 = *(*(&v46 + 1) + 8 * v11);
-        v13 = v9[229];
+        v11 = *(*(&v45 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = v12;
-          if ([v14 isFileURL])
+          v12 = v11;
+          if ([v12 isFileURL])
           {
-            pathExtension = [v14 pathExtension];
-            v16 = v10[550];
-            v17 = [*(&self->super.super.isa + v16) URL];
-            pathExtension2 = [v17 pathExtension];
-            v19 = [pathExtension caseInsensitiveCompare:pathExtension2];
+            pathExtension = [v12 pathExtension];
+            v14 = v9[550];
+            v15 = [*(&self->super.super.isa + v14) URL];
+            pathExtension2 = [v15 pathExtension];
+            v17 = [pathExtension caseInsensitiveCompare:pathExtension2];
 
-            if (!v19)
+            if (!v17)
             {
-              v33 = sub_1001FB61C(v14, self->_isContentManaged, self->_sourceApplicationAuditTokenData);
+              v32 = sub_1001FB61C(v12, self->_isContentManaged, self->_sourceApplicationAuditTokenData);
 LABEL_25:
 
               goto LABEL_27;
             }
 
-            v38 = v16;
-            v44 = 0u;
-            v45 = 0u;
-            v42 = 0u;
+            v37 = v14;
             v43 = 0u;
+            v44 = 0u;
+            v41 = 0u;
+            v42 = 0u;
             obj = [(SUIOpenInAppActivity *)self supportedTypeIdentifiers];
-            v20 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
-            if (v20)
+            v18 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
+            if (v18)
             {
-              v21 = v20;
-              v22 = *v43;
+              v19 = v18;
+              v20 = *v42;
               while (2)
               {
-                for (i = 0; i != v21; i = i + 1)
+                for (i = 0; i != v19; i = i + 1)
                 {
-                  if (*v43 != v22)
+                  if (*v42 != v20)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v24 = [UTType typeWithIdentifier:*(*(&v42 + 1) + 8 * i), v35];
-                  pathExtension3 = [v14 pathExtension];
-                  v26 = [UTType typeWithFilenameExtension:pathExtension3];
+                  v22 = [UTType typeWithIdentifier:*(*(&v41 + 1) + 8 * i), v34];
+                  pathExtension3 = [v12 pathExtension];
+                  v24 = [UTType typeWithFilenameExtension:pathExtension3];
 
-                  preferredFilenameExtension = [v24 preferredFilenameExtension];
-                  preferredFilenameExtension2 = [v26 preferredFilenameExtension];
-                  v29 = [preferredFilenameExtension isEqual:preferredFilenameExtension2];
+                  preferredFilenameExtension = [v22 preferredFilenameExtension];
+                  preferredFilenameExtension2 = [v24 preferredFilenameExtension];
+                  v27 = [preferredFilenameExtension isEqual:preferredFilenameExtension2];
 
-                  if (v29)
+                  if (v27)
                   {
-                    v33 = sub_1001FB61C(v14, selfCopy->_isContentManaged, selfCopy->_sourceApplicationAuditTokenData);
+                    v32 = sub_1001FB61C(v12, selfCopy->_isContentManaged, selfCopy->_sourceApplicationAuditTokenData);
 
-                    itemsCopy = v39;
+                    itemsCopy = v38;
                     goto LABEL_25;
                   }
                 }
 
-                v21 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
-                if (v21)
+                v19 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
+                if (v19)
                 {
                   continue;
                 }
@@ -516,35 +675,34 @@ LABEL_25:
               }
             }
 
-            v30 = share_sheet_log();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v29 = share_sheet_log(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v31 = [*(&selfCopy->super.super.isa + v38) URL];
+              v30 = [*(&selfCopy->super.super.isa + v37) URL];
               supportedTypeIdentifiers = [(SUIOpenInAppActivity *)selfCopy supportedTypeIdentifiers];
-              *buf = v35;
-              v51 = v14;
-              v52 = 2112;
-              v53 = v31;
-              v54 = 2112;
-              v55 = supportedTypeIdentifiers;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "SUIOpenInAppActivity: didn't find a matching document proxy for url:%@ documentProxy.URL:%@ supportedTypeIdentifiers:%@", buf, 0x20u);
+              *buf = v34;
+              v50 = v12;
+              v51 = 2112;
+              v52 = v30;
+              v53 = 2112;
+              v54 = supportedTypeIdentifiers;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "SUIOpenInAppActivity: didn't find a matching document proxy for url:%@ documentProxy.URL:%@ supportedTypeIdentifiers:%@", buf, 0x20u);
             }
 
-            itemsCopy = v39;
+            itemsCopy = v38;
             self = selfCopy;
-            v8 = v36;
-            v7 = v37;
-            v9 = &kSFNodeProtocolWebDAVS_ptr;
-            v10 = &OBJC_IVAR___SharingDaemon__collaborationUserDefaultsServer;
+            v8 = v35;
+            v7 = v36;
+            v9 = &OBJC_IVAR___SharingDaemon__collaborationUserDefaultsServer;
           }
         }
 
-        v11 = v11 + 1;
+        v10 = v10 + 1;
       }
 
-      while (v11 != v7);
-      v7 = [itemsCopy countByEnumeratingWithState:&v46 objects:v57 count:16];
-      v33 = 0;
+      while (v10 != v7);
+      v7 = [itemsCopy countByEnumeratingWithState:&v45 objects:v56 count:16];
+      v32 = 0;
       if (v7)
       {
         continue;
@@ -556,12 +714,12 @@ LABEL_25:
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
 LABEL_27:
 
-  return v33;
+  return v32;
 }
 
 - (id)activityTitle

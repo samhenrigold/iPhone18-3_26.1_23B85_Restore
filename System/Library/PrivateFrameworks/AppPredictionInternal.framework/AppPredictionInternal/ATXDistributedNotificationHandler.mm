@@ -22,13 +22,13 @@
   return v3;
 }
 
-uint64_t __51__ATXDistributedNotificationHandler_sharedInstance__block_invoke()
+uint64_t __51__ATXDistributedNotificationHandler_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_handler;
-  sharedInstance_handler = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_handler;
+  sharedInstance_handler = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXDistributedNotificationHandler)init
@@ -83,11 +83,10 @@ void __56__ATXDistributedNotificationHandler__notificationFired___block_invoke(u
 
 - (void)_pruneOldRecents
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [self count];
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXDistributedNotificationHandler: removing %ld old notifications", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [self count];
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXDistributedNotificationHandler: removing %ld old notifications", &v3, 0xCu);
 }
 
 BOOL __53__ATXDistributedNotificationHandler__pruneOldRecents__block_invoke(uint64_t a1, void *a2)
@@ -106,10 +105,11 @@ BOOL __53__ATXDistributedNotificationHandler__pruneOldRecents__block_invoke(uint
   infoCopy = info;
   [(ATXDistributedNotificationHandler *)self _pruneOldRecents];
   v11 = [[_ATXDistributedNotification alloc] initWithName:nameCopy userInfo:infoCopy];
-  if ([(NSMutableSet *)self->_recentNotifications containsObject:v11])
+  v12 = [(NSMutableSet *)self->_recentNotifications containsObject:v11];
+  if (v12)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543874;
       v17 = sourceCopy;
@@ -117,9 +117,9 @@ BOOL __53__ATXDistributedNotificationHandler__pruneOldRecents__block_invoke(uint
       v19 = nameCopy;
       v20 = 2112;
       v21 = infoCopy;
-      v13 = "ATXDistributedNotificationHandler: dropping duplicate event (%{public}@) %{public}@; userInfo=%@";
+      v14 = "ATXDistributedNotificationHandler: dropping duplicate event (%{public}@) %{public}@; userInfo=%@";
 LABEL_6:
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, v13, &v16, 0x20u);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0x20u);
     }
   }
 
@@ -128,9 +128,8 @@ LABEL_6:
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:nameCopy object:0 userInfo:infoCopy];
 
-    [(NSMutableSet *)self->_recentNotifications addObject:v11];
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_default([(NSMutableSet *)self->_recentNotifications addObject:v11]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543874;
       v17 = sourceCopy;
@@ -138,12 +137,10 @@ LABEL_6:
       v19 = nameCopy;
       v20 = 2112;
       v21 = infoCopy;
-      v13 = "ATXDistributedNotificationHandler: handled event (%{public}@) %{public}@; userInfo=%@";
+      v14 = "ATXDistributedNotificationHandler: handled event (%{public}@) %{public}@; userInfo=%@";
       goto LABEL_6;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerXPCHandler

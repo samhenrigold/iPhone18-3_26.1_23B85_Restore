@@ -816,7 +816,7 @@ LABEL_13:
   }
 }
 
-uint64_t __35__SBIconDragManager_isIconDragging__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__35__SBIconDragManager_isIconDragging__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 state];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -845,7 +845,7 @@ uint64_t __35__SBIconDragManager_isIconDragging__block_invoke(uint64_t a1, void 
   return v2;
 }
 
-uint64_t __48__SBIconDragManager_isTrackingMultipleIconDrags__block_invoke(uint64_t a1, void *a2)
+void *__48__SBIconDragManager_isTrackingMultipleIconDrags__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 state];
   if (result)
@@ -856,7 +856,7 @@ uint64_t __48__SBIconDragManager_isTrackingMultipleIconDrags__block_invoke(uint6
   return result;
 }
 
-uint64_t __52__SBIconDragManager_isTrackingMultipleItemIconDrags__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__52__SBIconDragManager_isTrackingMultipleItemIconDrags__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 state];
   *(*(*(a1 + 32) + 8) + 24) = result == 4;
@@ -962,7 +962,7 @@ void __48__SBIconDragManager_isTrackingActiveDragOfIcon___block_invoke(uint64_t 
   return self;
 }
 
-uint64_t __59__SBIconDragManager_isTrackingDragOriginatingFromIconView___block_invoke(uint64_t a1, void *a2)
+void *__59__SBIconDragManager_isTrackingDragOriginatingFromIconView___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 hasSourceIconView:*(a1 + 32)];
   if (result)
@@ -1255,7 +1255,7 @@ void __101__SBIconDragManager_isTrackingDragOriginatingFromOrDroppingIntoIconVie
   return self;
 }
 
-uint64_t __61__SBIconDragManager_isTrackingDragWithGhostTreatmentForIcon___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__61__SBIconDragManager_isTrackingDragWithGhostTreatmentForIcon___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasGrabbedIcon:*(a1 + 32)];
   if (result)
@@ -2037,7 +2037,7 @@ void __61__SBIconDragManager_changeStateOfDragWithIdentifier_toState___block_inv
               v25 = [v20 objectForKey:@"containerBundleIdentifier"];
               v26 = [v20 objectForKey:@"supportedGridSizeClasses"];
               v27 = [[SBHWidget alloc] initWithUniqueIdentifier:v23 kind:v22 extensionBundleIdentifier:v24 containerBundleIdentifier:v25 supportedGridSizeClasses:v26];
-              v28 = SBLogWidgets();
+              v28 = SBLogWidgets(v27);
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 extensionBundleIdentifier = [(SBHWidget *)v27 extensionBundleIdentifier];
@@ -4855,7 +4855,7 @@ void __90__SBIconDragManager_pruneCancelableSourceFoldersInDestinationListView_w
   }
 }
 
-uint64_t __70__SBIconDragManager_iconView_willAnimateDragLiftWithAnimator_session___block_invoke_2(uint64_t a1)
+void *__70__SBIconDragManager_iconView_willAnimateDragLiftWithAnimator_session___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [*(a1 + 40) iconContentScale];
@@ -4989,7 +4989,7 @@ void __70__SBIconDragManager_iconView_willAnimateDragLiftWithAnimator_session___
   }
 }
 
-uint64_t __66__SBIconDragManager_iconView_dragLiftAnimationDidChangeDirection___block_invoke(uint64_t a1)
+void *__66__SBIconDragManager_iconView_dragLiftAnimationDidChangeDirection___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setHighlighted:(*(a1 + 40) & 1) == 0];
   if (*(a1 + 40) == 1)
@@ -6515,7 +6515,7 @@ void __67__SBIconDragManager_informQuickActionPlatterDidFinishPresentation___blo
   [v14 resetLastUserInteractionDate];
   [(SBIconDragManager *)self _updateDragDistanceForDropSession:updateCopy currentIconListLocation:v9, v11];
   [(SBIconDragManager *)self _updateDragVelocityForDropSession:updateCopy];
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v61.x = v9;
   v61.y = v11;
   [v14 setWasLastUpdateContainedInDestinationIconListView:{CGRectContainsPoint(v62, v61)}];
@@ -9119,7 +9119,7 @@ void __38__SBIconDragManager_concludeIconDrop___block_invoke_3(uint64_t a1, void
         makeIconView = [v14 makeIconView];
         [v14 configureIconView:makeIconView forIcon:v23];
         [makeIconView setEditing:0];
-        [makeIconView iconImageInfo];
+        objc_msgSend_iconImageInfo(makeIconView);
         v26 = v25;
         v28 = v27;
         v30 = v29;

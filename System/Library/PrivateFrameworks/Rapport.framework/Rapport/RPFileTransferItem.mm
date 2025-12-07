@@ -22,12 +22,19 @@
 
 - (id)descriptionWithLevel:(int)level
 {
+  v10 = 0;
   itemURL = self->_itemURL;
-  [(NSDictionary *)self->_metadata count];
-  sha256HashData = self->_sha256HashData;
-  NSAppendPrintF();
+  v6 = [(NSDictionary *)self->_metadata count];
+  v7 = 100;
+  if (level > 49)
+  {
+    v7 = 8;
+  }
 
-  return 0;
+  NSAppendPrintF(&v10, "RPFileTransferItem: URL %{mask}, Metadata %d item(s), SHA-256 %.*@", itemURL, v6, v7, self->_sha256HashData);
+  v8 = v10;
+
+  return v8;
 }
 
 @end

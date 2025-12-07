@@ -1,13 +1,35 @@
 @interface TSUExtendedAttributeCollection
++ (BOOL)removeExtraExtendedAttributesAtPath:(id)path forIntent:(unsigned int)intent options:(int)options error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)setAttributeCollectionToPath:(id)path intent:(unsigned int)intent options:(int)options forRemoval:(BOOL)removal error:(id *)error;
 - (TSUExtendedAttributeCollection)initWithAttributes:(id)attributes;
+- (TSUExtendedAttributeCollection)initWithPath:(id)path forRemoval:(BOOL)removal options:(int)options error:(id *)error;
 - (id)description;
 - (id)extendedAttributeForName:(id)name;
 - (void)setExtendedAttributeValue:(id)value forName:(id)name;
 @end
 
 @implementation TSUExtendedAttributeCollection
+
++ (BOOL)removeExtraExtendedAttributesAtPath:(id)path forIntent:(unsigned int)intent options:(int)options error:(id *)error
+{
+  v7 = *&options;
+  v8 = *&intent;
+  pathCopy = path;
+  v11 = [[self alloc] initWithPath:pathCopy forRemoval:1 options:v7 error:error];
+  v12 = v11;
+  if (v11)
+  {
+    v13 = [v11 setAttributeCollectionToPath:pathCopy intent:v8 options:v7 forRemoval:1 error:error];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
 
 - (TSUExtendedAttributeCollection)initWithAttributes:(id)attributes
 {
@@ -62,6 +84,139 @@
   }
 
   return v5;
+}
+
+- (TSUExtendedAttributeCollection)initWithPath:(id)path forRemoval:(BOOL)removal options:(int)options error:(id *)error
+{
+  v7 = *&options;
+  removalCopy = removal;
+  pathCopy = path;
+  fileSystemRepresentation = [pathCopy fileSystemRepresentation];
+  if (!fileSystemRepresentation)
+  {
+    if (!error)
+    {
+      goto LABEL_28;
+    }
+
+    v25 = 2;
+LABEL_24:
+    [NSError tsu_fileReadPOSIXErrorWithNumber:v25 userInfo:0];
+    *error = selfCopy2 = 0;
+    goto LABEL_32;
+  }
+
+  v12 = fileSystemRepresentation;
+  v13 = listxattr(fileSystemRepresentation, 0, 0, v7);
+  if (v13 == -1)
+  {
+    if (!error)
+    {
+      goto LABEL_28;
+    }
+
+    v25 = *__error();
+    goto LABEL_24;
+  }
+
+  v14 = v13;
+  if (v13 < 1)
+  {
+    self = [(TSUExtendedAttributeCollection *)self init];
+    selfCopy2 = self;
+    goto LABEL_32;
+  }
+
+  v15 = malloc_type_malloc(v13, 0x100004077774924uLL);
+  if (!v15)
+  {
+    if (error)
+    {
+      v25 = 12;
+      goto LABEL_24;
+    }
+
+LABEL_28:
+    selfCopy2 = 0;
+    goto LABEL_32;
+  }
+
+  v16 = v15;
+  v17 = listxattr(v12, v15, v14, v7);
+  if (v17 == -1)
+  {
+    if (error)
+    {
+      *error = [NSError tsu_fileReadPOSIXErrorWithNumber:*__error() userInfo:0];
+    }
+
+    free(v16);
+    goto LABEL_28;
+  }
+
+  v18 = v17;
+  v29 = objc_opt_new();
+  if (v18 < 1)
+  {
+    goto LABEL_31;
+  }
+
+  v28 = v16;
+  v19 = v16;
+  while (1)
+  {
+    v20 = [[NSString alloc] initWithUTF8String:v19];
+    if ([v20 hasPrefix:@"com.apple.security.private."])
+    {
+      if (TSUDefaultCat_init_token != -1)
+      {
+        sub_10015B238();
+      }
+
+      v21 = TSUDefaultCat_log_t;
+      if (os_log_type_enabled(TSUDefaultCat_log_t, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412546;
+        v31 = v20;
+        v32 = 2080;
+        v33 = v12;
+        _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Not reading the %@ xattr on %s", buf, 0x16u);
+      }
+
+      goto LABEL_15;
+    }
+
+    v22 = [[TSUExtendedAttribute alloc] initFromPathFileSystemRepresentation:v12 name:v20 forRemoval:removalCopy options:v7 error:error];
+    if (!v22)
+    {
+      break;
+    }
+
+    v23 = v22;
+    [v29 addObject:v22];
+
+LABEL_15:
+    v24 = strlen(v19);
+    v19 += v24 + 1;
+    v18 -= v24 + 1;
+
+    if (v18 <= 0)
+    {
+      goto LABEL_30;
+    }
+  }
+
+  self = 0;
+LABEL_30:
+  v16 = v28;
+LABEL_31:
+  free(v16);
+  self = [(TSUExtendedAttributeCollection *)self initWithAttributes:v29];
+
+  selfCopy2 = self;
+LABEL_32:
+
+  return selfCopy2;
 }
 
 - (BOOL)setAttributeCollectionToPath:(id)path intent:(unsigned int)intent options:(int)options forRemoval:(BOOL)removal error:(id *)error

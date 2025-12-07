@@ -66,7 +66,7 @@ LABEL_3:
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_18D540();
+  sub_18D540(selfCopy);
 }
 
 - (void)viewDidLoad
@@ -110,7 +110,7 @@ LABEL_3:
 
   else
   {
-    sub_13C80(0, &qword_DE7500);
+    sub_13C80(0, &qword_DE7500, UIViewController_ptr);
     sub_AB9760();
     isa = sub_AB9740().super.isa;
   }
@@ -120,7 +120,7 @@ LABEL_3:
 
 - (void)setViewControllers:(id)controllers
 {
-  sub_13C80(0, &qword_DE7500);
+  sub_13C80(0, &qword_DE7500, UIViewController_ptr);
   v5 = sub_AB9760();
   controllersCopy = controllers;
   selfCopy = self;

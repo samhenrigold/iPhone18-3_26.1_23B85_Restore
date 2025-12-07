@@ -46,7 +46,7 @@
 
 - (int64_t)compare:(id)compare
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   compareCopy = compare;
   comparators = [objc_opt_class() comparators];
   v5 = [comparators mutableCopy];
@@ -54,31 +54,31 @@
   comparators2 = [objc_opt_class() comparators];
   [v5 intersectOrderedSet:comparators2];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = (*(*(*(&v17 + 1) + 8 * v11) + 16))(*(*(&v17 + 1) + 8 * v11));
+        v12 = (*(*(*(&v16 + 1) + 8 * v11) + 16))(*(*(&v16 + 1) + 8 * v11));
         if (v12)
         {
           v13 = v12;
-          v14 = CNALoggingContextSorting();
+          v14 = CNALoggingContextSorting(v12);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             [(CNAutocompleteResult(Sorting) *)v13 compare:v14];
@@ -91,7 +91,7 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -104,7 +104,6 @@
   v13 = 0;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -374,41 +373,39 @@ LABEL_13:
 
 void __35__CNAutocompleteResult_comparators__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB70]);
   v1 = _Block_copy(sSortResultsByCategory);
-  v9[0] = v1;
+  v8[0] = v1;
   v2 = _Block_copy(sSortResultsByPreferredDomain);
-  v9[1] = v2;
+  v8[1] = v2;
   v3 = _Block_copy(sSortResultsByDisplayName);
-  v9[2] = v3;
+  v8[2] = v3;
   v4 = _Block_copy(sSortResultsByAddress);
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [v0 initWithArray:v5];
   v7 = comparators_cn_once_object_0;
   comparators_cn_once_object_0 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUsingInformationFromRelatedResult:(id)result
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   -[CNAutocompleteResult setSourceType:](self, "setSourceType:", [resultCopy sourceType] | -[CNAutocompleteResult sourceType](self, "sourceType"));
   sourceType = [resultCopy sourceType];
   v7 = MEMORY[0x277CFBD30];
   if ((sourceType & 2) != 0 && ([(CNAutocompleteResult *)self identifier], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
   {
-    v18 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = CNALoggingContextDebug(v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = 138412546;
+      v52 = 138412546;
       selfCopy3 = self;
-      v51 = 2112;
-      v52 = resultCopy;
-      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Result: %@ is absorbing everything from: %@", &v49, 0x16u);
+      v54 = 2112;
+      v55 = resultCopy;
+      _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_DEFAULT, "Result: %@ is absorbing everything from: %@", &v52, 0x16u);
     }
 
     identifier = [resultCopy identifier];
@@ -448,17 +445,17 @@ LABEL_29:
     contactProvider3 = [resultCopy contactProvider];
     if (contactProvider3)
     {
-      v11 = contactProvider3;
+      v12 = contactProvider3;
       identifier2 = [(CNAutocompleteResult *)self identifier];
       if (identifier2)
       {
-        v13 = identifier2;
+        v14 = identifier2;
         identifier3 = [(CNAutocompleteResult *)self identifier];
         if (identifier3 || ([resultCopy identifier], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
         {
           identifier4 = [(CNAutocompleteResult *)self identifier];
           identifier5 = [resultCopy identifier];
-          v17 = [identifier4 isEqual:identifier5];
+          v18 = [identifier4 isEqual:identifier5];
 
           if (identifier3)
           {
@@ -468,7 +465,7 @@ LABEL_29:
           {
           }
 
-          if ((v17 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
             goto LABEL_30;
           }
@@ -478,14 +475,14 @@ LABEL_29:
       }
 
 LABEL_20:
-      v26 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = CNALoggingContextDebug(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v49 = 138412546;
+        v52 = 138412546;
         selfCopy3 = self;
-        v51 = 2112;
-        v52 = resultCopy;
-        _os_log_impl(&dword_2155FE000, v26, OS_LOG_TYPE_DEFAULT, "Result: %@ is absorbing contact provider and identifier from: %@", &v49, 0x16u);
+        v54 = 2112;
+        v55 = resultCopy;
+        _os_log_impl(&dword_2155FE000, v28, OS_LOG_TYPE_DEFAULT, "Result: %@ is absorbing contact provider and identifier from: %@", &v52, 0x16u);
       }
 
       contactProvider4 = [resultCopy contactProvider];
@@ -494,9 +491,9 @@ LABEL_20:
       identifier6 = [resultCopy identifier];
       [(CNAutocompleteResult *)self setIdentifier:identifier6];
 
-      v29 = *v7;
+      v31 = *v7;
       membersProvider2 = [(CNAutocompleteResult *)self displayName];
-      if ((*(v29 + 16))(v29, membersProvider2))
+      if ((*(v31 + 16))(v31, membersProvider2))
       {
         nameComponents2 = [(CNAutocompleteResult *)self nameComponents];
         if (nameComponents2)
@@ -506,21 +503,21 @@ LABEL_20:
         else
         {
           displayName2 = [resultCopy displayName];
-          v32 = (*(v29 + 16))(v29, displayName2);
+          v34 = (*(v31 + 16))(v31, displayName2);
 
-          if (v32)
+          if (v34)
           {
             goto LABEL_30;
           }
 
-          v33 = CNALoggingContextDebug();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v36 = CNALoggingContextDebug(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
-            v49 = 138412546;
+            v52 = 138412546;
             selfCopy3 = self;
-            v51 = 2112;
-            v52 = resultCopy;
-            _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_DEFAULT, "Result: %@ is also taking the display name and name components from: %@", &v49, 0x16u);
+            v54 = 2112;
+            v55 = resultCopy;
+            _os_log_impl(&dword_2155FE000, v36, OS_LOG_TYPE_DEFAULT, "Result: %@ is also taking the display name and name components from: %@", &v52, 0x16u);
           }
 
           displayName3 = [resultCopy displayName];
@@ -544,16 +541,16 @@ LABEL_30:
 
     if (userInfo2)
     {
-      v37 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v41 = CNALoggingContextDebug(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         userInfo3 = [(CNAutocompleteResult *)self userInfo];
         userInfo4 = [resultCopy userInfo];
-        v49 = 138412546;
+        v52 = 138412546;
         selfCopy3 = userInfo3;
-        v51 = 2112;
-        v52 = userInfo4;
-        _os_log_impl(&dword_2155FE000, v37, OS_LOG_TYPE_DEFAULT, "Serious bug: I don't expect dupes with userInfos, dropping %@, keeping only %@", &v49, 0x16u);
+        v54 = 2112;
+        v55 = userInfo4;
+        _os_log_impl(&dword_2155FE000, v41, OS_LOG_TYPE_DEFAULT, "Serious bug: I don't expect dupes with userInfos, dropping %@, keeping only %@", &v52, 0x16u);
       }
     }
 
@@ -561,17 +558,17 @@ LABEL_30:
     [(CNAutocompleteResult *)self setUserInfo:userInfo5];
   }
 
-  v41 = *v7;
+  v45 = *v7;
   lastSendingAddress = [resultCopy lastSendingAddress];
-  if ((*(v41 + 16))(v41, lastSendingAddress))
+  if ((*(v45 + 16))(v45, lastSendingAddress))
   {
     goto LABEL_39;
   }
 
   lastSendingAddress2 = [(CNAutocompleteResult *)self lastSendingAddress];
-  v44 = (*(v41 + 16))(v41, lastSendingAddress2);
+  v48 = (*(v45 + 16))(v45, lastSendingAddress2);
 
-  if (v44)
+  if (v48)
   {
     lastSendingAddress = [resultCopy lastSendingAddress];
     [(CNAutocompleteResult *)self setLastSendingAddress:lastSendingAddress];
@@ -580,18 +577,16 @@ LABEL_39:
 
   if (([resultCopy sourceType] & 8) != 0)
   {
-    v45 = *MEMORY[0x277CFBD38];
+    v49 = *MEMORY[0x277CFBD38];
     displayName4 = [resultCopy displayName];
-    LODWORD(v45) = (*(v45 + 16))(v45, displayName4);
+    LODWORD(v49) = (*(v49 + 16))(v49, displayName4);
 
-    if (v45)
+    if (v49)
     {
       displayName5 = [resultCopy displayName];
       [(CNAutocompleteResult *)self setDisplayName:displayName5];
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 + (id)contactResultWithDisplayName:(id)name value:(id)value nameComponents:(id)components identifier:(id)identifier
@@ -660,7 +655,7 @@ LABEL_39:
 
 - (id)members:(id *)members
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   expandMembers = [(CNAutocompleteResult *)self expandMembers];
   first = [expandMembers first];
 
@@ -675,10 +670,10 @@ LABEL_39:
 
     if (second)
     {
-      v12 = *MEMORY[0x277CCA7E8];
+      v11 = *MEMORY[0x277CCA7E8];
       second2 = [expandMembers second];
-      v13[0] = second2;
-      second = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v12[0] = second2;
+      second = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     }
 
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CNContactAutocompleteErrorDomain" code:3 userInfo:second];
@@ -691,8 +686,6 @@ LABEL_39:
     first2 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return first2;
 }
 
@@ -702,7 +695,7 @@ LABEL_39:
 
   if (!membersProvider)
   {
-    v17 = [MEMORY[0x277CFBE70] pairWithFirst:MEMORY[0x277CBEBF8] second:0];
+    v19 = [MEMORY[0x277CFBE70] pairWithFirst:MEMORY[0x277CBEBF8] second:0];
     goto LABEL_13;
   }
 
@@ -711,18 +704,18 @@ LABEL_39:
   v6 = v5;
 
   membersProvider2 = [(CNAutocompleteResult *)self membersProvider];
-  v21 = 0;
-  v8 = (membersProvider2)[2](membersProvider2, &v21);
-  v9 = v21;
+  v23 = 0;
+  v8 = (membersProvider2)[2](membersProvider2, &v23);
+  v9 = v23;
 
   defaultProvider2 = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider2 timestamp];
   v12 = v11;
 
-  v13 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = CNALoggingContextDebug(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [(CNAutocompleteResult *)v13 expandMembers];
+    [(CNAutocompleteResult *)v14 expandMembers];
   }
 
   if ((v8 != 0) != (v9 != 0))
@@ -732,44 +725,44 @@ LABEL_39:
 
   if (!(v8 | v9))
   {
-    v18 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
-    {
-      [(CNAutocompleteResult *)self expandMembers];
-    }
-
-    v14 = MEMORY[0x277CFBE70];
-    v15 = 0;
-    v16 = 0;
-    goto LABEL_12;
-  }
-
-  if (v8 && v9)
-  {
-    v20 = CNALoggingContextTriage();
+    v20 = CNALoggingContextTriage(v15);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       [(CNAutocompleteResult *)self expandMembers];
     }
 
-    v14 = MEMORY[0x277CFBE70];
-    v15 = 0;
+    v16 = MEMORY[0x277CFBE70];
+    v17 = 0;
+    v18 = 0;
+    goto LABEL_12;
+  }
+
+  if (v8 && v9)
+  {
+    v22 = CNALoggingContextTriage(v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    {
+      [(CNAutocompleteResult *)self expandMembers];
+    }
+
+    v16 = MEMORY[0x277CFBE70];
+    v17 = 0;
   }
 
   else
   {
 LABEL_5:
-    v14 = MEMORY[0x277CFBE70];
-    v15 = v8;
+    v16 = MEMORY[0x277CFBE70];
+    v17 = v8;
   }
 
-  v16 = v9;
+  v18 = v9;
 LABEL_12:
-  v17 = [v14 pairWithFirst:v15 second:v16];
+  v19 = [v16 pairWithFirst:v17 second:v18];
 
 LABEL_13:
 
-  return v17;
+  return v19;
 }
 
 + (CNContactStore)contactStoreForFetchingFullContacts
@@ -793,17 +786,17 @@ uint64_t __59__CNAutocompleteResult_contactStoreForFetchingFullContacts__block_i
 
 - (id)contactWithKeysToFetch:(id)fetch error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   fetchCopy = fetch;
   contactProvider = [(CNAutocompleteResult *)self contactProvider];
 
   if (contactProvider)
   {
-    v8 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CNALoggingContextDebug(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Using contact provider to retrieve the contact", buf, 2u);
+      _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Using contact provider to retrieve the contact", buf, 2u);
     }
 
     contactProvider2 = [(CNAutocompleteResult *)self contactProvider];
@@ -811,7 +804,8 @@ uint64_t __59__CNAutocompleteResult_contactStoreForFetchingFullContacts__block_i
     goto LABEL_9;
   }
 
-  if ([(CNAutocompleteResult *)self resultType])
+  resultType = [(CNAutocompleteResult *)self resultType];
+  if (resultType)
   {
     goto LABEL_6;
   }
@@ -821,15 +815,15 @@ uint64_t __59__CNAutocompleteResult_contactStoreForFetchingFullContacts__block_i
 
   if (addressType == 2)
   {
-    v22 = MEMORY[0x277CBDA58];
-    v23 = MEMORY[0x277CBDB70];
+    v24 = MEMORY[0x277CBDA58];
+    v25 = MEMORY[0x277CBDB70];
     value2 = [(CNAutocompleteResult *)self value];
     address = [value2 address];
-    v26 = [v23 phoneNumberWithStringValue:address];
-    contactProvider2 = [v22 predicateForContactsMatchingPhoneNumber:v26];
+    v28 = [v25 phoneNumberWithStringValue:address];
+    contactProvider2 = [v24 predicateForContactsMatchingPhoneNumber:v28];
 
-    v18 = CNALoggingContextDebug();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = CNALoggingContextDebug(v29);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_19;
     }
@@ -838,14 +832,14 @@ uint64_t __59__CNAutocompleteResult_contactStoreForFetchingFullContacts__block_i
     address2 = [value3 address];
     *buf = 138412290;
     selfCopy = address2;
-    v21 = "Let's do a matching based on phone number: %@";
+    v23 = "Let's do a matching based on phone number: %@";
     goto LABEL_18;
   }
 
   if (addressType != 1)
   {
 LABEL_6:
-    contactProvider2 = CNALoggingContextDebug();
+    contactProvider2 = CNALoggingContextDebug(resultType);
     if (os_log_type_enabled(contactProvider2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -857,21 +851,21 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  v15 = MEMORY[0x277CBDA58];
+  v16 = MEMORY[0x277CBDA58];
   value4 = [(CNAutocompleteResult *)self value];
   address3 = [value4 address];
-  contactProvider2 = [v15 predicateForContactsMatchingEmailAddress:address3];
+  contactProvider2 = [v16 predicateForContactsMatchingEmailAddress:address3];
 
-  v18 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = CNALoggingContextDebug(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     value3 = [(CNAutocompleteResult *)self value];
     address2 = [value3 address];
     *buf = 138412290;
     selfCopy = address2;
-    v21 = "Let's do a matching based on email address: %@";
+    v23 = "Let's do a matching based on email address: %@";
 LABEL_18:
-    _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
+    _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
   }
 
 LABEL_19:
@@ -882,29 +876,29 @@ LABEL_19:
   }
 
   contactStoreForFetchingFullContacts = [objc_opt_class() contactStoreForFetchingFullContacts];
-  v32 = 0;
-  v28 = [contactStoreForFetchingFullContacts unifiedContactsMatchingPredicate:contactProvider2 keysToFetch:fetchCopy error:&v32];
-  v29 = v32;
-  v30 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v35 = 0;
+  v31 = [contactStoreForFetchingFullContacts unifiedContactsMatchingPredicate:contactProvider2 keysToFetch:fetchCopy error:&v35];
+  v32 = v35;
+  v33 = CNALoggingContextDebug(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    selfCopy = v28;
-    v35 = 2112;
-    v36 = v29;
-    _os_log_impl(&dword_2155FE000, v30, OS_LOG_TYPE_DEFAULT, "We received (and returning the first one): %@, error:%@", buf, 0x16u);
+    selfCopy = v31;
+    v38 = 2112;
+    v39 = v32;
+    _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_DEFAULT, "We received (and returning the first one): %@, error:%@", buf, 0x16u);
   }
 
-  if (v28)
+  if (v31)
   {
-    firstObject = [(CNAutocompleteResult *)v28 firstObject];
+    firstObject = [(CNAutocompleteResult *)v31 firstObject];
   }
 
   else if (error)
   {
-    v31 = v29;
+    v34 = v32;
     firstObject = 0;
-    *error = v29;
+    *error = v32;
   }
 
   else
@@ -913,7 +907,6 @@ LABEL_19:
   }
 
 LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -935,32 +928,32 @@ LABEL_9:
 
 - (id)diagnosticLog
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   [string appendFormat:@"Result: %@\n", self];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   diagnosticLogs = [(CNAutocompleteResult *)self diagnosticLogs];
-  v5 = [diagnosticLogs countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [diagnosticLogs countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(diagnosticLogs);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v15 = 0;
-        v10 = [v9 result:&v15];
-        v11 = v15;
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v14 = 0;
+        v10 = [v9 result:&v14];
+        v11 = v14;
         v12 = v11;
         if (v10)
         {
@@ -973,13 +966,11 @@ LABEL_9:
         }
       }
 
-      v6 = [diagnosticLogs countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [diagnosticLogs countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -1088,14 +1079,14 @@ LABEL_6:
 
 - (NSArray)userInfos
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   userInfo = [(CNAutocompleteResult *)self userInfo];
 
   if (userInfo)
   {
     userInfo2 = [(CNAutocompleteResult *)self userInfo];
-    v8[0] = userInfo2;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = userInfo2;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
@@ -1103,18 +1094,15 @@ LABEL_6:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)expandMembers
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_2155FE000, a2, OS_LOG_TYPE_FAULT, "Error: Autocomplete result %@ expanded to a nil result without specifying an error. This is a violation of the Object + Error API either rule convention. The behavior from here is undefined.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2155FE000, a2, OS_LOG_TYPE_FAULT, "Error: Autocomplete result %@ expanded to a nil result without specifying an error. This is a violation of the Object + Error API either rule convention. The behavior from here is undefined.", &v2, 0xCu);
 }
 
 @end

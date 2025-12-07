@@ -11,18 +11,16 @@
 {
   if (*(self + OBJC_IVAR___PGMusicFeatureExtractionContext_flexSongProvider + 8))
   {
-    v2 = *(self + OBJC_IVAR___PGMusicFeatureExtractionContext_flexSongProvider);
-    v3 = *(self + OBJC_IVAR___PGMusicFeatureExtractionContext_flexSongProvider + 8);
 
-    v4 = sub_22F740DF0();
+    v2 = sub_22F740DF0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (PGMusicFeatureExtractionContext)init

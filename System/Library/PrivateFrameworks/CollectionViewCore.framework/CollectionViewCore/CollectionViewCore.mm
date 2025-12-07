@@ -70,9 +70,9 @@ void std::vector<_NSRange>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v5;
 }
 
-void *std::vector<_NSRange>::reserve(void *result, unint64_t a2)
+void std::vector<_NSRange>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
@@ -81,8 +81,6 @@ void *std::vector<_NSRange>::reserve(void *result, unint64_t a2)
 
     std::vector<_NSRange>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void _UIDataSourceSnapshotterCommonInit(void *a1, void *a2, void *a3)
@@ -106,7 +104,7 @@ void _UIDataSourceSnapshotterCommonInit(void *a1, void *a2, void *a3)
     [v8 handleFailureInFunction:v9 file:@"_UIDataSourceSnapshotter.mm" lineNumber:94 description:{@"Invalid parameter not satisfying: %@", @"dataSourceBackedView != nil || sectionCountsProvider != nil"}];
   }
 
-  v7 = (*(v6 + 2))(v6, -1);
+  v7 = (*(v6 + 16))(v6, -1);
 LABEL_6:
   v10 = v7;
   if (v7 >= 1)
@@ -123,7 +121,7 @@ LABEL_6:
 
       else
       {
-        v13 = (*(v6 + 2))(v6, v11);
+        v13 = (*(v6 + 16))(v6, v11);
       }
 
       v14 = v13;
@@ -167,8 +165,9 @@ uint64_t _ensureOrderedSetsHaveGuaranteedPerformanceBeforeCopyingState(void *a1)
   return v2 & 1;
 }
 
-id _UIDiffableDataSourceApplyInsertUpdate(void *a1, void *a2, void *a3, void *a4, int a5)
+id _UIDiffableDataSourceApplyInsertUpdate(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
+  v5 = a5;
   v141 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
@@ -273,13 +272,13 @@ LABEL_5:
 
     v9 = v105;
     v11 = v102;
-    if (a5)
+    if (v5)
     {
       goto LABEL_11;
     }
   }
 
-  else if (a5)
+  else if (v5)
   {
 LABEL_11:
     v15 = objc_alloc(MEMORY[0x277CBEB18]);
@@ -335,7 +334,7 @@ LABEL_18:
       do
       {
         [v67 _insertSection:v68 withInitialCount:0];
-        if (a5)
+        if (v5)
         {
           v69 = [MEMORY[0x277CCAA70] indexPathForItem:0x7FFFFFFFFFFFFFFFLL inSection:v68];
           _CVCUpdateItemAlloc();
@@ -495,8 +494,8 @@ LABEL_18:
 
       [v107 _resetToStateOfSnapshotter:v100];
       v51 = [[_UIDiffableDataSourceUpdate alloc] initWithItemIdentifiers:v44 action:1];
-      v52 = _UIDiffableDataSourceApplyDeleteUpdate(v51, v96, v94, v107, a5);
-      if (a5)
+      v52 = _UIDiffableDataSourceApplyDeleteUpdate(v51, v96, v94, v107, v5);
+      if (v5)
       {
         [v108 addObjectsFromArray:v52];
       }
@@ -524,7 +523,7 @@ LABEL_18:
       [v90 handleFailureInFunction:v99 file:@"_UIDiffableDataSourceUpdate.m" lineNumber:378 description:{@"Diffable data source internal inconsistency: attempted to insert %ld identifiers but only %ld inserted. Identifiers that failed to insert: %@", v95, v42, v93}];
     }
 
-    if (a5)
+    if (v5)
     {
       v111 = 0u;
       v112 = 0u;
@@ -580,7 +579,14 @@ LABEL_18:
   return v103;
 }
 
-void *std::vector<_NSRange>::__assign_with_size[abi:nn200100]<_NSRange*,_NSRange*>(void *result, char *__src, char *a3, unint64_t a4)
+void sub_243B9D474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void **std::vector<_NSRange>::__assign_with_size[abi:nn200100]<_NSRange*,_NSRange*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -658,8 +664,9 @@ void *std::vector<_NSRange>::__assign_with_size[abi:nn200100]<_NSRange*,_NSRange
   return result;
 }
 
-void _UIDiffableDataSourceInsertIdentifiersAtIndex(void *a1, void *a2, unint64_t a3, int a4)
+void _UIDiffableDataSourceInsertIdentifiersAtIndex(void *a1, void *a2, unint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v25 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
@@ -697,12 +704,12 @@ void _UIDiffableDataSourceInsertIdentifiersAtIndex(void *a1, void *a2, unint64_t
         {
           if ([v16 isEqual:v16])
           {
-            BUG_IN_CLIENT_OF_DIFFABLE_DATA_SOURCE__IDENTIFIER_HASH_VALUE_CHANGED(v16, a4);
+            BUG_IN_CLIENT_OF_DIFFABLE_DATA_SOURCE__IDENTIFIER_HASH_VALUE_CHANGED(v16, v4);
           }
 
           else
           {
-            BUG_IN_CLIENT_OF_DIFFABLE_DATA_SOURCE__IDENTIFIER_IS_NOT_EQUAL_TO_ITSELF(v16, a4);
+            BUG_IN_CLIENT_OF_DIFFABLE_DATA_SOURCE__IDENTIFIER_IS_NOT_EQUAL_TO_ITSELF(v16, v4);
           }
         }
 
@@ -825,16 +832,17 @@ CGFloat _CVCRectAdjustWithAnchorPoint(CGFloat a1, CGFloat a2, CGFloat a3, CGFloa
   return a1 - v9;
 }
 
-void sub_243B9F1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_243B9F1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 112), 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243B9F53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243B9F53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

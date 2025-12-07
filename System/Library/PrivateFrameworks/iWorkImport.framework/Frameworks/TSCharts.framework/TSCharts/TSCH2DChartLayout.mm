@@ -270,43 +270,45 @@
     if (!cachedOriginRelativeToChartAreaFrame)
     {
       objc_msgSend_legendModelGeometryFrame(v13, v14, v15, v16, v17);
-      v56 = v20;
-      v57 = v19;
-      v22 = v21;
-      v24 = v23;
-      v25 = *(MEMORY[0x277CBF398] + 16);
-      v58[0] = *MEMORY[0x277CBF398];
-      v58[1] = v25;
-      objc_msgSend_chartAreaFrame(self, v26, *v58, *&v25, v21);
-      objc_msgSend_chartBodyFrame(self, v27, v28, v29, v30);
-      sub_2762833A4(0, v58, 0, 0);
+      v62 = v20;
+      v63 = v19;
+      v21 = *(MEMORY[0x277CBF398] + 16);
+      v64[0] = *MEMORY[0x277CBF398];
+      v64[1] = v21;
+      objc_msgSend_chartAreaFrame(self, v22, *v64, *&v21, v23);
+      v25 = v24;
+      v27 = v26;
+      v29 = v28;
+      v31 = v30;
+      objc_msgSend_chartBodyFrame(self, v32, v24, v26, v28);
+      sub_2762833A4(0, v64, 0, 0, v25, v27, v29, v31, v33, v34, v35, v36, v63, v62);
       TSUSubtractPoints();
-      v35 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v31, v32, v33, v34, v57, v56, *&v22, v24);
-      v36 = self->_cachedOriginRelativeToChartAreaFrame;
-      self->_cachedOriginRelativeToChartAreaFrame = v35;
+      v41 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v37, v38, v39, v40);
+      v42 = self->_cachedOriginRelativeToChartAreaFrame;
+      self->_cachedOriginRelativeToChartAreaFrame = v41;
 
       cachedOriginRelativeToChartAreaFrame = self->_cachedOriginRelativeToChartAreaFrame;
       if (!cachedOriginRelativeToChartAreaFrame)
       {
-        v37 = MEMORY[0x277D81150];
-        v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "[TSCH2DChartLayout p_cachedOriginRelativeToChartAreaFrame]");
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH2DChartLayout.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v44, v45, v46, v47, v38, v43, 145, 0, "invalid nil value for '%{public}s'", "_cachedOriginRelativeToChartAreaFrame");
+        v43 = MEMORY[0x277D81150];
+        v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "[TSCH2DChartLayout p_cachedOriginRelativeToChartAreaFrame]");
+        v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH2DChartLayout.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v50, v51, v52, v53, v44, v49, 145, 0, "invalid nil value for '%{public}s'", "_cachedOriginRelativeToChartAreaFrame");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
         cachedOriginRelativeToChartAreaFrame = self->_cachedOriginRelativeToChartAreaFrame;
       }
     }
 
     objc_msgSend_CGPointValue(cachedOriginRelativeToChartAreaFrame, v14, v15, v16, v17);
-    v7 = v52;
-    v6 = v53;
+    v7 = v58;
+    v6 = v59;
   }
 
-  v54 = v7;
-  v55 = v6;
-  result.y = v55;
-  result.x = v54;
+  v60 = v7;
+  v61 = v6;
+  result.y = v61;
+  result.x = v60;
   return result;
 }
 
@@ -322,41 +324,43 @@
     objc_msgSend_legendModelGeometryFrame(v12, v17, v18, v19, v20);
     v22 = v21;
     v24 = v23;
-    v26 = v25;
-    v28 = v27;
-    v29 = *(v6 + 1);
-    v50 = *v6;
-    v51 = v29;
-    v49[0] = v50;
-    v49[1] = v29;
-    objc_msgSend_chartAreaFrame(self, v30, *&v50, *&v29, v25);
-    objc_msgSend_chartBodyFrame(self, v31, v32, v33, v34);
-    sub_2762833A4(0, v49, 0, &v50);
+    v25 = *(v6 + 1);
+    v56 = *v6;
+    v57 = v25;
+    v55[0] = v56;
+    v55[1] = v25;
+    objc_msgSend_chartAreaFrame(self, v26, *&v56, *&v25, v27);
+    v29 = v28;
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
+    objc_msgSend_chartBodyFrame(self, v36, v28, v30, v32);
+    sub_2762833A4(0, v55, 0, &v56, v29, v31, v33, v35, v37, v38, v39, v40, v22, v24);
     TSUAddPoints();
-    v36 = *(&v51 + 1);
-    v35 = *&v51;
+    v42 = *(&v57 + 1);
+    v41 = *&v57;
     TSUSubtractPoints();
-    objc_msgSend_convertChartLayoutSpaceToNaturalSpace_(self, v37, v38, v39, v40, v22, v24, *&v26, v28);
-    v42 = v41;
-    v44 = v43;
+    objc_msgSend_convertChartLayoutSpaceToNaturalSpace_(self, v43, v44, v45, v46);
+    v48 = v47;
+    v50 = v49;
   }
 
   else
   {
-    v42 = *v6;
-    v44 = v6[1];
-    v35 = v6[2];
-    v36 = v6[3];
+    v48 = *v6;
+    v50 = v6[1];
+    v41 = v6[2];
+    v42 = v6[3];
   }
 
-  v45 = v42;
-  v46 = v44;
-  v47 = v35;
-  v48 = v36;
-  result.size.height = v48;
-  result.size.width = v47;
-  result.origin.y = v46;
-  result.origin.x = v45;
+  v51 = v48;
+  v52 = v50;
+  v53 = v41;
+  v54 = v42;
+  result.size.height = v54;
+  result.size.width = v53;
+  result.origin.y = v52;
+  result.origin.x = v51;
   return result;
 }
 
@@ -377,29 +381,33 @@
     v20 = *&v19;
     v22 = v21;
     v23 = *(MEMORY[0x277CBF398] + 16);
-    v52 = *MEMORY[0x277CBF398];
-    v53 = v23;
-    objc_msgSend_chartAreaFrame(self, v24, *&v52, *&v23, v19);
-    objc_msgSend_chartBodyFrame(self, v25, v26, v27, v28);
-    sub_27628348C(&v52, &v53, v29, v30, v31, v32, v33, v34, v16, v18, v20, v22);
-    objc_msgSend_setLegendModelGeometryFrame_(v13, v35, *&v52, *(&v52 + 1), *&v53, *(&v53 + 1));
-    objc_msgSend_layoutOffset(v13, v36, v37, v38, v39);
+    v61 = *MEMORY[0x277CBF398];
+    v62 = v23;
+    objc_msgSend_chartAreaFrame(self, v24, *&v61, *&v23, v19);
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
+    v32 = v31;
+    objc_msgSend_chartBodyFrame(self, v33, v25, v27, v29);
+    sub_27628348C(&v61, &v62, v34, v35, v36, v37, v38, v39, v26, v28, v30, v32, v40, v41, v42, v43, v16, v18, v20, v22);
+    objc_msgSend_setLegendModelGeometryFrame_(v13, v44, *&v61, *(&v61 + 1), *&v62, *(&v62 + 1));
+    objc_msgSend_layoutOffset(v13, v45, v46, v47, v48);
     if ((TSUNearlyEqualPoints() & 1) == 0)
     {
-      objc_msgSend_setLayoutOffset_(v13, v40, *&v16, *&v18, v41);
+      objc_msgSend_setLayoutOffset_(v13, v49, v16, *&v18, v50);
     }
 
     if (!CGRectIsNull(self->_startingLegendInnerFrame))
     {
-      objc_msgSend_layoutRect(v13, v42, v43, v44, v45);
-      self->_startingLegendInnerFrame.origin.x = v43;
-      self->_startingLegendInnerFrame.origin.y = v44;
-      self->_startingLegendInnerFrame.size.width = v45;
-      self->_startingLegendInnerFrame.size.height = v46;
+      objc_msgSend_layoutRect(v13, v51, v52, v53, v54);
+      self->_startingLegendInnerFrame.origin.x = v52;
+      self->_startingLegendInnerFrame.origin.y = v53;
+      self->_startingLegendInnerFrame.size.width = v54;
+      self->_startingLegendInnerFrame.size.height = v55;
     }
 
-    v47 = objc_msgSend_p_layoutTree(self, v42, v43, v44, v45);
-    objc_msgSend_updateLayoutOffset(v47, v48, v49, v50, v51);
+    v56 = objc_msgSend_p_layoutTree(self, v51, v52, v53, v54);
+    objc_msgSend_updateLayoutOffset(v56, v57, v58, v59, v60);
   }
 }
 
@@ -487,7 +495,7 @@
 
 - (void)setLayoutSettings:(id *)settings
 {
-  objc_msgSend_layoutSettings(self, a2, v3, v4, v5);
+  objc_msgSend_layoutSettings(self, v3, v4, v5, a2);
   v14 = *settings;
   if (!sub_27635FBE4(&v15, &v14))
   {
@@ -710,7 +718,7 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
   }
 
-  objc_msgSend_layoutSettings(self, v16, v17, v18, v19);
+  objc_msgSend_layoutSettings(self, v17, v18, v19);
   v51 = v53;
   v52 = v54;
   objc_msgSend_setLayoutSettings_(v11, v35, *&v53, v36, v37, &v51);
@@ -744,7 +752,7 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
   }
 
-  objc_msgSend_layoutSettings(self, v16, v17, v18, v19);
+  objc_msgSend_layoutSettings(self, v17, v18, v19);
   v60 = v62;
   v61 = v63;
   objc_msgSend_setLayoutSettings_(v11, v35, *&v62, v36, v37, &v60);
@@ -780,7 +788,7 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
   }
 
-  objc_msgSend_layoutSettings(self, v16, v17, v18, v19);
+  objc_msgSend_layoutSettings(self, v17, v18, v19);
   v48 = v50;
   v49 = v51;
   objc_msgSend_setLayoutSettings_(v11, v35, *&v50, v36, v37, &v48);
@@ -813,11 +821,11 @@
   {
     v13 = objc_msgSend_chartInfo(self, a2, v4, v5, width);
     v18 = objc_msgSend_geometry(v13, v14, v15, v16, v17);
-    objc_msgSend_size(v18, v19, v20, v21, v22);
-    p_lastChartBodySize->width = v23;
-    p_lastChartBodySize->height = v24;
+    objc_msgSend_size(v18, v19, v20, v21);
+    p_lastChartBodySize->width = v22;
+    p_lastChartBodySize->height = v23;
 
-    if (objc_msgSend_isValid(self, v25, v26, v27, v28))
+    if (objc_msgSend_isValid(self, v24, v25, v26, v27))
     {
 LABEL_10:
       v12 = 1;
@@ -841,13 +849,13 @@ LABEL_9:
 
   v12 = 0;
 LABEL_11:
-  v29 = objc_msgSend_p_layoutTree(self, v8, v10, v11, v9);
-  v34 = objc_msgSend_chartAreaLayoutItem(v29, v30, v31, v32, v33);
-  objc_msgSend_layoutRect(v34, v35, v36, v37, v38);
-  self->_startingChartInnerFrame.origin.x = v39;
-  self->_startingChartInnerFrame.origin.y = v40;
-  self->_startingChartInnerFrame.size.width = v41;
-  self->_startingChartInnerFrame.size.height = v42;
+  v28 = objc_msgSend_p_layoutTree(self, v8, v10, v11, v9);
+  v33 = objc_msgSend_chartAreaLayoutItem(v28, v29, v30, v31, v32);
+  objc_msgSend_layoutRect(v33, v34, v35, v36, v37);
+  self->_startingChartInnerFrame.origin.x = v38;
+  self->_startingChartInnerFrame.origin.y = v39;
+  self->_startingChartInnerFrame.size.width = v40;
+  self->_startingChartInnerFrame.size.height = v41;
 
   if (!v12)
   {
@@ -859,13 +867,13 @@ LABEL_12:
   }
 
   p_startingLegendInnerFrame = &self->_startingLegendInnerFrame;
-  v61 = objc_msgSend_p_layoutTree(self, v43, v44, v45, v46);
-  v52 = objc_msgSend_legendAreaLayoutItem(v61, v48, v49, v50, v51);
-  objc_msgSend_layoutRect(v52, v53, v54, v55, v56);
-  p_startingLegendInnerFrame->origin.x = v57;
-  p_startingLegendInnerFrame->origin.y = v58;
-  p_startingLegendInnerFrame->size.width = v59;
-  p_startingLegendInnerFrame->size.height = v60;
+  v60 = objc_msgSend_p_layoutTree(self, v42, v43, v44, v45);
+  v51 = objc_msgSend_legendAreaLayoutItem(v60, v47, v48, v49, v50);
+  objc_msgSend_layoutRect(v51, v52, v53, v54, v55);
+  p_startingLegendInnerFrame->origin.x = v56;
+  p_startingLegendInnerFrame->origin.y = v57;
+  p_startingLegendInnerFrame->size.width = v58;
+  p_startingLegendInnerFrame->size.height = v59;
 }
 
 - (void)beginDynamicOperation

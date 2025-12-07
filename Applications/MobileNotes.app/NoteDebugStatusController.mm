@@ -23,9 +23,11 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v6);
 
-  return v5;
+  v4 = v6;
+
+  return v4;
 }
 
 - (void)setCurrentNote:(id)note

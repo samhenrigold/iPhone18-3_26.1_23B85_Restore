@@ -787,7 +787,7 @@ LABEL_7:
       v13 = mapView4;
       if (mapView4)
       {
-        [mapView4 _cartographicConfiguration];
+        objc_msgSend__cartographicConfiguration(mapView4);
       }
 
       else
@@ -812,7 +812,7 @@ LABEL_7:
       v16 = mapView5;
       if (mapView5)
       {
-        [mapView5 _cartographicConfiguration];
+        objc_msgSend__cartographicConfiguration(mapView5);
       }
 
       else

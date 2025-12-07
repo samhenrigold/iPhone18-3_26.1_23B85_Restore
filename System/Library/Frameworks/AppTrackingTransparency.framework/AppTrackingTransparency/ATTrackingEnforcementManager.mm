@@ -68,36 +68,30 @@ uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackgroun
 
 uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackground__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v7 = 138412290;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Connection was interrupted.", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Connection was interrupted.", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), v2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), v2);
 }
 
 uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackground__block_invoke_4(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v7 = 138412290;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Connection was invalidated.", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Connection was invalidated.", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), v2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), v2);
 }
 
 uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackground__block_invoke_5(uint64_t a1, void *a2)
@@ -112,40 +106,37 @@ uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackgroun
 
 uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackground__block_invoke_7(uint64_t a1, int a2, uint64_t a3, char a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v15 = 138412802;
-    v16 = objc_opt_class();
-    v17 = 1024;
-    v18 = a2;
-    v19 = 2048;
-    v20 = a3;
-    v9 = v16;
-    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Background refresh completed. enforced: %d, reason: %ld", &v15, 0x1Cu);
+    v13 = 138412802;
+    v14 = objc_opt_class();
+    v15 = 1024;
+    v16 = a2;
+    v17 = 2048;
+    v18 = a3;
+    v8 = v14;
+    _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Background refresh completed. enforced: %d, reason: %ld", &v13, 0x1Cu);
   }
 
-  v10 = *(a1 + 40);
-  objc_sync_enter(v10);
+  v9 = *(a1 + 40);
+  objc_sync_enter(v9);
   _lastEnforcement = a2;
   _lastReasonCode = a3;
   _isDefaultReturned = a4;
-  v11 = [MEMORY[0x277CBEAA8] date];
-  v12 = _lastBagLookup;
-  _lastBagLookup = v11;
+  v10 = [MEMORY[0x277CBEAA8] date];
+  v11 = _lastBagLookup;
+  _lastBagLookup = v10;
 
   _shouldEnforceTrackingInProgress = 0;
-  objc_sync_exit(v10);
+  objc_sync_exit(v9);
 
-  result = [*(a1 + 32) invalidate];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) invalidate];
 }
 
 + (BOOL)shouldEnforceTrackingWithReasonCode:(int64_t *)code
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   *code = _lastReasonCode;
@@ -158,10 +149,10 @@ uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackgroun
       v11 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = objc_opt_class();
-        v12 = v16;
-        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Cache is stale. Triggering background refresh.", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = objc_opt_class();
+        v12 = v15;
+        _os_log_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Cache is stale. Triggering background refresh.", &v14, 0xCu);
       }
 
       _shouldEnforceTrackingInProgress = 1;
@@ -171,26 +162,22 @@ uint64_t __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackgroun
 
   objc_sync_exit(selfCopy);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __69__ATTrackingEnforcementManager__refreshEnforcementStatusInBackground__block_invoke_5_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = v4;
-  v6 = [v3 localizedDescription];
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = v3;
+  v5 = [v2 localizedDescription];
 
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[%@] Background refresh failed with error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v3;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_236A7E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[%@] Background refresh failed with error: %@", &v6, 0x16u);
 }
 
 @end

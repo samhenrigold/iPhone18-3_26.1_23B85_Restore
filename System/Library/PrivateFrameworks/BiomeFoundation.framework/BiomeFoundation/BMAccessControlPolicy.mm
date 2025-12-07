@@ -45,7 +45,7 @@
 
 - (id)authorizedResources
 {
-  v163 = *MEMORY[0x1E69E9840];
+  v162 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   authorizedResources = self->_authorizedResources;
   selfCopy = self;
@@ -63,38 +63,38 @@
 
   if (processType == 3)
   {
-    v21 = objc_opt_new();
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
+    v20 = objc_opt_new();
     v120 = 0u;
+    v121 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     syncableSetIdentifiers = [objc_opt_class() syncableSetIdentifiers];
-    v23 = [syncableSetIdentifiers countByEnumeratingWithState:&v119 objects:v132 count:16];
-    if (v23)
+    v22 = [syncableSetIdentifiers countByEnumeratingWithState:&v118 objects:v131 count:16];
+    if (v22)
     {
-      v24 = *v120;
+      v23 = *v119;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v120 != v24)
+          if (*v119 != v23)
           {
             objc_enumerationMutation(syncableSetIdentifiers);
           }
 
-          v26 = [[BMResourceSpecifier alloc] initWithType:4 name:*(*(&v119 + 1) + 8 * i)];
-          [(NSDictionary *)v21 setObject:&unk_1F20EBC08 forKeyedSubscript:v26];
+          v25 = [[BMResourceSpecifier alloc] initWithType:4 name:*(*(&v118 + 1) + 8 * i)];
+          [(NSDictionary *)v20 setObject:&unk_1F20EBC08 forKeyedSubscript:v25];
         }
 
-        v23 = [syncableSetIdentifiers countByEnumeratingWithState:&v119 objects:v132 count:16];
+        v22 = [syncableSetIdentifiers countByEnumeratingWithState:&v118 objects:v131 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    v27 = selfCopy->_authorizedResources;
-    selfCopy->_authorizedResources = v21;
-    v28 = v21;
+    v26 = selfCopy->_authorizedResources;
+    selfCopy->_authorizedResources = v20;
+    v27 = v20;
 
     v4 = selfCopy->_authorizedResources;
     goto LABEL_3;
@@ -103,422 +103,422 @@
   if (processType == 8 && (os_variant_allows_internal_security_policies() & 1) == 0)
   {
 LABEL_23:
-    v20 = self->_authorizedResources;
+    v19 = self->_authorizedResources;
     v4 = MEMORY[0x1E695E0F8];
     selfCopy->_authorizedResources = MEMORY[0x1E695E0F8];
 
     goto LABEL_3;
   }
 
-  v97 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
+  v96 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v116 = 0u;
-  v8 = self->_useCase;
-  *&v159 = @"__legacy__";
-  v136 = @"com.apple.private.biome.read-only";
-  v137 = @"com.apple.private.biome.read-write";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:2];
-  v145[0] = v9;
-  *(&v159 + 1) = @"__legacy_view__";
-  v133[0] = @"com.apple.private.intelligenceplatform.views.read-only";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:1];
-  v145[1] = v10;
-  *&v160 = @"__writer__";
-  *&v154 = @"com.apple.private.biome.write-only";
-  *(&v154 + 1) = @"com.apple.private.biome.read-write";
-  *&v155 = @"com.apple.private.biome.writer";
-  *(&v155 + 1) = @"com.apple.private.intelligenceplatform.use-cases";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v154 count:4];
-  v145[2] = v11;
-  *(&v160 + 1) = @"__pruner__";
-  *&v146 = @"com.apple.private.biome.read-write";
-  *(&v146 + 1) = @"com.apple.private.biome.pruner";
-  *&v147 = @"com.apple.private.biome.writer";
-  *(&v147 + 1) = @"com.apple.private.intelligenceplatform.use-cases";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v146 count:4];
-  v145[3] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v145 forKeys:&v159 count:4];
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
+  v7 = self->_useCase;
+  *&v158 = @"__legacy__";
+  v135 = @"com.apple.private.biome.read-only";
+  v136 = @"com.apple.private.biome.read-write";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v135 count:2];
+  v144[0] = v8;
+  *(&v158 + 1) = @"__legacy_view__";
+  v132[0] = @"com.apple.private.intelligenceplatform.views.read-only";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:1];
+  v144[1] = v9;
+  *&v159 = @"__writer__";
+  *&v153 = @"com.apple.private.biome.write-only";
+  *(&v153 + 1) = @"com.apple.private.biome.read-write";
+  *&v154 = @"com.apple.private.biome.writer";
+  *(&v154 + 1) = @"com.apple.private.intelligenceplatform.use-cases";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v153 count:4];
+  v144[2] = v10;
+  *(&v159 + 1) = @"__pruner__";
+  *&v145 = @"com.apple.private.biome.read-write";
+  *(&v145 + 1) = @"com.apple.private.biome.pruner";
+  *&v146 = @"com.apple.private.biome.writer";
+  *(&v146 + 1) = @"com.apple.private.intelligenceplatform.use-cases";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v145 count:4];
+  v144[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v144 forKeys:&v158 count:4];
 
-  v14 = [v13 objectForKeyedSubscript:v8];
-  if (!v14)
+  v13 = [v12 objectForKeyedSubscript:v7];
+  if (!v13)
   {
-    v143[0] = @"com.apple.private.intelligenceplatform.use-cases";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v143 count:1];
+    v142[0] = @"com.apple.private.intelligenceplatform.use-cases";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v142 count:1];
   }
 
   if (os_variant_allows_internal_security_policies())
   {
-    obj = [v14 mutableCopy];
-    v152 = 0u;
-    v153 = 0u;
-    v150 = 0u;
+    obj = [v13 mutableCopy];
     v151 = 0u;
-    v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v150 objects:v158 count:16];
-    if (v16)
+    v152 = 0u;
+    v149 = 0u;
+    v150 = 0u;
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v149 objects:v157 count:16];
+    if (v15)
     {
-      v17 = *v151;
+      v16 = *v150;
       do
       {
-        for (j = 0; j != v16; ++j)
+        for (j = 0; j != v15; ++j)
         {
-          if (*v151 != v17)
+          if (*v150 != v16)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v14);
           }
 
-          v19 = BMAppleInternalVariantOfEntitlement(*(*(&v150 + 1) + 8 * j));
-          if (v19)
+          v18 = BMAppleInternalVariantOfEntitlement(*(*(&v149 + 1) + 8 * j));
+          if (v18)
           {
-            [obj addObject:v19];
+            [obj addObject:v18];
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v150 objects:v158 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v149 objects:v157 count:16];
       }
 
-      while (v16);
+      while (v15);
     }
   }
 
   else
   {
-    obj = v14;
+    obj = v13;
   }
 
-  v95 = [obj countByEnumeratingWithState:&v115 objects:v131 count:16];
-  if (v95)
+  v94 = [obj countByEnumeratingWithState:&v114 objects:v130 count:16];
+  if (v94)
   {
-    v96 = *v116;
+    v95 = *v115;
     do
     {
-      v103 = 0;
+      v102 = 0;
       do
       {
-        if (*v116 != v96)
+        if (*v115 != v95)
         {
           objc_enumerationMutation(obj);
         }
 
         process = selfCopy->_process;
         useCase = selfCopy->_useCase;
-        v31 = *(*(&v115 + 1) + 8 * v103);
-        v32 = process;
-        v33 = useCase;
-        v107 = v31;
+        v30 = *(*(&v114 + 1) + 8 * v102);
+        v31 = process;
+        v32 = useCase;
+        v106 = v30;
+        v103 = v31;
         v104 = v32;
-        v105 = v33;
-        if ((os_variant_allows_internal_security_policies() & 1) == 0 && ((BMEntitlementIsAppleInternal(v107, v34) & 1) != 0 || [(BMProcess *)v104 processType]== 8))
+        if ((os_variant_allows_internal_security_policies() & 1) == 0 && ((BMEntitlementIsAppleInternal(v106, v33) & 1) != 0 || [(BMProcess *)v103 processType]== 8))
         {
 LABEL_46:
-          v37 = MEMORY[0x1E695E0F8];
+          v36 = MEMORY[0x1E695E0F8];
           goto LABEL_99;
         }
 
-        if (([v107 isEqual:@"com.apple.private.intelligenceplatform.use-cases"] & 1) == 0 && !objc_msgSend(v107, "isEqual:", @"com.apple.internal.intelligenceplatform.use-cases"))
+        if (([v106 isEqual:@"com.apple.private.intelligenceplatform.use-cases"] & 1) == 0 && !objc_msgSend(v106, "isEqual:", @"com.apple.internal.intelligenceplatform.use-cases"))
         {
-          if (([v107 isEqual:@"com.apple.private.biome.writer"] & 1) != 0 || (objc_msgSend(v107, "isEqual:", @"com.apple.internal.biome.writer") & 1) != 0 || (objc_msgSend(v107, "isEqual:", @"com.apple.private.biome.pruner") & 1) != 0 || objc_msgSend(v107, "isEqual:", @"com.apple.internal.biome.pruner"))
+          if (([v106 isEqual:@"com.apple.private.biome.writer"] & 1) != 0 || (objc_msgSend(v106, "isEqual:", @"com.apple.internal.biome.writer") & 1) != 0 || (objc_msgSend(v106, "isEqual:", @"com.apple.private.biome.pruner") & 1) != 0 || objc_msgSend(v106, "isEqual:", @"com.apple.internal.biome.pruner"))
           {
-            v38 = objc_opt_new();
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
+            v37 = objc_opt_new();
             v151 = 0u;
-            v39 = [(BMProcess *)v104 nonnullSetOfStringsForEntitlement:v107];
-            v40 = [v39 countByEnumeratingWithState:&v150 objects:v158 count:16];
-            if (v40)
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            v38 = [(BMProcess *)v103 nonnullSetOfStringsForEntitlement:v106];
+            v39 = [v38 countByEnumeratingWithState:&v149 objects:v157 count:16];
+            if (v39)
             {
-              v41 = *v151;
+              v40 = *v150;
               do
               {
-                for (k = 0; k != v40; ++k)
+                for (k = 0; k != v39; ++k)
                 {
-                  if (*v151 != v41)
+                  if (*v150 != v40)
                   {
-                    objc_enumerationMutation(v39);
+                    objc_enumerationMutation(v38);
                   }
 
-                  [v38 setObject:&unk_1F20EBC08 forKeyedSubscript:*(*(&v150 + 1) + 8 * k)];
+                  [v37 setObject:&unk_1F20EBC08 forKeyedSubscript:*(*(&v149 + 1) + 8 * k)];
                 }
 
-                v40 = [v39 countByEnumeratingWithState:&v150 objects:v158 count:16];
+                v39 = [v38 countByEnumeratingWithState:&v149 objects:v157 count:16];
               }
 
-              while (v40);
+              while (v39);
             }
 
-            databaseForViewName = v38;
+            databaseForViewName = v37;
 
-            v43 = objc_opt_new();
-            v129[0] = MEMORY[0x1E69E9820];
-            v129[1] = 3221225472;
-            v129[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3;
-            v129[3] = &unk_1E796AD30;
-            v130 = v43;
-            v111 = v43;
-            [v38 enumerateKeysAndObjectsUsingBlock:v129];
-            v37 = [v111 copy];
-            allKeys = v130;
+            v42 = objc_opt_new();
+            v128[0] = MEMORY[0x1E69E9820];
+            v128[1] = 3221225472;
+            v128[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3;
+            v128[3] = &unk_1E796AD30;
+            v129 = v42;
+            v110 = v42;
+            [v37 enumerateKeysAndObjectsUsingBlock:v128];
+            v36 = [v110 copy];
+            allKeys = v129;
             goto LABEL_96;
           }
 
-          if (([v107 isEqual:@"com.apple.private.biome.write-only"] & 1) != 0 || objc_msgSend(v107, "isEqual:", @"com.apple.internal.biome.write-only"))
+          if (([v106 isEqual:@"com.apple.private.biome.write-only"] & 1) != 0 || objc_msgSend(v106, "isEqual:", @"com.apple.internal.biome.write-only"))
           {
-            v64 = objc_opt_new();
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
+            v63 = objc_opt_new();
             v151 = 0u;
-            v65 = [(BMProcess *)v104 nonnullSetOfStringsForEntitlement:v107];
-            v66 = [v65 countByEnumeratingWithState:&v150 objects:v158 count:16];
-            if (v66)
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            v64 = [(BMProcess *)v103 nonnullSetOfStringsForEntitlement:v106];
+            v65 = [v64 countByEnumeratingWithState:&v149 objects:v157 count:16];
+            if (v65)
             {
-              v67 = *v151;
+              v66 = *v150;
               do
               {
-                for (m = 0; m != v66; ++m)
+                for (m = 0; m != v65; ++m)
                 {
-                  if (*v151 != v67)
+                  if (*v150 != v66)
                   {
-                    objc_enumerationMutation(v65);
+                    objc_enumerationMutation(v64);
                   }
 
-                  [v64 setObject:&unk_1F20EBC50 forKeyedSubscript:*(*(&v150 + 1) + 8 * m)];
+                  [v63 setObject:&unk_1F20EBC50 forKeyedSubscript:*(*(&v149 + 1) + 8 * m)];
                 }
 
-                v66 = [v65 countByEnumeratingWithState:&v150 objects:v158 count:16];
+                v65 = [v64 countByEnumeratingWithState:&v149 objects:v157 count:16];
               }
 
-              while (v66);
+              while (v65);
             }
 
-            databaseForViewName = v64;
+            databaseForViewName = v63;
 
+            v68 = objc_opt_new();
+            v126[0] = MEMORY[0x1E69E9820];
+            v126[1] = 3221225472;
+            v126[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_321;
+            v126[3] = &unk_1E796AD30;
+            v127 = v68;
+            v110 = v68;
+            [v63 enumerateKeysAndObjectsUsingBlock:v126];
+            v36 = [v110 copy];
+            allKeys = v127;
+            goto LABEL_96;
+          }
+
+          if (([v106 isEqual:@"com.apple.private.biome.read-only"] & 1) != 0 || objc_msgSend(v106, "isEqual:", @"com.apple.internal.biome.read-only"))
+          {
             v69 = objc_opt_new();
-            v127[0] = MEMORY[0x1E69E9820];
-            v127[1] = 3221225472;
-            v127[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_321;
-            v127[3] = &unk_1E796AD30;
-            v128 = v69;
-            v111 = v69;
-            [v64 enumerateKeysAndObjectsUsingBlock:v127];
-            v37 = [v111 copy];
-            allKeys = v128;
+            v151 = 0u;
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            v70 = [(BMProcess *)v103 nonnullSetOfStringsForEntitlement:v106];
+            v71 = [v70 countByEnumeratingWithState:&v149 objects:v157 count:16];
+            if (v71)
+            {
+              v72 = *v150;
+              do
+              {
+                for (n = 0; n != v71; ++n)
+                {
+                  if (*v150 != v72)
+                  {
+                    objc_enumerationMutation(v70);
+                  }
+
+                  [v69 setObject:&unk_1F20EBC38 forKeyedSubscript:*(*(&v149 + 1) + 8 * n)];
+                }
+
+                v71 = [v70 countByEnumeratingWithState:&v149 objects:v157 count:16];
+              }
+
+              while (v71);
+            }
+
+            databaseForViewName = v69;
+
+            v74 = objc_opt_new();
+            v124[0] = MEMORY[0x1E69E9820];
+            v124[1] = 3221225472;
+            v124[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_2_322;
+            v124[3] = &unk_1E796AD30;
+            v125 = v74;
+            v110 = v74;
+            [v69 enumerateKeysAndObjectsUsingBlock:v124];
+            v36 = [v110 copy];
+            allKeys = v125;
             goto LABEL_96;
           }
 
-          if (([v107 isEqual:@"com.apple.private.biome.read-only"] & 1) != 0 || objc_msgSend(v107, "isEqual:", @"com.apple.internal.biome.read-only"))
+          if (([v106 isEqual:@"com.apple.private.biome.read-write"] & 1) != 0 || objc_msgSend(v106, "isEqual:", @"com.apple.internal.biome.read-write"))
           {
-            v70 = objc_opt_new();
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
-            v151 = 0u;
-            v71 = [(BMProcess *)v104 nonnullSetOfStringsForEntitlement:v107];
-            v72 = [v71 countByEnumeratingWithState:&v150 objects:v158 count:16];
-            if (v72)
-            {
-              v73 = *v151;
-              do
-              {
-                for (n = 0; n != v72; ++n)
-                {
-                  if (*v151 != v73)
-                  {
-                    objc_enumerationMutation(v71);
-                  }
-
-                  [v70 setObject:&unk_1F20EBC38 forKeyedSubscript:*(*(&v150 + 1) + 8 * n)];
-                }
-
-                v72 = [v71 countByEnumeratingWithState:&v150 objects:v158 count:16];
-              }
-
-              while (v72);
-            }
-
-            databaseForViewName = v70;
-
             v75 = objc_opt_new();
-            v125[0] = MEMORY[0x1E69E9820];
-            v125[1] = 3221225472;
-            v125[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_2_322;
-            v125[3] = &unk_1E796AD30;
-            v126 = v75;
-            v111 = v75;
-            [v70 enumerateKeysAndObjectsUsingBlock:v125];
-            v37 = [v111 copy];
-            allKeys = v126;
-            goto LABEL_96;
-          }
-
-          if (([v107 isEqual:@"com.apple.private.biome.read-write"] & 1) != 0 || objc_msgSend(v107, "isEqual:", @"com.apple.internal.biome.read-write"))
-          {
-            v76 = objc_opt_new();
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
             v151 = 0u;
-            v77 = [(BMProcess *)v104 nonnullSetOfStringsForEntitlement:v107];
-            v78 = [v77 countByEnumeratingWithState:&v150 objects:v158 count:16];
-            if (v78)
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            v76 = [(BMProcess *)v103 nonnullSetOfStringsForEntitlement:v106];
+            v77 = [v76 countByEnumeratingWithState:&v149 objects:v157 count:16];
+            if (v77)
             {
-              v79 = *v151;
+              v78 = *v150;
               do
               {
-                for (ii = 0; ii != v78; ++ii)
+                for (ii = 0; ii != v77; ++ii)
                 {
-                  if (*v151 != v79)
+                  if (*v150 != v78)
                   {
-                    objc_enumerationMutation(v77);
+                    objc_enumerationMutation(v76);
                   }
 
-                  [v76 setObject:&unk_1F20EBC08 forKeyedSubscript:*(*(&v150 + 1) + 8 * ii)];
+                  [v75 setObject:&unk_1F20EBC08 forKeyedSubscript:*(*(&v149 + 1) + 8 * ii)];
                 }
 
-                v78 = [v77 countByEnumeratingWithState:&v150 objects:v158 count:16];
+                v77 = [v76 countByEnumeratingWithState:&v149 objects:v157 count:16];
               }
 
-              while (v78);
+              while (v77);
             }
 
-            databaseForViewName = v76;
+            databaseForViewName = v75;
 
-            v81 = objc_opt_new();
-            v123[0] = MEMORY[0x1E69E9820];
-            v123[1] = 3221225472;
-            v123[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3_323;
-            v123[3] = &unk_1E796AD30;
-            v124 = v81;
-            v111 = v81;
-            [v76 enumerateKeysAndObjectsUsingBlock:v123];
-            v37 = [v111 copy];
-            allKeys = v124;
+            v80 = objc_opt_new();
+            v122[0] = MEMORY[0x1E69E9820];
+            v122[1] = 3221225472;
+            v122[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3_323;
+            v122[3] = &unk_1E796AD30;
+            v123 = v80;
+            v110 = v80;
+            [v75 enumerateKeysAndObjectsUsingBlock:v122];
+            v36 = [v110 copy];
+            allKeys = v123;
             goto LABEL_96;
           }
 
-          if (![v107 isEqual:@"com.apple.private.intelligenceplatform.views.read-only"])
+          if (![v106 isEqual:@"com.apple.private.intelligenceplatform.views.read-only"])
           {
             goto LABEL_46;
           }
 
-          v82 = legacyViewResourceMapper();
-          databaseForViewName = [v82 databaseForViewName];
+          v81 = legacyViewResourceMapper();
+          databaseForViewName = [v81 databaseForViewName];
 
           if (!databaseForViewName)
           {
-            v37 = objc_opt_new();
-            v35 = 0;
+            v36 = objc_opt_new();
+            v34 = 0;
             goto LABEL_98;
           }
 
-          v111 = [(BMProcess *)v104 nonnullArrayForEntitlement:v107];
+          v110 = [(BMProcess *)v103 nonnullArrayForEntitlement:v106];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
-          v84 = objc_opt_new();
-          allKeys = v84;
+          v83 = objc_opt_new();
+          allKeys = v83;
           if (isKindOfClass)
           {
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
             v151 = 0u;
-            v111 = v111;
-            v85 = [v111 countByEnumeratingWithState:&v150 objects:v158 count:16];
-            if (v85)
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            v110 = v110;
+            v84 = [v110 countByEnumeratingWithState:&v149 objects:v157 count:16];
+            if (v84)
             {
-              v86 = *v151;
+              v85 = *v150;
               do
               {
-                for (jj = 0; jj != v85; ++jj)
+                for (jj = 0; jj != v84; ++jj)
                 {
-                  if (*v151 != v86)
+                  if (*v150 != v85)
                   {
-                    objc_enumerationMutation(v111);
+                    objc_enumerationMutation(v110);
                   }
 
-                  v88 = *(*(&v150 + 1) + 8 * jj);
-                  v89 = objc_autoreleasePoolPush();
-                  v90 = (*(databaseForViewName + 16))(databaseForViewName, v88);
-                  if (v90)
+                  v87 = *(*(&v149 + 1) + 8 * jj);
+                  v88 = objc_autoreleasePoolPush();
+                  v89 = (*(databaseForViewName + 16))(databaseForViewName, v87);
+                  if (v89)
                   {
-                    v91 = [[BMResourceSpecifier alloc] initWithType:3 name:v90];
-                    if (v91)
+                    v90 = [[BMResourceSpecifier alloc] initWithType:3 name:v89];
+                    if (v90)
                     {
-                      [allKeys setObject:&unk_1F20EBC38 forKeyedSubscript:v91];
+                      [allKeys setObject:&unk_1F20EBC38 forKeyedSubscript:v90];
                     }
                   }
 
-                  objc_autoreleasePoolPop(v89);
+                  objc_autoreleasePoolPop(v88);
                 }
 
-                v85 = [v111 countByEnumeratingWithState:&v150 objects:v158 count:16];
+                v84 = [v110 countByEnumeratingWithState:&v149 objects:v157 count:16];
               }
 
-              while (v85);
+              while (v84);
             }
 
-            v37 = [allKeys copy];
+            v36 = [allKeys copy];
             goto LABEL_96;
           }
 
-          v37 = v84;
+          v36 = v83;
 LABEL_97:
 
-          v35 = databaseForViewName;
+          v34 = databaseForViewName;
           goto LABEL_98;
         }
 
-        v35 = [(BMProcess *)v104 dictionaryForEntitlement:v107];
+        v34 = [(BMProcess *)v103 dictionaryForEntitlement:v106];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([(NSString *)v105 isEqualToString:@"__pruner__"])
+          if ([(NSString *)v104 isEqualToString:@"__pruner__"])
           {
-            v36 = 1;
+            v35 = 1;
           }
 
           else
           {
-            v36 = [(NSString *)v105 isEqualToString:@"__writer__"];
+            v35 = [(NSString *)v104 isEqualToString:@"__writer__"];
           }
 
-          v111 = objc_opt_new();
-          v162 = 0u;
+          v110 = objc_opt_new();
           v161 = 0u;
           v160 = 0u;
           v159 = 0u;
-          allKeys = [v35 allKeys];
-          v45 = [allKeys countByEnumeratingWithState:&v159 objects:v158 count:16];
-          databaseForViewName = v35;
-          if (v45)
+          v158 = 0u;
+          allKeys = [v34 allKeys];
+          v44 = [allKeys countByEnumeratingWithState:&v158 objects:v157 count:16];
+          databaseForViewName = v34;
+          if (v44)
           {
-            v100 = *v160;
-            v98 = allKeys;
-            v109 = v36;
+            v99 = *v159;
+            v97 = allKeys;
+            v108 = v35;
 LABEL_63:
-            v46 = 0;
-            v99 = v45;
+            v45 = 0;
+            v98 = v44;
             while (1)
             {
-              if (*v160 != v100)
+              if (*v159 != v99)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v47 = *(*(&v159 + 1) + 8 * v46);
-              if ((v36 & 1) != 0 || [(NSString *)v105 isEqualToString:*(*(&v159 + 1) + 8 * v46)])
+              v46 = *(*(&v158 + 1) + 8 * v45);
+              if ((v35 & 1) != 0 || [(NSString *)v104 isEqualToString:*(*(&v158 + 1) + 8 * v45)])
               {
                 break;
               }
 
 LABEL_92:
-              if (++v46 == v45)
+              if (++v45 == v44)
               {
-                v45 = [allKeys countByEnumeratingWithState:&v159 objects:v158 count:16];
-                if (!v45)
+                v44 = [allKeys countByEnumeratingWithState:&v158 objects:v157 count:16];
+                if (!v44)
                 {
                   goto LABEL_94;
                 }
@@ -527,72 +527,72 @@ LABEL_92:
               }
             }
 
-            v48 = [v35 objectForKeyedSubscript:v47];
+            v47 = [v34 objectForKeyedSubscript:v46];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v156 = 0u;
-              v157 = 0u;
-              v154 = 0u;
               v155 = 0u;
-              v49 = v48;
-              v50 = [v49 countByEnumeratingWithState:&v154 objects:&v150 count:16];
-              v102 = v46;
-              if (!v50)
+              v156 = 0u;
+              v153 = 0u;
+              v154 = 0u;
+              v48 = v47;
+              v49 = [v48 countByEnumeratingWithState:&v153 objects:&v149 count:16];
+              v101 = v45;
+              if (!v49)
               {
                 goto LABEL_91;
               }
 
-              v112 = *v155;
-              v110 = v49;
+              v111 = *v154;
+              v109 = v48;
               while (1)
               {
-                for (kk = 0; kk != v50; ++kk)
+                for (kk = 0; kk != v49; ++kk)
                 {
-                  if (*v155 != v112)
+                  if (*v154 != v111)
                   {
-                    objc_enumerationMutation(v49);
+                    objc_enumerationMutation(v48);
                   }
 
-                  v52 = *(*(&v154 + 1) + 8 * kk);
+                  v51 = *(*(&v153 + 1) + 8 * kk);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v53 = BMResourceTypeFromEntitlementResourceTypeString(v52);
-                    if (v53)
+                    v52 = BMResourceTypeFromEntitlementResourceTypeString(v51);
+                    if (v52)
                     {
-                      v54 = objc_opt_new();
-                      v55 = [v49 objectForKeyedSubscript:v52];
+                      v53 = objc_opt_new();
+                      v54 = [v48 objectForKeyedSubscript:v51];
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v56 = BMNonnullSetOfStringsFromEntitlementValue(v55);
-                        v148 = 0u;
-                        v149 = 0u;
-                        v146 = 0u;
+                        v55 = BMNonnullSetOfStringsFromEntitlementValue(v54);
                         v147 = 0u;
-                        v57 = [v56 countByEnumeratingWithState:&v146 objects:v145 count:16];
-                        if (v57)
+                        v148 = 0u;
+                        v145 = 0u;
+                        v146 = 0u;
+                        v56 = [v55 countByEnumeratingWithState:&v145 objects:v144 count:16];
+                        if (v56)
                         {
-                          v58 = *v147;
+                          v57 = *v146;
                           do
                           {
-                            for (mm = 0; mm != v57; ++mm)
+                            for (mm = 0; mm != v56; ++mm)
                             {
-                              if (*v147 != v58)
+                              if (*v146 != v57)
                               {
-                                objc_enumerationMutation(v56);
+                                objc_enumerationMutation(v55);
                               }
 
-                              [v54 setObject:&unk_1F20EBC38 forKeyedSubscript:*(*(&v146 + 1) + 8 * mm)];
+                              [v53 setObject:&unk_1F20EBC38 forKeyedSubscript:*(*(&v145 + 1) + 8 * mm)];
                             }
 
-                            v57 = [v56 countByEnumeratingWithState:&v146 objects:v145 count:16];
+                            v56 = [v55 countByEnumeratingWithState:&v145 objects:v144 count:16];
                           }
 
-                          while (v57);
-                          v36 = v109;
-                          v49 = v110;
+                          while (v56);
+                          v35 = v108;
+                          v48 = v109;
                         }
 
 LABEL_87:
@@ -603,46 +603,46 @@ LABEL_87:
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v143[0] = MEMORY[0x1E69E9820];
-                          v143[1] = 3221225472;
-                          v143[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke;
-                          v143[3] = &unk_1E796ACE0;
-                          v144 = v54;
-                          [v55 enumerateKeysAndObjectsUsingBlock:v143];
-                          v56 = v144;
+                          v142[0] = MEMORY[0x1E69E9820];
+                          v142[1] = 3221225472;
+                          v142[2] = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke;
+                          v142[3] = &unk_1E796ACE0;
+                          v143 = v53;
+                          [v54 enumerateKeysAndObjectsUsingBlock:v142];
+                          v55 = v143;
                           goto LABEL_87;
                         }
                       }
 
-                      v136 = MEMORY[0x1E69E9820];
-                      v137 = 3221225472;
-                      v138 = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_2;
-                      v139 = &unk_1E796AD08;
-                      v142 = v36;
-                      v141 = v53;
-                      v140 = v111;
-                      [v54 enumerateKeysAndObjectsUsingBlock:&v136];
+                      v135 = MEMORY[0x1E69E9820];
+                      v136 = 3221225472;
+                      v137 = __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_2;
+                      v138 = &unk_1E796AD08;
+                      v141 = v35;
+                      v140 = v52;
+                      v139 = v110;
+                      [v53 enumerateKeysAndObjectsUsingBlock:&v135];
 
                       continue;
                     }
                   }
                 }
 
-                v50 = [v49 countByEnumeratingWithState:&v154 objects:&v150 count:16];
-                if (!v50)
+                v49 = [v48 countByEnumeratingWithState:&v153 objects:&v149 count:16];
+                if (!v49)
                 {
 LABEL_91:
 
-                  v35 = databaseForViewName;
-                  v46 = v102;
-                  allKeys = v98;
-                  v45 = v99;
+                  v34 = databaseForViewName;
+                  v45 = v101;
+                  allKeys = v97;
+                  v44 = v98;
                   goto LABEL_92;
                 }
               }
             }
 
-            v37 = MEMORY[0x1E695E0F8];
+            v36 = MEMORY[0x1E695E0F8];
 LABEL_96:
           }
 
@@ -650,54 +650,53 @@ LABEL_96:
           {
 LABEL_94:
 
-            v37 = [v111 copy];
+            v36 = [v110 copy];
           }
 
           goto LABEL_97;
         }
 
-        v37 = MEMORY[0x1E695E0F8];
+        v36 = MEMORY[0x1E695E0F8];
 LABEL_98:
 
 LABEL_99:
-        v60 = objc_opt_new();
-        v133[0] = MEMORY[0x1E69E9820];
-        v133[1] = 3221225472;
-        v133[2] = __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke;
-        v133[3] = &unk_1E796ACB8;
-        v134 = v60;
-        v135 = v104;
-        v61 = v104;
-        v62 = v60;
-        [v37 enumerateKeysAndObjectsUsingBlock:v133];
-        v63 = [v62 copy];
+        v59 = objc_opt_new();
+        v132[0] = MEMORY[0x1E69E9820];
+        v132[1] = 3221225472;
+        v132[2] = __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke;
+        v132[3] = &unk_1E796ACB8;
+        v133 = v59;
+        v134 = v103;
+        v60 = v103;
+        v61 = v59;
+        [v36 enumerateKeysAndObjectsUsingBlock:v132];
+        v62 = [v61 copy];
 
-        v113[0] = MEMORY[0x1E69E9820];
-        v113[1] = 3221225472;
-        v113[2] = __44__BMAccessControlPolicy_authorizedResources__block_invoke;
-        v113[3] = &unk_1E796AC38;
-        v114 = v97;
-        [v63 enumerateKeysAndObjectsUsingBlock:v113];
+        v112[0] = MEMORY[0x1E69E9820];
+        v112[1] = 3221225472;
+        v112[2] = __44__BMAccessControlPolicy_authorizedResources__block_invoke;
+        v112[3] = &unk_1E796AC38;
+        v113 = v96;
+        [v62 enumerateKeysAndObjectsUsingBlock:v112];
 
-        ++v103;
+        ++v102;
       }
 
-      while (v103 != v95);
-      v92 = [obj countByEnumeratingWithState:&v115 objects:v131 count:16];
-      v95 = v92;
+      while (v102 != v94);
+      v91 = [obj countByEnumeratingWithState:&v114 objects:v130 count:16];
+      v94 = v91;
     }
 
-    while (v92);
+    while (v91);
   }
 
-  v93 = [v97 copy];
-  v94 = selfCopy->_authorizedResources;
-  selfCopy->_authorizedResources = v93;
+  v92 = [v96 copy];
+  v93 = selfCopy->_authorizedResources;
+  selfCopy->_authorizedResources = v92;
 
-  v4 = v93;
+  v4 = v92;
 LABEL_3:
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1061,7 +1060,7 @@ LABEL_13:
       goto LABEL_26;
     }
 
-    v12 = BMSyncableStreamIdentifiers();
+    v12 = BMSyncableStreamIdentifiers(3);
     v13 = [v12 containsObject:v7];
 
     if (v13)
@@ -1423,30 +1422,30 @@ LABEL_14:
 
 - (id)explicitlyAuthorizedResourcesOfType:(unint64_t)type withAccessMode:(unint64_t)mode
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (mode)
   {
     v7 = [MEMORY[0x1E695DFA8] set];
     authorizedResources = [(BMAccessControlPolicy *)self authorizedResources];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v9 = [authorizedResources countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [authorizedResources countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(authorizedResources);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           if ([v13 type] == type)
           {
             v14 = [authorizedResources objectForKeyedSubscript:v13];
@@ -1463,7 +1462,7 @@ LABEL_14:
           }
         }
 
-        v10 = [authorizedResources countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [authorizedResources countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -1474,8 +1473,6 @@ LABEL_14:
   {
     v7 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1670,7 +1667,7 @@ LABEL_12:
 
 - (BOOL)allowsComputePublisherAccessToStreams:(id)streams
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   process = self->_process;
   if (!process || ([(BMProcess *)process identifier], v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
@@ -1679,33 +1676,33 @@ LABEL_12:
     goto LABEL_21;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = streamsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (!BMIdentifierIsPathSafe(*(*(&v25 + 1) + 8 * i)))
+        if (!BMIdentifierIsPathSafe(*(*(&v24 + 1) + 8 * i)))
         {
 
           goto LABEL_19;
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v9)
       {
         continue;
@@ -1725,7 +1722,7 @@ LABEL_12:
       {
         if (processType == 3)
         {
-          v14 = BMSyncableStreamIdentifiers();
+          v14 = BMSyncableStreamIdentifiers(3);
           streamsCopy = [v7 bm_setBySubtractingSet:v14];
 
           if (![streamsCopy count])
@@ -1767,34 +1764,34 @@ LABEL_19:
   }
 
 LABEL_26:
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   streamsCopy = v7;
-  v17 = [streamsCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v17)
+  v16 = [streamsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+  if (v16)
   {
-    v18 = v17;
-    v19 = *v22;
+    v17 = v16;
+    v18 = *v21;
     while (2)
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v17; ++j)
       {
-        if (*v22 != v19)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(streamsCopy);
         }
 
-        if (![(BMAccessControlPolicy *)self allowsAccessToStream:*(*(&v21 + 1) + 8 * j) withMode:1, v21])
+        if (![(BMAccessControlPolicy *)self allowsAccessToStream:*(*(&v20 + 1) + 8 * j) withMode:1, v20])
         {
           v13 = 0;
           goto LABEL_36;
         }
       }
 
-      v18 = [streamsCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
-      if (v18)
+      v17 = [streamsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+      if (v17)
       {
         continue;
       }
@@ -1807,7 +1804,6 @@ LABEL_26:
 LABEL_36:
 
 LABEL_21:
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1932,7 +1928,7 @@ LABEL_20:
       goto LABEL_16;
     }
 
-    v12 = BMSyncableStreamIdentifiers();
+    v12 = BMSyncableStreamIdentifiers(3);
     v13 = [v12 containsObject:firstObject];
 
     if (v13)
@@ -2048,7 +2044,7 @@ LABEL_13:
 
 - (void)_warnAboutInternalEntitlement:(id)entitlement streamIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   identifierCopy = identifier;
   if (os_variant_has_internal_diagnostics())
@@ -2059,44 +2055,42 @@ LABEL_13:
       v9 = __biome_log_for_category(6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543618;
-        v12 = identifierCopy;
-        v13 = 2114;
-        v14 = entitlementCopy;
-        _os_log_impl(&dword_1AC15D000, v9, OS_LOG_TYPE_DEFAULT, "WARNING: utilizing internal-only policy to allow access to '%{public}@' via entitlement '%{public}@'", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = identifierCopy;
+        v12 = 2114;
+        v13 = entitlementCopy;
+        _os_log_impl(&dword_1AC15D000, v9, OS_LOG_TYPE_DEFAULT, "WARNING: utilizing internal-only policy to allow access to '%{public}@' via entitlement '%{public}@'", &v10, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)allowsAccessToContextSyncStreams:(id)streams
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
   v5 = +[BMAccessControlPolicy contextSyncMapping];
   v6 = [streamsCopy mutableCopy];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v7 = streamsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v45;
+    v10 = *v44;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v44 + 1) + 8 * i);
+        v12 = *(*(&v43 + 1) + 8 * i);
         v13 = [v5 objectForKeyedSubscript:v12];
 
         if (!v13)
@@ -2115,7 +2109,7 @@ LABEL_13:
         [v6 addObject:v14];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v43 objects:v49 count:16];
       if (v9)
       {
         continue;
@@ -2157,26 +2151,26 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v17 = v6;
-  v18 = [v17 countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v38 objects:v48 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v40;
+    v20 = *v39;
     while (2)
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v40 != v20)
+        if (*v39 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        if ((BMIdentifierIsPathSafe(*(*(&v39 + 1) + 8 * j)) & 1) == 0)
+        if ((BMIdentifierIsPathSafe(*(*(&v38 + 1) + 8 * j)) & 1) == 0)
         {
           v27 = __biome_log_for_category(6);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
@@ -2189,7 +2183,7 @@ LABEL_35:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v38 objects:v48 count:16];
       if (v19)
       {
         continue;
@@ -2230,34 +2224,34 @@ LABEL_36:
   }
 
 LABEL_41:
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v30 = v7;
-  v31 = [v30 countByEnumeratingWithState:&v35 objects:v48 count:16];
-  if (v31)
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v29 = v7;
+  v30 = [v29 countByEnumeratingWithState:&v34 objects:v47 count:16];
+  if (v30)
   {
-    v32 = v31;
-    v33 = *v36;
+    v31 = v30;
+    v32 = *v35;
     while (2)
     {
-      for (k = 0; k != v32; ++k)
+      for (k = 0; k != v31; ++k)
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v29);
         }
 
-        if (![(BMAccessControlPolicy *)self allowsAccessToStream:*(*(&v35 + 1) + 8 * k) withMode:1, v35])
+        if (![(BMAccessControlPolicy *)self allowsAccessToStream:*(*(&v34 + 1) + 8 * k) withMode:1, v34])
         {
           v23 = 0;
           goto LABEL_51;
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v35 objects:v48 count:16];
-      if (v32)
+      v31 = [v29 countByEnumeratingWithState:&v34 objects:v47 count:16];
+      if (v31)
       {
         continue;
       }
@@ -2270,7 +2264,6 @@ LABEL_41:
 LABEL_51:
 
 LABEL_37:
-  v28 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -2478,7 +2471,7 @@ LABEL_12:
 
 - (BOOL)allowsAccessToBiomeAgentForUser:(unsigned int)user
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifier = [(BMProcess *)self->_process identifier];
 
   if (!identifier)
@@ -2498,8 +2491,6 @@ LABEL_8:
 
 LABEL_14:
     LOBYTE(v9) = 0;
-LABEL_15:
-    v10 = *MEMORY[0x1E69E9840];
     return v9;
   }
 
@@ -2522,36 +2513,36 @@ LABEL_15:
 
   if (processType != 8)
   {
-    v13 = objc_opt_new();
-    v14 = [(BMAccessControlPolicy *)self explicitlyAuthorizedResourcesOfType:1 withAccessMode:2];
-    [v13 unionSet:v14];
+    v11 = objc_opt_new();
+    v12 = [(BMAccessControlPolicy *)self explicitlyAuthorizedResourcesOfType:1 withAccessMode:2];
+    [v11 unionSet:v12];
 
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v15 = v13;
-    v9 = [v15 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v16 = 0u;
+    v17 = 0u;
+    v13 = v11;
+    v9 = [v13 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v16 = *v19;
+      v14 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v16)
+          if (*v17 != v14)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v13);
           }
 
-          if (!BMServiceDomainForStream(2, *(*(&v18 + 1) + 8 * i)))
+          if (!BMServiceDomainForStream(2, *(*(&v16 + 1) + 8 * i)))
           {
             LOBYTE(v9) = 1;
             goto LABEL_30;
           }
         }
 
-        v9 = [v15 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v13 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -2563,10 +2554,8 @@ LABEL_15:
 
 LABEL_30:
 
-    goto LABEL_15;
+    return v9;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return os_variant_allows_internal_security_policies();
 }
@@ -2588,7 +2577,7 @@ LABEL_30:
 
 + (BOOL)allowsConfiguringConnection:(id)connection forUseCase:(id)case inDomain:(unint64_t)domain error:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   caseCopy = case;
   if (BMIdentifierIsPathSafe(caseCopy))
@@ -2607,9 +2596,9 @@ LABEL_30:
         if (error)
         {
           v20 = MEMORY[0x1E696ABC0];
-          v50 = *MEMORY[0x1E696A578];
-          v51 = @"Use case already set";
-          executableName = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v49 = *MEMORY[0x1E696A578];
+          v50 = @"Use case already set";
+          executableName = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
           *error = [v20 errorWithDomain:@"BMAccessErrorDomain" code:5 userInfo:executableName];
 LABEL_22:
 
@@ -2647,14 +2636,14 @@ LABEL_22:
           if (error)
           {
             v28 = MEMORY[0x1E696ABC0];
-            v48 = *MEMORY[0x1E696A578];
+            v47 = *MEMORY[0x1E696A578];
             v29 = MEMORY[0x1E696AEC0];
             executableName = [bm_process executableName];
             caseCopy = [v29 stringWithFormat:@"Process '%@' not authorized for use-case '%@'", executableName, caseCopy];
-            v49 = caseCopy;
+            v48 = caseCopy;
             v31 = MEMORY[0x1E695DF20];
-            v32 = &v49;
-            v33 = &v48;
+            v32 = &v48;
+            v33 = &v47;
 LABEL_20:
             v34 = [v31 dictionaryWithObjects:v32 forKeys:v33 count:1];
             *error = [v28 errorWithDomain:@"BMAccessErrorDomain" code:4 userInfo:v34];
@@ -2693,14 +2682,14 @@ LABEL_24:
           }
 
           v28 = MEMORY[0x1E696ABC0];
-          v44 = *MEMORY[0x1E696A578];
-          v37 = MEMORY[0x1E696AEC0];
+          v43 = *MEMORY[0x1E696A578];
+          v36 = MEMORY[0x1E696AEC0];
           executableName = [bm_process executableName];
-          caseCopy = [v37 stringWithFormat:@"Process '%@' not authorized for use-case '%@'", executableName, caseCopy];
-          v45 = caseCopy;
+          caseCopy = [v36 stringWithFormat:@"Process '%@' not authorized for use-case '%@'", executableName, caseCopy];
+          v44 = caseCopy;
           v31 = MEMORY[0x1E695DF20];
-          v32 = &v45;
-          v33 = &v44;
+          v32 = &v44;
+          v33 = &v43;
           goto LABEL_20;
         }
 
@@ -2712,13 +2701,13 @@ LABEL_24:
         goto LABEL_23;
       }
 
-      v41 = MEMORY[0x1E696ABC0];
-      v46 = *MEMORY[0x1E696A578];
+      v40 = MEMORY[0x1E696ABC0];
+      v45 = *MEMORY[0x1E696A578];
       executableName = [MEMORY[0x1E696AEC0] stringWithFormat:@"Use-case '%@' not authorized", caseCopy];
-      v47 = executableName;
-      caseCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-      v39 = v41;
-      v40 = 4;
+      v46 = executableName;
+      caseCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v38 = v40;
+      v39 = 4;
     }
 
     else
@@ -2728,26 +2717,26 @@ LABEL_24:
         goto LABEL_23;
       }
 
-      v38 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
+      v37 = MEMORY[0x1E696ABC0];
+      v41 = *MEMORY[0x1E696A578];
       executableName = [MEMORY[0x1E696AEC0] stringWithFormat:@"Use case '%@' not found", caseCopy];
-      v43 = executableName;
-      caseCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-      v39 = v38;
-      v40 = 3;
+      v42 = executableName;
+      caseCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v38 = v37;
+      v39 = 3;
     }
 
-    *error = [v39 errorWithDomain:@"BMAccessErrorDomain" code:v40 userInfo:caseCopy];
+    *error = [v38 errorWithDomain:@"BMAccessErrorDomain" code:v39 userInfo:caseCopy];
     goto LABEL_21;
   }
 
   if (error)
   {
     v19 = MEMORY[0x1E696ABC0];
-    v52 = *MEMORY[0x1E696A578];
+    v51 = *MEMORY[0x1E696A578];
     bm_process = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid use case '%@'", caseCopy];
-    v53[0] = bm_process;
-    bm_accessControlPolicy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v52[0] = bm_process;
+    bm_accessControlPolicy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
     [v19 errorWithDomain:@"BMAccessErrorDomain" code:2 userInfo:bm_accessControlPolicy];
     *error = v18 = 0;
     goto LABEL_24;
@@ -2756,7 +2745,6 @@ LABEL_24:
   v18 = 0;
 LABEL_25:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -2771,25 +2759,20 @@ LABEL_25:
 
 - (void)allowsConnectionToAccessServiceWithDomain:(id *)a1 .cold.1(id *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [*a1 executableName];
   [*a1 pid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allowsConnectionToAccessServiceWithDomain:(id *)a1 .cold.2(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = [*a1 executableName];
   [*a1 pid];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "Process %{public}@(%d) is not allowed to have datavault entitlement", v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "Process %{public}@(%d) is not allowed to have datavault entitlement", v5, 0x12u);
 }
 
 @end

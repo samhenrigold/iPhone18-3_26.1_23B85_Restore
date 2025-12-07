@@ -23,7 +23,7 @@
   {
     if (managerCopy)
     {
-      [managerCopy fillFgColor];
+      objc_msgSend_fillFgColor(managerCopy);
     }
 
     else
@@ -120,7 +120,7 @@ LABEL_7:
     {
       if (managerCopy)
       {
-        [managerCopy fillFgColor];
+        objc_msgSend_fillFgColor(managerCopy);
       }
 
       else
@@ -134,7 +134,7 @@ LABEL_7:
       v27 = [OABShapeProperties targetColorWithSourceColor:&v33 alpha:managerCopy colorPropertiesManager:stateCopy state:v26];
       if (managerCopy)
       {
-        [managerCopy fillBgColor];
+        objc_msgSend_fillBgColor(managerCopy);
       }
 
       else
@@ -343,7 +343,7 @@ LABEL_23:
   [managerCopy fillFocus];
   if (managerCopy)
   {
-    [managerCopy fillFgColor];
+    objc_msgSend_fillFgColor(managerCopy);
   }
 
   else
@@ -357,7 +357,7 @@ LABEL_23:
   objc_claimAutoreleasedReturnValue();
   if (managerCopy)
   {
-    [managerCopy fillBgColor];
+    objc_msgSend_fillBgColor(managerCopy);
   }
 
   else
@@ -395,7 +395,7 @@ LABEL_23:
   [fillCopy setBlipRef:v14];
   if (managerCopy)
   {
-    [managerCopy fillFgColor];
+    objc_msgSend_fillFgColor(managerCopy);
   }
 
   else

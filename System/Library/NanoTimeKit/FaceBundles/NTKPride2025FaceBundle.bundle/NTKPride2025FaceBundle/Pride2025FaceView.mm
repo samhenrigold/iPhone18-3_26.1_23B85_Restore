@@ -124,26 +124,25 @@
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   v7 = sub_3EA8(&qword_1E5C0, qword_146F0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v14 - v9;
+  v9 = &v13 - v8;
   if (date)
   {
     sub_12684();
-    v11 = sub_126A4();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v10 = sub_126A4();
+    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v12 = sub_126A4();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+    v11 = sub_126A4();
+    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
   selfCopy = self;
-  sub_61CC(v10, duration);
+  sub_61CC(v9, duration);
 
-  sub_4508(v10, &qword_1E5C0, qword_146F0);
+  sub_4508(v9, &qword_1E5C0, qword_146F0);
 }
 
 @end

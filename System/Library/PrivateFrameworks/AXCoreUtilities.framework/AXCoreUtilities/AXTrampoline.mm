@@ -89,7 +89,7 @@ uint64_t __38__AXTrampoline_methodNotFoundSentinal__block_invoke(uint64_t a1)
   {
     if ([(AXTrampoline *)self warnAboutUnknownSelectors])
     {
-      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0.0, 0, 1, @"No method signature to act on. Ignoring this invocation");
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"No method signature to act on. Ignoring this invocation", v10);
     }
   }
 
@@ -109,8 +109,8 @@ uint64_t __38__AXTrampoline_methodNotFoundSentinal__block_invoke(uint64_t a1)
     {
       v9 = NSStringFromSelector([invocationCopy selector]);
       WeakRetained = objc_loadWeakRetained(&self->_caller);
-      v11 = objc_loadWeakRetained(&self->_targetClass);
-      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0.0, 0, 1, @"An IMP could not be found for the invocation with selector:%@. caller:%@ target:%@");
+      v12 = objc_loadWeakRetained(&self->_targetClass);
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"An IMP could not be found for the invocation with selector:%@. caller:%@ target:%@", v9);
     }
   }
 }
@@ -123,8 +123,8 @@ uint64_t __38__AXTrampoline_methodNotFoundSentinal__block_invoke(uint64_t a1)
   {
     if ([(AXTrampoline *)self warnAboutUnknownSelectors])
     {
-      v8 = NSStringFromSelector(selector);
-      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0.0, 0, 1, @"A methodSignature could not be found for selector:%@, on caller:%@. You probably should not be trampolining this method");
+      v7 = NSStringFromSelector(selector);
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"A methodSignature could not be found for selector:%@, on caller:%@. You probably should not be trampolining this method", v7);
     }
 
     v6 = +[AXTrampoline methodNotFoundSentinal];

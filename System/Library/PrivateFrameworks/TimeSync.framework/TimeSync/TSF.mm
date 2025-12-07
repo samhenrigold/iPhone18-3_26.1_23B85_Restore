@@ -20,7 +20,7 @@ void __40___TSF_TSDgPTPManager_sharedgPTPManager__block_invoke()
   _sharedgPTPManagerQueue = v0;
 
   v2 = +[_TSF_TSDClockManager sharedClockManager];
-  [v2 addgPTPServicesWithError:0];
+  [v2 addgPTPServicesWithError:?];
 }
 
 void __40___TSF_TSDgPTPManager_sharedgPTPManager__block_invoke_2(uint64_t a1)
@@ -29,7 +29,7 @@ void __40___TSF_TSDgPTPManager_sharedgPTPManager__block_invoke_2(uint64_t a1)
   if (!_sharedgPTPManager_0)
   {
     v3 = +[_TSF_TSDClockManager sharedClockManager];
-    [v3 addgPTPServicesWithError:0];
+    [v3 addgPTPServicesWithError:?];
     v4 = [*(a1 + 32) gPTPManager];
     v5 = _sharedgPTPManager_0;
     _sharedgPTPManager_0 = v4;
@@ -43,29 +43,31 @@ void __35___TSF_TSDgPTPManager_systemDomain__block_invoke(uint64_t a1)
   v2 = *(*(a1 + 32) + 24);
   if (!v2)
   {
-    v3 = -[_TSF_TSDKernelClock initWithClockIdentifier:]([_TSF_TSDgPTPClock alloc], "initWithClockIdentifier:", [*(a1 + 32) systemDomainClockIdentifier]);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = v3;
+    v3 = [_TSF_TSDgPTPClock alloc];
+    [*(a1 + 32) systemDomainClockIdentifier];
+    v4 = [(_TSF_TSDKernelClock *)v3 initWithClockIdentifier:?];
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 24);
+    *(v5 + 24) = v4;
 
     v2 = *(*(a1 + 32) + 24);
   }
 
-  v6 = (*(*(a1 + 40) + 8) + 40);
+  v7 = (*(*(a1 + 40) + 8) + 40);
 
-  objc_storeStrong(v6, v2);
+  objc_storeStrong(v7, v2);
 }
 
 void __37___TSF_TSDgPTPManager_diagnosticInfo__block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
   v3 = objc_autoreleasePoolPush();
-  if ([v5 conformsToIOClassName:@"IOTimeSyncDomain"])
+  if ([v5 conformsToIOClassName:?])
   {
-    v4 = [_TSF_TSDgPTPClock diagnosticInfoForService:v5];
+    v4 = [_TSF_TSDgPTPClock diagnosticInfoForService:?];
     if (v4)
     {
-      [*(a1 + 32) addObject:v4];
+      [*(a1 + 32) addObject:?];
     }
   }
 
@@ -299,19 +301,19 @@ void __43___TSF_TSDgPTPNetworkPort_updateProperties__block_invoke(uint64_t a1)
   }
 
   v3 = [*(a1 + 32) sourceAddressString];
-  v4 = [v3 isEqualToString:*(a1 + 40)];
+  v5 = [v4 isEqualToString:?];
 
-  if ((v4 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    [*(a1 + 32) setSourceAddressString:*(a1 + 40)];
+    [*(a1 + 32) setSourceAddressString:?];
   }
 
-  v5 = [*(a1 + 32) destinationAddressString];
-  v6 = [v5 isEqualToString:*(a1 + 48)];
+  v6 = [*(a1 + 32) destinationAddressString];
+  v8 = [v7 isEqualToString:?];
 
-  if ((v6 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    [*(a1 + 32) setDestinationAddressString:*(a1 + 48)];
+    [*(a1 + 32) setDestinationAddressString:?];
   }
 
   if (*(a1 + 148) != [*(a1 + 32) overridenReceiveMatching])
@@ -337,7 +339,7 @@ void __43___TSF_TSDgPTPNetworkPort_updateProperties__block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __52___TSF_TSDgPTPNetworkPort_getCurrentPortInfo_error___block_invoke(uint64_t a1)
+void *__52___TSF_TSDgPTPNetworkPort_getCurrentPortInfo_error___block_invoke(uint64_t a1)
 {
   **(a1 + 40) = [*(a1 + 32) portRole];
   *(*(a1 + 40) + 4) = [*(a1 + 32) portType];
@@ -354,7 +356,7 @@ uint64_t __52___TSF_TSDgPTPNetworkPort_getCurrentPortInfo_error___block_invoke(u
 void __51___TSF_TSDgPTPNetworkPort__handleRefreshConnection__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) didChangeASCapable:*(a1 + 48) forPort:*(a1 + 40)];
+  [*(a1 + 32) didChangeASCapable:? forPort:?];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -362,7 +364,7 @@ void __51___TSF_TSDgPTPNetworkPort__handleRefreshConnection__block_invoke(uint64
 void __81___TSF_TSDgPTPNetworkPort__handleNotification_withArg1_arg2_arg3_arg4_arg5_arg6___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) didChangeASCapable:*(a1 + 48) != 0 forPort:*(a1 + 40)];
+  [*(a1 + 32) didChangeASCapable:? forPort:?];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -378,10 +380,10 @@ void __52___TSF_TSDgPTPNetworkPort_diagnosticInfoForService___block_invoke(uint6
 {
   v5 = a2;
   v3 = objc_autoreleasePoolPush();
-  if (([v5 conformsToIOClassName:@"IOEthernetInterface"] & 1) != 0 || objc_msgSend(v5, "conformsToIOClassName:", @"IOTimeSyncInterfaceAdapter"))
+  if (([v5 conformsToIOClassName:?] & 1) != 0 || objc_msgSend(v5, "conformsToIOClassName:"))
   {
-    v4 = [v5 iodPropertyForKey:@"BSD Name"];
-    [*(a1 + 32) setObject:v4 forKeyedSubscript:@"BSD Name"];
+    v4 = [v5 iodPropertyForKey:?];
+    [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 
   objc_autoreleasePoolPop(v3);
@@ -410,7 +412,7 @@ void __41___TSF_TSDgPTPFDPtPPort_updateProperties__block_invoke(uint64_t a1)
     [*(a1 + 32) setMeasuringPDelay:?];
   }
 
-  [*(a1 + 32) setStatistics:*(a1 + 40)];
+  [*(a1 + 32) setStatistics:?];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -418,7 +420,7 @@ void __41___TSF_TSDgPTPFDPtPPort_updateProperties__block_invoke(uint64_t a1)
 void __41___TSF_TSDgPTPFDEtEPort_updateProperties__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setStatistics:*(a1 + 40)];
+  [*(a1 + 32) setStatistics:?];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -429,8 +431,7 @@ uint64_t __33___TSF_TSDIOKServiceMatcher_init__block_invoke()
   v1 = _sharedTSDIOKServiceMatcherNotificationsQueue;
   _sharedTSDIOKServiceMatcherNotificationsQueue = v0;
 
-  v2 = objc_alloc(MEMORY[0x277D1AE18]);
-  _sharedTSDIOKServiceMatcherNotificationsPort = [v2 initOnDispatchQueue:_sharedTSDIOKServiceMatcherNotificationsQueue];
+  _sharedTSDIOKServiceMatcherNotificationsPort = [objc_alloc(MEMORY[0x277D1AE18]) initOnDispatchQueue:?];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -451,7 +452,7 @@ void __70___TSF_TSDIOKServiceMatcher_startNotificationsWithMatchingDictionary___
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [WeakRetained handleServiceMatched:v6];
+          [WeakRetained handleServiceMatched:?];
         }
 
         v7 = [v8 nextObject];
@@ -482,7 +483,7 @@ void __70___TSF_TSDIOKServiceMatcher_startNotificationsWithMatchingDictionary___
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [WeakRetained handleServiceTerminated:v6];
+          [WeakRetained handleServiceTerminated:?];
         }
 
         v7 = [v8 nextObject];
@@ -508,7 +509,7 @@ void __70___TSF_TSDIOKServiceMatcher_startNotificationsWithMatchingDictionary___
 
 void __53___TSF_TSDKextNotifier_notifyWhenServiceIsAvailable___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getMatchedCount];
   v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
@@ -517,18 +518,18 @@ void __53___TSF_TSDKextNotifier_notifyWhenServiceIsAvailable___block_invoke(uint
     if (v4)
     {
       v6 = [*(*(a1 + 32) + 32) UTF8String];
-      v12 = 136315394;
-      v13 = v6;
-      v14 = 1024;
-      v15 = v3;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsAvailable %s matchedCount %d, saving notification block", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = v6;
+      v13 = 1024;
+      v14 = v3;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsAvailable %s matchedCount %d, saving notification block", &v11, 0x12u);
     }
 
     v7 = *(a1 + 40);
     v8 = *(*(a1 + 32) + 40);
     v9 = [v7 copy];
     v10 = MEMORY[0x274387E70]();
-    [v8 addObject:v10];
+    [v8 addObject:?];
   }
 
   else
@@ -536,23 +537,22 @@ void __53___TSF_TSDKextNotifier_notifyWhenServiceIsAvailable___block_invoke(uint
     if (v4)
     {
       v5 = [*(*(a1 + 32) + 32) UTF8String];
-      v12 = 136315394;
-      v13 = v5;
-      v14 = 1024;
-      v15 = v3;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsAvailable %s matchedCount %d, dispatching notification", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = v5;
+      v13 = 1024;
+      v14 = v3;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsAvailable %s matchedCount %d, dispatching notification", &v11, 0x12u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __55___TSF_TSDKextNotifier_notifyWhenServiceIsUnavailable___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getMatchedCount];
   v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
@@ -561,18 +561,18 @@ void __55___TSF_TSDKextNotifier_notifyWhenServiceIsUnavailable___block_invoke(ui
     if (v4)
     {
       v5 = [*(*(a1 + 32) + 32) UTF8String];
-      v12 = 136315394;
-      v13 = v5;
-      v14 = 1024;
-      v15 = v3;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsUnavailable %s matchedCount %d, saving notification block", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = v5;
+      v13 = 1024;
+      v14 = v3;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsUnavailable %s matchedCount %d, saving notification block", &v11, 0x12u);
     }
 
     v6 = *(a1 + 40);
     v7 = *(*(a1 + 32) + 48);
     v8 = [v6 copy];
     v9 = MEMORY[0x274387E70]();
-    [v7 addObject:v9];
+    [v7 addObject:?];
   }
 
   else
@@ -580,118 +580,100 @@ void __55___TSF_TSDKextNotifier_notifyWhenServiceIsUnavailable___block_invoke(ui
     if (v4)
     {
       v10 = [*(*(a1 + 32) + 32) UTF8String];
-      v12 = 136315394;
-      v13 = v10;
-      v14 = 1024;
-      v15 = 0;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsUnavailable %s matchedCount %d, dispatching notification", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = v10;
+      v13 = 1024;
+      v14 = 0;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier notifyWhenServiceIsUnavailable %s matchedCount %d, dispatching notification", &v11, 0x12u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __31___TSF_TSDKextNotifier_dealloc__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = MEMORY[0];
     do
     {
-      v7 = 0;
-      do
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v19 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v7++) + 16))();
+        (*(*(8 * i) + 16))();
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:0 objects:? count:?];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = MEMORY[0];
     do
     {
-      v12 = 0;
-      do
+      for (j = 0; j != v10; j = (j + 1))
       {
-        if (*v15 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
-        ++v12;
+        (*(*(8 * j) + 16))();
       }
 
-      while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v10);
   }
 
   objc_autoreleasePoolPop(v2);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46___TSF_IODConnection_initWithService_andType___block_invoke(uint64_t a1)
 {
   getpid();
   gClientsLock = 0;
-  v2 = [MEMORY[0x277CBEB38] dictionary];
-  v3 = gClients;
-  gClients = v2;
+  v1 = [MEMORY[0x277CBEB38] dictionary];
+  v2 = gClients;
+  gClients = v1;
 
-  v4 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
-  v5 = gDaemonServiceClient;
-  gDaemonServiceClient = v4;
+  v3 = +[TSXDaemonServiceClient sharedDaemonServiceClient];
+  v4 = gDaemonServiceClient;
+  gDaemonServiceClient = v3;
 
-  v6 = MEMORY[0x277CCACA8];
-  v7 = *(a1 + 32);
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v13 = [v6 stringWithFormat:@"com.apple.TimeSync.%@", v9];
+  v5 = MEMORY[0x277CCACA8];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v11 = [v5 stringWithFormat:v7];
 
-  v10 = v13;
-  v11 = dispatch_queue_create([v13 UTF8String], 0);
-  v12 = _dispatchQueue;
-  _dispatchQueue = v11;
+  v8 = v11;
+  v9 = dispatch_queue_create([v11 UTF8String], 0);
+  v10 = _dispatchQueue;
+  _dispatchQueue = v9;
 }
 
 void __29___TSF_IODConnection_dealloc__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  if (v3 && ([gDaemonServiceClient closeDaemonClient:v3 error:0] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (*(a1 + 32) && ([gDaemonServiceClient closeDaemonClient:? error:?] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     __29___TSF_IODConnection_dealloc__block_invoke_cold_1();
   }
@@ -723,10 +705,10 @@ void __54___TSF_TSDKernelClock_availableKernelClockIdentifiers__block_invoke(uin
 {
   v5 = a2;
   v3 = objc_autoreleasePoolPush();
-  v4 = [v5 iodPropertyForKey:@"ClockIdentifier"];
+  v4 = [v5 iodPropertyForKey:?];
   if (v4)
   {
-    [*(a1 + 32) addObject:v4];
+    [*(a1 + 32) addObject:?];
   }
 
   objc_autoreleasePoolPop(v3);
@@ -734,12 +716,12 @@ void __54___TSF_TSDKernelClock_availableKernelClockIdentifiers__block_invoke(uin
 
 void __51___TSF_TSDKernelClock_initWithClockIdentifier_pid___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9 = a2;
-  v7 = objc_autoreleasePoolPush();
+  v7 = a2;
+  v5 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _handleInterestNotification:a3 withArgument:a4];
+  [WeakRetained _handleInterestNotification:? withArgument:?];
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v5);
 }
 
 void __59___TSF_TSDKernelClock__refreshLockStateOnNotificationQueue__block_invoke(uint64_t a1)
@@ -748,7 +730,7 @@ void __59___TSF_TSDKernelClock__refreshLockStateOnNotificationQueue__block_invok
   v3 = *(a1 + 40);
   if (v3 != [*(a1 + 32) lockState])
   {
-    [*(a1 + 32) setLockState:*(a1 + 40)];
+    [*(a1 + 32) setLockState:?];
   }
 
   objc_autoreleasePoolPop(v2);
@@ -760,7 +742,7 @@ void __64___TSF_TSDKernelClock__handleInterestNotification_withArgument___block_
   v3 = *(a1 + 40);
   if (v3 != [*(a1 + 32) lockState])
   {
-    [*(a1 + 32) setLockState:*(a1 + 40)];
+    [*(a1 + 32) setLockState:?];
   }
 
   objc_autoreleasePoolPop(v2);
@@ -780,10 +762,10 @@ void __50___TSF_TSDgPTPClock_availablegPTPClockIdentifiers__block_invoke(uint64_
 {
   v5 = a2;
   v3 = objc_autoreleasePoolPush();
-  v4 = [v5 iodPropertyForKey:@"ClockIdentifier"];
+  v4 = [v5 iodPropertyForKey:?];
   if (v4)
   {
-    [*(a1 + 32) addObject:v4];
+    [*(a1 + 32) addObject:?];
   }
 
   objc_autoreleasePoolPop(v3);
@@ -795,7 +777,7 @@ void __62___TSF_TSDgPTPClock__handleInterestNotification_withArgument___block_in
   v3 = *(a1 + 40);
   if (v3 != [*(a1 + 32) grandmasterIdentity])
   {
-    [*(a1 + 32) setGrandmasterIdentity:*(a1 + 40)];
+    [*(a1 + 32) setGrandmasterIdentity:?];
   }
 
   objc_autoreleasePoolPop(v2);
@@ -806,11 +788,11 @@ void __62___TSF_TSDgPTPClock__handleInterestNotification_withArgument___block_in
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) gptpPath];
-  LOBYTE(v3) = [v3 isEqual:v4];
+  LOBYTE(v3) = [v3 isEqual:?];
 
   if ((v3 & 1) == 0)
   {
-    [*(a1 + 40) setGptpPath:*(a1 + 32)];
+    [*(a1 + 40) setGptpPath:?];
   }
 
   objc_autoreleasePoolPop(v2);
@@ -822,16 +804,16 @@ void __67___TSF_TSDgPTPClock__refreshGrandmasterIdentityOnNotificationQueue__blo
   v3 = *(a1 + 48);
   if (v3 != [*(a1 + 32) grandmasterIdentity])
   {
-    [*(a1 + 32) setGrandmasterIdentity:*(a1 + 48)];
+    [*(a1 + 32) setGrandmasterIdentity:?];
   }
 
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) gptpPath];
-  LOBYTE(v4) = [v4 isEqual:v5];
+  LOBYTE(v4) = [v4 isEqual:?];
 
   if ((v4 & 1) == 0)
   {
-    [*(a1 + 32) setGptpPath:*(a1 + 40)];
+    [*(a1 + 32) setGptpPath:?];
   }
 
   objc_autoreleasePoolPop(v2);
@@ -841,12 +823,12 @@ void __26___TSF_TSDgPTPClock_ports__block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
   v3 = objc_autoreleasePoolPush();
-  if ([v5 conformsToIOClassName:@"IOTimeSyncPort"])
+  if ([v5 conformsToIOClassName:?])
   {
-    v4 = [_TSF_TSDgPTPPort gPTPPortWithService:v5];
+    v4 = [_TSF_TSDgPTPPort gPTPPortWithService:?];
     if (v4)
     {
-      [*(a1 + 32) addObject:v4];
+      [*(a1 + 32) addObject:?];
     }
   }
 
@@ -857,13 +839,13 @@ void __40___TSF_TSDgPTPClock_portWithPortNumber___block_invoke(uint64_t a1, void
 {
   v9 = a2;
   v3 = objc_autoreleasePoolPush();
-  if ([v9 conformsToIOClassName:@"IOTimeSyncPort"])
+  if ([v9 conformsToIOClassName:?])
   {
-    v4 = [v9 iodPropertyForKey:@"PortNumber"];
+    v4 = [v9 iodPropertyForKey:?];
     v5 = v4;
     if (v4 && [v4 unsignedShortValue] == *(a1 + 40))
     {
-      v6 = [_TSF_TSDgPTPPort gPTPPortWithService:v9];
+      v6 = [_TSF_TSDgPTPPort gPTPPortWithService:?];
       v7 = *(*(a1 + 32) + 8);
       v8 = *(v7 + 40);
       *(v7 + 40) = v6;
@@ -875,70 +857,61 @@ void __40___TSF_TSDgPTPClock_portWithPortNumber___block_invoke(uint64_t a1, void
 
 void __46___TSF_TSDgPTPClock_diagnosticInfoForService___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   v3 = objc_autoreleasePoolPush();
-  if ([v8 conformsToIOClassName:@"IOTimeSyncEthernetPort"])
+  if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3A0;
+    v4 = off_279DBD3A0;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastLinkLayerPtPPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3E8;
+    v4 = off_279DBD3E8;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastLinkLayerEtEPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3E0;
+    v4 = off_279DBD3E0;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastUDPv4PtPPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3F8;
+    v4 = off_279DBD3F8;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastUDPv6PtPPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = &off_279DBD408;
+    v4 = &off_279DBD408;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastUDPv4EtEPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3F0;
+    v4 = off_279DBD3F0;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncUnicastUDPv6EtEPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD400;
+    v4 = off_279DBD400;
   }
 
-  else if ([v8 conformsToIOClassName:@"IOTimeSyncLocalClockPort"])
+  else if ([v7 conformsToIOClassName:?])
   {
-    v4 = v8;
-    v5 = off_279DBD3B8;
+    v4 = off_279DBD3B8;
   }
 
   else
   {
-    if (![v8 conformsToIOClassName:@"IOTimeSyncPort"])
+    if (![v7 conformsToIOClassName:?])
     {
       goto LABEL_20;
     }
 
-    v4 = v8;
-    v5 = off_279DBD3D0;
+    v4 = off_279DBD3D0;
   }
 
-  v6 = *(a1 + 32);
-  v7 = [(__objc2_class *)*v5 diagnosticInfoForService:v4];
-  [v6 addObject:v7];
+  v5 = *(a1 + 32);
+  v6 = [(__objc2_class *)*v4 diagnosticInfoForService:?];
+  [v5 addObject:?];
 
 LABEL_20:
   objc_autoreleasePoolPop(v3);
@@ -946,11 +919,10 @@ LABEL_20:
 
 void __29___TSF_IODConnection_dealloc__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 138412290;
-  v2 = 0;
-  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to deallocate IODConnection to daemon client, error: %@", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 138412290;
+  v1 = 0;
+  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to deallocate IODConnection to daemon client, error: %@", &v0, 0xCu);
 }
 
 @end

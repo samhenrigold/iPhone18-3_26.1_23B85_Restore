@@ -23,9 +23,11 @@
 
 uint64_t __50__PKAuthenticatorSharedRootContext_sharedInstance__block_invoke()
 {
-  sharedInstance_context = objc_alloc_init(PKAuthenticatorSharedRootContext);
+  v0 = objc_alloc_init(PKAuthenticatorSharedRootContext);
+  v1 = sharedInstance_context;
+  sharedInstance_context = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PKAuthenticatorSharedRootContext)init
@@ -74,7 +76,7 @@ uint64_t __50__PKAuthenticatorSharedRootContext_sharedInstance__block_invoke()
 - (void)_consumeWithCompletion:(id)completion reset:(BOOL)reset
 {
   resetCopy = reset;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   v7 = self->_LAContext;
@@ -99,30 +101,28 @@ uint64_t __50__PKAuthenticatorSharedRootContext_sharedInstance__block_invoke()
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorSharedRootContext (%{public}p): shared context cleared and attempting reset...", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __65__PKAuthenticatorSharedRootContext__consumeWithCompletion_reset___block_invoke;
-    v12[3] = &unk_2799FFDC8;
-    v13 = v7;
-    v14 = completionCopy;
-    [(LAContext *)v13 resetWithReply:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__PKAuthenticatorSharedRootContext__consumeWithCompletion_reset___block_invoke;
+    v11[3] = &unk_2799FFDC8;
+    v12 = v7;
+    v13 = completionCopy;
+    [(LAContext *)v12 resetWithReply:v11];
   }
 
   else if (completionCopy)
   {
     completionCopy[2](completionCopy);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__PKAuthenticatorSharedRootContext__consumeWithCompletion_reset___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) invalidate];
   v6 = PKLogFacilityTypeGetObject();
@@ -135,10 +135,10 @@ void __65__PKAuthenticatorSharedRootContext__consumeWithCompletion_reset___block
     }
 
     v12 = *(a1 + 32);
-    v18 = 134349314;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v5;
+    v17 = 134349314;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v5;
     v9 = "PKAuthenticatorSharedRootContext (%{public}p): failed to reset former shared context - %@.";
     v10 = v6;
     v11 = 22;
@@ -152,14 +152,14 @@ void __65__PKAuthenticatorSharedRootContext__consumeWithCompletion_reset___block
     }
 
     v8 = *(a1 + 32);
-    v18 = 134349056;
-    v19 = v8;
+    v17 = 134349056;
+    v18 = v8;
     v9 = "PKAuthenticatorSharedRootContext (%{public}p): former context reset and invalidated.";
     v10 = v6;
     v11 = 12;
   }
 
-  _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, v9, &v18, v11);
+  _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, v9, &v17, v11);
 LABEL_8:
 
   v16 = *(a1 + 40);
@@ -167,13 +167,11 @@ LABEL_8:
   {
     (*(v16 + 16))(v16, v13, v14, v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)externalizedContext
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   LAContext = self->_LAContext;
   if (!LAContext)
@@ -186,9 +184,9 @@ LABEL_8:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = self->_LAContext;
-      v12 = 134349056;
-      v13 = v7;
-      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorSharedRootContext (%{public}p): creating shared root.", &v12, 0xCu);
+      v11 = 134349056;
+      v12 = v7;
+      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorSharedRootContext (%{public}p): creating shared root.", &v11, 0xCu);
     }
 
     LAContext = self->_LAContext;
@@ -197,8 +195,6 @@ LABEL_8:
   v8 = LAContext;
   os_unfair_lock_unlock(&self->_lock);
   externalizedContext = [(LAContext *)v8 externalizedContext];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return externalizedContext;
 }

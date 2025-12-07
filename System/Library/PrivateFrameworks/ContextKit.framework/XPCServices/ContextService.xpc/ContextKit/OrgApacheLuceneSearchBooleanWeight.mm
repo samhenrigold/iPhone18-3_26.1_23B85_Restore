@@ -3,6 +3,7 @@
 - (float)getValueForNormalization;
 - (id)BOOLeanScorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (id)bulkScorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int;
 - (id)scorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (void)dealloc;
 - (void)extractTermsWithJavaUtilSet:(id)set;
@@ -213,6 +214,197 @@ LABEL_12:
   }
 }
 
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int
+{
+  selfCopy = self;
+  query = self->query_;
+  if (!query || (v6 = *&int, v8 = [(OrgApacheLuceneSearchBooleanQuery *)query getMinimumNumberShouldMatch], v96 = new_JavaUtilArrayList_init(), v9 = [(OrgApacheLuceneSearchBooleanQuery *)selfCopy->query_ iterator], (weights = selfCopy->weights_) == 0) || (v11 = [(JavaUtilArrayList *)weights iterator]) == 0)
+  {
+LABEL_43:
+    JreThrowNullPointerException();
+  }
+
+  v12 = v11;
+  v92 = v8;
+  if ([v11 hasNext])
+  {
+    v91 = selfCopy;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v95 = 0;
+    v23 = 0.0;
+    v94 = v6;
+    do
+    {
+      next = [v12 next];
+      if (!v9)
+      {
+        goto LABEL_43;
+      }
+
+      v25 = next;
+      next2 = [v9 next];
+      if (!v25)
+      {
+        goto LABEL_43;
+      }
+
+      v27 = next2;
+      v28 = [v25 explainWithOrgApacheLuceneIndexLeafReaderContext:context withInt:v6];
+      if (!v28)
+      {
+        goto LABEL_43;
+      }
+
+      v29 = v28;
+      if ([v28 isMatch])
+      {
+        if (!v27)
+        {
+          goto LABEL_43;
+        }
+
+        if ([v27 isScoring])
+        {
+          [(JavaUtilArrayList *)v96 addWithId:v29];
+          [v29 getValue];
+          v23 = v23 + v30;
+          v95 = (v95 + 1);
+        }
+
+        else if ([v27 isRequired])
+        {
+          v93 = v21;
+          v49 = v20;
+          contextCopy = context;
+          v51 = v22;
+          if ((atomic_load_explicit(OrgApacheLuceneSearchBooleanClause_OccurEnum__initialized, memory_order_acquire) & 1) == 0)
+          {
+            sub_10002605C();
+          }
+
+          v52 = JreStrcat("@$", v42, v43, v44, v45, v46, v47, v48, qword_100557BA0);
+          v54 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_(v52, v53)];
+          v101[0] = OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(0.0, v52, v54);
+          v101[1] = v29;
+          v56 = [IOSObjectArray arrayWithObjects:v101 count:2 type:OrgApacheLuceneSearchExplanation_class_(v101[0], v55)];
+          [(JavaUtilArrayList *)v96 addWithId:OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(0.0, @"match on required clause, product of:", v56)];
+          v22 = v51;
+          context = contextCopy;
+          v20 = v49;
+          v21 = v93;
+          v6 = v94;
+        }
+
+        else if ([v27 isProhibited])
+        {
+          getQuery = [v27 getQuery];
+          if (!getQuery)
+          {
+            goto LABEL_43;
+          }
+
+          [getQuery description];
+          v65 = JreStrcat("$$C", v58, v59, v60, v61, v62, v63, v64, @"match on prohibited clause (");
+          v100 = v29;
+          v6 = v94;
+          v67 = [IOSObjectArray arrayWithObjects:&v100 count:1 type:OrgApacheLuceneSearchExplanation_class_(v65, v66)];
+          v68 = v65;
+          v22 = 1;
+          [(JavaUtilArrayList *)v96 addWithId:OrgApacheLuceneSearchExplanation_noMatchWithNSString_withOrgApacheLuceneSearchExplanationArray_(v68, v67)];
+        }
+
+        isProhibited = [v27 isProhibited];
+        getOccur = [v27 getOccur];
+        if ((atomic_load_explicit(OrgApacheLuceneSearchBooleanClause_OccurEnum__initialized, memory_order_acquire) & 1) == 0)
+        {
+          sub_10002605C();
+        }
+
+        v21 += isProhibited ^ 1;
+        if (getOccur == qword_100557BA8)
+        {
+          ++v20;
+        }
+      }
+
+      else
+      {
+        if (!v27)
+        {
+          goto LABEL_43;
+        }
+
+        if ([v27 isRequired])
+        {
+          getQuery2 = [v27 getQuery];
+          if (!getQuery2)
+          {
+            goto LABEL_43;
+          }
+
+          [getQuery2 description];
+          v39 = JreStrcat("$$C", v32, v33, v34, v35, v36, v37, v38, @"no match on required clause (");
+          v99 = v29;
+          v6 = v94;
+          v41 = [IOSObjectArray arrayWithObjects:&v99 count:1 type:OrgApacheLuceneSearchExplanation_class_(v39, v40)];
+          [(JavaUtilArrayList *)v96 addWithId:OrgApacheLuceneSearchExplanation_noMatchWithNSString_withOrgApacheLuceneSearchExplanationArray_(v39, v41)];
+          v22 = 1;
+        }
+      }
+    }
+
+    while (([v12 hasNext] & 1) != 0);
+    v73 = v21 == 0;
+    selfCopy = v91;
+    v71 = v95;
+    if (v22)
+    {
+      v72 = @"Failure to meet condition(s) of required/prohibited clause(s)";
+      return OrgApacheLuceneSearchExplanation_noMatchWithNSString_withJavaUtilCollection_(v72, v96);
+    }
+  }
+
+  else
+  {
+    v71 = 0;
+    v20 = 0;
+    v23 = 0.0;
+    v73 = 1;
+  }
+
+  if (v73)
+  {
+    v72 = @"No matching clauses";
+    return OrgApacheLuceneSearchExplanation_noMatchWithNSString_withJavaUtilCollection_(v72, v96);
+  }
+
+  if (v20 < v92)
+  {
+    v72 = JreStrcat("$I", v13, v14, v15, v16, v17, v18, v19, @"Failure to match minimum number of optional clauses: ");
+    return OrgApacheLuceneSearchExplanation_noMatchWithNSString_withJavaUtilCollection_(v72, v96);
+  }
+
+  v75 = OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withJavaUtilCollection_(v23, @"sum of:", v96);
+  if (!selfCopy->disableCoord_)
+  {
+    [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:v71 withInt:selfCopy->maxCoord_];
+    v85 = v84;
+    if (v84 != 1.0)
+    {
+      v97 = v75;
+      v86 = JreStrcat("$ICIC", v77, v78, v79, v80, v81, v82, v83, @"coord(");
+      v88 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_(v86, v87)];
+      v98 = OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v85, v86, v88);
+      v90 = [IOSObjectArray arrayWithObjects:&v97 count:2 type:OrgApacheLuceneSearchExplanation_class_(v98, v89)];
+      return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v23 * v85, @"product of:", v90);
+    }
+  }
+
+  return v75;
+}
+
 - (id)BOOLeanScorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context
 {
   bulkScorerSize = self->bulkScorerSize_;
@@ -340,41 +532,25 @@ LABEL_9:
 - (id)scorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context
 {
   query = self->query_;
-  if (!query)
-  {
-    goto LABEL_39;
-  }
-
-  getMinimumNumberShouldMatch = [(OrgApacheLuceneSearchBooleanQuery *)query getMinimumNumberShouldMatch];
-  v7 = new_JavaUtilArrayList_init();
-  v48 = new_JavaUtilArrayList_init();
-  v47 = new_JavaUtilArrayList_init();
-  v8 = new_JavaUtilArrayList_init();
-  iterator = [(OrgApacheLuceneSearchBooleanQuery *)self->query_ iterator];
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  weights = self->weights_;
-  if (!weights)
+  if (!query || (v6 = [(OrgApacheLuceneSearchBooleanQuery *)query getMinimumNumberShouldMatch], v7 = new_JavaUtilArrayList_init(), v53 = new_JavaUtilArrayList_init(), v52 = new_JavaUtilArrayList_init(), v8 = new_JavaUtilArrayList_init(), v9 = [(OrgApacheLuceneSearchBooleanQuery *)self->query_ iterator], v54 = 0u, v55 = 0u, v56 = 0u, v57 = 0u, (weights = self->weights_) == 0))
   {
 LABEL_39:
     JreThrowNullPointerException();
   }
 
-  v11 = iterator;
-  v45 = getMinimumNumberShouldMatch;
+  v11 = v9;
+  v50 = v6;
   selfCopy = self;
-  v12 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v12 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v54 objects:v62 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v50;
+    v14 = *v55;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v50 != v14)
+        if (*v55 != v14)
         {
           objc_enumerationMutation(weights);
         }
@@ -384,7 +560,7 @@ LABEL_39:
           goto LABEL_39;
         }
 
-        v16 = *(*(&v49 + 1) + 8 * i);
+        v16 = *(*(&v54 + 1) + 8 * i);
         next = [v11 next];
         if (!v16)
         {
@@ -405,7 +581,7 @@ LABEL_39:
           {
             if ([v18 isProhibited])
             {
-              v22 = v47;
+              v22 = v52;
             }
 
             else
@@ -420,7 +596,7 @@ LABEL_21:
 
           [(JavaUtilArrayList *)v7 addWithId:v20];
           isScoring = [v18 isScoring];
-          v22 = v48;
+          v22 = v53;
           if (isScoring)
           {
             goto LABEL_21;
@@ -441,17 +617,17 @@ LABEL_21:
         }
       }
 
-      v13 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v13 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v54 objects:v62 count:16];
     }
 
     while (v13);
   }
 
-  v23 = v45;
-  if ([(JavaUtilArrayList *)v8 size]== v45)
+  v23 = v50;
+  if ([(JavaUtilArrayList *)v8 size]== v50)
   {
     [(JavaUtilArrayList *)v7 addAllWithJavaUtilCollection:v8];
-    [(JavaUtilArrayList *)v48 addAllWithJavaUtilCollection:v8];
+    [(JavaUtilArrayList *)v53 addAllWithJavaUtilCollection:v8];
     [(JavaUtilArrayList *)v8 clear];
     v23 = 0;
   }
@@ -468,83 +644,84 @@ LABEL_21:
 
   if ([(JavaUtilArrayList *)v8 isEmpty])
   {
-    v25 = sub_1000DA07C(selfCopy, v7, v48, selfCopy->disableCoord_);
-    return sub_1000D9FA4(selfCopy, &v25->super.super.super.super.isa, v47);
+    v25 = sub_1000DA07C(selfCopy, v7, v53, selfCopy->disableCoord_);
+    return sub_1000D9FA4(selfCopy, v25, v52);
   }
 
   if ([(JavaUtilArrayList *)v7 isEmpty])
   {
     v25 = sub_1000DA1B0(selfCopy, v8, v23, selfCopy->disableCoord_);
-    return sub_1000D9FA4(selfCopy, &v25->super.super.super.super.isa, v47);
+    return sub_1000D9FA4(selfCopy, v25, v52);
   }
 
-  v26 = sub_1000DA07C(selfCopy, v7, v48, 1);
-  v27 = sub_1000D9FA4(selfCopy, &v26->super.super.super.super.isa, v47);
+  v26 = sub_1000DA07C(selfCopy, v7, v53, 1);
+  v27 = sub_1000D9FA4(selfCopy, v26, v52);
   v28 = sub_1000DA1B0(selfCopy, v8, v23, 1);
-  v29 = v28;
+  v30 = v28;
   if (selfCopy->disableCoord_)
   {
     if (v23 < 1)
     {
-      v41 = new_OrgApacheLuceneSearchReqOptSumScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_(&v27->super.super.super.isa, v28);
-      return v41;
+      v46 = new_OrgApacheLuceneSearchReqOptSumScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_(&v27->super.super.super.isa, v28);
+      return v46;
     }
 
-    v56[0] = v27;
-    v56[1] = v28;
-    v30 = [IOSObjectArray arrayWithObjects:v56 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-    v31 = JavaUtilArrays_asListWithNSObjectArray_(v30);
-    v55[0] = v27;
-    v55[1] = v29;
-    v32 = [IOSObjectArray arrayWithObjects:v55 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-    v33 = JavaUtilArrays_asListWithNSObjectArray_(v32);
-    v34 = 1.0;
-    v35 = selfCopy;
-    v36 = v31;
+    v61[0] = v27;
+    v61[1] = v28;
+    v31 = [IOSObjectArray arrayWithObjects:v61 count:2 type:OrgApacheLuceneSearchScorer_class_(v28, v29)];
+    v32 = JavaUtilArrays_asListWithNSObjectArray_(v31);
+    v60[0] = v27;
+    v60[1] = v30;
+    v34 = [IOSObjectArray arrayWithObjects:v60 count:2 type:OrgApacheLuceneSearchScorer_class_(v32, v33)];
+    v35 = JavaUtilArrays_asListWithNSObjectArray_(v34);
+    v36 = 1.0;
+    v37 = selfCopy;
+    v38 = v32;
   }
 
   else
   {
-    if ([(JavaUtilArrayList *)v8 size]!= 1)
+    v39 = [(JavaUtilArrayList *)v8 size];
+    if (v39 != 1)
     {
       if (v23 < 1)
       {
-        v41 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_ReqMultiOptScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_withInt_withFloatArray_(&v27->super.super.super.isa, v29, [(JavaUtilArrayList *)v48 size], selfCopy->coords_);
+        v46 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_ReqMultiOptScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_withInt_withFloatArray_(&v27->super.super.super.isa, v30, [(JavaUtilArrayList *)v53 size], selfCopy->coords_);
       }
 
       else
       {
-        v41 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_CoordinatingConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withFloatArray_withOrgApacheLuceneSearchScorer_withInt_withOrgApacheLuceneSearchScorer_(selfCopy, selfCopy->coords_, v27, [(JavaUtilArrayList *)v48 size], v29);
+        v46 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_CoordinatingConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withFloatArray_withOrgApacheLuceneSearchScorer_withInt_withOrgApacheLuceneSearchScorer_(selfCopy, selfCopy->coords_, v27, [(JavaUtilArrayList *)v53 size], v30);
       }
 
-      return v41;
+      return v46;
     }
 
     if (v23 < 1)
     {
-      [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v48 size] withInt:selfCopy->maxCoord_];
-      v43 = v42;
-      [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v48 size]+ 1 withInt:selfCopy->maxCoord_];
-      v41 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_ReqSingleOptScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_withFloat_withFloat_(&v27->super.super.super.isa, v29, v43, v44);
-      return v41;
+      [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v53 size] withInt:selfCopy->maxCoord_];
+      v48 = v47;
+      [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v53 size]+ 1 withInt:selfCopy->maxCoord_];
+      v46 = new_OrgApacheLuceneSearchBooleanTopLevelScorers_ReqSingleOptScorer_initWithOrgApacheLuceneSearchScorer_withOrgApacheLuceneSearchScorer_withFloat_withFloat_(&v27->super.super.super.isa, v30, v48, v49);
+      return v46;
     }
 
-    v54[0] = v27;
-    v54[1] = v29;
-    v37 = [IOSObjectArray arrayWithObjects:v54 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-    v38 = JavaUtilArrays_asListWithNSObjectArray_(v37);
-    v53[0] = v27;
-    v53[1] = v29;
-    v39 = [IOSObjectArray arrayWithObjects:v53 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-    v40 = JavaUtilArrays_asListWithNSObjectArray_(v39);
-    [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v48 size]+ 1 withInt:selfCopy->maxCoord_];
-    v35 = selfCopy;
-    v36 = v38;
-    v33 = v40;
+    v59[0] = v27;
+    v59[1] = v30;
+    v41 = [IOSObjectArray arrayWithObjects:v59 count:2 type:OrgApacheLuceneSearchScorer_class_(v39, v40)];
+    v42 = JavaUtilArrays_asListWithNSObjectArray_(v41);
+    v58[0] = v27;
+    v58[1] = v30;
+    v44 = [IOSObjectArray arrayWithObjects:v58 count:2 type:OrgApacheLuceneSearchScorer_class_(v42, v43)];
+    v45 = JavaUtilArrays_asListWithNSObjectArray_(v44);
+    [(OrgApacheLuceneSearchBooleanWeight *)selfCopy coordWithInt:[(JavaUtilArrayList *)v53 size]+ 1 withInt:selfCopy->maxCoord_];
+    v37 = selfCopy;
+    v38 = v42;
+    v35 = v45;
   }
 
-  v41 = new_OrgApacheLuceneSearchConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withJavaUtilList_withFloat_(v35, v36, v33, v34);
-  return v41;
+  v46 = new_OrgApacheLuceneSearchConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withJavaUtilList_withFloat_(v37, v38, v35, v36);
+  return v46;
 }
 
 - (void)dealloc

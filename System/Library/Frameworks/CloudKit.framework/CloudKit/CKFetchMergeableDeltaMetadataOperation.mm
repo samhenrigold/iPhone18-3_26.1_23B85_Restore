@@ -19,7 +19,7 @@
 - (void)setMetadataFetchedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -50,7 +50,7 @@ LABEL_9:
 
 - (id)metadataFetchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -87,7 +87,7 @@ LABEL_9:
 - (void)setFetchMergeableDeltaMetadataCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -118,7 +118,7 @@ LABEL_9:
 
 - (id)fetchMergeableDeltaMetadataCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -248,7 +248,7 @@ LABEL_9:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -257,10 +257,10 @@ LABEL_9:
 
     if (v10)
     {
-      v38 = @"CKPartialErrors";
+      v37 = @"CKPartialErrors";
       v11 = objc_msgSend_perValueErrors(self, v4, v5);
-      v39[0] = v11;
-      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v39, &v38, 1);
+      v38[0] = v11;
+      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v38, &v37, 1);
 
       errorCopy = objc_msgSend_errorWithDomain_code_userInfo_format_(CKPrettyError, v14, @"CKInternalErrorDomain", 1011, v13, @"Failed to fetch some delta metadata");
     }
@@ -280,13 +280,13 @@ LABEL_9:
   v16 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v25 = v16;
-    v28 = objc_msgSend_operationID(self, v26, v27);
+    v24 = v16;
+    v27 = objc_msgSend_operationID(self, v25, v26);
     *buf = 138543618;
-    v35 = v28;
-    v36 = 2112;
-    v37 = v15;
-    _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling fetch delta metadata completion block with error: %@", buf, 0x16u);
+    v34 = v27;
+    v35 = 2112;
+    v36 = v15;
+    _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling fetch delta metadata completion block with error: %@", buf, 0x16u);
   }
 
   v19 = objc_msgSend_fetchMergeableDeltaMetadataCompletionBlock(self, v17, v18);
@@ -305,20 +305,18 @@ LABEL_9:
   v23 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v29 = v23;
-    v32 = objc_msgSend_operationID(self, v30, v31);
+    v28 = v23;
+    v31 = objc_msgSend_operationID(self, v29, v30);
     *buf = 138543618;
-    v35 = v32;
-    v36 = 2112;
-    v37 = v15;
-    _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling fetch delta metadata completion block with error: %@", buf, 0x16u);
+    v34 = v31;
+    v35 = 2112;
+    v36 = v15;
+    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling fetch delta metadata completion block with error: %@", buf, 0x16u);
   }
 
-  v33.receiver = self;
-  v33.super_class = CKFetchMergeableDeltaMetadataOperation;
-  [(CKOperation *)&v33 _finishOnCallbackQueueWithError:v15];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = CKFetchMergeableDeltaMetadataOperation;
+  [(CKOperation *)&v32 _finishOnCallbackQueueWithError:v15];
 }
 
 - (id)activityCreate
@@ -344,7 +342,7 @@ LABEL_9:
 
 - (void)handleFetchForMergeableValueID:(id)d metadatas:(id)metadatas error:(id)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dCopy = d;
   metadatasCopy = metadatas;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -359,17 +357,17 @@ LABEL_9:
   v17 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v17;
-    v29 = objc_msgSend_operationID(self, v27, v28);
-    v36 = 138544130;
-    v37 = v29;
-    v38 = 2112;
-    v39 = dCopy;
-    v40 = 2048;
-    v41 = objc_msgSend_count(metadatasCopy, v30, v31);
-    v42 = 2112;
-    v43 = v12;
-    _os_log_debug_impl(&dword_1883EA000, v26, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received fetch batch metadata callback for value %@ with %ld metadatas with error: %@", &v36, 0x2Au);
+    v25 = v17;
+    v28 = objc_msgSend_operationID(self, v26, v27);
+    v35 = 138544130;
+    v36 = v28;
+    v37 = 2112;
+    v38 = dCopy;
+    v39 = 2048;
+    v40 = objc_msgSend_count(metadatasCopy, v29, v30);
+    v41 = 2112;
+    v42 = v12;
+    _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received fetch batch metadata callback for value %@ with %ld metadatas with error: %@", &v35, 0x2Au);
   }
 
   v20 = objc_msgSend_metadataFetchedBlock(self, v18, v19);
@@ -388,18 +386,16 @@ LABEL_9:
   v24 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v32 = v24;
-    v35 = objc_msgSend_operationID(self, v33, v34);
-    v36 = 138543874;
-    v37 = v35;
-    v38 = 2112;
-    v39 = dCopy;
-    v40 = 2112;
-    v41 = v12;
-    _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished fetch batch metadata callback for value %@ with error: %@", &v36, 0x20u);
+    v31 = v24;
+    v34 = objc_msgSend_operationID(self, v32, v33);
+    v35 = 138543874;
+    v36 = v34;
+    v37 = 2112;
+    v38 = dCopy;
+    v39 = 2112;
+    v40 = v12;
+    _os_log_debug_impl(&dword_1883EA000, v31, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished fetch batch metadata callback for value %@ with error: %@", &v35, 0x20u);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

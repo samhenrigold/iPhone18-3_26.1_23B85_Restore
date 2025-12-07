@@ -9,7 +9,7 @@
 {
   v5 = OBJC_IVAR____TtC9MomentsUI22TransferVideoViewModel_urlBasedVideo;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC9MomentsUI22TransferVideoViewModel_urlBasedVideo) = 0;
-  type metadata accessor for URLBasedVideo();
+  type metadata accessor for URLBasedVideo(0);
   coderCopy = coder;
   v7 = NSCoder.decodeObject<A>(of:forKey:)();
   swift_beginAccess();

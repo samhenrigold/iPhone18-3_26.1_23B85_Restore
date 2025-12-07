@@ -30,7 +30,6 @@
 - (void)notifyMitigationChange:(id)change;
 - (void)overrideAllMitigations:(unint64_t)mitigations;
 - (void)overrideCLPCMitigations:(unint64_t)mitigations;
-- (void)queryAndUpdateCurrentConsoleModeState;
 - (void)resetMitigation;
 - (void)shadowEvaluateForModels:(id)models;
 - (void)start;
@@ -284,20 +283,16 @@ LABEL_8:
 
 - (void)submitTask
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTask
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTrialOSIParameters
@@ -392,7 +387,7 @@ LABEL_8:
 
 - (void)notifyMitigationChange:(id)change
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   notify_set_state(self->_notifyToken, [changeCopy level]);
   notify_post([@"com.apple.osintelligence.iblm.mitigationchanged" UTF8String]);
@@ -403,12 +398,10 @@ LABEL_8:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = changeCopy;
-    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Setting IBLM mitigation to %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = changeCopy;
+    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Setting IBLM mitigation to %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEngagementNotification
@@ -481,7 +474,7 @@ LABEL_8:
 
 - (void)updateMitigationTo:(id)to
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v5 = [(NSUserDefaults *)self->_defaults objectForKey:@"testOverrideMitigationAlways"];
   v6 = [(NSUserDefaults *)self->_defaults objectForKey:@"testOverrideCLPCMitigationAlways"];
@@ -490,8 +483,8 @@ LABEL_8:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Test overrides in place. Skipping change in mitigations", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Test overrides in place. Skipping change in mitigations", &v28, 2u);
     }
 
     goto LABEL_23;
@@ -503,9 +496,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = v8;
-      v29 = 134217984;
+      v28 = 134217984;
       level = [toCopy level];
-      _os_log_impl(&dword_25D171000, v9, OS_LOG_TYPE_DEFAULT, "Trial overriding mitigation %ld", &v29, 0xCu);
+      _os_log_impl(&dword_25D171000, v9, OS_LOG_TYPE_DEFAULT, "Trial overriding mitigation %ld", &v28, 0xCu);
     }
 
     v10 = [(_OSIBLManager *)self mitigationWithLevel:0];
@@ -562,11 +555,11 @@ LABEL_14:
       v24 = v23;
       level3 = [(_OSIBLMitigation *)v14 level];
       level4 = [(_OSIBLMitigation *)*p_currentMitigation level];
-      v29 = 134218240;
+      v28 = 134218240;
       level = level3;
-      v31 = 2048;
-      v32 = level4;
-      _os_log_impl(&dword_25D171000, v24, OS_LOG_TYPE_DEFAULT, "Updated IBLM Mitigation from %ld to %ld", &v29, 0x16u);
+      v30 = 2048;
+      v31 = level4;
+      _os_log_impl(&dword_25D171000, v24, OS_LOG_TYPE_DEFAULT, "Updated IBLM Mitigation from %ld to %ld", &v28, 0x16u);
     }
   }
 
@@ -579,7 +572,6 @@ LABEL_14:
   }
 
 LABEL_23:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetMitigation
@@ -660,7 +652,7 @@ LABEL_23:
 
 - (void)shadowEvaluateForModels:(id)models
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   modelsCopy = models;
   if ([(_OSIBLManager *)self isLPMEnabled])
   {
@@ -701,7 +693,7 @@ LABEL_8:
       }
 
       *buf = 134217984;
-      v32 = v11;
+      v31 = v11;
       v6 = "Current battery level %ld is above Battery SOC engagement threshold. Skipping shadow evaluation";
       v7 = v10;
       v8 = 12;
@@ -714,30 +706,30 @@ LABEL_8:
       _os_log_impl(&dword_25D171000, v10, OS_LOG_TYPE_DEFAULT, "Shadow evaluating for Drain prediction", buf, 2u);
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v12 = modelsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v27;
+      v15 = *v26;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
+          v17 = *(*(&v25 + 1) + 8 * i);
           integerValue = [v17 integerValue];
-          v25 = 0;
-          v19 = [(_OSIBLManager *)self drainResultWithModel:integerValue withError:&v25];
-          v20 = v25;
+          v24 = 0;
+          v19 = [(_OSIBLManager *)self drainResultWithModel:integerValue withError:&v24];
+          v20 = v24;
           if (v20)
           {
             v22 = v20;
@@ -754,7 +746,7 @@ LABEL_8:
           [v21 reportDrainResult:v19 forModel:{objc_msgSend(v17, "integerValue")}];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v14)
         {
           continue;
@@ -768,45 +760,39 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (![(_OSIBLManager *)self isIBLMCurrentlyEnabled])
   {
     log = self->_log;
     if (!os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_24;
+      return;
     }
 
-    LOWORD(v20) = 0;
+    LOWORD(v19) = 0;
     v8 = "IBLM currently disabled. Skipping evaluation";
     v9 = log;
     v10 = OS_LOG_TYPE_INFO;
-LABEL_7:
-    _os_log_impl(&dword_25D171000, v9, v10, v8, &v20, 2u);
-    goto LABEL_24;
+    goto LABEL_7;
   }
 
   if ([(_OSIBLManager *)self isPluggedIn])
   {
     v3 = self->_log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v20) = 0;
-      v4 = "Device currently plugged in. Reseting IBLM mitigation";
-      v5 = v3;
-      v6 = 2;
-LABEL_11:
-      _os_log_impl(&dword_25D171000, v5, OS_LOG_TYPE_INFO, v4, &v20, v6);
       goto LABEL_12;
     }
 
-    goto LABEL_12;
+    LOWORD(v19) = 0;
+    v4 = "Device currently plugged in. Reseting IBLM mitigation";
+    v5 = v3;
+    v6 = 2;
+    goto LABEL_11;
   }
 
   v11 = [OSIUtilities currentBatteryLevelWithContext:self->_context];
@@ -814,24 +800,29 @@ LABEL_11:
   {
     v12 = v11;
     v13 = self->_log;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v20 = 134217984;
-      v21 = v12;
-      v4 = "Current battery level %ld is above Battery SOC engagement threshold. Skipping evaluation";
-      v5 = v13;
-      v6 = 12;
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
+    v19 = 134217984;
+    v20 = v12;
+    v4 = "Current battery level %ld is above Battery SOC engagement threshold. Skipping evaluation";
+    v5 = v13;
+    v6 = 12;
+LABEL_11:
+    _os_log_impl(&dword_25D171000, v5, OS_LOG_TYPE_INFO, v4, &v19, v6);
 LABEL_12:
     currentMitigation = self->_currentMitigation;
-    if (currentMitigation && [(_OSIBLMitigation *)currentMitigation level])
+    if (currentMitigation)
     {
-      [(_OSIBLManager *)self resetMitigation];
+      if ([(_OSIBLMitigation *)currentMitigation level])
+      {
+        [(_OSIBLManager *)self resetMitigation];
+      }
     }
 
-    goto LABEL_24;
+    return;
   }
 
   isLPMEnabled = [(_OSIBLManager *)self isLPMEnabled];
@@ -841,20 +832,22 @@ LABEL_12:
   {
     if (!v17)
     {
-      goto LABEL_24;
+      return;
     }
 
-    LOWORD(v20) = 0;
+    LOWORD(v19) = 0;
     v8 = "LPM on. Skipping evaluation for drain prediction";
     v9 = v16;
     v10 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_7;
+LABEL_7:
+    _os_log_impl(&dword_25D171000, v9, v10, v8, &v19, 2u);
+    return;
   }
 
   if (v17)
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&dword_25D171000, v16, OS_LOG_TYPE_DEFAULT, "Evaluating for Drain prediction", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&dword_25D171000, v16, OS_LOG_TYPE_DEFAULT, "Evaluating for Drain prediction", &v19, 2u);
   }
 
   if ([(_OSIBLManager *)self shouldOverrideMitigations])
@@ -868,9 +861,6 @@ LABEL_12:
   }
   v18 = ;
   [(_OSIBLManager *)self updateMitigationTo:v18];
-
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dateFormatter
@@ -887,29 +877,29 @@ LABEL_24:
 
 - (BOOL)hasVariationForMedianLevels:(id)levels
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   levelsCopy = levels;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [levelsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [levelsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     integerValue2 = 0;
-    v8 = *v16;
+    v8 = *v15;
     integerValue = 101;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(levelsCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 integerValue] < integerValue)
         {
           integerValue = [v11 integerValue];
@@ -921,7 +911,7 @@ LABEL_24:
         }
       }
 
-      v6 = [levelsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [levelsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -942,13 +932,12 @@ LABEL_24:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return integerValue2 - integerValue > 50;
 }
 
 - (id)isHighDrainOverAggregatedMedianWithError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.osintelligence.medianBatteryLevelsModel"];
   date = [MEMORY[0x277CBEAA8] date];
   v7 = [OSIUtilities midnightDateFrom:date];
@@ -965,9 +954,9 @@ LABEL_24:
 
   errorCopy = error;
   v28 = +[_OSBatteryPredictor predictor];
-  v38 = 0;
-  v12 = [v28 typicalBatteryLevelWithReferenceDays:0 aggregatedOverTimeWidth:15 withError:&v38];
-  v29 = v38;
+  v37 = 0;
+  v12 = [v28 typicalBatteryLevelWithReferenceDays:0 aggregatedOverTimeWidth:15 withError:&v37];
+  v29 = v37;
 
   if (!v29)
   {
@@ -984,13 +973,13 @@ LABEL_2:
 
     if ([(_OSIBLManager *)self hasVariationForMedianLevels:v12])
     {
-      v36 = v5;
+      v35 = v5;
       context = self->_context;
       keyPathForBatteryLevel = [MEMORY[0x277CFE338] keyPathForBatteryLevel];
       v16 = [(_CDLocalContext *)context objectForContextualKeyPath:keyPathForBatteryLevel];
       integerValue = [v16 integerValue];
 
-      v35 = date;
+      v34 = date;
       [date timeIntervalSinceDate:v7];
       v19 = [v12 objectAtIndexedSubscript:(v18 / 900.0)];
       integerValue2 = [v19 integerValue];
@@ -1005,17 +994,17 @@ LABEL_2:
         v26 = [v24 numberWithInteger:integerValue2];
         v27 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
         *buf = 138412546;
-        v40 = v26;
-        v41 = 2112;
-        v42 = v27;
+        v39 = v26;
+        v40 = 2112;
+        v41 = v27;
         _os_log_impl(&dword_25D171000, v25, OS_LOG_TYPE_DEFAULT, "StatMedian Reference %@, Current %@", buf, 0x16u);
       }
 
       [(_OSDayDrainResult *)v10 setIsHighDrain:v21 > 10];
       [(_OSDayDrainResult *)v10 setBatteryDifference:v22];
       [(_OSDayDrainResult *)v10 setConfidence:100.0];
-      date = v35;
-      v5 = v36;
+      date = v34;
+      v5 = v35;
     }
 
     else
@@ -1037,7 +1026,6 @@ LABEL_2:
   [(_OSDayDrainResult *)v10 setIsHighDrain:0];
 
 LABEL_13:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1071,7 +1059,7 @@ LABEL_13:
 
 - (id)predictMitigationLevelWithError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   p_lastPrediction = &self->_lastPrediction;
   if (self->_lastPrediction)
   {
@@ -1083,9 +1071,9 @@ LABEL_13:
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *p_lastPrediction;
-        v22 = 138543362;
-        v23 = v9;
-        _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Using cached result %{public}@", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v9;
+        _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Using cached result %{public}@", &v21, 0xCu);
       }
 
       goto LABEL_10;
@@ -1119,11 +1107,11 @@ LABEL_10:
           v17 = v16;
           [(_OSDayDrainResult *)v7 confidence];
           engagementThreshold = self->_engagementThreshold;
-          v22 = 134349312;
-          v23 = v19;
-          v24 = 2050;
-          v25 = engagementThreshold;
-          _os_log_impl(&dword_25D171000, v17, OS_LOG_TYPE_DEFAULT, "Prev12Next12Drain Prediction Confidence: %{public}lf Engagement Threshold: %{public}f", &v22, 0x16u);
+          v21 = 134349312;
+          v22 = v19;
+          v23 = 2050;
+          v24 = engagementThreshold;
+          _os_log_impl(&dword_25D171000, v17, OS_LOG_TYPE_DEFAULT, "Prev12Next12Drain Prediction Confidence: %{public}lf Engagement Threshold: %{public}f", &v21, 0x16u);
         }
 
         [v11 setLevel:50];
@@ -1137,13 +1125,11 @@ LABEL_10:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    [_OSIBLManager predictMitigationLevelWithError:error];
+    [_OSIBLManager predictMitigationLevelWithError:];
   }
 
   v11 = 0;
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1169,47 +1155,41 @@ LABEL_15:
 
 - (BOOL)queryAndUpdateCurrentConsoleModeState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   state64 = 0;
   consoleModeNotifyToken = self->_consoleModeNotifyToken;
   if (consoleModeNotifyToken == -1)
   {
-    result = 0;
+    return 0;
+  }
+
+  isConsoleModeActive = self->_isConsoleModeActive;
+  state = notify_get_state(consoleModeNotifyToken, &state64);
+  log = self->_log;
+  if (state)
+  {
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      [_OSIBLManager queryAndUpdateCurrentConsoleModeState];
+    }
+
+    v7 = self->_isConsoleModeActive;
   }
 
   else
   {
-    isConsoleModeActive = self->_isConsoleModeActive;
-    state = notify_get_state(consoleModeNotifyToken, &state64);
-    log = self->_log;
-    if (state)
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEFAULT))
     {
-      if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
-      {
-        [_OSIBLManager queryAndUpdateCurrentConsoleModeState];
-      }
-
-      v7 = self->_isConsoleModeActive;
+      *buf = 134349056;
+      v11 = state64;
+      _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Console Mode Status is now %{public}llu", buf, 0xCu);
     }
 
-    else
-    {
-      if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134349056;
-        v12 = state64;
-        _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Console Mode Status is now %{public}llu", buf, 0xCu);
-      }
-
-      v7 = state64 != 0;
-      self->_isConsoleModeActive = v7;
-    }
-
-    result = isConsoleModeActive != v7;
+    v7 = state64 != 0;
+    self->_isConsoleModeActive = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return isConsoleModeActive != v7;
 }
 
 - (BOOL)shouldOverrideMitigations
@@ -1371,65 +1351,49 @@ LABEL_10:
 
 - (void)shadowEvaluateForModels:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 debugDescription];
-  OUTLINED_FUNCTION_2_1(&dword_25D171000, v5, v6, "Shadow evaluating for Drain prediction failed. Error %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2_1(&dword_25D171000, v5, v6, "Shadow evaluating for Drain prediction failed. Error %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)hasVariationForMedianLevels:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCABB0];
   v6 = a1;
   v7 = [v5 numberWithInteger:a2];
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:a3];
-  v10 = 138412546;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEBUG, "Not enough variation in the values. Min %@, Max %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_debug_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEBUG, "Not enough variation in the values. Min %@, Max %@", &v9, 0x16u);
 }
 
 - (void)isHighDrainOverAggregatedMedianWithError:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
-  OUTLINED_FUNCTION_2_1(&dword_25D171000, v5, v6, "Returning because of error %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2_1(&dword_25D171000, v5, v6, "Returning because of error %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)isHighDrainOverAggregatedMedianWithError:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25D171000, a2, OS_LOG_TYPE_DEBUG, "Using StatMedian %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25D171000, a2, OS_LOG_TYPE_DEBUG, "Using StatMedian %@", &v2, 0xCu);
 }
 
-- (void)predictMitigationLevelWithError:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)predictMitigationLevelWithError:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryAndUpdateCurrentConsoleModeState
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

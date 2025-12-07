@@ -41,7 +41,7 @@ intptr_t __SHA224_FdChunk_block_invoke_2(intptr_t result, int a2, dispatch_data_
   return result;
 }
 
-uint64_t __SHA224_FdChunk_block_invoke_3(uint64_t a1, int a2, int a3, void *data, unint64_t len)
+uint64_t __SHA224_FdChunk_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *data, unint64_t len)
 {
   if (len >> 31)
   {

@@ -6,6 +6,7 @@
 - (void)setConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)setDisplayPropertiesWithScreenSize:(CGSize)size scale:(double)scale;
 - (void)setPartialShareInvite:(id)invite completion:(id)completion;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 @end
 
 @implementation PKServiceMessagesComposeViewController
@@ -32,6 +33,13 @@
   v2.receiver = self;
   v2.super_class = PKServiceMessagesComposeViewController;
   [(PKServiceMessagesComposeViewController *)&v2 loadView];
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PKServiceMessagesComposeViewController;
+  [(PKServiceMessagesComposeViewController *)&v4 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
 }
 
 - (void)_hostApplicationDidEnterBackground

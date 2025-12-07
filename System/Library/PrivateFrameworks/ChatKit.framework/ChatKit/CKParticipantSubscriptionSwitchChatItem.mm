@@ -29,11 +29,11 @@
 
   v11 = v10;
 
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"GROUP_SUBSCRIPTION_CHANGE_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v19 = CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v13, v14, v15, v16, v17, v18, v11);
+  v13 = CKFrameworkBundle(v12);
+  v14 = [v13 localizedStringForKey:@"GROUP_SUBSCRIPTION_CHANGE_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v20 = CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v14, v15, v16, v17, v18, v19, v11);
 
-  return v19;
+  return v20;
 }
 
 - (id)handle

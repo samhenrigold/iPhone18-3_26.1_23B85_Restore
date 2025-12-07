@@ -131,7 +131,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v17 - v7;
   viewCopy = view;
@@ -225,7 +225,7 @@
 
 - (void)setAdditionalTrailingNavigationBarButtonItems:(id)items
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIBarButtonItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIBarButtonItem, 0x277D751E0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___DOCSidebarViewController_additionalTrailingNavigationBarButtonItems;
   swift_beginAccess();
@@ -237,7 +237,7 @@
 
 - (void)setCustomActions:(id)actions
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___DOCSidebarViewController_customActions;
   swift_beginAccess();
@@ -355,7 +355,7 @@
   selfCopy = self;
   DOCSidebarViewController._multitaskingDragExclusionRects()();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSValue, 0x277CCAE60);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -385,7 +385,7 @@
 
   DOCSidebarViewController.target(forAction:withSender:)(action, v16, v17);
 
-  outlined destroy of CharacterSet?(v16, &_sypSgMd);
+  outlined destroy of CharacterSet?(v16, &_sypSgMd, &_sypSgMR);
   v8 = v18;
   if (v18)
   {
@@ -425,7 +425,7 @@
 
   v8 = DOCSidebarViewController.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8 & 1;
 }
 
@@ -459,7 +459,7 @@
 
 - (BOOL)collectionView:(id)view shouldSelectItemAtIndexPath:(id)path
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMd, &_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMR);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6, v8);
   v10 = v21 - v9;
@@ -487,7 +487,7 @@
       goto LABEL_6;
     }
 
-    outlined destroy of CharacterSet?(&v24, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd);
+    outlined destroy of CharacterSet?(&v24, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMR);
   }
 
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
@@ -503,7 +503,7 @@ LABEL_6:
 
 - (BOOL)collectionView:(id)view shouldHighlightItemAtIndexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMd, &_s5UIKit28NSDiffableDataSourceSnapshotVy26DocumentManagerExecutables24DOCSidebarViewControllerC14OutlineSectionVAF0L4ItemVGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5, v7);
   v9 = v18 - v8;
@@ -530,7 +530,7 @@ LABEL_6:
       goto LABEL_8;
     }
 
-    outlined destroy of CharacterSet?(&v27, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd);
+    outlined destroy of CharacterSet?(&v27, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMR);
   }
 
   DOCSidebarViewController.sidebarItem(at:logIfMissing:)(v14, 1, v21);
@@ -546,7 +546,7 @@ LABEL_6:
     v25 = v22;
     v26 = v23;
     v16 = DOCSidebarViewController.isCellEnabledForSelection(item:)(v24);
-    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd);
+    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMd, &_s26DocumentManagerExecutables14DOCSidebarItemOSgMR);
   }
 
 LABEL_8:
@@ -680,7 +680,7 @@ LABEL_8:
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v19 - v11;
   if (path)
@@ -702,7 +702,7 @@ LABEL_8:
   v17 = specialized DOCSidebarViewController.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)(update, v12);
 
   swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 
   return v17;
 }
@@ -751,7 +751,7 @@ LABEL_8:
 
 - (int64_t)_collectionView:(id)view dataOwnerForDropSession:(id)session withDestinationIndexPath:(id)path
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v12, v13);
@@ -774,7 +774,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  outlined init with copy of DOCGridLayout.Spec?(v15, v11, &_s10Foundation9IndexPathVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v15, v11, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   result = (*(v17 + 48))(v11, 1, v16);
   if (result != 1)
   {
@@ -785,7 +785,7 @@ LABEL_6:
 
     (*(v17 + 8))(v11, v16);
 LABEL_7:
-    outlined destroy of CharacterSet?(v15, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v15, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
     return v20;
   }
 

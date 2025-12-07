@@ -5,6 +5,7 @@
 - (void)_handlePublishersChangedNotification:(id)notification;
 - (void)_handleSubscribersChangedNotification:(id)notification;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -43,41 +44,48 @@
 
 - (void)viewDidLoad
 {
-  v9.receiver = self;
-  v9.super_class = WFNANTableViewController;
-  [(WFNANTableViewController *)&v9 viewDidLoad];
-  v3 = WFCurrentDeviceCapability();
-  IsChinaDevice = WFCapabilityIsChinaDevice(v3);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = v5;
+  v10.receiver = self;
+  v10.super_class = WFNANTableViewController;
+  viewDidLoad = [(WFNANTableViewController *)&v10 viewDidLoad];
+  v4 = WFCurrentDeviceCapability(viewDidLoad);
+  IsChinaDevice = WFCapabilityIsChinaDevice(v4);
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = v6;
   if (IsChinaDevice)
   {
-    v7 = @"kWFLocNAN_CH";
+    v8 = @"kWFLocNAN_CH";
   }
 
   else
   {
-    v7 = @"kWFLocNAN";
+    v8 = @"kWFLocNAN";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-  [(WFNANTableViewController *)self setTitle:v8];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+  [(WFNANTableViewController *)self setTitle:v9];
 
   [(WFNANTableViewController *)self _configureDataSource];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = WFNANTableViewController;
+  [(WFNANTableViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)_configureDataSource
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v3 = [WFNANTableViewDataSource alloc];
   tableView = [(WFNANTableViewController *)self tableView];
   sections = [(WFNANTableViewController *)self sections];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __48__WFNANTableViewController__configureDataSource__block_invoke;
-  v26[3] = &unk_279EC5440;
-  v26[4] = self;
-  v6 = [(WFNANTableViewDataSource *)v3 initWithTableView:tableView sections:sections cellProvider:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __48__WFNANTableViewController__configureDataSource__block_invoke;
+  v25[3] = &unk_279EC5440;
+  v25[4] = self;
+  v6 = [(WFNANTableViewDataSource *)v3 initWithTableView:tableView sections:sections cellProvider:v25];
   [(WFNANTableViewController *)self setDataSource:v6];
 
   v7 = objc_alloc_init(MEMORY[0x277CFB890]);
@@ -106,25 +114,23 @@
   }
 
   [v7 appendSectionsWithIdentifiers:array];
-  v29[0] = @"WFNANTableViewControllerNANState";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = @"WFNANTableViewControllerNANState";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v19 = [(WFNANTableViewController *)self _identifierForSection:0];
   [v7 appendItemsWithIdentifiers:v18 intoSectionWithIdentifier:v19];
 
-  v28 = @"WFNANTableViewControllerSubscribersCount";
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v27 = @"WFNANTableViewControllerSubscribersCount";
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   v21 = [(WFNANTableViewController *)self _identifierForSection:2];
   [v7 appendItemsWithIdentifiers:v20 intoSectionWithIdentifier:v21];
 
-  v27 = @"WFNANTableViewControllerPublishersCount";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = @"WFNANTableViewControllerPublishersCount";
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v23 = [(WFNANTableViewController *)self _identifierForSection:1];
   [v7 appendItemsWithIdentifiers:v22 intoSectionWithIdentifier:v23];
 
   dataSource = [(WFNANTableViewController *)self dataSource];
   [dataSource applySnapshot:v7 animatingDifferences:1];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __48__WFNANTableViewController__configureDataSource__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -147,33 +153,32 @@ id __48__WFNANTableViewController__configureDataSource__block_invoke(uint64_t a1
   {
     if ([v5 row])
     {
-      v20 = [*(*(a1 + 32) + 1056) getSubscriberAtIndex:{objc_msgSend(v5, "row") - 1}];
-      v22 = [v20 configuration];
-      v23 = [v22 serviceName];
-      v29 = [v11 textLabel];
-      [v29 setText:v23];
+      v19 = [*(*(a1 + 32) + 1056) getSubscriberAtIndex:{objc_msgSend(v5, "row") - 1}];
+      v21 = [v19 configuration];
+      v22 = [v21 serviceName];
+      v28 = [v11 textLabel];
+      [v28 setText:v22];
 
       goto LABEL_15;
     }
 
-    v36 = *(a1 + 32);
-    v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v38 = [v37 localizedStringForKey:@"kWFLocNANSubscribers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-    v39 = [v11 textLabel];
-    [v39 setText:v38];
+    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v35 = [v34 localizedStringForKey:@"kWFLocNANSubscribers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+    v36 = [v11 textLabel];
+    [v36 setText:v35];
 
-    v34 = MEMORY[0x277CCACA8];
-    v35 = [*(*(a1 + 32) + 1056) getSubscribersCount];
+    v32 = MEMORY[0x277CCACA8];
+    v33 = [*(*(a1 + 32) + 1056) getSubscribersCount];
 LABEL_18:
-    v40 = [v34 stringWithFormat:@"%ld", v35];
-    v41 = [v11 detailTextLabel];
-    [v41 setText:v40];
+    v37 = [v32 stringWithFormat:@"%ld", v33];
+    v38 = [v11 detailTextLabel];
+    [v38 setText:v37];
 
     [v11 setAccessoryType:1];
-    v18 = v11;
-    v19 = 1;
+    v17 = v11;
+    v18 = 1;
 LABEL_19:
-    [v18 setSelectionStyle:v19];
+    [v17 setSelectionStyle:v18];
     goto LABEL_20;
   }
 
@@ -181,55 +186,53 @@ LABEL_19:
   {
     if ([v5 row])
     {
-      v20 = [*(*(a1 + 32) + 1056) getPublisherAtIndex:{objc_msgSend(v5, "row") - 1}];
-      v21 = MEMORY[0x277CCACA8];
-      v22 = [v20 configuration];
-      v23 = [v22 serviceName];
-      v24 = [v20 configuration];
-      v25 = [v24 serviceSpecificInfo];
-      v26 = [v25 instanceName];
-      v27 = [v21 stringWithFormat:@"%@ [%@]", v23, v26];
-      v28 = [v11 textLabel];
-      [v28 setText:v27];
+      v19 = [*(*(a1 + 32) + 1056) getPublisherAtIndex:{objc_msgSend(v5, "row") - 1}];
+      v20 = MEMORY[0x277CCACA8];
+      v21 = [v19 configuration];
+      v22 = [v21 serviceName];
+      v23 = [v19 configuration];
+      v24 = [v23 serviceSpecificInfo];
+      v25 = [v24 instanceName];
+      v26 = [v20 stringWithFormat:@"%@ [%@]", v22, v25];
+      v27 = [v11 textLabel];
+      [v27 setText:v26];
 
 LABEL_15:
       goto LABEL_20;
     }
 
-    v30 = *(a1 + 32);
-    v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v32 = [v31 localizedStringForKey:@"kWFLocNANPublishers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-    v33 = [v11 textLabel];
-    [v33 setText:v32];
+    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v30 = [v29 localizedStringForKey:@"kWFLocNANPublishers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+    v31 = [v11 textLabel];
+    [v31 setText:v30];
 
-    v34 = MEMORY[0x277CCACA8];
-    v35 = [*(*(a1 + 32) + 1056) getPublishersCount];
+    v32 = MEMORY[0x277CCACA8];
+    v33 = [*(*(a1 + 32) + 1056) getPublishersCount];
     goto LABEL_18;
   }
 
   if (!v10 && ![v5 row])
   {
-    v12 = *(a1 + 32);
-    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v14 = [v13 localizedStringForKey:@"kWFLocNANState" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-    v15 = [v11 textLabel];
-    [v15 setText:v14];
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v13 = [v12 localizedStringForKey:@"kWFLocNANState" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+    v14 = [v11 textLabel];
+    [v14 setText:v13];
 
     if ([*(a1 + 32) _isNANEnabled])
     {
-      v16 = @"Enabled";
+      v15 = @"Enabled";
     }
 
     else
     {
-      v16 = @"Disabled";
+      v15 = @"Disabled";
     }
 
-    v17 = [v11 detailTextLabel];
-    [v17 setText:v16];
+    v16 = [v11 detailTextLabel];
+    [v16 setText:v15];
 
-    v18 = v11;
-    v19 = 0;
+    v17 = v11;
+    v18 = 0;
     goto LABEL_19;
   }
 
@@ -240,7 +243,7 @@ LABEL_20:
 
 - (void)_handlePublishersChangedNotification:(id)notification
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -267,8 +270,8 @@ LABEL_20:
     unsignedIntegerValue = [v10 unsignedIntegerValue];
     if (unsignedIntegerValue == 1)
     {
-      v19 = v8;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v8;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       [snapshot deleteItemsWithIdentifiers:v13];
     }
 
@@ -277,9 +280,9 @@ LABEL_20:
       if (unsignedIntegerValue)
       {
 LABEL_10:
-        v18[0] = @"WFNANTableViewControllerNANState";
-        v18[1] = @"WFNANTableViewControllerPublishersCount";
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+        v17[0] = @"WFNANTableViewControllerNANState";
+        v17[1] = @"WFNANTableViewControllerPublishersCount";
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
         [snapshot reconfigureItemsWithIdentifiers:v15];
 
         dataSource2 = [(WFNANTableViewController *)self dataSource];
@@ -288,8 +291,8 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v20[0] = v8;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+      v19[0] = v8;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
       v14 = [(WFNANTableViewController *)self _identifierForSection:1];
       [snapshot appendItemsWithIdentifiers:v13 intoSectionWithIdentifier:v14];
     }
@@ -298,13 +301,11 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSubscribersChangedNotification:(id)notification
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -331,8 +332,8 @@ LABEL_11:
     unsignedIntegerValue = [v10 unsignedIntegerValue];
     if (unsignedIntegerValue == 1)
     {
-      v19 = v8;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v8;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       [snapshot deleteItemsWithIdentifiers:v13];
     }
 
@@ -341,9 +342,9 @@ LABEL_11:
       if (unsignedIntegerValue)
       {
 LABEL_10:
-        v18[0] = @"WFNANTableViewControllerNANState";
-        v18[1] = @"WFNANTableViewControllerSubscribersCount";
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+        v17[0] = @"WFNANTableViewControllerNANState";
+        v17[1] = @"WFNANTableViewControllerSubscribersCount";
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
         [snapshot reconfigureItemsWithIdentifiers:v15];
 
         dataSource2 = [(WFNANTableViewController *)self dataSource];
@@ -352,8 +353,8 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v20[0] = v8;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+      v19[0] = v8;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
       v14 = [(WFNANTableViewController *)self _identifierForSection:2];
       [snapshot appendItemsWithIdentifiers:v13 intoSectionWithIdentifier:v14];
     }
@@ -362,8 +363,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isNANEnabled

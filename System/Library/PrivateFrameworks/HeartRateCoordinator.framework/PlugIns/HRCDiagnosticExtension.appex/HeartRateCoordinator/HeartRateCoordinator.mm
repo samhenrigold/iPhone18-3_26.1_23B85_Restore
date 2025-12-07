@@ -11,34 +11,33 @@ void sub_100000E2C(uint64_t a1, void *a2)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_100000EE4(uint64_t a1)
+void sub_100000EE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = sub_10000391C();
-  v5 = v4;
-  if (v3)
+  v5 = *(a1 + 32);
+  v6 = sub_10000391C(a1);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000039E4(v2);
+      sub_1000039E4();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 48);
-    v7[0] = 67240192;
-    v7[1] = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Set audio accessory limited logging to: %{public,BOOL}d", v7, 8u);
+    v8 = *(a1 + 48);
+    v9[0] = 67240192;
+    v9[1] = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Set audio accessory limited logging to: %{public,BOOL}d", v9, 8u);
   }
 
   dispatch_group_leave(*(a1 + 40));
 }
 
-void sub_1000014B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000014B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -59,28 +58,27 @@ void sub_100001538(uint64_t a1, char a2, void *a3)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_100001604(uint64_t a1)
+void sub_100001604(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = sub_10000391C();
-  v5 = v4;
-  if (v3)
+  v5 = *(a1 + 32);
+  v6 = sub_10000391C(a1);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100003A9C(v2);
+      sub_100003A9C();
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 56);
-      v7[0] = 67240192;
-      v7[1] = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Limited logging state query result: %{public,BOOL}d", v7, 8u);
+      v8 = *(a1 + 56);
+      v9[0] = 67240192;
+      v9[1] = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Limited logging state query result: %{public,BOOL}d", v9, 8u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = *(a1 + 56);
@@ -89,9 +87,9 @@ void sub_100001604(uint64_t a1)
   dispatch_group_leave(*(a1 + 40));
 }
 
-void sub_100001E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, ...)
+void sub_100001E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -132,20 +130,20 @@ void sub_100002000(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::__fs::filesystem::path *sub_10000206C@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *sub_10000206C@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    sub_1000029B8(a3, *a2, *(a2 + 8));
+    sub_1000029B8(a1, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *&a1->__pn_.__r_.__value_.__l.__data_ = *a3;
+    a1->__pn_.__r_.__value_.__r.__words[2] = *(a3 + 16);
   }
 
-  return sub_100002940(a3, this);
+  return sub_100002940(a1, this);
 }
 
 void sub_1000020C4(_Unwind_Exception *exception_object)
@@ -191,10 +189,10 @@ void sub_100002730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100002830(uint64_t a1, __int128 *a2)
+uint64_t sub_100002830(unint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = sub_100002CCC(a1, a2);
   }
@@ -205,7 +203,7 @@ uint64_t sub_100002830(uint64_t a1, __int128 *a2)
     result = v3 + 80;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -406,21 +404,21 @@ __n128 sub_100002C54(uint64_t a1, __int128 *a2)
   return result;
 }
 
-uint64_t sub_100002CCC(uint64_t a1, __int128 *a2)
+uint64_t sub_100002CCC(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x333333333333333)
   {
     sub_100002E30();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 4) >= 0x199999999999999)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) >= 0x199999999999999)
   {
     v6 = 0x333333333333333;
   }
@@ -462,14 +460,14 @@ uint64_t sub_100002CCC(uint64_t a1, __int128 *a2)
   *(v7 + 48) = v12;
   *(v7 + 64) = v11;
   *&v21 = v10 + 80;
-  v13 = *(a1 + 8);
+  v13 = a1[1];
   v14 = v9 + *a1 - v13;
   sub_100002EA0(a1, *a1, v13, v14);
   v15 = *a1;
   *a1 = v14;
-  v16 = *(a1 + 16);
+  v16 = a1[2];
   v18 = v21;
-  *(a1 + 8) = v21;
+  *(a1 + 1) = v21;
   *&v21 = v15;
   *(&v21 + 1) = v16;
   v19 = v15;
@@ -478,9 +476,9 @@ uint64_t sub_100002CCC(uint64_t a1, __int128 *a2)
   return v18;
 }
 
-void sub_100002E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100002E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100002FE4(va);
   _Unwind_Resume(a1);
 }
@@ -766,7 +764,7 @@ void sub_1000032D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_1000032F4(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *sub_1000032F4(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -779,14 +777,14 @@ _BYTE *sub_1000032F4(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -892,11 +890,11 @@ double sub_100003580@<D0>(const std::__fs::filesystem::path *a1@<X0>, uint64_t a
   return result;
 }
 
-BOOL sub_100003648(uint64_t *a1, char *__s)
+BOOL sub_100003648(uint64_t **a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = *(a1 + 23);
-  if (v5 < 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     v6 = a1;
     a1 = *a1;
@@ -1015,23 +1013,16 @@ void sub_1000038B4()
   exception = __cxa_allocate_exception(8uLL);
 }
 
-uint64_t *sub_10000390C(uint64_t *result)
-{
-  v1 = *(result + 23);
-  v2 = *result;
-  return result;
-}
-
-id sub_10000391C()
+id sub_10000391C(uint64_t a1)
 {
   if (qword_10000C1E0 != -1)
   {
     sub_100003D20();
   }
 
-  v1 = qword_10000C1E8;
+  v2 = qword_10000C1E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003960(id a1)
@@ -1041,34 +1032,20 @@ void sub_100003960(id a1)
   _objc_release_x1();
 }
 
-void sub_1000039E4(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100003900();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_100003A9C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100003900();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_100003B54()
 {
-  if (__cxa_guard_acquire(&qword_10000C1B8))
+  if (__cxa_guard_acquire(byte_10000C1B8))
   {
     qword_10000C1C0 = off_100008418;
     qword_10000C1D8 = &qword_10000C1C0;
     __cxa_atexit(sub_100002194, &qword_10000C1C0, &_mh_execute_header);
-    __cxa_guard_release(&qword_10000C1B8);
+    __cxa_guard_release(byte_10000C1B8);
   }
 }
 
 void sub_100003BCC(uint64_t a1)
 {
-  v2 = sub_10000390C(a1);
+  sub_10000390C();
   if (v7 != v8)
   {
     v9 = v6;
@@ -1090,7 +1067,7 @@ void sub_100003BCC(uint64_t a1)
 
 void sub_100003C38(uint64_t a1)
 {
-  v2 = sub_10000390C(a1);
+  sub_10000390C();
   if (v7 != v8)
   {
     v9 = v6;
@@ -1110,11 +1087,11 @@ void sub_100003C38(uint64_t a1)
   }
 }
 
-void sub_100003CA4(uint64_t *a1)
+void sub_100003CA4()
 {
-  sub_10000390C(a1);
+  sub_10000390C();
   sub_100003900();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__filename(const std::__fs::filesystem::path *this)

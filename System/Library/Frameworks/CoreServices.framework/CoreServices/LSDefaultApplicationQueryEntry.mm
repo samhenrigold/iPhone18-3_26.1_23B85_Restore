@@ -1,12 +1,28 @@
 @interface LSDefaultApplicationQueryEntry
 + (id)createFromPlistRepresentation:(id)representation;
+- (LSDefaultApplicationQueryEntry)initWithWindowOpenDate:(id)date refreshDate:(id)refreshDate defaultForCategory:(BOOL)category;
 - (LSDefaultApplicationQueryEntry)initWithWindowOpenDates:(id)dates refreshDate:(id)date defaultForCategory:(BOOL)category;
 - (id)newestWindowOpenDate;
 - (id)oldestWindowOpenDate;
 - (id)plistRepresentation;
+- (id)updatedEntryRotatingInWindowOpenDate:(id)date refreshDate:(id)refreshDate defaultForCategory:(BOOL)category;
+- (id)updatedEntryWithRefreshDate:(id)date defaultForCategory:(BOOL)category;
 @end
 
 @implementation LSDefaultApplicationQueryEntry
+
+- (LSDefaultApplicationQueryEntry)initWithWindowOpenDate:(id)date refreshDate:(id)refreshDate defaultForCategory:(BOOL)category
+{
+  categoryCopy = category;
+  v13[1] = *MEMORY[0x1E69E9840];
+  dateCopy = date;
+  refreshDateCopy = refreshDate;
+  v13[0] = dateCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v11 = [(LSDefaultApplicationQueryEntry *)self initWithWindowOpenDates:v10 refreshDate:refreshDateCopy defaultForCategory:categoryCopy];
+
+  return v11;
+}
 
 - (LSDefaultApplicationQueryEntry)initWithWindowOpenDates:(id)dates refreshDate:(id)date defaultForCategory:(BOOL)category
 {
@@ -30,25 +46,23 @@
 
 - (id)plistRepresentation
 {
-  v8[3] = *MEMORY[0x1E69E9840];
-  v7[0] = @"Open";
-  v7[1] = @"Refresh";
+  v7[3] = *MEMORY[0x1E69E9840];
+  v6[0] = @"Open";
+  v6[1] = @"Refresh";
   refreshDate = self->_refreshDate;
-  v8[0] = self->_windowOpenDates;
-  v8[1] = refreshDate;
-  v7[2] = @"IsDefault";
+  v7[0] = self->_windowOpenDates;
+  v7[1] = refreshDate;
+  v6[2] = @"IsDefault";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_defaultForCategory];
-  v8[2] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[2] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
 
 + (id)createFromPlistRepresentation:(id)representation
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -61,8 +75,8 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
 LABEL_7:
     v8 = v5;
     goto LABEL_9;
@@ -102,7 +116,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -129,6 +142,29 @@ LABEL_22:
   }
 
   return lastObject;
+}
+
+- (id)updatedEntryRotatingInWindowOpenDate:(id)date refreshDate:(id)refreshDate defaultForCategory:(BOOL)category
+{
+  categoryCopy = category;
+  dateCopy = date;
+  refreshDateCopy = refreshDate;
+    ;
+  }
+
+  [i addObject:dateCopy];
+  v11 = [[LSDefaultApplicationQueryEntry alloc] initWithWindowOpenDates:i refreshDate:refreshDateCopy defaultForCategory:categoryCopy];
+
+  return v11;
+}
+
+- (id)updatedEntryWithRefreshDate:(id)date defaultForCategory:(BOOL)category
+{
+  categoryCopy = category;
+  dateCopy = date;
+  v7 = [[LSDefaultApplicationQueryEntry alloc] initWithWindowOpenDates:self->_windowOpenDates refreshDate:dateCopy defaultForCategory:categoryCopy];
+
+  return v7;
 }
 
 @end

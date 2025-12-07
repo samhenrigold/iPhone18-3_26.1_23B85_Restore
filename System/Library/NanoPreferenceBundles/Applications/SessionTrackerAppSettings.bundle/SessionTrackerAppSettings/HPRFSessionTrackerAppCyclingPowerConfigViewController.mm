@@ -21,6 +21,7 @@
 - (void)setConfiguration:(id)configuration;
 - (void)updateWithConfiguration:(id)configuration;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerAppCyclingPowerConfigViewController
@@ -76,6 +77,23 @@
   bundleIdentifier = [v2 bundleIdentifier];
 
   return bundleIdentifier;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HPRFSessionTrackerAppCyclingPowerConfigViewController;
+  [(HPRFSessionTrackerAppCyclingPowerConfigViewController *)&v6 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForCyclingPowerSettings];
+  _HKInitializeLogging();
+  v4 = HKLogWorkouts;
+  if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_INFO))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Viewing Cycling Power Zones", v5, 2u);
+  }
+
+  [(HPRFSessionTrackerAppCyclingPowerConfigViewController *)self reloadSpecifiers];
 }
 
 - (void)_mainThread_handleCyclingPowerZonesConfiguration:(id)configuration

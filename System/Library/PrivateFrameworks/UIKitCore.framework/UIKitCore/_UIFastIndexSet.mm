@@ -8,10 +8,10 @@
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (int8x16_t)count;
-- (uint64_t)firstIndex;
-- (uint64_t)indexGreaterThanOrEqualToIndex:(uint16x8_t *)index;
-- (unint64_t)containsIndex:(uint16x8_t *)index;
+- (uint64_t)containsIndex:(uint16x8_t *)index;
+- (unint64_t)firstIndex;
 - (unint64_t)hash;
+- (unint64_t)indexGreaterThanOrEqualToIndex:(uint16x8_t *)index;
 - (unsigned)initWithIndexSet:(void *)set;
 - (void)enumerateIndexesUsingBlock:(uint64_t)block;
 @end
@@ -90,7 +90,7 @@
   return self;
 }
 
-- (uint64_t)firstIndex
+- (unint64_t)firstIndex
 {
   if (result)
   {
@@ -864,7 +864,7 @@ LABEL_186:
             v20 = v16 - v19;
             if (v15 >= v8)
             {
-              v21 = v2 + 1;
+              v21 = (v2 + 1);
             }
 
             else
@@ -873,7 +873,7 @@ LABEL_186:
             }
 
             v22 = 0xFFFFFFFFFFFFFFFFLL >> (v20 - v21) << v18;
-            if (v18 >= v21 + v17)
+            if (v18 >= &v21[v17])
             {
               v23 = 0;
             }
@@ -1219,7 +1219,7 @@ LABEL_10:
       return v4;
     }
 
-    v9 = (v3 + 4);
+    v9 = v3 + 4;
     (off_1EFB00DC0[v6])(&v9);
   }
 
@@ -1233,7 +1233,7 @@ LABEL_10:
   return [(_UIFastIndexSet *)v4 initWithIndexSet:?];
 }
 
-- (unint64_t)containsIndex:(uint16x8_t *)index
+- (uint64_t)containsIndex:(uint16x8_t *)index
 {
   v2 = 0;
   if (index && a2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -1437,7 +1437,7 @@ LABEL_13:
             v18 = v12 + v15;
             do
             {
-              (*(v11 + 2))(v11, v18, &v27);
+              (v11)[2](v11, v18, &v27);
               if (v27)
               {
                 goto LABEL_24;
@@ -2317,7 +2317,7 @@ LABEL_134:
   return v5 & 1;
 }
 
-- (uint64_t)indexGreaterThanOrEqualToIndex:(uint16x8_t *)index
+- (unint64_t)indexGreaterThanOrEqualToIndex:(uint16x8_t *)index
 {
   if (!index)
   {
@@ -2343,7 +2343,7 @@ LABEL_134:
         v8 = v7 >> 2;
         if (v7 >> 2 >= v4)
         {
-          v9 = index[3].u64[0];
+          v9 = index[3].i64[0];
         }
 
         else

@@ -436,7 +436,7 @@ LABEL_4:
   blockCopy = block;
   calendar = [(PLMonthGroupingRule *)self calendar];
   sortedChildHighlightItems = [listCopy sortedChildHighlightItems];
-  if ([sortedChildHighlightItems count])
+  if (objc_msgSend_count(sortedChildHighlightItems))
   {
     firstObject = [sortedChildHighlightItems firstObject];
     endDate = [firstObject endDate];

@@ -56,27 +56,27 @@ uint64_t __29__NWSClientConnection_shared__block_invoke()
   [connection5 activate];
 }
 
-void __44__NWSClientConnection_activateConnectionOn___block_invoke()
+void __44__NWSClientConnection_activateConnectionOn___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = nws_log_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = nws_log_obj(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_25BA15000, v0, OS_LOG_TYPE_DEFAULT, "daemon connection was interrupted", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_25BA15000, v2, OS_LOG_TYPE_DEFAULT, "daemon connection was interrupted", v3, 2u);
   }
 }
 
-uint64_t __44__NWSClientConnection_activateConnectionOn___block_invoke_97(uint64_t a1)
+uint64_t __44__NWSClientConnection_activateConnectionOn___block_invoke_97(uint64_t a1, uint64_t a2)
 {
-  v2 = nws_log_obj();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = nws_log_obj(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_25BA15000, v2, OS_LOG_TYPE_DEFAULT, "connection was invalidated", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_25BA15000, v3, OS_LOG_TYPE_DEFAULT, "connection was invalidated", v6, 2u);
   }
 
-  v3 = [*(a1 + 32) connection];
-  [v3 invalidate];
+  v4 = [*(a1 + 32) connection];
+  [v4 invalidate];
 
   return [*(a1 + 32) setConnection:0];
 }

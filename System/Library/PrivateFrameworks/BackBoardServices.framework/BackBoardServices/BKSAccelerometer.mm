@@ -22,10 +22,10 @@
 
 - (BKSAccelerometer)init
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = BKSAccelerometer;
-  v2 = [(BKSAccelerometer *)&v10 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = BKSAccelerometer;
+  v2 = [(BKSAccelerometer *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AD10]);
@@ -37,10 +37,10 @@
       v5 = BKLogCommon();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = objc_opt_class();
+        v7 = objc_opt_class();
         *buf = 138543362;
-        v12 = v8;
-        v9 = v8;
+        v11 = v7;
+        v8 = v7;
         _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "%{public}@ unable to create notifyd token for device orientation", buf, 0xCu);
       }
     }
@@ -49,7 +49,6 @@
     mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &v2->_orientationPort);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -84,30 +83,30 @@
 - (void)_checkIn
 {
   name.perform = *MEMORY[0x1E69E9840];
-  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__checkIn object:0];
+  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:? selector:? object:?];
   if (!self->_accelerometerEventsSource)
   {
     LocalCenter = CFNotificationCenterGetLocalCenter();
     CFNotificationCenterAddObserver(LocalCenter, self, _serverWasRestarted, @"kBKSHIDServerDiedNotification", 0, 0);
     LODWORD(name.version) = 0;
-    v5 = MEMORY[0x1E69E9A60];
-    v6 = mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name);
-    if (v6)
+    v4 = MEMORY[0x1E69E9A60];
+    v5 = mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name);
+    if (v5)
     {
-      v16 = v6;
+      v14 = v5;
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v18 = objc_opt_class();
-      [currentHandler handleFailureInMethod:a2 object:self file:@"BKSAccelerometer.m" lineNumber:147 description:{@"%@ unable to allocate notification receive port: %s", v18, mach_error_string(v16)}];
+      v16 = objc_opt_class();
+      [currentHandler handleFailureInMethod:v16 object:mach_error_string(v14) file:? lineNumber:? description:?];
     }
 
-    v20 = 2;
-    MEMORY[0x186605820](*v5, LODWORD(name.version), 1, &v20, 1);
-    v7 = BKCreateMIGServerSourceWithContext(&_BKXXBKAccelerometer_subsystem, name.version, 0, self);
-    self->_accelerometerEventsSource = v7;
-    if (!v7)
+    v18 = 2;
+    MEMORY[0x186605820](*v4, LODWORD(name.version), 1, &v18, 1);
+    v6 = BKCreateMIGServerSourceWithContext(&_BKXXBKAccelerometer_subsystem, name.version, 0, self);
+    self->_accelerometerEventsSource = v6;
+    if (!v6)
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler2 handleFailureInMethod:a2 object:self file:@"BKSAccelerometer.m" lineNumber:154 description:{@"%@ unable to create run loop source", objc_opt_class()}];
+      [currentHandler2 handleFailureInMethod:objc_opt_class() object:? file:? lineNumber:? description:?];
     }
 
     Current = CFRunLoopGetCurrent();
@@ -116,40 +115,38 @@
     CFRunLoopAddSource(self->_accelerometerEventsRunLoop, self->_accelerometerEventsSource, *MEMORY[0x1E695E8D0]);
   }
 
-  v9 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
+  v8 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
   accelerometerEventsSource = self->_accelerometerEventsSource;
   memset(&name.info, 0, 64);
   name.version = 1;
   CFRunLoopSourceGetContext(accelerometerEventsSource, &name);
-  v11 = _BKSHIDSetAccelerometerClientEventsEnabled(v9, *name.info, 0, self->_updateInterval, self->_xThreshold, self->_yThreshold, self->_zThreshold);
-  if (v11)
+  v10 = _BKSHIDSetAccelerometerClientEventsEnabled(v8, *name.info, 0, self->_updateInterval, self->_xThreshold, self->_yThreshold, self->_zThreshold);
+  if (v10)
   {
-    v12 = v11;
-    if (v11 == 268435460)
+    v11 = v10;
+    if (v10 == 268435460)
     {
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObject:*MEMORY[0x1E695DA28]];
-      [(BKSAccelerometer *)self performSelector:sel__checkIn withObject:0 afterDelay:v13 inModes:1.0];
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObject:?];
+      [BKSAccelerometer performSelector:"performSelector:withObject:afterDelay:inModes:" withObject:? afterDelay:? inModes:?];
     }
 
     else
     {
-      v13 = BKLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = BKLogCommon();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = mach_error_string(v12);
+        v13 = mach_error_string(v11);
         LODWORD(name.version) = 136446210;
-        *(&name.version + 4) = v15;
-        _os_log_error_impl(&dword_186345000, v13, OS_LOG_TYPE_ERROR, "BKSetAccelerometerClientEventsEnabled failed: %{public}s", &name, 0xCu);
+        *(&name.version + 4) = v13;
+        _os_log_error_impl(&dword_186345000, v12, OS_LOG_TYPE_ERROR, "BKSetAccelerometerClientEventsEnabled failed: %{public}s", &name, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkOut
 {
-  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__checkIn object:0];
+  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:? selector:? object:?];
   if (self->_accelerometerEventsSource)
   {
     LocalCenter = CFNotificationCenterGetLocalCenter();
@@ -183,7 +180,8 @@
   delegate = [(BKSAccelerometer *)self delegate];
   if (objc_opt_respondsToSelector())
   {
-    [delegate accelerometer:self didChangeDeviceOrientation:{-[BKSAccelerometer currentDeviceOrientation](self, "currentDeviceOrientation")}];
+    [(BKSAccelerometer *)self currentDeviceOrientation];
+    [delegate accelerometer:? didChangeDeviceOrientation:?];
   }
 }
 
@@ -331,8 +329,8 @@
 
 - (void)dealloc
 {
-  [(BKSAccelerometer *)self setAccelerometerEventsEnabled:0];
-  [(BKSAccelerometer *)self setOrientationEventsEnabled:0];
+  [(BKSAccelerometer *)self setAccelerometerEventsEnabled:?];
+  [(BKSAccelerometer *)self setOrientationEventsEnabled:?];
   notify_cancel(self->_orientationCheckToken);
   orientationPort = self->_orientationPort;
   if (orientationPort + 1 >= 2)

@@ -3,6 +3,7 @@
 - (_INPBSaveHealthSampleIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)objectTypeAsString:(int)string;
 - (int)StringAsObjectType:(id)type;
 - (unint64_t)hash;
 - (void)addSampleMetadata:(id)metadata;
@@ -18,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   intentMetadata = [(_INPBSaveHealthSampleIntent *)self intentMetadata];
   dictionaryRepresentation = [intentMetadata dictionaryRepresentation];
@@ -47,30 +48,30 @@
   if ([(NSArray *)self->_sampleMetadatas count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v11 = self->_sampleMetadatas;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v33;
+      v14 = *v32;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v32 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v31 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v13);
@@ -86,30 +87,30 @@
   if ([(NSArray *)self->_values count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v20 = self->_values;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v29;
+      v23 = *v28;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v29 != v23)
+          if (*v28 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation5 = [*(*(&v28 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v27 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation5];
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v22);
@@ -117,8 +118,6 @@
 
     [dictionary setObject:array2 forKeyedSubscript:@"values"];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -357,7 +356,7 @@ LABEL_32:
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   toCopy = to;
   intentMetadata = [(_INPBSaveHealthSampleIntent *)self intentMetadata];
 
@@ -369,7 +368,6 @@ LABEL_32:
 
   if ([(_INPBSaveHealthSampleIntent *)self hasObjectType])
   {
-    objectType = self->_objectType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -381,36 +379,35 @@ LABEL_32:
     PBDataWriterWriteSubmessage();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v10 = self->_sampleMetadatas;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v11)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v9 = self->_sampleMetadatas;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v30;
+    v11 = v10;
+    v12 = *v26;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v30 != v13)
+        if (*v26 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * v14);
         PBDataWriterWriteSubmessage();
-        ++v14;
+        ++v13;
       }
 
-      while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v11 != v13);
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
   unit = [(_INPBSaveHealthSampleIntent *)self unit];
@@ -421,39 +418,36 @@ LABEL_32:
     PBDataWriterWriteSubmessage();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v18 = self->_values;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v19)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v16 = self->_values;
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (v17)
   {
-    v20 = v19;
-    v21 = *v26;
+    v18 = v17;
+    v19 = *v22;
     do
     {
-      v22 = 0;
+      v20 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v22 != v19)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v16);
         }
 
-        v23 = *(*(&v25 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v20;
       }
 
-      while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      while (v18 != v20);
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
-    while (v20);
+    while (v18);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addValues:(id)values
@@ -891,6 +885,21 @@ LABEL_32:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)objectTypeAsString:(int)string
+{
+  if (string >= 0x4B)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282C98[string];
   }
 
   return v4;

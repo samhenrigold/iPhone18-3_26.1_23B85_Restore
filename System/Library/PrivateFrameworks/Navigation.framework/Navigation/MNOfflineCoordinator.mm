@@ -2,6 +2,7 @@
 - (MNNavigationSessionState)navigationSessionState;
 - (_TtC10Navigation20MNOfflineCoordinator)init;
 - (_TtP10Navigation28MNOfflineCoordinatorDelegate_)delegate;
+- (void)offlineService:(id)service wouldLikeToSwitchToState:(id)state;
 - (void)setNavigationSessionState:(id)state;
 - (void)start;
 - (void)stop;
@@ -47,6 +48,14 @@
 
   __break(1u);
   return result;
+}
+
+- (void)offlineService:(id)service wouldLikeToSwitchToState:(id)state
+{
+  v4 = *&state.var0;
+  serviceCopy = service;
+  selfCopy = self;
+  sub_1D3155614(v4);
 }
 
 - (void)stop

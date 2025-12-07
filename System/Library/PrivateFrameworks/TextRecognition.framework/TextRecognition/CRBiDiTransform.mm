@@ -47,7 +47,7 @@ LABEL_6:
 - (id)transformVisualToLogical:(id)logical visualDirectionality:(unint64_t)directionality logicalBaseDirectionality:(unint64_t)baseDirectionality baseDirectionalityPredictionMode:(unint64_t)mode outTokenizedLogicalOrderIndexes:(id *)indexes outReorderingPermutation:(id *)permutation outMirroredVisualString:(id *)string outLogicalBaseDirection:(char *)self0
 {
   permutationCopy = permutation;
-  v104 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   logicalCopy = logical;
   v16 = logicalCopy;
   stringCopy = string;
@@ -67,15 +67,15 @@ LABEL_6:
 
   v19 = v17_crStringByReversingComposedCharacterSequences;
   v20 = [_crStringByReversingComposedCharacterSequences length];
-  v93 = v85;
-  *&v22 = MEMORY[0x1EEE9AC00](v20, v21).n128_u64[0];
-  v24 = v85 - v23;
-  [_crStringByReversingComposedCharacterSequences getCharacters:{v85 - v23, v22}];
-  *&v24[2 * [_crStringByReversingComposedCharacterSequences length]] = 0;
+  v89 = v81;
+  *&v21 = MEMORY[0x1EEE9AC00](v20).n128_u64[0];
+  v23 = v81 - v22;
+  [_crStringByReversingComposedCharacterSequences getCharacters:{v81 - v22, v21}];
+  *&v23[2 * [_crStringByReversingComposedCharacterSequences length]] = 0;
   [_crStringByReversingComposedCharacterSequences length];
-  v100 = 0;
+  v96 = 0;
   os_unfair_lock_lock(&self->_lock);
-  v25 = 1;
+  v24 = 1;
   ubidi_setInverse();
   if (baseDirectionality > 1)
   {
@@ -88,21 +88,21 @@ LABEL_6:
     {
       if (baseDirectionality == 3)
       {
-        v25 = -2;
+        v24 = -2;
         goto LABEL_33;
       }
 
 LABEL_15:
-      v26 = CROSLogForCategory(0);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = CROSLogForCategory(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         baseDirectionalityCopy = baseDirectionality;
-        v27 = "BiDi Visual->Logical unsupported base direction: %ld";
-        v28 = v26;
-        v29 = 12;
+        v26 = "BiDi Visual->Logical unsupported base direction: %ld";
+        v27 = v25;
+        v28 = 12;
 LABEL_42:
-        _os_log_impl(&dword_1B40D2000, v28, OS_LOG_TYPE_ERROR, v27, buf, v29);
+        _os_log_impl(&dword_1B40D2000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
         goto LABEL_43;
       }
 
@@ -116,23 +116,23 @@ LABEL_42:
   {
     ubidi_setReorderingMode();
     ubidi_setPara();
-    if (v100 >= 1)
+    if (v96 >= 1)
     {
-      v26 = CROSLogForCategory(0);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = CROSLogForCategory(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v27 = "BiDi Visual->Logical transform failed in ubidi_setPara (base directionality prediction)";
+        v26 = "BiDi Visual->Logical transform failed in ubidi_setPara (base directionality prediction)";
 LABEL_41:
-        v28 = v26;
-        v29 = 2;
+        v27 = v25;
+        v28 = 2;
         goto LABEL_42;
       }
 
 LABEL_43:
 
       os_unfair_lock_unlock(&self->_lock);
-      v42 = 0;
+      v40 = 0;
       goto LABEL_44;
     }
 
@@ -140,38 +140,38 @@ LABEL_43:
     if ([v19 length])
     {
       LODWORD(orderedSet) = ParaLevel;
-      v87 = v16;
+      v83 = v16;
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
       ParaLevel = 0;
       do
       {
-        v33 = [v19 characterAtIndex:v31];
-        if ((v33 - 1611) >= 8u)
+        v32 = [v19 characterAtIndex:v30];
+        if ((v32 - 1611) >= 8u)
         {
-          v34 = vcgt_u16(0x9002B000900030, vadd_s16(vdup_n_s16(v33), 0x19004B0F790F8B0));
-          if ((vmaxv_u16(v34) & 1) != 0 || (v33 & 0xFF00) == 0x600)
+          v33 = vcgt_u16(0x9002B000900030, vadd_s16(vdup_n_s16(v32), 0x19004B0F790F8B0));
+          if ((vmaxv_u16(v33) & 1) != 0 || (v32 & 0xFF00) == 0x600)
           {
             ++ParaLevel;
           }
 
           else
           {
-            v34.i16[0] = v33;
-            v34.i16[1] = v33 & 0xFFDF;
-            v35 = vdup_lane_s16(v34, 0);
-            v35.i16[1] = v33 & 0xFFDF;
-            v32 += vmaxv_u16(vcgt_u16(0x158001F001A0017, vadd_s16(v35, 0xFF08FF28FFBFFF40))) & 1;
+            v33.i16[0] = v32;
+            v33.i16[1] = v32 & 0xFFDF;
+            v34 = vdup_lane_s16(v33, 0);
+            v34.i16[1] = v32 & 0xFFDF;
+            v31 += vmaxv_u16(vcgt_u16(0x158001F001A0017, vadd_s16(v34, 0xFF08FF28FFBFFF40))) & 1;
           }
         }
 
-        ++v31;
+        ++v30;
       }
 
-      while ([v19 length] > v31);
-      v36 = v32;
-      v37 = ParaLevel;
-      v16 = v87;
+      while ([v19 length] > v30);
+      v35 = v31;
+      v36 = ParaLevel;
+      v16 = v83;
       LOBYTE(ParaLevel) = orderedSet;
       if (!mode)
       {
@@ -181,19 +181,19 @@ LABEL_43:
 
     else
     {
-      v37 = 0.0;
       v36 = 0.0;
+      v35 = 0.0;
       if (!mode)
       {
 LABEL_29:
-        if ((ParaLevel & ((v36 / v37) < 0.5)) != 0)
+        if ((ParaLevel & ((v35 / v36) < 0.5)) != 0)
         {
-          v25 = 1;
+          v24 = 1;
         }
 
         else
         {
-          v25 = -1;
+          v24 = -1;
         }
 
         goto LABEL_33;
@@ -203,7 +203,7 @@ LABEL_29:
     if (mode != 1)
     {
 LABEL_32:
-      v25 = -1;
+      v24 = -1;
       goto LABEL_33;
     }
 
@@ -215,39 +215,39 @@ LABEL_32:
     goto LABEL_15;
   }
 
-  v25 = 0;
+  v24 = 0;
 LABEL_33:
   if (direction)
   {
-    *direction = v25;
+    *direction = v24;
   }
 
   ubidi_setReorderingMode();
   ubidi_setPara();
-  if (v100 >= 1)
+  if (v96 >= 1)
   {
-    v26 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v27 = "BiDi Visual->Logical transform failed in ubidi_setPara";
+      v26 = "BiDi Visual->Logical transform failed in ubidi_setPara";
       goto LABEL_41;
     }
 
     goto LABEL_43;
   }
 
-  v38 = [v19 length];
-  MEMORY[0x1EEE9AC00](v38, v39);
-  v41 = v85 - v40;
+  v37 = [v19 length];
+  MEMORY[0x1EEE9AC00](v37);
+  v39 = v81 - v38;
   ubidi_getVisualMap();
-  if (v100 >= 1)
+  if (v96 >= 1)
   {
-    v26 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v27 = "BiDi Visual->Logical transform failed in ubidi_getVisualMap";
+      v26 = "BiDi Visual->Logical transform failed in ubidi_getVisualMap";
       goto LABEL_41;
     }
 
@@ -259,38 +259,38 @@ LABEL_33:
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
   if ([v19 length])
   {
-    v44 = 0;
+    v42 = 0;
     do
     {
-      v45 = [v19 length] + ~*&v41[4 * v44];
-      v46 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v19, "length") + ~*&v41[4 * v44]}];
-      [array2 addObject:v46];
+      v43 = [v19 length] + ~*&v39[4 * v42];
+      v44 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v19, "length") + ~*&v39[4 * v42]}];
+      [array2 addObject:v44];
 
-      if ([v19 characterAtIndex:v45] == 32)
+      if ([v19 characterAtIndex:v43] == 32)
       {
-        v47 = orderedSet;
-        v48 = [orderedSet copy];
-        [array addObject:v48];
+        v45 = orderedSet;
+        v46 = [orderedSet copy];
+        [array addObject:v46];
 
-        [v47 removeAllObjects];
+        [v45 removeAllObjects];
       }
 
       else
       {
-        v49 = [MEMORY[0x1E696AD98] numberWithInteger:v45];
-        [orderedSet addObject:v49];
+        v47 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+        [orderedSet addObject:v47];
       }
 
-      ++v44;
+      ++v42;
     }
 
-    while ([v19 length] > v44);
+    while ([v19 length] > v42);
   }
 
   if ([orderedSet count] || !objc_msgSend(v19, "length"))
   {
-    v50 = [orderedSet mutableCopy];
-    [array addObject:v50];
+    v48 = [orderedSet mutableCopy];
+    [array addObject:v48];
   }
 
   string = [MEMORY[0x1E696AD60] string];
@@ -298,38 +298,38 @@ LABEL_33:
   if (![v19 length])
   {
 LABEL_60:
-    v86 = _crBiDiMirroredCharacterSet;
+    v82 = _crBiDiMirroredCharacterSet;
     [string appendString:v19];
 LABEL_61:
     os_unfair_lock_unlock(&self->_lock);
     string2 = [MEMORY[0x1E696AD60] string];
-    v96 = 0u;
-    v97 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    v55 = array2;
-    v56 = [v55 countByEnumeratingWithState:&v96 objects:v101 count:16];
-    if (v56)
+    v92 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v53 = array2;
+    v54 = [v53 countByEnumeratingWithState:&v92 objects:v97 count:16];
+    if (v54)
     {
-      v57 = v56;
-      v58 = *v97;
+      v55 = v54;
+      v56 = *v93;
       do
       {
-        for (i = 0; i != v57; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v97 != v58)
+          if (*v93 != v56)
           {
-            objc_enumerationMutation(v55);
+            objc_enumerationMutation(v53);
           }
 
-          v60 = [string substringWithRange:{objc_msgSend(*(*(&v96 + 1) + 8 * i), "unsignedIntegerValue"), 1}];
-          [string2 appendString:v60];
+          v58 = [string substringWithRange:{objc_msgSend(*(*(&v92 + 1) + 8 * i), "unsignedIntegerValue"), 1}];
+          [string2 appendString:v58];
         }
 
-        v57 = [v55 countByEnumeratingWithState:&v96 objects:v101 count:16];
+        v55 = [v53 countByEnumeratingWithState:&v92 objects:v97 count:16];
       }
 
-      while (v57);
+      while (v55);
     }
 
     if (directionalityCopy == 2)
@@ -339,79 +339,79 @@ LABEL_61:
 
     else
     {
-      v87 = v16;
-      if ([v55 count])
+      v83 = v16;
+      if ([v53 count])
       {
-        v62 = 0;
+        v60 = 0;
         do
         {
-          v63 = MEMORY[0x1E696AD98];
-          v64 = [v55 count];
-          v65 = [v55 objectAtIndexedSubscript:v62];
-          v66 = [v63 numberWithUnsignedInteger:{v64 + ~objc_msgSend(v65, "unsignedIntegerValue")}];
-          [v55 setObject:v66 atIndexedSubscript:v62];
+          v61 = MEMORY[0x1E696AD98];
+          v62 = [v53 count];
+          v63 = [v53 objectAtIndexedSubscript:v60];
+          v64 = [v61 numberWithUnsignedInteger:{v62 + ~objc_msgSend(v63, "unsignedIntegerValue")}];
+          [v53 setObject:v64 atIndexedSubscript:v60];
 
-          ++v62;
+          ++v60;
         }
 
-        while (v62 < [v55 count]);
+        while (v60 < [v53 count]);
       }
 
       _crStringByReversingComposedCharacterSequences2 = [string _crStringByReversingComposedCharacterSequences];
-      v16 = v87;
+      v16 = v83;
     }
 
-    v67 = permutationCopy;
-    _crBiDiMirroredCharacterSet = v86;
+    v65 = permutationCopy;
+    _crBiDiMirroredCharacterSet = v82;
     if (permutationCopy)
     {
-      v68 = v55;
-      *v67 = v55;
+      v66 = v53;
+      *v65 = v53;
     }
 
-    v69 = indexesCopy;
+    v67 = indexesCopy;
     if (indexesCopy)
     {
-      *v69 = [array copy];
+      *v67 = [array copy];
     }
 
-    v70 = stringCopy;
+    v68 = stringCopy;
     if (stringCopy)
     {
-      *v70 = [_crStringByReversingComposedCharacterSequences2 copy];
+      *v68 = [_crStringByReversingComposedCharacterSequences2 copy];
     }
 
-    v42 = [string2 copy];
+    v40 = [string2 copy];
 
     goto LABEL_89;
   }
 
-  v53 = 0;
-  while (![_crBiDiMirroredCharacterSet characterIsMember:{objc_msgSend(v19, "characterAtIndex:", v53)}])
+  v51 = 0;
+  while (![_crBiDiMirroredCharacterSet characterIsMember:{objc_msgSend(v19, "characterAtIndex:", v51)}])
   {
-    if (++v53 >= [v19 length])
+    if (++v51 >= [v19 length])
     {
       goto LABEL_60;
     }
   }
 
-  v71 = [_crStringByReversingComposedCharacterSequences length];
-  v85[1] = v85;
-  *&v73 = MEMORY[0x1EEE9AC00](v71, v72).n128_u64[0];
-  v75 = v85 - v74;
-  v76 = [v19 length];
-  MEMORY[0x1EEE9AC00](v76, v77);
-  v79 = v85 - v78;
+  v69 = [_crStringByReversingComposedCharacterSequences length];
+  v81[1] = v81;
+  *&v70 = MEMORY[0x1EEE9AC00](v69).n128_u64[0];
+  v72 = v81 - v71;
+  v73 = [v19 length];
+  MEMORY[0x1EEE9AC00](v73);
+  v75 = v81 - v74;
   ubidi_writeReordered();
-  if (v100 >= 1)
+  if (v96 >= 1)
   {
-    v80 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    v76 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v81 = "BiDi Visual->Logical transform failed in ubidi_writeReordered";
+      v77 = "BiDi Visual->Logical transform failed in ubidi_writeReordered";
 LABEL_87:
-      _os_log_impl(&dword_1B40D2000, v80, OS_LOG_TYPE_ERROR, v81, buf, 2u);
+      _os_log_impl(&dword_1B40D2000, v76, OS_LOG_TYPE_ERROR, v77, buf, 2u);
       goto LABEL_88;
     }
 
@@ -419,48 +419,48 @@ LABEL_87:
   }
 
   ubidi_getLogicalMap();
-  if (v100 <= 0)
+  if (v96 <= 0)
   {
-    v86 = _crBiDiMirroredCharacterSet;
-    v87 = v16;
+    v82 = _crBiDiMirroredCharacterSet;
+    v83 = v16;
     if ([v19 length])
     {
-      v82 = 0;
-      v83 = v79 - 4;
+      v78 = 0;
+      v79 = v75 - 4;
       do
       {
-        *buf = *&v75[2 * *&v83[4 * [v19 length]]];
-        v84 = [MEMORY[0x1E696AEC0] stringWithCharacters:buf length:1];
-        [string appendString:v84];
+        *buf = *&v72[2 * *&v79[4 * [v19 length]]];
+        v80 = [MEMORY[0x1E696AEC0] stringWithCharacters:buf length:1];
+        [string appendString:v80];
 
-        ++v82;
-        v83 -= 4;
+        ++v78;
+        v79 -= 4;
       }
 
-      while (v82 < [v19 length]);
+      while (v78 < [v19 length]);
     }
 
-    v16 = v87;
+    v16 = v83;
     goto LABEL_61;
   }
 
-  v80 = CROSLogForCategory(0);
-  if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+  v76 = CROSLogForCategory(0);
+  if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    v81 = "BiDi Visual->Logical transform failed in ubidi_getLogicalMap";
+    v77 = "BiDi Visual->Logical transform failed in ubidi_getLogicalMap";
     goto LABEL_87;
   }
 
 LABEL_88:
 
   os_unfair_lock_unlock(&self->_lock);
-  v42 = 0;
+  v40 = 0;
 LABEL_89:
 
 LABEL_44:
 
-  return v42;
+  return v40;
 }
 
 + (unint64_t)layoutDirectionForVisualString:(id)string visualDirectionality:(unint64_t)directionality logicalBaseDirection:(int)direction

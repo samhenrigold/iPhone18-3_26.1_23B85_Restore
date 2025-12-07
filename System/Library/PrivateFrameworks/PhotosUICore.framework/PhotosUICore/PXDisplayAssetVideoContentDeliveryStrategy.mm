@@ -54,7 +54,7 @@
   }
 
   v5 = off_1E772C750[quality];
-  [(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange];
+  objc_msgSend_segmentTimeRange(self);
   v6 = PXCMTimeRangeDescription(v18);
   if ([(PXDisplayAssetVideoContentDeliveryStrategy *)self isStreamingAllowed])
   {
@@ -98,8 +98,8 @@
 
 - (NSString)identifier
 {
-  [(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange];
-  if ((v11 & 1) == 0 || ([(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange], (v10 & 1) == 0) || ([(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange], v9) || ([(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange], v8 < 0))
+  objc_msgSend_segmentTimeRange(self, a2);
+  if ((v11 & 1) == 0 || (objc_msgSend_segmentTimeRange(self), (v10 & 1) == 0) || (objc_msgSend_segmentTimeRange(self), v9) || (objc_msgSend_segmentTimeRange(self), v8 < 0))
   {
     v3 = @"All";
   }
@@ -107,7 +107,7 @@
   else
   {
     v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-    [(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange];
+    objc_msgSend_segmentTimeRange(self);
     v6 = PXCMTimeRangeDescription(v7);
     v3 = [v5 initWithFormat:@"%@", v6];
   }
@@ -118,7 +118,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  [(PXDisplayAssetVideoContentDeliveryStrategy *)self segmentTimeRange];
+  objc_msgSend_segmentTimeRange(self);
   v6[0] = v6[3];
   v6[1] = v6[4];
   v6[2] = v6[5];

@@ -39,31 +39,31 @@
 
 - (float)getTrimmedMean
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v4 = self->_values;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addObjectsFromArray:*(*(&v27 + 1) + 8 * i)];
+        [v3 addObjectsFromArray:*(*(&v26 + 1) + 8 * i)];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v6);
@@ -78,31 +78,31 @@
 
   if ([v3 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = v3;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       v16 = 0.0;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v23 + 1) + 8 * j) doubleValue];
+          [*(*(&v22 + 1) + 8 * j) doubleValue];
           v16 = v16 + v18;
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v14);
@@ -122,7 +122,6 @@
     v20 = 0.0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

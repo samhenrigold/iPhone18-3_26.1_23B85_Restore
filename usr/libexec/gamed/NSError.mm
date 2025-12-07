@@ -28,12 +28,11 @@
 + (id)_gkErrorForDatabase:(sqlite3 *)database
 {
   nSLocalizedDescriptionKey = [NSString stringWithFormat:@"sqlite3 error: %s", sqlite3_errmsg(database), NSLocalizedDescriptionKey];
-  v9 = nSLocalizedDescriptionKey;
-  v5 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  v6 = [[NSError alloc] initWithDomain:@"GKDatabaseErrorDomain" code:sqlite3_errcode(database) userInfo:v5];
+  v5 = [[NSError alloc] initWithDomain:@"GKDatabaseErrorDomain" code:sqlite3_errcode(database) userInfo:v4];
 
-  return v6;
+  return v5;
 }
 
 - (NSError)serializableError

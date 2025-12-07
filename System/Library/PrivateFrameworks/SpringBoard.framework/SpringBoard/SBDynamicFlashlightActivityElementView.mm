@@ -165,7 +165,7 @@ void __58__SBDynamicFlashlightActivityElementView__setupBeamState___block_invoke
     BSRectGetCenter();
     v13 = v12;
     v15 = v14;
-    [(CALayer *)self->_sensorShadowLayer frame];
+    objc_msgSend_frame(self->_sensorShadowLayer);
     sensorShadowLayer = self->_sensorShadowLayer;
 
     [(CALayer *)sensorShadowLayer setPosition:v13, v15 + v16 * 0.5];
@@ -175,7 +175,7 @@ void __58__SBDynamicFlashlightActivityElementView__setupBeamState___block_invoke
 - (void)setExpanded:(BOOL)expanded intensity:(double)intensity width:(double)width
 {
   expandedCopy = expanded;
-  v9 = SBLogFlashlightHUD();
+  v9 = SBLogFlashlightHUD(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SBDynamicFlashlightActivityElementView setExpanded:intensity:width:];
@@ -199,7 +199,7 @@ void __58__SBDynamicFlashlightActivityElementView__setupBeamState___block_invoke
   [(SBDynamicFlashlightActivityElementPackageLayerController *)self->_layerManager setBeamIntensity:0 width:intensity animated:width];
   [MEMORY[0x277CD9FF0] begin];
   v7 = [(SBDynamicFlashlightActivityElementView *)self _flashlightStateForWidth:width intensity:intensity];
-  v8 = SBLogFlashlightHUD();
+  v8 = SBLogFlashlightHUD(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SBDynamicFlashlightActivityElementView _transitionToExpandedStateWithIntensity:width:];
@@ -248,10 +248,11 @@ __n128 __55__SBDynamicFlashlightActivityElementView_setBeamState___block_invoke(
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setDisableActions:1];
   v6 = [(SBDynamicFlashlightActivityElementView *)self _flashlightStateForWidth:v4 intensity:v5];
-  if (([v6 isEqualToString:self->_packageState] & 1) == 0)
+  v7 = [v6 isEqualToString:self->_packageState];
+  if ((v7 & 1) == 0)
   {
-    v7 = SBLogFlashlightHUD();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SBLogFlashlightHUD(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [SBDynamicFlashlightActivityElementView _transitionToExpandedStateWithIntensity:width:];
     }
@@ -288,7 +289,7 @@ __n128 __55__SBDynamicFlashlightActivityElementView_setBeamState___block_invoke(
 
 - (void)setTouching:(BOOL)touching
 {
-  v5 = SBLogFlashlightHUD();
+  v5 = SBLogFlashlightHUD(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBDynamicFlashlightActivityElementView setTouching:];

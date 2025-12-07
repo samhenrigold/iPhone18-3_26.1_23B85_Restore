@@ -17,38 +17,36 @@
 
 + (id)normalizePhoneNumber:(id)number
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v5 = DNDLogModeConfiguration;
   if (os_log_type_enabled(DNDLogModeConfiguration, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543619;
+    v15 = 138543619;
     selfCopy = self;
-    v19 = 2113;
-    v20 = numberCopy;
-    _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ normalizing phonenumber %{private}@", &v17, 0x16u);
+    v17 = 2113;
+    v18 = numberCopy;
+    _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ normalizing phonenumber %{private}@", &v15, 0x16u);
   }
 
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v7 = [currentLocale objectForKey:*MEMORY[0x277CBE690]];
 
-  v8 = *MEMORY[0x277CBECE8];
-  v9 = CFPhoneNumberCreate();
-  if (!v9 || (v10 = v9, String = CFPhoneNumberCreateString(), CFRelease(v10), (v12 = String) == 0))
+  v8 = CFPhoneNumberCreate();
+  if (!v8 || (v9 = v8, String = CFPhoneNumberCreateString(), CFRelease(v9), (v11 = String) == 0))
   {
-    v13 = DNDLogModeConfiguration;
+    v12 = DNDLogModeConfiguration;
     if (os_log_type_enabled(DNDLogModeConfiguration, OS_LOG_TYPE_ERROR))
     {
-      [(DNDContact *)self normalizePhoneNumber:numberCopy, v13];
+      [(DNDContact *)self normalizePhoneNumber:numberCopy, v12];
     }
 
-    v12 = 0;
+    v11 = 0;
     String = numberCopy;
   }
 
-  v14 = String;
+  v13 = String;
 
-  v15 = *MEMORY[0x277D85DE8];
   return String;
 }
 
@@ -994,38 +992,36 @@ LABEL_126:
 
 - (id)normalizedPhoneNumbers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_phoneNumbers;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [DNDContact normalizePhoneNumber:*(*(&v12 + 1) + 8 * i), v12];
+        v9 = [DNDContact normalizePhoneNumber:*(*(&v11 + 1) + 8 * i), v11];
         [v3 addObject:v9];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1523,7 +1519,6 @@ LABEL_98:
 
   else
   {
-    v16 = *&self->_middleName;
     v15 = [v5 stringWithFormat:@"<%@: %p contactIdentifier: %@; firstName: %@; middleName: %@; lastName: %@; nickName: %@; organizationName: %@; phoneNumbers: %@; emailAddresses: %@;>", v6, self, contactIdentifier, firstName, self->_middleName, self->_lastName, self->_nickName, self->_organizationName, self->_phoneNumbers, self->_emailAddresses];;
   }
 
@@ -1532,39 +1527,37 @@ LABEL_98:
 
 - (id)_redactedDescriptionsForStrings:(id)strings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = stringsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        dnd_privacyObfuscatedString = [*(*(&v13 + 1) + 8 * i) dnd_privacyObfuscatedString];
+        dnd_privacyObfuscatedString = [*(*(&v12 + 1) + 8 * i) dnd_privacyObfuscatedString];
         [v4 addObject:dnd_privacyObfuscatedString];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1654,13 +1647,12 @@ LABEL_98:
 
 + (void)normalizePhoneNumber:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543619;
-  v5 = a1;
-  v6 = 2113;
-  v7 = a2;
-  _os_log_error_impl(&dword_22002F000, log, OS_LOG_TYPE_ERROR, "%{public}@ couldnt normalize phonenumber %{private}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543619;
+  v4 = a1;
+  v5 = 2113;
+  v6 = a2;
+  _os_log_error_impl(&dword_22002F000, log, OS_LOG_TYPE_ERROR, "%{public}@ couldnt normalize phonenumber %{private}@", &v3, 0x16u);
 }
 
 @end

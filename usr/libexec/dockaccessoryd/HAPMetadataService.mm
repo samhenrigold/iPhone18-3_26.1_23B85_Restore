@@ -240,7 +240,7 @@
 
 - (void)dump
 {
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(0);
@@ -260,7 +260,7 @@
 
   if ([(HAPMetadataService *)self allowAssociatedService])
   {
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = sub_10007FAFC(0);
@@ -278,7 +278,7 @@
 
   if (v12)
   {
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = sub_10007FAFC(0);
@@ -308,7 +308,7 @@
           }
 
           v20 = *(*(&v46 + 1) + 8 * i);
-          v21 = sub_10007FAA0();
+          v21 = sub_10007FAA0(0);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             v22 = sub_10007FAFC(0);
@@ -341,7 +341,7 @@
 
   if (v27)
   {
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = sub_10007FAFC(0);
@@ -370,7 +370,7 @@
           }
 
           v35 = *(*(&v42 + 1) + 8 * j);
-          v36 = sub_10007FAA0();
+          v36 = sub_10007FAA0(0);
           if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
             v37 = sub_10007FAFC(0);

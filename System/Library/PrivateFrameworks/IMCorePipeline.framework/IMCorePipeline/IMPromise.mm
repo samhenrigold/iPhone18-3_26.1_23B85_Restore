@@ -44,39 +44,38 @@
 
 - (void)fullfillWithValue:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = [[IMResult alloc] initWithSuccess:valueCopy];
   result = self->_result;
   self->_result = v5;
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = self->_completionBlocks;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = self->_result;
-        (*(*(*(&v15 + 1) + 8 * v11) + 16))(*(*(&v15 + 1) + 8 * v11));
+        (*(*(*(&v13 + 1) + 8 * v11) + 16))(*(*(&v13 + 1) + 8 * v11));
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -84,45 +83,42 @@
 
   completionBlocks = self->_completionBlocks;
   self->_completionBlocks = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [[IMResult alloc] initWithError:errorCopy];
   result = self->_result;
   self->_result = v5;
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = self->_completionBlocks;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = self->_result;
-        (*(*(*(&v15 + 1) + 8 * v11) + 16))(*(*(&v15 + 1) + 8 * v11));
+        (*(*(*(&v13 + 1) + 8 * v11) + 16))(*(*(&v13 + 1) + 8 * v11));
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -130,8 +126,6 @@
 
   completionBlocks = self->_completionBlocks;
   self->_completionBlocks = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerCompletionBlock:(id)block

@@ -27,18 +27,18 @@
   return v3;
 }
 
-void __39__FMFSessionDataManager_sharedInstance__block_invoke()
+void __39__FMFSessionDataManager_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = LogCategory_Daemon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = LogCategory_Daemon(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_24A33F000, v0, OS_LOG_TYPE_INFO, "Creating shared instance of FMFSessionDataManager", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_INFO, "Creating shared instance of FMFSessionDataManager", v5, 2u);
   }
 
-  v1 = objc_alloc_init(FMFSessionDataManager);
-  v2 = sharedInstance__instance_0;
-  sharedInstance__instance_0 = v1;
+  v3 = objc_alloc_init(FMFSessionDataManager);
+  v4 = sharedInstance__instance_0;
+  sharedInstance__instance_0 = v3;
 }
 
 - (void)setLocations:(id)locations
@@ -78,11 +78,11 @@ void __39__FMFSessionDataManager_sharedInstance__block_invoke()
 
         if (!serverId)
         {
-          v18 = LogCategory_Daemon();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = LogCategory_Daemon(v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             handle2 = [v14 handle];
-            [(FMFSessionDataManager *)handle2 setLocations:buf, v18];
+            [(FMFSessionDataManager *)handle2 setLocations:buf, v19];
           }
 
           goto LABEL_16;
@@ -120,7 +120,6 @@ LABEL_16:
   selfCopy->_locations = v6;
 
   objc_sync_exit(selfCopy);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFollowers:(id)followers
@@ -216,7 +215,7 @@ LABEL_16:
 
   else
   {
-    v15 = LogCategory_Daemon();
+    v15 = LogCategory_Daemon(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(FMFSessionDataManager *)handleCopy locationForHandle:v15];
@@ -306,11 +305,10 @@ LABEL_16:
 
 - (void)locationForHandle:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Faild cached location lookup. Missing serverId. %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Faild cached location lookup. Missing serverId. %@", &v2, 0xCu);
 }
 
 @end

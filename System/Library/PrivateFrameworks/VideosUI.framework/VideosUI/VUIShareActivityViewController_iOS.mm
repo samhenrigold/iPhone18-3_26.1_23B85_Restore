@@ -76,7 +76,7 @@
     v30 = [MEMORY[0x1E695DF70] arrayWithObject:{*MEMORY[0x1E69CDA70], viewCopy}];
     v53 = [metadataCopy vui_stringForKey:@"sharedWatchId"];
     v52 = [metadataCopy vui_URLForKey:@"sharedWatchUrl"];
-    v31 = VUIDefaultLogObject();
+    v31 = VUIDefaultLogObject(v52);
     v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
     v50 = handlerCopy;
     v51 = strCopy;
@@ -95,7 +95,7 @@
       {
         v35 = v30;
         v36 = v28;
-        v37 = VUIDefaultLogObject();
+        v37 = VUIDefaultLogObject(0);
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;

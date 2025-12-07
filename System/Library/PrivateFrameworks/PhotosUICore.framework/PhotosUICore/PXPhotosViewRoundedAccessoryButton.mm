@@ -34,7 +34,7 @@
 - (CGPoint)menuAttachmentPointForConfiguration:(id)configuration
 {
   v18.receiver = self;
-  v18.super_class = type metadata accessor for PhotosViewRoundedAccessoryButton();
+  v18.super_class = type metadata accessor for PhotosViewRoundedAccessoryButton(self, a2);
   configurationCopy = configuration;
   v5 = v18.receiver;
   v6 = [(PXPhotosViewRoundedAccessoryButton *)&v18 menuAttachmentPointForConfiguration:configurationCopy];
@@ -70,7 +70,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A4113D98();
+  sub_1A4113D98(selfCopy, v2);
 }
 
 - (PXPhotosViewRoundedAccessoryButton)initWithFrame:(CGRect)frame
@@ -83,7 +83,7 @@
   *v8 = 0;
   v8[1] = 0;
   v9 = (&self->super.super.super.super.super.isa + OBJC_IVAR___PXPhotosViewRoundedAccessoryButton_menuOffset);
-  v10 = type metadata accessor for PhotosViewRoundedAccessoryButton();
+  v10 = type metadata accessor for PhotosViewRoundedAccessoryButton(self, a2);
   *v9 = 0;
   v9[1] = 0;
   v12.receiver = self;
@@ -100,7 +100,7 @@
   *v5 = 0;
   v5[1] = 0;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for PhotosViewRoundedAccessoryButton();
+  v9.super_class = type metadata accessor for PhotosViewRoundedAccessoryButton(self, a2);
   coderCopy = coder;
   v7 = [(PXPhotosViewRoundedAccessoryButton *)&v9 initWithCoder:coderCopy];
 

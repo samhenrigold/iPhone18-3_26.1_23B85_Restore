@@ -32,7 +32,7 @@
   v6 = +[TUIOfflineCache provider];
   if (!v6)
   {
-    v7 = TUIDefaultLog();
+    v7 = TUIDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_19A400(v7);
@@ -151,10 +151,10 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v17 = TUIInstallBundleLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = TUIInstallBundleLog(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_19A444(lCopy, v17);
+        sub_19A444(lCopy, v18);
       }
 
       data2 = [NSError errorWithDomain:@"TUIErrorDomain" code:401 userInfo:0];
@@ -165,14 +165,14 @@ LABEL_14:
   }
 
   session = self->_session;
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_91724;
-  v18[3] = &unk_260840;
-  v18[4] = self;
-  v19 = lCopy;
-  v20 = completionCopy;
-  v13 = [(NSURLSession *)session dataTaskWithURL:v19 completionHandler:v18];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_91724;
+  v19[3] = &unk_260840;
+  v19[4] = self;
+  v20 = lCopy;
+  v21 = completionCopy;
+  v13 = [(NSURLSession *)session dataTaskWithURL:v20 completionHandler:v19];
   *&v14 = NSURLSessionTaskPriorityHigh;
   [v13 setPriority:v14];
   [v13 resume];

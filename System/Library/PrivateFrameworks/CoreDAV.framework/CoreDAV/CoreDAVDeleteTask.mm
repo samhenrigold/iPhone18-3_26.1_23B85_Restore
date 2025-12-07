@@ -41,7 +41,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -115,8 +115,8 @@ LABEL_16:
         {
           *buf = 138543618;
           selfCopy = objc_opt_class();
-          v26 = 2112;
-          v27 = v5;
+          v25 = 2112;
+          v26 = v5;
           v10 = selfCopy;
           v11 = "%{public}@ failed: %@";
           v12 = v9;
@@ -141,11 +141,9 @@ LABEL_17:
     [(CoreDAVTask *)self setDelegate:0];
   }
 
-  v23.receiver = self;
-  v23.super_class = CoreDAVDeleteTask;
-  [(CoreDAVTask *)&v23 finishCoreDAVTaskWithError:v5];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = CoreDAVDeleteTask;
+  [(CoreDAVTask *)&v22 finishCoreDAVTaskWithError:v5];
 }
 
 @end

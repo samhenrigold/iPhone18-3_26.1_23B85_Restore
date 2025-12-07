@@ -365,20 +365,21 @@
 
 - (void)_sortAndEvaluateKeyWindowSceneInStackIgnoringOldKeyWindowScene:(void *)scene forReason:
 {
-  if (self)
+  if (result)
   {
-    if ([*(self + 8) count] >= 2)
+    v4 = a2;
+    if ([*(result + 8) count] >= 2)
     {
-      v6 = *(self + 16);
+      v6 = *(result + 16);
       v7[0] = MEMORY[0x1E69E9820];
       v7[1] = 3221225472;
       v7[2] = __99___UIKeyWindowSceneStack__sortAndEvaluateKeyWindowSceneInStackIgnoringOldKeyWindowScene_forReason___block_invoke;
       v7[3] = &unk_1E70F39C0;
-      v7[4] = self;
+      v7[4] = result;
       [v6 sortWithOptions:16 usingComparator:v7];
     }
 
-    [(_UIKeyWindowSceneStack *)self _evaluateKeyWindowSceneInStackIgnoringOldKeyWindowScene:a2 forReason:scene];
+    [(_UIKeyWindowSceneStack *)result _evaluateKeyWindowSceneInStackIgnoringOldKeyWindowScene:v4 forReason:scene];
   }
 }
 

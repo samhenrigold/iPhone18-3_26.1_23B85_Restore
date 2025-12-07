@@ -1,6 +1,7 @@
 @interface PSAppDataUsagePolicySwitchSpecifier
 - (PSAppDataUsagePolicySwitchSpecifier)initWithBundleID:(id)d displayName:(id)name statisticsCache:(id)cache;
 - (id)usagePolicy;
+- (void)setShouldShowUsage:(BOOL)usage;
 - (void)setUsagePolicy:(id)policy;
 @end
 
@@ -21,6 +22,24 @@
   }
 
   return v11;
+}
+
+- (void)setShouldShowUsage:(BOOL)usage
+{
+  usageCopy = usage;
+  if (usage)
+  {
+    [(PSAppDataUsagePolicySwitchSpecifier *)self setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+  }
+
+  else
+  {
+    [(PSAppDataUsagePolicySwitchSpecifier *)self removePropertyForKey:*MEMORY[0x277D3FE58]];
+  }
+
+  v5.receiver = self;
+  v5.super_class = PSAppDataUsagePolicySwitchSpecifier;
+  [(PSAppCellularUsageSpecifier *)&v5 setShouldShowUsage:usageCopy];
 }
 
 - (id)usagePolicy

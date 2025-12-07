@@ -28,11 +28,11 @@
 
 - (void)exteriorConditionsService:(id)service didUpdateTemperature:(id)temperature
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C40);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C40, &qword_24839F1E8);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v19 - v8;
-  sub_24814FB28(0, &qword_27EE91C48);
+  sub_24814FB28(0, &qword_27EE91C48, 0x277CCAE48);
   sub_248380FC0();
   v10 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x78);
   serviceCopy = service;
@@ -61,20 +61,20 @@
 
 - (void)exteriorConditionsService:(id)service didUpdateAqi:(id)aqi
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C28);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C28, &qword_24839F1D8);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v21 - v8;
   if (aqi)
   {
-    sub_24814FB28(0, &qword_27EE91C38);
+    sub_24814FB28(0, &qword_27EE91C38, 0x277CF8760);
     sub_248380FC0();
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C30);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C30, &qword_24839F1E0);
     (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C30);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91C30, &qword_24839F1E0);
     (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
@@ -98,7 +98,7 @@
   {
   }
 
-  sub_24822D578(v9, &qword_27EE91C28);
+  sub_24822D578(v9, &qword_27EE91C28, &qword_24839F1D8);
 }
 
 - (void)currentUserStatusService:(id)service didUpdateImage:(id)image
@@ -135,19 +135,19 @@
 - (void)statusItemService:(id)service didUpdateName:(id)name
 {
   selfCopy = self;
-  sub_2482A5EF0();
+  sub_2482A5EF0(v4);
 }
 
 - (void)automakerStatusItemService:(id)service didUpdateSortOrder:(unsigned __int8)order
 {
   selfCopy = self;
-  sub_2482A5EF0();
+  sub_2482A5EF0(v4);
 }
 
 - (void)automakerStatusItemService:(id)service didUpdateHidden:(BOOL)hidden
 {
   selfCopy = self;
-  sub_2482A5EF0();
+  sub_2482A5EF0(v4);
 }
 
 @end

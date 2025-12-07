@@ -360,7 +360,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((*&has & 8) != 0)
@@ -608,29 +608,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_networksExcludedFromAJDueToThresholds count])
   {
     v6 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_networksExcludedFromAJDueToThresholds, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     networksExcludedFromAJDueToThresholds = self->_networksExcludedFromAJDueToThresholds;
-    v8 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(networksExcludedFromAJDueToThresholds);
           }
 
-          [v6 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v6 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v9 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -644,17 +644,15 @@ LABEL_22:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_bandExclusionReason), @"bandExclusionReason"}];
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 1) == 0)
@@ -674,7 +672,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  beganTimestamp = self->_beganTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -689,7 +686,6 @@ LABEL_4:
   }
 
 LABEL_37:
-  endedTimestamp = self->_endedTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -704,7 +700,6 @@ LABEL_5:
   }
 
 LABEL_38:
-  wakeTimestamp = self->_wakeTimestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -719,7 +714,6 @@ LABEL_6:
   }
 
 LABEL_39:
-  enteredKnownNetworkGeotagLocationTimeStamp = self->_enteredKnownNetworkGeotagLocationTimeStamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -734,39 +728,35 @@ LABEL_7:
   }
 
 LABEL_40:
-  state = self->_state;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_8:
-    retryIndex = self->_retryIndex;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_9:
   if (self->_scannedNetworksExcludedFromAJDueToBlacklistReasonCounts.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_scannedNetworksExcludedFromAJDueToBlacklistReasonCounts.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_scannedNetworksExcludedFromAJDueToBlacklistReasonCounts.count);
+    while (v5 < self->_scannedNetworksExcludedFromAJDueToBlacklistReasonCounts.count);
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x40000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40000) != 0)
   {
-    scanTypes = self->_scanTypes;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
-    if ((*&v8 & 0x800) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x800) == 0)
     {
 LABEL_14:
-      if ((*&v8 & 0x4000) == 0)
+      if ((*&v6 & 0x4000) == 0)
       {
         goto LABEL_15;
       }
@@ -775,18 +765,17 @@ LABEL_14:
     }
   }
 
-  else if ((*&v8 & 0x800) == 0)
+  else if ((*&v6 & 0x800) == 0)
   {
     goto LABEL_14;
   }
 
-  lastScanType = self->_lastScanType;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_15:
-    if ((*&v8 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_16;
     }
@@ -795,13 +784,12 @@ LABEL_15:
   }
 
 LABEL_44:
-  resetTypes = self->_resetTypes;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_16:
-    if ((*&v8 & 0x20000) == 0)
+    if ((*&v6 & 0x20000) == 0)
     {
       goto LABEL_17;
     }
@@ -810,13 +798,12 @@ LABEL_16:
   }
 
 LABEL_45:
-  resetReason = self->_resetReason;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x20000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20000) == 0)
   {
 LABEL_17:
-    if ((*&v8 & 0x200) == 0)
+    if ((*&v6 & 0x200) == 0)
     {
       goto LABEL_18;
     }
@@ -825,13 +812,12 @@ LABEL_17:
   }
 
 LABEL_46:
-  scanResultFound = self->_scanResultFound;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x200) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_18:
-    if ((*&v8 & 0x400) == 0)
+    if ((*&v6 & 0x400) == 0)
     {
       goto LABEL_19;
     }
@@ -840,13 +826,12 @@ LABEL_18:
   }
 
 LABEL_47:
-  knownNetworksFoundInScans = self->_knownNetworksFoundInScans;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x400) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400) == 0)
   {
 LABEL_19:
-    if ((*&v8 & 0x10000) == 0)
+    if ((*&v6 & 0x10000) == 0)
     {
       goto LABEL_20;
     }
@@ -855,13 +840,12 @@ LABEL_19:
   }
 
 LABEL_48:
-  lastScanError = self->_lastScanError;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x10000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) == 0)
   {
 LABEL_20:
-    if ((*&v8 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_21;
     }
@@ -870,13 +854,12 @@ LABEL_20:
   }
 
 LABEL_49:
-  rssiBitmap = self->_rssiBitmap;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x100) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_21:
-    if ((*&v8 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_22;
     }
@@ -885,13 +868,12 @@ LABEL_21:
   }
 
 LABEL_50:
-  ccaBitmap = self->_ccaBitmap;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x40) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_22:
-    if ((*&v8 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_23;
     }
@@ -900,13 +882,12 @@ LABEL_22:
   }
 
 LABEL_51:
-  bandScanCount24 = self->_bandScanCount24;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x80) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_23:
-    if ((*&v8 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_25;
     }
@@ -915,52 +896,46 @@ LABEL_23:
   }
 
 LABEL_52:
-  bandScanCount5 = self->_bandScanCount5;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_24:
-    nwExclusionCount = self->_nwExclusionCount;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_25:
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   networksExcludedFromAJDueToThresholds = self->_networksExcludedFromAJDueToThresholds;
-  v11 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v11)
+  v8 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v36;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v13)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(networksExcludedFromAJDueToThresholds);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v12 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v9 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    bandExclusionReason = self->_bandExclusionReason;
     PBDataWriterWriteUint32Field();
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1263,7 +1238,7 @@ LABEL_26:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1528,30 +1503,30 @@ LABEL_21:
   }
 
 LABEL_22:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   networksExcludedFromAJDueToThresholds = self->_networksExcludedFromAJDueToThresholds;
-  v10 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(networksExcludedFromAJDueToThresholds);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
         [v6 addNetworksExcludedFromAJDueToThresholds:v14];
       }
 
-      v11 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSMutableArray *)networksExcludedFromAJDueToThresholds countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -1563,7 +1538,6 @@ LABEL_22:
     v6[36] |= 0x20u;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -2132,7 +2106,7 @@ LABEL_41:
 
 - (void)mergeFrom:(id)from
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = *(from + 36);
   if ((v5 & 8) != 0)
   {
@@ -2404,29 +2378,29 @@ LABEL_24:
   }
 
 LABEL_25:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = *(from + 13);
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(AWDWiFiMetricsManagerAutoJoinRecord *)self addNetworksExcludedFromAJDueToThresholds:*(*(&v16 + 1) + 8 * j)];
+        [(AWDWiFiMetricsManagerAutoJoinRecord *)self addNetworksExcludedFromAJDueToThresholds:*(*(&v15 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
@@ -2437,8 +2411,6 @@ LABEL_25:
     self->_bandExclusionReason = *(from + 18);
     *&self->_has |= 0x20u;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 @end

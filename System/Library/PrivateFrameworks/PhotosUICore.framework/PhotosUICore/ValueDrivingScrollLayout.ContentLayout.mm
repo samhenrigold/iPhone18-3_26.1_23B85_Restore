@@ -2,6 +2,7 @@
 - (NSIndexSet)axSpriteIndexes;
 - (void)referenceSizeDidChange;
 - (void)update;
+- (void)updateContent;
 - (void)visibleRectDidChange;
 @end
 
@@ -62,6 +63,13 @@
   (*(v3 + 8))(v5, v2);
 
   return v6;
+}
+
+- (void)updateContent
+{
+  v3[2] = self;
+  selfCopy = self;
+  PXGLayout.configureSprites(_:)(sub_1A43F23F4, v3);
 }
 
 @end

@@ -1,30 +1,3 @@
-id MakeMTLHeapDescriptor(uint64_t a1)
-{
-  v2 = objc_alloc_init(MTLHeapDescriptor);
-  [v2 setSize:*(a1 + 8)];
-  if (objc_opt_respondsToSelector())
-  {
-    [v2 setType:*(a1 + 20)];
-  }
-
-  if (objc_opt_respondsToSelector())
-  {
-    [v2 setResourceOptions:*(a1 + 16)];
-  }
-
-  if (objc_opt_respondsToSelector())
-  {
-    [v2 setSparsePageSize:*(a1 + 19)];
-  }
-
-  if (objc_opt_respondsToSelector())
-  {
-    [v2 setMaxCompatiblePlacementSparsePageSize:*(a1 + 18)];
-  }
-
-  return v2;
-}
-
 id MakeMTLHeapDescriptorWithBufferPinning(void *a1)
 {
   v2 = MakeMTLHeapDescriptor(a1);
@@ -443,7 +416,7 @@ id MakeNestedMTLStageInputOutputDescriptor(void *a1, uint64_t a2)
   return v3;
 }
 
-uint64_t TranslateGTMTLComputePipelineDescriptorAuto(void *a1, void *a2, int a3)
+uint64_t TranslateGTMTLComputePipelineDescriptorAuto(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2[39];
@@ -755,7 +728,7 @@ id MakeNestedMTLTileRenderPipelineColorAttachmentDescriptor(void *a1, unsigned _
   return v3;
 }
 
-uint64_t TranslateGTMTLTileRenderPipelineDescriptor(void *a1, void *a2, int a3)
+uint64_t TranslateGTMTLTileRenderPipelineDescriptor(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2[29];
@@ -1153,8 +1126,9 @@ id MakeMTLVisibleFunctionTableDescriptorWithResourceIndex(void *a1)
   return v2;
 }
 
-uint64_t TranslateGTMTLFunctionDescriptor(void *a1, void *a2, void *a3, int a4)
+uint64_t TranslateGTMTLFunctionDescriptor(void *a1, void *a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a1;
   v8 = a2;
   v9 = a3[10];
@@ -1186,7 +1160,7 @@ uint64_t TranslateGTMTLFunctionDescriptor(void *a1, void *a2, void *a3, int a4)
   v18 = 0;
 LABEL_6:
   *v15 = v16 + v17;
-  if (a4)
+  if (v4)
   {
     memcpy(v18, v13, v17);
   }
@@ -1217,7 +1191,7 @@ LABEL_6:
   v26 = 0;
 LABEL_13:
   *v23 = v24 + v25;
-  if (a4)
+  if (v4)
   {
     memcpy(v26, v21, v25);
   }
@@ -1228,7 +1202,7 @@ LABEL_13:
   {
     v28 = a3[59];
     v29 = [v10 constantValues];
-    TranslateGTMTLFunctionConstantValues(v29, v8, a3, a4);
+    TranslateGTMTLFunctionConstantValues(v29, v8, a3, v4);
   }
 
   else
@@ -1237,9 +1211,9 @@ LABEL_13:
   }
 
   v30 = [v10 privateFunctions];
-  v31 = TranslateNSArray(v30, a3, a4);
+  v31 = TranslateNSArray(v30, a3, v4);
 
-  if (a4)
+  if (v4)
   {
     *(v9 + 40) = [v10 options];
     *(v9 + 32) = v26;
@@ -3082,7 +3056,7 @@ id MakeMTLPrimitiveAccelerationStructureDescriptor(uint64_t a1, void *a2)
   return v4;
 }
 
-uint64_t TranslateGTMTLAccelerationStructureDescriptor(void *a1, uint64_t a2, int a3)
+uint64_t TranslateGTMTLAccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6 = *(a2 + 352);
@@ -3159,7 +3133,7 @@ LABEL_15:
   return v6;
 }
 
-uint64_t TranslateNestedGTMTL4AccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t TranslateNestedGTMTL4AccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = a1;
   objc_opt_class();
@@ -3421,8 +3395,9 @@ uint64_t TranslateNestedGTMTL4InstanceAccelerationStructureDescriptor(void *a1, 
   return a2;
 }
 
-uint64_t TranslateNestedGTMTL4PrimitiveAccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t TranslateNestedGTMTL4PrimitiveAccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a1;
   v8 = *(a3 + 432);
   v9 = [v7 geometryDescriptors];
@@ -3440,7 +3415,7 @@ uint64_t TranslateNestedGTMTL4PrimitiveAccelerationStructureDescriptor(void *a1,
       v14 = [v7 geometryDescriptors];
       v15 = [v14 objectAtIndexedSubscript:v12];
       v16 = v15;
-      if (a4)
+      if (v4)
       {
         v17 = v13;
       }
@@ -3450,7 +3425,7 @@ uint64_t TranslateNestedGTMTL4PrimitiveAccelerationStructureDescriptor(void *a1,
         v17 = 0;
       }
 
-      TranslateNestedGTMTL4AccelerationStructureGeometryDescriptor(v15, v17, a3, a4);
+      TranslateNestedGTMTL4AccelerationStructureGeometryDescriptor(v15, v17, a3, v4);
 
       ++v12;
       v18 = [v7 geometryDescriptors];
@@ -3462,7 +3437,7 @@ uint64_t TranslateNestedGTMTL4PrimitiveAccelerationStructureDescriptor(void *a1,
     while (v19 > v12);
   }
 
-  if (a4)
+  if (v4)
   {
     *a2 = v8;
     v20 = [v7 geometryDescriptors];
@@ -5761,7 +5736,7 @@ uint64_t TranslateNestedGTMTL4ComputePipelineDescriptor(void *a1, uint64_t a2, v
     {
       if (v7)
       {
-        [v7 requiredThreadsPerThreadgroup];
+        objc_msgSend_requiredThreadsPerThreadgroup(v7);
         v9 = v12;
         v10 = v13;
       }
@@ -6096,7 +6071,7 @@ uint64_t TranslateNestedGTMTL4MeshRenderPipelineDescriptor(void *a1, uint64_t a2
     {
       if (v7)
       {
-        [v7 requiredThreadsPerMeshThreadgroup];
+        objc_msgSend_requiredThreadsPerMeshThreadgroup(v7);
         v18 = v23;
         v19 = v24;
       }
@@ -6115,7 +6090,7 @@ uint64_t TranslateNestedGTMTL4MeshRenderPipelineDescriptor(void *a1, uint64_t a2
     {
       if (v7)
       {
-        [v7 requiredThreadsPerObjectThreadgroup];
+        objc_msgSend_requiredThreadsPerObjectThreadgroup(v7);
         v20 = v23;
         v21 = v24;
       }
@@ -6240,7 +6215,7 @@ uint64_t TranslateNestedGTMTL4TileRenderPipelineDescriptor(void *a1, uint64_t a2
     {
       if (v7)
       {
-        [v7 requiredThreadsPerThreadgroup];
+        objc_msgSend_requiredThreadsPerThreadgroup(v7);
         v13 = v16;
         v14 = v17;
       }
@@ -6742,7 +6717,6 @@ id MakeMTLTextureViewDescriptor(uint64_t a1)
   [v2 setPixelFormat:*(a1 + 36)];
   [v2 setSliceRange:{*(a1 + 16), *(a1 + 24)}];
   [v2 setTextureType:*(a1 + 38)];
-  v3 = *(a1 + 32);
   [v2 setSwizzle:MTLTextureSwizzleKeyToChannels()];
 
   return v2;
@@ -7143,7 +7117,7 @@ id MakeMTL4CommandAllocatorDescriptor(void *a1)
   return v2;
 }
 
-uint64_t TranslateGTMTL4AccelerationStructureDescriptor(void *a1, uint64_t a2, int a3)
+uint64_t TranslateGTMTL4AccelerationStructureDescriptor(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6 = *(a2 + 344);
@@ -7270,7 +7244,7 @@ id MakeMTLTextureDescriptorFromTextureWithoutResourceIndex(void *a1)
   [v2 setDepth:{objc_msgSend(v1, "depth")}];
   [v2 setArrayLength:{objc_msgSend(v1, "arrayLength")}];
   [v2 setStorageMode:{objc_msgSend(v1, "storageMode")}];
-  [v2 setSampleCount:{objc_msgSend(v1, "sampleCount")}];
+  [v2 setSampleCount:objc_msgSend_sampleCount(v1)];
   [v2 setCpuCacheMode:{objc_msgSend(v1, "cpuCacheMode")}];
   [v2 setMipmapLevelCount:{objc_msgSend(v1, "mipmapLevelCount")}];
   if (objc_opt_respondsToSelector())
@@ -7327,15 +7301,15 @@ void MakeGTMTLSamplerDescriptor(void *a1, void *a2)
     v5 = (strlen(v5) + 1);
   }
 
-  bzero(v9, 0x250uLL);
-  v9[2] = a1;
-  __chkstk_darwin(v6, v7);
-  bzero(v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-  v9[74] = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  TranslateGTMTLSamplerDescriptor(v3, v9, 1);
-  v8 = [v3 label];
+  bzero(v8, 0x250uLL);
+  v8[2] = a1;
+  __chkstk_darwin(v6);
+  bzero(v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+  v8[74] = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  TranslateGTMTLSamplerDescriptor(v3, v8, 1);
+  v7 = [v3 label];
 
-  *a1 = [v8 UTF8String];
+  *a1 = [v7 UTF8String];
 }
 
 void MakeGTMTLIndirectCommandBufferDescriptorFromIndirectCommandBuffer(uint64_t a1, void *a2)
@@ -7503,11 +7477,12 @@ id MakeMTLRenderPassDescriptor(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t TranslateGTMTLComputePipelineDescriptor(void *a1, void *a2, int a3)
+uint64_t TranslateGTMTLComputePipelineDescriptor(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2[39];
   TranslateGTMTLComputePipelineDescriptorAuto(a1, a2, a3);
-  if (!a3)
+  if (!v3)
   {
     return 0;
   }
@@ -7562,11 +7537,11 @@ LABEL_6:
     *(v6 + 64) = v14;
     if (v5)
     {
-      [v5 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v5);
       *(v6 + 96) = v22;
-      [v5 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v5);
       *(v6 + 98) = v21;
-      [v5 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v5);
       v15 = v20;
     }
 
@@ -8086,7 +8061,7 @@ LABEL_6:
 
       if (v20)
       {
-        [v20 sampleCount];
+        objc_msgSend_sampleCount(v20);
       }
 
       v21 = a2[73];
@@ -8123,7 +8098,7 @@ LABEL_6:
     *(v6 + 16) = v22;
     if (v5)
     {
-      [v5 screenSize];
+      objc_msgSend_screenSize(v5);
     }
 
     *(v6 + 32) = 0;
@@ -8147,87 +8122,87 @@ LABEL_6:
   }
 }
 
-id MakeMTLRasterizationRateMapDescriptor(uint64_t a1, uint64_t a2)
+id MakeMTLRasterizationRateMapDescriptor(uint64_t a1)
 {
-  v3 = *(a1 + 16);
-  v4 = 8 * v3;
-  __chkstk_darwin(a1, a2);
-  v5 = v22 - ((8 * v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v5, 8 * v3);
+  v2 = *(a1 + 16);
+  v3 = 8 * v2;
+  __chkstk_darwin(a1);
+  v4 = v21 - ((8 * v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v4, 8 * v2);
   if (*(a1 + 16))
   {
-    v22[1] = v22;
+    v21[1] = v21;
+    v5 = 0;
     v6 = 0;
-    v7 = 0;
     do
     {
-      v8 = (*(a1 + 8) + v6);
-      v9 = v8[8];
-      v10 = v8[10];
-      v11 = v8[9];
-      v12 = [MTLRasterizationRateLayerDescriptor alloc];
+      v7 = (*(a1 + 8) + v5);
+      v8 = v7[8];
+      v9 = v7[10];
+      v10 = v7[9];
+      v11 = [MTLRasterizationRateLayerDescriptor alloc];
+      v22 = v8;
       v23 = v9;
       v24 = v10;
-      v25 = v11;
-      v13 = [v12 initWithSampleCount:&v23];
-      v14 = *&v5[8 * v7];
-      *&v5[8 * v7] = v13;
+      v12 = [v11 initWithSampleCount:&v22];
+      v13 = *&v4[8 * v6];
+      *&v4[8 * v6] = v12;
 
-      memcpy([v13 horizontalSampleStorage], *(*(a1 + 8) + v6), 4 * v9);
-      memcpy([v13 verticalSampleStorage], *(*(a1 + 8) + v6 + 8), 4 * v10);
-      ++v7;
-      v15 = *(a1 + 16);
-      v6 += 24;
+      memcpy([v12 horizontalSampleStorage], *(*(a1 + 8) + v5), 4 * v8);
+      memcpy([v12 verticalSampleStorage], *(*(a1 + 8) + v5 + 8), 4 * v9);
+      ++v6;
+      v14 = *(a1 + 16);
+      v5 += 24;
     }
 
-    while (v7 < v15);
+    while (v6 < v14);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v16 = *(a1 + 30);
-  v17 = *(a1 + 28);
-  v23 = *(a1 + 32);
+  v15 = *(a1 + 30);
+  v16 = *(a1 + 28);
+  v22 = *(a1 + 32);
+  v23 = v15;
   v24 = v16;
-  v25 = v17;
-  v18 = [MTLRasterizationRateMapDescriptor rasterizationRateMapDescriptorWithScreenSize:&v23 layerCount:v15 layers:v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v17 = [MTLRasterizationRateMapDescriptor rasterizationRateMapDescriptorWithScreenSize:&v22 layerCount:v14 layers:v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (*a1)
   {
-    v19 = [NSString stringWithUTF8String:?];
-    [v18 setLabel:v19];
+    v18 = [NSString stringWithUTF8String:?];
+    [v17 setLabel:v18];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    [v18 setMutability:*(a1 + 34)];
+    [v17 setMutability:*(a1 + 34)];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    LODWORD(v20) = *(a1 + 24);
-    [v18 setMinFactor:v20];
+    LODWORD(v19) = *(a1 + 24);
+    [v17 setMinFactor:v19];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    [v18 setSkipSampleValidationAndApplySampleAtTileGranularity:*(a1 + 35) != 0];
+    [v17 setSkipSampleValidationAndApplySampleAtTileGranularity:*(a1 + 35) != 0];
   }
 
-  if (v3)
+  if (v2)
   {
     do
     {
 
-      v4 -= 8;
+      v3 -= 8;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  return v18;
+  return v17;
 }
 
 void TranslateGTMTLCounterSampleBufferDescriptor(void *a1, void *a2, int a3)
@@ -8439,7 +8414,7 @@ LABEL_36:
     }
 
     *(v61 + 24) = v56;
-    *(v61 + 40) = [v62 sampleCount];
+    *(v61 + 40) = objc_msgSend_sampleCount(v62);
     *(v61 + 44) = [v62 storageMode];
   }
 }
@@ -8504,12 +8479,12 @@ LABEL_11:
   return v4;
 }
 
-char *TranslateGTMTLImageFilterFunctionInfo(char *result, int a2, uint64_t a3, char a4)
+char *TranslateGTMTLImageFilterFunctionInfo(char *result, unsigned int a2, uint64_t a3, char a4)
 {
   if (a2 >= 1)
   {
     v6 = a2;
-    v7 = (result + 8);
+    v7 = result + 8;
     do
     {
       v8 = *(a3 + 368);
@@ -8517,7 +8492,7 @@ char *TranslateGTMTLImageFilterFunctionInfo(char *result, int a2, uint64_t a3, c
       if (a4)
       {
         v9 = *(a3 + 496);
-        result = memcpy(v9, v7[1], 24 * *v7);
+        result = memcpy(v9, *(v7 + 1), 24 * *v7);
         *v8 = *(v7 - 8);
         v10 = *v7;
         if (*v7)
@@ -8540,7 +8515,7 @@ char *TranslateGTMTLImageFilterFunctionInfo(char *result, int a2, uint64_t a3, c
       }
 
       *(a3 + 496) += 24 * v10;
-      v7 += 3;
+      v7 += 24;
       --v6;
     }
 
@@ -8571,7 +8546,7 @@ void TranslateGTMTLStitchedLibraryDescriptor(void *a1, void *a2, uint64_t a3)
   apr_pool_create_ex(&newpool, 0, 0, 0);
   v9 = newpool;
   v10 = apr_hash_make(newpool);
-  v26 = 1;
+  v26 = (&dword_0 + 1);
   v11 = a2[67];
   v12 = [v25 functionGraphs];
   CopyFunctionStitchingGraphs(v12, v10, &v26, a2, a3);
@@ -8626,7 +8601,7 @@ LABEL_7:
   apr_pool_destroy(v9);
 }
 
-void CopyFunctionStitchingGraphs(void *a1, apr_pool_t **a2, const void **a3, void *a4, uint64_t a5)
+void CopyFunctionStitchingGraphs(void *a1, apr_pool_t **a2, char **a3, void *a4, uint64_t a5)
 {
   v49 = 0u;
   v50 = 0u;
@@ -8805,7 +8780,7 @@ LABEL_14:
   }
 }
 
-uint64_t CopyFunctionStitchingFunctionNodeArray(void *a1, apr_pool_t **a2, const void **a3, void *a4, uint64_t a5)
+uint64_t CopyFunctionStitchingFunctionNodeArray(void *a1, apr_pool_t **a2, char **a3, void *a4, uint64_t a5)
 {
   v9 = a1;
   v10 = [v9 count];
@@ -8856,7 +8831,7 @@ uint64_t CopyFunctionStitchingFunctionNodeArray(void *a1, apr_pool_t **a2, const
   return v11;
 }
 
-const void *CopyFunctionStitchingFunctionNode(void *a1, apr_pool_t **a2, const void **a3, void *a4, uint64_t a5)
+char *CopyFunctionStitchingFunctionNode(void *a1, apr_pool_t **a2, char **a3, void *a4, uint64_t a5)
 {
   v9 = a1;
   v62 = 0;
@@ -9102,7 +9077,7 @@ LABEL_50:
   return v48;
 }
 
-uint64_t GetFunctionStitchingNodeID(void *a1, apr_pool_t **a2, const void **a3, const void **a4)
+uint64_t GetFunctionStitchingNodeID(void *a1, apr_pool_t **a2, char **a3, char **a4)
 {
   v7 = a1;
   v15 = v7;
@@ -9215,7 +9190,7 @@ void TranslateGTMTLStitchedLibraryDescriptorSPI(void *a1, void *a2, uint64_t a3)
   apr_pool_create_ex(&newpool, 0, 0, 0);
   v9 = newpool;
   v10 = apr_hash_make(newpool);
-  v26 = 1;
+  v26 = (&dword_0 + 1);
   v11 = a2[67];
   v12 = [v25 functionGraphs];
   CopyFunctionStitchingGraphs(v12, v10, &v26, a2, a3);
@@ -9268,4 +9243,119 @@ LABEL_6:
 LABEL_7:
   a2[47] += 56;
   apr_pool_destroy(v9);
+}
+
+id MakeMTLStitchedLibraryDescriptor(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = objc_alloc_init(MTLStitchedLibraryDescriptor);
+  [v4 setOptions:*(a1 + 48)];
+  v5 = MakeMTLFunctionStitchingGraphArray(a1);
+  [v4 setFunctionGraphs:v5];
+
+  v6 = CreateObjectArrayWithMap(*(a1 + 16), *(a1 + 40), v3);
+
+  [v4 setFunctions:v6];
+
+  return v4;
+}
+
+id MakeMTLFunctionStitchingGraphArray(void *a1)
+{
+  v26 = objc_opt_new();
+  v25 = [[NSMutableArray alloc] initWithCapacity:a1[4]];
+  if (a1[4])
+  {
+    v2 = 0;
+    while (1)
+    {
+      v3 = *a1 + 56 * v2;
+      v28 = [NSString stringWithUTF8String:*v3, v25];
+      v4 = MakeMTLFunctionStitchingFunctionNodeArray(*(v3 + 8), *(v3 + 16), a1, v26);
+      v5 = v4;
+      v6 = &__NSArray0__struct;
+      if (v4)
+      {
+        v6 = v4;
+      }
+
+      v27 = v6;
+
+      v7 = MakeMTLFunctionStitchingFunctionNode(a1, *(v3 + 24), v26);
+      v8 = *(v3 + 40);
+      if (v8)
+      {
+        v9 = *(v3 + 32);
+        v10 = [[NSMutableArray alloc] initWithCapacity:v8];
+        while (1)
+        {
+          v12 = *v9;
+          v9 += 8;
+          v11 = v12;
+          if (v12 == 1)
+          {
+            break;
+          }
+
+          if (v11 == 2)
+          {
+            v13 = MTLFunctionStitchingAttributeKernel_ptr;
+LABEL_11:
+            v14 = objc_alloc_init(*v13);
+            [v10 addObject:v14];
+          }
+
+          if (!--v8)
+          {
+            v15 = [v10 copy];
+
+            goto LABEL_15;
+          }
+        }
+
+        v13 = MTLFunctionStitchingAttributeAlwaysInline_ptr;
+        goto LABEL_11;
+      }
+
+      v15 = 0;
+LABEL_15:
+      v16 = &__NSArray0__struct;
+      if (v15)
+      {
+        v16 = v15;
+      }
+
+      v17 = v16;
+
+      v18 = *(v3 + 48);
+      if (v18 == 2)
+      {
+        break;
+      }
+
+      v19 = v28;
+      if (v18 == 1)
+      {
+        v20 = MTLFunctionStitchingGraph_ptr;
+LABEL_21:
+        v21 = [objc_alloc(*v20) initWithFunctionName:v19 nodes:v27 outputNode:v7 attributes:v17];
+        [v25 addObject:v21];
+      }
+
+      if (++v2 >= a1[4])
+      {
+        goto LABEL_23;
+      }
+    }
+
+    v20 = MTLFunctionStitchingGraphSPI_ptr;
+    v19 = v28;
+    goto LABEL_21;
+  }
+
+LABEL_23:
+  v22 = v25;
+  v23 = [v25 copy];
+
+  return v23;
 }

@@ -64,31 +64,26 @@
 
 - (int)backingSetProperty:(__CFString *)property value:(void *)value
 {
-  streamRef = self->_streamRef;
   FigBaseObject = FigCaptureStreamGetFigBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 56);
-  if (!v9)
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (!v7)
   {
     return -12782;
   }
 
-  v10 = *(VTable + 8) + 56;
-
-  return v9(FigBaseObject, property, value);
+  return v7(FigBaseObject, property, value);
 }
 
 - (int)backingCopyProperty:(__CFString *)property dest:(const void *)dest
 {
-  streamRef = self->_streamRef;
   FigBaseObject = FigCaptureStreamGetFigBaseObject();
-  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v8)
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v7)
   {
     return -12782;
   }
 
-  return v8(FigBaseObject, property, kCFAllocatorDefault, dest);
+  return v7(FigBaseObject, property, kCFAllocatorDefault, dest);
 }
 
 - (BOOL)_registerForStreamNotifications:(id *)notifications
@@ -207,46 +202,44 @@
     [(OSDCaptureStream *)selfCopy setStreamStartSemaphore:v5];
 
     streamRef = [(OSDCaptureStream *)selfCopy streamRef];
-    VTable = CMBaseObjectGetVTable();
-    v8 = *(*(VTable + 16) + 8);
-    if (v8)
+    v7 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v7)
     {
-      v9 = *(VTable + 16) + 8;
-      v10 = v8(streamRef);
+      v8 = v7(streamRef);
     }
 
     else
     {
-      v10 = 4294954514;
+      v8 = 4294954514;
     }
 
     streamStartSemaphore = [(OSDCaptureStream *)selfCopy streamStartSemaphore];
-    v12 = dispatch_time(0, 2000000000);
-    v13 = dispatch_semaphore_wait(streamStartSemaphore, v12);
+    v10 = dispatch_time(0, 2000000000);
+    v11 = dispatch_semaphore_wait(streamStartSemaphore, v10);
 
-    if (v13)
+    if (v11)
     {
       [OSDError setError:start withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> timed out trying to start the stream!", selfCopy];
     }
 
     else
     {
-      if (!v10)
+      if (!v8)
       {
         [(OSDCaptureStream *)selfCopy setStreamStartSemaphore:0];
-        v14 = 1;
-        goto LABEL_11;
+        v12 = 1;
+        goto LABEL_10;
       }
 
-      [OSDError setError:start withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> Error %d (0x%08x) cannot start the capture stream!", selfCopy, v10, v10];
+      [OSDError setError:start withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> Error %d (0x%08x) cannot start the capture stream!", selfCopy, v8, v8];
     }
   }
 
-  v14 = 0;
-LABEL_11:
+  v12 = 0;
+LABEL_10:
   objc_sync_exit(selfCopy);
 
-  return v14;
+  return v12;
 }
 
 - (BOOL)stop:(id *)stop
@@ -257,47 +250,45 @@ LABEL_11:
   [(OSDCaptureStream *)selfCopy setStreamStopSemaphore:v5];
 
   streamRef = [(OSDCaptureStream *)selfCopy streamRef];
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 16) + 16);
-  if (v8)
+  v7 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (v7)
   {
-    v9 = *(VTable + 16) + 16;
-    v10 = v8(streamRef);
+    v8 = v7(streamRef);
   }
 
   else
   {
-    v10 = 4294954514;
+    v8 = 4294954514;
   }
 
   streamStopSemaphore = [(OSDCaptureStream *)selfCopy streamStopSemaphore];
-  v12 = dispatch_time(0, 2000000000);
-  v13 = dispatch_semaphore_wait(streamStopSemaphore, v12);
+  v10 = dispatch_time(0, 2000000000);
+  v11 = dispatch_semaphore_wait(streamStopSemaphore, v10);
 
-  if (v13)
+  if (v11)
   {
     [OSDError setError:stop withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> timed out trying to stop the stream!", selfCopy];
   }
 
-  if (v10)
+  if (v8)
   {
-    [OSDError setError:stop withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> Error %d (0x%08x) cannot stop the capture stream!", selfCopy, v10, v10];
-LABEL_11:
-    v14 = 0;
-    goto LABEL_12;
+    [OSDError setError:stop withDomain:@"com.apple.osdiags.OSDCaptureDevice" withCode:1 format:@"%@ >> Error %d (0x%08x) cannot stop the capture stream!", selfCopy, v8, v8];
+LABEL_10:
+    v12 = 0;
+    goto LABEL_11;
   }
 
   if (![(OSDCaptureStream *)selfCopy _unregisterForStreamNotifications:stop])
   {
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   [(OSDCaptureStream *)selfCopy setStreamStopSemaphore:0];
-  v14 = 1;
-LABEL_12:
+  v12 = 1;
+LABEL_11:
   objc_sync_exit(selfCopy);
 
-  return v14;
+  return v12;
 }
 
 @end

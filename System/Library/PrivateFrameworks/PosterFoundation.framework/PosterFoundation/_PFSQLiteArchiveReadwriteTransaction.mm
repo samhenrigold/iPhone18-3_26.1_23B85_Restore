@@ -281,7 +281,7 @@
 
 - (BOOL)replaceObject:(id)object withObject:(id)withObject error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   withObjectCopy = withObject;
   v10 = withObjectCopy;
@@ -291,24 +291,24 @@
     v12 = objc_opt_class();
     v13 = objc_opt_new();
     [objectCopy encodeWithCoder:v13];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __71___PFSQLiteArchiveReadwriteTransaction_replaceObject_withObject_error___block_invoke;
-    v23[3] = &unk_1E81894C0;
-    v23[4] = self;
-    v26 = v11;
-    v27 = v12;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __71___PFSQLiteArchiveReadwriteTransaction_replaceObject_withObject_error___block_invoke;
+    v22[3] = &unk_1E81894C0;
+    v22[4] = self;
+    v25 = v11;
+    v26 = v12;
     v14 = v13;
-    v24 = v14;
-    v25 = v10;
-    v22 = 0;
-    v15 = [(_PFSQLiteArchiveReadwriteTransaction *)self _accessDatabase:v23 error:&v22];
-    v16 = v22;
-    if (v22)
+    v23 = v14;
+    v24 = v10;
+    v21 = 0;
+    v15 = [(_PFSQLiteArchiveReadwriteTransaction *)self _accessDatabase:v22 error:&v21];
+    v16 = v21;
+    if (v21)
     {
       if (error)
       {
-        v16 = v22;
+        v16 = v21;
         v15 = 0;
         *error = v16;
       }
@@ -319,7 +319,7 @@
       }
     }
 
-    v18 = v25;
+    v18 = v24;
     v19 = v16;
 
     goto LABEL_11;
@@ -328,9 +328,9 @@
   if (error)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A588];
-    v29[0] = @"objects passed in are incorrect";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A588];
+    v28[0] = @"objects passed in are incorrect";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     [v17 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v14];
     *error = v15 = 0;
 LABEL_11:
@@ -341,7 +341,6 @@ LABEL_11:
   v15 = 0;
 LABEL_12:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -373,15 +372,15 @@ LABEL_12:
 
 - (id)setupObjectDescriptorForClass:(Class)class expectedObjectDescriptor:(id)descriptor error:(id *)error
 {
-  v101[1] = *MEMORY[0x1E69E9840];
+  v99[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
-  v74 = self->super._classToObjectMap;
-  objc_sync_enter(v74);
-  v84.receiver = self;
-  v84.super_class = _PFSQLiteArchiveReadwriteTransaction;
+  v72 = self->super._classToObjectMap;
+  objc_sync_enter(v72);
+  v82.receiver = self;
+  v82.super_class = _PFSQLiteArchiveReadwriteTransaction;
   errorCopy = error;
-  v10 = [(_PFSQLiteArchiveReadonlyTransaction *)&v84 setupObjectDescriptorForClass:class expectedObjectDescriptor:descriptorCopy error:error];
-  v73 = descriptorCopy;
+  v10 = [(_PFSQLiteArchiveReadonlyTransaction *)&v82 setupObjectDescriptorForClass:class expectedObjectDescriptor:descriptorCopy error:error];
+  v71 = descriptorCopy;
   if (v10)
   {
     pf_sqliteCodingDescriptor = v10;
@@ -400,12 +399,12 @@ LABEL_12:
     if (error)
     {
       v43 = MEMORY[0x1E696ABC0];
-      v100 = *MEMORY[0x1E696A588];
+      v98 = *MEMORY[0x1E696A588];
       v44 = MEMORY[0x1E696AEC0];
       v45 = NSStringFromClass(class);
       v46 = [v44 stringWithFormat:@"%@ does not support PFSQLiteCoding", v45];
-      v101[0] = v46;
-      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:&v100 count:1];
+      v99[0] = v46;
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:&v98 count:1];
       *errorCopy = [v43 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v47];
     }
 
@@ -417,12 +416,12 @@ LABEL_12:
     if (error)
     {
       v48 = MEMORY[0x1E696ABC0];
-      v98 = *MEMORY[0x1E696A588];
+      v96 = *MEMORY[0x1E696A588];
       v49 = MEMORY[0x1E696AEC0];
       v50 = NSStringFromClass(class);
       v51 = [v49 stringWithFormat:@"%@ does not respond to PFSQLiteCoding protocol", v50];
-      v99 = v51;
-      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v97 = v51;
+      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
       *errorCopy = [v48 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v52];
     }
 
@@ -435,12 +434,12 @@ LABEL_12:
     if (error)
     {
       v17 = MEMORY[0x1E696ABC0];
-      v96 = *MEMORY[0x1E696A588];
+      v94 = *MEMORY[0x1E696A588];
       v18 = MEMORY[0x1E696AEC0];
       v19 = NSStringFromClass(class);
       v20 = [v18 stringWithFormat:@"%@ returned nil for sqliteCodingDescriptor", v19];
-      v97 = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+      v95 = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
       *errorCopy = [v17 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v21];
     }
 
@@ -455,33 +454,33 @@ LABEL_5:
   txDatabase = self->super._txDatabase;
   if (!txDatabase)
   {
-    v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"database != NULL"];
+    v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"database != NULL"];
+    v55 = MEMORY[0x1E69E9C10];
     v56 = MEMORY[0x1E69E9C10];
-    v57 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      v58 = NSStringFromSelector(a2);
-      v59 = objc_opt_class();
-      v60 = NSStringFromClass(v59);
+      v57 = NSStringFromSelector(a2);
+      v58 = objc_opt_class();
+      v59 = NSStringFromClass(v58);
       *buf = 138544642;
-      *&buf[4] = v58;
+      *&buf[4] = v57;
       *&buf[12] = 2114;
-      *&buf[14] = v60;
+      *&buf[14] = v59;
       *&buf[22] = 2048;
       selfCopy = self;
-      v90 = 2114;
-      v91 = @"PFSQLiteArchiver.m";
-      v92 = 1024;
-      v93 = 890;
-      v94 = 2114;
-      v95 = v55;
+      v88 = 2114;
+      v89 = @"PFSQLiteArchiver.m";
+      v90 = 1024;
+      v91 = 890;
+      v92 = 2114;
+      v93 = v54;
       _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v61 = v55;
-    [v55 UTF8String];
-    v62 = _bs_set_crash_log_message();
-    [_PFSQLiteArchiveReadwriteTransaction setupObjectDescriptorForClass:v62 expectedObjectDescriptor:? error:?];
+    v60 = v54;
+    [v54 UTF8String];
+    _bs_set_crash_log_message();
+    [_PFSQLiteArchiveReadwriteTransaction setupObjectDescriptorForClass:expectedObjectDescriptor:error:];
   }
 
   if (sqlite3_db_readonly(self->super._txDatabase, 0))
@@ -489,10 +488,10 @@ LABEL_5:
     if (errorCopy)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v86 = *MEMORY[0x1E696A588];
+      v84 = *MEMORY[0x1E696A588];
       v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Database is readonly and is not setup for object %@", pf_sqliteCodingDescriptor];
-      v87 = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+      v85 = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
       *errorCopy = [v14 errorWithDomain:@"PFSQLiteArchiver" code:-4 userInfo:v16];
     }
 
@@ -500,42 +499,42 @@ LABEL_5:
   }
 
   selfCopy2 = self;
-  v68 = txDatabase;
+  v66 = txDatabase;
   classCopy = class;
-  v66 = pf_sqliteCodingDescriptor;
+  v64 = pf_sqliteCodingDescriptor;
   columns = [pf_sqliteCodingDescriptor columns];
-  v65 = [columns bs_mapNoNulls:&__block_literal_global_227];
+  v63 = [columns bs_mapNoNulls:&__block_literal_global_227];
 
   tableName = [pf_sqliteCodingDescriptor tableName];
   v23 = 0x1E696A000uLL;
   v24 = MEMORY[0x1E696AEC0];
-  v25 = [v65 componentsJoinedByString:{@", "}];
-  v64 = [v24 stringWithFormat:@"CREATE TABLE %@ (%@)", tableName, v25];;
+  v25 = [v63 componentsJoinedByString:{@", "}];
+  v62 = [v24 stringWithFormat:@"CREATE TABLE %@ (%@)", tableName, v25];;
 
-  v26 = v64;
-  if (([(_PFSQLiteArchiveReadonlyTransaction *)self executeQuery:v64 error:errorCopy]& 1) != 0)
+  v26 = v62;
+  if (([(_PFSQLiteArchiveReadonlyTransaction *)self executeQuery:v62 error:errorCopy]& 1) != 0)
   {
-    v82 = 0u;
-    v83 = 0u;
     v80 = 0u;
     v81 = 0u;
-    indices = [v66 indices];
-    v28 = [indices countByEnumeratingWithState:&v80 objects:v85 count:16];
+    v78 = 0u;
+    v79 = 0u;
+    indices = [v64 indices];
+    v28 = [indices countByEnumeratingWithState:&v78 objects:v83 count:16];
     obj = indices;
     if (v28)
     {
-      v71 = *v81;
+      v69 = *v79;
       while (2)
       {
-        v72 = v28;
-        for (i = 0; i != v72; ++i)
+        v70 = v28;
+        for (i = 0; i != v70; ++i)
         {
-          if (*v81 != v71)
+          if (*v79 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v80 + 1) + 8 * i);
+          v30 = *(*(&v78 + 1) + 8 * i);
           name = [v30 name];
           type = [v30 type];
           if (type != 1)
@@ -545,16 +544,16 @@ LABEL_5:
             *&buf[16] = 0x2020000000;
             LOBYTE(selfCopy) = 0;
             v33 = [*(v23 + 3776) stringWithFormat:@"PRAGMA index_list('%@')", name];
-            v76[0] = MEMORY[0x1E69E9820];
-            v76[1] = 3221225472;
-            v76[2] = __101___PFSQLiteArchiveReadwriteTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke_2;
-            v76[3] = &unk_1E81894E8;
-            v78 = buf;
-            v79 = type;
+            v74[0] = MEMORY[0x1E69E9820];
+            v74[1] = 3221225472;
+            v74[2] = __101___PFSQLiteArchiveReadwriteTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke_2;
+            v74[3] = &unk_1E81894E8;
+            v76 = buf;
+            v77 = type;
             v34 = name;
-            v77 = v34;
-            v35 = MEMORY[0x1C691C400](v76);
-            if ((PFSQLite_prepare_and_stepThrough_withBlock(v68, v33, 3, 100000, selfCopy2->super._queryCache, 0, 0, v35, errorCopy) & 1) == 0)
+            v75 = v34;
+            v35 = MEMORY[0x1C691C400](v74);
+            if ((PFSQLite_prepare_and_stepThrough_withBlock(v66, v33, 3, 100000, selfCopy2->super._queryCache, 0, 0, v35, errorCopy) & 1) == 0)
             {
               goto LABEL_37;
             }
@@ -589,7 +588,7 @@ LABEL_37:
           }
         }
 
-        v28 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+        v28 = [obj countByEnumeratingWithState:&v78 objects:v83 count:16];
         if (v28)
         {
           continue;
@@ -599,10 +598,10 @@ LABEL_37:
       }
     }
 
-    [(NSMapTable *)selfCopy2->super._classToObjectMap setObject:v66 forKey:classCopy];
-    v12 = v66;
+    [(NSMapTable *)selfCopy2->super._classToObjectMap setObject:v64 forKey:classCopy];
+    v12 = v64;
 LABEL_38:
-    v26 = v64;
+    v26 = v62;
   }
 
   else
@@ -610,11 +609,10 @@ LABEL_38:
     v12 = 0;
   }
 
-  pf_sqliteCodingDescriptor = v66;
+  pf_sqliteCodingDescriptor = v64;
 LABEL_40:
 
-  objc_sync_exit(v74);
-  v53 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(v72);
 
   return v12;
 }

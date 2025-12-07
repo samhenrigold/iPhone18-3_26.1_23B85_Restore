@@ -901,21 +901,19 @@ LABEL_12:
 
 + (id)_gradientLayerTypeForRawValue:(id)value
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6979DA0];
-  v11[0] = @"axial";
-  v11[1] = @"conic";
+  v10[0] = @"axial";
+  v10[1] = @"conic";
   v4 = *MEMORY[0x1E6979DA8];
-  v12[0] = v3;
-  v12[1] = v4;
-  v11[2] = @"radial";
-  v12[2] = *MEMORY[0x1E6979DB0];
+  v11[0] = v3;
+  v11[1] = v4;
+  v10[2] = @"radial";
+  v11[2] = *MEMORY[0x1E6979DB0];
   v5 = MEMORY[0x1E695DF20];
   valueCopy = value;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:3];
   v8 = [v7 objectForKeyedSubscript:valueCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

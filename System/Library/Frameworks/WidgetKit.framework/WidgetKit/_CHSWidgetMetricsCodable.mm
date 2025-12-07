@@ -14,7 +14,7 @@
   {
     sub_19202A7A8(0, &qword_1EADEEEB8, 0x1E696AD98);
     sub_19202A7A8(0, &qword_1ED74BD10, 0x1E69943F0);
-    sub_19205DDC0(&qword_1EADF1A90, &qword_1EADEEEB8, 0x1E696AD98);
+    sub_19205DDC0(&qword_1EADF1A90, &qword_1EADEEEB8, 0x1E696AD98, MEMORY[0x1E69E81B8]);
     sub_192227840();
     marginsCopy = margins;
     groupMarginsCopy = groupMargins;

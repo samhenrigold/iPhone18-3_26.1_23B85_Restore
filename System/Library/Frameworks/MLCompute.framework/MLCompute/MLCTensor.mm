@@ -3,12 +3,23 @@
 + (MLCTensor)tensorWithDescriptor:(MLCTensorDescriptor *)tensorDescriptor;
 + (MLCTensor)tensorWithDescriptor:(MLCTensorDescriptor *)tensorDescriptor data:(MLCTensorData *)data;
 + (MLCTensor)tensorWithDescriptor:(MLCTensorDescriptor *)tensorDescriptor fillWithData:(NSNumber *)fillData;
++ (MLCTensor)tensorWithDescriptor:(MLCTensorDescriptor *)tensorDescriptor randomInitializerType:(MLCRandomInitializerType)randomInitializerType;
 + (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize;
 + (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data;
++ (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType;
 + (MLCTensor)tensorWithSequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data;
++ (MLCTensor)tensorWithSequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType;
 + (MLCTensor)tensorWithShape:(NSArray *)shape;
++ (MLCTensor)tensorWithShape:(NSArray *)shape data:(MLCTensorData *)data dataType:(MLCDataType)dataType;
++ (MLCTensor)tensorWithShape:(NSArray *)shape dataType:(MLCDataType)dataType;
++ (MLCTensor)tensorWithShape:(NSArray *)shape fillWithData:(NSNumber *)fillData dataType:(MLCDataType)dataType;
++ (MLCTensor)tensorWithShape:(NSArray *)shape randomInitializerType:(MLCRandomInitializerType)randomInitializerType;
++ (MLCTensor)tensorWithShape:(NSArray *)shape randomInitializerType:(MLCRandomInitializerType)randomInitializerType dataType:(MLCDataType)dataType;
 + (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize;
 + (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data;
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data dataType:(MLCDataType)dataType;
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize fillWithData:(float)fillData dataType:(MLCDataType)dataType;
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType;
 + (id)newDataForTensorDescriptor:(id)descriptor fillWithData:(id)data;
 + (id)newRandomDataForWeightTensorDescriptor:(id)descriptor randomInitializerType:(int)type;
 + (void)initialize;
@@ -22,6 +33,10 @@
 - (BOOL)synchronizeData;
 - (BOOL)synchronizeOptimizerData;
 - (MLCTensor)initWithTensorDescriptor:(id)descriptor tensorData:(id)data parentLayers:(id)layers childLayers:(id)childLayers device:(id)device deviceMemory:(id)memory;
+- (MLCTensor)tensorByDequantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias;
+- (MLCTensor)tensorByDequantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias axis:(NSInteger)axis;
+- (MLCTensor)tensorByQuantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias axis:(NSInteger)axis;
+- (MLCTensor)tensorByQuantizingToType:(MLCDataType)type scale:(float)scale bias:(NSInteger)bias;
 - (id)copyAndReplaceData:(id)data;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -56,7 +71,7 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
 
 - (id)copyAndReplaceData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = dataCopy;
   if (dataCopy)
@@ -70,16 +85,16 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
       v10 = +[MLCLog framework];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v20 = NSStringFromSelector(a2);
-        v21 = [v6 length];
+        v19 = NSStringFromSelector(a2);
+        v20 = [v6 length];
         descriptor2 = [(MLCTensor *)self descriptor];
-        v23 = 138412802;
-        v24 = v20;
-        v25 = 2048;
-        v26 = v21;
-        v27 = 2048;
+        v22 = 138412802;
+        v23 = v19;
+        v24 = 2048;
+        v25 = v20;
+        v26 = 2048;
         tensorAllocationSizeInBytes2 = [descriptor2 tensorAllocationSizeInBytes];
-        _os_log_error_impl(&dword_238C1D000, v10, OS_LOG_TYPE_ERROR, "%@: Data size mismatch! data.length=%lu : tensorAllocationSizeInBytes=%lu", &v23, 0x20u);
+        _os_log_error_impl(&dword_238C1D000, v10, OS_LOG_TYPE_ERROR, "%@: Data size mismatch! data.length=%lu : tensorAllocationSizeInBytes=%lu", &v22, 0x20u);
       }
     }
   }
@@ -92,7 +107,6 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   deviceMemory = [(MLCTensor *)selfCopy deviceMemory];
   v17 = [(MLCTensor *)selfCopy initWithTensorDescriptor:descriptor3 tensorData:v6 parentLayers:parentLayers childLayers:childLayers device:device deviceMemory:deviceMemory];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -204,12 +218,68 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   return v8;
 }
 
++ (MLCTensor)tensorWithDescriptor:(MLCTensorDescriptor *)tensorDescriptor randomInitializerType:(MLCRandomInitializerType)randomInitializerType
+{
+  v4 = *&randomInitializerType;
+  v6 = tensorDescriptor;
+  v7 = [self newRandomDataForWeightTensorDescriptor:v6 randomInitializerType:v4];
+  v8 = [self tensorWithDescriptor:v6 data:v7];
+
+  return v8;
+}
+
 + (MLCTensor)tensorWithShape:(NSArray *)shape
 {
   v4 = [MLCTensorDescriptor descriptorWithShape:shape dataType:1];
   v5 = [self tensorWithDescriptor:v4];
 
   return v5;
+}
+
++ (MLCTensor)tensorWithShape:(NSArray *)shape randomInitializerType:(MLCRandomInitializerType)randomInitializerType
+{
+  v4 = *&randomInitializerType;
+  v6 = [MLCTensorDescriptor descriptorWithShape:shape dataType:1];
+  v7 = [self tensorWithDescriptor:v6 randomInitializerType:v4];
+
+  return v7;
+}
+
++ (MLCTensor)tensorWithShape:(NSArray *)shape randomInitializerType:(MLCRandomInitializerType)randomInitializerType dataType:(MLCDataType)dataType
+{
+  v5 = *&randomInitializerType;
+  v7 = [MLCTensorDescriptor descriptorWithShape:shape dataType:*&dataType];
+  v8 = [self tensorWithDescriptor:v7 randomInitializerType:v5];
+
+  return v8;
+}
+
++ (MLCTensor)tensorWithShape:(NSArray *)shape dataType:(MLCDataType)dataType
+{
+  v5 = [MLCTensorDescriptor descriptorWithShape:shape dataType:*&dataType];
+  v6 = [self tensorWithDescriptor:v5];
+
+  return v6;
+}
+
++ (MLCTensor)tensorWithShape:(NSArray *)shape fillWithData:(NSNumber *)fillData dataType:(MLCDataType)dataType
+{
+  v5 = *&dataType;
+  v8 = fillData;
+  v9 = [MLCTensorDescriptor descriptorWithShape:shape dataType:v5];
+  v10 = [self tensorWithDescriptor:v9 fillWithData:v8];
+
+  return v10;
+}
+
++ (MLCTensor)tensorWithShape:(NSArray *)shape data:(MLCTensorData *)data dataType:(MLCDataType)dataType
+{
+  v5 = *&dataType;
+  v8 = data;
+  v9 = [MLCTensorDescriptor descriptorWithShape:shape dataType:v5];
+  v10 = [self tensorWithDescriptor:v9 data:v8];
+
+  return v10;
 }
 
 + (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize
@@ -220,6 +290,25 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   return v8;
 }
 
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize fillWithData:(float)fillData dataType:(MLCDataType)dataType
+{
+  v10 = [MLCTensorDescriptor descriptorWithWidth:width height:height featureChannelCount:featureChannelCount batchSize:batchSize dataType:*&dataType];
+  *&v11 = fillData;
+  v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v13 = [self tensorWithDescriptor:v10 fillWithData:v12];
+
+  return v13;
+}
+
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType
+{
+  v7 = *&randomInitializerType;
+  v9 = [MLCTensorDescriptor descriptorWithWidth:width height:height featureChannelCount:featureChannelCount batchSize:batchSize];
+  v10 = [self tensorWithDescriptor:v9 randomInitializerType:v7];
+
+  return v10;
+}
+
 + (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data
 {
   v12 = data;
@@ -227,6 +316,16 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   v14 = [self tensorWithDescriptor:v13 data:v12];
 
   return v14;
+}
+
++ (MLCTensor)tensorWithWidth:(NSUInteger)width height:(NSUInteger)height featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data dataType:(MLCDataType)dataType
+{
+  v8 = *&dataType;
+  v14 = data;
+  v15 = [MLCTensorDescriptor descriptorWithWidth:width height:height featureChannelCount:featureChannelCount batchSize:batchSize dataType:v8];
+  v16 = [self tensorWithDescriptor:v15 data:v14];
+
+  return v16;
 }
 
 + (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize
@@ -250,6 +349,30 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   v13 = [self tensorWithSequenceLengths:v12 sortedSequences:1 featureChannelCount:featureChannelCount batchSize:batchSize randomInitializerType:1];
 
   return v13;
+}
+
++ (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType
+{
+  v6 = *&randomInitializerType;
+  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:batchSize];
+  if (batchSize)
+  {
+    v12 = 0;
+    do
+    {
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:sequenceLength];
+      [v11 setObject:v13 atIndexedSubscript:v12];
+
+      ++v12;
+    }
+
+    while (batchSize != v12);
+  }
+
+  v14 = [v11 copy];
+  v15 = [self tensorWithSequenceLengths:v14 sortedSequences:1 featureChannelCount:featureChannelCount batchSize:batchSize randomInitializerType:v6];
+
+  return v15;
 }
 
 + (MLCTensor)tensorWithSequenceLength:(NSUInteger)sequenceLength featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data
@@ -276,11 +399,12 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   return v15;
 }
 
-+ (MLCTensor)tensorWithSequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data
++ (MLCTensor)tensorWithSequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize randomInitializerType:(MLCRandomInitializerType)randomInitializerType
 {
+  v7 = *&randomInitializerType;
   v25[3] = *MEMORY[0x277D85DE8];
   v13 = sequenceLengths;
-  v14 = data;
+  v14 = v13;
   if (sortedSequences)
   {
     v15 = [(NSArray *)v13 objectAtIndexedSubscript:0];
@@ -292,6 +416,42 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:featureChannelCount];
     v25[2] = v19;
     v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v21 = [MLCTensorDescriptor descriptorWithShape:v20 sequenceLengths:v14 sortedSequences:1 dataType:1];
+
+    v22 = [objc_opt_class() newRandomDataForWeightTensorDescriptor:v21 randomInitializerType:v7];
+    v23 = [self tensorWithDescriptor:v21 data:v22];
+  }
+
+  else
+  {
+    v21 = +[MLCLog framework];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [MLCTensor tensorWithSequenceLengths:a2 sortedSequences:? featureChannelCount:? batchSize:? randomInitializerType:?];
+    }
+
+    v23 = 0;
+  }
+
+  return v23;
+}
+
++ (MLCTensor)tensorWithSequenceLengths:(NSArray *)sequenceLengths sortedSequences:(BOOL)sortedSequences featureChannelCount:(NSUInteger)featureChannelCount batchSize:(NSUInteger)batchSize data:(MLCTensorData *)data
+{
+  v24[3] = *MEMORY[0x277D85DE8];
+  v13 = sequenceLengths;
+  v14 = data;
+  if (sortedSequences)
+  {
+    v15 = [(NSArray *)v13 objectAtIndexedSubscript:0];
+    unsignedIntegerValue = [v15 unsignedIntegerValue];
+
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:batchSize];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{unsignedIntegerValue, v17}];
+    v24[1] = v18;
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:featureChannelCount];
+    v24[2] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v21 = [MLCTensorDescriptor descriptorWithShape:v20 sequenceLengths:v13 sortedSequences:1 dataType:1];
 
     if (v14)
@@ -317,14 +477,12 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (BOOL)dataContainsScalarWhere:(id)where
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   whereCopy = where;
   data = [(MLCTensor *)self data];
 
@@ -332,28 +490,28 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
   {
     descriptor = [(MLCTensor *)self descriptor];
     dimensionCount = [descriptor dimensionCount];
-    v8 = &v14[-1] - ((8 * dimensionCount + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = &v13[-1] - ((8 * dimensionCount + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v8, 8 * dimensionCount);
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3042000000;
-    v21 = __Block_byref_object_copy_;
-    v22 = __Block_byref_object_dispose_;
-    v23[0] = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __37__MLCTensor_dataContainsScalarWhere___block_invoke;
-    v14[3] = &unk_278A696E8;
-    v14[4] = self;
-    v17 = v8;
-    v15 = whereCopy;
-    v16 = &v18;
-    v9 = MEMORY[0x23EE76340](v14);
-    objc_storeWeak(v19 + 5, v9);
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3042000000;
+    v20 = __Block_byref_object_copy_;
+    v21 = __Block_byref_object_dispose_;
+    v22[0] = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __37__MLCTensor_dataContainsScalarWhere___block_invoke;
+    v13[3] = &unk_278A696E8;
+    v13[4] = self;
+    v16 = v8;
+    v14 = whereCopy;
+    v15 = &v17;
+    v9 = MEMORY[0x23EE76340](v13);
+    objc_storeWeak(v18 + 5, v9);
     v10 = v9[2](v9, 0);
 
-    _Block_object_dispose(&v18, 8);
-    objc_destroyWeak(v23);
+    _Block_object_dispose(&v17, 8);
+    objc_destroyWeak(v22);
   }
 
   else
@@ -361,14 +519,13 @@ uint64_t __23__MLCTensor_initialize__block_invoke()
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-BOOL __37__MLCTensor_dataContainsScalarWhere___block_invoke(uint64_t a1, uint64_t a2)
+BOOL __37__MLCTensor_dataContainsScalarWhere___block_invoke(uint64_t a1, char *a2)
 {
   v4 = [*(a1 + 32) descriptor];
-  v5 = [v4 dimensionCount] - 1;
+  v5 = ([v4 dimensionCount] - 1);
 
   if (v5 == a2)
   {
@@ -609,30 +766,20 @@ LABEL_21:
       }
 
       data6 = [(MLCTensor *)self data];
-      if (!data6)
+      if (!data6 || (v17 = data6, [(MLCTensor *)self data], v18 = objc_claimAutoreleasedReturnValue(), [(MLCTensorData *)v6 data], v19 = objc_claimAutoreleasedReturnValue(), v19, v18, v17, v18 == v19))
       {
-        goto LABEL_17;
-      }
-
-      v17 = data6;
-      data7 = [(MLCTensor *)self data];
-      data8 = [(MLCTensorData *)v6 data];
-
-      if (data7 == data8)
-      {
-LABEL_17:
-        data9 = [(MLCTensorData *)v6 data];
-        [(MLCTensor *)self setData:data9];
+        data7 = [(MLCTensorData *)v6 data];
+        [(MLCTensor *)self setData:data7];
         goto LABEL_18;
       }
     }
 
+    data7 = [(MLCTensor *)self data];
+    bytes = [data7 bytes];
+    data8 = [(MLCTensorData *)v6 data];
+    bytes2 = [data8 bytes];
     data9 = [(MLCTensor *)self data];
-    bytes = [data9 bytes];
-    data10 = [(MLCTensorData *)v6 data];
-    bytes2 = [data10 bytes];
-    data11 = [(MLCTensor *)self data];
-    memcpy(bytes, bytes2, [data11 length]);
+    memcpy(bytes, bytes2, [data9 length]);
 
 LABEL_18:
 LABEL_19:
@@ -1106,8 +1253,8 @@ LABEL_27:
 
 + (id)newRandomDataForWeightTensorDescriptor:(id)descriptor randomInitializerType:(int)type
 {
-  v45 = a2;
-  v50 = *MEMORY[0x277D85DE8];
+  v44 = a2;
+  v49 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   fanIn = [descriptorCopy fanIn];
   fanOut = [descriptorCopy fanOut];
@@ -1183,7 +1330,7 @@ LABEL_8:
             v32 = +[MLCLog framework];
             if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
-              [MLCTensor newRandomDataForWeightTensorDescriptor:v49 randomInitializerType:v46];
+              [MLCTensor newRandomDataForWeightTensorDescriptor:v48 randomInitializerType:v45];
             }
 
             break;
@@ -1207,7 +1354,7 @@ LABEL_8:
             v40 = +[MLCLog framework];
             if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
-              [MLCTensor newRandomDataForWeightTensorDescriptor:v48 randomInitializerType:v46];
+              [MLCTensor newRandomDataForWeightTensorDescriptor:v47 randomInitializerType:v45];
             }
 
             break;
@@ -1249,8 +1396,8 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v44 = +[MLCLog framework];
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v43 = +[MLCLog framework];
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
     +[MLCTensor newRandomDataForWeightTensorDescriptor:randomInitializerType:];
   }
@@ -1258,7 +1405,6 @@ LABEL_8:
   v41 = 0;
 LABEL_38:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -1315,6 +1461,134 @@ LABEL_38:
   return unsignedIntegerValue;
 }
 
+- (MLCTensor)tensorByQuantizingToType:(MLCDataType)type scale:(float)scale bias:(NSInteger)bias
+{
+  v5 = *&type;
+  v17 = scale;
+  v16 = bias;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [MLCTensorDescriptor descriptorWithShape:&unk_284BA61A0 stride:0 dataType:1, v16];
+  v9 = [MLCTensorData dataWithBytes:&v17 length:4];
+  v10 = [MLCTensor tensorWithDescriptor:v8 data:v9];
+
+  v11 = [MLCTensorDescriptor descriptorWithShape:&unk_284BA61B8 stride:0 dataType:7];
+  v12 = [MLCTensorData dataWithBytes:&v16 length:4];
+  v13 = [MLCTensor tensorWithDescriptor:v11 data:v12];
+
+  v14 = [(MLCTensor *)self tensorByQuantizingToType:v5 scale:v10 bias:v13 axis:-1];
+
+  objc_autoreleasePoolPop(v7);
+
+  return v14;
+}
+
+- (MLCTensor)tensorByQuantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias axis:(NSInteger)axis
+{
+  v6 = *&type;
+  if ((type - 10) > 0xFFFFFFFC)
+  {
+    [(MLCTensor *)self synchronizeData];
+    descriptor = [(MLCTensor *)self descriptor];
+    shape = [descriptor shape];
+    v13 = [MLCTensorDescriptor descriptorWithShape:shape stride:0 dataType:v6];
+
+    v14 = +[MLCTensorData dataWithBytesNoCopy:length:](MLCTensorData, "dataWithBytesNoCopy:length:", malloc_type_malloc([v13 tensorAllocationSizeInBytes], 0xD3B2F18FuLL), objc_msgSend(v13, "tensorAllocationSizeInBytes"));
+    v9 = [MLCTensor tensorWithDescriptor:v13 data:v14];
+  }
+
+  else
+  {
+    v8 = +[MLCLog framework];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [MLCTensor tensorByQuantizingToType:a2 scale:? bias:? axis:?];
+    }
+
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (MLCTensor)tensorByDequantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias
+{
+  v6 = *&type;
+  v18 = v5;
+  v17 = scale;
+  v8 = objc_autoreleasePoolPush();
+  v9 = [MLCTensorDescriptor descriptorWithShape:&unk_284BA61D0 stride:0 dataType:1, v17];
+  v10 = [MLCTensorData dataWithBytes:&v18 length:4];
+  v11 = [MLCTensor tensorWithDescriptor:v9 data:v10];
+
+  v12 = [MLCTensorDescriptor descriptorWithShape:&unk_284BA61E8 stride:0 dataType:7];
+  v13 = [MLCTensorData dataWithBytes:&v17 length:4];
+  v14 = [MLCTensor tensorWithDescriptor:v12 data:v13];
+
+  v15 = [(MLCTensor *)self tensorByDequantizingToType:v6 scale:v11 bias:v14 axis:-1];
+
+  objc_autoreleasePoolPop(v8);
+
+  return v15;
+}
+
+- (MLCTensor)tensorByDequantizingToType:(MLCDataType)type scale:(MLCTensor *)scale bias:(MLCTensor *)bias axis:(NSInteger)axis
+{
+  if (type == MLCDataTypeFloat32)
+  {
+    v8 = [(MLCTensor *)self descriptor:*&type];
+    if ([v8 dataType] == 8)
+    {
+LABEL_5:
+
+LABEL_6:
+      [(MLCTensor *)self synchronizeData];
+      descriptor = [(MLCTensor *)self descriptor];
+      shape = [descriptor shape];
+      v12 = [MLCTensorDescriptor descriptorWithShape:shape stride:0 dataType:1];
+
+      v13 = +[MLCTensorData dataWithBytesNoCopy:length:](MLCTensorData, "dataWithBytesNoCopy:length:", malloc_type_malloc([v12 tensorAllocationSizeInBytes], 0x8BA32A60uLL), objc_msgSend(v12, "tensorAllocationSizeInBytes"));
+      v14 = [MLCTensor tensorWithDescriptor:v12 data:v13];
+
+      goto LABEL_11;
+    }
+
+    descriptor2 = [(MLCTensor *)self descriptor];
+    if ([descriptor2 dataType] == 9)
+    {
+
+      goto LABEL_5;
+    }
+
+    descriptor3 = [(MLCTensor *)self descriptor];
+    dataType = [descriptor3 dataType];
+
+    if (dataType == 7)
+    {
+      goto LABEL_6;
+    }
+
+    v19 = +[MLCLog framework];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      [MLCTensor tensorByDequantizingToType:scale:bias:axis:];
+    }
+  }
+
+  else
+  {
+    v15 = +[MLCLog framework];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [MLCTensor tensorByDequantizingToType:a2 scale:? bias:? axis:?];
+    }
+  }
+
+  v14 = 0;
+LABEL_11:
+
+  return v14;
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
@@ -1361,61 +1635,46 @@ LABEL_38:
 
 + (void)tensorWithSequenceLengths:(const char *)a1 sortedSequences:featureChannelCount:batchSize:randomInitializerType:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyDataFromDeviceMemoryToBytes:length:synchronizeWithDevice:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(v1);
   v3 = [v0 descriptor];
   [v3 tensorAllocationSizeInBytes];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyDataFromDeviceMemoryToBytes:(const char *)a1 length:synchronizeWithDevice:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyDataFromDeviceMemoryToBytes:(const char *)a1 length:synchronizeWithDevice:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)newRandomDataForWeightTensorDescriptor:randomInitializerType:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)newRandomDataForWeightTensorDescriptor:(uint64_t)a1 randomInitializerType:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
@@ -1438,37 +1697,28 @@ LABEL_38:
 
 - (void)tensorByQuantizingToType:(const char *)a1 scale:bias:axis:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tensorByDequantizingToType:(const char *)a1 scale:bias:axis:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tensorByDequantizingToType:scale:bias:axis:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(v1);
   v3 = [v0 descriptor];
   [v3 dataType];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

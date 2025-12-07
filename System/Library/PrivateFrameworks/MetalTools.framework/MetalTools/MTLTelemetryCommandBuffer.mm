@@ -646,7 +646,7 @@ LABEL_148:
     v260 = (next + 3);
     telemetryDevice = selfCopy2->_telemetryDevice;
     *&v263.pbAlloc = next + 2;
-    v78 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&telemetryDevice->renderTargetMap.__table_.__bucket_list_.__ptr_, next + 2);
+    v78 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&telemetryDevice->renderTargetMap.__table_.__bucket_list_.__ptr_, next + 2, &std::piecewise_construct, &v263);
     v79 = 0;
     v259 = next;
     v262 = (next + 28515);
@@ -1593,7 +1593,7 @@ LABEL_311:
   {
     v208 = selfCopy2->_telemetryDevice;
     *&v263.pbAlloc = m + 2;
-    v209 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&v208->blitMap.__table_.__bucket_list_.__ptr_, m + 2);
+    v209 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&v208->blitMap.__table_.__bucket_list_.__ptr_, m + 2, &std::piecewise_construct, &v263);
     v210 = 0;
     v211 = m;
     do
@@ -1924,15 +1924,15 @@ LABEL_479:
 
 - (void)postCompletionHandlers
 {
-  if (__cxa_guard_acquire(&qword_27DA61190))
+  if (__cxa_guard_acquire(byte_27DA61190))
   {
     _MergedGlobals_0 = getenv("MTL_TELEMETRY_EMIT_ON_COMMIT");
 
-    __cxa_guard_release(&qword_27DA61190);
+    __cxa_guard_release(byte_27DA61190);
   }
 }
 
-uint64_t __51__MTLTelemetryCommandBuffer_postCompletionHandlers__block_invoke(uint64_t a1)
+void *__51__MTLTelemetryCommandBuffer_postCompletionHandlers__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) mergeDistributions];
   if (_MergedGlobals_0 && *_MergedGlobals_0 == 49)

@@ -643,31 +643,30 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v23 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v23;
+    toCopy = v6;
   }
 
   if (self->_friendUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v23;
+    toCopy = v6;
   }
 
   if (self->_sourceUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v23;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((*&has & 0x800) != 0)
   {
-    snapshotIndex = self->_snapshotIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v23;
+    toCopy = v6;
     has = self->_has;
     if ((*&has & 0x20) == 0)
     {
@@ -686,9 +685,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  date = self->_date;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -702,9 +700,8 @@ LABEL_10:
   }
 
 LABEL_30:
-  timeZoneOffsetFromUTCForNoon = self->_timeZoneOffsetFromUTCForNoon;
   PBDataWriterWriteInt64Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -718,9 +715,8 @@ LABEL_11:
   }
 
 LABEL_31:
-  energyBurned = self->_energyBurned;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -734,9 +730,8 @@ LABEL_12:
   }
 
 LABEL_32:
-  energyBurnedGoal = self->_energyBurnedGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 8) == 0)
   {
@@ -750,9 +745,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  briskMinutes = self->_briskMinutes;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -766,9 +760,8 @@ LABEL_14:
   }
 
 LABEL_34:
-  briskMinutesGoal = self->_briskMinutesGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -782,9 +775,8 @@ LABEL_15:
   }
 
 LABEL_35:
-  activeHours = self->_activeHours;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -798,9 +790,8 @@ LABEL_16:
   }
 
 LABEL_36:
-  activeHoursGoal = self->_activeHoursGoal;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -814,9 +805,8 @@ LABEL_17:
   }
 
 LABEL_37:
-  walkingAndRunningDistance = self->_walkingAndRunningDistance;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -830,9 +820,8 @@ LABEL_18:
   }
 
 LABEL_38:
-  stepCount = self->_stepCount;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -846,9 +835,8 @@ LABEL_19:
   }
 
 LABEL_39:
-  pushCount = self->_pushCount;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -862,9 +850,8 @@ LABEL_20:
   }
 
 LABEL_40:
-  wheelchairUse = self->_wheelchairUse;
   PBDataWriterWriteInt64Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -878,9 +865,8 @@ LABEL_21:
   }
 
 LABEL_41:
-  uploadedDate = self->_uploadedDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -894,9 +880,8 @@ LABEL_22:
   }
 
 LABEL_42:
-  mmv = self->_mmv;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -910,15 +895,13 @@ LABEL_23:
   }
 
 LABEL_43:
-  mmg = self->_mmg;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_24:
-    amm = self->_amm;
     PBDataWriterWriteInt64Field();
-    toCopy = v23;
+    toCopy = v6;
   }
 
 LABEL_25:

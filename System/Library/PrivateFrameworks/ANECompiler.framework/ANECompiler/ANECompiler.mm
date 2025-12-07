@@ -1,4 +1,4 @@
-unint64_t LayerCycleAndFootprintEstimator::GetMaxCycleWithoutStall(LayerCycleAndFootprintEstimator *this, char a2, char a3)
+unint64_t LayerCycleAndFootprintEstimator::GetMaxCycleWithoutStall(LayerCycleAndFootprintEstimator *this, char a2, unsigned __int8 a3)
 {
   v6 = *this;
   v7 = *(this + 1);
@@ -43,7 +43,7 @@ unint64_t LayerCycleAndFootprintEstimator::GetMaxCycleWithoutStall(LayerCycleAnd
   return result;
 }
 
-unint64_t LayerCycleAndFootprintEstimator::GetMaxCycle(LayerCycleAndFootprintEstimator *this, char a2, char a3)
+unint64_t LayerCycleAndFootprintEstimator::GetMaxCycle(LayerCycleAndFootprintEstimator *this, char a2, unsigned __int8 a3)
 {
   MaxCycleWithoutStall = LayerCycleAndFootprintEstimator::GetMaxCycleWithoutStall(this, a2, a3);
   if ((a2 & 1) == 0)
@@ -56,7 +56,7 @@ unint64_t LayerCycleAndFootprintEstimator::GetMaxCycle(LayerCycleAndFootprintEst
 
 uint64_t LayerCycleAndFootprintEstimator::GetOverheadCycles(uint64_t **this)
 {
-  LayerCycleAndFootprintEstimator::GetReadBehaviors(this, &v6);
+  LayerCycleAndFootprintEstimator::GetReadBehaviors(&v6, this);
   if (v6 == v7)
   {
     v2 = 0;
@@ -87,11 +87,11 @@ LABEL_5:
   return this[4][16] + v2;
 }
 
-void LayerCycleAndFootprintEstimator::GetReadBehaviors(uint64_t **this@<X0>, uint64_t a2@<X8>)
+void LayerCycleAndFootprintEstimator::GetReadBehaviors(const void **__return_ptr a1@<X8>, uint64_t **this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = *this;
   v3 = this[1];
   if (*this != v3)
@@ -100,16 +100,16 @@ void LayerCycleAndFootprintEstimator::GetReadBehaviors(uint64_t **this@<X0>, uin
     do
     {
       v6 = *v2;
-      v7 = *(a2 + 16);
+      v7 = a1[2];
       if (v5 >= v7)
       {
-        v8 = (v5 - *a2) >> 3;
+        v8 = (v5 - *a1) >> 3;
         if ((v8 + 1) >> 61)
         {
           std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
         }
 
-        v9 = v7 - *a2;
+        v9 = v7 - *a1;
         v10 = v9 >> 2;
         if (v9 >> 2 <= (v8 + 1))
         {
@@ -128,19 +128,19 @@ void LayerCycleAndFootprintEstimator::GetReadBehaviors(uint64_t **this@<X0>, uin
 
         if (v11)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<L2CycleEstimator *>>(a2, v11);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<L2CycleEstimator *>>(a1, v11);
         }
 
         v12 = (8 * v8);
         *v12 = v6;
         v5 = (8 * v8 + 8);
-        v13 = *(a2 + 8) - *a2;
+        v13 = a1[1] - *a1;
         v14 = v12 - v13;
-        memcpy(v12 - v13, *a2, v13);
-        v15 = *a2;
-        *a2 = v14;
-        *(a2 + 8) = v5;
-        *(a2 + 16) = 0;
+        memcpy(v12 - v13, *a1, v13);
+        v15 = *a1;
+        *a1 = v14;
+        a1[1] = v5;
+        a1[2] = 0;
         if (v15)
         {
           operator delete(v15);
@@ -149,10 +149,11 @@ void LayerCycleAndFootprintEstimator::GetReadBehaviors(uint64_t **this@<X0>, uin
 
       else
       {
-        *v5++ = v6;
+        *v5 = v6;
+        v5 += 8;
       }
 
-      *(a2 + 8) = v5;
+      a1[1] = v5;
       ++v2;
     }
 
@@ -1145,7 +1146,7 @@ void sub_23C922A70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1157,29 +1158,29 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-void ORToolsL2DepScheduleVariable::ORToolsL2DepScheduleVariable(uint64_t a1, operations_research::sat::CpModelBuilder *a2, uint64_t a3, uint64_t a4, uint64_t *a5, int a6, int a7, uint64_t a8, uint64_t **a9, uint64_t a10, uint64_t a11, char a12, operations_research::Domain *a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void ORToolsL2DepScheduleVariable::ORToolsL2DepScheduleVariable(uint64_t a1, operations_research::sat::CpModelBuilder *a2, uint64_t a3, uint64_t **a4, int a5, _OWORD *a6, char a7, uint64_t a8, uint64_t **a9, uint64_t a10, _OWORD *a11, char a12, operations_research::Domain *a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v84 = operations_research::sat::CpModelBuilder::NewConstant(a2, 0);
-  v85 = v22;
+  v82 = operations_research::sat::CpModelBuilder::NewConstant(a2, 0);
+  v83 = v21;
   if (*(a3 + 271) >= 0)
   {
-    v23 = *(a3 + 271);
+    v22 = *(a3 + 271);
   }
 
   else
   {
-    v23 = *(a3 + 256);
+    v22 = *(a3 + 256);
   }
 
-  std::string::basic_string[abi:ne200100](&__p, v23 + 13);
-  if ((v83 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100](&__p, v22 + 13);
+  if ((v81 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -1189,547 +1190,546 @@ void ORToolsL2DepScheduleVariable::ORToolsL2DepScheduleVariable(uint64_t a1, ope
     p_p = __p;
   }
 
-  if (v23)
+  if (v22)
   {
     if (*(a3 + 271) >= 0)
     {
-      v25 = (a3 + 248);
+      v24 = (a3 + 248);
     }
 
     else
     {
-      v25 = *(a3 + 248);
+      v24 = *(a3 + 248);
     }
 
-    memmove(p_p, v25, v23);
+    memmove(p_p, v24, v22);
   }
 
-  strcpy(p_p + v23, ":l2_dep_begin");
-  if ((v83 & 0x80u) == 0)
+  strcpy(p_p + v22, ":l2_dep_begin");
+  if ((v81 & 0x80u) == 0)
   {
-    v26 = &__p;
+    v25 = &__p;
   }
 
   else
   {
-    v26 = __p;
+    v25 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v27 = v83;
+    v26 = v81;
   }
 
   else
   {
-    v27 = v82;
+    v26 = v80;
   }
 
-  *a1 = operations_research::sat::IntVar::WithName(&v84, v26, v27);
-  *(a1 + 8) = v28;
-  if (v83 < 0)
+  *a1 = operations_research::sat::IntVar::WithName(&v82, v25, v26);
+  *(a1 + 8) = v27;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v29;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v28;
   if (*(a3 + 271) >= 0)
   {
-    v30 = *(a3 + 271);
+    v29 = *(a3 + 271);
   }
 
   else
   {
-    v30 = *(a3 + 256);
+    v29 = *(a3 + 256);
   }
 
-  std::string::basic_string[abi:ne200100](&__p, v30 + 12);
-  if ((v83 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100](&__p, v29 + 12);
+  if ((v81 & 0x80u) == 0)
   {
-    v31 = &__p;
+    v30 = &__p;
   }
 
   else
   {
-    v31 = __p;
+    v30 = __p;
   }
 
-  if (v30)
+  if (v29)
   {
     if (*(a3 + 271) >= 0)
     {
-      v32 = (a3 + 248);
+      v31 = (a3 + 248);
     }
 
     else
     {
-      v32 = *(a3 + 248);
+      v31 = *(a3 + 248);
     }
 
-    memmove(v31, v32, v30);
+    memmove(v30, v31, v29);
   }
 
-  strcpy(v31 + v30, ":l2_dep_time");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v30 + v29, ":l2_dep_time");
+  if ((v81 & 0x80u) == 0)
   {
-    v33 = &__p;
+    v32 = &__p;
   }
 
   else
   {
-    v33 = __p;
+    v32 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v34 = v83;
+    v33 = v81;
   }
 
   else
   {
-    v34 = v82;
+    v33 = v80;
   }
 
-  *(a1 + 16) = operations_research::sat::IntVar::WithName(&v84, v33, v34);
-  *(a1 + 24) = v35;
-  if (v83 < 0)
+  *(a1 + 16) = operations_research::sat::IntVar::WithName(&v82, v32, v33);
+  *(a1 + 24) = v34;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v36;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v35;
   if (*(a3 + 271) >= 0)
   {
-    v37 = *(a3 + 271);
+    v36 = *(a3 + 271);
   }
 
   else
   {
-    v37 = *(a3 + 256);
+    v36 = *(a3 + 256);
   }
 
-  std::string::basic_string[abi:ne200100](&__p, v37 + 11);
-  if ((v83 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100](&__p, v36 + 11);
+  if ((v81 & 0x80u) == 0)
   {
-    v38 = &__p;
+    v37 = &__p;
   }
 
   else
   {
-    v38 = __p;
+    v37 = __p;
   }
 
-  if (v37)
+  if (v36)
   {
     if (*(a3 + 271) >= 0)
     {
-      v39 = (a3 + 248);
+      v38 = (a3 + 248);
     }
 
     else
     {
-      v39 = *(a3 + 248);
+      v38 = *(a3 + 248);
     }
 
-    memmove(v38, v39, v37);
+    memmove(v37, v38, v36);
   }
 
-  strcpy(v38 + v37, ":l2_dep_end");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v37 + v36, ":l2_dep_end");
+  if ((v81 & 0x80u) == 0)
   {
-    v40 = &__p;
+    v39 = &__p;
   }
 
   else
   {
-    v40 = __p;
+    v39 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v41 = v83;
+    v40 = v81;
   }
 
   else
   {
-    v41 = v82;
+    v40 = v80;
   }
 
-  *(a1 + 32) = operations_research::sat::IntVar::WithName(&v84, v40, v41);
-  *(a1 + 40) = v42;
-  if (v83 < 0)
+  *(a1 + 32) = operations_research::sat::IntVar::WithName(&v82, v39, v40);
+  *(a1 + 40) = v41;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
   if (*(a3 + 271) < 0)
   {
-    std::string::__init_copy_ctor_external(&v80, *(a3 + 248), *(a3 + 256));
+    std::string::__init_copy_ctor_external(&v78, *(a3 + 248), *(a3 + 256));
   }
 
   else
   {
-    v80 = *(a3 + 248);
+    v78 = *(a3 + 248);
   }
 
-  LayerCycleAndFootprintEstimator::GetReadBehaviors(a4, &__p);
-  ORToolsL2DepScheduleVariable::CreateReadEndVariables(a2, &v80.__r_.__value_.__l.__data_, (v82 - __p) >> 3, a13, (a1 + 48));
+  LayerCycleAndFootprintEstimator::GetReadBehaviors(&__p, a4);
+  ORToolsL2DepScheduleVariable::CreateReadEndVariables(a2, &v78.__r_.__value_.__l.__data_, (v80 - __p) >> 3, a13, (a1 + 48));
   if (__p)
   {
-    v82 = __p;
+    v80 = __p;
     operator delete(__p);
   }
 
-  if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v80.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v43;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v42;
   if (*(a3 + 271) >= 0)
   {
-    v44 = *(a3 + 271);
+    v43 = *(a3 + 271);
   }
 
   else
   {
-    v44 = *(a3 + 256);
+    v43 = *(a3 + 256);
   }
 
-  v45 = &__p;
-  std::string::basic_string[abi:ne200100](&__p, v44 + 21);
-  if ((v83 & 0x80u) != 0)
+  v44 = &__p;
+  std::string::basic_string[abi:ne200100](&__p, v43 + 21);
+  if ((v81 & 0x80u) != 0)
   {
-    v45 = __p;
+    v44 = __p;
   }
 
-  if (v44)
+  if (v43)
   {
     if (*(a3 + 271) >= 0)
     {
-      v46 = (a3 + 248);
+      v45 = (a3 + 248);
     }
 
     else
     {
-      v46 = *(a3 + 248);
+      v45 = *(a3 + 248);
     }
 
-    memmove(v45, v46, v44);
+    memmove(v44, v45, v43);
   }
 
-  strcpy(v45 + v44, ":producer_compute_end");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v44 + v43, ":producer_compute_end");
+  if ((v81 & 0x80u) == 0)
   {
-    v47 = &__p;
+    v46 = &__p;
   }
 
   else
   {
-    v47 = __p;
+    v46 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v48 = v83;
+    v47 = v81;
   }
 
   else
   {
-    v48 = v82;
+    v47 = v80;
   }
 
-  *(a1 + 72) = operations_research::sat::IntVar::WithName(&v84, v47, v48);
-  *(a1 + 80) = v49;
-  if (v83 < 0)
+  *(a1 + 72) = operations_research::sat::IntVar::WithName(&v82, v46, v47);
+  *(a1 + 80) = v48;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v50;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v49;
   if (*(a3 + 271) >= 0)
   {
-    v51 = *(a3 + 271);
+    v50 = *(a3 + 271);
   }
 
   else
   {
-    v51 = *(a3 + 256);
+    v50 = *(a3 + 256);
   }
 
-  v52 = &__p;
-  std::string::basic_string[abi:ne200100](&__p, v51 + 19);
-  if ((v83 & 0x80u) != 0)
+  v51 = &__p;
+  std::string::basic_string[abi:ne200100](&__p, v50 + 19);
+  if ((v81 & 0x80u) != 0)
   {
-    v52 = __p;
+    v51 = __p;
   }
 
-  if (v51)
+  if (v50)
   {
     if (*(a3 + 271) >= 0)
     {
-      v53 = (a3 + 248);
+      v52 = (a3 + 248);
     }
 
     else
     {
-      v53 = *(a3 + 248);
+      v52 = *(a3 + 248);
     }
 
-    memmove(v52, v53, v51);
+    memmove(v51, v52, v50);
   }
 
-  strcpy(v52 + v51, ":prodcuer_write_end");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v51 + v50, ":prodcuer_write_end");
+  if ((v81 & 0x80u) == 0)
   {
-    v54 = &__p;
+    v53 = &__p;
   }
 
   else
   {
-    v54 = __p;
+    v53 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v55 = v83;
+    v54 = v81;
   }
 
   else
   {
-    v55 = v82;
+    v54 = v80;
   }
 
-  *(a1 + 88) = operations_research::sat::IntVar::WithName(&v84, v54, v55);
-  *(a1 + 96) = v56;
-  if (v83 < 0)
+  *(a1 + 88) = operations_research::sat::IntVar::WithName(&v82, v53, v54);
+  *(a1 + 96) = v55;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
   if (*(a8 + 271) < 0)
   {
-    std::string::__init_copy_ctor_external(&v79, *(a8 + 248), *(a8 + 256));
+    std::string::__init_copy_ctor_external(&v77, *(a8 + 248), *(a8 + 256));
   }
 
   else
   {
-    v79 = *(a8 + 248);
+    v77 = *(a8 + 248);
   }
 
-  LayerCycleAndFootprintEstimator::GetReadBehaviors(a9, &__p);
-  ORToolsL2DepScheduleVariable::CreateReadEndVariables(a2, &v79.__r_.__value_.__l.__data_, (v82 - __p) >> 3, a13, (a1 + 104));
+  LayerCycleAndFootprintEstimator::GetReadBehaviors(&__p, a9);
+  ORToolsL2DepScheduleVariable::CreateReadEndVariables(a2, &v77.__r_.__value_.__l.__data_, (v80 - __p) >> 3, a13, (a1 + 104));
   if (__p)
   {
-    v82 = __p;
+    v80 = __p;
     operator delete(__p);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v77.__r_.__value_.__l.__data_);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v57;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v56;
   if (*(a8 + 271) >= 0)
   {
-    v58 = *(a8 + 271);
+    v57 = *(a8 + 271);
   }
 
   else
   {
-    v58 = *(a8 + 256);
+    v57 = *(a8 + 256);
   }
 
-  v59 = &__p;
-  std::string::basic_string[abi:ne200100](&__p, v58 + 21);
-  if ((v83 & 0x80u) != 0)
+  v58 = &__p;
+  std::string::basic_string[abi:ne200100](&__p, v57 + 21);
+  if ((v81 & 0x80u) != 0)
   {
-    v59 = __p;
+    v58 = __p;
   }
 
-  if (v58)
+  if (v57)
   {
     if (*(a8 + 271) >= 0)
     {
-      v60 = (a8 + 248);
+      v59 = (a8 + 248);
     }
 
     else
     {
-      v60 = *(a8 + 248);
+      v59 = *(a8 + 248);
     }
 
-    memmove(v59, v60, v58);
+    memmove(v58, v59, v57);
   }
 
-  strcpy(v59 + v58, ":consumer_compute_end");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v58 + v57, ":consumer_compute_end");
+  if ((v81 & 0x80u) == 0)
   {
-    v61 = &__p;
+    v60 = &__p;
   }
 
   else
   {
-    v61 = __p;
+    v60 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v62 = v83;
+    v61 = v81;
   }
 
   else
   {
-    v62 = v82;
+    v61 = v80;
   }
 
-  *(a1 + 128) = operations_research::sat::IntVar::WithName(&v84, v61, v62);
-  *(a1 + 136) = v63;
-  if (v83 < 0)
+  *(a1 + 128) = operations_research::sat::IntVar::WithName(&v82, v60, v61);
+  *(a1 + 136) = v62;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v64;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v63;
   if (*(a8 + 271) >= 0)
   {
-    v65 = *(a8 + 271);
+    v64 = *(a8 + 271);
   }
 
   else
   {
-    v65 = *(a8 + 256);
+    v64 = *(a8 + 256);
   }
 
-  v66 = &__p;
-  std::string::basic_string[abi:ne200100](&__p, v65 + 19);
-  if ((v83 & 0x80u) != 0)
+  v65 = &__p;
+  std::string::basic_string[abi:ne200100](&__p, v64 + 19);
+  if ((v81 & 0x80u) != 0)
   {
-    v66 = __p;
+    v65 = __p;
   }
 
-  if (v65)
+  if (v64)
   {
     if (*(a8 + 271) >= 0)
     {
-      v67 = (a8 + 248);
+      v66 = (a8 + 248);
     }
 
     else
     {
-      v67 = *(a8 + 248);
+      v66 = *(a8 + 248);
     }
 
-    memmove(v66, v67, v65);
+    memmove(v65, v66, v64);
   }
 
-  strcpy(v66 + v65, ":consumer_write_end");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v65 + v64, ":consumer_write_end");
+  if ((v81 & 0x80u) == 0)
   {
-    v68 = &__p;
+    v67 = &__p;
   }
 
   else
   {
-    v68 = __p;
+    v67 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v69 = v83;
+    v68 = v81;
   }
 
   else
   {
-    v69 = v82;
+    v68 = v80;
   }
 
-  *(a1 + 144) = operations_research::sat::IntVar::WithName(&v84, v68, v69);
-  *(a1 + 152) = v70;
-  if (v83 < 0)
+  *(a1 + 144) = operations_research::sat::IntVar::WithName(&v82, v67, v68);
+  *(a1 + 152) = v69;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
   *(a1 + 160) = *(a3 + 160);
-  v84 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
-  v85 = v71;
+  v82 = operations_research::sat::CpModelBuilder::NewIntVar(a2, a13);
+  v83 = v70;
   if (*(a3 + 271) >= 0)
   {
-    v72 = *(a3 + 271);
+    v71 = *(a3 + 271);
   }
 
   else
   {
-    v72 = *(a3 + 256);
+    v71 = *(a3 + 256);
   }
 
-  v73 = &__p;
-  std::string::basic_string[abi:ne200100](&__p, v72 + 28);
-  if ((v83 & 0x80u) != 0)
+  v72 = &__p;
+  std::string::basic_string[abi:ne200100](&__p, v71 + 28);
+  if ((v81 & 0x80u) != 0)
   {
-    v73 = __p;
+    v72 = __p;
   }
 
-  if (v72)
+  if (v71)
   {
     if (*(a3 + 271) >= 0)
     {
-      v74 = (a3 + 248);
+      v73 = (a3 + 248);
     }
 
     else
     {
-      v74 = *(a3 + 248);
+      v73 = *(a3 + 248);
     }
 
-    memmove(v73, v74, v72);
+    memmove(v72, v73, v71);
   }
 
-  strcpy(v73 + v72, "pipeline_stall_overhead_time");
-  if ((v83 & 0x80u) == 0)
+  strcpy(v72 + v71, "pipeline_stall_overhead_time");
+  if ((v81 & 0x80u) == 0)
   {
-    v75 = &__p;
+    v74 = &__p;
   }
 
   else
   {
-    v75 = __p;
+    v74 = __p;
   }
 
-  if ((v83 & 0x80u) == 0)
+  if ((v81 & 0x80u) == 0)
   {
-    v76 = v83;
+    v75 = v81;
   }
 
   else
   {
-    v76 = v82;
+    v75 = v80;
   }
 
-  *(a1 + 176) = operations_research::sat::IntVar::WithName(&v84, v75, v76);
-  *(a1 + 184) = v77;
-  if (v83 < 0)
+  *(a1 + 176) = operations_research::sat::IntVar::WithName(&v82, v74, v75);
+  *(a1 + 184) = v76;
+  if (v81 < 0)
   {
     operator delete(__p);
   }
 
-  LayerCycleAndFootprintEstimator::GetReadBehaviors(a4, &__p);
-  ORToolsL2DepScheduleVariable::CreateInputL2AccessVariables(&__p, a5, (a1 + 192));
+  LayerCycleAndFootprintEstimator::GetReadBehaviors(&__p, a4);
+  ORToolsL2DepScheduleVariable::CreateInputL2AccessVariables(&__p, (a1 + 192));
   if (__p)
   {
-    v82 = __p;
+    v80 = __p;
     operator delete(__p);
   }
 
-  v78 = *(a4 + 24);
   operator new();
 }
 
@@ -1939,19 +1939,18 @@ void sub_23C9239A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ORToolsL2DepScheduleVariable::CreateInputL2AccessVariables(void *a1@<X2>, uint64_t *a2@<X3>, void *a3@<X8>)
+void ORToolsL2DepScheduleVariable::CreateInputL2AccessVariables(uint64_t *a2@<X2>, const void **a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (a1[1] != *a1)
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  if (a2[1] != *a2)
   {
-    v3 = *a2;
     operator new();
   }
 }
 
-void sub_23C923B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_23C923B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::unique_ptr<ORToolsCpL2AccessVariable>::~unique_ptr[abi:ne200100](&a9);
   std::vector<std::unique_ptr<ORToolsCpL2AccessVariable>>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -2092,23 +2091,23 @@ void std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](uint
   *(a1 + 8) = v6;
 }
 
-void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations_research::sat::CpModelBuilder *a2, uint64_t *a3, uint64_t **a4, const operations_research::Domain *a5)
+void ORToolsL2DepScheduleVariable::CreateLayerConstraint(void *a1, operations_research::sat::CpModelBuilder *a2, uint64_t *a3, uint64_t **a4, const operations_research::Domain *a5)
 {
-  v315[1] = *MEMORY[0x277D85DE8];
-  v264 = *(a1 + 168);
-  v265 = *(a1 + 160);
-  v10 = operations_research::sat::BoolVar::BoolVar(&v309, ~v264, v265);
-  v11 = v309;
-  v12 = v310;
-  operations_research::sat::LinearExpr::LinearExpr(v10, *(a1 + 16), *(a1 + 24));
-  *&v305 = *(a1 + 32);
-  DWORD2(v305) = *(a1 + 40);
-  v306 = *a1;
-  LODWORD(v307) = *(a1 + 8);
-  *&v304.__r_.__value_.__l.__data_ = xmmword_23CE306C0;
-  operations_research::sat::LinearExpr::WeightedSum(&v305, 2, 2, &v297);
-  v266 = a2;
-  v294.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddEquality(a2, &v309, &v297);
+  *(&v312 + 1) = *MEMORY[0x277D85DE8];
+  v263 = a1[21];
+  v264 = a1[20];
+  v10 = operations_research::sat::BoolVar::BoolVar(&v308, ~v263, v264);
+  v11 = v308;
+  v12 = DWORD2(v308);
+  operations_research::sat::LinearExpr::LinearExpr(v10, a1[2], a1[3]);
+  *&v304 = a1[4];
+  DWORD2(v304) = *(a1 + 10);
+  v305 = *a1;
+  LODWORD(v306) = *(a1 + 2);
+  *&v303.__r_.__value_.__l.__data_ = xmmword_23CE306C0;
+  operations_research::sat::LinearExpr::WeightedSum(2, 2, &v296);
+  v265 = a2;
+  v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddEquality(a2, &v308, &v296);
   if (*(a1 + 311) >= 0)
   {
     v13 = *(a1 + 311);
@@ -2116,7 +2115,7 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
   else
   {
-    v13 = *(a1 + 296);
+    v13 = a1[37];
   }
 
   std::string::basic_string[abi:ne200100](&__p, v13 + 16);
@@ -2134,18 +2133,18 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
   {
     if (*(a1 + 311) >= 0)
     {
-      v15 = (a1 + 288);
+      v15 = a1 + 36;
     }
 
     else
     {
-      v15 = *(a1 + 288);
+      v15 = a1[36];
     }
 
     memmove(p_p, v15, v13);
   }
 
-  v263 = (a1 + 288);
+  v262 = a1 + 36;
   strcpy(p_p + v13, ":l2_dep_interval");
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -2167,102 +2166,102 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::Constraint::WithName(&v294, v16, size);
-  v18 = v266;
+  operations_research::sat::Constraint::WithName(&v293, v16, size);
+  v18 = v265;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  v19 = operations_research::sat::CpModelBuilder::NewConstant(v266, 0);
-  operations_research::sat::LinearExpr::LinearExpr(&v297, v19, v20);
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 32), *(a1 + 40));
-  operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v266, &v309, &v297, &v305, v11, v12);
-  if (v307)
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  v19 = operations_research::sat::CpModelBuilder::NewConstant(v265, 0);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, v19, v20);
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[4], a1[5]);
+  operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v265, &v308, &v296, &v304, v11, v12);
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  if (*(a1 + 200) != *(a1 + 192))
+  if (a1[25] != a1[24])
   {
     v21 = 0;
     v22 = 0;
-    v12 = &v292;
+    v12 = &v291;
     v7 = ":l2_dep_producer_resident_read_time_interval";
-    v5 = &v294;
+    v5 = &v293;
     v6 = ":l2_dep_producer_nonresident_read_time_interval";
     do
     {
-      operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-      v23 = *(*(a1 + 192) + 8 * v22);
-      operations_research::sat::LinearExpr::LinearExpr(&v297, *v23, v23[1]);
-      operations_research::sat::LinearExpr::LinearExpr(&v305, *(*(a1 + 48) + v21), *(*(a1 + 48) + v21 + 8));
-      v24 = *(*(a1 + 192) + 8 * v22);
+      operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+      v23 = *(a1[24] + 8 * v22);
+      operations_research::sat::LinearExpr::LinearExpr(&v296, *v23, v23[1]);
+      operations_research::sat::LinearExpr::LinearExpr(&v304, *(a1[6] + v21), *(a1[6] + v21 + 8));
+      v24 = *(a1[24] + 8 * v22);
       __p.__r_.__value_.__r.__words[0] = *(v24 + 224);
       LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v24 + 232);
-      __p.__r_.__value_.__r.__words[2] = v265;
-      v303 = v264;
-      memset(&v304, 0, sizeof(v304));
-      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-      BooleanAnd = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v18, &v304);
-      v295 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v18, &v309, &v297, &v305, BooleanAnd, v26);
-      v296 = v27;
+      __p.__r_.__value_.__r.__words[2] = v264;
+      v302 = v263;
+      memset(&v303, 0, sizeof(v303));
+      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+      BooleanAnd = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v18, &v303);
+      v294 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v18, &v308, &v296, &v304, BooleanAnd, v26);
+      v295 = v27;
       if (*(a1 + 311) >= 0)
       {
         v28 = *(a1 + 311);
@@ -2270,89 +2269,94 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
       else
       {
-        v28 = *(a1 + 296);
+        v28 = a1[37];
       }
 
-      std::string::basic_string[abi:ne200100](&v293, v28 + 44);
-      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v292, v28 + 44);
+      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v29 = &v293;
+        v29 = &v292;
       }
 
       else
       {
-        v29 = v293.__r_.__value_.__r.__words[0];
+        v29 = v292.__r_.__value_.__r.__words[0];
       }
 
       if (v28)
       {
         if (*(a1 + 311) >= 0)
         {
-          v30 = v263;
+          v30 = v262;
         }
 
         else
         {
-          v30 = *(a1 + 288);
+          v30 = a1[36];
         }
 
         memmove(v29, v30, v28);
       }
 
       strcpy(v29 + v28, ":l2_dep_producer_resident_read_time_interval");
-      std::to_string(&v292, v22);
-      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v291, v22);
+      if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v31 = &v292;
+        v31 = &v291;
       }
 
       else
       {
-        v31 = v292.__r_.__value_.__r.__words[0];
+        v31 = v291.__r_.__value_.__r.__words[0];
       }
 
-      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v32 = HIBYTE(v292.__r_.__value_.__r.__words[2]);
+        v32 = HIBYTE(v291.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v32 = v292.__r_.__value_.__l.__size_;
+        v32 = v291.__r_.__value_.__l.__size_;
       }
 
-      v33 = std::string::append(&v293, v31, v32);
-      v34 = v266;
+      v33 = std::string::append(&v292, v31, v32);
+      v34 = v265;
       v35 = *&v33->__r_.__value_.__l.__data_;
-      v294.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-      *&v294.__r_.__value_.__l.__data_ = v35;
+      v293.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+      *&v293.__r_.__value_.__l.__data_ = v35;
       v33->__r_.__value_.__l.__size_ = 0;
       v33->__r_.__value_.__r.__words[2] = 0;
       v33->__r_.__value_.__r.__words[0] = 0;
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v36 = &v294;
+        v36 = &v293;
       }
 
       else
       {
-        v36 = v294.__r_.__value_.__r.__words[0];
+        v36 = v293.__r_.__value_.__r.__words[0];
       }
 
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v37 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+        v37 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v37 = v294.__r_.__value_.__l.__size_;
+        v37 = v293.__r_.__value_.__l.__size_;
       }
 
-      operations_research::sat::IntervalVar::WithName(&v295, v36, v37);
-      if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+      operations_research::sat::IntervalVar::WithName(&v294, v36, v37);
+      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v294.__r_.__value_.__l.__data_);
+        operator delete(v293.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v291.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v291.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v292.__r_.__value_.__r.__words[2]) < 0)
@@ -2360,67 +2364,62 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
         operator delete(v292.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
+      if (v303.__r_.__value_.__r.__words[0])
       {
-        operator delete(v293.__r_.__value_.__l.__data_);
+        v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+        operator delete(v303.__r_.__value_.__l.__data_);
       }
 
-      if (v304.__r_.__value_.__r.__words[0])
+      if (v306)
       {
-        v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-        operator delete(v304.__r_.__value_.__l.__data_);
+        v307 = v306;
+        operator delete(v306);
       }
 
-      if (v307)
+      if (v304)
       {
-        v308 = v307;
-        operator delete(v307);
+        *(&v304 + 1) = v304;
+        operator delete(v304);
       }
 
-      if (v305)
+      if (v299)
       {
-        *(&v305 + 1) = v305;
-        operator delete(v305);
+        v300 = v299;
+        operator delete(v299);
       }
 
-      if (v300)
+      if (v296)
       {
-        v301 = v300;
-        operator delete(v300);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      if (v297)
+      if (v310)
       {
-        v298 = v297;
-        operator delete(v297);
+        *&v311 = v310;
+        operator delete(v310);
       }
 
-      if (v312)
+      if (v308)
       {
-        v313 = v312;
-        operator delete(v312);
+        *(&v308 + 1) = v308;
+        operator delete(v308);
       }
 
-      if (v309)
-      {
-        v310 = v309;
-        operator delete(v309);
-      }
-
-      operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-      v38 = *(*(a1 + 192) + 8 * v22);
-      operations_research::sat::LinearExpr::LinearExpr(&v297, *(v38 + 64), *(v38 + 72));
-      operations_research::sat::LinearExpr::LinearExpr(&v305, *(*(a1 + 48) + v21), *(*(a1 + 48) + v21 + 8));
-      v39 = *(*(a1 + 192) + 8 * v22);
+      operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+      v38 = *(a1[24] + 8 * v22);
+      operations_research::sat::LinearExpr::LinearExpr(&v296, *(v38 + 64), *(v38 + 72));
+      operations_research::sat::LinearExpr::LinearExpr(&v304, *(a1[6] + v21), *(a1[6] + v21 + 8));
+      v39 = *(a1[24] + 8 * v22);
       __p.__r_.__value_.__r.__words[0] = *(v39 + 240);
       LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v39 + 248);
-      __p.__r_.__value_.__r.__words[2] = v265;
-      v303 = v264;
-      memset(&v304, 0, sizeof(v304));
-      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-      v40 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v34, &v304);
-      v295 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v34, &v309, &v297, &v305, v40, v41);
-      v296 = v42;
+      __p.__r_.__value_.__r.__words[2] = v264;
+      v302 = v263;
+      memset(&v303, 0, sizeof(v303));
+      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+      v40 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v34, &v303);
+      v294 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v34, &v308, &v296, &v304, v40, v41);
+      v295 = v42;
       if (*(a1 + 311) >= 0)
       {
         v43 = *(a1 + 311);
@@ -2428,89 +2427,94 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
       else
       {
-        v43 = *(a1 + 296);
+        v43 = a1[37];
       }
 
-      std::string::basic_string[abi:ne200100](&v293, v43 + 47);
-      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v292, v43 + 47);
+      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v44 = &v293;
+        v44 = &v292;
       }
 
       else
       {
-        v44 = v293.__r_.__value_.__r.__words[0];
+        v44 = v292.__r_.__value_.__r.__words[0];
       }
 
       if (v43)
       {
         if (*(a1 + 311) >= 0)
         {
-          v45 = v263;
+          v45 = v262;
         }
 
         else
         {
-          v45 = *(a1 + 288);
+          v45 = a1[36];
         }
 
         memmove(v44, v45, v43);
       }
 
       strcpy(v44 + v43, ":l2_dep_producer_nonresident_read_time_interval");
-      std::to_string(&v292, v22);
-      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v291, v22);
+      if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v46 = &v292;
+        v46 = &v291;
       }
 
       else
       {
-        v46 = v292.__r_.__value_.__r.__words[0];
+        v46 = v291.__r_.__value_.__r.__words[0];
       }
 
-      if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v47 = HIBYTE(v292.__r_.__value_.__r.__words[2]);
+        v47 = HIBYTE(v291.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v47 = v292.__r_.__value_.__l.__size_;
+        v47 = v291.__r_.__value_.__l.__size_;
       }
 
-      v48 = std::string::append(&v293, v46, v47);
-      v18 = v266;
+      v48 = std::string::append(&v292, v46, v47);
+      v18 = v265;
       v49 = *&v48->__r_.__value_.__l.__data_;
-      v294.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
-      *&v294.__r_.__value_.__l.__data_ = v49;
+      v293.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
+      *&v293.__r_.__value_.__l.__data_ = v49;
       v48->__r_.__value_.__l.__size_ = 0;
       v48->__r_.__value_.__r.__words[2] = 0;
       v48->__r_.__value_.__r.__words[0] = 0;
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v50 = &v294;
+        v50 = &v293;
       }
 
       else
       {
-        v50 = v294.__r_.__value_.__r.__words[0];
+        v50 = v293.__r_.__value_.__r.__words[0];
       }
 
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v51 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+        v51 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v51 = v294.__r_.__value_.__l.__size_;
+        v51 = v293.__r_.__value_.__l.__size_;
       }
 
-      operations_research::sat::IntervalVar::WithName(&v295, v50, v51);
-      if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+      operations_research::sat::IntervalVar::WithName(&v294, v50, v51);
+      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v294.__r_.__value_.__l.__data_);
+        operator delete(v293.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v291.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v291.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v292.__r_.__value_.__r.__words[2]) < 0)
@@ -2518,65 +2522,60 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
         operator delete(v292.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
+      if (v303.__r_.__value_.__r.__words[0])
       {
-        operator delete(v293.__r_.__value_.__l.__data_);
+        v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+        operator delete(v303.__r_.__value_.__l.__data_);
       }
 
-      if (v304.__r_.__value_.__r.__words[0])
+      if (v306)
       {
-        v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-        operator delete(v304.__r_.__value_.__l.__data_);
+        v307 = v306;
+        operator delete(v306);
       }
 
-      if (v307)
+      if (v304)
       {
-        v308 = v307;
-        operator delete(v307);
+        *(&v304 + 1) = v304;
+        operator delete(v304);
       }
 
-      if (v305)
+      if (v299)
       {
-        *(&v305 + 1) = v305;
-        operator delete(v305);
+        v300 = v299;
+        operator delete(v299);
       }
 
-      if (v300)
+      if (v296)
       {
-        v301 = v300;
-        operator delete(v300);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      if (v297)
+      if (v310)
       {
-        v298 = v297;
-        operator delete(v297);
+        *&v311 = v310;
+        operator delete(v310);
       }
 
-      if (v312)
+      if (v308)
       {
-        v313 = v312;
-        operator delete(v312);
-      }
-
-      if (v309)
-      {
-        v310 = v309;
-        operator delete(v309);
+        *(&v308 + 1) = v308;
+        operator delete(v308);
       }
 
       ++v22;
       v21 += 16;
     }
 
-    while (v22 < (*(a1 + 200) - *(a1 + 192)) >> 3);
+    while (v22 < (a1[25] - a1[24]) >> 3);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, **(a1 + 216), *(*(a1 + 216) + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 72), *(a1 + 80));
-  v304.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v18, &v309, &v297, &v305, v265, v264);
-  LODWORD(v304.__r_.__value_.__r.__words[1]) = v52;
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *a1[27], *(a1[27] + 8));
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[9], a1[10]);
+  v303.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v18, &v308, &v296, &v304, v264, v263);
+  LODWORD(v303.__r_.__value_.__r.__words[1]) = v52;
   if (*(a1 + 311) >= 0)
   {
     v53 = *(a1 + 311);
@@ -2584,7 +2583,7 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
   else
   {
-    v53 = *(a1 + 296);
+    v53 = a1[37];
   }
 
   std::string::basic_string[abi:ne200100](&__p, v53 + 38);
@@ -2602,12 +2601,12 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
   {
     if (*(a1 + 311) >= 0)
     {
-      v55 = v263;
+      v55 = v262;
     }
 
     else
     {
-      v55 = *(a1 + 288);
+      v55 = a1[36];
     }
 
     memmove(v54, v55, v53);
@@ -2634,53 +2633,53 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
     v57 = __p.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::IntervalVar::WithName(&v304, v56, v57);
+  operations_research::sat::IntervalVar::WithName(&v303, v56, v57);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v307)
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, **(a1 + 224), *(*(a1 + 224) + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 88), *(a1 + 96));
-  v304.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v266, &v309, &v297, &v305, v265, v264);
-  LODWORD(v304.__r_.__value_.__r.__words[1]) = v58;
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *a1[28], *(a1[28] + 8));
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[11], a1[12]);
+  v303.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v265, &v308, &v296, &v304, v264, v263);
+  LODWORD(v303.__r_.__value_.__r.__words[1]) = v58;
   if (*(a1 + 311) >= 0)
   {
     v59 = *(a1 + 311);
@@ -2688,7 +2687,7 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
   else
   {
-    v59 = *(a1 + 296);
+    v59 = a1[37];
   }
 
   std::string::basic_string[abi:ne200100](&__p, v59 + 36);
@@ -2706,12 +2705,12 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
   {
     if (*(a1 + 311) >= 0)
     {
-      v61 = v263;
+      v61 = v262;
     }
 
     else
     {
-      v61 = *(a1 + 288);
+      v61 = a1[36];
     }
 
     memmove(v60, v61, v59);
@@ -2738,65 +2737,65 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
     v63 = __p.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::IntervalVar::WithName(&v304, v62, v63);
-  v64 = v266;
+  operations_research::sat::IntervalVar::WithName(&v303, v62, v63);
+  v64 = v265;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v307)
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  if (*(a1 + 240) != *(a1 + 232))
+  if (a1[30] != a1[29])
   {
     v65 = 0;
     v66 = 0;
-    v6 = (a1 + 312);
+    v6 = (a1 + 39);
     v5 = ":l2_dep_consumer_nonresident_read_interval_";
     do
     {
-      if (v66 == *(a1 + 352))
+      if (v66 == a1[44])
       {
-        operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-        v67 = *(*(a1 + 232) + 8 * v66);
-        operations_research::sat::LinearExpr::LinearExpr(&v297, *v67, v67[1]);
-        operations_research::sat::LinearExpr::LinearExpr(&v305, *(*(a1 + 104) + v65), *(*(a1 + 104) + v65 + 8));
-        v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v309, &v297, &v305, v265, v264);
-        LODWORD(v293.__r_.__value_.__r.__words[1]) = v68;
+        operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+        v67 = *(a1[29] + 8 * v66);
+        operations_research::sat::LinearExpr::LinearExpr(&v296, *v67, v67[1]);
+        operations_research::sat::LinearExpr::LinearExpr(&v304, *(a1[13] + v65), *(a1[13] + v65 + 8));
+        v292.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v308, &v296, &v304, v264, v263);
+        LODWORD(v292.__r_.__value_.__r.__words[1]) = v68;
         if (*(a1 + 335) >= 0)
         {
           v69 = *(a1 + 335);
@@ -2804,59 +2803,59 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
         else
         {
-          v69 = *(a1 + 320);
+          v69 = a1[40];
         }
 
-        std::string::basic_string[abi:ne200100](&v304, v69 + 40);
-        if ((v304.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v303, v69 + 40);
+        if ((v303.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v70 = &v304;
+          v70 = &v303;
         }
 
         else
         {
-          v70 = v304.__r_.__value_.__r.__words[0];
+          v70 = v303.__r_.__value_.__r.__words[0];
         }
 
         if (v69)
         {
           if (*(a1 + 335) >= 0)
           {
-            v71 = (a1 + 312);
+            v71 = a1 + 39;
           }
 
           else
           {
-            v71 = *(a1 + 312);
+            v71 = a1[39];
           }
 
           memmove(v70, v71, v69);
         }
 
         strcpy(v70 + v69, ":l2_dep_consumer_resident_read_interval_");
-        std::to_string(&v294, v66);
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::to_string(&v293, v66);
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v72 = &v294;
+          v72 = &v293;
         }
 
         else
         {
-          v72 = v294.__r_.__value_.__r.__words[0];
+          v72 = v293.__r_.__value_.__r.__words[0];
         }
 
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v73 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+          v73 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v73 = v294.__r_.__value_.__l.__size_;
+          v73 = v293.__r_.__value_.__l.__size_;
         }
 
-        v74 = std::string::append(&v304, v72, v73);
-        v64 = v266;
+        v74 = std::string::append(&v303, v72, v73);
+        v64 = v265;
         v75 = *&v74->__r_.__value_.__l.__data_;
         __p.__r_.__value_.__r.__words[2] = v74->__r_.__value_.__r.__words[2];
         *&__p.__r_.__value_.__l.__data_ = v75;
@@ -2883,42 +2882,42 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
           v77 = __p.__r_.__value_.__l.__size_;
         }
 
-        operations_research::sat::IntervalVar::WithName(&v293, v76, v77);
+        operations_research::sat::IntervalVar::WithName(&v292, v76, v77);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v294.__r_.__value_.__l.__data_);
+          operator delete(v293.__r_.__value_.__l.__data_);
         }
 
-        if ((SHIBYTE(v304.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v303.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_298;
         }
 
-        v78 = v304.__r_.__value_.__r.__words[0];
+        v78 = v303.__r_.__value_.__r.__words[0];
       }
 
       else
       {
-        operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-        v79 = *(*(a1 + 232) + 8 * v66);
-        operations_research::sat::LinearExpr::LinearExpr(&v297, *v79, v79[1]);
-        operations_research::sat::LinearExpr::LinearExpr(&v305, *(*(a1 + 104) + v65), *(*(a1 + 104) + v65 + 8));
-        v80 = *(*(a1 + 232) + 8 * v66);
+        operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+        v79 = *(a1[29] + 8 * v66);
+        operations_research::sat::LinearExpr::LinearExpr(&v296, *v79, v79[1]);
+        operations_research::sat::LinearExpr::LinearExpr(&v304, *(a1[13] + v65), *(a1[13] + v65 + 8));
+        v80 = *(a1[29] + 8 * v66);
         __p.__r_.__value_.__r.__words[0] = *(v80 + 224);
         LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v80 + 232);
-        __p.__r_.__value_.__r.__words[2] = v265;
-        v303 = v264;
-        memset(&v304, 0, sizeof(v304));
-        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-        v81 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v64, &v304);
+        __p.__r_.__value_.__r.__words[2] = v264;
+        v302 = v263;
+        memset(&v303, 0, sizeof(v303));
+        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+        v81 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v64, &v303);
         v12 = v12 & 0xFFFFFFFF00000000 | v82;
-        v295 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v309, &v297, &v305, v81, v12);
-        v296 = v83;
+        v294 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v308, &v296, &v304, v81, v12);
+        v295 = v83;
         if (*(a1 + 335) >= 0)
         {
           v84 = *(a1 + 335);
@@ -2926,90 +2925,95 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
         else
         {
-          v84 = *(a1 + 320);
+          v84 = a1[40];
         }
 
-        std::string::basic_string[abi:ne200100](&v293, v84 + 43);
-        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v292, v84 + 43);
+        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v85 = &v293;
+          v85 = &v292;
         }
 
         else
         {
-          v85 = v293.__r_.__value_.__r.__words[0];
+          v85 = v292.__r_.__value_.__r.__words[0];
         }
 
         if (v84)
         {
           if (*(a1 + 335) >= 0)
           {
-            v86 = (a1 + 312);
+            v86 = a1 + 39;
           }
 
           else
           {
-            v86 = *(a1 + 312);
+            v86 = a1[39];
           }
 
           memmove(v85, v86, v84);
         }
 
-        qmemcpy(v262, "_nonresident_rea:l2_dep_consumer", sizeof(v262));
+        qmemcpy(v261, "_nonresident_rea:l2_dep_consumer", sizeof(v261));
         strcpy(v85 + v84, ":l2_dep_consumer_nonresident_read_interval_");
-        std::to_string(&v292, v66);
-        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::to_string(&v291, v66);
+        if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v87 = &v292;
+          v87 = &v291;
         }
 
         else
         {
-          v87 = v292.__r_.__value_.__r.__words[0];
+          v87 = v291.__r_.__value_.__r.__words[0];
         }
 
-        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v88 = HIBYTE(v292.__r_.__value_.__r.__words[2]);
+          v88 = HIBYTE(v291.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v88 = v292.__r_.__value_.__l.__size_;
+          v88 = v291.__r_.__value_.__l.__size_;
         }
 
-        v89 = std::string::append(&v293, v87, v88);
-        v90 = v266;
+        v89 = std::string::append(&v292, v87, v88);
+        v90 = v265;
         v91 = *&v89->__r_.__value_.__l.__data_;
-        v294.__r_.__value_.__r.__words[2] = v89->__r_.__value_.__r.__words[2];
-        *&v294.__r_.__value_.__l.__data_ = v91;
+        v293.__r_.__value_.__r.__words[2] = v89->__r_.__value_.__r.__words[2];
+        *&v293.__r_.__value_.__l.__data_ = v91;
         v89->__r_.__value_.__l.__size_ = 0;
         v89->__r_.__value_.__r.__words[2] = 0;
         v89->__r_.__value_.__r.__words[0] = 0;
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v92 = &v294;
+          v92 = &v293;
         }
 
         else
         {
-          v92 = v294.__r_.__value_.__r.__words[0];
+          v92 = v293.__r_.__value_.__r.__words[0];
         }
 
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v93 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+          v93 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v93 = v294.__r_.__value_.__l.__size_;
+          v93 = v293.__r_.__value_.__l.__size_;
         }
 
-        operations_research::sat::IntervalVar::WithName(&v295, v92, v93);
-        if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+        operations_research::sat::IntervalVar::WithName(&v294, v92, v93);
+        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v294.__r_.__value_.__l.__data_);
+          operator delete(v293.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v291.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v291.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v292.__r_.__value_.__r.__words[2]) < 0)
@@ -3017,68 +3021,63 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
           operator delete(v292.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
+        if (v303.__r_.__value_.__r.__words[0])
         {
-          operator delete(v293.__r_.__value_.__l.__data_);
+          v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+          operator delete(v303.__r_.__value_.__l.__data_);
         }
 
-        if (v304.__r_.__value_.__r.__words[0])
+        if (v306)
         {
-          v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-          operator delete(v304.__r_.__value_.__l.__data_);
+          v307 = v306;
+          operator delete(v306);
         }
 
-        if (v307)
+        if (v304)
         {
-          v308 = v307;
-          operator delete(v307);
+          *(&v304 + 1) = v304;
+          operator delete(v304);
         }
 
-        if (v305)
+        if (v299)
         {
-          *(&v305 + 1) = v305;
-          operator delete(v305);
+          v300 = v299;
+          operator delete(v299);
         }
 
-        if (v300)
+        if (v296)
         {
-          v301 = v300;
-          operator delete(v300);
+          v297 = v296;
+          operator delete(v296);
         }
 
-        if (v297)
+        if (v310)
         {
-          v298 = v297;
-          operator delete(v297);
+          *&v311 = v310;
+          operator delete(v310);
         }
 
-        if (v312)
+        if (v308)
         {
-          v313 = v312;
-          operator delete(v312);
+          *(&v308 + 1) = v308;
+          operator delete(v308);
         }
 
-        if (v309)
-        {
-          v310 = v309;
-          operator delete(v309);
-        }
-
-        operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-        v94 = *(*(a1 + 232) + 8 * v66);
-        operations_research::sat::LinearExpr::LinearExpr(&v297, *(v94 + 80), *(v94 + 88));
-        operations_research::sat::LinearExpr::LinearExpr(&v305, *(*(a1 + 104) + v65), *(*(a1 + 104) + v65 + 8));
-        v95 = *(*(a1 + 232) + 8 * v66);
+        operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+        v94 = *(a1[29] + 8 * v66);
+        operations_research::sat::LinearExpr::LinearExpr(&v296, *(v94 + 80), *(v94 + 88));
+        operations_research::sat::LinearExpr::LinearExpr(&v304, *(a1[13] + v65), *(a1[13] + v65 + 8));
+        v95 = *(a1[29] + 8 * v66);
         __p.__r_.__value_.__r.__words[0] = *(v95 + 240);
         LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v95 + 248);
-        __p.__r_.__value_.__r.__words[2] = v265;
-        v303 = v264;
-        memset(&v304, 0, sizeof(v304));
-        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-        v96 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v90, &v304);
+        __p.__r_.__value_.__r.__words[2] = v264;
+        v302 = v263;
+        memset(&v303, 0, sizeof(v303));
+        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+        v96 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v90, &v303);
         v7 = v7 & 0xFFFFFFFF00000000 | v97;
-        v295 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v90, &v309, &v297, &v305, v96, v7);
-        v296 = v98;
+        v294 = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v90, &v308, &v296, &v304, v96, v7);
+        v295 = v98;
         if (*(a1 + 335) >= 0)
         {
           v99 = *(a1 + 335);
@@ -3086,92 +3085,97 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
 
         else
         {
-          v99 = *(a1 + 320);
+          v99 = a1[40];
         }
 
-        std::string::basic_string[abi:ne200100](&v293, v99 + 43);
-        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v292, v99 + 43);
+        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v100 = &v293;
+          v100 = &v292;
         }
 
         else
         {
-          v100 = v293.__r_.__value_.__r.__words[0];
+          v100 = v292.__r_.__value_.__r.__words[0];
         }
 
         if (v99)
         {
           if (*(a1 + 335) >= 0)
           {
-            v101 = (a1 + 312);
+            v101 = a1 + 39;
           }
 
           else
           {
-            v101 = *(a1 + 312);
+            v101 = a1[39];
           }
 
           memmove(v100, v101, v99);
         }
 
         v102 = (v100 + v99);
-        *v102 = v262[1];
-        v102[1] = v262[0];
+        *v102 = v261[1];
+        v102[1] = v261[0];
         strcpy(&v100[1].__r_.__value_.__s.__data_[v99 + 3], "t_read_interval_");
-        std::to_string(&v292, v66);
-        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::to_string(&v291, v66);
+        if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v103 = &v292;
+          v103 = &v291;
         }
 
         else
         {
-          v103 = v292.__r_.__value_.__r.__words[0];
+          v103 = v291.__r_.__value_.__r.__words[0];
         }
 
-        if ((v292.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v291.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v104 = HIBYTE(v292.__r_.__value_.__r.__words[2]);
+          v104 = HIBYTE(v291.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v104 = v292.__r_.__value_.__l.__size_;
+          v104 = v291.__r_.__value_.__l.__size_;
         }
 
-        v105 = std::string::append(&v293, v103, v104);
-        v64 = v266;
+        v105 = std::string::append(&v292, v103, v104);
+        v64 = v265;
         v106 = *&v105->__r_.__value_.__l.__data_;
-        v294.__r_.__value_.__r.__words[2] = v105->__r_.__value_.__r.__words[2];
-        *&v294.__r_.__value_.__l.__data_ = v106;
+        v293.__r_.__value_.__r.__words[2] = v105->__r_.__value_.__r.__words[2];
+        *&v293.__r_.__value_.__l.__data_ = v106;
         v105->__r_.__value_.__l.__size_ = 0;
         v105->__r_.__value_.__r.__words[2] = 0;
         v105->__r_.__value_.__r.__words[0] = 0;
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v107 = &v294;
+          v107 = &v293;
         }
 
         else
         {
-          v107 = v294.__r_.__value_.__r.__words[0];
+          v107 = v293.__r_.__value_.__r.__words[0];
         }
 
-        if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v108 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+          v108 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v108 = v294.__r_.__value_.__l.__size_;
+          v108 = v293.__r_.__value_.__l.__size_;
         }
 
-        operations_research::sat::IntervalVar::WithName(&v295, v107, v108);
-        if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+        operations_research::sat::IntervalVar::WithName(&v294, v107, v108);
+        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v294.__r_.__value_.__l.__data_);
+          operator delete(v293.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v291.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v291.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v292.__r_.__value_.__r.__words[2]) < 0)
@@ -3179,70 +3183,65 @@ void ORToolsL2DepScheduleVariable::CreateLayerConstraint(uint64_t a1, operations
           operator delete(v292.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        v78 = v304.__r_.__value_.__r.__words[0];
-        if (!v304.__r_.__value_.__r.__words[0])
+        v78 = v303.__r_.__value_.__r.__words[0];
+        if (!v303.__r_.__value_.__r.__words[0])
         {
           goto LABEL_298;
         }
 
-        v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
+        v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
       }
 
       operator delete(v78);
 LABEL_298:
-      if (v307)
+      if (v306)
       {
-        v308 = v307;
-        operator delete(v307);
+        v307 = v306;
+        operator delete(v306);
       }
 
-      if (v305)
+      if (v304)
       {
-        *(&v305 + 1) = v305;
-        operator delete(v305);
+        *(&v304 + 1) = v304;
+        operator delete(v304);
       }
 
-      if (v300)
+      if (v299)
       {
-        v301 = v300;
-        operator delete(v300);
+        v300 = v299;
+        operator delete(v299);
       }
 
-      if (v297)
+      if (v296)
       {
-        v298 = v297;
-        operator delete(v297);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      if (v312)
+      if (v310)
       {
-        v313 = v312;
-        operator delete(v312);
+        *&v311 = v310;
+        operator delete(v310);
       }
 
-      if (v309)
+      if (v308)
       {
-        v310 = v309;
-        operator delete(v309);
+        *(&v308 + 1) = v308;
+        operator delete(v308);
       }
 
       ++v66;
       v65 += 16;
     }
 
-    while (v66 < (*(a1 + 240) - *(a1 + 232)) >> 3);
+    while (v66 < (a1[30] - a1[29]) >> 3);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, **(a1 + 256), *(*(a1 + 256) + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 128), *(a1 + 136));
-  v304.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v309, &v297, &v305, v265, v264);
-  LODWORD(v304.__r_.__value_.__r.__words[1]) = v109;
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *a1[32], *(a1[32] + 8));
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[16], a1[17]);
+  v303.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v64, &v308, &v296, &v304, v264, v263);
+  LODWORD(v303.__r_.__value_.__r.__words[1]) = v109;
   if (*(a1 + 335) >= 0)
   {
     v110 = *(a1 + 335);
@@ -3250,7 +3249,7 @@ LABEL_298:
 
   else
   {
-    v110 = *(a1 + 320);
+    v110 = a1[40];
   }
 
   std::string::basic_string[abi:ne200100](&__p, v110 + 42);
@@ -3268,12 +3267,12 @@ LABEL_298:
   {
     if (*(a1 + 335) >= 0)
     {
-      v112 = (a1 + 312);
+      v112 = a1 + 39;
     }
 
     else
     {
-      v112 = *(a1 + 312);
+      v112 = a1[39];
     }
 
     memmove(v111, v112, v110);
@@ -3300,61 +3299,61 @@ LABEL_298:
     v114 = __p.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::IntervalVar::WithName(&v304, v113, v114);
+  operations_research::sat::IntervalVar::WithName(&v303, v113, v114);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v307)
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, **(a1 + 264), *(*(a1 + 264) + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 144), *(a1 + 152));
-  v115 = *(a1 + 264);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *a1[33], *(a1[33] + 8));
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[18], a1[19]);
+  v115 = a1[33];
   __p.__r_.__value_.__r.__words[0] = *(v115 + 224);
   LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v115 + 232);
-  __p.__r_.__value_.__r.__words[2] = v265;
-  v303 = v264;
-  memset(&v304, 0, sizeof(v304));
-  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-  v116 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v304);
-  v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v266, &v309, &v297, &v305, v116, v117);
-  LODWORD(v293.__r_.__value_.__r.__words[1]) = v118;
+  __p.__r_.__value_.__r.__words[2] = v264;
+  v302 = v263;
+  memset(&v303, 0, sizeof(v303));
+  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+  v116 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v303);
+  v292.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v265, &v308, &v296, &v304, v116, v117);
+  LODWORD(v292.__r_.__value_.__r.__words[1]) = v118;
   if (*(a1 + 335) >= 0)
   {
     v119 = *(a1 + 335);
@@ -3362,117 +3361,117 @@ LABEL_298:
 
   else
   {
-    v119 = *(a1 + 320);
+    v119 = a1[40];
   }
 
-  std::string::basic_string[abi:ne200100](&v294, v119 + 45);
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100](&v293, v119 + 45);
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v120 = &v294;
+    v120 = &v293;
   }
 
   else
   {
-    v120 = v294.__r_.__value_.__r.__words[0];
+    v120 = v293.__r_.__value_.__r.__words[0];
   }
 
   if (v119)
   {
     if (*(a1 + 335) >= 0)
     {
-      v121 = (a1 + 312);
+      v121 = a1 + 39;
     }
 
     else
     {
-      v121 = *(a1 + 312);
+      v121 = a1[39];
     }
 
     memmove(v120, v121, v119);
   }
 
   strcpy(v120 + v119, ":l2_dep_consumer_resident_write_time_interval");
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v122 = &v294;
+    v122 = &v293;
   }
 
   else
   {
-    v122 = v294.__r_.__value_.__r.__words[0];
+    v122 = v293.__r_.__value_.__r.__words[0];
   }
 
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v123 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+    v123 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v123 = v294.__r_.__value_.__l.__size_;
+    v123 = v293.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::IntervalVar::WithName(&v293, v122, v123);
-  if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+  operations_research::sat::IntervalVar::WithName(&v292, v122, v123);
+  if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v294.__r_.__value_.__l.__data_);
+    operator delete(v293.__r_.__value_.__l.__data_);
   }
 
-  if (v304.__r_.__value_.__r.__words[0])
+  if (v303.__r_.__value_.__r.__words[0])
   {
-    v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-    operator delete(v304.__r_.__value_.__l.__data_);
+    v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+    operator delete(v303.__r_.__value_.__l.__data_);
   }
 
-  if (v307)
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *a1, *(a1 + 8));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *(*(a1 + 264) + 80), *(*(a1 + 264) + 88));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 144), *(a1 + 152));
-  v124 = *(a1 + 264);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *a1, a1[1]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *(a1[33] + 80), *(a1[33] + 88));
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[18], a1[19]);
+  v124 = a1[33];
   __p.__r_.__value_.__r.__words[0] = *(v124 + 240);
   LODWORD(__p.__r_.__value_.__r.__words[1]) = *(v124 + 248);
-  __p.__r_.__value_.__r.__words[2] = v265;
-  v303 = v264;
-  memset(&v304, 0, sizeof(v304));
-  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v304, &__p, &v304, 2uLL);
-  v125 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v304);
-  v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v266, &v309, &v297, &v305, v125, v126);
-  LODWORD(v293.__r_.__value_.__r.__words[1]) = v127;
+  __p.__r_.__value_.__r.__words[2] = v264;
+  v302 = v263;
+  memset(&v303, 0, sizeof(v303));
+  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v303, &__p, &v303, 2uLL);
+  v125 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v303);
+  v292.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(v265, &v308, &v296, &v304, v125, v126);
+  LODWORD(v292.__r_.__value_.__r.__words[1]) = v127;
   if (*(a1 + 335) >= 0)
   {
     v128 = *(a1 + 335);
@@ -3480,119 +3479,119 @@ LABEL_298:
 
   else
   {
-    v128 = *(a1 + 320);
+    v128 = a1[40];
   }
 
-  std::string::basic_string[abi:ne200100](&v294, v128 + 48);
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100](&v293, v128 + 48);
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v129 = &v294;
+    v129 = &v293;
   }
 
   else
   {
-    v129 = v294.__r_.__value_.__r.__words[0];
+    v129 = v293.__r_.__value_.__r.__words[0];
   }
 
   if (v128)
   {
     if (*(a1 + 335) >= 0)
     {
-      v130 = (a1 + 312);
+      v130 = a1 + 39;
     }
 
     else
     {
-      v130 = *(a1 + 312);
+      v130 = a1[39];
     }
 
     memmove(v129, v130, v128);
   }
 
   strcpy(v129 + v128, ":l2_dep_consumer_nonresident_write_time_interval");
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v131 = &v294;
+    v131 = &v293;
   }
 
   else
   {
-    v131 = v294.__r_.__value_.__r.__words[0];
+    v131 = v293.__r_.__value_.__r.__words[0];
   }
 
-  if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v132 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+    v132 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v132 = v294.__r_.__value_.__l.__size_;
+    v132 = v293.__r_.__value_.__l.__size_;
   }
 
-  operations_research::sat::IntervalVar::WithName(&v293, v131, v132);
-  v133 = v266;
-  if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+  operations_research::sat::IntervalVar::WithName(&v292, v131, v132);
+  v133 = v265;
+  if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v294.__r_.__value_.__l.__data_);
+    operator delete(v293.__r_.__value_.__l.__data_);
   }
 
-  if (v304.__r_.__value_.__r.__words[0])
+  if (v303.__r_.__value_.__r.__words[0])
   {
-    v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-    operator delete(v304.__r_.__value_.__l.__data_);
+    v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+    operator delete(v303.__r_.__value_.__l.__data_);
   }
 
-  if (v307)
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  *&v262[1] = operations_research::sat::CpModelBuilder::NewIntVar(v266, a5);
-  *&v262[0] = v134;
-  v135 = *(a1 + 48);
-  if (*(a1 + 56) != v135)
+  *&v261[1] = operations_research::sat::CpModelBuilder::NewIntVar(v265, a5);
+  *&v261[0] = v134;
+  v135 = a1[6];
+  if (a1[7] != v135)
   {
     v136 = 0;
     v137 = 0;
-    v5 = &v294;
+    v5 = &v293;
     v6 = ":l2_dep_producer_read_";
     do
     {
-      operations_research::sat::LinearExpr::LinearExpr(&v309, *(v135 + v136), *(v135 + v136 + 8));
-      operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-      v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v133, &v309, &v297);
+      operations_research::sat::LinearExpr::LinearExpr(&v308, *(v135 + v136), *(v135 + v136 + 8));
+      operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+      v292.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v133, &v308, &v296);
       if (*(a1 + 311) >= 0)
       {
         v138 = *(a1 + 311);
@@ -3600,59 +3599,59 @@ LABEL_298:
 
       else
       {
-        v138 = *(a1 + 296);
+        v138 = a1[37];
       }
 
-      std::string::basic_string[abi:ne200100](&v304, v138 + 22);
-      if ((v304.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v303, v138 + 22);
+      if ((v303.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v139 = &v304;
+        v139 = &v303;
       }
 
       else
       {
-        v139 = v304.__r_.__value_.__r.__words[0];
+        v139 = v303.__r_.__value_.__r.__words[0];
       }
 
       if (v138)
       {
         if (*(a1 + 311) >= 0)
         {
-          v140 = v263;
+          v140 = v262;
         }
 
         else
         {
-          v140 = *(a1 + 288);
+          v140 = a1[36];
         }
 
         memmove(v139, v140, v138);
       }
 
       strcpy(v139 + v138, ":l2_dep_producer_read_");
-      std::to_string(&v294, v137);
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v293, v137);
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v141 = &v294;
+        v141 = &v293;
       }
 
       else
       {
-        v141 = v294.__r_.__value_.__r.__words[0];
+        v141 = v293.__r_.__value_.__r.__words[0];
       }
 
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v142 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+        v142 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v142 = v294.__r_.__value_.__l.__size_;
+        v142 = v293.__r_.__value_.__l.__size_;
       }
 
-      v143 = std::string::append(&v304, v141, v142);
-      v133 = v266;
+      v143 = std::string::append(&v303, v141, v142);
+      v133 = v265;
       v144 = *&v143->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v143->__r_.__value_.__r.__words[2];
       *&__p.__r_.__value_.__l.__data_ = v144;
@@ -3661,35 +3660,35 @@ LABEL_298:
       v143->__r_.__value_.__r.__words[0] = 0;
       v145 = std::string::append(&__p, "_end_constraint", 0xFuLL);
       v146 = *&v145->__r_.__value_.__l.__data_;
-      v306 = v145->__r_.__value_.__r.__words[2];
-      v305 = v146;
+      v305 = v145->__r_.__value_.__r.__words[2];
+      v304 = v146;
       v145->__r_.__value_.__l.__size_ = 0;
       v145->__r_.__value_.__r.__words[2] = 0;
       v145->__r_.__value_.__r.__words[0] = 0;
-      if (v306 >= 0)
+      if (v305 >= 0)
       {
-        v147 = &v305;
+        v147 = &v304;
       }
 
       else
       {
-        v147 = v305;
+        v147 = v304;
       }
 
-      if (v306 >= 0)
+      if (v305 >= 0)
       {
-        v148 = HIBYTE(v306);
+        v148 = HIBYTE(v305);
       }
 
       else
       {
-        v148 = *(&v305 + 1);
+        v148 = *(&v304 + 1);
       }
 
-      operations_research::sat::Constraint::WithName(&v293, v147, v148);
-      if (SHIBYTE(v306) < 0)
+      operations_research::sat::Constraint::WithName(&v292, v147, v148);
+      if (SHIBYTE(v305) < 0)
       {
-        operator delete(v305);
+        operator delete(v304);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3697,51 +3696,51 @@ LABEL_298:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v294.__r_.__value_.__l.__data_);
+        operator delete(v293.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v304.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v303.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v304.__r_.__value_.__l.__data_);
+        operator delete(v303.__r_.__value_.__l.__data_);
       }
 
-      if (v300)
+      if (v299)
       {
-        v301 = v300;
-        operator delete(v300);
+        v300 = v299;
+        operator delete(v299);
       }
 
-      if (v297)
+      if (v296)
       {
-        v298 = v297;
-        operator delete(v297);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      if (v312)
+      if (v310)
       {
-        v313 = v312;
-        operator delete(v312);
+        *&v311 = v310;
+        operator delete(v310);
       }
 
-      if (v309)
+      if (v308)
       {
-        v310 = v309;
-        operator delete(v309);
+        *(&v308 + 1) = v308;
+        operator delete(v308);
       }
 
       ++v137;
-      v135 = *(a1 + 48);
+      v135 = a1[6];
       v136 += 16;
     }
 
-    while (v137 < (*(a1 + 56) - v135) >> 4);
+    while (v137 < (a1[7] - v135) >> 4);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *(a1 + 72), *(a1 + 80));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v133, &v309, &v297);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, a1[9], a1[10]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v133, &v308, &v296);
   if (*(a1 + 311) >= 0)
   {
     v149 = *(a1 + 311);
@@ -3749,89 +3748,89 @@ LABEL_298:
 
   else
   {
-    v149 = *(a1 + 296);
+    v149 = a1[37];
   }
 
-  std::string::basic_string[abi:ne200100](&v305, v149 + 39);
-  if (v306 >= 0)
+  std::string::basic_string[abi:ne200100](&v304, v149 + 39);
+  if (v305 >= 0)
   {
-    v150 = &v305;
+    v150 = &v304;
   }
 
   else
   {
-    v150 = v305;
+    v150 = v304;
   }
 
   if (v149)
   {
     if (*(a1 + 311) >= 0)
     {
-      v151 = v263;
+      v151 = v262;
     }
 
     else
     {
-      v151 = *(a1 + 288);
+      v151 = a1[36];
     }
 
     memmove(v150, v151, v149);
   }
 
   strcpy(v150 + v149, ":l2_dep_producer_compute_end_constraint");
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v152 = &v305;
+    v152 = &v304;
   }
 
   else
   {
-    v152 = v305;
+    v152 = v304;
   }
 
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v153 = HIBYTE(v306);
+    v153 = HIBYTE(v305);
   }
 
   else
   {
-    v153 = *(&v305 + 1);
+    v153 = *(&v304 + 1);
   }
 
   operations_research::sat::Constraint::WithName(&__p, v152, v153);
-  if (SHIBYTE(v306) < 0)
+  if (SHIBYTE(v305) < 0)
   {
-    operator delete(v305);
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *(a1 + 88), *(a1 + 96));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v266, &v309, &v297);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, a1[11], a1[12]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v265, &v308, &v296);
   if (*(a1 + 311) >= 0)
   {
     v154 = *(a1 + 311);
@@ -3839,99 +3838,99 @@ LABEL_298:
 
   else
   {
-    v154 = *(a1 + 296);
+    v154 = a1[37];
   }
 
-  std::string::basic_string[abi:ne200100](&v305, v154 + 37);
-  if (v306 >= 0)
+  std::string::basic_string[abi:ne200100](&v304, v154 + 37);
+  if (v305 >= 0)
   {
-    v155 = &v305;
+    v155 = &v304;
   }
 
   else
   {
-    v155 = v305;
+    v155 = v304;
   }
 
   if (v154)
   {
     if (*(a1 + 311) >= 0)
     {
-      v156 = v263;
+      v156 = v262;
     }
 
     else
     {
-      v156 = *(a1 + 288);
+      v156 = a1[36];
     }
 
     memmove(v155, v156, v154);
   }
 
   strcpy(v155 + v154, ":l2_dep_producer_write_end_constraint");
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v157 = &v305;
+    v157 = &v304;
   }
 
   else
   {
-    v157 = v305;
+    v157 = v304;
   }
 
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v158 = HIBYTE(v306);
+    v158 = HIBYTE(v305);
   }
 
   else
   {
-    v158 = *(&v305 + 1);
+    v158 = *(&v304 + 1);
   }
 
   operations_research::sat::Constraint::WithName(&__p, v157, v158);
-  v159 = v266;
-  if (SHIBYTE(v306) < 0)
+  v159 = v265;
+  if (SHIBYTE(v305) < 0)
   {
-    operator delete(v305);
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  v160 = *(a1 + 104);
-  if (*(a1 + 112) != v160)
+  v160 = a1[13];
+  if (a1[14] != v160)
   {
     v161 = 0;
     v162 = 0;
-    v5 = &v294;
+    v5 = &v293;
     v6 = ":l2_dep_consumer_read_";
     do
     {
-      operations_research::sat::LinearExpr::LinearExpr(&v309, *(v160 + v161), *(v160 + v161 + 8));
-      operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-      v293.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v159, &v309, &v297);
+      operations_research::sat::LinearExpr::LinearExpr(&v308, *(v160 + v161), *(v160 + v161 + 8));
+      operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+      v292.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v159, &v308, &v296);
       if (*(a1 + 335) >= 0)
       {
         v163 = *(a1 + 335);
@@ -3939,59 +3938,59 @@ LABEL_298:
 
       else
       {
-        v163 = *(a1 + 320);
+        v163 = a1[40];
       }
 
-      std::string::basic_string[abi:ne200100](&v304, v163 + 22);
-      if ((v304.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v303, v163 + 22);
+      if ((v303.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v164 = &v304;
+        v164 = &v303;
       }
 
       else
       {
-        v164 = v304.__r_.__value_.__r.__words[0];
+        v164 = v303.__r_.__value_.__r.__words[0];
       }
 
       if (v163)
       {
         if (*(a1 + 335) >= 0)
         {
-          v165 = (a1 + 312);
+          v165 = a1 + 39;
         }
 
         else
         {
-          v165 = *(a1 + 312);
+          v165 = a1[39];
         }
 
         memmove(v164, v165, v163);
       }
 
       strcpy(v164 + v163, ":l2_dep_consumer_read_");
-      std::to_string(&v294, v162);
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v293, v162);
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v166 = &v294;
+        v166 = &v293;
       }
 
       else
       {
-        v166 = v294.__r_.__value_.__r.__words[0];
+        v166 = v293.__r_.__value_.__r.__words[0];
       }
 
-      if ((v294.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v167 = HIBYTE(v294.__r_.__value_.__r.__words[2]);
+        v167 = HIBYTE(v293.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v167 = v294.__r_.__value_.__l.__size_;
+        v167 = v293.__r_.__value_.__l.__size_;
       }
 
-      v168 = std::string::append(&v304, v166, v167);
-      v159 = v266;
+      v168 = std::string::append(&v303, v166, v167);
+      v159 = v265;
       v169 = *&v168->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v168->__r_.__value_.__r.__words[2];
       *&__p.__r_.__value_.__l.__data_ = v169;
@@ -4000,35 +3999,35 @@ LABEL_298:
       v168->__r_.__value_.__r.__words[0] = 0;
       v170 = std::string::append(&__p, "_end_constraint", 0xFuLL);
       v171 = *&v170->__r_.__value_.__l.__data_;
-      v306 = v170->__r_.__value_.__r.__words[2];
-      v305 = v171;
+      v305 = v170->__r_.__value_.__r.__words[2];
+      v304 = v171;
       v170->__r_.__value_.__l.__size_ = 0;
       v170->__r_.__value_.__r.__words[2] = 0;
       v170->__r_.__value_.__r.__words[0] = 0;
-      if (v306 >= 0)
+      if (v305 >= 0)
       {
-        v172 = &v305;
+        v172 = &v304;
       }
 
       else
       {
-        v172 = v305;
+        v172 = v304;
       }
 
-      if (v306 >= 0)
+      if (v305 >= 0)
       {
-        v173 = HIBYTE(v306);
+        v173 = HIBYTE(v305);
       }
 
       else
       {
-        v173 = *(&v305 + 1);
+        v173 = *(&v304 + 1);
       }
 
-      operations_research::sat::Constraint::WithName(&v293, v172, v173);
-      if (SHIBYTE(v306) < 0)
+      operations_research::sat::Constraint::WithName(&v292, v172, v173);
+      if (SHIBYTE(v305) < 0)
       {
-        operator delete(v305);
+        operator delete(v304);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4036,51 +4035,51 @@ LABEL_298:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v294.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v294.__r_.__value_.__l.__data_);
+        operator delete(v293.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v304.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v303.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v304.__r_.__value_.__l.__data_);
+        operator delete(v303.__r_.__value_.__l.__data_);
       }
 
-      if (v300)
+      if (v299)
       {
-        v301 = v300;
-        operator delete(v300);
+        v300 = v299;
+        operator delete(v299);
       }
 
-      if (v297)
+      if (v296)
       {
-        v298 = v297;
-        operator delete(v297);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      if (v312)
+      if (v310)
       {
-        v313 = v312;
-        operator delete(v312);
+        *&v311 = v310;
+        operator delete(v310);
       }
 
-      if (v309)
+      if (v308)
       {
-        v310 = v309;
-        operator delete(v309);
+        *(&v308 + 1) = v308;
+        operator delete(v308);
       }
 
       ++v162;
-      v160 = *(a1 + 104);
+      v160 = a1[13];
       v161 += 16;
     }
 
-    while (v162 < (*(a1 + 112) - v160) >> 4);
+    while (v162 < (a1[14] - v160) >> 4);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *(a1 + 128), *(a1 + 136));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v159, &v309, &v297);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, a1[16], a1[17]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v159, &v308, &v296);
   if (*(a1 + 335) >= 0)
   {
     v174 = *(a1 + 335);
@@ -4088,89 +4087,89 @@ LABEL_298:
 
   else
   {
-    v174 = *(a1 + 320);
+    v174 = a1[40];
   }
 
-  std::string::basic_string[abi:ne200100](&v305, v174 + 39);
-  if (v306 >= 0)
+  std::string::basic_string[abi:ne200100](&v304, v174 + 39);
+  if (v305 >= 0)
   {
-    v175 = &v305;
+    v175 = &v304;
   }
 
   else
   {
-    v175 = v305;
+    v175 = v304;
   }
 
   if (v174)
   {
     if (*(a1 + 335) >= 0)
     {
-      v176 = (a1 + 312);
+      v176 = a1 + 39;
     }
 
     else
     {
-      v176 = *(a1 + 312);
+      v176 = a1[39];
     }
 
     memmove(v175, v176, v174);
   }
 
   strcpy(v175 + v174, ":l2_dep_consumer_compute_end_constraint");
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v177 = &v305;
+    v177 = &v304;
   }
 
   else
   {
-    v177 = v305;
+    v177 = v304;
   }
 
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v178 = HIBYTE(v306);
+    v178 = HIBYTE(v305);
   }
 
   else
   {
-    v178 = *(&v305 + 1);
+    v178 = *(&v304 + 1);
   }
 
   operations_research::sat::Constraint::WithName(&__p, v177, v178);
-  if (SHIBYTE(v306) < 0)
+  if (SHIBYTE(v305) < 0)
   {
-    operator delete(v305);
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *(a1 + 144), *(a1 + 152));
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *&v262[1], *&v262[0]);
-  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v266, &v309, &v297);
+  operations_research::sat::LinearExpr::LinearExpr(&v308, a1[18], a1[19]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, *&v261[1], *&v261[0]);
+  __p.__r_.__value_.__r.__words[0] = operations_research::sat::CpModelBuilder::AddLessOrEqual(v265, &v308, &v296);
   if (*(a1 + 335) >= 0)
   {
     v179 = *(a1 + 335);
@@ -4178,92 +4177,92 @@ LABEL_298:
 
   else
   {
-    v179 = *(a1 + 320);
+    v179 = a1[40];
   }
 
-  std::string::basic_string[abi:ne200100](&v305, v179 + 37);
-  if (v306 >= 0)
+  std::string::basic_string[abi:ne200100](&v304, v179 + 37);
+  if (v305 >= 0)
   {
-    v180 = &v305;
+    v180 = &v304;
   }
 
   else
   {
-    v180 = v305;
+    v180 = v304;
   }
 
   if (v179)
   {
     if (*(a1 + 335) >= 0)
     {
-      v181 = (a1 + 312);
+      v181 = a1 + 39;
     }
 
     else
     {
-      v181 = *(a1 + 312);
+      v181 = a1[39];
     }
 
     memmove(v180, v181, v179);
   }
 
   strcpy(v180 + v179, ":l2_dep_consumer_write_end_constraint");
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v182 = &v305;
+    v182 = &v304;
   }
 
   else
   {
-    v182 = v305;
+    v182 = v304;
   }
 
-  if (v306 >= 0)
+  if (v305 >= 0)
   {
-    v183 = HIBYTE(v306);
+    v183 = HIBYTE(v305);
   }
 
   else
   {
-    v183 = *(&v305 + 1);
+    v183 = *(&v304 + 1);
   }
 
   operations_research::sat::Constraint::WithName(&__p, v182, v183);
-  v184 = v266;
-  if (SHIBYTE(v306) < 0)
+  v184 = v265;
+  if (SHIBYTE(v305) < 0)
   {
-    operator delete(v305);
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  LayerCycleAndFootprintEstimator::GetReadBehaviors(a4, &__p);
-  memset(&v304, 0, sizeof(v304));
-  memset(&v294, 0, sizeof(v294));
-  v185 = *(a1 + 192);
-  if (*(a1 + 200) == v185)
+  LayerCycleAndFootprintEstimator::GetReadBehaviors(&__p.__r_.__value_.__l.__data_, a4);
+  memset(&v303, 0, sizeof(v303));
+  memset(&v293, 0, sizeof(v293));
+  v185 = a1[24];
+  if (a1[25] == v185)
   {
     v189 = 0;
   }
@@ -4273,29 +4272,29 @@ LABEL_298:
     v186 = 0;
     do
     {
-      v309 = v265;
-      LODWORD(v310) = v264;
+      *&v308 = v264;
+      DWORD2(v308) = v263;
       v187 = v185[v186];
-      LODWORD(v312) = *(v187 + 248);
-      v311 = *(v187 + 240);
-      v299 = 0;
+      LODWORD(v310) = *(v187 + 248);
+      v309 = *(v187 + 240);
       v298 = 0;
       v297 = 0;
-      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-      *&v305 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v297);
-      DWORD2(v305) = v188;
-      std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](&v304, &v305);
-      if (v297)
+      v296 = 0;
+      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+      *&v304 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v296);
+      DWORD2(v304) = v188;
+      std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](&v303, &v304);
+      if (v296)
       {
-        v298 = v297;
-        operator delete(v297);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      v309 = *(*(__p.__r_.__value_.__r.__words[0] + 8 * v186) + 120);
-      std::vector<long long>::push_back[abi:ne200100](&v294.__r_.__value_.__l.__data_, &v309);
+      *&v308 = *(*(__p.__r_.__value_.__r.__words[0] + 8 * v186) + 120);
+      std::vector<long long>::push_back[abi:ne200100](&v293.__r_.__value_.__l.__data_, &v308);
       ++v186;
-      v185 = *(a1 + 192);
-      v189 = (*(a1 + 200) - v185) >> 3;
+      v185 = a1[24];
+      v189 = (a1[25] - v185) >> 3;
     }
 
     while (v189 > v186);
@@ -4303,116 +4302,116 @@ LABEL_298:
 
   if (v189 > 1)
   {
-    v309 = v265;
-    LODWORD(v310) = v264;
+    *&v308 = v264;
+    DWORD2(v308) = v263;
     v190 = *v185;
-    LODWORD(v312) = *(*v185 + 248);
-    v311 = *(v190 + 240);
+    LODWORD(v310) = *(*v185 + 248);
+    v309 = *(v190 + 240);
     v191 = v185[1];
-    v314 = *(v191 + 248);
-    v313 = *(v191 + 240);
+    DWORD2(v311) = *(v191 + 248);
+    *&v311 = *(v191 + 240);
+    v296 = 0;
     v297 = 0;
     v298 = 0;
-    v299 = 0;
-    std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, v315, 3uLL);
-    *&v305 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v297);
-    DWORD2(v305) = v192;
-    std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](&v304, &v305);
-    if (v297)
+    std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v312, 3uLL);
+    *&v304 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v296);
+    DWORD2(v304) = v192;
+    std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](&v303, &v304);
+    if (v296)
     {
-      v298 = v297;
-      operator delete(v297);
+      v297 = v296;
+      operator delete(v296);
     }
 
-    v309 = 1;
-    std::vector<long long>::push_back[abi:ne200100](&v294.__r_.__value_.__l.__data_, &v309);
+    *&v308 = 1;
+    std::vector<long long>::push_back[abi:ne200100](&v293.__r_.__value_.__l.__data_, &v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *(a1 + 176), *(a1 + 184));
-  operations_research::sat::LinearExpr::WeightedSum(v304.__r_.__value_.__l.__data_, (v304.__r_.__value_.__l.__size_ - v304.__r_.__value_.__r.__words[0]) >> 4, v294.__r_.__value_.__l.__data_, (v294.__r_.__value_.__l.__size_ - v294.__r_.__value_.__r.__words[0]) >> 3, &v297);
-  operations_research::sat::CpModelBuilder::AddEquality(v266, &v309, &v297);
-  if (v300)
+  operations_research::sat::LinearExpr::LinearExpr(&v308, a1[22], a1[23]);
+  operations_research::sat::LinearExpr::WeightedSum(v303.__r_.__value_.__l.__data_, (v303.__r_.__value_.__l.__size_ - v303.__r_.__value_.__r.__words[0]) >> 4, v293.__r_.__value_.__l.__data_, (v293.__r_.__value_.__l.__size_ - v293.__r_.__value_.__r.__words[0]) >> 3, &v296);
+  operations_research::sat::CpModelBuilder::AddEquality(v265, &v308, &v296);
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(&v309, *&v262[1], *&v262[0]);
-  operations_research::sat::LinearExpr::LinearExpr(&v297, *(a1 + 176), *(a1 + 184));
-  operations_research::sat::LinearExpr::LinearExpr(&v305, *(a1 + 32), *(a1 + 40));
-  operations_research::sat::CpModelBuilder::NewIntervalVar(v266, &v309, &v297, &v305);
-  if (v307)
+  operations_research::sat::LinearExpr::LinearExpr(&v308, *&v261[1], *&v261[0]);
+  operations_research::sat::LinearExpr::LinearExpr(&v296, a1[22], a1[23]);
+  operations_research::sat::LinearExpr::LinearExpr(&v304, a1[4], a1[5]);
+  operations_research::sat::CpModelBuilder::NewIntervalVar(v265, &v308, &v296, &v304);
+  if (v306)
   {
-    v308 = v307;
-    operator delete(v307);
+    v307 = v306;
+    operator delete(v306);
   }
 
-  if (v305)
+  if (v304)
   {
-    *(&v305 + 1) = v305;
-    operator delete(v305);
+    *(&v304 + 1) = v304;
+    operator delete(v304);
   }
 
-  if (v300)
+  if (v299)
   {
-    v301 = v300;
-    operator delete(v300);
+    v300 = v299;
+    operator delete(v299);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  if (v312)
+  if (v310)
   {
-    v313 = v312;
-    operator delete(v312);
+    *&v311 = v310;
+    operator delete(v310);
   }
 
-  if (v309)
+  if (v308)
   {
-    v310 = v309;
-    operator delete(v309);
+    *(&v308 + 1) = v308;
+    operator delete(v308);
   }
 
-  v193 = *(a1 + 192);
-  if (*(a1 + 200) != v193)
+  v193 = a1[24];
+  if (a1[25] != v193)
   {
     v194 = 0;
     do
     {
-      v195 = *(a1 + 336);
-      v196 = *(a1 + 344);
+      v195 = a1[42];
+      v196 = a1[43];
       v197 = *(v193 + 8 * v194);
-      v309 = *(v197 + 240);
-      LODWORD(v310) = *(v197 + 248);
-      v311 = v265;
-      LODWORD(v312) = v264;
-      v299 = 0;
-      v297 = 0;
+      *&v308 = *(v197 + 240);
+      DWORD2(v308) = *(v197 + 248);
+      v309 = v264;
+      LODWORD(v310) = v263;
       v298 = 0;
-      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-      v198 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v297);
+      v296 = 0;
+      v297 = 0;
+      std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+      v198 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v296);
       v200 = v199;
       if (*(a1 + 311) >= 0)
       {
@@ -4421,78 +4420,78 @@ LABEL_298:
 
       else
       {
-        v201 = *(a1 + 296);
+        v201 = a1[37];
       }
 
-      std::string::basic_string[abi:ne200100](v290, v201 + 51);
-      if (v291 >= 0)
+      std::string::basic_string[abi:ne200100](v289, v201 + 51);
+      if (v290 >= 0)
       {
-        v202 = v290;
+        v202 = v289;
       }
 
       else
       {
-        v202 = v290[0];
+        v202 = v289[0];
       }
 
       if (v201)
       {
         if (*(a1 + 311) >= 0)
         {
-          v203 = v263;
+          v203 = v262;
         }
 
         else
         {
-          v203 = *(a1 + 288);
+          v203 = a1[36];
         }
 
         memmove(v202, v203, v201);
       }
 
       strcpy(v202 + v201, ":l2_dep_producer_nonresident_read_pressure_interval");
-      v184 = v266;
-      OptionalClosedInterval = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v266, v195, v196, v198, v200, v290);
+      v184 = v265;
+      OptionalClosedInterval = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v265, v195, v196, v198, v200, v289);
       v206 = v205;
-      if (v291 < 0)
+      if (v290 < 0)
       {
-        operator delete(v290[0]);
+        operator delete(v289[0]);
       }
 
-      if (v297)
+      if (v296)
       {
-        v298 = v297;
-        operator delete(v297);
+        v297 = v296;
+        operator delete(v296);
       }
 
-      v207 = *(*(a1 + 192) + 8 * v194);
-      operations_research::sat::LinearExpr::LinearExpr(v287, *(v207 + 176), *(v207 + 184));
-      operations_research::sat::CumulativeConstraint::AddDemand(a3, OptionalClosedInterval, v206, v287);
-      if (v288)
+      v207 = *(a1[24] + 8 * v194);
+      operations_research::sat::LinearExpr::LinearExpr(v286, *(v207 + 176), *(v207 + 184));
+      operations_research::sat::CumulativeConstraint::AddDemand(a3, OptionalClosedInterval, v206, v286);
+      if (v287)
       {
-        v289 = v288;
-        operator delete(v288);
+        v288 = v287;
+        operator delete(v287);
       }
 
-      if (v287[0])
+      if (v286[0])
       {
-        v287[1] = v287[0];
-        operator delete(v287[0]);
+        v286[1] = v286[0];
+        operator delete(v286[0]);
       }
 
       if (*(a1 + 408) == 1)
       {
-        v208 = *(a1 + 344);
-        v209 = *(*(a1 + 192) + 8 * v194);
-        v309 = *(v209 + 224);
-        LODWORD(v310) = *(v209 + 232);
-        v311 = v265;
-        LODWORD(v312) = v264;
-        v299 = 0;
-        v297 = 0;
+        v208 = a1[43];
+        v209 = *(a1[24] + 8 * v194);
+        *&v308 = *(v209 + 224);
+        DWORD2(v308) = *(v209 + 232);
+        v309 = v264;
+        LODWORD(v310) = v263;
         v298 = 0;
-        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-        v210 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v297);
+        v296 = 0;
+        v297 = 0;
+        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+        v210 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v296);
         v212 = v211;
         if (*(a1 + 311) >= 0)
         {
@@ -4501,95 +4500,95 @@ LABEL_298:
 
         else
         {
-          v213 = *(a1 + 296);
+          v213 = a1[37];
         }
 
-        std::string::basic_string[abi:ne200100](v285, v213 + 48);
-        if (v286 >= 0)
+        std::string::basic_string[abi:ne200100](v284, v213 + 48);
+        if (v285 >= 0)
         {
-          v214 = v285;
+          v214 = v284;
         }
 
         else
         {
-          v214 = v285[0];
+          v214 = v284[0];
         }
 
         if (v213)
         {
           if (*(a1 + 311) >= 0)
           {
-            v215 = v263;
+            v215 = v262;
           }
 
           else
           {
-            v215 = *(a1 + 288);
+            v215 = a1[36];
           }
 
           memmove(v214, v215, v213);
         }
 
-        v6 = (v6 & 0xFFFFFFFF00000000 | v212);
+        v6 = v6 & 0xFFFFFFFF00000000 | v212;
         strcpy(v214 + v213, ":l2_dep_producer_resident_read_pressure_interval");
-        v184 = v266;
-        v216 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v266, v208, v208, v210, v6, v285);
+        v184 = v265;
+        v216 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v265, v208, v208, v210, v6, v284);
         v218 = v217;
-        if (v286 < 0)
+        if (v285 < 0)
         {
-          operator delete(v285[0]);
+          operator delete(v284[0]);
         }
 
-        if (v297)
+        if (v296)
         {
-          v298 = v297;
-          operator delete(v297);
+          v297 = v296;
+          operator delete(v296);
         }
 
-        v219 = *(*(a1 + 192) + 8 * v194);
-        operations_research::sat::LinearExpr::LinearExpr(v282, *(v219 + 112), *(v219 + 120));
+        v219 = *(a1[24] + 8 * v194);
+        operations_research::sat::LinearExpr::LinearExpr(v281, *(v219 + 112), *(v219 + 120));
         v5 = v5 & 0xFFFFFFFF00000000 | v218;
-        operations_research::sat::CumulativeConstraint::AddDemand(a3, v216, v5, v282);
-        if (v283)
+        operations_research::sat::CumulativeConstraint::AddDemand(a3, v216, v5, v281);
+        if (v282)
         {
-          v284 = v283;
-          operator delete(v283);
+          v283 = v282;
+          operator delete(v282);
         }
 
-        if (v282[0])
+        if (v281[0])
         {
-          v282[1] = v282[0];
-          operator delete(v282[0]);
+          v281[1] = v281[0];
+          operator delete(v281[0]);
         }
       }
 
       ++v194;
-      v193 = *(a1 + 192);
+      v193 = a1[24];
     }
 
-    while (v194 < (*(a1 + 200) - v193) >> 3);
+    while (v194 < (a1[25] - v193) >> 3);
   }
 
-  v220 = *(a1 + 232);
-  if (*(a1 + 240) != v220)
+  v220 = a1[29];
+  if (a1[30] != v220)
   {
     v221 = 0;
     do
     {
-      if (v221 != *(a1 + 352))
+      if (v221 != a1[44])
       {
-        v222 = *(a1 + 336);
-        v223 = *(a1 + 344);
+        v222 = a1[42];
+        v223 = a1[43];
         v224 = *(v220 + 8 * v221);
-        v309 = *(v224 + 240);
-        LODWORD(v310) = *(v224 + 248);
-        v311 = v265;
-        LODWORD(v312) = v264;
-        v299 = 0;
-        v297 = 0;
+        *&v308 = *(v224 + 240);
+        DWORD2(v308) = *(v224 + 248);
+        v309 = v264;
+        LODWORD(v310) = v263;
         v298 = 0;
-        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-        v225 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v297);
+        v296 = 0;
+        v297 = 0;
+        std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+        v225 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v296);
         v227 = v226;
         if (*(a1 + 335) >= 0)
         {
@@ -4598,87 +4597,87 @@ LABEL_298:
 
         else
         {
-          v228 = *(a1 + 320);
+          v228 = a1[40];
         }
 
-        std::string::basic_string[abi:ne200100](v280, v228 + 51);
-        if (v281 >= 0)
+        std::string::basic_string[abi:ne200100](v279, v228 + 51);
+        if (v280 >= 0)
         {
-          v229 = v280;
+          v229 = v279;
         }
 
         else
         {
-          v229 = v280[0];
+          v229 = v279[0];
         }
 
         if (v228)
         {
           if (*(a1 + 335) >= 0)
           {
-            v230 = (a1 + 312);
+            v230 = a1 + 39;
           }
 
           else
           {
-            v230 = *(a1 + 312);
+            v230 = a1[39];
           }
 
           memmove(v229, v230, v228);
         }
 
-        v6 = (v6 & 0xFFFFFFFF00000000 | v227);
+        v6 = v6 & 0xFFFFFFFF00000000 | v227;
         strcpy(v229 + v228, ":l2_dep_consumer_nonresident_read_pressure_interval");
-        v184 = v266;
-        v231 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v266, v222, v223, v225, v6, v280);
+        v184 = v265;
+        v231 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v265, v222, v223, v225, v6, v279);
         v233 = v232;
-        if (v281 < 0)
+        if (v280 < 0)
         {
-          operator delete(v280[0]);
+          operator delete(v279[0]);
         }
 
-        if (v297)
+        if (v296)
         {
-          v298 = v297;
-          operator delete(v297);
+          v297 = v296;
+          operator delete(v296);
         }
 
-        v234 = *(*(a1 + 232) + 8 * v221);
-        operations_research::sat::LinearExpr::LinearExpr(v277, *(v234 + 192), *(v234 + 200));
+        v234 = *(a1[29] + 8 * v221);
+        operations_research::sat::LinearExpr::LinearExpr(v276, *(v234 + 192), *(v234 + 200));
         v5 = v5 & 0xFFFFFFFF00000000 | v233;
-        operations_research::sat::CumulativeConstraint::AddDemand(a3, v231, v5, v277);
-        if (v278)
+        operations_research::sat::CumulativeConstraint::AddDemand(a3, v231, v5, v276);
+        if (v277)
         {
-          v279 = v278;
-          operator delete(v278);
+          v278 = v277;
+          operator delete(v277);
         }
 
-        if (v277[0])
+        if (v276[0])
         {
-          v277[1] = v277[0];
-          operator delete(v277[0]);
+          v276[1] = v276[0];
+          operator delete(v276[0]);
         }
       }
 
       ++v221;
-      v220 = *(a1 + 232);
+      v220 = a1[29];
     }
 
-    while (v221 < (*(a1 + 240) - v220) >> 3);
+    while (v221 < (a1[30] - v220) >> 3);
   }
 
-  v235 = *(a1 + 336);
-  v236 = *(a1 + 344);
-  v237 = *(a1 + 264);
-  v309 = *(v237 + 240);
-  LODWORD(v310) = *(v237 + 248);
-  v311 = v265;
-  LODWORD(v312) = v264;
-  v299 = 0;
-  v297 = 0;
+  v235 = a1[42];
+  v236 = a1[43];
+  v237 = a1[33];
+  *&v308 = *(v237 + 240);
+  DWORD2(v308) = *(v237 + 248);
+  v309 = v264;
+  LODWORD(v310) = v263;
   v298 = 0;
-  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-  v238 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v297);
+  v296 = 0;
+  v297 = 0;
+  std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+  v238 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v184, &v296);
   v240 = v239;
   if (*(a1 + 335) >= 0)
   {
@@ -4687,76 +4686,76 @@ LABEL_298:
 
   else
   {
-    v241 = *(a1 + 320);
+    v241 = a1[40];
   }
 
-  std::string::basic_string[abi:ne200100](v275, v241 + 52);
-  if (v276 >= 0)
+  std::string::basic_string[abi:ne200100](v274, v241 + 52);
+  if (v275 >= 0)
   {
-    v242 = v275;
+    v242 = v274;
   }
 
   else
   {
-    v242 = v275[0];
+    v242 = v274[0];
   }
 
   if (v241)
   {
     if (*(a1 + 335) >= 0)
     {
-      v243 = (a1 + 312);
+      v243 = a1 + 39;
     }
 
     else
     {
-      v243 = *(a1 + 312);
+      v243 = a1[39];
     }
 
     memmove(v242, v243, v241);
   }
 
   strcpy(v242 + v241, ":l2_dep_consumer_nonresident_write_pressure_interval");
-  v244 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v266, v235, v236, v238, v240, v275);
+  v244 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v265, v235, v236, v238, v240, v274);
   v246 = v245;
-  if (v276 < 0)
+  if (v275 < 0)
   {
-    operator delete(v275[0]);
+    operator delete(v274[0]);
   }
 
-  if (v297)
+  if (v296)
   {
-    v298 = v297;
-    operator delete(v297);
+    v297 = v296;
+    operator delete(v296);
   }
 
-  operations_research::sat::LinearExpr::LinearExpr(v272, *(*(a1 + 264) + 192), *(*(a1 + 264) + 200));
-  operations_research::sat::CumulativeConstraint::AddDemand(a3, v244, v246, v272);
-  if (v273)
+  operations_research::sat::LinearExpr::LinearExpr(v271, *(a1[33] + 192), *(a1[33] + 200));
+  operations_research::sat::CumulativeConstraint::AddDemand(a3, v244, v246, v271);
+  if (v272)
   {
-    v274 = v273;
-    operator delete(v273);
+    v273 = v272;
+    operator delete(v272);
   }
 
-  if (v272[0])
+  if (v271[0])
   {
-    v272[1] = v272[0];
-    operator delete(v272[0]);
+    v271[1] = v271[0];
+    operator delete(v271[0]);
   }
 
   if (*(a1 + 409) == 1)
   {
-    v247 = *(a1 + 336);
-    v248 = *(a1 + 264);
-    v309 = *(v248 + 224);
-    LODWORD(v310) = *(v248 + 232);
-    v311 = v265;
-    LODWORD(v312) = v264;
-    v299 = 0;
-    v297 = 0;
+    v247 = a1[42];
+    v248 = a1[33];
+    *&v308 = *(v248 + 224);
+    DWORD2(v308) = *(v248 + 232);
+    v309 = v264;
+    LODWORD(v310) = v263;
     v298 = 0;
-    std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v297, &v309, &v313, 2uLL);
-    v249 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v266, &v297);
+    v296 = 0;
+    v297 = 0;
+    std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(&v296, &v308, &v311, 2uLL);
+    v249 = ORToolsCpBasedAllocatorUtil::CreateBooleanAnd(v265, &v296);
     v251 = v250;
     if (*(a1 + 335) >= 0)
     {
@@ -4765,74 +4764,74 @@ LABEL_298:
 
     else
     {
-      v252 = *(a1 + 320);
+      v252 = a1[40];
     }
 
-    std::string::basic_string[abi:ne200100](v270, v252 + 49);
-    if (v271 >= 0)
+    std::string::basic_string[abi:ne200100](v269, v252 + 49);
+    if (v270 >= 0)
     {
-      v253 = v270;
+      v253 = v269;
     }
 
     else
     {
-      v253 = v270[0];
+      v253 = v269[0];
     }
 
     if (v252)
     {
       if (*(a1 + 335) >= 0)
       {
-        v254 = (a1 + 312);
+        v254 = a1 + 39;
       }
 
       else
       {
-        v254 = *(a1 + 312);
+        v254 = a1[39];
       }
 
       memmove(v253, v254, v252);
     }
 
     strcpy(v253 + v252, ":l2_dep_consumer_resident_write_pressure_interval");
-    v255 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v266, v247, v247, v249, v251, v270);
+    v255 = ORToolsCpBasedAllocatorUtil::CreateOptionalClosedInterval(v265, v247, v247, v249, v251, v269);
     v257 = v256;
-    if (v271 < 0)
+    if (v270 < 0)
     {
-      operator delete(v270[0]);
+      operator delete(v269[0]);
     }
 
-    if (v297)
+    if (v296)
     {
-      v298 = v297;
-      operator delete(v297);
+      v297 = v296;
+      operator delete(v296);
     }
 
-    operations_research::sat::LinearExpr::LinearExpr(v267, *(*(a1 + 264) + 112), *(*(a1 + 264) + 120));
-    operations_research::sat::CumulativeConstraint::AddDemand(a3, v255, v257, v267);
-    if (v268)
+    operations_research::sat::LinearExpr::LinearExpr(v266, *(a1[33] + 112), *(a1[33] + 120));
+    operations_research::sat::CumulativeConstraint::AddDemand(a3, v255, v257, v266);
+    if (v267)
     {
-      v269 = v268;
-      operator delete(v268);
+      v268 = v267;
+      operator delete(v267);
     }
 
-    if (v267[0])
+    if (v266[0])
     {
-      v267[1] = v267[0];
-      operator delete(v267[0]);
+      v266[1] = v266[0];
+      operator delete(v266[0]);
     }
   }
 
-  if (v294.__r_.__value_.__r.__words[0])
+  if (v293.__r_.__value_.__r.__words[0])
   {
-    v294.__r_.__value_.__l.__size_ = v294.__r_.__value_.__r.__words[0];
-    operator delete(v294.__r_.__value_.__l.__data_);
+    v293.__r_.__value_.__l.__size_ = v293.__r_.__value_.__r.__words[0];
+    operator delete(v293.__r_.__value_.__l.__data_);
   }
 
-  if (v304.__r_.__value_.__r.__words[0])
+  if (v303.__r_.__value_.__r.__words[0])
   {
-    v304.__r_.__value_.__l.__size_ = v304.__r_.__value_.__r.__words[0];
-    operator delete(v304.__r_.__value_.__l.__data_);
+    v303.__r_.__value_.__l.__size_ = v303.__r_.__value_.__r.__words[0];
+    operator delete(v303.__r_.__value_.__l.__data_);
   }
 
   if (__p.__r_.__value_.__r.__words[0])
@@ -4840,14 +4839,11 @@ LABEL_298:
     __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v258 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C92664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a15);
-  operations_research::sat::LinearExpr::~LinearExpr(va);
+  operations_research::sat::LinearExpr::~LinearExpr(v20);
   v17 = STACK[0x230];
   if (STACK[0x230])
   {
@@ -4889,7 +4885,7 @@ void operations_research::sat::LinearExpr::~LinearExpr(operations_research::sat:
   }
 }
 
-void std::vector<long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4962,7 +4958,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar*,operations_research::sat::BoolVar*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar*,operations_research::sat::BoolVar*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4984,7 +4980,7 @@ void sub_23C926CD8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<operations_research::sat::BoolVar>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<operations_research::sat::BoolVar>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5046,7 +5042,7 @@ uint64_t std::__split_buffer<std::unique_ptr<ORToolsCpL2AccessVariable>>::~__spl
   return a1;
 }
 
-uint64_t std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<operations_research::sat::BoolVar>::__init_with_size[abi:ne200100]<operations_research::sat::BoolVar const*,operations_research::sat::BoolVar const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5078,35 +5074,35 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<long long>>(uint64_t 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void ORToolsCpTransposer::ORToolsCpTransposer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void ORToolsCpTransposer::ORToolsCpTransposer(uint64_t **a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   *a1 = a2;
-  *(a1 + 8) = a5;
-  *(a1 + 24) = 0;
-  *(a1 + 16) = a1 + 24;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 1065353216;
-  *(a1 + 88) = 0;
-  *(a1 + 80) = a1 + 88;
-  *(a1 + 96) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 104) = a1 + 112;
-  *(a1 + 120) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 136) = 0;
-  *(a1 + 144) = 0;
-  *(a1 + 160) = 0;
-  *(a1 + 176) = 0u;
-  *(a1 + 168) = 0;
-  *(a1 + 152) = a1 + 160;
-  *(a1 + 192) = 0u;
-  *(a1 + 208) = 1065353216;
+  a1[1] = a5;
+  a1[3] = 0;
+  a1[2] = (a1 + 3);
+  a1[4] = 0;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 18) = 1065353216;
+  a1[11] = 0;
+  a1[10] = (a1 + 11);
+  a1[12] = 0;
+  a1[14] = 0;
+  a1[13] = (a1 + 14);
+  a1[15] = 0;
+  a1[16] = 0;
+  a1[17] = 0;
+  a1[18] = 0;
+  a1[20] = 0;
+  *(a1 + 11) = 0u;
+  a1[21] = 0;
+  a1[19] = (a1 + 20);
+  *(a1 + 12) = 0u;
+  *(a1 + 52) = 1065353216;
   operator new();
 }
 
-void sub_23C927264(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, void **a12, void **a13, void **a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_23C927264(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void **a12, void *a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   std::ofstream::~ofstream(v29, MEMORY[0x277D82810]);
   MEMORY[0x23EED93A0](v28);
@@ -5219,13 +5215,13 @@ void ORToolsCpTransposer::CreateTensorDecisionVariable(ORToolsCpTransposer *this
   {
 LABEL_9:
     v10 = *CpTransposeGraph::GetRootTensorConstraint(**this, a2);
-    CpTransposeGraph::GetTensorDimensions(**this, a2, &v27);
-    if (v27.__r_.__value_.__l.__size_ == 1 && (CpTransposeGraph::GetTensorDimensions(**this, a2, __p), v26 == 1) && (v10 & 1) == 0)
+    CpTransposeGraph::GetTensorDimensions(&v27, **this, a2);
+    if (v27.__r_.__value_.__l.__size_ == 1 && (CpTransposeGraph::GetTensorDimensions(__p, **this, a2), v26 == 1) && (v10 & 1) == 0)
     {
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(this + 22, &v28);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(this + 44, &v28, &v28);
       v19 = *(this + 1);
       v27.__r_.__value_.__r.__words[0] = &v28;
-      *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v19, &v28) + 10) = 0;
+      *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v19, &v28, &std::piecewise_construct, &v27) + 10) = 0;
     }
 
     else
@@ -5292,7 +5288,7 @@ LABEL_9:
       v22[0] = a2;
       v22[1] = v17;
       v23 = v18;
-      std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,operations_research::sat::BoolVar>>((v5 - 8), v22);
+      std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,operations_research::sat::BoolVar>>((v5 - 8), v22, v22);
       if (v25 < 0)
       {
         operator delete(__p[0]);
@@ -5341,7 +5337,7 @@ void ORToolsCpTransposer::CreateTensorConstraint(CpTransposeGraph ***this, unint
 
   v5 = this[27];
   v10[0] = &v18;
-  v6 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((this + 19), &v18);
+  v6 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((this + 19), &v18, &std::piecewise_construct, v10);
   operations_research::sat::LinearExpr::LinearExpr(v13, v6[5], v6[6]);
   operations_research::sat::LinearExpr::LinearExpr(v10, 0);
   v16 = operations_research::sat::CpModelBuilder::AddEquality(v5, v13, v10);
@@ -5392,7 +5388,7 @@ void ORToolsCpTransposer::CreateTensorConstraint(CpTransposeGraph ***this, unint
 
   v9 = this[1];
   v13[0] = &v18;
-  *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v9, &v18) + 10) = 0;
+  *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v9, &v18, &std::piecewise_construct, v13) + 10) = 0;
 LABEL_20:
   if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5490,7 +5486,7 @@ void ORToolsCpTransposer::CreateLayerConstraints(ORToolsCpTransposer *this, unin
           {
             v147[0] = v15;
             v158.__r_.__value_.__r.__words[0] = v147;
-            v16 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 152, v147);
+            v16 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 152, v147, &std::piecewise_construct, &v158);
             v17 = v16;
             if (*(v12 + 8) == 1)
             {
@@ -5586,7 +5582,7 @@ LABEL_48:
           v146.__r_.__value_.__r.__words[0] = v30;
           if ((v14 & 1) == 0 && !std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>(v159, &v146))
           {
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v159, &v146);
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v159, &v146, &v146);
             v147[0] = operations_research::sat::CpModelBuilder::NewBoolVar(*(this + 27));
             LODWORD(v147[1]) = v31;
             if ((v154.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -5615,7 +5611,7 @@ LABEL_48:
             operations_research::sat::Constraint::OnlyEnforceIf(v147, v158.__r_.__value_.__l.__data_, v158.__r_.__value_.__r.__words[1]);
             LODWORD(v145.__r_.__value_.__l.__data_) = v158.__r_.__value_.__r.__words[1];
             v147[0] = &v145;
-            std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v161, &v145)[3] = v7;
+            std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v161, &v145, &std::piecewise_construct, v147)[3] = v7;
             std::vector<operations_research::sat::IntVar>::push_back[abi:ne200100](&v171, &v158);
             v35 = (log2((v5[4] + 1)) * 100.0);
             v36 = v166;
@@ -5775,7 +5771,7 @@ LABEL_48:
           {
             __p = v123;
             v154.__r_.__value_.__r.__words[0] = &__p;
-            v124 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 152, &__p);
+            v124 = std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 152, &__p, &std::piecewise_construct, &v154);
             v125 = *(v121 + 8);
             v126 = *(this + 27);
             operations_research::sat::LinearExpr::LinearExpr(&v154, v124[5], v124[6]);
@@ -6307,7 +6303,7 @@ LABEL_229:
 
       *(this + 17) = v115;
       v154.__r_.__value_.__r.__words[0] = v175;
-      v142 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 5, v175);
+      v142 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 5, v175, &std::piecewise_construct, &v154);
       if (v142 + 3 != &v161)
       {
         *(v142 + 14) = v163;
@@ -6353,7 +6349,7 @@ LABEL_229:
   }
 }
 
-void sub_23C9286C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_23C9286C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a56);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a62);
@@ -6392,9 +6388,8 @@ void sub_23C9286C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
 {
-  v3 = result;
   v4 = *(result + 8);
   v5 = *(result + 16);
   if (v4 == v5 << 6)
@@ -6420,26 +6415,25 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(result, v7);
+    v4 = *(result + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(result + 8) = v4 + 1;
+  v8 = *result;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 void ORToolsCpTransposer::SetObjectiveFunction(ORToolsCpTransposer *this)
@@ -6449,7 +6443,7 @@ void ORToolsCpTransposer::SetObjectiveFunction(ORToolsCpTransposer *this)
   v4 = v3;
   v5 = *(this + 27);
   operations_research::sat::LinearExpr::LinearExpr(&v10, v2, v3);
-  operations_research::sat::LinearExpr::Sum(*(this + 16), (*(this + 17) - *(this + 16)) >> 4, v7);
+  operations_research::sat::LinearExpr::Sum((*(this + 17) - *(this + 16)) >> 4, v7);
   v14 = operations_research::sat::CpModelBuilder::AddEquality(v5, &v10, v7);
   operations_research::sat::Constraint::WithName(&v14, "objective_perf_cost", 0x13uLL);
   if (__p)
@@ -6497,13 +6491,13 @@ void ORToolsCpTransposer::SetObjectiveFunction(ORToolsCpTransposer *this)
   }
 }
 
-void sub_23C928A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23C928A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   operations_research::sat::LinearExpr::~LinearExpr(va);
-  if (*(v8 - 56))
+  if (*(v15 - 56))
   {
-    operator delete(*(v8 - 48));
+    operator delete(*(v15 - 48));
   }
 
   _Unwind_Resume(a1);
@@ -6560,25 +6554,10 @@ void ORToolsCpTransposer::PrintConstraintProblem(ORToolsCpTransposer *this)
     std::locale::~locale(&__p);
     std::ostream::put();
     std::ostream::flush();
-    v4 = *(this + 27);
-    v6 = *(v4 + 24);
-    v5 = v4 + 24;
-    v7 = (v6 + 7);
-    if (v6)
+    if (*(*(this + 27) + 32))
     {
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = v5;
-    }
-
-    if (*(v5 + 8))
-    {
-      v9 = MEMORY[0x277D82680];
-      v10 = *v8;
-      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "vars: ", 6);
+      v4 = MEMORY[0x277D82680];
+      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "vars: ", 6);
       std::to_string(&__p, 0);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -6600,11 +6579,11 @@ void ORToolsCpTransposer::PrintConstraintProblem(ORToolsCpTransposer *this)
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, p_p, size);
-      std::ios_base::getloc((v14 + *(*v14 - 24)));
-      v15 = std::locale::use_facet(&v40, v9);
-      (v15->__vftable[2].~facet_0)(v15, 10);
-      std::locale::~locale(&v40);
+      v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, p_p, size);
+      std::ios_base::getloc((v8 + *(*v8 - 24)));
+      v9 = std::locale::use_facet(&v28, v4);
+      (v9->__vftable[2].~facet_0)(v9, 10);
+      std::locale::~locale(&v28);
       std::ostream::put();
       std::ostream::flush();
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6615,58 +6594,43 @@ void ORToolsCpTransposer::PrintConstraintProblem(ORToolsCpTransposer *this)
       google::protobuf::Message::DebugString(&__p);
     }
 
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "\n\n[Constraints]", 15);
-    std::ios_base::getloc((v16 + *(*v16 - 24)));
-    v17 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
-    (v17->__vftable[2].~facet_0)(v17, 10);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "\n\n[Constraints]", 15);
+    std::ios_base::getloc((v10 + *(*v10 - 24)));
+    v11 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
+    (v11->__vftable[2].~facet_0)(v11, 10);
     std::locale::~locale(&__p);
     std::ostream::put();
     std::ostream::flush();
-    v18 = *(this + 27);
-    v20 = *(v18 + 48);
-    v19 = v18 + 48;
-    v21 = (v20 + 7);
-    if (v20)
+    if (*(*(this + 27) + 56))
     {
-      v22 = v21;
-    }
-
-    else
-    {
-      v22 = v19;
-    }
-
-    if (*(v19 + 8))
-    {
-      v23 = MEMORY[0x277D82680];
-      v24 = *v22;
-      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "constraint id: ", 15);
+      v12 = MEMORY[0x277D82680];
+      v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "constraint id: ", 15);
       std::to_string(&__p, 0);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v26 = &__p;
+        v14 = &__p;
       }
 
       else
       {
-        v26 = __p.__r_.__value_.__r.__words[0];
+        v14 = __p.__r_.__value_.__r.__words[0];
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v27 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v15 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v27 = __p.__r_.__value_.__l.__size_;
+        v15 = __p.__r_.__value_.__l.__size_;
       }
 
-      v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v26, v27);
-      std::ios_base::getloc((v28 + *(*v28 - 24)));
-      v29 = std::locale::use_facet(&v40, v23);
-      (v29->__vftable[2].~facet_0)(v29, 10);
-      std::locale::~locale(&v40);
+      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v14, v15);
+      std::ios_base::getloc((v16 + *(*v16 - 24)));
+      v17 = std::locale::use_facet(&v28, v12);
+      (v17->__vftable[2].~facet_0)(v17, 10);
+      std::locale::~locale(&v28);
       std::ostream::put();
       std::ostream::flush();
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6677,47 +6641,47 @@ void ORToolsCpTransposer::PrintConstraintProblem(ORToolsCpTransposer *this)
       google::protobuf::Message::DebugString(&__p);
     }
 
-    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "\n\n[Stats]", 9);
-    std::ios_base::getloc((v30 + *(*v30 - 24)));
-    v31 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
-    (v31->__vftable[2].~facet_0)(v31, 10);
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "\n\n[Stats]", 9);
+    std::ios_base::getloc((v18 + *(*v18 - 24)));
+    v19 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
+    (v19->__vftable[2].~facet_0)(v19, 10);
     std::locale::~locale(&__p);
     std::ostream::put();
     std::ostream::flush();
-    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "NodeCount=", 10);
-    v33 = MEMORY[0x23EED91A0](v32, *(this + 12));
-    std::ios_base::getloc((v33 + *(*v33 - 24)));
-    v34 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
-    (v34->__vftable[2].~facet_0)(v34, 10);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, "NodeCount=", 10);
+    v21 = MEMORY[0x23EED91A0](v20, *(this + 12));
+    std::ios_base::getloc((v21 + *(*v21 - 24)));
+    v22 = std::locale::use_facet(&__p, MEMORY[0x277D82680]);
+    (v22->__vftable[2].~facet_0)(v22, 10);
     std::locale::~locale(&__p);
     std::ostream::put();
     std::ostream::flush();
-    operations_research::sat::CpModelStats(*(this + 27), &__p);
+    operations_research::sat::CpModelStats(&__p, *(this + 27));
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v35 = &__p;
+      v23 = &__p;
     }
 
     else
     {
-      v35 = __p.__r_.__value_.__r.__words[0];
+      v23 = __p.__r_.__value_.__r.__words[0];
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v36 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v24 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v36 = __p.__r_.__value_.__l.__size_;
+      v24 = __p.__r_.__value_.__l.__size_;
     }
 
-    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, v35, v36);
-    std::ios_base::getloc((v37 + *(*v37 - 24)));
-    v38 = std::locale::use_facet(&v40, MEMORY[0x277D82680]);
-    (v38->__vftable[2].~facet_0)(v38, 10);
-    std::locale::~locale(&v40);
+    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 31, v23, v24);
+    std::ios_base::getloc((v25 + *(*v25 - 24)));
+    v26 = std::locale::use_facet(&v28, MEMORY[0x277D82680]);
+    (v26->__vftable[2].~facet_0)(v26, 10);
+    std::locale::~locale(&v28);
     std::ostream::put();
     std::ostream::flush();
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6935,7 +6899,7 @@ BOOL ORToolsCpTransposer::TranslateToDecisionMap(ORToolsCpTransposer *this, cons
         v44 = operations_research::sat::SolutionBooleanValue(a2, v43, *(v42 + 6));
         v45 = *(this + 1);
         v58.__locale_ = &v57;
-        *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v45, &v57) + 10) = v44;
+        *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v45, &v57, &std::piecewise_construct, &v58) + 10) = v44;
         v46 = *(v42 + 1);
         if (v46)
         {
@@ -6972,18 +6936,18 @@ BOOL ORToolsCpTransposer::TranslateToDecisionMap(ORToolsCpTransposer *this, cons
       do
       {
         v58.__locale_ = (v48 + 32);
-        for (i = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 5, v48 + 4)[5]; i; i = *i)
+        for (i = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 5, v48 + 4, &std::piecewise_construct, &v58)[5]; i; i = *i)
         {
           if (*(*(a2 + 4) + 8 * *(i + 4)))
           {
             v50 = i[3];
             v51 = *(this + 1);
             v58.__locale_ = (v48 + 32);
-            std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v51 + 48, v48 + 4)[5] = v50;
+            std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v51 + 48, v48 + 4, &std::piecewise_construct, &v58)[5] = v50;
             LODWORD(v50) = *(*CpTransposeGraph::GetLayerTruthTable(**this, *(v48 + 4)) + 72 * i[3] + 25);
             v52 = *(this + 1);
             v58.__locale_ = (v48 + 32);
-            *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v52 + 24, v48 + 4) + 10) = v50;
+            *(std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v52 + 24, v48 + 4, &std::piecewise_construct, &v58) + 10) = v50;
           }
         }
 
@@ -7145,12 +7109,12 @@ void ORToolsCpTransposer::Execute(ORToolsCpTransposer *this)
   v14 = *(this + 28);
   *(v14 + 332) = 1;
   *(v14 + 24) |= 0x80u;
-  operations_research::sat::SolveWithParameters(v12, *(this + 28), v15);
+  operations_research::sat::SolveWithParameters(v12, *(this + 28));
 }
 
-void sub_23C929F30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C929F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ORToolsCpTransposer::~ORToolsCpTransposer(va);
   _Unwind_Resume(a1);
 }
@@ -7186,45 +7150,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,s
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -7240,9 +7196,9 @@ uint64_t std::ofstream::~ofstream(uint64_t *a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -7253,8 +7209,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_23C92A180(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -7267,7 +7221,7 @@ void sub_23C92A180(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7287,7 +7241,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -7309,9 +7263,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -7319,7 +7273,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -7501,16 +7455,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -7533,9 +7487,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_23C92A83C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_23C92A83C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x23EED9120](&a10);
+  MEMORY[0x23EED9120](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -7680,48 +7634,48 @@ uint64_t std::__hash_table<unsigned long long,std::hash<unsigned long long>,std:
   return a1;
 }
 
-void *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<unsigned long long>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned long long>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7747,12 +7701,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7766,22 +7720,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7815,13 +7769,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7863,33 +7817,33 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(float *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7897,47 +7851,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7953,7 +7907,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7961,7 +7915,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7985,7 +7939,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -8012,156 +7966,156 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
   *(a1 + 8) = 0;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,operations_research::sat::BoolVar>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,operations_research::sat::BoolVar>>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,operations_research::sat::BoolVar>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,operations_research::sat::BoolVar>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8169,73 +8123,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8243,49 +8197,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_23C92B9AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C92B9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8353,7 +8307,7 @@ void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordere
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_multi<std::pair<int const,unsigned long> const&>();
+    std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_multi<std::pair<int const,unsigned long> const&>(a1, a2 + 1);
   }
 }
 
@@ -8535,7 +8489,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -8551,7 +8505,7 @@ void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordere
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -8559,7 +8513,7 @@ void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordere
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -8583,7 +8537,7 @@ void std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordere
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -8729,41 +8683,41 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8777,8 +8731,8 @@ void CpGraph::~CpGraph(void **this)
     operator delete(this[39]);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::~__hash_table((this + 34));
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::~__hash_table((this + 29));
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::~__hash_table(this + 34);
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::~__hash_table(this + 29);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table((this + 24));
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table((this + 19));
   if (*(this + 151) < 0)
@@ -8793,8 +8747,8 @@ void CpGraph::~CpGraph(void **this)
     operator delete(v2);
   }
 
-  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table((this + 8));
-  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table((this + 3));
+  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table(this + 8);
+  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table(this + 3);
   std::__tree<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CpTransposeUtils::TransposeType>>>::destroy(this, this[1]);
 }
 
@@ -8824,11 +8778,11 @@ BOOL CpGraph::GetLayerName(uint64_t a1, unint64_t a2, std::string *a3)
   return v5 != 0;
 }
 
-void CpGraph::GetTensors(CpGraph *this@<X0>, uint64_t a2@<X8>)
+void CpGraph::GetTensors(CpGraph *this@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = this + 8;
   v3 = *this;
   if (*this != (this + 8))
@@ -8905,7 +8859,7 @@ void *CpGraph::GetOutputTensor(CpGraph *this, unint64_t a2)
   return result;
 }
 
-void *CpGraph::GetInputTensors@<X0>(CpGraph *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *CpGraph::GetInputTensors@<X0>(CpGraph *this@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v12 = a2;
   result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>(this + 29, &v12);
@@ -8913,14 +8867,14 @@ void *CpGraph::GetInputTensors@<X0>(CpGraph *this@<X0>, unint64_t a2@<X1>, void 
   {
     v12 = a2;
     v7 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>(this + 8, &v12);
-    v8 = (this + 104);
+    v8 = this + 104;
     if (v7)
     {
-      v8 = v7 + 3;
+      v8 = (v7 + 3);
     }
 
     v9 = *v8;
-    v10 = v8[1];
+    v10 = *(v8 + 1);
     v11 = (v10 - *v8) >> 3;
     *a3 = 0;
     a3[1] = 0;
@@ -8938,7 +8892,7 @@ void *CpGraph::GetInputTensors@<X0>(CpGraph *this@<X0>, unint64_t a2@<X1>, void 
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -8952,13 +8906,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -8974,11 +8928,11 @@ BOOL CpGraph::GetLayerSchedule(CpGraph *this, unint64_t a2, uint64_t *a3)
   return v4 != 0;
 }
 
-void CpGraph::GetLayers(CpGraph *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+void CpGraph::GetLayers(CpGraph *this@<X0>, char a2@<W1>, const void **a3@<X8>)
 {
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   v6 = this + 8;
   v7 = *this;
   if (*this != (this + 8))
@@ -9025,7 +8979,7 @@ void CpGraph::GetLayers(CpGraph *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
   if (a2)
   {
     v11 = *a3;
-    v12 = *(a3 + 8);
+    v12 = a3[1];
     v13 = 126 - 2 * __clz((v12 - *a3) >> 3);
     v10 = v12 == *a3;
     v16 = this;
@@ -9067,9 +9021,9 @@ BOOL CpGraph::GetTensorLiverange(uint64_t a1, unint64_t a2, _OWORD *a3)
   return v4 != 0;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::__unordered_map_hasher<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::hash<NodeKey<unsigned long long>>,std::equal_to<NodeKey<unsigned long long>>,true>,std::__unordered_map_equal<NodeKey<unsigned long long>,std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>,std::equal_to<NodeKey<unsigned long long>>,std::hash<NodeKey<unsigned long long>>,true>,std::allocator<std::__hash_value_type<NodeKey<unsigned long long>,std::vector<NodeKey<unsigned long long>>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -9103,7 +9057,7 @@ void std::__hash_table<std::__hash_value_type<NodeKey<unsigned long long>,std::v
   }
 }
 
-uint64_t std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<NodeKey<unsigned long long> const*>,std::__wrap_iter<NodeKey<unsigned long long> const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<NodeKey<unsigned long long> const*>,std::__wrap_iter<NodeKey<unsigned long long> const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9125,7 +9079,7 @@ void sub_23C92C9C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9135,7 +9089,7 @@ void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &,unsigned long long *,false>(uint64_t result, unint64_t *a2, uint64_t *a3, uint64_t a4, char a5)
+unint64_t *std::__introsort<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &,unsigned long long *,false>(unint64_t *result, unint64_t *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v152 = result;
   while (2)
@@ -9184,7 +9138,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &
               v66 = *a3;
               v67 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
               result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v66 + 192), &v153);
-              if (v67[3] < *(result + 24))
+              if (v67[3] < result[3])
               {
                 v68 = *v9;
                 *v9 = *(a2 - 1);
@@ -9215,7 +9169,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &
                   v76 = *a3;
                   v77 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                   result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v76 + 192), &v153);
-                  if (v77[3] < *(result + 24))
+                  if (v77[3] < result[3])
                   {
                     v78 = *v73;
                     v79 = v72;
@@ -9233,7 +9187,7 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &
                       v81 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                       result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v80 + 192), &v153);
                       v79 -= 8;
-                      if (v81[3] >= *(result + 24))
+                      if (v81[3] >= result[3])
                       {
                         v82 = (v9 + v79 + 8);
                         goto LABEL_80;
@@ -9265,7 +9219,7 @@ LABEL_80:
                 v136 = *a3;
                 v137 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                 result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v136 + 192), &v153);
-                if (v137[3] < *(result + 24))
+                if (v137[3] < result[3])
                 {
                   v138 = *v135;
                   v139 = v135;
@@ -9281,7 +9235,7 @@ LABEL_80:
                     result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v142 + 192), &v153);
                   }
 
-                  while (v143[3] < *(result + 24));
+                  while (v143[3] < result[3]);
                   *v139 = v138;
                 }
 
@@ -9334,7 +9288,7 @@ LABEL_80:
                   v96 = *a3;
                   v97 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                   result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v96 + 192), &v153);
-                  if (v97[3] >= *(result + 24))
+                  if (v97[3] >= result[3])
                   {
                     v148 = *v94;
                     do
@@ -9376,7 +9330,7 @@ LABEL_80:
                       v87 = v99;
                     }
 
-                    while (v107[3] >= *(result + 24));
+                    while (v107[3] >= result[3]);
                     v86 = v146;
                     *v98 = v148;
                   }
@@ -9414,7 +9368,7 @@ LABEL_80:
                     v118 = *a3;
                     v119 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                     result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v118 + 192), &v153);
-                    if (v119[3] >= *(result + 24))
+                    if (v119[3] >= result[3])
                     {
                       v109 = v113;
                     }
@@ -9456,7 +9410,7 @@ LABEL_80:
                     v127 = *a3;
                     v128 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
                     result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v127 + 192), &v153);
-                    if (v128[3] < *(result + 24))
+                    if (v128[3] < result[3])
                     {
                       v129 = *v112;
                       do
@@ -9479,7 +9433,7 @@ LABEL_80:
                         v112 = v130;
                       }
 
-                      while (v133[3] < *(result + 24));
+                      while (v133[3] < result[3]);
                       *v130 = v129;
                     }
                   }
@@ -9535,9 +9489,9 @@ LABEL_80:
           v45 = *a3;
           v46 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a3 + 192), &v154);
           result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v45 + 192), &v153);
-          if (v46[3] >= *(result + 24))
+          if (v46[3] >= result[3])
           {
-            v50 = v12 + 1;
+            v50 = (v12 + 1);
             do
             {
               v9 = v50;
@@ -9546,7 +9500,7 @@ LABEL_80:
                 break;
               }
 
-              ++v50;
+              v50 += 8;
               v153 = *v9;
               v154 = v44;
               v51 = *a3;
@@ -9554,7 +9508,7 @@ LABEL_80:
               result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v51 + 192), &v153);
             }
 
-            while (v52[3] >= *(result + 24));
+            while (v52[3] >= result[3]);
           }
 
           else
@@ -9571,7 +9525,7 @@ LABEL_80:
               result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v48 + 192), &v153);
             }
 
-            while (v49[3] >= *(result + 24));
+            while (v49[3] >= result[3]);
           }
 
           v53 = a2;
@@ -9588,7 +9542,7 @@ LABEL_80:
               result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v55 + 192), &v153);
             }
 
-            while (v56[3] < *(result + 24));
+            while (v56[3] < result[3]);
           }
 
           while (v9 < v53)
@@ -9617,7 +9571,7 @@ LABEL_80:
               result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v62 + 192), &v153);
             }
 
-            while (v63[3] < *(result + 24));
+            while (v63[3] < result[3]);
           }
 
           v64 = v9 - 1;
@@ -9766,64 +9720,63 @@ LABEL_39:
 void *std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &,unsigned long long *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t *a4)
 {
   v8 = *a2;
-  v28 = *a1;
-  v29 = v8;
+  v27 = *a1;
+  v28 = v8;
   v9 = *a4;
-  v10 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v29);
-  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v9 + 192), &v28);
+  v10 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v28);
+  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v9 + 192), &v27);
   v12 = *a3;
-  v13 = *a2;
   if (v10[3] >= v11[3])
   {
-    v28 = *a2;
-    v29 = v12;
-    v18 = *a4;
-    v19 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v29);
-    result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v18 + 192), &v28);
-    if (v19[3] < result[3])
+    v27 = *a2;
+    v28 = v12;
+    v17 = *a4;
+    v18 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v28);
+    result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v17 + 192), &v27);
+    if (v18[3] < result[3])
     {
-      v20 = *a2;
+      v19 = *a2;
       *a2 = *a3;
-      *a3 = v20;
-      v21 = *a2;
-      v28 = *a1;
-      v29 = v21;
-      v22 = *a4;
-      v23 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v22 + 192), &v29);
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v22 + 192), &v28);
-      if (v23[3] < result[3])
+      *a3 = v19;
+      v20 = *a2;
+      v27 = *a1;
+      v28 = v20;
+      v21 = *a4;
+      v22 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v21 + 192), &v28);
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v21 + 192), &v27);
+      if (v22[3] < result[3])
       {
-        v24 = *a1;
+        v23 = *a1;
         *a1 = *a2;
-        *a2 = v24;
+        *a2 = v23;
       }
     }
   }
 
   else
   {
-    v28 = *a2;
-    v29 = v12;
-    v14 = *a4;
-    v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v29);
-    result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v14 + 192), &v28);
-    v17 = *a1;
-    if (v15[3] >= result[3])
+    v27 = *a2;
+    v28 = v12;
+    v13 = *a4;
+    v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a4 + 192), &v28);
+    result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v13 + 192), &v27);
+    v16 = *a1;
+    if (v14[3] >= result[3])
     {
       *a1 = *a2;
-      *a2 = v17;
-      v25 = *a3;
-      v28 = v17;
-      v29 = v25;
-      v26 = *a4;
-      v27 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v26 + 192), &v29);
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v26 + 192), &v28);
-      if (v27[3] >= result[3])
+      *a2 = v16;
+      v24 = *a3;
+      v27 = v16;
+      v28 = v24;
+      v25 = *a4;
+      v26 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v25 + 192), &v28);
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v25 + 192), &v27);
+      if (v26[3] >= result[3])
       {
         return result;
       }
 
-      v17 = *a2;
+      v16 = *a2;
       *a2 = *a3;
     }
 
@@ -9832,7 +9785,7 @@ void *std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)
       *a1 = *a3;
     }
 
-    *a3 = v17;
+    *a3 = v16;
   }
 
   return result;
@@ -9874,6 +9827,61 @@ void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)
         v22 = *a1;
         *a1 = *a2;
         *a2 = v22;
+      }
+    }
+  }
+
+  return result;
+}
+
+void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &,unsigned long long *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, unint64_t *a5, uint64_t *a6)
+{
+  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,CpGraph::GetLayers(BOOL)::$_0 &,unsigned long long *,0>(a1, a2, a3, a4, a6);
+  v12 = *a5;
+  v29 = *a4;
+  v30 = v12;
+  v13 = *a6;
+  v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a6 + 192), &v30);
+  result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v13 + 192), &v29);
+  if (v14[3] < result[3])
+  {
+    v16 = *a4;
+    *a4 = *a5;
+    *a5 = v16;
+    v17 = *a4;
+    v29 = *a3;
+    v30 = v17;
+    v18 = *a6;
+    v19 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a6 + 192), &v30);
+    result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v18 + 192), &v29);
+    if (v19[3] < result[3])
+    {
+      v20 = *a3;
+      *a3 = *a4;
+      *a4 = v20;
+      v21 = *a3;
+      v29 = *a2;
+      v30 = v21;
+      v22 = *a6;
+      v23 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a6 + 192), &v30);
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v22 + 192), &v29);
+      if (v23[3] < result[3])
+      {
+        v24 = *a2;
+        *a2 = *a3;
+        *a3 = v24;
+        v25 = *a2;
+        v29 = *a1;
+        v30 = v25;
+        v26 = *a6;
+        v27 = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((*a6 + 192), &v30);
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::find<unsigned long long>((v26 + 192), &v29);
+        if (v27[3] < result[3])
+        {
+          v28 = *a1;
+          *a1 = *a2;
+          *a2 = v28;
+        }
       }
     }
   }

@@ -67,7 +67,7 @@ uint64_t __40__FLItemDetailViewModel_allPendingItems__block_invoke(uint64_t a1, 
 - (void)setItemChangeHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = _FLLogSystem();
+  v5 = _FLLogSystem(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

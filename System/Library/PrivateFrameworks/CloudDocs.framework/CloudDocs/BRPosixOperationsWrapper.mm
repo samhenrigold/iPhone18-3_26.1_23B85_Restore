@@ -46,7 +46,7 @@
 
 + (int64_t)consumeSandboxExtension:(id)extension error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   v6 = extensionCopy;
   if (extensionCopy)
@@ -65,21 +65,21 @@
       v10 = brc_default_log(0, 0);
       if (os_log_type_enabled(v10, 0x90u))
       {
-        v19 = "(passed to caller)";
-        v20 = 136315906;
-        v21 = "+[BRPosixOperationsWrapper consumeSandboxExtension:error:]";
-        v22 = 2080;
+        v18 = "(passed to caller)";
+        v19 = 136315906;
+        v20 = "+[BRPosixOperationsWrapper consumeSandboxExtension:error:]";
+        v21 = 2080;
         if (!error)
         {
-          v19 = "(ignored by caller)";
+          v18 = "(ignored by caller)";
         }
 
-        v23 = v19;
-        v24 = 2112;
-        v25 = br_errorFromErrno;
-        v26 = 2112;
-        v27 = v9;
-        _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", &v20, 0x2Au);
+        v22 = v18;
+        v23 = 2112;
+        v24 = br_errorFromErrno;
+        v25 = 2112;
+        v26 = v9;
+        _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", &v19, 0x2Au);
       }
     }
   }
@@ -100,21 +100,21 @@
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v18 = "(passed to caller)";
-        v20 = 136315906;
-        v21 = "+[BRPosixOperationsWrapper consumeSandboxExtension:error:]";
-        v22 = 2080;
+        v17 = "(passed to caller)";
+        v19 = 136315906;
+        v20 = "+[BRPosixOperationsWrapper consumeSandboxExtension:error:]";
+        v21 = 2080;
         if (!error)
         {
-          v18 = "(ignored by caller)";
+          v17 = "(ignored by caller)";
         }
 
-        v23 = v18;
-        v24 = 2112;
-        v25 = br_errorFromErrno;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", &v20, 0x2Au);
+        v22 = v17;
+        v23 = 2112;
+        v24 = br_errorFromErrno;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", &v19, 0x2Au);
       }
     }
 
@@ -128,7 +128,6 @@
   }
 
 LABEL_15:
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -136,7 +135,6 @@ LABEL_15:
 {
   serviceCopy = service;
   getpid();
-  v4 = *MEMORY[0x1E69E9BD0];
   [serviceCopy UTF8String];
 
   return sandbox_check();
@@ -144,11 +142,10 @@ LABEL_15:
 
 + (void)consumeSandboxExtension:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Trying to consume nil sandbox extension%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Trying to consume nil sandbox extension%@", &v2, 0xCu);
 }
 
 @end

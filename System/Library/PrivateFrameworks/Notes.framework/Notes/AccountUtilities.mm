@@ -86,41 +86,41 @@ uint64_t __42__AccountUtilities_sharedAccountUtilities__block_invoke()
 
 void __38__AccountUtilities_updateAccountInfos__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) updateAccountInfosLock];
   v3 = [v2 tryLock];
 
   if (!v3)
   {
-    goto LABEL_30;
+    return;
   }
 
   v4 = [*(a1 + 32) freshContext];
   [v4 allAccounts];
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-  v22 = v4;
+  v27 = 0u;
+  obj = v28 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v21 = v4;
   if (!v5)
   {
-    v23 = 0;
+    v22 = 0;
     goto LABEL_26;
   }
 
-  v23 = 0;
-  v25 = *v29;
+  v22 = 0;
+  v24 = *v28;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v29 != v25)
+      if (*v28 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v28 + 1) + 8 * i);
+      v7 = *(*(&v27 + 1) + 8 * i);
       v8 = [v7 accountIdentifier];
       v9 = [v8 isEqualToString:@"local://local/account"];
       v10 = *(a1 + 32);
@@ -174,7 +174,7 @@ LABEL_20:
         }
 
 LABEL_21:
-        v23 = 1;
+        v22 = 1;
         [v7 setName:v11];
         goto LABEL_22;
       }
@@ -187,15 +187,15 @@ LABEL_21:
 LABEL_22:
     }
 
-    v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v5);
 LABEL_26:
 
-  v27 = 0;
-  v17 = [v22 save:&v27];
-  v18 = v27;
+  v26 = 0;
+  v17 = [v21 save:&v26];
+  v18 = v26;
   v19 = v18;
   if ((v17 & 1) == 0)
   {
@@ -205,13 +205,10 @@ LABEL_26:
   v20 = [*(a1 + 32) updateAccountInfosLock];
   [v20 unlock];
 
-  if (v23)
+  if (v22)
   {
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_33);
   }
-
-LABEL_30:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)freshContext
@@ -256,43 +253,42 @@ LABEL_30:
 
 - (id)accountsEnabledForNotes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = selfCopy->_accountIDsEnabledForNotes;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [(ACAccountStore *)selfCopy->_accountStore accountWithIdentifier:*(*(&v12 + 1) + 8 * i), v12];
+        v9 = [(ACAccountStore *)selfCopy->_accountStore accountWithIdentifier:*(*(&v11 + 1) + 8 * i), v11];
         if (v9)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

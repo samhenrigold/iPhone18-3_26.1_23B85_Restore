@@ -31,8 +31,6 @@
     {
       v10 = [DDConversionPreviewController alloc];
       v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ =", formattedExpression];
-      v12 = self->super.super._result;
-      v13 = *MEMORY[0x277D04140];
       v8 = [(DDConversionPreviewController *)v10 initWithTitle:v11 subTitle:formattedResult finance:DDResultHasType()];
     }
   }
@@ -50,7 +48,6 @@
   v3 = self->super.super._result;
   if (v3)
   {
-    v4 = *MEMORY[0x277D04140];
     if (DDResultHasType())
     {
       v3 = [MEMORY[0x277CBEBC0] URLWithString:@"https://finance.yahoo.com/currency-converter/"];

@@ -64,7 +64,7 @@
     [v15 setOpacity:0.08];
     [v15 setRadius:16.0];
     [v15 setOffset:{0.0, 2.0}];
-    v16 = +[UIColor blackColor];
+    v16 = objc_msgSend_blackColor(UIColor);
     [v15 setColor:v16];
 
     [(_UIFloatingTabBarPlatformMetrics *)v2 setSelectionShadow:v15];

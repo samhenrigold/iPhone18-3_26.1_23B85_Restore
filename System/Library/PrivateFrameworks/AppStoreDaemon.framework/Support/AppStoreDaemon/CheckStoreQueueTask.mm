@@ -20,7 +20,7 @@
 
 - (void)main
 {
-  v3 = sub_100006B78();
+  v3 = sub_100006B78(DeviceStateMonitor);
   v4 = sub_10023D17C(v3);
 
   if ((v4 & 1) == 0)

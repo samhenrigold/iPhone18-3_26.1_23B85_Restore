@@ -13,8 +13,8 @@ id ASDLogHandleForCategory(uint64_t a1)
 void sub_10000101C(id a1)
 {
   v1 = os_log_create("com.apple.appstored", "Activity");
-  v2 = qword_1000087B8;
-  qword_1000087B8 = v1;
+  v2 = qword_1000087B8[0];
+  qword_1000087B8[0] = v1;
 
   v3 = os_log_create("com.apple.appstored", "AppCapabilities");
   v4 = qword_1000087C0;

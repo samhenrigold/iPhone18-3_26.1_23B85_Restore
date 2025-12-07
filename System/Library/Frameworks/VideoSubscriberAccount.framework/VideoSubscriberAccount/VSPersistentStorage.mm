@@ -23,15 +23,16 @@
 
   if (path && ([v8 fileExistsAtPath:path] & 1) == 0)
   {
-    v15 = 0;
-    [v8 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v15];
-    v11 = v15;
+    v16 = 0;
+    [v8 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v16];
+    v11 = v16;
+    v12 = v11;
     if (v11)
     {
-      v12 = VSErrorLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = VSErrorLogObject(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        +[(VSPersistentStorage *)v11];
+        +[(VSPersistentStorage *)v12];
       }
     }
   }

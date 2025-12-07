@@ -1093,10 +1093,10 @@ LABEL_12:
 
 - (void)viewDidLoad
 {
-  v55[1] = *MEMORY[0x1E69E9840];
-  v54.receiver = self;
-  v54.super_class = CCUIMenuModuleViewController;
-  [(CCUIButtonModuleViewController *)&v54 viewDidLoad];
+  v57[1] = *MEMORY[0x1E69E9840];
+  v56.receiver = self;
+  v56.super_class = CCUIMenuModuleViewController;
+  [(CCUIButtonModuleViewController *)&v56 viewDidLoad];
   view = [(CCUIMenuModuleViewController *)self view];
   _templateView = [(CCUIButtonModuleViewController *)self _templateView];
   if ([(CCUIMenuModuleViewController *)self prefersContextMenuDisplayStyle])
@@ -1114,124 +1114,124 @@ LABEL_12:
     platterMaterialView = self->_platterMaterialView;
     self->_platterMaterialView = v6;
 
-    [(MTMaterialView *)self->_platterMaterialView _setContinuousCornerRadius:CCUIExpandedModuleContinuousCornerRadius()];
+    [(MTMaterialView *)self->_platterMaterialView _setContinuousCornerRadius:CCUIExpandedModuleContinuousCornerRadius(v8, v9)];
     [view insertSubview:self->_platterMaterialView atIndex:0];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __43__CCUIMenuModuleViewController_viewDidLoad__block_invoke;
     aBlock[3] = &unk_1E83EA5F8;
     aBlock[4] = self;
-    v8 = _Block_copy(aBlock);
-    v8[2](v8, 1);
-    v8[2](v8, 2);
+    v10 = _Block_copy(aBlock);
+    v10[2](v10, 1);
+    v10[2](v10, 2);
   }
 
-  v9 = objc_alloc(MEMORY[0x1E69DD250]);
+  v11 = objc_alloc(MEMORY[0x1E69DD250]);
   [view bounds];
-  v10 = [v9 initWithFrame:?];
+  v12 = [v11 initWithFrame:?];
   transformView = self->_transformView;
-  self->_transformView = v10;
+  self->_transformView = v12;
 
   [view insertSubview:self->_transformView belowSubview:_templateView];
-  v12 = [(NSMutableDictionary *)self->_categoriesToVisualStylingProviders objectForKey:&unk_1F4D5A7D8];
-  v13 = objc_alloc(MEMORY[0x1E69DCC10]);
-  v14 = *MEMORY[0x1E695F058];
-  v15 = *(MEMORY[0x1E695F058] + 8);
-  v16 = *(MEMORY[0x1E695F058] + 16);
-  v17 = *(MEMORY[0x1E695F058] + 24);
-  v18 = [v13 initWithFrame:{*MEMORY[0x1E695F058], v15, v16, v17}];
+  v14 = [(NSMutableDictionary *)self->_categoriesToVisualStylingProviders objectForKey:&unk_1F4D5A7D8];
+  v15 = objc_alloc(MEMORY[0x1E69DCC10]);
+  v16 = *MEMORY[0x1E695F058];
+  v17 = *(MEMORY[0x1E695F058] + 8);
+  v18 = *(MEMORY[0x1E695F058] + 16);
+  v19 = *(MEMORY[0x1E695F058] + 24);
+  v20 = [v15 initWithFrame:{*MEMORY[0x1E695F058], v17, v18, v19}];
   titleLabel = self->_titleLabel;
-  self->_titleLabel = v18;
+  self->_titleLabel = v20;
 
   [(UIView *)self->_transformView addSubview:self->_titleLabel];
   [(UILabel *)self->_titleLabel setTextAlignment:1];
-  v20 = self->_titleLabel;
+  v22 = self->_titleLabel;
   title = [(CCUIMenuModuleViewController *)self title];
-  [(UILabel *)v20 setText:title];
+  [(UILabel *)v22 setText:title];
 
   [(UILabel *)self->_titleLabel setNumberOfLines:0];
-  [v12 automaticallyUpdateView:self->_titleLabel withStyle:0];
-  v22 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v14, v15, v16, v17}];
+  [v14 automaticallyUpdateView:self->_titleLabel withStyle:0];
+  v24 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v16, v17, v18, v19}];
   subtitleLabel = self->_subtitleLabel;
-  self->_subtitleLabel = v22;
+  self->_subtitleLabel = v24;
 
   [(UIView *)self->_transformView addSubview:self->_subtitleLabel];
   [(UILabel *)self->_subtitleLabel setTextAlignment:1];
-  v24 = self->_subtitleLabel;
+  v26 = self->_subtitleLabel;
   subtitle = [(CCUIMenuModuleViewController *)self subtitle];
-  [(UILabel *)v24 setText:subtitle];
+  [(UILabel *)v26 setText:subtitle];
 
   [(UILabel *)self->_subtitleLabel setNumberOfLines:0];
-  [v12 automaticallyUpdateView:self->_subtitleLabel withStyle:1];
-  v26 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  [v14 automaticallyUpdateView:self->_subtitleLabel withStyle:1];
+  v28 = objc_alloc_init(MEMORY[0x1E69DD250]);
   headerSeparatorView = self->_headerSeparatorView;
-  self->_headerSeparatorView = v26;
+  self->_headerSeparatorView = v28;
 
   [(UIView *)self->_transformView addSubview:self->_headerSeparatorView];
-  [v12 automaticallyUpdateView:self->_headerSeparatorView withStyle:5];
-  v28 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  [v14 automaticallyUpdateView:self->_headerSeparatorView withStyle:5];
+  v30 = objc_alloc_init(MEMORY[0x1E69DD250]);
   footerSeparatorView = self->_footerSeparatorView;
-  self->_footerSeparatorView = v28;
+  self->_footerSeparatorView = v30;
 
   [(UIView *)self->_transformView addSubview:self->_footerSeparatorView];
-  [v12 automaticallyUpdateView:self->_footerSeparatorView withStyle:5];
-  v30 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v14, v15, v16, v17}];
+  [v14 automaticallyUpdateView:self->_footerSeparatorView withStyle:5];
+  v32 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v16, v17, v18, v19}];
   contentView = self->_contentView;
-  self->_contentView = v30;
+  self->_contentView = v32;
 
   [(UIView *)self->_transformView insertSubview:self->_contentView belowSubview:self->_footerSeparatorView];
-  v32 = objc_alloc(MEMORY[0x1E69DD250]);
+  v34 = objc_alloc(MEMORY[0x1E69DD250]);
   [(UIView *)self->_contentView bounds];
-  v33 = [v32 initWithFrame:?];
+  v35 = [v34 initWithFrame:?];
   darkeningBackgroundView = self->_darkeningBackgroundView;
-  self->_darkeningBackgroundView = v33;
+  self->_darkeningBackgroundView = v35;
 
   [(UIView *)self->_contentView addSubview:self->_darkeningBackgroundView];
   [(UIView *)self->_darkeningBackgroundView setAutoresizingMask:18];
-  v35 = [(NSMutableDictionary *)self->_categoriesToVisualStylingProviders objectForKey:&unk_1F4D5A7F0];
-  [v35 _automaticallyUpdateView:self->_darkeningBackgroundView withStyleNamed:@"moduleListTint" andObserverBlock:0];
+  v37 = [(NSMutableDictionary *)self->_categoriesToVisualStylingProviders objectForKey:&unk_1F4D5A7F0];
+  [v37 _automaticallyUpdateView:self->_darkeningBackgroundView withStyleNamed:@"moduleListTint" andObserverBlock:0];
 
-  v36 = objc_alloc(MEMORY[0x1E69DCEF8]);
+  v38 = objc_alloc(MEMORY[0x1E69DCEF8]);
   [(UIView *)self->_contentView bounds];
-  v37 = [v36 initWithFrame:?];
+  v39 = [v38 initWithFrame:?];
   contentScrollView = self->_contentScrollView;
-  self->_contentScrollView = v37;
+  self->_contentScrollView = v39;
 
   [(UIScrollView *)self->_contentScrollView setAutoresizingMask:18];
   [(UIScrollView *)self->_contentScrollView setShowsVerticalScrollIndicator:0];
   [(UIView *)self->_contentView addSubview:self->_contentScrollView];
-  v39 = objc_alloc(MEMORY[0x1E69DCF90]);
+  v41 = objc_alloc(MEMORY[0x1E69DCF90]);
   [(UIView *)self->_contentView bounds];
-  v40 = [v39 initWithFrame:?];
+  v42 = [v41 initWithFrame:?];
   menuItemsContainer = self->_menuItemsContainer;
-  self->_menuItemsContainer = v40;
+  self->_menuItemsContainer = v42;
 
   [(UIStackView *)self->_menuItemsContainer setAxis:1];
   [(UIScrollView *)self->_contentScrollView addSubview:self->_menuItemsContainer];
-  v42 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:self action:sel__handlePressGesture_];
+  v44 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:self action:sel__handlePressGesture_];
   pressGestureRecognizer = self->_pressGestureRecognizer;
-  self->_pressGestureRecognizer = v42;
+  self->_pressGestureRecognizer = v44;
 
   [(UILongPressGestureRecognizer *)self->_pressGestureRecognizer setDelegate:self];
   [(UILongPressGestureRecognizer *)self->_pressGestureRecognizer setCancelsTouchesInView:0];
   [(UILongPressGestureRecognizer *)self->_pressGestureRecognizer setDelaysTouchesEnded:0];
   [(UILongPressGestureRecognizer *)self->_pressGestureRecognizer setMinimumPressDuration:0.0];
   [(UILongPressGestureRecognizer *)self->_pressGestureRecognizer _setKeepTouchesOnContinuation:1];
-  v44 = self->_pressGestureRecognizer;
+  v46 = self->_pressGestureRecognizer;
   panGestureRecognizer = [(UIScrollView *)self->_contentScrollView panGestureRecognizer];
-  [(UILongPressGestureRecognizer *)v44 requireGestureRecognizerToFail:panGestureRecognizer];
+  [(UILongPressGestureRecognizer *)v46 requireGestureRecognizerToFail:panGestureRecognizer];
 
   [view addGestureRecognizer:self->_pressGestureRecognizer];
-  v46 = objc_alloc(MEMORY[0x1E69DCF40]);
+  v48 = objc_alloc(MEMORY[0x1E69DCF40]);
   lightConfiguration = [MEMORY[0x1E69DD6E8] lightConfiguration];
-  v48 = [v46 initWithConfiguration:lightConfiguration view:view];
+  v50 = [v48 initWithConfiguration:lightConfiguration view:view];
   feedbackGenerator = self->_feedbackGenerator;
-  self->_feedbackGenerator = v48;
+  self->_feedbackGenerator = v50;
 
-  v50 = objc_opt_self();
-  v55[0] = v50;
-  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
-  v52 = [(CCUIMenuModuleViewController *)self registerForTraitChanges:v51 withAction:sel__contentSizeCategoryDidChange];
+  v52 = objc_opt_self();
+  v57[0] = v52;
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
+  v54 = [(CCUIMenuModuleViewController *)self registerForTraitChanges:v53 withAction:sel__contentSizeCategoryDidChange];
 
   [(CCUIMenuModuleViewController *)self _contentSizeCategoryDidChange];
   [(CCUIMenuModuleViewController *)self _fadeViewsForExpandedState:[(CCUIButtonModuleViewController *)self isExpanded]];
@@ -2047,28 +2047,28 @@ uint64_t __62__CCUIMenuModuleViewController__layoutHeaderSeparatorForSize___bloc
 
 void __55__CCUIMenuModuleViewController__setView_clipsToBounds___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) setClipsToBounds:*(a1 + 40)];
-  v2 = *(a1 + 32);
-  v3 = 0.0;
+  v2 = [*(a1 + 32) setClipsToBounds:*(a1 + 40)];
+  v4 = *(a1 + 32);
+  v5 = 0.0;
   if (*(a1 + 40) == 1)
   {
-    v3 = CCUIExpandedModuleContinuousCornerRadius();
+    v5 = CCUIExpandedModuleContinuousCornerRadius(v2, v3);
   }
 
-  [v2 _setContinuousCornerRadius:v3];
-  v4 = [*(a1 + 32) layer];
-  v6 = v4;
+  [v4 _setContinuousCornerRadius:v5];
+  v6 = [*(a1 + 32) layer];
+  v8 = v6;
   if (*(a1 + 40))
   {
-    v5 = 12;
+    v7 = 12;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  [v4 setMaskedCorners:v5];
+  [v6 setMaskedCorners:v7];
 }
 
 - (void)_setRootViewClipsToBounds:(BOOL)bounds
@@ -2659,56 +2659,61 @@ void __62__CCUIMenuModuleViewController__updateLeadingAndTrailingViews__block_in
 
 - (double)_footerHeight
 {
-  if ([(CCUIMenuModuleViewController *)self _shouldShowFooterChin])
+  _shouldShowFooterChin = [(CCUIMenuModuleViewController *)self _shouldShowFooterChin];
+  if (_shouldShowFooterChin)
   {
-    v17.origin.x = CCUIReferenceScreenBounds();
-    Width = CGRectGetWidth(v17);
+    v45.origin.x = CCUIReferenceScreenBounds(_shouldShowFooterChin, v8);
+    Width = CGRectGetWidth(v45);
     if (Width >= 1024.0)
     {
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-      if ([currentDevice userInterfaceIdiom] == 1)
+      userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+      if (userInterfaceIdiom == 1)
       {
-        v8 = 24.0;
-        if (SBFEffectiveHomeButtonType() != 2)
+        userInterfaceIdiom = SBFEffectiveHomeButtonType();
+        v12 = 24.0;
+        if (userInterfaceIdiom != 2)
         {
           goto LABEL_40;
         }
       }
     }
 
-    v18.origin.x = CCUIReferenceScreenBounds();
-    v9 = CGRectGetWidth(v18);
-    if (v9 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() == 2)
+    v46.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v10);
+    v15 = CGRectGetWidth(v46);
+    if (v15 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v3 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v3, "userInterfaceIdiom"), v13 == 1) && (v13 = SBFEffectiveHomeButtonType(), v13 == 2))
     {
 
-      v8 = 24.0;
+      v12 = 24.0;
     }
 
     else
     {
-      v19.origin.x = CCUIReferenceScreenBounds();
-      v11 = CGRectGetWidth(v19);
-      if (v11 >= 834.0)
+      v47.origin.x = CCUIReferenceScreenBounds(v13, v14);
+      v19 = CGRectGetWidth(v47);
+      if (v19 >= 834.0)
       {
         currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
-        if ([currentDevice2 userInterfaceIdiom] == 1)
+        userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+        if (userInterfaceIdiom2 == 1)
         {
-          v8 = 24.0;
-          if (SBFEffectiveHomeButtonType() == 2)
+          userInterfaceIdiom2 = SBFEffectiveHomeButtonType();
+          v12 = 24.0;
+          if (userInterfaceIdiom2 == 2)
           {
             goto LABEL_36;
           }
         }
       }
 
-      v20.origin.x = CCUIReferenceScreenBounds();
-      v12 = CGRectGetWidth(v20);
-      if (v12 >= 834.0)
+      v48.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom2, v18);
+      v20 = CGRectGetWidth(v48);
+      if (v20 >= 834.0)
       {
         currentDevice3 = [MEMORY[0x1E69DC938] currentDevice];
         if ([currentDevice3 userInterfaceIdiom] == 1)
         {
-          v8 = 24.0;
+          v12 = 24.0;
           if (SBFEffectiveHomeButtonType() != 2)
           {
             goto LABEL_34;
@@ -2717,45 +2722,46 @@ void __62__CCUIMenuModuleViewController__updateLeadingAndTrailingViews__block_in
       }
 
       currentDevice4 = [MEMORY[0x1E69DC938] currentDevice];
-      v8 = 24.0;
-      if ([currentDevice4 userInterfaceIdiom] != 1)
+      userInterfaceIdiom3 = [currentDevice4 userInterfaceIdiom];
+      v12 = 24.0;
+      if (userInterfaceIdiom3 != 1)
       {
-        v21.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v21) < 430.0)
+        v49.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom3, v23);
+        if (CGRectGetWidth(v49) < 430.0)
         {
-          v22.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v22) < 428.0)
+          v50.origin.x = CCUIReferenceScreenBounds(v24, v25);
+          if (CGRectGetWidth(v50) < 428.0)
           {
-            v23.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v23) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+            v51.origin.x = CCUIReferenceScreenBounds(v26, v27);
+            if (CGRectGetWidth(v51) < 420.0 || (v28 = SBFEffectiveHomeButtonType(), v28 != 2))
             {
-              v24.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v24) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+              v52.origin.x = CCUIReferenceScreenBounds(v28, v29);
+              if (CGRectGetWidth(v52) < 414.0 || (v30 = SBFEffectiveHomeButtonType(), v30 != 2))
               {
-                v25.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v25) < 414.0)
+                v53.origin.x = CCUIReferenceScreenBounds(v30, v31);
+                if (CGRectGetWidth(v53) < 414.0)
                 {
-                  v26.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v26) < 393.0)
+                  v54.origin.x = CCUIReferenceScreenBounds(v32, v33);
+                  if (CGRectGetWidth(v54) < 393.0)
                   {
-                    v27.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v27) < 390.0)
+                    v55.origin.x = CCUIReferenceScreenBounds(v34, v35);
+                    if (CGRectGetWidth(v55) < 390.0)
                     {
-                      v28.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v28) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                      v56.origin.x = CCUIReferenceScreenBounds(v36, v37);
+                      if (CGRectGetWidth(v56) < 375.0 || (v38 = SBFEffectiveHomeButtonType(), v38 != 2))
                       {
-                        v29.origin.x = CCUIReferenceScreenBounds();
-                        if (CGRectGetWidth(v29) < 375.0)
+                        v57.origin.x = CCUIReferenceScreenBounds(v38, v39);
+                        if (CGRectGetWidth(v57) < 375.0)
                         {
-                          v30.origin.x = CCUIReferenceScreenBounds();
-                          if (CGRectGetWidth(v30) < 320.0)
+                          v58.origin.x = CCUIReferenceScreenBounds(v40, v41);
+                          if (CGRectGetWidth(v58) < 320.0)
                           {
-                            v8 = 20.0;
+                            v12 = 20.0;
                           }
 
                           else
                           {
-                            v8 = 24.0;
+                            v12 = 24.0;
                           }
                         }
                       }
@@ -2768,17 +2774,17 @@ void __62__CCUIMenuModuleViewController__updateLeadingAndTrailingViews__block_in
         }
       }
 
-      if (v12 >= 834.0)
+      if (v20 >= 834.0)
       {
 LABEL_34:
       }
 
-      if (v11 >= 834.0)
+      if (v19 >= 834.0)
       {
 LABEL_36:
       }
 
-      if (v9 >= 1024.0)
+      if (v15 >= 1024.0)
       {
       }
     }
@@ -2791,11 +2797,11 @@ LABEL_40:
 
   else
   {
-    v8 = 0.0;
+    v12 = 0.0;
     if (self->_shouldShowFooterButton)
     {
       [(CCUIMenuModuleItemView *)self->_footerButtonView intrinsicContentSize];
-      v8 = v10;
+      v12 = v16;
     }
   }
 
@@ -2804,7 +2810,7 @@ LABEL_40:
   if ((IsZero & 1) == 0)
   {
     [(CCUIMenuModuleViewController *)self _separatorHeight];
-    return v8 + v16;
+    return v12 + v44;
   }
 
   return result;

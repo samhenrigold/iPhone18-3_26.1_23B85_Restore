@@ -33,34 +33,34 @@
 
 - (void)consumeRevocations:(uint64_t)revocations
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (revocations)
   {
     if (!a2)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outRevocations"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outRevocations"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel_consumeRevocations_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(sel_consumeRevocations_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v12;
-        v19 = 2048;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v11;
+        v17 = 2048;
         revocationsCopy = revocations;
-        v21 = 2114;
-        v22 = @"BSXPCServiceConnection.m";
-        v23 = 1024;
-        v24 = 1586;
-        v25 = 2114;
-        v26 = v9;
+        v19 = 2114;
+        v20 = @"BSXPCServiceConnection.m";
+        v21 = 1024;
+        v22 = 1586;
+        v23 = 2114;
+        v24 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A877B38);
@@ -84,14 +84,7 @@
     v7 = *(revocations + 8);
     *(revocations + 8) = 0;
 
-    v8 = *MEMORY[0x1E69E9840];
-
     os_unfair_lock_unlock((revocations + 16));
-  }
-
-  else
-  {
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 

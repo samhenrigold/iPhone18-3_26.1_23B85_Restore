@@ -229,9 +229,9 @@
   [(BSSettings *)v7 enumerateObjectsWithBlock:v9];
 }
 
-uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_invoke(uint64_t result, uint64_t a2)
+void *__57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = result;
+  v3 = result;
   if (a2 > 8)
   {
     if (a2 <= 11)
@@ -241,18 +241,18 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
         result = BSSettingFlagIsExplicitNo();
         if (result)
         {
-          v12 = *(v2 + 32);
+          v13 = v3[4];
 
-          return [v12 setSecondaryServiceDescription:0];
+          return [v13 setSecondaryServiceDescription:0];
         }
       }
 
       else if (a2 == 11)
       {
-        v8 = *(result + 32);
+        v9 = result[4];
         IsYes = BSSettingFlagIsYes();
 
-        return [v8 setProvidingDataConnection:IsYes];
+        return [v9 setProvidingDataConnection:IsYes];
       }
     }
 
@@ -261,20 +261,20 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
       switch(a2)
       {
         case 12:
-          v14 = *(result + 32);
-          v15 = BSSettingFlagIsYes();
+          v15 = result[4];
+          v16 = BSSettingFlagIsYes();
 
-          return [v14 setPreferredForDataConnections:v15];
+          return [v15 setPreferredForDataConnections:v16];
         case 13:
-          v17 = *(result + 32);
-          v18 = BSSettingFlagIsYes();
+          v18 = result[4];
+          v19 = BSSettingFlagIsYes();
 
-          return [v17 setRegisteredWithoutCellular:v18];
+          return [v18 setRegisteredWithoutCellular:v19];
         case 14:
-          v4 = *(result + 32);
-          v5 = BSSettingFlagIsYes();
+          v5 = result[4];
+          v6 = BSSettingFlagIsYes();
 
-          return [v4 setCallForwardingEnabled:v5];
+          return [v5 setCallForwardingEnabled:v6];
       }
     }
   }
@@ -285,19 +285,19 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
     {
       if (a2 == 1)
       {
-        v6 = *(result + 32);
-        v7 = BSSettingFlagIsYes();
+        v7 = result[4];
+        v8 = BSSettingFlagIsYes();
 
-        return [v6 setBootstrap:v7];
+        return [v7 setBootstrap:v8];
       }
     }
 
     else
     {
-      v10 = *(result + 32);
-      v11 = BSSettingFlagIsYes();
+      v11 = result[4];
+      v12 = BSSettingFlagIsYes();
 
-      return [v10 setSIMPresent:v11];
+      return [v11 setSIMPresent:v12];
     }
   }
 
@@ -309,9 +309,9 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
         result = BSSettingFlagIsExplicitNo();
         if (result)
         {
-          v13 = *(v2 + 32);
+          v14 = v3[4];
 
-          return [v13 setLabel:0];
+          return [v14 setLabel:0];
         }
 
         break;
@@ -319,9 +319,9 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
         result = BSSettingFlagIsExplicitNo();
         if (result)
         {
-          v16 = *(v2 + 32);
+          v17 = v3[4];
 
-          return [v16 setShortLabel:0];
+          return [v17 setShortLabel:0];
         }
 
         break;
@@ -329,9 +329,9 @@ uint64_t __57__STTelephonyStatusDomainSIMInfoDiff_applyToMutableInfo___block_inv
         result = BSSettingFlagIsExplicitNo();
         if (result)
         {
-          v3 = *(v2 + 32);
+          v4 = v3[4];
 
-          return [v3 setServiceDescription:0];
+          return [v4 setServiceDescription:0];
         }
 
         break;

@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)opt_in_status;
 - (void)setApp_id:(id)app_id;
+- (void)setDisable_log:(BOOL)disable_log;
 - (void)setOpt_in_status:(int64_t)opt_in_status;
 - (void)setRequest_id:(id)request_id;
 - (void)setSequence_id:(id)sequence_id;
@@ -45,6 +46,12 @@
   integerValue = [v2 integerValue];
 
   return integerValue;
+}
+
+- (void)setDisable_log:(BOOL)disable_log
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:disable_log];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (BOOL)disable_log

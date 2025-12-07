@@ -109,7 +109,7 @@ void __32__COMessagingAddOn_setDelegate___block_invoke(uint64_t a1)
 
 - (void)sendRequest:(id)request members:(id)members withCompletionHandler:(id)handler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   membersCopy = members;
   handlerCopy = handler;
@@ -124,35 +124,35 @@ void __32__COMessagingAddOn_setDelegate___block_invoke(uint64_t a1)
 
   nodeForMe = [meshController nodeForMe];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v33 = membersCopy;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v32 = membersCopy;
   obj = membersCopy;
-  v41 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-  if (!v41)
+  v40 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  if (!v40)
   {
     goto LABEL_26;
   }
 
-  v14 = *v47;
-  v38 = requestCopy;
-  v39 = *MEMORY[0x277CFCF10];
+  v14 = *v46;
+  v37 = requestCopy;
+  v38 = *MEMORY[0x277CFCF10];
   selfCopy = self;
-  v37 = handlerCopy;
-  v34 = *v47;
-  v35 = nodeForMe;
+  v36 = handlerCopy;
+  v33 = *v46;
+  v34 = nodeForMe;
   do
   {
-    for (i = 0; i != v41; ++i)
+    for (i = 0; i != v40; ++i)
     {
-      if (*v47 != v14)
+      if (*v46 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v46 + 1) + 8 * i);
+      v16 = *(*(&v45 + 1) + 8 * i);
       memberSnapshot = [nodeForMe memberSnapshot];
       member = [memberSnapshot member];
       v19 = [member isEqualToMember:v16];
@@ -168,28 +168,28 @@ void __32__COMessagingAddOn_setDelegate___block_invoke(uint64_t a1)
 
       else
       {
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         meshController2 = [(COMeshAddOn *)self meshController];
         nodes = [meshController2 nodes];
 
-        v24 = [nodes countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v24 = [nodes countByEnumeratingWithState:&v41 objects:v49 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v43;
+          v26 = *v42;
           while (2)
           {
             for (j = 0; j != v25; ++j)
             {
-              if (*v43 != v26)
+              if (*v42 != v26)
               {
                 objc_enumerationMutation(nodes);
               }
 
-              v28 = *(*(&v42 + 1) + 8 * j);
+              v28 = *(*(&v41 + 1) + 8 * j);
               memberSnapshot2 = [v28 memberSnapshot];
               member2 = [memberSnapshot2 member];
               v31 = [member2 isEqualToMember:v16];
@@ -201,7 +201,7 @@ void __32__COMessagingAddOn_setDelegate___block_invoke(uint64_t a1)
               }
             }
 
-            v25 = [nodes countByEnumeratingWithState:&v42 objects:v50 count:16];
+            v25 = [nodes countByEnumeratingWithState:&v41 objects:v49 count:16];
             if (v25)
             {
               continue;
@@ -212,11 +212,11 @@ void __32__COMessagingAddOn_setDelegate___block_invoke(uint64_t a1)
 
           v20 = 0;
 LABEL_20:
-          handlerCopy = v37;
-          requestCopy = v38;
-          nodeForMe = v35;
+          handlerCopy = v36;
+          requestCopy = v37;
+          nodeForMe = v34;
           self = selfCopy;
-          v14 = v34;
+          v14 = v33;
         }
 
         else
@@ -233,21 +233,19 @@ LABEL_9:
         }
       }
 
-      meshController3 = [MEMORY[0x277CCA9B8] errorWithDomain:v39 code:-1111 userInfo:0];
+      meshController3 = [MEMORY[0x277CCA9B8] errorWithDomain:v38 code:-1111 userInfo:0];
       (*(handlerCopy + 2))(handlerCopy, requestCopy, 0, 0, meshController3);
 LABEL_24:
     }
 
-    v41 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v40 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
   }
 
-  while (v41);
+  while (v40);
 LABEL_26:
 
-  membersCopy = v33;
+  membersCopy = v32;
 LABEL_28:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)broadcastRequest:(id)request recipientsCallback:(id)callback completionHandler:(id)handler
@@ -303,38 +301,38 @@ void __43__COMessagingAddOn_didAddToMeshController___block_invoke(uint64_t a1, v
 
 - (void)didChangeNodesForMeshController:(id)controller
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = COMessagingAddOn;
-  [(COMeshAddOn *)&v30 didChangeNodesForMeshController:controller];
+  v35 = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = COMessagingAddOn;
+  [(COMeshAddOn *)&v29 didChangeNodesForMeshController:controller];
   meshController = [(COMeshAddOn *)self meshController];
   nodes = [meshController nodes];
 
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(COMessagingAddOn *)self queuedIncomingRequests];
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v27;
+    v9 = *v26;
     *&v7 = 134218242;
-    v21 = v7;
-    v22 = *v27;
+    v20 = v7;
+    v21 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         senderNode = [v11 senderNode];
         if ([nodes containsObject:senderNode])
         {
@@ -345,10 +343,10 @@ void __43__COMessagingAddOn_didAddToMeshController___block_invoke(uint64_t a1, v
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               request = [v11 request];
-              *buf = v21;
-              v32 = selfCopy;
-              v33 = 2112;
-              v34 = request;
+              *buf = v20;
+              v31 = selfCopy;
+              v32 = 2112;
+              v33 = request;
               _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p Add-on found a snapshot for queued request %@", buf, 0x16u);
             }
 
@@ -358,12 +356,12 @@ void __43__COMessagingAddOn_didAddToMeshController___block_invoke(uint64_t a1, v
             [delegate addOn:selfCopy receivedRequest:request2 callback:callback];
 
             [array addObject:v11];
-            v9 = v22;
+            v9 = v21;
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v8);
@@ -371,13 +369,11 @@ void __43__COMessagingAddOn_didAddToMeshController___block_invoke(uint64_t a1, v
 
   queuedIncomingRequests = [(COMessagingAddOn *)selfCopy queuedIncomingRequests];
   [queuedIncomingRequests removeObjectsInArray:array];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRequest:(id)request callback:(id)callback
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   callbackCopy = callback;
   sender = [requestCopy sender];
@@ -399,17 +395,15 @@ void __43__COMessagingAddOn_didAddToMeshController___block_invoke(uint64_t a1, v
     callbackCopy = COCoreLogForCategory(10);
     if (os_log_type_enabled(callbackCopy, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134218498;
+      v12 = 134218498;
       selfCopy = self;
-      v15 = 2112;
-      v16 = requestCopy;
-      v17 = 2112;
-      v18 = sender;
-      _os_log_impl(&dword_244378000, callbackCopy, OS_LOG_TYPE_DEFAULT, "%p Add-on received a request %@ from node %@ with missing snapshot. Enqueuing request", &v13, 0x20u);
+      v14 = 2112;
+      v15 = requestCopy;
+      v16 = 2112;
+      v17 = sender;
+      _os_log_impl(&dword_244378000, callbackCopy, OS_LOG_TYPE_DEFAULT, "%p Add-on received a request %@ from node %@ with missing snapshot. Enqueuing request", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureTimer
@@ -452,14 +446,13 @@ void __35__COMessagingAddOn__configureTimer__block_invoke(uint64_t a1)
 
 - (void)_timerFired
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a2 + 24);
-  v5 = 134218240;
+  v4 = 134218240;
   selfCopy = self;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p cleanup timer reconfiguring to %llu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p cleanup timer reconfiguring to %llu", &v4, 0x16u);
 }
 
 void __31__COMessagingAddOn__timerFired__block_invoke(uint64_t a1, void *a2)
@@ -528,27 +521,24 @@ void __31__COMessagingAddOn__timerFired__block_invoke(uint64_t a1, void *a2)
 
 void __31__COMessagingAddOn__timerFired__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = [a2 request];
-  v7 = 134218242;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "%p enqueued request %@ expired before being passed to a node", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "%p enqueued request %@ expired before being passed to a node", &v6, 0x16u);
 }
 
 - (void)_timerRequestAdded:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 2048;
-  v6 = 0x4072C00000000000;
-  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p enabling cleanup timer for %f seconds.", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 2048;
+  v5 = 0x4072C00000000000;
+  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p enabling cleanup timer for %f seconds.", &v2, 0x16u);
 }
 
 @end

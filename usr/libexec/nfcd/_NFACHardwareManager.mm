@@ -8,6 +8,7 @@
 - (id)_executeWithDriverSessionSync:(id)sync block:(id)block;
 - (id)_getInfo;
 - (id)_readDriverSettings;
+- (id)enableMultiTag:(BOOL)tag;
 - (os_state_data_s)dumpState;
 - (unint64_t)_loadHW;
 - (unint64_t)openSession:(id)session;
@@ -102,13 +103,13 @@
         }
 
         *buf = 67109890;
-        v102 = v14;
-        v103 = 2082;
-        v104 = object_getClassName(selfCopy);
-        v105 = 2082;
-        v106 = sel_getName(a2);
-        v107 = 1024;
-        v108 = 778;
+        v101 = v14;
+        v102 = 2082;
+        v103 = object_getClassName(selfCopy);
+        v104 = 2082;
+        v105 = sel_getName(a2);
+        v106 = 1024;
+        v107 = 778;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i System is going to sleep - delaying start of new session", buf, 0x22u);
       }
 
@@ -122,9 +123,8 @@
       currentSession = selfCopy->_currentSession;
       selfCopy->_currentSession = v17;
 
-      v19 = selfCopy->_currentSession;
-      v20 = objc_opt_class();
-      if (v20 != objc_opt_class() || ![(NFACDriverWrapper *)selfCopy->_driverWrapper readerModeProtectionActive])
+      v19 = objc_opt_class();
+      if (v19 != objc_opt_class() || ![(NFACDriverWrapper *)selfCopy->_driverWrapper readerModeProtectionActive])
       {
         [(NSMutableArray *)selfCopy->_sessions removeObjectAtIndex:0];
         objc_sync_exit(v5);
@@ -136,51 +136,51 @@
           if ([willStartSession code]== 72)
           {
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v32 = NFLogGetLogger();
-            if (v32)
+            v31 = NFLogGetLogger();
+            if (v31)
             {
-              v33 = v32;
-              v34 = object_getClass(selfCopy);
-              v35 = class_isMetaClass(v34);
-              v36 = object_getClassName(selfCopy);
-              v96 = sel_getName(a2);
-              v37 = 45;
-              if (v35)
+              v32 = v31;
+              v33 = object_getClass(selfCopy);
+              v34 = class_isMetaClass(v33);
+              v35 = object_getClassName(selfCopy);
+              v95 = sel_getName(a2);
+              v36 = 45;
+              if (v34)
               {
-                v37 = 43;
+                v36 = 43;
               }
 
-              v33(6, "%c[%{public}s %{public}s]:%i System will sleep, session will get dequeued later.", v37, v36, v96, 804);
+              v32(6, "%c[%{public}s %{public}s]:%i System will sleep, session will get dequeued later.", v36, v35, v95, 804);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v38 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            v37 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
-              v39 = object_getClass(selfCopy);
-              if (class_isMetaClass(v39))
+              v38 = object_getClass(selfCopy);
+              if (class_isMetaClass(v38))
               {
-                v40 = 43;
+                v39 = 43;
               }
 
               else
               {
-                v40 = 45;
+                v39 = 45;
               }
 
               *buf = 67109890;
-              v102 = v40;
-              v103 = 2082;
-              v104 = object_getClassName(selfCopy);
-              v105 = 2082;
-              v106 = sel_getName(a2);
-              v107 = 1024;
-              v108 = 804;
-              _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i System will sleep, session will get dequeued later.", buf, 0x22u);
+              v101 = v39;
+              v102 = 2082;
+              v103 = object_getClassName(selfCopy);
+              v104 = 2082;
+              v105 = sel_getName(a2);
+              v106 = 1024;
+              v107 = 804;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i System will sleep, session will get dequeued later.", buf, 0x22u);
             }
 
             [(NSMutableArray *)selfCopy->_sessions insertObject:selfCopy->_currentSession atIndex:0];
-            v41 = selfCopy->_currentSession;
+            v40 = selfCopy->_currentSession;
             selfCopy->_currentSession = 0;
 
             goto LABEL_83;
@@ -205,7 +205,7 @@ LABEL_15:
         if (selfCopy->_runLPCD)
         {
           driverWrapper = selfCopy->_driverWrapper;
-          v16 = sub_10004C6A8();
+          v16 = sub_10004C6A8(NFRoutingConfig);
         }
 
         else
@@ -218,76 +218,76 @@ LABEL_15:
               if (selfCopy->_needsMultiTagRestart)
               {
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v43 = NFLogGetLogger();
-                if (v43)
+                v42 = NFLogGetLogger();
+                if (v42)
                 {
-                  v44 = v43;
-                  v45 = object_getClass(selfCopy);
-                  v46 = class_isMetaClass(v45);
-                  v47 = object_getClassName(selfCopy);
-                  v97 = sel_getName(a2);
-                  v48 = 45;
-                  if (v46)
+                  v43 = v42;
+                  v44 = object_getClass(selfCopy);
+                  v45 = class_isMetaClass(v44);
+                  v46 = object_getClassName(selfCopy);
+                  v96 = sel_getName(a2);
+                  v47 = 45;
+                  if (v45)
                   {
-                    v48 = 43;
+                    v47 = 43;
                   }
 
-                  v44(6, "%c[%{public}s %{public}s]:%i Restarting multitag detection", v48, v47, v97, 829);
+                  v43(6, "%c[%{public}s %{public}s]:%i Restarting multitag detection", v47, v46, v96, 829);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v49 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v48 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
                 {
-                  v50 = object_getClass(selfCopy);
-                  if (class_isMetaClass(v50))
+                  v49 = object_getClass(selfCopy);
+                  if (class_isMetaClass(v49))
                   {
-                    v51 = 43;
+                    v50 = 43;
                   }
 
                   else
                   {
-                    v51 = 45;
+                    v50 = 45;
                   }
 
-                  v52 = object_getClassName(selfCopy);
-                  v53 = sel_getName(a2);
+                  v51 = object_getClassName(selfCopy);
+                  v52 = sel_getName(a2);
                   *buf = 67109890;
-                  v102 = v51;
-                  v103 = 2082;
-                  v104 = v52;
-                  v105 = 2082;
-                  v106 = v53;
-                  v107 = 1024;
-                  v108 = 829;
-                  _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Restarting multitag detection", buf, 0x22u);
+                  v101 = v50;
+                  v102 = 2082;
+                  v103 = v51;
+                  v104 = 2082;
+                  v105 = v52;
+                  v106 = 1024;
+                  v107 = 829;
+                  _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Restarting multitag detection", buf, 0x22u);
                 }
 
-                v54 = selfCopy->_driverWrapper;
-                v55 = sub_10004C268();
-                v56 = [(NFACDriverWrapper *)v54 setRouting:v55];
+                v53 = selfCopy->_driverWrapper;
+                v54 = sub_10004C268(NFRoutingConfig);
+                v55 = [(NFACDriverWrapper *)v53 setRouting:v54];
 
                 selfCopy->_needsMultiTagRestart = 0;
               }
 
-              if (NFProductIsDevBoard() && (-[_NFACHardwareManager _getDefaults](selfCopy, "_getDefaults"), v57 = objc_claimAutoreleasedReturnValue(), v58 = [v57 BOOLForKey:@"forceMultiTagEnabled"], v57, (v58 & 1) == 0))
+              if (NFProductIsDevBoard() && (-[_NFACHardwareManager _getDefaults](selfCopy, "_getDefaults"), v56 = objc_claimAutoreleasedReturnValue(), v57 = [v56 BOOLForKey:@"forceMultiTagEnabled"], v56, (v57 & 1) == 0))
               {
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v84 = NFLogGetLogger();
-                if (v84)
+                v83 = NFLogGetLogger();
+                if (v83)
                 {
-                  v85 = v84;
-                  v86 = object_getClass(selfCopy);
-                  v87 = class_isMetaClass(v86);
-                  v88 = object_getClassName(selfCopy);
-                  v100 = sel_getName(a2);
-                  v89 = 45;
-                  if (v87)
+                  v84 = v83;
+                  v85 = object_getClass(selfCopy);
+                  v86 = class_isMetaClass(v85);
+                  v87 = object_getClassName(selfCopy);
+                  v99 = sel_getName(a2);
+                  v88 = 45;
+                  if (v86)
                   {
-                    v89 = 43;
+                    v88 = 43;
                   }
 
-                  v85(6, "%c[%{public}s %{public}s]:%i Multitag detection is suppressed on dev boards", v89, v88, v100, 835);
+                  v84(6, "%c[%{public}s %{public}s]:%i Multitag detection is suppressed on dev boards", v88, v87, v99, 835);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -297,36 +297,36 @@ LABEL_15:
                   goto LABEL_83;
                 }
 
-                v90 = object_getClass(selfCopy);
-                if (class_isMetaClass(v90))
+                v89 = object_getClass(selfCopy);
+                if (class_isMetaClass(v89))
                 {
-                  v91 = 43;
+                  v90 = 43;
                 }
 
                 else
                 {
-                  v91 = 45;
+                  v90 = 45;
                 }
 
-                v92 = object_getClassName(selfCopy);
-                v93 = sel_getName(a2);
+                v91 = object_getClassName(selfCopy);
+                v92 = sel_getName(a2);
                 *buf = 67109890;
-                v102 = v91;
-                v103 = 2082;
-                v104 = v92;
-                v105 = 2082;
-                v106 = v93;
-                v107 = 1024;
-                v108 = 835;
-                v71 = "%c[%{public}s %{public}s]:%i Multitag detection is suppressed on dev boards";
+                v101 = v90;
+                v102 = 2082;
+                v103 = v91;
+                v104 = 2082;
+                v105 = v92;
+                v106 = 1024;
+                v107 = 835;
+                v70 = "%c[%{public}s %{public}s]:%i Multitag detection is suppressed on dev boards";
               }
 
               else
               {
                 _getDefaults = [(_NFACHardwareManager *)selfCopy _getDefaults];
-                v60 = [_getDefaults BOOLForKey:@"DisableMultiTag"];
+                v59 = [_getDefaults BOOLForKey:@"DisableMultiTag"];
 
-                if (!v60)
+                if (!v59)
                 {
                   driverWrapper = selfCopy->_driverWrapper;
                   v16 = sub_1000097C0();
@@ -334,21 +334,21 @@ LABEL_15:
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v61 = NFLogGetLogger();
-                if (v61)
+                v60 = NFLogGetLogger();
+                if (v60)
                 {
-                  v62 = v61;
-                  v63 = object_getClass(selfCopy);
-                  v64 = class_isMetaClass(v63);
-                  v65 = object_getClassName(selfCopy);
-                  v98 = sel_getName(a2);
-                  v66 = 45;
-                  if (v64)
+                  v61 = v60;
+                  v62 = object_getClass(selfCopy);
+                  v63 = class_isMetaClass(v62);
+                  v64 = object_getClassName(selfCopy);
+                  v97 = sel_getName(a2);
+                  v65 = 45;
+                  if (v63)
                   {
-                    v66 = 43;
+                    v65 = 43;
                   }
 
-                  v62(6, "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults", v66, v65, v98, 838);
+                  v61(6, "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults", v65, v64, v97, 838);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -358,138 +358,138 @@ LABEL_15:
                   goto LABEL_83;
                 }
 
-                v67 = object_getClass(selfCopy);
-                if (class_isMetaClass(v67))
+                v66 = object_getClass(selfCopy);
+                if (class_isMetaClass(v66))
                 {
-                  v68 = 43;
+                  v67 = 43;
                 }
 
                 else
                 {
-                  v68 = 45;
+                  v67 = 45;
                 }
 
-                v69 = object_getClassName(selfCopy);
-                v70 = sel_getName(a2);
+                v68 = object_getClassName(selfCopy);
+                v69 = sel_getName(a2);
                 *buf = 67109890;
-                v102 = v68;
-                v103 = 2082;
-                v104 = v69;
-                v105 = 2082;
-                v106 = v70;
-                v107 = 1024;
-                v108 = 838;
-                v71 = "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults";
+                v101 = v67;
+                v102 = 2082;
+                v103 = v68;
+                v104 = 2082;
+                v105 = v69;
+                v106 = 1024;
+                v107 = 838;
+                v70 = "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults";
               }
 
-              _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v71, buf, 0x22u);
+              _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v70, buf, 0x22u);
               goto LABEL_83;
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v72 = NFLogGetLogger();
-            if (v72)
+            v71 = NFLogGetLogger();
+            if (v71)
             {
-              v73 = v72;
-              v74 = object_getClass(selfCopy);
-              v75 = class_isMetaClass(v74);
-              v76 = object_getClassName(selfCopy);
-              v99 = sel_getName(a2);
-              v77 = 45;
-              if (v75)
+              v72 = v71;
+              v73 = object_getClass(selfCopy);
+              v74 = class_isMetaClass(v73);
+              v75 = object_getClassName(selfCopy);
+              v98 = sel_getName(a2);
+              v76 = 45;
+              if (v74)
               {
-                v77 = 43;
+                v76 = 43;
               }
 
-              v73(6, "%c[%{public}s %{public}s]:%i Baseband not ready", v77, v76, v99, 823);
+              v72(6, "%c[%{public}s %{public}s]:%i Baseband not ready", v76, v75, v98, 823);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v78 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+            v77 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
             {
-              v79 = object_getClass(selfCopy);
-              if (class_isMetaClass(v79))
+              v78 = object_getClass(selfCopy);
+              if (class_isMetaClass(v78))
               {
-                v80 = 43;
+                v79 = 43;
               }
 
               else
               {
-                v80 = 45;
+                v79 = 45;
               }
 
-              v81 = object_getClassName(selfCopy);
-              v82 = sel_getName(a2);
+              v80 = object_getClassName(selfCopy);
+              v81 = sel_getName(a2);
               *buf = 67109890;
-              v102 = v80;
-              v103 = 2082;
-              v104 = v81;
-              v105 = 2082;
-              v106 = v82;
-              v107 = 1024;
-              v108 = 823;
-              _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Baseband not ready", buf, 0x22u);
+              v101 = v79;
+              v102 = 2082;
+              v103 = v80;
+              v104 = 2082;
+              v105 = v81;
+              v106 = 1024;
+              v107 = 823;
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Baseband not ready", buf, 0x22u);
             }
           }
 
           driverWrapper = selfCopy->_driverWrapper;
-          v16 = sub_10004C268();
+          v16 = sub_10004C268(NFRoutingConfig);
         }
 
 LABEL_82:
         v5 = v16;
-        v83 = [(NFACDriverWrapper *)driverWrapper setRouting:v16];
+        v82 = [(NFACDriverWrapper *)driverWrapper setRouting:v16];
 LABEL_83:
 
         return;
       }
 
-      v21 = selfCopy->_currentSession;
+      v20 = selfCopy->_currentSession;
       selfCopy->_currentSession = 0;
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v22 = NFLogGetLogger();
-      if (v22)
+      v21 = NFLogGetLogger();
+      if (v21)
       {
-        v23 = v22;
-        v24 = object_getClass(selfCopy);
-        v25 = class_isMetaClass(v24);
-        v26 = object_getClassName(selfCopy);
-        v95 = sel_getName(a2);
-        v27 = 45;
-        if (v25)
+        v22 = v21;
+        v23 = object_getClass(selfCopy);
+        v24 = class_isMetaClass(v23);
+        v25 = object_getClassName(selfCopy);
+        v94 = sel_getName(a2);
+        v26 = 45;
+        if (v24)
         {
-          v27 = 43;
+          v26 = 43;
         }
 
-        v23(6, "%c[%{public}s %{public}s]:%i Reader session not dequeued : reader mode protection active", v27, v26, v95, 789);
+        v22(6, "%c[%{public}s %{public}s]:%i Reader session not dequeued : reader mode protection active", v26, v25, v94, 789);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v28 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v27 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = object_getClass(selfCopy);
-        if (class_isMetaClass(v29))
+        v28 = object_getClass(selfCopy);
+        if (class_isMetaClass(v28))
         {
-          v30 = 43;
+          v29 = 43;
         }
 
         else
         {
-          v30 = 45;
+          v29 = 45;
         }
 
         *buf = 67109890;
-        v102 = v30;
-        v103 = 2082;
-        v104 = object_getClassName(selfCopy);
-        v105 = 2082;
-        v106 = sel_getName(a2);
-        v107 = 1024;
-        v108 = 789;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Reader session not dequeued : reader mode protection active", buf, 0x22u);
+        v101 = v29;
+        v102 = 2082;
+        v103 = object_getClassName(selfCopy);
+        v104 = 2082;
+        v105 = sel_getName(a2);
+        v106 = 1024;
+        v107 = 789;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Reader session not dequeued : reader mode protection active", buf, 0x22u);
       }
     }
 
@@ -575,7 +575,7 @@ LABEL_83:
   v3 = [(NFACDriverWrapper *)self->_driverWrapper openSession:session];
   if (v3 != 1)
   {
-    v4 = sub_100210FEC();
+    v4 = sub_100210FEC(_NFFailForwardCoordinator);
     sub_100214014(v4, 1, 2);
   }
 
@@ -589,7 +589,7 @@ LABEL_83:
     v4 = [(_NFACHardwareManager *)self openSession:@"HW probe"];
     if (v4 == 1)
     {
-      v5 = sub_100210FEC();
+      v5 = sub_100210FEC(_NFFailForwardCoordinator);
       sub_100214014(v5, 0, 2);
 
       [(_NFACHardwareManager *)self maybeStartNextSession];
@@ -788,7 +788,7 @@ LABEL_83:
     objc_sync_enter(selfCopy);
     if (NFProductSupportsAC())
     {
-      v22 = sub_100210FEC();
+      v22 = sub_100210FEC(_NFFailForwardCoordinator);
       sub_100212EFC(v22, selfCopy, 2, selfCopy->_workQueue);
 
       handler[6] = _NSConcreteStackBlock;
@@ -807,7 +807,7 @@ LABEL_83:
       xpc_set_event_stream_handler("com.apple.iokit.matching", v23, handler);
 
       objc_sync_exit(selfCopy);
-      v24 = sub_100233748();
+      v24 = sub_100233748(NFBackgroundActivityScheduler);
       schedulingDailyUpdating = selfCopy->_schedulingDailyUpdating;
       selfCopy->_schedulingDailyUpdating = v24;
 
@@ -1240,7 +1240,7 @@ LABEL_83:
   }
 
   [(_NFACHardwareManager *)self stop];
-  v16 = sub_100210FEC();
+  v16 = sub_100210FEC(_NFFailForwardCoordinator);
   sub_100214310(v16, 2);
 }
 
@@ -1651,6 +1651,260 @@ LABEL_83:
   dispatch_async(workQueue, block);
 }
 
+- (id)enableMultiTag:(BOOL)tag
+{
+  tagCopy = tag;
+  if (NFProductIsDevBoard())
+  {
+    _getDefaults = [(_NFACHardwareManager *)self _getDefaults];
+    v7 = [_getDefaults BOOLForKey:@"forceMultiTagEnabled"];
+
+    if ((v7 & 1) == 0)
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        v43 = Logger;
+        Class = object_getClass(self);
+        isMetaClass = class_isMetaClass(Class);
+        ClassName = object_getClassName(self);
+        Name = sel_getName(a2);
+        v47 = 45;
+        if (isMetaClass)
+        {
+          v47 = 43;
+        }
+
+        v43(4, "%c[%{public}s %{public}s]:%i <MultiTag Detection is disabled on dev boards", v47, ClassName, Name, 511);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v48 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      {
+        v49 = object_getClass(self);
+        if (class_isMetaClass(v49))
+        {
+          v50 = 43;
+        }
+
+        else
+        {
+          v50 = 45;
+        }
+
+        *buf = 67109890;
+        v62 = v50;
+        v63 = 2082;
+        v64 = object_getClassName(self);
+        v65 = 2082;
+        v66 = sel_getName(a2);
+        v67 = 1024;
+        v68 = 511;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i <MultiTag Detection is disabled on dev boards", buf, 0x22u);
+      }
+
+      v19 = [NSError alloc];
+      v20 = [NSString stringWithUTF8String:"nfcd"];
+      v73 = NSLocalizedDescriptionKey;
+      v21 = [NSString stringWithUTF8String:"Feature Not Supported"];
+      v74 = v21;
+      v22 = &v74;
+      v23 = &v73;
+      goto LABEL_44;
+    }
+  }
+
+  _getDefaults2 = [(_NFACHardwareManager *)self _getDefaults];
+  v9 = [_getDefaults2 BOOLForKey:@"DisableMultiTag"];
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v10 = NFLogGetLogger();
+  v11 = v10;
+  if (v9)
+  {
+    if (v10)
+    {
+      v12 = object_getClass(self);
+      v13 = class_isMetaClass(v12);
+      v14 = object_getClassName(self);
+      v55 = sel_getName(a2);
+      v15 = 45;
+      if (v13)
+      {
+        v15 = 43;
+      }
+
+      v11(6, "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults", v15, v14, v55, 516);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = object_getClass(self);
+      if (class_isMetaClass(v17))
+      {
+        v18 = 43;
+      }
+
+      else
+      {
+        v18 = 45;
+      }
+
+      *buf = 67109890;
+      v62 = v18;
+      v63 = 2082;
+      v64 = object_getClassName(self);
+      v65 = 2082;
+      v66 = sel_getName(a2);
+      v67 = 1024;
+      v68 = 516;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i MultiTag Detection is disabled in nfcd defaults", buf, 0x22u);
+    }
+
+    v19 = [NSError alloc];
+    v20 = [NSString stringWithUTF8String:"nfcd"];
+    v71 = NSLocalizedDescriptionKey;
+    v21 = [NSString stringWithUTF8String:"Feature Not Supported"];
+    v72 = v21;
+    v22 = &v72;
+    v23 = &v71;
+LABEL_44:
+    v51 = [NSDictionary dictionaryWithObjects:v22 forKeys:v23 count:1];
+    v41 = [v19 initWithDomain:v20 code:14 userInfo:v51];
+
+LABEL_45:
+    goto LABEL_46;
+  }
+
+  if (v10)
+  {
+    v24 = object_getClass(self);
+    v25 = class_isMetaClass(v24);
+    v54 = object_getClassName(self);
+    v56 = sel_getName(a2);
+    v26 = 45;
+    if (v25)
+    {
+      v26 = 43;
+    }
+
+    v11(6, "%c[%{public}s %{public}s]:%i enable: %d", v26, v54, v56, 520, tagCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v27 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    v28 = object_getClass(self);
+    if (class_isMetaClass(v28))
+    {
+      v29 = 43;
+    }
+
+    else
+    {
+      v29 = 45;
+    }
+
+    *buf = 67110146;
+    v62 = v29;
+    v63 = 2082;
+    v64 = object_getClassName(self);
+    v65 = 2082;
+    v66 = sel_getName(a2);
+    v67 = 1024;
+    v68 = 520;
+    v69 = 1024;
+    v70 = tagCopy;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i enable: %d", buf, 0x28u);
+  }
+
+  self->_multiTagRestartCount = 0;
+  if (self->_runMultiTagDetection != tagCopy)
+  {
+    v53 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v53))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v53, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "NFCACD_ENABLE_MULTI_TAG", &unk_1002E8B7A, buf, 2u);
+    }
+
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_100274384;
+    v59[3] = &unk_10031D590;
+    v60 = tagCopy;
+    v59[4] = self;
+    v59[5] = a2;
+    v41 = [(_NFACHardwareManager *)self _executeWithDriverSessionSync:@"enableMultiTag" block:v59];
+    v20 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v20))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFCACD_ENABLE_MULTI_TAG", &unk_1002E8B7A, buf, 2u);
+    }
+
+    goto LABEL_45;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v30 = NFLogGetLogger();
+  if (v30)
+  {
+    v31 = v30;
+    v32 = object_getClass(self);
+    v33 = class_isMetaClass(v32);
+    v34 = object_getClassName(self);
+    v57 = sel_getName(a2);
+    v35 = 45;
+    if (v33)
+    {
+      v35 = 43;
+    }
+
+    v31(6, "%c[%{public}s %{public}s]:%i MultiTagDetection already set to: %d", v35, v34, v57, 525, tagCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v36 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  {
+    v37 = object_getClass(self);
+    if (class_isMetaClass(v37))
+    {
+      v38 = 43;
+    }
+
+    else
+    {
+      v38 = 45;
+    }
+
+    v39 = object_getClassName(self);
+    v40 = sel_getName(a2);
+    *buf = 67110146;
+    v62 = v38;
+    v63 = 2082;
+    v64 = v39;
+    v65 = 2082;
+    v66 = v40;
+    v67 = 1024;
+    v68 = 525;
+    v69 = 1024;
+    v70 = tagCopy;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i MultiTagDetection already set to: %d", buf, 0x28u);
+  }
+
+  v41 = 0;
+LABEL_46:
+
+  return v41;
+}
+
 - (void)enableLPCD:(BOOL)d callback:(id)callback
 {
   callbackCopy = callback;
@@ -1910,7 +2164,7 @@ LABEL_83:
   v11 = [[_NFACReaderSession alloc] initWithRemoteObject:sessionCopy workQueue:self->_workQueue];
   if ([(_NFACHardwareManager *)self _queueNewSession:v11 onConnection:v9])
   {
-    v12 = sub_1001AE468();
+    v12 = sub_1001AE468(NFSystemPowerConsumptionMonitor);
     [(_NFACReaderSession *)v11 setPowerConsumptionReporter:v12];
 
     callbackCopy[2](callbackCopy, v11, 0);
@@ -2425,7 +2679,7 @@ LABEL_22:
       *(v22 + 16) = 0;
     }
 
-    v24 = sub_1001AE468();
+    v24 = sub_1001AE468(NFSystemPowerConsumptionMonitor);
     sub_1001AE198(v24, v23);
 
     if (self->_runLPCD)
@@ -2727,10 +2981,10 @@ LABEL_48:
       objc_sync_exit(v35);
     }
 
-    v36 = sub_1001869E4();
+    v36 = sub_1001869E4(NFHardwareManagerAccessoryCallbacks);
     [connectionCopy setRemoteObjectInterface:v36];
 
-    v37 = sub_10018683C();
+    v37 = sub_10018683C(NFHardwareManagerAccessoryInterface);
     [connectionCopy setExportedInterface:v37];
 
     [connectionCopy setExportedObject:selfCopy];

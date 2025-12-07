@@ -26,24 +26,22 @@
   v6 = [defaultManager createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v12];
   v7 = v12;
 
-  v8 = DefaultLog();
-  v9 = v8;
+  v9 = DefaultLog(v8);
+  v10 = v9;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v14 = v4;
-      _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Verified the DDS folder is present at %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Verified the DDS folder is present at %{public}@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     +[(DDSServer *)v7];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -162,14 +160,14 @@ void __45__DDSServer_sharedInstanceWithConfiguration___block_invoke(uint64_t a1)
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = DefaultLog();
+  v8 = DefaultLog(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = connectionCopy;
+    v24 = connectionCopy;
     _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Server shouldAcceptNewConnection: (%{public}@)", buf, 0xCu);
   }
 
@@ -186,29 +184,28 @@ void __45__DDSServer_sharedInstanceWithConfiguration___block_invoke(uint64_t a1)
   [connectionCopy _setQueue:queue];
 
   objc_initWeak(buf, connectionCopy);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke;
-  v22[3] = &unk_1E86C5B18;
-  objc_copyWeak(&v23, buf);
-  v22[4] = self;
-  [connectionCopy setInvalidationHandler:v22];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309;
-  v19 = &unk_1E86C5B18;
-  objc_copyWeak(&v21, buf);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke;
+  v21[3] = &unk_1E86C5B18;
+  objc_copyWeak(&v22, buf);
+  v21[4] = self;
+  [connectionCopy setInvalidationHandler:v21];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309;
+  v18 = &unk_1E86C5B18;
+  objc_copyWeak(&v20, buf);
   selfCopy = self;
-  [connectionCopy setInterruptionHandler:&v16];
-  v13 = [(DDSServer *)self clientConnections:v16];
+  [connectionCopy setInterruptionHandler:&v15];
+  v13 = [(DDSServer *)self clientConnections:v15];
   [v13 addObject:connectionCopy];
 
   [connectionCopy resume];
-  objc_destroyWeak(&v21);
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
 
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -216,34 +213,34 @@ void __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t 
 {
   v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = DefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = DefaultLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138543362;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1DF7C6000, v3, OS_LOG_TYPE_DEFAULT, "Client connection invalidated: %{public}@", &v5, 0xCu);
+      v6 = v3;
+      _os_log_impl(&dword_1DF7C6000, v4, OS_LOG_TYPE_DEFAULT, "Client connection invalidated: %{public}@", &v5, 0xCu);
     }
 
-    [*(a1 + 32) handleEndedConnection:WeakRetained];
+    [*(a1 + 32) handleEndedConnection:v3];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = DefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = DefaultLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309_cold_1(WeakRetained, v3);
+      __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309_cold_1(v3, v4);
     }
 
-    [*(a1 + 32) handleEndedConnection:WeakRetained];
+    [*(a1 + 32) handleEndedConnection:v3];
   }
 }
 
@@ -268,7 +265,7 @@ void __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309(uint6
 
 uint64_t __22__DDSServer_interface__block_invoke()
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5AC8C18];
   v1 = interface_xpcClientInterface;
   interface_xpcClientInterface = v0;
@@ -281,9 +278,9 @@ uint64_t __22__DDSServer_interface__block_invoke()
   [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_assertionIDsForClientID_reply_ argumentIndex:0 ofReply:0];
   v2 = interface_xpcClientInterface;
   v3 = MEMORY[0x1E695DFD8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_assertionIDsForClientID_reply_ argumentIndex:0 ofReply:1];
 
@@ -293,9 +290,7 @@ uint64_t __22__DDSServer_interface__block_invoke()
   [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_updateAssetForQuery_callback_ argumentIndex:0 ofReply:0];
   [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_updateAssetForQuery_callback_ argumentIndex:0 ofReply:1];
   [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_updateAssetForQuery_callback_ argumentIndex:1 ofReply:1];
-  result = [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_triggerDumpWithReply_ argumentIndex:0 ofReply:1];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [interface_xpcClientInterface setClass:objc_opt_class() forSelector:sel_triggerDumpWithReply_ argumentIndex:0 ofReply:1];
 }
 
 - (void)dealloc
@@ -309,22 +304,20 @@ uint64_t __22__DDSServer_interface__block_invoke()
 
 + (void)setUpAssertionStorageDirectory
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_ERROR, "Failed to create directory at url %{public}@:(%{public}@)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_ERROR, "Failed to create directory at url %{public}@:(%{public}@)", &v3, 0x16u);
 }
 
 void __48__DDSServer_listener_shouldAcceptNewConnection___block_invoke_309_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Client connection interrupted: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Client connection interrupted: %{public}@", &v2, 0xCu);
 }
 
 @end

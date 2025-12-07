@@ -274,7 +274,6 @@ LABEL_30:
         v32 = objc_opt_class();
         NSStringFromClass(v32);
         v34 = v33 = dataCopy;
-        v35 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         dataCopy = v33;
@@ -299,22 +298,21 @@ LABEL_35:
 LABEL_38:
   if (!*&v6[*v9])
   {
-    v39 = 1;
+    v37 = 1;
     goto LABEL_42;
   }
 
 LABEL_39:
-  v36 = objc_opt_class();
-  v10 = NSStringFromClass(v36);
-  v37 = *&v6[*v9];
-  v38 = CCInvalidBufferErrorForMessage();
+  v35 = objc_opt_class();
+  v10 = NSStringFromClass(v35);
+  v36 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_40:
-  v39 = 0;
+  v37 = 0;
 LABEL_42:
 
-  return v39;
+  return v37;
 }
 
 - (CCWalletPaymentsCommerceTrackedOrderMerchant)initWithDisplayName:(id)name domainName:(id)domainName displayNameUpdateDate:(id)date error:(id *)error

@@ -38,106 +38,99 @@
 {
   domainCopy = domain;
   keyCopy = key;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = sub_10008EEE8;
-  v37 = sub_10008EEF8;
-  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_10008EEE8;
+  v36 = sub_10008EEF8;
+  v37 = 0;
   v8 = MBGetDefaultLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = v8;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      KVS = self->_KVS;
-      v11 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138412802;
-      v40 = domainCopy;
-      v41 = 2112;
-      v42 = keyCopy;
-      v43 = 2112;
-      v44 = v11;
-      v12 = v11;
+      v39 = domainCopy;
+      v40 = 2112;
+      v41 = keyCopy;
+      v42 = 2112;
+      v43 = v10;
+      v11 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Getting value %@/%@ from %@", buf, 0x20u);
     }
 
-    v13 = self->_KVS;
-    objc_opt_class();
-    _MBLog();
+    v12 = objc_opt_class();
+    _MBLog(@"I ", "Getting value %@/%@ from %@", domainCopy, keyCopy, v12);
   }
 
-  v14 = dispatch_semaphore_create(0);
-  v15 = self->_KVS;
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_10008EF00;
-  v30[3] = &unk_1000FE728;
-  v32 = &v33;
-  v16 = v14;
-  v31 = v16;
-  [(SSKeyValueStore *)v15 getValueForDomain:domainCopy key:keyCopy usingBlock:v30];
+  v13 = dispatch_semaphore_create(0);
+  KVS = self->_KVS;
+  v26 = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_10008EF00;
+  v29 = &unk_1000FE728;
+  v31 = &v32;
+  v15 = v13;
+  v30 = v15;
+  [(SSKeyValueStore *)KVS getValueForDomain:domainCopy key:keyCopy usingBlock:&v26];
   MBSemaphoreWaitForever();
-  if (v34[5])
+  if (v33[5])
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v17 = v17;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = v16;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v18 = self->_KVS;
-        v19 = objc_opt_class();
-        v20 = v34[5];
+        v17 = objc_opt_class();
+        v18 = v33[5];
         *buf = 138413058;
-        v40 = domainCopy;
-        v41 = 2112;
-        v42 = keyCopy;
-        v43 = 2112;
-        v44 = v19;
-        v45 = 2112;
-        v46 = v20;
-        v21 = v19;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Found value %@/%@ from %@: %@", buf, 0x2Au);
+        v39 = domainCopy;
+        v40 = 2112;
+        v41 = keyCopy;
+        v42 = 2112;
+        v43 = v17;
+        v44 = 2112;
+        v45 = v18;
+        v19 = v17;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Found value %@/%@ from %@: %@", buf, 0x2Au);
       }
 
-      v22 = self->_KVS;
-      objc_opt_class();
-      v29 = v34[5];
-      _MBLog();
+      v20 = objc_opt_class();
+      _MBLog(@"I ", "Found value %@/%@ from %@: %@", domainCopy, keyCopy, v20, v33[5], v26, v27, v28, v29);
     }
   }
 
   else
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v17 = v17;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = v16;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v23 = self->_KVS;
-        v24 = objc_opt_class();
+        v21 = objc_opt_class();
         *buf = 138412802;
-        v40 = domainCopy;
-        v41 = 2112;
-        v42 = keyCopy;
-        v43 = 2112;
-        v44 = v24;
-        v25 = v24;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Didn't find value %@/%@ in %@", buf, 0x20u);
+        v39 = domainCopy;
+        v40 = 2112;
+        v41 = keyCopy;
+        v42 = 2112;
+        v43 = v21;
+        v22 = v21;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Didn't find value %@/%@ in %@", buf, 0x20u);
       }
 
-      v26 = self->_KVS;
-      objc_opt_class();
-      _MBLog();
+      v23 = objc_opt_class();
+      _MBLog(@"I ", "Didn't find value %@/%@ in %@", domainCopy, keyCopy, v23);
     }
   }
 
-  v27 = v34[5];
-  _Block_object_dispose(&v33, 8);
+  v24 = v33[5];
+  _Block_object_dispose(&v32, 8);
 
-  return v27;
+  return v24;
 }
 
 - (void)setValue:(id)value forDomain:(id)domain key:(id)key
@@ -145,155 +138,143 @@
   valueCopy = value;
   domainCopy = domain;
   keyCopy = key;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
   v11 = MBGetDefaultLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = v11;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      KVS = self->_KVS;
-      v14 = objc_opt_class();
+      v13 = objc_opt_class();
       *buf = 138413058;
-      v31 = domainCopy;
-      v32 = 2112;
-      v33 = keyCopy;
-      v34 = 2112;
-      v35 = v14;
-      v36 = 2112;
-      v37 = valueCopy;
-      v15 = v14;
+      v28 = domainCopy;
+      v29 = 2112;
+      v30 = keyCopy;
+      v31 = 2112;
+      v32 = v13;
+      v33 = 2112;
+      v34 = valueCopy;
+      v14 = v13;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Setting value %@/%@ in %@: %@", buf, 0x2Au);
     }
 
-    v16 = self->_KVS;
-    objc_opt_class();
-    _MBLog();
+    v15 = objc_opt_class();
+    _MBLog(@"I ", "Setting value %@/%@ in %@: %@", domainCopy, keyCopy, v15, valueCopy);
   }
 
-  v17 = dispatch_semaphore_create(0);
-  v18 = self->_KVS;
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10008F1E0;
-  v23[3] = &unk_1000FE750;
-  v25 = &v26;
-  v19 = v17;
-  v24 = v19;
-  [(SSKeyValueStore *)v18 setValue:valueCopy forDomain:domainCopy key:keyCopy completionBlock:v23];
-  MBSemaphoreWaitForever();
-  if ((v27[3] & 1) == 0)
-  {
-    v20 = [MBException alloc];
-    v21 = self->_KVS;
-    v22 = [v20 initWithCode:1 format:{@"Failed to set value %@/%@ in %@", domainCopy, keyCopy, objc_opt_class()}];
-    objc_exception_throw(v22);
-  }
-
-  _Block_object_dispose(&v26, 8);
-}
-
-- (void)setValuesWithDictionary:(id)dictionary forDomain:(id)domain
-{
-  dictionaryCopy = dictionary;
-  domainCopy = domain;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v8 = MBGetDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-  {
-    v9 = v8;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      KVS = self->_KVS;
-      v11 = objc_opt_class();
-      *buf = 138412802;
-      v28 = domainCopy;
-      v29 = 2112;
-      v30 = v11;
-      v31 = 2112;
-      v32 = dictionaryCopy;
-      v12 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Setting values with dictionary %@ in %@: %@", buf, 0x20u);
-    }
-
-    v13 = self->_KVS;
-    objc_opt_class();
-    _MBLog();
-  }
-
-  v14 = dispatch_semaphore_create(0);
-  v15 = self->_KVS;
+  v16 = dispatch_semaphore_create(0);
+  KVS = self->_KVS;
   v20[0] = _NSConcreteStackBlock;
   v20[1] = 3221225472;
-  v20[2] = sub_10008F450;
+  v20[2] = sub_10008F1E0;
   v20[3] = &unk_1000FE750;
   v22 = &v23;
-  v16 = v14;
-  v21 = v16;
-  [(SSKeyValueStore *)v15 setValuesWithDictionary:dictionaryCopy forDomain:domainCopy completionBlock:v20];
+  v18 = v16;
+  v21 = v18;
+  [(SSKeyValueStore *)KVS setValue:valueCopy forDomain:domainCopy key:keyCopy completionBlock:v20];
   MBSemaphoreWaitForever();
   if ((v24[3] & 1) == 0)
   {
-    v17 = [MBException alloc];
-    v18 = self->_KVS;
-    v19 = [v17 initWithCode:1 format:{@"Failed to set values with dictionary %@/%@ in %@", domainCopy, objc_opt_class(), dictionaryCopy}];
+    v19 = [[MBException alloc] initWithCode:1 format:{@"Failed to set value %@/%@ in %@", domainCopy, keyCopy, objc_opt_class()}];
     objc_exception_throw(v19);
   }
 
   _Block_object_dispose(&v23, 8);
 }
 
+- (void)setValuesWithDictionary:(id)dictionary forDomain:(id)domain
+{
+  dictionaryCopy = dictionary;
+  domainCopy = domain;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v8 = MBGetDefaultLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = v8;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = objc_opt_class();
+      *buf = 138412802;
+      v25 = domainCopy;
+      v26 = 2112;
+      v27 = v10;
+      v28 = 2112;
+      v29 = dictionaryCopy;
+      v11 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Setting values with dictionary %@ in %@: %@", buf, 0x20u);
+    }
+
+    v12 = objc_opt_class();
+    _MBLog(@"I ", "Setting values with dictionary %@ in %@: %@", domainCopy, v12, dictionaryCopy);
+  }
+
+  v13 = dispatch_semaphore_create(0);
+  KVS = self->_KVS;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10008F450;
+  v17[3] = &unk_1000FE750;
+  v19 = &v20;
+  v15 = v13;
+  v18 = v15;
+  [(SSKeyValueStore *)KVS setValuesWithDictionary:dictionaryCopy forDomain:domainCopy completionBlock:v17];
+  MBSemaphoreWaitForever();
+  if ((v21[3] & 1) == 0)
+  {
+    v16 = [[MBException alloc] initWithCode:1 format:{@"Failed to set values with dictionary %@/%@ in %@", domainCopy, objc_opt_class(), dictionaryCopy}];
+    objc_exception_throw(v16);
+  }
+
+  _Block_object_dispose(&v20, 8);
+}
+
 - (void)removeAllValues
 {
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
   v3 = MBGetDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = v3;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      KVS = self->_KVS;
-      v6 = objc_opt_class();
+      v5 = objc_opt_class();
       *buf = 138412290;
-      v23 = v6;
-      v7 = v6;
+      v20 = v5;
+      v6 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Removing all values from %@", buf, 0xCu);
     }
 
-    v8 = self->_KVS;
-    objc_opt_class();
-    _MBLog();
+    v7 = objc_opt_class();
+    _MBLog(@"I ", "Removing all values from %@", v7);
   }
 
-  v9 = dispatch_semaphore_create(0);
-  v10 = self->_KVS;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10008F678;
-  v15[3] = &unk_1000FE750;
-  v17 = &v18;
-  v11 = v9;
-  v16 = v11;
-  [(SSKeyValueStore *)v10 removeAllValuesWithCompletionBlock:v15];
+  v8 = dispatch_semaphore_create(0);
+  KVS = self->_KVS;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10008F678;
+  v12[3] = &unk_1000FE750;
+  v14 = &v15;
+  v10 = v8;
+  v13 = v10;
+  [(SSKeyValueStore *)KVS removeAllValuesWithCompletionBlock:v12];
   MBSemaphoreWaitForever();
-  if ((v19[3] & 1) == 0)
+  if ((v16[3] & 1) == 0)
   {
-    v12 = [MBException alloc];
-    v13 = self->_KVS;
-    v14 = [v12 initWithCode:1 format:{@"Failed to remove all values from %@", objc_opt_class()}];
-    objc_exception_throw(v14);
+    v11 = [[MBException alloc] initWithCode:1 format:{@"Failed to remove all values from %@", objc_opt_class()}];
+    objc_exception_throw(v11);
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 + (id)mergeKnownAccountsByDSID:(id)d into:(id)into
@@ -341,33 +322,31 @@
 
 - (id)knownAccounts
 {
-  v3 = [(MBiTunesStoreKVS *)self valueForDomain:@"com.apple.mobile.iTunes.store" key:@"KnownAccounts"];
-  if (!v3)
+  v2 = [(MBiTunesStoreKVS *)self valueForDomain:@"com.apple.mobile.iTunes.store" key:@"KnownAccounts"];
+  if (!v2)
   {
 LABEL_18:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = MBGetDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = MBGetDefaultLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      KVS = self->_KVS;
       *buf = 138412802;
-      v25 = @"com.apple.mobile.iTunes.store";
-      v26 = 2112;
-      v27 = @"KnownAccounts";
-      v28 = 2112;
-      v29 = objc_opt_class();
-      v12 = v29;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@/%@ not an array in %@", buf, 0x20u);
+      v21 = @"com.apple.mobile.iTunes.store";
+      v22 = 2112;
+      v23 = @"KnownAccounts";
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v9 = v25;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@/%@ not an array in %@", buf, 0x20u);
 
-      v13 = self->_KVS;
-      objc_opt_class();
-      _MBLog();
+      v10 = objc_opt_class();
+      _MBLog(@"Df", "%@/%@ not an array in %@", @"com.apple.mobile.iTunes.store", @"KnownAccounts", v10);
     }
 
 LABEL_17:
@@ -375,54 +354,51 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
-  if (v5)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v3 = v2;
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v26 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v21;
+    v5 = v4;
+    v6 = *v17;
     while (2)
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v7)
+        if (*v17 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v14 = MBGetDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v11 = MBGetDefaultLog();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = self->_KVS;
-            v16 = objc_opt_class();
+            v12 = objc_opt_class();
             *buf = 138412802;
-            v25 = @"com.apple.mobile.iTunes.store";
-            v26 = 2112;
-            v27 = @"KnownAccounts";
-            v28 = 2112;
-            v29 = v16;
-            v17 = v16;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@/%@ item not a dictionary in %@", buf, 0x20u);
+            v21 = @"com.apple.mobile.iTunes.store";
+            v22 = 2112;
+            v23 = @"KnownAccounts";
+            v24 = 2112;
+            v25 = v12;
+            v13 = v12;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@/%@ item not a dictionary in %@", buf, 0x20u);
 
-            v18 = self->_KVS;
-            objc_opt_class();
-            _MBLog();
+            v14 = objc_opt_class();
+            _MBLog(@"Df", "%@/%@ item not a dictionary in %@", @"com.apple.mobile.iTunes.store", @"KnownAccounts", v14);
           }
 
           goto LABEL_17;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
-      if (v6)
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v26 count:16];
+      if (v5)
       {
         continue;
       }
@@ -431,10 +407,10 @@ LABEL_17:
     }
   }
 
-  v10 = v4;
+  v8 = v3;
 LABEL_19:
 
-  return v10;
+  return v8;
 }
 
 - (id)knownAccountsByDSID
@@ -444,29 +420,29 @@ LABEL_19:
   if (knownAccounts)
   {
     v4 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [knownAccounts count]);
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v23 = v3;
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v17 = v3;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v40 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
-      v24 = *v27;
+      v8 = *v20;
+      v18 = *v20;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v27 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * i);
-          v11 = [v10 objectForKeyedSubscript:{@"DSPersonID", v18, v19, v20, v21, v22}];
+          v10 = *(*(&v19 + 1) + 8 * i);
+          v11 = [v10 objectForKeyedSubscript:@"DSPersonID"];
           if (v11)
           {
             [v4 setObject:v10 forKeyedSubscript:v11];
@@ -477,40 +453,34 @@ LABEL_19:
             v12 = MBGetDefaultLog();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              KVS = self->_KVS;
-              v14 = objc_opt_class();
+              v13 = objc_opt_class();
               *buf = 138413314;
-              v31 = @"DSPersonID";
-              v32 = 2112;
-              v33 = @"com.apple.mobile.iTunes.store";
-              v34 = 2112;
-              v35 = @"KnownAccounts";
-              v36 = 2112;
-              v37 = v10;
-              v38 = 2112;
-              v39 = v14;
-              v15 = v14;
+              v24 = @"DSPersonID";
+              v25 = 2112;
+              v26 = @"com.apple.mobile.iTunes.store";
+              v27 = 2112;
+              v28 = @"KnownAccounts";
+              v29 = 2112;
+              v30 = v10;
+              v31 = 2112;
+              v32 = v13;
+              v14 = v13;
               _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ not in %@/%@ value in %@: %@", buf, 0x34u);
 
-              v16 = self->_KVS;
-              v8 = v24;
-              v21 = v10;
-              v22 = objc_opt_class();
-              v19 = @"com.apple.mobile.iTunes.store";
-              v20 = @"KnownAccounts";
-              v18 = @"DSPersonID";
-              _MBLog();
+              v8 = v18;
+              v15 = objc_opt_class();
+              _MBLog(@"Df", "%@ not in %@/%@ value in %@: %@", @"DSPersonID", @"com.apple.mobile.iTunes.store", @"KnownAccounts", v10, v15);
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v26 objects:v40 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v33 count:16];
       }
 
       while (v7);
     }
 
-    v3 = v23;
+    v3 = v17;
   }
 
   else

@@ -239,58 +239,58 @@ void __103__WFSetWallpaperActionUIKitUserInterface_showPreviewWithInput_key_wall
 
 void __103__WFSetWallpaperActionUIKitUserInterface_showPreviewWithInput_key_wallpaperLocation_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v2 = getSBFWallpaperOptionsClass_softClass;
-    v42 = getSBFWallpaperOptionsClass_softClass;
+    v40 = getSBFWallpaperOptionsClass_softClass;
     if (!getSBFWallpaperOptionsClass_softClass)
     {
-      v34 = MEMORY[0x277D85DD0];
-      v35 = 3221225472;
-      v36 = __getSBFWallpaperOptionsClass_block_invoke;
-      v37 = &unk_278C37610;
-      v38 = &v39;
-      __getSBFWallpaperOptionsClass_block_invoke(&v34);
-      v2 = v40[3];
+      v32 = MEMORY[0x277D85DD0];
+      v33 = 3221225472;
+      v34 = __getSBFWallpaperOptionsClass_block_invoke;
+      v35 = &unk_278C37610;
+      v36 = &v37;
+      __getSBFWallpaperOptionsClass_block_invoke(&v32);
+      v2 = v38[3];
     }
 
     v3 = v2;
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v37, 8);
     v4 = objc_alloc_init(v2);
     [v4 setSupportsCropping:1];
     [v4 setHasVideo:0];
     v5 = *(a1 + 32);
-    v45 = *(a1 + 48);
-    v46[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v43 = *(a1 + 48);
-    v44 = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v44[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+    v41 = *(a1 + 48);
+    v42 = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     [*(a1 + 40) setLocations:*(a1 + 56)];
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v8 = getSBSUIWallpaperPreviewViewControllerClass_softClass;
-    v42 = getSBSUIWallpaperPreviewViewControllerClass_softClass;
+    v40 = getSBSUIWallpaperPreviewViewControllerClass_softClass;
     if (!getSBSUIWallpaperPreviewViewControllerClass_softClass)
     {
-      v34 = MEMORY[0x277D85DD0];
-      v35 = 3221225472;
-      v36 = __getSBSUIWallpaperPreviewViewControllerClass_block_invoke;
-      v37 = &unk_278C37610;
-      v38 = &v39;
-      __getSBSUIWallpaperPreviewViewControllerClass_block_invoke(&v34);
-      v8 = v40[3];
+      v32 = MEMORY[0x277D85DD0];
+      v33 = 3221225472;
+      v34 = __getSBSUIWallpaperPreviewViewControllerClass_block_invoke;
+      v35 = &unk_278C37610;
+      v36 = &v37;
+      __getSBSUIWallpaperPreviewViewControllerClass_block_invoke(&v32);
+      v8 = v38[3];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v39, 8);
-    LOBYTE(v32) = 0;
-    v10 = [[v8 alloc] initWithImages:v6 videos:0 variant:-1 options:v7 disableSegmentedControl:1 enableButtons:1 disableContents:v32];
+    _Block_object_dispose(&v37, 8);
+    LOBYTE(v30) = 0;
+    v10 = [[v8 alloc] initWithImages:v6 videos:0 variant:-1 options:v7 disableSegmentedControl:1 enableButtons:1 disableContents:v30];
     [(WFSetWallpaperWrapperViewController *)v10 setPreviewDelegate:*(a1 + 40)];
     if ([*(a1 + 40) isiPad])
     {
@@ -302,51 +302,48 @@ void __103__WFSetWallpaperActionUIKitUserInterface_showPreviewWithInput_key_wall
     {
       v11 = objc_alloc_init(WFSetWallpaperWrapperViewController);
       [(WFSetWallpaperWrapperViewController *)v11 setModalPresentationStyle:0];
-      v14 = [(WFSetWallpaperWrapperViewController *)v11 view];
-      v15 = [(WFSetWallpaperWrapperViewController *)v10 view];
-      [v14 addSubview:v15];
+      v13 = [(WFSetWallpaperWrapperViewController *)v11 view];
+      v14 = [(WFSetWallpaperWrapperViewController *)v10 view];
+      [v13 addSubview:v14];
 
-      v16 = [(WFSetWallpaperWrapperViewController *)v11 view];
-      [v16 bounds];
-      v18 = v17;
-      v20 = v19;
-      v22 = v21;
-      v24 = v23;
+      v15 = [(WFSetWallpaperWrapperViewController *)v11 view];
+      [v15 bounds];
+      v17 = v16;
+      v19 = v18;
+      v21 = v20;
+      v23 = v22;
+      v24 = [(WFSetWallpaperWrapperViewController *)v10 view];
+      [v24 setFrame:{v17, v19, v21, v23}];
+
       v25 = [(WFSetWallpaperWrapperViewController *)v10 view];
-      [v25 setFrame:{v18, v20, v22, v24}];
-
-      v26 = [(WFSetWallpaperWrapperViewController *)v10 view];
-      [v26 setAutoresizingMask:18];
+      [v25 setAutoresizingMask:18];
 
       [(WFSetWallpaperWrapperViewController *)v11 addChildViewController:v10];
       [(WFSetWallpaperWrapperViewController *)v10 didMoveToParentViewController:v11];
-      v27 = [*(a1 + 40) delegate];
-      [v27 actionUserInterface:*(a1 + 40) setSupportedInterfaceOrientations:2];
+      v26 = [*(a1 + 40) delegate];
+      [v26 actionUserInterface:*(a1 + 40) setSupportedInterfaceOrientations:2];
     }
 
-    v29 = *(a1 + 40);
-    v28 = (a1 + 40);
-    if ([v29 isiPad])
+    v28 = *(a1 + 40);
+    v27 = (a1 + 40);
+    if ([v28 isiPad])
     {
-      v30 = v10;
+      v29 = v10;
     }
 
     else
     {
-      v30 = v11;
+      v29 = v11;
     }
 
-    [*v28 presentContent:v30];
-
-    v31 = *MEMORY[0x277D85DE8];
+    [*v27 presentContent:v29];
   }
 
   else
   {
     v12 = *(a1 + 40);
-    v33 = [MEMORY[0x277CE8888] unableToGetImageError];
-    [v12 finishWithError:v33];
-    v13 = *MEMORY[0x277D85DE8];
+    v31 = [MEMORY[0x277CE8888] unableToGetImageError];
+    [v12 finishWithError:v31];
   }
 }
 

@@ -95,41 +95,39 @@
 
 - (id)_filepathsFromDirectory:(id)directory withError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = [(MXStorageUtilProtocol *)self->_storageUtil filesFromDirectory:directoryCopy error:error];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [directoryCopy stringByAppendingPathComponent:*(*(&v17 + 1) + 8 * i)];
+        v13 = [directoryCopy stringByAppendingPathComponent:*(*(&v16 + 1) + 8 * i)];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [MEMORY[0x277CBEA60] arrayWithArray:v7];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -349,54 +347,40 @@ LABEL_11:
 
 - (void)applicationContainerPathForBundleID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Application: %@ uninstalled", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Application: %@ uninstalled", v1, 0xCu);
 }
 
 - (void)applicationContainerPathForBundleID:(void *)a1 .cold.2(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277D28708];
   v2 = a1;
   v3 = [v1 containerPath];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEBUG, "Container Path: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEBUG, "Container Path: %@", v4, 0xCu);
 }
 
 - (void)_applicationContainerPath
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Application Container Path: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Application Container Path: %@", v1, 0xCu);
 }
 
 - (void)_createMetricDirectoryForDeliveryAtPath:(uint64_t)a3 forClient:(uint64_t)a4 withError:(uint64_t)a5 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_3_0(&dword_258D6F000, a2, a3, "Error creating metrics directory: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createDiagnosticDirectoryForDeliveryAtPath:forClient:withError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_0(&dword_258D6F000, v0, v1, "failed to verify SDK version for client: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3_0(&dword_258D6F000, a2, a3, "Error creating metrics directory: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_createDiagnosticDirectoryForDeliveryAtPath:(uint64_t)a3 forClient:(uint64_t)a4 withError:(uint64_t)a5 .cold.2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_3_0(&dword_258D6F000, a2, a3, "Error creating diagnostics directory: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3_0(&dword_258D6F000, a2, a3, "Error creating diagnostics directory: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

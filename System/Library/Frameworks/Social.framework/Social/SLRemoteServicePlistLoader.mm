@@ -8,7 +8,7 @@
 + (id)allServices
 {
   v2 = objc_opt_class();
-  v3 = SLSocialFrameworkBundle();
+  v3 = SLSocialFrameworkBundle(v2);
   v4 = [v2 loadRemoteServicesFromPlistResourceName:@"SystemRemoteServices-iOS" inBundle:v3];
 
   return v4;
@@ -16,63 +16,63 @@
 
 + (id)loadRemoteServicesFromPlistResourceName:(id)name inBundle:(id)bundle
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   v7 = [bundleCopy pathForResource:name ofType:@"plist"];
-  v8 = [MEMORY[0x1E695DEC8] arrayWithContentsOfFile:v7];
-  if (v8)
+  v13 = [MEMORY[0x1E695DEC8] arrayWithContentsOfFile:v7];
+  if (v13)
   {
-    v17 = objc_opt_new();
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v10)
+    v28 = objc_opt_new();
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v15)
     {
-      v11 = v10;
-      v12 = *v19;
+      v16 = v15;
+      v17 = *v30;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v19 != v12)
+          if (*v30 != v17)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v14);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v19 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = [[SLRemoteService alloc] initWithServiceBundle:bundleCopy socialInfoDictionary:v14];
-            if (v15)
+            v25 = [[SLRemoteService alloc] initWithServiceBundle:bundleCopy socialInfoDictionary:v19];
+            if (v25)
             {
-              [v17 addObject:v15];
+              [v28 addObject:v25];
             }
           }
 
           else
           {
-            _SLLog(v4, 3, @"Incorrect type for service info dict, service entries must be dictionaries");
+            _SLLog(v4, 3, @"Incorrect type for service info dict, service entries must be dictionaries", v20, v21, v22, v23, v24, v27);
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
-      while (v11);
+      while (v16);
     }
   }
 
   else
   {
-    _SLLog(v4, 3, @"Unable to load remote service info dicts from %@");
-    v17 = 0;
+    _SLLog(v4, 3, @"Unable to load remote service info dicts from %@", v8, v9, v10, v11, v12, v7);
+    v28 = 0;
   }
 
-  return v17;
+  return v28;
 }
 
 @end

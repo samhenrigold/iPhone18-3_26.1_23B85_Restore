@@ -1,4 +1,472 @@
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void sub_19D1AFA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t CoreNLP::BERTANEEmbedding::fillTokenVectors(CoreNLP::BERTANEEmbedding *this, const __CFArray *a2, unint64_t a3, unsigned int a4, float *a5, const float *a6, const float *a7)
+{
+  v13 = CoreNLP::BERTANEEmbedding::selectBatchSizeForInput(this, a3);
+  v14 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(this, v13, a4);
+  v40 = v14;
+  if (v13)
+  {
+    v15 = v14 == 0;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  result = !v15;
+  if (!v15)
+  {
+    v36 = result;
+    if (a3)
+    {
+      v41 = 0;
+      v38 = a2;
+      v39 = a3;
+      v37 = v13;
+      do
+      {
+        v17 = 0;
+        v47 = 0;
+        v48 = 0;
+        v49 = 0;
+        do
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(a2, v17 + v41);
+          applesauce::CF::convert_to<std::string,0>(ValueAtIndex, &v42);
+          (*(**(this + 19) + 16))(&__p);
+          v19 = v46;
+          if (a4 < ((v46 - __p) >> 3))
+          {
+            v20 = v46 - __p - 8;
+            do
+            {
+              v19 -= 8;
+              v21 = a4 >= (v20 >> 3);
+              v20 -= 8;
+            }
+
+            while (!v21);
+            v46 = v19;
+          }
+
+          std::vector<std::vector<long>>::push_back[abi:ne200100](&v47, &__p);
+          if (__p)
+          {
+            v46 = __p;
+            operator delete(__p);
+          }
+
+          if (v43 < 0)
+          {
+            operator delete(v42);
+          }
+
+          ++v17;
+        }
+
+        while (v17 != v13);
+        CoreNLP::BERTANEEmbedding::runANEModel(this, &v47, v40, &v42);
+        if (v48 != v47)
+        {
+          v22 = 0;
+          do
+          {
+            v23 = v44;
+            v24 = (*(*this + 64))(this);
+            v25 = (v47 + 24 * v22);
+            v27 = *v25;
+            v26 = v25[1];
+            v28 = (*(*this + 64))(this);
+            memcpy(a5, (v23 + 4 * v22 * v40 * v24), ((v26 - v27) >> 1) * v28);
+            v29 = (v47 + 24 * v22);
+            v31 = *v29;
+            v30 = v29[1];
+            a5 += ((v30 - v31) >> 3) * (*(*this + 64))(this);
+            v32 = v47;
+            v33 = *(v47 + 24 * v22 + 8) - *(v47 + 24 * v22);
+            if (a4 > (v33 >> 3))
+            {
+              v34 = a4 - (v33 >> 3);
+              do
+              {
+                v35 = (*(*this + 64))(this);
+                memcpy(a5, a7, 4 * v35);
+                a5 += (*(*this + 64))(this);
+                --v34;
+              }
+
+              while (v34);
+              v32 = v47;
+            }
+
+            ++v22;
+          }
+
+          while (v22 < 0xAAAAAAAAAAAAAAABLL * ((v48 - v32) >> 3));
+        }
+
+        v42 = &v47;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v42);
+        v13 = v37;
+        a2 = v38;
+        v41 += v37;
+      }
+
+      while (v41 < v39);
+    }
+
+    corelm::NeuralNetwork::clear((this + 24));
+    return v36;
+  }
+
+  return result;
+}
+
+void sub_19D1AFE34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25)
+{
+  a15 = &a25;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a15);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<std::vector<long>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<std::vector<long>>::__emplace_back_slow_path<std::vector<long> const&>(a1, a2);
+  }
+
+  else
+  {
+    std::vector<std::vector<long>>::__construct_one_at_end[abi:ne200100]<std::vector<long> const&>(a1, a2);
+    result = (v3 + 24);
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t CoreNLP::BERTANEEmbedding::fillWordFragmentVectors(CoreNLP::BERTANEEmbedding *this, CFArrayRef theArray, unsigned int a3, unsigned int a4, float *a5, const float *a6, const float *a7, int a8)
+{
+  v10 = theArray;
+  v84 = *MEMORY[0x1E69E9840];
+  Count = CFArrayGetCount(theArray);
+  result = CoreNLP::BERTANEEmbedding::selectBatchSizeForInput(this, Count);
+  if (result)
+  {
+    v54 = result;
+    v57 = CoreNLP::BERTANEEmbedding::maxSeqLenSupportedByModel(this, result);
+    if (!Count)
+    {
+      goto LABEL_71;
+    }
+
+    v58 = 0;
+    __src = a7;
+    v55 = v10;
+    v52 = Count;
+    while (1)
+    {
+      v14 = 0;
+      v15 = 0;
+      v78 = 0;
+      v79 = 0;
+      v80 = 0;
+      memset(v77, 0, sizeof(v77));
+      memset(v76, 0, sizeof(v76));
+      do
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(v10, v14 + v58);
+        v63 = 0;
+        v64 = 0;
+        v65 = 0;
+        v73 = 0;
+        v74 = 0;
+        v75 = 0;
+        v17 = *(this + 19);
+        v18 = *(v17 + 31);
+        if (v18 < 0)
+        {
+          v19 = *(v17 + 8);
+          v18 = *(v17 + 16);
+        }
+
+        else
+        {
+          v19 = v17 + 8;
+        }
+
+        v81 = (*(*v17 + 32))(v17, v19, v18);
+        __dst = 0;
+        v72 = 0;
+        v70 = 0;
+        std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&v70, &v81, &v82, 1uLL);
+        for (i = 0; ; ++i)
+        {
+          v21 = CFArrayGetCount(ValueAtIndex);
+          if (a4 == i || v21 <= i)
+          {
+            break;
+          }
+
+          v22 = CFArrayGetValueAtIndex(ValueAtIndex, i);
+          applesauce::CF::convert_to<std::string,0>(v22, &v81);
+          (*(**(this + 19) + 16))(&__p);
+          v67 = (__dst - v70) >> 3;
+          std::vector<int>::push_back[abi:ne200100](&v63, &v67);
+          v67 = (v69 - __p) >> 3;
+          std::vector<int>::push_back[abi:ne200100](&v73, &v67);
+          std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&v70, __dst, __p, v69, (v69 - __p) >> 3);
+          if (__p)
+          {
+            v69 = __p;
+            operator delete(__p);
+          }
+
+          if (v83 < 0)
+          {
+            operator delete(v81);
+          }
+        }
+
+        if (v57 < (__dst - v70) >> 3)
+        {
+          if (v70)
+          {
+            __dst = v70;
+            operator delete(v70);
+          }
+
+          if (v73)
+          {
+            v74 = v73;
+            operator delete(v73);
+          }
+
+          if (v63)
+          {
+            v64 = v63;
+            operator delete(v63);
+          }
+
+LABEL_68:
+          v51 = 0;
+          goto LABEL_69;
+        }
+
+        std::vector<std::vector<long>>::push_back[abi:ne200100](&v78, &v70);
+        std::vector<std::vector<int>>::push_back[abi:ne200100](v77, &v63);
+        std::vector<std::vector<int>>::push_back[abi:ne200100](v76, &v73);
+        if (v15 <= (__dst - v70) >> 3)
+        {
+          v15 = (__dst - v70) >> 3;
+        }
+
+        if (v70)
+        {
+          __dst = v70;
+          operator delete(v70);
+        }
+
+        if (v73)
+        {
+          v74 = v73;
+          operator delete(v73);
+        }
+
+        if (v63)
+        {
+          v64 = v63;
+          operator delete(v63);
+        }
+
+        ++v14;
+      }
+
+      while (v14 != v54);
+      v23 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(this, v54, v15);
+      if (!v23)
+      {
+        goto LABEL_68;
+      }
+
+      v53 = v23;
+      CoreNLP::BERTANEEmbedding::runANEModel(this, &v78, v23, &v63);
+      if (v79 != v78)
+      {
+        v24 = 0;
+        v25 = 0;
+        do
+        {
+          v26 = v77[0];
+          v27 = *(v77[0] + 24 * v25);
+          v28 = *(v77[0] + 24 * v25 + 8);
+          if (a4)
+          {
+            v29 = v28 == v27;
+          }
+
+          else
+          {
+            v29 = 1;
+          }
+
+          v30 = !v29;
+          v31 = v25;
+          if (*(this + 240))
+          {
+            if (v30)
+            {
+              v32 = 0;
+              LODWORD(v33) = *(this + 4);
+              do
+              {
+                if (v33 >= 1)
+                {
+                  v34 = 0;
+                  v35 = 0;
+                  v36 = *(v27 + 4 * v32);
+                  v37 = *(*(v76[0] + 24 * v25) + 4 * v32);
+                  do
+                  {
+                    v38 = v66;
+                    v39 = (*(*this + 64))(this);
+                    vDSP_meanv((v38 + v34 * 4 + v24 * v39 + 4 * *(this + 4) * v36), *(this + 4), &a5[v34], v37);
+                    ++v35;
+                    v33 = *(this + 4);
+                    ++v34;
+                  }
+
+                  while (v35 < v33);
+                  v26 = v77[0];
+                  a5 = (a5 + v34 * 4);
+                  v25 = v31;
+                }
+
+                ++v32;
+                v27 = *(v26 + 24 * v25);
+                v28 = *(v26 + 24 * v25 + 8);
+              }
+
+              while (v32 < a4 && (v28 - v27) >> 2 > v32);
+            }
+          }
+
+          else if (v30)
+          {
+            v40 = 0;
+            v59 = v24;
+            v60 = v25 * v53;
+            do
+            {
+              if (a8 >= 1)
+              {
+                v41 = 0;
+                v42 = *(v27 + 4 * v40);
+                do
+                {
+                  if (v41 >= *(*(v76[0] + 24 * v25) + 4 * v40))
+                  {
+                    v46 = (*(*this + 64))(this);
+                    v47 = __src;
+                  }
+
+                  else
+                  {
+                    v43 = v66;
+                    v44 = (*(*this + 64))(this);
+                    v45 = (*(*this + 64))(this);
+                    v46 = (*(*this + 64))(this);
+                    v47 = (v43 + 4 * v60 * v44 + 4 * v45 * (v42 + v41));
+                  }
+
+                  memcpy(a5, v47, 4 * v46);
+                  a5 += (*(*this + 64))(this);
+                  ++v41;
+                  v25 = v31;
+                }
+
+                while (a8 != v41);
+                v26 = v77[0];
+                v24 = v59;
+              }
+
+              ++v40;
+              v27 = *(v26 + 24 * v25);
+              v28 = *(v26 + 24 * v25 + 8);
+            }
+
+            while (v40 < a4 && (v28 - v27) >> 2 > v40);
+          }
+
+          v48 = (v28 - v27) >> 2;
+          v10 = v55;
+          if (v48 < a4)
+          {
+            do
+            {
+              v49 = a8;
+              if (a8 >= 1)
+              {
+                do
+                {
+                  v50 = (*(*this + 64))(this);
+                  memcpy(a5, __src, 4 * v50);
+                  a5 += (*(*this + 64))(this);
+                  --v49;
+                }
+
+                while (v49);
+              }
+
+              ++v48;
+            }
+
+            while (v48 != a4);
+          }
+
+          ++v25;
+          v24 += 4 * v53;
+        }
+
+        while (v25 < 0xAAAAAAAAAAAAAAABLL * ((v79 - v78) >> 3));
+      }
+
+      v51 = 1;
+LABEL_69:
+      v63 = v76;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v63);
+      v63 = v77;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v63);
+      v63 = &v78;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v63);
+      if ((v51 & 1) == 0)
+      {
+        return 0;
+      }
+
+      v58 += v54;
+      if (v58 >= v52)
+      {
+LABEL_71:
+        corelm::NeuralNetwork::clear((this + 24));
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -47,13 +515,13 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -64,16 +532,16 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uin
   else
   {
     std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP::BERTANEEmbedding *this, CFArrayRef theArray, const __CFDictionary *a3, __CFDictionary *a4, __CFError **a5)
+__CFData *CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP::BERTANEEmbedding *this, CFArrayRef theArray, const __CFDictionary *a3, __CFDictionary *a4, __CFError **a5)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   Count = CFArrayGetCount(theArray);
   result = CoreNLP::BERTANEEmbedding::selectBatchSizeForInput(this, Count);
   if (result)
@@ -83,34 +551,34 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
     theDict = a4;
     if (a3 && CFDictionaryContainsKey(a3, kNLStringEmbeddingPadEncoderInput[0]) && (v11 = CFDictionaryGetValue(a3, kNLStringEmbeddingPadEncoderInput[0])) != 0)
     {
-      v49 = [v11 unsignedIntValue];
+      v48 = [v11 unsignedIntValue];
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
     theData = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
     value = [MEMORY[0x1E695DF70] array];
-    v50 = [MEMORY[0x1E695DF70] array];
+    v49 = [MEMORY[0x1E695DF70] array];
     if (Count)
     {
-      v53 = v9;
-      v54 = 0;
-      v12 = v49;
-      if (v49 >= v10)
+      v52 = v9;
+      v53 = 0;
+      v12 = v48;
+      if (v48 >= v10)
       {
         v12 = v10;
       }
 
-      v57 = v12;
-      v55 = this;
+      v56 = v12;
+      v54 = this;
       while (1)
       {
         v13 = 0;
-        v56 = 0;
-        memset(v64, 0, sizeof(v64));
+        v55 = 0;
+        memset(v63, 0, sizeof(v63));
         do
         {
           v14 = *(this + 19);
@@ -126,35 +594,35 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
             v16 = v14 + 8;
           }
 
-          v65 = (*(*v14 + 32))(v14, v16, v15);
+          v64 = (*(*v14 + 32))(v14, v16, v15);
           __dst = 0;
-          v60 = 0;
-          v58 = 0;
-          std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&v58, &v65, &v66, 1uLL);
-          v17 = [(__CFArray *)theArray objectAtIndex:v13 + v54];
+          v59 = 0;
+          v57 = 0;
+          std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&v57, &v64, &v65, 1uLL);
+          v17 = [(__CFArray *)theArray objectAtIndex:v13 + v53];
           v18 = [MEMORY[0x1E695DF70] array];
           for (i = 0; [v17 count] > i; ++i)
           {
-            applesauce::CF::convert_to<std::string,0>([v17 objectAtIndex:i], &v65);
+            applesauce::CF::convert_to<std::string,0>([v17 objectAtIndex:i], &v64);
             (*(**(this + 19) + 16))(&__p);
             v20 = __p;
-            v21 = ((v63 - __p) >> 3) + ((__dst - v58) >> 3);
+            v21 = ((v62 - __p) >> 3) + ((__dst - v57) >> 3);
             if (v21 <= v10)
             {
-              [v18 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:", (__dst - v58) >> 3)}];
-              std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&v58, __dst, __p, v63, (v63 - __p) >> 3);
+              [v18 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:", (__dst - v57) >> 3)}];
+              std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&v57, __dst, __p, v62, (v62 - __p) >> 3);
               v20 = __p;
             }
 
             if (v20)
             {
-              v63 = v20;
+              v62 = v20;
               operator delete(v20);
             }
 
-            if (v67 < 0)
+            if (v66 < 0)
             {
-              operator delete(v65);
+              operator delete(v64);
             }
 
             if (v21 > v10)
@@ -164,19 +632,19 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
           }
 
           v22 = __dst;
-          if (v49)
+          if (v48)
           {
             while (1)
             {
-              v23 = v58;
-              v24 = v22 - v58;
-              v25 = (v22 - v58) >> 3;
-              if (v25 >= v57)
+              v23 = v57;
+              v24 = v22 - v57;
+              v25 = (v22 - v57) >> 3;
+              if (v25 >= v56)
               {
                 break;
               }
 
-              if (v22 >= v60)
+              if (v22 >= v59)
               {
                 v26 = v25 + 1;
                 if ((v25 + 1) >> 61)
@@ -184,8 +652,8 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
                   std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
                 }
 
-                v27 = v60 - v58;
-                if ((v60 - v58) >> 2 > v26)
+                v27 = v59 - v57;
+                if ((v59 - v57) >> 2 > v26)
                 {
                   v26 = v27 >> 2;
                 }
@@ -199,19 +667,19 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
 
                 if (v29)
                 {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v58, v29);
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v57, v29);
                 }
 
-                v30 = (v22 - v58) >> 3;
+                v30 = (v22 - v57) >> 3;
                 v31 = (8 * v25);
                 v32 = (8 * v25 - 8 * v30);
                 *v31 = 0;
                 v22 = (v31 + 1);
                 memcpy(v32, v23, v24);
-                v33 = v58;
-                v58 = v32;
+                v33 = v57;
+                v57 = v32;
                 __dst = v22;
-                v60 = 0;
+                v59 = 0;
                 if (v33)
                 {
                   operator delete(v33);
@@ -228,14 +696,14 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
             }
           }
 
-          v34 = v56;
-          if (v56 <= (v22 - v58) >> 3)
+          v34 = v55;
+          if (v55 <= (v22 - v57) >> 3)
           {
-            v34 = (v22 - v58) >> 3;
+            v34 = (v22 - v57) >> 3;
           }
 
-          v56 = v34;
-          std::vector<std::vector<long>>::push_back[abi:ne200100](v64, &v58);
+          v55 = v34;
+          std::vector<std::vector<long>>::push_back[abi:ne200100](v63, &v57);
           while ([v17 count] > i)
           {
             [v18 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:", 0x7FFFFFFFFFFFFFFFLL, 0)}];
@@ -243,35 +711,35 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
           }
 
           [value addObject:v18];
-          [v50 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLong:", (__dst - v58) >> 3)}];
-          if (v58)
+          [v49 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLong:", (__dst - v57) >> 3)}];
+          if (v57)
           {
-            __dst = v58;
-            operator delete(v58);
+            __dst = v57;
+            operator delete(v57);
           }
 
           ++v13;
         }
 
-        while (v13 != v53);
-        v35 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(this, v53, v56);
+        while (v13 != v52);
+        v35 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(this, v52, v55);
         if (!v35)
         {
           break;
         }
 
-        CoreNLP::BERTANEEmbedding::runANEModel(this, v64, v35, &v58);
+        CoreNLP::BERTANEEmbedding::runANEModel(this, v63, v35, &v57);
         v36 = 0;
         v37 = 0;
-        v38 = v53;
+        v38 = v52;
         do
         {
           v39 = v35;
-          v40 = v61;
-          v41 = (*(*v55 + 64))(v55);
-          v43 = *(v64[0] + v36);
-          v42 = *(v64[0] + v36 + 8);
-          v44 = (*(*v55 + 64))(v55);
+          v40 = v60;
+          v41 = (*(*v54 + 64))(v54);
+          v43 = *(v63[0] + v36);
+          v42 = *(v63[0] + v36 + 8);
+          v44 = (*(*v54 + 64))(v54);
           CFDataAppendBytes(theData, (v40 + 4 * v37 * v41), ((v42 - v43) >> 1) * v44);
           v35 = v39;
           v37 += v39;
@@ -280,11 +748,11 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
         }
 
         while (v38);
-        v58 = v64;
-        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v58);
-        v54 += v53;
-        this = v55;
-        if (v54 >= Count)
+        v57 = v63;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v57);
+        v53 += v52;
+        this = v54;
+        if (v53 >= Count)
         {
           goto LABEL_51;
         }
@@ -295,22 +763,21 @@ unint64_t CoreNLP::BERTANEEmbedding::copyEmbeddingDataForTokenizedSentences(Core
         CFRelease(theData);
       }
 
-      v58 = v64;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v58);
-      result = 0;
+      v57 = v63;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v57);
+      return 0;
     }
 
     else
     {
 LABEL_51:
       CFDictionarySetValue(theDict, kNLStringEmbeddingTokenizedBatchComponentRanges[0], value);
-      CFDictionarySetValue(theDict, kNLStringEmbeddingTokenizedBatchComponentsCount[0], v50);
+      CFDictionarySetValue(theDict, kNLStringEmbeddingTokenizedBatchComponentsCount[0], v49);
       corelm::NeuralNetwork::clear((this + 24));
-      result = theData;
+      return theData;
     }
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -321,67 +788,58 @@ void sub_19D1B0DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL CoreNLP::BERTANEEmbedding::fillStringVector(void *a1, uint64_t *a2, uint64_t a3)
+BOOL CoreNLP::BERTANEEmbedding::fillStringVector(void **a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v5 = a1[19];
-  v6 = a2[1];
-  if (*(a2 + 23) < 0)
+  v22 = *MEMORY[0x1E69E9840];
+  (*(*a1[19] + 16))(&__p);
+  v5 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(a1, 1, (v17 - __p) >> 3);
+  if (v5)
   {
-    v7 = *a2;
-  }
-
-  (*(*v5 + 16))(&__p);
-  v8 = CoreNLP::BERTANEEmbedding::selectSeqLenForInputBatch(a1, 1uLL, (v21 - __p) >> 3);
-  if (v8)
-  {
-    v23 = 0;
-    v24 = 0;
-    v25 = 0;
-    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(&v23, __p, v21, (v21 - __p) >> 3);
-    v16 = 0uLL;
-    v17 = 0;
-    std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long> const*,std::vector<long> const*>(&v16, &v23, &v26, 1uLL);
-    CoreNLP::BERTANEEmbedding::runANEModel(a1, &v16, v8, v18);
-    v22 = &v16;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v22);
-    if (v23)
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(&v19, __p, v17, (v17 - __p) >> 3);
+    v12 = 0uLL;
+    v13 = 0;
+    std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long> const*,std::vector<long> const*>(&v12, &v19, &v22, 1uLL);
+    CoreNLP::BERTANEEmbedding::runANEModel(a1, &v12, v5, v14);
+    v18 = &v12;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v18);
+    if (v19)
     {
-      v24 = v23;
-      operator delete(v23);
+      v20 = v19;
+      operator delete(v19);
     }
 
-    v9 = (*(*a1 + 64))(a1);
-    LODWORD(v23) = 0;
-    std::vector<float>::vector[abi:ne200100](&v16, v9);
-    v10 = *a3;
+    v6 = ((*a1)[8])(a1);
+    LODWORD(v19) = 0;
+    std::vector<float>::vector[abi:ne200100](&v12, v6, &v19);
+    v7 = *a3;
     if (*a3)
     {
-      *(a3 + 8) = v10;
-      operator delete(v10);
+      *(a3 + 8) = v7;
+      operator delete(v7);
       *a3 = 0;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
     }
 
-    *a3 = v16;
-    *(a3 + 16) = v17;
-    v12 = __p;
-    v11 = v21;
-    v13 = (*(*a1 + 64))(a1);
-    memmove(*a3, (v19 + 4 * (((v11 - v12) >> 3) - 1) * v13), *(a3 + 8) - *a3);
+    *a3 = v12;
+    *(a3 + 16) = v13;
+    v9 = __p;
+    v8 = v17;
+    v10 = ((*a1)[8])(a1);
+    memmove(*a3, (v15 + 4 * (((v8 - v9) >> 3) - 1) * v10), *(a3 + 8) - *a3);
     corelm::NeuralNetwork::clear((a1 + 3));
   }
 
   if (__p)
   {
-    v21 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 
-  result = v8 != 0;
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 != 0;
 }
 
 void sub_19D1B1078(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20)
@@ -461,7 +919,7 @@ void CoreNLP::BERTANEEmbedding::~BERTANEEmbedding(CoreNLP::BERTANEEmbedding *thi
   JUMPOUT(0x19EAF8CA0);
 }
 
-uint64_t **CoreNLP::BERTANEEmbedding::setSupportedConfigs(uint64_t a1, uint64_t **a2)
+void *CoreNLP::BERTANEEmbedding::setSupportedConfigs(uint64_t a1, void *a2)
 {
   result = (a1 + 216);
   if (result != a2)
@@ -499,7 +957,7 @@ void sub_19D1B1338(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreNLP::BERTANEEmbedding::textToIDs(uint64_t a1, uint64_t *a2)
+uint64_t CoreNLP::BERTANEEmbedding::textToIDs(uint64_t a1, uint64_t **a2)
 {
   v2 = *(a1 + 152);
   v3 = a2[1];
@@ -565,22 +1023,22 @@ void corelm::NeuralNetwork::releaseInputTensor(corelm::NeuralNetwork *this)
     }
 
     p_p = &__p;
-    if (*(std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 80, &__p.__r_.__value_.__l.__data_) + 56))
+    if (std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 10, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p)[7])
     {
       p_p = &__p;
-      v5 = std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 80, &__p.__r_.__value_.__l.__data_);
-      CFRelease(*(v5 + 56));
+      v5 = std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 10, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
+      CFRelease(v5[7]);
       p_p = &__p;
-      *(std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 80, &__p.__r_.__value_.__l.__data_) + 56) = 0;
+      std::__tree<std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::__map_value_compare<std::string,std::__value_type<std::string,MontrealNeuralNetworkTensor *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MontrealNeuralNetworkTensor *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 10, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p)[7] = 0;
     }
 
     p_p = &__p;
-    v6 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 56, &__p.__r_.__value_.__l.__data_);
-    if (*(v6 + 56) != *(v6 + 64))
+    v6 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 7, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p, &v9);
+    if (v6[7] != v6[8])
     {
       p_p = &__p;
-      v7 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 56, &__p.__r_.__value_.__l.__data_);
-      *(v7 + 64) = *(v7 + 56);
+      v7 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 7, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p, &v9);
+      v7[8] = v7[7];
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -613,28 +1071,25 @@ void nlp::CFScopedPtr<MontrealNeuralNetwork *>::reset(const void **a1, const voi
 
 uint64_t ___ZL19MontrealLibraryCorePPc_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MontrealLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::vector<unsigned long>>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
-    if (v6[1])
+    if (*(v6 + 8))
     {
-      v8 = v6[1];
+      v8 = *(v6 + 8);
     }
 
     else
@@ -710,23 +1165,23 @@ uint64_t **std::__tree<std::__value_type<unsigned long,std::vector<unsigned long
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_multi<std::pair<unsigned long const,std::vector<unsigned long>> const&>();
+    std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_multi<std::pair<unsigned long const,std::vector<unsigned long>> const&>(v5);
   }
 
   return result;
 }
 
-void sub_19D1B1900(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1B1900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -756,7 +1211,7 @@ uint64_t *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -764,10 +1219,10 @@ LABEL_8:
   return a2;
 }
 
-uint64_t std::pair<unsigned long &,std::vector<unsigned long> &>::operator=[abi:ne200100]<unsigned long const,std::vector<unsigned long>,0>(uint64_t a1, uint64_t a2)
+void **std::pair<unsigned long &,std::vector<unsigned long> &>::operator=[abi:ne200100]<unsigned long const,std::vector<unsigned long>,0>(void **a1, uint64_t a2)
 {
   v4 = *a1;
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   *v4 = *a2;
   if (v3 != (a2 + 8))
   {
@@ -777,7 +1232,7 @@ uint64_t std::pair<unsigned long &,std::vector<unsigned long> &>::operator=[abi:
   return a1;
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -988,7 +1443,7 @@ void std::vector<std::vector<int>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1010,7 +1465,7 @@ void sub_19D1B1E48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1022,11 +1477,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void *corelm::util::Directory::Directory<std::string>(void *a1, uint64_t a2)
@@ -1090,7 +1545,7 @@ BOOL corelm::util::Directory::exists(corelm::util::Directory *this)
   return v4 >= 0;
 }
 
-unint64_t *std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(unint64_t *result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,true>(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -1840,7 +2295,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   v2 = *a1;
   if (*a1 <= *(a2 - 1))
   {
-    v5 = (a1 + 1);
+    v5 = a1 + 1;
     do
     {
       v3 = v5;
@@ -2660,7 +3115,7 @@ LABEL_91:
   return v39 + 1 == a2;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsigned long> &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -2883,48 +3338,48 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<unsi
   return result;
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::vector<unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::vector<unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::vector<unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3002,8 +3457,8 @@ uint64_t corelm::NeuralNetwork::createInputTensorANE(corelm::NeuralNetwork *this
   _Block_object_dispose(&v18, 8);
   if (!v7)
   {
-    dlerror();
-    abort_report_np();
+    v12 = dlerror();
+    abort_report_np("%s", v12);
     __break(1u);
   }
 
@@ -3013,7 +3468,6 @@ uint64_t corelm::NeuralNetwork::createInputTensorANE(corelm::NeuralNetwork *this
     CFRelease(CFDictionaryRef);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3100,32 +3554,32 @@ void *___ZL42getMRLNeuralNetworkSetInputTensorSymbolLocv_block_invoke_0(uint64_t
   return result;
 }
 
-uint64_t std::vector<std::vector<long>>::__construct_one_at_end[abi:ne200100]<std::vector<long> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<long>>::__construct_one_at_end[abi:ne200100]<std::vector<long> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v3, *a2, a2[1], (a2[1] - *a2) >> 3);
+  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<long>>::__emplace_back_slow_path<std::vector<long> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<long>>::__emplace_back_slow_path<std::vector<long> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -3149,16 +3603,16 @@ uint64_t std::vector<std::vector<long>>::__emplace_back_slow_path<std::vector<lo
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -3167,9 +3621,9 @@ uint64_t std::vector<std::vector<long>>::__emplace_back_slow_path<std::vector<lo
   return v8;
 }
 
-void sub_19D1B372C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1B372C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<long>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3216,7 +3670,7 @@ void std::__split_buffer<std::vector<long>>::__destruct_at_end[abi:ne200100](uin
   }
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3238,7 +3692,7 @@ void sub_19D1B3888(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3247,8 +3701,8 @@ char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long 
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -3286,23 +3740,24 @@ char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long 
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3317,14 +3772,14 @@ char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long 
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -3339,11 +3794,11 @@ char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long 
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -3363,7 +3818,7 @@ char *std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long 
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -3382,7 +3837,7 @@ LABEL_29:
   return v5;
 }
 
-uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -3393,21 +3848,21 @@ uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -3431,16 +3886,16 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -3449,14 +3904,14 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   return v8;
 }
 
-void sub_19D1B3C40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1B3C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<long>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3478,7 +3933,7 @@ void sub_19D1B3CB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long> const*,std::vector<long> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<long>>::__init_with_size[abi:ne200100]<std::vector<long> const*,std::vector<long> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3495,7 +3950,7 @@ void sub_19D1B3D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3505,7 +3960,7 @@ void std::vector<std::vector<long>>::__vallocate[abi:ne200100](uint64_t a1, unin
   std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long>>,std::vector<long> const*,std::vector<long> const*,std::vector<long>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<long>>,std::vector<long> const*,std::vector<long> const*,std::vector<long>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -3522,8 +3977,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -3571,6 +4026,19 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<long>>,std::v
   }
 }
 
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_19D1B3FD8(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -3586,7 +4054,7 @@ void sub_19D1B3FD8(_Unwind_Exception *exception_object)
 void CoreNLP::BERTEmbedding::BERTEmbedding(uint64_t a1, uint64_t a2, int a3, int a4)
 {
   *a1 = &unk_1F10AD228;
-  v8 = a1 + 24;
+  v8 = (a1 + 24);
   HIDWORD(v10) = a4 - 2;
   LODWORD(v10) = a4 - 2;
   v9 = v10 >> 1;
@@ -3676,13 +4144,13 @@ void CoreNLP::BERTEmbedding::BERTEmbedding(uint64_t a1, uint64_t a2, int a3, int
   corelm::VocabularyBuilder::makeVocabulary(&v18, 2);
 }
 
-void sub_19D1B42E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_19D1B42E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   v38 = *(v35 + 152);
   *(v35 + 152) = 0;
   if (v38)
   {
-    (*(*v38 + 8))(v38);
+    (*(*v38 + 8))(v38, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v35 + 151) < 0)
@@ -3694,7 +4162,7 @@ void sub_19D1B42E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char *__s@<X1>, const void **a2@<X0>, void **a3@<X8>)
+uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char *__s@<X1>, const void **a2@<X0>, void ***a3@<X8>)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -3777,7 +4245,7 @@ LABEL_34:
       if (v16 <= v18)
       {
         std::string::basic_string[abi:ne200100]<0>(&v41, "input");
-        corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v35, (v36 - v35) >> 3, &v41, 1);
+        corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v35, (v36 - v35) >> 3, &v41, 1);
         if (SHIBYTE(v42) < 0)
         {
           operator delete(v41);
@@ -3789,7 +4257,7 @@ LABEL_34:
         v40 = xmmword_19D27D650;
         std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&v33, &v41, &__p);
         std::string::basic_string[abi:ne200100]<0>(&v41, "position");
-        corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v33, (v34 - v33) >> 3, &v41, 1);
+        corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v33, (v34 - v33) >> 3, &v41, 1);
         if (SHIBYTE(v42) < 0)
         {
           operator delete(v41);
@@ -3802,7 +4270,7 @@ LABEL_34:
           v41 = 0uLL;
           std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v41, &v32, &v33, 1uLL);
           std::string::basic_string[abi:ne200100]<0>(&__p, "temperature");
-          corelm::NeuralNetwork::setInputTensor<float,void>((this + 24), v41, (*(&v41 + 1) - v41) >> 2, &__p, 1);
+          corelm::NeuralNetwork::setInputTensor<float,void>(this + 3, v41, (*(&v41 + 1) - v41) >> 2, &__p, 1);
           if (SHIBYTE(v40) < 0)
           {
             operator delete(__p);
@@ -3818,9 +4286,9 @@ LABEL_34:
         if (corelm::util::contains<std::string,char const*,void>(this + 4, "segment"))
         {
           __p = 0;
-          std::vector<long>::vector[abi:ne200100](&v41, (v36 - v35) >> 3);
+          std::vector<long>::vector[abi:ne200100](&v41, (v36 - v35) >> 3, &__p);
           std::string::basic_string[abi:ne200100]<0>(&__p, "segment");
-          corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v41, (*(&v41 + 1) - v41) >> 3, &__p, 1);
+          corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v41, (*(&v41 + 1) - v41) >> 3, &__p, 1);
           if (SHIBYTE(v40) < 0)
           {
             operator delete(__p);
@@ -3839,7 +4307,7 @@ LABEL_34:
         v20 = v35;
         v21 = v36;
         __p = (((v21 - v20) >> 3) * (*(*this + 64))(this));
-        corelm::NeuralNetwork::getOutput<1ul>(this + 128, this + 3, &__p, &v41);
+        corelm::NeuralNetwork::getOutput<1ul>(&v41, this + 128, this + 3, &__p);
         v22 = v42;
         v23 = v35;
         v24 = v36;
@@ -3929,19 +4397,19 @@ void sub_19D1B4970(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void corelm::NeuralNetwork::getOutput<1ul>(UInt8 *bytes@<X3>, uint64_t *a2@<X0>, int *a3@<X1>, uint64_t a4@<X8>)
+void corelm::NeuralNetwork::getOutput<1ul>(uint64_t *__return_ptr a1@<X8>, UInt8 *bytes@<X3>, uint64_t *a3@<X0>, int *a4@<X1>)
 {
   v6 = bytes[23];
   if ((v6 & 0x8000000000000000) == 0)
   {
     if (bytes[23])
     {
-      v7 = *a2;
+      v7 = *a3;
       goto LABEL_6;
     }
 
 LABEL_9:
-    Output = _MRLNeuralNetworkGetOutput(*a2, 0);
+    Output = _MRLNeuralNetworkGetOutput(*a3, 0);
     goto LABEL_10;
   }
 
@@ -3951,7 +4419,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v7 = *a2;
+  v7 = *a3;
   bytes = *bytes;
   if (bytes)
   {
@@ -3978,15 +4446,15 @@ LABEL_7:
   }
 
 LABEL_10:
-  v10 = *a3;
-  *a4 = 0;
-  *(a4 + 8) = v10;
-  *(a4 + 16) = Output;
+  v10 = *a4;
+  *a1 = 0;
+  a1[1] = v10;
+  a1[2] = Output;
 }
 
-void sub_19D1B4B38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D1B4B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -3994,28 +4462,28 @@ void sub_19D1B4B38(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t CoreNLP::BERTEmbedding::fillWordFragmentVectors(CoreNLP::BERTEmbedding *this, CFArrayRef theArray, unsigned int a3, unsigned int a4, float *a5, const float *a6, const float *a7, int a8)
 {
   v10 = theArray;
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (CFArrayGetCount(theArray) < 1)
   {
 LABEL_66:
     corelm::NeuralNetwork::clear((this + 24));
-    result = 1;
+    return 1;
   }
 
   else
   {
     v12 = 0;
     v13 = a4;
-    v43 = v10;
+    v42 = v10;
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v10, v12);
+      v57 = 0;
       v58 = 0;
       v59 = 0;
-      v60 = 0;
+      v54 = 0;
       v55 = 0;
       v56 = 0;
-      v57 = 0;
       v15 = *(this + 19);
       v16 = *(v15 + 31);
       if (v16 < 0)
@@ -4029,11 +4497,11 @@ LABEL_66:
         v17 = v15 + 8;
       }
 
-      *&v63 = (*(*v15 + 32))(v15, v17, v16);
+      *&v62 = (*(*v15 + 32))(v15, v17, v16);
       __dst = 0;
-      v54 = 0;
-      v52 = 0;
-      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&v52, &v63, &v63 + 8, 1uLL);
+      v53 = 0;
+      v51 = 0;
+      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&v51, &v62, &v62 + 1, 1uLL);
       for (i = 0; ; ++i)
       {
         Count = CFArrayGetCount(ValueAtIndex);
@@ -4043,98 +4511,98 @@ LABEL_66:
         }
 
         v20 = CFArrayGetValueAtIndex(ValueAtIndex, i);
-        applesauce::CF::convert_to<std::string,0>(v20, &v63);
-        (*(**(this + 19) + 16))(&v61);
-        LODWORD(__p) = (__dst - v52) >> 3;
-        std::vector<int>::push_back[abi:ne200100](&v58, &__p);
-        LODWORD(__p) = (v62 - v61) >> 3;
-        std::vector<int>::push_back[abi:ne200100](&v55, &__p);
-        std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&v52, __dst, v61, v62, (v62 - v61) >> 3);
-        if (v61)
+        applesauce::CF::convert_to<std::string,0>(v20, &v62);
+        (*(**(this + 19) + 16))(&v60);
+        LODWORD(__p) = (__dst - v51) >> 3;
+        std::vector<int>::push_back[abi:ne200100](&v57, &__p);
+        LODWORD(__p) = (v61 - v60) >> 3;
+        std::vector<int>::push_back[abi:ne200100](&v54, &__p);
+        std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&v51, __dst, v60, v61, (v61 - v60) >> 3);
+        if (v60)
         {
-          *&v62 = v61;
-          operator delete(v61);
+          *&v61 = v60;
+          operator delete(v60);
         }
 
-        if (SHIBYTE(v64) < 0)
+        if (SHIBYTE(v63) < 0)
         {
-          operator delete(v63);
+          operator delete(v62);
         }
       }
 
-      v21 = v52;
-      v46 = *(this + 20);
-      v47 = (__dst - v52) >> 3;
-      if (v47 <= v46)
+      v21 = v51;
+      v45 = *(this + 20);
+      v46 = (__dst - v51) >> 3;
+      if (v46 <= v45)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v63, "input");
-        corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v52, (__dst - v52) >> 3, &v63, 1);
-        if (SHIBYTE(v64) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v62, "input");
+        corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v51, (__dst - v51) >> 3, &v62, 1);
+        if (SHIBYTE(v63) < 0)
         {
-          operator delete(v63);
+          operator delete(v62);
         }
 
-        v62 = xmmword_19D27D650;
-        v63 = xmmword_19D27D560;
-        v64 = 0;
-        v61 = ((__dst - v52) >> 3) & ~((__dst - v52) >> 63);
-        std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&__p, &v63, &v61);
-        std::string::basic_string[abi:ne200100]<0>(&v63, "position");
-        corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), __p, (v51 - __p) >> 3, &v63, 1);
-        if (SHIBYTE(v64) < 0)
+        v61 = xmmword_19D27D650;
+        v62 = xmmword_19D27D560;
+        v63 = 0;
+        v60 = ((__dst - v51) >> 3) & ~((__dst - v51) >> 63);
+        std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&__p, &v62, &v60);
+        std::string::basic_string[abi:ne200100]<0>(&v62, "position");
+        corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, __p, (v50 - __p) >> 3, &v62, 1);
+        if (SHIBYTE(v63) < 0)
         {
-          operator delete(v63);
+          operator delete(v62);
         }
 
         if (corelm::util::contains<std::string,char const*,void>(this + 4, "temperature"))
         {
-          v49 = 1065353216;
-          v63 = 0uLL;
-          v64 = 0;
-          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v63, &v49, &__p, 1uLL);
-          std::string::basic_string[abi:ne200100]<0>(&v61, "temperature");
-          corelm::NeuralNetwork::setInputTensor<float,void>((this + 24), v63, (*(&v63 + 1) - v63) >> 2, &v61, 1);
-          if (SHIBYTE(v62) < 0)
+          v48 = 1065353216;
+          v62 = 0uLL;
+          v63 = 0;
+          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v62, &v48, &__p, 1uLL);
+          std::string::basic_string[abi:ne200100]<0>(&v60, "temperature");
+          corelm::NeuralNetwork::setInputTensor<float,void>(this + 3, v62, (*(&v62 + 1) - v62) >> 2, &v60, 1);
+          if (SHIBYTE(v61) < 0)
           {
-            operator delete(v61);
+            operator delete(v60);
           }
 
-          if (v63)
+          if (v62)
           {
-            *(&v63 + 1) = v63;
-            operator delete(v63);
+            *(&v62 + 1) = v62;
+            operator delete(v62);
           }
         }
 
         if (corelm::util::contains<std::string,char const*,void>(this + 4, "segment"))
         {
-          v61 = 0;
-          std::vector<long>::vector[abi:ne200100](&v63, (__dst - v52) >> 3);
-          std::string::basic_string[abi:ne200100]<0>(&v61, "segment");
-          corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v63, (*(&v63 + 1) - v63) >> 3, &v61, 1);
-          if (SHIBYTE(v62) < 0)
+          v60 = 0;
+          std::vector<long>::vector[abi:ne200100](&v62, (__dst - v51) >> 3, &v60);
+          std::string::basic_string[abi:ne200100]<0>(&v60, "segment");
+          corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v62, (*(&v62 + 1) - v62) >> 3, &v60, 1);
+          if (SHIBYTE(v61) < 0)
           {
-            operator delete(v61);
+            operator delete(v60);
           }
 
-          if (v63)
+          if (v62)
           {
-            *(&v63 + 1) = v63;
-            operator delete(v63);
+            *(&v62 + 1) = v62;
+            operator delete(v62);
           }
         }
 
         corelm::NeuralNetwork::predict((this + 24));
-        v45 = v12;
-        v23 = v52;
+        v44 = v12;
+        v23 = v51;
         v22 = __dst;
-        v61 = ((v22 - v23) >> 3) * (*(*this + 64))(this);
-        corelm::NeuralNetwork::getOutput<1ul>(this + 128, this + 3, &v61, &v63);
-        v25 = v58;
-        v24 = v59;
+        v60 = ((v22 - v23) >> 3) * (*(*this + 64))(this);
+        corelm::NeuralNetwork::getOutput<1ul>(&v62, this + 128, this + 3, &v60);
+        v25 = v57;
+        v24 = v58;
         if (*(this + 168))
         {
-          if (v59 != v58)
+          if (v58 != v57)
           {
             v26 = 0;
             LODWORD(v27) = *(this + 4);
@@ -4145,18 +4613,18 @@ LABEL_66:
                 v28 = 0;
                 v29 = 0;
                 v30 = v25[v26];
-                v31 = *(v55 + v26);
+                v31 = *(v54 + v26);
                 do
                 {
-                  vDSP_meanv((v64 + 4 * v27 * v30 + v28 * 4), v27, &a5[v28], v31);
+                  vDSP_meanv((v63 + 4 * v27 * v30 + v28 * 4), v27, &a5[v28], v31);
                   ++v29;
                   v27 = *(this + 4);
                   ++v28;
                 }
 
                 while (v29 < v27);
-                v25 = v58;
-                v24 = v59;
+                v25 = v57;
+                v24 = v58;
                 a5 = (a5 + v28 * 4);
                 v13 = a4;
               }
@@ -4168,7 +4636,7 @@ LABEL_66:
           }
         }
 
-        else if (v59 != v58)
+        else if (v58 != v57)
         {
           v32 = 0;
           do
@@ -4179,7 +4647,7 @@ LABEL_66:
               v34 = v25[v32];
               do
               {
-                if (v33 >= *(v55 + v32))
+                if (v33 >= *(v54 + v32))
                 {
                   v37 = (*(*this + 64))(this);
                   v38 = a7;
@@ -4187,7 +4655,7 @@ LABEL_66:
 
                 else
                 {
-                  v35 = v64;
+                  v35 = v63;
                   v36 = (*(*this + 64))(this);
                   v37 = (*(*this + 64))(this);
                   v38 = (v35 + 4 * v36 * (v34 + v33));
@@ -4199,8 +4667,8 @@ LABEL_66:
               }
 
               while (a8 != v33);
-              v25 = v58;
-              v24 = v59;
+              v25 = v57;
+              v24 = v58;
               v13 = a4;
             }
 
@@ -4212,12 +4680,12 @@ LABEL_66:
 
         if (i >= a4)
         {
-          v12 = v45;
+          v12 = v44;
         }
 
         else
         {
-          v12 = v45;
+          v12 = v44;
           do
           {
             v39 = a8;
@@ -4242,12 +4710,12 @@ LABEL_66:
 
         if (__p)
         {
-          v51 = __p;
+          v50 = __p;
           operator delete(__p);
         }
 
-        v21 = v52;
-        v10 = v43;
+        v21 = v51;
+        v10 = v42;
       }
 
       if (v21)
@@ -4256,21 +4724,21 @@ LABEL_66:
         operator delete(v21);
       }
 
-      if (v55)
+      if (v54)
       {
-        v56 = v55;
-        operator delete(v55);
+        v55 = v54;
+        operator delete(v54);
       }
 
-      if (v58)
+      if (v57)
       {
-        v59 = v58;
-        operator delete(v58);
+        v58 = v57;
+        operator delete(v57);
       }
 
-      if (v47 > v46)
+      if (v46 > v45)
       {
-        break;
+        return 0;
       }
 
       if (++v12 >= CFArrayGetCount(v10))
@@ -4278,12 +4746,7 @@ LABEL_66:
         goto LABEL_66;
       }
     }
-
-    result = 0;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_19D1B52B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32)
@@ -4325,10 +4788,10 @@ void sub_19D1B52B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP::BERTEmbedding *this, const __CFArray *a2, unint64_t a3, __CFDictionary *a4, __CFError **a5)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   theData = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
   value = [MEMORY[0x1E695DF70] array];
-  v41 = [MEMORY[0x1E695DF70] array];
+  v40 = [MEMORY[0x1E695DF70] array];
   if (a3)
   {
     if (CFDictionaryContainsKey(a3, kNLStringEmbeddingPadEncoderInput[0]) && (v8 = CFDictionaryGetValue(a3, kNLStringEmbeddingPadEncoderInput[0])) != 0)
@@ -4345,7 +4808,7 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
   if (CFArrayGetCount(a2) >= 1)
   {
     v9 = 0;
-    v40 = a2;
+    v39 = a2;
     do
     {
       v10 = [(__CFArray *)a2 objectAtIndex:v9];
@@ -4363,34 +4826,34 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
         v14 = v12 + 8;
       }
 
-      *&v52 = (*(*v12 + 32))(v12, v14, v13);
+      *&v51 = (*(*v12 + 32))(v12, v14, v13);
       __dst = 0;
-      v49 = 0;
+      v48 = 0;
       __src = 0;
-      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&__src, &v52, &v52 + 8, 1uLL);
+      std::vector<long>::__init_with_size[abi:ne200100]<long const*,long const*>(&__src, &v51, &v51 + 1, 1uLL);
       for (i = 0; [v10 count] > i; ++i)
       {
-        applesauce::CF::convert_to<std::string,0>([v10 objectAtIndex:i], &v52);
+        applesauce::CF::convert_to<std::string,0>([v10 objectAtIndex:i], &v51);
         (*(**(this + 19) + 16))(&__p);
         v16 = __p;
-        v17 = ((v51 - __p) >> 3) + ((__dst - __src) >> 3);
+        v17 = ((v50 - __p) >> 3) + ((__dst - __src) >> 3);
         v18 = *(this + 20);
         if (v17 <= v18)
         {
           [v11 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:", (__dst - __src) >> 3)}];
-          std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&__src, __dst, __p, v51, (v51 - __p) >> 3);
+          std::vector<long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long *>,std::__wrap_iter<long *>>(&__src, __dst, __p, v50, (v50 - __p) >> 3);
           v16 = __p;
         }
 
         if (v16)
         {
-          *&v51 = v16;
+          *&v50 = v16;
           operator delete(v16);
         }
 
-        if (SHIBYTE(v53) < 0)
+        if (SHIBYTE(v52) < 0)
         {
-          operator delete(v52);
+          operator delete(v51);
         }
 
         if (v17 > v18)
@@ -4417,7 +4880,7 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
             break;
           }
 
-          if (j >= v49)
+          if (j >= v48)
           {
             v23 = v22 + 1;
             if ((v22 + 1) >> 61)
@@ -4425,8 +4888,8 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
               std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
             }
 
-            v24 = v49 - __src;
-            if ((v49 - __src) >> 2 > v23)
+            v24 = v48 - __src;
+            if ((v48 - __src) >> 2 > v23)
             {
               v23 = v24 >> 2;
             }
@@ -4452,7 +4915,7 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
             v30 = __src;
             __src = v29;
             __dst = j;
-            v49 = 0;
+            v48 = 0;
             if (v30)
             {
               operator delete(v30);
@@ -4466,61 +4929,61 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v52, "input");
-      corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), __src, (__dst - __src) >> 3, &v52, 1);
-      a2 = v40;
-      if (SHIBYTE(v53) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v51, "input");
+      corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, __src, (__dst - __src) >> 3, &v51, 1);
+      a2 = v39;
+      if (SHIBYTE(v52) < 0)
       {
-        operator delete(v52);
+        operator delete(v51);
       }
 
-      v52 = xmmword_19D27D560;
-      v53 = 0;
+      v51 = xmmword_19D27D560;
+      v52 = 0;
       __p = (((__dst - __src) >> 3) & ~((__dst - __src) >> 63));
-      v51 = xmmword_19D27D650;
-      std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&v45, &v52, &__p);
-      std::string::basic_string[abi:ne200100]<0>(&v52, "position");
-      corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v45, (v46 - v45) >> 3, &v52, 1);
-      if (SHIBYTE(v53) < 0)
+      v50 = xmmword_19D27D650;
+      std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&v44, &v51, &__p);
+      std::string::basic_string[abi:ne200100]<0>(&v51, "position");
+      corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v44, (v45 - v44) >> 3, &v51, 1);
+      if (SHIBYTE(v52) < 0)
       {
-        operator delete(v52);
+        operator delete(v51);
       }
 
       if (corelm::util::contains<std::string,char const*,void>(this + 4, "temperature"))
       {
-        v44 = 1065353216;
-        v53 = 0;
-        v52 = 0uLL;
-        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v52, &v44, &v45, 1uLL);
+        v43 = 1065353216;
+        v52 = 0;
+        v51 = 0uLL;
+        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v51, &v43, &v44, 1uLL);
         std::string::basic_string[abi:ne200100]<0>(&__p, "temperature");
-        corelm::NeuralNetwork::setInputTensor<float,void>((this + 24), v52, (*(&v52 + 1) - v52) >> 2, &__p, 1);
-        if (SHIBYTE(v51) < 0)
+        corelm::NeuralNetwork::setInputTensor<float,void>(this + 3, v51, (*(&v51 + 1) - v51) >> 2, &__p, 1);
+        if (SHIBYTE(v50) < 0)
         {
           operator delete(__p);
         }
 
-        if (v52)
+        if (v51)
         {
-          *(&v52 + 1) = v52;
-          operator delete(v52);
+          *(&v51 + 1) = v51;
+          operator delete(v51);
         }
       }
 
       if (corelm::util::contains<std::string,char const*,void>(this + 4, "segment"))
       {
         __p = 0;
-        std::vector<long>::vector[abi:ne200100](&v52, (__dst - __src) >> 3);
+        std::vector<long>::vector[abi:ne200100](&v51, (__dst - __src) >> 3, &__p);
         std::string::basic_string[abi:ne200100]<0>(&__p, "segment");
-        corelm::NeuralNetwork::setInputTensor<long,void>((this + 24), v52, (*(&v52 + 1) - v52) >> 3, &__p, 1);
-        if (SHIBYTE(v51) < 0)
+        corelm::NeuralNetwork::setInputTensor<long,void>(this + 3, v51, (*(&v51 + 1) - v51) >> 3, &__p, 1);
+        if (SHIBYTE(v50) < 0)
         {
           operator delete(__p);
         }
 
-        if (v52)
+        if (v51)
         {
-          *(&v52 + 1) = v52;
-          operator delete(v52);
+          *(&v51 + 1) = v51;
+          operator delete(v51);
         }
       }
 
@@ -4528,18 +4991,18 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
       v32 = __src;
       v31 = __dst;
       __p = (((v31 - v32) >> 3) * (*(*this + 64))(this));
-      corelm::NeuralNetwork::getOutput<1ul>(this + 128, this + 3, &__p, &v52);
-      v33 = v53;
+      corelm::NeuralNetwork::getOutput<1ul>(&v51, this + 128, this + 3, &__p);
+      v33 = v52;
       v35 = __src;
       v34 = __dst;
       v36 = (*(*this + 64))(this);
       CFDataAppendBytes(theData, v33, ((v34 - v35) >> 1) * v36);
       [value addObject:v11];
-      [v41 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLong:", (__dst - __src) >> 3)}];
-      if (v45)
+      [v40 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLong:", (__dst - __src) >> 3)}];
+      if (v44)
       {
-        v46 = v45;
-        operator delete(v45);
+        v45 = v44;
+        operator delete(v44);
       }
 
       if (__src)
@@ -4551,13 +5014,12 @@ __CFData *CoreNLP::BERTEmbedding::copyEmbeddingDataForTokenizedSentences(CoreNLP
       ++v9;
     }
 
-    while (v9 < CFArrayGetCount(v40));
+    while (v9 < CFArrayGetCount(v39));
   }
 
   CFDictionarySetValue(a4, kNLStringEmbeddingTokenizedBatchComponentRanges[0], value);
-  CFDictionarySetValue(a4, kNLStringEmbeddingTokenizedBatchComponentsCount[0], v41);
+  CFDictionarySetValue(a4, kNLStringEmbeddingTokenizedBatchComponentsCount[0], v40);
   corelm::NeuralNetwork::clear((this + 24));
-  v37 = *MEMORY[0x1E69E9840];
   return theData;
 }
 
@@ -4583,91 +5045,84 @@ void sub_19D1B5A60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL CoreNLP::BERTEmbedding::fillStringVector(uint64_t a1, uint64_t *a2, uint64_t a3)
+BOOL CoreNLP::BERTEmbedding::fillStringVector(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 152);
-  v6 = a2[1];
-  if (*(a2 + 23) < 0)
+  (*(**(a1 + 152) + 16))(&v19);
+  v5 = v19;
+  v6 = (v20 - v19) >> 3;
+  v7 = *(a1 + 160);
+  if (v6 <= v7)
   {
-    v7 = *a2;
-  }
-
-  (*(*v5 + 16))(&v22);
-  v8 = v22;
-  v9 = (v23 - v22) >> 3;
-  v10 = *(a1 + 160);
-  if (v9 <= v10)
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v25, "input");
-    corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v22, (v23 - v22) >> 3, &v25, 1);
-    if (SHIBYTE(v26) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v22, "input");
+    corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v19, (v20 - v19) >> 3, &v22, 1);
+    if (SHIBYTE(v23) < 0)
     {
-      operator delete(v25);
+      operator delete(v22);
     }
 
-    v25 = xmmword_19D27D560;
-    v26 = 0;
-    *__p = ((v23 - v22) >> 3) & ~((v23 - v22) >> 63);
+    v22 = xmmword_19D27D560;
+    v23 = 0;
+    *__p = ((v20 - v19) >> 3) & ~((v20 - v19) >> 63);
     *&__p[8] = xmmword_19D27D650;
-    std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&v20, &v25, __p);
-    std::string::basic_string[abi:ne200100]<0>(&v25, "position");
-    corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v20, (v21 - v20) >> 3, &v25, 1);
-    if (SHIBYTE(v26) < 0)
+    std::vector<long>::vector[abi:ne200100]<corelm::util::NumRange<long>::iterator,0>(&v17, &v22, __p);
+    std::string::basic_string[abi:ne200100]<0>(&v22, "position");
+    corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v17, (v18 - v17) >> 3, &v22, 1);
+    if (SHIBYTE(v23) < 0)
     {
-      operator delete(v25);
+      operator delete(v22);
     }
 
     if (corelm::util::contains<std::string,char const*,void>((a1 + 32), "temperature"))
     {
-      v19 = 1065353216;
-      v26 = 0;
-      v25 = 0uLL;
-      std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v25, &v19, &v20, 1uLL);
+      v16 = 1065353216;
+      v23 = 0;
+      v22 = 0uLL;
+      std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v22, &v16, &v17, 1uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, "temperature");
-      corelm::NeuralNetwork::setInputTensor<float,void>((a1 + 24), v25, (*(&v25 + 1) - v25) >> 2, __p, 1);
+      corelm::NeuralNetwork::setInputTensor<float,void>((a1 + 24), v22, (*(&v22 + 1) - v22) >> 2, __p, 1);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      if (v25)
+      if (v22)
       {
-        *(&v25 + 1) = v25;
-        operator delete(v25);
+        *(&v22 + 1) = v22;
+        operator delete(v22);
       }
     }
 
     if (corelm::util::contains<std::string,char const*,void>((a1 + 32), "segment"))
     {
       *__p = 0;
-      std::vector<long>::vector[abi:ne200100](&v25, (v23 - v22) >> 3);
+      std::vector<long>::vector[abi:ne200100](&v22, (v20 - v19) >> 3, __p);
       std::string::basic_string[abi:ne200100]<0>(__p, "segment");
-      corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v25, (*(&v25 + 1) - v25) >> 3, __p, 1);
+      corelm::NeuralNetwork::setInputTensor<long,void>((a1 + 24), v22, (*(&v22 + 1) - v22) >> 3, __p, 1);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      if (v25)
+      if (v22)
       {
-        *(&v25 + 1) = v25;
-        operator delete(v25);
+        *(&v22 + 1) = v22;
+        operator delete(v22);
       }
     }
 
     corelm::NeuralNetwork::predict((a1 + 24));
-    v12 = v22;
-    v11 = v23;
-    *__p = ((v11 - v12) >> 3) * (*(*a1 + 64))(a1);
-    corelm::NeuralNetwork::getOutput<1ul>((a1 + 128), (a1 + 24), __p, &v25);
-    v13 = (*(*a1 + 64))(a1);
-    v19 = 0;
-    std::vector<float>::vector[abi:ne200100](__p, v13);
-    v14 = *a3;
+    v9 = v19;
+    v8 = v20;
+    *__p = ((v8 - v9) >> 3) * (*(*a1 + 64))(a1);
+    corelm::NeuralNetwork::getOutput<1ul>(&v22, (a1 + 128), (a1 + 24), __p);
+    v10 = (*(*a1 + 64))(a1);
+    v16 = 0;
+    std::vector<float>::vector[abi:ne200100](__p, v10, &v16);
+    v11 = *a3;
     if (*a3)
     {
-      *(a3 + 8) = v14;
-      operator delete(v14);
+      *(a3 + 8) = v11;
+      operator delete(v11);
       *a3 = 0;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
@@ -4675,27 +5130,27 @@ BOOL CoreNLP::BERTEmbedding::fillStringVector(uint64_t a1, uint64_t *a2, uint64_
 
     *a3 = *__p;
     *(a3 + 16) = *&__p[16];
-    v16 = v22;
-    v15 = v23;
-    v17 = (*(*a1 + 64))(a1);
-    memmove(*a3, (v26 + 4 * (((v15 - v16) >> 3) - 1) * v17), *(a3 + 8) - *a3);
+    v13 = v19;
+    v12 = v20;
+    v14 = (*(*a1 + 64))(a1);
+    memmove(*a3, (v23 + 4 * (((v12 - v13) >> 3) - 1) * v14), *(a3 + 8) - *a3);
     corelm::NeuralNetwork::clear((a1 + 24));
-    if (v20)
+    if (v17)
     {
-      v21 = v20;
-      operator delete(v20);
+      v18 = v17;
+      operator delete(v17);
     }
 
-    v8 = v22;
+    v5 = v19;
   }
 
-  if (v8)
+  if (v5)
   {
-    v23 = v8;
-    operator delete(v8);
+    v20 = v5;
+    operator delete(v5);
   }
 
-  return v9 <= v10;
+  return v6 <= v7;
 }
 
 void sub_19D1B5EE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -4769,7 +5224,7 @@ uint64_t CoreNLP::BERTEmbedding::setEmbeddingNodeName(uint64_t a1, const std::st
   if ((result & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" not found", (a1 + 128), &v5.__r_.__value_.__l.__data_);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" not found", (a1 + 128), &v5);
     std::runtime_error::runtime_error(exception, &v5);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
@@ -4825,7 +5280,7 @@ void sub_19D1B6260(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreNLP::BERTEmbedding::textToIDs(uint64_t a1, uint64_t *a2)
+uint64_t CoreNLP::BERTEmbedding::textToIDs(uint64_t a1, uint64_t **a2)
 {
   v2 = *(a1 + 152);
   v3 = a2[1];
@@ -4854,11 +5309,8 @@ void *___ZL37getMRLNeuralNetworkGetOutputSymbolLocv_block_invoke_0(uint64_t a1)
 
 uint64_t ___ZL19MontrealLibraryCorePPc_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MontrealLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4901,20 +5353,20 @@ uint64_t corelm::NeuralNetwork::declareOutput(uint64_t *a1, const UInt8 *a2)
     cf = 0;
   }
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v9 = getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr;
-  v17 = getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr;
+  v18 = getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr;
   if (!getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr)
   {
     v10 = MontrealLibrary();
-    v15[3] = dlsym(v10, "MRLNeuralNetworkDeclareOutput");
-    getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr = v15[3];
-    v9 = v15[3];
+    v16[3] = dlsym(v10, "MRLNeuralNetworkDeclareOutput");
+    getMRLNeuralNetworkDeclareOutputSymbolLoc(void)::ptr = v16[3];
+    v9 = v16[3];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
   if (v9)
   {
     v11 = v9(v3, v7);
@@ -4928,17 +5380,17 @@ uint64_t corelm::NeuralNetwork::declareOutput(uint64_t *a1, const UInt8 *a2)
 
   else
   {
-    dlerror();
-    result = abort_report_np();
+    v13 = dlerror();
+    result = abort_report_np("%s", v13);
     __break(1u);
   }
 
   return result;
 }
 
-void sub_19D1B676C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D1B676C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -4952,29 +5404,17 @@ void *___ZL41getMRLNeuralNetworkDeclareOutputSymbolLocv_block_invoke(uint64_t a1
   return result;
 }
 
-void *std::vector<long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_19D1B68C4(_Unwind_Exception *exception_object)
@@ -5029,7 +5469,7 @@ uint64_t CoreNLP::ContextualWordEmbedding::fillWordVectors(CoreNLP::ContextualWo
       __dst = 0;
       v64 = 0;
       *v55 = 1132593152;
-      std::vector<float>::vector[abi:ne200100](__p, v16);
+      std::vector<float>::vector[abi:ne200100](__p, v16, v55);
       v19 = __p[0];
       *__p[0] = 0x4380000043810000;
       *(v19 + 2) = 1132560384;
@@ -5046,7 +5486,7 @@ uint64_t CoreNLP::ContextualWordEmbedding::fillWordVectors(CoreNLP::ContextualWo
         v23 = CFArrayGetValueAtIndex(ValueAtIndex, v20);
         applesauce::CF::convert_to<std::string,0>(v23, v55);
         v57 = 1132593152;
-        std::vector<float>::vector[abi:ne200100](&v58, v16);
+        std::vector<float>::vector[abi:ne200100](&v58, v16, &v57);
         if (__p[0])
         {
           __p[1] = __p[0];
@@ -5110,7 +5550,7 @@ uint64_t CoreNLP::ContextualWordEmbedding::fillWordVectors(CoreNLP::ContextualWo
       }
 
       LODWORD(v58) = 1132593152;
-      std::vector<float>::vector[abi:ne200100](v55, v16);
+      std::vector<float>::vector[abi:ne200100](v55, v16, &v58);
       if (__p[0])
       {
         __p[1] = __p[0];
@@ -5266,7 +5706,7 @@ void CoreNLP::ContextualWordEmbedding::~ContextualWordEmbedding(CoreNLP::Montrea
   JUMPOUT(0x19EAF8CA0);
 }
 
-uint64_t CoreNLP::AbstractEmbedding::fillWordFragmentVectors(CoreNLP::AbstractEmbedding *this, const __CFArray *a2, unsigned int a3, unsigned int a4, float *a5, const float *a6, const float *a7)
+uint64_t CoreNLP::AbstractEmbedding::fillWordFragmentVectors(CoreNLP::AbstractEmbedding *this, const __CFArray *a2, uint64_t a3, uint64_t a4, float *a5, const float *a6, const float *a7)
 {
   if (CoreNLP::AbstractEmbedding::fillWordFragmentVectors(__CFArray const*,unsigned int,unsigned int,float *,float const*,float const*,int)::sOnce != -1)
   {
@@ -5306,7 +5746,7 @@ os_log_t ___ZN7CoreNLP17AbstractEmbedding23fillWordFragmentVectorsEPK9__CFArrayj
   return result;
 }
 
-char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5315,8 +5755,8 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -5354,23 +5794,24 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -5385,14 +5826,14 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -5407,11 +5848,11 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -5431,7 +5872,7 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -5450,7 +5891,7 @@ LABEL_29:
   return v5;
 }
 
-void CoreNLP::PosTagger::PosTagger(uint64_t a1, int a2, int a3)
+void CoreNLP::PosTagger::PosTagger(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   *a1 = 0;
   *(a1 + 40) = a2;
@@ -5547,18 +5988,18 @@ BOOL corelm::util::InFile::getLine(uint64_t a1, uint64_t a2)
   return (*(v6 + *(*v6 - 24) + 32) & 5) == 0;
 }
 
-void corelm::util::InFile::getLines(corelm::util::InFile *this@<X0>, uint64_t a2@<X8>)
+void corelm::util::InFile::getLines(corelm::util::InFile *this@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   __p[0] = 0;
   __p[1] = 0;
   v8 = 0;
   while (corelm::util::InFile::getLine(this, __p))
   {
-    v4 = *(a2 + 8);
-    if (v4 >= *(a2 + 16))
+    v4 = a2[1];
+    if (v4 >= a2[2])
     {
       v6 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(a2, __p);
     }
@@ -5567,7 +6008,7 @@ void corelm::util::InFile::getLines(corelm::util::InFile *this@<X0>, uint64_t a2
     {
       if (SHIBYTE(v8) < 0)
       {
-        std::string::__init_copy_ctor_external(*(a2 + 8), __p[0], __p[1]);
+        std::string::__init_copy_ctor_external(a2[1], __p[0], __p[1]);
       }
 
       else
@@ -5580,7 +6021,7 @@ void corelm::util::InFile::getLines(corelm::util::InFile *this@<X0>, uint64_t a2
       v6 = (v4 + 24);
     }
 
-    *(a2 + 8) = v6;
+    a2[1] = v6;
   }
 
   if (SHIBYTE(v8) < 0)
@@ -5605,7 +6046,6 @@ void sub_19D1B77E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t corelm::util::InFile::reset(corelm::util::InFile *this)
 {
   std::ios_base::clear((*(this + 4) + *(**(this + 4) - 24)), 0);
-  v2 = *(this + 4);
 
   return std::istream::seekg();
 }
@@ -5762,7 +6202,7 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_ba
   return v11;
 }
 
-uint64_t CoreNLP::ModelContainer::ModelContainer(uint64_t a1, int a2, int a3, uint64_t a4, applesauce::CF::DictionaryRef *this, const void *a6)
+uint64_t CoreNLP::ModelContainer::ModelContainer(uint64_t a1, const __CFDictionary *a2, int a3, uint64_t a4, applesauce::CF::DictionaryRef *this, const void *a6)
 {
   *a1 = a2;
   *(a1 + 4) = a3;
@@ -5847,12 +6287,12 @@ const void *applesauce::CF::DictionaryRef::from_get@<X0>(const void *this@<X0>, 
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CFRetain(this);
-    *a2 = v4;
-    v5 = CFGetTypeID(v4);
+    *a2 = v3;
+    v4 = CFGetTypeID(v3);
     this = CFDictionaryGetTypeID();
-    if (v5 != this)
+    if (v4 != this)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Could not construct");
@@ -5941,7 +6381,7 @@ void applesauce::CF::DataRef::~DataRef(const void **this)
 
 CoreNLP::ModelContainer *CoreNLP::ModelContainer::ModelContainer(CoreNLP::ModelContainer *this, CFURLRef anURL, char a3)
 {
-  v22[19] = *MEMORY[0x1E69E9840];
+  v21[19] = *MEMORY[0x1E69E9840];
   *this = 0;
   v5 = kNLModelUnknownRevision;
   *(this + 1) = 0u;
@@ -5955,68 +6395,67 @@ CoreNLP::ModelContainer *CoreNLP::ModelContainer::ModelContainer(CoreNLP::ModelC
   v8 = v7;
   if (v7)
   {
-    CoreNLP::getUTF8StringFromCFString(v7, &v20);
+    CoreNLP::getUTF8StringFromCFString(&v19, v7);
     if (*(this + 55) < 0)
     {
       operator delete(*v6);
     }
 
-    *v6 = v20;
-    *(v6 + 2) = v21[0];
+    *v6 = v19;
+    *(v6 + 2) = v20[0];
     CFRelease(v8);
   }
 
-  std::ifstream::basic_ifstream(&v20, v6);
-  if (!v21[15])
+  std::ifstream::basic_ifstream(&v19, v6, 4);
+  if (!v20[15])
   {
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v18, "Failed to open the given file ");
-    v12 = *(this + 55);
-    if (v12 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(&v17, "Failed to open the given file ");
+    v11 = *(this + 55);
+    if (v11 >= 0)
     {
-      v13 = v6;
+      v12 = v6;
     }
 
     else
     {
-      v13 = *(this + 4);
+      v12 = *(this + 4);
     }
 
-    if (v12 >= 0)
+    if (v11 >= 0)
     {
-      v14 = *(this + 55);
+      v13 = *(this + 55);
     }
 
     else
     {
-      v14 = *(this + 5);
+      v13 = *(this + 5);
     }
 
-    v15 = std::string::append(&v18, v13, v14);
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    __msg.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&__msg.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
+    v14 = std::string::append(&v17, v12, v13);
+    v15 = *&v14->__r_.__value_.__l.__data_;
+    __msg.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+    *&__msg.__r_.__value_.__l.__data_ = v15;
+    v14->__r_.__value_.__l.__size_ = 0;
+    v14->__r_.__value_.__r.__words[2] = 0;
+    v14->__r_.__value_.__r.__words[0] = 0;
     *&__ec.__val_ = 1;
     __ec.__cat_ = std::iostream_category();
     std::ios_base::failure::failure(exception, &__msg, &__ec);
     __cxa_throw(exception, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
   }
 
-  CoreNLP::ModelContainer::parseMetaData(this, &v20);
+  CoreNLP::ModelContainer::parseMetaData(this, &v19);
   if ((a3 & 8) != 0)
   {
     CoreNLP::ModelContainer::createMemoryMap(this);
   }
 
-  *&v20 = *MEMORY[0x1E69E54C8];
-  *(&v21[-2] + *(v20 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-  MEMORY[0x19EAF8960](v21);
+  *&v19 = *MEMORY[0x1E69E54C8];
+  *(&v20[-2] + *(v19 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+  MEMORY[0x19EAF8960](v20);
   std::istream::~istream();
-  MEMORY[0x19EAF8C10](v22);
-  v9 = *MEMORY[0x1E69E9840];
+  MEMORY[0x19EAF8C10](v21);
   return this;
 }
 
@@ -6062,7 +6501,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
   v4 = MEMORY[0x1E69E5528] + 64;
@@ -6080,11 +6519,6 @@ uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[53] = v4;
   MEMORY[0x19EAF8950](a1 + 2);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -6100,18 +6534,18 @@ void sub_19D1B8598(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CoreNLP::ModelContainer::parseMetaData(uint64_t a1, uint64_t a2)
+uint64_t CoreNLP::ModelContainer::parseMetaData(void *a1, uint64_t a2)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v50 = 0;
+  v68 = *MEMORY[0x1E69E9840];
+  v49 = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, kFieldHeader);
-  v4 = CoreNLP::read_32<unsigned int>(a2, &v50, __p);
-  if (SBYTE7(v61) < 0)
+  v4 = CoreNLP::read_32<unsigned int>(a2, &v49, __p);
+  if (SBYTE7(v60) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v50 != kMagicNumber)
+  if (v49 != kMagicNumber)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     CoreNLP::NLModelContainerParseError::NLModelContainerParseError(exception, "Given input does not contain the expected file header");
@@ -6119,104 +6553,104 @@ uint64_t CoreNLP::ModelContainer::parseMetaData(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelType);
   v5 = CoreNLP::read_16<NLModelMethodType>(a2, a1, __p);
-  if (SBYTE7(v61) < 0)
+  if (SBYTE7(v60) < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelSubtype);
-  v6 = CoreNLP::read_16<NLModelMethodType>(a2, (a1 + 4), __p);
-  if (SBYTE7(v61) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v49 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, kFieldFormatVersion);
-  v7 = CoreNLP::read_16<unsigned short>(a2, &v49, __p);
-  if (SBYTE7(v61) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v49 != kContainerFormatVersion_1)
-  {
-    v39 = __cxa_allocate_exception(0x10uLL);
-    CoreNLP::NLModelContainerIncompatibleFormat::NLModelContainerIncompatibleFormat(v39, "Given input cannot be parsed, as the file format has a higher number");
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelRevision);
-  v8 = CoreNLP::read_16<long>(a2, (a1 + 8), __p);
-  if (SBYTE7(v61) < 0)
+  v6 = CoreNLP::read_16<NLModelMethodType>(a2, a1 + 1, __p);
+  if (SBYTE7(v60) < 0)
   {
     operator delete(__p[0]);
   }
 
   v48 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelCount);
-  v9 = CoreNLP::read_32<long>(a2, &v48, __p);
-  if (SBYTE7(v61) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, kFieldFormatVersion);
+  v7 = CoreNLP::read_16<unsigned short>(a2, &v48, __p);
+  if (SBYTE7(v60) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v68 = 0;
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  *__p = 0u;
-  v61 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(__src, kFieldInfoOffset);
-  v10 = CoreNLP::read_32<std::fpos<__mbstate_t>>(a2, __p, __src);
-  if (SBYTE7(v52) < 0)
+  if (v48 != kContainerFormatVersion_1)
   {
-    operator delete(__src[0]);
+    v38 = __cxa_allocate_exception(0x10uLL);
+    CoreNLP::NLModelContainerIncompatibleFormat::NLModelContainerIncompatibleFormat(v38, "Given input cannot be parsed, as the file format has a higher number");
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelRevision);
+  v8 = CoreNLP::read_16<long>(a2, a1 + 1, __p);
+  if (SBYTE7(v60) < 0)
+  {
+    operator delete(__p[0]);
   }
 
   v47 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__src, kFieldInfoLength);
-  v11 = v5 + v4 + v6 + v7 + v8 + v9 + v10 + CoreNLP::read_32<long>(a2, &v47, __src);
-  if (SBYTE7(v52) < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, kFieldModelCount);
+  v9 = CoreNLP::read_32<long>(a2, &v47, __p);
+  if (SBYTE7(v60) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  v67 = 0;
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  *__p = 0u;
+  v60 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(__src, kFieldInfoOffset);
+  v10 = CoreNLP::read_32<std::fpos<__mbstate_t>>(a2, __p, __src);
+  if (SBYTE7(v51) < 0)
   {
     operator delete(__src[0]);
   }
 
-  if (v48 >= 1)
+  v46 = 0;
+  std::string::basic_string[abi:ne200100]<0>(__src, kFieldInfoLength);
+  v11 = v5 + v4 + v6 + v7 + v8 + v9 + v10 + CoreNLP::read_32<long>(a2, &v46, __src);
+  if (SBYTE7(v51) < 0)
   {
-    for (i = 0; i < v48; ++i)
+    operator delete(__src[0]);
+  }
+
+  if (v47 >= 1)
+  {
+    for (i = 0; i < v47; ++i)
     {
-      v59 = 0;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
+      v58 = 0;
       v56 = 0u;
-      v53 = 0u;
+      v57 = 0u;
       v54 = 0u;
-      *__src = 0u;
+      v55 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      *__src = 0u;
+      v51 = 0u;
       std::string::basic_string[abi:ne200100]<0>(cf, kFieldModelOffset);
       v13 = CoreNLP::read_32<std::fpos<__mbstate_t>>(a2, __src, cf);
-      if (v46 < 0)
+      if (v45 < 0)
       {
         operator delete(cf[0]);
       }
 
-      v44 = 0;
+      v43 = 0;
       std::string::basic_string[abi:ne200100]<0>(cf, kFieldModelLength);
-      v14 = CoreNLP::read_32<long>(a2, &v44, cf);
-      if (v46 < 0)
+      v14 = CoreNLP::read_32<long>(a2, &v43, cf);
+      if (v45 < 0)
       {
         operator delete(cf[0]);
       }
 
-      v16 = *(a1 + 64);
-      v15 = *(a1 + 72);
+      v16 = a1[8];
+      v15 = a1[9];
       if (v16 >= v15)
       {
-        v19 = *(a1 + 56);
+        v19 = a1[7];
         v20 = 0x8E38E38E38E38E39 * ((v16 - v19) >> 4);
         v21 = v20 + 1;
         if (v20 + 1 > 0x1C71C71C71C71C7)
@@ -6242,22 +6676,22 @@ uint64_t CoreNLP::ModelContainer::parseMetaData(uint64_t a1, uint64_t a2)
 
         if (v23)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<CoreNLP::NLModelDataPosition>>(a1 + 56, v23);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<CoreNLP::NLModelDataPosition>>((a1 + 7), v23);
         }
 
         v24 = 144 * v20;
-        v25 = v44;
+        v25 = v43;
         memmove(v24, __src, 0x88uLL);
         *(v24 + 136) = v25;
         v18 = v24 + 144;
-        v26 = *(a1 + 56);
-        v27 = *(a1 + 64) - v26;
+        v26 = a1[7];
+        v27 = a1[8] - v26;
         v28 = (v24 - v27);
         memcpy(v28, v26, v27);
-        v29 = *(a1 + 56);
-        *(a1 + 56) = v28;
-        *(a1 + 64) = v18;
-        *(a1 + 72) = 0;
+        v29 = a1[7];
+        a1[7] = v28;
+        a1[8] = v18;
+        a1[9] = 0;
         if (v29)
         {
           operator delete(v29);
@@ -6266,58 +6700,58 @@ uint64_t CoreNLP::ModelContainer::parseMetaData(uint64_t a1, uint64_t a2)
 
       else
       {
-        v17 = v44;
-        memmove(*(a1 + 64), __src, 0x88uLL);
+        v17 = v43;
+        memmove(a1[8], __src, 0x88uLL);
         *(v16 + 136) = v17;
         v18 = v16 + 144;
       }
 
       v11 += v13 + v14;
-      *(a1 + 64) = v18;
+      a1[8] = v18;
     }
   }
 
   LOBYTE(cf[0]) = 0;
-  std::vector<unsigned char>::vector[abi:ne200100](__src, v47);
+  std::vector<unsigned char>::vector[abi:ne200100](__src, v46, cf);
   std::istream::read();
   v30 = *(a2 + 8);
-  if (v30 != v47)
+  if (v30 != v46)
   {
-    v40 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v40, "Failed to read complete info dictionary");
-    v40->__vftable = &unk_1F10AD4E0;
+    v39 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v39, "Failed to read complete info dictionary");
+    v39->__vftable = &unk_1F10AD4E0;
   }
 
   v31 = CFDataCreate(0, __src[0], __src[1] - __src[0]);
   cf[0] = v31;
   if (!v31)
   {
-    v41 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v41, "Could not construct");
-    __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v40 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v40, "Could not construct");
+    __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   v32 = CFPropertyListCreateWithData(0, v31, 0, 0, 0);
   v33 = v32;
   if (!v32)
   {
-    v42 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v42, "Failed to deserialize info dictionary");
-    v42->__vftable = &unk_1F10AD4E0;
+    v41 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v41, "Failed to deserialize info dictionary");
+    v41->__vftable = &unk_1F10AD4E0;
   }
 
   v34 = CFGetTypeID(v32);
   if (v34 != CFDictionaryGetTypeID())
   {
-    v43 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v43, "Could not construct");
-    __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v42 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v42, "Could not construct");
+    __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  applesauce::CF::DictionaryRef::from_get(v33, &v44);
-  v35 = *(a1 + 16);
-  *(a1 + 16) = v44;
-  v44 = v35;
+  applesauce::CF::DictionaryRef::from_get(v33, &v43);
+  v35 = a1[2];
+  a1[2] = v43;
+  v43 = v35;
   if (v35)
   {
     CFRelease(v35);
@@ -6335,7 +6769,6 @@ uint64_t CoreNLP::ModelContainer::parseMetaData(uint64_t a1, uint64_t a2)
     operator delete(__src[0]);
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v30 + v11;
 }
 
@@ -6745,7 +7178,7 @@ LABEL_19:
   return this;
 }
 
-void sub_19D1B990C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CoreNLP::ModelContainerMMap **a10, const void **a11, const void *a12, std::istrstream *a13)
+void sub_19D1B990C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CoreNLP::ModelContainerMMap **a10, const void **a11, uint64_t a12, std::istrstream *a13)
 {
   __cxa_free_exception(v14);
   applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(&a12);
@@ -7211,7 +7644,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-BOOL CoreNLP::has_suffix(uint64_t **a1, void *a2)
+BOOL CoreNLP::has_suffix(uint64_t ***a1, void *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -7237,7 +7670,7 @@ BOOL CoreNLP::has_suffix(uint64_t **a1, void *a2)
   }
 
   v11 = v4 >= v6;
-  v7 = v4 - v6;
+  v7 = (v4 - v6);
   if (!v11)
   {
     return 0;
@@ -7248,7 +7681,7 @@ BOOL CoreNLP::has_suffix(uint64_t **a1, void *a2)
     v11 = v6 != -1 && v3 >= v7;
     if (v11)
     {
-      v12 = v3 - v7;
+      v12 = (v3 - v7);
       if (v12 >= v6)
       {
         v10 = v6;
@@ -7288,25 +7721,25 @@ LABEL_26:
     a2 = *a2;
   }
 
-  return !memcmp(a1 + v7, a2, v10) && v10 == v6;
+  return !memcmp(v7 + a1, a2, v10) && v10 == v6;
 }
 
 BOOL CoreNLP::ModelContainer::writeToURL(CoreNLP::ModelContainer *this, CFURLRef anURL, char a3)
 {
-  v23[19] = *MEMORY[0x1E69E9840];
+  v22[19] = *MEMORY[0x1E69E9840];
   v5 = CFURLGetString(anURL);
   if (v5 && (v6 = v5, TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v6)))
   {
-    applesauce::CF::details::CFString_get_value<false>(v6, &v21);
+    applesauce::CF::details::CFString_get_value<false>(v6, &v20);
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v21, "");
+    std::string::basic_string[abi:ne200100]<0>(&v20, "");
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, kNLPModelExtension);
-  has_suffix = CoreNLP::has_suffix(&v21, __p);
+  has_suffix = CoreNLP::has_suffix(&v20, __p);
   v9 = has_suffix;
   if (SHIBYTE(__p[0].st_gid) < 0)
   {
@@ -7322,50 +7755,50 @@ BOOL CoreNLP::ModelContainer::writeToURL(CoreNLP::ModelContainer *this, CFURLRef
   if (!has_suffix)
   {
 LABEL_9:
-    std::string::append(&v21, kNLPModelExtension);
+    std::string::append(&v20, kNLPModelExtension);
   }
 
 LABEL_10:
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v20, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v19, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v20 = v21;
+    v19 = v20;
   }
 
   if (a3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v18, "");
-    nlp::temporaryFile(v18, __p);
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v17, "");
+    nlp::temporaryFile(v17, __p);
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v20.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
 
-    *&v20.__r_.__value_.__l.__data_ = *&__p[0].st_dev;
-    v20.__r_.__value_.__r.__words[2] = *&__p[0].st_uid;
+    *&v19.__r_.__value_.__l.__data_ = *&__p[0].st_dev;
+    v19.__r_.__value_.__r.__words[2] = *&__p[0].st_uid;
     HIBYTE(__p[0].st_gid) = 0;
     LOBYTE(__p[0].st_dev) = 0;
-    if (v19 < 0)
+    if (v18 < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v17[0]);
     }
 
     goto LABEL_24;
   }
 
-  if ((a3 & 2) == 0 || ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v10 = &v20) : (v10 = v20.__r_.__value_.__r.__words[0]), stat(v10, __p)))
+  if ((a3 & 2) == 0 || ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v10 = &v19) : (v10 = v19.__r_.__value_.__r.__words[0]), stat(v10, __p)))
   {
 LABEL_24:
-    std::ofstream::basic_ofstream(&__p[0].st_dev, &v20);
+    std::ofstream::basic_ofstream(&__p[0].st_dev, &v19, 36);
     v11 = 0;
     if (__p[0].st_qspare[0])
     {
       CoreNLP::ModelContainer::writeContainerData(this, __p);
-      if ((a3 & 1) == 0 || ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v13 = &v20) : (v13 = v20.__r_.__value_.__r.__words[0]), (v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v14 = &v21) : (v14 = v21.__r_.__value_.__r.__words[0]), rename(v13, v14, v12), !v15))
+      if ((a3 & 1) == 0 || ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v13 = &v19) : (v13 = v19.__r_.__value_.__r.__words[0]), (v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v14 = &v20) : (v14 = v20.__r_.__value_.__r.__words[0]), rename(v13, v14, v12), !v15))
       {
         v11 = 1;
       }
@@ -7375,23 +7808,22 @@ LABEL_24:
     *(&__p[0].st_dev + *(*&__p[0].st_dev - 24)) = *(MEMORY[0x1E69E54D0] + 24);
     MEMORY[0x19EAF8960](&__p[0].st_ino);
     std::ostream::~ostream();
-    MEMORY[0x19EAF8C10](v23);
+    MEMORY[0x19EAF8C10](v22);
     goto LABEL_36;
   }
 
   v11 = 0;
 LABEL_36:
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v19.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v21.__r_.__value_.__l.__data_);
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -7410,7 +7842,7 @@ void sub_19D1BA66C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
   v4 = MEMORY[0x1E69E5530] + 64;
@@ -7427,11 +7859,6 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[52] = v4;
   MEMORY[0x19EAF8950](a1 + 1);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -7477,15 +7904,10 @@ uint64_t CoreNLP::ModelContainer::writeContainerData(uint64_t a1, uint64_t a2, u
     Count = 0x8E38E38E38E38E39 * ((*(a1 + 64) - *(a1 + 56)) >> 4);
   }
 
-  LODWORD(v35) = kMagicNumber;
   std::ostream::write();
-  LOWORD(v35) = *a1;
   std::ostream::write();
-  LOWORD(v35) = *(a1 + 4);
   std::ostream::write();
-  LOWORD(v35) = kContainerFormatVersion_1;
   std::ostream::write();
-  LOWORD(v35) = *(a1 + 8);
   std::ostream::write();
   std::ostream::write();
   LODWORD(v35) = 8 * Count + 20;
@@ -7601,7 +8023,7 @@ LABEL_53:
   if (v11)
   {
     LOBYTE(cf) = 0;
-    std::vector<char>::vector[abi:ne200100](&v35, 8 - v11);
+    std::vector<char>::vector[abi:ne200100](&v35, 8 - v11, &cf);
     std::ostream::write();
     if (v35)
     {
@@ -7672,7 +8094,7 @@ LABEL_53:
       if (v29)
       {
         LOBYTE(v34) = 0;
-        std::vector<char>::vector[abi:ne200100](&v35, 8 - v29);
+        std::vector<char>::vector[abi:ne200100](&v35, 8 - v29, &v34);
         std::ostream::write();
         if (v35)
         {
@@ -7722,7 +8144,7 @@ CFIndex CoreNLP::ModelContainer::getModelDataCount(CFArrayRef *this)
 
 CFDataRef CoreNLP::ModelContainer::copyModelDataAtIndex(CoreNLP::ModelContainer *this, unint64_t a2)
 {
-  v36[19] = *MEMORY[0x1E69E9840];
+  v32[19] = *MEMORY[0x1E69E9840];
   v4 = *(this + 3);
   if (v4)
   {
@@ -7750,54 +8172,48 @@ CFDataRef CoreNLP::ModelContainer::copyModelDataAtIndex(CoreNLP::ModelContainer 
         CFRelease(cf);
       }
 
-      goto LABEL_15;
+      return v9;
     }
 
-LABEL_14:
-    v9 = 0;
-LABEL_15:
-    v18 = *MEMORY[0x1E69E9840];
-    return v9;
+    return 0;
   }
 
   v10 = *(this + 7);
   if (0x8E38E38E38E38E39 * ((*(this + 8) - v10) >> 4) <= a2)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   v11 = v10 + 144 * a2;
   v12 = *(this + 10);
   if (!v12)
   {
-    std::ifstream::basic_ifstream(&cf, this + 4);
+    std::ifstream::basic_ifstream(&cf, this + 4, 4);
     std::vector<char>::vector[abi:ne200100](bytes, *(v11 + 136));
-    v19 = *(v11 + 128);
     std::istream::seekg();
-    v20 = *(v11 + 136);
     std::istream::read();
     if (length != *(v11 + 136))
     {
       std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](theData);
-      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "Failed to read the model data completely at index: ", 51);
-      v22 = MEMORY[0x19EAF8AA0](v21, a2);
-      v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ", only read ", 12);
-      v24 = MEMORY[0x19EAF8A90](v23, length);
-      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, " vs expected ", 13);
-      MEMORY[0x19EAF8AA0](v25, *(v11 + 136));
+      v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Failed to read the model data completely at index: ", 51);
+      v18 = MEMORY[0x19EAF8AA0](v17, a2);
+      v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ", only read ", 12);
+      v20 = MEMORY[0x19EAF8A90](v19, length);
+      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " vs expected ", 13);
+      MEMORY[0x19EAF8AA0](v21, *(v11 + 136));
       exception = __cxa_allocate_exception(0x10uLL);
       std::stringbuf::str();
-      if (v29 >= 0)
+      if (v25 >= 0)
       {
-        v27 = &v28;
+        v23 = &v24;
       }
 
       else
       {
-        v27 = v28;
+        v23 = v24;
       }
 
-      std::runtime_error::runtime_error(exception, v27);
+      std::runtime_error::runtime_error(exception, v23);
       exception->__vftable = &unk_1F10AD4E0;
     }
 
@@ -7810,21 +8226,20 @@ LABEL_15:
 
     cf = *MEMORY[0x1E69E54C8];
     *(&cf + *(cf - 3)) = *(MEMORY[0x1E69E54C8] + 24);
-    MEMORY[0x19EAF8960](&v35);
+    MEMORY[0x19EAF8960](&v31);
     std::istream::~istream();
-    MEMORY[0x19EAF8C10](v36);
-    goto LABEL_15;
+    MEMORY[0x19EAF8C10](v32);
+    return v9;
   }
 
   v13 = *(v11 + 136);
-  v14 = *MEMORY[0x1E69E9840];
-  v15 = *MEMORY[0x1E695E498];
-  v16 = (*(v12 + 16) + *(v11 + 128));
+  v14 = *MEMORY[0x1E695E498];
+  v15 = (*(v12 + 16) + *(v11 + 128));
 
-  return CFDataCreateWithBytesNoCopy(0, v16, v13, v15);
+  return CFDataCreateWithBytesNoCopy(0, v15, v13, v14);
 }
 
-void sub_19D1BB2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53)
+void sub_19D1BB2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53)
 {
   if (a14 < 0)
   {
@@ -7856,7 +8271,7 @@ LABEL_6:
 
 CFDataRef CoreNLP::ModelContainer::copyContainerData(CoreNLP::ModelContainer *this)
 {
-  v32[19] = *MEMORY[0x1E69E9840];
+  v30[19] = *MEMORY[0x1E69E9840];
   v1 = *(this + 10);
   if (!v1)
   {
@@ -7871,96 +8286,95 @@ CFDataRef CoreNLP::ModelContainer::copyContainerData(CoreNLP::ModelContainer *th
     else if (*(this + 55))
     {
 LABEL_7:
-      v8 = (this + 32);
-      std::ifstream::basic_ifstream(&v27, this + 4);
-      if (!v31[3])
+      v7 = (this + 32);
+      std::ifstream::basic_ifstream(&v25, this + 4, 4);
+      if (!v29[3])
       {
         exception = __cxa_allocate_exception(0x20uLL);
-        *&v25.st_dev = 1;
-        v25.st_ino = std::iostream_category();
-        std::ios_base::failure::failure(exception, "Failed to open the temp file", &v25);
+        *&v23.st_dev = 1;
+        v23.st_ino = std::iostream_category();
+        std::ios_base::failure::failure(exception, "Failed to open the temp file", &v23);
         __cxa_throw(exception, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
       }
 
       if (*(this + 55) < 0)
       {
-        v9 = *v8;
+        v8 = *v7;
       }
 
       else
       {
-        v9 = this + 32;
+        v8 = this + 32;
       }
 
-      if (stat(v9, &v25))
+      if (stat(v8, &v23))
       {
-        v16 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(&v24, "Failed to get the file size of ");
-        v17 = *(this + 55);
-        if (v17 >= 0)
+        v14 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(&v22, "Failed to get the file size of ");
+        v15 = *(this + 55);
+        if (v15 >= 0)
         {
-          v18 = this + 32;
+          v16 = this + 32;
         }
 
         else
         {
-          v18 = *(this + 4);
+          v16 = *(this + 4);
         }
 
-        if (v17 >= 0)
+        if (v15 >= 0)
         {
-          v19 = *(this + 55);
+          v17 = *(this + 55);
         }
 
         else
         {
-          v19 = *(this + 5);
+          v17 = *(this + 5);
         }
 
-        v20 = std::string::append(&v24, v18, v19);
-        v21 = *&v20->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v21;
-        v20->__r_.__value_.__l.__size_ = 0;
-        v20->__r_.__value_.__r.__words[2] = 0;
-        v20->__r_.__value_.__r.__words[0] = 0;
+        v18 = std::string::append(&v22, v16, v17);
+        v19 = *&v18->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v19;
+        v18->__r_.__value_.__l.__size_ = 0;
+        v18->__r_.__value_.__r.__words[2] = 0;
+        v18->__r_.__value_.__r.__words[0] = 0;
         *&__ec.__val_ = 1;
         __ec.__cat_ = std::iostream_category();
-        std::ios_base::failure::failure(v16, &__p, &__ec);
-        __cxa_throw(v16, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
+        std::ios_base::failure::failure(v14, &__p, &__ec);
+        __cxa_throw(v14, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
       }
 
-      std::vector<char>::vector[abi:ne200100](&__p, LODWORD(v25.st_size));
+      std::vector<char>::vector[abi:ne200100](&__p, LODWORD(v23.st_size));
       std::istream::read();
-      if (v28 != v25.st_size)
+      if (v26 != v23.st_size)
       {
-        v22 = __cxa_allocate_exception(0x20uLL);
-        v24.__r_.__value_.__r.__words[0] = 1;
-        v24.__r_.__value_.__l.__size_ = std::iostream_category();
-        std::ios_base::failure::failure(v22, "Open failed", &v24);
-        __cxa_throw(v22, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
+        v20 = __cxa_allocate_exception(0x20uLL);
+        v22.__r_.__value_.__r.__words[0] = 1;
+        v22.__r_.__value_.__l.__size_ = std::iostream_category();
+        std::ios_base::failure::failure(v20, "Open failed", &v22);
+        __cxa_throw(v20, MEMORY[0x1E69E53D0], MEMORY[0x1E69E5360]);
       }
 
-      v12 = CFDataCreate(0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]);
+      v11 = CFDataCreate(0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]);
       if (__p.__r_.__value_.__r.__words[0])
       {
         __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v27 = *MEMORY[0x1E69E54C8];
-      *(&v27 + *(v27 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-      MEMORY[0x19EAF8960](v29);
+      v25 = *MEMORY[0x1E69E54C8];
+      *(&v25 + *(v25 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+      MEMORY[0x19EAF8960](v27);
       std::istream::~istream();
-      v13 = v32;
+      v12 = v30;
 LABEL_30:
-      MEMORY[0x19EAF8C10](v13);
-      v14 = *MEMORY[0x1E69E9840];
-      return v12;
+      MEMORY[0x19EAF8C10](v12);
+      return v11;
     }
 
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v27, 4);
-    CoreNLP::ModelContainer::writeContainerData(this, &v27);
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v25, 4);
+    CoreNLP::ModelContainer::writeContainerData(this, &v25);
     std::stringbuf::str();
     std::stringbuf::str();
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -7973,48 +8387,47 @@ LABEL_30:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    if ((v25.st_gid & 0x80000000) == 0)
+    if ((v23.st_gid & 0x80000000) == 0)
     {
-      st_gid_high = HIBYTE(v25.st_gid);
+      st_gid_high = HIBYTE(v23.st_gid);
     }
 
     else
     {
-      st_gid_high = v25.st_ino;
+      st_gid_high = v23.st_ino;
     }
 
-    v12 = CFDataCreate(0, p_p, st_gid_high);
+    v11 = CFDataCreate(0, p_p, st_gid_high);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v25.st_gid) < 0)
+    if (SHIBYTE(v23.st_gid) < 0)
     {
-      operator delete(*&v25.st_dev);
+      operator delete(*&v23.st_dev);
     }
 
-    v27 = *MEMORY[0x1E69E54E8];
-    *(&v27 + *(v27 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-    v28 = MEMORY[0x1E69E5548] + 16;
-    if (v30 < 0)
+    v25 = *MEMORY[0x1E69E54E8];
+    *(&v25 + *(v25 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    v26 = MEMORY[0x1E69E5548] + 16;
+    if (v28 < 0)
     {
-      operator delete(v29[7].__locale_);
+      operator delete(v27[7].__locale_);
     }
 
-    v28 = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(v29);
+    v26 = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v27);
     std::ostream::~ostream();
-    v13 = v31;
+    v12 = v29;
     goto LABEL_30;
   }
 
   v3 = *(v1 + 8);
   v2 = *(v1 + 16);
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E695E498];
+  v4 = *MEMORY[0x1E695E498];
 
-  return CFDataCreateWithBytesNoCopy(0, v2, v3, v5);
+  return CFDataCreateWithBytesNoCopy(0, v2, v3, v4);
 }
 
 void sub_19D1BB890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45)
@@ -8090,7 +8503,7 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
   return a1;
 }
 
-CFArrayRef CoreNLP::ModelContainer::copySplitContainerData(CoreNLP::ModelContainer *this, int64_t a2)
+CFArrayRef CoreNLP::ModelContainer::copySplitContainerData(CoreNLP::ModelContainer *this, CFIndex a2)
 {
   v4 = *(this + 3);
   if (v4)
@@ -8302,7 +8715,7 @@ void CoreNLP::NLModelContainerIncompatibleFormat::~NLModelContainerIncompatibleF
   JUMPOUT(0x19EAF8CA0);
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
+void *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -8316,7 +8729,7 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
   v9.length = Length;
   CFStringGetBytes(a1, v9, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
   std::string::basic_string[abi:ne200100](a2, maxBufLen, 0);
-  if ((a2[23] & 0x80u) == 0)
+  if (*(a2 + 23) >= 0)
   {
     v7 = a2;
   }
@@ -8331,7 +8744,7 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
   return CFStringGetBytes(a1, v10, 0x8000100u, 0, 0, v7, maxBufLen, &maxBufLen);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8343,13 +8756,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -8421,16 +8834,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8453,9 +8866,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_19D1BC9F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_19D1BC9F4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x19EAF8A10](&a10);
+  MEMORY[0x19EAF8A10](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -8524,29 +8937,17 @@ void sub_19D1BCBC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_19D1BCC3C(_Unwind_Exception *exception_object)
@@ -8594,17 +8995,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CoreNLP::NLModelDataP
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_19D1BCD9C(_Unwind_Exception *exception_object)
@@ -8617,6 +9018,19 @@ void sub_19D1BCD9C(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_19D1BCE34(_Unwind_Exception *exception_object)
@@ -8780,7 +9194,7 @@ void sub_19D1BD254(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreNLP::WordDispatchTagger::setTokenizerOptions(CoreNLP::WordDispatchTagger *this, uint64_t a2)
+CoreNLP::TaggerContext *CoreNLP::WordDispatchTagger::setTokenizerOptions(CoreNLP::NLLangid **this, uint64_t a2)
 {
   CoreNLP::Tagger::setTokenizerOptions(this, a2);
   v8 = 4;
@@ -8804,22 +9218,22 @@ uint64_t CoreNLP::WordDispatchTagger::setTokenizerOptions(CoreNLP::WordDispatchT
     (*(*v6[3] + 128))(v6[3], a2);
   }
 
-  return CoreNLP::NLLangid::setTokenizerOptions(*(this + 12), a2);
+  return CoreNLP::NLLangid::setTokenizerOptions(this[12], a2);
 }
 
-void CoreNLP::WordDispatchTagger::setStringInPossibleSubWordTaggers(uint64_t a1, const __CFString *a2, CFRange a3, unsigned int a4)
+void CoreNLP::WordDispatchTagger::setStringInPossibleSubWordTaggers(void *a1, const __CFString *a2, CFRange a3, unsigned int a5, float a6)
 {
-  v4 = a4;
+  v5 = a5;
   length = a3.length;
   location = a3.location;
   v14 = *MEMORY[0x1E69E9840];
-  *(a1 + 112) = *(a1 + 104);
-  if (a4 <= 1)
+  a1[14] = a1[13];
+  if (a5 <= 1)
   {
-    TopHypothesesOfString = CoreNLP::NLLangid::getTopHypothesesOfString(*(a1 + 96), a2, a3, &v11, 2);
+    TopHypothesesOfString = CoreNLP::NLLangid::getTopHypothesesOfString(a1[12], a2, a3, &v11, 2);
     if (TopHypothesesOfString)
     {
-      v4 = v11;
+      v5 = v11;
       if (TopHypothesesOfString >= 2 && v11 <= 0x36 && ((1 << v11) & 0x40000000100030) != 0 && v12 <= 0x36 && ((1 << v12) & 0x40000000100030) != 0 && v13 >= 0.5)
       {
         CoreNLP::WordDispatchTagger::prepareSubWordTagger(a1, a2, location, length, v12);
@@ -8828,13 +9242,12 @@ void CoreNLP::WordDispatchTagger::setStringInPossibleSubWordTaggers(uint64_t a1,
 
     else
     {
-      v4 = 10;
+      v5 = 10;
     }
   }
 
-  *(*(a1 + 32) + 36) = v4;
-  CoreNLP::WordDispatchTagger::prepareSubWordTagger(a1, a2, location, length, v4);
-  v10 = *MEMORY[0x1E69E9840];
+  *(a1[4] + 36) = v5;
+  CoreNLP::WordDispatchTagger::prepareSubWordTagger(a1, a2, location, length, v5);
 }
 
 void CoreNLP::WordDispatchTagger::prepareSubWordTagger(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
@@ -8907,7 +9320,7 @@ uint64_t CoreNLP::WordDispatchTagger::enumerateTokensOfPartialString(void *a1, u
   v11 = a1[4];
   v12 = a1[5];
   a1[5] = v10;
-  (*(*v10 + 32))(v10, *(v11 + 8));
+  (*(*v10 + 32))(v10, *(v11 + 8), a3, a4);
   result = (*(*a1[6] + 48))(a1[6], a2, a5, a6, &__block_literal_global_11);
   a1[5] = v12;
   return result;
@@ -9094,33 +9507,33 @@ uint64_t CoreNLP::WordDispatchTagger::getPartOfSpeechOfCurrentToken(CoreNLP::Wor
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9128,44 +9541,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long,std::unique_ptr<CoreNLP::SubWordTagger>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -9188,7 +9601,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t _nlpDefaultLog()
+uint64_t _nlpDefaultLog(uint64_t a1, uint64_t a2)
 {
   if (_nlpDefaultLog::token != -1)
   {
@@ -9205,7 +9618,7 @@ os_log_t ___nlpDefaultLog_block_invoke()
   return result;
 }
 
-void CoreNLP::Parser::Parser(uint64_t a1, int a2, int a3)
+void CoreNLP::Parser::Parser(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6)
 {
   *a1 = 0;
   *(a1 + 8) = a2;
@@ -9220,49 +9633,51 @@ void sub_19D1BDFC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CoreNLP::Parser::getParseTree(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void CoreNLP::Parser::getParseTree(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   v8 = a3 + 1;
-  std::vector<NLDepLabel>::vector[abi:ne200100](&v30, v8);
-  std::vector<int>::vector[abi:ne200100](&v28, v8);
+  LODWORD(v28[0]) = 0;
+  std::vector<NLDepLabel>::vector[abi:ne200100](&v32, v8, v28);
+  LODWORD(v28[0]) = 0;
+  std::vector<int>::vector[abi:ne200100](&v30, v8, v28);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  std::vector<NLDepLabel>::__init_with_size[abi:ne200100]<NLDepLabel*,NLDepLabel*>(a4, v30, v31, (v31 - v30) >> 2);
+  std::vector<NLDepLabel>::__init_with_size[abi:ne200100]<NLDepLabel*,NLDepLabel*>(a4, v32, v33, (v33 - v32) >> 2);
   a4[3] = 0;
   a4[4] = 0;
   a4[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a4 + 3), v28, v29, (v29 - v28) >> 2);
-  v27 = 0u;
-  memset(v26, 0, sizeof(v26));
-  LODWORD(v25.__begin_) = 1;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a4 + 3, v30, v31, (v31 - v30) >> 2);
+  v29 = 0u;
+  memset(v28, 0, sizeof(v28));
+  LODWORD(v27.__begin_) = 1;
   if (a3 >= 1)
   {
     do
     {
-      std::deque<int>::push_back(v26, &v25);
-      v9 = LODWORD(v25.__begin_)++;
+      std::deque<int>::push_back(v28, &v27);
+      v9 = LODWORD(v27.__begin_)++;
     }
 
     while (v9 < a3);
   }
 
-  memset(&v25, 0, sizeof(v25));
-  std::vector<int>::reserve(&v25, v8);
-  end = v25.__end_;
-  if (v25.__end_ >= v25.__end_cap_.__value_)
+  memset(&v27, 0, sizeof(v27));
+  std::vector<int>::reserve(&v27, v8);
+  end = v27.__end_;
+  if (v27.__end_ >= v27.__end_cap_.__value_)
   {
-    begin = v25.__begin_;
-    v13 = v25.__end_ - v25.__begin_;
-    v14 = v25.__end_ - v25.__begin_;
+    begin = v27.__begin_;
+    v13 = v27.__end_ - v27.__begin_;
+    v14 = v27.__end_ - v27.__begin_;
     v15 = v14 + 1;
     if ((v14 + 1) >> 62)
     {
       std::vector<CoreNLP::NLAttributedToken>::__throw_length_error[abi:ne200100]();
     }
 
-    v16 = v25.__end_cap_.__value_ - v25.__begin_;
-    if ((v25.__end_cap_.__value_ - v25.__begin_) >> 1 > v15)
+    v16 = v27.__end_cap_.__value_ - v27.__begin_;
+    if ((v27.__end_cap_.__value_ - v27.__begin_) >> 1 > v15)
     {
       v15 = v16 >> 1;
     }
@@ -9276,16 +9691,16 @@ void CoreNLP::Parser::getParseTree(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<
 
     if (v18)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v25, v18);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v27, v18);
     }
 
     *(4 * v14) = 0;
     v11 = (4 * v14 + 4);
     memcpy(0, begin, v13);
-    v19 = v25.__begin_;
-    v25.__begin_ = 0;
-    v25.__end_ = v11;
-    v25.__end_cap_.__value_ = 0;
+    v19 = v27.__begin_;
+    v27.__begin_ = 0;
+    v27.__end_ = v11;
+    v27.__end_cap_.__value_ = 0;
     if (v19)
     {
       operator delete(v19);
@@ -9294,49 +9709,51 @@ void CoreNLP::Parser::getParseTree(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<
 
   else
   {
-    *v25.__end_ = 0;
+    *v27.__end_ = 0;
     v11 = end + 1;
   }
 
-  v25.__end_ = v11;
-  std::vector<float>::vector[abi:ne200100](&__p, *(a1 + 32));
-  while ((v25.__end_ - v25.__begin_) > 4 || *(&v27 + 1) != 0)
+  v27.__end_ = v11;
+  v20 = *(a1 + 32);
+  v24 = 0;
+  std::vector<float>::vector[abi:ne200100](&__p, v20, &v24);
+  while ((v27.__end_ - v27.__begin_) > 4 || *(&v29 + 1) != 0)
   {
-    v21 = __p;
-    if (v24 - __p >= 1)
+    v22 = __p;
+    if (v26 - __p >= 1)
     {
-      bzero(__p, v24 - __p);
+      bzero(__p, v26 - __p);
     }
 
-    CoreNLP::Parser::getFeatures(a1, v21, *a2, v26, &v25);
-    v22 = CoreNLP::Parser::predictTransition(a1, __p, v26, &v25);
-    CoreNLP::Parser::updateState(a1, v22, v26, &v25, a4);
+    CoreNLP::Parser::getFeatures(a1, v22, *a2, v28, &v27);
+    v23 = CoreNLP::Parser::predictTransition(a1, __p, v28, &v27);
+    CoreNLP::Parser::updateState(a1, v23, v28, &v27, a4);
   }
 
   CoreNLP::MontrealModel::clear(*a1);
   if (__p)
   {
-    v24 = __p;
+    v26 = __p;
     operator delete(__p);
   }
 
-  if (v25.__begin_)
+  if (v27.__begin_)
   {
-    v25.__end_ = v25.__begin_;
-    operator delete(v25.__begin_);
+    v27.__end_ = v27.__begin_;
+    operator delete(v27.__begin_);
   }
 
-  std::deque<int>::~deque[abi:ne200100](v26);
-  if (v28)
-  {
-    v29 = v28;
-    operator delete(v28);
-  }
-
+  std::deque<int>::~deque[abi:ne200100](v28);
   if (v30)
   {
     v31 = v30;
     operator delete(v30);
+  }
+
+  if (v32)
+  {
+    v33 = v32;
+    operator delete(v32);
   }
 }
 
@@ -9365,35 +9782,32 @@ void sub_19D1BE29C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<int>::push_back(void *result, _DWORD *a2)
+void std::deque<int>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<int>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<int>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
 void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_type __n)
@@ -9402,7 +9816,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(this, __n);
     }
 
@@ -9460,420 +9873,4 @@ unsigned int *CoreNLP::Parser::getFeatures(unsigned int *result, uint64_t a2, ui
   }
 
   return result;
-}
-
-unint64_t CoreNLP::Parser::predictTransition(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v7 = *(a1 + 20);
-  v8 = *a1;
-  v9 = *(a1 + 40);
-  v28[0] = *(a1 + 24);
-  v28[1] = v9;
-  CoreNLP::MontrealModel::setInputTensor(v8, v28, a2, @"input");
-  CoreNLP::MontrealModel::predict(*a1);
-  v10 = CoreNLP::MontrealModel::output(*a1, @"output");
-  v11 = *(a3 + 40);
-  v12 = v11 != 0;
-  if (v11)
-  {
-    v10[1] = v10[1] + 100000.0;
-  }
-
-  v13 = (2 * v7) | 1;
-  v14 = a4[1] - *a4;
-  if (v14 >= 9)
-  {
-    *a4;
-    if (*(a4[1] - 8) < *(a4[1] - 4))
-    {
-      v10[v13 - 1] = v10[v13 - 1] + 100000.0;
-      v12 = 1;
-    }
-  }
-
-  v15 = v13 - 1;
-  if (v15 >= 3)
-  {
-    if (v11)
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = v14 == 8;
-    }
-
-    v17 = !v16;
-    for (i = 2; v15 != i; ++i)
-    {
-      if (v14 < 9 || (i & 1) != 0)
-      {
-        if (v14 <= 8)
-        {
-          if (i)
-          {
-            v19 = v17;
-          }
-
-          else
-          {
-            v19 = 1;
-          }
-
-          if (v19)
-          {
-            continue;
-          }
-        }
-
-        else if ((i & 1) == 0)
-        {
-          continue;
-        }
-      }
-
-      v10[i] = v10[i] + 100000.0;
-      v12 = 1;
-    }
-  }
-
-  if (!v12)
-  {
-    return 0;
-  }
-
-  if (v7)
-  {
-    v20 = v10 + 1;
-    v21 = *v10;
-    v22 = 4 * v15;
-    v23 = v10;
-    v24 = v10 + 1;
-    do
-    {
-      v25 = *v24++;
-      v26 = v25;
-      if (v21 < v25)
-      {
-        v21 = v26;
-        v23 = v20;
-      }
-
-      v20 = v24;
-      v22 -= 4;
-    }
-
-    while (v22);
-  }
-
-  else
-  {
-    v23 = v10;
-  }
-
-  return (v23 - v10) >> 2;
-}
-
-void CoreNLP::Parser::updateState(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
-{
-  if (a2 == 1)
-  {
-    v7 = *(a3 + 40);
-    if (!v7)
-    {
-      std::__throw_out_of_range[abi:ne200100]("deque");
-    }
-
-    v8 = *(a3 + 32);
-    v21 = *(*(*(a3 + 8) + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF));
-    *(a3 + 32) = v8 + 1;
-    *(a3 + 40) = v7 - 1;
-    std::deque<int>::__maybe_remove_front_spare[abi:ne200100](a3, 1);
-    goto LABEL_4;
-  }
-
-  if (a2 == 2 * *(a1 + 20))
-  {
-    v9 = *(a4 + 8);
-    v10 = v9 - *a4;
-    if (v9 != *a4)
-    {
-      v21 = *(v9 - 4);
-      if (v10 > 4)
-      {
-        v20 = *(v9 - 8);
-        *(a4 + 8) = v9 - 8;
-        std::vector<int>::push_back[abi:ne200100](a4, &v21);
-        std::deque<int>::push_front(a3, &v20);
-        return;
-      }
-    }
-
-LABEL_18:
-    std::vector<int>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v11 = a2 / 2;
-  if (a2 % 2 == 1)
-  {
-    v16 = *(a4 + 8);
-    if (v16 == *a4 || (v16 - *a4) <= 4)
-    {
-      goto LABEL_18;
-    }
-
-    *a4;
-    v18 = (v16 - 8);
-    v17 = *v18;
-    v19 = v18[1];
-    *(a4 + 8) = v16 - 4;
-    *(*a5 + 4 * v19) = v11;
-    *(a5[3] + 4 * v19) = v17;
-  }
-
-  else if (!(a2 % 2))
-  {
-    v12 = *(a4 + 8);
-    v13 = v12 - *a4;
-    if (v12 != *a4)
-    {
-      v14 = *(v12 - 4);
-      v21 = v14;
-      if (v13 > 4)
-      {
-        v15 = *(v12 - 8);
-        *(*a5 + 4 * v15) = v11;
-        *(a5[3] + 4 * v15) = v14;
-        *(a4 + 8) = v12 - 8;
-LABEL_4:
-        std::vector<int>::push_back[abi:ne200100](a4, &v21);
-        return;
-      }
-    }
-
-    goto LABEL_18;
-  }
-}
-
-const void **std::deque<int>::push_front(const void **result, _DWORD *a2)
-{
-  v3 = result;
-  v4 = result[4];
-  if (!v4)
-  {
-    result = std::deque<int>::__add_front_capacity(result);
-    v4 = v3[4];
-  }
-
-  v5 = v3[1];
-  v6 = &v5[8 * (v4 >> 10)];
-  if (v3[2] == v5)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = *v6 + 4 * (v4 & 0x3FF);
-  }
-
-  if (v7 == *v6)
-  {
-    v7 = *(v6 - 1) + 4096;
-  }
-
-  *(v7 - 4) = *a2;
-  v8 = v3[5] + 1;
-  v3[4] = (v4 - 1);
-  v3[5] = v8;
-  return result;
-}
-
-void CoreNLP::Dependency::~Dependency(CoreNLP::Dependency *this)
-{
-  v2 = *(this + 3);
-  if (v2)
-  {
-    *(this + 4) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *this;
-  if (*this)
-  {
-    *(this + 1) = v3;
-    operator delete(v3);
-  }
-}
-
-void *std::vector<NLDepLabel>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_19D1BEA64(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_19D1BEB78(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::vector<NLDepLabel>::__init_with_size[abi:ne200100]<NLDepLabel*,NLDepLabel*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_19D1BEBF4(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::deque<int>::~deque[abi:ne200100](void *a1)
-{
-  v2 = a1[1];
-  v3 = a1[2];
-  a1[5] = 0;
-  v4 = v3 - v2;
-  if (v4 >= 3)
-  {
-    do
-    {
-      operator delete(*v2);
-      v3 = a1[2];
-      v2 = (a1[1] + 8);
-      a1[1] = v2;
-      v4 = v3 - v2;
-    }
-
-    while (v4 > 2);
-  }
-
-  if (v4 == 1)
-  {
-    v5 = 512;
-  }
-
-  else
-  {
-    if (v4 != 2)
-    {
-      goto LABEL_9;
-    }
-
-    v5 = 1024;
-  }
-
-  a1[4] = v5;
-LABEL_9:
-  while (v2 != v3)
-  {
-    v6 = *v2++;
-    operator delete(v6);
-  }
-
-  return std::__split_buffer<char *>::~__split_buffer(a1);
-}
-
-void *std::deque<int>::__add_back_capacity(void *a1)
-{
-  v1 = a1[4];
-  v2 = v1 >= 0x400;
-  v3 = v1 - 1024;
-  if (!v2)
-  {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
-    {
-      if (v7 != v6)
-      {
-        operator new();
-      }
-
-      operator new();
-    }
-
-    if (v7 == *a1)
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-      v9 = v8 >> 2;
-    }
-
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char *>>(a1, v9);
-  }
-
-  a1[4] = v3;
-  v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<char *>::emplace_back<char *&>(a1, &v10);
 }

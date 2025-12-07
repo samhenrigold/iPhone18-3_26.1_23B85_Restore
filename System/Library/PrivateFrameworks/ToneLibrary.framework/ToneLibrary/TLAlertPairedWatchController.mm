@@ -83,50 +83,50 @@ uint64_t __64__TLAlertPairedWatchController_playAlert_withCompletionHandler___bl
 
 - (void)_playAlertWithContext:(id)context
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   os_unfair_lock_assert_not_owner(&self->_lock);
   [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
   alert = [(TLAlertPairedWatchPlaybackContext *)contextCopy alert];
   type = [alert type];
   configuration = [alert configuration];
-  v8 = TLLogPlayback();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TLLogPlayback(configuration, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2114;
     *&buf[14] = alert;
-    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Beginning playback for %{public}@.", buf, 0x16u);
+    _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Beginning playback for %{public}@.", buf, 0x16u);
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
-  v9 = getNACAlertProxyClass_softClass;
-  v26 = getNACAlertProxyClass_softClass;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
+  v10 = getNACAlertProxyClass_softClass;
+  v32 = getNACAlertProxyClass_softClass;
   if (!getNACAlertProxyClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getNACAlertProxyClass_block_invoke;
-    v28 = &unk_1E8578D30;
-    v29 = &v23;
+    v34 = &unk_1E8578D30;
+    v35 = &v29;
     __getNACAlertProxyClass_block_invoke(buf);
-    v9 = v24[3];
+    v10 = v30[3];
   }
 
-  v10 = v9;
-  _Block_object_dispose(&v23, 8);
-  v11 = [v9 alertProxyWithConfiguration:configuration];
-  [(TLAlertPairedWatchPlaybackContext *)contextCopy setAlertProxy:v11];
-  v12 = TLLogPlayback();
-  v13 = v12;
-  if (!v11)
+  v11 = v10;
+  _Block_object_dispose(&v29, 8);
+  v12 = [v10 alertProxyWithConfiguration:configuration];
+  v13 = [(TLAlertPairedWatchPlaybackContext *)contextCopy setAlertProxy:v12];
+  v15 = TLLogPlayback(v13, v14);
+  v16 = v15;
+  if (!v12)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(TLAlertPairedWatchController *)self _playAlertWithContext:v13];
+      [(TLAlertPairedWatchController *)self _playAlertWithContext:v16];
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -135,9 +135,9 @@ uint64_t __64__TLAlertPairedWatchController_playAlert_withCompletionHandler___bl
     {
       self->_playbackContext = 0;
 
-      v20 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:@"Failed to create alert proxy using NanoAudioControl."];
+      v26 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:@"Failed to create alert proxy using NanoAudioControl."];
       os_unfair_lock_unlock(&self->_lock);
-      [(TLAlertPairedWatchController *)self _processCompletionForAlertWithContext:contextCopy playbackCompletionType:5 error:v20];
+      [(TLAlertPairedWatchController *)self _processCompletionForAlertWithContext:contextCopy playbackCompletionType:5 error:v26];
 
       goto LABEL_22;
     }
@@ -145,13 +145,13 @@ uint64_t __64__TLAlertPairedWatchController_playAlert_withCompletionHandler___bl
     goto LABEL_21;
   }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2114;
-    *&buf[14] = v11;
-    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Created NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
+    *&buf[14] = v12;
+    _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Created NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -163,52 +163,50 @@ LABEL_21:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = TLLogPlayback();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v19 = TLLogPlayback(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2114;
-    *&buf[14] = v11;
-    _os_log_impl(&dword_1D9356000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Will call -play on NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
+    *&buf[14] = v12;
+    _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Will call -play on NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
   }
 
-  [v11 play];
-  v15 = TLLogPlayback();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  play = [v12 play];
+  v22 = TLLogPlayback(play, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2114;
-    *&buf[14] = v11;
-    _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Did call -play on NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
+    *&buf[14] = v12;
+    _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: -_playAlertWithContext: […]: Did call -play on NanoAudioControl alert proxy: %{public}@.", buf, 0x16u);
   }
 
   if (([configuration shouldRepeat] & 1) == 0)
   {
     if (type == 1)
     {
-      v16 = 4000000000;
+      v23 = 4000000000;
     }
 
     else
     {
-      v16 = 2000000000;
+      v23 = 2000000000;
     }
 
-    v17 = dispatch_time(0, v16);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __54__TLAlertPairedWatchController__playAlertWithContext___block_invoke;
-    v21[3] = &unk_1E8578900;
-    v21[4] = self;
-    v22 = contextCopy;
-    dispatch_after(v17, MEMORY[0x1E69E96A0], v21);
+    v24 = dispatch_time(0, v23);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __54__TLAlertPairedWatchController__playAlertWithContext___block_invoke;
+    v27[3] = &unk_1E8578900;
+    v27[4] = self;
+    v28 = contextCopy;
+    dispatch_after(v24, MEMORY[0x1E69E96A0], v27);
   }
 
 LABEL_22:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didCompletePlaybackForAlertWithContext:(id)context
@@ -238,43 +236,43 @@ LABEL_22:
   errorCopy = error;
   os_unfair_lock_assert_not_owner(&self->_lock);
   alert = [contextCopy alert];
-  v11 = TLLogPlayback();
-  v12 = v11;
+  v12 = TLLogPlayback(alert, v11);
+  v13 = v12;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromTLAlertPlaybackCompletionType(type);
+      v14 = NSStringFromTLAlertPlaybackCompletionType(type);
       tl_nonRedundantDescription = [errorCopy tl_nonRedundantDescription];
       *buf = 138544130;
       selfCopy2 = self;
       v26 = 2114;
       v27 = alert;
       v28 = 2114;
-      v29 = v13;
+      v29 = v14;
       v30 = 2114;
       v31 = tl_nonRedundantDescription;
-      _os_log_error_impl(&dword_1D9356000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Processing completion for alert %{public}@ with completion type %{public}@ and error: %{public}@.", buf, 0x2Au);
+      _os_log_error_impl(&dword_1D9356000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Processing completion for alert %{public}@ with completion type %{public}@ and error: %{public}@.", buf, 0x2Au);
 
 LABEL_6:
     }
   }
 
-  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = NSStringFromTLAlertPlaybackCompletionType(type);
+    v14 = NSStringFromTLAlertPlaybackCompletionType(type);
     *buf = 138543874;
     selfCopy2 = self;
     v26 = 2114;
     v27 = alert;
     v28 = 2114;
-    v29 = v13;
-    _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Processing completion for alert %{public}@ with completion type %{public}@.", buf, 0x20u);
+    v29 = v14;
+    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Processing completion for alert %{public}@ with completion type %{public}@.", buf, 0x20u);
     goto LABEL_6;
   }
 
   completionHandler = [contextCopy completionHandler];
-  v16 = dispatch_get_global_queue(0, 0);
+  v17 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __99__TLAlertPairedWatchController__processCompletionForAlertWithContext_playbackCompletionType_error___block_invoke;
@@ -282,11 +280,9 @@ LABEL_6:
   v22 = completionHandler;
   typeCopy = type;
   v21 = errorCopy;
-  v17 = errorCopy;
-  v18 = completionHandler;
-  dispatch_async(v16, block);
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = errorCopy;
+  v19 = completionHandler;
+  dispatch_async(v17, block);
 }
 
 - (BOOL)stopPlayingAlerts:(id)alerts withOptions:(id)options playbackCompletionType:(int64_t)type
@@ -318,44 +314,42 @@ LABEL_6:
 
 - (void)_stopPlayingAlertWithContext:(id)context withOptions:(id)options playbackCompletionType:(int64_t)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   optionsCopy = options;
   os_unfair_lock_assert_not_owner(&self->_lock);
   [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
   alertProxy = [contextCopy alertProxy];
-  v11 = TLLogPlayback();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = TLLogPlayback(alertProxy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v16 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alertProxy;
-    _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopPlayingAlertWithContext: […]: Will call -stop… on NanoAudioControl alert proxy: %{public}@.", &v14, 0x16u);
+    v18 = 2114;
+    v19 = alertProxy;
+    _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopPlayingAlertWithContext: […]: Will call -stop… on NanoAudioControl alert proxy: %{public}@.", &v16, 0x16u);
   }
 
   [alertProxy stopWithOptions:optionsCopy];
-  v12 = TLLogPlayback();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = TLLogPlayback(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v16 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alertProxy;
-    _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopPlayingAlertWithContext: […]: Did call -stop… on NanoAudioControl alert proxy: %{public}@.", &v14, 0x16u);
+    v18 = 2114;
+    v19 = alertProxy;
+    _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopPlayingAlertWithContext: […]: Did call -stop… on NanoAudioControl alert proxy: %{public}@.", &v16, 0x16u);
   }
 
   [(TLAlertPairedWatchController *)self _processCompletionForAlertWithContext:contextCopy playbackCompletionType:type error:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_playAlertWithContext:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D9356000, a2, OS_LOG_TYPE_ERROR, "%{public}@: -_playAlertWithContext: […]: Failed to create NanoAudioControl alert proxy.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D9356000, a2, OS_LOG_TYPE_ERROR, "%{public}@: -_playAlertWithContext: […]: Failed to create NanoAudioControl alert proxy.", &v2, 0xCu);
 }
 
 @end

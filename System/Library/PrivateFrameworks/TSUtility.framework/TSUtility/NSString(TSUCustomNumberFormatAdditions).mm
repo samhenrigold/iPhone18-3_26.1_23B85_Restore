@@ -10,9 +10,9 @@
 - (BOOL)isSpecialCustomNumberFormatToken;
 - (BOOL)isSpecialCustomNumberFormatTokenOfType:()TSUCustomNumberFormatAdditions;
 - (__CFString)digitPlaceholderStringInDigitToken;
+- (char)numberOfDigitsInCustomNumberFormatDecimalToken;
 - (id)currencyCodeFromCustomNumberFormatCurrencyToken;
 - (uint64_t)fractionAccuracyFromCustomNumberFormatFractionToken;
-- (uint64_t)numberOfDigitsInCustomNumberFormatDecimalToken;
 - (uint64_t)numberOfDigitsInCustomNumberFormatIntegerToken;
 - (void)stringByInsertingFormatGroupingSeparators;
 @end
@@ -211,7 +211,7 @@
   return i;
 }
 
-- (uint64_t)numberOfDigitsInCustomNumberFormatDecimalToken
+- (char)numberOfDigitsInCustomNumberFormatDecimalToken
 {
   if (([self isSpecialCustomNumberFormatTokenOfType:2] & 1) == 0)
   {
@@ -227,7 +227,7 @@
     [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUCustomFormatNumberTokenDelegate.m"), 212, @"Bad token format"}];
   }
 
-  return [self length] - 3;
+  return ([self length] - 3);
 }
 
 + (void)customNumberFormatDecimalTokenDisplayStringWithDigits:()TSUCustomNumberFormatAdditions digitString:

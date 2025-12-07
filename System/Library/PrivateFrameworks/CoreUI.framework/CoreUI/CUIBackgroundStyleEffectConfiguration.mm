@@ -45,9 +45,9 @@
 
 - (BOOL)shouldIgnoreForegroundColor
 {
-  v13.receiver = self;
-  v13.super_class = CUIBackgroundStyleEffectConfiguration;
-  LOBYTE(v3) = [(CUIStyleEffectConfiguration *)&v13 shouldIgnoreForegroundColor];
+  v6.receiver = self;
+  v6.super_class = CUIBackgroundStyleEffectConfiguration;
+  LOBYTE(v3) = [(CUIStyleEffectConfiguration *)&v6 shouldIgnoreForegroundColor];
   if (self->_backgroundType && ![(CUIStyleEffectConfiguration *)self foregroundColorShouldTintEffects])
   {
     v4 = CUIConstantToMapID([(CUIBackgroundStyleEffectConfiguration *)self backgroundType]) - 32;
@@ -58,8 +58,7 @@
 
     else
     {
-      backgroundType = [(CUIBackgroundStyleEffectConfiguration *)self backgroundType];
-      _CUILog(4, "CoreUI: Invalid background type requested: %@", v6, v7, v8, v9, v10, v11, backgroundType);
+      _CUILog(4, "CoreUI: Invalid background type requested: %@", [(CUIBackgroundStyleEffectConfiguration *)self backgroundType]);
     }
   }
 
@@ -71,9 +70,9 @@
   shouldRespectOutputBlending = self->_shouldRespectOutputBlending;
   if (shouldRespectOutputBlending < 0)
   {
-    v14.receiver = self;
-    v14.super_class = CUIBackgroundStyleEffectConfiguration;
-    LOBYTE(v3) = [(CUIStyleEffectConfiguration *)&v14 shouldRespectOutputBlending];
+    v7.receiver = self;
+    v7.super_class = CUIBackgroundStyleEffectConfiguration;
+    LOBYTE(v3) = [(CUIStyleEffectConfiguration *)&v7 shouldRespectOutputBlending];
     if (self->_backgroundType)
     {
       v5 = CUIConstantToMapID([(CUIBackgroundStyleEffectConfiguration *)self backgroundType]) - 32;
@@ -84,8 +83,7 @@
 
       else
       {
-        backgroundType = [(CUIBackgroundStyleEffectConfiguration *)self backgroundType];
-        _CUILog(4, "CoreUI: Invalid background type requested: %@", v7, v8, v9, v10, v11, v12, backgroundType);
+        _CUILog(4, "CoreUI: Invalid background type requested: %@", [(CUIBackgroundStyleEffectConfiguration *)self backgroundType]);
       }
     }
   }

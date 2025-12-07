@@ -4,8 +4,11 @@
 - (TransceiverWrapper)initWithTransceiver:(id)transceiver;
 - (id)transceive:(id)transceive error:(id *)error;
 - (id)transceiveAndCheckSW:(id)w inArray:(id)array keepingSW:(BOOL)sW error:(id *)error;
+- (id)transceiveAndGetAllData:(id)data withGetMoreData:(id)moreData withMoreDataSW:(unsigned __int16)w withError:(id *)error;
 - (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length error:(id *)error;
 - (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length inArray:(id)array error:(id *)error;
+- (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length inArray:(id)array keepingSW:(BOOL)sW error:(id *)error;
+- (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length keepingSW:(BOOL)sW error:(id *)error;
 - (void)dumpAPDUs:(id)us;
 @end
 
@@ -38,11 +41,11 @@
 
 - (id)transceive:(id)transceive error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   transceiveCopy = transceive;
-  v13 = 62;
-  v14 = &v13;
-  v15 = 1;
+  v12 = 62;
+  v13 = &v12;
+  v14 = 1;
   bytes = [transceiveCopy bytes];
   if ([transceiveCopy length] <= 0x300)
   {
@@ -54,8 +57,8 @@
     v7 = 768;
   }
 
-  v17 = v7;
-  CircularBufferAddScattered(&self->_circbuff->var0, &v14, 2);
+  v16 = v7;
+  CircularBufferAddScattered(&self->_circbuff->var0, &v13, 2);
   transceiver = self->_transceiver;
   if (self->_isMultiOS)
   {
@@ -70,15 +73,13 @@
   v10 = v9;
   if (v9)
   {
-    v13 = 60;
-    v14 = &v13;
-    v15 = 1;
+    v12 = 60;
+    v13 = &v12;
+    v14 = 1;
     bytes = [v9 bytes];
-    v17 = [v10 length];
-    CircularBufferAddScattered(&self->_circbuff->var0, &v14, 2);
+    v16 = [v10 length];
+    CircularBufferAddScattered(&self->_circbuff->var0, &v13, 2);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -96,11 +97,10 @@
   CircularBufferDump(&circbuff->var0, v7);
 }
 
-uint64_t __32__TransceiverWrapper_dumpAPDUs___block_invoke(uint64_t result, int a2, char *a3)
+uint64_t __32__TransceiverWrapper_dumpAPDUs___block_invoke(uint64_t result, int a2)
 {
   if (a2)
   {
-    v3 = *a3;
     return (*(*(result + 32) + 16))();
   }
 
@@ -125,56 +125,76 @@ uint64_t __32__TransceiverWrapper_dumpAPDUs___block_invoke(uint64_t result, int 
   return v13;
 }
 
+- (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length keepingSW:(BOOL)sW error:(id *)error
+{
+  sWCopy = sW;
+  v9 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:w length:length freeWhenDone:0];
+  v10 = [(TransceiverWrapper *)self transceiveAndCheckSW:v9 inArray:&unk_2843C73E8 keepingSW:sWCopy error:error];
+
+  return v10;
+}
+
+- (id)transceiveBytesAndCheckSW:(const char *)w length:(unint64_t)length inArray:(id)array keepingSW:(BOOL)sW error:(id *)error
+{
+  sWCopy = sW;
+  v12 = MEMORY[0x277CBEA90];
+  arrayCopy = array;
+  v14 = [v12 dataWithBytesNoCopy:w length:length freeWhenDone:0];
+  v15 = [(TransceiverWrapper *)self transceiveAndCheckSW:v14 inArray:arrayCopy keepingSW:sWCopy error:error];
+
+  return v15;
+}
+
 - (id)transceiveAndCheckSW:(id)w inArray:(id)array keepingSW:(BOOL)sW error:(id *)error
 {
   sWCopy = sW;
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v11 = [(TransceiverWrapper *)self transceive:w error:error];
   v12 = v11;
   if (!v11)
   {
-    v16 = ATLLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ATLLogObject(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_ERROR, "nil response", buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_ERROR, "nil response", buf, 2u);
     }
 
-    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"nil response"];
-    v18 = v17;
+    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"nil response"];
+    v19 = v18;
     if (!error)
     {
       goto LABEL_22;
     }
 
-    v19 = *error;
-    v20 = MEMORY[0x277CCA9B8];
+    v20 = *error;
+    v21 = MEMORY[0x277CCA9B8];
     if (*error)
     {
-      v21 = *MEMORY[0x277CCA7E8];
-      v48[0] = *MEMORY[0x277CCA450];
-      v48[1] = v21;
-      v49[0] = v17;
-      v49[1] = v19;
-      v22 = MEMORY[0x277CBEAC0];
-      v23 = v49;
+      v22 = *MEMORY[0x277CCA7E8];
+      v47[0] = *MEMORY[0x277CCA450];
+      v47[1] = v22;
+      v48[0] = v18;
+      v48[1] = v20;
+      v23 = MEMORY[0x277CBEAC0];
       v24 = v48;
-      v25 = 2;
+      v25 = v47;
+      v26 = 2;
     }
 
     else
     {
-      v50 = *MEMORY[0x277CCA450];
-      v51[0] = v17;
-      v22 = MEMORY[0x277CBEAC0];
-      v23 = v51;
-      v24 = &v50;
-      v25 = 1;
+      v49 = *MEMORY[0x277CCA450];
+      v50[0] = v18;
+      v23 = MEMORY[0x277CBEAC0];
+      v24 = v50;
+      v25 = &v49;
+      v26 = 1;
     }
 
-    v37 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:v25];
-    v38 = v20;
+    v37 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:v26];
+    v38 = v21;
     v39 = 4;
     goto LABEL_21;
   }
@@ -186,58 +206,57 @@ uint64_t __32__TransceiverWrapper_dumpAPDUs___block_invoke(uint64_t result, int 
   {
     if (sWCopy)
     {
-      v15 = v12;
+      v16 = v12;
     }
 
     else
     {
-      v15 = [v12 subdataWithRange:{0, objc_msgSend(v12, "length") - 2}];
+      v16 = [v12 subdataWithRange:{0, objc_msgSend(v12, "length") - 2}];
     }
 
-    v36 = v15;
+    v36 = v16;
     goto LABEL_23;
   }
 
-  v26 = ATLLogObject();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v27 = ATLLogObject(v15);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v47 = v12;
-    _os_log_impl(&dword_22EEF5000, v26, OS_LOG_TYPE_ERROR, "Unexpected SW %@", buf, 0xCu);
+    v46 = v12;
+    _os_log_impl(&dword_22EEF5000, v27, OS_LOG_TYPE_ERROR, "Unexpected SW %@", buf, 0xCu);
   }
 
-  v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unexpected SW %@", v12];
-  v18 = v27;
+  v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unexpected SW %@", v12];
+  v19 = v28;
   if (error)
   {
-    v28 = *error;
-    v29 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA450];
+    v29 = *error;
+    v30 = MEMORY[0x277CCA9B8];
     if (*error)
     {
       v31 = *MEMORY[0x277CCA7E8];
-      v42[0] = *MEMORY[0x277CCA450];
-      v42[1] = v31;
-      v43[0] = v27;
-      v43[1] = v28;
+      v41[0] = *MEMORY[0x277CCA450];
+      v41[1] = v31;
+      v42[0] = v28;
+      v42[1] = v29;
       v32 = MEMORY[0x277CBEAC0];
-      v33 = v43;
-      v34 = v42;
+      v33 = v42;
+      v34 = v41;
       v35 = 2;
     }
 
     else
     {
-      v44 = *MEMORY[0x277CCA450];
-      v45 = v27;
+      v43 = *MEMORY[0x277CCA450];
+      v44 = v28;
       v32 = MEMORY[0x277CBEAC0];
-      v33 = &v45;
-      v34 = &v44;
+      v33 = &v44;
+      v34 = &v43;
       v35 = 1;
     }
 
     v37 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:v35];
-    v38 = v29;
+    v38 = v30;
     v39 = 5;
 LABEL_21:
     *error = [v38 errorWithDomain:@"ATL" code:v39 userInfo:v37];
@@ -248,35 +267,92 @@ LABEL_22:
   v36 = 0;
 LABEL_23:
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v36;
+}
+
+- (id)transceiveAndGetAllData:(id)data withGetMoreData:(id)moreData withMoreDataSW:(unsigned __int16)w withError:(id *)error
+{
+  wCopy = w;
+  v23[2] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  moreDataCopy = moreData;
+  v23[0] = &unk_2843C6C08;
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:wCopy];
+  v23[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+
+  v14 = [(TransceiverWrapper *)self transceiveAndCheckSW:dataCopy inArray:v13 keepingSW:1 error:error];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = MEMORY[0x277CBEB28];
+    v17 = [v14 subdataWithRange:{0, objc_msgSend(v14, "length") - 2}];
+    v18 = [v16 dataWithData:v17];
+
+    if (GetSW(v15) == wCopy)
+    {
+      while (1)
+      {
+        v19 = [(TransceiverWrapper *)self transceiveAndCheckSW:moreDataCopy inArray:v13 keepingSW:1 error:error];
+
+        if (!v19)
+        {
+          break;
+        }
+
+        v20 = [v19 subdataWithRange:{0, objc_msgSend(v19, "length") - 2}];
+        [v18 appendData:v20];
+
+        v15 = v19;
+        if (GetSW(v19) != wCopy)
+        {
+          goto LABEL_8;
+        }
+      }
+
+      v21 = 0;
+    }
+
+    else
+    {
+      v19 = v15;
+LABEL_8:
+      v21 = v18;
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  return v21;
 }
 
 - (BOOL)applyScript:(id)script ignoreSW:(BOOL)w error:(id *)error
 {
   wCopy = w;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   scriptCopy = script;
-  v9 = [scriptCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [scriptCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(scriptCopy);
         }
 
-        v13 = [MEMORY[0x277CBEA90] dataWithHexString:{*(*(&v19 + 1) + 8 * i), v19}];
+        v13 = [MEMORY[0x277CBEA90] dataWithHexString:{*(*(&v18 + 1) + 8 * i), v18}];
         if (wCopy)
         {
           v14 = [(TransceiverWrapper *)self transceive:v13 error:0];
@@ -294,7 +370,7 @@ LABEL_23:
         }
       }
 
-      v10 = [scriptCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [scriptCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -307,7 +383,6 @@ LABEL_23:
   v16 = 1;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

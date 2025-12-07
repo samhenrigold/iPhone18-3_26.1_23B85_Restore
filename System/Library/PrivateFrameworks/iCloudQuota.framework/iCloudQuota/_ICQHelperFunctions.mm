@@ -3,6 +3,7 @@
 + (BOOL)defaultKeyExists:(id)exists;
 + (BOOL)isBackupEnabledForAccount:(id)account accountStore:(id)store;
 + (BOOL)isPhotosLibraryIncludedInBackupForAccount:(id)account;
++ (BOOL)shouldDisplay:(id)display forReason:(id)reason dismissedInSession:(BOOL)session supressUntil:(double)until;
 + (BOOL)userDefaultsBoolValueForKey:(id)key;
 + (id)_darwinNotificationNameForRequestType:(int64_t)type;
 + (id)_fetchNextBackupSize:(id)size;
@@ -32,6 +33,7 @@
 + (void)bubbleBannerTrackLastDismissed:(id)dismissed forReason:(id)reason;
 + (void)getOriginalPhotosSizeWithCompletion:(id)completion;
 + (void)remoteBackupSizeForAccount:(id)account timeoutInSeconds:(double)seconds completion:(id)completion;
++ (void)setUserDefaultsBool:(BOOL)bool forKey:(id)key;
 + (void)setUserDefaultsObject:(id)object forKey:(id)key;
 @end
 
@@ -39,30 +41,30 @@
 
 + (id)replaceWordsIn:(id)in with:(id)with
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   inCopy = in;
   withCopy = with;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [withCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [withCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       v11 = inCopy;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(withCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v10);
+        v12 = *(*(&v15 + 1) + 8 * v10);
         v13 = [withCopy objectForKey:v12];
         inCopy = [v11 stringByReplacingOccurrencesOfString:v12 withString:v13];
 
@@ -71,13 +73,11 @@
       }
 
       while (v8 != v10);
-      v8 = [withCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [withCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return inCopy;
 }
@@ -86,28 +86,16 @@
 {
   keyCopy = key;
   templatesCopy = templates;
-  v7 = [templatesCopy objectForKeyedSubscript:keyCopy];
+  objc_msgSend_objectForKeyedSubscript_(templatesCopy);
 
-  if (v7)
-  {
-    v8 = templatesCopy;
-    v9 = keyCopy;
-  }
+  v7 = objc_msgSend_objectForKeyedSubscript_(templatesCopy);
 
-  else
-  {
-    v9 = @"default";
-    v8 = templatesCopy;
-  }
-
-  v10 = [v8 objectForKeyedSubscript:v9];
-
-  return v10;
+  return v7;
 }
 
 + (id)findPlaceholdersInString:(id)string
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy containsString:@"%$"])
   {
@@ -115,33 +103,33 @@
     v5 = [stringCopy componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
-          if ([v12 hasPrefix:{@"%$", v16}])
+          v12 = *(*(&v15 + 1) + 8 * i);
+          if ([v12 hasPrefix:{@"%$", v15}])
           {
             [v6 addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -155,9 +143,16 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
++ (void)setUserDefaultsBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v5 = MEMORY[0x277CBEBD0];
+  keyCopy = key;
+  standardUserDefaults = [v5 standardUserDefaults];
+  [standardUserDefaults setBool:boolCopy forKey:keyCopy];
 }
 
 + (BOOL)userDefaultsBoolValueForKey:(id)key
@@ -263,7 +258,7 @@
 
 + (id)defaultStringValueForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [_ICQHelperFunctions defaultValueForKey:keyCopy];
   objc_opt_class();
@@ -279,67 +274,63 @@
       v6 = _ICQGetLogSystem();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412290;
-        v10 = keyCopy;
-        _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "defaults key %@ is not of correct type", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = keyCopy;
+        _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "defaults key %@ is not of correct type", &v8, 0xCu);
       }
     }
 
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (id)parseTemplates:(id)templates
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = templatesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v11 = [v10 objectForKeyedSubscript:{@"format", v18}];
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v11 = objc_msgSend_objectForKeyedSubscript_(v10, v17);
         if (v11)
         {
           v12 = v11;
-          v13 = [v10 objectForKeyedSubscript:@"key"];
+          v13 = objc_msgSend_objectForKeyedSubscript_(v10);
 
           if (v13)
           {
-            v14 = [v10 objectForKeyedSubscript:@"format"];
-            v15 = [v10 objectForKeyedSubscript:@"key"];
+            v14 = objc_msgSend_objectForKeyedSubscript_(v10);
+            v15 = objc_msgSend_objectForKeyedSubscript_(v10);
             [v4 setObject:v14 forKey:v15];
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -394,7 +385,7 @@
 
 + (BOOL)_checkOptions:(id)options forKey:(id)key
 {
-  v4 = [options objectForKeyedSubscript:key];
+  v4 = objc_msgSend_objectForKeyedSubscript_(options, a2, key);
   v5 = v4;
   if (v4)
   {
@@ -585,84 +576,81 @@ LABEL_6:
 
 + (id)usedCapacityForVolume:(id)volume
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   v4 = ICQUsedDiskSpaceForVolume(volumeCopy);
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:volumeCopy];
-  v6 = *MEMORY[0x277CBEA00];
-  v7 = *MEMORY[0x277CBE9F0];
-  v33[0] = *MEMORY[0x277CBEA00];
-  v33[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
-  v26 = 0;
-  v9 = [v5 resourceValuesForKeys:v8 error:&v26];
-  v10 = v26;
+  v6 = *MEMORY[0x277CBE9F0];
+  v31[0] = *MEMORY[0x277CBEA00];
+  v31[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v24 = 0;
+  v8 = [v5 resourceValuesForKeys:v7 error:&v24];
+  v9 = v24;
 
-  if (v9)
+  if (v8)
   {
-    v11 = [v9 objectForKeyedSubscript:v6];
-    v12 = [v9 objectForKeyedSubscript:v7];
-    unsignedLongLongValue = [v11 unsignedLongLongValue];
-    if (unsignedLongLongValue <= [v12 unsignedLongLongValue])
+    v10 = objc_msgSend_objectForKeyedSubscript_(v8);
+    v11 = objc_msgSend_objectForKeyedSubscript_(v8);
+    unsignedLongLongValue = [v10 unsignedLongLongValue];
+    if (unsignedLongLongValue <= [v11 unsignedLongLongValue])
     {
-      unsignedLongLongValue2 = [v12 unsignedLongLongValue];
-      v14 = unsignedLongLongValue2 - [v11 unsignedLongLongValue];
-      if (v14 > v4)
+      unsignedLongLongValue2 = [v11 unsignedLongLongValue];
+      v13 = unsignedLongLongValue2 - [v10 unsignedLongLongValue];
+      if (v13 > v4)
       {
-        v18 = _ICQGetLogSystem();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = _ICQGetLogSystem();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
-          v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
+          v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
+          v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
           *buf = 138543874;
-          v28 = volumeCopy;
+          v26 = volumeCopy;
+          v27 = 2114;
+          v28 = v22;
           v29 = 2114;
-          v30 = v24;
-          v31 = 2114;
-          v32 = v25;
-          _os_log_error_impl(&dword_275572000, v18, OS_LOG_TYPE_ERROR, "Somehow reclaimable space is bigger than used space for %{public}@: %{public}@, %{public}@", buf, 0x20u);
+          v30 = v23;
+          _os_log_error_impl(&dword_275572000, v17, OS_LOG_TYPE_ERROR, "Somehow reclaimable space is bigger than used space for %{public}@: %{public}@, %{public}@", buf, 0x20u);
         }
 
-        v19 = MEMORY[0x277CCABB0];
-        v20 = v4;
+        v18 = MEMORY[0x277CCABB0];
+        v19 = v4;
         goto LABEL_12;
       }
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v19 = MEMORY[0x277CCABB0];
-    v20 = v4 - v14;
+    v18 = MEMORY[0x277CCABB0];
+    v19 = v4 - v13;
 LABEL_12:
-    v16 = [v19 numberWithUnsignedLongLong:v20];
-    v21 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v15 = [v18 numberWithUnsignedLongLong:v19];
+    v20 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v28 = volumeCopy;
-      v29 = 2114;
-      v30 = v16;
-      _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "Used Capacity on %{public}@: %{public}@", buf, 0x16u);
+      v26 = volumeCopy;
+      v27 = 2114;
+      v28 = v15;
+      _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "Used Capacity on %{public}@: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_15;
   }
 
-  v15 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     +[_ICQHelperFunctions usedCapacityForVolume:];
   }
 
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
 LABEL_15:
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 + (void)remoteBackupSizeForAccount:(id)account timeoutInSeconds:(double)seconds completion:(id)completion
@@ -710,12 +698,12 @@ LABEL_15:
 
 + (id)_fetchNextBackupSize:(id)size
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   dispatch_assert_queue_not_V2(MEMORY[0x277D85CD0]);
-  v27 = 0;
-  v4 = [sizeCopy getBackupListWithError:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [sizeCopy getBackupListWithError:&v26];
+  v5 = v26;
   backupDeviceUUID = [sizeCopy backupDeviceUUID];
   if (v5)
   {
@@ -726,25 +714,25 @@ LABEL_15:
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v35 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         backupUUID = [v12 backupUUID];
         v14 = [backupUUID isEqualToString:backupDeviceUUID];
 
@@ -755,7 +743,7 @@ LABEL_15:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v36 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v35 count:16];
       if (v9)
       {
         continue;
@@ -774,21 +762,19 @@ LABEL_15:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v29 = v8;
-    v30 = 2112;
-    v31 = backupDeviceUUID;
-    v32 = 2112;
-    v33 = v9;
-    v34 = 2112;
-    v35 = v16;
+    v28 = v8;
+    v29 = 2112;
+    v30 = backupDeviceUUID;
+    v31 = 2112;
+    v32 = v9;
+    v33 = 2112;
+    v34 = v16;
     _os_log_debug_impl(&dword_275572000, v17, OS_LOG_TYPE_DEBUG, "Backups array %@, current device uuid %@, matchingBackup %@, available snapshots %@", buf, 0x2Au);
   }
 
   v18 = MEMORY[0x277CCABB0];
   lastObject = [v16 lastObject];
   v20 = [v18 numberWithLongLong:{objc_msgSend(lastObject, "estimatedRestoreSize")}];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -807,7 +793,7 @@ LABEL_15:
 
 + (id)dictionaryForKey:(id)key from:(id)from
 {
-  v4 = [from objectForKeyedSubscript:key];
+  v4 = objc_msgSend_objectForKeyedSubscript_(from, a2, key);
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v5 = v4;
@@ -823,7 +809,7 @@ LABEL_15:
 
 + (id)numberForKey:(id)key from:(id)from
 {
-  v4 = [from objectForKeyedSubscript:key];
+  v4 = objc_msgSend_objectForKeyedSubscript_(from, a2, key);
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v5 = v4;
@@ -893,6 +879,28 @@ LABEL_15:
   }
 }
 
++ (BOOL)shouldDisplay:(id)display forReason:(id)reason dismissedInSession:(BOOL)session supressUntil:(double)until
+{
+  sessionCopy = session;
+  displayCopy = display;
+  reasonCopy = reason;
+  defaultStore = [MEMORY[0x277CB8F48] defaultStore];
+  aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
+
+  if (aa_primaryAppleAccount)
+  {
+    v13 = +[ICQBubbleBannerTracker shared];
+    v14 = [v13 account:aa_primaryAppleAccount shouldDisplay:displayCopy forReason:reasonCopy dismissedInSession:sessionCopy supressUntil:until];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
+}
+
 + (id)lastUpdatedForReason:(id)reason decayUntil:(double)until
 {
   reasonCopy = reason;
@@ -915,36 +923,32 @@ LABEL_15:
 
 + (void)userDefaultsDictionaryForKey:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "Could not find a dictionary at key %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "Could not find a dictionary at key %@", v1, 0xCu);
 }
 
 + (void)userDefaultsStringForKey:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "Could not find a string at key %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_275572000, v0, OS_LOG_TYPE_DEBUG, "Could not find a string at key %@", v1, 0xCu);
 }
 
 + (void)usedCapacityForVolume:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_275572000, v1, OS_LOG_TYPE_ERROR, "Failed to get resource values for %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_275572000, v1, OS_LOG_TYPE_ERROR, "Failed to get resource values for %@: %@", v2, 0x16u);
 }
 
 + (void)_fetchNextBackupSize:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_275572000, v0, OS_LOG_TYPE_ERROR, "Unable to retrieve remote backup info: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_275572000, v0, OS_LOG_TYPE_ERROR, "Unable to retrieve remote backup info: %@", v1, 0xCu);
 }
 
 @end

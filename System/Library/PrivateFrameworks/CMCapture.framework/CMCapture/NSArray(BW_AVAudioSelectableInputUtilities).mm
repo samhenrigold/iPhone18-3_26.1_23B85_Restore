@@ -13,46 +13,46 @@
     return 0;
   }
 
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v2 = [self countByEnumeratingWithState:&v11 objects:v10 count:16];
-  if (!v2)
+  v13 = 0u;
+  v3 = [self countByEnumeratingWithState:&v12 objects:v11 count:16];
+  if (!v3)
   {
     return 0;
   }
 
-  v3 = v2;
-  v4 = *v12;
-  v5 = *MEMORY[0x1E69B0648];
+  v4 = v3;
+  v5 = *v13;
+  v6 = *MEMORY[0x1E69B0648];
 LABEL_4:
-  v6 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v12 != v4)
+    if (*v13 != v5)
     {
       objc_enumerationMutation(self);
     }
 
-    v7 = *(*(&v11 + 1) + 8 * v6);
+    v8 = *(*(&v12 + 1) + 8 * v7);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = [v7 objectForKeyedSubscript:v5];
-      if (v8)
+      v9 = [v8 objectForKeyedSubscript:v6];
+      if (v9)
       {
-        if ([v8 isEqualToString:@"MicrophoneBuiltIn"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
-          return v7;
+          return v8;
         }
       }
     }
 
-    if (v3 == ++v6)
+    if (v4 == ++v7)
     {
-      v3 = [self countByEnumeratingWithState:&v11 objects:v10 count:16];
-      if (v3)
+      v4 = [self countByEnumeratingWithState:&v12 objects:v11 count:16];
+      if (v4)
       {
         goto LABEL_4;
       }
@@ -66,13 +66,13 @@ LABEL_4:
 {
   if (!a3)
   {
-    +[NSArray(BW_AVAudioSelectableInputUtilities) bw_selectedInputsArrayForBuiltInMicRouteDictionary:dataSource:polarPattern:];
+    [(NSArray(BW_AVAudioSelectableInputUtilities) *)self bw_selectedInputsArrayForBuiltInMicRouteDictionary:a2 dataSource:0 polarPattern:a4, a5];
     return 0;
   }
 
   if (!a4)
   {
-    +[NSArray(BW_AVAudioSelectableInputUtilities) bw_selectedInputsArrayForBuiltInMicRouteDictionary:dataSource:polarPattern:];
+    [NSArray(BW_AVAudioSelectableInputUtilities) bw_selectedInputsArrayForBuiltInMicRouteDictionary:self dataSource:a2 polarPattern:?];
     return 0;
   }
 
@@ -116,34 +116,6 @@ LABEL_4:
   }
 
   return [MEMORY[0x1E695DEC8] arrayWithObjects:{v13, v14, 0}];
-}
-
-+ (uint64_t)bw_selectedInputsArrayForBuiltInMicRouteDictionary:()BW_AVAudioSelectableInputUtilities dataSource:polarPattern:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)bw_selectedInputsArrayForBuiltInMicRouteDictionary:()BW_AVAudioSelectableInputUtilities dataSource:polarPattern:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)bw_selectedInputsArrayForBuiltInMicRouteDictionary:()BW_AVAudioSelectableInputUtilities dataSource:polarPattern:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)bw_selectedInputsArrayForBuiltInMicRouteDictionary:()BW_AVAudioSelectableInputUtilities dataSource:polarPattern:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

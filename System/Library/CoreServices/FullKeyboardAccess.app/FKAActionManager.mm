@@ -10,9 +10,12 @@
 - (BOOL)shouldRepostForKeyChord:(id)chord;
 - (CGPoint)_pointForGestures;
 - (CGPoint)_pointForGesturesForElement:(id)element;
+- (CGRect)_referenceBoundsForDisplayId:(unsigned int)id;
 - (FKAActionManager)init;
 - (FKAActionManagerDelegate)delegate;
 - (id)gestureViewController;
+- (void)_moveFocusInsideForward:(BOOL)forward;
+- (void)_moveFocusWithHeading:(unint64_t)heading byGroup:(BOOL)group;
 - (void)activateAccessibilityShortcut;
 - (void)activateSOS;
 - (void)activateSiri;
@@ -973,6 +976,27 @@ LABEL_28:
   return currentFocusElement2;
 }
 
+- (void)_moveFocusWithHeading:(unint64_t)heading byGroup:(BOOL)group
+{
+  groupCopy = group;
+  focusManager = [(FKAActionManager *)self focusManager];
+  [focusManager moveFocusWithHeading:heading byGroup:groupCopy];
+
+  [(FKAActionManager *)self setShouldAvoidRepostingTextInput:1];
+}
+
+- (void)_moveFocusInsideForward:(BOOL)forward
+{
+  forwardCopy = forward;
+  focusManager = [(FKAActionManager *)self focusManager];
+  [focusManager moveFocusInsideForward:forwardCopy];
+
+  delegate = [(FKAActionManager *)self delegate];
+  [delegate didMoveToInnerElementForActionManager:self];
+
+  [(FKAActionManager *)self setShouldAvoidRepostingTextInput:1];
+}
+
 - (void)moveFocusWithHeading:(unint64_t)heading queryString:(id)string
 {
   stringCopy = string;
@@ -1309,6 +1333,64 @@ LABEL_7:
   v54 = v17;
   result.y = v54;
   result.x = v53;
+  return result;
+}
+
+- (CGRect)_referenceBoundsForDisplayId:(unsigned int)id
+{
+  v3 = *&id;
+  if (qword_1000314E8 != -1)
+  {
+    sub_100014410();
+  }
+
+  v4 = qword_1000314E0;
+  v5 = [NSNumber numberWithUnsignedInt:v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+
+  if (v6)
+  {
+    v7 = qword_1000314E0;
+    v8 = [NSNumber numberWithUnsignedInt:v3];
+    v9 = [v7 objectForKeyedSubscript:v8];
+    v29 = CGRectFromString(v9);
+    x = v29.origin.x;
+    y = v29.origin.y;
+    width = v29.size.width;
+    height = v29.size.height;
+  }
+
+  else
+  {
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x4010000000;
+    v26 = &unk_10001B635;
+    size = CGRectZero.size;
+    origin = CGRectZero.origin;
+    v28 = size;
+    LODWORD(v22) = v3;
+    AXPerformSafeBlock();
+    v15 = NSStringFromCGRect(v24[1]);
+    v16 = qword_1000314E0;
+    v17 = [NSNumber numberWithUnsignedInt:v3, _NSConcreteStackBlock, 3221225472, sub_10000996C, &unk_100028868, &v23, v22];
+    [v16 setObject:v15 forKeyedSubscript:v17];
+
+    x = v24[1].origin.x;
+    y = v24[1].origin.y;
+    width = v24[1].size.width;
+    height = v24[1].size.height;
+    _Block_object_dispose(&v23, 8);
+  }
+
+  v18 = x;
+  v19 = y;
+  v20 = width;
+  v21 = height;
+  result.size.height = v21;
+  result.size.width = v20;
+  result.origin.y = v19;
+  result.origin.x = v18;
   return result;
 }
 

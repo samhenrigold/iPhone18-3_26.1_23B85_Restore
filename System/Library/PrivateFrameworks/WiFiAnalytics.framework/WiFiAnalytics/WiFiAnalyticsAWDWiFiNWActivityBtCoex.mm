@@ -555,12 +555,11 @@ LABEL_19:
 {
   toCopy = to;
   has = self->_has;
-  v23 = toCopy;
+  v6 = toCopy;
   if ((*&has & 0x800) != 0)
   {
-    request = self->_request;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v6;
     has = self->_has;
     if ((*&has & 0x100) == 0)
     {
@@ -579,9 +578,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  grant = self->_grant;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -595,9 +593,8 @@ LABEL_4:
   }
 
 LABEL_26:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -611,9 +608,8 @@ LABEL_5:
   }
 
 LABEL_27:
-  btabort = self->_btabort;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -627,9 +623,8 @@ LABEL_6:
   }
 
 LABEL_28:
-  psnullretrycount = self->_psnullretrycount;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -643,9 +638,8 @@ LABEL_7:
   }
 
 LABEL_29:
-  ucodehighlatency = self->_ucodehighlatency;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -659,9 +653,8 @@ LABEL_8:
   }
 
 LABEL_30:
-  cts = self->_cts;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -675,9 +668,8 @@ LABEL_9:
   }
 
 LABEL_31:
-  pm = self->_pm;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -691,9 +683,8 @@ LABEL_10:
   }
 
 LABEL_32:
-  wlantxpreempt = self->_wlantxpreempt;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -707,9 +698,8 @@ LABEL_11:
   }
 
 LABEL_33:
-  wlanrxpreempt = self->_wlanrxpreempt;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 4) == 0)
   {
@@ -723,9 +713,8 @@ LABEL_12:
   }
 
 LABEL_34:
-  aptxafterpm = self->_aptxafterpm;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -739,9 +728,8 @@ LABEL_13:
   }
 
 LABEL_35:
-  audiogrant = self->_audiogrant;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 8) == 0)
   {
@@ -755,9 +743,8 @@ LABEL_14:
   }
 
 LABEL_36:
-  audiodeny = self->_audiodeny;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -771,9 +758,8 @@ LABEL_15:
   }
 
 LABEL_37:
-  a2dpgrant = self->_a2dpgrant;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -787,9 +773,8 @@ LABEL_16:
   }
 
 LABEL_38:
-  a2dpdeny = self->_a2dpdeny;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -803,22 +788,20 @@ LABEL_17:
   }
 
 LABEL_39:
-  sniffgrant = self->_sniffgrant;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v6;
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_18:
-    sniffdeny = self->_sniffdeny;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v6;
   }
 
 LABEL_19:
   if (self->_btrequestReason)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v23;
+    toCopy = v6;
   }
 }
 

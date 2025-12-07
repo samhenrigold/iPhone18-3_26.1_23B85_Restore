@@ -6,7 +6,7 @@
 
 + (id)prehashDataWithMessageData:(id)data publicKey:(id)key context:(id)context
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   keyCopy = key;
   contextCopy = context;
@@ -44,7 +44,7 @@ LABEL_7:
         if (contextCopy)
         {
           [contextCopy bytes];
-          v19[0] = v19;
+          v18[0] = v18;
           [contextCopy length];
           v15 = ccmldsa_prehash_with_context();
         }
@@ -73,8 +73,6 @@ LABEL_7:
 
   v12 = 0;
 LABEL_17:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

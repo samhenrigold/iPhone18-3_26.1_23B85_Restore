@@ -106,9 +106,10 @@ void __57__AXSpeakScreenController_setSpeakThisEnabled_specifier___block_invoke(
 {
   v3 = +[AXSettings sharedInstance];
   [v3 speechControllerIdleOpacity];
-  v4 = AXFormatFloatWithPercentage();
+  *&v4 = v4;
+  v5 = AXFormatFloatWithPercentage(*&v4);
 
-  return v4;
+  return v5;
 }
 
 - (id)highlightWord:(id)word

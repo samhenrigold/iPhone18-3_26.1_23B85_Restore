@@ -49,7 +49,7 @@
   v12 = objc_msgSend_processor(pipelineCopy, v7, v8, v9, v10);
   if (cameraCopy)
   {
-    objc_msgSend_projection(cameraCopy, v11, v13, v14, v15);
+    objc_msgSend_projection(cameraCopy, v13, v14, v15);
   }
 
   else
@@ -66,7 +66,7 @@
   v22 = objc_msgSend_processor(pipelineCopy, v17, v18, v19, v20);
   if (cameraCopy)
   {
-    objc_msgSend_space(cameraCopy, v21, v23, v24, v25);
+    objc_msgSend_space(cameraCopy, v23, v24, v25);
   }
 
   else

@@ -39,7 +39,7 @@
 
 - (id)performTask
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -52,9 +52,9 @@
     v5 = objc_opt_class();
     v6 = AMSLogKey();
     *buf = 138543618;
-    v32 = v5;
-    v33 = 2114;
-    v34 = v6;
+    v30 = v5;
+    v31 = 2114;
+    v32 = v6;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running AMSUICardOnFilePVTFetchTask", buf, 0x16u);
   }
 
@@ -65,28 +65,27 @@
   ams_activeiTunesAccount = [v7 ams_activeiTunesAccount];
   v12 = [v8 _accountToUseFromGivenAccount:originalAccount accountParameters:accountParameters activeiTunesAccount:ams_activeiTunesAccount];
 
-  v37 = @"AMSUICardOnFilePVTPreconditionsNotMet";
-  v38[0] = MEMORY[0x1E695E118];
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v35 = @"AMSUICardOnFilePVTPreconditionsNotMet";
+  v36[0] = MEMORY[0x1E695E118];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
   if (v12)
   {
     v14 = [objc_alloc(MEMORY[0x1E698C800]) initWithAccount:v12 forSignaturePurpose:1];
     perform = [v14 perform];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke;
-    v27[3] = &unk_1E7F248A0;
-    v28 = v13;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke;
+    v25[3] = &unk_1E7F248A0;
+    v26 = v13;
     selfCopy = self;
-    v30 = v12;
-    v16 = [perform continueWithPromiseBlock:v27];
+    v28 = v12;
+    v16 = [perform continueWithPromiseBlock:v25];
 
-    metrics = v28;
+    metrics = v26;
   }
 
   else
   {
-    v18 = *MEMORY[0x1E698C548];
     v14 = AMSCustomError();
     mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
     if (!mEMORY[0x1E698C968]2)
@@ -97,14 +96,14 @@
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v21 = objc_opt_class();
-      v22 = AMSLogKey();
+      v20 = objc_opt_class();
+      v21 = AMSLogKey();
       *buf = 138543874;
+      v30 = v20;
+      v31 = 2114;
       v32 = v21;
       v33 = 2114;
-      v34 = v22;
-      v35 = 2114;
-      v36 = v14;
+      v34 = v14;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] %{public}@", buf, 0x20u);
     }
 
@@ -113,67 +112,60 @@
     [metrics setDisplayReason:@"Active iTunes account mismatch"];
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke_27;
-  v26[3] = &unk_1E7F248C8;
-  v26[4] = self;
-  v23 = [v16 continueWithBlock:v26];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke_27;
+  v24[3] = &unk_1E7F248C8;
+  v24[4] = self;
+  v22 = [v16 continueWithBlock:v24];
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 id __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v4 = *MEMORY[0x1E698C548];
-    v5 = *(a1 + 32);
-    v6 = AMSCustomError();
-    v7 = [MEMORY[0x1E698C968] sharedConfig];
-    if (!v7)
+    v4 = AMSCustomError();
+    v5 = [MEMORY[0x1E698C968] sharedConfig];
+    if (!v5)
     {
-      v7 = [MEMORY[0x1E698C968] sharedConfig];
+      v5 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v8 = [v7 OSLogObject];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [v5 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 40);
-      v10 = objc_opt_class();
-      v11 = AMSLogKey();
-      v16 = 138543874;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v6;
-      _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] %{public}@", &v16, 0x20u);
+      v7 = objc_opt_class();
+      v8 = AMSLogKey();
+      v12 = 138543874;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v8;
+      v16 = 2114;
+      v17 = v4;
+      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] %{public}@", &v12, 0x20u);
     }
 
-    v12 = [*(a1 + 40) metrics];
-    [v12 setDisplayReason:@"Biometrics for iTunes & App Store not enabled"];
+    v9 = [*(a1 + 40) metrics];
+    [v9 setDisplayReason:@"Biometrics for iTunes & App Store not enabled"];
 
-    v13 = [MEMORY[0x1E698CAD0] promiseWithError:v6];
+    v10 = [MEMORY[0x1E698CAD0] promiseWithError:v4];
   }
 
   else
   {
     [*(a1 + 40) setAccount:*(a1 + 48)];
-    v13 = [*(a1 + 40) _promiseToLoadBooleanURL];
+    v10 = [*(a1 + 40) _promiseToLoadBooleanURL];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v10;
 }
 
 id __42__AMSUICardOnFilePVTFetchTask_performTask__block_invoke_27(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -208,23 +200,20 @@ LABEL_11:
   v12 = [v11 OSLogObject];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v15 = AMSLogKey();
-    v19 = 138543618;
+    v13 = objc_opt_class();
+    v14 = AMSLogKey();
+    v17 = 138543618;
+    v18 = v13;
+    v19 = 2114;
     v20 = v14;
-    v21 = 2114;
-    v22 = v15;
-    _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] User cancelled biometric auth", &v19, 0x16u);
+    _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] User cancelled biometric auth", &v17, 0x16u);
   }
 
   v7 = [*(a1 + 32) _promiseToPromptAfterCancel];
 LABEL_12:
-  v16 = v7;
+  v15 = v7;
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 - (id)_promiseToLoadBooleanURL
@@ -269,7 +258,7 @@ LABEL_12:
 
 id __68__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackBooleanURL___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v4)
@@ -280,71 +269,64 @@ id __68__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackBooleanURL___bloc
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = [v3 object];
+    v6 = objc_opt_class();
+    v7 = AMSLogKey();
+    v8 = [v3 object];
     *buf = 138543874;
-    v22 = v7;
-    v23 = 2114;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v9;
+    v19 = v6;
+    v20 = 2114;
+    v21 = v7;
+    v22 = 2114;
+    v23 = v8;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetched BOOLean url object: %{public}@", buf, 0x20u);
   }
 
-  v10 = [v3 object];
-  v11 = [AMSUIParentalVerificationCore _isCardOnFileOnStack:v10];
+  v9 = [v3 object];
+  v10 = [AMSUIParentalVerificationCore _isCardOnFileOnStack:v9];
 
-  if (v11)
+  if (v10)
   {
-    v12 = [*(a1 + 32) _promiseToPromptBeforeBiometricAuth];
+    v11 = [*(a1 + 32) _promiseToPromptBeforeBiometricAuth];
   }
 
   else
   {
-    v19 = @"AMSUICardOnFilePVTPreconditionsNotMet";
-    v20 = MEMORY[0x1E695E118];
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v14 = *MEMORY[0x1E698C548];
-    v15 = AMSCustomError();
-    v16 = [*(a1 + 32) metrics];
-    [v16 setDisplayReason:@"No Aurum card on file"];
+    v16 = @"AMSUICardOnFilePVTPreconditionsNotMet";
+    v17 = MEMORY[0x1E695E118];
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v13 = AMSCustomError();
+    v14 = [*(a1 + 32) metrics];
+    [v14 setDisplayReason:@"No Aurum card on file"];
 
-    v12 = [MEMORY[0x1E698CAD0] promiseWithError:v15];
+    v11 = [MEMORY[0x1E698CAD0] promiseWithError:v13];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 void __68__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackBooleanURL___block_invoke_39(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Finding card on file failed: %{public}@", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Finding card on file failed: %{public}@", &v7, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_promiseToPromptBeforeBiometricAuth
@@ -435,30 +417,27 @@ id __66__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackTokenURL___block_
 
 void __66__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackTokenURL___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch card on file failed: %{public}@", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch card on file failed: %{public}@", &v7, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_promiseToPromptAfterCancel
@@ -540,7 +519,7 @@ void __66__AMSUICardOnFilePVTFetchTask__promiseToFetchCardOnStackTokenURL___bloc
 
 void __58__AMSUICardOnFilePVTFetchTask__promiseToPromptAfterCancel__block_invoke(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = [a2 selectedActionIdentifier];
   v5 = [v3 locateActionWithIdentifier:v4];
@@ -550,30 +529,27 @@ void __58__AMSUICardOnFilePVTFetchTask__promiseToPromptAfterCancel__block_invoke
 
   if (v7)
   {
-    v8 = *MEMORY[0x1E698C548];
-    v14 = @"biometricsDenied";
-    v15[0] = MEMORY[0x1E695E118];
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    v10 = AMSCustomError();
+    v12 = @"biometricsDenied";
+    v13[0] = MEMORY[0x1E695E118];
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9 = AMSCustomError();
 
-    [*(a1 + 48) finishWithError:v10];
-    v11 = [*(a1 + 56) metrics];
-    [v11 enqueueEventWithTargetId:@"Payment" pageId:@"ContinueNoBiometric" displayReason:0];
+    [*(a1 + 48) finishWithError:v9];
+    v10 = [*(a1 + 56) metrics];
+    [v10 enqueueEventWithTargetId:@"Payment" pageId:@"ContinueNoBiometric" displayReason:0];
   }
 
   else
   {
     [*(a1 + 48) finishWithResult:@"User opted to not cancel biometric auth"];
-    v12 = [*(a1 + 56) metrics];
-    [v12 enqueueEventWithTargetId:@"Biometric" pageId:@"ContinueNoBiometric" displayReason:0];
+    v11 = [*(a1 + 56) metrics];
+    [v11 enqueueEventWithTargetId:@"Biometric" pageId:@"ContinueNoBiometric" displayReason:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_accountToUseFromGivenAccount:(id)account accountParameters:(id)parameters activeiTunesAccount:(id)tunesAccount
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   tunesAccountCopy = tunesAccount;
   parametersCopy = parameters;
@@ -595,21 +571,21 @@ void __58__AMSUICardOnFilePVTFetchTask__promiseToPromptAfterCancel__block_invoke
   {
     v17 = objc_opt_class();
     AMSLogKey();
-    v18 = v23 = v12;
+    v18 = v22 = v12;
     ams_altDSID3 = [accountCopy ams_altDSID];
     *buf = 138544386;
-    v25 = v17;
-    v26 = 2114;
-    v27 = v18;
-    v28 = 2114;
-    v29 = ams_altDSID;
-    v30 = 2114;
-    v31 = ams_altDSID3;
-    v32 = 2114;
-    v33 = v13;
+    v24 = v17;
+    v25 = 2114;
+    v26 = v18;
+    v27 = 2114;
+    v28 = ams_altDSID;
+    v29 = 2114;
+    v30 = ams_altDSID3;
+    v31 = 2114;
+    v32 = v13;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Active iTunes: %{public}@, provided account: %{public}@, provided parameters: %{public}@", buf, 0x34u);
 
-    v12 = v23;
+    v12 = v22;
   }
 
   if ((v12 | v14))
@@ -621,8 +597,6 @@ void __58__AMSUICardOnFilePVTFetchTask__promiseToPromptAfterCancel__block_invoke
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

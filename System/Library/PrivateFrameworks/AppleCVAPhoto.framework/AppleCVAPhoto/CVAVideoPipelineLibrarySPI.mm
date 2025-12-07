@@ -1,6 +1,7 @@
 @interface CVAVideoPipelineLibrarySPI
 + (BOOL)updateRequestWithLiveData:(id)data mattingRequest:(id)request faceKitProcessOutput:(id)output error:(id *)error;
 + (id)identifyGPU:(id)u;
++ (id)portraitRequestWithBackground:(id)background light:(id)light post:(id)post isTmpConfig:(BOOL)config error:(id *)error;
 @end
 
 @implementation CVAVideoPipelineLibrarySPI
@@ -96,6 +97,15 @@ LABEL_14:
   }
 
   return isKindOfClass & 1;
+}
+
++ (id)portraitRequestWithBackground:(id)background light:(id)light post:(id)post isTmpConfig:(BOOL)config error:(id *)error
+{
+  configCopy = config;
+  v8 = [CVAVideoPipelineLibrary portraitRequestWithBackground:background light:light post:post error:error];
+  [v8 setIsTmpConfig:configCopy];
+
+  return v8;
 }
 
 @end

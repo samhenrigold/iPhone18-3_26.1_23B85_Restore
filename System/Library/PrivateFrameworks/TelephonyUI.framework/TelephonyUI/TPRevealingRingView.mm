@@ -9,7 +9,6 @@
 - (void)_calculateOuter:(CGRect *)outer inner:(CGRect *)inner newXOffset:(double *)offset newYOffset:(double *)yOffset withScale:(double)scale;
 - (void)_computeInnerViewDrawingPropertiesWithScale:(double)scale;
 - (void)_computeOuterViewDrawingPropertiesWithScale:(double)scale;
-- (void)_evaluateCircularness;
 - (void)layoutSubviews;
 - (void)setAlphaInsideRing:(double)ring;
 - (void)setColorInsideRing:(id)ring;
@@ -38,9 +37,9 @@
   bottom = ring.bottom;
   left = ring.left;
   top = ring.top;
-  v23.receiver = self;
-  v23.super_class = TPRevealingRingView;
-  v8 = [(TPRevealingRingView *)&v23 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v25.receiver = self;
+  v25.super_class = TPRevealingRingView;
+  v8 = [(TPRevealingRingView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v9 = v8;
   if (v8)
   {
@@ -73,8 +72,8 @@
     [(_TPTemplatedColoredImageView *)v19 setBackgroundColor:clearColor3];
 
     [(_TPTemplatedColoredImageView *)v9->_innerView setAlpha:0.0];
-    [(TPRevealingRingView *)v9 addSubview:v9->_innerView];
-    [(TPRevealingRingView *)v9 setDefaultRingStrokeWidth:TPPixelCGCeiling(1.5)];
+    v21 = [(TPRevealingRingView *)v9 addSubview:v9->_innerView];
+    [(TPRevealingRingView *)v9 setDefaultRingStrokeWidth:TPPixelCGCeiling(v21, v22, 1.5)];
     [(TPRevealingRingView *)v9 setRevealAnimationDuration:0.00100000005];
     [(TPRevealingRingView *)v9 setUnrevealAnimationDuration:0.392500013];
     [(TPRevealingRingView *)v9 setPaddingOutsideRing:top, left, bottom, right];
@@ -175,10 +174,9 @@
   colorOutsideRing = self->_colorOutsideRing;
   colorInsideRing = self->_colorInsideRing;
   v8 = NSStringFromUIEdgeInsets(self->_paddingOutsideRing);
-  defaultRingStrokeWidth = self->_defaultRingStrokeWidth;
-  v10 = [v3 stringWithFormat:@"<%@:%p - colorOutsideRing: %@, colorInsideRing: %@, paddingOutsideRing: %@, strokeWidth: %.2f, _cornerRadius: %.2f, circularRing: %d, _revealed: %d>", v5, self, colorOutsideRing, colorInsideRing, v8, *&defaultRingStrokeWidth, *&self->_cornerRadius, self->_isCircularRing, self->_revealed];
+  v9 = [v3 stringWithFormat:@"<%@:%p - colorOutsideRing: %@, colorInsideRing: %@, paddingOutsideRing: %@, strokeWidth: %.2f, _cornerRadius: %.2f, circularRing: %d, _revealed: %d>", v5, self, colorOutsideRing, colorInsideRing, v8, *&self->_defaultRingStrokeWidth, *&self->_cornerRadius, self->_isCircularRing, self->_revealed];
 
-  return v10;
+  return v9;
 }
 
 - (void)layoutSubviews
@@ -186,34 +184,34 @@
   [(TPRevealingRingView *)self bounds];
   top = self->_paddingOutsideRing.top;
   left = self->_paddingOutsideRing.left;
-  v22.origin.x = v9 + left;
-  x = v22.origin.x;
-  v22.origin.y = v10 + top;
-  y = v22.origin.y;
-  v22.size.width = v11 - (left + self->_paddingOutsideRing.right);
-  width = v22.size.width;
-  v22.size.height = v12 - (top + self->_paddingOutsideRing.bottom);
-  height = v22.size.height;
-  v23 = CGRectInset(v22, self->_defaultRingStrokeWidth, self->_defaultRingStrokeWidth);
-  v13 = v23.origin.x;
-  v14 = v23.origin.y;
-  v15 = v23.size.width;
-  v16 = v23.size.height;
+  v26.origin.x = v9 + left;
+  x = v26.origin.x;
+  v26.origin.y = v10 + top;
+  y = v26.origin.y;
+  v26.size.width = v11 - (left + self->_paddingOutsideRing.right);
+  width = v26.size.width;
+  v26.size.height = v12 - (top + self->_paddingOutsideRing.bottom);
+  height = v26.size.height;
+  v27 = CGRectInset(v26, self->_defaultRingStrokeWidth, self->_defaultRingStrokeWidth);
+  v13 = v27.origin.x;
+  v14 = v27.origin.y;
+  v15 = v27.size.width;
+  v16 = v27.size.height;
   [(_TPTemplatedColoredImageView *)self->_outerView setFrame:x, y, width, height];
   [(TPRevealingRingView *)self _computeOuterViewDrawingPropertiesWithScale:1.0];
   outerView = self->_outerView;
-  v18 = __imageForRoundedRectProperties(&self->_outerViewDrawingProperties);
-  [(_TPTemplatedColoredImageView *)outerView setImage:v18];
+  v20 = __imageForRoundedRectProperties(&self->_outerViewDrawingProperties, v18, v19);
+  [(_TPTemplatedColoredImageView *)outerView setImage:v20];
 
   [(_TPTemplatedColoredImageView *)self->_innerView setFrame:v13, v14, v15, v16];
   [(TPRevealingRingView *)self _computeInnerViewDrawingPropertiesWithScale:1.0];
   innerView = self->_innerView;
-  v20 = __imageForRoundedRectProperties(&self->_innerViewDrawingProperties);
-  [(_TPTemplatedColoredImageView *)innerView setImage:v20];
+  v24 = __imageForRoundedRectProperties(&self->_innerViewDrawingProperties, v22, v23);
+  [(_TPTemplatedColoredImageView *)innerView setImage:v24];
 
-  v21.receiver = self;
-  v21.super_class = TPRevealingRingView;
-  [(TPRevealingRingView *)&v21 layoutSubviews];
+  v25.receiver = self;
+  v25.super_class = TPRevealingRingView;
+  [(TPRevealingRingView *)&v25 layoutSubviews];
 }
 
 - (void)_calculateOuter:(CGRect *)outer inner:(CGRect *)inner newXOffset:(double *)offset newYOffset:(double *)yOffset withScale:(double)scale
@@ -308,13 +306,6 @@
   self->_outerViewDrawingProperties.innerPath.cornerRadius = v4;
 }
 
-- (void)_evaluateCircularness
-{
-  [(TPRevealingRingView *)self ringSize];
-  cornerRadius = self->_cornerRadius;
-  self->_isCircularRing = [TPRevealingRingView _shouldDrawAsCircle:"_shouldDrawAsCircle:cornerRadius:" cornerRadius:?];
-}
-
 - (BOOL)_shouldDrawAsCircle:(CGSize)circle cornerRadius:(double)radius
 {
   width = circle.width;
@@ -340,14 +331,13 @@
 
 uint64_t __60__TPRevealingRingView__animateForReveal_withDuration_delay___block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 624);
-  v2 = 0.0;
+  v1 = 0.0;
   if (*(a1 + 40))
   {
-    v2 = 1.0;
+    v1 = 1.0;
   }
 
-  return [*(*(a1 + 32) + 624) setAlpha:v2];
+  return [*(*(a1 + 32) + 624) setAlpha:v1];
 }
 
 - (UIEdgeInsets)paddingOutsideRing

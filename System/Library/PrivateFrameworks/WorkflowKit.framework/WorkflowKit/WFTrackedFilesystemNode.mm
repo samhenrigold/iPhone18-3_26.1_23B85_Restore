@@ -37,13 +37,13 @@
 
 - (WFTrackedFilesystemNode)initWithIdentifier:(id)identifier bookmark:(id)bookmark fileData:(id)data isDirectory:(BOOL)directory ignoringSubfolders:(BOOL)subfolders triggersData:(id)triggersData
 {
-  v52[4] = *MEMORY[0x1E69E9840];
+  v51[4] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   dataCopy = data;
   triggersDataCopy = triggersData;
-  v46.receiver = self;
-  v46.super_class = WFTrackedFilesystemNode;
-  v17 = [(WFTrackedFilesystemNode *)&v46 initWithIdentifier:identifier objectType:11];
+  v45.receiver = self;
+  v45.super_class = WFTrackedFilesystemNode;
+  v17 = [(WFTrackedFilesystemNode *)&v45 initWithIdentifier:identifier objectType:11];
   if (v17)
   {
     directoryCopy = directory;
@@ -54,15 +54,15 @@
 
     v20 = MEMORY[0x1E696ACD0];
     v21 = MEMORY[0x1E695DFD8];
-    v52[0] = objc_opt_class();
-    v52[1] = objc_opt_class();
-    v52[2] = objc_opt_class();
-    v52[3] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:4];
+    v51[0] = objc_opt_class();
+    v51[1] = objc_opt_class();
+    v51[2] = objc_opt_class();
+    v51[3] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
     v23 = [v21 setWithArray:v22];
-    v45 = 0;
-    v24 = [v20 unarchivedObjectOfClasses:v23 fromData:dataCopy error:&v45];
-    v25 = v45;
+    v44 = 0;
+    v24 = [v20 unarchivedObjectOfClasses:v23 fromData:dataCopy error:&v44];
+    v25 = v44;
 
     if (v25)
     {
@@ -71,9 +71,9 @@
       {
         localizedDescription = [v25 localizedDescription];
         *buf = 136315394;
-        v49 = "[WFTrackedFilesystemNode initWithIdentifier:bookmark:fileData:isDirectory:ignoringSubfolders:triggersData:]";
-        v50 = 2112;
-        v51 = localizedDescription;
+        v48 = "[WFTrackedFilesystemNode initWithIdentifier:bookmark:fileData:isDirectory:ignoringSubfolders:triggersData:]";
+        v49 = 2112;
+        v50 = localizedDescription;
         _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_ERROR, "%s Error unarchiving file data: %@", buf, 0x16u);
       }
 
@@ -88,13 +88,13 @@
 
       v31 = MEMORY[0x1E696ACD0];
       v32 = MEMORY[0x1E695DFD8];
-      v47[0] = objc_opt_class();
-      v47[1] = objc_opt_class();
-      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+      v46[0] = objc_opt_class();
+      v46[1] = objc_opt_class();
+      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
       v34 = [v32 setWithArray:v33];
-      v44 = 0;
-      v35 = [v31 unarchivedObjectOfClasses:v34 fromData:triggersDataCopy error:&v44];
-      v26 = v44;
+      v43 = 0;
+      v35 = [v31 unarchivedObjectOfClasses:v34 fromData:triggersDataCopy error:&v43];
+      v26 = v43;
 
       if (v26)
       {
@@ -103,9 +103,9 @@
         {
           localizedDescription2 = [v26 localizedDescription];
           *buf = 136315394;
-          v49 = "[WFTrackedFilesystemNode initWithIdentifier:bookmark:fileData:isDirectory:ignoringSubfolders:triggersData:]";
-          v50 = 2112;
-          v51 = localizedDescription2;
+          v48 = "[WFTrackedFilesystemNode initWithIdentifier:bookmark:fileData:isDirectory:ignoringSubfolders:triggersData:]";
+          v49 = 2112;
+          v50 = localizedDescription2;
           _os_log_impl(&dword_1CA256000, v36, OS_LOG_TYPE_ERROR, "%s Error unarchiving trigger identifiers data: %@", buf, 0x16u);
         }
 
@@ -130,7 +130,6 @@
     v28 = 0;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

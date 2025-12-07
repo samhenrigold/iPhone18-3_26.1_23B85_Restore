@@ -178,16 +178,16 @@ void __59__PXDisplayAssetViewPPTConfiguration_defaultConfigurations__block_invok
   v10[2](v10, 4);
 }
 
-PXDisplayAssetView *__59__PXDisplayAssetViewPPTConfiguration_defaultConfigurations__block_invoke_3()
+PXDisplayAssetView *__59__PXDisplayAssetViewPPTConfiguration_defaultConfigurations__block_invoke_3(uint64_t a1)
 {
-  v0 = objc_alloc_init(PXDisplayAssetView);
-  v1 = [PXPhotoKitUIMediaProvider alloc];
-  v2 = objc_alloc_init(MEMORY[0x1E6978860]);
-  v3 = [objc_opt_class() defaultPhotoLibrary];
-  v4 = [(PXPhotoKitUIMediaProvider *)v1 initWithImageManager:v2 library:v3];
-  [(PXDisplayAssetView *)v0 setMediaProvider:v4];
+  v1 = objc_alloc_init(PXDisplayAssetView);
+  v2 = [PXPhotoKitUIMediaProvider alloc];
+  v3 = objc_alloc_init(MEMORY[0x1E6978860]);
+  v4 = [objc_opt_class() defaultPhotoLibrary];
+  v5 = [(PXPhotoKitUIMediaProvider *)v2 initWithImageManager:v3 library:v4];
+  [(PXDisplayAssetView *)v1 setMediaProvider:v5];
 
-  return v0;
+  return v1;
 }
 
 id __59__PXDisplayAssetViewPPTConfiguration_defaultConfigurations__block_invoke_5(uint64_t a1)

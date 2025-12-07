@@ -38,6 +38,11 @@
   v20 = v19;
   selfCopy = self;
   sub_1DF2E2F1C(v12, v14, v15, v17, v18, v20, type, policyCopy, failed, class);
+
+  v17, v22, v23, v24, v25, v26, v27, v28;
+  v20, v29, v30, v31, v32, v33, v34, v35;
+
+  v14, v36, v37, v38, v39, v40, v41, v42;
 }
 
 @end

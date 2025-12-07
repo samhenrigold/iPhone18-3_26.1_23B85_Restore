@@ -102,8 +102,7 @@
   account = [(AAUIGenericTermsRemoteUI *)self account];
   [requestCopy aa_addProxiedAuthHeaderWithAccount:account];
 
-  [requestCopy aa_addAppProvidedContext:self->_appProvidedContext];
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem([requestCopy aa_addAppProvidedContext:self->_appProvidedContext]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
@@ -146,27 +145,28 @@ void __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_prefer
 {
   v6 = a3;
   v7 = a4;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_1(v6, v7, v8);
   }
 
-  if (([v6 statusCode] - 200) > 0x63)
+  v9 = [v6 statusCode];
+  if ((v9 - 200) > 0x63)
   {
-    v16 = _AAUILogSystem();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    v17 = _AAUILogSystem(v9);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
     if (v7)
     {
-      if (v17)
+      if (v18)
       {
-        __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_2(v7, v16);
+        __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_2(v7, v17);
       }
     }
 
-    else if (v17)
+    else if (v18)
     {
-      __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_3(v16);
+      __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_3(v17);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -174,22 +174,22 @@ void __92__AAUIProxiedTermsRemoteUI__agreeToTermsWithURLString_serverInfo_prefer
 
   else
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Successfully agreed to iCloud terms!", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Successfully agreed to iCloud terms!", v19, 2u);
     }
 
-    v10 = *(a1 + 32);
-    v11 = v6;
-    v12 = [v11 acceptedTermsInfo];
-    [v10 _sendAcceptedTermsInfo:v12];
+    v11 = *(a1 + 32);
+    v12 = v6;
+    v13 = [v12 acceptedTermsInfo];
+    [v11 _sendAcceptedTermsInfo:v13];
 
-    v13 = *(a1 + 40);
-    v14 = [v11 responseDictionary];
-    v15 = [v14 objectForKeyedSubscript:@"serverInfo"];
-    (*(v13 + 16))(v13, 1, v15);
+    v14 = *(a1 + 40);
+    v15 = [v12 responseDictionary];
+    v16 = [v15 objectForKeyedSubscript:@"serverInfo"];
+    (*(v14 + 16))(v14, 1, v16);
   }
 }
 

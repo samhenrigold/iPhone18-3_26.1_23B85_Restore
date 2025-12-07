@@ -617,7 +617,7 @@ void __27__NUImageExportJob_render___block_invoke(uint64_t a1, void *a2, double 
   v17 = [(NURenderJob *)self renderer:error];
   if (v17)
   {
-    [surfaceCopy extent];
+    objc_msgSend_extent(surfaceCopy);
     v19 = v18;
     v21 = v20;
     isHDR = [v15 isHDR];
@@ -1059,9 +1059,12 @@ LABEL_32:
 
 uint64_t __35__NUImageExportJob_auxiliaryImages__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 248) copy];
+  v2 = [*(*(a1 + 32) + 248) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)auxiliaryImageTypes

@@ -80,7 +80,7 @@
   transcriptEmphasizedFontAttributes = [v4 transcriptEmphasizedFontAttributes];
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"CALL_EMERGENCY_SERVICES_IF_YOU_NEED_HELP" value:&stru_1F04268F8 table:@"ChatKit-SYDROB_FEATURES"];
   v8 = [v5 initWithString:v7 attributes:transcriptEmphasizedFontAttributes];
   [labelCopy setAttributedText:v8];
@@ -90,7 +90,7 @@
 
 + (id)_makeCallEmergencyServicesButton
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"CALL_EMERGENCY_SERVICES" value:&stru_1F04268F8 table:@"ChatKit-SYDROB_FEATURES"];
 
   v4 = [objc_opt_class() _buttonWithSystemImageName:@"phone.fill" titleString:v3];
@@ -100,7 +100,7 @@
 
 + (id)_makeTextViaStewieButton
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"TEXT_EMERGENCY_SERVICES" value:&stru_1F04268F8 table:@"ChatKit-SYDROB_FEATURES"];
 
   v4 = [objc_opt_class() _buttonWithSystemImageName:@"message.fill" titleString:v3];
@@ -326,7 +326,7 @@
 - (UIButton)callEmergencyServicesButton
 {
   selfCopy = self;
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   callEmergencyServicesButton = self->_callEmergencyServicesButton;
   if (!callEmergencyServicesButton)
   {
@@ -346,62 +346,62 @@
     {
       array = [MEMORY[0x1E695DF70] array];
       [emergencyHandles keysSortedByValueUsingComparator:&__block_literal_global_51];
-      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      obj = v36 = 0u;
-      v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-      v27 = selfCopy;
+      v36 = 0u;
+      obj = v37 = 0u;
+      v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v28 = selfCopy;
       if (v8)
       {
         v9 = v8;
         v10 = 0;
         v11 = 0;
-        v29 = *v34;
+        v30 = *v35;
         do
         {
           v12 = 0;
           v13 = v11;
           do
           {
-            if (*v34 != v29)
+            if (*v35 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v33 + 1) + 8 * v12);
+            v11 = *(*(&v34 + 1) + 8 * v12);
 
             v14 = emergencyHandles;
             v15 = [emergencyHandles objectForKey:v11];
 
             v16 = MEMORY[0x1E69DC628];
-            v17 = CKFrameworkBundle();
-            v18 = [v17 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
-            v19 = StringGUID();
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __66__CKStewieTranscriptResumeButtonsCell_callEmergencyServicesButton__block_invoke_2;
-            v31[3] = &unk_1E72EC060;
+            v18 = CKFrameworkBundle(v17);
+            v19 = [v18 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
+            v20 = StringGUID();
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __66__CKStewieTranscriptResumeButtonsCell_callEmergencyServicesButton__block_invoke_2;
+            v32[3] = &unk_1E72EC060;
             v10 = v15;
-            v32 = v10;
-            v20 = [v16 actionWithTitle:v18 image:0 identifier:v19 handler:v31];
+            v33 = v10;
+            v21 = [v16 actionWithTitle:v19 image:0 identifier:v20 handler:v32];
 
             if (v10)
             {
               value = [v10 value];
               if ([v11 isEqualToString:value])
               {
-                [v20 setSubtitle:&stru_1F04268F8];
+                [v21 setSubtitle:&stru_1F04268F8];
               }
 
               else
               {
                 value2 = [v10 value];
-                [v20 setSubtitle:value2];
+                [v21 setSubtitle:value2];
               }
             }
 
-            [array addObject:v20];
+            [array addObject:v21];
 
             ++v12;
             v13 = v11;
@@ -409,7 +409,7 @@
           }
 
           while (v9 != v12);
-          v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
         while (v9);
@@ -421,13 +421,13 @@
         v11 = 0;
       }
 
-      v23 = MEMORY[0x1E69DCC60];
-      v24 = [array copy];
-      v25 = [v23 menuWithChildren:v24];
+      v24 = MEMORY[0x1E69DCC60];
+      v25 = [array copy];
+      v26 = [v24 menuWithChildren:v25];
 
-      selfCopy = v27;
-      [(UIButton *)v27->_callEmergencyServicesButton setShowsMenuAsPrimaryAction:1];
-      [(UIButton *)v27->_callEmergencyServicesButton setMenu:v25];
+      selfCopy = v28;
+      [(UIButton *)v28->_callEmergencyServicesButton setShowsMenuAsPrimaryAction:1];
+      [(UIButton *)v28->_callEmergencyServicesButton setMenu:v26];
     }
 
     callEmergencyServicesButton = selfCopy->_callEmergencyServicesButton;

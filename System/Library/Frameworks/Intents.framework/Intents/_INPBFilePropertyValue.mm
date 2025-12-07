@@ -3,6 +3,7 @@
 - (_INPBFilePropertyValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)fileTypeAsString:(int)string;
 - (int)StringAsFileType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -266,7 +267,6 @@ LABEL_27:
 
   if ([(_INPBFilePropertyValue *)self hasFileType])
   {
-    fileType = self->_fileType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -288,13 +288,13 @@ LABEL_27:
 
   value = [(_INPBFilePropertyValue *)self value];
 
-  v12 = toCopy;
+  v11 = toCopy;
   if (value)
   {
     value2 = [(_INPBFilePropertyValue *)self value];
     PBDataWriterWriteSubmessage();
 
-    v12 = toCopy;
+    v11 = toCopy;
   }
 }
 
@@ -359,6 +359,21 @@ LABEL_27:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)fileTypeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F398[string];
   }
 
   return v4;

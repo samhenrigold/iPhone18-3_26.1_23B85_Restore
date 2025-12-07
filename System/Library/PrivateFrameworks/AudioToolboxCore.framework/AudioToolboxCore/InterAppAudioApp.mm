@@ -1,9 +1,38 @@
 @interface InterAppAudioApp
+- (BOOL)processRunningOnForeground:(int)foreground;
 - (id)init:(const InterAppAudioAppInfo *)init iconSize:(float)size;
 - (void)dealloc;
 @end
 
 @implementation InterAppAudioApp
+
+- (BOOL)processRunningOnForeground:(int)foreground
+{
+  v3 = *&foreground;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  if (!self->appMonitor)
+  {
+    self->appMonitor = objc_alloc_init(MEMORY[0x1E698D030]);
+  }
+
+  v5 = dispatch_semaphore_create(0);
+  appMonitor = self->appMonitor;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __47__InterAppAudioApp_processRunningOnForeground___block_invoke;
+  v9[3] = &unk_1E72BA730;
+  v9[4] = v5;
+  v9[5] = &v10;
+  [(BKSApplicationStateMonitor *)appMonitor applicationInfoForPID:v3 completion:v9];
+  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v5);
+  v7 = *(v11 + 24);
+  _Block_object_dispose(&v10, 8);
+  return v7;
+}
 
 intptr_t __47__InterAppAudioApp_processRunningOnForeground___block_invoke(uint64_t a1, void *a2)
 {

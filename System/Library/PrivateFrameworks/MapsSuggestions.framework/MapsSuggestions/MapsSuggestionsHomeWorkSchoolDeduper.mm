@@ -96,10 +96,10 @@ LABEL_21:
   }
 
   geoMapItem5 = [entryCopy geoMapItem];
-  v17 = MapsSuggestionsMapItemShortAddress();
+  v17 = MapsSuggestionsMapItemShortAddress(geoMapItem5);
 
   geoMapItem6 = [v7 geoMapItem];
-  v22 = MapsSuggestionsMapItemShortAddress();
+  v22 = MapsSuggestionsMapItemShortAddress(geoMapItem6);
 
   if (!v17 || !v22)
   {

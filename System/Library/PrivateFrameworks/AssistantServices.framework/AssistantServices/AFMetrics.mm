@@ -27,16 +27,16 @@
 
 - (id)categoryString
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   category = self->_category;
   if (category >= 9)
   {
     v5 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[AFMetrics categoryString]";
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Invalid AFMetrics category", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[AFMetrics categoryString]";
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Invalid AFMetrics category", &v7, 0xCu);
     }
 
     v3 = 0;
@@ -48,8 +48,6 @@
     v3 = off_1E73453D0[category];
     v4 = v3;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -69,7 +67,7 @@
 
 - (id)aceMetrics
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69C7910]);
   originalCommandId = [(AFMetrics *)self originalCommandId];
   [v3 setOriginalCommandId:originalCommandId];
@@ -86,10 +84,10 @@
   {
     [duration doubleValue];
     [(AFMetrics *)self _roundDouble:2 toSignificantDigits:?];
-    v14 = @"Duration";
+    v13 = @"Duration";
     v10 = [MEMORY[0x1E696AD98] numberWithDouble:{fmin(v9, 3600.0)}];
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   else
@@ -99,18 +97,16 @@
 
   [v3 setTimings:v11];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (AFMetrics)initWithCoder:(id)coder
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = AFMetrics;
-  v5 = [(AFMetrics *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = AFMetrics;
+  v5 = [(AFMetrics *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_originalCommandId"];
@@ -119,10 +115,10 @@
 
     v5->_category = [coderCopy decodeIntegerForKey:@"_category"];
     v8 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"_eventInfo"];
     eventInfo = v5->_eventInfo;
@@ -133,7 +129,6 @@
     v5->_duration = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -30,8 +30,11 @@
 - (BOOL)needsEmbeddingsForRecord:(id)record bundleID:(id)d;
 - (BOOL)needsKeyphrasesForRecord:(id)record bundleID:(id)d;
 - (BOOL)needsPriorityForRecord:(id)record bundleID:(id)d;
+- (BOOL)needsSKGJournalKeyphrasesRecord:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text shouldMarkComplete:(BOOL *)complete isUpdate:(BOOL)update;
+- (BOOL)needsSKGReindexerDocUnderstandingForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text;
 - (BOOL)needsSKGReindexerEmbeddingsForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text;
 - (BOOL)needsSKGReindexerKeyphrasesForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text;
+- (BOOL)needsSKGReindexerSuggestedEventsForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text;
 - (BOOL)needsSKGReindexingForRecord:(id)record bundleID:(id)d processorFlags:(unint64_t)flags;
 - (BOOL)needsSuggestedEventsForRecord:(id)record bundleID:(id)d;
 - (BOOL)recordForItemHasTextContent:(id)content;
@@ -44,9 +47,14 @@
 - (BOOL)shouldGenerateSuggestedEventsForRecord:(id)record bundleID:(id)d;
 - (BOOL)suggestedEventsRecordNeedsProcessing:(id)processing bundleID:(id)d isUpdate:(BOOL)update hasTextContent:(BOOL)content shouldClear:(BOOL *)clear shouldMarkComplete:(BOOL *)complete;
 - (BOOL)updateSKGProcessorAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class isUpdate:(BOOL)update processorFlags:(unint64_t)flags;
+- (BOOL)updateSKGProcessorDocUnderstandingAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update;
+- (BOOL)updateSKGProcessorKeyphrasesAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update;
+- (BOOL)updateSKGProcessorSuggestedEventsAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update;
 - (BOOL)updateSKGReindexerAttributes:(id)attributes record:(id)record bundleID:(id)d processorFlags:(unint64_t)flags;
 - (BOOL)updateSKGReindexerDocUnderstandingAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text;
 - (BOOL)updateSKGReindexerEmbeddingAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text;
+- (BOOL)updateSKGReindexerKeyphrasesAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text;
+- (BOOL)updateSKGReindexerSuggestedEventsAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text;
 - (SKGProcessor)initWithOptions:(id)options;
 - (id)copyArrayFromRecord:(id)record key:(id)key;
 - (id)copyBundleIdentifierFromRecord:(id)record;
@@ -1133,14 +1141,14 @@ LABEL_8:
 
 - (BOOL)recordIsRecent:(id)recent toCalendarUnit:(unint64_t)unit maxOffset:(unint64_t)offset dateKeys:(id)keys
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   recentCopy = recent;
   keysCopy = keys;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v12 = [keysCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v12 = [keysCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v12)
   {
     goto LABEL_16;
@@ -1149,17 +1157,17 @@ LABEL_8:
   v13 = v12;
   offsetCopy = offset;
   v14 = 0;
-  v15 = *v29;
+  v15 = *v28;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v29 != v15)
+      if (*v28 != v15)
       {
         objc_enumerationMutation(keysCopy);
       }
 
-      v17 = [(SKGProcessor *)self dateFromRecord:recentCopy key:*(*(&v28 + 1) + 8 * i)];
+      v17 = [(SKGProcessor *)self dateFromRecord:recentCopy key:*(*(&v27 + 1) + 8 * i)];
       if (!v14 || [v14 compare:v17] == -1)
       {
         v18 = v17;
@@ -1168,7 +1176,7 @@ LABEL_8:
       }
     }
 
-    v13 = [keysCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v13 = [keysCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v13);
@@ -1215,20 +1223,19 @@ LABEL_16:
     v24 = 1;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (BOOL)recordIsCurrent:(id)current toCalendarUnit:(unint64_t)unit maxOffset:(unint64_t)offset checkFuture:(BOOL)future dateKeys:(id)keys
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   currentCopy = current;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = keys;
-  v13 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v13 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (!v13)
   {
     v16 = 0;
@@ -1242,17 +1249,17 @@ LABEL_16:
   offsetCopy = offset;
   v15 = 0;
   v16 = 0;
-  v17 = *v42;
+  v17 = *v41;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v42 != v17)
+      if (*v41 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v41 + 1) + 8 * i);
+      v19 = *(*(&v40 + 1) + 8 * i);
       offsetCopy = [(SKGProcessor *)self dateFromRecord:currentCopy key:v19, offsetCopy];
       if ([&unk_1F0BDD078 containsObject:v19])
       {
@@ -1269,7 +1276,7 @@ LABEL_16:
       }
     }
 
-    v14 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v14 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   }
 
   while (v14);
@@ -1335,7 +1342,6 @@ LABEL_29:
 
 LABEL_34:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -1473,30 +1479,30 @@ LABEL_8:
 - (id)decorateTextContentWithDescription:(id)description isDescriptive:(BOOL)descriptive delimiter:(id)delimiter
 {
   descriptiveCopy = descriptive;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   delimiterCopy = delimiter;
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = descriptionCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         if ([v14 count] == 2)
         {
           v15 = [v14 objectAtIndexedSubscript:0];
@@ -1517,15 +1523,13 @@ LABEL_8:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v18 = [array componentsJoinedByString:delimiterCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1565,6 +1569,94 @@ LABEL_8:
   }
 
   return v12;
+}
+
+- (BOOL)updateSKGProcessorDocUnderstandingAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update
+{
+  textCopy = text;
+  attributesCopy = attributes;
+  recordCopy = record;
+  dCopy = d;
+  v16 = [recordCopy objectForKeyedSubscript:@"_kMDItemNeedsDocumentUnderstanding"];
+  if (v16)
+  {
+
+LABEL_17:
+    LOBYTE(v22) = 0;
+    goto LABEL_18;
+  }
+
+  v17 = [recordCopy objectForKeyedSubscript:@"kMDItemDocumentUnderstandingVersion"];
+
+  if (v17)
+  {
+    goto LABEL_17;
+  }
+
+  if (dCopy)
+  {
+    v18 = dCopy;
+  }
+
+  else
+  {
+    v18 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+    if (!v18)
+    {
+      v18 = [(SKGProcessor *)self copyDomainIdentifierFromRecord:recordCopy];
+      if (v18)
+      {
+        v23 = +[SKGProcessorContext sharedContext];
+        docUnderstandingItemDomainIds = [v23 docUnderstandingItemDomainIds];
+        v25 = [docUnderstandingItemDomainIds containsObject:v18];
+
+        if (v25)
+        {
+
+          v18 = 0;
+          goto LABEL_8;
+        }
+      }
+
+LABEL_16:
+      [(SKGProcessor *)self clearDocUnderstandingAttributes:attributesCopy];
+
+      goto LABEL_17;
+    }
+  }
+
+  v19 = +[SKGProcessorContext sharedContext];
+  docUnderstandingIncludeBundles = [v19 docUnderstandingIncludeBundles];
+  v21 = [docUnderstandingIncludeBundles containsObject:v18];
+
+  if ((v21 & 1) == 0)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_8:
+  v27 = 0;
+  v22 = [(SKGProcessor *)self docUnderstandingRecordNeedsProcessing:recordCopy bundleID:v18 isUpdate:update hasTextContent:textCopy shouldClear:&v27 + 1 shouldMarkComplete:&v27];
+  if (v22)
+  {
+    if (HIBYTE(v27) == 1)
+    {
+      [(SKGProcessor *)self clearDocUnderstandingAttributes:attributesCopy];
+    }
+
+    if (v27 == 1)
+    {
+      [(SKGProcessor *)self completeDocUnderstandingAttributes:attributesCopy];
+    }
+
+    else
+    {
+      [attributesCopy setObject:&unk_1F0BDD000 forKey:@"_kMDItemNeedsDocumentUnderstanding"];
+    }
+  }
+
+LABEL_18:
+  return v22;
 }
 
 - (BOOL)updateSKGReindexerDocUnderstandingAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text
@@ -1677,6 +1769,88 @@ LABEL_25:
   return v28;
 }
 
+- (BOOL)needsSKGReindexerDocUnderstandingForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text
+{
+  textCopy = text;
+  recordCopy = record;
+  dCopy = d;
+  v10 = +[SKGProcessorContext sharedContext];
+  enableDocumentUnderstanding = [v10 enableDocumentUnderstanding];
+
+  if (enableDocumentUnderstanding)
+  {
+    if (dCopy)
+    {
+      v12 = dCopy;
+    }
+
+    else
+    {
+      v12 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+      if (!v12)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v14 = +[SKGProcessorContext sharedContext];
+    docUnderstandingIncludeBundles = [v14 docUnderstandingIncludeBundles];
+    v16 = [docUnderstandingIncludeBundles containsObject:v12];
+
+    if (!v16)
+    {
+      v13 = 0;
+LABEL_18:
+
+      goto LABEL_19;
+    }
+
+LABEL_7:
+    v17 = [(SKGProcessor *)self copyDocumentUnderstandingVersionFromRecord:recordCopy];
+    v18 = v17;
+    if (v17)
+    {
+      intValue = [v17 intValue];
+      v20 = +[SKGProcessorContext sharedContext];
+      v21 = [v20 documentUnderstandingVersion] == intValue;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    v22 = [(SKGProcessor *)self copyNumberValueFromRecord:recordCopy key:@"_kMDItemUpdaterVersion"];
+    v23 = v22;
+    if (v22)
+    {
+      intValue2 = [v22 intValue];
+      v25 = +[SKGProcessorContext sharedContext];
+      v26 = [v25 textVersion] != intValue2;
+    }
+
+    else
+    {
+      v26 = 1;
+    }
+
+    v29 = 0;
+    v27 = [(SKGProcessor *)self docUnderstandingRecordNeedsProcessing:recordCopy bundleID:v12 isUpdate:0 hasTextContent:textCopy shouldClear:&v29 + 1 shouldMarkComplete:&v29];
+    v13 = 0;
+    if (v27 && (!v21 || v26))
+    {
+      v13 = v29 ^ 1 | v21;
+    }
+
+    goto LABEL_18;
+  }
+
+  v13 = 0;
+LABEL_19:
+
+  return v13 & 1;
+}
+
 - (BOOL)needsDocumentUnderstandingForRecord:(id)record bundleID:(id)d
 {
   recordCopy = record;
@@ -1763,7 +1937,7 @@ LABEL_17:
 
 - (BOOL)shouldGenerateDocumentUnderstandingForRecord:(id)record bundleID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v6 = [(SKGProcessor *)self copyStringValueFromRecord:recordCopy key:@"_kMDItemOCRContentLevel1"];
 
@@ -1778,26 +1952,26 @@ LABEL_17:
     v9 = v8;
     if (v8)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v21;
+        v13 = *v20;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
+            v15 = *(*(&v19 + 1) + 8 * i);
             if (v15)
             {
               intValue = [v15 intValue];
@@ -1818,7 +1992,7 @@ LABEL_21:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
           v7 = 0;
           if (v12)
           {
@@ -1843,7 +2017,6 @@ LABEL_24:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1870,20 +2043,18 @@ LABEL_24:
 
 + (id)embeddingVersionDataWithVersion:(id)version
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"SPOTLIGHT_CURRENT_MODEL_EMBEDDING_VERSION";
-  v10[1] = @"SPOTLIGHT_CURRENT_EMBEDDING_VERSION";
-  v11[0] = version;
-  v11[1] = &unk_1F0BDD018;
-  v10[2] = @"SPOTLIGHT_CURRENT_RELEASE_VERSION";
-  v11[2] = &unk_1F0BDD018;
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"SPOTLIGHT_CURRENT_MODEL_EMBEDDING_VERSION";
+  v9[1] = @"SPOTLIGHT_CURRENT_EMBEDDING_VERSION";
+  v10[0] = version;
+  v10[1] = &unk_1F0BDD018;
+  v9[2] = @"SPOTLIGHT_CURRENT_RELEASE_VERSION";
+  v10[2] = &unk_1F0BDD018;
   v3 = MEMORY[0x1E695DF20];
   versionCopy = version;
-  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:3];
-  v9 = 0;
-  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = [v3 dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8 = 0;
+  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v8];
 
   return v6;
 }
@@ -2380,26 +2551,26 @@ uint64_t __74__SKGProcessor_EmbeddingsUtils__normalizeForEmbeddingGeneration_bun
   v18 = [(SKGProcessor *)self copyTitleFromRecord:walletCopy];
   v19 = [(SKGProcessor *)self copyStringValueFromRecord:walletCopy key:@"kMDItemCreator"];
   v20 = [(SKGProcessor *)self copyExtraDataFromWalletRecord:walletCopy];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__1;
-  v43 = __Block_byref_object_dispose__1;
-  v44 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__1;
+  v45 = __Block_byref_object_dispose__1;
+  v46 = objc_alloc_init(MEMORY[0x1E696AD60]);
   if (v20)
   {
-    v38 = 0;
-    v21 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v20 options:1 error:&v38];
-    v22 = v38;
+    v40 = 0;
+    v21 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v20 options:1 error:&v40];
+    v22 = v40;
     v23 = v22;
     if (v21 && !v22)
     {
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __112__SKGProcessor_EmbeddingsUtils__extractContentFromRecordForWallet_bundleID_content_maxChunkCountPtr_textLength___block_invoke;
-      v37[3] = &unk_1E74B7F28;
-      v37[4] = &v39;
-      [v21 enumerateKeysAndObjectsUsingBlock:v37];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __112__SKGProcessor_EmbeddingsUtils__extractContentFromRecordForWallet_bundleID_content_maxChunkCountPtr_textLength___block_invoke;
+      v39[3] = &unk_1E74B7F28;
+      v39[4] = &v41;
+      [v21 enumerateKeysAndObjectsUsingBlock:v39];
 LABEL_18:
 
       goto LABEL_19;
@@ -2407,13 +2578,14 @@ LABEL_18:
 
     if (v22)
     {
-      if (SKGLogGetCurrentLoggingLevel() < 7)
+      CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+      if (CurrentLoggingLevel < 7)
       {
         goto LABEL_18;
       }
 
-      v34 = SKGLogEmbedInit();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v36 = SKGLogEmbedInit(CurrentLoggingLevel);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         [SKGProcessor(EmbeddingsUtils) extractContentFromRecordForWallet:bundleID:content:maxChunkCountPtr:textLength:];
       }
@@ -2421,13 +2593,14 @@ LABEL_18:
 
     else
     {
-      if (SKGLogGetCurrentLoggingLevel() < 7)
+      v26 = SKGLogGetCurrentLoggingLevel();
+      if (v26 < 7)
       {
         goto LABEL_18;
       }
 
-      v34 = SKGLogEmbedInit();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v36 = SKGLogEmbedInit(v26);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         [SKGProcessor(EmbeddingsUtils) extractContentFromRecordForWallet:bundleID:content:maxChunkCountPtr:textLength:];
       }
@@ -2437,58 +2610,58 @@ LABEL_18:
   }
 
 LABEL_19:
-  v25 = [SKGProcessor normalizeForEmbeddingGeneration:v40[5] bundleID:v14];
-  if (![v25 length])
+  v27 = [SKGProcessor normalizeForEmbeddingGeneration:v42[5] bundleID:v14];
+  if (![v27 length])
   {
-    v26 = [(SKGProcessor *)self copyTextContentFromRecord:walletCopy];
-    if (!v26)
+    v28 = [(SKGProcessor *)self copyTextContentFromRecord:walletCopy];
+    if (!v28)
     {
-      v26 = [(SKGProcessor *)self copySnippetFromRecord:walletCopy];
+      v28 = [(SKGProcessor *)self copySnippetFromRecord:walletCopy];
     }
 
-    v25 = v26;
+    v27 = v28;
   }
 
-  v27 = stringComposedLengthForEmbeddingCheck(v18);
-  v28 = stringComposedLengthForEmbeddingCheck(v19);
-  v29 = v28 + v27 + stringComposedLengthForEmbeddingCheck(v25);
+  v29 = stringComposedLengthForEmbeddingCheck(v18);
+  v30 = stringComposedLengthForEmbeddingCheck(v19);
+  v31 = v30 + v29 + stringComposedLengthForEmbeddingCheck(v27);
   if (length)
   {
-    *length = v29;
+    *length = v31;
   }
 
-  v24 = v29 > 0x13;
-  if (v29 >= 0x14)
+  v24 = v31 > 0x13;
+  if (v31 >= 0x14)
   {
     if (contentCopy)
     {
-      v30 = &stru_1F0BD7AF0;
+      v32 = &stru_1F0BD7AF0;
       if (v18)
       {
-        v31 = v18;
+        v33 = v18;
       }
 
       else
       {
-        v31 = &stru_1F0BD7AF0;
+        v33 = &stru_1F0BD7AF0;
       }
 
       if (v19)
       {
-        v32 = v19;
+        v34 = v19;
       }
 
       else
       {
-        v32 = &stru_1F0BD7AF0;
+        v34 = &stru_1F0BD7AF0;
       }
 
-      if (v40[5])
+      if (v42[5])
       {
-        v30 = v40[5];
+        v32 = v42[5];
       }
 
-      *contentCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@", v31, v32, v30];
+      *contentCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@", v33, v34, v32];
     }
 
     if (ptrCopy)
@@ -2497,7 +2670,7 @@ LABEL_19:
     }
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v41, 8);
 LABEL_39:
 
   return v24;
@@ -2791,7 +2964,7 @@ LABEL_78:
 
 - (BOOL)extractContentFromRecordForMessages:(id)messages bundleID:(id)d content:(id *)content maxChunkCountPtr:(unint64_t *)ptr textLength:(unint64_t *)length
 {
-  v73[2] = *MEMORY[0x1E69E9840];
+  v72[2] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   dCopy = d;
   v14 = dCopy;
@@ -2808,7 +2981,7 @@ LABEL_78:
   v17 = v15;
   if (SKGBundleIsMessages(v15, v16))
   {
-    v63 = v17;
+    v62 = v17;
     v18 = [(SKGProcessor *)self copyNumberValueFromRecord:messagesCopy key:@"_kMDItemTextContentLength"];
     unsignedIntegerValue = [v18 unsignedIntegerValue];
 
@@ -2833,7 +3006,7 @@ LABEL_78:
       if (!content && unsignedIntegerValue >= v21)
       {
         v22 = 1;
-        v17 = v63;
+        v17 = v62;
 LABEL_72:
 
         goto LABEL_73;
@@ -2842,8 +3015,8 @@ LABEL_72:
       ptrCopy2 = ptr;
       if (!content)
       {
-        v60 = 0;
-        v64 = 0;
+        v59 = 0;
+        v63 = 0;
         goto LABEL_23;
       }
 
@@ -2856,15 +3029,15 @@ LABEL_72:
       v23 = content != 0;
     }
 
-    v60 = v23;
-    v64 = [(SKGProcessor *)self copyTextContentFromRecord:messagesCopy];
-    if (!v64)
+    v59 = v23;
+    v63 = [(SKGProcessor *)self copyTextContentFromRecord:messagesCopy];
+    if (!v63)
     {
-      v64 = [(SKGProcessor *)self copySnippetFromRecord:messagesCopy];
-      if (!v64)
+      v63 = [(SKGProcessor *)self copySnippetFromRecord:messagesCopy];
+      if (!v63)
       {
-        v64 = [(SKGProcessor *)self copyTitleFromRecord:messagesCopy];
-        if (v64)
+        v63 = [(SKGProcessor *)self copyTitleFromRecord:messagesCopy];
+        if (v63)
         {
           LODWORD(v21) = 10;
         }
@@ -2874,14 +3047,14 @@ LABEL_72:
 LABEL_23:
     v24 = [(SKGProcessor *)self copyStringArrayFromRecordAndConcatenate:messagesCopy key:@"kMDItemAuthors"];
     contentCopy = content;
-    v62 = v20;
+    v61 = v20;
     if ([(SKGProcessor *)self isStringOnlyNumbersOrPunctuationSpaces:v24])
     {
 
       v24 = 0;
     }
 
-    v25 = stringComposedLengthForEmbeddingCheck(v64);
+    v25 = stringComposedLengthForEmbeddingCheck(v63);
     v26 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemLinkType"];
     v27 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemURL"];
     v28 = v26;
@@ -2893,10 +3066,10 @@ LABEL_23:
 LABEL_28:
         v30 = v25 < v21 && v29;
         v31 = v27;
-        v17 = v63;
+        v17 = v62;
         if (!v30)
         {
-          if (v60)
+          if (v59)
           {
             v32 = &stru_1F0BD7AF0;
             if (v24)
@@ -2909,111 +3082,111 @@ LABEL_28:
               v33 = &stru_1F0BD7AF0;
             }
 
-            if (v64)
+            if (v63)
             {
-              v32 = v64;
+              v32 = v63;
             }
 
             *contentCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@", v33, v32];
             if (!v29)
             {
-              v56 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemLinkSubType"];
-              v57 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemURLDescription"];
+              v55 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemLinkSubType"];
+              v56 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemURLDescription"];
               v34 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemLinkName"];
-              v55 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemArtist"];
-              v54 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemAlbum"];
-              v53 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemEpisode"];
-              v52 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemPodcastName"];
-              v58 = v34;
+              v54 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemArtist"];
+              v53 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemAlbum"];
+              v52 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemEpisode"];
+              v51 = [(SKGProcessor *)self copyStringValueFromRecord:messagesCopy key:@"kMDItemPodcastName"];
+              v57 = v34;
               if ([v28 isEqualToString:*MEMORY[0x1E6963AF0]])
               {
                 v35 = [(SKGProcessor *)self copyArrayFromRecord:messagesCopy key:@"kMDItemAddresses"];
-                v51 = [v35 componentsJoinedByString:@" "];
+                v50 = [v35 componentsJoinedByString:@" "];
 
-                v34 = v58;
+                v34 = v57;
               }
 
               else
               {
-                v51 = 0;
+                v50 = 0;
               }
 
               array = [MEMORY[0x1E695DF70] array];
               if (v28)
               {
-                v73[0] = @"link type";
-                v73[1] = v28;
-                v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:2];
+                v72[0] = @"link type";
+                v72[1] = v28;
+                v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:2];
                 [array addObject:v37];
 
-                v34 = v58;
-              }
-
-              if (v56)
-              {
-                v72[0] = @"link subtype";
-                v72[1] = v56;
-                v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:2];
-                [array addObject:v38];
-
-                v34 = v58;
-              }
-
-              if (v57)
-              {
-                v71[0] = @"link description";
-                v71[1] = v57;
-                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:2];
-                [array addObject:v39];
-
-                v34 = v58;
-              }
-
-              if (v34)
-              {
-                v70[0] = @"link name";
-                v70[1] = v34;
-                v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
-                [array addObject:v40];
+                v34 = v57;
               }
 
               if (v55)
               {
-                v69[0] = @"artist name";
-                v69[1] = v55;
-                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
-                [array addObject:v41];
+                v71[0] = @"link subtype";
+                v71[1] = v55;
+                v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:2];
+                [array addObject:v38];
+
+                v34 = v57;
+              }
+
+              if (v56)
+              {
+                v70[0] = @"link description";
+                v70[1] = v56;
+                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
+                [array addObject:v39];
+
+                v34 = v57;
+              }
+
+              if (v34)
+              {
+                v69[0] = @"link name";
+                v69[1] = v34;
+                v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
+                [array addObject:v40];
               }
 
               if (v54)
               {
-                v68[0] = @"album name";
+                v68[0] = @"artist name";
                 v68[1] = v54;
-                v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
-                [array addObject:v42];
+                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+                [array addObject:v41];
               }
 
               if (v53)
               {
-                v67[0] = @"episode name";
+                v67[0] = @"album name";
                 v67[1] = v53;
-                v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
-                [array addObject:v43];
+                v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
+                [array addObject:v42];
               }
 
               if (v52)
               {
-                v66[0] = @"podcast name";
+                v66[0] = @"episode name";
                 v66[1] = v52;
-                v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
-                [array addObject:v44];
+                v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+                [array addObject:v43];
               }
 
               if (v51)
               {
-                v65[0] = @"address";
+                v65[0] = @"podcast name";
                 v65[1] = v51;
-                v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+                v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+                [array addObject:v44];
+              }
+
+              if (v50)
+              {
+                v64[0] = @"address";
+                v64[1] = v50;
+                v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
                 [array addObject:v45];
               }
 
@@ -3028,10 +3201,10 @@ LABEL_28:
             v31 = v27;
             if (CurrentLoggingLevel >= 7)
             {
-              v48 = SKGLogEmbedInit();
+              v48 = SKGLogEmbedInit(CurrentLoggingLevel);
               if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
               {
-                [SKGProcessor(EmbeddingsUtils) extractContentFromRecordForMessages:contentCopy bundleID:? content:? maxChunkCountPtr:? textLength:?];
+                [SKGProcessor(EmbeddingsUtils) extractContentFromRecordForMessages:bundleID:content:maxChunkCountPtr:textLength:];
               }
 
               v31 = v27;
@@ -3046,7 +3219,7 @@ LABEL_28:
 
         v22 = !v30;
 
-        v20 = v62;
+        v20 = v61;
         goto LABEL_72;
       }
     }
@@ -3067,7 +3240,6 @@ LABEL_28:
   v22 = 0;
 LABEL_73:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -3355,7 +3527,7 @@ LABEL_18:
 
 - (BOOL)needsEmbeddingsForRecord:(id)record bundleID:(id)d
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   dCopy = d;
   mEMORY[0x1E69D3DC8] = [MEMORY[0x1E69D3DC8] sharedInstance];
@@ -3384,17 +3556,18 @@ LABEL_18:
               {
 
 LABEL_49:
-                if (SKGLogGetCurrentLoggingLevel() < 7)
+                CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+                if (CurrentLoggingLevel < 7)
                 {
-                  v19 = 0;
+                  v20 = 0;
 LABEL_69:
 
 LABEL_70:
                   goto LABEL_71;
                 }
 
-                v20 = SKGLogEmbedInit();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+                v21 = SKGLogEmbedInit(CurrentLoggingLevel);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
                   [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
                 }
@@ -3419,35 +3592,36 @@ LABEL_70:
 
           if (dCopy)
           {
-            v20 = dCopy;
+            v21 = dCopy;
           }
 
           else
           {
-            v20 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
-            if (!v20)
+            v21 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+            if (!v21)
             {
               goto LABEL_23;
             }
           }
 
-          v21 = +[SKGProcessorContext sharedContext];
-          embeddingExcludeBundles = [v21 embeddingExcludeBundles];
-          v23 = [embeddingExcludeBundles containsObject:v20];
+          v22 = +[SKGProcessorContext sharedContext];
+          embeddingExcludeBundles = [v22 embeddingExcludeBundles];
+          v24 = [embeddingExcludeBundles containsObject:v21];
 
-          if (v23)
+          if (v24)
           {
-            if (SKGLogGetCurrentLoggingLevel() < 7)
+            v25 = SKGLogGetCurrentLoggingLevel();
+            if (v25 < 7)
             {
 LABEL_52:
-              v19 = 0;
+              v20 = 0;
 LABEL_68:
 
               goto LABEL_69;
             }
 
-            v24 = SKGLogEmbedInit();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v26 = SKGLogEmbedInit(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
               [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
             }
@@ -3456,66 +3630,67 @@ LABEL_68:
           }
 
 LABEL_23:
-          v25 = [(SKGProcessor *)self copyContentTypeFromRecord:recordCopy];
-          v24 = v25;
-          if (!v25)
+          v27 = [(SKGProcessor *)self copyContentTypeFromRecord:recordCopy];
+          v26 = v27;
+          if (!v27)
           {
-            if (SKGLogGetCurrentLoggingLevel() < 7)
+            v40 = SKGLogGetCurrentLoggingLevel();
+            if (v40 < 7)
             {
 LABEL_47:
-              v19 = 0;
+              v20 = 0;
 LABEL_67:
 
               goto LABEL_68;
             }
 
-            v26 = SKGLogEmbedInit();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            v28 = SKGLogEmbedInit(v40);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
             }
 
-            v19 = 0;
+            v20 = 0;
 LABEL_66:
 
             goto LABEL_67;
           }
 
-          v41 = v13;
-          v42 = v25;
-          v26 = [MEMORY[0x1E6982C40] typeWithIdentifier:v25];
-          if (v26)
+          v46 = v13;
+          v47 = v27;
+          v28 = [MEMORY[0x1E6982C40] typeWithIdentifier:v27];
+          if (v28)
           {
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
-            v48 = 0u;
-            v27 = +[SKGProcessorContext sharedContext];
-            embeddingExcludeContentTypes = [v27 embeddingExcludeContentTypes];
+            v54 = 0u;
+            v55 = 0u;
+            v52 = 0u;
+            v53 = 0u;
+            v29 = +[SKGProcessorContext sharedContext];
+            embeddingExcludeContentTypes = [v29 embeddingExcludeContentTypes];
 
-            v29 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v47 objects:v52 count:16];
-            if (v29)
+            v31 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v52 objects:v57 count:16];
+            if (v31)
             {
-              v30 = v29;
-              v31 = *v48;
+              v32 = v31;
+              v33 = *v53;
 LABEL_27:
-              v32 = 0;
+              v34 = 0;
               while (1)
               {
-                if (*v48 != v31)
+                if (*v53 != v33)
                 {
                   objc_enumerationMutation(embeddingExcludeContentTypes);
                 }
 
-                if ([v26 conformsToType:*(*(&v47 + 1) + 8 * v32)])
+                if ([v28 conformsToType:*(*(&v52 + 1) + 8 * v34)])
                 {
                   break;
                 }
 
-                if (v30 == ++v32)
+                if (v32 == ++v34)
                 {
-                  v30 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v47 objects:v52 count:16];
-                  if (v30)
+                  v32 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v52 objects:v57 count:16];
+                  if (v32)
                   {
                     goto LABEL_27;
                   }
@@ -3524,63 +3699,64 @@ LABEL_27:
                 }
               }
 
-              if (SKGLogGetCurrentLoggingLevel() < 7)
+              v42 = SKGLogGetCurrentLoggingLevel();
+              if (v42 < 7)
               {
                 goto LABEL_58;
               }
 
-              v38 = SKGLogEmbedInit();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+              v43 = SKGLogEmbedInit(v42);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
               {
                 [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
               }
 
-              v19 = 0;
+              v20 = 0;
               goto LABEL_63;
             }
 
 LABEL_33:
           }
 
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v33 = +[SKGProcessorContext sharedContext];
-          embeddingExcludeContentTypes = [v33 embeddingExtractionAttributes];
+          v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
+          v35 = +[SKGProcessorContext sharedContext];
+          embeddingExcludeContentTypes = [v35 embeddingExtractionAttributes];
 
-          v34 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v43 objects:v51 count:16];
-          if (!v34)
+          v36 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v48 objects:v56 count:16];
+          if (!v36)
           {
 LABEL_58:
-            v19 = 0;
+            v20 = 0;
 LABEL_65:
 
-            v13 = v41;
-            v24 = v42;
+            v13 = v46;
+            v26 = v47;
             goto LABEL_66;
           }
 
-          v35 = v34;
-          v36 = *v44;
+          v37 = v36;
+          v38 = *v49;
 LABEL_36:
-          v37 = 0;
+          v39 = 0;
           while (1)
           {
-            if (*v44 != v36)
+            if (*v49 != v38)
             {
               objc_enumerationMutation(embeddingExcludeContentTypes);
             }
 
-            if ([(SKGProcessor *)self recordContainsValue:recordCopy key:*(*(&v43 + 1) + 8 * v37)])
+            if ([(SKGProcessor *)self recordContainsValue:recordCopy key:*(*(&v48 + 1) + 8 * v39)])
             {
               break;
             }
 
-            if (v35 == ++v37)
+            if (v37 == ++v39)
             {
-              v35 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v43 objects:v51 count:16];
-              if (v35)
+              v37 = [embeddingExcludeContentTypes countByEnumeratingWithState:&v48 objects:v56 count:16];
+              if (v37)
               {
                 goto LABEL_36;
               }
@@ -3589,19 +3765,20 @@ LABEL_36:
             }
           }
 
-          if (SKGLogGetCurrentLoggingLevel() < 7)
+          v44 = SKGLogGetCurrentLoggingLevel();
+          if (v44 < 7)
           {
-            v19 = 1;
+            v20 = 1;
             goto LABEL_65;
           }
 
-          v38 = SKGLogEmbedInit();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+          v43 = SKGLogEmbedInit(v44);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
             [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
           }
 
-          v19 = 1;
+          v20 = 1;
 LABEL_63:
 
           goto LABEL_65;
@@ -3610,23 +3787,26 @@ LABEL_63:
     }
   }
 
-  else if (SKGLogGetCurrentLoggingLevel() >= 7)
+  else
   {
-    v12 = SKGLogEmbedInit();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v19 = SKGLogGetCurrentLoggingLevel();
+    if (v19 >= 7)
     {
-      [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
-    }
+      v12 = SKGLogEmbedInit(v19);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        [SKGProcessor(EmbeddingsUtils) needsEmbeddingsForRecord:bundleID:];
+      }
 
-    v19 = 0;
-    goto LABEL_70;
+      v20 = 0;
+      goto LABEL_70;
+    }
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_71:
 
-  v39 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v20;
 }
 
 - (BOOL)canGenerateEmbeddingsForMailRecord:(id)record bundleID:(id)d
@@ -3663,10 +3843,11 @@ LABEL_71:
     }
 
     v17 = (v13 | v16) ^ 1;
-    if (SKGLogGetCurrentLoggingLevel() >= 7)
+    CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+    if (CurrentLoggingLevel >= 7)
     {
-      v18 = SKGLogEmbedInit();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = SKGLogEmbedInit(CurrentLoggingLevel);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         v21 = 138413058;
         v22 = v8;
@@ -3676,7 +3857,7 @@ LABEL_71:
         v26 = v13;
         v27 = 1024;
         v28 = v16;
-        _os_log_debug_impl(&dword_1977A7000, v18, OS_LOG_TYPE_DEBUG, "SKGProcessor+EmbeddingsUtils#canGenerateEmbeddingsForMailRecord bundle=%@ returning=%{BOOL}d isJunkMailBox=%{BOOL}d isJunkItem=%{BOOL}d", &v21, 0x1Eu);
+        _os_log_debug_impl(&dword_1977A7000, v19, OS_LOG_TYPE_DEBUG, "SKGProcessor+EmbeddingsUtils#canGenerateEmbeddingsForMailRecord bundle=%@ returning=%{BOOL}d isJunkMailBox=%{BOOL}d isJunkItem=%{BOOL}d", &v21, 0x1Eu);
       }
     }
   }
@@ -3686,7 +3867,6 @@ LABEL_71:
     v17 = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
@@ -3710,10 +3890,11 @@ LABEL_71:
       bOOLValue = 0;
     }
 
-    if (SKGLogGetCurrentLoggingLevel() >= 7)
+    CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+    if (CurrentLoggingLevel >= 7)
     {
-      v12 = SKGLogEmbedInit();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = SKGLogEmbedInit(CurrentLoggingLevel);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         v15 = 138413058;
         v16 = dCopy;
@@ -3723,7 +3904,7 @@ LABEL_71:
         v20 = bOOLValue;
         v21 = 2112;
         v22 = v10;
-        _os_log_debug_impl(&dword_1977A7000, v12, OS_LOG_TYPE_DEBUG, "SKGProcessor+EmbeddingsUtils#canGenerateEmbeddingsForFPRecord bundle=%@ fpId=%@ returning=%{BOOL}d requiresImport=%@", &v15, 0x26u);
+        _os_log_debug_impl(&dword_1977A7000, v13, OS_LOG_TYPE_DEBUG, "SKGProcessor+EmbeddingsUtils#canGenerateEmbeddingsForFPRecord bundle=%@ fpId=%@ returning=%{BOOL}d requiresImport=%@", &v15, 0x26u);
       }
     }
   }
@@ -3733,7 +3914,6 @@ LABEL_71:
     LOBYTE(bOOLValue) = 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -3782,7 +3962,7 @@ LABEL_29:
       }
     }
 
-    v33 = 0;
+    v34 = 0;
     v24 = [(SKGProcessor *)self copyNumberValueFromRecord:recordCopy key:@"_kMDItemTextContentIndexExists"];
     if (v24 || (v24 = [(SKGProcessor *)self copySnippetFromRecord:recordCopy]) != 0 || (v24 = [(SKGProcessor *)self copyTextContentFromRecord:recordCopy]) != 0)
     {
@@ -3799,9 +3979,10 @@ LABEL_29:
 
         if (isFileURL)
         {
-          if (SKGLogGetCurrentLoggingLevel() >= 7)
+          CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+          if (CurrentLoggingLevel >= 7)
           {
-            v27 = SKGLogEmbedInit();
+            v27 = SKGLogEmbedInit(CurrentLoggingLevel);
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
               [SKGProcessor(EmbeddingsUtils) shouldGenerateEmbeddingsForRecord:bundleID:skipFpRecordCheck:];
@@ -3817,19 +3998,19 @@ LABEL_37:
       }
     }
 
-    v25 = [(SKGProcessor *)self extractContentFromRecord:recordCopy bundleID:v12 content:0 maxChunkCountPtr:0 textLength:&v33];
-    CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+    v25 = [(SKGProcessor *)self extractContentFromRecord:recordCopy bundleID:v12 content:0 maxChunkCountPtr:0 textLength:&v34];
+    v26 = SKGLogGetCurrentLoggingLevel();
     if (!v25)
     {
-      if (CurrentLoggingLevel < 7)
+      if (v26 < 7)
       {
         goto LABEL_29;
       }
 
-      v27 = SKGLogEmbedInit();
+      v27 = SKGLogEmbedInit(v26);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        [SKGProcessor(EmbeddingsUtils) shouldGenerateEmbeddingsForRecord:v12 bundleID:&v33 skipFpRecordCheck:?];
+        [SKGProcessor(EmbeddingsUtils) shouldGenerateEmbeddingsForRecord:bundleID:skipFpRecordCheck:];
       }
 
       v16 = 0;
@@ -3839,9 +4020,9 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    if (CurrentLoggingLevel >= 7)
+    if (v26 >= 7)
     {
-      v27 = SKGLogEmbedInit();
+      v27 = SKGLogEmbedInit(v26);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         [SKGProcessor(EmbeddingsUtils) shouldGenerateEmbeddingsForRecord:bundleID:skipFpRecordCheck:];
@@ -4306,7 +4487,7 @@ LABEL_5:
 {
   contentCopy = content;
   updateCopy = update;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   processingCopy = processing;
   dCopy = d;
   v16 = +[SKGProcessorContext sharedContext];
@@ -4317,33 +4498,33 @@ LABEL_5:
     goto LABEL_15;
   }
 
-  v31 = updateCopy;
+  v30 = updateCopy;
   clearCopy = clear;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v18 = +[SKGProcessorContext sharedContext];
   keyphraseOptionalExtractionAttributes = [v18 keyphraseOptionalExtractionAttributes];
 
-  v20 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v20 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v20)
   {
     goto LABEL_14;
   }
 
   v21 = v20;
-  v22 = *v34;
+  v22 = *v33;
   while (2)
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v34 != v22)
+      if (*v33 != v22)
       {
         objc_enumerationMutation(keyphraseOptionalExtractionAttributes);
       }
 
-      v24 = *(*(&v33 + 1) + 8 * i);
+      v24 = *(*(&v32 + 1) + 8 * i);
       if ([(__CFString *)v24 isEqualToString:@"kMDItemTitle"])
       {
         if (![dCopy isEqualToString:@"com.apple.mobilecal"])
@@ -4371,7 +4552,7 @@ LABEL_5:
       }
     }
 
-    v21 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v21 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v21)
     {
       continue;
@@ -4383,7 +4564,7 @@ LABEL_5:
 LABEL_14:
 
   clear = clearCopy;
-  updateCopy = v31;
+  updateCopy = v30;
 LABEL_15:
   if (contentCopy)
   {
@@ -4411,8 +4592,245 @@ LABEL_15:
 
 LABEL_26:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
+}
+
+- (BOOL)needsSKGJournalKeyphrasesRecord:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text shouldMarkComplete:(BOOL *)complete isUpdate:(BOOL)update
+{
+  updateCopy = update;
+  textCopy = text;
+  recordCopy = record;
+  dCopy = d;
+  classCopy = class;
+  v17 = +[SKGProcessorContext sharedContext];
+  enableKeyphrases = [v17 enableKeyphrases];
+
+  if (enableKeyphrases)
+  {
+    v19 = +[SKGProcessorContext sharedContext];
+    enableExtractions = [v19 enableExtractions];
+
+    if (!classCopy || (enableExtractions & 1) != 0 || ([classCopy isEqualToString:*MEMORY[0x1E696A378]] & 1) == 0 && (objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696A380]) & 1) == 0)
+    {
+      if (dCopy)
+      {
+        v22 = dCopy;
+      }
+
+      else
+      {
+        v22 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+        if (!v22)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v23 = +[SKGProcessorContext sharedContext];
+      v24 = [v23 keyphrasesSupportsBundle:v22 domainID:0];
+
+      if (!v24)
+      {
+        v21 = 0;
+        goto LABEL_13;
+      }
+
+LABEL_11:
+      v21 = [(SKGProcessor *)self keyphraseRecordNeedsProcessing:recordCopy bundleID:v22 isUpdate:updateCopy hasTextContent:textCopy shouldClear:0 shouldMarkComplete:complete];
+LABEL_13:
+
+      goto LABEL_14;
+    }
+  }
+
+  v21 = 0;
+LABEL_14:
+
+  return v21;
+}
+
+- (BOOL)updateSKGProcessorKeyphrasesAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update
+{
+  textCopy = text;
+  attributesCopy = attributes;
+  recordCopy = record;
+  dCopy = d;
+  v16 = [recordCopy objectForKeyedSubscript:@"_kMDItemNeedsKeyphrases"];
+  if (v16)
+  {
+
+LABEL_8:
+    LOBYTE(v21) = 0;
+    goto LABEL_9;
+  }
+
+  v17 = [recordCopy objectForKeyedSubscript:@"kMDItemKeyphraseVersion"];
+
+  if (v17)
+  {
+    goto LABEL_8;
+  }
+
+  v18 = +[SKGProcessorContext sharedContext];
+  enableKeyphrases = [v18 enableKeyphrases];
+
+  if ((enableKeyphrases & 1) == 0)
+  {
+    [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+    goto LABEL_8;
+  }
+
+  if (dCopy)
+  {
+    v20 = dCopy;
+  }
+
+  else
+  {
+    v20 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+  }
+
+  v23 = v20;
+  v24 = [(SKGProcessor *)self copyDomainIdentifierFromRecord:recordCopy];
+  v25 = +[SKGProcessorContext sharedContext];
+  v26 = [v25 keyphrasesSupportsBundle:v23 domainID:v24];
+
+  if (v26)
+  {
+    v27 = 0;
+    v21 = [(SKGProcessor *)self keyphraseRecordNeedsProcessing:recordCopy bundleID:v23 isUpdate:update hasTextContent:textCopy shouldClear:&v27 + 1 shouldMarkComplete:&v27];
+    if (v21)
+    {
+      if (HIBYTE(v27) == 1)
+      {
+        [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+      }
+
+      if (v27 == 1)
+      {
+        [(SKGProcessor *)self completeKeyphrasesAttributes:attributesCopy];
+      }
+
+      else
+      {
+        [attributesCopy setObject:&unk_1F0BDD048 forKey:@"_kMDItemNeedsKeyphrases"];
+      }
+    }
+  }
+
+  else
+  {
+    [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+    LOBYTE(v21) = 0;
+  }
+
+LABEL_9:
+  return v21;
+}
+
+- (BOOL)updateSKGReindexerKeyphrasesAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text
+{
+  textCopy = text;
+  attributesCopy = attributes;
+  recordCopy = record;
+  dCopy = d;
+  if (![(SKGProcessor *)self recordContainsValue:recordCopy key:@"_kMDItemNeedsKeyphrases"])
+  {
+    v13 = +[SKGProcessorContext sharedContext];
+    enableKeyphrases = [v13 enableKeyphrases];
+
+    if (enableKeyphrases)
+    {
+      if (dCopy)
+      {
+        v15 = dCopy;
+        v16 = [(SKGProcessor *)self copyDomainIdentifierFromRecord:recordCopy];
+      }
+
+      else
+      {
+        v15 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+        v16 = [(SKGProcessor *)self copyDomainIdentifierFromRecord:recordCopy];
+        if (!v15)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      v18 = +[SKGProcessorContext sharedContext];
+      v19 = [v18 keyphrasesSupportsBundle:v15 domainID:v16];
+
+      if ((v19 & 1) == 0)
+      {
+        [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+        v17 = 0;
+LABEL_24:
+
+        goto LABEL_25;
+      }
+
+LABEL_9:
+      v20 = [(SKGProcessor *)self copyKeyphraseVersionFromRecord:recordCopy];
+      v31 = v20;
+      if (v20)
+      {
+        intValue = [v20 intValue];
+        v22 = +[SKGProcessorContext sharedContext];
+        v23 = [v22 keyphraseVersion] == intValue;
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+
+      v32 = v16;
+      v24 = [(SKGProcessor *)self copyNumberValueFromRecord:recordCopy key:@"_kMDItemUpdaterVersion"];
+      v25 = v24;
+      if (v24)
+      {
+        intValue2 = [v24 intValue];
+        v27 = +[SKGProcessorContext sharedContext];
+        v28 = [v27 textVersion] != intValue2;
+      }
+
+      else
+      {
+        v28 = 1;
+      }
+
+      v33 = 0;
+      v29 = [(SKGProcessor *)self keyphraseRecordNeedsProcessing:recordCopy bundleID:v15 isUpdate:0 hasTextContent:textCopy shouldClear:&v33 + 1 shouldMarkComplete:&v33]&& (!v23 || v28);
+      if (HIBYTE(v33) == 1)
+      {
+        [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+      }
+
+      v16 = v32;
+      if (v29)
+      {
+        if (v23 || (v33 & 1) == 0)
+        {
+          v17 = 1;
+LABEL_23:
+
+          goto LABEL_24;
+        }
+
+        [(SKGProcessor *)self completeKeyphrasesAttributes:attributesCopy];
+      }
+
+      v17 = 0;
+      goto LABEL_23;
+    }
+
+    [(SKGProcessor *)self clearKeyphrasesAttributes:attributesCopy];
+  }
+
+  v17 = 0;
+LABEL_25:
+
+  return v17;
 }
 
 - (BOOL)needsSKGReindexerKeyphrasesForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text
@@ -4722,6 +5140,256 @@ LABEL_12:
 LABEL_14:
 
   return v12;
+}
+
+- (BOOL)updateSKGProcessorSuggestedEventsAttributes:(id)attributes record:(id)record bundleID:(id)d protectionClass:(id)class recordHasText:(BOOL)text itemHasText:(BOOL)hasText isUpdate:(BOOL)update
+{
+  textCopy = text;
+  attributesCopy = attributes;
+  recordCopy = record;
+  dCopy = d;
+  v16 = [recordCopy objectForKeyedSubscript:@"_kMDItemNeedsSuggestedEvents"];
+  if (!v16)
+  {
+    v17 = [recordCopy objectForKeyedSubscript:@"kMDItemSuggestedEventsVersion"];
+
+    if (v17)
+    {
+      goto LABEL_4;
+    }
+
+    if (dCopy)
+    {
+      v20 = dCopy;
+    }
+
+    else
+    {
+      v20 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+      if (!v20)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    v21 = +[SKGProcessorContext sharedContext];
+    suggestedEventsIncludeBundles = [v21 suggestedEventsIncludeBundles];
+    v23 = [suggestedEventsIncludeBundles containsObject:dCopy];
+
+    if (v23)
+    {
+      v24 = 0;
+      v18 = [(SKGProcessor *)self suggestedEventsRecordNeedsProcessing:recordCopy bundleID:v20 isUpdate:update hasTextContent:textCopy shouldClear:&v24 + 1 shouldMarkComplete:&v24];
+      if (v18)
+      {
+        if (HIBYTE(v24) == 1)
+        {
+          [(SKGProcessor *)self clearSuggestedEventsAttributes:attributesCopy];
+        }
+
+        if (v24 == 1)
+        {
+          [(SKGProcessor *)self completeSuggestedEventsAttributes:attributesCopy];
+        }
+
+        else
+        {
+          [(SKGProcessor *)self markForProcessingSuggestedEventsAttributes:attributesCopy];
+        }
+      }
+
+      goto LABEL_16;
+    }
+
+LABEL_15:
+    [(SKGProcessor *)self clearSuggestedEventsAttributes:attributesCopy];
+    LOBYTE(v18) = 0;
+LABEL_16:
+
+    goto LABEL_5;
+  }
+
+LABEL_4:
+  LOBYTE(v18) = 0;
+LABEL_5:
+
+  return v18;
+}
+
+- (BOOL)updateSKGReindexerSuggestedEventsAttributes:(id)attributes record:(id)record bundleID:(id)d itemHasText:(BOOL)text
+{
+  textCopy = text;
+  attributesCopy = attributes;
+  recordCopy = record;
+  dCopy = d;
+  if (![(SKGProcessor *)self recordContainsValue:recordCopy key:@"_kMDItemNeedsSuggestedEvents"])
+  {
+    if (dCopy)
+    {
+      v14 = dCopy;
+    }
+
+    else
+    {
+      v14 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+      if (!v14)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    v15 = +[SKGProcessorContext sharedContext];
+    suggestedEventsIncludeBundles = [v15 suggestedEventsIncludeBundles];
+    v17 = [suggestedEventsIncludeBundles containsObject:v14];
+
+    if (v17)
+    {
+      v18 = [(SKGProcessor *)self copySuggestedEventsVersionFromRecord:recordCopy];
+      v29 = v18;
+      if (v18)
+      {
+        intValue = [v18 intValue];
+        v20 = +[SKGProcessorContext sharedContext];
+        v21 = [v20 suggestedEventsVersion] == intValue;
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      v22 = [(SKGProcessor *)self copyNumberValueFromRecord:recordCopy key:@"_kMDItemUpdaterVersion", v29];
+      v23 = v22;
+      if (v22)
+      {
+        intValue2 = [v22 intValue];
+        v25 = +[SKGProcessorContext sharedContext];
+        v26 = [v25 textVersion] != intValue2;
+      }
+
+      else
+      {
+        v26 = 1;
+      }
+
+      v31 = 0;
+      v27 = [(SKGProcessor *)self suggestedEventsRecordNeedsProcessing:recordCopy bundleID:v14 isUpdate:0 hasTextContent:textCopy shouldClear:&v31 + 1 shouldMarkComplete:&v31]&& (!v21 || v26);
+      if (HIBYTE(v31) == 1)
+      {
+        [(SKGProcessor *)self clearSuggestedEventsAttributes:attributesCopy];
+      }
+
+      if (v27)
+      {
+        if (v21 || (v31 & 1) == 0)
+        {
+          v13 = 1;
+LABEL_21:
+
+          goto LABEL_22;
+        }
+
+        [(SKGProcessor *)self clearSuggestedEventsAttributes:attributesCopy];
+      }
+
+      v13 = 0;
+      goto LABEL_21;
+    }
+
+LABEL_9:
+    [(SKGProcessor *)self clearSuggestedEventsAttributes:attributesCopy];
+    v13 = 0;
+LABEL_22:
+
+    goto LABEL_23;
+  }
+
+  v13 = 0;
+LABEL_23:
+
+  return v13;
+}
+
+- (BOOL)needsSKGReindexerSuggestedEventsForRecord:(id)record bundleID:(id)d itemHasText:(BOOL)text
+{
+  textCopy = text;
+  recordCopy = record;
+  dCopy = d;
+  v10 = +[SKGProcessorContext sharedContext];
+  enableSuggestedEvents = [v10 enableSuggestedEvents];
+
+  if (enableSuggestedEvents)
+  {
+    if (dCopy)
+    {
+      v12 = dCopy;
+    }
+
+    else
+    {
+      v12 = [(SKGProcessor *)self copyBundleIdentifierFromRecord:recordCopy];
+      if (!v12)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v14 = +[SKGProcessorContext sharedContext];
+    suggestedEventsIncludeBundles = [v14 suggestedEventsIncludeBundles];
+    v16 = [suggestedEventsIncludeBundles containsObject:v12];
+
+    if (!v16)
+    {
+      v13 = 0;
+LABEL_18:
+
+      goto LABEL_19;
+    }
+
+LABEL_7:
+    v17 = [(SKGProcessor *)self copySuggestedEventsVersionFromRecord:recordCopy];
+    v18 = v17;
+    if (v17)
+    {
+      intValue = [v17 intValue];
+      v20 = +[SKGProcessorContext sharedContext];
+      v21 = [v20 suggestedEventsVersion] == intValue;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    v22 = [(SKGProcessor *)self copyNumberValueFromRecord:recordCopy key:@"_kMDItemUpdaterVersion"];
+    v23 = v22;
+    if (v22)
+    {
+      intValue2 = [v22 intValue];
+      v25 = +[SKGProcessorContext sharedContext];
+      v26 = [v25 textVersion] != intValue2;
+    }
+
+    else
+    {
+      v26 = 1;
+    }
+
+    v29 = 0;
+    v27 = [(SKGProcessor *)self suggestedEventsRecordNeedsProcessing:recordCopy bundleID:v12 isUpdate:0 hasTextContent:textCopy shouldClear:&v29 + 1 shouldMarkComplete:&v29];
+    v13 = 0;
+    if (v27 && (!v21 || v26))
+    {
+      v13 = v29 ^ 1 | v21;
+    }
+
+    goto LABEL_18;
+  }
+
+  v13 = 0;
+LABEL_19:
+
+  return v13 & 1;
 }
 
 - (BOOL)needsSuggestedEventsForRecord:(id)record bundleID:(id)d

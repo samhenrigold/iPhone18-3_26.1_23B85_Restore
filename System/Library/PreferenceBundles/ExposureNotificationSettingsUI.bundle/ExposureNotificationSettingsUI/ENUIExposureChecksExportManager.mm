@@ -60,7 +60,7 @@
       v12 = ENUILogForCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1BC64(self, &self->_filePath);
+        sub_1BC64(self);
       }
 
       v13 = *p_filePath;
@@ -198,7 +198,7 @@
       v39 = ENUILogForCategory();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        sub_1BCEC(self, &self->_filePath);
+        sub_1BCEC(self);
       }
 
       v21 = ENErrorF();

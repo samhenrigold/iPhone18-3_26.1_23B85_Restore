@@ -33,14 +33,13 @@
 {
   v3 = sub_13AB8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (self->state[OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state + 8] == 1)
   {
-    v8 = *(&self->super.isa + OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state);
+    v7 = *(&self->super.isa + OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state);
     selfCopy = self;
-    persona = [v8 persona];
+    persona = [v7 persona];
     demotedAppsPlistPath = [persona demotedAppsPlistPath];
 
     sub_13AD8();
@@ -53,11 +52,11 @@
     sub_13A98();
   }
 
-  sub_13AA8(v12);
-  v15 = v14;
-  (*(v4 + 8))(v7, v3);
+  sub_13AA8(v11);
+  v14 = v13;
+  (*(v4 + 8))(v6, v3);
 
-  return v15;
+  return v14;
 }
 
 - (MBServiceAccount)account
@@ -80,7 +79,6 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state);
   if (!self->state[OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state + 8])
   {
-    v6 = *&self->state[OBJC_IVAR____TtC18RestorePostProcess14MigratorConfig_state];
 
     goto LABEL_5;
   }
@@ -93,15 +91,15 @@
 
     sub_13AD8();
 LABEL_5:
-    v7 = sub_13AC8();
+    v6 = sub_13AC8();
 
     goto LABEL_7;
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_7:
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isDataSeparated

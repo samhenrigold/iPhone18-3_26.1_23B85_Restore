@@ -7,7 +7,11 @@
 - (id)initiateDeveloperModeDaemons;
 - (id)removeManagedState;
 - (id)removeTrustforTeamID:(id)d;
+- (id)setDemoState:(unsigned int)state;
 - (id)setManagedState:(id)state;
+- (id)setSupervisedState:(unsigned int)state;
+- (id)setTrustForTeamID:(id)d withSignature:(id)signature withSignType:(unsigned int)type;
+- (id)signTeamID:(id)d withSignType:(unsigned int)type withLAContext:(id)context withError:(id *)error;
 - (id)stageProfileForUuid:(id)uuid;
 - (void)dealloc;
 @end
@@ -165,51 +169,50 @@ void __46__AMFIConnection_initiateDeveloperModeDaemons__block_invoke_33(uint64_t
 
 - ($42C382FA7217128787D761316B161BF9)getSEPStateWithError:(SEL)error
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x5810000000;
-  v23 = &unk_240EF9661;
+  v27 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x5810000000;
+  v22 = &unk_240EF9661;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v26 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy_;
+  v17 = __Block_byref_object_dispose_;
+  v18 = 0;
   connection = self->connection;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __39__AMFIConnection_getSEPStateWithError___block_invoke;
-  v13[3] = &unk_278CBBE08;
-  v13[4] = &v14;
-  v7 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __39__AMFIConnection_getSEPStateWithError___block_invoke_35;
-  v12[3] = &unk_278CBBE30;
-  v12[4] = &v20;
-  v12[5] = &v14;
-  [v7 getSEPStateWithReply:v12];
+  v12[2] = __39__AMFIConnection_getSEPStateWithError___block_invoke;
+  v12[3] = &unk_278CBBE08;
+  v12[4] = &v13;
+  v7 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __39__AMFIConnection_getSEPStateWithError___block_invoke_35;
+  v11[3] = &unk_278CBBE30;
+  v11[4] = &v19;
+  v11[5] = &v13;
+  [v7 getSEPStateWithReply:v11];
 
   if (a4)
   {
-    *a4 = v15[5];
+    *a4 = v14[5];
   }
 
-  v8 = v21;
-  v9 = *(v21 + 3);
-  *&retstr->var0 = *(v21 + 2);
+  v8 = v20;
+  v9 = *(v20 + 3);
+  *&retstr->var0 = *(v20 + 2);
   *&retstr->var3.var1.var0 = v9;
   *&retstr->var3.var1.var1[12] = *(v8 + 4);
   retstr->var3.var1.var1[28] = *(v8 + 80);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
   return result;
 }
 
@@ -239,6 +242,51 @@ __n128 __39__AMFIConnection_getSEPStateWithError___block_invoke_35(uint64_t a1, 
   *(v3 + 32) = v4;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), obj);
   return result;
+}
+
+- (id)signTeamID:(id)d withSignType:(unsigned int)type withLAContext:(id)context withError:(id *)error
+{
+  v8 = *&type;
+  dCopy = d;
+  contextCopy = context;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  connection = self->connection;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__AMFIConnection_signTeamID_withSignType_withLAContext_withError___block_invoke;
+  v17[3] = &unk_278CBBE08;
+  v17[4] = &v24;
+  v13 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __66__AMFIConnection_signTeamID_withSignType_withLAContext_withError___block_invoke_37;
+  v16[3] = &unk_278CBBE58;
+  v16[4] = &v18;
+  v16[5] = &v24;
+  [v13 signTeamID:dCopy withSignType:v8 withLAContext:contextCopy withReply:v16];
+
+  if (error)
+  {
+    *error = v25[5];
+  }
+
+  v14 = v19[5];
+  _Block_object_dispose(&v18, 8);
+
+  _Block_object_dispose(&v24, 8);
+
+  return v14;
 }
 
 void __66__AMFIConnection_signTeamID_withSignType_withLAContext_withError___block_invoke(uint64_t a1, void *a2)
@@ -425,6 +473,37 @@ void __39__AMFIConnection_commitProfileForUuid___block_invoke(uint64_t a1, void 
   *(v5 + 40) = v3;
 }
 
+- (id)setTrustForTeamID:(id)d withSignature:(id)signature withSignType:(unsigned int)type
+{
+  v5 = *&type;
+  dCopy = d;
+  signatureCopy = signature;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  connection = self->connection;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __63__AMFIConnection_setTrustForTeamID_withSignature_withSignType___block_invoke;
+  v15[3] = &unk_278CBBE08;
+  v15[4] = &v16;
+  v11 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__AMFIConnection_setTrustForTeamID_withSignature_withSignType___block_invoke_43;
+  v14[3] = &unk_278CBBE08;
+  v14[4] = &v16;
+  [v11 setTrustForTeamID:dCopy withSignature:signatureCopy withSignType:v5 withReply:v14];
+
+  v12 = v17[5];
+  _Block_object_dispose(&v16, 8);
+
+  return v12;
+}
+
 void __63__AMFIConnection_setTrustForTeamID_withSignature_withSignType___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -482,6 +561,35 @@ void __39__AMFIConnection_removeTrustforTeamID___block_invoke(uint64_t a1, void 
   *(v5 + 40) = v3;
 }
 
+- (id)setSupervisedState:(unsigned int)state
+{
+  v3 = *&state;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = 0;
+  connection = self->connection;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __37__AMFIConnection_setSupervisedState___block_invoke;
+  v9[3] = &unk_278CBBE08;
+  v9[4] = &v10;
+  v5 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __37__AMFIConnection_setSupervisedState___block_invoke_45;
+  v8[3] = &unk_278CBBE08;
+  v8[4] = &v10;
+  [v5 setSupervisedState:v3 withReply:v8];
+
+  v6 = v11[5];
+  _Block_object_dispose(&v10, 8);
+
+  return v6;
+}
+
 void __37__AMFIConnection_setSupervisedState___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -494,6 +602,35 @@ void __37__AMFIConnection_setSupervisedState___block_invoke(uint64_t a1, void *a
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
+}
+
+- (id)setDemoState:(unsigned int)state
+{
+  v3 = *&state;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = 0;
+  connection = self->connection;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __31__AMFIConnection_setDemoState___block_invoke;
+  v9[3] = &unk_278CBBE08;
+  v9[4] = &v10;
+  v5 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __31__AMFIConnection_setDemoState___block_invoke_46;
+  v8[3] = &unk_278CBBE08;
+  v8[4] = &v10;
+  [v5 setDemoState:v3 withReply:v8];
+
+  v6 = v11[5];
+  _Block_object_dispose(&v10, 8);
+
+  return v6;
 }
 
 void __31__AMFIConnection_setDemoState___block_invoke(uint64_t a1, void *a2)
@@ -597,122 +734,107 @@ void __36__AMFIConnection_removeManagedState__block_invoke(uint64_t a1, void *a2
 
 void __39__AMFIConnection_initiateDataMigration__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __39__AMFIConnection_initiateDataMigration__block_invoke_32_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] data migration error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] data migration error: %@", v2, v3, v4, v5, v6);
 }
 
 void __46__AMFIConnection_initiateDeveloperModeDaemons__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __46__AMFIConnection_initiateDeveloperModeDaemons__block_invoke_33_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] developer mode daemons error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] developer mode daemons error: %@", v2, v3, v4, v5, v6);
 }
 
 void __39__AMFIConnection_getSEPStateWithError___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __66__AMFIConnection_signTeamID_withSignType_withLAContext_withError___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __38__AMFIConnection_stageProfileForUuid___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __44__AMFIConnection_getStagedProfileWithError___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __39__AMFIConnection_commitProfileForUuid___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __63__AMFIConnection_setTrustForTeamID_withSignature_withSignType___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __39__AMFIConnection_removeTrustforTeamID___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __37__AMFIConnection_setSupervisedState___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __31__AMFIConnection_setDemoState___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __34__AMFIConnection_setManagedState___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 void __36__AMFIConnection_removeManagedState__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_240EEA000, v0, v1, "[%s] xpc error: %@", v2, v3, v4, v5, v6);
 }
 
 @end

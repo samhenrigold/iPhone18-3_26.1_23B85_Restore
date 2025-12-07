@@ -3137,9 +3137,9 @@ void __82__PLFeatureAvailabilityComputer_computeSnapshotForPhotoLibrary_completi
   v7 = [objc_opt_class() _savedAssetTypePredicateForSceneAnalysis:analysisCopy];
   [v4 addObject:v7];
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
-    if ([v4 count] == 1)
+    if (objc_msgSend_count(v4) == 1)
     {
       [v4 firstObject];
     }
@@ -3182,9 +3182,9 @@ void __82__PLFeatureAvailabilityComputer_computeSnapshotForPhotoLibrary_completi
   v8 = [objc_opt_class() _savedAssetTypePredicateForSceneAnalysis:analysisCopy];
   [v4 addObject:v8];
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
-    if ([v4 count] == 1)
+    if (objc_msgSend_count(v4) == 1)
     {
       [v4 firstObject];
     }

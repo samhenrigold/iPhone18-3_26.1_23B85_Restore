@@ -20,7 +20,7 @@
 
 - (id)_UUIDFromBytes:(const unsigned __int8 *)(a3
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (uuid_is_null(a3))
   {
     goto LABEL_2;
@@ -40,7 +40,6 @@ LABEL_2:
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v5];
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -81,7 +80,7 @@ LABEL_5:
 
 - (void)_initializeMyriadAdvertisementContextRecordFromData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [dataCopy length];
   if (dataCopy && v5)
@@ -91,11 +90,11 @@ LABEL_5:
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       advertisementContextVersion = self->_advertisementContextVersion;
-      v17 = 136315394;
-      v18 = "[SCDAAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
-      v19 = 1024;
-      LODWORD(v20) = advertisementContextVersion;
-      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Initializing Myriad advertisement context (version: %d)", &v17, 0x12u);
+      v16 = 136315394;
+      v17 = "[SCDAAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
+      v18 = 1024;
+      LODWORD(v19) = advertisementContextVersion;
+      _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Initializing Myriad advertisement context (version: %d)", &v16, 0x12u);
     }
 
     self->_advertisementRecordType = [(SCDAAdvertisementContextRecord *)self _getAdvertisementRecordTypeForVersion:self->_advertisementContextVersion data:dataCopy];
@@ -119,25 +118,23 @@ LABEL_5:
     v15 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "[SCDAAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
-      v19 = 2112;
-      v20 = dataCopy;
-      _os_log_error_impl(&dword_1DA758000, v15, OS_LOG_TYPE_ERROR, "%s #scda-advertisementcontext: Received wedged Myriad advertisement context record %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[SCDAAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
+      v18 = 2112;
+      v19 = dataCopy;
+      _os_log_error_impl(&dword_1DA758000, v15, OS_LOG_TYPE_ERROR, "%s #scda-advertisementcontext: Received wedged Myriad advertisement context record %@", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getElectionParticipantIdForVersion:(unsigned __int8)version data:(id)data
 {
   versionCopy = version;
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = dataCopy;
-  v12[0] = 0;
-  v12[1] = 0;
+  v11[0] = 0;
+  v11[1] = 0;
   if ((versionCopy - 1) < 3 || [dataCopy length] < 0x32)
   {
     v8 = 0;
@@ -145,13 +142,11 @@ LABEL_5:
 
   else
   {
-    [v7 getBytes:v12 range:{34, 16}];
-    v8 = [(SCDAAdvertisementContextRecord *)self _UUIDFromBytes:v12];
+    [v7 getBytes:v11 range:{34, 16}];
+    v8 = [(SCDAAdvertisementContextRecord *)self _UUIDFromBytes:v11];
   }
 
   v9 = [v8 copy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -159,10 +154,10 @@ LABEL_5:
 - (id)_getDeviceIdForVersion:(unsigned __int8)version data:(id)data
 {
   versionCopy = version;
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v13[0] = 0;
-  v13[1] = 0;
+  v12[0] = 0;
+  v12[1] = 0;
   v7 = [dataCopy length];
   if ((versionCopy - 1) > 1)
   {
@@ -177,8 +172,8 @@ LABEL_5:
   {
     v8 = 17;
 LABEL_6:
-    [dataCopy getBytes:v13 range:{v8, 16}];
-    v9 = [(SCDAAdvertisementContextRecord *)self _UUIDFromBytes:v13];
+    [dataCopy getBytes:v12 range:{v8, 16}];
+    v9 = [(SCDAAdvertisementContextRecord *)self _UUIDFromBytes:v12];
     goto LABEL_8;
   }
 
@@ -186,27 +181,23 @@ LABEL_6:
 LABEL_8:
   v10 = [v9 copy];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)_getMyriadAdvertisementDataForVersion:(unsigned __int8)version data:(id)data
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = [(SCDAAdvertisementContextRecord *)self _advertisementPayloadSizeForVersion:self->_advertisementContextVersion];
   MEMORY[0x1EEE9AC00]();
-  v8 = v12 - v7;
-  bzero(v12 - v7, v6);
+  v8 = v11 - v7;
+  bzero(v11 - v7, v6);
   if ([dataCopy length] >= v6 + 10)
   {
     [dataCopy getBytes:v8 range:{10, v6}];
   }
 
   v9 = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:v6];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -254,20 +245,20 @@ LABEL_8:
 
 - (BOOL)isSaneForVoiceTriggerEndTime:(double)time endtimeDistanceThreshold:(double)threshold
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (time <= 0.0)
   {
     v12 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315394;
-      v16 = "[SCDAAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
-      v17 = 2048;
-      *v18 = time;
-      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s Invalid Voicetrigger endtime: %f", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[SCDAAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
+      v16 = 2048;
+      *v17 = time;
+      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s Invalid Voicetrigger endtime: %f", &v14, 0x16u);
     }
 
-    v9 = 0;
+    return 0;
   }
 
   else
@@ -289,31 +280,30 @@ LABEL_8:
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       advertisementPayload = self->_advertisementPayload;
-      v15 = 136316674;
-      v16 = "[SCDAAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
-      v17 = 1024;
-      *v18 = v8 <= v6;
-      *&v18[4] = 2048;
-      *&v18[6] = v6;
-      v19 = 2048;
+      v14 = 136316674;
+      v15 = "[SCDAAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
+      v16 = 1024;
+      *v17 = v8 <= v6;
+      *&v17[4] = 2048;
+      *&v17[6] = v6;
+      v18 = 2048;
       timeCopy = time;
-      v21 = 2048;
-      v22 = voiceTriggerEndTime;
-      v23 = 2048;
-      v24 = v8;
-      v25 = 2112;
-      v26 = advertisementPayload;
-      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, "%s VoicetriggerEndtime isSane: %d (threshold: %f, me: %f, other: %f, abs-diff: %f adv: %@)", &v15, 0x44u);
+      v20 = 2048;
+      v21 = voiceTriggerEndTime;
+      v22 = 2048;
+      v23 = v8;
+      v24 = 2112;
+      v25 = advertisementPayload;
+      _os_log_impl(&dword_1DA758000, v10, OS_LOG_TYPE_INFO, "%s VoicetriggerEndtime isSane: %d (threshold: %f, me: %f, other: %f, abs-diff: %f adv: %@)", &v14, 0x44u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)myriadAdvertisementContextAsData
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   data = [MEMORY[0x1E695DF88] data];
   v4 = [(SCDAAdvertisementContextRecord *)self _advertisementPayloadSizeForVersion:self->_advertisementContextVersion];
   v5 = &buf[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -324,36 +314,34 @@ LABEL_8:
     [(NSData *)self->_advertisementPayload getBytes:v5 length:v4];
   }
 
-  v18[0] = 0;
-  v18[1] = 0;
+  v17[0] = 0;
+  v17[1] = 0;
   deviceID = self->_deviceID;
   if (deviceID)
   {
-    [(NSUUID *)deviceID getUUIDBytes:v18];
+    [(NSUUID *)deviceID getUUIDBytes:v17];
   }
 
-  v17[0] = 0;
-  v17[1] = 0;
-  [(NSUUID *)self->_electionParticipantId getUUIDBytes:v17];
+  v16[0] = 0;
+  v16[1] = 0;
+  [(NSUUID *)self->_electionParticipantId getUUIDBytes:v16];
   [data appendBytes:&self->_advertisementContextVersion length:1];
   [data appendBytes:&self->_advertisementRecordType length:1];
   [data appendBytes:&self->_voiceTriggerEndTime length:8];
   [data appendBytes:v5 length:v4];
-  [data appendBytes:v18 length:16];
   [data appendBytes:v17 length:16];
+  [data appendBytes:v16 length:16];
   v8 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v9 = v8;
     v10 = [data length];
     *buf = 136315394;
-    v14 = "[SCDAAdvertisementContextRecord myriadAdvertisementContextAsData]";
-    v15 = 2048;
-    v16 = v10;
+    v13 = "[SCDAAdvertisementContextRecord myriadAdvertisementContextAsData]";
+    v14 = 2048;
+    v15 = v10;
     _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s Generated Myriad advertisement context data: %lu bytes", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return data;
 }

@@ -21,6 +21,8 @@
 - (void)setAlwaysPrintSiriResponseEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setAlwaysShowRecognizedSpeech:(id)speech forSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation AssistantAudioFeedbackController
@@ -40,6 +42,63 @@
   return v2;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v26[2] = *MEMORY[0x277D85DE8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_preferencesDidChange_ name:*MEMORY[0x277CEF060] object:0];
+
+  v25.receiver = self;
+  v25.super_class = AssistantAudioFeedbackController;
+  [(AssistantAudioFeedbackController *)&v25 viewDidAppear:appearCopy];
+  v24 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/VOICE_FEEDBACK_ID"];
+  v6 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v8 bundleURL];
+  v10 = [v6 initWithKey:@"Siri Responses" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v11 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  LODWORD(v8) = [v11 deviceSupported];
+
+  if (v8)
+  {
+    v12 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v12 = @"Siri";
+  }
+
+  v13 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v15 bundleURL];
+  v17 = [v13 initWithKey:v12 table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v18 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v20 bundleURL];
+  v22 = [v18 initWithKey:@"Siri Responses" table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v26[0] = v17;
+  v26[1] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  [(AssistantAudioFeedbackController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v10 localizedNavigationComponents:v23 deepLink:v24];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AssistantAudioFeedbackController;
+  [(AssistantAudioFeedbackController *)&v5 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CEF060] object:0];
+}
+
 - (void)preferencesDidChange:(id)change
 {
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
@@ -55,7 +114,7 @@
 
 - (id)specifiers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -99,9 +158,9 @@
       v22 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 136315138;
-        v29 = "[AssistantAudioFeedbackController specifiers]";
-        _os_log_impl(&dword_2413B9000, v22, OS_LOG_TYPE_DEFAULT, "%s The current device doesn't support device speaker option. Removing option.", &v28, 0xCu);
+        v27 = 136315138;
+        v28 = "[AssistantAudioFeedbackController specifiers]";
+        _os_log_impl(&dword_2413B9000, v22, OS_LOG_TYPE_DEFAULT, "%s The current device doesn't support device speaker option. Removing option.", &v27, 0xCu);
       }
 
       [v5 removeObject:self->_preferredAudioRoutePhoneSpeakerSpecifier];
@@ -122,23 +181,21 @@
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_hideSiriBluetoothVehicleAudioRouteSettingsIfNeeded:(id)needed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   if (!CFPreferencesGetAppBooleanValue(@"showBTAudioRouteSetting", @"com.apple.siri.CarBluetooth", 0))
   {
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[AssistantAudioFeedbackController _hideSiriBluetoothVehicleAudioRouteSettingsIfNeeded:]";
-      _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_DEFAULT, "%s Hiding the BT Car Audio Route Settings.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AssistantAudioFeedbackController _hideSiriBluetoothVehicleAudioRouteSettingsIfNeeded:]";
+      _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_DEFAULT, "%s Hiding the BT Car Audio Route Settings.", &v6, 0xCu);
     }
 
     [neededCopy removeObject:self->_preferredAudioRouteGroupSpecifier];
@@ -146,8 +203,6 @@
     [neededCopy removeObject:self->_preferredAudioRouteBluetoothSpecifier];
     [neededCopy removeObject:self->_preferredAudioRouteCarRadioSpecifier];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSpecifiersFromPreferences
@@ -445,30 +500,30 @@ uint64_t __83__AssistantAudioFeedbackController_setAlwaysPrintSiriResponseEnable
 
 - (BOOL)_isDeviceSpeakerSupportedForBluetoothAudioRoute
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v3 = [mEMORY[0x277D26E58] pickableRoutesForCategory:*MEMORY[0x277CEF5D8] andMode:@"Default"];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     v7 = MEMORY[0x277D26D38];
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) objectForKeyedSubscript:{*v7, v13}];
+        v9 = [*(*(&v12 + 1) + 8 * i) objectForKeyedSubscript:{*v7, v12}];
         bOOLValue = [v9 BOOLValue];
 
         if (bOOLValue)
@@ -478,7 +533,7 @@ uint64_t __83__AssistantAudioFeedbackController_setAlwaysPrintSiriResponseEnable
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -490,7 +545,6 @@ uint64_t __83__AssistantAudioFeedbackController_setAlwaysPrintSiriResponseEnable
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -12,8 +12,8 @@
     return 0xFFFFFFFFLL;
   }
 
-  [self auditToken];
-  return audit_token_to_pid(&v2);
+  objc_msgSend_auditToken(self, a2);
+  return audit_token_to_pid(&v3);
 }
 
 + (uint64_t)getPIDFromCurrentConnection

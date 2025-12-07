@@ -375,7 +375,7 @@ LABEL_13:
                 {
                   v57 = MEMORY[0x277CCACA8];
                   v58 = [v44 objectForKey:@"title"];
-                  v59 = [v57 stringWithFormat:@" (\"%@\"", v58];
+                  v59 = [v57 stringWithFormat:@" (%@", v58];
                   [(WFHTMLToMarkdown *)selfCopy addOutput:v59];
                 }
 

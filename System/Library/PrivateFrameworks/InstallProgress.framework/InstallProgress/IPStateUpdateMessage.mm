@@ -30,12 +30,13 @@
   v13 = 0;
   v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:identity requiringSecureCoding:1 error:&v13];
   v5 = v13;
+  v6 = v5;
   if (!v4)
   {
-    v6 = _IPDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = _IPDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(IPStateUpdateMessage *)v5 XPCDictionaryRepresentation];
+      [(IPStateUpdateMessage *)v6 XPCDictionaryRepresentation];
     }
   }
 
@@ -44,24 +45,22 @@
   values[0] = xpc_uint64_create(self->_type);
   if (v4)
   {
-    v7 = v4;
-    v8 = xpc_data_create([v4 bytes], objc_msgSend(v4, "length"));
+    v8 = v4;
+    v9 = xpc_data_create([v4 bytes], objc_msgSend(v4, "length"));
   }
 
   else
   {
-    v8 = xpc_null_create();
+    v9 = xpc_null_create();
   }
 
-  values[1] = v8;
-  v9 = xpc_dictionary_create(keys, values, 2uLL);
+  values[1] = v9;
+  v10 = xpc_dictionary_create(keys, values, 2uLL);
   for (i = 1; i != -1; --i)
   {
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (IPStateUpdateMessage)initWithXPCDictionaryRepresentation:(id)representation error:(id *)error
@@ -121,11 +120,10 @@ LABEL_12:
 
 - (void)XPCDictionaryRepresentation
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_254C69000, a2, OS_LOG_TYPE_FAULT, "Could not encode identity: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_254C69000, a2, OS_LOG_TYPE_FAULT, "Could not encode identity: %@", &v2, 0xCu);
 }
 
 @end

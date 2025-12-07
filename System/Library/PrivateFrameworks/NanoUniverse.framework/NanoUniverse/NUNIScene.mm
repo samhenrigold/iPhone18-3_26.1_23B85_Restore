@@ -9,12 +9,14 @@
 - (void)addAnimation:(id)animation;
 - (void)removeAllAnimationsFor:(id)for withKeys:(unint64_t)keys;
 - (void)setAnimatedFloat:(unint64_t)float forKey:;
+- (void)setCamera:(float)camera target:up:roll:;
 - (void)setOffsetCoordinate:(CLLocationCoordinate2D)coordinate;
 - (void)setSnap:(unint64_t)snap;
 - (void)unpackFromBlob:(id)blob;
 - (void)update:(float)update;
 - (void)updateCamera;
 - (void)updateFromDateIfNeeded;
+- (void)updateSunLocationAnimated:(BOOL)animated lightingPreference:(unint64_t)preference adjustEarthRotation:(BOOL)rotation;
 - (void)updateSunLocationForDate:(id)date animated:(BOOL)animated lightingPreference:(unint64_t)preference adjustEarthRotation:(BOOL)rotation;
 @end
 
@@ -317,30 +319,30 @@ LABEL_24:
 
 - (void)update:(float)update
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = self->_animations;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         *&v8 = update;
-        if (([v12 update:{v8, v16}] & 1) == 0)
+        if (([v12 update:{v8, v15}] & 1) == 0)
         {
           [v5 addIndex:{-[NSMutableArray indexOfObject:](self->_animations, "indexOfObject:", v12)}];
           observer = [v12 observer];
@@ -348,7 +350,7 @@ LABEL_24:
         }
       }
 
-      v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -363,34 +365,32 @@ LABEL_24:
       [observer2 astronomySceneAnimationFinished:self];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAnimating:(id)animating forKeys:(unint64_t)keys
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   animatingCopy = animating;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = self->_animations;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v12 key];
         animatable = [v12 animatable];
         if (animatable == animatingCopy)
@@ -408,7 +408,7 @@ LABEL_24:
         }
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -417,36 +417,35 @@ LABEL_24:
   v15 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)addAnimation:(id)animation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   animationCopy = animation;
   v5 = [animationCopy key];
   animatable = [animationCopy animatable];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = self->_animations;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 key] == v5)
         {
           animatable2 = [v12 animatable];
@@ -465,7 +464,7 @@ LABEL_12:
         }
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -477,37 +476,35 @@ LABEL_12:
 
   v14 = 0;
 LABEL_13:
-  [(NSMutableArray *)self->_animations addObject:animationCopy, v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(NSMutableArray *)self->_animations addObject:animationCopy, v15];
 }
 
 - (void)removeAllAnimationsFor:(id)for withKeys:(unint64_t)keys
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   forCopy = for;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
   v7 = self->_animations;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         v14 = [v13 key];
         animatable = [v13 animatable];
         if (animatable == forCopy)
@@ -529,7 +526,7 @@ LABEL_13:
         }
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -544,14 +541,20 @@ LABEL_13:
   {
     [(NSMutableArray *)selfCopy->_animations removeObjectsAtIndexes:v10];
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)updateSunLocationAnimated:(BOOL)animated lightingPreference:(unint64_t)preference adjustEarthRotation:(BOOL)rotation
+{
+  rotationCopy = rotation;
+  animatedCopy = animated;
+  date = [(NUNIScene *)self date];
+  [(NUNIScene *)self updateSunLocationForDate:date animated:animatedCopy lightingPreference:preference adjustEarthRotation:rotationCopy];
 }
 
 - (void)updateSunLocationForDate:(id)date animated:(BOOL)animated lightingPreference:(unint64_t)preference adjustEarthRotation:(BOOL)rotation
 {
   rotationCopy = rotation;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   self->_isUpdateNeeded = 0;
   [dateCopy timeIntervalSince1970];
@@ -561,32 +564,32 @@ LABEL_13:
   {
     if (*&self->_anon_78[20] != *v10.i32)
     {
-      v69 = v10;
+      v68 = v10;
       v11 = [NUNIAnimation alloc];
       v12 = &self->_anon_78[20];
       *&v13 = vld1q_dup_f32(v12).u64[0];
-      v14 = [(NUNIAnimation *)v11 initWithAnimatable:self from:4 to:v13 key:*vdupq_lane_s32(v69, 0).i64];
+      v14 = [(NUNIAnimation *)v11 initWithAnimatable:self from:4 to:v13 key:*vdupq_lane_s32(v68, 0).i64];
       [(NUNIScene *)self addAnimation:v14];
     }
   }
 
   else
   {
-    v70 = v9 / 31536000.0;
+    v69 = v9 / 31536000.0;
     [(NUNIScene *)self removeAllAnimationsFor:self withKeys:16];
-    *&self->_anon_78[20] = v70;
+    *&self->_anon_78[20] = v69;
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = self->_spheroids;
-  v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+  v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v75 objects:v79 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v77;
+    v17 = *v76;
     v18 = vdup_n_s32(0x40C90FDBu);
     v19 = vdup_n_s32(0xC0C90FDB);
     v20 = vdup_n_s32(0x40490FDBu);
@@ -594,34 +597,34 @@ LABEL_13:
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v77 != v17)
+        if (*v76 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v76 + 1) + 8 * i);
+        v22 = *(*(&v75 + 1) + 8 * i);
         if (animated)
         {
-          structure = [*(*(&v76 + 1) + 8 * i) structure];
-          *v24.i32 = *(structure + 16) + (floorf(*(structure + 16) / 6.2832) * -6.2832);
-          v64 = v24;
-          *v24.i32 = *(structure + 20) + (floorf(*(structure + 20) / 6.2832) * -6.2832);
-          v71 = v24;
-          v25 = *(structure + 112);
+          v23 = objc_msgSend_structure(*(*(&v75 + 1) + 8 * i));
+          *v24.i32 = *(v23 + 16) + (floorf(*(v23 + 16) / 6.2832) * -6.2832);
+          v63 = v24;
+          *v24.i32 = *(v23 + 20) + (floorf(*(v23 + 20) / 6.2832) * -6.2832);
+          v70 = v24;
+          v25 = *(v23 + 112);
           v26 = vrndm_f32(vdiv_f32(v25, v18));
           v27 = vmla_f32(v25, v19, v26);
-          v26.i32[0] = *(structure + 8);
+          v26.i32[0] = *(v23 + 8);
+          v64 = v26;
+          v26.i32[0] = *(v23 + 84);
           v65 = v26;
-          v26.i32[0] = *(structure + 84);
-          v66 = v26;
-          v67 = *&v27;
-          v74 = 0;
-          v75 = 0;
+          v66 = *&v27;
           v73 = 0;
-          NUNIComputeSpheroidTransformParameters(v22, dateCopy, &v75, &v75 + 1, &v73, &v74 + 1, &v74, rotationCopy);
-          v28 = *(&v75 + 1) + (floorf(*(&v75 + 1) / 6.2832) * -6.2832);
-          v29 = vabds_f32(v28, *v64.i32);
-          if (v28 <= *v64.i32)
+          v74 = 0;
+          v72 = 0;
+          NUNIComputeSpheroidTransformParameters(v22, dateCopy, &v74, &v74 + 1, &v72, &v73 + 1, &v73, rotationCopy);
+          v28 = *(&v74 + 1) + (floorf(*(&v74 + 1) / 6.2832) * -6.2832);
+          v29 = vabds_f32(v28, *v63.i32);
+          if (v28 <= *v63.i32)
           {
             v30 = 6.2832;
           }
@@ -642,9 +645,9 @@ LABEL_13:
             v32 = v31;
           }
 
-          v33 = *&v75 + (floorf(*&v75 / 6.2832) * -6.2832);
-          v34 = vabds_f32(v33, *v71.i32);
-          if (v33 <= *v71.i32)
+          v33 = *&v74 + (floorf(*&v74 / 6.2832) * -6.2832);
+          v34 = vabds_f32(v33, *v70.i32);
+          if (v33 <= *v70.i32)
           {
             v35 = 6.2832;
           }
@@ -660,65 +663,65 @@ LABEL_13:
             v33 = v36;
           }
 
-          v75 = __PAIR64__(LODWORD(v32), LODWORD(v33));
-          v37 = vmla_f32(v73, v19, vrndm_f32(vdiv_f32(v73, v18)));
-          v73 = vbsl_s8(vcgt_f32(vabd_f32(v37, *&v67), v20), vadd_f32(v37, vbsl_s8(vcgt_f32(v37, *&v67), v19, v18)), v37);
-          if (*v64.i32 != v32)
+          v74 = __PAIR64__(LODWORD(v32), LODWORD(v33));
+          v37 = vmla_f32(v72, v19, vrndm_f32(vdiv_f32(v72, v18)));
+          v72 = vbsl_s8(vcgt_f32(vabd_f32(v37, *&v66), v20), vadd_f32(v37, vbsl_s8(vcgt_f32(v37, *&v66), v19, v18)), v37);
+          if (*v63.i32 != v32)
           {
             v38 = [NUNIAnimation alloc];
-            v39 = &v75 + 1;
+            v39 = &v74 + 1;
             *&v40 = vld1q_dup_f32(v39).u64[0];
-            v41 = [(NUNIAnimation *)v38 initWithAnimatable:v22 from:8 to:*vdupq_lane_s32(v64 key:0).i64, v40];
+            v41 = [(NUNIAnimation *)v38 initWithAnimatable:v22 from:8 to:*vdupq_lane_s32(v63 key:0).i64, v40];
             [(NUNIScene *)self addAnimation:v41];
 
-            LODWORD(v33) = v75;
+            LODWORD(v33) = v74;
           }
 
-          if (*v71.i32 != v33)
+          if (*v70.i32 != v33)
           {
             v42 = [NUNIAnimation alloc];
-            v43 = &v75;
+            v43 = &v74;
             *&v44 = vld1q_dup_f32(v43).u64[0];
-            v45 = [(NUNIAnimation *)v42 initWithAnimatable:v22 from:1 to:*vdupq_lane_s32(v71 key:0).i64, v44];
+            v45 = [(NUNIAnimation *)v42 initWithAnimatable:v22 from:1 to:*vdupq_lane_s32(v70 key:0).i64, v44];
             [(NUNIScene *)self addAnimation:v45];
           }
 
-          v46 = vmvn_s8(vceq_f32(*&v67, v73));
+          v46 = vmvn_s8(vceq_f32(*&v66, v72));
           if (v46.i8[0] & 1) != 0 || (v46.i8[4])
           {
             v47 = [NUNIAnimation alloc];
-            v48 = [(NUNIAnimation *)v47 initWithAnimatable:v22 from:3 to:v67 key:*&v73];
+            v48 = [(NUNIAnimation *)v47 initWithAnimatable:v22 from:3 to:v66 key:*&v72];
             [(NUNIScene *)self addAnimation:v48];
           }
 
-          if (*v65.i32 != *(&v74 + 1))
+          if (*v64.i32 != *(&v73 + 1))
           {
             v49 = [NUNIAnimation alloc];
-            v50 = &v74 + 1;
+            v50 = &v73 + 1;
             *&v51 = vld1q_dup_f32(v50).u64[0];
-            v52 = [(NUNIAnimation *)v49 initWithAnimatable:v22 from:4 to:*vdupq_lane_s32(v65 key:0).i64, v51];
+            v52 = [(NUNIAnimation *)v49 initWithAnimatable:v22 from:4 to:*vdupq_lane_s32(v64 key:0).i64, v51];
             [(NUNIScene *)self addAnimation:v52];
           }
 
-          if (*v66.i32 != *&v74)
+          if (*v65.i32 != *&v73)
           {
             v53 = [NUNIAnimation alloc];
-            v54 = &v74;
+            v54 = &v73;
             *&v55 = vld1q_dup_f32(v54).u64[0];
-            v56 = [(NUNIAnimation *)v53 initWithAnimatable:v22 from:6 to:*vdupq_lane_s32(v66 key:0).i64, v55];
+            v56 = [(NUNIAnimation *)v53 initWithAnimatable:v22 from:6 to:*vdupq_lane_s32(v65 key:0).i64, v55];
             [(NUNIScene *)self addAnimation:v56];
           }
 
-          if (((1 << *structure) & 0x3E6) != 0)
+          if (((1 << *v23) & 0x3E6) != 0)
           {
-            v72 = *(structure + 144);
-            v57 = NUNIComputeSpheroidIdealHomeCoordinate(preference, v73.f32[0], *&v75);
+            v71 = *(v23 + 144);
+            v57 = NUNIComputeSpheroidIdealHomeCoordinate(preference, v72.f32[0], *&v74);
             v58 = *&v57;
-            v68 = *&v57;
+            v67 = *&v57;
             [v22 setHomeCoordinate:{*(&v57 + 1), *&v57}];
-            if (*&v72 != v58 || (vmvn_s8(vceq_f32(*&v72, *&v68)).i32[1] & 1) != 0)
+            if (*&v71 != v58 || (vmvn_s8(vceq_f32(*&v71, *&v67)).i32[1] & 1) != 0)
             {
-              v59 = [[NUNIAnimation alloc] initWithAnimatable:v22 from:10 to:v72 key:v68];
+              v59 = [[NUNIAnimation alloc] initWithAnimatable:v22 from:10 to:v71 key:v67];
               [(NUNIScene *)self addAnimation:v59];
             }
           }
@@ -726,43 +729,41 @@ LABEL_13:
 
         else
         {
-          [(NUNIScene *)self removeAllAnimationsFor:*(*(&v76 + 1) + 8 * i) withKeys:282];
+          [(NUNIScene *)self removeAllAnimationsFor:*(*(&v75 + 1) + 8 * i) withKeys:282];
           [v22 updateSunLocationForDate:dateCopy lightingPreference:preference adjustEarthRotation:rotationCopy];
         }
       }
 
-      v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+      v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v75 objects:v79 count:16];
     }
 
     while (v16);
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (id)spheroidOfType:(unint64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_spheroids;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 type] == type)
         {
           v10 = v9;
@@ -770,7 +771,7 @@ LABEL_13:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -783,8 +784,6 @@ LABEL_13:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -795,6 +794,24 @@ LABEL_11:
     [(NUNIScene *)self updateSunLocationAnimated:0 lightingPreference:1 adjustEarthRotation:1];
     self->_isUpdateNeeded = 0;
   }
+}
+
+- (void)setCamera:(float)camera target:up:roll:
+{
+  v6 = v5;
+  v9 = v3;
+  v10 = v4;
+  v11 = *&camera;
+  v8 = NUNILoggingObjectForDomain(0);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    [NUNIScene setCamera:v8 target:v11 up:? roll:?];
+  }
+
+  *&self->_structure.var0 = v11;
+  *&self->_structure.var3 = v9;
+  *&self->_structure.var5 = v10;
+  self->_structure.var8.var0.var1 = v6;
 }
 
 - (CLLocationCoordinate2D)offsetCoordinate
@@ -829,18 +846,18 @@ LABEL_11:
   v4 = [(NSMutableArray *)v3 count];
   v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:160 * v4 + 144];
   mutableBytes = [v5 mutableBytes];
-  structure = [(NUNIScene *)self structure];
-  v8 = *&structure->var0;
-  v9 = *&structure->var3;
-  v10 = *&structure->var8.var0.var0;
-  *(mutableBytes + 32) = *&structure->var5;
+  v7 = objc_msgSend_structure(self);
+  v8 = *v7;
+  v9 = v7[1];
+  v10 = v7[3];
+  *(mutableBytes + 32) = v7[2];
   *(mutableBytes + 48) = v10;
   *mutableBytes = v8;
   *(mutableBytes + 16) = v9;
-  v11 = *&structure->var11;
-  v12 = *&structure[1].var2;
-  v13 = *&structure[1].var6;
-  *(mutableBytes + 96) = *&structure[1].var4;
+  v11 = v7[4];
+  v12 = v7[5];
+  v13 = v7[7];
+  *(mutableBytes + 96) = v7[6];
   *(mutableBytes + 112) = v13;
   *(mutableBytes + 64) = v11;
   *(mutableBytes + 80) = v12;
@@ -852,21 +869,21 @@ LABEL_11:
     do
     {
       v16 = [(NSMutableArray *)v3 objectAtIndex:v14];
-      structure2 = [v16 structure];
-      v18 = structure2[1];
-      *v15 = *structure2;
+      v17 = objc_msgSend_structure(v16);
+      v18 = v17[1];
+      *v15 = *v17;
       v15[1] = v18;
-      v19 = structure2[5];
-      v21 = structure2[2];
-      v20 = structure2[3];
-      v15[4] = structure2[4];
+      v19 = v17[5];
+      v21 = v17[2];
+      v20 = v17[3];
+      v15[4] = v17[4];
       v15[5] = v19;
       v15[2] = v21;
       v15[3] = v20;
-      v22 = structure2[9];
-      v24 = structure2[6];
-      v23 = structure2[7];
-      v15[8] = structure2[8];
+      v22 = v17[9];
+      v24 = v17[6];
+      v23 = v17[7];
+      v15[8] = v17[8];
       v15[9] = v22;
       v15[6] = v24;
       v15[7] = v23;
@@ -909,24 +926,24 @@ LABEL_11:
     do
     {
       v16 = [(NSMutableArray *)v4 objectAtIndex:v14];
-      structure = [v16 structure];
+      v17 = objc_msgSend_structure(v16);
       v18 = v15[1];
-      *structure = *v15;
-      structure[1] = v18;
+      *v17 = *v15;
+      v17[1] = v18;
       v19 = v15[5];
       v21 = v15[2];
       v20 = v15[3];
-      structure[4] = v15[4];
-      structure[5] = v19;
-      structure[2] = v21;
-      structure[3] = v20;
+      v17[4] = v15[4];
+      v17[5] = v19;
+      v17[2] = v21;
+      v17[3] = v20;
       v22 = v15[9];
       v24 = v15[6];
       v23 = v15[7];
-      structure[8] = v15[8];
-      structure[9] = v22;
-      structure[6] = v24;
-      structure[7] = v23;
+      v17[8] = v15[8];
+      v17[9] = v22;
+      v17[6] = v24;
+      v17[7] = v23;
 
       ++v14;
       v15 += 10;
@@ -945,15 +962,14 @@ LABEL_11:
 
 - (void)setCamera:(os_log_t)log target:(__n128)a2 up:roll:.cold.1(os_log_t log, __n128 a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 134218496;
-  v4 = a2.n128_f32[0];
-  v5 = 2048;
-  v6 = a2.n128_f32[1];
-  v7 = 2048;
-  v8 = a2.n128_f32[2];
-  _os_log_debug_impl(&dword_25B6D4000, log, OS_LOG_TYPE_DEBUG, "Camera position %f, %f, %f", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 134218496;
+  v3 = a2.n128_f32[0];
+  v4 = 2048;
+  v5 = a2.n128_f32[1];
+  v6 = 2048;
+  v7 = a2.n128_f32[2];
+  _os_log_debug_impl(&dword_25B6D4000, log, OS_LOG_TYPE_DEBUG, "Camera position %f, %f, %f", &v2, 0x20u);
 }
 
 @end

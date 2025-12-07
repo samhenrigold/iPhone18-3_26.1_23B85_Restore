@@ -189,7 +189,7 @@ void __30__STYSignpostsMonitor_disable__block_invoke(uint64_t a1, void *a2)
   return v2;
 }
 
-uint64_t __44__STYSignpostsMonitor_needsEnablementChange__block_invoke(uint64_t a1, void *a2)
+void *__44__STYSignpostsMonitor_needsEnablementChange__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 needsEnablementChange];
   if (result)
@@ -202,11 +202,9 @@ uint64_t __44__STYSignpostsMonitor_needsEnablementChange__block_invoke(uint64_t 
 
 - (void)setupRetryAfterFailure
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self successiveExtractorFailureCount];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t a1)
@@ -225,7 +223,7 @@ uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t
 
 - (void)checkMonitoring:(BOOL)monitoring
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (monitoring || [(STYSignpostsMonitor *)self needsEnablementChange])
   {
     signpostExtractor = [(STYSignpostsMonitor *)self signpostExtractor];
@@ -238,25 +236,25 @@ uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t
     [(STYSignpostsMonitor *)self setStreamingStatistics:0];
     v6 = objc_alloc_init(MEMORY[0x277D55040]);
     v7 = os_transaction_create();
-    *v44 = 0;
-    v45 = v44;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke;
-    v36[3] = &unk_279B9B6A8;
+    *v43 = 0;
+    v44 = v43;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke;
+    v35[3] = &unk_279B9B6A8;
     logHandle4 = v6;
-    v37 = logHandle4;
-    v38 = v44;
-    v39 = &v40;
-    [(STYSignpostsMonitor *)self forEachHelper:v36];
+    v36 = logHandle4;
+    v37 = v43;
+    v38 = &v39;
+    [(STYSignpostsMonitor *)self forEachHelper:v35];
 
-    if (v45[24])
+    if (v44[24])
     {
       v9 = objc_alloc_init(MEMORY[0x277D55030]);
       [(STYSignpostsMonitor *)self setSignpostExtractor:v9];
@@ -285,44 +283,44 @@ uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t
         signpostExtractor3 = [(STYSignpostsMonitor *)self signpostExtractor];
         [signpostExtractor3 setSubsystemCategoryFilter:logHandle4];
 
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_172;
-        v35[3] = &unk_279B9B6F8;
-        v35[4] = self;
-        signpostExtractor4 = [(STYSignpostsMonitor *)self signpostExtractor];
-        [signpostExtractor4 setIntervalCompletionProcessingBlock:v35];
-
         v34[0] = MEMORY[0x277D85DD0];
         v34[1] = 3221225472;
-        v34[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_4;
-        v34[3] = &unk_279B9B720;
+        v34[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_172;
+        v34[3] = &unk_279B9B6F8;
         v34[4] = self;
-        signpostExtractor5 = [(STYSignpostsMonitor *)self signpostExtractor];
-        [signpostExtractor5 setEmitEventProcessingBlock:v34];
+        signpostExtractor4 = [(STYSignpostsMonitor *)self signpostExtractor];
+        [signpostExtractor4 setIntervalCompletionProcessingBlock:v34];
 
         v33[0] = MEMORY[0x277D85DD0];
         v33[1] = 3221225472;
-        v33[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_7;
+        v33[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_4;
         v33[3] = &unk_279B9B720;
         v33[4] = self;
-        signpostExtractor6 = [(STYSignpostsMonitor *)self signpostExtractor];
-        [signpostExtractor6 setBeginEventProcessingBlock:v33];
+        signpostExtractor5 = [(STYSignpostsMonitor *)self signpostExtractor];
+        [signpostExtractor5 setEmitEventProcessingBlock:v33];
 
         v32[0] = MEMORY[0x277D85DD0];
         v32[1] = 3221225472;
-        v32[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10;
-        v32[3] = &unk_279B9B748;
+        v32[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_7;
+        v32[3] = &unk_279B9B720;
         v32[4] = self;
+        signpostExtractor6 = [(STYSignpostsMonitor *)self signpostExtractor];
+        [signpostExtractor6 setBeginEventProcessingBlock:v32];
+
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10;
+        v31[3] = &unk_279B9B748;
+        v31[4] = self;
         signpostExtractor7 = [(STYSignpostsMonitor *)self signpostExtractor];
-        [signpostExtractor7 setProcessingCompletionBlock:v32];
+        [signpostExtractor7 setProcessingCompletionBlock:v31];
 
         signpostExtractor8 = [(STYSignpostsMonitor *)self signpostExtractor];
-        v18 = *(v41 + 24);
+        v18 = *(v40 + 24);
         monitorQueue = [(STYSignpostsMonitor *)self monitorQueue];
-        v31 = 0;
-        LOBYTE(v18) = [signpostExtractor8 processNotificationsWithIntervalTimeoutInSeconds:30 shouldCalculateAnimationFramerate:v18 targetQueue:monitorQueue errorOut:&v31];
-        v20 = v31;
+        v30 = 0;
+        LOBYTE(v18) = [signpostExtractor8 processNotificationsWithIntervalTimeoutInSeconds:30 shouldCalculateAnimationFramerate:v18 targetQueue:monitorQueue errorOut:&v30];
+        v20 = v30;
 
         if (v18)
         {
@@ -363,8 +361,8 @@ uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t
       }
     }
 
-    _Block_object_dispose(&v40, 8);
-    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(v43, 8);
   }
 
   else
@@ -374,12 +372,10 @@ uint64_t __45__STYSignpostsMonitor_setupRetryAfterFailure__block_invoke(uint64_t
 
     if (os_log_type_enabled(logHandle4, OS_LOG_TYPE_INFO))
     {
-      *v44 = 0;
-      _os_log_impl(&dword_2656CE000, logHandle4, OS_LOG_TYPE_INFO, "No change in monitoring", v44, 2u);
+      *v43 = 0;
+      _os_log_impl(&dword_2656CE000, logHandle4, OS_LOG_TYPE_INFO, "No change in monitoring", v43, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __39__STYSignpostsMonitor_checkMonitoring___block_invoke(uint64_t a1, void *a2)
@@ -399,7 +395,7 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke(uint64_t a1, void 
 
 void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) shouldBeEnabled];
   v4 = [*v2 isEnabled];
@@ -421,9 +417,9 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [*v2 name];
-        v15 = 138543362;
-        v16 = v8;
-        _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ starting monitoring", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v8;
+        _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ starting monitoring", &v14, 0xCu);
       }
 
       [*v2 willStartMonitoring];
@@ -451,15 +447,15 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [*v2 name];
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_2656CE000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ has nothing to monitor", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_impl(&dword_2656CE000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ has nothing to monitor", &v14, 0xCu);
       }
     }
 
 LABEL_21:
 
-    goto LABEL_22;
+    return;
   }
 
   if (!v4)
@@ -475,14 +471,12 @@ LABEL_21:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*v2 name];
-    v15 = 138543362;
-    v16 = v7;
-    _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ ending monitoring", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v7;
+    _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ ending monitoring", &v14, 0xCu);
   }
 
   [*v2 didEndMonitoring];
-LABEL_22:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__STYSignpostsMonitor_checkMonitoring___block_invoke_172(uint64_t a1, void *a2)
@@ -646,7 +640,7 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10(uint64_t a1, vo
 
 - (void)reportLatencyToReceiveSignposts:(id)signposts
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   signpostsCopy = signposts;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -677,16 +671,16 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10(uint64_t a1, vo
       if (os_signpost_enabled(handleForNotificationLatency))
       {
         v9 = v8;
-        v12 = 134217984;
+        v11 = 134217984;
         timeRecordedMachContinuousTime = [v6 timeRecordedMachContinuousTime];
-        _os_signpost_emit_with_name_impl(&dword_2656CE000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "timeToReceiveASignpostNotification", "%{signpost.description:begin_time}llu", &v12, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_2656CE000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "timeToReceiveASignpostNotification", "%{signpost.description:begin_time}llu", &v11, 0xCu);
       }
 
       v10 = handleForNotificationLatency;
       if (os_signpost_enabled(handleForNotificationLatency))
       {
-        LOWORD(v12) = 0;
-        _os_signpost_emit_with_name_impl(&dword_2656CE000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "timeToReceiveASignpostNotification", " enableTelemetry=YES ", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_signpost_emit_with_name_impl(&dword_2656CE000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "timeToReceiveASignpostNotification", " enableTelemetry=YES ", &v11, 2u);
       }
 
       self->_eventCount = 0;
@@ -694,8 +688,6 @@ void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10(uint64_t a1, vo
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)monitorSignposts:(BOOL)signposts
@@ -935,35 +927,26 @@ uint64_t __46__STYSignpostsMonitor_stopMonitoringWorkflows__block_invoke(uint64_
 
 void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_2_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 name];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_2_cold_2(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 name];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__STYSignpostsMonitor_checkMonitoring___block_invoke_10_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

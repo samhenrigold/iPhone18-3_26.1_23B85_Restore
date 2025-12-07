@@ -210,7 +210,6 @@ LABEL_46:
             NSStringFromClass(v39);
             errorCopy = error;
             v42 = v41 = dataCopy;
-            v43 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v41;
@@ -286,22 +285,21 @@ LABEL_42:
 LABEL_52:
   if (!*&v7[*v10])
   {
-    v47 = 1;
+    v45 = 1;
     goto LABEL_56;
   }
 
 LABEL_53:
-  v44 = objc_opt_class();
-  v11 = NSStringFromClass(v44);
-  v45 = *&v7[*v10];
-  v46 = CCInvalidBufferErrorForMessage();
+  v43 = objc_opt_class();
+  v11 = NSStringFromClass(v43);
+  v44 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_54:
-  v47 = 0;
+  v45 = 0;
 LABEL_56:
 
-  return v47;
+  return v45;
 }
 
 - (CCToolKitToolTimestamp)initWithSeconds:(id)seconds nanos:(id)nanos error:(id *)error

@@ -8,43 +8,41 @@
 
 - (void)sruif_enumeratePropertyRangesUsingBlock:()SiriUIFoundationAdditions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     regions = [self regions];
-    v6 = [regions countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [regions countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(regions);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           property = [v10 property];
           sruif_range = [v10 sruif_range];
           v4[2](v4, property, sruif_range, v13);
         }
 
-        v7 = [regions countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [regions countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sruif_enumerateRangesOfRegionsWithProperty:()SiriUIFoundationAdditions usingBlock:

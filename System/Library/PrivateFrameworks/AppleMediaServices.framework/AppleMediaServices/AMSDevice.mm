@@ -79,7 +79,7 @@
   v3 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   v4 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%ld.%ld", 0, 0];
@@ -561,7 +561,7 @@ LABEL_17:
   return type;
 }
 
-uint64_t __45__AMSDevice_Offers__deviceOffersContainType___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__45__AMSDevice_Offers__deviceOffersContainType___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 offerType];
   if (result == *(a1 + 40))

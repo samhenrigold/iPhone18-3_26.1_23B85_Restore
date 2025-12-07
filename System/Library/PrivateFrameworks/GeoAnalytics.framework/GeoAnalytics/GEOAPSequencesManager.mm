@@ -212,46 +212,46 @@ uint64_t __42__GEOAPSequencesManager_searchWinSequence__block_invoke()
 
 void __57__GEOAPSequencesManager_processUserAction_target_atTime___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v2 = [MEMORY[0x1E69A2710] sharedInstance];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __57__GEOAPSequencesManager_processUserAction_target_atTime___block_invoke_2;
-  v18[3] = &unk_1E7953C00;
-  v18[4] = &v19;
-  [v2 shortSessionValues:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __57__GEOAPSequencesManager_processUserAction_target_atTime___block_invoke_2;
+  v17[3] = &unk_1E7953C00;
+  v17[4] = &v18;
+  [v2 shortSessionValues:v17];
 
-  if (*(v20 + 24) == 1)
+  if (*(v19 + 24) == 1)
   {
     v3 = *(a1 + 32);
     if (v3)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v4 = *(v3 + 8);
-      v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v5)
       {
-        v6 = *v24;
+        v6 = *v23;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v24 != v6)
+            if (*v23 != v6)
             {
               objc_enumerationMutation(v4);
             }
 
-            [(GEOAPSequence *)*(*(&v23 + 1) + 8 * i) reset];
+            [(GEOAPSequence *)*(*(&v22 + 1) + 8 * i) reset];
           }
 
-          v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v5);
@@ -259,39 +259,38 @@ void __57__GEOAPSequencesManager_processUserAction_target_atTime___block_invoke(
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(*(a1 + 32) + 8);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (j = 0; j != v9; ++j)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * j);
+        v12 = *(*(&v13 + 1) + 8 * j);
         if ([(GEOAPSequence *)v12 processUserAction:*(a1 + 52) target:*(a1 + 40) atTime:?])
         {
           [(GEOAPSequence *)v12 reset];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v26 count:16];
     }
 
     while (v9);
   }
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __57__GEOAPSequencesManager_processUserAction_target_atTime___block_invoke_2(uint64_t result, double a2, double a3)

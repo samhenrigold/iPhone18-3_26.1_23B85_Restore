@@ -75,39 +75,39 @@ void __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldRe
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_reply___block_invoke_2_cold_1(v2);
+      __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_reply___block_invoke_2_cold_1(v2, v3);
     }
 
-    v3 = MEMORY[0x277CC1E88];
-    v4 = *(*(a1 + 40) + 16);
-    if (v4)
+    v4 = MEMORY[0x277CC1E88];
+    v5 = *(*(a1 + 40) + 16);
+    if (v5)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v5);
     }
 
     else
     {
-      memset(v15, 0, sizeof(v15));
+      memset(v16, 0, sizeof(v16));
     }
 
-    v14 = 0;
-    v7 = [v3 bundleProxyWithAuditToken:v15 error:&v14];
-    v6 = v14;
-    v8 = +[BCSAnalyticsLogger sharedLogger];
-    v9 = *(a1 + 32);
-    v10 = [v7 bundleIdentifier];
-    [v8 logBarcodeDetectedEventForAction:v9 fromBundleID:v10];
+    v15 = 0;
+    v8 = [v4 bundleProxyWithAuditToken:v16 error:&v15];
+    v7 = v15;
+    v9 = +[BCSAnalyticsLogger sharedLogger];
+    v10 = *(a1 + 32);
+    v11 = [v8 bundleIdentifier];
+    [v9 logBarcodeDetectedEventForAction:v10 fromBundleID:v11];
 
-    v11 = [*(a1 + 48) codeType];
+    v12 = [*(a1 + 48) codeType];
     if (*(a1 + 64) == 1)
     {
-      [*(a1 + 40) _cancelNotificationsForCodeType:v11];
+      [*(a1 + 40) _cancelNotificationsForCodeType:v12];
     }
 
-    v12 = [BCSNotification notificationForAction:*(a1 + 32)];
-    [v12 setRequestingProcessID:{objc_msgSend(*(*(a1 + 40) + 16), "processIdentifier")}];
-    v13 = +[BCSNotificationManager sharedManager];
-    [v13 scheduleNotification:v12 codeType:v11];
+    v13 = [BCSNotification notificationForAction:*(a1 + 32)];
+    [v13 setRequestingProcessID:{objc_msgSend(*(*(a1 + 40) + 16), "processIdentifier")}];
+    v14 = +[BCSNotificationManager sharedManager];
+    [v14 scheduleNotification:v13 codeType:v12];
 
     (*(*(a1 + 56) + 16))();
   }
@@ -119,9 +119,9 @@ void __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldRe
       __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_reply___block_invoke_2_cold_2();
     }
 
-    v5 = *(a1 + 56);
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
-    (*(v5 + 16))(v5, v6, 0);
+    v6 = *(a1 + 56);
+    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
+    (*(v6 + 16))(v6, v7, 0);
   }
 }
 
@@ -181,14 +181,12 @@ void __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldRe
   [(BCSNFCReader *)nfcReader startReading];
 }
 
-void __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_reply___block_invoke_2_cold_1(uint64_t *a1)
+void __104__BCSNotificationService_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_reply___block_invoke_2_cold_1(void *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v3 = 138412290;
-  v4 = objc_opt_class();
-  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotificationService: Detected QR code has resolved to action of class %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = objc_opt_class();
+  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotificationService: Detected QR code has resolved to action of class %@", &v2, 0xCu);
 }
 
 @end

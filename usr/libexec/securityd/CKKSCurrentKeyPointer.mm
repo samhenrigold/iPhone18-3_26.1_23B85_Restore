@@ -146,28 +146,17 @@
   recordType = [recordCopy recordType];
   v6 = [recordType isEqualToString:@"currentkey"];
 
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  recordID = [recordCopy recordID];
-  recordName = [recordID recordName];
-  keyclass = [(CKKSCurrentKeyPointer *)self keyclass];
-  v10 = [recordName isEqualToString:keyclass];
-
-  if (v10)
+  if (v6 && ([recordCopy recordID], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "recordName"), v8 = objc_claimAutoreleasedReturnValue(), -[CKKSCurrentKeyPointer keyclass](self, "keyclass"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, v10))
   {
     v11 = [recordCopy objectForKeyedSubscript:@"parentkeyref"];
-    recordID2 = [v11 recordID];
-    recordName2 = [recordID2 recordName];
+    recordID = [v11 recordID];
+    recordName = [recordID recordName];
     currentKeyUUID = [(CKKSCurrentKeyPointer *)self currentKeyUUID];
-    v15 = [recordName2 isEqualToString:currentKeyUUID];
+    v15 = [recordName isEqualToString:currentKeyUUID];
   }
 
   else
   {
-LABEL_4:
     v15 = 0;
   }
 

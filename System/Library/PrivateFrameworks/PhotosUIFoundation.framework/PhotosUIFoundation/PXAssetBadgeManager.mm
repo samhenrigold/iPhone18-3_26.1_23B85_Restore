@@ -30,9 +30,10 @@ uint64_t __37__PXAssetBadgeManager_defaultManager__block_invoke()
     v0 = objc_alloc_init(PXAssetBadgeManager);
   }
 
+  v1 = defaultManager_defaultManager_7178;
   defaultManager_defaultManager_7178 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PXAssetBadgeInfo)badgeInfoForCollection:(SEL)collection options:(id)options

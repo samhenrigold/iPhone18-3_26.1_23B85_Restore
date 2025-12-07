@@ -95,7 +95,7 @@ uint64_t __48__AXPhoenixDataCollectionManager_sharedInstance__block_invoke()
   objc_storeStrong(v9, 0);
 }
 
-uint64_t __43__AXPhoenixDataCollectionManager_timerTick__block_invoke(uint64_t a1)
+void *__43__AXPhoenixDataCollectionManager_timerTick__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRunning];
   if (result)
@@ -220,7 +220,6 @@ uint64_t __43__AXPhoenixDataCollectionManager_timerTick__block_invoke(uint64_t a
   objc_storeStrong(v33, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(v35, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadPackages
@@ -433,7 +432,6 @@ uint64_t __43__AXPhoenixDataCollectionManager_timerTick__block_invoke(uint64_t a
   objc_storeStrong(v58, 0);
   objc_storeStrong(&v59, 0);
   objc_storeStrong(v60, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __48__AXPhoenixDataCollectionManager_uploadPackages__block_invoke(NSObject *a1)
@@ -449,7 +447,6 @@ void __48__AXPhoenixDataCollectionManager_uploadPackages__block_invoke(NSObject 
   }
 
   objc_storeStrong(oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUploadStatus:(int64_t)status error:(id)error
@@ -518,7 +515,6 @@ uint64_t __59__AXPhoenixDataCollectionManager_updateUploadStatus_error___block_i
   objc_storeStrong(&v4, 0);
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (AXPhoenixDataCollectionManagerDelegate)delegate

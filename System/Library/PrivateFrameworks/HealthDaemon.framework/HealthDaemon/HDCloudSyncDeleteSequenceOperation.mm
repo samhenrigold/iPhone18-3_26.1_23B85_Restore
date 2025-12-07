@@ -64,31 +64,29 @@
 
 void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = 138543874;
-    v10 = v7;
-    v11 = 2114;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete recordIDs %{public}@, %{public}@", &v9, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138543874;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete recordIDs %{public}@, %{public}@", &v8, 0x20u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
@@ -97,43 +95,43 @@ void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v37 = v5;
-    v38 = 2114;
-    v39 = v6;
+    v36 = v5;
+    v37 = 2114;
+    v38 = v6;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully deleted recordIDs %{public}@", buf, 0x16u);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v27 = v3;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v26 = v3;
   obj = [v3 deletedRecordIDs];
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v32;
+    v10 = *v31;
     *&v8 = 138543362;
-    v26 = v8;
+    v25 = v8;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * v11);
+        v12 = *(*(&v30 + 1) + 8 * v11);
         v13 = [*(*(a1 + 32) + 104) allKeys];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_299;
-        v30[3] = &unk_27861ADC8;
-        v30[4] = v12;
-        v14 = [v13 hk_firstObjectPassingTest:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_299;
+        v29[3] = &unk_27861ADC8;
+        v29[4] = v12;
+        v14 = [v13 hk_firstObjectPassingTest:v29];
 
         if (!v14)
         {
@@ -141,11 +139,11 @@ void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1
           v21 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
-            v25 = *(a1 + 32);
+            v24 = *(a1 + 32);
             *buf = 138543618;
-            v37 = v25;
-            v38 = 2114;
-            v39 = v12;
+            v36 = v24;
+            v37 = 2114;
+            v38 = v12;
             _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@: Sequence record surprisingly not found for record ID %{public}@", buf, 0x16u);
           }
 
@@ -160,17 +158,17 @@ void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1
         v16 = [v15 store];
         v17 = [v16 syncStoreForEpoch:{objc_msgSend(v14, "baselineEpoch")}];
 
-        v29 = 0;
-        LOBYTE(v16) = [v17 clearAllSyncAnchorsWithError:&v29];
-        v18 = v29;
+        v28 = 0;
+        LOBYTE(v16) = [v17 clearAllSyncAnchorsWithError:&v28];
+        v18 = v28;
         if ((v16 & 1) == 0)
         {
           _HKInitializeLogging();
           v19 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
-            *buf = v26;
-            v37 = v18;
+            *buf = v25;
+            v36 = v18;
             _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to remove old sync anchors after finalizing new baseline: %{public}@", buf, 0xCu);
           }
         }
@@ -182,7 +180,7 @@ void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v9)
       {
         continue;
@@ -194,8 +192,6 @@ void __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_298(uint64_t a1
 
   [*(a1 + 32) finishWithSuccess:1 error:0];
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__HDCloudSyncDeleteSequenceOperation_main__block_invoke_299(uint64_t a1, void *a2)

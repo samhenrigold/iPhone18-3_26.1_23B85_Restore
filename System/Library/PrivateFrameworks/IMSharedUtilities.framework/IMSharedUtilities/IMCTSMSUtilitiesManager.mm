@@ -400,7 +400,7 @@ LABEL_14:
       }
 
       v28 = qword_1EB30A9D0;
-      v29 = [MEMORY[0x1E696AD98] numberWithBool:{v17, *v32}];
+      v29 = [MEMORY[0x1E696AD98] numberWithBool:{v17, *v32, *&v32[8]}];
       [v28 setObject:v29 forKey:v13];
 
       if (IMOSLoggingEnabled())
@@ -1476,7 +1476,7 @@ LABEL_20:
     v18 = 0;
     if (qword_1EB30B4D8)
     {
-      [qword_1EB30B4D8 maximumDurationForPreset:presetCopy properties:v12];
+      objc_msgSend_maximumDurationForPreset_properties_(qword_1EB30B4D8);
     }
 
     v15 = v17;
@@ -1904,7 +1904,7 @@ LABEL_19:
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
+      v20[0] = 0;
       _os_log_impl(&dword_1A85E5000, v17, OS_LOG_TYPE_INFO, "Eager upload disabled in Carrier Bundle", v20, 2u);
     }
   }

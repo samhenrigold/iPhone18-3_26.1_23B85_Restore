@@ -34,9 +34,12 @@
 - (void)getSatelliteRegistrationStatus:(id)status delegate:(id)delegate;
 - (void)handleContextUpdated:(id)updated forKey:(int)key withState:(id)state;
 - (void)handleCurrentDataSimChanged:(id)changed;
+- (void)handleInterfaceCostExpensiveChanged:(id)changed info:(BOOL)info;
+- (void)handleLowDataModeChanged:(id)changed info:(BOOL)info;
 - (void)handlePlmnChanged:(id)changed plmn:(id)plmn;
 - (void)handleRadioAccessTechnologyChanged:(id)changed info:(id)info;
 - (void)handleRegistrationStatusChanged:(id)changed;
+- (void)handleSatelliteRegistrationStatusForContext:(id)context changedTo:(BOOL)to;
 - (void)handleSignalStrengthChangedExternal:(id)external info:(id)info;
 - (void)handleTUCallCenterCallStatusChangedNotification;
 - (void)registerAirplaneModeCallbacks;
@@ -77,9 +80,9 @@
 
 - (TelephonyStateRelay)init
 {
-  v44.receiver = self;
-  v44.super_class = TelephonyStateRelay;
-  v2 = [(TelephonyStateRelay *)&v44 init];
+  v39.receiver = self;
+  v39.super_class = TelephonyStateRelay;
+  v2 = [(TelephonyStateRelay *)&v39 init];
   v3 = v2;
   if (v2)
   {
@@ -98,9 +101,9 @@
     v3->_stewieStateMonitor = v8;
 
     v10 = v3->_coreTelephonyClient;
-    v43 = 0;
-    v11 = [(CoreTelephonyClient *)v10 getCurrentDataSubscriptionContextSync:&v43];
-    v12 = v43;
+    v38 = 0;
+    v11 = [(CoreTelephonyClient *)v10 getCurrentDataSubscriptionContextSync:&v38];
+    v12 = v38;
     lastDataSimContext = v3->_lastDataSimContext;
     v3->_lastDataSimContext = v11;
 
@@ -111,59 +114,54 @@
 
     [(TelephonyStateRelay *)v3 registerAirplaneModeCallbacks];
     v3->_isMultiSim = [(TelephonyStateRelay *)v3 isMultiSim];
-    telephonyClientQueue = v3->_telephonyClientQueue;
     location = _CTServerConnectionCreateOnTargetQueue();
     sub_10007D6F0(&v3->_ctServerConnection.fRef, &location);
     objc_initWeak(&location, v3);
-    fRef = v3->_ctServerConnection.fRef;
-    v37 = _NSConcreteStackBlock;
-    v38 = 3221225472;
-    v39 = sub_10007D72C;
-    v40 = &unk_1002AD7B8;
-    objc_copyWeak(&v41, &location);
+    v32 = _NSConcreteStackBlock;
+    v33 = 3221225472;
+    v34 = sub_10007D72C;
+    v35 = &unk_1002AD7B8;
+    objc_copyWeak(&v36, &location);
     _CTServerConnectionRegisterBlockForNotification();
-    v36 = 5;
-    v18 = v3->_ctServerConnection.fRef;
+    v31 = 5;
     _CTServerConnectionGetRadioState();
-    v19 = [NSNumber numberWithInt:5];
+    v16 = [NSNumber numberWithInt:5];
     radioState = v3->_radioState;
-    v3->_radioState = v19;
+    v3->_radioState = v16;
 
     cellularTransmitState = v3->_cellularTransmitState;
     v3->_cellularTransmitState = @"unknown";
 
-    v22 = v3->_ctServerConnection.fRef;
-    objc_copyWeak(&v35, &location);
+    objc_copyWeak(&v30, &location);
     _CTServerConnectionRegisterBlockForNotification();
-    v23 = v3->_ctServerConnection.fRef;
     if (!_CTServerConnectionCopyCellularTransmitState())
     {
       [(TelephonyStateRelay *)v3 ctServerCellularTransmitStateNotification:0];
     }
 
-    v24 = [NSMutableArray alloc];
-    v25 = [NSString stringWithUTF8String:"NotSet"];
-    v45[0] = v25;
-    v26 = [NSString stringWithUTF8String:"NotSet"];
-    v45[1] = v26;
-    v27 = [NSArray arrayWithObjects:v45 count:2];
-    v28 = [v24 initWithArray:v27];
+    v19 = [NSMutableArray alloc];
+    v20 = [NSString stringWithUTF8String:"NotSet"];
+    v40[0] = v20;
+    v21 = [NSString stringWithUTF8String:"NotSet"];
+    v40[1] = v21;
+    v22 = [NSArray arrayWithObjects:v40 count:2];
+    v23 = [v19 initWithArray:v22];
     currentRadioAccessTechnology = v3->_currentRadioAccessTechnology;
-    v3->_currentRadioAccessTechnology = v28;
+    v3->_currentRadioAccessTechnology = v23;
 
-    v30 = [[NSMutableArray alloc] initWithArray:&off_1002BF8A8];
+    v25 = [[NSMutableArray alloc] initWithArray:&off_1002BF8A8];
     currentSatelliteStatus = v3->_currentSatelliteStatus;
-    v3->_currentSatelliteStatus = v30;
+    v3->_currentSatelliteStatus = v25;
 
     activeCallServices = v3->_activeCallServices;
     v3->_activeCallServices = 0;
 
     [(TelephonyStateRelay *)v3 handleTUCallCenterCallStatusChangedNotification];
-    v33 = +[NSNotificationCenter defaultCenter];
-    [v33 addObserver:v3 selector:"handleTUCallCenterCallStatusChangedNotification" name:TUCallCenterCallStatusChangedNotification object:0];
+    v28 = +[NSNotificationCenter defaultCenter];
+    [v28 addObserver:v3 selector:"handleTUCallCenterCallStatusChangedNotification" name:TUCallCenterCallStatusChangedNotification object:0];
 
-    objc_destroyWeak(&v35);
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(&location);
   }
 
@@ -852,6 +850,63 @@ LABEL_14:
   }
 
 LABEL_16:
+}
+
+- (void)handleSatelliteRegistrationStatusForContext:(id)context changedTo:(BOOL)to
+{
+  toCopy = to;
+  contextCopy = context;
+  v6 = [NSNumber numberWithBool:toCopy];
+  slotID = [contextCopy slotID];
+  if (slotID == 1)
+  {
+    p_currentSatelliteStatus = &self->_currentSatelliteStatus;
+    v12 = [(NSMutableArray *)self->_currentSatelliteStatus objectAtIndexedSubscript:0];
+    bOOLValue = [v12 BOOLValue];
+
+    if (bOOLValue == toCopy)
+    {
+      goto LABEL_9;
+    }
+
+    v11 = 0;
+    goto LABEL_7;
+  }
+
+  if (slotID == 2)
+  {
+    p_currentSatelliteStatus = &self->_currentSatelliteStatus;
+    v9 = [(NSMutableArray *)self->_currentSatelliteStatus objectAtIndexedSubscript:1];
+    bOOLValue2 = [v9 BOOLValue];
+
+    if (bOOLValue2 == toCopy)
+    {
+      goto LABEL_9;
+    }
+
+    v11 = 1;
+LABEL_7:
+    [(NSMutableArray *)*p_currentSatelliteStatus setObject:v6 atIndexedSubscript:v11];
+  }
+
+  [(TelephonyStateRelay *)self handleContextUpdated:contextCopy forKey:13 withState:v6];
+LABEL_9:
+}
+
+- (void)handleLowDataModeChanged:(id)changed info:(BOOL)info
+{
+  infoCopy = info;
+  changedCopy = changed;
+  v6 = [NSNumber numberWithBool:infoCopy];
+  [(TelephonyStateRelay *)self handleContextUpdated:changedCopy forKey:10 withState:v6];
+}
+
+- (void)handleInterfaceCostExpensiveChanged:(id)changed info:(BOOL)info
+{
+  infoCopy = info;
+  changedCopy = changed;
+  v6 = [NSNumber numberWithBool:infoCopy];
+  [(TelephonyStateRelay *)self handleContextUpdated:changedCopy forKey:11 withState:v6];
 }
 
 - (void)airplaneModeStatusChanged

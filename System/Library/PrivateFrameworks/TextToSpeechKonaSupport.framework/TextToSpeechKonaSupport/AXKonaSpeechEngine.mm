@@ -225,54 +225,52 @@
 
 - (void)_initializeConfigurationMap
 {
-  v21[14] = *MEMORY[0x277D85DE8];
-  v20[0] = &unk_287EE5808;
-  v19 = [[AXKonaConfiguration alloc] initWithDylib:@"enu" dialectCode:@"1.0" dialect:0x10000];
-  v21[0] = v19;
-  v20[1] = &unk_287EE5820;
-  v18 = [[AXKonaConfiguration alloc] initWithDylib:@"eng" dialectCode:@"1.1" dialect:65537];
-  v21[1] = v18;
-  v20[2] = &unk_287EE5838;
-  v17 = [[AXKonaConfiguration alloc] initWithDylib:@"esp" dialectCode:@"2.0" dialect:0x20000];
-  v21[2] = v17;
-  v20[3] = &unk_287EE5850;
-  v16 = [[AXKonaConfiguration alloc] initWithDylib:@"esm" dialectCode:@"2.1" dialect:131073];
-  v21[3] = v16;
-  v20[4] = &unk_287EE5868;
-  v15 = [[AXKonaConfiguration alloc] initWithDylib:@"fra" dialectCode:@"3.0" dialect:196608];
-  v21[4] = v15;
-  v20[5] = &unk_287EE5880;
+  v20[14] = *MEMORY[0x277D85DE8];
+  v19[0] = &unk_287EE5808;
+  v18 = [[AXKonaConfiguration alloc] initWithDylib:@"enu" dialectCode:@"1.0" dialect:0x10000];
+  v20[0] = v18;
+  v19[1] = &unk_287EE5820;
+  v17 = [[AXKonaConfiguration alloc] initWithDylib:@"eng" dialectCode:@"1.1" dialect:65537];
+  v20[1] = v17;
+  v19[2] = &unk_287EE5838;
+  v16 = [[AXKonaConfiguration alloc] initWithDylib:@"esp" dialectCode:@"2.0" dialect:0x20000];
+  v20[2] = v16;
+  v19[3] = &unk_287EE5850;
+  v15 = [[AXKonaConfiguration alloc] initWithDylib:@"esm" dialectCode:@"2.1" dialect:131073];
+  v20[3] = v15;
+  v19[4] = &unk_287EE5868;
+  v14 = [[AXKonaConfiguration alloc] initWithDylib:@"fra" dialectCode:@"3.0" dialect:196608];
+  v20[4] = v14;
+  v19[5] = &unk_287EE5880;
   v3 = [[AXKonaConfiguration alloc] initWithDylib:@"frc" dialectCode:@"3.1" dialect:196609];
-  v21[5] = v3;
-  v20[6] = &unk_287EE5898;
+  v20[5] = v3;
+  v19[6] = &unk_287EE5898;
   v4 = [[AXKonaConfiguration alloc] initWithDylib:@"deu" dialectCode:@"4.0" dialect:0x40000];
-  v21[6] = v4;
-  v20[7] = &unk_287EE58B0;
+  v20[6] = v4;
+  v19[7] = &unk_287EE58B0;
   v5 = [[AXKonaConfiguration alloc] initWithDylib:@"ita" dialectCode:@"5.0" dialect:327680];
-  v21[7] = v5;
-  v20[8] = &unk_287EE58C8;
+  v20[7] = v5;
+  v19[8] = &unk_287EE58C8;
   v6 = [[AXKonaConfiguration alloc] initWithDylib:@"ptb" dialectCode:@"7.0" dialect:458752];
-  v21[8] = v6;
-  v20[9] = &unk_287EE58E0;
+  v20[8] = v6;
+  v19[9] = &unk_287EE58E0;
   v7 = [[AXKonaConfiguration alloc] initWithDylib:@"fin" dialectCode:@"9.0" dialect:589824];
-  v21[9] = v7;
-  v20[10] = &unk_287EE58F8;
+  v20[9] = v7;
+  v19[10] = &unk_287EE58F8;
   v8 = [[AXKonaConfiguration alloc] initWithDylib:@"jpn" romanizerDylib:@"jpnrom" encoding:8 dialectCode:@"8.0" dialect:0x80000];
-  v21[10] = v8;
-  v20[11] = &unk_287EE5910;
+  v20[10] = v8;
+  v19[11] = &unk_287EE5910;
   v9 = [[AXKonaConfiguration alloc] initWithDylib:@"kor" romanizerDylib:@"korrom" encoding:CFStringConvertEncodingToNSStringEncoding(0x422u) dialectCode:@"10.0" dialect:655360];
-  v21[11] = v9;
-  v20[12] = &unk_287EE5928;
+  v20[11] = v9;
+  v19[12] = &unk_287EE5928;
   v10 = [[AXKonaConfiguration alloc] initWithDylib:@"chs" romanizerDylib:@"chsrom" encoding:CFStringConvertEncodingToNSStringEncoding(0x421u) dialectCode:@"6.0" dialect:393216];
-  v21[12] = v10;
-  v20[13] = &unk_287EE5940;
+  v20[12] = v10;
+  v19[13] = &unk_287EE5940;
   v11 = [[AXKonaConfiguration alloc] initWithDylib:@"cht" romanizerDylib:@"chtrom" encoding:CFStringConvertEncodingToNSStringEncoding(0xA03u) dialectCode:@"6.1" dialect:393217];
-  v21[13] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:14];
+  v20[13] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:14];
   configurationMap = self->_configurationMap;
   self->_configurationMap = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_initializeWrappedEngineForVoice:(id)voice
@@ -297,26 +295,26 @@
   [(AXKonaSpeechEngine *)self wrappedInstance];
   if (eciRegisterCallback2())
   {
-    v19 = "eciRegisterCallback2(self.wrappedInstance, globalEciCallback, (__bridge void *)self, 0, NULL) == ECISUCCESS_SUCCESS";
-    v20 = 483;
+    v18 = "eciRegisterCallback2(self.wrappedInstance, globalEciCallback, (__bridge void *)self, 0, NULL) == ECISUCCESS_SUCCESS";
+    v19 = 483;
     goto LABEL_14;
   }
 
   [(AXKonaSpeechEngine *)self wrappedInstance];
   if (eciRegisterKlattHooks2())
   {
-    v19 = "eciRegisterKlattHooks2(self.wrappedInstance, GlobalKlattConstHook, GlobalKlattDynamicHook, (__bridge void *)self) == ECISUCCESS_SUCCESS";
-    v20 = 484;
+    v18 = "eciRegisterKlattHooks2(self.wrappedInstance, GlobalKlattConstHook, GlobalKlattDynamicHook, (__bridge void *)self) == ECISUCCESS_SUCCESS";
+    v19 = 484;
 LABEL_14:
-    __assert_rtn("[AXKonaSpeechEngine _initializeWrappedEngineForVoice:]", "AXKonaSpeechEngine.mm", v20, v19);
+    __assert_rtn("[AXKonaSpeechEngine _initializeWrappedEngineForVoice:]", "AXKonaSpeechEngine.mm", v19, v18);
   }
 
   [(AXKonaSpeechEngine *)self highQualityMode];
   [(AXKonaSpeechEngine *)self wrappedInstance];
   if (eciRegisterSampleBuffer2())
   {
-    v21 = "eciRegisterSampleBuffer2(self.wrappedInstance, _pSampleBuffer, KONA_AUDIOBUFFER_SIZE, &eciSampleFmt) == ECISUCCESS_SUCCESS";
-    v22 = 490;
+    v20 = "eciRegisterSampleBuffer2(self.wrappedInstance, _pSampleBuffer, KONA_AUDIOBUFFER_SIZE, &eciSampleFmt) == ECISUCCESS_SUCCESS";
+    v21 = 490;
     goto LABEL_18;
   }
 
@@ -325,18 +323,18 @@ LABEL_14:
   [(AXKonaSpeechEngine *)self phrasePrediction];
   if (eciSetParam2())
   {
-    v21 = "eciSetParam2(handle, ECIPARAMTYPE_ENVIRONMENT, ECIENVPARAM_PHRASEPREDICTIONMODE, self.phrasePrediction ? ECIENVPARAM_PHRASEPREDICTIONMODE_ENABLED : ECIENVPARAM_PHRASEPREDICTIONMODE_DISABLED) == ECISUCCESS_SUCCESS";
-    v22 = 494;
+    v20 = "eciSetParam2(handle, ECIPARAMTYPE_ENVIRONMENT, ECIENVPARAM_PHRASEPREDICTIONMODE, self.phrasePrediction ? ECIENVPARAM_PHRASEPREDICTIONMODE_ENABLED : ECIENVPARAM_PHRASEPREDICTIONMODE_DISABLED) == ECISUCCESS_SUCCESS";
+    v21 = 494;
     goto LABEL_18;
   }
 
   [(AXKonaSpeechEngine *)self abbreviationDictionary];
   if (eciSetParam2())
   {
-    v21 = "eciSetParam2(handle, ECIPARAMTYPE_ENVIRONMENT, ECIENVPARAM_ABBRDICTMODE, self.abbreviationDictionary ? ECIENVPARAM_ABBRDICTMODE_ENABLED : ECIENVPARAM_ABBRDICTMODE_DISABLED) == ECISUCCESS_SUCCESS";
-    v22 = 496;
+    v20 = "eciSetParam2(handle, ECIPARAMTYPE_ENVIRONMENT, ECIENVPARAM_ABBRDICTMODE, self.abbreviationDictionary ? ECIENVPARAM_ABBRDICTMODE_ENABLED : ECIENVPARAM_ABBRDICTMODE_DISABLED) == ECISUCCESS_SUCCESS";
+    v21 = 496;
 LABEL_18:
-    __assert_rtn("[AXKonaSpeechEngine _initializeWrappedEngineForVoice:]", "AXKonaSpeechEngine.mm", v22, v21);
+    __assert_rtn("[AXKonaSpeechEngine _initializeWrappedEngineForVoice:]", "AXKonaSpeechEngine.mm", v21, v20);
   }
 
   v10 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:0];
@@ -347,18 +345,17 @@ LABEL_18:
   languageCode = [voiceCopy languageCode];
   v14 = [v12 objectForKeyedSubscript:languageCode];
   v15 = v14;
-  v16 = *MEMORY[0x277CD8708];
   if (v14)
   {
-    v17 = v14;
+    v16 = v14;
   }
 
   else
   {
-    v17 = *MEMORY[0x277CD8708];
+    v16 = *MEMORY[0x277CD8708];
   }
 
-  [tokenizer setLanguage:v17];
+  [tokenizer setLanguage:v16];
 
   [(AXKonaSpeechEngine *)self _loadDictionaryForVoice:voiceCopy];
   [(AXKonaSpeechEngine *)self setCurrentConfiguration:v7];
@@ -369,7 +366,7 @@ LABEL_11:
 
 - (id)_segmentsForText:(id)text
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   textCopy = text;
   v3 = AXTTSLogKona();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -378,114 +375,114 @@ LABEL_11:
   }
 
   commandRegex = [(AXKonaSpeechEngine *)self commandRegex];
-  v33 = [commandRegex matchesInString:textCopy options:2 range:{0, objc_msgSend(textCopy, "length")}];
+  v32 = [commandRegex matchesInString:textCopy options:2 range:{0, objc_msgSend(textCopy, "length")}];
 
   tokenizer = [(AXKonaSpeechEngine *)self tokenizer];
   [tokenizer setString:textCopy];
 
   array = [MEMORY[0x277CBEB18] array];
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
-  v67 = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy_;
-  v62 = __Block_byref_object_dispose_;
   v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy_;
+  v61 = __Block_byref_object_dispose_;
+  v62 = 0;
   mEMORY[0x277D70400] = [MEMORY[0x277D70400] sharedInstance];
-  v35 = [mEMORY[0x277D70400] regexForString:@"(^|\\s+)[']\\s*$" atStart:0];
+  v34 = [mEMORY[0x277D70400] regexForString:@"(^|\\s+)[']\\s*$" atStart:0];
 
   tokenizer2 = [(AXKonaSpeechEngine *)self tokenizer];
   v8 = [textCopy length];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __39__AXKonaSpeechEngine__segmentsForText___block_invoke;
-  v50[3] = &unk_279DA8360;
-  v31 = v33;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __39__AXKonaSpeechEngine__segmentsForText___block_invoke;
+  v49[3] = &unk_279DA8360;
+  v30 = v32;
+  v50 = v30;
+  v31 = v34;
   v51 = v31;
-  v32 = v35;
-  v52 = v32;
-  v36 = textCopy;
-  v53 = v36;
+  v35 = textCopy;
+  v52 = v35;
   selfCopy = self;
-  v56 = &v64;
-  v57 = &v58;
+  v55 = &v63;
+  v56 = &v57;
   v9 = array;
-  v55 = v9;
-  [tokenizer2 enumerateTokensInRange:0 usingBlock:{v8, v50}];
+  v54 = v9;
+  [tokenizer2 enumerateTokensInRange:0 usingBlock:{v8, v49}];
 
-  v38 = objc_alloc_init(AXKonaSpeechSegment);
-  v10 = v65[3];
-  v11 = [v36 length];
-  [(AXKonaSpeechSegment *)v38 setRange:v10, v11 - v65[3]];
-  range = [(AXKonaSpeechSegment *)v38 range];
-  v14 = [v36 substringWithRange:{range, v13}];
-  [(AXKonaSpeechSegment *)v38 setText:v14];
+  v37 = objc_alloc_init(AXKonaSpeechSegment);
+  v10 = v64[3];
+  v11 = [v35 length];
+  [(AXKonaSpeechSegment *)v37 setRange:v10, v11 - v64[3]];
+  range = [(AXKonaSpeechSegment *)v37 range];
+  v14 = [v35 substringWithRange:{range, v13}];
+  [(AXKonaSpeechSegment *)v37 setText:v14];
 
-  [(AXKonaSpeechSegment *)v38 setMarker:v59[5]];
+  [(AXKonaSpeechSegment *)v37 setMarker:v58[5]];
   currentConfiguration = [(AXKonaSpeechEngine *)self currentConfiguration];
-  -[AXKonaSpeechSegment setTargetEncoding:](v38, "setTargetEncoding:", [currentConfiguration encoding]);
+  -[AXKonaSpeechSegment setTargetEncoding:](v37, "setTargetEncoding:", [currentConfiguration encoding]);
 
-  [v9 addObject:v38];
+  [v9 addObject:v37];
   v16 = AXTTSLogKona();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [AXKonaSpeechEngine _segmentsForText:];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = v9;
-  v17 = [obj countByEnumeratingWithState:&v46 objects:v69 count:16];
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v68 count:16];
   if (v17)
   {
-    v40 = *v47;
+    v39 = *v46;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v47 != v40)
+        if (*v46 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v46 + 1) + 8 * i);
+        v19 = *(*(&v45 + 1) + 8 * i);
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
         _konaCrashPatterns = [(AXKonaSpeechEngine *)self _konaCrashPatterns];
-        v21 = [_konaCrashPatterns countByEnumeratingWithState:&v42 objects:v68 count:16];
+        v21 = [_konaCrashPatterns countByEnumeratingWithState:&v41 objects:v67 count:16];
         if (v21)
         {
-          v22 = *v43;
+          v22 = *v42;
           do
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v43 != v22)
+              if (*v42 != v22)
               {
                 objc_enumerationMutation(_konaCrashPatterns);
               }
 
-              v24 = *(*(&v42 + 1) + 8 * j);
+              v24 = *(*(&v41 + 1) + 8 * j);
               text = [v19 text];
               v26 = [text stringByReplacingOccurrencesOfString:v24 withString:&stru_287EE3C58 options:1025 range:{0, objc_msgSend(text, "length")}];
               [v19 setText:v26];
             }
 
-            v21 = [_konaCrashPatterns countByEnumeratingWithState:&v42 objects:v68 count:16];
+            v21 = [_konaCrashPatterns countByEnumeratingWithState:&v41 objects:v67 count:16];
           }
 
           while (v21);
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v46 objects:v69 count:16];
+      v17 = [obj countByEnumeratingWithState:&v45 objects:v68 count:16];
     }
 
     while (v17);
@@ -498,44 +495,43 @@ LABEL_11:
   }
 
   v28 = obj;
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
 
-  _Block_object_dispose(&v64, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v63, 8);
 
   return v28;
 }
 
-void __39__AXKonaSpeechEngine__segmentsForText___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
+void __39__AXKonaSpeechEngine__segmentsForText___block_invoke(uint64_t a1, char *a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [*(*(&v31 + 1) + 8 * i) range];
-        if (a2 >= v10 && a2 - v10 < v11)
+        v10 = [*(*(&v30 + 1) + 8 * i) range];
+        if (a2 >= v10 && &a2[-v10] < v11)
         {
 
-          goto LABEL_21;
+          return;
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
@@ -560,7 +556,7 @@ void __39__AXKonaSpeechEngine__segmentsForText___block_invoke(uint64_t a1, unint
   }
 
   v16 = *(*(*(a1 + 72) + 8) + 24);
-  v17 = v15 - v16;
+  v17 = (v15 - v16);
   if (v15 != v16)
   {
     v18 = objc_alloc_init(AXKonaSpeechSegment);
@@ -590,13 +586,11 @@ void __39__AXKonaSpeechEngine__segmentsForText___block_invoke(uint64_t a1, unint
 
   [*(*(*(a1 + 80) + 8) + 40) setOriginalStringRange:{a2, a3}];
   *(*(*(a1 + 72) + 8) + 24) = v15;
-LABEL_21:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_preprocessTextForIrregularities:(id)irregularities
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   irregularitiesCopy = irregularities;
   v4 = [AXKonaSpeechEngine _preprocessTextForIrregularities:]::TimeDurationRegex;
   if (![AXKonaSpeechEngine _preprocessTextForIrregularities:]::TimeDurationRegex)
@@ -612,29 +606,29 @@ LABEL_21:
   if ([v7 count])
   {
     v8 = [irregularitiesCopy mutableCopy];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     reverseObjectEnumerator = [v7 reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          range = [*(*(&v17 + 1) + 8 * i) range];
+          range = [*(*(&v16 + 1) + 8 * i) range];
           [v8 replaceOccurrencesOfString:@":" withString:@" " options:0 range:{range, v14}];
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -645,8 +639,6 @@ LABEL_21:
   {
     v8 = irregularitiesCopy;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -692,7 +684,7 @@ LABEL_21:
 
 void __37__AXKonaSpeechEngine_synthesizeText___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   [*(a1 + 32) setSynthState:1];
@@ -705,26 +697,26 @@ void __37__AXKonaSpeechEngine_synthesizeText___block_invoke(uint64_t a1)
   v5 = [v4 currentParameters];
   [v4 setParameters:v5];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = [*(a1 + 32) currentSpeechSegments];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         [*(a1 + 32) wrappedInstance];
         eciInsertIndex2();
         [*(a1 + 32) wrappedInstance];
@@ -734,7 +726,7 @@ void __37__AXKonaSpeechEngine_synthesizeText___block_invoke(uint64_t a1)
         ++v8;
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -760,7 +752,6 @@ void __37__AXKonaSpeechEngine_synthesizeText___block_invoke(uint64_t a1)
   [v14 broadcast];
 
   objc_sync_exit(v12);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextBuffer
@@ -999,7 +990,7 @@ void __38__AXKonaSpeechEngine__cancelSynthesis__block_invoke(uint64_t a1)
 
 - (void)_loadDictionaryForVoice:(id)voice
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   languageCode = [voiceCopy languageCode];
@@ -1030,7 +1021,7 @@ void __38__AXKonaSpeechEngine__cancelSynthesis__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         languageCode3 = [voiceCopy languageCode];
-        [(AXKonaSpeechEngine *)languageCode3 _loadDictionaryForVoice:v27, v17];
+        [(AXKonaSpeechEngine *)languageCode3 _loadDictionaryForVoice:v26, v17];
       }
     }
 
@@ -1050,7 +1041,7 @@ void __38__AXKonaSpeechEngine__cancelSynthesis__block_invoke(uint64_t a1)
         {
           currentVoice = [(AXKonaSpeechEngine *)self currentVoice];
           languageCode4 = [currentVoice languageCode];
-          [(AXKonaSpeechEngine *)languageCode4 _loadDictionaryForVoice:v27, v23, currentVoice];
+          [(AXKonaSpeechEngine *)languageCode4 _loadDictionaryForVoice:v26, v23, currentVoice];
         }
       }
 
@@ -1066,8 +1057,6 @@ void __38__AXKonaSpeechEngine__cancelSynthesis__block_invoke(uint64_t a1)
       [(AXKonaSpeechEngine *)v14 _loadDictionaryForVoice:v19, v20];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_loadDictionaryAtPath:(id)path type:(int64_t)type handle:(void *)handle
@@ -1153,256 +1142,256 @@ LABEL_7:
 
 - (void)klattDynamicHook:(KlattFrame *)hook
 {
-  v156[62] = *MEMORY[0x277D85DE8];
-  v155[0] = @"ui";
+  v155[62] = *MEMORY[0x277D85DE8];
+  v154[0] = @"ui";
   *&v3 = hook->var0;
-  v153 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
-  v156[0] = v153;
-  v155[1] = @"f0";
+  v152 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
+  v155[0] = v152;
+  v154[1] = @"f0";
   *&v5 = hook->var1;
-  v151 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v156[1] = v151;
-  v155[2] = @"av";
+  v150 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
+  v155[1] = v150;
+  v154[2] = @"av";
   *&v6 = hook->var2;
-  v150 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v156[2] = v150;
-  v155[3] = @"oq";
+  v149 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+  v155[2] = v149;
+  v154[3] = @"oq";
   *&v7 = hook->var3;
-  v149 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v156[3] = v149;
-  v155[4] = @"tl";
+  v148 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
+  v155[3] = v148;
+  v154[4] = @"tl";
   *&v8 = hook->var4;
-  v148 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v156[4] = v148;
-  v155[5] = @"fl";
+  v147 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v155[4] = v147;
+  v154[5] = @"fl";
   *&v9 = hook->var5;
-  v147 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v156[5] = v147;
-  v155[6] = @"di";
+  v146 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+  v155[5] = v146;
+  v154[6] = @"di";
   *&v10 = hook->var6;
-  v146 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v156[6] = v146;
-  v155[7] = @"ah";
+  v145 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+  v155[6] = v145;
+  v154[7] = @"ah";
   *&v11 = hook->var7;
-  v145 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v156[7] = v145;
-  v155[8] = @"af";
+  v144 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v155[7] = v144;
+  v154[8] = @"af";
   *&v12 = hook->var8;
-  v144 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v156[8] = v144;
-  v155[9] = @"f1";
+  v143 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+  v155[8] = v143;
+  v154[9] = @"f1";
   *&v13 = hook->var9;
-  v143 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  v156[9] = v143;
-  v155[10] = @"b1";
+  v142 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+  v155[9] = v142;
+  v154[10] = @"b1";
   *&v14 = hook->var10;
-  v142 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v156[10] = v142;
-  v155[11] = @"df1";
+  v141 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+  v155[10] = v141;
+  v154[11] = @"df1";
   *&v15 = hook->var11;
-  v141 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-  v156[11] = v141;
-  v155[12] = @"db1";
+  v140 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+  v155[11] = v140;
+  v154[12] = @"db1";
   *&v16 = hook->var12;
-  v140 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v156[12] = v140;
-  v155[13] = @"f2";
+  v139 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+  v155[12] = v139;
+  v154[13] = @"f2";
   *&v17 = hook->var13;
-  v139 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-  v156[13] = v139;
-  v155[14] = @"b2";
+  v138 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+  v155[13] = v138;
+  v154[14] = @"b2";
   *&v18 = hook->var14;
-  v138 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v156[14] = v138;
-  v155[15] = @"f3";
+  v137 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+  v155[14] = v137;
+  v154[15] = @"f3";
   *&v19 = hook->var15;
-  v137 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v156[15] = v137;
-  v155[16] = @"b3";
+  v136 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+  v155[15] = v136;
+  v154[16] = @"b3";
   *&v20 = hook->var16;
-  v136 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v156[16] = v136;
-  v155[17] = @"f4";
+  v135 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+  v155[16] = v135;
+  v154[17] = @"f4";
   *&v21 = hook->var17;
-  v135 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
-  v156[17] = v135;
-  v155[18] = @"b4";
+  v134 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
+  v155[17] = v134;
+  v154[18] = @"b4";
   *&v22 = hook->var18;
-  v134 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-  v156[18] = v134;
-  v155[19] = @"f5";
+  v133 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
+  v155[18] = v133;
+  v154[19] = @"f5";
   *&v23 = hook->var19;
-  v133 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-  v156[19] = v133;
-  v155[20] = @"b5";
+  v132 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
+  v155[19] = v132;
+  v154[20] = @"b5";
   *&v24 = hook->var20;
-  v132 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
-  v156[20] = v132;
-  v155[21] = @"f6";
+  v131 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
+  v155[20] = v131;
+  v154[21] = @"f6";
   *&v25 = hook->var21;
-  v131 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-  v156[21] = v131;
-  v155[22] = @"b6";
+  v130 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
+  v155[21] = v130;
+  v154[22] = @"b6";
   *&v26 = hook->var22;
-  v130 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-  v156[22] = v130;
-  v155[23] = @"f7";
+  v129 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+  v155[22] = v129;
+  v154[23] = @"f7";
   *&v27 = hook->var23;
-  v129 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-  v156[23] = v129;
-  v155[24] = @"b7";
+  v128 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+  v155[23] = v128;
+  v154[24] = @"b7";
   *&v28 = hook->var24;
-  v128 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-  v156[24] = v128;
-  v155[25] = @"f8";
+  v127 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+  v155[24] = v127;
+  v154[25] = @"f8";
   *&v29 = hook->var25;
-  v127 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-  v156[25] = v127;
-  v155[26] = @"b8";
+  v126 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
+  v155[25] = v126;
+  v154[26] = @"b8";
   *&v30 = hook->var26;
-  v126 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
-  v156[26] = v126;
-  v155[27] = @"fnp";
+  v125 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
+  v155[26] = v125;
+  v154[27] = @"fnp";
   *&v31 = hook->var27;
-  v125 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-  v156[27] = v125;
-  v155[28] = @"bnp";
+  v124 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
+  v155[27] = v124;
+  v154[28] = @"bnp";
   *&v32 = hook->var28;
-  v124 = [MEMORY[0x277CCABB0] numberWithFloat:v32];
-  v156[28] = v124;
-  v155[29] = @"fnz";
+  v123 = [MEMORY[0x277CCABB0] numberWithFloat:v32];
+  v155[28] = v123;
+  v154[29] = @"fnz";
   *&v33 = hook->var29;
-  v123 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
-  v156[29] = v123;
-  v155[30] = @"bnz";
+  v122 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
+  v155[29] = v122;
+  v154[30] = @"bnz";
   *&v34 = hook->var30;
-  v122 = [MEMORY[0x277CCABB0] numberWithFloat:v34];
-  v156[30] = v122;
-  v155[31] = @"ftp";
+  v121 = [MEMORY[0x277CCABB0] numberWithFloat:v34];
+  v155[30] = v121;
+  v154[31] = @"ftp";
   *&v35 = hook->var31;
-  v121 = [MEMORY[0x277CCABB0] numberWithFloat:v35];
-  v156[31] = v121;
-  v155[32] = @"btp";
+  v120 = [MEMORY[0x277CCABB0] numberWithFloat:v35];
+  v155[31] = v120;
+  v154[32] = @"btp";
   *&v36 = hook->var32;
-  v120 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-  v156[32] = v120;
-  v155[33] = @"ftz";
+  v119 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
+  v155[32] = v119;
+  v154[33] = @"ftz";
   *&v37 = hook->var33;
-  v119 = [MEMORY[0x277CCABB0] numberWithFloat:v37];
-  v156[33] = v119;
-  v155[34] = @"btz";
+  v118 = [MEMORY[0x277CCABB0] numberWithFloat:v37];
+  v155[33] = v118;
+  v154[34] = @"btz";
   *&v38 = hook->var34;
-  v118 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-  v156[34] = v118;
-  v155[35] = @"a1f";
+  v117 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
+  v155[34] = v117;
+  v154[35] = @"a1f";
   *&v39 = hook->var35;
-  v117 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
-  v156[35] = v117;
-  v155[36] = @"a2f";
+  v116 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
+  v155[35] = v116;
+  v154[36] = @"a2f";
   *&v40 = hook->var36;
-  v116 = [MEMORY[0x277CCABB0] numberWithFloat:v40];
-  v156[36] = v116;
-  v155[37] = @"a3f";
+  v115 = [MEMORY[0x277CCABB0] numberWithFloat:v40];
+  v155[36] = v115;
+  v154[37] = @"a3f";
   *&v41 = hook->var37;
-  v115 = [MEMORY[0x277CCABB0] numberWithFloat:v41];
-  v156[37] = v115;
-  v155[38] = @"a4f";
+  v114 = [MEMORY[0x277CCABB0] numberWithFloat:v41];
+  v155[37] = v114;
+  v154[38] = @"a4f";
   *&v42 = hook->var38;
-  v114 = [MEMORY[0x277CCABB0] numberWithFloat:v42];
-  v156[38] = v114;
-  v155[39] = @"a5f";
+  v113 = [MEMORY[0x277CCABB0] numberWithFloat:v42];
+  v155[38] = v113;
+  v154[39] = @"a5f";
   *&v43 = hook->var39;
-  v113 = [MEMORY[0x277CCABB0] numberWithFloat:v43];
-  v156[39] = v113;
-  v155[40] = @"a6f";
+  v112 = [MEMORY[0x277CCABB0] numberWithFloat:v43];
+  v155[39] = v112;
+  v154[40] = @"a6f";
   *&v44 = hook->var40;
-  v112 = [MEMORY[0x277CCABB0] numberWithFloat:v44];
-  v156[40] = v112;
-  v155[41] = @"a7f";
+  v111 = [MEMORY[0x277CCABB0] numberWithFloat:v44];
+  v155[40] = v111;
+  v154[41] = @"a7f";
   *&v45 = hook->var41;
-  v111 = [MEMORY[0x277CCABB0] numberWithFloat:v45];
-  v156[41] = v111;
-  v155[42] = @"a8f";
+  v110 = [MEMORY[0x277CCABB0] numberWithFloat:v45];
+  v155[41] = v110;
+  v154[42] = @"a8f";
   *&v46 = hook->var42;
-  v110 = [MEMORY[0x277CCABB0] numberWithFloat:v46];
-  v156[42] = v110;
-  v155[43] = @"ab";
+  v109 = [MEMORY[0x277CCABB0] numberWithFloat:v46];
+  v155[42] = v109;
+  v154[43] = @"ab";
   *&v47 = hook->var43;
-  v109 = [MEMORY[0x277CCABB0] numberWithFloat:v47];
-  v156[43] = v109;
-  v155[44] = @"b1f";
+  v108 = [MEMORY[0x277CCABB0] numberWithFloat:v47];
+  v155[43] = v108;
+  v154[44] = @"b1f";
   *&v48 = hook->var44;
-  v108 = [MEMORY[0x277CCABB0] numberWithFloat:v48];
-  v156[44] = v108;
-  v155[45] = @"b2f";
+  v107 = [MEMORY[0x277CCABB0] numberWithFloat:v48];
+  v155[44] = v107;
+  v154[45] = @"b2f";
   *&v49 = hook->var45;
-  v107 = [MEMORY[0x277CCABB0] numberWithFloat:v49];
-  v156[45] = v107;
-  v155[46] = @"b3f";
+  v106 = [MEMORY[0x277CCABB0] numberWithFloat:v49];
+  v155[45] = v106;
+  v154[46] = @"b3f";
   *&v50 = hook->var46;
-  v106 = [MEMORY[0x277CCABB0] numberWithFloat:v50];
-  v156[46] = v106;
-  v155[47] = @"b4f";
+  v105 = [MEMORY[0x277CCABB0] numberWithFloat:v50];
+  v155[46] = v105;
+  v154[47] = @"b4f";
   *&v51 = hook->var47;
-  v105 = [MEMORY[0x277CCABB0] numberWithFloat:v51];
-  v156[47] = v105;
-  v155[48] = @"b5f";
+  v104 = [MEMORY[0x277CCABB0] numberWithFloat:v51];
+  v155[47] = v104;
+  v154[48] = @"b5f";
   *&v52 = hook->var48;
-  v104 = [MEMORY[0x277CCABB0] numberWithFloat:v52];
-  v156[48] = v104;
-  v155[49] = @"b6f";
+  v103 = [MEMORY[0x277CCABB0] numberWithFloat:v52];
+  v155[48] = v103;
+  v154[49] = @"b6f";
   *&v53 = hook->var49;
-  v103 = [MEMORY[0x277CCABB0] numberWithFloat:v53];
-  v156[49] = v103;
-  v155[50] = @"b7f";
+  v102 = [MEMORY[0x277CCABB0] numberWithFloat:v53];
+  v155[49] = v102;
+  v154[50] = @"b7f";
   *&v54 = hook->var50;
-  v102 = [MEMORY[0x277CCABB0] numberWithFloat:v54];
-  v156[50] = v102;
-  v155[51] = @"b8f";
+  v101 = [MEMORY[0x277CCABB0] numberWithFloat:v54];
+  v155[50] = v101;
+  v154[51] = @"b8f";
   *&v55 = hook->var51;
-  v101 = [MEMORY[0x277CCABB0] numberWithFloat:v55];
-  v156[51] = v101;
-  v155[52] = @"anv";
+  v100 = [MEMORY[0x277CCABB0] numberWithFloat:v55];
+  v155[51] = v100;
+  v154[52] = @"anv";
   *&v56 = hook->var52;
-  v100 = [MEMORY[0x277CCABB0] numberWithFloat:v56];
-  v156[52] = v100;
-  v155[53] = @"a1v";
+  v99 = [MEMORY[0x277CCABB0] numberWithFloat:v56];
+  v155[52] = v99;
+  v154[53] = @"a1v";
   *&v57 = hook->var53;
   v58 = [MEMORY[0x277CCABB0] numberWithFloat:v57];
-  v156[53] = v58;
-  v155[54] = @"a2v";
+  v155[53] = v58;
+  v154[54] = @"a2v";
   *&v59 = hook->var54;
   v60 = [MEMORY[0x277CCABB0] numberWithFloat:v59];
-  v156[54] = v60;
-  v155[55] = @"a3v";
+  v155[54] = v60;
+  v154[55] = @"a3v";
   *&v61 = hook->var55;
   v62 = [MEMORY[0x277CCABB0] numberWithFloat:v61];
-  v156[55] = v62;
-  v155[56] = @"a4v";
+  v155[55] = v62;
+  v154[56] = @"a4v";
   *&v63 = hook->var56;
   v64 = [MEMORY[0x277CCABB0] numberWithFloat:v63];
-  v156[56] = v64;
-  v155[57] = @"a5v";
+  v155[56] = v64;
+  v154[57] = @"a5v";
   *&v65 = hook->var57;
   v66 = [MEMORY[0x277CCABB0] numberWithFloat:v65];
-  v156[57] = v66;
-  v155[58] = @"a6v";
+  v155[57] = v66;
+  v154[58] = @"a6v";
   *&v67 = hook->var58;
   v68 = [MEMORY[0x277CCABB0] numberWithFloat:v67];
-  v156[58] = v68;
-  v155[59] = @"a7v";
+  v155[58] = v68;
+  v154[59] = @"a7v";
   *&v69 = hook->var59;
   v70 = [MEMORY[0x277CCABB0] numberWithFloat:v69];
-  v156[59] = v70;
-  v155[60] = @"a8v";
+  v155[59] = v70;
+  v154[60] = @"a8v";
   *&v71 = hook->var60;
   v72 = [MEMORY[0x277CCABB0] numberWithFloat:v71];
-  v156[60] = v72;
-  v155[61] = @"atv";
+  v155[60] = v72;
+  v154[61] = @"atv";
   *&v73 = hook->var61;
   v74 = [MEMORY[0x277CCABB0] numberWithFloat:v73];
-  v156[61] = v74;
-  v152 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:62];
+  v155[61] = v74;
+  v151 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:62];
 
   highFormantBandwidthScalingFactor = [(AXKonaSpeechEngine *)self highFormantBandwidthScalingFactor];
   LOBYTE(v70) = highFormantBandwidthScalingFactor == 0;
@@ -1452,10 +1441,8 @@ LABEL_7:
   if (!v97)
   {
     dynamicLoggingBlock2 = [(AXKonaSpeechEngine *)self dynamicLoggingBlock];
-    (dynamicLoggingBlock2)[2](dynamicLoggingBlock2, v152);
+    (dynamicLoggingBlock2)[2](dynamicLoggingBlock2, v151);
   }
-
-  v99 = *MEMORY[0x277D85DE8];
 }
 
 - (void)klattConstantHook:(id *)hook
@@ -1499,7 +1486,7 @@ LABEL_7:
 
 - (int64_t)eciCallback:(int64_t)callback iParam:(int64_t)param instanceData:(void *)data
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if ([(AXKonaSpeechEngine *)self synthState:callback]!= 2)
   {
     if (callback == 1)
@@ -1512,58 +1499,58 @@ LABEL_7:
       [outputFormat sampleRate];
       v22 = v21;
 
-      v58[0] = 1;
-      v58[2] = 1;
-      v58[3] = param;
+      v57[0] = 1;
+      v57[2] = 1;
+      v57[3] = param;
       pSampleBuffer = self->_pSampleBuffer;
       v23 = objc_alloc(MEMORY[0x277CB83C8]);
       engineFormat2 = [(AXKonaSpeechEngine *)self engineFormat];
-      v47 = [v23 initWithPCMFormat:engineFormat2 bufferListNoCopy:v58 deallocator:0];
+      v46 = [v23 initWithPCMFormat:engineFormat2 bufferListNoCopy:v57 deallocator:0];
 
       v25 = objc_alloc(MEMORY[0x277CB83C8]);
       outputFormat2 = [(AXKonaSpeechEngine *)self outputFormat];
       LODWORD(v27) = vcvtpd_u64_f64((param >> 1) / (v19 / v22));
       v28 = [v25 initWithPCMFormat:outputFormat2 frameCapacity:v27];
 
-      v56[0] = 0;
-      v56[1] = v56;
-      v56[2] = 0x2020000000;
-      v57 = 0;
+      v55[0] = 0;
+      v55[1] = v55;
+      v55[2] = 0x2020000000;
+      v56 = 0;
       bufferConverter = [(AXKonaSpeechEngine *)self bufferConverter];
-      v54 = v56;
-      v55 = 0;
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __54__AXKonaSpeechEngine_eciCallback_iParam_instanceData___block_invoke;
-      v52[3] = &unk_279DA8420;
-      v30 = v47;
-      v53 = v30;
-      [bufferConverter convertToBuffer:v28 error:&v55 withInputFromBlock:v52];
-      v46 = v55;
+      v53 = v55;
+      v54 = 0;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __54__AXKonaSpeechEngine_eciCallback_iParam_instanceData___block_invoke;
+      v51[3] = &unk_279DA8420;
+      v30 = v46;
+      v52 = v30;
+      [bufferConverter convertToBuffer:v28 error:&v54 withInputFromBlock:v51];
+      v45 = v54;
 
       -[AXKonaSpeechEngine setCurrentFrameCount:](self, "setCurrentFrameCount:", -[AXKonaSpeechEngine currentFrameCount](self, "currentFrameCount") + [v28 frameLength]);
       v31 = objc_alloc_init(AXKonaBuffer);
       [(AXKonaBuffer *)v31 setBuffer:v28];
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       currentMarkers = [(AXKonaSpeechEngine *)self currentMarkers];
-      v33 = [currentMarkers countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v33 = [currentMarkers countByEnumeratingWithState:&v47 objects:v59 count:16];
       if (v33)
       {
-        v34 = *v49;
+        v34 = *v48;
         do
         {
           v35 = 0;
           do
           {
-            if (*v49 != v34)
+            if (*v48 != v34)
             {
               objc_enumerationMutation(currentMarkers);
             }
 
-            v36 = *(*(&v48 + 1) + 8 * v35);
+            v36 = *(*(&v47 + 1) + 8 * v35);
             currentSpeechString = [(AXKonaSpeechEngine *)self currentSpeechString];
             originalStringRange = [v36 originalStringRange];
             v40 = [currentSpeechString translateRangeInTransformedString:{originalStringRange, v39}];
@@ -1573,7 +1560,7 @@ LABEL_7:
           }
 
           while (v33 != v35);
-          v33 = [currentMarkers countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v33 = [currentMarkers countByEnumeratingWithState:&v47 objects:v59 count:16];
         }
 
         while (v33);
@@ -1586,7 +1573,7 @@ LABEL_7:
       array = [MEMORY[0x277CBEB18] array];
       [(AXKonaSpeechEngine *)self setCurrentMarkers:array];
 
-      _Block_object_dispose(v56, 8);
+      _Block_object_dispose(v55, 8);
     }
 
     else if (!callback)
@@ -1615,7 +1602,6 @@ LABEL_7:
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1640,31 +1626,31 @@ id __54__AXKonaSpeechEngine_eciCallback_iParam_instanceData___block_invoke(uint6
 
 + (id)allVoices
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 pathForResource:@"KonaVoicePresets" ofType:@"plist"];
 
-  v41 = v4;
+  v40 = v4;
   [MEMORY[0x277CBEA60] arrayWithContentsOfFile:v4];
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  obj = v44 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v42 = 0u;
+  obj = v43 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v5)
   {
-    v6 = *v44;
+    v6 = *v43;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v44 != v6)
+        if (*v43 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v43 + 1) + 8 * i);
+        v8 = *(*(&v42 + 1) + 8 * i);
         v9 = objc_alloc_init(AXKonaVoice);
         v10 = [v8 objectForKey:@"name"];
         [(AXKonaVoice *)v9 setName:v10];
@@ -1724,39 +1710,13 @@ id __54__AXKonaSpeechEngine_eciCallback_iParam_instanceData___block_invoke(uint6
         [array addObject:v9];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v5);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return array;
-}
-
-- (void)_segmentsForText:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_26E785000, v0, v1, "Processing segments for text: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_segmentsForText:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_26E785000, v0, v1, "Outgoing segments before crash-word removal: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_segmentsForText:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_26E785000, v0, v1, "Outgoing segments after crash-word removal: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadDictionaryForVoice:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
@@ -1775,19 +1735,17 @@ id __54__AXKonaSpeechEngine_eciCallback_iParam_instanceData___block_invoke(uint6
 
 - (void)_loadDictionaryForVoice:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
-  v5 = 0;
-  OUTLINED_FUNCTION_2(&dword_26E785000, a1, a3, "No resources found at %@", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = 0;
+  OUTLINED_FUNCTION_2(&dword_26E785000, a1, a3, "No resources found at %@", &v3);
 }
 
 - (void)_loadDictionaryAtPath:type:handle:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_26E785000, v0, v1, "Failed to load dictionaty at %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26E785000, v0, v1, "Failed to load dictionaty at %@", v2);
 }
 
 @end

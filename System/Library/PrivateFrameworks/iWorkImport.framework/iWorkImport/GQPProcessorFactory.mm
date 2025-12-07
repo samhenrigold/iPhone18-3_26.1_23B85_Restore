@@ -3,6 +3,8 @@
 + (BOOL)isTemplateUti:(__CFString *)uti;
 + (__CFString)createUtiForDocument:(__CFString *)document;
 + (__CFURL)newEmbeddedSageUrlForTangierDocumentUrl:(__CFURL *)url uti:(__CFString *)uti isBundle:(BOOL *)bundle;
++ (id)retainedProcessorForDocument:(__CFURL *)document zipArchive:(id)archive uti:(__CFString *)uti outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper;
++ (id)retainedProcessorForDocument:(__CFURL *)document zipArchive:(id)archive uti:(__CFString *)uti outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper cryptoKey:(id)self0;
 + (int)applicationForDocumentUti:(__CFString *)uti;
 @end
 
@@ -146,6 +148,97 @@ LABEL_11:
   }
 
   return v8;
+}
+
++ (id)retainedProcessorForDocument:(__CFURL *)document zipArchive:(id)archive uti:(__CFString *)uti outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper cryptoKey:(id)self0
+{
+  v12 = *&type;
+  if (uti)
+  {
+    utiCopy = uti;
+    CFRetain(uti);
+  }
+
+  else
+  {
+    utiCopy = [self createUtiForDocument:{-[__CFURL path](document, "path")}];
+  }
+
+  v17 = [self applicationForDocumentUti:utiCopy];
+  v18 = [GQHGeneratorLookup generatorForApplication:v17];
+  if (v17 == 1)
+  {
+    v22 = [GQPBGProcessor alloc];
+    if (document)
+    {
+      v21 = [(GQPBGProcessor *)v22 initWithURL:document indexFileName:@"index.apxl" outputType:v12 outputPath:path previewRequest:request progressiveHelper:helper generator:v18 zipArchive:archive cryptoKey:key];
+    }
+
+    else
+    {
+      v21 = [(GQPBGProcessor *)v22 initWithURL:0 zipArchive:archive indexFileName:@"index.apxl" outputType:v12 outputPath:path previewRequest:request progressiveHelper:helper generator:v18 cryptoKey:key];
+    }
+  }
+
+  else
+  {
+    if (v17 == 3)
+    {
+      v19 = GQPLSProcessor;
+    }
+
+    else
+    {
+      if (v17 != 2)
+      {
+        v23 = 0;
+        if (!utiCopy)
+        {
+          return v23;
+        }
+
+        goto LABEL_18;
+      }
+
+      v19 = GQPSLProcessor;
+    }
+
+    v20 = [v19 alloc];
+    if (document)
+    {
+      v21 = [v20 initWithURL:document indexFileName:@"index.xml" outputType:v12 outputPath:path previewRequest:request progressiveHelper:helper generator:v18 zipArchive:archive cryptoKey:key];
+    }
+
+    else
+    {
+      v21 = [v20 initWithURL:0 zipArchive:archive indexFileName:@"index.xml" outputType:v12 outputPath:path previewRequest:request progressiveHelper:helper generator:v18 cryptoKey:key];
+    }
+  }
+
+  v23 = v21;
+  if (utiCopy)
+  {
+LABEL_18:
+    CFRelease(utiCopy);
+  }
+
+  return v23;
+}
+
++ (id)retainedProcessorForDocument:(__CFURL *)document zipArchive:(id)archive uti:(__CFString *)uti outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper
+{
+  v11 = *&type;
+  v14 = [self applicationForDocumentUti:uti];
+  v15 = [GQHGeneratorLookup generatorForApplication:v14];
+  if ((v14 - 1) > 2)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return [objc_alloc(*off_808C0[v14 - 1]) initWithURL:document zipArchive:archive indexFileName:off_808D8[v16] outputType:v11 outputPath:path previewRequest:request progressiveHelper:helper generator:v15 cryptoKey:0];
+  }
 }
 
 @end

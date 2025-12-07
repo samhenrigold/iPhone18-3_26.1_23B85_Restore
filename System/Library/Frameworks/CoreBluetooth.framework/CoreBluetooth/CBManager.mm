@@ -4,14 +4,19 @@
 + (id)getTCCServer;
 + (int)preflightCheckForTCC;
 + (unsigned)retrieveCurrentProcessSessionCount;
+- (BOOL)sendDebugMsg:(unsigned __int16)msg args:(id)args;
+- (BOOL)sendMsg:(unsigned __int16)msg args:(id)args;
+- (BOOL)sendMsg:(unsigned __int16)msg args:(id)args withReply:(id)reply;
 - (CBPairingAgent)sharedPairingAgent;
 - (id)createCnxWithInfo:(id)info;
 - (id)getCnxInstanceForIdentifier:(id)identifier;
 - (id)getCurrentQueue;
 - (id)initInternal;
+- (id)sendDebugSyncMsg:(unsigned __int16)msg args:(id)args;
 - (void)_handleAdvertisingAddressChanged:(id)changed;
 - (void)checkBTTCCAuth;
 - (void)checkForTCC;
+- (void)closeL2CAPChannelForPeerUUID:(id)d withPsm:(unsigned __int16)psm;
 - (void)dealloc;
 - (void)doneWithTCC;
 - (void)extractLocalDeviceStatesDictionary:(id)dictionary;
@@ -19,7 +24,9 @@
 - (void)removeCnxInstanceForIdentifier:(id)identifier;
 - (void)retrieveBundle:(id)bundle sessionCountWithCompletion:(id)completion;
 - (void)retrieveSupportedResources:(id)resources subKey:(id)key completion:(id)completion;
+- (void)startWithQueue:(id)queue options:(id)options sessionType:(int)type;
 - (void)triggerBTErrorReport:(int64_t)report;
+- (void)xpcConnectionDidReceiveMsg:(unsigned __int16)msg args:(id)args;
 - (void)xpcConnectionDidReset;
 @end
 
@@ -107,8 +114,40 @@
 
 - (void)checkBTTCCAuth
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (!+[CBManager tccAvailable])
+  v11 = *MEMORY[0x1E69E9840];
+  if (+[CBManager tccAvailable])
+  {
+    if (CBLogInitOnce != -1)
+    {
+      [CBClassicPeer dealloc];
+    }
+
+    v3 = CBLogComponent;
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v3;
+      v6[0] = 67109632;
+      v6[1] = +[CBManager tccAvailable];
+      v7 = 1024;
+      tccRequired = [(CBManager *)self tccRequired];
+      v9 = 1024;
+      tccComplete = [(CBManager *)self tccComplete];
+      _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "TCC available %d, req %d complete %d", v6, 0x14u);
+    }
+
+    if (![(CBManager *)self tccComplete])
+    {
+      if ([(CBManager *)self tccRequired])
+      {
+        [(CBManager *)self checkForTCC];
+        return;
+      }
+
+      [(CBManager *)self setTccApproved:1];
+    }
+  }
+
+  else
   {
     if (CBLogInitOnce != -1)
     {
@@ -118,50 +157,15 @@
     v5 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, "TCC not available, calling doneWithTCC without setting tccComplete.", v7, 2u);
+      LOWORD(v6[0]) = 0;
+      _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, "TCC not available, calling doneWithTCC without setting tccComplete.", v6, 2u);
     }
-
-    goto LABEL_14;
   }
 
-  if (CBLogInitOnce != -1)
-  {
-    [CBClassicPeer dealloc];
-  }
-
-  v3 = CBLogComponent;
-  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = v3;
-    v7[0] = 67109632;
-    v7[1] = +[CBManager tccAvailable];
-    v8 = 1024;
-    tccRequired = [(CBManager *)self tccRequired];
-    v10 = 1024;
-    tccComplete = [(CBManager *)self tccComplete];
-    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "TCC available %d, req %d complete %d", v7, 0x14u);
-  }
-
-  if ([(CBManager *)self tccComplete])
-  {
-LABEL_14:
-    [(CBManager *)self doneWithTCC];
-    goto LABEL_15;
-  }
-
-  if (![(CBManager *)self tccRequired])
-  {
-    [(CBManager *)self setTccApproved:1];
-    goto LABEL_14;
-  }
-
-  [(CBManager *)self checkForTCC];
-LABEL_15:
-  v6 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self doneWithTCC];
 }
 
-void __33__CBManager_preflightCheckForTCC__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+float __33__CBManager_preflightCheckForTCC__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -206,21 +210,21 @@ void __33__CBManager_preflightCheckForTCC__block_invoke(uint64_t a1, void *a2, u
     v8 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = *(*(*(a1 + 32) + 8) + 24);
+      v10 = *(a1 + 40);
+      v11 = *(*(*(a1 + 32) + 8) + 24);
       v12[0] = 67109888;
-      v12[1] = v9;
+      v12[1] = v10;
       v13 = 2048;
       v14 = authorization_right;
       v15 = 2048;
       v16 = authorization_reason;
       v17 = 1024;
-      v18 = v10;
+      v18 = v11;
       _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "preflight ext:%d userAuth:%llu reason:%llu response:%d", v12, 0x22u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (void)doneWithTCC
@@ -288,10 +292,9 @@ void __33__CBManager_preflightCheckForTCC__block_invoke(uint64_t a1, void *a2, u
         +[CBManager authorization];
       }
 
-      v10 = *MEMORY[0x1E69D5510];
-      v11 = (TCCAccessRestricted() != 0);
+      v9 = (TCCAccessRestricted() != 0);
 
-      return v11;
+      return v9;
     case 1:
       if (CBLogInitOnce != -1)
       {
@@ -303,18 +306,17 @@ void __33__CBManager_preflightCheckForTCC__block_invoke(uint64_t a1, void *a2, u
         +[CBManager authorization];
       }
 
-      v8 = *MEMORY[0x1E69D5510];
       if (TCCAccessRestricted())
       {
-        v9 = CBManagerAuthorizationRestricted;
+        v8 = CBManagerAuthorizationRestricted;
       }
 
       else
       {
-        v9 = CBManagerAuthorizationDenied;
+        v8 = CBManagerAuthorizationDenied;
       }
 
-      return v9;
+      return v8;
     case 0:
       if (CBLogInitOnce != -1)
       {
@@ -336,31 +338,30 @@ LABEL_27:
 
 + (int)preflightCheckForTCC
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 2;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 2;
   v2 = +[CBManager checkIfExtension];
   v3 = tcc_message_options_create();
   tcc_message_options_set_reply_handler_policy();
   tcc_message_options_set_request_prompt_policy();
   tcc_message_options_set_cache_policy();
   v4 = tcc_credential_singleton_for_self();
-  v5 = *MEMORY[0x1E69D5510];
-  v6 = tcc_service_singleton_for_CF_name();
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __33__CBManager_preflightCheckForTCC__block_invoke;
-  v10[3] = &unk_1E8120BB0;
-  v10[4] = &v12;
-  v11 = v2;
-  v7 = MEMORY[0x1C68DF720](v10);
-  v8 = +[CBManager getTCCServer];
+  v5 = tcc_service_singleton_for_CF_name();
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __33__CBManager_preflightCheckForTCC__block_invoke;
+  v9[3] = &unk_1E8120BB0;
+  v9[4] = &v11;
+  v10 = v2;
+  v6 = MEMORY[0x1C68DF720](v9);
+  v7 = +[CBManager getTCCServer];
   tcc_server_message_request_authorization();
 
-  LODWORD(v8) = *(v13 + 6);
-  _Block_object_dispose(&v12, 8);
-  return v8;
+  LODWORD(v7) = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v7;
 }
 
 + (id)getTCCServer
@@ -427,6 +428,35 @@ LABEL_11:
   [(CBManager *)self handleLocalDeviceStateUpdatedMsg:dictionaryCopy];
 }
 
+- (void)startWithQueue:(id)queue options:(id)options sessionType:(int)type
+{
+  v5 = *&type;
+  queueCopy = queue;
+  v16 = queueCopy;
+  if (queueCopy)
+  {
+    v9 = queueCopy;
+    queue = self->_queue;
+    self->_queue = v9;
+  }
+
+  else
+  {
+    v11 = MEMORY[0x1E69E96A0];
+    v12 = MEMORY[0x1E69E96A0];
+    queue = self->_queue;
+    self->_queue = v11;
+  }
+
+  optionsCopy = options;
+
+  v14 = [[CBXpcConnection alloc] initWithDelegate:self queue:self->_queue options:optionsCopy sessionType:v5];
+  connection = self->_connection;
+  self->_connection = v14;
+
+  [(CBXpcConnection *)self->_connection connect];
+}
+
 - (id)getCurrentQueue
 {
   queue = self->_queue;
@@ -443,6 +473,166 @@ LABEL_11:
   }
 
   return v3;
+}
+
+- (BOOL)sendDebugMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  v14[2] = *MEMORY[0x1E69E9840];
+  connection = self->_connection;
+  v13[0] = @"kCBMsgId";
+  v6 = MEMORY[0x1E696AD98];
+  argsCopy = args;
+  v8 = [v6 numberWithUnsignedShort:msgCopy];
+  v9 = v8;
+  v13[1] = @"kCBMsgArgs";
+  v10 = MEMORY[0x1E695E0F8];
+  if (argsCopy)
+  {
+    v10 = argsCopy;
+  }
+
+  v14[0] = v8;
+  v14[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  [(CBXpcConnection *)connection sendMsg:220 args:v11];
+
+  return 1;
+}
+
+- (id)sendDebugSyncMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  v15[2] = *MEMORY[0x1E69E9840];
+  connection = self->_connection;
+  v14[0] = @"kCBMsgId";
+  v6 = MEMORY[0x1E696AD98];
+  argsCopy = args;
+  v8 = [v6 numberWithUnsignedShort:msgCopy];
+  v9 = v8;
+  v14[1] = @"kCBMsgArgs";
+  v10 = MEMORY[0x1E695E0F8];
+  if (argsCopy)
+  {
+    v10 = argsCopy;
+  }
+
+  v15[0] = v8;
+  v15[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v12 = [(CBXpcConnection *)connection sendSyncMsg:220 args:v11];
+
+  return v12;
+}
+
+- (BOOL)sendMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  v19 = *MEMORY[0x1E69E9840];
+  argsCopy = args;
+  v7 = [argsCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
+  if (v7)
+  {
+    v8 = [(CBManager *)self getCnxInstanceForIdentifier:v7];
+    if (v8)
+    {
+      v9 = v8;
+      if (CBLogInitOnce != -1)
+      {
+        [CBClassicPeer dealloc];
+      }
+
+      v10 = CBLogComponent;
+      if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 138412546;
+        v16 = argsCopy;
+        v17 = 2112;
+        v18 = v7;
+        _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "CBManager fwdMsg %@ through WHB for peripheral %@ ", &v15, 0x16u);
+      }
+
+      [(CBXpcConnection *)self->_connection forwardWhbMsg:msgCopy args:argsCopy cnx:v9];
+
+      goto LABEL_16;
+    }
+  }
+
+  state = self->_state;
+  v12 = state == 10 || state == 5;
+  if (v12 || state == 4 && [(CBManager *)self isMsgAllowedWhenOff:msgCopy]|| [(CBManager *)self isMsgAllowedAlways:msgCopy])
+  {
+    [(CBXpcConnection *)self->_connection sendMsg:msgCopy args:argsCopy];
+LABEL_16:
+    v13 = 1;
+    goto LABEL_17;
+  }
+
+  if (CBLogInitOnce != -1)
+  {
+    [CBClassicPeer dealloc];
+  }
+
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+  {
+    [CBManager sendMsg:args:];
+  }
+
+  v13 = 0;
+LABEL_17:
+
+  return v13;
+}
+
+- (BOOL)sendMsg:(unsigned __int16)msg args:(id)args withReply:(id)reply
+{
+  msgCopy = msg;
+  argsCopy = args;
+  replyCopy = reply;
+  state = self->_state;
+  v11 = state == 10 || state == 5;
+  if (v11 || state == 4 && [(CBManager *)self isMsgAllowedWhenOff:msgCopy]|| [(CBManager *)self isMsgAllowedAlways:msgCopy])
+  {
+    [(CBXpcConnection *)self->_connection sendMsgWithReply:msgCopy args:argsCopy replyBlock:replyCopy];
+    v12 = 1;
+  }
+
+  else
+  {
+    if (CBLogInitOnce != -1)
+    {
+      [CBClassicPeer dealloc];
+    }
+
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+    {
+      [CBManager sendMsg:args:];
+    }
+
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (void)closeL2CAPChannelForPeerUUID:(id)d withPsm:(unsigned __int16)psm
+{
+  psmCopy = psm;
+  dCopy = d;
+  if (CBLogInitOnce != -1)
+  {
+    [CBClassicPeer dealloc];
+  }
+
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    [CBManager closeL2CAPChannelForPeerUUID:withPsm:];
+  }
+
+  v7 = MEMORY[0x1E695DF90];
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:psmCopy];
+  v9 = [v7 dictionaryWithObjectsAndKeys:{v8, @"kCBMsgArgPSM", dCopy, @"kCBMsgArgDeviceUUID", 0}];
+  [(CBManager *)self sendMsg:30 args:v9];
 }
 
 - (void)_handleAdvertisingAddressChanged:(id)changed
@@ -551,7 +741,7 @@ LABEL_11:
 
 void __31__CBManager_createCnxWithInfo___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (CBLogInitOnce != -1)
   {
     [CBClassicPeer dealloc];
@@ -561,12 +751,10 @@ void __31__CBManager_createCnxWithInfo___block_invoke(uint64_t a1)
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1C0AC1000, v2, OS_LOG_TYPE_DEFAULT, "WHB cnx instance for localId %@ invalidated", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1C0AC1000, v2, OS_LOG_TYPE_DEFAULT, "WHB cnx instance for localId %@ invalidated", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __31__CBManager_createCnxWithInfo___block_invoke_59(uint64_t a1, void *a2)
@@ -634,7 +822,7 @@ uint64_t __31__CBManager_createCnxWithInfo___block_invoke_61(uint64_t a1)
 
 - (void)retrieveSupportedResources:(id)resources subKey:(id)key completion:(id)completion
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   keyCopy = key;
   completionCopy = completion;
@@ -693,7 +881,7 @@ LABEL_7:
   block[1] = *(v12 + 305);
   block[2] = __58__CBManager_retrieveSupportedResources_subKey_completion___block_invoke;
   block[3] = &unk_1E8120B88;
-  v22 = completionCopy;
+  v21 = completionCopy;
   dispatch_async(getEventQueue, block);
 
 LABEL_8:
@@ -707,20 +895,18 @@ LABEL_8:
     v15 = &stru_1F40009C8;
   }
 
-  v23[0] = @"kCBMsgArgResourceKey";
-  v23[1] = @"kCBMsgArgResourceSubKey";
-  v24[0] = resourcesCopy;
-  v24[1] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = *(v12 + 305);
-  v19[2] = __58__CBManager_retrieveSupportedResources_subKey_completion___block_invoke_95;
-  v19[3] = &unk_1E811CFC8;
-  v20 = completionCopy;
+  v22[0] = @"kCBMsgArgResourceKey";
+  v22[1] = @"kCBMsgArgResourceSubKey";
+  v23[0] = resourcesCopy;
+  v23[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = *(v12 + 305);
+  v18[2] = __58__CBManager_retrieveSupportedResources_subKey_completion___block_invoke_95;
+  v18[3] = &unk_1E811CFC8;
+  v19 = completionCopy;
   v17 = completionCopy;
-  [(CBManager *)self sendMsg:34 args:v16 withReply:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:34 args:v16 withReply:v18];
 }
 
 void __58__CBManager_retrieveSupportedResources_subKey_completion___block_invoke(uint64_t a1)
@@ -742,22 +928,20 @@ void __58__CBManager_retrieveSupportedResources_subKey_completion___block_invoke
 
 - (void)retrieveBundle:(id)bundle sessionCountWithCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v14 = @"kCBMsgArgApplicationID";
-  v15[0] = bundle;
+  v13 = @"kCBMsgArgApplicationID";
+  v14[0] = bundle;
   v7 = MEMORY[0x1E695DF20];
   bundleCopy = bundle;
-  v9 = [v7 dictionaryWithObjects:v15 forKeys:&v14 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke;
-  v12[3] = &unk_1E811CFC8;
-  v13 = completionCopy;
+  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke;
+  v11[3] = &unk_1E811CFC8;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [(CBManager *)self sendMsg:37 args:v9 withReply:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:37 args:v9 withReply:v11];
 }
 
 void __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -803,6 +987,40 @@ void __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke(ui
   [(CBPairingAgent *)pairingAgent updateRegistration];
 }
 
+- (void)xpcConnectionDidReceiveMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  argsCopy = args;
+  v9 = argsCopy;
+  if (msgCopy == 3)
+  {
+    v8 = [argsCopy objectForKeyedSubscript:@"kCBMsgArgRequiresTCC"];
+    -[CBManager setTccRequired:](self, "setTccRequired:", [v8 BOOLValue]);
+  }
+
+  else if (msgCopy != 9)
+  {
+    if (msgCopy == 6)
+    {
+      [(CBManager *)self handleStateUpdatedMsg:argsCopy];
+      v7 = v9;
+    }
+
+    else
+    {
+      [(CBManager *)self handleMsg:msgCopy args:argsCopy];
+      v7 = v9;
+    }
+
+    goto LABEL_6;
+  }
+
+  [(CBManager *)self checkBTTCCAuth];
+  v7 = v9;
+
+LABEL_6:
+}
+
 - (void)triggerBTErrorReport:(int64_t)report
 {
   if (CBLogInitOnce != -1)
@@ -841,7 +1059,7 @@ void __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke(ui
 
 - (void)queryBluetoothStatus:(id)status completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (status)
   {
@@ -853,97 +1071,75 @@ void __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke(ui
     statusCopy = MEMORY[0x1E695E0F8];
   }
 
-  v15 = @"kCBMsgArgOptions";
-  v16[0] = statusCopy;
+  v14 = @"kCBMsgArgOptions";
+  v15[0] = statusCopy;
   v8 = MEMORY[0x1E695DF20];
   statusCopy2 = status;
-  v10 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __45__CBManager_queryBluetoothStatus_completion___block_invoke;
-  v13[3] = &unk_1E811CFC8;
-  v14 = completionCopy;
+  v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __45__CBManager_queryBluetoothStatus_completion___block_invoke;
+  v12[3] = &unk_1E811CFC8;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(CBManager *)self sendMsg:36 args:v10 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:36 args:v10 withReply:v12];
 }
 
 void __45__CBManager_queryBluetoothStatus_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        v14 = [v8 objectForKey:{v13, v16}];
+        v13 = *(*(&v15 + 1) + 8 * i);
+        v14 = [v8 objectForKey:{v13, v15}];
         [v7 setObject:v14 forKeyedSubscript:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 32) + 16))();
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extractLocalDeviceStatesDictionary:(void *)a1 .cold.2(void *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = a1;
   +[CBManager authorization];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "Authorization state is %ld", v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sendMsg:args:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "API MISUSE: %@ can only accept this command while in the powered on state", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "Authorization state is %ld", v2, 0xCu);
 }
 
 - (void)closeL2CAPChannelForPeerUUID:withPsm:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "Close L2CAP channel for peerUUID %@ with psm :%u", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __31__CBManager_createCnxWithInfo___block_invoke_59_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "CBCentralManager->WHB shim error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "Close L2CAP channel for peerUUID %@ with psm :%u", v2, 0x12u);
 }
 
 - (void)retrieveSupportedResources:(uint64_t)a1 subKey:(uint64_t)a2 completion:.cold.1(uint64_t a1, uint64_t a2)
@@ -962,14 +1158,6 @@ void __31__CBManager_createCnxWithInfo___block_invoke_59_cold_2()
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"CBManager.m" lineNumber:342 description:{@"Invalid parameter not satisfying: %@", @"completion != nil"}];
-}
-
-void __55__CBManager_retrieveBundle_sessionCountWithCompletion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "retrieveBundle:CBSessionCountWithCompletion failed %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

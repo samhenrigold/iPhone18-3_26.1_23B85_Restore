@@ -1,4 +1,5 @@
 @interface ACDAccountChange
++ (id)changeWithChangeType:(int)type account:(id)account oldAccount:(id)oldAccount;
 - (ACDAccountChange)initWithChangeType:(int)type account:(id)account oldAccount:(id)oldAccount;
 @end
 
@@ -20,6 +21,16 @@
   }
 
   return v12;
+}
+
++ (id)changeWithChangeType:(int)type account:(id)account oldAccount:(id)oldAccount
+{
+  v6 = *&type;
+  oldAccountCopy = oldAccount;
+  accountCopy = account;
+  v9 = [[ACDAccountChange alloc] initWithChangeType:v6 account:accountCopy oldAccount:oldAccountCopy];
+
+  return v9;
 }
 
 @end

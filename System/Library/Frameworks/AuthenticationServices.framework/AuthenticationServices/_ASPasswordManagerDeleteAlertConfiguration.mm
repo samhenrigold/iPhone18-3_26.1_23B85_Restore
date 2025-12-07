@@ -6,10 +6,14 @@
 + (id)_buttonTitleStringForAlertToStopUsingSignInWithAppleForSavedAccount:(id)account;
 + (id)_cancelButtonTitleStringForAlertToStopUsingSignInWithAppleForSavedAccount:(id)account;
 + (id)_configurationForAlertToDeleteFileVaultRecoveryKeyWithSavedAccount:(id)account;
++ (id)_configurationForAlertToDeletePasskeyFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
 + (id)_configurationForAlertToDeletePasswordAndPasskeyFromSavedAccount:(id)account;
++ (id)_configurationForAlertToDeletePasswordFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
++ (id)_configurationForAlertToDeleteVerificationCodeFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
 + (id)_configurationForAlertToStopUsingSignInWithAppleFromSavedAccount:(id)account;
 + (id)_credentialDeletionStringForAlertToDeleteNumberOfFileVaultRecoveryKeys:(unint64_t)keys;
 + (id)_credentialDeletionStringForAlertToDeleteNumberOfSiwaAccounts:(unint64_t)accounts;
++ (id)_credentialDeletionStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting;
 + (id)_deletionStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting;
 + (id)_originalContributorDisplayNameForSavedAccount:(id)account;
 + (id)_subtitleForDeletingNumberOfPasswordsWithVerificationCodes:(unint64_t)codes;
@@ -17,6 +21,7 @@
 + (id)_subtitleStringForAlertToDeletePasskeyFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
 + (id)_subtitleStringForAlertToDeletePasswordFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
 + (id)_subtitleStringForAlertToDeleteVerificationCodeFromSavedAccount:(id)account isUndoable:(BOOL)undoable;
++ (id)_subtitleStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting;
 + (id)_subtitleStringForAlertToPermanentlyDeletePasskeyFromSavedAccount:(id)account;
 + (id)_subtitleStringForAlertToPermanentlyDeletePasswordFromSavedAccount:(id)account;
 + (id)_subtitleStringForAlertToSoftDeletePasskeyFromSavedAccount:(id)account;
@@ -28,12 +33,65 @@
 + (id)_titleStringForAlertToDeleteVerificationCodeFromSavedAccount:(id)account;
 + (id)_titleStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting;
 + (id)_titleStringForAlertToStopUsingSignInWithAppleForSavedAccount:(id)account;
++ (id)configurationForDeleting:(unint64_t)deleting fromSavedAccount:(id)account isUndoable:(BOOL)undoable;
 + (id)configurationForDeletingSavedAccounts:(id)accounts;
 + (id)formattedRecentlyDeletedExpirationDays;
 - (id)_initWithTitle:(id)title subtitle:(id)subtitle buttonTitle:(id)buttonTitle cancelButtonTitle:(id)cancelButtonTitle isPermanentlyRemovingFromRecentlyDeleted:(BOOL)deleted;
 @end
 
 @implementation _ASPasswordManagerDeleteAlertConfiguration
+
++ (id)configurationForDeleting:(unint64_t)deleting fromSavedAccount:(id)account isUndoable:(BOOL)undoable
+{
+  undoableCopy = undoable;
+  accountCopy = account;
+  v9 = 0;
+  if (deleting > 2)
+  {
+    switch(deleting)
+    {
+      case 3uLL:
+        v10 = [self _configurationForAlertToStopUsingSignInWithAppleFromSavedAccount:accountCopy];
+        break;
+      case 4uLL:
+        v10 = [self _configurationForAlertToDeletePasswordAndPasskeyFromSavedAccount:accountCopy];
+        break;
+      case 5uLL:
+        v10 = [self _configurationForAlertToDeleteFileVaultRecoveryKeyWithSavedAccount:accountCopy];
+        break;
+      default:
+        goto LABEL_15;
+    }
+  }
+
+  else if (deleting)
+  {
+    if (deleting == 1)
+    {
+      v10 = [self _configurationForAlertToDeleteVerificationCodeFromSavedAccount:accountCopy isUndoable:undoableCopy];
+    }
+
+    else
+    {
+      if (deleting != 2)
+      {
+        goto LABEL_15;
+      }
+
+      v10 = [self _configurationForAlertToDeletePasskeyFromSavedAccount:accountCopy isUndoable:undoableCopy];
+    }
+  }
+
+  else
+  {
+    v10 = [self _configurationForAlertToDeletePasswordFromSavedAccount:accountCopy isUndoable:undoableCopy];
+  }
+
+  v9 = v10;
+LABEL_15:
+
+  return v9;
+}
 
 - (id)_initWithTitle:(id)title subtitle:(id)subtitle buttonTitle:(id)buttonTitle cancelButtonTitle:(id)cancelButtonTitle isPermanentlyRemovingFromRecentlyDeleted:(BOOL)deleted
 {
@@ -67,6 +125,54 @@
   }
 
   return v16;
+}
+
++ (id)_configurationForAlertToDeletePasswordFromSavedAccount:(id)account isUndoable:(BOOL)undoable
+{
+  undoableCopy = undoable;
+  accountCopy = account;
+  v7 = [self _titleStringForAlertToDeletePasswordFromSavedAccount:accountCopy];
+  v8 = [self _subtitleStringForAlertToDeletePasswordFromSavedAccount:accountCopy isUndoable:undoableCopy];
+  v9 = _WBSLocalizedString();
+  v10 = [self _isPermanentlyDeletingSavedAccount:accountCopy];
+
+  v11 = [self alloc];
+  _cancelButtonTitleStringForAlertToDeleteAccount = [self _cancelButtonTitleStringForAlertToDeleteAccount];
+  v13 = [v11 _initWithTitle:v7 subtitle:v8 buttonTitle:v9 cancelButtonTitle:_cancelButtonTitleStringForAlertToDeleteAccount isPermanentlyRemovingFromRecentlyDeleted:v10];
+
+  return v13;
+}
+
++ (id)_configurationForAlertToDeletePasskeyFromSavedAccount:(id)account isUndoable:(BOOL)undoable
+{
+  undoableCopy = undoable;
+  accountCopy = account;
+  v7 = [self _titleStringForAlertToDeletePasskeyFromSavedAccount:accountCopy];
+  v8 = [self _subtitleStringForAlertToDeletePasskeyFromSavedAccount:accountCopy isUndoable:undoableCopy];
+  v9 = _WBSLocalizedString();
+  v10 = [self _isPermanentlyDeletingSavedAccount:accountCopy];
+
+  v11 = [self alloc];
+  _cancelButtonTitleStringForAlertToDeleteAccount = [self _cancelButtonTitleStringForAlertToDeleteAccount];
+  v13 = [v11 _initWithTitle:v7 subtitle:v8 buttonTitle:v9 cancelButtonTitle:_cancelButtonTitleStringForAlertToDeleteAccount isPermanentlyRemovingFromRecentlyDeleted:v10];
+
+  return v13;
+}
+
++ (id)_configurationForAlertToDeleteVerificationCodeFromSavedAccount:(id)account isUndoable:(BOOL)undoable
+{
+  undoableCopy = undoable;
+  accountCopy = account;
+  v7 = [self _titleStringForAlertToDeleteVerificationCodeFromSavedAccount:accountCopy];
+  v8 = [self _subtitleStringForAlertToDeleteVerificationCodeFromSavedAccount:accountCopy isUndoable:undoableCopy];
+  v9 = _WBSLocalizedString();
+  v10 = [self _isPermanentlyDeletingSavedAccount:accountCopy];
+
+  v11 = [self alloc];
+  _cancelButtonTitleStringForAlertToDeleteAccount = [self _cancelButtonTitleStringForAlertToDeleteAccount];
+  v13 = [v11 _initWithTitle:v7 subtitle:v8 buttonTitle:v9 cancelButtonTitle:_cancelButtonTitleStringForAlertToDeleteAccount isPermanentlyRemovingFromRecentlyDeleted:v10];
+
+  return v13;
 }
 
 + (id)_configurationForAlertToStopUsingSignInWithAppleFromSavedAccount:(id)account
@@ -151,15 +257,13 @@
 
 + (id)_configurationForAlertToDeletePasswordAndPasskeyFromSavedAccount:(id)account
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v4 = MEMORY[0x1E695DEC8];
   accountCopy2 = account;
   v6 = [v4 arrayWithObjects:&accountCopy count:1];
 
-  v7 = [self configurationForDeletingSavedAccounts:{v6, accountCopy, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [self configurationForDeletingSavedAccounts:{v6, accountCopy, v10}];
 
   return v7;
 }
@@ -443,6 +547,85 @@ LABEL_7:
   v5 = _WBSLocalizedString();
 
   return v5;
+}
+
++ (id)_subtitleStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting
+{
+  deletingCopy = deleting;
+  infoCopy = info;
+  v7 = [self _credentialDeletionStringForAlertToDeleteWithAccountsSelectionInfo:infoCopy isPermanentlyDeleting:deletingCopy];
+  if ([infoCopy numberOfPasswords] && objc_msgSend(infoCopy, "hasAccountsWithVerificationCodes") && !deletingCopy)
+  {
+    v8 = MEMORY[0x1E696AEC0];
+    v9 = [self _subtitleForDeletingNumberOfPasswordsWithVerificationCodes:{objc_msgSend(infoCopy, "numberOfPasswords")}];
+    v10 = [v8 localizedStringWithFormat:@"%@\n\n%@", v9, v7];
+  }
+
+  else
+  {
+    v10 = v7;
+  }
+
+  return v10;
+}
+
++ (id)_credentialDeletionStringForAlertToDeleteWithAccountsSelectionInfo:(id)info isPermanentlyDeleting:(BOOL)deleting
+{
+  deletingCopy = deleting;
+  infoCopy = info;
+  v7 = [self _deletionStringForAlertToDeleteWithAccountsSelectionInfo:infoCopy isPermanentlyDeleting:deletingCopy];
+  hasOnlySignInWithAppleAccounts = [infoCopy hasOnlySignInWithAppleAccounts];
+  numberOfSignInWithAppleAccounts = [infoCopy numberOfSignInWithAppleAccounts];
+  v10 = numberOfSignInWithAppleAccounts;
+  if (hasOnlySignInWithAppleAccounts)
+  {
+    v11 = [self _credentialDeletionStringForAlertToDeleteNumberOfSiwaAccounts:numberOfSignInWithAppleAccounts];
+  }
+
+  else
+  {
+    if (numberOfSignInWithAppleAccounts)
+    {
+      v12 = [self _credentialDeletionStringForAlertToDeleteNumberOfSiwaAccounts:{objc_msgSend(infoCopy, "numberOfSignInWithAppleAccounts", numberOfSignInWithAppleAccounts)}];
+      v13 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:@"%@\n\n%@", v7, v12];
+
+      v7 = v13;
+    }
+
+    hasOnlyFileVaultRecoveryKeys = [infoCopy hasOnlyFileVaultRecoveryKeys];
+    numberOfFileVaultRecoveryKeys = [infoCopy numberOfFileVaultRecoveryKeys];
+    v16 = numberOfFileVaultRecoveryKeys;
+    if (hasOnlyFileVaultRecoveryKeys)
+    {
+      v11 = [self _credentialDeletionStringForAlertToDeleteNumberOfFileVaultRecoveryKeys:numberOfFileVaultRecoveryKeys];
+    }
+
+    else
+    {
+      if (numberOfFileVaultRecoveryKeys)
+      {
+        v17 = [self _credentialDeletionStringForAlertToDeleteNumberOfFileVaultRecoveryKeys:{objc_msgSend(infoCopy, "numberOfFileVaultRecoveryKeys", numberOfFileVaultRecoveryKeys)}];
+        v18 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:@"%@\n\n%@", v7, v17];
+
+        v7 = v18;
+      }
+
+      if ([infoCopy hasOnlyFileVaultRecoveryKeysAndSignInWithAppleAccounts])
+      {
+        v11 = _WBSLocalizedString();
+      }
+
+      else
+      {
+        v11 = v7;
+        v7 = v11;
+      }
+    }
+  }
+
+  v19 = v11;
+
+  return v19;
 }
 
 + (id)_credentialDeletionStringForAlertToDeleteNumberOfSiwaAccounts:(unint64_t)accounts

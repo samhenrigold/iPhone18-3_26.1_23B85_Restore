@@ -352,8 +352,8 @@ LABEL_26:
         else
         {
           objc_storeWeak(v11 + 1, object);
-          v11[2] = object;
-          v11[3] = object_getClass(object);
+          *(v11 + 2) = object;
+          *(v11 + 3) = object_getClass(object);
           v12 = [[_NSKeyValueObjectAndKeyPair alloc] initWithObject:a2 key:observer context:path];
           v16[0] = MEMORY[0x1E69E9820];
           v16[1] = 3221225472;

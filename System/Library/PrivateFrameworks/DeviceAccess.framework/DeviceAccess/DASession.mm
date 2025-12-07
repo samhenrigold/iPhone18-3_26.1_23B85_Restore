@@ -18,6 +18,7 @@
 - (id)_ensureXPCStarted;
 - (id)bluetoothAccessInfoAndReturnError:(id *)error;
 - (id)descriptionWithLevel:(int)level;
+- (uint64_t)appIsUsingDeviceAccess;
 - (void)_activateDirect;
 - (void)_activateXPCCompleted:(id)completed;
 - (void)_activateXPCStart:(BOOL)start;
@@ -85,7 +86,7 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __21__DASession_activate__block_invoke(uint64_t result)
+void *__21__DASession_activate__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_DASession <= 30)
@@ -96,11 +97,11 @@ uint64_t __21__DASession_activate__block_invoke(uint64_t result)
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = v1[4];
   if ((*(v2 + 16) & 1) == 0)
   {
     *(v2 + 16) = 1;
-    v3 = *(v1 + 32);
+    v3 = v1[4];
     if (v3[56] == 1)
     {
 
@@ -175,46 +176,59 @@ uint64_t __21__DASession_activate__block_invoke(uint64_t result)
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
   }
 
-  clientID = self->_clientID;
-  CUAppendF();
-  v5 = v4;
+  v17 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v16 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v16, &v17, "%@", v5);
+    v6 = v16;
+  }
+
+  v15 = v6;
+  CUAppendF(&v15, &v17, "CID 0x%X", self->_clientID);
+  v7 = v15;
 
   bundleID = self->_bundleID;
   if (bundleID)
   {
-    v12 = bundleID;
-    CUAppendF();
-    v7 = v5;
+    v14 = v7;
+    v9 = bundleID;
+    CUAppendF(&v14, &v17, "BundleID %@", v9);
+    v10 = v14;
 
-    v5 = v7;
+    v7 = v10;
   }
 
-  v8 = &stru_285B4C350;
-  if (v5)
+  v11 = &stru_285B4C350;
+  if (v7)
   {
-    v8 = v5;
+    v11 = v7;
   }
 
-  v9 = v8;
+  v12 = v11;
 
-  return v9;
+  return v12;
 }
 
 - (void)_activateDirect
 {
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    [DASession _activateDirect];
+    [(DASession *)self _activateDirect];
   }
 }
 
@@ -224,20 +238,22 @@ uint64_t __21__DASession_activate__block_invoke(uint64_t result)
   {
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-LABEL_10:
-      [DASession _activateXPCStart:];
+      v4 = "Re-activate start: %@";
+LABEL_11:
+      [(DASession *)v4 _activateXPCStart:?];
     }
   }
 
   else if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_10;
+    v4 = "Activate start: %@";
+    goto LABEL_11;
   }
 
-  v4 = xpc_dictionary_create(0, 0, 0);
-  [(DASession *)self encodeWithXPCObject:v4];
-  xpc_dictionary_set_uint64(v4, "dvFl", self->_deviceFlags);
-  xpc_dictionary_set_string(v4, "mTyp", "SesA");
+  v5 = xpc_dictionary_create(0, 0, 0);
+  [(DASession *)self encodeWithXPCObject:v5];
+  xpc_dictionary_set_uint64(v5, "dvFl", self->_deviceFlags);
+  xpc_dictionary_set_string(v5, "mTyp", "SesA");
   _ensureXPCStarted = [(DASession *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x277D85DD0];
@@ -245,35 +261,34 @@ LABEL_10:
   handler[2] = __31__DASession__activateXPCStart___block_invoke;
   handler[3] = &unk_278F57E90;
   handler[4] = self;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v4, dispatchQueue, handler);
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v5, dispatchQueue, handler);
 }
 
 - (void)_activateXPCCompleted:(id)completed
 {
   completedCopy = completed;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__4;
-  v33 = __Block_byref_object_dispose__4;
-  v34 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__4;
+  v32 = __Block_byref_object_dispose__4;
+  v33 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __35__DASession__activateXPCCompleted___block_invoke;
   aBlock[3] = &unk_278F57EB8;
   aBlock[4] = self;
-  aBlock[5] = &v29;
+  aBlock[5] = &v28;
   v5 = _Block_copy(aBlock);
   v6 = CUXPCDecodeNSErrorIfNeeded();
-  v7 = v30[5];
-  v30[5] = v6;
+  v7 = v29[5];
+  v29[5] = v6;
 
-  if (!v30[5])
+  if (!v29[5])
   {
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_DASession, "[DASession _activateXPCCompleted:]", 30, "Activate completed: %@", self);
     }
 
     v8 = xpc_dictionary_get_array(completedCopy, "devs");
@@ -282,53 +297,53 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__4;
-    v26 = __Block_byref_object_dispose__4;
-    v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__4;
-    v20 = __Block_byref_object_dispose__4;
     v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__4;
+    v25 = __Block_byref_object_dispose__4;
+    v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__4;
+    v19 = __Block_byref_object_dispose__4;
+    v20 = 0;
     applier[0] = MEMORY[0x277D85DD0];
     applier[1] = 3221225472;
     applier[2] = __35__DASession__activateXPCCompleted___block_invoke_2;
     applier[3] = &unk_278F581D0;
-    applier[4] = &v16;
-    applier[5] = &v22;
+    applier[4] = &v15;
+    applier[5] = &v21;
     xpc_array_apply(v8, applier);
-    v9 = v17[5];
+    v9 = v16[5];
     if (v9)
     {
-      v12 = v30;
+      v12 = v29;
       v13 = v9;
-      selfCopy2 = v12[5];
+      selfCopy = v12[5];
       v12[5] = v13;
     }
 
     else
     {
-      selfCopy2 = self;
-      objc_sync_enter(selfCopy2);
-      objc_storeStrong(&selfCopy2->_deviceMap, v23[5]);
-      objc_sync_exit(selfCopy2);
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      objc_storeStrong(&selfCopy->_deviceMap, v22[5]);
+      objc_sync_exit(selfCopy);
     }
 
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v21, 8);
 
     if (!v9)
     {
 LABEL_10:
-      [(DASession *)self _reportEventType:10, selfCopy];
-      v22 = 0;
+      [(DASession *)self _reportEventType:10];
+      v21 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        self->_currentDeviceCapabilities = v22;
+        self->_currentDeviceCapabilities = v21;
       }
 
       if (xpc_dictionary_get_BOOL(completedCopy, "dvPr"))
@@ -337,48 +352,35 @@ LABEL_10:
         [(DASession *)self _reportEvent:v11];
       }
 
-      LOBYTE(v22) = 0;
+      LOBYTE(v21) = 0;
       CUXPCDecodeBool();
-      if (v22 == 1 && gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+      if (v21 == 1 && gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_DASession, "[DASession _activateXPCCompleted:]", 90, "[##### WARNING #####] App has companion watch app that maybe affected if using CoreBluetooth framework. Please read developer documentation for AccessorySetupKit.");
       }
     }
   }
 
   v5[2](v5);
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 }
 
 void __35__DASession__activateXPCCompleted___block_invoke(uint64_t a1)
 {
-  if (!*(*(*(a1 + 40) + 8) + 40))
+  if (*(*(*(a1 + 40) + 8) + 40))
   {
-    return;
-  }
-
-  if (gLogCategory_DASession <= 90)
-  {
-    if (gLogCategory_DASession == -1)
+    if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_7;
-      }
-
-      v4 = *(*(*(a1 + 40) + 8) + 40);
+      v2 = *(a1 + 32);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DASession, "[DASession _activateXPCCompleted:]_block_invoke", 90, "### Activate failed: %@, %@", v2, v3);
     }
 
-    v2 = *(a1 + 32);
-    v5 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(a1 + 32);
+    v5 = [[DAEvent alloc] initWithEventType:10 error:*(*(*(a1 + 40) + 8) + 40)];
+    [v4 _reportEvent:v5];
   }
-
-LABEL_7:
-  v3 = *(a1 + 32);
-  v6 = [[DAEvent alloc] initWithEventType:10 error:*(*(*(a1 + 40) + 8) + 40)];
-  [v3 _reportEvent:v6];
 }
 
 - (DAAppContext)appContext
@@ -394,7 +396,7 @@ LABEL_7:
   {
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      [DASession appContext];
+      [(DASession *)self appContext];
     }
 
     v6 = self->_xpcListener;
@@ -437,7 +439,7 @@ LABEL_7:
     v7 = v2;
     if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      [DASession _interrupted];
+      [(DASession *)self _interrupted];
     }
 
     [(DASession *)self _reportEventType:60, v3, v7, v4];
@@ -497,7 +499,7 @@ void __23__DASession_invalidate__block_invoke(uint64_t a1)
     self->_invalidateDone = 1;
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      [DASession _invalidated];
+      [(DASession *)self _invalidated];
     }
   }
 }
@@ -544,27 +546,25 @@ void __50__DASession_removeDeviceAccess_completionHandler___block_invoke(id *a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "RvAi");
-  v3 = a1[4];
   CUXPCEncodeObject();
-  v4 = a1[5];
   CUXPCEncodeObject();
-  v5 = [a1[4] _ensureXPCStarted];
-  v6 = *(a1[4] + 11);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2;
-  v7[3] = &unk_278F57F08;
-  v8 = a1[5];
-  v9 = a1[6];
-  xpc_connection_send_message_with_reply(v5, v2, v6, v7);
+  v3 = [a1[4] _ensureXPCStarted];
+  v4 = *(a1[4] + 11);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2;
+  v5[3] = &unk_278F57F08;
+  v6 = a1[5];
+  v7 = a1[6];
+  xpc_connection_send_message_with_reply(v3, v2, v4, v5);
 }
 
-void __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2(uint64_t a1)
+void __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -596,35 +596,32 @@ void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___bl
   {
     v2 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v2, "mTyp", "SASi");
-    v3 = a1[5];
     CUXPCEncodeObject();
-    v4 = a1[4];
     CUXPCEncodeObject();
-    v5 = a1[6];
     CUXPCEncodeObject();
-    v6 = [a1[5] _ensureXPCStarted];
-    v7 = *(a1[5] + 11);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2;
-    v8[3] = &unk_278F57F08;
-    v9 = a1[6];
-    v10 = a1[7];
-    xpc_connection_send_message_with_reply(v6, v2, v7, v8);
+    v3 = [a1[5] _ensureXPCStarted];
+    v4 = *(a1[5] + 11);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2;
+    v5[3] = &unk_278F57F08;
+    v6 = a1[6];
+    v7 = a1[7];
+    xpc_connection_send_message_with_reply(v3, v2, v4, v5);
   }
 
   else
   {
-    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1(a1);
+    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1();
   }
 }
 
-void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2(uint64_t a1)
+void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -656,35 +653,32 @@ void __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_inv
   {
     v2 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v2, "mTyp", "SAAi");
-    v3 = a1[5];
     CUXPCEncodeObject();
-    v4 = a1[4];
     CUXPCEncodeObject();
-    v5 = a1[6];
     CUXPCEncodeObject();
-    v6 = [a1[5] _ensureXPCStarted];
-    v7 = *(a1[5] + 11);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2;
-    v8[3] = &unk_278F57F08;
-    v9 = a1[6];
-    v10 = a1[7];
-    xpc_connection_send_message_with_reply(v6, v2, v7, v8);
+    v3 = [a1[5] _ensureXPCStarted];
+    v4 = *(a1[5] + 11);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2;
+    v5[3] = &unk_278F57F08;
+    v6 = a1[6];
+    v7 = a1[7];
+    xpc_connection_send_message_with_reply(v3, v2, v4, v5);
   }
 
   else
   {
-    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1(a1);
+    __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1();
   }
 }
 
-void __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2(uint64_t a1)
+void __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -708,24 +702,27 @@ void __33__DASession_resetWiFiIdentifier___block_invoke(uint64_t a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "RsWf");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = [*(a1 + 32) _ensureXPCStarted];
-  v5 = *(*(a1 + 32) + 88);
+  v3 = [*(a1 + 32) _ensureXPCStarted];
+  v4 = *(*(a1 + 32) + 88);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __33__DASession_resetWiFiIdentifier___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v7 = *(a1 + 40);
-  xpc_connection_send_message_with_reply(v4, v2, v5, handler);
+  v6 = *(a1 + 40);
+  xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __33__DASession_resetWiFiIdentifier___block_invoke_2(uint64_t a1)
+void __33__DASession_resetWiFiIdentifier___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  v5 = v3;
+  if (gLogCategory_DASession <= 30)
   {
-    __33__DASession_resetWiFiIdentifier___block_invoke_2_cold_1();
+    if (gLogCategory_DASession != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
+    {
+      __33__DASession_resetWiFiIdentifier___block_invoke_2_cold_1(v3);
+    }
   }
 
   (*(*(a1 + 32) + 16))();
@@ -762,19 +759,18 @@ void __34__DASession_getAuthorizedDevices___block_invoke(uint64_t a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "GADv");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = [*(a1 + 32) _ensureXPCStarted];
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = *(v6 + 88);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __34__DASession_getAuthorizedDevices___block_invoke_2;
-  v8[3] = &unk_278F57F08;
-  v8[4] = v6;
-  v9 = v5;
-  xpc_connection_send_message_with_reply(v4, v2, v7, v8);
+  v3 = [*(a1 + 32) _ensureXPCStarted];
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v6 = *(v5 + 88);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __34__DASession_getAuthorizedDevices___block_invoke_2;
+  v7[3] = &unk_278F57F08;
+  v7[4] = v5;
+  v8 = v4;
+  xpc_connection_send_message_with_reply(v3, v2, v6, v7);
 }
 
 - (void)_getAuthorizedDevicesCompleted:(id)completed completionHandler:(id)handler
@@ -806,7 +802,7 @@ void __34__DASession_getAuthorizedDevices___block_invoke(uint64_t a1)
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
       v11 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getAuthorizedDevicesCompleted:completionHandler:]", 30, "GetAuthorizedDevices completed: %@", v11);
     }
 
     (*(v7 + 2))(v7, 0, 0);
@@ -819,38 +815,21 @@ void __34__DASession_getAuthorizedDevices___block_invoke(uint64_t a1)
 
 uint64_t __62__DASession__getAuthorizedDevicesCompleted_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_DASession <= 90)
-  {
-    if (gLogCategory_DASession == -1)
+    if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getAuthorizedDevicesCompleted:completionHandler:]_block_invoke", 90, "### GetAuthorizedDevices failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 - (void)getDevicesWithFlags:(unint64_t)flags completionHandler:(id)handler
@@ -873,19 +852,18 @@ void __51__DASession_getDevicesWithFlags_completionHandler___block_invoke(uint64
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "GDvs");
   xpc_dictionary_set_uint64(v2, "dvFl", *(a1 + 48));
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = [*(a1 + 32) _ensureXPCStarted];
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = *(v6 + 88);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __51__DASession_getDevicesWithFlags_completionHandler___block_invoke_2;
-  v8[3] = &unk_278F57F08;
-  v8[4] = v6;
-  v9 = v5;
-  xpc_connection_send_message_with_reply(v4, v2, v7, v8);
+  v3 = [*(a1 + 32) _ensureXPCStarted];
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v6 = *(v5 + 88);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __51__DASession_getDevicesWithFlags_completionHandler___block_invoke_2;
+  v7[3] = &unk_278F57F08;
+  v7[4] = v5;
+  v8 = v4;
+  xpc_connection_send_message_with_reply(v3, v2, v6, v7);
 }
 
 - (void)_getDevicesCompleted:(id)completed completionHandler:(id)handler
@@ -917,7 +895,7 @@ void __51__DASession_getDevicesWithFlags_completionHandler___block_invoke(uint64
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
       v11 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getDevicesCompleted:completionHandler:]", 30, "GetDevices completed: %@", v11);
     }
 
     (*(v7 + 2))(v7, 0, 0);
@@ -930,38 +908,21 @@ void __51__DASession_getDevicesWithFlags_completionHandler___block_invoke(uint64
 
 uint64_t __52__DASession__getDevicesCompleted_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_DASession <= 90)
-  {
-    if (gLogCategory_DASession == -1)
+    if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getDevicesCompleted:completionHandler:]_block_invoke", 90, "### GetDevices failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 + (id)getDevicesWithFlags:(unint64_t)flags session:(id)session error:(id *)error
@@ -982,24 +943,24 @@ LABEL_7:
   xpc_connection_cancel(mach_service);
   if (v12)
   {
-    v19 = CUXPCDecodeNSErrorIfNeeded();
-    v20 = v19;
-    if (v19)
+    v13 = CUXPCDecodeNSErrorIfNeeded();
+    v14 = v13;
+    if (v13)
     {
       if (error)
       {
-        v23 = v19;
-        *error = v20;
+        v17 = v13;
+        *error = v14;
       }
 
-      v21 = MEMORY[0x277CBEBF8];
+      v15 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
       objc_opt_class();
       CUXPCDecodeNSArrayOfClass();
-      v21 = 0;
+      v15 = 0;
     }
   }
 
@@ -1007,13 +968,13 @@ LABEL_7:
   {
     if (error)
     {
-      *error = DAErrorF(350000, "No reply", v13, v14, v15, v16, v17, v18, v24);
+      *error = DAErrorF(350000, "No reply");
     }
 
-    v21 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
   }
 
-  return v21;
+  return v15;
 }
 
 - (void)_getPartialIPsCompleted:(id)completed completionHandler:(id)handler
@@ -1045,7 +1006,7 @@ LABEL_7:
     if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
       v11 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getPartialIPsCompleted:completionHandler:]", 30, "GetPartialIPs completed: %@", v11);
     }
 
     (*(v7 + 2))(v7, 0, 0);
@@ -1058,38 +1019,21 @@ LABEL_7:
 
 uint64_t __55__DASession__getPartialIPsCompleted_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_DASession <= 90)
-  {
-    if (gLogCategory_DASession == -1)
+    if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getPartialIPsCompleted:completionHandler:]_block_invoke", 90, "### GetPartialIPs failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 - (void)_reportEvent:(id)event
@@ -1098,7 +1042,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    [DASession _reportEvent:];
+    [DASession _reportEvent:eventCopy];
   }
 
   v4 = _Block_copy(self->_eventHandler);
@@ -1143,38 +1087,36 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
 
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "SDvS");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
   xpc_dictionary_set_int64(v2, "dvSt", *(a1 + 56));
-  v4 = *(a1 + 40);
   CUXPCEncodeObject();
   if (*(a1 + 64) == 1)
   {
     xpc_dictionary_set_BOOL(v2, "simA", 1);
   }
 
-  v5 = [*(a1 + 40) _ensureXPCStarted];
-  v6 = *(*(a1 + 40) + 88);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2;
-  v10[3] = &unk_278F58248;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  v14 = *(a1 + 56);
-  v9 = *(a1 + 40);
-  v11 = v7;
-  v12 = v9;
-  v13 = v8;
-  xpc_connection_send_message_with_reply(v5, v2, v6, v10);
+  v3 = [*(a1 + 40) _ensureXPCStarted];
+  v4 = *(*(a1 + 40) + 88);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2;
+  v8[3] = &unk_278F58248;
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v7 = *(a1 + 40);
+  v9 = v5;
+  v10 = v7;
+  v11 = v6;
+  xpc_connection_send_message_with_reply(v3, v2, v4, v8);
 }
 
-void __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2(void *a1)
+void __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(a1);
+    __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(a1[6] + 16))();
@@ -1210,27 +1152,27 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
   xpc_connection_cancel(mach_service);
   if (v17)
   {
-    v24 = CUXPCDecodeNSErrorIfNeeded();
-    v25 = v24 == 0;
-    if (v24 && error)
+    v18 = CUXPCDecodeNSErrorIfNeeded();
+    v19 = v18 == 0;
+    if (v18 && error)
     {
-      v24 = v24;
-      *error = v24;
+      v18 = v18;
+      *error = v18;
     }
   }
 
   else if (error)
   {
-    DAErrorF(350000, "No reply", v18, v19, v20, v21, v22, v23, v27);
-    *error = v25 = 0;
+    DAErrorF(350000, "No reply");
+    *error = v19 = 0;
   }
 
   else
   {
-    v25 = 0;
+    v19 = 0;
   }
 
-  return v25;
+  return v19;
 }
 
 + (BOOL)setDeviceAccessoryServiceInfo:(id)info device:(id)device session:(id)session error:(id *)error
@@ -1240,61 +1182,59 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
   sessionCopy = session;
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    v32 = infoCopy;
-    v34 = deviceCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASession, "+[DASession setDeviceAccessoryServiceInfo:device:session:error:]", 30, "setDeviceAccessoryServiceInfo start: %@, device %@", infoCopy, deviceCopy);
   }
 
   if (([deviceCopy flags] & 8) != 0)
   {
-    v18 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v18, "mTyp", "SASi");
+    v12 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v12, "mTyp", "SASi");
     CUXPCEncodeObject();
     CUXPCEncodeObject();
     CUXPCEncodeObject();
-    v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v20 = dispatch_queue_create("DASession-SetAccessoryServiceInfo", v19);
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = dispatch_queue_create("DASession-SetAccessoryServiceInfo", v13);
 
-    mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v20, 0);
+    mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v14, 0);
     xpc_connection_set_event_handler(mach_service, &__block_literal_global_71);
     xpc_connection_activate(mach_service);
-    v22 = xpc_connection_send_message_with_reply_sync(mach_service, v18);
+    v16 = xpc_connection_send_message_with_reply_sync(mach_service, v12);
     xpc_connection_cancel(mach_service);
-    if (v22)
+    if (v16)
     {
-      v29 = CUXPCDecodeNSErrorIfNeeded();
-      v30 = v29 == 0;
-      if (v29 && error)
+      v17 = CUXPCDecodeNSErrorIfNeeded();
+      v18 = v17 == 0;
+      if (v17 && error)
       {
-        v29 = v29;
-        *error = v29;
+        v17 = v17;
+        *error = v17;
       }
     }
 
     else if (error)
     {
-      DAErrorF(350000, "No reply", v23, v24, v25, v26, v27, v28, v33);
-      *error = v30 = 0;
+      DAErrorF(350000, "No reply");
+      *error = v18 = 0;
     }
 
     else
     {
-      v30 = 0;
+      v18 = 0;
     }
   }
 
   else if (error)
   {
-    DAErrorF(350001, "Session: Device missing accessory setup flag", v12, v13, v14, v15, v16, v17, v33);
-    *error = v30 = 0;
+    DAErrorF(350001, "Session: Device missing accessory setup flag");
+    *error = v18 = 0;
   }
 
   else
   {
-    v30 = 0;
+    v18 = 0;
   }
 
-  return v30;
+  return v18;
 }
 
 + (BOOL)setDeviceAppAccessInfo:(id)info device:(id)device session:(id)session error:(id *)error
@@ -1304,68 +1244,66 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
   sessionCopy = session;
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    v32 = infoCopy;
-    v34 = deviceCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASession, "+[DASession setDeviceAppAccessInfo:device:session:error:]", 30, "setDeviceAppAccessInfo start: %@, device %@", infoCopy, deviceCopy);
   }
 
   if (([deviceCopy flags] & 0x408) != 0)
   {
-    v18 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v18, "mTyp", "SAAi");
+    v12 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v12, "mTyp", "SAAi");
     CUXPCEncodeObject();
     CUXPCEncodeObject();
     CUXPCEncodeObject();
-    v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v20 = dispatch_queue_create("DASession-GetInfo", v19);
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = dispatch_queue_create("DASession-GetInfo", v13);
 
-    mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v20, 0);
+    mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v14, 0);
     xpc_connection_set_event_handler(mach_service, &__block_literal_global_74);
     xpc_connection_activate(mach_service);
-    v22 = xpc_connection_send_message_with_reply_sync(mach_service, v18);
+    v16 = xpc_connection_send_message_with_reply_sync(mach_service, v12);
     xpc_connection_cancel(mach_service);
-    if (v22)
+    if (v16)
     {
-      v29 = CUXPCDecodeNSErrorIfNeeded();
-      v30 = v29 == 0;
-      if (v29 && error)
+      v17 = CUXPCDecodeNSErrorIfNeeded();
+      v18 = v17 == 0;
+      if (v17 && error)
       {
-        v29 = v29;
-        *error = v29;
+        v17 = v17;
+        *error = v17;
       }
     }
 
     else if (error)
     {
-      DAErrorF(350000, "No reply", v23, v24, v25, v26, v27, v28, v33);
-      *error = v30 = 0;
+      DAErrorF(350000, "No reply");
+      *error = v18 = 0;
     }
 
     else
     {
-      v30 = 0;
+      v18 = 0;
     }
   }
 
   else if (error)
   {
-    DAErrorF(350001, "Session: Device missing accessory setup flag", v12, v13, v14, v15, v16, v17, v33);
-    *error = v30 = 0;
+    DAErrorF(350001, "Session: Device missing accessory setup flag");
+    *error = v18 = 0;
   }
 
   else
   {
-    v30 = 0;
+    v18 = 0;
   }
 
-  return v30;
+  return v18;
 }
 
 - (id)bluetoothAccessInfoAndReturnError:(id *)error
 {
   if (error)
   {
-    *error = DAErrorF(350002, "Not implemented yet", error, v3, v4, v5, v6, v7, v10);
+    *error = DAErrorF(350002, "Not implemented yet");
   }
 
   return 0;
@@ -1385,104 +1323,91 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
   dispatch_async(dispatchQueue, v7);
 }
 
-void __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke(uint64_t a1)
+void __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_DASession <= 30)
   {
-    __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke_cold_1();
+    if (gLogCategory_DASession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v2, "mTyp", "BTIG");
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = *(v5 + 88);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke_2;
-  v7[3] = &unk_278F57F08;
-  v7[4] = v5;
-  v8 = v4;
-  xpc_connection_send_message_with_reply(v3, v2, v6, v7);
+  v4 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v4, "mTyp", "BTIG");
+  v5 = [*(v3 + 32) _ensureXPCStarted];
+  v7 = *(v3 + 32);
+  v6 = *(v3 + 40);
+  v8 = *(v7 + 88);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__DASession_getBluetoothAccessInfoWithCompletionHandler___block_invoke_2;
+  v9[3] = &unk_278F57F08;
+  v9[4] = v7;
+  v10 = v6;
+  xpc_connection_send_message_with_reply(v5, v4, v8, v9);
 }
 
 - (void)_getBluetoothAccessInfoCompleted:(id)completed completionHandler:(id)handler
 {
   completedCopy = completed;
   handlerCopy = handler;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__4;
-  v29 = __Block_byref_object_dispose__4;
-  v30 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__4;
+  v22 = __Block_byref_object_dispose__4;
+  v23 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__DASession__getBluetoothAccessInfoCompleted_completionHandler___block_invoke;
   aBlock[3] = &unk_278F57F30;
-  v24 = &v25;
+  v17 = &v18;
   v7 = handlerCopy;
-  v23 = v7;
+  v16 = v7;
   v8 = _Block_copy(aBlock);
   v9 = CUXPCDecodeNSErrorIfNeeded();
-  v10 = v26[5];
-  v26[5] = v9;
+  v10 = v19[5];
+  v19[5] = v9;
 
-  if (!v26[5])
+  if (!v19[5])
   {
     objc_opt_class();
-    v11 = (v26 + 5);
-    obj = v26[5];
+    v11 = (v19 + 5);
+    obj = v19[5];
     CUXPCDecodeObject();
     objc_storeStrong(v11, obj);
-    if (!v26[5])
+    if (!v19[5])
     {
-      v18 = DAErrorF(350004, "No error, but no info", v12, v13, v14, v15, v16, v17, v20);
-      v19 = v26[5];
-      v26[5] = v18;
+      v12 = DAErrorF(350004, "No error, but no info");
+      v13 = v19[5];
+      v19[5] = v12;
     }
   }
 
   v8[2](v8);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __64__DASession__getBluetoothAccessInfoCompleted_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_DASession <= 90)
-  {
-    if (gLogCategory_DASession == -1)
+    if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DASession, "[DASession _getBluetoothAccessInfoCompleted:completionHandler:]_block_invoke", 90, "### BluetoothAccessInfo failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 - (BOOL)appIsUsingDeviceAccess
@@ -1512,41 +1437,44 @@ LABEL_7:
   xpc_connection_cancel(mach_service);
   if (v10)
   {
-    v11 = CUXPCDecodeNSErrorIfNeeded();
-    if (v11)
+    v14 = CUXPCDecodeNSErrorIfNeeded();
+    if (v14)
     {
       if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
       {
-        [DASession appIsUsingDeviceAccess];
+        [(DASession *)v14 appIsUsingDeviceAccess];
       }
 
-      v12 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v17 = 0;
       CUXPCDecodeBool();
       if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
       {
-        [(DASession *)&v14 appIsUsingDeviceAccess];
+        [(DASession *)&v17 appIsUsingDeviceAccess];
       }
 
-      v12 = v14;
+      v15 = v17;
     }
   }
 
   else
   {
-    if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_DASession <= 30)
     {
-      [DASession appIsUsingDeviceAccess];
+      if (gLogCategory_DASession != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        [(DASession *)v11 appIsUsingDeviceAccess];
+      }
     }
 
-    v12 = 0;
+    v15 = 0;
   }
 
-  return v12 & 1;
+  return v15 & 1;
 }
 
 + (id)diagnosticShow:(id)show endpoint:(id)endpoint error:(id *)error
@@ -1576,51 +1504,51 @@ LABEL_7:
   xpc_connection_cancel(mach_service);
   if (v13)
   {
-    v20 = CUXPCDecodeNSErrorIfNeeded();
-    v21 = v20;
-    if (v20)
+    v14 = CUXPCDecodeNSErrorIfNeeded();
+    v15 = v14;
+    if (v14)
     {
       if (error)
       {
-        v33 = v20;
-        v30 = 0;
-        *error = v21;
+        v20 = v14;
+        v17 = 0;
+        *error = v15;
       }
 
       else
       {
-        v30 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v22 = _CFXPCCreateCFObjectFromXPCObject();
-      v30 = v22;
-      if (v22)
+      v16 = _CFXPCCreateCFObjectFromXPCObject();
+      v17 = v16;
+      if (v16)
       {
-        v31 = v22;
+        v18 = v16;
       }
 
       else
       {
-        [(DASession *)error diagnosticShow:v23 endpoint:v24 error:v25, v26, v27, v28, v29];
+        [DASession diagnosticShow:error endpoint:? error:?];
       }
     }
   }
 
   else if (error)
   {
-    DAErrorF(350000, "No reply", v14, v15, v16, v17, v18, v19, v34);
-    *error = v30 = 0;
+    DAErrorF(350000, "No reply");
+    *error = v17 = 0;
   }
 
   else
   {
-    v30 = 0;
+    v17 = 0;
   }
 
-  return v30;
+  return v17;
 }
 
 - (void)diagnosticShow:(id)show completionHandler:(id)handler
@@ -1650,29 +1578,29 @@ void __46__DASession_diagnosticShow_completionHandler___block_invoke(id *a1)
     v4 = _CFXPCCreateXPCObjectFromCFObject();
     if (!v4)
     {
-      __46__DASession_diagnosticShow_completionHandler___block_invoke_cold_1(a1, v3, v5, v6, v7, v8, v9, v10);
+      __46__DASession_diagnosticShow_completionHandler___block_invoke_cold_1(a1, v3);
       goto LABEL_5;
     }
 
-    v11 = v4;
+    v5 = v4;
     xpc_dictionary_set_value(v2, "parm", v4);
   }
 
-  v12 = [a1[5] _ensureXPCStarted];
-  v13 = *(a1[5] + 11);
+  v6 = [a1[5] _ensureXPCStarted];
+  v7 = *(a1[5] + 11);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __46__DASession_diagnosticShow_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v15 = a1[6];
-  xpc_connection_send_message_with_reply(v12, v2, v13, handler);
+  v9 = a1[6];
+  xpc_connection_send_message_with_reply(v6, v2, v7, handler);
 
 LABEL_5:
 }
 
 void __46__DASession_diagnosticShow_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = a2;
+  v6 = a2;
   v3 = CUXPCDecodeNSErrorIfNeeded();
   if (v3)
   {
@@ -1681,16 +1609,16 @@ void __46__DASession_diagnosticShow_completionHandler___block_invoke_2(uint64_t 
 
   else
   {
-    v10 = _CFXPCCreateCFObjectFromXPCObject();
-    v11 = *(a1 + 32);
-    if (v10)
+    v4 = _CFXPCCreateCFObjectFromXPCObject();
+    v5 = *(a1 + 32);
+    if (v4)
     {
-      (*(v11 + 16))(*(a1 + 32), v10, 0);
+      (*(v5 + 16))(*(a1 + 32), v4, 0);
     }
 
     else
     {
-      __46__DASession_diagnosticShow_completionHandler___block_invoke_2_cold_1((v11 + 16), v11, v4, v5, v6, v7, v8, v9);
+      __46__DASession_diagnosticShow_completionHandler___block_invoke_2_cold_1((v5 + 16), v5);
     }
   }
 }
@@ -1707,7 +1635,7 @@ void __46__DASession_diagnosticShow_completionHandler___block_invoke_2(uint64_t 
 
   if (gLogCategory_DASession <= 20 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    +[DASession networkingAllowedWithUUID:error:];
+    [(DASession *)v10 != 0 networkingAllowedWithUUID:v8 error:dCopy];
     if (!error)
     {
       goto LABEL_7;
@@ -1779,7 +1707,7 @@ LABEL_7:
 LABEL_10:
   if (gLogCategory_DASession <= 20 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    +[DASession processAllowedWithAuditToken:error:];
+    [DASession processAllowedWithAuditToken:v11 error:v7];
   }
 
   return v11;
@@ -1790,7 +1718,7 @@ LABEL_10:
   dCopy = d;
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    +[DASession getPartialIPsWithAppBundleID:error:];
+    [DASession getPartialIPsWithAppBundleID:dCopy error:?];
   }
 
   v6 = xpc_dictionary_create(0, 0, 0);
@@ -1812,22 +1740,22 @@ LABEL_10:
   xpc_connection_cancel(mach_service);
   if (v12)
   {
-    v19 = CUXPCDecodeNSErrorIfNeeded();
-    v20 = v19;
-    if (v19)
+    v13 = CUXPCDecodeNSErrorIfNeeded();
+    v14 = v13;
+    if (v13)
     {
       if (error)
       {
-        v23 = v19;
-        *error = v20;
+        v17 = v13;
+        *error = v14;
       }
 
-      v21 = MEMORY[0x277CBEBF8];
+      v15 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v25 = 0;
+      v18 = 0;
       objc_opt_class();
       CUXPCDecodeNSArrayOfClass();
       if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
@@ -1835,7 +1763,7 @@ LABEL_10:
         [DASession getPartialIPsWithAppBundleID:? error:?];
       }
 
-      v21 = v25;
+      v15 = v18;
     }
   }
 
@@ -1843,20 +1771,23 @@ LABEL_10:
   {
     if (error)
     {
-      *error = DAErrorF(350000, "No reply", v13, v14, v15, v16, v17, v18, v24);
+      *error = DAErrorF(350000, "No reply");
     }
 
-    v21 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
   }
 
-  return v21;
+  return v15;
 }
 
 + (id)getPartialIPsWithAuditToken:(id *)token error:(id *)error
 {
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_DASession <= 30)
   {
-    +[DASession getPartialIPsWithAuditToken:error:];
+    if (gLogCategory_DASession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(DASession *)self getPartialIPsWithAuditToken:a2 error:token];
+    }
   }
 
   v13 = 0;
@@ -1913,53 +1844,55 @@ void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___blo
     xpc_dictionary_set_string(v4, "id", v5);
   }
 
-  v6 = *(a1 + 40);
   CUXPCEncodeObject();
-  v7 = *(a1 + 48);
   CUXPCEncodeObject();
-  v8 = [*(a1 + 48) _ensureXPCStarted];
-  v9 = *(*(a1 + 48) + 88);
+  v6 = [*(a1 + 48) _ensureXPCStarted];
+  v7 = *(*(a1 + 48) + 88);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v11 = *(a1 + 56);
-  xpc_connection_send_message_with_reply(v8, v4, v9, handler);
+  v9 = *(a1 + 56);
+  xpc_connection_send_message_with_reply(v6, v4, v7, handler);
 }
 
-void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2(uint64_t a1)
+void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 + (BOOL)setPartialIPsWithAuditToken:(id *)token partialIPs:(id)ps error:(id *)error
 {
   psCopy = ps;
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  v10 = psCopy;
+  if (gLogCategory_DASession <= 30)
   {
-    +[DASession setPartialIPsWithAuditToken:partialIPs:error:];
+    if (gLogCategory_DASession != -1 || (psCopy = _LogCategory_Initialize(), psCopy))
+    {
+      [DASession setPartialIPsWithAuditToken:psCopy partialIPs:v8 error:v9];
+    }
   }
 
-  v14 = 0;
-  v8 = *&token->var0[4];
-  v13[0] = *token->var0;
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v13 error:&v14];
+  v17 = 0;
+  v11 = *&token->var0[4];
+  v16[0] = *token->var0;
+  v16[1] = v11;
+  v12 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v16 error:&v17];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bundleIdentifier = [v9 bundleIdentifier];
-    v11 = [DASession setPartialIPsForAppBundleID:bundleIdentifier partialIPs:psCopy error:error];
+    bundleIdentifier = [v12 bundleIdentifier];
+    v14 = [DASession setPartialIPsForAppBundleID:bundleIdentifier partialIPs:v10 error:error];
   }
 
   else
   {
-    v11 = 0;
+    v14 = 0;
   }
 
-  return v11;
+  return v14;
 }
 
 + (BOOL)setPartialIPsForAppBundleID:(id)d partialIPs:(id)ps error:(id *)error
@@ -1968,9 +1901,7 @@ void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___blo
   psCopy = ps;
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    v26 = dCopy;
-    v28 = psCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASession, "+[DASession setPartialIPsForAppBundleID:partialIPs:error:]", 30, "setPartialIPsWithAppBundleID: %@, IPs: %@", dCopy, psCopy);
   }
 
   v9 = xpc_dictionary_create(0, 0, 0);
@@ -1985,79 +1916,87 @@ void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___blo
     }
   }
 
-  if ([psCopy count] < 0xB)
+  v12 = [psCopy count];
+  if (v12 < 0xB)
   {
     CUXPCEncodeNSArrayOfObjects();
   }
 
   else
   {
-    if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_DASession <= 30)
     {
-      +[DASession setPartialIPsForAppBundleID:partialIPs:error:];
+      if (gLogCategory_DASession != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [DASession setPartialIPsForAppBundleID:v12 partialIPs:v13 error:v14];
+      }
     }
 
-    v12 = [psCopy subarrayWithRange:{0, 10}];
+    v15 = [psCopy subarrayWithRange:{0, 10}];
     CUXPCEncodeNSArrayOfObjects();
   }
 
-  v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v14 = dispatch_queue_create("DASession-GetInfo", v13);
+  v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v17 = dispatch_queue_create("DASession-GetInfo", v16);
 
-  mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v14, 0);
+  mach_service = xpc_connection_create_mach_service("com.apple.DeviceAccess.xpc", v17, 0);
   xpc_connection_set_event_handler(mach_service, &__block_literal_global_130);
   xpc_connection_activate(mach_service);
-  v16 = xpc_connection_send_message_with_reply_sync(mach_service, v9);
+  v19 = xpc_connection_send_message_with_reply_sync(mach_service, v9);
   xpc_connection_cancel(mach_service);
-  if (v16)
+  if (v19)
   {
-    v23 = CUXPCDecodeNSErrorIfNeeded();
-    v24 = v23 == 0;
-    if (v23 && error)
+    v20 = CUXPCDecodeNSErrorIfNeeded();
+    v21 = v20 == 0;
+    if (v20 && error)
     {
-      v23 = v23;
-      *error = v23;
+      v20 = v20;
+      *error = v20;
     }
   }
 
   else if (error)
   {
-    DAErrorF(350000, "No reply", v17, v18, v19, v20, v21, v22, v27);
-    *error = v24 = 0;
+    DAErrorF(350000, "No reply");
+    *error = v21 = 0;
   }
 
   else
   {
-    v24 = 0;
+    v21 = 0;
   }
 
-  return v24;
+  return v21;
 }
 
 - (void)setPartialIPsWithAuditToken:(id *)token partialIPs:(id)ps completionHandler:(id)handler
 {
   psCopy = ps;
   handlerCopy = handler;
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  v12 = handlerCopy;
+  if (gLogCategory_DASession <= 30)
   {
-    [DASession setPartialIPsWithAuditToken:partialIPs:completionHandler:];
+    if (gLogCategory_DASession != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      [DASession setPartialIPsWithAuditToken:handlerCopy partialIPs:v10 completionHandler:v11];
+    }
   }
 
-  v14 = 0;
-  v10 = *&token->var0[4];
-  v13[0] = *token->var0;
-  v13[1] = v10;
-  v11 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v13 error:&v14];
+  v17 = 0;
+  v13 = *&token->var0[4];
+  v16[0] = *token->var0;
+  v16[1] = v13;
+  v14 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v16 error:&v17];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bundleIdentifier = [v11 bundleIdentifier];
-    [(DASession *)self setPartialIPsForAppBundleID:bundleIdentifier partialIPs:psCopy completionHandler:handlerCopy];
+    bundleIdentifier = [v14 bundleIdentifier];
+    [(DASession *)self setPartialIPsForAppBundleID:bundleIdentifier partialIPs:psCopy completionHandler:v12];
   }
 
   else
   {
-    handlerCopy[2](handlerCopy, 0);
+    v12[2](v12, 0);
   }
 }
 
@@ -2081,11 +2020,11 @@ void __67__DASession_modifyDeviceWithIdentifier_settings_completionHandler___blo
   dispatch_async(dispatchQueue, v15);
 }
 
-void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke(uint64_t a1)
+void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke(id *a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "SIFs");
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   if (v3)
   {
     v4 = v2;
@@ -2096,25 +2035,24 @@ void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___
     }
   }
 
-  v6 = *(a1 + 40);
   CUXPCEncodeNSArrayOfObjects();
-  v7 = [*(a1 + 48) _ensureXPCStarted];
-  v8 = *(*(a1 + 48) + 88);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2;
-  v9[3] = &unk_278F57F08;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 56);
-  xpc_connection_send_message_with_reply(v7, v2, v8, v9);
+  v6 = [a1[6] _ensureXPCStarted];
+  v7 = *(a1[6] + 11);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2;
+  v8[3] = &unk_278F57F08;
+  v9 = a1[4];
+  v10 = a1[7];
+  xpc_connection_send_message_with_reply(v6, v2, v7, v8);
 }
 
-void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2(uint64_t a1)
+void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2123,30 +2061,33 @@ void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___
 - (void)getPartialIPsWithAuditToken:(id *)token completionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
+  v9 = handlerCopy;
+  if (gLogCategory_DASession <= 30)
   {
-    [DASession getPartialIPsWithAuditToken:completionHandler:];
+    if (gLogCategory_DASession != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      [(DASession *)handlerCopy getPartialIPsWithAuditToken:v7 completionHandler:v8];
+    }
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  xpcCnx = self->_xpcCnx;
+  v15 = 0u;
+  v16 = 0u;
   xpc_connection_get_audit_token();
-  v12 = 0;
-  v8 = *&token->var0[4];
-  v11[0] = *token->var0;
-  v11[1] = v8;
-  v9 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v11 error:&v12];
+  v14 = 0;
+  v10 = *&token->var0[4];
+  v13[0] = *token->var0;
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:v13 error:&v14];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bundleIdentifier = [v9 bundleIdentifier];
-    [(DASession *)self getPartialIPsWithAppBundleID:bundleIdentifier completionHandler:handlerCopy];
+    bundleIdentifier = [v11 bundleIdentifier];
+    [(DASession *)self getPartialIPsWithAppBundleID:bundleIdentifier completionHandler:v9];
   }
 
   else
   {
-    (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEBF8], 0);
+    v9[2](v9, MEMORY[0x277CBEBF8], 0);
   }
 }
 
@@ -2168,21 +2109,19 @@ void __60__DASession_getPartialIPsWithAppBundleID_completionHandler___block_invo
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "GIFs");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = *(a1 + 32);
   CUXPCEncodeObject();
-  v5 = [*(a1 + 32) _ensureXPCStarted];
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(v7 + 88);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__DASession_getPartialIPsWithAppBundleID_completionHandler___block_invoke_2;
-  v9[3] = &unk_278F57F08;
-  v9[4] = v7;
-  v10 = v6;
-  xpc_connection_send_message_with_reply(v5, v2, v8, v9);
+  v3 = [*(a1 + 32) _ensureXPCStarted];
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v6 = *(v5 + 88);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __60__DASession_getPartialIPsWithAppBundleID_completionHandler___block_invoke_2;
+  v7[3] = &unk_278F57F08;
+  v7[4] = v5;
+  v8 = v4;
+  xpc_connection_send_message_with_reply(v3, v2, v6, v7);
 }
 
 - (void)_xpcListenerEvent:(id)event
@@ -2195,14 +2134,14 @@ void __60__DASession_getPartialIPsWithAppBundleID_completionHandler___block_invo
     goto LABEL_8;
   }
 
-  v5 = eventCopy;
+  v6 = eventCopy;
   if (eventCopy == MEMORY[0x277D863F8])
   {
     if (gLogCategory_DASession <= 30)
     {
-      if (gLogCategory_DASession != -1 || (v4 = _LogCategory_Initialize(), v5 = eventCopy, v4))
+      if (gLogCategory_DASession != -1 || (v4 = _LogCategory_Initialize(), v6 = eventCopy, v4))
       {
-        v4 = [DASession _xpcListenerEvent:];
+        v4 = [(DASession *)v4 _xpcListenerEvent:v6, v5];
         goto LABEL_8;
       }
     }
@@ -2210,45 +2149,45 @@ void __60__DASession_getPartialIPsWithAppBundleID_completionHandler___block_invo
 
   else if (gLogCategory_DASession <= 90)
   {
-    if (gLogCategory_DASession != -1 || (v4 = _LogCategory_Initialize(), v5 = eventCopy, v4))
+    if (gLogCategory_DASession != -1 || (v4 = _LogCategory_Initialize(), v6 = eventCopy, v4))
     {
-      [DASession _xpcListenerEvent:];
+      [DASession _xpcListenerEvent:v6];
 LABEL_8:
-      v5 = eventCopy;
+      v6 = eventCopy;
     }
   }
 
-  MEMORY[0x2821F96F8](v4, v5);
+  MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (void)xpcReceivedMessage:(id)message
 {
   messageCopy = message;
-  v15 = messageCopy;
+  v8 = messageCopy;
   if (gLogCategory_DASession <= 9)
   {
-    if (gLogCategory_DASession != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v15, v5))
+    if (gLogCategory_DASession != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v8, v5))
     {
-      [DASession xpcReceivedMessage:];
-      messageCopy = v15;
+      [DASession xpcReceivedMessage:messageCopy];
+      messageCopy = v8;
     }
   }
 
   if (MEMORY[0x24C1DC9E0](messageCopy) == MEMORY[0x277D86468])
   {
-    [(DASession *)self _xpcReceivedMessage:v15];
+    [(DASession *)self _xpcReceivedMessage:v8];
   }
 
-  else if (v15 == MEMORY[0x277D863F0])
+  else if (v8 == MEMORY[0x277D863F0])
   {
     [(DASession *)self _interrupted];
   }
 
-  else if (v15 == MEMORY[0x277D863F8])
+  else if (v8 == MEMORY[0x277D863F8])
   {
     if (!self->_invalidateCalled && gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      [DASession xpcReceivedMessage:];
+      [DASession xpcReceivedMessage:?];
     }
 
     xpcCnx = self->_xpcCnx;
@@ -2259,10 +2198,10 @@ LABEL_8:
 
   else
   {
-    v12 = DAErrorF(350000, "XPC event error", v6, v7, v8, v9, v10, v11, v14);
+    v6 = DAErrorF(350000, "XPC event error");
     if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      [(DASession *)v12 xpcReceivedMessage:v15];
+      [(DASession *)v6 xpcReceivedMessage:v8];
     }
   }
 }
@@ -2273,6 +2212,7 @@ LABEL_8:
   string = xpc_dictionary_get_string(messageCopy, "mTyp");
   if (string)
   {
+    v5 = string;
     if (!strcmp(string, "Evnt"))
     {
       [(DASession *)self _xpcReceivedDAEvent:messageCopy];
@@ -2280,13 +2220,13 @@ LABEL_8:
 
     else if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DASession, "[DASession _xpcReceivedMessage:]", 90, "### XPC unknown message type: '%s', %@", v5, self);
     }
   }
 
   else if (gLogCategory_DASession <= 90 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    [DASession _xpcReceivedMessage:];
+    [DASession _xpcReceivedMessage:?];
   }
 }
 
@@ -2295,7 +2235,7 @@ LABEL_8:
   eventCopy = event;
   if (MEMORY[0x24C1DC9E0]() != MEMORY[0x277D86468])
   {
-    [DASession _xpcReceivedDAEvent:];
+    [DASession _xpcReceivedDAEvent:?];
     goto LABEL_32;
   }
 
@@ -2310,13 +2250,13 @@ LABEL_8:
     }
 
     v16 = CUPrintNSError();
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASession, "[DASession _xpcReceivedDAEvent:]", 90, "### XPC DAEvent decode failed: %@, %@", self, v16);
     goto LABEL_30;
   }
 
   if (gLogCategory_DASession <= 30 && (gLogCategory_DASession != -1 || _LogCategory_Initialize()))
   {
-    [DASession _xpcReceivedDAEvent:];
+    [DASession _xpcReceivedDAEvent:v5];
   }
 
   eventType = [v5 eventType];
@@ -2431,11 +2371,11 @@ LABEL_32:
       goto LABEL_14;
     }
 
-    v19 = objc_opt_class();
-    v17 = OUTLINED_FUNCTION_8();
+    v13 = objc_opt_class();
+    v11 = OUTLINED_FUNCTION_8();
 LABEL_13:
-    DAErrorF(v17, v18, v8, v9, v10, v11, v12, v13, v19);
-    *error = v15 = 0;
+    DAErrorF(v11, v12, v13);
+    *error = v9 = 0;
     goto LABEL_8;
   }
 
@@ -2446,8 +2386,8 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v18 = "XPC non-dict";
-    v17 = 350004;
+    v12 = "XPC non-dict";
+    v11 = 350004;
     goto LABEL_13;
   }
 
@@ -2456,25 +2396,25 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v14 = CUXPCDecodeUInt64RangedEx();
-  if (v14 != 6)
+  v8 = CUXPCDecodeUInt64RangedEx();
+  if (v8 != 6)
   {
-    if (v14 != 5)
+    if (v8 != 5)
     {
       goto LABEL_7;
     }
 
 LABEL_14:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
   v7->_clientID = 0;
 LABEL_7:
-  v15 = v7;
+  v9 = v7;
 LABEL_8:
 
-  return v15;
+  return v9;
 }
 
 BOOL __35__DASession__activateXPCCompleted___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2498,10 +2438,10 @@ BOOL __35__DASession__activateXPCCompleted___block_invoke_2(uint64_t a1, uint64_
     else
     {
       v11 = OUTLINED_FUNCTION_8();
-      v19 = DAErrorF(v11, v12, v13, v14, v15, v16, v17, v18, v22);
-      v20 = *(*(a1 + 32) + 8);
-      v21 = *(v20 + 40);
-      *(v20 + 40) = v19;
+      v13 = DAErrorF(v11, v12);
+      v14 = *(*(a1 + 32) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
   }
 
@@ -2519,16 +2459,15 @@ void __50__DASession_removeDeviceAccess_completionHandler___block_invoke_2_cold_
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession removeDeviceAccess:completionHandler:]_block_invoke_2", 30, "RemoveDeviceAccess completed: %@, %@");
 }
 
-void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_cold_1()
 {
-  v1 = *(a1 + 56);
-  v2 = OUTLINED_FUNCTION_8();
-  v13 = DAErrorF(v2, v3, v4, v5, v6, v7, v8, v9, v12);
-  v10 = OUTLINED_FUNCTION_1_3();
-  v11(v10);
+  v0 = OUTLINED_FUNCTION_8();
+  v4 = DAErrorF(v0, v1);
+  v2 = OUTLINED_FUNCTION_1_3();
+  v3(v2);
 }
 
 void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
@@ -2537,7 +2476,7 @@ void __68__DASession_setDeviceAccessoryServiceInfo_device_completionHandler___bl
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession setDeviceAccessoryServiceInfo:device:completionHandler:]_block_invoke_2", 30, "setDeviceAccessoryServiceInfo completed: %@, %@");
 }
 
 void __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
@@ -2546,31 +2485,29 @@ void __61__DASession_setDeviceAppAccessInfo_device_completionHandler___block_inv
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession setDeviceAppAccessInfo:device:completionHandler:]_block_invoke_2", 30, "SetDeviceAppAccessInfo completed: %@, %@");
 }
 
-void __33__DASession_resetWiFiIdentifier___block_invoke_2_cold_1()
+void __33__DASession_resetWiFiIdentifier___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASession, "[DASession resetWiFiIdentifier:]_block_invoke_2", 30, "ResetWiFiIdentifier complete, error: %@", v1);
 }
 
 void __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1[4];
   v3 = DADeviceStateToString(a1[7]);
-  v4 = *(a1[5] + 64);
-  v5 = v3;
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession setState:device:simulateApp:completionHandler:]_block_invoke", 30, "SetDeviceState start: %@, state %@, bundleID %@", v2, v3, *(a1[5] + 64));
 }
 
-void __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(void *a1)
+void __59__DASession_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v5 = DADeviceStateToString(a1[7]);
-  v3 = *(a1[5] + 64);
-  v4 = CUPrintNSError();
-  LogPrintF();
+  v3 = a1[4];
+  v6 = DADeviceStateToString(a1[7]);
+  v4 = *(a1[5] + 64);
+  v5 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASession, "[DASession setState:device:simulateApp:completionHandler:]_block_invoke_2", 30, "SetDeviceState completed: %@, state %@, , bundleID %@, %@", v3, v6, v4, v5);
 }
 
 + (void)setState:(uint64_t)a1 device:(void *)a2 session:simulateApp:error:.cold.1(uint64_t a1, void *a2)
@@ -2578,52 +2515,85 @@ void __59__DASession_setState_device_simulateApp_completionHandler___block_invok
   v14 = DADeviceStateToString(a1);
   v3 = [a2 bundleID];
   OUTLINED_FUNCTION_4_1(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "+[DASession setState:device:session:simulateApp:error:]", 30, "SetDeviceState start: %@, state %@, bundleID %@");
 }
 
-+ (void)diagnosticShow:(uint64_t)a3 endpoint:(uint64_t)a4 error:(uint64_t)a5 .cold.1(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (uint64_t)appIsUsingDeviceAccess
+{
+  if (*self)
+  {
+    v1 = "yes";
+  }
+
+  else
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_DASession, "[DASession appIsUsingDeviceAccess]", 30, "check appIsUsingDeviceAccess completed with result: %s", v1);
+}
+
++ (void)diagnosticShow:(void *)result endpoint:error:.cold.1(void *result)
 {
   if (result)
   {
-    v8 = result;
-    result = DAErrorF(350004, "Convert reply to CF failed", a3, a4, a5, a6, a7, a8, v9);
-    *v8 = result;
+    v1 = result;
+    result = DAErrorF(350004, "Convert reply to CF failed");
+    *v1 = result;
   }
 
   return result;
 }
 
-void __46__DASession_diagnosticShow_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __46__DASession_diagnosticShow_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v8 = *(a1 + 48);
-  v9 = DAErrorF(350000, "Params conversion failed", a3, a4, a5, a6, a7, a8, v12);
-  v10 = OUTLINED_FUNCTION_1_3();
-  v11(v10, 0, v9);
+  v2 = DAErrorF(350000, "Params conversion failed");
+  v3 = OUTLINED_FUNCTION_1_3();
+  v4(v3, 0, v2);
 }
 
-void __46__DASession_diagnosticShow_completionHandler___block_invoke_2_cold_1(void (**a1)(uint64_t, void, id), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __46__DASession_diagnosticShow_completionHandler___block_invoke_2_cold_1(void (**a1)(uint64_t, void, id), uint64_t a2)
 {
-  v11 = DAErrorF(350000, "No error, no response", a3, a4, a5, a6, a7, a8, v10);
-  (*a1)(a2, 0, v11);
+  v4 = DAErrorF(350000, "No error, no response");
+  (*a1)(a2, 0, v4);
 }
 
-+ (void)networkingAllowedWithUUID:error:.cold.1()
++ (void)networkingAllowedWithUUID:(uint64_t)a3 error:.cold.1(char a1, uint64_t a2, uint64_t a3)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  if (a1)
+  {
+    v4 = "yes";
+  }
+
+  else
+  {
+    v4 = "no";
+  }
+
+  v5 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASession, "+[DASession networkingAllowedWithUUID:error:]", 20, "NetworkingAllowedWithUUID: %@, allowed %s, error %@", a3, v4, v5);
 }
 
-+ (void)processAllowedWithAuditToken:error:.cold.1()
++ (void)processAllowedWithAuditToken:(char)a1 error:(uint64_t)a2 .cold.1(char a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  if (a1)
+  {
+    v2 = "yes";
+  }
+
+  else
+  {
+    v2 = "no";
+  }
+
+  v3 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASession, "+[DASession processAllowedWithAuditToken:error:]", 20, "ProcessAllowedWithAuditToken: allowed %s, error %@", v2, v3);
 }
 
-+ (void)getPartialIPsWithAppBundleID:(uint64_t *)a1 error:.cold.2(uint64_t *a1)
++ (void)getPartialIPsWithAppBundleID:(void *)a1 error:.cold.2(void *a1)
 {
-  v1 = *a1;
-  v2 = CUPrintNSObjectOneLine();
-  LogPrintF();
+  v1 = CUPrintNSObjectOneLine();
+  LogPrintF(&gLogCategory_DASession, "+[DASession getPartialIPsWithAppBundleID:error:]", 30, "getPartialIPsWithAppBundleID completed: %@", v1);
 }
 
 void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
@@ -2632,21 +2602,21 @@ void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession setPartialIPsForAppBundleID:partialIPs:completionHandler:]_block_invoke_2", 30, "setPartialIPsForAppBundleID bundleID %@, %@");
 }
 
-- (void)_xpcListenerEvent:.cold.1()
+- (void)_xpcListenerEvent:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = CUPrintXPC();
-  LogPrintF();
+  v1 = CUPrintXPC();
+  LogPrintF(&gLogCategory_DASession, "[DASession _xpcListenerEvent:]", 90, "### XPC listener error: %@", v1);
 }
 
-- (void)xpcReceivedMessage:.cold.1()
+- (void)xpcReceivedMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   CUPrintXPC();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession xpcReceivedMessage:]", 9, "XPC event: %@, %@");
 }
 
 - (void)xpcReceivedMessage:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
@@ -2654,22 +2624,23 @@ void __70__DASession_setPartialIPsForAppBundleID_partialIPs_completionHandler___
   v14 = CUPrintNSError();
   v3 = CUPrintXPC();
   OUTLINED_FUNCTION_4_1(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
-  LogPrintF();
+  LogPrintF(&gLogCategory_DASession, "[DASession xpcReceivedMessage:]", 90, "### XPC error: %@, %@, %@");
 }
 
-- (uint64_t)_xpcReceivedDAEvent:.cold.1()
+- (uint64_t)_xpcReceivedDAEvent:(uint64_t)result .cold.1(uint64_t result)
 {
   if (gLogCategory_DASession <= 90)
   {
+    v1 = result;
     if (gLogCategory_DASession != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_DASession, "[DASession _xpcReceivedDAEvent:]", 90, "### XPC event non-dict: %@", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_DASession, "[DASession _xpcReceivedDAEvent:]", 90, "### XPC event non-dict: %@", v1);
     }
   }
 

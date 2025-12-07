@@ -17,7 +17,9 @@
 - (void)_setup;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation LAPSPasscodeOptionsSheetViewController
@@ -51,6 +53,24 @@
   v3.super_class = LAPSPasscodeOptionsSheetViewController;
   [(LAPSPasscodeOptionsSheetViewController *)&v3 viewDidLoad];
   [(LAPSPasscodeOptionsSheetViewController *)self _setup];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = LAPSPasscodeOptionsSheetViewController;
+  [(LAPSPasscodeOptionsSheetViewController *)&v5 viewDidDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained passcodeOptionsViewControllerDidDisappear:self];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = LAPSPasscodeOptionsSheetViewController;
+  [(LAPSPasscodeOptionsSheetViewController *)&v5 viewWillDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained passcodeOptionsViewControllerWillDisappear:self];
 }
 
 - (CGSize)preferredContentSize
@@ -311,7 +331,7 @@ void __74__LAPSPasscodeOptionsSheetViewController_tableView_cellForRowAtIndexPat
 
 - (void)_setup
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   view = [(LAPSPasscodeOptionsSheetViewController *)self view];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   [view setBackgroundColor:systemBackgroundColor];
@@ -327,70 +347,69 @@ void __74__LAPSPasscodeOptionsSheetViewController_tableView_cellForRowAtIndexPat
   view2 = [(LAPSPasscodeOptionsSheetViewController *)self view];
   [view2 addSubview:v7];
 
-  v21 = MEMORY[0x277CCAAD0];
+  v20 = MEMORY[0x277CCAAD0];
   topAnchor = [v7 topAnchor];
   view3 = [(LAPSPasscodeOptionsSheetViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v30[0] = v25;
+  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v29[0] = v24;
   bottomAnchor = [v7 bottomAnchor];
   view4 = [(LAPSPasscodeOptionsSheetViewController *)self view];
   bottomAnchor2 = [view4 bottomAnchor];
-  v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v30[1] = v20;
+  v19 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v29[1] = v19;
   leadingAnchor = [v7 leadingAnchor];
   view5 = [(LAPSPasscodeOptionsSheetViewController *)self view];
   leadingAnchor2 = [view5 leadingAnchor];
   v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v30[2] = v11;
+  v29[2] = v11;
   trailingAnchor = [v7 trailingAnchor];
   view6 = [(LAPSPasscodeOptionsSheetViewController *)self view];
   trailingAnchor2 = [view6 trailingAnchor];
   v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v30[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
-  [v21 activateConstraints:v16];
+  v29[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  [v20 activateConstraints:v16];
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke;
-  v29[3] = &unk_278A65DF8;
-  v29[4] = self;
-  v17 = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke(v29);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke;
+  v28[3] = &unk_278A65DF8;
+  v28[4] = self;
+  v17 = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke(v28);
   [v7 setTableHeaderView:v17];
 
   objc_storeWeak(&self->_tableView, v7);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke(uint64_t a1)
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _tableViewNeedsHeaderView];
   v3 = objc_alloc(MEMORY[0x277D75D18]);
   if (v2)
   {
     v4 = [v3 initWithFrame:{0.0, 0.0, 0.0, 60.0}];
-    v31 = (a1 + 32);
-    v32 = objc_alloc_init(MEMORY[0x277D756B8]);
+    v30 = (a1 + 32);
+    v31 = objc_alloc_init(MEMORY[0x277D756B8]);
     v5 = [*(*(a1 + 32) + 992) title];
-    [v32 setText:v5];
+    [v31 setText:v5];
 
     v6 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76A28] weight:*MEMORY[0x277D743F8]];
-    [v32 setFont:v6];
+    [v31 setFont:v6];
 
-    [v4 addSubview:v32];
-    [v32 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v4 addSubview:v31];
+    [v31 setTranslatesAutoresizingMaskIntoConstraints:0];
     v7 = MEMORY[0x277CCAAD0];
-    v8 = [v32 centerYAnchor];
+    v8 = [v31 centerYAnchor];
     v9 = [v4 centerYAnchor];
     v10 = [v8 constraintEqualToAnchor:v9];
-    v37[0] = v10;
-    v11 = [v32 leadingAnchor];
+    v36[0] = v10;
+    v11 = [v31 leadingAnchor];
     v12 = [v4 leadingAnchor];
     v13 = [v11 constraintEqualToAnchor:v12 constant:20.0];
-    v37[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     [v7 activateConstraints:v14];
 
     v15 = MEMORY[0x277D75220];
@@ -404,25 +423,25 @@ id __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke(uint64_t a1
     v20 = [v18 centerYAnchor];
     v21 = [v4 centerYAnchor];
     v22 = [v20 constraintEqualToAnchor:v21];
-    v36[0] = v22;
+    v35[0] = v22;
     v23 = [v18 trailingAnchor];
     v24 = [v4 trailingAnchor];
     v25 = [v23 constraintEqualToAnchor:v24 constant:-20.0];
-    v36[1] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+    v35[1] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
     [v19 activateConstraints:v26];
 
-    objc_initWeak(&location, *v31);
+    objc_initWeak(&location, *v30);
     v27 = MEMORY[0x277D750C8];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke_6;
-    v33[3] = &unk_278A65D68;
-    objc_copyWeak(&v34, &location);
-    v28 = [v27 actionWithHandler:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke_6;
+    v32[3] = &unk_278A65D68;
+    objc_copyWeak(&v33, &location);
+    v28 = [v27 actionWithHandler:v32];
     [v18 addAction:v28 forControlEvents:64];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 
@@ -430,8 +449,6 @@ id __48__LAPSPasscodeOptionsSheetViewController__setup__block_invoke(uint64_t a1
   {
     v4 = [v3 initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

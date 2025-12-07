@@ -11,9 +11,9 @@
 
 - (void)_daAccountsWithAccountTypeIdentifiers:()DAExtensions enabledForDADataclasses:filterOnDataclasses:withCompletion:
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v25 = a3;
-  v24 = a6;
+  v43 = *MEMORY[0x277D85DE8];
+  v24 = a3;
+  v23 = a6;
   if ((_daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___haveRegisteredForInterrogation & 1) == 0)
   {
     _daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___haveRegisteredForInterrogation = 1;
@@ -33,58 +33,58 @@
   {
     v11 = acDataclassesForDADataclasses(a4);
     allObjects = [v11 allObjects];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __129__ACAccountStore_DAExtensions___daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_4;
-    v41[3] = &unk_278F13748;
-    v41[4] = self;
-    v42 = v24;
-    v13 = v24;
-    [self accountIdentifiersEnabledForDataclasses:allObjects withAccountTypeIdentifiers:v25 completion:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __129__ACAccountStore_DAExtensions___daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_4;
+    v40[3] = &unk_278F13748;
+    v40[4] = self;
+    v41 = v23;
+    v13 = v23;
+    [self accountIdentifiersEnabledForDataclasses:allObjects withAccountTypeIdentifiers:v24 completion:v40];
   }
 
   else
   {
-    v39[0] = 0;
-    v39[1] = v39;
-    v39[2] = 0x3032000000;
-    v39[3] = __Block_byref_object_copy__3;
-    v39[4] = __Block_byref_object_dispose__3;
-    v40 = 0;
+    v38[0] = 0;
+    v38[1] = v38;
+    v38[2] = 0x3032000000;
+    v38[3] = __Block_byref_object_copy__3;
+    v38[4] = __Block_byref_object_dispose__3;
+    v39 = 0;
     array = [MEMORY[0x277CBEB18] array];
     v15 = dispatch_group_create();
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    obj = v25;
-    v16 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+    obj = v24;
+    v16 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v16)
     {
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * i);
+          v19 = *(*(&v34 + 1) + 8 * i);
           dispatch_group_enter(v15);
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __129__ACAccountStore_DAExtensions___daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_3_41;
-          v31[3] = &unk_278F13798;
-          v31[4] = self;
-          v34 = v39;
-          v32 = array;
-          v33 = v15;
-          [self accountTypeWithIdentifier:v19 completion:v31];
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __129__ACAccountStore_DAExtensions___daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_3_41;
+          v30[3] = &unk_278F13798;
+          v30[4] = self;
+          v33 = v38;
+          v31 = array;
+          v32 = v15;
+          [self accountTypeWithIdentifier:v19 completion:v30];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v16 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v16);
@@ -95,17 +95,15 @@
     block[1] = 3221225472;
     block[2] = __129__ACAccountStore_DAExtensions___daAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_5;
     block[3] = &unk_278F13720;
-    v28 = array;
-    v29 = v24;
-    v30 = v39;
+    v27 = array;
+    v28 = v23;
+    v29 = v38;
     v21 = array;
-    v22 = v24;
+    v22 = v23;
     dispatch_group_notify(v15, v20, block);
 
-    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v38, 8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)da_loadDAAccountsWithCompletion:()DAExtensions
@@ -170,91 +168,91 @@
 
 - (id)da_accountsWithAccountTypeIdentifiers:()DAExtensions outError:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = a3;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v8)
   {
-    v9 = *v34;
+    v9 = *v33;
     v10 = *MEMORY[0x277CB8C00];
     v11 = *MEMORY[0x277CB8C50];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v32 + 1) + 8 * i);
         if (([v13 isEqualToString:v10] & 1) == 0 && (objc_msgSend(v13, "isEqualToString:", v11) & 1) == 0)
         {
           [ACAccountStore(DAExtensions) da_accountsWithAccountTypeIdentifiers:a2 outError:self];
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  v27 = [self accountsWithAccountTypeIdentifiers:v7 error:a4];
-  if (v27)
+  v26 = [self accountsWithAccountTypeIdentifiers:v7 error:a4];
+  if (v26)
   {
-    v28 = objc_opt_new();
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v27 = objc_opt_new();
     v30 = 0u;
-    v14 = v27;
-    v15 = [v14 countByEnumeratingWithState:&v29 objects:v41 count:16];
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v14 = v26;
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v40 count:16];
     if (v15)
     {
-      v16 = *v30;
+      v16 = *v29;
       v17 = *(MEMORY[0x277D03988] + 3);
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v29 + 1) + 8 * j);
-          if (!ExchangeSyncLibraryCore_0())
+          v19 = *(*(&v28 + 1) + 8 * j);
+          if (!ExchangeSyncLibraryCore_0(0))
           {
             goto LABEL_22;
           }
 
-          v37 = 0;
-          v38 = &v37;
-          v39 = 0x2050000000;
+          v36 = 0;
+          v37 = &v36;
+          v38 = 0x2050000000;
           v20 = getESAccountClass_softClass_0;
-          v40 = getESAccountClass_softClass_0;
+          v39 = getESAccountClass_softClass_0;
           if (!getESAccountClass_softClass_0)
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v44 = __getESAccountClass_block_invoke_0;
-            v45 = &unk_278F13318;
-            v46 = &v37;
+            v43 = __getESAccountClass_block_invoke_0;
+            v44 = &unk_278F13318;
+            v45 = &v36;
             __getESAccountClass_block_invoke_0(&buf);
-            v20 = v38[3];
+            v20 = v37[3];
           }
 
           v21 = v20;
-          _Block_object_dispose(&v37, 8);
+          _Block_object_dispose(&v36, 8);
           v22 = [v20 esAccountSubclassWithBackingAccountInfo:v19];
           if (v22)
           {
-            [v28 addObject:v22];
+            [v27 addObject:v22];
           }
 
           else
@@ -270,7 +268,7 @@ LABEL_22:
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v28 objects:v40 count:16];
       }
 
       while (v15);
@@ -289,12 +287,10 @@ LABEL_22:
       _os_log_impl(&dword_24844D000, v14, v23, "Could not load ACAccounts due to Account Error %@", &buf, 0xCu);
     }
 
-    v28 = 0;
+    v27 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 - (id)da_accountsWithAccountTypeIdentifiers:()DAExtensions enabledForDADataclasses:

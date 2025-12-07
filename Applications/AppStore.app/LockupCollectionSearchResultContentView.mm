@@ -21,7 +21,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1001CD850();
+  sub_1001CD850(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -31,17 +31,18 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = (self + OBJC_IVAR____TtC8AppStore39LockupCollectionSearchResultContentView_impressionsUpdateBlock);
+  v10 = self + OBJC_IVAR____TtC8AppStore39LockupCollectionSearchResultContentView_impressionsUpdateBlock;
   swift_beginAccess();
   v11 = *v10;
   if (*v10)
   {
+    v12 = *(v10 + 1);
     selfCopy = self;
-    v13 = sub_10000827C(v11);
-    v11(v13);
-    sub_10001F63C(v11);
+    v14 = sub_10000827C(v11, v12);
+    v11(v14);
+    sub_10001F63C(v11, v12);
   }
 
   (*(v7 + 8))(v9, v6);

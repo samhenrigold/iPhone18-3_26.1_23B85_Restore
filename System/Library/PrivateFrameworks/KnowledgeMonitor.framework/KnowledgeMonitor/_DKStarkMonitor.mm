@@ -54,11 +54,10 @@
 
 - (void)start
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[_DKStarkMonitor start]";
-  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "%s: Error, can not initiate CARSessionStatus", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[_DKStarkMonitor start]";
+  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "%s: Error, can not initiate CARSessionStatus", &v1, 0xCu);
 }
 
 - (void)stop

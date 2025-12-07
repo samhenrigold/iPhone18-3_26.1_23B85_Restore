@@ -22,40 +22,40 @@
 
 - (_PSFeatureCache)initWithPredictionContext:(id)context candidates:(id)candidates caches:(id)caches store:(id)store
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   candidatesCopy = candidates;
   cachesCopy = caches;
   storeCopy = store;
-  v46.receiver = self;
-  v46.super_class = _PSFeatureCache;
-  v15 = [(_PSFeatureCache *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = _PSFeatureCache;
+  v15 = [(_PSFeatureCache *)&v45 init];
   if (v15)
   {
-    v51.__sig = 0;
-    *v51.__opaque = 0;
-    pthread_mutexattr_init(&v51);
-    pthread_mutexattr_settype(&v51, 2);
-    pthread_mutex_init((v15 + 56), &v51);
-    pthread_mutexattr_destroy(&v51);
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
+    v50.__sig = 0;
+    *v50.__opaque = 0;
+    pthread_mutexattr_init(&v50);
+    pthread_mutexattr_settype(&v50, 2);
+    pthread_mutex_init((v15 + 56), &v50);
+    pthread_mutexattr_destroy(&v50);
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v16 = getLCFFeatureStoreClass_softClass;
-    v50 = getLCFFeatureStoreClass_softClass;
+    v49 = getLCFFeatureStoreClass_softClass;
     if (!getLCFFeatureStoreClass_softClass)
     {
-      v51.__sig = MEMORY[0x1E69E9820];
-      *v51.__opaque = 3221225472;
-      v52 = __getLCFFeatureStoreClass_block_invoke;
-      v53 = &unk_1E7C23BF0;
-      v54 = &v47;
-      __getLCFFeatureStoreClass_block_invoke(&v51);
-      v16 = v48[3];
+      v50.__sig = MEMORY[0x1E69E9820];
+      *v50.__opaque = 3221225472;
+      v51 = __getLCFFeatureStoreClass_block_invoke;
+      v52 = &unk_1E7C23BF0;
+      v53 = &v46;
+      __getLCFFeatureStoreClass_block_invoke(&v50);
+      v16 = v47[3];
     }
 
     v17 = v16;
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     v18 = [v16 alloc];
     v19 = [v18 init:lcfKey url:0 useSqlite:0];
     v20 = *(v15 + 20);
@@ -98,21 +98,20 @@
     v39 = *(v15 + 16);
     v40 = dispatch_time(0, 0);
     dispatch_source_set_timer(v39, v40, *(v15 + 18), *(v15 + 19));
-    objc_initWeak(&v51, v15);
+    objc_initWeak(&v50, v15);
     v41 = *(v15 + 16);
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __69___PSFeatureCache_initWithPredictionContext_candidates_caches_store___block_invoke;
     handler[3] = &unk_1E7C25710;
-    objc_copyWeak(&v45, &v51);
+    objc_copyWeak(&v44, &v50);
     dispatch_source_set_event_handler(v41, handler);
     dispatch_resume(*(v15 + 16));
     [v15 invalidateAndRefreshCache];
-    objc_destroyWeak(&v45);
-    objc_destroyWeak(&v51);
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v50);
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -207,23 +206,23 @@
 
 - (void)refreshDurableCachesWithCandidates:(id)candidates
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   v7 = objc_opt_new();
-  v55 = objc_opt_new();
+  v54 = objc_opt_new();
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   v10 = [(_PSFeatureCache *)self addSelfToCandidates:candidatesCopy];
   objc_storeStrong(&self->_candidates, v10);
-  v50 = v10;
+  v49 = v10;
   allObjects = [v10 allObjects];
   v12 = [allObjects _pas_mappedArrayWithTransform:&__block_literal_global_32];
 
   v13 = objc_alloc(MEMORY[0x1E695DF20]);
   v14 = [v12 _pas_mappedArrayWithTransform:&__block_literal_global_38];
-  v53 = [v13 initWithObjects:v12 forKeys:v14];
+  v52 = [v13 initWithObjects:v12 forKeys:v14];
 
   v15 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -233,14 +232,14 @@
   }
 
   v16 = self->_cache;
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_39;
-  v69[3] = &unk_1E7C265A8;
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_39;
+  v68[3] = &unk_1E7C265A8;
   v17 = v16;
-  v70 = v17;
+  v69 = v17;
   selfCopy = self;
-  v56 = [candidatesCopy _pas_mappedSetWithTransform:v69];
+  v55 = [candidatesCopy _pas_mappedSetWithTransform:v68];
   v18 = +[_PSLogging suggestionSignpost];
   if (os_signpost_enabled(v18))
   {
@@ -248,10 +247,10 @@
     _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSFeatureCacheDurableCachesWithCandidates", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v49 = objc_alloc_init(MEMORY[0x1E695E000]);
-  v19 = [v49 objectForKey:@"pruneDurableFeatureStoreBeforeDate"];
+  v48 = objc_alloc_init(MEMORY[0x1E695E000]);
+  v19 = [v48 objectForKey:@"pruneDurableFeatureStoreBeforeDate"];
   v20 = v19;
-  v54 = v9;
+  v53 = v9;
   if (v19)
   {
     distantPast = v19;
@@ -262,23 +261,23 @@
     distantPast = [MEMORY[0x1E695DF00] distantPast];
   }
 
-  v51 = distantPast;
+  v50 = distantPast;
   v22 = v8;
 
   v23 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v73 = v56;
+    v72 = v55;
     _os_log_impl(&dword_1B5ED1000, v23, OS_LOG_TYPE_DEFAULT, "_PSFeatureCache: candidates to fetch %{private}@", buf, 0xCu);
   }
 
-  v52 = v17;
-  if ([v56 count])
+  v51 = v17;
+  if ([v55 count])
   {
     v24 = BiomeLibrary();
     [v24 MLSE];
-    v25 = v48 = candidatesCopy;
+    v25 = v47 = candidatesCopy;
     [v25 ShareSheet];
     v26 = v6;
     v28 = v27 = v5;
@@ -286,31 +285,31 @@
 
     v5 = v27;
     v6 = v26;
-    v17 = v52;
+    v17 = v51;
 
     publisher = [durableFeatureStore publisher];
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_43;
-    v66[3] = &unk_1E7C265D0;
-    v67 = v51;
-    v68 = v56;
-    v31 = [publisher filterWithIsIncluded:v66];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_3;
-    v57[3] = &unk_1E7C265F8;
-    v58 = v53;
-    v59 = v5;
-    v60 = v52;
-    v61 = v6;
-    v62 = v7;
-    v63 = v55;
-    v64 = v22;
-    v65 = v54;
-    v32 = [v31 sinkWithCompletion:&__block_literal_global_48 receiveInput:v57];
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_43;
+    v65[3] = &unk_1E7C265D0;
+    v66 = v50;
+    v67 = v55;
+    v31 = [publisher filterWithIsIncluded:v65];
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_3;
+    v56[3] = &unk_1E7C265F8;
+    v57 = v52;
+    v58 = v5;
+    v59 = v51;
+    v60 = v6;
+    v61 = v7;
+    v62 = v54;
+    v63 = v22;
+    v64 = v53;
+    v32 = [v31 sinkWithCompletion:&__block_literal_global_48 receiveInput:v56];
 
-    candidatesCopy = v48;
+    candidatesCopy = v47;
   }
 
   cache = [(_PSHistogramFeatureData *)self->_histogramFeatureData cache];
@@ -334,7 +333,7 @@
   if (bucketHasEver)
   {
     bucketHasEver2 = [(_PSHistogramFeatureData *)self->_histogramFeatureData bucketHasEver];
-    [v55 addEntriesFromDictionary:bucketHasEver2];
+    [v54 addEntriesFromDictionary:bucketHasEver2];
   }
 
   factorToUniqueBucketNames = [(_PSHistogramFeatureData *)self->_histogramFeatureData factorToUniqueBucketNames];
@@ -350,7 +349,7 @@
   if (candidateTimeIntervalSums)
   {
     candidateTimeIntervalSums2 = [(_PSHistogramFeatureData *)self->_histogramFeatureData candidateTimeIntervalSums];
-    [v54 addEntriesFromDictionary:candidateTimeIntervalSums2];
+    [v53 addEntriesFromDictionary:candidateTimeIntervalSums2];
   }
 
   v43 = objc_opt_new();
@@ -359,9 +358,9 @@
 
   [(_PSHistogramFeatureData *)self->_histogramFeatureData setCache:v6];
   [(_PSHistogramFeatureData *)self->_histogramFeatureData setBucketSums:v7];
-  [(_PSHistogramFeatureData *)self->_histogramFeatureData setBucketHasEver:v55];
+  [(_PSHistogramFeatureData *)self->_histogramFeatureData setBucketHasEver:v54];
   [(_PSHistogramFeatureData *)self->_histogramFeatureData setFactorToUniqueBucketNames:v22];
-  [(_PSHistogramFeatureData *)self->_histogramFeatureData setCandidateTimeIntervalSums:v54];
+  [(_PSHistogramFeatureData *)self->_histogramFeatureData setCandidateTimeIntervalSums:v53];
   if (v17)
   {
     [(NSMutableDictionary *)v17 addEntriesFromDictionary:v5];
@@ -385,8 +384,6 @@
     *buf = 0;
     _os_log_impl(&dword_1B5ED1000, v46, OS_LOG_TYPE_DEFAULT, "_PSFeatureCache: finished refreshing durable feature cache", buf, 2u);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateAndRefreshCache
@@ -694,22 +691,6 @@
 
   v9 = [(NSDictionary *)v8 _ps_dictionaryByAddingEntryForObject:a3 withKey:a4];
   [*a1 setObject:v9 forKeyedSubscript:a2];
-}
-
-- (void)setFeatureValueForFeatureName:featureValue:candidate:bundleID:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setFeatureValueForFeatureName:featureValue:candidate:bundleID:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

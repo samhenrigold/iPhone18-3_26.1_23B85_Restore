@@ -1107,7 +1107,6 @@ LABEL_16:
   has = self->_has;
   if (*&has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((*&has & 0x80) == 0)
@@ -1127,7 +1126,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  callType = self->_callType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1142,7 +1140,6 @@ LABEL_8:
   }
 
 LABEL_68:
-  callStatus = self->_callStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1157,7 +1154,6 @@ LABEL_9:
   }
 
 LABEL_69:
-  callerIdAvailability = self->_callerIdAvailability;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1172,7 +1168,6 @@ LABEL_10:
   }
 
 LABEL_70:
-  read = self->_read;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1187,7 +1182,6 @@ LABEL_11:
   }
 
 LABEL_71:
-  unreadCount = self->_unreadCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1202,7 +1196,6 @@ LABEL_12:
   }
 
 LABEL_72:
-  duration = self->_duration;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1217,7 +1210,6 @@ LABEL_13:
   }
 
 LABEL_73:
-  bytesOfDataUsed = self->_bytesOfDataUsed;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1232,12 +1224,10 @@ LABEL_14:
   }
 
 LABEL_74:
-  mobileCountryCode = self->_mobileCountryCode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_15:
-    mobileNetworkCode = self->_mobileNetworkCode;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1264,7 +1254,6 @@ LABEL_16:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    callCategory = self->_callCategory;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1273,17 +1262,15 @@ LABEL_16:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x400) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400) != 0)
   {
-    handleType = self->_handleType;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((*&v8 & 4) != 0)
+  if ((*&v6 & 4) != 0)
   {
-    timeToEstablish = self->_timeToEstablish;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1292,36 +1279,35 @@ LABEL_16:
     PBDataWriterWriteSubmessage();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v11 = self->_remoteParticipantHandles;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v12)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_remoteParticipantHandles;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
   {
-    v13 = v12;
-    v14 = *v34;
+    v9 = v8;
+    v10 = *v15;
     do
     {
-      v15 = 0;
+      v11 = 0;
       do
       {
-        if (*v34 != v14)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v7);
         }
 
-        v16 = *(*(&v33 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
-        v15 = v15 + 1;
+        ++v11;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v13);
+    while (v9);
   }
 
   if (self->_localParticipantUUIDString)
@@ -1334,17 +1320,15 @@ LABEL_16:
     PBDataWriterWriteStringField();
   }
 
-  v17 = self->_has;
-  if ((*&v17 & 0x800) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x800) != 0)
   {
-    junkConfidence = self->_junkConfidence;
     PBDataWriterWriteUint32Field();
-    v17 = self->_has;
+    v12 = self->_has;
   }
 
-  if ((*&v17 & 0x10000) != 0)
+  if ((*&v12 & 0x10000) != 0)
   {
-    verificationStatus = self->_verificationStatus;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1363,17 +1347,15 @@ LABEL_16:
     PBDataWriterWriteStringField();
   }
 
-  v20 = self->_has;
-  if ((*&v20 & 8) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 8) != 0)
   {
-    autoAnsweredReason = self->_autoAnsweredReason;
     PBDataWriterWriteUint32Field();
-    v20 = self->_has;
+    v13 = self->_has;
   }
 
-  if ((*&v20 & 0x4000) != 0)
+  if ((*&v13 & 0x4000) != 0)
   {
-    screenSharingType = self->_screenSharingType;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1389,7 +1371,6 @@ LABEL_16:
 
   if ((*(&self->_has + 1) & 2) != 0)
   {
-    communicationTrustScore = self->_communicationTrustScore;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -2073,7 +2054,6 @@ LABEL_12:
       goto LABEL_128;
     }
 
-    v9 = *(equalCopy + 240);
     if (self->_read)
     {
       if ((*(equalCopy + 240) & 1) == 0)
@@ -2191,17 +2171,17 @@ LABEL_12:
     }
   }
 
-  v14 = self->_has;
-  v15 = *(equalCopy + 61);
-  if ((*&v14 & 0x20) != 0)
+  v13 = self->_has;
+  v14 = *(equalCopy + 61);
+  if ((*&v13 & 0x20) != 0)
   {
-    if ((v15 & 0x20) == 0 || self->_callCategory != *(equalCopy + 10))
+    if ((v14 & 0x20) == 0 || self->_callCategory != *(equalCopy + 10))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v15 & 0x20) != 0)
+  else if ((v14 & 0x20) != 0)
   {
     goto LABEL_128;
   }
@@ -2211,39 +2191,39 @@ LABEL_12:
   {
     if ([(NSString *)serviceProvider isEqual:?])
     {
-      v14 = self->_has;
+      v13 = self->_has;
       goto LABEL_75;
     }
 
 LABEL_128:
-    v31 = 0;
+    v30 = 0;
     goto LABEL_129;
   }
 
 LABEL_75:
-  v17 = *(equalCopy + 61);
-  if ((*&v14 & 0x400) != 0)
+  v16 = *(equalCopy + 61);
+  if ((*&v13 & 0x400) != 0)
   {
-    if ((v17 & 0x400) == 0 || self->_handleType != *(equalCopy + 28))
+    if ((v16 & 0x400) == 0 || self->_handleType != *(equalCopy + 28))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v17 & 0x400) != 0)
+  else if ((v16 & 0x400) != 0)
   {
     goto LABEL_128;
   }
 
-  if ((*&v14 & 4) != 0)
+  if ((*&v13 & 4) != 0)
   {
-    if ((v17 & 4) == 0 || self->_timeToEstablish != *(equalCopy + 3))
+    if ((v16 & 4) == 0 || self->_timeToEstablish != *(equalCopy + 3))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v17 & 4) != 0)
+  else if ((v16 & 4) != 0)
   {
     goto LABEL_128;
   }
@@ -2281,30 +2261,30 @@ LABEL_75:
     }
   }
 
-  v22 = self->_has;
-  v23 = *(equalCopy + 61);
-  if ((*&v22 & 0x800) != 0)
+  v21 = self->_has;
+  v22 = *(equalCopy + 61);
+  if ((*&v21 & 0x800) != 0)
   {
-    if ((v23 & 0x800) == 0 || self->_junkConfidence != *(equalCopy + 32))
+    if ((v22 & 0x800) == 0 || self->_junkConfidence != *(equalCopy + 32))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v23 & 0x800) != 0)
+  else if ((v22 & 0x800) != 0)
   {
     goto LABEL_128;
   }
 
-  if ((*&v22 & 0x10000) != 0)
+  if ((*&v21 & 0x10000) != 0)
   {
-    if ((v23 & 0x10000) == 0 || self->_verificationStatus != *(equalCopy + 59))
+    if ((v22 & 0x10000) == 0 || self->_verificationStatus != *(equalCopy + 59))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v23 & 0x10000) != 0)
+  else if ((v22 & 0x10000) != 0)
   {
     goto LABEL_128;
   }
@@ -2333,30 +2313,30 @@ LABEL_75:
     }
   }
 
-  v27 = self->_has;
-  v28 = *(equalCopy + 61);
-  if ((*&v27 & 8) != 0)
+  v26 = self->_has;
+  v27 = *(equalCopy + 61);
+  if ((*&v26 & 8) != 0)
   {
-    if ((v28 & 8) == 0 || self->_autoAnsweredReason != *(equalCopy + 8))
+    if ((v27 & 8) == 0 || self->_autoAnsweredReason != *(equalCopy + 8))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v28 & 8) != 0)
+  else if ((v27 & 8) != 0)
   {
     goto LABEL_128;
   }
 
-  if ((*&v27 & 0x4000) != 0)
+  if ((*&v26 & 0x4000) != 0)
   {
-    if ((v28 & 0x4000) == 0 || self->_screenSharingType != *(equalCopy + 50))
+    if ((v27 & 0x4000) == 0 || self->_screenSharingType != *(equalCopy + 50))
     {
       goto LABEL_128;
     }
   }
 
-  else if ((v28 & 0x4000) != 0)
+  else if ((v27 & 0x4000) != 0)
   {
     goto LABEL_128;
   }
@@ -2383,17 +2363,17 @@ LABEL_75:
       goto LABEL_128;
     }
 
-    v31 = 1;
+    v30 = 1;
   }
 
   else
   {
-    v31 = (*(equalCopy + 61) & 0x200) == 0;
+    v30 = (*(equalCopy + 61) & 0x200) == 0;
   }
 
 LABEL_129:
 
-  return v31;
+  return v30;
 }
 
 - (unint64_t)hash

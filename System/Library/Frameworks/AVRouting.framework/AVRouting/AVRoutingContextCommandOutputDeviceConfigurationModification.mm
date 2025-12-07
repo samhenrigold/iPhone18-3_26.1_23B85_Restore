@@ -35,7 +35,6 @@
 
 - (void)startAutomaticallyAllowingConnectionsFromPeersInHomeGroupAndRejectOtherConnections:(BOOL)connections
 {
-  v4 = *MEMORY[0x1E695E480];
   UInt64 = FigCFNumberCreateUInt64();
   CFDictionarySetValue(self->_payload, *MEMORY[0x1E69617B8], *MEMORY[0x1E695E4D0]);
   CFDictionarySetValue(self->_payload, *MEMORY[0x1E69617C0], UInt64);

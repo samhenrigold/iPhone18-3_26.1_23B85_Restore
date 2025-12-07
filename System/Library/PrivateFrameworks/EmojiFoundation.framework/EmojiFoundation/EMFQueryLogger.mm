@@ -37,7 +37,7 @@
 
 - (void)logQueryResult:(id)result
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   query = [resultCopy query];
   queryString = [query queryString];
@@ -49,18 +49,18 @@
   v10 = [objc_opt_class() documentWeightsStringFromQueryResult:resultCopy usingLocaleData:self->_localeData];
   v11 = [objc_opt_class() overriddenResultsStringFromQueryResult:resultCopy usingLocaleData:self->_localeData];
 
-  v12 = emf_logging_get_query_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = emf_logging_get_query_log(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138413058;
-    v14 = queryString;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2080;
-    v18 = [v10 cStringUsingEncoding:4];
-    v19 = 2112;
-    v20 = v11;
-    _os_log_debug_impl(&dword_1AF04E000, v12, OS_LOG_TYPE_DEBUG, "\nQuery Result Info\nQuery string: '%@'\nQuery tokens: '%@'\nDocument Weights:\n%s\nQueryOverride: '%@'", &v13, 0x2Au);
+    v14 = 138413058;
+    v15 = queryString;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2080;
+    v19 = [v10 cStringUsingEncoding:4];
+    v20 = 2112;
+    v21 = v11;
+    _os_log_debug_impl(&dword_1AF04E000, v13, OS_LOG_TYPE_DEBUG, "\nQuery Result Info\nQuery string: '%@'\nQuery tokens: '%@'\nDocument Weights:\n%s\nQueryOverride: '%@'", &v14, 0x2Au);
   }
 }
 

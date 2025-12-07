@@ -12,6 +12,7 @@
 - (void)deactivateProximitySensor;
 - (void)dealloc;
 - (void)deregisterForCallback;
+- (void)handleNewProximityValue:(int)value;
 - (void)registerForCallback;
 - (void)scheduleProximityUpdates;
 - (void)startRunLoop;
@@ -306,6 +307,14 @@
   proxRunLoop = [(DADopplerProximityManager *)self proxRunLoop];
 
   CFRunLoopStop(proxRunLoop);
+}
+
+- (void)handleNewProximityValue:(int)value
+{
+  v3 = *&value;
+  handler = [(DADopplerProximityManager *)self handler];
+  v4 = +[NSDate date];
+  handler[2](handler, v3, v4);
 }
 
 @end

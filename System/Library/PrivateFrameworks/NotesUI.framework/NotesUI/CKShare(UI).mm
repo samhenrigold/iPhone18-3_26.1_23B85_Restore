@@ -15,9 +15,9 @@
     +[CKShare(UI) ic_fallbackThumbnail];
   }
 
-  v1 = ic_fallbackThumbnail_thumbnail;
+  v2 = ic_fallbackThumbnail_thumbnail;
 
-  return v1;
+  return v2;
 }
 
 - (void)ic_updateFromObject:()UI

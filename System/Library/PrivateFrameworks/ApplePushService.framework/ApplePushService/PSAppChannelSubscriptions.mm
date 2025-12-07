@@ -205,100 +205,97 @@
     PBDataWriterWriteStringField();
   }
 
-  v33 = 0u;
-  v34 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v5 = self->_subscriptionChannels;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v32 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v29 = 0u;
-  v30 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v11 = self->_unsubscriptionChannels;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v36 count:16];
-  if (v12)
+  v24 = 0u;
+  v25 = 0u;
+  v10 = self->_unsubscriptionChannels;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v28;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v28 != v14)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
-        v15 = v15 + 1;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
-  v25 = 0u;
-  v26 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v17 = self->_attributes;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
-  if (v18)
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_attributes;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
   {
-    v19 = v18;
-    v20 = *v24;
+    v17 = v16;
+    v18 = *v21;
     do
     {
-      v21 = 0;
+      v19 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v21 != v18)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v15);
         }
 
-        v22 = *(*(&v23 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        v21 = v21 + 1;
+        ++v19;
       }
 
-      while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
 }
 

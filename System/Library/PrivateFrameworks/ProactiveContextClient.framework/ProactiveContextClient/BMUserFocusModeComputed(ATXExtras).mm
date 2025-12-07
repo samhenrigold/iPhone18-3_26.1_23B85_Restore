@@ -19,7 +19,7 @@
     return off_279AB8900[updateSource];
   }
 
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(updateSource);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [(BMUserFocusModeComputed(ATXExtras) *)self modeUpdateSourceAsString];
@@ -36,7 +36,7 @@
     return off_279AB8920[updateReason];
   }
 
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(updateReason);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [(BMUserFocusModeComputed(ATXExtras) *)self modeUpdateReasonAsString];
@@ -47,13 +47,13 @@
 
 - (__CFString)modeSemanticTypeAsString
 {
-  v2 = [self semanticType] - 1;
-  if (v2 < 0xB)
+  semanticType = [self semanticType];
+  if ((semanticType - 1) < 0xB)
   {
-    return off_279AB8940[v2];
+    return off_279AB8940[(semanticType - 1)];
   }
 
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(semanticType);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [(BMUserFocusModeComputed(ATXExtras) *)self modeSemanticTypeAsString];
@@ -73,9 +73,9 @@
       {
         case 9:
           return 7;
-        case 10:
+        case 0xA:
           return 8;
-        case 11:
+        case 0xB:
           return 9;
       }
 
@@ -105,7 +105,7 @@
       switch(semanticType)
       {
         case 0:
-          v4 = __atxlog_handle_modes();
+          v4 = __atxlog_handle_modes(semanticType);
           if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
           {
             [(BMUserFocusModeComputed(ATXExtras) *)v4 atx_dndModeSemanticType];
@@ -119,7 +119,7 @@
       }
 
 LABEL_28:
-      v5 = __atxlog_handle_modes();
+      v5 = __atxlog_handle_modes(semanticType);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         [(BMUserFocusModeComputed(ATXExtras) *)self atx_dndModeSemanticType];
@@ -147,42 +147,34 @@ LABEL_28:
 
 - (void)modeUpdateSourceAsString
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self updateSource];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modeUpdateReasonAsString
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self updateReason];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modeSemanticTypeAsString
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self semanticType];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)atx_dndModeSemanticType
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self semanticType];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

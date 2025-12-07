@@ -103,31 +103,7 @@
     actions2 = [(CALNNotificationCategory *)categoryCopy actions];
     v7 = CalEqualObjects();
 
-    if (!v7)
-    {
-      goto LABEL_7;
-    }
-
-    identifier = [(CALNNotificationCategory *)self identifier];
-    identifier2 = [(CALNNotificationCategory *)categoryCopy identifier];
-    v10 = CalEqualStrings();
-
-    if (!v10)
-    {
-      goto LABEL_7;
-    }
-
-    options = [(CALNNotificationCategory *)self options];
-    if (options != [(CALNNotificationCategory *)categoryCopy options])
-    {
-      goto LABEL_7;
-    }
-
-    hiddenPreviewsBodyPlaceholder = [(CALNNotificationCategory *)self hiddenPreviewsBodyPlaceholder];
-    hiddenPreviewsBodyPlaceholder2 = [(CALNNotificationCategory *)categoryCopy hiddenPreviewsBodyPlaceholder];
-    v14 = CalEqualStrings();
-
-    if (v14)
+    if (v7 && ([(CALNNotificationCategory *)self identifier], v8 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationCategory *)categoryCopy identifier], v9 = objc_claimAutoreleasedReturnValue(), v10 = CalEqualStrings(), v9, v8, v10) && (v11 = [(CALNNotificationCategory *)self options], v11 == [(CALNNotificationCategory *)categoryCopy options]) && ([(CALNNotificationCategory *)self hiddenPreviewsBodyPlaceholder], v12 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationCategory *)categoryCopy hiddenPreviewsBodyPlaceholder], v13 = objc_claimAutoreleasedReturnValue(), v14 = CalEqualStrings(), v13, v12, v14))
     {
       categorySummaryFormat = [(CALNNotificationCategory *)self categorySummaryFormat];
       categorySummaryFormat2 = [(CALNNotificationCategory *)categoryCopy categorySummaryFormat];
@@ -136,7 +112,6 @@
 
     else
     {
-LABEL_7:
       v17 = 0;
     }
   }

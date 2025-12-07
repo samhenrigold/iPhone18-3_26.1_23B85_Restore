@@ -2,6 +2,7 @@
 - (BOOL)failureOccurred;
 - (XRPassFailIssueResponder)initWithNextResponder:(id)responder;
 - (id)failures;
+- (void)handleIssue:(id)issue type:(signed __int16)type from:(id)from;
 @end
 
 @implementation XRPassFailIssueResponder
@@ -26,6 +27,27 @@
   }
 
   return v5;
+}
+
+- (void)handleIssue:(id)issue type:(signed __int16)type from:(id)from
+{
+  typeCopy = type;
+  issueCopy = issue;
+  fromCopy = from;
+  if (!typeCopy)
+  {
+    uniqueErrorsQueue = self->_uniqueErrorsQueue;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_2480950D4;
+    v13[3] = &unk_278EFA4A8;
+    v13[4] = self;
+    v14 = issueCopy;
+    dispatch_async(uniqueErrorsQueue, v13);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_nextResponder);
+  objc_msgSend_handleIssue_type_from_(WeakRetained, v12, issueCopy, typeCopy, fromCopy);
 }
 
 - (BOOL)failureOccurred

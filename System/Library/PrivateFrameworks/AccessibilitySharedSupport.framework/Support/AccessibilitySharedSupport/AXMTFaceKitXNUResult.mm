@@ -16,9 +16,9 @@
   semanticsDictionaryCopy = semanticsDictionary;
   expressionsCopy = expressions;
   valueCopy = value;
-  v52.receiver = self;
-  v52.super_class = AXMTFaceKitXNUResult;
-  v16 = [(AXMTFaceKitXNUResult *)&v52 init];
+  v54.receiver = self;
+  v54.super_class = AXMTFaceKitXNUResult;
+  v16 = [(AXMTFaceKitXNUResult *)&v54 init];
   if (v16)
   {
     v17 = [expressionsCopy copy];
@@ -27,29 +27,30 @@
 
     if (valueCopy)
     {
-      [valueCopy sizeValue];
-      *(v16 + 10) = v19;
-      *(v16 + 11) = v20;
+      sizeValue = [valueCopy sizeValue];
+      *(v16 + 10) = v20;
+      *(v16 + 11) = v21;
     }
 
     v16[32] = 0;
-    v21 = [dictionaryCopy objectForKeyedSubscript:sub_100025EC4()];
-    v22 = v21;
+    ImageBuffer = [dictionaryCopy objectForKeyedSubscript:sub_100025EC4(sizeValue)];
+    v23 = ImageBuffer;
     if (dictionaryCopy)
     {
       size = NSZeroRect.size;
       rect.origin = NSZeroRect.origin;
       rect.size = size;
-      if (!CGRectMakeWithDictionaryRepresentation(v21, &rect))
+      ImageBuffer = CGRectMakeWithDictionaryRepresentation(ImageBuffer, &rect);
+      if (!ImageBuffer)
       {
 
-        v48 = 0;
+        v50 = 0;
         goto LABEL_19;
       }
 
-      v24 = rect.size;
+      v25 = rect.size;
       *(v16 + 9) = rect.origin;
-      *(v16 + 10) = v24;
+      *(v16 + 10) = v25;
       if (buffer)
       {
         ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
@@ -63,29 +64,29 @@
           rect.origin.y = (1.0 - rect.origin.y - rect.size.height) * Height;
           rect.size.width = rect.size.width * Width;
           rect.size.height = rect.size.height * Height;
-          [v16 setBoundingBoxInImageCoordinates:?];
+          ImageBuffer = [v16 setBoundingBoxInImageCoordinates:?];
         }
       }
     }
 
-    v50 = v22;
-    v29 = [dictionaryCopy objectForKeyedSubscript:sub_1000230A0()];
-    v30 = [v29 objectForKeyedSubscript:sub_100027528()];
+    v52 = v23;
+    v29 = [dictionaryCopy objectForKeyedSubscript:sub_1000230A0(ImageBuffer)];
+    v30 = [v29 objectForKeyedSubscript:sub_100027528(v29)];
 
-    v31 = [v30 objectForKeyedSubscript:sub_100025A00()];
-    v32 = [v30 objectForKeyedSubscript:sub_100025AF4()];
-    if (v32)
+    v32 = [v30 objectForKeyedSubscript:sub_100025A00(v31)];
+    v33 = [v30 objectForKeyedSubscript:sub_100025AF4(v32)];
+    if (v33)
     {
-      [objc_opt_class() _poseTranslationMatrixFromArray:v32];
-      *(v16 + 4) = v33;
+      [objc_opt_class() _poseTranslationMatrixFromArray:v33];
+      *(v16 + 4) = v34;
     }
 
-    [v16 _calculatePoseWithRotation:v31 translation:v32];
-    v34 = (v16 + 176);
-    *(v16 + 11) = v35;
-    *(v16 + 12) = v36;
-    *(v16 + 13) = v37;
-    *(v16 + 14) = v38;
+    v35 = [v16 _calculatePoseWithRotation:v32 translation:v33];
+    v36 = (v16 + 176);
+    *(v16 + 11) = v37;
+    *(v16 + 12) = v38;
+    *(v16 + 13) = v39;
+    *(v16 + 14) = v40;
     if (qword_100054678 != -1)
     {
       sub_1000293D0();
@@ -93,55 +94,56 @@
 
     if (dword_100054670 >= 1)
     {
-      [v16 _rotatePose:*v34 forCameraSensorRotation:{*(v16 + 24), *(v16 + 26), *(v16 + 28)}];
-      *v34 = v39;
-      *(v16 + 12) = v40;
-      *(v16 + 13) = v41;
-      *(v16 + 14) = v42;
+      v35 = [v16 _rotatePose:*v36 forCameraSensorRotation:{*(v16 + 24), *(v16 + 26), *(v16 + 28)}];
+      *v36 = v41;
+      *(v16 + 12) = v42;
+      *(v16 + 13) = v43;
+      *(v16 + 14) = v44;
     }
 
     if (semanticsDictionaryCopy)
     {
-      v43 = [semanticsDictionaryCopy copy];
-      v44 = *(v16 + 6);
-      *(v16 + 6) = v43;
+      v45 = [semanticsDictionaryCopy copy];
+      v46 = *(v16 + 6);
+      *(v16 + 6) = v45;
     }
 
-    v45 = [dictionaryCopy objectForKeyedSubscript:sub_100025DD0()];
-    [objc_opt_class() _projectZAxisVectorUsingRGBCameraDictionary:v45 pose:{*v34, *(v16 + 24), *(v16 + 26), *(v16 + 28)}];
-    *(v16 + 12) = v46;
-    *(v16 + 13) = v47;
+    v47 = [dictionaryCopy objectForKeyedSubscript:sub_100025DD0(v35)];
+    [objc_opt_class() _projectZAxisVectorUsingRGBCameraDictionary:v47 pose:{*v36, *(v16 + 24), *(v16 + 26), *(v16 + 28)}];
+    *(v16 + 12) = v48;
+    *(v16 + 13) = v49;
   }
 
-  v48 = v16;
+  v50 = v16;
 LABEL_19:
 
-  return v48;
+  return v50;
 }
 
 - (id)pointForLandmark:(id)landmark
 {
   landmarkCopy = landmark;
   semanticsDictionary = [(AXMTFaceKitXNUResult *)self semanticsDictionary];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v6 = qword_100054800;
-  v20 = qword_100054800;
+  v21 = qword_100054800;
   if (!qword_100054800)
   {
     v7 = sub_100027DF8();
-    v18[3] = dlsym(v7, "kCVAFaceTracking_LandmarkNames");
-    qword_100054800 = v18[3];
-    v6 = v18[3];
+    v19[3] = dlsym(v7, "kCVAFaceTracking_LandmarkNames");
+    qword_100054800 = v19[3];
+    v6 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v6)
   {
-    v16 = sub_100029794();
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    sub_100029794();
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
   v8 = [semanticsDictionary objectForKeyedSubscript:*v6];

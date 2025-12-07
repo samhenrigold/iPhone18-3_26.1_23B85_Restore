@@ -1,5 +1,6 @@
 @interface PGHighlightItemEnrichment
 - (PGHighlightItemEnrichment)initWithRule:(id)rule modelWriter:(id)writer;
+- (void)_contextualKeyAssetForYearHighlightItemList:(id)list sharingFilter:(unsigned __int16)filter curationContext:(id)context contextualOptions:(id)options options:(id)a7 availableContextualRules:(id)rules progressBlock:(id)block;
 - (void)contextualKeyAssetForYearHighlightItemLists:(id)lists withManager:(id)manager curationContext:(id)context options:(id)options progressBlock:(id)block;
 - (void)enrichHighlightItemLists:(id)lists progressBlock:(id)block;
 - (void)updateVisibilityStateForHighlightItemLists:(id)lists withManager:(id)manager progressBlock:(id)block;
@@ -9,28 +10,28 @@
 
 - (void)enrichHighlightItemLists:(id)lists progressBlock:(id)block
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   blockCopy = block;
   if ([listsCopy count])
   {
     v8 = 0.0;
-    v38 = _Block_copy(blockCopy);
-    if (v38)
+    v37 = _Block_copy(blockCopy);
+    if (v37)
     {
       Current = CFAbsoluteTimeGetCurrent();
       if (Current >= 0.01)
       {
-        v43 = 0;
-        v38[2](v38, &v43, 0.0);
-        if (v43 == 1)
+        v42 = 0;
+        v37[2](v37, &v42, 0.0);
+        if (v42 == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v45 = 232;
-            *&v45[4] = 2080;
-            *&v45[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+            *v44 = 232;
+            *&v44[4] = 2080;
+            *&v44[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -51,36 +52,36 @@ LABEL_54:
       v13 = [listsCopy count];
       rule = self->_rule;
       *buf = 134218242;
-      *v45 = v13;
-      *&v45[8] = 2112;
-      *&v45[10] = rule;
+      *v44 = v13;
+      *&v44[8] = 2112;
+      *&v44[10] = rule;
       _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, "Enriching %ld time unit list using rule %@", buf, 0x16u);
     }
 
     v15 = [listsCopy count];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v36 = listsCopy;
+    v35 = listsCopy;
     obj = listsCopy;
-    v16 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+    v16 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 1.0 / v15;
-      v19 = *v40;
+      v19 = *v39;
       v20 = 0.0;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v39 + 1) + 8 * i);
+          v22 = *(*(&v38 + 1) + 8 * i);
           if ([modelWriter visibilityStateForHighlightItem:v22 sharingFilter:0])
           {
             v23 = objc_autoreleasePoolPush();
@@ -93,7 +94,7 @@ LABEL_54:
             else if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v45 = v22;
+              *v44 = v22;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Failed to enrich highlight %@: no private key asset found", buf, 0xCu);
             }
 
@@ -117,7 +118,7 @@ LABEL_54:
             else if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v45 = v22;
+              *v44 = v22;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Failed to enrich highlight %@: no shared key asset found", buf, 0xCu);
             }
 
@@ -163,37 +164,37 @@ LABEL_54:
           {
             v33 = [0 count];
             *buf = 138413058;
-            *v45 = v22;
-            *&v45[8] = 2112;
-            *&v45[10] = v24;
-            v46 = 2048;
-            v47 = v33;
-            v48 = 2048;
-            v49 = v30;
+            *v44 = v22;
+            *&v44[8] = 2112;
+            *&v44[10] = v24;
+            v45 = 2048;
+            v46 = v33;
+            v47 = 2048;
+            v48 = v30;
             _os_log_debug_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_DEBUG, "Enriched %@ with:\n\tKey asset: %@\n\tCurated assets count: %lu\n\tPromotion score: %.2f", buf, 0x2Au);
           }
 
           v20 = v18 + v20;
-          if (v38)
+          if (v37)
           {
             v32 = CFAbsoluteTimeGetCurrent();
             if (v32 - v8 >= 0.01)
             {
-              v43 = 0;
-              v38[2](v38, &v43, v20);
-              if (v43)
+              v42 = 0;
+              v37[2](v37, &v42, v20);
+              if (v42)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v45 = 314;
-                  *&v45[4] = 2080;
-                  *&v45[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+                  *v44 = 314;
+                  *&v44[4] = 2080;
+                  *&v44[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
-                blockCopy = v35;
-                listsCopy = v36;
+                blockCopy = v34;
+                listsCopy = v35;
                 goto LABEL_53;
               }
 
@@ -202,7 +203,7 @@ LABEL_54:
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+        v17 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
         if (v17)
         {
           continue;
@@ -212,22 +213,22 @@ LABEL_54:
       }
     }
 
-    blockCopy = v35;
-    listsCopy = v36;
-    if (v38)
+    blockCopy = v34;
+    listsCopy = v35;
+    if (v37)
     {
       if (CFAbsoluteTimeGetCurrent() - v8 >= 0.01)
       {
-        v43 = 0;
-        v38[2](v38, &v43, 1.0);
-        if (v43)
+        v42 = 0;
+        v37[2](v37, &v42, 1.0);
+        if (v42)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v45 = 317;
-            *&v45[4] = 2080;
-            *&v45[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+            *v44 = 317;
+            *&v44[4] = 2080;
+            *&v44[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -240,8 +241,303 @@ LABEL_53:
   }
 
 LABEL_55:
+}
 
-  v34 = *MEMORY[0x277D85DE8];
+- (void)_contextualKeyAssetForYearHighlightItemList:(id)list sharingFilter:(unsigned __int16)filter curationContext:(id)context contextualOptions:(id)options options:(id)a7 availableContextualRules:(id)rules progressBlock:(id)block
+{
+  filterCopy = filter;
+  v102 = *MEMORY[0x277D85DE8];
+  listCopy = list;
+  contextCopy = context;
+  optionsCopy = options;
+  v48 = a7;
+  rulesCopy = rules;
+  blockCopy = block;
+  v49 = rulesCopy;
+  if ([rulesCopy count])
+  {
+    v46 = blockCopy;
+    v90 = 0;
+    v91 = &v90;
+    v92 = 0x2020000000;
+    v93 = 0;
+    v86 = 0;
+    v87 = &v86;
+    v88 = 0x2020000000;
+    v89 = 0;
+    v52 = _Block_copy(blockCopy);
+    if (v52)
+    {
+      Current = CFAbsoluteTimeGetCurrent();
+      if (Current - v87[3] >= 0.01)
+      {
+        v87[3] = Current;
+        LOBYTE(v78) = 0;
+        v52[2](v52, &v78, 0.0);
+        v18 = *(v91 + 24) | v78;
+        *(v91 + 24) = v18;
+        if (v18)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+          {
+            buf = 0x9804000202;
+            LOWORD(v98) = 2080;
+            *(&v98 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
+          }
+
+LABEL_49:
+          _Block_object_dispose(&v86, 8);
+          _Block_object_dispose(&v90, 8);
+
+          blockCopy = v46;
+          goto LABEL_50;
+        }
+      }
+    }
+
+    buf = 0;
+    *&v98 = &buf;
+    *(&v98 + 1) = 0x3032000000;
+    v99 = __Block_byref_object_copy__20170;
+    v100 = __Block_byref_object_dispose__20171;
+    v101 = 0;
+    v85[0] = 0;
+    v85[1] = v85;
+    v85[2] = 0x2020000000;
+    v85[3] = 0xFFEFFFFFFFFFFFFFLL;
+    v84[0] = 0;
+    v84[1] = v84;
+    v84[2] = 0x2020000000;
+    v84[3] = 0xFFEFFFFFFFFFFFFFLL;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x3032000000;
+    v81 = __Block_byref_object_copy__20170;
+    v82 = __Block_byref_object_dispose__20171;
+    v83 = 0;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x3032000000;
+    v75 = __Block_byref_object_copy__20170;
+    v76 = __Block_byref_object_dispose__20171;
+    v77 = 0;
+    modelWriter = [(PGHighlightItemEnrichment *)self modelWriter];
+    oslog = [(PGHighlightItemEnrichmentRule *)self->_rule loggingConnection];
+    v20 = [rulesCopy count];
+    v70 = 0u;
+    v71 = 0u;
+    v69 = 0u;
+    v68 = 0u;
+    obj = rulesCopy;
+    v21 = [obj countByEnumeratingWithState:&v68 objects:v96 count:16];
+    if (!v21)
+    {
+LABEL_41:
+
+LABEL_43:
+      if (v52)
+      {
+        v43 = CFAbsoluteTimeGetCurrent();
+        if (v43 - v87[3] >= 0.01)
+        {
+          v87[3] = v43;
+          v56 = 0;
+          (v52)[2](v52, &v56, 1.0);
+          v44 = *(v91 + 24) | v56;
+          *(v91 + 24) = v44;
+          if ((v44 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+          {
+            v94 = 67109378;
+            LODWORD(v95[0]) = 222;
+            WORD2(v95[0]) = 2080;
+            *(v95 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v94, 0x12u);
+          }
+        }
+      }
+
+LABEL_48:
+
+      _Block_object_dispose(&v72, 8);
+      _Block_object_dispose(&v78, 8);
+
+      _Block_object_dispose(v84, 8);
+      _Block_object_dispose(v85, 8);
+      _Block_object_dispose(&buf, 8);
+
+      goto LABEL_49;
+    }
+
+    v23 = 1.0 / v20;
+    v51 = *v69;
+    v24 = 0.0;
+    *&v22 = 138412546;
+    v45 = v22;
+LABEL_9:
+    v25 = 0;
+    while (1)
+    {
+      if (*v69 != v51)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v26 = *(*(&v68 + 1) + 8 * v25);
+      v27 = objc_autoreleasePoolPush();
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = __168__PGHighlightItemEnrichment__contextualKeyAssetForYearHighlightItemList_sharingFilter_curationContext_contextualOptions_options_availableContextualRules_progressBlock___block_invoke;
+      v57[3] = &unk_278881480;
+      v24 = v23 + v24;
+      p_buf = &buf;
+      v60 = v85;
+      v61 = v84;
+      v62 = &v78;
+      v63 = &v72;
+      v58 = v52;
+      v64 = &v86;
+      v67 = v24;
+      v66 = 0x3F847AE147AE147BLL;
+      v65 = &v90;
+      [v26 enumerateContextualKeyAssetsForYearHighlight:listCopy sharingFilter:filterCopy withOptions:optionsCopy modelReader:modelWriter curationContext:contextCopy usingBlock:v57];
+      if (*(v91 + 24) == 1)
+      {
+        v28 = 1;
+        v29 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+        {
+          v94 = 67109378;
+          LODWORD(v95[0]) = 184;
+          WORD2(v95[0]) = 2080;
+          *(v95 + 6) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+          _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v94, 0x12u);
+        }
+
+        v30 = 0;
+        goto LABEL_34;
+      }
+
+      v31 = *(v98 + 40);
+      if (v31)
+      {
+        break;
+      }
+
+      v28 = 0;
+      v30 = 1;
+LABEL_34:
+
+      objc_autoreleasePoolPop(v27);
+      if (!v30)
+      {
+
+        if ((v28 | 2) != 2)
+        {
+          goto LABEL_48;
+        }
+
+        goto LABEL_43;
+      }
+
+      if (v21 == ++v25)
+      {
+        v42 = [obj countByEnumeratingWithState:&v68 objects:v96 count:16];
+        v21 = v42;
+        if (v42)
+        {
+          goto LABEL_9;
+        }
+
+        goto LABEL_41;
+      }
+    }
+
+    [modelWriter setContextualKeyAsset:v31 forHighlightItem:listCopy sharingFilter:filterCopy];
+    [modelWriter setContextualKeyAsset:*(v98 + 40) forHighlightItem:v73[5] sharingFilter:filterCopy];
+    [modelWriter setContextualKeyAsset:*(v98 + 40) forHighlightItem:v79[5] sharingFilter:filterCopy];
+    v32 = [modelWriter visibilityStateForHighlightItem:v79[5] sharingFilter:filterCopy];
+    if ([v79[5] kind] || (MEMORY[0x231902060](v32) & 1) != 0)
+    {
+      if ([v79[5] kind] != 3)
+      {
+LABEL_33:
+        v30 = 0;
+        v28 = 2;
+        goto LABEL_34;
+      }
+
+      v33 = objc_autoreleasePoolPush();
+      firstObject = [PGContextualRuleUtils dayHighlightContainingAsset:*(v98 + 40)];
+      if (firstObject)
+      {
+        [modelWriter setContextualKeyAsset:*(v98 + 40) forHighlightItem:firstObject sharingFilter:filterCopy];
+LABEL_32:
+
+        objc_autoreleasePoolPop(v33);
+        goto LABEL_33;
+      }
+
+      if (!os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+      {
+LABEL_31:
+        firstObject = 0;
+        goto LABEL_32;
+      }
+
+      v36 = v79[5];
+      v37 = *(v98 + 40);
+      v94 = v45;
+      v95[0] = v36;
+      LOWORD(v95[1]) = 2112;
+      *(&v95[1] + 2) = v37;
+      v38 = oslog;
+      v39 = "Cannot find child highlight of day group %@ containing asset %@";
+    }
+
+    else
+    {
+      if ([v79[5] type] != 5 && objc_msgSend(v79[5], "type") != 6)
+      {
+        [modelWriter addVisibleHighlight:v79[5] inMonth:v73[5] withHighlightFilter:filterCopy];
+        goto LABEL_33;
+      }
+
+      v33 = objc_autoreleasePoolPush();
+      v35 = [MEMORY[0x277CD9958] fetchParentDayGroupHighlightForHighlight:v79[5] options:0];
+      firstObject = [v35 firstObject];
+
+      if (firstObject)
+      {
+        [modelWriter setContextualKeyAsset:*(v98 + 40) forHighlightItem:firstObject sharingFilter:filterCopy];
+        if ((MEMORY[0x231902060]([firstObject visibilityState]) & 1) == 0)
+        {
+          [modelWriter addVisibleHighlight:firstObject inMonth:v73[5] withHighlightFilter:filterCopy];
+        }
+
+        goto LABEL_32;
+      }
+
+      if (!os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_31;
+      }
+
+      v40 = v79[5];
+      v41 = *(v98 + 40);
+      v94 = v45;
+      v95[0] = v40;
+      LOWORD(v95[1]) = 2112;
+      *(&v95[1] + 2) = v41;
+      v38 = oslog;
+      v39 = "Cannot find parent day group highlight of %@ containing asset %@";
+    }
+
+    _os_log_error_impl(&dword_22F0FC000, v38, OS_LOG_TYPE_ERROR, v39, &v94, 0x16u);
+    goto LABEL_31;
+  }
+
+LABEL_50:
 }
 
 void __168__PGHighlightItemEnrichment__contextualKeyAssetForYearHighlightItemList_sharingFilter_curationContext_contextualOptions_options_availableContextualRules_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, _BYTE *a5, double a6)
@@ -311,7 +607,7 @@ LABEL_6:
 
 - (void)contextualKeyAssetForYearHighlightItemLists:(id)lists withManager:(id)manager curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   managerCopy = manager;
   contextCopy = context;
@@ -320,22 +616,22 @@ LABEL_6:
   if ([listsCopy count])
   {
     v17 = _Block_copy(blockCopy);
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
     v41 = 0;
-    if (v17 && (v18 = CFAbsoluteTimeGetCurrent(), v18 - v39[3] >= 0.01) && (v39[3] = v18, v37 = 0, (*(v17 + 2))(v17, &v37, 0.0), v19 = *(v43 + 24) | v37, *(v43 + 24) = v19, (v19 & 1) != 0))
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    if (v17 && (v18 = CFAbsoluteTimeGetCurrent(), v18 - v38[3] >= 0.01) && (v38[3] = v18, v36 = 0, (*(v17 + 2))(v17, &v36, 0.0), v19 = *(v42 + 24) | v36, *(v42 + 24) = v19, (v19 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v47 = 98;
-        v48 = 2080;
-        v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+        v46 = 98;
+        v47 = 2080;
+        v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
@@ -343,89 +639,87 @@ LABEL_6:
     else
     {
       loggingConnection = [(PGHighlightItemEnrichmentRule *)self->_rule loggingConnection];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke;
-      v26[3] = &unk_278881458;
-      v27 = managerCopy;
-      v28 = optionsCopy;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke;
+      v25[3] = &unk_278881458;
+      v26 = managerCopy;
+      v27 = optionsCopy;
       v21 = loggingConnection;
-      v29 = v21;
-      v30 = listsCopy;
+      v28 = v21;
+      v29 = listsCopy;
       v22 = v17;
-      v36 = 0x3F847AE147AE147BLL;
-      v34 = &v38;
-      v35 = &v42;
-      v33 = v22;
+      v35 = 0x3F847AE147AE147BLL;
+      v33 = &v37;
+      v34 = &v41;
+      v32 = v22;
       selfCopy = self;
-      v32 = contextCopy;
-      [v27 performSynchronousConcurrentGraphReadUsingBlock:v26];
+      v31 = contextCopy;
+      [v26 performSynchronousConcurrentGraphReadUsingBlock:v25];
       if (v17)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        if (Current - v39[3] >= 0.01)
+        if (Current - v38[3] >= 0.01)
         {
-          v39[3] = Current;
-          v37 = 0;
-          (*(v22 + 2))(v22, &v37, 1.0);
-          v24 = *(v43 + 24) | v37;
-          *(v43 + 24) = v24;
+          v38[3] = Current;
+          v36 = 0;
+          (*(v22 + 2))(v22, &v36, 1.0);
+          v24 = *(v42 + 24) | v36;
+          *(v42 + 24) = v24;
           if ((v24 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v47 = 143;
-            v48 = 2080;
-            v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+            v46 = 143;
+            v47 = 2080;
+            v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
       }
     }
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v41, 8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [PGContextualOptions alloc];
-  v30 = v3;
+  v29 = v3;
   v5 = [v3 graph];
   v6 = [*(a1 + 32) photoLibrary];
   v7 = [*(a1 + 32) curationManager];
   v8 = [(PGContextualOptions *)v4 initWithGraph:v5 photoLibrary:v6 curationManager:v7 options:*(a1 + 40) loggingConnection:*(a1 + 48)];
 
-  v33 = v8;
+  v32 = v8;
   v9 = [(PGContextualOptions *)v8 availableContextualRules];
   v10 = [*(a1 + 56) count];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = *(a1 + 56);
-  v11 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v11 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 1.0 / v10;
-    v14 = *v46;
+    v14 = *v45;
     v15 = 0.0;
-    v31 = v9;
+    v30 = v9;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v46 != v14)
+      if (*v45 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v45 + 1) + 8 * v16);
+      v17 = *(*(&v44 + 1) + 8 * v16);
       v15 = v13 + v15;
       if (*(a1 + 80))
       {
@@ -434,9 +728,9 @@ LABEL_3:
         if (Current - *(v19 + 24) >= *(a1 + 104))
         {
           *(v19 + 24) = Current;
-          v44 = 0;
+          v43 = 0;
           (*(*(a1 + 80) + 16))(v15);
-          *(*(*(a1 + 96) + 8) + 24) |= v44;
+          *(*(*(a1 + 96) + 8) + 24) |= v43;
           if (*(*(*(a1 + 96) + 8) + 24))
           {
             goto LABEL_19;
@@ -464,7 +758,7 @@ LABEL_3:
 LABEL_17:
       if (v12 == ++v16)
       {
-        v12 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v12 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -479,16 +773,16 @@ LABEL_14:
     v22 = *(a1 + 64);
     v23 = *(a1 + 72);
     v24 = *(a1 + 40);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke_2;
-    v39[3] = &unk_27888A1B0;
-    v40 = *(a1 + 80);
-    v42 = *(a1 + 104);
-    v43 = v15;
-    v41 = *(a1 + 88);
-    v9 = v31;
-    [v22 _contextualKeyAssetForYearHighlightItemList:v17 sharingFilter:0 curationContext:v23 contextualOptions:v33 options:v24 availableContextualRules:v31 progressBlock:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke_2;
+    v38[3] = &unk_27888A1B0;
+    v39 = *(a1 + 80);
+    v41 = *(a1 + 104);
+    v42 = v15;
+    v40 = *(a1 + 88);
+    v9 = v30;
+    [v22 _contextualKeyAssetForYearHighlightItemList:v17 sharingFilter:0 curationContext:v23 contextualOptions:v32 options:v24 availableContextualRules:v30 progressBlock:v38];
     LOBYTE(v22) = *(*(*(a1 + 96) + 8) + 24);
 
     if (v22)
@@ -502,15 +796,15 @@ LABEL_16:
       v25 = *(a1 + 64);
       v26 = *(a1 + 72);
       v27 = *(a1 + 40);
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke_3;
-      v34[3] = &unk_27888A1B0;
-      v35 = *(a1 + 80);
-      v37 = *(a1 + 104);
-      v38 = v15;
-      v36 = *(a1 + 88);
-      [v25 _contextualKeyAssetForYearHighlightItemList:v17 sharingFilter:1 curationContext:v26 contextualOptions:v33 options:v27 availableContextualRules:v9 progressBlock:v34];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke_3;
+      v33[3] = &unk_27888A1B0;
+      v34 = *(a1 + 80);
+      v36 = *(a1 + 104);
+      v37 = v15;
+      v35 = *(a1 + 88);
+      [v25 _contextualKeyAssetForYearHighlightItemList:v17 sharingFilter:1 curationContext:v26 contextualOptions:v32 options:v27 availableContextualRules:v9 progressBlock:v33];
       v28 = *(*(*(a1 + 96) + 8) + 24);
 
       if (v28)
@@ -525,8 +819,6 @@ LABEL_16:
   }
 
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemLists_withManager_curationContext_options_progressBlock___block_invoke_2(uint64_t a1, _BYTE *a2)
@@ -569,41 +861,41 @@ void __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemList
 
 - (void)updateVisibilityStateForHighlightItemLists:(id)lists withManager:(id)manager progressBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   managerCopy = manager;
   blockCopy = block;
   if ([listsCopy count])
   {
     v11 = _Block_copy(blockCopy);
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
     v25 = 0;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __98__PGHighlightItemEnrichment_updateVisibilityStateForHighlightItemLists_withManager_progressBlock___block_invoke;
-    v15[3] = &unk_278881430;
-    v16 = listsCopy;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __98__PGHighlightItemEnrichment_updateVisibilityStateForHighlightItemLists_withManager_progressBlock___block_invoke;
+    v14[3] = &unk_278881430;
+    v15 = listsCopy;
     selfCopy = self;
     v12 = v11;
-    v18 = v12;
-    v19 = &v22;
-    v20 = &v26;
-    v21 = 0x3F847AE147AE147BLL;
-    [managerCopy performSynchronousConcurrentGraphReadUsingBlock:v15];
-    if (*(v27 + 24) == 1)
+    v17 = v12;
+    v18 = &v21;
+    v19 = &v25;
+    v20 = 0x3F847AE147AE147BLL;
+    [managerCopy performSynchronousConcurrentGraphReadUsingBlock:v14];
+    if (*(v26 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v31 = 87;
-        v32 = 2080;
-        v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
+        v30 = 87;
+        v31 = 2080;
+        v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/HighlightCollection/PGHighlightItemEnrichment.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
@@ -611,81 +903,71 @@ void __123__PGHighlightItemEnrichment_contextualKeyAssetForYearHighlightItemList
     else if (v12)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v23[3] >= 0.01)
+      if (Current - v22[3] >= 0.01)
       {
-        v23[3] = Current;
+        v22[3] = Current;
         buf[0] = 0;
         (*(v12 + 2))(v12, buf, 1.0);
-        *(v27 + 24) |= buf[0];
+        *(v26 + 24) |= buf[0];
       }
     }
 
-    _Block_object_dispose(&v22, 8);
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v25, 8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __98__PGHighlightItemEnrichment_updateVisibilityStateForHighlightItemLists_withManager_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v18 = a2;
-  v3 = [v18 graph];
+  v30 = *MEMORY[0x277D85DE8];
+  v17 = a2;
+  v3 = [v17 graph];
   v4 = [*(a1 + 32) count];
   objc_initWeak(&location, *(a1 + 40));
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = 1.0 / v4;
-    v7 = *v26;
+    v7 = *v25;
     v8 = 0.0;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v26 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v25 + 1) + 8 * v9);
+      v10 = *(*(&v24 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
-      if (!*(a1 + 48))
-      {
-        goto LABEL_10;
-      }
-
-      Current = CFAbsoluteTimeGetCurrent();
-      v13 = *(*(a1 + 56) + 8);
-      if (Current - *(v13 + 24) >= *(a1 + 72) && (*(v13 + 24) = Current, v24 = 0, (*(*(a1 + 48) + 16))(v8), *(*(*(a1 + 64) + 8) + 24) |= v24, (*(*(*(a1 + 64) + 8) + 24) & 1) != 0))
+      if (*(a1 + 48) && (Current = CFAbsoluteTimeGetCurrent(), v13 = *(*(a1 + 56) + 8), Current - *(v13 + 24) >= *(a1 + 72)) && (*(v13 + 24) = Current, v23 = 0, (*(*(a1 + 48) + 16))(v8), *(*(*(a1 + 64) + 8) + 24) |= v23, (*(*(*(a1 + 64) + 8) + 24) & 1) != 0))
       {
         v14 = 0;
       }
 
       else
       {
-LABEL_10:
         v15 = [v10 kind] == 2 ? 4 : 2;
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __98__PGHighlightItemEnrichment_updateVisibilityStateForHighlightItemLists_withManager_progressBlock___block_invoke_2;
         aBlock[3] = &unk_278881408;
-        objc_copyWeak(&v22, &location);
+        objc_copyWeak(&v21, &location);
         aBlock[4] = v10;
-        v21 = v3;
-        v23 = v15;
+        v20 = v3;
+        v22 = v15;
         v16 = _Block_copy(aBlock);
         v16[2](v16, 0);
         v16[2](v16, 1);
         v16[2](v16, 2);
 
-        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v21);
         v8 = v6 + v8;
         v14 = 1;
       }
@@ -698,7 +980,7 @@ LABEL_10:
 
       if (v5 == ++v9)
       {
-        v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -710,7 +992,6 @@ LABEL_10:
   }
 
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __98__PGHighlightItemEnrichment_updateVisibilityStateForHighlightItemLists_withManager_progressBlock___block_invoke_2(uint64_t a1, uint64_t a2)

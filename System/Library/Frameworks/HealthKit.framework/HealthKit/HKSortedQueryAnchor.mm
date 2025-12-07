@@ -382,21 +382,21 @@ LABEL_19:
 
 - (HKSortedQueryAnchor)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"SortConstraints"];
 
   if (v8)
   {
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ObjectID"];
-    v15.receiver = self;
-    v15.super_class = HKSortedQueryAnchor;
-    v10 = [(HKSortedQueryAnchor *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = HKSortedQueryAnchor;
+    v10 = [(HKSortedQueryAnchor *)&v14 init];
     p_isa = &v10->super.isa;
     if (v10)
     {
@@ -414,7 +414,6 @@ LABEL_19:
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

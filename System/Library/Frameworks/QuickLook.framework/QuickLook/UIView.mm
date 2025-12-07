@@ -5,44 +5,38 @@
 
 void __151__UIView_QLPUDisplayVelocity__qlpu_animateView_toCenter_bounds_transform_withDuration_delay_usingSpringWithDamping_initialVelocity_options_completion___block_invoke(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277D75D18];
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v8 = MEMORY[0x277CBEA60];
   v9 = a3;
   v10 = a2;
-  v11 = [v8 arrayWithObjects:&v13 count:1];
-  [v7 qlpu_animateViews:v11 withDuration:*(a1 + 64) delay:v10 usingSpringWithDamping:v9 initialSpringVelocity:*(a1 + 40) options:*(a1 + 48) animations:*(a1 + 56) completion:{a4, v13, v14}];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v8 arrayWithObjects:&v12 count:1];
+  [v7 qlpu_animateViews:v11 withDuration:*(a1 + 64) delay:v10 usingSpringWithDamping:v9 initialSpringVelocity:*(a1 + 40) options:*(a1 + 48) animations:*(a1 + 56) completion:{a4, v12, v13}];
 }
 
 void __143__UIView_QLPUDisplayVelocity__qlpu_animateView_toCenter_bounds_transform_usingDefaultDampedSpringWithDelay_initialVelocity_options_completion___block_invoke(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277D75D18];
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v8 = MEMORY[0x277CBEA60];
   v9 = a3;
   v10 = a2;
-  v11 = [v8 arrayWithObjects:&v13 count:1];
-  [v7 qlpu_animateViews:v11 usingDefaultDampedSpringWithDelay:*(a1 + 48) initialSpringVelocity:v10 options:v9 animations:*(a1 + 40) completion:{a4, v13, v14}];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v8 arrayWithObjects:&v12 count:1];
+  [v7 qlpu_animateViews:v11 usingDefaultDampedSpringWithDelay:*(a1 + 48) initialSpringVelocity:v10 options:v9 animations:*(a1 + 40) completion:{a4, v12, v13}];
 }
 
 void __162__UIView_QLPUDisplayVelocity__qlpu_animateView_toCenter_bounds_transform_usingSpringWithDuration_delay_options_mass_stiffness_damping_initialVelocity_completion___block_invoke(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277D75D18];
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v8 = MEMORY[0x277CBEA60];
   v9 = a3;
   v10 = a2;
-  v11 = [v8 arrayWithObjects:&v13 count:1];
-  [v7 qlpu_animateViews:v11 usingSpringWithDuration:*(a1 + 56) delay:v10 options:v9 mass:*(a1 + 40) stiffness:*(a1 + 48) damping:*(a1 + 64) initialVelocity:*(a1 + 72) animations:*(a1 + 80) completion:{a4, v13, v14}];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v8 arrayWithObjects:&v12 count:1];
+  [v7 qlpu_animateViews:v11 usingSpringWithDuration:*(a1 + 56) delay:v10 options:v9 mass:*(a1 + 40) stiffness:*(a1 + 48) damping:*(a1 + 64) initialVelocity:*(a1 + 72) animations:*(a1 + 80) completion:{a4, v12, v13}];
 }
 
 uint64_t __127__UIView_QLPUDisplayVelocity___qlpu_animateView_toCenter_bounds_transform_withInitialVelocity_usingSpringAnimation_completion___block_invoke(uint64_t a1)

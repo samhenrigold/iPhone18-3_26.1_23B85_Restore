@@ -56,29 +56,27 @@
 
 - (id)dictionaryRepresentation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   invocationURL = self->_invocationURL;
-  v8[0] = @"invocationURL";
-  v8[1] = @"clipBundleID";
-  v10 = *&self->_clipBundleID;
-  v8[2] = @"title";
-  v8[3] = @"subtitle";
+  v7[0] = @"invocationURL";
+  v7[1] = @"clipBundleID";
+  v9 = *&self->_clipBundleID;
+  v7[2] = @"title";
+  v7[3] = @"subtitle";
   action = self->_action;
   subtitle = self->_subtitle;
-  v8[4] = @"action";
-  v9 = invocationURL;
+  v7[4] = @"action";
+  v8 = invocationURL;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:action];
-  v12 = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:v8 count:5];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v11 = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:v7 count:5];
 
   return v5;
 }
 
 + (void)loadAllOverridesIfNeeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!allOverrides)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -90,41 +88,39 @@
     v6 = v5;
     if (v5)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v14;
+        v9 = *v13;
         do
         {
           v10 = 0;
           do
           {
-            if (*v14 != v9)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = [[CPSDeveloperOverride alloc] initWithDictionary:*(*(&v13 + 1) + 8 * v10)];
+            v11 = [[CPSDeveloperOverride alloc] initWithDictionary:*(*(&v12 + 1) + 8 * v10)];
             [allOverrides addObject:v11];
 
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allOverrides
@@ -137,29 +133,29 @@
 
 + (id)overrideForURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
   [self loadAllOverridesIfNeeded];
   absoluteString = [lCopy absoluteString];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = allOverrides;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         invocationURL = [v10 invocationURL];
         if ([absoluteString hasPrefix:invocationURL])
         {
@@ -177,7 +173,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -185,43 +181,41 @@
 
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (void)persistAllOverrides
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = allOverrides;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        dictionaryRepresentation = [*(*(&v11 + 1) + 8 * v7) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v10 + 1) + 8 * v7) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -230,8 +224,6 @@ LABEL_12:
   cps_clipServicesDefaults = [MEMORY[0x277CBEBD0] cps_clipServicesDefaults];
   [cps_clipServicesDefaults setObject:array forKey:@"DeveloperOverrides"];
   [cps_clipServicesDefaults synchronize];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_indexOf:(id)of
@@ -272,64 +264,60 @@ void __33__CPSDeveloperOverride__indexOf___block_invoke(uint64_t a1, void *a2, u
 
 - (NSURL)heroImageURL
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBC0];
-  v18[0] = CPSharedResourcesDirectory();
-  v18[1] = @"Library";
-  v18[2] = @"com.apple.ClipServices.clipserviced";
-  v18[3] = @"DeveloperOverrides";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
+  v19[0] = CPSharedResourcesDirectory();
+  v19[1] = @"Library";
+  v19[2] = @"com.apple.ClipServices.clipserviced";
+  v19[3] = @"DeveloperOverrides";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
   v5 = [v3 fileURLWithPathComponents:v4];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v17 = 0;
-  v7 = [defaultManager createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v17];
-  v8 = v17;
+  v18 = 0;
+  v7 = [defaultManager createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v18];
+  v8 = v18;
 
   if (v7)
   {
-    v9 = v5;
+    v11 = v5;
   }
 
   else
   {
-    v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(CPSDeveloperOverride *)v10 heroImageURL];
+      [(CPSDeveloperOverride *)v12 heroImageURL];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  v11 = MEMORY[0x277CCACA8];
+  v13 = MEMORY[0x277CCACA8];
   cps_sha256String = [(NSString *)self->_invocationURL cps_sha256String];
-  v13 = [v11 stringWithFormat:@"%@-Hero.png", cps_sha256String];
-  v14 = [v9 URLByAppendingPathComponent:v13];
+  v15 = [v13 stringWithFormat:@"%@-Hero.png", cps_sha256String];
+  v16 = [v11 URLByAppendingPathComponent:v15];
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 - (void)save
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   cps_privacyPreservingDescription = [a2 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Could not save developer override hero image: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = cps_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Could not save developer override hero image: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)clear
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   cps_privacyPreservingDescription = [a2 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Could not delete developer override hero image: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = cps_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Could not delete developer override hero image: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (BOOL)isComplete
@@ -476,12 +464,11 @@ void __33__CPSDeveloperOverride__indexOf___block_invoke(uint64_t a1, void *a2, u
 
 - (void)heroImageURL
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   cps_privacyPreservingDescription = [a2 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Cannot create developer overrides folder with error: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = cps_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Cannot create developer overrides folder with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

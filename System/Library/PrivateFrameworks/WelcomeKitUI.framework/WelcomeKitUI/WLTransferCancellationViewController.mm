@@ -8,7 +8,7 @@
 
 - (WLTransferCancellationViewController)initWithWelcomeController:(id)controller context:(id)context
 {
-  v42[3] = *MEMORY[0x277D85DE8];
+  v41[3] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   contextCopy = context;
   v9 = WLLocalizedString();
@@ -17,14 +17,14 @@
   v12 = MEMORY[0x277D755B8];
   v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v14 = [v12 imageNamed:@"MoveToiOS" inBundle:v13];
-  v41.receiver = self;
-  v41.super_class = WLTransferCancellationViewController;
-  v15 = [(WLTransferCancellationViewController *)&v41 initWithTitle:v9 detailText:v11 icon:v14 contentLayout:2];
+  v40.receiver = self;
+  v40.super_class = WLTransferCancellationViewController;
+  v15 = [(WLTransferCancellationViewController *)&v40 initWithTitle:v9 detailText:v11 icon:v14 contentLayout:2];
 
   if (v15)
   {
     objc_storeStrong(&v15->_welcomeController, controller);
-    v40 = contextCopy;
+    v39 = contextCopy;
     if ([contextCopy isEnabled])
     {
       objc_storeStrong(&v15->_context, context);
@@ -36,27 +36,27 @@
       contentView = [(WLTransferCancellationViewController *)v15 contentView];
       [contentView addSubview:linkButton];
 
-      v34 = MEMORY[0x277CCAAD0];
+      v33 = MEMORY[0x277CCAAD0];
       topAnchor = [linkButton topAnchor];
       contentView2 = [(WLTransferCancellationViewController *)v15 contentView];
       topAnchor2 = [contentView2 topAnchor];
-      v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v42[0] = v35;
+      v34 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v41[0] = v34;
       bottomAnchor = [linkButton bottomAnchor];
       [(WLTransferCancellationViewController *)v15 contentView];
-      v19 = v39 = controllerCopy;
+      v19 = v38 = controllerCopy;
       bottomAnchor2 = [v19 bottomAnchor];
       v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v42[1] = v21;
+      v41[1] = v21;
       centerXAnchor = [linkButton centerXAnchor];
       contentView3 = [(WLTransferCancellationViewController *)v15 contentView];
       centerXAnchor2 = [contentView3 centerXAnchor];
       v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      v42[2] = v25;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
-      [v34 activateConstraints:v26];
+      v41[2] = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+      [v33 activateConstraints:v26];
 
-      controllerCopy = v39;
+      controllerCopy = v38;
     }
 
     boldButton = [MEMORY[0x277D37618] boldButton];
@@ -70,10 +70,9 @@
     navigationItem = [(OBBaseWelcomeController *)v15 navigationItem];
     [navigationItem setHidesBackButton:1 animated:0];
 
-    contextCopy = v40;
+    contextCopy = v39;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

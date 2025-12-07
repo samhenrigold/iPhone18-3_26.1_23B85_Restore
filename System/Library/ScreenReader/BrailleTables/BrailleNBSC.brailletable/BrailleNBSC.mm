@@ -1,13 +1,13 @@
-id NBSCLog()
+id NBSCLog(uint64_t a1)
 {
   if (qword_41110 != -1)
   {
     sub_23450();
   }
 
-  v1 = qword_41108;
+  v2 = qword_41108;
 
-  return v1;
+  return v2;
 }
 
 void sub_E64(id a1)
@@ -17,16 +17,16 @@ void sub_E64(id a1)
   _objc_release_x1();
 }
 
-id NBSCLogFormatParser()
+id NBSCLogFormatParser(uint64_t a1)
 {
   if (qword_41120 != -1)
   {
     sub_23464();
   }
 
-  v1 = qword_41118;
+  v2 = qword_41118;
 
-  return v1;
+  return v2;
 }
 
 void sub_EEC(id a1)
@@ -1527,18 +1527,18 @@ LABEL_27:
   return result;
 }
 
-uint64_t ktoau::SelectList(uint64_t IsKei, uint64_t a2, uint64_t a3)
+uint64_t ktoau::SelectList(uint64_t IsKanjiNa, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   v4 = a2;
-  v5 = IsKei;
-  v6 = *(IsKei + 8);
-  *(IsKei + 8) = 0;
-  *(IsKei + 16) = v6;
-  v7 = *(IsKei + 40);
-  *(IsKei + 40) = 0;
-  *(IsKei + 48) = v7;
-  v8 = *(IsKei + 471064);
+  v5 = IsKanjiNa;
+  v6 = *(IsKanjiNa + 8);
+  *(IsKanjiNa + 8) = 0;
+  *(IsKanjiNa + 16) = v6;
+  v7 = *(IsKanjiNa + 40);
+  *(IsKanjiNa + 40) = 0;
+  *(IsKanjiNa + 48) = v7;
+  v8 = *(IsKanjiNa + 471064);
   if (v8 < 1)
   {
     goto LABEL_48;
@@ -1553,11 +1553,11 @@ uint64_t ktoau::SelectList(uint64_t IsKei, uint64_t a2, uint64_t a3)
   v13 = 0;
   v14 = 0;
   v15 = 0;
-  v35 = IsKei + 460824;
+  v35 = IsKanjiNa + 460824;
   v37 = v6 & 0x81;
   v38 = (v7 >> 7) & 1 | ((v6 & 0x80) >> 7);
-  v43 = IsKei + 460816;
-  v16 = IsKei + 460820;
+  v43 = IsKanjiNa + 460816;
+  v16 = IsKanjiNa + 460820;
   v40 = v8 << 10;
   v41 = 0;
   while (1)
@@ -1623,8 +1623,8 @@ uint64_t ktoau::SelectList(uint64_t IsKei, uint64_t a2, uint64_t a3)
     {
       v15 |= 0x200u;
       *(v5 + 8) = v15;
-      IsKei = wcslen((v17 + 8));
-      if (*(v43 + 4 * IsKei + v13) == 120)
+      IsKanjiNa = wcslen((v17 + 8));
+      if (*(v43 + 4 * IsKanjiNa + v13) == 120)
       {
         if (v37)
         {
@@ -1633,16 +1633,16 @@ uint64_t ktoau::SelectList(uint64_t IsKei, uint64_t a2, uint64_t a3)
       }
     }
 
-    IsKei = wcslen((v17 + 8));
-    if (*(v16 + 4 * IsKei + v13) == 33)
+    IsKanjiNa = wcslen((v17 + 8));
+    if (*(v16 + 4 * IsKanjiNa + v13) == 33)
     {
       v15 |= 0x100u;
       *(v5 + 8) = v15;
       v18 = (a2 + 4 * *(v17 + 8));
-      if ((v38 & 1) != 0 || (IsKei = ktoau::IsKei(IsKei, (a2 + 4 * *(v17 + 8))), IsKei))
+      if ((v38 & 1) != 0 || (IsKanjiNa = ktoau::IsKei(IsKanjiNa, (a2 + 4 * *(v17 + 8))), IsKanjiNa))
       {
-        IsKei = ktoau::IsKei(IsKei, v18);
-        if (IsKei)
+        IsKanjiNa = ktoau::IsKei(IsKanjiNa, v18);
+        if (IsKanjiNa)
         {
           *(v5 + 8) = 1024;
         }
@@ -1654,9 +1654,9 @@ uint64_t ktoau::SelectList(uint64_t IsKei, uint64_t a2, uint64_t a3)
     if (v13)
     {
       v19 = *(v16 + 4 * wcslen((v17 + 8)) + v13);
-      IsKei = wcslen((v43 + v13 - 1016));
+      IsKanjiNa = wcslen((v43 + v13 - 1016));
       v20 = v42;
-      if (v19 <= *(v43 + 4 * IsKei + v13 - 1020))
+      if (v19 <= *(v43 + 4 * IsKanjiNa + v13 - 1020))
       {
         v21 = v41;
       }
@@ -1700,10 +1700,10 @@ LABEL_36:
   }
 
   v23 = v41;
-  IsKei = wcslen((v35 + (v41 << 10)));
+  IsKanjiNa = wcslen((v35 + (v41 << 10)));
   v3 = a3;
   v4 = a2;
-  if (*(v35 + (v41 << 10) + 4 * IsKei - 8) == 120 && !v37)
+  if (*(v35 + (v41 << 10) + 4 * IsKanjiNa - 8) == 120 && !v37)
   {
     if (v41 != 1)
     {
@@ -1719,23 +1719,23 @@ LABEL_48:
 
 LABEL_41:
   v24 = (v35 + (v23 << 10));
-  IsKei = wcslen(v24);
-  if (v24[IsKei - 1] == 35)
+  IsKanjiNa = wcslen(v24);
+  if (v24[IsKanjiNa - 1] == 35)
   {
-    IsKei = ktoau::IsKanjiNa(v5, (a2 + 4 * *v24), 1);
-    if (!IsKei)
+    IsKanjiNa = ktoau::IsKanjiNa(v5, (a2 + 4 * *v24), 1);
+    if (!IsKanjiNa)
     {
-      IsKei = ktoau::IsHiraNa(v5, (a2 + 4 * *v24), 1);
-      if (!IsKei)
+      IsKanjiNa = ktoau::IsHiraNa(v5, (a2 + 4 * *v24), 1);
+      if (!IsKanjiNa)
       {
-        IsKei = ktoau::IsKataNa(v5, (a2 + 4 * *v24), 1);
-        if (!IsKei)
+        IsKanjiNa = ktoau::IsKataNa(v5, (a2 + 4 * *v24), 1);
+        if (!IsKanjiNa)
         {
-          IsKei = ktoau::IsSetubiNa(v5, (a2 + 4 * *v24), 0);
-          if (!IsKei)
+          IsKanjiNa = ktoau::IsSetubiNa(v5, (a2 + 4 * *v24), 0);
+          if (!IsKanjiNa)
           {
-            IsKei = ktoau::IsKei(IsKei, (a2 + 4 * *v24));
-            if (!IsKei)
+            IsKanjiNa = ktoau::IsKei(IsKanjiNa, (a2 + 4 * *v24));
+            if (!IsKanjiNa)
             {
               *(v5 + 8) &= ~0x80u;
               --v22;
@@ -1853,7 +1853,7 @@ LABEL_73:
 LABEL_76:
   v26 = (*(v5 + 32) >> 27) & 7;
   v27 = (v4 + 4 * *(v5 + (v26 << 10) + 460824));
-  if (ktoau::IsKei(IsKei, v27))
+  if (ktoau::IsKei(IsKanjiNa, v27))
   {
     v28 = 1024;
     v22 = v26;
@@ -2001,12 +2001,12 @@ LABEL_19:
 
 uint64_t ktoau::IsKei(uint64_t a1, const __int32 *a2)
 {
-  if (!dword_3B7A4)
+  if (!dword_3B7A4[0])
   {
     return 0;
   }
 
-  for (i = &dword_3B7A4; ; i += 10)
+  for (i = dword_3B7A4; ; i += 10)
   {
     v4 = wcslen(i);
     if (!wcsncmp(a2, i, v4))
@@ -4657,7 +4657,7 @@ LABEL_2234:
                   return 0;
                 }
 
-                v14 = &unk_25D68;
+                v14 = dword_25D68;
                 goto LABEL_3920;
               }
 
@@ -12696,7 +12696,7 @@ LABEL_2978:
             return 0;
           }
 
-          v14 = &unk_270A0;
+          v14 = dword_270A0;
           goto LABEL_3920;
         }
 
@@ -14052,7 +14052,7 @@ LABEL_3272:
           }
 
 LABEL_2554:
-          v14 = &unk_27220;
+          v14 = dword_27220;
           goto LABEL_3920;
         }
 
@@ -15811,7 +15811,7 @@ LABEL_3380:
 
           if (a4 == 12356 || a4 == 12367)
           {
-            v14 = &unk_27220;
+            v14 = dword_27220;
             goto LABEL_3920;
           }
 

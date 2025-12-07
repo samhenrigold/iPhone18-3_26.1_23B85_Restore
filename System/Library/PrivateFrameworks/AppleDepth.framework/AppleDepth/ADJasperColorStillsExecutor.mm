@@ -4,9 +4,9 @@
 - (id)getIntermediates;
 - (id)initForDevice:(id)device;
 - (int64_t)allocateIntermediateBuffers;
+- (int64_t)executeWithColor:(__n128)color pointCloudArray:(__n128)array pointCloud2ColorTransform:(__n128)transform colorCameraCalibration:(uint64_t)calibration outDepthMap:(__CVBuffer *)map;
 - (int64_t)numberOfExecutionSteps;
 - (int64_t)prepareForEngineType:(unint64_t)type inputROI:(CGRect)i;
-- (uint64_t)executeWithColor:(__n128)color pointCloudArray:(__n128)array pointCloud2ColorTransform:(__n128)transform colorCameraCalibration:(uint64_t)calibration outDepthMap:(__CVBuffer *)map;
 - (void)dealloc;
 - (void)deallocateEspressoBuffers;
 @end
@@ -195,7 +195,7 @@
   [(ADExecutor *)&v10 dealloc];
 }
 
-- (uint64_t)executeWithColor:(__n128)color pointCloudArray:(__n128)array pointCloud2ColorTransform:(__n128)transform colorCameraCalibration:(uint64_t)calibration outDepthMap:(__CVBuffer *)map
+- (int64_t)executeWithColor:(__n128)color pointCloudArray:(__n128)array pointCloud2ColorTransform:(__n128)transform colorCameraCalibration:(uint64_t)calibration outDepthMap:(__CVBuffer *)map
 {
   v51 = *MEMORY[0x277D85DE8];
   v42 = a2.n128_f64[0];

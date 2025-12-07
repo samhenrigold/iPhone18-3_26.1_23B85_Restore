@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CarouselItemTextOverlay();
+  v5.super_class = type metadata accessor for CarouselItemTextOverlay(0);
   v2 = v5.receiver;
   [(CarouselItemTextOverlay *)&v5 layoutSubviews];
   sub_100112988(v4);
@@ -43,11 +43,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension23CarouselItemTextOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->badgeLabel[OBJC_IVAR____TtC20ProductPageExtension23CarouselItemTextOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10001CE50(v3);
-    v3(v5);
+    v6 = sub_10001CE50(v3, v4);
+    v3(v6);
 
-    sub_1000167E0(v3);
+    sub_1000167E0(v3, v4);
   }
 }
 

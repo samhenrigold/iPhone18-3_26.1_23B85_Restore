@@ -24,39 +24,13 @@
   accountKeyHash = [(IdsDeviceMutation *)self accountKeyHash];
   v5 = [(TLSMessageClass *)self encodeHashValue:accountKeyHash buffer:v3];
 
-  if (!v5)
-  {
-    goto LABEL_14;
-  }
-
-  deviceIdHash = [(IdsDeviceMutation *)self deviceIdHash];
-  v7 = [(TLSMessageClass *)self encodeHashValue:deviceIdHash buffer:v3];
-
-  if (!v7)
-  {
-    goto LABEL_14;
-  }
-
-  clientDataHash = [(IdsDeviceMutation *)self clientDataHash];
-  v9 = [(TLSMessageClass *)self encodeHashValue:clientDataHash buffer:v3];
-
-  if (!v9 || ![(TLSMessageClass *)self encodeUint64:[(IdsDeviceMutation *)self appVersion] buffer:v3])
-  {
-    goto LABEL_14;
-  }
-
-  idsMutation = [(IdsDeviceMutation *)self idsMutation];
-  mutationType = [idsMutation mutationType];
-
-  v12 = mutationType == 1 && [(IdsDeviceMutation *)self accountMismatch];
-  if (-[TLSMessageClass encodeBool:buffer:](self, "encodeBool:buffer:", v12, v3) && ((-[IdsDeviceMutation idsMutation](self, "idsMutation"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 mutationType], v13, v14 != 1) ? (v15 = 0) : (v15 = -[IdsDeviceMutation expiryMs](self, "expiryMs")), -[TLSMessageClass encodeUint64:buffer:](self, "encodeUint64:buffer:", v15, v3)))
+  if (v5 && (-[IdsDeviceMutation deviceIdHash](self, "deviceIdHash"), v6 = objc_claimAutoreleasedReturnValue(), v7 = -[TLSMessageClass encodeHashValue:buffer:](self, "encodeHashValue:buffer:", v6, v3), v6, v7) && (-[IdsDeviceMutation clientDataHash](self, "clientDataHash"), v8 = objc_claimAutoreleasedReturnValue(), v9 = -[TLSMessageClass encodeHashValue:buffer:](self, "encodeHashValue:buffer:", v8, v3), v8, v9) && -[TLSMessageClass encodeUint64:buffer:](self, "encodeUint64:buffer:", -[IdsDeviceMutation appVersion](self, "appVersion"), v3) && ((-[IdsDeviceMutation idsMutation](self, "idsMutation"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 mutationType], v10, v11 != 1) ? (v12 = 0) : (v12 = -[IdsDeviceMutation accountMismatch](self, "accountMismatch")), -[TLSMessageClass encodeBool:buffer:](self, "encodeBool:buffer:", v12, v3) && ((-[IdsDeviceMutation idsMutation](self, "idsMutation"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "mutationType"), v13, v14 != 1) ? (v15 = 0) : (v15 = -[IdsDeviceMutation expiryMs](self, "expiryMs")), -[TLSMessageClass encodeUint64:buffer:](self, "encodeUint64:buffer:", v15, v3))))
   {
     v16 = v3;
   }
 
   else
   {
-LABEL_14:
     v16 = 0;
   }
 

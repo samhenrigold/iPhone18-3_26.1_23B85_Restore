@@ -452,7 +452,7 @@ uint64_t __111__PKAutoRefineTaskCoordinator_autoRefineTask_synthesizeRefinedDraw
   return result;
 }
 
-uint64_t __111__PKAutoRefineTaskCoordinator_autoRefineTask_synthesizeRefinedDrawingForStrokes_transcription_completionBlock___block_invoke_12(uint64_t a1)
+_BYTE *__111__PKAutoRefineTaskCoordinator_autoRefineTask_synthesizeRefinedDrawingForStrokes_transcription_completionBlock___block_invoke_12(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
   v2 = *(a1 + 32);

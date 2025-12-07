@@ -102,13 +102,13 @@ void __35__MIBUSelectResponse__deserialize___block_invoke_14()
 
 - (id)serialize
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if (![(MIBUNFCResponse *)self rejected])
   {
     protocolVersion = [(MIBUSelectResponse *)self protocolVersion];
-    v18[0] = protocolVersion;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = protocolVersion;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v6 = [v3 serialize:&unk_286AC83D0 withValue:v5];
 
     if (v6)
@@ -127,14 +127,14 @@ void __35__MIBUSelectResponse__deserialize___block_invoke_14()
         dispatch_once(&MIBUOnceToken, &__block_literal_global_7);
       }
 
-      v13 = MIBUConnObj;
+      v12 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
-        v14 = v13;
+        v13 = v12;
         error2 = [(MIBUNFCResponse *)self error];
-        v16 = 138543362;
-        v17 = error2;
-        _os_log_error_impl(&dword_259ABF000, v14, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = error2;
+        _os_log_error_impl(&dword_259ABF000, v13, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", &v15, 0xCu);
       }
     }
 
@@ -145,19 +145,17 @@ void __35__MIBUSelectResponse__deserialize___block_invoke_14()
         dispatch_once(&MIBUOnceToken, &__block_literal_global_5);
       }
 
-      v12 = MIBUConnObj;
+      v11 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_error_impl(&dword_259ABF000, v12, OS_LOG_TYPE_ERROR, "Failed to serialize protocol version", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_error_impl(&dword_259ABF000, v11, OS_LOG_TYPE_ERROR, "Failed to serialize protocol version", &v15, 2u);
       }
     }
   }
 
   serializedData = 0;
 LABEL_5:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return serializedData;
 }

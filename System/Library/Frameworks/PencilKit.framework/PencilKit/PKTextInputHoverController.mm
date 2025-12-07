@@ -3,7 +3,7 @@
 - (id)_ibeamLayerCreateIfNecessary;
 - (id)initWithDelegate:(id *)delegate;
 - (id)view;
-- (uint64_t)performLineBreakAfterTapIfPossibleForElement:(double)element location:(CGFloat)location;
+- (uint64_t)performLineBreakAfterTapIfPossibleForElement:(CGFloat)element location:(CGFloat)location;
 - (void)didReceiveNormalTouch:(uint64_t *)touch;
 - (void)hideIBeamLayer;
 - (void)hoverController:(id)controller didBegin:(id *)begin;
@@ -433,7 +433,7 @@ LABEL_24:
     v107 = update->var0.var0.x;
     v108 = update->var0.var0.y;
     view6 = [(PKTextInputHoverController *)&self->super.isa view];
-    coordinateSpace3 = [(PKTextInputElement *)self->__ibeamElement coordinateSpace];
+    coordinateSpace3 = [(PKTextInputElement *)&self->__ibeamElement->super.isa coordinateSpace];
     v111 = *MEMORY[0x1E695F060];
     v112 = *(MEMORY[0x1E695F060] + 8);
     v113 = PK_convertRectFromCoordinateSpaceToCoordinateSpace(view6, coordinateSpace3, v107, v108, *MEMORY[0x1E695F060], v112);
@@ -460,7 +460,7 @@ LABEL_24:
       }
     }
 
-    coordinateSpace4 = [(PKTextInputElement *)self->__ibeamElement coordinateSpace];
+    coordinateSpace4 = [(PKTextInputElement *)&self->__ibeamElement->super.isa coordinateSpace];
     view7 = [(PKTextInputHoverController *)&self->super.isa view];
     v124 = PK_convertRectFromCoordinateSpaceToCoordinateSpace(coordinateSpace4, view7, v120, v121, v111, v112);
     v126 = v125;
@@ -484,7 +484,7 @@ LABEL_24:
       v126 = 0;
     }
 
-    if ([(PKTextInputElementContent *)self->__ibeamElementContent contentLength])
+    if ([(PKTextInputElementContent *)&self->__ibeamElementContent->super.isa contentLength])
     {
       v131 = self->__ibeamElementContent;
       view9 = [(PKTextInputHoverController *)&self->super.isa view];
@@ -580,7 +580,7 @@ LABEL_24:
       _ibeamLayerCreateIfNecessary = [(PKTextInputHoverController *)&self->super.isa _ibeamLayerCreateIfNecessary];
       grayColor = [MEMORY[0x1E69DC888] grayColor];
       v174 = v126 == 0;
-      v175 = [(PKTextInputElementContent *)self->__ibeamElementContent contentLength]- 1;
+      v175 = [(PKTextInputElementContent *)&self->__ibeamElementContent->super.isa contentLength]- 1;
       v176 = v126 >= v175;
       v177 = v126 - 1;
       v230 = v162;
@@ -694,7 +694,7 @@ LABEL_84:
       }
 
       v227 = _ibeamLayerCreateIfNecessary;
-      if (v126 >= [(PKTextInputElementContent *)self->__ibeamElementContent contentLength]- 1)
+      if (v126 >= [(PKTextInputElementContent *)&self->__ibeamElementContent->super.isa contentLength]- 1)
       {
 LABEL_77:
         v181 = v153;
@@ -2203,7 +2203,7 @@ LABEL_63:
 LABEL_64:
 }
 
-- (uint64_t)performLineBreakAfterTapIfPossibleForElement:(double)element location:(CGFloat)location
+- (uint64_t)performLineBreakAfterTapIfPossibleForElement:(CGFloat)element location:(CGFloat)location
 {
   v7 = a2;
   if (self)

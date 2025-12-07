@@ -620,33 +620,33 @@ LABEL_9:
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
-void __66__AXVoiceOverPunctuationGroupController__punctuationGroupChanged___block_invoke(uint64_t a1)
+void __66__AXVoiceOverPunctuationGroupController__punctuationGroupChanged___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXLogPunctuationStorage();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = AXLogPunctuationStorage();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "Group changed: %@", buf, 0xCu);
+    v14 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Group changed: %@", buf, 0xCu);
   }
 
   [*(a1 + 40) beginUpdates];
-  v4 = *(a1 + 40);
-  v5 = [v4 specifierForID:@"GroupName"];
-  [v4 reloadSpecifier:v5 animated:1];
+  v5 = *(a1 + 40);
+  v6 = [v5 specifierForID:@"GroupName"];
+  [v5 reloadSpecifier:v6 animated:1];
 
   [*(a1 + 40) _updateGroupEntries];
-  v6 = [*(a1 + 40) specifierForID:@"AXBasePunctuationGroup"];
-  [*(a1 + 40) reloadSpecifier:v6 animated:1];
-  v7 = [*(a1 + 40) specifierForID:@"AutoSwitch"];
+  v7 = [*(a1 + 40) specifierForID:@"AXBasePunctuationGroup"];
   [*(a1 + 40) reloadSpecifier:v7 animated:1];
+  v8 = [*(a1 + 40) specifierForID:@"AutoSwitch"];
+  [*(a1 + 40) reloadSpecifier:v8 animated:1];
   [*(a1 + 40) endUpdates];
-  v8 = [*(a1 + 40) table];
-  v9 = [*(a1 + 40) indexPathForSpecifier:v6];
+  v9 = [*(a1 + 40) table];
   v10 = [*(a1 + 40) indexPathForSpecifier:v7];
-  v11 = [NSArray axArrayByIgnoringNilElementsWithCount:2, v9, v10];
-  [v8 reloadRowsAtIndexPaths:v11 withRowAnimation:5];
+  v11 = [*(a1 + 40) indexPathForSpecifier:v8];
+  v12 = [NSArray axArrayByIgnoringNilElementsWithCount:2, v10, v11];
+  [v9 reloadRowsAtIndexPaths:v12 withRowAnimation:5];
 }
 
 - (void)_punctuationGroupChangedFromCoreData:(id)data

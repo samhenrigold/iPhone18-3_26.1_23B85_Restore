@@ -1,4 +1,4 @@
-int *resample_horizontal<float,float,1,true>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<float,float,1,true>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -527,7 +527,7 @@ LABEL_69:
   return result;
 }
 
-int *resample_horizontal<float,float,5,false>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t *a8, int *a9, int a10)
+int *resample_horizontal<float,float,5,false>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, int a6, uint64_t a7, uint64_t *a8, int *a9, unsigned int a10)
 {
   if (a6 >= 1 && a10 >= 1)
   {
@@ -1221,7 +1221,7 @@ LABEL_125:
   return result;
 }
 
-int *resample_horizontal<float,float,2,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<float,float,2,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -1736,7 +1736,7 @@ LABEL_101:
   return result;
 }
 
-float32x2_t *resample_horizontal<float,float,4,false>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, float32x4_t a7, uint64_t a8, unsigned int a9, uint64_t a10, uint64_t *a11, int *a12, int a13)
+float32x2_t *resample_horizontal<float,float,4,false>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, float32x4_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t *a11, int *a12, unsigned int a13)
 {
   if (a9 >= 1 && a13 >= 1)
   {
@@ -2100,7 +2100,7 @@ LABEL_65:
   return result;
 }
 
-int *resample_horizontal<float,float,3,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<float,float,3,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -2649,7 +2649,7 @@ LABEL_113:
   return result;
 }
 
-int *resample_horizontal<float,float,1,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<float,float,1,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -3083,7 +3083,7 @@ LABEL_99:
   return result;
 }
 
-float32x2_t *resample_horizontal<half,half,4,true>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, double a7, float32x4_t a8, uint64_t a9, int a10, uint64_t a11, uint64_t *a12, int *a13, int a14)
+float32x2_t *resample_horizontal<half,half,4,true>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, double a7, float32x4_t a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12, int *a13, unsigned int a14)
 {
   if (a10 >= 1 && a14 >= 1)
   {
@@ -3532,7 +3532,7 @@ LABEL_62:
   return result;
 }
 
-int *resample_horizontal<half,half,3,true>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t *a8, int *a9, int a10)
+int *resample_horizontal<half,half,3,true>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, int a6, uint64_t a7, uint64_t *a8, int *a9, unsigned int a10)
 {
   if (a6 >= 1 && a10 >= 1)
   {
@@ -4344,7 +4344,7 @@ LABEL_159:
   return result;
 }
 
-int *resample_horizontal<half,half,1,true>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<half,half,1,true>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -4893,7 +4893,7 @@ LABEL_69:
   return result;
 }
 
-int *resample_horizontal<half,half,5,false>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t *a8, int *a9, int a10)
+int *resample_horizontal<half,half,5,false>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, int a6, uint64_t a7, uint64_t *a8, int *a9, unsigned int a10)
 {
   if (a6 >= 1 && a10 >= 1)
   {
@@ -5628,7 +5628,7 @@ LABEL_145:
   return result;
 }
 
-int *resample_horizontal<half,half,2,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<half,half,2,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -6146,7 +6146,7 @@ LABEL_106:
   return result;
 }
 
-float32x2_t *resample_horizontal<half,half,4,false>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, float32x4_t a7, uint64_t a8, unsigned int a9, uint64_t a10, uint64_t *a11, int *a12, int a13)
+float32x2_t *resample_horizontal<half,half,4,false>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, float32x4_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t *a11, int *a12, unsigned int a13)
 {
   if (a9 >= 1 && a13 >= 1)
   {
@@ -6499,7 +6499,7 @@ LABEL_62:
   return result;
 }
 
-int *resample_horizontal<half,half,3,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<half,half,3,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -7064,7 +7064,7 @@ LABEL_68:
   return result;
 }
 
-int *resample_horizontal<half,half,1,false>(int *result, unsigned int a2, double a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t *a7, int *a8, int a9)
+int *resample_horizontal<half,half,1,false>(int *result, unsigned int a2, double a3, uint64_t a4, int a5, uint64_t a6, uint64_t *a7, int *a8, unsigned int a9)
 {
   if (a5 >= 1 && a9 >= 1)
   {
@@ -7510,7 +7510,7 @@ LABEL_100:
   return result;
 }
 
-int16x4_t *resample_horizontal<unsigned short,int,4,true>(int16x4_t *result, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int16x4_t *resample_horizontal<unsigned short,int,4,true>(int16x4_t *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
 {
   if (a4 >= 1 && a8 >= 1)
   {
@@ -7710,7 +7710,7 @@ LABEL_103:
       v53 = (v11 + 8 * v50);
       v54 = &v53[-2] + 8 * v52;
       v55 = (v12 + 2 * v50);
-      v56 = &v31[1];
+      v56 = v31 + 1;
       v57 = 0uLL;
       if (v53 >= v54)
       {
@@ -7735,7 +7735,7 @@ LABEL_103:
           {
             if (v58 == 1)
             {
-              v8.i16[0] = *v56;
+              v8.i16[0] = v56->i16[0];
             }
 
             else
@@ -7754,15 +7754,15 @@ LABEL_103:
 
                 else
                 {
-                  v69 = v56[3];
+                  v69 = v56->u16[3];
                 }
 
-                v68.i32[0] = v56[2];
+                v68.i32[0] = v56->u16[2];
                 v68.i32[1] = v69;
               }
 
-              v9.i16[0] = *v56;
-              v9.i16[2] = v56[1];
+              v9.i16[0] = v56->i16[0];
+              v9.i16[2] = v56->i16[1];
               v8 = vuzp1_s16(*v9.i8, v68);
             }
           }
@@ -7778,7 +7778,7 @@ LABEL_103:
           v8 = *v56;
         }
 
-        v56 += 4;
+        ++v56;
         v64 = *v53;
         v65 = v53[1];
         v53 += 2;
@@ -7822,8 +7822,8 @@ LABEL_65:
       {
         if (v70 == 1)
         {
-          v76 = *v56;
-          v56 += 4;
+          v76 = v56->i16[0];
+          ++v56;
           v77 = 0;
           v8 = v76;
           v71.i64[0] = v53->i64[0];
@@ -7844,15 +7844,15 @@ LABEL_65:
 
           else
           {
-            v79 = v56[3];
+            v79 = v56->u16[3];
           }
 
-          v78.i32[0] = v56[2];
+          v78.i32[0] = v56->u16[2];
           v78.i32[1] = v79;
         }
 
-        v9.i16[0] = *v56;
-        v9.i16[2] = v56[1];
+        v9.i16[0] = v56->i16[0];
+        v9.i16[2] = v56->i16[1];
         v8 = vuzp1_s16(*v9.i8, v78);
       }
 
@@ -7861,7 +7861,7 @@ LABEL_65:
         v8 = *v56;
       }
 
-      v56 += 4;
+      ++v56;
       if (v70 >= 4)
       {
         v9 = v53[1];
@@ -7953,7 +7953,7 @@ LABEL_71:
   return result;
 }
 
-int *resample_horizontal<unsigned short,int,3,true>(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_horizontal<unsigned short,int,3,true>(int *result, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
 {
   if (a4 >= 1 && a8 >= 1)
   {
@@ -8725,7 +8725,7 @@ LABEL_102:
   return result;
 }
 
-int *resample_horizontal<unsigned short,int,1,true>(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_horizontal<unsigned short,int,1,true>(int *result, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
 {
   if (a4 >= 1 && a8 >= 1)
   {
@@ -9328,7 +9328,7 @@ LABEL_83:
   return result;
 }
 
-int *resample_horizontal<unsigned short,int,5,false>(int *result, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6, int *a7, int a8)
+int *resample_horizontal<unsigned short,int,5,false>(int *result, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6, int *a7, unsigned int a8)
 {
   if (a4 >= 1 && a8 >= 1)
   {

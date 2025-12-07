@@ -5,6 +5,8 @@
 - (float)confidence;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setConfidence:(float)confidence;
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity;
+- (void)setLow_confidence:(BOOL)low_confidence;
 - (void)setMeta_info:(id)meta_info;
 - (void)setMeta_info_data:(id)meta_info_data;
 - (void)setRepeated_spans:(id)repeated_spans;
@@ -75,6 +77,12 @@
   return bOOLValue;
 }
 
+- (void)setLow_confidence:(BOOL)low_confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:low_confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setRepeated_spans:(id)repeated_spans
 {
   v4 = [repeated_spans copy];
@@ -93,6 +101,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:contains_masked_profanity];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

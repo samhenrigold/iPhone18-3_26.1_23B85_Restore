@@ -33,9 +33,7 @@
 - (void)enforceQOS:(id)s
 {
   sCopy = s;
-  secureChannelProcessingQueue = self->_secureChannelProcessingQueue;
-  v7 = sCopy;
-  v6 = sCopy;
+  v3 = sCopy;
   cdp_dispatch_sync_with_qos();
 }
 
@@ -60,7 +58,7 @@
 
 - (void)_joinCircle:(id)circle
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   circleCopy = circle;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -81,9 +79,9 @@
   [v10 setObject:v11 forKeyedSubscript:*MEMORY[0x277CFD870]];
 
   keychainCircleProxy = [(CDPDSecureChannelContext *)self->_secureChannelContext keychainCircleProxy];
-  v37 = 0;
-  v14 = [keychainCircleProxy initiatingPayload:&v37];
-  v15 = v37;
+  v36 = 0;
+  v14 = [keychainCircleProxy initiatingPayload:&v36];
+  v15 = v36;
 
   v16 = *MEMORY[0x277CFD6C0];
   if (!v14 || v15)
@@ -93,7 +91,7 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v15;
+      v38 = v15;
       _os_log_impl(&dword_24510B000, v27, OS_LOG_TYPE_DEFAULT, "Secure Channel Init failed with error: %@", buf, 0xCu);
     }
 
@@ -114,7 +112,7 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v14;
+      v38 = v14;
       _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "Sending initiating payload: %@", buf, 0xCu);
     }
 
@@ -129,29 +127,27 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __43__CDPDSecureChannelController__joinCircle___block_invoke;
     aBlock[3] = &unk_278E262E0;
-    v33 = v21;
+    v32 = v21;
     selfCopy = self;
-    v35 = v6;
-    v36 = circleCopy;
+    v34 = v6;
+    v35 = circleCopy;
     v23 = v21;
     v24 = _Block_copy(aBlock);
     secureChannelProxy = [(CDPDSecureChannelContext *)self->_secureChannelContext secureChannelProxy];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __43__CDPDSecureChannelController__joinCircle___block_invoke_25;
-    v30[3] = &unk_278E26308;
-    v30[4] = self;
-    v31 = v24;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __43__CDPDSecureChannelController__joinCircle___block_invoke_25;
+    v29[3] = &unk_278E26308;
+    v29[4] = self;
+    v30 = v24;
     v26 = v24;
-    [secureChannelProxy sendPayload:v14 completion:v30];
+    [secureChannelProxy sendPayload:v14 completion:v29];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CDPDSecureChannelController__joinCircle___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -165,7 +161,7 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v6;
+      v16 = v6;
       _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Secure Channel send failed with error: %@", buf, 0xCu);
     }
 
@@ -180,14 +176,14 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke(uint64_t a1, v
   if (v5)
   {
     v10 = *(a1 + 40);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __43__CDPDSecureChannelController__joinCircle___block_invoke_22;
-    v13[3] = &unk_278E25438;
-    v13[4] = v10;
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    [v10 _processAndReplyWithMessage:v5 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __43__CDPDSecureChannelController__joinCircle___block_invoke_22;
+    v12[3] = &unk_278E25438;
+    v12[4] = v10;
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 56);
+    [v10 _processAndReplyWithMessage:v5 completion:v12];
   }
 
   else
@@ -200,8 +196,6 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke(uint64_t a1, v
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CDPDSecureChannelController__joinCircle___block_invoke_22(uint64_t a1, int a2, void *a3)
@@ -299,17 +293,16 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke_25(uint64_t a1
     __43__CDPDSecureChannelController__joinCircle___block_invoke_25_cold_1();
   }
 
-  v8 = *(*(a1 + 32) + 16);
-  v12 = *(a1 + 40);
-  v11 = v5;
-  v9 = v6;
+  v11 = *(a1 + 40);
   v10 = v5;
+  v8 = v6;
+  v9 = v5;
   cdp_dispatch_async_with_qos();
 }
 
 - (void)startCircleApplicationApprovalServerWithContext:(id)context serverStarted:(id)started completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   secureChannelContext = self->_secureChannelContext;
@@ -333,9 +326,9 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke_25(uint64_t a1
 
     if ([contextCopy managedAccountsAllowedInCDP])
     {
-      v32 = 0;
-      v18 = [contextCopy isiCDPEligibleWithError:&v32];
-      v19 = v32;
+      v31 = 0;
+      v18 = [contextCopy isiCDPEligibleWithError:&v31];
+      v19 = v31;
     }
 
     else
@@ -378,15 +371,15 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke_25(uint64_t a1
       else
       {
         v24 = [[CDPDSecureBackupController alloc] initWithContext:contextCopy uiProvider:0 delegate:0];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __104__CDPDSecureChannelController_startCircleApplicationApprovalServerWithContext_serverStarted_completion___block_invoke;
-        v27[3] = &unk_278E26330;
-        v28 = secureChannelProxy2;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __104__CDPDSecureChannelController_startCircleApplicationApprovalServerWithContext_serverStarted_completion___block_invoke;
+        v26[3] = &unk_278E26330;
+        v27 = secureChannelProxy2;
         selfCopy = self;
-        v30 = contextCopy;
-        v31 = completionCopy;
-        [(CDPDSecureBackupController *)v24 backupRecordsArePresentWithCompletion:v27];
+        v29 = contextCopy;
+        v30 = completionCopy;
+        [(CDPDSecureBackupController *)v24 backupRecordsArePresentWithCompletion:v26];
       }
     }
 
@@ -395,7 +388,7 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke_25(uint64_t a1
       if (v21)
       {
         *buf = 138412290;
-        v34 = v19;
+        v33 = v19;
         _os_log_impl(&dword_24510B000, v20, OS_LOG_TYPE_DEFAULT, "Starting server in dry move, we are not iCDP eligible (error: %@)", buf, 0xCu);
       }
 
@@ -410,8 +403,6 @@ void __43__CDPDSecureChannelController__joinCircle___block_invoke_25(uint64_t a1
     secureChannelProxy2 = _CDPStateError();
     (startedCopy)[2](startedCopy, 0, secureChannelProxy2);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __104__CDPDSecureChannelController_startCircleApplicationApprovalServerWithContext_serverStarted_completion___block_invoke(uint64_t a1)
@@ -490,7 +481,7 @@ void __104__CDPDSecureChannelController_startCircleApplicationApprovalServerWith
 
 void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CE44D8];
   v8 = *(*(a1 + 32) + 8);
   v9 = a2;
@@ -524,10 +515,10 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
   }
 
   v21 = [*(*(a1 + 32) + 8) keychainCircleProxy];
-  v39 = 0;
-  v22 = [v21 processIncomingPayload:v9 error:&v39];
+  v38 = 0;
+  v22 = [v21 processIncomingPayload:v9 error:&v38];
 
-  v23 = v39;
+  v23 = v38;
   if (v22)
   {
     v24 = MEMORY[0x277CBEC38];
@@ -539,7 +530,7 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v23;
+      v40 = v23;
       _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "Secure Channel process failed with error: %@", buf, 0xCu);
     }
 
@@ -574,19 +565,17 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
       LOBYTE(v31) = 0;
     }
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke_84;
-    v33[3] = &unk_278E26358;
-    v37 = *(a1 + 64);
-    v38 = v31;
-    v34 = v23;
-    v35 = *(a1 + 48);
-    v36 = *(a1 + 56);
-    dispatch_async(MEMORY[0x277D85CD0], v33);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke_84;
+    v32[3] = &unk_278E26358;
+    v36 = *(a1 + 64);
+    v37 = v31;
+    v33 = v23;
+    v34 = *(a1 + 48);
+    v35 = *(a1 + 56);
+    dispatch_async(MEMORY[0x277D85CD0], v32);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke_84(uint64_t a1)
@@ -627,14 +616,14 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
 
 - (void)_processAndReplyWithMessage:(id)message completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   completionCopy = completion;
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = messageCopy;
+    v38 = messageCopy;
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Processing reply: %@", buf, 0xCu);
   }
 
@@ -648,9 +637,9 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
   [v12 setObject:v13 forKeyedSubscript:*MEMORY[0x277CFD870]];
 
   keychainCircleProxy = [(CDPDSecureChannelContext *)self->_secureChannelContext keychainCircleProxy];
-  v37 = 0;
-  v16 = [keychainCircleProxy processIncomingPayload:messageCopy error:&v37];
-  v17 = v37;
+  v36 = 0;
+  v16 = [keychainCircleProxy processIncomingPayload:messageCopy error:&v36];
+  v17 = v36;
 
   if (v17)
   {
@@ -711,36 +700,34 @@ void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_c
       if (v25)
       {
         *buf = 138412290;
-        v39 = v16;
+        v38 = v16;
         _os_log_impl(&dword_24510B000, v24, OS_LOG_TYPE_DEFAULT, "Sending response: %@", buf, 0xCu);
       }
 
-      v27 = MEMORY[0x277CE44D8];
+      v26 = MEMORY[0x277CE44D8];
       context2 = [(CDPDSecureChannelContext *)self->_secureChannelContext context];
-      v29 = [v27 analyticsEventWithContext:context2 eventName:*MEMORY[0x277CFD868] category:v11];
+      v28 = [v26 analyticsEventWithContext:context2 eventName:*MEMORY[0x277CFD868] category:v11];
 
-      v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[CDPDSecureChannelContext secureChannelType](self->_secureChannelContext, "secureChannelType")}];
-      [v29 setObject:v30 forKeyedSubscript:v14];
+      v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[CDPDSecureChannelContext secureChannelType](self->_secureChannelContext, "secureChannelType")}];
+      [v28 setObject:v29 forKeyedSubscript:v14];
 
       secureChannelProxy = [(CDPDSecureChannelContext *)self->_secureChannelContext secureChannelProxy];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___block_invoke;
-      v33[3] = &unk_278E263F8;
-      v34 = v29;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___block_invoke;
+      v32[3] = &unk_278E263F8;
+      v33 = v28;
       selfCopy = self;
-      v36 = completionCopy;
-      v32 = v29;
-      [secureChannelProxy sendPayload:v16 completion:v33];
+      v35 = completionCopy;
+      v31 = v28;
+      [secureChannelProxy sendPayload:v16 completion:v32];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -753,9 +740,9 @@ void __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___
     v8 = _CDPLogSystem();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Secure Channel send failed with error: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Secure Channel send failed with error: %@", &v11, 0xCu);
     }
 
     v7 = MEMORY[0x277CBEC28];
@@ -781,100 +768,38 @@ void __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)joinCircle:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   qos_class_self();
   v0 = [OUTLINED_FUNCTION_4_0() numberWithUnsignedInt:?];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Attempting to join circle with QOS: %@. %@ will be enforced.", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __43__CDPDSecureChannelController__joinCircle___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to send initiating message for resume: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43__CDPDSecureChannelController__joinCircle___block_invoke_22_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to process and reply message with replyError: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43__CDPDSecureChannelController__joinCircle___block_invoke_22_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "We completed, but ended up with error... %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Attempting to join circle with QOS: %@. %@ will be enforced.", v3, v4, v5, v6);
 }
 
 void __43__CDPDSecureChannelController__joinCircle___block_invoke_25_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   qos_class_self();
   v0 = [OUTLINED_FUNCTION_4_0() numberWithUnsignedInt:?];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Processing SecureChannel reply with QOS: %@. %@ will be enforced.", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Processing SecureChannel reply with QOS: %@. %@ will be enforced.", v3, v4, v5, v6);
 }
 
 - (void)_startListeningWithProxy:completion:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   qos_class_self();
   v0 = [OUTLINED_FUNCTION_4_0() numberWithUnsignedInt:?];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Listening for SecureChannel payloads with QOS: %@. %@ will be enforced.", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to process requestor payload on approver side with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Listening for SecureChannel payloads with QOS: %@. %@ will be enforced.", v3, v4, v5, v6);
 }
 
 void __82__CDPDSecureChannelController__startListeningWithProxyWithEnforcedQoS_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   qos_class_self();
   v0 = [OUTLINED_FUNCTION_4_0() numberWithUnsignedInt:?];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Processing SecureChannel approvingProxy payload with QOS: %@. %@ will be enforced.", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_processAndReplyWithMessage:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to process reply with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__CDPDSecureChannelController__processAndReplyWithMessage_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to send response with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Processing SecureChannel approvingProxy payload with QOS: %@. %@ will be enforced.", v3, v4, v5, v6);
 }
 
 @end

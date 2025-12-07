@@ -10,23 +10,23 @@
 {
   itemCopy = item;
   controllerCopy = controller;
-  objc_initWeak(&location, controllerCopy);
-  v7 = MEMORY[0x1E69DCB08];
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __62__CKTranslationMenu_translateActionForChatItem_forController___block_invoke;
-  v13[3] = &unk_1E72EE058;
-  v10 = itemCopy;
-  v14 = v10;
-  objc_copyWeak(&v15, &location);
-  v11 = [v7 actionWithTitle:v9 type:0 handler:v13];
-  objc_destroyWeak(&v15);
+  inited = objc_initWeak(&location, controllerCopy);
+  v8 = MEMORY[0x1E69DCB08];
+  v9 = CKFrameworkBundle(inited);
+  v10 = [v9 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __62__CKTranslationMenu_translateActionForChatItem_forController___block_invoke;
+  v14[3] = &unk_1E72EE058;
+  v11 = itemCopy;
+  v15 = v11;
+  objc_copyWeak(&v16, &location);
+  v12 = [v8 actionWithTitle:v10 type:0 handler:v14];
+  objc_destroyWeak(&v16);
 
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __62__CKTranslationMenu_translateActionForChatItem_forController___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -43,85 +43,86 @@ void __62__CKTranslationMenu_translateActionForChatItem_forController___block_in
   itemCopy = item;
   controllerCopy = controller;
   objc_initWeak(location, controllerCopy);
-  if ([controllerCopy shouldOfferTranslateConversationInTranslateMenu])
+  shouldOfferTranslateConversationInTranslateMenu = [controllerCopy shouldOfferTranslateConversationInTranslateMenu];
+  if (shouldOfferTranslateConversationInTranslateMenu)
   {
     collectionViewController = [controllerCopy collectionViewController];
-    v8 = [collectionViewController balloonViewForChatItem:itemCopy];
+    v9 = [collectionViewController balloonViewForChatItem:itemCopy];
 
-    v9 = MEMORY[0x1E69DC650];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"TRANSLATE_THIS_MENU_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v12 = [v9 alertControllerWithTitle:&stru_1F04268F8 message:v11 preferredStyle:0];
+    v10 = MEMORY[0x1E69DC650];
+    v12 = CKFrameworkBundle(v11);
+    v13 = [v12 localizedStringForKey:@"TRANSLATE_THIS_MENU_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = [v10 alertControllerWithTitle:&stru_1F04268F8 message:v13 preferredStyle:0];
 
-    popoverPresentationController = [v12 popoverPresentationController];
-    [popoverPresentationController setSourceView:v8];
+    popoverPresentationController = [v14 popoverPresentationController];
+    [popoverPresentationController setSourceView:v9];
 
-    popoverPresentationController2 = [v12 popoverPresentationController];
+    popoverPresentationController2 = [v14 popoverPresentationController];
     [popoverPresentationController2 setPermittedArrowDirections:1];
 
-    v15 = MEMORY[0x1E69DC648];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"TRANSLATE_THIS_MESSAGE_MENU_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke;
-    v42[3] = &unk_1E72F4F30;
-    v18 = itemCopy;
-    v43 = v18;
-    objc_copyWeak(&v44, location);
-    v19 = [v15 actionWithTitle:v17 style:0 handler:v42];
-    [v12 addAction:v19];
+    v17 = MEMORY[0x1E69DC648];
+    v19 = CKFrameworkBundle(v18);
+    v20 = [v19 localizedStringForKey:@"TRANSLATE_THIS_MESSAGE_MENU_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke;
+    v47[3] = &unk_1E72F4F30;
+    v21 = itemCopy;
+    v48 = v21;
+    objc_copyWeak(&v49, location);
+    v22 = [v17 actionWithTitle:v20 style:0 handler:v47];
+    [v14 addAction:v22];
 
-    v20 = MEMORY[0x1E69DC648];
-    v21 = CKFrameworkBundle();
-    v22 = [v21 localizedStringForKey:@"TRANSLATE_THIS_CONVERSATION_MENU_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_2;
-    v39[3] = &unk_1E72F2E08;
-    objc_copyWeak(&v41, location);
-    v40 = v18;
-    v23 = [v20 actionWithTitle:v22 style:0 handler:v39];
-    [v12 addAction:v23];
+    v23 = MEMORY[0x1E69DC648];
+    v25 = CKFrameworkBundle(v24);
+    v26 = [v25 localizedStringForKey:@"TRANSLATE_THIS_CONVERSATION_MENU_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_2;
+    v44[3] = &unk_1E72F2E08;
+    objc_copyWeak(&v46, location);
+    v45 = v21;
+    v27 = [v23 actionWithTitle:v26 style:0 handler:v44];
+    [v14 addAction:v27];
 
-    v24 = MEMORY[0x1E69DC628];
-    v25 = CKFrameworkBundle();
-    v26 = [v25 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-    v27 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"translate"];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_3;
-    v36[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v38, location);
-    v28 = v12;
-    v37 = v28;
-    v29 = [v24 actionWithTitle:v26 image:v27 identifier:0 handler:v36];
+    v28 = MEMORY[0x1E69DC628];
+    v30 = CKFrameworkBundle(v29);
+    v31 = [v30 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+    v32 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"translate"];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_3;
+    v41[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v43, location);
+    v33 = v14;
+    v42 = v33;
+    v34 = [v28 actionWithTitle:v31 image:v32 identifier:0 handler:v41];
 
-    objc_destroyWeak(&v38);
-    objc_destroyWeak(&v41);
-    objc_destroyWeak(&v44);
-    v30 = v43;
+    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v46);
+    objc_destroyWeak(&v49);
+    v35 = v48;
   }
 
   else
   {
-    v31 = MEMORY[0x1E69DC628];
-    v8 = CKFrameworkBundle();
-    v28 = [v8 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-    v30 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"translate"];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_5;
-    v33[3] = &unk_1E72F4F58;
-    v34 = itemCopy;
-    objc_copyWeak(&v35, location);
-    v29 = [v31 actionWithTitle:v28 image:v30 identifier:0 handler:v33];
-    objc_destroyWeak(&v35);
+    v36 = MEMORY[0x1E69DC628];
+    v9 = CKFrameworkBundle(shouldOfferTranslateConversationInTranslateMenu);
+    v33 = [v9 localizedStringForKey:@"TRANSLATE_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+    v35 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"translate"];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke_5;
+    v38[3] = &unk_1E72F4F58;
+    v39 = itemCopy;
+    objc_copyWeak(&v40, location);
+    v34 = [v36 actionWithTitle:v33 image:v35 identifier:0 handler:v38];
+    objc_destroyWeak(&v40);
   }
 
   objc_destroyWeak(location);
 
-  return v29;
+  return v34;
 }
 
 void __65__CKTranslationMenu_translateOrbActionForChatItem_forController___block_invoke(uint64_t a1)

@@ -9,15 +9,15 @@
 - (PTEffectComposition)initWithConfig:(id)config
 {
   configCopy = config;
-  v17.receiver = self;
-  v17.super_class = PTEffectComposition;
-  v5 = [(PTEffectComposition *)&v17 init];
-  device = [configCopy device];
+  v20.receiver = self;
+  v20.super_class = PTEffectComposition;
+  v5 = [(PTEffectComposition *)&v20 init];
+  v6 = objc_msgSend_device(configCopy);
 
-  if (!device)
+  if (!v6)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PTEffectComposition initWithConfig:];
     }
@@ -25,17 +25,17 @@
     goto LABEL_14;
   }
 
-  v7 = [PTMetalContext alloc];
-  device2 = [configCopy device];
-  v9 = [(PTMetalContext *)v7 initWithDevice:device2 bundleClass:objc_opt_class()];
+  v8 = [PTMetalContext alloc];
+  v9 = objc_msgSend_device(configCopy);
+  v10 = [(PTMetalContext *)v8 initWithDevice:v9 bundleClass:objc_opt_class()];
   metalContext = v5->_metalContext;
-  v5->_metalContext = v9;
+  v5->_metalContext = v10;
 
-  v11 = v5->_metalContext;
-  if (!v11)
+  v12 = v5->_metalContext;
+  if (!v12)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PTEffectComposition initWithConfig:];
     }
@@ -43,10 +43,11 @@
     goto LABEL_14;
   }
 
-  if (![(PTMetalContext *)v11 imageblocksSupported])
+  imageblocksSupported = [(PTMetalContext *)v12 imageblocksSupported];
+  if ((imageblocksSupported & 1) == 0)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(imageblocksSupported);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PTEffectComposition initWithConfig:];
     }
@@ -54,28 +55,28 @@
     goto LABEL_14;
   }
 
-  v12 = [(PTMetalContext *)v5->_metalContext computePipelineStateFor:@"composite" withConstants:0];
+  v14 = [(PTMetalContext *)v5->_metalContext computePipelineStateFor:@"composite" withConstants:0];
   composite = v5->_composite;
-  v5->_composite = v12;
+  v5->_composite = v14;
 
   if (!v5->_composite)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PTEffectComposition initWithConfig:];
     }
 
 LABEL_14:
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
-  v14 = v5;
+  v17 = v5;
 LABEL_15:
 
-  return v14;
+  return v17;
 }
 
 - (float32x2_t)computeDownsamplingFactorWithInputSource:(void *)source inputTarget:(uint64_t)target renderRequest:(void *)request
@@ -109,21 +110,21 @@ LABEL_15:
   renderCopy = render;
   requestCopy = request;
   inputSourcePixelBuffer = [requestCopy inputSourcePixelBuffer];
-  device = [(PTMetalContext *)self->_metalContext device];
-  v10 = [PTPixelBufferUtil createTextureFromPixelBuffer:inputSourcePixelBuffer device:device textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
+  v9 = objc_msgSend_device(self->_metalContext);
+  v10 = [PTPixelBufferUtil createTextureFromPixelBuffer:inputSourcePixelBuffer device:v9 textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
 
   inputTargetPixelBuffer = [requestCopy inputTargetPixelBuffer];
-  device2 = [(PTMetalContext *)self->_metalContext device];
-  v13 = [PTPixelBufferUtil createTextureFromPixelBuffer:inputTargetPixelBuffer device:device2 textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
+  v12 = objc_msgSend_device(self->_metalContext);
+  v13 = [PTPixelBufferUtil createTextureFromPixelBuffer:inputTargetPixelBuffer device:v12 textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
 
   outputPixelBuffer = [requestCopy outputPixelBuffer];
-  device3 = [(PTMetalContext *)self->_metalContext device];
-  v16 = [PTPixelBufferUtil createTextureFromPixelBuffer:outputPixelBuffer device:device3 textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
+  v15 = objc_msgSend_device(self->_metalContext);
+  v16 = [PTPixelBufferUtil createTextureFromPixelBuffer:outputPixelBuffer device:v15 textureCache:self->metalTextureCache sRGB:0 metalYCBCRConversion:1];
 
   if (!v10 || !v13 || !v16)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_ERROR))
+    v24 = _PTLogSystem(v17);
+    if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_ERROR))
     {
       [PTEffectComposition render:renderRequest:];
     }
@@ -132,51 +133,53 @@ LABEL_15:
   }
 
   width = [v13 width];
-  if (width == [v16 width])
+  width2 = [v16 width];
+  if (width == width2)
   {
     height = [v13 height];
-    if (height == [v16 height])
+    width2 = [v16 height];
+    if (height == width2)
     {
-      [(PTEffectComposition *)self computeDownsamplingFactorWithInputSource:v10 inputTarget:v13 renderRequest:requestCopy];
-      if (vabds_f32(v19, v20) > 0.1)
+      v21 = [(PTEffectComposition *)self computeDownsamplingFactorWithInputSource:v10 inputTarget:v13 renderRequest:requestCopy];
+      if (vabds_f32(v22, v23) > 0.1)
       {
-        v21 = _PTLogSystem();
-        if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_ERROR))
+        v24 = _PTLogSystem(*&v21);
+        if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_ERROR))
         {
           [PTEffectComposition render:renderRequest:];
         }
 
 LABEL_11:
-        v22 = -10;
+        v25 = -10;
         goto LABEL_15;
       }
 
-      if (v19 >= v20)
+      if (v22 >= v23)
       {
-        v24 = v19;
+        v27 = v22;
       }
 
       else
       {
-        v24 = v20;
+        v27 = v23;
       }
 
-      v25 = (log2f(1.0 / v24) + -1.0);
+      v28 = (log2f(1.0 / v27) + -1.0);
       sourceMipmap = self->_sourceMipmap;
-      if (v24 <= 0.5)
+      if (v27 <= 0.5)
       {
-        if (!sourceMipmap || (v27 = -[MTLTexture width](self->_sourceMipmap, "width"), v27 != [v10 width] >> 1) || (v28 = -[MTLTexture height](self->_sourceMipmap, "height"), v28 != objc_msgSend(v10, "height") >> 1))
+        if (!sourceMipmap || (v30 = -[MTLTexture width](self->_sourceMipmap, "width"), v30 != [v10 width] >> 1) || (v31 = -[MTLTexture height](self->_sourceMipmap, "height"), v31 != objc_msgSend(v10, "height") >> 1))
         {
           textureUtil = [(PTMetalContext *)self->_metalContext textureUtil];
-          v30 = [textureUtil createWithWidth:objc_msgSend(v10 height:"width") >> 1 pixelFormat:objc_msgSend(v10 mipmapLevelCount:"height") >> 1, 71, -1];
-          v31 = self->_sourceMipmap;
-          self->_sourceMipmap = v30;
+          v33 = [textureUtil createWithWidth:objc_msgSend(v10 height:"width") >> 1 pixelFormat:objc_msgSend(v10 mipmapLevelCount:"height") >> 1, 71, -1];
+          v34 = self->_sourceMipmap;
+          self->_sourceMipmap = v33;
         }
 
         textureUtil2 = [(PTMetalContext *)self->_metalContext textureUtil];
         [textureUtil2 copy:renderCopy inTex:v10 outTex:self->_sourceMipmap];
 
-        if (v25 < 1)
+        if (v28 < 1)
         {
           goto LABEL_28;
         }
@@ -192,28 +195,28 @@ LABEL_11:
       }
 
 LABEL_28:
-      v21 = [[PTImageblockConfig alloc] initWithTexture:v16];
+      v24 = [[PTImageblockConfig alloc] initWithTexture:v16];
       computeCommandEncoder = [renderCopy computeCommandEncoder];
-      [computeCommandEncoder setImageblockWidth:-[PTImageblockConfig imageblockSize](v21 height:{"imageblockSize"), -[PTImageblockConfig imageblockSize](v21, "imageblockSize")}];
+      [computeCommandEncoder setImageblockWidth:-[PTImageblockConfig imageblockSize](v24 height:{"imageblockSize"), -[PTImageblockConfig imageblockSize](v24, "imageblockSize")}];
       [computeCommandEncoder setComputePipelineState:self->_composite];
       if (self->_sourceMipmap)
       {
         textureUtil3 = [(PTMetalContext *)self->_metalContext textureUtil];
-        v35 = [textureUtil3 mipmapLevelsUsingTextureView:self->_sourceMipmap];
+        v38 = [textureUtil3 mipmapLevelsUsingTextureView:self->_sourceMipmap];
 
-        v36 = [v35 count];
-        if (v36 - 1 >= v25)
+        v39 = [v38 count];
+        if (v39 - 1 >= v28)
         {
-          v37 = v25;
+          v40 = v28;
         }
 
         else
         {
-          v37 = v36 - 1;
+          v40 = v39 - 1;
         }
 
-        v38 = [v35 objectAtIndexedSubscript:v37];
-        [computeCommandEncoder setTexture:v38 atIndex:0];
+        v41 = [v38 objectAtIndexedSubscript:v40];
+        [computeCommandEncoder setTexture:v41 atIndex:0];
       }
 
       else
@@ -223,53 +226,53 @@ LABEL_28:
 
       [computeCommandEncoder setTexture:v13 atIndex:1];
       [computeCommandEncoder setTexture:v16 atIndex:2];
-      *&v50 = [v10 width];
-      *&v49 = [v10 height];
+      *&v53 = [v10 width];
+      *&v52 = [v10 height];
       [requestCopy inputCropRect];
-      v40.f64[1] = v39;
-      v42.f64[1] = v41;
-      v43.i64[0] = __PAIR64__(v49, v50);
-      v43.i64[1] = __PAIR64__(v49, v50);
-      v55 = vdivq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(v42), v40), v43);
-      [requestCopy inputTargetRect];
+      v43.f64[1] = v42;
       v45.f64[1] = v44;
-      v47.f64[1] = v46;
-      v54 = vcvt_hight_f32_f64(vcvt_f32_f64(v47), v45);
+      v46.i64[0] = __PAIR64__(v52, v53);
+      v46.i64[1] = __PAIR64__(v52, v53);
+      v58 = vdivq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(v45), v43), v46);
+      [requestCopy inputTargetRect];
+      v48.f64[1] = v47;
+      v50.f64[1] = v49;
+      v57 = vcvt_hight_f32_f64(vcvt_f32_f64(v50), v48);
       [requestCopy inputTargetRectCornerRadius];
-      v53 = v48;
-      [computeCommandEncoder setBytes:&v55 length:16 atIndex:0];
-      [computeCommandEncoder setBytes:&v54 length:16 atIndex:1];
-      [computeCommandEncoder setBytes:&v53 length:4 atIndex:2];
-      if (v21)
+      v56 = v51;
+      [computeCommandEncoder setBytes:&v58 length:16 atIndex:0];
+      [computeCommandEncoder setBytes:&v57 length:16 atIndex:1];
+      [computeCommandEncoder setBytes:&v56 length:4 atIndex:2];
+      if (v24)
       {
-        [(PTImageblockConfig *)v21 threads];
-        [(PTImageblockConfig *)v21 threadsPerGroup];
+        objc_msgSend_threads(v24);
+        objc_msgSend_threadsPerGroup(v24);
       }
 
       else
       {
-        memset(v52, 0, sizeof(v52));
-        memset(v51, 0, sizeof(v51));
+        memset(v55, 0, sizeof(v55));
+        memset(v54, 0, sizeof(v54));
       }
 
-      [computeCommandEncoder dispatchThreads:v52 threadsPerThreadgroup:v51];
+      [computeCommandEncoder dispatchThreads:v55 threadsPerThreadgroup:v54];
       [computeCommandEncoder endEncoding];
 
-      v22 = 0;
+      v25 = 0;
       goto LABEL_15;
     }
   }
 
-  v21 = _PTLogSystem();
-  if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_ERROR))
+  v24 = _PTLogSystem(width2);
+  if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_ERROR))
   {
     [PTEffectComposition render:renderRequest:];
   }
 
-  v22 = -3;
+  v25 = -3;
 LABEL_15:
 
-  return v22;
+  return v25;
 }
 
 @end

@@ -75,15 +75,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -92,34 +98,33 @@
     {
       v19 = 138412290;
       v20 = objc_opt_class();
-      LODWORD(v18) = 12;
-      selfCopy = _os_log_send_and_compose_impl();
+      selfCopy = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Rejecting access: no access rules", &v19, 12);
       if (!selfCopy)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      [MEMORY[0x1E696AEC0] stringWithCString:selfCopy encoding:{4, &v19, v18}];
+      [MEMORY[0x1E696AEC0] stringWithCString:selfCopy encoding:4];
       free(selfCopy);
       SSFileLog();
     }
 
-LABEL_12:
+LABEL_13:
     LOBYTE(selfCopy) = 0;
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v11 = v10;
   v12 = [v10 objectForKey:@"request-patterns"];
   if (![selfCopy _urls:objc_msgSend(MEMORY[0x1E695DEC8] matchPatternStrings:{"arrayWithObjects:", l, 0), v12}])
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v13 = [selfCopy _copyResourceURLsForWebFrame:frame];
   LOBYTE(selfCopy) = [selfCopy _urls:v13 matchPatternStrings:{objc_msgSend(v11, "objectForKey:", @"origin-patterns"}];
 
-LABEL_13:
+LABEL_14:
   if (error && (selfCopy & 1) == 0)
   {
     *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:107 userInfo:0];
@@ -288,41 +293,45 @@ LABEL_13:
             shouldLog = [mEMORY[0x1E69D4938] shouldLog];
             if ([mEMORY[0x1E69D4938] shouldLogToDisk])
             {
-              v23 = shouldLog | 2;
+              LODWORD(v23) = shouldLog | 2;
             }
 
             else
             {
-              v23 = shouldLog;
+              LODWORD(v23) = shouldLog;
             }
 
-            if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+            oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+            if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+            {
+              v23 = v23;
+            }
+
+            else
             {
               v23 &= 2u;
             }
 
             if (v23)
             {
-              v24 = objc_opt_class();
+              v25 = objc_opt_class();
               v39 = 138412546;
-              v40 = v24;
+              v40 = v25;
               v41 = 2112;
               v42 = v20;
-              LODWORD(v30) = 22;
-              v29 = &v39;
-              v25 = _os_log_send_and_compose_impl();
-              if (v25)
+              v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Rejecting URL: %@", &v39, 22);
+              if (v26)
               {
-                v26 = v25;
-                v27 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v39, v30}];
-                free(v26);
-                v29 = v27;
+                v27 = v26;
+                v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+                free(v27);
+                v30 = v28;
                 SSFileLog();
               }
             }
 
             v16 = v19;
-            goto LABEL_31;
+            goto LABEL_32;
           }
 
           ++v19;
@@ -345,7 +354,7 @@ LABEL_13:
       v16 = 0;
     }
 
-LABEL_31:
+LABEL_32:
   }
 
   else

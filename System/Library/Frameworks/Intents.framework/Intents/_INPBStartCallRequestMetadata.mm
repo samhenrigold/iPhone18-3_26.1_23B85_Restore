@@ -94,7 +94,6 @@
   toCopy = to;
   if ([(_INPBStartCallRequestMetadata *)self hasAppInferred])
   {
-    appInferred = self->_appInferred;
     PBDataWriterWriteBOOLField();
   }
 }

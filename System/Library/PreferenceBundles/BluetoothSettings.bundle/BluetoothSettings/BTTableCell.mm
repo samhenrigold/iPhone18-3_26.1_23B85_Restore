@@ -2,6 +2,7 @@
 - (BTTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)setDeviceState:(int)state;
 - (void)setDeviceStatePaired:(BOOL)paired andConnected:(BOOL)connected andPendingSetup:(BOOL)setup;
 @end
 
@@ -32,6 +33,84 @@
   v3.receiver = self;
   v3.super_class = BTTableCell;
   [(PSTableCell *)&v3 dealloc];
+}
+
+- (void)setDeviceState:(int)state
+{
+  [(BTTableCell *)self setState:*&state];
+  state = [(BTTableCell *)self state];
+  if (state <= 4)
+  {
+    if (state < 2)
+    {
+      valueLabel = [(PSTableCell *)self valueLabel];
+      [valueLabel setText:0];
+    }
+
+    else
+    {
+      if ((state - 3) < 2)
+      {
+        v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v6 = v5;
+        v7 = @"PAIRED";
+LABEL_14:
+        v16 = [v5 localizedStringForKey:v7 value:&stru_284EE3458 table:@"Devices"];
+        valueLabel2 = [(PSTableCell *)self valueLabel];
+        [valueLabel2 setText:v16];
+
+        selfCopy2 = self;
+        v15 = 4;
+        goto LABEL_15;
+      }
+
+      if (state != 2)
+      {
+        return;
+      }
+
+      valueLabel = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v12 = [valueLabel localizedStringForKey:@"PAIRED_AND_CONNECTED" value:&stru_284EE3458 table:@"Devices"];
+      valueLabel3 = [(PSTableCell *)self valueLabel];
+      [valueLabel3 setText:v12];
+    }
+
+    selfCopy2 = self;
+    v15 = 0;
+LABEL_15:
+
+    [(BTTableCell *)selfCopy2 setAccessoryType:v15];
+    return;
+  }
+
+  switch(state)
+  {
+    case 5:
+      v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v6 = v5;
+      v7 = @"PAIRED_AND_CONNECTED";
+      goto LABEL_14;
+    case 6:
+      v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v9 = v8;
+      v10 = @"PAIRED";
+      break;
+    case 7:
+      v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v9 = v8;
+      v10 = @"PAIRED_AND_CONNECTED";
+      break;
+    default:
+      return;
+  }
+
+  v18 = [v8 localizedStringForKey:v10 value:&stru_284EE3458 table:@"Devices"];
+  valueLabel4 = [(PSTableCell *)self valueLabel];
+  [valueLabel4 setText:v18];
+
+  [(BTTableCell *)self setAccessoryType:4];
+  systemOrangeColor = [MEMORY[0x277D75348] systemOrangeColor];
+  [(BTTableCell *)self setTintColor:systemOrangeColor];
 }
 
 - (void)setDeviceStatePaired:(BOOL)paired andConnected:(BOOL)connected andPendingSetup:(BOOL)setup
@@ -86,10 +165,10 @@
 
 - (void)layoutSubviews
 {
-  v86[1] = *MEMORY[0x277D85DE8];
-  v84.receiver = self;
-  v84.super_class = BTTableCell;
-  [(PSTableCell *)&v84 layoutSubviews];
+  v85[1] = *MEMORY[0x277D85DE8];
+  v83.receiver = self;
+  v83.super_class = BTTableCell;
+  [(PSTableCell *)&v83 layoutSubviews];
   titleLabel = [(PSTableCell *)self titleLabel];
   [titleLabel frame];
   v5 = v4;
@@ -133,15 +212,15 @@
     [contentView2 frame];
     v27 = floor((v26 - v22) * 0.5);
 
-    v87.origin.x = v12;
-    v87.origin.y = v27;
-    v87.size.width = v20;
-    v87.size.height = v22;
-    v88 = CGRectIntegral(v87);
-    x = v88.origin.x;
-    y = v88.origin.y;
-    width = v88.size.width;
-    height = v88.size.height;
+    v86.origin.x = v12;
+    v86.origin.y = v27;
+    v86.size.width = v20;
+    v86.size.height = v22;
+    v87 = CGRectIntegral(v86);
+    x = v87.origin.x;
+    y = v87.origin.y;
+    width = v87.size.width;
+    height = v87.size.height;
     spinner2 = [(BTTableCell *)self spinner];
     [spinner2 setFrame:{x, y, width, height}];
 
@@ -177,45 +256,45 @@
     text = [valueLabel3 text];
     contentView5 = [(BTTableCell *)self contentView];
     [contentView5 bounds];
-    v61 = v60;
-    v63 = v62;
-    v85 = *MEMORY[0x277D740A8];
+    v60 = v59;
+    v62 = v61;
+    v84 = *MEMORY[0x277D740A8];
     valueLabel4 = [(PSTableCell *)self valueLabel];
     font = [valueLabel4 font];
-    v86[0] = font;
-    v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:&v85 count:1];
-    [text boundingRectWithSize:0 options:v66 attributes:0 context:{v61, v63}];
-    v68 = v67;
-    v70 = v69;
+    v85[0] = font;
+    v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1];
+    [text boundingRectWithSize:0 options:v65 attributes:0 context:{v60, v62}];
+    v67 = v66;
+    v69 = v68;
 
-    v71 = ceil(v68);
-    v72 = ceil(v70);
-    v73 = v13;
+    v70 = ceil(v67);
+    v71 = ceil(v69);
+    v72 = v13;
     if (!userInterfaceLayoutDirection)
     {
       contentView6 = [(BTTableCell *)self contentView];
       [contentView6 frame];
-      v73 = v75 - v71 - v13;
+      v72 = v74 - v70 - v13;
     }
 
-    v91.origin.x = v73;
-    v91.origin.y = v7;
-    v91.size.width = v71;
-    v91.size.height = v72;
-    v92 = CGRectIntegral(v91);
-    v76 = v92.origin.x;
-    v77 = v92.origin.y;
-    v78 = v92.size.width;
-    v79 = v92.size.height;
+    v90.origin.x = v72;
+    v90.origin.y = v7;
+    v90.size.width = v70;
+    v90.size.height = v71;
+    v91 = CGRectIntegral(v90);
+    v75 = v91.origin.x;
+    v76 = v91.origin.y;
+    v77 = v91.size.width;
+    v78 = v91.size.height;
     valueLabel5 = [(PSTableCell *)self valueLabel];
-    [valueLabel5 setFrame:{v76, v77, v78, v79}];
+    [valueLabel5 setFrame:{v75, v76, v77, v78}];
 
     contentView3 = [(BTTableCell *)self contentView];
     [contentView3 frame];
-    v82 = v81 - v71;
+    v81 = v80 - v70;
     contentView4 = [(BTTableCell *)self contentView];
     [contentView4 layoutMargins];
-    v9 = floor(v82 - v83 - v13 + -12.0);
+    v9 = floor(v81 - v82 - v13 + -12.0);
   }
 
   contentView7 = [(BTTableCell *)self contentView];
@@ -236,19 +315,17 @@
   }
 
 LABEL_14:
-  v89.origin.x = v5;
-  v89.origin.y = v7;
-  v89.size.width = v9;
-  v89.size.height = v11;
-  v90 = CGRectIntegral(v89);
-  v46 = v90.origin.x;
-  v47 = v90.origin.y;
-  v48 = v90.size.width;
-  v49 = v90.size.height;
+  v88.origin.x = v5;
+  v88.origin.y = v7;
+  v88.size.width = v9;
+  v88.size.height = v11;
+  v89 = CGRectIntegral(v88);
+  v46 = v89.origin.x;
+  v47 = v89.origin.y;
+  v48 = v89.size.width;
+  v49 = v89.size.height;
   titleLabel2 = [(PSTableCell *)self titleLabel];
   [titleLabel2 setFrame:{v46, v47, v48, v49}];
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 @end

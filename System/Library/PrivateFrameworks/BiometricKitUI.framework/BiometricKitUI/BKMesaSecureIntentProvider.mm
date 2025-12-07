@@ -43,7 +43,7 @@
 
 - (void)getSecureIntentForAccessory:(id)accessory enrollmentOperation:(id)operation withCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   operationCopy = operation;
   handlerCopy = handler;
@@ -54,8 +54,8 @@
   {
     if (v13)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_241B0A000, authManagerLogs, OS_LOG_TYPE_DEFAULT, "Refused to start getSecureIntentForAccessory as we are already monitoring the Power Button for Secure Intent", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_241B0A000, authManagerLogs, OS_LOG_TYPE_DEFAULT, "Refused to start getSecureIntentForAccessory as we are already monitoring the Power Button for Secure Intent", &v17, 2u);
     }
   }
 
@@ -66,24 +66,22 @@
       v14 = authManagerLogs;
       v15 = [accessoryCopy description];
       v16 = [operationCopy description];
-      v18 = 138412546;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      _os_log_impl(&dword_241B0A000, v14, OS_LOG_TYPE_DEFAULT, "Start getSecureIntentForAccessory with accessory:%@, operation:%@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_241B0A000, v14, OS_LOG_TYPE_DEFAULT, "Start getSecureIntentForAccessory with accessory:%@, operation:%@", &v17, 0x16u);
     }
 
     [(BKMesaSecureIntentProvider *)self _startMonitoringPowerButton];
     [(BKMesaSecureIntentProvider *)self _getSecureIntentForAccessory:accessoryCopy enrollmentOperation:operationCopy showErrorToRetry:0 withCompletionHandler:handlerCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getSecureIntentForAccessory:(id)accessory enrollmentOperation:(id)operation showErrorToRetry:(BOOL)retry withCompletionHandler:(id)handler
 {
   retryCopy = retry;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   operationCopy = operation;
   handlerCopy = handler;
@@ -91,7 +89,7 @@
   if (os_log_type_enabled(authManagerLogs, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v36 = retryCopy;
+    v35 = retryCopy;
     _os_log_impl(&dword_241B0A000, authManagerLogs, OS_LOG_TYPE_DEFAULT, "_getSecureIntentForAccessory ... showRetry:%i", buf, 8u);
   }
 
@@ -124,7 +122,7 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_26;
     aBlock[3] = &unk_278D0A110;
-    v30 = retryCopy;
+    v29 = retryCopy;
     aBlock[4] = self;
     v21 = _Block_copy(aBlock);
     if ([MEMORY[0x277CCACC8] isMainThread])
@@ -139,7 +137,7 @@
       block[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_2_28;
       block[3] = &unk_278D09E20;
       v21 = v21;
-      v28 = v21;
+      v27 = v21;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
@@ -175,25 +173,23 @@
     }
 
     context6 = [(BKMesaSecureIntentProvider *)self context];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke;
-    v31[3] = &unk_278D0A9D8;
-    v31[4] = self;
-    v34 = handlerCopy;
-    v32 = accessoryCopy;
-    v33 = 0;
-    [context6 evaluatePolicy:1 options:dictionary reply:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke;
+    v30[3] = &unk_278D0A9D8;
+    v30[4] = self;
+    v33 = handlerCopy;
+    v31 = accessoryCopy;
+    v32 = 0;
+    [context6 evaluatePolicy:1 options:dictionary reply:v30];
 
-    v21 = v34;
+    v21 = v33;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -211,11 +207,11 @@ void __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOp
     block[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_15;
     block[3] = &unk_278D0A988;
     block[4] = *(a1 + 32);
-    v30 = *(a1 + 56);
-    v29 = v7;
+    v29 = *(a1 + 56);
+    v28 = v7;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v9 = v30;
+    v9 = v29;
     goto LABEL_5;
   }
 
@@ -223,26 +219,26 @@ void __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOp
   if (!v6)
   {
     *(v10 + 18) = 0;
-    v15 = *(a1 + 32);
-    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v17 = [v16 localizedStringForKey:@"SI_CROSS_MATCH_WRONG_SENSOR_TITLE" value:&stru_2853BB280 table:@"BiometricKitUI-A222"];
-    v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v19 = [v18 localizedStringForKey:@"SI_CROSS_MATCH_WRONG_SENSOR_BODY" value:&stru_2853BB280 table:@"BiometricKitUI-A222"];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_2;
-    v25[3] = &unk_278D0A9B0;
-    v24 = *(a1 + 32);
-    v20 = *(&v24 + 1);
-    v21 = *(a1 + 48);
-    v22 = *(a1 + 56);
-    *&v23 = v21;
-    *(&v23 + 1) = v22;
-    v26 = v24;
-    v27 = v23;
-    [v15 showAlert:v17 detailedText:v19 withCompletionHandler:v25];
+    v14 = *(a1 + 32);
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v16 = [v15 localizedStringForKey:@"SI_CROSS_MATCH_WRONG_SENSOR_TITLE" value:&stru_2853BB280 table:@"BiometricKitUI-A222"];
+    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v18 = [v17 localizedStringForKey:@"SI_CROSS_MATCH_WRONG_SENSOR_BODY" value:&stru_2853BB280 table:@"BiometricKitUI-A222"];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_2;
+    v24[3] = &unk_278D0A9B0;
+    v23 = *(a1 + 32);
+    v19 = *(&v23 + 1);
+    v20 = *(a1 + 48);
+    v21 = *(a1 + 56);
+    *&v22 = v20;
+    *(&v22 + 1) = v21;
+    v25 = v23;
+    v26 = v22;
+    [v14 showAlert:v16 detailedText:v18 withCompletionHandler:v24];
 
-    v9 = *(&v26 + 1);
+    v9 = *(&v25 + 1);
 LABEL_5:
 
     goto LABEL_10;
@@ -254,15 +250,13 @@ LABEL_5:
     v12 = v11;
     v13 = [v7 localizedDescription];
     *buf = 138412290;
-    v32 = v13;
+    v31 = v13;
     _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "SI local auth failed ... trying power button press SI. %@", buf, 0xCu);
   }
 
   *(*(a1 + 32) + 18) = 1;
   [*(a1 + 32) _getSecureIntentForAccessory:*(a1 + 40) enrollmentOperation:*(a1 + 48) showErrorToRetry:0 withCompletionHandler:*(a1 + 56)];
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOperation_showErrorToRetry_withCompletionHandler___block_invoke_15(uint64_t a1)
@@ -311,7 +305,7 @@ void __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOp
 
 - (void)event:(int64_t)event params:(id)params reply:(id)reply
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   replyCopy = reply;
   authManagerLogs = self->authManagerLogs;
@@ -324,13 +318,13 @@ void __118__BKMesaSecureIntentProvider__getSecureIntentForAccessory_enrollmentOp
 
   if (event == 1)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __49__BKMesaSecureIntentProvider_event_params_reply___block_invoke;
-    v22[3] = &unk_278D09A38;
-    v22[4] = self;
-    v23 = paramsCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __49__BKMesaSecureIntentProvider_event_params_reply___block_invoke;
+    v21[3] = &unk_278D09A38;
+    v21[4] = self;
+    v22 = paramsCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v21);
   }
 
   else if (event == 9)
@@ -384,8 +378,6 @@ LABEL_18:
       goto LABEL_18;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTouchIDEventWithParameters:(id)parameters
@@ -568,16 +560,16 @@ LABEL_28:
 
 - (void)_startMonitoringPowerButton
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6(&dword_241B0A000, a2, a3, "%@ Failed to set up HID client", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_6(&dword_241B0A000, a2, a3, "%@ Failed to set up HID client", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_stopMonitoringPowerButton
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6(&dword_241B0A000, a2, a3, "%@ is not monitoring Power button", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_6(&dword_241B0A000, a2, a3, "%@ is not monitoring Power button", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)hasFingergprintsEnrolled

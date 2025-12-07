@@ -28,7 +28,7 @@
 
 - (void)extendSoftwareUpdateMAAssetQuery:(id)query
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   compatibilityVersion = [(SUCorePolicyExtensionAbsoluteCompatibility *)self compatibilityVersion];
 
@@ -45,14 +45,12 @@
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     compatibilityVersion3 = [(SUCorePolicyExtensionAbsoluteCompatibility *)self compatibilityVersion];
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = compatibilityVersion3;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ querying SU metadata: compatibilityVersion=%{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = compatibilityVersion3;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ querying SU metadata: compatibilityVersion=%{public}@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (SUCorePolicyExtensionAbsoluteCompatibility)initWithCoder:(id)coder

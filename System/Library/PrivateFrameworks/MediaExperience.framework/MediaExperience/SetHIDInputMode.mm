@@ -19,20 +19,18 @@ void __central_SetHIDInputMode_block_invoke(void *a1)
       v5 = v4;
       v6 = a1[6];
       v7 = a1[7];
-      VTable = CMBaseObjectGetVTable();
-      v9 = *(*(VTable + 24) + 56);
-      if (v9)
+      v8 = *(*(CMBaseObjectGetVTable() + 24) + 56);
+      if (v8)
       {
-        v10 = *(VTable + 24) + 56;
-        v11 = v9(v5, v6, v7);
+        v9 = v8(v5, v6, v7);
       }
 
       else
       {
-        v11 = -12782;
+        v9 = -12782;
       }
 
-      *(*(a1[4] + 8) + 24) = v11;
+      *(*(a1[4] + 8) + 24) = v9;
 
       CFRelease(v5);
     }

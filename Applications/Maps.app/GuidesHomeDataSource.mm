@@ -123,7 +123,7 @@
     goto LABEL_15;
   }
 
-  [v8 configuration];
+  objc_msgSend_configuration(v8);
 
   if (v29 <= 2)
   {

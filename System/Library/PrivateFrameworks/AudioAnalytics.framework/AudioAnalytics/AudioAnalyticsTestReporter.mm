@@ -1,6 +1,7 @@
 @interface AudioAnalyticsTestReporter
 - (_TtC14AudioAnalytics26AudioAnalyticsTestReporter)initWithNewReporterID;
 - (_TtC14AudioAnalytics26AudioAnalyticsTestReporter)initWithReporterID:(int64_t)d;
+- (_TtC14AudioAnalytics26AudioAnalyticsTestReporter)initWithSessionID:(unsigned int)d serviceType:(unsigned __int16)type;
 @end
 
 @implementation AudioAnalyticsTestReporter
@@ -19,6 +20,15 @@
   v5.receiver = self;
   v5.super_class = type metadata accessor for AudioAnalyticsTestReporter();
   return [(AudioAnalyticsReporter *)&v5 initWithReporterID:d];
+}
+
+- (_TtC14AudioAnalytics26AudioAnalyticsTestReporter)initWithSessionID:(unsigned int)d serviceType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v5 = *&d;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for AudioAnalyticsTestReporter();
+  return [(AudioAnalyticsReporter *)&v7 initWithSessionID:v5 serviceType:typeCopy];
 }
 
 @end

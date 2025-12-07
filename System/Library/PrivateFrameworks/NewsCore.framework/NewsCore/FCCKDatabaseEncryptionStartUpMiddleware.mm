@@ -29,7 +29,7 @@
 
 - (void)performStartUpForDatabase:(id)database completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   completionCopy = completion;
   if (!databaseCopy || (WeakRetained = objc_loadWeakRetained(databaseCopy + 2), WeakRetained, !WeakRetained))
@@ -38,13 +38,13 @@
     {
       v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't perform encryption startup without an encryption delegate"];
       *buf = 136315906;
-      v29 = "[FCCKDatabaseEncryptionStartUpMiddleware performStartUpForDatabase:completion:]";
-      v30 = 2080;
-      v31 = "FCCKDatabaseEncryptionStartUpMiddleware.m";
-      v32 = 1024;
-      v33 = 55;
-      v34 = 2114;
-      v35 = v17;
+      v28 = "[FCCKDatabaseEncryptionStartUpMiddleware performStartUpForDatabase:completion:]";
+      v29 = 2080;
+      v30 = "FCCKDatabaseEncryptionStartUpMiddleware.m";
+      v31 = 1024;
+      v32 = 55;
+      v33 = 2114;
+      v34 = v17;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
@@ -54,9 +54,9 @@
   aBlock[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke;
   aBlock[3] = &unk_1E7C39710;
   v9 = completionCopy;
-  v27 = v9;
+  v26 = v9;
   v10 = databaseCopy;
-  v26 = v10;
+  v25 = v10;
   v11 = _Block_copy(aBlock);
   if (databaseCopy && (v12 = objc_loadWeakRetained(v10 + 2), v12, v12))
   {
@@ -68,31 +68,29 @@
     }
 
     v14 = objc_loadWeakRetained(v10 + 2);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_9;
-    v20[3] = &unk_1E7C47B20;
-    v15 = &v22;
-    v22 = v11;
-    v20[4] = self;
-    v21 = v10;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_9;
+    v19[3] = &unk_1E7C47B20;
+    v15 = &v21;
+    v21 = v11;
+    v19[4] = self;
+    v20 = v10;
     v16 = v11;
-    [v14 fetchDesiredVersionForDatabase:v21 completion:v20];
+    [v14 fetchDesiredVersionForDatabase:v20 completion:v19];
   }
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_3;
-    v23[3] = &unk_1E7C379C8;
-    v15 = &v24;
-    v24 = v11;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_3;
+    v22[3] = &unk_1E7C379C8;
+    v15 = &v23;
+    v23 = v11;
     v18 = v11;
-    __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_3(v23);
+    __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_3(v22);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke(uint64_t a1, void *a2)
@@ -119,32 +117,30 @@ void __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_com
 
 void __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_3(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Encryption startup middleware requires an encryption delegate";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Encryption startup middleware requires an encryption delegate";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"FCErrorDomain" code:16 userInfo:v3];
   (*(v1 + 16))(v1, v4);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_9(uint64_t a1, uint64_t a2, void *a3)
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v56[2] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (v5)
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_2_10;
-    v33[3] = &unk_1E7C37BC0;
-    v34 = v5;
-    v35 = *(a1 + 48);
-    __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_2_10(v33);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_2_10;
+    v32[3] = &unk_1E7C37BC0;
+    v33 = v5;
+    v34 = *(a1 + 48);
+    __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_2_10(v32);
   }
 
   else
@@ -171,90 +167,85 @@ void __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_com
       aBlock[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke;
       aBlock[3] = &unk_1E7C47C88;
       aBlock[4] = v11;
-      v32 = v13;
+      v31 = v13;
       v15 = v13;
-      v42 = v15;
+      v41 = v15;
       v16 = v14;
-      v43 = v16;
+      v42 = v16;
       v17 = _Block_copy(aBlock);
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_2;
-      v36[3] = &unk_1E7C47B48;
-      v40 = a2;
-      v38 = v17;
-      v36[4] = v11;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_2;
+      v35[3] = &unk_1E7C47B48;
+      v39 = a2;
+      v37 = v17;
+      v35[4] = v11;
       v18 = v15;
-      v37 = v18;
-      v39 = v16;
-      v31 = v17;
-      v19 = v36;
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __82__FCCKDatabaseEncryptionStartUpMiddleware__fetchSentinelsWithDatabase_completion___block_invoke;
-      v46[3] = &unk_1E7C47B98;
+      v36 = v18;
+      v38 = v16;
+      v30 = v17;
+      v19 = v35;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __82__FCCKDatabaseEncryptionStartUpMiddleware__fetchSentinelsWithDatabase_completion___block_invoke;
+      v45[3] = &unk_1E7C47B98;
       v20 = v19;
-      v47 = v20;
+      v46 = v20;
       v21 = v18;
-      v22 = _Block_copy(v46);
+      v22 = _Block_copy(v45);
       v23 = objc_alloc_init(FCCKPrivateFetchRecordsOperation);
-      v24 = +[CKRecordID fc_staticSentinelRecordID];
-      v57[0] = v24;
-      v25 = +[CKRecordID fc_staticSecureSentinelRecordID];
-      v57[1] = v25;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+      v24 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
+      v56[0] = v24;
+      v25 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
+      v56[1] = v25;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
       [(FCCKPrivateFetchRecordsOperation *)v23 setRecordIDs:v26];
 
       *&buf = @"version";
       *(&buf + 1) = @"encryptionKey";
-      v49 = @"migratedUnencryptedData";
-      v50 = @"deletedUnencryptedData";
-      v51 = @"migratedSubscriptions";
-      v52 = @"deletedSubscriptions";
-      v53 = @"migratedToVersion";
-      v54 = @"deletedToVersion";
-      v55 = @"encryptionKey";
-      v56 = @"version";
+      v48 = @"migratedUnencryptedData";
+      v49 = @"deletedUnencryptedData";
+      v50 = @"migratedSubscriptions";
+      v51 = @"deletedSubscriptions";
+      v52 = @"migratedToVersion";
+      v53 = @"deletedToVersion";
+      v54 = @"encryptionKey";
+      v55 = @"version";
       v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&buf count:10];
       [(FCCKPrivateFetchRecordsOperation *)v23 setDesiredKeys:v27];
 
       [(FCCKPrivateDatabaseOperation *)v23 setSkipPreflight:1];
       [(FCCKPrivateDatabaseOperation *)v23 setHandleIdentityLoss:0];
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __82__FCCKDatabaseEncryptionStartUpMiddleware__fetchSentinelsWithDatabase_completion___block_invoke_2;
-      v44[3] = &unk_1E7C379A0;
-      v45 = v22;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __82__FCCKDatabaseEncryptionStartUpMiddleware__fetchSentinelsWithDatabase_completion___block_invoke_2;
+      v43[3] = &unk_1E7C379A0;
+      v44 = v22;
       v28 = v22;
-      [(FCCKPrivateFetchRecordsOperation *)v23 setFetchRecordsCompletionBlock:v44];
+      [(FCCKPrivateFetchRecordsOperation *)v23 setFetchRecordsCompletionBlock:v43];
       v29 = v23;
       [(FCOperation *)v29 setQualityOfService:25];
       [(FCOperation *)v29 setRelativePriority:2];
 
       [(FCCKPrivateDatabase *)v21 addOperation:v29];
-      v13 = v32;
+      v13 = v31;
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __80__FCCKDatabaseEncryptionStartUpMiddleware_performStartUpForDatabase_completion___block_invoke_2_10(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to fetch desired private database version with error: %{public}@", &v7, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to fetch desired private database version with error: %{public}@", &v5, 0xCu);
   }
 
-  v3 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke(void *a1, void *a2, void *a3, void *a4)
@@ -287,7 +278,7 @@ LABEL_10:
         v31 = [v29 userInfo];
         v32 = [v31 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
 
-        v33 = +[CKRecordID fc_staticSentinelRecordID];
+        v33 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
         v34 = [v32 objectForKeyedSubscript:v33];
 
         v30 = [v34 fc_isCKUnknownItemError];
@@ -370,23 +361,23 @@ LABEL_20:
 
 void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v9)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_3;
-    v47 = &unk_1E7C3A0B0;
-    v51 = *(a1 + 48);
-    v48 = v7;
-    v49 = v8;
-    v50 = v9;
-    v51[2](v51, v48, v49, v50);
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_3;
+    v46 = &unk_1E7C3A0B0;
+    v50 = *(a1 + 48);
+    v47 = v7;
+    v48 = v8;
+    v49 = v9;
+    v50[2](v50, v47, v48, v49);
 
-    v10 = v51;
+    v10 = v50;
   }
 
   else
@@ -402,9 +393,9 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
         v15 = [(CKRecord *)v7 fc_sentinel_deletedToDatabaseVersion];
         v16 = FCCKPrivateDatabaseVersionString(v15);
         *buf = 138543618;
-        v53 = v14;
-        v54 = 2114;
-        v55 = v16;
+        v52 = v14;
+        v53 = 2114;
+        v54 = v16;
         _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "fetched sentinel with database version=%{public}@, cleaned up to version=%{public}@", buf, 0x16u);
       }
     }
@@ -413,25 +404,25 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
     {
       if (v7 && v8 && [(CKRecord *)v7 fc_sentinel_databaseVersion]>= *(a1 + 64))
       {
-        v24 = [(CKRecord *)v7 fc_sentinel_deletedToDatabaseVersion];
-        v26 = *(a1 + 32);
-        v25 = *(a1 + 40);
-        if (v24 >= *(a1 + 64))
+        v23 = [(CKRecord *)v7 fc_sentinel_deletedToDatabaseVersion];
+        v25 = *(a1 + 32);
+        v24 = *(a1 + 40);
+        if (v23 >= *(a1 + 64))
         {
-          [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 32) _adoptSentinel:v7 secureSentinel:v8 forDatabase:v25 completion:*(a1 + 56)];
+          [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 32) _adoptSentinel:v7 secureSentinel:v8 forDatabase:v24 completion:*(a1 + 56)];
           goto LABEL_17;
         }
 
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_2_14;
-        v32[3] = &unk_1E7C47C88;
-        v32[4] = v26;
-        v33 = v25;
-        v34 = *(a1 + 56);
-        [(FCCKDatabaseEncryptionStartUpMiddleware *)v26 _deleteOldDataIfDesiredWithSentinel:v7 secureSentinel:v8 database:v33 completion:v32];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_2_14;
+        v31[3] = &unk_1E7C47C88;
+        v31[4] = v25;
+        v32 = v24;
+        v33 = *(a1 + 56);
+        [(FCCKDatabaseEncryptionStartUpMiddleware *)v25 _deleteOldDataIfDesiredWithSentinel:v7 secureSentinel:v8 database:v32 completion:v31];
 
-        v10 = v33;
+        v10 = v32;
       }
 
       else
@@ -441,14 +432,14 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
         aBlock[2] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_3_15;
         aBlock[3] = &unk_1E7C47B48;
         v17 = *(a1 + 48);
-        v31 = *(a1 + 64);
-        v27 = *(a1 + 32);
-        v18 = *(&v27 + 1);
+        v30 = *(a1 + 64);
+        v26 = *(a1 + 32);
+        v18 = *(&v26 + 1);
         v19 = *(a1 + 56);
         *&v20 = v17;
         *(&v20 + 1) = v19;
-        v29 = v27;
-        v30 = v20;
+        v28 = v26;
+        v29 = v20;
         v21 = _Block_copy(aBlock);
         v22 = v21;
         if (v7 && v8)
@@ -461,34 +452,33 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
           [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 32) _createSentinelsIfNeededForDatabase:v21 completion:?];
         }
 
-        v10 = v30;
+        v10 = v29;
       }
     }
 
     else
     {
-      v35 = MEMORY[0x1E69E9820];
-      v36 = 3221225472;
-      v37 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_13;
-      v38 = &unk_1E7C40188;
-      v39 = *(a1 + 32);
-      v40 = v7;
-      v41 = v8;
-      v42 = *(a1 + 40);
-      v43 = *(a1 + 56);
-      [(FCCKDatabaseEncryptionStartUpMiddleware *)v39 _adoptSentinel:v40 secureSentinel:v41 forDatabase:v42 completion:v43];
+      v34 = MEMORY[0x1E69E9820];
+      v35 = 3221225472;
+      v36 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_13;
+      v37 = &unk_1E7C40188;
+      v38 = *(a1 + 32);
+      v39 = v7;
+      v40 = v8;
+      v41 = *(a1 + 40);
+      v42 = *(a1 + 56);
+      [(FCCKDatabaseEncryptionStartUpMiddleware *)v38 _adoptSentinel:v39 secureSentinel:v40 forDatabase:v41 completion:v42];
 
-      v10 = v40;
+      v10 = v39;
     }
   }
 
 LABEL_17:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_adoptSentinel:(void *)sentinel secureSentinel:(void *)secureSentinel forDatabase:(void *)database completion:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v9 = a2;
   sentinelCopy = sentinel;
   secureSentinelCopy = secureSentinel;
@@ -509,11 +499,11 @@ LABEL_17:
     {
       if (v17)
       {
-        v25 = 138412546;
-        v26 = v9;
-        v27 = 2112;
-        v28 = sentinelCopy;
-        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Sentinel says migration has finished -- going online with encryption {sentinel: %@, secure sentinel: %@}", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = v9;
+        v26 = 2112;
+        v27 = sentinelCopy;
+        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Sentinel says migration has finished -- going online with encryption {sentinel: %@, secure sentinel: %@}", &v24, 0x16u);
       }
 
       fc_sentinel_encryptionKey = [(CKRecord *)v9 fc_sentinel_encryptionKey];
@@ -533,11 +523,11 @@ LABEL_17:
     {
       if (v17)
       {
-        v25 = 138412546;
-        v26 = v9;
-        v27 = 2112;
-        v28 = sentinelCopy;
-        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Sentinel says migration has not finished -- going online without encryption {sentinel: %@, secure sentinel: %@}", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = v9;
+        v26 = 2112;
+        v27 = sentinelCopy;
+        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Sentinel says migration has not finished -- going online without encryption {sentinel: %@, secure sentinel: %@}", &v24, 0x16u);
       }
 
       if (secureSentinelCopy)
@@ -549,8 +539,6 @@ LABEL_17:
 
     databaseCopy[2](databaseCopy, 0);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteOldDataIfDesiredWithSentinel:(void *)sentinel secureSentinel:(void *)secureSentinel database:(void *)database completion:
@@ -586,48 +574,48 @@ LABEL_17:
 
 void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_3_15(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v9)
   {
-    v56[1] = MEMORY[0x1E69E9820];
-    v56[2] = 3221225472;
-    v56[3] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_4;
-    v56[4] = &unk_1E7C3A0B0;
-    v10 = &v60;
+    v55[1] = MEMORY[0x1E69E9820];
+    v55[2] = 3221225472;
+    v55[3] = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_4;
+    v55[4] = &unk_1E7C3A0B0;
+    v10 = &v59;
     v11 = *(a1 + 48);
-    v60 = v11;
-    v12 = &v57;
+    v59 = v11;
+    v12 = &v56;
     v13 = v7;
-    v57 = v13;
+    v56 = v13;
     v14 = v8;
-    v58 = v14;
-    v59 = v9;
-    v11[2](v11, v13, v14, v59);
+    v57 = v14;
+    v58 = v9;
+    v11[2](v11, v13, v14, v58);
   }
 
   else
   {
     v16 = *(a1 + 32);
     v15 = *(a1 + 40);
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v53 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_5;
-    v54 = &unk_1E7C47C88;
-    v10 = v56;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v52 = __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_5;
+    v53 = &unk_1E7C47C88;
+    v10 = v55;
     v17 = *(a1 + 64);
-    v56[0] = *(a1 + 56);
-    v12 = v55;
+    v55[0] = *(a1 + 56);
+    v12 = v54;
     v18 = *(a1 + 40);
     v19 = *(a1 + 32);
-    v55[0] = v18;
-    v55[1] = v19;
+    v54[0] = v18;
+    v54[1] = v19;
     v20 = v7;
-    v51 = v8;
+    v50 = v8;
     v21 = v15;
-    v22 = v52;
+    v22 = v51;
     if (v16)
     {
       if ([(CKRecord *)v20 fc_sentinel_databaseVersion]>= v17)
@@ -635,27 +623,27 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke;
-        v65 = &unk_1E7C3A060;
+        v64 = &unk_1E7C3A060;
         v38 = v22;
         v39 = v22;
-        v68 = v39;
-        v40 = &v66;
+        v67 = v39;
+        v40 = &v65;
         v41 = v20;
-        v66 = v41;
-        v67 = v51;
+        v65 = v41;
+        v66 = v50;
         v42 = v39;
         v22 = v38;
         v43 = v41;
-        v44 = &v68;
+        v44 = &v67;
         v9 = 0;
-        v10 = v56;
-        v53(v42, v43, v67, 0);
-        v45 = v67;
+        v10 = v55;
+        v52(v42, v43, v66, 0);
+        v45 = v66;
       }
 
       else
       {
-        v50 = v22;
+        v49 = v22;
         v23 = [(CKRecord *)v20 fc_sentinel_databaseVersion];
         if (v21)
         {
@@ -670,9 +658,9 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
           v24 = [(CKRecord *)v20 fc_sentinel_encryptionKey];
         }
 
-        v48 = v17;
+        v47 = v17;
 
-        v27 = [(CKRecord *)v51 fc_secureSentinel_encryptionKey];
+        v27 = [(CKRecord *)v50 fc_secureSentinel_encryptionKey];
         if (v21)
         {
           objc_setProperty_atomic(v21, v26, v27, 56);
@@ -683,11 +671,11 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
         aBlock[2] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_2;
         aBlock[3] = &unk_1E7C47B70;
         v28 = v21;
-        v62 = v28;
-        v47 = &v63;
-        v29 = v50;
-        v63 = v29;
-        v49 = _Block_copy(aBlock);
+        v61 = v28;
+        v46 = &v62;
+        v29 = v49;
+        v62 = v29;
+        v48 = _Block_copy(aBlock);
         v30 = *(v16 + 8);
         v31 = FCPrivateDataEncryptionLog;
         v32 = os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT);
@@ -706,15 +694,15 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_17;
-          v65 = &unk_1E7C47BE8;
-          v70 = v49;
-          v66 = v20;
-          v34 = v51;
-          v71 = v48;
-          v67 = v34;
-          v68 = v16;
-          v69 = v28;
-          v10 = v56;
+          v64 = &unk_1E7C47BE8;
+          v69 = v48;
+          v65 = v20;
+          v34 = v50;
+          v70 = v47;
+          v66 = v34;
+          v67 = v16;
+          v68 = v28;
+          v10 = v55;
           if (v33)
           {
             objc_setProperty_nonatomic_copy(v33, v35, buf, 384);
@@ -740,23 +728,21 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
           }
 
           v36 = [v20 copy];
-          [(CKRecord *)v36 setFc_sentinel_databaseVersion:v48];
-          [(CKRecord *)v36 setFc_sentinel_deletedToDatabaseVersion:v48];
-          v53(v29, v36, v51, 0);
-          v10 = v56;
+          [(CKRecord *)v36 setFc_sentinel_databaseVersion:v47];
+          [(CKRecord *)v36 setFc_sentinel_deletedToDatabaseVersion:v47];
+          v52(v29, v36, v50, 0);
+          v10 = v55;
         }
 
-        v40 = v47;
+        v40 = v46;
 
-        v44 = &v62;
-        v12 = v55;
-        v45 = v49;
-        v22 = v50;
+        v44 = &v61;
+        v12 = v54;
+        v45 = v48;
+        v22 = v49;
       }
     }
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetVersion_completion___block_invoke_5(uint64_t a1, void *a2, void *a3, void *a4)
@@ -784,7 +770,7 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
 
 - (void)_createSentinelsIfNeededForDatabase:(void *)database completion:
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   databaseCopy = database;
   if (self)
@@ -805,36 +791,34 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__tryToStartUpDatabase_targetV
     if (!v10)
     {
       v11 = objc_alloc(MEMORY[0x1E695BA60]);
-      v12 = +[CKRecordID fc_staticSentinelRecordID];
+      v12 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
       v13 = [v11 initWithRecordType:@"Sentinel" recordID:v12];
 
       [(CKRecord *)v13 setFc_sentinel_encryptionKey:v7];
       [(CKRecord *)v13 setFc_sentinel_version:?];
       v14 = [(CKRecord *)MEMORY[0x1E695BA60] secureSentinelRecordWithEncryptionKey:v9];
       v15 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
-      v24[0] = v13;
-      v24[1] = v14;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+      v23[0] = v13;
+      v23[1] = v14;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
       [(FCCKPrivateSaveRecordsOperation *)v15 setRecordsToSave:v16];
 
       [(FCCKPrivateSaveRecordsOperation *)v15 setSavePolicy:0];
       [(FCCKPrivateDatabaseOperation *)v15 setSkipPreflight:1];
       [(FCCKPrivateDatabaseOperation *)v15 setHandleIdentityLoss:0];
-      v19 = MEMORY[0x1E69E9820];
-      v20 = 3221225472;
-      v21 = __90__FCCKDatabaseEncryptionStartUpMiddleware__createSentinelsIfNeededForDatabase_completion___block_invoke;
-      v22 = &unk_1E7C40AE8;
-      v23 = databaseCopy;
-      [(FCCKPrivateSaveRecordsOperation *)v15 setSaveRecordsCompletionBlock:&v19];
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __90__FCCKDatabaseEncryptionStartUpMiddleware__createSentinelsIfNeededForDatabase_completion___block_invoke;
+      v21 = &unk_1E7C40AE8;
+      v22 = databaseCopy;
+      [(FCCKPrivateSaveRecordsOperation *)v15 setSaveRecordsCompletionBlock:&v18];
       v17 = v15;
-      [(FCOperation *)v17 setQualityOfService:25, v19, v20, v21, v22];
+      [(FCOperation *)v17 setQualityOfService:25, v18, v19, v20, v21];
       [(FCOperation *)v17 setRelativePriority:2];
 
       [(FCCKPrivateDatabase *)v5 addOperation:v17];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -869,47 +853,41 @@ void __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_s
 
 void __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (a4)
   {
-    v5 = *(a1 + 64);
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 64) + 16);
-    v9 = *MEMORY[0x1E69E9840];
+    v5 = *(*(a1 + 64) + 16);
 
-    v8();
+    v5();
   }
 
   else
   {
-    v10 = [*(a1 + 32) copy];
-    [(CKRecord *)v10 setFc_sentinel_databaseVersion:?];
-    v11 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
-    v22[0] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-    [(FCCKPrivateSaveRecordsOperation *)v11 setRecordsToSave:v12];
+    v6 = [*(a1 + 32) copy];
+    [(CKRecord *)v6 setFc_sentinel_databaseVersion:?];
+    v7 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
+    v17[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    [(FCCKPrivateSaveRecordsOperation *)v7 setRecordsToSave:v8];
 
-    [(FCCKPrivateSaveRecordsOperation *)v11 setSavePolicy:1];
-    [(FCCKPrivateDatabaseOperation *)v11 setSkipPreflight:1];
-    [(FCCKPrivateDatabaseOperation *)v11 setHandleIdentityLoss:0];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_2_20;
-    v16[3] = &unk_1E7C47BC0;
-    v13 = *(a1 + 40);
-    v16[4] = *(a1 + 48);
-    v17 = v10;
-    v18 = v13;
-    v19 = *(a1 + 56);
-    v21 = *(a1 + 64);
-    v20 = *(a1 + 32);
-    v14 = v10;
-    [(FCCKPrivateSaveRecordsOperation *)v11 setSaveRecordsCompletionBlock:v16];
-    [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 48) _associateChildOperation:v11];
-    [(FCCKPrivateDatabase *)*(a1 + 56) addOperation:v11];
-
-    v15 = *MEMORY[0x1E69E9840];
+    [(FCCKPrivateSaveRecordsOperation *)v7 setSavePolicy:1];
+    [(FCCKPrivateDatabaseOperation *)v7 setSkipPreflight:1];
+    [(FCCKPrivateDatabaseOperation *)v7 setHandleIdentityLoss:0];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_2_20;
+    v11[3] = &unk_1E7C47BC0;
+    v9 = *(a1 + 40);
+    v11[4] = *(a1 + 48);
+    v12 = v6;
+    v13 = v9;
+    v14 = *(a1 + 56);
+    v16 = *(a1 + 64);
+    v15 = *(a1 + 32);
+    v10 = v6;
+    [(FCCKPrivateSaveRecordsOperation *)v7 setSaveRecordsCompletionBlock:v11];
+    [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 48) _associateChildOperation:v7];
+    [(FCCKPrivateDatabase *)*(a1 + 56) addOperation:v7];
   }
 }
 
@@ -922,18 +900,16 @@ void __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_s
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
     v9 = *(a1 + 56);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_3;
-    v12[3] = &unk_1E7C47B98;
-    v13 = *(a1 + 72);
-    [(FCCKDatabaseEncryptionStartUpMiddleware *)v6 _deleteOldDataIfDesiredWithSentinel:v7 secureSentinel:v8 database:v9 completion:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_secureSentinel_database_completion___block_invoke_3;
+    v10[3] = &unk_1E7C47B98;
+    v11 = *(a1 + 72);
+    [(FCCKDatabaseEncryptionStartUpMiddleware *)v6 _deleteOldDataIfDesiredWithSentinel:v7 secureSentinel:v8 database:v9 completion:v10];
   }
 
   else
   {
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 48);
     (*(*(a1 + 72) + 16))();
   }
 }
@@ -950,15 +926,15 @@ void __105__FCCKDatabaseEncryptionStartUpMiddleware__migrateToVersion_sentinel_s
 
 void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithSentinel_secureSentinel_database_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
-    v49 = *(a1 + 64);
-    v46 = *(a1 + 32);
-    v47 = *(a1 + 40);
-    v48 = v5;
-    v49[2](v49, v46, v47, v48);
+    v46 = *(a1 + 64);
+    v43 = *(a1 + 32);
+    v44 = *(a1 + 40);
+    v45 = v5;
+    v46[2](v46, v43, v44, v45);
   }
 
   else
@@ -988,8 +964,6 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
         _os_log_impl(&dword_1B63EF000, v36, OS_LOG_TYPE_DEFAULT, "Data cleanup is unnecessary because we've cleaned up to version=%{public}@", &block, 0xCu);
       }
 
-      v39 = *(a1 + 32);
-      v40 = *(a1 + 40);
       (*(*(a1 + 64) + 16))();
     }
 
@@ -1000,9 +974,9 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
       v9 = *(a1 + 56);
       v11 = *(a1 + 64);
       v12 = *(a1 + 32);
-      v45 = v8;
+      v42 = v8;
       v13 = v9;
-      v43 = v11;
+      v40 = v11;
       if (v10)
       {
         v14 = [(CKRecord *)v12 fc_sentinel_deletedToDatabaseVersion];
@@ -1021,7 +995,7 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
           v16 = [(CKRecord *)v12 fc_sentinel_encryptionKey];
         }
 
-        v19 = [(CKRecord *)v45 fc_secureSentinel_encryptionKey];
+        v19 = [(CKRecord *)v42 fc_secureSentinel_encryptionKey];
         if (v13)
         {
           objc_setProperty_atomic(v13, v18, v19, 56);
@@ -1032,40 +1006,40 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
         aBlock[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke;
         aBlock[3] = &unk_1E7C47B70;
         v20 = v13;
-        v61 = v20;
-        v62 = v43;
-        v42 = _Block_copy(aBlock);
-        v58[0] = 0;
-        v58[1] = v58;
-        v58[2] = 0x3032000000;
-        v58[3] = __Block_byref_object_copy__98;
-        v58[4] = __Block_byref_object_dispose__98;
-        v59 = 0;
-        v56[0] = 0;
-        v56[1] = v56;
-        v56[2] = 0x3032000000;
-        v56[3] = __Block_byref_object_copy__98;
-        v56[4] = __Block_byref_object_dispose__98;
-        v57 = 0;
+        v58 = v20;
+        v59 = v40;
+        v39 = _Block_copy(aBlock);
+        v55[0] = 0;
+        v55[1] = v55;
+        v55[2] = 0x3032000000;
+        v55[3] = __Block_byref_object_copy__98;
+        v55[4] = __Block_byref_object_dispose__98;
+        v56 = 0;
+        v53[0] = 0;
+        v53[1] = v53;
+        v53[2] = 0x3032000000;
+        v53[3] = __Block_byref_object_copy__98;
+        v53[4] = __Block_byref_object_dispose__98;
+        v54 = 0;
         v21 = dispatch_group_create();
         v22 = *(v10 + 8);
-        v44 = FCCKDatabaseZoneIDsToDeleteAfterMigration(v14, v7, v22);
+        v41 = FCCKDatabaseZoneIDsToDeleteAfterMigration(v14, v7, v22);
 
-        if ([v44 count])
+        if ([v41 count])
         {
           v23 = objc_alloc_init(FCCKPrivateDeleteRecordZonesOperation);
           [(FCCKPrivateDatabaseOperation *)v23 setDatabase:v20];
-          [(FCCKPrivateDeleteRecordZonesOperation *)v23 setRecordZoneIDsToDelete:v44];
+          [(FCCKPrivateDeleteRecordZonesOperation *)v23 setRecordZoneIDsToDelete:v41];
           [(FCCKPrivateDatabaseOperation *)v23 setSkipPreflight:1];
           [(FCCKPrivateDatabaseOperation *)v23 setHandleIdentityLoss:0];
           dispatch_group_enter(v21);
-          v53[0] = MEMORY[0x1E69E9820];
-          v53[1] = 3221225472;
-          v53[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_25;
-          v53[3] = &unk_1E7C47C38;
-          v55 = v58;
-          v54 = v21;
-          [(FCCKPrivateDeleteRecordZonesOperation *)v23 setDeleteRecordZonesCompletionBlock:v53];
+          v50[0] = MEMORY[0x1E69E9820];
+          v50[1] = 3221225472;
+          v50[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_25;
+          v50[3] = &unk_1E7C47C38;
+          v52 = v55;
+          v51 = v21;
+          [(FCCKPrivateDeleteRecordZonesOperation *)v23 setDeleteRecordZonesCompletionBlock:v50];
           v24 = v23;
           [(FCOperation *)v24 setQualityOfService:25];
           [(FCOperation *)v24 setRelativePriority:2];
@@ -1085,13 +1059,13 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
           [(FCCKPrivateBatchedDeleteRecordsOperation *)v28 setSkipPreflight:1];
           [(FCCKPrivateBatchedDeleteRecordsOperation *)v28 setHandleIdentityLoss:0];
           dispatch_group_enter(v21);
-          v50[0] = MEMORY[0x1E69E9820];
-          v50[1] = 3221225472;
-          v50[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_2;
-          v50[3] = &unk_1E7C47C38;
-          v52 = v56;
-          v51 = v21;
-          [(FCCKPrivateBatchedDeleteRecordsOperation *)v28 setDeleteRecordsCompletionBlock:v50];
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_2;
+          v47[3] = &unk_1E7C47C38;
+          v49 = v53;
+          v48 = v21;
+          [(FCCKPrivateBatchedDeleteRecordsOperation *)v28 setDeleteRecordsCompletionBlock:v47];
           v29 = v28;
           [(FCOperation *)v29 setQualityOfService:25];
           [(FCOperation *)v29 setRelativePriority:2];
@@ -1103,27 +1077,25 @@ void __114__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataIfDesiredWithS
         v31 = dispatch_get_global_queue(25, 0);
         *&block = MEMORY[0x1E69E9820];
         *(&block + 1) = 3221225472;
-        v64 = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_3;
-        v65 = &unk_1E7C47C60;
-        v71 = v58;
-        v72 = v56;
+        v61 = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_3;
+        v62 = &unk_1E7C47C60;
+        v68 = v55;
+        v69 = v53;
         v32 = v12;
-        v73 = v7;
-        v66 = v32;
-        v70 = v42;
-        v67 = v45;
-        v68 = v10;
-        v69 = v20;
-        v33 = v42;
+        v70 = v7;
+        v63 = v32;
+        v67 = v39;
+        v64 = v42;
+        v65 = v10;
+        v66 = v20;
+        v33 = v39;
         dispatch_group_notify(v21, v31, &block);
 
-        _Block_object_dispose(v56, 8);
-        _Block_object_dispose(v58, 8);
+        _Block_object_dispose(v53, 8);
+        _Block_object_dispose(v55, 8);
       }
     }
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1172,23 +1144,20 @@ void __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_se
 
 void __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_3(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 72) + 8) + 40);
   if (v2 && ![v2 fc_isCKUnknownItemError] || (v3 = *(*(*(a1 + 80) + 8) + 40)) != 0 && !objc_msgSend(v3, "fc_isCKUnknownItemError"))
   {
-    v8 = *(*(*(a1 + 72) + 8) + 40);
-    if (!v8)
+    v7 = *(*(*(a1 + 72) + 8) + 40);
+    if (!v7)
     {
-      v8 = *(*(*(a1 + 80) + 8) + 40);
+      v7 = *(*(*(a1 + 80) + 8) + 40);
     }
 
-    v9 = *(a1 + 56);
-    v13 = v8;
-    [(FCCKPrivateDatabase *)v9 reportPostMigrationCleanupError:v13];
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v8 = *(a1 + 56);
+    v9 = v7;
+    [(FCCKPrivateDatabase *)v8 reportPostMigrationCleanupError:v9];
     (*(*(a1 + 64) + 16))();
-    v12 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -1196,25 +1165,23 @@ void __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_se
     v4 = [*(a1 + 32) copy];
     [(CKRecord *)v4 setFc_sentinel_deletedToDatabaseVersion:?];
     v5 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
-    v18[0] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v14[0] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     [(FCCKPrivateSaveRecordsOperation *)v5 setRecordsToSave:v6];
 
     [(FCCKPrivateSaveRecordsOperation *)v5 setSavePolicy:1];
     [(FCCKPrivateDatabaseOperation *)v5 setSkipPreflight:1];
     [(FCCKPrivateDatabaseOperation *)v5 setHandleIdentityLoss:0];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_4;
-    v14[3] = &unk_1E7C39B60;
-    v17 = *(a1 + 64);
-    v15 = *(a1 + 40);
-    v16 = *(a1 + 32);
-    [(FCCKPrivateSaveRecordsOperation *)v5 setSaveRecordsCompletionBlock:v14];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __113__FCCKDatabaseEncryptionStartUpMiddleware__deleteOldDataUpToVersion_sentinel_secureSentinel_database_completion___block_invoke_4;
+    v10[3] = &unk_1E7C39B60;
+    v13 = *(a1 + 64);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 32);
+    [(FCCKPrivateSaveRecordsOperation *)v5 setSaveRecordsCompletionBlock:v10];
     [(FCCKDatabaseEncryptionStartUpMiddleware *)*(a1 + 48) _associateChildOperation:v5];
     [(FCCKPrivateDatabase *)*(a1 + 56) addOperation:v5];
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1293,7 +1260,7 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__createSentinelsIfNeededForDa
   else
   {
     v8 = *MEMORY[0x1E695B7C0];
-    v9 = +[CKRecordID fc_staticSentinelRecordID];
+    v9 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
     v6 = [v12 fc_underlyingCKErrorUserInfoValueForKey:v8 forItemID:v9];
 
     if (v7)
@@ -1303,7 +1270,7 @@ void __90__FCCKDatabaseEncryptionStartUpMiddleware__createSentinelsIfNeededForDa
   }
 
   v10 = *MEMORY[0x1E695B7C0];
-  v11 = +[CKRecordID fc_staticSecureSentinelRecordID];
+  v11 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
   v7 = [v12 fc_underlyingCKErrorUserInfoValueForKey:v10 forItemID:v11];
 
 LABEL_3:
@@ -1367,21 +1334,19 @@ void __110__FCCKDatabaseEncryptionStartUpMiddleware__handleIdentityLossWithDatab
   {
     v5 = *(a1 + 48);
     v4 = *(a1 + 56);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __110__FCCKDatabaseEncryptionStartUpMiddleware__handleIdentityLossWithDatabase_sentinel_secureSentinel_completion___block_invoke_4;
-    v9[3] = &unk_1E7C47C88;
-    v10 = v4;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __110__FCCKDatabaseEncryptionStartUpMiddleware__handleIdentityLossWithDatabase_sentinel_secureSentinel_completion___block_invoke_4;
+    v7[3] = &unk_1E7C47C88;
+    v8 = v4;
     v6 = *(a1 + 64);
-    v11 = *(a1 + 48);
-    v12 = v6;
-    [(FCCKDatabaseEncryptionStartUpMiddleware *)v5 _createSentinelsIfNeededForDatabase:v10 completion:v9];
+    v9 = *(a1 + 48);
+    v10 = v6;
+    [(FCCKDatabaseEncryptionStartUpMiddleware *)v5 _createSentinelsIfNeededForDatabase:v8 completion:v7];
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
   }
 }

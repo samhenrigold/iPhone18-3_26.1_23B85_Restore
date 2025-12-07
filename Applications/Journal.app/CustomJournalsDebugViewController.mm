@@ -11,13 +11,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10051DAF4();
+  sub_10051DAF4(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10051DC24(appear);
+  sub_10051DC24(appearCopy);
 }
 
 - (_TtC7Journal33CustomJournalsDebugViewController)initWithCollectionViewLayout:(id)layout
@@ -62,11 +63,11 @@
 
 - (void)controller:(id)controller didChangeContentWithSnapshot:(id)snapshot
 {
-  v6 = sub_1000F24EC(&unk_100AE7E60);
+  v6 = sub_1000F24EC(&unk_100AE7E60, &qword_10095B6F8);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v14 - v8;
-  sub_1000065A8(0, &qword_100AD43F0);
+  sub_1000065A8(0, &qword_100AD43F0, NSManagedObjectID_ptr);
   sub_1005206E8();
   sub_1001E4B10();
   static NSDiffableDataSourceSnapshot._unconditionallyBridgeFromObjectiveC(_:)();

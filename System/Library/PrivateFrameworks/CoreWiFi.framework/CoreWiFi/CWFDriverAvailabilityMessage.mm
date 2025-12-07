@@ -56,10 +56,9 @@
     v6 = "down";
   }
 
-  minor_reason = self->_minor_reason;
-  v8 = [v3 stringWithFormat:@"timestamp=%@ available %s reasonString %@ reason=0x%lX sub_reason=0x%lX minor_reason=0x%lX event_id=0x%lX", v4, v6, self->_reasonString, self->_reason, self->_sub_reason, minor_reason, self->_event_id];
+  v7 = [v3 stringWithFormat:@"timestamp=%@ available %s reasonString %@ reason=0x%lX sub_reason=0x%lX minor_reason=0x%lX event_id=0x%lX", v4, v6, self->_reasonString, self->_reason, self->_sub_reason, self->_minor_reason, self->_event_id];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isEqualToDriverAvailabiltyMessage:(id)message

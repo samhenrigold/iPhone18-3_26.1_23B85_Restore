@@ -3,6 +3,7 @@
 - (_INPBIntentExecutionRequest)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)encodingFormatAsString:(int)string;
 - (int)StringAsEncodingFormat:(id)format;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -238,7 +239,6 @@ LABEL_18:
 
   if (encodedIntent)
   {
-    encodedIntent = self->_encodedIntent;
     PBDataWriterWriteStringField();
   }
 
@@ -246,13 +246,11 @@ LABEL_18:
 
   if (encodedIntentDefinition)
   {
-    encodedIntentDefinition = self->_encodedIntentDefinition;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBIntentExecutionRequest *)self hasEncodingFormat])
   {
-    encodingFormat = self->_encodingFormat;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -272,6 +270,26 @@ LABEL_18:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)encodingFormatAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"JSON_STRING";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"PROTOBUF_STRING";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

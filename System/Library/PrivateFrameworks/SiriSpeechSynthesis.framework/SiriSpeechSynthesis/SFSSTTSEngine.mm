@@ -22,7 +22,7 @@
 
 - (void)preheat
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = mach_absolute_time();
   TTSSynthesizer::preheat(self->_synthesizer.__ptr_);
   v4 = mach_absolute_time();
@@ -30,12 +30,10 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     [SFSpeechSynthesisUtils absoluteTimeToSecond:v4 - v3];
-    v8 = 134217984;
-    v9 = v6;
-    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "Engine preheating latency: %.3f", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v6;
+    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "Engine preheating latency: %.3f", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSynthesis
@@ -58,7 +56,7 @@
 
 - (id)synthesizeText:(id)text loggable:(BOOL)loggable synthesisBegin:(id)begin synthesisChunk:(id)chunk synthesisEnd:(id)end
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   textCopy = text;
   beginCopy = begin;
   chunkCopy = chunk;
@@ -67,49 +65,48 @@
   callbackResult = self->_callbackResult;
   self->_callbackResult = v15;
 
-  [(SFSSTTSEngine *)self asbd];
+  objc_msgSend_asbd(self);
   v17 = self->_callbackResult;
+  v34 = v27;
+  v35 = v28;
   v36 = v29;
-  v37 = v30;
-  v38 = v31;
-  [(SFSSTTSEngineCallbackResult *)v17 setAsbd:&v36];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __84__SFSSTTSEngine_synthesizeText_loggable_synthesisBegin_synthesisChunk_synthesisEnd___block_invoke;
-  v28[3] = &unk_279C4C440;
-  v28[4] = self;
-  *(&v37 + 1) = 0;
-  *&v36 = &unk_2879AE700;
-  *(&v36 + 1) = MEMORY[0x26D631550](v28);
-  *(&v37 + 1) = &v36;
-  ptr = self->_synthesizer.__ptr_;
-  v19 = textCopy;
+  [(SFSSTTSEngineCallbackResult *)v17 setAsbd:&v34];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __84__SFSSTTSEngine_synthesizeText_loggable_synthesisBegin_synthesisChunk_synthesisEnd___block_invoke;
+  v26[3] = &unk_279C4C440;
+  v26[4] = self;
+  *(&v35 + 1) = 0;
+  *&v34 = &unk_2879AE700;
+  *(&v34 + 1) = MEMORY[0x26D631550](v26);
+  *(&v35 + 1) = &v34;
+  v18 = textCopy;
   std::string::basic_string[abi:ne200100]<0>(&__p, [textCopy UTF8String]);
   [(SFSSTTSEngineCallbackResult *)self->_callbackResult pcmDataBuffer];
   [(SFSSTTSEngineCallbackResult *)self->_callbackResult marker];
-  v20 = *(&v37 + 1);
-  if (!*(&v37 + 1))
+  v19 = *(&v35 + 1);
+  if (!*(&v35 + 1))
   {
     goto LABEL_4;
   }
 
-  if (*(&v37 + 1) != &v36)
+  if (*(&v35 + 1) != &v34)
   {
-    v20 = (*(**(&v37 + 1) + 16))(*(&v37 + 1));
+    v19 = (*(**(&v35 + 1) + 16))(*(&v35 + 1));
 LABEL_4:
-    v35 = v20;
+    v33 = v19;
     goto LABEL_6;
   }
 
-  v35 = v34;
-  (*(**(&v37 + 1) + 24))(*(&v37 + 1), v34);
+  v33 = v32;
+  (*(**(&v35 + 1) + 24))(*(&v35 + 1), v32);
 LABEL_6:
-  v21 = TTSSynthesizer::synthesize_text_with_markers_async();
-  std::__function::__value_func<int ()(TTSSynthesizer::CallbackMessage)>::~__value_func[abi:ne200100](v34);
-  if (v27 < 0)
+  v20 = TTSSynthesizer::synthesize_text_with_markers_async();
+  std::__function::__value_func<int ()(TTSSynthesizer::CallbackMessage)>::~__value_func[abi:ne200100](v32);
+  if (v25 < 0)
   {
     operator delete(__p);
-    if (!v21)
+    if (!v20)
     {
       goto LABEL_11;
     }
@@ -117,22 +114,20 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  if (v21)
+  if (v20)
   {
 LABEL_10:
-    v22 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA470];
-    v33 = @"TTSSynthesizer::synthesize_text";
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v21 = [v22 errorWithDomain:@"SFSpeechSynthesisDeviceErrorDomain" code:v21 userInfo:v23];
+    v21 = MEMORY[0x277CCA9B8];
+    v30 = *MEMORY[0x277CCA470];
+    v31 = @"TTSSynthesizer::synthesize_text";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v20 = [v21 errorWithDomain:@"SFSpeechSynthesisDeviceErrorDomain" code:v20 userInfo:v22];
   }
 
 LABEL_11:
-  std::__function::__value_func<int ()(TTSSynthesizer::CallbackMessage)>::~__value_func[abi:ne200100](&v36);
+  std::__function::__value_func<int ()(TTSSynthesizer::CallbackMessage)>::~__value_func[abi:ne200100](&v34);
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 uint64_t __84__SFSSTTSEngine_synthesizeText_loggable_synthesisBegin_synthesisChunk_synthesisEnd___block_invoke(uint64_t a1, uint64_t a2)
@@ -145,22 +140,21 @@ uint64_t __84__SFSSTTSEngine_synthesizeText_loggable_synthesisBegin_synthesisChu
 
 - (id)loadResourceAtPath:(id)path mimeType:(id)type
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   typeCopy = type;
-  ptr = self->_synthesizer.__ptr_;
-  std::string::basic_string[abi:ne200100]<0>(&v17, [pathCopy UTF8String]);
-  v9 = typeCopy;
+  std::string::basic_string[abi:ne200100]<0>(&v14, [pathCopy UTF8String]);
+  v7 = typeCopy;
   std::string::basic_string[abi:ne200100]<0>(&__p, [typeCopy UTF8String]);
   resource = TTSSynthesizer::load_resource();
-  if (v16 < 0)
+  if (v13 < 0)
   {
     operator delete(__p);
   }
 
-  if (v18 < 0)
+  if (v15 < 0)
   {
-    operator delete(v17);
+    operator delete(v14);
     if (!resource)
     {
       goto LABEL_8;
@@ -172,20 +166,18 @@ uint64_t __84__SFSSTTSEngine_synthesizeText_loggable_synthesisBegin_synthesisChu
   if (resource)
   {
 LABEL_7:
-    v11 = MEMORY[0x277CCA9B8];
-    v19[0] = @"path";
-    v19[1] = @"mimeType";
-    v20[0] = pathCopy;
-    v20[1] = typeCopy;
-    v19[2] = *MEMORY[0x277CCA470];
-    v20[2] = @"TTSSynthesizer::load_resource";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-    resource = [v11 errorWithDomain:@"SFSpeechSynthesisDeviceErrorDomain" code:resource userInfo:v12];
+    v9 = MEMORY[0x277CCA9B8];
+    v16[0] = @"path";
+    v16[1] = @"mimeType";
+    v17[0] = pathCopy;
+    v17[1] = typeCopy;
+    v16[2] = *MEMORY[0x277CCA470];
+    v17[2] = @"TTSSynthesizer::load_resource";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    resource = [v9 errorWithDomain:@"SFSpeechSynthesisDeviceErrorDomain" code:resource userInfo:v10];
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return resource;
 }
@@ -207,12 +199,12 @@ LABEL_8:
 
 - (SFSSTTSEngine)initWithVoicePath:(id)path resourcePath:(id)resourcePath
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   resourcePathCopy = resourcePath;
-  v15.receiver = self;
-  v15.super_class = SFSSTTSEngine;
-  v9 = [(SFSSTTSEngine *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SFSSTTSEngine;
+  v9 = [(SFSSTTSEngine *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -238,7 +230,6 @@ LABEL_8:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

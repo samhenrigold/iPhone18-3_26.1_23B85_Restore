@@ -813,7 +813,7 @@ LABEL_7:
   }
 }
 
-uint64_t __79__NUMediaView__transitionToInsets_duration_animationCurve_updateRenderContent___block_invoke(uint64_t a1)
+void *__79__NUMediaView__transitionToInsets_duration_animationCurve_updateRenderContent___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277D2D078] != -1)
@@ -1449,7 +1449,7 @@ void __26__NUMediaView__setupViews__block_invoke(uint64_t a1, void *a2, void *a3
     v43 = _geometry2;
     if (_geometry2)
     {
-      [_geometry2 extent];
+      objc_msgSend_extent(_geometry2);
     }
 
     else

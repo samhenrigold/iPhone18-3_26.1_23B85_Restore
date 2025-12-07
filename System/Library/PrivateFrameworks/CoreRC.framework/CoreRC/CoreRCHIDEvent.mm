@@ -3,7 +3,12 @@
 - (BOOL)isEqualToRCHIDEvent:(id)event;
 - (BOOL)isRepeat;
 - (CoreRCHIDEvent)initWithCECAudioVolumeLevel:(unsigned __int8)level;
+- (CoreRCHIDEvent)initWithCECDeckControlMode:(unsigned __int8)mode pressed:(BOOL)pressed;
+- (CoreRCHIDEvent)initWithCECPlayMode:(unsigned __int8)mode pressed:(BOOL)pressed;
+- (CoreRCHIDEvent)initWithCECUserControl:(CECUserControl)control pressed:(BOOL)pressed;
 - (CoreRCHIDEvent)initWithCoder:(id)coder;
+- (CoreRCHIDEvent)initWithCommand:(unint64_t)command pressed:(BOOL)pressed;
+- (CoreRCHIDEvent)initWithCommand:(unint64_t)command pressed:(BOOL)pressed timestamp:(unint64_t)timestamp;
 - (CoreRCHIDEvent)initWithIOHIDEvent:(__IOHIDEvent *)event;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
@@ -56,17 +61,16 @@
 
 - (CoreRCHIDEvent)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = CoreRCHIDEvent;
-  v4 = [(CoreRCHIDEvent *)&v8 init];
+  v7.receiver = self;
+  v7.super_class = CoreRCHIDEvent;
+  v4 = [(CoreRCHIDEvent *)&v7 init];
   if (v4)
   {
     [coder decodeObjectOfClass:objc_opt_class() forKey:@"IOHIDEvent"];
-    v5 = *MEMORY[0x277CBECE8];
-    v6 = IOHIDEventCreateWithData();
-    if (v6)
+    v5 = IOHIDEventCreateWithData();
+    if (v5)
     {
-      v4->_event = v6;
+      v4->_event = v5;
     }
 
     else
@@ -82,7 +86,6 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *MEMORY[0x277CBECE8];
   [(CoreRCHIDEvent *)self event];
   Data = IOHIDEventCreateData();
   [coder encodeObject:Data forKey:@"IOHIDEvent"];
@@ -90,15 +93,39 @@
 
 - (id)initKeyboardEventWithUsagePage:(unsigned int)page usageID:(unsigned int)d pressed:(BOOL)pressed timestamp:(unint64_t)timestamp
 {
-  v7 = *MEMORY[0x277CBECE8];
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
-  v9 = [(CoreRCHIDEvent *)self initWithIOHIDEvent:KeyboardEvent];
+  v8 = [(CoreRCHIDEvent *)self initWithIOHIDEvent:KeyboardEvent];
   if (KeyboardEvent)
   {
     CFRelease(KeyboardEvent);
   }
 
-  return v9;
+  return v8;
+}
+
+- (CoreRCHIDEvent)initWithCommand:(unint64_t)command pressed:(BOOL)pressed
+{
+  pressedCopy = pressed;
+  v7 = mach_absolute_time();
+
+  return [(CoreRCHIDEvent *)self initWithCommand:command pressed:pressedCopy timestamp:v7];
+}
+
+- (CoreRCHIDEvent)initWithCommand:(unint64_t)command pressed:(BOOL)pressed timestamp:(unint64_t)timestamp
+{
+  pressedCopy = pressed;
+  v10 = 0;
+  if (CoreRCCommandToHIDUsage(command, &v10 + 1, &v10))
+  {
+    return [(CoreRCHIDEvent *)self initKeyboardEventWithUsagePage:HIDWORD(v10) usageID:v10 pressed:pressedCopy timestamp:timestamp];
+  }
+
+  if (gLogCategory_CoreRCHID <= 60 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
+  {
+    [CoreRCHIDEvent initWithCommand:command pressed:? timestamp:?];
+  }
+
+  return 0;
 }
 
 - (id)debugDescription
@@ -116,18 +143,18 @@
 
 - (id)description
 {
-  v17.receiver = self;
-  v17.super_class = CoreRCHIDEvent;
-  v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:{-[CoreRCHIDEvent description](&v17, sel_description)}];
+  v14.receiver = self;
+  v14.super_class = CoreRCHIDEvent;
+  v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:{-[CoreRCHIDEvent description](&v14, sel_description)}];
   if (self->_event)
   {
-    v16 = 0;
-    v15 = 0;
-    [(CoreRCHIDEvent *)self getCommand:&v16 pressed:&v15];
-    if (v16)
+    v13 = 0;
+    v12 = 0;
+    [(CoreRCHIDEvent *)self getCommand:&v13 pressed:&v12];
+    if (v13)
     {
-      v4 = CoreRCCommandString(v16);
-      if (v15)
+      v4 = CoreRCCommandString(v13);
+      if (v12)
       {
         v5 = "YES";
       }
@@ -137,24 +164,21 @@
         v5 = "NO";
       }
 
-      [v3 appendFormat:@" command: %@; pressed: %s;", v4, v5, v14];
+      [v3 appendFormat:@" command: %@; pressed: %s;", v4, v5, v11];
     }
 
     else if (self->_event && IOHIDEventGetType() == 3)
     {
-      event = self->_event;
       IntegerValue = IOHIDEventGetIntegerValue();
-      v9 = self->_event;
-      v10 = IOHIDEventGetIntegerValue();
-      v11 = self->_event;
-      v12 = IOHIDEventGetIntegerValue();
-      v13 = "YES";
-      if (!v12)
+      v8 = IOHIDEventGetIntegerValue();
+      v9 = IOHIDEventGetIntegerValue();
+      v10 = "YES";
+      if (!v9)
       {
-        v13 = "NO";
+        v10 = "NO";
       }
 
-      [v3 appendFormat:@" usagePage: %u; usageID: %u; pressed: %s;", IntegerValue, v10, v13];
+      [v3 appendFormat:@" usagePage: %u; usageID: %u; pressed: %s;", IntegerValue, v8, v10];
     }
   }
 
@@ -185,22 +209,19 @@
     return 0;
   }
 
-  event = self->_event;
   if (IOHIDEventGetType() != 3)
   {
     return 0;
   }
 
-  v8 = self->_event;
   IntegerValue = IOHIDEventGetIntegerValue();
   if (IntegerValue != IOHIDEventGetIntegerValue())
   {
     return 0;
   }
 
-  v10 = self->_event;
-  v11 = IOHIDEventGetIntegerValue();
-  return v11 == IOHIDEventGetIntegerValue();
+  v8 = IOHIDEventGetIntegerValue();
+  return v8 == IOHIDEventGetIntegerValue();
 }
 
 - (BOOL)isRepeat
@@ -208,16 +229,7 @@
   event = self->_event;
   if (event)
   {
-    if (IOHIDEventGetType() == 3)
-    {
-      v4 = self->_event;
-      LOBYTE(event) = IOHIDEventGetIntegerValue() != 0;
-    }
-
-    else
-    {
-      LOBYTE(event) = 0;
-    }
+    LOBYTE(event) = IOHIDEventGetType() == 3 && IOHIDEventGetIntegerValue() != 0;
   }
 
   return event;
@@ -225,9 +237,8 @@
 
 - (void)getCommand:(unint64_t *)command pressed:(BOOL *)pressed
 {
-  if (self->_event && IOHIDEventGetType() == 3 && (v7 = self->_event, IntegerValue = IOHIDEventGetIntegerValue(), v9 = self->_event, v10 = IOHIDEventGetIntegerValue(), CoreRCCommandFromHIDUsage(command, IntegerValue, v10)))
+  if (self->_event && IOHIDEventGetType() == 3 && (IntegerValue = IOHIDEventGetIntegerValue(), v7 = IOHIDEventGetIntegerValue(), CoreRCCommandFromHIDUsage(command, IntegerValue, v7)))
   {
-    event = self->_event;
     *pressed = IOHIDEventGetIntegerValue() != 0;
   }
 
@@ -252,22 +263,72 @@
   return CECUserControlForCoreRCCommand(control, v6);
 }
 
-- (CoreRCHIDEvent)initWithCECAudioVolumeLevel:(unsigned __int8)level
+- (CoreRCHIDEvent)initWithCECUserControl:(CECUserControl)control pressed:(BOOL)pressed
 {
-  if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+  pressedCopy = pressed;
+  v8 = 0;
+  if (CoreRCCommandForCECUserControl(&v8, *&control))
   {
-    objc_opt_class();
-    LogPrintF();
+    return [(CoreRCHIDEvent *)self initWithCommand:v8 pressed:pressedCopy];
   }
 
-  v4 = *MEMORY[0x277CBECE8];
+  if (gLogCategory_CoreRCHID <= 60 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
+  {
+    [CoreRCHIDEvent(CEC) initWithCECUserControl:? pressed:?];
+  }
+
+  return 0;
+}
+
+- (CoreRCHIDEvent)initWithCECDeckControlMode:(unsigned __int8)mode pressed:(BOOL)pressed
+{
+  pressedCopy = pressed;
+  v8 = 0;
+  if (CoreRCCommandForCECDeckControlMode(&v8, mode))
+  {
+    return [(CoreRCHIDEvent *)self initWithCommand:v8 pressed:pressedCopy];
+  }
+
+  [CoreRCHIDEvent(CEC) initWithCECDeckControlMode:mode pressed:?];
+  return 0;
+}
+
+- (CoreRCHIDEvent)initWithCECPlayMode:(unsigned __int8)mode pressed:(BOOL)pressed
+{
+  pressedCopy = pressed;
+  v8 = 0;
+  if (CoreRCCommandForCECPlayMode(&v8, mode))
+  {
+    return [(CoreRCHIDEvent *)self initWithCommand:v8 pressed:pressedCopy];
+  }
+
+  if (gLogCategory_CoreRCHID <= 60 && (gLogCategory_CoreRCHID != -1 || _LogCategory_Initialize()))
+  {
+    [CoreRCHIDEvent(CEC) initWithCECPlayMode:mode pressed:?];
+  }
+
+  return 0;
+}
+
+- (CoreRCHIDEvent)initWithCECAudioVolumeLevel:(unsigned __int8)level
+{
+  if (gLogCategory_CoreRCDevice <= 10)
+  {
+    levelCopy = level;
+    if (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize())
+    {
+      v5 = objc_opt_class();
+      LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCHIDEvent(CEC) initWithCECAudioVolumeLevel:]", 10, "%@ initWithCECAudioVolumeLevel: %u  # self: %@\n", v5, levelCopy, self);
+    }
+  }
+
   mach_absolute_time();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v6 = VendorDefinedEvent;
+    v7 = VendorDefinedEvent;
     self = [(CoreRCHIDEvent *)self initWithIOHIDEvent:VendorDefinedEvent];
-    CFRelease(v6);
+    CFRelease(v7);
   }
 
   return self;

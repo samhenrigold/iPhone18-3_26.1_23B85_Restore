@@ -41,12 +41,9 @@
   objc_initWeak(&location, self);
   dataSource = [(HMIFetchFaceprintsForFaceCropsOperation *)self dataSource];
   faceCropUUIDs = [(HMIFetchFaceprintsForFaceCropsOperation *)self faceCropUUIDs];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __68__HMIFetchFaceprintsForFaceCropsOperation_mainInsideAutoreleasePool__block_invoke;
-  v5[3] = &unk_278753D20;
+  v5 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v6, &location);
-  [dataSource fetchFaceprintsForFaceCropsWithUUIDs:faceCropUUIDs completion:v5];
+  [dataSource fetchFaceprintsForFaceCropsWithUUIDs:v5 completion:{3221225472, __68__HMIFetchFaceprintsForFaceCropsOperation_mainInsideAutoreleasePool__block_invoke, &unk_278753D20}];
 
   objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
@@ -80,7 +77,7 @@ void __68__HMIFetchFaceprintsForFaceCropsOperation_mainInsideAutoreleasePool__bl
       }
 
       objc_autoreleasePoolPop(v10);
-      [v11 cancelWithError:v7];
+      [v11 cancelWithError:?];
     }
 
     else

@@ -85,29 +85,29 @@
 
 + (uint64_t)isDrawnUsingAssetOptions:()NanoPassKit fromBundle:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a4;
   [self _assetNamesForAssetOption:a3];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = v18 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = v17 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![self _containsAssetForImageName:*(*(&v15 + 1) + 8 * v11) fromBundle:{v6, v15}])
+        if (![self _containsAssetForImageName:*(*(&v14 + 1) + 8 * v11) fromBundle:{v6, v14}])
         {
           v12 = 0;
           goto LABEL_11;
@@ -117,7 +117,7 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -130,7 +130,6 @@
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

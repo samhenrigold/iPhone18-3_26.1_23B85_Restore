@@ -6,6 +6,7 @@
 - (SCUIMoreHelpMenuDelegate)menuDelegate;
 - (void)addActionsFromModel:(id)model;
 - (void)reportToAuthoritiesPressed;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SCUIMoreHelpMenu
@@ -53,33 +54,33 @@
 
 - (void)addActionsFromModel:(id)model
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   objc_initWeak(&location, self);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   actions = [modelCopy actions];
-  v5 = [actions countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v5 = [actions countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v5)
   {
-    v6 = *v32;
+    v6 = *v31;
     obj = actions;
     do
     {
       v7 = 0;
       do
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * v7);
-        v27 = 0;
-        v28 = &v27;
-        v29 = 0x2020000000;
+        v8 = *(*(&v30 + 1) + 8 * v7);
+        v26 = 0;
+        v27 = &v26;
+        v28 = 0x2020000000;
         actionID = [v8 actionID];
         v9 = MEMORY[0x1E69DC648];
         title = [v8 title];
@@ -93,28 +94,28 @@
           v11 = 0;
         }
 
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke;
-        v23[3] = &unk_1E7FF24E0;
-        v25 = &v27;
-        v23[4] = self;
-        objc_copyWeak(&v26, &location);
-        v24 = modelCopy;
-        v12 = [v9 actionWithTitle:title style:v11 handler:v23];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke;
+        v22[3] = &unk_1E7FF24E0;
+        v24 = &v26;
+        v22[4] = self;
+        objc_copyWeak(&v25, &location);
+        v23 = modelCopy;
+        v12 = [v9 actionWithTitle:title style:v11 handler:v22];
 
-        v13 = [SCUIAXIdentifiers helpMenuAction:v28[3]];
+        v13 = [SCUIAXIdentifiers helpMenuAction:v27[3]];
         [v12 setAccessibilityIdentifier:v13];
 
         [(SCUIMoreHelpMenu *)self addAction:v12];
-        objc_destroyWeak(&v26);
-        _Block_object_dispose(&v27, 8);
+        objc_destroyWeak(&v25);
+        _Block_object_dispose(&v26, 8);
         ++v7;
       }
 
       while (v5 != v7);
       actions = obj;
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v5);
@@ -122,21 +123,19 @@
 
   v14 = MEMORY[0x1E69DC648];
   v15 = [SCUIResources localizedStringForKey:@"CANCEL"];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke_2;
-  v21[3] = &unk_1E7FF2508;
-  objc_copyWeak(&v22, &location);
-  v16 = [v14 actionWithTitle:v15 style:1 handler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke_2;
+  v20[3] = &unk_1E7FF2508;
+  objc_copyWeak(&v21, &location);
+  v16 = [v14 actionWithTitle:v15 style:1 handler:v20];
 
   v17 = +[SCUIAXIdentifiers actionMenuCancel];
   [v16 setAccessibilityIdentifier:v17];
 
   [(SCUIMoreHelpMenu *)self addAction:v16];
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke(uint64_t a1, void *a2)
@@ -382,6 +381,19 @@ void __40__SCUIMoreHelpMenu_addActionsFromModel___block_invoke_2(uint64_t a1)
     v6 = objc_loadWeakRetained((a1 + 32));
     [v5 didCancel:v6];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = SCUIMoreHelpMenu;
+  [(SCUIMoreHelpMenu *)&v7 viewDidAppear:appear];
+  model = [(SCUIMoreHelpMenu *)self model];
+  analyticsContext = [model analyticsContext];
+  [analyticsContext collectResourcesShownEvent];
+
+  presentingViewController = [(SCUIMoreHelpMenu *)self presentingViewController];
+  [(SCUIMoreHelpMenu *)self setViewControllerThatPresented:presentingViewController];
 }
 
 - (void)reportToAuthoritiesPressed

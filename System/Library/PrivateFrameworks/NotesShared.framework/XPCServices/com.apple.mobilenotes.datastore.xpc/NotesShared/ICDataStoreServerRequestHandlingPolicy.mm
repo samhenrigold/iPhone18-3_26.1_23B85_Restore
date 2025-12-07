@@ -11,21 +11,8 @@
   v5 = [entitlements objectForKeyedSubscript:@"com.apple.security.application-groups"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if (objc_opt_isKindOfClass() & 1) != 0 && (ICGroupContainerIdentifier(), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 isEqualToString:v6], v6, (v7) || (objc_opt_class(), (objc_opt_isKindOfClass()) && (ICGroupContainerIdentifier(), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v5, "containsObject:", v8), v8, (v9))
   {
-    v6 = ICGroupContainerIdentifier();
-    v7 = [v5 isEqualToString:v6];
-
-    if (v7)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (ICGroupContainerIdentifier(), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v5 containsObject:v8], v8, (v9))
-  {
-LABEL_5:
     v10 = 1;
   }
 
@@ -37,7 +24,7 @@ LABEL_5:
 
     if (contextCopy)
     {
-      [contextCopy auditToken];
+      objc_msgSend_auditToken(contextCopy);
     }
 
     v10 = sandbox_check_by_audit_token() == 0;

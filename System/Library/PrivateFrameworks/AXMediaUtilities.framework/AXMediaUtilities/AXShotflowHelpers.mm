@@ -103,7 +103,8 @@ LABEL_5:
   imageCopy = image;
   setCIContext = [self setCIContext];
   [imageCopy extent];
-  std::shared_ptr<CGImage>::shared_ptr[abi:ne200100]<CGImage,void (*)(CGImage*),0>(v5, [setCIContext createCGImage:imageCopy fromRect:?]);
+  v7 = [setCIContext createCGImage:imageCopy fromRect:?];
+  std::shared_ptr<CGImage>::shared_ptr[abi:ne200100]<CGImage,void (*)(CGImage*),0>(v5, v7, MEMORY[0x1E695EFE0]);
 }
 
 + (id)resizeImage:(id)image byX:(float)x andY:(float)y

@@ -87,8 +87,8 @@
 
   if (!v5)
   {
-    v28 = __atxlog_handle_default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [ATXAppIntentDuetEvent initWithCurrentContextStoreValues];
     }
@@ -97,95 +97,95 @@
   }
 
   keyPathForIntentsDataDictionary2 = [MEMORY[0x277CFE338] keyPathForIntentsDataDictionary];
-  v7 = [userContext objectForKeyedSubscript:keyPathForIntentsDataDictionary2];
+  v8 = [userContext objectForKeyedSubscript:keyPathForIntentsDataDictionary2];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if ((isKindOfClass & 1) == 0)
   {
-    v29 = __atxlog_handle_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-    {
-      [ATXAppIntentDuetEvent initWithCurrentContextStoreValues];
-    }
-
-    v30 = MEMORY[0x277CBEAD8];
-    v31 = *MEMORY[0x277CBE658];
-    v32 = @"ContextStore's 'keyPathForIntentsDataDictionary' is not an NSDictionary.";
-    goto LABEL_21;
-  }
-
-  intentSourceBundleIDKey = [MEMORY[0x277CFE338] intentSourceBundleIDKey];
-  v10 = [v5 objectForKeyedSubscript:intentSourceBundleIDKey];
-  objc_opt_class();
-  v11 = objc_opt_isKindOfClass();
-
-  if ((v11 & 1) == 0)
-  {
-    v33 = __atxlog_handle_default();
+    v33 = __atxlog_handle_default(v10);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [ATXAppIntentDuetEvent initWithCurrentContextStoreValues];
     }
 
-    v30 = MEMORY[0x277CBEAD8];
-    v31 = *MEMORY[0x277CBE658];
-    v32 = @"Value for 'intentSourceBundleIDKey' in ContextStore's 'keyPathForIntentsDataDictionary' is not an NSString.";
+    v34 = MEMORY[0x277CBEAD8];
+    v35 = *MEMORY[0x277CBE658];
+    v36 = @"ContextStore's 'keyPathForIntentsDataDictionary' is not an NSDictionary.";
+    goto LABEL_21;
+  }
+
+  intentSourceBundleIDKey = [MEMORY[0x277CFE338] intentSourceBundleIDKey];
+  v12 = [v5 objectForKeyedSubscript:intentSourceBundleIDKey];
+  objc_opt_class();
+  v13 = objc_opt_isKindOfClass();
+
+  if ((v13 & 1) == 0)
+  {
+    v37 = __atxlog_handle_default(v14);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    {
+      [ATXAppIntentDuetEvent initWithCurrentContextStoreValues];
+    }
+
+    v34 = MEMORY[0x277CBEAD8];
+    v35 = *MEMORY[0x277CBE658];
+    v36 = @"Value for 'intentSourceBundleIDKey' in ContextStore's 'keyPathForIntentsDataDictionary' is not an NSString.";
 LABEL_21:
-    [v30 raise:v31 format:v32];
+    [v34 raise:v35 format:v36];
 LABEL_22:
     selfCopy = 0;
     goto LABEL_23;
   }
 
   intentSourceBundleIDKey2 = [MEMORY[0x277CFE338] intentSourceBundleIDKey];
-  v13 = [v5 objectForKeyedSubscript:intentSourceBundleIDKey2];
-  v14 = v13;
-  if (v13)
+  v16 = [v5 objectForKeyedSubscript:intentSourceBundleIDKey2];
+  v17 = v16;
+  if (v16)
   {
-    v15 = v13;
+    v18 = v16;
   }
 
   else
   {
-    v15 = &stru_2839A6058;
+    v18 = &stru_2839A6058;
   }
 
-  v16 = v15;
+  v19 = v18;
 
   intentClassKey = [MEMORY[0x277CFE338] intentClassKey];
-  v18 = [v5 objectForKeyedSubscript:intentClassKey];
+  v21 = [v5 objectForKeyedSubscript:intentClassKey];
   objc_opt_class();
-  v19 = objc_opt_isKindOfClass();
+  v22 = objc_opt_isKindOfClass();
 
-  if (v19)
+  if (v22)
   {
     intentClassKey2 = [MEMORY[0x277CFE338] intentClassKey];
-    v21 = [v5 objectForKeyedSubscript:intentClassKey2];
-    v22 = v21;
-    if (v21)
+    v25 = [v5 objectForKeyedSubscript:intentClassKey2];
+    v26 = v25;
+    if (v25)
     {
-      v23 = v21;
+      v27 = v25;
     }
 
     else
     {
-      v23 = &stru_2839A6058;
+      v27 = &stru_2839A6058;
     }
 
-    v24 = v23;
+    v28 = v27;
 
     date = [MEMORY[0x277CBEAA8] date];
-    v26 = [(ATXAppIntentDuetEvent *)self initWithBundleId:v16 actionType:v24 parameterHashes:&unk_283A588C8 slotSetHashes:&unk_283A588E0 paramCount:&unk_283A56B10 startDate:date endDate:date];
+    v30 = [(ATXAppIntentDuetEvent *)self initWithBundleId:v19 actionType:v28 parameterHashes:&unk_283A588C8 slotSetHashes:&unk_283A588E0 paramCount:&unk_283A56B10 startDate:date endDate:date];
 
-    self = v26;
+    self = v30;
     selfCopy = self;
   }
 
   else
   {
-    v35 = __atxlog_handle_default();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v39 = __atxlog_handle_default(v23);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       [ATXAppIntentDuetEvent initWithCurrentContextStoreValues];
     }
@@ -201,36 +201,35 @@ LABEL_23:
 - (id)identifier
 {
   v3 = objc_opt_new();
-  bundleId = self->_bundleId;
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:", bundleId, self->_actionType];
-  [v3 appendString:v5];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:", self->_bundleId, self->_actionType];
+  [v3 appendString:v4];
 
   if ([(NSArray *)self->_parameterHashes count])
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = [(NSArray *)self->_parameterHashes objectAtIndexedSubscript:v6];
-      v8 = [(NSArray *)self->_parameterHashes count]- 1;
-      v9 = objc_alloc(MEMORY[0x277CCACA8]);
-      longLongValue = [v7 longLongValue];
-      if (v8 <= v6)
+      v6 = [(NSArray *)self->_parameterHashes objectAtIndexedSubscript:v5];
+      v7 = [(NSArray *)self->_parameterHashes count]- 1;
+      v8 = objc_alloc(MEMORY[0x277CCACA8]);
+      longLongValue = [v6 longLongValue];
+      if (v7 <= v5)
       {
-        v11 = @"%lld";
+        v10 = @"%lld";
       }
 
       else
       {
-        v11 = @"%lld,";
+        v10 = @"%lld,";
       }
 
-      v12 = [v9 initWithFormat:v11, longLongValue];
-      [v3 appendString:v12];
+      v11 = [v8 initWithFormat:v10, longLongValue];
+      [v3 appendString:v11];
 
-      ++v6;
+      ++v5;
     }
 
-    while ([(NSArray *)self->_parameterHashes count]> v6);
+    while ([(NSArray *)self->_parameterHashes count]> v5);
   }
 
   return v3;
@@ -258,71 +257,71 @@ LABEL_23:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForDuetEventStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_anchor();
+    v13 = __atxlog_handle_anchor(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForDuetEventEndDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v13];
 
     if (v14 && ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
     {
       v16 = MEMORY[0x277D42620];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_anchor();
+      v18 = __atxlog_handle_anchor(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForBundleId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v18];
 
       if (v19 && ([coderCopy error], v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))
       {
         v21 = MEMORY[0x277D42620];
         v22 = objc_opt_class();
-        v23 = __atxlog_handle_anchor();
+        v23 = __atxlog_handle_anchor(v22);
         v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"codingKeyForActionType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v23];
 
         if (v24 && ([coderCopy error], v25 = objc_claimAutoreleasedReturnValue(), v25, !v25))
         {
-          v53 = MEMORY[0x277D42620];
+          v55 = MEMORY[0x277D42620];
           v26 = objc_autoreleasePoolPush();
           v27 = objc_alloc(MEMORY[0x277CBEB98]);
           v28 = objc_opt_class();
           v29 = [v27 initWithObjects:{v28, objc_opt_class(), 0}];
           objc_autoreleasePoolPop(v26);
-          v30 = __atxlog_handle_anchor();
-          v31 = [v53 robustDecodeObjectOfClasses:v29 forKey:@"codingKeyForParamHashes" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v30];
+          v31 = __atxlog_handle_anchor(v30);
+          v32 = [v55 robustDecodeObjectOfClasses:v29 forKey:@"codingKeyForParamHashes" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v31];
 
-          if (v31 && ([coderCopy error], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
+          if (v32 && ([coderCopy error], v33 = objc_claimAutoreleasedReturnValue(), v33, !v33))
           {
-            v54 = v31;
-            v33 = MEMORY[0x277D42620];
+            v56 = v32;
+            v34 = MEMORY[0x277D42620];
             contexta = objc_autoreleasePoolPush();
-            v34 = objc_alloc(MEMORY[0x277CBEB98]);
-            v35 = objc_opt_class();
-            v36 = [v34 initWithObjects:{v35, objc_opt_class(), 0}];
+            v35 = objc_alloc(MEMORY[0x277CBEB98]);
+            v36 = objc_opt_class();
+            v37 = [v35 initWithObjects:{v36, objc_opt_class(), 0}];
             objc_autoreleasePoolPop(contexta);
-            v37 = __atxlog_handle_anchor();
-            v38 = [v33 robustDecodeObjectOfClasses:v36 forKey:@"codingKeyForSlotSetHashes" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v37];
+            v39 = __atxlog_handle_anchor(v38);
+            v40 = [v34 robustDecodeObjectOfClasses:v37 forKey:@"codingKeyForSlotSetHashes" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v39];
 
-            if (v38 && ([coderCopy error], v39 = objc_claimAutoreleasedReturnValue(), v39, !v39))
+            if (v40 && ([coderCopy error], v41 = objc_claimAutoreleasedReturnValue(), v41, !v41))
             {
-              context = v38;
-              v40 = MEMORY[0x277D42620];
-              v41 = objc_opt_class();
-              v42 = __atxlog_handle_anchor();
-              v43 = [v40 robustDecodeObjectOfClass:v41 forKey:@"codingKeyForParamCount" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v42];
+              context = v40;
+              v42 = MEMORY[0x277D42620];
+              v43 = objc_opt_class();
+              v44 = __atxlog_handle_anchor(v43);
+              v45 = [v42 robustDecodeObjectOfClass:v43 forKey:@"codingKeyForParamCount" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v44];
 
-              if (v43 && ([coderCopy error], v44 = objc_claimAutoreleasedReturnValue(), v44, !v44))
+              if (v45 && ([coderCopy error], v46 = objc_claimAutoreleasedReturnValue(), v46, !v46))
               {
-                v45 = MEMORY[0x277D42620];
-                v46 = objc_opt_class();
-                v47 = __atxlog_handle_anchor();
-                v48 = [v45 robustDecodeObjectOfClass:v46 forKey:@"codingKeyForALogId" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v47];
+                v47 = MEMORY[0x277D42620];
+                v48 = objc_opt_class();
+                v49 = __atxlog_handle_anchor(v48);
+                v50 = [v47 robustDecodeObjectOfClass:v48 forKey:@"codingKeyForALogId" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v49];
 
-                if (v48 && ([coderCopy error], v49 = objc_claimAutoreleasedReturnValue(), v49, !v49))
+                if (v50 && ([coderCopy error], v51 = objc_claimAutoreleasedReturnValue(), v51, !v51))
                 {
-                  self = [(ATXAppIntentDuetEvent *)self initWithBundleId:v19 actionType:v24 parameterHashes:v54 slotSetHashes:context paramCount:v43 startDate:v8 endDate:v14 alogId:v48];
+                  self = [(ATXAppIntentDuetEvent *)self initWithBundleId:v19 actionType:v24 parameterHashes:v56 slotSetHashes:context paramCount:v45 startDate:v8 endDate:v14 alogId:v50];
                   selfCopy = self;
                 }
 
@@ -337,7 +336,7 @@ LABEL_23:
                 selfCopy = 0;
               }
 
-              v38 = context;
+              v40 = context;
             }
 
             else
@@ -345,7 +344,7 @@ LABEL_23:
               selfCopy = 0;
             }
 
-            v31 = v54;
+            v32 = v56;
           }
 
           else

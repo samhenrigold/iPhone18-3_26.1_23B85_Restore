@@ -47,8 +47,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  resultCode = self->_resultCode;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_responseDictionary)
   {
@@ -57,7 +55,6 @@
 
   if (*&self->_has)
   {
-    httpStatus = self->_httpStatus;
     PBDataWriterWriteInt32Field();
   }
 }

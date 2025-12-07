@@ -753,7 +753,7 @@ LABEL_10:
         goto LABEL_27;
       }
 
-      if (MTUIMainScreenScale() <= 1.0)
+      if (MTUIMainScreenScale(self, a2) <= 1.0)
       {
         v9 = @".png";
       }
@@ -780,7 +780,7 @@ LABEL_19:
       v13 = v11;
     }
 
-    if (MTUIMainScreenScale() <= 1.0)
+    if (MTUIMainScreenScale(self, a2) <= 1.0)
     {
       v9 = @".png";
     }
@@ -809,7 +809,7 @@ LABEL_26:
       v6 = @"-nighttime";
     }
 
-    if (MTUIMainScreenScale() <= 1.0)
+    if (MTUIMainScreenScale(self, a2) <= 1.0)
     {
       v7 = @".png";
     }
@@ -851,7 +851,7 @@ LABEL_27:
   }
 
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12 + v8 + 1000 * style];
-  v14 = MTImageCache();
+  v14 = MTImageCache(v13);
   v15 = [v14 objectForKey:v13];
   if (v15)
   {
@@ -950,7 +950,7 @@ void __67__MTUIAnalogClockView_imageForType_dayTime_generation_ignoreCache___blo
 
 + (id)makeClockFaceForDaytime:(BOOL)daytime
 {
-  v83[2] = *MEMORY[0x277D85DE8];
+  v85[2] = *MEMORY[0x277D85DE8];
   if (daytime)
   {
     dayTimeFaceColor = [self dayTimeFaceColor];
@@ -974,109 +974,110 @@ void __67__MTUIAnalogClockView_imageForType_dayTime_generation_ignoreCache___blo
   v18 = *MEMORY[0x277CBF348];
   v19 = *(MEMORY[0x277CBF348] + 8);
   doesFaceHaveShadow = [self doesFaceHaveShadow];
-  v21 = MTUIMainScreenScale();
-  v85.width = v15;
-  v85.height = v17;
-  UIGraphicsBeginImageContextWithOptions(v85, 0, v21);
-  v22 = v9 + v18;
-  v23 = v17;
-  v24 = v7 + v19;
-  v25 = v9 + v13;
-  v26 = v22;
-  v27 = v15;
-  v28 = v15 - v25;
-  v29 = v17 - (v7 + v11);
-  v80 = v24;
+  v21 = doesFaceHaveShadow;
+  v23 = MTUIMainScreenScale(doesFaceHaveShadow, v22);
+  v87.width = v15;
+  v87.height = v17;
+  UIGraphicsBeginImageContextWithOptions(v87, 0, v23);
+  v24 = v9 + v18;
+  v25 = v17;
+  v26 = v7 + v19;
+  v27 = v9 + v13;
+  v28 = v24;
+  v29 = v15;
+  v30 = v15 - v27;
+  v31 = v17 - (v7 + v11);
+  v82 = v26;
   UIRectGetCenter();
-  v75 = v31;
-  v76 = v30;
-  if (doesFaceHaveShadow)
+  v77 = v33;
+  v78 = v32;
+  if (v21)
   {
-    v78 = v11 + v29 + v80 + 1.0;
+    v80 = v11 + v31 + v82 + 1.0;
     for (i = 4; i != -1; --i)
     {
-      v33 = [self shadowInfoAtIndex:i];
-      v34 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v26, v80, v28, v29}];
-      CGAffineTransformMakeTranslation(&v81, 0.0, -v78);
-      [v34 applyTransform:&v81];
-      [v33 scale];
-      v36 = v26;
-      v37 = v27;
-      v38 = v27 * (1.0 - v35) * 0.5;
-      [v33 scale];
-      CGAffineTransformMakeTranslation(&v81, v38, -((1.0 - v39) * v23) * 0.5);
-      [v34 applyTransform:&v81];
-      [v33 scale];
-      v41 = v40;
-      [v33 scale];
-      CGAffineTransformMakeScale(&v81, v41, v42);
-      [v34 applyTransform:&v81];
-      [v33 offset];
-      v44 = v43;
-      v45 = v23;
-      v47 = v78 + v46;
+      v35 = [self shadowInfoAtIndex:i];
+      v36 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v28, v82, v30, v31}];
+      CGAffineTransformMakeTranslation(&v83, 0.0, -v80);
+      [v36 applyTransform:&v83];
+      [v35 scale];
+      v38 = v28;
+      v39 = v29;
+      v40 = v29 * (1.0 - v37) * 0.5;
+      [v35 scale];
+      CGAffineTransformMakeTranslation(&v83, v40, -((1.0 - v41) * v25) * 0.5);
+      [v36 applyTransform:&v83];
+      [v35 scale];
+      v43 = v42;
+      [v35 scale];
+      CGAffineTransformMakeScale(&v83, v43, v44);
+      [v36 applyTransform:&v83];
+      [v35 offset];
+      v46 = v45;
+      v47 = v25;
+      v49 = v80 + v48;
       CurrentContext = UIGraphicsGetCurrentContext();
-      [v33 radius];
-      v49 = v28;
-      v51 = v50;
-      color = [v33 color];
+      [v35 radius];
+      v51 = v30;
+      v53 = v52;
+      color = [v35 color];
       cGColor = [color CGColor];
-      v86.width = v44;
-      v27 = v37;
-      v26 = v36;
-      v86.height = v47;
-      v23 = v45;
-      v54 = v51;
-      v28 = v49;
-      CGContextSetShadowWithColor(CurrentContext, v86, v54, cGColor);
+      v88.width = v46;
+      v29 = v39;
+      v28 = v38;
+      v88.height = v49;
+      v25 = v47;
+      v56 = v53;
+      v30 = v51;
+      CGContextSetShadowWithColor(CurrentContext, v88, v56, cGColor);
 
-      [v34 fill];
+      [v36 fill];
     }
   }
 
-  v55 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v26, v80, v28, v29}];
-  v56 = UIGraphicsGetCurrentContext();
-  CGContextSetShadowWithColor(v56, *MEMORY[0x277CBF3A8], 0.0, 0);
-  v79 = dayTimeFaceColor;
+  v57 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v28, v82, v30, v31}];
+  v58 = UIGraphicsGetCurrentContext();
+  CGContextSetShadowWithColor(v58, *MEMORY[0x277CBF3A8], 0.0, 0);
+  v81 = dayTimeFaceColor;
   [dayTimeFaceColor setFill];
-  ty = v55;
-  [v55 fill];
+  ty = v57;
+  [v57 fill];
   [self faceRadius];
-  v58 = v57;
+  v60 = v59;
   [self numeralInset];
-  v60 = v58 - v59;
+  v62 = v60 - v61;
   numeralFont = [self numeralFont];
-  v62 = *MEMORY[0x277D740A8];
-  v63 = *MEMORY[0x277D740C0];
-  v64 = -1.04719755;
+  v64 = *MEMORY[0x277D740A8];
+  v65 = *MEMORY[0x277D740C0];
+  v66 = -1.04719755;
   for (j = 1; j != 13; ++j)
   {
-    v66 = objc_alloc(MEMORY[0x277CCA898]);
-    v67 = [MEMORY[0x277CCABB0] numberWithInteger:j];
-    stringValue = [v67 stringValue];
-    v82[0] = v62;
-    v82[1] = v63;
-    v83[0] = numeralFont;
-    v83[1] = v5;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
-    v70 = v69 = v5;
-    v71 = [v66 initWithString:stringValue attributes:v70];
+    v68 = objc_alloc(MEMORY[0x277CCA898]);
+    v69 = [MEMORY[0x277CCABB0] numberWithInteger:j];
+    stringValue = [v69 stringValue];
+    v84[0] = v64;
+    v84[1] = v65;
+    v85[0] = numeralFont;
+    v85[1] = v5;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:2];
+    v72 = v71 = v5;
+    v73 = [v68 initWithString:stringValue attributes:v72];
 
-    v5 = v69;
-    [v71 size];
-    v72 = __sincos_stret(v64);
-    v81.a = v76 + v60 * v72.__cosval;
-    v81.b = v75 + v60 * v72.__sinval;
-    [self adjustNumberalCenter:&v81 forNumeralIndex:j];
+    v5 = v71;
+    [v73 size];
+    v74 = __sincos_stret(v66);
+    v83.a = v78 + v62 * v74.__cosval;
+    v83.b = v77 + v62 * v74.__sinval;
+    [self adjustNumberalCenter:&v83 forNumeralIndex:j];
     UIRectCenteredAboutPointScale();
-    [v71 drawInRect:?];
-    v64 = v64 + 0.523598776;
+    [v73 drawInRect:?];
+    v66 = v66 + 0.523598776;
   }
 
-  v73 = UIGraphicsGetImageFromCurrentImageContext();
+  v75 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v73;
+  return v75;
 }
 
 + (id)clockFaceForDaytime:(BOOL)daytime ignoreCache:(BOOL)cache
@@ -1762,7 +1763,7 @@ LABEL_15:
   v3 = objc_opt_class();
   v4 = 1000 * [(MTUIAnalogClockView *)self style];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4 + 103];
-  v6 = MTImageCache();
+  v6 = MTImageCache(v5);
   v29 = v5;
   [v6 removeObjectForKey:v5];
 
@@ -1789,7 +1790,7 @@ LABEL_15:
   [(UIView *)v15 setCenter:?];
   if (v12)
   {
-    [(UIView *)v12 transform];
+    objc_msgSend_transform(v12);
   }
 
   else
@@ -1807,7 +1808,7 @@ LABEL_15:
   if ([v3 hasOverSecondHandDot])
   {
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4 | 5];
-    v18 = MTImageCache();
+    v18 = MTImageCache(v17);
     [v18 removeObjectForKey:v17];
 
     v19 = [v3 imageCacheNameForType:5 daytime:0];
@@ -1826,7 +1827,7 @@ LABEL_15:
     [(UIImageView *)self->_middleRedDot setCenter:?];
     if (v22)
     {
-      [(UIImageView *)v22 transform];
+      objc_msgSend_transform(v22);
     }
 
     else

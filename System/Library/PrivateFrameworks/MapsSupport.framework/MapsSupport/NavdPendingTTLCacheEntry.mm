@@ -228,59 +228,58 @@ LABEL_9:
   [destinationLocation coordinate];
   GEOCalculateDistance();
   v15 = v14;
-  v16 = NavigationConfig_NavdMonitoringDistanceThreshold[1];
   GEOConfigGetDouble();
-  v18 = v17;
+  v17 = v16;
   [locationCopy horizontalAccuracy];
-  if (v15 >= v19 + v18)
+  if (v15 >= v18 + v17)
   {
-    v29 = +[GEOMapService sharedService];
-    navd_defaultTraitsForNavd = [v29 navd_defaultTraitsForNavd];
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_1000211A0;
-    v38[3] = &unk_100065C68;
-    v38[4] = self;
-    v31 = keyCopy;
-    v39 = v31;
-    v32 = [GEOComposedWaypoint composedWaypointForCurrentLocation:v11 traits:navd_defaultTraitsForNavd completionHandler:v38 networkActivityHandler:0];
+    v28 = +[GEOMapService sharedService];
+    navd_defaultTraitsForNavd = [v28 navd_defaultTraitsForNavd];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_1000211A0;
+    v37[3] = &unk_100065C68;
+    v37[4] = self;
+    v30 = keyCopy;
+    v38 = v30;
+    v31 = [GEOComposedWaypoint composedWaypointForCurrentLocation:v11 traits:navd_defaultTraitsForNavd completionHandler:v37 networkActivityHandler:0];
 
-    v33 = +[GEOMapService sharedService];
-    navd_defaultTraitsForNavd2 = [v33 navd_defaultTraitsForNavd];
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_100021380;
-    v36[3] = &unk_100065C68;
-    v36[4] = self;
-    v37 = v31;
-    v35 = [GEOComposedWaypoint composedWaypointForMapItem:destinationLocation traits:navd_defaultTraitsForNavd2 clientAttributes:0 completionHandler:v36 networkActivityHandler:0];
+    v32 = +[GEOMapService sharedService];
+    navd_defaultTraitsForNavd2 = [v32 navd_defaultTraitsForNavd];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100021380;
+    v35[3] = &unk_100065C68;
+    v35[4] = self;
+    v36 = v30;
+    v34 = [GEOComposedWaypoint composedWaypointForMapItem:destinationLocation traits:navd_defaultTraitsForNavd2 clientAttributes:0 completionHandler:v35 networkActivityHandler:0];
   }
 
   else
   {
-    v20 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v19 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [locationCopy horizontalAccuracy];
       *buf = 134218240;
-      v41 = v21;
-      v42 = 2048;
-      v43 = v18;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Distance between source and destination is less than the location accuracy: %f plus addendum: %f", buf, 0x16u);
+      v40 = v20;
+      v41 = 2048;
+      v42 = v17;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Distance between source and destination is less than the location accuracy: %f plus addendum: %f", buf, 0x16u);
     }
 
     [locationCopy horizontalAccuracy];
-    v23 = [NSString stringWithFormat:@"Distance between source and destination is less than the location accuracy: %f plus addendum: %f", v22, *&v18];
-    v24 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v22 = [NSString stringWithFormat:@"Distance between source and destination is less than the location accuracy: %f plus addendum: %f", v21, *&v17];
+    v23 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v41 = v23;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%{private}@", buf, 0xCu);
+      v40 = v22;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%{private}@", buf, 0xCu);
     }
 
-    v25 = [NSError GEOErrorWithCode:-10 reason:v23];
-    objc_storeStrong(&self->_originWaypointError, v25);
+    v24 = [NSError GEOErrorWithCode:-10 reason:v22];
+    objc_storeStrong(&self->_originWaypointError, v24);
     originWaypoint = self->_originWaypoint;
     self->_originWaypoint = 0;
 
@@ -288,7 +287,7 @@ LABEL_9:
     self->_destinationWaypoint = 0;
 
     destinationWaypointError = self->_destinationWaypointError;
-    self->_destinationWaypointError = v25;
+    self->_destinationWaypointError = v24;
 
     [(NavdPendingTTLCacheEntry *)self _finishedResolvingWaypointsForKey:keyCopy];
   }
@@ -363,24 +362,20 @@ LABEL_9:
 
 - (void)_finishedResolvingWaypointsForKey:(id)key
 {
-  originWaypoint = self->_originWaypoint;
-  destinationWaypoint = self->_destinationWaypoint;
-  originWaypointError = self->_originWaypointError;
-  destinationWaypointError = self->_destinationWaypointError;
   (*(self->_findWaypointsHandler + 2))();
   findWaypointsHandler = self->_findWaypointsHandler;
   self->_findWaypointsHandler = 0;
 
-  v9 = self->_originWaypoint;
+  originWaypoint = self->_originWaypoint;
   self->_originWaypoint = 0;
 
-  v10 = self->_originWaypointError;
+  originWaypointError = self->_originWaypointError;
   self->_originWaypointError = 0;
 
-  v11 = self->_destinationWaypoint;
+  destinationWaypoint = self->_destinationWaypoint;
   self->_destinationWaypoint = 0;
 
-  v12 = self->_destinationWaypointError;
+  destinationWaypointError = self->_destinationWaypointError;
   self->_destinationWaypointError = 0;
 }
 

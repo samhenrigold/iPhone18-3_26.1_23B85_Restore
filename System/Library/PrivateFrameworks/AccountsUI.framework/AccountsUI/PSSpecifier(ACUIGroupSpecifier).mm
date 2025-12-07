@@ -15,18 +15,17 @@
   location[0] = 0;
   objc_storeStrong(location, obj);
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-  v6 = emptyGroupSpecifier;
+  v5 = emptyGroupSpecifier;
   v3 = objc_opt_class();
-  v7 = NSStringFromClass(v3);
-  v4 = *MEMORY[0x277D3FF48];
-  [v6 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v7);
+  v6 = NSStringFromClass(v3);
+  [v5 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v6);
   [emptyGroupSpecifier setProperty:location[0] forKey:@"ACUILinkButtonHolder"];
-  v8 = MEMORY[0x277D82BE0](emptyGroupSpecifier);
+  v7 = MEMORY[0x277D82BE0](emptyGroupSpecifier);
   objc_storeStrong(&emptyGroupSpecifier, 0);
   objc_storeStrong(location, 0);
 
-  return v8;
+  return v7;
 }
 
 + (id)groupSpecifierWithFooterText:()ACUIGroupSpecifier linkButton:
@@ -46,7 +45,6 @@
   MEMORY[0x277D82BD8](v8);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -87,11 +85,11 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, obj);
-  v16 = 0;
-  objc_storeStrong(&v16, a4);
   v15 = 0;
-  objc_storeStrong(&v15, a5);
+  objc_storeStrong(&v15, a4);
   v14 = 0;
+  objc_storeStrong(&v14, a5);
+  v13 = 0;
   if (location[0])
   {
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] groupSpecifierWithName:location[0]];
@@ -102,27 +100,26 @@
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   }
 
-  v6 = v14;
-  v14 = emptyGroupSpecifier;
+  v6 = v13;
+  v13 = emptyGroupSpecifier;
   MEMORY[0x277D82BD8](v6);
   v7 = objc_opt_class();
-  v11 = NSStringFromClass(v7);
-  v8 = *MEMORY[0x277D3FF48];
-  [v14 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v11);
-  [v14 setProperty:v16 forKey:@"ACUIFooterText"];
-  if (v15)
+  v10 = NSStringFromClass(v7);
+  [v13 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v10);
+  [v13 setProperty:v15 forKey:@"ACUIFooterText"];
+  if (v14)
   {
-    [v14 setProperty:v15 forKey:@"ACUILinkButtonArray"];
+    [v13 setProperty:v14 forKey:@"ACUILinkButtonArray"];
   }
 
-  v10 = MEMORY[0x277D82BE0](v14);
+  v9 = MEMORY[0x277D82BE0](v13);
+  objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
-  objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
 
-  return v10;
+  return v9;
 }
 
 @end

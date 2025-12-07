@@ -141,7 +141,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __69__SBMixedGridToHomeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
+void *__69__SBMixedGridToHomeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [v2 appLayouts];
@@ -290,7 +290,7 @@ CGFloat __51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke(voi
   return result;
 }
 
-uint64_t __51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_2(void *a1)
+void *__51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 176) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -301,7 +301,7 @@ uint64_t __51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_2(
   return result;
 }
 
-uint64_t __51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_3(uint64_t a1)
+void *__51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_3(uint64_t a1)
 {
   [*(*(a1 + 32) + 176) frameForIndex:*(a1 + 56)];
   v2 = *(*(a1 + 40) + 8);
@@ -343,7 +343,7 @@ uint64_t __51__SBMixedGridToHomeSwitcherModifier_frameForIndex___block_invoke_3(
   return self;
 }
 
-uint64_t __74__SBMixedGridToHomeSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
+void *__74__SBMixedGridToHomeSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) asyncRenderingAttributesForAppLayout:a1[5]];
   *(*(a1[6] + 8) + 32) = result;

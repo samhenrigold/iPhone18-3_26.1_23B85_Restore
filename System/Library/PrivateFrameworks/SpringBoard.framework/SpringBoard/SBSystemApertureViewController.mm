@@ -250,13 +250,13 @@
 
 - (void)_reevaluateElementSuppression
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v37 = 0u;
+  v55 = *MEMORY[0x277D85DE8];
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v2 = self->_systemApertureSuppressionAssertions;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v37 objects:v53 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v38 objects:v54 count:16];
   if (v3)
   {
     v4 = v3;
@@ -265,17 +265,17 @@
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = *v38;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v38 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v2);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         v9 |= [v12 suppressForCoverSheetVisible];
         v8 |= [v12 suppressForLiquidDetectionVisible];
         v5 |= [v12 suppressForProximityReaderVisible];
@@ -283,7 +283,7 @@
         v7 |= [v12 suppressForSecureElementCapture];
       }
 
-      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v37 objects:v53 count:16];
+      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v38 objects:v54 count:16];
     }
 
     while (v4);
@@ -305,13 +305,13 @@
   {
     v15 = [MEMORY[0x277CBEB58] set];
     associatedSceneIdentifiersToSuppressInSystemAperture2 = [(SBFZStackParticipant *)self->_zStackParticipant associatedSceneIdentifiersToSuppressInSystemAperture];
-    v35 = v15;
+    v36 = v15;
     [v15 unionSet:associatedSceneIdentifiersToSuppressInSystemAperture2];
   }
 
   else
   {
-    v35 = 0;
+    v36 = 0;
   }
 
   associatedBundleIdentifiersToSuppressInSystemAperture = [(SBFZStackParticipant *)self->_zStackParticipant associatedBundleIdentifiersToSuppressInSystemAperture];
@@ -321,28 +321,28 @@
   {
     v19 = [MEMORY[0x277CBEB58] set];
     associatedBundleIdentifiersToSuppressInSystemAperture2 = [(SBFZStackParticipant *)self->_zStackParticipant associatedBundleIdentifiersToSuppressInSystemAperture];
-    v34 = v19;
+    v35 = v19;
     [v19 unionSet:associatedBundleIdentifiersToSuppressInSystemAperture2];
   }
 
   else
   {
-    v34 = 0;
+    v35 = 0;
   }
 
-  v32 = BSEqualSets();
+  v33 = BSEqualSets();
   v21 = BSEqualSets();
   prefersSuppressionOfElementsDueToCoversheetVisibility = self->_prefersSuppressionOfElementsDueToCoversheetVisibility;
   prefersSuppressionOfElementsDueToLiquidDetectionVisibility = self->_prefersSuppressionOfElementsDueToLiquidDetectionVisibility;
-  v31 = v21;
+  v32 = v21;
   prefersSuppressionOfElementsDueToSystemChromeSuppression = self->_prefersSuppressionOfElementsDueToSystemChromeSuppression;
   prefersSuppressionOfElementsDueToProximityReaderVisibility = self->_prefersSuppressionOfElementsDueToProximityReaderVisibility;
   prefersSuppressionOfElementsDueToActivelyCapturingSecureElement = self->_prefersSuppressionOfElementsDueToActivelyCapturingSecureElement;
-  v22 = [v35 copy];
+  v22 = [v36 copy];
   sceneIDsPreferringSuppression = self->_sceneIDsPreferringSuppression;
   self->_sceneIDsPreferringSuppression = v22;
 
-  v24 = [v34 copy];
+  v24 = [v35 copy];
   bundleIDsPreferringSuppression = self->_bundleIDsPreferringSuppression;
   self->_bundleIDsPreferringSuppression = v24;
 
@@ -351,24 +351,24 @@
   self->_prefersSuppressionOfElementsDueToProximityReaderVisibility = v5 & 1;
   self->_prefersSuppressionOfElementsDueToSystemChromeSuppression = v6 & 1;
   self->_prefersSuppressionOfElementsDueToActivelyCapturingSecureElement = v7 & 1;
-  if (prefersSuppressionOfElementsDueToCoversheetVisibility != (v9 & 1) || !v32 || !v31 || prefersSuppressionOfElementsDueToLiquidDetectionVisibility != (v8 & 1) || prefersSuppressionOfElementsDueToProximityReaderVisibility != (v5 & 1) || prefersSuppressionOfElementsDueToSystemChromeSuppression != (v6 & 1) || prefersSuppressionOfElementsDueToActivelyCapturingSecureElement != (v7 & 1))
+  if (prefersSuppressionOfElementsDueToCoversheetVisibility != (v9 & 1) || !v33 || !v32 || prefersSuppressionOfElementsDueToLiquidDetectionVisibility != (v8 & 1) || prefersSuppressionOfElementsDueToProximityReaderVisibility != (v5 & 1) || prefersSuppressionOfElementsDueToSystemChromeSuppression != (v6 & 1) || prefersSuppressionOfElementsDueToActivelyCapturingSecureElement != (v7 & 1))
   {
-    v26 = SBLogSystemApertureController();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = SBLogSystemApertureController(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110402;
-      v42 = v9 & 1;
-      v43 = 1024;
-      v44 = v8 & 1;
-      v45 = 1024;
-      v46 = v5 & 1;
-      v47 = 1024;
-      v48 = v6 & 1;
-      v49 = 2114;
-      v50 = v34;
-      v51 = 2114;
-      v52 = v35;
-      _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Invalidating promoted elements with coversheet suppression %{BOOL}u liquid detection suppression %{BOOL}u proximity reader suppression %{BOOL}u system chrome suppression %{BOOL}u bundleIDs %{public}@ sceneIds %{public}@", buf, 0x2Eu);
+      v43 = v9 & 1;
+      v44 = 1024;
+      v45 = v8 & 1;
+      v46 = 1024;
+      v47 = v5 & 1;
+      v48 = 1024;
+      v49 = v6 & 1;
+      v50 = 2114;
+      v51 = v35;
+      v52 = 2114;
+      v53 = v36;
+      _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Invalidating promoted elements with coversheet suppression %{BOOL}u liquid detection suppression %{BOOL}u proximity reader suppression %{BOOL}u system chrome suppression %{BOOL}u bundleIDs %{public}@ sceneIds %{public}@", buf, 0x2Eu);
     }
 
     [(SAUISystemApertureManager *)self->_systemApertureManager invalidatePromotedElements];
@@ -727,7 +727,7 @@ void __57__SBSystemApertureViewController__platformMetricsContext__block_invoke(
     }
 
     v12 = array;
-    v13 = SBLogSystemAperturePreferencesStackGestures();
+    v13 = SBLogSystemAperturePreferencesStackGestures(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _popActiveGestureDescriptions];
@@ -877,7 +877,7 @@ LABEL_17:
   v13 = window;
   if (window)
   {
-    [window transform];
+    objc_msgSend_transform(window);
   }
 
   else
@@ -1190,7 +1190,7 @@ void __58__SBSystemApertureViewController__indicatorElementContext__block_invoke
   result = self->_activeElementInterfaceOrientation;
   if (!result)
   {
-    v4 = SBLogSystemApertureOrientation();
+    v4 = SBLogSystemApertureOrientation(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SBSystemApertureViewController _activeElementInterfaceOrientation];
@@ -1606,7 +1606,7 @@ void __45__SBSystemApertureViewController_viewDidLoad__block_invoke(uint64_t a1,
     v13 = [managerCopy isSystemGestureRecognizer:recognizerCopy];
     if (v12 && type && _promoteCopy && (v13 & 1) == 0)
     {
-      v14 = SBLogSystemApertureController();
+      v14 = SBLogSystemApertureController(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v18 = 138543362;
@@ -1622,7 +1622,7 @@ void __45__SBSystemApertureViewController_viewDidLoad__block_invoke(uint64_t a1,
 
     else if (!_promoteCopy && ((v13 ^ 1) & 1) == 0)
     {
-      v16 = SBLogSystemApertureController();
+      v16 = SBLogSystemApertureController(v13);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v18 = 138543362;
@@ -1974,7 +1974,7 @@ uint64_t __93__SBSystemApertureViewController__systemApertureRepresentationSuppr
 
 - (id)restrictSystemApertureToDefaultLayoutWithReason:(id)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _primaryContainerView = [(SBSystemApertureViewController *)self _primaryContainerView];
   elementViewController = [_primaryContainerView elementViewController];
   elementViewProvider = [elementViewController elementViewProvider];
@@ -1983,18 +1983,19 @@ uint64_t __93__SBSystemApertureViewController__systemApertureRepresentationSuppr
   v8 = [(SBSystemApertureViewController *)self _layoutSpecifyingOverriderForContainerView:_primaryContainerView];
   if (v8)
   {
-    if ([(SBSystemApertureViewController *)self _doesElementHaveValidRequiredPriorityAssertion:element])
+    v9 = [(SBSystemApertureViewController *)self _doesElementHaveValidRequiredPriorityAssertion:element];
+    if (v9)
     {
-      preferredLayoutModeAssertion = SBLogSystemApertureController();
+      preferredLayoutModeAssertion = SBLogSystemApertureController(v9);
       if (os_log_type_enabled(preferredLayoutModeAssertion, OS_LOG_TYPE_DEFAULT))
       {
         clientIdentifier = [element clientIdentifier];
         elementIdentifier = [element elementIdentifier];
-        v15 = 138543618;
-        v16 = clientIdentifier;
-        v17 = 2114;
-        v18 = elementIdentifier;
-        _os_log_impl(&dword_21ED4E000, preferredLayoutModeAssertion, OS_LOG_TYPE_DEFAULT, "Ignoring request to collapse SystemAperture to default layout due to element required secure visibility: (%{public}@-%{public}@)", &v15, 0x16u);
+        v16 = 138543618;
+        v17 = clientIdentifier;
+        v18 = 2114;
+        v19 = elementIdentifier;
+        _os_log_impl(&dword_21ED4E000, preferredLayoutModeAssertion, OS_LOG_TYPE_DEFAULT, "Ignoring request to collapse SystemAperture to default layout due to element required secure visibility: (%{public}@-%{public}@)", &v16, 0x16u);
       }
     }
 
@@ -2008,25 +2009,25 @@ uint64_t __93__SBSystemApertureViewController__systemApertureRepresentationSuppr
     }
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277D6B898]);
-  v13 = SBLogSystemApertureController();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = objc_alloc_init(MEMORY[0x277D6B898]);
+  v14 = SBLogSystemApertureController(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = v12;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Acquired empty restrict to default layout assertion: %{public}@", &v15, 0xCu);
+    v16 = 138543362;
+    v17 = v13;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Acquired empty restrict to default layout assertion: %{public}@", &v16, 0xCu);
   }
 
-  [v12 addInvalidationBlock:&__block_literal_global_201];
+  [v13 addInvalidationBlock:&__block_literal_global_201];
 
-  return v12;
+  return v13;
 }
 
 void __82__SBSystemApertureViewController_restrictSystemApertureToDefaultLayoutWithReason___block_invoke(uint64_t a1, void *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = SBLogSystemApertureController();
+  v3 = SBLogSystemApertureController(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -2419,7 +2420,7 @@ void __69__SBSystemApertureViewController__addTimerIfNecessaryForDescription___b
 
 - (void)_flushIndicatorDidSettleHandlersIfNecessary
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   indicatorAppearanceStateContext = [(SBSAMaintainedPreferences *)selfCopy->_lastMaintainedPreferences indicatorAppearanceStateContext];
@@ -2433,40 +2434,40 @@ void __69__SBSystemApertureViewController__addTimerIfNecessaryForDescription___b
     {
       selfCopy->_systemApertureIndicatorDidSettleCompletionBlocks = 0;
 
-      v7 = SBLogSystemApertureController();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = SBLogSystemApertureController(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [(SBSystemApertureViewController *)v17 _flushDidSettleHandlersIfNecessary];
+        [(SBSystemApertureViewController *)v18 _flushDidSettleHandlersIfNecessary];
       }
 
-      v14 = 0u;
       v15 = 0u;
-      v12 = 0u;
+      v16 = 0u;
       v13 = 0u;
-      v8 = v5;
-      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v9)
+      v14 = 0u;
+      v9 = v5;
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v10)
       {
-        v10 = *v13;
+        v11 = *v14;
         do
         {
-          v11 = 0;
+          v12 = 0;
           do
           {
-            if (*v13 != v10)
+            if (*v14 != v11)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v9);
             }
 
-            (*(*(*(&v12 + 1) + 8 * v11) + 16))(*(*(&v12 + 1) + 8 * v11));
-            ++v11;
+            (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
+            ++v12;
           }
 
-          while (v9 != v11);
-          v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          while (v10 != v12);
+          v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
-        while (v9);
+        while (v10);
       }
     }
   }
@@ -2813,27 +2814,37 @@ LABEL_19:
   {
     v14 = [objectCopy valueForKeyPath:v12];
     [v14 CGRectValue];
+    v16 = v15;
+    v18 = v17;
+    v20 = v19;
+    v22 = v21;
     [v13 CGRectValue];
-    v15 = SBSARectApproximatelyEqualToRect();
+    v24 = v23;
+    v25.n128_u64[0] = v16;
+    v29 = SBSARectApproximatelyEqualToRect(v25, v18, v20, v22, v24, v26, v27, v28, 0.00100000005);
   }
 
   else if ((BSEqualStrings() & 1) != 0 || BSEqualStrings())
   {
     v14 = [objectCopy valueForKeyPath:v12];
     [v14 CGPointValue];
+    v33 = v32;
+    v35 = v34;
     [v13 CGPointValue];
-    v15 = SBSAPointApproximatelyEqualToPoint();
+    v37 = v36;
+    v38.n128_u64[0] = v33;
+    v29 = SBSAPointApproximatelyEqualToPoint(v38, v35, v37, v39, 0.00100000005);
   }
 
   else
   {
     v14 = [objectCopy valueForKeyPath:v12];
-    v15 = BSEqualObjects();
+    v29 = BSEqualObjects();
   }
 
-  v16 = v15;
+  v30 = v29;
 
-  return v16;
+  return v30;
 }
 
 - (id)_elementViewControllerForSizeTransitionWithDescription:(id)description fromPreferences:(id)preferences
@@ -2857,7 +2868,7 @@ LABEL_19:
 
 - (BOOL)_shouldPerformTransitionOfProperty:(id)property ofObject:(id)object withDescription:(id)description fromPreferences:(id)preferences context:(id)context
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   objectCopy = object;
   descriptionCopy = description;
@@ -2925,66 +2936,67 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v58 = preferencesCopy;
-    v60 = contextCopy;
+    v60 = preferencesCopy;
+    v62 = contextCopy;
     v46 = [preferencesCopy effectiveMilestoneProvidingAnimatedTransitionDescriptionForProperty:v18];
-    v57 = [(NSMutableDictionary *)self->_lastAppliedPropertyIdentitiesToTransitionDescriptions objectForKey:v18];
-    behaviorSettings = [v57 behaviorSettings];
+    v59 = [(NSMutableDictionary *)self->_lastAppliedPropertyIdentitiesToTransitionDescriptions objectForKey:v18];
+    behaviorSettings = [v59 behaviorSettings];
     behaviorSettings2 = [v46 behaviorSettings];
     v49 = BSEqualObjects();
 
     if ((v49 & 1) == 0)
     {
       v50 = [(SBSystemApertureViewController *)self _keyPathForProperty:v18];
-      contextCopy = v60;
+      v51 = v50;
+      contextCopy = v62;
       if (isContentBoundsProperty)
       {
-        v51 = SBLogSystemAperturePreferencesStack();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+        v52 = SBLogSystemAperturePreferencesStack(v50);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349570;
-          queryIteration = [v60 queryIteration];
-          v67 = 2112;
-          v68 = v50;
+          queryIteration = [v62 queryIteration];
           v69 = 2112;
-          v70 = v45;
-          _os_log_debug_impl(&dword_21ED4E000, v51, OS_LOG_TYPE_DEBUG, "[%{public}lu] [NOTE]: Performing transition due to updated behavior settings for UNSUPPORTED '%@' keypath of view '%@'", buf, 0x20u);
+          v70 = v51;
+          v71 = 2112;
+          v72 = v45;
+          _os_log_debug_impl(&dword_21ED4E000, v52, OS_LOG_TYPE_DEBUG, "[%{public}lu] [NOTE]: Performing transition due to updated behavior settings for UNSUPPORTED '%@' keypath of view '%@'", buf, 0x20u);
         }
       }
 
-      if ([v45 sbsa_isPropertyActivelyC2AnimatingForKeyPath:v50])
+      if ([v45 sbsa_isPropertyActivelyC2AnimatingForKeyPath:v51])
       {
-        v52 = MEMORY[0x277D75D18];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __118__SBSystemApertureViewController__shouldPerformTransitionOfProperty_ofObject_withDescription_fromPreferences_context___block_invoke;
-        v61[3] = &unk_2783A8ED8;
-        v62 = v45;
-        v63 = v50;
-        v64 = v60;
-        v53 = v50;
-        [v52 performWithoutAnimation:v61];
+        v53 = MEMORY[0x277D75D18];
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __118__SBSystemApertureViewController__shouldPerformTransitionOfProperty_ofObject_withDescription_fromPreferences_context___block_invoke;
+        v63[3] = &unk_2783A8ED8;
+        v64 = v45;
+        v65 = v51;
+        v66 = v62;
+        v54 = v51;
+        [v53 performWithoutAnimation:v63];
 
-        preferencesCopy = v58;
+        preferencesCopy = v60;
         goto LABEL_42;
       }
     }
 
     milestones = [v46 milestones];
-    v55 = [milestones count];
+    v56 = [milestones count];
 
-    if (!v55)
+    if (!v56)
     {
       v41 = 0;
-      preferencesCopy = v58;
-      contextCopy = v60;
+      preferencesCopy = v60;
+      contextCopy = v62;
       goto LABEL_44;
     }
 
-    v53 = SBLogSystemAperturePreferencesStack();
-    preferencesCopy = v58;
-    contextCopy = v60;
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+    v54 = SBLogSystemAperturePreferencesStack(v57);
+    preferencesCopy = v60;
+    contextCopy = v62;
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _shouldPerformTransitionOfProperty:ofObject:withDescription:fromPreferences:context:];
     }
@@ -3029,7 +3041,7 @@ LABEL_44:
   else
   {
     [v25 outgoingElementViewController];
-    v59 = v18;
+    v61 = v18;
     v29 = isContentBoundsProperty;
     v30 = preferencesCopy;
     selfCopy = self;
@@ -3044,7 +3056,7 @@ LABEL_44:
     self = selfCopy;
     preferencesCopy = v30;
     isContentBoundsProperty = v29;
-    v18 = v59;
+    v18 = v61;
   }
 
   if (!elementViewProvider || (objc_opt_respondsToSelector() & 1) == 0 || ![elementViewProvider isRequestingLayoutUpdateForHostedClient])
@@ -3075,7 +3087,7 @@ void __118__SBSystemApertureViewController__shouldPerformTransitionOfProperty_of
 {
   v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sbsa_presentationModifierValueForKeyPath:*(a1 + 40)];
-  v3 = SBLogSystemAperturePreferencesStack();
+  v3 = SBLogSystemAperturePreferencesStack(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = [*(a1 + 48) queryIteration];
@@ -3400,7 +3412,7 @@ void __188__SBSystemApertureViewController__propertyUpdateBlockArrayForPropertyI
 
         [(NSMutableDictionary *)lastAppliedPropertyIdentitiesToTransitionDescriptions setObject:v80 forKey:propertyCopy];
         milestones = [v80 milestones];
-        if ([milestones containsObject:0x28336F620])
+        if (objc_msgSend_containsObject_(milestones))
         {
           objc_initWeak(&location, self);
           v129[0] = MEMORY[0x277D85DD0];
@@ -5023,7 +5035,7 @@ void __64__SBSystemApertureViewController__handleContainerResizeGesture___block_
 - (void)_pushGestureDescription:(id)description
 {
   descriptionCopy = description;
-  v5 = SBLogSystemAperturePreferencesStackGestures();
+  v5 = SBLogSystemAperturePreferencesStackGestures(descriptionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBSystemApertureViewController _pushGestureDescription:];
@@ -5693,7 +5705,7 @@ LABEL_31:
             {
               if (appearState == 3)
               {
-                [v23 bs_beginAppearanceTransition:0 animated:1];
+                appearState = [v23 bs_beginAppearanceTransition:0 animated:1];
                 if (_appearState)
                 {
                   goto LABEL_55;
@@ -5707,7 +5719,7 @@ LABEL_31:
                   goto LABEL_55;
                 }
 
-                [v23 bs_endAppearanceTransition];
+                appearState = [v23 bs_endAppearanceTransition];
                 if (_appearState == 1)
                 {
                   goto LABEL_55;
@@ -5722,14 +5734,14 @@ LABEL_31:
                 goto LABEL_55;
               }
 
-              [v23 bs_beginAppearanceTransition:1 animated:1];
+              appearState = [v23 bs_beginAppearanceTransition:1 animated:1];
               if (_appearState != 2)
               {
                 goto LABEL_55;
               }
             }
 
-            v48 = SBLogSystemApertureController();
+            v48 = SBLogSystemApertureController(appearState);
             if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
               SBSAStringFromUIViewControllerAppearState(_appearState);
@@ -6121,10 +6133,10 @@ uint64_t __103__SBSystemApertureViewController__handleCurtainIndicatorPortalsNee
   magiciansCurtainView = self->_magiciansCurtainView;
   if (preferencesCopy)
   {
-    [preferencesCopy curtainRenderingConfiguration];
+    objc_msgSend_curtainRenderingConfiguration(preferencesCopy);
     [(SBSystemApertureGainMapBackedRendering *)magiciansCurtainView setRenderingConfiguration:&v8];
     highLevelMagiciansCurtainView = self->_highLevelMagiciansCurtainView;
-    [v5 highLevelCurtainRenderingConfiguration];
+    objc_msgSend_highLevelCurtainRenderingConfiguration(v5);
   }
 
   else
@@ -6216,40 +6228,41 @@ LABEL_7:
 
 - (void)_handleGestureUpdatesFromPreferences:(id)preferences
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
+  v22 = *MEMORY[0x277D85DE8];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   gestureDescriptions = [preferences gestureDescriptions];
-  v5 = [gestureDescriptions countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v5 = [gestureDescriptions countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v15;
+    v8 = *v16;
     *&v6 = 138412290;
-    v13 = v6;
+    v14 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(gestureDescriptions);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 gestureRecognizerState] == 4)
         {
           v11 = [(SBSystemApertureViewController *)self _gestureRecognizerForDescription:v10];
-          if ([v11 state] >= 1)
+          state = [v11 state];
+          if (state >= 1)
           {
-            v12 = SBLogSystemAperturePreferencesStackGestures();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            v13 = SBLogSystemAperturePreferencesStackGestures(state);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v13;
-              v19 = v11;
-              _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "Cancelling guesture from stack request: %@", buf, 0xCu);
+              *buf = v14;
+              v20 = v11;
+              _os_log_debug_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEBUG, "Cancelling guesture from stack request: %@", buf, 0xCu);
             }
 
             [v11 sb_cancel];
@@ -6257,7 +6270,7 @@ LABEL_7:
         }
       }
 
-      v7 = [gestureDescriptions countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [gestureDescriptions countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
@@ -6510,100 +6523,100 @@ LABEL_7:
     orderedElementViewControllers = [(SAUISystemApertureManager *)self->_systemApertureManager orderedElementViewControllers];
     ++self->_queryIteration;
     v6 = [(SBSystemApertureViewController *)self _contextWithOrderedElementViewControllers:orderedElementViewControllers];
-    v7 = SBLogSystemAperturePreferencesStack();
+    v7 = SBLogSystemAperturePreferencesStack(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _updateWithPreferencesFromStackForValidationReason:v6];
     }
 
-    v8 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = SBLogSystemAperturePreferencesStack(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _updateWithPreferencesFromStackForValidationReason:v6];
     }
 
-    v9 = SBLogSystemAperturePreferencesStack();
-    SBSALogDictionaryDescribableDebug(v9, v6, v6);
+    v11 = SBLogSystemAperturePreferencesStack(v10);
+    SBSALogDictionaryDescribableDebug(v11, v6, v6);
 
-    v10 = [(SBSARootPreferencesProvider *)self->_rootPreferencesProvider preferencesFromContext:v6];
-    v11 = objc_opt_class();
-    v12 = v10;
-    if (v11)
+    v12 = [(SBSARootPreferencesProvider *)self->_rootPreferencesProvider preferencesFromContext:v6];
+    v13 = objc_opt_class();
+    v14 = v12;
+    if (v13)
     {
       if (objc_opt_isKindOfClass())
       {
-        v13 = v12;
+        v15 = v14;
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v14 = v13;
+    v16 = v15;
 
-    v15 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = SBLogSystemAperturePreferencesStack(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _updateWithPreferencesFromStackForValidationReason:v6];
     }
 
-    v16 = SBLogSystemAperturePreferencesStack();
-    SBSALogDictionaryDescribableDebug(v16, v6, v14);
+    v20 = SBLogSystemAperturePreferencesStack(v19);
+    SBSALogDictionaryDescribableDebug(v20, v6, v16);
 
     stackDepiction = [(SBSABasePreferencesProvider *)self->_rootPreferencesProvider stackDepiction];
-    v18 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v22 = SBLogSystemAperturePreferencesStack(stackDepiction);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _updateWithPreferencesFromStackForValidationReason:];
     }
 
-    v19 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v24 = SBLogSystemAperturePreferencesStack(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [SBSystemApertureViewController _updateWithPreferencesFromStackForValidationReason:v6];
     }
 
-    [(SBSystemApertureViewController *)self _handleContainerParentUpdatesFromPreferences:v14 context:v6];
+    [(SBSystemApertureViewController *)self _handleContainerParentUpdatesFromPreferences:v16 context:v6];
     indicatorElementViewController = [(SAUISystemApertureManager *)self->_systemApertureManager indicatorElementViewController];
     if (indicatorElementViewController)
     {
       indicatorElementViewController2 = [(SAUISystemApertureManager *)self->_systemApertureManager indicatorElementViewController];
-      v22 = [orderedElementViewControllers arrayByAddingObject:indicatorElementViewController2];
-      [(SBSystemApertureViewController *)self _handleContainerAndElementUpdatesFromPreferences:v14 orderedElementViewControllers:v22 context:v6];
+      v27 = [orderedElementViewControllers arrayByAddingObject:indicatorElementViewController2];
+      [(SBSystemApertureViewController *)self _handleContainerAndElementUpdatesFromPreferences:v16 orderedElementViewControllers:v27 context:v6];
     }
 
     else
     {
-      [(SBSystemApertureViewController *)self _handleContainerAndElementUpdatesFromPreferences:v14 orderedElementViewControllers:orderedElementViewControllers context:v6];
+      [(SBSystemApertureViewController *)self _handleContainerAndElementUpdatesFromPreferences:v16 orderedElementViewControllers:orderedElementViewControllers context:v6];
     }
 
     if (_os_feature_enabled_impl())
     {
-      [(SBSystemApertureViewController *)self _handleSecureElementUpdatesFromPreferences:v14];
+      [(SBSystemApertureViewController *)self _handleSecureElementUpdatesFromPreferences:v16];
     }
 
-    [(SBSystemApertureViewController *)self _handleAnyContentsDidChangePreferences:v14 context:v6];
-    -[SBSystemApertureViewController _handleSystemApertureCurtainPortalToSuperHighLevelScene:](self, "_handleSystemApertureCurtainPortalToSuperHighLevelScene:", [v14 isSystemApertureForcedToHardwareAdjacentPosition]);
-    [(SBSystemApertureViewController *)self _handleCurtainUpdatesFromPreferences:v14];
-    [(SBSystemApertureViewController *)self _handleBackgroundUpdatesFromPreferences:v14 context:v6];
-    [(SBSystemApertureViewController *)self _handleTimerUpdatesFromPreferences:v14];
-    [(SBSystemApertureViewController *)self _handleGestureUpdatesFromPreferences:v14];
+    [(SBSystemApertureViewController *)self _handleAnyContentsDidChangePreferences:v16 context:v6];
+    -[SBSystemApertureViewController _handleSystemApertureCurtainPortalToSuperHighLevelScene:](self, "_handleSystemApertureCurtainPortalToSuperHighLevelScene:", [v16 isSystemApertureForcedToHardwareAdjacentPosition]);
+    [(SBSystemApertureViewController *)self _handleCurtainUpdatesFromPreferences:v16];
+    [(SBSystemApertureViewController *)self _handleBackgroundUpdatesFromPreferences:v16 context:v6];
+    [(SBSystemApertureViewController *)self _handleTimerUpdatesFromPreferences:v16];
+    [(SBSystemApertureViewController *)self _handleGestureUpdatesFromPreferences:v16];
     [(SBSystemApertureViewController *)self _handleHitTestingUpdatesWithContext:v6];
-    [(SBSystemApertureViewController *)self _handleMitosisBlobUpdatesFromPreferences:v14];
-    [(SBSystemApertureViewController *)self _handleActionsFromPreferences:v14];
+    [(SBSystemApertureViewController *)self _handleMitosisBlobUpdatesFromPreferences:v16];
+    [(SBSystemApertureViewController *)self _handleActionsFromPreferences:v16];
     [(SBSystemApertureViewController *)self _handleTelemetryLoggingFromContext:v6];
-    v23 = SBSAStringFromPreferencesInvalidationReason(reason);
-    v24 = [v23 stringByAppendingFormat:@"\n\n%@", stackDepiction];
-    [(SBSystemApertureViewController *)self _handleDebuggingUtilityWithPreferences:v14 context:v6 withStackDepiction:v24 andQueryIteration:self->_queryIteration];
+    v28 = SBSAStringFromPreferencesInvalidationReason(reason);
+    v29 = [v28 stringByAppendingFormat:@"\n\n%@", stackDepiction];
+    [(SBSystemApertureViewController *)self _handleDebuggingUtilityWithPreferences:v16 context:v6 withStackDepiction:v29 andQueryIteration:self->_queryIteration];
 
-    maintainedPreferences = [v14 maintainedPreferences];
+    maintainedPreferences = [v16 maintainedPreferences];
     lastMaintainedPreferences = self->_lastMaintainedPreferences;
     self->_lastMaintainedPreferences = maintainedPreferences;
 
@@ -6916,7 +6929,7 @@ BOOL __84__SBSystemApertureViewController__containerViewForViewController_includ
     v20 = v13;
     [v10 _createTransformerWithInputAnimatableProperties:v11 presentationValueChangedCallback:&v15];
 
-    if ([v12 containsObject:{&unk_28336F370, v15, v16, v17, v18}])
+    if (objc_msgSend_containsObject_(v12, v15, v16, v17, v18))
     {
       (*(v13 + 2))(v13, v8, 0.0);
       [v12 removeObject:&unk_28336F370];
@@ -7846,7 +7859,7 @@ LABEL_25:
 
 LABEL_27:
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](layoutMode2);
 }
 
 - (id)layoutModePreferenceForTargetWithOverrider:(id)overrider isDefaultValue:(BOOL *)value
@@ -8115,47 +8128,48 @@ LABEL_24:
 
 - (BOOL)isRequestingMenuPresentationForTargetWithOverrider:(id)overrider isDefaultValue:(BOOL *)value
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   overriderCopy = overrider;
   v7 = [overriderCopy layoutSpecifyingOverridingParticipantSubordinateToParticipant:self thatRespondsToSelector:sel_isRequestingMenuPresentationForTargetWithOverrider_isDefaultValue_];
   LODWORD(value) = [v7 isRequestingMenuPresentationForTargetWithOverrider:overriderCopy isDefaultValue:value];
 
   if (value)
   {
-    if ([overriderCopy layoutMode] == 3)
+    layoutMode = [overriderCopy layoutMode];
+    if (layoutMode == 3)
     {
-      v8 = SATargetElementFromBehaviorOverrider();
-      v20 = 0u;
-      v21 = 0u;
+      v9 = SATargetElementFromBehaviorOverrider();
       v22 = 0u;
       v23 = 0u;
-      v9 = self->_orderedContainerViews;
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-      if (v10)
+      v24 = 0u;
+      v25 = 0u;
+      v10 = self->_orderedContainerViews;
+      v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v21;
+        v12 = v11;
+        v13 = *v23;
 LABEL_5:
-        v13 = 0;
+        v14 = 0;
         while (1)
         {
-          if (*v21 != v12)
+          if (*v23 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * v13);
-          v15 = [(SBSystemApertureViewController *)self _elementForContainerView:v14, v20];
+          v15 = *(*(&v22 + 1) + 8 * v14);
+          v16 = [(SBSystemApertureViewController *)self _elementForContainerView:v15, v22];
 
-          if (v15 == v8)
+          if (v16 == v9)
           {
             break;
           }
 
-          if (v11 == ++v13)
+          if (v12 == ++v14)
           {
-            v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-            if (v11)
+            v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            if (v12)
             {
               goto LABEL_5;
             }
@@ -8164,14 +8178,14 @@ LABEL_5:
           }
         }
 
-        v17 = v14;
+        v19 = v15;
 
-        if (!v17)
+        if (!v19)
         {
           goto LABEL_18;
         }
 
-        v16 = 1;
+        v18 = 1;
       }
 
       else
@@ -8179,35 +8193,35 @@ LABEL_5:
 LABEL_11:
 
 LABEL_18:
-        v18 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = SBLogSystemApertureController(v17);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [SBSystemApertureViewController isRequestingMenuPresentationForTargetWithOverrider:isDefaultValue:];
         }
 
-        v17 = 0;
-        v16 = 0;
+        v19 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v8 = SBLogSystemApertureController();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SBLogSystemApertureController(layoutMode);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SBSystemApertureViewController isRequestingMenuPresentationForTargetWithOverrider:isDefaultValue:];
       }
 
-      v16 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 - (NSDirectionalEdgeInsets)_hostSuggestedOutsetsForElement:(id)element
@@ -9059,13 +9073,13 @@ void __74__SBSystemApertureViewController__persistentAssertionForElement_withTyp
   return 1;
 }
 
-void __94__SBSystemApertureViewController_systemApertureManagerShouldUseOrderedElementViewControllers___block_invoke()
+void __94__SBSystemApertureViewController_systemApertureManagerShouldUseOrderedElementViewControllers___block_invoke(uint64_t a1)
 {
-  v0 = SBLogSystemApertureController();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = SBLogSystemApertureController(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_DEFAULT, "**Using ordered element view controllers**", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_21ED4E000, v1, OS_LOG_TYPE_DEFAULT, "**Using ordered element view controllers**", v2, 2u);
   }
 }
 
@@ -10340,7 +10354,7 @@ void __71__SBSystemApertureViewController_gestureRecognizer_shouldReceiveTouch__
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   gestureRecognizerCopy = gestureRecognizer;
   recognizerCopy = recognizer;
   WeakRetained = objc_loadWeakRetained(&self->_activeWindowScene);
@@ -10350,24 +10364,24 @@ void __71__SBSystemApertureViewController_gestureRecognizer_shouldReceiveTouch__
   v11 = [(SBSystemApertureViewController *)self _systemGestureTypeForGesture:recognizerCopy systemGestureManager:systemGestureManager];
   v12 = [(SBSystemApertureViewController *)self _systemGestureTypeForGesture:gestureRecognizerCopy systemGestureManager:systemGestureManager];
 
-  if ((v11 - 135) >= 2 && v11 != 39 || (v13 = 1, (v12 - 135) >= 2) && v12 != 39)
+  if ((v11 - 135) >= 2 && v11 != 39 || (v14 = 1, (v12 - 135) >= 2) && v12 != 39)
   {
-    v14 = SBLogSystemGesture();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogSystemGesture(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = SBSystemGestureTypeDebugName(v11);
-      v16 = SBSystemGestureTypeDebugName(v12);
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v16;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "disallowing simultaneous (%{public}@) and (%{public}@)", &v18, 0x16u);
+      v16 = SBSystemGestureTypeDebugName(v11);
+      v17 = SBSystemGestureTypeDebugName(v12);
+      v19 = 138543618;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v17;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "disallowing simultaneous (%{public}@) and (%{public}@)", &v19, 0x16u);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)_cancelExternalGesturesForReason:(id)reason
@@ -10489,7 +10503,7 @@ LABEL_29:
       {
         v30 = [(SAUISystemApertureManager *)self->_systemApertureManager elementAssertionForElement:element2];
         v31 = v30;
-        if (v30 && [v30 isValid])
+        if (v30 && (v30 = [v30 isValid], v30))
         {
           if ((objc_opt_respondsToSelector() & 1) == 0)
           {
@@ -10501,7 +10515,7 @@ LABEL_29:
 
         else
         {
-          v32 = SBLogSystemApertureController();
+          v32 = SBLogSystemApertureController(v30);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             [SBSystemApertureViewController _handleResizeResult:withContainerView:];
@@ -10549,31 +10563,31 @@ LABEL_29:
 LABEL_42:
 }
 
-void *__72__SBSystemApertureViewController__handleResizeResult_withContainerView___block_invoke()
+void *__72__SBSystemApertureViewController__handleResizeResult_withContainerView___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SAUILayoutSpecifyingOverriderForElement();
-  v1 = [v0 preferredLayoutModeAssertion];
-  if ([v1 layoutModeChangeReason] == 3)
+  v2 = SAUILayoutSpecifyingOverriderForElement();
+  v3 = [v2 preferredLayoutModeAssertion];
+  if ([v3 layoutModeChangeReason] == 3)
   {
-    if ([v1 preferredLayoutMode])
+    if ([v3 preferredLayoutMode])
     {
-      v2 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v2 = v1;
+      v4 = v3;
     }
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  v3 = v2;
+  v5 = v4;
 
-  return v2;
+  return v4;
 }
 
 void *__72__SBSystemApertureViewController__handleResizeResult_withContainerView___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -10743,7 +10757,7 @@ LABEL_14:
 
 void __70__SBSystemApertureViewController__axRegisterForZoomUpdatesIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -10752,78 +10766,79 @@ void __70__SBSystemApertureViewController__axRegisterForZoomUpdatesIfNecessary__
     [v5 bs_CGFloatValue];
     v7 = v6;
 
-    if ((BSFloatEqualToFloat() & 1) == 0)
+    v8 = BSFloatEqualToFloat();
+    if ((v8 & 1) == 0)
     {
-      v8 = SBLogSystemApertureAccessibility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogSystemApertureAccessibility(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(*(a1 + 32) + 1520);
-        v19 = 134218240;
-        *v20 = v9;
-        *&v20[8] = 2048;
-        v21 = v7;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyZoomLevel: (%f) -> (%f)", &v19, 0x16u);
+        v10 = *(*(a1 + 32) + 1520);
+        v22 = 134218240;
+        *v23 = v10;
+        *&v23[8] = 2048;
+        v24 = v7;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyZoomLevel: (%f) -> (%f)", &v22, 0x16u);
       }
 
       *(*(a1 + 32) + 1520) = v7;
     }
 
-    v10 = [v3 objectForKey:*MEMORY[0x277D7EA48]];
-    v11 = [v10 BOOLValue];
+    v11 = [v3 objectForKey:*MEMORY[0x277D7EA48]];
+    v12 = [v11 BOOLValue];
 
-    if (*(*(a1 + 32) + 1530) != v11)
+    if (*(*(a1 + 32) + 1530) != v12)
     {
-      v12 = SBLogSystemApertureAccessibility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogSystemApertureAccessibility(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(*(a1 + 32) + 1530);
-        v19 = 67109376;
-        *v20 = v13;
-        *&v20[4] = 1024;
-        *&v20[6] = v11;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyInStandbyMode: (%{BOOL}d) -> (%{BOOL}d)", &v19, 0xEu);
+        v15 = *(*(a1 + 32) + 1530);
+        v22 = 67109376;
+        *v23 = v15;
+        *&v23[4] = 1024;
+        *&v23[6] = v12;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyInStandbyMode: (%{BOOL}d) -> (%{BOOL}d)", &v22, 0xEu);
       }
 
-      *(*(a1 + 32) + 1530) = v11;
+      *(*(a1 + 32) + 1530) = v12;
     }
 
-    v14 = [v3 objectForKey:*MEMORY[0x277D7EA50]];
-    v15 = [v14 BOOLValue];
+    v16 = [v3 objectForKey:*MEMORY[0x277D7EA50]];
+    v17 = [v16 BOOLValue];
 
-    if (v15)
+    if (v17)
     {
-      [*(a1 + 32) _addZoomAnimationAssertion];
+      v18 = [*(a1 + 32) _addZoomAnimationAssertion];
     }
 
-    if (*(*(a1 + 32) + 1531) != v15)
+    if (*(*(a1 + 32) + 1531) != v17)
     {
-      v16 = SBLogSystemApertureAccessibility();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = SBLogSystemApertureAccessibility(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(*(a1 + 32) + 1531);
-        v19 = 67109376;
-        *v20 = v17;
-        *&v20[4] = 1024;
-        *&v20[6] = v15;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyIsAnimating: (%{BOOL}d) -> (%{BOOL}d)", &v19, 0xEu);
+        v20 = *(*(a1 + 32) + 1531);
+        v22 = 67109376;
+        *v23 = v20;
+        *&v23[4] = 1024;
+        *&v23[6] = v17;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "AXZoom ZoomServices reported ZWAttributeKeyIsAnimating: (%{BOOL}d) -> (%{BOOL}d)", &v22, 0xEu);
       }
 
-      *(*(a1 + 32) + 1531) = v15;
+      *(*(a1 + 32) + 1531) = v17;
     }
 
-    if (v15)
+    if (v17)
     {
-      v18 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v18 = BSFloatEqualToFloat() ^ 1;
+      v21 = BSFloatEqualToFloat() ^ 1;
     }
 
-    if (WeakRetained[1529] != v18)
+    if (WeakRetained[1529] != v21)
     {
-      WeakRetained[1529] = v18;
+      WeakRetained[1529] = v21;
       [WeakRetained _axZoomLevelOrStandbyModeChanged];
     }
   }
@@ -10845,7 +10860,7 @@ void __70__SBSystemApertureViewController__axRegisterForZoomUpdatesIfNecessary__
 
   if (![(NSMutableArray *)self->_zoomAnimationAssertions count])
   {
-    v7 = SBLogSystemApertureAccessibility();
+    v7 = SBLogSystemApertureAccessibility(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -10879,13 +10894,13 @@ void __60__SBSystemApertureViewController__addZoomAnimationAssertion__block_invo
   }
 }
 
-uint64_t __60__SBSystemApertureViewController__addZoomAnimationAssertion__block_invoke_938(uint64_t a1)
+void *__60__SBSystemApertureViewController__addZoomAnimationAssertion__block_invoke_938(uint64_t a1)
 {
   [*(a1 + 32) invalidate];
   result = [*(*(a1 + 40) + 1272) count];
   if (!result)
   {
-    v3 = SBLogSystemApertureAccessibility();
+    v3 = SBLogSystemApertureAccessibility(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -10901,7 +10916,7 @@ uint64_t __60__SBSystemApertureViewController__addZoomAnimationAssertion__block_
 - (void)_axZoomLevelOrStandbyModeChanged
 {
   v15 = *MEMORY[0x277D85DE8];
-  v3 = SBLogSystemApertureAccessibility();
+  v3 = SBLogSystemApertureAccessibility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     _axZoomActiveAndEnabled = [(SBSystemApertureViewController *)self _axZoomActiveAndEnabled];
@@ -10966,7 +10981,7 @@ uint64_t __60__SBSystemApertureViewController__addZoomAnimationAssertion__block_
     {
       indicatorView = [elementViewProvider indicatorView];
       fixedIndicatorView = [elementViewProvider fixedIndicatorView];
-      v17 = fixedIndicatorView;
+      v18 = fixedIndicatorView;
       if (indicatorView == viewCopy)
       {
         if (fixedIndicatorView)
@@ -10975,10 +10990,10 @@ uint64_t __60__SBSystemApertureViewController__addZoomAnimationAssertion__block_
           [v6 center];
           SBUnintegralizedRectCenteredAboutPoint();
 LABEL_18:
-          v11 = v19;
-          v12 = v20;
-          v13 = v21;
-          v14 = v22;
+          v11 = v20;
+          v12 = v21;
+          v13 = v22;
+          v14 = v23;
 LABEL_19:
 
           goto LABEL_20;
@@ -10987,8 +11002,8 @@ LABEL_19:
 
       else if (fixedIndicatorView != viewCopy)
       {
-        v18 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = SBLogSystemAperturePreferencesStackIndicator(fixedIndicatorView);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [SBSystemApertureViewController frameForIndicatorPortalViewWithSourceView:];
         }
@@ -10996,11 +11011,11 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      [(UIView *)self->_interSensorRegionMatchMovePositionSourceView frame];
+      objc_msgSend_frame(self->_interSensorRegionMatchMovePositionSourceView);
       goto LABEL_18;
     }
 
-    indicatorView = SBLogSystemAperturePreferencesStackIndicator();
+    indicatorView = SBLogSystemAperturePreferencesStackIndicator(v15);
     if (os_log_type_enabled(indicatorView, OS_LOG_TYPE_ERROR))
     {
       [SBSystemApertureViewController frameForIndicatorPortalViewWithSourceView:];
@@ -11009,7 +11024,7 @@ LABEL_19:
 
   else
   {
-    indicatorView = SBLogSystemAperturePreferencesStackIndicator();
+    indicatorView = SBLogSystemAperturePreferencesStackIndicator(v15);
     if (os_log_type_enabled(indicatorView, OS_LOG_TYPE_ERROR))
     {
       [SBSystemApertureViewController frameForIndicatorPortalViewWithSourceView:];
@@ -11018,14 +11033,14 @@ LABEL_19:
 
 LABEL_20:
 
-  v23 = v11;
-  v24 = v12;
-  v25 = v13;
-  v26 = v14;
-  result.size.height = v26;
-  result.size.width = v25;
-  result.origin.y = v24;
-  result.origin.x = v23;
+  v24 = v11;
+  v25 = v12;
+  v26 = v13;
+  v27 = v14;
+  result.size.height = v27;
+  result.size.width = v26;
+  result.origin.y = v25;
+  result.origin.x = v24;
   return result;
 }
 
@@ -11526,29 +11541,29 @@ LABEL_17:
 
 - (void)hostOrientationDidChangeTo:(int64_t)to withPreviousOrientation:(int64_t)orientation context:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   activeElementInterfaceOrientation = self->_activeElementInterfaceOrientation;
-  v10 = SBLogSystemApertureOrientation();
+  v10 = SBLogSystemApertureOrientation(contextCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = BSInterfaceOrientationDescription();
-    v25 = 138412290;
-    v26 = v11;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "System Aperture Orientation settings did change to: %@", &v25, 0xCu);
+    v27 = 138412290;
+    v28 = v11;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "System Aperture Orientation settings did change to: %@", &v27, 0xCu);
   }
 
   if (activeElementInterfaceOrientation)
   {
-    v12 = activeElementInterfaceOrientation == orientation;
+    v13 = activeElementInterfaceOrientation == orientation;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  if (v12)
+  if (v13)
   {
     if (!to)
     {
@@ -11564,8 +11579,8 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v16 = SBLogSystemApertureOrientation();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v18 = SBLogSystemApertureOrientation(v12);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     [SBSystemApertureViewController(Private) hostOrientationDidChangeTo:withPreviousOrientation:context:];
   }
@@ -11576,8 +11591,8 @@ LABEL_9:
   }
 
 LABEL_17:
-  v18 = SBLogSystemApertureOrientation();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = SBLogSystemApertureOrientation(v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [SBSystemApertureViewController(Private) hostOrientationDidChangeTo:withPreviousOrientation:context:];
   }
@@ -11597,8 +11612,9 @@ LABEL_20:
   }
 
 LABEL_10:
-  bSAnimationSettings = [SBAnimationUtilities animationSettingsForRotationFromOrientation:activeElementInterfaceOrientation toOrientation:to withContext:contextCopy];
-  if (bSAnimationSettings)
+  v14 = [SBAnimationUtilities animationSettingsForRotationFromOrientation:activeElementInterfaceOrientation toOrientation:to withContext:contextCopy];
+  bSAnimationSettings = v14;
+  if (v14)
   {
     goto LABEL_11;
   }
@@ -11608,23 +11624,23 @@ LABEL_21:
 LABEL_11:
   if (activeElementInterfaceOrientation == to)
   {
-    v14 = SBLogSystemApertureOrientation();
-    if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogSystemApertureOrientation(v14);
+    if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = BSInterfaceOrientationDescription();
-      v25 = 138412290;
-      v26 = v15;
-      _os_log_impl(&dword_21ED4E000, &v14->super, OS_LOG_TYPE_DEFAULT, "Not applying orientation update to SBSystemApertureViewController because new orientation:(%@) matches current orientation", &v25, 0xCu);
+      v17 = BSInterfaceOrientationDescription();
+      v27 = 138412290;
+      v28 = v17;
+      _os_log_impl(&dword_21ED4E000, &v16->super, OS_LOG_TYPE_DEFAULT, "Not applying orientation update to SBSystemApertureViewController because new orientation:(%@) matches current orientation", &v27, 0xCu);
     }
   }
 
   else
   {
-    v14 = [[SBSystemApertureAnimator alloc] initWithSettings:bSAnimationSettings];
-    v20 = [[SBSystemApertureViewControllerRotationTransitionContext alloc] initWithTargetOrientation:to];
-    [(_UIViewControllerTransitionContext *)v20 _setIsAnimated:1];
-    [(_UIViewControllerTransitionContext *)v20 _setAnimator:v14];
-    _transitionCoordinator = [(_UIViewControllerTransitionContext *)v20 _transitionCoordinator];
+    v16 = [[SBSystemApertureAnimator alloc] initWithSettings:bSAnimationSettings];
+    v22 = [[SBSystemApertureViewControllerRotationTransitionContext alloc] initWithTargetOrientation:to];
+    [(_UIViewControllerTransitionContext *)v22 _setIsAnimated:1];
+    [(_UIViewControllerTransitionContext *)v22 _setAnimator:v16];
+    _transitionCoordinator = [(_UIViewControllerTransitionContext *)v22 _transitionCoordinator];
     [(SBSystemApertureViewController *)self _updateElementOrientationTo:to withTransitionCoordinator:_transitionCoordinator];
 
     view = [(SBSystemApertureViewController *)self view];
@@ -11632,7 +11648,7 @@ LABEL_11:
     windowScene = [window windowScene];
     [windowScene _synchronizeDrawing];
 
-    [(SBSystemApertureAnimator *)v14 animateTransition:v20];
+    [(SBSystemApertureAnimator *)v16 animateTransition:v22];
   }
 }
 
@@ -14383,7 +14399,7 @@ void __71__SBSystemApertureViewController_gestureRecognizer_shouldReceiveTouch__
   OUTLINED_FUNCTION_5_1();
   v0 = MEMORY[0x223D6CED0]();
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v1, v2, "Attempting to remove element via pan gesture, but no valid assertion was found: element: %@; assertion: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v1, v2, "Attempting to remove element via pan gesture, but no valid assertion was found: element: %@; assertion: %@", v3, v4, v5, v6);
 }
 
 - (void)_handleButtonEventWithTest:handler:.cold.1()

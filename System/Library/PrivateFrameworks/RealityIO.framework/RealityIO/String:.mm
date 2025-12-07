@@ -8,7 +8,6 @@
 - (uint64_t)Any
 {
   v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
   selfCopy = self;
   return v2(&selfCopy);
 }

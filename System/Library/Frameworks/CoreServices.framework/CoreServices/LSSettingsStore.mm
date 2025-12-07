@@ -23,18 +23,18 @@
   return v3;
 }
 
-void __33__LSSettingsStore_sharedInstance__block_invoke()
+void __33__LSSettingsStore_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() isServer];
-  v1 = off_1E6A18360;
-  if (!v0)
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  v3 = off_1E6A18360;
+  if (!v2)
   {
-    v1 = off_1E6A18300;
+    v3 = off_1E6A18300;
   }
 
-  v2 = objc_alloc_init(*v1);
-  v3 = +[LSSettingsStore sharedInstance]::store;
-  +[LSSettingsStore sharedInstance]::store = v2;
+  v4 = objc_alloc_init(*v3);
+  v5 = +[LSSettingsStore sharedInstance]::store;
+  +[LSSettingsStore sharedInstance]::store = v4;
 }
 
 - (id)_init
@@ -85,39 +85,39 @@ void __33__LSSettingsStore_sharedInstance__block_invoke()
   v7 = v5[1];
   v5[1] = v6;
 
-  SharedInstance = __LSDefaultsGetSharedInstance();
-  v9 = [SharedInstance settingsUpdateNotificationNameForUserID:geteuid()];
+  SharedInstance = __LSDefaultsGetSharedInstance(v8, v9);
+  v11 = [SharedInstance settingsUpdateNotificationNameForUserID:geteuid()];
   observerQueue = self->_observerQueue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __37__LSSettingsStore_addChangeObserver___block_invoke;
-  v18[3] = &unk_1E6A1ABE8;
-  v11 = v9;
-  v19 = v11;
-  v12 = v5;
-  v20 = v12;
-  LaunchServices::notifyd::NotifyToken::RegisterDispatch(v11, observerQueue, v18, &v21);
-  LaunchServices::notifyd::NotifyToken::operator=(v12 + 4, &v21);
-  LaunchServices::notifyd::NotifyToken::~NotifyToken(&v21);
-  v13 = self->_observerQueue;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __37__LSSettingsStore_addChangeObserver___block_invoke;
+  v20[3] = &unk_1E6A1ABE8;
+  v13 = v11;
+  v21 = v13;
+  v14 = v5;
+  v22 = v14;
+  LaunchServices::notifyd::NotifyToken::RegisterDispatch(v13, observerQueue, v20, &v23);
+  LaunchServices::notifyd::NotifyToken::operator=(v14 + 4, &v23);
+  LaunchServices::notifyd::NotifyToken::~NotifyToken(&v23);
+  v15 = self->_observerQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __37__LSSettingsStore_addChangeObserver___block_invoke_41;
   block[3] = &unk_1E6A1ABE8;
   block[4] = self;
-  v14 = v12;
-  v17 = v14;
-  dispatch_sync(v13, block);
+  v16 = v14;
+  v19 = v16;
+  dispatch_sync(v15, block);
 
-  return v14;
+  return v16;
 }
 
 uint64_t __37__LSSettingsStore_addChangeObserver___block_invoke(uint64_t a1)
 {
-  v2 = _LSDefaultLog();
+  v2 = _LSDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __37__LSSettingsStore_addChangeObserver___block_invoke_cold_1(a1);
+    __37__LSSettingsStore_addChangeObserver___block_invoke_cold_1();
   }
 
   return (*(*(*(a1 + 40) + 8) + 16))();
@@ -170,11 +170,12 @@ uint64_t __40__LSSettingsStore_removeChangeObserver___block_invoke(uint64_t a1)
   return 0;
 }
 
-void __37__LSSettingsStore_addChangeObserver___block_invoke_cold_1(uint64_t a1)
+void __37__LSSettingsStore_addChangeObserver___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_1(&dword_18162D000, v1, v2, "NotifyToken::Received(%{public}@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1(&dword_18162D000, v1, v2, "NotifyToken::Received(%{public}@)", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

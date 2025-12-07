@@ -119,7 +119,7 @@
   v56 = 0u;
   v53 = &unk_1014C0133;
   v57 = 0;
-  +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+  objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
   v19 = [routeCopy transportType] - 1;
   if (v19 > 5)
   {

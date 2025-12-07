@@ -283,7 +283,7 @@
 
 void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -292,7 +292,7 @@ void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke(
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v6;
+      v18 = v6;
       _os_log_impl(&dword_22E4D7000, v7, OS_LOG_TYPE_DEFAULT, "Failed to fetch device ID: %@", buf, 0xCu);
     }
 
@@ -302,21 +302,19 @@ void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke(
   else
   {
     v8 = *(a1 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_349;
-    v13[3] = &unk_278845D88;
-    v17 = *(a1 + 48);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_349;
+    v12[3] = &unk_278845D88;
+    v16 = *(a1 + 48);
     v9 = v5;
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v14 = v9;
-    v15 = v10;
-    v16 = v11;
-    [v8 _setupRecordZoneWithName:@"settings" completion:v13];
+    v13 = v9;
+    v14 = v10;
+    v15 = v11;
+    [v8 _setupRecordZoneWithName:@"settings" completion:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_349(id *a1, void *a2, void *a3)
@@ -574,7 +572,7 @@ LABEL_10:
 
 - (void)_fetchAppropriateSettingsWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = +[SASSystemInformation deviceClass];
   v6 = [objc_opt_class() _queryForSettingsFromPastMonthForDeviceClass:v5];
@@ -587,30 +585,28 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v5;
+    v20 = v5;
     _os_log_impl(&dword_22E4D7000, v10, OS_LOG_TYPE_DEFAULT, "Fetching a settings record for device class %@...", buf, 0xCu);
   }
 
   cloudKitClient = [(SASExpressCloudSettings *)self cloudKitClient];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke;
-  v16[3] = &unk_278845E50;
-  v16[4] = self;
-  v17 = _zoneForSettings;
-  v18 = v8;
-  v19 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke;
+  v15[3] = &unk_278845E50;
+  v15[4] = self;
+  v16 = _zoneForSettings;
+  v17 = v8;
+  v18 = completionCopy;
   v12 = v8;
   v13 = _zoneForSettings;
   v14 = completionCopy;
-  [cloudKitClient fetchRecords:v6 inZone:v13 group:v12 completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [cloudKitClient fetchRecords:v6 inZone:v13 group:v12 completion:v15];
 }
 
 void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 firstObject];
 
@@ -621,7 +617,7 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
     {
       v6 = [v3 firstObject];
       *buf = 138412290;
-      v23 = v6;
+      v21 = v6;
       _os_log_impl(&dword_22E4D7000, v5, OS_LOG_TYPE_DEFAULT, "Successfully fetched record: %@", buf, 0xCu);
     }
 
@@ -632,38 +628,35 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
 
   else
   {
-    v9 = *(a1 + 32);
     v8 = [objc_opt_class() _queryForSettingsFromPastMonthForPlatform:1];
-    v10 = +[SASLogging facility];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[SASLogging facility];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22E4D7000, v10, OS_LOG_TYPE_DEFAULT, "Fetching a settings record for the current platform...", buf, 2u);
+      _os_log_impl(&dword_22E4D7000, v9, OS_LOG_TYPE_DEFAULT, "Fetching a settings record for the current platform...", buf, 2u);
     }
 
-    v11 = [*(a1 + 32) cloudKitClient];
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_378;
-    v19[3] = &unk_278845E50;
-    v14 = *(a1 + 56);
-    v18 = *(a1 + 32);
-    v15 = *(&v18 + 1);
-    *&v16 = *(a1 + 48);
-    *(&v16 + 1) = v14;
-    v20 = v18;
-    v21 = v16;
-    [v11 fetchRecords:v8 inZone:v12 group:v13 completion:v19];
+    v10 = [*(a1 + 32) cloudKitClient];
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_378;
+    v17[3] = &unk_278845E50;
+    v13 = *(a1 + 56);
+    v16 = *(a1 + 32);
+    v14 = *(&v16 + 1);
+    *&v15 = *(a1 + 48);
+    *(&v15 + 1) = v13;
+    v18 = v16;
+    v19 = v15;
+    [v10 fetchRecords:v8 inZone:v11 group:v12 completion:v17];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_378(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 firstObject];
 
@@ -674,7 +667,7 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
     {
       v6 = [v3 firstObject];
       *buf = 138412290;
-      v18 = v6;
+      v16 = v6;
       _os_log_impl(&dword_22E4D7000, v5, OS_LOG_TYPE_DEFAULT, "Successfully fetched record: %@", buf, 0xCu);
     }
 
@@ -685,32 +678,29 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
 
   else
   {
-    v9 = *(a1 + 32);
     v8 = [objc_opt_class() _queryForSettingsFromPastMonth];
-    v10 = +[SASLogging facility];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[SASLogging facility];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22E4D7000, v10, OS_LOG_TYPE_DEFAULT, "Fetching a settings record for any platform/device class...", buf, 2u);
+      _os_log_impl(&dword_22E4D7000, v9, OS_LOG_TYPE_DEFAULT, "Fetching a settings record for any platform/device class...", buf, 2u);
     }
 
-    v11 = [*(a1 + 32) cloudKitClient];
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_379;
-    v15[3] = &unk_278845E28;
-    v16 = *(a1 + 56);
-    [v11 fetchRecords:v8 inZone:v12 group:v13 completion:v15];
+    v10 = [*(a1 + 32) cloudKitClient];
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_379;
+    v13[3] = &unk_278845E28;
+    v14 = *(a1 + 56);
+    [v10 fetchRecords:v8 inZone:v11 group:v12 completion:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_379(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 firstObject];
@@ -722,9 +712,9 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v5 firstObject];
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_22E4D7000, v9, OS_LOG_TYPE_DEFAULT, "Successfully fetched record: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_22E4D7000, v9, OS_LOG_TYPE_DEFAULT, "Successfully fetched record: %@", &v13, 0xCu);
     }
 
     v11 = *(a1 + 32);
@@ -741,8 +731,6 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isCloudKitError:(id)error
@@ -763,61 +751,55 @@ void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___blo
 
 + (id)_queryForSettingsFromPastMonthForPlatform:(unint64_t)platform
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   platform = [MEMORY[0x277CCAC30] predicateWithFormat:@"platform == %ld", platform];
   v4 = MEMORY[0x277CCA920];
-  v14[0] = platform;
+  v13[0] = platform;
   v5 = +[SASExpressCloudSettings _predicateForRecordsModifiedInPastMonth];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v7 = [v4 andPredicateWithSubpredicates:v6];
 
   v8 = [objc_alloc(MEMORY[0x277CBC578]) initWithRecordType:@"Settings" predicate:v7];
   v9 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"modificationDate" ascending:0];
-  v13 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   [v8 setSortDescriptors:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)_queryForSettingsFromPastMonthForDeviceClass:(id)class
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"deviceClass == %@", class];
   v4 = MEMORY[0x277CCA920];
-  v14[0] = v3;
+  v13[0] = v3;
   v5 = +[SASExpressCloudSettings _predicateForRecordsModifiedInPastMonth];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v7 = [v4 andPredicateWithSubpredicates:v6];
 
   v8 = [objc_alloc(MEMORY[0x277CBC578]) initWithRecordType:@"Settings" predicate:v7];
   v9 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"modificationDate" ascending:0];
-  v13 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   [v8 setSortDescriptors:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)_queryForSettingsFromPastMonth
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBC578]);
   v3 = +[SASExpressCloudSettings _predicateForRecordsModifiedInPastMonth];
   v4 = [v2 initWithRecordType:@"Settings" predicate:v3];
 
   v5 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"modificationDate" ascending:0];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [v4 setSortDescriptors:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1157,68 +1139,11 @@ void __47__SASExpressCloudSettings__isScreenTimeEnabled__block_invoke(uint64_t a
   }
 }
 
-void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_349_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Error setting up record zone: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_350_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, a2, a3, "Error fetching records: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __57__SASExpressCloudSettings_updateSettings_withCompletion___block_invoke_354_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to save record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SASExpressCloudSettings_fetchSettingsWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Unable to fetch settings: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __63__SASExpressCloudSettings__setupRecordZoneWithName_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to fetching record zone: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__SASExpressCloudSettings__fetchAppropriateSettingsWithCompletion___block_invoke_379_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to fetch records: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43__SASExpressCloudSettings__isFindMyEnabled__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to retrieve Find My state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__SASExpressCloudSettings__isScreenTimeEnabled__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22E4D7000, v0, v1, "Failed to retrieve Screen Time state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_22E4D7000, a2, a3, "Error fetching records: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

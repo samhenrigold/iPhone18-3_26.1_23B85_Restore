@@ -94,22 +94,22 @@ void __37__ATXNotificationsLoggingClient_init__block_invoke(uint64_t a1)
   [WeakRetained _processActiveSuggestionsRequests];
 }
 
-void __37__ATXNotificationsLoggingClient_init__block_invoke_2()
+void __37__ATXNotificationsLoggingClient_init__block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __37__ATXNotificationsLoggingClient_init__block_invoke_2_cold_1();
   }
 }
 
-void __37__ATXNotificationsLoggingClient_init__block_invoke_69()
+void __37__ATXNotificationsLoggingClient_init__block_invoke_69(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_24001A000, v0, OS_LOG_TYPE_INFO, "ATXNotificationsLoggingClient invalidation handler called", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_24001A000, v1, OS_LOG_TYPE_INFO, "ATXNotificationsLoggingClient invalidation handler called", v2, 2u);
   }
 }
 
@@ -139,26 +139,27 @@ void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__bloc
   v7 = *(a1 + 32);
   objc_sync_enter(v7);
   v8 = [*(*(a1 + 32) + 24) count];
+  v9 = v8;
   if (v8 >= 2)
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_cold_1(v8, v9);
+      __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_cold_1(v9, v10);
     }
   }
 
-  v10 = *(*(a1 + 32) + 24);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_72;
-  v13[3] = &unk_278C8F660;
-  v16 = v8;
-  v11 = v5;
-  v14 = v11;
-  v12 = v6;
+  v11 = *(*(a1 + 32) + 24);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_72;
+  v14[3] = &unk_278C8F660;
+  v17 = v9;
+  v12 = v5;
   v15 = v12;
-  [v10 enumerateObjectsUsingBlock:v13];
+  v13 = v6;
+  v16 = v13;
+  [v11 enumerateObjectsUsingBlock:v14];
   [*(*(a1 + 32) + 24) removeAllObjects];
 
   objc_sync_exit(v7);
@@ -166,39 +167,36 @@ void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__bloc
 
 void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_72(uint64_t a1, void (**a2)(void, void), uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) - 1 == a3)
   {
     v5 = a2;
-    v6 = __atxlog_handle_notification_management();
+    v6 = __atxlog_handle_notification_management(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = [*(a1 + 32) count];
       *buf = 134217984;
-      v15 = v7;
+      v13 = v7;
       _os_log_impl(&dword_24001A000, v6, OS_LOG_TYPE_INFO, "activeSuggestionsWithReply: delivering %tu suggestions.", buf, 0xCu);
     }
 
-    (*(v5 + 2))(v5, *(a1 + 32), *(a1 + 40));
-    v8 = *MEMORY[0x277D85DE8];
+    (v5[2])(v5, *(a1 + 32), *(a1 + 40));
   }
 
   else
   {
-    v9 = MEMORY[0x277CCA9B8];
-    v10 = ATXNotificationsLoggingClientErrorDomain;
-    v11 = a2;
-    v13 = [v9 errorWithDomain:v10 code:1 userInfo:0];
-    a2[2](v11, 0);
-
-    v12 = *MEMORY[0x277D85DE8];
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = ATXNotificationsLoggingClientErrorDomain;
+    v10 = a2;
+    v11 = [v8 errorWithDomain:v9 code:1 userInfo:0];
+    a2[2](v10, 0);
   }
 }
 
 void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_76(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_76_cold_1();
@@ -210,7 +208,7 @@ void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__bloc
 - (void)activeSuggestionsWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = __atxlog_handle_notification_management();
+  v5 = __atxlog_handle_notification_management(replyCopy);
   v6 = v5;
   if (replyCopy)
   {
@@ -246,14 +244,14 @@ void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__bloc
 
   if (uuid)
   {
-    v12 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_79];
-    [v12 logNotificationEvent:event notification:notificationCopy reason:reason interactionUI:i];
+    v13 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_79];
+    [v13 logNotificationEvent:event notification:notificationCopy reason:reason interactionUI:i];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_notification_management(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [ATXNotificationsLoggingClient logNotificationEvent:notification:reason:interactionUI:];
     }
@@ -263,7 +261,7 @@ void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__bloc
 void __88__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason_interactionUI___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __88__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason_interactionUI___block_invoke_cold_1();
@@ -277,14 +275,14 @@ void __88__ATXNotificationsLoggingClient_logNotificationEvent_notification_reaso
 
   if (uuid)
   {
-    v8 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_81];
-    [v8 logNotificationEvent:event notification:notificationCopy reason:0 interactionUI:5];
+    v9 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_81];
+    [v9 logNotificationEvent:event notification:notificationCopy reason:0 interactionUI:5];
   }
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXNotificationsLoggingClient logNotificationEvent:notification:reason:interactionUI:];
     }
@@ -294,7 +292,7 @@ void __88__ATXNotificationsLoggingClient_logNotificationEvent_notification_reaso
 void __67__ATXNotificationsLoggingClient_logNotificationEvent_notification___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __67__ATXNotificationsLoggingClient_logNotificationEvent_notification___block_invoke_cold_1();
@@ -308,14 +306,14 @@ void __67__ATXNotificationsLoggingClient_logNotificationEvent_notification___blo
 
   if (uuid)
   {
-    v10 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_83_0];
-    [v10 logNotificationEvent:event notification:notificationCopy reason:reason interactionUI:5];
+    v11 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_83_0];
+    [v11 logNotificationEvent:event notification:notificationCopy reason:reason interactionUI:5];
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [ATXNotificationsLoggingClient logNotificationEvent:notification:reason:interactionUI:];
     }
@@ -325,7 +323,7 @@ void __67__ATXNotificationsLoggingClient_logNotificationEvent_notification___blo
 void __74__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __74__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason___block_invoke_cold_1();
@@ -344,7 +342,7 @@ void __74__ATXNotificationsLoggingClient_logNotificationEvent_notification_reaso
 void __98__ATXNotificationsLoggingClient_logSuggestionEvent_suggestionType_suggestionIdentifier_timestamp___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __98__ATXNotificationsLoggingClient_logSuggestionEvent_suggestionType_suggestionIdentifier_timestamp___block_invoke_cold_1();
@@ -363,7 +361,7 @@ void __98__ATXNotificationsLoggingClient_logSuggestionEvent_suggestionType_sugge
 void __85__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifier_timestamp___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __85__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifier_timestamp___block_invoke_cold_1();
@@ -382,7 +380,7 @@ void __85__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifi
 void __75__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __85__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifier_timestamp___block_invoke_cold_1();
@@ -392,26 +390,26 @@ void __75__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifi
 - (void)logNotificationDeliveryUI:(unint64_t)i notificationUUIDs:(id)ds
 {
   dsCopy = ds;
-  if (dsCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (dsCopy && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [ATXNotificationsLoggingClient logNotificationDeliveryUI:dsCopy notificationUUIDs:v8];
+      [ATXNotificationsLoggingClient logNotificationDeliveryUI:dsCopy notificationUUIDs:v9];
     }
   }
 
   else
   {
-    v7 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_92_0];
-    [v7 logNotificationDeliveryUI:i notificationUUIDs:dsCopy];
+    v8 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_92_0];
+    [v8 logNotificationDeliveryUI:i notificationUUIDs:dsCopy];
   }
 }
 
 void __77__ATXNotificationsLoggingClient_logNotificationDeliveryUI_notificationUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__ATXNotificationsLoggingClient_logNotificationDeliveryUI_notificationUUIDs___block_invoke_cold_1();
@@ -420,78 +418,19 @@ void __77__ATXNotificationsLoggingClient_logNotificationDeliveryUI_notificationU
 
 void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1 - 1;
-  _os_log_debug_impl(&dword_24001A000, a2, OS_LOG_TYPE_DEBUG, "activeSuggestionsWithReply: throttling %tu earlier requests before delivering suggestions in the last request.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __66__ATXNotificationsLoggingClient__processActiveSuggestionsRequests__block_invoke_76_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "activeSuggestionsWithReply: XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __88__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason_interactionUI___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "logNotificationEvent:notification:reason:interactionUI XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__ATXNotificationsLoggingClient_logNotificationEvent_notification___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "logNotificationEvent:notification XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__ATXNotificationsLoggingClient_logNotificationEvent_notification_reason___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "logNotificationEvent:notification:reason XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __98__ATXNotificationsLoggingClient_logSuggestionEvent_suggestionType_suggestionIdentifier_timestamp___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "logSuggestionEvent:suggestionType:suggestionType:timestamp XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __85__ATXNotificationsLoggingClient_logNotificationGroupEvent_eventIdentifier_timestamp___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "logNotificationGroupEvent:eventIdentifier:timestamp XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1 - 1;
+  _os_log_debug_impl(&dword_24001A000, a2, OS_LOG_TYPE_DEBUG, "activeSuggestionsWithReply: throttling %tu earlier requests before delivering suggestions in the last request.", &v2, 0xCu);
 }
 
 - (void)logNotificationDeliveryUI:(uint64_t)a1 notificationUUIDs:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_24001A000, a2, OS_LOG_TYPE_FAULT, "-logNotificationDeliveryUI:notificationUUIDs: was passed an object that is not an array: %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__ATXNotificationsLoggingClient_logNotificationDeliveryUI_notificationUUIDs___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_24001A000, v0, v1, "-logNotificationDeliveryUI:notificationUUIDs: XPC error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24001A000, a2, OS_LOG_TYPE_FAULT, "-logNotificationDeliveryUI:notificationUUIDs: was passed an object that is not an array: %{public}@", v5, 0xCu);
 }
 
 @end

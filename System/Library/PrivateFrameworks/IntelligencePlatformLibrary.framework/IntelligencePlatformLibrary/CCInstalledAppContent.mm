@@ -407,7 +407,6 @@ LABEL_46:
 
     v26 = objc_opt_class();
     v25 = NSStringFromClass(v26);
-    v27 = *&v5[*v10];
     v8 = CCSkipFieldErrorForMessage();
 LABEL_45:
 
@@ -418,44 +417,42 @@ LABEL_45:
 LABEL_52:
   v8 = 0;
 LABEL_53:
-  v28 = [v9 copy];
+  v27 = [v9 copy];
   alternativeAppNames = self->_alternativeAppNames;
-  self->_alternativeAppNames = v28;
+  self->_alternativeAppNames = v27;
 
   if (v8)
   {
     CCSetError();
-    v30 = 0;
-    v31 = dataCopy;
+    v29 = 0;
+    v30 = dataCopy;
   }
 
   else
   {
-    v32 = MEMORY[0x1E6993AA8];
-    v31 = dataCopy;
+    v30 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
-      v35 = *&v5[*v32];
-      v36 = CCInvalidBufferErrorForMessage();
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
+      v33 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v30 = 0;
+      v29 = 0;
     }
 
     else
     {
-      v30 = 1;
+      v29 = 1;
     }
   }
 
-  return v30;
+  return v29;
 }
 
 - (CCInstalledAppContent)initWithBundleIdentifier:(id)identifier bundleName:(id)name displayAppName:(id)appName spokenName:(id)spokenName alternativeAppNames:(id)names carPlayAlternativeDisplayName:(id)displayName spotlightName:(id)spotlightName providerName:(id)self0 error:(id *)self1
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   appNameCopy = appName;
@@ -465,11 +462,11 @@ LABEL_53:
   spotlightNameCopy = spotlightName;
   providerNameCopy = providerName;
   v22 = objc_opt_new();
-  v54 = identifierCopy;
+  v52 = identifierCopy;
   if (identifierCopy)
   {
     objc_opt_class();
-    v66 = 0;
+    v64 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
     v24 = 0;
     if (!IsInstanceOfExpectedClass)
@@ -489,11 +486,11 @@ LABEL_53:
     v24 = 0;
   }
 
-  v53 = spotlightNameCopy;
+  v51 = spotlightNameCopy;
   if (nameCopy)
   {
     objc_opt_class();
-    v65 = v24;
+    v63 = v24;
     v25 = CCValidateIsInstanceOfExpectedClass();
     v26 = v24;
 
@@ -512,7 +509,7 @@ LABEL_37:
       selfCopy5 = self;
       v34 = displayNameCopy;
 LABEL_38:
-      spotlightNameCopy = v53;
+      spotlightNameCopy = v51;
       goto LABEL_39;
     }
 
@@ -547,7 +544,7 @@ LABEL_20:
   }
 
   objc_opt_class();
-  v64 = v26;
+  v62 = v26;
   v35 = CCValidateIsInstanceOfExpectedClass();
   v24 = v26;
 
@@ -564,7 +561,7 @@ LABEL_20:
 
 LABEL_9:
   objc_opt_class();
-  v63 = v24;
+  v61 = v24;
   v27 = CCValidateIsInstanceOfExpectedClass();
   v26 = v24;
 
@@ -578,43 +575,42 @@ LABEL_9:
   {
 LABEL_21:
     objc_opt_class();
-    v62 = v26;
+    v60 = v26;
     v36 = CCValidateArrayValues();
     v24 = v26;
 
     if (v36)
     {
-      v60 = 0u;
-      v61 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v52 = namesCopy;
+      v56 = 0u;
+      v57 = 0u;
+      v50 = namesCopy;
       v37 = namesCopy;
-      v38 = [v37 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v38 = [v37 countByEnumeratingWithState:&v56 objects:v65 count:16];
       if (v38)
       {
         v39 = v38;
-        v40 = *v59;
+        v40 = *v57;
         do
         {
           for (i = 0; i != v39; ++i)
           {
-            if (*v59 != v40)
+            if (*v57 != v40)
             {
               objc_enumerationMutation(v37);
             }
 
-            v42 = *(*(&v58 + 1) + 8 * i);
             CCPBDataWriterWriteStringField();
           }
 
-          v39 = [v37 countByEnumeratingWithState:&v58 objects:v67 count:16];
+          v39 = [v37 countByEnumeratingWithState:&v56 objects:v65 count:16];
         }
 
         while (v39);
       }
 
-      namesCopy = v52;
+      namesCopy = v50;
       goto LABEL_30;
     }
 
@@ -637,29 +633,29 @@ LABEL_30:
     v29 = appNameCopy;
     v30 = spokenNameCopy;
     objc_opt_class();
-    v43 = CCValidateIsInstanceOfExpectedClass();
+    v42 = CCValidateIsInstanceOfExpectedClass();
     v34 = displayNameCopy;
-    v44 = v24;
+    v43 = v24;
 
-    if (!v43)
+    if (!v42)
     {
       v31 = namesCopy;
       CCSetError();
       v32 = 0;
-      v24 = v44;
+      v24 = v43;
       selfCopy5 = self;
       goto LABEL_38;
     }
 
-    v24 = v44;
+    v24 = v43;
     CCPBDataWriterWriteStringField();
     spokenNameCopy = v30;
     appNameCopy = v29;
     nameCopy = v28;
   }
 
-  spotlightNameCopy = v53;
-  if (!v53)
+  spotlightNameCopy = v51;
+  if (!v51)
   {
     v31 = namesCopy;
     goto LABEL_42;
@@ -667,11 +663,11 @@ LABEL_30:
 
   v31 = namesCopy;
   objc_opt_class();
-  v45 = v24;
-  v46 = CCValidateIsInstanceOfExpectedClass();
+  v44 = v24;
+  v45 = CCValidateIsInstanceOfExpectedClass();
   v24 = v24;
 
-  if (v46)
+  if (v45)
   {
     CCPBDataWriterWriteStringField();
 LABEL_42:
@@ -686,16 +682,16 @@ LABEL_42:
 
     v29 = appNameCopy;
     objc_opt_class();
-    v50 = CCValidateIsInstanceOfExpectedClass();
+    v48 = CCValidateIsInstanceOfExpectedClass();
     v26 = v24;
 
-    if (v50)
+    if (v48)
     {
       v30 = spokenNameCopy;
       CCPBDataWriterWriteStringField();
       v24 = v26;
       selfCopy4 = self;
-      spotlightNameCopy = v53;
+      spotlightNameCopy = v51;
 LABEL_47:
       immutableData = [v22 immutableData];
       selfCopy5 = [(CCItemMessage *)selfCopy4 initWithData:immutableData error:error];
@@ -719,7 +715,6 @@ LABEL_16:
   v34 = displayNameCopy;
 LABEL_39:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v32;
 }
 

@@ -20,14 +20,16 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100034658(appear);
+  sub_100034658(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000347C8(appear);
+  sub_1000347C8(appearCopy);
 }
 
 - (void)createBoardButtonAction:(id)action

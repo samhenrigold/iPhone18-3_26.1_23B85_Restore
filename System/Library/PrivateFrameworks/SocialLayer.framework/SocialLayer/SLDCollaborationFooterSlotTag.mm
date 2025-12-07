@@ -21,32 +21,36 @@
 {
   titleCopy = title;
   subtitleCopy = subtitle;
-  v17.receiver = self;
-  v17.super_class = SLDCollaborationFooterSlotTag;
-  v10 = [(SLDCollaborationFooterSlotTag *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = SLDCollaborationFooterSlotTag;
+  v10 = [(SLDCollaborationFooterSlotTag *)&v18 init];
+  v11 = v10;
   if (v10)
   {
-    if ((!titleCopy || [titleCopy isEqualToString:&stru_28468DAB8]) && (!subtitleCopy || objc_msgSend(subtitleCopy, "isEqualToString:", &stru_28468DAB8)))
+    if (!titleCopy || (v10 = [titleCopy isEqualToString:&stru_28468DAB8], v10))
     {
-      v11 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (!subtitleCopy || (v10 = [subtitleCopy isEqualToString:&stru_28468DAB8], v10))
       {
-        [SLDCollaborationFooterSlotTag initWithTitle:v11 subtitle:? maxWidth:?];
+        v12 = SLFrameworkLogHandle(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          [SLDCollaborationFooterSlotTag initWithTitle:v12 subtitle:? maxWidth:?];
+        }
       }
     }
 
-    v12 = [titleCopy copy];
-    title = v10->_title;
-    v10->_title = v12;
+    v13 = [titleCopy copy];
+    title = v11->_title;
+    v11->_title = v13;
 
-    v14 = [subtitleCopy copy];
-    subtitle = v10->_subtitle;
-    v10->_subtitle = v14;
+    v15 = [subtitleCopy copy];
+    subtitle = v11->_subtitle;
+    v11->_subtitle = v15;
 
-    v10->_maxWidth = width;
+    v11->_maxWidth = width;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

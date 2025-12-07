@@ -418,13 +418,13 @@ LABEL_15:
   return 0;
 }
 
-void __54__PXCMMAssetsViewController__shouldShowProgressBanner__block_invoke()
+void __54__PXCMMAssetsViewController__shouldShowProgressBanner__block_invoke(uint64_t a1)
 {
-  v0 = PLSharingGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = PLSharingGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A3C1C000, v0, OS_LOG_TYPE_DEFAULT, "Debug setting forced the progress banner to be visible", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1A3C1C000, v1, OS_LOG_TYPE_DEFAULT, "Debug setting forced the progress banner to be visible", v2, 2u);
   }
 }
 
@@ -1263,7 +1263,7 @@ LABEL_3:
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -1327,7 +1327,7 @@ LABEL_3:
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:visibleCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -1372,7 +1372,7 @@ LABEL_3:
   v13 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -1719,7 +1719,7 @@ LABEL_20:
   v14 = 0u;
   if (reference)
   {
-    [reference indexPath];
+    objc_msgSend_indexPath(reference, a2);
   }
 
   v12[0] = v13;
@@ -1972,7 +1972,7 @@ LABEL_9:
   v17 = *(off_1E7721FA0 + 2);
   v18 = *(off_1E7721FA0 + 3);
 
-  return [(PXCMMAssetsViewController *)self _assetIndexPathAtLocation:v12 padding:v14, v15, v16, v17, v18];
+  return objc_msgSend__assetIndexPathAtLocation_padding_(self, v12, v14, v15, v16, v17, v18);
 }
 
 - (BOOL)_isAssetAlreadyImportedAtIndexPath:(PXSimpleIndexPath *)path withEngineDrivenLayout:(id)layout
@@ -2044,42 +2044,29 @@ LABEL_9:
   dataSource = [dataSourceManager dataSource];
   identifier = [dataSource identifier];
 
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v24 = 0u;
   v25 = 0u;
+  v23 = 0u;
   tilingController = [(PXAssetsScene *)self->_sceneController tilingController];
   v21 = tilingController;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __68__PXCMMAssetsViewController__assetIndexPathAtLocation_padding_kind___block_invoke;
-  v24[3] = &__block_descriptor_48_e355_B504__0_PXTileIdentifier_Q_10Q__8_v96_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_104_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_296Q488___NSObject__496l;
-  v24[4] = a6;
-  v24[5] = identifier;
   if (tilingController)
   {
-    [tilingController hitTestTileAtPoint:v24 padding:x passingTest:{y, top, left, bottom, right}];
+    objc_msgSend_hitTestTileAtPoint_padding_passingTest_(tilingController, x, y, top, left, bottom, right, MEMORY[0x1E69E9820], 3221225472, __68__PXCMMAssetsViewController__assetIndexPathAtLocation_padding_kind___block_invoke, &__block_descriptor_48_e355_B504__0_PXTileIdentifier_Q_10Q__8_v96_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_104_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_296Q488___NSObject__496l, a6, identifier);
   }
 
   else
   {
-    v30 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
+    v24 = 0u;
     v25 = 0u;
+    v23 = 0u;
   }
 
-  if (v25)
+  if (v23)
   {
-    if (*(&v25 + 1) == a6)
+    if (*(&v23 + 1) == a6)
     {
-      v23 = v27;
-      *&retstr->dataSourceIdentifier = v26;
-      *&retstr->item = v23;
+      *&retstr->dataSourceIdentifier = v24;
+      *&retstr->item = v25;
     }
   }
 
@@ -2090,7 +2077,7 @@ LABEL_9:
 {
   v11 = 0u;
   v12 = 0u;
-  [(PXCMMAssetsViewController *)self _assetIndexPathAtLocation:point.x padding:point.y, padding.top, padding.left, padding.bottom, padding.right];
+  objc_msgSend__assetIndexPathAtLocation_padding_(self, a2, point.x, point.y, padding.top, padding.left, padding.bottom, padding.right);
   if (*off_1E7721F68)
   {
     session = [(PXCMMComponentViewController *)self session];
@@ -2196,7 +2183,7 @@ uint64_t __62__PXCMMAssetsViewController__toggleAssetSelectionAtIndexPath___bloc
     {
       v33 = 0u;
       v34 = 0u;
-      [(PXCMMAssetsViewController *)self _assetIndexPathAtLocation:v12 padding:v14, *off_1E7721FA8, *(off_1E7721FA8 + 1), *(off_1E7721FA8 + 2), *(off_1E7721FA8 + 3)];
+      objc_msgSend__assetIndexPathAtLocation_padding_(self, v12, v14, *off_1E7721FA8, *(off_1E7721FA8 + 1), *(off_1E7721FA8 + 2), *(off_1E7721FA8 + 3));
       if (*off_1E7721F68)
       {
         v31 = v33;
@@ -2425,7 +2412,7 @@ void __49__PXCMMAssetsViewController_setActionInProgress___block_invoke(uint64_t
 
 - (id)_indexPathsForAssetReferences:(id)references inDataSource:(id)source
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   referencesCopy = references;
   sourceCopy = source;
   v7 = [referencesCopy count];
@@ -2433,35 +2420,34 @@ void __49__PXCMMAssetsViewController_setActionInProgress___block_invoke(uint64_t
   if (sourceCopy && v7)
   {
     v8 = objc_alloc_init(off_1E77217C8);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = referencesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v16 = 0u;
           v17 = 0u;
-          v18 = 0u;
-          [sourceCopy indexPathForAssetReference:v14];
-          v16[0] = v17;
-          v16[1] = v18;
-          [v8 addIndexPath:v16];
+          objc_msgSend_indexPathForAssetReference_(sourceCopy);
+          v15[0] = v16;
+          v15[1] = v17;
+          [v8 addIndexPath:v15];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -2935,7 +2921,7 @@ LABEL_3:
   indexPathSet = [off_1E77217C8 indexPathSet];
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
   }
 
   else
@@ -2963,7 +2949,7 @@ LABEL_3:
   }
 }
 
-uint64_t __49__PXCMMAssetsViewController__selectCuratedAssets__block_invoke(uint64_t a1, __int128 *a2)
+void *__49__PXCMMAssetsViewController__selectCuratedAssets__block_invoke(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 32);
   v5 = a2[1];

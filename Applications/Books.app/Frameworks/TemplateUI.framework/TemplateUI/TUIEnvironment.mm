@@ -906,7 +906,7 @@
         {
           language3 = [(TUIEnvironment *)self language];
           language4 = [environmentCopy language];
-          v53 = [language3 isEqualToString:language4];
+          v53 = objc_msgSend_isEqualToString_(language3);
 
           if (!v53)
           {
@@ -1089,7 +1089,7 @@ LABEL_26:
   {
     language3 = [(TUIEnvironment *)self language];
     language4 = [(TUIEnvironment *)v5 language];
-    v63 = [language3 isEqualToString:language4];
+    v63 = objc_msgSend_isEqualToString_(language3);
 
     if (!v63)
     {
@@ -1835,11 +1835,11 @@ LABEL_94:
       if (!sub_11F88(&self->_extendedNameSpaces.__table_.__bucket_list_.__ptr_, &v11))
       {
         LOWORD(v11) = name.var0;
-        sub_1241E0(&self->_extendedNameSpaces.__table_.__bucket_list_.__ptr_, &v11);
+        sub_1241E0(&self->_extendedNameSpaces.__table_.__bucket_list_.__ptr_, &v11, &v11);
       }
 
       v11 = &nameCopy;
-      v9 = sub_124414(&self->_extendedValues.__table_.__bucket_list_.__ptr_, &nameCopy.var0);
+      v9 = sub_124414(&self->_extendedValues.__table_.__bucket_list_.__ptr_, &nameCopy.var0, &std::piecewise_construct, &v11);
       *(v9 + 6) = value->_kind;
       objc_storeStrong(v9 + 4, value->_object);
       v9[5] = value->var0._integer;

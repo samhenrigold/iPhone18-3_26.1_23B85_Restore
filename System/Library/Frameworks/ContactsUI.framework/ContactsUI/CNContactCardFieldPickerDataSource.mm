@@ -33,8 +33,8 @@
   [array addObjectsFromArray:v5];
 
   v6 = objc_opt_class();
-  contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
-  LODWORD(v6) = [v6 canSharePronounsForContacts:contacts];
+  v7 = objc_msgSend_contacts(self);
+  LODWORD(v6) = [v6 canSharePronounsForContacts:v7];
 
   if (v6)
   {
@@ -51,8 +51,8 @@
   [array addObjectsFromArray:v10];
 
   v11 = objc_opt_class();
-  contacts2 = [(CNContactCardFieldPickerDataSource *)self contacts];
-  LODWORD(v11) = [v11 isSharingMeContactForContacts:contacts2];
+  v12 = objc_msgSend_contacts(self);
+  LODWORD(v11) = [v11 isSharingMeContactForContacts:v12];
 
   if (v11)
   {
@@ -71,8 +71,8 @@
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
 {
-  contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
-  v7 = [contacts count];
+  v6 = objc_msgSend_contacts(self, a2, view);
+  v7 = [v6 count];
 
   if (v7 >= 2)
   {
@@ -106,7 +106,7 @@
   sectionType = [v15 sectionType];
   LODWORD(items) = [sectionType isEqualToString:@"contactCardFieldPickerPhotoSection"];
 
-  if (items && (-[CNContactCardFieldPickerDataSource contacts](self, "contacts"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 count], v17, v18 == 1))
+  if (items && (objc_msgSend_contacts(self), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 count], v17, v18 == 1))
   {
     v19 = [viewCopy dequeueReusableCellWithIdentifier:@"contactCardFieldPickerPhotoCell"];
   }
@@ -114,8 +114,8 @@
   else
   {
     v19 = [viewCopy dequeueReusableCellWithIdentifier:@"contactCardFieldPickerCell"];
-    contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
-    [v19 setDisplaysValue:{objc_msgSend(contacts, "count") == 1}];
+    v20 = objc_msgSend_contacts(self);
+    [v19 setDisplaysValue:{objc_msgSend(v20, "count") == 1}];
 
     [v19 setItem:v12];
   }
@@ -195,13 +195,13 @@
 
 - (id)firstContactContainingPhoto
 {
-  contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
+  v3 = objc_msgSend_contacts(self, a2);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __65__CNContactCardFieldPickerDataSource_firstContactContainingPhoto__block_invoke;
   v6[3] = &unk_1E74E7880;
   v6[4] = self;
-  v4 = [contacts _cn_firstObjectPassingTest:v6];
+  v4 = [v3 _cn_firstObjectPassingTest:v6];
 
   return v4;
 }
@@ -383,8 +383,8 @@ LABEL_22:
   v8 = keyCopy;
   v35 = v8;
   v9 = [contactsCopy _cn_flatMap:v34];
-  contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
-  v11 = [contacts count];
+  v10 = objc_msgSend_contacts(self);
+  v11 = [v10 count];
 
   if (v11 > 1)
   {
@@ -459,13 +459,13 @@ LABEL_22:
   v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (![(CNContactCardFieldPickerDataSource *)self isFieldHidden:*MEMORY[0x1E695C278]])
   {
-    contacts = [(CNContactCardFieldPickerDataSource *)self contacts];
+    v3 = objc_msgSend_contacts(self);
     v48[0] = MEMORY[0x1E69E9820];
     v48[1] = 3221225472;
     v48[2] = __62__CNContactCardFieldPickerDataSource__loadSectionsForContacts__block_invoke;
     v48[3] = &unk_1E74E7880;
     v48[4] = self;
-    v4 = [contacts _cn_any:v48];
+    v4 = [v3 _cn_any:v48];
 
     if (v4)
     {
@@ -479,13 +479,13 @@ LABEL_22:
     }
   }
 
-  contacts2 = [(CNContactCardFieldPickerDataSource *)self contacts];
-  v10 = [contacts2 count];
+  v9 = objc_msgSend_contacts(self);
+  v10 = [v9 count];
 
   if (v10 <= 1)
   {
-    contacts3 = [(CNContactCardFieldPickerDataSource *)self contacts];
-    firstObject = [contacts3 firstObject];
+    v12 = objc_msgSend_contacts(self);
+    firstObject = [v12 firstObject];
   }
 
   else
@@ -518,8 +518,8 @@ LABEL_22:
         v20 = *(*(&v44 + 1) + 8 * i);
         if (![(CNContactCardFieldPickerDataSource *)self isFieldHidden:v20])
         {
-          contacts4 = [(CNContactCardFieldPickerDataSource *)self contacts];
-          v22 = [(CNContactCardFieldPickerDataSource *)self itemsForKey:v20 forContacts:contacts4];
+          v21 = objc_msgSend_contacts(self);
+          v22 = [(CNContactCardFieldPickerDataSource *)self itemsForKey:v20 forContacts:v21];
           [v14 addObjectsFromArray:v22];
         }
       }
@@ -558,8 +558,8 @@ LABEL_22:
         }
 
         v29 = *(*(&v40 + 1) + 8 * j);
-        contacts5 = [(CNContactCardFieldPickerDataSource *)self contacts];
-        v31 = [(CNContactCardFieldPickerDataSource *)self itemsForKey:v29 forContacts:contacts5];
+        v30 = objc_msgSend_contacts(self);
+        v31 = [(CNContactCardFieldPickerDataSource *)self itemsForKey:v29 forContacts:v30];
 
         if ([v31 count])
         {

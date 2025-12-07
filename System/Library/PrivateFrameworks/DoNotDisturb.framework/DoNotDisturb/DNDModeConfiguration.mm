@@ -144,7 +144,7 @@
   compatibilityVersion = [configurationCopy compatibilityVersion];
   if (configurationCopy)
   {
-    [configurationCopy lastModifiedByVersion];
+    objc_msgSend_lastModifiedByVersion(configurationCopy);
   }
 
   else
@@ -161,28 +161,28 @@
 
 - (unint64_t)allowSmartEntry
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = self->_triggers;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = 2;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v5)
+      if (*v13 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v7);
+      v8 = *(*(&v12 + 1) + 8 * v7);
       v9 = objc_opt_class();
       v10 = v8;
       if (v9)
@@ -205,7 +205,7 @@ LABEL_3:
 
       if (v4 == ++v7)
       {
-        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -222,13 +222,12 @@ LABEL_13:
     v6 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)mergeDecision:(id)decision reason:(id)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   decisionCopy = decision;
   reasonCopy = reason;
   v8 = DNDLogModeConfiguration;
@@ -240,8 +239,8 @@ LABEL_13:
       goto LABEL_7;
     }
 
-    v13 = 138543362;
-    v14 = reasonCopy;
+    v12 = 138543362;
+    v13 = reasonCopy;
     v10 = "Merge decision: self; reason: %{public}@";
   }
 
@@ -252,15 +251,13 @@ LABEL_13:
       goto LABEL_7;
     }
 
-    v13 = 138543362;
-    v14 = reasonCopy;
+    v12 = 138543362;
+    v13 = reasonCopy;
     v10 = "Merge decision: other; reason: %{public}@";
   }
 
-  _os_log_impl(&dword_22002F000, v8, OS_LOG_TYPE_DEFAULT, v10, &v13, 0xCu);
+  _os_log_impl(&dword_22002F000, v8, OS_LOG_TYPE_DEFAULT, v10, &v12, 0xCu);
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return decisionCopy;
 }
@@ -485,7 +482,7 @@ LABEL_32:
 
 - (void)log:(id)log withMessage:(id)message
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   logCopy = log;
   messageCopy = message;
   mode = [(DNDModeConfiguration *)self mode];
@@ -493,22 +490,22 @@ LABEL_32:
 
   if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543618;
-    v22 = modeIdentifier;
-    v23 = 2114;
-    v24 = messageCopy;
-    _os_log_impl(&dword_22002F000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin: %{public}@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = modeIdentifier;
+    v22 = 2114;
+    v23 = messageCopy;
+    _os_log_impl(&dword_22002F000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin: %{public}@", &v20, 0x16u);
   }
 
   v10 = logCopy;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(DNDModeConfiguration *)self shortDescription];
-    v21 = 138543618;
-    v22 = modeIdentifier;
-    v23 = 2114;
-    v24 = shortDescription;
-    _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = modeIdentifier;
+    v22 = 2114;
+    v23 = shortDescription;
+    _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@", &v20, 0x16u);
   }
 
   v12 = v10;
@@ -519,41 +516,39 @@ LABEL_32:
     isAutomaticallyGenerated = [(DNDModeConfiguration *)self isAutomaticallyGenerated];
     hasSecureData = [(DNDModeConfiguration *)self hasSecureData];
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:{-[DNDModeConfiguration compatibilityVersion](self, "compatibilityVersion")}];
-    v21 = 138544642;
-    v22 = modeIdentifier;
-    v23 = 2114;
-    v24 = created;
-    v25 = 2114;
-    v26 = lastModified;
-    v27 = 1026;
-    v28 = isAutomaticallyGenerated;
-    v29 = 1026;
-    v30 = hasSecureData;
-    v31 = 2114;
-    v32 = v17;
-    _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] created: %{public}@; lastModified: %{public}@; isAutomaticallyGenerated: %{public}d; hasSecureData: %{public}d; compatibilityVersion: %{public}@; ", &v21, 0x36u);
+    v20 = 138544642;
+    v21 = modeIdentifier;
+    v22 = 2114;
+    v23 = created;
+    v24 = 2114;
+    v25 = lastModified;
+    v26 = 1026;
+    v27 = isAutomaticallyGenerated;
+    v28 = 1026;
+    v29 = hasSecureData;
+    v30 = 2114;
+    v31 = v17;
+    _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] created: %{public}@; lastModified: %{public}@; isAutomaticallyGenerated: %{public}d; hasSecureData: %{public}d; compatibilityVersion: %{public}@; ", &v20, 0x36u);
   }
 
   v18 = v12;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     triggers = [(DNDModeConfiguration *)self triggers];
-    v21 = 138543619;
-    v22 = modeIdentifier;
-    v23 = 2113;
-    v24 = triggers;
-    _os_log_impl(&dword_22002F000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] triggers: %{private}@", &v21, 0x16u);
+    v20 = 138543619;
+    v21 = modeIdentifier;
+    v22 = 2113;
+    v23 = triggers;
+    _os_log_impl(&dword_22002F000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] triggers: %{private}@", &v20, 0x16u);
   }
 
   [(DNDConfiguration *)self->_configuration log:v18 withPrefix:modeIdentifier];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543362;
-    v22 = modeIdentifier;
-    _os_log_impl(&dword_22002F000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] End", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = modeIdentifier;
+    _os_log_impl(&dword_22002F000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] End", &v20, 0xCu);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -868,7 +863,7 @@ LABEL_62:
   v5 = DNDCompatibilityVersionToString([(DNDModeConfiguration *)self compatibilityVersion]);
   v6 = DNDCompatibilityVersionToString([(DNDModeConfiguration *)self resolvedCompatibilityVersion]);
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[DNDModeConfiguration hasSecureData](self, "hasSecureData")}];
-  [(DNDModeConfiguration *)self lastModifiedByVersion];
+  objc_msgSend_lastModifiedByVersion(self);
   v8 = DNDStringFromOperatingSystemVersion(v20);
   lastModifiedByDeviceID = [(DNDModeConfiguration *)self lastModifiedByDeviceID];
   v10 = [v17 stringWithFormat:@"<%@: %p mode: %@; configuration: %@; triggers: %@; impactsAvailability: %@; dimsLockScreen: %@; created: %@; lastModified: %@; automaticallyGenerated: %@; compatibilityVersion: %@; resolvedCompatibilityVersion: %@; hasSecureData: %@; modFrameworkVersion: %@; modDeviceID: %@>", v16, self, mode, configuration, triggers, v13, v14, created, lastModified, v4, v5, v6, v7, v8, lastModifiedByDeviceID];;
@@ -954,7 +949,7 @@ LABEL_62:
   lastModified = [(DNDModeConfiguration *)self lastModified];
   [coderCopy encodeObject:lastModified forKey:@"lastModified"];
 
-  [(DNDModeConfiguration *)self lastModifiedByVersion];
+  objc_msgSend_lastModifiedByVersion(self);
   v10 = DNDStringFromOperatingSystemVersion(v12);
   [coderCopy encodeObject:v10 forKey:@"lastModifiedByVersion"];
 
@@ -1001,11 +996,11 @@ LABEL_62:
     lastModified2 = [v9 lastModified];
     [builderCopy diffObject:lastModified againstObject:lastModified2 withDescription:@"lastModified"];
 
-    [(DNDModeConfiguration *)self lastModifiedByVersion];
+    objc_msgSend_lastModifiedByVersion(self);
     v24 = DNDStringFromOperatingSystemVersion(v32);
     if (v9)
     {
-      [v9 lastModifiedByVersion];
+      objc_msgSend_lastModifiedByVersion(v9);
     }
 
     else
@@ -1032,33 +1027,33 @@ LABEL_62:
 
 - (BOOL)_containsSecureTriggers:(id)triggers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   triggersCopy = triggers;
-  v4 = [triggersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [triggersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(triggersCopy);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) hasSecureData])
+        if ([*(*(&v8 + 1) + 8 * i) hasSecureData])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [triggersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [triggersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1070,35 +1065,34 @@ LABEL_62:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (int64_t)_maxTriggerCompatibilityVersion:(id)version
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   v4 = 2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [versionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [versionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(versionCopy);
         }
 
-        compatibilityVersion = [*(*(&v12 + 1) + 8 * v8) compatibilityVersion];
+        compatibilityVersion = [*(*(&v11 + 1) + 8 * v8) compatibilityVersion];
         if (v4 <= compatibilityVersion)
         {
           v4 = compatibilityVersion;
@@ -1108,13 +1102,12 @@ LABEL_11:
       }
 
       while (v6 != v8);
-      v6 = [versionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [versionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

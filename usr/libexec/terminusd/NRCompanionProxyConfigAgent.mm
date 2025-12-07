@@ -24,37 +24,32 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
     agentDescription = [(NRCompanionProxyConfigAgent *)self agentDescription];
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(v7, 0, "%s%.30s:%-4d Dealloc: %@", ", "[NRCompanionProxyConfigAgent dealloc]"", 361, agentDescription);
   }
 
   sub_1000707D0(self);
-  v10.receiver = self;
-  v10.super_class = NRCompanionProxyConfigAgent;
-  [(NRCompanionProxyConfigAgent *)&v10 dealloc];
+  v9.receiver = self;
+  v9.super_class = NRCompanionProxyConfigAgent;
+  [(NRCompanionProxyConfigAgent *)&v9 dealloc];
 }
 
 + (id)agentType

@@ -691,7 +691,7 @@ LABEL_8:
         [textLabel setText:v14];
 
         textLabel2 = [v12 textLabel];
-        v16 = PKOBKListInlineCellTitleFont();
+        v16 = PKOBKListInlineCellTitleFont(textLabel2);
         [textLabel2 setFont:v16];
 
         detailTextLabel = [v12 detailTextLabel];
@@ -720,7 +720,7 @@ LABEL_8:
     [textLabel3 setText:title];
 
     textLabel4 = [v12 textLabel];
-    v22 = PKOBKListSubtitleCellTitleFont();
+    v22 = PKOBKListSubtitleCellTitleFont(textLabel4);
     [textLabel4 setFont:v22];
 
     detailTextLabel2 = [v12 detailTextLabel];
@@ -748,7 +748,7 @@ LABEL_8:
     [textLabel5 setText:pk_displayName];
 
     textLabel6 = [v12 textLabel];
-    v31 = PKOBKListSubtitleCellTitleFont();
+    v31 = PKOBKListSubtitleCellTitleFont(textLabel6);
     [textLabel6 setFont:v31];
 
     detailTextLabel4 = [v12 detailTextLabel];

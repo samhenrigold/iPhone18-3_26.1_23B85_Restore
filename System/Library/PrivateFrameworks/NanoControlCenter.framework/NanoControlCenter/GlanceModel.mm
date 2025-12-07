@@ -40,7 +40,7 @@
   }
 
   swift_getKeyPath();
-  sub_25AFA048C(&qword_27FA25250, type metadata accessor for GlanceModel);
+  sub_25AFA048C(&qword_27FA25250, type metadata accessor for GlanceModel, &protocol conformance descriptor for GlanceModel);
   selfCopy = self;
   sub_25B004234();
 
@@ -391,7 +391,7 @@
   v9 = 0;
   p_KeyPath = &KeyPath;
   selfCopy = self;
-  sub_25AF75D34(0x19, 2, &p_KeyPath, &unk_27FA255F0);
+  sub_25AF75D34(0x19, 2, &p_KeyPath, &unk_27FA255F0, &qword_25B00EEE8);
 }
 
 - (NSString)volumeRouteButtonSymbolName
@@ -429,12 +429,12 @@
   v8[2] = v6;
   v9 = v8;
   selfCopy = self;
-  sub_25AF75D34(0x19, 2, &v9, &qword_27FA242A0);
+  sub_25AF75D34(0x19, 2, &v9, &qword_27FA242A0, &qword_25B00B0B8);
 }
 
 - (void)performAppearanceTransition:(int64_t)transition animated:(BOOL)animated completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FA24790);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FA24790, &qword_25B0090E0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);

@@ -112,7 +112,6 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  parser = self->_parser;
   if (objc_opt_respondsToSelector())
   {
     return self->_parser;
@@ -581,7 +580,6 @@ LABEL_4:
     _os_log_impl(&dword_1DE8E5000, log, OS_LOG_TYPE_DEFAULT, "Loaded Restriction Dictionary (Dynamic Slider Configuration): %@", v9, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return copyRestrictionDictionaryMultiPoint;
 }
 
@@ -660,7 +658,6 @@ LABEL_4:
     _os_log_impl(&dword_1DE8E5000, log, OS_LOG_TYPE_DEFAULT, "Loaded AAB Constraints: %@", v20, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -736,124 +733,118 @@ LABEL_4:
   v24 = a2;
   toCopy = to;
   memset(v22, 0, 28);
-  if ([(CBBacklightNode *)self getGlobalScalarDisplayI:v22 andB:v22 + 4])
+  if (![(CBBacklightNode *)self getGlobalScalarDisplayI:v22 andB:v22 + 4])
   {
-    v21 = 0;
-    [(CBIORegistryParser *)selfCopy->_parser loadUint:@"pab-scaler-index" toDestination:&v21];
-    v20 = 0;
-    [(CBIORegistryParser *)selfCopy->_parser loadUint:@"first-paneltype-pab-index" toDestination:&v20];
-    if (v21 >= v20)
+    return 0;
+  }
+
+  v21 = 0;
+  [(CBIORegistryParser *)selfCopy->_parser loadUint:@"pab-scaler-index" toDestination:&v21];
+  v20 = 0;
+  [(CBIORegistryParser *)selfCopy->_parser loadUint:@"first-paneltype-pab-index" toDestination:&v20];
+  if (v21 >= v20)
+  {
+    v16 = v21 - v20;
+    if (selfCopy->_log)
     {
-      v16 = v21 - v20;
-      if (selfCopy->_log)
-      {
-        v11 = selfCopy->_log;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          inited = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          inited = init_default_corebrightness_log();
-        }
-
-        v11 = inited;
-      }
-
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_0_1_4_0(v28, v16);
-        _os_log_debug_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEBUG, "PAB scaler index (after making it 0-based) = %u", v28, 8u);
-      }
-
-      if ([(CBBacklightNode *)selfCopy getScalerFor:@"gs-i-nominal" andIndex:v16 scaledBy:v22 + 8 toDestination:?]&& (LODWORD(v3) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-i-threshold" andIndex:v16 scaledBy:v22 + 12 toDestination:v3]) && (LODWORD(v4) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-b-min" andIndex:v16 scaledBy:&v22[1] toDestination:v4]) && (LODWORD(v5) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-slope" andIndex:v16 scaledBy:&v22[1] + 4 toDestination:v5]))
-      {
-        if (selfCopy->_log)
-        {
-          v9 = selfCopy->_log;
-        }
-
-        else
-        {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            v8 = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            v8 = init_default_corebrightness_log();
-          }
-
-          v9 = v8;
-        }
-
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-        {
-          __os_log_helper_16_0_7_4_0_8_0_8_0_8_0_8_0_8_0_8_0(v27, v16, COERCE__INT64(*(v22 + 2)), COERCE__INT64(*(v22 + 3)), COERCE__INT64(*&v22[1]), COERCE__INT64(*(&v22[1] + 1)), COERCE__INT64(*(v22 + 1)), COERCE__INT64(*v22));
-          _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "{ pab_scaler_index: %u, I_nominal: %.3f, I_threshold: %.3f, B-min: %.3f, Slope: %.3f, B_input: %.3f, I_input: %.3f }", v27, 0x44u);
-        }
-
-        v6 = toCopy;
-        *&toCopy->var0 = v22[0];
-        *&v6->var3 = *(v22 + 12);
-        v26 = 1;
-      }
-
-      else
-      {
-        v26 = 0;
-      }
+      v11 = selfCopy->_log;
     }
 
     else
     {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        inited = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        inited = init_default_corebrightness_log();
+      }
+
+      v11 = inited;
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_0_1_4_0(v28, v16);
+      _os_log_debug_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEBUG, "PAB scaler index (after making it 0-based) = %u", v28, 8u);
+    }
+
+    if ([(CBBacklightNode *)selfCopy getScalerFor:@"gs-i-nominal" andIndex:v16 scaledBy:v22 + 8 toDestination:?]&& (LODWORD(v3) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-i-threshold" andIndex:v16 scaledBy:v22 + 12 toDestination:v3]) && (LODWORD(v4) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-b-min" andIndex:v16 scaledBy:&v22[1] toDestination:v4]) && (LODWORD(v5) = 981668463, [(CBBacklightNode *)selfCopy getScalerFor:@"gs-slope" andIndex:v16 scaledBy:&v22[1] + 4 toDestination:v5]))
+    {
       if (selfCopy->_log)
       {
-        v15 = selfCopy->_log;
+        v9 = selfCopy->_log;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v14 = init_default_corebrightness_log();
+          v8 = init_default_corebrightness_log();
         }
 
-        v15 = v14;
+        v9 = v8;
       }
 
-      oslog = v15;
-      type = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        log = oslog;
-        v13 = type;
-        __os_log_helper_16_0_0(v17);
-        _os_log_error_impl(&dword_1DE8E5000, log, v13, "PAB scaler: incorrect first-paneltype-pab-index in EDT! Using a default scaler", v17, 2u);
+        __os_log_helper_16_0_7_4_0_8_0_8_0_8_0_8_0_8_0_8_0(v27, v16, COERCE__INT64(*(v22 + 2)), COERCE__INT64(*(v22 + 3)), COERCE__INT64(*&v22[1]), COERCE__INT64(*(&v22[1] + 1)), COERCE__INT64(*(v22 + 1)), COERCE__INT64(*v22));
+        _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "{ pab_scaler_index: %u, I_nominal: %.3f, I_threshold: %.3f, B-min: %.3f, Slope: %.3f, B_input: %.3f, I_input: %.3f }", v27, 0x44u);
       }
 
-      v26 = 0;
+      v6 = toCopy;
+      *&toCopy->var0 = v22[0];
+      *&v6->var3 = *(v22 + 12);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
     }
   }
 
   else
   {
-    v26 = 0;
-  }
+    if (selfCopy->_log)
+    {
+      v15 = selfCopy->_log;
+    }
 
-  *MEMORY[0x1E69E9840];
-  return v26 & 1;
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        v14 = init_default_corebrightness_log();
+      }
+
+      v15 = v14;
+    }
+
+    oslog = v15;
+    type = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      log = oslog;
+      v13 = type;
+      __os_log_helper_16_0_0(v17);
+      _os_log_error_impl(&dword_1DE8E5000, log, v13, "PAB scaler: incorrect first-paneltype-pab-index in EDT! Using a default scaler", v17, 2u);
+    }
+
+    return 0;
+  }
 }
 
 - (id)copyAABCapDictionary
@@ -951,7 +942,6 @@ LABEL_4:
   free(v19);
   v4 = v18;
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v4;
 }
 

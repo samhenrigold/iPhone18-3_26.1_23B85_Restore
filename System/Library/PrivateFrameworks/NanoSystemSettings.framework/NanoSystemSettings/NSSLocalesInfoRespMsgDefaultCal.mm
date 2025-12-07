@@ -43,10 +43,8 @@
 
 - (void)writeTo:(id)to
 {
-  locale = self->_locale;
   toCopy = to;
   PBDataWriterWriteStringField();
-  calendar = self->_calendar;
   PBDataWriterWriteStringField();
 }
 

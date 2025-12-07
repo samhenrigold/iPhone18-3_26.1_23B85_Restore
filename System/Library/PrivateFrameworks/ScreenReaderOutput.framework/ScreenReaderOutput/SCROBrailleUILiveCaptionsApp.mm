@@ -400,7 +400,7 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
 
 - (void)_openSpeechView
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = [[SCROBrailleUILiveSpeechManager alloc] initWithClient:self];
   [(SCROBrailleUILiveCaptionsApp *)self setLiveSpeechManager:v3];
 
@@ -409,15 +409,13 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
   v6 = [(SCROBrailleUIListItem *)v4 initWithIdentifier:@"type.to.speak" label:v5 isInline:1];
 
   v7 = [SCROBrailleUIListView alloc];
-  v12[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [(SCROBrailleUIListView *)v7 initWithIdentifier:@"speech" items:v8];
   [(SCROBrailleUILiveCaptionsApp *)self setSpeechView:v9];
 
   speechView = [(SCROBrailleUILiveCaptionsApp *)self speechView];
   [speechView display];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeSpeechView
@@ -451,7 +449,7 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
 
 - (void)_openContextMenu
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUILiveCaptionsApp *)self _isShowingContextMenu])
   {
     isTranscriptionPaused = [(SCROBrailleUILiveCaptionsApp *)self isTranscriptionPaused];
@@ -519,19 +517,19 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
       v21 = SCROBrailleUILocString(@"live.captions.context.menu.summarize");
       v22 = [(SCROBrailleUIListItem *)v20 initWithIdentifier:@"context.menu.summarize" label:v21 isInline:0];
 
-      v28[0] = v8;
-      v28[1] = v11;
-      v28[2] = v18;
-      v28[3] = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+      v27[0] = v8;
+      v27[1] = v11;
+      v27[2] = v18;
+      v27[3] = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
     }
 
     else
     {
-      v27[0] = v8;
-      v27[1] = v11;
-      v27[2] = v18;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+      v26[0] = v8;
+      v26[1] = v11;
+      v26[2] = v18;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
     }
 
     v24 = [[SCROBrailleUIListView alloc] initWithIdentifier:@"context.menu" items:v23];
@@ -540,8 +538,6 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
     contextMenuView = [(SCROBrailleUILiveCaptionsApp *)self contextMenuView];
     [contextMenuView display];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeContextMenu
@@ -570,7 +566,7 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
 
 - (void)_openSummary
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUILiveCaptionsApp *)self _isShowingSummary])
   {
     v3 = [SCROBrailleUIListItem alloc];
@@ -578,29 +574,27 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
     v5 = [(SCROBrailleUIListItem *)v3 initWithIdentifier:@"summary.summarizing" label:v4 isInline:0];
 
     v6 = [SCROBrailleUIListView alloc];
-    v11[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v8 = [(SCROBrailleUIListView *)v6 initWithIdentifier:@"summary" items:v7];
     [(SCROBrailleUILiveCaptionsApp *)self setSummaryView:v8];
 
     summaryView = [(SCROBrailleUILiveCaptionsApp *)self summaryView];
     [summaryView display];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshSummaryWith:(id)with
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   withCopy = with;
   if ([(SCROBrailleUILiveCaptionsApp *)self _isShowingSummary])
   {
     summaryView = [(SCROBrailleUILiveCaptionsApp *)self summaryView];
     v6 = [[SCROBrailleUIListItem alloc] initWithIdentifier:@"summary.summary.content" label:withCopy isInline:0 shouldPreserveCase:1];
     v7 = [SCROBrailleUIListView alloc];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = [(SCROBrailleUIListView *)v7 initWithIdentifier:@"summary" items:v8];
     [(SCROBrailleUILiveCaptionsApp *)self setSummaryView:v9];
 
@@ -609,8 +603,6 @@ void __59__SCROBrailleUILiveCaptionsApp__handleActionInContextMenu___block_invok
 
     [summaryView dismiss];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeSummary

@@ -7,10 +7,9 @@
 
 - (id)description
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   coap_print_addr(&self->_address, __dst, 0x36uLL);
   __dst = [MEMORY[0x277CCACA8] stringWithFormat:@"<%s>", __dst];
-  v3 = *MEMORY[0x277D85DE8];
 
   return __dst;
 }

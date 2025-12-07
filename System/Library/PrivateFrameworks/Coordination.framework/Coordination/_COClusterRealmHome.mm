@@ -118,7 +118,7 @@
 
 - (void)activate:(id)activate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   if (+[COFeatureStatus isCOClusterEnabled])
   {
@@ -128,10 +128,10 @@
       specificHomeUUID = [(_COClusterRealmHome *)self specificHomeUUID];
       *buf = 134218498;
       selfCopy = self;
-      v14 = 2112;
+      v13 = 2112;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = specificHomeUUID;
+      v15 = 2112;
+      v16 = specificHomeUUID;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p COClusterRealmHome %@ activate called with specificHomeUUID %@", buf, 0x20u);
     }
 
@@ -139,25 +139,23 @@
 
     if (specificHomeUUID2)
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __32___COClusterRealmHome_activate___block_invoke;
-      v10[3] = &unk_278E121C0;
-      v10[4] = self;
-      v11 = activateCopy;
-      [(COClusterRealm *)self _withLock:v10];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __32___COClusterRealmHome_activate___block_invoke;
+      v9[3] = &unk_278E121C0;
+      v9[4] = self;
+      v10 = activateCopy;
+      [(COClusterRealm *)self _withLock:v9];
       [(COClusterRealm *)self _invokeUpdateHandler];
     }
 
     else
     {
-      v9.receiver = self;
-      v9.super_class = _COClusterRealmHome;
-      [(COClusterRealm *)&v9 activate:activateCopy];
+      v8.receiver = self;
+      v8.super_class = _COClusterRealmHome;
+      [(COClusterRealm *)&v8 activate:activateCopy];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (_COClusterRealmHome)initWithCoder:(id)coder

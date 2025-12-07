@@ -28,7 +28,7 @@
 
 - (BOOL)authorizationDenied
 {
-  if ([(CLServiceSessionDiagnostic *)self authorizationDeniedGlobally])
+  if (objc_msgSend_authorizationDeniedGlobally(self, a2, v2, v3))
   {
     return 1;
   }

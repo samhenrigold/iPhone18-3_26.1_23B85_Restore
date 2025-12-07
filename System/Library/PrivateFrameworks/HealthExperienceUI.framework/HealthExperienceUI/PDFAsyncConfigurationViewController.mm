@@ -52,7 +52,7 @@
   swift_unknownObjectRelease();
   [(PDFAsyncConfigurationViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)didTapSave:(id)save
@@ -86,38 +86,38 @@
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  v12 = PDFAsyncConfigurationViewController.tableView(_:cellForRowAt:)(viewCopy);
+  v13 = PDFAsyncConfigurationViewController.tableView(_:cellForRowAt:)(viewCopy);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1BA4A18F8();
-  [viewCopy deselectRowAtIndexPath:v12 animated:1];
+  v13 = sub_1BA4A18F8();
+  [viewCopy deselectRowAtIndexPath:v13 animated:1];
 
-  v13 = *(&selfCopy->super._view + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource);
-  v14 = *(&selfCopy->super._tabBarItem + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource);
-  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource), v13);
-  v15 = sub_1BA4A1938();
-  (*(v14 + 32))(v15, v13, v14);
+  v14 = *(&selfCopy->super._view + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource);
+  v15 = *(&selfCopy->super._tabBarItem + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource);
+  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI35PDFAsyncConfigurationViewController_configurationDataSource), v14);
+  v16 = sub_1BA4A1938();
+  (*(v15 + 32))(v16, v14, v15);
   sub_1BA419C08();
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (void)didPinchPDF:(id)f

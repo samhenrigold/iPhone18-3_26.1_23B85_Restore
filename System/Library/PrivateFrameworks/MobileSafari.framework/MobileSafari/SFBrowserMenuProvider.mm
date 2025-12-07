@@ -649,65 +649,65 @@ void __154__SFBrowserMenuProvider__commandWithAction_input_modifierFlags_discove
 
 - (id)makeExtensionsMenuWithExistingKeyCommands:(id)commands
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   commandsCopy = commands;
   array = [MEMORY[0x1E695DF70] array];
-  v25 = self->_webExtensionsController;
-  [(WBSWebExtensionsController *)v25 enabledWebExtensionsSortedByDisplayShortName];
-  v37 = 0u;
-  v38 = 0u;
+  v27 = self->_webExtensionsController;
+  [(WBSWebExtensionsController *)v27 enabledWebExtensionsSortedByDisplayShortName];
   v39 = 0u;
-  obj = v40 = 0u;
-  v30 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
-  if (v30)
+  v40 = 0u;
+  v41 = 0u;
+  obj = v42 = 0u;
+  v32 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+  if (v32)
   {
-    v28 = *v38;
+    v30 = *v40;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v38 != v28)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v37 + 1) + 8 * i);
+        v6 = *(*(&v39 + 1) + 8 * i);
         menuElements = [v6 menuElements];
         if ([menuElements count])
         {
-          v29 = v6;
-          v32 = i;
+          v31 = v6;
+          v34 = i;
           array2 = [MEMORY[0x1E695DF70] array];
-          v33 = 0u;
-          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
-          v31 = menuElements;
+          v37 = 0u;
+          v38 = 0u;
+          v33 = menuElements;
           v9 = menuElements;
-          v10 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v34;
+            v12 = *v36;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v34 != v12)
+                if (*v36 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v33 + 1) + 8 * j);
+                v14 = *(*(&v35 + 1) + 8 * j);
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) != 0 && [commandsCopy containsObject:v14])
+                if ((objc_opt_isKindOfClass() & 1) != 0 && (v15 = [commandsCopy containsObject:v14], v15))
                 {
-                  v15 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-                  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+                  v17 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v15, v16);
+                  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v42 = v14;
-                    _os_log_impl(&dword_18B7AC000, v15, OS_LOG_TYPE_INFO, "Discarding conflicting key command: %@", buf, 0xCu);
+                    v44 = v14;
+                    _os_log_impl(&dword_18B7AC000, v17, OS_LOG_TYPE_INFO, "Discarding conflicting key command: %@", buf, 0xCu);
                   }
                 }
 
@@ -723,7 +723,7 @@ void __154__SFBrowserMenuProvider__commandWithAction_input_modifierFlags_discove
                 }
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
             }
 
             while (v11);
@@ -731,38 +731,38 @@ void __154__SFBrowserMenuProvider__commandWithAction_input_modifierFlags_discove
 
           if ([array2 count])
           {
-            v16 = MEMORY[0x1E69DCC60];
-            displayShortName = [v29 displayShortName];
-            icon = [v29 icon];
-            v19 = [v16 menuWithTitle:displayShortName image:icon identifier:0 options:1 children:array2];
-            [array addObject:v19];
+            v18 = MEMORY[0x1E69DCC60];
+            displayShortName = [v31 displayShortName];
+            icon = [v31 icon];
+            v21 = [v18 menuWithTitle:displayShortName image:icon identifier:0 options:1 children:array2];
+            [array addObject:v21];
           }
 
-          menuElements = v31;
-          i = v32;
+          menuElements = v33;
+          i = v34;
         }
       }
 
-      v30 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v32 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
-    while (v30);
+    while (v32);
   }
 
   if ([array count])
   {
-    v20 = MEMORY[0x1E69DCC60];
-    v21 = _WBSLocalizedString();
-    v22 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"puzzlepiece.extension"];
-    v23 = [v20 menuWithTitle:v21 image:v22 identifier:@"ExtensionsMenu" options:0 children:array];
+    v22 = MEMORY[0x1E69DCC60];
+    v23 = _WBSLocalizedString();
+    v24 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"puzzlepiece.extension"];
+    v25 = [v22 menuWithTitle:v23 image:v24 identifier:@"ExtensionsMenu" options:0 children:array];
   }
 
   else
   {
-    v23 = 0;
+    v25 = 0;
   }
 
-  return v23;
+  return v25;
 }
 
 - (void)_shouldHideExtensionsDiscoveryDidChange

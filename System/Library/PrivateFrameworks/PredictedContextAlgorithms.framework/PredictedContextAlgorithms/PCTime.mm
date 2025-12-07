@@ -136,7 +136,7 @@
 
 + (id)localTimeOfDate:(id)date timeZone:(id)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   zoneCopy = zone;
   v7 = zoneCopy;
@@ -158,17 +158,17 @@
         v12 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v15 = 138413314;
-          v16 = dateCopy;
-          v17 = 2112;
-          v18 = v7;
-          v19 = 2112;
-          v20 = systemTimeZone;
-          v21 = 2048;
-          v22 = v11;
-          v23 = 2112;
-          v24 = v9;
-          _os_log_impl(&dword_1CEE74000, v12, OS_LOG_TYPE_DEBUG, "localTime, object date, %@, object timezone, %@, system timezone, %@, timezone diff, %ld, adjusted date, %@", &v15, 0x34u);
+          v14 = 138413314;
+          v15 = dateCopy;
+          v16 = 2112;
+          v17 = v7;
+          v18 = 2112;
+          v19 = systemTimeZone;
+          v20 = 2048;
+          v21 = v11;
+          v22 = 2112;
+          v23 = v9;
+          _os_log_impl(&dword_1CEE74000, v12, OS_LOG_TYPE_DEBUG, "localTime, object date, %@, object timezone, %@, system timezone, %@, timezone diff, %ld, adjusted date, %@", &v14, 0x34u);
         }
       }
     }
@@ -184,14 +184,12 @@
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)timeFromStartDate:(id)date endDate:(id)endDate timeZoneManager:(id)manager
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   managerCopy = manager;
   [dateCopy timeIntervalSinceReferenceDate];
@@ -205,12 +203,12 @@
       goto LABEL_7;
     }
 
-    v20 = 138412802;
-    v21 = dateCopy;
-    v22 = 2112;
-    v23 = systemTimeZone;
-    v24 = 2112;
-    v25 = managerCopy;
+    v19 = 138412802;
+    v20 = dateCopy;
+    v21 = 2112;
+    v22 = systemTimeZone;
+    v23 = 2112;
+    v24 = managerCopy;
     v12 = "timeZone, date, %@, timeZone, %@, source, timeZoneManager, %@";
     v13 = v11;
     v14 = 32;
@@ -225,23 +223,21 @@
       goto LABEL_7;
     }
 
-    v20 = 138412546;
-    v21 = dateCopy;
-    v22 = 2112;
-    v23 = systemTimeZone;
+    v19 = 138412546;
+    v20 = dateCopy;
+    v21 = 2112;
+    v22 = systemTimeZone;
     v12 = "timeZone, date, %@, timeZone, %@, source, system";
     v13 = v11;
     v14 = 22;
   }
 
-  _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEBUG, v12, &v20, v14);
+  _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEBUG, v12, &v19, v14);
 LABEL_7:
 
   v15 = [PCTime alloc];
   name = [systemTimeZone name];
   v17 = [(PCTime *)v15 initWithTimestamp:0 timeString:name timeZone:0 timeTag:v9];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -365,48 +361,48 @@ LABEL_7:
 
 + (unint64_t)timetagFromStartDate:(id)date endDate:(id)endDate
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   if (!endDateCopy || ([dateCopy isSameDayWithDate:endDateCopy] & 1) != 0 || (objc_msgSend(endDateCopy, "timeIntervalSinceDate:", dateCopy), v7 <= 43200.0))
   {
     [PCTime buildTimeTagIntervalsForDate:dateCopy];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v8 = v43 = 0u;
-    v10 = [v8 countByEnumeratingWithState:&v40 objects:v53 count:16];
+    v8 = v42 = 0u;
+    v10 = [v8 countByEnumeratingWithState:&v39 objects:v52 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v41;
+      v13 = *v40;
       *&v11 = 138413058;
-      v34 = v11;
+      v33 = v11;
 LABEL_9:
       v14 = 0;
       while (1)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * v14);
-        [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v34}];
+        v15 = *(*(&v39 + 1) + 8 * v14);
+        [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v33}];
         v17 = v16;
         if (v16 > 0.0)
         {
           v18 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v34;
-            v46 = dateCopy;
-            v47 = 2112;
-            v48 = endDateCopy;
-            v49 = 2112;
-            v50 = v15;
-            v51 = 2048;
-            v52 = v17;
+            *buf = v33;
+            v45 = dateCopy;
+            v46 = 2112;
+            v47 = endDateCopy;
+            v48 = 2112;
+            v49 = v15;
+            v50 = 2048;
+            v51 = v17;
             _os_log_impl(&dword_1CEE74000, v18, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, interval, %@, score, %f", buf, 0x2Au);
           }
         }
@@ -418,7 +414,7 @@ LABEL_9:
 
         if (v12 == ++v14)
         {
-          v12 = [v8 countByEnumeratingWithState:&v40 objects:v53 count:16];
+          v12 = [v8 countByEnumeratingWithState:&v39 objects:v52 count:16];
           if (v12)
           {
             goto LABEL_9;
@@ -436,14 +432,14 @@ LABEL_9:
 
       timetag = [v15 timetag];
       v30 = +[PCTime timeStringFromTimeTag:](PCTime, "timeStringFromTimeTag:", [v15 timetag]);
-      *buf = v34;
-      v46 = dateCopy;
-      v47 = 2112;
-      v48 = endDateCopy;
-      v49 = 2048;
-      v50 = timetag;
-      v51 = 2112;
-      v52 = *&v30;
+      *buf = v33;
+      v45 = dateCopy;
+      v46 = 2112;
+      v47 = endDateCopy;
+      v48 = 2048;
+      v49 = timetag;
+      v50 = 2112;
+      v51 = *&v30;
     }
 
     else
@@ -452,12 +448,12 @@ LABEL_19:
 
       v19 = [PCTime buildSimpleTimeTagIntervalsForDate:dateCopy];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v8 = v19;
-      v20 = [v8 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v20 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (!v20)
       {
 LABEL_31:
@@ -468,34 +464,34 @@ LABEL_38:
       }
 
       v22 = v20;
-      v23 = *v37;
+      v23 = *v36;
       *&v21 = 138413058;
-      v35 = v21;
+      v34 = v21;
 LABEL_21:
       v24 = 0;
       while (1)
       {
-        if (*v37 != v23)
+        if (*v36 != v23)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * v24);
-        [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v35, v36}];
+        v15 = *(*(&v35 + 1) + 8 * v24);
+        [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v34, v35}];
         v26 = v25;
         if (v25 > 0.0)
         {
           v27 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v35;
-            v46 = dateCopy;
-            v47 = 2112;
-            v48 = endDateCopy;
-            v49 = 2112;
-            v50 = v15;
-            v51 = 2048;
-            v52 = v26;
+            *buf = v34;
+            v45 = dateCopy;
+            v46 = 2112;
+            v47 = endDateCopy;
+            v48 = 2112;
+            v49 = v15;
+            v50 = 2048;
+            v51 = v26;
             _os_log_impl(&dword_1CEE74000, v27, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, interval, %@, score, %f", buf, 0x2Au);
           }
         }
@@ -507,7 +503,7 @@ LABEL_21:
 
         if (v22 == ++v24)
         {
-          v22 = [v8 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v22 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v22)
           {
             goto LABEL_21;
@@ -525,14 +521,14 @@ LABEL_21:
 
       timetag2 = [v15 timetag];
       v30 = +[PCTime timeStringFromTimeTag:](PCTime, "timeStringFromTimeTag:", [v15 timetag]);
-      *buf = v35;
-      v46 = dateCopy;
-      v47 = 2112;
-      v48 = endDateCopy;
-      v49 = 2048;
-      v50 = timetag2;
-      v51 = 2112;
-      v52 = *&v30;
+      *buf = v34;
+      v45 = dateCopy;
+      v46 = 2112;
+      v47 = endDateCopy;
+      v48 = 2048;
+      v49 = timetag2;
+      v50 = 2112;
+      v51 = *&v30;
     }
 
     _os_log_impl(&dword_1CEE74000, v28, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, timetag, %lu(%@)", buf, 0x2Au);
@@ -546,63 +542,62 @@ LABEL_37:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v46 = dateCopy;
-    v47 = 2112;
-    v48 = endDateCopy;
+    v45 = dateCopy;
+    v46 = 2112;
+    v47 = endDateCopy;
     _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, skip", buf, 0x16u);
   }
 
   timetag3 = 0;
 LABEL_39:
 
-  v32 = *MEMORY[0x1E69E9840];
   return timetag3;
 }
 
 + (unint64_t)simpleTimetagFromStartDate:(id)date endDate:(id)endDate
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   if (!endDateCopy || ([dateCopy isSameDayWithDate:endDateCopy] & 1) != 0 || (objc_msgSend(endDateCopy, "timeIntervalSinceDate:", dateCopy), v7 <= 43200.0))
   {
     [PCTime buildSimpleTimeTagIntervalsForDate:dateCopy];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v8 = v28 = 0u;
-    v10 = [v8 countByEnumeratingWithState:&v25 objects:v37 count:16];
+    v8 = v27 = 0u;
+    v10 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v26;
+      v13 = *v25;
       *&v11 = 138413058;
-      v24 = v11;
+      v23 = v11;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
-          [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v24, v25}];
+          v15 = *(*(&v24 + 1) + 8 * i);
+          [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v23, v24}];
           v17 = v16;
           if (v16 > 0.0)
           {
             v18 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v24;
-              v30 = dateCopy;
-              v31 = 2112;
-              v32 = endDateCopy;
-              v33 = 2112;
-              v34 = v15;
-              v35 = 2048;
-              v36 = v17;
+              *buf = v23;
+              v29 = dateCopy;
+              v30 = 2112;
+              v31 = endDateCopy;
+              v32 = 2112;
+              v33 = v15;
+              v34 = 2048;
+              v35 = v17;
               _os_log_impl(&dword_1CEE74000, v18, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, interval, %@, score, %f", buf, 0x2Au);
             }
           }
@@ -614,14 +609,14 @@ LABEL_39:
             {
               timetag = [v15 timetag];
               v21 = +[PCTime timeStringFromTimeTag:](PCTime, "timeStringFromTimeTag:", [v15 timetag]);
-              *buf = v24;
-              v30 = dateCopy;
-              v31 = 2112;
-              v32 = endDateCopy;
-              v33 = 2048;
-              v34 = timetag;
-              v35 = 2112;
-              v36 = *&v21;
+              *buf = v23;
+              v29 = dateCopy;
+              v30 = 2112;
+              v31 = endDateCopy;
+              v32 = 2048;
+              v33 = timetag;
+              v34 = 2112;
+              v35 = *&v21;
               _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, timetag, %lu(%@)", buf, 0x2Au);
             }
 
@@ -630,7 +625,7 @@ LABEL_39:
           }
         }
 
-        v12 = [v8 countByEnumeratingWithState:&v25 objects:v37 count:16];
+        v12 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
         if (v12)
         {
           continue;
@@ -650,16 +645,15 @@ LABEL_23:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v30 = dateCopy;
-      v31 = 2112;
-      v32 = endDateCopy;
+      v29 = dateCopy;
+      v30 = 2112;
+      v31 = endDateCopy;
       _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, skip", buf, 0x16u);
     }
 
     timetag2 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return timetag2;
 }
 
@@ -696,48 +690,48 @@ LABEL_23:
 
 + (unint64_t)mealtagFromStartDate:(id)date endDate:(id)endDate
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   if (!endDateCopy || ([dateCopy isSameDayWithDate:endDateCopy] & 1) != 0 || (objc_msgSend(endDateCopy, "timeIntervalSinceDate:", dateCopy), v7 <= 43200.0))
   {
     [PCTime buildSimpleMealTagIntervalsForDate:dateCopy];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v9 = v28 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v37 count:16];
+    v9 = v27 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v26;
+      v13 = *v25;
       *&v11 = 138413058;
-      v24 = v11;
+      v23 = v11;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
-          [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v24, v25}];
+          v15 = *(*(&v24 + 1) + 8 * i);
+          [v15 overlapsScoreForStartDate:dateCopy endDate:{endDateCopy, v23, v24}];
           v17 = v16;
           if (v16 > 0.0)
           {
             v18 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v24;
-              v30 = dateCopy;
-              v31 = 2112;
-              v32 = endDateCopy;
-              v33 = 2112;
-              v34 = v15;
-              v35 = 2048;
-              v36 = v17;
+              *buf = v23;
+              v29 = dateCopy;
+              v30 = 2112;
+              v31 = endDateCopy;
+              v32 = 2112;
+              v33 = v15;
+              v34 = 2048;
+              v35 = v17;
               _os_log_impl(&dword_1CEE74000, v18, OS_LOG_TYPE_DEBUG, "mealType, startDate, %@, endDate, %@, interval, %@, score, %f", buf, 0x2Au);
             }
           }
@@ -749,14 +743,14 @@ LABEL_23:
             {
               timetag = [v15 timetag];
               v21 = +[PCTime timeStringFromTimeTag:](PCTime, "timeStringFromTimeTag:", [v15 timetag]);
-              *buf = v24;
-              v30 = dateCopy;
-              v31 = 2112;
-              v32 = endDateCopy;
-              v33 = 2048;
-              v34 = timetag;
-              v35 = 2112;
-              v36 = *&v21;
+              *buf = v23;
+              v29 = dateCopy;
+              v30 = 2112;
+              v31 = endDateCopy;
+              v32 = 2048;
+              v33 = timetag;
+              v34 = 2112;
+              v35 = *&v21;
               _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEBUG, "mealType, startDate, %@, endDate, %@, timetag, %lu(%@)", buf, 0x2Au);
             }
 
@@ -765,7 +759,7 @@ LABEL_23:
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v25 objects:v37 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v24 objects:v36 count:16];
         if (v12)
         {
           continue;
@@ -784,13 +778,12 @@ LABEL_21:
     timetag2 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return timetag2;
 }
 
 + (id)timeOfDayPrefixFromStartDate:(id)date endDate:(id)endDate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   v7 = [PCTime timetagFromStartDate:dateCopy endDate:endDateCopy];
@@ -798,15 +791,15 @@ LABEL_21:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = [PCTime timeStringFromTimeTag:v7];
-    v20 = 138413058;
-    v21 = dateCopy;
-    v22 = 2112;
-    v23 = endDateCopy;
-    v24 = 2048;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v9;
-    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, timeTag, %lu(%@)", &v20, 0x2Au);
+    v19 = 138413058;
+    v20 = dateCopy;
+    v21 = 2112;
+    v22 = endDateCopy;
+    v23 = 2048;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v9;
+    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "timeOfDay, startDate, %@, endDate, %@, timeTag, %lu(%@)", &v19, 0x2Au);
   }
 
   v10 = [PCTime timeStringFromTimeTag:v7];
@@ -826,14 +819,12 @@ LABEL_21:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 + (id)dayOfWeekFromStartDate:(id)date endDate:(id)endDate timeZoneManager:(id)manager
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   managerCopy = manager;
@@ -844,11 +835,11 @@ LABEL_21:
     v19 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v30 = 138412546;
-      v31 = dateCopy;
-      v32 = 2112;
-      v33 = systemTimeZone;
-      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEBUG, "timeZone, startDate, %@, timeZone, %@, source, system", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = dateCopy;
+      v31 = 2112;
+      v32 = systemTimeZone;
+      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEBUG, "timeZone, startDate, %@, timeZone, %@, source, system", &v29, 0x16u);
     }
 
     v18 = endDateCopy != 0;
@@ -859,13 +850,13 @@ LABEL_21:
   v12 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v30 = 138412802;
-    v31 = dateCopy;
-    v32 = 2112;
-    v33 = systemTimeZone;
-    v34 = 2112;
-    v35 = v10;
-    _os_log_impl(&dword_1CEE74000, v12, OS_LOG_TYPE_DEBUG, "timeZone, startDate, %@, timeZone, %@, source, timeZoneManager, %@", &v30, 0x20u);
+    v29 = 138412802;
+    v30 = dateCopy;
+    v31 = 2112;
+    v32 = systemTimeZone;
+    v33 = 2112;
+    v34 = v10;
+    _os_log_impl(&dword_1CEE74000, v12, OS_LOG_TYPE_DEBUG, "timeZone, startDate, %@, timeZone, %@, source, timeZoneManager, %@", &v29, 0x20u);
   }
 
   if (!endDateCopy)
@@ -878,11 +869,11 @@ LABEL_21:
   v14 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v30 = 138412546;
-    v31 = endDateCopy;
-    v32 = 2112;
-    v33 = systemTimeZone;
-    _os_log_impl(&dword_1CEE74000, v14, OS_LOG_TYPE_DEBUG, "timeZone, endDate, %@, timeZone, %@, source, system", &v30, 0x16u);
+    v29 = 138412546;
+    v30 = endDateCopy;
+    v31 = 2112;
+    v32 = systemTimeZone;
+    _os_log_impl(&dword_1CEE74000, v14, OS_LOG_TYPE_DEBUG, "timeZone, endDate, %@, timeZone, %@, source, system", &v29, 0x16u);
   }
 
   name = [systemTimeZone name];
@@ -927,17 +918,15 @@ LABEL_13:
   v20 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v30 = 138412546;
-    v31 = systemTimeZone;
-    v32 = 2112;
-    v33 = v13;
-    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEBUG, "timeZone crossing, timeZone, %@, endTimeZone, %@", &v30, 0x16u);
+    v29 = 138412546;
+    v30 = systemTimeZone;
+    v31 = 2112;
+    v32 = v13;
+    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEBUG, "timeZone crossing, timeZone, %@, endTimeZone, %@", &v29, 0x16u);
   }
 
   v27 = 0;
 LABEL_20:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -1105,7 +1094,7 @@ LABEL_20:
 
 + (unint64_t)typeOfDayTagFromStartDate:(id)date endDate:(id)endDate timeZone:(id)zone
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   zoneCopy = zone;
@@ -1118,10 +1107,10 @@ LABEL_20:
       {
         *buf = 138412802;
         *&buf[4] = dateCopy;
-        v30 = 2112;
-        v31 = endDateCopy;
-        v32 = 2112;
-        v33 = zoneCopy;
+        v29 = 2112;
+        v30 = endDateCopy;
+        v31 = 2112;
+        v32 = zoneCopy;
         _os_log_impl(&dword_1CEE74000, v10, OS_LOG_TYPE_INFO, "typeOfDayTagFromStartDate, startDate, %@, endDate, %@, timeZone, %@, the timestamps are inverted.", buf, 0x20u);
       }
 
@@ -1162,10 +1151,10 @@ LABEL_20:
       {
         *buf = 138412802;
         *&buf[4] = v11;
-        v30 = 2112;
-        v31 = endDateCopy;
-        v32 = 2112;
-        v33 = zoneCopy;
+        v29 = 2112;
+        v30 = endDateCopy;
+        v31 = 2112;
+        v32 = zoneCopy;
         _os_log_impl(&dword_1CEE74000, v14, OS_LOG_TYPE_INFO, "typeOfDayTagFromStartDate, startDate, %@, endDate, %@, timeZone, %@, the timestamps are inverted after time zone shifting.", buf, 0x20u);
       }
 
@@ -1174,10 +1163,10 @@ LABEL_20:
 
 LABEL_17:
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-    v28 = 0;
+    v27 = 0;
     *buf = 0;
-    v16 = [currentCalendar rangeOfWeekendStartDate:&v28 interval:buf containingDate:v11];
-    v17 = v28;
+    v16 = [currentCalendar rangeOfWeekendStartDate:&v27 interval:buf containingDate:v11];
+    v17 = v27;
     v18 = v17;
     if (!endDateCopy)
     {
@@ -1245,7 +1234,6 @@ LABEL_32:
   v13 = 0;
 LABEL_35:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1268,7 +1256,7 @@ LABEL_35:
 
 + (unint64_t)dayOfWeekTagFromDate:(id)date
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v4 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:*MEMORY[0x1E695D850]];
   [v4 setFirstWeekday:1];
@@ -1276,11 +1264,11 @@ LABEL_35:
   v6 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = dateCopy;
-    v14 = 2048;
+    v11 = 138412546;
+    v12 = dateCopy;
+    v13 = 2048;
     weekday = [v5 weekday];
-    _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEBUG, "dayOfWeekTagFromDate, date, %@, weekday, %lu", &v12, 0x16u);
+    _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEBUG, "dayOfWeekTagFromDate, date, %@, weekday, %lu", &v11, 0x16u);
   }
 
   if ([v5 weekday] == 1)
@@ -1324,17 +1312,16 @@ LABEL_35:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       weekday2 = [v5 weekday];
-      v12 = 138412546;
-      v13 = dateCopy;
-      v14 = 2048;
+      v11 = 138412546;
+      v12 = dateCopy;
+      v13 = 2048;
       weekday = weekday2;
-      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_ERROR, "dayOfWeekTagFromDate, cannot read weekday, date, %@, weekday, %lu", &v12, 0x16u);
+      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_ERROR, "dayOfWeekTagFromDate, cannot read weekday, date, %@, weekday, %lu", &v11, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -1,5 +1,6 @@
 @interface HSPCNameToggleServiceRow
 - (HSPCNameToggleServiceRow)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
+- (void)setFrozen:(BOOL)frozen;
 - (void)setSelected:(BOOL)selected;
 @end
 
@@ -72,6 +73,13 @@
   }
   v10 = ;
   [v7 setTintColor:v10];
+}
+
+- (void)setFrozen:(BOOL)frozen
+{
+  frozenCopy = frozen;
+  leftView = [(HSPCRow *)self leftView];
+  [leftView setHidden:frozenCopy];
 }
 
 @end

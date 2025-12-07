@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D136F8FC();
+  sub_1D136F8FC(selfCopy);
 }
 
 - (void)reloadAccounts

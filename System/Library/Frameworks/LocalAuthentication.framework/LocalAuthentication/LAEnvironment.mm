@@ -29,9 +29,11 @@
 
 uint64_t __28__LAEnvironment_currentUser__block_invoke()
 {
-  currentUser_currentUser = objc_alloc_init(LAEnvironment);
+  v0 = objc_alloc_init(LAEnvironment);
+  v1 = currentUser_currentUser;
+  currentUser_currentUser = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (LAEnvironment)init
@@ -70,13 +72,12 @@ uint64_t __28__LAEnvironment_currentUser__block_invoke()
 
 - (void)_registerDarwinNotification
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446466;
-  v4 = "com.apple.LocalAuthentication.environment.StateDidChange";
-  v5 = 1024;
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136446466;
+  v3 = "com.apple.LocalAuthentication.environment.StateDidChange";
+  v4 = 1024;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1A784E000, a2, OS_LOG_TYPE_FAULT, "Failed to register %{public}s: %u", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A784E000, a2, OS_LOG_TYPE_FAULT, "Failed to register %{public}s: %u", &v2, 0x12u);
 }
 
 - (LAEnvironmentState)state
@@ -181,35 +182,35 @@ void __42__LAEnvironment__handleDarwinNotification__block_invoke(uint64_t a1)
 
 - (void)_updateStateWithSynchronousProxyToEnvironmentService:(id)service
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__0;
+  v19 = __Block_byref_object_dispose__0;
+  v20 = 0;
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:geteuid()];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___block_invoke;
-  v15[3] = &unk_1E77CB248;
-  v15[4] = &v22;
-  v15[5] = &v16;
-  [serviceCopy environmentStateForUser:v5 completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___block_invoke;
+  v14[3] = &unk_1E77CB248;
+  v14[4] = &v21;
+  v14[5] = &v15;
+  [serviceCopy environmentStateForUser:v5 completion:v14];
 
-  if (v23[5])
+  if (v22[5])
   {
     os_unfair_lock_assert_owner(&self->_stateLock);
     v6 = self->_state;
     v7 = [LAEnvironmentState alloc];
-    v8 = [(LAEnvironmentState *)v7 initWithCoreState:v23[5]];
+    v8 = [(LAEnvironmentState *)v7 initWithCoreState:v22[5]];
     state = self->_state;
     self->_state = v8;
 
@@ -218,11 +219,11 @@ void __42__LAEnvironment__handleDarwinNotification__block_invoke(uint64_t a1)
     {
       v11 = self->_state;
       *buf = 138412802;
-      *v29 = self;
-      *&v29[8] = 2112;
-      *&v29[10] = v6;
-      v30 = 2112;
-      v31 = v11;
+      *v28 = self;
+      *&v28[8] = 2112;
+      *&v28[10] = v6;
+      v29 = 2112;
+      v30 = v11;
       _os_log_impl(&dword_1A784E000, v10, OS_LOG_TYPE_DEFAULT, "%@ updated from %@ to %@", buf, 0x20u);
     }
 
@@ -235,19 +236,17 @@ void __42__LAEnvironment__handleDarwinNotification__block_invoke(uint64_t a1)
     if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_DEFAULT))
     {
       v12 = geteuid();
-      v13 = v17[5];
+      v13 = v16[5];
       *buf = 67109378;
-      *v29 = v12;
-      *&v29[4] = 2112;
-      *&v29[6] = v13;
+      *v28 = v12;
+      *&v28[4] = 2112;
+      *&v28[6] = v13;
       _os_log_impl(&dword_1A784E000, &v6->super, OS_LOG_TYPE_DEFAULT, "Failed to query environment state for user %u: %@", buf, 0x12u);
     }
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 void __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -285,7 +284,7 @@ void __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___
 
 - (void)_notifyObserversAboutUpdateFrom:(id)from
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   os_unfair_lock_assert_owner(&self->_stateLock);
   if (![(LAEnvironmentState *)self->_state isEqual:fromCopy])
@@ -297,25 +296,25 @@ void __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___
     v8 = [v6 arrayWithArray:allObjects];
 
     objc_sync_exit(v5);
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             selfCopy = self;
@@ -325,30 +324,27 @@ void __70__LAEnvironment__updateStateWithSynchronousProxyToEnvironmentService___
             block[2] = __49__LAEnvironment__notifyObserversAboutUpdateFrom___block_invoke;
             block[3] = &unk_1E77CB270;
             block[4] = v12;
-            v19 = selfCopy;
-            v20 = fromCopy;
+            v18 = selfCopy;
+            v19 = fromCopy;
             v15 = selfCopy;
             dispatch_async(observerQueue, block);
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __29__LAEnvironment__updateState__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A784E000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain environment endpoint %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A784E000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain environment endpoint %{public}@", &v2, 0xCu);
 }
 
 @end

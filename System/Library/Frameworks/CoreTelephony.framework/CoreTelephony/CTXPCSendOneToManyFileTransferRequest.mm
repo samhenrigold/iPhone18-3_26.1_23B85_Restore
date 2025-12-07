@@ -11,23 +11,22 @@
 
 - (CTXPCSendOneToManyFileTransferRequest)initWithContext:(id)context to:(id)to withMessageID:(id)d withDescriptor:(id)descriptor
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   toCopy = to;
   dCopy = d;
   descriptorCopy = descriptor;
-  v19[0] = @"destinationList";
-  v19[1] = @"messageID";
-  v20[0] = toCopy;
-  v20[1] = dCopy;
-  v19[2] = @"descriptor";
-  v20[2] = descriptorCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v18.receiver = self;
-  v18.super_class = CTXPCSendOneToManyFileTransferRequest;
-  v15 = [(CTXPCSubscriptionContextRequest *)&v18 initWithContext:contextCopy namedArguments:v14];
+  v18[0] = @"destinationList";
+  v18[1] = @"messageID";
+  v19[0] = toCopy;
+  v19[1] = dCopy;
+  v18[2] = @"descriptor";
+  v19[2] = descriptorCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v17.receiver = self;
+  v17.super_class = CTXPCSendOneToManyFileTransferRequest;
+  v15 = [(CTXPCSubscriptionContextRequest *)&v17 initWithContext:contextCopy namedArguments:v14];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -94,17 +93,15 @@
 
 + (id)allowedClassesForArguments
 {
-  v8[3] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCSendOneToManyFileTransferRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
+  v7[3] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCSendOneToManyFileTransferRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

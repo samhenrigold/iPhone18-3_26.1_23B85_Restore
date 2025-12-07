@@ -406,9 +406,9 @@ id __51__ATXFaceGallerySection_sectionFromJSONDictionary___block_invoke(uint64_t
 
 - (ATXFaceGallerySection)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedTitle"];
+  v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedTitle"];
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedSubtitle"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedDescriptiveText"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"symbolImageName"];
@@ -416,42 +416,42 @@ id __51__ATXFaceGallerySection_sectionFromJSONDictionary___block_invoke(uint64_t
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"unityDescription"];
   v9 = [coderCopy decodeIntegerForKey:@"type"];
   v10 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"items"];
 
   if (v13)
   {
-    v23 = v9;
-    v14 = v6;
-    v15 = v5;
-    v16 = v4;
-    v17 = v24;
-    v18 = v8;
-    selfCopy = -[ATXFaceGallerySection initWithLocalizedTitle:symbolImageName:symbolColorName:localizedSubtitle:localizedDescriptiveText:unityDescription:type:items:semanticType:](self, "initWithLocalizedTitle:symbolImageName:symbolColorName:localizedSubtitle:localizedDescriptiveText:unityDescription:type:items:semanticType:", v24, v14, v7, v16, v15, v8, v23, v13, [coderCopy decodeIntegerForKey:@"semanticType"]);
-    v20 = selfCopy;
+    v24 = v9;
+    v15 = v6;
+    v16 = v5;
+    v17 = v4;
+    v18 = v25;
+    v19 = v8;
+    selfCopy = -[ATXFaceGallerySection initWithLocalizedTitle:symbolImageName:symbolColorName:localizedSubtitle:localizedDescriptiveText:unityDescription:type:items:semanticType:](self, "initWithLocalizedTitle:symbolImageName:symbolColorName:localizedSubtitle:localizedDescriptiveText:unityDescription:type:items:semanticType:", v25, v15, v7, v17, v16, v8, v24, v13, [coderCopy decodeIntegerForKey:@"semanticType"]);
+    v21 = selfCopy;
   }
 
   else
   {
-    v18 = v8;
-    v14 = v6;
-    v15 = v5;
-    v16 = v4;
-    v17 = v24;
+    v19 = v8;
+    v15 = v6;
+    v16 = v5;
+    v17 = v4;
+    v18 = v25;
     selfCopy = self;
-    v21 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = __atxlog_handle_lock_screen(v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [ATXFaceGallerySection initWithCoder:v21];
+      [ATXFaceGallerySection initWithCoder:v22];
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -713,34 +713,35 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_lock_screen(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v15];
+      [(ATXDigestTimeline *)self initWithProto:v16];
     }
 
     goto LABEL_9;
   }
 
-  v5 = protoCopy;
-  type = [v5 type];
-  items = [v5 items];
-  v8 = [items _pas_mappedArrayWithTransform:&__block_literal_global_97];
-  v9 = v8;
-  v10 = MEMORY[0x1E695E0F0];
-  if (v8)
+  v6 = protoCopy;
+  type = [v6 type];
+  items = [v6 items];
+  v9 = [items _pas_mappedArrayWithTransform:&__block_literal_global_97];
+  v10 = v9;
+  v11 = MEMORY[0x1E695E0F0];
+  if (v9)
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  v11 = v10;
+  v12 = v11;
 
-  semanticType = [v5 semanticType];
-  v13 = [(ATXFaceGallerySection *)self initWithLocalizedTitle:&stru_1F3E050C8 symbolImageName:0 symbolColorName:0 localizedSubtitle:0 localizedDescriptiveText:0 unityDescription:0 type:type items:v11 semanticType:semanticType];
+  semanticType = [v6 semanticType];
+  v14 = [(ATXFaceGallerySection *)self initWithLocalizedTitle:&stru_1F3E050C8 symbolImageName:0 symbolColorName:0 localizedSubtitle:0 localizedDescriptiveText:0 unityDescription:0 type:type items:v12 semanticType:semanticType];
 
-  self = v13;
+  self = v14;
   selfCopy = self;
 LABEL_10:
 

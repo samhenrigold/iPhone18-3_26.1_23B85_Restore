@@ -1,3 +1,211 @@
+uint64_t sub_1002BE160(uint64_t a1, void *a2)
+{
+  v2 = a1;
+  if (!a1)
+  {
+    return v2 & 1;
+  }
+
+  v4 = sub_100382AA0(*(a1 + 16));
+  v5 = *(v2 + 24);
+  v6 = *(v2 + 8);
+  if (v6)
+  {
+    v6 = v6[2];
+  }
+
+  v7 = v6;
+  v8 = [v7 count];
+
+  if (v5 >= v8)
+  {
+    v17 = *(v2 + 24);
+    v18 = *(v2 + 8);
+    if (v18)
+    {
+      v18 = v18[2];
+    }
+
+    v19 = v18;
+    if (v17 == [v19 count])
+    {
+      v21 = *(v2 + 40);
+      v20 = *(v2 + 48);
+
+      if (v20 == v21)
+      {
+        goto LABEL_27;
+      }
+
+      if (!a2)
+      {
+LABEL_20:
+        *(v2 + 32) = 0;
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+
+      if (!a2)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    *a2 = ASDErrorWithDescription();
+    goto LABEL_20;
+  }
+
+  if (v4)
+  {
+    v9 = *(v2 + 8);
+    if (v9)
+    {
+      v9 = v9[2];
+    }
+
+    v10 = v9;
+    v11 = [v10 objectAtIndexedSubscript:*(v2 + 24)];
+    *(v2 + 32) = [v4 isEqualToString:v11];
+
+    if ((*(v2 + 32) & 1) == 0)
+    {
+      v12 = ASDLogHandleForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v30 = *(v2 + 8);
+        if (v30)
+        {
+          v30 = v30[2];
+        }
+
+        v31 = v30;
+        v32 = [v31 objectAtIndexedSubscript:*(v2 + 24)];
+        *buf = 138412546;
+        v34 = v4;
+        v35 = 2112;
+        v36 = v32;
+        _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Invalid hash '%@' expected '%@'", buf, 0x16u);
+      }
+
+      if (a2)
+      {
+        v13 = *(v2 + 8);
+        if (v13)
+        {
+          v13 = v13[2];
+        }
+
+        v14 = v13;
+        v15 = [v14 objectAtIndexedSubscript:*(v2 + 24)];
+        v16 = [NSString stringWithFormat:@"Invalid hash '%@' expected '%@'", v4, v15];
+
+        *a2 = ASDErrorWithDescription();
+      }
+
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v22 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = *(v2 + 24);
+      *buf = 134217984;
+      v34 = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Skipped chunk digest at index %lu", buf, 0xCu);
+    }
+
+    *(v2 + 32) = 1;
+  }
+
+  *(v2 + 48) = *(v2 + 40);
+  ++*(v2 + 24);
+LABEL_27:
+  if (*(v2 + 32) == 1)
+  {
+    v24 = [HashDigest alloc];
+    v25 = *(v2 + 8);
+    if (v25)
+    {
+      v26 = *(v25 + 24);
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    v27 = sub_100382A0C(v24, v26);
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  v28 = *(v2 + 16);
+  *(v2 + 16) = v27;
+
+  LOBYTE(v2) = *(v2 + 32);
+  return v2 & 1;
+}
+
+uint64_t sub_1002BE498(uint64_t a1, char *a2, unint64_t a3, void *a4)
+{
+  if (!a1)
+  {
+    v13 = 0;
+    return v13 & 1;
+  }
+
+  if (*(a1 + 32) != 1)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = a2;
+  v6 = *(a1 + 8);
+  if (!v6 || (v7 = *(v6 + 8), !v7))
+  {
+    v8 = *(a1 + 40);
+    goto LABEL_10;
+  }
+
+  v8 = *(a1 + 40);
+  v9 = v7 + (v8 / v7) * v7 - *(a1 + 40);
+  v10 = a3 - v9;
+  if (a3 < v9)
+  {
+LABEL_10:
+    *(a1 + 40) = v8 + a3;
+    v12 = *(a1 + 16);
+    goto LABEL_11;
+  }
+
+  *(a1 + 40) = v8 + v9;
+  sub_100382C2C(*(a1 + 16), a2, v9);
+  if (sub_1002BE160(a1, a4))
+  {
+    *(a1 + 40) += v10;
+    v12 = *(a1 + 16);
+    a2 = &v5[v9];
+    LODWORD(a3) = v10;
+LABEL_11:
+    sub_100382C2C(v12, a2, a3);
+    v13 = *(a1 + 32);
+    return v13 & 1;
+  }
+
+LABEL_8:
+  v13 = 0;
+  return v13 & 1;
+}
+
 uint64_t sub_1002BE584(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -488,7 +696,7 @@ void sub_1002BF8CC(uint64_t a1)
     if (v2)
     {
       v4 = v1;
-      v5 = sub_10024A6D0();
+      v5 = sub_10024A6D0(AMSURLSession);
       v6 = [v5 dataTaskPromiseWithRequest:v4];
 
       v9[0] = _NSConcreteStackBlock;
@@ -677,7 +885,7 @@ id sub_1002BFFF0(void *a1)
   return a1;
 }
 
-uint64_t sub_1002C0028(uint64_t result)
+id sub_1002C0028(id result)
 {
   if (result)
   {
@@ -756,31 +964,31 @@ char *sub_1002C0310(char *a1, void *a2, void *a3)
   return a1;
 }
 
-void sub_1002C0738(uint64_t a1, void *a2)
+void sub_1002C0738(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = ASDErrorWithSafeUserInfo();
-  v7 = *(a1 + 40);
-  v8 = v5;
-  v16 = v6;
-  v9 = v7;
-  v10 = v16;
-  if (v4)
+  v5 = *(a1 + 32);
+  v6 = a2;
+  v7 = ASDErrorWithSafeUserInfo();
+  v8 = *(a1 + 40);
+  v9 = v6;
+  v17 = v7;
+  v10 = v8;
+  v11 = v17;
+  if (v5)
   {
-    if (v8)
+    if (v9)
     {
-      v11 = ASDLogHandleForCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = ASDLogHandleForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        Property = objc_getProperty(v4, v12, 66, 1);
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[%@] Authenticated successfully", buf, 0xCu);
+        Property = objc_getProperty(v5, v13, 66, 1);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%@] Authenticated successfully", buf, 0xCu);
       }
 
-      objc_storeStrong((v4 + 58), a2);
-      v10 = v16;
-      if (!v16)
+      objc_storeStrong((v5 + 58), a2);
+      v11 = v17;
+      if (!v17)
       {
         goto LABEL_12;
       }
@@ -788,28 +996,28 @@ void sub_1002C0738(uint64_t a1, void *a2)
 
     else
     {
-      v10 = v16;
-      if (!v16)
+      v11 = v17;
+      if (!v17)
       {
-        v10 = ASDErrorWithDescription();
-        if (!v10)
+        v11 = ASDErrorWithDescription();
+        if (!v11)
         {
 LABEL_12:
-          v9[2](v9, v10);
+          v10[2](v10, v11);
           goto LABEL_13;
         }
       }
     }
 
-    v13 = ASDLogHandleForCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_getProperty(v4, v14, 66, 1);
+      v16 = objc_getProperty(v5, v15, 66, 1);
       *buf = 138412546;
-      Property = v15;
-      v19 = 2114;
-      v20 = v10;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "[%@] Error prompting for account: %{public}@", buf, 0x16u);
+      Property = v16;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "[%@] Error prompting for account: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_12;
@@ -939,7 +1147,7 @@ void sub_1002C0CB8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-id sub_1002C0D84()
+id sub_1002C0D84(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1005AAB18 != -1)
@@ -947,9 +1155,9 @@ id sub_1002C0D84()
     dispatch_once(&qword_1005AAB18, &stru_1005211E8);
   }
 
-  v0 = qword_1005AAB10;
+  v1 = qword_1005AAB10;
 
-  return v0;
+  return v1;
 }
 
 void sub_1002C0DDC(id a1)
@@ -965,16 +1173,16 @@ void sub_1002C1000(uint64_t a1)
   if (v2 && ([*(v2 + 72) modifyUsingTransaction:&stru_100521428], (v3 = *(a1 + 32)) != 0))
   {
     v4 = +[NSNotificationCenter defaultCenter];
-    v5 = sub_10032C390();
+    v5 = sub_10032C390(CellularMonitor);
     [v4 addObserver:v3 selector:"_handlePolicyNotificationWithMonitorStateDidChangeNotification:" name:@"CellularStateDidChangeNotification" object:v5];
 
-    v6 = sub_100227468();
+    v6 = sub_100227468(NetworkMonitor);
     [v4 addObserver:v3 selector:"_handlePolicyNotificationWithMonitorStateDidChangeNotification:" name:@"NetworkStateDidChangeNotification" object:v6];
 
-    v7 = sub_10029387C();
+    v7 = sub_10029387C(PowerMonitor);
     [v4 addObserver:v3 selector:"_handlePolicyNotificationWithMonitorStateDidChangeNotification:" name:@"PowerStateDidChangeNotification" object:v7];
 
-    v8 = sub_1003E2800();
+    v8 = sub_1003E2800(ThermalPressureMonitor);
     [v4 addObserver:v3 selector:"_handlePolicyNotificationWithMonitorStateDidChangeNotification:" name:@"ThermalPressureStateDidChangeNotification" object:v8];
 
     v9 = *(a1 + 32);
@@ -990,7 +1198,7 @@ void sub_1002C1000(uint64_t a1)
   if (v10)
   {
     v11 = +[NSNotificationCenter defaultCenter];
-    v12 = sub_100006B78();
+    v12 = sub_100006B78(DeviceStateMonitor);
     [v11 addObserver:v10 selector:"_handleDeviceStateDidChangeNotification:" name:@"DeviceStateDidChangeNotification" object:v12];
 
     v13 = *(a1 + 32);
@@ -1032,13 +1240,13 @@ void sub_1002C11E0(uint64_t a1)
         _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Scheduling next optimal download for %{public}@", buf, 0xCu);
       }
 
-      v4 = sub_1001DA8BC();
+      v4 = sub_1001DA8BC(ActivityManager);
       sub_1001DBB6C(v4, 10, @"OptimalDownloadWindow", v7[5], @"Wait for optimal download window");
     }
 
     else
     {
-      v4 = sub_1001DA8BC();
+      v4 = sub_1001DA8BC(ActivityManager);
       sub_1001DC8D4(v4, 10);
     }
 
@@ -1046,9 +1254,9 @@ void sub_1002C11E0(uint64_t a1)
   }
 }
 
-void sub_1002C1398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002C1398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1172,7 +1380,7 @@ void sub_1002C1474(uint64_t a1, uint64_t a2, void *a3)
 LABEL_22:
     v18 = v6;
     v19 = objc_alloc_init(NSMutableArray);
-    v20 = sub_1003E2800();
+    v20 = sub_1003E2800(ThermalPressureMonitor);
     v21 = sub_1003E2B88(v20);
 
     if (v21)
@@ -1239,11 +1447,12 @@ LABEL_32:
   }
 }
 
-void sub_1002C19B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_1002C19B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  objc_destroyWeak((v21 + 40));
+  va_start(va, a20);
+  objc_destroyWeak((v20 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1287,7 +1496,7 @@ void sub_1002C1B88(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 connection];
-  v5 = sub_1003DAC60();
+  v5 = sub_1003DAC60(AppInstallPredicates);
   v6 = sub_1002D3F5C(AppInstallEntity, v4, v5);
 
   v8[0] = _NSConcreteStackBlock;
@@ -1680,7 +1889,7 @@ void sub_1002C2BD8(uint64_t a1)
 
     if (v8)
     {
-      v9 = sub_1003E2800();
+      v9 = sub_1003E2800(ThermalPressureMonitor);
       v10 = sub_1003E2B88(v9);
 
       if (v10)
@@ -1724,7 +1933,7 @@ void sub_1002C2BD8(uint64_t a1)
 
       if (v15)
       {
-        v16 = sub_100227468();
+        v16 = sub_100227468(NetworkMonitor);
         v17 = [v16 isConstrained];
         v18 = [v16 isExpensive];
         v19 = *(*(a1 + 32) + 72);
@@ -1990,7 +2199,7 @@ uint64_t sub_1002C34EC(uint64_t a1, void *a2)
   {
     if (v37)
     {
-      WeakRetained = objc_loadWeakRetained(v37 + 2);
+      WeakRetained = objc_loadWeakRetained(&v37->_startedInstalls);
     }
 
     else
@@ -2004,7 +2213,7 @@ uint64_t sub_1002C34EC(uint64_t a1, void *a2)
   if (!self || !self[1] || *(*(a1 + 40) + 32) == 1 && *(a1 + 72) == 1)
   {
     v31 = [SQLiteContainsPredicate containsPredicateWithProperty:@"phase" values:&off_100549440, v37];
-    v32 = [v29 connection];
+    v32 = [(AppSchedulerResult *)v29 connection];
     v33 = sub_1002D4220(AppInstallEntity, @"ROWID", v31, v32);
 
     if (v33 && ![v33 isEqualToNumber:&off_100547A70])
@@ -2065,7 +2274,7 @@ uint64_t sub_1002C3A5C(uint64_t a1, void *a2)
         _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[%@]: Expensive network not evaluated, repairing...", buf, 0xCu);
       }
 
-      v12 = sub_10032C390();
+      v12 = sub_10032C390(CellularMonitor);
       v13 = sub_10032C7CC(v12);
       if (!v13)
       {
@@ -2115,7 +2324,7 @@ LABEL_10:
       }
     }
 
-    v5 = sub_1003B6560();
+    v5 = sub_1003B6560(AppInstallPolicy);
     goto LABEL_10;
   }
 
@@ -2151,7 +2360,7 @@ LABEL_11:
   {
     if (sub_1003B6AE0(v25))
     {
-      v26 = sub_100227468();
+      v26 = sub_100227468(NetworkMonitor);
       if (![v26 isConnected])
       {
         v20 = @"no network available";
@@ -2228,7 +2437,7 @@ LABEL_18:
 
     if (sub_1003B6B2C(v25))
     {
-      v26 = sub_10029387C();
+      v26 = sub_10029387C(PowerMonitor);
       if (!sub_100293E1C(v26))
       {
         v20 = @"no power available";
@@ -2244,7 +2453,7 @@ LABEL_18:
 
     if (sub_1003B6A94(v25))
     {
-      v26 = sub_100006B78();
+      v26 = sub_100006B78(DeviceStateMonitor);
       if (!sub_10023CFD0(v26))
       {
         v20 = @"pending data migration";
@@ -2424,9 +2633,9 @@ BOOL sub_1002C43CC(id a1, AppInstallsDatabaseTransaction *a2)
   return 1;
 }
 
-void sub_1002C45B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002C45B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2471,7 +2680,7 @@ void sub_1002C46F8(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_1002C4880(int64_t a1, unint64_t a2)
+uint64_t sub_1002C4880(uint64_t a1, unint64_t a2)
 {
   if (!a2)
   {
@@ -2701,7 +2910,7 @@ id sub_1002C4C3C(uint64_t a1, void *a2)
 LABEL_30:
         v41 = &off_100547AA0;
 LABEL_32:
-        [v5 setObject:v41 forKeyedSubscript:{@"hash_type", *v44}];
+        [v5 setObject:v41 forKeyedSubscript:{@"hash_type", *v44, *&v44[8]}];
 
 LABEL_33:
         goto LABEL_34;
@@ -3283,81 +3492,81 @@ id sub_1002C647C(uint64_t a1, void *a2, void *a3, void *a4)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v37 = v8;
-    v38 = 2114;
-    v39 = v6;
+    v39 = v8;
+    v40 = 2114;
+    v41 = v6;
     _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "[%@] Could not load download manifest with underlying error: %{public}@", buf, 0x16u);
   }
 
   if (ASDErrorIsEqual())
   {
-    v33 = v7;
+    v35 = v7;
     v10 = [v6 userInfo];
     v11 = [v10 objectForKeyedSubscript:@"UPPManifestErrorUserInfoKeyExistingName"];
-    objc_opt_class();
-    v12 = sub_1001C09E4(v11);
-    v13 = sub_1002C5750(v12, 0x20uLL, 1);
+    v12 = objc_opt_class();
+    v13 = sub_1001C09E4(v11, v12);
+    v14 = sub_1002C5750(v13, 0x20uLL, 1);
 
-    v14 = [v6 userInfo];
-    v15 = [v14 objectForKeyedSubscript:@"UPPManifestErrorUserInfoKeyManifestName"];
-    objc_opt_class();
-    v16 = sub_1001C09E4(v15);
-    v17 = sub_1002C5750(v16, 0x20uLL, 1);
+    v15 = [v6 userInfo];
+    v16 = [v15 objectForKeyedSubscript:@"UPPManifestErrorUserInfoKeyManifestName"];
+    v17 = objc_opt_class();
+    v18 = sub_1001C09E4(v16, v17);
+    v19 = sub_1002C5750(v18, 0x20uLL, 1);
 
-    v18 = ASDLocalizedString();
-    v19 = [NSString stringWithFormat:v18, v13];
+    v20 = ASDLocalizedString();
+    v21 = [NSString stringWithFormat:v20, v14];
 
-    v20 = v8;
-    if ([v17 isEqualToString:v13])
+    v22 = v8;
+    if ([v19 isEqualToString:v14])
     {
-      v21 = ASDLocalizedString();
-      [NSString stringWithFormat:v21, v13, v31, v32];
+      v23 = ASDLocalizedString();
+      [NSString stringWithFormat:v23, v14, v33, v34];
     }
 
     else
     {
-      v21 = ASDLocalizedString();
-      [NSString stringWithFormat:v21, v17, v13, v13];
+      v23 = ASDLocalizedString();
+      [NSString stringWithFormat:v23, v19, v14, v14];
     }
-    v26 = ;
+    v28 = ;
 
-    v25 = [AMSDialogRequest requestWithTitle:v19 message:v26];
-    v27 = ASDLocalizedString();
-    v28 = [AMSDialogAction actionWithTitle:v27];
-    v35 = v28;
-    v29 = [NSArray arrayWithObjects:&v35 count:1];
-    [v25 setButtonActions:v29];
+    v27 = [AMSDialogRequest requestWithTitle:v21 message:v28];
+    v29 = ASDLocalizedString();
+    v30 = [AMSDialogAction actionWithTitle:v29];
+    v37 = v30;
+    v31 = [NSArray arrayWithObjects:&v37 count:1];
+    [v27 setButtonActions:v31];
 
-    v8 = v20;
-    v7 = v33;
+    v8 = v22;
+    v7 = v35;
     goto LABEL_10;
   }
 
   if (v7)
   {
-    v22 = [v7 host];
-    v23 = [v22 _lp_userVisibleHost];
-    v13 = sub_1002C5810(v23, 0x20uLL);
+    v24 = [v7 host];
+    v25 = [v24 _lp_userVisibleHost];
+    v14 = sub_1002C5810(v25, 0x20uLL);
 
     ASDErrorIsEqual();
-    v24 = ASDLocalizedString();
-    v17 = [NSString stringWithFormat:v24, v13];
+    v26 = ASDLocalizedString();
+    v19 = [NSString stringWithFormat:v26, v14];
 
-    v25 = [AMSDialogRequest requestWithTitle:v17 message:0];
-    v19 = ASDLocalizedString();
-    v26 = [AMSDialogAction actionWithTitle:v19];
-    v34 = v26;
-    v27 = [NSArray arrayWithObjects:&v34 count:1];
-    [v25 setButtonActions:v27];
+    v27 = [AMSDialogRequest requestWithTitle:v19 message:0];
+    v21 = ASDLocalizedString();
+    v28 = [AMSDialogAction actionWithTitle:v21];
+    v36 = v28;
+    v29 = [NSArray arrayWithObjects:&v36 count:1];
+    [v27 setButtonActions:v29];
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v25 = 0;
+  v27 = 0;
 LABEL_11:
 
-  return v25;
+  return v27;
 }
 
 void *sub_1002C68D0(void *result)
@@ -3509,7 +3718,7 @@ void sub_1002C6F70(id a1)
   qword_1005AAB28 = v6;
 }
 
-uint64_t sub_1002C7044(uint64_t a1, void *a2, void *a3)
+char *sub_1002C7044(char *a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
@@ -3555,7 +3764,7 @@ uint64_t sub_1002C7044(uint64_t a1, void *a2, void *a3)
   }
 
   objc_storeStrong((a1 + 90), v17);
-  *(a1 + 146) = [*(a1 + 138) skipDownloads];
+  a1[146] = [*(a1 + 138) skipDownloads];
   if (*(a1 + 74))
   {
     v18 = [ApplicationProxy proxyForBundleID:?];
@@ -3589,7 +3798,7 @@ uint64_t sub_1002C7044(uint64_t a1, void *a2, void *a3)
         LOBYTE(v29) = [*(v29 + 120) isPlaceholder] ^ 1;
       }
 
-      *(a1 + 106) = v29;
+      a1[106] = v29;
     }
 
     goto LABEL_21;
@@ -3629,7 +3838,7 @@ LABEL_21:
     LOBYTE(v41) = [*(v41 + 120) isPlaceholder] ^ 1;
   }
 
-  *(a1 + 106) = v41;
+  a1[106] = v41;
   sub_1002C7738(a1);
   if (!*(a1 + 98) && sub_1003D3168(*(a1 + 58), v42))
   {
@@ -3897,7 +4106,7 @@ void sub_1002C7BA8(uint64_t a1, void *a2)
     goto LABEL_50;
   }
 
-  v135 = sub_10021CA38();
+  v135 = sub_10021CA38(PurchaseHistoryManager);
   v16 = ASDLogHandleForCategory();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
@@ -4370,7 +4579,7 @@ LABEL_95:
       *&v147 = sub_1002CBA80;
       *(&v147 + 1) = 0;
       v116 = dispatch_semaphore_create(0);
-      v117 = sub_1001DFF60();
+      v117 = sub_1001DFF60(PurchaseManager);
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_1002CBAE8;
@@ -4537,7 +4746,7 @@ LABEL_137:
 uint64_t sub_1002C929C(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5)
 {
   v7 = a3;
-  v182 = *(a1 + 146);
+  v185 = *(a1 + 146);
   v8 = objc_opt_new();
   v9 = v8;
   v10 = *(a1 + 114);
@@ -4634,25 +4843,25 @@ uint64_t sub_1002C929C(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5)
     [v25 setAccount:v31];
   }
 
-  v190 = +[NSMutableDictionary dictionary];
+  v193 = +[NSMutableDictionary dictionary];
   if (_os_feature_enabled_impl())
   {
-    v32 = sub_1003BBF50();
+    v32 = sub_1003BBF50(Device);
     v33 = [v32 copyThinningHeadersForPlatform:1];
-    [v190 addEntriesFromDictionary:v33];
+    [v193 addEntriesFromDictionary:v33];
   }
 
-  v34 = sub_10037F164();
+  v34 = sub_10037F164(Daemon);
   v35 = sub_10037F344(v34);
 
   if (v35)
   {
-    [v190 setObject:@"true" forKeyedSubscript:@"X-MMe-Multi-User"];
+    [v193 setObject:@"true" forKeyedSubscript:@"X-MMe-Multi-User"];
   }
 
-  if ([v190 count])
+  if ([v193 count])
   {
-    [v25 setAdditionalHeaders:v190];
+    [v25 setAdditionalHeaders:v193];
   }
 
   objc_opt_self();
@@ -4662,16 +4871,16 @@ uint64_t sub_1002C929C(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5)
   }
 
   v36 = qword_1005AAB28;
-  v187 = v25;
-  v201 = v25;
-  v37 = [NSArray arrayWithObjects:&v201 count:1];
+  v190 = v25;
+  v204 = v25;
+  v37 = [NSArray arrayWithObjects:&v204 count:1];
   v38 = [v36 enquePurchases:v37];
 
-  v195 = 0;
-  v186 = v38;
-  v39 = [v38 resultWithError:&v195];
-  v40 = v195;
-  v191 = a1;
+  v198 = 0;
+  v189 = v38;
+  v39 = [v38 resultWithError:&v198];
+  v40 = v198;
+  v194 = a1;
   if (v40 && ASDErrorIsEqual())
   {
     v41 = [v40 userInfo];
@@ -4691,16 +4900,16 @@ uint64_t sub_1002C929C(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5)
     v39 = v42;
   }
 
-  v48 = v190;
+  v48 = v193;
   v49 = [v39 firstObject];
-  v189 = v49;
+  v192 = v49;
   if (v49)
   {
     v50 = v49;
-    v185 = [v49 correlationID];
+    v188 = [v49 correlationID];
     v51 = [v50 responseDictionary];
-    v183 = v39;
-    v184 = a5;
+    v186 = v39;
+    v187 = a5;
     if (v40)
     {
       v52 = v51;
@@ -4709,11 +4918,11 @@ uint64_t sub_1002C929C(uint64_t a1, void *a2, void *a3, uint64_t *a4, void *a5)
       {
         v54 = *(a1 + 122);
         *buf = 138412802;
-        v209 = v54;
-        v210 = 2114;
-        *v211 = v40;
-        *&v211[8] = 2114;
-        v212 = v185;
+        v212 = v54;
+        v213 = 2114;
+        *v214 = v40;
+        *&v214[8] = 2114;
+        v215 = v188;
         _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "[%@] Request resulted in error: %{public}@ storeCorrelationID: %{public}@", buf, 0x20u);
       }
 
@@ -4734,19 +4943,19 @@ LABEL_42:
       goto LABEL_43;
     }
 
-    v178 = v51;
-    v175 = v9;
-    v176 = v7;
+    v181 = v51;
+    v178 = v9;
+    v179 = v7;
     if (!_os_feature_enabled_impl())
     {
-      v83 = [v189 URLResponse];
-      objc_opt_class();
-      v84 = sub_1001C09E4(v83);
-      v85 = sub_1003BE8FC(StoreItemResponse, v178, v84, 1, *(a1 + 66));
+      v84 = [v192 URLResponse];
+      v85 = objc_opt_class();
+      v86 = sub_1001C09E4(v84, v85);
+      v87 = sub_1003BE8FC(StoreItemResponse, v181, v86, 1, *(a1 + 66));
 
-      if (v85)
+      if (v87)
       {
-        Property = objc_getProperty(v85, v86, 64, 1);
+        Property = objc_getProperty(v87, v88, 64, 1);
       }
 
       else
@@ -4754,19 +4963,19 @@ LABEL_42:
         Property = 0;
       }
 
-      v88 = Property;
+      v90 = Property;
       if ([*(a1 + 50) length])
       {
-        v77 = ASDLogHandleForCategory();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        v78 = ASDLogHandleForCategory();
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
         {
-          v147 = *(a1 + 122);
-          v148 = *(a1 + 50);
+          v150 = *(a1 + 122);
+          v151 = *(a1 + 50);
           *buf = 138412546;
-          v209 = v147;
-          v210 = 2114;
-          *v211 = v148;
-          _os_log_error_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app due to variantID: %{public}@", buf, 0x16u);
+          v212 = v150;
+          v213 = 2114;
+          *v214 = v151;
+          _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app due to variantID: %{public}@", buf, 0x16u);
         }
       }
 
@@ -4774,148 +4983,148 @@ LABEL_42:
       {
         if (*(a1 + 106) == 1)
         {
-          v77 = [v178 objectForKey:@"replacementSinf"];
-          if (v77)
+          v78 = [v181 objectForKey:@"replacementSinf"];
+          if (v78)
           {
             objc_opt_class();
-            HIDWORD(v177) = objc_opt_isKindOfClass();
+            HIDWORD(v180) = objc_opt_isKindOfClass();
           }
 
           else
           {
-            HIDWORD(v177) = 0;
+            HIDWORD(v180) = 0;
           }
 
-          LODWORD(v177) = sub_1002CAE8C(a1, v88, v77);
-          v145 = ASDLogHandleForCategory();
-          if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+          LODWORD(v180) = sub_1002CAE8C(a1, v90, v78);
+          v148 = ASDLogHandleForCategory();
+          if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
           {
-            v146 = *(a1 + 122);
+            v149 = *(a1 + 122);
             *buf = 138412802;
-            v209 = v146;
-            v210 = 1024;
-            *v211 = v177;
-            *&v211[4] = 1024;
-            *&v211[6] = BYTE4(v177) & 1;
-            _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_DEFAULT, "[%@] Inline sinf update complete with result: %{BOOL}d used replacementSinf: %{BOOL}d", buf, 0x18u);
+            v212 = v149;
+            v213 = 1024;
+            *v214 = v180;
+            *&v214[4] = 1024;
+            *&v214[6] = BYTE4(v180) & 1;
+            _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "[%@] Inline sinf update complete with result: %{BOOL}d used replacementSinf: %{BOOL}d", buf, 0x18u);
           }
 
 LABEL_86:
-          v97 = v88;
-          v179 = objc_opt_new();
-          v197 = 0u;
-          v198 = 0u;
-          v199 = 0u;
+          v100 = v90;
+          v182 = objc_opt_new();
           v200 = 0u;
-          v98 = v97;
-          v99 = [v98 countByEnumeratingWithState:&v197 objects:buf count:16];
-          if (v99)
+          v201 = 0u;
+          v202 = 0u;
+          v203 = 0u;
+          v101 = v100;
+          v102 = [v101 countByEnumeratingWithState:&v200 objects:buf count:16];
+          if (v102)
           {
-            v101 = v99;
-            v102 = *v198;
+            v104 = v102;
+            v105 = *v201;
             while (2)
             {
-              v103 = v98;
-              v104 = 0;
+              v106 = v101;
+              v107 = 0;
               do
               {
-                if (*v198 != v102)
+                if (*v201 != v105)
                 {
-                  objc_enumerationMutation(v103);
+                  objc_enumerationMutation(v106);
                 }
 
-                v105 = *(*(&v197 + 1) + 8 * v104);
-                if (v105)
+                v108 = *(*(&v200 + 1) + 8 * v107);
+                if (v108)
                 {
-                  v106 = objc_getProperty(*(*(&v197 + 1) + 8 * v104), v100, 96, 1);
-                  v108 = objc_getProperty(v105, v107, 216, 1);
+                  v109 = objc_getProperty(*(*(&v200 + 1) + 8 * v107), v103, 96, 1);
+                  v111 = objc_getProperty(v108, v110, 216, 1);
                 }
 
                 else
                 {
-                  v106 = 0;
-                  v108 = 0;
+                  v109 = 0;
+                  v111 = 0;
                 }
 
-                v109 = v108;
-                v110 = [v109 stringValue];
-                if ([v106 length])
+                v112 = v111;
+                v113 = [v112 stringValue];
+                if ([v109 length])
                 {
-                  if ([v110 length])
+                  if ([v113 length])
                   {
-                    v111 = [*(a1 + 114) stringValue];
-                    v112 = [v110 isEqualToString:v111];
+                    v114 = [*(a1 + 114) stringValue];
+                    v115 = [v113 isEqualToString:v114];
 
-                    a1 = v191;
-                    if (v112)
+                    a1 = v194;
+                    if (v115)
                     {
-                      v114 = [v106 copy];
-                      [v179 setObject:v114 forKey:ASDManagedLookupBundleID];
+                      v117 = [v109 copy];
+                      [v182 setObject:v117 forKey:ASDManagedLookupBundleID];
 
-                      if (v105)
+                      if (v108)
                       {
-                        v115 = [NSNumber numberWithBool:v105[20] & 1];
-                        [v179 setObject:v115 forKey:ASDManagedLookupIs32BitOnly];
+                        v118 = [NSNumber numberWithBool:v108[20] & 1];
+                        [v182 setObject:v118 forKey:ASDManagedLookupIs32BitOnly];
 
-                        v117 = objc_getProperty(v105, v116, 224, 1);
-                        v98 = v103;
-                        v119 = v117;
-                        if (v117 && [v117 length])
+                        v120 = objc_getProperty(v108, v119, 224, 1);
+                        v101 = v106;
+                        v122 = v120;
+                        if (v120 && [v120 length])
                         {
-                          v120 = [v119 copy];
-                          [v179 setObject:v120 forKey:ASDManagedLookupBundleDisplayName];
+                          v123 = [v122 copy];
+                          [v182 setObject:v123 forKey:ASDManagedLookupBundleDisplayName];
                         }
 
-                        v121 = objc_getProperty(v105, v118, 144, 1);
-                        v123 = v121;
-                        if (v121)
+                        v124 = objc_getProperty(v108, v121, 144, 1);
+                        v126 = v124;
+                        if (v124)
                         {
-                          v124 = [v121 copy];
-                          [v179 setObject:v124 forKey:@"softwareVersionExternalIdentifier"];
+                          v127 = [v124 copy];
+                          [v182 setObject:v127 forKey:@"softwareVersionExternalIdentifier"];
                         }
 
-                        v125 = objc_getProperty(v105, v122, 72, 1);
-                        v127 = v125;
-                        if (v125)
+                        v128 = objc_getProperty(v108, v125, 72, 1);
+                        v130 = v128;
+                        if (v128)
                         {
-                          v125 = objc_getProperty(v125, v126, 72, 1);
+                          v128 = objc_getProperty(v128, v129, 72, 1);
                         }
                       }
 
                       else
                       {
-                        v174 = [NSNumber numberWithBool:0];
-                        [v179 setObject:v174 forKey:ASDManagedLookupIs32BitOnly];
+                        v177 = [NSNumber numberWithBool:0];
+                        [v182 setObject:v177 forKey:ASDManagedLookupIs32BitOnly];
 
-                        v127 = 0;
-                        v123 = 0;
-                        v125 = 0;
-                        v98 = v103;
-                        v119 = 0;
+                        v130 = 0;
+                        v126 = 0;
+                        v128 = 0;
+                        v101 = v106;
+                        v122 = 0;
                       }
 
-                      v128 = v125;
+                      v131 = v128;
 
-                      if (v128)
+                      if (v131)
                       {
-                        v129 = [v128 copy];
-                        [v179 setObject:v129 forKey:ASDManagedLookupUncompressedSize];
+                        v132 = [v131 copy];
+                        [v182 setObject:v132 forKey:ASDManagedLookupUncompressedSize];
                       }
 
-                      a1 = v191;
+                      a1 = v194;
                       goto LABEL_112;
                     }
                   }
                 }
 
-                v104 = v104 + 1;
+                v107 = v107 + 1;
               }
 
-              while (v101 != v104);
-              v98 = v103;
-              v113 = [v103 countByEnumeratingWithState:&v197 objects:buf count:16];
-              v101 = v113;
-              if (v113)
+              while (v104 != v107);
+              v101 = v106;
+              v116 = [v106 countByEnumeratingWithState:&v200 objects:buf count:16];
+              v104 = v116;
+              if (v116)
               {
                 continue;
               }
@@ -4926,43 +5135,43 @@ LABEL_86:
 
 LABEL_112:
 
-          v130 = ASDLogHandleForCategory();
-          if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
+          v133 = ASDLogHandleForCategory();
+          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
           {
-            v131 = *(a1 + 122);
-            v132 = [v179 objectForKey:@"bundleDisplayName"];
-            *v202 = 138412802;
-            v203 = v131;
-            v204 = 2114;
-            v205 = v132;
-            v206 = 2114;
-            v207 = v179;
-            _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "[%@] bundleDisplayName: %{public}@ metatdata: %{public}@", v202, 0x20u);
+            v134 = *(a1 + 122);
+            v135 = [v182 objectForKey:@"bundleDisplayName"];
+            *v205 = 138412802;
+            v206 = v134;
+            v207 = 2114;
+            v208 = v135;
+            v209 = 2114;
+            v210 = v182;
+            _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_DEFAULT, "[%@] bundleDisplayName: %{public}@ metatdata: %{public}@", v205, 0x20u);
           }
 
-          v9 = v175;
-          v7 = v176;
-          if ([v179 count])
+          v9 = v178;
+          v7 = v179;
+          if ([v182 count])
           {
-            v133 = [[NSMutableDictionary alloc] initWithDictionary:v179];
-            if ([v176 count])
+            v136 = [[NSMutableDictionary alloc] initWithDictionary:v182];
+            if ([v179 count])
             {
-              [v133 addEntriesFromDictionary:v176];
+              [v136 addEntriesFromDictionary:v179];
             }
 
             if (a2)
             {
-              *a2 = [v133 copy];
+              *a2 = [v136 copy];
             }
           }
 
-          if ((v177 | v182))
+          if ((v180 | v185))
           {
             v40 = 0;
             v56 = 0;
-            v59 = v177 ^ 1;
-            v134 = v98;
-            if ((v177 ^ 1) & v182)
+            v59 = v180 ^ 1;
+            v137 = v101;
+            if ((v180 ^ 1) & v185)
             {
               v58 = 4;
             }
@@ -4977,44 +5186,44 @@ LABEL_112:
 
           else
           {
-            v135 = ASDLogHandleForCategory();
-            if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+            v138 = ASDLogHandleForCategory();
+            if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
             {
-              v136 = *(v191 + 122);
-              v137 = *(v191 + 98);
+              v139 = *(v194 + 122);
+              v140 = *(v194 + 98);
               *buf = 138412546;
-              v209 = v136;
-              v210 = 2114;
-              *v211 = v137;
-              _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_DEFAULT, "[%@] Installing vpp application with evid: %{public}@", buf, 0x16u);
+              v212 = v139;
+              v213 = 2114;
+              *v214 = v140;
+              _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_DEFAULT, "[%@] Installing vpp application with evid: %{public}@", buf, 0x16u);
             }
 
-            v138 = sub_1002C77D4(v191, v176);
-            [v138 setAccount:*(v191 + 42)];
+            v141 = sub_1002C77D4(v194, v179);
+            [v141 setAccount:*(v194 + 42)];
             v59 = 1;
-            [v138 setSuppressEvaluatorDialogs:1];
-            v139 = sub_100223AA0([PurchaseImportTask alloc], v98, v138, 0);
-            v192 = 0;
-            v56 = [v191 runSubTask:v139 returningError:&v192];
-            v40 = v192;
+            [v141 setSuppressEvaluatorDialogs:1];
+            v142 = sub_100223AA0([PurchaseImportTask alloc], v101, v141, 0);
+            v195 = 0;
+            v56 = [v194 runSubTask:v142 returningError:&v195];
+            v40 = v195;
 
-            v134 = v98;
+            v137 = v101;
             v58 = 0;
             v55 = v56;
-            v9 = v175;
+            v9 = v178;
           }
 
           if (v59)
           {
             v60 = a4;
-            v57 = BYTE4(v177);
+            v57 = BYTE4(v180);
           }
 
           else
           {
-            v57 = BYTE4(v177);
+            v57 = BYTE4(v180);
             v60 = a4;
-            if (((HIDWORD(v177) ^ 1) & 1) == 0)
+            if (((HIDWORD(v180) ^ 1) & 1) == 0)
             {
               v64 = 1;
               goto LABEL_47;
@@ -5037,9 +5246,9 @@ LABEL_43:
           }
 
 LABEL_47:
-          v39 = v183;
-          a5 = v184;
-          v48 = v190;
+          v39 = v186;
+          a5 = v187;
+          v48 = v193;
           if (!v60)
           {
             goto LABEL_49;
@@ -5048,17 +5257,17 @@ LABEL_47:
           goto LABEL_48;
         }
 
-        v77 = ASDLogHandleForCategory();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+        v78 = ASDLogHandleForCategory();
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
-          v91 = *(a1 + 122);
+          v93 = *(a1 + 122);
           *buf = 138412290;
-          v209 = v91;
-          _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "[%@] No app to attempt an inline update", buf, 0xCu);
+          v212 = v93;
+          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "[%@] No app to attempt an inline update", buf, 0xCu);
         }
       }
 
-      v177 = 0;
+      v180 = 0;
       goto LABEL_86;
     }
 
@@ -5067,232 +5276,232 @@ LABEL_47:
       v68 = sub_1003D30CC(*(a1 + 58));
       v69 = v68 == 0;
 
-      v70 = [v189 URLResponse];
-      objc_opt_class();
-      v71 = sub_1001C09E4(v70);
-      v72 = a1;
-      v73 = v71;
-      v74 = sub_1003BE8FC(StoreItemResponse, v178, v71, v69, *(v72 + 66));
+      v70 = [v192 URLResponse];
+      v71 = objc_opt_class();
+      v72 = sub_1001C09E4(v70, v71);
+      v73 = a1;
+      v74 = v72;
+      v75 = sub_1003BE8FC(StoreItemResponse, v181, v72, v69, *(v73 + 66));
 
-      if (v74)
+      if (v75)
       {
-        v76 = objc_getProperty(v74, v75, 64, 1);
+        v77 = objc_getProperty(v75, v76, 64, 1);
       }
 
       else
       {
-        v76 = 0;
+        v77 = 0;
       }
 
-      v77 = v76;
-      a1 = v191;
-      if ([v77 count]== 1)
+      v78 = v77;
+      a1 = v194;
+      if ([v78 count]== 1)
       {
-        v78 = [v77 objectAtIndexedSubscript:0];
-        if (sub_1002CA9F4(v191, v78))
+        v79 = [v78 objectAtIndexedSubscript:0];
+        if (sub_1002CA9F4(v194, v79))
         {
-          v79 = sub_100237B38(v178, @"replacementSinf");
-          HIDWORD(v177) = v79 != 0;
-          if (v79)
+          v80 = sub_100237B38(v181, @"replacementSinf");
+          HIDWORD(v180) = v80 != 0;
+          if (v80)
           {
-            v80 = ASDLogHandleForCategory();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+            v81 = ASDLogHandleForCategory();
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
             {
-              v81 = *(v191 + 122);
+              v82 = *(v194 + 122);
               *buf = 138412290;
-              v209 = v81;
-              _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "[%@] Commerce response contained replacement key, attempting to update sinf", buf, 0xCu);
+              v212 = v82;
+              _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "[%@] Commerce response contained replacement key, attempting to update sinf", buf, 0xCu);
             }
 
-            if (sub_1002CAB08(v191, v79))
+            if (sub_1002CAB08(v194, v80))
             {
 
 LABEL_133:
-              v142 = v77;
-              if (sub_1003D3168(*(a1 + 58), v82))
+              v145 = v78;
+              if (sub_1003D3168(*(a1 + 58), v83))
               {
                 if ([*(a1 + 138) requestType] == 1 || objc_msgSend(*(a1 + 138), "requestType") == 3)
                 {
-                  v143 = +[ACAccountStore ams_sharedAccountStore];
-                  v144 = [v143 ams_activeiTunesAccount];
+                  v146 = +[ACAccountStore ams_sharedAccountStore];
+                  v147 = [v146 ams_activeiTunesAccount];
                 }
 
                 else
                 {
-                  v144 = 0;
+                  v147 = 0;
                 }
 
-                v149 = [v77 objectAtIndexedSubscript:0];
-                v150 = sub_100385EB4(v149, v144, 0);
+                v152 = [v78 objectAtIndexedSubscript:0];
+                v153 = sub_100385EB4(v152, v147, 0);
 
-                if (v150)
+                if (v153)
                 {
-                  v151 = *(a1 + 74);
-                  v194 = 0;
-                  v152 = sub_1003E3BE4(v150, v151, 0, &v194);
-                  v153 = v194;
-                  v154 = ASDLogHandleForCategory();
-                  v155 = v154;
-                  if (v152)
+                  v154 = *(a1 + 74);
+                  v197 = 0;
+                  v155 = sub_1003E3BE4(v153, v154, 0, &v197);
+                  v156 = v197;
+                  v157 = ASDLogHandleForCategory();
+                  v158 = v157;
+                  if (v155)
                   {
-                    a1 = v191;
-                    if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
+                    a1 = v194;
+                    if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
                     {
-                      v156 = *(v191 + 122);
+                      v159 = *(v194 + 122);
                       *buf = 138412290;
-                      v209 = v156;
-                      _os_log_impl(&_mh_execute_header, v155, OS_LOG_TYPE_DEFAULT, "[%@] Updated iTunesMetadata.plist", buf, 0xCu);
+                      v212 = v159;
+                      _os_log_impl(&_mh_execute_header, v158, OS_LOG_TYPE_DEFAULT, "[%@] Updated iTunesMetadata.plist", buf, 0xCu);
                     }
                   }
 
                   else
                   {
-                    a1 = v191;
-                    if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+                    a1 = v194;
+                    if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
                     {
-                      v173 = *(v191 + 122);
+                      v176 = *(v194 + 122);
                       *buf = 138412546;
-                      v209 = v173;
-                      v210 = 2114;
-                      *v211 = v153;
-                      _os_log_error_impl(&_mh_execute_header, v155, OS_LOG_TYPE_ERROR, "[%@] iTunesMetadata.plist update failed with error: %{public}@", buf, 0x16u);
+                      v212 = v176;
+                      v213 = 2114;
+                      *v214 = v156;
+                      _os_log_error_impl(&_mh_execute_header, v158, OS_LOG_TYPE_ERROR, "[%@] iTunesMetadata.plist update failed with error: %{public}@", buf, 0x16u);
                     }
                   }
                 }
               }
 
-              v157 = ASDLogHandleForCategory();
-              if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+              v160 = ASDLogHandleForCategory();
+              if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
               {
-                v158 = *(a1 + 122);
+                v161 = *(a1 + 122);
                 *buf = 138412290;
-                v209 = v158;
-                _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "[%@] Fetching receipt after sinf update", buf, 0xCu);
+                v212 = v161;
+                _os_log_impl(&_mh_execute_header, v160, OS_LOG_TYPE_DEFAULT, "[%@] Fetching receipt after sinf update", buf, 0xCu);
               }
 
-              v159 = sub_1001F1F30([AppReceiptTask alloc], *(a1 + 58));
-              v85 = v159;
-              if (v159)
+              v162 = sub_1001F1F30([AppReceiptTask alloc], *(a1 + 58));
+              v87 = v162;
+              if (v162)
               {
-                objc_setProperty_nonatomic_copy(v159, v160, *(a1 + 42), 58);
-                *(v85 + 74) = 8;
-                objc_setProperty_nonatomic_copy(v85, v161, *(a1 + 122), 66);
-                *(v85 + 50) = 1;
+                objc_setProperty_nonatomic_copy(v162, v163, *(a1 + 42), 58);
+                *(v87 + 74) = 8;
+                objc_setProperty_nonatomic_copy(v87, v164, *(a1 + 122), 66);
+                *(v87 + 50) = 1;
               }
 
-              v193 = 0;
-              [a1 runSubTask:v85 returningError:&v193];
-              v77 = v193;
-              v88 = v142;
-              if (v77)
+              v196 = 0;
+              [a1 runSubTask:v87 returningError:&v196];
+              v78 = v196;
+              v90 = v145;
+              if (v78)
               {
-                v162 = ASDLogHandleForCategory();
-                if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+                v165 = ASDLogHandleForCategory();
+                if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
                 {
-                  v172 = *(a1 + 122);
+                  v175 = *(a1 + 122);
                   *buf = 138412546;
-                  v209 = v172;
-                  v210 = 2114;
-                  *v211 = v77;
-                  _os_log_error_impl(&_mh_execute_header, v162, OS_LOG_TYPE_ERROR, "[%@] Receipt refresh failed with error: %{public}@", buf, 0x16u);
+                  v212 = v175;
+                  v213 = 2114;
+                  *v214 = v78;
+                  _os_log_error_impl(&_mh_execute_header, v165, OS_LOG_TYPE_ERROR, "[%@] Receipt refresh failed with error: %{public}@", buf, 0x16u);
                 }
               }
 
-              LODWORD(v177) = 1;
+              LODWORD(v180) = 1;
               goto LABEL_86;
             }
           }
 
-          v140 = [v77 objectAtIndexedSubscript:0];
-          v141 = sub_1002CAC9C(v191, v140);
+          v143 = [v78 objectAtIndexedSubscript:0];
+          v144 = sub_1002CAC9C(v194, v143);
 
-          a1 = v191;
-          if (v141)
+          a1 = v194;
+          if (v144)
           {
             goto LABEL_133;
           }
 
 LABEL_83:
-          v93 = [v189 URLResponse];
-          objc_opt_class();
-          v94 = sub_1001C09E4(v93);
-          v85 = sub_1003BE8FC(StoreItemResponse, v178, v94, 0, *(a1 + 66));
+          v95 = [v192 URLResponse];
+          v96 = objc_opt_class();
+          v97 = sub_1001C09E4(v95, v96);
+          v87 = sub_1003BE8FC(StoreItemResponse, v181, v97, 0, *(a1 + 66));
 
-          if (v85)
+          if (v87)
           {
-            v96 = objc_getProperty(v85, v95, 64, 1);
+            v99 = objc_getProperty(v87, v98, 64, 1);
           }
 
           else
           {
-            v96 = 0;
+            v99 = 0;
           }
 
-          LODWORD(v177) = 0;
-          v88 = v96;
+          LODWORD(v180) = 0;
+          v90 = v99;
           goto LABEL_86;
         }
 
-        v92 = ASDLogHandleForCategory();
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+        v94 = ASDLogHandleForCategory();
+        if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
         {
-          v180 = v77;
-          v163 = *(v191 + 122);
-          v164 = sub_1003D0F60(*(v191 + 58));
-          v166 = sub_1003D0F1C(*(v191 + 58));
-          if (v78)
+          v183 = v78;
+          v166 = *(v194 + 122);
+          v167 = sub_1003D0F60(*(v194 + 58));
+          v169 = sub_1003D0F1C(*(v194 + 58));
+          if (v79)
           {
-            v167 = objc_getProperty(v78, v165, 96, 1);
-            v169 = objc_getProperty(v78, v168, 216, 1);
-            v170 = v167;
+            v170 = objc_getProperty(v79, v168, 96, 1);
+            v172 = objc_getProperty(v79, v171, 216, 1);
+            v173 = v170;
           }
 
           else
           {
-            v167 = 0;
             v170 = 0;
-            v169 = 0;
+            v173 = 0;
+            v172 = 0;
           }
 
-          v171 = v169;
+          v174 = v172;
           *buf = 138413314;
-          v209 = v163;
-          v210 = 2114;
-          *v211 = v164;
-          *&v211[8] = 2048;
           v212 = v166;
           v213 = 2114;
-          v214 = v167;
-          v215 = 2114;
-          v216 = v171;
-          _os_log_error_impl(&_mh_execute_header, v92, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app because the existing app does not match the purchase response: %{public}@/%lld@ vs %{public}@/%{public}@", buf, 0x34u);
+          *v214 = v167;
+          *&v214[8] = 2048;
+          v215 = v169;
+          v216 = 2114;
+          v217 = v170;
+          v218 = 2114;
+          v219 = v174;
+          _os_log_error_impl(&_mh_execute_header, v94, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app because the existing app does not match the purchase response: %{public}@/%lld@ vs %{public}@/%{public}@", buf, 0x34u);
 
-          a1 = v191;
-          v77 = v180;
+          a1 = v194;
+          v78 = v183;
         }
       }
 
       else
       {
-        v78 = ASDLogHandleForCategory();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+        v79 = ASDLogHandleForCategory();
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
         {
-          v89 = *(v191 + 122);
-          v90 = [v77 count];
+          v91 = *(v194 + 122);
+          v92 = [v78 count];
           *buf = 138412546;
-          v209 = v89;
-          v210 = 2048;
-          *v211 = v90;
-          _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app because we did not receive the expected number of purchases in response: %lu@", buf, 0x16u);
+          v212 = v91;
+          v213 = 2048;
+          *v214 = v92;
+          _os_log_error_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "[%@]: Will not attempt sinf update for app because we did not receive the expected number of purchases in response: %lu@", buf, 0x16u);
         }
       }
 
-      HIDWORD(v177) = 0;
+      HIDWORD(v180) = 0;
       goto LABEL_83;
     }
 
-    HIDWORD(v177) = 0;
-    v77 = 0;
+    HIDWORD(v180) = 0;
+    v78 = 0;
     goto LABEL_83;
   }
 
@@ -5312,9 +5521,9 @@ LABEL_49:
     *a5 = v40;
   }
 
-  v196 = v55;
+  v199 = v55;
 
-  v66 = v196;
+  v66 = v199;
   return v66;
 }
 
@@ -6415,10 +6624,11 @@ void sub_1002CD418(uint64_t a1)
   sub_1002CD394(WeakRetained, v3);
 }
 
-void sub_1002CDC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1002CDC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6647,7 +6857,7 @@ LABEL_41:
     goto LABEL_45;
   }
 
-  v29 = sub_1003D603C();
+  v29 = sub_1003D603C(AppDefaultsManager);
   v30 = v29;
   if (v29)
   {
@@ -6676,8 +6886,9 @@ LABEL_45:
   }
 }
 
-uint64_t sub_1002CE75C(void *a1, int a2, void *a3, void *a4)
+uint64_t sub_1002CE75C(void *a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
   if (a1)
@@ -6689,18 +6900,18 @@ uint64_t sub_1002CE75C(void *a1, int a2, void *a3, void *a4)
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Cleaning up updates", buf, 2u);
     }
 
-    if (a2)
+    if (v5)
     {
-      sub_1003D6180();
+      sub_1003D6180(AppDefaultsManager);
     }
 
     v25 = 0;
     v26 = 0;
-    sub_1002CEA0C(a1, a2, v7, &v26, &v25);
+    sub_1002CEA0C(a1, v5, v7, &v26, &v25);
     if ([v7 count])
     {
       v10 = objc_opt_new();
-      v11 = sub_1003C27BC();
+      v11 = sub_1003C27BC(AppInstallsDatabaseStore);
       v19 = _NSConcreteStackBlock;
       v20 = 3221225472;
       v21 = sub_1002D084C;
@@ -6772,7 +6983,7 @@ void sub_1002CEA0C(void *a1, char a2, void *a3, void *a4, void *a5)
     v35 = 0;
     v14 = objc_opt_new();
     v15 = [SQLiteContainsPredicate doesNotContainPredicateWithProperty:@"IFNULL(app_install.phase values:10)", &off_100549470];
-    v16 = sub_1003C27BC();
+    v16 = sub_1003C27BC(AppInstallsDatabaseStore);
     v40 = _NSConcreteStackBlock;
     v41 = 3221225472;
     v42 = sub_1002CF6CC;
@@ -6787,7 +6998,7 @@ void sub_1002CEA0C(void *a1, char a2, void *a3, void *a4, void *a5)
     v20 = v17;
 
     LOBYTE(v18) = +[UpdatesManager shouldUseModernUpdates];
-    v21 = sub_1002BB3F0();
+    v21 = sub_1002BB3F0(AppUpdatesDatabaseStore);
     v24[0] = _NSConcreteStackBlock;
     v24[1] = 3221225472;
     v24[2] = sub_1002D0B34;
@@ -6818,14 +7029,14 @@ void sub_1002CEA0C(void *a1, char a2, void *a3, void *a4, void *a5)
   }
 }
 
-void sub_1002CED08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1002CED08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6900,7 +7111,7 @@ void sub_1002CF010(uint64_t a1)
   v11[1] = v11;
   v11[2] = 0x2020000000;
   v11[3] = 0;
-  v2 = sub_1002BB3F0();
+  v2 = sub_1002BB3F0(AppUpdatesDatabaseStore);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_1002CF17C;
@@ -7085,7 +7296,7 @@ void sub_1002CF88C(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = sub_1003C27BC();
+  v5 = sub_1003C27BC(AppInstallsDatabaseStore);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_1002CF964;
@@ -7118,16 +7329,16 @@ void sub_1002CFAA0(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = [v4 objectForKeyedSubscript:@"coordinator_id"];
-  objc_opt_class();
-  v9 = sub_1001C09E4(v5);
+  v6 = objc_opt_class();
+  v11 = sub_1001C09E4(v5, v6);
 
-  v6 = [v4 objectForKeyedSubscript:@"phase"];
-  [v6 integerValue];
+  v7 = [v4 objectForKeyedSubscript:@"phase"];
+  [v7 integerValue];
 
-  v7 = [v4 objectForKeyedSubscript:@"bundle_id"];
+  v8 = [v4 objectForKeyedSubscript:@"bundle_id"];
 
-  objc_opt_class();
-  v8 = sub_1001C09E4(v7);
+  v9 = objc_opt_class();
+  v10 = sub_1001C09E4(v8, v9);
 
   (*(*(a1 + 32) + 16))();
 }
@@ -7281,7 +7492,7 @@ void sub_1002D00AC(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = sub_1003C27BC();
+  v5 = sub_1003C27BC(AppInstallsDatabaseStore);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_1002D0184;
@@ -7895,9 +8106,9 @@ void sub_1002D24CC(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_1002D2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002D2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7919,9 +8130,9 @@ id sub_1002D29E0(uint64_t a1, uint64_t a2)
   return [v3 applyBinding:a2 atIndex:&v5];
 }
 
-void sub_1002D2AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002D2AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7999,9 +8210,9 @@ void sub_1002D30A4(id *a1, void *a2, void *a3)
   _Block_object_dispose(v13, 8);
 }
 
-void sub_1002D31B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1002D31B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8042,9 +8253,9 @@ void sub_1002D331C(uint64_t a1, void *a2, int a3)
   [*(a1 + 32) setObject:v7 forKeyedSubscript:v6];
 }
 
-void sub_1002D3498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002D3498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8101,9 +8312,9 @@ id sub_1002D3DF0(uint64_t a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_1002D3F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002D3F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8156,9 +8367,9 @@ id sub_1002D4034(uint64_t a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_1002D419C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002D419C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8224,9 +8435,9 @@ id sub_1002D42B0(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   return v23;
 }
 
-void sub_1002D4514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002D4514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8398,9 +8609,9 @@ id sub_1002D4B20(uint64_t a1, void *a2, void *a3)
   return v8;
 }
 
-void sub_1002D4C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002D4C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8442,9 +8653,9 @@ id sub_1002D4D18(uint64_t a1, void *a2, void *a3, void *a4)
   return v17;
 }
 
-void sub_1002D5080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1002D5080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8470,9 +8681,9 @@ id sub_1002D52B4(uint64_t a1)
   return result;
 }
 
-void sub_1002D5390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002D5390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8627,7 +8838,7 @@ LABEL_3:
       }
 
       sub_1002067C8(v20, [v9 longLongValue], -30, *(a1 + 32));
-      v14 = sub_1003649C8();
+      v14 = sub_1003649C8(ProgressCache);
       sub_100365318(v14, v11);
 
       *(*(*(a1 + 48) + 8) + 24) += [v10 unsignedLongLongValue];
@@ -8740,451 +8951,4 @@ id sub_1002D6884(uint64_t a1, void *a2, void *a3)
   v7 = [v6 queryMetaDataSync];
 
   return v7;
-}
-
-id sub_1002D6988()
-{
-  objc_opt_self();
-  v0 = +[AMSProcessInfo currentProcess];
-  v1 = [AMSUserAgent userAgentForProcessInfo:v0];
-
-  return v1;
-}
-
-void sub_1002D7394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
-{
-  _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1002D73D0(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = objc_autoreleasePoolPush();
-  if (!v3)
-  {
-    goto LABEL_13;
-  }
-
-  if (([v3[15] applicationHasMIDBasedSINF] & 1) != 0 || !objc_msgSend(v3[15], "applicationMissingRequiredSINF") || !sub_1003D3128(v3, v5))
-  {
-    if (([v3[15] isPlaceholder] & 1) == 0 && sub_1003D3068(v3) && (sub_1003D2404(v3) & 1) == 0)
-    {
-      v37 = sub_1003D248C(v3);
-      v11 = [ASFReceipt receiptFromBundleAtPath:v37];
-
-      if (v11 && ([v11 isVPPLicensed] & 1) != 0)
-      {
-        v13 = a1[4];
-        v38 = v3;
-        v11 = v11;
-        if (!v13)
-        {
-          goto LABEL_92;
-        }
-
-LABEL_18:
-        v15 = sub_1001F1F30([AppReceiptTask alloc], v3);
-        v17 = v15;
-        if (v15)
-        {
-          objc_setProperty_nonatomic_copy(v15, v16, *(v13 + 144), 66);
-        }
-
-        if (v11)
-        {
-          v18 = [v11 isVPPLicensed];
-          if (v17)
-          {
-            if (v18)
-            {
-              *(v17 + 74) = 8;
-            }
-          }
-        }
-
-        Property = sub_1003D23D0(v3);
-        v21 = Property;
-        if (Property)
-        {
-          Property = objc_getProperty(Property, v20, 16, 1);
-        }
-
-        v22 = Property;
-
-        if (v22)
-        {
-          if (v21)
-          {
-            v24 = objc_getProperty(v21, v23, 16, 1);
-            if (v24)
-            {
-              v25 = v24;
-              v26 = +[ACAccountStore ams_sharedAccountStore];
-              v27 = [v26 ams_iTunesAccountWithDSID:v25];
-
-              if (v17)
-              {
-                objc_setProperty_nonatomic_copy(v17, v28, v27, 58);
-              }
-            }
-          }
-        }
-
-        v106 = 0;
-        v29 = [v13 runSubTask:v17 returningError:&v106];
-        v30 = v106;
-        if (v17)
-        {
-          v31 = *(v17 + 82);
-          v32 = v31;
-          if (v29)
-          {
-            if (v31 && (([v31 isRevoked] & 1) != 0 || v17[51] == 1) && objc_msgSend(v32, "isVPPLicensed") && (!v3 || (objc_msgSend(v3[15], "applicationHasMIDBasedSINF") & 1) == 0) && (sub_10025CEA4(v13, v3) & 1) == 0)
-            {
-              v33 = *(v13 + 112);
-              sub_1003D0F60(v3);
-              v34 = v94 = v32;
-              [v33 setObject:v3 forKeyedSubscript:v34];
-
-              v32 = v94;
-            }
-
-            goto LABEL_42;
-          }
-        }
-
-        else
-        {
-          v32 = 0;
-          if (v29)
-          {
-LABEL_42:
-            if (!os_variant_has_internal_content())
-            {
-              goto LABEL_91;
-            }
-
-            v101 = v30;
-            v35 = *(v13 + 112);
-            v105 = sub_1003D0F60(v3);
-            v36 = [v35 objectForKeyedSubscript:?];
-            if (!v36)
-            {
-              v39 = *(v13 + 128);
-              if (v39)
-              {
-                v95 = v32;
-                v40 = sub_1003D0F60(v3);
-                v41 = [v39 containsObject:v40];
-
-                if (v41)
-                {
-                  v98 = v21;
-                  v42 = *(v13 + 112);
-                  v43 = sub_1003D0F60(v3);
-                  [v42 setObject:v3 forKeyedSubscript:v43];
-
-                  v44 = ASDLogHandleForCategory();
-                  v105 = v44;
-                  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v45 = *(v13 + 144);
-                    v46 = v45;
-                    v47 = sub_1003D0F60(v3);
-                    *buf = 138412546;
-                    v108 = v45;
-                    v109 = 2114;
-                    v110 = v47;
-                    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[%@] [%{public}@] Marking as QA revoked", buf, 0x16u);
-                  }
-
-                  v21 = v98;
-                  v30 = v101;
-                  v32 = v95;
-                  goto LABEL_90;
-                }
-
-                v32 = v95;
-LABEL_91:
-
-LABEL_92:
-                ++*(*(a1[6] + 8) + 24);
-LABEL_93:
-
-                goto LABEL_94;
-              }
-            }
-
-LABEL_90:
-            goto LABEL_91;
-          }
-        }
-
-        v99 = v21;
-        v48 = ASDLogHandleForCategory();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-        {
-          v104 = v30;
-          v79 = *(v13 + 144);
-          v80 = v79;
-          sub_1003D0F60(v3);
-          v81 = v97 = v32;
-          *buf = 138412802;
-          v108 = v79;
-          v30 = v104;
-          v109 = 2114;
-          v110 = v81;
-          v111 = 2114;
-          v112 = v104;
-          _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "[%@] [%{public}@] Failed to get receipt with error: %{public}@", buf, 0x20u);
-
-          v32 = v97;
-        }
-
-        if (!v11)
-        {
-          v21 = v99;
-          goto LABEL_91;
-        }
-
-        v96 = v32;
-        v49 = v3;
-        v50 = [v11 expirationDate];
-        v105 = v49;
-        if (os_variant_has_internal_content())
-        {
-          v102 = v30;
-          v51 = *(v13 + 120);
-          v52 = sub_1003D0F60(v49);
-          v53 = [v51 objectForKeyedSubscript:v52];
-
-          if (v53)
-          {
-            v54 = *(v13 + 120);
-            v55 = sub_1003D0F60(v49);
-            v56 = [v54 objectForKeyedSubscript:v55];
-
-            v57 = ASDLogHandleForCategory();
-            v21 = v99;
-            v30 = v102;
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
-            {
-              v85 = *(v13 + 144);
-              log = v85;
-              v87 = sub_1003D0F60(v105);
-              if (v56)
-              {
-                [v56 timeIntervalSince1970];
-                v59 = v58;
-              }
-
-              else
-              {
-                v59 = 0;
-              }
-
-              *buf = 138412802;
-              v108 = v85;
-              v109 = 2114;
-              v110 = v87;
-              v111 = 2048;
-              v112 = v59;
-              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "[%@] [%{public}@] Using QA receipt expiration date: %{time_t}ld ", buf, 0x20u);
-            }
-          }
-
-          else
-          {
-            v56 = v50;
-            v21 = v99;
-            v30 = v102;
-          }
-        }
-
-        else
-        {
-          v56 = v50;
-          v21 = v99;
-        }
-
-        v32 = v96;
-        if (!v56)
-        {
-LABEL_89:
-
-          goto LABEL_90;
-        }
-
-        v100 = +[NSDate date];
-        [v56 timeIntervalSinceDate:?];
-        if (v60 >= 1)
-        {
-          v93 = v56;
-          v103 = v30;
-          v61 = v60;
-          v62 = +[BagService appstoredService];
-          v63 = [v62 lastBag];
-          v64 = [v63 integerForKey:@"receipt-expiration-warning-threshold" defaultValue:604800];
-
-          v65 = v64;
-          v66 = ASDLogHandleForCategory();
-          v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT);
-          if (v65 < v61)
-          {
-            if (v67)
-            {
-              loga = v66;
-              v68 = *(v13 + 144);
-              v88 = v68;
-              v69 = sub_1003D0F60(v105);
-              if (v100)
-              {
-                [v100 timeIntervalSince1970];
-                v71 = v70;
-              }
-
-              else
-              {
-                v71 = 0;
-              }
-
-              [v93 timeIntervalSince1970];
-              *buf = 138413314;
-              v108 = v68;
-              v109 = 2114;
-              v110 = v69;
-              v111 = 2048;
-              v112 = (v61 / 86400.0);
-              v113 = 2048;
-              v114 = v71;
-              v115 = 2048;
-              v116 = v72;
-              v66 = loga;
-              _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_DEFAULT, "[%@] [%{public}@] [Silent] Receipt expiration in %ld days today: %{time_t}ld expiration: %{time_t}ld", buf, 0x34u);
-            }
-
-            v30 = v103;
-            v32 = v96;
-            goto LABEL_87;
-          }
-
-          if (v67)
-          {
-            logb = v66;
-            v73 = *(v13 + 144);
-            v89 = v73;
-            v86 = sub_1003D0F60(v105);
-            if (v100)
-            {
-              [v100 timeIntervalSince1970];
-              [v93 timeIntervalSince1970];
-            }
-
-            else
-            {
-              [v93 timeIntervalSince1970];
-            }
-
-            *buf = 138413314;
-            v108 = v73;
-            v109 = 2114;
-            v110 = v86;
-            v111 = 2048;
-            v112 = (v61 / 86400.0);
-            v113 = 2048;
-            v114 = v84;
-            v115 = 2048;
-            v116 = v75;
-            v66 = logb;
-            _os_log_impl(&_mh_execute_header, logb, OS_LOG_TYPE_DEFAULT, "[%@] [%{public}@] Receipt expiration in %ld days today: %{time_t}ld expiration: %{time_t}ld", buf, 0x34u);
-          }
-
-          v76 = *(v13 + 88);
-          v77 = sub_1003D0F60(v105);
-          v78 = v76;
-          v56 = v93;
-          [v78 setObject:v93 forKeyedSubscript:v77];
-
-          if (!*(v13 + 104))
-          {
-            v30 = v103;
-            v32 = v96;
-LABEL_86:
-            objc_storeStrong((v13 + 104), v93);
-            v82 = v105;
-            v83 = *(v13 + 96);
-            *(v13 + 96) = v82;
-            v66 = v83;
-LABEL_87:
-
-            v56 = v93;
-            goto LABEL_88;
-          }
-
-          v30 = v103;
-          v32 = v96;
-          if ([v93 compare:?] != 1)
-          {
-            goto LABEL_86;
-          }
-        }
-
-LABEL_88:
-
-        goto LABEL_89;
-      }
-
-      v12 = 1;
-LABEL_14:
-      if (!os_variant_has_internal_content())
-      {
-        goto LABEL_93;
-      }
-
-      v13 = a1[4];
-      if (!v13 || (v12 & *(v13 + 136)) != 1)
-      {
-        goto LABEL_93;
-      }
-
-      v14 = v3;
-      v11 = v11;
-      goto LABEL_18;
-    }
-
-LABEL_13:
-    v11 = 0;
-    v12 = 0;
-    goto LABEL_14;
-  }
-
-  v6 = ASDLogHandleForCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = a1[4];
-    if (v7)
-    {
-      v8 = *(v7 + 144);
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v9 = v8;
-    v10 = sub_1003D0F60(v3);
-    *buf = 138412546;
-    v108 = v8;
-    v109 = 2114;
-    v110 = v10;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] [%{public}@] Receipt refresh migrating VPP app", buf, 0x16u);
-  }
-
-  sub_10025CEA4(a1[4], v3);
-  ++*(*(a1[5] + 8) + 24);
-LABEL_94:
-  objc_autoreleasePoolPop(v4);
 }

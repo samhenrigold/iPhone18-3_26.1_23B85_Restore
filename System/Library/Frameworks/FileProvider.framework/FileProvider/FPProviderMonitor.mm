@@ -42,29 +42,29 @@
 
 + (id)providerIDForApplication:(id)application sharedContainerIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:{application, identifier}];
-  v18 = objc_opt_new();
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:{application, identifier}];
+  v17 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  plugInKitPlugins = [v17 plugInKitPlugins];
-  v5 = [plugInKitPlugins countByEnumeratingWithState:&v19 objects:v23 count:16];
+  plugInKitPlugins = [v16 plugInKitPlugins];
+  v5 = [plugInKitPlugins countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(plugInKitPlugins);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         protocol = [v9 protocol];
         v11 = [protocol isEqualToString:@"com.apple.fileprovider-nonui"];
 
@@ -73,22 +73,20 @@
           v12 = [v9 objectForInfoDictionaryKey:@"NSExtensionFileProviderDocumentGroup" ofClass:objc_opt_class() inScope:1];
           if ([v12 isEqualToString:v12])
           {
-            [v18 addObject:v9];
+            [v17 addObject:v9];
           }
         }
       }
 
-      v6 = [plugInKitPlugins countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [plugInKitPlugins countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
-  [v18 sortUsingComparator:&__block_literal_global_34];
-  firstObject = [v18 firstObject];
+  [v17 sortUsingComparator:&__block_literal_global_34];
+  firstObject = [v17 firstObject];
   bundleIdentifier = [firstObject bundleIdentifier];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return bundleIdentifier;
 }
@@ -155,7 +153,7 @@ uint64_t __72__FPProviderMonitor_providerIDForApplication_sharedContainerIdentif
 
 void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke(uint64_t a1, int a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   state64 = 0;
   v4 = *(a1 + 32);
   objc_sync_enter(v4);
@@ -174,26 +172,26 @@ void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke(uint64_t a
     __47__FPProviderMonitor_addObserver_forProviderID___block_invoke_cold_1(v6, v10 == 0, v11);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v13)
   {
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * v15);
+        v16 = *(*(&v18 + 1) + 8 * v15);
         v17 = *v6;
         if (v10)
         {
@@ -202,25 +200,23 @@ void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke(uint64_t a
 
         else
         {
-          [v16 providerDidEnterBackground:{v17, v19}];
+          [v16 providerDidEnterBackground:{v17, v18}];
         }
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer forProviderID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   dCopy = d;
   selfCopy = self;
@@ -228,18 +224,17 @@ void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke(uint64_t a
   v9 = [(NSMutableDictionary *)selfCopy->_observersByContainerID objectForKeyedSubscript:dCopy];
   if (([v9 containsObject:observerCopy] & 1) == 0)
   {
-    observersByContainerID = selfCopy->_observersByContainerID;
     fp_simulate_crash(@"removed non existing observer %@ for %@, existing observers were %@", v10, v11, v12, v13, v14, v15, v16, observerCopy);
     v17 = fp_current_or_default_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v21 = selfCopy->_observersByContainerID;
+      observersByContainerID = selfCopy->_observersByContainerID;
       *buf = 138412802;
-      v24 = observerCopy;
+      v22 = observerCopy;
+      v23 = 2112;
+      v24 = dCopy;
       v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v21;
+      v26 = observersByContainerID;
       _os_log_fault_impl(&dword_1AAAE1000, v17, OS_LOG_TYPE_FAULT, "[SIMCRASH] removed non existing observer %@ for %@, existing observers were %@", buf, 0x20u);
     }
   }
@@ -256,7 +251,6 @@ void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke(uint64_t a
   }
 
   objc_sync_exit(selfCopy);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isProviderIDForeground:(id)foreground
@@ -337,12 +331,11 @@ uint64_t __44__FPProviderMonitor_isProviderIDForeground___block_invoke()
 
 - (void)addObserver:(NSObject *)a3 forProviderID:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx adding observer for %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx adding observer for %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
@@ -353,12 +346,11 @@ void __47__FPProviderMonitor_addObserver_forProviderID___block_invoke_cold_1(voi
     v3 = "background";
   }
 
-  *v5 = 138412546;
-  *&v5[4] = *a1;
-  *&v5[12] = 2080;
-  *&v5[14] = v3;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] %@ is now %s", *v5, *&v5[8], *&v5[16], *MEMORY[0x1E69E9840]);
-  v4 = *MEMORY[0x1E69E9840];
+  *v4 = 138412546;
+  *&v4[4] = *a1;
+  *&v4[12] = 2080;
+  *&v4[14] = v3;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] %@ is now %s", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

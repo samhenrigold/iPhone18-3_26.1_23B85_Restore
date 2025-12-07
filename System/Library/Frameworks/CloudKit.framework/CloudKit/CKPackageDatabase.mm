@@ -198,12 +198,12 @@
 
 - (id)packageReferenceFromAnchorDictionary:(id)dictionary error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v8 = objc_msgSend_objectForKey_(dictionaryCopy, v7, @"referenceID");
-  v26 = 0;
-  v10 = objc_msgSend_referenceWithID_error_(self, v9, v8, &v26);
-  v11 = v26;
+  v25 = 0;
+  v10 = objc_msgSend_referenceWithID_error_(self, v9, v8, &v25);
+  v11 = v25;
   v13 = v11;
   if (v10)
   {
@@ -241,12 +241,12 @@
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v25 = ck_log_facility_package;
+    v24 = ck_log_facility_package;
     if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = dictionaryCopy;
-      _os_log_error_impl(&dword_1883EA000, v25, OS_LOG_TYPE_ERROR, "reference entry missing for anchor: %@", buf, 0xCu);
+      v27 = dictionaryCopy;
+      _os_log_error_impl(&dword_1883EA000, v24, OS_LOG_TYPE_ERROR, "reference entry missing for anchor: %@", buf, 0xCu);
     }
 
     v10 = 0;
@@ -264,8 +264,6 @@ LABEL_12:
     v22 = v13;
     *error = v13;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -301,20 +299,20 @@ LABEL_12:
 
 + (id)liftAnchor:(id)anchor
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   anchorCopy = anchor;
-  v11[0] = 0;
-  v11[1] = v11;
-  v11[2] = 0x3032000000;
-  v11[3] = sub_1883ED854;
-  v11[4] = sub_1883EF580;
-  v12 = 0;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_188525250;
-  v10[3] = &unk_1E70BC268;
-  v10[4] = v11;
-  v6 = objc_msgSend__usingAnchor_performBlock_(self, v5, anchorCopy, v10);
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x3032000000;
+  v10[3] = sub_1883ED854;
+  v10[4] = sub_1883EF580;
+  v11 = 0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_188525250;
+  v9[3] = &unk_1E70BC268;
+  v9[4] = v10;
+  v6 = objc_msgSend__usingAnchor_performBlock_(self, v5, anchorCopy, v9);
   if (v6)
   {
     if (ck_log_initialization_predicate != -1)
@@ -326,14 +324,12 @@ LABEL_12:
     if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_error_impl(&dword_1883EA000, v7, OS_LOG_TYPE_ERROR, "Error lifing package anchor: %{public}@", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(v11, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v10, 8);
 
   return v6;
 }
@@ -369,7 +365,7 @@ LABEL_12:
 
 - (id)refcountBecameZeroForPackage:(id)package packageID:(id)d
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   packageCopy = package;
   dCopy = d;
   if (ck_log_initialization_predicate != -1)
@@ -381,17 +377,17 @@ LABEL_12:
   if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v31 = dCopy;
+    v30 = dCopy;
     _os_log_impl(&dword_1883EA000, v8, OS_LOG_TYPE_INFO, "Deleting package with packageID=%{public}@ (zero refcount)", buf, 0xCu);
   }
 
-  v34 = @"PACKAGEID";
-  v35[0] = dCopy;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v35, &v34, 1);
+  v33 = @"PACKAGEID";
+  v34[0] = dCopy;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v34, &v33, 1);
   referenceTable = self->_referenceTable;
-  v29 = 0;
-  objc_msgSend_deleteEntriesMatching_label_error_predicate_(referenceTable, v12, v10, 0, &v29, &unk_1EFA2E5A8);
-  v13 = v29;
+  v28 = 0;
+  objc_msgSend_deleteEntriesMatching_label_error_predicate_(referenceTable, v12, v10, 0, &v28, &unk_1EFA2E5A8);
+  v13 = v28;
   if (v13 || (objc_msgSend_deletePrimaryKeyValue_(self->_directoryTable, v14, dCopy), (v13 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v17 = v13;
@@ -404,9 +400,9 @@ LABEL_12:
     if (os_log_type_enabled(ck_log_facility_package, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v31 = dCopy;
-      v32 = 2114;
-      v33 = v17;
+      v30 = dCopy;
+      v31 = 2114;
+      v32 = v17;
       _os_log_error_impl(&dword_1883EA000, v18, OS_LOG_TYPE_ERROR, "Failed to delete package with packageID=%{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -415,32 +411,30 @@ LABEL_12:
   {
     if (packageCopy)
     {
-      v21 = packageCopy;
+      v20 = packageCopy;
       v17 = 0;
-      v23 = objc_msgSend_purgeGroup_(CKSQLitePackage, v22, v21);
+      v22 = objc_msgSend_purgeGroup_(CKSQLitePackage, v21, v20);
     }
 
     else
     {
-      v24 = objc_msgSend_db(self, v15, v16);
-      v28 = 0;
-      v21 = objc_msgSend_tableGroupInDatabase_withID_error_(CKSQLitePackage, v25, v24, dCopy, &v28);
-      v17 = v28;
+      v23 = objc_msgSend_db(self, v15, v16);
+      v27 = 0;
+      v20 = objc_msgSend_tableGroupInDatabase_withID_error_(CKSQLitePackage, v24, v23, dCopy, &v27);
+      v17 = v27;
 
-      if (!v21)
+      if (!v20)
       {
         goto LABEL_11;
       }
 
-      v23 = objc_msgSend_purgeGroup_(CKSQLitePackage, v26, v21);
+      v22 = objc_msgSend_purgeGroup_(CKSQLitePackage, v25, v20);
     }
 
-    v27 = v23;
+    v26 = v22;
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -481,27 +475,8 @@ LABEL_11:
   {
 LABEL_5:
     v9 = dCopy;
-    if (__sTestOverridesAvailable[0] != 1)
+    if (__sTestOverridesAvailable != 1 || !objc_msgSend_isEqualToString_(dCopy, v6, @"com.apple.cloudkit.CloudKitUnitTestsHost") || (CKGetHomeDirEscapingSandbox(), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLByAppendingPathComponent_(v10, v11, @"Library"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLByAppendingPathComponent_(v12, v13, @"Caches"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLByAppendingPathComponent_(v14, v15, @"com.apple.cloudd"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLByAppendingPathComponent_(v16, v17, @"CloudKitUnitTestsHostPackageDir"), v18 = objc_claimAutoreleasedReturnValue(), v16, v14, v12, objc_msgSend_path(v18, v19, v20), v21 = objc_claimAutoreleasedReturnValue(), v18, v10, !v21))
     {
-      goto LABEL_8;
-    }
-
-    if (!objc_msgSend_isEqualToString_(dCopy, v6, @"com.apple.cloudkit.CloudKitUnitTestsHost"))
-    {
-      goto LABEL_8;
-    }
-
-    v10 = CKGetHomeDirEscapingSandbox();
-    v12 = objc_msgSend_URLByAppendingPathComponent_(v10, v11, @"Library");
-    v14 = objc_msgSend_URLByAppendingPathComponent_(v12, v13, @"Caches");
-    v16 = objc_msgSend_URLByAppendingPathComponent_(v14, v15, @"com.apple.cloudd");
-    v18 = objc_msgSend_URLByAppendingPathComponent_(v16, v17, @"CloudKitUnitTestsHostPackageDir");
-
-    v21 = objc_msgSend_path(v18, v19, v20);
-
-    if (!v21)
-    {
-LABEL_8:
       v23 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
       v21 = objc_msgSend_objectAtIndexedSubscript_(v23, v24, 0);
     }

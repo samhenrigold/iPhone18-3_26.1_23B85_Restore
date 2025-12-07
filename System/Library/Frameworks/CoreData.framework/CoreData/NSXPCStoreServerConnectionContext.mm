@@ -80,7 +80,7 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSXPCStoreServerConnectionContext: \n\tentitlements = %@ ;\n\tcontext = %@ ;\n\tinfo = %@>", -[NSXPCStoreServerConnectionContext entitlements](self, "entitlements"), self->_context, self->_info];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSXPCStoreServerConnectionContext *)self entitlements], self->_context, self->_info);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -91,7 +91,7 @@
   result = self->_info;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result auditToken];
+    return objc_msgSend_auditToken(result, a3);
   }
 
   *retstr->var0 = 0u;

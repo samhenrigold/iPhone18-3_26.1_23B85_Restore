@@ -24,7 +24,7 @@
   if (v10)
   {
     v16 = v10;
-    [APRKStreamRecorder startRecordingAtURL:];
+    [APRKStreamRecorder startRecordingAtURL:v10];
   }
 
   else
@@ -54,14 +54,14 @@
 
         else
         {
-          v16 = -12782;
+          v16 = 4294954514;
         }
       }
     }
 
     else
     {
-      v16 = -12782;
+      v16 = 4294954514;
     }
 
     APSLogErrorAt();
@@ -69,7 +69,7 @@
 
   if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [APRKStreamRecorder startRecordingAtURL:];
+    [APRKStreamRecorder startRecordingAtURL:v16];
     if (!Mutable)
     {
       goto LABEL_15;
@@ -174,7 +174,7 @@ LABEL_15:
 
     else
     {
-      v13 = -12782;
+      v13 = 4294954514;
     }
 
     APSLogErrorAt();
@@ -195,13 +195,13 @@ LABEL_6:
 
   else
   {
-    v13 = -12782;
+    v13 = 4294954514;
   }
 
 LABEL_12:
   if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [APRKStreamRecorder _recordSampleBuffer:toTrackWithID:];
+    [APRKStreamRecorder _recordSampleBuffer:v13 toTrackWithID:?];
     if (!buffer)
     {
       return v13;

@@ -3,12 +3,14 @@
 - (BOOL)_validateCAPDU:(id)u isDFSelectCommand:(BOOL *)command outError:(id *)error;
 - (BOOL)suspendWithInfo:(id)info;
 - (BOOL)willStartSession;
+- (_NFCredentialSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (id)_startCardEmulationWithApplet:(id)applet externalAuth:(id)auth ceType:(unsigned int)type;
 - (id)_startWiredModeWithExternalAuth:(id)auth applets:(id)applets selectOnStart:(id)start;
 - (void)_setupFirstFieldNotificationTimer:(unint64_t)timer;
 - (void)cleanup;
 - (void)deleteApplets:(id)applets completion:(id)completion;
 - (void)didStartSession:(id)session;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleSecureElementTransactionData:(id)data appletIdentifier:(id)identifier;
 - (void)handleTimerExpiredEvent:(id)event;
 - (void)listAppletsAndRefreshCache:(BOOL)cache completion:(id)completion;
@@ -19,6 +21,22 @@
 @end
 
 @implementation _NFCredentialSession
+
+- (_NFCredentialSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  v9.receiver = self;
+  v9.super_class = _NFCredentialSession;
+  v5 = [(_NFXPCSession *)&v9 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode];
+  v6 = v5;
+  if (v5)
+  {
+    v5->_mode = 0;
+    v5->_requestedAppletsLock._os_unfair_lock_opaque = 0;
+    v7 = v5;
+  }
+
+  return v6;
+}
 
 - (BOOL)_validateCAPDU:(id)u isDFSelectCommand:(BOOL *)command outError:(id *)error
 {
@@ -514,7 +532,7 @@ LABEL_75:
 
 - (BOOL)willStartSession
 {
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   v4.receiver = self;
   v4.super_class = _NFCredentialSession;
   return [(_NFSession *)&v4 willStartSession];
@@ -566,7 +584,7 @@ LABEL_75:
       [(_NFCredentialSession *)self requestApplets:0 selectOnStart:0 AIDAllowList:0 externalAuth:0 mode:0 ceType:0 completion:&stru_100316F50];
     }
 
-    v8 = sub_1001AE20C();
+    v8 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
     sub_1001AEDB0(v8, v9);
   }
 
@@ -824,7 +842,7 @@ LABEL_25:
     goto LABEL_24;
   }
 
-  v52 = sub_1001AE20C();
+  v52 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
   sub_1001AF828(v52, v53);
 
   v27 = 0;
@@ -1255,7 +1273,7 @@ LABEL_17:
     firstFieldNotificationTimer = [(_NFCredentialSession *)self firstFieldNotificationTimer];
     [firstFieldNotificationTimer stopTimer];
 
-    v21 = sub_1001AE20C();
+    v21 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
     sub_1001AEDB0(v21, v22);
 
     [(_NFCredentialSession *)self setMode:0];
@@ -1275,6 +1293,23 @@ LABEL_17:
 
   remoteObject = [(_NFXPCSession *)self remoteObject];
   [remoteObject notifyHCIData:dataCopy appletIdentifier:identifierCopy];
+}
+
+- (void)handleFieldChanged:(BOOL)changed
+{
+  if (self && self->_mode == 2)
+  {
+    changedCopy = changed;
+    if (![(_NFCredentialSession *)self firstFieldNotification])
+    {
+      [(_NFCredentialSession *)self setFirstFieldNotification:1];
+      firstFieldNotificationTimer = [(_NFCredentialSession *)self firstFieldNotificationTimer];
+      [firstFieldNotificationTimer stopTimer];
+    }
+
+    remoteObject = [(_NFXPCSession *)self remoteObject];
+    [remoteObject fieldChanged:changedCopy];
+  }
 }
 
 - (void)handleTimerExpiredEvent:(id)event

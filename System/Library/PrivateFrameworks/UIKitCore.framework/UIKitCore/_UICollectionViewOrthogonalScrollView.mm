@@ -11,6 +11,7 @@
 - (id)_focusScrollBoundaryMetricsForItem:(id)item;
 - (id)collectionView;
 - (id)focusItemsInRect:(CGRect)rect;
+- (id)initWithCollectionView:(void *)view section:;
 - (unint64_t)_edgesPropagatingSafeAreaInsetsToSubviews;
 - (unint64_t)_focusPrimaryScrollableAxis;
 - (void)_addSubview:(id)subview positioned:(int64_t)positioned relativeTo:(id)to;
@@ -22,7 +23,6 @@
 - (void)configureForDescriptor:(uint64_t)descriptor;
 - (void)dealloc;
 - (void)exchangeSubviewAtIndex:(int64_t)index withSubviewAtIndex:(int64_t)atIndex;
-- (void)initWithCollectionView:(uint64_t)view section:;
 - (void)scrollToItemAtIndexPath:(uint64_t)path atScrollPosition:(uint64_t)position additionalInsets:(double)insets animated:(double)animated;
 - (void)sendSubviewToBack:(id)back;
 - (void)touchesBegan:(id)began withEvent:(id)event;
@@ -87,7 +87,7 @@
   return WeakRetained;
 }
 
-- (void)initWithCollectionView:(uint64_t)view section:
+- (id)initWithCollectionView:(void *)view section:
 {
   if (!self)
   {
@@ -129,7 +129,7 @@
     v104 = WeakRetained;
     v5 = *(descriptor + 2152);
     *(descriptor + 2152) = 1;
-    if (([(_UICollectionLayoutSectionDescriptor *)*(descriptor + 2184) isEqualToSectionDescriptor:a2 comparingContentOffset:0]& 1) != 0)
+    if ([(_UICollectionLayoutSectionDescriptor *)*(descriptor + 2184) isEqualToSectionDescriptor:a2 comparingContentOffset:0])
     {
       goto LABEL_52;
     }

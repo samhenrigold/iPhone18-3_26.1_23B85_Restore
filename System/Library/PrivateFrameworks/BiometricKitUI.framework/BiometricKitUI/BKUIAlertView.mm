@@ -7,8 +7,8 @@
 - (UIView)alertHudView;
 - (id)parent;
 - (void)_hideAlertHudView;
-- (void)_init;
 - (void)_setFadeAnimation:(id)animation;
+- (void)hideAnimated:(BOOL)animated;
 - (void)isAlertHidden;
 - (void)setCancelButtonSelector:(SEL)selector;
 - (void)setOtherButtonSelector:(SEL)selector;
@@ -35,16 +35,9 @@
   return v3;
 }
 
-- (void)_init
-{
-  alertController = self->_alertController;
-  self->_alertController = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)show:(id)show title:(id)title message:(id)message cancelButtonTitle:(id)buttonTitle cancelButtonSelector:(SEL)selector otherButtonTitle:(id)otherButtonTitle otherButtonSelector:(SEL)buttonSelector viewController:(id)self0
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   showCopy = show;
   titleCopy = title;
   messageCopy = message;
@@ -55,9 +48,9 @@
   if (os_log_type_enabled(bkui_alert_view_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v45 = titleCopy;
-    v46 = 2112;
-    v47 = messageCopy;
+    v44 = titleCopy;
+    v45 = 2112;
+    v46 = messageCopy;
     _os_log_impl(&dword_241B0A000, bkui_alert_view_log, OS_LOG_TYPE_DEFAULT, "BiometricKitUI: Show alert with title: %@, message: %@", buf, 0x16u);
   }
 
@@ -124,17 +117,17 @@
     if (window)
     {
       alertController = self->_alertController;
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __127__BKUIAlertView_show_title_message_cancelButtonTitle_cancelButtonSelector_otherButtonTitle_otherButtonSelector_viewController___block_invoke;
-      v38[3] = &unk_278D09A88;
-      v38[4] = self;
-      v39 = titleCopy;
-      v40 = messageCopy;
-      v41 = buttonTitleCopy;
-      v42 = otherButtonTitleCopy;
-      v43 = controllerCopy;
-      [(UIAlertController *)alertController dismissViewControllerAnimated:0 completion:v38];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __127__BKUIAlertView_show_title_message_cancelButtonTitle_cancelButtonSelector_otherButtonTitle_otherButtonSelector_viewController___block_invoke;
+      v37[3] = &unk_278D09A88;
+      v37[4] = self;
+      v38 = titleCopy;
+      v39 = messageCopy;
+      v40 = buttonTitleCopy;
+      v41 = otherButtonTitleCopy;
+      v42 = controllerCopy;
+      [(UIAlertController *)alertController dismissViewControllerAnimated:0 completion:v37];
     }
 
     else
@@ -142,13 +135,11 @@
       [(BKUIAlertView *)self showAlert:titleCopy message:messageCopy cancelButtonTitle:buttonTitleCopy otherButtonTitle:otherButtonTitleCopy viewController:controllerCopy];
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showAlert:(id)alert message:(id)message cancelButtonTitle:(id)title otherButtonTitle:(id)buttonTitle viewController:(id)controller
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
   messageCopy = message;
   titleCopy = title;
@@ -158,42 +149,40 @@
   if (os_log_type_enabled(bkui_alert_view_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = alertCopy;
-    v31 = 2112;
-    v32 = messageCopy;
+    v29 = alertCopy;
+    v30 = 2112;
+    v31 = messageCopy;
     _os_log_impl(&dword_241B0A000, bkui_alert_view_log, OS_LOG_TYPE_DEFAULT, "BiometricKitUI: Show alert with title: %@, message: %@", buf, 0x16u);
   }
 
-  v26 = alertCopy;
+  v25 = alertCopy;
   v18 = [MEMORY[0x277D75110] alertControllerWithTitle:alertCopy message:messageCopy preferredStyle:1];
   alertController = self->_alertController;
   self->_alertController = v18;
 
   v20 = self->_alertController;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke;
-  v28[3] = &unk_278D09AB0;
-  v28[4] = self;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke;
+  v27[3] = &unk_278D09AB0;
+  v27[4] = self;
   v21 = titleCopy;
-  v22 = [MEMORY[0x277D750F8] actionWithTitle:titleCopy style:1 handler:v28];
+  v22 = [MEMORY[0x277D750F8] actionWithTitle:titleCopy style:1 handler:v27];
   [(UIAlertController *)v20 addAction:v22];
 
   if (buttonTitleCopy)
   {
     v23 = self->_alertController;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke_2;
-    v27[3] = &unk_278D09AB0;
-    v27[4] = self;
-    v24 = [MEMORY[0x277D750F8] actionWithTitle:buttonTitleCopy style:0 handler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke_2;
+    v26[3] = &unk_278D09AB0;
+    v26[4] = self;
+    v24 = [MEMORY[0x277D750F8] actionWithTitle:buttonTitleCopy style:0 handler:v26];
     [(UIAlertController *)v23 addAction:v24];
   }
 
   [controllerCopy presentViewController:self->_alertController animated:1 completion:0];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke(uint64_t a1, void *a2)
@@ -202,19 +191,18 @@ void __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_vi
   v4 = a2;
   [v3 dismissViewControllerAnimated:1 completion:0];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 432));
-  v6 = *(a1 + 32);
-  if (*(v6 + 440))
+  if (*(*(a1 + 32) + 440))
   {
-    v7 = *(v6 + 440);
+    v6 = *(*(a1 + 32) + 440);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = WeakRetained;
-  [WeakRetained performSelector:v7];
+  v7 = WeakRetained;
+  [WeakRetained performSelector:v6];
 }
 
 void __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_viewController___block_invoke_2(uint64_t a1, void *a2)
@@ -223,19 +211,18 @@ void __85__BKUIAlertView_showAlert_message_cancelButtonTitle_otherButtonTitle_vi
   v4 = a2;
   [v3 dismissViewControllerAnimated:1 completion:0];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 432));
-  v6 = *(a1 + 32);
-  if (*(v6 + 448))
+  if (*(*(a1 + 32) + 448))
   {
-    v7 = *(v6 + 448);
+    v6 = *(*(a1 + 32) + 448);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = WeakRetained;
-  [WeakRetained performSelector:v7];
+  v7 = WeakRetained;
+  [WeakRetained performSelector:v6];
 }
 
 - (BOOL)isAlertHidden
@@ -278,6 +265,55 @@ LABEL_8:
   }
 
   return isHidden;
+}
+
+- (void)hideAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v14 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained(&self->_alertHudView);
+
+  if (WeakRetained)
+  {
+    v6 = objc_loadWeakRetained(&self->_alertHudView);
+    isHidden = [v6 isHidden];
+
+    if ((isHidden & 1) == 0)
+    {
+      bkui_alert_view_log = self->bkui_alert_view_log;
+      if (os_log_type_enabled(bkui_alert_view_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 67109120;
+        v13 = animatedCopy;
+        _os_log_impl(&dword_241B0A000, bkui_alert_view_log, OS_LOG_TYPE_DEFAULT, "BiometricKitUI: Hiding alert animated: %i", &v12, 8u);
+      }
+
+      if (CACurrentMediaTime() - self->_alertHudTextStartTime > self->_alertHudMinDisplayTime)
+      {
+        [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__hideAlertHudView object:0];
+        [(BKUIAlertView *)self _hideAlertHudView];
+      }
+    }
+  }
+
+  else
+  {
+    view = [(UIAlertController *)self->_alertController view];
+    window = [view window];
+
+    if (window)
+    {
+      v11 = self->bkui_alert_view_log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 67109120;
+        v13 = animatedCopy;
+        _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "BiometricKitUI: Hiding alert animated: %i", &v12, 8u);
+      }
+
+      [(UIAlertController *)self->_alertController dismissViewControllerAnimated:animatedCopy completion:0];
+    }
+  }
 }
 
 - (void)_hideAlertHudView
@@ -386,11 +422,10 @@ LABEL_8:
 
 - (void)isAlertHidden
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self & 1;
-  _os_log_debug_impl(&dword_241B0A000, a2, OS_LOG_TYPE_DEBUG, "BiometricKitUI: Is alert hidden: %i", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self & 1;
+  _os_log_debug_impl(&dword_241B0A000, a2, OS_LOG_TYPE_DEBUG, "BiometricKitUI: Is alert hidden: %i", v2, 8u);
 }
 
 @end

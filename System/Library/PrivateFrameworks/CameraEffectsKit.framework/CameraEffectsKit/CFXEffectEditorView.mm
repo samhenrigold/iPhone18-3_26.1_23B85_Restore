@@ -74,9 +74,9 @@
 - (CFXEffectEditorView)initWithMode:(unint64_t)mode delegate:(id)delegate
 {
   delegateCopy = delegate;
-  v21.receiver = self;
-  v21.super_class = CFXEffectEditorView;
-  v8 = [(CFXEffectEditorView *)&v21 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v23.receiver = self;
+  v23.super_class = CFXEffectEditorView;
+  v8 = [(CFXEffectEditorView *)&v23 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v9 = v8;
   if (v8)
   {
@@ -105,13 +105,13 @@
     v9->_isRenderingEditEffect = 0;
     v9->_isRenderPendingForEditEffect = 0;
     [(CFXEffectEditorView *)v9 CFX_setupGestures];
-    [(CFXEffectEditorView *)v9 CFX_setupControls];
+    cFX_setupControls = [(CFXEffectEditorView *)v9 CFX_setupControls];
     if (mode == 1)
     {
-      [(CFXEffectEditorView *)v9 CFX_setUserInteractionEnabledIfPossible:0];
+      cFX_setupControls = [(CFXEffectEditorView *)v9 CFX_setUserInteractionEnabledIfPossible:0];
     }
 
-    if (isDrawEffectsEditorBoundsEnabled())
+    if (isDrawEffectsEditorBoundsEnabled(cFX_setupControls, v17))
     {
       layer = [(CFXEffectEditorView *)v9 layer];
       [layer setBorderWidth:2.0];
@@ -878,7 +878,7 @@ uint64_t __62__CFXEffectEditorView_endEditingAnimated_withCompletionBlock___bloc
 
 - (void)CFX_scaleEffect:(double)effect
 {
-  [(CFXEffectEditorView *)self editTransform];
+  objc_msgSend_editTransform(self, a2);
   CGAffineTransformScale(&v6, &v5, effect, effect);
   v5 = v6;
   [(CFXEffectEditorView *)self setEditTransform:&v5];
@@ -887,7 +887,7 @@ uint64_t __62__CFXEffectEditorView_endEditingAnimated_withCompletionBlock___bloc
 
 - (void)CFX_rotateEffect:(double)effect
 {
-  [(CFXEffectEditorView *)self editTransform];
+  objc_msgSend_editTransform(self, a2);
   CGAffineTransformRotate(&v6, &v5, effect);
   v5 = v6;
   [(CFXEffectEditorView *)self setEditTransform:&v5];
@@ -913,7 +913,7 @@ uint64_t __62__CFXEffectEditorView_endEditingAnimated_withCompletionBlock___bloc
   v21 = v20 != *(MEMORY[0x277CBF348] + 8) || v18 != *MEMORY[0x277CBF348];
   if (v21)
   {
-    [(CFXEffectEditorView *)self editTransform];
+    objc_msgSend_editTransform(self);
     CGAffineTransformTranslate(&v24, &v23, v18, v20);
     v23 = v24;
     [(CFXEffectEditorView *)self setEditTransform:&v23];
@@ -989,12 +989,12 @@ uint64_t __62__CFXEffectEditorView_endEditingAnimated_withCompletionBlock___bloc
 
 - (void)CFX_applyEffectTransformChanges
 {
-  [(CFXEffectEditorView *)self editTransform];
+  objc_msgSend_editTransform(self, a2);
   if (!CGAffineTransformIsIdentity(&v8))
   {
     delegate = [(CFXEffectEditorView *)self delegate];
     editEffect = [(CFXEffectEditorView *)self editEffect];
-    [(CFXEffectEditorView *)self editTransform];
+    objc_msgSend_editTransform(self);
     [(CFXEffectEditorView *)self renderBounds];
     [delegate effectEditorView:self didTransformEffect:editEffect transform:&v8 relativeToBounds:?];
 
@@ -2033,9 +2033,9 @@ void __52__CFXEffectEditorView_CFX_previewEditEffectIfNeeded__block_invoke_2(uin
 
         [editEffectPreview setHidden:0];
 
-        transform = [currentEffectTransforms transform];
+        v22 = objc_msgSend_transform(currentEffectTransforms);
         transformAnimation = [currentEffectTransforms transformAnimation];
-        v24 = [JFXOverlayEffectTransforms transformsWithTransform:transform transformAnimation:transformAnimation faceTrackingTransform:v19];
+        v24 = [JFXOverlayEffectTransforms transformsWithTransform:v22 transformAnimation:transformAnimation faceTrackingTransform:v19];
 
         currentEffectTransforms = v24;
       }
@@ -2055,7 +2055,7 @@ void __52__CFXEffectEditorView_CFX_previewEditEffectIfNeeded__block_invoke_2(uin
 LABEL_7:
 }
 
-uint64_t __52__CFXEffectEditorView_CFX_applyEffectAnimationView___block_invoke(uint64_t a1)
+void *__52__CFXEffectEditorView_CFX_applyEffectAnimationView___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 408) = 1;
   kdebug_trace();
@@ -2309,7 +2309,7 @@ uint64_t __83__CFXEffectEditorView_CFX_performTextEditOnlyModeExitAnimationWithC
 
 - (JFXOverlayEffectDebugView)debugOverlayView
 {
-  if (JFX_isDrawOverlayBoundsEnabled() && !self->_debugOverlayView)
+  if (JFX_isDrawOverlayBoundsEnabled(self, a2) && !self->_debugOverlayView)
   {
     v3 = [JFXOverlayEffectDebugView alloc];
     v4 = [(JFXOverlayEffectDebugView *)v3 initWithFrame:self delegate:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
@@ -2326,7 +2326,7 @@ uint64_t __83__CFXEffectEditorView_CFX_performTextEditOnlyModeExitAnimationWithC
 
 - (void)startUpdatingDebugOverlayView
 {
-  if (JFX_isDrawOverlayBoundsEnabled())
+  if (JFX_isDrawOverlayBoundsEnabled(self, a2))
   {
     v3 = [MEMORY[0x277CD9E48] displayLinkWithTarget:self selector:sel_onDebugDisplayLink_];
     [(CFXEffectEditorView *)self setDebugDisplayLink:v3];
@@ -2339,7 +2339,7 @@ uint64_t __83__CFXEffectEditorView_CFX_performTextEditOnlyModeExitAnimationWithC
 
 - (void)stopUpdatingDebugOverlayView
 {
-  if (JFX_isDrawOverlayBoundsEnabled())
+  if (JFX_isDrawOverlayBoundsEnabled(self, a2))
   {
     debugDisplayLink = [(CFXEffectEditorView *)self debugDisplayLink];
     [debugDisplayLink invalidate];
@@ -2350,7 +2350,7 @@ uint64_t __83__CFXEffectEditorView_CFX_performTextEditOnlyModeExitAnimationWithC
 
 - (void)onDebugDisplayLink:(id)link
 {
-  if (JFX_isDrawOverlayBoundsEnabled())
+  if (JFX_isDrawOverlayBoundsEnabled(self, a2))
   {
     editEffect = [(CFXEffectEditorView *)self editEffect];
 
@@ -2386,7 +2386,7 @@ uint64_t __83__CFXEffectEditorView_CFX_performTextEditOnlyModeExitAnimationWithC
 
 - (id)overlayEffectDebugViewOptions
 {
-  v2 = JFX_getDrawOverlayBoundsOptionsDictionary();
+  v2 = JFX_getDrawOverlayBoundsOptionsDictionary(self, a2);
   v3 = [JFXOverlayEffectDebugViewOptions debugViewOptionsWithDictionary:v2];
 
   return v3;

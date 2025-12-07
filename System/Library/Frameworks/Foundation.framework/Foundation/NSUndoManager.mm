@@ -744,7 +744,7 @@ void __57__NSUndoManager_NSRemoteUndo___linkWithAuxiliaryManager___block_invoke_
   objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v2 reason:@"NSUndoManager (main) failed to connect to an auxiliary manager" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v4, &v3, 1)}]);
 }
 
-uint64_t __57__NSUndoManager_NSRemoteUndo___linkWithAuxiliaryManager___block_invoke_3(uint64_t a1, void *a2)
+void *__57__NSUndoManager_NSRemoteUndo___linkWithAuxiliaryManager___block_invoke_3(uint64_t a1, void *a2)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -768,7 +768,8 @@ uint64_t __57__NSUndoManager_NSRemoteUndo___linkWithAuxiliaryManager___block_inv
             objc_enumerationMutation(a2);
           }
 
-          [*(a1 + 32) _registerRemoteUndoGroupForAction:*(*(&v13 + 1) + 8 * v7++) auxUUID:*(a1 + 40) withReply:&__block_literal_global_276];
+          [*(a1 + 32) _registerRemoteUndoGroupForAction:*(*(&v13 + 1) + 8 * v7) auxUUID:*(a1 + 40) withReply:&__block_literal_global_276];
+          v7 = v7 + 1;
         }
 
         while (v5 != v7);

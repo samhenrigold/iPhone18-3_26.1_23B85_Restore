@@ -9,8 +9,8 @@
 - (SFSpeechRecognizer)init;
 - (SFSpeechRecognizer)initWithLocale:(NSLocale *)locale;
 - (id)delegate;
-- (uint64_t)_informDelegateOfAvailabilityChange;
 - (void)_dealloc;
+- (void)_informDelegateOfAvailabilityChange;
 - (void)_objc_initiateDealloc;
 - (void)_prepareToRecognizeWithTaskHint:(int64_t)hint clientIdentifier:(id)identifier completion:(id)completion;
 - (void)_prepareToRecognizeWithTaskHint:(int64_t)hint completion:(id)completion;
@@ -21,11 +21,11 @@
 
 @implementation SFSpeechRecognizer
 
-- (uint64_t)_informDelegateOfAvailabilityChange
+- (void)_informDelegateOfAvailabilityChange
 {
   if (result)
   {
-    v1 = *(result + 72);
+    v1 = result[9];
     v2[0] = MEMORY[0x1E69E9820];
     v2[1] = 3221225472;
     v2[2] = __57__SFSpeechRecognizer__informDelegateOfAvailabilityChange__block_invoke;
@@ -117,11 +117,11 @@ void __82__SFSpeechRecognizer__prepareToRecognizeWithTaskHint_clientIdentifier_c
 {
   if (*(a1 + 56))
   {
-    v5 = [SFUtilities taskNameFromTaskHint:?];
-    if (v5 && [*(a1 + 32) supportsOnDeviceRecognition])
+    v4 = [SFUtilities taskNameFromTaskHint:?];
+    if (v4 && [*(a1 + 32) supportsOnDeviceRecognition])
     {
       v2 = objc_opt_new();
-      [v2 preloadRecognizerForLanguage:*(*(a1 + 32) + 16) task:v5 clientID:*(a1 + 40) recognitionOverrides:0 modelOverrideURL:0 completion:*(a1 + 48)];
+      [v2 preloadRecognizerForLanguage:*(*(a1 + 32) + 16) task:v4 clientID:*(a1 + 40) recognitionOverrides:0 modelOverrideURL:0 completion:*(a1 + 48)];
     }
 
     else
@@ -132,10 +132,9 @@ void __82__SFSpeechRecognizer__prepareToRecognizeWithTaskHint_clientIdentifier_c
 
   else
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -335,15 +334,17 @@ uint64_t __37__SFSpeechRecognizer_initWithLocale___block_invoke(uint64_t a1)
   if (WeakRetained)
   {
     v3 = WeakRetained[9];
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __56__SFSpeechRecognizer__informDelegateOfPreferencesChange__block_invoke;
-    v5[3] = &unk_1E797CAB8;
-    v5[4] = v2;
-    [v3 addOperationWithBlock:v5];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __56__SFSpeechRecognizer__informDelegateOfPreferencesChange__block_invoke;
+    v6[3] = &unk_1E797CAB8;
+    v6[4] = v2;
+    v5 = v2;
+    WeakRetained = [v3 addOperationWithBlock:v6];
+    v2 = v5;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v2);
 }
 
 void __56__SFSpeechRecognizer__informDelegateOfPreferencesChange__block_invoke(uint64_t a1)
@@ -394,30 +395,30 @@ void __56__SFSpeechRecognizer__informDelegateOfPreferencesChange__block_invoke(u
 
 void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:{*(*(&v13 + 1) + 8 * v9), v13}];
+        v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:{*(*(&v12 + 1) + 8 * v9), v12}];
         if (v10)
         {
           [v4 addObject:v10];
@@ -427,7 +428,7 @@ void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion_
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -438,36 +439,34 @@ void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion_
   {
     (*(v11 + 16))(v11, v4, 0);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:{*(*(&v13 + 1) + 8 * v9), v13}];
+        v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:{*(*(&v12 + 1) + 8 * v9), v12}];
         if (v10)
         {
           [v4 addObject:v10];
@@ -477,7 +476,7 @@ void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion_
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -488,8 +487,6 @@ void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion_
   {
     (*(v11 + 16))(v11, v4, 0);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)requestAuthorization:(void *)handler
@@ -498,8 +495,7 @@ void __72__SFSpeechRecognizer__fetchSupportedForcedOfflineLocalesWithCompletion_
   v4 = v3;
   if (v3)
   {
-    v5 = *MEMORY[0x1E69D55F0];
-    v6 = v3;
+    v5 = v3;
     TCCAccessRequest();
   }
 }
@@ -518,29 +514,23 @@ uint64_t __43__SFSpeechRecognizer_requestAuthorization___block_invoke(uint64_t a
 
 + (SFSpeechRecognizerAuthorizationStatus)authorizationStatus
 {
-  v2 = MEMORY[0x1E69D55F0];
-  v3 = *MEMORY[0x1E69D55F0];
-  v4 = TCCAccessPreflight();
-  if (v4 == 2)
+  v2 = TCCAccessPreflight();
+  if (v2 == 2)
   {
     return 0;
   }
 
-  if (!v4)
+  if (!v2)
   {
     return 3;
   }
 
-  v6 = *v2;
   if (TCCAccessRestricted())
   {
     return 2;
   }
 
-  else
-  {
-    return 1;
-  }
+  return 1;
 }
 
 + (void)initialize

@@ -6,7 +6,7 @@
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary;
 - (NSString)debugDescription;
 - (NSString)hidEventTypeString;
-- (void)addKTraceEvent:(uint64_t)event fromSession:(uint64_t)session;
+- (void)addKTraceEvent:(uint64_t)event fromSession:;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary;
 @end
@@ -57,55 +57,55 @@
   return v7;
 }
 
-- (void)addKTraceEvent:(uint64_t)event fromSession:(uint64_t)session
+- (void)addKTraceEvent:(uint64_t)event fromSession:
 {
-  if (!event)
+  if (!self)
   {
     return;
   }
 
   objc_opt_self();
-  v4 = [SAHIDStep alloc];
-  if (v4)
+  v6 = [SAHIDStep alloc];
+  if (v6)
   {
-    v5 = v4;
-    v6 = [SATimestamp timestampWithKTraceEvent:session fromSession:?];
-    v7 = *(session + 48);
+    v7 = v6;
+    v8 = [SATimestamp timestampWithKTraceEvent:a2 fromSession:event];
+    v9 = *(a2 + 48);
     pid_for_thread = -1;
-    if (v7 > 736428035)
+    if (v9 > 736428035)
     {
-      if ((v7 - 736428036) <= 0x1C)
+      if ((v9 - 736428036) <= 0x1C)
       {
-        if (((1 << (v7 - 4)) & 0x1111111) != 0)
+        if (((1 << (v9 - 4)) & 0x1111111) != 0)
         {
           goto LABEL_18;
         }
 
-        if (v7 == 736428064)
+        if (v9 == 736428064)
         {
-          v9 = 0;
-          pid_for_thread = *(session + 24);
+          v11 = 0;
+          pid_for_thread = *(a2 + 24);
           goto LABEL_34;
         }
       }
 
-      if ((v7 - 736493572) > 0xC)
+      if ((v9 - 736493572) > 0xC)
       {
-        v11 = *(session + 48);
+        v13 = *(a2 + 48);
         goto LABEL_20;
       }
 
-      v11 = *(session + 48);
-      if (((1 << (v7 - 4)) & 0x1111) == 0)
+      v13 = *(a2 + 48);
+      if (((1 << (v9 - 4)) & 0x1111) == 0)
       {
 LABEL_20:
-        v9 = 0;
-        if (v11 > 736428035)
+        v11 = 0;
+        if (v13 > 736428035)
         {
-          if ((v11 - 736428036) > 0x18 || ((1 << (v11 - 4)) & 0x1111111) == 0)
+          if ((v13 - 736428036) > 0x18 || ((1 << (v13 - 4)) & 0x1111111) == 0)
           {
-            v13 = v11 - 736493572;
-            if (v13 > 0xC || ((1 << v13) & 0x1111) == 0)
+            v14 = v13 - 736493572;
+            if (v14 > 0xC || ((1 << v14) & 0x1111) == 0)
             {
               goto LABEL_34;
             }
@@ -114,89 +114,88 @@ LABEL_20:
           goto LABEL_33;
         }
 
-        if (v11 > 730268059)
+        if (v13 > 730268059)
         {
-          if ((v11 - 735576101) >= 2)
+          if ((v13 - 735576101) >= 2)
           {
-            v14 = 412;
+            v15 = 412;
 LABEL_32:
-            if (v11 != (v14 | 0x2B870000))
+            if (v13 != (v15 | 0x2B870000))
             {
               goto LABEL_34;
             }
           }
         }
 
-        else if ((v11 - 730267892) > 0x10 || ((1 << (v11 + 12)) & 0x10011) == 0)
+        else if ((v13 - 730267892) > 0x10 || ((1 << (v13 + 12)) & 0x10011) == 0)
         {
-          v14 = 408;
+          v15 = 408;
           goto LABEL_32;
         }
 
 LABEL_33:
-        v9 = *(session + 40);
+        v11 = *(a2 + 40);
 LABEL_34:
-        v19.receiver = v5;
-        v19.super_class = SAHIDStep;
-        v15 = objc_msgSendSuper2(&v19, sel_init);
-        v16 = v15;
-        if (v15)
+        v20.receiver = v7;
+        v20.super_class = SAHIDStep;
+        v16 = objc_msgSendSuper2(&v20, sel_init);
+        v17 = v16;
+        if (v16)
         {
-          *(v15 + 2) = v7;
-          objc_storeStrong(v15 + 2, v6);
-          *(v16 + 3) = pid_for_thread;
-          v16[3] = v9;
-          v18 = v16;
+          *(v16 + 2) = v9;
+          objc_storeStrong(v16 + 2, v8);
+          *(v17 + 3) = pid_for_thread;
+          v17[3] = v11;
+          v19 = v17;
 
-          [*(event + 8) addObject:v18];
-          v4 = v18;
+          [*(self + 8) addObject:v19];
+          v6 = v19;
         }
 
         else
         {
-          v17 = 0;
+          v18 = 0;
 
-          v4 = 0;
+          v6 = 0;
         }
 
         goto LABEL_37;
       }
 
 LABEL_18:
-      pid_for_thread = *(session + 88);
-      v11 = *(session + 48);
+      pid_for_thread = *(a2 + 88);
+      v13 = *(a2 + 48);
       if (pid_for_thread < 0)
       {
-        v12 = *(session + 40);
         pid_for_thread = ktrace_get_pid_for_thread();
-        v11 = *(session + 48);
+        v13 = *(a2 + 48);
       }
 
       goto LABEL_20;
     }
 
-    if (v7 > 730268059)
+    if (v9 > 730268059)
     {
-      if ((v7 - 735576101) < 2)
+      if ((v9 - 735576101) < 2)
       {
         goto LABEL_18;
       }
 
-      v10 = 412;
+      v12 = 412;
     }
 
     else
     {
-      if ((v7 - 730267892) <= 0x10 && ((1 << (v7 + 12)) & 0x10011) != 0)
+      if ((v9 - 730267892) <= 0x10 && ((1 << (v9 + 12)) & 0x10011) != 0)
       {
         goto LABEL_18;
       }
 
-      v10 = 408;
+      v12 = 408;
     }
 
-    v11 = *(session + 48);
-    if (v7 != (v10 | 0x2B870000))
+    v13 = *(a2 + 48);
+    if (v9 != (v12 | 0x2B870000))
     {
       goto LABEL_20;
     }
@@ -241,10 +240,10 @@ void __43__SAHIDEvent_parseKTrace_findingHIDEvents___block_invoke(void *a1, uint
       {
         v12 = a1[4];
         v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
-        v25 = [v12 objectForKeyedSubscript:v13];
+        v23 = [v12 objectForKeyedSubscript:v13];
 
-        v14 = v25;
-        if (!v25)
+        v14 = v23;
+        if (!v23)
         {
           if (*(a2 + 48) == 735576102)
           {
@@ -254,29 +253,27 @@ LABEL_27:
             return;
           }
 
-          v16 = a1[6];
-          v17 = [SATimestamp timestampWithMachAbsTime:v5 fromKtraceSession:?];
-          v26 = [SAHIDEvent hidEventWithHIDEventType:v11 atTimestamp:v17];
-          v18 = a1[4];
-          v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v5];
-          [v18 setObject:v26 forKeyedSubscript:v19];
+          v16 = [SATimestamp timestampWithMachAbsTime:v5 fromKtraceSession:a1[6]];
+          v24 = [SAHIDEvent hidEventWithHIDEventType:v11 atTimestamp:v16];
+          v17 = a1[4];
+          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v5];
+          [v17 setObject:v24 forKeyedSubscript:v18];
 
           (*(a1[5] + 16))();
-          v14 = v26;
+          v14 = v24;
         }
 
-        v20 = a1[6];
-        v27 = v14;
-        [SAHIDEvent addKTraceEvent:v14 fromSession:a2];
-        v21 = *(a2 + 48);
-        if (v21 == 730267896 || v21 == 730268060 || v21 == 736493584 && (v22 = *(a2 + 80)) != 0 && strcmp(v22, "UIKitHostApp"))
+        v25 = v14;
+        [(SAHIDEvent *)v14 addKTraceEvent:a2 fromSession:a1[6]];
+        v19 = *(a2 + 48);
+        if (v19 == 730267896 || v19 == 730268060 || v19 == 736493584 && (v20 = *(a2 + 80)) != 0 && strcmp(v20, "UIKitHostApp"))
         {
-          v23 = a1[4];
-          v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v5];
-          [v23 setObject:0 forKeyedSubscript:v24];
+          v21 = a1[4];
+          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v5];
+          [v21 setObject:0 forKeyedSubscript:v22];
         }
 
-        v15 = v27;
+        v15 = v25;
         goto LABEL_27;
       }
     }
@@ -285,69 +282,65 @@ LABEL_27:
 
 - (NSString)debugDescription
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AD60]);
   v4 = [(SATimestamp *)self->_hidEventTimestamp debugDescription];
   v5 = [v3 initWithFormat:@"%@ HID event type %d\n", v4, self->_hidEventType];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_steps;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) debugDescription];
+        v11 = [*(*(&v13 + 1) + 8 * i) debugDescription];
         [v5 appendFormat:@"%@\n", v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if ([(SAHIDEvent *)self sizeInBytesForSerializedVersion]!= length)
   {
     v5 = *__error();
-    v22 = _sa_logt();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = _sa_logt();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = [(SAHIDEvent *)self debugDescription];
+      v22 = [(SAHIDEvent *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v23 UTF8String];
-      v58 = 2048;
-      *v59 = [(SAHIDEvent *)self sizeInBytesForSerializedVersion];
-      *&v59[8] = 2048;
-      *&v59[10] = length;
-      _os_log_error_impl(&dword_1E0E2F000, v22, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      uTF8String = [v22 UTF8String];
+      v35 = 2048;
+      *v36 = [(SAHIDEvent *)self sizeInBytesForSerializedVersion];
+      *&v36[8] = 2048;
+      *&v36[10] = length;
+      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
     *__error() = v5;
-    v24 = [(SAHIDEvent *)self debugDescription];
-    uTF8String2 = [v24 UTF8String];
-    [(SAHIDEvent *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(856, "%s: size %lu != buffer length %lu", v26, v27, v28, v29, v30, v31, uTF8String2);
+    v23 = [(SAHIDEvent *)self debugDescription];
+    _SASetCrashLogMessage(856, "%s: size %lu != buffer length %lu", [v23 UTF8String], -[SAHIDEvent sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -360,47 +353,43 @@ LABEL_27:
   if ([(NSMutableArray *)self->_steps count]>= 0xFFFF)
   {
 LABEL_13:
-    v32 = *__error();
+    v24 = *__error();
     buffer = _sa_logt();
     if (os_log_type_enabled(buffer, OS_LOG_TYPE_ERROR))
     {
-      v33 = [(NSMutableArray *)self->_steps count];
+      v25 = [(NSMutableArray *)self->_steps count];
       *buf = 134217984;
-      uTF8String = v33;
+      uTF8String = v25;
       _os_log_error_impl(&dword_1E0E2F000, buffer, OS_LOG_TYPE_ERROR, "hid event with %lu steps", buf, 0xCu);
     }
 
-    *__error() = v32;
-    v34 = [(NSMutableArray *)self->_steps count];
-    _SASetCrashLogMessage(864, "hid event with %lu steps", v35, v36, v37, v38, v39, v40, v34);
+    *__error() = v24;
+    _SASetCrashLogMessage(864, "hid event with %lu steps", [(NSMutableArray *)self->_steps count]);
     _os_crash();
     __break(1u);
 LABEL_16:
-    v41 = *__error();
-    v42 = _sa_logt();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v26 = *__error();
+    v27 = _sa_logt();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v43 = [(SAHIDEvent *)self debugDescription];
-      uTF8String3 = [v43 UTF8String];
+      v28 = [(SAHIDEvent *)self debugDescription];
+      uTF8String2 = [v28 UTF8String];
       var2 = buffer->var2;
       sizeInBytesForSerializedVersion = [(SAHIDEvent *)self sizeInBytesForSerializedVersion];
       *buf = 136315906;
-      uTF8String = uTF8String3;
-      v58 = 1024;
-      *v59 = var2;
-      *&v59[4] = 2048;
-      *&v59[6] = v5;
-      *&v59[14] = 2048;
-      *&v59[16] = sizeInBytesForSerializedVersion;
-      _os_log_error_impl(&dword_1E0E2F000, v42, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u steps), ended with length %ld, should be %lu", buf, 0x26u);
+      uTF8String = uTF8String2;
+      v35 = 1024;
+      *v36 = var2;
+      *&v36[4] = 2048;
+      *&v36[6] = v5;
+      *&v36[14] = 2048;
+      *&v36[16] = sizeInBytesForSerializedVersion;
+      _os_log_error_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u steps), ended with length %ld, should be %lu", buf, 0x26u);
     }
 
-    *__error() = v41;
-    v47 = [(SAHIDEvent *)self debugDescription];
-    uTF8String4 = [v47 UTF8String];
-    v49 = buffer->var2;
-    [(SAHIDEvent *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(875, "%s: after serializing (with %u steps), ended with length %ld, should be %lu", v50, v51, v52, v53, v54, v55, uTF8String4);
+    *__error() = v26;
+    v32 = [(SAHIDEvent *)self debugDescription];
+    _SASetCrashLogMessage(875, "%s: after serializing (with %u steps), ended with length %ld, should be %lu", [v32 UTF8String], buffer->var2, v5, -[SAHIDEvent sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"));
 
     _os_crash();
     __break(1u);
@@ -449,59 +438,56 @@ LABEL_16:
 
   objc_opt_class();
   *v19 = *v19 & 0xFE | objc_opt_isKindOfClass() & 1;
-  v20 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
   if (v6)
   {
     [(SATimestamp *)self->_hidEventTimestamp addSelfToSerializationDictionary:dictionary];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = self->_steps;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          timestamp = [*(*(&v14 + 1) + 8 * v11) timestamp];
+          timestamp = [*(*(&v13 + 1) + 8 * v11) timestamp];
           [timestamp addSelfToSerializationDictionary:dictionary];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  *&v50[13] = *MEMORY[0x1E69E9840];
+  *&v29[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_23;
@@ -509,19 +495,19 @@ LABEL_16:
 
   if (length <= 0xF)
   {
-    v19 = *__error();
+    v18 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy3 = length;
-      v49 = 2048;
-      *v50 = 16;
+      v28 = 2048;
+      *v29 = 16;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v19;
-    _SASetCrashLogMessage(898, "bufferLength %lu < serialized SAHIDEvent struct %lu", v20, v21, v22, v23, v24, v25, length);
+    *__error() = v18;
+    _SASetCrashLogMessage(898, "bufferLength %lu < serialized SAHIDEvent struct %lu", length, 16);
     _os_crash();
     __break(1u);
     goto LABEL_17;
@@ -531,46 +517,44 @@ LABEL_16:
   if (8 * *(buffer + 1) + 16 > length)
   {
 LABEL_17:
-    v26 = *__error();
-    v27 = _sa_logt();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v19 = *__error();
+    v20 = _sa_logt();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(bufferCopy + 2);
+      v21 = *(bufferCopy + 2);
       *buf = 134218496;
       lengthCopy3 = length;
-      v49 = 1024;
-      *v50 = v28;
-      v50[2] = 2048;
-      *&v50[3] = 8 * v28 + 16;
-      _os_log_error_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", buf, 0x1Cu);
+      v28 = 1024;
+      *v29 = v21;
+      v29[2] = 2048;
+      *&v29[3] = 8 * v21 + 16;
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", buf, 0x1Cu);
     }
 
-    *__error() = v26;
-    v45 = *(bufferCopy + 2);
-    _SASetCrashLogMessage(899, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", v29, v30, v31, v32, v33, v34, length);
+    *__error() = v19;
+    _SASetCrashLogMessage(899, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", length, *(bufferCopy + 2), 8 * *(bufferCopy + 2) + 16);
     _os_crash();
     __break(1u);
 LABEL_20:
-    v35 = *__error();
-    v36 = _sa_logt();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v22 = *__error();
+    v23 = _sa_logt();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v37 = *(bufferCopy + 2);
+      v24 = *(bufferCopy + 2);
       *buf = 134218240;
       lengthCopy3 = length;
-      v49 = 1024;
-      *v50 = v37;
-      _os_log_error_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", buf, 0x12u);
+      v28 = 1024;
+      *v29 = v24;
+      _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", buf, 0x12u);
     }
 
-    *__error() = v35;
-    v46 = *(bufferCopy + 2);
-    _SASetCrashLogMessage(906, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", v38, v39, v40, v41, v42, v43, length);
+    *__error() = v22;
+    _SASetCrashLogMessage(906, "bufferLength %lu < serialized SAThread v2 struct with %u thread states", length, *(bufferCopy + 2));
     _os_crash();
     __break(1u);
 LABEL_23:
-    v44 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAHIDEvent version" userInfo:0];
-    objc_exception_throw(v44);
+    v25 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAHIDEvent version" userInfo:0];
+    objc_exception_throw(v25);
   }
 
   if (*(buffer + 1) < 2u)
@@ -624,13 +608,12 @@ LABEL_10:
     while (v10 < *(bufferCopy + 2));
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  *&v45[13] = *MEMORY[0x1E69E9840];
+  *&v31[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_16;
@@ -638,19 +621,19 @@ LABEL_10:
 
   if (length <= 0xF)
   {
-    v24 = *__error();
+    v23 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v44 = 2048;
-      *v45 = 16;
+      v30 = 2048;
+      *v31 = 16;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v24;
-    _SASetCrashLogMessage(937, "bufferLength %lu < serialized SAHIDEvent struct %lu", v25, v26, v27, v28, v29, v30, length);
+    *__error() = v23;
+    _SASetCrashLogMessage(937, "bufferLength %lu < serialized SAHIDEvent struct %lu", length, 16);
     _os_crash();
     __break(1u);
     goto LABEL_13;
@@ -660,28 +643,27 @@ LABEL_10:
   if (8 * *(buffer + 1) + 16 > length)
   {
 LABEL_13:
-    v31 = *__error();
-    v32 = _sa_logt();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v24 = *__error();
+    v25 = _sa_logt();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v33 = *(bufferCopy + 2);
+      v26 = *(bufferCopy + 2);
       *buf = 134218496;
       lengthCopy2 = length;
-      v44 = 1024;
-      *v45 = v33;
-      v45[2] = 2048;
-      *&v45[3] = 8 * v33 + 16;
-      _os_log_error_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", buf, 0x1Cu);
+      v30 = 1024;
+      *v31 = v26;
+      v31[2] = 2048;
+      *&v31[3] = 8 * v26 + 16;
+      _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", buf, 0x1Cu);
     }
 
-    *__error() = v31;
-    v41 = *(bufferCopy + 2);
-    _SASetCrashLogMessage(938, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", v34, v35, v36, v37, v38, v39, length);
+    *__error() = v24;
+    _SASetCrashLogMessage(938, "bufferLength %lu < serialized SAHIDEvent struct plus %u children %lu", length, *(bufferCopy + 2), 8 * *(bufferCopy + 2) + 16);
     _os_crash();
     __break(1u);
 LABEL_16:
-    v40 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAHIDEvent version" userInfo:0];
-    objc_exception_throw(v40);
+    v27 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAHIDEvent version" userInfo:0];
+    objc_exception_throw(v27);
   }
 
   v11 = *(buffer + 1);
@@ -712,30 +694,28 @@ LABEL_16:
 
     while (v15 < *(bufferCopy + 2));
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (id)hidEventWithoutReferencesFromPAStyleSerializedHIDEvent:(uint64_t)event
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = [SATimestamp timestampWithMachAbsTime:*(a2 + 16) machAbsTimeSec:0 machContTime:*(a2 + 8) machContTimeSec:0.0 wallTime:0.0];
   v4 = [SAHIDEvent hidEventWithHIDEventType:v3 atTimestamp:?];
   if (*(a2 + 28) >= 0xFFFFu)
   {
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = *__error();
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a2 + 28);
+      v16 = *(a2 + 28);
       *buf = 67109120;
-      v25 = v17;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "hid event with %u steps", buf, 8u);
+      v18 = v16;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "hid event with %u steps", buf, 8u);
     }
 
-    *__error() = v15;
-    _SASetCrashLogMessage(952, "hid event with %u steps", v18, v19, v20, v21, v22, v23, *(a2 + 28));
+    *__error() = v14;
+    _SASetCrashLogMessage(952, "hid event with %u steps", *(a2 + 28));
     _os_crash();
     __break(1u);
   }
@@ -766,8 +746,6 @@ LABEL_16:
 
     while (v8 < *(a2 + 28));
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

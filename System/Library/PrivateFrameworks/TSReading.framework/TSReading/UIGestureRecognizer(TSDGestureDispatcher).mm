@@ -64,15 +64,15 @@
 
 - (uint64_t)setGestureDelegate:()TSDGestureDispatcher
 {
-  v2 = TSUProtocolCast();
-  if (!v2)
+  v4 = TSUProtocolCast();
+  if (!v4)
   {
     currentHandler = [MEMORY[0x277D6C290] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[UIGestureRecognizer(TSDGestureDispatcher) setGestureDelegate:]"];
-    [currentHandler handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGestureDispatcher.m"), 136, @"invalid nil value for '%s'", "grDelegate"}];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[UIGestureRecognizer(TSDGestureDispatcher) setGestureDelegate:]"];
+    [currentHandler handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGestureDispatcher.m"), 136, @"invalid nil value for '%s'", "grDelegate"}];
   }
 
-  return [self setDelegate:v2];
+  return [self setDelegate:v4];
 }
 
 @end

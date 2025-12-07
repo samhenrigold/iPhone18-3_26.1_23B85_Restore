@@ -23,7 +23,7 @@
 
 - (id)errorForSinglePassVideoConversionError:(id)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = errorCopy;
   if (errorCopy)
@@ -42,9 +42,9 @@
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA7E8];
-    v15[0] = v4;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA7E8];
+    v14[0] = v4;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v11 = [v9 errorWithDomain:@"PHMediaFormatConversionErrorDomain" code:v8 userInfo:v10];
   }
 
@@ -52,8 +52,6 @@
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -101,9 +99,7 @@
 - (void)enableSinglePassVideoConversionWithTargetLength:(unint64_t)length
 {
   self->_singlePassVideoConversionTargetLength = length;
-  v4 = objc_opt_new();
-  singlePassVideoExportRangeCoordinator = self->_singlePassVideoExportRangeCoordinator;
-  self->_singlePassVideoExportRangeCoordinator = v4;
+  self->_singlePassVideoExportRangeCoordinator = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -191,14 +187,14 @@
 
 - (BOOL)padToLength:(unint64_t)length error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   if ([(PHMediaFormatConversionDestination *)self length]!= length)
   {
     v8 = MEMORY[0x277CCA9F8];
     fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-    v19 = 0;
-    v10 = [v8 fileHandleForUpdatingURL:fileURL error:&v19];
-    v11 = v19;
+    v18 = 0;
+    v10 = [v8 fileHandleForUpdatingURL:fileURL error:&v18];
+    v11 = v18;
 
     if (v10)
     {
@@ -226,15 +222,15 @@ LABEL_13:
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA7E8];
-    v23[0] = v11;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA7E8];
+    v22[0] = v11;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v15 = [v13 errorWithDomain:@"PHMediaFormatConversionErrorDomain" code:1 userInfo:v14];
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v15;
+      v20 = v15;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to open image filehandle for padding: %@", buf, 0xCu);
       if (error)
       {
@@ -250,17 +246,14 @@ LABEL_8:
       *error = v15;
 LABEL_14:
 
-      goto LABEL_15;
+      return v7;
     }
 
     v7 = 0;
     goto LABEL_14;
   }
 
-  v7 = 1;
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 1;
 }
 
 - (void)dealloc
@@ -301,7 +294,7 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
 
 - (void)removeTemporaryFiles
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   temporaryFilesURLToDelete = self->_temporaryFilesURLToDelete;
   if (temporaryFilesURLToDelete)
   {
@@ -309,10 +302,10 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
     {
       *buf = 134218498;
       selfCopy = self;
-      v21 = 2112;
-      *v22 = self;
-      *&v22[8] = 2112;
-      *&v22[10] = temporaryFilesURLToDelete;
+      v20 = 2112;
+      *v21 = self;
+      *&v21[8] = 2112;
+      *&v21[10] = temporaryFilesURLToDelete;
       _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Delete temporary output %p %@ %@", buf, 0x20u);
       temporaryFilesURLToDelete = self->_temporaryFilesURLToDelete;
     }
@@ -333,8 +326,8 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
           path = [(NSURL *)self->_temporaryFilesURLToDelete path];
           *buf = 138543618;
           selfCopy = path;
-          v21 = 2112;
-          *v22 = @"PHMediaFormatConversionKeepTemporaryFiles";
+          v20 = 2112;
+          *v21 = @"PHMediaFormatConversionKeepTemporaryFiles";
           _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Not deleting temporary media conversion files at %{public}@ because the %@ user defaults key is set", buf, 0x16u);
         }
       }
@@ -343,18 +336,18 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
       {
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         v12 = self->_temporaryFilesURLToDelete;
-        v18 = 0;
-        v13 = [defaultManager removeItemAtURL:v12 error:&v18];
-        v14 = v18;
+        v17 = 0;
+        v13 = [defaultManager removeItemAtURL:v12 error:&v17];
+        v14 = v17;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           v15 = self->_temporaryFilesURLToDelete;
           *buf = 138412802;
           selfCopy = v15;
-          v21 = 1024;
-          *v22 = v13;
-          *&v22[4] = 2112;
-          *&v22[6] = v14;
+          v20 = 1024;
+          *v21 = v13;
+          *&v21[4] = 2112;
+          *&v21[6] = v14;
           _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Deleted temporary output: %@ %d %@", buf, 0x1Cu);
         }
 
@@ -378,8 +371,6 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
     v16 = self->_temporaryFilesURLToDelete;
     self->_temporaryFilesURLToDelete = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NSURL)temporaryOutputFileURL
@@ -414,32 +405,31 @@ uint64_t __80__PHMediaFormatConversionDestination_removeTemporaryFilesWithComple
 
 - (BOOL)createTemporaryOutputFileWithErrorError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_temporaryOutputFileURL)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v14 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PHMediaFormatConversion.m" lineNumber:636 description:{@"You must call generateTemporaryOutputFileURLForRequest before calling %@", v14}];
+    v13 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PHMediaFormatConversion.m" lineNumber:636 description:{@"You must call generateTemporaryOutputFileURLForRequest before calling %@", v13}];
   }
 
   if (![(PHMediaFormatConversionDestination *)self createTemporaryOutputDirectoryWithError:error])
   {
-    v7 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   data = [MEMORY[0x277CBEA90] data];
   temporaryOutputFileURL = self->_temporaryOutputFileURL;
-  v15 = 0;
-  v7 = [data writeToURL:temporaryOutputFileURL options:0 error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [data writeToURL:temporaryOutputFileURL options:0 error:&v14];
+  v8 = v14;
 
   if ((v7 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v8;
+      v16 = v8;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create format conversion output temporary file: %@", buf, 0xCu);
       if (!error)
       {
@@ -459,36 +449,34 @@ LABEL_7:
 
 LABEL_8:
 
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)createTemporaryOutputDirectoryWithError:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (!self->_temporaryOutputDirectoryURL)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v15 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PHMediaFormatConversion.m" lineNumber:618 description:{@"You must call generateTemporaryOutputFileURLForRequest before calling %@", v15}];
+    v14 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PHMediaFormatConversion.m" lineNumber:618 description:{@"You must call generateTemporaryOutputFileURLForRequest before calling %@", v14}];
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(NSURL *)self->_temporaryOutputDirectoryURL path];
-  v19 = *MEMORY[0x277CCA160];
-  v20[0] = @"mobile";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-  v16 = 0;
-  v8 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v7 error:&v16];
-  v9 = v16;
+  v18 = *MEMORY[0x277CCA160];
+  v19[0] = @"mobile";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v15 = 0;
+  v8 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v7 error:&v15];
+  v9 = v15;
 
   if ((v8 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v9;
+      v17 = v9;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create format conversion output temporary directory: %@", buf, 0xCu);
       if (!error)
       {
@@ -509,7 +497,6 @@ LABEL_10:
   objc_storeStrong(&self->_temporaryFilesURLToDelete, self->_temporaryOutputDirectoryURL);
 LABEL_8:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

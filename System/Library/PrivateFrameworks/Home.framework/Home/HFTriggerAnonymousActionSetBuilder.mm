@@ -43,9 +43,9 @@
   v4 = [actions na_map:&__block_literal_global_2];
   v5 = [v4 na_filter:&__block_literal_global_3];
 
-  home = [(HFItemBuilder *)self home];
+  v6 = objc_msgSend_home(self);
   v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
-  v8 = [home hf_shortcutsComponentActionSetWithActions:v7];
+  v8 = [v6 hf_shortcutsComponentActionSetWithActions:v7];
 
   if (!v8)
   {
@@ -99,19 +99,8 @@ LABEL_5:
   fromSet = [actionBuilders fromSet];
   v7 = [(HFAbstractBaseActionSetBuilder *)self existingActionBuilder:actionCopy inSet:fromSet];
 
-  if (v7)
+  if (v7 || ([0 updateWithActionBuilder:actionCopy], -[HFAbstractBaseActionSetBuilder actionBuilders](self, "actionBuilders"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "toSet"), v9 = objc_claimAutoreleasedReturnValue(), -[HFAbstractBaseActionSetBuilder existingActionBuilder:inSet:](self, "existingActionBuilder:inSet:", actionCopy, v9), v7 = objc_claimAutoreleasedReturnValue(), v9, v8, v7))
   {
-    goto LABEL_3;
-  }
-
-  [0 updateWithActionBuilder:actionCopy];
-  actionBuilders2 = [(HFAbstractBaseActionSetBuilder *)self actionBuilders];
-  toSet = [actionBuilders2 toSet];
-  v7 = [(HFAbstractBaseActionSetBuilder *)self existingActionBuilder:actionCopy inSet:toSet];
-
-  if (v7)
-  {
-LABEL_3:
     v10.receiver = self;
     v10.super_class = HFTriggerAnonymousActionSetBuilder;
     [(HFAbstractBaseActionSetBuilder *)&v10 updateAction:actionCopy];
@@ -171,8 +160,8 @@ LABEL_3:
     v4 = 0;
   }
 
-  home = [(HFItemBuilder *)self home];
-  areAutomationBuildersSupported = [home areAutomationBuildersSupported];
+  v5 = objc_msgSend_home(self);
+  areAutomationBuildersSupported = [v5 areAutomationBuildersSupported];
   if (v4)
   {
     v7 = areAutomationBuildersSupported;
@@ -188,7 +177,7 @@ LABEL_3:
 
 - (id)commitItem
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   containingTrigger = [(HFTriggerAnonymousActionSetBuilder *)self containingTrigger];
 
   if (!containingTrigger)
@@ -219,12 +208,12 @@ LABEL_13:
 
       if (actionSet)
       {
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke;
-        v36[3] = &unk_277DF2C68;
-        v36[4] = self;
-        futureWithNoResult = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v36];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke;
+        v35[3] = &unk_277DF2C68;
+        v35[4] = self;
+        futureWithNoResult = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v35];
       }
 
       else
@@ -250,60 +239,59 @@ LABEL_13:
 
     if (!actionSet3)
     {
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_2;
-      v35[3] = &unk_277DF2C90;
-      v35[4] = self;
-      v13 = [MEMORY[0x277D2C900] futureWithCompletionHandlerAdapterBlock:v35];
       v34[0] = MEMORY[0x277D85DD0];
       v34[1] = 3221225472;
-      v34[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_3;
-      v34[3] = &unk_277DF2CE0;
+      v34[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_2;
+      v34[3] = &unk_277DF2C90;
       v34[4] = self;
-      v14 = [v13 flatMap:v34];
-
+      v13 = [MEMORY[0x277D2C900] futureWithCompletionHandlerAdapterBlock:v34];
       v33[0] = MEMORY[0x277D85DD0];
       v33[1] = 3221225472;
-      v33[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_5;
-      v33[3] = &unk_277DF2720;
+      v33[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_3;
+      v33[3] = &unk_277DF2CE0;
       v33[4] = self;
-      v15 = [v14 addSuccessBlock:v33];
+      v14 = [v13 flatMap:v33];
+
       v32[0] = MEMORY[0x277D85DD0];
       v32[1] = 3221225472;
-      v32[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_21;
-      v32[3] = &unk_277DF2D08;
+      v32[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_5;
+      v32[3] = &unk_277DF2720;
       v32[4] = self;
-      v16 = [v14 addFailureBlock:v32];
+      v15 = [v14 addSuccessBlock:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_21;
+      v31[3] = &unk_277DF2D08;
+      v31[4] = self;
+      v16 = [v14 addFailureBlock:v31];
       futureWithNoResult2 = v14;
     }
 
     v17 = MEMORY[0x277D2C900];
-    v37[0] = futureWithNoResult2;
+    v36[0] = futureWithNoResult2;
     lazilyUpdateActions = [(HFAbstractBaseActionSetBuilder *)self lazilyUpdateActions];
-    v37[1] = lazilyUpdateActions;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[1] = lazilyUpdateActions;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     v20 = [v17 chainFutures:v19];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_24;
-    v29[3] = &unk_277DF2D30;
-    v30 = v11;
-    selfCopy = self;
-    v21 = v11;
-    v22 = [v20 recover:v29];
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
-    v28[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_2_26;
-    v28[3] = &unk_277DF2CE0;
-    v28[4] = self;
-    v5 = [v22 flatMap:v28];
+    v28[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_24;
+    v28[3] = &unk_277DF2D30;
+    v29 = v11;
+    selfCopy = self;
+    v21 = v11;
+    v22 = [v20 recover:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_2_26;
+    v27[3] = &unk_277DF2CE0;
+    v27[4] = self;
+    v5 = [v22 flatMap:v27];
 
     goto LABEL_13;
   }
 
 LABEL_18:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -346,7 +334,7 @@ void __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_4(uint64_
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) containingTrigger];
     [v5 home:v3 didUpdateTrigger:v4];
   }
@@ -354,39 +342,36 @@ void __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_4(uint64_
 
 void __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_5(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) containingTrigger];
     v6 = [v5 hf_prettyDescription];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Created anonoymous action set for trigger: %@.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Created anonoymous action set for trigger: %@.", &v7, 0xCu);
   }
 
   [*(a1 + 32) setActionSet:v3];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_21(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) containingTrigger];
-    v7 = [v6 hf_prettyDescription];
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create anonoymous action set for trigger: %@. Error: %@", &v8, 0x16u);
+    v5 = [*(a1 + 32) containingTrigger];
+    v6 = [v5 hf_prettyDescription];
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create anonoymous action set for trigger: %@. Error: %@", &v7, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_24(uint64_t a1, void *a2)
@@ -396,7 +381,7 @@ id __48__HFTriggerAnonymousActionSetBuilder_commitItem__block_invoke_24(uint64_t
   v5 = *(a1 + 40);
   v6 = a2;
   v7 = [v5 containingTrigger];
-  v8 = [*(a1 + 40) home];
+  v8 = objc_msgSend_home(*(a1 + 40));
   v9 = [v7 hf_naturalLanguageNameWithHome:v8 type:2];
   v10 = [v6 hf_errorWithOperationType:v4 failedItemName:v9];
 

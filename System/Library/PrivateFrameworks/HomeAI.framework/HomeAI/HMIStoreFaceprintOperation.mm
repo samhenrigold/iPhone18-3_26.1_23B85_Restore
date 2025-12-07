@@ -28,13 +28,10 @@
   dataSource = [(HMIStoreFaceprintOperation *)self dataSource];
   v4 = MEMORY[0x277CBEB98];
   faceprint = [(HMIStoreFaceprintOperation *)self faceprint];
-  v6 = [v4 setWithObject:faceprint];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __34__HMIStoreFaceprintOperation_main__block_invoke;
-  v7[3] = &unk_2787528E0;
+  v6 = [v4 setWithObject:?];
+  v7 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v8, &location);
-  [dataSource addFaceprints:v6 completion:v7];
+  [dataSource addFaceprints:v7 completion:{3221225472, __34__HMIStoreFaceprintOperation_main__block_invoke, &unk_2787528E0}];
 
   objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
@@ -65,7 +62,7 @@ void __34__HMIStoreFaceprintOperation_main__block_invoke(uint64_t a1, void *a2)
     }
 
     objc_autoreleasePoolPop(v5);
-    [v6 cancelWithError:v3];
+    [v6 cancelWithError:?];
   }
 
   else

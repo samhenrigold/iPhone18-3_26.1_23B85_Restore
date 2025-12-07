@@ -393,7 +393,6 @@ LABEL_48:
 
   if (arrivalPlatform)
   {
-    arrivalPlatform = self->_arrivalPlatform;
     PBDataWriterWriteStringField();
   }
 
@@ -409,7 +408,6 @@ LABEL_48:
 
   if (departurePlatform)
   {
-    departurePlatform = self->_departurePlatform;
     PBDataWriterWriteStringField();
   }
 
@@ -433,7 +431,6 @@ LABEL_48:
 
   if (provider)
   {
-    provider = self->_provider;
     PBDataWriterWriteStringField();
   }
 
@@ -441,7 +438,6 @@ LABEL_48:
 
   if (trainName)
   {
-    trainName = self->_trainName;
     PBDataWriterWriteStringField();
   }
 
@@ -449,19 +445,18 @@ LABEL_48:
 
   if (trainNumber)
   {
-    trainNumber = self->_trainNumber;
     PBDataWriterWriteStringField();
   }
 
   tripDuration = [(_INPBTrainTrip *)self tripDuration];
 
-  v21 = toCopy;
+  v16 = toCopy;
   if (tripDuration)
   {
     tripDuration2 = [(_INPBTrainTrip *)self tripDuration];
     PBDataWriterWriteSubmessage();
 
-    v21 = toCopy;
+    v16 = toCopy;
   }
 }
 

@@ -9,13 +9,10 @@
 
 - (id)description
 {
-  v2 = *&self->_displayLabel;
-  v3 = *&self->_commerceStorage;
-  manageStoragePage = self->_manageStoragePage;
-  v5 = [MEMORY[0x277CCAB68] stringWithFormat:@"displayLabel: %@, totalStorage: %@, usedStorage: %@, freeStorage: %@, commerceStorage: %@, mediaStorage: %@, tips: %@, backupInfo: %@, subscriptionInfo: %@, manageStorageURL: %@, manageStorageTitle: %@, manageStorageActionButtonText: %@, manageStoragePage: %@, detailsPageInfo: %@, ", self->_displayLabel, self->_totalStorage, self->_usedStorage, self->_freeStorage, self->_commerceStorage, self->_mediaStorage, self->_tips, self->_backupInfo, self->_subscriptionInfo, self->_manageStorageURL, self->_manageStorageTitle, self->_manageStorageActionButtonText, manageStoragePage, self->_iCloudDetailsPageInfo];
-  v6 = [v5 copy];
+  v2 = [MEMORY[0x277CCAB68] stringWithFormat:@"displayLabel: %@, totalStorage: %@, usedStorage: %@, freeStorage: %@, commerceStorage: %@, mediaStorage: %@, tips: %@, backupInfo: %@, subscriptionInfo: %@, manageStorageURL: %@, manageStorageTitle: %@, manageStorageActionButtonText: %@, manageStoragePage: %@, detailsPageInfo: %@, ", self->_displayLabel, self->_totalStorage, self->_usedStorage, self->_freeStorage, self->_commerceStorage, self->_mediaStorage, self->_tips, self->_backupInfo, self->_subscriptionInfo, self->_manageStorageURL, self->_manageStorageTitle, self->_manageStorageActionButtonText, self->_manageStoragePage, self->_iCloudDetailsPageInfo];
+  v3 = [v2 copy];
 
-  return v6;
+  return v3;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -60,11 +57,11 @@
 
 - (ICQCloudStorageSummary)initWithCoder:(id)coder
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v42.receiver = self;
-  v42.super_class = ICQCloudStorageSummary;
-  v5 = [(ICQCloudStorageSummary *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = ICQCloudStorageSummary;
+  v5 = [(ICQCloudStorageSummary *)&v41 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayLabel"];
@@ -88,9 +85,9 @@
     v5->_commerceStorage = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v18 = [v16 setWithArray:v17];
 
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"usageByMedia"];
@@ -98,9 +95,9 @@
     v5->_mediaStorage = v19;
 
     v21 = MEMORY[0x277CBEB98];
-    v43[0] = objc_opt_class();
-    v43[1] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     v23 = [v21 setWithArray:v22];
 
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"tips"];
@@ -136,7 +133,6 @@
     v5->_iCloudDetailsPageInfo = v38;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -279,26 +279,24 @@ id __79__HRERecommendationItemProvider_reloadItemsWithRecommendations_filter_ite
 
 - (id)invalidationReasons
 {
-  v12[8] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HRERecommendationItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v11 invalidationReasons];
+  v11[8] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HRERecommendationItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v10 invalidationReasons];
   v3 = *MEMORY[0x277D13B30];
-  v12[0] = *MEMORY[0x277D13B80];
-  v12[1] = v3;
+  v11[0] = *MEMORY[0x277D13B80];
+  v11[1] = v3;
   v4 = *MEMORY[0x277D13B70];
-  v12[2] = *MEMORY[0x277D13B68];
-  v12[3] = v4;
+  v11[2] = *MEMORY[0x277D13B68];
+  v11[3] = v4;
   v5 = *MEMORY[0x277D13B28];
-  v12[4] = *MEMORY[0x277D13B90];
-  v12[5] = v5;
+  v11[4] = *MEMORY[0x277D13B90];
+  v11[5] = v5;
   v6 = *MEMORY[0x277D13B88];
-  v12[6] = *MEMORY[0x277D13B48];
-  v12[7] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:8];
+  v11[6] = *MEMORY[0x277D13B48];
+  v11[7] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:8];
   v8 = [invalidationReasons setByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

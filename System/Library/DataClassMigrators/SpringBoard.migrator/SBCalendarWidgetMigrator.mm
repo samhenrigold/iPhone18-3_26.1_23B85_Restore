@@ -288,56 +288,55 @@ LABEL_13:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v61 = 0;
+    v59 = 0;
     goto LABEL_77;
   }
 
   v4 = objc_alloc_init(NSMutableArray);
+  v82 = 0u;
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
   v5 = listCopy;
-  v6 = [v5 countByEnumeratingWithState:&v84 objects:v89 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v82 objects:v87 count:16];
   if (!v6)
   {
 
-    v60 = 0;
+    v58 = 0;
     goto LABEL_76;
   }
 
   v7 = v6;
-  v63 = listCopy;
-  v73 = 0;
-  v8 = *v85;
-  v77 = kSBIconStateCustomIconElementTypeWidget;
-  v78 = kSBIconStateCustomIconElementTypeKey;
-  v68 = kSBIconStateIconTypeCustom;
-  v69 = kSBIconStateIconTypeKey;
+  v61 = listCopy;
+  v71 = 0;
+  v8 = *v83;
+  v75 = kSBIconStateCustomIconElementTypeWidget;
+  v76 = kSBIconStateCustomIconElementTypeKey;
+  v66 = kSBIconStateIconTypeCustom;
+  v67 = kSBIconStateIconTypeKey;
   v9 = kSBIconStateGridSizeClassIdentifier;
   v10 = &SBLogCommon_ptr;
-  v66 = v4;
-  v67 = kSBIconStateCustomIconElementKey;
-  v71 = kSBIconStateGridSizeClassIdentifier;
-  v64 = *v85;
-  v65 = v5;
-  v76 = kSBIconStateWidgetKindKey;
+  v64 = v4;
+  v65 = kSBIconStateCustomIconElementKey;
+  v69 = kSBIconStateGridSizeClassIdentifier;
+  v62 = *v83;
+  v63 = v5;
+  v74 = kSBIconStateWidgetKindKey;
   do
   {
     v11 = 0;
-    v70 = v7;
+    v68 = v7;
     do
     {
-      if (*v85 != v8)
+      if (*v83 != v8)
       {
         v12 = v11;
         objc_enumerationMutation(v5);
         v11 = v12;
       }
 
-      v72 = v11;
-      v13 = *(*(&v84 + 1) + 8 * v11);
-      v14 = v10[159];
+      v70 = v11;
+      v13 = *(*(&v82 + 1) + 8 * v11);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -345,82 +344,81 @@ LABEL_13:
         goto LABEL_68;
       }
 
-      v15 = v13;
-      v16 = [v15 objectForKey:v78];
-      v17 = [v16 isEqualToString:v77];
+      v14 = v13;
+      v15 = [v14 objectForKey:v76];
+      v16 = [v15 isEqualToString:v75];
 
-      v75 = v15;
-      if (!v17)
+      v73 = v14;
+      if (!v16)
       {
-        v21 = [v15 objectForKey:v69];
-        if ([v21 isEqualToString:v68] && (objc_msgSend(v15, "objectForKey:", v9), (v22 = objc_claimAutoreleasedReturnValue()) != 0))
+        v20 = [v14 objectForKey:v67];
+        if ([v20 isEqualToString:v66] && (objc_msgSend(v14, "objectForKey:", v9), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v23 = v22;
-          v24 = [v15 objectForKey:v67];
+          v22 = v21;
+          v23 = [v14 objectForKey:v65];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
-          v9 = v71;
+          v9 = v69;
           if (isKindOfClass)
           {
-            v26 = v15;
-            v74 = [v15 objectForKey:v71];
-            v27 = [v15 objectForKey:v67];
-            v28 = objc_alloc_init(NSMutableArray);
+            v25 = v14;
+            v72 = [v14 objectForKey:v69];
+            v26 = [v14 objectForKey:v65];
+            v27 = objc_alloc_init(NSMutableArray);
+            v77 = 0u;
+            v78 = 0u;
             v79 = 0u;
             v80 = 0u;
-            v81 = 0u;
-            v82 = 0u;
-            v29 = v27;
-            v30 = [v29 countByEnumeratingWithState:&v79 objects:v88 count:16];
-            if (!v30)
+            v28 = v26;
+            v29 = [v28 countByEnumeratingWithState:&v77 objects:v86 count:16];
+            if (!v29)
             {
               goto LABEL_44;
             }
 
-            v31 = v30;
-            v32 = *v80;
+            v30 = v29;
+            v31 = *v78;
             while (1)
             {
-              for (i = 0; i != v31; i = i + 1)
+              for (i = 0; i != v30; i = i + 1)
               {
-                if (*v80 != v32)
+                if (*v78 != v31)
                 {
-                  objc_enumerationMutation(v29);
+                  objc_enumerationMutation(v28);
                 }
 
-                v34 = *(*(&v79 + 1) + 8 * i);
-                v35 = v10[159];
+                v33 = *(*(&v77 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  [v28 addObject:v34];
+                  [v27 addObject:v33];
                   continue;
                 }
 
-                v36 = v10;
-                v37 = v34;
-                v38 = [v37 objectForKey:v78];
-                v39 = [v38 isEqualToString:v77];
+                v34 = v10;
+                v35 = v33;
+                v36 = [v35 objectForKey:v76];
+                v37 = [v36 isEqualToString:v75];
 
-                if (!v39)
+                if (!v37)
                 {
                   goto LABEL_39;
                 }
 
-                v40 = [v37 objectForKey:v76];
-                v41 = [v40 isEqualToString:@"com.apple.CalendarWidget.CalendarWidget"];
+                v38 = [v35 objectForKey:v74];
+                v39 = [v38 isEqualToString:@"com.apple.CalendarWidget.CalendarWidget"];
 
-                if (v41)
+                if (v39)
                 {
-                  if (([v74 isEqualToString:@"small"] & 1) != 0 || objc_msgSend(v74, "isEqualToString:", @"medium"))
+                  if (([v72 isEqualToString:@"small"] & 1) != 0 || objc_msgSend(v72, "isEqualToString:", @"medium"))
                   {
-                    v42 = [v37 mutableCopy];
-                    [v42 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v76];
-                    [v28 addObject:v42];
-                    v43 = SBLogCommon();
-                    v26 = v75;
-                    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                    v40 = [v35 mutableCopy];
+                    [v40 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v74];
+                    [v27 addObject:v40];
+                    v41 = SBLogCommon();
+                    v25 = v73;
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                     {
                       goto LABEL_37;
                     }
@@ -428,14 +426,14 @@ LABEL_13:
                     goto LABEL_38;
                   }
 
-                  v26 = v75;
-                  if ([v74 isEqualToString:@"large"])
+                  v25 = v73;
+                  if ([v72 isEqualToString:@"large"])
                   {
-                    v42 = [v37 mutableCopy];
-                    [v42 setObject:@"com.apple.CalendarWidget.CalendarListWidget" forKeyedSubscript:v76];
-                    [v28 addObject:v42];
-                    v43 = SBLogCommon();
-                    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                    v40 = [v35 mutableCopy];
+                    [v40 setObject:@"com.apple.CalendarWidget.CalendarListWidget" forKeyedSubscript:v74];
+                    [v27 addObject:v40];
+                    v41 = SBLogCommon();
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                     {
                       goto LABEL_37;
                     }
@@ -444,70 +442,70 @@ LABEL_13:
                   }
 
 LABEL_39:
-                  [v28 addObject:{v37, v63}];
+                  [v27 addObject:{v35, v61}];
                   goto LABEL_40;
                 }
 
-                v44 = [v37 objectForKey:v76];
-                v45 = [v44 isEqualToString:@"com.apple.CalendarWidget.CalendarSpatialWidget"];
+                v42 = [v35 objectForKey:v74];
+                v43 = [v42 isEqualToString:@"com.apple.CalendarWidget.CalendarSpatialWidget"];
 
-                if (v45)
+                if (v43)
                 {
-                  v26 = v75;
-                  if (([v74 isEqualToString:@"large"] & 1) == 0 && !objc_msgSend(v74, "isEqualToString:", @"extraLarge"))
+                  v25 = v73;
+                  if (([v72 isEqualToString:@"large"] & 1) == 0 && !objc_msgSend(v72, "isEqualToString:", @"extraLarge"))
                   {
                     goto LABEL_39;
                   }
 
-                  v42 = [v37 mutableCopy];
-                  [v42 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v76];
-                  [v28 addObject:v42];
-                  v43 = SBLogCommon();
-                  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                  v40 = [v35 mutableCopy];
+                  [v40 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v74];
+                  [v27 addObject:v40];
+                  v41 = SBLogCommon();
+                  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                   {
 LABEL_37:
                     *buf = 0;
-                    _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget stack element to migrate...", buf, 2u);
+                    _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget stack element to migrate...", buf, 2u);
                   }
 
 LABEL_38:
 
-                  v73 = 1;
+                  v71 = 1;
 LABEL_40:
-                  v10 = v36;
+                  v10 = v34;
                   goto LABEL_41;
                 }
 
-                [v28 addObject:v37];
-                v10 = v36;
-                v26 = v75;
+                [v27 addObject:v35];
+                v10 = v34;
+                v25 = v73;
 LABEL_41:
               }
 
-              v31 = [v29 countByEnumeratingWithState:&v79 objects:v88 count:16];
-              if (!v31)
+              v30 = [v28 countByEnumeratingWithState:&v77 objects:v86 count:16];
+              if (!v30)
               {
 LABEL_44:
 
-                if ([v28 count])
+                if ([v27 count])
                 {
-                  v46 = [v26 mutableCopy];
-                  [v46 setObject:v28 forKeyedSubscript:v67];
-                  v4 = v66;
-                  [v66 addObject:v46];
+                  v44 = [v25 mutableCopy];
+                  [v44 setObject:v27 forKeyedSubscript:v65];
+                  v4 = v64;
+                  [v64 addObject:v44];
                 }
 
                 else
                 {
-                  v4 = v66;
-                  [v66 addObject:v26];
+                  v4 = v64;
+                  [v64 addObject:v25];
                 }
 
-                v9 = v71;
+                v9 = v69;
 
-                v8 = v64;
-                v5 = v65;
-                v7 = v70;
+                v8 = v62;
+                v5 = v63;
+                v7 = v68;
                 goto LABEL_66;
               }
             }
@@ -518,87 +516,87 @@ LABEL_44:
         {
         }
 
-        [v4 addObject:{v15, v63}];
-        v7 = v70;
+        [v4 addObject:{v14, v61}];
+        v7 = v68;
         goto LABEL_67;
       }
 
-      v18 = [v15 objectForKey:v76];
-      v19 = [v18 isEqualToString:@"com.apple.CalendarWidget.CalendarWidget"];
+      v17 = [v14 objectForKey:v74];
+      v18 = [v17 isEqualToString:@"com.apple.CalendarWidget.CalendarWidget"];
 
-      if (v19)
+      if (v18)
       {
-        v20 = [v15 objectForKey:v9];
-        if ([v20 isEqualToString:@"small"])
+        v19 = [v14 objectForKey:v9];
+        if ([v19 isEqualToString:@"small"])
         {
 
 LABEL_52:
-          v52 = [v15 mutableCopy];
-          [v52 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v76];
-          [v4 addObject:v52];
-          v53 = SBLogCommon();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+          v50 = [v14 mutableCopy];
+          [v50 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v74];
+          [v4 addObject:v50];
+          v51 = SBLogCommon();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_56:
             *buf = 0;
-            _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget to migrate...", buf, 2u);
+            _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget to migrate...", buf, 2u);
           }
 
 LABEL_57:
 
-          v73 = 1;
-          v9 = v71;
+          v71 = 1;
+          v9 = v69;
           goto LABEL_66;
         }
 
-        v50 = [v15 objectForKey:v9];
-        v51 = [v50 isEqualToString:@"medium"];
+        v48 = [v14 objectForKey:v9];
+        v49 = [v48 isEqualToString:@"medium"];
 
-        if (v51)
+        if (v49)
         {
           goto LABEL_52;
         }
 
-        v9 = v71;
-        v56 = [v15 objectForKey:v71];
-        v57 = [v56 isEqualToString:@"large"];
+        v9 = v69;
+        v54 = [v14 objectForKey:v69];
+        v55 = [v54 isEqualToString:@"large"];
 
-        if (v57)
+        if (v55)
         {
-          v58 = [v15 mutableCopy];
-          [v58 setObject:@"com.apple.CalendarWidget.CalendarListWidget" forKeyedSubscript:v76];
-          [v4 addObject:v58];
-          v59 = SBLogCommon();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v56 = [v14 mutableCopy];
+          [v56 setObject:@"com.apple.CalendarWidget.CalendarListWidget" forKeyedSubscript:v74];
+          [v4 addObject:v56];
+          v57 = SBLogCommon();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v59, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget to migrate...", buf, 2u);
+            _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, "[CalendarWidgetMigrator] Found calendar widget to migrate...", buf, 2u);
           }
 
-          v73 = 1;
+          v71 = 1;
 LABEL_66:
-          v15 = v75;
+          v14 = v73;
           goto LABEL_67;
         }
       }
 
       else
       {
-        v47 = [v15 objectForKey:v76];
-        v48 = [v47 isEqualToString:@"com.apple.CalendarWidget.CalendarSpatialWidget"];
+        v45 = [v14 objectForKey:v74];
+        v46 = [v45 isEqualToString:@"com.apple.CalendarWidget.CalendarSpatialWidget"];
 
-        if (v48)
+        if (v46)
         {
-          v49 = [v15 objectForKey:v9];
-          if ([v49 isEqualToString:@"large"])
+          v47 = [v14 objectForKey:v9];
+          if ([v47 isEqualToString:@"large"])
           {
 
 LABEL_55:
-            v52 = [v15 mutableCopy];
-            [v52 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v76];
-            [v4 addObject:v52];
-            v53 = SBLogCommon();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+            v50 = [v14 mutableCopy];
+            [v50 setObject:@"com.apple.CalendarWidget.CalendarUpNextWidget" forKeyedSubscript:v74];
+            [v4 addObject:v50];
+            v51 = SBLogCommon();
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_56;
             }
@@ -606,50 +604,50 @@ LABEL_55:
             goto LABEL_57;
           }
 
-          v54 = [v15 objectForKey:v9];
-          v55 = [v54 isEqualToString:@"extraLarge"];
+          v52 = [v14 objectForKey:v9];
+          v53 = [v52 isEqualToString:@"extraLarge"];
 
-          if (v55)
+          if (v53)
           {
             goto LABEL_55;
           }
 
-          [v4 addObject:v15];
-          v9 = v71;
+          [v4 addObject:v14];
+          v9 = v69;
           goto LABEL_67;
         }
       }
 
-      [v4 addObject:{v15, v63}];
+      [v4 addObject:{v14, v61}];
 LABEL_67:
 
 LABEL_68:
-      v11 = v72 + 1;
+      v11 = v70 + 1;
     }
 
-    while ((v72 + 1) != v7);
-    v7 = [v5 countByEnumeratingWithState:&v84 objects:v89 count:16];
+    while ((v70 + 1) != v7);
+    v7 = [v5 countByEnumeratingWithState:&v82 objects:v87 count:16];
   }
 
   while (v7);
 
-  if (v73)
+  if (v71)
   {
-    v60 = v4;
+    v58 = v4;
   }
 
   else
   {
-    v60 = 0;
+    v58 = 0;
   }
 
-  listCopy = v63;
+  listCopy = v61;
 LABEL_76:
-  v61 = v60;
+  v59 = v58;
 
 LABEL_77:
 
-  return v61;
+  return v59;
 }
 
 @end

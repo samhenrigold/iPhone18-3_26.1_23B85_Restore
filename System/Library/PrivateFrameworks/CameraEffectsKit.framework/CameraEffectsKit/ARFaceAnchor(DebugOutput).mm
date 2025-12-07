@@ -17,11 +17,11 @@
     v3 = @"NO";
   }
 
-  [self transform];
+  objc_msgSend_transform(self);
   v5 = v4;
-  [self transform];
+  objc_msgSend_transform(self);
   v7 = v6;
-  [self transform];
+  objc_msgSend_transform(self);
   return [v2 stringWithFormat:@"face anchor: isTracked=%@, position=(%f, %f, %f)", v3, *&v5, *&v7, v8];
 }
 

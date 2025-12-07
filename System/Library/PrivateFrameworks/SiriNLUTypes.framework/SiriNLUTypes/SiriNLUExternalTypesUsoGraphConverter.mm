@@ -17,7 +17,7 @@
 
 + (id)convertFromUsoNode:(id)node
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   if (nodeCopy)
   {
@@ -33,29 +33,29 @@
     v9 = [SiriNLUExternalTypesConverter convertFromString:stringPayload];
     [(SIRINLUEXTERNALUsoNode *)v4 setStringPayload:v9];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     normalizedStringPayloads = [nodeCopy normalizedStringPayloads];
-    v11 = [normalizedStringPayloads countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [normalizedStringPayloads countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(normalizedStringPayloads);
           }
 
-          [(SIRINLUEXTERNALUsoNode *)v4 addNormalizedStringPayloads:*(*(&v21 + 1) + 8 * i)];
+          [(SIRINLUEXTERNALUsoNode *)v4 addNormalizedStringPayloads:*(*(&v20 + 1) + 8 * i)];
         }
 
-        v12 = [normalizedStringPayloads countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [normalizedStringPayloads countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -82,42 +82,40 @@
     v4 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)convertFromUsoNodes:(id)nodes
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nodesCopy = nodes;
   if (nodesCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = nodesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromUsoNode:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromUsoNode:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -128,43 +126,41 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)convertFromGraphEdges:(id)edges
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   edgesCopy = edges;
   if (edgesCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = edgesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromGraphEdge:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromGraphEdge:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -175,8 +171,6 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -212,35 +206,35 @@
 
 + (id)convertFromUtteranceSpans:(id)spans
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   if (spansCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = spansCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromUtteranceSpan:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromUtteranceSpan:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -251,43 +245,41 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)convertFromUsoEntityIdentifiers:(id)identifiers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (identifiersCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = identifiersCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromUsoEntityIdentifier:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromUsoEntityIdentifier:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -298,8 +290,6 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -394,35 +384,35 @@
 
 + (id)convertFromUtteranceAlignments:(id)alignments
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   alignmentsCopy = alignments;
   if (alignmentsCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = alignmentsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromUtteranceAlignment:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromUtteranceAlignment:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -433,8 +423,6 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -465,35 +453,35 @@
 
 + (id)convertFromUsoGraphs:(id)graphs
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   graphsCopy = graphs;
   if (graphsCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = graphsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromUsoGraph:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromUsoGraph:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -504,8 +492,6 @@
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

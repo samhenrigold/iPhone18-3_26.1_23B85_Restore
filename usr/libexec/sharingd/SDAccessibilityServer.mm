@@ -2,6 +2,7 @@
 - (BOOL)shouldAcceptNewConnection:(id)connection;
 - (void)activate;
 - (void)invalidate;
+- (void)requestLabelForActivityWithSlotID:(unsigned int)d completionHandler:(id)handler;
 @end
 
 @implementation SDAccessibilityServer
@@ -52,6 +53,18 @@
   }
 
   return v6;
+}
+
+- (void)requestLabelForActivityWithSlotID:(unsigned int)d completionHandler:(id)handler
+{
+  if (handler)
+  {
+    v5 = *&d;
+    handlerCopy = handler;
+    v8 = +[SDShareSheetSlotManager sharedManager];
+    v7 = [v8 accessibilityStringForSlotID:v5];
+    (*(handler + 2))(handlerCopy, v7);
+  }
 }
 
 @end

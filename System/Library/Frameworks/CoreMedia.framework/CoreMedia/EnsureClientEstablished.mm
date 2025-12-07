@@ -161,7 +161,7 @@ size_t __cryptorRemote_EnsureClientEstablished_block_invoke_cold_1(uint64_t a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5DuLL, "<<< FigCPECryptorRemote >>>", 0x2A3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5DuLL, "<<< FigCPECryptorRemote >>>", 0x2A3, v3, v4, v5, v7);
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }

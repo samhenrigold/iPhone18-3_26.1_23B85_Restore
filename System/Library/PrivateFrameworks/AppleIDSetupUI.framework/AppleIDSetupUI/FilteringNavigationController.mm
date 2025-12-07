@@ -42,7 +42,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_24095CB28(controllerCopy, animated, v8, v9);
-  sub_24090C1A0(v8);
+  sub_24090C1A0(v8, v9);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -62,7 +62,7 @@
 
   selfCopy = self;
   sub_24095CD00(animated, v6, v7);
-  sub_24090C1A0(v6);
+  sub_24090C1A0(v6, v7);
 }
 
 - (_TtC14AppleIDSetupUIP33_1BED1CE7895EABE830B4BDDE905BE8B329FilteringNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

@@ -77,7 +77,7 @@ void __30__VUIPurchaser_sharedInstance__block_invoke()
   purchase = [purchaseCopy purchase];
 
   uniqueIdentifier = [purchase uniqueIdentifier];
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(uniqueIdentifier);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -122,7 +122,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke(uint64_t a
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 userInfo];
@@ -136,18 +136,18 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke(uint64_t a
 
 void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_16(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) setInterruptedPurchaseRequest:0];
   v4 = [v3 purchase];
   v5 = [v4 uniqueIdentifier];
 
-  v6 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VUIDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - purchase succeeded %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - purchase succeeded %@", &v8, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -161,7 +161,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
 
 - (void)postCrossProcessNotificationWithBuyParams:(id)params error:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   errorCopy = error;
   v7 = objc_opt_new();
@@ -171,19 +171,20 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
     [v7 setObject:errorCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyError"];
   }
 
-  if ([paramsCopy length])
+  v9 = [paramsCopy length];
+  if (v9)
   {
-    [v8 setObject:paramsCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyBuyParams"];
+    v9 = [v8 setObject:paramsCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyBuyParams"];
   }
 
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = paramsCopy;
-    v13 = 2112;
-    v14 = errorCopy;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Posting VUIStoreAcquisitionCrossProcessNotification with buy params: %@, error: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = paramsCopy;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Posting VUIStoreAcquisitionCrossProcessNotification with buy params: %@, error: %@", &v12, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
@@ -194,7 +195,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
 {
   v7 = *MEMORY[0x1E69E9840];
   v2 = [(NSMutableSet *)self->_purchasingParamsSet count];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 134217984;
@@ -210,7 +211,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
   v13 = *MEMORY[0x1E69E9840];
   purchasingCopy = purchasing;
   v5 = [(NSMutableSet *)self->_purchasingParamsSet containsObject:purchasingCopy];
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = "Not Purchasing";
@@ -233,7 +234,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
 {
   v8 = *MEMORY[0x1E69E9840];
   purchasingCopy = purchasing;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(purchasingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -248,7 +249,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
 {
   v8 = *MEMORY[0x1E69E9840];
   purchasingCopy = purchasing;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(purchasingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -265,7 +266,7 @@ void __47__VUIPurchaser_enqueuePurchase_withCompletion___block_invoke_18(uint64_
   purchaseCopy = purchase;
   requestCopy = request;
   completionCopy = completion;
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     logKey = [requestCopy logKey];
@@ -314,7 +315,7 @@ void __62__VUIPurchaser_purchase_handleAuthenticateRequest_completion___block_in
   v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 authenticationResults];
@@ -338,7 +339,7 @@ void __62__VUIPurchaser_purchase_handleAuthenticateRequest_completion___block_in
   purchaseCopy = purchase;
   requestCopy = request;
   completionCopy = completion;
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     logKey = [requestCopy logKey];
@@ -385,7 +386,7 @@ void __56__VUIPurchaser_purchase_handleDialogRequest_completion___block_invoke(u
 
 void __56__VUIPurchaser_purchase_handleDialogRequest_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -393,32 +394,32 @@ void __56__VUIPurchaser_purchase_handleDialogRequest_completion___block_invoke_2
   v9 = [v7 locateActionWithIdentifier:v8];
   v10 = [v9 style];
 
-  v11 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = VUIDefaultLogObject(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218498;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v5;
+    v16 = 134218498;
+    v17 = v10;
     v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - finished dialog with actionStyle %ld for request: %@, %@", &v14, 0x20u);
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
+    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - finished dialog with actionStyle %ld for request: %@, %@", &v16, 0x20u);
   }
 
   if ((v10 - 1) <= 1)
   {
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = VUIDefaultLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - User canceled purchase dialog", &v14, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - User canceled purchase dialog", &v16, 2u);
     }
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v15 = *(a1 + 40);
+  if (v15)
   {
-    (*(v13 + 16))(v13, v5, v6);
+    (*(v15 + 16))(v15, v5, v6);
   }
 }
 
@@ -428,7 +429,7 @@ void __56__VUIPurchaser_purchase_handleDialogRequest_completion___block_invoke_2
   purchaseCopy = purchase;
   requestCopy = request;
   completionCopy = completion;
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     logKey = [requestCopy logKey];
@@ -470,35 +471,35 @@ void __60__VUIPurchaser_purchase_handleEngagementRequest_completion___block_invo
 
 - (void)setInterruptedPurchaseRequest:(id)request
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v7 = objc_sync_enter(selfCopy);
   if (selfCopy->_interruptedPurchaseRequest != requestCopy)
   {
     if (requestCopy)
     {
-      v7 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         purchase = [(VUIPurchaseRequest *)requestCopy purchase];
         uniqueIdentifier = [purchase uniqueIdentifier];
-        v12 = 138412290;
-        v13 = uniqueIdentifier;
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Remember request [%@] for interrupted case", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = uniqueIdentifier;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Remember request [%@] for interrupted case", &v13, 0xCu);
       }
     }
 
     else
     {
-      v7 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         purchase2 = [(VUIPurchaseRequest *)selfCopy->_interruptedPurchaseRequest purchase];
         uniqueIdentifier2 = [purchase2 uniqueIdentifier];
-        v12 = 138412290;
-        v13 = uniqueIdentifier2;
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Forget request [%@] for interrupted case", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = uniqueIdentifier2;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Forget request [%@] for interrupted case", &v13, 0xCu);
       }
     }
 
@@ -520,16 +521,16 @@ void __60__VUIPurchaser_purchase_handleEngagementRequest_completion___block_invo
 
 - (void)didCompleteInterruptedBuyWithResponse:(id)response error:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = responseCopy;
-    v34 = 2112;
-    v35 = errorCopy;
+    v34 = responseCopy;
+    v35 = 2112;
+    v36 = errorCopy;
     _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Received interrupted buy completion event [%@], error: %@", buf, 0x16u);
   }
 
@@ -543,13 +544,13 @@ void __60__VUIPurchaser_purchase_handleEngagementRequest_completion___block_invo
   {
     longLongValue = [v12 longLongValue];
     v15 = [responseCopy vui_dictionaryForKey:@"metrics"];
-    v30 = [v15 vui_arrayForKey:@"itemIds"];
-    firstObject = [v30 firstObject];
-    v31 = errorCopy;
+    v31 = [v15 vui_arrayForKey:@"itemIds"];
+    firstObject = [v31 firstObject];
+    v32 = errorCopy;
     if (firstObject)
     {
       v17 = firstObject;
-      v29 = 0;
+      v30 = 0;
       v18 = 0;
     }
 
@@ -561,7 +562,7 @@ void __60__VUIPurchaser_purchase_handleEngagementRequest_completion___block_invo
       if (v20)
       {
         v17 = v20;
-        v29 = firstObject2;
+        v30 = firstObject2;
       }
 
       else
@@ -573,51 +574,51 @@ void __60__VUIPurchaser_purchase_handleEngagementRequest_completion___block_invo
         v24 = firstObject3;
 
         v17 = [v24 vui_numberForKey:@"item-id"];
-        v29 = v24;
+        v30 = v24;
         v18 = v21;
       }
     }
 
     longLongValue2 = [v17 longLongValue];
-    v26 = VUIDefaultLogObject();
+    v26 = VUIDefaultLogObject(longLongValue2);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v33 = longLongValue;
-      v34 = 2048;
-      v35 = longLongValue2;
+      v34 = longLongValue;
+      v35 = 2048;
+      v36 = longLongValue2;
       _os_log_impl(&dword_1E323F000, v26, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - saved interrupted buy [%li], incoming buy [%li] ", buf, 0x16u);
     }
 
-    v27 = VUIDefaultLogObject();
-    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+    v28 = VUIDefaultLogObject(v27);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
     if (longLongValue2 && longLongValue && longLongValue == longLongValue2)
     {
-      if (v28)
+      if (v29)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Interrupted buy completed!", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Interrupted buy completed!", buf, 2u);
       }
 
-      errorCopy = v31;
-      [(VUIPurchaseRequest *)self->_interruptedPurchaseRequest handleRequestCompletionWithResult:responseCopy andError:v31];
+      errorCopy = v32;
+      [(VUIPurchaseRequest *)self->_interruptedPurchaseRequest handleRequestCompletionWithResult:responseCopy andError:v32];
     }
 
     else
     {
-      if (v28)
+      if (v29)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Not the buy completion for which we were interrupted", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Not the buy completion for which we were interrupted", buf, 2u);
       }
 
-      errorCopy = v31;
+      errorCopy = v32;
     }
   }
 
   else
   {
-    v15 = VUIDefaultLogObject();
+    v15 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -688,14 +689,14 @@ LABEL_12:
 
 - (void)eventMonitor:(id)monitor receivedEventWithName:(id)name userInfo:(id)info
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   infoCopy = info;
-  v9 = VUIDefaultLogObject();
+  v9 = VUIDefaultLogObject(infoCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = nameCopy;
+    v39 = nameCopy;
     _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Received SS event [%@]", buf, 0xCu);
   }
 
@@ -704,7 +705,7 @@ LABEL_12:
     v10 = [infoCopy objectForKey:@"response"];
     if (!v10)
     {
-      v11 = VUIDefaultLogObject();
+      v11 = VUIDefaultLogObject(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -714,17 +715,17 @@ LABEL_12:
       goto LABEL_19;
     }
 
-    v33 = 0;
-    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v33];
-    v12 = v33;
+    v37 = 0;
+    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v37];
+    v12 = v37;
     if (v12)
     {
       v13 = v12;
-      v14 = VUIDefaultLogObject();
+      v14 = VUIDefaultLogObject(v12);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v35 = v13;
+        v39 = v13;
         _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Failed to unarchive data with error: %@", buf, 0xCu);
       }
 
@@ -732,13 +733,14 @@ LABEL_12:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v13 = VUIDefaultLogObject();
+      v13 = VUIDefaultLogObject(isKindOfClass);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v16 = "VUIPurchaser - ss event payload has invalid response type";
+        v18 = "VUIPurchaser - ss event payload has invalid response type";
         goto LABEL_17;
       }
 
@@ -752,35 +754,36 @@ LABEL_19:
 
     if (error)
     {
-      v13 = VUIDefaultLogObject();
+      v13 = VUIDefaultLogObject(v17);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v16 = "VUIPurchaser - SS event success notification receieved an unexpected error";
+        v18 = "VUIPurchaser - SS event success notification receieved an unexpected error";
 LABEL_17:
-        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
+        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, v18, buf, 2u);
         goto LABEL_18;
       }
 
       goto LABEL_18;
     }
 
-    v17 = [(VUIPurchaser *)self _isInterruptedPurchaseFulfilledBySSPurchaseResponse:v11];
-    v13 = VUIDefaultLogObject();
-    v18 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-    if (!v17)
+    v19 = [(VUIPurchaser *)self _isInterruptedPurchaseFulfilledBySSPurchaseResponse:v11];
+    v20 = v19;
+    v13 = VUIDefaultLogObject(v19);
+    v21 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if ((v20 & 1) == 0)
     {
-      if (!v18)
+      if (!v21)
       {
         goto LABEL_18;
       }
 
       *buf = 0;
-      v16 = "VUIPurchaser - Not the buy completion for which we were interrupted";
+      v18 = "VUIPurchaser - Not the buy completion for which we were interrupted";
       goto LABEL_17;
     }
 
-    if (v18)
+    if (v21)
     {
       *buf = 0;
       _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Interrupted buy completed!", buf, 2u);
@@ -791,45 +794,45 @@ LABEL_17:
 
     if (bodyData)
     {
-      v32 = 0;
-      v21 = [MEMORY[0x1E696AE40] propertyListWithData:bodyData options:0 format:0 error:&v32];
-      v22 = v32;
+      v36 = 0;
+      v24 = [MEMORY[0x1E696AE40] propertyListWithData:bodyData options:0 format:0 error:&v36];
+      v25 = v36;
     }
 
     else
     {
-      v21 = 0;
-      v22 = 0;
-    }
-
-    error2 = [v11 error];
-    v24 = error2;
-    if (v21)
-    {
+      v24 = 0;
       v25 = 0;
     }
 
+    error2 = [v11 error];
+    v27 = error2;
+    if (v24)
+    {
+      v28 = 0;
+    }
+
     else
     {
-      v25 = v22;
+      v28 = v25;
     }
 
     if (error2)
     {
-      v25 = error2;
+      v28 = error2;
     }
 
-    v13 = v25;
+    v13 = v28;
 
     domain = [v13 domain];
-    v31 = bodyData;
+    v35 = bodyData;
     if ([domain isEqualToString:*MEMORY[0x1E69E46D0]])
     {
       code = [v13 code];
 
       if (code == 16)
       {
-        v28 = 1;
+        v32 = 1;
         goto LABEL_43;
       }
     }
@@ -838,29 +841,29 @@ LABEL_17:
     {
     }
 
-    v29 = [v21 objectForKey:*MEMORY[0x1E69E4830]];
-    v28 = v29 != 0;
+    v33 = [v24 objectForKey:*MEMORY[0x1E69E4830]];
+    v32 = v33 != 0;
 
-    if (!v22 && !v13 && !v29 && v21)
+    if (!v25 && !v13 && !v33 && v24)
     {
-      [(VUIPurchaseRequest *)self->_interruptedPurchaseRequest handleRequestCompletionWithResult:v21 andError:0];
-      v22 = 0;
+      [(VUIPurchaseRequest *)self->_interruptedPurchaseRequest handleRequestCompletionWithResult:v24 andError:0];
+      v25 = 0;
 LABEL_46:
 
       goto LABEL_18;
     }
 
 LABEL_43:
-    v30 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v34 = VUIDefaultLogObject(v31);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v22;
-      v38 = 1024;
-      v39 = v28;
-      _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Error finishing interrupted purchse: [%@] plist error [%@] Was cancelled [%d]", buf, 0x1Cu);
+      v39 = v13;
+      v40 = 2112;
+      v41 = v25;
+      v42 = 1024;
+      v43 = v32;
+      _os_log_impl(&dword_1E323F000, v34, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - Error finishing interrupted purchse: [%@] plist error [%@] Was cancelled [%d]", buf, 0x1Cu);
     }
 
     [(VUIPurchaser *)self setInterruptedPurchaseRequest:0];
@@ -872,32 +875,32 @@ LABEL_20:
 
 - (BOOL)_isInterruptedPurchaseFulfilledBySSPurchaseResponse:(id)response
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   purchase = [response purchase];
   v5 = purchase;
   if (!purchase)
   {
-    buyParameters = VUIDefaultLogObject();
+    buyParameters = VUIDefaultLogObject(0);
     if (os_log_type_enabled(buyParameters, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      v15 = "VUIPurchaser - Interrupted purchase not valid ss response";
+      LOWORD(v18) = 0;
+      v16 = "VUIPurchaser - Interrupted purchase not valid ss response";
 LABEL_13:
-      _os_log_impl(&dword_1E323F000, buyParameters, OS_LOG_TYPE_DEFAULT, v15, &v17, 2u);
+      _os_log_impl(&dword_1E323F000, buyParameters, OS_LOG_TYPE_DEFAULT, v16, &v18, 2u);
     }
 
 LABEL_14:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_15;
   }
 
   if (!self->_interruptedPurchaseRequest)
   {
-    buyParameters = VUIDefaultLogObject();
+    buyParameters = VUIDefaultLogObject(purchase);
     if (os_log_type_enabled(buyParameters, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      v15 = "VUIPurchaser - No interrupted purchase request";
+      LOWORD(v18) = 0;
+      v16 = "VUIPurchaser - No interrupted purchase request";
       goto LABEL_13;
     }
 
@@ -909,27 +912,27 @@ LABEL_14:
   buyParams = [purchase2 buyParams];
   stringValue = [buyParams stringValue];
 
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = VUIDefaultLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412546;
-    v18 = buyParameters;
-    v19 = 2112;
-    v20 = stringValue;
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - buyParams [%@], interruptedBuyParams[%@] ", &v17, 0x16u);
+    v18 = 138412546;
+    v19 = buyParameters;
+    v20 = 2112;
+    v21 = stringValue;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPurchaser - buyParams [%@], interruptedBuyParams[%@] ", &v18, 0x16u);
   }
 
-  v11 = [(VUIPurchaser *)self _getAdamIdFromBuyParams:buyParameters];
-  v12 = [(VUIPurchaser *)self _getAdamIdFromBuyParams:stringValue];
-  v13 = v12;
-  v14 = 0;
-  if (v11 && v12)
+  v12 = [(VUIPurchaser *)self _getAdamIdFromBuyParams:buyParameters];
+  v13 = [(VUIPurchaser *)self _getAdamIdFromBuyParams:stringValue];
+  v14 = v13;
+  v15 = 0;
+  if (v12 && v13)
   {
-    v14 = [v11 isEqualToString:v12];
+    v15 = [v12 isEqualToString:v13];
   }
 
 LABEL_15:
-  return v14;
+  return v15;
 }
 
 @end

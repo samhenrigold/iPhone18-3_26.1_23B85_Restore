@@ -17,7 +17,7 @@
   sub_236E56E2C(v4);
 
   type metadata accessor for BAAssetPack();
-  sub_236E755C4(&qword_27DE88000, type metadata accessor for BAAssetPack);
+  sub_236E755C4(&qword_27DE88000, type metadata accessor for BAAssetPack, MEMORY[0x277D85378]);
   v5 = sub_236E82094();
 
   return v5;
@@ -27,26 +27,25 @@
 {
   v6 = sub_236E819F4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v21 - v12;
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v20 - v11;
   sub_236E819C4();
-  v14 = sub_236E81E94();
-  v16 = v15;
-  (*(v7 + 16))(v11, v13, v6);
-  AssetPackManifest.init(contentsOf:appGroupID:)(v11, v14, v16, v23);
-  v17 = v23[0].n128_u8[8];
-  v18 = (self + OBJC_IVAR___BAAssetPackManifest_manifest);
-  v18->n128_u64[0] = v23[0].n128_u64[0];
-  v18->n128_u8[8] = v17;
-  v18[1] = v23[1];
-  v22.receiver = self;
-  v22.super_class = BAAssetPackManifest;
-  v19 = [(BAAssetPackManifest *)&v22 init];
-  (*(v7 + 8))(v13, v6);
-  return v19;
+  v13 = sub_236E81E94();
+  v15 = v14;
+  (*(v7 + 16))(v10, v12, v6);
+  AssetPackManifest.init(contentsOf:appGroupID:)(v10, v13, v15, v22);
+  v16 = v22[0].n128_u8[8];
+  v17 = (self + OBJC_IVAR___BAAssetPackManifest_manifest);
+  v17->n128_u64[0] = v22[0].n128_u64[0];
+  v17->n128_u8[8] = v16;
+  v17[1] = v22[1];
+  v21.receiver = self;
+  v21.super_class = BAAssetPackManifest;
+  v18 = [(BAAssetPackManifest *)&v21 init];
+  (*(v7 + 8))(v12, v6);
+  return v18;
 }
 
 - (id)initFromData:(id)data applicationGroupIdentifier:(id)identifier error:(id *)error

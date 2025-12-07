@@ -123,7 +123,7 @@ void __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2(uin
   v6 = v5;
   if (a2)
   {
-    v7 = VSDefaultLogObject();
+    v7 = VSDefaultLogObject(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
@@ -141,8 +141,7 @@ void __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2(uin
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The error parameter must not be nil."];
     }
 
-    [v9 addError:v6];
-    v7 = VSErrorLogObject();
+    v7 = VSErrorLogObject([v9 addError:v6]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2_cold_1(v6, v7);
@@ -166,15 +165,16 @@ void __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_16(ui
 void __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2_18(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = VSErrorLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = VSErrorLogObject(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2_18_cold_1(v3, v4);
+      __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2_18_cold_1(v4, v5);
     }
 
-    [*(a1 + 32) addError:v3];
+    [*(a1 + 32) addError:v4];
   }
 }
 
@@ -185,26 +185,26 @@ uint64_t __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_2
 
   if (v3)
   {
-    v4 = VSErrorLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = VSErrorLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_23_cold_1(v4);
+      __52__VSTestSetupPreparationOperation_executionDidBegin__block_invoke_23_cold_1(v5);
     }
   }
 
   else
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "No errors preparting for OOB testing, clearing buddy defaults.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "No errors preparting for OOB testing, clearing buddy defaults.", v8, 2u);
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.purplebuddy"];
-    [v4 removeObjectForKey:@"TVBuddyCompletedSuccessfully"];
-    [v4 removeObjectForKey:@"SetupDone"];
-    [v4 removeObjectForKey:@"VSSkipSetup"];
+    v5 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.purplebuddy"];
+    [v5 removeObjectForKey:@"TVBuddyCompletedSuccessfully"];
+    [v5 removeObjectForKey:@"SetupDone"];
+    [v5 removeObjectForKey:@"VSSkipSetup"];
   }
 
   return [*(a1 + 32) finishExecutionIfPossible];

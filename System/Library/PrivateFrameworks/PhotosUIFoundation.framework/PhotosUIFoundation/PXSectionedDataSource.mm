@@ -146,7 +146,7 @@ uint64_t __52__PXSectionedDataSource__numberOfAssetsWithMaximum___block_invoke(u
   allSectionIndexPaths = [(PXSectionedDataSource *)self allSectionIndexPaths];
   [(PXSectionedDataSource *)self prefetchSections:allSectionIndexPaths];
 
-  [(PXSectionedDataSource *)self firstItemIndexPath];
+  objc_msgSend_firstItemIndexPath(self);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __44__PXSectionedDataSource_fetchAllItemObjects__block_invoke;
@@ -210,38 +210,37 @@ void __50__PXSectionedDataSource_objectIDsForIndexPathSet___block_invoke(uint64_
 
 - (id)indexPathSetForObjectIDs:(id)ds
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = +[(PXIndexPathSet *)PXMutableIndexPathSet];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v13 = 0u;
         v14 = 0u;
-        v15 = 0u;
-        [(PXSectionedDataSource *)self indexPathForObjectID:v11];
-        v13[0] = v14;
-        v13[1] = v15;
-        [v5 addIndexPath:v13];
+        objc_msgSend_indexPathForObjectID_(self);
+        v12[0] = v13;
+        v12[1] = v14;
+        [v5 addIndexPath:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -665,10 +664,10 @@ LABEL_18:
 {
   v7 = 0u;
   v8 = 0u;
-  [(PXSectionedDataSource *)self firstItemIndexPath];
+  objc_msgSend_firstItemIndexPath(self, a2);
   v5 = 0u;
   v6 = 0u;
-  [(PXSectionedDataSource *)self lastItemIndexPath];
+  objc_msgSend_lastItemIndexPath(self);
   v3 = +[PXIndexPathSet indexPathSet];
 
   return v3;
@@ -773,10 +772,10 @@ LABEL_9:
 {
   v7 = 0u;
   v8 = 0u;
-  [(PXSectionedDataSource *)self firstSectionIndexPath];
+  objc_msgSend_firstSectionIndexPath(self, a2);
   v5 = 0u;
   v6 = 0u;
-  [(PXSectionedDataSource *)self lastSectionIndexPath];
+  objc_msgSend_lastSectionIndexPath(self);
   v3 = +[PXIndexPathSet indexPathSet];
 
   return v3;
@@ -1145,25 +1144,14 @@ LABEL_26:
   return v8;
 }
 
-void *__69__PXSectionedDataSource_convertIndexPathSet_fromSectionedDataSource___block_invoke(void *a1, __int128 *a2)
+void *__69__PXSectionedDataSource_convertIndexPathSet_fromSectionedDataSource___block_invoke(void *a1, const char *a2)
 {
   result = a1[4];
   if (result)
   {
-    v9 = 0u;
-    v10 = 0u;
-    v4 = a1[5];
-    v5 = a2[1];
-    v7 = *a2;
-    v8 = v5;
-    result = [result convertIndexPath:&v7 fromSectionedDataSource:v4];
-    if (v9)
-    {
-      v6 = a1[6];
-      v7 = v9;
-      v8 = v10;
-      return [v6 addIndexPath:&v7];
-    }
+    v3 = 0u;
+    v4 = 0u;
+    return objc_msgSend_convertIndexPath_fromSectionedDataSource_(result, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
   }
 
   return result;
@@ -1187,7 +1175,7 @@ void *__69__PXSectionedDataSource_convertIndexPathSet_fromSectionedDataSource___
     v14[0] = *&source->dataSourceIdentifier;
     v14[1] = v11;
     v12 = [v8 objectReferenceAtIndexPath:v14];
-    [(PXSectionedDataSource *)self indexPathForObjectReference:v12];
+    objc_msgSend_indexPathForObjectReference_(self);
   }
 
   return result;
@@ -1199,7 +1187,7 @@ void *__69__PXSectionedDataSource_convertIndexPathSet_fromSectionedDataSource___
   v5 = referenceCopy;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
     v6 = v9;
   }
 
@@ -1215,7 +1203,7 @@ void *__69__PXSectionedDataSource_convertIndexPathSet_fromSectionedDataSource___
 
   else
   {
-    [(PXSectionedDataSource *)self indexPathForObjectReference:v5];
+    objc_msgSend_indexPathForObjectReference_(self);
     v7 = 0;
   }
 
@@ -1352,10 +1340,10 @@ uint64_t __47__PXSectionedDataSource_sectionedDataSourceLog__block_invoke()
   v7 = v6;
   if (v6)
   {
-    [v6 indexPath];
+    objc_msgSend_indexPath(v6);
     if (v13 == [(PXSectionedDataSource *)self identifier])
     {
-      [v7 indexPath];
+      objc_msgSend_indexPath(v7);
 LABEL_7:
       v8 = v11;
       v9 = v12;

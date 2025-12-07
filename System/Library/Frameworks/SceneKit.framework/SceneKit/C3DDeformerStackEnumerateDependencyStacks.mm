@@ -5,12 +5,13 @@
 
 uint64_t ____C3DDeformerStackEnumerateDependencyStacks_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  result = C3DNodeGetDeformerStack([a3 nodeRef]);
+  v4 = [a3 nodeRef];
+  result = C3DNodeGetDeformerStack(v4, v5);
   if (result)
   {
-    v5 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
 
-    return v5();
+    return v7();
   }
 
   return result;

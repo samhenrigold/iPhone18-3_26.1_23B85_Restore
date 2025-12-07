@@ -1,6 +1,7 @@
 @interface HMAccessory(HFMediaAdditions)
 - (BOOL)hf_fakeShouldDisplayManualFixOption;
 - (BOOL)hf_isSiriEndpoint;
+- (BOOL)hf_shouldDisplayManualFixOptionForSymptom:()HFMediaAdditions;
 - (id)hf_fakeDebugSymptoms;
 - (id)hf_identifyHomePod;
 - (uint64_t)hf_fake8021xNetworkSymptom;
@@ -30,13 +31,12 @@
 - (uint64_t)hf_isMediaAccessory;
 - (uint64_t)hf_isSpeaker;
 - (uint64_t)hf_mediaAccessControlCapabilities;
-- (uint64_t)hf_needsSoftwareUpdateToSupportBeingAddedToMediaSystem;
 - (uint64_t)hf_setFakeCaptiveLeaseRenewalSymptom:()HFMediaAdditions;
 - (uint64_t)hf_setFakeWiFiMismatchSymptom:()HFMediaAdditions;
-- (uint64_t)hf_shouldDisplayManualFixOptionForSymptom:()HFMediaAdditions;
-- (uint64_t)hf_shouldShowSoftwareUpdateInfo;
 - (uint64_t)hf_supportsMultiUserLanguage:()HFMediaAdditions;
 - (void)_pushSymptomUpdate;
+- (void)hf_needsSoftwareUpdateToSupportBeingAddedToMediaSystem;
+- (void)hf_shouldShowSoftwareUpdateInfo;
 - (void)hf_toggleSymptomsToShowAfterWiFiPickerFix:()HFMediaAdditions;
 @end
 
@@ -204,7 +204,7 @@
   return v2;
 }
 
-- (uint64_t)hf_needsSoftwareUpdateToSupportBeingAddedToMediaSystem
+- (void)hf_needsSoftwareUpdateToSupportBeingAddedToMediaSystem
 {
   result = [self hf_isHomePod];
   if (result)
@@ -212,7 +212,7 @@
     result = [MEMORY[0x277CD1BF0] canSupportMediaSystem:self];
     if (result)
     {
-      return [MEMORY[0x277CD1BF0] supportsMediaSystem:self] ^ 1;
+      return ([MEMORY[0x277CD1BF0] supportsMediaSystem:self] ^ 1);
     }
   }
 
@@ -221,7 +221,7 @@
 
 - (id)hf_identifyHomePod
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mediaProfile = [self mediaProfile];
   hf_settingsAdapterManager = [mediaProfile hf_settingsAdapterManager];
   v4 = [hf_settingsAdapterManager adapterForIdentifier:@"DeviceOptions"];
@@ -232,17 +232,17 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = mediaProfile;
+      v13 = mediaProfile;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Preparing to send identify message to accessory: %@", buf, 0xCu);
     }
 
     identifyAccessory = [v4 identifyAccessory];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __51__HMAccessory_HFMediaAdditions__hf_identifyHomePod__block_invoke;
-    v11[3] = &unk_277DF70B0;
-    v12 = mediaProfile;
-    v7 = [identifyAccessory addCompletionBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __51__HMAccessory_HFMediaAdditions__hf_identifyHomePod__block_invoke;
+    v10[3] = &unk_277DF70B0;
+    v11 = mediaProfile;
+    v7 = [identifyAccessory addCompletionBlock:v10];
   }
 
   else
@@ -253,12 +253,10 @@
     v7 = [v8 futureWithError:identifyAccessory];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
-- (uint64_t)hf_shouldShowSoftwareUpdateInfo
+- (void)hf_shouldShowSoftwareUpdateInfo
 {
   result = [self isControllable];
   if (result)
@@ -270,7 +268,7 @@
   return result;
 }
 
-- (uint64_t)hf_shouldDisplayManualFixOptionForSymptom:()HFMediaAdditions
+- (BOOL)hf_shouldDisplayManualFixOptionForSymptom:()HFMediaAdditions
 {
   if ([self hf_fakeShouldDisplayManualFixOption])
   {

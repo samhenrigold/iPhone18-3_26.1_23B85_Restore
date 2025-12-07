@@ -8,10 +8,10 @@
 
 - (int64_t)appendData:(id)data
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v25 = dataCopy;
-  bytes = [v25 bytes];
+  v24 = dataCopy;
+  bytes = [v24 bytes];
   v6 = [dataCopy length];
   memset(__b, 170, sizeof(__b));
   if (v6 <= 0)
@@ -20,7 +20,7 @@
   }
 
   v7 = 0;
-  v26 = &bytes[v6];
+  v25 = &bytes[v6];
   do
   {
     self->_lastWasNewLine = 0;
@@ -56,7 +56,7 @@
         self->_matchedFrom = 0;
       }
 
-      dataCopy = v25;
+      dataCopy = v24;
       v16 = *bytes;
       if (v16 != 61 && (v16 - 127) >= 0xFFFFFFA2 && (!self->_forHeader || (v16 - 40) > 0x37 || ((1 << (v16 - 40)) & 0x80000001800003) == 0))
       {
@@ -141,7 +141,7 @@ LABEL_38:
         memcpy(&__b[v7], "=46rom ", v13);
         v7 += v13;
         self->_line += v13;
-        dataCopy = v25;
+        dataCopy = v24;
       }
     }
 
@@ -164,9 +164,9 @@ LABEL_38:
     if (v7 >= 0x3F1D)
     {
       v21 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v7 freeWhenDone:0];
-      v28.receiver = self;
-      v28.super_class = MFQuotedPrintableEncoder;
-      [(MFBaseFilterDataConsumer *)&v28 appendData:v21];
+      v27.receiver = self;
+      v27.super_class = MFQuotedPrintableEncoder;
+      [(MFBaseFilterDataConsumer *)&v27 appendData:v21];
 
       v7 = 0;
     }
@@ -174,24 +174,23 @@ LABEL_38:
     ++bytes;
   }
 
-  while (bytes < v26);
+  while (bytes < v25);
   if (v7)
   {
     v22 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v7 freeWhenDone:0];
-    v27.receiver = self;
-    v27.super_class = MFQuotedPrintableEncoder;
-    [(MFBaseFilterDataConsumer *)&v27 appendData:v22];
+    v26.receiver = self;
+    v26.super_class = MFQuotedPrintableEncoder;
+    [(MFBaseFilterDataConsumer *)&v26 appendData:v22];
   }
 
 LABEL_53:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)done
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   memset(__b, 170, sizeof(__b));
   matchedFrom = self->_matchedFrom;
   if (matchedFrom)
@@ -203,7 +202,6 @@ LABEL_53:
 
     else
     {
-      v4 = self->_matchedFrom;
       __memmove_chk();
       matchedFrom = self->_matchedFrom;
     }
@@ -216,11 +214,11 @@ LABEL_53:
     lastHorizontalWhitespace = self->_lastHorizontalWhitespace;
     if (self->_lastHorizontalWhitespace)
     {
-      v6 = __b + matchedFrom;
-      *v6 = 61;
-      v6[1] = kEncodeHexTable[lastHorizontalWhitespace >> 4];
+      v5 = __b + matchedFrom;
+      *v5 = 61;
+      v5[1] = kEncodeHexTable[lastHorizontalWhitespace >> 4];
       matchedFrom += 3;
-      v6[2] = kEncodeHexTable[lastHorizontalWhitespace & 0xF];
+      v5[2] = kEncodeHexTable[lastHorizontalWhitespace & 0xF];
       self->_line += 3;
       self->_lastHorizontalWhitespace = 0;
     }
@@ -230,16 +228,16 @@ LABEL_53:
   {
     if (!self->_forHeader)
     {
-      v7 = matchedFrom + 1;
+      v6 = matchedFrom + 1;
       *(__b + matchedFrom) = 61;
       if (self->_forTextPart)
       {
-        *(__b + v7) = 13;
-        v7 = matchedFrom + 2;
+        *(__b + v6) = 13;
+        v6 = matchedFrom + 2;
       }
 
-      matchedFrom = v7 + 1;
-      *(__b + v7) = 10;
+      matchedFrom = v6 + 1;
+      *(__b + v6) = 10;
     }
 
     self->_line = 0;
@@ -247,13 +245,11 @@ LABEL_53:
 
   if (matchedFrom)
   {
-    v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:matchedFrom freeWhenDone:0];
-    v10.receiver = self;
-    v10.super_class = MFQuotedPrintableEncoder;
-    [(MFBaseFilterDataConsumer *)&v10 appendData:v8];
+    v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:matchedFrom freeWhenDone:0];
+    v8.receiver = self;
+    v8.super_class = MFQuotedPrintableEncoder;
+    [(MFBaseFilterDataConsumer *)&v8 appendData:v7];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (unint64_t)requiredSizeToEncodeHeaderBytes:(const char *)bytes length:(unint64_t)length

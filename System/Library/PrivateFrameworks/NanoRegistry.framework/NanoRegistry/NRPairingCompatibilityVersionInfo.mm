@@ -89,7 +89,7 @@
 
 - (id)compatibilityIndexDictionary
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (_NRIsInternalInstall___onceToken != -1)
   {
     dispatch_once(&_NRIsInternalInstall___onceToken, &__block_literal_global_18);
@@ -110,11 +110,11 @@ LABEL_10:
       v13 = nr_framework_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
-        v24 = v9;
-        v25 = 2112;
-        v26 = v10;
-        _os_log_impl(&dword_1E0ADF000, v13, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Latest plist path: %@\nWith contents: %@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v9;
+        v24 = 2112;
+        v25 = v10;
+        _os_log_impl(&dword_1E0ADF000, v13, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Latest plist path: %@\nWith contents: %@", &v22, 0x16u);
       }
     }
 
@@ -139,9 +139,9 @@ LABEL_27:
         v20 = nr_framework_log();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 138543362;
-          v24 = @"iPhone";
-          _os_log_impl(&dword_1E0ADF000, v20, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - %{public}@ key not found in compatibility index asset plist", &v23, 0xCu);
+          v22 = 138543362;
+          v23 = @"iPhone";
+          _os_log_impl(&dword_1E0ADF000, v20, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - %{public}@ key not found in compatibility index asset plist", &v22, 0xCu);
         }
       }
 
@@ -162,9 +162,9 @@ LABEL_27:
       v15 = nr_framework_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138543362;
-        v24 = v9;
-        _os_log_impl(&dword_1E0ADF000, v15, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Unable to read compatibility index asset plist at %{public}@", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v9;
+        _os_log_impl(&dword_1E0ADF000, v15, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Unable to read compatibility index asset plist at %{public}@", &v22, 0xCu);
       }
     }
 
@@ -191,26 +191,24 @@ LABEL_27:
   v7 = nr_framework_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = v3;
-    _os_log_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Overriding compatibility index dictionary to %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v3;
+    _os_log_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Overriding compatibility index dictionary to %@", &v22, 0xCu);
   }
 
 LABEL_28:
 
 LABEL_29:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (unint64_t)pairingCompatibilitySupportStateForAdvertisingWatchVersion:(int64_t)version
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(NRPairingCompatibilityVersionInfo *)self maxPairingCompatibilityVersion]>= version)
   {
-    v13 = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   if (_NRIsInternalInstall___onceToken != -1)
@@ -235,9 +233,9 @@ LABEL_29:
           v10 = nr_framework_log();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 138412290;
-            v19 = v6;
-            _os_log_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Overriding productType to %@", &v18, 0xCu);
+            v17 = 138412290;
+            v18 = v6;
+            _os_log_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_DEFAULT, "NRPairingCompatibilityVersionInfo - Overriding productType to %@", &v17, 0xCu);
           }
         }
 
@@ -264,14 +262,12 @@ LABEL_15:
     v13 = 3;
   }
 
-LABEL_22:
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (int64_t)minPairingCompatibilityVersionForChipID:(id)d name:(id)name defaultVersion:(int64_t)version
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -281,26 +277,26 @@ LABEL_22:
       v8 = [v7 stringByReplacingOccurrencesOfString:@" " withString:&stru_1F5B7BE00];
 
       [v8 componentsSeparatedByString:{@", "}];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      obj = v26 = 0u;
-      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      obj = v25 = 0u;
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v9)
       {
         v10 = v9;
-        v21 = v8;
-        v11 = *v24;
+        v20 = v8;
+        v11 = *v23;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v24 != v11)
+            if (*v23 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = [*(*(&v23 + 1) + 8 * i) componentsSeparatedByString:@"="];
+            v13 = [*(*(&v22 + 1) + 8 * i) componentsSeparatedByString:@"="];
             v14 = MEMORY[0x1E696AD98];
             v15 = [v13 objectAtIndexedSubscript:0];
             v16 = [v14 numberWithInteger:{objc_msgSend(v15, "integerValue")}];
@@ -315,7 +311,7 @@ LABEL_22:
             }
           }
 
-          v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v10)
           {
             continue;
@@ -325,14 +321,13 @@ LABEL_22:
         }
 
 LABEL_13:
-        v8 = v21;
+        v8 = v20;
       }
 
       v7 = v8;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return version;
 }
 
@@ -470,17 +465,16 @@ void __51__NRPairingCompatibilityVersionInfo_systemVersions__block_invoke(uint64
 
 + (unint64_t)valueForToken:(int)token
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (token != -1)
+  v12 = *MEMORY[0x1E69E9840];
+  if (token == -1)
   {
-    state64 = 0;
-    state = notify_get_state(token, &state64);
-    if (!state)
-    {
-      result = state64;
-      goto LABEL_9;
-    }
+    return 0;
+  }
 
+  state64 = 0;
+  state = notify_get_state(token, &state64);
+  if (state)
+  {
     v4 = state;
     v5 = nr_framework_log();
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
@@ -491,16 +485,15 @@ void __51__NRPairingCompatibilityVersionInfo_systemVersions__block_invoke(uint64
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v12 = v4;
+        v11 = v4;
         _os_log_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to get version notify token with result %d", buf, 8u);
       }
     }
+
+    return 0;
   }
 
-  result = 0;
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return state64;
 }
 
 @end

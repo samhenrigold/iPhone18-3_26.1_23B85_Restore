@@ -16,15 +16,13 @@
 
 + (void)initialize
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 3);
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 3);
   sub_1886CEE50(self, v3, v5, 0, 0);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CKNotification)init
@@ -375,49 +373,29 @@
   dictionaryCopy = dictionary;
   v4 = objc_opt_class();
   v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v5, @"ck");
-  if (!v6)
+  if (v6)
   {
-    v11 = 0;
-    goto LABEL_12;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v8 = objc_msgSend_objectForKeyedSubscript_(v6, v7, @"qry");
+
+      if (v8 || (objc_msgSend_objectForKeyedSubscript_(v6, v9, @"fet"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11) || (objc_msgSend_objectForKeyedSubscript_(v6, v12, @"met"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+      {
+        v4 = objc_opt_class();
+      }
+    }
+
+    v14 = [v4 alloc];
+    v10 = objc_msgSend_initWithRemoteNotificationDictionary_(v14, v15, dictionaryCopy);
   }
 
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  else
   {
-    v8 = objc_msgSend_objectForKeyedSubscript_(v6, v7, @"qry");
-
-    if (v8)
-    {
-      v10 = off_1E70BA5D8;
-LABEL_10:
-      v15 = *v10;
-      v4 = objc_opt_class();
-      goto LABEL_11;
-    }
-
-    v12 = objc_msgSend_objectForKeyedSubscript_(v6, v9, @"fet");
-
-    if (v12)
-    {
-      v10 = off_1E70BA658;
-      goto LABEL_10;
-    }
-
-    v14 = objc_msgSend_objectForKeyedSubscript_(v6, v13, @"met");
-
-    if (v14)
-    {
-      v10 = off_1E70BA140;
-      goto LABEL_10;
-    }
+    v10 = 0;
   }
 
-LABEL_11:
-  v16 = [v4 alloc];
-  v11 = objc_msgSend_initWithRemoteNotificationDictionary_(v16, v17, dictionaryCopy);
-LABEL_12:
-
-  return v11;
+  return v10;
 }
 
 - (CKNotification)initWithRemoteNotificationDictionary:(id)dictionary

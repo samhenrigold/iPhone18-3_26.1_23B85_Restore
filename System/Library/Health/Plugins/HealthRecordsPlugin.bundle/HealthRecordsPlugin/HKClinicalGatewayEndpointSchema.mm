@@ -31,7 +31,7 @@
   v6 = HKSafeObject();
   if (!v6)
   {
-    v24 = 0;
+    v25 = 0;
     goto LABEL_42;
   }
 
@@ -43,7 +43,7 @@
     v10 = sub_6DA38(v6, @"enabled", v9, error);
     if (!v10)
     {
-      v24 = 0;
+      v25 = 0;
 LABEL_40:
 
       goto LABEL_41;
@@ -53,7 +53,7 @@ LABEL_40:
     v12 = sub_6DA38(v6, @"method", v11, error);
     if (!v12)
     {
-      v24 = 0;
+      v25 = 0;
 LABEL_39:
 
       goto LABEL_40;
@@ -63,7 +63,7 @@ LABEL_39:
     v14 = sub_6DA38(v6, @"minCompatibleApiVersion", v13, error);
     if (!v14)
     {
-      v24 = 0;
+      v25 = 0;
 LABEL_38:
 
       goto LABEL_39;
@@ -73,7 +73,7 @@ LABEL_38:
     v16 = sub_6DA38(v6, @"name", v15, error);
     if (!v16)
     {
-      v24 = 0;
+      v25 = 0;
 LABEL_37:
 
       goto LABEL_38;
@@ -83,94 +83,95 @@ LABEL_37:
     v18 = sub_6DA38(v6, @"url", v17, error);
     if (!v18)
     {
-      v24 = 0;
+      v25 = 0;
 LABEL_36:
 
       goto LABEL_37;
     }
 
-    v45 = v18;
-    objc_opt_class();
-    v19 = sub_6DAF0(v6, @"body");
-    v20 = 0;
-    v21 = v20;
-    v44 = v16;
-    if (!v19 && v20)
+    v46 = v18;
+    v19 = objc_opt_class();
+    v47 = 0;
+    v20 = sub_6DAF0(v6, @"body", v19, &v47);
+    v21 = v47;
+    v22 = v21;
+    v45 = v16;
+    if (!v20 && v21)
     {
       if (error)
       {
-        v22 = v20;
         v23 = v21;
-        v24 = 0;
-        *error = v23;
+        v24 = v22;
+        v25 = 0;
+        *error = v24;
       }
 
       else
       {
         _HKLogDroppedError();
-        v23 = v21;
-        v24 = 0;
+        v24 = v22;
+        v25 = 0;
       }
 
       goto LABEL_35;
     }
 
-    v41 = v20;
-    v42 = v19;
-    v25 = [v6 objectForKeyedSubscript:@"form"];
+    v42 = v21;
+    v43 = v20;
+    v26 = [v6 objectForKeyedSubscript:@"form"];
 
-    if (v25)
+    if (v26)
     {
-      v26 = [v6 objectForKeyedSubscript:@"form"];
-      v24 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v26 error:error];
+      v27 = [v6 objectForKeyedSubscript:@"form"];
+      v25 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v27 error:error];
 
-      v43 = v24;
-      if (!v24)
+      v44 = v25;
+      if (!v25)
       {
-        v19 = v42;
+        v20 = v43;
 LABEL_34:
-        v23 = v41;
+        v24 = v42;
 LABEL_35:
 
-        v16 = v44;
-        v18 = v45;
+        v16 = v45;
+        v18 = v46;
         goto LABEL_36;
       }
     }
 
     else
     {
-      v43 = 0;
+      v44 = 0;
     }
 
-    v27 = [v6 objectForKeyedSubscript:@"headers"];
+    v28 = [v6 objectForKeyedSubscript:@"headers"];
 
-    if (v27)
+    if (v28)
     {
-      v28 = [v6 objectForKeyedSubscript:@"headers"];
-      v27 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v28 error:error];
+      v29 = [v6 objectForKeyedSubscript:@"headers"];
+      v28 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v29 error:error];
 
-      if (!v27)
+      if (!v28)
       {
-        v24 = 0;
-        v19 = v42;
+        v25 = 0;
+        v20 = v43;
         goto LABEL_33;
       }
     }
 
-    v40 = v27;
-    v29 = [v6 objectForKeyedSubscript:@"query"];
+    v41 = v28;
+    v30 = [v6 objectForKeyedSubscript:@"query"];
 
-    if (v29)
+    if (v30)
     {
-      v30 = [v6 objectForKeyedSubscript:@"query"];
-      v31 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v30 error:error];
+      v31 = [v6 objectForKeyedSubscript:@"query"];
+      v32 = [HKClinicalGatewayEndpointSchemaParameter parametersFromDefinitions:v31 error:error];
 
-      if (!v31)
+      if (!v32)
       {
-        v24 = 0;
-        v19 = v42;
-        v32 = v40;
+        v25 = 0;
+        v20 = v43;
+        v33 = v41;
 LABEL_31:
 
 LABEL_33:
@@ -180,28 +181,28 @@ LABEL_33:
 
     else
     {
-      v31 = 0;
+      v32 = 0;
     }
 
-    v39 = v31;
-    v33 = [HKClinicalGatewayEndpointSchema alloc];
+    v40 = v32;
+    v34 = [HKClinicalGatewayEndpointSchema alloc];
     bOOLValue = [v10 BOOLValue];
-    v38 = v31;
+    v39 = v32;
     integerValue = [v14 integerValue];
-    v35 = v33;
-    v19 = v42;
-    v32 = v40;
-    v24 = [v35 initWithAuth:v8 body:v42 enabled:bOOLValue form:v43 headers:v40 method:v12 minCompatibleAPIVersion:integerValue name:v16 query:v38 URL:v45 definition:definitionCopy];
+    v36 = v34;
+    v20 = v43;
+    v33 = v41;
+    v25 = [v36 initWithAuth:v8 body:v43 enabled:bOOLValue form:v44 headers:v41 method:v12 minCompatibleAPIVersion:integerValue name:v16 query:v39 URL:v46 definition:definitionCopy];
 
     goto LABEL_31;
   }
 
-  v24 = 0;
+  v25 = 0;
 LABEL_41:
 
 LABEL_42:
 
-  return v24;
+  return v25;
 }
 
 @end

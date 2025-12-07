@@ -43,7 +43,7 @@
     v4->_label = v6;
 
     v8 = v4->_label;
-    [(NTKCircularComplicationView *)v4 _layoutConstants];
+    objc_msgSend__layoutConstants(v4);
     [(CLKUIColoringLabel *)v8 setMaxWidth:v10];
     [(NTKCircularComplicationView *)v4 setWantsPlatter:0];
   }
@@ -66,7 +66,7 @@
   [(NTKCircularSmallRingTextComplicationView *)self bounds];
   [(CLKUIColoringLabel *)self->_label sizeToFit];
   [(CLKUIColoringLabel *)self->_label frame];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   device = [(NTKCircularComplicationView *)self device];
   CLKRectCenteredIntegralRectForDevice();
   v5 = v4;

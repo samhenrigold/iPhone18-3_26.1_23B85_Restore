@@ -9,12 +9,10 @@
 
 - (NSString)value
 {
-  v2 = *(self + OBJC_IVAR___AKBiscuitToken_value);
-  v3 = *(self + OBJC_IVAR___AKBiscuitToken_value + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (AKBiscuitToken)initWithIdentifier:(int64_t)identifier value:(id)value
@@ -37,11 +35,9 @@
   v7 = String._bridgeToObjectiveC()();
   [coderCopy encodeInteger:v4 forKey:v7];
 
-  v8 = *(selfCopy + OBJC_IVAR___AKBiscuitToken_value);
-  v9 = *(selfCopy + OBJC_IVAR___AKBiscuitToken_value + 8);
-  v10 = String._bridgeToObjectiveC()();
-  v11 = String._bridgeToObjectiveC()();
-  [coderCopy encodeObject:v10 forKey:v11];
+  v8 = String._bridgeToObjectiveC()();
+  v9 = String._bridgeToObjectiveC()();
+  [coderCopy encodeObject:v8 forKey:v9];
 }
 
 - (AKBiscuitToken)init

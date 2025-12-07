@@ -13,11 +13,11 @@
 
 - (void)setIncomingCommunicationLimit:(id)limit
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   limitCopy = limit;
-  v10.receiver = self;
-  v10.super_class = CLFBaseCommunicationLimitSettings;
-  [(CLFBaseCommunicationLimitSettings_GeneratedCode *)&v10 setIncomingCommunicationLimit:limitCopy];
+  v9.receiver = self;
+  v9.super_class = CLFBaseCommunicationLimitSettings;
+  [(CLFBaseCommunicationLimitSettings_GeneratedCode *)&v9 setIncomingCommunicationLimit:limitCopy];
   if ([(CLFBaseCommunicationLimitSettings *)self requiresMoreRestrictiveOutgoingCommunicationLimit])
   {
     outgoingCommunicationLimit = [(CLFBaseCommunicationLimitSettings *)self outgoingCommunicationLimit];
@@ -30,17 +30,15 @@
       {
         outgoingCommunicationLimit2 = [(CLFBaseCommunicationLimitSettings *)self outgoingCommunicationLimit];
         *buf = 138412546;
-        v12 = outgoingCommunicationLimit2;
-        v13 = 2112;
-        v14 = limitCopy;
+        v11 = outgoingCommunicationLimit2;
+        v12 = 2112;
+        v13 = limitCopy;
         _os_log_impl(&dword_1E115B000, v7, OS_LOG_TYPE_DEFAULT, "Updating outgoing communication limit %@ to be at least as restrictive as incoming communication limit %@.", buf, 0x16u);
       }
 
       [(CLFBaseCommunicationLimitSettings *)self setOutgoingCommunicationLimit:limitCopy];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)outgoingCommunicationLimit

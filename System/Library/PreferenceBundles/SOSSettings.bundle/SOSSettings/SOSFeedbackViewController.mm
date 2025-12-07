@@ -54,22 +54,21 @@
 {
   v6 = sub_14114();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_14104();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v11 = *&self->delegate[8];
+    v10 = *&self->delegate[8];
     ObjectType = swift_getObjectType();
 
-    v13 = sub_14634();
-    (*(v11 + 32))(v10, v13, v14, ObjectType, v11);
+    v12 = sub_14634();
+    (*(v10 + 32))(v9, v12, v13, ObjectType, v10);
 
     swift_unknownObjectRelease();
   }
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)feedbackDraftViewController:(id)controller didFailToSubmitFeedback:(id)feedback

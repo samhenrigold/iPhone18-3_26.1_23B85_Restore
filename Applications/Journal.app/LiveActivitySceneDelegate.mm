@@ -30,7 +30,7 @@
 
   if (delegate)
   {
-    type metadata accessor for AppDelegate();
+    type metadata accessor for AppDelegate(0);
     if (swift_dynamicCastClass())
     {
       sub_1004AD324();
@@ -54,7 +54,7 @@
   v5 = sub_10000617C(v4, qword_100B301D8);
   (*(*(v4 - 8) + 16))(self + v3, v5, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LiveActivitySceneDelegate();
+  v7.super_class = type metadata accessor for LiveActivitySceneDelegate(0);
   return [(LiveActivitySceneDelegate *)&v7 init];
 }
 

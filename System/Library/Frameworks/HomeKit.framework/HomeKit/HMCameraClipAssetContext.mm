@@ -13,28 +13,26 @@
 
 - (NSArray)attributeDescriptions
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = [(HMCameraClipAssetContext *)self url];
   v5 = [v3 initWithName:@"URL" value:v4];
-  v20[0] = v5;
+  v19[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   expirationDate = [(HMCameraClipAssetContext *)self expirationDate];
   v8 = [v6 initWithName:@"Expiration Date" value:expirationDate];
-  v20[1] = v8;
+  v19[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   requiredHTTPHeaders = [(HMCameraClipAssetContext *)self requiredHTTPHeaders];
   v11 = [v9 initWithName:@"Required HTTP Headers" value:requiredHTTPHeaders];
-  v20[2] = v11;
+  v19[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = MEMORY[0x1E696AD98];
   videoSegments = [(HMCameraClipAssetContext *)self videoSegments];
   v15 = [v13 numberWithUnsignedInteger:{objc_msgSend(videoSegments, "count")}];
   v16 = [v12 initWithName:@"Video Segments Count" value:v15];
-  v20[3] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v19[3] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
 
   return v17;
 }
@@ -64,15 +62,15 @@
 
 - (HMCameraClipAssetContext)initWithCoder:(id)coder
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v31[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCCV.u"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCCV.ed"];
   v7 = MEMORY[0x1E695DFD8];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v32[2] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v31[2] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"HMCCV.rhh"];
 
@@ -96,15 +94,15 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2112;
-      v29 = v10;
-      v30 = 2112;
-      v31 = v14;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v6;
+      v27 = 2112;
+      v28 = v10;
+      v29 = 2112;
+      v30 = v14;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded url: %@ expirationDate: %@ requiredHTTPHeaders: %@ videoSegments: %@", buf, 0x34u);
     }
 
@@ -112,7 +110,6 @@
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

@@ -37,27 +37,27 @@
 
 - (GKSKNodeComponent)initWithCoder:(id)coder
 {
-  v15[12] = *MEMORY[0x277D85DE8];
+  v14[12] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = GKSKNodeComponent;
-  v5 = [(GKComponent *)&v14 initWithCoder:coderCopy];
+  v13.receiver = self;
+  v13.super_class = GKSKNodeComponent;
+  v5 = [(GKComponent *)&v13 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v15[2] = objc_opt_class();
-    v15[3] = objc_opt_class();
-    v15[4] = objc_opt_class();
-    v15[5] = objc_opt_class();
-    v15[6] = objc_opt_class();
-    v15[7] = objc_opt_class();
-    v15[8] = objc_opt_class();
-    v15[9] = objc_opt_class();
-    v15[10] = objc_opt_class();
-    v15[11] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:12];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v14[2] = objc_opt_class();
+    v14[3] = objc_opt_class();
+    v14[4] = objc_opt_class();
+    v14[5] = objc_opt_class();
+    v14[6] = objc_opt_class();
+    v14[7] = objc_opt_class();
+    v14[8] = objc_opt_class();
+    v14[9] = objc_opt_class();
+    v14[10] = objc_opt_class();
+    v14[11] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:12];
     [v6 addObjectsFromArray:v7];
 
     allowedClasses = [coderCopy allowedClasses];
@@ -74,7 +74,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

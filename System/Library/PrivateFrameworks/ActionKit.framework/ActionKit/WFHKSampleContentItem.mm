@@ -447,7 +447,7 @@ LABEL_8:
 
 - (void)generateObjectRepresentations:(id)representations options:(id)options forClass:(Class)class
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   representationsCopy = representations;
   if (objc_opt_class() == class)
   {
@@ -499,15 +499,15 @@ LABEL_14:
     {
       if (objc_opt_class() == class)
       {
-        v29 = MEMORY[0x277CFC488];
-        v30 = [WFConcreteStatisticsSampleProvider alloc];
+        v28 = MEMORY[0x277CFC488];
+        v29 = [WFConcreteStatisticsSampleProvider alloc];
         quantitySampleContainer = [(WFHKSampleContentItem *)self quantitySampleContainer];
-        v31 = [(WFConcreteStatisticsSampleProvider *)v30 initWithSampleProvider:quantitySampleContainer];
+        v30 = [(WFConcreteStatisticsSampleProvider *)v29 initWithSampleProvider:quantitySampleContainer];
         name = [(WFHKSampleContentItem *)self name];
-        v33 = [v29 object:v31 named:name];
-        v35 = v33;
-        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-        representationsCopy[2](representationsCopy, v34, 0);
+        v32 = [v28 object:v30 named:name];
+        v34 = v32;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+        representationsCopy[2](representationsCopy, v33, 0);
       }
 
       else
@@ -527,8 +527,8 @@ LABEL_14:
     [startDate wf_normalizedDoubleValueForUnit:endDate];
     v25 = [v24 numberWithDouble:?];
     v26 = [v23 object:v25];
-    v36 = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v35 = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     representationsCopy[2](representationsCopy, v27, 0);
 
 LABEL_16:
@@ -540,12 +540,11 @@ LABEL_17:
   v16 = MEMORY[0x277CFC488];
   sampleValue = [(WFHKSampleContentItem *)self sampleValue];
   v18 = [v16 object:sampleValue];
-  v37[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v36[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
   representationsCopy[2](representationsCopy, v19, 0);
 
 LABEL_18:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (id)localizedPluralFilterDescriptionWithContext:(id)context
@@ -716,7 +715,7 @@ LABEL_13:
 
 void __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CBEB18];
   v5 = MEMORY[0x277CCD838];
@@ -729,34 +728,34 @@ void __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completi
   if (v3)
   {
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v12 = v3;
-    v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v37;
+      v15 = *v36;
       do
       {
         v16 = 0;
         do
         {
-          if (*v37 != v15)
+          if (*v36 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [MEMORY[0x277CCD838] predicateForObjectsFromSource:*(*(&v36 + 1) + 8 * v16)];
+          v17 = [MEMORY[0x277CCD838] predicateForObjectsFromSource:*(*(&v35 + 1) + 8 * v16)];
           [v11 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v14);
@@ -773,10 +772,10 @@ void __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completi
 
   v22 = objc_alloc(MEMORY[0x277CCD8D0]);
   v23 = [*(a1 + 32) sampleType];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completionHandler___block_invoke_2;
-  v32[3] = &unk_278C1A9C0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completionHandler___block_invoke_2;
+  v31[3] = &unk_278C1A9C0;
   v24 = *(a1 + 56);
   v25 = *(a1 + 32);
   v26 = *(a1 + 40);
@@ -784,15 +783,13 @@ void __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completi
   *(&v27 + 1) = v24;
   *&v28 = v25;
   *(&v28 + 1) = v26;
-  v33 = v28;
-  v34 = v27;
-  v35 = *(a1 + 64);
-  v29 = [v22 initWithSampleType:v23 predicate:v21 limit:0 sortDescriptors:0 resultsHandler:v32];
+  v32 = v28;
+  v33 = v27;
+  v34 = *(a1 + 64);
+  v29 = [v22 initWithSampleType:v23 predicate:v21 limit:0 sortDescriptors:0 resultsHandler:v31];
 
   v30 = [MEMORY[0x277CCD4D8] wf_shortcutsAppHealthStore];
   [v30 executeQuery:v29];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completionHandler___block_invoke_519(uint64_t a1, void *a2)
@@ -865,52 +862,50 @@ id __82__WFHKSampleContentItem_runQuery_withItems_permissionRequestor_completion
 
 + (id)propertyBuilders
 {
-  v38[7] = *MEMORY[0x277D85DE8];
-  v36 = +[WFHealthKitHelper localizedSampleTypes];
+  v37[7] = *MEMORY[0x277D85DE8];
+  v35 = +[WFHealthKitHelper localizedSampleTypes];
   v2 = MEMORY[0x277CFC338];
-  v37 = WFLocalizedContentPropertyNameMarker(@"Type");
-  v35 = [v2 keyPath:@"readableTypeIdentifier" name:v37 class:objc_opt_class()];
-  v34 = [v35 primary:1];
-  v33 = [v34 possibleValues:v36];
-  v32 = [v33 sortable:0];
-  v31 = [v32 filterable:0];
-  v38[0] = v31;
+  v36 = WFLocalizedContentPropertyNameMarker(@"Type");
+  v34 = [v2 keyPath:@"readableTypeIdentifier" name:v36 class:objc_opt_class()];
+  v33 = [v34 primary:1];
+  v32 = [v33 possibleValues:v35];
+  v31 = [v32 sortable:0];
+  v30 = [v31 filterable:0];
+  v37[0] = v30;
   v3 = MEMORY[0x277CFC338];
-  v30 = WFLocalizedContentPropertyNameMarker(@"Value");
-  v29 = [v3 keyPath:@"sampleValue" name:v30 class:objc_opt_class()];
-  v38[1] = v29;
+  v29 = WFLocalizedContentPropertyNameMarker(@"Value");
+  v28 = [v3 keyPath:@"sampleValue" name:v29 class:objc_opt_class()];
+  v37[1] = v28;
   v4 = MEMORY[0x277CFC338];
-  v28 = WFLocalizedContentPropertyNameMarker(@"Unit");
-  v27 = [v4 keyPath:@"unit.unitString" name:v28 class:objc_opt_class()];
-  v26 = [v27 sortable:0];
-  v25 = [v26 filterable:0];
-  v38[2] = v25;
+  v27 = WFLocalizedContentPropertyNameMarker(@"Unit");
+  v26 = [v4 keyPath:@"unit.unitString" name:v27 class:objc_opt_class()];
+  v25 = [v26 sortable:0];
+  v24 = [v25 filterable:0];
+  v37[2] = v24;
   v5 = MEMORY[0x277CFC338];
-  v24 = WFLocalizedContentPropertyNameMarker(@"Start Date");
-  v23 = [v5 keyPath:@"startDate" name:v24 class:objc_opt_class()];
-  v22 = [v23 tense:1];
-  v6 = [v22 comparableUnits:8220];
-  v38[3] = v6;
+  v23 = WFLocalizedContentPropertyNameMarker(@"Start Date");
+  v22 = [v5 keyPath:@"startDate" name:v23 class:objc_opt_class()];
+  v21 = [v22 tense:1];
+  v6 = [v21 comparableUnits:8220];
+  v37[3] = v6;
   v7 = MEMORY[0x277CFC338];
   v8 = WFLocalizedContentPropertyNameMarker(@"End Date");
   v9 = [v7 keyPath:@"endDate" name:v8 class:objc_opt_class()];
   v10 = [v9 comparableUnits:8220];
-  v38[4] = v10;
+  v37[4] = v10;
   v11 = MEMORY[0x277CFC338];
   v12 = WFLocalizedContentPropertyNameMarker(@"Duration");
   v13 = [v11 keyPath:@"duration" name:v12 class:objc_opt_class()];
   v14 = [v13 timeUnits:224];
-  v38[5] = v14;
+  v37[5] = v14;
   v15 = MEMORY[0x277CFC338];
   v16 = WFLocalizedContentPropertyNameMarker(@"Source");
   v17 = [v15 keyPath:@"sourceName" name:v16 class:objc_opt_class()];
   v18 = [v17 possibleValues:MEMORY[0x277CBEBF8]];
-  v38[6] = v18;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:7];
+  v37[6] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:7];
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 + (id)itemWithQuantitySamples:(id)samples unit:(id)unit

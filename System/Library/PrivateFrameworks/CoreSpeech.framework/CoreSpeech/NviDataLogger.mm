@@ -9,16 +9,16 @@
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   v6 = NviLogContextFacility;
   if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[NviDataLogger stream:handleEvent:]";
-    v12 = 2048;
+    v9 = 136315394;
+    v10 = "[NviDataLogger stream:handleEvent:]";
+    v11 = 2048;
     eventCopy2 = event;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Got event! %lu\n", &v10, 0x16u);
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Got event! %lu\n", &v9, 0x16u);
   }
 
   if (event != 4)
@@ -35,16 +35,14 @@
       v8 = NviLogContextFacility;
       if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315394;
-        v11 = "[NviDataLogger stream:handleEvent:]";
-        v12 = 2048;
+        v9 = 136315394;
+        v10 = "[NviDataLogger stream:handleEvent:]";
+        v11 = 2048;
         eventCopy2 = event;
-        _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s Got unhandled evt code %lu \n", &v10, 0x16u);
+        _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s Got unhandled evt code %lu \n", &v9, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endRequest
@@ -60,7 +58,7 @@
 
 - (void)logData:(id)data
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([(NSOutputStream *)self->_oStream hasSpaceAvailable])
   {
@@ -71,13 +69,11 @@
       if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v9 = "[NviDataLogger logData:]";
+        v8 = "[NviDataLogger logData:]";
         _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Unable to write to o/p stream ! \n", buf, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NviDataLogger)initWithFilePath:(id)path appendHdr:(id)hdr

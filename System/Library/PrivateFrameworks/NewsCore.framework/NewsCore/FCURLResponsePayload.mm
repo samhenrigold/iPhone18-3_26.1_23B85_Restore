@@ -34,11 +34,10 @@
 - (FCURLResponsePayload)initWithFileURL:(id)l
 {
   v3 = sub_1B67D85FC();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B67D85AC();
-  return URLResponsePayload.init(fileURL:)(v6);
+  return URLResponsePayload.init(fileURL:)(v5);
 }
 
 - (unint64_t)size

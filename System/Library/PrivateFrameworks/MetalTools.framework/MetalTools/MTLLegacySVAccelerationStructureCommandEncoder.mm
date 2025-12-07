@@ -28,6 +28,7 @@
 - (void)newBaseAccelerationStructureCommandEncoder;
 - (void)refitAccelerationStructure:(id)structure descriptor:(id)descriptor destination:(id)destination scratchBuffer:(id)buffer scratchBufferOffset:(unint64_t)offset;
 - (void)refitAccelerationStructure:(id)structure descriptor:(id)descriptor destination:(id)destination scratchBuffer:(id)buffer scratchBufferOffset:(unint64_t)offset options:(unint64_t)options;
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier;
 - (void)serializeAccelerationStructure:(id)structure toBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset;
 - (void)serializeInstanceAccelerationStructure:(id)structure primitiveAccelerationStructures:(id)structures toBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset;
 - (void)serializePrimitiveAccelerationStructure:(id)structure toBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset;
@@ -120,7 +121,7 @@
 
 - (void)blitTypeFromAccelerationStructureDescriptor:(id)descriptor toAccelerationStructure:(id)structure
 {
-  v6 = MTLLegacySVAccelerationStructureTypeFromDescriptor(descriptor);
+  v6 = MTLLegacySVAccelerationStructureTypeFromDescriptor(descriptor, a2);
 
   [(MTLLegacySVAccelerationStructureCommandEncoder *)self blitAccelerationStructureType:v6 toAccelerationStructure:structure];
 }
@@ -612,6 +613,13 @@ LABEL_6:
   v5.receiver = self;
   v5.super_class = MTLLegacySVAccelerationStructureCommandEncoder;
   [(MTLToolsAccelerationStructureCommandEncoder *)&v5 writeAccelerationStructureSerializationData:data toBuffer:buffer offset:offset];
+}
+
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier
+{
+  v5.receiver = self;
+  v5.super_class = MTLLegacySVAccelerationStructureCommandEncoder;
+  [(MTLToolsAccelerationStructureCommandEncoder *)&v5 sampleCountersInBuffer:buffer atSampleIndex:index withBarrier:barrier];
 }
 
 - (void)useResources:(const void *)resources count:(unint64_t)count usage:(unint64_t)usage

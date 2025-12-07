@@ -277,9 +277,9 @@ LABEL_5:
       self->_sublayoutZPositions[v8] = 0.0;
       self->_sublayoutReferenceDepths[v8] = 1.0;
       v9 = &self->_sublayoutSpriteTransforms[v7];
-      *&v9->var0.a = PXGSpriteGeometryTransformIdentity;
-      *&v9->var0.c = unk_21AE2E188;
-      *&v9->var0.tx = xmmword_21AE2E198;
+      *&v9->var0.a = *PXGSpriteGeometryTransformIdentity;
+      *&v9->var0.c = *&PXGSpriteGeometryTransformIdentity[16];
+      *&v9->var0.tx = *&PXGSpriteGeometryTransformIdentity[32];
       v9->var1 = 0.0;
       ++v7;
       ++v8;

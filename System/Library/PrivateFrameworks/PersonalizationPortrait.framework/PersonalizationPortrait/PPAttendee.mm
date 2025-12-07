@@ -6,6 +6,8 @@
 - (NSURL)url;
 - (PPAttendee)initWithCoder:(id)coder;
 - (PPAttendee)initWithEKParticipant:(id)participant;
+- (PPAttendee)initWithName:(id)name emailAddress:(id)address url:(id)url isCurrentUser:(BOOL)user status:(unsigned __int8)status;
+- (PPAttendee)initWithName:(id)name emailAddress:(id)address urlString:(id)string isCurrentUser:(BOOL)user status:(unsigned __int8)status;
 - (id)_plist;
 - (id)description;
 - (id)initWithIndex:(void *)index inBackingPlists:;
@@ -195,6 +197,86 @@
   return v10;
 }
 
+- (PPAttendee)initWithName:(id)name emailAddress:(id)address urlString:(id)string isCurrentUser:(BOOL)user status:(unsigned __int8)status
+{
+  statusCopy = status;
+  userCopy = user;
+  v39[1] = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  addressCopy = address;
+  stringCopy = string;
+  v14 = v38;
+  bzero(v38, 0x400uLL);
+  v15 = v37;
+  bzero(v37, 0x400uLL);
+  if (nameCopy)
+  {
+    v14 = &v38[1];
+    v15 = &v37[1];
+    v38[0] = @"nam";
+    v37[0] = nameCopy;
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  if (addressCopy)
+  {
+    v17 = *v14;
+    *v14 = @"eml";
+
+    objc_storeStrong(v15, address);
+    ++v16;
+  }
+
+  v18 = v16;
+  v19 = v38[v16];
+  v38[v16] = @"url";
+
+  objc_storeStrong(&v37[v16], string);
+  v20 = v38[v16 + 1];
+  v38[v18 + 1] = @"icu";
+
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:userCopy];
+  v22 = v37[v16 + 1];
+  v37[v18 + 1] = v21;
+
+  v23 = 8 * v16 + 16;
+  v24 = *(v38 + v23);
+  *(v38 + v23) = @"sta";
+
+  v25 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:statusCopy];
+  v26 = *(v37 + v23);
+  *(v37 + v23) = v25;
+
+  v27 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjects:v37 forKeys:v38 count:v16 + 3];
+  v28 = v27;
+  if (self)
+  {
+    v39[0] = v27;
+    v29 = MEMORY[0x1E695DEC8];
+    v30 = v27;
+    v31 = [v29 arrayWithObjects:v39 count:1];
+
+    self = [(PPAttendee *)&self->super.isa initWithIndex:v31 inBackingPlists:?];
+  }
+
+  selfCopy = self;
+
+  for (i = 127; i != -1; --i)
+  {
+  }
+
+  for (j = 127; j != -1; --j)
+  {
+  }
+
+  return selfCopy;
+}
+
 - (id)initWithIndex:(void *)index inBackingPlists:
 {
   indexCopy = index;
@@ -212,6 +294,18 @@
   }
 
   return self;
+}
+
+- (PPAttendee)initWithName:(id)name emailAddress:(id)address url:(id)url isCurrentUser:(BOOL)user status:(unsigned __int8)status
+{
+  statusCopy = status;
+  userCopy = user;
+  addressCopy = address;
+  nameCopy = name;
+  absoluteString = [url absoluteString];
+  v15 = [(PPAttendee *)self initWithName:nameCopy emailAddress:addressCopy urlString:absoluteString isCurrentUser:userCopy status:statusCopy];
+
+  return v15;
 }
 
 @end

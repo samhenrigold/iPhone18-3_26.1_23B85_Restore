@@ -73,7 +73,7 @@ LABEL_5:
   }
 
 LABEL_7:
-  v8 = +[UIColor blackColor];
+  v8 = objc_msgSend_blackColor(UIColor);
   [(_UIBackdropViewSettings *)self setLegibleColor:v8];
 }
 

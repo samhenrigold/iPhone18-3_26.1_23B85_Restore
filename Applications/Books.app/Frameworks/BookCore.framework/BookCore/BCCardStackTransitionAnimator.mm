@@ -477,10 +477,10 @@ LABEL_16:
           if (v95)
           {
             memset(&v133, 0, sizeof(v133));
-            [(BCCardStackTransitionAnimator *)self _translationForTitleLabel:v89 cardSuperview:superview cardCurrentFrame:v19 cardTargetFrame:v21, v23, v25, x, y, width, height];
+            objc_msgSend__translationForTitleLabel_cardSuperview_cardCurrentFrame_cardTargetFrame_(self, v19, v21, v23, v25, x, y, width, height);
             if (v89)
             {
-              [v89 transform];
+              objc_msgSend_transform(v89);
             }
 
             else
@@ -907,11 +907,11 @@ LABEL_16:
           card2 = [v49 card];
           cardStackTransitioningCardView = [card2 cardStackTransitioningCardView];
           superview = [cardStackTransitioningCardView superview];
-          [(BCCardStackTransitionAnimator *)v143 _translationForTitleLabel:v8 cardSuperview:superview cardCurrentFrame:v194 cardTargetFrame:v195, v196, v197];
+          objc_msgSend__translationForTitleLabel_cardSuperview_cardCurrentFrame_cardTargetFrame_(v143, v194, v195, v196, v197);
 
           if (v8)
           {
-            [v8 transform];
+            objc_msgSend_transform(v8);
           }
 
           else
@@ -1121,7 +1121,7 @@ LABEL_16:
         v100 = v99;
         [(BCCardStackTransitionAnimator *)v143 _adjustDuration:0.08];
         v102 = v101;
-        [v139 duration];
+        objc_msgSend_duration(v139);
         [v139 addAnimations:v161 delayFactor:v102 / v103];
       }
 
@@ -1418,7 +1418,7 @@ LABEL_16:
   v6 = 0u;
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   [v4 center];
@@ -1489,7 +1489,7 @@ LABEL_16:
   sub_B04B8(&t1, v59, v58, v18, v20, v45, v47, v49, v51);
   if (cardStackTransitioningCardView)
   {
-    [cardStackTransitioningCardView transform];
+    objc_msgSend_transform(cardStackTransitioningCardView);
   }
 
   else
@@ -1535,7 +1535,7 @@ LABEL_15:
   [moveCopy setCardToCenter:?];
   if (cardStackTransitioningCardView)
   {
-    [cardStackTransitioningCardView transform];
+    objc_msgSend_transform(cardStackTransitioningCardView);
   }
 
   else
@@ -1712,11 +1712,11 @@ LABEL_16:
             superview = [cardStackTransitioningCardView superview];
             selfCopy2 = self;
             v34 = superview;
-            [(BCCardStackTransitionAnimator *)selfCopy2 _translationForTitleLabel:v133 cardSuperview:superview cardCurrentFrame:v196 cardTargetFrame:v197, v194, v195];
+            objc_msgSend__translationForTitleLabel_cardSuperview_cardCurrentFrame_cardTargetFrame_(selfCopy2, v196, v197, v194, v195);
 
             if (v133)
             {
-              [v133 transform];
+              objc_msgSend_transform(v133);
             }
 
             else

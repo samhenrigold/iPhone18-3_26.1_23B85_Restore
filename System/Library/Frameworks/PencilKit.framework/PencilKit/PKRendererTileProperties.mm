@@ -61,10 +61,10 @@
       goto LABEL_12;
     }
 
-    [(PKRendererTileProperties *)self drawingTransform];
+    objc_msgSend_drawingTransform(self);
     if (v5)
     {
-      [v5 drawingTransform];
+      objc_msgSend_drawingTransform(v5);
     }
 
     else

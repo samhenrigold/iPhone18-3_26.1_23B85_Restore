@@ -12,7 +12,7 @@
 - (void)setCustomCornerRadius:(double)radius
 {
   selfCopy = self;
-  ParticipantScreenShareInfoView.customCornerRadius.setter(radius);
+  ParticipantScreenShareInfoView.customCornerRadius.setter(radius, selfCopy, v4);
 }
 
 - (double)preferredHeight
@@ -25,7 +25,7 @@
 
 - (UIImage)avatarImage
 {
-  v2 = ParticipantScreenShareInfoView.avatarImage.getter();
+  v2 = ParticipantScreenShareInfoView.avatarImage.getter(self);
 
   return v2;
 }
@@ -34,7 +34,7 @@
 {
   imageCopy = image;
   selfCopy = self;
-  ParticipantScreenShareInfoView.avatarImage.setter(image);
+  ParticipantScreenShareInfoView.avatarImage.setter(image, selfCopy);
 }
 
 - (void)layoutSubviews

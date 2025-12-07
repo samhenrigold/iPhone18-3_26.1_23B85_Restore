@@ -70,22 +70,26 @@ LABEL_3:
     v11 = +[VSAccountStore sharedAccountStore];
     accounts = [v11 accounts];
 
-    if (![accounts count] && objc_msgSend(accountsCopy, "count"))
+    if (![accounts count])
     {
-      v13 = VSDefaultLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v13 = [accountsCopy count];
+      if (v13)
       {
-        *v19 = 0;
-        _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Unable to fetch accounts from account store - fallback to local accounts.", v19, 2u);
-      }
+        v14 = VSDefaultLogObject(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *v20 = 0;
+          _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Unable to fetch accounts from account store - fallback to local accounts.", v20, 2u);
+        }
 
-      v14 = accountsCopy;
-      accounts = v14;
+        v15 = accountsCopy;
+        accounts = v15;
+      }
     }
 
-    v15 = [VSFailable failableWithObject:accounts];
-    v16 = [VSOptional optionalWithObject:v15];
-    [(VSCredentialSaveOperation *)self setResult:v16];
+    v16 = [VSFailable failableWithObject:accounts];
+    v17 = [VSOptional optionalWithObject:v16];
+    [(VSCredentialSaveOperation *)self setResult:v17];
   }
 
   else
@@ -95,9 +99,9 @@ LABEL_3:
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The error parameter must not be nil."];
     }
 
-    v17 = [VSFailable failableWithError:v10];
-    v18 = [VSOptional optionalWithObject:v17];
-    [(VSCredentialSaveOperation *)self setResult:v18];
+    v18 = [VSFailable failableWithError:v10];
+    v19 = [VSOptional optionalWithObject:v18];
+    [(VSCredentialSaveOperation *)self setResult:v19];
   }
 
   [(VSAsyncOperation *)self finishExecutionIfPossible];
@@ -121,7 +125,7 @@ void __46__VSCredentialSaveOperation_executionDidBegin__block_invoke(uint64_t a1
 {
   v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109378;

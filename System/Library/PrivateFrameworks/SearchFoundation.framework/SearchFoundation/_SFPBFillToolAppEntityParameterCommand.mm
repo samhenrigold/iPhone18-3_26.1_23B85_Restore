@@ -230,9 +230,7 @@ LABEL_13:
 
 - (void)setEncodedTypedValue:(id)value
 {
-  v4 = [value copy];
-  encodedTypedValue = self->_encodedTypedValue;
-  self->_encodedTypedValue = v4;
+  self->_encodedTypedValue = [value copy];
 
   MEMORY[0x1EEE66BB8]();
 }

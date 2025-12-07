@@ -54,10 +54,10 @@
 
 - (id)cachedTopicScores
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [(PPTopicStore *)self cachePath:&v8];
-  v3 = v8;
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [(PPTopicStore *)self cachePath:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = [PPTopicUtils cachedTopicScoresAtPath:v2];
@@ -69,14 +69,12 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v3;
+      v9 = v3;
       _os_log_error_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_ERROR, "PPTopicStore: unable to recover cache path over XPC: %@", buf, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -221,13 +219,12 @@
 
 void __28__PPTopicStore_defaultStore__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = defaultStore__pasExprOnceResult_2448;
-  defaultStore__pasExprOnceResult_2448 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = defaultStore__pasExprOnceResult_2448;
+  defaultStore__pasExprOnceResult_2448 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

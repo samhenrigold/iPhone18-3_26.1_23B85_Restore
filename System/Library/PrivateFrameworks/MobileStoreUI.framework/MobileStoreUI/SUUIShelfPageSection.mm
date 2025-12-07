@@ -362,7 +362,7 @@ void __73__SUUIShelfPageSection_getModalSourceViewForViewElement_completionBlock
   _Block_object_dispose(v8, 8);
 }
 
-uint64_t __52__SUUIShelfPageSection_prefetchResourcesWithReason___block_invoke(void *a1, uint64_t a2, uint64_t a3, BOOL *a4)
+void *__52__SUUIShelfPageSection_prefetchResourcesWithReason___block_invoke(void *a1, uint64_t a2, uint64_t a3, BOOL *a4)
 {
   result = [*(a1[4] + 96) prefetchResourcesForShelfItemViewElement:a2 reason:a1[6]];
   if (result)

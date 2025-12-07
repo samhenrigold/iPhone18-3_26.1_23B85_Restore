@@ -25,7 +25,7 @@
   [(ICSApplication *)&v6 sendEvent:eventCopy];
   if (![eventCopy type])
   {
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -38,7 +38,7 @@
 - (unint64_t)beginBackgroundTaskWithExpirationHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -57,7 +57,7 @@
 {
   nameCopy = name;
   handlerCopy = handler;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -76,7 +76,7 @@
 
 - (void)endBackgroundTask:(unint64_t)task
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -128,7 +128,7 @@
 {
   testCopy = test;
   optionsCopy = options;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(optionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

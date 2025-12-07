@@ -15,25 +15,25 @@
 
 - (void)open:(AudioComponentDescription *)open instanceUUID:(id)d reply:(id)reply
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dCopy = d;
   replyCopy = reply;
   v10 = _Block_copy(replyCopy);
-  v30 = v10;
+  v29 = v10;
   objc_initWeak(&location, self);
   v11 = [AURemoteHost alloc];
   _auxiliaryConnection = [(AURemoteExtensionContext *)self _auxiliaryConnection];
   objc_copyWeak(&to, &location);
-  v40 = 0;
-  v38 = &unk_1F0326FC0;
-  objc_moveWeak(&v39, &to);
-  v40 = &v38;
+  v39 = 0;
+  v37 = &unk_1F0326FC0;
+  objc_moveWeak(&v38, &to);
+  v39 = &v37;
   objc_destroyWeak(&to);
-  v13 = [(AURemoteHost *)v11 initWithConnection:_auxiliaryConnection config:MEMORY[0x1E695E0F8] timeOutHandler:&v38];
+  v13 = [(AURemoteHost *)v11 initWithConnection:_auxiliaryConnection config:MEMORY[0x1E695E0F8] timeOutHandler:&v37];
   host = self->_host;
   self->_host = v13;
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v38);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v37);
   if (self->_host)
   {
     if (self->_isUIExtension)
@@ -51,28 +51,28 @@
       goto LABEL_10;
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2050000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2050000000;
     v16 = getAUViewControllerClass(void)::softClass;
-    v37 = getAUViewControllerClass(void)::softClass;
+    v36 = getAUViewControllerClass(void)::softClass;
     if (!getAUViewControllerClass(void)::softClass)
     {
-      *&v31 = MEMORY[0x1E69E9820];
-      *(&v31 + 1) = 3221225472;
-      *&v32 = ___ZL24getAUViewControllerClassv_block_invoke;
-      *(&v32 + 1) = &unk_1E72C2B68;
-      v33 = &v34;
-      ___ZL24getAUViewControllerClassv_block_invoke(&v31);
-      v16 = v35[3];
+      *&v30 = MEMORY[0x1E69E9820];
+      *(&v30 + 1) = 3221225472;
+      *&v31 = ___ZL24getAUViewControllerClassv_block_invoke;
+      *(&v31 + 1) = &unk_1E72C2B68;
+      v32 = &v33;
+      ___ZL24getAUViewControllerClassv_block_invoke(&v30);
+      v16 = v34[3];
     }
 
     v17 = v16;
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Principal object %@ must derive from AUViewController but doesn't.", v15];
-      [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v30, v19, 0);
+      [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v29, v19, 0);
     }
 
     else
@@ -80,11 +80,11 @@
 LABEL_10:
       if ([v15 conformsToProtocol:&unk_1F03563F0])
       {
-        v31 = *&open->componentType;
-        LODWORD(v32) = open->componentFlagsMask;
-        v27 = 0;
-        v18 = [v15 createAudioUnitWithComponentDescription:&v31 error:&v27];
-        v19 = v27;
+        v30 = *&open->componentType;
+        LODWORD(v31) = open->componentFlagsMask;
+        v26 = 0;
+        v18 = [v15 createAudioUnitWithComponentDescription:&v30 error:&v26];
+        v19 = v26;
         if (v18)
         {
           componentType = open->componentType;
@@ -96,18 +96,18 @@ LABEL_10:
               v22 = self->_host;
               if (v22)
               {
-                [(AURemoteHost *)v22 hostAuditToken];
+                objc_msgSend_hostAuditToken(v22);
               }
 
               else
               {
+                v24 = 0u;
                 v25 = 0u;
-                v26 = 0u;
               }
 
+              v30 = v24;
               v31 = v25;
-              v32 = v26;
-              [v21 set_hostAuditToken:&v31];
+              [v21 set_hostAuditToken:&v30];
             }
 
             [(AURemoteHost *)self->_host openImpl:v18 reply:replyCopy];
@@ -115,13 +115,13 @@ LABEL_10:
           }
 
           v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Audio Unit %@ is not a subclass of AVSpeechSynthesisProviderAudioUnit.", v18];
-          [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v30, v23, v19);
+          [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v29, v23, v19);
         }
 
         else
         {
           v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to instantiate Audio Unit: %@", v19];
-          [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v30, v23, 0);
+          [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v29, v23, 0);
         }
 
 LABEL_25:
@@ -129,7 +129,7 @@ LABEL_25:
       }
 
       v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Principal object %@ does not conform to protocol AUAudioUnitFactory.", v15];
-      [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v30, v19, 0);
+      [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v29, v19, 0);
     }
 
 LABEL_26:
@@ -138,11 +138,10 @@ LABEL_26:
   }
 
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Remote Host Initialisation Failed"];
-  [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v30, v15, 0);
+  [AURemoteExtensionContext open:instanceUUID:reply:]::$_6::operator()(&v29, v15, 0);
 LABEL_27:
 
   objc_destroyWeak(&location);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)open:instanceUUID:reply:
@@ -179,7 +178,7 @@ LABEL_27:
 
 - (AURemoteExtensionContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   endpointCopy = endpoint;
   dCopy = d;
@@ -193,15 +192,15 @@ LABEL_27:
   block[3] = &unk_1E72BA940;
   block[4] = mainBundle;
   v14 = v13;
-  v24 = v14;
+  v23 = v14;
   if ([AURemoteExtensionContext initWithInputItems:listenerEndpoint:contextUUID:]::once != -1)
   {
     dispatch_once(&[AURemoteExtensionContext initWithInputItems:listenerEndpoint:contextUUID:]::once, block);
   }
 
-  v22.receiver = self;
-  v22.super_class = AURemoteExtensionContext;
-  v15 = [(AURemoteExtensionContext *)&v22 initWithInputItems:itemsCopy listenerEndpoint:endpointCopy contextUUID:dCopy];
+  v21.receiver = self;
+  v21.super_class = AURemoteExtensionContext;
+  v15 = [(AURemoteExtensionContext *)&v21 initWithInputItems:itemsCopy listenerEndpoint:endpointCopy contextUUID:dCopy];
   if (!v15)
   {
     v18 = 0;
@@ -230,17 +229,17 @@ LABEL_27:
       else
       {
         v18 = MEMORY[0x1E69E9C10];
-        v21 = MEMORY[0x1E69E9C10];
+        v20 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(&v18->super.super, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v26 = "AURemoteExtensionContext.mm";
-        v27 = 1024;
-        v28 = 1506;
-        v29 = 2112;
-        v30 = v16;
+        v25 = "AURemoteExtensionContext.mm";
+        v26 = 1024;
+        v27 = 1506;
+        v28 = 2112;
+        v29 = v16;
         _os_log_impl(&dword_18F5DF000, &v18->super.super, OS_LOG_TYPE_ERROR, "%25s:%-5d Unknown extension point: %@", buf, 0x1Cu);
       }
 
@@ -256,13 +255,12 @@ LABEL_27:
 LABEL_8:
 
 LABEL_10:
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 void __76__AURemoteExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = CADeprecated::TSingleton<AURegistrationServerConnection>::instance();
   AURegistrationServerConnection::RegisterExtensionProcess(v2);
   v3 = *(a1 + 32);
@@ -300,11 +298,11 @@ LABEL_11:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v18 = "AURemoteExtensionContext.mm";
-      v19 = 1024;
-      v20 = 1488;
-      v21 = 2112;
-      v22 = v4;
+      v17 = "AURemoteExtensionContext.mm";
+      v18 = 1024;
+      v19 = 1488;
+      v20 = 2112;
+      v21 = v4;
       _os_log_impl(&dword_18F5DF000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: AudioComponentBundle %@ not found", buf, 0x1Cu);
     }
 
@@ -321,13 +319,11 @@ LABEL_12:
   v14 = AudioComponentMgr_NSExtension::sExtensionServiceBundle;
   AudioComponentMgr_NSExtension::sExtensionServiceBundle = v11;
 
-  GlobalComponentPluginMgr(&v16);
-  if (v16)
+  GlobalComponentPluginMgr(&v15);
+  if (v15)
   {
-    std::recursive_mutex::unlock(v16);
+    std::recursive_mutex::unlock(v15);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)forwardingTargetForSelector:(SEL)selector

@@ -350,18 +350,14 @@ LABEL_23:
 
 - (void)setToggledTitle:(id)title
 {
-  v4 = [title copy];
-  toggledTitle = self->_toggledTitle;
-  self->_toggledTitle = v4;
+  self->_toggledTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUntoggledTitle:(id)title
 {
-  v4 = [title copy];
-  untoggledTitle = self->_untoggledTitle;
-  self->_untoggledTitle = v4;
+  self->_untoggledTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

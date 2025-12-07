@@ -93,7 +93,7 @@ LABEL_12:
 
 - (void)noteUUID:(id)d forProcessName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   selfCopy = self;
@@ -112,11 +112,11 @@ LABEL_12:
       v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
       if (!v10)
       {
-        v13 = NStatGetLog();
+        v13 = NStatGetLog(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v20 = nameCopy;
+          v21 = nameCopy;
           _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_ERROR, "Memory allocation failed for %@", buf, 0xCu);
         }
 
@@ -132,40 +132,40 @@ LABEL_12:
         {
           v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"com.apple.%@", v11];
 
-          v14 = NStatGetLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = NStatGetLog(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v20 = v11;
-            v21 = 2112;
-            v22 = dCopy;
-            v23 = 2112;
-            v24 = v13;
-            v15 = "Create canonical mapping for process %@, %@ -> %@";
+            v21 = v11;
+            v22 = 2112;
+            v23 = dCopy;
+            v24 = 2112;
+            v25 = v13;
+            v16 = "Create canonical mapping for process %@, %@ -> %@";
 LABEL_16:
-            _os_log_impl(&dword_25BA3A000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0x20u);
+            _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0x20u);
             goto LABEL_17;
           }
 
           goto LABEL_17;
         }
 
-        v16 = [(NSDictionary *)selfCopy->_daemonsWithNonStandardMappings objectForKeyedSubscript:v11];
+        v17 = [(NSDictionary *)selfCopy->_daemonsWithNonStandardMappings objectForKeyedSubscript:v11];
 
-        if (v16)
+        if (v17)
         {
           v13 = [(NSDictionary *)selfCopy->_daemonsWithNonStandardMappings objectForKeyedSubscript:v11];
 
-          v14 = NStatGetLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = NStatGetLog(v18);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v20 = v11;
-            v21 = 2112;
-            v22 = dCopy;
-            v23 = 2112;
-            v24 = v13;
-            v15 = "Create non-standard mapping for process %@, %@ -> %@";
+            v21 = v11;
+            v22 = 2112;
+            v23 = dCopy;
+            v24 = 2112;
+            v25 = v13;
+            v16 = "Create non-standard mapping for process %@, %@ -> %@";
             goto LABEL_16;
           }
 
@@ -195,8 +195,6 @@ LABEL_20:
 
 LABEL_21:
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateDictionary

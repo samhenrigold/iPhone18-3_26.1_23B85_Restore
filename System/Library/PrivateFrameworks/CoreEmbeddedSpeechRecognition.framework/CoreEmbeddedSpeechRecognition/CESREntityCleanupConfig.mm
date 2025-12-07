@@ -220,11 +220,11 @@
 
 - (CESREntityCleanupConfig)initWithJsonObject:(id)object
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v11.receiver = self;
-  v11.super_class = CESREntityCleanupConfig;
-  v5 = [(CESREntityCleanupConfig *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = CESREntityCleanupConfig;
+  v5 = [(CESREntityCleanupConfig *)&v10 init];
   v6 = v5;
   if (v5 && ![(CESREntityCleanupConfig *)v5 _parseJsonObject:objectCopy])
   {
@@ -232,7 +232,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[CESREntityCleanupConfig initWithJsonObject:]";
+      v12 = "[CESREntityCleanupConfig initWithJsonObject:]";
       _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, "%s Failed to parse Entity Cleanup section of json.", buf, 0xCu);
     }
 
@@ -244,7 +244,6 @@
     v7 = v6;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

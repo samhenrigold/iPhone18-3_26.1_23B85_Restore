@@ -48,7 +48,7 @@
     v12 = v4;
     outputCopy = output;
     self->_audiobookPlayerActiveOutput = output;
-    v7 = BKAudiobooksNowPlayingAdaptorLog();
+    v7 = BKAudiobooksNowPlayingAdaptorLog(self);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (outputCopy)
     {
@@ -77,7 +77,7 @@
 
 - (void)invalidatePlaybackQueue
 {
-  v2 = BKAudiobooksNowPlayingAdaptorLog();
+  v2 = BKAudiobooksNowPlayingAdaptorLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

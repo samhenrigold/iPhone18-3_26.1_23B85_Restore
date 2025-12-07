@@ -63,15 +63,15 @@
   languageCopy = language;
   preferredContentSizeCategory = [v5 preferredContentSizeCategory];
   v8 = 0.0;
-  if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryL"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
     v8 = 2.0;
-    if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXL"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
     {
       v8 = 4.0;
-      if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXL"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
       {
-        if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXXL"] & 1) != 0 || (v8 = 0.0, _UIContentSizeCategoryIsAccessibilityContentSizeCategory(preferredContentSizeCategory, v9)))
+        if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) != 0 || (v8 = 0.0, _UIContentSizeCategoryIsAccessibilityContentSizeCategory(preferredContentSizeCategory, v9)))
         {
           v8 = 6.0;
         }

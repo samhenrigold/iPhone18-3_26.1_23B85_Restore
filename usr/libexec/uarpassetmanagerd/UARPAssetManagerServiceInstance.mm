@@ -276,15 +276,15 @@ void __70__UARPAssetManagerServiceInstance_listener_shouldAcceptNewConnection___
   return v3;
 }
 
-void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_invoke(uint64_t *a1)
+void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_invoke(NSObject *a1)
 {
   location[2] = a1;
   location[1] = a1;
-  location[0] = *(a1[4] + 32);
+  location[0] = *(a1[4].isa + 4);
   v35 = OS_LOG_TYPE_INFO;
   if (os_log_type_enabled(location[0], OS_LOG_TYPE_INFO))
   {
-    __os_log_helper_16_2_2_8_64_8_64(v40, a1[4], a1[5]);
+    __os_log_helper_16_2_2_8_64_8_64(v40, a1[4].isa, a1[5].isa);
     _os_log_impl(&_mh_execute_header, location[0], v35, "%@ Looking for cached asset for subscription:%@", v40, 0x16u);
   }
 
@@ -295,37 +295,37 @@ void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_inv
   v31 = 48;
   v32 = __Block_byref_object_copy__1;
   v33 = __Block_byref_object_dispose__1;
-  v34 = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
+  v34 = [*(a1[4].isa + 5) objectForKeyedSubscript:a1[5].isa];
   if (!v29[5])
   {
-    [a1[4] initializeAssetManagerServiceConnection];
-    v7 = *(a1[4] + 8);
+    [(objc_class *)a1[4].isa initializeAssetManagerServiceConnection];
+    v7 = *(a1[4].isa + 1);
     v21 = _NSConcreteStackBlock;
     v22 = -1073741824;
     v23 = 0;
     v24 = __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_invoke_357;
     v25 = &unk_100036100;
-    v26 = a1[4];
+    v26 = a1[4].isa;
     v27 = [v7 synchronousRemoteObjectProxyWithErrorHandler:&v21];
-    v1 = a1[5];
+    isa = a1[5].isa;
     oslog[1] = _NSConcreteStackBlock;
     v16 = -1073741824;
     v17 = 0;
     v18 = __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_invoke_2;
     v19 = &unk_100036128;
     v20 = &v28;
-    [v27 checkCacheForSubscription:v1 withReply:?];
+    [v27 checkCacheForSubscription:isa withReply:?];
     objc_storeStrong(&v27, 0);
     objc_storeStrong(&v26, 0);
   }
 
   if (v29[5])
   {
-    v12 = *(a1[4] + 32);
+    v12 = *(a1[4].isa + 4);
     v11 = OS_LOG_TYPE_INFO;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_3_8_64_8_66_8_66(v38, a1[4], v29[5], a1[5]);
+      __os_log_helper_16_2_3_8_64_8_66_8_66(v38, a1[4].isa, v29[5], a1[5].isa);
       _os_log_impl(&_mh_execute_header, v12, v11, "%@ Cache record available:%{public}@ for accessory:%{public}@", v38, 0x20u);
     }
 
@@ -337,7 +337,7 @@ void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_inv
     if (v6)
     {
       v2 = [v29[5] assetURL];
-      v3 = *(a1[6] + 8);
+      v3 = *(a1[6].isa + 1);
       v4 = *(v3 + 40);
       *(v3 + 40) = v2;
 
@@ -346,10 +346,10 @@ void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_inv
 
     else
     {
-      v9 = *(a1[4] + 32);
+      v9 = *(a1[4].isa + 4);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_64_8_66(v37, a1[4], v29[5]);
+        __os_log_helper_16_2_2_8_64_8_66(v37, a1[4].isa, v29[5]);
         _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@ Deployment not allowed for this asset:%{public}@", v37, 0x16u);
       }
 
@@ -360,11 +360,11 @@ void __61__UARPAssetManagerServiceInstance_checkCacheForSubscription___block_inv
 
   else
   {
-    oslog[0] = *(a1[4] + 32);
+    oslog[0] = *(a1[4].isa + 4);
     v14 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_64_8_66(v39, a1[4], a1[5]);
+      __os_log_helper_16_2_2_8_64_8_66(v39, a1[4].isa, a1[5].isa);
       _os_log_error_impl(&_mh_execute_header, oslog[0], v14, "%@ No cached record found for subscription:%{public}@", v39, 0x16u);
     }
 

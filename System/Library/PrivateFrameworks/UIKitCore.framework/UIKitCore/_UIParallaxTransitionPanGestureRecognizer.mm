@@ -174,7 +174,7 @@ LABEL_23:
   else
   {
     LODWORD(v6) = 0;
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UINavigationBackSwipeAlternate, @"UINavigationBackSwipeAlternate", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E2BC)
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UINavigationBackSwipeAlternate, @"UINavigationBackSwipeAlternate", _UIInternalPreferenceUpdateBool) && byte_1EA95E2BC)
     {
       v6 = ([(UIGestureRecognizer *)self modifierFlags]>> 19) & 1;
     }
@@ -215,9 +215,9 @@ LABEL_23:
     else
     {
       name = [recognizerCopy name];
-      v12 = [name isEqualToString:@"com.apple.UIKit.UIWindowDraggingPan"];
+      isEqualToString = objc_msgSend_isEqualToString_(name);
 
-      if (v12)
+      if (isEqualToString)
       {
         _allActiveTouches = [(UIGestureRecognizer *)self _allActiveTouches];
         view2 = [_allActiveTouches anyObject];

@@ -119,30 +119,29 @@
 
 - (void)logWithSuggestions:(id)suggestions deliveryVehicle:(id)vehicle generationId:(id)id completion:(id)completion
 {
-  v25 = sub_231605098();
-  v10 = *(v25 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v25);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(completion);
+  v24 = sub_231605098();
+  v10 = *(v24 - 8);
+  MEMORY[0x28223BE20](v24);
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(completion);
   suggestionsCopy = suggestions;
   vehicleCopy = vehicle;
   idCopy = id;
 
-  v18 = sub_231605038();
-  v20 = v19;
+  v17 = sub_231605038();
+  v19 = v18;
 
-  v21 = sub_231605038();
-  v23 = v22;
+  v20 = sub_231605038();
+  v22 = v21;
 
   sub_231605078();
-  *(swift_allocObject() + 16) = v14;
+  *(swift_allocObject() + 16) = v13;
   sub_2315FABFC();
 
-  sub_2315B300C(v21, v23);
-  sub_2315B300C(v18, v20);
+  sub_2315B300C(v20, v22);
+  sub_2315B300C(v17, v19);
 
-  (*(v10 + 8))(v13, v25);
+  (*(v10 + 8))(v12, v24);
 }
 
 @end

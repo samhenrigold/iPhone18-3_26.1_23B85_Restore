@@ -112,32 +112,32 @@ LABEL_10:
 
 - (NSDictionary)payloadsByType
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   payloadsByType = self->_payloadsByType;
   if (!payloadsByType)
   {
     payloads = [(DMTConfigurationProfile *)self payloads];
     v5 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v6 = payloads;
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           type = [v11 type];
           v13 = [v5 objectForKeyedSubscript:type];
           v14 = v13;
@@ -153,7 +153,7 @@ LABEL_10:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
@@ -166,44 +166,42 @@ LABEL_10:
     payloadsByType = self->_payloadsByType;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return payloadsByType;
 }
 
 - (NSDictionary)payloadsByUUID
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   payloadsByUUID = self->_payloadsByUUID;
   if (!payloadsByUUID)
   {
     payloads = [(DMTConfigurationProfile *)self payloads];
     v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(payloads, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = payloads;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           uuid = [v11 uuid];
           [v5 setObject:v11 forKeyedSubscript:uuid];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -216,36 +214,34 @@ LABEL_10:
     payloadsByUUID = self->_payloadsByUUID;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return payloadsByUUID;
 }
 
 - (id)payloadsOfType:(id)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   payloads = [(DMTConfigurationProfile *)self payloads];
-  v7 = [payloads countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(payloads);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         type = [v11 type];
         v13 = [type isEqualToString:typeCopy];
 
@@ -255,42 +251,40 @@ LABEL_10:
         }
       }
 
-      v8 = [payloads countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)payloadsOfTypes:(id)types
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   payloads = [(DMTConfigurationProfile *)self payloads];
-  v7 = [payloads countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(payloads);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         type = [v11 type];
         v13 = [typesCopy containsObject:type];
 
@@ -300,47 +294,45 @@ LABEL_10:
         }
       }
 
-      v8 = [payloads countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)validateWithValidators:(id)validators error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   validatorsCopy = validators;
-  v7 = [validatorsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [validatorsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(validatorsCopy);
         }
 
-        if (![*(*(&v14 + 1) + 8 * i) validateProfile:self error:{error, v14}])
+        if (![*(*(&v13 + 1) + 8 * i) validateProfile:self error:{error, v13}])
         {
           v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v8 = [validatorsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [validatorsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -353,17 +345,16 @@ LABEL_10:
   v11 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (DMTConfigurationProfile)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v32.receiver = self;
-  v32.super_class = DMTConfigurationProfile;
-  v7 = [(DMTConfigurationPrimitive *)&v32 initWithDictionary:dictionaryCopy error:error];
+  v31.receiver = self;
+  v31.super_class = DMTConfigurationProfile;
+  v7 = [(DMTConfigurationPrimitive *)&v31 initWithDictionary:dictionaryCopy error:error];
   v8 = v7;
   if (v7)
   {
@@ -383,36 +374,36 @@ LABEL_11:
       if (v13)
       {
         v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:v13];
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         type2 = type2;
-        v15 = [type2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v15 = [type2 countByEnumeratingWithState:&v27 objects:v32 count:16];
         if (v15)
         {
           v16 = v15;
-          v27 = dictionaryCopy;
+          v26 = dictionaryCopy;
           v17 = 0;
-          v18 = *v29;
+          v18 = *v28;
           while (2)
           {
             v19 = 0;
             v20 = v17;
             do
             {
-              if (*v29 != v18)
+              if (*v28 != v18)
               {
                 objc_enumerationMutation(type2);
               }
 
-              v17 = [DMTConfigurationPayloadBase concretePayloadWithDictionary:*(*(&v28 + 1) + 8 * v19) error:error];
+              v17 = [DMTConfigurationPayloadBase concretePayloadWithDictionary:*(*(&v27 + 1) + 8 * v19) error:error];
 
               if (!v17)
               {
 
                 v23 = 0;
-                dictionaryCopy = v27;
+                dictionaryCopy = v26;
                 goto LABEL_20;
               }
 
@@ -422,7 +413,7 @@ LABEL_11:
             }
 
             while (v16 != v19);
-            v16 = [type2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+            v16 = [type2 countByEnumeratingWithState:&v27 objects:v32 count:16];
             if (v16)
             {
               continue;
@@ -431,7 +422,7 @@ LABEL_11:
             break;
           }
 
-          dictionaryCopy = v27;
+          dictionaryCopy = v26;
         }
 
         v21 = [v14 copy];
@@ -449,9 +440,9 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v34 = @"kDMTInvalidConfigurationProfileValueErrorKey";
-      v35 = @"PayloadContent";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v33 = @"kDMTInvalidConfigurationProfileValueErrorKey";
+      v34 = @"PayloadContent";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       v24 = 74;
 LABEL_17:
       DMTErrorWithCodeAndUserInfo(v24, v14);
@@ -464,12 +455,12 @@ LABEL_24:
 
     if (error)
     {
-      v36[1] = @"PayloadType";
-      v37[0] = @"PayloadType";
-      v36[0] = @"kDMTInvalidConfigurationProfileValueErrorKey";
+      v35[1] = @"PayloadType";
+      v36[0] = @"PayloadType";
+      v35[0] = @"kDMTInvalidConfigurationProfileValueErrorKey";
       type2 = [(DMTConfigurationPrimitive *)v8 type];
-      v37[1] = type2;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v36[1] = type2;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
       v24 = 72;
       goto LABEL_17;
     }
@@ -478,7 +469,6 @@ LABEL_24:
   v23 = 0;
 LABEL_25:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

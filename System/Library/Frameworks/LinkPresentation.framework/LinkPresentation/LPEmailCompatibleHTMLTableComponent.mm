@@ -10,13 +10,12 @@
 {
   pathCopy = path;
   generatorCopy = generator;
-  v30.receiver = self;
-  v30.super_class = LPEmailCompatibleHTMLTableComponent;
-  v8 = [(LPHTMLComponent *)&v30 initWithTagName:@"table" themePath:pathCopy generator:generatorCopy];
-  v10 = v8;
+  v28.receiver = self;
+  v28.super_class = LPEmailCompatibleHTMLTableComponent;
+  v8 = [(LPHTMLComponent *)&v28 initWithTagName:@"table" themePath:pathCopy generator:generatorCopy];
   if (v8)
   {
-    LPWebLock(v8, v9);
+    LPWebLock();
     rootWidth = [generatorCopy rootWidth];
     _lp_CSSText = [rootWidth _lp_CSSText];
     cssResolver = [generatorCopy cssResolver];
@@ -30,28 +29,28 @@
     [localVariables2 setObject:_lp_CSSText2 forKeyedSubscript:@"local-table-backgroundColor"];
 
     cssResolver3 = [generatorCopy cssResolver];
-    v20 = [@"lp-rich-link-" stringByAppendingString:pathCopy];
-    element = [(LPHTMLComponent *)v10 element];
-    [cssResolver3 addStyle:v20 toElement:element inComponent:v10];
+    v18 = [@"lp-rich-link-" stringByAppendingString:pathCopy];
+    element = [(LPHTMLComponent *)v8 element];
+    [cssResolver3 addStyle:v18 toElement:element inComponent:v8];
 
-    element2 = [(LPHTMLComponent *)v10 element];
+    element2 = [(LPHTMLComponent *)v8 element];
     [element2 setAttribute:@"cellpadding" value:@"0"];
 
-    element3 = [(LPHTMLComponent *)v10 element];
+    element3 = [(LPHTMLComponent *)v8 element];
     [element3 setAttribute:@"cellspacing" value:@"0"];
 
-    element4 = [(LPHTMLComponent *)v10 element];
+    element4 = [(LPHTMLComponent *)v8 element];
     [element4 setAttribute:@"border" value:@"0"];
 
-    element5 = [(LPHTMLComponent *)v10 element];
+    element5 = [(LPHTMLComponent *)v8 element];
     rootWidth2 = [generatorCopy rootWidth];
     _lp_HTMLAttributeText = [rootWidth2 _lp_HTMLAttributeText];
     [element5 setAttribute:@"width" value:_lp_HTMLAttributeText];
 
-    v28 = v10;
+    v26 = v8;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)addChildAsRow:(id)row

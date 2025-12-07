@@ -66,7 +66,7 @@
 
 - (void)fetchConfigItemWithType:(int64_t)type clientBundleID:(id)d systemTask:(id)task completion:(id)completion
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   taskCopy = task;
   completionCopy = completion;
@@ -80,7 +80,7 @@
 
   if (completionCopy)
   {
-    v58 = 0;
+    v57 = 0;
     type = [MEMORY[0x277CCACA8] stringWithFormat:@"cloudkit_config_fetch_type_%ld", type];
     v15 = [[BCSCoalesceObjectConfig alloc] initWithCompletionBlock:completionCopy coalesceKey:type];
     if (taskCopy)
@@ -96,9 +96,9 @@
           _os_log_impl(&dword_242072000, v17, OS_LOG_TYPE_DEFAULT, "New request is a scheduled duplicate and already in progress:%s", buf, 0xCu);
         }
 
-        v59 = *MEMORY[0x277CCA450];
-        v60 = @"Request is a scheduled duplicate and already in progress";
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v58 = *MEMORY[0x277CCA450];
+        v59 = @"Request is a scheduled duplicate and already in progress";
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
         v19 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v18];
         completionCopy[2](completionCopy, 0, v19);
 
@@ -117,8 +117,8 @@ LABEL_40:
       coalesceHelper = 0;
     }
 
-    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v15 isDuplicateRequest:&v58];
-    v21 = v58;
+    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v15 isDuplicateRequest:&v57];
+    v21 = v57;
     v22 = ABSLogCommon();
     v18 = v22;
     if (v21 == 1)
@@ -133,10 +133,10 @@ LABEL_40:
       goto LABEL_40;
     }
 
-    v49 = dCopy;
+    v48 = dCopy;
     v23 = os_signpost_id_generate(v22);
 
-    v48 = type;
+    v47 = type;
     if (self)
     {
       metricFactory = self->_metricFactory;
@@ -153,15 +153,15 @@ LABEL_40:
     v28 = [measurementFactory configCloudKitFetchAndDecodeTimingMeasurementForType:objc_msgSend(environment identifier:{"type"), v23}];
 
     [v28 begin];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke;
-    v54[3] = &unk_278D39F58;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke;
+    v53[3] = &unk_278D39F58;
     v18 = v28;
-    v55 = v18;
+    v54 = v18;
     selfCopy = self;
-    v57 = v48;
-    v46 = MEMORY[0x245D07100](v54);
+    v56 = v47;
+    v45 = MEMORY[0x245D07100](v53);
     if (self)
     {
       v29 = self->_metricFactory;
@@ -190,7 +190,7 @@ LABEL_40:
     }
 
     v36 = [(BCSCloudKitQueryProviding *)queryProvider queryForFetchConfigItemWithType:type];
-    v47 = v15;
+    v46 = v15;
     v37 = 0;
     if (self)
     {
@@ -198,14 +198,14 @@ LABEL_40:
       {
         if (type == 1)
         {
-          v62[0] = @"X-CloudKit-BusinessChat-QueryName";
+          v61[0] = @"X-CloudKit-BusinessChat-QueryName";
           v38 = @"ChatSuggestConfig";
           goto LABEL_34;
         }
 
         if (type == 2)
         {
-          v62[0] = @"X-CloudKit-BusinessLink-QueryName";
+          v61[0] = @"X-CloudKit-BusinessLink-QueryName";
           v38 = @"DomainLinkConfig";
           goto LABEL_34;
         }
@@ -216,35 +216,35 @@ LABEL_40:
         switch(type)
         {
           case 3:
-            v62[0] = @"X-CloudKit-BusinessCaller-QueryName";
+            v61[0] = @"X-CloudKit-BusinessCaller-QueryName";
             v38 = @"CallerIdConfig";
             goto LABEL_34;
           case 4:
-            v62[0] = @"X-CloudKit-BusinessEmail-QueryName";
+            v61[0] = @"X-CloudKit-BusinessEmail-QueryName";
             v38 = @"BrandedEmailConfig";
             goto LABEL_34;
           case 5:
-            v62[0] = @"X-CloudKit-WebPresentment-QueryName";
+            v61[0] = @"X-CloudKit-WebPresentment-QueryName";
             v38 = @"WebPresentmentConfig";
 LABEL_34:
             *buf = v38;
-            v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v62 count:1];
+            v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v61 count:1];
             break;
         }
       }
     }
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke_90;
-    v50[3] = &unk_278D39F80;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke_90;
+    v49[3] = &unk_278D39F80;
     v39 = v34;
-    v51 = v39;
+    v50 = v39;
     typeCopy = type;
-    v40 = v46;
-    v52 = v40;
+    v40 = v45;
+    v51 = v40;
     v41 = v36;
-    v42 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v36 clientBundleID:v49 systemTask:taskCopy requestSpecificAdditionalHTTPHeaders:v37 type:type singleFetchCompletion:v50];
+    v42 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v36 clientBundleID:v48 systemTask:taskCopy requestSpecificAdditionalHTTPHeaders:v37 type:type singleFetchCompletion:v49];
 
     if ((type - 1) <= 4)
     {
@@ -262,22 +262,20 @@ LABEL_34:
       database = 0;
     }
 
-    dCopy = v49;
+    dCopy = v48;
     [(BCSCloudKitDatabaseProtocol *)database addOperation:v42];
 
-    v15 = v47;
-    type = v48;
+    v15 = v46;
+    type = v47;
     goto LABEL_40;
   }
 
 LABEL_41:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -293,26 +291,26 @@ void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemT
   }
 
   [v8 dequeueCoalesceObjectsForCoalesceKey:*(a1 + 48)];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v9 = v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = v19 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -326,7 +324,7 @@ void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemT
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v22 = "[BCSRemoteFetchCloudKit fetchConfigItemWithType:clientBundleID:systemTask:completion:]_block_invoke";
+            v21 = "[BCSRemoteFetchCloudKit fetchConfigItemWithType:clientBundleID:systemTask:completion:]_block_invoke";
             _os_log_error_impl(&dword_242072000, v15, OS_LOG_TYPE_ERROR, "Wrong type of completion block added to config pool:%s", buf, 0xCu);
           }
         }
@@ -335,18 +333,16 @@ void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemT
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemTask_completion___block_invoke_90(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -357,7 +353,7 @@ void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemT
     {
       v8 = NSStringFromBCSType(*(a1 + 48));
       *buf = 138412290;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "Query returned, parsing config with type: %@", buf, 0xCu);
     }
 
@@ -377,9 +373,9 @@ void __87__BCSRemoteFetchCloudKit_fetchConfigItemWithType_clientBundleID_systemT
         _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "CKFetch config item - CKRecord has incorrect format", buf, 2u);
       }
 
-      v21 = *MEMORY[0x277CCA450];
-      v22 = @"Fetch config item failed - CKRecord has incorrect format";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x277CCA450];
+      v21 = @"Fetch config item failed - CKRecord has incorrect format";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v12 = [BCSError errorWithDomain:@"com.apple.businessservices" code:40 userInfo:v15];
 
       v11 = 0;
@@ -393,16 +389,16 @@ LABEL_19:
 
   if (!v6)
   {
-    v19 = *MEMORY[0x277CCA450];
-    v20 = @"Fetch config item failed, nothing returned from fetch";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19 = @"Fetch config item failed, nothing returned from fetch";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v11 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v16];
 
     v17 = ABSLogCommon();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = 0;
+      v23 = 0;
       _os_log_impl(&dword_242072000, v17, OS_LOG_TYPE_DEFAULT, "CKFetch config item - error: %@", buf, 0xCu);
     }
 
@@ -414,14 +410,12 @@ LABEL_19:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = v6;
+    v23 = v6;
     _os_log_impl(&dword_242072000, v13, OS_LOG_TYPE_DEFAULT, "CKFetch config item - error: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_20:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queryOperationForQuery:(void *)query clientBundleID:(void *)d systemTask:(void *)task requestSpecificAdditionalHTTPHeaders:(uint64_t)headers type:(void *)type singleFetchCompletion:
@@ -478,7 +472,7 @@ LABEL_20:
 
 - (void)fetchShardMatching:(id)matching clientBundleID:(id)d completion:(id)completion
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   dCopy = d;
   completionCopy = completion;
@@ -492,7 +486,7 @@ LABEL_20:
 
   if (completionCopy)
   {
-    v53 = 0;
+    v52 = 0;
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"cloudkit_shard_fetch_type_%ld_start_%lld_count_%lld", objc_msgSend(matchingCopy, "type"), objc_msgSend(matchingCopy, "startIndex"), objc_msgSend(matchingCopy, "shardCount")];
     v13 = [[BCSCoalesceObjectShard alloc] initWithCompletionBlock:completionCopy coalesceKey:v12];
     v14 = dCopy;
@@ -506,8 +500,8 @@ LABEL_20:
       coalesceHelper = 0;
     }
 
-    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v13 isDuplicateRequest:&v53];
-    v16 = v53;
+    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v13 isDuplicateRequest:&v52];
+    v16 = v52;
     v17 = ABSLogCommon();
     v18 = v17;
     if (v16 == 1)
@@ -525,10 +519,10 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    v43 = v13;
+    v42 = v13;
     v19 = os_signpost_id_generate(v17);
 
-    v44 = v12;
+    v43 = v12;
     if (self)
     {
       metricFactory = self->_metricFactory;
@@ -545,15 +539,15 @@ LABEL_36:
     v24 = [measurementFactory shardCloudKitFetchAndDecodeTimingMeasurementForType:objc_msgSend(environment identifier:{"type"), v19}];
 
     [v24 begin];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke;
-    v49[3] = &unk_278D39FA8;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke;
+    v48[3] = &unk_278D39FA8;
     v18 = v24;
-    v50 = v18;
+    v49 = v18;
     selfCopy = self;
-    v52 = v44;
-    v42 = MEMORY[0x245D07100](v49);
+    v51 = v43;
+    v41 = MEMORY[0x245D07100](v48);
     if (self)
     {
       v25 = self->_metricFactory;
@@ -591,15 +585,15 @@ LABEL_36:
         switch(type)
         {
           case 4:
-            v55[0] = @"X-CloudKit-BusinessCaller-QueryName";
+            v54[0] = @"X-CloudKit-BusinessCaller-QueryName";
             v34 = @"CallerIdFilter";
             goto LABEL_29;
           case 5:
-            v55[0] = @"X-CloudKit-BusinessEmail-QueryName";
+            v54[0] = @"X-CloudKit-BusinessEmail-QueryName";
             v34 = @"BrandedEmailFilter";
             goto LABEL_29;
           case 6:
-            v55[0] = @"X-CloudKit-WebPresentment-QueryName";
+            v54[0] = @"X-CloudKit-WebPresentment-QueryName";
             v34 = @"WebPresentmentFilter";
             goto LABEL_29;
         }
@@ -610,19 +604,19 @@ LABEL_36:
         switch(type)
         {
           case 1:
-            v55[0] = @"X-CloudKit-BusinessChat-QueryName";
+            v54[0] = @"X-CloudKit-BusinessChat-QueryName";
             v34 = @"ChatSuggestFilter";
             goto LABEL_29;
           case 2:
-            v55[0] = @"X-CloudKit-BusinessLink-QueryName";
+            v54[0] = @"X-CloudKit-BusinessLink-QueryName";
             v34 = @"BusinessLinkFilterV2";
             goto LABEL_29;
           case 3:
-            v55[0] = @"X-CloudKit-BusinessLink-QueryName";
+            v54[0] = @"X-CloudKit-BusinessLink-QueryName";
             v34 = @"DomainShard";
 LABEL_29:
             *buf = v34;
-            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v55 count:1];
+            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v54 count:1];
             break;
         }
       }
@@ -639,16 +633,16 @@ LABEL_29:
       v36 = qword_2420E92C8[type2 - 2];
     }
 
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke_105;
-    v45[3] = &unk_278D39FD0;
-    v46 = v29;
-    v47 = matchingCopy;
-    v48 = v42;
-    v37 = v42;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke_105;
+    v44[3] = &unk_278D39FD0;
+    v45 = v29;
+    v46 = matchingCopy;
+    v47 = v41;
+    v37 = v41;
     v38 = v29;
-    v39 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v31 clientBundleID:dCopy systemTask:0 requestSpecificAdditionalHTTPHeaders:v33 type:v36 singleFetchCompletion:v45];
+    v39 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v31 clientBundleID:dCopy systemTask:0 requestSpecificAdditionalHTTPHeaders:v33 type:v36 singleFetchCompletion:v44];
 
     if (self)
     {
@@ -660,21 +654,19 @@ LABEL_29:
       database = 0;
     }
 
-    v13 = v43;
+    v13 = v42;
     [(BCSCloudKitDatabaseProtocol *)database addOperation:v39];
 
-    v12 = v44;
+    v12 = v43;
     goto LABEL_36;
   }
 
 LABEL_37:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -690,26 +682,26 @@ void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion__
   }
 
   [v8 dequeueCoalesceObjectsForCoalesceKey:*(a1 + 48)];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v9 = v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = v19 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -723,7 +715,7 @@ void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion__
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v22 = "[BCSRemoteFetchCloudKit fetchShardMatching:clientBundleID:completion:]_block_invoke";
+            v21 = "[BCSRemoteFetchCloudKit fetchShardMatching:clientBundleID:completion:]_block_invoke";
             _os_log_error_impl(&dword_242072000, v15, OS_LOG_TYPE_ERROR, "Wrong type of completion block added to shard pool:%s", buf, 0xCu);
           }
         }
@@ -732,18 +724,16 @@ void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion__
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion___block_invoke_105(uint64_t a1, void *a2, void *a3)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -771,9 +761,9 @@ void __71__BCSRemoteFetchCloudKit_fetchShardMatching_clientBundleID_completion__
         _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "CKFetch shard item - CKRecord has incorrect format", buf, 2u);
       }
 
-      v21 = *MEMORY[0x277CCA450];
-      v22[0] = @"Fetch shard item failed - CKRecord has incorrect format";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = @"Fetch shard item failed - CKRecord has incorrect format";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v10 = [BCSError errorWithDomain:@"com.apple.businessservices" code:40 userInfo:v15];
     }
 
@@ -785,16 +775,16 @@ LABEL_18:
 
   if (!v6)
   {
-    v17 = *MEMORY[0x277CCA450];
-    v18 = @"Fetch shard item failed, nothing returned from fetch";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17 = @"Fetch shard item failed, nothing returned from fetch";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v12];
 
     v13 = ABSLogCommon();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v9;
+      v19 = v9;
       _os_log_impl(&dword_242072000, v13, OS_LOG_TYPE_DEFAULT, "CKFetch shard item - error: %@", buf, 0xCu);
     }
 
@@ -806,19 +796,17 @@ LABEL_18:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "CKFetch shard item - error: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchMegashardItemWithType:(int64_t)type clientBundleID:(id)d systemTask:(id)task completion:(id)completion
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   taskCopy = task;
   completionCopy = completion;
@@ -832,7 +820,7 @@ LABEL_19:
 
   if (completionCopy)
   {
-    v55 = 0;
+    v54 = 0;
     type = [MEMORY[0x277CCACA8] stringWithFormat:@"cloudkit_config_and_shard_fetch_type_%ld", type];
     v15 = [[BCSCoalesceObjectMegashard alloc] initWithCompletionBlock:completionCopy coalesceKey:type];
     if (taskCopy)
@@ -848,9 +836,9 @@ LABEL_19:
           _os_log_impl(&dword_242072000, v17, OS_LOG_TYPE_DEFAULT, "New request is a scheduled duplicate and already in progress:%s", buf, 0xCu);
         }
 
-        v56 = *MEMORY[0x277CCA450];
-        v57 = @"Request is a scheduled duplicate and already in progress";
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v55 = *MEMORY[0x277CCA450];
+        v56 = @"Request is a scheduled duplicate and already in progress";
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
         v19 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v18];
         (*(completionCopy + 2))(completionCopy, 0, 0, 0, v19);
 
@@ -868,8 +856,8 @@ LABEL_19:
       coalesceHelper = 0;
     }
 
-    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v15 isDuplicateRequest:&v55];
-    v21 = v55;
+    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v15 isDuplicateRequest:&v54];
+    v21 = v54;
     v22 = ABSLogCommon();
     v18 = v22;
     if (v21 == 1)
@@ -884,10 +872,10 @@ LABEL_19:
       goto LABEL_37;
     }
 
-    v45 = dCopy;
+    v44 = dCopy;
     v23 = os_signpost_id_generate(v22);
 
-    v44 = type;
+    v43 = type;
     if (self)
     {
       metricFactory = self->_metricFactory;
@@ -904,15 +892,15 @@ LABEL_19:
     v28 = [measurementFactory megashardCloudKitFetchAndDecodeTimingMeasurementForType:objc_msgSend(environment identifier:{"type"), v23}];
 
     [v28 begin];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke;
-    v51[3] = &unk_278D39FF8;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke;
+    v50[3] = &unk_278D39FF8;
     v18 = v28;
-    v52 = v18;
+    v51 = v18;
     selfCopy = self;
-    v54 = v44;
-    v43 = MEMORY[0x245D07100](v51);
+    v53 = v43;
+    v42 = MEMORY[0x245D07100](v50);
     if (self)
     {
       v29 = self->_metricFactory;
@@ -947,14 +935,14 @@ LABEL_19:
       {
         if (type == 1)
         {
-          v59[0] = @"X-CloudKit-BusinessChat-QueryName";
+          v58[0] = @"X-CloudKit-BusinessChat-QueryName";
           v37 = @"ChatSuggestConfigMegashard";
           goto LABEL_33;
         }
 
         if (type == 2)
         {
-          v59[0] = @"X-CloudKit-BusinessLink-QueryName";
+          v58[0] = @"X-CloudKit-BusinessLink-QueryName";
           v37 = @"DomainLinkConfigMegashards";
           goto LABEL_33;
         }
@@ -964,33 +952,33 @@ LABEL_19:
       {
         if (type == 3 || type == 4)
         {
-          v59[0] = @"X-CloudKit-BusinessCaller-QueryName";
+          v58[0] = @"X-CloudKit-BusinessCaller-QueryName";
           v37 = @"BrandedEmailConfigMegashard";
           goto LABEL_33;
         }
 
         if (type == 5)
         {
-          v59[0] = @"X-CloudKit-WebPresentment-QueryName";
+          v58[0] = @"X-CloudKit-WebPresentment-QueryName";
           v37 = @"WebPresentmentConfigMegashard";
 LABEL_33:
           *buf = v37;
-          v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v59 count:1];
+          v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v58 count:1];
         }
       }
     }
 
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_119;
-    v46[3] = &unk_278D3A048;
-    v47 = v33;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_119;
+    v45[3] = &unk_278D3A048;
+    v46 = v33;
     selfCopy2 = self;
-    v49 = v43;
+    v48 = v42;
     typeCopy = type;
-    v38 = v43;
+    v38 = v42;
     v39 = v33;
-    v40 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v35 clientBundleID:v45 systemTask:taskCopy requestSpecificAdditionalHTTPHeaders:v36 type:type singleFetchCompletion:v46];
+    v40 = [(BCSRemoteFetchCloudKit *)&self->super.isa _queryOperationForQuery:v35 clientBundleID:v44 systemTask:taskCopy requestSpecificAdditionalHTTPHeaders:v36 type:type singleFetchCompletion:v45];
 
     if (self)
     {
@@ -1002,19 +990,17 @@ LABEL_33:
       database = 0;
     }
 
-    type = v44;
+    type = v43;
     [(BCSCloudKitDatabaseProtocol *)database addOperation:v40];
 
-    dCopy = v45;
+    dCopy = v44;
 LABEL_37:
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -1032,26 +1018,26 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
   }
 
   [v14 dequeueCoalesceObjectsForCoalesceKey:*(a1 + 48)];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v15 = v26 = 0u;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v15 = v25 = 0u;
+  v16 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       v19 = 0;
       do
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v23 + 1) + 8 * v19);
+        v20 = *(*(&v22 + 1) + 8 * v19);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1065,7 +1051,7 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v28 = "[BCSRemoteFetchCloudKit fetchMegashardItemWithType:clientBundleID:systemTask:completion:]_block_invoke";
+            v27 = "[BCSRemoteFetchCloudKit fetchMegashardItemWithType:clientBundleID:systemTask:completion:]_block_invoke";
             _os_log_error_impl(&dword_242072000, v21, OS_LOG_TYPE_ERROR, "Wrong type of completion block added to bloom filter and config pool:%s", buf, 0xCu);
           }
         }
@@ -1074,18 +1060,16 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v17);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_119(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -1124,15 +1108,15 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
       {
         v19 = [(BCSConfigItem *)v11 filterMegaShardURL];
         *buf = 138412290;
-        v40 = v19;
+        v39 = v19;
         _os_log_impl(&dword_242072000, v18, OS_LOG_TYPE_DEFAULT, "Extracting shard URLs from filter shard URL: %@", buf, 0xCu);
       }
 
       v20 = MEMORY[0x277CBEA90];
       v21 = [(BCSConfigItem *)v11 filterMegaShardURL];
-      v34 = 0;
-      v22 = [v20 dataWithContentsOfURL:v21 options:0 error:&v34];
-      v23 = v34;
+      v33 = 0;
+      v22 = [v20 dataWithContentsOfURL:v21 options:0 error:&v33];
+      v23 = v33;
 
       if (!v22)
       {
@@ -1140,7 +1124,7 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v40 = v23;
+          v39 = v23;
           _os_log_error_impl(&dword_242072000, v24, OS_LOG_TYPE_ERROR, "Failed to read filter shard from disk: %@", buf, 0xCu);
         }
       }
@@ -1153,13 +1137,13 @@ void __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_syst
 
       v26 = v25;
       v27 = [(BCSConfigItem *)v11 filterMegaShardURL];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_121;
-      v31[3] = &unk_278D3A020;
-      v33 = *(a1 + 48);
-      v32 = v11;
-      [v26 extractShardsURLsFromFilterShardURL:v27 domainShardURL:v12 completion:v31];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_121;
+      v30[3] = &unk_278D3A020;
+      v32 = *(a1 + 48);
+      v31 = v11;
+      [v26 extractShardsURLsFromFilterShardURL:v27 domainShardURL:v12 completion:v30];
 
       goto LABEL_30;
     }
@@ -1172,9 +1156,9 @@ LABEL_27:
       _os_log_impl(&dword_242072000, v28, OS_LOG_TYPE_DEFAULT, "CKFetch megashard item - couldn't extract configItem and/or bloom filter URL", buf, 2u);
     }
 
-    v37 = *MEMORY[0x277CCA450];
-    v38 = @"Fetch megashard item failed - CKRecord has incorrect format";
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA450];
+    v37 = @"Fetch megashard item failed - CKRecord has incorrect format";
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     v23 = [BCSError errorWithDomain:@"com.apple.businessservices" code:40 userInfo:v29];
 
     (*(*(a1 + 48) + 16))();
@@ -1186,16 +1170,16 @@ LABEL_31:
 
   if (!v6)
   {
-    v35 = *MEMORY[0x277CCA450];
-    v36 = @"Fetch megashard item failed, nothing returned from fetch";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35 = @"Fetch megashard item failed, nothing returned from fetch";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v11 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v14];
 
     v15 = ABSLogCommon();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = 0;
+      v39 = 0;
       _os_log_impl(&dword_242072000, v15, OS_LOG_TYPE_DEFAULT, "CKFetch megashard item - error: %@", buf, 0xCu);
     }
 
@@ -1207,14 +1191,12 @@ LABEL_31:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = v6;
+    v39 = v6;
     _os_log_impl(&dword_242072000, v13, OS_LOG_TYPE_DEFAULT, "CKFetch megshard item - error: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_32:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_systemTask_completion___block_invoke_121(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1233,7 +1215,7 @@ uint64_t __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_
 
 - (void)fetchItemsWithBucketStartIndex:(int64_t)index endIndex:(int64_t)endIndex type:(int64_t)type forClientBundleID:(id)d completion:(id)completion
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v14 = ABSLogCommon();
@@ -1246,7 +1228,7 @@ uint64_t __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_
 
   if (completionCopy)
   {
-    v69 = 0;
+    v68 = 0;
     endIndex = [MEMORY[0x277CCACA8] stringWithFormat:@"cloudkit_item_fetch_type_%ld_start_%lld_end_%lld", type, index, endIndex];
     v16 = [[BCSCoalesceObjectItems alloc] initWithCompletionBlock:completionCopy coalesceKey:endIndex];
     if (self)
@@ -1259,9 +1241,9 @@ uint64_t __90__BCSRemoteFetchCloudKit_fetchMegashardItemWithType_clientBundleID_
       coalesceHelper = 0;
     }
 
-    v59 = v16;
-    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v16 isDuplicateRequest:&v69];
-    v18 = v69;
+    v58 = v16;
+    [(BCSCoalesceHelperProtocol *)coalesceHelper enqueueCoalesceObject:v16 isDuplicateRequest:&v68];
+    v18 = v68;
     v19 = ABSLogCommon();
     v20 = v19;
     if (v18 == 1)
@@ -1278,10 +1260,10 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    v58 = dCopy;
+    v57 = dCopy;
     v21 = os_signpost_id_generate(v19);
 
-    v57 = endIndex;
+    v56 = endIndex;
     if (self)
     {
       metricFactory = self->_metricFactory;
@@ -1298,15 +1280,15 @@ LABEL_33:
     v26 = [measurementFactory itemCloudKitFetchAndDecodeTimingMeasurementForType:objc_msgSend(environment identifier:{"type"), v21}];
 
     [v26 begin];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke;
-    v65[3] = &unk_278D3A070;
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke;
+    v64[3] = &unk_278D3A070;
     v20 = v26;
-    v66 = v20;
+    v65 = v20;
     selfCopy = self;
-    v68 = v57;
-    v54 = MEMORY[0x245D07100](v65);
+    v67 = v56;
+    v53 = MEMORY[0x245D07100](v64);
     if (self)
     {
       v27 = self->_metricFactory;
@@ -1341,14 +1323,14 @@ LABEL_33:
       {
         if (type == 1)
         {
-          v80[0] = @"X-CloudKit-BusinessChat-QueryName";
+          v79[0] = @"X-CloudKit-BusinessChat-QueryName";
           v35 = @"ChatSuggest";
           goto LABEL_27;
         }
 
         if (type == 2)
         {
-          v80[0] = @"X-CloudKit-BusinessLink-QueryName";
+          v79[0] = @"X-CloudKit-BusinessLink-QueryName";
           v35 = @"BusinessLinkV2";
           goto LABEL_27;
         }
@@ -1359,50 +1341,50 @@ LABEL_33:
         switch(type)
         {
           case 3:
-            v80[0] = @"X-CloudKit-BusinessCaller-QueryName";
+            v79[0] = @"X-CloudKit-BusinessCaller-QueryName";
             v35 = @"CallerId";
             goto LABEL_27;
           case 4:
-            v80[0] = @"X-CloudKit-BusinessCaller-QueryName";
+            v79[0] = @"X-CloudKit-BusinessCaller-QueryName";
             v35 = @"BrandedEmail";
             goto LABEL_27;
           case 5:
-            v80[0] = @"X-CloudKit-WebPresentment-QueryName";
+            v79[0] = @"X-CloudKit-WebPresentment-QueryName";
             v35 = @"WebPresentment";
 LABEL_27:
             *&buf = v35;
-            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v80 count:1];
+            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v79 count:1];
             break;
         }
       }
     }
 
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke_134;
-    v60[3] = &unk_278D3A098;
-    v61 = v31;
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke_134;
+    v59[3] = &unk_278D3A098;
+    v60 = v31;
     selfCopy2 = self;
-    v63 = v54;
+    v62 = v53;
     typeCopy = type;
-    v55 = v54;
-    v53 = v31;
-    v36 = v58;
+    v54 = v53;
+    v52 = v31;
+    v36 = v57;
     v37 = v34;
-    v56 = v33;
-    v52 = v36;
+    v55 = v33;
+    v51 = v36;
     if (self)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v73 = __142__BCSRemoteFetchCloudKit__queryOperationForQuery_clientBundleID_systemTask_requestSpecificAdditionalHTTPHeaders_type_multipleFetchCompletion___block_invoke;
-      v74 = &unk_278D3A0C0;
+      v72 = __142__BCSRemoteFetchCloudKit__queryOperationForQuery_clientBundleID_systemTask_requestSpecificAdditionalHTTPHeaders_type_multipleFetchCompletion___block_invoke;
+      v73 = &unk_278D3A0C0;
       selfCopy3 = self;
-      v76 = v36;
-      v77 = 0;
-      v78 = v37;
+      v75 = v36;
+      v76 = 0;
+      v77 = v37;
       typeCopy2 = type;
-      v38 = v60;
+      v38 = v59;
       v39 = v33;
       v40 = MEMORY[0x245D07100](&buf);
       v41 = v38;
@@ -1414,22 +1396,22 @@ LABEL_27:
 
       v43[2](v43, makeQueryOperation);
       array = [MEMORY[0x277CBEB18] array];
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = __93__BCSRemoteFetchCloudKit__queryOperationForQuery_configurationBlock_multipleFetchCompletion___block_invoke;
-      v70[3] = &unk_278D3A138;
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = __93__BCSRemoteFetchCloudKit__queryOperationForQuery_configurationBlock_multipleFetchCompletion___block_invoke;
+      v69[3] = &unk_278D3A138;
       v47 = array;
-      v71 = v47;
-      [makeQueryOperation setRecordFetchedBlock:v70];
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __93__BCSRemoteFetchCloudKit__queryOperationForQuery_configurationBlock_multipleFetchCompletion___block_invoke_2;
-      v80[3] = &unk_278D3A160;
+      v70 = v47;
+      [makeQueryOperation setRecordFetchedBlock:v69];
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __93__BCSRemoteFetchCloudKit__queryOperationForQuery_configurationBlock_multipleFetchCompletion___block_invoke_2;
+      v79[3] = &unk_278D3A160;
       v48 = v41;
-      v81 = v47;
-      v82 = v48;
+      v80 = v47;
+      v81 = v48;
       v49 = v47;
-      [makeQueryOperation setQueryCompletionBlock:v80];
+      [makeQueryOperation setQueryCompletionBlock:v79];
     }
 
     else
@@ -1437,7 +1419,7 @@ LABEL_27:
       makeQueryOperation = 0;
     }
 
-    endIndex = v57;
+    endIndex = v56;
     if (self)
     {
       database = self->_database;
@@ -1450,18 +1432,16 @@ LABEL_27:
 
     [(BCSCloudKitDatabaseProtocol *)database addOperation:makeQueryOperation];
 
-    dCopy = v58;
+    dCopy = v57;
     goto LABEL_33;
   }
 
 LABEL_34:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -1477,26 +1457,26 @@ void __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_
   }
 
   [v8 dequeueCoalesceObjectsForCoalesceKey:*(a1 + 48)];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v9 = v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = v19 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1510,7 +1490,7 @@ void __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v22 = "[BCSRemoteFetchCloudKit fetchItemsWithBucketStartIndex:endIndex:type:forClientBundleID:completion:]_block_invoke";
+            v21 = "[BCSRemoteFetchCloudKit fetchItemsWithBucketStartIndex:endIndex:type:forClientBundleID:completion:]_block_invoke";
             _os_log_error_impl(&dword_242072000, v15, OS_LOG_TYPE_ERROR, "Wrong type of completion block added to bloom filter and config pool:%s", buf, 0xCu);
           }
         }
@@ -1519,18 +1499,16 @@ void __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __100__BCSRemoteFetchCloudKit_fetchItemsWithBucketStartIndex_endIndex_type_forClientBundleID_completion___block_invoke_134(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -1587,7 +1565,7 @@ LABEL_19:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "CKFetch items - error: %@", buf, 0xCu);
     }
 
@@ -1596,16 +1574,16 @@ LABEL_19:
 
   else
   {
-    v19 = *MEMORY[0x277CCA450];
-    v20 = @"Fetch items failed, nothing returned from fetch";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19 = @"Fetch items failed, nothing returned from fetch";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v13 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v12];
 
     v14 = ABSLogCommon();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = 0;
+      v21 = 0;
       _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "CKFetch megashard item - error: %@", buf, 0xCu);
     }
 
@@ -1613,23 +1591,21 @@ LABEL_19:
   }
 
 LABEL_24:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)shardItemFromURL:(id)l type:(int64_t)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = ABSLogCommon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromBCSShardType(type);
-    v12 = 138412546;
-    v13 = lCopy;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "shardItemFromURL:%@ type:%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = lCopy;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_242072000, v6, OS_LOG_TYPE_DEFAULT, "shardItemFromURL:%@ type:%@", &v11, 0x16u);
   }
 
   if (type == 3)
@@ -1643,8 +1619,6 @@ LABEL_24:
   }
 
   v9 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

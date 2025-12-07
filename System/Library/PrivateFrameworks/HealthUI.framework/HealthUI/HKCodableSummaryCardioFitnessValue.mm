@@ -322,18 +322,28 @@ LABEL_7:
   v9 = *(fromCopy + 3);
   if (levelViewDataConfiguration)
   {
-    if (v9)
+    if (!v9)
     {
-      [(HKCodableLevelViewDataConfiguration *)levelViewDataConfiguration mergeFrom:?];
+      goto LABEL_17;
     }
+
+    levelViewDataConfiguration = [(HKCodableLevelViewDataConfiguration *)levelViewDataConfiguration mergeFrom:?];
   }
 
-  else if (v9)
+  else
   {
-    [(HKCodableSummaryCardioFitnessValue *)self setLevelViewDataConfiguration:?];
+    if (!v9)
+    {
+      goto LABEL_17;
+    }
+
+    levelViewDataConfiguration = [(HKCodableSummaryCardioFitnessValue *)self setLevelViewDataConfiguration:?];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  fromCopy = v10;
+LABEL_17:
+
+  MEMORY[0x1EEE66BB8](levelViewDataConfiguration, fromCopy);
 }
 
 @end

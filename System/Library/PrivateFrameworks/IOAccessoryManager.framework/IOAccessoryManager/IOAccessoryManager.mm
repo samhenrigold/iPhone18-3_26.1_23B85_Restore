@@ -1,4 +1,4 @@
-void __powerBatteryInterest(uint64_t a1, io_registry_entry_t a2, int a3)
+void __powerBatteryInterest(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 == -536723200)
   {
@@ -8,7 +8,7 @@ void __powerBatteryInterest(uint64_t a1, io_registry_entry_t a2, int a3)
 
 void __powerUpdateBatteryState(io_registry_entry_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   properties = 0;
   if (!IORegistryEntryCreateCFProperties(a1, &properties, 0, 0))
   {
@@ -19,91 +19,89 @@ void __powerUpdateBatteryState(io_registry_entry_t a1)
     {
       v3 = [gUserLdcmParams enableHalogenMitigationsAndUI];
       *buf = 67109632;
-      v23 = v1;
-      v24 = 1024;
-      *v25 = v2;
-      *&v25[4] = 2048;
-      *&v25[6] = v3;
+      v22 = v1;
+      v23 = 1024;
+      *v24 = v2;
+      *&v24[4] = 2048;
+      *&v24[6] = v3;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "handle battery state update: isExtChg=%u->%u, enableHalogenMitigationsAndUI %llu", buf, 0x18u);
     }
 
     if ([gUserLdcmParams enableHalogenMitigationsAndUI] == 1 && byte_2812C44D4 != v1 && byte_2812C44D4 != 0)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
-      v6 = [gHalogenMeasurements allKeys];
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v26 count:16];
-      if (v7)
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v5 = [gHalogenMeasurements allKeys];
+      v6 = [v5 countByEnumeratingWithState:&v16 objects:v25 count:16];
+      if (v6)
       {
-        v8 = v7;
-        v9 = *v18;
-        v10 = MEMORY[0x277D86220];
+        v7 = v6;
+        v8 = *v17;
+        v9 = MEMORY[0x277D86220];
         do
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v7; ++i)
           {
-            if (*v18 != v9)
+            if (*v17 != v8)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v5);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * i);
-            v13 = [gHalogenMeasurements objectForKey:v12];
-            v14 = v13;
-            if (v13 && [v13 attachDelayTimerRunning])
+            v11 = *(*(&v16 + 1) + 8 * i);
+            v12 = [gHalogenMeasurements objectForKey:v11];
+            v13 = v12;
+            if (v12 && [v12 attachDelayTimerRunning])
             {
-              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109634;
-                v23 = byte_2812C44D4;
-                v24 = 2112;
-                *v25 = v12;
-                *&v25[8] = 2112;
-                *&v25[10] = v14;
-                _os_log_impl(&dword_2548F1000, v10, OS_LOG_TYPE_DEFAULT, "handle battery state update: isExtChg=%u, stop (delay) timer and perform measurement, key %@, halogenWrapper %@", buf, 0x1Cu);
+                v22 = byte_2812C44D4;
+                v23 = 2112;
+                *v24 = v11;
+                *&v24[8] = 2112;
+                *&v24[10] = v13;
+                _os_log_impl(&dword_2548F1000, v9, OS_LOG_TYPE_DEFAULT, "handle battery state update: isExtChg=%u, stop (delay) timer and perform measurement, key %@, halogenWrapper %@", buf, 0x1Cu);
               }
 
-              dispatch_source_set_timer([v14 timer], 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
-              [v14 setAttachDelayTimerRunning:0];
-              v15 = [v14 halogenMeasurementDispatchQueue];
+              dispatch_source_set_timer([v13 timer], 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
+              [v13 setAttachDelayTimerRunning:0];
+              v14 = [v13 halogenMeasurementDispatchQueue];
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 3221225472;
               block[2] = ____powerUpdateBatteryState_block_invoke;
               block[3] = &unk_279793038;
-              block[4] = v14;
-              dispatch_async(v15, block);
+              block[4] = v13;
+              dispatch_async(v14, block);
             }
 
-            else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+            else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109634;
-              v23 = byte_2812C44D4;
-              v24 = 2112;
-              *v25 = v12;
-              *&v25[8] = 2112;
-              *&v25[10] = v14;
-              _os_log_impl(&dword_2548F1000, v10, OS_LOG_TYPE_DEFAULT, "handle battery state update: isExtChg=%u, (delay) timer not running, don't perform measurement, key %@, halogenWrapper %@", buf, 0x1Cu);
+              v22 = byte_2812C44D4;
+              v23 = 2112;
+              *v24 = v11;
+              *&v24[8] = 2112;
+              *&v24[10] = v13;
+              _os_log_impl(&dword_2548F1000, v9, OS_LOG_TYPE_DEFAULT, "handle battery state update: isExtChg=%u, (delay) timer not running, don't perform measurement, key %@, halogenWrapper %@", buf, 0x1Cu);
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v17 objects:v26 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v16 objects:v25 count:16];
         }
 
-        while (v8);
+        while (v7);
       }
     }
 
     CFRelease(properties);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOPortLDCMPortInterestCallback(void *a1, io_registry_entry_t entry, int a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3 == -469794615)
   {
     CFProperty = IORegistryEntryCreateCFProperty(entry, @"ConnectionActive", *MEMORY[0x277CBECE8], 0);
@@ -118,9 +116,9 @@ void IOPortLDCMPortInterestCallback(void *a1, io_registry_entry_t entry, int a3)
         {
           if (v7)
           {
-            v9 = 136315138;
-            v10 = "IOPortLDCMPortInterestCallback";
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange attach\n", &v9, 0xCu);
+            v8 = 136315138;
+            v9 = "IOPortLDCMPortInterestCallback";
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange attach\n", &v8, 0xCu);
           }
 
           [v5 handleAttachEvent];
@@ -130,9 +128,9 @@ void IOPortLDCMPortInterestCallback(void *a1, io_registry_entry_t entry, int a3)
         {
           if (v7)
           {
-            v9 = 136315138;
-            v10 = "IOPortLDCMPortInterestCallback";
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange detach \n", &v9, 0xCu);
+            v8 = 136315138;
+            v9 = "IOPortLDCMPortInterestCallback";
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange detach \n", &v8, 0xCu);
           }
 
           [v5 handleDetachEvent];
@@ -140,11 +138,9 @@ void IOPortLDCMPortInterestCallback(void *a1, io_registry_entry_t entry, int a3)
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void systemPowerCallback(void *a1, uint64_t a2, int a3, intptr_t a4)
+void systemPowerCallback(void *a1, uint64_t a2, uint64_t a3, intptr_t a4)
 {
   if (a3 > -536870145)
   {
@@ -166,7 +162,7 @@ void systemPowerCallback(void *a1, uint64_t a2, int a3, intptr_t a4)
       return;
     }
 
-    [objc_msgSend(a1 "powerStateCond")];
+    [objc_msgSend(a1 powerStateCond];
     v6 = a1;
     v7 = 1;
     goto LABEL_8;
@@ -221,10 +217,11 @@ uint64_t playbackCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return [v11 playbackCallBackFunc:a2 AudioTimeStamp:a3 busNum:a4 numFrames:a5 AudioBufferList:a6];
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 8u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 8u);
 }
 
 void IOAccessoryNotifyWetCallback(uint64_t a1, uint64_t a2)
@@ -292,19 +289,17 @@ void IOAccessoryNotifyWetCancel()
 
 void __IOAccessoryFileRadarLDCMV4_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "IOAccessoryFileRadarLDCMV4_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error while filing radar. %@\n", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "IOAccessoryFileRadarLDCMV4_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error while filing radar. %@\n", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t OUTLINED_FUNCTION_1_0()
@@ -321,7 +316,7 @@ uint64_t OUTLINED_FUNCTION_3()
 
 void IOPortLDCMFeatureInterestCallback(void *a1, io_registry_entry_t a2, int a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   switch(a3)
   {
     case -469794613:
@@ -333,17 +328,17 @@ void IOPortLDCMFeatureInterestCallback(void *a1, io_registry_entry_t a2, int a3)
         v13 = [CFProperty intValue];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 136315394;
-          *&v15[4] = "IOPortLDCMFeatureInterestCallback";
-          *&v15[12] = 1024;
-          *&v15[14] = v13;
-          _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPortFeatureLDCMMessageTypeMitigationsStatusChange: %d\n", v15, 0x12u);
+          *v14 = 136315394;
+          *&v14[4] = "IOPortLDCMFeatureInterestCallback";
+          *&v14[12] = 1024;
+          *&v14[14] = v13;
+          _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPortFeatureLDCMMessageTypeMitigationsStatusChange: %d\n", v14, 0x12u);
         }
 
         [v10 handleLDCMMitigationsStatusChange:v13];
       }
 
-      goto LABEL_18;
+      break;
     case -469794614:
       v8 = a1;
       if (v8)
@@ -351,8 +346,8 @@ void IOPortLDCMFeatureInterestCallback(void *a1, io_registry_entry_t a2, int a3)
         v5 = v8;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 136315138;
-          *&v15[4] = "IOPortLDCMFeatureInterestCallback";
+          *v14 = 136315138;
+          *&v14[4] = "IOPortLDCMFeatureInterestCallback";
           v6 = MEMORY[0x277D86220];
           v7 = "%s kIOPortFeatureLDCMMessageTypeMeasurementStatusChange\n";
           goto LABEL_10;
@@ -362,8 +357,6 @@ LABEL_11:
         [v5 handleLDCMInterrupt];
       }
 
-LABEL_18:
-
       break;
     case -469794616:
       v4 = a1;
@@ -372,28 +365,29 @@ LABEL_18:
         v5 = v4;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 136315138;
-          *&v15[4] = "IOPortLDCMFeatureInterestCallback";
+          *v14 = 136315138;
+          *&v14[4] = "IOPortLDCMFeatureInterestCallback";
           v6 = MEMORY[0x277D86220];
           v7 = "%s kIOPortFeatureLDCMMessageTypeLiquidDetectedChange\n";
 LABEL_10:
-          _os_log_impl(&dword_2548F1000, v6, OS_LOG_TYPE_DEFAULT, v7, v15, 0xCu);
+          _os_log_impl(&dword_2548F1000, v6, OS_LOG_TYPE_DEFAULT, v7, v14, 0xCu);
           goto LABEL_11;
         }
 
         goto LABEL_11;
       }
 
-      goto LABEL_18;
+      break;
+    default:
+      return;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 uint64_t isDeviceTypeC_V3()
@@ -626,8 +620,8 @@ LABEL_17:
 
 void IOAccessoryServiceMatchingCallback(IONotificationPort *a1, io_iterator_t iterator)
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v55 = 0;
+  v69 = *MEMORY[0x277D85DE8];
+  v54 = 0;
   v2 = IOIteratorNext(iterator);
   v3 = 0;
   if (!v2)
@@ -682,7 +676,7 @@ LABEL_67:
       }
     }
 
-    v50 = v7;
+    v49 = v7;
     v13 = v3;
     v14 = v5;
     v15 = v4;
@@ -695,12 +689,12 @@ LABEL_67:
 
     gIOAMLogFilepath = [MEMORY[0x277CCAB68] stringWithString:@"/private/var/mobile/Library/Logs/com.apple.ioam/ioam_logs/"];
     v16 = gIOAMLogFilepath;
-    v60 = 0;
-    *connect = 0;
-    v58 = 0;
     v59 = 0;
-    v56 = 0;
+    *connect = 0;
     v57 = 0;
+    v58 = 0;
+    v55 = 0;
+    v56 = 0;
     v17 = CFTimeZoneCopySystem();
     if (v17)
     {
@@ -751,7 +745,7 @@ LABEL_26:
       v29 = [v28 objectForKey:@"configDictionary"];
       if (v29)
       {
-        if (v50)
+        if (v49)
         {
           processLdcmBehaviorPlist(v29, Type);
         }
@@ -770,9 +764,9 @@ LABEL_26:
     block[1] = 3221225472;
     block[2] = __IOAccessoryServiceMatchingCallback_block_invoke;
     block[3] = &__block_descriptor_36_e5_v8__0l;
-    v53 = Type;
+    v52 = Type;
     dispatch_async(global_queue, block);
-    if (IOServiceOpen(v2, *MEMORY[0x277D85F48], 0, &v55))
+    if (IOServiceOpen(v2, *MEMORY[0x277D85F48], 0, &v54))
     {
       goto LABEL_76;
     }
@@ -783,8 +777,8 @@ LABEL_26:
     }
 
     setDriverMitigationEnabled(PrimaryPort, v2, ([v4[22].cache userBehaviorMask] >> 3) & 1);
-    v31 = IOServiceClose(v55);
-    v55 = 0;
+    v31 = IOServiceClose(v54);
+    v54 = 0;
     if (v31)
     {
       goto LABEL_76;
@@ -812,17 +806,17 @@ LABEL_47:
     v34 = *(v33 + 1);
     v35 = *(v33 + 2);
     v36 = *(v33 + 4);
-    v64 = *(v33 + 3);
-    v65 = v36;
-    v62 = v34;
-    v63 = v35;
+    v63 = *(v33 + 3);
+    v64 = v36;
+    v61 = v34;
+    v62 = v35;
     v37 = *(v33 + 5);
     v38 = *(v33 + 6);
     v39 = *(v33 + 7);
-    v69 = *(v33 + 16);
-    v67 = v38;
-    v68 = v39;
-    v66 = v37;
+    v68 = *(v33 + 16);
+    v66 = v38;
+    v67 = v39;
+    v65 = v37;
     v40 = [MEMORY[0x277CCAE60] valueWithDockState:connect];
     free(v33);
     [gDockState setObject:v40 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", PrimaryPort)}];
@@ -876,12 +870,12 @@ LABEL_47:
     {
       [(HalogenWrapper *)v3 setIsMeasurementEnabled:1];
       v43 = [(HalogenWrapper *)v3 halogenMeasurementDispatchQueue];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __IOAccessoryServiceMatchingCallback_block_invoke_535;
-      v51[3] = &unk_279793038;
-      v51[4] = v3;
-      dispatch_async(v43, v51);
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __IOAccessoryServiceMatchingCallback_block_invoke_535;
+      v50[3] = &unk_279793038;
+      v50[4] = v3;
+      dispatch_async(v43, v50);
     }
 
     IOObjectRelease(v2);
@@ -903,8 +897,8 @@ LABEL_47:
   v20 = v19;
   CFCalendarSetTimeZone(v19, v18);
   Current = CFAbsoluteTimeGetCurrent();
-  CFCalendarDecomposeAbsoluteTime(v20, Current, "MdyHms", connect, &v60, &v59, &v58, &v57, &v56);
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02d%02d%02d-%02d%02d", *connect, v60, v59 % 0x64, v58, v57];
+  CFCalendarDecomposeAbsoluteTime(v20, Current, "MdyHms", connect, &v59, &v58, &v57, &v56, &v55);
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02d%02d%02d-%02d%02d", *connect, v59, v58 % 0x64, v57, v56];
   CFRelease(v18);
   CFRelease(v20);
   if (!v22)
@@ -938,9 +932,9 @@ LABEL_47:
 LABEL_76:
   v44 = 0;
 LABEL_68:
-  if (v55)
+  if (v54)
   {
-    IOServiceClose(v55);
+    IOServiceClose(v54);
   }
 
   if ((v44 & 1) == 0)
@@ -951,8 +945,6 @@ LABEL_68:
   if (v3)
   {
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t IOAccessoryVoltageEventMonitorMode(uint64_t result, char a2, char a3)
@@ -977,7 +969,7 @@ unint64_t absoluteToNanoseconds(uint64_t a1)
 
 void IOAccessoryInterestNotificationCallbackTypeC(void *a1, io_registry_entry_t entry, int a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3 == -469794615)
   {
     CFProperty = IORegistryEntryCreateCFProperty(entry, @"ConnectionActive", *MEMORY[0x277CBECE8], 0);
@@ -992,9 +984,9 @@ void IOAccessoryInterestNotificationCallbackTypeC(void *a1, io_registry_entry_t 
         {
           if (v7)
           {
-            v9 = 136315138;
-            v10 = "IOAccessoryInterestNotificationCallbackTypeC";
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange attach\n", &v9, 0xCu);
+            v8 = 136315138;
+            v9 = "IOAccessoryInterestNotificationCallbackTypeC";
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange attach\n", &v8, 0xCu);
           }
 
           [a1 handleAttachEvent];
@@ -1004,9 +996,9 @@ void IOAccessoryInterestNotificationCallbackTypeC(void *a1, io_registry_entry_t 
         {
           if (v7)
           {
-            v9 = 136315138;
-            v10 = "IOAccessoryInterestNotificationCallbackTypeC";
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange detach \n", &v9, 0xCu);
+            v8 = 136315138;
+            v9 = "IOAccessoryInterestNotificationCallbackTypeC";
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s kIOPort_Message_ConnectionStateChange detach \n", &v8, 0xCu);
           }
 
           [a1 handleDetachEvent];
@@ -1016,115 +1008,112 @@ void IOAccessoryInterestNotificationCallbackTypeC(void *a1, io_registry_entry_t 
       CFRelease(v5);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryServiceMatchingCallback_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "IOAccessoryServiceMatchingCallback_block_invoke";
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s starting remote asset query\n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "IOAccessoryServiceMatchingCallback_block_invoke";
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s starting remote asset query\n", &v2, 0xCu);
   }
 
   performAssetQuery(0, *(a1 + 32));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "IOAccessoryServiceMatchingCallback_block_invoke";
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished remote asset query\n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "IOAccessoryServiceMatchingCallback_block_invoke";
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished remote asset query\n", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void performAssetQuery(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v35 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "performAssetQuery";
+    v30 = "performAssetQuery";
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
   }
 
-  v28 = 0;
+  v27 = 0;
   v4 = [objc_alloc(MEMORY[0x277D289A8]) initWithAssetType:@"com.apple.MobileAsset.IOAccessoryManager"];
   [v4 setQueriesLocalAssetInformationOnly:a1];
-  v5 = [v4 runQueryAndReturnError:&v28];
-  v6 = v28;
-  if (v28)
+  v5 = [v4 runQueryAndReturnError:&v27];
+  v6 = v27;
+  if (v27)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v7 = [objc_msgSend(v6 "localizedDescription")];
       *buf = 136315394;
-      v31 = "performAssetQuery";
-      v32 = 2080;
-      v33 = v7;
+      v30 = "performAssetQuery";
+      v31 = 2080;
+      v32 = v7;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: encountered error: %s\n", buf, 0x16u);
     }
 
-    goto LABEL_7;
+    return;
   }
 
-  v9 = v5;
+  v8 = v5;
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [objc_msgSend(v9 "description")];
+    v9 = [objc_msgSend(v8 "description")];
     *buf = 136315394;
-    v31 = "performAssetQuery";
-    v32 = 2080;
-    v33 = v10;
+    v30 = "performAssetQuery";
+    v31 = 2080;
+    v32 = v9;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: MobileAsset query results: %s\n", buf, 0x16u);
   }
 
-  v11 = [v9 lastObject];
-  if (v11)
+  v10 = [v8 lastObject];
+  if (v10)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "getAsset";
+      v30 = "getAsset";
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
     }
 
-    if ((a1 & 1) == 0 && ([v11 state] != 1 || !objc_msgSend(v11, "localURL")))
+    if ((a1 & 1) == 0 && ([v10 state] != 1 || !objc_msgSend(v10, "localURL")))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [objc_msgSend(v11 "description")];
+        v11 = [objc_msgSend(v10 "description")];
         *buf = 136315394;
-        v31 = "getAsset";
-        v32 = 2080;
-        v33 = v12;
+        v30 = "getAsset";
+        v31 = 2080;
+        v32 = v11;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Asset not yet downloaded, fetching: %s", buf, 0x16u);
       }
 
-      v29 = 0;
+      v28 = 0;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v31 = "downloadAssetWithError";
+        v30 = "downloadAssetWithError";
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
       }
 
-      if (([v11 requiredDiskSpaceIsAvailable:0 error:&v29] & 1) == 0)
+      if (([v10 requiredDiskSpaceIsAvailable:0 error:&v28] & 1) == 0)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v24 = [objc_msgSend(v11 "description")];
-          v25 = [objc_msgSend(v29 "description")];
+          v23 = [objc_msgSend(v10 "description")];
+          v24 = [objc_msgSend(v28 "description")];
           *buf = 136315650;
-          v31 = "downloadAssetWithError";
-          v32 = 2080;
-          v33 = v24;
-          v34 = 2080;
-          v35 = v25;
+          v30 = "downloadAssetWithError";
+          v31 = 2080;
+          v32 = v23;
+          v33 = 2080;
+          v34 = v24;
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Skipping download for uninstalled asset. Error in asset %s: %s\n", buf, 0x20u);
         }
 
@@ -1134,82 +1123,101 @@ void performAssetQuery(uint64_t a1, uint64_t a2)
         }
 
         *buf = 136315138;
-        v31 = "getAsset";
-        v22 = MEMORY[0x277D86220];
-        v23 = "%s: failed\n";
+        v30 = "getAsset";
+        v21 = MEMORY[0x277D86220];
+        v22 = "%s: failed\n";
         goto LABEL_42;
       }
 
-      [v11 beginDownloadWithOptions:0];
+      [v10 beginDownloadWithOptions:0];
     }
 
-    if (![v11 localURL])
+    if (![v10 localURL])
     {
       goto LABEL_43;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [objc_msgSend(objc_msgSend(v11 "localURL")];
+      v12 = [objc_msgSend(objc_msgSend(v10 "localURL")];
       *buf = 136315394;
-      v31 = "getAsset";
-      v32 = 2080;
-      v33 = v13;
+      v30 = "getAsset";
+      v31 = 2080;
+      v32 = v12;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Asset on disk, found at: %s\n", buf, 0x16u);
     }
 
-    v14 = [objc_msgSend(objc_msgSend(v11 "localURL")];
-    v15 = [MEMORY[0x277CBEBC0] URLWithString:v14];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v15];
-    v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    if (v16)
+    v13 = [objc_msgSend(objc_msgSend(v10 "localURL")];
+    v14 = [MEMORY[0x277CBEBC0] URLWithString:v13];
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v14];
+    v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    if (v15)
     {
-      if (v17)
+      if (v16)
       {
         *buf = 136315138;
-        v31 = "load_dict";
+        v30 = "load_dict";
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: dictionaryWithContentsOfURL succeeded\n", buf, 0xCu);
       }
 
-      gLdcmBehaviorPlist = v16;
-      v18 = v16;
-      v19 = gLdcmBehaviorPlist;
-      if (v19)
+      gLdcmBehaviorPlist = v15;
+      v17 = v15;
+      v18 = gLdcmBehaviorPlist;
+      if (v18)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v31 = "commitPersistentConfigDictParams";
+          v30 = "commitPersistentConfigDictParams";
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
         }
 
-        v20 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-        if (v20)
+        v19 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+        if (v19)
         {
-          [v20 setObject:gLdcmBehaviorPlist forKey:@"configDictionary"];
+          [v19 setObject:gLdcmBehaviorPlist forKey:@"configDictionary"];
         }
 
         performAssetQuery_cold_1();
-        v21 = processLdcmBehaviorPlist(v19, a2);
+        v20 = processLdcmBehaviorPlist(v18, v2);
         goto LABEL_44;
       }
     }
 
-    else if (v17)
+    else if (v16)
     {
       *buf = 136315138;
-      v31 = "load_dict";
+      v30 = "load_dict";
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: dictionaryWithContentsOfURL failed\n", buf, 0xCu);
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
 LABEL_43:
-      v21 = 0;
+      v20 = 0;
 LABEL_44:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        if (v21)
+        if (v20)
+        {
+          v25 = "true";
+        }
+
+        else
+        {
+          v25 = "false";
+        }
+
+        *buf = 136315394;
+        v30 = "getAsset";
+        v31 = 2080;
+        v32 = v25;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: success=%s\n", buf, 0x16u);
+      }
+
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        if (v20)
         {
           v26 = "true";
         }
@@ -1220,45 +1228,23 @@ LABEL_44:
         }
 
         *buf = 136315394;
-        v31 = "getAsset";
-        v32 = 2080;
-        v33 = v26;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: success=%s\n", buf, 0x16u);
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        if (v21)
-        {
-          v27 = "true";
-        }
-
-        else
-        {
-          v27 = "false";
-        }
-
-        *buf = 136315394;
-        v31 = "performAssetQuery";
-        v32 = 2080;
-        v33 = v27;
+        v30 = "performAssetQuery";
+        v31 = 2080;
+        v32 = v26;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: getOrDownloadAsset: %s\n", buf, 0x16u);
       }
 
-      goto LABEL_7;
+      return;
     }
 
     *buf = 136315138;
-    v31 = "getAsset";
-    v22 = MEMORY[0x277D86220];
-    v23 = "%s: load_dict failed\n";
+    v30 = "getAsset";
+    v21 = MEMORY[0x277D86220];
+    v22 = "%s: load_dict failed\n";
 LABEL_42:
-    _os_log_impl(&dword_2548F1000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
+    _os_log_impl(&dword_2548F1000, v21, OS_LOG_TYPE_DEFAULT, v22, buf, 0xCu);
     goto LABEL_43;
   }
-
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2548FCFE0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
@@ -1290,39 +1276,39 @@ uint64_t __IOAccessoryCreateIOAMLoggingFile_block_invoke(uint64_t a1, uint64_t a
   return [v6 compare:v7];
 }
 
-uint64_t dbgShowAccyHealthDictionary()
+void *dbgShowAccyHealthDictionary()
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v0 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
   obj = gAccyHealthDictionary;
-  result = [gAccyHealthDictionary countByEnumeratingWithState:&v22 objects:v40 count:16];
+  result = [gAccyHealthDictionary countByEnumeratingWithState:&v21 objects:v39 count:16];
   if (result)
   {
     v3 = result;
     v4 = 0;
-    v5 = *v23;
+    v5 = *v22;
     v6 = MEMORY[0x277D86220];
     *&v2 = 67110658;
-    v19 = v2;
+    v18 = v2;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
-        v9 = [v0[31].cache objectForKey:{v8, v19}];
+        v8 = *(*(&v21 + 1) + 8 * v7);
+        v9 = [v0[31].cache objectForKey:{v8, v18}];
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = [v8 UTF8String];
+          v20 = [v8 UTF8String];
           v10 = [v9 lastSeenTimestamp];
           v11 = [v9 isHealthy];
           v12 = [v9 leakagePassedCount];
@@ -1331,44 +1317,43 @@ uint64_t dbgShowAccyHealthDictionary()
           v15 = v0;
           v16 = [v9 dryCount];
           v17 = [v9 wetCount];
-          *buf = v19;
-          v27 = v4;
-          v28 = 2082;
-          v29 = v21;
-          v30 = 2048;
-          v31 = v10;
+          *buf = v18;
+          v26 = v4;
+          v27 = 2082;
+          v28 = v20;
+          v29 = 2048;
+          v30 = v10;
           v6 = MEMORY[0x277D86220];
-          v32 = 1024;
-          v33 = v11;
-          v34 = 2048;
-          v35 = v12;
-          v36 = 2048;
-          v37 = v16;
+          v31 = 1024;
+          v32 = v11;
+          v33 = 2048;
+          v34 = v12;
+          v35 = 2048;
+          v36 = v16;
           v0 = v15;
           v5 = v14;
           v3 = v13;
-          v38 = 2048;
-          v39 = v17;
+          v37 = 2048;
+          v38 = v17;
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[health %d] <%{public}s> : %llu, isHealthy %d, leakagePassedCount %llu, dryCount %llu, wetCount %llu", buf, 0x40u);
         }
 
         ++v4;
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v3 != v7);
-      result = [obj countByEnumeratingWithState:&v22 objects:v40 count:16];
+      result = [obj countByEnumeratingWithState:&v21 objects:v39 count:16];
       v3 = result;
     }
 
     while (result);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t appendEventToHistory(void *a1, uint64_t a2)
+void *appendEventToHistory(void *a1, uint64_t a2)
 {
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1521,65 +1506,63 @@ LABEL_7:
   }
 }
 
-uint64_t _retrieveDeviceInterfaceSerialNumber()
+uint64_t _retrieveDeviceInterfaceSerialNumber(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = 4;
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = 4;
   while (1)
   {
-    v1 = IOAccessoryManagerCopyDeviceInfo();
-    if (!v1)
+    v3 = IOAccessoryManagerCopyDeviceInfo();
+    if (!v3)
     {
       break;
     }
 
     usleep(0x186A0u);
-    if (!--v0)
+    if (!--v2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 136315394;
-        v5 = "_retrieveDeviceInterfaceSerialNumber";
-        v6 = 1024;
-        v7 = v1;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s IOAccessoryManagerCopyDeviceInfo returned %x\n", &v4, 0x12u);
+        v5 = 136315394;
+        v6 = "_retrieveDeviceInterfaceSerialNumber";
+        v7 = 1024;
+        v8 = v3;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s IOAccessoryManagerCopyDeviceInfo returned %x\n", &v5, 0x12u);
       }
 
-      break;
+      return v3;
     }
   }
 
-  v2 = *MEMORY[0x277D85DE8];
-  return v1;
+  return v3;
 }
 
 void __IOAccessoryHandleAttach_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "IOAccessoryHandleAttach_block_invoke";
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s starting local asset query\n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "IOAccessoryHandleAttach_block_invoke";
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s starting local asset query\n", &v2, 0xCu);
   }
 
   performAssetQuery(1, *(a1 + 32));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "IOAccessoryHandleAttach_block_invoke";
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished local asset query\n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "IOAccessoryHandleAttach_block_invoke";
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished local asset query\n", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void _generateUIAnalyticEvents(void *a1, int a2)
+void _generateUIAnalyticEvents(void *a1, uint64_t a2)
 {
+  v2 = a2;
   valuePtr[1] = *MEMORY[0x277D85DE8];
   if ([a1 didNotify])
   {
-    goto LABEL_2;
+    return;
   }
 
   IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.ldcm.notification.count", a1);
@@ -1587,87 +1570,86 @@ void _generateUIAnalyticEvents(void *a1, int a2)
   if ([a1 didConfidentNotify])
   {
 LABEL_18:
-    _generateUIAnalyticEvents_cold_2(a1, a2);
-    goto LABEL_2;
+    _generateUIAnalyticEvents_cold_2(a1, v2);
+    return;
   }
 
   number = 0xAAAAAAAAAAAAAAAALL;
   valuePtr[0] = 0;
   if (!gAccyHealthDictionary)
   {
-    v13 = 0;
-    v5 = 0;
+    v12 = 0;
+    v4 = 0;
     goto LABEL_87;
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", 0, 0, 0];
-  v6 = [gAccyHealthDictionary objectForKey:v5];
-  if (!v6 || ![v6 isHealthy])
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", 0, 0, 0];
+  v5 = [gAccyHealthDictionary objectForKey:v4];
+  if (!v5 || ![v5 isHealthy])
   {
-    v13 = 0;
+    v12 = 0;
 LABEL_87:
-    v11 = 1;
+    v10 = 1;
 LABEL_90:
-    v12 = 1;
+    v11 = 1;
     goto LABEL_12;
   }
 
   if (!digitalIdNumPinsFree([a1 connectedAccessoryDigitalID], buf))
   {
+    v10 = 0;
     v11 = 0;
     v12 = 0;
-    v13 = 0;
     goto LABEL_12;
   }
 
-  [a1 service];
-  if (_retrieveDeviceInterfaceSerialNumber())
+  if (_retrieveDeviceInterfaceSerialNumber([a1 service], &number))
   {
-    v11 = 0;
-    v13 = 0;
+    v10 = 0;
+    v12 = 0;
     goto LABEL_90;
   }
 
   CFNumberGetValue(number, kCFNumberSInt64Type, valuePtr);
   CFRelease(number);
-  v7 = MEMORY[0x277CCACA8];
-  v8 = [a1 connectedAccessoryDigitalID];
-  v9 = [a1 connectedAccessoryOrientation];
-  v5 = [v7 stringWithFormat:@"%012llx_%1d_%012llx", v8, v9, valuePtr[0]];
-  v10 = [gAccyHealthDictionary objectForKey:v5];
-  v11 = 0;
-  if (v10)
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [a1 connectedAccessoryDigitalID];
+  v8 = [a1 connectedAccessoryOrientation];
+  v4 = [v6 stringWithFormat:@"%012llx_%1d_%012llx", v7, v8, valuePtr[0]];
+  v9 = [gAccyHealthDictionary objectForKey:v4];
+  v10 = 0;
+  if (v9)
   {
-    v12 = [v10 isHealthy] ^ 1;
+    v11 = [v9 isHealthy] ^ 1;
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
-  v13 = 1;
+  v12 = 1;
 LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v46 = v5;
-    v47 = 1024;
-    LODWORD(v48[0]) = v11;
-    WORD2(v48[0]) = 1024;
-    *(v48 + 6) = v12;
+    v45 = v4;
+    v46 = 1024;
+    LODWORD(v47[0]) = v10;
+    WORD2(v47[0]) = 1024;
+    *(v47 + 6) = v11;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[eval] <%{public}@> : emptyFail %d, accyFail %d", buf, 0x18u);
   }
 
-  if (v11)
+  if (v10)
   {
     IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.ldcm.notification.suppress.phone", a1);
     goto LABEL_18;
   }
 
-  if (v12)
+  if (v11)
   {
-    _generateUIAnalyticEvents_cold_1(a1, v13);
+    _generateUIAnalyticEvents_cold_1(a1, v12);
     goto LABEL_18;
   }
 
@@ -1681,202 +1663,202 @@ LABEL_12:
       Current = CFAbsoluteTimeGetCurrent();
       if (Current - *&qword_2812C4390 >= 480.0)
       {
-        v15 = 0;
+        v14 = 0;
         qword_2812C4390 = *&Current;
       }
 
       else
       {
-        v15 = 1;
+        v14 = 1;
       }
 
-      byte_2812C4398 = v15;
-      v16 = [gUserLdcmParams userBehaviorMask];
-      if ((v16 & 4) == 0)
+      byte_2812C4398 = v14;
+      v15 = [gUserLdcmParams userBehaviorMask];
+      if ((v15 & 4) == 0)
       {
         byte_2812C4398 = 0;
         qword_2812C4390 = *&Current;
       }
 
-      v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:3];
-      if (v17)
+      v16 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:3];
+      if (v16)
       {
-        v18 = v17;
-        v19 = MEMORY[0x277CBEC28];
-        v20 = MEMORY[0x277CBEC38];
-        if ((v16 & 4) != 0)
+        v17 = v16;
+        v18 = MEMORY[0x277CBEC28];
+        v19 = MEMORY[0x277CBEC38];
+        if ((v15 & 4) != 0)
         {
-          v21 = MEMORY[0x277CBEC28];
+          v20 = MEMORY[0x277CBEC28];
         }
 
         else
         {
-          v21 = MEMORY[0x277CBEC38];
+          v20 = MEMORY[0x277CBEC38];
         }
 
-        [v17 setObject:v21 forKeyedSubscript:@"legacy"];
+        [v16 setObject:v20 forKeyedSubscript:@"legacy"];
         if (byte_2812C44D4)
         {
-          v22 = v20;
+          v21 = v19;
         }
 
         else
+        {
+          v21 = v18;
+        }
+
+        [v17 setObject:v21 forKeyedSubscript:@"chargerConnected"];
+        if (byte_2812C4398)
         {
           v22 = v19;
         }
 
-        [v18 setObject:v22 forKeyedSubscript:@"chargerConnected"];
-        if (byte_2812C4398)
-        {
-          v23 = v20;
-        }
-
         else
         {
-          v23 = v19;
+          v22 = v18;
         }
 
-        [v18 setObject:v23 forKeyedSubscript:@"reinsertion"];
-        v24 = objc_alloc_init(MEMORY[0x277CCA9D8]);
-        if (v24)
+        [v17 setObject:v22 forKeyedSubscript:@"reinsertion"];
+        v23 = objc_alloc_init(MEMORY[0x277CCA9D8]);
+        if (v23)
         {
-          v25 = v24;
-          [v24 setUserInfo:v18];
-          valuePtr[0] = v25;
-          v26 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objc_msgSend(MEMORY[0x277CBEA60] requiringSecureCoding:"arrayWithObjects:count:" error:{valuePtr, 1), 1, &number}];
-          v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          if (v27)
+          v24 = v23;
+          [v23 setUserInfo:v17];
+          valuePtr[0] = v24;
+          v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objc_msgSend(MEMORY[0x277CBEA60] requiringSecureCoding:"arrayWithObjects:count:" error:{valuePtr, 1), 1, &number}];
+          v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          if (v26)
           {
-            v28 = v27;
-            [v27 setObject:@"com.apple.IOAccessoryManagerFramework.WetNotification" forKeyedSubscript:*MEMORY[0x277D67350]];
-            [v28 setObject:v26 forKeyedSubscript:*MEMORY[0x277D67358]];
-            v29 = MEMORY[0x277CBEC38];
-            [v28 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CBF1B0]];
-            [v28 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D67320]];
-            [v28 setObject:v29 forKeyedSubscript:*MEMORY[0x277D67340]];
-            v30 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.IOAccessoryManagerFramework"];
-            v31 = v30;
-            if (v30)
+            v27 = v26;
+            [v26 setObject:@"com.apple.IOAccessoryManagerFramework.WetNotification" forKeyedSubscript:*MEMORY[0x277D67350]];
+            [v27 setObject:v25 forKeyedSubscript:*MEMORY[0x277D67358]];
+            v28 = MEMORY[0x277CBEC38];
+            [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CBF1B0]];
+            [v27 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D67320]];
+            [v27 setObject:v28 forKeyedSubscript:*MEMORY[0x277D67340]];
+            v29 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.IOAccessoryManagerFramework"];
+            v30 = v29;
+            if (v29)
             {
-              v32 = [v30 pathForResource:@"PlugIns/WetNotification.appex/Assets.car" ofType:&stru_2866AF328];
+              v31 = [v29 pathForResource:@"PlugIns/WetNotification.appex/Assets.car" ofType:&stru_2866AF328];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315394;
-                v46 = "IOAccessoryNotifyWet";
-                v47 = 2112;
-                v48[0] = v32;
+                v45 = "IOAccessoryNotifyWet";
+                v46 = 2112;
+                v47[0] = v31;
                 _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Setting asset path for LDCM wet icon:%@", buf, 0x16u);
               }
 
-              [v28 setObject:v32 forKeyedSubscript:*MEMORY[0x277D673A0]];
-              [v28 setObject:@"lockScreenLiquidDetection" forKeyedSubscript:*MEMORY[0x277D67398]];
-              [v28 setObject:@"YES" forKeyedSubscript:*MEMORY[0x277D67390]];
-              [v28 setObject:v32 forKeyedSubscript:*MEMORY[0x277D67378]];
-              [v28 setObject:@"lockScreenLiquidDetection" forKeyedSubscript:*MEMORY[0x277D67370]];
-              v33 = [v31 resourceURL];
-              [v28 setObject:v33 forKeyedSubscript:*MEMORY[0x277CBF208]];
+              [v27 setObject:v31 forKeyedSubscript:*MEMORY[0x277D673A0]];
+              [v27 setObject:@"lockScreenLiquidDetection" forKeyedSubscript:*MEMORY[0x277D67398]];
+              [v27 setObject:@"YES" forKeyedSubscript:*MEMORY[0x277D67390]];
+              [v27 setObject:v31 forKeyedSubscript:*MEMORY[0x277D67378]];
+              [v27 setObject:@"lockScreenLiquidDetection" forKeyedSubscript:*MEMORY[0x277D67370]];
+              v32 = [v30 resourceURL];
+              [v27 setObject:v32 forKeyedSubscript:*MEMORY[0x277CBF208]];
             }
 
-            if ((v16 & 4) != 0)
+            if ((v15 & 4) != 0)
             {
-              if (v31)
+              if (v30)
               {
-                v35 = @"WETMSG_DIALOG_HEADER_LOCKSCREEN";
+                v34 = @"WETMSG_DIALOG_HEADER_LOCKSCREEN";
               }
 
               else
               {
-                v35 = @"LIQUID DETECTED";
+                v34 = @"LIQUID DETECTED";
               }
 
-              if (v31)
+              if (v30)
               {
-                v36 = @"WETMSG_DIALOG_BODY_LOCKSCREEN";
-              }
-
-              else
-              {
-                v36 = @"Charging is not available because liquid has been detected in the Lightning connector. Disconnect to allow the connector to dry.";
-              }
-
-              if (v31)
-              {
-                v37 = @"WETMSG_BUTTON_DISMISS";
+                v35 = @"WETMSG_DIALOG_BODY_LOCKSCREEN";
               }
 
               else
               {
-                v37 = @"Dismiss";
+                v35 = @"Charging is not available because liquid has been detected in the Lightning connector. Disconnect to allow the connector to dry.";
               }
 
-              v38 = @"WETMSG_BUTTON_EMERGENCY_OVERRIDE";
-              if (!v31)
+              if (v30)
               {
-                v38 = @"Emergency Override";
+                v36 = @"WETMSG_BUTTON_DISMISS";
+              }
+
+              else
+              {
+                v36 = @"Dismiss";
+              }
+
+              v37 = @"WETMSG_BUTTON_EMERGENCY_OVERRIDE";
+              if (!v30)
+              {
+                v37 = @"Emergency Override";
               }
 
               if (byte_2812C4398)
               {
-                v34 = v38;
+                v33 = v37;
               }
 
               else
               {
-                v34 = 0;
+                v33 = 0;
               }
             }
 
             else
             {
-              v34 = 0;
-              if (v31)
+              v33 = 0;
+              if (v30)
               {
-                v35 = @"WETMSG_DIALOG_HEADER_LOCKSCREEN_LEGACY";
+                v34 = @"WETMSG_DIALOG_HEADER_LOCKSCREEN_LEGACY";
               }
 
               else
               {
-                v35 = @"LIQUID DETECTED";
+                v34 = @"LIQUID DETECTED";
               }
 
-              if (v31)
+              if (v30)
               {
-                v36 = @"WETMSG_DIALOG_BODY_LOCKSCREEN_LEGACY";
-              }
-
-              else
-              {
-                v36 = @"Liquid has been detected in the Lightning connector. Disconnect to allow the connector to dry. Charging now may damage your iPhone.";
-              }
-
-              if (v31)
-              {
-                v37 = @"WETMSG_BUTTON_CLOSE";
+                v35 = @"WETMSG_DIALOG_BODY_LOCKSCREEN_LEGACY";
               }
 
               else
               {
-                v37 = @"Close";
+                v35 = @"Liquid has been detected in the Lightning connector. Disconnect to allow the connector to dry. Charging now may damage your iPhone.";
+              }
+
+              if (v30)
+              {
+                v36 = @"WETMSG_BUTTON_CLOSE";
+              }
+
+              else
+              {
+                v36 = @"Close";
               }
             }
 
-            [v28 setObject:v35 forKeyedSubscript:*MEMORY[0x277D673B8]];
-            [v28 setObject:v36 forKeyedSubscript:*MEMORY[0x277D673C8]];
-            [v28 setObject:v37 forKeyedSubscript:*MEMORY[0x277CBF1E8]];
-            [v28 setObject:v34 forKeyedSubscript:*MEMORY[0x277CBF218]];
+            [v27 setObject:v34 forKeyedSubscript:*MEMORY[0x277D673B8]];
+            [v27 setObject:v35 forKeyedSubscript:*MEMORY[0x277D673C8]];
+            [v27 setObject:v36 forKeyedSubscript:*MEMORY[0x277CBF1E8]];
+            [v27 setObject:v33 forKeyedSubscript:*MEMORY[0x277CBF218]];
             if (gEnableTapToRadarPopup == 1 && gGiveUserRadarOption == 1 && gIsInternalBuild == 1)
             {
-              if (v31)
+              if (v30)
               {
-                v39 = @"WETMSG_BUTTON_RADAR";
+                v38 = @"WETMSG_BUTTON_RADAR";
               }
 
               else
               {
-                v39 = @"Radar";
+                v38 = @"Radar";
               }
 
-              [v28 setObject:v39 forKeyedSubscript:*MEMORY[0x277CBF1C0]];
+              [v27 setObject:v38 forKeyedSubscript:*MEMORY[0x277CBF1C0]];
             }
 
             gLiquidNotificationContext = 1;
@@ -1885,40 +1867,37 @@ LABEL_12:
               qword_2812C43B8 = a1;
             }
 
-            v40 = *MEMORY[0x277CBECE8];
-            qword_2812C43A0 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v28);
-            RunLoopSource = CFUserNotificationCreateRunLoopSource(v40, qword_2812C43A0, IOAccessoryNotifyWetCallback_0, 0);
+            v39 = *MEMORY[0x277CBECE8];
+            qword_2812C43A0 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v27);
+            RunLoopSource = CFUserNotificationCreateRunLoopSource(v39, qword_2812C43A0, IOAccessoryNotifyWetCallback_0, 0);
             qword_2812C43A8 = RunLoopSource;
             if (RunLoopSource)
             {
               CFRunLoopAddSource(qword_2812C43B0, RunLoopSource, *MEMORY[0x277CBF048]);
             }
 
-            v25 = v18;
-            v18 = v28;
+            v24 = v17;
+            v17 = v27;
           }
         }
       }
 
-      v42 = number;
+      v41 = number;
       if (number)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v43 = [-[__CFNumber localizedDescription](v42 "localizedDescription")];
+          v42 = [-[__CFNumber localizedDescription](v41 "localizedDescription")];
           *buf = 136315394;
-          v46 = "IOAccessoryNotifyWet";
-          v47 = 2080;
-          v48[0] = v43;
+          v45 = "IOAccessoryNotifyWet";
+          v46 = 2080;
+          v47[0] = v42;
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s err: %s", buf, 0x16u);
-          v42 = number;
+          v41 = number;
         }
       }
     }
   }
-
-LABEL_2:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t halogenMeasurementCleanup(void *a1)
@@ -1993,22 +1972,22 @@ void __IOAccessoryGiveUserRadarOption_block_invoke(uint64_t a1)
 
 uint64_t _holdPowerAssertion(int a1, void *a2)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v4 = [a2 isPowerAssertionHeld];
   if (a1)
   {
     if ((v4 & 1) == 0)
     {
-      v13[0] = @"AssertType";
-      v13[1] = @"AssertLevel";
-      v14[0] = @"NoIdleSleepAssertion";
-      v14[1] = &unk_2866B8ED0;
-      v13[2] = @"AssertName";
-      v13[3] = @"AllowsDeviceRestart";
+      v11[0] = @"AssertType";
+      v11[1] = @"AssertLevel";
+      v12[0] = @"NoIdleSleepAssertion";
+      v12[1] = &unk_2866B8ED0;
+      v11[2] = @"AssertName";
+      v11[3] = @"AllowsDeviceRestart";
       v5 = *MEMORY[0x277CBED28];
-      v14[2] = @"com.apple.ioaccessorymanager.halogen";
-      v14[3] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+      v12[2] = @"com.apple.ioaccessorymanager.halogen";
+      v12[3] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
       AssertionID = [a2 sleepAssertionID];
       if (IOPMAssertionCreateWithProperties(v6, &AssertionID))
       {
@@ -2017,7 +1996,7 @@ uint64_t _holdPowerAssertion(int a1, void *a2)
           _holdPowerAssertion_cold_2();
         }
 
-        goto LABEL_15;
+        return [a2 isPowerAssertionHeld] ^ a1 ^ 1;
       }
 
       [a2 setSleepAssertionID:AssertionID];
@@ -2025,7 +2004,7 @@ uint64_t _holdPowerAssertion(int a1, void *a2)
       v8 = 1;
 LABEL_14:
       [v7 setIsPowerAssertionHeld:v8];
-      goto LABEL_15;
+      return [a2 isPowerAssertionHeld] ^ a1 ^ 1;
     }
 
     goto LABEL_10;
@@ -2039,7 +2018,7 @@ LABEL_10:
       _holdPowerAssertion_cold_3(a2);
     }
 
-    goto LABEL_15;
+    return [a2 isPowerAssertionHeld] ^ a1 ^ 1;
   }
 
   if (!IOPMAssertionRelease([a2 sleepAssertionID]))
@@ -2054,15 +2033,12 @@ LABEL_10:
     _holdPowerAssertion_cold_1();
   }
 
-LABEL_15:
-  v9 = [a2 isPowerAssertionHeld];
-  v10 = *MEMORY[0x277D85DE8];
-  return v9 ^ a1 ^ 1u;
+  return [a2 isPowerAssertionHeld] ^ a1 ^ 1;
 }
 
 uint64_t reportEisMeasurementStateChange(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   connect = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -2080,10 +2056,10 @@ uint64_t reportEisMeasurementStateChange(void *a1)
     [objc_msgSend(a1 "halogenMeasurement")];
     if (!IOAccessoryManagerSetVoltageDetected())
     {
-      v5 = [objc_msgSend(a1 "halogenMeasurement")];
-      v6.i32[0] = *buf;
-      v7 = vmovl_u8(v6).u64[0];
-      if (vuzp1_s8(v7, v7).u32[0] == 61700 && !buf[4] && v5 == 2 && !buf[5] && ([a1 isReceptacleEmpty] & 1) == 0)
+      v4 = [objc_msgSend(a1 "halogenMeasurement")];
+      v5.i32[0] = *buf;
+      v6 = vmovl_u8(v5).u64[0];
+      if (vuzp1_s8(v6, v6).u32[0] == 61700 && !buf[4] && v4 == 2 && !buf[5] && ([a1 isReceptacleEmpty] & 1) == 0)
       {
         IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.voltage.headset", a1);
       }
@@ -2092,17 +2068,16 @@ uint64_t reportEisMeasurementStateChange(void *a1)
     result = connect;
     if (connect)
     {
-      result = IOServiceClose(connect);
+      return IOServiceClose(connect);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __powerBatteryMatch(void *a1, io_iterator_t iterator)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notification = -1431655766;
   result = IOIteratorNext(iterator);
   if (result)
@@ -2119,9 +2094,9 @@ uint64_t __powerBatteryMatch(void *a1, io_iterator_t iterator)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v12 = "__powerBatteryMatch";
-          v13 = 1024;
-          v14 = v8;
+          v11 = "__powerBatteryMatch";
+          v12 = 1024;
+          v13 = v8;
           _os_log_error_impl(&dword_2548F1000, v6, OS_LOG_TYPE_ERROR, "%s IOServiceAddInterestNotification failed: %08x", buf, 0x12u);
         }
       }
@@ -2134,20 +2109,6 @@ uint64_t __powerBatteryMatch(void *a1, io_iterator_t iterator)
     while (result);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_22()
-{
-  result = *(v1 + 3240);
-  v3 = v0[14];
-  v4 = v0[15];
-  v5 = v0[16];
-  v6 = v0[17];
-  v7 = v0[18];
-  v8 = v0[19];
-  v9 = v0[52];
   return result;
 }
 
@@ -2177,15 +2138,11 @@ void OUTLINED_FUNCTION_43(float a1)
   *(v3 - 116) = 2112;
 }
 
-uint64_t OUTLINED_FUNCTION_50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+uint64_t OUTLINED_FUNCTION_50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a8);
+  va_start(va, a8);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
@@ -2193,8 +2150,12 @@ uint64_t OUTLINED_FUNCTION_50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
   v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
 
-  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v8 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
 void handleLDCMNotification(int a1, void *a2, CFStringRef theString1)
@@ -2305,7 +2266,7 @@ uint64_t __handleUserRequestedRadarNotification_block_invoke(uint64_t a1)
 
 void __handleWetPromptResponse_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   clearNotificationContext();
   [*(a1 + 32) setLastUserNotificationTimeNS:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW)];
   if (*(a1 + 40))
@@ -2314,9 +2275,9 @@ void __handleWetPromptResponse_block_invoke(uint64_t a1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v5 = 136315138;
-        v6 = "handleWetPromptResponse_block_invoke";
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s alternate response", &v5, 0xCu);
+        v4 = 136315138;
+        v5 = "handleWetPromptResponse_block_invoke";
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s alternate response", &v4, 0xCu);
       }
 
       [*(a1 + 32) _fileRadarHalogenTypeC:objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 32) TTRCategory:{"typeC"), "getVerboseMeasurementOutputString"), "mutableCopy"), 0}];
@@ -2324,9 +2285,9 @@ void __handleWetPromptResponse_block_invoke(uint64_t a1)
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "handleWetPromptResponse_block_invoke";
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s unexpected response", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "handleWetPromptResponse_block_invoke";
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s unexpected response", &v4, 0xCu);
     }
   }
 
@@ -2334,17 +2295,15 @@ void __handleWetPromptResponse_block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "handleWetPromptResponse_block_invoke";
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s default response", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "handleWetPromptResponse_block_invoke";
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s default response", &v4, 0xCu);
     }
 
     v2 = [*(a1 + 32) timerPortStateCheck];
     v3 = dispatch_walltime(0, 3600000000000);
     dispatch_source_set_timer(v2, v3, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t OUTLINED_FUNCTION_2_3()
@@ -2411,17 +2370,19 @@ uint64_t compare(double *a1, double *a2)
   }
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
-uint64_t recordCallback_0(void *a1, AudioUnitRenderActionFlags *a2, const AudioTimeStamp *a3, UInt32 a4, UInt32 a5)
+uint64_t recordCallback_0(void *a1, AudioUnitRenderActionFlags *a2, const AudioTimeStamp *a3, UInt32 a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v5 = a5;
+  v25 = *MEMORY[0x277D85DE8];
   v10 = [a1 inputFrameSizeInBytes] * a5;
-  memset(v23, 170, 24);
+  memset(v22, 170, 24);
   v11 = [a1 pcmInputDataMaxSzInBytes];
   if ((v11 - [a1 pcmInputDataIndexInBytes]) < v10)
   {
@@ -2430,24 +2391,24 @@ uint64_t recordCallback_0(void *a1, AudioUnitRenderActionFlags *a2, const AudioT
 
   else if (([a1 isMeasurementDone] & 1) == 0)
   {
-    LODWORD(v23[1]) = 1;
+    LODWORD(v22[1]) = 1;
     v12 = [objc_msgSend(a1 "pcmInputData")];
-    v23[3] = v12 + [a1 pcmInputDataIndexInBytes];
-    HIDWORD(v23[2]) = v10;
-    v13 = AudioUnitRender([a1 audioComponentInst], a2, a3, a4, a5, &v23[1]);
+    v22[3] = v12 + [a1 pcmInputDataIndexInBytes];
+    HIDWORD(v22[2]) = v10;
+    v13 = AudioUnitRender([a1 audioComponentInst], a2, a3, a4, v5, &v22[1]);
     if (v13)
     {
       v14 = v13;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v25 = v14;
+        v24 = v14;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:render failed osstatus=0x%x", buf, 8u);
       }
     }
 
     [a1 setPcmInputDataIndexInBytes:{objc_msgSend(a1, "pcmInputDataIndexInBytes") + v10}];
-    [a1 setPcmInputDataSampleCnt:{objc_msgSend(a1, "pcmInputDataSampleCnt") + a5}];
+    [a1 setPcmInputDataSampleCnt:{objc_msgSend(a1, "pcmInputDataSampleCnt") + v5}];
     v15 = [a1 pcmInputDataSampleCnt];
     v16 = [a1 calibrationSampleOffsetInFrames];
     if (v15 >= ([a1 nMeasurementSamples] + v16))
@@ -2465,14 +2426,14 @@ uint64_t recordCallback_0(void *a1, AudioUnitRenderActionFlags *a2, const AudioT
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v25 = v18;
+            v24 = v18;
             _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenMeasurement:IOAccessoryManagerSelectEisPin failed to set the pin ret = 0x%x", buf, 8u);
           }
         }
 
         else
         {
-          [a1 setEisPinToken2:v23[0]];
+          [a1 setEisPinToken2:v22[0]];
         }
       }
 
@@ -2486,13 +2447,12 @@ uint64_t recordCallback_0(void *a1, AudioUnitRenderActionFlags *a2, const AudioT
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t playbackCallback_0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
-  v8 = [objc_msgSend(a1 "pcmOutputData")];
+  v8 = [objc_msgSend(a1 pcmOutputData];
   v9 = [a1 pcmOutputDataIndexInBytes];
   v10 = [a1 pcmOutputDataMaxSzInBytes];
   v11 = *a6;
@@ -2532,7 +2492,7 @@ uint64_t playbackCallback_0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   return 0;
 }
 
-void systemPowerCallback_0(void *a1, uint64_t a2, int a3, intptr_t a4)
+void systemPowerCallback_0(void *a1, uint64_t a2, uint64_t a3, intptr_t a4)
 {
   if (a3 > -536870145)
   {
@@ -2554,7 +2514,7 @@ void systemPowerCallback_0(void *a1, uint64_t a2, int a3, intptr_t a4)
       return;
     }
 
-    [objc_msgSend(a1 "powerStateCond")];
+    [objc_msgSend(a1 powerStateCond];
     v6 = a1;
     v7 = 1;
     goto LABEL_8;
@@ -2603,24 +2563,24 @@ void IOAccessoryStopSystemStateMonitor()
 
 uint64_t ProcessPublishedEndpoints(void *a1, io_iterator_t iterator)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = IOIteratorNext(iterator);
   if (result)
   {
     v6 = result;
     v7 = MEMORY[0x277D86220];
     *&v5 = 136315138;
-    v9 = v5;
+    v8 = v5;
     do
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *buf = v9;
-        v11 = "ProcessPublishedEndpoints";
+        *buf = v8;
+        v10 = "ProcessPublishedEndpoints";
         _os_log_impl(&dword_2548F1000, v7, OS_LOG_TYPE_INFO, "%s adding endpoint", buf, 0xCu);
       }
 
-      [a1 addEndpointForService:{v6, v9}];
+      [a1 addEndpointForService:{v6, v8}];
       IOObjectRelease(v6);
       result = IOIteratorNext(iterator);
       v6 = result;
@@ -2629,30 +2589,29 @@ uint64_t ProcessPublishedEndpoints(void *a1, io_iterator_t iterator)
     while (result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ProcessTerminatedEndpoints(void *a1, io_iterator_t iterator)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = IOIteratorNext(iterator);
   if (result)
   {
     v6 = result;
     v7 = MEMORY[0x277D86220];
     *&v5 = 136315138;
-    v9 = v5;
+    v8 = v5;
     do
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *buf = v9;
-        v11 = "ProcessTerminatedEndpoints";
+        *buf = v8;
+        v10 = "ProcessTerminatedEndpoints";
         _os_log_impl(&dword_2548F1000, v7, OS_LOG_TYPE_INFO, "%s removing endpoint", buf, 0xCu);
       }
 
-      [a1 removeEndpointForService:{v6, v9}];
+      [a1 removeEndpointForService:{v6, v8}];
       IOObjectRelease(v6);
       result = IOIteratorNext(iterator);
       v6 = result;
@@ -2661,7 +2620,6 @@ uint64_t ProcessTerminatedEndpoints(void *a1, io_iterator_t iterator)
     while (result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2677,10 +2635,11 @@ uint64_t OUTLINED_FUNCTION_1_5@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void IOPortLDCMServiceMatchingCallback(uint64_t *a1, io_iterator_t iterator)
@@ -2977,7 +2936,7 @@ LABEL_10:
 
 void IOAccessoryNotifyWet(uint64_t a1, _BYTE *a2, void *a3)
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -2991,7 +2950,7 @@ void IOAccessoryNotifyWet(uint64_t a1, _BYTE *a2, void *a3)
     goto LABEL_38;
   }
 
-  v46 = a3;
+  v35 = a3;
   OUTLINED_FUNCTION_0_1();
   if (a2)
   {
@@ -3037,49 +2996,42 @@ LABEL_8:
       {
         [(__CFString *)v18 setUserInfo:a3];
         v19 = MEMORY[0x277CCAAB0];
-        v52[0] = v12;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
-        v47 = 0;
-        v7 = [v19 archivedDataWithRootObject:v20 requiringSecureCoding:1 error:&v47];
-        v45 = v47;
+        v41[0] = v12;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+        v36 = 0;
+        v7 = [v19 archivedDataWithRootObject:v20 requiringSecureCoding:1 error:&v36];
+        v34 = v36;
 
         v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v3 = v21;
-        v44 = v12;
+        v33 = v12;
         if (v21)
         {
           [v21 setObject:@"com.apple.IOAccessoryManagerFramework.WetNotification" forKeyedSubscript:*MEMORY[0x277D67350]];
           [v3 setObject:v7 forKeyedSubscript:*MEMORY[0x277D67358]];
-          v22 = *MEMORY[0x277CBF1B0];
           OUTLINED_FUNCTION_1_0();
           [v3 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D67320]];
-          v23 = *MEMORY[0x277D67340];
           OUTLINED_FUNCTION_1_0();
-          v24 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.IOAccessoryManagerFramework"];
-          v6 = v24;
-          if (v24)
+          v22 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.IOAccessoryManagerFramework"];
+          v6 = v22;
+          if (v22)
           {
-            v25 = [v24 pathForResource:@"PlugIns/WetNotification.appex/Assets.car" ofType:&stru_2866AF328];
+            v23 = [v22 pathForResource:@"PlugIns/WetNotification.appex/Assets.car" ofType:&stru_2866AF328];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v49 = "IOAccessoryNotifyWet";
-              v50 = 2112;
-              v51 = v25;
+              v38 = "IOAccessoryNotifyWet";
+              v39 = 2112;
+              v40 = v23;
               _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Setting asset path for LDCM wet icon:%@", buf, 0x16u);
             }
 
-            v26 = *MEMORY[0x277D673A0];
             OUTLINED_FUNCTION_3();
-            v27 = *MEMORY[0x277D67398];
             OUTLINED_FUNCTION_1_0();
             [v3 setObject:@"YES" forKeyedSubscript:*MEMORY[0x277D67390]];
-            v28 = *MEMORY[0x277D67378];
             OUTLINED_FUNCTION_3();
-            v29 = *MEMORY[0x277D67370];
             OUTLINED_FUNCTION_1_0();
-            v30 = [v6 resourceURL];
-            v31 = *MEMORY[0x277CBF208];
+            v24 = [v6 resourceURL];
             OUTLINED_FUNCTION_1_0();
 
             v12 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"WETMSG_DIALOG_BODY_LOCKSCREEN_TYPEC"];
@@ -3092,13 +3044,13 @@ LABEL_8:
 
           if (*(a1 + 16) == 1)
           {
-            v32 = @"WETMSG_BUTTON_EMERGENCY_OVERRIDE";
+            v25 = @"WETMSG_BUTTON_EMERGENCY_OVERRIDE";
             if (!v6)
             {
-              v32 = @"Emergency Override";
+              v25 = @"Emergency Override";
             }
 
-            v4 = v32;
+            v4 = v25;
           }
 
           else
@@ -3106,24 +3058,21 @@ LABEL_8:
             v4 = 0;
           }
 
-          v33 = *MEMORY[0x277D673B8];
           OUTLINED_FUNCTION_1_0();
           [v3 setObject:v12 forKeyedSubscript:*MEMORY[0x277D673C8]];
-          v34 = *MEMORY[0x277CBF1E8];
           OUTLINED_FUNCTION_3();
           [v3 setObject:v4 forKeyedSubscript:*MEMORY[0x277CBF218]];
           [v3 setObject:&unk_2866B8EA0 forKeyedSubscript:*MEMORY[0x277D67408]];
           [v3 setObject:&unk_2866B8EB8 forKeyedSubscript:*MEMORY[0x277D67430]];
-          if (v46)
+          if (v35)
           {
-            v35 = @"WETMSG_BUTTON_RADAR";
+            v26 = @"WETMSG_BUTTON_RADAR";
             if (!v6)
             {
-              v35 = @"Radar";
+              v26 = @"Radar";
             }
 
-            v5 = v35;
-            v36 = *MEMORY[0x277CBF1C0];
+            v5 = v26;
             OUTLINED_FUNCTION_3();
           }
 
@@ -3133,11 +3082,11 @@ LABEL_8:
           }
 
           *a1 = 1;
-          v37 = *MEMORY[0x277CBECE8];
-          v38 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v3);
-          *(a1 + 24) = v38;
+          v27 = *MEMORY[0x277CBECE8];
+          v28 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v3);
+          *(a1 + 24) = v28;
           gLdcmNotificationContext = a1;
-          RunLoopSource = CFUserNotificationCreateRunLoopSource(v37, v38, IOAccessoryNotifyWetCallback, 0);
+          RunLoopSource = CFUserNotificationCreateRunLoopSource(v27, v28, IOAccessoryNotifyWetCallback, 0);
           *(a1 + 32) = RunLoopSource;
           if (RunLoopSource)
           {
@@ -3153,28 +3102,28 @@ LABEL_8:
           v6 = 0;
         }
 
-        v13 = v45;
-        if (v45)
+        v13 = v34;
+        if (v34)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v8 = v44;
-            v13 = v45;
+            v8 = v33;
+            v13 = v34;
             goto LABEL_38;
           }
 
-          v40 = [v45 localizedDescription];
-          v41 = [v40 UTF8String];
+          v30 = [v34 localizedDescription];
+          v31 = [v30 UTF8String];
           *buf = 136315394;
-          v49 = "IOAccessoryNotifyWet";
-          v50 = 2080;
-          v51 = v41;
+          v38 = "IOAccessoryNotifyWet";
+          v39 = 2080;
+          v40 = v31;
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s err: %s", buf, 0x16u);
 
-          v13 = v45;
+          v13 = v34;
         }
 
-        v8 = v44;
+        v8 = v33;
         goto LABEL_38;
       }
     }
@@ -3191,14 +3140,12 @@ LABEL_8:
   }
 
 LABEL_38:
-  v42 = v13;
-
-  v43 = *MEMORY[0x277D85DE8];
+  v32 = v13;
 }
 
 void IOAccessoryNotifyWetHandler(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB38] dictionary];
   if (!a1)
   {
@@ -3250,9 +3197,9 @@ LABEL_9:
 LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v11 = 134217984;
-    v12 = v5;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM UI Notification Duration: %ld\n", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v5;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM UI Notification Duration: %ld\n", &v10, 0xCu);
   }
 
   AnalyticsSendEvent();
@@ -3260,8 +3207,6 @@ LABEL_10:
   CFRelease(*(a1 + 32));
   CFRelease(*(a1 + 24));
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccessoryFileRadarLDCMV4()
@@ -3368,16 +3313,16 @@ LABEL_12:
 
 uint64_t performEisMeasurement(void *a1)
 {
-  v181 = *MEMORY[0x277D85DE8];
-  v164 = -21846;
+  v180 = *MEMORY[0x277D85DE8];
+  v163 = -21846;
   connect = 0;
-  v163 = -1431655766;
-  v161 = 0xAAAAAAAAAAAAAAAALL;
+  v162 = -1431655766;
+  v160 = 0xAAAAAAAAAAAAAAAALL;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_46();
-    *&v168[2] = 2048;
-    *&v168[4] = a1;
+    *&v167[2] = 2048;
+    *&v167[4] = a1;
     OUTLINED_FUNCTION_9();
     _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
@@ -3393,7 +3338,7 @@ uint64_t performEisMeasurement(void *a1)
     [OUTLINED_FUNCTION_13() setIsMeasurementActive:?];
     [objc_msgSend(a1 "cond")];
     v7 = [a1 halogenMeasurement];
-    v160 = [a1 portID];
+    v159 = [a1 portID];
     if ([a1 isReceptacleEmpty])
     {
       v8 = [a1 eventBasedDigitalID];
@@ -3411,7 +3356,7 @@ uint64_t performEisMeasurement(void *a1)
 LABEL_14:
         v20 = 1;
 LABEL_16:
-        if (digitalIdNumPinsFree(v8, &v163))
+        if (digitalIdNumPinsFree(v8, &v162))
         {
           v21 = [a1 service];
           if (!IOServiceOpen(v21, *MEMORY[0x277D85F48], 0, &connect))
@@ -3452,8 +3397,8 @@ LABEL_163:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   OUTLINED_FUNCTION_46();
-                  *&v168[2] = 2048;
-                  *&v168[4] = v110;
+                  *&v167[2] = 2048;
+                  *&v167[4] = v110;
                   OUTLINED_FUNCTION_9();
                   _os_log_impl(v111, v112, v113, v114, v115, 0x16u);
                 }
@@ -3474,23 +3419,23 @@ LABEL_163:
               goto LABEL_156;
             }
 
-            HIDWORD(v156) = 0;
+            HIDWORD(v155) = 0;
             v24 = 0;
             v23 = 7;
             *(&v25 + 1) = 0x300000001;
             *&v25 = 67110146;
-            v152 = v25;
+            v151 = v25;
             *&v25 = 67109376;
-            v158 = v25;
+            v157 = v25;
             *&v25 = 67110402;
-            v155 = v25;
-            *&v25 = 67111680;
             v154 = v25;
-            *&v25 = 67110912;
+            *&v25 = 67111680;
             v153 = v25;
+            *&v25 = 67110912;
+            v152 = v25;
             v26 = 1000.0;
-            v159 = v7;
-            v157 = v8;
+            v158 = v7;
+            v156 = v8;
             while (2)
             {
               if (IOAccessoryManagerGetFreePinMask())
@@ -3511,12 +3456,12 @@ LABEL_113:
                   goto LABEL_156;
                 }
 
-                if ((v156 & 0x100000000) == 0)
+                if ((v155 & 0x100000000) == 0)
                 {
                   updateAccyHalogenHealthDictionary(a1);
                 }
 
-                v86 = [v159 halogenResult];
+                v86 = [v158 halogenResult];
                 v23 = 0;
                 if (v86 > 8)
                 {
@@ -3574,9 +3519,9 @@ LABEL_113:
                       [OUTLINED_FUNCTION_27() minDryReadings];
                       *buf = 67109632;
                       OUTLINED_FUNCTION_1_2();
-                      *v168 = 0;
-                      *&v168[8] = v87;
-                      *&v168[10] = v88;
+                      *v167 = 0;
+                      *&v167[8] = v87;
+                      *&v167[10] = v88;
                       OUTLINED_FUNCTION_9();
                       _os_log_impl(v89, v90, v91, v92, v93, 0x1Cu);
                     }
@@ -3586,7 +3531,7 @@ LABEL_113:
 
                   if (([a1 isWet] & 1) == 0)
                   {
-                    v120 = [a1 connectedAccessoryPDigitalID];
+                    v119 = [a1 connectedAccessoryPDigitalID];
                     [OUTLINED_FUNCTION_12() setEventBasedPDigitalID:?];
                     [a1 connectedAccessoryDigitalID];
                     [OUTLINED_FUNCTION_12() setEventBasedDigitalID:?];
@@ -3604,26 +3549,26 @@ LABEL_113:
                         }
                       }
 
-                      v121 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-                      if (v121)
+                      v120 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+                      if (v120)
                       {
-                        OUTLINED_FUNCTION_38(v121, v122, v123, v124, v125, v126, v127, v128, v150, v151, v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, v157, v158);
-                        v166 = v160;
-                        v167 = 2048;
-                        *v168 = v129;
+                        OUTLINED_FUNCTION_38(v120, v121, v122, v123, v124, v125, v126, v127, v149, v150, v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, v156, v157);
+                        v165 = v159;
+                        v166 = 2048;
+                        *v167 = v128;
                         OUTLINED_FUNCTION_9();
-                        _os_log_impl(v130, v131, v132, v133, v134, 0x12u);
+                        _os_log_impl(v129, v130, v131, v132, v133, 0x12u);
                       }
                     }
 
                     IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.voltage.count", a1);
-                    [v159 capacitanceInNanoF];
-                    IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.eis.initial.wet.capacitance.histogram", a1, v135);
-                    [v159 goertzelImpedance];
-                    IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.eis.initial.wet.impedance.histogram", a1, v136 / v26);
+                    [v158 capacitanceInNanoF];
+                    IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.eis.initial.wet.capacitance.histogram", a1, v134);
+                    [v158 goertzelImpedance];
+                    IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.eis.initial.wet.impedance.histogram", a1, v135 / v26);
                     if (([a1 isReceptacleEmpty] & 1) == 0 && (objc_msgSend(a1, "isHeadsetConnected") & 1) == 0)
                     {
-                      _generateUIAnalyticEvents(a1, v160);
+                      _generateUIAnalyticEvents(a1, v159);
                     }
 
                     [a1 setWetDryTransitionTimestamp:0];
@@ -3684,14 +3629,14 @@ LABEL_113:
                     v101 = v99 / v100;
                     if (v99 / v100 >= [gUserLdcmParams maxVhiDurationSec] && (objc_msgSend(a1, "didWetTooLong") & 1) == 0)
                     {
-                      v137 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-                      if (v137)
+                      v136 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+                      if (v136)
                       {
-                        OUTLINED_FUNCTION_38(v137, v138, v139, v140, v141, v142, v143, v144, v150, v151, v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, v157, v158);
+                        OUTLINED_FUNCTION_38(v136, v137, v138, v139, v140, v141, v142, v143, v149, v150, v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, v156, v157);
                         OUTLINED_FUNCTION_1_2();
-                        *v168 = v101;
+                        *v167 = v101;
                         OUTLINED_FUNCTION_9();
-                        _os_log_impl(v145, v146, v147, v148, v149, 0x12u);
+                        _os_log_impl(v144, v145, v146, v147, v148, 0x12u);
                       }
 
                       IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.notification.wettoolong", a1, v101);
@@ -3718,27 +3663,27 @@ LABEL_156:
                 goto LABEL_163;
               }
 
-              v27 = v161;
+              v27 = v160;
               if (v8 == 0x18FE81000000)
               {
-                v27 = v161 & 0xFFFFFFFFFFFFFFFBLL;
-                v161 &= ~4uLL;
+                v27 = v160 & 0xFFFFFFFFFFFFFFFBLL;
+                v160 &= ~4uLL;
               }
 
               v28 = 0;
-              v180 = xmmword_25491C1D0;
+              v179 = xmmword_25491C1D0;
               while (1)
               {
-                v29 = *(&v180 + v28);
+                v29 = *(&v179 + v28);
                 if ((v27 & (1 << v29)) != 0)
                 {
                   v30 = v29 + 2;
                   if (v9 != 2)
                   {
-                    v30 = *(&v180 + v28);
+                    v30 = *(&v179 + v28);
                   }
 
-                  if (*(&v163 + v30))
+                  if (*(&v162 + v30))
                   {
                     break;
                   }
@@ -3760,33 +3705,33 @@ LABEL_110:
                   goto LABEL_113;
                 }
 
-                OUTLINED_FUNCTION_38(v72, v73, v74, v75, v76, v77, v78, v79, v150, v151, v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, *(&v155 + 1), v156, v157, v158);
+                OUTLINED_FUNCTION_38(v72, v73, v74, v75, v76, v77, v78, v79, v149, v150, v151, *(&v151 + 1), v152, *(&v152 + 1), v153, *(&v153 + 1), v154, *(&v154 + 1), v155, v156, v157);
                 OUTLINED_FUNCTION_1_2();
-                *v168 = v27;
+                *v167 = v27;
                 OUTLINED_FUNCTION_9();
                 v85 = 18;
                 goto LABEL_112;
               }
 
-              [a1 setPinID:*(&v180 + v28)];
+              [a1 setPinID:*(&v179 + v28)];
               v31 = [a1 isReceptacleEmpty];
               v32 = [a1 isWet];
               [gUserLdcmParams wetTransitionCapacitanceThreshold];
               v34 = v33;
               [gUserLdcmParams dryTransitionCapacitanceThreshold];
-              v36 = [v159 doMeasurement:1 onPin:v29 isReceptacleEmpty:v31 isReceptacleWet:v32 withWetTransitionThreshold:v34 withDryTransitionThreshold:v35];
+              v36 = [v158 doMeasurement:1 onPin:v29 isReceptacleEmpty:v31 isReceptacleWet:v32 withWetTransitionThreshold:v34 withDryTransitionThreshold:v35];
               v23 = v36;
               if (v36)
               {
                 if (v36 <= 6 && ((1 << v36) & 0x58) != 0)
                 {
                   v37 = MEMORY[0x277D86220];
-                  v8 = v157;
+                  v8 = v156;
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     OUTLINED_FUNCTION_4();
-                    v167 = 1024;
-                    *v168 = v24;
+                    v166 = 1024;
+                    *v167 = v24;
                     _os_log_impl(&dword_2548F1000, v37, OS_LOG_TYPE_DEFAULT, "(%d) EIS measurement #%d triggered abort due to sleep / failed arbitration / audio failure", buf, 0xEu);
                   }
 
@@ -3794,12 +3739,12 @@ LABEL_110:
 LABEL_82:
                   if ([a1 isWet] && (objc_msgSend(a1, "isReceptacleEmpty") & 1) == 0 && (objc_msgSend(a1, "isHeadsetConnected") & 1) == 0)
                   {
-                    if (!((v23 != 0) | BYTE4(v156) & 1))
+                    if (!((v23 != 0) | BYTE4(v155) & 1))
                     {
-                      HIDWORD(v156) = updateAccyHalogenHealthDictionary(a1);
+                      HIDWORD(v155) = updateAccyHalogenHealthDictionary(a1);
                     }
 
-                    _generateUIAnalyticEvents(a1, v160);
+                    _generateUIAnalyticEvents(a1, v159);
                   }
 
                   if (!v38)
@@ -3828,16 +3773,16 @@ LABEL_82:
                     v66 = IOAccessoryGetPinStrForIndex_pinStr[v29];
                   }
 
-                  *buf = v152;
-                  v166 = v160;
-                  v167 = 1024;
-                  *v168 = v24;
-                  *&v168[4] = 1024;
-                  *&v168[6] = v29;
-                  *&v168[10] = 2082;
-                  *&v168[12] = v66;
-                  v169 = 1024;
-                  v170 = v23;
+                  *buf = v151;
+                  v165 = v159;
+                  v166 = 1024;
+                  *v167 = v24;
+                  *&v167[4] = 1024;
+                  *&v167[6] = v29;
+                  *&v167[10] = 2082;
+                  *&v167[12] = v66;
+                  v168 = 1024;
+                  v169 = v23;
                   _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%d) EIS measurement #%d on %d (%{public}s) returned %#x", buf, 0x24u);
                 }
 
@@ -3859,87 +3804,87 @@ LABEL_82:
                 v39 = IOAccessoryGetPinStrForIndex_pinStr[v29];
               }
 
-              v151 = v39;
-              v40 = [v159 halogenResult];
-              [v159 getResultString];
+              v150 = v39;
+              v40 = [v158 halogenResult];
+              [v158 getResultString];
               OUTLINED_FUNCTION_4();
-              v167 = 1024;
-              *v168 = v24;
-              *&v168[4] = 1024;
-              *&v168[6] = v29;
-              *&v168[10] = 2082;
-              *&v168[12] = v151;
-              v169 = 1024;
-              v170 = v40;
-              v171 = 2114;
-              v172 = v41;
+              v166 = 1024;
+              *v167 = v24;
+              *&v167[4] = 1024;
+              *&v167[6] = v29;
+              *&v167[10] = 2082;
+              *&v167[12] = v150;
+              v168 = 1024;
+              v169 = v40;
+              v170 = 2114;
+              v171 = v41;
               _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%d) EIS measurement #%d on %d (%{public}s) returned %d (%{public}@)", buf, 0x2Eu);
             }
 
             OUTLINED_FUNCTION_7();
             if (v42)
             {
-              [v159 saveAsWav:@"/tmp/halogen.wav"];
+              [v158 saveAsWav:@"/tmp/halogen.wav"];
             }
 
             v43 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              [v159 voltageGainCorrection];
-              v151 = v44;
-              [v159 currentGainCorrection];
-              v150 = v45;
-              [v159 currentPhaseCompensation];
-              [v159 goertzelImpedance];
-              [v159 goertzelPhase];
-              [v159 compensatedImpedance];
-              [v159 compensatedPhase];
+              [v158 voltageGainCorrection];
+              v150 = v44;
+              [v158 currentGainCorrection];
+              v149 = v45;
+              [v158 currentPhaseCompensation];
+              [v158 goertzelImpedance];
+              [v158 goertzelPhase];
+              [v158 compensatedImpedance];
+              [v158 compensatedPhase];
               v46 = v26;
               v48 = v47;
-              [v159 clippingScore];
+              [v158 clippingScore];
               v50 = v49;
-              [v159 resistanceInOhms];
+              [v158 resistanceInOhms];
               v52 = v51;
-              [v159 capacitanceInNanoF];
-              *buf = v154;
+              [v158 capacitanceInNanoF];
+              *buf = v153;
               OUTLINED_FUNCTION_1_2();
-              *v168 = v151;
-              *&v168[8] = v53;
-              *&v168[10] = v150;
+              *v167 = v150;
+              *&v167[8] = v53;
+              *&v167[10] = v149;
               OUTLINED_FUNCTION_15();
-              v173 = v48;
+              v172 = v48;
               v26 = v46;
-              v174 = v54;
-              v175 = v50;
-              v176 = v54;
-              v177 = v52;
-              v178 = v54;
-              v179 = v55;
+              v173 = v54;
+              v174 = v50;
+              v175 = v54;
+              v176 = v52;
+              v177 = v54;
+              v178 = v55;
               _os_log_impl(&dword_2548F1000, v43, OS_LOG_TYPE_DEFAULT, "(%d) halogen measurement = [%.13f, %.13f, %.13f, %.13f, %.13f, %.13f, %.13f, %.13f, %.13f, %.13f]", buf, 0x6Cu);
             }
 
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
-              [v159 precalVoltageSNR];
+              [v158 precalVoltageSNR];
               v57 = v56;
-              [v159 precalCurrentSNR];
+              [v158 precalCurrentSNR];
               v59 = v58;
-              [v159 calVoltageSNR];
-              [v159 calCurrentSNR];
-              [v159 measurementVoltageSNR];
-              [v159 measurementCurrentSNR];
-              [v159 measurementCondetSNR];
-              *buf = v153;
+              [v158 calVoltageSNR];
+              [v158 calCurrentSNR];
+              [v158 measurementVoltageSNR];
+              [v158 measurementCurrentSNR];
+              [v158 measurementCondetSNR];
+              *buf = v152;
               OUTLINED_FUNCTION_1_2();
-              *v168 = v57;
-              *&v168[8] = v60;
-              *&v168[10] = v59;
+              *v167 = v57;
+              *&v167[8] = v60;
+              *&v167[10] = v59;
               OUTLINED_FUNCTION_15();
-              v173 = v61;
+              v172 = v61;
               _os_log_impl(&dword_2548F1000, v43, OS_LOG_TYPE_DEFAULT, "(%d) halogen SNR = [precal: %.13f, %.13f cal: %.13f, %.13f measurement: %.13f, %.13f condet: %.13f]", buf, 0x4Eu);
             }
 
-            v62 = [v159 halogenResult];
+            v62 = [v158 halogenResult];
             if (v62 <= 8)
             {
               if (((1 << v62) & 7) != 0)
@@ -3986,13 +3931,13 @@ LABEL_62:
 LABEL_66:
                     v38 = 1;
 LABEL_81:
-                    v8 = v157;
+                    v8 = v156;
                     goto LABEL_82;
                   }
 
                   v65 = @"com.apple.ioaccessorymanager.ldcm.eis.digitalnoise.fault";
 LABEL_107:
-                  v8 = v157;
+                  v8 = v156;
                   IOAccessoryAggDPostScalarPrefixKey(v65, a1);
                   goto LABEL_82;
                 }
@@ -4096,16 +4041,15 @@ LABEL_176:
   result = connect;
   if (connect)
   {
-    result = IOServiceClose(connect);
+    return IOServiceClose(connect);
   }
 
-  v119 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOAccessoryStartVoltageEventMonitorLegacy(uint64_t result)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -4191,24 +4135,24 @@ uint64_t IOAccessoryStartVoltageEventMonitorLegacy(uint64_t result)
                   }
 
                   v14 = v13;
-                  v38 = 0;
+                  v37 = 0;
                   v15 = MEMORY[0x277CCAAC8];
                   v16 = MEMORY[0x277CBEB98];
                   v17 = objc_opt_class();
                   v18 = objc_opt_class();
-                  v19 = [v15 unarchivedObjectOfClasses:objc_msgSend(v16 fromData:"setWithObjects:" error:{v17, v18, objc_opt_class(), 0), v14, &v38}];
-                  v20 = v38;
-                  if (v38)
+                  v19 = [v15 unarchivedObjectOfClasses:objc_msgSend(v16 fromData:"setWithObjects:" error:{v17, v18, objc_opt_class(), 0), v14, &v37}];
+                  v20 = v37;
+                  if (v37)
                   {
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       v21 = [objc_msgSend(v20 "localizedDescription")];
                       *buf = 136315394;
-                      v40 = "retrievePersistentAccyHealthDictionary";
-                      v41 = 2080;
-                      v42 = v21;
+                      v39 = "retrievePersistentAccyHealthDictionary";
+                      v40 = 2080;
+                      v41 = v21;
                       OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v22, "%s err: %s", buf);
-                      v20 = v38;
+                      v20 = v37;
                     }
                   }
 
@@ -4247,59 +4191,56 @@ LABEL_27:
 
                       if (v27)
                       {
-                        result = 0;
+                        return 0;
                       }
 
-                      else
+                      result = IONotificationPortGetRunLoopSource(gIOnotify);
+                      if (result)
                       {
-                        result = IONotificationPortGetRunLoopSource(gIOnotify);
-                        if (result)
+                        CFRunLoopAddSource(v1, result, *MEMORY[0x277CBF048]);
+                        if ([gUserLdcmParams enableHalogenMitigationsAndUI] == 1)
                         {
-                          CFRunLoopAddSource(v1, result, *MEMORY[0x277CBF048]);
-                          if ([gUserLdcmParams enableHalogenMitigationsAndUI] == 1)
-                          {
-                            qword_2812C4390 = 0;
-                            qword_2812C43B0 = v1;
-                            qword_2812C43B8 = 0;
-                          }
+                          qword_2812C4390 = 0;
+                          qword_2812C43B0 = v1;
+                          qword_2812C43B8 = 0;
+                        }
 
-                          if (!gBatteryStatusNotificationContext)
+                        if (!gBatteryStatusNotificationContext)
+                        {
+                          gBatteryStatusNotificationContext = IONotificationPortCreate(mainPort);
+                          RunLoopSource = IONotificationPortGetRunLoopSource(gBatteryStatusNotificationContext);
+                          if (RunLoopSource)
                           {
-                            gBatteryStatusNotificationContext = IONotificationPortCreate(mainPort);
-                            RunLoopSource = IONotificationPortGetRunLoopSource(gBatteryStatusNotificationContext);
-                            if (RunLoopSource)
+                            v30 = RunLoopSource;
+                            Main = CFRunLoopGetMain();
+                            CFRunLoopAddSource(Main, v30, *MEMORY[0x277CBF058]);
+                            v32 = gBatteryStatusNotificationContext;
+                            v33 = IOServiceMatching("IOPMPowerSource");
+                            v34 = IOServiceAddMatchingNotification(v32, "IOServiceFirstMatch", v33, __powerBatteryMatch, &gBatteryStatusNotificationContext, &dword_2812C44D0);
+                            if (v34)
                             {
-                              v31 = RunLoopSource;
-                              Main = CFRunLoopGetMain();
-                              CFRunLoopAddSource(Main, v31, *MEMORY[0x277CBF058]);
-                              v33 = gBatteryStatusNotificationContext;
-                              v34 = IOServiceMatching("IOPMPowerSource");
-                              v35 = IOServiceAddMatchingNotification(v33, "IOServiceFirstMatch", v34, __powerBatteryMatch, &gBatteryStatusNotificationContext, &dword_2812C44D0);
-                              if (v35)
+                              v35 = v34;
+                              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                               {
-                                v36 = v35;
-                                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                                {
-                                  *buf = 136315394;
-                                  v40 = "setupBatteryNotification";
-                                  v41 = 1024;
-                                  LODWORD(v42) = v36;
-                                  _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s IOServiceAddMatchingNotification falied: %08x", buf, 0x12u);
-                                }
-                              }
-
-                              else
-                              {
-                                __powerBatteryMatch(&gBatteryStatusNotificationContext, dword_2812C44D0);
+                                *buf = 136315394;
+                                v39 = "setupBatteryNotification";
+                                v40 = 1024;
+                                LODWORD(v41) = v35;
+                                _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s IOServiceAddMatchingNotification falied: %08x", buf, 0x12u);
                               }
                             }
-                          }
 
-                          result = 1;
+                            else
+                            {
+                              __powerBatteryMatch(&gBatteryStatusNotificationContext, dword_2812C44D0);
+                            }
+                          }
                         }
+
+                        return 1;
                       }
 
-                      goto LABEL_36;
+                      return result;
                     }
                   }
 
@@ -4315,8 +4256,6 @@ LABEL_27:
     }
   }
 
-LABEL_36:
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4379,7 +4318,7 @@ LABEL_6:
 
 void setDriverMitigationEnabled(int a1, io_service_t service, int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connect = 0;
   if (IOServiceOpen(service, *MEMORY[0x277D85F48], 0, &connect))
   {
@@ -4401,18 +4340,16 @@ void setDriverMitigationEnabled(int a1, io_service_t service, int a3)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v9 = a1;
-    v10 = 1024;
-    v11 = a3;
-    v12 = 1024;
-    v13 = v5;
+    v8 = a1;
+    v9 = 1024;
+    v10 = a3;
+    v11 = 1024;
+    v12 = v5;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%d) ~~~ setDriverMitigationEnabled [%d] returned %d", buf, 0x14u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void IOAccessoryInterestNotificationCallback(uint64_t a1, io_registry_entry_t a2, int a3, unsigned int *a4)
+void IOAccessoryInterestNotificationCallback(uint64_t a1, uint64_t a2, int a3, unsigned int *a4)
 {
   v4 = a2;
   __dst[17] = *MEMORY[0x277D85DE8];
@@ -4426,18 +4363,18 @@ void IOAccessoryInterestNotificationCallback(uint64_t a1, io_registry_entry_t a2
         PrimaryPort = IOAccessoryManagerGetPrimaryPort();
         if (PrimaryPort)
         {
-          v67 = PrimaryPort;
+          v62 = PrimaryPort;
           OUTLINED_FUNCTION_34();
-          v68 = [OUTLINED_FUNCTION_11() objectForKey:?];
-          if (v68)
+          v63 = [OUTLINED_FUNCTION_11() objectForKey:?];
+          if (v63)
           {
-            [v68 dockStateValue];
+            objc_msgSend_dockStateValue(v63);
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(__dst[0]) = 67109120;
-              HIDWORD(__dst[0]) = v67;
+              HIDWORD(__dst[0]) = v62;
               OUTLINED_FUNCTION_19();
-              _os_log_impl(v69, v70, v71, v72, v73, v74);
+              _os_log_impl(v64, v65, v66, v67, v68, v69);
             }
 
             OUTLINED_FUNCTION_34();
@@ -4448,165 +4385,166 @@ void IOAccessoryInterestNotificationCallback(uint64_t a1, io_registry_entry_t a2
         }
       }
 
-      goto LABEL_118;
+      goto LABEL_113;
     case -536870608:
-      memset(v255, 170, 6);
+      memset(v237, 170, 6);
       if (!gDockState)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v23 = IOAccessoryManagerGetPrimaryPort();
-      if (!v23)
+      v21 = a2;
+      v22 = IOAccessoryManagerGetPrimaryPort();
+      if (!v22)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v24 = v23;
+      v23 = v22;
       OUTLINED_FUNCTION_34();
-      v25 = [OUTLINED_FUNCTION_6() objectForKey:?];
-      if (!v25)
+      v24 = [OUTLINED_FUNCTION_6() objectForKey:?];
+      if (!v24)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       LODWORD(valuePtr) = -1431655766;
-      [v25 dockStateValue];
+      objc_msgSend_dockStateValue(v24);
       memcpy(__src, __dst, 0x48uLL);
-      v26 = __dst[9];
-      v258[0] = *(&__dst[9] + 1);
-      *(v258 + 15) = __dst[11];
-      v259 = *(&__dst[12] + 2);
-      *v260 = *(&__dst[14] + 2);
-      *&v260[14] = __dst[16];
+      v25 = __dst[9];
+      v240[0] = *(&__dst[9] + 1);
+      *(v240 + 15) = __dst[11];
+      v241 = *(&__dst[12] + 2);
+      *v242 = *(&__dst[14] + 2);
+      *&v242[14] = __dst[16];
       if ((__dst[9] & 1) == 0)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       if (__dst[12])
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       if ((__dst[12] & 0x100) != 0)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       if (IOAccessoryManagerGetDigitalID())
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v27 = *MEMORY[0x277CBECE8];
-      CFProperty = IORegistryEntryCreateCFProperty(a2, @"IOAccessoryOrientation", *MEMORY[0x277CBECE8], 0);
+      v26 = *MEMORY[0x277CBECE8];
+      CFProperty = IORegistryEntryCreateCFProperty(v21, @"IOAccessoryOrientation", *MEMORY[0x277CBECE8], 0);
       if (!CFProperty)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v29 = CFProperty;
+      v28 = CFProperty;
       Value = CFNumberGetValue(CFProperty, kCFNumberIntType, &valuePtr);
-      CFRelease(v29);
+      CFRelease(v28);
       if (!Value)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v31 = IORegistryEntryCreateCFProperty(a2, @"IOAccessoryPowerHandshake", v27, 0);
-      if (!v31)
+      v30 = IORegistryEntryCreateCFProperty(v21, @"IOAccessoryPowerHandshake", v26, 0);
+      if (!v30)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v32 = v31;
-      v33 = CFBooleanGetValue(v31);
-      CFRelease(v32);
-      v34 = v33 == 1;
+      v31 = v30;
+      v32 = CFBooleanGetValue(v30);
+      CFRelease(v31);
+      v33 = v32 == 1;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(__dst[0]) = 67109632;
-        HIDWORD(__dst[0]) = v24;
+        HIDWORD(__dst[0]) = v23;
         LOWORD(__dst[1]) = 1024;
-        *(&__dst[1] + 2) = v33 == 0;
+        *(&__dst[1] + 2) = v32 == 0;
         HIWORD(__dst[1]) = 1024;
-        LODWORD(__dst[2]) = v33 == 1;
+        LODWORD(__dst[2]) = v32 == 1;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%d) Event: PH update, failed = %d, success = %d", __dst, 0x14u);
       }
 
-      if (v33)
+      if (v32)
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       else
       {
-        v247 = valuePtr;
-        v35 = OUTLINED_FUNCTION_24();
-        v38 = CFStringCreateWithFormat(v35, v36, v37, v255[0], v255[1], v255[2], v255[3], v255[4], v255[5], v247);
-        v39 = OUTLINED_FUNCTION_24();
-        MutableCopy = CFStringCreateMutableCopy(v39, v40, v41);
-        CFStringAppend(MutableCopy, v38);
+        v230 = valuePtr;
+        v34 = OUTLINED_FUNCTION_24();
+        v37 = CFStringCreateWithFormat(v34, v35, v36, v237[0], v237[1], v237[2], v237[3], v237[4], v237[5], v230);
+        v38 = OUTLINED_FUNCTION_24();
+        MutableCopy = CFStringCreateMutableCopy(v38, v39, v40);
+        CFStringAppend(MutableCopy, v37);
         if (_MergedGlobals)
         {
           _MergedGlobals(MutableCopy, 1);
         }
 
         CFRelease(MutableCopy);
-        CFRelease(v38);
-        v43 = 1;
+        CFRelease(v37);
+        v42 = 1;
       }
 
-      v44 = MEMORY[0x277CCAE60];
+      v43 = MEMORY[0x277CCAE60];
       memcpy(__dst, __src, 0x48uLL);
-      LOBYTE(__dst[9]) = v26;
-      *(&__dst[9] + 1) = v258[0];
-      __dst[11] = *(v258 + 15);
-      LOBYTE(__dst[12]) = v43;
-      BYTE1(__dst[12]) = v34;
-      *(&__dst[12] + 2) = v259;
-      *(&__dst[14] + 2) = *v260;
-      __dst[16] = *&v260[14];
-      goto LABEL_116;
+      LOBYTE(__dst[9]) = v25;
+      *(&__dst[9] + 1) = v240[0];
+      __dst[11] = *(v240 + 15);
+      LOBYTE(__dst[12]) = v42;
+      BYTE1(__dst[12]) = v33;
+      *(&__dst[12] + 2) = v241;
+      *(&__dst[14] + 2) = *v242;
+      __dst[16] = *&v242[14];
+      goto LABEL_111;
     case -469794799:
 LABEL_10:
       memcpy(__dst, &xmmword_25491C2B8, 0x88uLL);
-      v10 = [gUserLdcmParams userBehaviorMask];
+      v9 = [gUserLdcmParams userBehaviorMask];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(__src[0]) = 136315138;
         *(__src + 4) = "IOAccessoryHandleDetach";
         OUTLINED_FUNCTION_21();
-        _os_log_impl(v11, v12, v13, v14, v15, 0xCu);
+        _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
       }
 
-      v16 = IOAccessoryManagerGetPrimaryPort();
-      if (!v16)
+      v15 = IOAccessoryManagerGetPrimaryPort();
+      if (!v15)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v17 = v16;
+      v16 = v15;
       OUTLINED_FUNCTION_34();
-      v18 = (v10 >> 3) & 1;
+      v17 = (v9 >> 3) & 1;
       if ([OUTLINED_FUNCTION_25() objectForKey:?])
       {
         OUTLINED_FUNCTION_34();
-        v19 = [OUTLINED_FUNCTION_6() objectForKey:?];
-        v20 = v19;
-        if (v19)
+        v18 = [OUTLINED_FUNCTION_6() objectForKey:?];
+        v19 = v18;
+        if (v18)
         {
-          if ([v19 isReceptacleEmpty])
+          if ([v18 isReceptacleEmpty])
           {
             goto LABEL_16;
           }
 
-          setDriverMitigationEnabled(v17, v4, v18);
+          setDriverMitigationEnabled(v16, v4, v17);
           [OUTLINED_FUNCTION_36() setIsReceptacleEmpty:?];
           [OUTLINED_FUNCTION_36() setJustDetached:?];
           [OUTLINED_FUNCTION_42() setJustAttachedCase:?];
-          if (([gUserLdcmParams userBehaviorMask] & 0x10) == 0 && !objc_msgSend(v20, "isWet"))
+          if (([gUserLdcmParams userBehaviorMask] & 0x10) == 0 && !objc_msgSend(v19, "isWet"))
           {
             goto LABEL_16;
           }
@@ -4615,70 +4553,70 @@ LABEL_10:
           {
             OUTLINED_FUNCTION_41();
             OUTLINED_FUNCTION_19();
-            _os_log_impl(v144, v145, v146, v147, v148, v149);
+            _os_log_impl(v130, v131, v132, v133, v134, v135);
           }
 
-          if (!digitalIdNumPinsFree([v20 connectedAccessoryDigitalID], __src) || (objc_msgSend(v20, "isDebugAccessoryConnected") & 1) != 0 || objc_msgSend(v20, "isBlacklistedAccessoryConnected"))
+          if (!digitalIdNumPinsFree([v19 connectedAccessoryDigitalID], __src) || (objc_msgSend(v19, "isDebugAccessoryConnected") & 1) != 0 || objc_msgSend(v19, "isBlacklistedAccessoryConnected"))
           {
-            v21 = 1;
+            v20 = 1;
             [OUTLINED_FUNCTION_36() setIsMeasurementEnabled:?];
 
-            v150 = [v20 eventBasedPDigitalID];
+            v136 = [v19 eventBasedPDigitalID];
             [OUTLINED_FUNCTION_6() setConnectedAccessoryPDigitalID:?];
-            [v20 eventBasedDigitalID];
+            [v19 eventBasedDigitalID];
             [OUTLINED_FUNCTION_6() setConnectedAccessoryDigitalID:?];
-            [v20 setConnectedAccessoryOrientation:{objc_msgSend(v20, "eventBasedOrientation")}];
+            [v19 setConnectedAccessoryOrientation:{objc_msgSend(v19, "eventBasedOrientation")}];
           }
 
           else
           {
 LABEL_16:
-            v21 = 0;
+            v20 = 0;
           }
 
-          if ([v20 isTimestampValid] && objc_msgSend(v20, "isMeasurementEnabled") && objc_msgSend(v20, "didConfidentNotify"))
+          if ([v19 isTimestampValid] && objc_msgSend(v19, "isMeasurementEnabled") && objc_msgSend(v19, "didConfidentNotify"))
           {
             mach_continuous_time();
-            if ([v20 accessoryConnectedWhileWet])
+            if ([v19 accessoryConnectedWhileWet])
             {
-              [v20 wetAccessoryAttachTimestamp];
+              [v19 wetAccessoryAttachTimestamp];
             }
 
             else
             {
-              [v20 wetDryTransitionTimestamp];
+              [v19 wetDryTransitionTimestamp];
             }
 
             if (!dword_2812C4324)
             {
               mach_timebase_info(&dword_2812C4320);
               OUTLINED_FUNCTION_37();
-              if (!v203)
+              if (!v188)
               {
                 mach_timebase_info(&dword_2812C4320);
               }
             }
 
             OUTLINED_FUNCTION_18();
-            v206 = v204 / v205;
+            v191 = v189 / v190;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               OUTLINED_FUNCTION_41();
               LOWORD(__src[1]) = 2048;
-              *(&__src[1] + 2) = v206;
+              *(&__src[1] + 2) = v191;
               OUTLINED_FUNCTION_21();
-              _os_log_impl(v207, v208, v209, v210, v211, 0x12u);
+              _os_log_impl(v192, v193, v194, v195, v196, 0x12u);
             }
 
-            if (([v20 didHighConfidentNotify] & 1) == 0)
+            if (([v19 didHighConfidentNotify] & 1) == 0)
             {
-              IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount", v20);
+              IOAccessoryAggDPostScalarKey(@"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount", v19);
               [OUTLINED_FUNCTION_36() setDidHighConfidentNotify:?];
             }
 
-            if (([v20 didWetDuration] & 1) == 0)
+            if (([v19 didWetDuration] & 1) == 0)
             {
-              IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.notification.wetduration", v20, v206);
+              IOAccessoryAggDPostHistogramKey(@"com.apple.ioaccessorymanager.ldcm.notification.wetduration", v19, v191);
               [OUTLINED_FUNCTION_36() setDidWetDuration:?];
             }
           }
@@ -4686,7 +4624,7 @@ LABEL_16:
 
         else
         {
-          v21 = 0;
+          v20 = 0;
         }
 
         mach_continuous_time();
@@ -4702,182 +4640,169 @@ LABEL_16:
           CFRunLoopRemoveSource(qword_2812C43B0, qword_2812C43A8, *MEMORY[0x277CBF048]);
           CFRelease(qword_2812C43A8);
           CFRelease(qword_2812C43A0);
-          if ((v21 & 1) == 0)
+          if ((v20 & 1) == 0)
           {
-            goto LABEL_118;
+            goto LABEL_113;
           }
         }
 
-        else if (!v21)
+        else if (!v20)
         {
-          goto LABEL_118;
+          goto LABEL_113;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_41();
           OUTLINED_FUNCTION_19();
-          _os_log_impl(v80, v81, v82, v83, v84, v85);
+          _os_log_impl(v75, v76, v77, v78, v79, v80);
         }
 
-        v86 = [v20 halogenMeasurementDispatchQueue];
+        v81 = [v19 halogenMeasurementDispatchQueue];
         __src[0] = MEMORY[0x277D85DD0];
         __src[1] = 3221225472;
         __src[2] = __IOAccessoryHandleDetach_block_invoke;
         __src[3] = &unk_279793038;
-        __src[4] = v20;
-        dispatch_async(v86, __src);
-        goto LABEL_118;
+        __src[4] = v19;
+        dispatch_async(v81, __src);
+        goto LABEL_113;
       }
 
       if (!gDockState)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       OUTLINED_FUNCTION_34();
-      v75 = [OUTLINED_FUNCTION_6() objectForKey:?];
-      if (!v75)
+      v70 = [OUTLINED_FUNCTION_6() objectForKey:?];
+      if (!v70)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      [v75 dockStateValue];
+      objc_msgSend_dockStateValue(v70);
       if (LOBYTE(__dst[9]) == 1)
       {
         if (enableVoltageEventMonitorModeAppleCareLogging == 1 && (IOAccessoryManagerGetType() & 0x600) != 0)
         {
-          IOAccessoryAppleCareLoggingForNonVoltageEvents("accessoryUnplug", &__dst[4], v17);
+          IOAccessoryAppleCareLoggingForNonVoltageEvents("accessoryUnplug", &__dst[4], v16);
         }
 
-        v151 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-        v152 = __dst[0];
-        if (v151)
+        v137 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+        v138 = __dst[0];
+        if (v137)
         {
           OUTLINED_FUNCTION_41();
           LOWORD(__src[1]) = 1024;
-          *(&__src[1] + 2) = v152;
+          *(&__src[1] + 2) = v138;
           HIWORD(__src[1]) = 1024;
           LODWORD(__src[2]) = 1;
           OUTLINED_FUNCTION_21();
-          _os_log_impl(v153, v154, v155, v156, v157, 0x14u);
+          _os_log_impl(v139, v140, v141, v142, v143, 0x14u);
         }
 
-        if (!v152)
+        if (!v138)
         {
           evaluateFalseDetectPreventionDry(__dst, 0);
         }
 
-        setDriverMitigationEnabled(v17, v4, v18);
+        setDriverMitigationEnabled(v16, v4, v17);
       }
 
       LOBYTE(__dst[9]) = 0;
       LOWORD(__dst[12]) = 0;
-      v76 = BYTE1(__dst[9]);
+      v71 = BYTE1(__dst[9]);
       if (BYTE1(__dst[9]))
       {
-        v76 = 0;
+        v71 = 0;
       }
 
-      BYTE1(__dst[9]) = v76;
-      v44 = MEMORY[0x277CCAE60];
+      BYTE1(__dst[9]) = v71;
+      v43 = MEMORY[0x277CCAE60];
       memcpy(__src, __dst, 0x88uLL);
-      v77 = __src;
-LABEL_117:
-      -[__objc2_class setObject:forKey:](v5[30].isa, "setObject:forKey:", [v44 valueWithDockState:v77], OUTLINED_FUNCTION_34());
-      goto LABEL_118;
+      v72 = __src;
+LABEL_112:
+      -[__objc2_class setObject:forKey:](v5[30].isa, "setObject:forKey:", [v43 valueWithDockState:v72], OUTLINED_FUNCTION_34());
+      goto LABEL_113;
     case -469794789:
-      v45 = a4;
+      v44 = a4;
       if (!a4)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       if (!gDockState)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v46 = *a4;
-      [MEMORY[0x277CCABB0] numberWithInt:v46];
+      v45 = *a4;
+      [MEMORY[0x277CCABB0] numberWithInt:v45];
       if (![OUTLINED_FUNCTION_25() objectForKey:?])
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v254 = v45;
+      v236 = v44;
       if (enableVoltageEventMonitorModeConsole == 1)
       {
-        v47 = *(v45 + 12);
-        if (v47 > 3)
+        v46 = *(v44 + 12);
+        if (v46 > 3)
         {
-          v48 = "Invalid";
+          v47 = "Invalid";
         }
 
         else
         {
-          v48 = IOAccessoryGetEventCodeForIndex_eventCodeStr[v47];
+          v47 = IOAccessoryGetEventCodeForIndex_eventCodeStr[v46];
         }
 
-        service = v4;
-        v49 = [MEMORY[0x277CCAB68] stringWithFormat:@" (%d) Event: %s, TimeStamp = %llu, Vhi = %d, CumulativeTimeVhi = %d sec, ", v46, v48, *(v45 + 1), *(v45 + 13), *(v45 + 46)];
-        v50 = [MEMORY[0x277CCAB68] stringWithFormat:@" (%d) Event: %s, Vhi = %d, CumulativeTimeVhi = %d sec, ", v46, v48, *(v45 + 13), *(v45 + 46)];
-        v51 = *(v45 + 45);
-        if (v51 <= 6)
-        {
-          v52 = IOAccessoryGetPowerModeStrForIndex_pwrModeStr[v51];
-        }
-
-        v53 = *(v45 + 51);
-        if (v53 <= 2)
-        {
-          v54 = IOAccessoryGetOrientStrForIndex_orientStr[v53];
-        }
-
+        v48 = [MEMORY[0x277CCAB68] stringWithFormat:@" (%d) Event: %s, TimeStamp = %llu, Vhi = %d, CumulativeTimeVhi = %d sec, ", v45, v47, *(v44 + 1), *(v44 + 13), *(v44 + 46)];
+        v49 = [MEMORY[0x277CCAB68] stringWithFormat:@" (%d) Event: %s, Vhi = %d, CumulativeTimeVhi = %d sec, ", v45, v47, *(v44 + 13), *(v44 + 46)];
         OUTLINED_FUNCTION_22();
         OUTLINED_FUNCTION_26();
-        [v55 stringWithFormat:@" DigitalID = [%02x %02x %02x %02x %02x %02x], ORIENT = %s, PH = %s, ACC_PWR = %s", v56];
+        [v50 stringWithFormat:@" DigitalID = [%02x %02x %02x %02x %02x %02x], ORIENT = %s, PH = %s, ACC_PWR = %s", v51];
         [OUTLINED_FUNCTION_25() appendString:?];
         OUTLINED_FUNCTION_22();
         OUTLINED_FUNCTION_26();
-        [v57 stringWithFormat:@" DigitalID = [%02x %02x %02x %02x %02x %02x], ORIENT = %s, PH = %s, ACC_PWR = %s", v58];
+        [v52 stringWithFormat:@" DigitalID = [%02x %02x %02x %02x %02x %02x], ORIENT = %s, PH = %s, ACC_PWR = %s", v53];
         [OUTLINED_FUNCTION_6() appendString:?];
-        v60 = 0;
-        v61 = v45 + 5;
+        v55 = 0;
+        v56 = v44 + 5;
         do
         {
-          if (*(v61 + v60))
+          if (*(v56 + v55))
           {
-            v62 = *(v61 + v60 + 6);
-            if (v62 > 1)
+            v57 = *(v56 + v55 + 6);
+            if (v57 > 1)
             {
-              v63 = "Invalid";
+              v58 = "Invalid";
             }
 
             else
             {
-              v63 = IOAccessoryGetMeasStrForIndex_measStr[v62];
+              v58 = IOAccessoryGetMeasStrForIndex_measStr[v57];
             }
 
-            LOWORD(v59) = *(v61 + v60 + 6);
-            v64 = v59 / 1000.0;
-            v65 = IOAccessoryGetPinStrForIndex_pinStr[v60];
-            [MEMORY[0x277CCACA8] stringWithFormat:@", %s(%s) = %.3fV", v63, v65, *&v64];
+            LOWORD(v54) = *(v56 + v55 + 6);
+            v59 = v54 / 1000.0;
+            v60 = IOAccessoryGetPinStrForIndex_pinStr[v55];
+            [MEMORY[0x277CCACA8] stringWithFormat:@", %s(%s) = %.3fV", v58, v60, *&v59];
             [OUTLINED_FUNCTION_25() appendString:?];
-            [MEMORY[0x277CCACA8] stringWithFormat:@", %s(%s) = .3%fV", v63, v65, *&v64];
+            [MEMORY[0x277CCACA8] stringWithFormat:@", %s(%s) = .3%fV", v58, v60, *&v59];
             [OUTLINED_FUNCTION_6() appendString:?];
-            v45 = v254;
+            v44 = v236;
           }
 
-          ++v60;
+          ++v55;
         }
 
-        while (v60 != 4);
+        while (v55 != 4);
         if (os_log_type_enabled(0, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(__dst[0]) = 138412290;
-          *(__dst + 4) = v49;
-          OUTLINED_FUNCTION_30(&dword_2548F1000, 0, v79, "%@", __dst);
+          *(__dst + 4) = v48;
+          OUTLINED_FUNCTION_30(&dword_2548F1000, 0, v74, "%@", __dst);
           v6 = 0x277CCA000;
           v5 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
         }
@@ -4887,13 +4812,11 @@ LABEL_117:
           v6 = 0x277CCA000uLL;
           v5 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
         }
-
-        v4 = service;
       }
 
       else
       {
-        v50 = 0;
+        v49 = 0;
       }
 
       if (gPrevLog)
@@ -4902,352 +4825,344 @@ LABEL_117:
         gPrevLog = 0;
       }
 
-      if (v50)
+      if (v49)
       {
-        gPrevLog = [MEMORY[0x277CCACA8] stringWithString:v50];
-        v87 = gPrevLog;
+        gPrevLog = [MEMORY[0x277CCACA8] stringWithString:v49];
+        v82 = gPrevLog;
       }
 
       IOAccessoryManagerGetType();
       if (enableVoltageEventMonitorModeAppleCareLogging == 1)
       {
-        v88 = [MEMORY[0x277CBEB18] array];
+        v83 = [MEMORY[0x277CBEB18] array];
         if (enableVoltageEventMonitorModeAppleCareLogging == 1)
         {
-          v89 = *(v45 + 12);
-          if (v89 <= 2)
+          v84 = *(v44 + 12);
+          if (v84 <= 2)
           {
-            v90 = v88;
-            v91 = off_2797932B8[v89];
+            v85 = v83;
+            v86 = off_2797932B8[v84];
             [*(v6 + 2992) numberWithInt:100];
             [OUTLINED_FUNCTION_6() addObject:?];
-            [v90 addObject:v91];
+            [v85 addObject:v86];
             for (i = 0; i != 4; ++i)
             {
-              if (*(v45 + i + 20))
+              if (*(v44 + i + 20))
               {
-                LOWORD(v92) = *(v45 + i + 16);
-                v94 = v92 / 1000.0;
+                LOWORD(v87) = *(v44 + i + 16);
+                v89 = v87 / 1000.0;
               }
 
               else
               {
-                v94 = 0.0;
+                v89 = 0.0;
               }
 
               [MEMORY[0x277CCACA8] stringWithFormat:@"%s", IOAccessoryGetPinStrForIndex_pinStr[i]];
               [OUTLINED_FUNCTION_6() addObject:?];
-              [*(v6 + 2992) numberWithDouble:v94];
+              [*(v6 + 2992) numberWithDouble:v89];
               [OUTLINED_FUNCTION_6() addObject:?];
             }
 
-            v95 = *(v254 + 14);
-            v96 = *(v254 + 15);
-            v97 = *(v254 + 16);
-            v98 = *(v254 + 17);
-            v99 = *(v254 + 18);
-            v100 = *(v254 + 19);
             OUTLINED_FUNCTION_35();
-            [v101 stringWithFormat:@"%02x %02x %02x %02x %02x %02x"];
+            [v90 stringWithFormat:@"%02x %02x %02x %02x %02x %02x"];
             [OUTLINED_FUNCTION_6() addObject:?];
-            v45 = v254;
-            [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x", *v254];
-            [OUTLINED_FUNCTION_6() addObject:?];
-            [*(v6 + 2992) numberWithBool:0];
+            v44 = v236;
+            [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x", *v236];
             [OUTLINED_FUNCTION_6() addObject:?];
             [*(v6 + 2992) numberWithBool:0];
             [OUTLINED_FUNCTION_6() addObject:?];
-            [*(v6 + 2992) numberWithBool:*(v254 + 44) != 0];
+            [*(v6 + 2992) numberWithBool:0];
+            [OUTLINED_FUNCTION_6() addObject:?];
+            [*(v6 + 2992) numberWithBool:*(v236 + 44) != 0];
             [OUTLINED_FUNCTION_6() addObject:?];
             if (gAppleCareLogArray)
             {
-              v102 = [v90 isEqualToArray:?];
+              v91 = [v85 isEqualToArray:?];
 
               gAppleCareLogArray = 0;
             }
 
             else
             {
-              v102 = 0;
+              v91 = 0;
             }
 
-            gAppleCareLogArray = [MEMORY[0x277CBEA60] arrayWithArray:v90];
-            v103 = gAppleCareLogArray;
+            gAppleCareLogArray = [MEMORY[0x277CBEA60] arrayWithArray:v85];
+            v92 = gAppleCareLogArray;
             if (off_2812C4310)
             {
-              if ((v102 & 1) == 0)
+              if ((v91 & 1) == 0)
               {
-                off_2812C4310(v90);
+                off_2812C4310(v85);
               }
             }
           }
         }
       }
 
-      v104 = *(v45 + 12);
-      if (v104 != 3)
+      v93 = *(v44 + 12);
+      if (v93 != 3)
       {
-        if (v104 != 2)
+        if (v93 != 2)
         {
-          goto LABEL_118;
+          goto LABEL_113;
         }
 
         if (!v5[30].isa)
         {
-          goto LABEL_118;
+          goto LABEL_113;
         }
 
-        v105 = *v45;
-        [*(v6 + 2992) numberWithInt:*v45];
-        v106 = [OUTLINED_FUNCTION_25() objectForKey:?];
-        if (!v106)
+        v94 = *v44;
+        [*(v6 + 2992) numberWithInt:*v44];
+        v95 = [OUTLINED_FUNCTION_25() objectForKey:?];
+        if (!v95)
         {
-          goto LABEL_118;
+          goto LABEL_113;
         }
 
-        v107 = v106;
+        v96 = v95;
         memcpy(__dst, &xmmword_25491C2B8, 0x88uLL);
-        [v107 dockStateValue];
+        objc_msgSend_dockStateValue(v96);
         memcpy(__dst, __src, 0x88uLL);
         connect[0] = 0;
-        *&v108 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v108 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *&v256[13] = v108;
-        *&v255[16] = v108;
-        *v256 = v108;
-        *v255 = v108;
+        *&v97 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v97 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&v238[13] = v97;
+        *&v237[16] = v97;
+        *v238 = v97;
+        *v237 = v97;
         if (HIDWORD(__dst[15]))
         {
           --HIDWORD(__dst[15]);
         }
 
-        servicea = v4;
-        v109 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
-        v250 = IOServiceOpen(v4, *MEMORY[0x277D85F48], 0, connect);
-        v251 = v105;
-        if (v250)
+        service = v4;
+        v98 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
+        v233 = IOServiceOpen(v4, *MEMORY[0x277D85F48], 0, connect);
+        v234 = v94;
+        if (v233)
         {
-          v248 = 0;
-          goto LABEL_262;
+          v231 = 0;
+          goto LABEL_255;
         }
 
-        BYTE2(v259) = -86;
-        v110 = memcmp(v45 + 14, &updateLdcmStateWithEventReport_zeros, 6uLL);
-        v111 = v110;
-        v112 = *(v45 + 44);
-        if (*(v45 + 44))
+        BYTE2(v241) = -86;
+        v99 = memcmp(v44 + 14, &updateLdcmStateWithEventReport_zeros, 6uLL);
+        v100 = v99;
+        v101 = *(v44 + 44);
+        if (*(v44 + 44))
         {
-          v113 = 2 * (*(v45 + 51) == 2);
-        }
-
-        else
-        {
-          v113 = 0;
-        }
-
-        if (v110)
-        {
-          v120 = &gLdcmParams + 12 * !isChargingCableAttached(v45 + 14);
-          v121 = (v120 + 24);
-          v122 = (v120 + 48);
+          v102 = 2 * (*(v44 + 51) == 2);
         }
 
         else
         {
-          v121 = &unk_2812C4454;
-          v120 = &unk_2812C4448;
-          v122 = &unk_2812C4460;
+          v102 = 0;
         }
 
-        v123 = 0;
-        v124 = 0;
-        v125 = 0;
-        v126 = word_2812C446C;
-        v127 = LOBYTE(__dst[14]);
-        LOWORD(v259) = 257;
-        v128 = 1;
-        v129 = 16;
-        v130 = 1;
+        if (v99)
+        {
+          v108 = &gLdcmParams + 12 * !isChargingCableAttached(v44 + 14);
+          v109 = (v108 + 24);
+          v110 = (v108 + 48);
+        }
+
+        else
+        {
+          v109 = &unk_2812C4454;
+          v108 = &unk_2812C4448;
+          v110 = &unk_2812C4460;
+        }
+
+        v111 = 0;
+        v112 = 0;
+        v113 = 0;
+        v114 = word_2812C446C;
+        v115 = LOBYTE(__dst[14]);
+        LOWORD(v241) = 257;
+        v116 = 1;
+        v117 = 16;
+        v118 = 1;
         do
         {
-          v131 = (v129 - 16) >> 1;
-          if (*(v45 + v129 + 4))
+          v119 = (v117 - 16) >> 1;
+          if (*(v44 + v117 + 4))
           {
-            v132 = *(v45 + v129);
-            v133 = (v113 + v129 - 16) & 3;
-            v134 = v132 < v121[v133];
-            if (v132 >= *&v120[2 * v133])
+            v120 = *(v44 + v117);
+            v121 = (v102 + v117 - 16) & 3;
+            v122 = v120 < v109[v121];
+            if (v120 >= *&v108[2 * v121])
             {
-              v123 = 1;
+              v111 = 1;
             }
 
             else
             {
-              v260[v131 - 16] = 0;
+              v242[v119 - 16] = 0;
             }
 
-            ++v125;
-            v128 &= v134;
-            v130 &= v132 < v126;
-            if (v132 >= v122[v133])
+            ++v113;
+            v116 &= v122;
+            v118 &= v120 < v114;
+            if (v120 >= v110[v121])
             {
-              ++v124;
+              ++v112;
             }
           }
 
           else
           {
-            v260[v131 - 16] = 0;
+            v242[v119 - 16] = 0;
           }
 
-          ++v129;
+          ++v117;
         }
 
-        while (v129 != 20);
-        v249 = v127;
-        if (v125)
+        while (v117 != 20);
+        v232 = v115;
+        if (v113)
         {
-          if (v111)
+          if (v100)
           {
-            v135 = isChargingCableAttached(v45 + 14);
-            v136 = 0;
-            if (!v112 && v135)
+            v123 = isChargingCableAttached(v44 + 14);
+            v124 = 0;
+            if (!v101 && v123)
             {
-              v136 = *(v45 + 52) == 0;
+              v124 = *(v44 + 52) == 0;
             }
           }
 
           else
           {
-            v136 = 0;
+            v124 = 0;
           }
 
-          if ((v127 & 1) != 0 || v136 || !((v259 | BYTE1(v259)) & 1 | (v125 == 1) & v123))
+          if ((v115 & 1) != 0 || v124 || !((v241 | BYTE1(v241)) & 1 | (v113 == 1) & v111))
           {
             LODWORD(__dst[15]) = 0;
-            if ((v127 & v128) != 1)
+            if ((v115 & v116) != 1)
             {
-              v248 = 0;
+              v231 = 0;
               HIDWORD(__dst[14]) = 0;
-              goto LABEL_172;
+              goto LABEL_167;
             }
 
             if (++HIDWORD(__dst[14]) >= *&algn_2812C446E[4])
             {
-              v248 = 0;
+              v231 = 0;
               LOBYTE(__dst[14]) = 0;
-              goto LABEL_172;
+              goto LABEL_167;
             }
 
             if (!IOAccessoryManagerRequestLdcmMeasurement())
             {
-              v248 = *&algn_2812C446E[12];
+              v231 = *&algn_2812C446E[12];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-LABEL_149:
-                v137 = *v45;
-                v138 = *(v45 + 53);
+LABEL_144:
                 OUTLINED_FUNCTION_10();
                 OUTLINED_FUNCTION_21();
-                _os_log_impl(v139, v140, v141, v142, v143, 0x1Eu);
+                _os_log_impl(v125, v126, v127, v128, v129, 0x1Eu);
               }
 
-LABEL_172:
-              v158 = v259;
-              v159 = BYTE1(v259);
-              if (*(v45 + 53) != -1)
+LABEL_167:
+              v144 = v241;
+              v145 = BYTE1(v241);
+              if (*(v44 + 53) != -1)
               {
-                goto LABEL_175;
+                goto LABEL_170;
               }
 
               __src[0] = 0xAAAAAAAAAAAAAAAALL;
               if (!IOAccessoryManagerCopyDeviceInfo())
               {
-                CFNumberGetValue(__src[0], kCFNumberSInt64Type, v45 + 53);
+                CFNumberGetValue(__src[0], kCFNumberSInt64Type, v44 + 53);
                 CFRelease(__src[0]);
-LABEL_175:
+LABEL_170:
                 if (gAccyHealthDictionary)
                 {
-                  v160 = v158 | v159 | (v125 == 1) & v123;
-                  v161 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", (*(v45 + 14) << 40) | (*(v45 + 15) << 32) | (*(v45 + 16) << 24) | (*(v45 + 17) << 16) | (*(v45 + 18) << 8) | *(v45 + 19), *(v45 + 51), *(v45 + 53)];
-                  v162 = [gAccyHealthDictionary objectForKey:v161];
-                  v163 = v162;
-                  if (!v162)
+                  v146 = v144 | v145 | (v113 == 1) & v111;
+                  v147 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", (*(v44 + 14) << 40) | (*(v44 + 15) << 32) | (*(v44 + 16) << 24) | (*(v44 + 17) << 16) | (*(v44 + 18) << 8) | *(v44 + 19), *(v44 + 51), *(v44 + 53)];
+                  v148 = [gAccyHealthDictionary objectForKey:v147];
+                  v149 = v148;
+                  if (!v148)
                   {
-                    v163 = objc_alloc_init(IOAccessoryLdcmHealthClass);
-                    v212 = v163;
+                    v149 = objc_alloc_init(IOAccessoryLdcmHealthClass);
+                    v197 = v149;
                     trimAccyHealthDictionary();
                   }
 
-                  [(IOAccessoryLdcmHealthClass *)v163 setLastSeenTimestamp:*(v45 + 1)];
-                  [(IOAccessoryLdcmHealthClass *)v163 setLeakagePassedCount:[(IOAccessoryLdcmHealthClass *)v163 leakagePassedCount]+ (v130 & 1)];
-                  [(IOAccessoryLdcmHealthClass *)v163 setDryCount:[(IOAccessoryLdcmHealthClass *)v163 dryCount]+ (v128 & 1)];
-                  [(IOAccessoryLdcmHealthClass *)v163 setWetCount:[(IOAccessoryLdcmHealthClass *)v163 wetCount]+ (v160 & 1)];
-                  [(IOAccessoryLdcmHealthClass *)v163 setOverVoltageCount:[(IOAccessoryLdcmHealthClass *)v163 overVoltageCount]+ v124];
-                  v164 = [(IOAccessoryLdcmHealthClass *)v163 isHealthy];
+                  [(IOAccessoryLdcmHealthClass *)v149 setLastSeenTimestamp:*(v44 + 1)];
+                  [(IOAccessoryLdcmHealthClass *)v149 setLeakagePassedCount:[(IOAccessoryLdcmHealthClass *)v149 leakagePassedCount]+ (v118 & 1)];
+                  [(IOAccessoryLdcmHealthClass *)v149 setDryCount:[(IOAccessoryLdcmHealthClass *)v149 dryCount]+ (v116 & 1)];
+                  [(IOAccessoryLdcmHealthClass *)v149 setWetCount:[(IOAccessoryLdcmHealthClass *)v149 wetCount]+ (v146 & 1)];
+                  [(IOAccessoryLdcmHealthClass *)v149 setOverVoltageCount:[(IOAccessoryLdcmHealthClass *)v149 overVoltageCount]+ v112];
+                  v150 = [(IOAccessoryLdcmHealthClass *)v149 isHealthy];
                   if (([gUserLdcmParams fdpBehaviorMask] & 1) == 0)
                   {
-                    [(IOAccessoryLdcmHealthClass *)v163 setIsHealthy:1];
+                    [(IOAccessoryLdcmHealthClass *)v149 setIsHealthy:1];
                   }
 
-                  v109 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
+                  v98 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
                   if (([gUserLdcmParams fdpBehaviorMask] & 1) != 0 && (objc_msgSend(gUserLdcmParams, "fdpBehaviorMask") & 2) != 0)
                   {
-                    [(IOAccessoryLdcmHealthClass *)v163 setIsHealthy:[(IOAccessoryLdcmHealthClass *)v163 leakagePassedCount]!= 0];
+                    [(IOAccessoryLdcmHealthClass *)v149 setIsHealthy:[(IOAccessoryLdcmHealthClass *)v149 leakagePassedCount]!= 0];
                   }
 
-                  if (v124)
+                  if (v112)
                   {
-                    [(IOAccessoryLdcmHealthClass *)v163 setOverVoltageTimestamp:[(IOAccessoryLdcmHealthClass *)v163 lastSeenTimestamp]];
+                    [(IOAccessoryLdcmHealthClass *)v149 setOverVoltageTimestamp:[(IOAccessoryLdcmHealthClass *)v149 lastSeenTimestamp]];
                     if (([gUserLdcmParams fdpBehaviorMask] & 1) != 0 && (objc_msgSend(gUserLdcmParams, "fdpBehaviorMask") & 4) != 0)
                     {
-                      [(IOAccessoryLdcmHealthClass *)v163 setIsHealthy:0];
-                      [(IOAccessoryLdcmHealthClass *)v163 setLeakagePassedCount:0];
+                      [(IOAccessoryLdcmHealthClass *)v149 setIsHealthy:0];
+                      [(IOAccessoryLdcmHealthClass *)v149 setLeakagePassedCount:0];
                     }
                   }
 
-                  [gAccyHealthDictionary setObject:v163 forKey:v161];
-                  v165 = [(IOAccessoryLdcmHealthClass *)v163 isHealthy];
-                  if (!v162 || v164 != v165)
+                  [gAccyHealthDictionary setObject:v149 forKey:v147];
+                  v151 = [(IOAccessoryLdcmHealthClass *)v149 isHealthy];
+                  if (!v148 || v150 != v151)
                   {
                     commitPersistentAccyHealthDictionary();
-                    v166 = &OBJC_IVAR___IOPortLDCMManagerV4__wetPollingInterval;
-                    if (![(IOAccessoryLdcmHealthClass *)v163 isHealthy])
+                    v152 = &OBJC_IVAR___IOPortLDCMManagerV4__wetPollingInterval;
+                    if (![(IOAccessoryLdcmHealthClass *)v149 isHealthy])
                     {
-                      IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount", v45);
+                      IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount", v44);
                     }
 
                     dbgShowAccyHealthDictionary();
-LABEL_190:
-                    v167 = LOBYTE(__dst[14]);
-                    appendEventToHistory(__dst[13], v45);
-                    if (v167 != v249)
+LABEL_185:
+                    v153 = LOBYTE(__dst[14]);
+                    appendEventToHistory(__dst[13], v44);
+                    if (v153 != v232)
                     {
                       IOAccessoryManagerSetVoltageDetected();
-                      v168 = *(v45 + 1);
-                      *v255 = *v45;
-                      *&v255[16] = v168;
-                      *v256 = *(v45 + 2);
-                      *&v256[13] = *(v45 + 45);
-                      v255[12] = LOBYTE(__dst[14]) ^ 1;
-                      v255[13] = __dst[14];
-                      appendEventToHistory(__dst[13], v255);
+                      v154 = *(v44 + 1);
+                      *v237 = *v44;
+                      *&v237[16] = v154;
+                      *v238 = *(v44 + 2);
+                      *&v238[13] = *(v44 + 45);
+                      v237[12] = LOBYTE(__dst[14]) ^ 1;
+                      v237[13] = __dst[14];
+                      appendEventToHistory(__dst[13], v237);
                       if (LOBYTE(__dst[14]) != 1)
                       {
-                        v180 = *v255;
-                        v181 = __dst[0];
+                        v166 = *v237;
+                        v167 = __dst[0];
                         if (LODWORD(__dst[0]) != 1)
                         {
                           HIDWORD(__dst[15]) = 0;
                           LODWORD(__dst[0]) = 1;
                           ++dword_27F61282C;
-                          *(&__dst[1] + 4) = *&v255[4];
+                          *(&__dst[1] + 4) = *&v237[4];
                           __dst[10] = CFAbsoluteTimeGetCurrent();
-                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.averagetime", v255);
+                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.averagetime", v237);
                           if (gEnableTimeToDryPopup == 1)
                           {
                             OUTLINED_FUNCTION_7();
-                            if (v220)
+                            if (v205)
                             {
                               CFUserNotificationDisplayAlert(0.0, 0, 0, 0, 0, [MEMORY[0x277CCACA8] stringWithFormat:@"Time To Dry\n %02llu:%02llu:%02llu", (*&__dst[10] - *&__dst[11]) / 0xE10, (*&__dst[10] - *&__dst[11]) / 0x3C % 0x3C, (*&__dst[10] - *&__dst[11]) % 0x3C], 0, @"Ok", 0, 0, 0);
                             }
@@ -5256,69 +5171,69 @@ LABEL_190:
 
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                         {
-                          __src[0] = __PAIR64__(v180, 67109888);
+                          __src[0] = __PAIR64__(v166, 67109888);
                           LOWORD(__src[1]) = 1024;
-                          *(&__src[1] + 2) = v181;
+                          *(&__src[1] + 2) = v167;
                           HIWORD(__src[1]) = 1024;
                           LODWORD(__src[2]) = __dst[0];
                           WORD2(__src[2]) = 1024;
                           *(&__src[2] + 6) = LOBYTE(__dst[9]);
                           OUTLINED_FUNCTION_21();
-                          _os_log_impl(v182, v183, v184, v185, v186, 0x1Au);
+                          _os_log_impl(v168, v169, v170, v171, v172, 0x1Au);
                         }
 
                         dbgShowAccyHealthDictionary();
-                        goto LABEL_216;
+                        goto LABEL_211;
                       }
 
                       IOAccessoryManagerGetType();
-                      v169 = *v255;
-                      v170 = __dst[0];
+                      v155 = *v237;
+                      v156 = __dst[0];
                       if (LODWORD(__dst[0]))
                       {
-                        v171 = *(v45 + 14) == 4 && *(v45 + 15) == 241 && !*(v45 + 16) && !*(v45 + 17) && !*(v45 + 18) && *(v45 + 19) == 0;
-                        v172 = v255[14];
-                        v173 = v256[18];
+                        v157 = *(v44 + 14) == 4 && *(v44 + 15) == 241 && !*(v44 + 16) && !*(v44 + 17) && !*(v44 + 18) && *(v44 + 19) == 0;
+                        v158 = v237[14];
+                        v159 = v238[18];
                         HIDWORD(__dst[15]) = 11;
                         LODWORD(__dst[0]) = 0;
                         ++stats;
-                        v174 = *&v255[4];
-                        *(__dst + 4) = *&v255[4];
+                        v160 = *&v237[4];
+                        *(__dst + 4) = *&v237[4];
                         __dst[11] = CFAbsoluteTimeGetCurrent();
-                        IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.count", v255);
-                        __dst[3] = (v172 << 40) | (v255[15] << 32) | (v255[16] << 24) | (v255[17] << 16) | (v255[18] << 8) | v255[19];
-                        LODWORD(__dst[4]) = *&v255[14];
-                        WORD2(__dst[4]) = *&v255[18];
-                        if (v171)
+                        IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.count", v237);
+                        __dst[3] = (v158 << 40) | (v237[15] << 32) | (v237[16] << 24) | (v237[17] << 16) | (v237[18] << 8) | v237[19];
+                        LODWORD(__dst[4]) = *&v237[14];
+                        WORD2(__dst[4]) = *&v237[18];
+                        if (v157)
                         {
-                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.headset", v255);
-                          if (v173 && (v172 & 0x20) == 0 && __dst[3])
+                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.headset", v237);
+                          if (v159 && (v158 & 0x20) == 0 && __dst[3])
                           {
-                            goto LABEL_202;
+                            goto LABEL_197;
                           }
                         }
 
-                        else if ((v172 & 0x20) == 0 && (v172 << 40) | (v255[15] << 32) | (v255[16] << 24) | (v255[17] << 16) | (v255[18] << 8) | v255[19])
+                        else if ((v158 & 0x20) == 0 && (v158 << 40) | (v237[15] << 32) | (v237[16] << 24) | (v237[17] << 16) | (v237[18] << 8) | v237[19])
                         {
-LABEL_202:
-                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.ldcm.notification.count", v255);
-                          if (evaluateAccyHealthDictionary(__dst[3], v255))
+LABEL_197:
+                          IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.ldcm.notification.count", v237);
+                          if (evaluateAccyHealthDictionary(__dst[3], v237))
                           {
                             __dst[5] = __dst[3];
-                            LOBYTE(__dst[6]) = v256[19];
-                            __dst[7] = *&v256[21];
-                            __dst[8] = v174;
+                            LOBYTE(__dst[6]) = v238[19];
+                            __dst[7] = *&v238[21];
+                            __dst[8] = v160;
                           }
 
                           else
                           {
-                            setDriverMitigationEnabled(v169, servicea, 0);
+                            setDriverMitigationEnabled(v155, service, 0);
                           }
 
                           if ((__dst[9] & 0x100) == 0)
                           {
                             BYTE1(__dst[9]) = 1;
-                            *(v166 + 1956) = 1;
+                            *(v152 + 1956) = 1;
                           }
                         }
                       }
@@ -5326,9 +5241,9 @@ LABEL_202:
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                       {
                         LODWORD(__src[0]) = 67111936;
-                        HIDWORD(__src[0]) = v169;
+                        HIDWORD(__src[0]) = v155;
                         LOWORD(__src[1]) = 1024;
-                        *(&__src[1] + 2) = v170;
+                        *(&__src[1] + 2) = v156;
                         HIWORD(__src[1]) = 1024;
                         LODWORD(__src[2]) = __dst[0];
                         WORD2(__src[2]) = 1024;
@@ -5336,32 +5251,32 @@ LABEL_202:
                         WORD1(__src[3]) = 1024;
                         HIDWORD(__src[3]) = stats;
                         LOWORD(__src[4]) = 1024;
-                        *(&__src[4] + 2) = v255[14];
+                        *(&__src[4] + 2) = v237[14];
                         HIWORD(__src[4]) = 1024;
-                        LODWORD(__src[5]) = v255[15];
+                        LODWORD(__src[5]) = v237[15];
                         WORD2(__src[5]) = 1024;
-                        *(&__src[5] + 6) = v255[16];
+                        *(&__src[5] + 6) = v237[16];
                         WORD1(__src[6]) = 1024;
-                        HIDWORD(__src[6]) = v255[17];
+                        HIDWORD(__src[6]) = v237[17];
                         LOWORD(__src[7]) = 1024;
-                        *(&__src[7] + 2) = v255[18];
+                        *(&__src[7] + 2) = v237[18];
                         HIWORD(__src[7]) = 1024;
-                        LODWORD(__src[8]) = v255[19];
+                        LODWORD(__src[8]) = v237[19];
                         WORD2(__src[8]) = 1024;
-                        *(&__src[8] + 6) = v256[18];
+                        *(&__src[8] + 6) = v238[18];
                         OUTLINED_FUNCTION_21();
-                        _os_log_impl(v175, v176, v177, v178, v179, 0x4Au);
+                        _os_log_impl(v161, v162, v163, v164, v165, 0x4Au);
                       }
 
-LABEL_216:
-                      v187 = 1;
-                      goto LABEL_217;
+LABEL_211:
+                      v173 = 1;
+                      goto LABEL_212;
                     }
 
-LABEL_262:
-                    v187 = 0;
-LABEL_217:
-                    if (HIDWORD(__dst[15]) && !v248)
+LABEL_255:
+                    v173 = 0;
+LABEL_212:
+                    if (HIDWORD(__dst[15]) && !v231)
                     {
                       IOAccessoryManagerRequestLdcmMeasurement();
                     }
@@ -5376,98 +5291,97 @@ LABEL_217:
                       if ((__dst[16] & 0x100000000) == 0 && __dst[5])
                       {
                         OUTLINED_FUNCTION_17();
-                        v189 = [v109[31].cache objectForKey:{objc_msgSend(v188, "stringWithFormat:", @"%012llx_%1d_%012llx"}];
-                        if (v189 && (v190 = v189, v191 = __dst[8], v191 <= [v189 overVoltageTimestamp]))
+                        v175 = [v98[31].cache objectForKey:{objc_msgSend(v174, "stringWithFormat:", @"%012llx_%1d_%012llx"}];
+                        if (v175 && (v176 = v175, v177 = __dst[8], v177 <= [v175 overVoltageTimestamp]))
                         {
-                          v192 = __dst[8];
-                          v193 = dword_2812C4324;
+                          v178 = __dst[8];
+                          v179 = dword_2812C4324;
                           if (!dword_2812C4324)
                           {
                             mach_timebase_info(&dword_2812C4320);
-                            v193 = dword_2812C4324;
+                            v179 = dword_2812C4324;
                           }
 
-                          v194 = dword_2812C4320;
-                          v195 = [v190 overVoltageTimestamp];
-                          v196 = dword_2812C4324;
+                          v180 = dword_2812C4320;
+                          v181 = [v176 overVoltageTimestamp];
+                          v182 = dword_2812C4324;
                           if (!dword_2812C4324)
                           {
                             mach_timebase_info(&dword_2812C4320);
-                            v196 = dword_2812C4324;
+                            v182 = dword_2812C4324;
                           }
 
-                          v197 = dword_2812C4320;
-                          v198 = *MEMORY[0x277CBECE8];
+                          v183 = dword_2812C4320;
                           OUTLINED_FUNCTION_31();
-                          v200 = CFStringCreateWithFormat(v199, 0, @".%012llx.%1d");
-                          if (v200)
+                          v185 = CFStringCreateWithFormat(v184, 0, @".%012llx.%1d");
+                          if (v185)
                           {
-                            v201 = v200;
-                            IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.overvoltage", v200, (v195 * v197 / v196 - v192 * v194 / v193) / 0x3B9ACA00);
+                            v186 = v185;
+                            IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.overvoltage", v185, (v181 * v183 / v182 - v178 * v180 / v179) / 0x3B9ACA00);
                             BYTE4(__dst[16]) = 1;
-                            CFRelease(v201);
+                            CFRelease(v186);
                           }
                         }
 
                         else
                         {
-                          v263 = 0;
+                          v245 = 0;
                           valuePtr = 0;
                           OUTLINED_FUNCTION_17();
-                          if ([v109[31].cache objectForKey:{objc_msgSend(v213, "stringWithFormat:", @"%012llx_%1d_%012llx"}])
+                          if ([v98[31].cache objectForKey:{objc_msgSend(v198, "stringWithFormat:", @"%012llx_%1d_%012llx"}])
                           {
-                            *&v214 = 0xAAAAAAAAAAAAAAAALL;
-                            *(&v214 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                            *&v260[32] = v214;
-                            v261 = v214;
-                            *v260 = v214;
-                            *&v260[16] = v214;
-                            v259 = v214;
-                            v215 = [__dst[13] reverseObjectEnumerator];
-                            memset(v258, 0, sizeof(v258));
-                            v216 = [v215 countByEnumeratingWithState:v258 objects:__src count:16];
-                            if (v216)
+                            *&v199 = 0xAAAAAAAAAAAAAAAALL;
+                            *(&v199 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                            *&v242[32] = v199;
+                            v243 = v199;
+                            *v242 = v199;
+                            *&v242[16] = v199;
+                            v241 = v199;
+                            v200 = [__dst[13] reverseObjectEnumerator];
+                            memset(v240, 0, sizeof(v240));
+                            v201 = [v200 countByEnumeratingWithState:v240 objects:__src count:16];
+                            if (v201)
                             {
-                              v217 = v216;
-                              v218 = **&v258[1];
+                              v202 = v201;
+                              v203 = **&v240[1];
                               do
                               {
-                                v219 = 0;
-LABEL_267:
-                                if (**&v258[1] != v218)
+                                v204 = 0;
+LABEL_260:
+                                if (**&v240[1] != v203)
                                 {
-                                  objc_enumerationMutation(v215);
+                                  objc_enumerationMutation(v200);
                                 }
 
-                                [*(*(&v258[0] + 1) + 8 * v219) getBytes:&v259 length:80];
-                                v220 = __dst[7] == *&v260[37] && BYTE12(v259) == 2;
-                                v45 = v254;
-                                if (!v220 || isChargingCableAttached(v254 + 14) && !v260[36])
+                                [*(*(&v240[0] + 1) + 8 * v204) getBytes:&v241 length:80];
+                                v205 = __dst[7] == *&v242[37] && BYTE12(v241) == 2;
+                                v44 = v236;
+                                if (!v205 || isChargingCableAttached(v236 + 14) && !v242[36])
                                 {
                                   break;
                                 }
 
                                 for (j = 0; j != 4; ++j)
                                 {
-                                  if (v260[j + 4])
+                                  if (v242[j + 4])
                                   {
-                                    v222 = *&v260[2 * j + 16];
-                                    v223 = *(&valuePtr + j) - v222;
-                                    *(&valuePtr + j) = v222;
-                                    if ((v223 & 0x8000) == 0)
+                                    v207 = *&v242[2 * j + 16];
+                                    v208 = *(&valuePtr + j) - v207;
+                                    *(&valuePtr + j) = v207;
+                                    if ((v208 & 0x8000) == 0)
                                     {
-                                      v224 = v223;
-                                      if ([gUserLdcmParams maxUpFluctuationMv] <= v223)
+                                      v209 = v208;
+                                      if ([gUserLdcmParams maxUpFluctuationMv] <= v208)
                                       {
                                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                                         {
                                           connect[1] = 67109120;
-                                          connect[2] = v224;
+                                          connect[2] = v209;
                                           OUTLINED_FUNCTION_19();
-                                          _os_log_impl(v227, v228, v229, v230, v231, v232);
+                                          _os_log_impl(v212, v213, v214, v215, v216, v217);
                                         }
 
-                                        if (__dst[8] <= *(v254 + 1))
+                                        if (__dst[8] <= *(v236 + 1))
                                         {
                                           if (!dword_2812C4324)
                                           {
@@ -5478,42 +5392,41 @@ LABEL_267:
                                             }
                                           }
 
-                                          v233 = *MEMORY[0x277CBECE8];
                                           OUTLINED_FUNCTION_31();
-                                          v235 = CFStringCreateWithFormat(v234, 0, @".%012llx.%1d");
-                                          if (v235)
+                                          v219 = CFStringCreateWithFormat(v218, 0, @".%012llx.%1d");
+                                          if (v219)
                                           {
-                                            v236 = v235;
+                                            v220 = v219;
                                             OUTLINED_FUNCTION_18();
-                                            IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.voltagefluctuation", v236, v237 / v238);
-                                            CFRelease(v236);
+                                            IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.voltagefluctuation", v220, v221 / v222);
+                                            CFRelease(v220);
                                             BYTE4(__dst[16]) = 1;
                                           }
                                         }
 
-                                        v45 = v254;
-                                        goto LABEL_235;
+                                        v44 = v236;
+                                        goto LABEL_230;
                                       }
                                     }
                                   }
                                 }
 
-                                if (++v219 != v217)
+                                if (++v204 != v202)
                                 {
-                                  goto LABEL_267;
+                                  goto LABEL_260;
                                 }
 
-                                v217 = [v215 countByEnumeratingWithState:v258 objects:__src count:16];
-                                v45 = v254;
+                                v202 = [v200 countByEnumeratingWithState:v240 objects:__src count:16];
+                                v44 = v236;
                               }
 
-                              while (v217);
+                              while (v202);
                             }
                           }
 
                           OUTLINED_FUNCTION_17();
-                          v226 = [v225 stringWithFormat:@"%012llx_%1d_%012llx"];
-                          if ([gAccyHealthDictionary objectForKey:v226] && __dst[8] <= *(v45 + 1))
+                          v211 = [v210 stringWithFormat:@"%012llx_%1d_%012llx"];
+                          if ([gAccyHealthDictionary objectForKey:v211] && __dst[8] <= *(v44 + 1))
                           {
                             if (dword_2812C4324)
                             {
@@ -5524,25 +5437,24 @@ LABEL_267:
                             {
                               mach_timebase_info(&dword_2812C4320);
                               OUTLINED_FUNCTION_37();
-                              if (!v239)
+                              if (!v223)
                               {
                                 mach_timebase_info(&dword_2812C4320);
                               }
                             }
 
                             OUTLINED_FUNCTION_18();
-                            v242 = v240 / v241;
-                            v45 = v254;
-                            if (v240 / v241 >= [gUserLdcmParams maxVhiDurationSec])
+                            v226 = v224 / v225;
+                            v44 = v236;
+                            if (v224 / v225 >= [gUserLdcmParams maxVhiDurationSec])
                             {
-                              v243 = *MEMORY[0x277CBECE8];
                               OUTLINED_FUNCTION_31();
-                              v245 = CFStringCreateWithFormat(v244, 0, @".%012llx.%1d");
-                              if (v245)
+                              v228 = CFStringCreateWithFormat(v227, 0, @".%012llx.%1d");
+                              if (v228)
                               {
-                                v246 = v245;
-                                IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.wettoolong", v245, v242);
-                                CFRelease(v246);
+                                v229 = v228;
+                                IOAccessoryAggDCollectDataWithInterval(@"com.apple.ioaccessorymanager.ldcm.notification.wettoolong", v228, v226);
+                                CFRelease(v229);
                                 BYTE4(__dst[16]) = 1;
                               }
                             }
@@ -5551,38 +5463,38 @@ LABEL_267:
                       }
                     }
 
-                    else if (v187)
+                    else if (v173)
                     {
-                      evaluateFalseDetectPreventionDry(__dst, v45);
+                      evaluateFalseDetectPreventionDry(__dst, v44);
                     }
 
-LABEL_235:
-                    if (!v250)
+LABEL_230:
+                    if (!v233)
                     {
                       memcpy(__src, __dst, 0x88uLL);
-                      v202 = [MEMORY[0x277CCAE60] valueWithDockState:__src];
-                      [gDockState setObject:v202 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", v251)}];
-                      IOAccessoryAggDCollectData(@"histogramVoltage", v45);
-                      IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.cumulativetime", v45);
+                      v187 = [MEMORY[0x277CCAE60] valueWithDockState:__src];
+                      [gDockState setObject:v187 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", v234)}];
+                      IOAccessoryAggDCollectData(@"histogramVoltage", v44);
+                      IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.voltage.cumulativetime", v44);
                     }
 
-                    goto LABEL_118;
+                    goto LABEL_113;
                   }
                 }
 
                 else
                 {
-                  v109 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
+                  v98 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
                 }
 
-LABEL_189:
-                v166 = &OBJC_IVAR___IOPortLDCMManagerV4__wetPollingInterval;
-                goto LABEL_190;
+LABEL_184:
+                v152 = &OBJC_IVAR___IOPortLDCMManagerV4__wetPollingInterval;
+                goto LABEL_185;
               }
 
-LABEL_260:
-              v109 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
-              goto LABEL_189;
+LABEL_253:
+              v98 = &OBJC_METACLASS___LDCMNotificationUIManagerV4;
+              goto LABEL_184;
             }
           }
 
@@ -5591,115 +5503,111 @@ LABEL_260:
             HIDWORD(__dst[14]) = 0;
             if (++LODWORD(__dst[15]) >= *algn_2812C446E)
             {
-              v248 = 0;
+              v231 = 0;
               LOBYTE(__dst[14]) = 1;
-              goto LABEL_172;
+              goto LABEL_167;
             }
 
             if (!IOAccessoryManagerRequestLdcmMeasurement())
             {
-              v248 = *&algn_2812C446E[8];
+              v231 = *&algn_2812C446E[8];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                goto LABEL_149;
+                goto LABEL_144;
               }
 
-              goto LABEL_172;
+              goto LABEL_167;
             }
           }
         }
 
-        v248 = 0;
-        goto LABEL_260;
+        v231 = 0;
+        goto LABEL_253;
       }
 
       if (!v5[30].isa)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      v114 = *v45;
+      v103 = *v44;
       OUTLINED_FUNCTION_34();
-      v115 = [OUTLINED_FUNCTION_11() objectForKey:?];
-      if (!v115)
+      v104 = [OUTLINED_FUNCTION_11() objectForKey:?];
+      if (!v104)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
-      [v115 dockStateValue];
-      v116 = __dst[0];
+      objc_msgSend_dockStateValue(v104);
+      v105 = __dst[0];
       memcpy(__src, __dst + 4, 0x44uLL);
-      v117 = __dst[9];
-      v118 = BYTE1(__dst[9]);
-      v259 = *(&__dst[9] + 2);
-      *v260 = *(&__dst[11] + 2);
-      *&v260[16] = *(&__dst[13] + 2);
-      *&v260[30] = *&__dst[15];
+      v106 = __dst[9];
+      v107 = BYTE1(__dst[9]);
+      v241 = *(&__dst[9] + 2);
+      *v242 = *(&__dst[11] + 2);
+      *&v242[16] = *(&__dst[13] + 2);
+      *&v242[30] = *&__dst[15];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(__dst[0]) = 67109632;
-        HIDWORD(__dst[0]) = v114;
+        HIDWORD(__dst[0]) = v103;
         LOWORD(__dst[1]) = 1024;
-        *(&__dst[1] + 2) = v116;
+        *(&__dst[1] + 2) = v105;
         HIWORD(__dst[1]) = 1024;
-        LODWORD(__dst[2]) = v117 & 1;
+        LODWORD(__dst[2]) = v106 & 1;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%d) Event: GoldbondDisabledMbHeadset, CurrentVoltageState = %d, gPlug = %d", __dst, 0x14u);
       }
 
-      if (v118)
+      if (v107)
       {
-        goto LABEL_118;
+        goto LABEL_113;
       }
 
       gGiveUserRadarOption = 1;
-      v44 = MEMORY[0x277CCAE60];
-      LODWORD(__dst[0]) = v116;
+      v43 = MEMORY[0x277CCAE60];
+      LODWORD(__dst[0]) = v105;
       memcpy(__dst + 4, __src, 0x44uLL);
-      LOBYTE(__dst[9]) = v117;
+      LOBYTE(__dst[9]) = v106;
       BYTE1(__dst[9]) = 1;
-      *(&__dst[9] + 2) = v259;
-      *(&__dst[11] + 2) = *v260;
-      *(&__dst[13] + 2) = *&v260[16];
-      *&__dst[15] = *&v260[30];
-LABEL_116:
-      v77 = __dst;
-      goto LABEL_117;
+      *(&__dst[9] + 2) = v241;
+      *(&__dst[11] + 2) = *v242;
+      *(&__dst[13] + 2) = *&v242[16];
+      *&__dst[15] = *&v242[30];
+LABEL_111:
+      v72 = __dst;
+      goto LABEL_112;
     case -469794726:
       goto LABEL_10;
   }
 
   if (a3 != -469794725)
   {
-LABEL_118:
-    v119 = *MEMORY[0x277D85DE8];
+LABEL_113:
     OUTLINED_FUNCTION_49();
     return;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_49();
 
-  IOAccessoryHandleAttach(v8);
+  IOAccessoryHandleAttach(v7);
 }
 
-void IOAccessoryHandleAttach(io_registry_entry_t a1)
+void IOAccessoryHandleAttach(uint64_t a1)
 {
-  v108[9] = *MEMORY[0x277D85DE8];
-  v96 = -21846;
-  v95 = -1431655766;
-  memset(&v108[4], 170, 36);
-  v94[0] = -1431655766;
-  *(v94 + 3) = -1431655766;
-  v106 = *(&xmmword_25491C2F8 + 10);
-  v107 = unk_25491C312;
-  memset(v108, 170, 30);
-  v92 = 0xAAAAAAAAAAAAAAAALL;
-  number = 0xAAAAAAAAAAAAAAAALL;
+  v106[9] = *MEMORY[0x277D85DE8];
+  v94 = -21846;
+  v93 = -1431655766;
+  memset(&v106[4], 170, 36);
+  v104 = *(&xmmword_25491C2F8 + 10);
+  v105 = unk_25491C312;
+  memset(v106, 170, 30);
+  v91 = 0xAAAAAAAAAAAAAAAALL;
+  memset(number, 170, 15);
   connect = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     valuePtr = 136315138;
-    *v98 = "IOAccessoryHandleAttach";
+    *v96 = "IOAccessoryHandleAttach";
     OUTLINED_FUNCTION_23();
     _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
@@ -5723,23 +5631,23 @@ void IOAccessoryHandleAttach(io_registry_entry_t a1)
           v13 = CFProperty;
           CFNumberGetValue(CFProperty, kCFNumberIntType, &valuePtr);
           CFRelease(v13);
-          v86 = valuePtr;
+          v85 = valuePtr;
         }
 
         else
         {
-          v86 = 0;
+          v85 = 0;
         }
 
         if (v7)
         {
           v14 = [v7 isWet];
-          v85 = [v7 isTimestampValid];
+          v84 = [v7 isTimestampValid];
           [OUTLINED_FUNCTION_28() setIsReceptacleEmpty:?];
           [OUTLINED_FUNCTION_28() setJustDetached:?];
           mach_continuous_time();
           [OUTLINED_FUNCTION_11() setWetAccessoryAttachTimestamp:?];
-          v84 = [v7 halogenMeasurement];
+          v83 = [v7 halogenMeasurement];
           if ([v7 isMeasurementEnabled])
           {
             [objc_msgSend(v7 "cond")];
@@ -5764,7 +5672,7 @@ void IOAccessoryHandleAttach(io_registry_entry_t a1)
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               valuePtr = 136315138;
-              *v98 = "halogenMeasurementCleanupSafe";
+              *v96 = "halogenMeasurementCleanupSafe";
               OUTLINED_FUNCTION_23();
               _os_log_impl(v22, v23, v24, v25, v26, 0xCu);
             }
@@ -5805,9 +5713,9 @@ LABEL_37:
           block[1] = 3221225472;
           block[2] = __IOAccessoryHandleAttach_block_invoke;
           block[3] = &__block_descriptor_36_e5_v8__0l;
-          v90 = Type;
+          v89 = Type;
           dispatch_async(global_queue, block);
-          [v7 setIsDebugAccessoryConnected:(v95 >> 5) & 1];
+          [v7 setIsDebugAccessoryConnected:(v93 >> 5) & 1];
           if ([v7 isDebugAccessoryConnected])
           {
             goto LABEL_72;
@@ -5819,7 +5727,7 @@ LABEL_37:
             goto LABEL_72;
           }
 
-          if (v84)
+          if (v83)
           {
             v54 = v11 == 0;
           }
@@ -5845,12 +5753,12 @@ LABEL_37:
             [v7 setIsWet:1];
             [OUTLINED_FUNCTION_40() setAccessoryConnectedWhileWet:?];
             [OUTLINED_FUNCTION_28() setIsMeasurementActive:?];
-            [v7 setIsTimestampValid:v85];
-            v56 = [MEMORY[0x277CBEA90] dataWithBytes:&v95 length:6];
+            [v7 setIsTimestampValid:v84];
+            v56 = [MEMORY[0x277CBEA90] dataWithBytes:&v93 length:6];
             [OUTLINED_FUNCTION_11() setConnectedAccessoryPDigitalID:?];
             OUTLINED_FUNCTION_0_3();
             [v7 setConnectedAccessoryDigitalID:v57 | v58];
-            [v7 setConnectedAccessoryOrientation:v86];
+            [v7 setConnectedAccessoryOrientation:v85];
             if (v11)
             {
               v62 = @"com.apple.ioaccessorymanager.ldcm.eis.accessory.connection";
@@ -5864,12 +5772,12 @@ LABEL_37:
           else
           {
             [v7 setIsMeasurementActive:0];
-            [v7 setIsTimestampValid:v85];
-            v59 = [MEMORY[0x277CBEA90] dataWithBytes:&v95 length:6];
+            [v7 setIsTimestampValid:v84];
+            v59 = [MEMORY[0x277CBEA90] dataWithBytes:&v93 length:6];
             [OUTLINED_FUNCTION_11() setConnectedAccessoryPDigitalID:?];
             OUTLINED_FUNCTION_0_3();
             [v7 setConnectedAccessoryDigitalID:v60 | v61];
-            [v7 setConnectedAccessoryOrientation:v86];
+            [v7 setConnectedAccessoryOrientation:v85];
             IOAccessoryAggDPostScalarPrefixKey(@"com.apple.ioaccessorymanager.ldcm.eis.accessory.connection", v7);
             if (v11)
             {
@@ -5902,11 +5810,11 @@ LABEL_60:
                 {
                   v75 = [v7 ldcmStartMeasurementsDelayNs];
                   valuePtr = 136315650;
-                  *v98 = "IOAccessoryHandleAttach";
-                  *&v98[8] = 2048;
-                  *&v98[10] = v10;
-                  *&v98[18] = 2048;
-                  *&v98[20] = v75 / 0xF4240;
+                  *v96 = "IOAccessoryHandleAttach";
+                  *&v96[8] = 2048;
+                  *&v96[10] = v10;
+                  *&v96[18] = 2048;
+                  *&v96[20] = v75 / 0xF4240;
                   OUTLINED_FUNCTION_23();
                   _os_log_impl(v76, v77, v78, v79, v80, 0x20u);
                 }
@@ -5923,20 +5831,20 @@ LABEL_78:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   valuePtr = 136315394;
-                  *v98 = "IOAccessoryHandleAttach";
-                  *&v98[8] = 2048;
-                  *&v98[10] = v10;
+                  *v96 = "IOAccessoryHandleAttach";
+                  *&v96[8] = 2048;
+                  *&v96[10] = v10;
                   OUTLINED_FUNCTION_23();
                   _os_log_impl(v69, v70, v71, v72, v73, 0x16u);
                 }
 
                 v74 = [v7 halogenMeasurementDispatchQueue];
-                v88[0] = MEMORY[0x277D85DD0];
-                v88[1] = 3221225472;
-                v88[2] = __IOAccessoryHandleAttach_block_invoke_745;
-                v88[3] = &unk_279793038;
-                v88[4] = v7;
-                dispatch_async(v74, v88);
+                v87[0] = MEMORY[0x277D85DD0];
+                v87[1] = 3221225472;
+                v87[2] = __IOAccessoryHandleAttach_block_invoke_745;
+                v87[3] = &unk_279793038;
+                v87[4] = v7;
+                dispatch_async(v74, v87);
               }
 
               goto LABEL_72;
@@ -5960,36 +5868,36 @@ LABEL_59:
           v28 = [OUTLINED_FUNCTION_11() objectForKey:?];
           if (v28)
           {
-            [v28 dockStateValue];
+            objc_msgSend_dockStateValue(v28);
             v29 = valuePtr;
-            *&v108[4] = *v98;
-            *&v108[6] = *&v98[16];
-            LODWORD(v108[8]) = *v99;
-            v30 = *&v99[4];
-            v31 = v99[12];
-            v94[0] = *&v99[13];
-            *(v94 + 3) = *&v99[16];
-            v33 = *&v99[20];
-            v32 = v100;
-            v34 = v102;
-            *(&v108[1] + 6) = *(v105 + 14);
-            v107 = v104;
-            *v108 = v105[0];
-            v106 = v103;
+            *&v106[4] = *v96;
+            *&v106[6] = *&v96[16];
+            LODWORD(v106[8]) = *v97;
+            v30 = *&v97[4];
+            v31 = v97[12];
+            LODWORD(number[1]) = *&v97[13];
+            *(&number[1] + 3) = *&v97[16];
+            v33 = *&v97[20];
+            v32 = v98;
+            v34 = v100;
+            *(&v106[1] + 6) = *(v103 + 14);
+            v105 = v102;
+            *v106 = v103[0];
+            v104 = v101;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               OUTLINED_FUNCTION_20();
-              *&v98[4] = 1024;
-              *&v98[6] = v29;
-              *&v98[10] = 1024;
-              *&v98[12] = 1;
+              *&v96[4] = 1024;
+              *&v96[6] = v29;
+              *&v96[10] = 1024;
+              *&v96[12] = 1;
               OUTLINED_FUNCTION_23();
               _os_log_impl(v35, v36, v37, v38, v39, 0x14u);
             }
 
             if (enableVoltageEventMonitorModeAppleCareLogging == 1 && (IOAccessoryManagerGetType() & 0x600) != 0)
             {
-              IOAccessoryAppleCareLoggingForNonVoltageEvents("accessoryPlug", &v95, PrimaryPort);
+              IOAccessoryAppleCareLoggingForNonVoltageEvents("accessoryPlug", &v93, PrimaryPort);
             }
 
             if (!IOServiceOpen(a1, *MEMORY[0x277D85F48], 0, &connect))
@@ -5997,35 +5905,35 @@ LABEL_59:
               IOAccessoryManagerSetVoltageDetected();
               IOServiceClose(connect);
               connect = 0;
-              if ((v95 & 0x20) == 0 && !(v29 | v34 & 1))
+              if ((v93 & 0x20) == 0 && !(v29 | v34 & 1))
               {
-                if (_retrieveDeviceInterfaceSerialNumber())
+                if (_retrieveDeviceInterfaceSerialNumber(a1, number))
                 {
                   v29 = 0;
                 }
 
                 else
                 {
-                  CFNumberGetValue(number, kCFNumberSInt64Type, &v92);
-                  CFRelease(number);
+                  CFNumberGetValue(number[0], kCFNumberSInt64Type, &v91);
+                  CFRelease(number[0]);
                   *&v40 = 0xAAAAAAAAAAAAAAAALL;
                   *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                  *v99 = v40;
-                  v99[16] = -86;
-                  *&v98[16] = v40;
-                  *v98 = v40;
+                  *v97 = v40;
+                  v97[16] = -86;
+                  *&v96[16] = v40;
+                  *v96 = v40;
                   valuePtr = PrimaryPort;
-                  v99[15] = v86;
-                  *&v99[17] = v92;
+                  v97[15] = v85;
+                  *&v97[17] = v91;
                   IOAccessoryAggDCollectData(@"com.apple.ioaccessorymanager.ldcm.notification.count", &valuePtr);
                   OUTLINED_FUNCTION_0_3();
                   if (evaluateAccyHealthDictionary(v41 | v42, &valuePtr))
                   {
                     OUTLINED_FUNCTION_0_3();
                     v30 = v43 | v44;
-                    v33 = v92;
+                    v33 = v91;
                     v32 = mach_continuous_time();
-                    v31 = v86;
+                    v31 = v85;
                   }
 
                   else
@@ -6040,22 +5948,22 @@ LABEL_59:
               }
             }
 
-            *v98 = *&v108[4];
-            *&v98[16] = *&v108[6];
-            v103 = v106;
+            *v96 = *&v106[4];
+            *&v96[16] = *&v106[6];
+            v101 = v104;
             valuePtr = v29;
-            *v99 = v108[8];
-            *&v99[4] = v30;
-            v99[12] = v31;
-            *&v99[13] = v94[0];
-            *&v99[16] = *(v94 + 3);
-            *&v99[20] = v33;
-            v100 = v32;
-            v101 = 1;
-            v102 = v34;
-            v104 = v107;
-            v105[0] = *v108;
-            *(v105 + 14) = *(&v108[1] + 6);
+            *v97 = v106[8];
+            *&v97[4] = v30;
+            v97[12] = v31;
+            *&v97[13] = number[1];
+            *&v97[16] = *(&number[1] + 3);
+            *&v97[20] = v33;
+            v98 = v32;
+            v99 = 1;
+            v100 = v34;
+            v102 = v105;
+            v103[0] = *v106;
+            *(v103 + 14) = *(&v106[1] + 6);
             v45 = [MEMORY[0x277CCAE60] valueWithDockState:&valuePtr];
             [gDockState setObject:v45 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", PrimaryPort)}];
           }
@@ -6065,13 +5973,228 @@ LABEL_59:
   }
 
 LABEL_72:
-  v83 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_49();
 }
 
-void IOAccessoryAggDCollectData(const char *a1, uint64_t a2)
+uint64_t processLdcmBehaviorPlist(void *a1, __int16 a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v78 = 0;
+    OUTLINED_FUNCTION_0();
+    _os_log_impl(v4, v5, v6, v7, v8, 2u);
+  }
+
+  if ((a2 & 0xF0) != 0)
+  {
+    return 0;
+  }
+
+  v9 = kIOAMLDCMBehaviorPlistLegacySubKey;
+  if ((a2 & 0x400) != 0)
+  {
+    v9 = kIOAMLDCMBehaviorPlistDeviceGen1SubKey;
+  }
+
+  v10 = *v9;
+  result = [a1 objectForKey:{kIOAMLDCMBehaviorPlistVersionKey, *v78}];
+  if (!result)
+  {
+    return result;
+  }
+
+  v12 = [result unsignedIntValue];
+  v13 = v12 - 1;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v78 = 136315650;
+    *&v78[4] = "processLdcmBehaviorPlist";
+    *&v78[12] = 1024;
+    *&v78[14] = v12;
+    *&v78[18] = 1024;
+    *&v78[20] = v13 < 2;
+    OUTLINED_FUNCTION_0();
+    _os_log_impl(v14, v15, v16, v17, v18, 0x18u);
+  }
+
+  if (v13 > 1)
+  {
+    return 0;
+  }
+
+  if (v12 != 2)
+  {
+    if (v12 == 1)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *v78 = 0;
+        OUTLINED_FUNCTION_0();
+        _os_log_impl(v19, v20, v21, v22, v23, 2u);
+      }
+
+      result = [a1 objectForKey:{kIOAMLDCMBehaviorPlistBehaviorBitmaskKey, *v78, *&v78[8]}];
+      if (result)
+      {
+        result = [result objectForKey:v10];
+        if (result)
+        {
+          v24 = [result unsignedIntValue];
+          [gUserLdcmParams setUserBehaviorMask:v24];
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            OUTLINED_FUNCTION_3_0();
+            OUTLINED_FUNCTION_5();
+            _os_log_impl(v25, v26, v27, v28, v29, v30);
+          }
+
+          result = [a1 objectForKey:kIOAMLDCMBehaviorPlistFdpBitmaskKey];
+          if (result)
+          {
+            result = [result objectForKey:v10];
+            if (result)
+            {
+              v31 = [result unsignedIntValue];
+              [gUserLdcmParams setFdpBehaviorMask:v31];
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+              {
+                OUTLINED_FUNCTION_3_0();
+                OUTLINED_FUNCTION_5();
+                _os_log_impl(v32, v33, v34, v35, v36, v37);
+              }
+
+              result = [a1 objectForKey:kIOAMLDCMBehaviorPlistConsecutiveDetectedThresh];
+              if (result)
+              {
+                v38 = [result unsignedIntValue];
+                if (v38)
+                {
+                  *algn_2812C446E = v38;
+                  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                  {
+                    OUTLINED_FUNCTION_3_0();
+                    OUTLINED_FUNCTION_5();
+                    _os_log_impl(v39, v40, v41, v42, v43, v44);
+                  }
+                }
+
+                result = [a1 objectForKey:kIOAMLDCMBehaviorPlistConsecutiveNotDetectedThresh];
+                if (result)
+                {
+                  v45 = [result unsignedIntValue];
+                  if (v45)
+                  {
+                    *&algn_2812C446E[4] = v45;
+                    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                    {
+                      OUTLINED_FUNCTION_3_0();
+                      OUTLINED_FUNCTION_5();
+                      _os_log_impl(v46, v47, v48, v49, v50, v51);
+                    }
+                  }
+
+                  result = [a1 objectForKey:kIOAMLDCMBehaviorPlistConsecutiveDetectedInterval];
+                  if (result)
+                  {
+                    v52 = [result unsignedIntValue];
+                    if (v52)
+                    {
+                      *&algn_2812C446E[8] = v52;
+                      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                      {
+                        OUTLINED_FUNCTION_3_0();
+                        OUTLINED_FUNCTION_5();
+                        _os_log_impl(v53, v54, v55, v56, v57, v58);
+                      }
+                    }
+
+                    result = [a1 objectForKey:kIOAMLDCMBehaviorPlistConsecutiveNotDetectedInterval];
+                    if (result)
+                    {
+                      v59 = [result unsignedIntValue];
+                      if (!v59)
+                      {
+                        return 1;
+                      }
+
+                      *&algn_2812C446E[12] = v59;
+                      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                      {
+                        return 1;
+                      }
+
+                      OUTLINED_FUNCTION_3_0();
+                      OUTLINED_FUNCTION_5();
+                      goto LABEL_50;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      return result;
+    }
+
+    return 0;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v78 = 136315138;
+    *&v78[4] = "processLdcmBehaviorPlistForVersion2";
+    OUTLINED_FUNCTION_0();
+    _os_log_impl(v66, v67, v68, v69, v70, 0xCu);
+  }
+
+  result = MGGetStringAnswer();
+  if (result)
+  {
+    v71 = result;
+    result = [a1 objectForKey:kIOAMLDCMBehaviorWetThresholdDictionaryKey];
+    if (result)
+    {
+      v72 = result;
+      result = [result objectForKey:v71];
+      if (result || (result = [v72 objectForKey:kIOAMLDCMBehaviorThresholdDefaultKey]) != 0)
+      {
+        [result doubleValue];
+        v74 = v73;
+        result = [a1 objectForKey:kIOAMLDCMBehaviorDryThresholdDictionarykey];
+        if (result)
+        {
+          v75 = result;
+          result = [result objectForKey:v71];
+          if (result || (result = [v75 objectForKey:kIOAMLDCMBehaviorThresholdDefaultKey]) != 0)
+          {
+            [result doubleValue];
+            v77 = v76;
+            [gUserLdcmParams setWetTransitionCapacitanceThreshold:v74];
+            [gUserLdcmParams setDryTransitionCapacitanceThreshold:v77];
+            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              return 1;
+            }
+
+            OUTLINED_FUNCTION_0();
+            v65 = 32;
+LABEL_50:
+            _os_log_impl(v60, v61, v62, v63, v64, v65);
+            return 1;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void IOAccessoryAggDCollectData(const void *a1, uint64_t a2)
+{
+  v14 = *MEMORY[0x277D85DE8];
   if (enableVoltageEventMonitorModeAggD == 1)
   {
     memcpy(__dst, &xmmword_25491C2B8, sizeof(__dst));
@@ -6083,143 +6206,132 @@ void IOAccessoryAggDCollectData(const char *a1, uint64_t a2)
         v4 = [OUTLINED_FUNCTION_6() objectForKey:?];
         if (v4)
         {
-          [v4 dockStateValue];
-          if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.count") != 1)
+          objc_msgSend_dockStateValue(v4);
+          if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.count") == 1)
           {
-            if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.count") == 1)
+            v5 = _MergedGlobals;
+            if (!_MergedGlobals)
             {
-              v5 = _MergedGlobals;
-              v6 = @"com.apple.ioaccessorymanager.ldcm.notification.count";
+              return;
             }
 
-            else if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.suppress.phone") == 1)
-            {
-              v5 = _MergedGlobals;
-              v6 = @"com.apple.ioaccessorymanager.ldcm.notification.suppress.phone";
-            }
+            v6 = @"com.apple.ioaccessorymanager.voltage.count";
+            goto LABEL_14;
+          }
 
-            else
-            {
-              if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.suppress.accessory") != 1)
-              {
-                if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.confidentcount") == 1)
-                {
-                  _MergedGlobals(@"com.apple.ioaccessorymanager.ldcm.notification.confidentcount", 1);
-                  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_16;
-                  }
-
-                  v13 = 138543362;
-                  v14 = a1;
-                  v10 = MEMORY[0x277D86220];
-                  v11 = "(!) Event: AggD key %{public}@ increment";
-                }
-
-                else if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount") == 1)
-                {
-                  _MergedGlobals(@"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount", 1);
-                  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_16;
-                  }
-
-                  v13 = 138543362;
-                  v14 = a1;
-                  v10 = MEMORY[0x277D86220];
-                  v11 = "(!) Event: AggD key %{public}@ increment";
-                }
-
-                else
-                {
-                  if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount") == 1)
-                  {
-                    IOAccessoryAggDBadAccyEventData(a2);
-                    goto LABEL_16;
-                  }
-
-                  if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.cumulativetime") == 1)
-                  {
-                    v7 = *(a2 + 46);
-                    qword_27F612838 = v7;
-                    v5 = off_2812C4308;
-                    if (!off_2812C4308)
-                    {
-                      goto LABEL_16;
-                    }
-
-                    v6 = @"com.apple.ioaccessorymanager.voltage.cumulativetime";
-                    goto LABEL_15;
-                  }
-
-                  if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.averagetime") == 1)
-                  {
-                    IOAccessoryAggDAverageVhiTimeData(__dst, a2);
-                    goto LABEL_16;
-                  }
-
-                  if (CFEqual(a1, @"histogramVoltage") == 1)
-                  {
-                    IOAccessoryAggDVoltageData(a2);
-                    goto LABEL_16;
-                  }
-
-                  if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.headset") == 1)
-                  {
-                    _MergedGlobals(@"com.apple.ioaccessorymanager.voltage.headset", 1);
-                    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-                    {
-                      goto LABEL_16;
-                    }
-
-                    v13 = 138543362;
-                    v14 = a1;
-                    v10 = MEMORY[0x277D86220];
-                    v11 = "(!) Event: AggD key %{public}@ increment";
-                  }
-
-                  else
-                  {
-                    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-                    {
-                      goto LABEL_16;
-                    }
-
-                    v13 = 136315138;
-                    v14 = "IOAccessoryAggDCollectData";
-                    v10 = MEMORY[0x277D86220];
-                    v11 = "%s Invalid AggD key\n";
-                  }
-                }
-
-                OUTLINED_FUNCTION_30(&dword_2548F1000, v10, v9, v11, &v13);
-                goto LABEL_16;
-              }
-
-              v5 = _MergedGlobals;
-              v6 = @"com.apple.ioaccessorymanager.ldcm.notification.suppress.accessory";
-            }
-
+          if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.count") == 1)
+          {
+            v5 = _MergedGlobals;
+            v6 = @"com.apple.ioaccessorymanager.ldcm.notification.count";
 LABEL_14:
             v7 = 1;
 LABEL_15:
             v5(v6, v7);
-            goto LABEL_16;
+            return;
           }
 
-          v5 = _MergedGlobals;
-          if (_MergedGlobals)
+          if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.suppress.phone") == 1)
           {
-            v6 = @"com.apple.ioaccessorymanager.voltage.count";
+            v5 = _MergedGlobals;
+            v6 = @"com.apple.ioaccessorymanager.ldcm.notification.suppress.phone";
             goto LABEL_14;
+          }
+
+          if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.suppress.accessory") == 1)
+          {
+            v5 = _MergedGlobals;
+            v6 = @"com.apple.ioaccessorymanager.ldcm.notification.suppress.accessory";
+            goto LABEL_14;
+          }
+
+          if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.confidentcount") == 1)
+          {
+            _MergedGlobals(@"com.apple.ioaccessorymanager.ldcm.notification.confidentcount", 1);
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              v12 = 138543362;
+              v13 = a1;
+              v9 = MEMORY[0x277D86220];
+              v10 = "(!) Event: AggD key %{public}@ increment";
+LABEL_23:
+              OUTLINED_FUNCTION_30(&dword_2548F1000, v9, v8, v10, &v12);
+            }
+          }
+
+          else if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount") == 1)
+          {
+            _MergedGlobals(@"com.apple.ioaccessorymanager.ldcm.notification.highconfidentcount", 1);
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              v12 = 138543362;
+              v13 = a1;
+              v9 = MEMORY[0x277D86220];
+              v10 = "(!) Event: AggD key %{public}@ increment";
+              goto LABEL_23;
+            }
+          }
+
+          else
+          {
+            if (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount") == 1)
+            {
+              IOAccessoryAggDBadAccyEventData(a2);
+              return;
+            }
+
+            if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.cumulativetime") == 1)
+            {
+              v7 = *(a2 + 46);
+              qword_27F612838 = v7;
+              v5 = off_2812C4308;
+              if (off_2812C4308)
+              {
+                v6 = @"com.apple.ioaccessorymanager.voltage.cumulativetime";
+                goto LABEL_15;
+              }
+            }
+
+            else
+            {
+              if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.averagetime") == 1)
+              {
+                IOAccessoryAggDAverageVhiTimeData(__dst, a2);
+                return;
+              }
+
+              if (CFEqual(a1, @"histogramVoltage") == 1)
+              {
+                IOAccessoryAggDVoltageData(a2);
+                return;
+              }
+
+              if (CFEqual(a1, @"com.apple.ioaccessorymanager.voltage.headset") == 1)
+              {
+                _MergedGlobals(@"com.apple.ioaccessorymanager.voltage.headset", 1);
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+                {
+                  v12 = 138543362;
+                  v13 = a1;
+                  v9 = MEMORY[0x277D86220];
+                  v10 = "(!) Event: AggD key %{public}@ increment";
+                  goto LABEL_23;
+                }
+              }
+
+              else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+              {
+                v12 = 136315138;
+                v13 = "IOAccessoryAggDCollectData";
+                v9 = MEMORY[0x277D86220];
+                v10 = "%s Invalid AggD key\n";
+                goto LABEL_23;
+              }
+            }
           }
         }
       }
     }
   }
-
-LABEL_16:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void evaluateFalseDetectPreventionDry(uint64_t a1, uint64_t a2)
@@ -6306,90 +6418,88 @@ LABEL_12:
 
 void trimAccyHealthDictionary()
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([gAccyHealthDictionary count] >= 0x20)
   {
     v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", 0, 0, 0];
     v1 = gAccyHealthDictionary;
-    v5 = OUTLINED_FUNCTION_50(v0, v2, v3, v4);
-    if (v5)
+    v9 = OUTLINED_FUNCTION_50(v0, v2, v3, v4, v5, v6, v7, v8);
+    if (v9)
     {
-      v6 = v5;
-      v7 = 0;
-      v8 = MEMORY[0];
-      v9 = -1;
+      v10 = v9;
+      v11 = 0;
+      v12 = MEMORY[0];
+      v13 = -1;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (MEMORY[0] != v8)
+          if (MEMORY[0] != v12)
           {
             objc_enumerationMutation(v1);
           }
 
-          v11 = *(8 * i);
-          v12 = [v11 isEqualToString:v0];
-          if ((v12 & 1) == 0)
+          v15 = *(8 * i);
+          v16 = [v15 isEqualToString:v0];
+          if ((v16 & 1) == 0)
           {
-            v16 = [gAccyHealthDictionary objectForKey:v11];
-            v12 = [v16 lastSeenTimestamp];
-            if (v12 < v9)
+            v24 = [gAccyHealthDictionary objectForKey:v15];
+            v16 = [v24 lastSeenTimestamp];
+            if (v16 < v13)
             {
-              if (v7)
+              if (v11)
               {
               }
 
-              v7 = v11;
-              v12 = [v16 lastSeenTimestamp];
-              v9 = v12;
+              v11 = v15;
+              v16 = [v24 lastSeenTimestamp];
+              v13 = v16;
             }
           }
         }
 
-        v6 = OUTLINED_FUNCTION_50(v12, v13, v14, v15);
+        v10 = OUTLINED_FUNCTION_50(v16, v17, v18, v19, v20, v21, v22, v23);
       }
 
-      while (v6);
-      if (v7)
+      while (v10);
+      if (v11)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136446466;
-          v20 = [v7 UTF8String];
-          v21 = 2048;
-          v22 = v9;
-          OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v17, "[trim] <%{public}s> : %llu", &v19);
+          v26 = 136446466;
+          v27 = [v11 UTF8String];
+          v28 = 2048;
+          v29 = v13;
+          OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v25, "[trim] <%{public}s> : %llu", &v26);
         }
 
-        [gAccyHealthDictionary removeObjectForKey:v7];
+        [gAccyHealthDictionary removeObjectForKey:v11];
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void commitPersistentAccyHealthDictionary()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if (v0)
   {
     v1 = v0;
-    v7 = 0;
-    v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gAccyHealthDictionary requiringSecureCoding:1 error:&v7];
-    v3 = v7;
-    if (v7)
+    v6 = 0;
+    v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gAccyHealthDictionary requiringSecureCoding:1 error:&v6];
+    v3 = v6;
+    if (v6)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         v4 = [objc_msgSend(v3 "localizedDescription")];
-        v8 = 136315394;
-        v9 = "commitPersistentAccyHealthDictionary";
-        v10 = 2080;
-        v11 = v4;
-        OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v5, "%s err: %s", &v8);
-        v3 = v7;
+        v7 = 136315394;
+        v8 = "commitPersistentAccyHealthDictionary";
+        v9 = 2080;
+        v10 = v4;
+        OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v5, "%s err: %s", &v7);
+        v3 = v6;
       }
     }
 
@@ -6398,13 +6508,11 @@ void commitPersistentAccyHealthDictionary()
       [v1 setObject:v2 forKey:@"accyHealthDict"];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 BOOL evaluateAccyHealthDictionary(unint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (gAccyHealthDictionary && (v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%012llx_%1d_%012llx", 0, 0, 0], (v5 = objc_msgSend(gAccyHealthDictionary, "objectForKey:", v4)) != 0) && objc_msgSend(v5, "isHealthy"))
   {
     if (!digitalIdNumPinsFree(a1, buf))
@@ -6438,15 +6546,15 @@ LABEL_7:
     v10 = *(a2 + 51);
     v11 = *(a2 + 53);
     *buf = 134219008;
-    v17 = a1;
-    v18 = 1024;
-    v19 = v10;
-    v20 = 2048;
-    v21 = v11;
-    v22 = 1024;
-    v23 = v8;
-    v24 = 1024;
-    v25 = v9;
+    v16 = a1;
+    v17 = 1024;
+    v18 = v10;
+    v19 = 2048;
+    v20 = v11;
+    v21 = 1024;
+    v22 = v8;
+    v23 = 1024;
+    v24 = v9;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[eval] <%012llx_%1d_%012llx> : emptyFail %d, accyFail %d", buf, 0x28u);
   }
 
@@ -6467,13 +6575,11 @@ LABEL_7:
   }
 
   IOAccessoryAggDCollectData(v13, a2);
-  v14 = *MEMORY[0x277D85DE8];
   return ((v8 | v9) & 1) == 0;
 }
 
 void IOAccessoryAggDCollectDataWithInterval(const __CFString *a1, const __CFString *a2, unint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = enableVoltageEventMonitorModeAggD != 1 || off_2812C4300 == 0;
   if (!v3 && (CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.overvoltage") || CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.drytooshort") || CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.voltagefluctuation") || CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.wettoolong") || CFEqual(a1, @"com.apple.ioaccessorymanager.ldcm.notification.wetduration")))
   {
@@ -6496,8 +6602,6 @@ void IOAccessoryAggDCollectDataWithInterval(const __CFString *a1, const __CFStri
       CFRelease(v8);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccessoryAggDBadAccyEventData(unsigned __int8 *a1)
@@ -6525,25 +6629,24 @@ void IOAccessoryAggDBadAccyEventData(unsigned __int8 *a1)
       v3 = a1[51];
     }
 
-    v4 = *MEMORY[0x277CBECE8];
-    v15 = v2;
-    v16 = v3;
-    v5 = OUTLINED_FUNCTION_48();
-    v8 = CFStringCreateWithFormat(v5, v6, v7, v15, v16);
-    if (v8)
+    v14 = v2;
+    v15 = v3;
+    v4 = OUTLINED_FUNCTION_48();
+    v7 = CFStringCreateWithFormat(v4, v5, v6, v14, v15);
+    if (v7)
     {
-      v9 = v8;
-      v10 = OUTLINED_FUNCTION_48();
-      MutableCopy = CFStringCreateMutableCopy(v10, v11, v12);
+      v8 = v7;
+      v9 = OUTLINED_FUNCTION_48();
+      MutableCopy = CFStringCreateMutableCopy(v9, v10, v11);
       if (MutableCopy)
       {
-        v14 = MutableCopy;
-        CFStringAppend(MutableCopy, v9);
-        _MergedGlobals(v14, 1);
-        CFRelease(v14);
+        v13 = MutableCopy;
+        CFStringAppend(MutableCopy, v8);
+        _MergedGlobals(v13, 1);
+        CFRelease(v13);
       }
 
-      CFRelease(v9);
+      CFRelease(v8);
     }
   }
 }
@@ -6591,77 +6694,56 @@ void IOAccessoryAggDAverageVhiTimeData(uint64_t a1, uint64_t a2)
   }
 }
 
-void IOAccessoryAggDVoltageData(unsigned __int8 *a1)
+void IOAccessoryAggDVoltageData(uint64_t a1)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v17[0] = @"com.apple.ioaccessorymanager.voltage.histogram.dp1";
-  v17[1] = @"com.apple.ioaccessorymanager.voltage.histogram.dn1";
-  v17[2] = @"com.apple.ioaccessorymanager.voltage.histogram.dp2";
-  v17[3] = @"com.apple.ioaccessorymanager.voltage.histogram.dn2";
-  if (!off_2812C4300)
+  v9[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"com.apple.ioaccessorymanager.voltage.histogram.dp1";
+  v9[1] = @"com.apple.ioaccessorymanager.voltage.histogram.dn1";
+  v9[2] = @"com.apple.ioaccessorymanager.voltage.histogram.dp2";
+  v9[3] = @"com.apple.ioaccessorymanager.voltage.histogram.dn2";
+  if (off_2812C4300)
   {
-    goto LABEL_10;
-  }
-
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = a1[14];
-  v4 = a1[15];
-  v5 = a1[16];
-  v6 = a1[17];
-  v7 = a1[18];
-  v8 = a1[19];
-  OUTLINED_FUNCTION_35();
-  v9 = CFStringCreateWithFormat(v2, 0, @".%02x%02x%02x%02x%02x%02x");
-  v11 = 0;
-  v12 = a1 + 20;
-  do
-  {
-    if (v12[v11])
+    v2 = *MEMORY[0x277CBECE8];
+    OUTLINED_FUNCTION_35();
+    v3 = CFStringCreateWithFormat(v2, 0, @".%02x%02x%02x%02x%02x%02x");
+    v5 = 0;
+    v6 = a1 + 20;
+    do
     {
-      LOWORD(v10) = *&v12[2 * v11 + 12];
-      v13 = v10 / 1000.0;
-      MutableCopy = CFStringCreateMutableCopy(v2, 0, v17[v11]);
-      CFStringAppend(MutableCopy, v9);
-      off_2812C4300(MutableCopy, v13);
-      CFRelease(MutableCopy);
+      if (*(v6 + v5))
+      {
+        LOWORD(v4) = *(v6 + 2 * v5 + 12);
+        v7 = v4 / 1000.0;
+        MutableCopy = CFStringCreateMutableCopy(v2, 0, v9[v5]);
+        CFStringAppend(MutableCopy, v3);
+        off_2812C4300(MutableCopy, v7);
+        CFRelease(MutableCopy);
+      }
+
+      ++v5;
     }
 
-    ++v11;
-  }
+    while (v5 != 4);
+    if (v3)
+    {
 
-  while (v11 != 4);
-  if (v9)
-  {
-    v15 = *MEMORY[0x277D85DE8];
-
-    CFRelease(v9);
-  }
-
-  else
-  {
-LABEL_10:
-    v16 = *MEMORY[0x277D85DE8];
+      CFRelease(v3);
+    }
   }
 }
 
-uint64_t IOAccessoryAppleCareLoggingForNonVoltageEvents(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+void *IOAccessoryAppleCareLoggingForNonVoltageEvents(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [MEMORY[0x277CBEB18] array];
   if (enableVoltageEventMonitorModeAppleCareLogging == 1)
   {
-    v7 = result;
+    v6 = result;
     [MEMORY[0x277CCABB0] numberWithInt:100];
     [OUTLINED_FUNCTION_12() addObject:?];
     [MEMORY[0x277CCACA8] stringWithFormat:@"%s", a1];
     [OUTLINED_FUNCTION_12() addObject:?];
-    v8 = *a2;
-    v9 = a2[1];
-    v10 = a2[2];
-    v11 = a2[3];
-    v12 = a2[4];
-    v13 = a2[5];
     OUTLINED_FUNCTION_35();
-    [v14 stringWithFormat:@"%02x %02x %02x %02x %02x %02x"];
+    [v7 stringWithFormat:@"%02x %02x %02x %02x %02x %02x"];
     [OUTLINED_FUNCTION_12() addObject:?];
     [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x", a3];
     [OUTLINED_FUNCTION_12() addObject:?];
@@ -6671,11 +6753,11 @@ uint64_t IOAccessoryAppleCareLoggingForNonVoltageEvents(uint64_t a1, unsigned __
     [OUTLINED_FUNCTION_12() addObject:?];
     [MEMORY[0x277CCABB0] numberWithBool:0];
     result = [OUTLINED_FUNCTION_12() addObject:?];
-    v15 = off_2812C4310;
+    v8 = off_2812C4310;
     if (off_2812C4310)
     {
 
-      return v15(v7);
+      return v8(v6);
     }
   }
 
@@ -6684,7 +6766,6 @@ uint64_t IOAccessoryAppleCareLoggingForNonVoltageEvents(uint64_t a1, unsigned __
 
 uint64_t IOAccessoryAggDPostScalarKey(uint64_t result, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (result)
   {
     if (a2)
@@ -6700,92 +6781,85 @@ uint64_t IOAccessoryAggDPostScalarKey(uint64_t result, uint64_t a2)
           v2 = _MergedGlobals;
         }
 
-        result = v2(v3, 1);
+        return v2(v3, 1);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void IOAccessoryAggDPostHistogramKey(const __CFString *a1, void *a2, double a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a1 && a2 && off_2812C4300)
   {
     if (CFStringCompare(a1, @"com.apple.ioaccessorymanager.ldcm.notification.wetduration", 1uLL) && CFStringCompare(a1, @"com.apple.ioaccessorymanager.ldcm.notification.wettoolong", 1uLL) && CFStringCompare(a1, @"com.apple.ioaccessorymanager.ldcm.notification.drytooshort", 1uLL))
     {
-      ShouldKeyUseEventBasedData = IOAccessoryShouldKeyUseEventBasedData(a1);
-      v8 = *MEMORY[0x277CBECE8];
-      if (ShouldKeyUseEventBasedData)
+      if (IOAccessoryShouldKeyUseEventBasedData(a1))
       {
         [a2 eventBasedDigitalID];
-        v9 = [OUTLINED_FUNCTION_45() eventBasedOrientation];
+        v7 = [OUTLINED_FUNCTION_45() eventBasedOrientation];
       }
 
       else
       {
         [a2 connectedAccessoryDigitalID];
-        v9 = [OUTLINED_FUNCTION_45() connectedAccessoryOrientation];
+        v7 = [OUTLINED_FUNCTION_45() connectedAccessoryOrientation];
       }
 
-      v23 = v3;
-      v24 = v9;
+      v18 = v3;
+      v19 = v7;
     }
 
     else
     {
-      v10 = IOAccessoryShouldKeyUseEventBasedData(a1);
-      v11 = *MEMORY[0x277CBECE8];
-      if (v10)
+      if (IOAccessoryShouldKeyUseEventBasedData(a1))
       {
         [a2 eventBasedDigitalID];
-        v12 = [OUTLINED_FUNCTION_45() eventBasedOrientation];
+        v8 = [OUTLINED_FUNCTION_45() eventBasedOrientation];
       }
 
       else
       {
         [a2 connectedAccessoryDigitalID];
-        v12 = [OUTLINED_FUNCTION_45() connectedAccessoryOrientation];
+        v8 = [OUTLINED_FUNCTION_45() connectedAccessoryOrientation];
       }
 
-      v23 = v3;
-      v24 = v12;
+      v18 = v3;
+      v19 = v8;
     }
 
-    v13 = OUTLINED_FUNCTION_48();
-    v16 = CFStringCreateWithFormat(v13, v14, v15, v23, v24);
-    if (v16)
+    v9 = OUTLINED_FUNCTION_48();
+    v12 = CFStringCreateWithFormat(v9, v10, v11, v18, v19);
+    if (v12)
     {
-      v17 = OUTLINED_FUNCTION_48();
-      MutableCopy = CFStringCreateMutableCopy(v17, v18, a1);
+      v13 = OUTLINED_FUNCTION_48();
+      MutableCopy = CFStringCreateMutableCopy(v13, v14, a1);
       if (MutableCopy)
       {
-        v20 = MutableCopy;
-        CFStringAppend(MutableCopy, v16);
+        v16 = MutableCopy;
+        CFStringAppend(MutableCopy, v12);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138543618;
-          v26 = v20;
-          v27 = 2048;
-          v28 = a3;
-          OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v21, "Logging aggd key: %{public}@ value: %f", &v25);
+          v20 = 138543618;
+          v21 = v16;
+          v22 = 2048;
+          v23 = a3;
+          OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v17, "Logging aggd key: %{public}@ value: %f", &v20);
         }
 
-        off_2812C4300(v20, a3);
-        CFRelease(v20);
+        off_2812C4300(v16, a3);
         CFRelease(v16);
+        CFRelease(v12);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccessoryAggDPostScalarPrefixKey(const __CFString *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a2)
@@ -6793,37 +6867,34 @@ void IOAccessoryAggDPostScalarPrefixKey(const __CFString *a1, void *a2)
       if (_MergedGlobals)
       {
         CFStringCompare(a1, @"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount", 1uLL);
-        v4 = *MEMORY[0x277CBECE8];
-        v5 = [a2 connectedAccessoryDigitalID];
-        v17 = [a2 connectedAccessoryOrientation];
-        v6 = OUTLINED_FUNCTION_24();
-        v9 = CFStringCreateWithFormat(v6, v7, v8, v5, v17);
-        if (v9)
+        v4 = [a2 connectedAccessoryDigitalID];
+        v15 = [a2 connectedAccessoryOrientation];
+        v5 = OUTLINED_FUNCTION_24();
+        v8 = CFStringCreateWithFormat(v5, v6, v7, v4, v15);
+        if (v8)
         {
-          v10 = v9;
-          v11 = OUTLINED_FUNCTION_24();
-          MutableCopy = CFStringCreateMutableCopy(v11, v12, a1);
+          v9 = v8;
+          v10 = OUTLINED_FUNCTION_24();
+          MutableCopy = CFStringCreateMutableCopy(v10, v11, a1);
           if (MutableCopy)
           {
-            v14 = MutableCopy;
-            CFStringAppend(MutableCopy, v10);
+            v13 = MutableCopy;
+            CFStringAppend(MutableCopy, v9);
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              v18 = 138543362;
-              v19 = v14;
-              OUTLINED_FUNCTION_30(&dword_2548F1000, MEMORY[0x277D86220], v15, "Incrementing aggd key: %{public}@", &v18);
+              v16 = 138543362;
+              v17 = v13;
+              OUTLINED_FUNCTION_30(&dword_2548F1000, MEMORY[0x277D86220], v14, "Incrementing aggd key: %{public}@", &v16);
             }
 
-            _MergedGlobals(v14, 1);
-            CFRelease(v14);
-            CFRelease(v10);
+            _MergedGlobals(v13, 1);
+            CFRelease(v13);
+            CFRelease(v9);
           }
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccessoryNotifyWetCallback_0(uint64_t a1, uint64_t a2)
@@ -6982,8 +7053,8 @@ void IOAccessoryGiveUserRadarOption(void *a1, int a2)
 
 void IOAccessoryFileRadarHalogen(uint64_t a1, int a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v29 = [MEMORY[0x277CBEB38] dictionary];
+  v36 = *MEMORY[0x277D85DE8];
+  v28 = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CCAB68] string];
   v5 = [MEMORY[0x277CCAC10] pipe];
   v6 = [MEMORY[0x277CCAC10] pipe];
@@ -7009,15 +7080,15 @@ void IOAccessoryFileRadarHalogen(uint64_t a1, int a2)
   {
     [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v11 encoding:4];
     OUTLINED_FUNCTION_43(4.8151e-34);
-    v36 = v12;
-    OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v13, "%s:\n%@", v35);
+    v35 = v12;
+    OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v13, "%s:\n%@", v34);
   }
 
   if (([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_43(4.8151e-34);
-    v36 = @"/tmp/ioam_aggregatectl.log";
-    OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v14, "%s Unable to create file at '%@'", v35);
+    v35 = @"/tmp/ioam_aggregatectl.log";
+    OUTLINED_FUNCTION_29(&dword_2548F1000, MEMORY[0x277D86220], v14, "%s Unable to create file at '%@'", v34);
   }
 
   if (a2)
@@ -7055,31 +7126,31 @@ void IOAccessoryFileRadarHalogen(uint64_t a1, int a2)
   }
 
   v18 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v31;
+    v21 = *v30;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v31 != v21)
+        if (*v30 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v30 + 1) + 8 * i);
+        v23 = *(*(&v29 + 1) + 8 * i);
         [v17 appendString:{@", "}];
         [@"/private/var/mobile/Library/Logs/com.apple.ioam/ioam_logs/" stringByAppendingPathComponent:v23];
         [OUTLINED_FUNCTION_11() appendString:?];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v20);
@@ -7097,7 +7168,7 @@ void IOAccessoryFileRadarHalogen(uint64_t a1, int a2)
     if (v26)
     {
       v27 = v26;
-      [v29 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithBool:", 1), v26}];
+      [v28 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithBool:", 1), v26}];
       [objc_msgSend(MEMORY[0x277CC1E80] "defaultWorkspace")];
     }
   }
@@ -7106,17 +7177,15 @@ void IOAccessoryFileRadarHalogen(uint64_t a1, int a2)
   {
     [objc_msgSend(MEMORY[0x277CC1E80] "defaultWorkspace")];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t updateAccyHalogenHealthDictionary(void *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   if (!gAccyHealthDictionary || [objc_msgSend(a1 "halogenMeasurement")] > 2)
   {
-    goto LABEL_25;
+    return 0;
   }
 
   number = 0xAAAAAAAAAAAAAAAALL;
@@ -7128,7 +7197,7 @@ uint64_t updateAccyHalogenHealthDictionary(void *a1)
     if (!v3)
     {
       v4 = objc_alloc_init(IOAccessoryLdcmHealthClass);
-      v18 = v4;
+      v17 = v4;
       [OUTLINED_FUNCTION_28() setIsHealthy:?];
       trimAccyHealthDictionary();
     }
@@ -7165,28 +7234,27 @@ uint64_t updateAccyHalogenHealthDictionary(void *a1)
         {
           if (_MergedGlobals)
           {
-            v19 = *MEMORY[0x277CBECE8];
-            v20 = OUTLINED_FUNCTION_24();
-            v23 = CFStringCreateWithFormat(v20, v21, v22, 0, 0);
-            if (v23)
+            v18 = OUTLINED_FUNCTION_24();
+            v21 = CFStringCreateWithFormat(v18, v19, v20, 0, 0);
+            if (v21)
             {
-              v24 = v23;
-              v25 = OUTLINED_FUNCTION_24();
-              MutableCopy = CFStringCreateMutableCopy(v25, v26, v27);
+              v22 = v21;
+              v23 = OUTLINED_FUNCTION_24();
+              MutableCopy = CFStringCreateMutableCopy(v23, v24, v25);
               if (MutableCopy)
               {
-                v29 = MutableCopy;
-                CFStringAppend(MutableCopy, v24);
+                v27 = MutableCopy;
+                CFStringAppend(MutableCopy, v22);
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
-                  v33 = 138543362;
-                  v34 = v29;
-                  OUTLINED_FUNCTION_30(&dword_2548F1000, MEMORY[0x277D86220], v30, "Incrementing aggd key: %{public}@", &v33);
+                  v31 = 138543362;
+                  v32 = v27;
+                  OUTLINED_FUNCTION_30(&dword_2548F1000, MEMORY[0x277D86220], v28, "Incrementing aggd key: %{public}@", &v31);
                 }
 
-                _MergedGlobals(v29, 1);
-                CFRelease(v29);
-                CFRelease(v24);
+                _MergedGlobals(v27, 1);
+                CFRelease(v27);
+                CFRelease(v22);
               }
             }
           }
@@ -7197,85 +7265,74 @@ uint64_t updateAccyHalogenHealthDictionary(void *a1)
     }
   }
 
-  [a1 service];
-  if (_retrieveDeviceInterfaceSerialNumber())
+  if (_retrieveDeviceInterfaceSerialNumber([a1 service], &number))
   {
-LABEL_25:
-    result = 0;
+    return 0;
+  }
+
+  CFNumberGetValue(number, kCFNumberSInt64Type, &valuePtr);
+  CFRelease(number);
+  v7 = MEMORY[0x277CCACA8];
+  v8 = [a1 connectedAccessoryDigitalID];
+  v9 = [a1 connectedAccessoryOrientation];
+  v10 = [v7 stringWithFormat:@"%012llx_%1d_%012llx", v8, v9, valuePtr];
+  v11 = [gAccyHealthDictionary objectForKey:v10];
+  v12 = v11;
+  if (!v11)
+  {
+    v12 = objc_alloc_init(IOAccessoryLdcmHealthClass);
+    v16 = v12;
+    [OUTLINED_FUNCTION_28() setIsHealthy:?];
+    trimAccyHealthDictionary();
+  }
+
+  if ([objc_msgSend(a1 "halogenMeasurement")] && objc_msgSend(objc_msgSend(a1, "halogenMeasurement"), "halogenResult") != 1)
+  {
+    if ([objc_msgSend(a1 "halogenMeasurement")] == 2)
+    {
+      [(IOAccessoryLdcmHealthClass *)v12 wetCount];
+      [OUTLINED_FUNCTION_44() setWetCount:?];
+    }
   }
 
   else
   {
-    CFNumberGetValue(number, kCFNumberSInt64Type, &valuePtr);
-    CFRelease(number);
-    v7 = MEMORY[0x277CCACA8];
-    v8 = [a1 connectedAccessoryDigitalID];
-    v9 = [a1 connectedAccessoryOrientation];
-    v10 = [v7 stringWithFormat:@"%012llx_%1d_%012llx", v8, v9, valuePtr];
-    v11 = [gAccyHealthDictionary objectForKey:v10];
-    v12 = v11;
-    if (!v11)
-    {
-      v12 = objc_alloc_init(IOAccessoryLdcmHealthClass);
-      v17 = v12;
-      [OUTLINED_FUNCTION_28() setIsHealthy:?];
-      trimAccyHealthDictionary();
-    }
-
-    if ([objc_msgSend(a1 "halogenMeasurement")] && objc_msgSend(objc_msgSend(a1, "halogenMeasurement"), "halogenResult") != 1)
-    {
-      if ([objc_msgSend(a1 "halogenMeasurement")] == 2)
-      {
-        [(IOAccessoryLdcmHealthClass *)v12 wetCount];
-        [OUTLINED_FUNCTION_44() setWetCount:?];
-      }
-    }
-
-    else
-    {
-      [(IOAccessoryLdcmHealthClass *)v12 dryCount];
-      [OUTLINED_FUNCTION_44() setDryCount:?];
-    }
-
-    v13 = [(IOAccessoryLdcmHealthClass *)v12 isHealthy];
-    if ([(IOAccessoryLdcmHealthClass *)v12 dryCount])
-    {
-      [OUTLINED_FUNCTION_40() setIsHealthy:?];
-    }
-
-    [gAccyHealthDictionary setObject:v12 forKey:v10];
-    v14 = [(IOAccessoryLdcmHealthClass *)v12 isHealthy];
-    if (!v11 || v13 != v14)
-    {
-      commitPersistentAccyHealthDictionary();
-      if (![(IOAccessoryLdcmHealthClass *)v12 isHealthy])
-      {
-        IOAccessoryAggDPostScalarPrefixKey(@"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount", a1);
-      }
-
-      dbgShowAccyHealthDictionary();
-    }
-
-    result = 1;
+    [(IOAccessoryLdcmHealthClass *)v12 dryCount];
+    [OUTLINED_FUNCTION_44() setDryCount:?];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  v13 = [(IOAccessoryLdcmHealthClass *)v12 isHealthy];
+  if ([(IOAccessoryLdcmHealthClass *)v12 dryCount])
+  {
+    [OUTLINED_FUNCTION_40() setIsHealthy:?];
+  }
+
+  [gAccyHealthDictionary setObject:v12 forKey:v10];
+  v14 = [(IOAccessoryLdcmHealthClass *)v12 isHealthy];
+  if (!v11 || v13 != v14)
+  {
+    commitPersistentAccyHealthDictionary();
+    if (![(IOAccessoryLdcmHealthClass *)v12 isHealthy])
+    {
+      IOAccessoryAggDPostScalarPrefixKey(@"com.apple.ioaccessorymanager.ldcm.notification.badaccessorycount", a1);
+    }
+
+    dbgShowAccyHealthDictionary();
+  }
+
+  return 1;
 }
 
 void performAssetQuery_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t appendEventToHistory_cold_1(uint64_t a1, __int128 *a2, void *a3)
+void *appendEventToHistory_cold_1(uint64_t a1, __int128 *a2, void *a3)
 {
   v4 = *a2;
   v5 = a2[1];
@@ -7309,35 +7366,31 @@ void _generateUIAnalyticEvents_cold_1(void *a1, char a2)
 
 void _holdPowerAssertion_cold_1()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_16();
-  _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s failed to release power assertion. Error 0x%x\n", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s failed to release power assertion. Error 0x%x\n", v0, 0x12u);
 }
 
 void _holdPowerAssertion_cold_2()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_16();
-  _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s failed to acquire power assertion. Error 0x%x\n", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s failed to acquire power assertion. Error 0x%x\n", v0, 0x12u);
 }
 
 void _holdPowerAssertion_cold_3(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   [a1 isPowerAssertionHeld];
-  v2[0] = 136315394;
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_16();
-  _os_log_debug_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s halogen power assertion already in the correct state: %d.\n", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s halogen power assertion already in the correct state: %d.\n", v1, 0x12u);
 }
 
 void recordCallback_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     [a1 pcmInputDataMaxSzInBytes];
@@ -7345,8 +7398,6 @@ void recordCallback_cold_1(void *a1)
     OUTLINED_FUNCTION_0();
     _os_log_impl(v2, v3, v4, v5, v6, 0x14u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 BOOL IOAccessoryStartSystemStateMonitor()
@@ -7365,9 +7416,9 @@ BOOL IOAccessoryStartSystemStateMonitor()
 
 BOOL IOAccessoryStartLDCM(__CFRunLoop *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   refCon = 0xAAAAAAAAAAAAAAAALL;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
   v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [v2 BOOLForKey:@"LDCMDiscoveryDisabled"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -7398,7 +7449,7 @@ BOOL IOAccessoryStartLDCM(__CFRunLoop *a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v22 = v3;
+    v21 = v3;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - LDCM Discovery disabled? default setting: %d", buf, 8u);
   }
 
@@ -7411,7 +7462,7 @@ BOOL IOAccessoryStartLDCM(__CFRunLoop *a1)
     }
 
     refCon = v11;
-    v20 = a1;
+    v19 = a1;
     v12 = IOServiceMatching("IOPortFeatureLDCM");
     v13 = IOServiceAddMatchingNotification(v11, "IOServiceFirstPublish", v12, IOPortLDCMServiceMatchingCallback, &refCon, &notification);
     if (v9)
@@ -7439,7 +7490,6 @@ BOOL IOAccessoryStartLDCM(__CFRunLoop *a1)
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

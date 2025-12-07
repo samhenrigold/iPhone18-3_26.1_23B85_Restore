@@ -1,3 +1,104 @@
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<CoreNLP::NumRange<int>::iterator,CoreNLP::NumRange<int>::iterator>(uint64_t *result, uint64_t a2, int a3, uint64_t a4, int a5, unint64_t a6)
+{
+  if (a6)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](result, a6);
+  }
+
+  return result;
+}
+
+void sub_19D2124D8(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::less<std::pair<float,int>> &,std::__wrap_iter<std::pair<float,int>*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4 - 2;
+  if (a4 < 2)
+  {
+    return result;
+  }
+
+  v5 = v4 >> 1;
+  v6 = result + 8 * (v4 >> 1);
+  v7 = *v6;
+  v8 = *(a2 - 8);
+  if (*v6 >= v8)
+  {
+    if (v8 < v7)
+    {
+      return result;
+    }
+
+    v10 = *(v6 + 4);
+    v9 = *(a2 - 4);
+    if (v10 >= v9)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    v9 = *(a2 - 4);
+    v10 = *(v6 + 4);
+  }
+
+  *(a2 - 8) = v7;
+  *(a2 - 4) = v10;
+  if (v4 < 2)
+  {
+    goto LABEL_16;
+  }
+
+  v11 = result + 8 * (v4 >> 1);
+  while (1)
+  {
+    v12 = v5 - 1;
+    v5 = (v5 - 1) >> 1;
+    v6 = result + 8 * v5;
+    v13 = *v6;
+    if (*v6 >= v8)
+    {
+      break;
+    }
+
+    v14 = *(v6 + 4);
+LABEL_10:
+    *v11 = v13;
+    *(v11 + 4) = v14;
+    v11 = result + 8 * v5;
+    if (v12 <= 1)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  if (v8 >= v13)
+  {
+    v14 = *(v6 + 4);
+    if (v14 < v9)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  v6 = v11;
+LABEL_16:
+  *v6 = v8;
+  *(v6 + 4) = v9;
+  return result;
+}
+
 float std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::less<std::pair<float,int>> &,std::__wrap_iter<std::pair<float,int>*>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = 0;
@@ -315,9 +416,9 @@ void std::shared_ptr<CoreNLP::ModelContainer>::shared_ptr[abi:ne200100]<CoreNLP:
   operator new();
 }
 
-void sub_19D213074(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D213074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CoreNLP::ModelContainer>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -427,7 +528,7 @@ void *CoreNLP::TaggerManager::getRuleBasedTagger(uint64_t a1, unsigned int a2)
     {
       v10 = v4;
       v11 = &v10;
-      v6 = std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(a1, &v10)[3];
+      v6 = std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(a1, &v10, &std::piecewise_construct, &v11)[3];
       v7 = *(a1 + 48);
       Length = CFStringGetLength(v7);
       (*(*v6 + 40))(v6, v7, 0, Length, 0);
@@ -436,7 +537,7 @@ void *CoreNLP::TaggerManager::getRuleBasedTagger(uint64_t a1, unsigned int a2)
 
   v10 = v4;
   v11 = &v10;
-  return std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(a1, &v10) + 3;
+  return std::__hash_table<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unique_ptr<CoreNLP::Tagger>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(a1, &v10, &std::piecewise_construct, &v11) + 3;
 }
 
 void sub_19D21340C(_Unwind_Exception *exception_object)
@@ -472,7 +573,7 @@ void *___ZN7CoreNLP13TaggerManager15enumerateTokensE15NLTokenizerUnit7CFRangemU1
   return result;
 }
 
-__CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityForCurrentToken(CoreNLP::CompositeTagger ***this, const __CFString *a2)
+__CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityForCurrentToken(CoreNLP::CompositeTagger ***this, __CFString *a2)
 {
   if (*(this + 57))
   {
@@ -485,7 +586,7 @@ __CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityForCurrentToken(Cor
   }
 }
 
-__CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(uint64_t a1, int a2, CFIndex a3, CFStringRef theString1, uint64_t a5)
+__CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(uint64_t a1, uint64_t a2, CFIndex a3, __CFString *theString1, uint64_t a5)
 {
   v10 = CoreNLP::CompositeTagger::schemeType(*(a1 + 40), theString1);
   v42 = v10;
@@ -503,15 +604,15 @@ __CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(uint64_t a1
   }
 
   v13 = v12;
-  AttributedTokenAtIndex = CoreNLP::CompositeTagger::getAttributedTokenAtIndex(*(a1 + 40));
+  AttributedTokenAtIndex = CoreNLP::CompositeTagger::getAttributedTokenAtIndex(*(a1 + 40), a2, a3);
   valuePtr = 0x3FF0000000000000;
   if ((v42 - 5) > 0xFFFFFFFD || CFEqual(theString1, kNLTagSchemeLemma[0]))
   {
     goto LABEL_7;
   }
 
-  v27 = (AttributedTokenAtIndex + 32);
-  v26 = *(AttributedTokenAtIndex + 32);
+  v27 = AttributedTokenAtIndex + 32;
+  v26 = *(AttributedTokenAtIndex + 4);
   for (i = v42; v26; v26 = *v26)
   {
     v29 = *(v26 + 8);
@@ -520,7 +621,7 @@ __CFDictionary *CoreNLP::TaggerManager::copyTagAndProbabilityAtIndex(uint64_t a1
       if (v29 >= v42)
       {
         v37 = &v42;
-        valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 24, &v42)[6];
+        valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 24, &v42, &std::piecewise_construct, &v37)[6];
         i = v42;
         break;
       }
@@ -558,7 +659,7 @@ LABEL_35:
 
   if (v31 != 6)
   {
-    ++v30;
+    v30 += 8;
     goto LABEL_35;
   }
 
@@ -566,7 +667,7 @@ LABEL_35:
   {
     LODWORD(v43) = 6;
     v37 = &v43;
-    valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 24, &v43)[6];
+    valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 24, &v43, &std::piecewise_construct, &v37)[6];
   }
 
 LABEL_39:
@@ -580,7 +681,7 @@ LABEL_39:
         if (*j <= a3 && j[1] + *j > a3)
         {
           v37 = &v42;
-          valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((j + 3), &v42)[6];
+          valuePtr = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::pair<int,double>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>((j + 3), &v42, &std::piecewise_construct, &v37)[6];
           break;
         }
       }
@@ -608,16 +709,16 @@ LABEL_39:
     v36 = AttributedTokenAtIndex + 32;
     do
     {
-      if (*(v35 + 32) >= v33)
+      if (*(v35 + 8) >= v33)
       {
         v36 = v35;
       }
 
-      v35 = *(v35 + 8 * (*(v35 + 32) < v33));
+      v35 = *&v35[8 * (*(v35 + 8) < v33)];
     }
 
     while (v35);
-    if (v36 != v27 && v33 >= *(v36 + 32))
+    if (v36 != v27 && v33 >= *(v36 + 8))
     {
       valuePtr = 0x3FF0000000000000;
     }
@@ -629,7 +730,7 @@ LABEL_7:
   if (a5 >= 2 && v42 == 12)
   {
     v43 = &v42;
-    v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 48, &v42);
+    v17 = std::__tree<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::__map_value_compare<CoreNLP::NLTagSchemeType,std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>,std::less<CoreNLP::NLTagSchemeType>,true>,std::allocator<std::__value_type<CoreNLP::NLTagSchemeType,std::vector<std::pair<int,double>>>>>::__emplace_unique_key_args<CoreNLP::NLTagSchemeType,std::piecewise_construct_t const&,std::tuple<CoreNLP::NLTagSchemeType&&>,std::tuple<>>(AttributedTokenAtIndex + 48, &v42, &std::piecewise_construct, &v43);
     v38 = 0;
     v39 = 0;
     v37 = 0;
@@ -686,7 +787,7 @@ LABEL_7:
   return Mutable;
 }
 
-__CFDictionary *CoreNLP::TaggerManager::copyLanguageMapAtIndex(uint64_t a1, int a2, CFIndex a3)
+CFDictionaryRef CoreNLP::TaggerManager::copyLanguageMapAtIndex(uint64_t a1, uint64_t a2, CFIndex a3)
 {
   if (a3 < 0)
   {
@@ -721,7 +822,7 @@ __CFDictionary *CoreNLP::TaggerManager::copyLanguageMapAtIndex(uint64_t a1, int 
   return CoreNLP::CompositeTagger::copyLanguageMapAtIndex(v9, a2, a3 - v8);
 }
 
-CoreNLP::CompositeTagger *CoreNLP::TaggerManager::setGazetteers(CoreNLP::TaggerManager *this, const __CFArray *a2, const __CFString *a3)
+CoreNLP::CompositeTagger *CoreNLP::TaggerManager::setGazetteers(CoreNLP::TaggerManager *this, const __CFArray *a2, __CFString *a3)
 {
   result = *(this + 5);
   if (result)
@@ -761,7 +862,7 @@ void corelm::modelPathToOptions(uint64_t a1@<X0>, uint64_t a2@<X1>, CFDictionary
     goto LABEL_50;
   }
 
-  applesauce::CF::StringRef::from_get(*v6, &cf);
+  applesauce::CF::StringRef::from_get(&cf, *v6);
   v9 = *(a1 + 23);
   if (v9 >= 0)
   {
@@ -813,13 +914,13 @@ void corelm::modelPathToOptions(uint64_t a1@<X0>, uint64_t a2@<X1>, CFDictionary
   _Block_object_dispose(&v31, 8);
   if (!v12)
   {
-    dlerror();
-    abort_report_np();
+    v25 = dlerror();
+    abort_report_np("%s", v25);
 LABEL_50:
     __break(1u);
   }
 
-  applesauce::CF::StringRef::from_get(*v12, &v28);
+  applesauce::CF::StringRef::from_get(&v28, *v12);
   v15 = *(a2 + 23);
   if (v15 >= 0)
   {
@@ -925,21 +1026,19 @@ LABEL_50:
   {
     CFRelease(cf);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
-void sub_19D213E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D213E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v8 = va_arg(va3, const void *);
+  v10 = va_arg(va3, const void *);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   applesauce::CF::StringRef::~StringRef(va1);
   applesauce::CF::URLRef::~URLRef(va2);
@@ -947,7 +1046,7 @@ void sub_19D213E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t corelm::NeuralNetwork::NeuralNetwork(uint64_t a1, uint64_t a2, uint64_t a3)
+void *corelm::NeuralNetwork::NeuralNetwork(void *a1, uint64_t a2, uint64_t a3)
 {
   corelm::modelPathToOptions(a2, a3, &v8);
   v4 = v8;
@@ -961,14 +1060,14 @@ uint64_t corelm::NeuralNetwork::NeuralNetwork(uint64_t a1, uint64_t a2, uint64_t
   return a1;
 }
 
-void sub_19D213F70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D213F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t corelm::NeuralNetwork::NeuralNetwork(uint64_t a1, const __CFDictionary **a2)
+void *corelm::NeuralNetwork::NeuralNetwork(void *a1, const __CFDictionary **a2)
 {
   v3 = _MRLNeuralNetworkCreate(*a2, a2);
 
@@ -1001,20 +1100,20 @@ uint64_t _MRLNeuralNetworkCreate(const __CFDictionary *a1, __CFError **a2)
   return v3(a1, 0);
 }
 
-uint64_t corelm::NeuralNetwork::NeuralNetwork(uint64_t a1, const void *a2)
+void *corelm::NeuralNetwork::NeuralNetwork(void *a1, const void *a2)
 {
-  *(a1 + 32) = 0u;
-  v4 = (a1 + 32);
-  *(a1 + 64) = 0;
-  *(a1 + 56) = a1 + 64;
-  v5 = (a1 + 8);
-  *(a1 + 72) = 0;
+  *(a1 + 2) = 0u;
+  v4 = (a1 + 4);
+  a1[8] = 0;
+  a1[7] = a1 + 8;
+  v5 = (a1 + 1);
+  a1[9] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 48) = 0;
-  *(a1 + 88) = 0;
-  *(a1 + 80) = a1 + 88;
-  *(a1 + 96) = 0;
+  *(a1 + 1) = 0u;
+  a1[6] = 0;
+  a1[11] = 0;
+  a1[10] = a1 + 11;
+  a1[12] = 0;
   nlp::CFScopedPtr<MontrealNeuralNetwork *>::reset(a1, a2);
   if (!a2)
   {
@@ -1025,16 +1124,16 @@ uint64_t corelm::NeuralNetwork::NeuralNetwork(uint64_t a1, const void *a2)
 
   corelm::getNames<__CFDictionary const* (*)(MontrealNeuralNetwork *)>(_MRLNeuralNetworkCopyInputNamesAndDimensions, *a1, &v8);
   std::vector<std::string>::__vdeallocate(v5);
-  *(a1 + 8) = v8;
-  *(a1 + 24) = v9;
+  *(a1 + 1) = v8;
+  a1[3] = v9;
   v9 = 0;
   v8 = 0uLL;
   v10 = &v8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v10);
   corelm::getNames<__CFDictionary const* (*)(MontrealNeuralNetwork *)>(_MRLNeuralNetworkCopyOutputNamesAndDimensions, *a1, &v8);
   std::vector<std::string>::__vdeallocate(v4);
-  *(a1 + 32) = v8;
-  *(a1 + 48) = v9;
+  *(a1 + 2) = v8;
+  a1[6] = v9;
   v9 = 0;
   v8 = 0uLL;
   v10 = &v8;
@@ -1052,11 +1151,11 @@ void sub_19D214230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void corelm::getNames<__CFDictionary const* (*)(MontrealNeuralNetwork *)>(uint64_t (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void corelm::getNames<__CFDictionary const* (*)(MontrealNeuralNetwork *)>(uint64_t (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   v4 = a1(a2);
   v28 = v4;
   if (v4)
@@ -1106,8 +1205,8 @@ LABEL_13:
     }
 
     applesauce::CF::DictionaryRef_iterator<std::string,std::vector<long>>::dereference(&v22, v12);
-    v8 = *(a3 + 8);
-    if (v8 >= *(a3 + 16))
+    v8 = a3[1];
+    if (v8 >= a3[2])
     {
       v10 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(a3, v12);
     }
@@ -1116,7 +1215,7 @@ LABEL_13:
     {
       if (SHIBYTE(v13) < 0)
       {
-        std::string::__init_copy_ctor_external(*(a3 + 8), v12[0], v12[1]);
+        std::string::__init_copy_ctor_external(a3[1], v12[0], v12[1]);
       }
 
       else
@@ -1129,7 +1228,7 @@ LABEL_13:
       v10 = (v8 + 24);
     }
 
-    *(a3 + 8) = v10;
+    a3[1] = v10;
     if (__p)
     {
       v15 = __p;
@@ -1235,14 +1334,14 @@ uint64_t _MRLNeuralNetworkCopyOutputNamesAndDimensions(uint64_t a1)
   return v2(a1);
 }
 
-void sub_19D214760(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D214760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
 
-void corelm::NeuralNetwork::predict(uint64_t *a1, uint64_t *a2)
+void corelm::NeuralNetwork::predict(corelm::NeuralNetwork *a1, uint64_t *a2)
 {
   _MRLNeuralNetworkPredict(*a1, *a2);
 
@@ -1303,27 +1402,27 @@ void corelm::NeuralNetwork::clear(corelm::NeuralNetwork *this)
   corelm::NeuralNetwork::releaseInputTensor(this);
 }
 
-uint64_t corelm::NeuralNetwork::outputDimension(uint64_t *a1, CFStringRef a2)
+uint64_t corelm::NeuralNetwork::outputDimension(uint64_t *a1, const UInt8 *a2)
 {
   v2 = a2;
   v3 = *a1;
-  data_high = HIBYTE(a2->data);
-  if ((data_high & 0x80u) != 0)
+  v4 = a2[23];
+  if ((v4 & 0x80u) != 0)
   {
-    a2 = a2->isa;
+    a2 = *a2;
   }
 
   if (a2)
   {
-    info = v2->info;
-    if ((data_high & 0x80u) == 0)
+    v5 = *(v2 + 1);
+    if ((v4 & 0x80u) == 0)
     {
-      v6 = data_high;
+      v6 = v4;
     }
 
     else
     {
-      v6 = info;
+      v6 = v5;
     }
 
     a2 = CFStringCreateWithBytes(0, a2, v6, 0x8000100u, 0);
@@ -1350,9 +1449,9 @@ uint64_t corelm::NeuralNetwork::outputDimension(uint64_t *a1, CFStringRef a2)
   return OutputDimension;
 }
 
-void sub_19D214AA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D214AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -1383,7 +1482,7 @@ uint64_t _MRLNeuralNetworkGetOutputDimension(uint64_t a1, uint64_t a2)
   return v4(a1, a2);
 }
 
-const void *corelm::NeuralNetwork::copyStates@<X0>(corelm::NeuralNetwork *this@<X0>, void *a2@<X8>)
+uint64_t *corelm::NeuralNetwork::copyStates@<X0>(uint64_t *__return_ptr a1@<X8>, corelm::NeuralNetwork *this@<X0>)
 {
   v3 = *this;
   v9 = 0;
@@ -1407,7 +1506,7 @@ const void *corelm::NeuralNetwork::copyStates@<X0>(corelm::NeuralNetwork *this@<
   }
 
   result = v4(v3, 0);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
     v7 = CFGetTypeID(result);
@@ -1442,11 +1541,8 @@ void *___ZL46getkMRLNeuralNetworkOptionModelURLKeySymbolLocv_block_invoke(uint64
 
 uint64_t ___ZL19MontrealLibraryCorePPc_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MontrealLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1560,20 +1656,20 @@ uint64_t applesauce::CF::DictionaryRef_iterator<std::string,std::vector<long>>::
   return a1;
 }
 
-void std::vector<void const*>::resize(void *a1, unint64_t a2)
+void std::vector<void const*>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void const*>::__append(a1, a2 - v2);
+    std::vector<void const*>::__append(result, a2 - v2);
   }
 }
 
@@ -1903,7 +1999,7 @@ BOOL CoreNLP::mecab::anonymous namespace::PosRule10(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-uint64_t CoreNLP::mecab::anonymous namespace::LexicalRule1(uint64_t a1, uint64_t a2)
+BOOL CoreNLP::mecab::anonymous namespace::LexicalRule1(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 80) >> 1;
   v3 = *(a2 + 64);
@@ -2040,20 +2136,7 @@ BOOL CoreNLP::mecab::anonymous namespace::LexicalRule4(uint64_t a1, uint64_t a2)
   return (*(a2 + 80) & 0xFFFE) == 2 && **(a2 + 64) == 47564;
 }
 
-BOOL CoreNLP::mecab::anonymous namespace::LexicalRule6(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 80) & 0xFFFE) == 4 && (v2 = *(a1 + 64), *v2 == 54596) && v2[1] == 50836)
-  {
-    return *(a2 + 88) == 33;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t CoreNLP::mecab::anonymous namespace::LexicalRule8(uint64_t a1, uint64_t a2)
+BOOL CoreNLP::mecab::anonymous namespace::LexicalRule8(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 88) != 37)
   {
@@ -2141,7 +2224,7 @@ uint64_t CoreNLP::mecab::anonymous namespace::LexicalRule8(uint64_t a1, uint64_t
   return v2;
 }
 
-uint64_t CoreNLP::mecab::anonymous namespace::LexicalRule9(uint64_t a1, uint64_t a2)
+BOOL CoreNLP::mecab::anonymous namespace::LexicalRule9(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 88) - 38 > 4)
   {
@@ -2249,7 +2332,7 @@ BOOL CoreNLP::mecab::anonymous namespace::LexicalRule10(uint64_t a1, uint64_t a2
   return v3;
 }
 
-uint64_t CoreNLP::mecab::anonymous namespace::LexicalRule11(uint64_t a1, uint64_t a2)
+BOOL CoreNLP::mecab::anonymous namespace::LexicalRule11(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 88);
   if (v2 != 35 && (v2 & 0xFF00) != 8960)
@@ -2339,7 +2422,7 @@ BOOL CoreNLP::mecab::anonymous namespace::LexicalRule12(uint64_t a1, uint64_t a2
 
 BOOL CoreNLP::mecab::anonymous namespace::LexicalRule13(uint64_t a1, uint64_t a2)
 {
-  if ((*(a2 + 80) & 0xFFFE) == 6 && (v2 = *(a2 + 64), *v2 == 51077) && v2[1] == 45768)
+  if ((*(a2 + 80) & 0xFFFE) == 6 && (v2 = *(a2 + 64), __PAIR64__(v2[1], *v2) == 0xB2C80000C785))
   {
     return v2[2] == 45796;
   }
@@ -2486,7 +2569,7 @@ LABEL_16:
 
 void ___ZN12_GLOBAL__N_115GetCompoundTrieEv_block_invoke()
 {
-  CoreNLP::getPathRelativeToPlatformRoot("/System/Library/LinguisticData/en/tokcompound.dat", &__p);
+  CoreNLP::getPathRelativeToPlatformRoot(&__p.st_dev, "/System/Library/LinguisticData/en/tokcompound.dat");
   if ((__p.st_gid & 0x80000000) == 0)
   {
     p_p = &__p;
@@ -2829,9 +2912,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t CoreNLP::CNNModel::CreateCNNModel@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+uint64_t CoreNLP::CNNModel::CreateCNNModel@<X0>(uint64_t result@<X0>, CoreNLP::CNNModel **a5@<X8>)
 {
-  *a2 = 0;
+  *a5 = 0;
   if (result == 2)
   {
     operator new();
@@ -2845,7 +2928,7 @@ uint64_t CoreNLP::CNNModel::CreateCNNModel@<X0>(uint64_t result@<X0>, void *a2@<
   return result;
 }
 
-void sub_19D216E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_19D216E0C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   if (a21 < 0)
   {
@@ -2872,7 +2955,7 @@ void sub_19D216E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a29);
   }
 
-  MEMORY[0x19EAF8CA0](v35, 0x10F3C405A2BBF4ALL);
+  MEMORY[0x19EAF8CA0](v35, 0x10F3C405A2BBF4ALL, a3, a4, a5, a6, a7, a8);
   *v34 = 0;
   _Unwind_Resume(a1);
 }
@@ -3001,7 +3084,7 @@ void sub_19D217128(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreNLP::CNNModel::CNNModel(uint64_t a1, int a2, uint64_t a3, __int128 *a4, __int128 *a5, __int128 *a6, uint64_t *a7)
+uint64_t CoreNLP::CNNModel::CNNModel(uint64_t a1, int a2, uint64_t a3, __int128 *a4, __int128 *a5, __int128 *a6, void *a7)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -3048,7 +3131,7 @@ uint64_t CoreNLP::CNNModel::CNNModel(uint64_t a1, int a2, uint64_t a3, __int128 
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 128, *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 128), *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
   *(a1 + 168) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = a1 + 168;
@@ -3321,7 +3404,7 @@ LABEL_23:
 
 BOOL CoreNLP::CNNModel::loadCharacterBasedModel(CoreNLP::CNNModel *this)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(this + 103) >= 0)
   {
     v2 = this + 80;
@@ -3335,35 +3418,35 @@ BOOL CoreNLP::CNNModel::loadCharacterBasedModel(CoreNLP::CNNModel *this)
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
   v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3];
   v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:0];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [objc_msgSend(v5 objectForKeyedSubscript:{v9), "unsignedIntegerValue"}];
         std::string::basic_string[abi:ne200100]<0>(__p, [v9 UTF8String]);
-        v22 = __p;
-        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 160, __p) + 56) = v10;
-        if (v17 < 0)
+        v21 = __p;
+        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 20, __p, &std::piecewise_construct, &v21) + 56) = v10;
+        if (v16 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v6);
@@ -3372,7 +3455,7 @@ BOOL CoreNLP::CNNModel::loadCharacterBasedModel(CoreNLP::CNNModel *this)
   std::string::basic_string[abi:ne200100]<0>(__p, "PAD");
   v11 = std::__tree<std::string>::find<std::string>(this + 160, __p);
   v12 = this + 168;
-  if (v17 < 0)
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
@@ -3380,28 +3463,26 @@ BOOL CoreNLP::CNNModel::loadCharacterBasedModel(CoreNLP::CNNModel *this)
   if (v12 == v11)
   {
     NSLog(&cfstr_CannotFindTheP.isa);
-LABEL_22:
-    result = 0;
-    goto LABEL_23;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, "UNK");
-  v13 = std::__tree<std::string>::find<std::string>(this + 160, __p);
-  if (v17 < 0)
+  else
   {
-    operator delete(__p[0]);
-  }
+    std::string::basic_string[abi:ne200100]<0>(__p, "UNK");
+    v13 = std::__tree<std::string>::find<std::string>(this + 160, __p);
+    if (v16 < 0)
+    {
+      operator delete(__p[0]);
+    }
 
-  if (v12 == v13)
-  {
+    if (v12 != v13)
+    {
+      return CoreNLP::CNNModel::initInference(this);
+    }
+
     NSLog(&cfstr_CannotFindTheU.isa);
-    goto LABEL_22;
   }
 
-  result = CoreNLP::CNNModel::initInference(this);
-LABEL_23:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void sub_19D217850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3418,29 +3499,24 @@ BOOL CoreNLP::CNNModel::initInference(CoreNLP::CNNModel *this)
 {
   *(this + 1) = CoreNLP::_espresso_create_context(0, 0xFFFFFFFFLL);
   *(this + 2) = CoreNLP::_espresso_create_plan();
-  if (*(this + 79) < 0)
-  {
-    v2 = *(this + 7);
-  }
-
-  v3 = CoreNLP::_espresso_plan_add_network();
+  v2 = CoreNLP::_espresso_plan_add_network();
   CoreNLP::_espresso_network_declare_input(*(this + 3), *(this + 4), "input1");
   CoreNLP::_espresso_network_declare_output(*(this + 3), *(this + 4), "output1");
-  v4 = *(this + 16);
-  v5 = *(this + 17);
-  while (v4 != v5)
+  v3 = *(this + 16);
+  v4 = *(this + 17);
+  while (v3 != v4)
   {
-    v6 = v4;
-    if (*(v4 + 23) < 0)
+    v5 = v3;
+    if (*(v3 + 23) < 0)
     {
-      v6 = *v4;
+      v5 = *v3;
     }
 
-    CoreNLP::_espresso_network_declare_output(*(this + 3), *(this + 4), v6);
-    v4 += 3;
+    CoreNLP::_espresso_network_declare_output(*(this + 3), *(this + 4), v5);
+    v3 += 3;
   }
 
-  return (v3 | CoreNLP::_espresso_plan_build(*(this + 2))) == 0;
+  return (v2 | CoreNLP::_espresso_plan_build(*(this + 2))) == 0;
 }
 
 void CoreNLP::CNNModel::prepareCharacterFeatureVector(uint64_t a1, std::vector<std::string> *this)
@@ -3620,7 +3696,7 @@ void CoreNLP::CNNModel::fillCharacterInput(uint64_t a1, void *a2, void *a3)
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "UNK");
         v14 = __p;
-        *(*a3 + 4 * v7) = *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 160, __p) + 56);
+        *(*a3 + 4 * v7) = *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 160), __p, &std::piecewise_construct, &v14) + 56);
         if (v12 < 0)
         {
           operator delete(__p[0]);
@@ -3630,7 +3706,7 @@ void CoreNLP::CNNModel::fillCharacterInput(uint64_t a1, void *a2, void *a3)
       else
       {
         __p[0] = &v13;
-        *(*a3 + 4 * v7) = *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 160, &v13.__r_.__value_.__l.__data_) + 56);
+        *(*a3 + 4 * v7) = *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 160), &v13.__r_.__value_.__l.__data_, &std::piecewise_construct, __p, &v14) + 14);
       }
 
       if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
@@ -3664,7 +3740,7 @@ void CoreNLP::CNNModel::prepareWordFeatureData(uint64_t a1, std::vector<std::str
   if (0xAAAAAAAAAAAAAAABLL * ((v4 - v3) >> 3) <= v6)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "PAD");
-    std::vector<std::string>::vector[abi:ne200100](v11, 1uLL);
+    std::vector<std::string>::vector[abi:ne200100](v11, 1uLL, __p);
     if (v10 < 0)
     {
       operator delete(__p[0]);
@@ -3721,7 +3797,7 @@ std::vector<std::string> *std::vector<std::vector<std::string>>::erase(uint64_t 
   return this;
 }
 
-std::vector<std::string> *std::vector<std::vector<std::string>>::insert(void *a1, std::vector<std::string> *a2, uint64_t *a3)
+std::vector<std::string> *std::vector<std::vector<std::string>>::insert(char **a1, std::vector<std::string> *a2, std::vector<std::string> *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -3793,7 +3869,7 @@ std::vector<std::string> *std::vector<std::vector<std::string>>::insert(void *a1
   {
     std::vector<std::vector<std::string>>::__move_range(a1, a2, v6, &a2[1]);
     v8 = a1[1] <= a3 || v4 > a3;
-    v9 = 3;
+    v9 = 1;
     if (v8)
     {
       v9 = 0;
@@ -3802,23 +3878,23 @@ std::vector<std::string> *std::vector<std::vector<std::string>>::insert(void *a1
     v10 = &a3[v9];
     if (v4 != v10)
     {
-      std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v4, *v10, v10[1], 0xAAAAAAAAAAAAAAABLL * ((v10[1] - *v10) >> 3));
+      std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v4, v10->__begin_, v10->__end_, 0xAAAAAAAAAAAAAAABLL * ((v10->__end_ - v10->__begin_) >> 3));
     }
   }
 
   return v4;
 }
 
-void sub_19D2182E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D2182E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
 void CoreNLP::CNNModel::fillWordInput(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40))
   {
     v6 = 0;
@@ -3828,43 +3904,43 @@ void CoreNLP::CNNModel::fillWordInput(uint64_t a1, void *a2, void *a3)
       v8 = *(*a2 + 24 * v7);
       if (*(v8 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v24, *v8, *(v8 + 1));
+        std::string::__init_copy_ctor_external(&v23, *v8, *(v8 + 1));
       }
 
       else
       {
         v9 = *v8;
-        v24.__r_.__value_.__r.__words[2] = *(v8 + 2);
-        *&v24.__r_.__value_.__l.__data_ = v9;
+        v23.__r_.__value_.__r.__words[2] = *(v8 + 2);
+        *&v23.__r_.__value_.__l.__data_ = v9;
       }
 
       v10 = [objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 192) objectForKeyedSubscript:{@"layer_shapes", "objectForKeyedSubscript:", @"input1", "objectForKeyedSubscript:", @"k", "unsignedIntegerValue"}];
-      LODWORD(v22[0]) = 0;
-      std::vector<float>::vector[abi:ne200100](&v23, v10);
-      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      LODWORD(v21[0]) = 0;
+      std::vector<float>::vector[abi:ne200100](&v22, v10, v21);
+      if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v11 = &v24;
+        v11 = &v23;
       }
 
       else
       {
-        v11 = v24.__r_.__value_.__r.__words[0];
+        v11 = v23.__r_.__value_.__r.__words[0];
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, [objc_msgSend(objc_msgSend(MEMORY[0x1E696AEC0] stringWithUTF8String:{v11), "lowercaseString"), "UTF8String"}]);
-      memset(v22, 0, sizeof(v22));
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v22, __p, &v27, 1uLL);
-      if (v26 < 0)
+      memset(v21, 0, sizeof(v21));
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v21, __p, &v26, 1uLL);
+      if (v25 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (CoreNLP::WordEmbedding::getAverageEmbedding(*(a1 + 152), v22, &v23))
+      if (CoreNLP::WordEmbedding::getAverageEmbedding(*(a1 + 152), v21, &v22))
       {
-        begin = v23.__begin_;
-        if (v23.__end_ != v23.__begin_)
+        begin = v22.__begin_;
+        if (v22.__end_ != v22.__begin_)
         {
-          v13 = v23.__end_ - v23.__begin_;
+          v13 = v22.__end_ - v22.__begin_;
           if (v13 <= 1)
           {
             v13 = 1;
@@ -3885,7 +3961,7 @@ void CoreNLP::CNNModel::fillWordInput(uint64_t a1, void *a2, void *a3)
       else
       {
         v16 = [*(a1 + 184) objectForKey:@"UNK"];
-        if (v23.__end_ != v23.__begin_)
+        if (v22.__end_ != v22.__begin_)
         {
           v17 = v16;
           v18 = 0;
@@ -3898,21 +3974,21 @@ void CoreNLP::CNNModel::fillWordInput(uint64_t a1, void *a2, void *a3)
             v19 += 4;
           }
 
-          while (v18 < v23.__end_ - v23.__begin_);
+          while (v18 < v22.__end_ - v22.__begin_);
         }
       }
 
-      __p[0] = v22;
+      __p[0] = v21;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-      if (v23.__begin_)
+      if (v22.__begin_)
       {
-        v23.__end_ = v23.__begin_;
-        operator delete(v23.__begin_);
+        v22.__end_ = v22.__begin_;
+        operator delete(v22.__begin_);
       }
 
-      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v24.__r_.__value_.__l.__data_);
+        operator delete(v23.__r_.__value_.__l.__data_);
       }
 
       ++v7;
@@ -3921,8 +3997,6 @@ void CoreNLP::CNNModel::fillWordInput(uint64_t a1, void *a2, void *a3)
 
     while (v7 < *(a1 + 40));
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t CoreNLP::CNNModel::featureRepresentation(uint64_t a1, std::vector<std::string> **a2)
@@ -3955,9 +4029,9 @@ uint64_t CoreNLP::CNNModel::featureRepresentation(uint64_t a1, std::vector<std::
   return v7;
 }
 
-void sub_19D2186B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D2186B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3971,7 +4045,7 @@ uint64_t CoreNLP::CNNModel::computeFeatureVectorCharBased(void *a1, void *a2)
   for (i = a1[17]; v4 != i; v4 += 24)
   {
     v13[0] = v4;
-    std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4);
+    std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4, &std::piecewise_construct, v13, v16);
     v6 = v4;
     if (*(v4 + 23) < 0)
     {
@@ -3982,8 +4056,8 @@ uint64_t CoreNLP::CNNModel::computeFeatureVectorCharBased(void *a1, void *a2)
     v8 = a1[3];
     v9 = a1[4];
     v13[0] = v4;
-    v10 = std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4);
-    v7(v8, v9, v6, v10 + 56, 0x20000, 0x10000, 0x10000);
+    v10 = std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4, &std::piecewise_construct, v13, v16);
+    v7(v8, v9, v6, v10 + 7, 0x20000, 0x10000, 0x10000);
   }
 
   CoreNLP::_espresso_network_bind_buffer(a1[3], a1[4], "input1", v13, 0x10000, 0x10000, 0x10000);
@@ -4012,7 +4086,7 @@ uint64_t CoreNLP::CNNModel::computeFeatureVectorWordBased(void *a1, void *a2)
   for (i = a1[17]; v4 != i; v4 += 24)
   {
     v13[0] = v4;
-    std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4);
+    std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4, &std::piecewise_construct, v13, v16);
     v6 = v4;
     if (*(v4 + 23) < 0)
     {
@@ -4023,8 +4097,8 @@ uint64_t CoreNLP::CNNModel::computeFeatureVectorWordBased(void *a1, void *a2)
     v8 = a1[3];
     v9 = a1[4];
     v13[0] = v4;
-    v10 = std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4);
-    v7(v8, v9, v6, v10 + 56, 0x20000, 0x10000, 0x10000);
+    v10 = std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v14, v4, &std::piecewise_construct, v13, v16);
+    v7(v8, v9, v6, v10 + 7, 0x20000, 0x10000, 0x10000);
   }
 
   CoreNLP::_espresso_network_bind_buffer(a1[3], a1[4], "input1", v13, 0x10000, 0x10000, 0x10000);
@@ -4421,11 +4495,11 @@ void *std::vector<std::vector<std::string>>::__move_range(uint64_t a1, void *a2,
       v8[1] = 0;
       v8[2] = 0;
       *v8 = *v9;
-      v8[2] = v9[2];
+      v8[2] = *(v9 + 16);
       *v9 = 0;
-      v9[1] = 0;
-      v9[2] = 0;
-      v9 += 3;
+      *(v9 + 8) = 0;
+      *(v9 + 16) = 0;
+      v9 += 24;
       v8 += 3;
     }
 
@@ -4436,7 +4510,7 @@ void *std::vector<std::vector<std::string>>::__move_range(uint64_t a1, void *a2,
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::vector<std::string> *,std::vector<std::string> *,std::vector<std::string> *>(&v11, a2, v7, v6);
 }
 
-uint64_t std::__split_buffer<std::vector<std::string>>::emplace_back<std::vector<std::string> const&>(unint64_t *a1, uint64_t *a2)
+uint64_t *std::__split_buffer<std::vector<std::string>>::emplace_back<std::vector<std::string> const&>(unint64_t *a1, void *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -4503,9 +4577,9 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return a3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,espresso_buffer_t>,std::__map_value_compare<std::string,std::__value_type<std::string,espresso_buffer_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,espresso_buffer_t>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -4660,9 +4734,9 @@ uint64_t *std::unique_ptr<CoreNLP::DepParserManager>::reset[abi:ne200100](uint64
   return result;
 }
 
-uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
+uint64_t MurmurHash3_x86_32(uint64_t result, unsigned int a2, int a3, unsigned int *a4)
 {
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v4 = a2;
   }
@@ -4673,7 +4747,7 @@ uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
   }
 
   v5 = (result + (v4 & 0xFFFFFFFC));
-  if ((a2 + 3) >= 7)
+  if (a2 + 3 >= 7)
   {
     v6 = -(v4 >> 2);
     do
@@ -4687,7 +4761,7 @@ uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
   }
 
   v9 = 0;
-  if ((a2 & 3u) > 1)
+  if ((a2 & 3) > 1)
   {
     if ((a2 & 3) != 2)
     {
@@ -4772,10 +4846,11 @@ void CoreNLP::CNNModelWrapper::~CNNModelWrapper(CoreNLP::CNNModelWrapper *this)
   JUMPOUT(0x19EAF8CA0);
 }
 
-void sub_19D219C58(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_19D219C58(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   std::unique_ptr<CoreNLP::DepParserManager>::~unique_ptr[abi:ne200100](&a9);
-  std::unique_ptr<CoreNLP::DepParserManager>::~unique_ptr[abi:ne200100](&a10);
+  std::unique_ptr<CoreNLP::DepParserManager>::~unique_ptr[abi:ne200100](va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x19D219C44);
@@ -4811,7 +4886,7 @@ uint64_t *std::unique_ptr<CoreNLP::DepParserManager>::~unique_ptr[abi:ne200100](
   return a1;
 }
 
-uint64_t NLDependencyParserCopyParseFromSentence(__CFString *a1, CoreNLP *a2)
+__CFArray *NLDependencyParserCopyParseFromSentence(__CFString *a1, CoreNLP *a2)
 {
   if (a2)
   {
@@ -4823,9 +4898,9 @@ uint64_t NLDependencyParserCopyParseFromSentence(__CFString *a1, CoreNLP *a2)
   return 0;
 }
 
-void sub_19D219F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19D219F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CoreNLP::ParseStructure::~ParseStructure(va);
   _Unwind_Resume(a1);
 }
@@ -4864,7 +4939,7 @@ void CoreNLP::ParseStructure::~ParseStructure(CoreNLP::ParseStructure *this)
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
 }
 
-uint64_t NLDependencyParserCopyNounPhrasesFromSentence(__CFString *a1, CoreNLP *a2)
+__CFArray *NLDependencyParserCopyNounPhrasesFromSentence(__CFString *a1, CoreNLP *a2)
 {
   if (a2)
   {
@@ -4876,39 +4951,39 @@ uint64_t NLDependencyParserCopyNounPhrasesFromSentence(__CFString *a1, CoreNLP *
   return 0;
 }
 
-void sub_19D21A2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D21A2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   CoreNLP::ParseStructure::~ParseStructure(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
+void *toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  result = [(__CFArray *)a1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  result = [(__CFArray *)a1 countByEnumeratingWithState:&v25 objects:v30 count:16];
   v5 = result;
   if (result)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(a1);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v26 + 1) + 8 * v7) UTF8String]);
+        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v25 + 1) + 8 * v7) UTF8String]);
         v9 = *(a2 + 8);
         v8 = *(a2 + 16);
         if (v9 >= v8)
@@ -4936,7 +5011,7 @@ uint64_t toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
             v14 = v12;
           }
 
-          v30.__end_cap_.__value_ = a2;
+          v29.__end_cap_.__value_ = a2;
           if (v14)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a2, v14);
@@ -4944,10 +5019,10 @@ uint64_t toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
 
           v15 = 24 * v11;
           v16 = *__p;
-          *(v15 + 16) = v25;
+          *(v15 + 16) = v24;
           *v15 = v16;
           __p[1] = 0;
-          v25 = 0;
+          v24 = 0;
           __p[0] = 0;
           v17 = 24 * v11 + 24;
           v18 = *(a2 + 8) - *a2;
@@ -4958,12 +5033,12 @@ uint64_t toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
           *(a2 + 8) = v17;
           v21 = *(a2 + 16);
           *(a2 + 16) = 0;
-          v30.__end_ = v20;
-          v30.__end_cap_.__value_ = v21;
-          v30.__first_ = v20;
-          v30.__begin_ = v20;
-          std::__split_buffer<std::string>::~__split_buffer(&v30);
-          v22 = SHIBYTE(v25);
+          v29.__end_ = v20;
+          v29.__end_cap_.__value_ = v21;
+          v29.__first_ = v20;
+          v29.__begin_ = v20;
+          std::__split_buffer<std::string>::~__split_buffer(&v29);
+          v22 = SHIBYTE(v24);
           *(a2 + 8) = v17;
           if (v22 < 0)
           {
@@ -4974,30 +5049,29 @@ uint64_t toVector@<X0>(const __CFArray *a1@<X0>, uint64_t a2@<X8>)
         else
         {
           v10 = *__p;
-          *(v9 + 16) = v25;
+          *(v9 + 16) = v24;
           *v9 = v10;
           *(a2 + 8) = v9 + 24;
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [(__CFArray *)a1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      result = [(__CFArray *)a1 countByEnumeratingWithState:&v25 objects:v30 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void NLCNNModelCreateWithModel(int a1, int a2, CFURLRef anURL)
+void NLCNNModelCreateWithModel(uint64_t a1, uint64_t a2, CFURLRef anURL, const __CFArray *a4)
 {
-  v4 = CFURLCopyPath(anURL);
-  std::string::basic_string[abi:ne200100]<0>(&__p, -[__CFString UTF8String](v4, "UTF8String"));
+  v5 = CFURLCopyPath(anURL);
+  std::string::basic_string[abi:ne200100]<0>(&__p, -[__CFString UTF8String](v5, "UTF8String"));
   operator new();
 }
 
@@ -5062,9 +5136,9 @@ void std::shared_ptr<CoreNLP::CNNModelHandler>::shared_ptr[abi:ne200100]<CoreNLP
   operator new();
 }
 
-void sub_19D21A8A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D21A8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CoreNLP::CNNModelHandler>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5117,11 +5191,11 @@ uint64_t std::__shared_ptr_pointer<CoreNLP::CNNModelHandler *,std::shared_ptr<Co
 corelm::AbstractVocabulary *corelm::AbstractVocabulary::AbstractVocabulary(corelm::AbstractVocabulary *this)
 {
   *this = &unk_1F10AFAE8;
-  v2 = this + 32;
-  std::string::basic_string[abi:ne200100]<0>(this + 8, "<s>");
+  v2 = (this + 32);
+  std::string::basic_string[abi:ne200100]<0>(this + 1, "<s>");
   std::string::basic_string[abi:ne200100]<0>(v2, "</s>");
-  std::string::basic_string[abi:ne200100]<0>(this + 56, "<unk>");
-  std::string::basic_string[abi:ne200100]<0>(this + 80, "<pad>");
+  std::string::basic_string[abi:ne200100]<0>(this + 7, "<unk>");
+  std::string::basic_string[abi:ne200100]<0>(this + 10, "<pad>");
   return this;
 }
 
@@ -5184,7 +5258,7 @@ void corelm::TokenListVocabulary::determineUnkTokenID(corelm::TokenListVocabular
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  *(this + 200) = Token & 1;
+  *(this + 200) = Token;
   *(this + 24) = v6;
 }
 
@@ -5212,9 +5286,9 @@ void corelm::AbstractVocabulary::~AbstractVocabulary(void **this)
   }
 }
 
-void corelm::TokenListVocabulary::TokenListVocabulary(corelm::AbstractVocabulary *a1)
+void corelm::TokenListVocabulary::TokenListVocabulary(corelm::AbstractVocabulary *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   corelm::AbstractVocabulary::AbstractVocabulary(a1);
   *a1 = &unk_1F10AF8B8;
   *(a1 + 14) = a1 + 136;
@@ -5231,34 +5305,28 @@ void sub_19D21AFB8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t corelm::TokenIDMap::queryToken(uint64_t a1, std::string::value_type *a2, uint64_t a3)
+BOOL corelm::TokenIDMap::queryToken(uint64_t a1, std::string::value_type *a2, uint64_t a3)
 {
-  memset(&v9, 0, sizeof(v9));
+  memset(&v8, 0, sizeof(v8));
   if (a3)
   {
     v4 = a3;
     do
     {
-      std::string::push_back(&v9, *a2++);
+      std::string::push_back(&v8, *a2++);
       --v4;
     }
 
     while (v4);
   }
 
-  v6 = boost::bimaps::container_adaptor::associative_container_adaptor<boost::multi_index::detail::ordered_index<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>,boost::bimaps::detail::map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::bimaps::detail::const_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,std::string const,boost::bimaps::container_adaptor::support::iterator_facade_to_base<boost::bimaps::detail::map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::bimaps::detail::const_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>>,mpl_::na,boost::bimaps::relation::detail::pair_to_relation_functor<boost::bimaps::relation::member_at::left,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>,boost::bimaps::relation::support::get_pair_functor<boost::bimaps::relation::member_at::left,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>,mpl_::na,boost::mpl::v_item<boost::bimaps::container_adaptor::detail::iterator_from_base_identity<boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>>,boost::bimaps::detail::reverse_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>>,boost::bimaps::detail::const_reverse_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>>,boost::mpl::vector<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,1>>::find<std::string>( (a1 + 48),  &v9);
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  v6 = boost::bimaps::container_adaptor::associative_container_adaptor<boost::multi_index::detail::ordered_index<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>,boost::bimaps::detail::map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::bimaps::detail::const_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,std::string const,boost::bimaps::container_adaptor::support::iterator_facade_to_base<boost::bimaps::detail::map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::bimaps::detail::const_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>>,mpl_::na,boost::bimaps::relation::detail::pair_to_relation_functor<boost::bimaps::relation::member_at::left,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>,boost::bimaps::relation::support::get_pair_functor<boost::bimaps::relation::member_at::left,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>,mpl_::na,boost::mpl::v_item<boost::bimaps::container_adaptor::detail::iterator_from_base_identity<boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>>,boost::bimaps::detail::reverse_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>,boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>>,boost::bimaps::detail::const_reverse_map_view_iterator<boost::bimaps::relation::member_at::left,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>>>,boost::mpl::vector<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,1>>::find<std::string>( (a1 + 48),  &v8);
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 
-  if (*(*(a1 + 48) - 8) == v6)
-  {
-    return 0;
-  }
-
-  v7 = v6[3];
-  return 1;
+  return *(*(a1 + 48) - 8) != v6;
 }
 
 void corelm::TokenListVocabulary::idToToken(corelm::TokenListVocabulary *this@<X0>, std::logic_error_vtbl *a2@<X1>, std::string *a3@<X8>)
@@ -5271,7 +5339,7 @@ void corelm::TokenListVocabulary::idToToken(corelm::TokenListVocabulary *this@<X
     corelm::util::strCat<char [18],long>("Unknown TokenID: ", &v13);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      corelm::TokenListVocabulary::idToToken(v11);
+      corelm::TokenListVocabulary::idToToken();
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
@@ -5314,28 +5382,28 @@ void sub_19D21B184(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t corelm::util::strCat<char [18],long>(const char *a1, void *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  v4 = strlen(a1);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, a1, v4);
-  MEMORY[0x19EAF8A90](&v6, *a2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  v5 = strlen(a1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, a1, v5);
+  MEMORY[0x19EAF8A90](&v7, *a2);
   std::stringbuf::str();
-  v6 = *MEMORY[0x1E69E54E8];
-  *(&v6 + *(v6 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v7 = MEMORY[0x1E69E5548] + 16;
-  if (v9 < 0)
+  v7 = *MEMORY[0x1E69E54E8];
+  *(&v7 + *(v7 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v8 = MEMORY[0x1E69E5548] + 16;
+  if (v10 < 0)
   {
-    operator delete(v8[7].__locale_);
+    operator delete(v9[7].__locale_);
   }
 
-  v7 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v8);
+  v8 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v9);
   std::ostream::~ostream();
-  return MEMORY[0x19EAF8C10](&v10);
+  return MEMORY[0x19EAF8C10](&v11);
 }
 
-void sub_19D21B31C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D21B31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5411,7 +5479,7 @@ LABEL_7:
         corelm::util::strCat<char [16],std::string_view>("Unknown Token: ", v24);
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          corelm::TokenListVocabulary::idToToken(&__p);
+          corelm::TokenListVocabulary::idToToken();
         }
 
         exception = __cxa_allocate_exception(0x20uLL);
@@ -5475,7 +5543,7 @@ LABEL_7:
       size = v23.__r_.__value_.__l.__size_;
     }
 
-    if ((corelm::TokenIDMap::queryToken(a1 + 104, v12, size) & 1) == 0)
+    if (!corelm::TokenIDMap::queryToken(a1 + 104, v12, size))
     {
       std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
       v25[0] = "Special token ";
@@ -5498,7 +5566,7 @@ LABEL_7:
       MEMORY[0x19EAF8C10](&v30);
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        corelm::TokenListVocabulary::idToToken(v21);
+        corelm::TokenListVocabulary::idToToken();
       }
 
       v15 = __cxa_allocate_exception(0x20uLL);
@@ -5548,28 +5616,28 @@ void sub_19D21B738(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t corelm::util::strCat<char [16],std::string_view>(const char *a1, uint64_t *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  v4 = strlen(a1);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, a1, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, *a2, a2[1]);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  v5 = strlen(a1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, a1, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, *a2, a2[1]);
   std::stringbuf::str();
-  v6 = *MEMORY[0x1E69E54E8];
-  *(&v6 + *(v6 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v7 = MEMORY[0x1E69E5548] + 16;
-  if (v9 < 0)
+  v7 = *MEMORY[0x1E69E54E8];
+  *(&v7 + *(v7 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v8 = MEMORY[0x1E69E5548] + 16;
+  if (v10 < 0)
   {
-    operator delete(v8[7].__locale_);
+    operator delete(v9[7].__locale_);
   }
 
-  v7 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v8);
+  v8 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v9);
   std::ostream::~ostream();
-  return MEMORY[0x19EAF8C10](&v10);
+  return MEMORY[0x19EAF8C10](&v11);
 }
 
-void sub_19D21B924(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D21B924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5583,9 +5651,9 @@ void corelm::TokenListVocabulary::idsToText(void *a1)
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
-void sub_19D21B9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D21B9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5631,7 +5699,7 @@ void sub_19D21BB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *corelm::Custom1PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+void *corelm::Custom1PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v6 = (a1 + 32);
   if (*(a1 + 55) < 0)
@@ -5669,7 +5737,7 @@ _BYTE *corelm::Custom1PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *
   return std::string::basic_string[abi:ne200100]<0>(a3, [v11 UTF8String]);
 }
 
-uint64_t ___ZNK6corelm19Custom1PreProcessor10preProcessERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(uint64_t a1, void *a2)
+void *___ZNK6corelm19Custom1PreProcessor10preProcessERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 64);
   v4 = [objc_msgSend(*(a1 + 32) substringWithRange:{*a2, a2[1]), "stringByReplacingOccurrencesOfString:withString:", @" ", &stru_1F10B2700}];
@@ -6025,7 +6093,7 @@ void sub_19D21C074(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *corelm::Custom2PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+void *corelm::Custom2PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v6 = (a1 + 32);
   if (*(a1 + 55) < 0)
@@ -6063,7 +6131,7 @@ _BYTE *corelm::Custom2PreProcessor::preProcess@<X0>(uint64_t a1@<X0>, uint64_t *
   return std::string::basic_string[abi:ne200100]<0>(a3, [v11 UTF8String]);
 }
 
-unint64_t ___ZNK6corelm19Custom2PreProcessor10preProcessERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(uint64_t a1, void *a2)
+void *___ZNK6corelm19Custom2PreProcessor10preProcessERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 64);
   v4 = [objc_msgSend(*(a1 + 32) substringWithRange:{*a2, a2[1]), "stringByReplacingOccurrencesOfString:withString:", @" ", &stru_1F10B2700}];
@@ -6482,7 +6550,7 @@ void sub_19D21C834(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void corelm::Custom2ASRPreProcessor::preProcess(uint64_t a1@<X0>, const void **a2@<X1>, _BYTE *a3@<X8>)
+void corelm::Custom2ASRPreProcessor::preProcess(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -6771,7 +6839,7 @@ void sub_19D21CBC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void corelm::SentencePieceVocabulary::SentencePieceVocabulary(corelm::AbstractVocabulary *a1, uint64_t a2)
+void corelm::SentencePieceVocabulary::SentencePieceVocabulary(corelm::AbstractVocabulary *a1, uint64_t **a2)
 {
   v4 = corelm::AbstractVocabulary::AbstractVocabulary(a1);
   *v4 = &unk_1F10AF948;
@@ -6796,7 +6864,7 @@ void corelm::SentencePieceVocabulary::SentencePieceVocabulary(corelm::AbstractVo
 
   else
   {
-    v8 = *(a2 + 8);
+    v8 = a2[1];
   }
 
   sentencepiece::SentencePieceProcessor::Load(v5, v7, v8);
@@ -6822,13 +6890,13 @@ void corelm::SentencePieceVocabulary::SentencePieceVocabulary(corelm::AbstractVo
   __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
 }
 
-void sub_19D21CD70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_19D21CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
   v18 = *(v15 + 224);
   *(v15 + 224) = 0;
   if (v18)
   {
-    (*(*v18 + 8))(v18);
+    (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(v16);
@@ -6850,7 +6918,7 @@ uint64_t corelm::SentencePieceVocabulary::setPreProcessor(uint64_t a1, uint64_t 
   return result;
 }
 
-const void *corelm::SentencePieceVocabulary::idToToken@<X0>(corelm::SentencePieceVocabulary *this@<X0>, unint64_t a2@<X1>, _BYTE *a3@<X8>)
+void *corelm::SentencePieceVocabulary::idToToken@<X0>(corelm::SentencePieceVocabulary *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   v14 = a2;
   if ((a2 & 0x8000000000000000) != 0 || (*(*this + 96))(this) <= a2)
@@ -6892,13 +6960,13 @@ const void *corelm::SentencePieceVocabulary::idToToken@<X0>(corelm::SentencePiec
     operator new();
   }
 
-  a3[23] = v7;
+  *(a3 + 23) = v7;
   if (v7)
   {
     result = memmove(a3, result, v7);
   }
 
-  a3[v8] = 0;
+  *(a3 + v8) = 0;
   return result;
 }
 
@@ -6925,67 +6993,67 @@ LABEL_6:
 
 uint64_t corelm::util::strCat<long>(void *a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v3);
-  MEMORY[0x19EAF8A90](&v3, *a1);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v4);
+  MEMORY[0x19EAF8A90](&v4, *a1);
   std::stringbuf::str();
-  v3 = *MEMORY[0x1E69E54E8];
-  *(&v3 + *(v3 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v4 = MEMORY[0x1E69E5548] + 16;
-  if (v6 < 0)
+  v4 = *MEMORY[0x1E69E54E8];
+  *(&v4 + *(v4 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v5 = MEMORY[0x1E69E5548] + 16;
+  if (v7 < 0)
   {
-    operator delete(v5[7].__locale_);
+    operator delete(v6[7].__locale_);
   }
 
-  v4 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v5);
+  v5 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v6);
   std::ostream::~ostream();
-  return MEMORY[0x19EAF8C10](&v7);
+  return MEMORY[0x19EAF8C10](&v8);
 }
 
-void sub_19D21D128(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D21D128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t corelm::SentencePieceVocabulary::tokenToID(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t corelm::SentencePieceVocabulary::tokenToID(uint64_t a1, std::string::value_type *a2, unint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  memset(&v27, 0, sizeof(v27));
+  v32 = *MEMORY[0x1E69E9840];
+  memset(&v26, 0, sizeof(v26));
   if (a3)
   {
     v6 = a3;
     v7 = a2;
     do
     {
-      std::string::push_back(&v27, *v7++);
+      std::string::push_back(&v26, *v7++);
       --v6;
     }
 
     while (v6);
   }
 
-  if (corelm::util::startsWith(a2, a3, "<", 1) && corelm::util::endsWith(a2, a3, ">", 1uLL))
+  if (corelm::util::startsWith(a2, a3, "<", 1) && corelm::util::endsWith(a2, a3, ">", 1))
   {
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v8 = &v27;
+      v8 = &v26;
     }
 
     else
     {
-      v8 = v27.__r_.__value_.__r.__words[0];
+      v8 = v26.__r_.__value_.__r.__words[0];
     }
 
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v27.__r_.__value_.__l.__size_;
+      size = v26.__r_.__value_.__l.__size_;
     }
 
     v10 = sentencepiece::SentencePieceProcessor::PieceToId((a1 + 104), v8, size);
@@ -6993,98 +7061,98 @@ uint64_t corelm::SentencePieceVocabulary::tokenToID(uint64_t a1, uint64_t a2, un
   }
 
   __p = 0;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v11 = &v27;
+    v11 = &v26;
   }
 
   else
   {
-    v11 = v27.__r_.__value_.__r.__words[0];
+    v11 = v26.__r_.__value_.__r.__words[0];
   }
 
-  if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+    v12 = HIBYTE(v26.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v12 = v27.__r_.__value_.__l.__size_;
+    v12 = v26.__r_.__value_.__l.__size_;
   }
 
-  sentencepiece::SentencePieceProcessor::Encode(a1 + 104, v11, v12, &__p, &v23);
-  if (v23.__r_.__value_.__r.__words[0])
+  sentencepiece::SentencePieceProcessor::Encode(a1 + 104, v11, v12, &__p, &v22);
+  if (v22.__r_.__value_.__r.__words[0])
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    sentencepiece::util::Status::ToString(&v23, buf);
-    if (v31 >= 0)
+    sentencepiece::util::Status::ToString(&v22, buf);
+    if (v30 >= 0)
     {
-      v20 = buf;
+      v19 = buf;
     }
 
     else
     {
-      v20 = *buf;
+      v19 = *buf;
     }
 
-    std::runtime_error::runtime_error(exception, v20);
+    std::runtime_error::runtime_error(exception, v19);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  sentencepiece::util::Status::~Status(&v23);
+  sentencepiece::util::Status::~Status(&v22);
   v13 = __p;
-  v14 = v25 - __p;
-  if (v25 - __p == 4)
+  v14 = v24 - __p;
+  if (v24 - __p == 4)
   {
     v10 = *__p;
 LABEL_24:
-    v25 = v13;
+    v24 = v13;
     operator delete(v13);
     goto LABEL_25;
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17 = &v27;
+      v16 = &v26;
     }
 
     else
     {
-      v17 = v27.__r_.__value_.__r.__words[0];
+      v16 = v26.__r_.__value_.__r.__words[0];
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v21, " ");
-    corelm::util::join<std::vector<int> &>(&__p, v21, &v23);
-    if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v20, " ");
+    corelm::util::join<std::vector<int> &>(&__p, v20, &v22);
+    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v18 = &v23;
+      v17 = &v22;
     }
 
     else
     {
-      v18 = v23.__r_.__value_.__r.__words[0];
+      v17 = v22.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315650;
-    *&buf[4] = v17;
-    v29 = 2048;
-    v30 = v14 >> 2;
-    v31 = 2080;
-    v32 = v18;
+    *&buf[4] = v16;
+    v28 = 2048;
+    v29 = v14 >> 2;
+    v30 = 2080;
+    v31 = v17;
     _os_log_error_impl(&dword_19D184000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Expected token=%s to get converted into single TokenID, but got %zu tokenIDs: %s. Returning UNK TokenID as fallback.", buf, 0x20u);
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v22.__r_.__value_.__l.__data_);
     }
 
-    if (v22 < 0)
+    if (v21 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v20[0]);
     }
   }
 
@@ -7096,12 +7164,11 @@ LABEL_24:
   }
 
 LABEL_25:
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -7208,11 +7275,11 @@ void sub_19D21D6B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void corelm::SentencePieceVocabulary::copyTokenToID(corelm::SentencePieceVocabulary *this@<X0>, void *a2@<X8>)
+void corelm::SentencePieceVocabulary::copyTokenToID(corelm::SentencePieceVocabulary *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[1] = 0;
   a2[2] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   v4 = (*(*this + 96))(this);
   if (v4 >= 1)
   {
@@ -7221,7 +7288,7 @@ void corelm::SentencePieceVocabulary::copyTokenToID(corelm::SentencePieceVocabul
     {
       (*(*this + 40))(__p, this, v5);
       v8 = __p;
-      *(std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v5;
+      *(std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v8) + 56) = v5;
       if (v7 < 0)
       {
         operator delete(__p[0]);
@@ -7245,10 +7312,10 @@ __n128 corelm::SentencePieceVocabulary::copyIDToToken@<Q0>(corelm::SentencePiece
     v6 = 0;
     do
     {
-      v11[0] = v6;
+      v11 = v6;
       (*(*this + 40))(&v9, this, v6);
-      v11[2] = v11;
-      v7 = std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a2, v11);
+      v12 = &v11;
+      v7 = std::__tree<std::__value_type<long,std::string>,std::__map_value_compare<long,std::__value_type<long,std::string>,std::less<long>,true>,std::allocator<std::__value_type<long,std::string>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(a2, &v11, &std::piecewise_construct, &v12);
       v8 = v7;
       if (*(v7 + 63) < 0)
       {
@@ -7267,7 +7334,7 @@ __n128 corelm::SentencePieceVocabulary::copyIDToToken@<Q0>(corelm::SentencePiece
   return result;
 }
 
-void corelm::SentencePieceVocabulary::textToIDs(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void corelm::SentencePieceVocabulary::textToIDs(uint64_t a1@<X0>, std::string::value_type *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
 {
   v7 = a2;
   v10 = a1 + 8;
@@ -7632,20 +7699,19 @@ void corelm::AbstractVocabulary::preProcess(uint64_t a1@<X1>, std::string *a2@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 }
 
-void corelm::AbstractVocabulary::idsToTokens(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void corelm::AbstractVocabulary::idsToTokens(uint64_t a1@<X0>, uint64_t a2@<X1>, std::allocator<std::string> *a3@<X8>)
 {
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(&v7, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(&v7, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  *(a3 + 1) = 0;
+  *(a3 + 2) = 0;
   v5 = v7;
   v6 = v8;
   v12 = a3;
@@ -7686,15 +7752,15 @@ void sub_19D21E364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void corelm::AbstractVocabulary::tokensToIDs(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void corelm::AbstractVocabulary::tokensToIDs(uint64_t a1@<X0>, void *a2@<X1>, const void **a3@<X8>)
 {
   v5 = 0;
   v6 = 0;
   v7 = 0;
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v5, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   std::transform[abi:ne200100]<std::__wrap_iter<std::string *>,std::back_insert_iterator<std::vector<long>>,corelm::AbstractVocabulary::tokensToIDs(std::vector<std::string> const&)::{lambda(std::__wrap_iter<std::string *>)#1}>(v5, v6, a3, a1);
   v8 = &v5;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
@@ -7724,7 +7790,7 @@ void corelm::SentencePieceVocabulary::~SentencePieceVocabulary(corelm::SentenceP
     (*(*v2 + 8))(v2);
   }
 
-  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor((this + 104));
+  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(this + 13);
 
   corelm::AbstractVocabulary::~AbstractVocabulary(this);
 }
@@ -7738,7 +7804,7 @@ void corelm::SentencePieceVocabulary::~SentencePieceVocabulary(corelm::SentenceP
     (*(*v2 + 8))(v2);
   }
 
-  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor((this + 104));
+  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(this + 13);
   corelm::AbstractVocabulary::~AbstractVocabulary(this);
 
   JUMPOUT(0x19EAF8CA0);
@@ -7749,7 +7815,7 @@ uint64_t boost::multi_index::multi_index_container<boost::bimaps::relation::muta
   v2 = *(*(a1 + 8) + 56);
   if ((v2 & 0xFFFFFFFFFFFFFFFELL) != 0)
   {
-    v3 = (v2 & 0xFFFFFFFFFFFFFFFELL) - 56;
+    v3 = ((v2 & 0xFFFFFFFFFFFFFFFELL) - 56);
   }
 
   else
@@ -7762,11 +7828,11 @@ uint64_t boost::multi_index::multi_index_container<boost::bimaps::relation::muta
   return a1;
 }
 
-void boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(uint64_t a1, uint64_t a2)
+void boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(uint64_t result, void **a2)
 {
   if (a2)
   {
-    v4 = *(a2 + 64);
+    v4 = a2[8];
     if (v4)
     {
       v5 = v4 - 56;
@@ -7777,8 +7843,8 @@ void boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<b
       v5 = 0;
     }
 
-    boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(a1, v5);
-    v6 = *(a2 + 72);
+    boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(result, v5);
+    v6 = a2[9];
     if (v6)
     {
       v7 = v6 - 56;
@@ -7789,9 +7855,9 @@ void boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<b
       v7 = 0;
     }
 
-    boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(a1, v7);
+    boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::delete_all_nodes(result, v7);
 
-    boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::delete_node_(a1 - 16, a2);
+    boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::delete_node_(result - 16, a2);
   }
 }
 
@@ -7805,7 +7871,7 @@ void boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_r
   operator delete(__p);
 }
 
-unint64_t *boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, uint64_t a2)
+std::string *boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
   result = boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(a1 + 16, a2, &v4);
@@ -7817,15 +7883,15 @@ unint64_t *boost::multi_index::multi_index_container<boost::bimaps::relation::mu
   return result;
 }
 
-unint64_t *boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, uint64_t a2, void *a3)
+unint64_t *boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, uint64_t a2, std::string **a3)
 {
   v8 = 0;
   if (boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(a1, *(a2 + 24), &v8))
   {
-    v6 = boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(a1, a2);
+    v6 = boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(a1, a2, a3);
     if (v6 == *a3)
     {
-      boost::multi_index::detail::ordered_index_node_impl<boost::multi_index::detail::null_augment_policy,std::allocator<char>>::link(*a3 + 56, v8, v9, (*(a1 - 8) + 56));
+      boost::multi_index::detail::ordered_index_node_impl<boost::multi_index::detail::null_augment_policy,std::allocator<char>>::link(&(*a3)[2].__r_.__value_.__l.__size_, v8, v9, (*(a1 - 8) + 56));
     }
   }
 
@@ -7842,7 +7908,7 @@ unint64_t *boost::multi_index::detail::ordered_index_impl<boost::multi_index::me
   return v6;
 }
 
-uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(uint64_t a1, int64_t a2, uint64_t a3)
+uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 - 8);
   v6 = v5;
@@ -7923,17 +7989,17 @@ LABEL_19:
   return result;
 }
 
-uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, const void **a2)
+uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, const void **a2, std::string **a3)
 {
-  v4 = 0;
-  if (boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(a1, a2, &v4))
+  v8 = 0;
+  if (boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(a1, a2, &v8))
   {
-    boost::multi_index::detail::index_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::insert_();
+    boost::multi_index::detail::index_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::insert_(a1, a2, a3);
   }
 
-  if (v5)
+  if (v9)
   {
-    return v5 - 32;
+    return v9 - 32;
   }
 
   else
@@ -8008,15 +8074,15 @@ unint64_t **boost::multi_index::detail::ordered_index_node_impl<boost::multi_ind
 
     else
     {
-      v4 = v2 & 0xFFFFFFFFFFFFFFFELL;
-      if (v1 == *(v4 + 8))
+      v4 = (v2 & 0xFFFFFFFFFFFFFFFELL);
+      if (v1 == v4[1])
       {
         v5 = v4;
         do
         {
           *result = v5;
-          v4 = *v5 & 0xFFFFFFFFFFFFFFFELL;
-          v6 = v5 == *(v4 + 8);
+          v4 = (*v5 & 0xFFFFFFFFFFFFFFFELL);
+          v6 = v5 == v4[1];
           v5 = v4;
         }
 
@@ -8287,12 +8353,12 @@ unint64_t *boost::multi_index::detail::ordered_index_node_impl<boost::multi_inde
 
 uint64_t boost::multi_index::multi_index_container<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::copy_construct_from(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 24);
   v5 = *(a2 + 8);
   v6 = *(a1 + 8);
-  v12[1] = v4;
-  v12[3] = v4;
+  v12 = v4;
+  v13 = v4;
   if (v4)
   {
     if (!(v4 >> 60))
@@ -8304,11 +8370,11 @@ uint64_t boost::multi_index::multi_index_container<boost::bimaps::relation::muta
   }
 
   v7 = v5;
-  v12[4] = 0;
-  v12[5] = 0;
-  v12[6] = v5;
-  v12[7] = v6;
-  v13 = 0;
+  v14 = 0;
+  v15 = 0;
+  v16 = v5;
+  v17 = v6;
+  v18 = 0;
   v8 = *(v5 + 64);
   if (v8)
   {
@@ -8322,29 +8388,27 @@ uint64_t boost::multi_index::multi_index_container<boost::bimaps::relation::muta
 
   if (v9 != v7)
   {
-    boost::multi_index::detail::copy_map<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::clone<boost::multi_index::detail::copy_map_value_copier>(v12, v9);
+    boost::multi_index::detail::copy_map<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::clone<boost::multi_index::detail::copy_map_value_copier>(v11, v9);
   }
 
-  boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(a1 + 16, a2 + 16, v12);
-  v13 = 1;
+  boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(a1 + 16, a2 + 16, v11);
+  v18 = 1;
   *(a1 + 24) = *(a2 + 24);
-  result = boost::multi_index::detail::copy_map<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::~copy_map(v12);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return boost::multi_index::detail::copy_map<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::~copy_map(v11);
 }
 
-void sub_19D21F234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D21F234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::multi_index::detail::copy_map<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>::~copy_map(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(unint64_t result, uint64_t a2, void *a3)
+unint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,long,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::right>,std::less<long>,boost::multi_index::detail::nth_layer<1,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::right,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(unint64_t a1, uint64_t a2, void *a3)
 {
   v4 = *(a2 - 8);
   v5 = *(v4 + 56);
-  v6 = *(result - 8);
+  v6 = *(a1 - 8);
   v7 = (v6 + 56);
   if (v5 > 1)
   {
@@ -8476,7 +8540,7 @@ unint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::mem
       v38 = v32 + 1;
     }
 
-    *(*(result - 8) + 72) = *v38 + 56;
+    *(*(a1 - 8) + 72) = *v38 + 56;
     if (v31)
     {
       v39 = a3[4];
@@ -8557,10 +8621,10 @@ unint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::mem
   {
     *(v6 + 56) = 0;
     *(v6 + 64) = v7;
-    *(*(result - 8) + 72) = *(result - 8) + 56;
+    *(*(a1 - 8) + 72) = *(a1 - 8) + 56;
   }
 
-  return boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(result, a2, a3);
+  return boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>,std::string,&boost::bimaps::relation::detail::relation_storage<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,true>::left>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,boost::bimaps::detail::bimap_core<std::string,long,mpl_::na,mpl_::na,mpl_::na>::core_indices,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>,boost::mpl::v_item<boost::bimaps::relation::member_at::left,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_unique_tag,boost::multi_index::detail::null_augment_policy>::copy_(a1, a2, a3);
 }
 
 void sub_19D21F59C(void *a1)
@@ -8570,12 +8634,12 @@ void sub_19D21F59C(void *a1)
   __cxa_rethrow();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,false>(unint64_t *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 1;
-  v10 = a2 - 2;
-  v11 = a2 - 3;
+  v9 = &a2[-1];
+  v10 = &a2[-2];
+  v11 = &a2[-3];
   v12 = a1;
 LABEL_2:
   v13 = 1 - a4;
@@ -8583,7 +8647,7 @@ LABEL_2:
   {
     a1 = v12;
     v14 = v13;
-    v15 = (a2 - v12) >> 4;
+    v15 = a2 - v12;
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -8593,17 +8657,17 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        v48 = a2[-1].n128_u64[0];
-        v46 = a2 - 1;
-        if (v48 >= *v12)
+        v47 = a2[-1].n128_u64[0];
+        v45 = &a2[-1];
+        if (v47 >= v12->n128_u64[0])
         {
           return result;
         }
 
 LABEL_77:
-        v77 = *v12;
-        *v12 = *v46;
-        result = v77;
+        v76 = *v12;
+        *v12 = *v45;
+        result = v76;
         goto LABEL_78;
       }
 
@@ -8612,42 +8676,42 @@ LABEL_77:
 
     if (v15 == 3)
     {
-      v43 = (v12 + 2);
-      v44 = v12[2];
-      v47 = a2[-1].n128_u64[0];
-      v46 = a2 - 1;
-      v45 = v47;
-      if (v44 < *v12)
+      v42 = v12 + 1;
+      v43 = v12[1].n128_u64[0];
+      v46 = a2[-1].n128_u64[0];
+      v45 = &a2[-1];
+      v44 = v46;
+      if (v43 < v12->n128_u64[0])
       {
-        if (v45 < v44)
+        if (v44 < v43)
         {
           goto LABEL_77;
         }
 
-        v76 = *v12;
-        *v12 = *v43;
-        result = v76;
-        *v43 = v76;
-        if (v46->n128_u64[0] >= v12[2])
+        v75 = *v12;
+        *v12 = *v42;
+        result = v75;
+        *v42 = v75;
+        if (*v45 >= v12[1].n128_u64[0])
         {
           return result;
         }
 
-        result = *v43;
-        *v43 = *v46;
+        result = *v42;
+        *v42 = *v45;
 LABEL_78:
-        *v46 = result;
+        *v45 = result;
         return result;
       }
 
-      if (v45 >= v44)
+      if (v44 >= v43)
       {
         return result;
       }
 
-      result = *v43;
-      *v43 = *v46;
-      *v46 = result;
+      result = *v42;
+      *v42 = *v45;
+      *v45 = result;
       goto LABEL_109;
     }
 
@@ -8659,7 +8723,7 @@ LABEL_78:
     if (v15 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,0>(v12, v12 + 1, v12 + 4, v12 + 3, a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,0>(v12, v12 + 1, v12[2].n128_u64, v12[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
@@ -8669,35 +8733,35 @@ LABEL_10:
       if (a5)
       {
 
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12, a2->n128_u64);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12->n128_u64, a2->n128_u64);
       }
 
       else if (v12 != a2)
       {
-        v52 = (v12 + 2);
-        while (v52 != a2)
+        v51 = &v12[1];
+        while (v51 != a2)
         {
-          v53 = v52;
-          v54 = a1[2];
-          if (v54 < *a1)
+          v52 = v51;
+          v53 = a1[1].n128_u64[0];
+          if (v53 < a1->n128_u64[0])
           {
-            v55 = a1[3];
-            v56 = v53;
+            v54 = a1[1].n128_u64[1];
+            v55 = v52;
             do
             {
-              result = v56[-1];
-              *v56 = result;
-              v57 = v56[-2].n128_u64[0];
-              --v56;
+              result = v55[-1];
+              *v55 = result;
+              v56 = v55[-2].n128_u64[0];
+              --v55;
             }
 
-            while (v54 < v57);
-            v56->n128_u64[0] = v54;
-            v56->n128_u64[1] = v55;
+            while (v53 < v56);
+            v55->n128_u64[0] = v53;
+            v55->n128_u64[1] = v54;
           }
 
-          v52 = v53 + 1;
-          a1 = v53;
+          v51 = &v52[1];
+          a1 = v52;
         }
       }
 
@@ -8709,30 +8773,30 @@ LABEL_10:
       if (v12 != a2)
       {
 
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12, a2->n128_u64, a2->n128_u64, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12, a2, a2, a3);
       }
 
       return result;
     }
 
-    v16 = &v12[2 * (v15 >> 1)];
+    v16 = &v12[v15 >> 1];
     v17 = v16;
-    v18 = v9->n128_u64[0];
+    v18 = *v9;
     if (v15 >= 0x81)
     {
-      v19 = *v16;
-      if (*v16 >= *v12)
+      v19 = v16->n128_u64[0];
+      if (v16->n128_u64[0] >= v12->n128_u64[0])
       {
         if (v18 < v19)
         {
-          v61 = *v16;
+          v60 = *v16;
           *v16 = *v9;
-          *v9 = v61;
-          if (*v16 < *v12)
+          *v9 = v60;
+          if (v16->n128_u64[0] < v12->n128_u64[0])
           {
-            v62 = *v12;
+            v61 = *v12;
             *v12 = *v16;
-            *v16 = v62;
+            *v16 = v61;
           }
         }
       }
@@ -8741,39 +8805,39 @@ LABEL_10:
       {
         if (v18 >= v19)
         {
-          v65 = *v12;
+          v64 = *v12;
           *v12 = *v16;
-          *v16 = v65;
-          if (v9->n128_u64[0] >= *v16)
+          *v16 = v64;
+          if (*v9 >= v16->n128_u64[0])
           {
             goto LABEL_28;
           }
 
-          v59 = *v16;
+          v58 = *v16;
           *v16 = *v9;
         }
 
         else
         {
-          v59 = *v12;
+          v58 = *v12;
           *v12 = *v9;
         }
 
-        *v9 = v59;
+        *v9 = v58;
       }
 
 LABEL_28:
-      v21 = (v12 + 2);
-      v22 = (v16 - 2);
-      v23 = *(v16 - 2);
-      v24 = v10->n128_u64[0];
-      if (v23 >= v12[2])
+      v21 = v12 + 1;
+      v22 = v16 - 1;
+      v23 = v16[-1].n128_u64[0];
+      v24 = *v10;
+      if (v23 >= v12[1].n128_u64[0])
       {
         if (v24 < v23)
         {
-          v66 = *v22;
+          v65 = *v22;
           *v22 = *v10;
-          *v10 = v66;
+          *v10 = v65;
           if (v22->n128_u64[0] < v21->n128_u64[0])
           {
             v26 = *v21;
@@ -8790,14 +8854,14 @@ LABEL_28:
           v27 = *v21;
           *v21 = *v22;
           *v22 = v27;
-          if (v10->n128_u64[0] >= v22->n128_u64[0])
+          if (*v10 >= v22->n128_u64[0])
           {
             goto LABEL_40;
           }
 
-          v68 = *v22;
+          v67 = *v22;
           *v22 = *v10;
-          v25 = v68;
+          v25 = v67;
         }
 
         else
@@ -8810,18 +8874,18 @@ LABEL_28:
       }
 
 LABEL_40:
-      v28 = (v12 + 4);
-      v31 = v16[2];
-      v29 = (v16 + 2);
+      v28 = v12 + 2;
+      v31 = v16[1].n128_u64[0];
+      v29 = v16 + 1;
       v30 = v31;
-      v32 = v11->n128_u64[0];
-      if (v31 >= v12[4])
+      v32 = *v11;
+      if (v31 >= v12[2].n128_u64[0])
       {
         if (v32 < v30)
         {
-          v69 = *v29;
+          v68 = *v29;
           *v29 = *v11;
-          *v11 = v69;
+          *v11 = v68;
           if (v29->n128_u64[0] < v28->n128_u64[0])
           {
             v34 = *v28;
@@ -8838,14 +8902,14 @@ LABEL_40:
           v35 = *v28;
           *v28 = *v29;
           *v29 = v35;
-          if (v11->n128_u64[0] >= v29->n128_u64[0])
+          if (*v11 >= v29->n128_u64[0])
           {
             goto LABEL_49;
           }
 
-          v70 = *v29;
+          v69 = *v29;
           *v29 = *v11;
-          v33 = v70;
+          v33 = v69;
         }
 
         else
@@ -8858,20 +8922,20 @@ LABEL_40:
       }
 
 LABEL_49:
-      v36 = *v17;
+      v36 = v17->n128_u64[0];
       v37 = v29->n128_u64[0];
-      if (*v17 >= v22->n128_u64[0])
+      if (v17->n128_u64[0] >= v22->n128_u64[0])
       {
         if (v37 < v36)
         {
-          v72 = *v17;
+          v71 = *v17;
           *v17 = *v29;
-          *v29 = v72;
-          if (*v17 < v22->n128_u64[0])
+          *v29 = v71;
+          if (v17->n128_u64[0] < v22->n128_u64[0])
           {
-            v73 = *v22;
+            v72 = *v22;
             *v22 = *v17;
-            *v17 = v73;
+            *v17 = v72;
           }
         }
 
@@ -8880,45 +8944,45 @@ LABEL_49:
 
       if (v37 >= v36)
       {
-        v74 = *v22;
+        v73 = *v22;
         *v22 = *v17;
-        *v17 = v74;
-        if (v29->n128_u64[0] >= *v17)
+        *v17 = v73;
+        if (v29->n128_u64[0] >= v17->n128_u64[0])
         {
 LABEL_58:
-          v75 = *v12;
+          v74 = *v12;
           *v12 = *v17;
-          *v17 = v75;
+          *v17 = v74;
           goto LABEL_59;
         }
 
-        v71 = *v17;
+        v70 = *v17;
         *v17 = *v29;
       }
 
       else
       {
-        v71 = *v22;
+        v70 = *v22;
         *v22 = *v29;
       }
 
-      *v29 = v71;
+      *v29 = v70;
       goto LABEL_58;
     }
 
-    v20 = *v12;
-    if (*v12 >= *v17)
+    v20 = v12->n128_u64[0];
+    if (v12->n128_u64[0] >= v17->n128_u64[0])
     {
       if (v18 < v20)
       {
-        v63 = *v12;
+        v62 = *v12;
         *v12 = *v9;
-        *v9 = v63;
-        if (*v12 < *v17)
+        *v9 = v62;
+        if (v12->n128_u64[0] < v17->n128_u64[0])
         {
-          v64 = *v17;
+          v63 = *v17;
           *v17 = *v12;
-          *v12 = v64;
+          *v12 = v63;
         }
       }
     }
@@ -8927,44 +8991,44 @@ LABEL_58:
     {
       if (v18 < v20)
       {
-        v60 = *v17;
+        v59 = *v17;
         *v17 = *v9;
 LABEL_36:
-        *v9 = v60;
+        *v9 = v59;
         goto LABEL_59;
       }
 
-      v67 = *v17;
+      v66 = *v17;
       *v17 = *v12;
-      *v12 = v67;
-      if (v9->n128_u64[0] < *v12)
+      *v12 = v66;
+      if (*v9 < v12->n128_u64[0])
       {
-        v60 = *v12;
+        v59 = *v12;
         *v12 = *v9;
         goto LABEL_36;
       }
     }
 
 LABEL_59:
-    if ((a5 & 1) == 0 && *(v12 - 2) >= *v12)
+    if ((a5 & 1) == 0 && v12[-1].n128_u64[0] >= v12->n128_u64[0])
     {
-      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,std::__less<void,void> &>(v12, a2->n128_u64);
+      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,std::__less<void,void> &>(v12->n128_u64, a2->n128_u64);
       goto LABEL_66;
     }
 
     v38 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,std::__less<void,void> &>(v12, a2);
-    if ((v40 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12, v38, v39);
+    v40 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(v12, v38, result);
     v12 = (v38 + 1);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>((v38 + 1), a2, v42))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>((v38 + 1), a2, v41))
     {
       a4 = -v14;
       a2 = v38;
-      if (v41)
+      if (v40)
       {
         return result;
       }
@@ -8973,10 +9037,10 @@ LABEL_59:
     }
 
     v13 = v14 + 1;
-    if (!v41)
+    if (!v40)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,false>(a1, v38, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,false>(a1, v38, a3, -v14, a5 & 1, result);
       v12 = (v38 + 1);
 LABEL_66:
       a5 = 0;
@@ -8985,73 +9049,73 @@ LABEL_66:
     }
   }
 
-  v43 = (v12 + 2);
-  v49 = v12[2];
-  v50 = (v12 + 4);
-  v51 = v12[4];
-  if (v49 >= *v12)
+  v42 = v12 + 1;
+  v48 = v12[1].n128_u64[0];
+  v49 = v12 + 2;
+  v50 = v12[2].n128_u64[0];
+  if (v48 >= v12->n128_u64[0])
   {
-    if (v51 < v49)
+    if (v50 < v48)
     {
-      result = *v43;
-      *v43 = *v50;
-      *v50 = result;
-      if (v12[2] < *v12)
+      result = *v42;
+      *v42 = *v49;
+      *v49 = result;
+      if (v12[1].n128_u64[0] < v12->n128_u64[0])
       {
-        v79 = *v12;
-        *v12 = *v43;
-        result = v79;
-        *v43 = v79;
+        v78 = *v12;
+        *v12 = *v42;
+        result = v78;
+        *v42 = v78;
       }
     }
   }
 
   else
   {
-    if (v51 < v49)
+    if (v50 < v48)
     {
-      v78 = *v12;
-      *v12 = *v50;
-      result = v78;
+      v77 = *v12;
+      *v12 = *v49;
+      result = v77;
       goto LABEL_105;
     }
 
-    v80 = *v12;
-    *v12 = *v43;
-    result = v80;
-    *v43 = v80;
-    if (v51 < v12[2])
+    v79 = *v12;
+    *v12 = *v42;
+    result = v79;
+    *v42 = v79;
+    if (v50 < v12[1].n128_u64[0])
     {
-      result = *v43;
-      *v43 = *v50;
+      result = *v42;
+      *v42 = *v49;
 LABEL_105:
-      *v50 = result;
+      *v49 = result;
     }
   }
 
-  if (v9->n128_u64[0] >= v50->n128_u64[0])
+  if (*v9 >= v49->n128_u64[0])
   {
     return result;
   }
 
-  result = *v50;
-  *v50 = *v9;
+  result = *v49;
+  *v49 = *v9;
   *v9 = result;
-  if (v50->n128_u64[0] >= v43->n128_u64[0])
+  if (v49->n128_u64[0] >= v42->n128_u64[0])
   {
     return result;
   }
 
-  result = *v43;
-  *v43 = *v50;
-  *v50 = result;
+  result = *v42;
+  *v42 = *v49;
+  *v49 = result;
 LABEL_109:
-  if (v12[2] < *v12)
+  if (v12[1].n128_u64[0] < v12->n128_u64[0])
   {
-    v81 = *v12;
-    *v12 = *v43;
-    result = v81;
-    *v43 = v81;
+    v80 = *v12;
+    *v12 = *v42;
+    result = v80;
+    *v42 = v80;
   }
 
   return result;
@@ -9557,7 +9621,7 @@ LABEL_33:
     v33 = v30->n128_u64[0];
     if (v30->n128_u64[0] < v11->n128_u64[0])
     {
-      v34 = v30->n128_i64[1];
+      v34 = v30->n128_u64[1];
       v35 = v31;
       while (1)
       {
@@ -9595,17 +9659,17 @@ LABEL_41:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = (a2 - a1) >> 4;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(a1, a4, v8, v11);
@@ -9630,7 +9694,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,boost::multi_index::detail::copy_map_entry<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy,boost::multi_index::detail::index_node_base<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>,std::allocator<boost::bimaps::relation::mutant_relation<boost::bimaps::tags::tagged<std::string const,boost::bimaps::relation::member_at::left>,boost::bimaps::tags::tagged<long const,boost::bimaps::relation::member_at::right>,mpl_::na,true>>>>>> *>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        ++v12;
       }
 
       while (v12 != a3);
@@ -9645,8 +9709,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
         v15 = a1;
         do
         {
-          v16 = &v15[2 * v14];
-          v17 = v16 + 2;
+          v16 = &v15[v14];
+          v17 = v16 + 1;
           v18 = (2 * v14) | 1;
           v14 = 2 * v14 + 2;
           if (v14 >= v8)
@@ -9656,8 +9720,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
 
           else
           {
-            v20 = v16[4];
-            v19 = v16 + 4;
+            v20 = *(v16 + 4);
+            v19 = v16 + 2;
             if (*(v19 - 2) >= v20)
             {
               v14 = v18;
@@ -9674,8 +9738,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
         }
 
         while (v14 <= ((v8 - 2) >> 1));
-        v6 -= 2;
-        if (v17 == v6)
+        if (v17 == --v6)
         {
           *v17 = v30;
         }
@@ -9690,11 +9753,11 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
           if (!v22)
           {
             v24 = v23 >> 1;
-            v25 = &a1[2 * v24];
+            v25 = &a1[v24];
             v26 = *v17;
             if (*v25 < *v17)
             {
-              v27 = v17[1];
+              v27 = *(v17 + 1);
               do
               {
                 v28 = v17;
@@ -9706,12 +9769,12 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
                 }
 
                 v24 = (v24 - 1) >> 1;
-                v25 = &a1[2 * v24];
+                v25 = &a1[v24];
               }
 
               while (*v25 < v26);
               *v17 = v26;
-              v17[1] = v27;
+              *(v17 + 1) = v27;
             }
           }
         }
@@ -9799,51 +9862,6 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
         *a4 = v11;
         a4[1] = v12;
       }
-    }
-  }
-
-  return result;
-}
-
-uint64_t boost::multi_index::detail::ordered_index_node_impl<boost::multi_index::detail::null_augment_policy,std::allocator<char>>::increment(uint64_t result)
-{
-  v1 = *result;
-  v2 = *(*result + 16);
-  if (v2)
-  {
-    do
-    {
-      *result = v2;
-      v2 = *(v2 + 8);
-    }
-
-    while (v2);
-  }
-
-  else
-  {
-    v3 = (*v1 & 0xFFFFFFFFFFFFFFFELL);
-    if (v1 == v3[2])
-    {
-      do
-      {
-        v5 = v3;
-        *result = v3;
-        v3 = (*v3 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      while (v5 == v3[2]);
-      v4 = v5[2];
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    if (v4 != v3)
-    {
-      *result = v3;
     }
   }
 

@@ -1,4 +1,4 @@
-uint64_t Dictionary<>.init(_:)(__int128 *a1)
+void *Dictionary<>.init(_:)(__int128 *a1)
 {
   v69 = *a1;
   if (one-time initialization token for _loadedScopeCache != -1)
@@ -14,7 +14,7 @@ uint64_t Dictionary<>.init(_:)(__int128 *a1)
     closure #1 in _loadDefaultAttributes()partial apply(&v68);
     os_unfair_lock_unlock(v1 + 10);
     v2 = v68;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd, &_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_181218E20;
     *(inited + 32) = &type metadata for AttributeScopes.FoundationAttributes;
@@ -217,7 +217,7 @@ LABEL_30:
   }
 
   v59 = v28;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMd, &_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMR);
   v40 = static _DictionaryStorage.copy(original:)();
   v35 = v40;
   if (!*(v13 + 16))
@@ -522,14 +522,14 @@ LABEL_41:
   return result;
 }
 
-uint64_t String.Index.init<A>(_:within:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t String.Index.init<A>(_:within:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a3 - 8);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  (*(v5 + 16))(&v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
-  v8 = String.Index.init<A>(_:within:)();
-  (*(v5 + 8))(a2, a3);
-  return v8;
+  v6 = *(a3 - 8);
+  v7 = MEMORY[0x1EEE9AC00](a1);
+  (*(v6 + 16))(&v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
+  v9 = String.Index.init<A>(_:within:)();
+  (*(v6 + 8))(a2, a3);
+  return v9;
 }
 
 uint64_t AttributedString.Index.init<A>(_:within:)@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X1>, ValueMetadata *a3@<X2>, void (**a4)(void *__return_ptr, void, void)@<X3>, unint64_t *a5@<X8>)
@@ -649,7 +649,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t BigString.index(from:)(unint64_t a1)
+unint64_t BigString.index(from:)(unint64_t a1)
 {
   v1 = a1;
   if ((a1 & 0xC) == 8)
@@ -776,7 +776,7 @@ uint64_t _NSRange.init<A>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   {
     v11 = *(a1 + 40);
     v12 = *(a1 + 72);
-    (*(*(a3 - 8) + 8))(a2, a3);
+    (*(*(a3 - 8) + 8))(a2, a3, a3, a4);
     result = v11;
     v9 = v12 + 1;
     if (!__OFADD__(v12, 1))
@@ -855,14 +855,14 @@ uint64_t protocol witness for Collection.indices.getter in conformance Attribute
   return outlined init with copy of AttributedString._IndexConverterFromString(v11, &v10);
 }
 
-uint64_t protocol witness for Collection.index(_:offsetBy:) in conformance AttributedString._IndexConverterFromString@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for Collection.index(_:offsetBy:) in conformance AttributedString._IndexConverterFromString@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>)
 {
-  result = specialized Collection.index(_:offsetBy:)(*a1, a2);
-  *a3 = result;
+  result = specialized Collection.index(_:offsetBy:)(*a1, a3);
+  *a2 = result;
   return result;
 }
 
-void *specialized Collection.index(_:offsetBy:)@<X0>(void *result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+unint64_t *specialized Collection.index(_:offsetBy:)@<X0>(unint64_t *result@<X0>, uint64_t a2@<X1>, unint64_t **a3@<X8>)
 {
   if (a2 < 0)
   {
@@ -958,7 +958,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance AttributedString._IndexConverterFromString@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance AttributedString._IndexConverterFromString@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   result = specialized Collection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
@@ -966,7 +966,7 @@ uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conform
   return result;
 }
 
-uint64_t specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, unint64_t *a4@<X8>)
 {
   if (a2 < 0)
   {
@@ -1018,7 +1018,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t specialized Collection.index(_:offsetBy:limitedBy:)(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t specialized Collection.index(_:offsetBy:limitedBy:)(uint64_t result, uint64_t a2, unint64_t a3)
 {
   if (a2 < 0)
   {
@@ -1639,7 +1639,7 @@ uint64_t protocol witness for Collection.indices.getter in conformance Attribute
   *(a1 + 112) = v4;
 }
 
-void *protocol witness for Collection.index(_:offsetBy:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+unint64_t *protocol witness for Collection.index(_:offsetBy:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t **a3@<X8>)
 {
   v4 = *(a1 + 16);
   v7[0] = *a1;
@@ -1652,7 +1652,7 @@ void *protocol witness for Collection.index(_:offsetBy:) in conformance Attribut
   return specialized Collection.index(_:offsetBy:)(v7, a2, a3);
 }
 
-uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
 {
   v5 = *(a1 + 16);
   v9[0] = *a1;
@@ -1686,16 +1686,16 @@ unint64_t protocol witness for Collection.distance(from:to:) in conformance Attr
   return specialized Collection.distance(from:to:)(v7, v9);
 }
 
-uint64_t protocol witness for Collection.index(after:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for Collection.index(after:) in conformance AttributedString._IndexConverterFromAttributedString@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *(v1 + 32);
+  v4 = *(v2 + 32);
   Substring.index(after:)();
   result = BigString.Index.init(_utf8Offset:)();
-  *a1 = result;
-  a1[1] = v5;
-  a1[2] = v6;
-  a1[3] = v7;
-  a1[4] = v3;
+  *a2 = result;
+  a2[1] = v6;
+  a2[2] = v7;
+  a2[3] = v8;
+  a2[4] = v4;
   return result;
 }
 
@@ -1755,79 +1755,79 @@ unint64_t protocol witness for Sequence._copyToContiguousArray() in conformance 
   v4[0] = *v0;
   v4[1] = v1;
   v5 = *(v0 + 32);
-  v2 = specialized _copyCollectionToContiguousArray<A>(_:)();
+  v2 = specialized _copyCollectionToContiguousArray<A>(_:)(v4);
   outlined destroy of AttributedString._IndexConverterFromAttributedString(v4);
   return v2;
 }
 
-uint64_t Range<>.init<A, B>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t Range<>.init<A, B>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = *(a4 - 8);
+  v11 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v12 = v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(v13 - 8);
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  (*(v14 + 16))(v34 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd);
+  v13 = v35 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *(v14 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  (*(v15 + 16))(v35 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v17);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
   if (swift_dynamicCast())
   {
-    v42 = v47;
     v43 = v48;
     v44 = v49;
-    v40 = v45;
+    v45 = v50;
     v41 = v46;
-    (*(v10 + 16))(v12, a2, a4);
-    v18 = Substring.init<A>(_:)();
-    v20 = specialized Range<>.init(_range:in:)(&v40, v18, v19);
-    v22 = v21;
-    (*(v10 + 8))(a2, a4);
+    v42 = v47;
+    (*(v11 + 16))(v13, a2, a4);
+    v19 = Substring.init<A>(_:)();
+    v21 = specialized Range<>.init(_range:in:)(&v41, v19, v20);
+    v23 = v22;
+    (*(v11 + 8))(a2, a4);
   }
 
   else
   {
-    v34[1] = a5;
-    (*(v10 + 16))(v12, a2, a4);
-    v23 = Substring.init<A>(_:)();
-    v25 = v24;
-    v27 = v26;
-    v34[0] = a2;
-    v29 = v28;
-    v30 = one-time initialization token for _nextVersion;
+    v35[1] = a5;
+    (*(v11 + 16))(v13, a2, a4);
+    v24 = Substring.init<A>(_:)();
+    v26 = v25;
+    v28 = v27;
+    v35[0] = a2;
+    v30 = v29;
+    v31 = one-time initialization token for _nextVersion;
 
-    if (v30 != -1)
+    if (v31 != -1)
     {
       swift_once();
     }
 
     add_explicit = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-    *&v35 = v23;
-    *(&v35 + 1) = v25;
-    *&v36 = v27;
-    *(&v36 + 1) = v29;
-    *&v37 = add_explicit;
+    *&v36 = v24;
+    *(&v36 + 1) = v26;
+    *&v37 = v28;
+    *(&v37 + 1) = v30;
+    *&v38 = add_explicit;
     lazy protocol witness table accessor for type AttributedString._IndexConverterFromAttributedString and conformance AttributedString._IndexConverterFromAttributedString();
     dispatch thunk of RangeExpression.relative<A>(to:)();
 
-    v37 = v42;
     v38 = v43;
     v39 = v44;
+    v40 = v45;
+    v37 = v42;
     v36 = v41;
-    v35 = v40;
-    v20 = specialized Range<>.init(_range:in:)(&v35, v23, v25);
-    v22 = v32;
-    (*(v10 + 8))(v34[0], a4);
+    v21 = specialized Range<>.init(_range:in:)(&v36, v24, v26);
+    v23 = v33;
+    (*(v11 + 8))(v35[0], a4);
   }
 
-  (*(v14 + 8))(a1, a3);
-  if (v22)
+  (*(v15 + 8))(a1, a3);
+  if (v23)
   {
     return 0;
   }
 
-  return v20;
+  return v21;
 }
 
-uint64_t Range<>.init<A>(_:in:)(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *Range<>.init<A>(_:in:)(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v9 = *(AssociatedTypeWitness - 8);
@@ -1974,7 +1974,7 @@ unint64_t lazy protocol witness table accessor for type AttributedString._IndexC
   return result;
 }
 
-uint64_t specialized Range<>.init(_range:in:)(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t specialized Range<>.init(_range:in:)(uint64_t a1, unint64_t a2, unint64_t a3)
 {
 
   v6 = (16 * *a1) & 0x4000 | (*a1 >> 11 << 16);
@@ -2057,34 +2057,34 @@ uint64_t outlined init with copy of AttributedString.Runs.NSAttributesSlice(uint
   return a2;
 }
 
-double specialized AttributedString.subscript.getter@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+double specialized AttributedString.subscript.getter@<D0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = *(a1 + 40);
-  v18 = *(a1 + 24);
-  v19 = v4;
-  v20 = *(a1 + 56);
+  v5 = *(a2 + 40);
+  v19 = *(a2 + 24);
+  v20 = v5;
+  v21 = *(a2 + 56);
   BigString.startIndex.getter();
   BigString.endIndex.getter();
-  *(a2 + 72) = 0;
-  *a2 = a1;
-  v5 = *(a1 + 40);
-  v15 = *(a1 + 24);
-  v16 = v5;
-  v17 = *(a1 + 56);
+  *(a3 + 72) = 0;
+  *a3 = a2;
+  v6 = *(a2 + 40);
+  v16 = *(a2 + 24);
+  v17 = v6;
+  v18 = *(a2 + 56);
   swift_unknownObjectRetain();
   swift_retain_n();
   BigString.UnicodeScalarView.subscript.getter();
   swift_unknownObjectRelease();
 
-  outlined destroy of BigSubstring.UnicodeScalarView(v10);
-  result = *&v11;
-  v7 = v12;
+  outlined destroy of BigSubstring.UnicodeScalarView(v11);
+  result = *&v12;
   v8 = v13;
   v9 = v14;
-  *(a2 + 8) = v11;
-  *(a2 + 24) = v7;
-  *(a2 + 40) = v8;
-  *(a2 + 56) = v9;
+  v10 = v15;
+  *(a3 + 8) = v12;
+  *(a3 + 24) = v8;
+  *(a3 + 40) = v9;
+  *(a3 + 56) = v10;
   return result;
 }
 
@@ -2156,10 +2156,10 @@ uint64_t specialized AttributedString.subscript.getter@<X0>(uint64_t *a1@<X0>, u
 
 __n128 DiscontiguousAttributedSubstring.description.getter()
 {
-  v412 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v412 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   MEMORY[0x1EEE9AC00](v412);
   v384 = &v378 - v1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v427 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v407 = &v378 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2167,10 +2167,10 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
   v408 = &v378 - v5;
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v378 - v7;
-  v426 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd) - 8;
+  v426 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR) - 8;
   MEMORY[0x1EEE9AC00](v426);
   v419 = &v378 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v422 = &v378 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2178,7 +2178,7 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
   v15 = &v378 - v14;
   MEMORY[0x1EEE9AC00](v16);
   v18 = &v378 - v17;
-  v413 = type metadata accessor for AttributedString.Runs();
+  v413 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v413);
   v410 = &v378 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
@@ -2186,7 +2186,7 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
   MEMORY[0x1EEE9AC00](v23);
   v380 = &v378 - v24;
   v25 = *v0;
-  v26 = *(type metadata accessor for DiscontiguousAttributedSubstring() + 20);
+  v26 = *(type metadata accessor for DiscontiguousAttributedSubstring(0) + 20);
   v452 = 0;
   v453 = 0xE000000000000000;
   v414 = v11;
@@ -2207,7 +2207,7 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
   v28 = v427;
   (*(v427 + 16))(v27, v8, v2);
   v29 = *(v426 + 44);
-  v30 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v30 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v31 = *(v28 + 8);
   v424 = v8;
@@ -2274,7 +2274,7 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
     while (*(v27 + v417) != v498);
   }
 
-  outlined destroy of TermOfAddress?(v27, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v27, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v33 = v413;
   v34 = v415;
   v35 = v428;
@@ -2315,7 +2315,7 @@ __n128 DiscontiguousAttributedSubstring.description.getter()
     if ((v68 & 1) == 0)
     {
       dispatch thunk of Collection.endIndex.getter();
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
       dispatch thunk of BidirectionalCollection.index(before:)();
       v330 = dispatch thunk of Collection.subscript.read();
       v332 = v331[4];
@@ -2672,7 +2672,7 @@ LABEL_17:
     v139 = *(&v503 + 1);
     v140 = v118;
     v141 = specialized Range.contains(_:)(&v492);
-    if (v140 < v138 || (v141 & 1) == 0)
+    if (v140 < v138 || !v141)
     {
       goto LABEL_263;
     }
@@ -3578,7 +3578,7 @@ LABEL_256:
       v355[2] = v494;
       v355[3] = v357;
       _s10Foundation16AttributedStringV4RunsVWOhTm_1(v354, type metadata accessor for AttributedString.Runs);
-      outlined destroy of TermOfAddress?(v111, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+      outlined destroy of TermOfAddress?(v111, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
       return result;
     }
 
@@ -3978,10 +3978,10 @@ LABEL_289:
   return result;
 }
 
-uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(void *a1@<X8>)
+uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(uint64_t *a1@<X8>)
 {
   v145 = a1;
-  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v146 = *(v153 - 8);
   MEMORY[0x1EEE9AC00](v153);
   v137 = &v126 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3989,18 +3989,18 @@ uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(void *a1@<X8>)
   v140 = &v126 - v4;
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v126 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v9 = v8 - 8;
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v126 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v13 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
   v15 = &v126 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
   v18 = &v126 - v17;
   v19 = *v1;
-  v20 = *(type metadata accessor for DiscontiguousAttributedSubstring() + 20);
+  v20 = *(type metadata accessor for DiscontiguousAttributedSubstring(0) + 20);
   v142 = v13;
   v138 = *(v13 + 16);
   v139 = v13 + 16;
@@ -4018,7 +4018,7 @@ uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(void *a1@<X8>)
   v22 = v146;
   (*(v146 + 16))(v11, v7, v21);
   v23 = *(v9 + 44);
-  v24 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v24 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v143 = *(v22 + 8);
   v144 = v7;
@@ -4085,8 +4085,8 @@ uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(void *a1@<X8>)
     while (*(v25 + v149) != v157);
   }
 
-  outlined destroy of TermOfAddress?(v25, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-  v26 = type metadata accessor for AttributedString.Runs();
+  outlined destroy of TermOfAddress?(v25, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+  v26 = type metadata accessor for AttributedString.Runs(0);
   v27 = *(v26 + 24);
   v28 = v21;
   v29 = v145;
@@ -4109,7 +4109,7 @@ uint64_t DiscontiguousAttributedSubstring.runs.getter@<X0>(void *a1@<X8>)
 LABEL_10:
     v32(v35, v28);
     v63 = v152;
-    v64 = *(v152 + 9);
+    v64 = *(v152 + 72);
     if (v64)
     {
       v155 = *(v64 + 18);
@@ -4120,7 +4120,7 @@ LABEL_10:
       v155 = 0;
     }
 
-    v156 = *(v152 + 12);
+    v156 = *(v152 + 96);
     v65 = *(v152 + 40);
     v157 = *(v152 + 24);
     v158 = v65;
@@ -4130,8 +4130,8 @@ LABEL_10:
     v69 = v68;
     v71 = v70;
     v154 = v72;
-    v73 = *(v63 + 9);
-    v151 = *(v63 + 12);
+    v73 = *(v63 + 72);
+    v151 = *(v63 + 96);
     if (v73)
     {
       v150 = *(v73 + 18);
@@ -4199,7 +4199,7 @@ LABEL_10:
 
   v129 = v27;
   dispatch thunk of Collection.endIndex.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v102 = dispatch thunk of Collection.subscript.read();
   v96 = v103[4];
@@ -4272,10 +4272,10 @@ LABEL_10:
   else
   {
     v110 = v104;
-    v111 = *(v107 + 9);
+    v111 = *(v107 + 72);
     if (v111)
     {
-      v87 = *(v107 + 10);
+      v87 = *(v107 + 80);
     }
 
     else
@@ -4283,7 +4283,7 @@ LABEL_10:
       v87 = 0;
     }
 
-    v112 = *(v107 + 12);
+    v112 = *(v107 + 96);
     v113 = swift_unknownObjectRetain();
     v151 = v112;
     v150 = specialized Rope._endPath.getter(v113);
@@ -4362,12 +4362,12 @@ LABEL_26:
   return result;
 }
 
-uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
+uint64_t DiscontiguousAttributedSubstring.hash(into:)(__int128 *a1)
 {
-  v299 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+  v299 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
   MEMORY[0x1EEE9AC00](v299);
   v4 = &v269 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v323 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v274 = &v269 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -4375,14 +4375,14 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
   v314 = &v269 - v8;
   MEMORY[0x1EEE9AC00](v9);
   v307 = &v269 - v10;
-  v308 = type metadata accessor for AttributedString.Runs();
+  v308 = type metadata accessor for AttributedString.Runs(0);
   MEMORY[0x1EEE9AC00](v308);
   v298 = &v269 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
   v310 = &v269 - v13;
   MEMORY[0x1EEE9AC00](v14);
   v309 = &v269 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v313 = *(v16 - 8);
   v17 = v313;
   MEMORY[0x1EEE9AC00](v16);
@@ -4391,12 +4391,12 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
   v303 = &v269 - v20;
   MEMORY[0x1EEE9AC00](v21);
   v23 = &v269 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v24);
   v318 = &v269 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v26);
   v28 = &v269 - v27;
-  type metadata accessor for DiscontiguousAttributedSubstring();
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
   v304 = v1;
   RangeSet.ranges.getter();
   v300 = *(v17 + 16);
@@ -4406,7 +4406,7 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
   v305 = *(v24 + 36);
   v29 = v28;
   v30 = v310;
-  v31 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v31 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v32 = *(v313 + 8);
   v313 += 8;
@@ -4417,7 +4417,7 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
   dispatch thunk of Collection.endIndex.getter();
   if (*(v33 + v34) == v340)
   {
-    return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   }
 
   v296 = (v323 + 8);
@@ -4515,7 +4515,7 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
       while (*(v43 + v316) != v340);
     }
 
-    outlined destroy of TermOfAddress?(v43, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v43, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v45 = v308;
     v46 = v310;
     v47 = &v310[*(v308 + 24)];
@@ -4613,7 +4613,7 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
     else
     {
       dispatch thunk of Collection.endIndex.getter();
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
       dispatch thunk of BidirectionalCollection.index(before:)();
       v132 = dispatch thunk of Collection.subscript.read();
       v135 = v133[4];
@@ -4661,8 +4661,8 @@ uint64_t DiscontiguousAttributedSubstring.hash(into:)(uint64_t a1)
         v291 = v165;
         v165(v307, v164);
         v96 = v275;
-        v106 = v277;
         v113 = v276;
+        v106 = v277;
         v103 = v278;
         v108 = 0;
         v105 = v306;
@@ -5538,7 +5538,7 @@ LABEL_34:
       BigString.subscript.getter();
       outlined destroy of BigString(v370);
       BigSubstring.hash(into:)();
-      outlined destroy of TermOfAddress?(&v330, &_s10Foundation16AttributedStringV4RunsV3RunVSgMd);
+      outlined destroy of TermOfAddress?(&v330, &_s10Foundation16AttributedStringV4RunsV3RunVSgMd, &_s10Foundation16AttributedStringV4RunsV3RunVSgMR);
       outlined destroy of BigSubstring(v350);
       specialized IndexingIterator.next()(&v324);
       v332 = v326;
@@ -5554,14 +5554,14 @@ LABEL_34:
       v336 = v325;
     }
 
-    outlined destroy of TermOfAddress?(v131, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd);
+    outlined destroy of TermOfAddress?(v131, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMd, &_ss16IndexingIteratorVy10Foundation16AttributedStringV4RunsVGMR);
     _s10Foundation16AttributedStringV4RunsVWOhTm_1(v309, type metadata accessor for AttributedString.Runs);
     v33 = v293;
     dispatch thunk of Collection.endIndex.getter();
     v23 = v312;
     if (*(v33 + v305) == v340)
     {
-      return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+      return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     }
   }
 
@@ -5645,21 +5645,21 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Discont
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DiscontiguousAttributedSubstring()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DiscontiguousAttributedSubstring(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  DiscontiguousAttributedSubstring.hash(into:)(v1);
+  DiscontiguousAttributedSubstring.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
 uint64_t DiscontiguousAttributedSubstring.setAttributes(_:)(uint64_t *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v54 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v54 - v9;
   v11 = a1[1];
@@ -5733,13 +5733,13 @@ uint64_t DiscontiguousAttributedSubstring.setAttributes(_:)(uint64_t *a1)
     v10 = v58;
     v8 = v63;
 LABEL_11:
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     v56 = v2;
     RangeSet.ranges.getter();
     (*(v5 + 2))(v10, v7, v4);
     v29 = *(v8 + 36);
-    v30 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    v30 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v5 + 1))(v7, v4);
     v31 = v10;
@@ -5747,7 +5747,7 @@ LABEL_11:
     v17 = v64;
     if (*&v10[v29] == v65[0])
     {
-      return outlined destroy of TermOfAddress?(v31, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+      return outlined destroy of TermOfAddress?(v31, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     }
 
     v33 = v64 + 64;
@@ -5853,7 +5853,7 @@ LABEL_26:
         dispatch thunk of Collection.endIndex.getter();
         if (*(v31 + v55) == v65[0])
         {
-          return outlined destroy of TermOfAddress?(v31, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+          return outlined destroy of TermOfAddress?(v31, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
         }
 
         goto LABEL_15;
@@ -5879,11 +5879,11 @@ LABEL_34:
 uint64_t DiscontiguousAttributedSubstring.mergeAttributes(_:mergePolicy:)(uint64_t *a1, unsigned __int8 *a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v61 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v61 - v11;
   v13 = *a1;
@@ -5960,20 +5960,20 @@ uint64_t DiscontiguousAttributedSubstring.mergeAttributes(_:mergePolicy:)(uint64
     v13 = v73;
     v10 = v72;
 LABEL_11:
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     v64 = v3;
     RangeSet.ranges.getter();
     (*(v7 + 16))(v12, v9, v6);
     v31 = *(v10 + 36);
-    v32 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    v32 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v7 + 8))(v9, v6);
     v33 = v12;
     dispatch thunk of Collection.endIndex.getter();
     if (*&v12[v31] == v74[0])
     {
-      return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+      return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     }
 
     v35 = v13 + 64;
@@ -6025,7 +6025,7 @@ LABEL_15:
       dispatch thunk of Collection.endIndex.getter();
       if (*(v36 + v37) == v74[0])
       {
-        return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+        return outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
       }
     }
 
@@ -6140,11 +6140,11 @@ LABEL_35:
 uint64_t DiscontiguousAttributedSubstring.replaceAttributes(_:with:)(__int128 *a1, __int128 *a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v48 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v48 - v11;
   v13 = *a1;
@@ -6250,12 +6250,12 @@ LABEL_13:
 
   v54 = v14;
   v58 = v18;
-  type metadata accessor for DiscontiguousAttributedSubstring();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   RangeSet.ranges.getter();
   (*(v7 + 16))(v12, v9, v6);
   v36 = *(v10 + 36);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   (*(v7 + 8))(v9, v6);
   dispatch thunk of Collection.endIndex.getter();
@@ -6291,7 +6291,7 @@ LABEL_13:
     while (*&v12[v36] != v59[0]);
   }
 
-  outlined destroy of TermOfAddress?(v12, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v12, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v46 = *(v58 + 16);
   if (v46)
   {
@@ -6307,7 +6307,7 @@ LABEL_13:
   }
 }
 
-uint64_t closure #2 in DiscontiguousAttributedSubstring.replaceAttributes(_:with:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, unint64_t *a9)
+unint64_t closure #2 in DiscontiguousAttributedSubstring.replaceAttributes(_:with:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, unint64_t *a9)
 {
   v9 = a4;
   v11 = a4 + 64;
@@ -6336,7 +6336,7 @@ LABEL_13:
     v26 = v28[1];
     v135 = 0;
     memset(v134, 0, sizeof(v134));
-    outlined init with copy of FloatingPointRoundingRule?(v134, &v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(v134, &v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v120 = v26;
     v121 = v29;
     if (*(&v130 + 1))
@@ -6374,7 +6374,7 @@ LABEL_70:
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v60 = static _DictionaryStorage.copy(original:)();
           v39 = v60;
           if (*(v32 + 16))
@@ -6555,7 +6555,7 @@ LABEL_44:
     else
     {
 
-      outlined destroy of TermOfAddress?(&v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v42 = specialized __RawDictionaryStorage.find<A>(_:)(v29, v26);
       if (v43)
       {
@@ -6570,7 +6570,7 @@ LABEL_44:
         else
         {
           v106 = a1;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v79 = static _DictionaryStorage.copy(original:)();
           v47 = v79;
           if (*(v46 + 16))
@@ -6690,8 +6690,8 @@ LABEL_59:
     v14 &= v14 - 1;
     AttributedString._AttributeStorage._attributeModified(_:old:new:)(v121, v26, &v129, v134);
 
-    outlined destroy of TermOfAddress?(v134, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(v134, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v129, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   }
 
   while (1)
@@ -6758,7 +6758,7 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X0>
   v68 = a4;
   v69.n128_u64[0] = a2;
   v66 = a1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v72 = *(v5 - 8);
   v73 = v5;
   MEMORY[0x1EEE9AC00](v5);
@@ -6767,7 +6767,7 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X0>
   v62 = &v59 - v8;
   MEMORY[0x1EEE9AC00](v9);
   v67 = &v59 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v65 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v61 = &v59 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6806,10 +6806,10 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X0>
   v60 = v88;
   v69 = *(v89 + 8);
   v70 = v87;
-  v66 = type metadata accessor for DiscontiguousAttributedSubstring();
+  v66 = type metadata accessor for DiscontiguousAttributedSubstring(0);
   v32 = *(v66 + 20);
   RangeSet.ranges.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v33 = &v87;
   dispatch thunk of Collection.endIndex.getter();
@@ -6832,7 +6832,7 @@ LABEL_18:
   if ((dispatch thunk of Collection.isEmpty.getter() & 1) == 0)
   {
     dispatch thunk of Collection.endIndex.getter();
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
     dispatch thunk of BidirectionalCollection.index(before:)();
     v38 = dispatch thunk of Collection.subscript.read();
     v40 = *(v39 + 32);
@@ -6861,7 +6861,7 @@ LABEL_18:
       *(v68 + *(v66 + 24)) = 0;
       *v47 = v19;
       RangeSet.ranges.getter();
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB8]);
       v18 = dispatch thunk of Sequence._copyToContiguousArray()();
       v48 = *(v18 + 2);
       if (!v48)
@@ -6869,8 +6869,8 @@ LABEL_18:
 LABEL_14:
         *&v78 = v18;
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd);
-        lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [Range<BigString.Index>] and conformance [A], &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd, &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMR);
+        lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [Range<BigString.Index>] and conformance [A], &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd, &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMR, MEMORY[0x1E69E6328]);
         RangeSet.init<A>(_:)();
         outlined destroy of AttributedString.CharacterView(&v98);
         (v71)(v67, v42);
@@ -6962,12 +6962,12 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X8>
 {
   v2 = v1;
   v102 = a1;
-  v3 = type metadata accessor for DiscontiguousAttributedSubstring();
+  v3 = type metadata accessor for DiscontiguousAttributedSubstring(0);
   MEMORY[0x1EEE9AC00](v3);
   v104 = &v95 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v95 - v6;
-  v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v114 = *(v107 - 8);
   MEMORY[0x1EEE9AC00](v107);
   v98 = &v95 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6979,11 +6979,11 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X8>
   v101 = &v95 - v14;
   MEMORY[0x1EEE9AC00](v15);
   v108 = &v95 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMR);
   v18 = *(v17 - 8);
   MEMORY[0x1EEE9AC00](v17);
   v20 = &v95 - v19;
-  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v110 = *(v112 - 8);
   MEMORY[0x1EEE9AC00](v112);
   v97 = &v95 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6993,9 +6993,9 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X8>
   v105 = &v95 - v25;
   MEMORY[0x1EEE9AC00](v26);
   v111 = &v95 - v27;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd, &_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMR);
   RangeSet.ranges.getter();
-  v28 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<AttributedString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMd);
+  v28 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<AttributedString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy10Foundation16AttributedStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   v29 = dispatch thunk of Collection.count.getter();
   v113 = v3;
   v109 = v1;
@@ -7059,16 +7059,16 @@ LABEL_41:
   }
 
   v127[0] = v31;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd, &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMR);
   v2 = lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
-  v42 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [Range<BigString.Index>] and conformance [A], &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd);
+  v42 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [Range<BigString.Index>] and conformance [A], &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMd, &_sSaySny19CollectionsInternal9BigStringV5IndexVGGMR, MEMORY[0x1E69E6328]);
   v28 = v111;
   *&v118 = v42;
   RangeSet.init<A>(_:)();
   v43 = v108;
   v44 = v112;
   RangeSet.ranges.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   v7 = v107;
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
@@ -7084,7 +7084,7 @@ LABEL_41:
     *v48 = v47;
 
     RangeSet.ranges.getter();
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB8]);
     v20 = dispatch thunk of Sequence._copyToContiguousArray()();
     v49 = *(v20 + 2);
     if (v49)
@@ -7219,7 +7219,7 @@ LABEL_43:
   *&v116 = v2;
   v65 = v20;
   dispatch thunk of Collection.endIndex.getter();
-  v20 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v20 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB0]);
   dispatch thunk of BidirectionalCollection.index(before:)();
   v66 = dispatch thunk of Collection.subscript.read();
   v101 = *(v67 + 32);
@@ -7267,7 +7267,7 @@ LABEL_44:
     *&v104[*(v113 + 24)] = 0;
     *v77 = v74;
     RangeSet.ranges.getter();
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BB8]);
     v20 = dispatch thunk of Sequence._copyToContiguousArray()();
     v78 = *(v20 + 2);
     if (v78)
@@ -7363,17 +7363,17 @@ LABEL_45:
 uint64_t DiscontiguousAttributedSubstring.characters.getter@<X0>(uint64_t a1@<X8>)
 {
   v37 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v34 = &v31[-v3];
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v4 = *(v33 - 8);
   MEMORY[0x1EEE9AC00](v33);
   v6 = &v31[-v5];
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMR);
   MEMORY[0x1EEE9AC00](v32);
   v8 = &v31[-v7];
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd, &_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMR);
   v35 = *(v36 - 8);
   MEMORY[0x1EEE9AC00](v36);
   v10 = &v31[-v9];
@@ -7396,10 +7396,10 @@ uint64_t DiscontiguousAttributedSubstring.characters.getter@<X0>(uint64_t a1@<X8
   *&v49 = v21;
   *(&v49 + 1) = v22;
   v50 = v23;
-  type metadata accessor for DiscontiguousAttributedSubstring();
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
   v24 = *(v11 + 16);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   RangeSet.ranges.getter();
   v25 = *(v4 + 32);
   v26 = v34;
@@ -7412,7 +7412,7 @@ uint64_t DiscontiguousAttributedSubstring.characters.getter@<X0>(uint64_t a1@<X8
   *v29 = partial apply for closure #1 in RangeSet<>._attributedStringIndices(version:);
   v29[1] = v28;
   lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type LazyMapSequence<RangeSet<BigString.Index>.Ranges, Range<AttributedString.Index>> and conformance LazyMapSequence<A, B>, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type LazyMapSequence<RangeSet<BigString.Index>.Ranges, Range<AttributedString.Index>> and conformance LazyMapSequence<A, B>, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMR, MEMORY[0x1E69E6CC8]);
   RangeSet.init<A>(_:)();
   v40 = v48;
   v41 = v49;
@@ -7428,17 +7428,17 @@ uint64_t DiscontiguousAttributedSubstring.characters.getter@<X0>(uint64_t a1@<X8
 uint64_t DiscontiguousAttributedSubstring.unicodeScalars.getter@<X0>(uint64_t a1@<X8>)
 {
   v46 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss12LazySequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v43 = &v36 - v3;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v40 = *(v42 - 8);
   MEMORY[0x1EEE9AC00](v42);
   v38 = &v36 - v4;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMR);
   MEMORY[0x1EEE9AC00](v41);
   v6 = &v36 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMd, &_ss8RangeSetVy10Foundation16AttributedStringV5IndexVGMR);
   v44 = *(v7 - 8);
   v45 = v7;
   MEMORY[0x1EEE9AC00](v7);
@@ -7487,9 +7487,9 @@ uint64_t DiscontiguousAttributedSubstring.unicodeScalars.getter@<X0>(uint64_t a1
   *&v74[56] = v60;
   *v74 = v9;
   *&v74[72] = 0;
-  type metadata accessor for DiscontiguousAttributedSubstring();
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
   v26 = *(v9 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v27 = v38;
   RangeSet.ranges.getter();
   v28 = *(v40 + 32);
@@ -7502,9 +7502,9 @@ uint64_t DiscontiguousAttributedSubstring.unicodeScalars.getter@<X0>(uint64_t a1
   v28(v6, v29, v31);
   v33 = &v6[*(v41 + 44)];
   *v33 = closure #1 in RangeSet<>._attributedStringIndices(version:)partial apply;
-  *(v33 + 1) = v32;
+  v33[1] = v32;
   lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type LazyMapSequence<RangeSet<BigString.Index>.Ranges, Range<AttributedString.Index>> and conformance LazyMapSequence<A, B>, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type LazyMapSequence<RangeSet<BigString.Index>.Ranges, Range<AttributedString.Index>> and conformance LazyMapSequence<A, B>, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMd, &_ss15LazyMapSequenceVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GSny10Foundation010AttributedJ0VAJVGGMR, MEMORY[0x1E69E6CC8]);
   v34 = v39;
   RangeSet.init<A>(_:)();
   v49 = *&v74[32];
@@ -7520,39 +7520,39 @@ uint64_t DiscontiguousAttributedSubstring.unicodeScalars.getter@<X0>(uint64_t a1
 
 uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, char *a3@<X8>)
 {
-  v34 = a3;
-  v37 = a2;
+  v35 = a3;
+  v38 = a2;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v5 = type metadata accessor for Optional();
-  v31 = *(v5 - 8);
-  v32 = v5;
+  v32 = *(v5 - 8);
+  v33 = v5;
   MEMORY[0x1EEE9AC00](v5);
-  v33 = &v30 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
-  v35 = *(v7 - 8);
-  v8 = v35;
+  v34 = &v31 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
+  v36 = *(v7 - 8);
+  v8 = v36;
   MEMORY[0x1EEE9AC00](v7);
-  v10 = &v30 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v10 = &v31 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   v12 = v11 - 8;
   MEMORY[0x1EEE9AC00](v11);
-  v14 = &v30 - v13;
-  type metadata accessor for DiscontiguousAttributedSubstring();
-  v56 = 0u;
+  v14 = &v31 - v13;
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
   v57 = 0u;
-  v58 = 0;
-  v54 = 0u;
+  v58 = 0u;
+  v59 = 0;
   v55 = 0u;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
-  v38 = v3;
+  v56 = 0u;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
+  v39 = v3;
   RangeSet.ranges.getter();
   (*(v8 + 16))(v14, v10, v7);
   v15 = *(v12 + 44);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
-  (*(v35 + 8))(v10, v7);
+  (*(v36 + 8))(v10, v7);
   dispatch thunk of Collection.endIndex.getter();
-  if (*&v14[v15] != v49)
+  if (*&v14[v15] != v50)
   {
     while (1)
     {
@@ -7560,96 +7560,98 @@ uint64_t DiscontiguousAttributedSubstring.subscript.getter@<X0>(uint64_t a1@<X1>
       v23 = v22[3];
       v25 = *v22;
       v24 = v22[1];
-      v59[2] = v22[2];
-      v59[3] = v23;
-      v59[0] = v25;
-      v59[1] = v24;
-      v21(&v49, 0);
+      v60[2] = v22[2];
+      v60[3] = v23;
+      v60[0] = v25;
+      v60[1] = v24;
+      v21(&v50, 0);
       dispatch thunk of Collection.formIndex(after:)();
-      AttributedString.Guts.getUniformValue<A>(in:key:)(v59, a1, v37, &v44);
-      if (!*(&v45 + 1))
+      AttributedString.Guts.getUniformValue<A>(in:key:)(v60, a1, v38, &v45);
+      if (!*(&v46 + 1))
       {
         break;
       }
 
-      v51 = v46;
       v52 = v47;
       v53 = v48;
-      v49 = v44;
+      v54 = v49;
       v50 = v45;
-      outlined init with copy of FloatingPointRoundingRule?(&v54, &v39, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      if (*(&v40 + 1))
+      v51 = v46;
+      outlined init with copy of FloatingPointRoundingRule?(&v55, &v40, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      if (*(&v41 + 1))
       {
-        v46 = v41;
         v47 = v42;
         v48 = v43;
-        v44 = v39;
+        v49 = v44;
         v45 = v40;
-        v26 = specialized static AttributedString._AttributeValue.== infix(_:_:)(&v44, &v49);
-        outlined destroy of AttributedString._AttributeValue(&v44);
+        v46 = v41;
+        v26 = specialized static AttributedString._AttributeValue.== infix(_:_:)(&v45, &v50);
+        outlined destroy of AttributedString._AttributeValue(&v45);
         if ((v26 & 1) == 0)
         {
-          outlined destroy of AttributedString._AttributeValue(&v49);
+          outlined destroy of AttributedString._AttributeValue(&v50);
           v27 = &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd;
-          v28 = v14;
+          v28 = &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR;
+          v29 = v14;
           goto LABEL_13;
         }
       }
 
       else
       {
-        outlined destroy of TermOfAddress?(&v39, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v40, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       }
 
-      outlined destroy of TermOfAddress?(&v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      v56 = v51;
+      outlined destroy of TermOfAddress?(&v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v57 = v52;
       v58 = v53;
-      v54 = v49;
+      v59 = v54;
       v55 = v50;
+      v56 = v51;
       dispatch thunk of Collection.endIndex.getter();
-      if (*&v14[v15] == v49)
+      if (*&v14[v15] == v50)
       {
         goto LABEL_2;
       }
     }
 
-    outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v27 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
-    v28 = &v44;
+    v28 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
+    v29 = &v45;
 LABEL_13:
-    outlined destroy of TermOfAddress?(v28, v27);
+    outlined destroy of TermOfAddress?(v29, v27, v28);
     goto LABEL_14;
   }
 
 LABEL_2:
-  outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-  if (!*(&v55 + 1))
+  outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+  if (!*(&v56 + 1))
   {
 LABEL_14:
-    (*(*(AssociatedTypeWitness - 8) + 56))(v34, 1, 1);
-    return outlined destroy of TermOfAddress?(&v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    (*(*(AssociatedTypeWitness - 8) + 56))(v35, 1, 1);
+    return outlined destroy of TermOfAddress?(&v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   }
 
-  outlined init with copy of AttributedString._AttributeValue(&v54, &v49);
-  outlined init with copy of Hashable & Sendable(&v49, &v44);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
-  v16 = v33;
+  outlined init with copy of AttributedString._AttributeValue(&v55, &v50);
+  outlined init with copy of Hashable & Sendable(&v50, &v45);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
+  v16 = v34;
   v17 = AssociatedTypeWitness;
   if (swift_dynamicCast())
   {
-    outlined destroy of AttributedString._AttributeValue(&v49);
+    outlined destroy of AttributedString._AttributeValue(&v50);
     v18 = *(v17 - 8);
     v19 = *(v18 + 56);
     v19(v16, 0, 1, v17);
-    v20 = v34;
-    (*(v18 + 32))(v34, v16, v17);
+    v20 = v35;
+    (*(v18 + 32))(v35, v16, v17);
     v19(v20, 0, 1, v17);
-    return outlined destroy of TermOfAddress?(&v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    return outlined destroy of TermOfAddress?(&v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   }
 
   (*(*(v17 - 8) + 56))(v16, 1, 1, v17);
-  result = (*(v31 + 8))(v16, v32);
+  result = (*(v32 + 8))(v16, v33);
   __break(1u);
   return result;
 }
@@ -7657,11 +7659,11 @@ LABEL_14:
 uint64_t DiscontiguousAttributedSubstring.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v9 = *(v120 - 8);
   MEMORY[0x1EEE9AC00](v120);
   v116 = &v95 - v10;
-  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v115);
   v113 = &v95 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
@@ -7764,15 +7766,15 @@ LABEL_11:
     v98 = v17 + 8;
     v109 = v42;
     (v42)(v19, v16);
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     v43 = v116;
     RangeSet.ranges.getter();
     v44 = v113;
     v45 = v120;
     (*(v9 + 16))(v113, v43, v120);
     v46 = *(v115 + 36);
-    v47 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    v47 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v9 + 8))(v43, v45);
     dispatch thunk of Collection.endIndex.getter();
@@ -7833,7 +7835,7 @@ LABEL_11:
           else
           {
             v70 = *&v127[0];
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
             v69 = swift_allocObject();
             *(v69 + 16) = v110;
             *(v69 + 32) = v70;
@@ -7852,20 +7854,20 @@ LABEL_11:
     }
 
     (v109)(v97, v96);
-    return outlined destroy of TermOfAddress?(v44, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    return outlined destroy of TermOfAddress?(v44, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   }
 
   else
   {
     (*(v20 + 32))(v111, v19, AssociatedTypeWitness);
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     v49 = v116;
     RangeSet.ranges.getter();
     v50 = v120;
     (*(v9 + 16))(v14, v49, v120);
     v51 = &v14[*(v115 + 36)];
-    v52 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    v52 = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v9 + 8))(v49, v50);
     dispatch thunk of Collection.endIndex.getter();
@@ -7937,7 +7939,7 @@ LABEL_11:
         if (*&v124[16] != 1)
         {
           v93 = *&v124[8];
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
           v94 = swift_allocObject();
           *(v94 + 16) = v99;
           *(v94 + 32) = v93;
@@ -7956,7 +7958,7 @@ LABEL_11:
     }
 
     (*(v98 + 8))(v97, v96);
-    outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v14, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     return (*(v95 + 8))(v111, v110);
   }
 }
@@ -7976,13 +7978,13 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
 
   v7 = v6;
   *a1 = v6;
-  v6[184] = v54;
+  v6[184] = v55;
   v6[183] = a4;
   v6[182] = a3;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   *(v7 + 1480) = AssociatedTypeWitness;
   v9 = *(AssociatedTypeWitness - 8);
-  v49 = v9;
+  v50 = v9;
   *(v7 + 1488) = v9;
   v10 = *(v9 + 64);
   if (v5)
@@ -8000,7 +8002,7 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
   }
 
   *(v7 + 1512) = v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   *(v7 + 1520) = v12;
   v13 = *(v12 - 8);
   if (v5)
@@ -8015,7 +8017,7 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
 
   v15 = v14;
   *(v7 + 1528) = v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   *(v7 + 1536) = v16;
   v17 = *(*(v16 - 8) + 64);
   if (v5)
@@ -8041,8 +8043,8 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
   v20 = type metadata accessor for Optional();
   *(v7 + 1584) = v20;
   v21 = *(v20 - 8);
-  v46 = v21;
-  v47 = v20;
+  v47 = v21;
+  v48 = v20;
   *(v7 + 1592) = v21;
   v22 = *(v21 + 64);
   if (v5)
@@ -8050,8 +8052,8 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
     *(v7 + 1600) = swift_coroFrameAlloc();
     *(v7 + 1608) = swift_coroFrameAlloc();
     *(v7 + 1616) = swift_coroFrameAlloc();
-    v48 = swift_coroFrameAlloc();
-    *(v7 + 1624) = v48;
+    v49 = swift_coroFrameAlloc();
+    *(v7 + 1624) = v49;
     v23 = swift_coroFrameAlloc();
   }
 
@@ -8060,28 +8062,28 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
     *(v7 + 1600) = malloc(*(v21 + 64));
     *(v7 + 1608) = malloc(v22);
     *(v7 + 1616) = malloc(v22);
-    v48 = malloc(v22);
-    *(v7 + 1624) = v48;
+    v49 = malloc(v22);
+    *(v7 + 1624) = v49;
     v23 = malloc(v22);
   }
 
-  v50 = v23;
+  v51 = v23;
   *(v7 + 1632) = v23;
-  v24 = type metadata accessor for DiscontiguousAttributedSubstring();
+  v24 = type metadata accessor for DiscontiguousAttributedSubstring(0);
   *v7 = 0u;
   *(v7 + 16) = 0u;
   *(v7 + 32) = 0u;
   *(v7 + 48) = 0u;
   *(v7 + 64) = 0;
   *(v7 + 1688) = *(v24 + 20);
-  *(v7 + 1640) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  *(v7 + 1640) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   RangeSet.ranges.getter();
   v25 = *(v13 + 16);
   *(v7 + 1648) = v25;
   *(v7 + 1656) = (v13 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v25(v19, v15, v12);
   v26 = *(v16 + 36);
-  *(v7 + 1664) = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  *(v7 + 1664) = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v27 = *(v13 + 8);
   *(v7 + 1672) = v27;
@@ -8091,7 +8093,7 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
   if (*(v19 + v26) != *(v7 + 1416))
   {
     v29 = (v7 + 504);
-    v51 = v26;
+    v52 = v26;
     while (1)
     {
       v32 = dispatch thunk of Collection.subscript.read();
@@ -8118,7 +8120,7 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
       v39 = *(v7 + 448);
       *v29 = *(v7 + 432);
       *(v7 + 520) = v39;
-      outlined init with copy of FloatingPointRoundingRule?(v7, v7 + 144, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(v7, v7 + 144, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (*(v7 + 168))
       {
         v40 = *(v7 + 192);
@@ -8134,17 +8136,18 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
         {
           outlined destroy of AttributedString._AttributeValue(v7 + 504);
           v43 = &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd;
-          v44 = v19;
+          v44 = &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR;
+          v45 = v19;
           goto LABEL_28;
         }
       }
 
       else
       {
-        outlined destroy of TermOfAddress?(v7 + 144, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v7 + 144, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       }
 
-      outlined destroy of TermOfAddress?(v7, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(v7, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v30 = *(v7 + 552);
       *(v7 + 32) = *(v7 + 536);
       *(v7 + 48) = v30;
@@ -8154,46 +8157,47 @@ void (*DiscontiguousAttributedSubstring.subscript.modify(void *a1, uint64_t a2, 
       *(v7 + 16) = v31;
       v12 = v37;
       dispatch thunk of Collection.endIndex.getter();
-      if (*(v19 + v51) == *(v7 + 1416))
+      if (*(v19 + v52) == *(v7 + 1416))
       {
         goto LABEL_17;
       }
     }
 
-    outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v43 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
-    v44 = v7 + 432;
+    v44 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
+    v45 = v7 + 432;
 LABEL_28:
-    outlined destroy of TermOfAddress?(v44, v43);
+    outlined destroy of TermOfAddress?(v45, v43, v44);
     goto LABEL_29;
   }
 
 LABEL_17:
-  outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   if (!*(v7 + 24))
   {
 LABEL_29:
-    (*(v49 + 56))(v50, 1, 1, AssociatedTypeWitness);
+    (*(v50 + 56))(v51, 1, 1, AssociatedTypeWitness);
     goto LABEL_30;
   }
 
   outlined init with copy of AttributedString._AttributeValue(v7, v7 + 72);
   outlined init with copy of Hashable & Sendable(v7 + 72, v7 + 1216);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
   if (swift_dynamicCast())
   {
     outlined destroy of AttributedString._AttributeValue(v7 + 72);
-    v28 = *(v49 + 56);
-    v28(v48, 0, 1, AssociatedTypeWitness);
-    (*(v49 + 32))(v50, v48, AssociatedTypeWitness);
-    v28(v50, 0, 1, AssociatedTypeWitness);
+    v28 = *(v50 + 56);
+    v28(v49, 0, 1, AssociatedTypeWitness);
+    (*(v50 + 32))(v51, v49, AssociatedTypeWitness);
+    v28(v51, 0, 1, AssociatedTypeWitness);
 LABEL_30:
-    outlined destroy of TermOfAddress?(v7, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(v7, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     return DiscontiguousAttributedSubstring.subscript.modify;
   }
 
-  (*(v49 + 56))(v48, 1, 1, AssociatedTypeWitness);
-  result = (*(v46 + 8))(v48, v47);
+  (*(v50 + 56))(v49, 1, 1, AssociatedTypeWitness);
+  result = (*(v47 + 8))(v49, v48);
   __break(1u);
   return result;
 }
@@ -8304,7 +8308,7 @@ LABEL_12:
               else
               {
                 v124 = v247[0];
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
                 v98 = swift_allocObject();
                 *(v98 + 16) = v235;
                 *(v98 + 32) = v124;
@@ -8320,7 +8324,7 @@ LABEL_12:
           while (*&v238[v33] != *(v3 + 1424));
         }
 
-        outlined destroy of TermOfAddress?(*(v3 + 1544), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+        outlined destroy of TermOfAddress?(*(v3 + 1544), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
         v34 = v233;
       }
 
@@ -8333,7 +8337,7 @@ LABEL_12:
         (*(*(v3 + 1488) + 32))(*(v3 + 1496), v27, *(v3 + 1480));
         RangeSet.ranges.getter();
         v26(v60, v61, v62);
-        v63 = (v60 + v244[9]);
+        v63 = &v60[v244[9]];
         dispatch thunk of Collection.startIndex.getter();
         v245(v61, v62);
         dispatch thunk of Collection.endIndex.getter();
@@ -8420,7 +8424,7 @@ LABEL_12:
             if (v184 != 1)
             {
               v185 = *(v3 + 400);
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
               v186 = swift_allocObject();
               *(v186 + 16) = v227;
               *(v186 + 32) = v185;
@@ -8440,7 +8444,7 @@ LABEL_12:
         v65 = *(v3 + 1496);
         v66 = *(v3 + 1488);
         v67 = *(v3 + 1480);
-        outlined destroy of TermOfAddress?(*(v3 + 1552), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+        outlined destroy of TermOfAddress?(*(v3 + 1552), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
         (*(v66 + 8))(v65, v67);
         v34 = *(v64 + 8);
       }
@@ -8693,7 +8697,7 @@ LABEL_59:
           else
           {
             v152 = v247[0];
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
             v126 = swift_allocObject();
             *(v126 + 16) = v235;
             *(v126 + 32) = v152;
@@ -8709,7 +8713,7 @@ LABEL_59:
       while (*&v238[v58] != *(v3 + 1440));
     }
 
-    outlined destroy of TermOfAddress?(*(v3 + 1560), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(*(v3 + 1560), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v59 = v233;
   }
 
@@ -8722,7 +8726,7 @@ LABEL_59:
     (*(*(v3 + 1488) + 32))(*(v3 + 1512), v52, *(v3 + 1480));
     RangeSet.ranges.getter();
     v51(v86, v87, v88);
-    v89 = (v86 + v244[9]);
+    v89 = &v86[v244[9]];
     dispatch thunk of Collection.startIndex.getter();
     v245(v87, v88);
     dispatch thunk of Collection.endIndex.getter();
@@ -8732,12 +8736,12 @@ LABEL_59:
       v188 = *(v3 + 1464);
       v232 = (v187 + 16);
       v233 = (v3 + 1384);
-      v231 = (v188 + 32);
+      v231 = v188 + 4;
       *&v235 = v3 + 328;
-      v230 = (v188 + 40);
-      v229 = (v188 + 48);
+      v230 = v188 + 5;
+      v229 = v188 + 6;
       v228 = (v187 + 8);
-      *&v227 = v188 + 24;
+      *&v227 = v188 + 3;
       v226 = xmmword_181218E20;
       v234 = v89;
       v246 = (v3 + 288);
@@ -8810,7 +8814,7 @@ LABEL_59:
         if (v218 != 1)
         {
           v219 = *v235;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
           v220 = swift_allocObject();
           *(v220 + 16) = v226;
           *(v220 + 32) = v219;
@@ -8830,7 +8834,7 @@ LABEL_59:
     v91 = *(v3 + 1512);
     v92 = *(v3 + 1488);
     v93 = *(v3 + 1480);
-    outlined destroy of TermOfAddress?(*(v3 + 1568), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(*(v3 + 1568), &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     (*(v92 + 8))(v91, v93);
     v59 = *(v90 + 8);
   }
@@ -8983,7 +8987,7 @@ LABEL_12:
               else
               {
                 v136 = v259[0];
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
                 v110 = swift_allocObject();
                 *(v110 + 16) = v246;
                 *(v110 + 32) = v136;
@@ -9001,7 +9005,7 @@ LABEL_12:
 
         v40 = *(v3 + 1544);
         (v247)(*(v3 + 1608), *(v3 + 1584));
-        outlined destroy of TermOfAddress?(v40, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+        outlined destroy of TermOfAddress?(v40, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
       }
 
       else
@@ -9013,7 +9017,7 @@ LABEL_12:
         (*(*(v3 + 1488) + 32))(*(v3 + 1496), v32, *(v3 + 1480));
         RangeSet.ranges.getter();
         v31(v68, v69, v70);
-        v71 = (v68 + v256[9]);
+        v71 = &v68[v256[9]];
         dispatch thunk of Collection.startIndex.getter();
         v257(v69, v70);
         dispatch thunk of Collection.endIndex.getter();
@@ -9100,7 +9104,7 @@ LABEL_12:
             if (v196 != 1)
             {
               v197 = *(v3 + 400);
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
               v198 = swift_allocObject();
               *(v198 + 16) = v239;
               *(v198 + 32) = v197;
@@ -9124,7 +9128,7 @@ LABEL_12:
         v77 = *(v3 + 1480);
         *&v247 = *(*(v3 + 1592) + 8);
         (v247)(v72, v73);
-        outlined destroy of TermOfAddress?(v74, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+        outlined destroy of TermOfAddress?(v74, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
         (*(v76 + 8))(v75, v77);
       }
 
@@ -9377,7 +9381,7 @@ LABEL_59:
           else
           {
             v164 = v259[0];
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
             v138 = swift_allocObject();
             *(v138 + 16) = v247;
             *(v138 + 32) = v164;
@@ -9396,7 +9400,7 @@ LABEL_59:
     v66 = *(v3 + 1560);
     v67 = v246;
     (v246)(*(v3 + 1632), *(v3 + 1584));
-    outlined destroy of TermOfAddress?(v66, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v66, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   }
 
   else
@@ -9408,7 +9412,7 @@ LABEL_59:
     (*(*(v3 + 1488) + 32))(*(v3 + 1512), v58, *(v3 + 1480));
     RangeSet.ranges.getter();
     v57(v92, v93, v94);
-    v95 = (v92 + v256[9]);
+    v95 = &v92[v256[9]];
     dispatch thunk of Collection.startIndex.getter();
     v257(v93, v94);
     dispatch thunk of Collection.endIndex.getter();
@@ -9418,12 +9422,12 @@ LABEL_59:
       v200 = *(v3 + 1456);
       v244 = (v199 + 16);
       v245 = (v3 + 1384);
-      v243 = (v200 + 32);
+      v243 = v200 + 4;
       *&v247 = v3 + 328;
-      v242 = (v200 + 40);
-      v241 = (v200 + 48);
+      v242 = v200 + 5;
+      v241 = v200 + 6;
       v240 = (v199 + 8);
-      *&v239 = v200 + 24;
+      *&v239 = v200 + 3;
       v238 = xmmword_181218E20;
       *&v246 = v95;
       v258 = (v3 + 288);
@@ -9496,7 +9500,7 @@ LABEL_59:
         if (v230 != 1)
         {
           v231 = *v247;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
           v232 = swift_allocObject();
           *(v232 + 16) = v238;
           *(v232 + 32) = v231;
@@ -9518,7 +9522,7 @@ LABEL_59:
     v99 = *(v3 + 1480);
     v100 = *(*(v3 + 1592) + 8);
     v100(*(v3 + 1632), *(v3 + 1584));
-    outlined destroy of TermOfAddress?(v96, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+    outlined destroy of TermOfAddress?(v96, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
     v101 = v97;
     v67 = v100;
     (*(v98 + 8))(v101, v99);
@@ -9582,13 +9586,13 @@ LABEL_35:
     {
       v20 = *(v2 + 880);
       v104 = *(*a1 + 640);
-      type metadata accessor for DiscontiguousAttributedSubstring();
+      type metadata accessor for DiscontiguousAttributedSubstring(0);
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
       RangeSet.ranges.getter();
       (*(v6 + 16))(v20, v5, v7);
       v21 = *(v4 + 36);
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
       dispatch thunk of Collection.startIndex.getter();
       (*(v6 + 8))(v5, v7);
       dispatch thunk of Collection.endIndex.getter();
@@ -9630,12 +9634,12 @@ LABEL_35:
     }
 
     v34 = *(v2 + 872);
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     RangeSet.ranges.getter();
     (*(v6 + 16))(v34, v5, v7);
     v35 = *(v4 + 36);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v6 + 8))(v5, v7);
     dispatch thunk of Collection.endIndex.getter();
@@ -9795,12 +9799,12 @@ LABEL_62:
   if (!v3)
   {
     v31 = *(v2 + 856);
-    type metadata accessor for DiscontiguousAttributedSubstring();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+    type metadata accessor for DiscontiguousAttributedSubstring(0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
     RangeSet.ranges.getter();
     (*(v6 + 16))(v31, v5, v7);
     v32 = *(v4 + 36);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
     dispatch thunk of Collection.startIndex.getter();
     (*(v6 + 8))(v5, v7);
     dispatch thunk of Collection.endIndex.getter();
@@ -9809,7 +9813,7 @@ LABEL_62:
 LABEL_14:
       v33 = *(v2 + 856);
 LABEL_17:
-      outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+      outlined destroy of TermOfAddress?(v33, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
       goto LABEL_18;
     }
 
@@ -9960,13 +9964,13 @@ LABEL_30:
 
   v8 = *(v2 + 864);
   v103 = *(*a1 + 640);
-  type metadata accessor for DiscontiguousAttributedSubstring();
+  type metadata accessor for DiscontiguousAttributedSubstring(0);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   RangeSet.ranges.getter();
   (*(v6 + 16))(v8, v5, v7);
   v9 = *(v4 + 36);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   (*(v6 + 8))(v5, v7);
   dispatch thunk of Collection.endIndex.getter();
@@ -10005,7 +10009,7 @@ LABEL_30:
 
   v19 = *(v2 + 864);
 LABEL_12:
-  outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  outlined destroy of TermOfAddress?(v19, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
 
 LABEL_18:
   v36 = *(v2 + 880);

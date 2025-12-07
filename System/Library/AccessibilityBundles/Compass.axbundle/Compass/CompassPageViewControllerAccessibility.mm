@@ -3,6 +3,7 @@
 - (CompassPageViewControllerAccessibility)init;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnounceDegreesIfNeeded:(double)needed;
+- (void)_updateDegreesLabel:(BOOL)label;
 - (void)setCrosshairLevelForData:(id)data;
 @end
 
@@ -62,6 +63,16 @@
   [(CompassPageViewControllerAccessibility *)&v4 _accessibilityLoadAccessibilityInformation];
   v3 = [(CompassPageViewControllerAccessibility *)self safeValueForKey:@"view"];
   [v3 setAccessibilityIdentifier:@"compassPageView"];
+}
+
+- (void)_updateDegreesLabel:(BOOL)label
+{
+  v5.receiver = self;
+  v5.super_class = CompassPageViewControllerAccessibility;
+  [(CompassPageViewControllerAccessibility *)&v5 _updateDegreesLabel:label];
+  v4 = [(CompassPageViewControllerAccessibility *)self safeValueForKey:@"_currentCompassAngle"];
+  [v4 doubleValue];
+  [(CompassPageViewControllerAccessibility *)self _axAnnounceDegreesIfNeeded:?];
 }
 
 - (void)setCrosshairLevelForData:(id)data

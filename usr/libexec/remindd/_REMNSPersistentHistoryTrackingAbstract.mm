@@ -880,52 +880,51 @@
   changesCopy = changes;
   mapCopy = map;
   contextCopy = context;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v31 = changesCopy;
+  v30 = changesCopy;
   obj = [changesCopy reverseObjectEnumerator];
-  v37 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+  if (v36)
   {
-    v36 = *v40;
-    v32 = contextCopy;
+    v35 = *v39;
+    v31 = contextCopy;
     do
     {
-      for (i = 0; i != v37; i = i + 1)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v40 != v36)
+        if (*v39 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
-        v11 = objc_autoreleasePoolPush();
+        v10 = objc_autoreleasePoolPush();
         objc_opt_class();
-        v12 = REMCheckedDynamicCast();
-        changedManagedObjectID = [v12 changedManagedObjectID];
+        v11 = REMCheckedDynamicCast();
+        changedManagedObjectID = [v11 changedManagedObjectID];
         entity = [changedManagedObjectID entity];
         name = [entity name];
 
         if (name)
         {
-          v38 = 0;
-          v16 = [contextCopy existingObjectWithID:changedManagedObjectID error:&v38];
-          v17 = v38;
-          if (v16)
+          v37 = 0;
+          v15 = [contextCopy existingObjectWithID:changedManagedObjectID error:&v37];
+          v16 = v37;
+          if (v15)
           {
             objc_opt_class();
-            if (objc_opt_respondsToSelector() & 1) != 0 && (v34 = v11, v18 = [objc_opt_class() methodForSelector:"conformsToREMChangeTrackingIdentifiable"], v19 = objc_opt_class(), (v18(v19, "conformsToREMChangeTrackingIdentifiable")))
+            if (objc_opt_respondsToSelector() & 1) != 0 && (v33 = v10, v17 = [objc_opt_class() methodForSelector:"conformsToREMChangeTrackingIdentifiable"], v18 = objc_opt_class(), (v17(v18, "conformsToREMChangeTrackingIdentifiable")))
             {
-              v20 = v16;
-              remChangedObjectID = [v20 remChangedObjectID];
-              v22 = remChangedObjectID;
+              v19 = v15;
+              remChangedObjectID = [v19 remChangedObjectID];
+              v21 = remChangedObjectID;
               if (remChangedObjectID)
               {
                 uuid = [remChangedObjectID uuid];
-                entityName = [v22 entityName];
-                [v12 resolveObjectIDWithUUID:uuid entityName:entityName];
+                entityName = [v21 entityName];
+                [v11 resolveObjectIDWithUUID:uuid entityName:entityName];
               }
 
               else
@@ -934,37 +933,37 @@
                 if (os_log_type_enabled(uuid, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543874;
-                  v44 = changedManagedObjectID;
-                  v45 = 2112;
-                  v46 = v12;
-                  v47 = 2112;
-                  v48 = v20;
+                  v43 = changedManagedObjectID;
+                  v44 = 2112;
+                  v45 = v11;
+                  v46 = 2112;
+                  v47 = v19;
                   _os_log_error_impl(&_mh_execute_header, uuid, OS_LOG_TYPE_ERROR, "Changed object has nil remChangedObjectID {mID: %{public}@, change: %@, managedObject: %@}", buf, 0x20u);
                 }
               }
 
-              contextCopy = v32;
-              v11 = v34;
+              contextCopy = v31;
+              v10 = v33;
             }
 
             else
             {
-              v20 = +[REMLog changeTracking];
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+              v19 = +[REMLog changeTracking];
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138543618;
-                v44 = changedManagedObjectID;
-                v45 = 2112;
-                v46 = v12;
-                _os_log_fault_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Changed object does not conform to REMChangeTrackingIdentifiable, skip resolving objectID {mID: %{public}@, change: %@}", buf, 0x16u);
+                v43 = changedManagedObjectID;
+                v44 = 2112;
+                v45 = v11;
+                _os_log_fault_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, "Changed object does not conform to REMChangeTrackingIdentifiable, skip resolving objectID {mID: %{public}@, change: %@}", buf, 0x16u);
               }
             }
 
-            [contextCopy refreshObject:v16 mergeChanges:0];
+            [contextCopy refreshObject:v15 mergeChanges:0];
             goto LABEL_32;
           }
 
-          tombstone = [v12 tombstone];
+          tombstone = [v11 tombstone];
           objectIdentifier = [tombstone objectIdentifier];
 
           if (objectIdentifier)
@@ -975,11 +974,11 @@
             goto LABEL_18;
           }
 
-          v28 = [mapCopy objectForKeyedSubscript:changedManagedObjectID];
-          if (v28)
+          v27 = [mapCopy objectForKeyedSubscript:changedManagedObjectID];
+          if (v27)
           {
-            v29 = v28;
-            objectIdentifier = [[NSUUID alloc] initWithUUIDString:v28];
+            v28 = v27;
+            objectIdentifier = [[NSUUID alloc] initWithUUIDString:v27];
 
             if (!objectIdentifier)
             {
@@ -987,17 +986,17 @@
             }
 
 LABEL_18:
-            [v12 resolveObjectIDWithUUID:objectIdentifier entityName:name];
+            [v11 resolveObjectIDWithUUID:objectIdentifier entityName:name];
           }
 
           else
           {
-            v30 = +[REMLog changeTracking];
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v29 = +[REMLog changeTracking];
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v44 = changedManagedObjectID;
-              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "We may have found a race condition where object got deleted in context before we could fetch a deletion change history! {mID: %@}", buf, 0xCu);
+              v43 = changedManagedObjectID;
+              _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "We may have found a race condition where object got deleted in context before we could fetch a deletion change history! {mID: %@}", buf, 0xCu);
             }
 
 LABEL_29:
@@ -1005,9 +1004,9 @@ LABEL_29:
             if (os_log_type_enabled(objectIdentifier, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v44 = changedManagedObjectID;
-              v45 = 2112;
-              v46 = v12;
+              v43 = changedManagedObjectID;
+              v44 = 2112;
+              v45 = v11;
               _os_log_error_impl(&_mh_execute_header, objectIdentifier, OS_LOG_TYPE_ERROR, "Could not find the REMChangedObjectIdentifying ID of the managed object previously deleted in the same change set {mID: %@, change: %@}", buf, 0x16u);
             }
           }
@@ -1016,23 +1015,23 @@ LABEL_32:
           goto LABEL_33;
         }
 
-        v17 = +[REMLog changeTracking];
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+        v16 = +[REMLog changeTracking];
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v44 = v12;
-          _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Failed to get entity name from persistent history change {change: %@}", buf, 0xCu);
+          v43 = v11;
+          _os_log_fault_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Failed to get entity name from persistent history change {change: %@}", buf, 0xCu);
         }
 
 LABEL_33:
 
-        objc_autoreleasePoolPop(v11);
+        objc_autoreleasePoolPop(v10);
       }
 
-      v37 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v36 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 }
 

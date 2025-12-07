@@ -35,34 +35,33 @@
   responseCopy = response;
   selfCopy = self;
   sub_21BC0F350(request, response, v10, v11);
-  sub_21BB5AEC4(v10);
+  sub_21BB5AEC4(v10, v11);
 }
 
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response forRequest:(id)request
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDB6EE8, &unk_21BE36250);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
+  v11 = &v17 - v10;
   if (request)
   {
     sub_21BE2574C();
-    v13 = sub_21BE2575C();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = sub_21BE2575C();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = sub_21BE2575C();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = sub_21BE2575C();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   controllerCopy = controller;
   responseCopy = response;
   selfCopy = self;
-  sub_21BC0F5F0(response, v12);
+  sub_21BC0F5F0(response, v11);
 
-  sub_21BB3A4CC(v12, &qword_27CDB6EE8, &unk_21BE36250);
+  sub_21BB3A4CC(v11, &qword_27CDB6EE8, &unk_21BE36250);
 }
 
 - (void)remoteUIController:(id)controller didRefreshObjectModel:(id)model

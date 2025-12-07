@@ -26,30 +26,29 @@
 
 - (id)analyzeWavData:(id)data numSamples:(unint64_t)samples
 {
-  novDetect = self->_novDetect;
   dataCopy = data;
   [data bytes];
   nd_wavedata();
-  if (self->_novDetect && ((v8 = nd_phrasecount(), v9 = self->_novDetect, v8 < 1) ? (v11 = nd_getresults()) : (phId_low = LODWORD(self->_phId), v11 = nd_getphraseresults()), (v12 = v11) != 0))
+  if (self->_novDetect && (nd_phrasecount() < 1 ? (v7 = nd_getresults()) : (v7 = nd_getphraseresults()), (v8 = v7) != 0))
   {
-    v13 = objc_alloc_init(SSRTriggerPhraseDetectorNDAPIResult);
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setPhId:self->_phId];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setSamplesFed:*v12];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setBestPhrase:v12[3]];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setBestStart:v12[1]];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setBestEnd:v12[2]];
-    LODWORD(v14) = v12[4];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setBestScore:v14];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setIsEarlyWarning:*(v12 + 20)];
-    [(SSRTriggerPhraseDetectorNDAPIResult *)v13 setIsRescoring:*(v12 + 21)];
+    v9 = objc_alloc_init(SSRTriggerPhraseDetectorNDAPIResult);
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setPhId:self->_phId];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setSamplesFed:*v8];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setBestPhrase:v8[3]];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setBestStart:v8[1]];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setBestEnd:v8[2]];
+    LODWORD(v10) = v8[4];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setBestScore:v10];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setIsEarlyWarning:*(v8 + 20)];
+    [(SSRTriggerPhraseDetectorNDAPIResult *)v9 setIsRescoring:*(v8 + 21)];
   }
 
   else
   {
-    v13 = 0;
+    v9 = 0;
   }
 
-  return v13;
+  return v9;
 }
 
 - (void)dealloc
@@ -67,12 +66,12 @@
 
 - (SSRTriggerPhraseDetectorNDAPI)initWithConfigPath:(id)path resourcePath:(id)resourcePath phId:(unint64_t)id
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   resourcePathCopy = resourcePath;
-  v23.receiver = self;
-  v23.super_class = SSRTriggerPhraseDetectorNDAPI;
-  v10 = [(SSRTriggerPhraseDetectorNDAPI *)&v23 init];
+  v20.receiver = self;
+  v20.super_class = SSRTriggerPhraseDetectorNDAPI;
+  v10 = [(SSRTriggerPhraseDetectorNDAPI *)&v20 init];
   if (!v10)
   {
     goto LABEL_8;
@@ -85,47 +84,44 @@
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v25 = "[SSRTriggerPhraseDetectorNDAPI initWithConfigPath:resourcePath:phId:]";
-    v26 = 2114;
-    *v27 = pathCopy;
-    *&v27[8] = 2114;
-    *&v27[10] = resourcePathCopy;
+    v22 = "[SSRTriggerPhraseDetectorNDAPI initWithConfigPath:resourcePath:phId:]";
+    v23 = 2114;
+    *v24 = pathCopy;
+    *&v24[8] = 2114;
+    *&v24[10] = resourcePathCopy;
     _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s Initializing NDAPI using %{public}@, %{public}@", buf, 0x20u);
-    novDetect = v10->_novDetect;
   }
 
   [pathCopy UTF8String];
   [resourcePathCopy cStringUsingEncoding:4];
-  v14 = nd_initialize();
-  if (v14)
+  v13 = nd_initialize();
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v11;
+    v14 = v13;
+    v15 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
     {
-      v20 = v10->_novDetect;
-      v21 = v16;
-      v22 = nd_error();
+      v18 = v15;
+      v19 = nd_error();
       *buf = 136315650;
-      v25 = "[SSRTriggerPhraseDetectorNDAPI initWithConfigPath:resourcePath:phId:]";
-      v26 = 1026;
-      *v27 = v15;
-      *&v27[4] = 2082;
-      *&v27[6] = v22;
-      _os_log_error_impl(&dword_225E12000, v21, OS_LOG_TYPE_ERROR, "%s Failed to initialize NDAPI: err=[%{public}d]:%{public}s", buf, 0x1Cu);
+      v22 = "[SSRTriggerPhraseDetectorNDAPI initWithConfigPath:resourcePath:phId:]";
+      v23 = 1026;
+      *v24 = v14;
+      *&v24[4] = 2082;
+      *&v24[6] = v19;
+      _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Failed to initialize NDAPI: err=[%{public}d]:%{public}s", buf, 0x1Cu);
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
 LABEL_8:
-    v17 = v10;
+    v16 = v10;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 @end

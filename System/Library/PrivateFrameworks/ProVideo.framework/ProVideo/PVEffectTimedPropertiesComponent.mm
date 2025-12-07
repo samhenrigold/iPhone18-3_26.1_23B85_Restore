@@ -266,7 +266,7 @@ void __63__PVEffectTimedPropertiesComponent_hasTimedPropertiesDelegates__block_i
   return v6;
 }
 
-uint64_t __63__PVEffectTimedPropertiesComponent_hasTimedPropertiesDelegate___block_invoke(void *a1)
+void *__63__PVEffectTimedPropertiesComponent_hasTimedPropertiesDelegate___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

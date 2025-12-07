@@ -169,11 +169,11 @@
   v7 = [(TVRUIControlPanelViewController *)selfCopy2 _createViewWithPrimaryButtonType:v6 leftButtonTypes:v3 rightButtonTypes:v4];
   [(TVRUIControlPanelViewController *)self setTouchpadButtonPanel:v7];
 
-  v8 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _TVRUIViewControllerLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "Created touchpad button panel WITHOUT page buttons", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "Created touchpad button panel WITHOUT page buttons", v12, 2u);
   }
 
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
@@ -186,11 +186,11 @@
   v3 = [(TVRUIControlPanelViewController *)self _createViewWithPrimaryButtonType:23 leftButtonTypes:&unk_287E84B88 rightButtonTypes:&unk_287E84BA0];
   [(TVRUIControlPanelViewController *)self setGenericButtonPanel:v3];
 
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Created generic tv button panel", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Created generic tv button panel", v8, 2u);
   }
 
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
@@ -203,11 +203,11 @@
   v3 = [(TVRUIControlPanelViewController *)self _createViewWithPrimaryButtonType:2 leftButtonTypes:&unk_287E84BB8 rightButtonTypes:&unk_287E84BD0];
   [(TVRUIControlPanelViewController *)self setPanelWithKeyboardButton:v3];
 
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Created button panel with keyboard buttons and page buttons", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Created button panel with keyboard buttons and page buttons", v8, 2u);
   }
 
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
@@ -220,11 +220,11 @@
   v3 = [(TVRUIControlPanelViewController *)self _createViewWithPrimaryButtonType:2 leftButtonTypes:&unk_287E84BE8 rightButtonTypes:&unk_287E84C00];
   [(TVRUIControlPanelViewController *)self setLegacyButtonPanel:v3];
 
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Created legacy button panel", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Created legacy button panel", v8, 2u);
   }
 
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
@@ -237,11 +237,11 @@
   v3 = [(TVRUIControlPanelViewController *)self _createViewWithPrimaryButtonType:2 leftButtonTypes:&unk_287E84C18 rightButtonTypes:&unk_287E84C30];
   [(TVRUIControlPanelViewController *)self setLegacyPanelWithKeyboardButton:v3];
 
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Created legacy button panel with keyboard button", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Created legacy button panel with keyboard button", v8, 2u);
   }
 
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
@@ -289,7 +289,7 @@
   }
 
   panelWithKeyboardButton2 = [(TVRUIControlPanelViewController *)self panelWithKeyboardButton];
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(panelWithKeyboardButton2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -301,7 +301,7 @@
 
 - (void)hideKeyboardButton
 {
-  v3 = _TVRUIViewControllerLog();
+  v3 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -363,11 +363,11 @@ LABEL_8:
     view5 = [(TVRUIControlPanelViewController *)self view];
     [view5 addSubview:viewCopy];
 
-    view3 = _TVRUIViewControllerLog();
+    view3 = _TVRUIViewControllerLog(v19);
     if (os_log_type_enabled(view3, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_26CFEB000, view3, OS_LOG_TYPE_DEFAULT, "Adding buttonpanel as subview. not performing transition.", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_26CFEB000, view3, OS_LOG_TYPE_DEFAULT, "Adding buttonpanel as subview. not performing transition.", v20, 2u);
     }
 
     goto LABEL_8;
@@ -376,13 +376,13 @@ LABEL_8:
 LABEL_9:
 }
 
-void __58__TVRUIControlPanelViewController__transitionToPanelView___block_invoke()
+void __58__TVRUIControlPanelViewController__transitionToPanelView___block_invoke(uint64_t a1)
 {
-  v0 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _TVRUIViewControllerLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26CFEB000, v0, OS_LOG_TYPE_DEFAULT, "Requested buttonpanel transition complete", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_26CFEB000, v1, OS_LOG_TYPE_DEFAULT, "Requested buttonpanel transition complete", v2, 2u);
   }
 }
 
@@ -390,14 +390,15 @@ void __58__TVRUIControlPanelViewController__transitionToPanelView___block_invoke
 {
   deviceCopy = device;
   supportsTouchEvents = [deviceCopy supportsTouchEvents];
-  v6 = _TVRUIViewControllerLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (supportsTouchEvents)
+  v6 = supportsTouchEvents;
+  v7 = _TVRUIViewControllerLog(supportsTouchEvents);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "Device supports touch events. transitioning to touchpad buttonpanel", buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "Device supports touch events. transitioning to touchpad buttonpanel", buf, 2u);
     }
 
     touchpadButtonPanel = [(TVRUIControlPanelViewController *)self touchpadButtonPanel];
@@ -406,10 +407,10 @@ void __58__TVRUIControlPanelViewController__transitionToPanelView___block_invoke
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "Device does not support touch events. transitioning to generic button panel", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "Device does not support touch events. transitioning to generic button panel", v11, 2u);
     }
 
     [(TVRUIControlPanelViewController *)self _transitionToButtonPanelAndCreateIfNeeded];
@@ -445,90 +446,89 @@ void __58__TVRUIControlPanelViewController__transitionToPanelView___block_invoke
 
 - (void)_disableControls
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
-  v3 = [allButtonPanels countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v10;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v10 != v5)
-        {
-          objc_enumerationMutation(allButtonPanels);
-        }
-
-        [*(*(&v9 + 1) + 8 * v6++) disableButtons];
-      }
-
-      while (v4 != v6);
-      v4 = [allButtonPanels countByEnumeratingWithState:&v9 objects:v13 count:16];
-    }
-
-    while (v4);
-  }
-
-  v7 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *v8 = 0;
-    _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "Disabled all buttonpanels", v8, 2u);
-  }
-}
-
-- (void)_enableControls
-{
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
-  v4 = [allButtonPanels countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allButtonPanels countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v11;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v11 != v5)
+        {
+          objc_enumerationMutation(allButtonPanels);
+        }
+
+        [*(*(&v10 + 1) + 8 * v6++) disableButtons];
+      }
+
+      while (v4 != v6);
+      v4 = [allButtonPanels countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v4);
+  }
+
+  v8 = _TVRUIViewControllerLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v9 = 0;
+    _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "Disabled all buttonpanels", v9, 2u);
+  }
+}
+
+- (void)_enableControls
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allButtonPanels = [(TVRUIControlPanelViewController *)self allButtonPanels];
+  v4 = [allButtonPanels countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(allButtonPanels);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) enableButtonsForDevice:self->_remoteDevice];
+        [*(*(&v11 + 1) + 8 * v7++) enableButtonsForDevice:self->_remoteDevice];
       }
 
       while (v5 != v7);
-      v5 = [allButtonPanels countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allButtonPanels countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v8 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _TVRUIViewControllerLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "Enabled all buttonpanels", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "Enabled all buttonpanels", v10, 2u);
   }
 }
 
 - (void)transitonToViewForDeviceType:(int64_t)type
 {
-  [(TVRUIControlPanelViewController *)self loadViewIfNeeded];
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog([(TVRUIControlPanelViewController *)self loadViewIfNeeded]);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (type == 2)
   {

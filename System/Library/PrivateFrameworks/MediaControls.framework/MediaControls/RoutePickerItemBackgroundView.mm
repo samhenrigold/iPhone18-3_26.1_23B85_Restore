@@ -17,10 +17,10 @@
   v7[2] = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC13MediaControls29RoutePickerItemBackgroundView_isHighlighted) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for RoutePickerItemBackgroundView();
+  v10.super_class = type metadata accessor for RoutePickerItemBackgroundView(self, a2);
   height = [(RoutePickerItemBackgroundView *)&v10 initWithFrame:x, y, width, height];
   [(RoutePickerItemBackgroundView *)height setUserInteractionEnabled:0];
-  sub_1A2115288(0, &qword_1ED94EA40);
+  sub_1A2115288(0, &qword_1ED94EA40, 0x1E69DD1B8);
   sub_1A22E6B58();
   MEMORY[0x1A58DAE60]();
   swift_unknownObjectRelease();

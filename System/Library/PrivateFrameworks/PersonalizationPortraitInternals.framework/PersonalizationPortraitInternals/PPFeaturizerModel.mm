@@ -7,7 +7,7 @@
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   optionsCopy = options;
   if (![(NSString *)self->_operation isEqualToString:@"seq-count"])
@@ -126,24 +126,24 @@ LABEL_34:
         integerValue = [firstObject integerValue];
 
         int64Values = [sequenceValue2 int64Values];
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __58__PPFeaturizerModel_predictionFromFeatures_options_error___block_invoke_2;
-        v58[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
-        v58[4] = integerValue;
-        v42 = [int64Values _pas_filteredArrayWithTest:v58];
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __58__PPFeaturizerModel_predictionFromFeatures_options_error___block_invoke_2;
+        v57[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
+        v57[4] = integerValue;
+        v42 = [int64Values _pas_filteredArrayWithTest:v57];
         v43 = [v42 count];
       }
 
       else
       {
         stringValues2 = [sequenceValue2 stringValues];
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __58__PPFeaturizerModel_predictionFromFeatures_options_error___block_invoke_3;
-        v57[3] = &unk_2789793E0;
-        v57[4] = self;
-        v50 = [stringValues2 _pas_filteredArrayWithTest:v57];
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __58__PPFeaturizerModel_predictionFromFeatures_options_error___block_invoke_3;
+        v56[3] = &unk_2789793E0;
+        v56[4] = self;
+        v50 = [stringValues2 _pas_filteredArrayWithTest:v56];
         v43 = [v50 count];
       }
 
@@ -183,8 +183,8 @@ LABEL_34:
       }
 
       v34 = objc_autoreleasePoolPush();
-      v54 = [featuresCopy featureValueForName:self->_inputName];
-      sequenceValue3 = [v54 sequenceValue];
+      v53 = [featuresCopy featureValueForName:self->_inputName];
+      sequenceValue3 = [v53 sequenceValue];
       int64Values2 = [sequenceValue3 int64Values];
       sequenceValue2 = [PPCoreMLUtils multiArrayForArray:int64Values2];
 
@@ -237,8 +237,8 @@ LABEL_14:
 LABEL_15:
     v26 = objc_alloc(MEMORY[0x277CBFED0]);
     outputName = self->_outputName;
-    v60[0] = v18;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&outputName count:1];
+    v59[0] = v18;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&outputName count:1];
     v28 = [v26 initWithDictionary:v27 error:error];
 
     goto LABEL_46;
@@ -247,8 +247,6 @@ LABEL_15:
 LABEL_45:
   v28 = 0;
 LABEL_46:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

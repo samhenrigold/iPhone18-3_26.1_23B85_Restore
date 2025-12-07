@@ -61,15 +61,15 @@
 
 - (id)prepareResults:(id)results forFetch:(id)fetch
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v6 = CNALoggingContextDebug();
+  v6 = CNALoggingContextDebug(resultsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [resultsCopy count];
     if (v7 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v7, v43];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v7, v45];
     }
 
     else
@@ -78,18 +78,18 @@
     }
     v8 = ;
     *buf = 138543362;
-    v45 = v8;
+    v47 = v8;
     _os_log_impl(&dword_2155FE000, v6, OS_LOG_TYPE_DEFAULT, "Calling prepareResults: (%{public}@)", buf, 0xCu);
   }
 
   v9 = [(CNAutocompleteQueryResponsePreparer *)self findUniqueResults:resultsCopy];
-  v10 = CNALoggingContextDebug();
+  v10 = CNALoggingContextDebug(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [v9 count];
     if (v11 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v11, v43];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v11, v45];
     }
 
     else
@@ -98,18 +98,18 @@
     }
     v12 = ;
     *buf = 138543362;
-    v45 = v12;
+    v47 = v12;
     _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Found unique results: (%{public}@)", buf, 0xCu);
   }
 
   v13 = [(CNAutocompleteQueryResponsePreparer *)self resultsNotPreviouslyReturned:v9];
-  v14 = CNALoggingContextDebug();
+  v14 = CNALoggingContextDebug(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [v13 count];
     if (v15 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v15, v43];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v15, v45];
     }
 
     else
@@ -118,142 +118,139 @@
     }
     v16 = ;
     *buf = 138543362;
-    v45 = v16;
+    v47 = v16;
     _os_log_impl(&dword_2155FE000, v14, OS_LOG_TYPE_DEFAULT, "Found unique results not previously returned: (%{public}@)", buf, 0xCu);
   }
 
-  v17 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = CNALoggingContextDebug(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [v13 count];
-    if (v18 < 0x1F5)
+    v19 = [v13 count];
+    if (v19 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v18, v43];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v19, v45];
     }
 
     else
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v18];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v19];
     }
-    v19 = ;
+    v20 = ;
     *buf = 138543362;
-    v45 = v19;
-    _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Found unique new results not previously returned: (%{public}@)", buf, 0xCu);
+    v47 = v20;
+    _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Found unique new results not previously returned: (%{public}@)", buf, 0xCu);
   }
 
   fetchRequest = [(CNAutocompleteQueryResponsePreparer *)self fetchRequest];
   searchString = [fetchRequest searchString];
-  v22 = [searchString length];
+  v23 = [searchString length];
 
-  v23 = CNALoggingContextDebug();
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-  if (v22)
+  v25 = CNALoggingContextDebug(v24);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  if (v23)
   {
-    if (v24)
+    if (v26)
     {
-      v25 = [v13 count];
-      if (v25 < 0x1F5)
+      v27 = [v13 count];
+      if (v27 < 0x1F5)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v25, v43];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v27, v45];
       }
 
       else
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v25];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v27];
       }
-      v27 = ;
+      v29 = ;
       *buf = 138543362;
-      v45 = v27;
-      _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_DEFAULT, "Search string has length > 0: (%{public}@)", buf, 0xCu);
+      v47 = v29;
+      _os_log_impl(&dword_2155FE000, v25, OS_LOG_TYPE_DEFAULT, "Search string has length > 0: (%{public}@)", buf, 0xCu);
     }
 
-    v28 = [(CNAutocompleteQueryResponsePreparer *)self applyPriorityResultsOrder:v13];
+    v30 = [(CNAutocompleteQueryResponsePreparer *)self applyPriorityResultsOrder:v13];
   }
 
   else
   {
-    if (v24)
+    if (v26)
     {
-      v26 = [v13 count];
-      if (v26 < 0x1F5)
+      v28 = [v13 count];
+      if (v28 < 0x1F5)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v26, v43];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v28, v45];
       }
 
       else
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v26];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v28];
       }
-      v29 = ;
+      v31 = ;
       *buf = 138543362;
-      v45 = v29;
-      _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_DEFAULT, "Search string has length = 0: (%{public}@)", buf, 0xCu);
+      v47 = v31;
+      _os_log_impl(&dword_2155FE000, v25, OS_LOG_TYPE_DEFAULT, "Search string has length = 0: (%{public}@)", buf, 0xCu);
     }
 
-    v28 = v13;
+    v30 = v13;
   }
 
-  v30 = v28;
-  v31 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v32 = v30;
+  v33 = CNALoggingContextDebug(v30);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = [v9 count];
-    if (v32 < 0x1F5)
+    v34 = [v9 count];
+    if (v34 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v32, v43];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v34, v45];
     }
 
     else
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v32];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v34];
     }
-    v33 = ;
-    v34 = [v9 _cn_take:500];
+    v35 = ;
+    v36 = [v9 _cn_take:500];
     *buf = 138543619;
-    v45 = v33;
-    v46 = 2113;
-    v47 = v34;
-    _os_log_impl(&dword_2155FE000, v31, OS_LOG_TYPE_DEFAULT, "Unique results: (%{public}@): %{private}@", buf, 0x16u);
+    v47 = v35;
+    v48 = 2113;
+    v49 = v36;
+    _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_DEFAULT, "Unique results: (%{public}@): %{private}@", buf, 0x16u);
   }
 
   if (CNAutocompleteIsDebugLoggingEnabled())
   {
-    v35 = [resultsCopy mutableCopy];
-    [v35 removeObjectsInArray:v13];
-    v36 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = [resultsCopy mutableCopy];
+    v38 = CNALoggingContextDebug([v37 removeObjectsInArray:v13]);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v45 = v35;
-      _os_log_impl(&dword_2155FE000, v36, OS_LOG_TYPE_DEFAULT, "Dropping duplicate results: %{private}@", buf, 0xCu);
+      v47 = v37;
+      _os_log_impl(&dword_2155FE000, v38, OS_LOG_TYPE_DEFAULT, "Dropping duplicate results: %{private}@", buf, 0xCu);
     }
 
-    v37 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v40 = CNALoggingContextDebug(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = [v30 count];
-      if (v38 < 0x1F5)
+      v41 = [v32 count];
+      if (v41 < 0x1F5)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v38, v43];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v41, v45];
       }
 
       else
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v38];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v41];
       }
-      v39 = ;
-      v40 = [v30 _cn_take:500];
+      v42 = ;
+      v43 = [v32 _cn_take:500];
       *buf = 138543619;
-      v45 = v39;
-      v46 = 2113;
-      v47 = v40;
-      _os_log_impl(&dword_2155FE000, v37, OS_LOG_TYPE_DEFAULT, "Will return re-ranked results (%{public}@): %{private}@", buf, 0x16u);
+      v47 = v42;
+      v48 = 2113;
+      v49 = v43;
+      _os_log_impl(&dword_2155FE000, v40, OS_LOG_TYPE_DEFAULT, "Will return re-ranked results (%{public}@): %{private}@", buf, 0x16u);
     }
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v32;
 }
 
 - (id)resultsNotPreviouslyReturned:(id)returned

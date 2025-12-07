@@ -41,65 +41,63 @@
 
 + (id)calculateSpecForAdditionRemovalUnderPath:(id)path
 {
+  v33 = 0u;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   pathCopy = path;
-  v4 = [pathCopy countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v4 = [pathCopy countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v36;
-    v7 = &MKBDeviceFormattedForContentProtection_ptr;
-    v26 = *v36;
+    v6 = *v34;
+    v24 = *v34;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v36 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(pathCopy);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * i);
-        v10 = v7[308];
+        v8 = *(*(&v33 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_30:
 
-          v18 = 0;
+          v16 = 0;
           goto LABEL_31;
         }
 
-        v33 = 0u;
-        v34 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v11 = v9;
-        v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
-        if (v12)
+        v29 = 0u;
+        v30 = 0u;
+        v9 = v8;
+        v10 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+        if (v10)
         {
-          v13 = v12;
-          v14 = *v32;
+          v11 = v10;
+          v12 = *v30;
           while (2)
           {
-            for (j = 0; j != v13; j = j + 1)
+            for (j = 0; j != v11; j = j + 1)
             {
-              if (*v32 != v14)
+              if (*v30 != v12)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v9);
               }
 
-              v16 = *(*(&v31 + 1) + 8 * j);
+              v14 = *(*(&v29 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 goto LABEL_29;
               }
 
-              v17 = [v11 objectForKeyedSubscript:v16];
+              v15 = [v9 objectForKeyedSubscript:v14];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -117,8 +115,8 @@ LABEL_29:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
-            if (v13)
+            v11 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+            if (v11)
             {
               continue;
             }
@@ -127,11 +125,10 @@ LABEL_29:
           }
         }
 
-        v6 = v26;
-        v7 = &MKBDeviceFormattedForContentProtection_ptr;
+        v6 = v24;
       }
 
-      v5 = [pathCopy countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v5 = [pathCopy countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v5)
       {
         continue;
@@ -141,39 +138,39 @@ LABEL_29:
     }
   }
 
-  v18 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(pathCopy, "count")}];
+  v16 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(pathCopy, "count")}];
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v19 = pathCopy;
-  v20 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
-  if (v20)
+  v17 = pathCopy;
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  if (v18)
   {
-    v21 = v20;
-    v22 = *v28;
+    v19 = v18;
+    v20 = *v26;
     do
     {
-      for (k = 0; k != v21; k = k + 1)
+      for (k = 0; k != v19; k = k + 1)
       {
-        if (*v28 != v22)
+        if (*v26 != v20)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v17);
         }
 
-        v24 = [GSRemoveAdditionSpec GSRemoveAdditionSpecWithAdditionDictionary:*(*(&v27 + 1) + 8 * k)];
-        [v18 addObject:v24];
+        v22 = [GSRemoveAdditionSpec GSRemoveAdditionSpecWithAdditionDictionary:*(*(&v25 + 1) + 8 * k)];
+        [v16 addObject:v22];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
-    while (v21);
+    while (v19);
   }
 
 LABEL_31:
 
-  return v18;
+  return v16;
 }
 
 @end

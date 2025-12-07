@@ -173,60 +173,8 @@ LABEL_9:
 {
   conversationCopy = conversation;
   v5 = conversationCopy;
-  if (!conversationCopy)
+  if (!conversationCopy || (v6 = self->_contactIdentifier == 0, [conversationCopy contactIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (contactIdentifier = self->_contactIdentifier) != 0 && (objc_msgSend(v5, "contactIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](contactIdentifier, "isEqual:", v10), v10, !v11) || (v12 = self->_scoredContact == 0, objc_msgSend(v5, "scoredContact"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (scoredContact = self->_scoredContact) != 0 && (objc_msgSend(v5, "scoredContact"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[PPScoredContact isEqual:](scoredContact, "isEqual:", v16), v16, !v17) || (v18 = self->_interactions == 0, objc_msgSend(v5, "interactions"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_contactIdentifier == 0;
-  contactIdentifier = [conversationCopy contactIdentifier];
-  v8 = contactIdentifier != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  contactIdentifier = self->_contactIdentifier;
-  if (contactIdentifier)
-  {
-    contactIdentifier2 = [v5 contactIdentifier];
-    v11 = [(NSString *)contactIdentifier isEqual:contactIdentifier2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_scoredContact == 0;
-  scoredContact = [v5 scoredContact];
-  v14 = scoredContact != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  scoredContact = self->_scoredContact;
-  if (scoredContact)
-  {
-    scoredContact2 = [v5 scoredContact];
-    v17 = [(PPScoredContact *)scoredContact isEqual:scoredContact2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_interactions == 0;
-  interactions = [v5 interactions];
-  v20 = interactions != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -235,8 +183,8 @@ LABEL_11:
     interactions = self->_interactions;
     if (interactions)
     {
-      interactions2 = [v5 interactions];
-      v23 = [(NSArray *)interactions isEqual:interactions2];
+      interactions = [v5 interactions];
+      v23 = [(NSArray *)interactions isEqual:interactions];
     }
 
     else

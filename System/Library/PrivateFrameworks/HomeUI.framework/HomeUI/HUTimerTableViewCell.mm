@@ -217,7 +217,7 @@ uint64_t __43__HUTimerTableViewCell__stringForDuration___block_invoke()
   timer4 = [(HUTimerTableViewCell *)self timer];
   state = [timer4 state];
   timer5 = [(HUTimerTableViewCell *)self timer];
-  [timer5 duration];
+  objc_msgSend_duration(timer5);
   v62 = [(HUTimerCountdownView *)v54 initWithRemainingTime:state state:self duration:v57 delegate:v61];
   [(HUTimerTableViewCell *)self setTimerCountdownView:v62];
 

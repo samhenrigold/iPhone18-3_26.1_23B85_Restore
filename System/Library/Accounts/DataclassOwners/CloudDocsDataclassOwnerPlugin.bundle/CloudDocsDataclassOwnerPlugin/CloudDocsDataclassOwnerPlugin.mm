@@ -49,34 +49,31 @@ uint64_t sub_D50(uint64_t result)
   return result;
 }
 
-void sub_DA0(uint64_t a1)
+void sub_DA0(uint64_t *a1)
 {
   if (a1)
   {
-    v2 = *a1;
+    v1 = *a1;
     if (*a1)
     {
-      v3 = *(a1 + 8);
-      v4 = *(a1 + 16);
-      v5 = brc_bread_crumbs();
-      v6 = *(a1 + 20);
-      v7 = brc_default_log();
-      v8 = v7;
-      if (v2)
+      v2 = brc_bread_crumbs();
+      v3 = brc_default_log();
+      v4 = v3;
+      if (v1)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
         {
-          sub_15D8(v5, v2, v8);
+          sub_15D8(v2, v1, v4);
         }
       }
 
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v9 = 134218242;
-        v10 = v2;
-        v11 = 2112;
-        v12 = v5;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v9, 0x16u);
+        v5 = 134218242;
+        v6 = v1;
+        v7 = 2112;
+        v8 = v2;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v5, 0x16u);
       }
     }
   }

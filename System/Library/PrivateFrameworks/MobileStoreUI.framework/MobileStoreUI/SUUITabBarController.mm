@@ -16,43 +16,43 @@
 
 - (id)traitCollection
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = SUUITabBarController;
-  traitCollection = [(SUUITabBarController *)&v12 traitCollection];
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = SUUITabBarController;
+  traitCollection = [(SUUITabBarController *)&v14 traitCollection];
   view = [(SUUITabBarController *)self view];
   [view bounds];
-  Width = CGRectGetWidth(v15);
-  v6 = SUUICompactThreshold();
+  Width = CGRectGetWidth(v17);
+  v8 = SUUICompactThreshold(v6, v7);
 
-  if (Width <= v6)
+  if (Width <= v8)
   {
-    v10 = traitCollection;
+    v12 = traitCollection;
   }
 
   else
   {
-    v7 = [MEMORY[0x277D75C80] traitCollectionWithHorizontalSizeClass:2];
-    v8 = MEMORY[0x277D75C80];
-    v13[0] = traitCollection;
-    v13[1] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-    v10 = [v8 traitCollectionWithTraitsFromCollections:v9];
+    v9 = [MEMORY[0x277D75C80] traitCollectionWithHorizontalSizeClass:2];
+    v10 = MEMORY[0x277D75C80];
+    v15[0] = traitCollection;
+    v15[1] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v12 = [v10 traitCollectionWithTraitsFromCollections:v11];
   }
 
-  return v10;
+  return v12;
 }
 
 - (SUUITabBarController)init
 {
-  v6.receiver = self;
-  v6.super_class = SUUITabBarController;
-  v2 = [(SUUITabBarController *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = SUUITabBarController;
+  v2 = [(SUUITabBarController *)&v7 init];
   v3 = v2;
   if (v2)
   {
     tabBar = [(SUUITabBarController *)v2 tabBar];
-    [tabBar setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [tabBar setSemanticContentAttribute:{storeSemanticContentAttribute(tabBar, v5)}];
   }
 
   return v3;
@@ -60,16 +60,16 @@
 
 - (id)moreNavigationController
 {
-  v8.receiver = self;
-  v8.super_class = SUUITabBarController;
-  moreNavigationController = [(SUUITabBarController *)&v8 moreNavigationController];
-  [moreNavigationController setStoreKitDelegate:self];
-  v4 = storeSemanticContentAttribute();
+  v10.receiver = self;
+  v10.super_class = SUUITabBarController;
+  moreNavigationController = [(SUUITabBarController *)&v10 moreNavigationController];
+  v4 = [moreNavigationController setStoreKitDelegate:self];
+  v6 = storeSemanticContentAttribute(v4, v5);
   view = [moreNavigationController view];
-  [view setSemanticContentAttribute:v4];
+  [view setSemanticContentAttribute:v6];
 
   navigationBar = [moreNavigationController navigationBar];
-  [navigationBar setSemanticContentAttribute:v4];
+  [navigationBar setSemanticContentAttribute:v6];
 
   return moreNavigationController;
 }

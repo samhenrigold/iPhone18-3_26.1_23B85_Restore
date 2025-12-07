@@ -12,9 +12,9 @@
   v16 = objc_msgSend_numberOfSeries(modelCopy, v12, v13, v14, v15);
   if (v11 && v16 > series)
   {
-    v386.receiver = self;
-    v386.super_class = TSCHLineAreaSeriesModelCache;
-    v21 = [(TSCHLineAreaSeriesModelCache *)&v386 init];
+    v385.receiver = self;
+    v385.super_class = TSCHLineAreaSeriesModelCache;
+    v21 = [(TSCHLineAreaSeriesModelCache *)&v385 init];
     v26 = v21;
     if (!v21)
     {
@@ -176,7 +176,7 @@ LABEL_55:
     objc_storeStrong(&v26->_symbolStroke, v254);
     LODWORD(v262) = 2139095039;
     objc_msgSend_floatValueForProperty_defaultValue_(v26->_series, v263, v262, v264, v265, 1188);
-    v384 = v33;
+    v383 = v33;
     if (*&v267 == 3.4028e38)
     {
       v270 = 0;
@@ -191,7 +191,7 @@ LABEL_55:
     v275 = objc_msgSend_elementBuilder(v229, v271, v272, v273, v274);
     v276 = TSUDynamicCast();
 
-    v385 = v270;
+    v384 = v270;
     if (!v276)
     {
       v281 = MEMORY[0x277D81150];
@@ -199,7 +199,7 @@ LABEL_55:
       v287 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v283, v284, v285, v286, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHLineAreaSeriesModelCache.m");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v281, v288, v289, v290, v291, v282, v287, 115, 0, "invalid nil value for '%{public}s'", "elementBuilder");
 
-      v270 = v385;
+      v270 = v384;
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v292, v293, v294, v295);
     }
 
@@ -254,20 +254,20 @@ LABEL_55:
       {
         if (v356)
         {
-          v362 = objc_msgSend_objectValueForProperty_(v26->_series, v357, v358, v359, v360, 1184);
-          if (v362)
+          v361 = objc_msgSend_objectValueForProperty_(v26->_series, v357, v358, v359, v360, 1184);
+          if (v361)
           {
-            v366 = MEMORY[0x277D801F8];
-            v367 = objc_msgSend_color(v26->_seriesStroke, v361, v363, v364, v365);
-            v372 = objc_msgSend_colorWithColor_(v366, v368, v369, v370, v371, v367);
+            v365 = MEMORY[0x277D801F8];
+            v366 = objc_msgSend_color(v26->_seriesStroke, v362, v363, v364);
+            v371 = objc_msgSend_colorWithColor_(v365, v367, v368, v369, v370, v366);
           }
 
           else
           {
-            v372 = 0;
+            v371 = 0;
           }
 
-          if (v372)
+          if (v371)
           {
             goto LABEL_51;
           }
@@ -286,28 +286,28 @@ LABEL_55:
       }
     }
 
-    v372 = objc_msgSend_fillForSeries(v26->_series, v357, v358, v359, v360);
-    if (v372 || (objc_msgSend_clearColor(MEMORY[0x277D801F8], v373, v374, v375, v376), (v372 = objc_claimAutoreleasedReturnValue()) != 0))
+    v371 = objc_msgSend_fillForSeries(v26->_series, v357, v358, v359, v360);
+    if (v371 || (objc_msgSend_clearColor(MEMORY[0x277D801F8], v372, v373, v374, v375), (v371 = objc_claimAutoreleasedReturnValue()) != 0))
     {
 LABEL_51:
       if (objc_opt_respondsToSelector())
       {
-        v381 = objc_msgSend_copy(v372, v377, v378, v379, v380);
+        v380 = objc_msgSend_copy(v371, v376, v377, v378, v379);
       }
 
       else
       {
-        v381 = v372;
+        v380 = v371;
       }
 
       symbolFill = v26->_symbolFill;
-      v26->_symbolFill = v381;
+      v26->_symbolFill = v380;
 
       goto LABEL_55;
     }
 
 LABEL_50:
-    v372 = objc_msgSend_objectValueForProperty_(v26->_series, v357, v358, v359, v360, 1185);
+    v371 = objc_msgSend_objectValueForProperty_(v26->_series, v357, v358, v359, v360, 1185);
     goto LABEL_51;
   }
 

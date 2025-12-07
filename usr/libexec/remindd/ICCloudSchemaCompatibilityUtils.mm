@@ -12,7 +12,7 @@
 {
   identifierCopy = identifier;
   v9 = [self persistenceCloudSchemaVersionWithAccountIdentifier:identifierCopy context:context];
-  v10 = +[REMLog cloudkit];
+  v10 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v12 = 138543874;
@@ -37,7 +37,7 @@
   identifierCopy = identifier;
   contextCopy = context;
   v8 = [self persistenceCloudSchemaVersionWithAccountIdentifier:identifierCopy context:contextCopy];
-  v9 = +[REMLog cloudkit];
+  v9 = objc_msgSend_cloudkit(REMLog);
   v10 = v9;
   if (v8 >= 20250728)
   {
@@ -77,7 +77,7 @@
     [v17 performBlockAndWait:v15];
     if (*(*&buf[8] + 24) == 1)
     {
-      v12 = +[REMLog cloudkit];
+      v12 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *v19 = 138543362;
@@ -88,7 +88,7 @@
 
     else
     {
-      v12 = +[REMLog cloudkit];
+      v12 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_100767A60(v11, v12);
@@ -118,15 +118,15 @@
 + (BOOL)_isCloudSchemaCatchUpSyncNeededForExistingCloudObject:(id)object persistenceCloudSchemaVersion:(int64_t)version outIncompatiblePropertyKeys:(id *)keys
 {
   objectCopy = object;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_1000AE628;
-  v30 = sub_1000AE638;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_1000AE628;
+  v31 = sub_1000AE638;
   if (keys)
   {
     v9 = +[NSMutableArray array];
@@ -137,54 +137,55 @@
     v9 = 0;
   }
 
-  v31 = v9;
+  v32 = v9;
   cdEntityName = [objc_opt_class() cdEntityName];
+  v11 = cdEntityName;
   if (cdEntityName)
   {
-    v11 = cloudKitSchemaVersionIncompatibilityInfoMap();
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000AE640;
-    v19[3] = &unk_1008DB990;
+    v12 = cloudKitSchemaVersionIncompatibilityInfoMap(cdEntityName);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000AE640;
+    v20[3] = &unk_1008DB990;
     versionCopy = version;
-    v20 = cdEntityName;
-    v21 = objectCopy;
-    v22 = &v32;
-    v25 = keys != 0;
-    v23 = &v26;
-    [v11 enumerateKeysAndObjectsUsingBlock:v19];
+    v21 = v11;
+    v22 = objectCopy;
+    v23 = &v33;
+    v26 = keys != 0;
+    v24 = &v27;
+    [v12 enumerateKeysAndObjectsUsingBlock:v20];
     if (keys)
     {
-      *keys = [NSArray arrayWithArray:v27[5]];
+      *keys = [NSArray arrayWithArray:v28[5]];
     }
 
-    v12 = *(v33 + 24);
+    v13 = *(v34 + 24);
   }
 
   else
   {
-    v13 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = NSStringFromSelector(a2);
-      v18 = [NSString stringWithFormat:@"%@.%@", v16, v17];
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = NSStringFromSelector(a2);
+      v19 = [NSString stringWithFormat:@"%@.%@", v17, v18];
       *buf = 138543618;
-      v37 = v18;
-      v38 = 2080;
-      v39 = "existingCloudObjectEntityName";
-      _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "[%{public}@] Passing in nil '%s'", buf, 0x16u);
+      v38 = v19;
+      v39 = 2080;
+      v40 = "existingCloudObjectEntityName";
+      _os_log_fault_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "[%{public}@] Passing in nil '%s'", buf, 0x16u);
     }
 
     NSLog(@"'%s' is unexpectedly nil", "existingCloudObjectEntityName");
-    v12 = *(v33 + 24);
+    v13 = *(v34 + 24);
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
 
-  return v12 & 1;
+  return v13 & 1;
 }
 
 + (int64_t)persistenceCloudSchemaVersionWithAccountIdentifier:(id)identifier context:(id)context

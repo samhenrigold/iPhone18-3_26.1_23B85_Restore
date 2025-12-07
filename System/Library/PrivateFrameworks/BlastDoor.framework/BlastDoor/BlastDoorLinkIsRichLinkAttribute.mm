@@ -8,8 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorLinkIsRichLinkAttribute_linkIsRichLinkAttribute);
-  v5 = self->linkIsRichLinkAttribute[OBJC_IVAR___BlastDoorLinkIsRichLinkAttribute_linkIsRichLinkAttribute + 8];
   sub_2146D9608();
   v2 = sub_2146D9588();
 

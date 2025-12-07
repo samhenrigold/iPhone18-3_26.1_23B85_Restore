@@ -10,7 +10,6 @@
 
 - (void)receiveSubscription:(id)subscription
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC28SiriPrivateLearningAnalyticsP33_1C28A16D52A6DDC29A328441443490A627ScanConversationsSubscriber_downstream);
   subscriptionCopy = subscription;
   selfCopy = self;
   sub_222AA6030(subscriptionCopy, &qword_27D01DD00, &qword_222B0BB78);
@@ -37,7 +36,6 @@
 
 - (void)cancel
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC28SiriPrivateLearningAnalyticsP33_1C28A16D52A6DDC29A328441443490A627ScanConversationsSubscriber_downstream);
   selfCopy = self;
   sub_222AA6340();
 }

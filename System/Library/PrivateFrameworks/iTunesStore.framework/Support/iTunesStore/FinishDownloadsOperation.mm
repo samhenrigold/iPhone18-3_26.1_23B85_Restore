@@ -66,51 +66,50 @@
     v9 = shouldLog;
   }
 
-  if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    v10 = v9;
+    v11 = v9;
   }
 
   else
   {
-    v10 = v9 & 2;
+    v11 = v9 & 2;
   }
 
-  if (v10)
+  if (v11)
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     *v22 = 138412546;
-    *&v22[4] = v11;
+    *&v22[4] = v12;
     *&v22[12] = 2048;
     *&v22[14] = v6;
-    LODWORD(v18) = 22;
-    v17 = v22;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Finishing %ld downloads", v22, 22);
+    if (v13)
     {
-      v13 = v12;
-      v14 = [NSString stringWithCString:v12 encoding:4, v22, v18];
-      free(v13);
-      v17 = v14;
+      v14 = v13;
+      v15 = [NSString stringWithCString:v13 encoding:4];
+      free(v14);
+      v18 = v15;
       SSFileLog();
     }
   }
 
   if (v6 < 1)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v15 = 0;
-    v16 = 1;
+    v16 = 0;
+    v17 = 1;
     do
     {
       *v22 = 0;
       *&v22[8] = v22;
       *&v22[16] = 0x2020000000;
-      v23 = -[FinishDownloadsOperation runSubOperation:returningError:](self, "runSubOperation:returningError:", [v3 objectAtIndex:{v15, v17}], 0);
+      v23 = -[FinishDownloadsOperation runSubOperation:returningError:](self, "runSubOperation:returningError:", [v3 objectAtIndex:{v16, v18}], 0);
       if (*(*&v22[8] + 24) == 1)
       {
         v20[0] = _NSConcreteStackBlock;
@@ -118,29 +117,29 @@
         v20[2] = sub_1001389B4;
         v20[3] = &unk_100329838;
         v20[5] = v22;
-        v20[6] = v15;
+        v20[6] = v16;
         v20[4] = v19;
         [v5 modifyUsingTransactionBlock:v20];
       }
 
-      if (v16)
+      if (v17)
       {
-        v16 = *(*&v22[8] + 24);
+        v17 = *(*&v22[8] + 24);
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
       _Block_object_dispose(v22, 8);
-      ++v15;
+      ++v16;
     }
 
-    while (v6 != v15);
+    while (v6 != v16);
   }
 
-  [(FinishDownloadsOperation *)self setSuccess:v16 & 1, v17];
+  [(FinishDownloadsOperation *)self setSuccess:v17 & 1, v18];
 }
 
 @end

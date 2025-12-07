@@ -45,7 +45,7 @@
 
 - (id)contentDestinationWithError:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   appDescriptor = [(WFOpenUserActivityAction *)self appDescriptor];
   if (appDescriptor)
   {
@@ -57,24 +57,22 @@
     v6 = getWFSecurityLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315394;
-      v10 = "[WFOpenUserActivityAction contentDestinationWithError:]";
-      v11 = 2114;
+      v8 = 136315394;
+      v9 = "[WFOpenUserActivityAction contentDestinationWithError:]";
+      v10 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Could not get appDescriptor for user activity action: %{public}@", &v9, 0x16u);
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Could not get appDescriptor for user activity action: %{public}@", &v8, 0x16u);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)disabledPlatformsForUserActivityWithType:(id)type
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v6 = typeCopy;
   if (typeCopy)
@@ -86,9 +84,9 @@
     }
 
     v8 = v7;
-    v9 = [(__CFString *)v7 isEqualToString:@"com.apple.Safari.UserActivity.Bookmarks"];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (v9)
+    if (isEqualToString)
     {
       goto LABEL_20;
     }
@@ -107,14 +105,14 @@
   {
 
 LABEL_20:
-    v30[0] = @"Watch";
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = @"Watch";
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     goto LABEL_21;
   }
 
   if (v11 && v10)
   {
-    v13 = [v11 isEqualToString:v10];
+    v13 = objc_msgSend_isEqualToString_(v11);
 
     if (v13)
     {
@@ -135,7 +133,7 @@ LABEL_20:
   if (v6)
   {
     v15 = v14;
-    v16 = [(__CFString *)v14 isEqualToString:@"com.apple.Safari.UserActivity.ReadingList"];
+    v16 = objc_msgSend_isEqualToString_(v14);
 
     if (v16)
     {
@@ -149,7 +147,7 @@ LABEL_20:
     }
 
     v18 = v17;
-    v19 = [(__CFString *)v17 isEqualToString:@"com.apple.calendar.continuity.event_selection"];
+    v19 = objc_msgSend_isEqualToString_(v17);
 
     if (v19)
     {
@@ -163,7 +161,7 @@ LABEL_20:
     }
 
     v21 = v20;
-    v22 = [(__CFString *)v20 isEqualToString:@"com.apple.calendar.continuity.date_selection"];
+    v22 = objc_msgSend_isEqualToString_(v20);
 
     if (v22)
     {
@@ -177,7 +175,7 @@ LABEL_20:
     }
 
     v24 = v23;
-    v25 = [(__CFString *)v23 isEqualToString:@"com.apple.mobileslideshow.album"];
+    v25 = objc_msgSend_isEqualToString_(v23);
 
     if (v25)
     {
@@ -187,8 +185,6 @@ LABEL_20:
 
   v26 = MEMORY[0x1E695E0F0];
 LABEL_21:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -335,7 +331,7 @@ void __55__WFOpenUserActivityAction_runAsynchronouslyWithInput___block_invoke(ui
 
 void __55__WFOpenUserActivityAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -352,20 +348,18 @@ void __55__WFOpenUserActivityAction_runAsynchronouslyWithInput___block_invoke_2(
     v7 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315394;
-      v12 = "[WFOpenUserActivityAction runAsynchronouslyWithInput:]_block_invoke_2";
-      v13 = 2112;
-      v14 = objc_opt_class();
-      v8 = v14;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Received unexpected interaction response of type %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[WFOpenUserActivityAction runAsynchronouslyWithInput:]_block_invoke_2";
+      v12 = 2112;
+      v13 = objc_opt_class();
+      v8 = v13;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Received unexpected interaction response of type %@", &v10, 0x16u);
     }
 
     v9 = *(a1 + 32);
     v6 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
     [v9 finishRunningWithError:v6];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizedNameWithContext:(id)context
@@ -612,7 +606,7 @@ LABEL_13:
 
 + (id)userActivityActionWithShortcut:(id)shortcut launchOrigin:(id)origin error:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   originCopy = origin;
   activityData = [shortcutCopy activityData];
@@ -620,11 +614,11 @@ LABEL_13:
   {
     if (error)
     {
-      v52 = *MEMORY[0x1E696A588];
-      v53[0] = @"Could not create action because the user activity data was empty";
+      v51 = *MEMORY[0x1E696A588];
+      v52[0] = @"Could not create action because the user activity data was empty";
       v12 = MEMORY[0x1E695DF20];
-      v13 = v53;
-      v14 = &v52;
+      v13 = v52;
+      v14 = &v51;
 LABEL_6:
       v15 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
       *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:5 userInfo:v15];
@@ -649,11 +643,11 @@ LABEL_7:
 
     if (error)
     {
-      v50 = *MEMORY[0x1E696A588];
-      v51 = @"Could not create action because the user activity title was empty";
+      v49 = *MEMORY[0x1E696A588];
+      v50 = @"Could not create action because the user activity title was empty";
       v12 = MEMORY[0x1E695DF20];
-      v13 = &v51;
-      v14 = &v50;
+      v13 = &v50;
+      v14 = &v49;
       goto LABEL_6;
     }
 
@@ -680,9 +674,9 @@ LABEL_9:
 
   if (v26)
   {
-    v48 = activityData;
-    v49 = originCopy;
-    v45 = shortcutCopy;
+    v47 = activityData;
+    v48 = originCopy;
+    v44 = shortcutCopy;
     if (activityData)
     {
       v27 = [objc_alloc(MEMORY[0x1E69636A8]) _initWithUserActivityData:activityData];
@@ -693,27 +687,27 @@ LABEL_9:
       v27 = 0;
     }
 
-    v46 = v27;
+    v45 = v27;
     v28 = [objc_alloc(MEMORY[0x1E696E720]) initWithApplicationRecord:v26];
-    v44 = objc_alloc(MEMORY[0x1E696EAD8]);
+    v43 = objc_alloc(MEMORY[0x1E696EAD8]);
     activityType = [v27 activityType];
     localizedName = [v28 localizedName];
     bundleIdentifier = [v28 bundleIdentifier];
     extensionBundleIdentifier = [v28 extensionBundleIdentifier];
     counterpartIdentifiers = [v28 counterpartIdentifiers];
     [v28 teamIdentifier];
-    v33 = v47 = v26;
+    v33 = v46 = v26;
     supportedIntents = [v28 supportedIntents];
     bundleURL = [v28 bundleURL];
-    v36 = [v44 initWithUserActivityType:activityType localizedName:localizedName bundleIdentifier:bundleIdentifier extensionBundleIdentifier:extensionBundleIdentifier counterpartIdentifiers:counterpartIdentifiers teamIdentifier:v33 supportedIntents:supportedIntents bundleURL:bundleURL];
+    v36 = [v43 initWithUserActivityType:activityType localizedName:localizedName bundleIdentifier:bundleIdentifier extensionBundleIdentifier:extensionBundleIdentifier counterpartIdentifiers:counterpartIdentifiers teamIdentifier:v33 supportedIntents:supportedIntents bundleURL:bundleURL];
 
-    v26 = v47;
+    v26 = v46;
     serializedRepresentation = [v36 serializedRepresentation];
     [v19 setValue:serializedRepresentation forKey:@"UserActivityDescriptor"];
 
-    activityData = v48;
-    originCopy = v49;
-    shortcutCopy = v45;
+    activityData = v47;
+    originCopy = v48;
+    shortcutCopy = v44;
   }
 
   v38 = +[WFActionRegistry sharedRegistry];
@@ -723,7 +717,6 @@ LABEL_9:
   v16 = WFEnforceClass_9663(v39, v40);
 
 LABEL_15:
-  v41 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

@@ -69,8 +69,9 @@
 - (uint64_t)safari_isPathExtensionAllowedForAnalytics;
 - (uint64_t)safari_localizedCompareSortingEmptyStringAndNumericPrefixToEnd:()SafariCoreExtras;
 - (uint64_t)safari_numberOfComposedCharacters;
-- (uint64_t)safari_possibleTopLevelDomainCorrectionForUserTypedString;
 - (uint64_t)safari_stringByReplacingHomoglyphForSpaceWithSpace;
+- (void)safari_isPathExtensionAllowedForAnalytics;
+- (void)safari_possibleTopLevelDomainCorrectionForUserTypedString;
 @end
 
 @implementation NSString(SafariCoreExtras)
@@ -138,26 +139,26 @@ LABEL_8:
 
 - (id)safari_highLevelDomainForUserTypedStringWhenAddingPasswordInPasswordManager
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [self safari_hostDomainsEnumerator];
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v2 = v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v11 = 0u;
+  v2 = v12 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         kind = [v2 kind];
         v8 = kind;
         if (kind <= 4 && ((1 << kind) & 0x13) != 0)
@@ -172,7 +173,7 @@ LABEL_8:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       v9 = 0;
       if (v3)
       {
@@ -190,8 +191,6 @@ LABEL_8:
 
 LABEL_16:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -200,28 +199,18 @@ LABEL_16:
   v1 = [self dataUsingEncoding:4];
   bytes = [v1 bytes];
   v3 = [v1 length];
-  if (v3)
-  {
-    v4 = bytes;
-    v5 = v3;
-    if (*bytes != 46 || (v4 = bytes + 1, v5 = v3 - 1, v3 != 1))
-    {
-      v6 = v4[v5 - 1] == 46;
-    }
-  }
-
   TopLevelDomain = _CFHostGetTopLevelDomain();
   if (TopLevelDomain)
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:TopLevelDomain length:&bytes[v3 - TopLevelDomain] encoding:4];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:TopLevelDomain length:bytes + v3 - TopLevelDomain encoding:4];
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  return v8;
+  return v5;
 }
 
 - (__CFString)safari_monogramString
@@ -267,27 +256,27 @@ LABEL_16:
 
 - (__CFString)safari_stringByRemovingTopLevelDomainFromHost
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [self safari_hostDomainsEnumerator];
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v1 = v11 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v9 = 0u;
+  v1 = v10 = 0u;
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
-    v3 = *v11;
+    v3 = *v10;
     v4 = &stru_1F3064D08;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v11 != v3)
+        if (*v10 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if ([v1 kind] == 3)
         {
           [v1 clearAccumulatedDomains];
@@ -301,7 +290,7 @@ LABEL_16:
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v2);
@@ -311,8 +300,6 @@ LABEL_16:
   {
     v4 = &stru_1F3064D08;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -366,26 +353,25 @@ LABEL_8:
 
 - (id)safari_displayableTabBarTitleString
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v1 = &unk_1EBA8A000;
   {
     selfCopy = self;
-    v5 = [WBSCharacterSetReplacementsContainer alloc];
-    v10[0] = &stru_1F3064D08;
+    v4 = [WBSCharacterSetReplacementsContainer alloc];
+    v9[0] = &stru_1F3064D08;
     safari_lockRelatedEmojiCharacterSet = [MEMORY[0x1E696AB08] safari_lockRelatedEmojiCharacterSet];
-    v10[1] = @" ";
-    v11[0] = safari_lockRelatedEmojiCharacterSet;
+    v9[1] = @" ";
+    v10[0] = safari_lockRelatedEmojiCharacterSet;
     newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
-    v11[1] = newlineCharacterSet;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-    [NSString(SafariCoreExtras) safari_displayableTabBarTitleString]::replacements = [(WBSCharacterSetReplacementsContainer *)v5 initWithReplacementStringsToCharacterSets:v8];
+    v10[1] = newlineCharacterSet;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    [NSString(SafariCoreExtras) safari_displayableTabBarTitleString]::replacements = [(WBSCharacterSetReplacementsContainer *)v4 initWithReplacementStringsToCharacterSets:v7];
 
     self = selfCopy;
     v1 = &unk_1EBA8A000;
   }
 
   v2 = [self safari_stringByReplacingCharacterSetsInContainer:{v1[479], selfCopy}];
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -412,10 +398,10 @@ LABEL_8:
 - (id)_safari_stringByTruncatingToFilenameLength:()SafariCoreExtras preservePathExtension:
 {
   v5 = a3;
-  v27 = *MEMORY[0x1E69E9840];
-  v26 = 0;
-  memset(v25, 0, sizeof(v25));
-  v7 = [self getFileSystemRepresentation:v25 maxLength:a3];
+  v26 = *MEMORY[0x1E69E9840];
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  v7 = [self getFileSystemRepresentation:v24 maxLength:a3];
   selfCopy = self;
   v9 = selfCopy;
   if ((v7 & 1) == 0)
@@ -435,7 +421,7 @@ LABEL_8:
         v13 = [v9 substringFromIndex:v11];
         v12 = [@"…" stringByAppendingString:v13];
 
-        if (([(__CFString *)v12 getFileSystemRepresentation:v25 maxLength:v5 >> 1]& 1) == 0)
+        if (([(__CFString *)v12 getFileSystemRepresentation:v24 maxLength:v5 >> 1]& 1) == 0)
         {
           v9 = [v9 _safari_stringByTruncatingToFilenameLength:v5 preservePathExtension:0];
 LABEL_20:
@@ -443,7 +429,7 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v5 -= strnlen(v25, v5 >> 1);
+        v5 -= strnlen(v24, v5 >> 1);
       }
 
       v9 = stringByDeletingPathExtension;
@@ -458,8 +444,8 @@ LABEL_20:
     {
 
       v12 = @"…";
-      [@"…" getFileSystemRepresentation:v25 maxLength:20];
-      v5 -= strnlen(v25, 0x14uLL);
+      [@"…" getFileSystemRepresentation:v24 maxLength:20];
+      v5 -= strnlen(v24, 0x14uLL);
     }
 
     v14 = [v9 length];
@@ -472,7 +458,7 @@ LABEL_20:
         v17 = [v9 rangeOfComposedCharacterSequenceAtIndex:(v14 + v15) >> 1];
         v19 = v18;
         v20 = [v9 substringToIndex:v17];
-        if ([v20 getFileSystemRepresentation:v25 maxLength:v5])
+        if ([v20 getFileSystemRepresentation:v24 maxLength:v5])
         {
           v16 = v17;
           v15 = v17 + v19;
@@ -501,28 +487,25 @@ LABEL_20:
   }
 
 LABEL_21:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)safari_stringByTruncatingToMaximumFilenameLengthPreservingExtensionAndAppendingString:()SafariCoreExtras
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  LOBYTE(v10) = 0;
-  if ([v4 length] && (objc_msgSend(v4, "getFileSystemRepresentation:maxLength:", &v9, 255) & 1) == 0)
+  LOBYTE(v9) = 0;
+  if ([v4 length] && (objc_msgSend(v4, "getFileSystemRepresentation:maxLength:", &v8, 255) & 1) == 0)
   {
     selfCopy = self;
   }
 
   else
   {
-    v5 = [self _safari_stringByTruncatingToFilenameLength:255 - strnlen(&v9 preservePathExtension:{0xFFuLL), 1}];
+    v5 = [self _safari_stringByTruncatingToFilenameLength:255 - strnlen(&v8 preservePathExtension:{0xFFuLL), 1}];
     selfCopy = [v5 stringByAppendingString:v4];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -530,26 +513,26 @@ LABEL_21:
 - (id)safari_highLevelDomainFromHost
 {
   selfCopy = self;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [self safari_hostDomainsEnumerator];
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v2 = v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v11 = 0u;
+  v2 = v12 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v13 != v4)
+      if (*v12 != v4)
       {
         objc_enumerationMutation(v2);
       }
 
-      v6 = *(*(&v12 + 1) + 8 * v5);
+      v6 = *(*(&v11 + 1) + 8 * v5);
       if ([v2 isSpeculative])
       {
         break;
@@ -580,7 +563,7 @@ LABEL_16:
 
       if (v3 == ++v5)
       {
-        v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
         v9 = 0;
         if (v3)
         {
@@ -594,8 +577,6 @@ LABEL_16:
 
   v9 = 0;
 LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -675,7 +656,7 @@ LABEL_17:
 
         v36 = v56;
 LABEL_23:
-        *a5 = v36 + 5;
+        *a5 = (v36 + 5);
 LABEL_24:
 
         goto LABEL_68;
@@ -1664,7 +1645,7 @@ LABEL_14:
 
 - (id)safari_possibleTopLevelDomainCorrectionForUserTypedString
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ((_MergedGlobals & 1) == 0)
   {
     [NSString(SafariCoreExtras) safari_possibleTopLevelDomainCorrectionForUserTypedString];
@@ -1672,27 +1653,27 @@ LABEL_14:
 
   v2 = [self hasSuffix:@"."];
   v3 = [self length];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = qword_1ED9858E8;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v3 - v2;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v11 = [self rangeOfString:v9 options:13 range:{0, v6, v17}];
+        v9 = *(*(&v16 + 1) + 8 * i);
+        v11 = [self rangeOfString:v9 options:13 range:{0, v6, v16}];
         if (v11 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v13 = v10;
@@ -1703,7 +1684,7 @@ LABEL_14:
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v5)
       {
         continue;
@@ -1715,8 +1696,6 @@ LABEL_14:
 
   v12 = 0;
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1738,10 +1717,10 @@ LABEL_13:
 
 - (uint64_t)_safari_looksLikeWillRedirectToURLStringAfterAuthentication:()SafariCoreExtras orHostAfterLogin:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v38 = v7;
+  v37 = v7;
   if ([NSString(SafariCoreExtras) _safari_looksLikeWillRedirectToURLStringAfterAuthentication:orHostAfterLogin:]::onceToken == -1)
   {
     v8 = v7;
@@ -1750,20 +1729,20 @@ LABEL_13:
   else
   {
     [NSString(SafariCoreExtras) _safari_looksLikeWillRedirectToURLStringAfterAuthentication:orHostAfterLogin:];
-    v8 = v38;
+    v8 = v37;
   }
 
   v9 = [MEMORY[0x1E695DFF8] URLWithString:self];
-  v37 = v9;
+  v36 = v9;
   host = [v9 host];
   lowercaseString = [host lowercaseString];
 
   if (([&unk_1F308E688 containsObject:lowercaseString] & 1) == 0)
   {
     v13 = [NSString(SafariCoreExtras) _safari_looksLikeWillRedirectToURLStringAfterAuthentication:orHostAfterLogin:]::loginURLPattern;
-    v35 = lowercaseString;
+    v34 = lowercaseString;
     lowercaseString2 = [self lowercaseString];
-    v34 = [v13 numberOfMatchesInString:lowercaseString2 options:0 range:{0, objc_msgSend(self, "length")}] != 0;
+    v33 = [v13 numberOfMatchesInString:lowercaseString2 options:0 range:{0, objc_msgSend(self, "length")}] != 0;
 
     lowercaseString3 = [v6 lowercaseString];
 
@@ -1790,49 +1769,49 @@ LABEL_13:
 LABEL_26:
 
         v6 = lowercaseString3;
-        lowercaseString = v35;
+        lowercaseString = v34;
         goto LABEL_27;
       }
     }
 
-    v33 = safari_highLevelDomainFromHost2;
+    v32 = safari_highLevelDomainFromHost2;
     [v9 pathComponents];
     selfCopy = self;
+    v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
-    obj = v52 = 0u;
-    v21 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v50 = 0u;
+    obj = v51 = 0u;
+    v21 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (v21)
     {
-      v22 = *v52;
+      v22 = *v51;
       while (2)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v52 != v22)
+          if (*v51 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          lowercaseString6 = [*(*(&v51 + 1) + 8 * i) lowercaseString];
-          v47 = 0;
-          v48 = &v47;
-          v49 = 0x2020000000;
-          v50 = 0;
+          lowercaseString6 = [*(*(&v50 + 1) + 8 * i) lowercaseString];
+          v46 = 0;
+          v47 = &v46;
+          v48 = 0x2020000000;
+          v49 = 0;
           v25 = [NSString(SafariCoreExtras) _safari_looksLikeWillRedirectToURLStringAfterAuthentication:orHostAfterLogin:]::loginURLPattern;
           v26 = [lowercaseString6 length];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __107__NSString_SafariCoreExtras___safari_looksLikeWillRedirectToURLStringAfterAuthentication_orHostAfterLogin___block_invoke_2;
-          v44[3] = &unk_1E7CF1BF8;
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __107__NSString_SafariCoreExtras___safari_looksLikeWillRedirectToURLStringAfterAuthentication_orHostAfterLogin___block_invoke_2;
+          v43[3] = &unk_1E7CF1BF8;
           v27 = lowercaseString6;
-          v45 = v27;
-          v46 = &v47;
-          [v25 enumerateMatchesInString:v27 options:0 range:0 usingBlock:{v26, v44}];
-          LOBYTE(v25) = *(v48 + 24);
+          v44 = v27;
+          v45 = &v46;
+          [v25 enumerateMatchesInString:v27 options:0 range:0 usingBlock:{v26, v43}];
+          LOBYTE(v25) = *(v47 + 24);
 
-          _Block_object_dispose(&v47, 8);
+          _Block_object_dispose(&v46, 8);
           if (v25)
           {
             v12 = 1;
@@ -1841,7 +1820,7 @@ LABEL_26:
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v21 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
         if (v21)
         {
           continue;
@@ -1853,24 +1832,23 @@ LABEL_26:
 
     v28 = [MEMORY[0x1E696AF20] componentsWithString:selfCopy];
     percentEncodedQueryItems = [v28 percentEncodedQueryItems];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __107__NSString_SafariCoreExtras___safari_looksLikeWillRedirectToURLStringAfterAuthentication_orHostAfterLogin___block_invoke_3;
-    v40[3] = &unk_1E7CF1C20;
-    v43 = v34;
-    v41 = lowercaseString3;
-    v42 = safari_highLevelDomainFromHost;
-    v12 = [percentEncodedQueryItems safari_containsObjectPassingTest:v40];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __107__NSString_SafariCoreExtras___safari_looksLikeWillRedirectToURLStringAfterAuthentication_orHostAfterLogin___block_invoke_3;
+    v39[3] = &unk_1E7CF1C20;
+    v42 = v33;
+    v40 = lowercaseString3;
+    v41 = safari_highLevelDomainFromHost;
+    v12 = [percentEncodedQueryItems safari_containsObjectPassingTest:v39];
 
 LABEL_25:
-    safari_highLevelDomainFromHost2 = v33;
+    safari_highLevelDomainFromHost2 = v32;
     goto LABEL_26;
   }
 
   v12 = 1;
 LABEL_27:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2075,11 +2053,23 @@ LABEL_27:
 
 - (uint64_t)safari_isPathExtensionAllowedForAnalytics
 {
-  result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:&unk_1F308E6A0];
-  *self = result;
-  qword_1ED9858F0 = result;
-  byte_1ED9858E1 = 1;
-  return result;
+  if (byte_1ED9858E1 == 1)
+  {
+    v1 = qword_1ED9858F0;
+  }
+
+  else
+  {
+    selfCopy = self;
+    [(NSString(SafariCoreExtras) *)&v6 safari_isPathExtensionAllowedForAnalytics];
+    self = selfCopy;
+    v1 = v6;
+  }
+
+  lowercaseString = [self lowercaseString];
+  v3 = [v1 containsObject:lowercaseString];
+
+  return v3;
 }
 
 - (id)safari_stringByRemovingParenthesizedText
@@ -2137,11 +2127,20 @@ LABEL_27:
   return v2;
 }
 
-- (uint64_t)safari_possibleTopLevelDomainCorrectionForUserTypedString
+- (void)safari_possibleTopLevelDomainCorrectionForUserTypedString
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@".cmo", @".com", @"c.om", @".com", @".xom", @".net", @".ent", @".net", @".nte", @".org", @".ogr", @".org", @".rog", @".info", @".ifno", @".info", @".ifnp", 0}];
   qword_1ED9858E8 = result;
   _MergedGlobals = 1;
+  return result;
+}
+
+- (void)safari_isPathExtensionAllowedForAnalytics
+{
+  result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:&unk_1F308E6A0];
+  *self = result;
+  qword_1ED9858F0 = result;
+  byte_1ED9858E1 = 1;
   return result;
 }
 

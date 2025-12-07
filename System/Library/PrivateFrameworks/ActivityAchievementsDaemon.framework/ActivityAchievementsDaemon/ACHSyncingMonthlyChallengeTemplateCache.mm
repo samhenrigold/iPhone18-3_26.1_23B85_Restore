@@ -33,7 +33,7 @@
 
 - (BOOL)cacheTemplate:(id)template error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   uniqueName = [templateCopy uniqueName];
   v8 = [uniqueName componentsSeparatedByString:@"_"];
@@ -67,7 +67,7 @@
       {
         v17 = *error;
         *buf = 138412290;
-        v28 = v17;
+        v27 = v17;
         _os_log_impl(&dword_221DDC000, v16, OS_LOG_TYPE_DEFAULT, "Unable to access values in key-value domain for cache: %@", buf, 0xCu);
       }
     }
@@ -88,18 +88,18 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v28 = v12;
-        v29 = 2112;
-        v30 = v13;
-        v31 = 2112;
-        v32 = v15;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v13;
+        v30 = 2112;
+        v31 = v15;
         _os_log_impl(&dword_221DDC000, v19, OS_LOG_TYPE_DEFAULT, "Monthly challenge already cached for %@; ignoring template %@ in favor of %@", buf, 0x20u);
       }
 
       v20 = MEMORY[0x277CCA9B8];
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"Monthly challenge already cached for requested month/year combination.";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x277CCA450];
+      v25 = @"Monthly challenge already cached for requested month/year combination.";
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v21 = [v20 errorWithDomain:@"com.apple.ActivityAchievements" code:42 userInfo:v16];
       if (v21)
       {
@@ -117,37 +117,36 @@ LABEL_16:
   v18 = 0;
 LABEL_17:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)allCachedTemplatesWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v5 = dispatch_semaphore_create(0);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__7;
-  v35 = __Block_byref_object_dispose__7;
-  v36 = 0;
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
-  v29[3] = __Block_byref_object_copy__7;
-  v29[4] = __Block_byref_object_dispose__7;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__7;
+  v34 = __Block_byref_object_dispose__7;
+  v35 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__7;
+  v28[4] = __Block_byref_object_dispose__7;
+  v29 = 0;
   kvDomain = [(ACHSyncingMonthlyChallengeTemplateCache *)self kvDomain];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __71__ACHSyncingMonthlyChallengeTemplateCache_allCachedTemplatesWithError___block_invoke;
-  v25[3] = &unk_2784916E0;
-  v27 = &v31;
-  v28 = v29;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __71__ACHSyncingMonthlyChallengeTemplateCache_allCachedTemplatesWithError___block_invoke;
+  v24[3] = &unk_2784916E0;
+  v26 = &v30;
+  v27 = v28;
   dsema = v5;
-  v26 = dsema;
-  [kvDomain allValuesWithCompletion:v25];
+  v25 = dsema;
+  [kvDomain allValuesWithCompletion:v24];
 
   os_unfair_lock_unlock(&self->_lock);
   v7 = dispatch_time(0, 10000000000);
@@ -168,59 +167,59 @@ LABEL_5:
 
   if (*error)
   {
-    v12 = ACHLogMonthlyChallenges();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = ACHLogMonthlyChallenges();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ACHSyncingMonthlyChallengeTemplateCache *)error allCachedTemplatesWithError:v12];
+      [(ACHSyncingMonthlyChallengeTemplateCache *)error allCachedTemplatesWithError:v11];
     }
   }
 
-  if ([v32[5] count])
+  if ([v31[5] count])
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    allValues = [v32[5] allValues];
-    v13 = [allValues countByEnumeratingWithState:&v21 objects:v39 count:16];
-    if (v13)
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    allValues = [v31[5] allValues];
+    v12 = [allValues countByEnumeratingWithState:&v20 objects:v38 count:16];
+    if (v12)
     {
-      v14 = *v22;
+      v13 = *v21;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(*(&v20 + 1) + 8 * i);
           gregorianCalendar = [(ACHSyncingMonthlyChallengeTemplateCache *)self gregorianCalendar];
-          v18 = ACHMonthlyChallengeTemplateFromCacheValue(v16, gregorianCalendar);
+          v17 = ACHMonthlyChallengeTemplateFromCacheValue(v15, gregorianCalendar);
 
-          if (v18)
+          if (v17)
           {
-            [v9 addObject:v18];
+            [v9 addObject:v17];
           }
 
           else
           {
-            v19 = ACHLogMonthlyChallenges();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v18 = ACHLogMonthlyChallenges();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v38 = v16;
-              _os_log_impl(&dword_221DDC000, v19, OS_LOG_TYPE_DEFAULT, "Failed to deserialize template from cache value %@", buf, 0xCu);
+              v37 = v15;
+              _os_log_impl(&dword_221DDC000, v18, OS_LOG_TYPE_DEFAULT, "Failed to deserialize template from cache value %@", buf, 0xCu);
             }
           }
         }
 
-        v13 = [allValues countByEnumeratingWithState:&v21 objects:v39 count:16];
+        v12 = [allValues countByEnumeratingWithState:&v20 objects:v38 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
     goto LABEL_5;
@@ -229,10 +228,8 @@ LABEL_5:
   v9 = 0;
 LABEL_6:
 
-  _Block_object_dispose(v29, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v30, 8);
 
   return v9;
 }
@@ -288,24 +285,22 @@ void __71__ACHSyncingMonthlyChallengeTemplateCache_allCachedTemplatesWithError__
 
 - (void)allCachedTemplatesWithError:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error pulling monthly challenge cache: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error pulling monthly challenge cache: %@", &v3, 0xCu);
 }
 
 - (void)templateForDateComponents:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_221DDC000, log, OS_LOG_TYPE_ERROR, "Error pulling cached value for date components %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_221DDC000, log, OS_LOG_TYPE_ERROR, "Error pulling cached value for date components %@: %@", &v4, 0x16u);
 }
 
 @end

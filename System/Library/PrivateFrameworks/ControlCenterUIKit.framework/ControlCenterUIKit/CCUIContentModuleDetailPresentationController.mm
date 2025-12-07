@@ -148,19 +148,20 @@
 - (double)_preferredExpandedContentWidthForViewController:(id)controller
 {
   controllerCopy = controller;
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     [controllerCopy preferredExpandedContentWidth];
   }
 
   else
   {
-    v4 = CCUIDefaultExpandedContentModuleWidth();
+    v6 = CCUIDefaultExpandedContentModuleWidth(v4, v5);
   }
 
-  v5 = v4;
+  v7 = v6;
 
-  return v5;
+  return v7;
 }
 
 - (double)_preferredExpandedContentHeightForViewController:(id)controller

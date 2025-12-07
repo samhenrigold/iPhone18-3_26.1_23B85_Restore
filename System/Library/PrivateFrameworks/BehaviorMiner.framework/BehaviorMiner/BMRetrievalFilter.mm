@@ -30,7 +30,7 @@
 
 - (id)rulePredicate
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   types = [(BMRetrievalFilter *)self types];
 
   if (types)
@@ -69,14 +69,14 @@
         goto LABEL_36;
       }
 
-      v37 = @"antecedent";
-      v38 = v5;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:2];
+      v36 = @"antecedent";
+      v37 = v5;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:2];
       v14 = [v13 componentsJoinedByString:@"."];
 
-      v36[0] = @"consequent";
-      v36[1] = v5;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+      v35[0] = @"consequent";
+      v35[1] = v5;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
       v16 = [v15 componentsJoinedByString:@"."];
 
       v17 = MEMORY[0x277CCAC30];
@@ -109,9 +109,9 @@ LABEL_34:
           v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"ANY %K IN %@", v14, v11];
           v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"ANY %K IN %@", v16, v11];
           v28 = MEMORY[0x277CCA920];
-          v35[0] = v26;
-          v35[1] = v27;
-          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+          v34[0] = v26;
+          v34[1] = v27;
+          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
           v19 = [v28 orPredicateWithSubpredicates:v29];
 
           goto LABEL_34;
@@ -132,9 +132,9 @@ LABEL_33:
     }
   }
 
-  v37 = v12;
-  v38 = v5;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:2];
+  v36 = v12;
+  v37 = v5;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:2];
   v14 = [v20 componentsJoinedByString:@"."];
 
   v21 = MEMORY[0x277CCAC30];
@@ -167,7 +167,7 @@ LABEL_33:
   if (inclusionOperator == 1)
   {
     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
-    [v21 predicateWithFormat:@"SUBQUERY(%K, $identifier, $identifier IN %@).@count == %@", v14, v11, v22, v33, v34];
+    [v21 predicateWithFormat:@"SUBQUERY(%K, $identifier, $identifier IN %@).@count == %@", v14, v11, v22, v32, v33];
     v19 = LABEL_28:;
 
     goto LABEL_35;
@@ -180,7 +180,6 @@ LABEL_26:
 LABEL_35:
 
 LABEL_36:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

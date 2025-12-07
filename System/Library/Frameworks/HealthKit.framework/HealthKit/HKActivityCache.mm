@@ -149,6 +149,7 @@
 - (void)_setMoveMinutesGoal:(id)goal date:(id)date;
 - (void)_setMoveMinutesGoalDateOnly:(id)only;
 - (void)_setMoveMinutesGoalOnly:(id)only;
+- (void)_setPaused:(BOOL)paused;
 - (void)_setPushCount:(int64_t)count;
 - (void)_setSequence:(int64_t)sequence;
 - (void)_setStartDate:(id)date;
@@ -720,7 +721,7 @@ LABEL_47:
     componentsCopy = components;
     endDateCopy = endDate;
     dateCopy = date;
-    v17 = _HKCachedImmutableGregorianCalendarWithUTCTimeZone();
+    v17 = _HKCachedImmutableGregorianCalendarWithUTCTimeZone(dateCopy);
     v32 = 0;
     v18 = _HKDerivedCacheIndexAndDateComponents(v17, componentsCopy, &v32);
 
@@ -770,7 +771,7 @@ void __88__HKActivityCache__activityCacheWithStartDate_endDate_dateComponents_se
     componentsCopy = components;
     endDateCopy = endDate;
     dateCopy = date;
-    v18 = _HKCachedImmutableGregorianCalendarWithUTCTimeZone();
+    v18 = _HKCachedImmutableGregorianCalendarWithUTCTimeZone(dateCopy);
     v34 = 0;
     v19 = _HKDerivedCacheIndexAndDateComponents(v18, componentsCopy, &v34);
 
@@ -2100,6 +2101,15 @@ LABEL_56:
   return _lock_isPaused;
 }
 
+- (void)_setPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  os_unfair_lock_lock(&self->_lock);
+  [(HKActivityCache *)self _lock_setPaused:pausedCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (int64_t)version
 {
   os_unfair_lock_lock(&self->_lock);
@@ -2493,11 +2503,11 @@ LABEL_56:
 
 - (HKActivityCache)initWithCoder:(id)coder
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v56[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v54.receiver = self;
-  v54.super_class = HKActivityCache;
-  v5 = [(HKSample *)&v54 initWithCoder:coderCopy];
+  v53.receiver = self;
+  v53.super_class = HKActivityCache;
+  v5 = [(HKSample *)&v53 initWithCoder:coderCopy];
   v6 = v5;
   if (!v5)
   {
@@ -2650,27 +2660,27 @@ LABEL_25:
   }
 
   v33 = MEMORY[0x1E695DFD8];
-  v57[0] = objc_opt_class();
-  v57[1] = objc_opt_class();
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+  v56[0] = objc_opt_class();
+  v56[1] = objc_opt_class();
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
   v35 = [v33 setWithArray:v34];
   v36 = [coderCopy decodeObjectOfClasses:v35 forKey:@"dailyEnergyBurnedStatistics"];
   dailyEnergyBurnedStatistics = v6->_dailyEnergyBurnedStatistics;
   v6->_dailyEnergyBurnedStatistics = v36;
 
   v38 = MEMORY[0x1E695DFD8];
-  v56[0] = objc_opt_class();
-  v56[1] = objc_opt_class();
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
+  v55[0] = objc_opt_class();
+  v55[1] = objc_opt_class();
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
   v40 = [v38 setWithArray:v39];
   v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"dailyMoveMinutesStatistics"];
   dailyMoveMinutesStatistics = v6->_dailyMoveMinutesStatistics;
   v6->_dailyMoveMinutesStatistics = v41;
 
   v43 = MEMORY[0x1E695DFD8];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
   v45 = [v43 setWithArray:v44];
   v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"dailyBriskMinutesStatistics"];
   dailyBriskMinutesStatistics = v6->_dailyBriskMinutesStatistics;
@@ -2721,7 +2731,6 @@ LABEL_25:
   os_unfair_lock_unlock(&v6->_lock);
 LABEL_49:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

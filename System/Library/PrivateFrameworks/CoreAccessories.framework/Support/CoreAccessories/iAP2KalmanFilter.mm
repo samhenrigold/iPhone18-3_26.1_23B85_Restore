@@ -160,7 +160,7 @@
 
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [(iAP2KalmanFilter *)v24 updateMeasurementNoiseEstimate:v26, v27, v28, v29, v30, v31, v32];
+        [(iAP2KalmanFilter *)v24 updateMeasurementNoiseEstimate:v26, v27, v28, v29, v30, v31, v32, v20];
       }
     }
 
@@ -199,7 +199,7 @@
 
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [(iAP2KalmanFilter *)v40 updateMeasurementNoiseEstimate:v42, v43, v44, v45, v46, v47, v48];
+        [(iAP2KalmanFilter *)v40 updateMeasurementNoiseEstimate:v42, v43, v44, v45, v46, v47, v48, v36];
       }
     }
 
@@ -248,7 +248,7 @@ LABEL_52:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:? Offset:? FilteredOffset:? OffsetUncertainty:?];
+      [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:];
     }
   }
 
@@ -275,7 +275,7 @@ LABEL_52:
 
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:? Offset:? FilteredOffset:? OffsetUncertainty:?];
+        [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:];
       }
     }
 
@@ -303,7 +303,7 @@ LABEL_52:
 
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:? Offset:? FilteredOffset:? OffsetUncertainty:?];
+      [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:];
     }
   }
 
@@ -424,7 +424,7 @@ LABEL_2:
 
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:? Offset:? FilteredOffset:? OffsetUncertainty:?];
+        [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:];
       }
 
       v40 = _iAP2LogEnableMask;
@@ -463,7 +463,7 @@ LABEL_2:
 
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:filteredOffset Offset:? FilteredOffset:? OffsetUncertainty:?];
+          [iAP2KalmanFilter iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:];
         }
 
         if ((_iAP2LogEnableMask & 4) != 0)
@@ -536,39 +536,53 @@ LABEL_2:
   return 1;
 }
 
-- (void)iAP2KalmanFilterUpdateDeviceTime:(uint64_t)a1 Offset:FilteredOffset:OffsetUncertainty:.cold.2(uint64_t a1)
+- (void)updateMeasurementNoiseEstimate:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_38();
-  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v2, v3, "Measurement Variance %.3lf\n", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a2, a3, "HistorySize = %lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)iAP2KalmanFilterUpdateDeviceTime:(uint64_t *)a1 Offset:FilteredOffset:OffsetUncertainty:.cold.4(uint64_t *a1)
+- (void)updateMeasurementNoiseEstimate:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  OUTLINED_FUNCTION_4_14(a1, __stack_chk_guard);
-  OUTLINED_FUNCTION_38();
-  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v1, v2, "Unacceptable,time offset measurement variance(s^2),%.3lf\n", v3, v4, v5, v6, v7);
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a1, a3, "sumx = %.3lf\n", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
-- (void)iAP2KalmanFilterUpdateDeviceTime:(uint64_t *)a1 Offset:FilteredOffset:OffsetUncertainty:.cold.6(uint64_t *a1)
+- (void)updateMeasurementNoiseEstimate:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  OUTLINED_FUNCTION_4_14(a1, __stack_chk_guard);
-  OUTLINED_FUNCTION_38();
-  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v1, v2, "Estimated,time offset measurement variance(s^2),%.3lf\n", v3, v4, v5, v6, v7);
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, a1, a3, "sumx2 = %.3lf\n", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
-- (void)iAP2KalmanFilterUpdateDeviceTime:(uint64_t *)a1 Offset:FilteredOffset:OffsetUncertainty:.cold.11(uint64_t *a1)
+- (void)iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:.cold.4()
 {
-  OUTLINED_FUNCTION_4_14(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_14(__stack_chk_guard);
   OUTLINED_FUNCTION_38();
-  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v1, v2, "fFilterOffsetEstimate = %.3lf", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v0, v1, "Unacceptable,time offset measurement variance(s^2),%.3lf\n", v2, v3, v4, v5);
 }
 
-- (void)iAP2KalmanFilterUpdateDeviceTime:(uint64_t *)a1 Offset:FilteredOffset:OffsetUncertainty:.cold.13(uint64_t *a1)
+- (void)iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:.cold.6()
 {
-  OUTLINED_FUNCTION_4_14(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_4_14(__stack_chk_guard);
   OUTLINED_FUNCTION_38();
-  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v1, v2, "filteredOffsetSecs = %.3lf", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v0, v1, "Estimated,time offset measurement variance(s^2),%.3lf\n", v2, v3, v4, v5);
+}
+
+- (void)iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:.cold.11()
+{
+  OUTLINED_FUNCTION_4_14(__stack_chk_guard);
+  OUTLINED_FUNCTION_38();
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v0, v1, "fFilterOffsetEstimate = %.3lf", v2, v3, v4, v5);
+}
+
+- (void)iAP2KalmanFilterUpdateDeviceTime:Offset:FilteredOffset:OffsetUncertainty:.cold.13()
+{
+  OUTLINED_FUNCTION_4_14(__stack_chk_guard);
+  OUTLINED_FUNCTION_38();
+  OUTLINED_FUNCTION_2_8(&_mh_execute_header, v0, v1, "filteredOffsetSecs = %.3lf", v2, v3, v4, v5);
 }
 
 @end

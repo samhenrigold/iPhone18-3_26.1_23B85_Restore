@@ -182,14 +182,12 @@ void __74__FPDDownloader__progressComputationPreflightForRecursiveRoot_completio
 
 - (void)_stopTrackingFileURLs
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   progress = [self progress];
   fileURL = [progress fileURL];
-  v6 = 138412290;
-  v7 = fileURL;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Will stop tracking all urls for root URL %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = fileURL;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Will stop tracking all urls for root URL %@", &v5, 0xCu);
 }
 
 - (void)_createChildItem:(id)item
@@ -305,7 +303,7 @@ void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_
     v7 = fp_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_1(v6, a1);
+      __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_1();
     }
 
     [*(a1 + 40) _cleanup];
@@ -324,7 +322,7 @@ void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_
     v9 = fp_current_or_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_2(v5, a1);
+      __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_2();
     }
 
     [*(a1 + 40) downloadItem:v5 recursively:*(a1 + 64) request:*(a1 + 48) withCompletion:*(a1 + 56)];
@@ -571,25 +569,24 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v8 = +[FPDDownloadManager sharedInstance];
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 56);
+    v7 = +[FPDDownloadManager sharedInstance];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 56);
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    [v8 verifyIfSubtreeIsFullyMaterializedBelowItem:v5 recursively:v6 downloader:WeakRetained completion:*(a1 + 40)];
+    [v7 verifyIfSubtreeIsFullyMaterializedBelowItem:v4 recursively:v5 downloader:WeakRetained completion:*(a1 + 40)];
   }
 }
 
 - (void)_didDownloadItem:(id)item withError:(id)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   errorCopy = error;
   if (errorCopy)
@@ -612,9 +609,9 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
       identifier = [itemID identifier];
       fileURL = [itemCopy fileURL];
       *buf = 138412546;
-      v52 = identifier;
-      v53 = 2112;
-      v54 = fileURL;
+      v51 = identifier;
+      v52 = 2112;
+      v53 = fileURL;
       _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Finished downloading folder (%@) %@.", buf, 0x16u);
     }
 
@@ -622,25 +619,25 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
     itemID2 = [itemCopy itemID];
     v10 = [(NSMutableDictionary *)parentToChildMap objectForKeyedSubscript:itemID2];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v12)
     {
-      v13 = *v47;
+      v13 = *v46;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v47 != v13)
+          if (*v46 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v46 + 1) + 8 * i);
+          v15 = *(*(&v45 + 1) + 8 * i);
           fileURL2 = [v15 fileURL];
           v17 = fileURL2 == 0;
 
@@ -657,9 +654,9 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
               fileURL4 = [itemCopy fileURL];
               filename2 = [v15 filename];
               *buf = 138412546;
-              v52 = fileURL4;
-              v53 = 2112;
-              v54 = filename2;
+              v51 = fileURL4;
+              v52 = 2112;
+              v53 = filename2;
               _os_log_error_impl(&dword_1CEFC7000, v21, OS_LOG_TYPE_ERROR, "[ERROR] downloader: folder %@ child filename %@.", buf, 0x16u);
 
               v6 = v23;
@@ -676,7 +673,7 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v12);
@@ -726,8 +723,6 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
       }
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (FPDDomain)domain
@@ -739,22 +734,19 @@ void __95__FPDDownloader__recursiveDownloadOfItem_request_recursively_perItemCom
 
 - (void)_createChildItem:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 progress];
   v5 = [v4 fileURL];
   v6 = [v5 fp_shortDescription];
   v7 = [a1 progress];
-  v9 = 138412546;
-  v10 = v6;
+  v8 = 138412546;
+  v9 = v6;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Added child %@\n %@@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Added child %@\n %@@", &v8, 0x16u);
 }
 
 void __33__FPDDownloader__logRootProgress__block_invoke_cold_1(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
   v2 = [a1 progress];
   v3 = [v2 fileURL];
   v4 = [a1 progress];
@@ -765,45 +757,36 @@ void __33__FPDDownloader__logRootProgress__block_invoke_cold_1(void *a1)
   v9 = [v8 localizedAdditionalDescription];
   v10 = [a1 progress];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5(&dword_1CEFC7000, v11, v12, "[DEBUG] downloader: %@\n %@ / %@ files: %@\n%@", v13, v14, v15, v16, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1CEFC7000, v11, v12, "[DEBUG] downloader: %@\n %@ / %@ files: %@\n%@", v13, v14, v15, v16);
 }
 
-void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_2();
-  _os_log_error_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_ERROR, "[ERROR] downloader: Error %@ trying to retrieve item for URL %@", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] downloader: Error %@ trying to retrieve item for URL %@", v1, 0x16u);
 }
 
-void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_2(uint64_t a1, uint64_t a2)
+void __64__FPDDownloader_downloadURL_recursively_request_withCompletion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_2();
-  _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Retrieved item %@ for URL %@", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: Retrieved item %@ for URL %@", v1, 0x16u);
 }
 
 void __77__FPDDownloader__downloadItem_recursively_retryCount_request_withCompletion___block_invoke_4_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = v4;
+  v6 = 138412546;
+  v7 = v4;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: finished full download of root %@ (error: %@)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: finished full download of root %@ (error: %@)", &v6, 0x16u);
 }
 
 void __77__FPDDownloader__downloadItem_recursively_retryCount_request_withCompletion___block_invoke_4_cold_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 48) progress];
   v3 = [v2 fileURL];
   v4 = [*(a1 + 48) progress];
@@ -814,47 +797,40 @@ void __77__FPDDownloader__downloadItem_recursively_retryCount_request_withComple
   v9 = [v8 localizedAdditionalDescription];
   v10 = [*(a1 + 48) progress];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5(&dword_1CEFC7000, v11, v12, "[DEBUG] downloader final progress: %@\n %@ / %@ files: %@\n%@", v13, v14, v15, v16, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1CEFC7000, v11, v12, "[DEBUG] downloader final progress: %@\n %@ / %@ files: %@\n%@", v13, v14, v15, v16);
 }
 
 void __77__FPDDownloader__downloadItem_recursively_retryCount_request_withCompletion___block_invoke_4_cold_4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 80);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: tree changed during download, failing since we're at our %dth retry", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: tree changed during download, failing since we're at our %dth retry", v3, 8u);
 }
 
 - (void)_didDownloadItem:(NSObject *)a3 withError:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a1 itemID];
   v6 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = v5;
+  v7 = 138412546;
+  v8 = v5;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] downloader: failed to download item %@ : %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] downloader: failed to download item %@ : %@", &v7, 0x16u);
 }
 
 - (void)_didDownloadItem:(NSObject *)a3 withError:.cold.2(void *a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 fileURL];
   v6 = [a2 localizedAdditionalDescription];
-  v9 = 138412802;
-  v10 = v5;
+  v8 = 138412802;
+  v9 = v5;
   OUTLINED_FUNCTION_1();
-  v11 = v7;
-  v12 = a2;
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: per item final progress: %@\n%@\n%@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10 = v7;
+  v11 = a2;
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] downloader: per item final progress: %@\n%@\n%@", &v8, 0x20u);
 }
 
 @end

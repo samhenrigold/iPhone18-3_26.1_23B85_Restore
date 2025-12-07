@@ -182,7 +182,7 @@ void __40__PKPaper_defaultGenericPaperForLocale___block_invoke()
 
     if (isKindOfClass)
     {
-      useMetric = [self useMetric];
+      v21 = objc_msgSend_useMetric(self);
       v22 = intValue;
       v23 = "";
       if (!(intValue4 | intValue5 | intValue6 | intValue7))
@@ -190,7 +190,7 @@ void __40__PKPaper_defaultGenericPaperForLocale___block_invoke()
         v23 = "-fullbleed";
       }
 
-      if (useMetric)
+      if (v21)
       {
         v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"roll_anon_%.1fx0mm%s", v22 / 100.0, v23];
         v25 = 0x279A85000;
@@ -1119,7 +1119,7 @@ void __32__PKPaper_userCodableDictionary__block_invoke(uint64_t a1, void *a2, vo
   v9 = v8;
   if (*a5)
   {
-    v10 = (*(v8 + 2))(v8);
+    v10 = v8[2](v8);
     [*(a1 + 32) setObject:v10 forKeyedSubscript:v11];
   }
 }

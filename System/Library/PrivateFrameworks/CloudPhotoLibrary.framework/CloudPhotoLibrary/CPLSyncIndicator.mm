@@ -18,15 +18,15 @@
   [self _doProtected:v3];
 }
 
-uint64_t __34__CPLSyncIndicator_setForeground___block_invoke(uint64_t result)
+_BYTE *__34__CPLSyncIndicator_setForeground___block_invoke(_BYTE *result)
 {
-  v1 = *(result + 40);
+  v1 = result[40];
   if (v1 != _foreground)
   {
-    _foreground = *(result + 40);
+    _foreground = result[40];
     if (_showSyncIndicator == 1)
     {
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       if (v1)
       {
         return [v2 _reallyShowSyncIndicator];
@@ -52,13 +52,13 @@ uint64_t __34__CPLSyncIndicator_setForeground___block_invoke(uint64_t result)
   [self _doProtected:v2];
 }
 
-uint64_t __37__CPLSyncIndicator_hideSyncIndicator__block_invoke(uint64_t result)
+id *__37__CPLSyncIndicator_hideSyncIndicator__block_invoke(id *result)
 {
   if (_showSyncIndicator == 1)
   {
     if (_foreground == 1)
     {
-      result = [*(result + 32) _reallyHideSyncIndicator];
+      result = [result[4] _reallyHideSyncIndicator];
     }
 
     _showSyncIndicator = 0;
@@ -77,13 +77,13 @@ uint64_t __37__CPLSyncIndicator_hideSyncIndicator__block_invoke(uint64_t result)
   [self _doProtected:v2];
 }
 
-uint64_t __37__CPLSyncIndicator_showSyncIndicator__block_invoke(uint64_t result)
+id *__37__CPLSyncIndicator_showSyncIndicator__block_invoke(id *result)
 {
   if ((_showSyncIndicator & 1) == 0)
   {
     if (_foreground == 1)
     {
-      result = [*(result + 32) _reallyShowSyncIndicator];
+      result = [result[4] _reallyShowSyncIndicator];
     }
 
     _showSyncIndicator = 1;

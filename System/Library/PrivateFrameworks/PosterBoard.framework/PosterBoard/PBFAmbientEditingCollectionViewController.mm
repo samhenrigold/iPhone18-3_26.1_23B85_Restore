@@ -190,15 +190,16 @@
   v6 = sub_21B6C8A04();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21B6C8994();
   viewCopy = view;
   selfCopy = self;
-  v12 = AmbientEditingCollectionViewController.collectionView(_:cellForItemAt:)(viewCopy);
+  AmbientEditingCollectionViewController.collectionView(_:cellForItemAt:)(viewCopy);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
@@ -298,9 +299,11 @@
 
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset
 {
+  y = velocity.y;
+  x = velocity.x;
   draggingCopy = dragging;
   selfCopy = self;
-  sub_21B657198(&offset->x);
+  sub_21B657198(&offset->x, x, y);
 }
 
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate

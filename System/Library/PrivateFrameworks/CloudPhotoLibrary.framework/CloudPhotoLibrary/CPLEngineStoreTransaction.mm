@@ -5,6 +5,7 @@
 - (BOOL)do:(id)do;
 - (BOOL)isLibraryClosed;
 - (id)description;
+- (id)initForWrite:(BOOL)write store:(id)store identifier:(id)identifier description:(id)description;
 - (void)_releaseDirty;
 - (void)_transactionDidFinish;
 - (void)_transactionWillBeginOnThread:(id)thread;
@@ -16,36 +17,35 @@
 
 - (void)_transactionDidFinish
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   currentThread = self->_currentThread;
   self->_currentThread = 0;
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)self->_cleanupBlocks reverseObjectEnumerator];
-  v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        error = self->_error;
-        (*(*(*(&v12 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v10 + 1) + 8 * v8++) + 16))();
       }
 
       while (v6 != v8);
-      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -53,8 +53,6 @@
 
   cleanupBlocks = self->_cleanupBlocks;
   self->_cleanupBlocks = 0;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canWrite
@@ -167,7 +165,7 @@
 
   self->_currentThread = threadCopy;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](threadCopy, 0);
 }
 
 - (BOOL)do:(id)do
@@ -188,6 +186,28 @@
   }
 
   return v4;
+}
+
+- (id)initForWrite:(BOOL)write store:(id)store identifier:(id)identifier description:(id)description
+{
+  writeCopy = write;
+  storeCopy = store;
+  identifierCopy = identifier;
+  descriptionCopy = description;
+  v19.receiver = self;
+  v19.super_class = CPLEngineStoreTransaction;
+  v14 = [(CPLEngineStoreTransaction *)&v19 init];
+  v15 = v14;
+  if (v14)
+  {
+    v14->_forWrite = writeCopy;
+    objc_storeStrong(&v14->_store, store);
+    v16 = [CPLTransaction newTransactionWithIdentifier:identifierCopy description:descriptionCopy keepPower:writeCopy];
+    dirty = v15->_dirty;
+    v15->_dirty = v16;
+  }
+
+  return v15;
 }
 
 + (CPLEngineStoreTransaction)currentTransaction

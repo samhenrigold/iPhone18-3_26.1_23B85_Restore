@@ -16,34 +16,31 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __62__BKSHIDUISensorCharacteristics_appendDescriptionToFormatter___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = formatterCopy;
   selfCopy = self;
   v5 = formatterCopy;
-  [v5 appendProem:self block:v6];
+  [v5 appendProem:v6 block:{3221225472, __62__BKSHIDUISensorCharacteristics_appendDescriptionToFormatter___block_invoke, &unk_1E6F47C78}];
 }
 
 - (id)mutableCopy
 {
-  v3 = objc_alloc_init(BKSMutableHIDUISensorCharacteristics);
-  [(BKSMutableHIDUISensorCharacteristics *)v3 setHasDiscreteProximitySensor:self->_hasDiscreteProximitySensor];
-  [(BKSMutableHIDUISensorCharacteristics *)v3 setSuggestedSystemApertureGracePeriodForScreenOff:self->_suggestedSystemApertureGracePeriodForScreenOff];
-  return v3;
+  v2 = objc_alloc_init(BKSMutableHIDUISensorCharacteristics);
+  [(BKSMutableHIDUISensorCharacteristics *)v2 setHasDiscreteProximitySensor:?];
+  [(BKSMutableHIDUISensorCharacteristics *)v2 setSuggestedSystemApertureGracePeriodForScreenOff:?];
+  return v2;
 }
 
 void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_hasDiscreteProximitySensor"];
-  [v2 addField:"_suggestedSystemApertureGracePeriodForScreenOff"];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 + (BKSHIDUISensorCharacteristics)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDUISensorCharacteristics"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -72,7 +69,7 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [[BKSHIDUISensorCharacteristics allocWithZone:?]];
+  result = [+[BKSHIDUISensorCharacteristics allocWithZone:](BKSHIDUISensorCharacteristics _init];
   *(result + 16) = self->_hasDiscreteProximitySensor;
   *(result + 1) = self->_suggestedSystemApertureGracePeriodForScreenOff;
   return result;
@@ -109,7 +106,6 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
 
 - (unint64_t)hash
 {
-  self->_hasDiscreteProximitySensor;
   if (self->_suggestedSystemApertureGracePeriodForScreenOff)
   {
     v2 = [MEMORY[0x1E696AD98] numberWithInteger:?];
@@ -121,10 +117,9 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
 
 - (void)encodeWithCoder:(id)coder
 {
-  hasDiscreteProximitySensor = self->_hasDiscreteProximitySensor;
   coderCopy = coder;
-  [coderCopy encodeBool:hasDiscreteProximitySensor forKey:@"hasDiscreteProximitySensor"];
-  [coderCopy encodeInteger:self->_suggestedSystemApertureGracePeriodForScreenOff forKey:@"suggestedSystemApertureGracePeriodForScreenOff"];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (BKSHIDUISensorCharacteristics)initWithCoder:(id)coder
@@ -133,8 +128,8 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
   v7.super_class = BKSHIDUISensorCharacteristics;
   coderCopy = coder;
   v4 = [(BKSHIDUISensorCharacteristics *)&v7 init];
-  v4->_hasDiscreteProximitySensor = [coderCopy decodeBoolForKey:{@"hasDiscreteProximitySensor", v7.receiver, v7.super_class}];
-  v5 = [coderCopy decodeIntegerForKey:@"suggestedSystemApertureGracePeriodForScreenOff"];
+  v4->_hasDiscreteProximitySensor = [coderCopy decodeBoolForKey:{v7.receiver, v7.super_class}];
+  v5 = [coderCopy decodeIntegerForKey:?];
 
   v4->_suggestedSystemApertureGracePeriodForScreenOff = v5;
   return v4;
@@ -142,35 +137,35 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
 
 - (id)_init
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
   {
     v5 = objc_opt_class();
     if (v5 != objc_opt_class())
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDUISensorCharacteristics cannot be subclassed"];
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = NSStringFromSelector(a2);
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v8 = NSStringFromSelector(a2);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
         *buf = 138544642;
-        v14 = v9;
-        v15 = 2114;
-        v16 = v11;
-        v17 = 2048;
+        v13 = v8;
+        v14 = 2114;
+        v15 = v10;
+        v16 = 2048;
         selfCopy = self;
-        v19 = 2114;
-        v20 = @"BKSHIDUISensorCharacteristics.m";
-        v21 = 1024;
-        v22 = 40;
-        v23 = 2114;
-        v24 = v8;
+        v18 = 2114;
+        v19 = @"BKSHIDUISensorCharacteristics.m";
+        v20 = 1024;
+        v21 = 40;
+        v22 = 2114;
+        v23 = v7;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v8 UTF8String];
+      [v7 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863B49E4);
@@ -178,16 +173,14 @@ void __47__BKSHIDUISensorCharacteristics_protobufSchema__block_invoke(uint64_t a
   }
 
   self->_suggestedSystemApertureGracePeriodForScreenOff = 0x7FFFFFFFFFFFFFFFLL;
-  v12.receiver = self;
-  v12.super_class = BKSHIDUISensorCharacteristics;
-  result = [(BKSHIDUISensorCharacteristics *)&v12 init];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v11.receiver = self;
+  v11.super_class = BKSHIDUISensorCharacteristics;
+  return [(BKSHIDUISensorCharacteristics *)&v11 init];
 }
 
 - (BKSHIDUISensorCharacteristics)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDUISensorCharacteristics"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

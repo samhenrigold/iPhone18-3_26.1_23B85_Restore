@@ -95,14 +95,14 @@ LABEL_8:
   [stateCopy setSourceColorBitDepth:self->_sensorID];
   [stateCopy setRenderingVersion:*(&self->super._renderingVersion + 1)];
   [stateCopy setHwModelID:*&self->_readSuccessAll];
-  [stateCopy prepareForRendering:!v7];
+  v8 = [stateCopy prepareForRendering:!v7];
   renderingVersion = self->_renderingVersion;
   if ((renderingVersion & 1) == 0)
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v9];
+      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v10];
     }
   }
 
@@ -118,77 +118,79 @@ LABEL_8:
 
   if ((self->_renderingVersion & 1) == 0)
   {
-    v6 = _PTLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v6];
+      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v7];
     }
   }
 }
 
 - (PTGlobalRenderingMetadataVersion2)initWithData:(id)data
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   bytes = [dataCopy bytes];
   v6 = [(PTGlobalRenderingMetadataVersion2 *)self initWithMinorVersion:bswap32(bytes[3])];
   if (v6 && (v7 = bswap32(*bytes), [dataCopy length] == v7) && (v7 & 7) == 0 && -[PTGlobalRenderingMetadata majorVersion](v6, "majorVersion") == 2 && -[PTGlobalRenderingMetadata majorVersion](v6, "majorVersion") == bswap32(bytes[2]))
   {
     v8 = (v7 + 0x7FFFFFFF0) >> 3;
-    v50 = 0;
+    v52 = 0;
     LOBYTE(v6->_renderingVersion) = 1;
-    v9 = [PTParameterPairSerialization getUIntParameter:1 fromPairs:bytes + 4 numPairs:v8 didFindValue:&v50];
+    v9 = [PTParameterPairSerialization getUIntParameter:1 fromPairs:bytes + 4 numPairs:v8 didFindValue:&v52];
     *(&v6->super._renderingVersion + 1) = v9;
     v17 = [OUTLINED_FUNCTION_0_7(v9 v10];
     *&v6->_readSuccessAll = v17;
     v25 = [OUTLINED_FUNCTION_0_7(v17 v18];
     v6->_hwModelID = v25;
     v6->_sensorID = [OUTLINED_FUNCTION_0_7(v25 v26];
-    LOBYTE(v6->_renderingVersion) &= v50;
-    if (![PTRenderPipeline isRenderVersionSupported:*(&v6->super._renderingVersion + 1)])
+    LOBYTE(v6->_renderingVersion) &= v52;
+    v33 = [PTRenderPipeline isRenderVersionSupported:*(&v6->super._renderingVersion + 1)];
+    if ((v33 & 1) == 0)
     {
-      v33 = _PTLogSystem();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v34 = _PTLogSystem(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
-        v34 = *(&v6->super._renderingVersion + 1);
+        v35 = *(&v6->super._renderingVersion + 1);
         *buf = 67109120;
-        LODWORD(v52) = v34;
-        _os_log_impl(&dword_2243FB000, v33, OS_LOG_TYPE_INFO, "Render version not supported: %i", buf, 8u);
+        LODWORD(v54) = v35;
+        _os_log_impl(&dword_2243FB000, v34, OS_LOG_TYPE_INFO, "Render version not supported: %i", buf, 8u);
       }
 
-      *(&v6->super._renderingVersion + 1) = [PTParameterPairSerialization getUIntParameter:5 fromPairs:bytes + 4 numPairs:v8 withDefault:*(&v6->super._renderingVersion + 1) didFindValue:&v50];
-      v35 = _PTLogSystem();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v36 = [PTParameterPairSerialization getUIntParameter:5 fromPairs:bytes + 4 numPairs:v8 withDefault:*(&v6->super._renderingVersion + 1) didFindValue:&v52];
+      *(&v6->super._renderingVersion + 1) = v36;
+      v37 = _PTLogSystem(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        v36 = v50;
-        if (v50 == 1)
+        v38 = v52;
+        if (v52 == 1)
         {
-          v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"found: %i", *(&v6->super._renderingVersion + 1)];
+          v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"found: %i", *(&v6->super._renderingVersion + 1)];
         }
 
         else
         {
-          v37 = @"not found";
+          v39 = @"not found";
         }
 
         *buf = 138412290;
-        v52 = v37;
-        _os_log_impl(&dword_2243FB000, v35, OS_LOG_TYPE_INFO, "Fallback version %@", buf, 0xCu);
-        if (v36)
+        v54 = v39;
+        _os_log_impl(&dword_2243FB000, v37, OS_LOG_TYPE_INFO, "Fallback version %@", buf, 0xCu);
+        if (v38)
         {
         }
       }
     }
 
-    v38 = v6;
+    v40 = v6;
   }
 
   else
   {
-    v38 = 0;
+    v40 = 0;
   }
 
-  return v38;
+  return v40;
 }
 
 @end

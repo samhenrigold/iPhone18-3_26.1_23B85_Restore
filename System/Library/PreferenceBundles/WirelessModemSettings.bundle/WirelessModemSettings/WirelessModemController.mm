@@ -54,9 +54,9 @@
 
 - (WirelessModemController)init
 {
-  v18.receiver = self;
-  v18.super_class = WirelessModemController;
-  v2 = [(WirelessModemController *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = WirelessModemController;
+  v2 = [(WirelessModemController *)&v19 init];
   if (v2)
   {
     v2->_wifiClient = WiFiManagerClientCreate();
@@ -83,9 +83,10 @@
       v6 = v5;
       if (v5)
       {
-        v2->_showBandPreferenceUI = [v5 BOOLValue];
-        v7 = WMSLogComponent();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        bOOLValue = [v5 BOOLValue];
+        v2->_showBandPreferenceUI = bOOLValue;
+        v8 = WMSLogComponent(bOOLValue);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [WirelessModemController init];
         }
@@ -99,41 +100,41 @@
 
     if (v2->_wifiTetheringSupported)
     {
-      v8 = WiFiManagerClientCopyDevices();
-      if ([v8 count])
+      v9 = WiFiManagerClientCopyDevices();
+      if ([v9 count])
       {
-        v2->_wifiDevice = [v8 objectAtIndexedSubscript:0];
+        v2->_wifiDevice = [v9 objectAtIndexedSubscript:0];
         CFRunLoopGetCurrent();
         WiFiManagerClientScheduleWithRunLoop();
-        v9 = objc_initWeak(&location, v2);
+        v10 = objc_initWeak(&location, v2);
         WiFiDeviceClientRegisterPowerCallback();
 
         objc_destroyWeak(&location);
       }
     }
 
-    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    bundleIdentifier = [v10 bundleIdentifier];
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v11 bundleIdentifier];
 
     CFPreferencesSynchronize(bundleIdentifier, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
     LOBYTE(location) = 0;
     if (CFPreferencesGetAppBooleanValue(@"ShowBTPowerPrompt", bundleIdentifier, &location))
     {
-      v12 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v12 = location == 0;
+      v13 = location == 0;
     }
 
-    v13 = v12;
-    v2->_showBTPowerPrompt = v13;
+    v14 = v13;
+    v2->_showBTPowerPrompt = v14;
   }
 
-  v14 = dispatch_queue_create("com.apple.wirelessmodemsettings.phsettings-serial", 0);
+  v15 = dispatch_queue_create("com.apple.wirelessmodemsettings.phsettings-serial", 0);
   serialQueue = v2->_serialQueue;
-  v2->_serialQueue = v14;
+  v2->_serialQueue = v15;
 
   return v2;
 }
@@ -317,20 +318,21 @@ void __51__WirelessModemController__misStateChangedHandler___block_invoke(uint64
 - (void)_updatePersonalHotspotModificationDisableState
 {
   IsPersonalHotspotModificationDisabled = WiFiManagerClientIsPersonalHotspotModificationDisabled();
-  v4 = WMSLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = IsPersonalHotspotModificationDisabled;
+  v5 = WMSLogComponent(IsPersonalHotspotModificationDisabled);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemController _updatePersonalHotspotModificationDisableState];
   }
 
-  [(WirelessModemController *)self setPersonalHotspotModificationDisableState:IsPersonalHotspotModificationDisabled != 0];
+  [(WirelessModemController *)self setPersonalHotspotModificationDisableState:v4 != 0];
 }
 
 - (void)setPersonalHotspotModificationDisableState:(BOOL)state
 {
   if (self->_personalHotspotModificationDisabled == state)
   {
-    v3 = WMSLogComponent();
+    v3 = WMSLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [WirelessModemController setPersonalHotspotModificationDisableState:];
@@ -421,7 +423,7 @@ void __51__WirelessModemController__misStateChangedHandler___block_invoke(uint64
   immediatelyCopy = immediately;
   enabledCopy = enabled;
   v14[2] = *MEMORY[0x277D85DE8];
-  v8 = WMSLogComponent();
+  v8 = WMSLogComponent(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemController _setMISDiscoveryStateEnabled:enabledCopy effectiveImmediately:immediatelyCopy forceBand:v8];
@@ -565,9 +567,9 @@ LABEL_6:
   preferenceCopy = preference;
   bOOLValue = [preferenceCopy BOOLValue];
   [MEMORY[0x277CCABB0] numberWithUnsignedInt:bOOLValue];
-  WiFiManagerClientSetProperty();
-  v7 = WMSLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v7 = WiFiManagerClientSetProperty();
+  v8 = WMSLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemController setBandPreference:specifier:];
   }
@@ -577,16 +579,16 @@ LABEL_6:
 
   if (bOOLValue2)
   {
-    v9 = @"true";
+    v10 = @"true";
   }
 
   else
   {
-    v9 = @"false";
+    v10 = @"false";
   }
 
-  v10 = WMSUIEventDictionary(@"toggle-ph-compatibility", v9);
-  WMSubmitUIEventMetric(v10);
+  v11 = WMSUIEventDictionary(@"toggle-ph-compatibility", v10);
+  WMSubmitUIEventMetric(v11);
 }
 
 - (id)bandPreference
@@ -653,7 +655,7 @@ void __50__WirelessModemController__btPowerChangedHandler___block_invoke(uint64_
 
 - (void)_btAuthenticationRequestHandler:(id)handler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_btPairControllerClass && self->_btPairSetupClass && self->_btSSPRequestClass)
   {
@@ -670,8 +672,8 @@ void __50__WirelessModemController__btPowerChangedHandler___block_invoke(uint64_
     if (btAlert)
     {
 LABEL_7:
-      object = WMSLogComponent();
-      if (os_log_type_enabled(object, OS_LOG_TYPE_ERROR))
+      v9 = WMSLogComponent(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [WirelessModemController _btAuthenticationRequestHandler:];
       }
@@ -684,7 +686,7 @@ LABEL_9:
     if (!self->_waitingOnBTPower && !self->_currentDeviceSpecifier)
     {
       name = [handlerCopy name];
-      v11 = *MEMORY[0x277CF3228];
+      v12 = *MEMORY[0x277CF3228];
       if ([name isEqualToString:*MEMORY[0x277CF3228]])
       {
       }
@@ -692,94 +694,95 @@ LABEL_9:
       else
       {
         name2 = [handlerCopy name];
-        v13 = [name2 isEqualToString:*MEMORY[0x277CF3218]];
+        v14 = [name2 isEqualToString:*MEMORY[0x277CF3218]];
 
-        if (!v13)
+        if (!v14)
         {
           object = [handlerCopy object];
+          v9 = object;
           goto LABEL_19;
         }
       }
 
       object2 = [handlerCopy object];
-      object = [object2 objectForKeyedSubscript:@"device"];
+      v9 = [object2 objectForKeyedSubscript:@"device"];
 
 LABEL_19:
-      v15 = WMSLogComponent();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = WMSLogComponent(object);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v46 = NSStringFromSelector(a2);
+        v49 = NSStringFromSelector(a2);
         name3 = [handlerCopy name];
-        [object name];
+        [v9 name];
         *buf = 138412802;
-        v48 = v46;
-        v49 = 2112;
-        v50 = name3;
-        v52 = v51 = 2112;
-        v45 = v52;
-        _os_log_error_impl(&dword_23C15F000, v15, OS_LOG_TYPE_ERROR, "%@ received %@ for device %@", buf, 0x20u);
+        v51 = v49;
+        v52 = 2112;
+        v53 = name3;
+        v55 = v54 = 2112;
+        v48 = v55;
+        _os_log_error_impl(&dword_23C15F000, v17, OS_LOG_TYPE_ERROR, "%@ received %@ for device %@", buf, 0x20u);
       }
 
-      if (-[NSObject majorClass](object, "majorClass") == 256 && ([handlerCopy userInfo], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "valueForKey:", @"delayedPairingForNR"), v17 = objc_claimAutoreleasedReturnValue(), v17, v16, !v17))
+      if (-[NSObject majorClass](v9, "majorClass") == 256 && ([handlerCopy userInfo], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "valueForKey:", @"delayedPairingForNR"), v19 = objc_claimAutoreleasedReturnValue(), v19, v18, !v19))
       {
-        v36 = WMSLogComponent();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v39 = WMSLogComponent(v20);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           [WirelessModemController _btAuthenticationRequestHandler:];
         }
 
-        v37 = MEMORY[0x277CBEB38];
+        v40 = MEMORY[0x277CBEB38];
         userInfo = [handlerCopy userInfo];
-        dictionary = [v37 dictionaryWithDictionary:userInfo];
+        dictionary = [v40 dictionaryWithDictionary:userInfo];
 
         [dictionary setObject:&stru_284EED640 forKeyedSubscript:@"delayedPairingForNR"];
-        v39 = MEMORY[0x277CCAB88];
+        v42 = MEMORY[0x277CCAB88];
         name4 = [handlerCopy name];
         object3 = [handlerCopy object];
-        v41 = [v39 notificationWithName:name4 object:object3 userInfo:dictionary];
-        [(WirelessModemController *)self performSelector:sel__btAuthenticationRequestHandler_ withObject:v41 afterDelay:1.0];
+        v44 = [v42 notificationWithName:name4 object:object3 userInfo:dictionary];
+        [(WirelessModemController *)self performSelector:sel__btAuthenticationRequestHandler_ withObject:v44 afterDelay:1.0];
       }
 
       else
       {
-        name5 = [object name];
-        v19 = name5;
-        v20 = &stru_284EED640;
+        name5 = [v9 name];
+        v22 = name5;
+        v23 = &stru_284EED640;
         if (name5)
         {
-          v20 = name5;
+          v23 = name5;
         }
 
-        v21 = v20;
+        v24 = v23;
 
-        v22 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v21 target:self set:0 get:0 detail:0 cell:1 edit:0];
+        v25 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v24 target:self set:0 get:0 detail:0 cell:1 edit:0];
         currentDeviceSpecifier = self->_currentDeviceSpecifier;
-        self->_currentDeviceSpecifier = v22;
+        self->_currentDeviceSpecifier = v25;
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
-        v25 = NSStringFromClass(self->_btPairSetupClass);
-        [dictionary setObject:v25 forKeyedSubscript:*MEMORY[0x277D3FF08]];
+        v28 = NSStringFromClass(self->_btPairSetupClass);
+        [dictionary setObject:v28 forKeyedSubscript:*MEMORY[0x277D3FF08]];
 
-        v26 = NSStringFromClass(self->_btPairControllerClass);
-        [dictionary setObject:v26 forKeyedSubscript:*MEMORY[0x277D400B8]];
+        v29 = NSStringFromClass(self->_btPairControllerClass);
+        [dictionary setObject:v29 forKeyedSubscript:*MEMORY[0x277D400B8]];
 
         [dictionary setObject:@"PSLinkCell" forKeyedSubscript:*MEMORY[0x277D40138]];
-        [dictionary setObject:v21 forKeyedSubscript:*MEMORY[0x277D40170]];
+        [dictionary setObject:v24 forKeyedSubscript:*MEMORY[0x277D40170]];
 
-        address = [object address];
+        address = [v9 address];
         [dictionary setObject:address forKeyedSubscript:*MEMORY[0x277D3FFB8]];
 
         [(PSSpecifier *)self->_currentDeviceSpecifier setProperties:dictionary];
         name4 = [MEMORY[0x277CBEB38] dictionary];
-        v29 = [(objc_class *)self->_btClassicDeviceClass deviceWithDevice:object];
-        [name4 setObject:v29 forKeyedSubscript:@"bt-device"];
+        v32 = [(objc_class *)self->_btClassicDeviceClass deviceWithDevice:v9];
+        [name4 setObject:v32 forKeyedSubscript:@"bt-device"];
 
         [name4 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"reverse-pairing"];
         [(PSSpecifier *)self->_currentDeviceSpecifier setUserInfo:name4];
         name6 = [handlerCopy name];
-        v31 = [name6 isEqualToString:*MEMORY[0x277CF3200]];
+        v34 = [name6 isEqualToString:*MEMORY[0x277CF3200]];
 
-        if (v31)
+        if (v34)
         {
           [(WirelessModemController *)self _btPinRequestHandler:handlerCopy];
         }
@@ -787,9 +790,9 @@ LABEL_19:
         else
         {
           name7 = [handlerCopy name];
-          v33 = [name7 isEqualToString:*MEMORY[0x277CF3220]];
+          v36 = [name7 isEqualToString:*MEMORY[0x277CF3220]];
 
-          if (v33)
+          if (v36)
           {
             [(WirelessModemController *)self _btSSPConfirmationHandler:handlerCopy];
           }
@@ -797,9 +800,9 @@ LABEL_19:
           else
           {
             name8 = [handlerCopy name];
-            v35 = [name8 isEqualToString:v11];
+            v38 = [name8 isEqualToString:v12];
 
-            if (v35)
+            if (v38)
             {
               [(WirelessModemController *)self _btSSPNumericComparisonHandler:handlerCopy];
             }
@@ -807,9 +810,9 @@ LABEL_19:
             else
             {
               name9 = [handlerCopy name];
-              v43 = [name9 isEqualToString:*MEMORY[0x277CF3218]];
+              v46 = [name9 isEqualToString:*MEMORY[0x277CF3218]];
 
-              if (v43)
+              if (v46)
               {
                 [(WirelessModemController *)self _btSSPPasskeyDisplayHandler:handlerCopy];
               }
@@ -828,7 +831,7 @@ LABEL_10:
 - (void)_btPinRequestHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = WMSLogComponent();
+  v6 = WMSLogComponent(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(WirelessModemController *)a2 _btPinRequestHandler:handlerCopy, v6];
@@ -850,7 +853,7 @@ LABEL_10:
   v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
-  v7 = WMSLogComponent();
+  v7 = WMSLogComponent(object);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v10 = NSStringFromSelector(a2);
@@ -881,7 +884,7 @@ LABEL_10:
   object = [handlerCopy object];
   v7 = [object objectForKeyedSubscript:@"device"];
   v8 = [object objectForKeyedSubscript:@"value"];
-  v9 = WMSLogComponent();
+  v9 = WMSLogComponent(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v12 = NSStringFromSelector(a2);
@@ -912,7 +915,7 @@ LABEL_10:
   object = [handlerCopy object];
   v7 = [object objectForKeyedSubscript:@"device"];
   v8 = [object objectForKeyedSubscript:@"value"];
-  v9 = WMSLogComponent();
+  v9 = WMSLogComponent(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v12 = NSStringFromSelector(a2);
@@ -1035,7 +1038,7 @@ LABEL_15:
 {
   tetheringCopy = tethering;
   specifierCopy = specifier;
-  v152[0] = 1022;
+  v153[0] = 1022;
   bOOLValue = [tetheringCopy BOOLValue];
   if (bOOLValue)
   {
@@ -1048,357 +1051,357 @@ LABEL_15:
   }
 
   v10 = +[MISManager sharedManager];
-  [v10 getState:v152 andReason:0];
+  [v10 getState:v153 andReason:0];
 
-  if (v152[0] != v9)
+  if (v153[0] != v9)
   {
-    if ((v152[0] == 1022) & bOOLValue) != 1 || (([MEMORY[0x277CF3248] sharedInstance], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "enabled"), v12, v14 = -[WirelessModemController _wiFiPower](self, "_wiFiPower"), v15 = v14, (v13) || !self->_showBTPowerPrompt) && (!self->_wifiTetheringSupported || self->_wifiDevice == 0 || v14))
+    if ((v153[0] == 1022) & bOOLValue) != 1 || (([MEMORY[0x277CF3248] sharedInstance], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "enabled"), v13, v15 = -[WirelessModemController _wiFiPower](self, "_wiFiPower"), v16 = v15, (v14) || !self->_showBTPowerPrompt) && (!self->_wifiTetheringSupported || self->_wifiDevice == 0 || v15))
     {
       [(WirelessModemController *)self updateInstructionsSection:v9];
-      v16 = +[MISManager sharedManager];
-      [v16 setState:v9];
+      v17 = +[MISManager sharedManager];
+      [v17 setState:v9];
 
       if ([tetheringCopy BOOLValue])
       {
-        v17 = @"true";
+        v18 = @"true";
       }
 
       else
       {
-        v17 = @"false";
+        v18 = @"false";
       }
 
-      v18 = WMSUIEventDictionary(@"toggle-ph-discovery", v17);
-      WMSubmitUIEventMetric(v18);
+      v19 = WMSUIEventDictionary(@"toggle-ph-discovery", v18);
+      WMSubmitUIEventMetric(v19);
 
       goto LABEL_54;
     }
 
-    v19 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    [specifierCopy setProperty:v19 forKey:*MEMORY[0x277D3FEA8]];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    [specifierCopy setProperty:v20 forKey:*MEMORY[0x277D3FEA8]];
 
     [(WirelessModemController *)self reloadSpecifier:specifierCopy];
-    v132 = specifierCopy;
-    if (v13)
+    v133 = specifierCopy;
+    if (v14)
     {
-      v125 = MEMORY[0x277D75110];
-      v20 = MEMORY[0x277CCACA8];
-      v133 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = [v133 localizedStringForKey:@"POWER_ALERT_WF_OFF_TITLE" value:&stru_284EED640 table:?];
-      v121 = v21;
+      v126 = MEMORY[0x277D75110];
+      v21 = MEMORY[0x277CCACA8];
+      v134 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = [v134 localizedStringForKey:@"POWER_ALERT_WF_OFF_TITLE" value:&stru_284EED640 table:?];
+      v122 = v22;
       wifiIsWAPI = self->_wifiIsWAPI;
-      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v123 = v23;
+      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v124 = v24;
       if (wifiIsWAPI)
       {
-        v24 = @"WIFI_CH";
+        v25 = @"WIFI_CH";
       }
 
       else
       {
-        v24 = @"WIFI";
+        v25 = @"WIFI";
       }
 
-      v120 = [v23 localizedStringForKey:v24 value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v120 = [v20 stringWithFormat:v21, v120];
-      v26 = MEMORY[0x277CCACA8];
-      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v28 = [v27 localizedStringForKey:@"POWER_ALERT_WF_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v29 = self->_wifiIsWAPI;
-      v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v31 = v30;
-      if (v29)
+      v121 = [v24 localizedStringForKey:v25 value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v121 = [v21 stringWithFormat:v22, v121];
+      v27 = MEMORY[0x277CCACA8];
+      v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v29 = [v28 localizedStringForKey:@"POWER_ALERT_WF_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v30 = self->_wifiIsWAPI;
+      v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v32 = v31;
+      if (v30)
       {
-        v32 = @"WIFI_CH";
+        v33 = @"WIFI_CH";
       }
 
       else
       {
-        v32 = @"WIFI";
+        v33 = @"WIFI";
       }
 
-      v33 = [v30 localizedStringForKey:v32 value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v34 = [v26 stringWithFormat:v28, v33];
-      v35 = [v125 alertControllerWithTitle:v120 message:v34 preferredStyle:1];
+      v34 = [v31 localizedStringForKey:v33 value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v35 = [v27 stringWithFormat:v29, v34];
+      v36 = [v126 alertControllerWithTitle:v121 message:v35 preferredStyle:1];
       powerAlert = self->_powerAlert;
-      self->_powerAlert = v35;
+      self->_powerAlert = v36;
 
       objc_initWeak(&location, self->_powerAlert);
-      v37 = MEMORY[0x277D750F8];
-      v38 = MEMORY[0x277CCACA8];
-      v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v40 = [v39 localizedStringForKey:@"POWER_ALERT_WF_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v38 = MEMORY[0x277D750F8];
+      v39 = MEMORY[0x277CCACA8];
+      v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v41 = [v40 localizedStringForKey:@"POWER_ALERT_WF_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
       if (self->_wifiIsWAPI)
       {
-        v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v41 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v42 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
 
       else
       {
-        v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v41 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v42 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
-      v74 = ;
-      v75 = [v38 stringWithFormat:v40, v74];
-      v137[0] = MEMORY[0x277D85DD0];
-      v137[1] = 3221225472;
-      v137[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_7;
-      v137[3] = &unk_278BB52F8;
-      objc_copyWeak(&v138, &location);
-      v127 = [v37 actionWithTitle:v75 style:1 handler:v137];
+      v75 = ;
+      v76 = [v39 stringWithFormat:v41, v75];
+      v138[0] = MEMORY[0x277D85DD0];
+      v138[1] = 3221225472;
+      v138[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_7;
+      v138[3] = &unk_278BB52F8;
+      objc_copyWeak(&v139, &location);
+      v128 = [v38 actionWithTitle:v76 style:1 handler:v138];
 
-      v76 = MEMORY[0x277D750F8];
-      v77 = MEMORY[0x277CCACA8];
-      v78 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v79 = [v78 localizedStringForKey:@"POWER_ALERT_WF_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v77 = MEMORY[0x277D750F8];
+      v78 = MEMORY[0x277CCACA8];
+      v79 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v80 = [v79 localizedStringForKey:@"POWER_ALERT_WF_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
       if (self->_wifiIsWAPI)
       {
-        v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v80 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v81 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v81 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
 
       else
       {
-        v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v80 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v81 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v81 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
-      v81 = ;
-      v82 = [v77 stringWithFormat:v79, v81];
-      v135[0] = MEMORY[0x277D85DD0];
-      v135[1] = 3221225472;
-      v135[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_8;
-      v135[3] = &unk_278BB5320;
-      v135[4] = self;
-      objc_copyWeak(&v136, &location);
-      v83 = [v76 actionWithTitle:v82 style:0 handler:v135];
+      v82 = ;
+      v83 = [v78 stringWithFormat:v80, v82];
+      v136[0] = MEMORY[0x277D85DD0];
+      v136[1] = 3221225472;
+      v136[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_8;
+      v136[3] = &unk_278BB5320;
+      v136[4] = self;
+      objc_copyWeak(&v137, &location);
+      v84 = [v77 actionWithTitle:v83 style:0 handler:v136];
 
-      [(UIAlertController *)self->_powerAlert addAction:v127];
-      [(UIAlertController *)self->_powerAlert addAction:v83];
+      [(UIAlertController *)self->_powerAlert addAction:v128];
+      [(UIAlertController *)self->_powerAlert addAction:v84];
 
-      objc_destroyWeak(&v136);
-      v84 = v137;
+      objc_destroyWeak(&v137);
+      v85 = v138;
 LABEL_52:
-      objc_destroyWeak(v84 + 4);
+      objc_destroyWeak(v85 + 4);
       objc_destroyWeak(&location);
-      specifierCopy = v132;
+      specifierCopy = v133;
       goto LABEL_53;
     }
 
     if (self->_wifiTetheringSupported)
     {
-      v134 = MEMORY[0x277D75110];
-      if (self->_wifiDevice != 0 && !v15)
+      v135 = MEMORY[0x277D75110];
+      if (self->_wifiDevice != 0 && !v16)
       {
-        v85 = MEMORY[0x277CCACA8];
-        v130 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v86 = [v130 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_TITLE" value:&stru_284EED640 table:?];
-        v124 = v86;
-        v87 = self->_wifiIsWAPI;
-        v88 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v128 = v88;
-        if (v87)
+        v86 = MEMORY[0x277CCACA8];
+        v131 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v87 = [v131 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_TITLE" value:&stru_284EED640 table:?];
+        v125 = v87;
+        v88 = self->_wifiIsWAPI;
+        v89 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v129 = v89;
+        if (v88)
         {
-          v89 = @"WIFI_CH";
+          v90 = @"WIFI_CH";
         }
 
         else
         {
-          v89 = @"WIFI";
+          v90 = @"WIFI";
         }
 
-        v122 = [v88 localizedStringForKey:v89 value:&stru_284EED640 table:@"WirelessModemSettings"];
-        v122 = [v85 stringWithFormat:v86, v122];
-        v91 = MEMORY[0x277CCACA8];
-        v92 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v93 = [v92 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-        v94 = self->_wifiIsWAPI;
-        v95 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v96 = v95;
-        if (v94)
+        v123 = [v89 localizedStringForKey:v90 value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v123 = [v86 stringWithFormat:v87, v123];
+        v92 = MEMORY[0x277CCACA8];
+        v93 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v94 = [v93 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v95 = self->_wifiIsWAPI;
+        v96 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v97 = v96;
+        if (v95)
         {
-          v97 = @"WIFI_CH";
+          v98 = @"WIFI_CH";
         }
 
         else
         {
-          v97 = @"WIFI";
+          v98 = @"WIFI";
         }
 
-        v98 = [v95 localizedStringForKey:v97 value:&stru_284EED640 table:@"WirelessModemSettings"];
-        v99 = [v91 stringWithFormat:v93, v98];
-        v100 = [v134 alertControllerWithTitle:v122 message:v99 preferredStyle:1];
-        v101 = self->_powerAlert;
-        self->_powerAlert = v100;
+        v99 = [v96 localizedStringForKey:v98 value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v100 = [v92 stringWithFormat:v94, v99];
+        v101 = [v135 alertControllerWithTitle:v123 message:v100 preferredStyle:1];
+        v102 = self->_powerAlert;
+        self->_powerAlert = v101;
 
         objc_initWeak(&location, self->_powerAlert);
-        v102 = MEMORY[0x277D750F8];
-        v103 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v104 = [v103 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
-        v149[0] = MEMORY[0x277D85DD0];
-        v149[1] = 3221225472;
-        v149[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke;
-        v149[3] = &unk_278BB52F8;
-        objc_copyWeak(&v150, &location);
-        v131 = [v102 actionWithTitle:v104 style:1 handler:v149];
+        v103 = MEMORY[0x277D750F8];
+        v104 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v105 = [v104 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v150[0] = MEMORY[0x277D85DD0];
+        v150[1] = 3221225472;
+        v150[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke;
+        v150[3] = &unk_278BB52F8;
+        objc_copyWeak(&v151, &location);
+        v132 = [v103 actionWithTitle:v105 style:1 handler:v150];
 
-        v105 = MEMORY[0x277D750F8];
-        v106 = MEMORY[0x277CCACA8];
-        v107 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v108 = [v107 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v106 = MEMORY[0x277D750F8];
+        v107 = MEMORY[0x277CCACA8];
+        v108 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v109 = [v108 localizedStringForKey:@"POWER_ALERT_BOTH_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
         if (self->_wifiIsWAPI)
         {
-          v109 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          [v109 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
+          v110 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          [v110 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
         }
 
         else
         {
-          v109 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          [v109 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
+          v110 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          [v110 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
         }
-        v117 = ;
-        v117 = [v106 stringWithFormat:v108, v117];
-        v147[0] = MEMORY[0x277D85DD0];
-        v147[1] = 3221225472;
-        v147[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_2;
-        v147[3] = &unk_278BB5320;
-        v147[4] = self;
-        objc_copyWeak(&v148, &location);
-        v119 = [v105 actionWithTitle:v117 style:0 handler:v147];
+        v118 = ;
+        v118 = [v107 stringWithFormat:v109, v118];
+        v148[0] = MEMORY[0x277D85DD0];
+        v148[1] = 3221225472;
+        v148[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_2;
+        v148[3] = &unk_278BB5320;
+        v148[4] = self;
+        objc_copyWeak(&v149, &location);
+        v120 = [v106 actionWithTitle:v118 style:0 handler:v148];
 
-        [(UIAlertController *)self->_powerAlert addAction:v131];
-        [(UIAlertController *)self->_powerAlert addAction:v119];
+        [(UIAlertController *)self->_powerAlert addAction:v132];
+        [(UIAlertController *)self->_powerAlert addAction:v120];
 
-        objc_destroyWeak(&v148);
-        v84 = v149;
+        objc_destroyWeak(&v149);
+        v85 = v150;
         goto LABEL_52;
       }
 
-      v129 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v126 = [v129 localizedStringForKey:@"POWER_ALERT_BT_OFF_TITLE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v42 = MEMORY[0x277CCACA8];
-      v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v44 = [v43 localizedStringForKey:@"POWER_ALERT_BT_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v45 = self->_wifiIsWAPI;
-      v46 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v47 = v46;
-      if (v45)
+      v130 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v127 = [v130 localizedStringForKey:@"POWER_ALERT_BT_OFF_TITLE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v43 = MEMORY[0x277CCACA8];
+      v44 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v45 = [v44 localizedStringForKey:@"POWER_ALERT_BT_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v46 = self->_wifiIsWAPI;
+      v47 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v48 = v47;
+      if (v46)
       {
-        v48 = @"WIFI_CH";
+        v49 = @"WIFI_CH";
       }
 
       else
       {
-        v48 = @"WIFI";
+        v49 = @"WIFI";
       }
 
-      v49 = [v46 localizedStringForKey:v48 value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v50 = [v42 stringWithFormat:v44, v49];
-      v51 = [v134 alertControllerWithTitle:v126 message:v50 preferredStyle:1];
-      v52 = self->_powerAlert;
-      self->_powerAlert = v51;
+      v50 = [v47 localizedStringForKey:v49 value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v51 = [v43 stringWithFormat:v45, v50];
+      v52 = [v135 alertControllerWithTitle:v127 message:v51 preferredStyle:1];
+      v53 = self->_powerAlert;
+      self->_powerAlert = v52;
 
       objc_initWeak(&location, self->_powerAlert);
-      v53 = MEMORY[0x277D750F8];
-      v54 = MEMORY[0x277CCACA8];
-      v55 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v56 = [v55 localizedStringForKey:@"POWER_ALERT_BT_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v54 = MEMORY[0x277D750F8];
+      v55 = MEMORY[0x277CCACA8];
+      v56 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v57 = [v56 localizedStringForKey:@"POWER_ALERT_BT_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
       if (self->_wifiIsWAPI)
       {
-        v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v57 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v58 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v58 localizedStringForKey:@"WIFI_CH" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
 
       else
       {
-        v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v57 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
+        v58 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v58 localizedStringForKey:@"WIFI" value:&stru_284EED640 table:@"WirelessModemSettings"];
       }
-      v110 = ;
-      v110 = [v54 stringWithFormat:v56, v110];
-      v141[0] = MEMORY[0x277D85DD0];
-      v141[1] = 3221225472;
-      v141[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_5;
-      v141[3] = &unk_278BB5320;
-      v141[4] = self;
-      objc_copyWeak(&v142, &location);
-      v112 = [v53 actionWithTitle:v110 style:1 handler:v141];
+      v111 = ;
+      v111 = [v55 stringWithFormat:v57, v111];
+      v142[0] = MEMORY[0x277D85DD0];
+      v142[1] = 3221225472;
+      v142[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_5;
+      v142[3] = &unk_278BB5320;
+      v142[4] = self;
+      objc_copyWeak(&v143, &location);
+      v113 = [v54 actionWithTitle:v111 style:1 handler:v142];
 
-      v113 = MEMORY[0x277D750F8];
-      v114 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v115 = [v114 localizedStringForKey:@"POWER_ALERT_BT_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v139[0] = MEMORY[0x277D85DD0];
-      v139[1] = 3221225472;
-      v139[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_6;
-      v139[3] = &unk_278BB5320;
-      v139[4] = self;
-      objc_copyWeak(&v140, &location);
-      v116 = [v113 actionWithTitle:v115 style:0 handler:v139];
+      v114 = MEMORY[0x277D750F8];
+      v115 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v116 = [v115 localizedStringForKey:@"POWER_ALERT_BT_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v140[0] = MEMORY[0x277D85DD0];
+      v140[1] = 3221225472;
+      v140[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_6;
+      v140[3] = &unk_278BB5320;
+      v140[4] = self;
+      objc_copyWeak(&v141, &location);
+      v117 = [v114 actionWithTitle:v116 style:0 handler:v140];
 
-      [(UIAlertController *)self->_powerAlert addAction:v112];
-      [(UIAlertController *)self->_powerAlert addAction:v116];
+      [(UIAlertController *)self->_powerAlert addAction:v113];
+      [(UIAlertController *)self->_powerAlert addAction:v117];
 
-      objc_destroyWeak(&v140);
-      v73 = &v142;
+      objc_destroyWeak(&v141);
+      v74 = &v143;
     }
 
     else
     {
-      v58 = MEMORY[0x277D75110];
-      v59 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v60 = [v59 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_TITLE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v61 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v62 = [v61 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v63 = [v58 alertControllerWithTitle:v60 message:v62 preferredStyle:1];
-      v64 = self->_powerAlert;
-      self->_powerAlert = v63;
+      v59 = MEMORY[0x277D75110];
+      v60 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v61 = [v60 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_TITLE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v62 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v63 = [v62 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_MESSAGE" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v64 = [v59 alertControllerWithTitle:v61 message:v63 preferredStyle:1];
+      v65 = self->_powerAlert;
+      self->_powerAlert = v64;
 
       objc_initWeak(&location, self->_powerAlert);
-      v65 = MEMORY[0x277D750F8];
-      v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v67 = [v66 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v145[0] = MEMORY[0x277D85DD0];
-      v145[1] = 3221225472;
-      v145[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_3;
-      v145[3] = &unk_278BB5320;
-      v145[4] = self;
-      objc_copyWeak(&v146, &location);
-      v68 = [v65 actionWithTitle:v67 style:1 handler:v145];
+      v66 = MEMORY[0x277D750F8];
+      v67 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v68 = [v67 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_CANCEL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v146[0] = MEMORY[0x277D85DD0];
+      v146[1] = 3221225472;
+      v146[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_3;
+      v146[3] = &unk_278BB5320;
+      v146[4] = self;
+      objc_copyWeak(&v147, &location);
+      v69 = [v66 actionWithTitle:v68 style:1 handler:v146];
 
-      v69 = MEMORY[0x277D750F8];
-      v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v71 = [v70 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
-      v143[0] = MEMORY[0x277D85DD0];
-      v143[1] = 3221225472;
-      v143[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_4;
-      v143[3] = &unk_278BB5320;
-      v143[4] = self;
-      objc_copyWeak(&v144, &location);
-      v72 = [v69 actionWithTitle:v71 style:0 handler:v143];
+      v70 = MEMORY[0x277D750F8];
+      v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v72 = [v71 localizedStringForKey:@"POWER_ALERT_BT_ONLY_OFF_OK_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+      v144[0] = MEMORY[0x277D85DD0];
+      v144[1] = 3221225472;
+      v144[2] = __58__WirelessModemController_setInternetTethering_specifier___block_invoke_4;
+      v144[3] = &unk_278BB5320;
+      v144[4] = self;
+      objc_copyWeak(&v145, &location);
+      v73 = [v70 actionWithTitle:v72 style:0 handler:v144];
 
-      [(UIAlertController *)self->_powerAlert addAction:v68];
-      [(UIAlertController *)self->_powerAlert addAction:v72];
+      [(UIAlertController *)self->_powerAlert addAction:v69];
+      [(UIAlertController *)self->_powerAlert addAction:v73];
 
-      objc_destroyWeak(&v144);
-      v73 = &v146;
+      objc_destroyWeak(&v145);
+      v74 = &v147;
     }
 
-    objc_destroyWeak(v73);
+    objc_destroyWeak(v74);
     objc_destroyWeak(&location);
-    specifierCopy = v132;
+    specifierCopy = v133;
 LABEL_53:
     [(WirelessModemController *)self presentViewController:self->_powerAlert animated:1 completion:0];
     goto LABEL_54;
   }
 
-  v11 = WMSLogComponent();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = WMSLogComponent(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(WirelessModemController *)v152 setInternetTethering:tetheringCopy specifier:v11];
+    [(WirelessModemController *)v153 setInternetTethering:tetheringCopy specifier:v12];
   }
 
-  [(WirelessModemController *)self updateInstructionsSection:v152[0]];
+  [(WirelessModemController *)self updateInstructionsSection:v153[0]];
 LABEL_54:
 }
 
@@ -1606,18 +1609,22 @@ void __58__WirelessModemController_setInternetTethering_specifier___block_invoke
 - (void)setShareOption:(id)option
 {
   optionCopy = option;
-  if (([optionCopy isEqual:&unk_284EEFB70] & 1) == 0 && (objc_msgSend(optionCopy, "isEqual:", &unk_284EEFB88) & 1) == 0 && (objc_msgSend(optionCopy, "isEqual:", &unk_284EEFB58) & 1) == 0)
+  if (([optionCopy isEqual:&unk_284EEFB70] & 1) == 0 && (objc_msgSend(optionCopy, "isEqual:", &unk_284EEFB88) & 1) == 0)
   {
-    v4 = WMSLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = [optionCopy isEqual:&unk_284EEFB58];
+    if ((v4 & 1) == 0)
     {
-      [WirelessModemController setShareOption:];
+      v5 = WMSLogComponent(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        [WirelessModemController setShareOption:];
+      }
     }
   }
 
-  WiFiManagerClientSetShareMyPersonalHotspotMode();
-  v5 = WMSLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = WiFiManagerClientSetShareMyPersonalHotspotMode();
+  v7 = WMSLogComponent(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemController setShareOption:];
   }
@@ -1930,7 +1937,7 @@ void __58__WirelessModemController_setInternetTethering_specifier___block_invoke
 
 - (id)specifiers
 {
-  v69[2] = *MEMORY[0x277D85DE8];
+  v70[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (v4)
@@ -1973,12 +1980,12 @@ void __58__WirelessModemController_setInternetTethering_specifier___block_invoke
   v18 = [v15 localizedStringForKey:v17 value:&stru_284EED640 table:@"WirelessModemSettings"];
   v19 = [v9 stringWithFormat:v13, v18];
 
-  v62 = WiFiManagerClientCopyFamilyHotspotPreferences();
-  if (v62 && [v62 count])
+  v63 = WiFiManagerClientCopyFamilyHotspotPreferences();
+  if (v63 && (v20 = [v63 count]) != 0)
   {
     self->_familyHotspotEnabled = 1;
-    v20 = WMSLogComponent();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = WMSLogComponent(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [WirelessModemController specifiers];
     }
@@ -1992,26 +1999,26 @@ void __58__WirelessModemController_setInternetTethering_specifier___block_invoke
   placardSpec = self->_placardSpec;
   if (placardSpec)
   {
-    v65 = placardSpec;
+    v66 = placardSpec;
 LABEL_17:
     _groupPlacardSpec = [(WirelessModemController *)self _groupPlacardSpec];
-    v69[0] = _groupPlacardSpec;
-    v69[1] = v65;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
-    [v5 addObjectsFromArray:v24];
+    v70[0] = _groupPlacardSpec;
+    v70[1] = v66;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+    [v5 addObjectsFromArray:v25];
 
     goto LABEL_18;
   }
 
   _placardSpec = [(WirelessModemController *)self _placardSpec];
   objc_storeStrong(&self->_placardSpec, _placardSpec);
-  v65 = _placardSpec;
+  v66 = _placardSpec;
   if (_placardSpec)
   {
     goto LABEL_17;
   }
 
-  v65 = 0;
+  v66 = 0;
 LABEL_18:
   tetheringGroupSpec = self->_tetheringGroupSpec;
   if (tetheringGroupSpec)
@@ -2061,52 +2068,52 @@ LABEL_18:
     objc_storeStrong(&self->_stateFooterSpec, stateFooterSpec);
   }
 
-  v68[0] = emptyGroupSpecifier;
-  v68[1] = tetheringSwitchSpec;
-  v68[2] = passwordSpec;
-  v68[3] = stateFooterSpec;
-  v61 = stateFooterSpec;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:4];
-  [v5 addObjectsFromArray:v31];
+  v69[0] = emptyGroupSpecifier;
+  v69[1] = tetheringSwitchSpec;
+  v69[2] = passwordSpec;
+  v69[3] = stateFooterSpec;
+  v62 = stateFooterSpec;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:4];
+  [v5 addObjectsFromArray:v32];
 
   if (self->_familyHotspotEnabled)
   {
-    v32 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:0];
-    v59 = MEMORY[0x277CCACA8];
-    v60 = passwordSpec;
-    v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v34 = [v33 localizedStringForKey:@"FAMILY_SHARING" value:&stru_284EED640 table:@"WirelessModemSettings"];
-    v35 = v19;
-    v36 = v3;
-    v37 = v5;
-    v38 = self->_wifiIsWAPI;
-    v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v40 = v39;
-    v41 = !v38;
-    v5 = v37;
-    v3 = v36;
-    if (v41)
+    v33 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:0];
+    v60 = MEMORY[0x277CCACA8];
+    v61 = passwordSpec;
+    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v35 = [v34 localizedStringForKey:@"FAMILY_SHARING" value:&stru_284EED640 table:@"WirelessModemSettings"];
+    v36 = v19;
+    v37 = v3;
+    v38 = v5;
+    v39 = self->_wifiIsWAPI;
+    v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v41 = v40;
+    v42 = !v39;
+    v5 = v38;
+    v3 = v37;
+    if (v42)
     {
-      v42 = @"WIFI";
+      v43 = @"WIFI";
     }
 
     else
     {
-      v42 = @"WIFI_CH";
+      v43 = @"WIFI_CH";
     }
 
-    v43 = [v39 localizedStringForKey:v42 value:&stru_284EED640 table:@"WirelessModemSettings"];
-    v44 = [v59 stringWithFormat:v34, v43];
-    [v32 setProperty:v44 forKey:*MEMORY[0x277D3FF88]];
+    v44 = [v40 localizedStringForKey:v43 value:&stru_284EED640 table:@"WirelessModemSettings"];
+    v45 = [v60 stringWithFormat:v35, v44];
+    [v33 setProperty:v45 forKey:*MEMORY[0x277D3FF88]];
 
-    v19 = v35;
-    passwordSpec = v60;
+    v19 = v36;
+    passwordSpec = v61;
 
     familyShareSpecifier = [(WirelessModemController *)self familyShareSpecifier];
-    v67[0] = v32;
-    v67[1] = familyShareSpecifier;
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
-    [v5 addObjectsFromArray:v46];
+    v68[0] = v33;
+    v68[1] = familyShareSpecifier;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+    [v5 addObjectsFromArray:v47];
   }
 
   if (self->_showBandPreferenceUI)
@@ -2120,10 +2127,10 @@ LABEL_40:
       _bandPreferenceSpecFooterLabel = [(WirelessModemController *)self _bandPreferenceSpecFooterLabel];
       [emptyGroupSpecifier2 setProperty:_bandPreferenceSpecFooterLabel forKey:*MEMORY[0x277D3FF88]];
 
-      v66[0] = emptyGroupSpecifier2;
-      v66[1] = bandPreferenceSpec;
-      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
-      [v5 addObjectsFromArray:v51];
+      v67[0] = emptyGroupSpecifier2;
+      v67[1] = bandPreferenceSpec;
+      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+      [v5 addObjectsFromArray:v52];
 
       goto LABEL_41;
     }
@@ -2154,8 +2161,8 @@ LABEL_41:
     objc_storeStrong(&self->_setupViewSpec, setupViewSpec);
   }
 
-  v54 = [(WirelessModemController *)self internetTethering:0];
-  bOOLValue = [v54 BOOLValue];
+  v55 = [(WirelessModemController *)self internetTethering:0];
+  bOOLValue = [v55 BOOLValue];
 
   if (bOOLValue)
   {
@@ -2163,9 +2170,9 @@ LABEL_41:
   }
 
   [(WirelessModemController *)self _updateTetheringText:1];
-  v56 = *(&self->super.super.super.super.super.isa + v3);
+  v57 = *(&self->super.super.super.super.super.isa + v3);
   *(&self->super.super.super.super.super.isa + v3) = v5;
-  v57 = v5;
+  v58 = v5;
 
   v4 = *(&self->super.super.super.super.super.isa + v3);
 LABEL_47:

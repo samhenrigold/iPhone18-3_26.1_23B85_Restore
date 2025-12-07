@@ -174,7 +174,7 @@
   objc_storeStrong(&self->_connection, connection);
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     v6 = MSVBundleIDForAuditToken();
     bundleID = self->_bundleID;
     self->_bundleID = v6;

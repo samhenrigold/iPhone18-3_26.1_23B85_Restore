@@ -114,12 +114,12 @@
 
 - (GCGenericDeviceModelBuilder)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v74[2] = *MEMORY[0x1E69E9840];
+  v73[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v7 = [(GCGenericDeviceModelBuilder *)self init];
-  v60 = 0;
-  v8 = [representationCopy gc_requiredObjectForKey:@"ProductCategory" ofClass:objc_opt_class() error:&v60];
-  v9 = v60;
+  v59 = 0;
+  v8 = [representationCopy gc_requiredObjectForKey:@"ProductCategory" ofClass:objc_opt_class() error:&v59];
+  v9 = v59;
   if (!v8)
   {
     if (!error)
@@ -127,28 +127,28 @@
       goto LABEL_27;
     }
 
-    v24 = MEMORY[0x1E696ABC0];
-    v73[0] = *MEMORY[0x1E696A578];
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
-    v74[0] = v25;
-    v73[1] = *MEMORY[0x1E696A588];
+    v23 = MEMORY[0x1E696ABC0];
+    v72[0] = *MEMORY[0x1E696A578];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
+    v73[0] = v24;
+    v72[1] = *MEMORY[0x1E696A588];
     localizedFailureReason = [v9 localizedFailureReason];
-    v74[1] = localizedFailureReason;
-    v27 = MEMORY[0x1E695DF20];
-    v28 = v74;
-    v29 = v73;
+    v73[1] = localizedFailureReason;
+    v26 = MEMORY[0x1E695DF20];
+    v27 = v73;
+    v28 = v72;
 LABEL_26:
-    v30 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:2];
-    *error = [(NSError *)v24 gc_modelError:v30 userInfo:?];
+    v29 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:2];
+    *error = [(NSError *)v23 gc_modelError:v29 userInfo:?];
 
     goto LABEL_27;
   }
 
   [(GCGenericDeviceModelBuilder *)v7 setProductCategory:v8];
 
-  v59 = 0;
-  v10 = [representationCopy gc_objectForKey:@"ProductName" ofClass:objc_opt_class() error:&v59];
-  v11 = v59;
+  v58 = 0;
+  v10 = [representationCopy gc_objectForKey:@"ProductName" ofClass:objc_opt_class() error:&v58];
+  v11 = v58;
   v9 = v11;
   if (!v10 && v11)
   {
@@ -157,39 +157,39 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    v24 = MEMORY[0x1E696ABC0];
-    v71[0] = *MEMORY[0x1E696A578];
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
-    v72[0] = v25;
-    v71[1] = *MEMORY[0x1E696A588];
+    v23 = MEMORY[0x1E696ABC0];
+    v70[0] = *MEMORY[0x1E696A578];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
+    v71[0] = v24;
+    v70[1] = *MEMORY[0x1E696A588];
     localizedFailureReason = [v9 localizedFailureReason];
-    v72[1] = localizedFailureReason;
-    v27 = MEMORY[0x1E695DF20];
-    v28 = v72;
-    v29 = v71;
+    v71[1] = localizedFailureReason;
+    v26 = MEMORY[0x1E695DF20];
+    v27 = v71;
+    v28 = v70;
     goto LABEL_26;
   }
 
   [(GCGenericDeviceModelBuilder *)v7 setProductName:v10];
 
-  v58 = 0;
-  v12 = [representationCopy gc_objectForKey:@"FormFitting" ofClass:objc_opt_class() error:&v58];
-  v13 = v58;
+  v57 = 0;
+  v12 = [representationCopy gc_objectForKey:@"FormFitting" ofClass:objc_opt_class() error:&v57];
+  v13 = v57;
   v9 = v13;
   if (!v12 && v13)
   {
     if (error)
     {
-      v24 = MEMORY[0x1E696ABC0];
-      v69[0] = *MEMORY[0x1E696A578];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
-      v70[0] = v25;
-      v69[1] = *MEMORY[0x1E696A588];
+      v23 = MEMORY[0x1E696ABC0];
+      v68[0] = *MEMORY[0x1E696A578];
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
+      v69[0] = v24;
+      v68[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v70[1] = localizedFailureReason;
-      v27 = MEMORY[0x1E695DF20];
-      v28 = v70;
-      v29 = v69;
+      v69[1] = localizedFailureReason;
+      v26 = MEMORY[0x1E695DF20];
+      v27 = v69;
+      v28 = v68;
       goto LABEL_26;
     }
 
@@ -202,27 +202,27 @@ LABEL_56:
 
   [(GCGenericDeviceModelBuilder *)v7 setFormFitting:v12];
 
-  v57 = 0;
-  v14 = [representationCopy gc_objectForKey:@"Driver" ofClass:objc_opt_class() error:&v57];
-  v15 = v57;
+  v56 = 0;
+  v14 = [representationCopy gc_objectForKey:@"Driver" ofClass:objc_opt_class() error:&v56];
+  v15 = v56;
   v16 = v15;
   if (!v14 && v15)
   {
     if (error)
     {
-      v31 = MEMORY[0x1E696ABC0];
-      v67[0] = *MEMORY[0x1E696A578];
-      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
-      v68[0] = v32;
-      v67[1] = *MEMORY[0x1E696A588];
+      v30 = MEMORY[0x1E696ABC0];
+      v66[0] = *MEMORY[0x1E696A578];
+      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
+      v67[0] = v31;
+      v66[1] = *MEMORY[0x1E696A588];
       localizedFailureReason2 = [v16 localizedFailureReason];
-      v68[1] = localizedFailureReason2;
-      v34 = MEMORY[0x1E695DF20];
-      v35 = v68;
-      v36 = v67;
+      v67[1] = localizedFailureReason2;
+      v33 = MEMORY[0x1E695DF20];
+      v34 = v67;
+      v35 = v66;
 LABEL_32:
-      v37 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:2];
-      *error = [(NSError *)v31 gc_modelError:v37 userInfo:?];
+      v36 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:2];
+      *error = [(NSError *)v30 gc_modelError:v36 userInfo:?];
 
       v18 = v16;
 LABEL_33:
@@ -238,58 +238,58 @@ LABEL_34:
 
   if (v14)
   {
-    v56 = 0;
-    v17 = [GCGenericDeviceDriverModel modelWithDictionaryRepresentation:v14 error:&v56];
-    v18 = v56;
+    v55 = 0;
+    v17 = [GCGenericDeviceDriverModel modelWithDictionaryRepresentation:v14 error:&v55];
+    v18 = v55;
 
     if (!v17)
     {
       if (error)
       {
-        v52 = MEMORY[0x1E696ABC0];
-        v65[0] = *MEMORY[0x1E696A578];
+        v51 = MEMORY[0x1E696ABC0];
+        v64[0] = *MEMORY[0x1E696A578];
         localizedDescription = [v18 localizedDescription];
-        v32 = localizedDescription;
+        v31 = localizedDescription;
         if (!localizedDescription)
         {
           localizedDescription = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
         }
 
-        v53 = localizedDescription;
-        v66[0] = localizedDescription;
-        v65[1] = *MEMORY[0x1E696A588];
+        v52 = localizedDescription;
+        v65[0] = localizedDescription;
+        v64[1] = *MEMORY[0x1E696A588];
         localizedFailureReason3 = [v18 localizedFailureReason];
-        v51 = localizedFailureReason3;
+        v50 = localizedFailureReason3;
         if (!localizedFailureReason3)
         {
           localizedFailureReason3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model for key '%@'.", objc_opt_class(), @"Driver"];
         }
 
-        v50 = localizedFailureReason3;
-        v66[1] = localizedFailureReason3;
-        v65[2] = @"GCFailingKeyPathErrorKey";
+        v49 = localizedFailureReason3;
+        v65[1] = localizedFailureReason3;
+        v64[2] = @"GCFailingKeyPathErrorKey";
         gc_failingKeyPath = [v18 gc_failingKeyPath];
-        v41 = gc_failingKeyPath;
+        v40 = gc_failingKeyPath;
         if (!gc_failingKeyPath)
         {
           gc_failingKeyPath = MEMORY[0x1E695E0F0];
         }
 
-        v42 = [gc_failingKeyPath arrayByAddingObject:@"Driver"];
-        v66[2] = v42;
-        v43 = MEMORY[0x1E695DF20];
-        v44 = v66;
-        v45 = v65;
+        v41 = [gc_failingKeyPath arrayByAddingObject:@"Driver"];
+        v65[2] = v41;
+        v42 = MEMORY[0x1E695DF20];
+        v43 = v65;
+        v44 = v64;
 LABEL_51:
-        v49 = [v43 dictionaryWithObjects:v44 forKeys:v45 count:3];
-        *error = [(NSError *)v52 gc_modelError:v49 userInfo:?];
+        v48 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:3];
+        *error = [(NSError *)v51 gc_modelError:v48 userInfo:?];
 
-        if (!v51)
+        if (!v50)
         {
         }
 
-        localizedFailureReason2 = v53;
-        if (v32)
+        localizedFailureReason2 = v52;
+        if (v31)
         {
           goto LABEL_54;
         }
@@ -310,24 +310,24 @@ LABEL_55:
     v18 = v15;
   }
 
-  v55 = 0;
-  v14 = [representationCopy gc_objectForKey:@"PhysicalInput" ofClass:objc_opt_class() error:&v55];
-  v19 = v55;
+  v54 = 0;
+  v14 = [representationCopy gc_objectForKey:@"PhysicalInput" ofClass:objc_opt_class() error:&v54];
+  v19 = v54;
   v16 = v19;
   if (!v14 && v19)
   {
     if (error)
     {
-      v31 = MEMORY[0x1E696ABC0];
-      v63[0] = *MEMORY[0x1E696A578];
-      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
-      v64[0] = v32;
-      v63[1] = *MEMORY[0x1E696A588];
+      v30 = MEMORY[0x1E696ABC0];
+      v62[0] = *MEMORY[0x1E696A578];
+      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
+      v63[0] = v31;
+      v62[1] = *MEMORY[0x1E696A588];
       localizedFailureReason2 = [v16 localizedFailureReason];
-      v64[1] = localizedFailureReason2;
-      v34 = MEMORY[0x1E695DF20];
-      v35 = v64;
-      v36 = v63;
+      v63[1] = localizedFailureReason2;
+      v33 = MEMORY[0x1E695DF20];
+      v34 = v63;
+      v35 = v62;
       goto LABEL_32;
     }
 
@@ -340,48 +340,48 @@ LABEL_55:
     goto LABEL_18;
   }
 
-  v54 = 0;
-  v20 = [GCGenericDevicePhysicalInputModel modelWithDictionaryRepresentation:v14 error:&v54];
-  v18 = v54;
+  v53 = 0;
+  v20 = [GCGenericDevicePhysicalInputModel modelWithDictionaryRepresentation:v14 error:&v53];
+  v18 = v53;
 
   if (!v20)
   {
     if (error)
     {
-      v52 = MEMORY[0x1E696ABC0];
-      v61[0] = *MEMORY[0x1E696A578];
+      v51 = MEMORY[0x1E696ABC0];
+      v60[0] = *MEMORY[0x1E696A578];
       localizedDescription2 = [v18 localizedDescription];
-      v32 = localizedDescription2;
+      v31 = localizedDescription2;
       if (!localizedDescription2)
       {
         localizedDescription2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", v7];
       }
 
-      v53 = localizedDescription2;
-      v62[0] = localizedDescription2;
-      v61[1] = *MEMORY[0x1E696A588];
+      v52 = localizedDescription2;
+      v61[0] = localizedDescription2;
+      v60[1] = *MEMORY[0x1E696A588];
       localizedFailureReason4 = [v18 localizedFailureReason];
-      v51 = localizedFailureReason4;
+      v50 = localizedFailureReason4;
       if (!localizedFailureReason4)
       {
         localizedFailureReason4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model for key '%@'.", objc_opt_class(), @"PhysicalInput"];
       }
 
-      v50 = localizedFailureReason4;
-      v62[1] = localizedFailureReason4;
-      v61[2] = @"GCFailingKeyPathErrorKey";
+      v49 = localizedFailureReason4;
+      v61[1] = localizedFailureReason4;
+      v60[2] = @"GCFailingKeyPathErrorKey";
       gc_failingKeyPath2 = [v18 gc_failingKeyPath];
-      v41 = gc_failingKeyPath2;
+      v40 = gc_failingKeyPath2;
       if (!gc_failingKeyPath2)
       {
         gc_failingKeyPath2 = MEMORY[0x1E695E0F0];
       }
 
-      v42 = [gc_failingKeyPath2 arrayByAddingObject:@"PhysicalInput"];
-      v62[2] = v42;
-      v43 = MEMORY[0x1E695DF20];
-      v44 = v62;
-      v45 = v61;
+      v41 = [gc_failingKeyPath2 arrayByAddingObject:@"PhysicalInput"];
+      v61[2] = v41;
+      v42 = MEMORY[0x1E695DF20];
+      v43 = v61;
+      v44 = v60;
       goto LABEL_51;
     }
 
@@ -394,7 +394,6 @@ LABEL_18:
   v21 = v7;
 LABEL_19:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

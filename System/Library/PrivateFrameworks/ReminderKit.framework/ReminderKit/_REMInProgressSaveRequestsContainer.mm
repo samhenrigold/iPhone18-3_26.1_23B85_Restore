@@ -403,37 +403,37 @@ LABEL_26:
 
 - (id)_firstMatchInSaveRequests:(id)requests
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   inProgressSaveRequests = [(_REMInProgressSaveRequestsContainer *)self inProgressSaveRequests];
   reverseObjectEnumerator = [inProgressSaveRequests reverseObjectEnumerator];
 
-  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if (([v11 isSaved] & 1) == 0)
         {
           v12 = +[REMLogStore write];
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            *v17 = 0;
-            _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_INFO, "REMSaveRequest.isSaved MUST be TRUE", v17, 2u);
+            *v16 = 0;
+            _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_INFO, "REMSaveRequest.isSaved MUST be TRUE", v16, 2u);
           }
         }
 
@@ -445,7 +445,7 @@ LABEL_26:
         }
       }
 
-      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -458,87 +458,66 @@ LABEL_26:
   v14 = 0;
 LABEL_15:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (void)saveRequestSaveDidStart:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = +[REMLogStore write];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v5 = [a2 inProgressSaveRequests];
+    v4 = [a2 inProgressSaveRequests];
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v6, v7, "rem_log_fault_if ([self.inProgressSaveRequests containsObject:saveRequest]) -- SaveRequest save already in progress {saveRequest: %@, inProgressSaveRequests: %@}", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v5, v6, "rem_log_fault_if ([self.inProgressSaveRequests containsObject:saveRequest]) -- SaveRequest save already in progress {saveRequest: %@, inProgressSaveRequests: %@}", v7, v8, v9, v10);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveRequestSaveDidFinish:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v4, v5, "SaveRequest is not in progress. Ignoring. {saveRequest: %@, inProgressSaveRequests: %@}", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v3, v4, "SaveRequest is not in progress. Ignoring. {saveRequest: %@, inProgressSaveRequests: %@}", v5, v6, v7, v8);
 }
 
 - (void)_latestSaveInProgressListForObjectID:fallbackAccount:fallbackParentList:saveRequest:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Failed to get parentlist for inProgressList. Returning nil {listObjectID: %@, trackedListChangeItem.parentListID: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v3, v4, "Failed to get parentlist for inProgressList. Returning nil {listObjectID: %@, trackedListChangeItem.parentListID: %@", v5, v6, v7, v8);
 }
 
 - (void)_latestSaveInProgressListForObjectID:fallbackAccount:fallbackParentList:saveRequest:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Failed to get account for inProgressList. Returning nil {listObjectID: %@, accountID: %@}", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v3, v4, "Failed to get account for inProgressList. Returning nil {listObjectID: %@, accountID: %@}", v5, v6, v7, v8);
 }
 
 - (void)_latestSaveInProgressReminderForObjectID:fallbackAccount:fallbackList:fallbackParentList:fallbackParentReminder:saveRequest:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Failed to get list for inProgressReminder. Returning nil {reminderObjectID: %@, listID: %@}", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v3, v4, "Failed to get list for inProgressReminder. Returning nil {reminderObjectID: %@, listID: %@}", v5, v6, v7, v8);
 }
 
 - (void)_latestSaveInProgressReminderForObjectID:fallbackAccount:fallbackList:fallbackParentList:fallbackParentReminder:saveRequest:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Failed to get parent reminder for inProgressReminder. Returning nil {reminderObjectID: %@, parentReminderID: %@}", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v3, v4, "Failed to get parent reminder for inProgressReminder. Returning nil {reminderObjectID: %@, parentReminderID: %@}", v5, v6, v7, v8);
 }
 
 - (void)_latestSaveInProgressReminderForObjectID:(uint64_t)a1 fallbackAccount:(NSObject *)a2 fallbackList:fallbackParentList:fallbackParentReminder:saveRequest:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "ReminderChangeItem missing both listID and parentReminderID. Returning nil {reminderObjectID: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "ReminderChangeItem missing both listID and parentReminderID. Returning nil {reminderObjectID: %@}", &v2, 0xCu);
 }
 
 @end

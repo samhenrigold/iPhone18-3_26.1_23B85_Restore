@@ -14,17 +14,15 @@
 
 - (NSDate)date
 {
-  v3 = sub_23C870AE4();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR___ISEventGraph_timestamp);
+  v2 = sub_23C870AE4();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23C870A54();
-  v9 = sub_23C870A84();
-  (*(v4 + 8))(v7, v3);
+  v6 = sub_23C870A84();
+  (*(v3 + 8))(v5, v2);
 
-  return v9;
+  return v6;
 }
 
 - (ISEventGraph)init
@@ -48,12 +46,12 @@
 - (id)sieventsWithComponentName:(int)name
 {
   selfCopy = self;
-  EventGraph.sievents(componentName:)();
+  EventGraph.sievents(componentName:)(name);
 
   sub_23C5A3FDC(0, &qword_27E1F9F60, 0x277D5A690);
-  v4 = sub_23C871894();
+  v5 = sub_23C871894();
 
-  return v4;
+  return v5;
 }
 
 - (id)sieventsWithComponentIdentifier:(id)identifier

@@ -63,7 +63,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_7BD28();
+  sub_7BD28(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -81,20 +81,23 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_7BFA8(appear);
+  sub_7BFA8(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_7C090(disappear);
+  sub_7C090(disappearCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_7C188(appear);
+  sub_7C188(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -106,7 +109,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_7C458();
+  sub_7C458(selfCopy);
 }
 
 - (_TtC19CoreDynamicUIPlugin23ShelfPageViewController)initWithNibName:(id)name bundle:(id)bundle

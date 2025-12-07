@@ -80,35 +80,37 @@
 {
   dictionaryCopy = dictionary;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPresetConfiguration initWithDictionary:];
+      [FASettingsPresetConfiguration initWithDictionary:?];
     }
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v8 = objc_opt_isKindOfClass();
+  if ((v8 & 1) == 0)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
+    v9 = _FALogSystem(v8);
+    if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPresetConfiguration initWithDictionary:];
+      [FASettingsPresetConfiguration initWithDictionary:?];
     }
 
     goto LABEL_13;
   }
 
-  v7 = [[FASettingsPresetConfiguration alloc] initWithDictionary:dictionaryCopy];
-  if (!v7)
+  v9 = [[FASettingsPresetConfiguration alloc] initWithDictionary:dictionaryCopy];
+  if (!v9)
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _FALogSystem(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPresetConfiguration initWithDictionary:];
+      [FASettingsPresetConfiguration initWithDictionary:?];
     }
 
 LABEL_13:
@@ -116,7 +118,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  self = [(FASettingsPresetSource *)self initWithIdentifier:v6 configuration:v7];
+  self = [(FASettingsPresetSource *)self initWithIdentifier:v7 configuration:v9];
   selfCopy = self;
 LABEL_14:
 

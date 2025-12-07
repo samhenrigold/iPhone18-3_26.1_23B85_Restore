@@ -30,7 +30,7 @@
 
 - (void)begin
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   event = [(SKDTrackingEvent *)self event];
   typeMessage = [event typeMessage];
 
@@ -42,19 +42,17 @@
   spid = self->_spid;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v11 = 138543618;
-    v12 = typeMessage;
-    v13 = 2114;
-    v14 = identifier;
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v8, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Pipeline", "%{public}@ %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = typeMessage;
+    v12 = 2114;
+    v13 = identifier;
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v8, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Pipeline", "%{public}@ %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)end
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   event = [(SKDTrackingEvent *)self event];
   typeMessage = [event typeMessage];
 
@@ -66,14 +64,12 @@
   spid = self->_spid;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v11 = 138543618;
-    v12 = typeMessage;
-    v13 = 2114;
-    v14 = identifier;
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v8, OS_SIGNPOST_INTERVAL_END, spid, "Pipeline", "%{public}@ %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = typeMessage;
+    v12 = 2114;
+    v13 = identifier;
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v8, OS_SIGNPOST_INTERVAL_END, spid, "Pipeline", "%{public}@ %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -475,10 +475,10 @@ uint64_t __76__FigCPEFPAirPlaySession_beginSessionWithCompletionQueue_completion
 
 - (id)createPicRequestWithError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v39 = 0;
+  v53 = *MEMORY[0x1E69E9840];
+  v50 = 0;
   unsignedLongValue = 0;
-  v41 = 0;
+  v52 = 0;
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_18_7();
   fig_note_initialize_category_with_default_work_cf();
@@ -486,127 +486,127 @@ uint64_t __76__FigCPEFPAirPlaySession_beginSessionWithCompletionQueue_completion
   fig_note_initialize_category_with_default_work_cf();
   if (!self->_fairPlayContext || self->_fairPlaySession || (protectionInfo = self->_protectionInfo, contentInfo = self->_contentInfo, (protectionInfo != 0) ^ (contentInfo == 0)) || !self->_fairPlayDeallocator)
   {
-    v34 = 0;
-    v35 = 4294955138;
+    v38 = 0;
+    v39 = 4294955138;
     goto LABEL_30;
   }
 
   errorCopy = error;
   if (protectionInfo)
   {
-    LODWORD(v39) = 1;
-    LODWORD(v41) = [(NSDictionary *)protectionInfo count];
-    v7 = malloc_type_calloc(v41, 0x20uLL, 0x1050040E8CD93FDuLL);
+    LODWORD(v50) = 1;
+    LODWORD(v52) = [(NSDictionary *)protectionInfo count];
+    v7 = malloc_type_calloc(v52, 0x20uLL, 0x1050040E8CD93FDuLL);
     unsignedLongValue = v7;
     v8 = self->_protectionInfo;
-    v14 = OUTLINED_FUNCTION_1_202(v7, v9, v10, v11, v12, v13);
-    if (v14)
+    v16 = OUTLINED_FUNCTION_1_202(v7, v9, v10, v11, v12, v13, v14, v15, v42, v44, v46, &self->_fairPlaySession);
+    if (v16)
     {
-      v15 = v14;
-      v16 = 0;
-      v17 = MEMORY[0];
+      v17 = v16;
+      v18 = 0;
+      v19 = MEMORY[0];
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (MEMORY[0] != v17)
+          if (MEMORY[0] != v19)
           {
             objc_enumerationMutation(v8);
           }
 
-          v19 = [(NSDictionary *)self->_protectionInfo objectForKey:*(8 * i)];
-          LegacySinfFromSinfExtensions = FigFairPlayGetLegacySinfFromSinfExtensions(v19);
-          ExtendedSinfFromSinfExtensions = FigFairPlayGetExtendedSinfFromSinfExtensions(v19);
-          v27 = ExtendedSinfFromSinfExtensions;
+          v21 = [(NSDictionary *)self->_protectionInfo objectForKey:*(8 * i)];
+          LegacySinfFromSinfExtensions = FigFairPlayGetLegacySinfFromSinfExtensions(v21);
+          ExtendedSinfFromSinfExtensions = FigFairPlayGetExtendedSinfFromSinfExtensions(v21);
+          v31 = ExtendedSinfFromSinfExtensions;
           if (LegacySinfFromSinfExtensions)
           {
-            *(v7 + 8 * v16) = [LegacySinfFromSinfExtensions length];
+            *(v7 + 8 * v18) = [LegacySinfFromSinfExtensions length];
             ExtendedSinfFromSinfExtensions = [LegacySinfFromSinfExtensions bytes];
             v7 = unsignedLongValue;
-            *(unsignedLongValue + 4 * v16 + 1) = ExtendedSinfFromSinfExtensions;
+            *(unsignedLongValue + 4 * v18 + 1) = ExtendedSinfFromSinfExtensions;
           }
 
-          if (v27)
+          if (v31)
           {
-            *(v7 + 8 * v16 + 4) = [v27 length];
-            ExtendedSinfFromSinfExtensions = [v27 bytes];
+            *(v7 + 8 * v18 + 4) = [v31 length];
+            ExtendedSinfFromSinfExtensions = [v31 bytes];
             v7 = unsignedLongValue;
-            *(unsignedLongValue + 4 * v16 + 3) = ExtendedSinfFromSinfExtensions;
+            *(unsignedLongValue + 4 * v18 + 3) = ExtendedSinfFromSinfExtensions;
           }
 
-          ++v16;
+          ++v18;
         }
 
-        v15 = OUTLINED_FUNCTION_1_202(ExtendedSinfFromSinfExtensions, v22, v23, v24, v25, v26);
+        v17 = OUTLINED_FUNCTION_1_202(ExtendedSinfFromSinfExtensions, v24, v25, v26, v27, v28, v29, v30, v43, v45, v47, v48);
       }
 
-      while (v15);
+      while (v17);
     }
 
     goto LABEL_27;
   }
 
-  LODWORD(v39) = 2;
-  v28 = [(NSDictionary *)contentInfo objectForKey:0x1F0B529D8];
-  if (v28)
+  LODWORD(v50) = 2;
+  v32 = [(NSDictionary *)contentInfo objectForKey:0x1F0B529D8];
+  if (v32)
   {
-    unsignedLongValue = [v28 unsignedLongValue];
+    unsignedLongValue = [v32 unsignedLongValue];
   }
 
-  v29 = [(NSDictionary *)self->_contentInfo objectForKey:0x1F0B52A18];
-  if (!v29)
+  v33 = [(NSDictionary *)self->_contentInfo objectForKey:0x1F0B52A18];
+  if (!v33)
   {
     goto LABEL_27;
   }
 
-  v30 = v29;
-  if ([v29 isEqualToString:0x1F0B3D918])
+  v34 = v33;
+  if ([v33 isEqualToString:0x1F0B3D918])
   {
-    v31 = 1;
+    v35 = 1;
 LABEL_25:
-    HIDWORD(v39) = v31;
+    HIDWORD(v50) = v35;
     goto LABEL_27;
   }
 
-  if ([v30 isEqualToString:0x1F0B3D8F8])
+  if ([v34 isEqualToString:0x1F0B3D8F8])
   {
-    v31 = 2;
+    v35 = 2;
     goto LABEL_25;
   }
 
-  HIDWORD(v39) = 0;
+  HIDWORD(v50) = 0;
 LABEL_27:
-  J3NocDTIn(self->_vodkaVersion, self->_fairPlayContext, &v39);
-  v33 = FAIRPLAY_CALL_LOG(v32);
-  if (v33)
+  J3NocDTIn(self->_vodkaVersion, self->_fairPlayContext, &v50);
+  v37 = FAIRPLAY_CALL_LOG(v36);
+  if (v37)
   {
-    v35 = v33;
-    v34 = 0;
+    v39 = v37;
+    v38 = 0;
     error = errorCopy;
   }
 
   else
   {
-    v34 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], 0, 0, self->_fairPlayDeallocator);
+    v38 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], 0, 0, self->_fairPlayDeallocator);
     error = errorCopy;
-    if (v34)
+    if (v38)
     {
-      v35 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v35 = 4294955145;
+      v39 = 4294955145;
     }
   }
 
 LABEL_30:
-  if (v39 == 1)
+  if (v50 == 1)
   {
     free(unsignedLongValue);
   }
 
-  if (error && v35)
+  if (error && v39)
   {
     if (dword_1EAF176B0)
     {
@@ -615,10 +615,10 @@ LABEL_30:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:FigFairPlayMapFairPlayErrorToCPEError(v35) userInfo:0];
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:FigFairPlayMapFairPlayErrorToCPEError(v39) userInfo:0];
   }
 
-  return v34;
+  return v38;
 }
 
 - (id)sicWithPic:(id)pic

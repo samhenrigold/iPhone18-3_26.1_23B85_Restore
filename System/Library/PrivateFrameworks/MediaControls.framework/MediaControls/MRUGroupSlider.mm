@@ -116,7 +116,7 @@ void __32__MRUGroupSlider_initWithFrame___block_invoke(uint64_t a1)
 
 - (void)sliderLongPress:(id)press
 {
-  if (self->_longPressEnabled && [press state] == 1)
+  if (self->_longPressEnabled && objc_msgSend_state(press, a2) == 1)
   {
     [(UIImpactFeedbackGenerator *)self->_feedbackGenerator impactOccurred];
     self->_longPressFeedbackEnabled = 0;
@@ -133,7 +133,7 @@ void __32__MRUGroupSlider_initWithFrame___block_invoke(uint64_t a1)
 
 - (void)sliderLongPressFeedback:(id)feedback
 {
-  if (self->_longPressEnabled && [feedback state] == 1)
+  if (self->_longPressEnabled && objc_msgSend_state(feedback, a2) == 1)
   {
     self->_longPressFeedbackEnabled = 1;
     delegate = [(MRUSlider *)self delegate];

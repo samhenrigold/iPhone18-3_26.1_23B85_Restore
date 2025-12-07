@@ -82,7 +82,7 @@
 
 - (void)search:(id)search
 {
-  if (![(NSString *)self->_searchString isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_searchString, a2) & 1) == 0)
   {
     [(UIWebPDFSearchController *)self cancel];
 

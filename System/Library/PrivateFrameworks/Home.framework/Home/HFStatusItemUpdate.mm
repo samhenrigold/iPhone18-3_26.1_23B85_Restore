@@ -71,8 +71,8 @@
   swift_getKeyPath();
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  sub_20DD64CE4();
-  sub_20DA0EAE4();
+  v5 = sub_20DD64CE4();
+  sub_20DA0EAE4(v5, v6);
   swift_unknownObjectRelease();
 }
 

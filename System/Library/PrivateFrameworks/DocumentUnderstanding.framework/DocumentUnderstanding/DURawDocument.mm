@@ -106,7 +106,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_232BF34F8();
+  sub_232BF34F8(coderCopy);
 }
 
 - (id)copyWithZone:(void *)zone
@@ -136,7 +136,7 @@
     selfCopy2 = self;
   }
 
-  v6 = sub_232BF3908();
+  v6 = sub_232BF3908(v8);
 
   sub_232B13790(v8, &qword_27DDC68C8, &qword_232CF6210);
   return v6 & 1;

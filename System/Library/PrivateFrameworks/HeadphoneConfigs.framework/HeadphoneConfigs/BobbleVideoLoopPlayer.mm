@@ -10,7 +10,7 @@
 - (void)load
 {
   selfCopy = self;
-  sub_2511F3CD0();
+  sub_2511F3CD0(selfCopy);
 }
 
 - (_TtC16HeadphoneConfigs21BobbleVideoLoopPlayer)initWithCoder:(id)coder
@@ -23,7 +23,6 @@
 - (_TtC16HeadphoneConfigs21BobbleVideoLoopPlayer)initWithFrame:(CGRect)frame urlForResource:(id)resource
 {
   v4 = sub_251210D7C();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   sub_251210D5C();
   result = _swift_stdlib_reportUnimplementedInitializer();

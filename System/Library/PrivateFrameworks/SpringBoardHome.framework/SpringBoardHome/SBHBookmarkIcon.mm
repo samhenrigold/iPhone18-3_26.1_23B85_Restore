@@ -124,69 +124,73 @@
 
 - (id)uninstallAlertTitle
 {
-  if ([(SBHBookmarkIcon *)self isAppClipIcon])
+  isAppClipIcon = [(SBHBookmarkIcon *)self isAppClipIcon];
+  if (isAppClipIcon)
   {
-    v3 = SBHBundle();
-    v4 = v3;
-    v5 = @"UNINSTALL_APPCLIP_TITLE";
+    v4 = SBHBundle(isAppClipIcon);
+    v5 = v4;
+    v6 = @"UNINSTALL_APPCLIP_TITLE";
   }
 
   else
   {
-    if ([(SBHBookmarkIcon *)self isWebAppIcon])
+    isWebAppIcon = [(SBHBookmarkIcon *)self isWebAppIcon];
+    if (isWebAppIcon)
     {
-      v6 = MEMORY[0x1E696AEC0];
-      v4 = SBHBundle();
-      v7 = [v4 localizedStringForKey:@"UNINSTALL_WEBAPP_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v8 = MEMORY[0x1E696AEC0];
+      v5 = SBHBundle(isWebAppIcon);
+      v9 = [v5 localizedStringForKey:@"UNINSTALL_WEBAPP_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
       displayName = [(SBIcon *)self displayName];
-      v9 = [v6 stringWithFormat:v7, displayName];
+      v11 = [v8 stringWithFormat:v9, displayName];
 
       goto LABEL_7;
     }
 
-    v3 = SBHBundle();
-    v4 = v3;
-    v5 = @"UNINSTALL_BOOKMARK_TITLE";
+    v4 = SBHBundle(isWebAppIcon);
+    v5 = v4;
+    v6 = @"UNINSTALL_BOOKMARK_TITLE";
   }
 
-  v9 = [v3 localizedStringForKey:v5 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v11 = [v4 localizedStringForKey:v6 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 LABEL_7:
 
-  return v9;
+  return v11;
 }
 
 - (id)uninstallAlertBody
 {
-  if ([(SBHBookmarkIcon *)self isAppClipIcon])
+  isAppClipIcon = [(SBHBookmarkIcon *)self isAppClipIcon];
+  if (isAppClipIcon)
   {
-    v3 = MEMORY[0x1E696AEC0];
-    v4 = SBHBundle();
-    v5 = v4;
-    v6 = @"UNINSTALL_APPCLIP_BODY_DELETE_DATA";
+    v4 = MEMORY[0x1E696AEC0];
+    v5 = SBHBundle(isAppClipIcon);
+    v6 = v5;
+    v7 = @"UNINSTALL_APPCLIP_BODY_DELETE_DATA";
   }
 
   else
   {
-    if ([(SBHBookmarkIcon *)self isWebAppIcon])
+    isWebAppIcon = [(SBHBookmarkIcon *)self isWebAppIcon];
+    if (isWebAppIcon)
     {
-      v5 = SBHBundle();
-      v7 = [v5 localizedStringForKey:@"UNINSTALL_WEBAPP_BODY_DELETE_DATA" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v6 = SBHBundle(isWebAppIcon);
+      v9 = [v6 localizedStringForKey:@"UNINSTALL_WEBAPP_BODY_DELETE_DATA" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
       goto LABEL_7;
     }
 
-    v3 = MEMORY[0x1E696AEC0];
-    v4 = SBHBundle();
-    v5 = v4;
-    v6 = @"UNINSTALL_BOOKMARK_BODY_DELETE_DATA";
+    v4 = MEMORY[0x1E696AEC0];
+    v5 = SBHBundle(isWebAppIcon);
+    v6 = v5;
+    v7 = @"UNINSTALL_BOOKMARK_BODY_DELETE_DATA";
   }
 
-  v8 = [v4 localizedStringForKey:v6 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v10 = [v5 localizedStringForKey:v7 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   displayName = [(SBIcon *)self displayName];
-  v7 = [v3 stringWithFormat:v8, displayName];
+  v9 = [v4 stringWithFormat:v10, displayName];
 
 LABEL_7:
 
-  return v7;
+  return v9;
 }
 
 - (id)draggingUserActivity

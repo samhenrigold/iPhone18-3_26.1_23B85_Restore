@@ -1,10 +1,32 @@
 @interface SESAuthorizationInfo
++ (id)withState:(unsigned __int8)state remaningCount:(id)count remainingTime:(id)time publicKeyIdentifier:(id)identifier authorizationID:(id)d anonymizedDSID:(id)iD;
 - (SESAuthorizationInfo)initWithCoder:(id)coder;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation SESAuthorizationInfo
+
++ (id)withState:(unsigned __int8)state remaningCount:(id)count remainingTime:(id)time publicKeyIdentifier:(id)identifier authorizationID:(id)d anonymizedDSID:(id)iD
+{
+  stateCopy = state;
+  iDCopy = iD;
+  dCopy = d;
+  identifierCopy = identifier;
+  timeCopy = time;
+  countCopy = count;
+  v18 = objc_opt_new();
+  [v18 setState:stateCopy];
+  [v18 setRemainingCount:countCopy];
+
+  [v18 setRemainingTime:timeCopy];
+  [v18 setPublicKeyIdentifier:identifierCopy];
+
+  [v18 setAuthorizationID:dCopy];
+  [v18 setAnonymizedDSID:iDCopy];
+
+  return v18;
+}
 
 - (id)description
 {

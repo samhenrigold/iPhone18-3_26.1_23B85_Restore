@@ -228,7 +228,7 @@ uint64_t __54__AVAssetReaderOutputAnnotationAdaptor_nextAnnotation__block_invoke
   return result;
 }
 
-uint64_t __54__AVAssetReaderOutputAnnotationAdaptor_nextAnnotation__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__54__AVAssetReaderOutputAnnotationAdaptor_nextAnnotation__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqual:{objc_msgSend(a2, "objectForKey:", 0x1F0A8AA90)}];
   if (result)

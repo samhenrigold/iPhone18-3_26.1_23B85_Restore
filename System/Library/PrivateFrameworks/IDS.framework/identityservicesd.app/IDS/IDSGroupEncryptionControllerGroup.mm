@@ -120,8 +120,8 @@
   sub_100818D34(&v7);
   os_unfair_lock_unlock(v4 + 4);
 
-  sub_100014170(0, &qword_100CBA2E0);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v5.super.isa = sub_100936E08().super.isa;
 
   return v5.super.isa;
@@ -137,7 +137,7 @@
   os_unfair_lock_unlock(v4 + 4);
 
   type metadata accessor for IDSGroupEncryptionControllerMember();
-  sub_100014BB0(&qword_100CB2AC8, type metadata accessor for IDSGroupEncryptionControllerMember);
+  sub_100014BB0(&qword_100CB2AC8, type metadata accessor for IDSGroupEncryptionControllerMember, &protocol conformance descriptor for NSObject);
   v5.super.isa = sub_100936E08().super.isa;
 
   return v5.super.isa;
@@ -152,8 +152,8 @@
 
   sub_1007478B8(v5);
 
-  sub_100014170(0, &qword_100CB34A0);
-  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0);
+  sub_100014170(0, &qword_100CB34A0, IDSPushToken_ptr);
+  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0, IDSPushToken_ptr);
   v6.super.isa = sub_100936E08().super.isa;
 
   return v6.super.isa;
@@ -168,8 +168,8 @@
 
   sub_1007478B8(v5);
 
-  sub_100014170(0, &qword_100CB34A0);
-  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0);
+  sub_100014170(0, &qword_100CB34A0, IDSPushToken_ptr);
+  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0, IDSPushToken_ptr);
   v6.super.isa = sub_100936E08().super.isa;
 
   return v6.super.isa;
@@ -184,8 +184,8 @@
 
   sub_1007478B8(v5);
 
-  sub_100014170(0, &qword_100CB34A0);
-  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0);
+  sub_100014170(0, &qword_100CB34A0, IDSPushToken_ptr);
+  sub_100746FD4(&qword_100CBA5A0, &qword_100CB34A0, IDSPushToken_ptr);
   v6.super.isa = sub_100936E08().super.isa;
 
   return v6.super.isa;
@@ -215,8 +215,8 @@
 
 - (void)updateMembersWithURIs:(id)is
 {
-  sub_100014170(0, &qword_100CBA2E0);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v4 = sub_100936E18();
   v5 = *((swift_isaMask & *self) + 0x2B0);
   selfCopy = self;
@@ -225,8 +225,8 @@
 
 - (void)updateMembersWithURIs:(id)is lightweightStatusDict:(id)dict
 {
-  sub_100014170(0, &qword_100CBA2E0);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v6 = sub_100936E18();
   if (dict)
   {
@@ -268,7 +268,7 @@
   sub_1008094DC(iCopy);
 
   type metadata accessor for IDSGroupEncryptionControllerParticipant(0);
-  sub_100014BB0(&unk_100CB3490, type metadata accessor for IDSGroupEncryptionControllerParticipant);
+  sub_100014BB0(&unk_100CB3490, type metadata accessor for IDSGroupEncryptionControllerParticipant, &protocol conformance descriptor for NSObject);
   v6.super.isa = sub_100936E08().super.isa;
 
   return v6.super.isa;
@@ -284,7 +284,7 @@
   sub_100817D6C(v7, v8);
 
   type metadata accessor for IDSGroupEncryptionControllerParticipant(0);
-  sub_100014BB0(&unk_100CB3490, type metadata accessor for IDSGroupEncryptionControllerParticipant);
+  sub_100014BB0(&unk_100CB3490, type metadata accessor for IDSGroupEncryptionControllerParticipant, &protocol conformance descriptor for NSObject);
   v9.super.isa = sub_100936E08().super.isa;
 
   return v9.super.isa;
@@ -294,7 +294,7 @@
 {
   tokenCopy = token;
   selfCopy = self;
-  sub_1008098B4();
+  sub_1008098B4(tokenCopy);
   v7 = v6;
 
   return v7;
@@ -315,21 +315,21 @@
 
 - (id)participantIDsForURIs:(id)is
 {
-  sub_100014170(0, &qword_100CBA2E0);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v4 = sub_100936E18();
   selfCopy = self;
-  sub_100809DB0(v4);
+  sub_100809DB0(v4, v6);
 
-  v6.super.isa = sub_100936E08().super.isa;
+  v7.super.isa = sub_100936E08().super.isa;
 
-  return v6.super.isa;
+  return v7.super.isa;
 }
 
 - (void)updateParticipants:(id)participants lightweight:(BOOL)lightweight
 {
   lightweightCopy = lightweight;
-  sub_100014170(0, &qword_100CB7168);
+  sub_100014170(0, &qword_100CB7168, IDSGroupSessionActiveParticipant_ptr);
   v6 = sub_100936CE8();
   selfCopy = self;
   sub_10080A354(v6, lightweightCopy);

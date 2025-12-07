@@ -45,7 +45,7 @@
 
 - (void)initializeBrokerConnectionIfNeeded
 {
-  v3 = sub_10001E7A0();
+  v3 = sub_10001E7A0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -85,8 +85,7 @@
     self->_xpcListener = v8;
 
     [(NSXPCListener *)self->_xpcListener setDelegate:self];
-    [(NSXPCListener *)self->_xpcListener resume];
-    v10 = sub_10001E7A0();
+    v10 = sub_10001E7A0([(NSXPCListener *)self->_xpcListener resume]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *v13 = 0;
@@ -105,8 +104,7 @@
 
 - (void)dealloc
 {
-  [(NSXPCListener *)self->_xpcListener invalidate];
-  v3 = sub_10001E7A0();
+  v3 = sub_10001E7A0([(NSXPCListener *)self->_xpcListener invalidate]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -149,7 +147,7 @@
   }
 
   v5 = [FBSOpenApplicationOptions optionsWithDictionary:qword_10009E758];
-  v6 = sub_10001E7A0();
+  v6 = sub_10001E7A0(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -168,65 +166,65 @@
 - (NSXPCConnection)connection
 {
   dispatch_assert_queue_V2(self->_messagingQueue);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_10001533C;
+  v24 = sub_10001534C;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_10001533C;
+  v18 = sub_10001534C;
   v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_10001533C;
-  v23 = sub_10001534C;
-  v24 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_10001533C;
-  v17 = sub_10001534C;
-  v18 = 0;
   connectionQueue = self->_connectionQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100015354;
   block[3] = &unk_1000856A8;
   block[4] = self;
-  block[5] = &v19;
-  block[6] = &v13;
+  block[5] = &v20;
+  block[6] = &v14;
   dispatch_sync(connectionQueue, block);
-  v4 = v14[5];
-  if (v4)
+  v5 = v15[5];
+  if (v5)
   {
-    v5 = dispatch_walltime(0, 20000000000);
-    dispatch_group_wait(v4, v5);
-    v6 = self->_connectionQueue;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000155C0;
-    v11[3] = &unk_1000856D0;
-    v11[4] = self;
-    v11[5] = &v19;
-    dispatch_sync(v6, v11);
+    v6 = dispatch_walltime(0, 20000000000);
+    dispatch_group_wait(v5, v6);
+    v7 = self->_connectionQueue;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000155C0;
+    v12[3] = &unk_1000856D0;
+    v12[4] = self;
+    v12[5] = &v20;
+    dispatch_sync(v7, v12);
   }
 
   else
   {
-    v7 = sub_10001E7A0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_10001E7A0(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "MapsIPCInterface Didn't get a dispatchGroup to wait on", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "MapsIPCInterface Didn't get a dispatchGroup to wait on", v11, 2u);
     }
   }
 
-  v8 = v20[5];
-  _Block_object_dispose(&v13, 8);
+  v9 = v21[5];
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_10001E7A0();
+  v8 = sub_10001E7A0(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;

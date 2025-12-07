@@ -4,6 +4,7 @@
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 + (id)medicationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 medicationCodingCollection:(id)self4 assertionType:(int64_t)self5 asserter:(id)self6 assertionDate:(id)self7 statusCoding:(id)self8 dosages:(id)self9 earliestDosageDate:(id)dosageDate reasonForUseCodingCollections:(id)collections notTaken:(BOOL)taken reasonsNotTakenCodingCollections:(id)codingCollections effectiveStartDate:(id)startDate effectiveEndDate:(id)endDate;
++ (id)medicationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 medicationCodingCollection:(id)self5 assertionType:(int64_t)self6 asserter:(id)self7 assertionDate:(id)self8 statusCoding:(id)self9 dosages:(id)dosages earliestDosageDate:(id)dosageDate reasonForUseCodingCollections:(id)collections notTaken:(BOOL)taken reasonsNotTakenCodingCollections:(id)codingCollections effectiveStartDate:(id)startDate effectiveEndDate:(id)endDate;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKConcept)medication;
@@ -50,6 +51,14 @@
   v3 = [v2 localizedStringForKey:@"UNSPECIFIED_MEDICATION" value:&stru_1F05FF230 table:@"Localizable-Clinical-Health-Records"];
 
   return v3;
+}
+
++ (id)medicationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 medicationCodingCollection:(id)self5 assertionType:(int64_t)self6 asserter:(id)self7 assertionDate:(id)self8 statusCoding:(id)self9 dosages:(id)dosages earliestDosageDate:(id)dosageDate reasonForUseCodingCollections:(id)collections notTaken:(BOOL)taken reasonsNotTakenCodingCollections:(id)codingCollections effectiveStartDate:(id)startDate effectiveEndDate:(id)endDate
+{
+  LOBYTE(v28) = taken;
+  v26 = [self _newMedicationRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state medicationCodingCollection:collection assertionType:assertionType asserter:asserter assertionDate:assertionDate statusCoding:coding dosages:dosages earliestDosageDate:dosageDate reasonForUseCodingCollections:collections notTaken:v28 reasonsNotTakenCodingCollections:codingCollections effectiveStartDate:startDate effectiveEndDate:endDate config:0];
+
+  return v26;
 }
 
 + (id)_newMedicationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 medicationCodingCollection:(id)self5 assertionType:(int64_t)self6 asserter:(id)self7 assertionDate:(id)self8 statusCoding:(id)self9 dosages:(id)dosages earliestDosageDate:(id)dosageDate reasonForUseCodingCollections:(id)collections notTaken:(BOOL)taken reasonsNotTakenCodingCollections:(id)codingCollections effectiveStartDate:(id)startDate effectiveEndDate:(id)endDate config:(id)config
@@ -178,13 +187,12 @@ void __384__HKMedicationRecord__newMedicationRecordWithType_note_enteredInError_
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKMedicationRecord;
-  v6 = [(HKSample *)&v10 description];
-  medicationCodingCollection = self->_medicationCodingCollection;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@medicationCodingCollection = %@assertionType = %ldasserter = %@assertionDate = %@statusCoding = %@dosages = %@earliestDosageDate = %@reasonForUseCodingCollections = %@notTaken = %ldreasonsNotTakenCodingCollections = %@effectiveStartDate = %@effectiveEndDate = %@>", v5, self, v6, medicationCodingCollection, self->_assertionType, self->_asserter, self->_assertionDate, self->_statusCoding, self->_dosages, self->_earliestDosageDate, self->_reasonForUseCodingCollections, self->_notTaken, self->_reasonsNotTakenCodingCollections, self->_effectiveStartDate, self->_effectiveEndDate];
+  v9.receiver = self;
+  v9.super_class = HKMedicationRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@medicationCodingCollection = %@assertionType = %ldasserter = %@assertionDate = %@statusCoding = %@dosages = %@earliestDosageDate = %@reasonForUseCodingCollections = %@notTaken = %ldreasonsNotTakenCodingCollections = %@effectiveStartDate = %@effectiveEndDate = %@>", v5, self, v6, self->_medicationCodingCollection, self->_assertionType, self->_asserter, self->_assertionDate, self->_statusCoding, self->_dosages, self->_earliestDosageDate, self->_reasonForUseCodingCollections, self->_notTaken, self->_reasonsNotTakenCodingCollections, self->_effectiveStartDate, self->_effectiveEndDate];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -846,17 +854,17 @@ LABEL_78:
   medicationCopy = medication;
   if (!medicationCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKMedicationRecord _setMedication:v5];
+      [HKMedicationRecord _setMedication:v6];
     }
   }
 
-  v6 = [medicationCopy copy];
+  v7 = [medicationCopy copy];
   medication = self->_medication;
-  self->_medication = v6;
+  self->_medication = v7;
 }
 
 - (HKConcept)status
@@ -881,17 +889,17 @@ LABEL_78:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKMedicationRecord _setStatus:v5];
+      [HKMedicationRecord _setStatus:v6];
     }
   }
 
-  v6 = [statusCopy copy];
+  v7 = [statusCopy copy];
   status = self->_status;
-  self->_status = v6;
+  self->_status = v7;
 }
 
 - (NSArray)reasonForUse
@@ -1030,7 +1038,7 @@ LABEL_10:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -1044,8 +1052,8 @@ LABEL_10:
   {
     medicationCodingCollection = [(HKMedicationRecord *)self medicationCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:medicationCodingCollection];
-    v20[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
 LABEL_7:
 
 LABEL_8:
@@ -1057,8 +1065,8 @@ LABEL_8:
     medicationCodingCollection = [(HKMedicationRecord *)self statusCoding];
     v10 = [HKMedicalCodingCollection collectionWithCoding:medicationCodingCollection];
     v12 = [HKIndexableObject indexableObjectWithObject:v10];
-    v19 = v12;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+    v18 = v12;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
 
     goto LABEL_7;
   }
@@ -1094,12 +1102,10 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v18.receiver = self;
-  v18.super_class = HKMedicationRecord;
-  v11 = [(HKMedicalRecord *)&v18 codingsForKeyPath:pathCopy error:error];
+  v17.receiver = self;
+  v17.super_class = HKMedicationRecord;
+  v11 = [(HKMedicalRecord *)&v17 codingsForKeyPath:pathCopy error:error];
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

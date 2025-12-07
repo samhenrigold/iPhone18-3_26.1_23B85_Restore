@@ -122,7 +122,7 @@ uint64_t __73__PXStoryRecombinedTimeline__shiftTimeRanges_count_byTime_resultHan
   v18 = &v17;
   v19 = 0x2020000000;
   v20 = 0;
-  [(PXStoryRecombinedTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAtIndex_inResourcesDataSource_resourceKind___block_invoke;
@@ -210,7 +210,7 @@ void *__111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAt
   {
     if (sourceTimeline)
     {
-      [sourceTimeline timeRangeForSegmentWithIdentifier:a4];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(sourceTimeline);
     }
 
     else
@@ -231,7 +231,7 @@ void *__111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAt
     {
       if (targetTimeline)
       {
-        [targetTimeline timeRangeForSegmentWithIdentifier:a4];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(targetTimeline);
       }
 
       else
@@ -239,7 +239,7 @@ void *__111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAt
         memset(v13, 0, sizeof(v13));
       }
 
-      [(PXStoryRecombinedTimeline *)self targetTimeOffset];
+      objc_msgSend_targetTimeOffset(self);
       lhs = v13[0];
       rhs = v12;
       CMTimeAdd(&v14, &lhs, &rhs);
@@ -289,7 +289,7 @@ void *__111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAt
 {
   blockCopy = block;
   sourceTimeline = [(PXStoryRecombinedTimeline *)self sourceTimeline];
-  [(PXStoryRecombinedTimeline *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self);
   v8 = *&range->var0.var3;
   *start = *&range->var0.var0;
   v9 = *&range->var1.var1;
@@ -298,14 +298,14 @@ void *__111__PXStoryRecombinedTimeline_identifierOfFirstClipContainingResourceAt
   [sourceTimeline enumerateSegmentsInTimeRange:&lhs usingBlock:{blockCopy, PXStoryTimeRangeIntersection(start, &rhs, &lhs)}];
 
   memset(&v18, 0, sizeof(v18));
-  [(PXStoryRecombinedTimeline *)self targetTimeOffset];
+  objc_msgSend_targetTimeOffset(self);
   memset(&v17, 0, sizeof(v17));
   rhs = v18;
   *&lhs.start.value = PXStoryTimeZero;
   lhs.start.epoch = 0;
   CMTimeSubtract(&v17, &lhs.start, &rhs);
   targetTimeline = [(PXStoryRecombinedTimeline *)self targetTimeline];
-  [(PXStoryRecombinedTimeline *)self targetTimeRangeInSourceTime];
+  objc_msgSend_targetTimeRangeInSourceTime(self);
   v11 = *&range->var0.var3;
   *start = *&range->var0.var0;
   v12 = *&range->var1.var1;
@@ -429,7 +429,7 @@ void __69__PXStoryRecombinedTimeline_enumerateSegmentsInTimeRange_usingBlock___b
   x = rect.origin.x;
   blockCopy = block;
   sourceTimeline = [(PXStoryRecombinedTimeline *)self sourceTimeline];
-  [(PXStoryRecombinedTimeline *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self);
   v13 = *&range->var0.var3;
   *start = *&range->var0.var0;
   v14 = *&range->var1.var1;
@@ -439,14 +439,14 @@ void __69__PXStoryRecombinedTimeline_enumerateSegmentsInTimeRange_usingBlock___b
   [sourceTimeline enumerateClipsInTimeRange:&lhs rect:blockCopy usingBlock:{x, y, width, height}];
 
   memset(&v23, 0, sizeof(v23));
-  [(PXStoryRecombinedTimeline *)self targetTimeOffset];
+  objc_msgSend_targetTimeOffset(self);
   memset(&v22, 0, sizeof(v22));
   rhs = v23;
   *&lhs.start.value = PXStoryTimeZero;
   lhs.start.epoch = 0;
   CMTimeSubtract(&v22, &lhs.start, &rhs);
   targetTimeline = [(PXStoryRecombinedTimeline *)self targetTimeline];
-  [(PXStoryRecombinedTimeline *)self targetTimeRangeInSourceTime];
+  objc_msgSend_targetTimeRangeInSourceTime(self);
   v16 = *&range->var0.var3;
   *start = *&range->var0.var0;
   v17 = *&range->var1.var1;
@@ -498,8 +498,8 @@ void __71__PXStoryRecombinedTimeline_enumerateClipsInTimeRange_rect_usingBlock__
 
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)timeRange
 {
-  [(PXStoryRecombinedTimeline *)self sourceTimeRange];
-  [(PXStoryRecombinedTimeline *)self targetTimeRangeInSourceTime];
+  objc_msgSend_sourceTimeRange(self, a3);
+  objc_msgSend_targetTimeRangeInSourceTime(self);
   return PXStoryTimeRangeUnion(&v7, &v6, retstr);
 }
 
@@ -507,9 +507,9 @@ void __71__PXStoryRecombinedTimeline_enumerateClipsInTimeRange_rect_usingBlock__
 {
   timelineCopy = timeline;
   targetTimelineCopy = targetTimeline;
-  v36.receiver = self;
-  v36.super_class = PXStoryRecombinedTimeline;
-  v13 = [(PXStoryRecombinedTimeline *)&v36 init];
+  v34.receiver = self;
+  v34.super_class = PXStoryRecombinedTimeline;
+  v13 = [(PXStoryRecombinedTimeline *)&v34 init];
   v14 = v13;
   if (v13)
   {
@@ -517,85 +517,85 @@ void __71__PXStoryRecombinedTimeline_enumerateClipsInTimeRange_rect_usingBlock__
     v14->_lastSourceSegmentIndex = index;
     objc_storeStrong(&v14->_targetTimeline, targetTimeline);
     v14->_firstTargetSegmentIndex = segmentIndex;
-    v15 = [timelineCopy identifierForSegmentAtIndex:index];
-    memset(&v35, 0, sizeof(v35));
+    [timelineCopy identifierForSegmentAtIndex:index];
+    memset(&v33, 0, sizeof(v33));
     if (timelineCopy)
     {
-      [timelineCopy timeRangeForSegmentWithIdentifier:v15];
-      [timelineCopy timeRange];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(timelineCopy);
+      objc_msgSend_timeRange(timelineCopy);
     }
 
     else
     {
+      v29 = 0uLL;
+      v30 = 0uLL;
       v31 = 0uLL;
-      v32 = 0uLL;
-      v33 = 0uLL;
     }
 
-    *&start.start.value = v31;
-    start.start.epoch = v32;
+    *&start.start.value = v29;
+    start.start.epoch = v30;
     *&duration.start.value = PXStoryTimeZero;
     duration.start.epoch = 0;
-    CMTimeRangeMake(&v34, &start.start, &duration.start);
-    start = v35;
-    PXStoryTimeRangeUnion(&v34, &start, &range);
-    v16 = *&range.start.value;
-    v17 = *&range.duration.timescale;
+    CMTimeRangeMake(&v32, &start.start, &duration.start);
+    start = v33;
+    PXStoryTimeRangeUnion(&v32, &start, &range);
+    v15 = *&range.start.value;
+    v16 = *&range.duration.timescale;
     *&v14->_sourceTimeRange.start.epoch = *&range.start.epoch;
-    *&v14->_sourceTimeRange.duration.timescale = v17;
-    *&v14->_sourceTimeRange.start.value = v16;
-    v18 = [targetTimelineCopy identifierForSegmentAtIndex:segmentIndex];
-    memset(&v34, 0, sizeof(v34));
+    *&v14->_sourceTimeRange.duration.timescale = v16;
+    *&v14->_sourceTimeRange.start.value = v15;
+    [targetTimelineCopy identifierForSegmentAtIndex:segmentIndex];
+    memset(&v32, 0, sizeof(v32));
     if (targetTimelineCopy)
     {
-      [targetTimelineCopy timeRangeForSegmentWithIdentifier:v18];
-      [targetTimelineCopy timeRange];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(targetTimelineCopy);
+      objc_msgSend_timeRange(targetTimelineCopy);
     }
 
     else
     {
-      memset(&v27, 0, sizeof(v27));
+      memset(&v25, 0, sizeof(v25));
     }
 
-    range = v27;
-    CMTimeRangeGetEnd(&v28, &range);
-    range.start = v28;
-    *&v27.start.value = PXStoryTimeZero;
-    v27.start.epoch = 0;
-    CMTimeRangeMake(&duration, &range.start, &v27.start);
-    range = v34;
+    range = v25;
+    CMTimeRangeGetEnd(&v26, &range);
+    range.start = v26;
+    *&v25.start.value = PXStoryTimeZero;
+    v25.start.epoch = 0;
+    CMTimeRangeMake(&duration, &range.start, &v25.start);
+    range = v32;
     PXStoryTimeRangeUnion(&range, &duration, &start);
-    v19 = *&start.start.value;
-    v20 = *&start.duration.timescale;
+    v17 = *&start.start.value;
+    v18 = *&start.duration.timescale;
     *&v14->_targetTimeRange.start.epoch = *&start.start.epoch;
-    *&v14->_targetTimeRange.duration.timescale = v20;
-    *&v14->_targetTimeRange.start.value = v19;
+    *&v14->_targetTimeRange.duration.timescale = v18;
+    *&v14->_targetTimeRange.start.value = v17;
     start = v14->_sourceTimeRange;
     range = start;
-    CMTimeRangeGetEnd(&v27.start, &range);
-    v28 = v14->_targetTimeRange.duration;
-    *&start.start.value = *&v27.start.value;
-    start.start.epoch = v27.start.epoch;
-    duration.start = v28;
+    CMTimeRangeGetEnd(&v25.start, &range);
+    v26 = v14->_targetTimeRange.duration;
+    *&start.start.value = *&v25.start.value;
+    start.start.epoch = v25.start.epoch;
+    duration.start = v26;
     CMTimeRangeMake(&range, &start.start, &duration.start);
-    v21 = *&range.start.value;
-    v22 = *&range.duration.timescale;
+    v19 = *&range.start.value;
+    v20 = *&range.duration.timescale;
     *&v14->_targetTimeRangeInSourceTime.start.epoch = *&range.start.epoch;
-    *&v14->_targetTimeRangeInSourceTime.duration.timescale = v22;
-    *&v14->_targetTimeRangeInSourceTime.start.value = v21;
-    *&v27.start.value = *&v14->_targetTimeRangeInSourceTime.start.value;
-    v27.start.epoch = v14->_targetTimeRangeInSourceTime.start.epoch;
-    v28 = v14->_targetTimeRange.start;
-    *&range.start.value = *&v27.start.value;
-    range.start.epoch = v27.start.epoch;
-    start.start = v28;
+    *&v14->_targetTimeRangeInSourceTime.duration.timescale = v20;
+    *&v14->_targetTimeRangeInSourceTime.start.value = v19;
+    *&v25.start.value = *&v14->_targetTimeRangeInSourceTime.start.value;
+    v25.start.epoch = v14->_targetTimeRangeInSourceTime.start.epoch;
+    v26 = v14->_targetTimeRange.start;
+    *&range.start.value = *&v25.start.value;
+    range.start.epoch = v25.start.epoch;
+    start.start = v26;
     CMTimeSubtract(&duration.start, &range.start, &start.start);
-    v23 = *&duration.start.value;
+    v21 = *&duration.start.value;
     v14->_targetTimeOffset.epoch = duration.start.epoch;
-    *&v14->_targetTimeOffset.value = v23;
-    v24 = [[off_1E7721500 alloc] initWithElementSize:48];
+    *&v14->_targetTimeOffset.value = v21;
+    v22 = [[off_1E7721500 alloc] initWithElementSize:48];
     shiftedTimeRangesStore = v14->_shiftedTimeRangesStore;
-    v14->_shiftedTimeRangesStore = v24;
+    v14->_shiftedTimeRangesStore = v22;
   }
 
   return v14;
@@ -613,20 +613,20 @@ void __71__PXStoryRecombinedTimeline_enumerateClipsInTimeRange_rect_usingBlock__
 {
   timelineCopy = timeline;
   inTimelineCopy = inTimeline;
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x2020000000;
-  v15 = 1;
-  v11 = [timelineCopy identifierForSegmentAtIndex:index];
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 1;
+  [timelineCopy identifierForSegmentAtIndex:index];
   if (timelineCopy)
   {
-    [timelineCopy timeRangeForSegmentWithIdentifier:v11];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(timelineCopy);
   }
 
-  v12 = [inTimelineCopy identifierForSegmentAtIndex:segmentIndex];
+  [inTimelineCopy identifierForSegmentAtIndex:segmentIndex];
   if (inTimelineCopy)
   {
-    [inTimelineCopy timeRangeForSegmentWithIdentifier:v12];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(inTimelineCopy);
   }
 
   [timelineCopy size];
@@ -689,23 +689,25 @@ uint64_t __95__PXStoryRecombinedTimeline__isSegmentIndex_inTimeline_visuallyEqua
       v41 = *v8;
       v12 = *(a3 + 24);
       v47 = v10;
-      *&time2.value = v12;
-      time2.epoch = *(a3 + 5);
-      time1 = v41;
-      result = CMTimeCompare(&time1, &time2);
+      *time2 = v12;
+      *&time2[16] = *(a3 + 5);
+      *time1 = v41;
+      result = CMTimeCompare(time1, time2);
       if (!result)
       {
-        *&time1.value = v45;
-        time1.epoch = v46;
-        time2 = *(v6 + 80);
-        CMTimeSubtract(&v41, &time1, &time2);
-        *&time1.value = v42;
-        time1.epoch = v43;
-        time2 = *(v6 + 128);
-        CMTimeSubtract(&v40, &time1, &time2);
-        time1 = v41;
-        time2 = v40;
-        result = CMTimeCompare(&time1, &time2);
+        *time1 = v45;
+        *&time1[16] = v46;
+        *time2 = *(v6 + 80);
+        *&time2[16] = *(v6 + 96);
+        CMTimeSubtract(&v41, time1, time2);
+        *time1 = v42;
+        *&time1[16] = v43;
+        *time2 = *(v6 + 128);
+        *&time2[16] = *(v6 + 144);
+        CMTimeSubtract(&v40, time1, time2);
+        *time1 = v41;
+        *time2 = v40;
+        result = CMTimeCompare(time1, time2);
         if (!result)
         {
           v13 = *(v6 + 64);
@@ -889,10 +891,10 @@ LABEL_18:
   return v26;
 }
 
-uint64_t __110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_withTargetTimeline_visibleSegmentIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
+void __110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_withTargetTimeline_visibleSegmentIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [*(a1 + 32) indexOfSegmentWithIdentifier:a2];
-  if (result == 0x7FFFFFFFFFFFFFFFLL)
+  v3 = [*(a1 + 32) indexOfSegmentWithIdentifier:a2];
+  if (v3 == 0x7FFFFFFFFFFFFFFFLL)
   {
     PXAssertGetLog();
   }
@@ -901,14 +903,14 @@ uint64_t __110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_wi
   v5 = *(v4 + 24);
   if (v5 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    *(v4 + 24) = result;
+    *(v4 + 24) = v3;
   }
 
   else
   {
-    if (v5 <= result)
+    if (v5 <= v3)
     {
-      v6 = result;
+      v6 = v3;
     }
 
     else
@@ -918,11 +920,9 @@ uint64_t __110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_wi
 
     *(v4 + 24) = v6;
   }
-
-  return result;
 }
 
-uint64_t __110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_withTargetTimeline_visibleSegmentIdentifiers___block_invoke_1(uint64_t a1, uint64_t a2)
+void *__110__PXStoryRecombinedTimeline_timelineByRecombiningSourceTimeline_withTargetTimeline_visibleSegmentIdentifiers___block_invoke_1(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) indexOfSegmentWithIdentifier:a2];
   v4 = *(*(a1 + 40) + 8);

@@ -53,7 +53,7 @@
 
 - (WiFiAwareDeviceCapabilities)initWithCoder:(id)coder
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
@@ -64,7 +64,7 @@
   unsignedCharValue = [v9 unsignedCharValue];
 
   v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDeviceCapabilities.operatingChannel"];
-  v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDeviceCapabilities.operatingClass"];
+  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDeviceCapabilities.operatingClass"];
   v12 = MEMORY[0x277CBEB98];
   v13 = objc_opt_class();
   v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
@@ -75,9 +75,9 @@
   v18 = v17;
   if (!v15)
   {
-    v30 = v17;
-    v31 = unsignedCharValue;
-    v32 = v11;
+    v28 = v17;
+    v29 = unsignedCharValue;
+    v30 = v11;
     v19 = MEMORY[0x277CBEBF8];
     goto LABEL_5;
   }
@@ -85,15 +85,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = v18;
-    v31 = unsignedCharValue;
-    v32 = v11;
-    v39[0] = v15;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+    v28 = v18;
+    v29 = unsignedCharValue;
+    v30 = v11;
+    v37[0] = v15;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
 LABEL_5:
-    v11 = v32;
-    v20 = v33;
-    self = -[WiFiAwareDeviceCapabilities initWithSupportedFeatures:operatingChannel:operatingClass:supportedCipherSuites:supportsDataTransfer:supportedBands:discoveryInterfaceName:maxPeers:maxPublishers:maxSubscribers:maxDatapaths:](self, "initWithSupportedFeatures:operatingChannel:operatingClass:supportedCipherSuites:supportsDataTransfer:supportedBands:discoveryInterfaceName:maxPeers:maxPublishers:maxSubscribers:maxDatapaths:", v8, v32, v33, v19, v30, v31, v16, [coderCopy decodeIntegerForKey:@"WiFiAwareDeviceCapabilities.maxPeers"], objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxPublishers"), objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxSubscribers"), objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxDatapaths"));
+    v11 = v30;
+    v20 = v31;
+    self = -[WiFiAwareDeviceCapabilities initWithSupportedFeatures:operatingChannel:operatingClass:supportedCipherSuites:supportsDataTransfer:supportedBands:discoveryInterfaceName:maxPeers:maxPublishers:maxSubscribers:maxDatapaths:](self, "initWithSupportedFeatures:operatingChannel:operatingClass:supportedCipherSuites:supportsDataTransfer:supportedBands:discoveryInterfaceName:maxPeers:maxPublishers:maxSubscribers:maxDatapaths:", v8, v30, v31, v19, v28, v29, v16, [coderCopy decodeIntegerForKey:@"WiFiAwareDeviceCapabilities.maxPeers"], objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxPublishers"), objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxSubscribers"), objc_msgSend(coderCopy, "decodeIntegerForKey:", @"WiFiAwareDeviceCapabilities.maxDatapaths"));
     selfCopy = self;
     goto LABEL_19;
   }
@@ -101,38 +101,37 @@ LABEL_5:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = v18;
-    v31 = unsignedCharValue;
-    v32 = v11;
+    v28 = v18;
+    v29 = unsignedCharValue;
+    v30 = v11;
+    v32 = 0u;
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
     v19 = v15;
-    v22 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v22 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v35;
-      v29 = v8;
+      v24 = *v33;
+      v27 = v8;
       while (2)
       {
         v25 = 0;
         do
         {
-          if (*v35 != v24)
+          if (*v33 != v24)
           {
             objc_enumerationMutation(v19);
           }
 
-          v26 = *(*(&v34 + 1) + 8 * v25);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
             selfCopy = 0;
-            v8 = v29;
-            v11 = v32;
+            v8 = v27;
+            v11 = v30;
             goto LABEL_18;
           }
 
@@ -140,8 +139,8 @@ LABEL_5:
         }
 
         while (v23 != v25);
-        v23 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
-        v8 = v29;
+        v23 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v8 = v27;
         if (v23)
         {
           continue;
@@ -157,10 +156,9 @@ LABEL_5:
   v19 = 0;
   selfCopy = 0;
 LABEL_18:
-  v20 = v33;
+  v20 = v31;
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

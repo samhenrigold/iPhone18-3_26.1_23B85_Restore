@@ -43,7 +43,7 @@
   v4.super_class = NTKCircularSmallRingComplicationView;
   [(NTKCircularComplicationView *)&v4 layoutSubviews];
   [(NTKCircularSmallRingComplicationView *)self bounds];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   device = [(NTKCircularComplicationView *)self device];
   CLKRectCenteredIntegralRectForDevice();
   [(CLKUIColoringImageView *)self->_fillFractionRing setFrame:?];
@@ -57,9 +57,9 @@
   {
     [descriptionCopy fillFraction];
     self->_fillFraction = v5;
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     [descriptionCopy setRadius:v8 * 0.5];
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     [descriptionCopy setStrokeWidth:v7];
     ringImage = [descriptionCopy ringImage];
     [(CLKUIColoringImageView *)self->_fillFractionRing setImage:ringImage];

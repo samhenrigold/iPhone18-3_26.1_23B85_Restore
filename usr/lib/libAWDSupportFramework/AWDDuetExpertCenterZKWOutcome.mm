@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  expert = self->_expert;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  engaged = self->_engaged;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  itemsShown = self->_itemsShown;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  typedQuery = self->_typedQuery;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    egress = self->_egress;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  itemSelected = self->_itemSelected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if (has)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  sameCategorySelected = self->_sameCategorySelected;
 
   PBDataWriterWriteBOOLField();
 }
@@ -611,7 +603,6 @@ LABEL_9:
         goto LABEL_50;
       }
 
-      v6 = *(equal + 36);
       if (self->_engaged)
       {
         if ((*(equal + 36) & 1) == 0)
@@ -651,7 +642,6 @@ LABEL_9:
         goto LABEL_50;
       }
 
-      v7 = *(equal + 39);
       if (self->_typedQuery)
       {
         if ((*(equal + 39) & 1) == 0)
@@ -678,7 +668,6 @@ LABEL_9:
         goto LABEL_50;
       }
 
-      v8 = *(equal + 37);
       if (self->_itemSelected)
       {
         if ((*(equal + 37) & 1) == 0)

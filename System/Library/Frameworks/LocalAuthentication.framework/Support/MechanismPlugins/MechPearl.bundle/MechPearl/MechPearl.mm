@@ -1,13 +1,13 @@
-id sub_1114()
+id sub_1114(uint64_t a1)
 {
   if (qword_153B0 != -1)
   {
     sub_7268();
   }
 
-  v1 = qword_153B8;
+  v2 = qword_153B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_18C0(id a1)
@@ -17,10 +17,11 @@ void sub_18C0(id a1)
   _objc_release_x1();
 }
 
-void sub_191C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_191C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 void sub_237C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -247,40 +248,21 @@ _UNKNOWN **sub_6090(uint64_t a1)
     v5 = &off_10CA8;
   }
 
+  else if (!v2 || ([v2 axMode] & 1) != 0 || (objc_msgSend(*(a1 + 32), "request"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "options"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", &off_10B10), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "BOOLValue"), v8, v7, v6, (v9 & 1) != 0))
+  {
+    v5 = 0;
+  }
+
   else
   {
-    if (!v2)
+    v11 = [v2 isCredentialValid];
+    v12 = &off_10B88;
+    if (v11)
     {
-      goto LABEL_6;
+      v12 = &off_10C48;
     }
 
-    if ([v2 axMode])
-    {
-      goto LABEL_6;
-    }
-
-    v6 = [*(a1 + 32) request];
-    v7 = [v6 options];
-    v8 = [v7 objectForKeyedSubscript:&off_10B10];
-    v9 = [v8 BOOLValue];
-
-    if (v9)
-    {
-LABEL_6:
-      v5 = 0;
-    }
-
-    else
-    {
-      v11 = [v2 isCredentialValid];
-      v12 = &off_10B88;
-      if (v11)
-      {
-        v12 = &off_10C48;
-      }
-
-      v5 = v12;
-    }
+    v5 = v12;
   }
 
   return v5;
@@ -387,11 +369,25 @@ void sub_722C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_727C(id *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [*a1 intValue];
+  sub_191C(&dword_0, v1, v2, "done waiting, found pending feedback: %d", v3, v4, v5, v6, v7);
+}
+
 void sub_72FC()
 {
   sub_1910();
   sub_1904();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_7338(uint64_t a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [*(a1 + 32) count];
+  sub_191C(&dword_0, v1, v2, "pending block[%d]", v3, v4, v5, v6, v7);
 }
 
 void sub_73B8()

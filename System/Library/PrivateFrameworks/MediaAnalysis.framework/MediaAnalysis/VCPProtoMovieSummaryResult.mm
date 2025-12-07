@@ -82,11 +82,11 @@
 
 - (id)exportToLegacyDictionary
 {
-  timeRange = [(VCPProtoMovieSummaryResult *)self timeRange];
-  v4 = timeRange;
-  if (timeRange)
+  v3 = objc_msgSend_timeRange(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v3);
   }
 
   else
@@ -123,11 +123,11 @@
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     if (keyFrame)
     {
-      timestamp = [keyFrame timestamp];
-      v15 = timestamp;
-      if (timestamp)
+      v14 = objc_msgSend_timestamp(keyFrame);
+      v15 = v14;
+      if (v14)
       {
-        [timestamp timeValue];
+        objc_msgSend_timeValue(v14);
       }
 
       else

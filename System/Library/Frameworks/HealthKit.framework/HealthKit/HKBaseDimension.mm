@@ -17,9 +17,11 @@ void __33___HKBaseDimension_nullDimension__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __60___HKBaseDimension__uniquedDimensionWithName_configuration___block_invoke()
 {
-  _uniquedDimensionWithName_configuration____dimensionsByName = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = _uniquedDimensionWithName_configuration____dimensionsByName;
+  _uniquedDimensionWithName_configuration____dimensionsByName = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __53___HKBaseDimension__uniquedDefinedDimensionWithName___block_invoke(uint64_t a1, void *a2)

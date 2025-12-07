@@ -9,9 +9,11 @@
 - (id)stringForKey:(id)key defaultValue:(id)value;
 - (int64_t)integerForKey:(id)key defaultValue:(int64_t)value;
 - (unint64_t)unsignedIntegerForKey:(id)key defaultValue:(unint64_t)value;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 - (void)setPreferencesValue:(id)value forKey:(id)key;
 - (void)setPreferencesValue:(id)value forKey:(id)key domain:(id)domain;
+- (void)setTranscriptionEnabled:(BOOL)enabled;
 - (void)setUnsignedInteger:(unint64_t)integer forKey:(id)key;
 @end
 
@@ -35,6 +37,13 @@
   LOBYTE(self) = [(VMPreferences *)self BOOLForKey:v3 defaultValue:1];
 
   return self;
+}
+
+- (void)setTranscriptionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = NSStringFromSelector(sel_transcriptionEnabled);
+  [(VMPreferences *)self setBool:enabledCopy forKey:v5];
 }
 
 uint64_t __31__VMPreferences_sharedInstance__block_invoke()
@@ -105,6 +114,15 @@ uint64_t __31__VMPreferences_sharedInstance__block_invoke()
   }
 
   return value;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(VMPreferences *)self setNumber:v8 forKey:keyCopy];
 }
 
 - (id)numberForKey:(id)key defaultValue:(id)value

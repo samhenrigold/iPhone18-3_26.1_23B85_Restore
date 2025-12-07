@@ -28,14 +28,14 @@
 
 - (id)listGoalText
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
+  v3 = MEMORY[0x277CCACA8];
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
   issuingPlayer = [self issuingPlayer];
-  v6 = [issuingPlayer displayNameWithOptions:0];
-  v7 = [v2 stringWithFormat:v4, v6];
+  v7 = [issuingPlayer displayNameWithOptions:0];
+  v8 = [v3 stringWithFormat:v5, v7];
 
-  return v7;
+  return v8;
 }
 
 - (id)composeGoalText

@@ -11,36 +11,34 @@
 
 - (CTXPCFetchRenderInformationRequest)initWithContext:(id)context destination:(id)destination
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   destinationCopy = destination;
-  v13 = @"destination";
-  v14[0] = destinationCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v12.receiver = self;
-  v12.super_class = CTXPCFetchRenderInformationRequest;
-  v9 = [(CTXPCSubscriptionContextRequest *)&v12 initWithContext:contextCopy namedArguments:v8];
+  v12 = @"destination";
+  v13[0] = destinationCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCFetchRenderInformationRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithContext:contextCopy namedArguments:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (CTXPCFetchRenderInformationRequest)initWithContext:(id)context destination:(id)destination operationID:(id)d
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   destinationCopy = destination;
   dCopy = d;
-  v16[0] = @"destination";
-  v16[1] = @"operationID";
-  v17[0] = destinationCopy;
-  v17[1] = dCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v15.receiver = self;
-  v15.super_class = CTXPCFetchRenderInformationRequest;
-  v12 = [(CTXPCSubscriptionContextRequest *)&v15 initWithContext:contextCopy namedArguments:v11];
+  v15[0] = @"destination";
+  v15[1] = @"operationID";
+  v16[0] = destinationCopy;
+  v16[1] = dCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14.receiver = self;
+  v14.super_class = CTXPCFetchRenderInformationRequest;
+  v12 = [(CTXPCSubscriptionContextRequest *)&v14 initWithContext:contextCopy namedArguments:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -103,16 +101,14 @@
 
 + (id)allowedClassesForArguments
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCFetchRenderInformationRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCFetchRenderInformationRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

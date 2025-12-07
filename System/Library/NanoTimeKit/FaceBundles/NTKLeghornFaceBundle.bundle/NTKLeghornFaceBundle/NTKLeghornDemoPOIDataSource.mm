@@ -14,81 +14,81 @@
 {
   metricCopy = metric;
   locationCopy = location;
-  v57 = objc_opt_new();
-  v55 = objc_opt_new();
+  v48 = objc_opt_new();
+  v46 = objc_opt_new();
   if (count)
   {
     countCopy = count;
     do
     {
-      v64 = 0;
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      sub_23BEDDCE8(&v60, s);
-      v13 = &v63 + 1;
+      v55 = 0;
+      v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      sub_23BEDDCE8(&v51, s);
+      v14 = &v54 + 1;
       if (metricCopy)
       {
-        v13 = &v63;
+        v14 = &v54;
       }
 
-      v59 = objc_msgSend_ntk_locationAtDistance_bearing_(locationCopy, v12, *v13, *(&v62 + 1));
-      v14 = NTKFoghornFaceLocalizedString(*(&v60 + 1));
-      v15 = sub_23BEDDD60(*(&v61 + 1));
-      v16 = sub_23BEDDD60(v62);
-      v17 = v61;
-      v18 = v60;
-      v19 = v64;
-      if (objc_msgSend_hasPrefix_(v17, v20, v21, @"sa:"))
+      v50 = objc_msgSend_ntk_locationAtDistance_bearing_(locationCopy, v12, v13, *v14, *(&v53 + 1));
+      v15 = NTKFoghornFaceLocalizedString(*(&v51 + 1));
+      v16 = sub_23BEDDD60(*(&v52 + 1));
+      v17 = sub_23BEDDD60(v53);
+      v18 = v52;
+      v19 = v51;
+      v20 = v55;
+      if (objc_msgSend_hasPrefix_(v18, v21, @"sa:"))
       {
-        v24 = objc_msgSend_substringFromIndex_(v17, v22, v23, 3);
-        v27 = objc_msgSend_ntk_styleAttributesNamed_(MEMORY[0x277D0EB18], v25, v26, v24);
-        v28 = [GEOFeatureStyleAttributesPOI alloc];
-        v31 = objc_msgSend_initWithStyleAttributes_category_labelText_location_(v28, v29, v30, v27, v18, v14, v59);
+        v23 = objc_msgSend_substringFromIndex_(v18, v22, 3);
+        v25 = objc_msgSend_ntk_styleAttributesNamed_(MEMORY[0x277D0EB18], v24, v23);
+        v26 = [GEOFeatureStyleAttributesPOI alloc];
+        v28 = objc_msgSend_initWithStyleAttributes_category_labelText_location_(v26, v27, v25, v19, v15, v50);
       }
 
       else
       {
-        v34 = [NTKLeghornWaypoint alloc];
-        v31 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_(v34, v35, v36, v14, v15, v16, v15, v17, v59, v18);
+        v30 = [NTKLeghornWaypoint alloc];
+        v28 = objc_msgSend_initWithLabelText_labelColor_glyphColor_fillColor_sfSymbolName_location_waypointCategory_(v30, v31, v15, v16, v17, v16, v18, v50, v19);
       }
 
-      objc_msgSend_addObject_(v57, v32, v33, v31);
-      v37 = countCopy;
-      if (v19)
+      objc_msgSend_addObject_(v48, v29, v28);
+      v32 = countCopy;
+      if (v20)
       {
-        v38 = NTKFoghornFaceLocalizedString(v19);
-        v42 = objc_msgSend_objectForKeyedSubscript_(v55, v39, v40, v38);
-        if (!v42)
+        v33 = NTKFoghornFaceLocalizedString(v20);
+        v36 = objc_msgSend_objectForKeyedSubscript_(v46, v34, v33);
+        if (!v36)
         {
-          v44 = [_LeghornDemoPOICollection alloc];
-          v42 = objc_msgSend_initWithTitle_(v44, v45, v46, v38);
-          objc_msgSend_setObject_forKeyedSubscript_(v55, v47, v48, v42, v38);
+          v37 = [_LeghornDemoPOICollection alloc];
+          v36 = objc_msgSend_initWithTitle_(v37, v38, v33);
+          objc_msgSend_setObject_forKeyedSubscript_(v46, v39, v36, v33);
         }
 
-        objc_msgSend_addPoi_(v42, v41, v43, v31);
+        objc_msgSend_addPoi_(v36, v35, v28);
 
-        v37 = countCopy;
+        v32 = countCopy;
       }
 
-      sub_23BEDE070(&v60);
+      sub_23BEDE070(&v51);
       ++s;
-      countCopy = v37 - 1;
+      countCopy = v32 - 1;
     }
 
-    while (v37 != 1);
+    while (v32 != 1);
   }
 
   if (guides)
   {
-    v49 = objc_msgSend_allValues(v55, v9, v10);
-    *guides = objc_msgSend_copy(v49, v50, v51);
+    v40 = objc_msgSend_allValues(v46, v9, v10);
+    *guides = objc_msgSend_copy(v40, v41, v42);
   }
 
-  v52 = objc_msgSend_copy(v57, v9, v10);
+  v43 = objc_msgSend_copy(v48, v9, v10);
 
-  return v52;
+  return v43;
 }
 
 + (id)_relativePOIS:(id *)s count:(unsigned int)count atLocation:(id)location filterBy:(id)by filterRadius:(double)radius ensureNorthPOI:(BOOL)i useMetric:(BOOL)metric userGuides:(id *)self0
@@ -109,35 +109,34 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v32 = iCopy;
+  v30 = iCopy;
   v22 = 0;
   v23 = 0;
   do
   {
-    v37 = 0;
-    v35 = 0u;
-    v36 = 0u;
-    memset(v34, 0, sizeof(v34));
-    sub_23BEDDCE8(v34, s);
+    v35 = 0;
+    v33 = 0u;
+    v34 = 0u;
+    memset(v32, 0, sizeof(v32));
+    sub_23BEDDCE8(v32, s);
     if (radius == 0.0)
     {
       goto LABEL_26;
     }
 
-    v26 = 56;
+    v25 = 56;
     if (metricCopy)
     {
-      v26 = 48;
+      v25 = 48;
     }
 
-    v25 = *(v34 + v26);
-    if (v25 <= radius)
+    if (*(v32 + v25) <= radius)
     {
 LABEL_26:
-      if (!v21 || objc_msgSend_includesCategory_(v21, v24, v25, *&v34[0]))
+      if (!v21 || objc_msgSend_includesCategory_(v21, v24, *&v32[0]))
       {
-        sub_23BEDE970(&v20[9 * v22], v34);
-        if (*(&v35 + 1) == 0.0)
+        sub_23BEDE970(&v20[9 * v22], v32);
+        if (*(&v33 + 1) == 0.0)
         {
           v23 = 1;
         }
@@ -146,7 +145,7 @@ LABEL_26:
       }
     }
 
-    sub_23BEDE070(v34);
+    sub_23BEDE070(v32);
     ++s;
     --countCopy;
   }
@@ -159,7 +158,7 @@ LABEL_26:
   }
 
   selfCopy2 = self;
-  if (v32)
+  if (v30)
   {
     guidesCopy4 = guides;
     if (v22)
@@ -176,10 +175,10 @@ LABEL_26:
 
 LABEL_19:
 
-  v30 = objc_msgSend__relativePOIS_count_atLocation_useMetric_userGuides_(selfCopy2, v28, v29, v20, v22, locationCopy, metricCopy, guidesCopy4);
+  v28 = objc_msgSend__relativePOIS_count_atLocation_useMetric_userGuides_(selfCopy2, v27, v20, v22, locationCopy, metricCopy, guidesCopy4);
   free(v20);
 
-  return v30;
+  return v28;
 }
 
 - (NTKLeghornDemoPOIDataSource)initWithDataSet:(const NTKLeghornPOIDataSet *)set
@@ -220,7 +219,7 @@ LABEL_19:
 
 + (id)_filterWaypoints:(id)waypoints userGuides:(id)guides location:(id)location radius:(double)radius poiFilter:(id)filter
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   waypointsCopy = waypoints;
   guidesCopy = guides;
   locationCopy = location;
@@ -228,95 +227,95 @@ LABEL_19:
   v15 = filterCopy;
   if (radius <= 0.0 && filterCopy == 0)
   {
-    v56 = waypointsCopy;
+    v50 = waypointsCopy;
   }
 
   else
   {
     v17 = objc_opt_new();
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v59 = waypointsCopy;
+    v58 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v53 = waypointsCopy;
     v18 = waypointsCopy;
-    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, v20, &v64, v69, 16);
-    if (v21)
+    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v58, v63, 16);
+    if (v20)
     {
-      v24 = v21;
-      v25 = *v65;
+      v23 = v20;
+      v24 = *v59;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v65 != v25)
+          if (*v59 != v24)
           {
             objc_enumerationMutation(v18);
           }
 
-          v27 = *(*(&v64 + 1) + 8 * i);
-          v28 = objc_msgSend_waypointCategory(v27, v22, v23);
-          if (objc_msgSend_includesCategory_(v15, v29, v30, v28))
+          v26 = *(*(&v58 + 1) + 8 * i);
+          v27 = objc_msgSend_waypointCategory(v26, v21, v22);
+          if (objc_msgSend_includesCategory_(v15, v28, v27))
           {
-            if (radius <= 0.0 || (objc_msgSend_waypointLocation(v27, v22, v23), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend_distanceFromLocation_(locationCopy, v32, v33, v31), v35 = v34, v31, v35 <= radius))
+            if (radius <= 0.0 || (objc_msgSend_waypointLocation(v26, v21, v22), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_distanceFromLocation_(locationCopy, v30, v29), v32 = v31, v29, v32 <= radius))
             {
-              objc_msgSend_addObject_(v17, v22, v23, v27);
+              objc_msgSend_addObject_(v17, v21, v26);
             }
           }
         }
 
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v22, v23, &v64, v69, 16);
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v58, v63, 16);
       }
 
-      while (v24);
+      while (v23);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = guidesCopy;
-    v36 = guidesCopy;
-    v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, v38, &v60, v68, 16);
-    if (v39)
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = guidesCopy;
+    v33 = guidesCopy;
+    v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v34, &v54, v62, 16);
+    if (v35)
     {
-      v42 = v39;
-      v43 = *v61;
+      v38 = v35;
+      v39 = *v55;
       do
       {
-        for (j = 0; j != v42; ++j)
+        for (j = 0; j != v38; ++j)
         {
-          if (*v61 != v43)
+          if (*v55 != v39)
           {
-            objc_enumerationMutation(v36);
+            objc_enumerationMutation(v33);
           }
 
-          v45 = *(*(&v60 + 1) + 8 * j);
-          v46 = objc_msgSend_title(v45, v40, v41, v58);
-          if (objc_msgSend_includesCategory_named_(v15, v47, v48, 2, v46))
+          v41 = *(*(&v54 + 1) + 8 * j);
+          v42 = objc_msgSend_title(v41, v36, v37, v52);
+          if (objc_msgSend_includesCategory_named_(v15, v43, 2, v42))
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v51 = objc_msgSend_pois(v45, v49, v50);
-              objc_msgSend_addObjectsFromArray_(v17, v52, v53, v51);
+              v46 = objc_msgSend_pois(v41, v44, v45);
+              objc_msgSend_addObjectsFromArray_(v17, v47, v46);
             }
           }
         }
 
-        v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v40, v41, &v60, v68, 16);
+        v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v36, &v54, v62, 16);
       }
 
-      while (v42);
+      while (v38);
     }
 
-    v56 = objc_msgSend_allObjects(v17, v54, v55);
+    v50 = objc_msgSend_allObjects(v17, v48, v49);
 
-    guidesCopy = v58;
-    waypointsCopy = v59;
+    guidesCopy = v52;
+    waypointsCopy = v53;
   }
 
-  return v56;
+  return v50;
 }
 
 - (void)setQueryCenterLocation:(id)location radius:(double)radius poiFilter:(id)filter completion:(id)completion
@@ -326,32 +325,32 @@ LABEL_19:
   completionCopy = completion;
   if (!self->_allWaypoints)
   {
-    v15 = objc_msgSend_currentLocale(MEMORY[0x277CBEAF8], v12, v14);
-    v18 = objc_msgSend_objectForKey_(v15, v16, v17, *MEMORY[0x277CBE718]);
-    v21 = objc_msgSend_BOOLValue(v18, v19, v20);
+    v15 = objc_msgSend_currentLocale(MEMORY[0x277CBEAF8], v12, v13);
+    v17 = objc_msgSend_objectForKey_(v15, v16, *MEMORY[0x277CBE718]);
+    v20 = objc_msgSend_BOOLValue(v17, v18, v19);
 
-    v22 = objc_opt_class();
+    v21 = objc_opt_class();
     dataSet = self->_dataSet;
-    v42 = 0;
-    v26 = objc_msgSend_demoPOIsFromDataSet_relativeToLocation_useMetric_userGuides_(v22, v24, v25, dataSet, locationCopy, v21, &v42);
-    v27 = v42;
+    v38 = 0;
+    v24 = objc_msgSend_demoPOIsFromDataSet_relativeToLocation_useMetric_userGuides_(v21, v23, dataSet, locationCopy, v20, &v38);
+    v25 = v38;
     allWaypoints = self->_allWaypoints;
-    self->_allWaypoints = v26;
+    self->_allWaypoints = v24;
 
     allUserGuides = self->_allUserGuides;
-    self->_allUserGuides = v27;
+    self->_allUserGuides = v25;
   }
 
-  v30 = self->_currentQuery;
-  objc_msgSend_coordinate(locationCopy, v31, v32);
-  v35 = objc_msgSend_queryWithCenterCoordinate_radius_poiFilter_(NTKLeghornWaypointQuery, v33, v34, filterCopy);
-  if (!objc_msgSend_matchesQuery_(v30, v36, v37, v35))
+  v28 = self->_currentQuery;
+  objc_msgSend_coordinate(locationCopy, v29, v30);
+  v32 = objc_msgSend_queryWithCenterCoordinate_radius_poiFilter_(NTKLeghornWaypointQuery, v31, filterCopy);
+  if (!objc_msgSend_matchesQuery_(v28, v33, v32))
   {
-    objc_storeStrong(&self->_currentQuery, v35);
-    v38 = objc_opt_class();
-    v40 = objc_msgSend__filterWaypoints_userGuides_location_radius_poiFilter_(v38, v39, radius, self->_allWaypoints, self->_allUserGuides, locationCopy, filterCopy);
+    objc_storeStrong(&self->_currentQuery, v32);
+    v34 = objc_opt_class();
+    v36 = objc_msgSend__filterWaypoints_userGuides_location_radius_poiFilter_(v34, v35, self->_allWaypoints, self->_allUserGuides, locationCopy, filterCopy, radius);
     waypoints = self->_waypoints;
-    self->_waypoints = v40;
+    self->_waypoints = v36;
   }
 
   if (completionCopy)

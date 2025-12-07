@@ -8,27 +8,27 @@
 - (TMLUIGestureRecognizerActionTarget)initWithSignal:(id)signal state:(int64_t)state
 {
   signalCopy = signal;
-  v13.receiver = self;
-  v13.super_class = TMLUIGestureRecognizerActionTarget;
-  v8 = [(TMLUIGestureRecognizerActionTarget *)&v13 init];
-  if (v8)
+  v11.receiver = self;
+  v11.super_class = TMLUIGestureRecognizerActionTarget;
+  v7 = [(TMLUIGestureRecognizerActionTarget *)&v11 init];
+  if (v7)
   {
-    v10 = objc_msgSend_copy(signalCopy, v7, v9);
-    signalName = v8->_signalName;
-    v8->_signalName = v10;
+    v8 = [signalCopy copy];
+    signalName = v7->_signalName;
+    v7->_signalName = v8;
 
-    v8->_state = state;
+    v7->_state = state;
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)handleGesture:(id)gesture
 {
   gestureCopy = gesture;
-  if (objc_msgSend_state(gestureCopy, v4, v5) == self->_state)
+  if ([gestureCopy state] == self->_state)
   {
-    objc_msgSend_emitTMLSignal_withArguments_(gestureCopy, v6, v7, self->_signalName, 0);
+    [gestureCopy emitTMLSignal:self->_signalName withArguments:0];
   }
 }
 

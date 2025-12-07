@@ -71,7 +71,7 @@ void __56___SFLinkPreviewHelper_menuElementsForSuggestedActions___block_invoke_2
   [v4 disableWithCompletionHandler:v5];
 }
 
-void __56___SFLinkPreviewHelper_menuElementsForSuggestedActions___block_invoke_3(uint64_t a1, char a2)
+void __56___SFLinkPreviewHelper_menuElementsForSuggestedActions___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -92,7 +92,7 @@ void __56___SFLinkPreviewHelper_menuElementsForSuggestedActions___block_invoke_3
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXUniversalLinks();
+    v4 = WBS_LOG_CHANNEL_PREFIXUniversalLinks(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -145,7 +145,7 @@ void __79___SFLinkPreviewHelper_openInNewTabActionForURL_withTabOrder_preActionH
   }
 }
 
-uint64_t __78___SFLinkPreviewHelper_openInTabGroupActionForURL_shouldPerformActionHandler___block_invoke(uint64_t *a1)
+void *__78___SFLinkPreviewHelper_openInTabGroupActionForURL_shouldPerformActionHandler___block_invoke(uint64_t *a1)
 {
   v2 = a1[7];
   if (!v2 || (result = (*(v2 + 16))(), result))
@@ -170,39 +170,39 @@ uint64_t __78___SFLinkPreviewHelper_openInTabGroupActionForURL_shouldPerformActi
   return result;
 }
 
-void __52___SFLinkPreviewHelper_openInNewWindowActionForURL___block_invoke(void *a1)
+void __52___SFLinkPreviewHelper_openInNewWindowActionForURL___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXUserInteraction(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "Open new window via long-press on link", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Open new window via long-press on link", v8, 2u);
   }
 
-  v3 = [MEMORY[0x1E69B1C50] builderWithModifierFlags:0];
-  [v3 setPrefersOpenInNewWindow:1];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = [v3 navigationIntentWithURL:a1[6]];
-  [v4 linkPreviewHelper:v5 didProduceNavigationIntent:v6 forAction:4];
+  v4 = [MEMORY[0x1E69B1C50] builderWithModifierFlags:0];
+  [v4 setPrefersOpenInNewWindow:1];
+  v5 = a1[4];
+  v6 = a1[5];
+  v7 = [v4 navigationIntentWithURL:a1[6]];
+  [v5 linkPreviewHelper:v6 didProduceNavigationIntent:v7 forAction:4];
 }
 
-void __45___SFLinkPreviewHelper_downloadActionForURL___block_invoke(uint64_t a1)
+void __45___SFLinkPreviewHelper_downloadActionForURL___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXUserInteraction(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "Started a file download via long-press on link", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Started a file download via long-press on link", v7, 2u);
   }
 
   [*(a1 + 32) linkPreviewHelperWillBeginDownload:*(a1 + 40)];
-  v3 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
-  v4 = [v3 startDownloadFromWebView:*(*(a1 + 40) + 80) URL:*(a1 + 48)];
+  v4 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
+  v5 = [v4 startDownloadFromWebView:*(*(a1 + 40) + 80) URL:*(a1 + 48)];
 
-  [v4 setExplicitlySaved:1];
-  v5 = +[_SFDownloadManager sharedManager];
-  [v4 setDelegate:v5];
+  [v5 setExplicitlySaved:1];
+  v6 = +[_SFDownloadManager sharedManager];
+  [v5 setDelegate:v6];
 }
 
 @end

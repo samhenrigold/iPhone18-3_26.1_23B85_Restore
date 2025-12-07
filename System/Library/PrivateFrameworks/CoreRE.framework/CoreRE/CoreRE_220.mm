@@ -1,409 +1,1639 @@
-re::RenderGraphComputeNodeBase *re::RenderGraph::addNode<re::MXIAlphaComputeNode>(re *a1, const char *a2)
+void re::ProfilerDetailedHUDProcessor::~ProfilerDetailedHUDProcessor(re::ProfilerDetailedHUDProcessor *this)
 {
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 496, 16);
-  v6 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v5, a2);
-  *v6 = &unk_1F5D167F8;
-  v10 = v6;
-  re::DynamicArray<re::TransitionCondition *>::add(a1, &v10);
-  v7 = *(a1 + 12);
-  v8 = *(a1 + 13);
-  *(v5 + 3) = *(a1 + 10);
-  *(v5 + 4) = v7;
-  *(v5 + 6) = v8;
-  return v5;
+  *this = &unk_1F5D0E5C8;
+  v2 = (this + 16);
+  re::DynamicString::deinit((this + 224));
+  re::DynamicString::deinit((this + 192));
+  re::DynamicString::deinit((this + 160));
+  re::DynamicString::deinit((this + 128));
+  re::DynamicString::deinit((this + 96));
+  re::DynamicString::deinit((this + 64));
+  re::HashTable<unsigned long long,re::ecs2::RenderPassGroupBoundsInfo,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v2);
 }
 
-void re::MXIProvider::~MXIProvider(re::MXIProvider *this)
 {
-  re::MXIProvider::~MXIProvider(this);
+  *this = &unk_1F5D0E5C8;
+  v2 = (this + 16);
+  re::DynamicString::deinit((this + 224));
+  re::DynamicString::deinit((this + 192));
+  re::DynamicString::deinit((this + 160));
+  re::DynamicString::deinit((this + 128));
+  re::DynamicString::deinit((this + 96));
+  re::DynamicString::deinit((this + 64));
+  re::HashTable<unsigned long long,re::ecs2::RenderPassGroupBoundsInfo,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v2);
 
   JUMPOUT(0x1E6906520);
 }
 
+void re::RenderGraphCallbackNode::execute(re::RenderGraphCallbackNode *this, re::RenderGraphContext *a2)
 {
-  re::AssetHandle::~AssetHandle((this + 72));
-  re::AssetHandle::~AssetHandle((this + 48));
-  *this = &unk_1F5CC5700;
-  re::DynamicString::deinit((this + 8));
-}
-
-void *re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_0,void ()(re::RenderGraphBuilder &,re::RenderGraphDataStore &)>::cloneInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D15428;
-  return result;
-}
-
-void *re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_0,void ()(re::RenderGraphBuilder &,re::RenderGraphDataStore &)>::moveInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D15428;
-  return result;
-}
-
-double re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_1,void ()(re::RenderGraphContext &)>::Callable(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_1F5D15480;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = -1;
-  *(a1 + 8) = *a2;
-  *(a1 + 24) = *(a2 + 16);
-  *(a1 + 40) = 0;
-  *(a1 + 48) = -1;
-  v2 = *(a2 + 32);
-  *(a1 + 32) = *(a2 + 24);
-  *(a1 + 40) = v2;
-  *(a1 + 48) = *(a2 + 40);
-  *(a1 + 56) = 0;
-  *(a1 + 64) = -1;
-  *(a1 + 56) = *(a2 + 48);
-  *(a1 + 64) = *(a2 + 56);
-  *(a1 + 72) = 0;
-  *(a1 + 80) = -1;
-  *(a1 + 72) = *(a2 + 64);
-  *(a1 + 80) = *(a2 + 72);
-  *(a1 + 88) = 0;
-  *(a1 + 96) = -1;
-  *(a1 + 88) = *(a2 + 80);
-  result = *(a2 + 88);
-  *(a1 + 96) = result;
-  return result;
-}
-
-void re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_1,void ()(re::RenderGraphContext &)>::operator()(uint64_t a1, uint64_t *a2)
-{
-  v4 = *(a1 + 32);
-  v5 = *a2;
-  v12 = re::kMXIOffscreenColorIDs[2 * *(a1 + 8)] & 0x7FFFFFFFFFFFFFFFLL;
-  re::RenderGraphContext::metalTexture(a2, a1 + 16, 0, 1, &v11);
-  re::DynamicTextureTableAdd((v5 + 368), &v12, &v11);
-  if (v11)
+  v4 = *(a2 + 146);
+  v5 = "N2re32CustomPostProcessRenderGraphDataE";
+  if (("N2re32CustomPostProcessRenderGraphDataE" & 0x8000000000000000) != 0)
   {
-  }
-
-  if (*(v4 + 45) == 1)
-  {
-    v6 = *a2;
-    v12 = re::kMXIOffscreenLowResBlurIDs[2 * *(a1 + 8)] & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderGraphContext::metalTexture(a2, a1 + 40, 0, 1, &v11);
-    re::DynamicTextureTableAdd((v6 + 368), &v12, &v11);
-    if (v11)
-    {
-    }
-
-    v7 = *a2;
-    v12 = re::kMXIOffscreenLowResAlphaIDs[2 * *(a1 + 8)] & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderGraphContext::metalTexture(a2, a1 + 56, 0, 1, &v11);
-    re::DynamicTextureTableAdd((v7 + 368), &v12, &v11);
-    if (v11)
-    {
-    }
-  }
-
-  if (*(v4 + 40) == 1)
-  {
-    v8 = *a2;
-    v12 = re::kMxiDepthRenderGraphIDs[2 * *(a1 + 8)] & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderGraphContext::metalTexture(a2, a1 + 72, 0, 1, &v11);
-    re::DynamicTextureTableAdd((v8 + 368), &v12, &v11);
-    if (v11)
-    {
-    }
-
-    v9 = *a2;
-    v12 = 0x27D6D33797FE5053;
-    v10 = re::RenderGraphContext::metalBuffer(a2, a1 + 88);
-    re::BufferTable::setBuffer((v9 + 480), &v12, v10);
-  }
-}
-
-uint64_t re::internal::Callable<re::MXIProvider::provide(char const*,char const*,re::RenderFrame &)::$_1,void ()(re::RenderGraphContext &)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D15480;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = -1;
-  *(a2 + 8) = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 40) = 0;
-  *(a2 + 48) = -1;
-  v2 = *(a1 + 40);
-  *(a2 + 32) = *(a1 + 32);
-  *(a2 + 40) = v2;
-  *(a2 + 48) = *(a1 + 48);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = -1;
-  *(a2 + 56) = *(a1 + 56);
-  *(a2 + 64) = *(a1 + 64);
-  *(a2 + 72) = 0;
-  *(a2 + 80) = -1;
-  *(a2 + 72) = *(a1 + 72);
-  *(a2 + 80) = *(a1 + 80);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = -1;
-  *(a2 + 88) = *(a1 + 88);
-  *(a2 + 96) = *(a1 + 96);
-  return a2;
-}
-
-uint64_t re::RenderGraphDataStore::get<re::MXIFrameData>(uint64_t a1, uint64_t a2)
-{
-  v2 = "N2re12MXIFrameDataE";
-  if (("N2re12MXIFrameDataE" & 0x8000000000000000) != 0)
-  {
-    v3 = ("N2re12MXIFrameDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
+    v6 = ("N2re32CustomPostProcessRenderGraphDataE" & 0x7FFFFFFFFFFFFFFFLL);
+    v7 = 5381;
     do
     {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
+      v5 = v7;
+      v8 = *v6++;
+      v7 = (33 * v7) ^ v8;
     }
 
-    while (v5);
+    while (v8);
   }
 
-  v6 = 0x7FFFFFFFLL;
-  if (*(a1 + 64))
+  if (*(v4 + 16))
   {
-    v7 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-    v8 = *(*(a1 + 72) + 4 * (v7 % *(a1 + 88)));
-    if (v8 != 0x7FFFFFFF)
+    v9 = (*(*(a2 + 5) + 48) + (v5 << 6) + (v5 >> 2) - 0x61C8864680B583E9) ^ v5;
+    v10 = *(*(v4 + 24) + 4 * (v9 % *(v4 + 40)));
+    if (v10 != 0x7FFFFFFF)
     {
-      v9 = *(a1 + 80);
-      v6 = 0x7FFFFFFFLL;
-      while (*(v9 + 24 * v8 + 8) != v7)
+      v11 = *(v4 + 32);
+      while (*(v11 + 24 * v10 + 8) != v9)
       {
-        v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
-        if (v8 == 0x7FFFFFFF)
+        v10 = *(v11 + 24 * v10) & 0x7FFFFFFF;
+        if (v10 == 0x7FFFFFFF)
         {
-          return *(*(a1 + 80) + 24 * v6 + 16);
+          return;
         }
       }
 
-      v6 = v8;
-    }
-  }
-
-  return *(*(a1 + 80) + 24 * v6 + 16);
-}
-
-void *re::introspect_MPSImageEdgeModeType(re *this, const re::IntrospectionBase *a2)
-{
-  v2 = this;
-  {
-    if (v9)
-    {
-      v10 = re::introspectionAllocator(v9);
-      v11 = (*(*v10 + 32))(v10, 24, 8);
-      *v11 = 1;
-      *(v11 + 1) = 0;
-      *(v11 + 2) = "Zero";
-      re::introspect_MPSImageEdgeModeType(BOOL)::enumAttributes = v11;
-      v12 = re::introspectionAllocator(v11);
-      v13 = (*(*v12 + 32))(v12, 24, 8);
-      *v13 = 1;
-      *(v13 + 8) = 1;
-      *(v13 + 16) = "Clamp";
-      qword_1EE1C64C8 = v13;
-    }
-  }
-
-  {
-    v14 = re::IntrospectionBasic::IntrospectionBasic(&re::introspect_MPSImageEdgeModeType(BOOL)::info, "MPSImageEdgeModeType", 1, 1, 1, 1);
-    *v14 = &unk_1F5D0C658;
-    *(v14 + 8) = &re::introspect_MPSImageEdgeModeType(BOOL)::enumTable;
-    *(v14 + 4) = 9;
-  }
-
-  if (v2)
-  {
-    if (re::introspect_MPSImageEdgeModeType(BOOL)::isInitialized)
-    {
-      return &re::introspect_MPSImageEdgeModeType(BOOL)::info;
-    }
-  }
-
-  else
-  {
-    re::IntrospectionSharedLock::IntrospectionSharedLock(&v16);
-    v3 = re::introspect_MPSImageEdgeModeType(BOOL)::isInitialized;
-    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v16);
-    if (v3)
-    {
-      return &re::introspect_MPSImageEdgeModeType(BOOL)::info;
-    }
-
-    v5 = re::introspectionSharedMutex(v4);
-    std::__shared_mutex_base::lock(v5);
-    if (re::introspect_MPSImageEdgeModeType(BOOL)::isInitialized)
-    {
-LABEL_12:
-      v7 = re::introspectionSharedMutex(v6);
-      std::__shared_mutex_base::unlock(v7);
-      return &re::introspect_MPSImageEdgeModeType(BOOL)::info;
-    }
-  }
-
-  re::introspect_MPSImageEdgeModeType(BOOL)::isInitialized = 1;
-  re::IntrospectionRegistry::add(&re::introspect_MPSImageEdgeModeType(BOOL)::info, a2);
-  v15[0] = 0xD4663F6F4305B84ALL;
-  v15[1] = "MPSImageEdgeModeType";
-  xmmword_1EE1C6498 = v16;
-  if (v15[0])
-  {
-    if (v15[0])
-    {
-    }
-  }
-
-  if ((v2 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  return &re::introspect_MPSImageEdgeModeType(BOOL)::info;
-}
-
-void re::RenderGraphResolveNode::configure(re::RenderGraphResolveNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
-{
-  if (*(this + 30))
-  {
-    v8 = 0;
-    v9 = 0;
-    while (*(re::RenderGraphResourceDescriptions::targetDescription((a4 + 3672), (*(this + 32) + v8)) + 84) == -1)
-    {
-      ++v9;
-      v8 += 64;
-      if (*(this + 30) <= v9)
+      v12 = *(v11 + 24 * v10 + 16);
+      if (v12)
       {
-        goto LABEL_5;
+        if (*(v12 + 8))
+        {
+          v42 = 0u;
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
+          *location = 0u;
+          *v37 = 0u;
+          v38 = 0;
+          re::ObjCObject::operator=(location, (*(a2 + 1) + 208));
+          v13 = [location[0] newEvent];
+          [v13 setLabel_];
+          v14 = re::RenderFrameBox::get((*(*(a2 + 1) + 112) + 328), *(*a2 + 40));
+          v15 = *(re::RenderFrame::currentCommandBuffer(v14) + 2);
+          [v15 encodeSignalEvent:v13 value:1];
+          v16 = re::RenderFrameBox::get((*(*(a2 + 1) + 112) + 328), *(*a2 + 40));
+          QueuedCommandBuffer = re::RenderFrame::createQueuedCommandBuffer(v16);
+          re::ObjCObject::operator=(&location[1], (QueuedCommandBuffer + 16));
+          v18 = @"CustomPostCommandBufferSplit";
+          [location[1] setLabel:@"CustomPostCommandBufferSplit"];
+
+          [location[1] encodeWaitForEvent:v13 value:1];
+          v19 = (*(*this + 72))(this);
+          if (v20)
+          {
+            re::RenderGraphContext::metalTexture(a2, v19, 0, 0, &v35);
+            NS::SharedPtr<MTL::Texture>::operator=(&v38, &v35);
+            if (v35)
+            {
+            }
+
+            v21 = (*(*this + 64))(this);
+            if (v22)
+            {
+              re::RenderGraphContext::metalTexture(a2, v21, 0, 0, &v35);
+              NS::SharedPtr<MTL::Texture>::operator=(v37, &v35);
+              if (v35)
+              {
+              }
+
+              v23 = (*(*this + 64))(this);
+              if (v24 > 1)
+              {
+                re::RenderGraphContext::metalTexture(a2, v23 + 32, 0, 0, &v35);
+                NS::SharedPtr<MTL::Texture>::operator=(&v37[1], &v35);
+                if (v35)
+                {
+                }
+
+                v25 = *(v12 + 80);
+                v40 = *(v12 + 64);
+                v41 = v25;
+                v26 = *(v12 + 112);
+                v42 = *(v12 + 96);
+                v43 = v26;
+                v39 = *(*a2 + 8);
+                v27 = *(v12 + 8);
+                v27[2](v27, location);
+                if (![location[1] status])
+                {
+                  [location[1] encodeSignalEvent:v13 value:2];
+                  [location[1] encodeWaitForEvent:v13 value:2];
+
+                  if (v13)
+                  {
+                  }
+
+                  if (v38)
+                  {
+
+                    v38 = 0;
+                  }
+
+                  if (v37[1])
+                  {
+
+                    v37[1] = 0;
+                  }
+
+                  if (v37[0])
+                  {
+
+                    v37[0] = 0;
+                  }
+
+                  return;
+                }
+
+LABEL_35:
+                re::internal::assertLog(4, v28, "assertion failure: '%s' (%s:line %i) User enqueued/committed custom post processing command buffer.", "0", "execute", 79);
+                _os_crash("assertion failure: (0) User enqueued/committed custom post processing command buffer.");
+                __break(1u);
+                return;
+              }
+
+LABEL_34:
+              re::internal::assertLog(6, v24, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 1, v24);
+              _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v31, v34);
+              __break(1u);
+              goto LABEL_35;
+            }
+          }
+
+          else
+          {
+            re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v29, v32);
+            __break(1u);
+          }
+
+          re::internal::assertLog(6, v22, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+          _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v30, v33);
+          __break(1u);
+          goto LABEL_34;
+        }
       }
     }
   }
-
-  else
-  {
-LABEL_5:
-    *(this + 64) = 0;
-  }
-
-  re::RenderGraphNode::configure(this, a2, a3, a4);
 }
 
-void *re::allocInfo_RenderGraphResolveNode(re *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_541, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_541))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C1498, "RenderGraphResolveNode");
-    __cxa_guard_release(&_MergedGlobals_541);
-  }
-
-  return &unk_1EE1C1498;
-}
-
-void re::initInfo_RenderGraphResolveNode(re *this, re::IntrospectionBase *a2)
-{
-  v10[0] = 0xB3098F95BFEF7B6CLL;
-  v10[1] = "RenderGraphResolveNode";
-  if (v10[0])
-  {
-    if (v10[0])
-    {
-    }
-  }
-
-  *(this + 2) = v11;
-  if ((atomic_load_explicit(&qword_1EE1C1490, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1490);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RenderGraphNode(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RenderGraphNode";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C1488 = v8;
-      __cxa_guard_release(&qword_1EE1C1490);
-    }
-  }
-
-  *(this + 2) = 0x10800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 1;
-  *(this + 8) = &qword_1EE1C1488;
-  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphResolveNode>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphResolveNode>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphResolveNode>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphResolveNode>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v9 = v11;
-}
-
-re::RenderGraphNode *re::internal::defaultConstruct<re::RenderGraphResolveNode>(int a1, int a2, re::RenderGraphNode *this)
-{
-  result = re::RenderGraphNode::RenderGraphNode(this);
-  *result = &unk_1F5D154D8;
-  *(result + 66) = 1;
-  return result;
-}
-
-re::RenderGraphNode *re::internal::defaultConstructV2<re::RenderGraphResolveNode>(re::RenderGraphNode *a1)
-{
-  result = re::RenderGraphNode::RenderGraphNode(a1);
-  *result = &unk_1F5D154D8;
-  *(result + 66) = 1;
-  return result;
-}
-
-void re::RenderGraphResolveNode::~RenderGraphResolveNode(id *this)
+void re::RenderGraphCallbackNode::~RenderGraphCallbackNode(id *this)
 {
   re::RenderGraphNode::~RenderGraphNode(this);
 
   JUMPOUT(0x1E6906520);
 }
 
-void re::ARSegmentationExecuteData::~ARSegmentationExecuteData(re::ARSegmentationExecuteData *this)
+void *re::allocInfo_RenderGraphDummyNigiriNode(re *this)
 {
-  v2 = *(this + 4);
-  if (v2)
+  if ((atomic_load_explicit(&_MergedGlobals_500, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_500))
   {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BD7B0, "RenderGraphDummyNigiriNode");
+    __cxa_guard_release(&_MergedGlobals_500);
+  }
 
-    *(this + 4) = 0;
+  return &unk_1EE1BD7B0;
+}
+
+void re::initInfo_RenderGraphDummyNigiriNode(re *this, re::IntrospectionBase *a2)
+{
+  v9[0] = 0xD15AF44980978ACCLL;
+  v9[1] = "RenderGraphDummyNigiriNode";
+  if (v9[0])
+  {
+    if (v9[0])
+    {
+    }
+  }
+
+  *(this + 2) = v10;
+  if ((atomic_load_explicit(&qword_1EE1BD7A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD7A8))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BD7A0 = v7;
+    __cxa_guard_release(&qword_1EE1BD7A8);
+  }
+
+  *(this + 2) = 0x10800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1BD7A0;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDummyNigiriNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDummyNigiriNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDummyNigiriNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDummyNigiriNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v8 = v10;
+}
+
+re::RenderGraphNode *re::internal::defaultConstruct<re::RenderGraphDummyNigiriNode>(int a1, int a2, re::RenderGraphNode *this)
+{
+  result = re::RenderGraphNode::RenderGraphNode(this);
+  *result = &unk_1F5CB45A8;
+  return result;
+}
+
+re::RenderGraphNode *re::internal::defaultConstructV2<re::RenderGraphDummyNigiriNode>(re::RenderGraphNode *a1)
+{
+  result = re::RenderGraphNode::RenderGraphNode(a1);
+  *result = &unk_1F5CB45A8;
+  return result;
+}
+
+re::RenderGraphNode *re::RenderGraphNode::RenderGraphNode(re::RenderGraphNode *this)
+{
+  *this = &unk_1F5CB52A8;
+  re::StringID::invalid((this + 8));
+  *(this + 7) = 0;
+  *(this + 40) = 0u;
+  *(this + 24) = 0u;
+  *(this + 16) = 1;
+  *(this + 12) = 0;
+  *(this + 13) = 0;
+  *(this + 9) = 0;
+  *(this + 10) = 0;
+  *(this + 88) = 0;
+  *this = &unk_1F5D11268;
+  *(this + 14) = 0;
+  *(this + 15) = 0;
+  *(this + 32) = 0;
+  *(this + 32) = 0;
+  *(this + 136) = 0u;
+  *(this + 152) = 0u;
+  *(this + 42) = 0;
+  *(this + 52) = 0;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 62) = 0;
+  *(this + 232) = 0u;
+  *(this + 216) = 0u;
+  return this;
+}
+
+void re::encodeFullscreenDrawCall(re::DrawCall *a1, uint64_t a2, re::RenderGraphContext *a3, uint64_t a4, int a5, uint64_t a6, int a7)
+{
+  if (a5)
+  {
+    v14 = re::RenderGraphDataStore::tryGet<re::TintContextData>(*(a3 + 146), *(*(a3 + 5) + 48));
+    if (v14)
+    {
+      v15 = v14;
+      re::RenderGraphContext::acquireManagedRenderCommandEncoder(a3, 0, v75);
+      v19 = *(v15 + 16);
+    }
+
+    else
+    {
+      v20 = re::RenderGraphDataStore::tryGet<re::CameraData>(*(a3 + 146), *(*(a3 + 5) + 48));
+      if (!v20)
+      {
+        goto LABEL_7;
+      }
+
+      v21 = v20;
+      re::RenderGraphContext::acquireManagedRenderCommandEncoder(a3, 0, v75);
+      v19 = *(v21 + 816);
+    }
+
+    LODWORD(v16) = DWORD1(v19);
+    LODWORD(v18) = HIDWORD(v19);
+    LODWORD(v17) = DWORD2(v19);
+    [*v75 setBlendColorRed:*&v19 green:v16 blue:v17 alpha:v18];
+    re::mtl::RenderCommandEncoder::~RenderCommandEncoder(v75);
+  }
+
+LABEL_7:
+  re::DrawCallRef::DrawCallRef(&v80[24], a1);
+  v22 = re::RenderGraphDataStore::tryGet<re::CameraMatrices>(*(a3 + 146), *(*(a3 + 5) + 48));
+  if (v22)
+  {
+    v23 = v22;
+    *(a1 + 9) = *(v22 + 160);
+    *&v75[8] = vdupq_n_s64(1uLL);
+    *v75 = &v80[24];
+    *&v75[24] = &v81;
+    v76 = *&v75[8];
+    *&v77[8] = *&v75[8];
+    *v77 = &v81 + 8;
+    v78 = &v82;
+    v79 = *&v75[8];
+    *v80 = &v83;
+    *&v80[8] = *&v75[8];
+    v87 = 0u;
+    v85 = 0u;
+    memset(v86, 0, sizeof(v86));
+    v84 = 0u;
+    re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a3, &v84);
+    *&v87 = 0;
+    v68 = a2;
+    v69 = v75;
+    v29 = *(v23 + 80);
+    v70 = *(v23 + 40);
+    v71 = v29;
+    v72 = 0;
+    v73[0] = *(v23 + 160);
+    *&v73[1] = 0;
+    v73[4] = 0;
+    v73[5] = *a6;
+    if (v73[5] == 1)
+    {
+      *&v73[6] = *(a6 + 1);
+      v73[22] = *(a6 + 17);
+    }
+
+    v73[23] = 0;
+    *&v74 = a4;
+    BYTE8(v74) = 0;
+    re::RenderGraphContext::encodeDrawCalls(a3, &v84, &v68, v24, v25, v26, v27, v28, v47, v49, v51, v52, v53, v54, v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *v73, *&v73[8], v74, *v75, v75[16], v75[17], v75[18], v75[19], v75[20], *&v75[24], v76, v77[0], *&v77[8], *&v77[16], v78, v79, *(&v79 + 1), *v80, *&v80[16], v81, v82, v83, v84, *(&v84 + 1), v85, *&v86[0], *(v86 + 8));
+LABEL_11:
+    if (a5)
+    {
+      re::RenderGraphContext::acquireManagedRenderCommandEncoder(a3, 0, v75);
+      [*v75 setBlendColorRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+      re::mtl::RenderCommandEncoder::~RenderCommandEncoder(v75);
+    }
+
+    return;
+  }
+
+  v30 = re::RenderGraphDataStore::tryGet<re::CameraData>(*(a3 + 146), *(*(a3 + 5) + 48));
+  *(&v67 + 1) = 0;
+  v65 = 0;
+  v66 = 0;
+  v63 = 0;
+  v64 = 0;
+  LODWORD(v67) = 0;
+  v60 = 0;
+  v61 = 0;
+  v59 = 0;
+  LODWORD(v62) = 0;
+  if (!v30)
+  {
+    v58 = xmmword_1E3047670;
+    v57 = xmmword_1E3047680;
+    *v75 = xmmword_1E3047670;
+    *&v75[16] = xmmword_1E3047680;
+    v56 = xmmword_1E30476A0;
+    v55 = xmmword_1E30474D0;
+    v76 = xmmword_1E30476A0;
+    *v77 = xmmword_1E30474D0;
+    re::DynamicArray<re::Matrix4x4<float>>::add(&v59, v75);
+    *v75 = xmmword_1E3047670;
+    *&v75[16] = xmmword_1E3047680;
+    v76 = xmmword_1E30476A0;
+    *v77 = xmmword_1E30474D0;
+    re::DynamicArray<re::Matrix4x4<float>>::add(&v64, v75);
+    v41 = 1;
+    goto LABEL_24;
+  }
+
+  v31 = v30;
+  LODWORD(v55) = a7;
+  *&v56 = a2;
+  *&v57 = a4;
+  LODWORD(v58) = a5;
+  if (!*(v30 + 128))
+  {
+LABEL_22:
+    v41 = *(v31 + 890);
+    LOBYTE(a7) = v55;
+LABEL_24:
+    *(a1 + 9) = v41;
+    *&v75[8] = vdupq_n_s64(1uLL);
+    *v75 = &v80[24];
+    *&v75[24] = &v81;
+    v76 = *&v75[8];
+    *&v77[8] = *&v75[8];
+    *v77 = &v81 + 8;
+    v78 = &v82;
+    v79 = *&v75[8];
+    *v80 = &v83;
+    *&v80[8] = *&v75[8];
+    v68 = a2;
+    v69 = v75;
+    v70 = *(&v67 + 1);
+    v71 = v63;
+    v72 = 0;
+    v73[0] = v41;
+    *&v73[1] = 0;
+    v73[4] = 0;
+    v73[5] = *a6;
+    if (v73[5] == 1)
+    {
+      *&v73[6] = *(a6 + 1);
+      v73[22] = *(a6 + 17);
+    }
+
+    v73[23] = a7;
+    *&v74 = a4;
+    BYTE8(v74) = 0;
+    re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a3, &v84);
+    re::RenderGraphContext::encodeDrawCalls(a3, &v84, &v68, v42, v43, v44, v45, v46, v47, v49, v51, v52, v53, v54, v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *v73, *&v73[8], v74, *v75, v75[16], v75[17], v75[18], v75[19], v75[20], *&v75[24], v76, v77[0], *&v77[8], *&v77[16], v78, v79, *(&v79 + 1), *v80, *&v80[16], v81, v82, v83, v84, *(&v84 + 1), v85, *&v86[0], *(v86 + 8));
+    if (v59 && v63)
+    {
+      (*(*v59 + 40))();
+    }
+
+    if (v64 && *(&v67 + 1))
+    {
+      (*(*v64 + 40))();
+    }
+
+    goto LABEL_11;
+  }
+
+  v32 = 0;
+  v33 = 0;
+  while (1)
+  {
+    v34 = v31 + 144 + 240 * v32;
+    if (*(v34 + 80) == 1)
+    {
+      v35 = *(v34 + 96);
+      v36 = *(v34 + 112);
+      v37 = *(v34 + 144);
+      v76 = *(v34 + 128);
+      *v77 = v37;
+      *v75 = v35;
+      *&v75[16] = v36;
+    }
+
+    else
+    {
+      re::Projection::cullingProjectionMatrix(v75, v34);
+    }
+
+    *&v39 = re::DynamicArray<re::Matrix4x4<float>>::add(&v59, v75).n128_u64[0];
+    v40 = *(v31 + 48);
+    if (v40 <= v32)
+    {
+      break;
+    }
+
+    re::RenderCamera::computeInverseTransform(v75, (v31 + 64 + 32 * v32));
+    re::DynamicArray<re::Matrix4x4<float>>::add(&v64, v75);
+    v32 = ++v33;
+    if (*(v31 + 128) <= v33)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  re::internal::assertLog(6, v38, v39, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v32, v40);
+  _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v48, v50);
+  __break(1u);
+}
+
+re::RenderGraphFullscreenNode *re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(re::RenderGraphFullscreenNode *this, const char *a2)
+{
+  v3 = re::RenderGraphNode::RenderGraphNode(this, a2);
+  *(v3 + 66) = 1;
+  *(v3 + 268) = 0;
+  *v3 = &unk_1F5D0E6E0;
+  *(v3 + 17) = 0u;
+  *(v3 + 18) = 0u;
+  *(v3 + 19) = 0u;
+  *(v3 + 40) = 0;
+  re::DynamicString::setCapacity(this + 37, 0);
+  *(this + 41) = 0;
+  *(this + 168) = 0;
+  *(this + 58) = 0;
+  *(this + 43) = 0;
+  *(this + 44) = 0;
+  *(this + 360) = 0;
+  *(this + 24) = 0u;
+  *(this + 25) = 0u;
+  *(this + 104) = 0;
+  *(this + 424) = 0u;
+  *(this + 440) = 0u;
+  *(this + 114) = 0;
+  return this;
+}
+
+void re::RenderGraphFullscreenNode::configure(re::RenderGraphFullscreenNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if (*(this + 35))
+  {
+    re::AssetHandle::loadAsync((this + 272));
+  }
+
+  re::RenderGraphNode::configure(this, a2, a3, a4);
+}
+
+void re::RenderGraphFullscreenNode::executeInternal(re::RenderGraphFullscreenNode *this, re::RenderGraphContext *a2, const re::AssetHandle *a3)
+{
+  v83 = *MEMORY[0x1E69E9840];
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v79, 5038, 0, 0, 0, 0);
+  v6 = *(this + 41);
+  if (!v6)
+  {
+    v6 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 272));
+    *(this + 41) = v6;
+    if (!v6)
+    {
+      goto LABEL_91;
+    }
+  }
+
+  v9 = *(v6 + 1776);
+  if (re::RenderGraphDataStore::tryGet<re::SceneScope>(*(a2 + 146), *(*(a2 + 5) + 48)))
+  {
+    if ((atomic_load_explicit(&qword_1EE1BD850, memory_order_acquire) & 1) == 0)
+    {
+      v70 = __cxa_guard_acquire(&qword_1EE1BD850);
+      if (v70)
+      {
+        qword_1EE1BD848 = re::hashStringWithLength(v70, v71);
+        __cxa_guard_release(&qword_1EE1BD850);
+      }
+    }
+
+    v10 = 0x9E3779B97F4A7C17;
+    v11 = qword_1EE1BD848;
+    v12 = strlen(*(this + 4));
+    if (v12)
+    {
+      MurmurHash3_x64_128(*(this + 4), v12, 0, v80);
+      v10 = ((*&v80[1] - 0x61C8864680B583E9 + (*v80 << 6) + (*v80 >> 2)) ^ *v80) - 0x61C8864680B583E9;
+    }
+
+    v13 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(*(a2 + 146), ((v11 >> 2) + (v11 << 6) + v10) ^ v11);
+    if (v13)
+    {
+      v14 = v13 + 8;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = *(a3 + 1);
+  if (v15)
+  {
+    v16 = *(v15 + 792);
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v17 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v15 ^ (v15 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v15 ^ (v15 >> 30))) >> 27));
+  MaterialTableForAsset = re::RenderGraphContext::getMaterialTableForAsset(a2, v16 ^ (v17 >> 31) ^ v17);
+  re::RenderGraphContext::makeFullscreenDrawCall(a2, v9, "FullscreenDrawCall", MaterialTableForAsset, *(this + 43), *(this + 44), v14, *(this + 48), v80);
+  v19 = v82;
+  v20 = re::Hash<re::DynamicString>::operator()(&v78, this + 37);
+  v21 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v19, v20);
+  if (!v7)
+  {
+    re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v72, v73);
+    __break(1u);
+    goto LABEL_59;
+  }
+
+  v81 = *v21;
+  if (v81 == -1)
+  {
+    goto LABEL_91;
+  }
+
+  v22 = *(this + 51);
+  if (v22)
+  {
+    v23 = 0;
+    while (1)
+    {
+      v24 = *(this + 53) + 56 * v23;
+      if (*(v24 + 40) != -1 && *(v24 + 44) != -1)
+      {
+        break;
+      }
+
+LABEL_34:
+      if (v22 <= ++v23)
+      {
+        goto LABEL_35;
+      }
+    }
+
+    re::RenderGraphContext::metalTexture(a2, v24 + 32, *(v24 + 48), *(v24 + 50), &v78);
+    v25 = *(v24 + 8);
+    if (v25)
+    {
+      v27 = *(v24 + 16);
+      if (!v27)
+      {
+        v31 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_31:
+        v32 = *a2;
+        v77 = v31;
+        re::DynamicTextureTableAdd((v32 + 368), &v77, &v78);
+        if (v78)
+        {
+        }
+
+        v22 = *(this + 51);
+        goto LABEL_34;
+      }
+
+      LOBYTE(v26) = *v27;
+    }
+
+    else
+    {
+      v26 = v25 >> 8;
+      v27 = (v24 + 9);
+    }
+
+    if (v26)
+    {
+      v26 = v26;
+      v28 = v27[1];
+      if (v28)
+      {
+        v29 = v27 + 2;
+        do
+        {
+          v26 = 31 * v26 + v28;
+          v30 = *v29++;
+          v28 = v30;
+        }
+
+        while (v30);
+      }
+
+      v31 = v26 & 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v31 = 0;
+    }
+
+    goto LABEL_31;
+  }
+
+LABEL_35:
+  v33 = *(this + 56);
+  if (v33)
+  {
+    v34 = 0;
+    while (1)
+    {
+      v35 = *(this + 58) + 56 * v34;
+      if (*(v35 + 40) == -1 || *(v35 + 44) == -1)
+      {
+        goto LABEL_51;
+      }
+
+      v36 = re::RenderGraphContext::metalBuffer(a2, v35 + 32);
+      v37 = *(v35 + 8);
+      if ((v37 & 1) == 0)
+      {
+        break;
+      }
+
+      v39 = *(v35 + 16);
+      if (v39)
+      {
+        LOBYTE(v38) = *v39;
+LABEL_43:
+        if (v38)
+        {
+          v38 = v38;
+          v40 = v39[1];
+          if (v40)
+          {
+            v41 = v39 + 2;
+            do
+            {
+              v38 = 31 * v38 + v40;
+              v42 = *v41++;
+              v40 = v42;
+            }
+
+            while (v42);
+          }
+
+          v43 = v38 & 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v43 = 0;
+        }
+
+        goto LABEL_50;
+      }
+
+      v43 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_50:
+      v44 = *a2;
+      v78 = v43;
+      re::BufferTable::setBuffer((v44 + 480), &v78, v36);
+      v33 = *(this + 56);
+LABEL_51:
+      if (v33 <= ++v34)
+      {
+        goto LABEL_52;
+      }
+    }
+
+    v38 = v37 >> 8;
+    v39 = (v35 + 9);
+    goto LABEL_43;
+  }
+
+LABEL_52:
+  v45 = *(this + 38);
+  if (v45)
+  {
+    v46 = *(this + 39);
+  }
+
+  else
+  {
+    v46 = this + 305;
+  }
+
+  if (*(a2 + 338))
+  {
+LABEL_59:
+    v47 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, *(this + 2), v46);
+    if ((*(this + 38) & 1) == 0)
+    {
+      goto LABEL_57;
+    }
+
+    goto LABEL_60;
+  }
+
+  v47 = 0;
+  if ((v45 & 1) == 0)
+  {
+LABEL_57:
+    v48 = this + 305;
+    goto LABEL_61;
+  }
+
+LABEL_60:
+  v48 = *(this + 39);
+LABEL_61:
+  v49 = *(this + 337);
+  v74 = *(this + 360);
+  if (v74 == 1)
+  {
+    v76 = *(this + 377);
+    v75 = *(this + 361);
+  }
+
+  re::encodeFullscreenDrawCall(v80, v48, a2, v47, v49, &v74, *(this + 336));
+  if (*(this + 51))
+  {
+    v50 = 0;
+    while (1)
+    {
+      v51 = *(this + 53) + 56 * v50;
+      v52 = *(v51 + 8);
+      if ((v52 & 1) == 0)
+      {
+        break;
+      }
+
+      v54 = *(v51 + 16);
+      if (v54)
+      {
+        LOBYTE(v51) = *v54;
+LABEL_69:
+        if (v51)
+        {
+          v51 = v51;
+          v55 = v54[1];
+          if (v55)
+          {
+            v56 = v54 + 2;
+            do
+            {
+              v51 = 31 * v51 + v55;
+              v57 = *v56++;
+              v55 = v57;
+            }
+
+            while (v57);
+          }
+
+          v58 = v51 & 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v58 = 0;
+        }
+
+        goto LABEL_76;
+      }
+
+      v58 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_76:
+      v59 = *a2;
+      v78 = v58;
+      re::DynamicTextureTableRemove((v59 + 368), &v78, v8);
+      if (*(this + 51) <= ++v50)
+      {
+        goto LABEL_77;
+      }
+    }
+
+    v53 = v52 >> 8;
+    v54 = (v51 + 9);
+    LOBYTE(v51) = v53;
+    goto LABEL_69;
+  }
+
+LABEL_77:
+  if (*(this + 56))
+  {
+    v60 = 0;
+    while (1)
+    {
+      v61 = *(this + 58) + 56 * v60;
+      v62 = *(v61 + 8);
+      if ((v62 & 1) == 0)
+      {
+        break;
+      }
+
+      v64 = *(v61 + 16);
+      if (v64)
+      {
+        LOBYTE(v61) = *v64;
+LABEL_83:
+        if (v61)
+        {
+          v61 = v61;
+          v65 = v64[1];
+          if (v65)
+          {
+            v66 = v64 + 2;
+            do
+            {
+              v61 = 31 * v61 + v65;
+              v67 = *v66++;
+              v65 = v67;
+            }
+
+            while (v67);
+          }
+
+          v68 = v61 & 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v68 = 0;
+        }
+
+        goto LABEL_90;
+      }
+
+      v68 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_90:
+      v69 = *a2;
+      v78 = v68;
+      re::BufferTable::removeBuffer((v69 + 480), &v78);
+      if (*(this + 56) <= ++v60)
+      {
+        goto LABEL_91;
+      }
+    }
+
+    v63 = v62 >> 8;
+    v64 = (v61 + 9);
+    LOBYTE(v61) = v63;
+    goto LABEL_83;
+  }
+
+LABEL_91:
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v79, v7, v8);
+}
+
+double re::RenderGraphFullscreenNode::setRenderGraphTextureCommand(uint64_t a1, re::DynamicString *a2)
+{
+  re::DynamicArray<re::SetRenderGraphTextureCommand>::add((a1 + 392), a2);
+  v5 = *(a2 + 2);
+  v6 = 0;
+  v7 = 2;
+  *&result = re::DynamicArray<re::TargetRead>::add((a1 + 184), &v5).n128_u64[0];
+  return result;
+}
+
+double re::DynamicArray<re::SetRenderGraphTextureCommand>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::SetRenderGraphTextureCommand>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = re::DynamicString::DynamicString((*(this + 4) + 56 * v4), a2);
+  *(v5 + 4) = 0;
+  *(v5 + 5) = -1;
+  *(v5 + 4) = *(a2 + 4);
+  result = *(a2 + 5);
+  *(v5 + 5) = result;
+  v7 = *(a2 + 24);
+  *(v5 + 50) = *(a2 + 50);
+  *(v5 + 24) = v7;
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+void re::RenderGraphFullscreenNode::getMaterialParameterTables(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 280))
+  {
+    v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 272));
+    if (v4)
+    {
+      v5 = *(v4 + 1784);
+      if (v5)
+      {
+        v6 = *(a1 + 280);
+        if (v6)
+        {
+          v7 = *(v6 + 792);
+        }
+
+        else
+        {
+          v7 = 0;
+        }
+
+        v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) >> 27));
+        v10 = v7 ^ (v8 >> 31) ^ v8;
+        re::MaterialParameterBlock::createMaterialParameterTableIfNeeded(&v9, v5);
+        re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::add(a2, &v10, &v9);
+        if (v9)
+        {
+        }
+      }
+    }
   }
 }
 
+uint64_t re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::add(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(this + 4);
-  if (v2)
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::findEntry<unsigned long>(a1, a2, *a2, &v8);
+  if (HIDWORD(v9) != 0x7FFFFFFF)
   {
-
-    *(this + 4) = 0;
+    return *(a1 + 16) + 24 * HIDWORD(v9) + 16;
   }
+
+  v6 = re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::allocEntry(a1, v9, v8);
+  *(v6 + 16) = *a3;
+  result = v6 + 16;
+  *(result - 8) = *a2;
+  *a3 = 0;
+  ++*(a1 + 40);
+  return result;
+}
+
+void re::IntrospectionInfo<re::DynamicArray<re::SetRenderGraphTextureCommand>>::get(re *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE1BD898, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE1BD898);
+    if (a1)
+    {
+      re::IntrospectionDynamicArrayBase::IntrospectionDynamicArrayBase(&qword_1EE1BD920);
+      qword_1EE1BD920 = &unk_1F5D0E788;
+      __cxa_guard_release(&qword_1EE1BD898);
+    }
+  }
+
+  if ((_MergedGlobals_501 & 1) == 0)
+  {
+    v1 = qword_1EE1BD878;
+    if (qword_1EE1BD878 || (v1 = re::allocInfo_SetRenderGraphTextureCommand(a1), qword_1EE1BD878 = v1, re::initInfo_SetRenderGraphTextureCommand(v1, v2), (_MergedGlobals_501 & 1) == 0))
+    {
+      _MergedGlobals_501 = 1;
+      v3 = *(v1 + 6);
+      ArcSharedObject::ArcSharedObject(&qword_1EE1BD920, 0);
+      qword_1EE1BD930 = 0x2800000003;
+      dword_1EE1BD938 = v3;
+      word_1EE1BD93C = 0;
+      *&xmmword_1EE1BD940 = 0;
+      *(&xmmword_1EE1BD940 + 1) = 0xFFFFFFFFLL;
+      qword_1EE1BD950 = v1;
+      unk_1EE1BD958 = 0;
+      qword_1EE1BD920 = &unk_1F5D0E788;
+      re::IntrospectionRegistry::add(v4, v5);
+      re::getPrettyTypeName(&v13, &qword_1EE1BD920);
+      if (v14)
+      {
+        v6 = *&v15[7];
+      }
+
+      else
+      {
+        v6 = v15;
+      }
+
+      if (v13 && (v14 & 1) != 0)
+      {
+        (*(*v13 + 40))();
+      }
+
+      v10 = *(v1 + 2);
+      if (v17)
+      {
+        v9 = v17;
+      }
+
+      else
+      {
+        re::StackScratchAllocator::StackScratchAllocator(v16);
+        re::TypeBuilder::TypeBuilder(&v13, v16);
+        v12 = v10;
+        re::TypeBuilder::beginListType(&v13, &v11, 1, 0x28uLL, 8uLL, &v12);
+        re::TypeBuilder::setConstructor(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setListUsesContiguousStorage(&v13, 1);
+        re::TypeBuilder::setListAccessors(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIndexer(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIterator(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v13, v8);
+        re::StackScratchAllocator::~StackScratchAllocator(v16);
+      }
+
+      xmmword_1EE1BD940 = v9;
+      if (v11)
+      {
+        if (v11)
+        {
+        }
+      }
+    }
+  }
+}
+
+void re::IntrospectionInfo<re::DynamicArray<re::SetRenderGraphBufferCommand>>::get(re *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE1BD8A0, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE1BD8A0);
+    if (a1)
+    {
+      re::IntrospectionDynamicArrayBase::IntrospectionDynamicArrayBase(&qword_1EE1BD960);
+      qword_1EE1BD960 = &unk_1F5D0E820;
+      __cxa_guard_release(&qword_1EE1BD8A0);
+    }
+  }
+
+  if ((byte_1EE1BD841 & 1) == 0)
+  {
+    v1 = qword_1EE1BD890;
+    if (qword_1EE1BD890 || (v1 = re::allocInfo_SetRenderGraphBufferCommand(a1), qword_1EE1BD890 = v1, re::initInfo_SetRenderGraphBufferCommand(v1, v2), (byte_1EE1BD841 & 1) == 0))
+    {
+      byte_1EE1BD841 = 1;
+      v3 = *(v1 + 6);
+      ArcSharedObject::ArcSharedObject(&qword_1EE1BD960, 0);
+      qword_1EE1BD970 = 0x2800000003;
+      dword_1EE1BD978 = v3;
+      word_1EE1BD97C = 0;
+      *&xmmword_1EE1BD980 = 0;
+      *(&xmmword_1EE1BD980 + 1) = 0xFFFFFFFFLL;
+      qword_1EE1BD990 = v1;
+      unk_1EE1BD998 = 0;
+      qword_1EE1BD960 = &unk_1F5D0E820;
+      re::IntrospectionRegistry::add(v4, v5);
+      re::getPrettyTypeName(&v13, &qword_1EE1BD960);
+      if (v14)
+      {
+        v6 = *&v15[7];
+      }
+
+      else
+      {
+        v6 = v15;
+      }
+
+      if (v13 && (v14 & 1) != 0)
+      {
+        (*(*v13 + 40))();
+      }
+
+      v10 = *(v1 + 2);
+      if (v17)
+      {
+        v9 = v17;
+      }
+
+      else
+      {
+        re::StackScratchAllocator::StackScratchAllocator(v16);
+        re::TypeBuilder::TypeBuilder(&v13, v16);
+        v12 = v10;
+        re::TypeBuilder::beginListType(&v13, &v11, 1, 0x28uLL, 8uLL, &v12);
+        re::TypeBuilder::setConstructor(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setListUsesContiguousStorage(&v13, 1);
+        re::TypeBuilder::setListAccessors(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIndexer(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIterator(&v13, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v13, v8);
+        re::StackScratchAllocator::~StackScratchAllocator(v16);
+      }
+
+      xmmword_1EE1BD980 = v9;
+      if (v11)
+      {
+        if (v11)
+        {
+        }
+      }
+    }
+  }
+}
+
+void *re::allocInfo_RenderGraphFullscreenNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BD860, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD860))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BD9A0, "RenderGraphFullscreenNode");
+    __cxa_guard_release(&qword_1EE1BD860);
+  }
+
+  return &unk_1EE1BD9A0;
+}
+
+void re::initInfo_RenderGraphFullscreenNode(re *this, re::IntrospectionBase *a2)
+{
+  v29[0] = 0x59B9C6E0BF4EAF6ALL;
+  v29[1] = "RenderGraphFullscreenNode";
+  if (v29[0])
+  {
+    if (v29[0])
+    {
+    }
+  }
+
+  *(this + 2) = v30;
+  if ((atomic_load_explicit(&qword_1EE1BD858, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD858))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BD8E8 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_AssetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "material";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x11000000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BD8F0 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::IntrospectionInfo<re::DynamicString>::get(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "techniqueName";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x12800000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BD8F8 = v15;
+    v16 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::SetRenderGraphTextureCommand>>::get(v16);
+    v17 = (*(*v16 + 32))(v16, 72, 8);
+    *v17 = 1;
+    *(v17 + 8) = "RenderGraphTextureCommands";
+    *(v17 + 16) = &qword_1EE1BD920;
+    *(v17 + 24) = 0;
+    *(v17 + 32) = 0x18800000003;
+    *(v17 + 40) = 0;
+    *(v17 + 48) = 0;
+    *(v17 + 56) = 0;
+    *(v17 + 64) = 0;
+    qword_1EE1BD900 = v17;
+    v18 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::SetRenderGraphBufferCommand>>::get(v18);
+    v19 = (*(*v18 + 32))(v18, 72, 8);
+    *v19 = 1;
+    *(v19 + 8) = "RenderGraphBufferCommands";
+    *(v19 + 16) = &qword_1EE1BD960;
+    *(v19 + 24) = 0;
+    *(v19 + 32) = 0x1B000000004;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    *(v19 + 56) = 0;
+    *(v19 + 64) = 0;
+    qword_1EE1BD908 = v19;
+    v20 = re::introspectionAllocator();
+    v22 = re::introspect_BOOL(1, v21);
+    v23 = (*(*v20 + 32))(v20, 72, 8);
+    *v23 = 1;
+    *(v23 + 8) = "tintBlendColor";
+    *(v23 + 16) = v22;
+    *(v23 + 24) = 0;
+    *(v23 + 32) = 0x15100000005;
+    *(v23 + 40) = 0;
+    *(v23 + 48) = 0;
+    *(v23 + 56) = 0;
+    *(v23 + 64) = 0;
+    qword_1EE1BD910 = v23;
+    v24 = re::introspectionAllocator();
+    v26 = re::introspect_BOOL(1, v25);
+    v27 = (*(*v24 + 32))(v24, 72, 8);
+    *v27 = 1;
+    *(v27 + 8) = "setViewportToCoverEntireRenderTarget";
+    *(v27 + 16) = v26;
+    *(v27 + 24) = 0;
+    *(v27 + 32) = 0x15000000006;
+    *(v27 + 40) = 0;
+    *(v27 + 48) = 0;
+    *(v27 + 56) = 0;
+    *(v27 + 64) = 0;
+    qword_1EE1BD918 = v27;
+    __cxa_guard_release(&qword_1EE1BD858);
+  }
+
+  *(this + 2) = 0x1D800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 7;
+  *(this + 8) = &qword_1EE1BD8E8;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphFullscreenNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphFullscreenNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphFullscreenNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphFullscreenNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v28 = v30;
+}
+
+void *re::allocInfo_SetRenderGraphTextureCommand(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BD868, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD868))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDA30, "SetRenderGraphTextureCommand");
+    __cxa_guard_release(&qword_1EE1BD868);
+  }
+
+  return &unk_1EE1BDA30;
+}
+
+void re::initInfo_SetRenderGraphTextureCommand(re *this, re::IntrospectionBase *a2)
+{
+  v26[0] = 0xDF7850A971DCEE0CLL;
+  v26[1] = "SetRenderGraphTextureCommand";
+  if (v26[0])
+  {
+    if (v26[0])
+    {
+    }
+  }
+
+  *(this + 2) = v27;
+  if ((atomic_load_explicit(&qword_1EE1BD870, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD870))
+  {
+    v5 = re::introspectionAllocator();
+    v7 = re::IntrospectionInfo<re::DynamicString>::get(1, v6);
+    v8 = (*(*v5 + 32))(v5, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "bindingName";
+    *(v8 + 16) = v7;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 1;
+    *(v8 + 40) = 0;
+    *(v8 + 48) = 0;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE1BD8C0 = v8;
+    v9 = re::introspectionAllocator();
+    v11 = re::introspect_RenderGraphTargetHandle(1, v10);
+    v12 = (*(*v9 + 32))(v9, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "targetHandle";
+    *(v12 + 16) = v11;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x2000000002;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE1BD8C8 = v12;
+    v13 = re::introspectionAllocator();
+    v15 = re::introspect_BOOL(1, v14);
+    v16 = (*(*v13 + 32))(v13, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "makeStencilView";
+    *(v16 + 16) = v15;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x3000000003;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1BD8D0 = v16;
+    v17 = re::introspectionAllocator();
+    v19 = re::introspect_BOOL(1, v18);
+    v20 = (*(*v17 + 32))(v17, 72, 8);
+    *v20 = 1;
+    *(v20 + 8) = "isOptional";
+    *(v20 + 16) = v19;
+    *(v20 + 24) = 0;
+    *(v20 + 32) = 0x3100000004;
+    *(v20 + 40) = 0;
+    *(v20 + 48) = 0;
+    *(v20 + 56) = 0;
+    *(v20 + 64) = 0;
+    qword_1EE1BD8D8 = v20;
+    v21 = re::introspectionAllocator();
+    v23 = re::introspect_BOOL(1, v22);
+    v24 = (*(*v21 + 32))(v21, 72, 8);
+    *v24 = 1;
+    *(v24 + 8) = "makeArrayView";
+    *(v24 + 16) = v23;
+    *(v24 + 24) = 0;
+    *(v24 + 32) = 0x3200000005;
+    *(v24 + 40) = 0;
+    *(v24 + 48) = 0;
+    *(v24 + 56) = 0;
+    *(v24 + 64) = 0;
+    qword_1EE1BD8E0 = v24;
+    __cxa_guard_release(&qword_1EE1BD870);
+  }
+
+  *(this + 2) = 0x3800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 5;
+  *(this + 8) = &qword_1EE1BD8C0;
+  *(this + 9) = re::internal::defaultConstruct<re::SetRenderGraphTextureCommand>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::SetRenderGraphTextureCommand>;
+  *(this + 13) = re::internal::defaultConstructV2<re::SetRenderGraphTextureCommand>;
+  *(this + 14) = re::internal::defaultDestructV2<re::SetRenderGraphTextureCommand>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v25 = v27;
+}
+
+double re::internal::defaultConstruct<re::SetRenderGraphTextureCommand>(_anonymous_namespace_ *a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  re::DynamicString::setCapacity(a3, 0);
+  *(a3 + 32) = 0;
+  result = NAN;
+  *(a3 + 40) = -1;
+  *(a3 + 48) = 0;
+  *(a3 + 50) = 0;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::SetRenderGraphTextureCommand>(uint64_t a1)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  re::DynamicString::setCapacity(a1, 0);
+  *(a1 + 32) = 0;
+  result = NAN;
+  *(a1 + 40) = -1;
+  *(a1 + 48) = 0;
+  *(a1 + 50) = 0;
+  return result;
+}
+
+void *re::allocInfo_SetRenderGraphBufferCommand(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BD880, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD880))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDAC0, "SetRenderGraphBufferCommand");
+    __cxa_guard_release(&qword_1EE1BD880);
+  }
+
+  return &unk_1EE1BDAC0;
+}
+
+void re::initInfo_SetRenderGraphBufferCommand(re *this, re::IntrospectionBase *a2)
+{
+  v18[0] = 0x4EBFC76BCFC0BDAALL;
+  v18[1] = "SetRenderGraphBufferCommand";
+  if (v18[0])
+  {
+    if (v18[0])
+    {
+    }
+  }
+
+  *(this + 2) = v19;
+  if ((atomic_load_explicit(&qword_1EE1BD888, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BD888))
+  {
+    v5 = re::introspectionAllocator();
+    v7 = re::IntrospectionInfo<re::DynamicString>::get(1, v6);
+    v8 = (*(*v5 + 32))(v5, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "bindingName";
+    *(v8 + 16) = v7;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 1;
+    *(v8 + 40) = 0;
+    *(v8 + 48) = 0;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE1BD8A8 = v8;
+    v9 = re::introspectionAllocator();
+    v11 = re::introspect_RenderGraphBufferHandle(1, v10);
+    v12 = (*(*v9 + 32))(v9, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "bufferHandle";
+    *(v12 + 16) = v11;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x2000000002;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE1BD8B0 = v12;
+    v13 = re::introspectionAllocator();
+    v15 = re::introspect_BOOL(1, v14);
+    v16 = (*(*v13 + 32))(v13, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "isOptional";
+    *(v16 + 16) = v15;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x3000000003;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1BD8B8 = v16;
+    __cxa_guard_release(&qword_1EE1BD888);
+  }
+
+  *(this + 2) = 0x3800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1BD8A8;
+  *(this + 9) = re::internal::defaultConstruct<re::SetRenderGraphBufferCommand>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::SetRenderGraphBufferCommand>;
+  *(this + 13) = re::internal::defaultConstructV2<re::SetRenderGraphBufferCommand>;
+  *(this + 14) = re::internal::defaultDestructV2<re::SetRenderGraphBufferCommand>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v17 = v19;
+}
+
+double re::internal::defaultConstruct<re::SetRenderGraphBufferCommand>(_anonymous_namespace_ *a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  re::DynamicString::setCapacity(a3, 0);
+  *(a3 + 32) = 0;
+  result = NAN;
+  *(a3 + 40) = -1;
+  *(a3 + 48) = 0;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::SetRenderGraphBufferCommand>(uint64_t a1)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  re::DynamicString::setCapacity(a1, 0);
+  *(a1 + 32) = 0;
+  result = NAN;
+  *(a1 + 40) = -1;
+  *(a1 + 48) = 0;
+  return result;
+}
+
+void re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(id *this)
+{
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
 
   JUMPOUT(0x1E6906520);
 }
 
-uint64_t re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOcclusionData>(uint64_t a1, uint64_t a2)
 {
-  v2 = "N2re43SceneUnderstandingGuidedFilterOcclusionDataE";
-  if (("N2re43SceneUnderstandingGuidedFilterOcclusionDataE" & 0x8000000000000000) != 0)
+  *this = &unk_1F5D0E6E0;
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit((this + 54));
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit((this + 49));
+  re::DynamicString::deinit((this + 37));
+  re::AssetHandle::~AssetHandle((this + 34));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+uint64_t re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
   {
-    v3 = ("N2re43SceneUnderstandingGuidedFilterOcclusionDataE" & 0x7FFFFFFFFFFFFFFFLL);
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = 56 * v4;
+        do
+        {
+          re::DynamicString::deinit(v3);
+          v3 = (v3 + 56);
+          v5 -= 56;
+        }
+
+        while (v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+uint64_t re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(uint64_t a1, uint64_t a2)
+{
+  v2 = "N2re28DynamicFunctionConstantsDataE";
+  if (("N2re28DynamicFunctionConstantsDataE" & 0x8000000000000000) != 0)
+  {
+    v3 = ("N2re28DynamicFunctionConstantsDataE" & 0x7FFFFFFFFFFFFFFFLL);
     v4 = 5381;
     do
     {
@@ -415,19 +1645,19 @@ uint64_t re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOccl
     while (v5);
   }
 
-  if (!*(a1 + 16))
+  if (!*(a1 + 64))
   {
     return 0;
   }
 
   v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
-  v7 = *(*(a1 + 24) + 4 * (v6 % *(a1 + 40)));
+  v7 = *(*(a1 + 72) + 4 * (v6 % *(a1 + 88)));
   if (v7 == 0x7FFFFFFF)
   {
     return 0;
   }
 
-  v8 = *(a1 + 32);
+  v8 = *(a1 + 80);
   while (*(v8 + 24 * v7 + 8) != v6)
   {
     v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
@@ -440,2589 +1670,1986 @@ uint64_t re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOccl
   return *(v8 + 24 * v7 + 16);
 }
 
-uint64_t re::RenderGraphAREmitter::fillDataStoreAndEmitGraph(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, char *a7)
+_anonymous_namespace_ *re::DynamicArray<re::SetRenderGraphTextureCommand>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
 {
-  v87 = *MEMORY[0x1E69E9840];
-  if ((atomic_load_explicit(&qword_1EE1C1558, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1558))
+  v2 = *(this + 1);
+  if (v2 < a2)
   {
-    qword_1EE1C1550 = re::hashString("ARSegmentationData", v59);
-    __cxa_guard_release(&qword_1EE1C1558);
-  }
-
-  v13 = qword_1EE1C1550;
-  v14 = strlen(*(a5 + 48));
-  if (v14)
-  {
-    MurmurHash3_x64_128(*(a5 + 48), v14, 0, v79);
-    v15 = (*(&v79[0] + 1) - 0x61C8864680B583E9 + (*&v79[0] << 6) + (*&v79[0] >> 2)) ^ *&v79[0];
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v16 = re::RenderGraphDataStore::tryGet<re::ARSegmentationInputData>(a3 + 32, ((v13 << 6) - 0x61C8864680B583E9 + (v13 >> 2) + v15) ^ v13);
-  re::createARSegmentationGenerateGuideData(a3, a5, v71);
-  if (v16)
-  {
-    re::ARSegmentationEmitterCache::applyCachedDataToGraph(*(a1 + 1776), v71, a3, a6);
-  }
-
-  v17 = strlen(a6);
-  v69 = a6;
-  if (v17)
-  {
-    MurmurHash3_x64_128(a6, v17, 0, v79);
-    v18 = ((*(&v79[0] + 1) - 0x61C8864680B583E9 + (*&v79[0] << 6) + (*&v79[0] >> 2)) ^ *&v79[0]) - 0x61C8864680B583E9;
-  }
-
-  else
-  {
-    v18 = 0x9E3779B97F4A7C17;
-  }
-
-  v19 = strlen(a7);
-  if (v19)
-  {
-    MurmurHash3_x64_128(a7, v19, 0, v79);
-    v20 = (*(&v79[0] + 1) - 0x61C8864680B583E9 + (*&v79[0] << 6) + (*&v79[0] >> 2)) ^ *&v79[0];
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  v77 = 0;
-  if ((atomic_load_explicit(&qword_1EE1C1668, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1668))
-  {
-    qword_1EE1C1660 = re::introspect_ARSegmentationConnectionData(0);
-    __cxa_guard_release(&qword_1EE1C1668);
-  }
-
-  v21 = (v18 + (v20 << 6) + (v20 >> 2)) ^ v20;
-  v76 = qword_1EE1C1660;
-  v22 = strlen(*(qword_1EE1C1660 + 48));
-  if (v22)
-  {
-    MurmurHash3_x64_128(*(qword_1EE1C1660 + 48), v22, 0, v79);
-    v23 = (*(&v79[0] + 1) - 0x61C8864680B583E9 + (*&v79[0] << 6) + (*&v79[0] >> 2)) ^ *&v79[0];
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  v77 = v23;
-  re::HashTable<unsigned long,re::IntrospectionStructure const*,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addOrReplace(a4 + 176, &v77, &v76);
-  *&v79[0] = (v21 - 0x61C8864680B583E9 + (v77 << 6) + (v77 >> 2)) ^ v77;
-  v24 = (*(**(a4 + 8) + 32))(*(a4 + 8), 48, 8);
-  *v24 = &unk_1F5D119D0;
-  v25 = v74;
-  v26 = v73;
-  *(v24 + 8) = v72;
-  *(v24 + 24) = v26;
-  *(v24 + 40) = v25;
-  v76 = v24;
-  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 64, v79, &v76);
-  if ((atomic_load_explicit(&qword_1EE1C1568, memory_order_acquire) & 1) == 0)
-  {
-    v60 = __cxa_guard_acquire(&qword_1EE1C1568);
-    if (v60)
+    v3 = a2;
+    v4 = this;
+    if (*this)
     {
-      qword_1EE1C1560 = re::getCombinedScopeHash(v60, v61, v62);
-      __cxa_guard_release(&qword_1EE1C1568);
-    }
-  }
-
-  v27 = re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOcclusionData>(a4, qword_1EE1C1560);
-  if (v27)
-  {
-    if ((atomic_load_explicit(&qword_1EE1C1578, memory_order_acquire) & 1) == 0)
-    {
-      v64 = v27;
-      v66 = __cxa_guard_acquire(&qword_1EE1C1578);
-      v27 = v64;
-      if (v66)
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
       {
-        qword_1EE1C1570 = re::hashString("GuidedFilterOcclusion", v65);
-        __cxa_guard_release(&qword_1EE1C1578);
-        v27 = v64;
+        v7 = v5;
       }
-    }
 
-    *&v79[0] = &unk_1F5D15700;
-    v29 = *(v27 + 168);
-    *&v28 = *(v27 + 176);
-    *(&v28 + 1) = *(v27 + 160);
-    *(v79 + 8) = v28;
-    v30 = *(v27 + 116);
-    LODWORD(v79[2]) = v28 / v30;
-    DWORD1(v79[2]) = DWORD1(v28) / v30;
-    *(&v79[1] + 1) = v29;
-    v31 = qword_1EE1C1570;
-    v32 = v18 + (qword_1EE1C1570 << 6) + (qword_1EE1C1570 >> 2);
-    v76 = 0;
-    if ((atomic_load_explicit(&qword_1EE1C1678, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1678))
-    {
-      qword_1EE1C1670 = re::introspect_SceneUnderstandingGuidedFilterOcclusionConnectionData(0);
-      __cxa_guard_release(&qword_1EE1C1678);
-    }
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
 
-    v33 = v32 ^ v31;
-    v75 = qword_1EE1C1670;
-    v34 = strlen(*(qword_1EE1C1670 + 48));
-    if (v34)
-    {
-      MurmurHash3_x64_128(*(qword_1EE1C1670 + 48), v34, 0, &v77);
-      v35 = (v78 - 0x61C8864680B583E9 + (v77 << 6) + (v77 >> 2)) ^ v77;
+      return re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(this, a2);
     }
 
     else
     {
-      v35 = 0;
+      this = re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(v4, v3);
+      ++*(v4 + 6);
     }
-
-    v76 = v35;
-    re::HashTable<unsigned long,re::IntrospectionStructure const*,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addOrReplace(a4 + 176, &v76, &v75);
-    v77 = (v33 - 0x61C8864680B583E9 + (v76 << 6) + (v76 >> 2)) ^ v76;
-    v36 = (*(**(a4 + 8) + 32))(*(a4 + 8), 40, 8);
-    *v36 = &unk_1F5D15700;
-    v37 = *(&v79[1] + 8);
-    *(v36 + 8) = *(v79 + 8);
-    *(v36 + 24) = v37;
-    v75 = v36;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 64, &v77, &v75);
-  }
-
-  else
-  {
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v80 = 0u;
-    memset(v79, 0, sizeof(v79));
-    *(a1 + 1616) = 0;
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1624), v79 + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1632), &v79[1]);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1640), &v79[1] + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1648), &v79[2]);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1656), &v79[2] + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1664), &v80);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1672), &v80 + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1680), &v81);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1688), &v81 + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1696), &v82);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1704), &v82 + 1);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1712), &v83);
-    NS::SharedPtr<MTL::Buffer>::operator=((a1 + 1720), &v83 + 1);
-    re::ObjCObject::operator=((a1 + 1728), &v84);
-    re::ObjCObject::operator=((a1 + 1736), &v84 + 1);
-    re::ObjCObject::operator=((a1 + 1744), &v85);
-    re::ObjCObject::operator=((a1 + 1752), &v85 + 1);
-    re::ObjCObject::operator=((a1 + 1760), &v86);
-    re::ObjCObject::operator=((a1 + 1768), &v86 + 1);
-    re::GuidedFilterOcclusionStateData::~GuidedFilterOcclusionStateData(v79);
-  }
-
-  *&v79[0] = &unk_1F5D12EC8;
-  DWORD2(v79[0]) = *(a1 + 1144);
-  re::RenderGraphDataStore::add<re::DefaultDepthFormatData,re::DefaultDepthFormatData&>(a4, v21, v79);
-  *&v79[0] = &unk_1F5D12F08;
-  DWORD2(v79[0]) = *(a1 + 1148);
-  re::RenderGraphDataStore::add<re::DefaultStencilFormatData,re::DefaultStencilFormatData&>(a4, v21, v79);
-  *&v79[2] = 0;
-  memset(v79, 0, 28);
-  if ((*(a3 + 448) & 1) == 0)
-  {
-    re::CameraView::registerFileProviders(a7, a2, *a3, a5, &v77);
-    re::DynamicArray<re::ProviderHandle>::operator=(v79, &v77);
-    re::DynamicArray<re::Pair<re::StringID,re::RigDataValue *,true>>::deinit(&v77);
-  }
-
-  v38 = *(a5 + 413) & *(a2 + 700);
-  v39 = *(a2 + 705) | v38 & 1;
-  if ((atomic_load_explicit(&qword_1EE1C1588, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1588))
-  {
-    qword_1EE1C1580 = re::hashString("DynamicFunctionConstants", v63);
-    __cxa_guard_release(&qword_1EE1C1588);
-  }
-
-  if (v39)
-  {
-    v40 = qword_1EE1C1580;
-    if (*(a2 + 8))
-    {
-      v41 = *(a2 + 16);
-    }
-
-    else
-    {
-      v41 = (a2 + 9);
-    }
-
-    v42 = strlen(v41);
-    if (v42)
-    {
-      MurmurHash3_x64_128(v41, v42, 0, &v77);
-      v43 = (v78 - 0x61C8864680B583E9 + (v77 << 6) + (v77 >> 2)) ^ v77;
-    }
-
-    else
-    {
-      v43 = 0;
-    }
-
-    v44 = (v40 << 6) - 0x61C8864680B583E9 + (v40 >> 2) + v43;
-    v45 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(a4, v44 ^ v40);
-    if (v45)
-    {
-      if ((v38 & 1) == 0)
-      {
-LABEL_42:
-        if (*(a2 + 705) == 1)
-        {
-          if ((atomic_load_explicit(&qword_1EE1C15A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C15A8))
-          {
-            qword_1EE1C15A0 = re::hashString("EnableUserEnvironment", v68);
-            __cxa_guard_release(&qword_1EE1C15A8);
-          }
-
-          LODWORD(v77) = 1;
-          re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addOrReplace((v45 + 8), &qword_1EE1C15A0, &v77);
-        }
-
-        goto LABEL_45;
-      }
-    }
-
-    else
-    {
-      v77 = *(a3 + 392);
-      LODWORD(v76) = 7;
-      v45 = re::RenderGraphDataStore::add<re::DynamicFunctionConstantsData,re::PerFrameAllocator *,int>(a4, v44 ^ v40, &v77, &v76);
-      if ((v38 & 1) == 0)
-      {
-        goto LABEL_42;
-      }
-    }
-
-    if ((atomic_load_explicit(&qword_1EE1C1598, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1598))
-    {
-      qword_1EE1C1590 = re::hashString("EnableDepthMitigation", v67);
-      __cxa_guard_release(&qword_1EE1C1598);
-    }
-
-    LODWORD(v77) = 1;
-    re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addOrReplace((v45 + 8), &qword_1EE1C1590, &v77);
-    goto LABEL_42;
-  }
-
-LABEL_45:
-  v46 = *(a5 + 328);
-  if (v46 && *(v46 + 40))
-  {
-    v47 = qword_1EE1C1580;
-    v48 = (*(a2 + 8) & 1) != 0 ? *(a2 + 16) : (a2 + 9);
-    v49 = strlen(v48);
-    if (v49)
-    {
-      MurmurHash3_x64_128(v48, v49, 0, &v77);
-      v50 = (v78 - 0x61C8864680B583E9 + (v77 << 6) + (v77 >> 2)) ^ v77;
-    }
-
-    else
-    {
-      v50 = 0;
-    }
-
-    v51 = ((v47 << 6) - 0x61C8864680B583E9 + (v47 >> 2) + v50) ^ v47;
-    if (!re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(a4, v51))
-    {
-      v52 = *(a3 + 392);
-      v53 = "N2re28DynamicFunctionConstantsDataE";
-      if (("N2re28DynamicFunctionConstantsDataE" & 0x8000000000000000) != 0)
-      {
-        v54 = ("N2re28DynamicFunctionConstantsDataE" & 0x7FFFFFFFFFFFFFFFLL);
-        v55 = 5381;
-        do
-        {
-          v53 = v55;
-          v56 = *v54++;
-          v55 = (33 * v55) ^ v56;
-        }
-
-        while (v56);
-      }
-
-      v77 = (v51 - 0x61C8864680B583E9 + (v53 << 6) + (v53 >> 2)) ^ v53;
-      v57 = (*(**(a4 + 8) + 32))(*(a4 + 8), 72, 8);
-      *v57 = &unk_1F5D12DC0;
-      *(v57 + 8) = 0u;
-      *(v57 + 24) = 0u;
-      *(v57 + 40) = 0u;
-      *(v57 + 56) = 0;
-      *(v57 + 64) = v52;
-      v76 = v57;
-      re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 64, &v77, &v76);
-    }
-  }
-
-  re::RenderFrame::emitGraph(a3, a7, v69);
-  re::CameraView::unregisterFileProviders(*a3, v79);
-  return re::DynamicArray<re::Pair<re::StringID,re::RigDataValue *,true>>::deinit(v79);
-}
-
-void re::RenderGraphAREmitter::~RenderGraphAREmitter(re::RenderGraphAREmitter *this)
-{
-  v2 = *(this + 152);
-  if (v2)
-  {
-    re::RenderGraphAREmitter::unregisterProviders(this, v2);
-  }
-
-  v3 = *(this + 224);
-  if (v3)
-  {
-
-    *(this + 224) = 0;
-  }
-
-  v4 = *(this + 222);
-  if (v4)
-  {
-
-    *(this + 222) = 0;
-  }
-
-  re::GuidedFilterOcclusionStateData::~GuidedFilterOcclusionStateData(this + 202);
-  re::StringID::destroyString((this + 1584));
-  re::StringID::destroyString((this + 1560));
-  re::StringID::destroyString((this + 1536));
-  re::StringID::destroyString((this + 1512));
-  re::StringID::destroyString((this + 1488));
-  re::StringID::destroyString((this + 1464));
-  re::StringID::destroyString((this + 1440));
-  re::StringID::destroyString((this + 1416));
-  re::StringID::destroyString((this + 1392));
-  re::StringID::destroyString((this + 1368));
-  re::StringID::destroyString((this + 1344));
-  re::StringID::destroyString((this + 1320));
-  re::StringID::destroyString((this + 1296));
-  re::StringID::destroyString((this + 1272));
-  re::StringID::destroyString((this + 1248));
-  re::AssetHandle::~AssetHandle((this + 1224));
-  re::AssetHandle::~AssetHandle((this + 1120));
-  re::AssetHandle::~AssetHandle((this + 1096));
-  re::AssetHandle::~AssetHandle((this + 1072));
-  re::AssetHandle::~AssetHandle((this + 1040));
-  re::AssetHandle::~AssetHandle((this + 1016));
-  re::AssetHandle::~AssetHandle((this + 992));
-  re::AssetHandle::~AssetHandle((this + 968));
-  re::AssetHandle::~AssetHandle((this + 944));
-  re::AssetHandle::~AssetHandle((this + 920));
-  re::AssetHandle::~AssetHandle((this + 896));
-  re::AssetHandle::~AssetHandle((this + 872));
-  re::AssetHandle::~AssetHandle((this + 848));
-  re::AssetHandle::~AssetHandle((this + 824));
-  re::AssetHandle::~AssetHandle((this + 800));
-  re::AssetHandle::~AssetHandle((this + 776));
-  re::AssetHandle::~AssetHandle((this + 752));
-  re::AssetHandle::~AssetHandle((this + 728));
-
-  re::RealityEmitterBase::~RealityEmitterBase(this);
-}
-
-{
-  re::RenderGraphAREmitter::~RenderGraphAREmitter(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::RenderGraphAREmitter::unregisterProviders(re::RenderGraphAREmitter *this, re::RenderGraphManager *a2)
-{
-  re::RealityEmitterBase::unregisterCommonProviders(this, a2);
-  if (re::FontID::isValid((this + 1248)))
-  {
-    re::StringID::StringID(v32, this + 78);
-    v32[2] = *(this + 158);
-    v4 = re::RenderGraphManager::removeProvider(a2, v32);
-    if (v32[0])
-    {
-      if (v32[0])
-      {
-      }
-    }
-
-    v32[0] = 0;
-    v32[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1248));
-  }
-
-  if (re::FontID::isValid((this + 1416)))
-  {
-    re::StringID::StringID(v31, (this + 1416));
-    v31[2] = *(this + 179);
-    v5 = re::RenderGraphManager::removeProvider(a2, v31);
-    if (v31[0])
-    {
-      if (v31[0])
-      {
-      }
-    }
-
-    v31[0] = 0;
-    v31[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1416));
-  }
-
-  if (re::FontID::isValid((this + 1440)))
-  {
-    re::StringID::StringID(v30, this + 90);
-    v30[2] = *(this + 182);
-    v6 = re::RenderGraphManager::removeProvider(a2, v30);
-    if (v30[0])
-    {
-      if (v30[0])
-      {
-      }
-    }
-
-    v30[0] = 0;
-    v30[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1440));
-  }
-
-  if (re::FontID::isValid((this + 1296)))
-  {
-    re::StringID::StringID(v29, this + 81);
-    v29[2] = *(this + 164);
-    v7 = re::RenderGraphManager::removeProvider(a2, v29);
-    if (v29[0])
-    {
-      if (v29[0])
-      {
-      }
-    }
-
-    v29[0] = 0;
-    v29[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1296));
-  }
-
-  if (re::FontID::isValid((this + 1320)))
-  {
-    re::StringID::StringID(v28, (this + 1320));
-    v28[2] = *(this + 167);
-    v8 = re::RenderGraphManager::removeProvider(a2, v28);
-    if (v28[0])
-    {
-      if (v28[0])
-      {
-      }
-    }
-
-    v28[0] = 0;
-    v28[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1320));
-  }
-
-  if (re::FontID::isValid((this + 1344)))
-  {
-    re::StringID::StringID(v27, this + 84);
-    v27[2] = *(this + 170);
-    v9 = re::RenderGraphManager::removeProvider(a2, v27);
-    if (v27[0])
-    {
-      if (v27[0])
-      {
-      }
-    }
-
-    v27[0] = 0;
-    v27[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1344));
-  }
-
-  v10 = *(this + 223);
-  *(this + 223) = 0;
-
-  *(this + 112) = 0u;
-  if (re::FontID::isValid((this + 1512)))
-  {
-    re::StringID::StringID(v26, (this + 1512));
-    v26[2] = *(this + 191);
-    v11 = re::RenderGraphManager::removeProvider(a2, v26);
-    if (v26[0])
-    {
-      if (v26[0])
-      {
-      }
-    }
-
-    v26[0] = 0;
-    v26[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1512));
-  }
-
-  if (re::FontID::isValid((this + 1536)))
-  {
-    re::StringID::StringID(v25, this + 96);
-    v25[2] = *(this + 194);
-    v12 = re::RenderGraphManager::removeProvider(a2, v25);
-    if (v25[0])
-    {
-      if (v25[0])
-      {
-      }
-    }
-
-    v25[0] = 0;
-    v25[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1536));
-  }
-
-  if (re::FontID::isValid((this + 1464)))
-  {
-    re::StringID::StringID(v24, (this + 1464));
-    v24[2] = *(this + 185);
-    v13 = re::RenderGraphManager::removeProvider(a2, v24);
-    if (v24[0])
-    {
-      if (v24[0])
-      {
-      }
-    }
-
-    v24[0] = 0;
-    v24[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1464));
-  }
-
-  if (re::FontID::isValid((this + 1488)))
-  {
-    re::StringID::StringID(v23, this + 93);
-    v23[2] = *(this + 188);
-    v14 = re::RenderGraphManager::removeProvider(a2, v23);
-    if (v23[0])
-    {
-      if (v23[0])
-      {
-      }
-    }
-
-    v23[0] = 0;
-    v23[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1488));
-  }
-
-  if (*(this + 1212) == 1 && re::FontID::isValid((this + 1560)))
-  {
-    re::StringID::StringID(v22, (this + 1560));
-    v22[2] = *(this + 197);
-    v15 = re::RenderGraphManager::removeProvider(a2, v22);
-    if (v22[0])
-    {
-      if (v22[0])
-      {
-      }
-    }
-
-    v22[0] = 0;
-    v22[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1560));
-  }
-
-  if (re::FontID::isValid((this + 1368)))
-  {
-    re::StringID::StringID(v21, (this + 1368));
-    v21[2] = *(this + 173);
-    v16 = re::RenderGraphManager::removeProvider(a2, v21);
-    if (v21[0])
-    {
-      if (v21[0])
-      {
-      }
-    }
-
-    v21[0] = 0;
-    v21[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1368));
-  }
-
-  if (re::FontID::isValid((this + 1392)))
-  {
-    re::StringID::StringID(v20, this + 87);
-    v20[2] = *(this + 176);
-    v17 = re::RenderGraphManager::removeProvider(a2, v20);
-    if (v20[0])
-    {
-      if (v20[0])
-      {
-      }
-    }
-
-    v20[0] = 0;
-    v20[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1392));
-  }
-
-  re::ARSegmentationEmitterCache::unregisterRenderGraphProvider(*(this + 222), a2);
-  if (re::FontID::isValid((this + 1584)))
-  {
-    re::StringID::StringID(v19, this + 99);
-    v19[2] = *(this + 200);
-    v18 = re::RenderGraphManager::removeProvider(a2, v19);
-    if (v19[0])
-    {
-      if (v19[0])
-      {
-      }
-    }
-
-    v19[0] = 0;
-    v19[1] = &str_67;
-    re::ProviderHandle::invalidate((this + 1584));
-  }
-}
-
-re::RenderGraphAREmitter *re::RenderGraphAREmitter::RenderGraphAREmitter(re::RenderGraphAREmitter *this)
-{
-  v2 = this + 1144;
-  v3 = re::RealityEmitterBase::RealityEmitterBase(this);
-  *v3 = &unk_1F5D15580;
-  *(v3 + 728) = 0u;
-  *(v3 + 744) = 0u;
-  *(v3 + 760) = 0u;
-  *(v3 + 776) = 0u;
-  *(v3 + 792) = 0u;
-  *(v3 + 808) = 0u;
-  *(v3 + 824) = 0u;
-  *(v3 + 840) = 0u;
-  *(v3 + 856) = 0u;
-  *(v3 + 872) = 0u;
-  *(v3 + 888) = 0u;
-  *(v3 + 904) = 0u;
-  *(v3 + 920) = 0u;
-  *(v3 + 936) = 0u;
-  *(v3 + 952) = 0u;
-  *(v3 + 968) = 0u;
-  *(v3 + 984) = 0u;
-  *(v3 + 1000) = 0u;
-  *(v3 + 1016) = 0u;
-  *(v3 + 1032) = 0u;
-  *(v3 + 1048) = 0u;
-  *(v3 + 266) = 1;
-  *(v3 + 67) = 0u;
-  *(v3 + 68) = 0u;
-  *(v3 + 69) = 0u;
-  *(v3 + 70) = 0u;
-  *(v3 + 142) = 0;
-  *v2 = xmmword_1E31089E0;
-  *(v3 + 145) = 0x4280000000000008;
-  *(v3 + 292) = 32;
-  *(v3 + 1172) = 0;
-  *(v2 + 29) = 16843009;
-  *(v2 + 33) = 0x1000000;
-  *(v3 + 74) = xmmword_1E31042A0;
-  *(v3 + 600) = 0;
-  *(v2 + 58) = 16843009;
-  *(v3 + 603) = 256;
-  *(v3 + 302) = 1065353216;
-  *(v3 + 1212) = 1;
-  *(v3 + 77) = 0u;
-  *(v3 + 76) = 0u;
-  re::StringID::invalid((v3 + 1248));
-  *(this + 158) = 0;
-  re::StringID::invalid((this + 1272));
-  *(this + 161) = 0;
-  re::StringID::invalid((this + 1296));
-  *(this + 164) = 0;
-  re::StringID::invalid((this + 1320));
-  *(this + 167) = 0;
-  re::StringID::invalid((this + 1344));
-  *(this + 170) = 0;
-  re::StringID::invalid((this + 1368));
-  *(this + 173) = 0;
-  re::StringID::invalid((this + 1392));
-  *(this + 176) = 0;
-  re::StringID::invalid((this + 1416));
-  *(this + 179) = 0;
-  re::StringID::invalid((this + 1440));
-  *(this + 182) = 0;
-  re::StringID::invalid((this + 1464));
-  *(this + 185) = 0;
-  re::StringID::invalid((this + 1488));
-  *(this + 188) = 0;
-  re::StringID::invalid((this + 1512));
-  *(this + 191) = 0;
-  re::StringID::invalid((this + 1536));
-  *(this + 194) = 0;
-  re::StringID::invalid((this + 1560));
-  *(this + 197) = 0;
-  v4 = re::StringID::invalid((this + 1584));
-  *(this + 200) = 0;
-  *(this + 804) = *(this + 1180);
-  *(this + 101) = 0u;
-  *(this + 102) = 0u;
-  *(this + 103) = 0u;
-  *(this + 104) = 0u;
-  *(this + 105) = 0u;
-  *(this + 106) = 0u;
-  *(this + 107) = 0u;
-  *(this + 108) = 0u;
-  *(this + 109) = 0u;
-  *(this + 110) = 0u;
-  *(this + 111) = 0u;
-  *(this + 112) = 0u;
-  v5 = re::globalAllocators(v4);
-  v6 = (*(*v5[2] + 32))(v5[2], 88, 8);
-  *v6 = 0u;
-  *(v6 + 16) = 0u;
-  *(v6 + 32) = 0u;
-  *(v6 + 48) = 0u;
-  *(v6 + 80) = 0;
-  *(v6 + 64) = 0u;
-  ArcSharedObject::ArcSharedObject(v6, 0);
-  *v6 = &unk_1F5D156B8;
-  *(v6 + 24) = 0u;
-  *(v6 + 40) = 0u;
-  *(v6 + 56) = 0;
-  re::StringID::invalid((v6 + 64));
-  *(v6 + 80) = 0;
-  v7 = *(this + 222);
-  *(this + 222) = v6;
-  if (v7)
-  {
   }
 
   return this;
 }
 
-void re::RenderGraphAREmitter::afterPrepareSceneContextHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(void *result, unint64_t a2)
 {
-  v114 = *MEMORY[0x1E69E9840];
-  v9 = *(a4 + 352);
-  if (v9)
+  v3 = result[1];
+  if (v3 != a2)
   {
-    if ((atomic_load_explicit(&qword_1EE1C1538, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1538))
+    v5 = result;
+    if (result[2] <= a2)
     {
-      qword_1EE1C1530 = re::hashString("ARSegmentationData", v92);
-      __cxa_guard_release(&qword_1EE1C1538);
-    }
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
 
-    v10 = qword_1EE1C1530;
-    v11 = strlen(*(a4 + 48));
-    if (v11)
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0x38uLL))
+        {
+          v2 = 56 * a2;
+          result = (*(*result + 32))(result, 56 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 56, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v14, v16);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v15, v17);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = v8 + 56 * v9;
+        v11 = v7;
+        do
+        {
+          *v11 = 0u;
+          *(v11 + 1) = 0u;
+          *v11 = *v8;
+          *v8 = 0;
+          v12 = v11[2];
+          v11[2] = *(v8 + 16);
+          *(v8 + 16) = v12;
+          v11[4] = 0;
+          v11[5] = -1;
+          *(v11 + 3) = *(v8 + 24);
+          *(v8 + 24) = 0;
+          v13 = v11[1];
+          v11[1] = *(v8 + 8);
+          *(v8 + 8) = v13;
+          v11[5] = *(v8 + 40);
+          LOWORD(v13) = *(v8 + 48);
+          *(v11 + 50) = *(v8 + 50);
+          *(v11 + 24) = v13;
+          re::DynamicString::deinit(v8);
+          v8 += 56;
+          v11 += 7;
+        }
+
+        while (v8 != v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+void *re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
     {
-      v11 = MurmurHash3_x64_128(*(a4 + 48), v11, 0, &v103);
-      v12 = (v104 - 0x61C8864680B583E9 + (v103 << 6) + (v103 >> 2)) ^ v103;
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0x38uLL))
+        {
+          v2 = 56 * a2;
+          result = (*(*result + 32))(result, 56 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 56, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v14, v16);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v15, v17);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = v8 + 56 * v9;
+        v11 = v7;
+        do
+        {
+          *v11 = 0u;
+          *(v11 + 1) = 0u;
+          *v11 = *v8;
+          *v8 = 0;
+          v12 = v11[2];
+          v11[2] = *(v8 + 16);
+          *(v8 + 16) = v12;
+          v11[4] = 0;
+          v11[5] = -1;
+          *(v11 + 3) = *(v8 + 24);
+          *(v8 + 24) = 0;
+          v13 = v11[1];
+          v11[1] = *(v8 + 8);
+          *(v8 + 8) = v13;
+          v11[5] = *(v8 + 40);
+          *(v11 + 48) = *(v8 + 48);
+          re::DynamicString::deinit(v8);
+          v8 += 56;
+          v11 += 7;
+        }
+
+        while (v8 != v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+void *re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::construct(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+}
+
+void *re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit(a2);
+  *a2 = a3;
+  result = re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(a2, 0);
+  ++*(a2 + 24);
+  return result;
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (!*a4)
+  {
+    *a4 = a2;
+    re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(a4, a5);
+    ++*(a4 + 24);
+  }
+
+  re::DynamicArray<re::SetRenderGraphTextureCommand>::resize(a4, a5);
+}
+
+re::IntrospectionBase *re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::addElement(re::Allocator **a1, re *a2, int a3, uint64_t a4)
+{
+  v16 = 0u;
+  v17 = 0u;
+  v15 = 0u;
+  re::DynamicString::setCapacity(&v14, 0);
+  WORD4(v17) = 0;
+  BYTE10(v17) = 0;
+  v8 = *(a4 + 16);
+  if (v8 >= *(a4 + 8))
+  {
+    re::DynamicArray<re::SetRenderGraphTextureCommand>::growCapacity(a4, v8 + 1);
+    v8 = *(a4 + 16);
+  }
+
+  v9 = *(a4 + 32) + 56 * v8;
+  *v9 = v14;
+  v10 = v16;
+  *(v9 + 8) = v15;
+  *(v9 + 24) = v10;
+  *(v9 + 32) = 0;
+  *(v9 + 40) = -1;
+  *(v9 + 48) = WORD4(v17);
+  *(v9 + 50) = BYTE10(v17);
+  v11 = *(a4 + 16);
+  *(a4 + 16) = v11 + 1;
+  ++*(a4 + 24);
+  v12 = (*(a4 + 32) + 56 * v11);
+  re::introspectionInitElement(a2, a3, a1[6], v12);
+  return v12;
+}
+
+unint64_t re::IntrospectionDynamicArray<re::SetRenderGraphTextureCommand>::elementAt(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
     }
 
     else
     {
-      v12 = 0;
+      v7 = 2;
     }
 
-    v13 = ((v10 << 6) - 0x61C8864680B583E9 + (v10 >> 2) + v12) ^ v10;
-    v14 = "N2re23ARSegmentationInputDataE";
-    if (("N2re23ARSegmentationInputDataE" & 0x8000000000000000) != 0)
-    {
-      v15 = ("N2re23ARSegmentationInputDataE" & 0x7FFFFFFFFFFFFFFFLL);
-      v16 = 5381;
-      do
-      {
-        v14 = v16;
-        v17 = *v15++;
-        v16 = (33 * v16) ^ v17;
-      }
-
-      while (v17);
-    }
-
-    v18 = v13 - 0x61C8864680B583E9;
-    v103 = (v13 - 0x61C8864680B583E9 + (v14 << 6) + (v14 >> 2)) ^ v14;
-    v19 = re::globalAllocators(v11);
-    v20 = (*(*v19[2] + 32))(v19[2], 40, 8);
-    *v20 = &unk_1F5CED808;
-    v20[1] = v9[1];
-    v9[1] = 0;
-    v20[2] = v9[2];
-    v9[2] = 0;
-    v20[3] = v9[3];
-    v9[3] = 0;
-    v20[4] = v9[4];
-    v9[4] = 0;
-    v102 = v20;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a5 + 16, &v103, &v102);
-    v103 = &unk_1F5D15638;
-    *v105 = 0;
-    *&v105[8] = 0;
-    LODWORD(v104) = 3;
-    *(&v104 + 1) = 1065353216;
-    re::ObjCObject::operator=(v105, (a1 + 1784));
-    v21 = NS::SharedPtr<MTL::Buffer>::operator=(&v105[8], (a1 + 1792));
-    *&v105[16] = a1 + 1800;
-    v22 = "N2re25ARSegmentationExecuteDataE";
-    if (("N2re25ARSegmentationExecuteDataE" & 0x8000000000000000) != 0)
-    {
-      v23 = ("N2re25ARSegmentationExecuteDataE" & 0x7FFFFFFFFFFFFFFFLL);
-      v24 = 5381;
-      do
-      {
-        v22 = v24;
-        v25 = *v23++;
-        v24 = (33 * v24) ^ v25;
-      }
-
-      while (v25);
-    }
-
-    v102 = (v18 + (v22 << 6) + (v22 >> 2)) ^ v22;
-    v26 = re::globalAllocators(v21);
-    v27 = (*(*v26[2] + 32))(v26[2], 48, 8);
-    *v27 = &unk_1F5D15638;
-    *(v27 + 8) = v104;
-    v28 = *v105;
-    *v105 = 0;
-    *(v27 + 24) = v28;
-    *&v105[8] = 0;
-    *(v27 + 40) = *&v105[16];
-    v101 = v27;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a5 + 16, &v102, &v101);
-    if (*&v105[8])
-    {
-
-      *&v105[8] = 0;
-    }
+    v13 = 789;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
   }
 
-  v29 = *(a4 + 360);
-  if (v29)
-  {
-    v30 = (*(a1 + 1173) & 1) != 0 || (*(a1 + 1172) & 1) != 0 ? 1 : v29[6];
-    v31 = *(a1 + 1048);
-    v32 = v31 ? *v29 : 0;
-    *(a1 + 1609) = v32 & 1;
-    *(a1 + 1177) = v29[2];
-    v33 = v29[3];
-    *(a1 + 1178) = v33;
-    *(a1 + 1179) = v29[4] & v33;
-    v34 = *(a1 + 784);
-    if (v34)
-    {
-      re::AssetHandle::loadNow(v34, 0);
-      v35 = *v29;
-      if ((v35 | v30))
-      {
-        if (*(a1 + 1179) == 1 && (v29[1] & 1) == 0)
-        {
-          v36 = 16;
-          v37 = 0;
-          if ((*(a1 + 1174) & 1) == 0)
-          {
-            if (*(a1 + 1175))
-            {
-              v36 = 16;
-            }
-
-            else
-            {
-              v36 = 0;
-            }
-          }
-
-          v38 = 8;
-          if ((v30 & 1) == 0)
-          {
-            goto LABEL_44;
-          }
-        }
-
-        else
-        {
-          v36 = 0;
-          v37 = 1;
-          v38 = 1;
-          if ((v30 & 1) == 0)
-          {
-            goto LABEL_44;
-          }
-        }
-      }
-
-      else
-      {
-        v38 = 0;
-        v36 = 0;
-        v37 = 1;
-        if ((v30 & 1) == 0)
-        {
-LABEL_44:
-          v39 = 0;
-LABEL_45:
-          v40 = v36 | v38 | v39;
-          if (*v29)
-          {
-            v41 = 0;
-          }
-
-          else
-          {
-            v41 = 2;
-          }
-
-          if ((v38 & 1) == 0)
-          {
-            v41 = 0;
-          }
-
-          v42 = v29[1];
-          v43 = v41 | (32 * v42) | v40;
-          if (v43 != (*(a3 + 120) & 0x7F))
-          {
-            v44 = *(a1 + 784);
-            if (v44)
-            {
-              v45 = atomic_load((v44 + 896));
-              if (v45 == 2)
-              {
-                ++*(*(a1 + 784) + 276);
-                v100 = v39;
-                v97 = v36;
-                v98 = v37;
-                v46 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((a1 + 776));
-                v47 = v98;
-                v39 = v100;
-                v99 = v46;
-                if (v46)
-                {
-                  if (v29[3] == 1)
-                  {
-                    v103 = 0xA347EFBC0FB083E8;
-                    *&v104 = "ForceClearSceneUnderstandingMeshShadowSingleChannel";
-                    LOBYTE(v102) = v38 >> 3;
-                    v48 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v46 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-
-                    v103 = 0x2A295CF77075A36CLL;
-                    *&v104 = "CompositeSceneUnderstandingShadowsNode";
-                    LOBYTE(v102) = v38 >> 3;
-                    v49 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-
-                    if (v31)
-                    {
-                      v50 = v40 & 0xC;
-                      v51 = v99;
-                    }
-
-                    else
-                    {
-                      v103 = 0x696F5EF842740C56;
-                      *&v104 = "CompositedMeshShadowProjectedPatchReceiverNode";
-                      v96 = v40 & 0xC;
-                      LOBYTE(v102) = v96 == 12;
-                      v51 = v99;
-                      re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                      re::StringID::destroyString(&v103);
-                      v50 = v96;
-                    }
-
-                    v103 = 0x378766A6B9EC9AELL;
-                    *&v104 = "CompositedSceneUnderstandingShadowNode";
-                    LOBYTE(v102) = v50 == 8;
-                    v52 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v51 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-
-                    v39 = v100;
-                    v47 = v98;
-                  }
-
-                  v103 = 0x252BC97CDD7FB102;
-                  *&v104 = "PatchBasedMeshSceneUnderstandingDepthOnlyNode";
-                  v53 = v47 & *v29;
-                  if (!v39)
-                  {
-                    v53 = 0;
-                  }
-
-                  LOBYTE(v102) = v53;
-                  v54 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                  if (v103)
-                  {
-                    if (v103)
-                    {
-                    }
-                  }
-
-                  v103 = 0x9AB5F11FB4FA0048;
-                  *&v104 = "SceneUnderstandingOcclusionAndShadowNode";
-                  LOBYTE(v102) = (v100 == 0) & v38;
-                  v55 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                  if (v103)
-                  {
-                    if (v103)
-                    {
-                    }
-                  }
-
-                  if (!v31)
-                  {
-                    v103 = 0x10DE28F3DBBA741CLL;
-                    *&v104 = "SceneUnderstandingOcclusionAndShadowDepthClearNode";
-                    LOBYTE(v102) = (v43 & 6) == 2;
-                    v56 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-
-                    v103 = 0xF5A2D353F87D6B9CLL;
-                    *&v104 = "MeshShadowProjectedPatchReceiverNode";
-                    LOBYTE(v102) = (v100 != 0) & v38;
-                    v57 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-
-                    v103 = 0xF7F248B7F1C26F4;
-                    *&v104 = "PatchShadowReceiverDepthOnlyNode";
-                    LOBYTE(v102) = (v100 != 0) & v38;
-                    v58 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                    if (v103)
-                    {
-                      if (v103)
-                      {
-                      }
-                    }
-                  }
-
-                  v103 = 0x95DF29AA01C3F5E4;
-                  *&v104 = "SceneUnderstandingWireframeNode";
-                  LOBYTE(v102) = v42;
-                  v59 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                  if (v103)
-                  {
-                    if (v103)
-                    {
-                    }
-                  }
-
-                  v103 = 0x2B2EFFC92CCF4F14;
-                  *&v104 = "SceneUnderstandingShadowsDepthNode";
-                  LOBYTE(v102) = v97 >> 4;
-                  v60 = re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v99 + 8), &v103, "Enabled", &v102);
-                  if (v103)
-                  {
-                    if (v103)
-                    {
-                    }
-                  }
-
-                  v39 = v100;
-                }
-              }
-            }
-
-            v61 = *(a1 + 1048);
-            if (v61)
-            {
-              v62 = atomic_load((v61 + 896));
-              if (v62 == 2)
-              {
-                v63 = *(a1 + 1048);
-                if (v63)
-                {
-                  v64 = atomic_load((v63 + 896));
-                  if (v64 == 2)
-                  {
-                    ++*(*(a1 + 1048) + 276);
-                    v65 = v39;
-                    v66 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((a1 + 1040));
-                    if (v66)
-                    {
-                      v67 = v65;
-                      v68 = v66;
-                      v103 = 0xF5A2D353F87D6B9CLL;
-                      *&v104 = "MeshShadowProjectedPatchReceiverNode";
-                      v69 = (v67 != 0) & v38;
-                      LOBYTE(v102) = v69;
-                      re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v66 + 8), &v103, "Enabled", &v102);
-                      re::StringID::destroyString(&v103);
-                      v103 = 0xF7F248B7F1C26F4;
-                      *&v104 = "PatchShadowReceiverDepthOnlyNode";
-                      LOBYTE(v102) = v69;
-                      re::RenderGraphFile::setRuntimeNodeSetting<BOOL>((v68 + 8), &v103, "Enabled", &v102);
-                      re::StringID::destroyString(&v103);
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          *(a3 + 120) = v43;
-          goto LABEL_100;
-        }
-      }
-
-      if (((v31 == 0) & v29[5]) != 0)
-      {
-        v39 = 4;
-      }
-
-      else
-      {
-        v39 = 0;
-      }
-
-      if (v31 && (v29[5] & 1) != 0 && (v35 & 1) == 0)
-      {
-        if (*(a1 + 1179))
-        {
-          v39 = 0;
-        }
-
-        else
-        {
-          v39 = 4;
-        }
-      }
-
-      goto LABEL_45;
-    }
-  }
-
-LABEL_100:
-  v70 = *(a4 + 368);
-  if (v70)
-  {
-    v103 = &unk_1F5CF56C8;
-    LOBYTE(v104) = *(v70 + 8);
-    *(&v104 + 1) = *(v70 + 16);
-    v71 = *(v70 + 24);
-    v72 = *(v70 + 48);
-    *&v105[8] = *(v70 + 32);
-    v106 = v72;
-    v73 = *(v70 + 64);
-    v74 = *(v70 + 80);
-    v75 = *(v70 + 112);
-    v109 = *(v70 + 96);
-    v110 = v75;
-    v107 = v73;
-    v108 = v74;
-    v76 = *(v70 + 128);
-    v77 = *(v70 + 144);
-    v78 = *(v70 + 160);
-    *&v113[10] = *(v70 + 170);
-    v112 = v77;
-    *v113 = v78;
-    v111 = v76;
-    *v105 = v71;
-    *&v105[8] = a1 + 1616;
-    if ((atomic_load_explicit(&qword_1EE1C1548, memory_order_acquire) & 1) == 0)
-    {
-      v93 = __cxa_guard_acquire(&qword_1EE1C1548);
-      if (v93)
-      {
-        qword_1EE1C1540 = re::getCombinedScopeHash(v93, v94, v95);
-        __cxa_guard_release(&qword_1EE1C1548);
-      }
-    }
-
-    if (!re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOcclusionData>(a5, qword_1EE1C1540))
-    {
-      v79 = "N2re43SceneUnderstandingGuidedFilterOcclusionDataE";
-      if (("N2re43SceneUnderstandingGuidedFilterOcclusionDataE" & 0x8000000000000000) != 0)
-      {
-        v80 = ("N2re43SceneUnderstandingGuidedFilterOcclusionDataE" & 0x7FFFFFFFFFFFFFFFLL);
-        v81 = 5381;
-        do
-        {
-          v79 = v81;
-          v82 = *v80++;
-          v81 = (33 * v81) ^ v82;
-        }
-
-        while (v82);
-      }
-
-      v102 = (qword_1EE1C1540 + (v79 << 6) + (v79 >> 2) - 0x61C8864680B583E9) ^ v79;
-      v83 = re::globalAllocators(0);
-      v84 = (*(*v83[2] + 32))(v83[2], 192, 16);
-      *v84 = &unk_1F5CF56C8;
-      *(v84 + 8) = v104;
-      *(v84 + 16) = *(&v104 + 1);
-      *(v84 + 24) = *v105;
-      *(&v104 + 1) = 0;
-      *v105 = 0;
-      v85 = v111;
-      v86 = v112;
-      v87 = *v113;
-      *(v84 + 170) = *&v113[10];
-      *(v84 + 144) = v86;
-      *(v84 + 160) = v87;
-      *(v84 + 128) = v85;
-      v88 = v107;
-      v89 = v108;
-      v90 = v110;
-      *(v84 + 96) = v109;
-      *(v84 + 112) = v90;
-      *(v84 + 64) = v88;
-      *(v84 + 80) = v89;
-      v91 = v106;
-      *(v84 + 32) = *&v105[8];
-      *(v84 + 48) = v91;
-      v101 = v84;
-      re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a5 + 16, &v102, &v101);
-    }
-
-    if (*v105)
-    {
-
-      *v105 = 0;
-    }
-
-    if (*(&v104 + 1))
-    {
-    }
-  }
+  return *(a2 + 32) + 56 * a3;
 }
 
-uint64_t re::RenderGraphAREmitter::emitFrameContext(uint64_t a1, void *a2, re::RenderFrame *this, re *a4)
 {
-  re::RenderFrame::emitGraph(this, "UploadMultiSceneConstants", "RenderFrame");
-  v8 = a2[2];
-  if (v8)
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
   {
-    v9 = a2[3];
-    v10 = 424 * v8;
-    do
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      re::RealityEmitterBase::emitRTAOGraph(a1, v9, this, a4);
-      re::RealityEmitterBase::emitVFXSimulationGraph(a1, v9, this, a4);
-      v9 += 424;
-      v10 -= 424;
+      v7 = 3;
     }
 
-    while (v10);
-  }
-
-  v11 = a2[12];
-  if (v11 && *(v11 + 16))
-  {
-    re::RenderFrame::emitGraph(this, "MipmapGenerationContext", "RenderFrame");
-  }
-
-  v12 = a2[13];
-  if (v12 && *(v12 + 16))
-  {
-    re::RenderFrame::emitGraph(this, "BlurGenerationContext", "RenderFrame");
-  }
-
-  re::RealityEmitterBase::emitProbeWriteGraph(a1, this);
-  re::RenderFrame::emitGraph(this, "ProjectiveMeshShadow", "RenderFrame");
-  re::RealityEmitterBase::emitUIShadowGraph(a1, a2, this);
-  if ((atomic_load_explicit(&qword_1EE1C15B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C15B8))
-  {
-    qword_1EE1C15B0 = re::hashString("ProjectiveMeshShadow", v31);
-    __cxa_guard_release(&qword_1EE1C15B8);
-  }
-
-  if ((atomic_load_explicit(&qword_1EE1C15C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C15C8))
-  {
-    v33 = qword_1EE1C15B0;
-    qword_1EE1C15C0 = ((v33 << 6) + (v33 >> 2) + re::hashString("RenderFrame", v32) - 0x61C8864680B583E9) ^ v33;
-    __cxa_guard_release(&qword_1EE1C15C8);
-  }
-
-  if (*(a1 + 1048))
-  {
-    v34 = &unk_1F5D15678;
-    v35 = 0;
-    LOBYTE(v35) = *(a1 + 1609);
-    v13 = "N2re31MeshShadowDepthPrepassOverridesE";
-    if (("N2re31MeshShadowDepthPrepassOverridesE" & 0x8000000000000000) != 0)
+    else
     {
-      v14 = ("N2re31MeshShadowDepthPrepassOverridesE" & 0x7FFFFFFFFFFFFFFFLL);
-      v15 = 5381;
-      do
-      {
-        v13 = v15;
-        v16 = *v14++;
-        v15 = (33 * v15) ^ v16;
-      }
-
-      while (v16);
+      v7 = 2;
     }
 
-    v37 = (qword_1EE1C15C0 + (v13 << 6) + (v13 >> 2) - 0x61C8864680B583E9) ^ v13;
-    v17 = (*(**(a4 + 1) + 32))(*(a4 + 1), 16, 8);
-    *v17 = &unk_1F5D15678;
-    *(v17 + 8) = v35;
-    v36 = v17;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 64, &v37, &v36);
+    v13 = 797;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
   }
 
-  LODWORD(v34) = 0;
-  v18 = a2[2];
-  if (v18)
-  {
-    v19 = a2[3];
-    v20 = 424 * v18;
-    do
-    {
-      re::RealityEmitterBase::emitSingleGraphShadows(a1, v19, this, a4, &v34);
-      v19 += 424;
-      v20 -= 424;
-    }
-
-    while (v20);
-    v21 = a2[2];
-    if (v21)
-    {
-      v22 = a2[3];
-      v23 = 424 * v21;
-      do
-      {
-        re::RealityEmitterBase::emitFilterMapGraph(a1, v22, this, a4);
-        v22 += 53;
-        v23 -= 424;
-      }
-
-      while (v23);
-      v24 = a2[2];
-      if (v24)
-      {
-        v25 = a2[3];
-        v26 = 424 * v24;
-        do
-        {
-          re::RealityEmitterBase::emitVisualProxyHighFidelityGraph(a1, v25, this, a4);
-          v25 += 424;
-          v26 -= 424;
-        }
-
-        while (v26);
-        v27 = a2[2];
-        if (v27)
-        {
-          v28 = a2[3];
-          v29 = 424 * v27;
-          do
-          {
-            re::RealityEmitterBase::emitCameraGraphs(a1, a2, v28, this, a4, 0);
-            v28 += 424;
-            v29 -= 424;
-          }
-
-          while (v29);
-        }
-      }
-    }
-  }
-
-  return re::RealityEmitterBase::pushPipelineCompilationDataToDataStore(a1, this, a4);
+  return *(a2 + 32) + 56 * a3;
 }
 
-uint64_t re::RenderGraphAREmitter::afterCameraViewHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void re::DynamicArray<re::SetRenderGraphTextureCommand>::resize(_anonymous_namespace_ *a1, unint64_t a2)
 {
-  v86[5] = *MEMORY[0x1E69E9840];
-  v12 = 0x9E3779B97F4A7C17;
-  if (*(a7 + 8))
+  v3 = a1;
+  v4 = *(a1 + 2);
+  if (v4 >= a2)
   {
-    v13 = *(a7 + 16);
+    if (v4 <= a2)
+    {
+      return;
+    }
+
+    v8 = 56 * a2;
+    v9 = a2;
+    do
+    {
+      re::DynamicString::deinit((*(v3 + 4) + v8));
+      ++v9;
+      v8 += 56;
+    }
+
+    while (v9 < *(v3 + 2));
   }
 
   else
   {
-    v13 = (a7 + 9);
-  }
-
-  v14 = strlen(v13);
-  if (v14)
-  {
-    MurmurHash3_x64_128(v13, v14, 0, &v75);
-    v12 = ((v76 - 0x61C8864680B583E9 + (v75 << 6) + (v75 >> 2)) ^ v75) - 0x61C8864680B583E9;
-  }
-
-  re::CameraView::makeCameraData(a7, a4[1], a3, &v75);
-  v54 = &unk_1F5D069E0;
-  v64 = 0;
-  v69 = 0;
-  v16 = *(a7 + 768);
-  v55 = *(a7 + 752);
-  v56 = v16;
-  v17 = *(a7 + 800);
-  v57 = *(a7 + 784);
-  v58 = v17;
-  v18 = *(a7 + 864);
-  v61 = *(a7 + 848);
-  v62 = v18;
-  v63 = *(a7 + 880);
-  v19 = *(a7 + 832);
-  v59 = *(a7 + 816);
-  v60 = v19;
-  if (*(a7 + 896) == 1)
-  {
-    v64 = 1;
-    v20 = *(a7 + 928);
-    v65 = *(a7 + 912);
-    v66 = v20;
-    v21 = *(a7 + 960);
-    v67 = *(a7 + 944);
-    v68 = v21;
-  }
-
-  if (*(a7 + 976) == 1)
-  {
-    v69 = 1;
-    v22 = *(a7 + 1008);
-    v70 = *(a7 + 992);
-    v71 = v22;
-    v23 = *(a7 + 1040);
-    v72 = *(a7 + 1024);
-    v73 = v23;
-  }
-
-  if (*(a1 + 1177) == 1)
-  {
-    v24 = &qword_1EE1C15D0;
-    if (atomic_load_explicit(algn_1EE1C15D8, memory_order_acquire))
+    if (*(a1 + 1) < a2)
     {
-      v25 = "DepthFeathering";
-LABEL_13:
-      v26 = *v24;
-      v27 = v12 + (*v24 << 6) + (*v24 >> 2);
-      re::RenderGraphDataStore::add<re::CameraData,re::CameraData&>(a5, v27 ^ *v24, &v75);
-      re::RenderGraphDataStore::add<re::MeshLodSelectInputData,re::MeshLodSelectInputData&>(a5, v27 ^ v26, &v54);
-      re::RealityEmitterBase::addSceneDataToDataStore(a1, a3, v27 ^ v26, a5);
-      re::RenderFrame::emitGraph(a4, v25, v13);
+      a1 = re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(a1, a2);
+      v4 = *(v3 + 2);
+    }
+
+    v5 = a2 - v4;
+    if (a2 > v4)
+    {
+      v6 = 56 * v4;
+      do
+      {
+        v7 = *(v3 + 4) + v6;
+        *v7 = 0u;
+        *(v7 + 16) = 0u;
+        a1 = re::DynamicString::setCapacity(v7, 0);
+        *(v7 + 32) = 0;
+        *(v7 + 40) = -1;
+        *(v7 + 48) = 0;
+        v6 += 56;
+        *(v7 + 50) = 0;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  *(v3 + 2) = a2;
+  ++*(v3 + 6);
+}
+
+void *re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = a3;
+  result = re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  return result;
+}
+
+void re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke(uint64_t a1, uint64_t a2, re::Allocator *a3, unint64_t a4)
+{
+  if (*a1 == a3)
+  {
+    v8 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    if (v8)
+    {
+      v9 = *(a1 + 32);
+      v10 = 56 * v8;
+      do
+      {
+        re::DynamicString::deinit(v9);
+        v9 = (v9 + 56);
+        v10 -= 56;
+      }
+
+      while (v10);
+    }
+  }
+
+  else
+  {
+    re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit(a1);
+    *a1 = a3;
+    re::DynamicArray<re::SetRenderGraphTextureCommand>::setCapacity(a1, a4);
+  }
+
+  ++*(a1 + 24);
+  re::DynamicArray<re::SetRenderGraphTextureCommand>::resize(a1, a4);
+  {
+    re::TypeRegistry::typeInfo(*a2, *(*(a2 + 16) + 80), v16);
+    re::TypeInfo::TypeInfo(v15, &v17);
+    v12 = *(a1 + 16);
+    if (v12)
+    {
+      v13 = *(a1 + 32);
+      v14 = 56 * v12;
+      do
+      {
+        re::TypeInfo::destruct(v15, v13, a3, 0);
+        re::TypeInfo::construct(v15, v13, a3, 0);
+        v13 += 56;
+        v14 -= 56;
+      }
+
+      while (v14);
+    }
+  }
+}
+
+unint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke(uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 56 * a2;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 16, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 24);
+  *(result + 12) = -1;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  v4 = *a1;
+  if (a1[2] == *(*a1 + 24))
+  {
+    v5 = a1[3];
+    v6 = *(v4 + 16);
+    if (v5 < v6)
+    {
+      a1[3] = ++v5;
+    }
+
+    if (v6 <= v5)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return *(v4 + 32) + 56 * v5;
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) DynamicArray elements may not be added or removed during iteration.", "iter->originalVersion == iter->array->version()", "operator()", 316, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->array->version()) DynamicArray elements may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphTextureCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    return (*(*a2 + 40))(a2, result);
+  }
+
+  return result;
+}
+
+void *re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::construct(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+}
+
+void *re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit(a2);
+  *a2 = a3;
+  result = re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a2, 0);
+  ++*(a2 + 24);
+  return result;
+}
+
+void re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (!*a4)
+  {
+    *a4 = a2;
+    re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a4, a5);
+    ++*(a4 + 24);
+  }
+
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::resize(a4, a5);
+}
+
+re::IntrospectionBase *re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::addElement(re::Allocator **a1, re *a2, int a3, uint64_t a4)
+{
+  v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
+  v8 = re::DynamicString::setCapacity(&v21, 0);
+  v9 = *(a4 + 8);
+  v10 = *(a4 + 16);
+  if (v10 >= v9)
+  {
+    v11 = v10 + 1;
+    if (v9 < v10 + 1)
+    {
+      if (*a4)
+      {
+        v12 = 2 * v9;
+        v13 = v9 == 0;
+        v14 = 8;
+        if (!v13)
+        {
+          v14 = v12;
+        }
+
+        if (v14 <= v11)
+        {
+          v15 = v11;
+        }
+
+        else
+        {
+          v15 = v14;
+        }
+
+        re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a4, v15);
+      }
+
+      else
+      {
+        re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a4, v11);
+        ++*(a4 + 24);
+      }
+    }
+
+    v10 = *(a4 + 16);
+  }
+
+  v16 = *(a4 + 32) + 56 * v10;
+  *v16 = v21;
+  v17 = v23;
+  *(v16 + 8) = v22;
+  *(v16 + 24) = v17;
+  *(v16 + 32) = 0;
+  *(v16 + 40) = -1;
+  *(v16 + 48) = 0;
+  v18 = *(a4 + 16);
+  *(a4 + 16) = v18 + 1;
+  ++*(a4 + 24);
+  v19 = (*(a4 + 32) + 56 * v18);
+  re::introspectionInitElement(a2, a3, a1[6], v19);
+  return v19;
+}
+
+unint64_t re::IntrospectionDynamicArray<re::SetRenderGraphBufferCommand>::elementAt(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 789;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 56 * a3;
+}
+
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 56 * a3;
+}
+
+void re::DynamicArray<re::SetRenderGraphBufferCommand>::resize(_anonymous_namespace_ *a1, unint64_t a2)
+{
+  v3 = a1;
+  v4 = *(a1 + 2);
+  if (v4 >= a2)
+  {
+    if (v4 <= a2)
+    {
+      return;
+    }
+
+    v8 = 56 * a2;
+    v9 = a2;
+    do
+    {
+      re::DynamicString::deinit((*(v3 + 4) + v8));
+      ++v9;
+      v8 += 56;
+    }
+
+    while (v9 < *(v3 + 2));
+  }
+
+  else
+  {
+    if (*(a1 + 1) < a2)
+    {
+      a1 = re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a1, a2);
+      v4 = *(v3 + 2);
+    }
+
+    v5 = a2 - v4;
+    if (a2 > v4)
+    {
+      v6 = 56 * v4;
+      do
+      {
+        v7 = *(v3 + 4) + v6;
+        *v7 = 0u;
+        *(v7 + 16) = 0u;
+        a1 = re::DynamicString::setCapacity(v7, 0);
+        *(v7 + 32) = 0;
+        *(v7 + 40) = -1;
+        v6 += 56;
+        *(v7 + 48) = 0;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  *(v3 + 2) = a2;
+  ++*(v3 + 6);
+}
+
+void *re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = a3;
+  result = re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  return result;
+}
+
+void re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke(uint64_t a1, uint64_t a2, re::Allocator *a3, unint64_t a4)
+{
+  if (*a1 == a3)
+  {
+    v8 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    if (v8)
+    {
+      v9 = *(a1 + 32);
+      v10 = 56 * v8;
+      do
+      {
+        re::DynamicString::deinit(v9);
+        v9 = (v9 + 56);
+        v10 -= 56;
+      }
+
+      while (v10);
+    }
+  }
+
+  else
+  {
+    re::DynamicArray<re::SetRenderGraphBufferCommand>::deinit(a1);
+    *a1 = a3;
+    re::DynamicArray<re::SetRenderGraphBufferCommand>::setCapacity(a1, a4);
+  }
+
+  ++*(a1 + 24);
+  re::DynamicArray<re::SetRenderGraphBufferCommand>::resize(a1, a4);
+  {
+    re::TypeRegistry::typeInfo(*a2, *(*(a2 + 16) + 80), v16);
+    re::TypeInfo::TypeInfo(v15, &v17);
+    v12 = *(a1 + 16);
+    if (v12)
+    {
+      v13 = *(a1 + 32);
+      v14 = 56 * v12;
+      do
+      {
+        re::TypeInfo::destruct(v15, v13, a3, 0);
+        re::TypeInfo::construct(v15, v13, a3, 0);
+        v13 += 56;
+        v14 -= 56;
+      }
+
+      while (v14);
+    }
+  }
+}
+
+unint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke(uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 56 * a2;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 16, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 24);
+  *(result + 12) = -1;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  v4 = *a1;
+  if (a1[2] == *(*a1 + 24))
+  {
+    v5 = a1[3];
+    v6 = *(v4 + 16);
+    if (v5 < v6)
+    {
+      a1[3] = ++v5;
+    }
+
+    if (v6 <= v5)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return *(v4 + 32) + 56 * v5;
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) DynamicArray elements may not be added or removed during iteration.", "iter->originalVersion == iter->array->version()", "operator()", 316, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->array->version()) DynamicArray elements may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SetRenderGraphBufferCommand>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    return (*(*a2 + 40))(a2, result);
+  }
+
+  return result;
+}
+
+re::RenderGraphFullscreenNode *re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(re::RenderGraphFullscreenNode *this)
+{
+  v2 = re::RenderGraphNode::RenderGraphNode(this);
+  *(v2 + 66) = 1;
+  *(v2 + 268) = 0;
+  *v2 = &unk_1F5D0E6E0;
+  *(v2 + 17) = 0u;
+  *(v2 + 18) = 0u;
+  *(v2 + 19) = 0u;
+  *(v2 + 40) = 0;
+  re::DynamicString::setCapacity(this + 37, 0);
+  *(this + 41) = 0;
+  *(this + 168) = 0;
+  *(this + 58) = 0;
+  *(this + 43) = 0;
+  *(this + 44) = 0;
+  *(this + 360) = 0;
+  *(this + 24) = 0u;
+  *(this + 25) = 0u;
+  *(this + 104) = 0;
+  *(this + 424) = 0u;
+  *(this + 440) = 0u;
+  *(this + 114) = 0;
+  return this;
+}
+
+void re::GenerateClusterAABBNode::configure(re::GenerateClusterAABBNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if ((atomic_exchange(&re::GenerateClusterAABBNode::configure(char const*,char const*,re::RenderFrame &)::__FILE____LINE___logged, 1u) & 1) == 0)
+  {
+    v4 = *re::graphicsLogObjects(this);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "GenerateClusterAABBNode is deprecated and not implemented", v5, 2u);
+    }
+  }
+}
+
+void re::ComputeClusterProbeIntersectionNode::configure(re::ComputeClusterProbeIntersectionNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if ((atomic_exchange(&re::ComputeClusterProbeIntersectionNode::configure(char const*,char const*,re::RenderFrame &)::__FILE____LINE___logged, 1u) & 1) == 0)
+  {
+    v4 = *re::graphicsLogObjects(this);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "ComputeClusterProbeIntersectionNode is deprecated and not implemented", v5, 2u);
+    }
+  }
+}
+
+void re::DebugClusterAABBNode::configure(re::DebugClusterAABBNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if ((atomic_exchange(re::DebugClusterAABBNode::configure(char const*,char const*,re::RenderFrame &)::__FILE____LINE___logged, 1u) & 1) == 0)
+  {
+    v4 = *re::graphicsLogObjects(this);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "DebugClusterAABBNode is deprecated and not implemented", v5, 2u);
+    }
+  }
+}
+
+void *re::allocInfo_GenerateClusterAABBNode(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_502, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_502))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDBC0, "GenerateClusterAABBNode");
+    __cxa_guard_release(&_MergedGlobals_502);
+  }
+
+  return &unk_1EE1BDBC0;
+}
+
+void re::initInfo_GenerateClusterAABBNode(re *this, re::IntrospectionBase *a2)
+{
+  v17[0] = 0xE382A9FAED18684ELL;
+  v17[1] = "GenerateClusterAABBNode";
+  if (v17[0])
+  {
+    if (v17[0])
+    {
+    }
+  }
+
+  *(this + 2) = v18;
+  if ((atomic_load_explicit(&qword_1EE1BDB58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDB58))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDB90 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_AssetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "library";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x10800000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BDB98 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::IntrospectionInfo<re::DynamicString>::get(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "computeFunction";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x12000000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BDBA0 = v15;
+    __cxa_guard_release(&qword_1EE1BDB58);
+  }
+
+  *(this + 2) = 0x14800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1BDB90;
+  *(this + 9) = re::internal::defaultConstruct<re::GenerateClusterAABBNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::GenerateClusterAABBNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::GenerateClusterAABBNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::GenerateClusterAABBNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v16 = v18;
+}
+
+void re::internal::defaultDestruct<re::GenerateClusterAABBNode>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 320);
+  if (v4)
+  {
+
+    *(a3 + 320) = 0;
+  }
+
+  re::DynamicString::deinit((a3 + 288));
+  re::AssetHandle::~AssetHandle((a3 + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(a3);
+}
+
+void re::internal::defaultDestructV2<re::GenerateClusterAABBNode>(uint64_t a1)
+{
+  v2 = *(a1 + 320);
+  if (v2)
+  {
+
+    *(a1 + 320) = 0;
+  }
+
+  re::DynamicString::deinit((a1 + 288));
+  re::AssetHandle::~AssetHandle((a1 + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(a1);
+}
+
+void *re::allocInfo_ComputeClusterProbeIntersectionNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BDB60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDB60))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDC50, "ComputeClusterProbeIntersectionNode");
+    __cxa_guard_release(&qword_1EE1BDB60);
+  }
+
+  return &unk_1EE1BDC50;
+}
+
+void re::initInfo_ComputeClusterProbeIntersectionNode(re *this, re::IntrospectionBase *a2)
+{
+  v17[0] = 0x7B570A09A2CECBB0;
+  v17[1] = "ComputeClusterProbeIntersectionNode";
+  if (v17[0])
+  {
+    if (v17[0])
+    {
+    }
+  }
+
+  *(this + 2) = v18;
+  if ((atomic_load_explicit(&qword_1EE1BDB68, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDB68))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDBA8 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_AssetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "library";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x10800000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BDBB0 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::IntrospectionInfo<re::DynamicString>::get(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "computeFunction";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x12000000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BDBB8 = v15;
+    __cxa_guard_release(&qword_1EE1BDB68);
+  }
+
+  *(this + 2) = 0x14800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1BDBA8;
+  *(this + 9) = re::internal::defaultConstruct<re::ComputeClusterProbeIntersectionNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::ComputeClusterProbeIntersectionNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::ComputeClusterProbeIntersectionNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ComputeClusterProbeIntersectionNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v16 = v18;
+}
+
+void re::internal::defaultDestruct<re::ComputeClusterProbeIntersectionNode>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 320);
+  if (v4)
+  {
+
+    *(a3 + 320) = 0;
+  }
+
+  re::DynamicString::deinit((a3 + 288));
+  re::AssetHandle::~AssetHandle((a3 + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(a3);
+}
+
+void re::internal::defaultDestructV2<re::ComputeClusterProbeIntersectionNode>(uint64_t a1)
+{
+  v2 = *(a1 + 320);
+  if (v2)
+  {
+
+    *(a1 + 320) = 0;
+  }
+
+  re::DynamicString::deinit((a1 + 288));
+  re::AssetHandle::~AssetHandle((a1 + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(a1);
+}
+
+void *re::allocInfo_DebugClusterAABBNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BDB70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDB70))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDCE0, "DebugClusterAABBNode");
+    __cxa_guard_release(&qword_1EE1BDB70);
+  }
+
+  return &unk_1EE1BDCE0;
+}
+
+void re::initInfo_DebugClusterAABBNode(re *this, re::IntrospectionBase *a2)
+{
+  v13[0] = 0xB58AF7B3E254EF92;
+  v13[1] = "DebugClusterAABBNode";
+  if (v13[0])
+  {
+    if (v13[0])
+    {
+    }
+  }
+
+  *(this + 2) = v14;
+  if ((atomic_load_explicit(&qword_1EE1BDB78, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDB78))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDB80 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_AssetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "material";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x11000000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BDB88 = v11;
+    __cxa_guard_release(&qword_1EE1BDB78);
+  }
+
+  *(this + 2) = 0x12800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1BDB80;
+  *(this + 9) = re::internal::defaultConstruct<re::DebugClusterAABBNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::DebugClusterAABBNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::DebugClusterAABBNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::DebugClusterAABBNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v12 = v14;
+}
+
+double re::internal::defaultConstruct<re::DebugClusterAABBNode>(int a1, int a2, re::RenderGraphNode *this)
+{
+  v3 = re::RenderGraphNode::RenderGraphNode(this);
+  *v3 = &unk_1F5D0EA08;
+  result = 0.0;
+  *(v3 + 264) = 0u;
+  *(v3 + 280) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestruct<re::DebugClusterAABBNode>(uint64_t a1, uint64_t a2, id *a3)
+{
+  re::AssetHandle::~AssetHandle((a3 + 34));
+
+  re::RenderGraphNode::~RenderGraphNode(a3);
+}
+
+double re::internal::defaultConstructV2<re::DebugClusterAABBNode>(re::RenderGraphNode *a1)
+{
+  v1 = re::RenderGraphNode::RenderGraphNode(a1);
+  *v1 = &unk_1F5D0EA08;
+  result = 0.0;
+  *(v1 + 264) = 0u;
+  *(v1 + 280) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::DebugClusterAABBNode>(id *a1)
+{
+  re::AssetHandle::~AssetHandle((a1 + 34));
+
+  re::RenderGraphNode::~RenderGraphNode(a1);
+}
+
+void re::GenerateClusterAABBNode::~GenerateClusterAABBNode(re::GenerateClusterAABBNode *this)
+{
+  v2 = *(this + 40);
+  if (v2)
+  {
+
+    *(this + 40) = 0;
+  }
+
+  re::DynamicString::deinit((this + 288));
+  re::AssetHandle::~AssetHandle((this + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+{
+  v2 = *(this + 40);
+  if (v2)
+  {
+
+    *(this + 40) = 0;
+  }
+
+  re::DynamicString::deinit((this + 288));
+  re::AssetHandle::~AssetHandle((this + 264));
+  re::RenderGraphNode::~RenderGraphNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::ComputeClusterProbeIntersectionNode::~ComputeClusterProbeIntersectionNode(re::ComputeClusterProbeIntersectionNode *this)
+{
+  v2 = *(this + 40);
+  if (v2)
+  {
+
+    *(this + 40) = 0;
+  }
+
+  re::DynamicString::deinit((this + 288));
+  re::AssetHandle::~AssetHandle((this + 264));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+{
+  v2 = *(this + 40);
+  if (v2)
+  {
+
+    *(this + 40) = 0;
+  }
+
+  re::DynamicString::deinit((this + 288));
+  re::AssetHandle::~AssetHandle((this + 264));
+  re::RenderGraphNode::~RenderGraphNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::DebugClusterAABBNode::~DebugClusterAABBNode(id *this)
+{
+  re::AssetHandle::~AssetHandle((this + 34));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+{
+  re::AssetHandle::~AssetHandle((this + 34));
+  re::RenderGraphNode::~RenderGraphNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+re::GenerateClusterAABBNode *re::GenerateClusterAABBNode::GenerateClusterAABBNode(re::GenerateClusterAABBNode *this)
+{
+  v2 = re::RenderGraphNode::RenderGraphNode(this);
+  *v2 = &unk_1F5D0E8B8;
+  *(v2 + 264) = 0u;
+  *(v2 + 280) = 0u;
+  *(v2 + 296) = 0u;
+  *(v2 + 39) = 0;
+  re::DynamicString::setCapacity(this + 36, 0);
+  *(this + 40) = 0;
+  return this;
+}
+
+re::ComputeClusterProbeIntersectionNode *re::ComputeClusterProbeIntersectionNode::ComputeClusterProbeIntersectionNode(re::ComputeClusterProbeIntersectionNode *this)
+{
+  v2 = re::RenderGraphNode::RenderGraphNode(this);
+  *v2 = &unk_1F5D0E960;
+  *(v2 + 264) = 0u;
+  *(v2 + 280) = 0u;
+  *(v2 + 296) = 0u;
+  *(v2 + 39) = 0;
+  re::DynamicString::setCapacity(this + 36, 0);
+  *(this + 40) = 0;
+  return this;
+}
+
+void re::RenderGraphDofSetupNode::configure(re::RenderGraphDofSetupNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if (*(this + 66))
+  {
+    re::AssetHandle::loadAsync((this + 520));
+  }
+
+  if (*(this + 69))
+  {
+    re::AssetHandle::loadAsync((this + 544));
+  }
+
+  if (*(this + 72))
+  {
+    re::AssetHandle::loadAsync((this + 568));
+  }
+
+  re::RenderGraphFullscreenNode::configure(this, a2, a3, a4);
+}
+
+void re::RenderGraphDofSetupNode::execute(re::RenderGraphDofSetupNode *this, re::RenderGraphContext *a2)
+{
+  v60 = *MEMORY[0x1E69E9840];
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v53, 5048, 0, 0, 0, 0);
+  v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 520));
+  *(this + 59) = v4;
+  if (!v4)
+  {
+    goto LABEL_28;
+  }
+
+  v7 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 544));
+  *(this + 60) = v7;
+  if (!v7)
+  {
+    goto LABEL_28;
+  }
+
+  v8 = (this + 568);
+  v9 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 568));
+  *(this + 61) = v9;
+  if (!v9)
+  {
+    goto LABEL_28;
+  }
+
+  if (!*(this + 25))
+  {
+    v54 = 0;
+    v59 = 0u;
+    memset(&v58, 0, sizeof(v58));
+    v40 = MEMORY[0x1E69E9C10];
+    v41 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v55 = 136315906;
+    *&v55[4] = "operator[]";
+    *&v55[12] = 1024;
+    if (v41)
+    {
+      v42 = 3;
+    }
+
+    else
+    {
+      v42 = 2;
+    }
+
+    *&v55[14] = 789;
+    *&v55[18] = 2048;
+    *&v55[20] = 0;
+    v56 = 2048;
+    *v57 = 0;
+    _os_log_send_and_compose_impl(v42, &v54, &v58, 80, &dword_1E1C61000, v40, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v55, 38, v45, v46);
+    _os_crash_msg();
+    __break(1u);
+LABEL_33:
+    re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
+    _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v43, v44);
+    __break(1u);
+  }
+
+  re::RenderGraphContext::metalTexture(a2, *(this + 27), 0, 0, &v52);
+  v10 = re::RenderGraphDataStore::get<re::CameraData>(*(a2 + 146), *(*(a2 + 5) + 48));
+  if (!*(v10 + 128))
+  {
+    goto LABEL_33;
+  }
+
+  if (*(v10 + 224) == 1)
+  {
+    v12 = *(v10 + 256);
+    v58.columns[0] = *(v10 + 240);
+    v58.columns[1] = v12;
+    v13 = *(v10 + 288);
+    v58.columns[2] = *(v10 + 272);
+    v58.columns[3] = v13;
+  }
+
+  else
+  {
+    re::Projection::cullingProjectionMatrix(&v58, (v10 + 144));
+  }
+
+  v61 = __invert_f4(v58);
+  v50 = v61.columns[1];
+  v51 = v61.columns[0];
+  v48 = v61.columns[3];
+  v49 = v61.columns[2];
+  v14 = *(this + 126);
+  v15 = (*(this + 124) * ((*(this + 124) / *(this + 125)) * 0.5)) / (*(this + 124) + (v14 * -1000.0));
+  v16 = *(this + 127);
+  v17 = [v52 height];
+  v18 = *(*a2 + 32);
+  if (*(this + 304))
+  {
+    v19 = *(this + 39);
+  }
+
+  else
+  {
+    v19 = this + 305;
+  }
+
+  v20 = v17;
+  memset(&v58, 0, 32);
+  v21 = v15 / v16;
+  re::DynamicString::DynamicString(&v58.columns[2], v19, v18);
+  v22 = *(this + 128);
+  if (v22 == 1)
+  {
+    v58.columns[0].i64[0] = *(this + 60);
+    v23 = 5.0;
+    v8 = (this + 544);
+  }
+
+  else if (v22 == 2)
+  {
+    v58.columns[0].i64[0] = *(this + 61);
+    v23 = 10.0;
+  }
+
+  else
+  {
+    v58.columns[0].i64[0] = *(this + 59);
+    v23 = 5.0;
+    v8 = (this + 520);
+  }
+
+  v24 = v21 * v20;
+  v25 = re::AssetHandle::operator=(&v58.columns[0].i64[1], v8);
+  v26 = *(a2 + 146);
+  v27 = "N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE";
+  v28 = (v23 * 0.25) / *(this + 126);
+  if (("N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE" & 0x8000000000000000) != 0)
+  {
+    v29 = ("N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE" & 0x7FFFFFFFFFFFFFFFLL);
+    v30 = 5381;
+    do
+    {
+      v27 = v30;
+      v31 = *v29++;
+      v30 = (33 * v30) ^ v31;
+    }
+
+    while (v31);
+  }
+
+  *v55 = (*(*(a2 + 5) + 48) + (v27 << 6) + (v27 >> 2) - 0x61C8864680B583E9) ^ v27;
+  v32 = re::globalAllocators(v25);
+  v33 = (*(*v32[2] + 32))(v32[2], 72, 8);
+  *v33 = &unk_1F5D0ECD0;
+  v33[1] = v58.columns[0].i64[0];
+  v33[2] = 0;
+  v33[3] = 0;
+  v33[4] = 0;
+  v34 = v58.columns[1].i64[0];
+  v58.columns[1].i64[0] = 0;
+  v35 = v33[2];
+  v33[2] = v58.columns[0].i64[1];
+  *(v33 + 3) = __PAIR128__(v58.columns[1].u64[1], v34);
+  v58.columns[0].i64[1] = v35;
+  v58.columns[1].i64[1] = 0;
+  re::DynamicString::DynamicString((v33 + 5), &v58.columns[2]);
+  v54 = v33;
+  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v26 + 16, v55, &v54);
+  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(v55, (*a2 + 16), 0x60uLL, 0x10uLL);
+  v36 = *&v55[16];
+  v47 = *&v55[8];
+  v37 = (*v55 + *&v55[8]);
+  *v37 = v51;
+  v37[1] = v50;
+  v37[2] = v49;
+  v37[3] = v48;
+  v37[4].f32[0] = v14;
+  v37[4].f32[1] = v24;
+  v37[4].f32[2] = v23;
+  v37[4].f32[3] = 1.0 / v23;
+  v37[5].f32[0] = v23 * 0.25;
+  v37[5].f32[1] = v28;
+  v38 = v36;
+  *&v55[24] = 0;
+  *&v57[2] = v47;
+  v39 = *a2;
+  v54 = 0x248FEBCC4417DE54;
+  *v55 = v38;
+  re::BufferTable::setBuffer((v39 + 480), &v54, v55);
+  re::RenderGraphFullscreenNode::executeInternal(this, a2, (this + 272));
+  if (*&v55[24] != -1)
+  {
+    (off_1F5D0EC98[*&v55[24]])(&v54, v55);
+  }
+
+  if (v58.columns[2].i64[0])
+  {
+    if (v58.columns[2].i8[8])
+    {
+      (*(*v58.columns[2].i64[0] + 40))();
+    }
+
+    memset(&v58.columns[2], 0, 32);
+  }
+
+  re::AssetHandle::~AssetHandle(&v58.columns[0].u32[2]);
+  if (v52)
+  {
+  }
+
+LABEL_28:
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v53, v5, v6);
+}
+
+void re::RenderGraphDofSetupNode::getMaterialParameterTables(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 512);
+  if (v4 == 1)
+  {
+    if (!*(a1 + 552))
+    {
       goto LABEL_20;
     }
 
-    v53 = &qword_1EE1C15D0;
-    v25 = "DepthFeathering";
-    if (!__cxa_guard_acquire(algn_1EE1C15D8))
+    v9 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 544));
+    if (!v9)
     {
-      v24 = &qword_1EE1C15D0;
-      goto LABEL_13;
+      goto LABEL_20;
     }
 
-    v44 = re::hashString("DepthFeathering", v43);
-    v45 = &qword_1EE1C15D0;
-    goto LABEL_48;
+    v6 = *(v9 + 1784);
+    if (!v6)
+    {
+      goto LABEL_20;
+    }
+
+    v7 = *(a1 + 552);
+    if (v7)
+    {
+      goto LABEL_7;
+    }
   }
 
-  if (*(a1 + 1178) == 1 && *(a1 + 1179) == 1)
+  else if (v4 == 2)
   {
-    if ((atomic_load_explicit(&qword_1EE1C15E8, memory_order_acquire) & 1) == 0)
+    if (!*(a1 + 576))
     {
-      v49 = __cxa_guard_acquire(&qword_1EE1C15E8);
-      if (v49)
-      {
-        qword_1EE1C15E0 = re::getCombinedScopeHash(v49, v50, v51);
-        __cxa_guard_release(&qword_1EE1C15E8);
-      }
+      goto LABEL_20;
     }
 
-    if (re::RenderGraphDataStore::tryGet<re::SceneUnderstandingGuidedFilterOcclusionData>(a5, qword_1EE1C15E0))
+    v5 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 568));
+    if (!v5)
     {
-      v24 = &qword_1EE1C15F0;
-      if (atomic_load_explicit(algn_1EE1C15F8, memory_order_acquire))
-      {
-        v25 = "GuidedFilterOcclusion";
-        goto LABEL_13;
-      }
+      goto LABEL_20;
+    }
 
-      v53 = &qword_1EE1C15F0;
-      v25 = "GuidedFilterOcclusion";
-      if (!__cxa_guard_acquire(algn_1EE1C15F8))
-      {
-        v24 = &qword_1EE1C15F0;
-        goto LABEL_13;
-      }
+    v6 = *(v5 + 1784);
+    if (!v6)
+    {
+      goto LABEL_20;
+    }
 
-      v44 = re::hashString("GuidedFilterOcclusion", v52);
-      v45 = &qword_1EE1C15F0;
-LABEL_48:
-      *v45 = v44;
-      __cxa_guard_release(v45 + 1);
-      v24 = v53;
+    v7 = *(a1 + 576);
+    if (v7)
+    {
+LABEL_7:
+      v8 = *(v7 + 792);
       goto LABEL_13;
     }
+  }
+
+  else
+  {
+    if (!*(a1 + 528))
+    {
+      goto LABEL_20;
+    }
+
+    v11 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 520));
+    if (!v11)
+    {
+      goto LABEL_20;
+    }
+
+    v6 = *(v11 + 1784);
+    if (!v6)
+    {
+      goto LABEL_20;
+    }
+
+    v7 = *(a1 + 528);
+    if (v7)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  v8 = 0;
+LABEL_13:
+  v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v7 ^ (v7 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v7 ^ (v7 >> 30))) >> 27));
+  v13 = v8 ^ (v10 >> 31) ^ v10;
+  re::MaterialParameterBlock::createMaterialParameterTableIfNeeded(&v12, v6);
+  re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::add(a2, &v13, &v12);
+  if (v12)
+  {
   }
 
 LABEL_20:
-  v28 = *(a1 + 856);
-  if (v28)
-  {
-    v29 = atomic_load((v28 + 896));
-    if (v29 == 2)
-    {
-      re::AssetHandle::internalUpdateImmutableAsset<re::RenderGraphAsset,re::RenderGraphAREmitter::afterCameraViewHandler(re::RenderFrameContext &,re::RenderSceneContext &,re::RenderFrame &,re::RenderGraphDataStore &,char const*,re::CameraView const&)::$_0>((a1 + 848), a7);
-    }
-  }
-
-  v30 = *(a1 + 904);
-  if (v30)
-  {
-    v31 = atomic_load((v30 + 896));
-    if (v31 == 2)
-    {
-      re::AssetHandle::internalUpdateImmutableAsset<re::RenderGraphAsset,re::RenderGraphAREmitter::afterCameraViewHandler(re::RenderFrameContext &,re::RenderSceneContext &,re::RenderFrame &,re::RenderGraphDataStore &,char const*,re::CameraView const&)::$_0>((a1 + 896), a7);
-    }
-  }
-
-  v32 = *(a1 + 1000);
-  if (v32)
-  {
-    v33 = atomic_load((v32 + 896));
-    if (v33 == 2)
-    {
-      re::AssetHandle::internalUpdateImmutableAsset<re::RenderGraphAsset,re::RenderGraphAREmitter::afterCameraViewHandler(re::RenderFrameContext &,re::RenderSceneContext &,re::RenderFrame &,re::RenderGraphDataStore &,char const*,re::CameraView const&)::$_0>((a1 + 992), a7);
-    }
-  }
-
-  v34 = *(a1 + 1024);
-  if (v34)
-  {
-    v35 = atomic_load((v34 + 896));
-    if (v35 == 2)
-    {
-      re::AssetHandle::internalUpdateImmutableAsset<re::RenderGraphAsset,re::RenderGraphAREmitter::afterCameraViewHandler(re::RenderFrameContext &,re::RenderSceneContext &,re::RenderFrame &,re::RenderGraphDataStore &,char const*,re::CameraView const&)::$_0>((a1 + 1016), a7);
-    }
-  }
-
-  if ((*(a7 + 703) & 1) == 0)
-  {
-    re::CameraView::makeViewportPercentData(a7, v15, v74);
-    if (*(a1 + 1174) == 1)
-    {
-      if ((atomic_load_explicit(&qword_1EE1C1608, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1608))
-      {
-        qword_1EE1C1600 = re::hashString("DepthOfField", v46);
-        __cxa_guard_release(&qword_1EE1C1608);
-      }
-
-      v36 = qword_1EE1C1600;
-      v37 = v12 + (qword_1EE1C1600 << 6) + (qword_1EE1C1600 >> 2);
-      re::RenderGraphDataStore::add<re::CameraData,re::CameraData&>(a5, v37 ^ qword_1EE1C1600, &v75);
-      re::RenderGraphDataStore::add<re::ViewportPercentData,re::ViewportPercentData&>(a5, v37 ^ v36, v74);
-      re::RealityEmitterBase::addSceneDataToDataStore(a1, a3, v37 ^ v36, a5);
-      re::RenderFrame::emitGraph(a4, "DepthOfField", v13);
-    }
-
-    if (*(a1 + 1175) == 1)
-    {
-      if ((atomic_load_explicit(&qword_1EE1C1618, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1618))
-      {
-        qword_1EE1C1610 = re::hashString("MotionBlur", v47);
-        __cxa_guard_release(&qword_1EE1C1618);
-      }
-
-      v38 = qword_1EE1C1610;
-      v39 = v12 + (qword_1EE1C1610 << 6) + (qword_1EE1C1610 >> 2);
-      re::RenderGraphDataStore::add<re::CameraData,re::CameraData&>(a5, v39 ^ qword_1EE1C1610, &v75);
-      re::RenderGraphDataStore::add<re::ViewportPercentData,re::ViewportPercentData&>(a5, v39 ^ v38, v74);
-      re::RealityEmitterBase::addSceneDataToDataStore(a1, a3, v39 ^ v38, a5);
-      re::RenderFrame::emitGraph(a4, "MotionBlur", v13);
-    }
-
-    if (*(a1 + 1176) == 1)
-    {
-      if ((atomic_load_explicit(&qword_1EE1C1628, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1628))
-      {
-        qword_1EE1C1620 = re::hashString("PostProcessCombined", v48);
-        __cxa_guard_release(&qword_1EE1C1628);
-      }
-
-      v40 = qword_1EE1C1620;
-      v41 = v12 + (qword_1EE1C1620 << 6) + (qword_1EE1C1620 >> 2);
-      re::RenderGraphDataStore::add<re::ViewportPercentData,re::ViewportPercentData&>(a5, v41 ^ qword_1EE1C1620, v74);
-      re::RealityEmitterBase::addSceneDataToDataStore(a1, a3, v41 ^ v40, a5);
-      re::RenderFrame::emitGraph(a4, "PostProcessCombined", v13);
-      *(*(*(a4[1] + 112) + 1648) + 16) = 0;
-    }
-  }
-
-  re::RealityEmitterBase::emitCustomPostProcessGraph<re::CameraView>(a1, a3, a4, a7);
-  re::FunctionBase<24ul,void ()(re::mtl::CommandBuffer const&)>::destroyCallable(v86);
-  ++v85;
-  ++v83;
-  ++v81;
-  v84 = 0;
-  v82 = 0;
-  v80 = 0;
-  v78 = 0;
-  ++v79;
-  result = v76;
-  if (v76)
-  {
-    if (v77)
-    {
-      return (*(*v76 + 40))();
-    }
-  }
-
-  return result;
+  re::RenderGraphFullscreenNode::getMaterialParameterTables(a1, a2);
 }
 
-uint64_t re::RenderGraphDataStore::add<re::CameraData,re::CameraData&>(uint64_t a1, uint64_t a2, uint64_t a3)
+void re::RenderGraphDofBokehBlurNode::execute(re::RenderGraphDofBokehBlurNode *this, re::RenderGraphContext *a2)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
-  v19 = 0;
+  v4 = re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v18, 5050, 0, 0, 0, 0);
+  v5 = *(a2 + 146);
+  v6 = "N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE";
+  if (("N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE" & 0x8000000000000000) != 0)
   {
-    re::introspect<re::CameraData>(BOOL)::info = re::introspect_CameraData(0);
-  }
-
-  v18 = re::introspect<re::CameraData>(BOOL)::info;
-  v6 = strlen(*(re::introspect<re::CameraData>(BOOL)::info + 6));
-  if (v6)
-  {
-    MurmurHash3_x64_128(*(re::introspect<re::CameraData>(BOOL)::info + 6), v6, 0, v20);
-    v7 = (v20[1] - 0x61C8864680B583E9 + (v20[0] << 6) + (v20[0] >> 2)) ^ v20[0];
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v19 = v7;
-  re::HashTable<unsigned long,re::IntrospectionStructure const*,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addOrReplace(a1 + 176, &v19, &v18);
-  v20[0] = (a2 - 0x61C8864680B583E9 + (v19 << 6) + (v19 >> 2)) ^ v19;
-  v8 = (*(**(a1 + 8) + 32))(*(a1 + 8), 960, 16);
-  *v8 = &unk_1F5D03750;
-  re::DynamicString::DynamicString((v8 + 8), (a3 + 8));
-  *(v8 + 48) = 0;
-  *(v8 + 56) = 0;
-  v9 = *(a3 + 48);
-  memcpy((v8 + 64), (a3 + 64), 32 * v9);
-  *(v8 + 48) = v9;
-  *(v8 + 128) = 0;
-  *(v8 + 136) = 0;
-  re::DynamicInlineArray<re::Projection,2ul>::copy((v8 + 128), (a3 + 128));
-  *(v8 + 624) = 0;
-  *(v8 + 632) = 0;
-  v10 = *(a3 + 624);
-  memcpy((v8 + 640), (a3 + 640), v10 << 6);
-  *(v8 + 624) = v10;
-  *(v8 + 768) = 0;
-  *(v8 + 776) = 0;
-  v11 = *(a3 + 768);
-  memcpy((v8 + 784), (a3 + 784), 16 * v11);
-  *(v8 + 768) = v11;
-  v13 = *(a3 + 832);
-  v12 = *(a3 + 848);
-  v14 = *(a3 + 816);
-  *(v8 + 858) = *(a3 + 858);
-  *(v8 + 832) = v13;
-  *(v8 + 848) = v12;
-  *(v8 + 816) = v14;
-  v15 = *(a3 + 876);
-  *(v8 + 876) = v15;
-  if (v15 == 1)
-  {
-    *(v8 + 880) = *(a3 + 880);
-  }
-
-  v16 = *(a3 + 884);
-  *(v8 + 897) = *(a3 + 897);
-  *(v8 + 884) = v16;
-  *(v8 + 944) = *(a3 + 944);
-  *(v8 + 952) = 0;
-  re::FunctionBase<24ul,void ()(re::mtl::CommandBuffer const&)>::operator=<24ul>(v8 + 920, a3 + 920);
-  v18 = v8;
-  return re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a1 + 64, v20, &v18);
-}
-
-re::RenderGraphAsset *re::AssetHandle::internalUpdateImmutableAsset<re::RenderGraphAsset,re::RenderGraphAREmitter::afterCameraViewHandler(re::RenderFrameContext &,re::RenderSceneContext &,re::RenderFrame &,re::RenderGraphDataStore &,char const*,re::CameraView const&)::$_0>(re::RenderGraphAsset *result, uint64_t a2)
-{
-  v2 = *(result + 1);
-  if (v2)
-  {
-    v3 = atomic_load((v2 + 896));
-    if (v3 == 2)
-    {
-      ++*(*(result + 1) + 276);
-      result = re::AssetHandle::loadedAsset<re::RenderGraphAsset>(result);
-      if (result)
-      {
-        v5 = result;
-        if (*(a2 + 704))
-        {
-          v6 = "arKitPassthroughDisabledTechnique";
-        }
-
-        else
-        {
-          v6 = "arKitPassthroughTechnique";
-        }
-
-        v9 = 0xBEC9DE826D75EA6;
-        v10 = "Fullscreen_ARKitPassthrough";
-        {
-          re::introspect<re::DynamicString>(BOOL)::info = re::IntrospectionInfo<re::DynamicString>::get(0, v8);
-        }
-
-        v7 = re::RenderGraphFile::setRuntimeNodeSetting((v5 + 8), &v9, re::introspect<re::DynamicString>(BOOL)::info, "techniqueName", &v11);
-        if (v9)
-        {
-          if (v9)
-          {
-          }
-        }
-
-        result = v11;
-        if (v11)
-        {
-          if (v12)
-          {
-            return (*(*v11 + 40))();
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::RenderGraphDataStore::add<re::ViewportPercentData,re::ViewportPercentData&>(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = "N2re19ViewportPercentDataE";
-  if (("N2re19ViewportPercentDataE" & 0x8000000000000000) != 0)
-  {
-    v6 = ("N2re19ViewportPercentDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v7 = 5381;
+    v7 = ("N2re27RenderGraphDataStoreWrapperINS_28DepthOfFieldBlurMaterialDataEEE" & 0x7FFFFFFFFFFFFFFFLL);
+    v8 = 5381;
     do
     {
-      v5 = v7;
-      v8 = *v6++;
-      v7 = (33 * v7) ^ v8;
+      v6 = v8;
+      v9 = *v7++;
+      v8 = (33 * v8) ^ v9;
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v13 = (a2 + (v5 << 6) + (v5 >> 2) - 0x61C8864680B583E9) ^ v5;
-  v9 = (*(**(a1 + 8) + 32))(*(a1 + 8), 80, 16);
-  *v9 = &unk_1F5D06920;
-  *(v9 + 16) = 0;
-  *(v9 + 24) = 0;
-  v10 = a3[2];
-  memcpy((v9 + 32), a3 + 4, 16 * v10);
-  *(v9 + 16) = v10;
-  *(v9 + 64) = a3[8];
-  v12 = v9;
-  return re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a1 + 64, &v13, &v12);
-}
-
-void re::RenderGraphAREmitter::afterCameraMultiViewHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v29[6] = *MEMORY[0x1E69E9840];
-  if ((*(a7 + 703) & 1) == 0)
+  if (!*(v5 + 16))
   {
-    if ((atomic_load_explicit(&qword_1EE1C1638, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1638))
-    {
-      qword_1EE1C1630 = re::hashString("PostProcessMultiView", v17);
-      __cxa_guard_release(&qword_1EE1C1638);
-    }
-
-    if (*(a7 + 8))
-    {
-      v11 = *(a7 + 16);
-    }
-
-    else
-    {
-      v11 = (a7 + 9);
-    }
-
-    v12 = qword_1EE1C1630;
-    v13 = strlen(v11);
-    if (v13)
-    {
-      MurmurHash3_x64_128(v11, v13, 0, &v18);
-      v14 = (v19 - 0x61C8864680B583E9 + (v18 << 6) + (v18 >> 2)) ^ v18;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v15 = (v12 << 6) - 0x61C8864680B583E9 + (v12 >> 2) + v14;
-    re::CameraMultiView::makeCameraDataInstancedMode(a7, a4[1], a3, &v18);
-    re::RenderGraphDataStore::add<re::CameraData,re::CameraData>(a5, v15 ^ v12, &v18);
-    re::FunctionBase<24ul,void ()(re::mtl::CommandBuffer const&)>::destroyCallable(v29);
-    ++v28;
-    ++v26;
-    ++v24;
-    v27 = 0;
-    v25 = 0;
-    v23 = 0;
-    v21 = 0;
-    ++v22;
-    if (v19)
-    {
-      if (v20)
-      {
-        (*(*v19 + 40))();
-      }
-    }
-
-    re::CameraMultiView::makeViewportPercentDataInstancedMode(a7, v16, &v18);
-    re::RenderGraphDataStore::add<re::ViewportPercentData,re::ViewportPercentData>(a5, v15 ^ v12, &v18);
-    re::RenderFrame::emitGraph(a4, "PostProcessMultiView", v11);
-    *(*(*(a4[1] + 112) + 1648) + 16) = 0;
+    goto LABEL_12;
   }
-}
 
-uint64_t re::RenderGraphAREmitter::cameraViewHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, char *a6, uint64_t a7)
-{
-  re::CameraView::prepareEmitDefault(a7, a4, a5, a2, a3, a6);
-  if (*(a7 + 8))
+  v10 = (*(*(a2 + 5) + 48) + (v6 << 6) + (v6 >> 2) - 0x61C8864680B583E9) ^ v6;
+  v11 = *(*(v5 + 24) + 4 * (v10 % *(v5 + 40)));
+  if (v11 == 0x7FFFFFFF)
   {
-    v13 = *(a7 + 16);
+    goto LABEL_12;
+  }
+
+  v12 = *(v5 + 32);
+  while (*(v12 + 24 * v11 + 8) != v10)
+  {
+    v11 = *(v12 + 24 * v11) & 0x7FFFFFFF;
+    if (v11 == 0x7FFFFFFF)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v13 = *(v12 + 24 * v11 + 16);
+  if (v13)
+  {
+    *(this + 41) = v13[1];
+    re::DynamicString::operator=((this + 296), (v13 + 5));
+    re::RenderGraphFullscreenNode::executeInternal(this, a2, (v13 + 2));
   }
 
   else
   {
-    v13 = (a7 + 9);
+LABEL_12:
+    v16 = *re::graphicsLogObjects(v4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *v17 = 0;
+      _os_log_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_DEFAULT, "RenderGraphDofBokehBlurNode expects DepthOfFieldBlurMaterialDataWrapper from the render graph                         data store but there isn't any. Will skip the execution. Did you forget to add a RenderGraphDofSetupNode?", v17, 2u);
+    }
   }
 
-  return re::RenderGraphAREmitter::fillDataStoreAndEmitGraph(a1, a7, a4, a5, a3, v13, a6);
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v18, v14, v15);
 }
 
-uint64_t re::RenderGraphAREmitter::cameraMultiViewHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, char *a6, uint64_t a7)
+void re::RenderGraphDofCompositeNode::configure(re::RenderGraphDofCompositeNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
 {
-  re::CameraMultiView::prepareEmitDefaultInstancedMode(a7, a4, a5, a2, a3, a6);
-  if (*(a7 + 8))
+  if (*(this + 63))
   {
-    v13 = *(a7 + 16);
+    re::AssetHandle::loadAsync((this + 496));
   }
 
-  else
+  if (*(this + 66))
   {
-    v13 = (a7 + 9);
+    re::AssetHandle::loadAsync((this + 520));
   }
 
-  return re::RenderGraphAREmitter::fillDataStoreAndEmitGraph(a1, a7, a4, a5, a3, v13, a6);
+  re::RenderGraphFullscreenNode::configure(this, a2, a3, a4);
 }
 
-void re::RenderGraphAREmitter::registerProviders(re::RenderGraphAREmitter *this, re::RenderGraphManager *a2, AssetService *a3)
+void re::RenderGraphDofCompositeNode::execute(re::RenderGraphDofCompositeNode *this, re::RenderGraphContext *a2)
 {
-  re::RealityEmitterBase::registerCommonProviders(this, a2, a3);
-  (*(a3->var0 + 1))(&v113, a3, "engine:BuiltinRenderGraphResources/Common/depthClear.rematerial");
-  v6 = *(this + 152);
-  *(this + 152) = v113;
-  v113 = v6;
-  v7 = *(this + 21);
-  *(this + 21) = v114;
-  v114 = v7;
-  re::AssetHandle::~AssetHandle(&v113);
-  re::AssetHandle::loadAsync((this + 152));
-  (*(a3->var0 + 1))(v112, a3, "engine:default.metallib");
-  re::AssetHandle::loadAsync(v112);
-  v9 = *(this + 98);
-  if (v9)
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v8, 5052, 0, 0, 0, 0);
+  v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 496));
+  *(this + 59) = v4;
+  if (v4)
   {
-    v10 = atomic_load((v9 + 896));
-    if (v10 != 2)
+    v7 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 520));
+    *(this + 60) = v7;
+    if (v7)
     {
-      re::AssetHandle::loadNow(*(this + 98), 0);
-    }
-
-    v11 = *(this + 98);
-    if (v11)
-    {
-      v12 = atomic_load((v11 + 896));
-      if (v12 == 2 && !re::FontID::isValid((this + 1248)))
+      if ((*(this + 488) & 1) == 0)
       {
-        v13 = *(this + 98);
-        if (v13)
-        {
-          v14 = atomic_load((v13 + 896));
-          if (v14 == 2)
-          {
-            ++*(*(this + 98) + 276);
-            v15 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 776));
-            if (v15)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "Camera", (v15 + 8), 0, 0, &v113);
-              v16 = re::StringID::operator=((this + 1248), &v113);
-              *(this + 158) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
+        v7 = *(this + 59);
       }
+
+      *(this + 41) = v7;
+      re::RenderGraphFullscreenNode::executeInternal(this, a2, (this + 272));
     }
   }
 
-  v17 = *(this + 101);
-  if (v17)
-  {
-    v18 = atomic_load((v17 + 896));
-    if (v18 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 101), 0);
-    }
-
-    v19 = *(this + 101);
-    if (v19)
-    {
-      v20 = atomic_load((v19 + 896));
-      if (v20 == 2 && !re::FontID::isValid((this + 1416)))
-      {
-        v21 = *(this + 101);
-        if (v21)
-        {
-          v22 = atomic_load((v21 + 896));
-          if (v22 == 2)
-          {
-            ++*(*(this + 101) + 276);
-            v23 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 800));
-            if (v23)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "SingleGraphShadows", (v23 + 8), 0, 0, &v113);
-              v24 = re::StringID::operator=((this + 1416), &v113);
-              *(this + 179) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v25 = (this + 1224);
-  v26 = *(this + 154);
-  if (!v26 || (v27 = atomic_load((v26 + 896)), v27 != 2))
-  {
-    (*(a3->var0 + 1))(&v113, a3, "engine:BuiltinRenderGraphResources/Common/filter.rerendergraph");
-    v28 = *v25;
-    *v25 = v113;
-    v113 = v28;
-    v29 = *(this + 155);
-    *(this + 155) = v114;
-    v114 = v29;
-    re::AssetHandle::~AssetHandle(&v113);
-    re::AssetHandle::loadNow(*(this + 154), 0);
-  }
-
-  v30 = *(this + 154);
-  if (v30)
-  {
-    v31 = atomic_load((v30 + 896));
-    if (v31 == 2 && !re::FontID::isValid((this + 1440)))
-    {
-      v32 = *(this + 154);
-      if (v32)
-      {
-        v33 = atomic_load((v32 + 896));
-        if (v33 == 2)
-        {
-          ++*(*(this + 154) + 276);
-          v34 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 1224));
-          if (v34)
-          {
-            re::RenderGraphManager::addProviderInternal(a2, "Filter", (v34 + 8), 0, 0, &v113);
-            v35 = re::StringID::operator=((this + 1440), &v113);
-            *(this + 182) = v114;
-            if (v113)
-            {
-              if (v113)
-              {
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v36 = *(this + 119);
-  if (v36)
-  {
-    v37 = atomic_load((v36 + 896));
-    if (v37 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 119), 0);
-    }
-
-    v38 = *(this + 119);
-    if (v38)
-    {
-      v39 = atomic_load((v38 + 896));
-      if (v39 == 2 && !re::FontID::isValid((this + 1296)))
-      {
-        v40 = *(this + 119);
-        if (v40)
-        {
-          v41 = atomic_load((v40 + 896));
-          if (v41 == 2)
-          {
-            ++*(*(this + 119) + 276);
-            v42 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 944));
-            if (v42)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "DepthOfField", (v42 + 8), 0, 0, &v113);
-              v43 = re::StringID::operator=((this + 1296), &v113);
-              *(this + 164) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v44 = *(this + 122);
-  if (v44)
-  {
-    v45 = atomic_load((v44 + 896));
-    if (v45 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 122), 0);
-    }
-
-    v46 = *(this + 122);
-    if (v46)
-    {
-      v47 = atomic_load((v46 + 896));
-      if (v47 == 2 && !re::FontID::isValid((this + 1320)))
-      {
-        v48 = *(this + 122);
-        if (v48)
-        {
-          v49 = atomic_load((v48 + 896));
-          if (v49 == 2)
-          {
-            ++*(*(this + 122) + 276);
-            v50 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 968));
-            if (v50)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "MotionBlur", (v50 + 8), 0, 0, &v113);
-              v51 = re::StringID::operator=((this + 1320), &v113);
-              *(this + 167) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v52 = *(this + 125);
-  if (v52)
-  {
-    v53 = atomic_load((v52 + 896));
-    if (v53 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 125), 0);
-    }
-  }
-
-  v54 = *(this + 128);
-  if (v54)
-  {
-    v55 = atomic_load((v54 + 896));
-    if (v55 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 128), 0);
-    }
-  }
-
-  v56 = *(this + 131);
-  if (v56)
-  {
-    v57 = atomic_load((v56 + 896));
-    if (v57 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 131), 0);
-    }
-
-    v58 = *(this + 131);
-    if (v58)
-    {
-      v59 = atomic_load((v58 + 896));
-      if (v59 == 2 && !re::FontID::isValid((this + 1584)))
-      {
-        v60 = *(this + 131);
-        if (v60)
-        {
-          v61 = atomic_load((v60 + 896));
-          if (v61 == 2)
-          {
-            ++*(*(this + 131) + 276);
-            v62 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 1040));
-            if (v62)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "Camera", (v62 + 8), 21, 0, &v113);
-              v63 = re::StringID::operator=((this + 1584), &v113);
-              *(this + 200) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v64 = *(this + 116);
-  if (v64)
-  {
-    v65 = atomic_load((v64 + 896));
-    if (v65 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 116), 0);
-    }
-
-    v66 = *(this + 116);
-    if (v66)
-    {
-      v67 = atomic_load((v66 + 896));
-      if (v67 == 2 && !re::FontID::isValid((this + 1272)))
-      {
-        v68 = *(this + 116);
-        if (v68)
-        {
-          v69 = atomic_load((v68 + 896));
-          if (v69 == 2)
-          {
-            ++*(*(this + 116) + 276);
-            v70 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 920));
-            if (v70)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "PostProcessMultiView", (v70 + 8), 0, 0, &v113);
-              v71 = re::StringID::operator=((this + 1272), &v113);
-              *(this + 161) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v72 = *(this + 92);
-  if (v72)
-  {
-    v73 = atomic_load((v72 + 896));
-    if (v73 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 92), 0);
-    }
-
-    v74 = *(this + 92);
-    if (v74)
-    {
-      v75 = atomic_load((v74 + 896));
-      if (v75 == 2 && !re::FontID::isValid((this + 1368)))
-      {
-        v76 = *(this + 92);
-        if (v76)
-        {
-          v77 = atomic_load((v76 + 896));
-          if (v77 == 2)
-          {
-            ++*(*(this + 92) + 276);
-            v78 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 728));
-            if (v78)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "DepthFeathering", (v78 + 8), 0, 0, &v113);
-              v79 = re::StringID::operator=((this + 1368), &v113);
-              *(this + 173) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v80 = *(this + 95);
-  if (v80)
-  {
-    v81 = atomic_load((v80 + 896));
-    if (v81 != 2)
-    {
-      re::AssetHandle::loadNow(*(this + 95), 0);
-    }
-
-    v82 = *(this + 95);
-    if (v82)
-    {
-      v83 = atomic_load((v82 + 896));
-      if (v83 == 2 && !re::FontID::isValid((this + 1392)))
-      {
-        v84 = *(this + 95);
-        if (v84)
-        {
-          v85 = atomic_load((v84 + 896));
-          if (v85 == 2)
-          {
-            ++*(*(this + 95) + 276);
-            v86 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>((this + 752));
-            if (v86)
-            {
-              re::RenderGraphManager::addProviderInternal(a2, "GuidedFilterOcclusion", (v86 + 8), 0, 0, &v113);
-              v87 = re::StringID::operator=((this + 1392), &v113);
-              *(this + 176) = v114;
-              if (v113)
-              {
-                if (v113)
-                {
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  if (*(this + 1212) == 1)
-  {
-    re::SFBSystemShellBlurProvider::registerProviderCommon(a2, v112, 1, (this + 1560), v8);
-  }
-
-  isValid = re::FontID::isValid((this + 1512));
-  if (!isValid)
-  {
-    v89 = re::globalAllocators(isValid);
-    v90 = (*(*v89[2] + 32))(v89[2], 88, 8);
-    re::DepthStencilCombinerProvider::DepthStencilCombinerProvider(v90, v111);
-    if (*&v111[0])
-    {
-      if (BYTE8(v111[0]))
-      {
-        (*(**&v111[0] + 40))();
-      }
-
-      memset(v111, 0, sizeof(v111));
-    }
-
-    re::RenderGraphManager::addProviderInternal(a2, "Camera", v90, -10, 1, &v113);
-    v91 = re::StringID::operator=((this + 1512), &v113);
-    *(this + 191) = v114;
-    if (v113)
-    {
-      if (v113)
-      {
-      }
-    }
-  }
-
-  v92 = re::FontID::isValid((this + 1536));
-  if (!v92)
-  {
-    v93 = re::globalAllocators(v92);
-    v94 = (*(*v93[2] + 32))(v93[2], 136, 8);
-    re::DepthStencilSplitterProvider::DepthStencilSplitterProvider(v94, v110);
-    if (*&v110[0])
-    {
-      if (BYTE8(v110[0]))
-      {
-        (*(**&v110[0] + 40))();
-      }
-
-      memset(v110, 0, sizeof(v110));
-    }
-
-    (*(a3->var0 + 1))(&v113, a3, "engine:BuiltinRenderGraphResources/Common/separateDepth.rematerial");
-    v95 = *(v94 + 11);
-    *(v94 + 11) = v113;
-    v113 = v95;
-    v96 = v94[13];
-    v94[13] = v114;
-    v114 = v96;
-    re::AssetHandle::~AssetHandle(&v113);
-    re::AssetHandle::loadAsync((v94 + 11));
-    re::AssetHandle::operator=(this + 200, v94 + 11);
-    (*(a3->var0 + 1))(&v113, a3, "engine:BuiltinRenderGraphResources/Common/separateStencil.rematerial");
-    v97 = *(v94 + 7);
-    *(v94 + 7) = v113;
-    v113 = v97;
-    v98 = v94[16];
-    v94[16] = v114;
-    v114 = v98;
-    re::AssetHandle::~AssetHandle(&v113);
-    re::AssetHandle::loadAsync((v94 + 14));
-    re::AssetHandle::operator=(this + 176, v94 + 14);
-    re::RenderGraphManager::addProviderInternal(a2, "Camera", v94, 10, 1, &v113);
-    v99 = re::StringID::operator=((this + 1536), &v113);
-    *(this + 194) = v114;
-    if (v113)
-    {
-      if (v113)
-      {
-      }
-    }
-  }
-
-  v100 = re::FontID::isValid((this + 1464));
-  if (!v100)
-  {
-    v101 = re::globalAllocators(v100);
-    v102 = (*(*v101[2] + 32))(v101[2], 112, 8);
-    re::VRRUnwarpProvider::VRRUnwarpProvider(v102, v109);
-    if (*&v109[0])
-    {
-      if (BYTE8(v109[0]))
-      {
-        (*(**&v109[0] + 40))();
-      }
-
-      memset(v109, 0, sizeof(v109));
-    }
-
-    re::AssetHandle::operator=(v102 + 40, v112);
-    re::RenderGraphManager::addProviderInternal(a2, "Camera", v102, 50, 1, &v113);
-    v103 = re::StringID::operator=((this + 1464), &v113);
-    *(this + 185) = v114;
-    if (v113)
-    {
-      if (v113)
-      {
-      }
-    }
-  }
-
-  v104 = re::FontID::isValid((this + 1488));
-  if (!v104)
-  {
-    v105 = re::globalAllocators(v104);
-    v106 = (*(*v105[2] + 32))(v105[2], 48, 8);
-    re::VFXRenderGraphProvider::VFXRenderGraphProvider(v106, v108);
-    if (*&v108[0])
-    {
-      if (BYTE8(v108[0]))
-      {
-        (*(**&v108[0] + 40))();
-      }
-
-      memset(v108, 0, sizeof(v108));
-    }
-
-    re::RenderGraphManager::addProviderInternal(a2, "VFXSimulation", v106, 0, 1, &v113);
-    v107 = re::StringID::operator=((this + 1488), &v113);
-    *(this + 188) = v114;
-    if (v113)
-    {
-      if (v113)
-      {
-      }
-    }
-  }
-
-  re::ARSegmentationEmitterCache::registerRenderGraphProvider(*(this + 222), a2);
-  *(this + 152) = a2;
-  re::AssetHandle::~AssetHandle(v112);
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v8, v5, v6);
 }
 
-void re::RenderGraphAREmitter::frameSetup(re::RenderGraphAREmitter *this, re::RenderManager *a2)
+void re::RenderGraphDofCompositeNode::getMaterialParameterTables(uint64_t a1, uint64_t a2)
 {
-  if (*(this + 1608) != *(this + 1180) || !re::FontID::isValid((this + 1344)))
+  v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 520));
+  if (v4)
   {
-    if (re::FontID::isValid((this + 1344)))
+    v5 = *(v4 + 1784);
+    if (v5)
     {
-      v4 = *(a2 + 14);
-      if (v4)
+      v6 = *(a1 + 280);
+      if (v6)
       {
-        v5 = *(v4 + 296);
+        v7 = *(v6 + 792);
       }
 
       else
       {
-        v5 = 0;
+        v7 = 0;
       }
 
-      re::StringID::StringID(v18, this + 84);
-      v18[2] = *(this + 170);
-      v6 = re::RenderGraphManager::removeProvider(v5, v18);
-      if (v18[0])
+      v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) >> 27));
+      v10 = v7 ^ (v8 >> 31) ^ v8;
+      re::MaterialParameterBlock::createMaterialParameterTableIfNeeded(&v9, v5);
+      re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::add(a2, &v10, &v9);
+      if (v9)
       {
-        if (v18[0])
-        {
-        }
-      }
-
-      v18[0] = 0;
-      v18[1] = &str_67;
-      re::ProviderHandle::invalidate((this + 1344));
-    }
-
-    v7 = 992;
-    if (*(this + 1180))
-    {
-      v7 = 1016;
-    }
-
-    re::AssetHandle::AssetHandle(v16, (this + v7));
-    if (v17)
-    {
-      re::AssetHandle::loadNow(v17, 0);
-      if (v17)
-      {
-        v8 = atomic_load((v17 + 896));
-        if (v8 == 2)
-        {
-          ++*(v17 + 276);
-          v9 = re::AssetHandle::loadedAsset<re::RenderGraphAsset>(v16);
-          if (v9)
-          {
-            v10 = *(a2 + 14);
-            v11 = v10 ? *(v10 + 296) : 0;
-            re::RenderGraphManager::addProviderInternal(v11, "PostProcessCombined", (v9 + 8), 0, 0, v19);
-            v12 = re::StringID::operator=((this + 1344), v19);
-            *(this + 170) = v19[2];
-            if (v19[0])
-            {
-              if (v19[0])
-              {
-              }
-            }
-          }
-        }
       }
     }
-
-    *(this + 1608) = *(this + 1180);
-    re::AssetHandle::~AssetHandle(v16);
-  }
-
-  if (!*(this + 223))
-  {
-    v13 = (this + 1784);
-    re::ar::DualGuidedFilter::create((a2 + 208), 0, v19);
-    if ((this + 1784) != v19)
-    {
-      v14 = v19[0];
-      v19[0] = 0;
-      v15 = *v13;
-      *v13 = v14;
-    }
-
-    v19[0] = [*(a2 + 26) newEvent];
-    NS::SharedPtr<MTL::Texture>::operator=(this + 224, v19);
-    if (v19[0])
-    {
-    }
-
-    [*(this + 224) setLabel_];
-    *(this + 225) = 0;
   }
 }
 
-void re::introspect_RenderGraphAREmitterPostProcessOption(re *this, const re::IntrospectionBase *a2)
+void re::introspect_DepthOfFieldQualityProfile(re *this, const re::IntrospectionBase *a2)
 {
-  if ((atomic_load_explicit(&qword_1EE1C1640, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(&qword_1EE1BDD78, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_43;
   }
 
   while (1)
   {
-    if ((atomic_load_explicit(&qword_1EE1C1648, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1648))
+    if ((atomic_load_explicit(&qword_1EE1BDD80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDD80))
     {
-      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1C16B0, "RenderGraphAREmitterPostProcessOption", 4, 4, 1, 1);
-      qword_1EE1C16B0 = &unk_1F5D0C658;
-      qword_1EE1C16F0 = &re::introspect_RenderGraphAREmitterPostProcessOption(BOOL)::enumTable;
-      dword_1EE1C16C0 = 9;
-      __cxa_guard_release(&qword_1EE1C1648);
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1BDDF8, "DepthOfFieldQualityProfile", 4, 4, 1, 1);
+      qword_1EE1BDDF8 = &unk_1F5D0C658;
+      qword_1EE1BDE38 = &re::introspect_DepthOfFieldQualityProfile(BOOL)::enumTable;
+      dword_1EE1BDE08 = 9;
+      __cxa_guard_release(&qword_1EE1BDD80);
     }
 
-    if (_MergedGlobals_542)
+    if (_MergedGlobals_503)
     {
       break;
     }
 
-    _MergedGlobals_542 = 1;
-    re::IntrospectionRegistry::add(&qword_1EE1C16B0, a2);
-    v41 = 0x495BDF4BE72D0B7ELL;
-    v42 = "RenderGraphAREmitterPostProcessOption";
-    v45 = 0x607DD0F01DCLL;
-    v46 = "uint32_t";
-    v4 = v44[0];
-    v5 = v44[1];
-    if (v45)
+    _MergedGlobals_503 = 1;
+    re::IntrospectionRegistry::add(&qword_1EE1BDDF8, a2);
+    v35 = 0xBD83B9DA93A8E214;
+    v36 = "DepthOfFieldQualityProfile";
+    v39 = 208862;
+    v40 = "int";
+    v4 = v38[0];
+    v5 = v38[1];
+    if (v39)
     {
-      if (v45)
+      if (v39)
       {
       }
     }
 
     if (v4)
     {
-      v6 = qword_1EE1C16F0;
-      v45 = v4;
-      v46 = v5;
-      re::TypeBuilder::beginEnumType(v44, &v41, 1, 1, &v45);
+      v6 = qword_1EE1BDE38;
+      v39 = v4;
+      v40 = v5;
+      re::TypeBuilder::beginEnumType(v38, &v35, 1, 1, &v39);
       v7 = *v6;
       if (v7)
       {
@@ -3059,12 +3686,12 @@ void re::introspect_RenderGraphAREmitterPostProcessOption(re *this, const re::In
             }
 
             v15 = *(v9 + 8);
-            *&v43.var0 = 2 * v11;
-            v43.var1 = v10;
-            re::TypeBuilder::addEnumConstant(v44, v15, &v43);
-            if (*&v43.var0)
+            *&v37.var0 = 2 * v11;
+            v37.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v38, v15, &v37);
+            if (*&v37.var0)
             {
-              if (*&v43.var0)
+              if (*&v37.var0)
               {
               }
             }
@@ -3108,12 +3735,12 @@ void re::introspect_RenderGraphAREmitterPostProcessOption(re *this, const re::In
               }
 
               v24 = *(v18 + 8);
-              *&v43.var0 = 2 * v20;
-              v43.var1 = v19;
-              re::TypeBuilder::addEnumConstantRenaming(v44, v24, &v43);
-              if (*&v43.var0)
+              *&v37.var0 = 2 * v20;
+              v37.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v38, v24, &v37);
+              if (*&v37.var0)
               {
-                if (*&v43.var0)
+                if (*&v37.var0)
                 {
                 }
               }
@@ -3124,11 +3751,11 @@ void re::introspect_RenderGraphAREmitterPostProcessOption(re *this, const re::In
         }
       }
 
-      re::TypeBuilder::~TypeBuilder(v44, v26);
-      xmmword_1EE1C16D0 = v43;
-      if (v41)
+      re::TypeBuilder::~TypeBuilder(v38, v26);
+      xmmword_1EE1BDE18 = v37;
+      if (v35)
       {
-        if (v41)
+        if (v35)
         {
         }
       }
@@ -3136,3329 +3763,3343 @@ void re::introspect_RenderGraphAREmitterPostProcessOption(re *this, const re::In
       return;
     }
 
-    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v42);
-    _os_crash();
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v36);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v34);
     __break(1u);
 LABEL_43:
-    v28 = __cxa_guard_acquire(&qword_1EE1C1640);
-    if (v28)
+    if (__cxa_guard_acquire(&qword_1EE1BDD78))
     {
-      v29 = re::introspectionAllocator(v28);
-      v30 = (*(*v29 + 32))(v29, 24, 8);
-      *v30 = 1;
-      *(v30 + 1) = 0;
-      *(v30 + 2) = "Fastest";
-      qword_1EE1C1680 = v30;
-      v31 = re::introspectionAllocator(v30);
-      v32 = (*(*v31 + 32))(v31, 24, 8);
-      *v32 = 1;
-      *(v32 + 1) = 1;
-      *(v32 + 2) = "Standard";
-      qword_1EE1C1688 = v32;
-      v33 = re::introspectionAllocator(v32);
-      v34 = (*(*v33 + 32))(v33, 24, 8);
-      *v34 = 1;
-      *(v34 + 1) = 2;
-      *(v34 + 2) = "High";
-      qword_1EE1C1690 = v34;
-      v35 = re::introspectionAllocator(v34);
-      v36 = (*(*v35 + 32))(v35, 24, 8);
-      *v36 = 1;
-      *(v36 + 1) = 3;
-      *(v36 + 2) = "Best";
-      qword_1EE1C1698 = v36;
-      v37 = re::introspectionAllocator(v36);
-      v38 = (*(*v37 + 32))(v37, 24, 8);
-      *v38 = 1;
-      *(v38 + 1) = 4;
-      *(v38 + 2) = "MultiView";
-      qword_1EE1C16A0 = v38;
-      v39 = re::introspectionAllocator(v38);
-      v40 = (*(*v39 + 32))(v39, 24, 8);
-      *v40 = 1;
-      *(v40 + 8) = 5;
-      *(v40 + 16) = "Low";
-      qword_1EE1C16A8 = v40;
-      __cxa_guard_release(&qword_1EE1C1640);
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 0;
+      *(v29 + 16) = "Low";
+      qword_1EE1BDDC0 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 1;
+      *(v31 + 16) = "Medium";
+      qword_1EE1BDDC8 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 2;
+      *(v33 + 16) = "High";
+      qword_1EE1BDDD0 = v33;
+      __cxa_guard_release(&qword_1EE1BDD78);
     }
   }
 }
 
-void *re::allocInfo_RenderGraphAREmitter(re *this)
+void *re::allocInfo_RenderGraphDofSetupNode(re *this)
 {
-  if ((atomic_load_explicit(&qword_1EE1C1650, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C1650))
+  if ((atomic_load_explicit(&qword_1EE1BDD88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDD88))
   {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C16F8, "RenderGraphAREmitter");
-    __cxa_guard_release(&qword_1EE1C1650);
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDE88, "RenderGraphDofSetupNode");
+    __cxa_guard_release(&qword_1EE1BDD88);
   }
 
-  return &unk_1EE1C16F8;
+  return &unk_1EE1BDE88;
 }
 
-void re::initInfo_RenderGraphAREmitter(re *this, re::IntrospectionBase *a2)
+void re::initInfo_RenderGraphDofSetupNode(re *this, re::IntrospectionBase *a2)
 {
-  v140[0] = 0x228CD2A2CBEEF78ALL;
-  v140[1] = "RenderGraphAREmitter";
-  if (v140[0])
+  v40[0] = 0xA4807A93825450F8;
+  v40[1] = "RenderGraphDofSetupNode";
+  if (v40[0])
   {
-    if (v140[0])
+    if (v40[0])
     {
     }
   }
 
-  *(this + 2) = v141;
-  if ((atomic_load_explicit(&qword_1EE1C1658, memory_order_acquire) & 1) == 0)
+  *(this + 2) = v41;
+  if ((atomic_load_explicit(&qword_1EE1BDD90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDD90))
   {
-    v5 = __cxa_guard_acquire(&qword_1EE1C1658);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_RealityEmitterBase(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "RealityEmitterBase";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C1788 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::introspect_AssetHandle(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "shadowMapGraph";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x32000000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C1790 = v12;
-      v13 = re::introspectionAllocator(v12);
-      v15 = re::introspect_AssetHandle(1, v14);
-      v16 = (*(*v13 + 32))(v13, 72, 8);
-      *v16 = 1;
-      *(v16 + 8) = "projectiveMeshShadowGraph";
-      *(v16 + 16) = v15;
-      *(v16 + 24) = 0;
-      *(v16 + 32) = 0x41000000003;
-      *(v16 + 40) = 0;
-      *(v16 + 48) = 0;
-      *(v16 + 56) = 0;
-      *(v16 + 64) = 0;
-      qword_1EE1C1798 = v16;
-      v17 = re::introspectionAllocator(v16);
-      v19 = re::introspect_AssetHandle(1, v18);
-      v20 = (*(*v17 + 32))(v17, 72, 8);
-      *v20 = 1;
-      *(v20 + 8) = "depthFeatheringGraph";
-      *(v20 + 16) = v19;
-      *(v20 + 24) = 0;
-      *(v20 + 32) = 0x2D800000004;
-      *(v20 + 40) = 0;
-      *(v20 + 48) = 0;
-      *(v20 + 56) = 0;
-      *(v20 + 64) = 0;
-      qword_1EE1C17A0 = v20;
-      v21 = re::introspectionAllocator(v20);
-      v23 = re::introspect_AssetHandle(1, v22);
-      v24 = (*(*v21 + 32))(v21, 72, 8);
-      *v24 = 1;
-      *(v24 + 8) = "guidedFilterOcclusionGraph";
-      *(v24 + 16) = v23;
-      *(v24 + 24) = 0;
-      *(v24 + 32) = 0x2F000000005;
-      *(v24 + 40) = 0;
-      *(v24 + 48) = 0;
-      *(v24 + 56) = 0;
-      *(v24 + 64) = 0;
-      qword_1EE1C17A8 = v24;
-      v25 = re::introspectionAllocator(v24);
-      v27 = re::introspect_AssetHandle(1, v26);
-      v28 = (*(*v25 + 32))(v25, 72, 8);
-      *v28 = 1;
-      *(v28 + 8) = "cameraGraph";
-      *(v28 + 16) = v27;
-      *(v28 + 24) = 0;
-      *(v28 + 32) = 0x30800000006;
-      *(v28 + 40) = 0;
-      *(v28 + 48) = 0;
-      *(v28 + 56) = 0;
-      *(v28 + 64) = 0;
-      qword_1EE1C17B0 = v28;
-      v29 = re::introspectionAllocator(v28);
-      v31 = re::introspect_AssetHandle(1, v30);
-      v32 = (*(*v29 + 32))(v29, 72, 8);
-      *v32 = 1;
-      *(v32 + 8) = "postProcessGraphFastest";
-      *(v32 + 16) = v31;
-      *(v32 + 24) = 0;
-      *(v32 + 32) = 0x33800000008;
-      *(v32 + 40) = 0;
-      *(v32 + 48) = 0;
-      *(v32 + 56) = 0;
-      *(v32 + 64) = 0;
-      qword_1EE1C17B8 = v32;
-      v33 = re::introspectionAllocator(v32);
-      v35 = re::introspect_AssetHandle(1, v34);
-      v36 = (*(*v33 + 32))(v33, 72, 8);
-      *v36 = 1;
-      *(v36 + 8) = "postProcessGraphStandard";
-      *(v36 + 16) = v35;
-      *(v36 + 24) = 0;
-      *(v36 + 32) = 0x35000000009;
-      *(v36 + 40) = 0;
-      *(v36 + 48) = 0;
-      *(v36 + 56) = 0;
-      *(v36 + 64) = 0;
-      qword_1EE1C17C0 = v36;
-      v37 = re::introspectionAllocator(v36);
-      v39 = re::introspect_AssetHandle(1, v38);
-      v40 = (*(*v37 + 32))(v37, 72, 8);
-      *v40 = 1;
-      *(v40 + 8) = "postProcessGraphHigh";
-      *(v40 + 16) = v39;
-      *(v40 + 24) = 0;
-      *(v40 + 32) = 0x3680000000ALL;
-      *(v40 + 40) = 0;
-      *(v40 + 48) = 0;
-      *(v40 + 56) = 0;
-      *(v40 + 64) = 0;
-      qword_1EE1C17C8 = v40;
-      v41 = re::introspectionAllocator(v40);
-      v43 = re::introspect_AssetHandle(1, v42);
-      v44 = (*(*v41 + 32))(v41, 72, 8);
-      *v44 = 1;
-      *(v44 + 8) = "postProcessGraphBest";
-      *(v44 + 16) = v43;
-      *(v44 + 24) = 0;
-      *(v44 + 32) = 0x3800000000BLL;
-      *(v44 + 40) = 0;
-      *(v44 + 48) = 0;
-      *(v44 + 56) = 0;
-      *(v44 + 64) = 0;
-      qword_1EE1C17D0 = v44;
-      v45 = re::introspectionAllocator(v44);
-      v47 = re::introspect_AssetHandle(1, v46);
-      v48 = (*(*v45 + 32))(v45, 72, 8);
-      *v48 = 1;
-      *(v48 + 8) = "postProcessGraphMultiView";
-      *(v48 + 16) = v47;
-      *(v48 + 24) = 0;
-      *(v48 + 32) = 0x3980000000CLL;
-      *(v48 + 40) = 0;
-      *(v48 + 48) = 0;
-      *(v48 + 56) = 0;
-      *(v48 + 64) = 0;
-      qword_1EE1C17D8 = v48;
-      v49 = re::introspectionAllocator(v48);
-      re::introspect_RenderGraphAREmitterPostProcessOption(v49, v50);
-      v51 = (*(*v49 + 32))(v49, 72, 8);
-      *v51 = 1;
-      *(v51 + 8) = "postProcessOption";
-      *(v51 + 16) = &qword_1EE1C16B0;
-      *(v51 + 24) = 0;
-      *(v51 + 32) = 0x4280000000DLL;
-      *(v51 + 40) = 0;
-      *(v51 + 48) = 0;
-      *(v51 + 56) = 0;
-      *(v51 + 64) = 0;
-      qword_1EE1C17E0 = v51;
-      v52 = re::introspectionAllocator(v51);
-      v54 = re::introspect_AssetHandle(1, v53);
-      v55 = (*(*v52 + 32))(v52, 72, 8);
-      *v55 = 1;
-      *(v55 + 8) = "postProcessGraphDepthOfField";
-      *(v55 + 16) = v54;
-      *(v55 + 24) = 0;
-      *(v55 + 32) = 0x3B00000000ELL;
-      *(v55 + 40) = 0;
-      *(v55 + 48) = 0;
-      *(v55 + 56) = 0;
-      *(v55 + 64) = 0;
-      qword_1EE1C17E8 = v55;
-      v56 = re::introspectionAllocator(v55);
-      v58 = re::introspect_AssetHandle(1, v57);
-      v59 = (*(*v56 + 32))(v56, 72, 8);
-      *v59 = 1;
-      *(v59 + 8) = "postProcessGraphMotionBlur";
-      *(v59 + 16) = v58;
-      *(v59 + 24) = 0;
-      *(v59 + 32) = 0x3C80000000FLL;
-      *(v59 + 40) = 0;
-      *(v59 + 48) = 0;
-      *(v59 + 56) = 0;
-      *(v59 + 64) = 0;
-      qword_1EE1C17F0 = v59;
-      v60 = re::introspectionAllocator(v59);
-      v62 = re::introspect_AssetHandle(1, v61);
-      v63 = (*(*v60 + 32))(v60, 72, 8);
-      *v63 = 1;
-      *(v63 + 8) = "postProcessGraphCombined";
-      *(v63 + 16) = v62;
-      *(v63 + 24) = 0;
-      *(v63 + 32) = 0x3E000000010;
-      *(v63 + 40) = 0;
-      *(v63 + 48) = 0;
-      *(v63 + 56) = 0;
-      *(v63 + 64) = 0;
-      qword_1EE1C17F8 = v63;
-      v64 = re::introspectionAllocator(v63);
-      v66 = re::introspect_AssetHandle(1, v65);
-      v67 = (*(*v64 + 32))(v64, 72, 8);
-      *v67 = 1;
-      *(v67 + 8) = "postProcessGraphCombinedHDR";
-      *(v67 + 16) = v66;
-      *(v67 + 24) = 0;
-      *(v67 + 32) = 0x3F800000011;
-      *(v67 + 40) = 0;
-      *(v67 + 48) = 0;
-      *(v67 + 56) = 0;
-      *(v67 + 64) = 0;
-      qword_1EE1C1800 = v67;
-      v68 = re::introspectionAllocator(v67);
-      v70 = re::introspect_uint32_t(1, v69);
-      v71 = (*(*v68 + 32))(v68, 72, 8);
-      *v71 = 1;
-      *(v71 + 8) = "clusterHorizontalSlices";
-      *(v71 + 16) = v70;
-      *(v71 + 24) = 0;
-      *(v71 + 32) = 0x48000000012;
-      *(v71 + 40) = 0;
-      *(v71 + 48) = 0;
-      *(v71 + 56) = 0;
-      *(v71 + 64) = 0;
-      qword_1EE1C1808 = v71;
-      v72 = re::introspectionAllocator(v71);
-      v74 = re::introspect_uint32_t(1, v73);
-      v75 = (*(*v72 + 32))(v72, 72, 8);
-      *v75 = 1;
-      *(v75 + 8) = "clusterVerticalSlices";
-      *(v75 + 16) = v74;
-      *(v75 + 24) = 0;
-      *(v75 + 32) = 0x48400000013;
-      *(v75 + 40) = 0;
-      *(v75 + 48) = 0;
-      *(v75 + 56) = 0;
-      *(v75 + 64) = 0;
-      qword_1EE1C1810 = v75;
-      v76 = re::introspectionAllocator(v75);
-      v78 = re::introspect_uint32_t(1, v77);
-      v79 = (*(*v76 + 32))(v76, 72, 8);
-      *v79 = 1;
-      *(v79 + 8) = "clusterDepthSlices";
-      *(v79 + 16) = v78;
-      *(v79 + 24) = 0;
-      *(v79 + 32) = 0x48800000014;
-      *(v79 + 40) = 0;
-      *(v79 + 48) = 0;
-      *(v79 + 56) = 0;
-      *(v79 + 64) = 0;
-      qword_1EE1C1818 = v79;
-      v80 = re::introspectionAllocator(v79);
-      v82 = re::introspect_float(1, v81);
-      v83 = (*(*v80 + 32))(v80, 72, 8);
-      *v83 = 1;
-      *(v83 + 8) = "clusterMaxDepthRange";
-      *(v83 + 16) = v82;
-      *(v83 + 24) = 0;
-      *(v83 + 32) = 0x48C00000015;
-      *(v83 + 40) = 0;
-      *(v83 + 48) = 0;
-      *(v83 + 56) = 0;
-      *(v83 + 64) = 0;
-      qword_1EE1C1820 = v83;
-      v84 = re::introspectionAllocator(v83);
-      v86 = re::introspect_uint32_t(1, v85);
-      v87 = (*(*v84 + 32))(v84, 72, 8);
-      *v87 = 1;
-      *(v87 + 8) = "clusterMaxIntersectionFactor";
-      *(v87 + 16) = v86;
-      *(v87 + 24) = 0;
-      *(v87 + 32) = 0x49000000016;
-      *(v87 + 40) = 0;
-      *(v87 + 48) = 0;
-      *(v87 + 56) = 0;
-      *(v87 + 64) = 0;
-      qword_1EE1C1828 = v87;
-      v88 = re::introspectionAllocator(v87);
-      v90 = re::introspect_BOOL(1, v89);
-      v91 = (*(*v88 + 32))(v88, 72, 8);
-      *v91 = 1;
-      *(v91 + 8) = "enableRayTracedAmbientOcclusion";
-      *(v91 + 16) = v90;
-      *(v91 + 24) = 0;
-      *(v91 + 32) = 0x49400000017;
-      *(v91 + 40) = 0;
-      *(v91 + 48) = 0;
-      *(v91 + 56) = 0;
-      *(v91 + 64) = 0;
-      qword_1EE1C1830 = v91;
-      v92 = re::introspectionAllocator(v91);
-      v94 = re::introspect_BOOL(1, v93);
-      v95 = (*(*v92 + 32))(v92, 72, 8);
-      *v95 = 1;
-      *(v95 + 8) = "enableProjectiveShadow";
-      *(v95 + 16) = v94;
-      *(v95 + 24) = 0;
-      *(v95 + 32) = 0x49500000018;
-      *(v95 + 40) = 0;
-      *(v95 + 48) = 0;
-      *(v95 + 56) = 0;
-      *(v95 + 64) = 0;
-      qword_1EE1C1838 = v95;
-      v96 = re::introspectionAllocator(v95);
-      v98 = re::introspect_BOOL(1, v97);
-      v99 = (*(*v96 + 32))(v96, 72, 8);
-      *v99 = 1;
-      *(v99 + 8) = "enableDepthOfField";
-      *(v99 + 16) = v98;
-      *(v99 + 24) = 0;
-      *(v99 + 32) = 0x49600000019;
-      *(v99 + 40) = 0;
-      *(v99 + 48) = 0;
-      *(v99 + 56) = 0;
-      *(v99 + 64) = 0;
-      qword_1EE1C1840 = v99;
-      v100 = re::introspectionAllocator(v99);
-      v102 = re::introspect_BOOL(1, v101);
-      v103 = (*(*v100 + 32))(v100, 72, 8);
-      *v103 = 1;
-      *(v103 + 8) = "enableMotionBlur";
-      *(v103 + 16) = v102;
-      *(v103 + 24) = 0;
-      *(v103 + 32) = 0x4970000001ALL;
-      *(v103 + 40) = 0;
-      *(v103 + 48) = 0;
-      *(v103 + 56) = 0;
-      *(v103 + 64) = 0;
-      qword_1EE1C1848 = v103;
-      v104 = re::introspectionAllocator(v103);
-      v106 = re::introspect_BOOL(1, v105);
-      v107 = (*(*v104 + 32))(v104, 72, 8);
-      *v107 = 1;
-      *(v107 + 8) = "enablePostProcessCombined";
-      *(v107 + 16) = v106;
-      *(v107 + 24) = 0;
-      *(v107 + 32) = 0x4980000001BLL;
-      *(v107 + 40) = 0;
-      *(v107 + 48) = 0;
-      *(v107 + 56) = 0;
-      *(v107 + 64) = 0;
-      qword_1EE1C1850 = v107;
-      v108 = re::introspectionAllocator(v107);
-      v110 = re::introspect_BOOL(1, v109);
-      v111 = (*(*v108 + 32))(v108, 72, 8);
-      *v111 = 1;
-      *(v111 + 8) = "enableDepthFeathering";
-      *(v111 + 16) = v110;
-      *(v111 + 24) = 0;
-      *(v111 + 32) = 0x4990000001CLL;
-      *(v111 + 40) = 0;
-      *(v111 + 48) = 0;
-      *(v111 + 56) = 0;
-      *(v111 + 64) = 0;
-      qword_1EE1C1858 = v111;
-      v112 = re::introspectionAllocator(v111);
-      v114 = re::introspect_BOOL(1, v113);
-      v115 = (*(*v112 + 32))(v112, 72, 8);
-      *v115 = 1;
-      *(v115 + 8) = "enableHDR";
-      *(v115 + 16) = v114;
-      *(v115 + 24) = 0;
-      *(v115 + 32) = 0x49C0000001DLL;
-      *(v115 + 40) = 0;
-      *(v115 + 48) = 0;
-      *(v115 + 56) = 0;
-      *(v115 + 64) = 0;
-      qword_1EE1C1860 = v115;
-      v116 = re::introspectionAllocator(v115);
-      v117 = re::introspect_RayTracedAmbientOcclusionSettings(1);
-      v118 = (*(*v116 + 32))(v116, 72, 8);
-      *v118 = 1;
-      *(v118 + 8) = "rayTracedAmbientOcclusionSettings";
-      *(v118 + 16) = v117;
-      *(v118 + 24) = 0;
-      *(v118 + 32) = 0x4A00000001ELL;
-      *(v118 + 40) = 0;
-      *(v118 + 48) = 0;
-      *(v118 + 56) = 0;
-      *(v118 + 64) = 0;
-      qword_1EE1C1868 = v118;
-      v119 = re::introspectionAllocator(v118);
-      v121 = re::introspect_float(1, v120);
-      v122 = (*(*v119 + 32))(v119, 72, 8);
-      *v122 = 1;
-      *(v122 + 8) = "rayTracedShadowIntensity";
-      *(v122 + 16) = v121;
-      *(v122 + 24) = 0;
-      *(v122 + 32) = 0x4B80000001FLL;
-      *(v122 + 40) = 0;
-      *(v122 + 48) = 0;
-      *(v122 + 56) = 0;
-      *(v122 + 64) = 0;
-      qword_1EE1C1870 = v122;
-      v123 = re::introspectionAllocator(v122);
-      v125 = re::introspect_AssetHandle(1, v124);
-      v126 = (*(*v123 + 32))(v123, 72, 8);
-      *v126 = 1;
-      *(v126 + 8) = "rayTracedAmbientOcclusionCompositingMaterial";
-      *(v126 + 16) = v125;
-      *(v126 + 24) = 0;
-      *(v126 + 32) = 0x43000000020;
-      *(v126 + 40) = 0;
-      *(v126 + 48) = 0;
-      *(v126 + 56) = 0;
-      *(v126 + 64) = 0;
-      qword_1EE1C1878 = v126;
-      v127 = re::introspectionAllocator(v126);
-      v129 = re::introspect_AssetHandle(1, v128);
-      v130 = (*(*v127 + 32))(v127, 72, 8);
-      *v130 = 1;
-      *(v130 + 8) = "rayTracedAmbientOcclusionCompositingMaterialDitherSRGB";
-      *(v130 + 16) = v129;
-      *(v130 + 24) = 0;
-      *(v130 + 32) = 0x44800000021;
-      *(v130 + 40) = 0;
-      *(v130 + 48) = 0;
-      *(v130 + 56) = 0;
-      *(v130 + 64) = 0;
-      qword_1EE1C1880 = v130;
-      v131 = re::introspectionAllocator(v130);
-      v133 = re::introspect_AssetHandle(1, v132);
-      v134 = (*(*v131 + 32))(v131, 72, 8);
-      *v134 = 1;
-      *(v134 + 8) = "rayTracedAmbientOcclusionCompositingMaterialDitherLinear";
-      *(v134 + 16) = v133;
-      *(v134 + 24) = 0;
-      *(v134 + 32) = 0x46000000022;
-      *(v134 + 40) = 0;
-      *(v134 + 48) = 0;
-      *(v134 + 56) = 0;
-      *(v134 + 64) = 0;
-      qword_1EE1C1888 = v134;
-      v135 = re::introspectionAllocator(v134);
-      v137 = re::introspect_BOOL(1, v136);
-      v138 = (*(*v135 + 32))(v135, 72, 8);
-      *v138 = 1;
-      *(v138 + 8) = "enableBlurProvider";
-      *(v138 + 16) = v137;
-      *(v138 + 24) = 0;
-      *(v138 + 32) = 0x4BC00000024;
-      *(v138 + 40) = 0;
-      *(v138 + 48) = 0;
-      *(v138 + 56) = 0;
-      *(v138 + 64) = 0;
-      qword_1EE1C1890 = v138;
-      __cxa_guard_release(&qword_1EE1C1658);
-    }
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphFullscreenNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphFullscreenNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDE40 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_float(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "focalLength";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x1F000000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BDE48 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::introspect_float(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "aperture";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x1F400000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BDE50 = v15;
+    v16 = re::introspectionAllocator();
+    v18 = re::introspect_float(1, v17);
+    v19 = (*(*v16 + 32))(v16, 72, 8);
+    *v19 = 1;
+    *(v19 + 8) = "focalDistance";
+    *(v19 + 16) = v18;
+    *(v19 + 24) = 0;
+    *(v19 + 32) = 0x1F800000003;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    *(v19 + 56) = 0;
+    *(v19 + 64) = 0;
+    qword_1EE1BDE58 = v19;
+    v20 = re::introspectionAllocator();
+    v22 = re::introspect_float(1, v21);
+    v23 = (*(*v20 + 32))(v20, 72, 8);
+    *v23 = 1;
+    *(v23 + 8) = "sensorSize";
+    *(v23 + 16) = v22;
+    *(v23 + 24) = 0;
+    *(v23 + 32) = 0x1FC00000004;
+    *(v23 + 40) = 0;
+    *(v23 + 48) = 0;
+    *(v23 + 56) = 0;
+    *(v23 + 64) = 0;
+    qword_1EE1BDE60 = v23;
+    v24 = re::introspectionAllocator();
+    re::introspect_DepthOfFieldQualityProfile(v24, v25);
+    v26 = (*(*v24 + 32))(v24, 72, 8);
+    *v26 = 1;
+    *(v26 + 8) = "qualityProfile";
+    *(v26 + 16) = &qword_1EE1BDDF8;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = 0x20000000005;
+    *(v26 + 40) = 0;
+    *(v26 + 48) = 0;
+    *(v26 + 56) = 0;
+    *(v26 + 64) = 0;
+    qword_1EE1BDE68 = v26;
+    v27 = re::introspectionAllocator();
+    v29 = re::introspect_AssetHandle(1, v28);
+    v30 = (*(*v27 + 32))(v27, 72, 8);
+    *v30 = 1;
+    *(v30 + 8) = "blurMaterialLowQuality";
+    *(v30 + 16) = v29;
+    *(v30 + 24) = 0;
+    *(v30 + 32) = 0x20800000006;
+    *(v30 + 40) = 0;
+    *(v30 + 48) = 0;
+    *(v30 + 56) = 0;
+    *(v30 + 64) = 0;
+    qword_1EE1BDE70 = v30;
+    v31 = re::introspectionAllocator();
+    v33 = re::introspect_AssetHandle(1, v32);
+    v34 = (*(*v31 + 32))(v31, 72, 8);
+    *v34 = 1;
+    *(v34 + 8) = "blurMaterialMediumQuality";
+    *(v34 + 16) = v33;
+    *(v34 + 24) = 0;
+    *(v34 + 32) = 0x22000000007;
+    *(v34 + 40) = 0;
+    *(v34 + 48) = 0;
+    *(v34 + 56) = 0;
+    *(v34 + 64) = 0;
+    qword_1EE1BDE78 = v34;
+    v35 = re::introspectionAllocator();
+    v37 = re::introspect_AssetHandle(1, v36);
+    v38 = (*(*v35 + 32))(v35, 72, 8);
+    *v38 = 1;
+    *(v38 + 8) = "blurMaterialHighQuality";
+    *(v38 + 16) = v37;
+    *(v38 + 24) = 0;
+    *(v38 + 32) = 0x23800000008;
+    *(v38 + 40) = 0;
+    *(v38 + 48) = 0;
+    *(v38 + 56) = 0;
+    *(v38 + 64) = 0;
+    qword_1EE1BDE80 = v38;
+    __cxa_guard_release(&qword_1EE1BDD90);
   }
 
-  *(this + 2) = 0x71000000008;
+  *(this + 2) = 0x25000000008;
   *(this + 6) = 8;
   *(this + 14) = 0;
-  *(this + 14) = 34;
-  *(this + 8) = &qword_1EE1C1788;
-  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphAREmitter>;
+  *(this + 14) = 9;
+  *(this + 8) = &qword_1EE1BDE40;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDofSetupNode>;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphAREmitter>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphAREmitter>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphAREmitter>;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDofSetupNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDofSetupNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDofSetupNode>;
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
   re::internal::prepare(this, v4);
-  v139 = v141;
+  v39 = v41;
 }
 
-void re::GuidedFilterOcclusionStateData::~GuidedFilterOcclusionStateData(id *this)
+double re::internal::defaultConstruct<re::RenderGraphDofSetupNode>(int a1, int a2, re::RenderGraphFullscreenNode *this)
 {
-  v2 = this[13];
-  if (v2)
-  {
-
-    this[13] = 0;
-  }
-
-  v3 = this[12];
-  if (v3)
-  {
-
-    this[12] = 0;
-  }
-
-  v4 = this[11];
-  if (v4)
-  {
-
-    this[11] = 0;
-  }
-
-  v5 = this[10];
-  if (v5)
-  {
-
-    this[10] = 0;
-  }
-
-  v6 = this[9];
-  if (v6)
-  {
-
-    this[9] = 0;
-  }
-
-  v7 = this[8];
-  if (v7)
-  {
-
-    this[8] = 0;
-  }
-
-  v8 = this[7];
-  if (v8)
-  {
-
-    this[7] = 0;
-  }
-
-  v9 = this[6];
-  if (v9)
-  {
-
-    this[6] = 0;
-  }
-
-  v10 = this[5];
-  if (v10)
-  {
-
-    this[5] = 0;
-  }
-
-  v11 = this[4];
-  if (v11)
-  {
-
-    this[4] = 0;
-  }
-
-  v12 = this[3];
-  if (v12)
-  {
-
-    this[3] = 0;
-  }
-
-  v13 = this[2];
-  if (v13)
-  {
-
-    this[2] = 0;
-  }
-
-  v14 = this[1];
-  if (v14)
-  {
-
-    this[1] = 0;
-  }
+  *(this + 58) = 0;
+  *(this + 27) = 0u;
+  *(this + 28) = 0u;
+  *(this + 25) = 0u;
+  *(this + 26) = 0u;
+  *(this + 23) = 0u;
+  *(this + 24) = 0u;
+  *(this + 21) = 0u;
+  *(this + 22) = 0u;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  v3 = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(this);
+  *v3 = &unk_1F5D0EAB0;
+  *(v3 + 60) = 0;
+  *(v3 + 61) = 0;
+  *(v3 + 59) = 0;
+  result = 0.0;
+  *(v3 + 520) = 0u;
+  *(v3 + 536) = 0u;
+  *(v3 + 552) = 0u;
+  *(v3 + 568) = 0u;
+  *(v3 + 73) = 0;
+  return result;
 }
 
-void re::ARSegmentationEmitterCache::~ARSegmentationEmitterCache(re::ARSegmentationEmitterCache *this)
+double re::internal::defaultConstructV2<re::RenderGraphDofSetupNode>(uint64_t a1)
 {
-  re::StringID::destroyString((this + 64));
-  v2 = *(this + 5);
-  if (v2)
-  {
-
-    *(this + 5) = 0;
-  }
-
-  v3 = *(this + 4);
-  if (v3)
-  {
-
-    *(this + 4) = 0;
-  }
-
-  v4 = *(this + 3);
-  if (v4)
-  {
-
-    *(this + 3) = 0;
-  }
-
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
+  *(a1 + 464) = 0;
+  *(a1 + 432) = 0u;
+  *(a1 + 448) = 0u;
+  *(a1 + 400) = 0u;
+  *(a1 + 416) = 0u;
+  *(a1 + 368) = 0u;
+  *(a1 + 384) = 0u;
+  *(a1 + 336) = 0u;
+  *(a1 + 352) = 0u;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  v1 = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(a1);
+  *v1 = &unk_1F5D0EAB0;
+  *(v1 + 60) = 0;
+  *(v1 + 61) = 0;
+  *(v1 + 59) = 0;
+  result = 0.0;
+  *(v1 + 520) = 0u;
+  *(v1 + 536) = 0u;
+  *(v1 + 552) = 0u;
+  *(v1 + 568) = 0u;
+  *(v1 + 73) = 0;
+  return result;
 }
 
+void *re::allocInfo_RenderGraphDofBokehBlurNode(re *this)
 {
-  re::StringID::destroyString((this + 64));
-  v2 = *(this + 5);
-  if (v2)
+  if ((atomic_load_explicit(&qword_1EE1BDD98, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDD98))
   {
-
-    *(this + 5) = 0;
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDF18, "RenderGraphDofBokehBlurNode");
+    __cxa_guard_release(&qword_1EE1BDD98);
   }
 
-  v3 = *(this + 4);
-  if (v3)
-  {
+  return &unk_1EE1BDF18;
+}
 
-    *(this + 4) = 0;
+void re::initInfo_RenderGraphDofBokehBlurNode(re *this, re::IntrospectionBase *a2)
+{
+  v9[0] = 0xB7007C36957F51CELL;
+  v9[1] = "RenderGraphDofBokehBlurNode";
+  if (v9[0])
+  {
+    if (v9[0])
+    {
+    }
   }
 
-  v4 = *(this + 3);
-  if (v4)
+  *(this + 2) = v10;
+  if ((atomic_load_explicit(&qword_1EE1BDDA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDDA8))
   {
-
-    *(this + 3) = 0;
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphFullscreenNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphFullscreenNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDDA0 = v7;
+    __cxa_guard_release(&qword_1EE1BDDA8);
   }
 
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
+  *(this + 2) = 0x1D800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1BDDA0;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDofBokehBlurNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDofBokehBlurNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDofBokehBlurNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDofBokehBlurNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v8 = v10;
+}
+
+re::RenderGraphFullscreenNode *re::internal::defaultConstruct<re::RenderGraphDofBokehBlurNode>(int a1, int a2, re::RenderGraphFullscreenNode *this)
+{
+  *(this + 58) = 0;
+  *(this + 27) = 0u;
+  *(this + 28) = 0u;
+  *(this + 25) = 0u;
+  *(this + 26) = 0u;
+  *(this + 23) = 0u;
+  *(this + 24) = 0u;
+  *(this + 21) = 0u;
+  *(this + 22) = 0u;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  result = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(this);
+  *result = &unk_1F5D0EB58;
+  return result;
+}
+
+re::RenderGraphFullscreenNode *re::internal::defaultConstructV2<re::RenderGraphDofBokehBlurNode>(uint64_t a1)
+{
+  *(a1 + 464) = 0;
+  *(a1 + 432) = 0u;
+  *(a1 + 448) = 0u;
+  *(a1 + 400) = 0u;
+  *(a1 + 416) = 0u;
+  *(a1 + 368) = 0u;
+  *(a1 + 384) = 0u;
+  *(a1 + 336) = 0u;
+  *(a1 + 352) = 0u;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  result = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(a1);
+  *result = &unk_1F5D0EB58;
+  return result;
+}
+
+void *re::allocInfo_RenderGraphDofCompositeNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BDDB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDDB0))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BDFA8, "RenderGraphDofCompositeNode");
+    __cxa_guard_release(&qword_1EE1BDDB0);
+  }
+
+  return &unk_1EE1BDFA8;
+}
+
+void re::initInfo_RenderGraphDofCompositeNode(re *this, re::IntrospectionBase *a2)
+{
+  v21[0] = 0xCCEAEE98621BAA0CLL;
+  v21[1] = "RenderGraphDofCompositeNode";
+  if (v21[0])
+  {
+    if (v21[0])
+    {
+    }
+  }
+
+  *(this + 2) = v22;
+  if ((atomic_load_explicit(&qword_1EE1BDDB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BDDB8))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphFullscreenNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphFullscreenNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BDDD8 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_BOOL(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "debugPassthrough";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x1E800000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BDDE0 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::introspect_AssetHandle(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "compositeMaterial";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x1F000000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BDDE8 = v15;
+    v16 = re::introspectionAllocator();
+    v18 = re::introspect_AssetHandle(1, v17);
+    v19 = (*(*v16 + 32))(v16, 72, 8);
+    *v19 = 1;
+    *(v19 + 8) = "debugPassthroughMaterial";
+    *(v19 + 16) = v18;
+    *(v19 + 24) = 0;
+    *(v19 + 32) = 0x20800000003;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    *(v19 + 56) = 0;
+    *(v19 + 64) = 0;
+    qword_1EE1BDDF0 = v19;
+    __cxa_guard_release(&qword_1EE1BDDB8);
+  }
+
+  *(this + 2) = 0x22000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 4;
+  *(this + 8) = &qword_1EE1BDDD8;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDofCompositeNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDofCompositeNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDofCompositeNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDofCompositeNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v20 = v22;
+}
+
+double re::internal::defaultConstruct<re::RenderGraphDofCompositeNode>(int a1, int a2, re::RenderGraphFullscreenNode *this)
+{
+  *(this + 58) = 0;
+  *(this + 27) = 0u;
+  *(this + 28) = 0u;
+  *(this + 25) = 0u;
+  *(this + 26) = 0u;
+  *(this + 23) = 0u;
+  *(this + 24) = 0u;
+  *(this + 21) = 0u;
+  *(this + 22) = 0u;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  v3 = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(this);
+  *v3 = &unk_1F5D0EC00;
+  *(v3 + 59) = 0;
+  *(v3 + 60) = 0;
+  result = 0.0;
+  *(v3 + 31) = 0u;
+  *(v3 + 32) = 0u;
+  *(v3 + 33) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestruct<re::RenderGraphDofCompositeNode>(uint64_t a1, uint64_t a2, id *a3)
+{
+  re::AssetHandle::~AssetHandle((a3 + 65));
+  re::AssetHandle::~AssetHandle((a3 + 62));
+
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(a3);
+}
+
+double re::internal::defaultConstructV2<re::RenderGraphDofCompositeNode>(uint64_t a1)
+{
+  *(a1 + 464) = 0;
+  *(a1 + 432) = 0u;
+  *(a1 + 448) = 0u;
+  *(a1 + 400) = 0u;
+  *(a1 + 416) = 0u;
+  *(a1 + 368) = 0u;
+  *(a1 + 384) = 0u;
+  *(a1 + 336) = 0u;
+  *(a1 + 352) = 0u;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  v1 = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(a1);
+  *v1 = &unk_1F5D0EC00;
+  *(v1 + 59) = 0;
+  *(v1 + 60) = 0;
+  result = 0.0;
+  *(v1 + 31) = 0u;
+  *(v1 + 32) = 0u;
+  *(v1 + 33) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::RenderGraphDofCompositeNode>(id *a1)
+{
+  re::AssetHandle::~AssetHandle((a1 + 65));
+  re::AssetHandle::~AssetHandle((a1 + 62));
+
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(a1);
+}
+
+void re::RenderGraphDofSetupNode::~RenderGraphDofSetupNode(id *this)
+{
+  re::RenderGraphDofSetupNode::~RenderGraphDofSetupNode(this);
 
   JUMPOUT(0x1E6906520);
 }
 
-uint64_t re::supportedColorPixelFormat(id *this, const re::mtl::Device *a2)
 {
-  if ((atomic_load_explicit(&qword_1EE1C18B0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C18B0))
+  re::AssetHandle::~AssetHandle((this + 71));
+  re::AssetHandle::~AssetHandle((this + 68));
+  re::AssetHandle::~AssetHandle((this + 65));
+
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
+}
+
+void re::RenderGraphDofBokehBlurNode::~RenderGraphDofBokehBlurNode(id *this)
+{
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::RenderGraphDofCompositeNode::~RenderGraphDofCompositeNode(id *this)
+{
+  re::AssetHandle::~AssetHandle((this + 65));
+  re::AssetHandle::~AssetHandle((this + 62));
+
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
+}
+
+{
+  re::AssetHandle::~AssetHandle((this + 65));
+  re::AssetHandle::~AssetHandle((this + 62));
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::RenderGraphDataStore::get<re::CameraData>(uint64_t a1, uint64_t a2)
+{
+  v16[2] = *MEMORY[0x1E69E9840];
   {
-    _MergedGlobals_543 = [*this supportsFamily:1002];
-    __cxa_guard_release(&qword_1EE1C18B0);
+    re::introspect<re::CameraData>(BOOL)::info = re::introspect_CameraData(0, v11, v12, v13, v14, v15);
   }
 
-  if (_MergedGlobals_543)
+  v4 = strlen(*(re::introspect<re::CameraData>(BOOL)::info + 6));
+  if (v4)
   {
-    return 81;
+    MurmurHash3_x64_128(*(re::introspect<re::CameraData>(BOOL)::info + 6), v4, 0, v16);
+    v5 = (v16[1] - 0x61C8864680B583E9 + (v16[0] << 6) + (v16[0] >> 2)) ^ v16[0];
   }
 
   else
   {
-    return 115;
+    v5 = 0;
+  }
+
+  v6 = 0x7FFFFFFFLL;
+  if (*(a1 + 64))
+  {
+    v7 = (a2 - 0x61C8864680B583E9 + (v5 << 6) + (v5 >> 2)) ^ v5;
+    v8 = *(*(a1 + 72) + 4 * (v7 % *(a1 + 88)));
+    if (v8 != 0x7FFFFFFF)
+    {
+      v9 = *(a1 + 80);
+      v6 = 0x7FFFFFFFLL;
+      while (*(v9 + 24 * v8 + 8) != v7)
+      {
+        v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
+        if (v8 == 0x7FFFFFFF)
+        {
+          return *(*(a1 + 80) + 24 * v6 + 16);
+        }
+      }
+
+      v6 = v8;
+    }
+  }
+
+  return *(*(a1 + 80) + 24 * v6 + 16);
+}
+
+void *re::RenderGraphDataStoreWrapper<re::DepthOfFieldBlurMaterialData>::~RenderGraphDataStoreWrapper(void *a1)
+{
+  *a1 = &unk_1F5D0ECD0;
+  v2 = (a1 + 2);
+  re::DynamicString::deinit((a1 + 5));
+  re::AssetHandle::~AssetHandle(v2);
+  return a1;
+}
+
+void re::RenderGraphDataStoreWrapper<re::DepthOfFieldBlurMaterialData>::~RenderGraphDataStoreWrapper(void *a1)
+{
+  *a1 = &unk_1F5D0ECD0;
+  v1 = (a1 + 2);
+  re::DynamicString::deinit((a1 + 5));
+  re::AssetHandle::~AssetHandle(v1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::BloomUserParameters::computeRenderParameters(re::BloomUserParameters *this@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(this + 1);
+  v4 = *(this + 3);
+  v5 = *(this + 2) + 1.0;
+  *a2 = *this;
+  *(a2 + 4) = v5;
+  *(a2 + 8) = v3;
+  v6 = vcvtps_s32_f32(v5);
+  v7 = 3 * v6;
+  *(a2 + 12) = v4;
+  *(a2 + 16) = 3 * v6;
+  if ((v6 & 0x80000000) == 0)
+  {
+    v8 = -3 * v6;
+    if (v7 >= 0)
+    {
+      v9 = 3 * v6;
+    }
+
+    else
+    {
+      v9 = -3 * v6;
+    }
+
+    v10 = v9 + 1;
+    v11 = (a2 + 4 * (v8 + v7) + 20);
+    do
+    {
+      v12 = *(a2 + 4);
+      *v11++ = (1.0 / (v12 * 2.5066)) * expf(-(v8 * v8) / (v12 * (v12 + v12)));
+      ++v8;
+    }
+
+    while (v10 != v8);
   }
 }
 
-uint64_t re::RenderGraphSFBSystemShellBlurProvider::prepareVCABlur(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+void re::RenderGraphUploadBloomParams::execute(re::RenderGraphUploadBloomParams *this, re **a2)
 {
-  v6 = a2;
-  v7 = a1;
-  v581 = *MEMORY[0x1E69E9840];
-  v489 = *(a2 + 392);
-  v8 = re::RenderGraphDataStore::tryGet<re::CameraData>(a2 + 32, a1);
-  v9 = re::RenderGraphDataStore::tryGet<re::SceneScope>(v6 + 32, v7);
-  if ((atomic_load_explicit(&qword_1EE1C18A8, memory_order_acquire) & 1) == 0)
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v29, 5058, 0, 0, 0, 0);
+  v28 = 0;
+  v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  re::BloomUserParameters::computeRenderParameters((this + 264), &v19);
+  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(&v14, *a2 + 2, 0x98uLL, 4uLL);
+  v4 = v16;
+  v13 = v15;
+  v5 = &v14[v15];
+  v6 = v26;
+  *(v5 + 6) = v25;
+  *(v5 + 7) = v6;
+  *(v5 + 8) = v27;
+  *(v5 + 18) = v28;
+  v7 = v22;
+  *(v5 + 2) = v21;
+  *(v5 + 3) = v7;
+  v8 = v24;
+  *(v5 + 4) = v23;
+  *(v5 + 5) = v8;
+  v9 = v20;
+  *v5 = v19;
+  *(v5 + 1) = v9;
+  v10 = re::RenderGraphDataStore::add<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(a2[146], *(a2[5] + 6));
+  *(v10 + 48) = HIDWORD(v19);
+  v14 = v4;
+  v17 = 0;
+  v18 = v13;
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v10 + 8, &v14);
+  *(v10 + 40) = v18;
+  if (v17 != -1)
   {
-    goto LABEL_440;
+    (off_1F5D0EF88[v17])(&v30, &v14);
   }
 
-  while (1)
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v29, v11, v12);
+}
+
+void re::RenderGraphDownsampleThresholdNode::configure(re::RenderGraphDownsampleThresholdNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  if (*(this + 35))
   {
-    v490 = v8;
-    if (*(v9 + 16))
+    re::AssetHandle::loadAsync((this + 272));
+  }
+
+  re::RenderGraphNode::configure(this, a2, a3, a4);
+}
+
+void re::RenderGraphDownsampleThresholdNode::execute(re::RenderGraphDownsampleThresholdNode *this, re::RenderGraphContext *a2)
+{
+  v100 = *MEMORY[0x1E69E9840];
+  v7 = re::AssetHandle::loadedAsset<re::MaterialAsset>((this + 272));
+  *(this + 33) = v7;
+  if (!v7)
+  {
+    return;
+  }
+
+  v8 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(*(a2 + 146), *(*(a2 + 5) + 48));
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *(*(this + 33) + 1776);
+    v11 = *(this + 35);
+    if (v11)
     {
-      v9 = *(v9 + 24);
+      v12 = *(v11 + 792);
     }
 
     else
     {
-      v9 += 17;
+      v12 = 0;
     }
 
-    v10 = qword_1EE1C18A0;
-    v11 = 0x9E3779B97F4A7C17;
-    v12 = strlen(v9);
-    if (v12)
-    {
-      MurmurHash3_x64_128(v9, v12, 0, v558);
-      v13 = ((*(&v558[0] + 1) - 0x61C8864680B583E9 + (*&v558[0] << 6) + (*&v558[0] >> 2)) ^ *&v558[0]) - 0x61C8864680B583E9;
-    }
-
-    else
-    {
-      v13 = 0x9E3779B97F4A7C17;
-    }
-
-    v491 = re::RenderGraphDataStore::tryGet<re::MeshSortingCollection>(v6 + 32, ((v10 >> 2) + (v10 << 6) + v13) ^ v10);
-    v519 = 1;
-    memset(v522, 0, 36);
-    v520 = 0;
-    v521 = 0;
-    *&v522[36] = 0x7FFFFFFFLL;
-    v516 = &unk_1F5D15788;
-    v8 = v489;
-    v517 = v489;
-    v518 = 0;
-    re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v517, 0);
-    v519 += 2;
-    re::HashTable<unsigned long long,re::Function<void ()(void)>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(v522, v489, 3);
-    if (!v490)
-    {
-      break;
-    }
-
-    v9 = &v490[9];
-    if (v490[9].i32[0] == 1)
-    {
-      break;
-    }
-
-    v15 = *(a4 + 20);
-    v16 = *(a4 + 24);
-    v17 = *(a4 + 28);
-    v574 = &unk_1F5D157C8;
-    v575 = 0;
-    v576 = 0;
-    v18 = v490[8].u64[0];
+    v14 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) >> 27));
+    MaterialTableForAsset = re::RenderGraphContext::getMaterialTableForAsset(a2, v12 ^ (v14 >> 31) ^ v14);
+    re::RenderGraphContext::makeFullscreenDrawCall(a2, v10, "Downsample Threshold DrawCall", MaterialTableForAsset, 0, 0, 0, 0, buf);
+    v16 = *(&v80 + 1);
+    MurmurHash3_x64_128("fullscreen", 0xAuLL, 0, v89);
+    v17 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v16, (*&v89[8] + (*v89 << 6) + (*v89 >> 2) - 0x61C8864680B583E9) ^ *v89);
     if (v18)
     {
-      v19 = 0;
-      v20 = 0;
-      v21 = (v490 + 156);
-      while (v19 < 2)
+      HIDWORD(v78) = *v17;
+      if (HIDWORD(v78) == -1)
       {
-        v22 = &v21[-1].f32[2];
-        v23 = *v21;
-        v21 += 15;
-        v24 = vld1q_dup_f32(v22);
-        v577[v19] = vdivq_f32(v23, v24);
-        v19 = ++v575;
-        ++v576;
-        if (v18 <= ++v20)
-        {
-          goto LABEL_14;
-        }
+        return;
       }
 
-      goto LABEL_439;
-    }
-
-LABEL_14:
-    v508 = v16;
-    v511 = v15;
-    v25 = "N2re18CameraProjFrustumsE";
-    if (("N2re18CameraProjFrustumsE" & 0x8000000000000000) != 0)
-    {
-      v26 = ("N2re18CameraProjFrustumsE" & 0x7FFFFFFFFFFFFFFFLL);
-      v27 = 5381;
-      do
+      v2 = v89;
+      v3 = 0xA3521511A35B9;
+      v19 = *a2;
+      *(&v73 + 1) = 0xA3521511A35B9;
+      if (!*(this + 25))
       {
-        v25 = v27;
-        v28 = *v26++;
-        v27 = (33 * v27) ^ v28;
+        goto LABEL_33;
       }
 
-      while (v28);
-    }
-
-    *&v558[0] = (v7 - 0x61C8864680B583E9 + (v25 << 6) + (v25 >> 2)) ^ v25;
-    v29 = (*(**(v6 + 40) + 32))(*(v6 + 40), 64, 16);
-    *v29 = &unk_1F5D157C8;
-    *(v29 + 16) = 0;
-    *(v29 + 24) = 0;
-    v30 = v575;
-    memcpy((v29 + 32), v577, 16 * v575);
-    *(v29 + 16) = v30;
-    buf.columns[0].i64[0] = v29;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v6 + 96, v558, &buf);
-    if (a3)
-    {
-      break;
-    }
-
-    *a4 = 0;
-    v31 = re::RenderGraphDataStore::tryGet<re::SceneScope>(v6 + 32, v7);
-    if (!v31)
-    {
-      break;
-    }
-
-    v32 = v31;
-    v479 = v7;
-    v549 = 0;
-    v548 = 0;
-    v550 = 1;
-    v552 = 0;
-    v551 = 0;
-    v33 = *(v6 + 296);
-    v485 = a4;
-    if (v33)
-    {
-      v34 = 0;
-      v35 = *(v6 + 280);
-      while (1)
+      re::RenderGraphContext::metalTexture(a2, *(this + 27), 0, 0, v89);
+      re::DynamicTextureTableAdd((v19 + 368), &v73 + 1, v89);
+      if (*v89)
       {
-        v36 = *v35;
-        v35 += 18;
-        if (v36 < 0)
-        {
-          break;
-        }
-
-        if (v33 == ++v34)
-        {
-          LODWORD(v34) = *(v6 + 296);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v34) = 0;
-    }
-
-    v486 = v6;
-    if (v34 != v33)
-    {
-      v37 = *(v6 + 280);
-      do
-      {
-        v38 = *(v37 + 72 * v34 + 64);
-        if (v38)
-        {
-          v39 = (*(*v38 + 480))(v38);
-          if (v39)
-          {
-            v40 = *v39;
-            if (*v39)
-            {
-              v41 = (v32 + 17);
-              if (*(v32 + 16))
-              {
-                v41 = *(v32 + 24);
-              }
-
-              if (strcmp(*v39, v41))
-              {
-                v42 = re::RenderGraphDataStore::tryGet<re::BlurPlanesRenderFrameData>(v486 + 32, "BlurPlanesRenderFrameData", v40);
-                *&v558[0] = v42;
-                if (v42)
-                {
-                  if (*(v42 + 16) && ((*(v42 + 81) & 1) != 0 || *(v42 + 80) == 1))
-                  {
-                    re::DynamicOverflowArray<re::BlurPlanesRenderFrameData const*,4ul>::add(&v548, v558);
-                    *(a4 + 1) = 1;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        v6 = v486;
-        if (*(v486 + 296) <= (v34 + 1))
-        {
-          v43 = v34 + 1;
-        }
-
-        else
-        {
-          v43 = *(v486 + 296);
-        }
-
-        v37 = *(v486 + 280);
-        while (v43 - 1 != v34)
-        {
-          LODWORD(v34) = v34 + 1;
-          if ((*(v37 + 72 * v34) & 0x80000000) != 0)
-          {
-            goto LABEL_46;
-          }
-        }
-
-        LODWORD(v34) = v43;
-LABEL_46:
-        ;
       }
 
-      while (v34 != v33);
-    }
-
-    if (*(v32 + 16))
-    {
-      v44 = *(v32 + 24);
-    }
-
-    else
-    {
-      v44 = (v32 + 17);
-    }
-
-    v7 = v479;
-    v45 = re::RenderGraphDataStore::tryGet<re::BlurPlanesRenderFrameData>(v6 + 32, "BlurPlanesRenderFrameData", v44);
-    v547 = v45;
-    v11 = 0x9E3779B97F4A7C17;
-    if (v45 && *(v45 + 16) && ((*(v45 + 81) & 1) != 0 || *(v45 + 80) == 1))
-    {
-      v45 = re::DynamicOverflowArray<re::BlurPlanesRenderFrameData const*,4ul>::add(&v548, &v547);
-    }
-
-    v6 = v549;
-    if (!v549)
-    {
-LABEL_349:
-      if (v548 && (v550 & 1) == 0)
+      v4 = 0x127DBE076EDDD69;
+      v20 = *a2;
+      *v89 = 0x127DBE076EDDD69;
+      re::BufferTable::setBuffer((v20 + 480), v89, (v9 + 8));
+      v21 = re::RenderGraphDataStore::tryGet<re::CameraData>(*(a2 + 146), *(*(a2 + 5) + 48));
+      *(&v76 + 1) = 0;
+      v74 = 0;
+      v75 = 0;
+      v73 = 0uLL;
+      LODWORD(v76) = 0;
+      *&v72 = 0;
+      v71 = 0uLL;
+      DWORD2(v72) = 0;
+      if (v21)
       {
-        (*(*v548 + 40))();
-      }
-
-      v6 = v486;
-      break;
-    }
-
-    if (v517)
-    {
-      v46 = v519;
-    }
-
-    else
-    {
-      re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v517, v6);
-      v46 = v519 + 2;
-      v519 += 2;
-    }
-
-    v11 = &v520;
-    _ZF = (v46 & 1) == 0;
-    v47 = 4;
-    if (_ZF)
-    {
-      v47 = v520;
-    }
-
-    if (v47 < v6)
-    {
-      re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v517, v6);
-    }
-
-    v7 = 0;
-    v48 = v556;
-    a4 = 1;
-    do
-    {
-      *&v558[1] = 0;
-      DWORD2(v558[1]) = 0;
-      *&v559 = 0;
-      v558[0] = v489;
-      v49 = re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(v558, 0);
-      if (!v517)
-      {
-        re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v517, v518 + 1);
-        v50 = v519 + 2;
-        v519 += 2;
-        goto LABEL_78;
-      }
-
-      v50 = v519;
-      if (v519)
-      {
-        v51 = v518 + 1;
-        if (v518 + 1 < 5)
+        v22 = v21;
+        if (*(v21 + 128))
         {
-          goto LABEL_78;
-        }
-
-        v53 = 8;
-        goto LABEL_74;
-      }
-
-      v51 = v518 + 1;
-      if (v518 >= v520 && v520 < v51)
-      {
-        v53 = 2 * v520;
-LABEL_74:
-        if (v53 <= v51)
-        {
-          v54 = v51;
-        }
-
-        else
-        {
-          v54 = v53;
-        }
-
-        re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v517, v54);
-        v50 = v519;
-      }
-
-LABEL_78:
-      _ZF = (v50 & 1) == 0;
-      v55 = v521;
-      if (!_ZF)
-      {
-        v55 = &v520;
-      }
-
-      v56 = &v55[5 * v518];
-      *v56 = *&v558[0];
-      *(v56 + 1) = *(v558 + 8);
-      v56[4] = v559;
-      *(v56 + 6) = 1;
-      v57 = ++v518;
-      v58 = v519;
-      v519 += 2;
-      if (v58)
-      {
-        v59 = &v520;
-      }
-
-      else
-      {
-        v59 = v521;
-      }
-
-      if (v6 <= v7)
-      {
-        goto LABEL_422;
-      }
-
-      v60 = &v59[5 * v57];
-      v61 = v552;
-      if (v550)
-      {
-        v61 = &v551;
-      }
-
-      v62 = *(v61[v7] + 16);
-      if (*(v60 - 4) < v62)
-      {
-        re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(v60 - 5, v62);
-        v6 = v549;
-      }
-
-      ++v7;
-    }
-
-    while (v7 < v6);
-    v544 = 1;
-    v11 = &v545;
-    v546 = 0;
-    v545 = 0;
-    v543 = 0;
-    v542 = v489;
-    re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v542, v6);
-    v544 += 2;
-    if (v6)
-    {
-      v7 = 0;
-      a4 = 40;
-      do
-      {
-        *&v558[1] = 0;
-        DWORD2(v558[1]) = 0;
-        *&v559 = 0;
-        v558[0] = v489;
-        v65 = re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(v558, 0);
-        if (v542)
-        {
-          v66 = v544;
-          if ((v544 & 1) == 0)
-          {
-            v67 = v543 + 1;
-            if (v543 < v545 || v545 >= v67)
-            {
-              goto LABEL_105;
-            }
-
-            v69 = 2 * v545;
-            goto LABEL_101;
-          }
-
-          v67 = v543 + 1;
-          if (v543 + 1 >= 5)
-          {
-            v69 = 8;
-LABEL_101:
-            if (v69 <= v67)
-            {
-              v70 = v67;
-            }
-
-            else
-            {
-              v70 = v69;
-            }
-
-            re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v542, v70);
-            v66 = v544;
-          }
-        }
-
-        else
-        {
-          re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(&v542, v543 + 1);
-          v66 = v544 + 2;
-          v544 += 2;
-        }
-
-LABEL_105:
-        _ZF = (v66 & 1) == 0;
-        v71 = v546;
-        if (!_ZF)
-        {
-          v71 = &v545;
-        }
-
-        v72 = &v71[5 * v543];
-        *v72 = *&v558[0];
-        *(v72 + 1) = *(v558 + 8);
-        v72[4] = v559;
-        *(v72 + 6) = 1;
-        v73 = ++v543;
-        v74 = v544;
-        v544 += 2;
-        if (v74)
-        {
-          v75 = &v545;
-        }
-
-        else
-        {
-          v75 = v546;
-        }
-
-        if (v6 <= v7)
-        {
-          goto LABEL_424;
-        }
-
-        v76 = &v75[5 * v73];
-        v77 = v552;
-        if (v550)
-        {
-          v77 = &v551;
-        }
-
-        v78 = *(v77[v7] + 16);
-        if (*(v76 - 4) < v78)
-        {
-          re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(v76 - 5, v78);
-          v6 = v549;
-        }
-
-        ++v7;
-      }
-
-      while (v7 < v6);
-    }
-
-    v541 = 256;
-    v8 = v490;
-    re::buildCullingFrustum(&v490[4], v9, v490[55].u8[10], &v541, v558, v63, v64);
-    v538.i64[0] = 0;
-    v538.i32[2] = 0;
-    re::DynamicInlineArray<re::DynamicInlineArray<re::PlaneF,6ul>,2ul>::copy(&v538, v558);
-    if (!v538.i64[0])
-    {
-      goto LABEL_436;
-    }
-
-    if (v539)
-    {
-      v477 = a3;
-      if (v490[3].i64[0])
-      {
-        v496 = v540;
-        v493 = v490[4];
-        v80 = v490[8].u64[0];
-        a3 = v490;
-        v535 = 1;
-        v7 = &v536;
-        v537 = 0;
-        v536 = 0;
-        v534 = 0;
-        v533 = v489;
-        re::DynamicOverflowArray<re::Matrix4x4<float>,2ul>::setCapacity(&v533, v80);
-        v535 += 2;
-        v81 = v490[8].u64[0];
-        v530 = 1;
-        v532 = 0;
-        v531 = 0;
-        v529 = 0;
-        v528 = v489;
-        re::DynamicOverflowArray<re::Matrix4x4<float>,2ul>::setCapacity(&v528, v81);
-        v530 += 2;
-        if (v490[8].i64[0])
-        {
-          a4 = 0;
-          LODWORD(v83) = 0;
-          *(&v83 + 1) = v508;
-          v509 = COERCE_UNSIGNED_INT(v511);
-          v512 = v83;
-          v11 = 240;
+          v3 = 0;
+          v4 = 0;
           while (1)
           {
-            v84 = v9 + 240 * a4;
-            if (*(v84 + 80) == 1)
+            v23 = v22 + 144 + 240 * v3;
+            if (*(v23 + 80) == 1)
             {
-              *v556 = *(v84 + 96);
-              *&v556[16] = *(v84 + 112);
-              *&v556[32] = *(v84 + 128);
-              v557 = *(v84 + 144);
+              v24 = *(v23 + 96);
+              v25 = *(v23 + 112);
+              v26 = *(v23 + 144);
+              v90 = *(v23 + 128);
+              *v91 = v26;
+              *v89 = v24;
+              *&v89[16] = v25;
             }
 
             else
             {
-              re::Projection::cullingProjectionMatrix(v84, v556);
+              re::Projection::cullingProjectionMatrix(v89, v23);
             }
 
-            v85 = v490[3].u64[0];
-            if (v85 <= a4)
-            {
-              goto LABEL_425;
-            }
-
-            re::RenderCamera::computeInverseTransform(&v490[2 * a4 + 4], &v524);
-            v86 = 0;
-            v578[0] = xmmword_1E30714F0;
-            v578[1] = xmmword_1E3066660;
-            v578[2] = xmmword_1E30476A0;
-            v579 = xmmword_1E30474D0;
-            do
-            {
-              buf.columns[v86] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v509, COERCE_FLOAT(*&v578[v86])), v512, *v578[v86].f32, 1), xmmword_1E30476A0, v578[v86], 2), xmmword_1E30474D0, v578[v86], 3);
-              ++v86;
-            }
-
-            while (v86 != 4);
-            v87 = 0;
-            v88 = buf.columns[0];
-            v89 = buf.columns[1];
-            v90 = buf.columns[2];
-            v91 = buf.columns[3];
-            v578[0] = xmmword_1E3047670;
-            v578[1] = xmmword_1E3047680;
-            v578[2] = xmmword_1E30476A0;
-            v579 = xmmword_1E308C1E0;
-            do
-            {
-              buf.columns[v87] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v88, COERCE_FLOAT(*&v578[v87])), v89, *v578[v87].f32, 1), v90, v578[v87], 2), v91, v578[v87], 3);
-              ++v87;
-            }
-
-            while (v87 != 4);
-            v92 = 0;
-            v93 = buf.columns[0];
-            v94 = buf.columns[1];
-            v95 = buf.columns[2];
-            v96 = buf.columns[3];
-            v578[0] = *v556;
-            v578[1] = *&v556[16];
-            v578[2] = *&v556[32];
-            v579 = v557;
-            do
-            {
-              buf.columns[v92] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v93, COERCE_FLOAT(*&v578[v92])), v94, *v578[v92].f32, 1), v95, v578[v92], 2), v96, v578[v92], 3);
-              ++v92;
-            }
-
-            while (v92 != 4);
-            v97 = 0;
-            v98 = buf.columns[0];
-            v99 = buf.columns[1];
-            v100 = buf.columns[2];
-            v101 = buf.columns[3];
-            v578[0] = v524;
-            v578[1] = v525;
-            v578[2] = v526;
-            v579 = v527;
-            do
-            {
-              buf.columns[v97] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v98, COERCE_FLOAT(*&v578[v97])), v99, *v578[v97].f32, 1), v100, v578[v97], 2), v101, v578[v97], 3);
-              ++v97;
-            }
-
-            while (v97 != 4);
-            re::DynamicOverflowArray<re::Matrix4x4<float>,2ul>::add(&v533, &buf);
-            a3 = v534;
-            if (v534 <= a4)
+            *&v28 = re::DynamicArray<re::Matrix4x4<float>>::add((&v73 + 8), v89).n128_u64[0];
+            v29 = *(v22 + 48);
+            if (v29 <= v3)
             {
               break;
             }
 
-            if (v535)
+            re::RenderCamera::computeInverseTransform(v89, (v22 + 64 + 32 * v3));
+            re::DynamicArray<re::Matrix4x4<float>>::add(&v71, v89);
+            v4 = (v4 + 1);
+            v3 = v4;
+            if (*(v22 + 128) <= v4)
             {
-              v102 = &v536;
-            }
-
-            else
-            {
-              v102 = v537;
-            }
-
-            buf = __invert_f4(*&v102[8 * a4]);
-            re::DynamicOverflowArray<re::Matrix4x4<float>,2ul>::add(&v528, &buf);
-            if (v490[8].i64[0] <= ++a4)
-            {
-              goto LABEL_138;
+              goto LABEL_21;
             }
           }
 
-LABEL_426:
-          v553 = 0;
-          v555 = 0u;
-          memset(&buf, 0, sizeof(buf));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v578[0].i32[0] = 136315906;
-          *(v578[0].i64 + 4) = "operator[]";
-          v578[0].i16[6] = 1024;
-          *(&v578[0].i32[3] + 2) = 858;
-          v578[1].i16[1] = 2048;
-          *(v578[1].i64 + 4) = a4;
-          v578[1].i16[6] = 2048;
-          *(&v578[1].i64[1] + 6) = a3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
+          re::internal::assertLog(6, v27, v28, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v3, v29);
+          _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v43, v46);
           __break(1u);
-LABEL_427:
-          re::internal::assertLog(4, v387, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 503);
-          _os_crash();
-          __break(1u);
-LABEL_428:
-          re::internal::assertLog(6, v445, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-          _os_crash();
-          __break(1u);
-LABEL_429:
-          v524.i64[0] = 0;
-          v579 = 0u;
-          v580 = 0u;
-          memset(v578, 0, sizeof(v578));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v556 = 136315906;
-          *&v556[4] = "operator[]";
-          *&v556[12] = 1024;
-          *&v556[14] = 789;
-          *&v556[18] = 2048;
-          *&v556[20] = a3;
-          *&v556[28] = 2048;
-          *&v556[30] = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_430:
-          v524.i64[0] = 0;
-          v579 = 0u;
-          v580 = 0u;
-          memset(v578, 0, sizeof(v578));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v556 = 136315906;
-          *&v556[4] = "operator[]";
-          *&v556[12] = 1024;
-          *&v556[14] = 789;
-          *&v556[18] = 2048;
-          *&v556[20] = v11;
-          *&v556[28] = 2048;
-          *&v556[30] = v9;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_431:
-          *v556 = 0;
-          v555 = 0u;
-          memset(&buf, 0, sizeof(buf));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v578[0].i32[0] = 136315906;
-          *(v578[0].i64 + 4) = "operator[]";
-          v578[0].i16[6] = 1024;
-          *(&v578[0].i32[3] + 2) = 858;
-          v578[1].i16[1] = 2048;
-          *(v578[1].i64 + 4) = v9;
-          v578[1].i16[6] = 2048;
-          *(&v578[1].i64[1] + 6) = a3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_432:
-          *v556 = 0;
-          v555 = 0u;
-          memset(&buf, 0, sizeof(buf));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v578[0].i32[0] = 136315906;
-          *(v578[0].i64 + 4) = "operator[]";
-          v578[0].i16[6] = 1024;
-          *(&v578[0].i32[3] + 2) = 858;
-          v578[1].i16[1] = 2048;
-          *(v578[1].i64 + 4) = v9;
-          v578[1].i16[6] = 2048;
-          *(&v578[1].i64[1] + 6) = a3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_433:
-          v524.i64[0] = 0;
-          v579 = 0u;
-          v580 = 0u;
-          memset(v578, 0, sizeof(v578));
-          v474 = v338;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v556 = 136315906;
-          *&v556[4] = "operator[]";
-          *&v556[12] = 1024;
-          *&v556[14] = 858;
-          *&v556[18] = 2048;
-          *&v556[20] = v474;
-          *&v556[28] = 2048;
-          *&v556[30] = a3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_434;
+          goto LABEL_32;
         }
 
-LABEL_138:
+LABEL_21:
+        v30 = *(v22 + 890);
+        v3 = 0xA3521511A35B9;
+        v4 = 0x127DBE076EDDD69;
+      }
+
+      else
+      {
+        v55 = xmmword_1E3047670;
+        v54 = xmmword_1E3047680;
+        *v89 = xmmword_1E3047670;
+        *&v89[16] = xmmword_1E3047680;
+        v53 = xmmword_1E30476A0;
+        v52 = xmmword_1E30474D0;
+        v90 = xmmword_1E30476A0;
+        *v91 = xmmword_1E30474D0;
+        re::DynamicArray<re::Matrix4x4<float>>::add((&v73 + 8), v89);
+        *v89 = xmmword_1E3047670;
+        *&v89[16] = xmmword_1E3047680;
+        v90 = xmmword_1E30476A0;
+        *v91 = xmmword_1E30474D0;
+        re::DynamicArray<re::Matrix4x4<float>>::add(&v71, v89);
+        v30 = 1;
+      }
+
+      re::DrawCallRef::DrawCallRef(&v66, buf);
+      v31 = 0;
+      *v89 = &v66;
+      *&v89[24] = &v67;
+      *v91 = &v68;
+      v92 = &v69;
+      *&v89[8] = vdupq_n_s64(1uLL);
+      v90 = *&v89[8];
+      *&v91[8] = *&v89[8];
+      v93 = *&v89[8];
+      v94 = &v70;
+      v95 = *&v89[8];
+      v57 = "fullscreen";
+      v58 = v89;
+      v59 = v73;
+      v60 = *(&v76 + 1);
+      v61 = 0;
+      LOBYTE(v62) = v30;
+      *(&v62 + 1) = 2;
+      WORD2(v62) = 0;
+      BYTE7(v64) = 0;
+      if (!*(a2 + 338))
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_37;
+    }
+
+LABEL_32:
+    v50 = 0;
+    v51 = 0;
+    v48 = "operator[]";
+    v49 = 264;
+    re::internal::assertLog(6, v18, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()");
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v44, v47);
+    __break(1u);
+LABEL_33:
+    v57 = 0;
+    *(v2 + 3) = 0u;
+    *(v2 + 4) = 0u;
+    *(v2 + 1) = 0u;
+    *(v2 + 2) = 0u;
+    *v2 = 0u;
+    a2 = MEMORY[0x1E69E9C10];
+    v40 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v96) = 136315906;
+    *(v2 + 132) = "operator[]";
+    v97 = 1024;
+    if (v40)
+    {
+      v41 = 3;
+    }
+
+    else
+    {
+      v41 = 2;
+    }
+
+    *(v2 + 142) = 789;
+    v98 = 2048;
+    *(v2 + 148) = 0;
+    v99 = 2048;
+    *(v2 + 158) = 0;
+    _os_log_send_and_compose_impl(v41, &v57, v89, 80, &dword_1E1C61000, a2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v96, 38, v48, v49);
+    _os_crash_msg();
+    __break(1u);
+LABEL_37:
+    v31 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, *(this + 2), "fullscreen");
+LABEL_24:
+    *(&v64 + 1) = v31;
+    LOBYTE(v65) = 0;
+    re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a2, &v96);
+    re::RenderGraphContext::encodeDrawCalls(a2, &v96, &v57, v32, v33, v34, v35, v36, v42, v45, v48, v49, v50, v51, v52, *(&v52 + 1), v53, *(&v53 + 1), v54, *(&v54 + 1), v55, *(&v55 + 1), v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, SBYTE1(v74), SBYTE2(v74), SBYTE3(v74), SBYTE4(v74), v75, v76, buf[0].i8[0], *&buf[1], *&buf[2], *&buf[3], *&buf[4], v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88);
+    v37 = *a2;
+    v96 = v3;
+    re::DynamicTextureTableRemove((v37 + 368), &v96, v38);
+    v39 = *a2;
+    v96 = v4;
+    re::BufferTable::removeBuffer((v39 + 480), &v96);
+    if (v71 && v73)
+    {
+      (*(*v71 + 40))();
+    }
+
+    if (*(&v73 + 1))
+    {
+      if (*(&v76 + 1))
+      {
+        (*(**(&v73 + 1) + 40))();
+      }
+    }
+
+    return;
+  }
+
+  v13 = *re::graphicsLogObjects(0);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    buf[0].i16[0] = 0;
+    _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "RenderGraphDownsampleThresholdNode expects BloomExecDataWrapper from the render graph data store but there isn't any.                          Will skip the execution. Did you forget to add a upload node?", buf, 2u);
+  }
+}
+
+void re::RenderGraphDownsampleThresholdNode::getMaterialParameterTables(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 280))
+  {
+    v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>((a1 + 272));
+    if (v4)
+    {
+      v5 = *(v4 + 1784);
+      if (v5)
+      {
+        v6 = *(a1 + 280);
         if (v6)
         {
-          v9 = 0;
-          v103 = vmulq_f32(v496, v496);
-          v103.f32[0] = v103.f32[2] + vaddv_f32(*v103.f32);
-          v104 = vrsqrte_f32(v103.u32[0]);
-          v105 = vmul_f32(v104, vrsqrts_f32(v103.u32[0], vmul_f32(v104, v104)));
-          v106 = vmulq_n_f32(v496, vmul_f32(v105, vrsqrts_f32(v103.u32[0], vmul_f32(v105, v105))).f32[0]);
-          v107 = vmulq_f32(v496, v493);
-          v510 = vsubq_f32(v493, vmulq_n_f32(v106, (v496.f32[3] + (v107.f32[2] + vaddv_f32(*v107.f32))) / sqrtf(v103.f32[0])));
-          v513 = vnegq_f32(v106);
-          __asm { FMOV            V0.4S, #1.0 }
-
-          v481 = _Q0;
-          v11 = v578;
-          a4 = v485;
-          v111 = v490;
-          v480 = v490 + 4;
-          do
-          {
-            v112 = &v551;
-            if ((v550 & 1) == 0)
-            {
-              v112 = v552;
-            }
-
-            a3 = v543;
-            if (v543 <= v9)
-            {
-              goto LABEL_431;
-            }
-
-            v113 = v546;
-            if (v544)
-            {
-              v113 = &v545;
-            }
-
-            a3 = v518;
-            if (v518 <= v9)
-            {
-              goto LABEL_432;
-            }
-
-            v114 = v112[v9];
-            v115 = &v520;
-            if ((v519 & 1) == 0)
-            {
-              v115 = v521;
-            }
-
-            v116 = *(v114 + 16);
-            if (v116)
-            {
-              v488 = &v113[5 * v9];
-              v478 = v9;
-              v117 = &v115[5 * v9];
-              v9 = *(v114 + 32);
-              v487 = v9 + 144 * v116;
-              v484 = v117;
-              do
-              {
-                isBoundingBoxInsidePlanesArray = re::isBoundingBoxInsidePlanesArray(v9 + 64, &v538, v9);
-                WORD2(v523) = 0;
-                if ((isBoundingBoxInsidePlanesArray & 1) != 0 || v111[54].i8[8] != 1) && (*a4 = 1, (*(v9 + 128)))
-                {
-                  v119 = *(v9 + 64);
-                  v120 = *(v9 + 80);
-                  v121 = vcgtq_f32(v119, v120);
-                  v121.i32[3] = v121.i32[2];
-                  v122 = vmaxvq_u32(v121);
-                  v123 = vaddq_f32(v119, v120);
-                  v120.i64[0] = 0x3F0000003F000000;
-                  v120.i64[1] = 0x3F0000003F000000;
-                  v124 = vmulq_f32(v123, v120);
-                  if (v122 >= 0)
-                  {
-                    v125 = v124.i64[1];
-                  }
-
-                  else
-                  {
-                    v125 = 0;
-                  }
-
-                  if (v122 >= 0)
-                  {
-                    v126 = v124.i64[0];
-                  }
-
-                  else
-                  {
-                    v126 = 0;
-                  }
-
-                  v482 = v126;
-                  v483 = v125;
-                  if (v111[8].i64[0])
-                  {
-                    v48 = 0;
-                    v500 = 0u;
-                    v501 = 0u;
-                    v6 = v534;
-                    v497 = 0u;
-                    v498 = 0u;
-                    v127 = v481;
-                    v128 = 0uLL;
-                    while (1)
-                    {
-                      if (v6 <= v48)
-                      {
-                        *v556 = 0;
-                        v555 = 0u;
-                        memset(&buf, 0, sizeof(buf));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        v578[0].i32[0] = 136315906;
-                        *(v578[0].i64 + 4) = "operator[]";
-                        v578[0].i16[6] = 1024;
-                        *(&v578[0].i32[3] + 2) = 858;
-                        v578[1].i16[1] = 2048;
-                        *(v578[1].i64 + 4) = v48;
-                        v578[1].i16[6] = 2048;
-                        *(&v578[1].i64[1] + 6) = v6;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_417:
-                        re::internal::assertLog(6, v139, v143, v141, v142, v144, v145, v140, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v48, v146);
-                        _os_crash();
-                        __break(1u);
-LABEL_418:
-                        v553 = 0;
-                        v555 = 0u;
-                        memset(&buf, 0, sizeof(buf));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        *v556 = 136315906;
-                        *&v556[4] = "operator[]";
-                        *&v556[12] = 1024;
-                        *&v556[14] = 858;
-                        *&v556[18] = 2048;
-                        *&v556[20] = v48;
-                        *&v556[28] = 2048;
-                        *&v556[30] = v6;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_419:
-                        v524.i64[0] = 0;
-                        v579 = 0u;
-                        v580 = 0u;
-                        memset(v578, 0, sizeof(v578));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        *v556 = 136315906;
-                        *&v556[4] = "operator[]";
-                        *&v556[12] = 1024;
-                        *&v556[14] = 797;
-                        *&v556[18] = 2048;
-                        *&v556[20] = a3;
-                        *&v556[28] = 2048;
-                        *&v556[30] = v48;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_420:
-                        v553 = 0;
-                        v555 = 0u;
-                        memset(&buf, 0, sizeof(buf));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        *v556 = 136315906;
-                        *&v556[4] = "operator[]";
-                        *&v556[12] = 1024;
-                        *&v556[14] = 858;
-                        *&v556[18] = 2048;
-                        *&v556[20] = v48;
-                        *&v556[28] = 2048;
-                        *&v556[30] = a3;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_421:
-                        re::internal::assertLog(6, v200, *v207.columns[0].i64, *v207.columns[1].i64, *v207.columns[2].i64, *v207.columns[3].i64, *v203.i64, *v204.i64, *v202.i64, *v201.i64, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-                        _os_crash();
-                        __break(1u);
-LABEL_422:
-                        v538.i64[0] = 0;
-                        v561 = 0u;
-                        v560 = 0u;
-                        v559 = 0u;
-                        memset(v558, 0, sizeof(v558));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        buf.columns[0].i32[0] = 136315906;
-                        *(buf.columns[0].i64 + 4) = "operator[]";
-                        buf.columns[0].i16[6] = 1024;
-                        *(&buf.columns[0].i32[3] + 2) = 858;
-                        buf.columns[1].i16[1] = 2048;
-                        *(buf.columns[1].i64 + 4) = v7;
-                        buf.columns[1].i16[6] = 2048;
-                        *(&buf.columns[1].i64[1] + 6) = v6;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_423:
-                        v524.i64[0] = 0;
-                        v579 = 0u;
-                        v580 = 0u;
-                        memset(v578, 0, sizeof(v578));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        *v556 = 136315906;
-                        *&v556[4] = "operator[]";
-                        *&v556[12] = 1024;
-                        *&v556[14] = 789;
-                        *&v556[18] = 2048;
-                        *&v556[20] = v48;
-                        *&v556[28] = 2048;
-                        *&v556[30] = a3;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_424:
-                        v538.i64[0] = 0;
-                        v561 = 0u;
-                        v560 = 0u;
-                        v559 = 0u;
-                        memset(v558, 0, sizeof(v558));
-                        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                        buf.columns[0].i32[0] = 136315906;
-                        *(buf.columns[0].i64 + 4) = "operator[]";
-                        buf.columns[0].i16[6] = 1024;
-                        *(&buf.columns[0].i32[3] + 2) = 858;
-                        buf.columns[1].i16[1] = 2048;
-                        *(buf.columns[1].i64 + 4) = v7;
-                        buf.columns[1].i16[6] = 2048;
-                        *(&buf.columns[1].i64[1] + 6) = v6;
-                        _os_log_send_and_compose_impl();
-                        _os_crash_msg();
-                        __break(1u);
-LABEL_425:
-                        re::internal::assertLog(6, v82, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, a4, v85);
-                        _os_crash();
-                        __break(1u);
-                        goto LABEL_426;
-                      }
-
-                      v502 = v127;
-                      v504 = v128;
-                      v129 = 0;
-                      v130 = v537;
-                      if (v535)
-                      {
-                        v130 = &v536;
-                      }
-
-                      v131 = &v130[8 * v48];
-                      v132 = *v131;
-                      v133 = v131[1];
-                      v134 = v131[2];
-                      v135 = v131[3];
-                      v136 = *(v9 + 16);
-                      v137 = *(v9 + 32);
-                      v138 = *(v9 + 48);
-                      v578[0] = *v9;
-                      v578[1] = v136;
-                      v578[2] = v137;
-                      v579 = v138;
-                      do
-                      {
-                        buf.columns[v129] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v132, COERCE_FLOAT(*&v578[v129])), v133, *v578[v129].f32, 1), v134, v578[v129], 2), v135, v578[v129], 3);
-                        ++v129;
-                      }
-
-                      while (v129 != 4);
-                      v578[0] = buf.columns[0];
-                      v578[1] = buf.columns[1];
-                      v578[2] = buf.columns[2];
-                      v579 = buf.columns[3];
-                      re::AABB::transform((v9 + 64), v578, &v524);
-                      LODWORD(v142) = v524.i32[1];
-                      LODWORD(v141) = v524.i32[0];
-                      LODWORD(v143) = v524.i32[2];
-                      LODWORD(v145) = v525.i32[1];
-                      LODWORD(v144) = v525.i32[0];
-                      if (v48 || v524.f32[2] >= 0.0 || (LODWORD(v140) = v525.i32[2], v525.f32[2] <= 0.0))
-                      {
-                        v146 = v111[3].u64[0];
-                        v128 = v504;
-                        if (v146 <= v48)
-                        {
-                          goto LABEL_417;
-                        }
-
-                        a3 = v529;
-                        if (v529 <= v48)
-                        {
-                          goto LABEL_420;
-                        }
-
-                        v147 = v17 + v525.f32[1];
-                        v148 = v524.f32[1] - v17;
-                        v149 = v480[2 * v48];
-                        v150 = v532;
-                        if (v530)
-                        {
-                          v150 = &v531;
-                        }
-
-                        v151 = &v150[8 * v48];
-                        v152 = v151[1];
-                        v153 = v151[2];
-                        v154 = v151[3];
-                        v155 = vmulq_n_f32(*v151, v17 + v525.f32[0]);
-                        v156 = vaddq_f32(v154, vmlaq_n_f32(vmlaq_n_f32(v155, v152, v148), v153, v524.f32[2]));
-                        v157 = vdivq_f32(v156, vdupq_laneq_s32(v156, 3));
-                        v158 = vmulq_n_f32(*v151, v524.f32[0] - v17);
-                        v159 = vaddq_f32(v154, vmlaq_n_f32(vmlaq_n_f32(v158, v152, v148), v153, v524.f32[2]));
-                        v160 = vdivq_f32(v159, vdupq_laneq_s32(v159, 3));
-                        v161 = vaddq_f32(v154, vmlaq_n_f32(vmlaq_n_f32(v155, v152, v147), v153, v524.f32[2]));
-                        v162 = vdivq_f32(v161, vdupq_laneq_s32(v161, 3));
-                        v163 = vaddq_f32(v154, vmlaq_n_f32(vmlaq_n_f32(v158, v152, v147), v153, v524.f32[2]));
-                        v164 = vdivq_f32(v163, vdupq_laneq_s32(v163, 3));
-                        v165 = vsubq_f32(v157, v149);
-                        v166 = vsubq_f32(v162, v157);
-                        v167 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v166, v166), v166, 0xCuLL), vnegq_f32(v165)), v166, vextq_s8(vuzp1q_s32(v165, v165), v165, 0xCuLL));
-                        v168 = vextq_s8(vuzp1q_s32(v167, v167), v167, 0xCuLL);
-                        v169 = vmulq_f32(v149, v168);
-                        v161.f32[0] = -(v169.f32[2] + vaddv_f32(*v169.f32));
-                        v170 = v168;
-                        v170.i32[3] = v161.i32[0];
-                        v171 = vsubq_f32(v164, v149);
-                        v172 = vsubq_f32(v160, v164);
-                        v173 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v172, v172), v172, 0xCuLL), vnegq_f32(v171)), v172, vextq_s8(vuzp1q_s32(v171, v171), v171, 0xCuLL));
-                        v174 = vextq_s8(vuzp1q_s32(v173, v173), v173, 0xCuLL);
-                        v175 = vmulq_f32(v149, v174);
-                        v153.f32[0] = -(v175.f32[2] + vaddv_f32(*v175.f32));
-                        v176 = v174;
-                        v176.i32[3] = v153.i32[0];
-                        if (v48)
-                        {
-                          v177 = vmulq_f32(v504, v504);
-                          *&v178 = v177.f32[2] + vaddv_f32(*v177.f32);
-                          *v177.f32 = vrsqrte_f32(v178);
-                          *v177.f32 = vmul_f32(*v177.f32, vrsqrts_f32(v178, vmul_f32(*v177.f32, *v177.f32)));
-                          v179 = vmulq_n_f32(v504, vmul_f32(*v177.f32, vrsqrts_f32(v178, vmul_f32(*v177.f32, *v177.f32))).f32[0]);
-                          v180 = vmulq_f32(v501, v501);
-                          *&v181 = v180.f32[2] + vaddv_f32(*v180.f32);
-                          *v180.f32 = vrsqrte_f32(v181);
-                          *v180.f32 = vmul_f32(*v180.f32, vrsqrts_f32(v181, vmul_f32(*v180.f32, *v180.f32)));
-                          v182 = vmulq_f32(v179, vmulq_n_f32(v501, vmul_f32(*v180.f32, vrsqrts_f32(v181, vmul_f32(*v180.f32, *v180.f32))).f32[0]));
-                          v182.f32[0] = v182.f32[2] + vaddv_f32(*v182.f32);
-                          v183 = vmulq_f32(v176, v176);
-                          *&v184 = v183.f32[2] + vaddv_f32(*v183.f32);
-                          *v183.f32 = vrsqrte_f32(v184);
-                          *v183.f32 = vmul_f32(*v183.f32, vrsqrts_f32(v184, vmul_f32(*v183.f32, *v183.f32)));
-                          v185 = vmulq_f32(v179, vmulq_n_f32(v174, vmul_f32(*v183.f32, vrsqrts_f32(v184, vmul_f32(*v183.f32, *v183.f32))).f32[0]));
-                          v185.f32[0] = v185.f32[2] + vaddv_f32(*v185.f32);
-                          v501 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v185, v182), 0), v176, v501);
-                          v186 = vmulq_f32(v500, v500);
-                          v182.f32[0] = v186.f32[2] + vaddv_f32(*v186.f32);
-                          *v186.f32 = vrsqrte_f32(v182.u32[0]);
-                          *v186.f32 = vmul_f32(*v186.f32, vrsqrts_f32(v182.u32[0], vmul_f32(*v186.f32, *v186.f32)));
-                          v187 = vmulq_f32(v179, vmulq_n_f32(v500, vmul_f32(*v186.f32, vrsqrts_f32(v182.u32[0], vmul_f32(*v186.f32, *v186.f32))).f32[0]));
-                          v188 = vmulq_f32(v170, v170);
-                          v185.f32[0] = v188.f32[2] + vaddv_f32(*v188.f32);
-                          *v188.f32 = vrsqrte_f32(v185.u32[0]);
-                          *v188.f32 = vmul_f32(*v188.f32, vrsqrts_f32(v185.u32[0], vmul_f32(*v188.f32, *v188.f32)));
-                          v189 = vmulq_f32(v179, vmulq_n_f32(v168, vmul_f32(*v188.f32, vrsqrts_f32(v185.u32[0], vmul_f32(*v188.f32, *v188.f32))).f32[0]));
-                          if ((v189.f32[2] + vaddv_f32(*v189.f32)) > (v187.f32[2] + vaddv_f32(*v187.f32)))
-                          {
-                            v500 = v170;
-                          }
-
-                          goto LABEL_199;
-                        }
-
-                        v190 = vsubq_f32(v162, v149);
-                        v191 = vsubq_f32(v164, v162);
-                        v192 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v191, v191), v191, 0xCuLL), vnegq_f32(v190)), v191, vextq_s8(vuzp1q_s32(v190, v190), v190, 0xCuLL));
-                        v193 = vextq_s8(vuzp1q_s32(v192, v192), v192, 0xCuLL);
-                        v194 = vmulq_f32(v149, v193);
-                        v193.f32[3] = -(v194.f32[2] + vaddv_f32(*v194.f32));
-                        v195 = vsubq_f32(v160, v149);
-                        v196 = vsubq_f32(v157, v160);
-                        v197 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v196, v196), v196, 0xCuLL), vnegq_f32(v195)), v196, vextq_s8(vuzp1q_s32(v195, v195), v195, 0xCuLL));
-                        v198 = vextq_s8(vuzp1q_s32(v197, v197), v197, 0xCuLL);
-                        v505 = *v480;
-                        v199 = vmulq_f32(v149, v198);
-                        v198.f32[3] = -(v199.f32[2] + vaddv_f32(*v199.f32));
-                        v497 = v198;
-                        v498 = v193;
-                        v500 = v170;
-                        v501 = v176;
-                      }
-
-                      else
-                      {
-                        *(a4 + 1) = 1;
-                        v146 = v111[3].u64[0];
-                        if (!v146)
-                        {
-                          goto LABEL_417;
-                        }
-
-                        v505 = *v480;
-                        v498 = 0u;
-                        v500 = 0u;
-                        v501 = 0u;
-                        v497 = 0u;
-                      }
-
-                      v582 = __invert_f4(*v9);
-                      v201 = v582.columns[0];
-                      v202 = v582.columns[1];
-                      v203 = v582.columns[2];
-                      v204 = v582.columns[3];
-                      v582.columns[1] = *(v9 + 64);
-                      v582.columns[0] = *(v9 + 80);
-                      v205 = vsubq_f32(v582.columns[0], v582.columns[1]);
-                      buf.columns[0] = v205;
-                      v582.columns[0] = vaddq_f32(v582.columns[0], v582.columns[1]);
-                      v582.columns[1].i64[0] = 0x3F0000003F000000;
-                      v582.columns[1].i64[1] = 0x3F0000003F000000;
-                      v206 = vmulq_f32(v582.columns[0], v582.columns[1]);
-                      v207 = *v9;
-                      if (*(v9 + 104) == 5)
-                      {
-                        v208 = *(v9 + 112);
-                      }
-
-                      else
-                      {
-                        v209 = vaddq_f32(v207.columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v207.columns[0], v206.f32[0]), v207.columns[1], *v206.f32, 1), v207.columns[2], v206, 2));
-                        v208 = vdivq_f32(v209, vdupq_laneq_s32(v209, 3));
-                      }
-
-                      v210 = 2;
-                      if (v205.f32[1] <= v205.f32[2])
-                      {
-                        v210 = 1;
-                      }
-
-                      v211 = v205.f32[0] > v205.f32[2] || v205.f32[0] > v205.f32[1];
-                      if (!v211)
-                      {
-                        v210 = 0;
-                      }
-
-                      if (*(&buf | (4 * v210)) >= 0.03)
-                      {
-                        if (!v111[3].i64[0])
-                        {
-                          goto LABEL_421;
-                        }
-
-                        v216 = v490[5].f32[0];
-                        v217 = v490[5].f32[1];
-                        v218 = v490[5].f32[2];
-                        v201.i32[0] = v490[5].i32[3];
-                        v219 = (v216 + v216) * v201.f32[0];
-                        v201.f32[0] = ((v216 + v216) * v218) + ((v217 + v217) * v201.f32[0]);
-                        v492 = v201.f32[0];
-                        v494 = ((v217 + v217) * v218) - v219;
-                        v495 = 1.0 - (((v216 + v216) * v216) + ((v217 + v217) * v217));
-                        v201.f32[1] = v494;
-                        v201.f32[2] = v495;
-                        v506 = v201;
-                        v583 = __invert_f4(v207);
-                        v128 = v506;
-                        v220 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v583.columns[0], v492), v583.columns[1], v494), v583.columns[2], v495);
-                        v221 = 80;
-                        if (*v220.i32 < 0.0)
-                        {
-                          v221 = 64;
-                        }
-
-                        v222 = vcltz_f32(*&vextq_s8(v220, v220, 4uLL));
-                        v223.i64[0] = v222.i32[0];
-                        v223.i64[1] = v222.i32[1];
-                        v224 = vbslq_s8(v223, xmmword_1E3108BA0, xmmword_1E3108B90);
-                        v225 = vaddq_f32(*(v9 + 48), vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(*v9, *(v9 + v221)), *(v9 + 16), *(v9 + v224.i64[0])), *(v9 + 32), *(v9 + v224.i64[1])));
-                        v215 = vmulq_f32(v506, vdivq_f32(v225, vdupq_laneq_s32(v225, 3)));
-                      }
-
-                      else
-                      {
-                        v212 = vaddq_f32(v204, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v201, v505.f32[0]), v202, *v505.f32, 1), v203, v505, 2));
-                        v213 = xmmword_1E3108C90[v210];
-                        v214 = vmulq_f32(vsubq_f32(vdivq_f32(v212, vdupq_laneq_s32(v212, 3)), v206), v213);
-                        if ((v214.f32[2] + vaddv_f32(*v214.f32)) >= 0.0)
-                        {
-                          v207.columns[3].f32[0] = 1.0;
-                        }
-
-                        else
-                        {
-                          v207.columns[3].f32[0] = -1.0;
-                        }
-
-                        v207.columns[3] = vmulq_n_f32(v213, v207.columns[3].f32[0]);
-                        v128 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v207.columns[0], v207.columns[3].f32[0]), v207.columns[1], *v207.columns[3].f32, 1), v207.columns[2], v207.columns[3], 2);
-                        v215 = vmulq_f32(v208, v128);
-                      }
-
-                      v128.f32[3] = -(v215.f32[2] + vaddv_f32(*v215.f32));
-LABEL_199:
-                      v227 = *(v9 + 64);
-                      v226 = *(v9 + 80);
-                      v228 = vcgtq_f32(v227, v226);
-                      v228.i32[3] = v228.i32[2];
-                      v229 = vmaxvq_u32(v228);
-                      v230.i64[0] = 0x3F0000003F000000;
-                      v230.i64[1] = 0x3F0000003F000000;
-                      v231 = vmulq_f32(vaddq_f32(v227, v226), v230);
-                      v232 = v231.u32[2];
-                      if (v229 >= 0)
-                      {
-                        v233 = v231.i64[0];
-                      }
-
-                      else
-                      {
-                        v232 = 0;
-                        v233 = 0;
-                      }
-
-                      v234 = *(v9 + 16);
-                      v235 = *(v9 + 32);
-                      v236 = *(v9 + 48);
-                      v237 = vdupq_n_s32(HIDWORD(v233));
-                      v238 = vdupq_n_s32(v232);
-                      v239 = vaddq_f32(v236, vmlaq_f32(vmlaq_f32(vmulq_n_f32(*v9, v227.f32[0]), v237, v234), v238, v235));
-                      v240 = vdivq_f32(v239, vdupq_laneq_s32(v239, 3));
-                      v241 = vaddq_f32(v236, vmlaq_f32(vmlaq_f32(vmulq_n_f32(*v9, v226.f32[0]), v237, v234), v238, v235));
-                      v242 = vdivq_f32(v241, vdupq_laneq_s32(v241, 3));
-                      v246.i64[1] = v513.i64[1];
-                      v243 = vmulq_f32(vsubq_f32(v240, v510), v513);
-                      v244 = vmulq_f32(vsubq_f32(v242, v510), v513);
-                      *v246.f32 = vadd_f32(vzip1_s32(*v244.i8, *v243.i8), vzip2_s32(*v244.i8, *v243.i8));
-                      v245 = vadd_f32(vzip1_s32(*&vextq_s8(v244, v244, 8uLL), *&vextq_s8(v243, v243, 8uLL)), *v246.f32);
-                      v246.i32[0] = v245.i32[1];
-                      if (v245.f32[1] < 0.0 || v245.f32[0] < 0.0)
-                      {
-                        v249 = vcltz_f32(v245);
-                        v250 = v249.i8[4] & v249.i8[0];
-                        v247 = 0uLL;
-                        v248 = 0uLL;
-                        if ((v250 & 1) == 0)
-                        {
-                          v248.i64[0] = 0;
-                          v248 = vbslq_s8(vdupq_lane_s32(*&vcgeq_f32(v246, v248), 0), v240, v242);
-                          v251 = vsubq_f32(v242, v240);
-                          v252 = vmulq_f32(v496, v240);
-                          v253 = vmulq_f32(v496, v251);
-                          v247 = vaddq_f32(v240, vmulq_n_f32(v251, -(v496.f32[3] + (v252.f32[2] + vaddv_f32(*v252.f32))) / (v253.f32[2] + vaddv_f32(*v253.f32))));
-                        }
-                      }
-
-                      else
-                      {
-                        v247 = v242;
-                        v248 = v240;
-                      }
-
-                      v254 = vmulq_n_f32(*v9, *&v233);
-                      v255 = vaddq_f32(v236, vmlaq_f32(vmlaq_lane_f32(v254, v234, *v227.f32, 1), v238, v235));
-                      v256 = vdivq_f32(v255, vdupq_laneq_s32(v255, 3));
-                      v257 = vaddq_f32(v236, vmlaq_f32(vmlaq_lane_f32(v254, v234, *v226.f32, 1), v238, v235));
-                      v258 = vdivq_f32(v257, vdupq_laneq_s32(v257, 3));
-                      v262.i64[1] = v513.i64[1];
-                      v259 = vmulq_f32(vsubq_f32(v256, v510), v513);
-                      v260 = vmulq_f32(vsubq_f32(v258, v510), v513);
-                      *v262.f32 = vadd_f32(vzip1_s32(*v260.i8, *v259.i8), vzip2_s32(*v260.i8, *v259.i8));
-                      v261 = vadd_f32(vzip1_s32(*&vextq_s8(v260, v260, 8uLL), *&vextq_s8(v259, v259, 8uLL)), *v262.f32);
-                      v262.i32[0] = v261.i32[1];
-                      if (v261.f32[1] < 0.0 || v261.f32[0] < 0.0)
-                      {
-                        v265 = vcltz_f32(v261);
-                        v266 = v265.i8[4] & v265.i8[0];
-                        v263 = 0uLL;
-                        v264 = 0uLL;
-                        if ((v266 & 1) == 0)
-                        {
-                          v263.i64[0] = 0;
-                          v263 = vbslq_s8(vdupq_lane_s32(*&vcgeq_f32(v262, v263), 0), v256, v258);
-                          v267 = vsubq_f32(v258, v256);
-                          v268 = vmulq_f32(v496, v256);
-                          v269 = vmulq_f32(v496, v267);
-                          v264 = vaddq_f32(v256, vmulq_n_f32(v267, -(v496.f32[3] + (v268.f32[2] + vaddv_f32(*v268.f32))) / (v269.f32[2] + vaddv_f32(*v269.f32))));
-                        }
-                      }
-
-                      else
-                      {
-                        v263 = v256;
-                        v264 = v258;
-                      }
-
-                      v270 = vmlaq_f32(v254, v237, v234);
-                      v271 = vaddq_f32(v236, vmlaq_laneq_f32(v270, v235, v227, 2));
-                      v272 = vdivq_f32(v271, vdupq_laneq_s32(v271, 3));
-                      v273 = vaddq_f32(v236, vmlaq_laneq_f32(v270, v235, v226, 2));
-                      v274 = vdivq_f32(v273, vdupq_laneq_s32(v273, 3));
-                      v278.i64[1] = v513.i64[1];
-                      v275 = vmulq_f32(vsubq_f32(v272, v510), v513);
-                      v276 = vmulq_f32(vsubq_f32(v274, v510), v513);
-                      *v278.f32 = vadd_f32(vzip1_s32(*v276.i8, *v275.i8), vzip2_s32(*v276.i8, *v275.i8));
-                      v277 = vadd_f32(vzip1_s32(*&vextq_s8(v276, v276, 8uLL), *&vextq_s8(v275, v275, 8uLL)), *v278.f32);
-                      v278.i32[0] = v277.i32[1];
-                      if (v277.f32[1] < 0.0 || v277.f32[0] < 0.0)
-                      {
-                        v281 = vcltz_f32(v277);
-                        v282 = v281.i8[4] & v281.i8[0];
-                        v279 = 0uLL;
-                        v280 = 0uLL;
-                        if ((v282 & 1) == 0)
-                        {
-                          v279.i64[0] = 0;
-                          v279 = vbslq_s8(vdupq_lane_s32(*&vcgeq_f32(v278, v279), 0), v272, v274);
-                          v283 = vsubq_f32(v274, v272);
-                          v284 = vmulq_f32(v496, v272);
-                          v285 = vmulq_f32(v496, v283);
-                          v280 = vaddq_f32(v272, vmulq_n_f32(v283, -(v496.f32[3] + (v284.f32[2] + vaddv_f32(*v284.f32))) / (v285.f32[2] + vaddv_f32(*v285.f32))));
-                        }
-                      }
-
-                      else
-                      {
-                        v279 = v272;
-                        v280 = v274;
-                      }
-
-                      v6 = v534;
-                      if (v534 <= v48)
-                      {
-                        goto LABEL_418;
-                      }
-
-                      v286 = v537;
-                      if (v535)
-                      {
-                        v286 = &v536;
-                      }
-
-                      v287 = &v286[8 * v48];
-                      v289 = *v287;
-                      v288 = v287[1];
-                      v290 = v287[2];
-                      v291 = v287[3];
-                      v292 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v287, v248.f32[0]), v288, *v248.f32, 1), v290, v248, 2));
-                      v293 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v287, v247.f32[0]), v288, *v247.f32, 1), v290, v247, 2));
-                      v294 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v287, v263.f32[0]), v288, *v263.f32, 1), v290, v263, 2));
-                      v295 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v287, v264.f32[0]), v288, *v264.f32, 1), v290, v264, 2));
-                      v296 = vsubq_f32(vdivq_f32(v293, vdupq_laneq_s32(v293, 3)), vdivq_f32(v292, vdupq_laneq_s32(v292, 3)));
-                      v297 = vmulq_f32(v296, v296);
-                      v298 = vsubq_f32(vdivq_f32(v295, vdupq_laneq_s32(v295, 3)), vdivq_f32(v294, vdupq_laneq_s32(v294, 3)));
-                      v299 = vmulq_f32(v298, v298);
-                      v300 = vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v299, v299, 8uLL), *&vextq_s8(v297, v297, 8uLL)), vadd_f32(vzip1_s32(*v299.i8, *v297.i8), vzip2_s32(*v299.i8, *v297.i8))));
-                      if (v300.f32[1] <= 0.1)
-                      {
-                        __asm { FMOV            V0.4S, #1.0 }
-                      }
-
-                      else
-                      {
-                        __asm { FMOV            V0.4S, #1.0 }
-
-                        _Q0.f32[0] = (v300.f32[1] + (v17 * 2.0)) / v300.f32[1];
-                      }
-
-                      if (v300.f32[0] > 0.1)
-                      {
-                        _Q0.f32[1] = (v300.f32[0] + (v17 * 2.0)) / v300.f32[0];
-                      }
-
-                      v302 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v289, v279.f32[0]), v288, *v279.f32, 1), v290, v279, 2));
-                      v303 = vaddq_f32(v291, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v289, v280.f32[0]), v288, *v280.f32, 1), v290, v280, 2));
-                      v304 = vsubq_f32(vdivq_f32(v303, vdupq_laneq_s32(v303, 3)), vdivq_f32(v302, vdupq_laneq_s32(v302, 3)));
-                      v305 = vmulq_f32(v304, v304);
-                      v305.f32[0] = sqrtf(v305.f32[2] + vaddv_f32(*v305.f32));
-                      if (v305.f32[0] > 0.1)
-                      {
-                        _Q0.f32[2] = (v305.f32[0] + (v17 * 2.0)) / v305.f32[0];
-                      }
-
-                      v306 = vcgt_f32(vdup_lane_s32(*v305.f32, 0), v300);
-                      v307 = v306.i8[0];
-                      if (v300.f32[1] < v300.f32[0] && (v306.i8[4] & 1) != 0)
-                      {
-                        v308 = 0;
-                        v309 = 1;
-                        v310 = 2;
-                      }
-
-                      else if (v306.i8[0])
-                      {
-                        v309 = 0;
-                        v310 = 2;
-                        v307 = v306.i8[4];
-                        v308 = 1;
-                      }
-
-                      else
-                      {
-                        v310 = 0;
-                        v307 = v300.f32[0] < v300.f32[1];
-                        v309 = 1;
-                        v308 = 2;
-                      }
-
-                      v515 = _Q0;
-                      v311 = *(&v515 | (4 * v309));
-                      if ((v307 & 1) == 0)
-                      {
-                        v311 = *(&v515 | (4 * v310));
-                      }
-
-                      *(&v515 & 0xFFFFFFFFFFFFFFF3 | (4 * (v308 & 3))) = v311;
-                      v312 = v515;
-                      v312.i32[3] = 0;
-                      v313 = vminnmq_f32(v312, xmmword_1E3108BB0);
-                      v314 = v502;
-                      v314.i32[3] = 0;
-                      v313.i32[3] = 0;
-                      v127 = vmaxnmq_f32(v314, v313);
-                      if (v111[8].i64[0] <= ++v48)
-                      {
-                        goto LABEL_239;
-                      }
-                    }
-                  }
-
-                  v500 = 0u;
-                  v501 = 0u;
-                  v497 = 0u;
-                  v498 = 0u;
-                  v127 = v481;
-                  v128 = 0uLL;
-LABEL_239:
-                  v503 = v127;
-                  v507 = v128;
-                  v315 = v484;
-                  LODWORD(v523) = v484[2];
-                  re::DynamicArray<re::BlurPlaneTypeData>::add(v488, &v523);
-                  v317 = (v9 + 96);
-                  v316 = *(v9 + 96);
-                  v318 = v491;
-                  if (v491 && (v318 = re::HashTable<unsigned long long,re::PeerTransferReport,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v491, (v9 + 96))) != 0)
-                  {
-                    v319 = *v318;
-                    a3 = v318[2];
-                  }
-
-                  else
-                  {
-                    a3 = 0;
-                    v319 = 0;
-                  }
-
-                  v320 = v507;
-                  v321 = v484[1];
-                  v322 = v484[2];
-                  if (v322 >= v321)
-                  {
-                    v323 = v322 + 1;
-                    if (v321 < v322 + 1)
-                    {
-                      if (*v484)
-                      {
-                        v324 = 2 * v321;
-                        _ZF = v321 == 0;
-                        v325 = 8;
-                        if (!_ZF)
-                        {
-                          v325 = v324;
-                        }
-
-                        if (v325 <= v323)
-                        {
-                          v326 = v323;
-                        }
-
-                        else
-                        {
-                          v326 = v325;
-                        }
-
-                        re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(v484, v326);
-                      }
-
-                      else
-                      {
-                        re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(v484, v323);
-                        ++*(v484 + 6);
-                      }
-
-                      v320 = v507;
-                    }
-
-                    v315 = v484;
-                    v322 = v484[2];
-                  }
-
-                  v327 = v315[4] + 112 * v322;
-                  *v327 = v316;
-                  *(v327 + 8) = v319;
-                  *(v327 + 16) = a3;
-                  *(v327 + 20) = v578[0].i64[0];
-                  *(v327 + 28) = v578[0].i32[2];
-                  *(v327 + 32) = v501;
-                  *(v327 + 48) = v500;
-                  *(v327 + 64) = v497;
-                  *(v327 + 80) = v498;
-                  *(v327 + 96) = v320;
-                  ++v315[2];
-                  ++*(v315 + 6);
-                  memset(&buf, 0, 24);
-                  v328 = 0xBF58476D1CE4E5B9 * (*v317 ^ (*v317 >> 30));
-                  re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v522, (v9 + 96), (0x94D049BB133111EBLL * (v328 ^ (v328 >> 27))) ^ ((0x94D049BB133111EBLL * (v328 ^ (v328 >> 27))) >> 31), &buf);
-                  if (buf.columns[0].i32[3] == 0x7FFFFFFF)
-                  {
-                    v329 = re::HashTable<unsigned long long,re::TintContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v522, buf.columns[0].u32[2], buf.columns[0].u64[0]);
-                    *(v329 + 8) = *v317;
-                    *(v329 + 16) = v503;
-                    *(v329 + 32) = v482;
-                    *(v329 + 40) = v483;
-                    ++*&v522[40];
-                  }
-
-                  a4 = v485;
-                  v111 = v490;
-                }
-
-                else
-                {
-                  BYTE5(v523) = 1;
-                  re::DynamicArray<re::BlurPlaneTypeData>::add(v488, &v523);
-                }
-
-                v9 += 144;
-              }
-
-              while (v9 != v487);
-              v6 = v549;
-              v9 = v478;
-            }
-
-            ++v9;
-          }
-
-          while (v9 < v6);
-          v330 = v6 == 0;
+          v7 = *(v6 + 792);
         }
 
         else
         {
-          v330 = 1;
-          a4 = v485;
+          v7 = 0;
         }
 
-        buf.columns[1].i32[0] = 1;
-        buf.columns[2] = 0uLL;
-        buf.columns[0] = v489;
-        re::DynamicOverflowArray<re::AABB,8ul>::setCapacity(&buf, 0);
-        buf.columns[1].i32[0] += 2;
-        v9 = v490[53].u64[0];
+        v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) >> 27));
+        v10 = v7 ^ (v8 >> 31) ^ v8;
+        re::MaterialParameterBlock::createMaterialParameterTableIfNeeded(&v9, v5);
+        re::HashTable<unsigned long,re::SharedPtr<re::MaterialParameterTable>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::add(a2, &v10, &v9);
         if (v9)
         {
-          v332 = *(v9 + 40);
-          if (v332)
-          {
-            for (i = 0; i != v332; ++i)
-            {
-              v334 = re::BucketArray<re::DynamicArray<re::CameraView>,4ul>::operator[](v9, i);
-              v335 = *(v334 + 16);
-              if (v335)
-              {
-                v336 = v335 << 10;
-                v337 = (*(v334 + 32) + 128);
-                do
-                {
-                  re::AABB::transform(v337 - 3, v337, v578);
-                  re::DynamicOverflowArray<re::AABB,8ul>::add(&buf, v578);
-                  v337 += 64;
-                  v336 -= 1024;
-                }
-
-                while (v336);
-              }
-            }
-          }
         }
-
-        v7 = v479;
-        if (v330)
-        {
-          goto LABEL_330;
-        }
-
-        v338 = 0;
-        v6 = 144;
-LABEL_272:
-        a3 = v518;
-        if (v518 <= v338)
-        {
-          goto LABEL_433;
-        }
-
-        v339 = v521;
-        if (v519)
-        {
-          v339 = &v520;
-        }
-
-        a3 = v543;
-        if (v543 > v338)
-        {
-          v340 = &v339[5 * v338];
-          v341 = v546;
-          if (v544)
-          {
-            v341 = &v545;
-          }
-
-          v342 = &v341[5 * v338];
-          v343 = v342[2];
-          if (!v343)
-          {
-            goto LABEL_327;
-          }
-
-          v514 = v340;
-          v344 = 0;
-          v7 = 0;
-          v345 = v552;
-          if (v550)
-          {
-            v345 = &v551;
-          }
-
-          v499 = v338;
-          v11 = v345[v338];
-          while (1)
-          {
-            v346 = (v342[4] + 8 * v344);
-            if (*(v346 + 5))
-            {
-              goto LABEL_314;
-            }
-
-            v48 = *v346;
-            a3 = v514[2];
-            if (a3 <= v48)
-            {
-              goto LABEL_423;
-            }
-
-            a3 = 0;
-            v9 = 0;
-            v347 = (v514[4] + 112 * v48);
-            a4 = &v347[2];
-            while (1)
-            {
-              if (v7 == v9)
-              {
-                goto LABEL_290;
-              }
-
-              v48 = *(v11 + 16);
-              if (v48 <= a3)
-              {
-                goto LABEL_419;
-              }
-
-              v348 = (*(v11 + 32) + 144 * a3);
-              if (v348[8].i8[1] != 1)
-              {
-                goto LABEL_290;
-              }
-
-              v578[0].i64[0] = &v347[2];
-              v578[0].i64[1] = 5;
-              if (re::isBoundingBoxInsidePlanes(&v348[4], v578, v348))
-              {
-                break;
-              }
-
-              v343 = v342[2];
-LABEL_290:
-              a3 = (v9 + 1);
-              v9 = a3;
-              if (v343 <= a3)
-              {
-                goto LABEL_293;
-              }
-            }
-
-            *(v346 + 4) = 1;
-            *(v485 + 1) = 1;
-LABEL_293:
-            if ((v346[1] & 1) == 0)
-            {
-              v349 = *(v11 + 56);
-              if (v349)
-              {
-                v9 = *(v11 + 72);
-                v350 = v9 + 144 * v349;
-                while (1)
-                {
-                  if (v491 && (v351 = re::HashTable<unsigned long long,re::PeerTransferReport,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v491, (v9 + 128))) != 0)
-                  {
-                    v352 = *v351;
-                    v353 = *(v351 + 8);
-                  }
-
-                  else
-                  {
-                    v352 = 0;
-                    v353 = 0;
-                  }
-
-                  v354 = v9 + 112;
-                  if (re::isBoundingBoxInsideVCAPlanes(v9, (v9 + 32), v352, v353, (v9 + 96), (v9 + 112), v347 + 6, v331, v347 + 2, 4, v347->i64[1], v347[1].i32[0]))
-                  {
-                    break;
-                  }
-
-                  v9 += 144;
-                  if (v354 + 32 == v350)
-                  {
-                    goto LABEL_304;
-                  }
-                }
-
-                *(v346 + 4) = 1;
-                *(v485 + 1) = 1;
-              }
-
-LABEL_304:
-              if ((v346[1] & 1) == 0)
-              {
-                v578[0] = xmmword_1E3047670;
-                v578[1] = xmmword_1E3047680;
-                v578[2] = xmmword_1E30476A0;
-                v579 = xmmword_1E30474D0;
-                v9 = (buf.columns[1].i8[0] & 1) != 0 ? &buf.columns[2] : buf.columns[2].i64[1];
-                if (buf.columns[0].i64[1])
-                {
-                  v355 = 32 * buf.columns[0].i64[1];
-                  while (1)
-                  {
-                    v524.i8[0] = 0;
-                    *v556 = 0u;
-                    if (re::isBoundingBoxInsideVCAPlanes(v9, v578, 0, 0, &v524, v556, v347 + 6, v331, v347 + 2, 4, v347->i64[1], v347[1].i32[0]))
-                    {
-                      break;
-                    }
-
-                    v9 += 32;
-                    v355 -= 32;
-                    if (!v355)
-                    {
-                      goto LABEL_314;
-                    }
-                  }
-
-                  *(v346 + 4) = 1;
-                  *(v485 + 1) = 1;
-                }
-              }
-            }
-
-LABEL_314:
-            v344 = (v7 + 1);
-            v343 = v342[2];
-            v7 = v344;
-            if (v343 <= v344)
-            {
-              v7 = v479;
-              if (v343)
-              {
-                v356 = 0;
-                v357 = 0;
-                v358 = 1;
-                a4 = v485;
-                v338 = v499;
-                v340 = v514;
-                do
-                {
-                  v359 = (v342[4] + 8 * v356);
-                  if ((*(v359 + 5) & 1) == 0 && *(v359 + 4) == 1)
-                  {
-                    if (v358 - 1 != v357)
-                    {
-                      a3 = *v359;
-                      v9 = v514[2];
-                      if (v9 <= a3)
-                      {
-                        goto LABEL_429;
-                      }
-
-                      v11 = v357;
-                      if (v9 <= v357)
-                      {
-                        goto LABEL_430;
-                      }
-
-                      v360 = v514[4];
-                      v361 = (v360 + 112 * a3);
-                      v362 = (v360 + 112 * v357);
-                      v363 = *v361;
-                      v364 = v361[2];
-                      v362[1] = v361[1];
-                      v362[2] = v364;
-                      *v362 = v363;
-                      v365 = v361[3];
-                      v366 = v361[4];
-                      v367 = v361[6];
-                      v362[5] = v361[5];
-                      v362[6] = v367;
-                      v362[3] = v365;
-                      v362[4] = v366;
-                      v343 = v342[2];
-                    }
-
-                    ++v357;
-                  }
-
-                  v356 = v358;
-                  v211 = v343 > v358++;
-                }
-
-                while (v211);
-                v343 = v357;
-              }
-
-              else
-              {
-                a4 = v485;
-                v338 = v499;
-                v340 = v514;
-              }
-
-LABEL_327:
-              if (v340[2] > v343)
-              {
-                v340[2] = v343;
-                ++*(v340 + 6);
-              }
-
-              if (++v338 >= v549)
-              {
-LABEL_330:
-                if (buf.columns[0].i64[0] && (buf.columns[1].i8[0] & 1) == 0)
-                {
-                  (*(*buf.columns[0].i64[0] + 40))();
-                }
-
-                v11 = 0x9E3779B97F4A7C17;
-                a3 = v477;
-                if (v528 && (v530 & 1) == 0)
-                {
-                  (*(*v528 + 40))();
-                }
-
-                if (v533 && (v535 & 1) == 0)
-                {
-                  (*(*v533 + 40))();
-                }
-
-                if (v538.i64[0])
-                {
-                  v368 = &v539;
-                  v369 = &v538 + 7 * v538.i64[0] + 1;
-                  do
-                  {
-                    v368->i64[0] = 0;
-                    ++v368->i32[2];
-                    v368 += 7;
-                  }
-
-                  while (v368 != v369);
-                }
-
-                if (v572)
-                {
-                  v370 = &v572 + 9 * v572 + 1;
-                  v371 = &v573;
-                  do
-                  {
-                    *v371 = 0;
-                    ++*(v371 + 2);
-                    v371 += 9;
-                  }
-
-                  while (v371 != v370);
-                }
-
-                if (*&v558[0])
-                {
-                  v372 = &v558[7 * *&v558[0] + 1];
-                  v373 = &v558[1];
-                  do
-                  {
-                    *v373 = 0;
-                    ++*(v373 + 2);
-                    v373 += 7;
-                  }
-
-                  while (v373 != v372);
-                }
-
-                re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(&v542);
-                goto LABEL_349;
-              }
-
-              goto LABEL_272;
-            }
-          }
-        }
-
-LABEL_434:
-        v524.i64[0] = 0;
-        v579 = 0u;
-        v580 = 0u;
-        memset(v578, 0, sizeof(v578));
-        v9 = v338;
-        v8 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v556 = 136315906;
-        *&v556[4] = "operator[]";
-        *&v556[12] = 1024;
-        *&v556[14] = 858;
-        *&v556[18] = 2048;
-        *&v556[20] = v9;
-        *&v556[28] = 2048;
-        *&v556[30] = a3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_435:
-        re::internal::assertLog(6, v449, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 1, v455);
-        _os_crash();
-        __break(1u);
-LABEL_436:
-        re::internal::assertLog(6, v79, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-        _os_crash();
-        __break(1u);
-        goto LABEL_437;
       }
+    }
+  }
+}
+
+uint64_t re::RenderGraphDownsampleBlur::configure(void **this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  v12 = 0;
+  v15 = 0;
+  memset(v18, 0, sizeof(v18));
+  v19 = 0;
+  v23 = 0;
+  v24 = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  ComputePipelineState = re::getOrCreateComputePipelineState(*(a4 + 1), &v10);
+  NS::SharedPtr<MTL::Buffer>::operator=(this + 40, ComputePipelineState);
+  re::RenderGraphNode::configure(this, a2, a3, a4);
+  if (v23)
+  {
+
+    v23 = 0;
+  }
+
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(v18);
+  if (v15 == 1 && v16)
+  {
+    if (BYTE8(v16))
+    {
+      (*(*v16 + 40))();
+    }
+
+    v16 = 0u;
+    v17 = 0u;
+  }
+
+  if (v12 == 1 && v13)
+  {
+    if (BYTE8(v13))
+    {
+      (*(*v13 + 40))();
+    }
+
+    v14 = 0u;
+    v13 = 0u;
+  }
+
+  result = v10;
+  if (v10)
+  {
+    if (v11)
+    {
+      return (*(*v10 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::RenderGraphDownsampleBlur::setup(re::RenderGraphDownsampleBlur *this, re::GrowableLinearAllocator **a2, re::RenderGraphDataStore *a3)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  *(&v15 + 3) = 0;
+  LODWORD(v15) = 0;
+  *(&v15 + 1) = 2;
+  re::RenderGraphBuilder::read(a2, this + 264, &v15);
+  *&v15 = 0x500000000;
+  v16 = xmmword_1E30474D0;
+  LOWORD(v17) = 0;
+  *(&v17 + 4) = 0;
+  re::RenderGraphBuilder::write(a2, this + 264, &v15);
+  v5 = re::RenderGraphCompiled::targetDescription(a2, this + 264);
+  v7 = v5[3];
+  v6 = v5[4];
+  v8 = v5[6];
+  v20 = v5[5];
+  v9 = v5[1];
+  v10 = v5[2];
+  v15 = *v5;
+  v16 = v9;
+  v17 = v10;
+  v18 = v7;
+  v21 = v8;
+  v19 = v6;
+  LODWORD(v20) = *(this + 69);
+  re::RenderGraphResourceDescriptions::addTarget(a2, &v15, "scratchTarget", v12);
+  *(this + 19) = v12[0];
+  *(v12 + 3) = 0;
+  LODWORD(v12[0]) = 0;
+  *(&v12[0] + 1) = 2;
+  re::RenderGraphBuilder::read(a2, this + 304, v12);
+  *&v12[0] = 0x500000000;
+  v12[1] = xmmword_1E30474D0;
+  v13 = 0;
+  v14 = 0;
+  return re::RenderGraphBuilder::write(a2, this + 304, v12);
+}
+
+void re::RenderGraphDownsampleBlur::execute(re::RenderGraphDownsampleBlur *this, re::RenderGraphContext *a2)
+{
+  v50[1] = *MEMORY[0x1E69E9840];
+  v36 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(*(a2 + 146), *(*(a2 + 5) + 48));
+  if (v36)
+  {
+    re::RenderGraphContext::acquireManagedComputeCommandEncoder(a2, 0, 0, &v43);
+    re::RenderGraphContext::metalTexture(a2, this + 264, 0, 0, &v42);
+    re::RenderGraphContext::metalTexture(a2, this + 304, 0, 0, &v41);
+    if ((atomic_load_explicit(&qword_1EE1BE0A0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE0A0))
+    {
+      v30 = re::ns::String::String(&qword_1EE1BE098, "Bloom Blur Downsampled Mipmap");
+      __cxa_guard_release(v30 + 1);
+    }
+
+    v4 = qword_1EE1BE098;
+    [v43 setLabel:v4];
+
+    [v43 setComputePipelineState:*(this + 40)];
+    v5 = v42;
+    v6 = [v42 pixelFormat];
+    v7 = [v5 newTextureViewWithPixelFormat:v6 textureType:2 levels:objc_msgSend(v42 slices:sel_mipmapLevelCount) - 1, 1, 0, 1];
+    [v43 setTexture:v7 atIndex:2];
+    re::BufferSlice::buffer(v36 + 8, v8);
+    [v43 setBuffer:*(v36 + 8) offset:*(v36 + 40) atIndex:0];
+    v34 = [*(this + 40) threadExecutionWidth];
+    v9 = [*(this + 40) maxTotalThreadsPerThreadgroup];
+    v10 = re::RenderGraphDataStore::tryGet<re::ViewportPercentData>(*(a2 + 146), *(*(a2 + 5) + 48));
+    if (v10)
+    {
+      if (!*(v10 + 16))
+      {
+        re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
+        _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v31, v32);
+        __break(1u);
+      }
+
+      v12 = *(v10 + 32);
     }
 
     else
     {
-LABEL_437:
-      re::internal::assertLog(6, v79, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-      _os_crash();
-      __break(1u);
+      v12 = xmmword_1E3063230;
     }
 
-    re::internal::assertLog(6, v79, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 0, 0);
-    _os_crash();
-    __break(1u);
-LABEL_439:
-    re::internal::assertLog(4, v14, "assertion failure: '%s' (%s:line %i) Capacity limit reached. DynamicInlineArray<T,N> cannot be resized.", "false", "ensureCapacity", 277);
-    _os_crash();
-    __break(1u);
-LABEL_440:
-    v475 = __cxa_guard_acquire(&qword_1EE1C18A8);
-    if (v475)
+    v35 = v12;
+    v33 = a2;
+    v14 = *(a2 + 1);
+    v40 = v43;
+    re::RenderManager::sampleComputeEncoderMTLCounterBegin(v14, &v40, 1u);
+
+    if (*(v36 + 48))
     {
-      qword_1EE1C18A0 = re::hashString(v475, v476);
-      __cxa_guard_release(&qword_1EE1C18A8);
-    }
-  }
-
-  if (*a4)
-  {
-    if ((*(a4 + 1) & 1) == 0)
-    {
-      goto LABEL_392;
-    }
-  }
-
-  else if ((*(a4 + 1) & 1) == 0)
-  {
-    v385 = 2512009519;
-    goto LABEL_415;
-  }
-
-  v374 = "N2re13VCARenderDataE";
-  if (("N2re13VCARenderDataE" & 0x8000000000000000) != 0)
-  {
-    v375 = ("N2re13VCARenderDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v376 = 5381;
-    do
-    {
-      v374 = v376;
-      v377 = *v375++;
-      v376 = (33 * v376) ^ v377;
-    }
-
-    while (v377);
-  }
-
-  *&v558[0] = (v7 - 0x61C8864680B583E9 + (v374 << 6) + (v374 >> 2)) ^ v374;
-  v378 = (*(**(v6 + 40) + 32))(*(v6 + 40), 240, 8);
-  v9 = v378;
-  *v378 = &unk_1F5D15788;
-  *(v378 + 8) = 0;
-  v379 = (v378 + 8);
-  *(v378 + 16) = 0;
-  *(v378 + 24) = 1;
-  *(v378 + 32) = 0;
-  v380 = v378 + 32;
-  *(v378 + 40) = 0;
-  if (v519)
-  {
-    v386 = v518;
-    if (v518)
-    {
-      *(v378 + 8) = v517;
-      re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity((v378 + 8), v386);
-      v388 = v521;
-      if (v519)
+      v15 = 0;
+      v16 = v9 / v34;
+      v17 = vadd_f32(*v35.i8, *&vextq_s8(v35, v35, 8uLL));
+      while (1)
       {
-        v388 = &v520;
-      }
-
-      v389 = *(v9 + 16);
-      v390 = *(v9 + 24);
-      v391 = v380;
-      if ((v390 & 1) == 0)
-      {
-        v391 = *(v9 + 40);
-      }
-
-      if (v389)
-      {
-        v392 = 0;
-        v393 = 40 * v389;
-        do
+        v18 = [v42 newTextureViewWithPixelFormat:objc_msgSend(v42 textureType:sel_pixelFormat) levels:2 slices:v15, 1, 0, 1];
+        v19 = [v41 newTextureViewWithPixelFormat:objc_msgSend(v41 textureType:sel_pixelFormat) levels:2 slices:v15, 1, 0, 1];
+        v20 = [v18 width];
+        v21 = vcvt_f32_u32(vand_s8(__PAIR64__([v18 height], v20), 0xFFFF0000FFFFLL));
+        v22 = vcvt_s32_f32(vrndp_f32(vmla_f32(0xBF000000BF000000, *v35.i8, v21)));
+        v23 = vcvt_s32_f32(vrndm_f32(vmla_f32(0x3F0000003F000000, v17, v21)));
+        v24 = vmvn_s8(vceq_s32(vand_s8(v23, 0xFFFF0000FFFFLL), vand_s8(v22, 0xFFFF0000FFFFLL)));
+        if ((v24.i32[0] & v24.i32[1] & 1) == 0)
         {
-          if (v388 != v391)
-          {
-            v394 = v391[v392 / 8];
-            v395 = v388[v392 / 8];
-            if (v394)
-            {
-              _ZF = v395 == 0;
-            }
-
-            else
-            {
-              _ZF = 1;
-            }
-
-            if (!_ZF && v394 != v395)
-            {
-              goto LABEL_427;
-            }
-
-            v398 = &v391[v392 / 8];
-            *v398 = v395;
-            v399 = &v388[v392 / 8];
-            *v399 = v394;
-            v400 = v391[v392 / 8 + 1];
-            v398[1] = v388[v392 / 8 + 1];
-            v399[1] = v400;
-            v401 = v391[v392 / 8 + 2];
-            v398[2] = v388[v392 / 8 + 2];
-            v399[2] = v401;
-            v402 = v391[v392 / 8 + 4];
-            v398[4] = v388[v392 / 8 + 4];
-            v399[4] = v402;
-            *(v399 + 6) = LODWORD(v388[v392 / 8 + 3]) + 1;
-            *(v398 + 6) = LODWORD(v391[v392 / 8 + 3]) + 1;
-          }
-
-          v392 += 40;
+          break;
         }
 
-        while (v393 != v392);
-        v390 = *(v9 + 24);
-      }
-
-      if ((v390 & 1) == 0)
-      {
-        v380 = *(v9 + 40);
-      }
-
-      v403 = *(v9 + 16);
-      v404 = &v520;
-      if ((v519 & 1) == 0)
-      {
-        v404 = v521;
-      }
-
-      if (v403 != v386)
-      {
-        v405 = &v404[5 * v386];
-        v406 = 5 * v403;
-        v407 = &v404[5 * v403];
-        v408 = (v380 + 8 * v406 + 32);
-        do
+        v25 = v23.i16[2] - v22.i16[2];
+        v26 = v23.i16[0] - v22.i16[0];
+        v50[0] = vuzp1_s16(v22, v23);
+        [v43 setBytes:v50 length:8 atIndex:2];
+        v27 = (v34 - 1 + v26) / v34;
+        v28 = (v16 - 1 + v25) / v16;
+        [v43 setTexture:v18 atIndex:0];
+        [v43 setTexture:v19 atIndex:1];
+        v39 = 0;
+        [v43 setBytes:&v39 length:4 atIndex:1];
+        *buf = v27;
+        v48 = v28;
+        v49 = 1;
+        v44 = v34;
+        v45 = v16;
+        v46 = 1;
+        [v43 dispatchThreadgroups:buf threadsPerThreadgroup:&v44];
+        [v43 setTexture:v19 atIndex:0];
+        [v43 setTexture:v18 atIndex:1];
+        v38 = 1;
+        [v43 setBytes:&v38 length:4 atIndex:1];
+        *buf = v27;
+        v48 = v28;
+        v49 = 1;
+        v44 = v34;
+        v45 = v16;
+        v46 = 1;
+        [v43 dispatchThreadgroups:buf threadsPerThreadgroup:&v44];
+        if (v19)
         {
-          *v408 = 0;
-          *(v408 - 3) = 0;
-          *(v408 - 2) = 0;
-          *(v408 - 4) = 0;
-          *(v408 - 2) = 0;
-          *(v408 - 4) = *v407;
-          *v407 = 0;
-          *(v408 - 3) = v407[1];
-          v407[1] = 0;
-          v409 = *(v408 - 2);
-          *(v408 - 2) = v407[2];
-          v407[2] = v409;
-          v410 = *v408;
-          *v408 = v407[4];
-          v407[4] = v410;
-          ++*(v407 + 6);
-          ++*(v408 - 2);
-          v407 += 5;
-          v408 += 5;
         }
 
-        while (v407 != v405);
+        if (v18)
+        {
+        }
+
+        if (++v15 >= *(v36 + 48))
+        {
+          goto LABEL_22;
+        }
       }
 
-      *(v9 + 16) = v386;
-      re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::clear(&v517);
+      if (v19)
+      {
+      }
+
+      if (v18)
+      {
+      }
     }
 
-    else
+LABEL_22:
+    v29 = *(v33 + 1);
+    v37 = v43;
+    re::RenderManager::sampleComputeEncoderMTLCounterEnd(v29, &v37, 1u);
+
+    if (v7)
     {
-      re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(v378 + 8);
-      *v379 = v517;
+    }
+
+    if (v41)
+    {
+    }
+
+    if (v42)
+    {
     }
   }
 
   else
   {
-    re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::clear(v378 + 8);
-    v381 = *(v9 + 8);
-    v382 = *(v9 + 16);
-    *(v9 + 8) = v517;
-    *(v9 + 16) = v518;
-    v517 = v381;
-    v518 = v382;
-    v383 = *(v9 + 40);
-    *(v9 + 40) = v521;
-    v521 = v383;
-    v519 = v519 & 0xFFFFFFFE | *(v9 + 24) & 1;
-    *(v9 + 24) &= ~1u;
-    v384 = *(v9 + 32);
-    *(v9 + 32) = v520;
-    v520 = v384;
-  }
-
-  v519 += 2;
-  *(v9 + 24) += 2;
-  *(v9 + 192) = 0u;
-  *(v9 + 208) = 0u;
-  *(v9 + 224) = 0;
-  *(v9 + 192) = *v522;
-  *v522 = 0uLL;
-  *(v9 + 208) = *&v522[16];
-  *&v522[16] = 0;
-  *(v9 + 216) = *&v522[24];
-  *(v9 + 224) = *&v522[32];
-  *(v9 + 228) = 0x17FFFFFFFLL;
-  *(v9 + 228) = *&v522[36];
-  *&v522[24] = xmmword_1E3058120;
-  buf.columns[0].i64[0] = v9;
-  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v6 + 96, v558, &buf);
-LABEL_392:
-  v411 = *(*(v6 + 8) + 128);
-  if (*(v411 + 16))
-  {
-    v412 = *v411;
-    v413 = v411[1];
-    v414 = v411[3];
-    *(a4 + 96) = v411[2];
-    *(a4 + 112) = v414;
-    *(a4 + 64) = v412;
-    *(a4 + 80) = v413;
-    v415 = v411[4];
-    v416 = v411[5];
-    v417 = v411[7];
-    *(a4 + 160) = v411[6];
-    *(a4 + 176) = v417;
-    *(a4 + 128) = v415;
-    *(a4 + 144) = v416;
-    *(v411 + 16) = 0;
-  }
-
-  *&v558[0] = &unk_1F5D15808;
-  v418 = *(a4 + 80);
-  v558[1] = *(a4 + 64);
-  v559 = v418;
-  v419 = *(a4 + 112);
-  v560 = *(a4 + 96);
-  v561 = v419;
-  v420 = *(a4 + 144);
-  v562 = *(a4 + 128);
-  v563 = v420;
-  v421 = *(a4 + 176);
-  v564 = *(a4 + 160);
-  v565 = v421;
-  v422 = *(a4 + 192);
-  v423 = *(a4 + 208);
-  v424 = *(a4 + 224);
-  v569 = *(a4 + 240);
-  v568 = v424;
-  v567 = v423;
-  v566 = v422;
-  v425 = *(a4 + 288);
-  v573 = *(a4 + 304);
-  v572 = v425;
-  v426 = *(a4 + 256);
-  v427 = "N2re20WorldToViewCacheDataE";
-  v571 = *(a4 + 272);
-  v570 = v426;
-  if (("N2re20WorldToViewCacheDataE" & 0x8000000000000000) != 0)
-  {
-    v428 = ("N2re20WorldToViewCacheDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v429 = 5381;
-    do
+    v13 = *re::graphicsLogObjects(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v427 = v429;
-      v430 = *v428++;
-      v429 = (33 * v429) ^ v430;
-    }
-
-    while (v430);
-  }
-
-  buf.columns[0].i64[0] = (v7 - 0x61C8864680B583E9 + (v427 << 6) + (v427 >> 2)) ^ v427;
-  v431 = (*(**(v6 + 40) + 32))(*(v6 + 40), 272, 16);
-  *v431 = &unk_1F5D15808;
-  v432 = v561;
-  v434 = v558[1];
-  v433 = v559;
-  *(v431 + 48) = v560;
-  *(v431 + 64) = v432;
-  *(v431 + 16) = v434;
-  *(v431 + 32) = v433;
-  v435 = v565;
-  v437 = v562;
-  v436 = v563;
-  *(v431 + 112) = v564;
-  *(v431 + 128) = v435;
-  *(v431 + 80) = v437;
-  *(v431 + 96) = v436;
-  v438 = v569;
-  v440 = v566;
-  v439 = v567;
-  *(v431 + 176) = v568;
-  *(v431 + 192) = v438;
-  *(v431 + 144) = v440;
-  *(v431 + 160) = v439;
-  v441 = v573;
-  v443 = v570;
-  v442 = v571;
-  *(v431 + 240) = v572;
-  *(v431 + 256) = v441;
-  *(v431 + 208) = v443;
-  *(v431 + 224) = v442;
-  v538.i64[0] = v431;
-  v444 = re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(v6 + 96, &buf, &v538);
-  v8 = v490;
-  if (!v490 || (a3 & 1) != 0)
-  {
-    goto LABEL_411;
-  }
-
-  if (v490[3].i64[0])
-  {
-    v446 = *(a4 + 80);
-    *(a4 + 192) = *(a4 + 64);
-    *(a4 + 208) = v446;
-    v447 = *(a4 + 112);
-    *(a4 + 224) = *(a4 + 96);
-    *(a4 + 240) = v447;
-    if (!v490[3].i64[0])
-    {
-      goto LABEL_428;
-    }
-
-    re::RenderCamera::computeInverseTransform(v490 + 4, &buf);
-    v450 = buf.columns[1];
-    v451 = buf.columns[2];
-    v452 = buf.columns[3];
-    *(a4 + 64) = buf.columns[0];
-    *(a4 + 80) = v450;
-    *(a4 + 96) = v451;
-    *(a4 + 112) = v452;
-    if (v490[3].i64[0] < 2uLL)
-    {
-      if ((atomic_exchange(&unk_1EE1C1899, 1u) & 1) == 0)
-      {
-        v459 = *re::graphicsLogObjects(v448);
-        if (os_log_type_enabled(v459, OS_LOG_TYPE_DEFAULT))
-        {
-          buf.columns[0].i16[0] = 0;
-          v460 = "Blur: Caching WorldToView matrix: Right Camera data not available";
-LABEL_410:
-          _os_log_impl(&dword_1E1C61000, v459, OS_LOG_TYPE_DEFAULT, v460, &buf, 2u);
-        }
-      }
-
-      goto LABEL_411;
-    }
-
-    v453 = *(a4 + 144);
-    *(a4 + 256) = *(a4 + 128);
-    *(a4 + 272) = v453;
-    v454 = *(a4 + 176);
-    *(a4 + 288) = *(a4 + 160);
-    *(a4 + 304) = v454;
-    v455 = v490[3].u64[0];
-    if (v455 > 1)
-    {
-      re::RenderCamera::computeInverseTransform(v490 + 6, &buf);
-      v456 = buf.columns[1];
-      v457 = buf.columns[2];
-      v458 = buf.columns[3];
-      *(a4 + 128) = buf.columns[0];
-      *(a4 + 144) = v456;
-      *(a4 + 160) = v457;
-      *(a4 + 176) = v458;
-      goto LABEL_411;
-    }
-
-    goto LABEL_435;
-  }
-
-  if ((atomic_exchange(byte_1EE1C189A, 1u) & 1) == 0)
-  {
-    v459 = *re::graphicsLogObjects(v444);
-    if (os_log_type_enabled(v459, OS_LOG_TYPE_DEFAULT))
-    {
-      buf.columns[0].i16[0] = 0;
-      v460 = "Blur: Caching WorldToView matrix: Left Camera data not available";
-      goto LABEL_410;
+      *buf = 0;
+      _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "RenderGraphDownsampleBlur expects BloomExecDataWrapper from the render graph data store but there isn't any.                          Will skip the execution. Did you forget to add a upload node?", buf, 2u);
     }
   }
+}
 
-LABEL_411:
-  if (*(a4 + 1))
+void re::RenderGraphBloomNode::execute(re::RenderGraphBloomNode *this, re::RenderGraphContext *a2)
+{
+  v4 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(*(a2 + 146), *(*(a2 + 5) + 48));
+  if (v4)
   {
-    v461 = 0xDFC926A60E076268;
+    v5 = *a2;
+    *v8 = 0x127DBE076EDDD69;
+    re::BufferTable::setBuffer((v5 + 480), v8, (v4 + 8));
+    re::RenderGraphFullscreenNode::executeInternal(this, a2, (this + 272));
+    v6 = *a2;
+    *v8 = 0x127DBE076EDDD69;
+    re::BufferTable::removeBuffer((v6 + 480), v8);
   }
 
   else
   {
-    v461 = 0x7B9CDD2A1D56B4CCLL;
+    v7 = *re::graphicsLogObjects(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "RenderGraphBloomNode expects BloomExecDataWrapper from the render graph data store but there isn't any.                          Will skip the execution. Did you forget to add a upload node?", v8, 2u);
+    }
+  }
+}
+
+void *re::allocInfo_BloomUserParameters(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_504, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_504))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE100, "BloomUserParameters");
+    __cxa_guard_release(&_MergedGlobals_504);
   }
 
-  v462 = 0xBF58476D1CE4E5B9 * (*(a4 + 12) ^ (*(a4 + 12) >> 30));
-  v463 = ((v461 << 6) - 0x61C8864680B583E9 + (v461 >> 2) + ((0x94D049BB133111EBLL * (v462 ^ (v462 >> 27))) ^ ((0x94D049BB133111EBLL * (v462 ^ (v462 >> 27))) >> 31))) ^ v461;
-  v464 = 0xBF58476D1CE4E5B9 * (*(a4 + 16) ^ (*(a4 + 16) >> 30));
-  v465 = (((0x94D049BB133111EBLL * (v464 ^ (v464 >> 27))) ^ ((0x94D049BB133111EBLL * (v464 ^ (v464 >> 27))) >> 31)) - 0x61C8864680B583E9 + (v463 << 6) + (v463 >> 2)) ^ v463;
-  v466 = 0xBF58476D1CE4E5B9 * (*(a4 + 20) ^ (*(a4 + 20) >> 30));
-  v467 = (((0x94D049BB133111EBLL * (v466 ^ (v466 >> 27))) ^ ((0x94D049BB133111EBLL * (v466 ^ (v466 >> 27))) >> 31)) - 0x61C8864680B583E9 + (v465 << 6) + (v465 >> 2)) ^ v465;
-  v468 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*(a4 + 24) ^ (*(a4 + 24) >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*(a4 + 24) ^ (*(a4 + 24) >> 30))) >> 27));
-  v469 = ((v468 ^ (v468 >> 31)) - 0x61C8864680B583E9 + (v467 << 6) + (v467 >> 2)) ^ v467;
-  v470 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * *(a4 + 32)) ^ ((0xBF58476D1CE4E5B9 * *(a4 + 32)) >> 27));
-  v471 = ((v470 ^ (v470 >> 31)) - 0x61C8864680B583E9 + (v469 << 6) + (v469 >> 2)) ^ v469;
-  v472 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * *(a4 + 33)) ^ ((0xBF58476D1CE4E5B9 * *(a4 + 33)) >> 27));
-  v385 = ((v472 ^ (v472 >> 31)) - 0x61C8864680B583E9 + (v471 << 6) + (v471 >> 2)) ^ v471;
-LABEL_415:
-  re::HashTable<re::ecs2::Entity *,re::SortingPlane,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>::deinit(v522);
-  re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(&v517);
-  return v385;
+  return &unk_1EE1BE100;
 }
 
-void re::VCARenderData::~VCARenderData(re::VCARenderData *this)
+void re::initInfo_BloomUserParameters(re *this, re::IntrospectionBase *a2)
 {
-  re::HashTable<re::ecs2::Entity *,re::SortingPlane,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>::deinit(this + 24);
-  re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(this + 8);
+  v22[0] = 0x789DF83014C541B0;
+  v22[1] = "BloomUserParameters";
+  if (v22[0])
+  {
+    if (v22[0])
+    {
+    }
+  }
+
+  *(this + 2) = v23;
+  if ((atomic_load_explicit(&qword_1EE1BE040, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE040))
+  {
+    v5 = re::introspectionAllocator();
+    v7 = re::introspect_float(1, v6);
+    v8 = (*(*v5 + 32))(v5, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "strength";
+    *(v8 + 16) = v7;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 1;
+    *(v8 + 40) = 0;
+    *(v8 + 48) = 0;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE1BE0E0 = v8;
+    v9 = re::introspectionAllocator();
+    v11 = re::introspect_float(1, v10);
+    v12 = (*(*v9 + 32))(v9, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "threshold";
+    *(v12 + 16) = v11;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x400000002;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE1BE0E8 = v12;
+    v13 = re::introspectionAllocator();
+    v15 = re::introspect_float(1, v14);
+    v16 = (*(*v13 + 32))(v13, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "spread";
+    *(v16 + 16) = v15;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x800000003;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1BE0F0 = v16;
+    v17 = re::introspectionAllocator();
+    v19 = re::introspect_int(1, v18);
+    v20 = (*(*v17 + 32))(v17, 72, 8);
+    *v20 = 1;
+    *(v20 + 8) = "numPasses";
+    *(v20 + 16) = v19;
+    *(v20 + 24) = 0;
+    *(v20 + 32) = 0xC00000004;
+    *(v20 + 40) = 0;
+    *(v20 + 48) = 0;
+    *(v20 + 56) = 0;
+    *(v20 + 64) = 0;
+    qword_1EE1BE0F8 = v20;
+    __cxa_guard_release(&qword_1EE1BE040);
+  }
+
+  *(this + 2) = 0x1000000008;
+  *(this + 6) = 4;
+  *(this + 14) = 1;
+  *(this + 14) = 4;
+  *(this + 8) = &qword_1EE1BE0E0;
+  *(this + 9) = re::internal::defaultConstruct<re::BloomUserParameters>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::BloomUserParameters>;
+  *(this + 13) = re::internal::defaultConstructV2<re::BloomUserParameters>;
+  *(this + 14) = re::internal::defaultDestructV2<re::BloomUserParameters>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v21 = v23;
 }
 
+double re::internal::defaultConstruct<re::BloomUserParameters>(uint64_t a1, uint64_t a2, void *a3)
 {
-  re::HashTable<re::ecs2::Entity *,re::SortingPlane,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>::deinit(this + 24);
-  re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(this + 8);
+  result = 0.00781250182;
+  *a3 = 0x3F8000003E800000;
+  a3[1] = 0x13F800000;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::BloomUserParameters>(void *a1)
+{
+  result = 0.00781250182;
+  *a1 = 0x3F8000003E800000;
+  a1[1] = 0x13F800000;
+  return result;
+}
+
+void *re::allocInfo_RenderGraphUploadBloomParams(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BE050, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE050))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE190, "RenderGraphUploadBloomParams");
+    __cxa_guard_release(&qword_1EE1BE050);
+  }
+
+  return &unk_1EE1BE190;
+}
+
+void re::initInfo_RenderGraphUploadBloomParams(re *this, re::IntrospectionBase *a2)
+{
+  v14[0] = 0xEDF6B9216B19DCA0;
+  v14[1] = "RenderGraphUploadBloomParams";
+  if (v14[0])
+  {
+    if (v14[0])
+    {
+    }
+  }
+
+  *(this + 2) = v15;
+  if ((atomic_load_explicit(&qword_1EE1BE058, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE058))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BE0A8 = v7;
+    v8 = re::introspectionAllocator();
+    v9 = v8;
+    v10 = qword_1EE1BE048;
+    if (!qword_1EE1BE048)
+    {
+      v10 = re::allocInfo_BloomUserParameters(v8);
+      qword_1EE1BE048 = v10;
+      re::initInfo_BloomUserParameters(v10, v11);
+    }
+
+    v12 = (*(*v9 + 32))(v9, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "bloomUserParameters";
+    *(v12 + 16) = v10;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x10800000001;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE1BE0B0 = v12;
+    __cxa_guard_release(&qword_1EE1BE058);
+  }
+
+  *(this + 2) = 0x11800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1BE0A8;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphUploadBloomParams>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphUploadBloomParams>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphUploadBloomParams>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphUploadBloomParams>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v13 = v15;
+}
+
+double re::internal::defaultConstruct<re::RenderGraphUploadBloomParams>(int a1, int a2, re::RenderGraphNode *this)
+{
+  v3 = re::RenderGraphNode::RenderGraphNode(this);
+  *v3 = &unk_1F5D0ECF8;
+  result = 0.00781250182;
+  *(v3 + 33) = 0x3F8000003E800000;
+  *(v3 + 34) = 0x13F800000;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::RenderGraphUploadBloomParams>(re::RenderGraphNode *a1)
+{
+  v1 = re::RenderGraphNode::RenderGraphNode(a1);
+  *v1 = &unk_1F5D0ECF8;
+  result = 0.00781250182;
+  *(v1 + 33) = 0x3F8000003E800000;
+  *(v1 + 34) = 0x13F800000;
+  return result;
+}
+
+void *re::allocInfo_RenderGraphDownsampleThresholdNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BE060, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE060))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE220, "RenderGraphDownsampleThresholdNode");
+    __cxa_guard_release(&qword_1EE1BE060);
+  }
+
+  return &unk_1EE1BE220;
+}
+
+void re::initInfo_RenderGraphDownsampleThresholdNode(re *this, re::IntrospectionBase *a2)
+{
+  v13[0] = 0x49FD523B65429E92;
+  v13[1] = "RenderGraphDownsampleThresholdNode";
+  if (v13[0])
+  {
+    if (v13[0])
+    {
+    }
+  }
+
+  *(this + 2) = v14;
+  if ((atomic_load_explicit(&qword_1EE1BE068, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE068))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BE0B8 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_AssetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "downsampleThresholdMaterial";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x11000000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BE0C0 = v11;
+    __cxa_guard_release(&qword_1EE1BE068);
+  }
+
+  *(this + 2) = 0x12800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1BE0B8;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDownsampleThresholdNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDownsampleThresholdNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDownsampleThresholdNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDownsampleThresholdNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v12 = v14;
+}
+
+double re::internal::defaultConstruct<re::RenderGraphDownsampleThresholdNode>(int a1, int a2, re::RenderGraphNode *this)
+{
+  v3 = re::RenderGraphNode::RenderGraphNode(this);
+  *v3 = &unk_1F5D0EDA0;
+  result = 0.0;
+  *(v3 + 264) = 0u;
+  *(v3 + 280) = 0u;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::RenderGraphDownsampleThresholdNode>(re::RenderGraphNode *a1)
+{
+  v1 = re::RenderGraphNode::RenderGraphNode(a1);
+  *v1 = &unk_1F5D0EDA0;
+  result = 0.0;
+  *(v1 + 264) = 0u;
+  *(v1 + 280) = 0u;
+  return result;
+}
+
+void *re::allocInfo_RenderGraphDownsampleBlur(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BE070, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE070))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE2B0, "RenderGraphDownsampleBlur");
+    __cxa_guard_release(&qword_1EE1BE070);
+  }
+
+  return &unk_1EE1BE2B0;
+}
+
+void re::initInfo_RenderGraphDownsampleBlur(re *this, re::IntrospectionBase *a2)
+{
+  v17[0] = 0x92E90B1749510D56;
+  v17[1] = "RenderGraphDownsampleBlur";
+  if (v17[0])
+  {
+    if (v17[0])
+    {
+    }
+  }
+
+  *(this + 2) = v18;
+  if ((atomic_load_explicit(&qword_1EE1BE078, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE078))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BE0C8 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_RenderGraphTargetHandle(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "downsampledTarget";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x10800000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BE0D0 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::introspect_AssetHandle(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "library";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x11800000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BE0D8 = v15;
+    __cxa_guard_release(&qword_1EE1BE078);
+  }
+
+  *(this + 2) = 0x14800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1BE0C8;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphDownsampleBlur>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphDownsampleBlur>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphDownsampleBlur>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphDownsampleBlur>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v16 = v18;
+}
+
+double re::internal::defaultConstruct<re::RenderGraphDownsampleBlur>(int a1, int a2, re::RenderGraphNode *this)
+{
+  v3 = re::RenderGraphNode::RenderGraphNode(this);
+  *v3 = &unk_1F5D0EE48;
+  *(v3 + 33) = 0;
+  result = NAN;
+  *(v3 + 34) = -1;
+  *(v3 + 280) = 0u;
+  *(v3 + 296) = 0u;
+  *(v3 + 39) = -1;
+  *(v3 + 40) = 0;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::RenderGraphDownsampleBlur>(re::RenderGraphNode *a1)
+{
+  v1 = re::RenderGraphNode::RenderGraphNode(a1);
+  *v1 = &unk_1F5D0EE48;
+  *(v1 + 33) = 0;
+  result = NAN;
+  *(v1 + 34) = -1;
+  *(v1 + 280) = 0u;
+  *(v1 + 296) = 0u;
+  *(v1 + 39) = -1;
+  *(v1 + 40) = 0;
+  return result;
+}
+
+void *re::allocInfo_RenderGraphBloomNode(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1BE080, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE080))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE340, "RenderGraphBloomNode");
+    __cxa_guard_release(&qword_1EE1BE080);
+  }
+
+  return &unk_1EE1BE340;
+}
+
+void re::initInfo_RenderGraphBloomNode(re *this, re::IntrospectionBase *a2)
+{
+  v9[0] = 0x228CD58E70E1D09ALL;
+  v9[1] = "RenderGraphBloomNode";
+  if (v9[0])
+  {
+    if (v9[0])
+    {
+    }
+  }
+
+  *(this + 2) = v10;
+  if ((atomic_load_explicit(&qword_1EE1BE090, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE090))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphFullscreenNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphFullscreenNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BE088 = v7;
+    __cxa_guard_release(&qword_1EE1BE090);
+  }
+
+  *(this + 2) = 0x1D800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1BE088;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphBloomNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphBloomNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphBloomNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphBloomNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v8 = v10;
+}
+
+re::RenderGraphFullscreenNode *re::internal::defaultConstruct<re::RenderGraphBloomNode>(int a1, int a2, re::RenderGraphFullscreenNode *this)
+{
+  *(this + 58) = 0;
+  *(this + 27) = 0u;
+  *(this + 28) = 0u;
+  *(this + 25) = 0u;
+  *(this + 26) = 0u;
+  *(this + 23) = 0u;
+  *(this + 24) = 0u;
+  *(this + 21) = 0u;
+  *(this + 22) = 0u;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  result = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(this);
+  *result = &unk_1F5D0EEF0;
+  return result;
+}
+
+re::RenderGraphFullscreenNode *re::internal::defaultConstructV2<re::RenderGraphBloomNode>(uint64_t a1)
+{
+  *(a1 + 464) = 0;
+  *(a1 + 432) = 0u;
+  *(a1 + 448) = 0u;
+  *(a1 + 400) = 0u;
+  *(a1 + 416) = 0u;
+  *(a1 + 368) = 0u;
+  *(a1 + 384) = 0u;
+  *(a1 + 336) = 0u;
+  *(a1 + 352) = 0u;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  result = re::RenderGraphFullscreenNode::RenderGraphFullscreenNode(a1);
+  *result = &unk_1F5D0EEF0;
+  return result;
+}
+
+void re::RenderGraphUploadBloomParams::~RenderGraphUploadBloomParams(id *this)
+{
+  re::RenderGraphNode::~RenderGraphNode(this);
 
   JUMPOUT(0x1E6906520);
 }
 
-void anonymous namespace::createRenderGraphTarget(double *a1, __int128 **a2)
+void re::RenderGraphDownsampleThresholdNode::~RenderGraphDownsampleThresholdNode(id *this)
 {
-  v4 = *a2;
-  v6 = (*a2)[1];
-  v5 = (*a2)[2];
-  v19 = **a2;
-  v20 = v6;
-  v21 = v5;
-  v7 = v4[6];
-  v9 = v4[3];
-  v8 = v4[4];
-  v24 = v4[5];
-  v25 = v7;
-  v22 = v9;
-  v23 = v8;
-  v10 = a2[2];
-  if (*(a2 + 72) == 1)
+  *this = &unk_1F5D0EDA0;
+  re::AssetHandle::~AssetHandle((this + 34));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+{
+  *this = &unk_1F5D0EDA0;
+  re::AssetHandle::~AssetHandle((this + 34));
+  re::RenderGraphNode::~RenderGraphNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::RenderGraphDownsampleBlur::~RenderGraphDownsampleBlur(re::RenderGraphDownsampleBlur *this)
+{
+  *this = &unk_1F5D0EE48;
+  v2 = *(this + 40);
+  if (v2)
   {
-    *&v25 = (&a2[10][4 * *v10 - 0x61C8864680B583ELL] + ((*v10 & 0x7FFFFFFFFFFFFFFFuLL) >> 2) - 9) ^ *v10 & 0x7FFFFFFFFFFFFFFFLL;
+
+    *(this + 40) = 0;
   }
 
-  re::RenderFrame::createTarget(a2[1], &v19, *(v10 + 1), a1);
-  if (*(a2 + 24) == 1)
+  re::AssetHandle::~AssetHandle((this + 280));
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+{
+  *this = &unk_1F5D0EE48;
+  v2 = *(this + 40);
+  if (v2)
   {
-    v11 = a2[1];
-    v17 = a2[4] & 0x7FFFFFFFFFFFFFFFLL;
-    re::RenderFrame::inheritLaneProperties(v11, &v17, a1, 0);
+
+    *(this + 40) = 0;
   }
 
-  if (*(a2 + 48) == 1)
+  re::AssetHandle::~AssetHandle((this + 280));
+  re::RenderGraphNode::~RenderGraphNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::RenderGraphBloomNode::~RenderGraphBloomNode(id *this)
+{
+  re::RenderGraphFullscreenNode::~RenderGraphFullscreenNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::RenderGraphDataStore::add<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(re *a1, uint64_t a2)
+{
+  v3 = "N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE";
+  if (("N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE" & 0x8000000000000000) != 0)
   {
-    DWORD1(v20) = 4;
-    LODWORD(v19) = 0;
-    re::RenderFrame::createTarget(a2[1], &v19, a2[8], &v17);
-    if (*(a2 + 24) == 1)
+    v4 = ("N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE" & 0x7FFFFFFFFFFFFFFFLL);
+    v5 = 5381;
+    do
     {
-      v12 = a2[1];
-      v16 = a2[4] & 0x7FFFFFFFFFFFFFFFLL;
-      re::RenderFrame::inheritLaneProperties(v12, &v16, &v17, 0);
+      v3 = v5;
+      v6 = *v4++;
+      v5 = (33 * v5) ^ v6;
     }
 
-    v13 = a2[1];
-    v15[0] = *a1;
-    v15[1] = a1[1];
-    v14 = v18;
-    *(re::RenderGraphResourceDescriptions::targetDescription((v13 + 3672), v15) + 84) = v14;
+    while (v6);
   }
+
+  v11 = (a2 + (v3 << 6) + (v3 >> 2) - 0x61C8864680B583E9) ^ v3;
+  v7 = re::globalAllocators(a1);
+  v8 = (*(*v7[2] + 32))(v7[2], 56, 8);
+  *(v8 + 16) = 0u;
+  *(v8 + 32) = 0u;
+  *(v8 + 48) = 0;
+  *v8 = &unk_1F5D0EFC0;
+  *(v8 + 8) = 0;
+  v10 = v8;
+  return *re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a1 + 16, &v11, &v10);
 }
 
-re::RenderGraphNode *re::RenderGraph::addNode<re::SFBSystemShellCreateTextureAliasNode>(re *a1, const char *a2)
+uint64_t re::RenderGraphDataStoreWrapper<re::BloomExecData>::~RenderGraphDataStoreWrapper(uint64_t a1)
 {
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 280, 8);
-  v6 = re::RenderGraphNode::RenderGraphNode(v5, a2);
-  *v6 = &unk_1F5D10D78;
-  *(v6 + 264) = 0;
-  *(v6 + 34) = 0;
-  v10 = v6;
-  re::DynamicArray<re::TransitionCondition *>::add(a1, &v10);
-  v7 = *(a1 + 12);
-  v8 = *(a1 + 13);
-  *(v5 + 3) = *(a1 + 10);
-  *(v5 + 4) = v7;
-  *(v5 + 6) = v8;
-  return v5;
-}
-
-re::AssetHandle *re::BlurManager::getBackdropMaterial(re::AssetHandle *this, uint64_t a2)
-{
-  v2 = this;
-  v5 = *(a2 + 160);
-  v3 = a2 + 160;
-  v4 = v5;
-  if (v5)
+  *a1 = &unk_1F5D0EFC0;
+  v2 = *(a1 + 32);
+  if (v2 != -1)
   {
-    if (!v6)
+    (off_1F5D0EF88[v2])(&v4, a1 + 8);
+  }
+
+  *(a1 + 32) = -1;
+  return a1;
+}
+
+{
+  *a1 = &unk_1F5D0EFC0;
+  v2 = *(a1 + 32);
+  if (v2 != -1)
+  {
+    (off_1F5D0EF88[v2])(&v4, a1 + 8);
+  }
+
+  *(a1 + 32) = -1;
+  return MEMORY[0x1E6906520](a1, 0x10A3C403BB19F57);
+}
+
+uint64_t re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::BloomExecData>>(uint64_t a1, uint64_t a2)
+{
+  v2 = "N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE";
+  if (("N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE" & 0x8000000000000000) != 0)
+  {
+    v3 = ("N2re27RenderGraphDataStoreWrapperINS_13BloomExecDataEEE" & 0x7FFFFFFFFFFFFFFFLL);
+    v4 = 5381;
+    do
     {
-      std::__throw_bad_any_cast[abi:nn200100]();
+      v2 = v4;
+      v5 = *v3++;
+      v4 = (33 * v4) ^ v5;
     }
 
-    return re::AssetHandle::AssetHandle(v2, v6);
+    while (v5);
   }
 
-  else
-  {
-    *this = 0;
-    *(this + 1) = 0;
-    *(this + 2) = 0;
-  }
-
-  return this;
-}
-
-re::RenderGraphComputeNodeBase *re::RenderGraph::addNode<re::SFBSystemShellComputeNode>(re *a1, const char *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 496, 16);
-  v6 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v5, a2);
-  *v6 = &unk_1F5D10910;
-  v10 = v6;
-  re::DynamicArray<re::TransitionCondition *>::add(a1, &v10);
-  v7 = *(a1 + 12);
-  v8 = *(a1 + 13);
-  *(v5 + 3) = *(a1 + 10);
-  *(v5 + 4) = v7;
-  *(v5 + 6) = v8;
-  return v5;
-}
-
-re::RenderGraphComputeNodeBase *re::RenderGraph::addNode<re::SFBSystemShellBlurTAANode>(re *a1, const char *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 512, 16);
-  v6 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v5, a2);
-  *v6 = &unk_1F5D109D0;
-  *(v6 + 496) = 0;
-  *(v6 + 500) = 0;
-  v10 = v6;
-  re::DynamicArray<re::TransitionCondition *>::add(a1, &v10);
-  v7 = *(a1 + 12);
-  v8 = *(a1 + 13);
-  *(v5 + 3) = *(a1 + 10);
-  *(v5 + 4) = v7;
-  *(v5 + 6) = v8;
-  return v5;
-}
-
-re::RenderGraphComputeNodeBase *re::RenderGraph::addNode<re::SFBSystemShellReprojectNode>(re *a1, const char *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 512, 16);
-  v6 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v5, a2);
-  *v6 = &unk_1F5D10CB8;
-  *(v6 + 62) = 0;
-  v10 = v6;
-  re::DynamicArray<re::TransitionCondition *>::add(a1, &v10);
-  v7 = *(a1 + 12);
-  v8 = *(a1 + 13);
-  *(v5 + 3) = *(a1 + 10);
-  *(v5 + 4) = v7;
-  *(v5 + 6) = v8;
-  return v5;
-}
-
-uint64_t re::RenderGraphSFBSystemShellBlurProvider::prepareFrame(re::RenderGraphSFBSystemShellBlurProvider *this, const char *__s, const char *a3, re::RenderFrame *a4)
-{
-  v251 = *MEMORY[0x1E69E9840];
-  if (!*(this + 112))
+  if (!*(a1 + 16))
   {
     return 0;
   }
 
+  v6 = (a2 + (v2 << 6) + (v2 >> 2) - 0x61C8864680B583E9) ^ v2;
+  v7 = *(*(a1 + 24) + 4 * (v6 % *(a1 + 40)));
+  if (v7 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  v8 = *(a1 + 32);
+  while (*(v8 + 24 * v7 + 8) != v6)
+  {
+    v7 = *(v8 + 24 * v7) & 0x7FFFFFFF;
+    if (v7 == 0x7FFFFFFF)
+    {
+      return 0;
+    }
+  }
+
+  return *(v8 + 24 * v7 + 16);
+}
+
+void re::RenderGraphMPSImageGaussianBlurNode::setup(re::RenderGraphMPSImageGaussianBlurNode *this, re::RenderGraphBuilder *a2, re::RenderGraphDataStore *a3)
+{
+  *(a2 + 593) = 1;
+  re::RenderGraphNode::setup(this, a2, a3);
+  if (*(this + 269) == 1)
+  {
+    v5 = (*(*this + 64))(this);
+    if (v6)
+    {
+      *(v9 + 3) = 0;
+      v9[0] = 0;
+      v10 = 0xC00000002;
+      re::RenderGraphBuilder::read(a2, v5, v9);
+    }
+
+    else
+    {
+      re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v7, v8);
+      __break(1u);
+    }
+  }
+}
+
+void re::RenderGraphMPSImageGaussianBlurNode::configure(re::RenderGraphMPSImageGaussianBlurNode *this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  re::RenderGraphNode::configure(this, a2, a3, a4);
+  v6 = *(*(a4 + 1) + 208);
+  v35 = v6;
+  v7 = (this + 272);
+  v8 = *(this + 34);
+  if (!v8)
+  {
+    re::mtl::mps::ImageGaussianBlur::ImageGaussianBlur(&v18, &v35, *(this + 66));
+    if (v7 != &v18)
+    {
+      v9 = v18;
+      v18 = 0;
+      v10 = *v7;
+      *v7 = v9;
+    }
+
+    v8 = *v7;
+  }
+
+  v11 = [v8 sigma];
+  v13 = v12;
+  v14 = *(this + 66);
+  if (v13 != v14)
+  {
+    re::mtl::mps::ImageGaussianBlur::ImageGaussianBlur(&v18, &v35, v14);
+    if (v7 != &v18)
+    {
+      v15 = v18;
+      v18 = 0;
+      v16 = *v7;
+      *v7 = v15;
+    }
+  }
+
+  if (!*(this + 35))
+  {
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    re::DynamicString::setCapacity(&v18, 0);
+    v22 = 0;
+    v25 = 0;
+    memset(v28, 0, sizeof(v28));
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
+    v33 = 0;
+    v34 = 0;
+    v36[0] = "ClearImage";
+    v36[1] = 10;
+    re::DynamicString::operator=(&v18, v36);
+    ComputePipelineState = re::getOrCreateComputePipelineState(*(a4 + 1), &v18);
+    NS::SharedPtr<MTL::Buffer>::operator=(this + 35, ComputePipelineState);
+    if (v33)
+    {
+
+      v33 = 0;
+    }
+
+    re::DynamicArray<re::TechniqueFunctionConstant>::deinit(v28);
+    if (v25 == 1 && v26)
+    {
+      if (BYTE8(v26))
+      {
+        (*(*v26 + 40))();
+      }
+
+      v26 = 0u;
+      v27 = 0u;
+    }
+
+    if (v22 == 1 && v23)
+    {
+      if (BYTE8(v23))
+      {
+        (*(*v23 + 40))();
+      }
+
+      v24 = 0u;
+      v23 = 0u;
+    }
+
+    if (v18 && (v19 & 1) != 0)
+    {
+      (*(*v18 + 40))();
+    }
+  }
+}
+
+void re::RenderGraphMPSImageGaussianBlurNode::execute(id *this, re::RenderGraphContext *a2)
+{
+  v181 = *MEMORY[0x1E69E9840];
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v164, 5091, 0, 0, 0, 0);
+  v4 = *a2;
+  v133 = a2;
+  re::RenderGraphMPSNodeBase::getCommandBufferWithProtectionOptions(&v163, this, a2);
+  v5 = this + 34;
+  [this[34] sigma];
+  v7 = v6;
+  v8 = *(this + 66);
+  if (v7 != v8)
+  {
+    re::mtl::mps::ImageGaussianBlur::ImageGaussianBlur(&v141, v4, v8);
+    if (v5 != &v141)
+    {
+      v9 = v141;
+      v141 = 0;
+      v10 = *v5;
+      *v5 = v9;
+    }
+  }
+
+  v157 = *v4;
+  v156 = v163;
+  v162 = 0;
+  v159 = 0;
+  v160 = 0;
+  location = 0;
+  v161 = 0;
+  re::ObjCObject::operator=(&v159, &v156);
+  re::ObjCObject::operator=(&location, &v157);
+
+  [this[34] setEdgeMode:*(this + 268)];
+  v11 = (*(*this + 8))(this);
+  if (!v12)
+  {
+LABEL_132:
+    re::internal::assertLog(6, v12, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v122, v127);
+    __break(1u);
+    goto LABEL_133;
+  }
+
+  v154 = 0;
+  v155 = -1;
+  v154 = *v11;
+  v155 = v11[1];
+  v13 = (*(*this + 9))(this);
+  if (!v14)
+  {
+LABEL_133:
+    re::internal::assertLog(6, v14, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v123, v128);
+    __break(1u);
+    goto LABEL_134;
+  }
+
+  v152 = 0;
+  v153 = -1;
+  v152 = *v13;
+  v153 = v13[1];
+  re::RenderGraphContext::metalTexture(a2, &v154, 0, 0, &v151);
+  re::RenderGraphContext::metalTexture(a2, &v152, 0, 0, &v150);
+  v15 = re::RenderGraphDataStore::tryGet<re::ViewportPercentData>(*(a2 + 146), *(*(a2 + 5) + 48));
+  v16 = v15;
+  if (v15)
+  {
+    v17 = v15[64];
+  }
+
+  else
+  {
+    v17 = 1;
+  }
+
+  v141 = 0;
+  v142 = 0;
+  v143 = 1;
+  v18 = v17;
+  v144 = 0;
+  v145 = 0;
+  v19 = re::DynamicOverflowArray<MTL::Region,2ul>::setCapacity(&v141, v17);
+  v20 = v143 + 2;
+  v143 += 2;
+  if (v142 < v17)
+  {
+    if (!v141)
+    {
+      re::DynamicOverflowArray<MTL::Region,2ul>::setCapacity(&v141, v17);
+      v20 = v143 + 2;
+      v143 += 2;
+    }
+
+    v21 = (v20 & 1) == 0;
+    v22 = 2;
+    if (v21)
+    {
+      v22 = v144;
+    }
+
+    if (v22 < v17)
+    {
+      re::DynamicOverflowArray<MTL::Region,2ul>::setCapacity(&v141, v17);
+    }
+
+    v23 = v17 - v142;
+    if (v17 > v142)
+    {
+      v24 = 6 * v142;
+      do
+      {
+        if (v143)
+        {
+          v25 = &v144;
+        }
+
+        else
+        {
+          v25 = v145;
+        }
+
+        v26 = &v25[v24];
+        *(v26 + 1) = 0uLL;
+        *(v26 + 2) = 0uLL;
+        *v26 = 0uLL;
+        v24 += 6;
+        --v23;
+      }
+
+      while (v23);
+    }
+
+    goto LABEL_25;
+  }
+
+  if (v142 > v17)
+  {
+LABEL_25:
+    v142 = v17;
+    v143 += 2;
+  }
+
+  LODWORD(v176) = v155;
+  v27 = re::SmallHashTable<unsigned int,re::DynamicOverflowArray<re::AABB,2ul>,8ul,re::Hash<unsigned int>,re::EqualTo<unsigned int>,false>::tryGet(v133 + 96, &v176);
+  v131 = this + 34;
+  v132 = this;
+  if (*(this + 269) != 1)
+  {
+    goto LABEL_55;
+  }
+
+  v134 = v27;
+  re::SyncMechanism::sync(&location);
+  re::mtl::CommandBuffer::makeComputeCommandEncoder(&v140, &v163);
+  v172[1] = 0;
+  v172[0] = 0;
+  v171 = 0;
+  re::mtl::CommandBuffer::commandQueue(&v163, &v139);
+  re::mtl::CommandQueue::device(&v139, v173);
+  if (*v173)
+  {
+    v176 = 0uLL;
+    *&v177 = 0;
+    objc_msgSend_maxThreadsPerThreadgroup(*v173);
+    v29 = v176;
+    v30 = *v173;
+  }
+
+  else
+  {
+    v30 = 0;
+    v29 = 0.0;
+  }
+
+  v31 = sqrt(v29);
+
+  [v140 setComputePipelineState:this[35]];
+  [v140 setBytes:v172 length:16 atIndex:0];
+  [v140 setBytes:&v171 length:8 atIndex:1];
+  if ([v150 textureType] == 2)
+  {
+    [v140 setTexture:v150 atIndex:0];
+    v5 = [v150 width];
+    v32 = [v150 height];
+    *&v176 = v5;
+    *(&v176 + 1) = v32;
+    *&v177 = 1;
+    *v173 = v31;
+    *&v173[8] = v31;
+    *&v173[16] = 1;
+    [v140 dispatchThreads:&v176 threadsPerThreadgroup:v173];
+  }
+
+  else if ([v150 textureType] == 3 && objc_msgSend(v150, sel_arrayLength))
+  {
+    v5 = 0;
+    this = &selRef_setOwnerWithIdentity_;
+    do
+    {
+      re::makeView2DArrayTo2D(&v150, v5, &v139);
+      v33 = v139;
+      [v140 setTexture:v139 atIndex:0];
+      v34 = [v150 width];
+      v35 = [v150 height];
+      *&v176 = v34;
+      *(&v176 + 1) = v35;
+      *&v177 = 1;
+      *v173 = v31;
+      *&v173[8] = v31;
+      *&v173[16] = 1;
+      [v140 dispatchThreads:&v176 threadsPerThreadgroup:v173];
+      if (v33)
+      {
+      }
+
+      v5 = (v5 + 1);
+    }
+
+    while (v5 < [v150 arrayLength]);
+  }
+
+  objc_msgSend_endEncoding(v140);
+
+  if ((*(v132 + 269) & 1) != 0 && v134 && *(v134 + 8))
+  {
+    [*v131 sigma];
+    v39 = v134;
+    if (v17)
+    {
+      v40 = 0;
+      *v37.i32 = ((*v37.i32 + *v37.i32) * 2.0) + 1.0;
+      *v38.i32 = (2 * *v37.i32);
+      *v37.i32 = *v37.i32;
+      v41 = vdup_lane_s32(v37, 0);
+      v42 = vdup_lane_s32(v38, 0);
+      v43 = 16;
+      v44 = 5;
+      do
+      {
+        v5 = *(v39 + 8);
+        if (v5 <= v40)
+        {
+          goto LABEL_123;
+        }
+
+        v45 = v134 + 32;
+        if ((*(v39 + 16) & 1) == 0)
+        {
+          v45 = *(v39 + 40);
+        }
+
+        v46 = xmmword_1E3063230;
+        if (v16)
+        {
+          v47 = *(v16 + 2);
+          if (v47 <= v40)
+          {
+            goto LABEL_131;
+          }
+
+          v46 = *&v16[16 * v40 + 32];
+        }
+
+        v136 = v46;
+        v5 = [v151 width];
+        v48 = [v151 height];
+        this = v142;
+        if (v142 <= v40)
+        {
+          goto LABEL_127;
+        }
+
+        v49.i64[0] = v5;
+        v49.i64[1] = v48;
+        v50 = vcvt_f32_f64(vcvtq_f64_u64(v49));
+        v51 = *(v45 + v43);
+        v52 = *(v45 + v43 - 16);
+        if (v143)
+        {
+          v53 = &v144;
+        }
+
+        else
+        {
+          v53 = v145;
+        }
+
+        v54 = &v53[v44];
+        v55 = vmul_f32(*&vextq_s8(v136, v136, 8uLL), v50);
+        *(v54 - 40) = vcvtq_u64_f64(vcvtq_f64_f32(vsub_f32(vmla_f32(vmul_f32(*v136.i8, v50), *&v52, v55), v41)));
+        v54[-2].i64[1] = 0;
+        v54[-1] = vcvtq_u64_f64(vcvtq_f64_f32(vmla_f32(v42, vmaxnm_f32(vsub_f32(*&v51, *&v52), 0), v55)));
+        v54->i64[0] = 1;
+        v40 = (v40 + 1);
+        v43 += 32;
+        v44 += 6;
+        v39 = v134;
+      }
+
+      while (v18 != v40);
+    }
+
+    re::SyncMechanism::sync(&location);
+    v56 = v132;
+  }
+
+  else
+  {
+LABEL_55:
+    if (v17)
+    {
+      v57 = 0;
+      v5 = (v16 + 32);
+      v58 = 3;
+      while (1)
+      {
+        v59 = xmmword_1E3063230;
+        if (v16)
+        {
+          v60 = *(v16 + 2);
+          if (v60 <= v57)
+          {
+            goto LABEL_118;
+          }
+
+          v59 = *&v5[2 * v57];
+        }
+
+        v137 = v59;
+        this = [v151 width];
+        v61 = [v151 height];
+        v62 = v142;
+        if (v142 <= v57)
+        {
+          break;
+        }
+
+        v63 = vmuls_lane_f32(v61, v137, 3);
+        v64 = vmuls_lane_f32(this, v137, 2);
+        v65 = vmuls_lane_f32(v61, *v137.f32, 1);
+        if (v143)
+        {
+          v66 = &v144;
+        }
+
+        else
+        {
+          v66 = v145;
+        }
+
+        v67 = &v66[v58];
+        *(v67 - 3) = (this * v137.f32[0]);
+        *(v67 - 2) = v65;
+        *(v67 - 1) = 0;
+        *v67 = v64;
+        v67[1] = v63;
+        v67[2] = 1;
+        ++v57;
+        v58 += 6;
+        if (v17 == v57)
+        {
+          goto LABEL_65;
+        }
+      }
+
+      v172[0] = 0;
+      v16 = v173;
+      v179 = 0u;
+      v180 = 0u;
+      v177 = 0u;
+      v178 = 0u;
+      v176 = 0u;
+      v100 = MEMORY[0x1E69E9C10];
+      v101 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      *v173 = 136315906;
+      *&v173[4] = "operator[]";
+      *&v173[12] = 1024;
+      if (v101)
+      {
+        v102 = 3;
+      }
+
+      else
+      {
+        v102 = 2;
+      }
+
+      *&v173[14] = 858;
+      *&v173[18] = 2048;
+      *&v173[20] = v57;
+      v174 = 2048;
+      v175 = v62;
+      _os_log_send_and_compose_impl(v102, v172, &v176, 80, &dword_1E1C61000, v100, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+      _os_crash_msg();
+      __break(1u);
+LABEL_118:
+      re::internal::assertLog(6, v28, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v57, v60);
+      _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v120, v125);
+      __break(1u);
+      goto LABEL_119;
+    }
+
+LABEL_65:
+    re::SyncMechanism::sync(&location);
+    v56 = v132;
+    if (*(v132 + 269))
+    {
+      goto LABEL_104;
+    }
+  }
+
+  if ([v151 textureType] != 2)
+  {
+    if ([v151 textureType] != 3)
+    {
+      [v151 textureType];
+      v118 = [v151 textureType];
+      re::internal::assertLog(5, v119, "assertion failure: '%s' (%s:line %i) Unsupported texture type %lu.", "false", "execute", 190, v118);
+      _os_crash("assertion failure: (false) Unsupported texture type %lu.", v124);
+      __break(1u);
+      return;
+    }
+
+    if (![v151 arrayLength])
+    {
+      goto LABEL_103;
+    }
+
+    this = 0;
+    v16 = 0;
+    while (1)
+    {
+      v18 = v142;
+      if (v142 <= v16)
+      {
+        break;
+      }
+
+      if (v143)
+      {
+        v89 = &v144;
+      }
+
+      else
+      {
+        v89 = v145;
+      }
+
+      v90 = this + v89;
+      v91 = *(v90 + 4);
+      v92 = *(v90 + 5);
+      v93 = *v131;
+      v138 = *(v90 + 1);
+      v5 = v173;
+      v176 = *v90;
+      v135 = v176;
+      *&v177 = 0;
+      [v93 setOffset:&v176];
+      v94 = *v131;
+      v176 = v135;
+      v177 = v138;
+      *&v178 = v91;
+      *(&v178 + 1) = v92;
+      [v94 setClipRect:&v176];
+      re::makeView2DArrayTo2D(&v151, v16, &v176);
+      if (v151 == v150)
+      {
+        View2DArrayTo2D = v176;
+        *v173 = View2DArrayTo2D;
+      }
+
+      else
+      {
+        View2DArrayTo2D = re::makeView2DArrayTo2D(&v150, v16, v173);
+      }
+
+      v96 = *(*(v133 + 1) + 48);
+      v166 = re::globalAllocators(View2DArrayTo2D)[2];
+      v167 = 0;
+      v97 = (*(*v166 + 32))(v166, 56, 0);
+      *v97 = &unk_1F5D0F0E8;
+      v97[1] = &v151;
+      v97[2] = &v150;
+      v97[3] = v132;
+      v97[4] = &v163;
+      v97[5] = &v176;
+      v97[6] = v173;
+      v167 = v97;
+      re::ShaderManager::executeWithPrioritizedShaderCompilation(v96, v165);
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(v165);
+      if (*v173)
+      {
+      }
+
+      if (v176)
+      {
+      }
+
+      ++v16;
+      this += 6;
+      if (v16 >= [v151 arrayLength])
+      {
+        goto LABEL_103;
+      }
+    }
+
+LABEL_119:
+    v172[0] = 0;
+    v40 = v173;
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v176 = 0u;
+    v103 = MEMORY[0x1E69E9C10];
+    v104 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v173 = 136315906;
+    *&v173[4] = "operator[]";
+    *&v173[12] = 1024;
+    if (v104)
+    {
+      v105 = 3;
+    }
+
+    else
+    {
+      v105 = 2;
+    }
+
+    *&v173[14] = 858;
+    *&v173[18] = 2048;
+    *&v173[20] = v16;
+    v174 = 2048;
+    v175 = v18;
+    _os_log_send_and_compose_impl(v105, v172, &v176, 80, &dword_1E1C61000, v103, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+    _os_crash_msg();
+    __break(1u);
+LABEL_123:
+    v172[0] = 0;
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v176 = 0u;
+    v106 = MEMORY[0x1E69E9C10];
+    v107 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v173 = 136315906;
+    *&v173[4] = "operator[]";
+    *&v173[12] = 1024;
+    if (v107)
+    {
+      v108 = 3;
+    }
+
+    else
+    {
+      v108 = 2;
+    }
+
+    *&v173[14] = 866;
+    *&v173[18] = 2048;
+    *&v173[20] = v40;
+    v174 = 2048;
+    v175 = v5;
+    _os_log_send_and_compose_impl(v108, v172, &v176, 80, &dword_1E1C61000, v106, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+    _os_crash_msg();
+    __break(1u);
+LABEL_127:
+    v172[0] = 0;
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v176 = 0u;
+    v109 = MEMORY[0x1E69E9C10];
+    v110 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v173 = 136315906;
+    *&v173[4] = "operator[]";
+    *&v173[12] = 1024;
+    if (v110)
+    {
+      v111 = 3;
+    }
+
+    else
+    {
+      v111 = 2;
+    }
+
+    *&v173[14] = 858;
+    *&v173[18] = 2048;
+    *&v173[20] = v40;
+    v174 = 2048;
+    v175 = this;
+    _os_log_send_and_compose_impl(v111, v172, &v176, 80, &dword_1E1C61000, v109, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+    _os_crash_msg();
+    __break(1u);
+LABEL_131:
+    re::internal::assertLog(6, v36, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, v40, v47);
+    _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v121, v126);
+    __break(1u);
+    goto LABEL_132;
+  }
+
+  if (!v142)
+  {
+LABEL_134:
+    v172[0] = 0;
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v176 = 0u;
+    v112 = MEMORY[0x1E69E9C10];
+    v113 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v173 = 136315906;
+    *&v173[4] = "operator[]";
+    *&v173[12] = 1024;
+    if (v113)
+    {
+      v114 = 3;
+    }
+
+    else
+    {
+      v114 = 2;
+    }
+
+    *&v173[14] = 858;
+    *&v173[18] = 2048;
+    *&v173[20] = 0;
+    v174 = 2048;
+    v175 = 0;
+    _os_log_send_and_compose_impl(v114, v172, &v176, 80, &dword_1E1C61000, v112, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_138;
+  }
+
+  v68 = *v131;
+  if (v143)
+  {
+    v69 = &v144;
+  }
+
+  else
+  {
+    v69 = v145;
+  }
+
+  v70 = *v69;
+  v71 = (v145 + 1);
+  if (v143)
+  {
+    v71 = &v145;
+  }
+
+  v72 = *v71;
+  *&v176 = v70;
+  *(&v176 + 1) = v72;
+  *&v177 = 0;
+  [v68 setOffset:&v176];
+  if (!v142)
+  {
+LABEL_138:
+    v172[0] = 0;
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v176 = 0u;
+    v115 = MEMORY[0x1E69E9C10];
+    v116 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v173 = 136315906;
+    *&v173[4] = "operator[]";
+    *&v173[12] = 1024;
+    if (v116)
+    {
+      v117 = 3;
+    }
+
+    else
+    {
+      v117 = 2;
+    }
+
+    *&v173[14] = 858;
+    *&v173[18] = 2048;
+    *&v173[20] = 0;
+    v174 = 2048;
+    v175 = 0;
+    _os_log_send_and_compose_impl(v117, v172, &v176, 80, &dword_1E1C61000, v115, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v173, 38, v129, v130);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (v143)
+  {
+    v73 = &v144;
+  }
+
+  else
+  {
+    v73 = v145;
+  }
+
+  v74 = v56[34];
+  v75 = *v73;
+  v76 = (v145 + 1);
+  if (v143)
+  {
+    v76 = &v145;
+  }
+
+  v77 = *v76;
+  v78 = (v145 + 2);
+  if (v143)
+  {
+    v78 = &v146;
+  }
+
+  v79 = *v78;
+  v80 = (v145 + 3);
+  if (v143)
+  {
+    v80 = &v147;
+  }
+
+  v81 = *v80;
+  v82 = (v145 + 4);
+  if (v143)
+  {
+    v82 = &v148;
+  }
+
+  v83 = *v82;
+  v84 = (v145 + 5);
+  if (v143)
+  {
+    v84 = &v149;
+  }
+
+  v85 = *v84;
+  *&v176 = v75;
+  *(&v176 + 1) = v77;
+  *&v177 = v79;
+  *(&v177 + 1) = v81;
+  *&v178 = v83;
+  *(&v178 + 1) = v85;
+  v86 = [v74 setClipRect:&v176];
+  v87 = *(*(v133 + 1) + 48);
+  v169 = re::globalAllocators(v86)[2];
+  v88 = (*(*v169 + 32))(v169, 40, 0);
+  *v88 = &unk_1F5D0F090;
+  v88[1] = &v151;
+  v88[2] = &v150;
+  v88[3] = v56;
+  v88[4] = &v163;
+  v170 = v88;
+  re::ShaderManager::executeWithPrioritizedShaderCompilation(v87, v168);
+  re::FunctionBase<24ul,void ()(void)>::destroyCallable(v168);
+LABEL_103:
+  re::SyncMechanism::sync(&location);
+LABEL_104:
+  if (v141 && (v143 & 1) == 0)
+  {
+    (*(*v141 + 40))();
+  }
+
+  if (v150)
+  {
+  }
+
+  if (v151)
+  {
+  }
+
+  if (v160)
+  {
+
+    v160 = 0;
+  }
+
+  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v164, v98, v99);
+}
+
+uint64_t re::SmallHashTable<unsigned int,re::DynamicOverflowArray<re::AABB,2ul>,8ul,re::Hash<unsigned int>,re::EqualTo<unsigned int>,false>::tryGet(uint64_t a1, _DWORD *a2)
+{
+  if (*(a1 + 956))
+  {
+    return re::HashTable<unsigned int,re::DynamicOverflowArray<re::AABB,2ul>,re::Hash<unsigned int>,re::EqualTo<unsigned int>,false,false>::tryGet(a1 + 928, a2);
+  }
+
+  v3 = *(a1 + 16);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = 112 * v3;
+  for (result = a1 + 48; *(result - 16) != *a2; result += 112)
+  {
+    v4 -= 112;
+    if (!v4)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void *re::allocInfo_RenderGraphMPSImageGaussianBlurNode(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_505, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_505))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BE400, "RenderGraphMPSImageGaussianBlurNode");
+    __cxa_guard_release(&_MergedGlobals_505);
+  }
+
+  return &unk_1EE1BE400;
+}
+
+void re::initInfo_RenderGraphMPSImageGaussianBlurNode(re *this, re::IntrospectionBase *a2)
+{
+  v21[0] = 0xDD66E2E47DA234ELL;
+  v21[1] = "RenderGraphMPSImageGaussianBlurNode";
+  if (v21[0])
+  {
+    if (v21[0])
+    {
+    }
+  }
+
+  *(this + 2) = v22;
+  if ((atomic_load_explicit(&qword_1EE1BE3D8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE3D8))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = re::introspect_RenderGraphNode(1);
+    v7 = (*(*v5 + 32))(v5, 72, 8);
+    *v7 = 1;
+    *(v7 + 8) = "RenderGraphNode";
+    *(v7 + 16) = v6;
+    *(v7 + 24) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 40) = 3;
+    *(v7 + 48) = 0;
+    *(v7 + 56) = 0;
+    *(v7 + 64) = 0;
+    qword_1EE1BE3E0 = v7;
+    v8 = re::introspectionAllocator();
+    v10 = re::introspect_float(1, v9);
+    v11 = (*(*v8 + 32))(v8, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "sigma";
+    *(v11 + 16) = v10;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x10800000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1BE3E8 = v11;
+    v12 = re::introspectionAllocator();
+    v14 = re::introspect_MPSImageEdgeModeType(1, v13);
+    v15 = (*(*v12 + 32))(v12, 72, 8);
+    *v15 = 1;
+    *(v15 + 8) = "edgeMode";
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = 0x10C00000002;
+    *(v15 + 40) = 0;
+    *(v15 + 48) = 0;
+    *(v15 + 56) = 0;
+    *(v15 + 64) = 0;
+    qword_1EE1BE3F0 = v15;
+    v16 = re::introspectionAllocator();
+    v18 = re::introspect_BOOL(1, v17);
+    v19 = (*(*v16 + 32))(v16, 72, 8);
+    *v19 = 1;
+    *(v19 + 8) = "enableRestrictedClipRegion";
+    *(v19 + 16) = v18;
+    *(v19 + 24) = 0;
+    *(v19 + 32) = 0x10D00000003;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    *(v19 + 56) = 0;
+    *(v19 + 64) = 0;
+    qword_1EE1BE3F8 = v19;
+    __cxa_guard_release(&qword_1EE1BE3D8);
+  }
+
+  *(this + 2) = 0x12000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 4;
+  *(this + 8) = &qword_1EE1BE3E0;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphMPSImageGaussianBlurNode>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphMPSImageGaussianBlurNode>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphMPSImageGaussianBlurNode>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphMPSImageGaussianBlurNode>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v20 = v22;
+}
+
+re::RenderGraphNode *re::internal::defaultConstruct<re::RenderGraphMPSImageGaussianBlurNode>(int a1, int a2, re::RenderGraphNode *this)
+{
+  result = re::RenderGraphNode::RenderGraphNode(this);
+  *result = &unk_1F5D0EFE8;
+  *(result + 134) = 0;
+  *(result + 34) = 0;
+  *(result + 35) = 0;
+  return result;
+}
+
+re::RenderGraphNode *re::internal::defaultConstructV2<re::RenderGraphMPSImageGaussianBlurNode>(re::RenderGraphNode *a1)
+{
+  result = re::RenderGraphNode::RenderGraphNode(a1);
+  *result = &unk_1F5D0EFE8;
+  *(result + 134) = 0;
+  *(result + 34) = 0;
+  *(result + 35) = 0;
+  return result;
+}
+
+void re::RenderGraphMPSImageGaussianBlurNode::~RenderGraphMPSImageGaussianBlurNode(re::RenderGraphMPSImageGaussianBlurNode *this)
+{
+  re::RenderGraphMPSImageGaussianBlurNode::~RenderGraphMPSImageGaussianBlurNode(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+{
+  *this = &unk_1F5D0EFE8;
+  v2 = *(this + 35);
+  if (v2)
+  {
+
+    *(this + 35) = 0;
+  }
+
+  re::RenderGraphNode::~RenderGraphNode(this);
+}
+
+void re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_0,void ()(void)>::operator()(void *a1)
+{
+  v1 = a1[1];
+  v2 = a1[2];
+  v3 = a1[4];
+  v4 = (a1[3] + 272);
+  if (*v1 == *v2)
+  {
+    re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer(v4, v3, v1);
+  }
+
+  else
+  {
+    re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer(v4, v3, v1, v2);
+  }
+}
+
+uint64_t re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_0,void ()(void)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D0F090;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_0,void ()(void)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D0F090;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_1,void ()(void)>::operator()(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  v1 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (**(a1 + 8) == **(a1 + 16))
+  {
+    re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer((v2 + 272), v1, v3);
+  }
+
+  else
+  {
+    re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer((v2 + 272), v1, v3, *(a1 + 48));
+  }
+}
+
+uint64_t re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_1,void ()(void)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D0F0E8;
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::RenderGraphMPSImageGaussianBlurNode::execute(re::RenderGraphContext &)::$_1,void ()(void)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D0F0E8;
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<MTL::Region,2ul>::setCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  v4 = *result;
+  if (a2 && !v4)
+  {
+    result = re::DynamicOverflowArray<MTL::Region,2ul>::setCapacity(v3, a2);
+    v5 = *(v3 + 4) + 2;
+LABEL_4:
+    *(v3 + 4) = v5;
+    return result;
+  }
+
+  v6 = *(result + 4);
+  if (v6)
+  {
+    v7 = 2;
+  }
+
+  else
+  {
+    v7 = *(result + 3);
+  }
+
+  if (v7 != a2)
+  {
+    v8 = *(result + 1);
+    if (v8 <= a2 && (a2 > 2 || (v6 & 1) == 0))
+    {
+      if (a2 < 3)
+      {
+        v13 = (result + 24);
+        v14 = *(v3 + 4);
+        if (v6)
+        {
+          v15 = v3 + 24;
+        }
+
+        else
+        {
+          v15 = *(v3 + 4);
+        }
+
+        memcpy(v13, v15, 48 * v8);
+        result = (*(*v4 + 40))(v4, v14);
+        v5 = *(v3 + 4) | 1;
+        goto LABEL_4;
+      }
+
+      v9 = (*(*v4 + 32))(*result, 48 * a2, 1);
+      if (v9)
+      {
+        v11 = v9;
+        if (*(v3 + 16))
+        {
+          v12 = v3 + 24;
+        }
+
+        else
+        {
+          v12 = *(v3 + 4);
+        }
+
+        result = memcpy(v9, v12, 48 * *(v3 + 1));
+        v16 = *(v3 + 4);
+        if ((v16 & 1) == 0)
+        {
+          result = (*(**v3 + 40))(*v3, *(v3 + 4));
+          v16 = *(v3 + 4);
+        }
+
+        *(v3 + 4) = v16 & 0xFFFFFFFE;
+        *(v3 + 3) = a2;
+        *(v3 + 4) = v11;
+      }
+
+      else
+      {
+        re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, 48 * a2, *(*v3 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v18);
+        __break(1u);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<unsigned int,re::DynamicOverflowArray<re::AABB,2ul>,re::Hash<unsigned int>,re::EqualTo<unsigned int>,false,false>::tryGet(uint64_t a1, _DWORD *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<unsigned int,re::DynamicOverflowArray<re::AABB,2ul>,re::Hash<unsigned int>,re::EqualTo<unsigned int>,false,false>::findEntry<unsigned int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  if (v6 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(a1 + 16) + 112 * v6 + 16;
+  }
+}
+
+void *re::UIShadowProvider::UIShadowProvider(void *a1, const re::DynamicString *a2)
+{
+  re::DynamicString::DynamicString(&v4, a2);
+  *a1 = &unk_1F5CC5700;
+  re::DynamicString::DynamicString((a1 + 1), &v4);
+  if (v4 && (v5 & 1) != 0)
+  {
+    (*(*v4 + 40))();
+  }
+
+  *a1 = &unk_1F5D0F140;
+  a1[6] = 0;
+  a1[7] = 0;
+  a1[5] = 0;
+  return a1;
+}
+
+uint64_t re::UIShadowProvider::prepareFrame(re::UIShadowProvider *this, const char *__s, const char *a3, re::RenderFrame *a4)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v7 = 0x9E3779B97F4A7C17;
   v8 = strlen(__s);
   if (v8)
   {
-    MurmurHash3_x64_128(__s, v8, 0, __src);
-    v9 = (*&__src[8] - 0x61C8864680B583E9 + (*__src << 6) + (*__src >> 2)) ^ *__src;
+    MurmurHash3_x64_128(__s, v8, 0, &v12);
+    v9 = (v13 - 0x61C8864680B583E9 + (v12 << 6) + (v12 >> 2)) ^ v12;
   }
 
   else
@@ -6469,3262 +7110,2738 @@ uint64_t re::RenderGraphSFBSystemShellBlurProvider::prepareFrame(re::RenderGraph
   v10 = strlen(a3);
   if (v10)
   {
-    MurmurHash3_x64_128(a3, v10, 0, __src);
-    v11 = ((*&__src[8] - 0x61C8864680B583E9 + (*__src << 6) + (*__src >> 2)) ^ *__src) - 0x61C8864680B583E9;
+    MurmurHash3_x64_128(a3, v10, 0, &v12);
+    v7 = ((v13 - 0x61C8864680B583E9 + (v12 << 6) + (v12 >> 2)) ^ v12) - 0x61C8864680B583E9;
   }
 
-  else
+  result = (*(**(a4 + 40) + 1176))(*(a4 + 40));
+  if (result)
   {
-    v11 = 0x9E3779B97F4A7C17;
+    re::BucketArray<re::UIShadowRenderData,4ul>::operator[](result, 0);
+    return ((((v9 >> 2) + (v9 << 6) + v7) ^ v9) - 0x1674EBA10EB828F0) ^ 0xD202E3C596E86E5;
   }
 
-  v12 = ((v9 >> 2) + (v9 << 6) + v11) ^ v9;
-  if (*(re::RenderGraphDataStore::get<re::CameraData>(a4 + 32, v12) + 863) != 1)
-  {
-    return 0;
-  }
+  return result;
+}
 
-  v226.columns[0].i64[0] = v12;
-  v14 = *(this + 399);
-  __asm { FMOV            V8.2S, #1.0 }
-
-  if (v14)
+unint64_t re::BucketArray<re::UIShadowRenderData,4ul>::operator[](uint64_t a1, unint64_t a2)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 40);
+  if (v4 <= a2)
   {
-    v19 = this + 1568;
-    v20 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::tryGet(this + 1568, v12);
-    if (v20)
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v4);
+    _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v9, v10);
+    __break(1u);
+LABEL_8:
+    v13 = 0;
+    memset(v22, 0, sizeof(v22));
+    v7 = MEMORY[0x1E69E9C10];
+    v14 = 136315906;
+    v15 = "operator[]";
+    v16 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_54;
-    }
-
-    v21 = *(this + 400);
-    if (v21)
-    {
-      v22 = 0;
-      v23 = *(this + 198);
-      while ((*v23 & 0x80000000) == 0)
-      {
-        v23 += 88;
-        if (v21 == ++v22)
-        {
-          LODWORD(v22) = *(this + 400);
-          break;
-        }
-      }
+      v8 = 3;
     }
 
     else
     {
-      LODWORD(v22) = 0;
+      v8 = 2;
     }
 
-    v26 = this + 1568;
-  }
-
-  else
-  {
-    v21 = *(this + 18);
-    if (v21)
-    {
-      v25 = 352 * v21;
-      v20 = this + 176;
-      while (*(v20 - 2) != v12)
-      {
-        v20 += 352;
-        v25 -= 352;
-        if (!v25)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      goto LABEL_54;
-    }
-
-LABEL_21:
-    v19 = this + 160;
-    LODWORD(v22) = 352;
-    v26 = this + 352 * v21 + 160;
-  }
-
-  v27 = *(a4 + 48) & 0xFFFFFFFFFFFFFFFLL;
-  while (1)
-  {
-LABEL_25:
-    while (v14)
-    {
-      if (v21 == v22)
-      {
-        goto LABEL_53;
-      }
-
-      v28 = *(v19 + 2);
-      if (*(v28 + 352 * v22 + 64) + 4 < v27)
-      {
-        v32 = *(v28 + 352 * v22 + 8);
-        if (v32)
-        {
-          v33 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v32 ^ (v32 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v32 ^ (v32 >> 30))) >> 27));
-          re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(__src, this + 1568, v32, v33 ^ (v33 >> 31));
-          v34 = *&__src[12];
-          if (*&__src[12] != 0x7FFFFFFF)
-          {
-            v35 = *(this + 198);
-            v36 = (v35 + 352 * *&__src[12]);
-            v37 = *v36 & 0x7FFFFFFF;
-            if (*&__src[16] == 0x7FFFFFFF)
-            {
-              *(*(this + 197) + 4 * *&__src[8]) = v37;
-              v14 = *(this + 399);
-            }
-
-            else
-            {
-              *(v35 + 352 * *&__src[16]) = *(v35 + 352 * *&__src[16]) & 0x80000000 | v37;
-            }
-
-            *v36 = *(this + 401);
-            *(this + 401) = v34;
-            *(this + 399) = v14 - 1;
-            ++*(this + 402);
-          }
-        }
-
-        goto LABEL_53;
-      }
-
-      v29 = v22 + 1;
-      if (*(v19 + 8) <= (v22 + 1))
-      {
-        LODWORD(v22) = v22 + 1;
-      }
-
-      else
-      {
-        LODWORD(v22) = *(v19 + 8);
-      }
-
-      while (v22 != v29)
-      {
-        v30 = v29;
-        v31 = *(v28 + 352 * v29++);
-        if (v31 < 0)
-        {
-          LODWORD(v22) = v30;
-          goto LABEL_25;
-        }
-      }
-    }
-
-    if (v19 == v26)
-    {
-      goto LABEL_53;
-    }
-
-    if (*(v19 + 8) + 4 < v27)
-    {
-      break;
-    }
-
-    v19 += 352;
-  }
-
-  if (!*v19)
-  {
-    goto LABEL_53;
-  }
-
-  v38 = *(this + 18);
-  if (!v38)
-  {
-    goto LABEL_53;
-  }
-
-  v39 = 0;
-  v40 = (this + 160);
-  while (*v40 != *v19)
-  {
-    ++v39;
-    v40 += 44;
-    if (v38 == v39)
-    {
-      goto LABEL_53;
-    }
-  }
-
-  if (v38 <= v39)
-  {
-LABEL_262:
-    re::internal::assertLog(6, v13, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "removeAt", 527, v39, v38);
-    _os_crash();
+    v17 = 858;
+    v18 = 2048;
+    v19 = v2;
+    v20 = 2048;
+    v21 = v3;
+    _os_log_send_and_compose_impl(v8, &v13, v22, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v14, 38, v11, v12);
+    _os_crash_msg();
     __break(1u);
   }
 
-  v41 = v38 - 1;
-  if (v38 - 1 > v39)
+  v2 = a2 >> 2;
+  v3 = *(a1 + 8);
+  if (v3 <= a2 >> 2)
   {
-    memcpy(v40, this + 352 * v38 - 192, 0x160uLL);
-    v41 = *(this + 18) - 1;
+    goto LABEL_8;
   }
 
-  *(this + 18) = v41;
-  ++*(this + 38);
-LABEL_53:
-  *__src = 0x1000000;
-  memset(v232, 0, 32);
-  *&__src[4] = _D8;
-  *&__src[12] = xmmword_1E3108BC0;
-  *&__src[28] = 1077516698;
-  v42 = *(MEMORY[0x1E69E9B18] + 16);
-  *&v232[32] = *MEMORY[0x1E69E9B18];
-  *&v232[48] = v42;
-  v43 = *(MEMORY[0x1E69E9B18] + 48);
-  v45 = *MEMORY[0x1E69E9B18];
-  v44 = *(MEMORY[0x1E69E9B18] + 16);
-  *&v232[64] = *(MEMORY[0x1E69E9B18] + 32);
-  v233 = v43;
-  v46 = *MEMORY[0x1E69E9B18];
-  v47 = *(MEMORY[0x1E69E9B18] + 16);
-  v48 = *(MEMORY[0x1E69E9B18] + 32);
-  v237 = *(MEMORY[0x1E69E9B18] + 48);
-  v236 = v48;
-  v235 = v47;
-  v234 = v46;
-  v49 = *(MEMORY[0x1E69E9B18] + 32);
-  v241 = *(MEMORY[0x1E69E9B18] + 48);
-  v240 = v49;
-  v50 = *MEMORY[0x1E69E9B18];
-  v239 = *(MEMORY[0x1E69E9B18] + 16);
-  v238 = v50;
-  v245 = *(MEMORY[0x1E69E9B18] + 48);
-  v244 = v48;
-  v243 = v44;
-  v242 = v45;
-  v247 = 0;
-  v246 = 0;
-  v20 = re::SmallHashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,4ul,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false>::add(this + 128, &v226, __src, 1);
-LABEL_54:
-  *(v20 + 6) = *(a4 + 48) & 0xFFFFFFFFFFFFFFFLL;
-  v51 = re::RenderGraphDataStore::tryGet<re::SFBSystemShellBlurContext>(a4 + 32, "SFBSystemShellBlurContext", "RenderFrame");
-  if ((re::mtl::Device::isPhysicalHardware((*(a4 + 1) + 208)) & 1) == 0)
+  if (*(a1 + 16))
   {
-    *(v20 + 12) = xmmword_1E3108BD0;
-  }
-
-  v214 = *(*(a4 + 1) + 96);
-  v52 = re::RenderGraphDataStore::tryGet<re::ViewportPercentData>(a4 + 32, v12);
-  v215 = v51;
-  if (!v52 || *(v52 + 64) != 2)
-  {
-    v57 = 0;
-    goto LABEL_62;
-  }
-
-  v54 = *(v52 + 16);
-  if (v54 <= 1)
-  {
-    re::internal::assertLog(6, v53, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 389, 1, v54);
-    _os_crash();
-    __break(1u);
-    goto LABEL_262;
-  }
-
-  v55 = *(v52 + 52);
-  v56 = *(v52 + 36);
-  v57 = v55 >= (v56 + *(v52 + 44)) || v56 >= (v55 + *(v52 + 60));
-LABEL_62:
-  v20[2] = v57;
-  v58 = *(*(a4 + 1) + 96);
-  if (v58)
-  {
-    v226.columns[0].i32[0] = 0;
-    *__src = 0x1389125D3C064618;
-    *&__src[8] = "blur:passthroughTextureWidth";
-    v59 = re::DebugSettingsManager::getWithErrorCode<int>(v58, __src, &v226);
-    v60 = v59;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (!v60)
-    {
-      v61 = v226.columns[0].i32[0];
-      *(v20 + 3) = v226.columns[0].i32[0];
-      *(v20 + 4) = v61;
-    }
-
-    *__src = 0x441AC35BB1E33358;
-    *&__src[8] = "blur:VCATextureWidth";
-    v62 = re::DebugSettingsManager::getWithErrorCode<int>(v58, __src, &v226);
-    v63 = v62;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (!v63)
-    {
-      v64 = v226.columns[0].i32[0];
-      *(v20 + 5) = v226.columns[0].i32[0];
-      *(v20 + 6) = v64;
-    }
-
-    *v218 = 0;
-    *__src = 0xBA9708B410B41FEELL;
-    *&__src[8] = "blur:VCABlurExpansion";
-    v65 = re::DebugSettingsManager::getWithErrorCode<float>(v58, __src, v218);
-    v66 = v65;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (!v66)
-    {
-      *(v20 + 7) = *v218;
-    }
-
-    LOBYTE(v225) = 0;
-    *__src = 0x339926AA9F3B1226;
-    *&__src[8] = "blur:showUnblurredPassthrough";
-    v67 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v58, __src, &v225);
-    v68 = v67;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (!v68)
-    {
-      v20[32] = v225;
-    }
-
-    *__src = 0x36D8B606BC4FD85CLL;
-    *&__src[8] = "blur:showUnblurredVC";
-    v69 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v58, __src, &v225);
-    v70 = v69;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (!v70)
-    {
-      v20[33] = v225;
-    }
-
-    v71 = (v20 + 16);
-    v72 = *(v20 + 4);
-    v73 = v72;
-    v74 = 1.5;
-    v75 = *(v20 + 3) * 1.5;
-    if (v20[2])
-    {
-LABEL_89:
-      if (v75 > v73)
-      {
-        *v71 = 2 * v72;
-      }
-
-      v76 = *(v20 + 6);
-      if (*(v20 + 5) * v74 > v76)
-      {
-        v77 = 2 * v76;
-LABEL_98:
-        *(v20 + 6) = v77;
-        goto LABEL_99;
-      }
-
-      goto LABEL_99;
-    }
+    v5 = a1 + 24;
   }
 
   else
   {
-    v71 = (v20 + 16);
-    v72 = *(v20 + 4);
-    v73 = v72;
-    v74 = 1.5;
-    v75 = *(v20 + 3) * 1.5;
-    if (v57)
-    {
-      goto LABEL_89;
-    }
+    v5 = *(a1 + 32);
   }
 
-  if (v75 <= v73)
-  {
-    *v71 = v72 / 2;
-  }
-
-  v78 = *(v20 + 6);
-  if (*(v20 + 5) * v74 <= v78)
-  {
-    v77 = v78 / 2;
-    goto LABEL_98;
-  }
-
-LABEL_99:
-  v79 = *(a4 + 55);
-  *__src = 65290051;
-  *(v20 + 40) = re::RenderFrame::getScopeProtectionOptions(a4, a3, __src) & v79;
-  v213 = this;
-  if (a3)
-  {
-    v81 = *a3;
-    if (*a3)
-    {
-      v82 = a3[1];
-      if (v82)
-      {
-        v83 = a3 + 2;
-        do
-        {
-          v81 = 31 * v81 + v82;
-          v84 = *v83++;
-          v82 = v84;
-        }
-
-        while (v84);
-      }
-
-      v81 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v81 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v216 = v81;
-  v85 = re::supportedColorPixelFormat((*(a4 + 1) + 208), v80);
-  v86 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v85) ^ ((0xBF58476D1CE4E5B9 * v85) >> 27));
-  v87 = ((((v12 + 0x292D39BBB76173E7) ^ 0x6DBE18E721BE9D42) << 6) - 0x61C8864680B583E9 + (((v12 + 0x292D39BBB76173E7) ^ 0x6DBE18E721BE9D42uLL) >> 2) + (v86 ^ (v86 >> 31))) ^ (v12 + 0x292D39BBB76173E7) ^ 0x6DBE18E721BE9D42;
-  v88 = ((v87 << 6) - 0x61C8864680B583E9 + (v87 >> 2)) ^ v87;
-  v89 = *(a4 + 1);
-  v90 = *(*a4 + 296);
-  v224[0] = 0;
-  v92 = re::supportedColorPixelFormat((v89 + 208), v91);
-  v93 = *(v20 + 40);
-  *&v232[12] = _D8;
-  v94 = *(v20 + 12);
-  *v232 = 0xFFFFFFFFLL;
-  *&v232[20] = xmmword_1E30A3B60;
-  *&v232[52] = -1;
-  *&v232[44] = -1;
-  v232[72] = 0;
-  *&v232[36] = 0x2000000007;
-  *&__src[12] = v94;
-  v232[8] = 1;
-  *&__src[8] = 3;
-  *&__src[28] = 1;
-  *&__src[20] = 0x200000001;
-  *&v232[64] = 0;
-  *&v232[56] = v93;
-  *&__src[4] = v92;
-  *__src = 2;
-  v228 = *&v232[32];
-  v229 = *&v232[48];
-  v230 = *&v232[64];
-  v226.columns[0] = *__src;
-  v226.columns[1] = *&__src[16];
-  v226.columns[2] = *v232;
-  v227 = *&v232[16];
-  v226.columns[0].i32[1] = 115;
-  if (v20[3])
-  {
-    v95 = 0x41835D6541233CC6;
-  }
-
-  else
-  {
-    v95 = 0x6EE84F42E390DAAFLL;
-  }
-
-  if (v20[3])
-  {
-    v96 = 0x6EE84F42E390DAAFLL;
-  }
-
-  else
-  {
-    v96 = 0x41835D6541233CC6;
-  }
-
-  *v218 = v95;
-  v225 = 0x224DEC6372A17064;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v97 = v224[0];
-  *v218 = v96;
-  v225 = 0x224DEC6372A17065;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v98 = v224[0] || v97;
-  *v218 = 0x23D59F1355F7D636;
-  v225 = 0x500524C6A54C98FCLL;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v99 = v224[0];
-  *v218 = 0x72FE99054D3CC2B0;
-  v225 = 0x4BC26B238B46B276;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, &v226, v224);
-  v100 = v98 | (v99 || v224[0]);
-  if (v20[3])
-  {
-    v101 = 0x2E4F6D8BCDEF172CLL;
-  }
-
-  else
-  {
-    v101 = 0x1B9E43EDF0404D09;
-  }
-
-  if (v20[3])
-  {
-    v102 = 0x1B9E43EDF0404D09;
-  }
-
-  else
-  {
-    v102 = 0x2E4F6D8BCDEF172CLL;
-  }
-
-  v103 = *(v20 + 6);
-  *&__src[12] = *(v20 + 5);
-  *&__src[16] = v103;
-  v226.columns[0].i32[3] = *&__src[12];
-  v226.columns[1].i32[0] = v103;
-  *v218 = v101;
-  v225 = 0x29CB6A1F26966DCALL;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v104 = v224[0];
-  *v218 = v102;
-  v225 = 0x29CB6A1F26966DCBLL;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v105 = v104 || v224[0];
-  *v218 = 0x60DF09E0AF8AD07;
-  v225 = 0x245EA3C951D4BAF2;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, &v226, v224);
-  LOBYTE(v105) = (v100 | v105 | v224[0]) != 0;
-  *v218 = 0x2B6EE9216B5DB7CCLL;
-  v225 = 0x28E1A7364C7DB35DLL;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, &v226, v224);
-  v106 = v224[0] | v105;
-  v107 = *(a4 + 1);
-  v108 = [*(v107 + 208) supportsFamily:1007];
-  if (*(v107 + 367) != 1 || (v108 & 1) == 0)
-  {
-    *v218 = *__src;
-    *&v218[16] = *&__src[16];
-    v221 = *&v232[32];
-    v222 = *&v232[48];
-    v223 = *&v232[64];
-    v219 = *v232;
-    v220 = *&v232[16];
-    *&v218[12] = vshl_n_s32(*&v218[12], 2uLL);
-    v225 = 0x7AC65E6EBC1A6022;
-    v217 = 0x2F5AA33D1CD8F884;
-    re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, &v225, &v217, a4, v218, v224);
-    v106 |= v224[0];
-  }
-
-  *v218 = 0x365702DE80DBD47FLL;
-  v225 = 0x5E987FCC43D26868;
-  re::RenderGraphPersistentResourceManager::registerPersistentTexture(v90, &v216, v218, &v225, a4, __src, v224);
-  v109 = v224[0] | v106;
-  v110 = *(v20 + 41);
-  v111 = re::RenderGraphDataStore::tryGet<re::SceneScope>(a4 + 32, v12);
-  if (v111)
-  {
-    if (*(v111 + 16))
-    {
-      v112 = *(v111 + 24);
-    }
-
-    else
-    {
-      v112 = (v111 + 17);
-    }
-
-    v114 = re::RenderGraphDataStore::tryGet<re::BlurPlanesRenderFrameData>(a4 + 32, "BlurPlanesRenderFrameData", v112);
-    if (v114)
-    {
-      v115 = *(v114 + 16);
-      v116 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v115 ^ (v115 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v115 ^ (v115 >> 30))) >> 27));
-      v113 = v116 ^ (v116 >> 31);
-      if (v115)
-      {
-        v117 = (*(v114 + 32) + 96);
-        do
-        {
-          v118 = *v117;
-          v117 += 18;
-          v119 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v118 ^ (v118 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v118 ^ (v118 >> 30))) >> 27));
-          v113 ^= (v119 >> 31) ^ v119;
-          --v115;
-        }
-
-        while (v115);
-      }
-    }
-
-    else
-    {
-      v113 = 0;
-    }
-  }
-
-  else
-  {
-    v113 = 0;
-  }
-
-  *(v20 + 41) = v113;
-  if (v109 || v113 != v110)
-  {
-    *(v20 + 9) = 2;
-    v123 = 1;
-    v122 = v215;
-  }
-
-  else
-  {
-    v120 = *(v20 + 9);
-    _VF = __OFSUB__(v120, 1);
-    v121 = v120 - 1;
-    v122 = v215;
-    if (v121 < 0 != _VF)
-    {
-      v123 = 0;
-    }
-
-    else
-    {
-      *(v20 + 9) = v121;
-      v123 = v121 != 0;
-    }
-  }
-
-  if (v122 && !v123 && (*v122 & 1) != 0)
-  {
-    v125 = 1;
-  }
-
-  else
-  {
-    v125 = 0;
-    v20[3] ^= 1u;
-  }
-
-  *__src = &unk_1F5D15858;
-  if (!_AXSEnhanceBackgroundContrastEnabled())
-  {
-    if (_AXDarkenSystemColors())
-    {
-      v133 = *MEMORY[0x1E69E9B18];
-      v134 = *(MEMORY[0x1E69E9B18] + 32);
-      v135 = *(MEMORY[0x1E69E9B18] + 48);
-      *&v232[48] = *(MEMORY[0x1E69E9B18] + 16);
-      *&v232[64] = v134;
-      *&__src[16] = xmmword_1E3108BE0;
-      *v232 = xmmword_1E3108BF0;
-      *&v232[32] = v133;
-      *&v232[16] = xmmword_1E3108C00;
-      v130 = vdupq_n_s32(0x3DCCCCCDu);
-      v233 = v135;
-      goto LABEL_147;
-    }
-
-    if (!v214)
-    {
-      goto LABEL_252;
-    }
-
-    LODWORD(v225) = 0;
-    LODWORD(v217) = 0;
-    *v224 = 0.0;
-    v226.columns[0].i64[0] = 0x2424585FE717096ALL;
-    v226.columns[0].i64[1] = "blur:filter.luminance";
-    v187 = re::DebugSettingsManager::getWithErrorCode<float>(v214, &v226, &v225);
-    v189 = *&v225 != 0.0 && v187 == 0;
-    if (v226.columns[0].i8[0])
-    {
-      if (v226.columns[0].i8[0])
-      {
-      }
-    }
-
-    v190 = 0uLL;
-    if (v189)
-    {
-      v190.i32[0] = v225;
-      if (*&v225 > 1.0)
-      {
-        *v190.i32 = 1.0;
-      }
-
-      if (*v190.i32 < -1.0)
-      {
-        *v190.i32 = -1.0;
-      }
-
-      LODWORD(v225) = v190.i32[0];
-      v190 = vdupq_lane_s32(*v190.i8, 0);
-    }
-
-    v206 = v190;
-    v226.columns[0].i64[0] = 0xB6D7E15BC798CF4ALL;
-    v226.columns[0].i64[1] = "blur:filter.contrast";
-    v191 = re::DebugSettingsManager::getWithErrorCode<float>(v214, &v226, &v217);
-    v194 = *&v217 != 1.0 && v191 == 0;
-    if (v226.columns[0].i8[0])
-    {
-      if (v226.columns[0].i8[0])
-      {
-      }
-    }
-
-    if (v194)
-    {
-      v195 = 0;
-      v192.i32[0] = v217;
-      if (*&v217 > 4.0)
-      {
-        *v192.i32 = 4.0;
-      }
-
-      if (*v192.i32 < 0.25)
-      {
-        *v192.i32 = 0.25;
-      }
-
-      LODWORD(v217) = v192.i32[0];
-      *&v196 = 0;
-      LODWORD(v197) = 0;
-      HIDWORD(v197) = v192.i32[0];
-      *(&v196 + 1) = v192.u32[0];
-      *v218 = v192.u32[0];
-      *&v218[16] = v197;
-      v219 = v196;
-      do
-      {
-        v226.columns[v195] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1E3047670, COERCE_FLOAT(*&v218[v195 * 16])), xmmword_1E3047680, *&v218[v195 * 16], 1), xmmword_1E30476A0, *&v218[v195 * 16], 2);
-        ++v195;
-      }
-
-      while (v195 != 3);
-      v207 = v226.columns[1];
-      v209 = v226.columns[0];
-      v211 = v226.columns[2];
-      *v192.i32 = (1.0 - *v192.i32) * 0.5;
-      v206 = vaddq_f32(v206, vdupq_lane_s32(v192, 0));
-      v189 = 1;
-    }
-
-    else
-    {
-      v211 = xmmword_1E30476A0;
-      v207 = xmmword_1E3047680;
-      v209 = xmmword_1E3047670;
-    }
-
-    v226.columns[0].i64[0] = 0x6067E59BDEAF676ALL;
-    v226.columns[0].i64[1] = "blur:filter.saturation";
-    v198 = re::DebugSettingsManager::getWithErrorCode<float>(v214, &v226, v224);
-    v201 = v198;
-    if (v226.columns[0].i8[0])
-    {
-      if (v226.columns[0].i8[0])
-      {
-      }
-    }
-
-    if (!v201)
-    {
-      v203 = 0;
-      v204 = *v224;
-      if (*v224 > 2.0)
-      {
-        v204 = 2.0;
-      }
-
-      if (v204 < 0.0)
-      {
-        v204 = 0.0;
-      }
-
-      *&v199 = vmla_n_f32(vdup_n_s32(0x3E59B3D0u), 0xBE59B3D03F498C7ELL, v204);
-      *&v205 = vmla_n_f32(vdup_n_s32(0x3F371759u), 0x3E91D14EBF371759, v204);
-      *&v200 = (v204 * -0.0722) + 0.0722;
-      DWORD2(v199) = DWORD1(v199);
-      *(&v205 + 1) = v205;
-      *(&v200 + 1) = *&v200;
-      *(&v200 + 2) = (v204 * 0.9278) + 0.0722;
-      *v218 = v199;
-      *&v218[16] = v205;
-      v219 = v200;
-      do
-      {
-        v226.columns[v203] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v209, COERCE_FLOAT(*&v218[v203 * 16])), v207, *&v218[v203 * 16], 1), v211, *&v218[v203 * 16], 2);
-        ++v203;
-      }
-
-      while (v203 != 3);
-      v202 = v226;
-      v202.columns[0].i32[3] = v209.i32[3];
-      v202.columns[1].i32[3] = v207.i32[3];
-      v202.columns[2].i32[3] = v211.i32[3];
-      v122 = v215;
-      goto LABEL_260;
-    }
-
-    v122 = v215;
-    v202.columns[0] = v209;
-    v202.columns[2] = v211;
-    v202.columns[1] = v207;
-    if (!v189)
-    {
-LABEL_252:
-      v206 = vdupq_n_s32(0x3E19999Au);
-      v202.columns[2] = xmmword_1E3108C10;
-      v202.columns[0] = xmmword_1E3108C20;
-      v202.columns[1] = xmmword_1E3108C30;
-    }
-
-LABEL_260:
-    v208 = v202.columns[1];
-    v210 = v202.columns[0];
-    v212 = v202.columns[2];
-    v252 = __invert_f3(v202);
-    *&__src[16] = v210;
-    *v232 = v208;
-    *&v232[16] = v212;
-    *&v232[32] = v252;
-    v233 = vnegq_f32(v206);
-    v234 = v206;
-    goto LABEL_148;
-  }
-
-  v126 = _AXDarkenSystemColors();
-  v127.i32[0] = 0;
-  v128.i32[0] = v126;
-  v129 = *MEMORY[0x1E69E9B18];
-  v130 = vbslq_s8(vdupq_lane_s8(*&vceqq_s8(v128, v127), 0), vdupq_n_s32(0x3EE66666u), vdupq_n_s32(0x3E19999Au));
-  v131 = *(MEMORY[0x1E69E9B18] + 32);
-  v132 = *(MEMORY[0x1E69E9B18] + 48);
-  v228 = *(MEMORY[0x1E69E9B18] + 16);
-  v229 = v131;
-  v230 = v132;
-  memset(&v226, 0, sizeof(v226));
-  v227 = v129;
-  *&v232[64] = v131;
-  *&v232[48] = v228;
-  *&__src[16] = 0u;
-  memset(v232, 0, 32);
-  *&v232[32] = v129;
-  v233 = v132;
-LABEL_147:
-  v234 = v130;
-LABEL_148:
-  v136 = *(*(a4 + 1) + 128);
-  v137 = *&v232[48];
-  v138 = *&v232[64];
-  v139 = v233;
-  v136[14] = *&v232[32];
-  v136[15] = v137;
-  v136[16] = v138;
-  v136[17] = v139;
-  re::ColorHelpers::computeGamutTransformMatrix(1, 0, &v226);
-  DWORD2(v235) = v226.columns[0].i32[2];
-  DWORD2(v236) = v226.columns[1].i32[2];
-  *&v235 = v226.columns[0].i64[0];
-  *&v236 = v226.columns[1].i64[0];
-  DWORD2(v237) = v226.columns[2].i32[2];
-  *&v237 = v226.columns[2].i64[0];
-  v140 = "N2re24ColorFilterConstantsDataE";
-  if (("N2re24ColorFilterConstantsDataE" & 0x8000000000000000) != 0)
-  {
-    v141 = ("N2re24ColorFilterConstantsDataE" & 0x7FFFFFFFFFFFFFFFLL);
-    v142 = 5381;
-    do
-    {
-      v140 = v142;
-      v143 = *v141++;
-      v142 = (33 * v142) ^ v143;
-    }
-
-    while (v143);
-  }
-
-  v124 = ((v88 << 6) + (v88 >> 2) - 0xB36702970AA7E04) ^ v88;
-  v144 = ((v124 << 6) - 0x61C8864680B583E9 + (v124 >> 2)) ^ v124;
-  v145 = v12 - 0x61C8864680B583E9;
-  *v218 = (v12 - 0x61C8864680B583E9 + (v140 << 6) + (v140 >> 2)) ^ v140;
-  v146 = (*(**(a4 + 5) + 32))(*(a4 + 5), 192, 16);
-  *v146 = &unk_1F5D15858;
-  v147 = *&v232[16];
-  v148 = *v232;
-  *(v146 + 16) = *&__src[16];
-  *(v146 + 32) = v148;
-  *(v146 + 48) = v147;
-  v149 = v233;
-  v150 = *&v232[48];
-  v151 = *&v232[32];
-  *(v146 + 96) = *&v232[64];
-  *(v146 + 112) = v149;
-  *(v146 + 64) = v151;
-  *(v146 + 80) = v150;
-  v152 = v237;
-  v153 = v235;
-  v154 = v234;
-  *(v146 + 160) = v236;
-  *(v146 + 176) = v152;
-  *(v146 + 128) = v154;
-  *(v146 + 144) = v153;
-  v225 = v146;
-  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 96, v218, &v225);
-  v155 = *(v213 + 112);
-  if (v155 == 4)
-  {
-    v24 = ((v144 << 6) - 0x61C8864680B583E9 + (v144 >> 2) + re::RenderGraphSFBSystemShellBlurProvider::prepareVCABlur(v12, a4, v125, v20)) ^ v144;
-    v156 = v214;
-  }
-
-  else
-  {
-    v24 = 2512009519;
-    v156 = v214;
-    if (v155 == 3)
-    {
-      re::RenderGraphSFBSystemShellBlurProvider::prepareVCABlur(v12, a4, v125, v20);
-      v157 = *v20 | v20[1];
-      *v20 = v157;
-      v20[1] = 0;
-      if (v157)
-      {
-        v158 = 0xBF58476D1CE4E5B9 * (*(v20 + 3) ^ (*(v20 + 3) >> 30));
-        v24 = (((0x94D049BB133111EBLL * (v158 ^ (v158 >> 27))) ^ ((0x94D049BB133111EBLL * (v158 ^ (v158 >> 27))) >> 31)) - 0x59ECBDB75CFBBFDFLL) ^ 0x23FB73AE8E00E62ALL;
-      }
-
-      v24 = ((v144 << 6) - 0x61C8864680B583E9 + (v144 >> 2) + v24) ^ v144;
-    }
-  }
-
-  if ((*v20 & 1) != 0 || v20[1] == 1)
-  {
-    re::CameraStreamManager::context(*(*(a4 + 1) + 120), __src);
-    v159 = "N2re19CameraStreamContextE";
-    if (("N2re19CameraStreamContextE" & 0x8000000000000000) != 0)
-    {
-      v160 = ("N2re19CameraStreamContextE" & 0x7FFFFFFFFFFFFFFFLL);
-      v161 = 5381;
-      do
-      {
-        v159 = v161;
-        v162 = *v160++;
-        v161 = (33 * v161) ^ v162;
-      }
-
-      while (v162);
-    }
-
-    *v218 = (v145 + (v159 << 6) + (v159 >> 2)) ^ v159;
-    v163 = (*(**(a4 + 5) + 32))(*(a4 + 5), 1856, 16);
-    *v163 = &unk_1F5D04818;
-    *(v163 + 16) = 0;
-    *(v163 + 24) = 0;
-    *(v163 + 32) = 0;
-    *(v163 + 40) = 0;
-    *(v163 + 1712) = 0u;
-    *(v163 + 1728) = 0u;
-    *(v163 + 1744) = 0;
-    *(v163 + 1748) = 0x7FFFFFFFLL;
-    *(v163 + 16) = *&__src[16];
-    *&__src[16] = 0;
-    *(v163 + 24) = *&__src[24];
-    *&__src[24] = 0;
-    v226.columns[0].i64[0] = 0;
-    v226.columns[0].i32[2] = 0;
-    re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::CameraStreamParams>,4ul>::move(&v226, (v163 + 32));
-    if (v163 != __src)
-    {
-      re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::CameraStreamParams>,4ul>::move((v163 + 32), v232);
-      ++*(v163 + 40);
-    }
-
-    re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::CameraStreamParams>,4ul>::move(v232, &v226);
-    ++*&v232[8];
-    re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::CameraStreamParams>,4ul>::clear(&v226);
-    v226.columns[0] = *(v163 + 1712);
-    *(v163 + 1712) = 0u;
-    v226.columns[1].i64[0] = *(v163 + 1728);
-    *(v163 + 1728) = 0;
-    *(&v226.columns[1] + 8) = *(v163 + 1736);
-    *(v163 + 1736) = xmmword_1E3058120;
-    v226.columns[2].i32[2] = 1;
-    re::HashTable<re::WeakStringID,re::CameraStreamParams,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::operator=(v163 + 1712, v248);
-    re::HashTable<re::WeakStringID,re::CameraStreamParams,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::operator=(v248, &v226);
-    re::HashTable<re::WeakStringID,re::CameraStreamParams,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit(&v226);
-    *(v163 + 1760) = v248[3];
-    v164 = v248[4];
-    v165 = v248[5];
-    v166 = v248[6];
-    *(v163 + 1824) = v249;
-    *(v163 + 1808) = v166;
-    *(v163 + 1792) = v165;
-    *(v163 + 1776) = v164;
-    *(v163 + 1832) = v250;
-    v250 = 0u;
-    v226.columns[0].i64[0] = v163;
-    re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 96, v218, &v226);
-    if (*(&v250 + 1))
-    {
-
-      *(&v250 + 1) = 0;
-    }
-
-    v122 = v215;
-    if (v250)
-    {
-
-      *&v250 = 0;
-    }
-
-    re::SmallHashTable<re::WeakStringID,re::CameraStreamParams,4ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::~SmallHashTable(&__src[16]);
-  }
-
-  if (v156)
-  {
-    v226.columns[0].i32[0] = 0;
-    *__src = 0x55CC0F1AC1A278;
-    *&__src[8] = "blur:taaMixValue.passthrough";
-    v167 = re::DebugSettingsManager::getWithErrorCode<float>(v156, __src, &v226);
-    v168 = v167;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (v168)
-    {
-      v169 = 0.65;
-    }
-
-    else
-    {
-      v169 = v226.columns[0].f32[0];
-    }
-
-    *__src = 0x70F94BFC4F683DF8;
-    *&__src[8] = "blur:taaMixValue.vca";
-    v170 = re::DebugSettingsManager::getWithErrorCode<float>(v156, __src, &v226);
-    v171 = v170;
-    if (__src[0])
-    {
-      if (__src[0])
-      {
-      }
-    }
-
-    if (v171)
-    {
-      v172 = 0.65;
-    }
-
-    else
-    {
-      v172 = v226.columns[0].f32[0];
-    }
-  }
-
-  else
-  {
-    v169 = 0.65;
-    v172 = 0.65;
-  }
-
-  *__src = &unk_1F5D15898;
-  __src[8] = v125;
-  v173 = 1.0;
-  if (v123)
-  {
-    v174 = 1.0;
-  }
-
-  else
-  {
-    v174 = v169;
-  }
-
-  if (v123)
-  {
-    v172 = 1.0;
-  }
-
-  *&__src[12] = v174;
-  *&__src[16] = v172;
-  if (v125)
-  {
-    v175 = *(v20 + 10) + 1;
-    v176 = v175 + 1.0;
-  }
-
-  else
-  {
-    v175 = 0;
-    v176 = 1.0;
-  }
-
-  *(v20 + 10) = v175;
-  if (v122)
-  {
-    v177 = v123;
-  }
-
-  else
-  {
-    v177 = 1;
-  }
-
-  if ((v177 & 1) == 0)
-  {
-    v173 = v176 / (*(v122 + 4) + 1);
-    if (v173 > 1.0)
-    {
-      v173 = 1.0;
-    }
-
-    if (v173 < 0.0)
-    {
-      v173 = 0.0;
-    }
-  }
-
-  *&__src[20] = v173;
-  if (v156)
-  {
-    v218[0] = 0;
-    v226.columns[0].i64[0] = 0x13A98A684FC91826;
-    v226.columns[0].i64[1] = "blur:enableReprojectionLerping";
-    v178 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v156, &v226, v218);
-    v179 = v178;
-    v180 = v218[0];
-    if (v226.columns[0].i8[0])
-    {
-      if (v226.columns[0].i8[0])
-      {
-      }
-    }
-
-    if (!v179 && (v180 & 1) == 0)
-    {
-      *&__src[20] = 1065353216;
-    }
-  }
-
-  v181 = "N2re21BlurReprojectionStateE";
-  if (("N2re21BlurReprojectionStateE" & 0x8000000000000000) != 0)
-  {
-    v182 = ("N2re21BlurReprojectionStateE" & 0x7FFFFFFFFFFFFFFFLL);
-    v183 = 5381;
-    do
-    {
-      v181 = v183;
-      v184 = *v182++;
-      v183 = (33 * v183) ^ v184;
-    }
-
-    while (v184);
-  }
-
-  v226.columns[0].i64[0] = (v145 + (v181 << 6) + (v181 >> 2)) ^ v181;
-  v185 = (*(**(a4 + 5) + 32))(*(a4 + 5), 24, 8);
-  *v185 = &unk_1F5D15898;
-  *(v185 + 8) = *&__src[8];
-  *v218 = v185;
-  re::HashTable<unsigned long,re::RenderGraphData *,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addNew(a4 + 96, &v226, v218);
-  return v24;
+  return *(v5 + 8 * v2) + 48 * (a2 & 3);
 }
 
-void re::RenderGraphSFBSystemShellBlurProvider::provide(re::RenderGraphSFBSystemShellBlurProvider *this, char *__s, char *a3, re::RenderFrame *a4)
+void re::UIShadowProvider::provide(re::UIShadowProvider *this, const char *a2, const char *a3, re::RenderFrame *a4)
 {
-  v217 = *MEMORY[0x1E69E9840];
-  if (!*(this + 112))
-  {
-    return;
-  }
+  RenderGraph = re::RenderFrame::makeRenderGraph(a4, "UIShadowNodes", 1uLL);
+  v8 = re::globalAllocators(RenderGraph);
+  v9 = (*(*v8[2] + 32))(v8[2], 264, 8);
+  v10 = re::RenderGraphNode::RenderGraphNode(v9, "UIShadowRenderGraphNode");
+  *v10 = &unk_1F5D14C10;
+  v13 = v10;
+  re::DynamicArray<re::TransitionCondition *>::add(RenderGraph, &v13);
+  v11 = *(RenderGraph + 12);
+  v12 = *(RenderGraph + 13);
+  *(v9 + 3) = *(RenderGraph + 10);
+  *(v9 + 4) = v11;
+  *(v9 + 6) = v12;
 
-  v8 = 0x9E3779B97F4A7C17;
-  v9 = strlen(__s);
-  if (v9)
-  {
-    MurmurHash3_x64_128(__s, v9, 0, __src);
-    v10 = (*&__src[8] - 0x61C8864680B583E9 + (*__src << 6) + (*__src >> 2)) ^ *__src;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = strlen(a3);
-  v141 = __s;
-  if (v11)
-  {
-    MurmurHash3_x64_128(a3, v11, 0, __src);
-    v8 = ((*&__src[8] - 0x61C8864680B583E9 + (*__src << 6) + (*__src >> 2)) ^ *__src) - 0x61C8864680B583E9;
-  }
-
-  v12 = ((v10 >> 2) + (v10 << 6) + v8) ^ v10;
-  v143 = v12;
-  if (!*(this + 399))
-  {
-    v30 = *(this + 18);
-    if (v30)
-    {
-      v31 = 352 * v30;
-      v13 = this + 176;
-      while (*(v13 - 2) != v12)
-      {
-        v13 += 352;
-        v31 -= 352;
-        if (!v31)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      goto LABEL_16;
-    }
-
-LABEL_14:
-    *__src = 0x1000000;
-    memset(&__src[32], 0, 32);
-    __asm { FMOV            V0.2S, #1.0 }
-
-    *&__src[4] = _D0;
-    *&__src[12] = xmmword_1E3108BC0;
-    *&__src[28] = 1077516698;
-    v33 = *(MEMORY[0x1E69E9B18] + 16);
-    *&__src[64] = *MEMORY[0x1E69E9B18];
-    *&__src[80] = v33;
-    v34 = *(MEMORY[0x1E69E9B18] + 48);
-    v36 = *MEMORY[0x1E69E9B18];
-    v35 = *(MEMORY[0x1E69E9B18] + 16);
-    v189 = *(MEMORY[0x1E69E9B18] + 32);
-    v190 = v34;
-    v37 = *MEMORY[0x1E69E9B18];
-    v38 = *(MEMORY[0x1E69E9B18] + 16);
-    v39 = *(MEMORY[0x1E69E9B18] + 48);
-    v193 = *(MEMORY[0x1E69E9B18] + 32);
-    v194 = v39;
-    v191 = v37;
-    v192 = v38;
-    v40 = *(MEMORY[0x1E69E9B18] + 48);
-    v197 = *(MEMORY[0x1E69E9B18] + 32);
-    v198 = v40;
-    v41 = *(MEMORY[0x1E69E9B18] + 16);
-    v195 = *MEMORY[0x1E69E9B18];
-    v196 = v41;
-    v42 = *(MEMORY[0x1E69E9B18] + 48);
-    v201 = v193;
-    v202 = v42;
-    v199 = v36;
-    v200 = v35;
-    v204 = 0;
-    v203 = 0;
-    v29 = re::SmallHashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,4ul,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false>::add(this + 128, &v143, __src, 0);
-    goto LABEL_15;
-  }
-
-  v13 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::tryGet(this + 1568, v12);
-  if (!v13)
-  {
-    *__src = 0x1000000;
-    memset(&__src[32], 0, 32);
-    __asm { FMOV            V0.2S, #1.0 }
-
-    *&__src[4] = _D0;
-    *&__src[12] = xmmword_1E3108BC0;
-    *&__src[28] = 1077516698;
-    v19 = *(MEMORY[0x1E69E9B18] + 16);
-    *&__src[64] = *MEMORY[0x1E69E9B18];
-    *&__src[80] = v19;
-    v20 = *(MEMORY[0x1E69E9B18] + 48);
-    v22 = *MEMORY[0x1E69E9B18];
-    v21 = *(MEMORY[0x1E69E9B18] + 16);
-    v189 = *(MEMORY[0x1E69E9B18] + 32);
-    v190 = v20;
-    v23 = *MEMORY[0x1E69E9B18];
-    v24 = *(MEMORY[0x1E69E9B18] + 16);
-    v25 = *(MEMORY[0x1E69E9B18] + 48);
-    v193 = *(MEMORY[0x1E69E9B18] + 32);
-    v194 = v25;
-    v191 = v23;
-    v192 = v24;
-    v26 = *(MEMORY[0x1E69E9B18] + 48);
-    v197 = *(MEMORY[0x1E69E9B18] + 32);
-    v198 = v26;
-    v27 = *(MEMORY[0x1E69E9B18] + 16);
-    v195 = *MEMORY[0x1E69E9B18];
-    v196 = v27;
-    v28 = *(MEMORY[0x1E69E9B18] + 48);
-    v201 = v193;
-    v202 = v28;
-    v199 = v22;
-    v200 = v21;
-    v204 = 0;
-    v203 = 0;
-    v29 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::add(this + 1568, &v143, __src);
-LABEL_15:
-    v13 = v29;
-  }
-
-LABEL_16:
-  if (*(this + 112) - 3 <= 1 && ((*v13 & 1) != 0 || v13[1] == 1))
-  {
-    re::AssetHandle::loadNow(*(this + 12), 0);
-    v138 = *(v13 + 20);
-    v43 = *(v13 + 3);
-    v44 = *(v13 + 4);
-    RenderGraph = re::RenderFrame::makeRenderGraph(a4, a3, 0);
-    v46 = re::supportedColorPixelFormat((*(a4 + 1) + 208), v45);
-    v185 = -1;
-    v184 = -1;
-    *&__src[8] = 3;
-    *&__src[12] = v43;
-    *&__src[20] = xmmword_1E3108C40;
-    *&__src[16] = v44;
-    *&__src[36] = 0;
-    __src[40] = 1;
-    __asm { FMOV            V8.2S, #1.0 }
-
-    *&__src[44] = _D8;
-    *&__src[52] = xmmword_1E30A3B60;
-    *&__src[68] = 0x2000000007;
-    memset(&__src[76], 255, 20);
-    *&v189 = 0;
-    BYTE8(v189) = 0;
-    *&__src[4] = v46;
-    *__src = 2;
-    LODWORD(v181) = 0;
-    v132 = v46;
-    v134 = v44;
-    *(&v181 + 4) = v46 | 0x300000000;
-    v135 = v43;
-    HIDWORD(v181) = v43;
-    *&v182[4] = xmmword_1E3108C40;
-    *v182 = v44;
-    *&v182[20] = 0;
-    v182[24] = 1;
-    *&v182[28] = _D8;
-    *&v182[36] = xmmword_1E30A3B60;
-    *&v182[52] = 0x2000000007;
-    memset(&v182[60], 255, 20);
-    *&v183 = 0;
-    BYTE8(v183) = 0;
-    __sa = a3;
-    if (a3)
-    {
-      v48 = *a3;
-      if (*a3)
-      {
-        v49 = a3[1];
-        if (v49)
-        {
-          v50 = a3 + 2;
-          do
-          {
-            v48 = 31 * v48 + v49;
-            v51 = *v50++;
-            v49 = v51;
-          }
-
-          while (v51);
-        }
-
-        v52 = v48 & 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v52 = 0;
-      }
-    }
-
-    else
-    {
-      v52 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v53 = *(a4 + 1);
-    v54 = [*(v53 + 208) supportsFamily:1007];
-    v55 = *(v53 + 367);
-    re::mtl::Device::isPhysicalHardware((*(a4 + 1) + 208));
-    v56 = *(*(a4 + 1) + 128);
-    v136 = this;
-    if (v56)
-    {
-      re::BlurManager::getBackdropMaterial(v166, v56);
-      v118 = *&v166[8] != 0;
-      re::AssetHandle::~AssetHandle(v166);
-    }
-
-    else
-    {
-      v118 = 0;
-    }
-
-    v127 = v55 & v54;
-    *v166 = &v181;
-    *&v166[8] = a4;
-    *v165 = 0x730609FCA8E5BE4FLL;
-    *&v165[8] = "PassthroughColor";
-    *&v166[16] = v165;
-    v166[24] = 1;
-    *&v166[32] = 65290051;
-    *&v166[40] = "Color";
-    v166[48] = 0;
-    v166[72] = 0;
-    *v166 = __src;
-    *&v166[8] = a4;
-    *&v166[16] = &re::kPassthroughBlurredColorRead;
-    v166[24] = 0;
-    v166[48] = 0;
-    v166[72] = 1;
-    *&v166[80] = v52;
-    *v166 = __src;
-    *&v166[8] = a4;
-    *&v166[16] = &re::kPassthroughBlurredColorWrite;
-    v166[24] = 0;
-    v166[48] = 0;
-    v166[72] = 1;
-    *&v166[80] = v52;
-    *v166 = &v181;
-    *&v166[8] = a4;
-    *v165 = 0x6723228C5BC8673ALL;
-    *&v165[8] = "UnprojectedBlurredPassthroughColor";
-    *&v166[16] = v165;
-    v166[24] = 1;
-    *&v166[32] = 65290051;
-    *&v166[40] = "Color";
-    v166[48] = 0;
-    v166[72] = 0;
-    *v166 = &v181;
-    *&v166[8] = a4;
-    *v165 = 0x4231BC5CFFB1FB38;
-    *&v165[8] = "UnprojectedBlurredColor";
-    *&v166[16] = v165;
-    v166[24] = 1;
-    *&v166[32] = 65290051;
-    *&v166[40] = "Color";
-    v166[48] = 0;
-    v166[72] = 0;
-    *v166 = __src;
-    *&v166[8] = a4;
-    *&v166[16] = &re::kOutputPassthroughBlurredColor;
-    v166[24] = 0;
-    v166[48] = 0;
-    v166[72] = 1;
-    *&v166[80] = v52;
-    *v166 = 0x10CC0F66D471B4F0;
-    re::RenderFrame::addTargetOutput(a4, v166, &v169, a3);
-    *v166 = __src;
-    *&v166[8] = a4;
-    *&v166[16] = &re::kOutputPassthroughBlurredColorSRGB;
-    v166[24] = 0;
-    v166[48] = 0;
-    v166[72] = 1;
-    *&v166[80] = v52;
-    *v166 = 0x23D59E48A3024D6ALL;
-    re::RenderFrame::addTargetOutput(a4, v166, &v167, a3);
-    v57 = re::RenderGraph::addNode<re::RenderGraphCameraSetupNode>(RenderGraph, "CameraSetup");
-    *(v57 + 264) = 1;
-    v58 = (*(*v57 + 80))(v57, v141, a3, a4);
-    *v166 = 3;
-    memset(&v166[12], 255, 24);
-    *&v166[8] = 2;
-    *&v166[36] = 0;
-    v166[40] = 0;
-    *&v166[44] = _D8;
-    *&v166[52] = xmmword_1E30A3B60;
-    *&v166[68] = 0x2000000000;
-    memset(&v166[76], 255, 20);
-    *&v166[96] = 0;
-    v166[104] = 0;
-    *v165 = 3;
-    memset(&v165[12], 255, 24);
-    *&v165[8] = 2;
-    *&v165[36] = 0;
-    v165[40] = 0;
-    *&v165[44] = _D8;
-    *&v165[52] = xmmword_1E30A3B60;
-    *&v165[68] = 0x2000000000;
-    memset(&v165[76], 255, 20);
-    *&v165[96] = 0;
-    v165[104] = 0;
-    v151 = 3;
-    v152 = 2;
-    v153 = -1;
-    *&v154 = -1;
-    *(&v154 + 1) = -1;
-    v155 = 0;
-    v156 = 0;
-    v159 = _D8;
-    v160 = xmmword_1E30A3B60;
-    v161 = 0x2000000000;
-    v162 = -1;
-    *v163 = -1;
-    *&v163[8] = -1;
-    *&v163[12] = 0;
-    v164 = 0;
-    v149 = 0;
-    v150 = -1;
-    v147 = 0;
-    v148 = -1;
-    v137 = a4;
-    if (v13[1] == 1)
-    {
-      TextureAlias = re::RenderGraph::addNode<re::SFBSystemShellCreateTextureAliasNode>(RenderGraph, "SetVCAPassthroughAlias");
-      *v211 = v169;
-      *&v211[8] = v170;
-      *&v211[16] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((TextureAlias + 184), v211);
-      *(TextureAlias + 34) = 0x23D59F1355F7D636;
-      v60 = re::RenderGraph::addNode<re::SFBSystemShellCreateTextureAliasNode>(RenderGraph, "SetVCAPassthroughSRGBAlias");
-      *v211 = v167;
-      *&v211[8] = v168;
-      *&v211[16] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v60 + 184), v211);
-      *(v60 + 34) = 0x72FE99054D3CC2B0;
-      *&v166[84] = v185;
-      *&v166[76] = v184;
-      v157 = v186;
-      v158 = v187;
-      *&v166[41] = v186;
-      *&v166[12] = v138;
-      *&v166[20] = xmmword_1E3108C40;
-      *&v166[8] = 3;
-      *&v166[36] = 0;
-      v166[40] = 1;
-      v166[43] = v187;
-      *&v166[44] = _D8;
-      *&v166[52] = xmmword_1E30A3B60;
-      *&v166[68] = 0x2000000007;
-      *&v166[88] = xmmword_1E3062D70;
-      v166[104] = 0;
-      *&v166[4] = v132;
-      *v166 = 2;
-      *&v165[89] = *&v166[89];
-      *&v165[64] = *&v166[64];
-      *&v165[80] = *&v166[80];
-      *&v165[32] = *&v166[32];
-      *&v165[48] = *&v166[48];
-      *v165 = *v166;
-      *&v165[16] = *&v166[16];
-      *&v165[12] = vshl_n_s32(*&v165[12], 2uLL);
-      LODWORD(v151) = 0;
-      HIDWORD(v151) = v132;
-      v152 = 3;
-      v154 = xmmword_1E3108C40;
-      v155 = 0;
-      v156 = 1;
-      v159 = _D8;
-      v160 = xmmword_1E30A3B60;
-      v161 = 0x2000000005;
-      *v163 = v185;
-      v162 = v184;
-      *&v163[4] = xmmword_1E3062D70;
-      v164 = 0;
-      v153 = vshl_n_s32(v138, 2uLL);
-      if (v127)
-      {
-        *v211 = &v151;
-        *&v211[8] = a4;
-        *&v211[16] = &re::kVCARenderTarget;
-        v211[24] = 1;
-        *&v211[32] = 65290051;
-        *&v211[40] = "Color";
-        v211[48] = 0;
-        BYTE8(v212) = 0;
-      }
-
-      else
-      {
-        *v211 = v165;
-        *&v211[8] = a4;
-        *&v211[16] = &re::kVCARenderTarget;
-        v211[24] = 0;
-        v211[48] = 0;
-        BYTE8(v212) = 1;
-        *&v213 = v52;
-      }
-
-      v124 = *v205;
-      v130 = *&v205[8];
-      *v211 = v166;
-      *&v211[8] = a4;
-      *&v211[16] = &re::kVCADownsampledColor;
-      v211[24] = 0;
-      v211[48] = 0;
-      BYTE8(v212) = 1;
-      *&v213 = v52;
-      v123 = *v205;
-      v131 = *&v205[12];
-      v133 = *&v205[8];
-      *v211 = v166;
-      *&v211[8] = a4;
-      *&v211[16] = &re::kVCABlurredColorRead;
-      v211[24] = 0;
-      v211[48] = 0;
-      BYTE8(v212) = 1;
-      *&v213 = v52;
-      v122 = *v205;
-      v125 = *&v205[12];
-      v126 = *&v205[8];
-      *v211 = v166;
-      *&v211[8] = a4;
-      *&v211[16] = &re::kVCABlurredColorWrite;
-      v211[24] = 0;
-      v211[48] = 0;
-      BYTE8(v212) = 1;
-      *&v213 = v52;
-      v121 = *v205;
-      v119 = *&v205[12];
-      v120 = *&v205[8];
-      *v211 = v166;
-      *&v211[8] = a4;
-      *&v211[16] = &re::kOutputVCABlurredColorSRGB;
-      v211[24] = 0;
-      v211[48] = 0;
-      BYTE8(v212) = 1;
-      *&v213 = v52;
-      *v211 = v166;
-      *&v211[8] = a4;
-      *&v211[16] = &re::kOutputVCOnlyBlurredColorSRGB;
-      v211[24] = 0;
-      v211[48] = 0;
-      BYTE8(v212) = 1;
-      *&v213 = v52;
-      *v211 = 0x7B9CDD367106FB41;
-      re::RenderFrame::addTargetOutput(a4, v211, &v149, a3);
-      *v211 = 0x50A43212F8423086;
-      re::RenderFrame::addTargetOutput(a4, v211, &v147, a3);
-      if ([*(*(a4 + 1) + 208) supportsSeparateDepthStencil])
-      {
-        HIDWORD(v151) = 252;
-        *v211 = &v151;
-        *&v211[8] = a4;
-        *&v216[0] = 0x23530BF6FEFLL;
-        *(&v216[0] + 1) = "VCADepth";
-        *&v211[16] = v216;
-        v211[24] = 1;
-        *&v211[32] = 65919651;
-        *&v211[40] = "Depth";
-        v211[48] = 0;
-        BYTE8(v212) = 0;
-        v129 = *&v205[12];
-        v142 = *&v205[8];
-        HIDWORD(v151) = 253;
-        *v211 = &v151;
-        v62 = *v205;
-        *&v211[8] = a4;
-        *&v216[0] = 0x849AF311B97E8;
-        *(&v216[0] + 1) = "VCAStencil";
-        *&v211[16] = v216;
-        v211[24] = 1;
-        *&v211[32] = 0x11F25A259CLL;
-        *&v211[40] = "Stencil";
-        v211[48] = 0;
-        BYTE8(v212) = 0;
-        v117 = *v205;
-        v64 = *&v205[8];
-        v65 = *&v205[12];
-      }
-
-      else
-      {
-        HIDWORD(v151) = 260;
-        *v211 = &v151;
-        *&v211[8] = a4;
-        *&v216[0] = 0x7C3C8EACDA68BACDLL;
-        *(&v216[0] + 1) = "VCADepthStencil";
-        *&v211[16] = v216;
-        v211[24] = 1;
-        *&v211[32] = 65919651;
-        *&v211[40] = "Depth";
-        v211[48] = 0;
-        BYTE8(v212) = 0;
-        v62 = *v205;
-        v64 = *&v205[8];
-        v65 = *&v205[12];
-        v117 = *v205;
-        v129 = *&v205[12];
-        v142 = *&v205[8];
-      }
-
-      v66 = re::globalAllocators(v63);
-      v67 = (*(*v66[2] + 32))(v66[2], 272, 8);
-      v68 = re::RenderGraphNode::RenderGraphNode(v67, "StencilBlurMeshNode");
-      *(v68 + 66) = 1;
-      *(v68 + 268) = 0;
-      *v68 = &unk_1F5D10A90;
-      *v211 = v68;
-      re::DynamicArray<re::TransitionCondition *>::add(RenderGraph, v211);
-      *(v67 + 24) = *(RenderGraph + 10);
-      *(v67 + 32) = *(RenderGraph + 12);
-      *(v67 + 48) = *(RenderGraph + 13);
-      memset(&v205[8], 0, 18);
-      *v211 = v124;
-      *&v211[8] = v130;
-      *&v211[16] = 0x100000000;
-      *&v211[24] = *v205;
-      *&v211[34] = 0u;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v67 + 224), v211);
-      memset(v216 + 8, 0, 18);
-      *v211 = v62;
-      *&v211[8] = v142;
-      *&v211[12] = v129;
-      *&v211[16] = 0x200000000;
-      *&v211[24] = *&v216[0];
-      *&v211[34] = 0u;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v67 + 224), v211);
-      memset(v215 + 8, 0, 18);
-      *v211 = v117;
-      *&v211[8] = v64;
-      *&v211[12] = v65;
-      *&v211[16] = 0x300000000;
-      *&v211[24] = *&v215[0];
-      *&v211[34] = 0u;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v67 + 224), v211);
-      if (v127)
-      {
-        *v211 = v123;
-        *&v211[8] = v133;
-        *&v211[12] = v131;
-        *&v211[16] = 0x500000001;
-        *&v211[32] = xmmword_1E30474D0;
-        *&v211[48] = 0;
-        *&v211[52] = 0;
-        re::DynamicArray<re::TargetWrite>::add((v67 + 224), v211);
-        *(v67 + 65) = 1;
-        *(v67 + 88) = 3;
-        re::RenderGraphNode::configure(v67, v141, a3, a4);
-        v70 = re::globalAllocators(v69);
-        v71 = (*(*v70[2] + 32))(v70[2], 448, 16);
-        v72 = re::RenderGraphMRCNode::RenderGraphMRCNode(v71, "VCATiledDownsampleNode");
-        *v72 = &unk_1F5D10EC8;
-        *v211 = v72;
-        re::DynamicArray<re::TransitionCondition *>::add(RenderGraph, v211);
-        *(v71 + 24) = *(RenderGraph + 10);
-        *(v71 + 32) = *(RenderGraph + 12);
-        *(v71 + 48) = *(RenderGraph + 13);
-        v61 = this;
-        re::AssetHandle::operator=(v71 + 264, this + 11);
-        *v211 = "kernelTiledVCADownsample4x";
-        *&v211[8] = 26;
-        re::DynamicString::operator=((v71 + 288), v211);
-        *v211 = v124;
-        *&v211[8] = v130;
-        *&v211[16] = 0x100000000;
-        *&v211[24] = *v205;
-        *&v211[34] = *&v205[10];
-        *&v211[52] = 0;
-        re::DynamicArray<re::TargetWrite>::add((v71 + 224), v211);
-        *v211 = v62;
-        *&v211[8] = v142;
-        *&v211[12] = v129;
-        *&v211[16] = 0x200000000;
-        *&v211[24] = v216[0];
-        *&v211[34] = *(v216 + 10);
-        *&v211[52] = 0;
-        re::DynamicArray<re::TargetWrite>::add((v71 + 224), v211);
-        *v211 = v117;
-        *&v211[8] = v64;
-        *&v211[12] = v65;
-        *&v211[16] = 0x300000000;
-        *&v211[24] = v215[0];
-        *&v211[34] = *(v215 + 10);
-        *&v211[52] = 0;
-        re::DynamicArray<re::TargetWrite>::add((v71 + 224), v211);
-        *v211 = v124;
-        *&v211[8] = v130;
-        *&v211[16] = 0;
-        *&v211[24] = 0xA00000002;
-        re::DynamicArray<re::TargetRead>::add((v71 + 184), v211);
-        *v211 = v123;
-        *&v211[8] = v133;
-        *&v211[12] = v131;
-        *&v211[16] = 0x500000001;
-        *&v211[32] = xmmword_1E30474D0;
-        *&v211[48] = 0;
-        *&v211[52] = 0;
-        v73 = re::DynamicArray<re::TargetWrite>::add((v71 + 224), v211);
-        *(v71 + 88) = 3;
-        *(v71 + 336) = 0x800000008;
-        *(v71 + 344) = 0;
-        *(v71 + 65) = 1;
-        v58 = (*(*v71 + 80))(v71, v141, a3, v137, v73);
-      }
-
-      else
-      {
-        *(v67 + 65) = 1;
-        *(v67 + 88) = 3;
-        re::RenderGraphNode::configure(v67, v141, a3, a4);
-        v61 = this;
-      }
-
-      v128 = 2;
-    }
-
-    else
-    {
-      v130 = -1;
-      v121 = 0;
-      v122 = 0;
-      v123 = 0;
-      v124 = 0;
-      v119 = -1;
-      v120 = -1;
-      v125 = -1;
-      v126 = -1;
-      v133 = -1;
-      v131 = -1;
-      v128 = -1;
-      v61 = this;
-    }
-
-    v74 = *(v61 + 1617);
-    v75 = re::globalAllocators(v58);
-    v76 = (*(*v75[2] + 32))(v75[2], 512, 16);
-    v77 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v76, "PassthroughDownsample");
-    *v77 = &unk_1F5D10B38;
-    *(v77 + 496) = 1;
-    *v211 = v77;
-    v78 = RenderGraph;
-    re::DynamicArray<re::TransitionCondition *>::add(RenderGraph, v211);
-    *(v76 + 24) = *(RenderGraph + 10);
-    *(v76 + 32) = *(RenderGraph + 12);
-    *(v76 + 48) = *(RenderGraph + 13);
-    re::AssetHandle::operator=(v76 + 264, v61 + 11);
-    *v211 = "kernelSFBARKitPassthroughDownsample";
-    *&v211[8] = 35;
-    re::DynamicString::operator=((v76 + 288), v211);
-    *(v76 + 496) = 1;
-    *(v76 + 424) = v135;
-    *(v76 + 428) = 0x100000002;
-    *(v76 + 440) = 0x100000001;
-    *(v76 + 436) = v134;
-    if (v74)
-    {
-      v79 = &v173;
-    }
-
-    else
-    {
-      v79 = &v171;
-    }
-
-    *v211 = *v79;
-    v80 = &v174;
-    if (!v74)
-    {
-      v80 = &v172;
-    }
-
-    *&v211[8] = *v80;
-    v81 = &v174 + 4;
-    if (!v74)
-    {
-      v81 = &v172 + 4;
-    }
-
-    *&v211[12] = *v81;
-    *&v211[16] = 0x500000002;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[56] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v76 + 224), v211);
-    v82 = v141;
-    v83 = v137;
-    v84 = re::RenderGraphComputeNodeBase::configure(v76, v141, a3, v137);
-    if (v74 == 1)
-    {
-      *v211 = v181;
-      *&v211[16] = *v182;
-      v212 = *&v182[48];
-      v213 = *&v182[64];
-      v214 = v183;
-      *&v211[32] = *&v182[16];
-      *&v211[48] = *&v182[32];
-      *&v211[12] = vshl_n_s32(*&v211[12], 2uLL);
-      *v205 = v211;
-      v85 = v137;
-      *&v205[8] = v137;
-      *&v216[0] = 0x304E5AEDEAECE73ELL;
-      *(&v216[0] + 1) = "SyntheticColor";
-      *&v205[16] = v216;
-      v205[24] = 1;
-      *&v206 = 65290051;
-      *(&v206 + 1) = "Color";
-      LOBYTE(v207) = 0;
-      v210 = 0;
-      *&v211[4] = 252;
-      *v205 = v211;
-      *&v205[8] = v137;
-      *&v216[0] = 0x304E5AEDEAF6829ELL;
-      *(&v216[0] + 1) = "SyntheticDepth";
-      *&v205[16] = v216;
-      v205[24] = 1;
-      *&v206 = 65919651;
-      *(&v206 + 1) = "Depth";
-      LOBYTE(v207) = 0;
-      v210 = 0;
-      if (v118)
-      {
-        v87 = *(*(v137 + 1) + 128);
-        re::BlurManager::getBackdropMaterial(v216, v87);
-        re::DynamicString::DynamicString(v205, (v87 + 192));
-        v78 = RenderGraph;
-        v88 = re::RenderGraph::addNode<re::RenderGraphFullscreenNode>(RenderGraph, "BackdropPass");
-        re::AssetHandle::operator=(v88 + 272, v216);
-        re::DynamicString::operator=((v88 + 296), v205);
-        *(v88 + 336) = 1;
-        v144 = 0uLL;
-        LOBYTE(v215[0]) = 0;
-        re::RenderGraphMeshNodeBase::setColorAttachment(v88, 0, v146, &v144, 0, v215);
-        LOBYTE(v215[0]) = 0;
-        v89 = re::RenderGraphMeshNodeBase::setDepthOnlyAttachment(v88, v145, 0, v215, 0.0);
-        *(v88 + 65) = 1;
-        v90 = v141;
-        (*(*v88 + 80))(v88, v141, a3, v137, v89);
-        if (*v205 && (v205[8] & 1) != 0)
-        {
-          (*(**v205 + 40))();
-        }
-
-        re::AssetHandle::~AssetHandle(v216);
-        v85 = v137;
-      }
-
-      else
-      {
-        v91 = re::globalAllocators(v86);
-        v92 = (*(*v91[2] + 32))(v91[2], 368, 8);
-        v93 = re::RenderGraphMeshNode::RenderGraphMeshNode(v92, "SkyboxNode");
-        *v93 = &unk_1F5D10E20;
-        *v205 = v93;
-        v78 = RenderGraph;
-        re::DynamicArray<re::TransitionCondition *>::add(RenderGraph, v205);
-        *(v92 + 24) = *(RenderGraph + 10);
-        *(v92 + 32) = *(RenderGraph + 12);
-        *(v92 + 48) = *(RenderGraph + 13);
-        *v205 = "Skybox";
-        *&v205[8] = 6;
-        re::DynamicString::operator=((v92 + 272), v205);
-        *(v92 + 344) = 0;
-        v216[0] = 0uLL;
-        v205[0] = 0;
-        re::RenderGraphMeshNodeBase::setColorAttachment(v92, 0, v146, v216, 1, v205);
-        v205[0] = 0;
-        v94 = re::RenderGraphMeshNodeBase::setDepthOnlyAttachment(v92, v145, 0, v205, 0.0);
-        *(v92 + 65) = 1;
-        v90 = v141;
-        (*(*v92 + 80))(v92, v141, a3, v137, v94);
-      }
-
-      v95 = re::RenderGraph::addNode<re::SFBSystemShellComputeNode>(v78, "PassthroughDownsampleCompute");
-      re::AssetHandle::operator=(v95 + 264, v61 + 11);
-      *v205 = "kernelSFBBilerpDownsample4xWithPassthrough";
-      *&v205[8] = 42;
-      re::DynamicString::operator=((v95 + 288), v205);
-      v96 = HIDWORD(v181);
-      v97 = *v182;
-      v98 = *&v182[8];
-      *(v95 + 108) = 1;
-      *(v95 + 106) = v96;
-      *(v95 + 107) = v98;
-      *(v95 + 55) = 0x100000001;
-      *(v95 + 109) = v97;
-      *v205 = v146[0];
-      *&v205[8] = v146[1];
-      *&v205[16] = 0;
-      *&v205[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v95 + 184), v205);
-      *v205 = v173;
-      *&v205[8] = v174;
-      *&v205[16] = 1;
-      *&v205[20] = 0;
-      v205[22] = 0;
-      *&v205[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v95 + 184), v205);
-      *v205 = v171;
-      *&v205[8] = v172;
-      *&v205[16] = 0x500000002;
-      v206 = xmmword_1E30474D0;
-      v207 = 0;
-      v209 = 0;
-      v208 = 0;
-      v99 = re::DynamicArray<re::TargetWrite>::add((v95 + 224), v205);
-      v83 = v85;
-      v84 = (*(*v95 + 80))(v95, v90, a3, v85, v99);
-      v82 = v90;
-    }
-
-    v100 = re::globalAllocators(v84);
-    v101 = (*(*v100[2] + 32))(v100[2], 496, 16);
-    v102 = re::RenderGraphComputeNodeBase::RenderGraphComputeNodeBase(v101, "PassthroughReprojectAndRectify");
-    *v102 = &unk_1F5D10BF8;
-    *v211 = v102;
-    re::DynamicArray<re::TransitionCondition *>::add(v78, v211);
-    *(v101 + 24) = *(v78 + 10);
-    *(v101 + 32) = *(v78 + 12);
-    *(v101 + 48) = *(v78 + 13);
-    re::AssetHandle::operator=(v101 + 264, v61 + 11);
-    *v211 = "kernelSFBNoReprojectAndNoBlend";
-    *&v211[8] = 30;
-    re::DynamicString::operator=((v101 + 288), v211);
-    *v211 = v179;
-    *&v211[8] = v180;
-    *&v211[16] = 0x500000000;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v101 + 224), v211);
-    *v211 = v171;
-    *&v211[8] = v172;
-    *&v211[16] = 1;
-    *&v211[20] = 0;
-    v211[22] = 0;
-    *&v211[24] = 2;
-    re::DynamicArray<re::TargetRead>::add((v101 + 184), v211);
-    *(v101 + 424) = v135;
-    *(v101 + 428) = 0x100000002;
-    *(v101 + 440) = 0x100000001;
-    *(v101 + 436) = v134;
-    re::RenderGraphComputeNodeBase::configure(v101, v82, a3, v83);
-    v103 = re::RenderGraph::addNode<re::SFBSystemShellBlurTAANode>(v78, "PassthroughBlurAndFilter");
-    re::AssetHandle::operator=(v103 + 264, v61 + 11);
-    if (v13[32])
-    {
-      v104 = "kernelSFBNoBlurAndFilter";
-    }
-
-    else
-    {
-      v104 = "kernelSFBBlurAndFilter";
-    }
-
-    v105 = 22;
-    if (v13[32])
-    {
-      v105 = 24;
-    }
-
-    *v211 = v104;
-    *&v211[8] = v105;
-    re::DynamicString::operator=((v103 + 288), v211);
-    *(v103 + 106) = v135;
-    *(v103 + 428) = 0x100000002;
-    *(v103 + 55) = 0x100000001;
-    *(v103 + 109) = v134;
-    *v211 = v179;
-    *&v211[8] = v180;
-    *&v211[16] = 0;
-    *&v211[24] = 2;
-    re::DynamicArray<re::TargetRead>::add((v103 + 184), v211);
-    *v211 = v177;
-    *&v211[8] = v178;
-    *&v211[16] = 2;
-    *&v211[20] = 0;
-    v211[22] = 0;
-    *&v211[24] = 2;
-    re::DynamicArray<re::TargetRead>::add((v103 + 184), v211);
-    *v211 = v175;
-    *&v211[8] = v176;
-    *&v211[16] = 0x500000003;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v103 + 224), v211);
-    *v211 = v169;
-    *&v211[8] = v170;
-    *&v211[16] = 0x500000004;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v103 + 224), v211);
-    *v211 = v167;
-    *&v211[8] = v168;
-    *&v211[16] = 0x500000006;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v103 + 224), v211);
-    v106 = 8 * v134 + 15;
-    *(v103 + 9) = v106 & 0xFFFFFFF0;
-    *v211 = 0;
-    *&v211[4] = v106 & 0xFFFFFFF0;
-    re::DynamicArray<re::RenderGraphResourceAllocationManager::TextureIndexAndStage>::add(v103 + 56, v211);
-    (*(*v103 + 80))(v103, v82, a3, v83);
-    *(v103 + 496) = 0;
-    *(v103 + 126) = v135;
-    *(v103 + 125) = v134;
-    v107 = re::RenderGraph::addNode<re::SFBSystemShellReprojectNode>(v78, "reprojectFilteredBlur");
-    re::AssetHandle::operator=(v107 + 264, v61 + 11);
-    *v211 = "kernelSFBReprojectAndSRGBCorrect";
-    *&v211[8] = 32;
-    re::DynamicString::operator=((v107 + 288), v211);
-    *(v107 + 106) = v135;
-    *(v107 + 428) = 0x100000002;
-    *(v107 + 55) = 0x100000001;
-    *(v107 + 109) = v134;
-    *v211 = v177;
-    *&v211[8] = v178;
-    *&v211[16] = 0;
-    *&v211[24] = 2;
-    re::DynamicArray<re::TargetRead>::add((v107 + 184), v211);
-    *v211 = v175;
-    *&v211[8] = v176;
-    *&v211[16] = 1;
-    *&v211[20] = 0;
-    v211[22] = 0;
-    *&v211[24] = 2;
-    re::DynamicArray<re::TargetRead>::add((v107 + 184), v211);
-    *v211 = v169;
-    *&v211[8] = v170;
-    *&v211[16] = 0x500000002;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v107 + 224), v211);
-    *v211 = v167;
-    *&v211[8] = v168;
-    *&v211[16] = 0x500000003;
-    *&v211[32] = xmmword_1E30474D0;
-    *&v211[48] = 0;
-    *&v211[52] = 0;
-    re::DynamicArray<re::TargetWrite>::add((v107 + 224), v211);
-    re::RenderGraphComputeNodeBase::configure(v107, v82, a3, v83);
-    *(v107 + 125) = v135;
-    *(v107 + 124) = v134;
-    if (v13[1] == 1)
-    {
-      if ((v127 & 1) == 0)
-      {
-        v108 = re::RenderGraph::addNode<re::SFBSystemShellComputeNode>(v78, "VCADownsampleCompute");
-        re::AssetHandle::operator=(v108 + 264, v136 + 11);
-        *v211 = "kernelSFBBilerpDownsample4x";
-        *&v211[8] = 27;
-        re::DynamicString::operator=((v108 + 288), v211);
-        *(v108 + 108) = 1;
-        *(v108 + 106) = v138.i32[0];
-        *(v108 + 107) = v128;
-        *(v108 + 55) = 0x100000001;
-        *(v108 + 109) = v138.i32[1];
-        *v211 = v124;
-        *&v211[8] = v130;
-        *&v211[16] = 0;
-        *&v211[24] = 2;
-        re::DynamicArray<re::TargetRead>::add((v108 + 184), v211);
-        *v211 = v123;
-        *&v211[8] = v133;
-        *&v211[12] = v131;
-        *&v211[16] = 0x500000001;
-        *&v211[32] = xmmword_1E30474D0;
-        *&v211[48] = 0;
-        *&v211[56] = 0;
-        *&v211[52] = 0;
-        v109 = re::DynamicArray<re::TargetWrite>::add((v108 + 224), v211);
-        (*(*v108 + 80))(v108, v82, a3, v137, v109);
-      }
-
-      v110 = re::RenderGraph::addNode<re::SFBSystemShellBlurTAANode>(v78, "VCABlurAndFilterAndBlendPassthrough");
-      re::AssetHandle::operator=(v110 + 264, v136 + 11);
-      if (v13[33])
-      {
-        v111 = "kernelSFBVCANoBlurAndFilterAndBlendPassthrough";
-      }
-
-      else
-      {
-        v111 = "kernelSFBVCABlurAndFilterAndBlendPassthrough";
-      }
-
-      v112 = 44;
-      if (v13[33])
-      {
-        v112 = 46;
-      }
-
-      *v211 = v111;
-      *&v211[8] = v112;
-      re::DynamicString::operator=((v110 + 288), v211);
-      *(v110 + 108) = 1;
-      *(v110 + 106) = v138.i32[0];
-      *(v110 + 107) = v128;
-      *(v110 + 109) = v138.i32[1];
-      *(v110 + 55) = 0x100000001;
-      *v211 = v123;
-      *&v211[8] = v133;
-      *&v211[12] = v131;
-      *&v211[16] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v110 + 184), v211);
-      *v211 = v167;
-      *&v211[8] = v168;
-      *&v211[16] = 1;
-      *&v211[20] = 0;
-      v211[22] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v110 + 184), v211);
-      *v211 = v122;
-      *&v211[8] = v126;
-      *&v211[12] = v125;
-      *&v211[16] = 2;
-      *&v211[20] = 0;
-      v211[22] = 0;
-      *&v211[24] = 0x500000002;
-      re::DynamicArray<re::TargetRead>::add((v110 + 184), v211);
-      *v211 = v121;
-      *&v211[8] = v120;
-      *&v211[12] = v119;
-      *&v211[16] = 0x500000003;
-      *&v211[32] = xmmword_1E30474D0;
-      *&v211[48] = 0;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v110 + 224), v211);
-      *v211 = v149;
-      *&v211[8] = v150;
-      *&v211[16] = 0x500000005;
-      *&v211[32] = xmmword_1E30474D0;
-      *&v211[48] = 0;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v110 + 224), v211);
-      *v211 = v147;
-      *&v211[8] = v148;
-      *&v211[16] = 0x500000006;
-      *&v211[32] = xmmword_1E30474D0;
-      *&v211[48] = 0;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v110 + 224), v211);
-      v113 = 8 * v138.i32[1] + 15;
-      *(v110 + 9) = v113 & 0xFFFFFFF0;
-      *v211 = 0;
-      *&v211[4] = v113 & 0xFFFFFFF0;
-      re::DynamicArray<re::RenderGraphResourceAllocationManager::TextureIndexAndStage>::add(v110 + 56, v211);
-      (*(*v110 + 80))(v110, v82, a3, v137);
-      *(v110 + 496) = 1;
-      v114 = vrev64_s32(v138);
-      *(v110 + 500) = v114;
-      v115 = re::RenderGraph::addNode<re::SFBSystemShellReprojectNode>(v78, "reprojectVCABlur");
-      re::AssetHandle::operator=(v115 + 264, v136 + 11);
-      *v211 = "kernelSFBReprojectAndBlendPassthrough";
-      *&v211[8] = 37;
-      re::DynamicString::operator=((v115 + 288), v211);
-      *(v115 + 108) = 1;
-      *(v115 + 106) = v138.i32[0];
-      *(v115 + 107) = v128;
-      *(v115 + 109) = v138.i32[1];
-      *(v115 + 55) = 0x100000001;
-      *v211 = v122;
-      *&v211[8] = v126;
-      *&v211[12] = v125;
-      *&v211[16] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v115 + 184), v211);
-      *v211 = v121;
-      *&v211[8] = v120;
-      *&v211[12] = v119;
-      *&v211[16] = 1;
-      *&v211[20] = 0;
-      v211[22] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v115 + 184), v211);
-      *v211 = v167;
-      *&v211[8] = v168;
-      *&v211[16] = 4;
-      *&v211[20] = 0;
-      v211[22] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v115 + 184), v211);
-      *v211 = v149;
-      *&v211[8] = v150;
-      *&v211[16] = 0x500000002;
-      *&v211[32] = xmmword_1E30474D0;
-      *&v211[48] = 0;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v115 + 224), v211);
-      *v211 = v147;
-      *&v211[8] = v148;
-      *&v211[16] = 0x500000005;
-      *&v211[32] = xmmword_1E30474D0;
-      *&v211[48] = 0;
-      *&v211[52] = 0;
-      re::DynamicArray<re::TargetWrite>::add((v115 + 224), v211);
-      re::RenderGraphComputeNodeBase::configure(v115, v141, __sa, v137);
-      *(v115 + 62) = v114;
-    }
-
-    else
-    {
-      v116 = re::RenderGraph::addNode<re::SFBSystemShellCreateTextureAliasNode>(v78, "SetVCAPassthroughSRGBAlias");
-      *v211 = v167;
-      *&v211[8] = v168;
-      *&v211[16] = 0;
-      *&v211[24] = 2;
-      re::DynamicArray<re::TargetRead>::add((v116 + 184), v211);
-      *(v116 + 34) = 0x60DF09E0AF8AD07;
-    }
-  }
+  re::RenderGraphNode::configure(v9, a2, a3, a4);
 }
 
-void re::SFBSystemShellBlurProvider::registerProviderCommon(re::SFBSystemShellBlurProvider *this, re::RenderGraphManager *a2, const re::AssetHandle *a3, _anonymous_namespace_ *a4, re::ProviderHandle *a5)
+void re::UIShadowProvider::~UIShadowProvider(re::UIShadowProvider *this)
 {
-  v6 = a3;
-  v9 = re::globalAllocators(this);
-  v10 = (*(*v9[2] + 32))(v9[2], 1632, 16);
-  re::RenderGraphSFBSystemShellBlurProvider::RenderGraphSFBSystemShellBlurProvider(v10, v13);
-  if (*&v13[0])
-  {
-    if (BYTE8(v13[0]))
-    {
-      (*(**&v13[0] + 40))();
-    }
-
-    memset(v13, 0, sizeof(v13));
-  }
-
-  re::AssetHandle::operator=(v10 + 88, a2);
-  *(v10 + 1617) = v6;
-  re::RenderGraphManager::addProviderInternal(this, "Camera", v10, -58, 1, v12);
-  v11 = re::StringID::operator=(a4, v12);
-  *(a4 + 2) = v12[2];
-  if (v12[0])
-  {
-    if (v12[0])
-    {
-    }
-  }
-}
-
-void re::RenderGraphSFBSystemShellBlurProvider::~RenderGraphSFBSystemShellBlurProvider(re::RenderGraphSFBSystemShellBlurProvider *this)
-{
-  re::RenderGraphSFBSystemShellBlurProvider::~RenderGraphSFBSystemShellBlurProvider(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-{
-  *(this + 18) = 0;
-  ++*(this + 38);
-  re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::deinit(this + 196);
-  *(this + 16) = 0;
-  *(this + 34) = 0;
-  re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::deinit(this + 196);
-  *(this + 18) = 0;
-  ++*(this + 38);
-  re::AssetHandle::~AssetHandle((this + 88));
-  re::AssetHandle::~AssetHandle((this + 64));
   re::AssetHandle::~AssetHandle((this + 40));
   *this = &unk_1F5CC5700;
   re::DynamicString::deinit((this + 8));
 }
 
-uint64_t re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(uint64_t *a1, unint64_t a2)
 {
-  result = *a1;
-  if (a2 && !result)
-  {
-    result = re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::setCapacity(a1, a2);
-    v6 = *(a1 + 4) + 2;
-LABEL_4:
-    *(a1 + 4) = v6;
-    return result;
-  }
+  re::AssetHandle::~AssetHandle((this + 40));
+  *this = &unk_1F5CC5700;
+  re::DynamicString::deinit((this + 8));
 
-  v7 = *(a1 + 4);
-  if (v7)
-  {
-    v8 = 4;
-  }
-
-  else
-  {
-    v8 = a1[3];
-  }
-
-  if (v8 != a2)
-  {
-    v9 = a1[1];
-    if (v9 <= a2 && (a2 > 4 || (v7 & 1) == 0))
-    {
-      if (a2 < 5)
-      {
-        v14 = a1[4];
-        if (v7)
-        {
-          v15 = (a1 + 3);
-        }
-
-        else
-        {
-          v15 = a1[4];
-        }
-
-        if (v9)
-        {
-          v16 = v15 + 40 * v9;
-          v17 = a1 + 7;
-          do
-          {
-            *v17 = 0;
-            *(v17 - 3) = 0;
-            *(v17 - 2) = 0;
-            *(v17 - 4) = 0;
-            *(v17 - 2) = 0;
-            v18 = *(v15 + 8);
-            *(v17 - 4) = *v15;
-            *(v17 - 3) = v18;
-            *v15 = 0;
-            *(v15 + 8) = 0;
-            v19 = *(v17 - 2);
-            *(v17 - 2) = *(v15 + 16);
-            *(v15 + 16) = v19;
-            v20 = *v17;
-            *v17 = *(v15 + 32);
-            *(v15 + 32) = v20;
-            ++*(v15 + 24);
-            ++*(v17 - 2);
-            re::DynamicArray<unsigned long>::deinit(v15);
-            v15 += 40;
-            v17 += 5;
-          }
-
-          while (v15 != v16);
-          result = *a1;
-        }
-
-        result = (*(*result + 40))(result, v14);
-        v6 = *(a1 + 4) | 1;
-        goto LABEL_4;
-      }
-
-      if (is_mul_ok(a2, 0x28uLL))
-      {
-        v2 = 40 * a2;
-        result = (*(*result + 32))(result, 40 * a2, 8);
-        if (result)
-        {
-          v11 = result;
-          v12 = *(a1 + 4);
-          if (v12)
-          {
-            v13 = (a1 + 3);
-          }
-
-          else
-          {
-            v13 = a1[4];
-          }
-
-          v21 = a1[1];
-          if (v21)
-          {
-            v22 = v13 + 40 * v21;
-            v23 = (result + 32);
-            do
-            {
-              *v23 = 0;
-              *(v23 - 3) = 0;
-              *(v23 - 2) = 0;
-              *(v23 - 4) = 0;
-              *(v23 - 2) = 0;
-              v24 = *(v13 + 8);
-              *(v23 - 4) = *v13;
-              *(v23 - 3) = v24;
-              *v13 = 0;
-              *(v13 + 8) = 0;
-              v25 = *(v23 - 2);
-              *(v23 - 2) = *(v13 + 16);
-              *(v13 + 16) = v25;
-              v26 = *v23;
-              *v23 = *(v13 + 32);
-              *(v13 + 32) = v26;
-              ++*(v13 + 24);
-              ++*(v23 - 2);
-              result = re::DynamicArray<unsigned long>::deinit(v13);
-              v13 += 40;
-              v23 += 5;
-            }
-
-            while (v13 != v22);
-            v12 = *(a1 + 4);
-          }
-
-          if ((v12 & 1) == 0)
-          {
-            result = (*(**a1 + 40))(*a1, a1[4]);
-            v12 = *(a1 + 4);
-          }
-
-          *(a1 + 4) = v12 & 0xFFFFFFFE;
-          a1[3] = a2;
-          a1[4] = v11;
-          return result;
-        }
-      }
-
-      else
-      {
-        re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 646, 40, a2);
-        _os_crash();
-        __break(1u);
-      }
-
-      re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, v2, *(*a1 + 8));
-      result = _os_crash();
-      __break(1u);
-    }
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<re::BlurPlanesRenderFrameData const*,4ul>::add(_anonymous_namespace_ *result, void *a2)
-{
-  v3 = result;
-  if (!*result)
-  {
-    v10 = *(v3 + 1);
-    result = re::DynamicOverflowArray<re::internal::TimelineTreeInfo const*,4ul>::setCapacity(v3, v10 + 1);
-    v11 = *(v3 + 4) + 2;
-    *(v3 + 4) = v11;
-    if ((v11 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-
-LABEL_18:
-    v12 = (v3 + 24);
-    goto LABEL_19;
-  }
-
-  v4 = *(result + 1);
-  v5 = *(result + 4);
-  if ((v5 & 1) == 0)
-  {
-    v6 = *(result + 3);
-    v8 = v4 >= v6;
-    v7 = v4 + 1;
-    v8 = !v8 || v6 >= v7;
-    if (!v8)
-    {
-      v9 = 2 * v6;
-      goto LABEL_14;
-    }
-
-    goto LABEL_11;
-  }
-
-  v7 = v4 + 1;
-  if (v7 < 5)
-  {
-LABEL_11:
-    if ((v5 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_18;
-  }
-
-  v9 = 8;
-LABEL_14:
-  if (v9 <= v7)
-  {
-    v13 = v7;
-  }
-
-  else
-  {
-    v13 = v9;
-  }
-
-  result = re::DynamicOverflowArray<re::internal::TimelineTreeInfo const*,4ul>::setCapacity(result, v13);
-  if (*(v3 + 4))
-  {
-    goto LABEL_18;
-  }
-
-LABEL_12:
-  v12 = *(v3 + 4);
-LABEL_19:
-  v14 = *(v3 + 1);
-  v12[v14] = *a2;
-  *(v3 + 1) = v14 + 1;
-  *(v3 + 4) += 2;
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicArray<re::BlurPlaneTypeData>::add(_anonymous_namespace_ *result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = *(result + 2);
-  if (v5 >= v4)
-  {
-    v6 = v5 + 1;
-    if (v4 < v5 + 1)
-    {
-      if (*result)
-      {
-        v7 = 2 * v4;
-        v8 = v4 == 0;
-        v9 = 8;
-        if (!v8)
-        {
-          v9 = v7;
-        }
-
-        if (v9 <= v6)
-        {
-          v10 = v6;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-
-        result = re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(result, v10);
-      }
-
-      else
-      {
-        result = re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(v3, v6);
-        ++*(v3 + 6);
-      }
-    }
-
-    v5 = *(v3 + 2);
-  }
-
-  *(*(v3 + 4) + 8 * v5) = *a2;
-  ++*(v3 + 2);
-  ++*(v3 + 6);
-  return result;
-}
-
-void re::CameraProjFrustums::~CameraProjFrustums(re::CameraProjFrustums *this)
-{
-  *(this + 2) = 0;
-  ++*(this + 6);
-}
-
-{
-  *(this + 2) = 0;
-  ++*(this + 6);
   JUMPOUT(0x1E6906520);
 }
 
-void *re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(void *result, unint64_t a2)
+void re::CopyShadowTextureNode::execute(re::CopyShadowTextureNode *this, re::RenderGraphContext *a2)
 {
-  v3 = result[1];
-  if (v3 != a2)
+  v42 = *MEMORY[0x1E69E9840];
+  if (!*(this + 30))
   {
-    v5 = result;
-    if (result[2] <= a2)
+    v29 = 0;
+    v41 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    *v37 = 0u;
+    v38 = 0u;
+    v17 = MEMORY[0x1E69E9C10];
+    *v30 = 136315906;
+    *&v30[4] = "operator[]";
+    v31 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      result = *result;
-      if (*v5)
-      {
-        if (!a2)
-        {
-          v7 = 0;
-          if (!v3)
-          {
-            goto LABEL_9;
-          }
-
-          goto LABEL_8;
-        }
-
-        if (is_mul_ok(a2, 0x70uLL))
-        {
-          v2 = 112 * a2;
-          result = (*(*result + 32))(result, 112 * a2, 16);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-LABEL_9:
-              v5[4] = v7;
-              v5[1] = a2;
-              return result;
-            }
-
-LABEL_8:
-            memcpy(v7, v5[4], 112 * v5[2]);
-            result = (*(**v5 + 40))(*v5, v5[4]);
-            goto LABEL_9;
-          }
-        }
-
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 112, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-      }
-
-      else
-      {
-        result = re::DynamicArray<re::VCARenderData::FrustumId>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicOverflowArray<re::DynamicArray<re::BlurPlaneTypeData>,4ul>::deinit(uint64_t result)
-{
-  if (*result)
-  {
-    v1 = result;
-    v2 = *(result + 8);
-    if (v2)
-    {
-      if (*(result + 16))
-      {
-        v3 = result + 24;
-      }
-
-      else
-      {
-        v3 = *(result + 32);
-      }
-
-      v4 = 40 * v2;
-      do
-      {
-        result = re::DynamicArray<unsigned long>::deinit(v3);
-        v3 += 40;
-        v4 -= 40;
-      }
-
-      while (v4);
-    }
-
-    v5 = *(v1 + 4);
-    if ((v5 & 1) == 0)
-    {
-      result = (*(**v1 + 40))(*v1, v1[4]);
-      v5 = *(v1 + 4);
-    }
-
-    *v1 = 0;
-    v1[1] = 0;
-    *(v1 + 4) = (v5 | 1) + 2;
-  }
-
-  return result;
-}
-
-uint64_t re::RenderGraphSFBSystemShellBlurProvider::RenderGraphSFBSystemShellBlurProvider(uint64_t a1, const re::DynamicString *a2)
-{
-  re::DynamicString::DynamicString(&v4, a2);
-  *a1 = &unk_1F5CC5700;
-  re::DynamicString::DynamicString((a1 + 8), &v4);
-  if (v4 && (v5 & 1) != 0)
-  {
-    (*(*v4 + 40))();
-  }
-
-  *a1 = &unk_1F5D15740;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 4;
-  *(a1 + 128) = 0;
-  *(a1 + 136) = 0;
-  *(a1 + 144) = 0;
-  *(a1 + 152) = 0;
-  *(a1 + 1568) = 0u;
-  *(a1 + 1584) = 0u;
-  *(a1 + 1600) = 0;
-  *(a1 + 1604) = 0x7FFFFFFFLL;
-  *(a1 + 1616) = 0;
-  return a1;
-}
-
-double re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      v4 = a1[2];
-      do
-      {
-        if ((*v4 & 0x80000000) != 0)
-        {
-          *v4 &= ~0x80000000;
-        }
-
-        v4 += 88;
-        --v3;
-      }
-
-      while (v3);
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicOverflowArray<re::DynamicArray<re::VCARenderData::FrustumId>,4ul>::clear(uint64_t result)
-{
-  v1 = result;
-  v2 = *(result + 8);
-  *(result + 8) = 0;
-  v3 = *(result + 16);
-  if (v3)
-  {
-    v4 = result + 24;
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v4 = *(result + 32);
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v5 = 40 * v2;
-  do
-  {
-    result = re::DynamicArray<unsigned long>::deinit(v4);
-    v4 += 40;
-    v5 -= 40;
-  }
-
-  while (v5);
-  v3 = *(v1 + 16);
-LABEL_8:
-  *(v1 + 16) = v3 + 2;
-  return result;
-}
-
-uint64_t re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::tryGet(uint64_t a1, unint64_t a2)
-{
-  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
-  re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(v5, a1, a2, v3 ^ (v3 >> 31));
-  if (v6 == 0x7FFFFFFF)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *(a1 + 16) + 352 * v6 + 16;
-  }
-}
-
-uint64_t re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v4 = *a2;
-  v5 = 0x7FFFFFFF;
-  if (!*a2)
-  {
-    goto LABEL_5;
-  }
-
-  v4 = a4 % *(a2 + 24);
-  v6 = *(*(a2 + 8) + 4 * v4);
-  if (v6 == 0x7FFFFFFF)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = *(a2 + 16);
-  if (*(v7 + 352 * v6 + 8) == a3)
-  {
-    v5 = *(*(a2 + 8) + 4 * v4);
-LABEL_5:
-    v6 = 0x7FFFFFFF;
-    goto LABEL_6;
-  }
-
-  v8 = *(v7 + 352 * v6) & 0x7FFFFFFF;
-  v5 = 0x7FFFFFFF;
-  if (v8 != 0x7FFFFFFF)
-  {
-    v5 = 0x7FFFFFFF;
-    while (1)
-    {
-      v9 = v8;
-      if (*(v7 + 352 * v8 + 8) == a3)
-      {
-        break;
-      }
-
-      v8 = *(v7 + 352 * v8) & 0x7FFFFFFF;
-      v6 = v9;
-      if (v8 == 0x7FFFFFFF)
-      {
-        v6 = v9;
-        goto LABEL_6;
-      }
-    }
-
-    v5 = v8;
-  }
-
-LABEL_6:
-  *result = a4;
-  *(result + 8) = v4;
-  *(result + 12) = v5;
-  *(result + 16) = v6;
-  return result;
-}
-
-_anonymous_namespace_ *re::SmallHashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,4ul,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false>::add(uint64_t a1, uint64_t *a2, void *__src, int a4)
-{
-  __srca[43] = *MEMORY[0x1E69E9840];
-  if (!*(a1 + 1468))
-  {
-    v12 = *(a1 + 16);
-    if (!v12)
-    {
-      v15 = *a2;
-      memcpy(&__srca[1], __src, 0x150uLL);
-LABEL_25:
-      v22 = (a1 + 32 + 352 * v12);
-      *v22 = v15;
-      memcpy(v22 + 1, __srca, 0x158uLL);
-      v24 = *(a1 + 16);
-      ++*(a1 + 24);
-      *(a1 + 16) = v24 + 1;
-      if (v24 == -1)
-      {
-        re::internal::assertLog(6, v23, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 381, -1, 0);
-        _os_crash();
-        __break(1u);
-      }
-
-      return (a1 + 32 + 352 * v24 + 16);
-    }
-
-    v13 = 352 * v12;
-    v14 = (a1 + 32);
-    v15 = *a2;
-    result = (a1 + 48);
-    v16 = 352 * v12;
-    do
-    {
-      if (*(result - 2) == v15)
-      {
-        return result;
-      }
-
-      result = (result + 352);
-      v16 -= 352;
-    }
-
-    while (v16);
-    if ((v12 & 0xFFFFFFFC) == 0)
-    {
-      memcpy(&__srca[1], __src, 0x150uLL);
-      if (v12 < 4)
-      {
-        goto LABEL_25;
-      }
-
-      re::internal::assertLog(4, v21, "assertion failure: '%s' (%s:line %i) Capacity limit reached. DynamicInlineArray<T,N> cannot be resized.", "false", "ensureCapacity", 277);
-      result = _os_crash();
-      __break(1u);
-      return result;
-    }
-
-    if (!*(a1 + 1440))
-    {
-      v17 = *a1;
-      if (!*a1)
-      {
-      }
-
-      re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::init(a1 + 1440, v17, 8);
-      v18 = *(a1 + 16);
-      if (!v18)
-      {
-LABEL_19:
-        *(a1 + 16) = 0;
-        ++*(a1 + 24);
-        if (a4)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_20;
-      }
-
-      v13 = 352 * v18;
-    }
-
-    do
-    {
-      memset(__srca, 0, 24);
-      v19 = 0xBF58476D1CE4E5B9 * (*v14 ^ (*v14 >> 30));
-      re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(__srca, a1 + 1440, *v14, (0x94D049BB133111EBLL * (v19 ^ (v19 >> 27))) ^ ((0x94D049BB133111EBLL * (v19 ^ (v19 >> 27))) >> 31));
-      if (HIDWORD(__srca[1]) == 0x7FFFFFFF)
-      {
-        v20 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::allocEntry(a1 + 1440, __srca[1], __srca[0]);
-        *(v20 + 8) = *v14;
-        memcpy((v20 + 16), v14 + 2, 0x150uLL);
-        ++*(a1 + 1480);
-      }
-
-      v14 += 44;
-      v13 -= 352;
-    }
-
-    while (v13);
-    goto LABEL_19;
-  }
-
-  if (a4)
-  {
-LABEL_3:
-    v8 = a1 + 1440;
-    v9 = a2;
-    v10 = __src;
-  }
-
-  else
-  {
-LABEL_20:
-    v8 = a1 + 1440;
-    v9 = a2;
-    v10 = __src;
-  }
-
-  return re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::add(v8, v9, v10);
-}
-
-uint64_t re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::add(uint64_t a1, uint64_t *a2, const void *a3)
-{
-  v10 = 0;
-  v11 = 0;
-  v12 = 0;
-  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::findEntry<unsigned long long>(&v10, a1, *a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31));
-  if (HIDWORD(v11) != 0x7FFFFFFF)
-  {
-    return *(a1 + 16) + 352 * HIDWORD(v11) + 16;
-  }
-
-  v7 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::allocEntry(a1, v11, v10);
-  *(v7 + 8) = *a2;
-  v8 = v7 + 16;
-  memcpy((v7 + 16), a3, 0x150uLL);
-  ++*(a1 + 40);
-  return v8;
-}
-
-void re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::init(uint64_t a1, uint64_t a2, signed int a3)
-{
-  v4 = 245;
-  v5 = &re::internal::PrimeHelper::s_primes;
-  do
-  {
-    v6 = v4 >> 1;
-    v7 = &v5[v4 >> 1];
-    v9 = *v7;
-    v8 = v7 + 1;
-    v4 += ~(v4 >> 1);
-    if (v9 < a3)
-    {
-      v5 = v8;
+      v18 = 3;
     }
 
     else
     {
-      v4 = v6;
-    }
-  }
-
-  while (v4);
-  v10 = *v5;
-  *a1 = a2;
-  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
-  v12 = (*(*a2 + 32))(a2, v11 + 352 * v10, 16);
-  if (v12)
-  {
-    v14 = v12;
-    *(a1 + 8) = v12;
-    if (v10)
-    {
-      memset_pattern16(v12, &unk_1E304C660, 4 * v10);
+      v18 = 2;
     }
 
-    *(a1 + 16) = &v14[v11];
-    *(a1 + 24) = v10;
-    *(a1 + 40) = 0;
-  }
-
-  else
-  {
-    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
-    _os_crash();
+    v32 = 789;
+    v33 = 2048;
+    v34 = 0;
+    v35 = 2048;
+    v36 = 0;
+    _os_log_send_and_compose_impl(v18, &v29, v37, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v30, 38, v25, v26);
+    _os_crash_msg();
     __break(1u);
+    goto LABEL_35;
+  }
+
+  re::RenderGraphContext::metalTexture(a2, *(this + 32), 0, 0, &v28);
+  v2 = *(this + 30);
+  if (v2 <= 1)
+  {
+LABEL_35:
+    v29 = 0;
+    v41 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    *v37 = 0u;
+    v38 = 0u;
+    v19 = MEMORY[0x1E69E9C10];
+    v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v30 = 136315906;
+    *&v30[4] = "operator[]";
+    v31 = 1024;
+    if (v20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v32 = 789;
+    v33 = 2048;
+    v34 = 1;
+    v35 = 2048;
+    v36 = v2;
+    _os_log_send_and_compose_impl(v21, &v29, v37, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v30, 38, v25, v26);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_39;
+  }
+
+  re::RenderGraphContext::metalTexture(a2, *(this + 32) + 64, 0, 0, &v27);
+  if (!*(this + 20))
+  {
+LABEL_39:
+    v29 = 0;
+    v41 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    *v37 = 0u;
+    v38 = 0u;
+    v22 = MEMORY[0x1E69E9C10];
+    v23 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v30 = 136315906;
+    *&v30[4] = "operator[]";
+    v31 = 1024;
+    if (v23)
+    {
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 2;
+    }
+
+    v32 = 789;
+    v33 = 2048;
+    v34 = 0;
+    v35 = 2048;
+    v36 = 0;
+    _os_log_send_and_compose_impl(v24, &v29, v37, 80, &dword_1E1C61000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v30, 38, v25, v26);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_43;
+  }
+
+  v5 = re::RenderGraphContext::metalBuffer(a2, *(this + 22));
+  v7 = *re::BufferSlice::buffer(v5, v6);
+  v37[0] = v7;
+  v8 = *(*(a2 + 1) + 192);
+  v9 = v8[52];
+  v10 = v8[53];
+  v11 = v8[54];
+  if (v28 == v8[52] && v27 == v8[53] && v7 == v8[54])
+  {
+    goto LABEL_18;
+  }
+
+  re::RenderGraphContext::acquireManagedBlitCommandEncoder(v30, a2, 0);
+  if (v9)
+  {
+    v12 = [v28 arrayLength];
+    if (v12 >= [v9 arrayLength])
+    {
+      re::mtl::BlitCommandEncoder::textureCopy(v30, v9, v28);
+      goto LABEL_10;
+    }
+
+LABEL_43:
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Reducing the texture size is not supported as it requires compaction", "newShadowTexture->arrayLength() >= oldShadowTexture->arrayLength()", "execute", 119);
+    _os_crash("assertion failure: (newShadowTexture->arrayLength() >= oldShadowTexture->arrayLength()) Reducing the texture size is not supported as it requires compaction");
+    __break(1u);
+  }
+
+LABEL_10:
+  if (v10)
+  {
+    re::mtl::BlitCommandEncoder::textureCopy(v30, v10, v27);
+  }
+
+  if (v11)
+  {
+    v14 = [(Buffer *)v11 length];
+    v15 = [(Buffer *)v7 length];
+    if (v15 >= v14)
+    {
+      v16 = v14;
+    }
+
+    else
+    {
+      v16 = v15;
+    }
+
+    re::mtl::BlitCommandEncoder::bufferCopy(v30, v11, 0, v7, 0, v16);
+  }
+
+  NS::SharedPtr<MTL::Buffer>::operator=(v8 + 53, &v27);
+  NS::SharedPtr<MTL::Buffer>::operator=(v8 + 52, &v28);
+  NS::SharedPtr<MTL::Buffer>::operator=(v8 + 54, v37);
+
+LABEL_18:
+  if (v11)
+  {
+  }
+
+  if (v10)
+  {
+  }
+
+  if (v9)
+  {
+  }
+
+  if (v37[0])
+  {
+  }
+
+  if (v27)
+  {
+  }
+
+  if (v28)
+  {
   }
 }
 
-uint64_t re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+void re::GenerateTiledShadowDepthPrepassMapNode::execute(unint64_t this, unint64_t a2)
 {
-  v4 = *(a1 + 36);
-  if (v4 == 0x7FFFFFFF)
+  v186 = *MEMORY[0x1E69E9840];
+  if ((atomic_load_explicit(&qword_1EE1BE498, memory_order_acquire) & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = v4;
-    if (v4 == *(a1 + 24))
+    goto LABEL_97;
+  }
+
+  while (1)
+  {
+    if (*(a2 + 1352))
     {
-      v7 = *(a1 + 28);
-      v8 = 2 * v7;
-      v9 = *a1;
-      if (*a1)
+      v4 = re::DrawCallRecorder::allocateDrawCallRecorderGroup((a2 + 1352), *(this + 16), "DrawInstancedDepthOnlyDepthAsColor");
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    if ((atomic_load_explicit(&qword_1EE1BE4A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE4A8))
+    {
+      qword_1EE1BE4A0 = re::getCombinedScopeHash("SceneArray", v95, v96);
+      __cxa_guard_release(&qword_1EE1BE4A8);
+    }
+
+    v5 = re::RenderGraphDataStore::tryGet<re::SceneArrayData>(*(a2 + 1168), qword_1EE1BE4A0);
+    if (!v5)
+    {
+      v84 = *re::graphicsLogObjects(0);
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        if (v8)
+        *buf = 0;
+        _os_log_impl(&dword_1E1C61000, v84, OS_LOG_TYPE_DEFAULT, "GenerateTiledShadowDepthPrepassMapNode::execute: Missing SceneArrayData. Skipping node execution.", buf, 2u);
+      }
+
+      return;
+    }
+
+    v6 = v5;
+    if ((atomic_load_explicit(&qword_1EE1BE4B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE4B8))
+    {
+      qword_1EE1BE4B0 = re::hashString("ProjectiveMeshShadow", v97);
+      __cxa_guard_release(&qword_1EE1BE4B8);
+    }
+
+    if ((atomic_load_explicit(&qword_1EE1BE4C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE4C8))
+    {
+      this = qword_1EE1BE4B0;
+      qword_1EE1BE4C0 = ((this << 6) + (this >> 2) + re::hashString("RenderFrame", v98) - 0x61C8864680B583E9) ^ this;
+      __cxa_guard_release(&qword_1EE1BE4C8);
+    }
+
+    v7 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowGenerationData>>(*(a2 + 1168), qword_1EE1BE4C0);
+    if (!v7)
+    {
+      return;
+    }
+
+    v8 = v7;
+    if ((atomic_load_explicit(&qword_1EE1BE4D8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE4D8))
+    {
+      qword_1EE1BE4D0 = re::hashString("DepthColorClear", v99);
+      __cxa_guard_release(&qword_1EE1BE4D8);
+    }
+
+    re::RenderGraphContext::makeFullscreenDrawCall(a2, *(v8 + 128), "FullscreenDrawCall", *(v8 + 136), 0, 0, 0, 0, buf);
+    *(a2 + 1553) = 1;
+    v9 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v154[1], qword_1EE1BE4D0);
+    if (!v10)
+    {
+      re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v101, v104);
+      __break(1u);
+      goto LABEL_96;
+    }
+
+    v11 = *(v8 + 416);
+    HIDWORD(v152) = *v9;
+    LODWORD(v152) = v11;
+    v147[0] = 0;
+    re::encodeFullscreenDrawCall(buf, "DepthColorClear", a2, v4, 0, v147, 0);
+    *(a2 + 1553) = 0;
+    v12 = *(*a2 + 32);
+    re::globalAllocators(v13);
+    v14 = (*(*v12 + 32))(v12, 336, 16);
+    *v14 = 0u;
+    *(v14 + 16) = 0u;
+    *(v14 + 32) = 0u;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0u;
+    *(v14 + 72) = 0u;
+    *(v14 + 88) = 0u;
+    *(v14 + 104) = 0u;
+    *(v14 + 120) = 0;
+    *(v14 + 192) = 0;
+    *(v14 + 200) = 0;
+    *(v14 + 208) = 0;
+    *(v14 + 224) = 0;
+    *(v14 + 128) = 0u;
+    *(v14 + 144) = 0u;
+    *(v14 + 160) = 0u;
+    *(v14 + 176) = 0;
+    *(v14 + 184) = v12;
+    *(v14 + 232) = xmmword_1E304F3C0;
+    *(v14 + 248) = 0;
+    *(v14 + 252) = 10854;
+    __asm { FMOV            V0.2S, #1.0 }
+
+    *(v14 + 256) = _D0;
+    *(v14 + 264) = 0;
+    *(v14 + 272) = 0;
+    *(v14 + 320) = 0;
+    *(&v151 + 1) = re::globalAllocators(v14)[2];
+    *buf = &unk_1F5D0F668;
+    *&v152 = buf;
+    this = (*(*v12 + 16))(v12, v14, buf);
+    re::FunctionBase<24ul,void ()(void *)>::destroyCallable(buf);
+    *(this + 56) = *(v8 + 144);
+    v127 = this;
+    v20 = re::MaterialParameterTableLayers::resolveTechniqueIndices(this, _MergedGlobals_506);
+    if (v21)
+    {
+      break;
+    }
+
+LABEL_96:
+    v108 = 0;
+    v109 = 0;
+    v106 = "operator[]";
+    v107 = 264;
+    re::internal::assertLog(6, v21, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()");
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v102, v105);
+    __break(1u);
+LABEL_97:
+    if (__cxa_guard_acquire(&qword_1EE1BE498))
+    {
+      _MergedGlobals_506 = re::hashString("DrawInstancedDepthOnlyDepthAsColor", v94);
+      __cxa_guard_release(&qword_1EE1BE498);
+    }
+  }
+
+  HIDWORD(v126) = *v20;
+  v125 = (*(*v12 + 32))(v12, 328, 8);
+  re::DrawTable::DrawTable(v125, v12);
+  v22 = *(a2 + 1168);
+  v23 = "N2re31MeshShadowDepthPrepassOverridesE";
+  if (("N2re31MeshShadowDepthPrepassOverridesE" & 0x8000000000000000) != 0)
+  {
+    v24 = ("N2re31MeshShadowDepthPrepassOverridesE" & 0x7FFFFFFFFFFFFFFFLL);
+    v25 = 5381;
+    do
+    {
+      v23 = v25;
+      v26 = *v24++;
+      v25 = (33 * v25) ^ v26;
+    }
+
+    while (v26);
+  }
+
+  v27 = 0x9E3779B97F4A7C17;
+  v120 = v12;
+  if (*(v22 + 64))
+  {
+    v28 = (qword_1EE1BE4C0 + (v23 << 6) + (v23 >> 2) - 0x61C8864680B583E9) ^ v23;
+    v29 = *(*(v22 + 72) + 4 * (v28 % *(v22 + 88)));
+    if (v29 != 0x7FFFFFFF)
+    {
+      v30 = *(v22 + 80);
+      do
+      {
+        if (*(v30 + 24 * v29 + 8) == v28)
         {
-          v10 = v4 == v8;
+          goto LABEL_93;
+        }
+
+        v29 = *(v30 + 24 * v29) & 0x7FFFFFFF;
+      }
+
+      while (v29 != 0x7FFFFFFF);
+    }
+  }
+
+  v31 = 0;
+LABEL_21:
+  v32 = v6[3];
+  v33 = &off_1E3047000;
+  if (v32)
+  {
+    v34 = (v31 ? v31 + 8 : v8 + 234);
+    if (*v34 == 1)
+    {
+      v35 = v6[5];
+      v122 = &v35[v32];
+      *&v121 = "N2re27RenderGraphDataStoreWrapperINS_32MeshShadowPerSceneGenerationDataEEE" & 0x7FFFFFFFFFFFFFFFLL;
+      v117 = xmmword_1E3047670;
+      v116 = xmmword_1E3047680;
+      v115 = xmmword_1E30476A0;
+      v114 = xmmword_1E30474D0;
+      do
+      {
+        v36 = *v35;
+        v37 = qword_1EE1BE4B0;
+        v38 = strlen(*v35);
+        if (v38)
+        {
+          MurmurHash3_x64_128(v36, v38, 0, buf);
+          v39 = (*&buf[8] + v27 + (*buf << 6) + (*buf >> 2)) ^ *buf;
         }
 
         else
         {
-          v10 = 1;
+          v39 = 0;
         }
 
-        if (!v10 && (v7 & 0x80000000) == 0)
+        v40 = *(a2 + 1168);
+        v41 = "N2re27RenderGraphDataStoreWrapperINS_32MeshShadowPerSceneGenerationDataEEE";
+        if (("N2re27RenderGraphDataStoreWrapperINS_32MeshShadowPerSceneGenerationDataEEE" & 0x8000000000000000) != 0)
         {
-          memset(v26, 0, 36);
-          *&v26[36] = 0x7FFFFFFFLL;
-          re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::init(v26, v9, v8);
-          v11 = *v26;
-          *v26 = *a1;
-          *a1 = v11;
-          v12 = *&v26[16];
-          v13 = *(a1 + 16);
-          *&v26[16] = v13;
-          *(a1 + 16) = v12;
-          v15 = *&v26[24];
-          *&v26[24] = *(a1 + 24);
-          v14 = *&v26[32];
-          *(a1 + 24) = v15;
-          ++*&v26[40];
-          v16 = v14;
-          if (v14)
+          v42 = 5381;
+          v43 = ("N2re27RenderGraphDataStoreWrapperINS_32MeshShadowPerSceneGenerationDataEEE" & 0x7FFFFFFFFFFFFFFFLL);
+          do
           {
-            v17 = (v13 + 8);
-            do
-            {
-              if ((*(v17 - 1) & 0x80000000) != 0)
-              {
-                v18 = 0xBF58476D1CE4E5B9 * (*v17 ^ (*v17 >> 30));
-                v19 = re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::allocEntry(a1, ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) ^ ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) >> 31)) % *(a1 + 24));
-                *(v19 + 8) = *v17;
-                memcpy((v19 + 16), v17 + 1, 0x150uLL);
-              }
-
-              v17 += 44;
-              --v16;
-            }
-
-            while (v16);
+            v41 = v42;
+            v44 = *v43++;
+            v42 = (33 * v42) ^ v44;
           }
 
-          re::HashTable<unsigned long long,re::RenderGraphSFBSystemShellBlurProvider::BlurFrameContext,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false,false>::deinit(v26);
+          while (v44);
         }
+
+        if (*(v40 + 64))
+        {
+          v45 = (((v27 + (v37 << 6) + (v37 >> 2) + v39) ^ v37) + v27 + (v41 << 6) + (v41 >> 2)) ^ v41;
+          v46 = *(*(v40 + 72) + 4 * (v45 % *(v40 + 88)));
+          if (v46 != 0x7FFFFFFF)
+          {
+            v47 = *(v40 + 80);
+            while (*(v47 + 24 * v46 + 8) != v45)
+            {
+              v46 = *(v47 + 24 * v46) & 0x7FFFFFFF;
+              if (v46 == 0x7FFFFFFF)
+              {
+                goto LABEL_77;
+              }
+            }
+
+            v48 = *(v47 + 24 * v46 + 16);
+            if (v48)
+            {
+              if ((atomic_load_explicit(&qword_1EE1BE4E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE4E8))
+              {
+                qword_1EE1BE4E0 = re::hashString("MeshScenes", v83);
+                __cxa_guard_release(&qword_1EE1BE4E8);
+              }
+
+              v49 = qword_1EE1BE4E0;
+              v50 = strlen(v36);
+              if (v50)
+              {
+                MurmurHash3_x64_128(v36, v50, 0, buf);
+                v51 = (*&buf[8] + v27 + (*buf << 6) + (*buf >> 2)) ^ *buf;
+              }
+
+              else
+              {
+                v51 = 0;
+              }
+
+              v52 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshSceneArrays>>(*(a2 + 1168), (v27 + (v49 << 6) + (v49 >> 2) + v51) ^ v49);
+              if (v52)
+              {
+                v53 = v52;
+                v54 = *(*(a2 + 8) + 96);
+                v110 = v53;
+                v111 = v35;
+                if (v54)
+                {
+                  *buf = 0x8026BAB35997FC70;
+                  *&buf[8] = "meshshadow:enableSUMeshCullingPerCaster";
+                  LOBYTE(v140) = 0;
+                  if (re::DebugSettingsManager::getWithErrorCode<BOOL>(v54, buf, &v140))
+                  {
+                    re::StringID::destroyString(buf);
+                    LODWORD(v126) = 1;
+                  }
+
+                  else
+                  {
+                    LODWORD(v126) = v140;
+                    re::StringID::destroyString(buf);
+                  }
+
+                  v55 = v120;
+                }
+
+                else
+                {
+                  LODWORD(v126) = 1;
+                  v55 = v120;
+                }
+
+                v133 = 0;
+                LODWORD(v134) = 0;
+                v135 = 0;
+                v132 = v55;
+                re::DynamicArray<re::MeshPartDrawContext>::setCapacity(&v132, 0);
+                LODWORD(v134) = v134 + 1;
+                v112 = *(v53 + 48);
+                if (v112)
+                {
+                  v56 = 0;
+                  v124 = a2;
+                  do
+                  {
+                    v113 = v56;
+                    v57 = re::BucketArray<re::MeshSceneCollection,16ul>::operator[](v53 + 8, v56);
+                    v58 = *(v57 + 16);
+                    if (v58)
+                    {
+                      v59 = *(v57 + 32);
+                      v119 = v59 + 736 * v58;
+                      do
+                      {
+                        if (*(v59 + 692) == 1 && re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::contains(v48 + 8, (v59 + 512)))
+                        {
+                          v60 = *(v59 + 8);
+                          *&v140 = 0;
+                          *(&v140 + 1) = v60;
+                          v141 = xmmword_1E3047670;
+                          v142 = xmmword_1E3047680;
+                          v143 = xmmword_1E30476A0;
+                          v144 = xmmword_1E30474D0;
+                          v145 = 0;
+                          *&v146 = 0;
+                          v61 = *(v59 + 56);
+                          if (v61)
+                          {
+                            v62 = *(v59 + 48);
+                          }
+
+                          else
+                          {
+                            v62 = &v140;
+                            v61 = 1;
+                          }
+
+                          *(&v121 + 1) = &v62[6 * v61];
+                          do
+                          {
+                            v63 = 0;
+                            v64 = *(v59 + 128);
+                            v65 = *(v59 + 144);
+                            v66 = *(v59 + 160);
+                            v67 = *(v59 + 176);
+                            v68 = v62[2];
+                            v69 = v62[3];
+                            v70 = v62[4];
+                            v181 = v62[1];
+                            v182 = v68;
+                            v183 = v69;
+                            v184 = v70;
+                            do
+                            {
+                              *&buf[v63] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v64, COERCE_FLOAT(*(&v181 + v63))), v65, *(&v181 + v63), 1), v66, *(&v181 + v63), 2), v67, *(&v181 + v63), 3);
+                              v63 += 16;
+                            }
+
+                            while (v63 != 64);
+                            v130 = v151;
+                            v131 = *buf;
+                            v128 = v153;
+                            v129 = v152;
+                            v123 = v62;
+                            v71 = re::Slice<re::internal::BindPointImplBase const*>::range(v59, *v62, *(v62 + 1));
+                            if (v72)
+                            {
+                              v6 = v71;
+                              v73 = (v71 + 8 * v72);
+                              do
+                              {
+                                v74 = *v6;
+                                v75 = (((*(*v6 + 528) ^ *(*(v127 + 56) + 296)) & ~*(*(v127 + 56) + 300) | *(*(v127 + 56) + 300) & *(*(v127 + 56) + 296)) ^ *(v59 + 504)) & ~*(v59 + 508) | *(v59 + 504) & *(v59 + 508);
+                                v76 = *(v59 + 512);
+                                *&buf[8] = 0;
+                                *&v151 = 0;
+                                *buf = v76;
+                                *(&v151 + 1) = v74;
+                                *&v152 = 0;
+                                *(&v152 + 1) = v127;
+                                *&v153 = 0;
+                                DWORD2(v153) = -65280;
+                                v155 = v131;
+                                v156 = v130;
+                                v157 = v129;
+                                v158 = v128;
+                                v164 = 0;
+                                v163 = 0;
+                                v165 = 0;
+                                v166 = 0;
+                                v159 = 0;
+                                v160 = 0;
+                                v162 = 0;
+                                v161 = 0;
+                                v167 = v75;
+                                v168 = -NAN;
+                                v169 = 0;
+                                v170 = 0xFFFFFFFFLL;
+                                v171 = 0;
+                                v172 = 0;
+                                v77 = *(v74 + 432);
+                                v148[0] = *(v74 + 416);
+                                v148[1] = v77;
+                                LODWORD(v154[0]) = 0;
+                                HIDWORD(v153) = HIDWORD(v126);
+                                if (v126)
+                                {
+                                  a2 = *(v48 + 56);
+                                  if (a2 < *(v48 + 60) + a2)
+                                  {
+                                    v78 = 112 * a2;
+                                    while (1)
+                                    {
+                                      v27 = *(v8 + 448);
+                                      if (v27 <= a2)
+                                      {
+                                        break;
+                                      }
+
+                                      v79 = (*(v8 + 456) + v78);
+                                      v80 = *v79;
+                                      *&v181 = v79 + 2;
+                                      *(&v181 + 1) = v80;
+                                      if (re::isBoundingBoxInsidePlanes(v148, &v181, &v155))
+                                      {
+                                        goto LABEL_68;
+                                      }
+
+                                      ++a2;
+                                      v78 += 112;
+                                      if (a2 >= (*(v48 + 60) + *(v48 + 56)))
+                                      {
+                                        goto LABEL_69;
+                                      }
+                                    }
+
+                                    v149 = 0;
+                                    v184 = 0u;
+                                    v185 = 0u;
+                                    v182 = 0u;
+                                    v183 = 0u;
+                                    v181 = 0u;
+                                    v91 = MEMORY[0x1E69E9C10];
+                                    v92 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                                    v173 = 136315906;
+                                    v174 = "operator[]";
+                                    v175 = 1024;
+                                    if (v92)
+                                    {
+                                      v93 = 3;
+                                    }
+
+                                    else
+                                    {
+                                      v93 = 2;
+                                    }
+
+                                    v176 = 476;
+                                    v177 = 2048;
+                                    v178 = a2;
+                                    v179 = 2048;
+                                    v180 = v27;
+                                    _os_log_send_and_compose_impl(v93, &v149, &v181, 80, &dword_1E1C61000, v91, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v173, 38, v106, v107);
+                                    _os_crash_msg();
+                                    __break(1u);
+LABEL_93:
+                                    v31 = *(v30 + 24 * v29 + 16);
+                                    goto LABEL_21;
+                                  }
+                                }
+
+                                else
+                                {
+LABEL_68:
+                                  v81 = *v124;
+                                  v181 = 0u;
+                                  v182 = 0u;
+                                  LODWORD(v183) = 0;
+                                  v82 = re::addDrawCall(v125, buf, v81, 1u, &v181);
+                                  *(v82 + 40) = *(v48 + 56);
+                                  *(v82 + 32) = *(v48 + 60);
+                                }
+
+LABEL_69:
+                                ++v6;
+                              }
+
+                              while (v6 != v73);
+                            }
+
+                            v62 = (v123 + 96);
+                          }
+
+                          while (v123 + 96 != *(&v121 + 1));
+                          a2 = v124;
+                          v27 = 0x9E3779B97F4A7C17;
+                          v33 = &off_1E3047000;
+                          v53 = v110;
+                          v35 = v111;
+                        }
+
+                        v59 += 736;
+                      }
+
+                      while (v59 != v119);
+                    }
+
+                    v56 = v113 + 1;
+                  }
+
+                  while (v113 + 1 != v112);
+                }
+
+                if (v132)
+                {
+                  if (v135)
+                  {
+                    (*(*v132 + 40))();
+                  }
+                }
+              }
+            }
+          }
+        }
+
+LABEL_77:
+        ++v35;
+      }
+
+      while (v35 != v122);
+    }
+  }
+
+  re::RenderGraphContext::acquireManagedRenderCommandEncoder(a2, 0, &v173);
+  v184 = 0u;
+  v185 = 0u;
+  v182 = 0u;
+  v183 = 0u;
+  v181 = 0u;
+  re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a2, &v181);
+  *buf = xmmword_1E3047670;
+  v151 = xmmword_1E3047680;
+  v85 = *(v33 + 77);
+  v152 = xmmword_1E30476A0;
+  v153 = v85;
+  *v154 = xmmword_1E3047670;
+  v155 = xmmword_1E3047680;
+  v156 = xmmword_1E30476A0;
+  v157 = v85;
+  re::DrawTableSlice::DrawTableSlice(&v140, v125);
+  *(a2 + 1553) = 1;
+  *&v132 = "DrawInstancedDepthOnlyDepthAsColor";
+  *(&v132 + 1) = &v140;
+  LOWORD(v136) = 513;
+  BYTE2(v136) = 0;
+  WORD2(v136) = 0;
+  HIBYTE(v138) = 0;
+  *&v139 = v4;
+  BYTE8(v139) = 0;
+  re::RenderGraphContext::encodeDrawCalls(a2, &v181, &v132, v86, v87, v88, v89, v90, v100, v103, v106, v107, v108, v109, v110, v111, v112, v113, v114, *(&v114 + 1), v115, *(&v115 + 1), v116, *(&v116 + 1), v117, *(&v117 + 1), v118, v119, v120, v4, v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, SBYTE1(v131), SBYTE2(v131), SBYTE3(v131), SBYTE4(v131), *(&v131 + 1), v132, buf, buf, 0, v136, v137, v138, v139, v140, v141, v142, *(&v142 + 1), v143, *(&v143 + 1), v144, v145, v146);
+  *(a2 + 1553) = 0;
+  re::mtl::RenderCommandEncoder::~RenderCommandEncoder(&v173);
+}
+
+void re::GenerateProjectiveMeshShadowMapNode::execute(unint64_t this, re::RenderGraphContext *a2)
+{
+  v204 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 1);
+  v5 = "SurfaceShaderMeshShadowCaster";
+  v6 = "projectiveMeshShadowTechnique";
+  if (v4[371] == 1 && *v4)
+  {
+    v6 = "projectiveMeshShadowTechniqueProgrammableBlending";
+    v5 = "SurfaceShaderMeshShadowCasterProgrammableBlending";
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1BE4F8, memory_order_acquire) & 1) == 0)
+  {
+    goto LABEL_113;
+  }
+
+  while (1)
+  {
+    if ((atomic_load_explicit(&qword_1EE1BE508, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE508))
+    {
+      qword_1EE1BE500 = re::hashString(v5, v105);
+      __cxa_guard_release(&qword_1EE1BE508);
+    }
+
+    if ((atomic_load_explicit(&qword_1EE1BE518, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE518))
+    {
+      qword_1EE1BE510 = re::getCombinedScopeHash("SceneArray", v106, v107);
+      __cxa_guard_release(&qword_1EE1BE518);
+    }
+
+    v7 = re::RenderGraphDataStore::tryGet<re::SceneArrayData>(*(a2 + 146), qword_1EE1BE510);
+    if (!v7)
+    {
+      v86 = *re::graphicsLogObjects(0);
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1E1C61000, v86, OS_LOG_TYPE_DEFAULT, "GenerateProjectiveMeshShadowMapNode::execute: Missing SceneArrayData. Skipping node execution.", buf, 2u);
+      }
+
+      return;
+    }
+
+    v8 = v7;
+    if ((atomic_load_explicit(&qword_1EE1BE528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE528))
+    {
+      qword_1EE1BE520 = re::hashString("ProjectiveMeshShadow", v108);
+      __cxa_guard_release(&qword_1EE1BE528);
+    }
+
+    if ((atomic_load_explicit(&qword_1EE1BE538, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE538))
+    {
+      v110 = qword_1EE1BE520;
+      qword_1EE1BE530 = ((v110 << 6) + (v110 >> 2) + re::hashString("RenderFrame", v109) - 0x61C8864680B583E9) ^ v110;
+      __cxa_guard_release(&qword_1EE1BE538);
+    }
+
+    v9 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowGenerationData>>(*(a2 + 146), qword_1EE1BE530);
+    if (!v9)
+    {
+      return;
+    }
+
+    v146 = v9;
+    if (*(a2 + 338))
+    {
+      goto LABEL_111;
+    }
+
+    v10 = 0;
+LABEL_13:
+    if ((atomic_load_explicit(&qword_1EE1BE548, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE548))
+    {
+      qword_1EE1BE540 = re::hashString("ShadowClear", v111);
+      __cxa_guard_release(&qword_1EE1BE548);
+    }
+
+    v5 = v146;
+    re::RenderGraphContext::makeFullscreenDrawCall(a2, *(v146 + 128), "FullscreenDrawCall", *(v146 + 136), 0, 0, 0, 0, buf);
+    v11 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v177[1], qword_1EE1BE540);
+    if (v12)
+    {
+      break;
+    }
+
+    v118 = 0;
+    v119 = 0;
+    v116 = "operator[]";
+    v117 = 264;
+    re::internal::assertLog(6, 0);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()");
+    __break(1u);
+LABEL_113:
+    if (__cxa_guard_acquire(&qword_1EE1BE4F8))
+    {
+      qword_1EE1BE4F0 = re::hashString(v6, v104);
+      __cxa_guard_release(&qword_1EE1BE4F8);
+    }
+  }
+
+  v122 = v10;
+  v123 = v6;
+  v13 = *(v146 + 416);
+  HIDWORD(v175) = *v11;
+  LODWORD(v175) = v13;
+  *(a2 + 1553) = 1;
+  v171[0] = 0;
+  re::encodeFullscreenDrawCall(buf, "ShadowClear", a2, v10, 0, v171, 0);
+  *(a2 + 1553) = 0;
+  v14 = *(*a2 + 32);
+  *(&v140 + 1) = (*(*v14 + 32))(v14, 328, 8);
+  re::DrawTable::DrawTable(*(&v140 + 1), v14);
+  v15 = *(v8 + 24);
+  if (v15)
+  {
+    v147 = v146 + 16;
+    v16 = *(v8 + 40);
+    v120 = v163;
+    v121 = &v16[v15];
+    v138 = &buf[8];
+    v17 = &unk_1EE1BE000;
+    v6 = 736;
+    v127 = xmmword_1E3047670;
+    v126 = xmmword_1E3047680;
+    v125 = xmmword_1E30476A0;
+    v124 = xmmword_1E30474D0;
+    v139 = xmmword_1E304F3C0;
+    __asm { FMOV            V10.2S, #1.0 }
+
+    do
+    {
+      v128 = v16;
+      v23 = *v16;
+      if ((atomic_load_explicit(&qword_1EE1BE558, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE558))
+      {
+        qword_1EE1BE550 = re::hashString("MeshScenes", v85);
+        __cxa_guard_release(&qword_1EE1BE558);
+      }
+
+      v24 = v17[170];
+      v25 = strlen(v23);
+      if (v25)
+      {
+        MurmurHash3_x64_128(v23, v25, 0, buf);
+        v26 = (*&buf[8] - 0x61C8864680B583E9 + (*buf << 6) + (*buf >> 2)) ^ *buf;
       }
 
       else
       {
-        if (v8)
+        v26 = 0;
+      }
+
+      v27 = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshSceneArrays>>(*(a2 + 146), ((v24 << 6) - 0x61C8864680B583E9 + (v24 >> 2) + v26) ^ v24);
+      v28 = v27 + 8;
+      if (!v27)
+      {
+        v28 = 0;
+      }
+
+      v131 = v28;
+      v130 = *(v28 + 40);
+      if (v130)
+      {
+        v29 = 0;
+        do
         {
-          v22 = 2 * v7;
+          *(&v132 + 1) = v29;
+          v30 = re::BucketArray<re::MeshSceneCollection,16ul>::operator[](v131, v29);
+          if (*(v30 + 16))
+          {
+            v31 = 0;
+            v133 = v30;
+            do
+            {
+              v32 = *(v30 + 32) + 736 * v31;
+              if (*(v32 + 691) == 1)
+              {
+                v33 = 0xBF58476D1CE4E5B9 * (*(v32 + 512) ^ (*(v32 + 512) >> 30));
+                v136 = v31;
+                re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v146 + 80, (v32 + 512), (0x94D049BB133111EBLL * (v33 ^ (v33 >> 27))) ^ ((0x94D049BB133111EBLL * (v33 ^ (v33 >> 27))) >> 31), buf);
+                v31 = v136;
+                v30 = v133;
+                if (*&buf[12] != 0x7FFFFFFF && *(v32 + 472) != 0.0 && *(v32 + 696) != 0.0 && ((*(v32 + 504) ^ *(v32 + 508)) & 0x10) == 0)
+                {
+                  v162[0] = v32;
+                  v162[1] = **(v32 + 112);
+                  v162[2] = *(*(v32 + 112) + 8);
+                  v35 = *(v32 + 8);
+                  v163[0] = 0;
+                  v163[1] = v35;
+                  v164 = xmmword_1E3047670;
+                  v165 = xmmword_1E3047680;
+                  v166 = xmmword_1E30476A0;
+                  v167 = xmmword_1E30474D0;
+                  v168 = 0;
+                  v169 = 0;
+                  if (!*(v32 + 56))
+                  {
+                    *&v170 = v163;
+                    *(&v170 + 1) = 1;
+                    v129 = 1;
+LABEL_36:
+                    v36 = 0;
+                    while (1)
+                    {
+                      v161[0] = v162;
+                      *&v132 = v36;
+                      v161[1] = v36;
+                      v37 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(v161, v34);
+                      v39 = 0;
+                      v40 = *(v32 + 128);
+                      v41 = *(v32 + 144);
+                      v42 = *(v32 + 160);
+                      v43 = *(v32 + 176);
+                      v44 = v37[2];
+                      v45 = v37[3];
+                      v46 = v37[4];
+                      v156 = v37[1];
+                      v157 = v44;
+                      v158 = v45;
+                      v159 = v46;
+                      this = &v156;
+                      do
+                      {
+                        *&buf[v39] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, COERCE_FLOAT(*(&v156 + v39))), v41, *(&v156 + v39), 1), v42, *(&v156 + v39), 2), v43, *(&v156 + v39), 3);
+                        v39 += 16;
+                      }
+
+                      while (v39 != 64);
+                      v47 = *buf;
+                      v48 = v174;
+                      v49 = v175;
+                      v50 = v176;
+                      if (*(v32 + 608) == 1)
+                      {
+                        v51 = 0;
+                        v52 = *(v32 + 640);
+                        v53 = *(v32 + 656);
+                        v54 = *(v32 + 672);
+                        v156 = *(v32 + 624);
+                        v157 = v52;
+                        v158 = v53;
+                        v159 = v54;
+                        do
+                        {
+                          *&buf[v51] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v47, COERCE_FLOAT(*(&v156 + v51))), v48, *(&v156 + v51), 1), v49, *(&v156 + v51), 2), v50, *(&v156 + v51), 3);
+                          v51 += 16;
+                        }
+
+                        while (v51 != 64);
+                        v143 = v174;
+                        v144 = *buf;
+                        v141 = v176;
+                        v142 = v175;
+                      }
+
+                      else
+                      {
+                        v141 = v176;
+                        v142 = v175;
+                        v143 = v174;
+                        v144 = *buf;
+                      }
+
+                      v8 = *v161[0];
+                      v55 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(v161, v38);
+                      v135 = re::Slice<re::internal::BindPointImplBase const*>::range(v8, *v55, v55[1]);
+                      v57 = v56;
+                      re::StackScratchAllocator::StackScratchAllocator(&v156);
+                      *(&v149 + 1) = 0;
+                      *&v150 = 0;
+                      DWORD2(v150) = 0;
+                      *&v151 = 0;
+                      *&v149 = &v156;
+                      re::DynamicArray<float *>::setCapacity(&v149, 0);
+                      ++DWORD2(v150);
+                      if (*(v32 + 608) == 1)
+                      {
+                        v58 = *(*(a2 + 1) + 32);
+                        v57 = WORD1(*(v146 + 72));
+                        this = *(v58 + 24);
+                        if (this <= v57)
+                        {
+                          goto LABEL_107;
+                        }
+
+                        v59 = *(*(v58 + 40) + 16 * WORD1(*(v146 + 72))) + 864 * *(v146 + 72);
+                        v60 = *(v59 + 56);
+                        if (v60)
+                        {
+                          v61 = *(v59 + 64);
+                          this = 544 * v60;
+                          do
+                          {
+                            *buf = v61;
+                            re::DynamicArray<re::TransitionCondition *>::add(&v149, buf);
+                            v61 += 544;
+                            this -= 544;
+                          }
+
+                          while (this);
+                        }
+
+                        v135 = v151;
+                        v57 = v150;
+                      }
+
+                      if (v57)
+                      {
+                        break;
+                      }
+
+LABEL_78:
+                      if (v149 && v151)
+                      {
+                        (*(*v149 + 40))();
+                      }
+
+                      re::StackScratchAllocator::~StackScratchAllocator(&v156);
+                      v36 = v132 + 1;
+                      v6 = 736;
+                      if (v132 + 1 == v129)
+                      {
+                        goto LABEL_82;
+                      }
+                    }
+
+                    v62 = 0;
+                    v134 = v57;
+                    while (2)
+                    {
+                      v148 = *(v135 + 8 * v62);
+                      v137 = v62;
+                      v63 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::materialIndexForPart(v161, v62);
+                      v64 = qword_1EE1BE4F0;
+                      v8 = v63;
+                      if (*(v32 + 200) <= v63)
+                      {
+                        goto LABEL_62;
+                      }
+
+                      v57 = *(*(v32 + 192) + 8 * v63);
+                      if ((atomic_load_explicit(&qword_1EE1BE568, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE568))
+                      {
+                        MurmurHash3_x64_128("Occlusion", 9uLL, 0, buf);
+                        qword_1EE1BE560 = (*&buf[8] - 0x61C8864680B583E9 + (*buf << 6) + (*buf >> 2)) ^ *buf;
+                        __cxa_guard_release(&qword_1EE1BE568);
+                      }
+
+                      if (v57)
+                      {
+                        v65 = qword_1EE1BE560;
+                        if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
+                        {
+                          dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
+                        }
+
+                        if (!re::MaterialParameterTable::tryGetPassTechniqueMapping((v57 + 304), v65, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash))
+                        {
+                          v66 = qword_1EE1BE500;
+                          if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
+                          {
+                            dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
+                          }
+
+                          if (re::MaterialParameterTable::tryGetPassTechniqueMapping((v57 + 304), v66, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash))
+                          {
+                            v64 = qword_1EE1BE500;
+                          }
+
+                          goto LABEL_62;
+                        }
+                      }
+
+                      else
+                      {
+LABEL_62:
+                        v6 = v146;
+                        v67 = re::HashTable<unsigned long long,re::DynamicArray<re::ecs2::Entity *>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::operator[](v146 + 80, (v32 + 512));
+                        if (!*(v67 + 16))
+                        {
+                          goto LABEL_99;
+                        }
+
+                        v57 = **(v67 + 32);
+                        this = *(v146 + 56);
+                        if (this <= v57)
+                        {
+                          goto LABEL_103;
+                        }
+
+                        v68 = *(*(v146 + 64) + 4 * v57);
+                        v69 = powf(*(v32 + 472), *(v146 + 256));
+                        v70 = re::HashTable<unsigned long long,re::DynamicArray<re::ecs2::Entity *>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::operator[](v146 + 80, (v32 + 512));
+                        v71 = *(v70 + 2);
+                        if (v71)
+                        {
+                          v72 = v68 * v69;
+                          this = *(v70 + 4);
+                          v6 = 4 * v71;
+                          while (1)
+                          {
+                            v57 = *this;
+                            re::globalAllocators(v70);
+                            v73 = (*(*v14 + 32))(v14, 336, 16);
+                            *v73 = 0u;
+                            *(v73 + 16) = 0u;
+                            *(v73 + 32) = 0u;
+                            *(v73 + 48) = 0;
+                            *(v73 + 56) = 0u;
+                            *(v73 + 72) = 0u;
+                            *(v73 + 88) = 0u;
+                            *(v73 + 104) = 0u;
+                            *(v73 + 120) = 0;
+                            *(v73 + 192) = 0;
+                            *(v73 + 200) = 0;
+                            *(v73 + 208) = 0;
+                            *(v73 + 224) = 0;
+                            *(v73 + 128) = 0u;
+                            *(v73 + 144) = 0u;
+                            *(v73 + 160) = 0u;
+                            *(v73 + 176) = 0;
+                            *(v73 + 184) = v14;
+                            *(v73 + 232) = xmmword_1E304F3C0;
+                            *(v73 + 248) = 0;
+                            *(v73 + 252) = 10854;
+                            *(v73 + 256) = _D10;
+                            *(v73 + 264) = 0;
+                            *(v73 + 272) = 0;
+                            *(v73 + 320) = 0;
+                            *(&v174 + 1) = re::globalAllocators(v73)[2];
+                            *buf = &unk_1F5D0F6C0;
+                            *&v175 = buf;
+                            v74 = (*(*v14 + 16))(v14, v73, buf);
+                            re::FunctionBase<24ul,void ()(void *)>::destroyCallable(buf);
+                            *(v74 + 232) = v72;
+                            *(v74 + 236) = *(v32 + 696);
+                            v75 = (v146 + 16);
+                            if (v64 == qword_1EE1BE500)
+                            {
+                              v75 = (v146 + 16);
+                              if (*(v32 + 200) > v8)
+                              {
+                                v75 = (*(v32 + 192) + 8 * v8);
+                              }
+                            }
+
+                            *(v74 + 56) = *v75;
+                            v76 = *(v146 + 32);
+                            if (v76 <= v57)
+                            {
+                              break;
+                            }
+
+                            *(v74 + 88) = *(*(v146 + 40) + 8 * v57);
+                            *(v74 + 200) = *(v32 + 416);
+                            v77 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v74, v64);
+                            if (!v78)
+                            {
+                              goto LABEL_98;
+                            }
+
+                            v79 = *v77;
+                            v80 = (*(v148 + 528) ^ *(*(v74 + 56) + 296)) & ~*(*(v74 + 56) + 300) | *(*(v74 + 56) + 300) & *(*(v74 + 56) + 296);
+                            if (*(v32 + 496) > v8)
+                            {
+                              v81 = re::MaterialRenderFlags::flattenToOverrideFlags((*(v32 + 488) + 20 * v8));
+                              v80 = (v80 ^ v81) & ~HIDWORD(v81) | HIDWORD(v81) & v81;
+                            }
+
+                            v82 = (*(v32 + 504) ^ v80) & ~*(v32 + 508) | *(v32 + 504) & *(v32 + 508);
+                            v83 = *(v32 + 512);
+                            *&buf[8] = 0;
+                            *&v174 = 0;
+                            *buf = v83;
+                            *(&v174 + 1) = v148;
+                            *&v175 = 0;
+                            *(&v175 + 1) = v74;
+                            *&v176 = 0;
+                            DWORD2(v176) = -65280;
+                            HIDWORD(v176) = v79;
+                            LODWORD(v177[0]) = 0;
+                            v178 = v144;
+                            v179 = v143;
+                            v180 = v142;
+                            v181 = v141;
+                            v187 = 0;
+                            v186 = 0;
+                            v188 = 0;
+                            v189 = 0;
+                            v182 = 0;
+                            v183 = 0;
+                            v185 = 0;
+                            v184 = 0;
+                            v190 = v82;
+                            v191 = -NAN;
+                            v192 = 0;
+                            v193 = 0xFFFFFFFFLL;
+                            v194 = 0;
+                            v195 = 0;
+                            v84 = *a2;
+                            memset(v155, 0, 36);
+                            v70 = re::addDrawCall(*(&v140 + 1), buf, v84, 1u, v155);
+                            this += 4;
+                            v6 -= 4;
+                            if (!v6)
+                            {
+                              goto LABEL_74;
+                            }
+                          }
+
+                          v172 = 0;
+                          v176 = 0u;
+                          *v177 = 0u;
+                          v174 = 0u;
+                          v175 = 0u;
+                          *buf = 0u;
+                          v92 = MEMORY[0x1E69E9C10];
+                          v93 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                          v196 = 136315906;
+                          v197 = "operator[]";
+                          v198 = 1024;
+                          if (v93)
+                          {
+                            v94 = 3;
+                          }
+
+                          else
+                          {
+                            v94 = 2;
+                          }
+
+                          v199 = 476;
+                          v200 = 2048;
+                          v201 = v57;
+                          v202 = 2048;
+                          v203 = v76;
+                          _os_log_send_and_compose_impl(v94, &v172, buf, 80, &dword_1E1C61000, v92, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v196, 38, v116, v117);
+                          _os_crash_msg();
+                          __break(1u);
+LABEL_98:
+                          v118 = 0;
+                          v119 = 0;
+                          v116 = "operator[]";
+                          v117 = 264;
+                          re::internal::assertLog(6, v78, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()");
+                          _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v113, v115);
+                          __break(1u);
+LABEL_99:
+                          v172 = 0;
+                          v176 = 0u;
+                          *v177 = 0u;
+                          v174 = 0u;
+                          v175 = 0u;
+                          *buf = 0u;
+                          v95 = MEMORY[0x1E69E9C10];
+                          v96 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                          v196 = 136315906;
+                          v197 = "operator[]";
+                          v198 = 1024;
+                          if (v96)
+                          {
+                            v97 = 3;
+                          }
+
+                          else
+                          {
+                            v97 = 2;
+                          }
+
+                          v199 = 797;
+                          v200 = 2048;
+                          v201 = 0;
+                          v202 = 2048;
+                          v203 = 0;
+                          _os_log_send_and_compose_impl(v97, &v172, buf, 80, &dword_1E1C61000, v95, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v196, 38, v116, v117);
+                          _os_crash_msg();
+                          __break(1u);
+LABEL_103:
+                          v172 = 0;
+                          v176 = 0u;
+                          *v177 = 0u;
+                          v174 = 0u;
+                          v175 = 0u;
+                          *buf = 0u;
+                          v98 = MEMORY[0x1E69E9C10];
+                          v99 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                          v196 = 136315906;
+                          v197 = "operator[]";
+                          v198 = 1024;
+                          if (v99)
+                          {
+                            v100 = 3;
+                          }
+
+                          else
+                          {
+                            v100 = 2;
+                          }
+
+                          v199 = 476;
+                          v200 = 2048;
+                          v201 = v57;
+                          v202 = 2048;
+                          v203 = this;
+                          _os_log_send_and_compose_impl(v100, &v172, buf, 80, &dword_1E1C61000, v98, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v196, 38, v116, v117);
+                          _os_crash_msg();
+                          __break(1u);
+LABEL_107:
+                          v172 = 0;
+                          v176 = 0u;
+                          *v177 = 0u;
+                          v174 = 0u;
+                          v175 = 0u;
+                          *buf = 0u;
+                          v101 = MEMORY[0x1E69E9C10];
+                          v102 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                          v196 = 136315906;
+                          v197 = "operator[]";
+                          v198 = 1024;
+                          if (v102)
+                          {
+                            v103 = 3;
+                          }
+
+                          else
+                          {
+                            v103 = 2;
+                          }
+
+                          v199 = 797;
+                          v200 = 2048;
+                          v201 = v57;
+                          v202 = 2048;
+                          v203 = this;
+                          _os_log_send_and_compose_impl(v103, &v172, buf, 80, &dword_1E1C61000, v101, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v196, 38, v116, v117);
+                          _os_crash_msg();
+                          __break(1u);
+LABEL_111:
+                          v10 = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, *(this + 16), 0);
+                          goto LABEL_13;
+                        }
+                      }
+
+LABEL_74:
+                      v62 = v137 + 1;
+                      v57 = v134;
+                      if (v137 + 1 == v134)
+                      {
+                        goto LABEL_78;
+                      }
+
+                      continue;
+                    }
+                  }
+
+                  v170 = *(v32 + 48);
+                  v129 = *(&v170 + 1);
+                  if (*(&v170 + 1))
+                  {
+                    goto LABEL_36;
+                  }
+
+LABEL_82:
+                  v30 = v133;
+                  v31 = v136;
+                }
+              }
+
+              ++v31;
+            }
+
+            while (v31 < *(v30 + 16));
+          }
+
+          v29 = *(&v132 + 1) + 1;
         }
 
-        else
+        while (*(&v132 + 1) + 1 != v130);
+      }
+
+      v16 = (v128 + 8);
+      v17 = &unk_1EE1BE000;
+    }
+
+    while (v128 + 8 != v121);
+  }
+
+  if (*(*(&v140 + 1) + 40))
+  {
+    *buf = xmmword_1E3047670;
+    v174 = xmmword_1E3047680;
+    v175 = xmmword_1E30476A0;
+    v176 = xmmword_1E30474D0;
+    *v177 = xmmword_1E3047670;
+    v178 = xmmword_1E3047680;
+    v179 = xmmword_1E30476A0;
+    v180 = xmmword_1E30474D0;
+    re::DrawTableSlice::DrawTableSlice(v162, *(&v140 + 1));
+    *(a2 + 1553) = 1;
+    v159 = 0u;
+    v160 = 0u;
+    v157 = 0u;
+    v158 = 0u;
+    v156 = 0u;
+    re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(a2, &v156);
+    *&v149 = v123;
+    *(&v149 + 1) = v162;
+    *&v150 = buf;
+    *(&v150 + 1) = buf;
+    *&v151 = 0;
+    WORD4(v151) = 513;
+    BYTE10(v151) = 0;
+    WORD6(v151) = 0;
+    HIBYTE(v153) = 0;
+    LOBYTE(v154) = 1;
+    re::RenderGraphContext::encodeDrawCalls(a2, &v156, &v149, v87, v88, v89, v90, v91, v112, v114, v116, v117, v118, v119, v120, v121, v122, v123, v124, *(&v124 + 1), v125, *(&v125 + 1), v126, *(&v126 + 1), v127, *(&v127 + 1), v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, SBYTE1(v142), SBYTE2(v142), SBYTE3(v142), SBYTE4(v142), *(&v142 + 1), v143, v144, *(&v144 + 1), v145, v146, v147, v148, v149, v150, v151, v152, v153, v122, v154, *v155, *&v155[16], *&v155[24]);
+    *(a2 + 1553) = 0;
+  }
+}
+
+uint64_t re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::materialIndexForPart(re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem *this, unint64_t a2)
+{
+  v4 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(this, a2);
+  if (*(v4 + 88) > a2)
+  {
+    return *(*(v4 + 80) + 4 * a2);
+  }
+
+  v7 = **this;
+  v8 = re::MeshScene::RenderGroupInstanceIteration::RenderGroupInstanceIterItem::renderGroupInstance(this, v5);
+  v9 = re::Slice<re::internal::BindPointImplBase const*>::range(v7, *v8, v8[1]);
+  if (v10 > a2)
+  {
+    return *(*(v9 + 8 * a2) + 458);
+  }
+
+  re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, a2, v10);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v11, v12);
+  __break(1u);
+  return result;
+}
+
+re *re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderProjectiveMeshShadowPatchesNode *this, re::RenderGraphContext *a2)
+{
+  v168 = this;
+  v229 = *MEMORY[0x1E69E9840];
+  result = re::RenderGraphDataStore::tryGet<re::SceneScope>(*(a2 + 146), *(*(a2 + 5) + 48));
+  if (!result)
+  {
+    return result;
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1BE578, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE578))
+  {
+    qword_1EE1BE570 = re::hashString("ProjectiveMeshShadow", v126);
+    __cxa_guard_release(&qword_1EE1BE578);
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1BE588, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE588))
+  {
+    v128 = qword_1EE1BE570;
+    qword_1EE1BE580 = ((v128 << 6) + (v128 >> 2) + re::hashString("RenderFrame", v127) - 0x61C8864680B583E9) ^ v128;
+    __cxa_guard_release(&qword_1EE1BE588);
+  }
+
+  v205 = 1;
+  v4 = *(*(a2 + 1) + 96);
+  if (v4)
+  {
+    *v213 = 0x8E55C4195E970258;
+    *&v213[8] = "meshshadow:visualizeShadows";
+    LOBYTE(v206[0]) = 0;
+    v5 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v4, v213, v206);
+    if (v5)
+    {
+      if (v213[0])
+      {
+        if (v213[0])
         {
-          v22 = 3;
+        }
+      }
+    }
+
+    else
+    {
+      v6 = v206[0];
+      if (v213[0])
+      {
+        if (v213[0])
+        {
         }
       }
 
-      a2 = a3 % *(a1 + 24);
-      v5 = *(a1 + 32);
+      if (v6)
+      {
+        HIDWORD(v162) = 1;
+        goto LABEL_15;
+      }
+    }
+  }
+
+  HIDWORD(v162) = 0;
+LABEL_15:
+  v7 = *(*(a2 + 1) + 96);
+  if (v7)
+  {
+    *v213 = 0xB54CABA028476570;
+    *&v213[8] = "meshshadow:visualizeDepthPrepass";
+    LOBYTE(v206[0]) = 0;
+    v8 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v7, v213, v206);
+    if (v8)
+    {
+      if (v213[0])
+      {
+        if (v213[0])
+        {
+        }
+      }
     }
 
-    *(a1 + 32) = v5 + 1;
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 352 * v4);
+    else
+    {
+      v9 = v206[0];
+      if (v213[0])
+      {
+        if (v213[0])
+        {
+        }
+      }
+
+      if (v9)
+      {
+        HIDWORD(v155) = 0;
+        goto LABEL_26;
+      }
+    }
+  }
+
+  HIDWORD(v155) = 1;
+LABEL_26:
+  v10 = *(*(a2 + 1) + 96);
+  if (v10)
+  {
+    *v213 = 0x8E55C417E7AA3440;
+    *&v213[8] = "meshshadow:visualizeOverlap";
+    LOBYTE(v206[0]) = 0;
+    v11 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v10, v213, v206);
+    if (v11)
+    {
+      if (v213[0])
+      {
+        if (v213[0])
+        {
+        }
+      }
+    }
+
+    else
+    {
+      v12 = v206[0];
+      if (v213[0])
+      {
+        if (v213[0])
+        {
+        }
+      }
+
+      if (v12)
+      {
+        LODWORD(v162) = 1;
+        goto LABEL_37;
+      }
+    }
+  }
+
+  LODWORD(v162) = 0;
+LABEL_37:
+  v13 = re::internal::shadows::g_enableMaxBlend;
+  v14 = *(*(a2 + 1) + 96);
+  if (v14)
+  {
+    *v213 = 0x8B008DEF08584B7ALL;
+    *&v213[8] = "meshshadow:enableMaxBlend";
+    LOBYTE(v206[0]) = 0;
+    v15 = re::DebugSettingsManager::getWithErrorCode<BOOL>(v14, v213, v206);
+    if (!v15)
+    {
+      v13 = v206[0];
+    }
+
+    if (v213[0])
+    {
+      if (v213[0])
+      {
+      }
+    }
+  }
+
+  v167 = a2;
+  if (*(v168 + 264) == 1)
+  {
+    v16 = &qword_1EE1BE690;
+    if (atomic_load_explicit(algn_1EE1BE698, memory_order_acquire))
+    {
+      v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::depthOnlyPassName;
+      goto LABEL_51;
+    }
+
+    if (__cxa_guard_acquire(algn_1EE1BE698))
+    {
+      qword_1EE1BE690 = re::hashString("PatchShadowReceiverDepthOnly", v133);
+      v134 = algn_1EE1BE698;
+      v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::depthOnlyPassName;
+LABEL_189:
+      __cxa_guard_release(v134);
+      goto LABEL_51;
+    }
+
+    v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::depthOnlyPassName;
+  }
+
+  else if (*(v168 + 266) & v13)
+  {
+    v16 = &qword_1EE1BE6A0;
+    if (atomic_load_explicit(algn_1EE1BE6A8, memory_order_acquire))
+    {
+      v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::maxBlendPassName;
+      goto LABEL_51;
+    }
+
+    if (__cxa_guard_acquire(algn_1EE1BE6A8))
+    {
+      qword_1EE1BE6A0 = re::hashString("DrawMeshShadowPatchReceiverMaxBlend", v136);
+      v134 = algn_1EE1BE6A8;
+      v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::maxBlendPassName;
+      goto LABEL_189;
+    }
+
+    v17 = re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::maxBlendPassName;
   }
 
   else
   {
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 352 * v4);
-    *(a1 + 36) = v21 & 0x7FFFFFFF;
+    v16 = &qword_1EE1BE6B0;
+    if (atomic_load_explicit(algn_1EE1BE6B8, memory_order_acquire))
+    {
+      v17 = &re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::defaultPassName;
+      goto LABEL_51;
+    }
+
+    if (__cxa_guard_acquire(algn_1EE1BE6B8))
+    {
+      qword_1EE1BE6B0 = re::hashString("DrawMeshShadowPatchReceiver", v137);
+      v134 = algn_1EE1BE6B8;
+      v17 = &re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::defaultPassName;
+      goto LABEL_189;
+    }
+
+    v17 = &re::RenderProjectiveMeshShadowPatchesNode::execute(re::RenderGraphContext &)::$_5::operator() const(void)::defaultPassName;
   }
 
-  v23 = 352 * v4;
-  *(v20 + v23) = v21 | 0x80000000;
-  v24 = *(a1 + 8);
-  *(v20 + v23) = *(v24 + 4 * a2) | 0x80000000;
-  *(v24 + 4 * a2) = v4;
-  ++*(a1 + 28);
-  return v20 + 352 * v4;
+LABEL_51:
+  v18 = *v16;
+  v158 = *v17;
+  if ((atomic_load_explicit(&qword_1EE1BE598, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE598))
+  {
+    qword_1EE1BE590 = re::hashString("MeshShadowPatchReceiverDepthPrepass", v129);
+    __cxa_guard_release(&qword_1EE1BE598);
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1BE5A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5A8))
+  {
+    v130 = [*(*(a2 + 1) + 208) supportsShaderBarycentricCoordinates];
+    v131 = "MeshShadowPatchReceiverVisualizeDepthPrepass";
+    if (v130)
+    {
+      v131 = "MeshShadowPatchReceiverVisualizeDepthPrepassWithWireframe";
+    }
+
+    qword_1EE1BE5A0 = v131;
+    __cxa_guard_release(&qword_1EE1BE5A8);
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1BE5B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5B8))
+  {
+    qword_1EE1BE5B0 = re::hashString(qword_1EE1BE5A0, v132);
+    __cxa_guard_release(&qword_1EE1BE5B8);
+  }
+
+  result = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowRenderingData>>(*(a2 + 146), qword_1EE1BE580);
+  v19 = result;
+  if (*(a2 + 338))
+  {
+    result = re::DrawCallRecorder::allocateDrawCallRecorderGroup(a2 + 169, *(v168 + 2), 0);
+    v161 = result;
+    if (!v19)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    v161 = 0;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  if (*(v19 + 5))
+  {
+    v20 = *(*a2 + 32);
+    re::globalAllocators(result);
+    v21 = (*(*v20 + 32))(v20, 336, 16);
+    *v21 = 0u;
+    *(v21 + 16) = 0u;
+    *(v21 + 32) = 0u;
+    *(v21 + 48) = 0;
+    *(v21 + 56) = 0u;
+    *(v21 + 72) = 0u;
+    *(v21 + 88) = 0u;
+    *(v21 + 104) = 0u;
+    *(v21 + 120) = 0;
+    *(v21 + 192) = 0;
+    *(v21 + 200) = 0;
+    *(v21 + 208) = 0;
+    *(v21 + 224) = 0;
+    *(v21 + 128) = 0u;
+    *(v21 + 144) = 0u;
+    *(v21 + 160) = 0u;
+    *(v21 + 176) = 0;
+    *(v21 + 184) = v20;
+    *(v21 + 232) = xmmword_1E304F3C0;
+    *(v21 + 248) = 0;
+    *(v21 + 252) = 10854;
+    __asm { FMOV            V0.2S, #1.0 }
+
+    *(v21 + 256) = _D0;
+    *(v21 + 264) = 0;
+    *(v21 + 272) = 0;
+    *(v21 + 320) = 0;
+    *&v213[24] = re::globalAllocators(v21)[2];
+    *v213 = &unk_1F5D0F718;
+    *&v213[32] = v213;
+    v164 = v20;
+    v27 = (*(*v20 + 16))(v20, v21, v213);
+    re::FunctionBase<24ul,void ()(void *)>::destroyCallable(v213);
+    *(v27 + 56) = *(v19 + 56);
+    *(&v176 + 1) = v27;
+    v28 = re::MaterialParameterTableLayers::resolveTechniqueIndices(v27, v18);
+    if (!v29)
+    {
+      goto LABEL_166;
+    }
+
+    v30 = *v28;
+    ReceiverMesh = re::ShadowRenderManager::getReceiverMesh(*(*(a2 + 1) + 192));
+    if ((*(v168 + 264) & 1) != 0 || *(v168 + 265) == 1)
+    {
+      if ((atomic_load_explicit(&qword_1EE1BE5C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5C8))
+      {
+        qword_1EE1BE5C0 = re::hashString("SetStencilForBackgroundPixels", v135);
+        __cxa_guard_release(&qword_1EE1BE5C8);
+      }
+
+      re::RenderGraphContext::makeFullscreenDrawCall(a2, *(v19 + 7), "FullscreenDrawCall", 0, 0, 0, 0, 0, v213);
+      v31 = re::MaterialParameterTableLayers::resolveTechniqueIndices(*&v213[72], qword_1EE1BE5C0);
+      if (!v32)
+      {
+        goto LABEL_167;
+      }
+
+      *&v213[44] = *v31;
+      *(a2 + 1553) = 1;
+      v202 = 1;
+      v203 = __const__ZN2re20FeatureStencilStates17getMeshShadowInfoENS0_15MeshShadowUsageE_kWriteStInfo;
+      v204 = 64;
+      re::encodeFullscreenDrawCall(v213, "SetStencilForBackgroundPixels", a2, v161, 0, &v202, 0);
+      *(a2 + 1553) = 0;
+    }
+
+    v33 = 0x9E3779B97F4A7C17;
+    v34 = re::RenderGraphDataStore::get<re::SceneScope>(*(a2 + 146), *(*(a2 + 5) + 48));
+    if (*(v34 + 16))
+    {
+      v35 = *(v34 + 24);
+    }
+
+    else
+    {
+      v35 = (v34 + 17);
+    }
+
+    v36 = strlen(v35);
+    HIDWORD(v157) = v30;
+    if (v36)
+    {
+      MurmurHash3_x64_128(v35, v36, 0, v213);
+      v33 = ((*&v213[8] - 0x61C8864680B583E9 + (*v213 << 6) + (*v213 >> 2)) ^ *v213) - 0x61C8864680B583E9;
+    }
+
+    v163 = re::RenderGraphDataStore::get<re::CameraMatrices>(*(a2 + 146), *(*(a2 + 5) + 48));
+    result = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshShadowPerSceneRenderingData>>(*(a2 + 146), (v33 + (qword_1EE1BE570 << 6) + (qword_1EE1BE570 >> 2)) ^ qword_1EE1BE570);
+    if (result)
+    {
+      v37 = *(result + 3);
+      if (v37)
+      {
+        v38 = *(result + 5);
+        v159 = (v38 + 72 * v37);
+        v160 = *(&v176 + 1) + 104;
+        v174 = xmmword_1E3047670;
+        v173 = xmmword_1E3047680;
+        v172 = xmmword_1E30476A0;
+        v171 = xmmword_1E30474D0;
+        *&v176 = &v213[8];
+        while (1)
+        {
+          v39 = (*(*v164 + 32))(v164, 64, 8);
+          *v39 = 0u;
+          *(v39 + 16) = 0u;
+          *(v39 + 32) = 0u;
+          *(v39 + 48) = 0u;
+          re::HashBrown<re::ecs2::Scene const*,unsigned long,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,void,false>::init(v39, v164, 5);
+          if ((atomic_load_explicit(&qword_1EE1BE5D8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5D8))
+          {
+            qword_1EE1BE5D0 = re::hashString("MeshShadowUseFlatShadows", v118);
+            __cxa_guard_release(&qword_1EE1BE5D8);
+          }
+
+          if ((atomic_load_explicit(&qword_1EE1BE5E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5E8))
+          {
+            qword_1EE1BE5E0 = re::hashString("ImmersionOption", v119);
+            __cxa_guard_release(&qword_1EE1BE5E8);
+          }
+
+          if ((atomic_load_explicit(&qword_1EE1BE5F8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE5F8))
+          {
+            qword_1EE1BE5F0 = re::hashString("MeshShadowRenderAsRGB", v120);
+            __cxa_guard_release(&qword_1EE1BE5F8);
+          }
+
+          if ((atomic_load_explicit(&qword_1EE1BE608, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE608))
+          {
+            qword_1EE1BE600 = re::hashString("MeshShadowEnableFlatShadowMeshFallback", v121);
+            __cxa_guard_release(&qword_1EE1BE608);
+          }
+
+          if ((atomic_load_explicit(&qword_1EE1BE618, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE618))
+          {
+            qword_1EE1BE610 = re::hashString("MeshShadowVisualizeOverlap", v122);
+            __cxa_guard_release(&qword_1EE1BE618);
+          }
+
+          if (re::internal::shadows::g_enableShadowFlattening == 1)
+          {
+            v40 = *(v38 + 8) ^ 1;
+          }
+
+          else
+          {
+            v40 = 0;
+          }
+
+          *v213 = qword_1EE1BE5D0;
+          LODWORD(v206[0]) = v40 & 1;
+          re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addNew(v39, v213, v206);
+          *v213 = qword_1EE1BE5E0;
+          if (re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v39, v213) == -1)
+          {
+            re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::internalAdd(v39, v213, &v205);
+          }
+
+          *v213 = qword_1EE1BE5F0;
+          LODWORD(v206[0]) = HIDWORD(v162);
+          re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addNew(v39, v213, v206);
+          *v213 = qword_1EE1BE600;
+          LODWORD(v206[0]) = re::internal::shadows::g_enableMeshDepthFallbackWhenFlattening;
+          re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addNew(v39, v213, v206);
+          *v213 = qword_1EE1BE610;
+          LODWORD(v206[0]) = v162;
+          re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addNew(v39, v213, v206);
+          if ((atomic_load_explicit(&qword_1EE1BE628, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE628))
+          {
+            qword_1EE1BE620 = re::hashString("DynamicFunctionConstants", v123);
+            __cxa_guard_release(&qword_1EE1BE628);
+          }
+
+          v41 = qword_1EE1BE620;
+          v42 = strlen(*(v168 + 4));
+          HIDWORD(v166) = v40;
+          if (v42)
+          {
+            MurmurHash3_x64_128(*(v168 + 4), v42, 0, v213);
+            v43 = (*&v213[8] - 0x61C8864680B583E9 + (*v213 << 6) + (*v213 >> 2)) ^ *v213;
+          }
+
+          else
+          {
+            v43 = 0;
+          }
+
+          v44 = re::RenderGraphDataStore::tryGet<re::DynamicFunctionConstantsData>(*(v167 + 146), ((v41 << 6) - 0x61C8864680B583E9 + (v41 >> 2) + v43) ^ v41);
+          v45 = v44 + 8;
+          if (!v44)
+          {
+            v45 = 0;
+          }
+
+          *v213 = v39;
+          *&v213[8] = v45;
+          memset(&v213[16], 0, 74);
+          *(v160 + 16) = 0;
+          *v160 = *v213;
+          if (v160 != v213)
+          {
+            v46 = *(*(&v176 + 1) + 144);
+            *&v213[24] = *(*(&v176 + 1) + 128);
+            *&v213[72] = *(*(&v176 + 1) + 176);
+            *(*(&v176 + 1) + 128) = 0uLL;
+            *(*(&v176 + 1) + 144) = 0uLL;
+            *&v213[40] = v46;
+            v47 = *(*(&v176 + 1) + 160);
+            *(*(&v176 + 1) + 160) = 0uLL;
+            *(*(&v176 + 1) + 176) = 0uLL;
+            *&v213[56] = v47;
+          }
+
+          *(*(&v176 + 1) + 192) = 0;
+          v48 = re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(&v213[24]);
+          v49 = (*(*v164 + 32))(v164, 328, 8, v48);
+          v50 = re::DrawTable::DrawTable(v49, v164);
+          v165 = v50;
+          if ((v40 & 1) == 0)
+          {
+            break;
+          }
+
+          v51 = *ReceiverMesh;
+          v52 = (*(*ReceiverMesh + 528) ^ *(*(*(&v176 + 1) + 56) + 296)) & ~*(*(*(&v176 + 1) + 56) + 300) | *(*(*(&v176 + 1) + 56) + 300) & *(*(*(&v176 + 1) + 56) + 296);
+          memset(v213, 0, 24);
+          *&v213[24] = v51;
+          *&v213[32] = 0;
+          *&v213[40] = *(&v176 + 1);
+          *&v213[48] = 0;
+          *&v213[56] = -65280;
+          *&v213[60] = HIDWORD(v157);
+          *&v213[64] = 0;
+          *&v213[80] = v174;
+          v214 = v173;
+          v215 = v172;
+          v216 = v171;
+          v222 = 0;
+          v221 = 0;
+          v223 = 0;
+          v224 = 0;
+          v220 = 0;
+          v218 = 0;
+          v219 = 0;
+          v217 = 0;
+          LODWORD(v225) = v52;
+          *(&v225 + 4) = -NAN;
+          HIDWORD(v225) = 0;
+          v226 = 0xFFFFFFFFLL;
+          v227 = 0;
+          v228 = 0;
+          v53 = v167;
+          v54 = *v167;
+          v55 = *(v163 + 160);
+          memset(v200, 0, sizeof(v200));
+          v201 = 0;
+          v56 = re::addDrawCall(v50, v213, v54, v55, v200);
+          *(v56 + 40) = *v38;
+          *(v56 + 32) = *(v38 + 4);
+LABEL_134:
+          if ((*(v168 + 264) & 1) != 0 || *(v168 + 265) == 1)
+          {
+            v196 = __const__ZN2re20FeatureStencilStates17getMeshShadowInfoENS0_15MeshShadowUsageE_kReadStInfo;
+            LOBYTE(v197) = 64;
+            v110 = 1;
+          }
+
+          else
+          {
+            v110 = 0;
+          }
+
+          re::DrawTableSlice::DrawTableSlice(v213, v165);
+          *(v53 + 1553) = 1;
+          if ((v166 & 0x100000000) != 0)
+          {
+            v111 = 2;
+          }
+
+          else
+          {
+            v111 = 0;
+          }
+
+          *&v183 = v158;
+          *(&v183 + 1) = v213;
+          v112 = *(v163 + 80);
+          *&v184 = *(v163 + 40);
+          *(&v184 + 1) = v112;
+          *v185 = 0;
+          v185[8] = *(v163 + 160);
+          *&v185[9] = 258;
+          *&v185[11] = v111;
+          v185[13] = v110;
+          if (v110)
+          {
+            *&v185[14] = v196;
+            v185[30] = v197;
+          }
+
+          v185[31] = 0;
+          v186 = v161;
+          LOBYTE(v187) = 0;
+          re::RenderGraphContext::getDefaultEncodeDrawCallDataStoreArgs(v53, v206);
+          result = re::RenderGraphContext::encodeDrawCalls(v53, v206, &v183, v113, v114, v115, v116, v117, v138, v144, v150, v151, v152, v153, v154, v155, ReceiverMesh, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, *(&v171 + 1), v172, *(&v172 + 1), v173, *(&v173 + 1), v174, v175, v176, v177, SBYTE1(v177), SBYTE2(v177), SBYTE3(v177), SBYTE4(v177), v178, v179, v180, *(&v180 + 1), v181, *(&v181 + 1), v182, *(&v182 + 1), v183, v184, *v185, *&v185[16], *&v185[24], v186, v187, v188, *v189, *&v189[8]);
+          *(v53 + 1553) = 0;
+LABEL_144:
+          v38 += 72;
+          if (v38 == v159)
+          {
+            return result;
+          }
+        }
+
+        if ((atomic_load_explicit(&qword_1EE1BE638, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE638))
+        {
+          qword_1EE1BE630 = re::hashString("MeshScenes", v124);
+          __cxa_guard_release(&qword_1EE1BE638);
+        }
+
+        result = re::RenderGraphDataStore::tryGet<re::RenderGraphDataStoreWrapper<re::MeshSceneArrays>>(*(v167 + 146), (*(v38 + 64) - 0x61C8864680B583E9 + (qword_1EE1BE630 << 6) + (qword_1EE1BE630 >> 2)) ^ qword_1EE1BE630);
+        if (!result)
+        {
+          goto LABEL_144;
+        }
+
+        v57 = result;
+        v197 = 0;
+        v198 = 0;
+        v199 = 0;
+        v196 = v164;
+        re::DynamicArray<re::MeshPartDrawContext>::setCapacity(&v196, 0);
+        ++v198;
+        *&v175 = v38;
+        *&v170 = *(v57 + 6);
+        if (v170)
+        {
+          v58 = 0;
+          v169 = v57;
+          do
+          {
+            *(&v170 + 1) = v58;
+            v59 = re::BucketArray<re::MeshSceneCollection,16ul>::operator[](v57 + 8, v58);
+            v60 = *(v59 + 16);
+            if (v60)
+            {
+              v61 = *(v59 + 32);
+              v62 = v61 + 736 * v60;
+              *(&v175 + 1) = v62;
+              do
+              {
+                if (*(v61 + 692) == 1 && re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::contains(v38 + 16, (v61 + 512)))
+                {
+                  v63 = *(v61 + 8);
+                  v206[0] = 0;
+                  v206[1] = v63;
+                  v207 = v174;
+                  v208 = v173;
+                  v209 = v172;
+                  v210 = v171;
+                  v211 = 0;
+                  v212 = 0;
+                  v64 = *(v61 + 56);
+                  if (v64)
+                  {
+                    v65 = *(v61 + 48);
+                  }
+
+                  else
+                  {
+                    v65 = v206;
+                    v64 = 1;
+                  }
+
+                  v177 = &v65[12 * v64];
+                  do
+                  {
+                    v66 = 0;
+                    v67 = *(v61 + 128);
+                    v68 = *(v61 + 144);
+                    v69 = *(v61 + 160);
+                    v70 = *(v61 + 176);
+                    v71 = *(v65 + 2);
+                    v72 = *(v65 + 3);
+                    v73 = *(v65 + 4);
+                    v183 = *(v65 + 1);
+                    v184 = v71;
+                    *v185 = v72;
+                    *&v185[16] = v73;
+                    do
+                    {
+                      *&v213[v66] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v67, COERCE_FLOAT(*(&v183 + v66))), v68, *(&v183 + v66), 1), v69, *(&v183 + v66), 2), v70, *(&v183 + v66), 3);
+                      v66 += 16;
+                    }
+
+                    while (v66 != 64);
+                    v181 = *&v213[16];
+                    v182 = *v213;
+                    v179 = *&v213[48];
+                    v180 = *&v213[32];
+                    v178 = v65;
+                    v74 = re::Slice<re::internal::BindPointImplBase const*>::range(v61, *v65, v65[1]);
+                    if (v75)
+                    {
+                      v76 = v74;
+                      v77 = 8 * v75;
+                      do
+                      {
+                        v78 = *v76++;
+                        v79 = (((*(v78 + 528) ^ *(*(*(&v176 + 1) + 56) + 296)) & ~*(*(*(&v176 + 1) + 56) + 300) | *(*(*(&v176 + 1) + 56) + 300) & *(*(*(&v176 + 1) + 56) + 296)) ^ *(v61 + 504)) & ~*(v61 + 508) | *(v61 + 504) & *(v61 + 508);
+                        v80 = *(v61 + 512);
+                        *v176 = 0;
+                        *(v176 + 8) = 0;
+                        *v213 = v80;
+                        *&v213[24] = v78;
+                        *&v213[32] = 0;
+                        *&v213[40] = *(&v176 + 1);
+                        *&v213[48] = 0;
+                        *&v213[56] = -65280;
+                        *&v213[60] = 0xFFFFFFFFLL;
+                        *&v213[80] = v182;
+                        v214 = v181;
+                        v215 = v180;
+                        v216 = v179;
+                        v222 = 0;
+                        v221 = 0;
+                        v223 = 0;
+                        v224 = 0;
+                        v217 = 0;
+                        v218 = 0;
+                        v220 = 0;
+                        v219 = 0;
+                        LODWORD(v225) = v79;
+                        *(&v225 + 4) = -NAN;
+                        HIDWORD(v225) = 0;
+                        v226 = 0xFFFFFFFFLL;
+                        v227 = 0;
+                        v228 = 0;
+                        re::DynamicArray<re::MeshPartDrawContext>::add(&v196, v213);
+                        v77 -= 8;
+                      }
+
+                      while (v77);
+                    }
+
+                    v65 = (v178 + 96);
+                  }
+
+                  while ((v178 + 96) != v177);
+                  v62 = *(&v175 + 1);
+                  v38 = v175;
+                }
+
+                v61 += 736;
+              }
+
+              while (v61 != v62);
+            }
+
+            v58 = *(&v170 + 1) + 1;
+            v57 = v169;
+          }
+
+          while (*(&v170 + 1) + 1 != v170);
+        }
+
+        v81 = v167;
+        v82 = 0uLL;
+        v83 = v165;
+        if ((*(v168 + 264) & 1) == 0)
+        {
+          v84 = re::MaterialParameterTableLayers::resolveTechniqueIndices(*(&v176 + 1), qword_1EE1BE590);
+          if (!v85)
+          {
+            re::internal::assertLog(6, 0, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v139, v145);
+            __break(1u);
+LABEL_165:
+            re::internal::assertLog(6, v98, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v140, v146);
+            __break(1u);
+LABEL_166:
+            re::internal::assertLog(6, v29, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v141, v147);
+            __break(1u);
+LABEL_167:
+            re::internal::assertLog(6, v32, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v142, v148);
+            __break(1u);
+LABEL_168:
+            re::internal::assertLog(6, v103, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
+            _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v143, v149);
+            __break(1u);
+          }
+
+          v81 = v167;
+          v38 = v175;
+          v82 = 0uLL;
+          v83 = v165;
+          if (!v197)
+          {
+            goto LABEL_120;
+          }
+
+          v86 = *v84;
+          v87 = v199;
+          v88 = 240 * v197;
+          do
+          {
+            v89 = *v167;
+            v194[0] = v82;
+            v194[1] = v82;
+            v195 = 0;
+            v90 = re::addDrawCall(v165, v87, v89, 1u, v194);
+            v82 = 0uLL;
+            v91 = *v175;
+            *(v90 + 32) = 1;
+            *(v90 + 40) = v91;
+            *(v90 + 44) = v86;
+            *(v90 + 104) = "MeshShadowDepthPrepass";
+            v87 += 240;
+            v88 -= 240;
+          }
+
+          while (v88);
+        }
+
+        if (v197)
+        {
+          v92 = v81;
+          v93 = v199;
+          v94 = 240 * v197;
+          do
+          {
+            v95 = *v92;
+            v192[0] = v82;
+            v192[1] = v82;
+            v193 = 0;
+            v96 = re::addDrawCall(v83, v93, v95, 1u, v192);
+            v82 = 0uLL;
+            v96[10] = *v38;
+            v96[8] = *(v38 + 4);
+            v96[11] = HIDWORD(v157);
+            v93 += 240;
+            v94 -= 240;
+          }
+
+          while (v94);
+        }
+
+LABEL_120:
+        if (!*(v168 + 264))
+        {
+          if ((atomic_load_explicit(&qword_1EE1BE648, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BE648))
+          {
+            qword_1EE1BE640 = re::hashString("MeshShadowDepthClear", v125);
+            __cxa_guard_release(&qword_1EE1BE648);
+          }
+
+          v97 = re::MaterialParameterTableLayers::resolveTechniqueIndices(*(&v176 + 1), qword_1EE1BE640);
+          if (!v98)
+          {
+            goto LABEL_165;
+          }
+
+          v99 = *v97;
+          memset(v213, 0, 24);
+          *&v213[24] = *(v167 + 192);
+          *&v213[32] = 0;
+          *&v213[40] = *(&v176 + 1);
+          *&v213[48] = 0;
+          *&v213[56] = -65280;
+          *&v213[60] = v99;
+          *&v213[64] = 0;
+          *&v213[80] = v174;
+          v214 = v173;
+          v215 = v172;
+          v216 = v171;
+          v222 = 0;
+          v221 = 0;
+          v223 = 0;
+          v224 = 0;
+          v217 = 0;
+          v218 = 0;
+          v220 = 0;
+          v219 = 0;
+          *&v225 = 25172350;
+          *(&v225 + 1) = 0x7FFFFFFFLL;
+          v226 = 0xFFFFFFFFLL;
+          v227 = 0;
+          v228 = 0;
+          v100 = *v167;
+          memset(v190, 0, sizeof(v190));
+          v191 = 0;
+          *(re::addDrawCall(v165, v213, v100, 1u, v190) + 104) = "MeshShadowDepthClear";
+          v101 = BYTE4(v155);
+          if (*(v168 + 264))
+          {
+            v101 = 1;
+          }
+
+          if ((v101 & 1) == 0)
+          {
+            v102 = re::MaterialParameterTableLayers::resolveTechniqueIndices(*(&v176 + 1), qword_1EE1BE5B0);
+            if (!v103)
+            {
+              goto LABEL_168;
+            }
+
+            v82 = 0uLL;
+            if (v197)
+            {
+              v104 = *v102;
+              v105 = v199;
+              v106 = 240 * v197;
+              do
+              {
+                v107 = *v167;
+                v188 = v82;
+                *v189 = v82;
+                *&v189[16] = 0;
+                v108 = re::addDrawCall(v165, v105, v107, 1u, &v188);
+                v82 = 0uLL;
+                v109 = *v175;
+                *(v108 + 32) = 1;
+                *(v108 + 40) = v109;
+                *(v108 + 44) = v104;
+                *(v108 + 104) = "MeshShadowVisualizeDepthPrepass";
+                v105 += 240;
+                v106 -= 240;
+              }
+
+              while (v106);
+            }
+          }
+        }
+
+        if (v196 && v199)
+        {
+          (*(*v196 + 40))(v82);
+        }
+
+        v53 = v167;
+        v38 = v175;
+        goto LABEL_134;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::MeshShadowGenerateMipmapNode::configure(void **this, const char *a2, const char *a3, re::RenderFrame *a4)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  v5 = *(a4 + 1);
+  re::DynamicString::DynamicString(&v12, (this + 62));
+  v14 = 0;
+  v17 = 0;
+  v21 = 0;
+  v22 = 0;
+  v20 = 0;
+  v23 = 0;
+  v27 = 0;
+  v28 = 0;
+  v24 = 0;
+  v25 = 0;
+  v26 = 0;
+  ComputePipelineState = re::getOrCreateComputePipelineState(v5, &v12);
+  NS::SharedPtr<MTL::Buffer>::operator=(this + 70, ComputePipelineState);
+  if (v27)
+  {
+
+    v27 = 0;
+  }
+
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v20);
+  if (v17 == 1 && v18)
+  {
+    if (BYTE8(v18))
+    {
+      (*(*v18 + 40))();
+    }
+
+    v18 = 0u;
+    v19 = 0u;
+  }
+
+  if (v14 == 1 && v15)
+  {
+    if (BYTE8(v15))
+    {
+      (*(*v15 + 40))();
+    }
+
+    v16 = 0u;
+    v15 = 0u;
+  }
+
+  if (v12 && (v13 & 1) != 0)
+  {
+    (*(*v12 + 40))();
+  }
+
+  v7 = re::DynamicString::DynamicString(&v12, (this + 66));
+  v14 = 0;
+  v17 = 0;
+  v21 = 0;
+  v22 = 0;
+  v20 = 0;
+  v23 = 0;
+  v27 = 0;
+  v28 = 0;
+  v24 = 0;
+  v25 = 0;
+  v26 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  re::DynamicString::setCapacity(&v31, 0);
+  v37 = 0u;
+  v36 = 0u;
+  v35 = 0u;
+  v34 = 0u;
+  v29 = "MeshShadowMipDoReduction";
+  v30 = 24;
+  re::DynamicString::operator=(&v31, &v29);
+  v33 = 12451893;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  LOBYTE(v34) = 1;
+  re::DynamicArray<re::TechniqueFunctionConstant>::add(&v20, &v31);
+  v8 = re::getOrCreateComputePipelineState(v5, &v12);
+  NS::SharedPtr<MTL::Buffer>::operator=(this + 72, v8);
+  if (v31 && (BYTE8(v31) & 1) != 0)
+  {
+    (*(*v31 + 40))(v31, v32);
+  }
+
+  if (v27)
+  {
+
+    v27 = 0;
+  }
+
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v20);
+  if (v17 == 1 && v18)
+  {
+    if (BYTE8(v18))
+    {
+      (*(*v18 + 40))();
+    }
+
+    v18 = 0u;
+    v19 = 0u;
+  }
+
+  if (v14 == 1 && v15)
+  {
+    if (BYTE8(v15))
+    {
+      (*(*v15 + 40))();
+    }
+
+    v16 = 0u;
+    v15 = 0u;
+  }
+
+  if (v12 && (v13 & 1) != 0)
+  {
+    (*(*v12 + 40))();
+  }
+
+  v9 = re::DynamicString::DynamicString(&v12, (this + 66));
+  v14 = 0;
+  v17 = 0;
+  v21 = 0;
+  v22 = 0;
+  v20 = 0;
+  v23 = 0;
+  v27 = 0;
+  v28 = 0;
+  v24 = 0;
+  v25 = 0;
+  v26 = 0;
+  *(&v31 + 1) = 0;
+  v32 = 0uLL;
+  re::DynamicString::setCapacity(&v31, 0);
+  v37 = 0u;
+  v36 = 0u;
+  v35 = 0u;
+  v34 = 0u;
+  v29 = "MeshShadowMipDoReduction";
+  v30 = 24;
+  re::DynamicString::operator=(&v31, &v29);
+  v33 = 12451893;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  re::DynamicArray<re::TechniqueFunctionConstant>::add(&v20, &v31);
+  v10 = re::getOrCreateComputePipelineState(v5, &v12);
+  NS::SharedPtr<MTL::Buffer>::operator=(this + 71, v10);
+  if (v31 && (BYTE8(v31) & 1) != 0)
+  {
+    (*(*v31 + 40))(v31, v32);
+  }
+
+  if (v27)
+  {
+
+    v27 = 0;
+  }
+
+  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v20);
+  if (v17 == 1 && v18)
+  {
+    if (BYTE8(v18))
+    {
+      (*(*v18 + 40))();
+    }
+
+    v18 = 0u;
+    v19 = 0u;
+  }
+
+  if (v14 == 1 && v15)
+  {
+    if (BYTE8(v15))
+    {
+      (*(*v15 + 40))();
+    }
+
+    v16 = 0u;
+    v15 = 0u;
+  }
+
+  result = v12;
+  if (v12)
+  {
+    if (v13)
+    {
+      return (*(*v12 + 40))();
+    }
+  }
+
+  return result;
 }

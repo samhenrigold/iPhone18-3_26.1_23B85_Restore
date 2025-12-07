@@ -520,7 +520,7 @@ LABEL_43:
 LABEL_62:
 }
 
-uint64_t __103__SUUINavigationController__configureNavigationBarForViewController_shouldIgnoreTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
+void *__103__SUUINavigationController__configureNavigationBarForViewController_shouldIgnoreTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

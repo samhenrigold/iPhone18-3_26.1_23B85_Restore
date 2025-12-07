@@ -71,28 +71,17 @@
 uint64_t __39__ALAssetPrivate__performBlockAndWait___block_invoke_2(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 32) objectWithObjectID:{objc_msgSend(*(*(a1 + 32) + 24), "objectID")}];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  if (v4 != v2)
+  v3 = *(*(a1 + 32) + 24);
+  if (v3 != v2)
   {
-    v5 = v2;
+    v4 = v2;
 
-    *(*(a1 + 32) + 24) = v5;
-    v3 = *(a1 + 32);
-    v6 = *(v3 + 24);
+    *(*(a1 + 32) + 24) = v4;
   }
 
-  v7 = *(v3 + 32);
-  v8 = *(*(a1 + 40) + 16);
+  v5 = *(*(a1 + 40) + 16);
 
-  return v8();
-}
-
-void __39__ALAssetPrivate__performBlockAndWait___block_invoke_4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  NSLog(&cfstr_InvalidAttempt.isa, v3, *(a1 + 32));
+  return v5();
 }
 
 - (BOOL)isDeletable
@@ -112,7 +101,7 @@ void __39__ALAssetPrivate__performBlockAndWait___block_invoke_4(uint64_t a1)
   return v2;
 }
 
-uint64_t __29__ALAssetPrivate_isDeletable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__29__ALAssetPrivate_isDeletable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isDeletableFromAssetsLibrary];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;

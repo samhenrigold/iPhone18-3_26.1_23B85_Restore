@@ -1,9 +1,9 @@
 @interface LAErrorOysterRedactor
 - (LAErrorOysterRedactor)init;
 - (id)redactError:(id)error;
-- (uint64_t)_linkedAgainstRequiredSDKVersion;
-- (uint64_t)_shouldMaskOysterBiometry;
 - (uint64_t)_shouldVerifySDKVersion;
+- (void)_linkedAgainstRequiredSDKVersion;
+- (void)_shouldMaskOysterBiometry;
 - (void)setMinSDKVersion:(id)version;
 @end
 
@@ -69,9 +69,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  shouldMaskOyster = [(LAErrorOysterRedactor *)self _shouldMaskOysterBiometry];
+  _shouldMaskOysterBiometry = [(LAErrorOysterRedactor *)self _shouldMaskOysterBiometry];
 
-  if (!shouldMaskOyster)
+  if (!_shouldMaskOysterBiometry)
   {
     goto LABEL_8;
   }
@@ -96,7 +96,7 @@ LABEL_9:
   _hasSDKRequirements = 0;
 }
 
-- (uint64_t)_shouldMaskOysterBiometry
+- (void)_shouldMaskOysterBiometry
 {
   if (result)
   {
@@ -104,7 +104,7 @@ LABEL_9:
     result = [(LAErrorOysterRedactor *)result _shouldVerifySDKVersion];
     if (result)
     {
-      return [(LAErrorOysterRedactor *)v1 _linkedAgainstRequiredSDKVersion]^ 1;
+      return ([(LAErrorOysterRedactor *)v1 _linkedAgainstRequiredSDKVersion]^ 1);
     }
   }
 
@@ -114,62 +114,57 @@ LABEL_9:
 - (uint64_t)_shouldVerifySDKVersion
 {
   v14 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    v1 = *(self + 8);
-    if (v1)
-    {
-      v2 = v1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-      v2 = [standardUserDefaults persistentDomainForName:*MEMORY[0x1E696A400]];
-    }
-
-    v4 = [v2 objectForKeyedSubscript:@"LA.oyster.skipSDKVerification"];
-    v5 = v4;
-    if (!v4)
-    {
-      v4 = MEMORY[0x1E695E110];
-    }
-
-    bOOLValue = [v4 BOOLValue];
-
-    v7 = LA_LOG();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = @"perform";
-      if (bOOLValue)
-      {
-        v8 = @"skip";
-      }
-
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_1DF403000, v7, OS_LOG_TYPE_DEFAULT, "Will %@ SDK verification", &v12, 0xCu);
-    }
-
-    v9 = bOOLValue ^ 1u;
+  v1 = *(self + 8);
+  if (v1)
+  {
+    v2 = v1;
   }
 
   else
   {
-    v9 = 0;
+    standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+    v2 = [standardUserDefaults persistentDomainForName:*MEMORY[0x1E696A400]];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  v4 = [v2 objectForKeyedSubscript:@"LA.oyster.skipSDKVerification"];
+  v5 = v4;
+  if (!v4)
+  {
+    v4 = MEMORY[0x1E695E110];
+  }
+
+  bOOLValue = [v4 BOOLValue];
+
+  v8 = LA_LOG(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = @"perform";
+    if (bOOLValue)
+    {
+      v9 = @"skip";
+    }
+
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_1DF403000, v8, OS_LOG_TYPE_DEFAULT, "Will %@ SDK verification", &v12, 0xCu);
+  }
+
+  v10 = bOOLValue ^ 1u;
+  return v10;
 }
 
-- (uint64_t)_linkedAgainstRequiredSDKVersion
+- (void)_linkedAgainstRequiredSDKVersion
 {
   if (result)
   {
     if (_hasSDKRequirements)
     {
-      v1 = LA_LOG();
+      v1 = LA_LOG(result);
       if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -179,25 +174,24 @@ LABEL_9:
       return [_hasSDKRequirements BOOLValue];
     }
 
-    else if (*(result + 20) || *(result + 16))
+    else if (*(result + 5) || *(result + 4))
     {
-      v2 = *(result + 16);
-      v3 = [MEMORY[0x1E696AD98] numberWithBool:dyld_program_sdk_at_least()];
+      v2 = [MEMORY[0x1E696AD98] numberWithBool:dyld_program_sdk_at_least()];
+      v3 = _hasSDKRequirements;
+      _hasSDKRequirements = v2;
+
       v4 = _hasSDKRequirements;
-      _hasSDKRequirements = v3;
 
-      v5 = _hasSDKRequirements;
-
-      return [v5 BOOLValue];
+      return [v4 BOOLValue];
     }
 
     else
     {
-      v6 = LA_LOG();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = LA_LOG(result);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        *v7 = 0;
-        _os_log_error_impl(&dword_1DF403000, v6, OS_LOG_TYPE_ERROR, "Could not determine the current SDK version", v7, 2u);
+        *v6 = 0;
+        _os_log_error_impl(&dword_1DF403000, v5, OS_LOG_TYPE_ERROR, "Could not determine the current SDK version", v6, 2u);
       }
 
       return 0;

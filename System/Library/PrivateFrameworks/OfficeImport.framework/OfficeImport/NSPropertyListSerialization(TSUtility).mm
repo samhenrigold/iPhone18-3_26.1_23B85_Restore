@@ -8,7 +8,7 @@
 
 + (id)tsu_propertyListWithContentsOfURL:()TSUtility options:error:
 {
-  v7 = [MEMORY[0x277CBEAE0] inputStreamWithURL:?];
+  v7 = [MEMORY[0x277CBEAE0] inputStreamWithURL:a3];
   v8 = v7;
   if (v7)
   {

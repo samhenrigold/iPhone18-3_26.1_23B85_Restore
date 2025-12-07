@@ -1,6 +1,8 @@
 @interface SFUCryptoKey
 - (id)initAes128Key:(const char *)key length:(unsigned int)length iterationCount:(unsigned int)count;
 - (id)initAes128KeyFromPassphrase:(const char *)passphrase length:(unsigned int)length iterationCount:(unsigned int)count saltData:(id)data;
+- (id)initAes128KeyFromPassphrase:(id)passphrase iterationCount:(unsigned int)count;
+- (id)initAes128KeyFromPassphrase:(id)passphrase iterationCount:(unsigned int)count saltData:(id)data;
 - (id)initAes128KeyFromPassphrase:(id)passphrase withIterationCountAndSaltDataFromCryptoKey:(id)key;
 - (void)addBlockInfo:(id)info;
 - (void)dealloc;
@@ -52,6 +54,27 @@
   +[TSUAssertionHandler logBacktraceThrottled];
 }
 
+- (id)initAes128KeyFromPassphrase:(id)passphrase iterationCount:(unsigned int)count
+{
+  if (!passphrase)
+  {
+    return 0;
+  }
+
+  v4 = *&count;
+  uTF8String = [passphrase UTF8String];
+  if (!uTF8String)
+  {
+    return 0;
+  }
+
+  v7 = uTF8String;
+  v8 = strlen(uTF8String);
+  v9 = [SFUCryptoUtils generateRandomSaltWithLength:16];
+
+  return [(SFUCryptoKey *)self initAes128KeyFromPassphrase:v7 length:v8 iterationCount:v4 saltData:v9];
+}
+
 - (id)initAes128KeyFromPassphrase:(id)passphrase withIterationCountAndSaltDataFromCryptoKey:(id)key
 {
   if (!passphrase)
@@ -65,6 +88,20 @@
   saltData = [key saltData];
 
   return [(SFUCryptoKey *)self initAes128KeyFromPassphrase:uTF8String length:v7 iterationCount:iterationCount saltData:saltData];
+}
+
+- (id)initAes128KeyFromPassphrase:(id)passphrase iterationCount:(unsigned int)count saltData:(id)data
+{
+  if (!passphrase)
+  {
+    return 0;
+  }
+
+  v6 = *&count;
+  uTF8String = [passphrase UTF8String];
+  v10 = strlen([passphrase UTF8String]);
+
+  return [(SFUCryptoKey *)self initAes128KeyFromPassphrase:uTF8String length:v10 iterationCount:v6 saltData:data];
 }
 
 - (id)initAes128KeyFromPassphrase:(const char *)passphrase length:(unsigned int)length iterationCount:(unsigned int)count saltData:(id)data
@@ -93,9 +130,9 @@
 
 - (id)initAes128Key:(const char *)key length:(unsigned int)length iterationCount:(unsigned int)count
 {
-  v11.receiver = self;
-  v11.super_class = SFUCryptoKey;
-  v7 = [(SFUCryptoKey *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = SFUCryptoKey;
+  v7 = [(SFUCryptoKey *)&v10 init];
   v8 = v7;
   if (v7)
   {
@@ -104,7 +141,6 @@
     if (length == 16)
     {
       v7->mKey = malloc_type_calloc(1uLL, 0x10uLL, 0x100004077774924uLL);
-      mKeyLength = v8->mKeyLength;
       __memcpy_chk();
     }
 

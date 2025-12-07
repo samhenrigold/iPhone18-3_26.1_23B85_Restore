@@ -13,7 +13,7 @@
 
   if (a3)
   {
-    [a3 transform];
+    objc_msgSend_transform(a3);
     v9 = v39;
     LODWORD(v10) = v40.i32[0];
     v11 = v39.i32[3];
@@ -44,8 +44,8 @@
   HIDWORD(v10) = v12;
   v18 = vextq_s8(v15, v16, 8uLL);
   v18.i32[0] = v14;
-  transform = [v6 transform];
-  [transform setMatrix:{v34, v31, v33, v32}];
+  v19 = objc_msgSend_transform(v6, v10, v16.i64[1], vextq_s8(vextq_s8(v13, v13, 4uLL), v15, 0xCuLL), *&v18, *&v17);
+  [v19 setMatrix:{v34, v31, v33, v32}];
   [v6 setName:{objc_msgSend(a3, "name")}];
   objc_setAssociatedObject(v6, @"SCNSceneKitAssociatedObject", a3, 0x301);
   objc_setAssociatedObject(a3, @"SCNSceneKitAssociatedObject", v6, 0);
@@ -59,7 +59,7 @@
   if (light)
   {
     v22 = light;
-    if ([objc_msgSend(light "type")])
+    if (objc_msgSend_isEqualToString_([light type]))
     {
       v23 = [MEMORY[0x277CD7AE8] lightProbeWithSCNLight:v22 node:a3];
     }

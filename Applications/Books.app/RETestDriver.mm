@@ -13,7 +13,7 @@
 
 + (BOOL)closeBookWithViewController:(id)controller
 {
-  type metadata accessor for BookReaderContainerViewController();
+  type metadata accessor for BookReaderContainerViewController(0);
   swift_unknownObjectRetain();
   v3 = swift_dynamicCastClass();
   if (v3)
@@ -28,28 +28,28 @@
 + (id)getBookControllerLayoutWithViewController:(id)controller
 {
   swift_unknownObjectRetain();
-  _s5Books12RETestDriverC23getBookControllerLayout04viewF0SSSgyXl_tFZ_0();
-  v4 = v3;
+  _s5Books12RETestDriverC23getBookControllerLayout04viewF0SSSgyXl_tFZ_0(controller);
+  v5 = v4;
   swift_unknownObjectRelease();
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1007A2214();
+    v6 = sub_1007A2214();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (void)setBookControllerLayout:(id)layout viewController:(id)controller
 {
-  v4 = sub_1007A2254();
-  v6 = v5;
+  v5 = sub_1007A2254();
+  v7 = v6;
   swift_unknownObjectRetain();
-  _s5Books12RETestDriverC23setBookControllerLayout_04viewF0ySS_yXltFZ_0(v4, v6);
+  _s5Books12RETestDriverC23setBookControllerLayout_04viewF0ySS_yXltFZ_0(v5, v7, controller);
   swift_unknownObjectRelease();
 }
 
@@ -63,7 +63,7 @@
 
 + (BOOL)turnToInitialPageWithViewController:(id)controller
 {
-  type metadata accessor for BookReaderContainerViewController();
+  type metadata accessor for BookReaderContainerViewController(0);
   swift_unknownObjectRetain();
   v3 = swift_dynamicCastClass();
   if (v3)
@@ -83,7 +83,7 @@
   v7 = *&iterations;
   v8 = sub_1007A2254();
   v10 = v9;
-  type metadata accessor for BookReaderContainerViewController();
+  type metadata accessor for BookReaderContainerViewController(0);
   swift_unknownObjectRetain_n();
   if (swift_dynamicCastClass())
   {
@@ -103,11 +103,12 @@
 
 + (BOOL)simulateManualPageTurnWithViewController:(id)controller rtl:(BOOL)rtl time:(double)time
 {
-  type metadata accessor for BookReaderContainerViewController();
+  rtlCopy = rtl;
+  type metadata accessor for BookReaderContainerViewController(0);
   swift_unknownObjectRetain();
   if (swift_dynamicCastClass())
   {
-    v7 = sub_1005698A0(rtl, time);
+    v7 = sub_1005698A0(rtlCopy, time);
   }
 
   else

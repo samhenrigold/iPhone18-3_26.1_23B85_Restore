@@ -18,11 +18,11 @@
 
 - (RTPeopleDiscoveryServiceConfiguration)initWithServiceLevel:(unint64_t)level storageDuration:(unint64_t)duration observationInterval:(unint64_t)interval densityCallbackConfiguration:(id)configuration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v19.receiver = self;
-  v19.super_class = RTPeopleDiscoveryServiceConfiguration;
-  v12 = [(RTPeopleDiscoveryServiceConfiguration *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = RTPeopleDiscoveryServiceConfiguration;
+  v12 = [(RTPeopleDiscoveryServiceConfiguration *)&v18 init];
   v13 = v12;
   if (v12)
   {
@@ -72,17 +72,16 @@
     objc_storeStrong(&v13->_densityCallbackConfiguration, configuration);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (RTPeopleDiscoveryServiceConfiguration)initWithAdvertisingCapability:(unint64_t)capability serviceLevel:(unint64_t)level observationInterval:(unint64_t)interval storageDuration:(unint64_t)duration densityCallbackConfiguration:(id)configuration
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v21.receiver = self;
-  v21.super_class = RTPeopleDiscoveryServiceConfiguration;
-  v14 = [(RTPeopleDiscoveryServiceConfiguration *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = RTPeopleDiscoveryServiceConfiguration;
+  v14 = [(RTPeopleDiscoveryServiceConfiguration *)&v20 init];
   v15 = v14;
   if (v14)
   {
@@ -132,7 +131,6 @@
     objc_storeStrong(&v15->_densityCallbackConfiguration, configuration);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -141,36 +139,45 @@
   withCopy = with;
   levelCopy = level;
   v13 = *MEMORY[0x1E69E9840];
-  if (level - 3 >= 0xFFFFFFFFFFFFFFFELL && with - 3 > 0xFFFFFFFFFFFFFFFDLL)
+  if (level - 3 >= 0xFFFFFFFFFFFFFFFELL)
+  {
+    v6 = with - 3 >= 0xFFFFFFFFFFFFFFFDLL;
+    v7 = with == 0;
+  }
+
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+  }
+
+  if (!v7 && v6)
   {
     if (dword_1BF231920[level] <= dword_1BF231920[with])
     {
-      result = with;
+      return with;
     }
 
     else
     {
-      result = level;
+      return level;
     }
   }
 
   else
   {
-    v7 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10[0] = 67109376;
       v10[1] = levelCopy;
       v11 = 1024;
       v12 = withCopy;
-      _os_log_error_impl(&dword_1BF1C4000, v7, OS_LOG_TYPE_ERROR, "service level %d or %d out of bounds", v10, 0xEu);
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "service level %d or %d out of bounds", v10, 0xEu);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (unint64_t)aggregateObservationInterval:(unint64_t)interval with:(unint64_t)with
@@ -178,36 +185,45 @@
   withCopy = with;
   intervalCopy = interval;
   v13 = *MEMORY[0x1E69E9840];
-  if (interval - 3 >= 0xFFFFFFFFFFFFFFFELL && with - 3 > 0xFFFFFFFFFFFFFFFDLL)
+  if (interval - 3 >= 0xFFFFFFFFFFFFFFFELL)
+  {
+    v6 = with - 3 >= 0xFFFFFFFFFFFFFFFDLL;
+    v7 = with == 0;
+  }
+
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+  }
+
+  if (!v7 && v6)
   {
     if (dword_1BF23192C[interval] <= dword_1BF23192C[with])
     {
-      result = with;
+      return with;
     }
 
     else
     {
-      result = interval;
+      return interval;
     }
   }
 
   else
   {
-    v7 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10[0] = 67109376;
       v10[1] = intervalCopy;
       v11 = 1024;
       v12 = withCopy;
-      _os_log_error_impl(&dword_1BF1C4000, v7, OS_LOG_TYPE_ERROR, "observation interval %d or %d out of bounds", v10, 0xEu);
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "observation interval %d or %d out of bounds", v10, 0xEu);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (unint64_t)aggregateStorageDuration:(unint64_t)duration with:(unint64_t)with
@@ -215,36 +231,45 @@
   withCopy = with;
   durationCopy = duration;
   v13 = *MEMORY[0x1E69E9840];
-  if (duration - 4 >= 0xFFFFFFFFFFFFFFFDLL && with - 4 > 0xFFFFFFFFFFFFFFFCLL)
+  if (duration - 4 >= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v6 = with - 4 >= 0xFFFFFFFFFFFFFFFCLL;
+    v7 = with == 0;
+  }
+
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+  }
+
+  if (!v7 && v6)
   {
     if (dword_1BF231910[duration] <= dword_1BF231910[with])
     {
-      result = with;
+      return with;
     }
 
     else
     {
-      result = duration;
+      return duration;
     }
   }
 
   else
   {
-    v7 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10[0] = 67109376;
       v10[1] = durationCopy;
       v11 = 1024;
       v12 = withCopy;
-      _os_log_error_impl(&dword_1BF1C4000, v7, OS_LOG_TYPE_ERROR, "storage duration %d or %d out of bounds", v10, 0xEu);
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "storage duration %d or %d out of bounds", v10, 0xEu);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (double)secondsForStorageDuration:(unint64_t)duration
@@ -265,38 +290,38 @@
 
 - (RTPeopleDiscoveryServiceConfiguration)initWithAggregation:(id)aggregation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   aggregationCopy = aggregation;
-  v19.receiver = self;
-  v19.super_class = RTPeopleDiscoveryServiceConfiguration;
-  v5 = [(RTPeopleDiscoveryServiceConfiguration *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = RTPeopleDiscoveryServiceConfiguration;
+  v5 = [(RTPeopleDiscoveryServiceConfiguration *)&v18 init];
   v6 = v5;
   if (v5)
   {
     *(v5 + 8) = xmmword_1BF231900;
     *(v5 + 24) = vdupq_n_s64(1uLL);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = aggregationCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * v11);
-          v6->_advertisingCapability = [objc_opt_class() aggregateAdvertisingCapability:v6->_advertisingCapability with:{objc_msgSend(v12, "advertisingCapability", v15)}];
+          v12 = *(*(&v14 + 1) + 8 * v11);
+          v6->_advertisingCapability = [objc_opt_class() aggregateAdvertisingCapability:v6->_advertisingCapability with:{objc_msgSend(v12, "advertisingCapability", v14)}];
           v6->_serviceLevel = [objc_opt_class() aggregateServiceLevel:v6->_serviceLevel with:{objc_msgSend(v12, "serviceLevel")}];
           v6->_observationInterval = [objc_opt_class() aggregateObservationInterval:v6->_observationInterval with:{objc_msgSend(v12, "observationInterval")}];
           v6->_storageDuration = [objc_opt_class() aggregateStorageDuration:v6->_storageDuration with:{objc_msgSend(v12, "storageDuration")}];
@@ -304,14 +329,13 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -381,7 +405,7 @@
 
 - (id)descriptionDictionary
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = v3;
   if (self->_advertisingCapability)
@@ -401,13 +425,13 @@
     v7 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       serviceLevel = self->_serviceLevel;
       *buf = 138412546;
-      v40 = v21;
-      v41 = 1024;
-      v42 = serviceLevel;
+      v39 = v20;
+      v40 = 1024;
+      v41 = serviceLevel;
       _os_log_error_impl(&dword_1BF1C4000, v7, OS_LOG_TYPE_ERROR, "%@ invalid serviceLevel %d", buf, 0x12u);
     }
   }
@@ -418,13 +442,13 @@
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       observationInterval = self->_observationInterval;
       *buf = 138412546;
-      v40 = v24;
-      v41 = 1024;
-      v42 = observationInterval;
+      v39 = v23;
+      v40 = 1024;
+      v41 = observationInterval;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "%@ invalid observationInterval %d", buf, 0x12u);
     }
   }
@@ -435,20 +459,20 @@
     v11 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       storageDuration = self->_storageDuration;
       *buf = 138412546;
-      v40 = v27;
-      v41 = 1024;
-      v42 = storageDuration;
+      v39 = v26;
+      v40 = 1024;
+      v41 = storageDuration;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "%@ invalid storageDuration %d", buf, 0x12u);
     }
   }
 
-  v34 = v4;
-  v29 = @"AdvertisingCapability";
-  v30 = @"ServiceLevel";
+  v33 = v4;
+  v28 = @"AdvertisingCapability";
+  v29 = @"ServiceLevel";
   if (v6 > 1)
   {
     v12 = &stru_1F3DD00E8;
@@ -459,8 +483,8 @@
     v12 = ServiceLevelDescriptor[self->_serviceLevel];
   }
 
-  v35 = v12;
-  v31 = @"ObservationInterval";
+  v34 = v12;
+  v30 = @"ObservationInterval";
   if (v8 > 1)
   {
     v13 = &stru_1F3DD00E8;
@@ -471,8 +495,8 @@
     v13 = ObservationIntervalDescriptor[self->_observationInterval];
   }
 
-  v36 = v13;
-  v32 = @"StorageDuration";
+  v35 = v13;
+  v31 = @"StorageDuration";
   if (v10 > 2)
   {
     v14 = &stru_1F3DD00E8;
@@ -483,12 +507,12 @@
     v14 = StorageDurationDescriptor[self->_storageDuration];
   }
 
-  v37 = v14;
-  v33 = @"DensityCallbackConfig";
+  v36 = v14;
+  v32 = @"DensityCallbackConfig";
   densityCallbackConfiguration = self->_densityCallbackConfiguration;
   if (densityCallbackConfiguration)
   {
-    v16 = [(RTPeopleDensityCallbackConfiguration *)densityCallbackConfiguration description:v29];
+    v16 = [(RTPeopleDensityCallbackConfiguration *)densityCallbackConfiguration description:v28];
   }
 
   else
@@ -496,35 +520,33 @@
     v16 = &stru_1F3DD00E8;
   }
 
-  v38 = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v29 count:5];
+  v37 = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v28 count:5];
   if (densityCallbackConfiguration)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionDictionary = [(RTPeopleDiscoveryServiceConfiguration *)self descriptionDictionary];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", buf, 0x16u);
     }
 
@@ -537,8 +559,6 @@
   }
 
   v7 = string;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

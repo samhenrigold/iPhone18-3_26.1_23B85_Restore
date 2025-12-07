@@ -1,4 +1,5 @@
 @interface MLViewerGraphSPI
++ (id)newGraphWithMLIR:(id)r;
 + (id)newGraphWithMLIRByteCode:(id)code signature:(id)signature;
 - (MLViewerGraphSPI)initWithCoder:(id)coder;
 - (MLViewerGraphSPI)initWithJSONDictionary:(id)dictionary;
@@ -9,11 +10,19 @@
 
 @implementation MLViewerGraphSPI
 
++ (id)newGraphWithMLIR:(id)r
+{
+  v4[37] = *MEMORY[0x277D85DE8];
+  rCopy = r;
+  mlir::MLIRContext::MLIRContext(v4, 1);
+}
+
 + (id)newGraphWithMLIRByteCode:(id)code signature:(id)signature
 {
+  v8 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   signatureCopy = signature;
-  mlir::MLIRContext::MLIRContext();
+  mlir::MLIRContext::MLIRContext(v7, 1);
 }
 
 - (MLViewerGraphSPI)initWithName:(id)name nodes:(id)nodes

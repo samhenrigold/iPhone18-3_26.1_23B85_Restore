@@ -5,34 +5,33 @@
 
 void __46___FPDExtensionRequestRecord_monitorProgress___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 56);
-  v15 = fpfs_adopt_log();
+  v14 = fpfs_adopt_log();
   objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
   [*(*(a1 + 32) + 80) finishObserving];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 80);
-  *(v3 + 80) = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 80);
+  *(v2 + 80) = 0;
 
   if (*(a1 + 40))
   {
     objc_initWeak(&location, *(a1 + 32));
-    v5 = [MEMORY[0x1E695DF00] now];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 72);
-    *(v6 + 72) = v5;
+    v4 = [MEMORY[0x1E695DF00] now];
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 72);
+    *(v5 + 72) = v4;
 
-    v8 = [MEMORY[0x1E696ADA8] keyPathWithRootObject:*(a1 + 40) path:"fractionCompleted"];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46___FPDExtensionRequestRecord_monitorProgress___block_invoke_2;
-    v12[3] = &unk_1E83C09A0;
-    objc_copyWeak(&v13, &location);
-    v9 = [v8 addObserverBlock:v12];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 80);
-    *(v10 + 80) = v9;
+    v7 = [MEMORY[0x1E696ADA8] keyPathWithRootObject:*(a1 + 40) path:"fractionCompleted"];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46___FPDExtensionRequestRecord_monitorProgress___block_invoke_2;
+    v11[3] = &unk_1E83C09A0;
+    objc_copyWeak(&v12, &location);
+    v8 = [v7 addObserverBlock:v11];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 80);
+    *(v9 + 80) = v8;
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
@@ -60,13 +59,11 @@ void __46___FPDExtensionRequestRecord_monitorProgress___block_invoke_2(uint64_t 
 void __42___FPDExtensionRequestRecord__setupTimer___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(WeakRetained + 7);
-    v4 = fpfs_adopt_log();
-    [v2 cancelTimeout];
-    [v2 _handleTimeout];
+    v2 = fpfs_adopt_log();
+    [WeakRetained cancelTimeout];
+    [WeakRetained _handleTimeout];
     __fp_pop_log();
   }
 }
@@ -74,13 +71,11 @@ void __42___FPDExtensionRequestRecord__setupTimer___block_invoke(uint64_t a1)
 void __49___FPDExtensionRequestRecord__setupProgressTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(WeakRetained + 7);
-    v4 = fpfs_adopt_log();
-    [v2 cancelTimeout];
-    [v2 _handleTimeout];
+    v2 = fpfs_adopt_log();
+    [WeakRetained cancelTimeout];
+    [WeakRetained _handleTimeout];
     __fp_pop_log();
   }
 }

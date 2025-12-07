@@ -35,7 +35,7 @@
 
 - (void)_handleResponseToChecksumPropfind:(id)propfind
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   propfindCopy = propfind;
   v5 = *MEMORY[0x277CFDD58];
   if ([*(&self->super.super.super.super.isa + v5) containsObject:propfindCopy])
@@ -61,26 +61,26 @@
   }
 
   v9 = [propfindCopy successfulValueForNameSpace:*MEMORY[0x277CFDE90] elementName:@"checksum-versions"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v10 = self->_preferredChecksumVersions;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
+        v15 = *(*(&v17 + 1) + 8 * i);
         if ([v9 supportsVersion:v15])
         {
           [(CalDAVContainerChecksumSyncTaskGroup *)self setBestServerChecksumVersion:v15];
@@ -88,7 +88,7 @@
         }
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -100,12 +100,11 @@
 
 LABEL_17:
 
-  v17.receiver = self;
-  v17.super_class = CalDAVContainerChecksumSyncTaskGroup;
-  [(CoreDAVContainerSyncTaskGroup *)&v17 startTaskGroup];
+  v16.receiver = self;
+  v16.super_class = CalDAVContainerChecksumSyncTaskGroup;
+  [(CoreDAVContainerSyncTaskGroup *)&v16 startTaskGroup];
 
 LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hadOutOfDateCollectionToken
@@ -306,49 +305,47 @@ LABEL_16:
 
 - (void)deleteResourceURLs:(id)ls
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   if (![(CalDAVContainerChecksumSyncTaskGroup *)self _hadOutOfDateCollectionToken])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     obj = lsCopy;
-    v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       v8 = MEMORY[0x277CFDCF0];
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           self->_mismatchDetected = 1;
           delegate = [(CoreDAVTaskGroup *)self delegate];
-          LODWORD(v13) = 1;
-          [delegate reportMismatchedETag:0 forURL:v10 inFolderWithURL:*(&self->super.super.super.super.isa + *v8) cTag:self->_unusedCTag syncToken:self->_unusedSyncToken eTag:0 mismatchType:v13];
+          LODWORD(v12) = 1;
+          [delegate reportMismatchedETag:0 forURL:v10 inFolderWithURL:*(&self->super.super.super.super.isa + *v8) cTag:self->_unusedCTag syncToken:self->_unusedSyncToken eTag:0 mismatchType:v12];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
     }
   }
 
-  v15.receiver = self;
-  v15.super_class = CalDAVContainerChecksumSyncTaskGroup;
-  [(CoreDAVContainerSyncTaskGroup *)&v15 deleteResourceURLs:lsCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = CalDAVContainerChecksumSyncTaskGroup;
+  [(CoreDAVContainerSyncTaskGroup *)&v14 deleteResourceURLs:lsCopy];
 }
 
 @end

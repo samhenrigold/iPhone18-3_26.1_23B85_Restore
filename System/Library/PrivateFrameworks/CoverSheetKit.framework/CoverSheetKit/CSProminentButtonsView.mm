@@ -123,23 +123,23 @@
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v4 = [standardUserDefaults BOOLForKey:@"SBDisallowGlassButtons"];
 
-  v5 = CSLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = CSLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CSProminentButtonsView *)v4 _glassAppearanceEnabled];
   }
 
   if (_UISolariumEnabled())
   {
-    v6 = (self->_usesSensitiveUIAppearance | v4) ^ 1;
+    v7 = (self->_usesSensitiveUIAppearance | v4) ^ 1;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event

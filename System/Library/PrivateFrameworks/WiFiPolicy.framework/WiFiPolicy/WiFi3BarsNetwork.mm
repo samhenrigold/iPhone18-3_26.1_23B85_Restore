@@ -11,11 +11,11 @@
 
 - (WiFi3BarsNetwork)initWithNetwork:(id)network
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   networkCopy = network;
-  v28.receiver = self;
-  v28.super_class = WiFi3BarsNetwork;
-  v6 = [(WiFi3BarsNetwork *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = WiFi3BarsNetwork;
+  v6 = [(WiFi3BarsNetwork *)&v27 init];
   objc_storeStrong(&v6->_network, network);
   remoteIdentifier = [networkCopy remoteIdentifier];
   uniqueIdentifier = v6->_uniqueIdentifier;
@@ -59,31 +59,31 @@
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     accessPoints = [networkCopy accessPoints];
-    v13 = [accessPoints countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v13 = [accessPoints countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(accessPoints);
           }
 
-          popularityScore3 = [*(*(&v24 + 1) + 8 * i) popularityScore];
+          popularityScore3 = [*(*(&v23 + 1) + 8 * i) popularityScore];
           v15 += [popularityScore3 score];
         }
 
-        v14 = [accessPoints countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v14 = [accessPoints countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v14);
@@ -107,7 +107,6 @@
     v6->_attributes = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -121,7 +120,7 @@
 
 - (BOOL)containsAccessPointMatchingBSSIDs:(id)ds
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   network = [(WiFi3BarsNetwork *)self network];
   accessPointCount = [network accessPointCount];
@@ -129,64 +128,64 @@
   if (accessPointCount)
   {
     v7 = objc_autoreleasePoolPush();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v28 = dsCopy;
+    v27 = dsCopy;
     v8 = dsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v33;
       selfCopy = self;
-      v27 = v7;
-      v25 = *v34;
+      v26 = v7;
+      v24 = *v33;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v34 != v11)
+          if (*v33 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
+          v13 = *(*(&v32 + 1) + 8 * i);
+          v28 = 0u;
           v29 = 0u;
           v30 = 0u;
           v31 = 0u;
-          v32 = 0u;
-          v14 = [(WiFi3BarsNetwork *)self network:v25];
+          v14 = [(WiFi3BarsNetwork *)self network:v24];
           accessPoints = [v14 accessPoints];
 
-          v16 = [accessPoints countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v16 = [accessPoints countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v30;
+            v18 = *v29;
             while (2)
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v30 != v18)
+                if (*v29 != v18)
                 {
                   objc_enumerationMutation(accessPoints);
                 }
 
-                bSSID = [*(*(&v29 + 1) + 8 * j) BSSID];
+                bSSID = [*(*(&v28 + 1) + 8 * j) BSSID];
                 v21 = [v13 isEqualToString:bSSID];
 
                 if (v21)
                 {
 
                   v22 = 1;
-                  v7 = v27;
+                  v7 = v26;
                   goto LABEL_20;
                 }
               }
 
-              v17 = [accessPoints countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v17 = [accessPoints countByEnumeratingWithState:&v28 objects:v36 count:16];
               if (v17)
               {
                 continue;
@@ -196,13 +195,13 @@
             }
           }
 
-          v11 = v25;
+          v11 = v24;
           self = selfCopy;
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
         v22 = 0;
-        v7 = v27;
+        v7 = v26;
       }
 
       while (v10);
@@ -216,7 +215,7 @@
 LABEL_20:
 
     objc_autoreleasePoolPop(v7);
-    dsCopy = v28;
+    dsCopy = v27;
   }
 
   else
@@ -225,7 +224,6 @@ LABEL_20:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

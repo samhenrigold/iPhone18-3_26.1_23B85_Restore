@@ -171,7 +171,7 @@
   *&STACK[0x900] = 0u;
   *&STACK[0x8D0] = 0u;
   *&STACK[0x8E0] = 0u;
-  ConvertIMU(&STACK[0x850], &STACK[0x8D0]);
+  ConvertIMU(&STACK[0x8D0], &STACK[0x850]);
   if (*(self + 272) >= 0.0)
   {
     STACK[0x848] = 0;
@@ -193,84 +193,84 @@
     os_unfair_lock_unlock((self + 280));
     if (RelativeMotionAndYaw)
     {
-      v67 = *&STACK[0x840];
-      v68 = (self + 16);
-      v69 = *(self + 272);
-      v155 = *&STACK[0x940];
-      v156 = *&STACK[0x930];
-      v70 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*&a52.columns[0].f64[2], *&STACK[0x930]), *&STACK[0x7F0], *&STACK[0x930], 1), *&STACK[0x810], v155.f64[0]), *&STACK[0x830], v155, 1);
-      v157 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*(self + 32), *&STACK[0x930]), *(self + 64), *&STACK[0x930], 1), *(self + 96), *&STACK[0x940]), *(self + 128), *&STACK[0x940], 1);
-      v158 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*(self + 16), *&STACK[0x930]), *(self + 48), *&STACK[0x930], 1), *(self + 80), *&STACK[0x940]), *(self + 112), *&STACK[0x940], 1);
-      v71 = vsubq_f64(v70, v157);
-      v153 = v70.f64[0] - v157.f64[0];
-      v154 = vsubq_f64(vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*a52.columns[0].f64, *&STACK[0x930]), *&STACK[0x7E0], *&STACK[0x930], 1), *&STACK[0x800], v155.f64[0]), *&STACK[0x820], v155, 1), v158);
-      v71.f64[0] = v70.f64[0] - v157.f64[0];
-      v70.f64[0] = vmulq_f64(v71, v71).f64[0];
-      v72 = vmulq_f64(v154, v154);
-      v72.f64[0] = sqrt(v70.f64[0] + vaddvq_f64(v72));
-      vars0 = v72;
-      v73 = (v72.f64[0] + -1.0) / 10.0;
-      if (v73 > 1.0)
+      v68 = *&STACK[0x840];
+      v69 = (self + 16);
+      v70 = *(self + 272);
+      v158 = *&STACK[0x940];
+      v159 = *&STACK[0x930];
+      v71 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*&a52.columns[0].f64[2], *&STACK[0x930]), *&STACK[0x7F0], *&STACK[0x930], 1), *&STACK[0x810], v158.f64[0]), *&STACK[0x830], v158, 1);
+      v160 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*(self + 32), *&STACK[0x930]), *(self + 64), *&STACK[0x930], 1), *(self + 96), *&STACK[0x940]), *(self + 128), *&STACK[0x940], 1);
+      v161 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*(self + 16), *&STACK[0x930]), *(self + 48), *&STACK[0x930], 1), *(self + 80), *&STACK[0x940]), *(self + 112), *&STACK[0x940], 1);
+      v72 = vsubq_f64(v71, v160);
+      v156 = v71.f64[0] - v160.f64[0];
+      v157 = vsubq_f64(vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*a52.columns[0].f64, *&STACK[0x930]), *&STACK[0x7E0], *&STACK[0x930], 1), *&STACK[0x800], v158.f64[0]), *&STACK[0x820], v158, 1), v161);
+      v72.f64[0] = v71.f64[0] - v160.f64[0];
+      v71.f64[0] = vmulq_f64(v72, v72).f64[0];
+      v73 = vmulq_f64(v157, v157);
+      v73.f64[0] = sqrt(v71.f64[0] + vaddvq_f64(v73));
+      vars0 = v73;
+      v74 = (v73.f64[0] + -1.0) / 10.0;
+      if (v74 > 1.0)
       {
-        v73 = 1.0;
+        v74 = 1.0;
       }
 
-      if (v73 >= 0.0)
+      if (v74 >= 0.0)
       {
-        v74 = v73;
+        v75 = v74;
       }
 
       else
       {
-        v74 = 0.0;
+        v75 = 0.0;
       }
 
       a50 = 0.0;
-      GetRelativeMotionAndYaw((self + 16), &a52, &a51, &a50);
-      v75 = a50;
-      v76 = fabs(a50);
-      if (vars0.f64[0] <= 5.0 && v76 <= 5.0)
+      v76 = GetRelativeMotionAndYaw((self + 16), &a52, &a51, &a50);
+      v77 = a50;
+      v78 = fabs(a50);
+      if (vars0.f64[0] <= 5.0 && v78 <= 5.0)
       {
-        v100 = a2 - v69;
-        v101 = *&STACK[0x848];
-        v102 = fabs(v67) * 0.01;
-        v103 = (v76 + -1.0) / 10.0;
-        if (v103 > 1.0)
+        v102 = a2 - v70;
+        v103 = *&STACK[0x848];
+        v104 = fabs(v68) * 0.01;
+        v105 = (v78 + -1.0) / 10.0;
+        if (v105 > 1.0)
         {
-          v103 = 1.0;
+          v105 = 1.0;
         }
 
-        if (v103 < 0.0)
+        if (v105 < 0.0)
         {
-          v103 = 0.0;
+          v105 = 0.0;
         }
 
-        v104 = v102 + v100 * v103;
-        if (v104 < v76)
+        v106 = v104 + v102 * v105;
+        if (v106 < v78)
         {
-          v76 = v104;
+          v78 = v106;
         }
 
-        if (v76 < 0.0001)
+        if (v78 < 0.0001)
         {
-          v76 = 0.0;
+          v78 = 0.0;
         }
 
         if (a50 >= 0.0)
         {
-          v105 = v76;
+          v107 = v78;
         }
 
         else
         {
-          v105 = -v76;
+          v107 = -v78;
         }
 
         Transform4DofFromMatrix((self + 16), &a45);
         a44 = 0;
         a41 = 0u;
         a42 = 0;
-        a43 = v105 + a48;
+        a43 = v107 + a48;
         *&STACK[0xAB0] = 0u;
         *&STACK[0xAA0] = 0u;
         *&STACK[0xA90] = 0u;
@@ -280,218 +280,219 @@
         *&STACK[0xA50] = 0u;
         *&STACK[0xA40] = 0u;
         MatrixFromTransform4Dof(&a41, &STACK[0xA40]);
-        v106 = vdupq_laneq_s64(v156, 1);
-        v107 = vdupq_lane_s64(*&v155.f64[0], 0);
-        v108 = vdupq_laneq_s64(v155, 1);
-        v109 = vmlaq_f64(vmlaq_f64(vmlaq_f64(vmulq_n_f64(*&STACK[0xA40], *v156.i64), v106, *&STACK[0xA60]), v107, *&STACK[0xA80]), v108, *&STACK[0xAA0]);
-        v110 = v157.f64[0] - vmlaq_f64(vmlaq_f64(vmlaq_f64(vmulq_n_f64(*&STACK[0xA50], *v156.i64), v106, *&STACK[0xA70]), v107, *&STACK[0xA90]), v108, *&STACK[0xAB0]).f64[0];
-        v111 = 0.0;
-        v112 = 0uLL;
+        v108 = vdupq_laneq_s64(v159, 1);
+        v109 = vdupq_lane_s64(*&v158.f64[0], 0);
+        v110 = vdupq_laneq_s64(v158, 1);
+        v111 = vmlaq_f64(vmlaq_f64(vmlaq_f64(vmulq_n_f64(*&STACK[0xA40], *v159.i64), v108, *&STACK[0xA60]), v109, *&STACK[0xA80]), v110, *&STACK[0xAA0]);
+        v112 = v160.f64[0] - vmlaq_f64(vmlaq_f64(vmlaq_f64(vmulq_n_f64(*&STACK[0xA50], *v159.i64), v108, *&STACK[0xA70]), v109, *&STACK[0xA90]), v110, *&STACK[0xAB0]).f64[0];
+        v113 = 0.0;
+        v114 = 0uLL;
         if (vars0.f64[0] > 0.0001)
         {
-          v113 = v101 * 0.1 + v100 * v74;
-          if (vars0.f64[0] < v113)
+          v115 = v103 * 0.1 + v102 * v75;
+          if (vars0.f64[0] < v115)
           {
-            v113 = vars0.f64[0];
+            v115 = vars0.f64[0];
           }
 
-          v112 = vdivq_f64(vmulq_n_f64(v154, v113), vdupq_lane_s64(*&vars0.f64[0], 0));
-          v111 = v153 * v113 / vars0.f64[0];
+          v114 = vdivq_f64(vmulq_n_f64(v157, v115), vdupq_lane_s64(*&vars0.f64[0], 0));
+          v113 = v156 * v115 / vars0.f64[0];
         }
 
-        v114 = *&STACK[0xA60];
-        v115 = *&STACK[0xA70];
-        v116 = *&STACK[0xA70];
+        v116 = *&STACK[0xA60];
+        v117 = *&STACK[0xA70];
+        v118 = *&STACK[0xA70];
         *&STACK[0x9F0] = *&STACK[0xA60];
-        *&STACK[0xA00] = v115;
-        v117 = *&STACK[0xA80];
-        v118 = *&STACK[0xA90];
-        v119 = *&STACK[0xA90];
+        *&STACK[0xA00] = v117;
+        v119 = *&STACK[0xA80];
+        v120 = *&STACK[0xA90];
+        v121 = *&STACK[0xA90];
         *&STACK[0xA10] = *&STACK[0xA80];
-        *&STACK[0xA20] = v118;
-        v120 = *&STACK[0xA40];
-        v121 = *&STACK[0xA50];
-        v122 = *&STACK[0xA50];
+        *&STACK[0xA20] = v120;
+        v122 = *&STACK[0xA40];
+        v123 = *&STACK[0xA50];
+        v124 = *&STACK[0xA50];
         *&STACK[0x9D0] = *&STACK[0xA40];
-        *&STACK[0x9E0] = v121;
-        v123 = v110 + v111;
-        v124 = vaddq_f64(vsubq_f64(v158, v109), v112);
+        *&STACK[0x9E0] = v123;
+        v125 = v112 + v113;
+        v126 = vaddq_f64(vsubq_f64(v161, v111), v114);
         __asm { FMOV            V3.2D, #1.0 }
 
-        *&_Q3 = v123;
-        v130 = *(self + 96);
+        *&_Q3 = v125;
+        v132 = *(self + 96);
         *&STACK[0x990] = *(self + 80);
-        *&STACK[0x9A0] = v130;
-        v131 = *(self + 128);
+        *&STACK[0x9A0] = v132;
+        v133 = *(self + 128);
         *&STACK[0x9B0] = *(self + 112);
-        *&STACK[0x9C0] = v131;
-        v132 = *(self + 32);
-        *&STACK[0x950] = *v68;
-        *&STACK[0x960] = v132;
-        v133 = *(self + 64);
+        *&STACK[0x9C0] = v133;
+        v134 = *(self + 32);
+        *&STACK[0x950] = *v69;
+        *&STACK[0x960] = v134;
+        v135 = *(self + 64);
         *&STACK[0x970] = *(self + 48);
-        *&STACK[0x980] = v133;
-        a35 = v114;
-        a36 = v116;
-        a37 = v117;
-        a38 = v119;
-        a33 = v120;
-        a34 = v122;
-        v159 = _Q3;
-        vars0a = v124;
-        a39 = v124;
+        *&STACK[0x980] = v135;
+        a35 = v116;
+        a36 = v118;
+        a37 = v119;
+        a38 = v121;
+        a33 = v122;
+        a34 = v124;
+        v162 = _Q3;
+        vars0a = v126;
+        a39 = v126;
         a40 = _Q3;
-        v134 = *&STACK[0x810];
+        v136 = *&STACK[0x810];
         a29 = *&STACK[0x800];
-        a30 = v134;
-        v135 = *&STACK[0x830];
+        a30 = v136;
+        v137 = *&STACK[0x830];
         a31 = *&STACK[0x820];
-        a32 = v135;
+        a32 = v137;
         a25 = *a52.columns[0].f64;
         a26 = *&a52.columns[0].f64[2];
-        v136 = *&STACK[0x7F0];
+        v138 = *&STACK[0x7F0];
         a27 = *&STACK[0x7E0];
-        a28 = v136;
-        v137 = *&STACK[0x920];
+        a28 = v138;
+        v139 = *&STACK[0x920];
         a21 = *&STACK[0x910];
-        a22 = v137;
-        v138 = *&STACK[0x940];
+        a22 = v139;
+        v140 = *&STACK[0x940];
         a23 = *&STACK[0x930];
-        a24 = v138;
-        v139 = *&STACK[0x8E0];
+        a24 = v140;
+        v141 = *&STACK[0x8E0];
         a17 = *&STACK[0x8D0];
-        a18 = v139;
-        v140 = *&STACK[0x900];
+        a18 = v141;
+        v142 = *&STACK[0x900];
         a19 = *&STACK[0x8F0];
-        a20 = v140;
-        if ((SanityCheck(&STACK[0x950], &a33, &a25, &a17) & 1) == 0)
+        a20 = v142;
+        v143 = SanityCheck(&STACK[0x950], &a33, &a25, &a17);
+        if ((v143 & 1) == 0)
         {
-          v141 = _ARLogGeneral();
-          if (os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
+          v144 = _ARLogGeneral(v143);
+          if (os_log_type_enabled(v144, OS_LOG_TYPE_INFO))
           {
-            v142 = objc_opt_class();
-            v143 = NSStringFromClass(v142);
+            v145 = objc_opt_class();
+            v146 = NSStringFromClass(v145);
             LODWORD(STACK[0x950]) = 138543618;
-            STACK[0x954] = v143;
+            STACK[0x954] = v146;
             LOWORD(STACK[0x95C]) = 2048;
             STACK[0x95E] = self;
-            _os_log_impl(&dword_1C241C000, v141, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection Pose update does not improve", &STACK[0x950], 0x16u);
+            _os_log_impl(&dword_1C241C000, v144, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection Pose update does not improve", &STACK[0x950], 0x16u);
           }
         }
 
-        v144 = *&STACK[0xA00];
+        v147 = *&STACK[0xA00];
         *(self + 48) = *&STACK[0x9F0];
-        *(self + 64) = v144;
-        v145 = *&STACK[0xA20];
+        *(self + 64) = v147;
+        v148 = *&STACK[0xA20];
         *(self + 80) = *&STACK[0xA10];
-        *(self + 96) = v145;
-        v146 = *&STACK[0x9E0];
-        *v68 = *&STACK[0x9D0];
-        *(self + 32) = v146;
+        *(self + 96) = v148;
+        v149 = *&STACK[0x9E0];
+        *v69 = *&STACK[0x9D0];
+        *(self + 32) = v149;
         *(self + 112) = vars0a;
-        *(self + 128) = v159;
+        *(self + 128) = v162;
         *(self + 272) = a2;
-        v147 = *&STACK[0x8D0];
-        v148 = *&STACK[0x8E0];
-        v149 = *&STACK[0x900];
+        v150 = *&STACK[0x8D0];
+        v151 = *&STACK[0x8E0];
+        v152 = *&STACK[0x900];
         *(self + 176) = *&STACK[0x8F0];
-        *(self + 192) = v149;
-        *(self + 144) = v147;
-        *(self + 160) = v148;
-        v150 = *&STACK[0x910];
-        v151 = *&STACK[0x920];
-        v152 = *&STACK[0x940];
+        *(self + 192) = v152;
+        *(self + 144) = v150;
+        *(self + 160) = v151;
+        v153 = *&STACK[0x910];
+        v154 = *&STACK[0x920];
+        v155 = *&STACK[0x940];
         *(self + 240) = *&STACK[0x930];
-        *(self + 256) = v152;
-        *(self + 208) = v150;
-        *(self + 224) = v151;
+        *(self + 256) = v155;
+        *(self + 208) = v153;
+        *(self + 224) = v154;
       }
 
       else
       {
-        v78 = _ARLogGeneral();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
+        v80 = _ARLogGeneral(v76);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
         {
-          v79 = objc_opt_class();
-          v80 = NSStringFromClass(v79);
+          v81 = objc_opt_class();
+          v82 = NSStringFromClass(v81);
           LODWORD(STACK[0xA40]) = 138544130;
-          STACK[0xA44] = v80;
+          STACK[0xA44] = v82;
           LOWORD(STACK[0xA4C]) = 2048;
           STACK[0xA4E] = self;
           LOWORD(STACK[0xA56]) = 2048;
           STACK[0xA58] = *&vars0.f64[0];
           LOWORD(STACK[0xA60]) = 2048;
-          *&STACK[0xA62] = v75;
-          _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection Pose update to strong (%f m ,%f deg) - resetting filter", &STACK[0xA40], 0x2Au);
+          *&STACK[0xA62] = v77;
+          _os_log_impl(&dword_1C241C000, v80, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection Pose update to strong (%f m ,%f deg) - resetting filter", &STACK[0xA40], 0x2Au);
         }
 
         *(self + 272) = a2;
-        v81 = *&STACK[0x920];
+        v83 = *&STACK[0x920];
         *(self + 208) = *&STACK[0x910];
-        *(self + 224) = v81;
-        v82 = *&STACK[0x940];
+        *(self + 224) = v83;
+        v84 = *&STACK[0x940];
         *(self + 240) = *&STACK[0x930];
-        *(self + 256) = v82;
-        v83 = *&STACK[0x8E0];
+        *(self + 256) = v84;
+        v85 = *&STACK[0x8E0];
         *(self + 144) = *&STACK[0x8D0];
-        *(self + 160) = v83;
-        v84 = *&STACK[0x900];
+        *(self + 160) = v85;
+        v86 = *&STACK[0x900];
         *(self + 176) = *&STACK[0x8F0];
-        *(self + 192) = v84;
-        v85 = *&STACK[0x7F0];
+        *(self + 192) = v86;
+        v87 = *&STACK[0x7F0];
         *(self + 48) = *&STACK[0x7E0];
-        *(self + 64) = v85;
-        v86 = *&a52.columns[0].f64[2];
-        *v68 = *a52.columns[0].f64;
-        *(self + 32) = v86;
-        v87 = *&STACK[0x830];
+        *(self + 64) = v87;
+        v88 = *&a52.columns[0].f64[2];
+        *v69 = *a52.columns[0].f64;
+        *(self + 32) = v88;
+        v89 = *&STACK[0x830];
         *(self + 112) = *&STACK[0x820];
-        *(self + 128) = v87;
-        v88 = *&STACK[0x810];
+        *(self + 128) = v89;
+        v90 = *&STACK[0x810];
         *(self + 80) = *&STACK[0x800];
-        *(self + 96) = v88;
+        *(self + 96) = v90;
       }
     }
 
     else
     {
-      v89 = _ARLogGeneral();
-      if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+      v91 = _ARLogGeneral(v67);
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
       {
-        v90 = objc_opt_class();
-        v91 = NSStringFromClass(v90);
+        v92 = objc_opt_class();
+        v93 = NSStringFromClass(v92);
         LODWORD(STACK[0xA40]) = 138543618;
-        STACK[0xA44] = v91;
+        STACK[0xA44] = v93;
         LOWORD(STACK[0xA4C]) = 2048;
         STACK[0xA4E] = self;
-        _os_log_impl(&dword_1C241C000, v89, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection GetRelativeMotionAndYaw failed - resetting filter", &STACK[0xA40], 0x16u);
+        _os_log_impl(&dword_1C241C000, v91, OS_LOG_TYPE_INFO, "%{public}@ <%p>: GradualCorrection GetRelativeMotionAndYaw failed - resetting filter", &STACK[0xA40], 0x16u);
       }
 
       *(self + 272) = a2;
-      v92 = *&STACK[0x920];
+      v94 = *&STACK[0x920];
       *(self + 208) = *&STACK[0x910];
-      *(self + 224) = v92;
-      v93 = *&STACK[0x940];
+      *(self + 224) = v94;
+      v95 = *&STACK[0x940];
       *(self + 240) = *&STACK[0x930];
-      *(self + 256) = v93;
-      v94 = *&STACK[0x8E0];
+      *(self + 256) = v95;
+      v96 = *&STACK[0x8E0];
       *(self + 144) = *&STACK[0x8D0];
-      *(self + 160) = v94;
-      v95 = *&STACK[0x900];
+      *(self + 160) = v96;
+      v97 = *&STACK[0x900];
       *(self + 176) = *&STACK[0x8F0];
-      *(self + 192) = v95;
-      v96 = *&STACK[0x7F0];
+      *(self + 192) = v97;
+      v98 = *&STACK[0x7F0];
       *(self + 48) = *&STACK[0x7E0];
-      *(self + 64) = v96;
-      v97 = *&a52.columns[0].f64[2];
+      *(self + 64) = v98;
+      v99 = *&a52.columns[0].f64[2];
       *(self + 16) = *a52.columns[0].f64;
-      *(self + 32) = v97;
-      v98 = *&STACK[0x830];
+      *(self + 32) = v99;
+      v100 = *&STACK[0x830];
       *(self + 112) = *&STACK[0x820];
-      *(self + 128) = v98;
-      v99 = *&STACK[0x810];
+      *(self + 128) = v100;
+      v101 = *&STACK[0x810];
       *(self + 80) = *&STACK[0x800];
-      *(self + 96) = v99;
+      *(self + 96) = v101;
     }
   }
 

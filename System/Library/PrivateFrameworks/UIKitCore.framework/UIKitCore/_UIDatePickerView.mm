@@ -245,9 +245,9 @@
       goto LABEL_27;
     }
 
-    v15 = [v9 isEqual:v10];
+    isEqual = objc_msgSend_isEqual_(v9);
 
-    if (!v15)
+    if (!isEqual)
     {
       goto LABEL_28;
     }
@@ -281,7 +281,7 @@
       goto LABEL_26;
     }
 
-    v22 = [v14 isEqual:v18];
+    v22 = objc_msgSend_isEqual_(v14);
 
     if (!v22)
     {
@@ -310,7 +310,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v49 = [v21 isEqual:v25];
+  v49 = objc_msgSend_isEqual_(v21);
 
   if ((v49 & 1) == 0)
   {
@@ -344,7 +344,7 @@ LABEL_39:
     goto LABEL_38;
   }
 
-  v33 = [v30 isEqual:v31];
+  v33 = objc_msgSend_isEqual_(v30);
 
   if ((v33 & 1) == 0)
   {
@@ -380,7 +380,7 @@ LABEL_40:
       goto LABEL_53;
     }
 
-    v41 = [v36 isEqual:v37];
+    v41 = objc_msgSend_isEqual_(v36);
 
     if (!v41)
     {
@@ -408,7 +408,7 @@ LABEL_54:
     goto LABEL_55;
   }
 
-  v45 = [v40 isEqual:v44];
+  v45 = objc_msgSend_isEqual_(v40);
 
   if ((v45 & 1) == 0)
   {
@@ -1056,10 +1056,10 @@ LABEL_10:
   textCopy = text;
   v9 = [(_UIDatePickerView *)self _labelForCalendarUnit:unit createIfNecessary:0];
   text = [v9 text];
-  v11 = [text isEqualToString:textCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
   _makeNewCalendarUnitLabel2 = v9;
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if (animatedCopy)
     {
@@ -1116,7 +1116,7 @@ LABEL_10:
   if (hasSelectedDateComponents)
   {
     selectedDateComponents2 = [(_UIDatePickerMode *)self->_mode selectedDateComponents];
-    v9 = [selectedDateComponents isEqual:selectedDateComponents2] ^ 1;
+    v9 = objc_msgSend_isEqual_(selectedDateComponents) ^ 1;
   }
 
   else
@@ -1653,9 +1653,9 @@ LABEL_9:
 {
   recognizerCopy = recognizer;
   controlEventsGestureRecognizer = [(_UIDatePickerView *)self controlEventsGestureRecognizer];
-  v7 = [recognizerCopy isEqual:controlEventsGestureRecognizer];
+  isEqual = objc_msgSend_isEqual_(recognizerCopy);
 
-  return v7;
+  return isEqual;
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
@@ -1664,9 +1664,9 @@ LABEL_9:
   gestureRecognizerCopy = gestureRecognizer;
   timeInputLabel = [(_UIDatePickerView *)self timeInputLabel];
   controlEventsGestureRecognizer = [timeInputLabel controlEventsGestureRecognizer];
-  v10 = [recognizerCopy isEqual:controlEventsGestureRecognizer];
+  isEqual = objc_msgSend_isEqual_(recognizerCopy);
 
-  if (v10 && [(UIPickerView *)self numberOfComponents]>= 1)
+  if (isEqual && [(UIPickerView *)self numberOfComponents]>= 1)
   {
     v11 = 0;
     do
@@ -1771,9 +1771,9 @@ LABEL_9:
 LABEL_12:
   timeInputLabel = [(_UIDatePickerView *)selfCopy timeInputLabel];
   controlEventsGestureRecognizer = [timeInputLabel controlEventsGestureRecognizer];
-  v18 = [recognizerCopy isEqual:controlEventsGestureRecognizer];
+  isEqual = objc_msgSend_isEqual_(recognizerCopy);
 
-  if (!v18)
+  if (!isEqual)
   {
     v12 = 1;
     goto LABEL_16;
@@ -1797,9 +1797,9 @@ LABEL_16:
   failedCopy = failed;
   timeInputLabel = [(_UIDatePickerView *)self timeInputLabel];
   controlEventsGestureRecognizer = [timeInputLabel controlEventsGestureRecognizer];
-  v7 = [failedCopy isEqual:controlEventsGestureRecognizer];
+  isEqual = objc_msgSend_isEqual_(failedCopy);
 
-  if (v7)
+  if (isEqual)
   {
     timeInputLabel2 = [(_UIDatePickerView *)self timeInputLabel];
     controlEventsGestureRecognizer2 = [timeInputLabel2 controlEventsGestureRecognizer];
@@ -1937,11 +1937,11 @@ LABEL_34:
 
 LABEL_29:
     effectiveDate2 = [(_UIDatePickerDataModel *)selfCopy->_data effectiveDate];
-    v38 = [effectiveDate2 isEqual:effectiveDate];
+    isEqual = objc_msgSend_isEqual_(effectiveDate2);
 
     if (updateCopy)
     {
-      if ((v38 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(_UIDatePickerView *)WeakRetained didChangeDateFrom:effectiveDate animated:1];
 LABEL_33:
@@ -1956,7 +1956,7 @@ LABEL_33:
       *&WeakRetained->_datePickerFlags |= 0x88u;
       [(_UIDatePickerView *)WeakRetained didChangeDateFrom:effectiveDate animated:1];
       *&WeakRetained->_datePickerFlags &= ~8u;
-      if ((v38 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_33;
       }

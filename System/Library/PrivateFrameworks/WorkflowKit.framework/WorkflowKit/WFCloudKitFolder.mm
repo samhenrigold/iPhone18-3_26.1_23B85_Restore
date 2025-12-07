@@ -103,22 +103,20 @@ LABEL_3:
 
 + (NSDictionary)properties
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"icon";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"icon";
   v3 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v11[0] = v3;
-  v10[1] = @"name";
+  v10[0] = v3;
+  v9[1] = @"name";
   nameProperty = [self nameProperty];
-  v11[1] = nameProperty;
-  v10[2] = @"encryptedSchemaVersion";
+  v10[1] = nameProperty;
+  v9[2] = @"encryptedSchemaVersion";
   v5 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v11[2] = v5;
-  v10[3] = @"encryptedName";
+  v10[2] = v5;
+  v9[3] = @"encryptedName";
   encryptedNameProperty = [self encryptedNameProperty];
-  v11[3] = encryptedNameProperty;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = encryptedNameProperty;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

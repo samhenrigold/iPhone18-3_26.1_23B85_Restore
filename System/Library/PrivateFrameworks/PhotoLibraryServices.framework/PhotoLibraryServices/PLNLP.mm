@@ -53,9 +53,9 @@
     goto LABEL_7;
   }
 
-  if (![codeCopy isEqualToString:@"en"])
+  if (!objc_msgSend_isEqualToString_(codeCopy))
   {
-    if ([codeCopy isEqualToString:@"fr"])
+    if (objc_msgSend_isEqualToString_(codeCopy))
     {
       _frenchStopWords = [self _frenchStopWords];
       goto LABEL_10;
@@ -340,7 +340,7 @@ void __41__PLNLP_dateIntervalsFromMessage_onDate___block_invoke(uint64_t a1, voi
 uint64_t __41__PLNLP_dateIntervalsFromMessage_onDate___block_invoke_2(uint64_t a1, void *a2)
 {
   v22 = a2;
-  v3 = [v22 count];
+  v3 = objc_msgSend_count(v22);
   if (v3)
   {
     v4 = [*(a1 + 56) dateFilterForCMMWithAttributes:v22 withReferenceDate:*(a1 + 32)];
@@ -415,7 +415,7 @@ LABEL_12:
   v21 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   separatorCopy = separator;
-  v9 = [tokensCopy count];
+  v9 = objc_msgSend_count(tokensCopy);
   v10 = v9 - size;
   if (v9 >= size)
   {

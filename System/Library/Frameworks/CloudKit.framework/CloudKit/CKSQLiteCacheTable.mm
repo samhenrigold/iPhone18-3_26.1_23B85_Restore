@@ -116,11 +116,10 @@
 
 + (id)dbProperties
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"expirationDate";
-  v6[0] = &unk_1EFA85218;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v6, &v5, 1);
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"expirationDate";
+  v5[0] = &unk_1EFA85218;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, &v4, 1);
 
   return v2;
 }
@@ -158,18 +157,18 @@
 
 - (id)createTriggerSQL
 {
-  v79 = *MEMORY[0x1E69E9840];
-  v75.receiver = self;
-  v75.super_class = CKSQLiteCacheTable;
-  createTriggerSQL = [(CKSQLiteTable *)&v75 createTriggerSQL];
+  v78 = *MEMORY[0x1E69E9840];
+  v74.receiver = self;
+  v74.super_class = CKSQLiteCacheTable;
+  createTriggerSQL = [(CKSQLiteTable *)&v74 createTriggerSQL];
   entryCountLimit = self->_entryCountLimit;
   dataSizeLimit = self->_dataSizeLimit;
   cacheExpirationTime = self->_cacheExpirationTime;
   v10 = *&self->_entryCountLimit == 0;
   if (*&self->_entryCountLimit == 0 && cacheExpirationTime == 0.0)
   {
-    v59 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v4, v5);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v59, v60, a2, self, @"CKSQLiteCacheTable.m", 116, @"Cache has no expiration policies");
+    v58 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v4, v5);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v58, v59, a2, self, @"CKSQLiteCacheTable.m", 116, @"Cache has no expiration policies");
   }
 
   v11 = objc_msgSend_tableGroup(self, v4, v5);
@@ -178,8 +177,8 @@
 
   if (!v16)
   {
-    v57 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v17, v18);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v57, v58, a2, self, @"CKSQLiteCacheTable.m", 122, @"expected tracking table dbTableName to already be set");
+    v56 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v17, v18);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v56, v57, a2, self, @"CKSQLiteCacheTable.m", 122, @"expected tracking table dbTableName to already be set");
   }
 
   v19 = objc_msgSend_tableID(self, v17, v18);
@@ -194,38 +193,38 @@
 
   if (dataSizeLimit)
   {
-    v61 = v10;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v60 = v10;
     v72 = 0u;
-    v62 = v26;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v61 = v26;
     v29 = v26;
-    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v71, v78, 16);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v70, v77, 16);
     if (v31)
     {
       v33 = v31;
-      v34 = *v72;
+      v34 = *v71;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v72 != v34)
+          if (*v71 != v34)
           {
             objc_enumerationMutation(v29);
           }
 
-          objc_msgSend_appendFormat_(createTriggerSQL, v32, @"UPDATE '%@' SET dataSize = dataSize + LENGTH(NEW.%@) WHERE tableID = %@;", v16, *(*(&v71 + 1) + 8 * i), v19);
+          objc_msgSend_appendFormat_(createTriggerSQL, v32, @"UPDATE '%@' SET dataSize = dataSize + LENGTH(NEW.%@) WHERE tableID = %@;", v16, *(*(&v70 + 1) + 8 * i), v19);
         }
 
-        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v71, v78, 16);
+        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v70, v77, 16);
       }
 
       while (v33);
     }
 
-    v26 = v62;
-    v10 = v61;
+    v26 = v61;
+    v10 = v60;
   }
 
   if (cacheExpirationTime != 0.0)
@@ -244,30 +243,30 @@
 
     if (dataSizeLimit)
     {
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       v38 = v26;
       v39 = v26;
-      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v67, v77, 16);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v66, v76, 16);
       if (v41)
       {
         v43 = v41;
-        v44 = *v68;
+        v44 = *v67;
         do
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v68 != v44)
+            if (*v67 != v44)
             {
               objc_enumerationMutation(v39);
             }
 
-            objc_msgSend_appendFormat_(createTriggerSQL, v42, @"UPDATE '%@' SET dataSize = dataSize - LENGTH(OLD.%@) WHERE tableID = %@;", v16, *(*(&v67 + 1) + 8 * j), v19);
+            objc_msgSend_appendFormat_(createTriggerSQL, v42, @"UPDATE '%@' SET dataSize = dataSize - LENGTH(OLD.%@) WHERE tableID = %@;", v16, *(*(&v66 + 1) + 8 * j), v19);
           }
 
-          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v42, &v67, v77, 16);
+          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v42, &v66, v76, 16);
         }
 
         while (v43);
@@ -284,30 +283,30 @@
     objc_msgSend_appendFormat_(createTriggerSQL, v36, @"CREATE TRIGGER '%@_update' AFTER UPDATE ON '%@' BEGIN ", v22, v22);
     if (dataSizeLimit)
     {
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v47 = v26;
       v48 = v26;
-      v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v63, v76, 16);
+      v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v62, v75, 16);
       if (v50)
       {
         v52 = v50;
-        v53 = *v64;
+        v53 = *v63;
         do
         {
           for (k = 0; k != v52; ++k)
           {
-            if (*v64 != v53)
+            if (*v63 != v53)
             {
               objc_enumerationMutation(v48);
             }
 
-            objc_msgSend_appendFormat_(createTriggerSQL, v51, @"UPDATE '%@' SET dataSize = dataSize + LENGTH(NEW.%@) - LENGTH(OLD.%@) WHERE tableID = %@;", v16, *(*(&v63 + 1) + 8 * k), *(*(&v63 + 1) + 8 * k), v19);
+            objc_msgSend_appendFormat_(createTriggerSQL, v51, @"UPDATE '%@' SET dataSize = dataSize + LENGTH(NEW.%@) - LENGTH(OLD.%@) WHERE tableID = %@;", v16, *(*(&v62 + 1) + 8 * k), *(*(&v62 + 1) + 8 * k), v19);
           }
 
-          v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v51, &v63, v76, 16);
+          v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v51, &v62, v75, 16);
         }
 
         while (v52);
@@ -323,8 +322,6 @@
 
     objc_msgSend_appendString_(createTriggerSQL, v46, @"END;");
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return createTriggerSQL;
 }
@@ -368,29 +365,27 @@
 
 - (void)fetchExpirationDate:(id)date
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v7 = objc_msgSend_primaryKey(self, v5, v6);
-  v13[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v13, 1);
+  v12[0] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v12, 1);
   v11 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v10, &unk_1EFA85BC0, dateCopy, v9, off_1EA910BC0);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)expireByCount:(id)count
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   countCopy = count;
   objc_msgSend_db(self, v5, v6);
 
   v9 = objc_msgSend_entryCount(countCopy, v7, v8);
   v12 = objc_msgSend_unsignedLongLongValue(v9, v10, v11) - self->_entryCountLimit;
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   if (v12 < 1)
   {
     v18 = 0;
@@ -398,14 +393,14 @@
 
   else
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_18866CCE8;
-    v24[3] = &unk_1E70C0968;
-    v24[4] = self;
-    v24[5] = &v25;
-    v24[6] = v12;
-    v14 = objc_msgSend_performInTransaction_(self, v13, v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_18866CCE8;
+    v23[3] = &unk_1E70C0968;
+    v23[4] = self;
+    v23[5] = &v24;
+    v23[6] = v12;
+    v14 = objc_msgSend_performInTransaction_(self, v13, v23);
     if (objc_msgSend_logOperations(self, v15, v16))
     {
       if (ck_log_initialization_predicate != -1)
@@ -416,51 +411,50 @@
       v17 = ck_log_facility_sql;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v23 = v26[3];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = v25[3];
         *buf = 138543874;
-        v30 = v22;
-        v31 = 2048;
+        v29 = v21;
+        v30 = 2048;
         selfCopy = self;
-        v33 = 2048;
-        v34 = v23;
+        v32 = 2048;
+        v33 = v22;
         _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "%{public}@(%p) count expiration removed %llu entries", buf, 0x20u);
       }
     }
 
-    v18 = v26[3];
+    v18 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (unint64_t)expireByDataSize:(id)size
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   sizeCopy = size;
   objc_msgSend_db(self, v5, v6);
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v9 = objc_msgSend_dataSize(sizeCopy, v7, v8);
   v12 = objc_msgSend_unsignedLongLongValue(v9, v10, v11) > self->_dataSizeLimit;
 
   if (v12)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_18866D1B8;
-    v24[3] = &unk_1E70BC0C0;
-    v24[4] = self;
-    v25 = sizeCopy;
-    v26 = &v27;
-    v14 = objc_msgSend_performInTransaction_(self, v13, v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_18866D1B8;
+    v23[3] = &unk_1E70BC0C0;
+    v23[4] = self;
+    v24 = sizeCopy;
+    v25 = &v26;
+    v14 = objc_msgSend_performInTransaction_(self, v13, v23);
     if (objc_msgSend_logOperations(self, v15, v16))
     {
       if (ck_log_initialization_predicate != -1)
@@ -471,46 +465,45 @@
       v17 = ck_log_facility_sql;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v23 = v28[3];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = v27[3];
         *buf = 138543874;
-        v32 = v22;
-        v33 = 2048;
+        v31 = v21;
+        v32 = 2048;
         selfCopy = self;
-        v35 = 2048;
-        v36 = v23;
+        v34 = 2048;
+        v35 = v22;
         _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "%{public}@(%p) size expiration removed %llu entries", buf, 0x20u);
       }
     }
   }
 
-  v18 = v28[3];
-  _Block_object_dispose(&v27, 8);
+  v18 = v27[3];
+  _Block_object_dispose(&v26, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (unint64_t)expireByTime:(id)time
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   objc_msgSend_db(self, v5, v6);
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_18866D4AC;
-  v19[3] = &unk_1E70C0990;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_18866D4AC;
+  v18[3] = &unk_1E70C0990;
   v7 = timeCopy;
   selfCopy = self;
-  v22 = &v23;
-  v20 = v7;
-  v9 = objc_msgSend_performInTransaction_(self, v8, v19);
+  v21 = &v22;
+  v19 = v7;
+  v9 = objc_msgSend_performInTransaction_(self, v8, v18);
   if (objc_msgSend_logOperations(self, v10, v11))
   {
     if (ck_log_initialization_predicate != -1)
@@ -521,23 +514,22 @@
     v12 = ck_log_facility_sql;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = v24[3];
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v17 = v23[3];
       *buf = 138543874;
-      v28 = v17;
-      v29 = 2048;
+      v27 = v16;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2048;
-      v32 = v18;
+      v30 = 2048;
+      v31 = v17;
       _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@(%p) time expiration removed %llu entries", buf, 0x20u);
     }
   }
 
-  v13 = v24[3];
+  v13 = v23[3];
 
-  _Block_object_dispose(&v23, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
   return v13;
 }
 

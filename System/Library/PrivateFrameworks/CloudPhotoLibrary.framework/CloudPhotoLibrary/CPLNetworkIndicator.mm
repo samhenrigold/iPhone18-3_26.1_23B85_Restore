@@ -28,50 +28,44 @@
   [self _doProtected:v8];
 }
 
-uint64_t __67__CPLNetworkIndicator_hideNetworkIndicatorForBundleWithIdentifier___block_invoke(uint64_t a1)
+void *__67__CPLNetworkIndicator_hideNetworkIndicatorForBundleWithIdentifier___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (([bundleIdentifiersWithNetworkIndicator containsObject:*(a1 + 32)] & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v5 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(*(a1 + 40));
-        v9 = *(a1 + 32);
+        v6 = NSStringFromSelector(*(a1 + 40));
+        v7 = *(a1 + 32);
         *buf = 138412546;
-        v16 = v8;
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "%@ was called too many times for %@", buf, 0x16u);
+        v14 = v6;
+        v15 = 2112;
+        v16 = v7;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "%@ was called too many times for %@", buf, 0x16u);
       }
     }
 
-    v10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLNetworkIndicator.m"];
-    v14 = NSStringFromSelector(*(a1 + 40));
-    [v10 handleFailureInMethod:v11 object:v12 file:v13 lineNumber:71 description:{@"%@ was called too many times for %@", v14, *(a1 + 32)}];
+    v8 = [MEMORY[0x1E696AAA8] currentHandler];
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLNetworkIndicator.m"];
+    v12 = NSStringFromSelector(*(a1 + 40));
+    [v8 handleFailureInMethod:v9 object:v10 file:v11 lineNumber:71 description:{@"%@ was called too many times for %@", v12, *(a1 + 32)}];
 
     abort();
   }
 
   [bundleIdentifiersWithNetworkIndicator removeObject:*(a1 + 32)];
   result = [bundleIdentifiersWithNetworkIndicator containsObject:*(a1 + 32)];
-  if (result)
+  if ((result & 1) == 0)
   {
-    v3 = *MEMORY[0x1E69E9840];
-  }
+    v3 = *(a1 + 48);
+    v4 = *(a1 + 32);
 
-  else
-  {
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 32);
-    v6 = *MEMORY[0x1E69E9840];
-
-    return [v4 _reallyHideNetworkIndicatorForBundleWithIdentifierLocked:v5];
+    return [v3 _reallyHideNetworkIndicatorForBundleWithIdentifierLocked:v4];
   }
 
   return result;

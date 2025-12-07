@@ -56,7 +56,7 @@
 
             if (os_log_type_enabled(qword_D118, OS_LOG_TYPE_ERROR))
             {
-              sub_4080(&v5->_pidNum);
+              sub_4080();
             }
 
             goto LABEL_29;
@@ -173,7 +173,7 @@ LABEL_22:
         if (os_log_type_enabled(qword_D118, OS_LOG_TYPE_ERROR))
         {
 LABEL_11:
-          sub_400C(&v5->_doapCodecType);
+          sub_400C();
         }
 
 LABEL_29:
@@ -635,7 +635,7 @@ LABEL_15:
 
   if (os_log_type_enabled(qword_D118, OS_LOG_TYPE_ERROR))
   {
-    sub_4314(buf);
+    sub_4314();
   }
 
 LABEL_31:

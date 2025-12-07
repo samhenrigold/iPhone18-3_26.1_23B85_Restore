@@ -32,16 +32,17 @@
 void __71__SBSSystemNotesPresentationClientToServerProxy_activateConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogSystemNotes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogSystemNotes(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __71__SBSSystemNotesPresentationClientToServerProxy_activateConfiguration___block_invoke_cold_1(a1, v3, v4);
+      __71__SBSSystemNotesPresentationClientToServerProxy_activateConfiguration___block_invoke_cold_1(a1, v4, v5);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-    [WeakRetained configuration:*(*(a1 + 32) + 24) didInvalidateWithError:v3];
+    [WeakRetained configuration:*(*(a1 + 32) + 24) didInvalidateWithError:v4];
   }
 
   else
@@ -93,7 +94,7 @@ void __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnec
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogSystemNotes();
+  v3 = SBLogSystemNotes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -105,7 +106,7 @@ void __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnec
 void __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogSystemNotes();
+  v4 = SBLogSystemNotes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19_cold_1(v3, v4);

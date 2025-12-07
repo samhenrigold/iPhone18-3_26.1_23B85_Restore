@@ -22,12 +22,10 @@
 
 - (NSString)bundleIdentifier
 {
-  v2 = *(self + OBJC_IVAR___MRDBundleMediaRecommendationEligibility_bundleIdentifier);
-  v3 = *(self + OBJC_IVAR___MRDBundleMediaRecommendationEligibility_bundleIdentifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)description

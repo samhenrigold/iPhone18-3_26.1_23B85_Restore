@@ -143,7 +143,6 @@ LABEL_13:
 
   if (messageData)
   {
-    messageData = self->_messageData;
     PBDataWriterWriteDataField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (typeName)
   {
-    typeName = self->_typeName;
     PBDataWriterWriteStringField();
   }
 }

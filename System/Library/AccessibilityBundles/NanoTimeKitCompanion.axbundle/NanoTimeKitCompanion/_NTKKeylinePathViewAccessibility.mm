@@ -86,13 +86,13 @@
 - (void)accessibilityIncrement
 {
   _accessibilityEditPageView = [(_NTKKeylinePathViewAccessibility *)self _accessibilityEditPageView];
-  _accessibilityEditComplicationPickerView(_accessibilityEditPageView, 1);
+  _accessibilityEditComplicationPickerView();
 }
 
 - (void)accessibilityDecrement
 {
   _accessibilityEditPageView = [(_NTKKeylinePathViewAccessibility *)self _accessibilityEditPageView];
-  _accessibilityEditComplicationPickerView(_accessibilityEditPageView, 0);
+  _accessibilityEditComplicationPickerView();
 }
 
 - (id)_accessibilityEditPageView

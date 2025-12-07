@@ -204,7 +204,7 @@
     v11 = &v17;
   }
 
-  [perform addFinishBlock:{v11, v12, v13, v14, v15, selfCopy, v17, v18, v19, v20, selfCopy2, *buf, *&buf[16]}];
+  [perform addFinishBlock:{v11, v12, v13, v14, v15, selfCopy, v17, v18, v19, v20, selfCopy2, *buf, *&buf[8]}];
 }
 
 - (void)checkDownloadQueueWithContentType:(int64_t)type completion:(id)completion

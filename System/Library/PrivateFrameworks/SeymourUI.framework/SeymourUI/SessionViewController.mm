@@ -73,7 +73,7 @@
 {
   if (_s9SeymourUI21SessionViewControllerC11keyCommandsSaySo12UIKeyCommandCGSgvg_0())
   {
-    sub_20B51C88C(0, &qword_27C771A70);
+    sub_20B51C88C(0, &qword_27C771A70, 0x277D75650);
     v2 = sub_20C13CC54();
   }
 
@@ -103,7 +103,7 @@
   selfCopy = self;
   SessionViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v3 = sub_20C13CC54();
 
   return v3;

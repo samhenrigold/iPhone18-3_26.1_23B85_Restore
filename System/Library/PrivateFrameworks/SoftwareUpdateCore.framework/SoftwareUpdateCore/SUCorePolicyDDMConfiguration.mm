@@ -104,7 +104,7 @@ uint64_t __46__SUCorePolicyDDMConfiguration_sharedInstance__block_invoke()
 
 void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 16) loadPersistedState])
   {
     v1 = +[SUCoreDDMUtilities sharedLogger];
@@ -112,9 +112,9 @@ void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_inv
 
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[SUCorePolicyDDMConfiguration initWithStatePersistencePath:]_block_invoke";
-      _os_log_impl(&dword_23193C000, v2, OS_LOG_TYPE_DEFAULT, "%s: Loaded persisted state", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SUCorePolicyDDMConfiguration initWithStatePersistencePath:]_block_invoke";
+      _os_log_impl(&dword_23193C000, v2, OS_LOG_TYPE_DEFAULT, "%s: Loaded persisted state", &v5, 0xCu);
     }
   }
 
@@ -128,8 +128,6 @@ void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_inv
       __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_invoke_cold_1();
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)statePersistencePath
@@ -151,7 +149,7 @@ void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_inv
 
 + (id)getDaemonCacheDirectory
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   bzero(__s, 0x400uLL);
   if (confstr(65538, __s, 0x400uLL) >= 1)
   {
@@ -162,7 +160,7 @@ void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_inv
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     v6 = [defaultManager2 fileExistsAtPath:v4];
 
-    if ((v6 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v7 = objc_claimAutoreleasedReturnValue(), v26 = 0, objc_msgSend(v7, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v4, 0, 0, &v26), v8 = v26, v7, !v8))
+    if ((v6 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v7 = objc_claimAutoreleasedReturnValue(), v25 = 0, objc_msgSend(v7, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v4, 0, 0, &v25), v8 = v25, v7, !v8))
     {
       path2 = v4;
     }
@@ -207,9 +205,9 @@ LABEL_19:
 
   defaultManager5 = [MEMORY[0x277CCAA00] defaultManager];
   path3 = [temporaryDirectory path];
-  v25 = 0;
-  [defaultManager5 createDirectoryAtPath:path3 withIntermediateDirectories:0 attributes:0 error:&v25];
-  v20 = v25;
+  v24 = 0;
+  [defaultManager5 createDirectoryAtPath:path3 withIntermediateDirectories:0 attributes:0 error:&v24];
+  v20 = v24;
 
   v21 = +[SUCoreDDMUtilities sharedLogger];
   oslog3 = [v21 oslog];
@@ -219,7 +217,7 @@ LABEL_19:
     if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v28 = "+[SUCorePolicyDDMConfiguration getDaemonCacheDirectory]";
+      v27 = "+[SUCorePolicyDDMConfiguration getDaemonCacheDirectory]";
       _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "%s: Created tmp directory", buf, 0xCu);
     }
 
@@ -233,8 +231,6 @@ LABEL_19:
 
   path2 = 0;
 LABEL_20:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return path2;
 }
@@ -262,13 +258,13 @@ LABEL_20:
 
 void __56__SUCorePolicyDDMConfiguration_hasManagedConfigurations__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
-  [v2 _getDeclarations:&v14 invalid:&v13];
-  v3 = v14;
-  v4 = v13;
+  [v2 _getDeclarations:&v13 invalid:&v12];
+  v3 = v13;
+  v4 = v12;
   v5 = [*(a1 + 32) persistedState];
   v6 = [v5 dictionaryForKey:@"SUCoreDDMDeclarationGlobalSettings"];
 
@@ -280,13 +276,13 @@ void __56__SUCorePolicyDDMConfiguration_hasManagedConfigurations__block_invoke(u
     v9 = [v3 count];
     v10 = [v4 count];
     *buf = 136315906;
-    v16 = "[SUCorePolicyDDMConfiguration hasManagedConfigurations]_block_invoke";
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2048;
-    v20 = v10;
-    v21 = 2048;
-    v22 = v6;
+    v15 = "[SUCorePolicyDDMConfiguration hasManagedConfigurations]_block_invoke";
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2048;
+    v19 = v10;
+    v20 = 2048;
+    v21 = v6;
     _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "%s: valid.count = %lu, invalid.count = %lu, globalSettings = %p", buf, 0x2Au);
   }
 
@@ -301,8 +297,6 @@ void __56__SUCorePolicyDDMConfiguration_hasManagedConfigurations__block_invoke(u
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v11;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getDeclarations:(id *)declarations invalid:(id *)invalid
@@ -407,10 +401,7 @@ void __56__SUCorePolicyDDMConfiguration_hasManagedConfigurations__block_invoke(u
 
 uint64_t __52__SUCorePolicyDDMConfiguration_activeDeclarationKey__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _getActiveDeclarationKey];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _getActiveDeclarationKey];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -441,11 +432,11 @@ uint64_t __52__SUCorePolicyDDMConfiguration_activeDeclarationKey__block_invoke(u
 
 void __56__SUCorePolicyDDMConfiguration_setActiveDeclarationKey___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v14 = 0;
-  [v2 _getDeclarations:&v14 invalid:0];
-  v3 = v14;
+  v13 = 0;
+  [v2 _getDeclarations:&v13 invalid:0];
+  v3 = v13;
   v4 = (a1 + 40);
   v5 = *(a1 + 40);
   if (!v5)
@@ -469,9 +460,9 @@ LABEL_5:
     {
       v10 = *v4;
       *buf = 136315394;
-      v16 = "[SUCorePolicyDDMConfiguration setActiveDeclarationKey:]_block_invoke";
-      v17 = 2114;
-      v18 = v10;
+      v15 = "[SUCorePolicyDDMConfiguration setActiveDeclarationKey:]_block_invoke";
+      v16 = 2114;
+      v17 = v10;
       _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully set %{public}@ as active", buf, 0x16u);
     }
 
@@ -484,11 +475,10 @@ LABEL_5:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    __56__SUCorePolicyDDMConfiguration_setActiveDeclarationKey___block_invoke_cold_1(v4);
+    __56__SUCorePolicyDDMConfiguration_setActiveDeclarationKey___block_invoke_cold_1();
   }
 
 LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addDeclaration:(id)declaration returningError:(id *)error
@@ -531,7 +521,7 @@ LABEL_11:
 
 void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [[SUCoreDDMDeclaration alloc] initWithDeclarationKeys:*(a1 + 32)];
   v3 = [MEMORY[0x277D64418] sharedDevice];
   if ([v3 isInternal])
@@ -546,7 +536,7 @@ void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_in
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = "[SUCorePolicyDDMConfiguration addDeclaration:returningError:]_block_invoke";
+        v25 = "[SUCorePolicyDDMConfiguration addDeclaration:returningError:]_block_invoke";
         _os_log_impl(&dword_23193C000, v6, OS_LOG_TYPE_DEFAULT, "%s: [INTERNAL] _allowInvalidDeclaration is set to YES!!! Allow invalid declarations", buf, 0xCu);
       }
 
@@ -559,9 +549,9 @@ void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_in
   {
   }
 
-  v24 = 0;
-  v8 = [(SUCoreDDMDeclaration *)v2 isValidDeclarationWithReason:&v24];
-  v7 = v24;
+  v23 = 0;
+  v8 = [(SUCoreDDMDeclaration *)v2 isValidDeclarationWithReason:&v23];
+  v7 = v23;
   if (!v8)
   {
     v9 = [MEMORY[0x277D643F8] sharedCore];
@@ -575,11 +565,11 @@ void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_in
 LABEL_8:
   v9 = [(SUCoreDDMDeclaration *)v2 declarationKey];
   v10 = *(a1 + 40);
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
-  [v10 _getDeclarations:&v23 invalid:&v22];
-  v11 = v23;
-  v12 = v22;
+  [v10 _getDeclarations:&v22 invalid:&v21];
+  v11 = v22;
+  v12 = v21;
   v13 = [v11 objectForKey:v9];
 
   if (v13)
@@ -619,9 +609,9 @@ LABEL_8:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v26 = "[SUCorePolicyDDMConfiguration addDeclaration:returningError:]_block_invoke";
-        v27 = 2114;
-        v28 = v2;
+        v25 = "[SUCorePolicyDDMConfiguration addDeclaration:returningError:]_block_invoke";
+        v26 = 2114;
+        v27 = v2;
         _os_log_impl(&dword_23193C000, v15, OS_LOG_TYPE_DEFAULT, "%s: Adding %{public}@", buf, 0x16u);
       }
     }
@@ -629,8 +619,6 @@ LABEL_8:
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)declarationForKey:(id)key
@@ -662,13 +650,13 @@ LABEL_18:
 
 void __50__SUCorePolicyDDMConfiguration_declarationForKey___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  [v2 _getDeclarations:&v19 invalid:&v18];
-  v3 = v19;
-  v4 = v18;
+  [v2 _getDeclarations:&v18 invalid:&v17];
+  v3 = v18;
+  v4 = v17;
   v5 = a1 + 5;
   v6 = [v3 safeObjectForKey:a1[5] ofClass:objc_opt_class()];
   if (v6)
@@ -688,11 +676,11 @@ LABEL_5:
     {
       v15 = *v5;
       *buf = 136315650;
-      v21 = "[SUCorePolicyDDMConfiguration declarationForKey:]_block_invoke";
-      v22 = 2114;
-      v23 = v8;
-      v24 = 2114;
-      v25 = v15;
+      v20 = "[SUCorePolicyDDMConfiguration declarationForKey:]_block_invoke";
+      v21 = 2114;
+      v22 = v8;
+      v23 = 2114;
+      v24 = v15;
       _os_log_impl(&dword_23193C000, v14, OS_LOG_TYPE_DEFAULT, "%s: Found %{public}@ declaration for %{public}@", buf, 0x20u);
     }
 
@@ -707,17 +695,15 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v17 = +[SUCoreDDMUtilities sharedLogger];
-  v7 = [v17 oslog];
+  v16 = +[SUCoreDDMUtilities sharedLogger];
+  v7 = [v16 oslog];
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __50__SUCorePolicyDDMConfiguration_declarationForKey___block_invoke_cold_1(v5);
+    __50__SUCorePolicyDDMConfiguration_declarationForKey___block_invoke_cold_1();
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allDeclarations
@@ -745,17 +731,17 @@ LABEL_8:
 
 void __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v9 = 0;
-  [v2 _getDeclarations:&v9 invalid:0];
-  v3 = v9;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke_2;
-  v8[3] = &unk_27892DDC0;
-  v8[4] = *(a1 + 40);
-  [v3 enumerateKeysAndObjectsUsingBlock:v8];
+  v8 = 0;
+  [v2 _getDeclarations:&v8 invalid:0];
+  v3 = v8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke_2;
+  v7[3] = &unk_27892DDC0;
+  v7[4] = *(a1 + 40);
+  [v3 enumerateKeysAndObjectsUsingBlock:v7];
   [*(*(*(a1 + 40) + 8) + 40) sortUsingComparator:&__block_literal_global_331];
   if ([*(*(*(a1 + 40) + 8) + 40) count])
   {
@@ -766,14 +752,12 @@ void __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke(uint64_t a
     {
       v6 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 136315394;
-      v11 = "[SUCorePolicyDDMConfiguration allDeclarations]_block_invoke";
-      v12 = 2114;
-      v13 = v6;
+      v10 = "[SUCorePolicyDDMConfiguration allDeclarations]_block_invoke";
+      v11 = 2114;
+      v12 = v6;
       _os_log_impl(&dword_23193C000, v5, OS_LOG_TYPE_DEFAULT, "%s: Sorted valid enforced-su declarations: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -786,39 +770,37 @@ void __47__SUCorePolicyDDMConfiguration_allDeclarations__block_invoke_2(uint64_t
 
 - (id)allDeclarationsIncludingInvalid
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__7;
-  v15 = __Block_byref_object_dispose__7;
-  v16 = objc_opt_new();
+  v20 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__7;
+  v14 = __Block_byref_object_dispose__7;
+  v15 = objc_opt_new();
   dispatch_assert_queue_not_V2(self->_stateQueue);
   stateQueue = self->_stateQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __63__SUCorePolicyDDMConfiguration_allDeclarationsIncludingInvalid__block_invoke;
-  v10[3] = &unk_27892C880;
-  v10[4] = self;
-  v10[5] = &v11;
-  dispatch_sync(stateQueue, v10);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __63__SUCorePolicyDDMConfiguration_allDeclarationsIncludingInvalid__block_invoke;
+  v9[3] = &unk_27892C880;
+  v9[4] = self;
+  v9[5] = &v10;
+  dispatch_sync(stateQueue, v9);
   v4 = +[SUCoreDDMUtilities sharedLogger];
   oslog = [v4 oslog];
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v12[5];
+    v6 = v11[5];
     *buf = 136315394;
-    v18 = "[SUCorePolicyDDMConfiguration allDeclarationsIncludingInvalid]";
-    v19 = 2114;
-    v20 = v6;
+    v17 = "[SUCorePolicyDDMConfiguration allDeclarationsIncludingInvalid]";
+    v18 = 2114;
+    v19 = v6;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: All enforced-su declarations: %{public}@", buf, 0x16u);
   }
 
-  v7 = v12[5];
-  _Block_object_dispose(&v11, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = v11[5];
+  _Block_object_dispose(&v10, 8);
 
   return v7;
 }
@@ -903,13 +885,13 @@ void __63__SUCorePolicyDDMConfiguration_allDeclarationsIncludingInvalid__block_i
 
 void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  [v2 _getDeclarations:&v22 invalid:&v21];
-  v3 = v22;
-  v4 = v21;
+  [v2 _getDeclarations:&v21 invalid:&v20];
+  v3 = v21;
+  v4 = v20;
   v5 = (a1 + 40);
   v6 = [v3 objectForKey:*(a1 + 40)];
   v7 = [*(a1 + 32) _getActiveDeclarationKey];
@@ -931,7 +913,7 @@ LABEL_9:
     {
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_2((a1 + 40));
+        __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_2();
       }
 
       if (!v9)
@@ -944,11 +926,11 @@ LABEL_9:
     {
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = *v5;
+        v19 = *v5;
         *buf = 136315394;
-        v24 = "[SUCorePolicyDDMConfiguration invalidateDeclarationForKey:]_block_invoke";
-        v25 = 2114;
-        v26 = v20;
+        v23 = "[SUCorePolicyDDMConfiguration invalidateDeclarationForKey:]_block_invoke";
+        v24 = 2114;
+        v25 = v19;
         _os_log_impl(&dword_23193C000, v14, OS_LOG_TYPE_DEFAULT, "%s: Marking the declaration invalid for %{public}@", buf, 0x16u);
       }
 
@@ -984,7 +966,7 @@ LABEL_19:
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_1((a1 + 40));
+      __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_1();
     }
 
     [*(a1 + 32) _persistActiveDeclarationKey:0];
@@ -1003,9 +985,9 @@ LABEL_15:
     {
       v18 = *v5;
       *buf = 136315394;
-      v24 = "[SUCorePolicyDDMConfiguration invalidateDeclarationForKey:]_block_invoke";
-      v25 = 2114;
-      v26 = v18;
+      v23 = "[SUCorePolicyDDMConfiguration invalidateDeclarationForKey:]_block_invoke";
+      v24 = 2114;
+      v25 = v18;
       _os_log_impl(&dword_23193C000, v17, OS_LOG_TYPE_DEFAULT, "%s: The declaration is already invalid for %{public}@", buf, 0x16u);
     }
 
@@ -1014,11 +996,10 @@ LABEL_15:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_3((a1 + 40));
+    __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_3();
   }
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllDeclarations
@@ -1136,7 +1117,7 @@ void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturnin
 
 void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturningAllInvalid__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [[SUCoreDDMDeclaration alloc] initWithDeclarationKeys:v6];
@@ -1148,11 +1129,11 @@ void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturnin
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315394;
-      v16 = "[SUCorePolicyDDMConfiguration invalidateAllInvalidDeclarationsReturningAllInvalid]_block_invoke_2";
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_23193C000, v10, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ is nolonger valid; invalidating it", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[SUCorePolicyDDMConfiguration invalidateAllInvalidDeclarationsReturningAllInvalid]_block_invoke_2";
+      v16 = 2114;
+      v17 = v8;
+      _os_log_impl(&dword_23193C000, v10, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ is nolonger valid; invalidating it", &v14, 0x16u);
     }
 
     if ([v5 isEqualToString:*(a1 + 32)])
@@ -1182,8 +1163,6 @@ void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturnin
     [*(a1 + 48) removeObjectForKey:v5];
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturningAllInvalid__block_invoke_334(uint64_t a1, uint64_t a2, void *a3)
@@ -1237,14 +1216,14 @@ void __39__SUCorePolicyDDMConfiguration_allKeys__block_invoke(uint64_t a1)
 
 - (BOOL)removeDeclarationForKey:(id)key
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     dispatch_assert_queue_not_V2(self->_stateQueue);
     stateQueue = self->_stateQueue;
     block[0] = MEMORY[0x277D85DD0];
@@ -1253,10 +1232,10 @@ void __39__SUCorePolicyDDMConfiguration_allKeys__block_invoke(uint64_t a1)
     block[3] = &unk_27892D520;
     block[4] = self;
     v6 = keyCopy;
-    v16 = v6;
-    v17 = &v18;
+    v15 = v6;
+    v16 = &v17;
     dispatch_sync(stateQueue, block);
-    if (*(v19 + 24) == 1)
+    if (*(v18 + 24) == 1)
     {
       v7 = +[SUCoreDDMUtilities sharedLogger];
       oslog = [v7 oslog];
@@ -1264,9 +1243,9 @@ void __39__SUCorePolicyDDMConfiguration_allKeys__block_invoke(uint64_t a1)
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v23 = "[SUCorePolicyDDMConfiguration removeDeclarationForKey:]";
-        v24 = 2114;
-        v25 = v6;
+        v22 = "[SUCorePolicyDDMConfiguration removeDeclarationForKey:]";
+        v23 = 2114;
+        v24 = v6;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: Successfully removed %{public}@", buf, 0x16u);
       }
     }
@@ -1282,8 +1261,8 @@ void __39__SUCorePolicyDDMConfiguration_allKeys__block_invoke(uint64_t a1)
       }
     }
 
-    v11 = *(v19 + 24);
-    _Block_object_dispose(&v18, 8);
+    v11 = *(v18 + 24);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -1299,7 +1278,6 @@ void __39__SUCorePolicyDDMConfiguration_allKeys__block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
@@ -1333,7 +1311,7 @@ void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke(u
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_1((a1 + 40));
+        __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_1();
       }
     }
 
@@ -1344,7 +1322,7 @@ void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke(u
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_2((a1 + 40));
+        __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_2();
       }
 
       [*(a1 + 32) _persistValidDeclarations:v3];
@@ -1386,35 +1364,35 @@ LABEL_19:
 
 + (id)declarationFromAllDeclarationDicts:(id)dicts
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictsCopy = dicts;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dictsCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = dictsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [SUCoreDDMDeclaration alloc];
-        v12 = [(SUCoreDDMDeclaration *)v11 initWithDeclarationKeys:v10, v16];
+        v12 = [(SUCoreDDMDeclaration *)v11 initWithDeclarationKeys:v10, v15];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1422,30 +1400,26 @@ LABEL_19:
 
   v13 = [objc_opt_class() declarationFromAllDeclarations:v4];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)declarationFromAllDeclarations:(id)declarations
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [declarations sortedArrayUsingComparator:&__block_literal_global_336];
   v4 = +[SUCoreDDMUtilities sharedLogger];
   oslog = [v4 oslog];
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "+[SUCorePolicyDDMConfiguration declarationFromAllDeclarations:]";
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: Sorted DDM declarations: %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "+[SUCorePolicyDDMConfiguration declarationFromAllDeclarations:]";
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%s: Sorted DDM declarations: %{public}@", &v8, 0x16u);
   }
 
   firstObject = [v3 firstObject];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -1490,11 +1464,11 @@ LABEL_19:
 
 void __76__SUCorePolicyDDMConfiguration_addGlobalSettingsDeclaration_returningError___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [[SUCoreDDMDeclarationGlobalSettings alloc] initWithDeclarationKeys:*(a1 + 32)];
-  v13 = 0;
-  v3 = [(SUCoreDDMDeclarationGlobalSettings *)v2 isValidDeclarationWithReason:&v13];
-  v4 = v13;
+  v12 = 0;
+  v3 = [(SUCoreDDMDeclarationGlobalSettings *)v2 isValidDeclarationWithReason:&v12];
+  v4 = v12;
   if (v3)
   {
     v5 = [*(a1 + 40) persistedState];
@@ -1511,9 +1485,9 @@ void __76__SUCorePolicyDDMConfiguration_addGlobalSettingsDeclaration_returningEr
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[SUCorePolicyDDMConfiguration addGlobalSettingsDeclaration:returningError:]_block_invoke";
-      v16 = 2114;
-      v17 = v2;
+      v14 = "[SUCorePolicyDDMConfiguration addGlobalSettingsDeclaration:returningError:]_block_invoke";
+      v15 = 2114;
+      v16 = v2;
       _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "%s: Invalid global settings declaration: %{public}@", buf, 0x16u);
     }
 
@@ -1523,8 +1497,6 @@ void __76__SUCorePolicyDDMConfiguration_addGlobalSettingsDeclaration_returningEr
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentGlobalSettingsDeclaration
@@ -1552,7 +1524,7 @@ void __76__SUCorePolicyDDMConfiguration_addGlobalSettingsDeclaration_returningEr
 
 void __64__SUCorePolicyDDMConfiguration_currentGlobalSettingsDeclaration__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) persistedState];
   v3 = [v2 dictionaryForKey:@"SUCoreDDMDeclarationGlobalSettings"];
 
@@ -1569,15 +1541,13 @@ void __64__SUCorePolicyDDMConfiguration_currentGlobalSettingsDeclaration__block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(*(*(a1 + 40) + 8) + 40);
-      v11 = 136315394;
-      v12 = "[SUCorePolicyDDMConfiguration currentGlobalSettingsDeclaration]_block_invoke";
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "%s: Current global settings declaration: %{public}@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SUCorePolicyDDMConfiguration currentGlobalSettingsDeclaration]_block_invoke";
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "%s: Current global settings declaration: %{public}@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeGlobalSettingsDeclaration
@@ -1620,139 +1590,109 @@ void __63__SUCorePolicyDDMConfiguration_removeGlobalSettingsDeclaration__block_i
 
 - (void)initWithStatePersistencePath:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_23193C000, a1, a3, "%s: Failed to create persisted path; fall back to '%{public}@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "[SUCorePolicyDDMConfiguration initWithStatePersistencePath:]";
+  *&v8[12] = 2114;
+  *&v8[14] = @"/tmp/SoftwareUpdateDDMStatePersistence.plist";
+  OUTLINED_FUNCTION_2(&dword_23193C000, a1, a3, "%s: Failed to create persisted path; fall back to '%{public}@'", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 void __61__SUCorePolicyDDMConfiguration_initWithStatePersistencePath___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to read corrupted software update state file.  Exception: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to read corrupted software update state file.  Exception: %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)getDaemonCacheDirectory
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_5(&dword_23193C000, v0, v1, "%s: Failed to create cache directory at path: %{public}@, error: %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_23193C000, v0, v1, "%s: Failed to create cache directory at path: %{public}@, error: %{public}@", v2);
 }
 
-void __56__SUCorePolicyDDMConfiguration_setActiveDeclarationKey___block_invoke_cold_1(uint64_t *a1)
+void __56__SUCorePolicyDDMConfiguration_setActiveDeclarationKey___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
-  v4 = 136315650;
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v2 = 136315650;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5(&dword_23193C000, v1, v2, "%s: %{public}@ is not in the valid declarations %{public}@", v4);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_23193C000, v0, v1, "%s: %{public}@ is not in the valid declarations %{public}@", v2);
 }
 
 void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: There is already a tracked valid declaration for %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: There is already a tracked valid declaration for %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __62__SUCorePolicyDDMConfiguration_addDeclaration_returningError___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: There is already a tracked invalid declaration for %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: There is already a tracked invalid declaration for %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __50__SUCorePolicyDDMConfiguration_declarationForKey___block_invoke_cold_1(uint64_t *a1)
+void __50__SUCorePolicyDDMConfiguration_declarationForKey___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: Unable to find any declaration for %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to find any declaration for %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)invalidateDeclarationForKey:.cold.1()
+void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: The declaration with active key = %{public}@ was invalid", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration with active key = %{public}@ was invalid", v2, v3, v4, v5, v6);
 }
 
-void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_2(uint64_t *a1)
+void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: The declaration is both valid and invalid for %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration is both valid and invalid for %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_3(uint64_t *a1)
+void __60__SUCorePolicyDDMConfiguration_invalidateDeclarationForKey___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: Unable to find any declaration to invalidate for %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to find any declaration to invalidate for %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __83__SUCorePolicyDDMConfiguration_invalidateAllInvalidDeclarationsReturningAllInvalid__block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration is both valid and invalid for %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration is both valid and invalid for %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeDeclarationForKey:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to find any declaration to remove for %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: Unable to find any declaration to remove for %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)removeDeclarationForKey:.cold.2()
+void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: The declaration with key = %{public}@ was invalid", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration with key = %{public}@ was invalid", v2, v3, v4, v5, v6);
 }
 
-void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_2(uint64_t *a1)
+void __56__SUCorePolicyDDMConfiguration_removeDeclarationForKey___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v1, v2, "%s: The declaration was both valid and invalid for %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: The declaration was both valid and invalid for %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

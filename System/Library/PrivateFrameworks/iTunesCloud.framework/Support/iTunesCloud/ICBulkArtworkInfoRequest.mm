@@ -1,4 +1,5 @@
 @interface ICBulkArtworkInfoRequest
+- (ICBulkArtworkInfoRequest)initWithDatabaseID:(unsigned int)d cloudIDs:(id)ds itemKind:(unsigned __int8)kind useLongIDs:(BOOL)iDs;
 - (id)_bodyDataForCloudIDs:(id)ds itemKind:(unsigned __int8)kind useLongIDs:(BOOL)iDs;
 - (id)_queryFilterString;
 - (id)canonicalResponseForResponse:(id)response;
@@ -62,6 +63,29 @@
   [v3 setArtworkInfoDictionaries:v5];
 
   return v3;
+}
+
+- (ICBulkArtworkInfoRequest)initWithDatabaseID:(unsigned int)d cloudIDs:(id)ds itemKind:(unsigned __int8)kind useLongIDs:(BOOL)iDs
+{
+  iDsCopy = iDs;
+  kindCopy = kind;
+  v8 = *&d;
+  dsCopy = ds;
+  v11 = [NSString stringWithFormat:@"databases/%u/extra_data/cloud-artwork-info", v8];
+  v15.receiver = self;
+  v15.super_class = ICBulkArtworkInfoRequest;
+  v12 = [(ICDRequest *)&v15 initWithAction:v11];
+
+  if (v12)
+  {
+    [(ICDRequest *)v12 setMethod:1];
+    v13 = [(ICBulkArtworkInfoRequest *)v12 _bodyDataForCloudIDs:dsCopy itemKind:kindCopy useLongIDs:iDsCopy];
+    [(ICDRequest *)v12 setBodyData:v13];
+
+    [(ICDRequest *)v12 setRequestPersonalizationStyle:2];
+  }
+
+  return v12;
 }
 
 @end

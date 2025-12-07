@@ -128,7 +128,6 @@ LABEL_8:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -146,7 +145,6 @@ LABEL_8:
     }
 
 LABEL_10:
-    linkQuality = self->_linkQuality;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -156,7 +154,6 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -171,7 +168,6 @@ LABEL_7:
   }
 
 LABEL_11:
-  sentReason = self->_sentReason;
 
   PBDataWriterWriteUint32Field();
 }
@@ -279,7 +275,6 @@ LABEL_6:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 40);
     if (has)
     {
       if ((*(equal + 40) & 1) == 0 || self->_timestamp != *(equal + 1))

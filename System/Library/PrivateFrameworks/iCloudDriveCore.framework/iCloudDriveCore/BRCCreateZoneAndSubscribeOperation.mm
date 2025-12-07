@@ -71,11 +71,10 @@
 
 - (void)main
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_optimisticSubscribe%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_optimisticSubscribe%@", &v2, 0xCu);
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -95,65 +94,63 @@
 
 - (void)_createZoneWithZoneID:(id)d
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:dCopy];
   v6 = objc_alloc(MEMORY[0x277CBC490]);
-  v19[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v8 = [v6 initWithRecordZonesToSave:v7 recordZoneIDsToDelete:0];
 
   objc_initWeak(&location, v8);
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke;
-  v14 = &unk_278504E70;
-  objc_copyWeak(&v17, &location);
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke;
+  v13 = &unk_278504E70;
+  objc_copyWeak(&v16, &location);
   v9 = dCopy;
-  v15 = v9;
+  v14 = v9;
   selfCopy = self;
-  [v8 setModifyRecordZonesCompletionBlock:&v11];
-  [(_BRCOperation *)self addSubOperation:v8, v11, v12, v13, v14];
+  [v8 setModifyRecordZonesCompletionBlock:&v10];
+  [(_BRCOperation *)self addSubOperation:v8, v10, v11, v12, v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  memset(v23, 0, sizeof(v23));
-  __brc_create_section(0, "[BRCCreateZoneAndSubscribeOperation _createZoneWithZoneID:]_block_invoke", 98, 0, v23);
+  memset(v22, 0, sizeof(v22));
+  __brc_create_section(0, "[BRCCreateZoneAndSubscribeOperation _createZoneWithZoneID:]_block_invoke", 98, 0, v22);
   v11 = brc_bread_crumbs();
   v12 = brc_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v23[0];
-    v17 = *(a1 + 32);
-    v18 = [WeakRetained operationID];
-    v19 = v18;
-    v20 = @"success";
+    v15 = v22[0];
+    v16 = *(a1 + 32);
+    v17 = [WeakRetained operationID];
+    v18 = v17;
+    v19 = @"success";
     *buf = 134219010;
     if (v9)
     {
-      v20 = v9;
+      v19 = v9;
     }
 
-    v25 = v16;
-    v26 = 2112;
-    v27 = v17;
-    v28 = 2112;
-    v29 = v18;
-    v30 = 2112;
-    v31 = v20;
-    v32 = 2112;
-    v33 = v11;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v16;
+    v27 = 2112;
+    v28 = v17;
+    v29 = 2112;
+    v30 = v19;
+    v31 = 2112;
+    v32 = v11;
     _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Handling result of creating %@ (operationID=%@): %@%@", buf, 0x34u);
   }
 
@@ -166,11 +163,11 @@ void __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invo
   {
     if ([v7 count] != 1)
     {
-      v21 = brc_bread_crumbs();
-      v22 = brc_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v20 = brc_bread_crumbs();
+      v21 = brc_default_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke_cold_1(v21, v22);
+        __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke_cold_1(v20, v21);
       }
     }
 
@@ -193,14 +190,12 @@ void __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invo
     [*(a1 + 40) _registerSubscriptionForZoneID:*(a1 + 32) isOptimisticSubscribe:0];
   }
 
-  __brc_leave_section(v23);
-
-  v15 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v22);
 }
 
 - (void)_registerSubscriptionForZoneID:(id)d isOptimisticSubscribe:(BOOL)subscribe
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([(BRCSyncContext *)self->super._syncContext isShared])
   {
@@ -215,36 +210,34 @@ void __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invo
   [v10 setShouldSendContentAvailable:1];
   [v9 setNotificationInfo:v10];
   v11 = objc_alloc(MEMORY[0x277CBC4B0]);
-  v26[0] = v9;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v9;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v13 = [v11 initWithSubscriptionsToSave:v12 subscriptionIDsToDelete:0];
 
   objc_initWeak(&location, v13);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isOptimisticSubscribe___block_invoke;
-  v18[3] = &unk_278504E98;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isOptimisticSubscribe___block_invoke;
+  v17[3] = &unk_278504E98;
   v14 = v8;
-  v19 = v14;
-  objc_copyWeak(&v23, &location);
+  v18 = v14;
+  objc_copyWeak(&v22, &location);
   v15 = v9;
   subscribeCopy = subscribe;
-  v20 = v15;
+  v19 = v15;
   selfCopy = self;
   v16 = dCopy;
-  v22 = v16;
-  [v13 setModifySubscriptionsCompletionBlock:v18];
+  v21 = v16;
+  [v13 setModifySubscriptionsCompletionBlock:v17];
   [(_BRCOperation *)self addSubOperation:v13];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isOptimisticSubscribe___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -256,32 +249,32 @@ void __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isO
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  memset(v22, 0, sizeof(v22));
-  __brc_create_section(0, "[BRCCreateZoneAndSubscribeOperation _registerSubscriptionForZoneID:isOptimisticSubscribe:]_block_invoke", 138, 0, v22);
+  memset(v21, 0, sizeof(v21));
+  __brc_create_section(0, "[BRCCreateZoneAndSubscribeOperation _registerSubscriptionForZoneID:isOptimisticSubscribe:]_block_invoke", 138, 0, v21);
   v12 = brc_bread_crumbs();
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v22[0];
-    v21 = *(a1 + 40);
-    v18 = [WeakRetained operationID];
-    v19 = v18;
-    v20 = @"success";
+    v16 = v21[0];
+    v20 = *(a1 + 40);
+    v17 = [WeakRetained operationID];
+    v18 = v17;
+    v19 = @"success";
     *buf = 134219010;
     if (v10)
     {
-      v20 = v10;
+      v19 = v10;
     }
 
-    v24 = v17;
-    v25 = 2112;
-    v26 = v21;
-    v27 = 2112;
-    v28 = v18;
-    v29 = 2112;
-    v30 = v20;
-    v31 = 2112;
-    v32 = v12;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v20;
+    v26 = 2112;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v19;
+    v30 = 2112;
+    v31 = v12;
     _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Handling result of creating %@ (operationID=%@): %@%@", buf, 0x34u);
   }
 
@@ -302,42 +295,36 @@ void __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isO
     [*(a1 + 48) completedWithResult:0 error:v10];
   }
 
-  __brc_leave_section(v22);
-
-  v16 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v21);
 }
 
 void __60__BRCCreateZoneAndSubscribeOperation__createZoneWithZoneID___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: savedZones.count == 1%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: savedZones.count == 1%@", &v2, 0xCu);
 }
 
 - (void)_registerSubscriptionForZoneID:isOptimisticSubscribe:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !self->_syncContext.isShared%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !self->_syncContext.isShared%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __91__BRCCreateZoneAndSubscribeOperation__registerSubscriptionForZoneID_isOptimisticSubscribe___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] optimistic subscribe failed with Zone Not Found, try to create the zone first%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] optimistic subscribe failed with Zone Not Found, try to create the zone first%@", &v2, 0xCu);
 }
 
 @end

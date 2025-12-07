@@ -46,70 +46,67 @@ void __44__ENExposureClassification_encodeWithCoder___block_invoke(uint64_t a1, 
 
 - (id)description
 {
-  v37 = 0;
+  v35 = 0;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  name = self->_name;
-  index = self->_index;
-  NSAppendPrintF_safe();
-  v5 = 0;
+  NSAppendPrintF_safe(&v35, "%@ %@ (%lu)", v4, self->_name, self->_index);
+  v5 = v35;
 
-  v36 = v5;
+  v34 = v5;
   region = self->_region;
   if (!region)
   {
     region = @"<>";
   }
 
-  v25 = region;
-  NSAppendPrintF_safe();
-  v7 = v36;
+  NSAppendPrintF_safe(&v34, " %@", region);
+  v7 = v34;
 
-  v35[1] = v7;
-  [(NSDate *)self->_date timeIntervalSinceReferenceDate:v25];
-  v26 = CUPrintDateCF();
-  NSAppendPrintF_safe();
-  v8 = v7;
+  v33 = v7;
+  [(NSDate *)self->_date timeIntervalSinceReferenceDate];
+  v8 = CUPrintDateCF();
+  NSAppendPrintF_safe(&v33, " %@ ", v8);
+  v9 = v33;
 
-  v35[0] = v8;
-  __39__ENExposureClassification_description__block_invoke(v9, v35, self->_confirmedTestPerDaySumERVAboveThreshold, @"CTest");
-  v10 = v35[0];
+  v32 = v9;
+  __39__ENExposureClassification_description__block_invoke(v10, &v32, self->_confirmedTestPerDaySumERVAboveThreshold, @"CTest");
+  v11 = v32;
 
-  v34 = v10;
-  __39__ENExposureClassification_description__block_invoke(v11, &v34, self->_clinicalDiagnosisPerDaySumERVAboveThreshold, @"CClin");
-  v12 = v34;
+  v31 = v11;
+  __39__ENExposureClassification_description__block_invoke(v12, &v31, self->_clinicalDiagnosisPerDaySumERVAboveThreshold, @"CClin");
+  v13 = v31;
 
-  v33 = v12;
-  __39__ENExposureClassification_description__block_invoke(v13, &v33, self->_selfReportPerDaySumERVAboveThreshold, @"SelfRep");
-  v14 = v33;
+  v30 = v13;
+  __39__ENExposureClassification_description__block_invoke(v14, &v30, self->_selfReportPerDaySumERVAboveThreshold, @"SelfRep");
+  v15 = v30;
 
-  v32 = v14;
-  __39__ENExposureClassification_description__block_invoke(v15, &v32, self->_recursivePerDaySumERVAboveThreshold, @"Recurs");
-  v16 = v32;
+  v29 = v15;
+  __39__ENExposureClassification_description__block_invoke(v16, &v29, self->_recursivePerDaySumERVAboveThreshold, @"Recurs");
+  v17 = v29;
 
-  v31 = v16;
-  __39__ENExposureClassification_description__block_invoke(v17, &v31, self->_perDayMaxERVAboveThreshold, @"PDayMax");
-  v18 = v31;
+  v28 = v17;
+  __39__ENExposureClassification_description__block_invoke(v18, &v28, self->_perDayMaxERVAboveThreshold, @"PDayMax");
+  v19 = v28;
 
-  v30 = v18;
-  __39__ENExposureClassification_description__block_invoke(v19, &v30, self->_perDaySumERVAboveThreshold, @"PDaySum");
-  v20 = v30;
+  v27 = v19;
+  __39__ENExposureClassification_description__block_invoke(v20, &v27, self->_perDaySumERVAboveThreshold, @"PDaySum");
+  v21 = v27;
 
-  v29 = v20;
-  __39__ENExposureClassification_description__block_invoke(v21, &v29, self->_weightedDurationAtAttenuationAboveThreshold, @"WDuration");
-  v22 = v29;
-  v23 = v29;
+  v26 = v21;
+  __39__ENExposureClassification_description__block_invoke(v22, &v26, self->_weightedDurationAtAttenuationAboveThreshold, @"WDuration");
+  v23 = v26;
+  v24 = v26;
 
-  return v22;
+  return v23;
 }
 
 void __39__ENExposureClassification_description__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   if (a3)
   {
-    v5 = a4;
+    v7 = a4;
     [a3 doubleValue];
-    NSAppendPrintF_safe();
+    NSAppendPrintF_safe(a2, ", %@ %.0f", v7, v6);
   }
 }
 

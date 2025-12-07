@@ -25,21 +25,21 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateOn:)();
+  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)heatingCoolingService:(id)service didUpdateHeatingCoolingLevel:(int)level
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateHeatingCoolingLevel:)();
+  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateHeatingCoolingLevel:)(selfCopy, level);
 }
 
 - (void)heatingCoolingService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateAutoMode:)();
+  CAFSeatHeatingCoolingObservable.heatingCoolingService(_:didUpdateAutoMode:)(selfCopy, mode);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

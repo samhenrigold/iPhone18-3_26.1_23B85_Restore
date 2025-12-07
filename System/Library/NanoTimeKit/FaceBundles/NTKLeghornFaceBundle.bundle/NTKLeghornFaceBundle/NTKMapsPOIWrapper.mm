@@ -31,9 +31,9 @@
   v3 = objc_msgSend_ntk_mkMapItem(self->_poi, a2, v2);
   if (v3)
   {
-    v6 = v3;
-    objc_msgSend_openInMapsWithLaunchOptions_(v3, v4, v5, 0);
-    v3 = v6;
+    v5 = v3;
+    objc_msgSend_openInMapsWithLaunchOptions_(v3, v4, 0);
+    v3 = v5;
   }
 }
 

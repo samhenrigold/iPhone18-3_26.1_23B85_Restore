@@ -133,8 +133,8 @@ LABEL_75:
       [(UICollectionViewData *)v24 _validateContentSize];
       if (v24)
       {
-        v27 = v24[10];
-        v28 = v24[11];
+        v27 = *(v24 + 10);
+        v28 = *(v24 + 11);
       }
 
       else
@@ -477,7 +477,7 @@ LABEL_68:
           v66 = [(UICollectionViewData *)v15 numberOfItemsBeforeSection:?];
           v67 = v99;
           [(_UICollectionViewDataAttributesMap *)self _setItemAttributes:v58 forGlobalItemIndex:v99 + v66];
-          [(UICollectionViewData *)v15 _attributesMapDidPageInAttributes:v58 globalItemIndex:v67 + v66, v68];
+          [(UICollectionViewData *)v15 _attributesMapDidPageInAttributes:v58 globalItemIndex:(v67 + v66), v68];
         }
 
         else
@@ -493,7 +493,7 @@ LABEL_68:
             goto LABEL_68;
           }
 
-          [(UICollectionViewData *)v15 _attributesMapDidPageInAttributes:v58 globalItemIndex:0x7FFFFFFFFFFFFFFFuLL, v62];
+          [(UICollectionViewData *)v15 _attributesMapDidPageInAttributes:v58 globalItemIndex:0x7FFFFFFFFFFFFFFFLL, v62];
         }
       }
 
@@ -561,15 +561,15 @@ LABEL_70:
 
 - (void)pageInLayoutAttributes:(uint64_t)attributes forGlobalItemIndex:
 {
-  if (self)
+  if (result)
   {
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:sel_pageInLayoutAttributes_forGlobalItemIndex_ object:self file:@"_UICollectionViewDataAttributesMap.mm" lineNumber:93 description:{@"Invalid parameter not satisfying: %@", @"layoutAttributes != nil"}];
+      [currentHandler handleFailureInMethod:sel_pageInLayoutAttributes_forGlobalItemIndex_ object:result file:@"_UICollectionViewDataAttributesMap.mm" lineNumber:93 description:{@"Invalid parameter not satisfying: %@", @"layoutAttributes != nil"}];
     }
 
-    [(_UICollectionViewDataAttributesMap *)self _setItemAttributes:a2 forGlobalItemIndex:attributes];
+    [(_UICollectionViewDataAttributesMap *)result _setItemAttributes:a2 forGlobalItemIndex:attributes];
   }
 }
 

@@ -8,7 +8,7 @@
 
 - (BOOL)isRequestSelectedForSamplingForTask:(id)task
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   siriDataSharingOptInStatus = [mEMORY[0x277CEF368] siriDataSharingOptInStatus];
@@ -31,15 +31,14 @@
     v7 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[CESRAssistantOnDeviceSampling isRequestSelectedForSamplingForTask:]";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Assistant Sampling: User is NOT opted in.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CESRAssistantOnDeviceSampling isRequestSelectedForSamplingForTask:]";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Assistant Sampling: User is NOT opted in.", &v9, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -64,9 +63,11 @@
 
 uint64_t __46__CESRAssistantOnDeviceSampling_sharedManager__block_invoke()
 {
-  sharedManager_sharedMyManager = objc_alloc_init(CESRAssistantOnDeviceSampling);
+  v0 = objc_alloc_init(CESRAssistantOnDeviceSampling);
+  v1 = sharedManager_sharedMyManager;
+  sharedManager_sharedMyManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

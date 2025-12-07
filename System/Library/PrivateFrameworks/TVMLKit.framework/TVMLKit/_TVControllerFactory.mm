@@ -116,7 +116,7 @@
   }
 
   v11 = v10;
-  [_TVLockupFactory cellMetricsForCollectionElement:elementCopy];
+  objc_msgSend_cellMetricsForCollectionElement_(_TVLockupFactory);
   [(_TVShelfViewController *)v11 updateWithViewElement:elementCopy cellMetrics:&v14];
 
   [(_TVShelfViewController *)v11 setCentered:bOOLValue];
@@ -141,7 +141,7 @@
   }
 
   v8 = v7;
-  [_TVLockupFactory cellMetricsForCollectionElement:elementCopy];
+  objc_msgSend_cellMetricsForCollectionElement_(_TVLockupFactory);
   [(_TVGridViewController *)v8 updateWithViewElement:elementCopy cellMetrics:&v10];
 
   return v8;

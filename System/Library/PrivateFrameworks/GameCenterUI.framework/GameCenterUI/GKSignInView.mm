@@ -13,9 +13,10 @@
 - (double)contentTopMargin
 {
   selfCopy = self;
-  v3 = sub_24E09B3B0();
+  sub_24E09B3B0();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (GKSignInView)initWithSignInAction:(id)action

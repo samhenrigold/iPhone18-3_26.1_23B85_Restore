@@ -11,7 +11,7 @@
   versionCopy = version;
   if (![fileCopy length])
   {
-    v7 = PLLogUrsaUtilities();
+    v7 = PLLogUrsaUtilities(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_113090();
@@ -22,7 +22,7 @@
 
   if (![versionCopy length])
   {
-    v7 = PLLogUrsaUtilities();
+    v7 = PLLogUrsaUtilities(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_11305C();
@@ -34,10 +34,10 @@ LABEL_20:
   }
 
   v7 = [NSURL fileURLWithPath:@"/var/mobile/Library/Ursa" isDirectory:1];
-  v38 = NSFilePosixPermissions;
+  v41 = NSFilePosixPermissions;
   v8 = [NSNumber numberWithUnsignedShort:511];
-  v39 = v8;
-  v9 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+  v42 = v8;
+  v9 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
 
   v10 = +[NSFileManager defaultManager];
   v11 = [v10 fileExistsAtPath:@"/var/mobile/Library/Ursa"];
@@ -45,49 +45,50 @@ LABEL_20:
   if ((v11 & 1) == 0)
   {
     v12 = +[NSFileManager defaultManager];
-    v33 = 0;
-    v13 = [v12 createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:v9 error:&v33];
-    v14 = v33;
+    v36 = 0;
+    v13 = [v12 createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:v9 error:&v36];
+    v14 = v36;
 
-    v15 = PLLogUrsaUtilities();
-    v16 = v15;
+    v16 = PLLogUrsaUtilities(v15);
+    v17 = v16;
     if (!v13 || v14)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_112E80(v14, v16);
+        sub_112E80(v14, v17);
       }
 
       path3 = 0;
       goto LABEL_36;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      sub_112EF8(v16);
+      sub_112EF8(v17);
     }
   }
 
-  v16 = [v7 URLByAppendingPathComponent:@"power_exceptions.json" isDirectory:0];
-  if (v16)
+  v17 = [v7 URLByAppendingPathComponent:@"power_exceptions.json" isDirectory:0];
+  if (v17)
   {
-    v17 = +[NSFileManager defaultManager];
-    [v17 removeItemAtURL:v16 error:0];
+    v18 = +[NSFileManager defaultManager];
+    [v18 removeItemAtURL:v17 error:0];
 
-    v36[0] = @"process";
-    v36[1] = @"build";
-    v37[0] = fileCopy;
-    v37[1] = versionCopy;
-    v18 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
-    v32 = 0;
-    v19 = [NSJSONSerialization dataWithJSONObject:v18 options:0 error:&v32];
-    v14 = v32;
-    if (v14 || !v19)
+    v39[0] = @"process";
+    v39[1] = @"build";
+    v40[0] = fileCopy;
+    v40[1] = versionCopy;
+    v19 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v35 = 0;
+    v20 = [NSJSONSerialization dataWithJSONObject:v19 options:0 error:&v35];
+    v21 = v35;
+    v14 = v21;
+    if (v21 || !v20)
     {
-      v29 = PLLogUrsaUtilities();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = PLLogUrsaUtilities(v21);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        sub_112FB0(v14, v29);
+        sub_112FB0(v14, v32);
       }
 
       path3 = 0;
@@ -95,31 +96,31 @@ LABEL_20:
 
     else
     {
-      v20 = +[NSFileManager defaultManager];
-      path = [v16 path];
-      v22 = v9;
-      v23 = path;
-      v31 = v22;
-      v24 = [v20 createFileAtPath:path contents:v19 attributes:?];
+      v22 = +[NSFileManager defaultManager];
+      path = [v17 path];
+      v24 = v9;
+      v25 = path;
+      v34 = v24;
+      v26 = [v22 createFileAtPath:path contents:v20 attributes:?];
 
-      v25 = PLLogUrsaUtilities();
-      v26 = v25;
-      if (v24)
+      v28 = PLLogUrsaUtilities(v27);
+      v29 = v28;
+      if (v26)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          path2 = [v16 path];
+          path2 = [v17 path];
           *buf = 138543362;
-          v35 = path2;
-          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "PLUrsaUtilities: wrote metadata to: %{public}@", buf, 0xCu);
+          v38 = path2;
+          _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "PLUrsaUtilities: wrote metadata to: %{public}@", buf, 0xCu);
         }
 
-        path3 = [v16 path];
+        path3 = [v17 path];
       }
 
       else
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_112F7C();
         }
@@ -127,14 +128,14 @@ LABEL_20:
         path3 = 0;
       }
 
-      v9 = v31;
+      v9 = v34;
     }
   }
 
   else
   {
-    v18 = PLLogUrsaUtilities();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = PLLogUrsaUtilities(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_113028();
     }
@@ -155,10 +156,11 @@ LABEL_37:
   nameCopy = name;
   timeCopy = time;
   pathCopy = path;
-  if (!paramsCopy || ![paramsCopy count])
+  v12 = pathCopy;
+  if (!paramsCopy || (pathCopy = [paramsCopy count]) == 0)
   {
-    v14 = PLLogUrsaUtilities();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PLLogUrsaUtilities(pathCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_11322C();
     }
@@ -166,23 +168,23 @@ LABEL_37:
     goto LABEL_31;
   }
 
-  if (!nameCopy || ![nameCopy length])
+  if (!nameCopy || (pathCopy = [nameCopy length]) == 0)
   {
-    v14 = PLLogUrsaUtilities();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PLLogUrsaUtilities(pathCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1131F8();
     }
 
 LABEL_31:
-    v30 = 0;
+    v31 = 0;
     goto LABEL_32;
   }
 
   if (!timeCopy)
   {
-    v12 = PLLogUrsaUtilities();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = PLLogUrsaUtilities(pathCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1130C4();
     }
@@ -190,102 +192,102 @@ LABEL_31:
     timeCopy = +[NSDate date];
   }
 
-  v13 = [NSURLComponents componentsWithString:@"tap-to-radar://new?"];
-  v14 = v13;
-  if (v13)
+  v14 = [NSURLComponents componentsWithString:@"tap-to-radar://new?"];
+  v15 = v14;
+  if (v14)
   {
-    v37 = v13;
-    v42 = nameCopy;
-    v39 = paramsCopy;
-    v15 = [paramsCopy mutableCopy];
-    v16 = v15;
-    if (pathCopy)
+    v38 = v14;
+    v43 = nameCopy;
+    v40 = paramsCopy;
+    v16 = [paramsCopy mutableCopy];
+    v17 = v16;
+    if (v12)
     {
-      [v15 setObject:pathCopy forKeyedSubscript:@"Attachments"];
-      [v16 setObject:@"1" forKeyedSubscript:@"DeleteOnAttach"];
+      [v16 setObject:v12 forKeyedSubscript:@"Attachments"];
+      [v17 setObject:@"1" forKeyedSubscript:@"DeleteOnAttach"];
     }
 
-    v38 = pathCopy;
-    v17 = objc_alloc_init(NSDateFormatter);
-    [v17 setDateFormat:@"yyyy.MM.dd_HH-mm-ss"];
-    v36 = v17;
-    v35 = [v17 stringFromDate:timeCopy];
-    [v16 setObject:? forKeyedSubscript:?];
-    v18 = +[NSMutableArray array];
-    v40 = objc_alloc_init(NSDateFormatter);
-    [v40 setDateFormat:@"MM/dd HH:mm"];
-    v46 = 0u;
+    v39 = v12;
+    v18 = objc_alloc_init(NSDateFormatter);
+    [v18 setDateFormat:@"yyyy.MM.dd_HH-mm-ss"];
+    v37 = v18;
+    v36 = [v18 stringFromDate:timeCopy];
+    [v17 setObject:? forKeyedSubscript:?];
+    v19 = +[NSMutableArray array];
+    v41 = objc_alloc_init(NSDateFormatter);
+    [v41 setDateFormat:@"MM/dd HH:mm"];
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
-    v19 = v16;
-    v20 = [v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
-    v41 = v18;
-    if (v20)
+    v46 = 0u;
+    v20 = v17;
+    v21 = [v20 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v42 = v19;
+    if (v21)
     {
-      v21 = v20;
-      v22 = *v45;
+      v22 = v21;
+      v23 = *v46;
       do
       {
-        for (i = 0; i != v21; i = i + 1)
+        for (i = 0; i != v22; i = i + 1)
         {
-          if (*v45 != v22)
+          if (*v46 != v23)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v44 + 1) + 8 * i);
-          v25 = [v19 objectForKeyedSubscript:v24];
-          if ([v25 containsString:@"$proc"])
+          v25 = *(*(&v45 + 1) + 8 * i);
+          v26 = [v20 objectForKeyedSubscript:v25];
+          if ([v26 containsString:@"$proc"])
           {
-            v26 = [v25 stringByReplacingOccurrencesOfString:@"$proc" withString:v42];
+            v27 = [v26 stringByReplacingOccurrencesOfString:@"$proc" withString:v43];
 
-            v25 = v26;
+            v26 = v27;
           }
 
-          if ([v25 containsString:@"$time"])
+          if ([v26 containsString:@"$time"])
           {
-            v27 = [v40 stringFromDate:timeCopy];
-            v28 = [v25 stringByReplacingOccurrencesOfString:@"$time" withString:v27];
+            v28 = [v41 stringFromDate:timeCopy];
+            v29 = [v26 stringByReplacingOccurrencesOfString:@"$time" withString:v28];
 
-            v25 = v28;
-            v18 = v41;
+            v26 = v29;
+            v19 = v42;
           }
 
-          v29 = [NSURLQueryItem queryItemWithName:v24 value:v25];
-          [v18 addObject:v29];
+          v30 = [NSURLQueryItem queryItemWithName:v25 value:v26];
+          [v19 addObject:v30];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
-      while (v21);
+      while (v22);
     }
 
-    v14 = v37;
-    [v37 setQueryItems:v18];
-    v30 = [v37 URL];
-    v31 = PLLogUrsaUtilities();
-    v32 = v31;
-    if (v30)
+    v15 = v38;
+    [v38 setQueryItems:v19];
+    v31 = [v38 URL];
+    v32 = PLLogUrsaUtilities(v31);
+    v33 = v32;
+    if (v31)
     {
-      pathCopy = v38;
-      paramsCopy = v39;
-      nameCopy = v42;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v12 = v39;
+      paramsCopy = v40;
+      nameCopy = v43;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        sub_1130F8(v30, v32);
+        sub_1130F8(v31, v33);
       }
 
-      v33 = v30;
+      v34 = v31;
     }
 
     else
     {
-      pathCopy = v38;
-      paramsCopy = v39;
-      nameCopy = v42;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v12 = v39;
+      paramsCopy = v40;
+      nameCopy = v43;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         sub_113190();
       }
@@ -294,18 +296,18 @@ LABEL_31:
 
   else
   {
-    v19 = PLLogUrsaUtilities();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = PLLogUrsaUtilities(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1131C4();
     }
 
-    v30 = 0;
+    v31 = 0;
   }
 
 LABEL_32:
 
-  return v30;
+  return v31;
 }
 
 @end

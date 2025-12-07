@@ -27,29 +27,29 @@
 
 - (id)blt_protobuf
 {
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   handle = [self handle];
-  [v2 setHandle:handle];
+  [v3 setHandle:handle];
 
-  [v2 setHandleType:{objc_msgSend(self, "handleType")}];
+  [v3 setHandleType:{objc_msgSend(self, "handleType")}];
   serviceName = [self serviceName];
-  [v2 setServiceName:serviceName];
+  [v3 setServiceName:serviceName];
 
   displayName = [self displayName];
-  [v2 setDisplayName:displayName];
+  [v3 setDisplayName:displayName];
 
   cnContactIdentifier = [self cnContactIdentifier];
-  [v2 setCnContactIdentifier:cnContactIdentifier];
+  [v3 setCnContactIdentifier:cnContactIdentifier];
 
   cnContactFullname = [self cnContactFullname];
-  [v2 setCnContactFullname:cnContactFullname];
+  [v3 setCnContactFullname:cnContactFullname];
 
-  [v2 setCnContactIdentifierSuggested:{objc_msgSend(self, "isCNContactIdentifierSuggested")}];
-  [v2 setDisplayNameSuggested:{objc_msgSend(self, "isDisplayNameSuggested")}];
+  [v3 setCnContactIdentifierSuggested:{objc_msgSend(self, "isCNContactIdentifierSuggested")}];
+  [v3 setDisplayNameSuggested:{objc_msgSend(self, "isDisplayNameSuggested")}];
   customIdentifier = [self customIdentifier];
-  [v2 setCustomIdentifier:customIdentifier];
+  [v3 setCustomIdentifier:customIdentifier];
 
-  return v2;
+  return v3;
 }
 
 @end

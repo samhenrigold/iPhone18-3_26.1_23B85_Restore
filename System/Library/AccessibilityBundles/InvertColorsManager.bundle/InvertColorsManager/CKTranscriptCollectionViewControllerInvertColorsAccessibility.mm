@@ -1,6 +1,7 @@
 @interface CKTranscriptCollectionViewControllerInvertColorsAccessibility
 - (void)_axRefreshInvertColorsForCell:(id)cell;
 - (void)scrollViewDidEndDecelerating:(id)decelerating;
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewDidEndScrollingAnimation:(id)animation;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset;
@@ -48,6 +49,14 @@
   v4.receiver = self;
   v4.super_class = CKTranscriptCollectionViewControllerInvertColorsAccessibility;
   [(CKTranscriptCollectionViewControllerInvertColorsAccessibility *)&v4 scrollViewDidEndDecelerating:decelerating];
+  [(CKTranscriptCollectionViewControllerInvertColorsAccessibility *)self _axRefreshInvertColors];
+}
+
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate
+{
+  v5.receiver = self;
+  v5.super_class = CKTranscriptCollectionViewControllerInvertColorsAccessibility;
+  [(CKTranscriptCollectionViewControllerInvertColorsAccessibility *)&v5 scrollViewDidEndDragging:dragging willDecelerate:decelerate];
   [(CKTranscriptCollectionViewControllerInvertColorsAccessibility *)self _axRefreshInvertColors];
 }
 

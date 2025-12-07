@@ -367,9 +367,9 @@
 
 - (double)initWithOriginatingRequestSpecifier:(double)specifier topLeft:(double)left topRight:(double)right bottomRight:(double)bottomRight bottomLeft:(double)bottomLeft boundingBox:(double)box
 {
-  v29.receiver = self;
-  v29.super_class = VNRectangleObservation;
-  result = objc_msgSendSuper2(&v29, sel_initWithOriginatingRequestSpecifier_boundingBox_, a10, a11, a12, a13);
+  v22.receiver = self;
+  v22.super_class = VNRectangleObservation;
+  result = objc_msgSendSuper2(&v22, sel_initWithOriginatingRequestSpecifier_boundingBox_, a10, a11, a12, a13);
   if (result)
   {
     result[20] = a2;

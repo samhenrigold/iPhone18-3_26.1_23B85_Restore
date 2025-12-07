@@ -21,6 +21,7 @@
 - (void)_dataServiceDescriptorUpdate;
 - (void)_dataSubscriptionContextChange:(id)change;
 - (void)_getCarrierName:(id *)name;
+- (void)_getLinkRecommendationSafe:(BOOL)safe recommendation:(id)recommendation;
 - (void)_pathUpdated:(id)updated;
 - (void)_serviceSubscriptionInfoUpdate;
 - (void)_signalStrengthChange:(id)change;
@@ -62,15 +63,15 @@
 
 - (void)signalStrengthChanged:(id)changed info:(id)info
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   infoCopy = info;
   v8 = *MEMORY[0x277CEF0E0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SiriCoreNetworkManager signalStrengthChanged:info:]";
-    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s ", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SiriCoreNetworkManager signalStrengthChanged:info:]";
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
   }
 
   if (changedCopy)
@@ -86,13 +87,11 @@
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   statusCopy = status;
   v8 = statusCopy;
@@ -102,13 +101,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
       v10 = v9;
-      v15 = 136315650;
-      v16 = "[SiriCoreNetworkManager simStatusDidChange:status:]";
-      v17 = 2048;
+      v14 = 136315650;
+      v15 = "[SiriCoreNetworkManager simStatusDidChange:status:]";
+      v16 = 2048;
       slotID = [changeCopy slotID];
-      v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, "%s SIM Slot %ld - Status: %@", &v15, 0x20u);
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, "%s SIM Slot %ld - Status: %@", &v14, 0x20u);
     }
 
     os_unfair_lock_lock(&self->_ctLock);
@@ -139,19 +138,17 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)carrierBundleChange:(id)change
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[SiriCoreNetworkManager carrierBundleChange:]";
+    v10 = "[SiriCoreNetworkManager carrierBundleChange:]";
     _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -178,8 +175,6 @@ LABEL_11:
   }
 
   [(SiriCoreNetworkManager *)self _dataServiceDescriptorUpdate];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke(uint64_t a1)
@@ -194,11 +189,11 @@ uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke(uint64_
   return [v2 getCurrentDataSubscriptionContext:v4];
 }
 
-uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__46__SiriCoreNetworkManager_carrierBundleChange___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    return [*(result + 32) _dataSubscriptionContextChange:a2];
+    return [result[4] _dataSubscriptionContextChange:a2];
   }
 
   return result;
@@ -206,32 +201,30 @@ uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke_2(uint6
 
 - (void)preferredDataSimChanged:(id)changed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = *MEMORY[0x277CEF0E0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SiriCoreNetworkManager preferredDataSimChanged:]";
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriCoreNetworkManager preferredDataSimChanged:]";
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
   }
 
   [(SiriCoreNetworkManager *)self _dataSubscriptionContextChange:changedCopy];
   [(SiriCoreNetworkManager *)self _dataServiceDescriptorUpdate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signalStrengthChange:(id)change
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = *MEMORY[0x277CEF0E0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[SiriCoreNetworkManager _signalStrengthChange:]";
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SiriCoreNetworkManager _signalStrengthChange:]";
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_ctLock);
@@ -241,17 +234,16 @@ uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke_2(uint6
   self->_lastSignalStrength = v7;
 
   os_unfair_lock_unlock(&self->_ctLock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signalStrengthUpdate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SiriCoreNetworkManager _signalStrengthUpdate]";
+    v7 = "[SiriCoreNetworkManager _signalStrengthUpdate]";
     _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -262,7 +254,6 @@ uint64_t __46__SiriCoreNetworkManager_carrierBundleChange___block_invoke_2(uint6
   block[3] = &unk_279BD6518;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke(uint64_t a1)
@@ -279,7 +270,7 @@ uint64_t __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke(uint64
 
 void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -291,9 +282,9 @@ void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_2(uint64_t
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v14 = "[SiriCoreNetworkManager _signalStrengthUpdate]_block_invoke";
-        v15 = 2112;
-        v16 = v7;
+        v13 = "[SiriCoreNetworkManager _signalStrengthUpdate]_block_invoke";
+        v14 = 2112;
+        v15 = v7;
         _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, "%s Error getting current Data Subscription Context: %@", buf, 0x16u);
       }
     }
@@ -303,20 +294,18 @@ void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_2(uint64_t
   {
     v8 = *(a1 + 32);
     v9 = *(v8 + 64);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3;
-    v12[3] = &unk_279BD6328;
-    v12[4] = v8;
-    [v9 getSignalStrengthInfo:v5 completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3;
+    v11[3] = &unk_279BD6328;
+    v11[4] = v8;
+    [v9 getSignalStrengthInfo:v5 completion:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -324,11 +313,11 @@ void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3(uint64_t
     v7 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[SiriCoreNetworkManager _signalStrengthUpdate]_block_invoke_3";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_2669D1000, v7, OS_LOG_TYPE_DEFAULT, "%s Error getting Signal Strength: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriCoreNetworkManager _signalStrengthUpdate]_block_invoke_3";
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_2669D1000, v7, OS_LOG_TYPE_DEFAULT, "%s Error getting Signal Strength: %@", &v8, 0x16u);
     }
   }
 
@@ -336,18 +325,16 @@ void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3(uint64_t
   {
     [*(a1 + 32) _signalStrengthChange:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serviceSubscriptionInfoUpdate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SiriCoreNetworkManager _serviceSubscriptionInfoUpdate]";
+    v7 = "[SiriCoreNetworkManager _serviceSubscriptionInfoUpdate]";
     _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -358,7 +345,6 @@ void __47__SiriCoreNetworkManager__signalStrengthUpdate__block_invoke_3(uint64_t
   block[3] = &unk_279BD6518;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke(uint64_t a1)
@@ -375,7 +361,7 @@ uint64_t __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invo
 
 void __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -387,9 +373,9 @@ void __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke_2
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v21 = "[SiriCoreNetworkManager _serviceSubscriptionInfoUpdate]_block_invoke_2";
-        v22 = 2112;
-        v23 = v7;
+        v20 = "[SiriCoreNetworkManager _serviceSubscriptionInfoUpdate]_block_invoke_2";
+        v21 = 2112;
+        v22 = v7;
         _os_log_impl(&dword_2669D1000, v14, OS_LOG_TYPE_DEFAULT, "%s Error getting Subscription Info: %@", buf, 0x16u);
       }
     }
@@ -398,29 +384,29 @@ void __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke_2
   else
   {
     v8 = [v5 subscriptions];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
       LODWORD(v11) = 0;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v11 = v11 + ([*(*(&v16 + 1) + 8 * i) isSimHidden] ^ 1);
+          v11 = v11 + ([*(*(&v15 + 1) + 8 * i) isSimHidden] ^ 1);
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
       }
 
       while (v10);
@@ -435,18 +421,16 @@ void __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke_2
     *(*(a1 + 32) + 120) = v11;
     os_unfair_lock_unlock((*(a1 + 32) + 60));
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dataServiceDescriptorUpdate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SiriCoreNetworkManager _dataServiceDescriptorUpdate]";
+    v7 = "[SiriCoreNetworkManager _dataServiceDescriptorUpdate]";
     _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -457,7 +441,6 @@ void __56__SiriCoreNetworkManager__serviceSubscriptionInfoUpdate__block_invoke_2
   block[3] = &unk_279BD6518;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke(uint64_t a1)
@@ -474,7 +457,7 @@ uint64_t __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke
 
 void __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -482,11 +465,11 @@ void __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke_2(u
     v7 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "[SiriCoreNetworkManager _dataServiceDescriptorUpdate]_block_invoke_2";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_2669D1000, v7, OS_LOG_TYPE_DEFAULT, "%s Error getting current Data Service Descriptor: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[SiriCoreNetworkManager _dataServiceDescriptorUpdate]_block_invoke_2";
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_2669D1000, v7, OS_LOG_TYPE_DEFAULT, "%s Error getting current Data Service Descriptor: %@", &v11, 0x16u);
     }
   }
 
@@ -500,13 +483,11 @@ void __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke_2(u
 
     os_unfair_lock_unlock((*(a1 + 32) + 60));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dataSubscriptionContextChange:(id)change
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (changeCopy)
   {
@@ -514,21 +495,19 @@ void __54__SiriCoreNetworkManager__dataServiceDescriptorUpdate__block_invoke_2(u
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[SiriCoreNetworkManager _dataSubscriptionContextChange:]";
+      v10 = "[SiriCoreNetworkManager _dataSubscriptionContextChange:]";
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __57__SiriCoreNetworkManager__dataSubscriptionContextChange___block_invoke;
-    v8[3] = &unk_279BD6540;
-    v8[4] = self;
-    v9 = changeCopy;
-    dispatch_async(queue, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __57__SiriCoreNetworkManager__dataSubscriptionContextChange___block_invoke;
+    v7[3] = &unk_279BD6540;
+    v7[4] = self;
+    v8 = changeCopy;
+    dispatch_async(queue, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SiriCoreNetworkManager__dataSubscriptionContextChange___block_invoke(uint64_t a1)
@@ -606,9 +585,9 @@ LABEL_9:
   dispatch_async(queue, block);
 }
 
-uint64_t __42__SiriCoreNetworkManager_resetLinkMetrics__block_invoke(uint64_t result)
+void *__42__SiriCoreNetworkManager_resetLinkMetrics__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 136))
   {
     return [*(v1 + 168) resetLinkMetrics];
@@ -661,17 +640,17 @@ uint64_t __63__SiriCoreNetworkManager_proximityRecomendationWithCompletion___blo
 
 void __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[17])
   {
     v3 = *(a1 + 48);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_invoke_31;
-    v6[3] = &unk_279BD6238;
-    v7 = *(a1 + 40);
-    [v2 _getLinkRecommendationSafe:v3 recommendation:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_invoke_31;
+    v5[3] = &unk_279BD6238;
+    v6 = *(a1 + 40);
+    [v2 _getLinkRecommendationSafe:v3 recommendation:v5];
   }
 
   else
@@ -680,7 +659,7 @@ void __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_i
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[SiriCoreNetworkManager getLinkRecommendation:recommendation:]_block_invoke";
+      v8 = "[SiriCoreNetworkManager getLinkRecommendation:recommendation:]_block_invoke";
       _os_log_error_impl(&dword_2669D1000, v4, OS_LOG_TYPE_ERROR, "%s iRAT client not registered", buf, 0xCu);
       v2 = *(a1 + 32);
     }
@@ -689,32 +668,29 @@ void __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_i
     [*(a1 + 32) _defaultWiFiLinkRecommendation];
     (*(*(a1 + 40) + 16))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__SiriCoreNetworkManager_getLinkRecommendation_recommendation___block_invoke_31(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[SiriCoreNetworkManager getLinkRecommendation:recommendation:]_block_invoke";
-    v11 = 1024;
-    v12 = a2;
-    v13 = 1024;
-    v14 = a3;
-    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_DEFAULT, "%s %d , %d", &v9, 0x18u);
+    v8 = 136315650;
+    v9 = "[SiriCoreNetworkManager getLinkRecommendation:recommendation:]_block_invoke";
+    v10 = 1024;
+    v11 = a2;
+    v12 = 1024;
+    v13 = a3;
+    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_DEFAULT, "%s %d , %d", &v8, 0x18u);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, a2, a3);
+    return (*(result + 16))(result, a2, a3);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -756,7 +732,7 @@ void __59__SiriCoreNetworkManager_deRegisterWithWirelessCoexManager__block_invok
 
 void __57__SiriCoreNetworkManager_registerWithWirelessCoexManager__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 136))
   {
     WRM_iRATInterfaceClass_2574 = getWRM_iRATInterfaceClass_2574();
@@ -771,11 +747,11 @@ void __57__SiriCoreNetworkManager_registerWithWirelessCoexManager__block_invoke(
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
       {
         v7 = *(*(a1 + 32) + 136);
-        v15 = 136315394;
-        v16 = "[SiriCoreNetworkManager registerWithWirelessCoexManager]_block_invoke";
-        v17 = 2112;
-        v18 = v7;
-        _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s %@", &v15, 0x16u);
+        v14 = 136315394;
+        v15 = "[SiriCoreNetworkManager registerWithWirelessCoexManager]_block_invoke";
+        v16 = 2112;
+        v17 = v7;
+        _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s %@", &v14, 0x16u);
       }
 
       [*(*(a1 + 32) + 136) registerClient:22 queue:*(*(a1 + 32) + 8)];
@@ -795,26 +771,146 @@ void __57__SiriCoreNetworkManager_registerWithWirelessCoexManager__block_invoke(
       v13 = *MEMORY[0x277CEF0A0];
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
       {
-        v15 = 136315138;
-        v16 = "[SiriCoreNetworkManager registerWithWirelessCoexManager]_block_invoke";
-        _os_log_error_impl(&dword_2669D1000, v13, OS_LOG_TYPE_ERROR, "%s Unable to find iRATInterface class", &v15, 0xCu);
+        v14 = 136315138;
+        v15 = "[SiriCoreNetworkManager registerWithWirelessCoexManager]_block_invoke";
+        _os_log_error_impl(&dword_2669D1000, v13, OS_LOG_TYPE_ERROR, "%s Unable to find iRATInterface class", &v14, 0xCu);
       }
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_getLinkRecommendationSafe:(BOOL)safe recommendation:(id)recommendation
+{
+  safeCopy = safe;
+  v55 = *MEMORY[0x277D85DE8];
+  recommendationCopy = recommendation;
+  dispatch_assert_queue_V2(self->_queue);
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__2589;
+  v51 = __Block_byref_object_dispose__2590;
+  v52 = self->_linkRecommendationInfo;
+  btPreference = [(SiriCoreLinkRecommendationInfo *)v52 btPreference];
+  wifiPreference = [v48[5] wifiPreference];
+  if ((AFIsNano() & 1) != 0 && !self->_iRATCallInProgress)
+  {
+    processInfo = [MEMORY[0x277CCAC38] processInfo];
+    [processInfo systemUptime];
+    v11 = v10;
+
+    v46[0] = 0;
+    v46[1] = v46;
+    v46[2] = 0x2020000000;
+    v46[3] = 0;
+    v12 = *MEMORY[0x277CEF0A0];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = @"trying";
+      if (safeCopy)
+      {
+        v13 = @"retrying";
+      }
+
+      *buf = 136315394;
+      *&buf[4] = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]";
+      *&buf[12] = 2112;
+      *&buf[14] = v13;
+      _os_log_impl(&dword_2669D1000, v12, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    v14 = 1;
+    v54 = 1;
+    v44[0] = 0;
+    v44[1] = v44;
+    v44[2] = 0x2020000000;
+    v45 = 0;
+    self->_iRATCallInProgress = 1;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2020000000;
+    iRATCallNumber = self->_iRATCallNumber;
+    v43[3] = iRATCallNumber;
+    if (iRATCallNumber + 1 > 1)
+    {
+      v14 = iRATCallNumber + 1;
+    }
+
+    self->_iRATCallNumber = v14;
+    [(SiriCoreLinkRecommendationInfo *)self->_linkRecommendationInfo setLinkMetrics:0];
+    v16 = dispatch_group_create();
+    dispatch_group_enter(v16);
+    mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
+    [mEMORY[0x277CEF158] logEventWithType:1011 context:0];
+
+    interface = self->_interface;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke;
+    v36[3] = &unk_279BD61C0;
+    v36[4] = self;
+    v42 = v11;
+    v38 = v46;
+    v39 = &v47;
+    v40 = buf;
+    v41 = v44;
+    v19 = v16;
+    v37 = v19;
+    [(WRM_iRATInterface *)interface getProximityLinkRecommendation:safeCopy recommendation:v36];
+    v20 = dispatch_time(0, 1000000000);
+    queue = self->_queue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke_28;
+    block[3] = &unk_279BD61E8;
+    v33 = v43;
+    v34 = v46;
+    v35 = v11;
+    block[4] = self;
+    v32 = v19;
+    v22 = v19;
+    dispatch_after(v20, queue, block);
+    v23 = self->_queue;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke_29;
+    v24[3] = &unk_279BD6210;
+    v27 = buf;
+    v28 = v44;
+    v29 = v46;
+    v30 = safeCopy;
+    v26 = &v47;
+    v24[4] = self;
+    v25 = recommendationCopy;
+    dispatch_group_notify(v22, v23, v24);
+
+    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(buf, 8);
+    _Block_object_dispose(v46, 8);
+  }
+
+  else
+  {
+    (*(recommendationCopy + 2))(recommendationCopy, btPreference, wifiPreference);
+  }
+
+  _Block_object_dispose(&v47, 8);
 }
 
 void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CEF0A0];
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
+    v25 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
     _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -829,32 +925,32 @@ void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___bl
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
-      v27 = 1024;
-      v28 = v8;
+      v25 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
+      v26 = 1024;
+      v27 = v8;
       _os_log_impl(&dword_2669D1000, v9, OS_LOG_TYPE_DEFAULT, "%s count of recommendations is %d", buf, 0x12u);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v3;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           if ([v15 RecommendationType] == 2)
           {
             v16 = *(*(*(a1 + 56) + 8) + 40);
@@ -876,7 +972,7 @@ void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___bl
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -888,13 +984,11 @@ void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___bl
 
     dispatch_group_leave(*(a1 + 40));
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke_28(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   ++*(*(*(a1 + 48) + 8) + 24);
   v2 = *(*(a1 + 48) + 8);
   if (!*(v2 + 24))
@@ -909,9 +1003,9 @@ void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___bl
     v4 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
-      _os_log_error_impl(&dword_2669D1000, v4, OS_LOG_TYPE_ERROR, "%s getLinkRecommendation timedout", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SiriCoreNetworkManager _getLinkRecommendationSafe:recommendation:]_block_invoke";
+      _os_log_error_impl(&dword_2669D1000, v4, OS_LOG_TYPE_ERROR, "%s getLinkRecommendation timedout", &v8, 0xCu);
     }
 
     v5 = [MEMORY[0x277CCAC38] processInfo];
@@ -923,8 +1017,6 @@ void __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___bl
 
     dispatch_group_leave(*(a1 + 40));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation___block_invoke_29(uint64_t a1)
@@ -944,11 +1036,9 @@ uint64_t __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation_
     *(*(a1 + 32) + 160) = 0;
   }
 
-  v4 = *(*(*(a1 + 56) + 8) + 24);
-  v5 = *(*(*(a1 + 64) + 8) + 24);
-  v6 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v6();
+  return v4();
 }
 
 - (void)_subscribeToLinkRecommendations:(id)recommendations
@@ -968,20 +1058,20 @@ uint64_t __68__SiriCoreNetworkManager__getLinkRecommendationSafe_recommendation_
 
 void __58__SiriCoreNetworkManager__subscribeToLinkRecommendations___block_invoke(uint64_t a1, int a2, int a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315906;
-    v14 = "[SiriCoreNetworkManager _subscribeToLinkRecommendations:]_block_invoke";
-    v15 = 1024;
-    v16 = a2;
-    v17 = 1024;
-    v18 = a3;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s Received an asynchronous recommendation type %d, linkType %d, value %@", &v13, 0x22u);
+    v12 = 136315906;
+    v13 = "[SiriCoreNetworkManager _subscribeToLinkRecommendations:]_block_invoke";
+    v14 = 1024;
+    v15 = a2;
+    v16 = 1024;
+    v17 = a3;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s Received an asynchronous recommendation type %d, linkType %d, value %@", &v12, 0x22u);
   }
 
   dispatch_assert_queue_V2(*(*(a1 + 32) + 8));
@@ -1012,8 +1102,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acquireWiFiAssertion:(int64_t)assertion
@@ -1047,13 +1135,13 @@ void __47__SiriCoreNetworkManager_acquireWiFiAssertion___block_invoke(uint64_t a
 
 void __43__SiriCoreNetworkManager_forceFastDormancy__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[SiriCoreNetworkManager forceFastDormancy]_block_invoke";
-    _os_log_impl(&dword_2669D1000, v0, OS_LOG_TYPE_DEFAULT, "%s Forcing fast dormancy", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SiriCoreNetworkManager forceFastDormancy]_block_invoke";
+    _os_log_impl(&dword_2669D1000, v0, OS_LOG_TYPE_DEFAULT, "%s Forcing fast dormancy", &v3, 0xCu);
   }
 
   v1 = dispatch_get_global_queue(21, 0);
@@ -1064,13 +1152,11 @@ void __43__SiriCoreNetworkManager_forceFastDormancy__block_invoke()
     _CTServerForceFastDormancy();
     CFRelease(v2);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_getConnectionTechnologyForCellularInterface
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_ctLock);
   v3 = [(CTServiceDescriptor *)self->_dataServiceDescriptor copy];
   os_unfair_lock_unlock(&self->_ctLock);
@@ -1078,18 +1164,18 @@ void __43__SiriCoreNetworkManager_forceFastDormancy__block_invoke()
   if (v3)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v14 = 0;
-    v6 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentRat:v3 error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentRat:v3 error:&v13];
+    v7 = v13;
     if (v7)
     {
       v8 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v16 = "[SiriCoreNetworkManager _getConnectionTechnologyForCellularInterface]";
-        v17 = 2112;
-        v18 = v7;
+        v15 = "[SiriCoreNetworkManager _getConnectionTechnologyForCellularInterface]";
+        v16 = 2112;
+        v17 = v7;
         _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s Error getting current Radio Access Technology: %@", buf, 0x16u);
       }
     }
@@ -1180,13 +1266,12 @@ void __43__SiriCoreNetworkManager_forceFastDormancy__block_invoke()
     }
 
     *buf = 136315394;
-    v16 = "[SiriCoreNetworkManager _getConnectionTechnologyForCellularInterface]";
-    v17 = 2112;
-    v18 = v11;
+    v15 = "[SiriCoreNetworkManager _getConnectionTechnologyForCellularInterface]";
+    v16 = 2112;
+    v17 = v11;
     _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, "%s Current Radio Access Technology: %@", buf, 0x16u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1465,7 +1550,7 @@ uint64_t __48__SiriCoreNetworkManager_cellularNetworkQuality__block_invoke(uint6
 
 void __51__SiriCoreNetworkManager_getNetworkPerformanceFeed__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2 > 1)
   {
     v4 = *MEMORY[0x277CEF0A0];
@@ -1474,9 +1559,9 @@ void __51__SiriCoreNetworkManager_getNetworkPerformanceFeed__block_invoke(uint64
       v5 = v4;
       v6 = _AFMemoryPressureConditionGetName();
       *buf = 136315394;
-      v10 = "[SiriCoreNetworkManager getNetworkPerformanceFeed]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
+      v9 = "[SiriCoreNetworkManager getNetworkPerformanceFeed]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s Memory condition (%@) not suited for Symptoms feedback.", buf, 0x16u);
     }
   }
@@ -1492,8 +1577,6 @@ void __51__SiriCoreNetworkManager_getNetworkPerformanceFeed__block_invoke(uint64
     block[4] = v2;
     dispatch_async(v3, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringNetwork
@@ -1533,7 +1616,7 @@ void __51__SiriCoreNetworkManager_getNetworkPerformanceFeed__block_invoke(uint64
 
 void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 24))
   {
     v2 = *(a1 + 40);
@@ -1543,7 +1626,7 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke(u
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v11 = "[SiriCoreNetworkManager startMonitoringNetworkForHost:]_block_invoke";
+        v9 = "[SiriCoreNetworkManager startMonitoringNetworkForHost:]_block_invoke";
         _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
         v2 = *(a1 + 40);
       }
@@ -1552,18 +1635,15 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke(u
       host = nw_endpoint_create_host([v2 UTF8String], "443");
       evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
       objc_initWeak(buf, *(a1 + 32));
-      v7 = *(*(a1 + 32) + 8);
-      objc_copyWeak(&v9, buf);
+      objc_copyWeak(&v7, buf);
       nw_path_evaluator_set_update_handler();
       objc_storeStrong((*(a1 + 32) + 24), evaluator_for_endpoint);
       [*(a1 + 32) _serviceSubscriptionInfoUpdate];
       [*(a1 + 32) _signalStrengthUpdate];
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v7);
       objc_destroyWeak(buf);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke_8(uint64_t a1, void *a2)
@@ -1575,7 +1655,7 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke_8
 
 - (void)_pathUpdated:(id)updated
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = updatedCopy;
   if (updatedCopy)
@@ -1596,11 +1676,11 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke_8
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v32 = "[SiriCoreNetworkManager _pathUpdated:]";
-      v33 = 1024;
-      v34 = status;
-      v35 = 1024;
-      v36 = v7;
+      v31 = "[SiriCoreNetworkManager _pathUpdated:]";
+      v32 = 1024;
+      v33 = status;
+      v34 = 1024;
+      v35 = v7;
       _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_DEFAULT, "%s status %d, usesCellular %d", buf, 0x18u);
     }
 
@@ -1622,29 +1702,29 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke_8
         goto LABEL_31;
       }
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v11 = self->_observers;
-      v16 = [(NSHashTable *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v16 = [(NSHashTable *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v22;
+        v18 = *v21;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v22 != v18)
+            if (*v21 != v18)
             {
               objc_enumerationMutation(v11);
             }
 
-            [*(*(&v21 + 1) + 8 * i) networkManagerLostNonWWANConnectivity:{self, v21}];
+            [*(*(&v20 + 1) + 8 * i) networkManagerLostNonWWANConnectivity:{self, v20}];
           }
 
-          v17 = [(NSHashTable *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v17 = [(NSHashTable *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
         }
 
         while (v17);
@@ -1653,29 +1733,29 @@ void __56__SiriCoreNetworkManager_startMonitoringNetworkForHost___block_invoke_8
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v11 = self->_observers;
-      v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v26;
+        v14 = *v25;
         do
         {
           for (j = 0; j != v13; ++j)
           {
-            if (*v26 != v14)
+            if (*v25 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            [*(*(&v25 + 1) + 8 * j) networkManagerNonWWANDidBecomeAvailable:self];
+            [*(*(&v24 + 1) + 8 * j) networkManagerNonWWANDidBecomeAvailable:self];
           }
 
-          v13 = [(NSHashTable *)v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v13 = [(NSHashTable *)v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v13);
@@ -1686,8 +1766,6 @@ LABEL_31:
     self->_pathStatus = status;
     self->_pathUsesCellular = v7;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_wiFiManagerClient
@@ -1719,7 +1797,7 @@ LABEL_31:
   dispatch_async(queue, v7);
 }
 
-uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
+void *__41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 16) count];
@@ -1749,12 +1827,12 @@ uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SiriCoreNetworkManager dealloc]";
+    v7 = "[SiriCoreNetworkManager dealloc]";
     _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -1769,10 +1847,9 @@ uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
     [(CoreTelephonyClient *)coreTelephonyClient setDelegate:0];
   }
 
-  v6.receiver = self;
-  v6.super_class = SiriCoreNetworkManager;
-  [(SiriCoreNetworkManager *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SiriCoreNetworkManager;
+  [(SiriCoreNetworkManager *)&v5 dealloc];
 }
 
 - (id)_init
@@ -1809,26 +1886,24 @@ uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
 
 + (void)releaseDormancySuspendAssertion:(void *)assertion
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (assertion)
   {
     v4 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "+[SiriCoreNetworkManager releaseDormancySuspendAssertion:]";
-      _os_log_impl(&dword_2669D1000, v4, OS_LOG_TYPE_DEFAULT, "%s Released dormancy suspension assertion.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "+[SiriCoreNetworkManager releaseDormancySuspendAssertion:]";
+      _os_log_impl(&dword_2669D1000, v4, OS_LOG_TYPE_DEFAULT, "%s Released dormancy suspension assertion.", &v5, 0xCu);
     }
 
     CFRelease(assertion);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)acquireDormancySuspendAssertion:(const void *)assertion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (assertion)
   {
     v3 = *assertion;
@@ -1839,19 +1914,19 @@ uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
     {
       if (v6)
       {
-        v17 = 136315138;
-        v18 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
-        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s Already acquired.", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
+        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s Already acquired.", &v16, 0xCu);
       }
 
-      goto LABEL_17;
+      return;
     }
 
     if (v6)
     {
-      v17 = 136315138;
-      v18 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
-      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s Suspend Dormancy", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
+      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s Suspend Dormancy", &v16, 0xCu);
     }
 
     v8 = dispatch_get_global_queue(21, 0);
@@ -1867,24 +1942,24 @@ uint64_t __41__SiriCoreNetworkManager_removeObserver___block_invoke(uint64_t a1)
       {
         if (v12)
         {
-          v17 = 136315650;
-          v18 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
-          v19 = 1024;
-          v20 = v10;
-          v21 = 1024;
-          v22 = HIDWORD(v10);
+          v16 = 136315650;
+          v17 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
+          v18 = 1024;
+          v19 = v10;
+          v20 = 1024;
+          v21 = HIDWORD(v10);
           v13 = "%s Failed to acquire the dormancy suspend assertion (%i, %i)";
           v14 = v11;
           v15 = 24;
 LABEL_15:
-          _os_log_impl(&dword_2669D1000, v14, OS_LOG_TYPE_DEFAULT, v13, &v17, v15);
+          _os_log_impl(&dword_2669D1000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
         }
       }
 
       else if (v12)
       {
-        v17 = 136315138;
-        v18 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
+        v16 = 136315138;
+        v17 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
         v13 = "%s Acquired dormany suspension assertion.";
         v14 = v11;
         v15 = 12;
@@ -1900,28 +1975,23 @@ LABEL_15:
     v7 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315138;
-      v18 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
-      _os_log_error_impl(&dword_2669D1000, v7, OS_LOG_TYPE_ERROR, "%s Assertion ref should not be nil", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]";
+      _os_log_error_impl(&dword_2669D1000, v7, OS_LOG_TYPE_ERROR, "%s Assertion ref should not be nil", &v16, 0xCu);
     }
   }
-
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SiriCoreNetworkManager_acquireDormancySuspendAssertion___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]_block_invoke";
-    _os_log_impl(&dword_2669D1000, v0, OS_LOG_TYPE_DEFAULT, "%s Dormancy Suspend Assertion auto expired.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[SiriCoreNetworkManager acquireDormancySuspendAssertion:]_block_invoke";
+    _os_log_impl(&dword_2669D1000, v0, OS_LOG_TYPE_DEFAULT, "%s Dormancy Suspend Assertion auto expired.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)connectionTypeForInterface:(id)interface
@@ -1991,17 +2061,17 @@ void __58__SiriCoreNetworkManager_acquireDormancySuspendAssertion___block_invoke
 
 + (void)getCarrierName:(id *)name signalStrength:(id *)strength subscriptionCount:(id *)count
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v8 = +[SiriCoreNetworkManager sharedInstance];
+  v30 = *MEMORY[0x277D85DE8];
   v21 = 0;
-  [v8 getSignalStrength:&v21 subscriptionCount:&v22];
-  v9 = v21;
+  v8 = +[SiriCoreNetworkManager sharedInstance];
+  v20 = 0;
+  [v8 getSignalStrength:&v20 subscriptionCount:&v21];
+  v9 = v20;
 
   v10 = +[SiriCoreNetworkManager sharedInstance];
-  v20 = 0;
-  [v10 _getCarrierName:&v20];
-  v11 = v20;
+  v19 = 0;
+  [v10 _getCarrierName:&v19];
+  v11 = v19;
 
   if (name)
   {
@@ -2017,28 +2087,26 @@ void __58__SiriCoreNetworkManager_acquireDormancySuspendAssertion___block_invoke
 
   if (count)
   {
-    *count = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
+    *count = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v21];
   }
 
   v14 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     v15 = MEMORY[0x277CCABB0];
-    v16 = v22;
+    v16 = v21;
     v17 = v14;
     v18 = [v15 numberWithUnsignedInteger:v16];
     *buf = 136315906;
-    v24 = "+[SiriCoreNetworkManager getCarrierName:signalStrength:subscriptionCount:]";
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v9;
-    v29 = 2112;
-    v30 = v18;
+    v23 = "+[SiriCoreNetworkManager getCarrierName:signalStrength:subscriptionCount:]";
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = v9;
+    v28 = 2112;
+    v29 = v18;
     _os_log_impl(&dword_2669D1000, v17, OS_LOG_TYPE_DEFAULT, "%s Carrier Name: %@, Signal Strength: %@, Subscription count: %@", buf, 0x2Au);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)connectionSubTypeForCellularInterface
@@ -2051,29 +2119,27 @@ void __58__SiriCoreNetworkManager_acquireDormancySuspendAssertion___block_invoke
 
 + (void)_ifnameTypeForName:(char *)name isWiFi:(BOOL *)fi isCellular:(BOOL *)cellular
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (name)
   {
     v7 = socket(2, 2, 0);
+    v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
     __strlcpy_chk();
-    if (ioctl(v7, 0xC0206911uLL, &v10) != -1 && cellular && (v11 & 0x10) != 0)
+    if (ioctl(v7, 0xC0206911uLL, &v9) != -1 && cellular && (v10 & 0x10) != 0)
     {
       *cellular = 1;
     }
 
-    memset(v9, 0, 44);
+    memset(v8, 0, 44);
     __strlcpy_chk();
-    if (ioctl(v7, 0xC02C6938uLL, v9) != -1 && fi && (v9[1] & 0xE0) == 0x80)
+    if (ioctl(v7, 0xC02C6938uLL, v8) != -1 && fi && (v8[1] & 0xE0) == 0x80)
     {
       *fi = 1;
     }
 
     close(v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

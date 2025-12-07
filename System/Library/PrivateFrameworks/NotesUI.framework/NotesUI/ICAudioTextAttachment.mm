@@ -9,11 +9,11 @@
 
 - (NSArray)supportedPresentationSizes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7CAE70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7CAE70, &qword_1D4438E40);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1D4438490;
   *(v2 + 32) = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithShort_];
-  sub_1D41766C0(0, &qword_1EDE33950);
+  sub_1D41766C0(0, &qword_1EDE33950, 0x1E696AD98);
   v3 = sub_1D4419E24();
 
   return v3;

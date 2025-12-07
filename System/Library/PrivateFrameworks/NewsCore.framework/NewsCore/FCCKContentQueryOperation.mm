@@ -30,7 +30,7 @@
 
 - (BOOL)validateOperation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     v3 = 1;
@@ -40,16 +40,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue query without a database"];
-      v12 = 136315906;
-      v13 = "[FCCKContentQueryOperation validateOperation]";
-      v14 = 2080;
-      v15 = "FCCKContentQueryOperation.m";
-      v16 = 1024;
-      v17 = 64;
-      v18 = 2114;
-      v19 = v9;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue query without a database"];
+      v11 = 136315906;
+      v12 = "[FCCKContentQueryOperation validateOperation]";
+      v13 = 2080;
+      v14 = "FCCKContentQueryOperation.m";
+      v15 = 1024;
+      v16 = 64;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
     }
 
     v3 = 0;
@@ -70,16 +70,16 @@
 LABEL_13:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue query without a query or cursor"];
-      v12 = 136315906;
-      v13 = "[FCCKContentQueryOperation validateOperation]";
-      v14 = 2080;
-      v15 = "FCCKContentQueryOperation.m";
-      v16 = 1024;
-      v17 = 68;
-      v18 = 2114;
-      v19 = v11;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue query without a query or cursor"];
+      v11 = 136315906;
+      v12 = "[FCCKContentQueryOperation validateOperation]";
+      v13 = 2080;
+      v14 = "FCCKContentQueryOperation.m";
+      v15 = 1024;
+      v16 = 68;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
     }
 
     v5 = 0;
@@ -97,27 +97,25 @@ LABEL_11:
   if (self->_networkEventType)
   {
     v6 = 1;
-    goto LABEL_19;
+    return v3 & v6 & v5;
   }
 
 LABEL_16:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue a query without a valid network event type"];
-    v12 = 136315906;
-    v13 = "[FCCKContentQueryOperation validateOperation]";
-    v14 = 2080;
-    v15 = "FCCKContentQueryOperation.m";
-    v16 = 1024;
-    v17 = 72;
-    v18 = 2114;
-    v19 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't issue a query without a valid network event type"];
+    v11 = 136315906;
+    v12 = "[FCCKContentQueryOperation validateOperation]";
+    v13 = 2080;
+    v14 = "FCCKContentQueryOperation.m";
+    v15 = 1024;
+    v16 = 72;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   v6 = 0;
-LABEL_19:
-  v7 = *MEMORY[0x1E69E9840];
   return v3 & v6 & v5;
 }
 
@@ -421,7 +419,7 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke(uint64_t a1,
 
 id __45__FCCKContentQueryOperation_performOperation__block_invoke_5(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -540,16 +538,16 @@ LABEL_35:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsupported query type, falling back to hardcoded base URL"];
-        v26 = 136315906;
-        v27 = "[FCCKContentQueryOperation performOperation]_block_invoke_5";
-        v28 = 2080;
-        v29 = "FCCKContentQueryOperation.m";
-        v30 = 1024;
-        v31 = 123;
-        v32 = 2114;
-        v33 = v25;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v26, 0x26u);
+        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsupported query type, falling back to hardcoded base URL"];
+        v25 = 136315906;
+        v26 = "[FCCKContentQueryOperation performOperation]_block_invoke_5";
+        v27 = 2080;
+        v28 = "FCCKContentQueryOperation.m";
+        v29 = 1024;
+        v30 = 123;
+        v31 = 2114;
+        v32 = v24;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v25, 0x26u);
       }
 
       v20 = [MEMORY[0x1E695DFF8] URLWithString:@"https://gateway.icloud.com:443/ckdatabase"];
@@ -558,14 +556,13 @@ LABEL_35:
 
   v19 = v20;
 LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 void __45__FCCKContentQueryOperation_performOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 requestUUID];
   v4 = v3;
   if (v3)
@@ -588,13 +585,11 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3(uint64_t a
 
     else
     {
-      v13[0] = v5;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v12[0] = v5;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
       [*(a1 + 32) setRequestUUIDs:v8];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __45__FCCKContentQueryOperation_performOperation__block_invoke_2_32(uint64_t a1, void *a2)
@@ -616,7 +611,7 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_2_32(uint64_
 
 void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v5 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
@@ -647,8 +642,8 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
     }
 
     v13 = v12;
-    v32[0] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+    v31[0] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
     [*(a1 + 32) setNetworkEvents:v14];
   }
 
@@ -665,8 +660,8 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
   }
 
   v18 = v17;
-  v31 = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+  v30 = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
   [*(a1 + 32) setRequestUUIDs:v19];
 
   v20 = [v5 domain];
@@ -674,21 +669,19 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
 
   if (v18 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't return errors from the internal domain"];
-    v23 = 136315906;
-    v24 = "[FCCKContentQueryOperation performOperation]_block_invoke_3";
-    v25 = 2080;
-    v26 = "FCCKContentQueryOperation.m";
-    v27 = 1024;
-    v28 = 162;
-    v29 = 2114;
-    v30 = v22;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v23, 0x26u);
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't return errors from the internal domain"];
+    v22 = 136315906;
+    v23 = "[FCCKContentQueryOperation performOperation]_block_invoke_3";
+    v24 = 2080;
+    v25 = "FCCKContentQueryOperation.m";
+    v26 = 1024;
+    v27 = 162;
+    v28 = 2114;
+    v29 = v21;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v22, 0x26u);
   }
 
   [*(a1 + 32) finishedPerformingOperationWithError:v5];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -722,7 +715,7 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
 
 + (id)_requestOperationsForQuery:(id)query cursor:(id)cursor desiredKeys:(id)keys resultsLimit:(unint64_t)limit
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   cursorCopy = cursor;
   keysCopy = keys;
@@ -753,41 +746,41 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
   else if (queryCopy)
   {
     v21 = +[FCCKProtocolTranslator sharedInstance];
-    v46 = 0;
-    v22 = [(FCCKProtocolTranslator *)v21 pQueryFromQuery:queryCopy error:&v46];
-    v23 = v46;
+    v45 = 0;
+    v22 = [(FCCKProtocolTranslator *)v21 pQueryFromQuery:queryCopy error:&v45];
+    v23 = v45;
     queryRetrieveRequest2 = [v12 queryRetrieveRequest];
     [queryRetrieveRequest2 setQuery:v22];
   }
 
   if (keysCopy)
   {
-    v40 = cursorCopy;
-    v41 = queryCopy;
+    v39 = cursorCopy;
+    v40 = queryCopy;
     v25 = objc_opt_new();
     queryRetrieveRequest3 = [v12 queryRetrieveRequest];
     [queryRetrieveRequest3 setRequestedFields:v25];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v27 = keysCopy;
-    v28 = [v27 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v43;
+      v30 = *v42;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v43 != v30)
+          if (*v42 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v42 + 1) + 8 * i);
+          v32 = *(*(&v41 + 1) + 8 * i);
           v33 = objc_opt_new();
           [v33 setName:v32];
           queryRetrieveRequest4 = [v12 queryRetrieveRequest];
@@ -795,14 +788,14 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
           [requestedFields addFields:v33];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v29);
     }
 
-    cursorCopy = v40;
-    queryCopy = v41;
+    cursorCopy = v39;
+    queryCopy = v40;
   }
 
   if (limit)
@@ -816,10 +809,8 @@ void __45__FCCKContentQueryOperation_performOperation__block_invoke_3_35(uint64_
     [queryRetrieveRequest5 setLimit:limit];
   }
 
-  v47 = v12;
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
-
-  v38 = *MEMORY[0x1E69E9840];
+  v46 = v12;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
 
   return v37;
 }
@@ -981,7 +972,7 @@ void __194__FCCKContentQueryOperation_Streaming__streamRecordsWithDatabase_query
 
 id __194__FCCKContentQueryOperation_Streaming__streamRecordsWithDatabase_query_desiredKeys_resultsLimit_queryPriority_networkEventType_edgeCacheHint_recordHandler_networkEventHandler_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) recordType];
   v3 = [v2 isEqualToString:@"MultiFetch"];
 
@@ -1023,21 +1014,20 @@ id __194__FCCKContentQueryOperation_Streaming__streamRecordsWithDatabase_query_d
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsupported query type, falling back to hardcoded base URL"];
-    v12 = 136315906;
-    v13 = "+[FCCKContentQueryOperation(Streaming) streamRecordsWithDatabase:query:desiredKeys:resultsLimit:queryPriority:networkEventType:edgeCacheHint:recordHandler:networkEventHandler:completionHandler:]_block_invoke_2";
-    v14 = 2080;
-    v15 = "FCCKContentQueryOperation.m";
-    v16 = 1024;
-    v17 = 266;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsupported query type, falling back to hardcoded base URL"];
+    v11 = 136315906;
+    v12 = "+[FCCKContentQueryOperation(Streaming) streamRecordsWithDatabase:query:desiredKeys:resultsLimit:queryPriority:networkEventType:edgeCacheHint:recordHandler:networkEventHandler:completionHandler:]_block_invoke_2";
+    v13 = 2080;
+    v14 = "FCCKContentQueryOperation.m";
+    v15 = 1024;
+    v16 = 266;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   v5 = [MEMORY[0x1E695DFF8] URLWithString:@"https://gateway.icloud.com:443/ckdatabase"];
 LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

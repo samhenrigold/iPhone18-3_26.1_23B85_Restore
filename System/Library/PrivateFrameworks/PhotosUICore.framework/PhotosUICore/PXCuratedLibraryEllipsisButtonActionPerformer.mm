@@ -38,7 +38,7 @@
 
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
     v13 = v20;
   }
 
@@ -79,12 +79,12 @@
 - (void)performUserInteractionTask
 {
   v100[2] = *MEMORY[0x1E69E9840];
-  layout = [(PXCuratedLibraryEllipsisButtonActionPerformer *)self layout];
-  v5 = layout;
-  if (layout)
+  v4 = objc_msgSend_layout(self);
+  v5 = v4;
+  if (v4)
   {
     v74 = a2;
-    v80 = layout;
+    v80 = v4;
     viewModel = [(PXCuratedLibraryActionPerformer *)self viewModel];
     assetCollectionReference = [(PXCuratedLibraryEllipsisButtonActionPerformer *)self assetCollectionReference];
     actionZoomLevel = [(PXCuratedLibraryActionPerformer *)self actionZoomLevel];
@@ -160,7 +160,7 @@
       {
         if (v17)
         {
-          [v17 indexPath];
+          objc_msgSend_indexPath(v17);
           v21 = identifier;
         }
 
@@ -443,11 +443,11 @@ LABEL_35:
 LABEL_66:
 }
 
-uint64_t __75__PXCuratedLibraryEllipsisButtonActionPerformer_performUserInteractionTask__block_invoke(uint64_t result, uint64_t a2)
+id *__75__PXCuratedLibraryEllipsisButtonActionPerformer_performUserInteractionTask__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -455,8 +455,8 @@ uint64_t __75__PXCuratedLibraryEllipsisButtonActionPerformer_performUserInteract
 
 - (id)buttonSpriteReference
 {
-  layout = [(PXCuratedLibraryEllipsisButtonActionPerformer *)self layout];
-  v4 = [layout spriteReferenceForObjectReference:self];
+  v3 = objc_msgSend_layout(self, a2);
+  v4 = [v3 spriteReferenceForObjectReference:self];
 
   return v4;
 }

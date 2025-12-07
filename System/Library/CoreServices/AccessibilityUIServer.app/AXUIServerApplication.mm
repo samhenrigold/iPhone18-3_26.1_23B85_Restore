@@ -112,29 +112,8 @@
 
 - (id)_accessibilityIsolatedWindows
 {
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  if ((objc_opt_respondsToSelector() & 1) == 0 || (v17 = 0, v18 = &v17, v19 = 0x3032000000, v20 = sub_10000230C, v21 = sub_10000231C, v22 = 0, v12 = _NSConcreteStackBlock, v13 = 3221225472, v14 = sub_100002324, v15 = &unk_100010748, v16 = &v17, AXPerformSafeBlock(), v2 = v18[5], _Block_object_dispose(&v17, 8), v22, !v2))
   {
-    goto LABEL_3;
-  }
-
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_10000230C;
-  v21 = sub_10000231C;
-  v22 = 0;
-  v12 = _NSConcreteStackBlock;
-  v13 = 3221225472;
-  v14 = sub_100002324;
-  v15 = &unk_100010748;
-  v16 = &v17;
-  AXPerformSafeBlock();
-  v2 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  if (!v2)
-  {
-LABEL_3:
     v17 = 0;
     v18 = &v17;
     v19 = 0x3032000000;

@@ -69,32 +69,32 @@ LABEL_9:
 
 BOOL __43__GEOMetroRegionData_metroNameForLocation___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = gloria::TileId::ToBBOX(*(*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 56));
-  v28 = v5;
-  v29 = v4;
+  v27 = v5;
+  v28 = v4;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = [v3 territorys];
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v25;
-    v20 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
-    v21 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+    v8 = *v24;
+    v19 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
+    v20 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         if (![v10 hasPolygon])
         {
           v13 = [v10 regionNameStr];
@@ -113,8 +113,8 @@ LABEL_11:
           continue;
         }
 
-        v22 = v21;
-        v23 = v20;
+        v21 = v20;
+        v22 = v19;
         if (GEOCoarseLocationTerritoryInfoContainsPoint())
         {
           v11 = [v10 regionNameStr];
@@ -127,14 +127,13 @@ LABEL_11:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v7);
   }
 
   v17 = [*(a1 + 32) count] != 0;
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -144,26 +143,13 @@ LABEL_11:
   v13.receiver = self;
   v13.super_class = GEOMetroRegionData;
   v5 = [(GEOMetroRegionData *)&v13 init];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = objc_alloc(MEMORY[0x1E69A1DE0]);
-  v7 = objc_opt_class();
-  v8 = GEOGetMetroRegionLog();
-  v9 = [v6 initWithFileURL:lCopy rootQuadKey:0 metadataClass:0 dataClass:v7 log:v8];
-  db = v5->_db;
-  v5->_db = v9;
-
-  if (v5->_db)
+  if (v5 && (v6 = objc_alloc(MEMORY[0x1E69A1DE0]), v7 = objc_opt_class(), GEOGetMetroRegionLog(), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v6 initWithFileURL:lCopy rootQuadKey:0 metadataClass:0 dataClass:v7 log:v8], db = v5->_db, v5->_db = v9, db, v8, v5->_db))
   {
     v11 = v5;
   }
 
   else
   {
-LABEL_4:
     v11 = 0;
   }
 

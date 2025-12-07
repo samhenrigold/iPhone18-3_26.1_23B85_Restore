@@ -29,9 +29,9 @@
 + (id)resolverWithFolderURL:(id)l
 {
   v4 = [VFXSimplePathResolver alloc];
-  v7 = objc_msgSend_initWithURL_(v4, v5, l, v6);
+  v6 = objc_msgSend_initWithURL_(v4, v5, l);
 
-  return v7;
+  return v6;
 }
 
 @end

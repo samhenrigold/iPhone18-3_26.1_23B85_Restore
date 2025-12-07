@@ -102,7 +102,7 @@
 
   if (v6)
   {
-    [v6 duration];
+    objc_msgSend_duration(v6, 0, 0, 0);
   }
 
   if (v4 == 2)

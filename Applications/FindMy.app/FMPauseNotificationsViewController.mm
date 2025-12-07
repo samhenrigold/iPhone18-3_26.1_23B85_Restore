@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100411738();
+  sub_100411738(selfCopy, v2);
 }
 
 - (void)dateChanged

@@ -186,7 +186,7 @@
       renderScale = [v9 renderScale];
       v15 = NUScaleToDouble(renderScale, v14);
       memset(buf, 0, sizeof(buf));
-      [v9 extent];
+      objc_msgSend_extent(v9);
       [(NUImageTransform3D *)self->_transform transformPoint:buf[0].i64[0], buf[0].i64[1]];
       v17 = v16;
       v19 = v18;
@@ -284,7 +284,7 @@
   if (v5)
   {
     v6 = v42;
-    [v5 extent];
+    objc_msgSend_extent(v5);
     [(NUImageTransform3D *)self->_transform transformPoint:0, 0];
     v8 = v7;
     v10 = v9;

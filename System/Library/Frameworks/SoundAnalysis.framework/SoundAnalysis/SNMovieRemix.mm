@@ -37,7 +37,7 @@
   sub_1C981153C(request, v10, v7);
   _Block_release(v7);
 
-  sub_1C97DA1E0(v10, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v10, &unk_1EC3C5E60, qword_1C9A9AE10);
 }
 
 + (id)runRequest:(id)request error:(id *)error
@@ -82,7 +82,7 @@
   }
 
   v10 = sub_1C9811AD8(v9, v14);
-  sub_1C97DA1E0(v14, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v14, &unk_1EC3C5E60, qword_1C9A9AE10);
   (*(v7 + 8))(v9, v6);
 
   return v10;

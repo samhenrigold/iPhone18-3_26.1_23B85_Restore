@@ -63,9 +63,9 @@ LABEL_13:
 
 - (uint64_t)bs_isPlistableType
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 bs_isPlistableType];
+  return [v1 bs_isPlistableType];
 }
 
 - (uint64_t)bs_isPlist

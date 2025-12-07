@@ -116,28 +116,34 @@
 - (CADSPSubset)initWithSubset:(shared_ptr<AudioDSPGraph:(id)subset :(id)a5 Subset>)a3 model:boxes:
 {
   ptr = a3.__ptr_;
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v8 = a3.__cntrl_;
   subsetCopy = subset;
   if (!*ptr)
   {
-    v22 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v25 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v23 = 134217984;
-    v24 = 0;
-    _os_log_send_and_compose_impl();
+    v23 = 0;
+    memset(v26, 0, sizeof(v26));
+    v20 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v24 = 134217984;
+    v25 = 0;
+    _os_log_send_and_compose_impl(v21, &v23, v26, 80, &dword_1C91AE000, v20, 16, "assertion failure: subset != nullptr -> %llu", &v24);
     _os_crash_msg();
     __break(1u);
   }
 
-  v21.receiver = self;
-  v21.super_class = CADSPSubset;
-  v10 = [(CADSPSubset *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = CADSPSubset;
+  v10 = [(CADSPSubset *)&v22 init];
   v11 = v10;
   if (v10)
   {
@@ -165,7 +171,6 @@
     v11->_boxes = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -10,8 +10,11 @@
 - (id)_cachedVariantForGenericInfo:(id)info variantKey:(unint64_t)key;
 - (id)_readonlyRegionRanges;
 - (id)classInfoForObjectAtAddress:(unint64_t)address;
+- (id)labelForNode:(unsigned int)node;
 - (id)processSnapshotGraphWithOptions:(unint64_t)options;
+- (id)shortLabelForNode:(unsigned int)node;
 - (id)vmuVMRegionForAddress:(unint64_t)address;
+- (id)vmuVMRegionForNode:(unsigned int)node;
 - (id)zoneNameForIndex:(unsigned int)index;
 - (id)zoneNameForNode:(unsigned int)node;
 - (uint64_t)_shouldScanVMregion:(uint64_t)mregion;
@@ -124,23 +127,23 @@
 
 - (VMUKernelCoreMemoryScanner)initWithVMUTask:(id)task options:(unint64_t)options
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   taskCopy = task;
-  v143.receiver = self;
-  v143.super_class = VMUKernelCoreMemoryScanner;
-  v7 = [(VMUKernelCoreMemoryScanner *)&v143 init];
+  v138.receiver = self;
+  v138.super_class = VMUKernelCoreMemoryScanner;
+  v7 = [(VMUKernelCoreMemoryScanner *)&v138 init];
 
   if (v7)
   {
-    v128 = +[VMUDebugTimer sharedTimerIfCreated];
+    v123 = +[VMUDebugTimer sharedTimerIfCreated];
     objc_storeStrong(&v7->_task, task);
     v7->_pid = -1;
-    if (v128)
+    if (v123)
     {
-      if ([v128 signpostID])
+      if ([v123 signpostID])
       {
-        logHandle = [v128 logHandle];
-        signpostID = [v128 signpostID];
+        logHandle = [v123 logHandle];
+        signpostID = [v123 signpostID];
         if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle))
         {
           *buf = 0;
@@ -148,10 +151,10 @@
         }
       }
 
-      [v128 endEvent:"initMemoryScanner"];
-      [v128 startWithCategory:"initMemoryScanner" message:"building VMUProcessDescription"];
-      logHandle2 = [v128 logHandle];
-      signpostID2 = [v128 signpostID];
+      [v123 endEvent:"initMemoryScanner"];
+      [v123 startWithCategory:"initMemoryScanner" message:"building VMUProcessDescription"];
+      logHandle2 = [v123 logHandle];
+      signpostID2 = [v123 signpostID];
       if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle2))
       {
         *buf = 0;
@@ -200,10 +203,10 @@
     ledger = v7->_ledger;
     v7->_ledger = v23;
 
-    if (v128 && [v128 signpostID])
+    if (v123 && [v123 signpostID])
     {
-      logHandle3 = [v128 logHandle];
-      signpostID3 = [v128 signpostID];
+      logHandle3 = [v123 logHandle];
+      signpostID3 = [v123 signpostID];
       if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle3))
       {
         *buf = 0;
@@ -211,7 +214,7 @@
       }
     }
 
-    [v128 endEvent:"initMemoryScanner"];
+    [v123 endEvent:"initMemoryScanner"];
     mach_get_times();
     v7->_maxInteriorOffset = *MEMORY[0x1E69E9AC8];
     v7->_scanningMask = VMUScanningMaskForOwningReferences();
@@ -221,7 +224,7 @@
     mappedFileNameToLengthDict = v7->_mappedFileNameToLengthDict;
     v7->_mappedFileNameToLengthDict = v27;
 
-    v125 = VMUGetFlagsForAllVMRegionStatistics() | options | 0x180;
+    v120 = VMUGetFlagsForAllVMRegionStatistics() | options | 0x180;
     v29 = [[VMUVMRegionIdentifier alloc] initWithVMUTask:v7->_task options:?];
     regionIdentifier = v7->_regionIdentifier;
     v7->_regionIdentifier = v29;
@@ -405,11 +408,11 @@ LABEL_116:
     v7->_coreSymbolicator._opaque_2 = v61;
     regionMap = v7->_regionMap;
     *buf = 0;
-    v138 = buf;
-    v139 = 0x3032000000;
-    v140 = __Block_byref_object_copy__0;
-    v141 = __Block_byref_object_dispose__0;
-    v142 = 0;
+    v133 = buf;
+    v134 = 0x3032000000;
+    v135 = __Block_byref_object_copy__0;
+    v136 = __Block_byref_object_dispose__0;
+    v137 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke;
@@ -429,19 +432,19 @@ LABEL_116:
     threadStates = v7->_threadStates;
     v7->_threadStates = taskThreadStates;
 
-    v69 = v128;
+    v69 = v123;
     v7->_threadsCount = [(VMUTaskThreadStates *)v7->_threadStates threadCount];
-    if (v128 && [v128 signpostID])
+    if (v123 && [v123 signpostID])
     {
-      logHandle4 = [v128 logHandle];
-      signpostID4 = [v128 signpostID];
+      logHandle4 = [v123 logHandle];
+      signpostID4 = [v123 signpostID];
       if (signpostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle4))
       {
-        *v144 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_END, signpostID4, "initMemoryScanner", "", v144, 2u);
+        *v139 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_END, signpostID4, "initMemoryScanner", "", v139, 2u);
       }
 
-      v69 = v128;
+      v69 = v123;
     }
 
     [v69 endEvent:"initMemoryScanner"];
@@ -452,8 +455,8 @@ LABEL_116:
       signpostID5 = [v69 signpostID];
       if (signpostID5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle5))
       {
-        *v144 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_BEGIN, signpostID5, "initMemoryScanner", "get malloc zones array", v144, 2u);
+        *v139 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_BEGIN, signpostID5, "initMemoryScanner", "get malloc zones array", v139, 2u);
       }
     }
 
@@ -466,25 +469,25 @@ LABEL_116:
     v7->_nonScannableZoneNames = v76;
 
     [(VMUKernelCoreMemoryScanner *)v7 _enumerateZallocZones:1 blocks:0];
-    v78 = v128;
-    if (v128 && [v128 signpostID])
+    v78 = v123;
+    if (v123 && [v123 signpostID])
     {
-      logHandle6 = [v128 logHandle];
-      signpostID6 = [v128 signpostID];
+      logHandle6 = [v123 logHandle];
+      signpostID6 = [v123 signpostID];
       if (signpostID6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle6))
       {
-        *v144 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_END, signpostID6, "initMemoryScanner", "", v144, 2u);
+        *v139 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_END, signpostID6, "initMemoryScanner", "", v139, 2u);
       }
 
-      v78 = v128;
+      v78 = v123;
     }
 
     [v78 endEvent:"initMemoryScanner"];
     zonesCount = v7->_zonesCount;
     if (!zonesCount || !v7->_regions)
     {
-      v114 = 0;
+      v110 = 0;
       v12 = 0;
       goto LABEL_124;
     }
@@ -494,7 +497,7 @@ LABEL_116:
     __compar[1] = 3221225472;
     __compar[2] = __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke_2;
     __compar[3] = &unk_1E8277628;
-    v135 = &__block_literal_global_0;
+    v130 = &__block_literal_global_0;
     mergesort_b(zones, zonesCount, 0x18uLL, __compar);
     [(NSMutableArray *)v7->_zoneNames sortUsingComparator:&__block_literal_global_0];
     v83 = [[VMUObjectIdentifier alloc] initWithVMUTask:v7->_task symbolicator:0 scanner:0, v7];
@@ -508,18 +511,18 @@ LABEL_116:
       classInfoIndexer = v7->_classInfoIndexer;
       v7->_classInfoIndexer = realizedClasses;
 
-      v88 = v128;
-      if (v128 && [v128 signpostID])
+      v88 = v123;
+      if (v123 && [v123 signpostID])
       {
-        logHandle7 = [v128 logHandle];
-        signpostID7 = [v128 signpostID];
+        logHandle7 = [v123 logHandle];
+        signpostID7 = [v123 signpostID];
         if (signpostID7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle7))
         {
-          *v144 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, signpostID7, "initMemoryScanner", "", v144, 2u);
+          *v139 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, signpostID7, "initMemoryScanner", "", v139, 2u);
         }
 
-        v88 = v128;
+        v88 = v123;
       }
 
       [v88 endEvent:"initMemoryScanner"];
@@ -530,8 +533,8 @@ LABEL_116:
         signpostID8 = [v88 signpostID];
         if (signpostID8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle8))
         {
-          *v144 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle8, OS_SIGNPOST_INTERVAL_BEGIN, signpostID8, "initMemoryScanner", "setting up VMUScanOverlay", v144, 2u);
+          *v139 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle8, OS_SIGNPOST_INTERVAL_BEGIN, signpostID8, "initMemoryScanner", "setting up VMUScanOverlay", v139, 2u);
         }
       }
 
@@ -540,18 +543,18 @@ LABEL_116:
       v7->_scanOverlay = v93;
 
       [(VMUKernelCoreMemoryScanner *)v7 refineTypesWithOverlay:v7->_scanOverlay];
-      v95 = v128;
-      if (v128 && [v128 signpostID])
+      v95 = v123;
+      if (v123 && [v123 signpostID])
       {
-        logHandle9 = [v128 logHandle];
-        signpostID9 = [v128 signpostID];
+        logHandle9 = [v123 logHandle];
+        signpostID9 = [v123 signpostID];
         if (signpostID9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle9))
         {
-          *v144 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle9, OS_SIGNPOST_INTERVAL_END, signpostID9, "initMemoryScanner", "", v144, 2u);
+          *v139 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle9, OS_SIGNPOST_INTERVAL_END, signpostID9, "initMemoryScanner", "", v139, 2u);
         }
 
-        v95 = v128;
+        v95 = v123;
       }
 
       [v95 endEvent:"initMemoryScanner"];
@@ -559,70 +562,66 @@ LABEL_116:
       nonscannableGlobalSymbolsArray = v7->_nonscannableGlobalSymbolsArray;
       v7->_nonscannableGlobalSymbolsArray = v98;
 
-      opaque_1 = v7->_coreSymbolicator._opaque_1;
-      opaque_2 = v7->_coreSymbolicator._opaque_2;
       CSSymbolicatorGetAOutSymbolOwner();
-      v132 = 0u;
-      v133 = 0u;
-      v130 = 0u;
-      v131 = 0u;
-      v102 = [&unk_1F4638A40 countByEnumeratingWithState:&v130 objects:v145 count:16];
-      if (v102)
+      v127 = 0u;
+      v128 = 0u;
+      v125 = 0u;
+      v126 = 0u;
+      v100 = [&unk_1F4638A40 countByEnumeratingWithState:&v125 objects:v140 count:16];
+      if (v100)
       {
-        v103 = *v131;
+        v101 = *v126;
         do
         {
-          for (i = 0; i != v102; ++i)
+          for (i = 0; i != v100; ++i)
           {
-            if (*v131 != v103)
+            if (*v126 != v101)
             {
               objc_enumerationMutation(&unk_1F4638A40);
             }
 
-            [*(*(&v130 + 1) + 8 * i) UTF8String];
+            [*(*(&v125 + 1) + 8 * i) UTF8String];
             CSSymbolOwnerGetSymbolWithMangledName();
             Range = CSSymbolGetRange();
-            if (v106)
+            if (v104)
             {
-              [(VMURangeArray *)v7->_nonscannableGlobalSymbolsArray addRange:Range, v106];
+              [(VMURangeArray *)v7->_nonscannableGlobalSymbolsArray addRange:Range, v104];
             }
           }
 
-          v102 = [&unk_1F4638A40 countByEnumeratingWithState:&v130 objects:v145 count:16];
+          v100 = [&unk_1F4638A40 countByEnumeratingWithState:&v125 objects:v140 count:16];
         }
 
-        while (v102);
+        while (v100);
       }
 
-      v7->_regionDescriptionOptions = v125;
-      v107 = *MEMORY[0x1E69E9AC8];
+      v7->_regionDescriptionOptions = v120;
+      v105 = *MEMORY[0x1E69E9AC8];
       memoryCache2 = [(VMUTask *)v7->_task memoryCache];
-      LOBYTE(v107) = v107 == [memoryCache2 pageSize];
+      LOBYTE(v105) = v105 == [memoryCache2 pageSize];
 
-      if (v107)
+      if (v105)
       {
         MEMORY[0x1C695D930]();
-        v109 = CSArchitectureIs64Bit();
-        v110 = v7->_coreSymbolicator._opaque_1;
-        v111 = v7->_coreSymbolicator._opaque_2;
+        v107 = CSArchitectureIs64Bit();
         CSSymbolicatorGetArchitecture();
-        v112 = CSArchitectureIs64Bit();
-        v113 = *MEMORY[0x1E69E9848];
-        if (v109 == v112)
+        v108 = CSArchitectureIs64Bit();
+        v109 = *MEMORY[0x1E69E9848];
+        if (v107 == v108)
         {
-          v114 = 1;
-          fwrite("warning: kernel core support is highly experimental\n", 0x34uLL, 1uLL, v113);
+          v110 = 1;
+          fwrite("warning: kernel core support is highly experimental\n", 0x34uLL, 1uLL, v109);
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            *v144 = 0;
-            _os_log_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "warning: kernel core support is highly experimental", v144, 2u);
-            v114 = 1;
+            *v139 = 0;
+            _os_log_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "warning: kernel core support is highly experimental", v139, 2u);
+            v110 = 1;
           }
 
           goto LABEL_123;
         }
 
-        fwrite("error: core's pointer size doesn't match the host system, cannot continue\n", 0x4AuLL, 1uLL, v113);
+        fwrite("error: core's pointer size doesn't match the host system, cannot continue\n", 0x4AuLL, 1uLL, v109);
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           [VMUKernelCoreMemoryScanner initWithVMUTask:options:];
@@ -631,56 +630,55 @@ LABEL_116:
 
       else
       {
-        v115 = *MEMORY[0x1E69E9848];
+        v111 = *MEMORY[0x1E69E9848];
         memoryCache3 = [(VMUTask *)v7->_task memoryCache];
         pageSize = [memoryCache3 pageSize];
-        fprintf(v115, "error: core's page size doesn't match the host system (%u KB vs %u KB), cannot continue\n", pageSize >> 10, *MEMORY[0x1E69E9AC8] >> 10);
+        fprintf(v111, "error: core's page size doesn't match the host system (%u KB vs %u KB), cannot continue\n", pageSize >> 10, *MEMORY[0x1E69E9AC8] >> 10);
 
-        v118 = MEMORY[0x1E69E9C10];
-        v119 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+        v114 = MEMORY[0x1E69E9C10];
+        v115 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
         {
           memoryCache4 = [(VMUTask *)v7->_task memoryCache];
-          -[VMUKernelCoreMemoryScanner initWithVMUTask:options:].cold.1([memoryCache4 pageSize], v144, memoryCache4);
+          -[VMUKernelCoreMemoryScanner initWithVMUTask:options:].cold.1([memoryCache4 pageSize], v139, memoryCache4);
         }
       }
 
-      v114 = 0;
+      v110 = 0;
     }
 
     else
     {
 
-      v114 = 0;
+      v110 = 0;
       v7 = 0;
     }
 
 LABEL_123:
     v12 = v7;
-    v7 = v135;
+    v7 = v130;
 LABEL_124:
 
     _Block_object_dispose(buf, 8);
-    if (v114)
+    if (v110)
     {
       goto LABEL_125;
     }
 
 LABEL_126:
-    v122 = 0;
-    v121 = taskCopy;
+    v118 = 0;
+    v117 = taskCopy;
     goto LABEL_127;
   }
 
   v12 = 0;
 LABEL_125:
-  v121 = taskCopy;
+  v117 = taskCopy;
   v12 = v12;
-  v122 = v12;
+  v118 = v12;
 LABEL_127:
 
-  v123 = *MEMORY[0x1E69E9840];
-  return v122;
+  return v118;
 }
 
 uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke(uint64_t a1, unint64_t a2)
@@ -824,13 +822,6 @@ uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke
   return v6;
 }
 
-uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 8);
-  v4 = *(a3 + 8);
-  return (*(*(a1 + 32) + 16))();
-}
-
 - (void)dealloc
 {
   blocks = self->_blocks;
@@ -840,61 +831,59 @@ uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke
     self->_blocks = 0;
   }
 
-  opaque_1 = self->_coreSymbolicator._opaque_1;
-  opaque_2 = self->_coreSymbolicator._opaque_2;
   CSRelease();
   [(VMUTaskMemoryCache *)self->_memoryCache setRegionInfoBlock:0];
   if (self->_regionsCount)
   {
-    v6 = 0;
-    v7 = 0;
+    v4 = 0;
+    v5 = 0;
     do
     {
       regions = self->_regions;
-      v9 = self->_memoryCache;
-      v10 = v9;
-      v11 = regions + v6;
-      if (*(&regions[1].var0 + v6))
+      v7 = self->_memoryCache;
+      v8 = v7;
+      v9 = regions + v4;
+      if (*(&regions[1].var0 + v4))
       {
-        if (v11 == *(v11 + 7))
+        if (v9 == *(v9 + 7))
         {
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = ___unmapRegion_block_invoke_0;
           aBlock[3] = &unk_1E8277E50;
-          v22 = v9;
-          v23 = regions + v6;
-          v24 = regions;
-          v12 = _Block_copy(aBlock);
-          v12[2]();
+          v20 = v7;
+          v21 = regions + v4;
+          v22 = regions;
+          v10 = _Block_copy(aBlock);
+          v10[2]();
         }
 
         else
         {
-          *(regions + v6 + 40) &= 1uLL;
-          *(v11 + 6) = 0;
-          *(v11 + 7) = 0;
+          *(regions + v4 + 40) &= 1uLL;
+          *(v9 + 6) = 0;
+          *(v9 + 7) = 0;
         }
       }
 
-      v13 = *(&self->_regions->var1 + v6);
-      if (v13)
+      v11 = *(&self->_regions->var1 + v4);
+      if (v11)
       {
-        free(v13);
-        *(&self->_regions->var1 + v6) = 0;
+        free(v11);
+        *(&self->_regions->var1 + v4) = 0;
       }
 
-      ++v7;
-      v6 += 64;
+      ++v5;
+      v4 += 64;
     }
 
-    while (v7 < self->_regionsCount);
+    while (v5 < self->_regionsCount);
   }
 
-  v14 = self->_regions;
-  if (v14)
+  v12 = self->_regions;
+  if (v12)
   {
-    free(v14);
+    free(v12);
     self->_regions = 0;
   }
 
@@ -932,9 +921,9 @@ uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke
   }
 
   [(VMUKernelCoreMemoryScanner *)self _destroyLinearClassInfos];
-  v20.receiver = self;
-  v20.super_class = VMUKernelCoreMemoryScanner;
-  [(VMUKernelCoreMemoryScanner *)&v20 dealloc];
+  v18.receiver = self;
+  v18.super_class = VMUKernelCoreMemoryScanner;
+  [(VMUKernelCoreMemoryScanner *)&v18 dealloc];
 }
 
 - (void)_withMemoryReaderBlock:(id)block
@@ -950,7 +939,7 @@ uint64_t __54__VMUKernelCoreMemoryScanner_initWithVMUTask_options___block_invoke
   blockCopy[2](blockCopy, v4);
 }
 
-uint64_t __53__VMUKernelCoreMemoryScanner__withMemoryReaderBlock___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t __53__VMUKernelCoreMemoryScanner__withMemoryReaderBlock___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   result = 0;
   v5 = *(*(a1 + 32) + 128);
@@ -1332,23 +1321,23 @@ void __65__VMUKernelCoreMemoryScanner__callRemoteMallocEnumerators_block___block
     {
       if (*(*(v2 + 224) + v4 + 16))
       {
-        get_local_zone_count();
-        v6 = [*(*(a1 + 32) + 8) taskPort];
-        v7 = *(a1 + 48);
-        v8 = *(a1 + 32);
-        v9 = (*(v8 + 224) + v4);
-        v10 = *v9;
-        v11 = v9[2];
-        v12 = [*(v8 + 160) objectAtIndexedSubscript:v5];
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __65__VMUKernelCoreMemoryScanner__callRemoteMallocEnumerators_block___block_invoke_3;
-        v14[3] = &unk_1E82776F0;
-        v15 = *(a1 + 40);
-        v16 = v5;
-        VMUEnumerateMallocBlocksInZone(v6, v7, v10, a2, v11, v12, v14);
+        local_zone_count = get_local_zone_count();
+        v7 = [*(*(a1 + 32) + 8) taskPort];
+        v8 = *(a1 + 48);
+        v9 = *(a1 + 32);
+        v10 = (*(v9 + 224) + v4);
+        v11 = *v10;
+        v12 = v10[2];
+        v13 = [*(v9 + 160) objectAtIndexedSubscript:v5];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __65__VMUKernelCoreMemoryScanner__callRemoteMallocEnumerators_block___block_invoke_3;
+        v15[3] = &unk_1E82776F0;
+        v16 = *(a1 + 40);
+        v17 = v5;
+        VMUEnumerateMallocBlocksInZone(v7, v8, v11, a2, v12, v13, v15);
 
-        unregister_new_local_zones();
+        unregister_new_local_zones(local_zone_count);
         v2 = *(a1 + 32);
       }
 
@@ -1460,7 +1449,7 @@ char *__50__VMUKernelCoreMemoryScanner__shouldScanVMregion___block_invoke()
 
 - (unint64_t)_lengthOfMappedFileOfRegion:(id)region
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   if (!regionCopy[49])
   {
@@ -1485,12 +1474,12 @@ LABEL_11:
   if (([path containsString:@"*"] & 1) != 0 || (objc_msgSend(v7, "hasPrefix:", @"/") & 1) == 0)
   {
     memoryCache = [(VMUTask *)self->_task memoryCache];
-    v9 = [memoryCache procRegionFileNameForAddress:*(regionCopy + 1) buffer:v16 bufferSize:1024];
+    v9 = [memoryCache procRegionFileNameForAddress:*(regionCopy + 1) buffer:v15 bufferSize:1024];
 
     if (v9 >= 1)
     {
-      *(&v16[0].st_dev + v9) = 0;
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
+      *(&v15[0].st_dev + v9) = 0;
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
 
       v7 = v10;
     }
@@ -1505,22 +1494,21 @@ LABEL_11:
 
   else
   {
-    memset(v16, 0, 144);
-    if (stat([v7 UTF8String], v16))
+    memset(v15, 0, 144);
+    if (stat([v7 UTF8String], v15))
     {
       st_size = *(regionCopy + 2) + *(regionCopy + 15);
     }
 
     else
     {
-      st_size = v16[0].st_size;
-      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v16[0].st_size];
+      st_size = v15[0].st_size;
+      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v15[0].st_size];
       [(NSMutableDictionary *)self->_mappedFileNameToLengthDict setObject:v13 forKeyedSubscript:v7];
     }
   }
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
   return st_size;
 }
 
@@ -2001,12 +1989,12 @@ void __60__VMUKernelCoreMemoryScanner_addRootNodesFromTaskWithError___block_invo
   {
     v6 = a1;
     v7 = 0;
-    v87 = a2;
+    v88 = a2;
     v8 = a5;
     v9 = MEMORY[0x1E69E9AC0];
     v10 = &unk_1EC1D0000;
-    v89 = a2;
-    v90 = a3;
+    v90 = a2;
+    v91 = a3;
     do
     {
       v11 = (a4 + 16 * v7);
@@ -2057,83 +2045,83 @@ void __60__VMUKernelCoreMemoryScanner_addRootNodesFromTaskWithError___block_invo
               }
             }
 
-            v69 = *(v12 + 40);
-            if (v69)
+            v70 = *(v12 + 40);
+            if (v70)
             {
-              v70 = *(v12 + 32);
+              v71 = *(v12 + 32);
               do
               {
-                v71 = v69 >> 1;
-                v29 = v70 + (v69 >> 1 << 6);
+                v72 = v70 >> 1;
+                v29 = v71 + (v70 >> 1 << 6);
                 if (*(*v29 + 8) <= v17)
                 {
                   if (*(*v29 + 16) + *(*v29 + 8) > v17)
                   {
-                    v72 = [*v29 isSpecialPhysFootprintRegion];
+                    v73 = [*v29 isSpecialPhysFootprintRegion];
                     v10 = &unk_1EC1D0000;
                     v9 = MEMORY[0x1E69E9AC0];
                     v6 = a1;
-                    a2 = v89;
-                    a3 = v90;
-                    if (v72)
+                    a2 = v90;
+                    a3 = v91;
+                    if (v73)
                     {
-                      v73 = 0;
+                      v74 = 0;
                     }
 
                     else
                     {
-                      v73 = v29;
+                      v74 = v29;
                     }
 
-                    if ((v72 & 1) == 0)
+                    if ((v73 & 1) == 0)
                     {
-                      if ((*(*v73 + 132) & 1) == 0)
+                      if ((*(*v74 + 132) & 1) == 0)
                       {
                         goto LABEL_86;
                       }
 
-                      v74 = v73 + 8;
-                      v75 = *(v12 + 40) - ((v73 - *(v12 + 32) + 64) >> 6);
-                      if (!v75)
+                      v75 = v74 + 8;
+                      v76 = *(v12 + 40) - ((v74 - *(v12 + 32) + 64) >> 6);
+                      if (!v76)
                       {
                         goto LABEL_83;
                       }
 
                       while (1)
                       {
-                        v76 = v75 >> 1;
-                        v77 = &v74[8 * (v75 >> 1)];
-                        if (*(*v77 + 1) <= v17)
+                        v77 = v76 >> 1;
+                        v78 = &v75[8 * (v76 >> 1)];
+                        if (*(*v78 + 1) <= v17)
                         {
-                          if (*(*v77 + 2) + *(*v77 + 1) > v17)
+                          if (*(*v78 + 2) + *(*v78 + 1) > v17)
                           {
-                            v78 = v73;
-                            v79 = [*v77 isSpecialPhysFootprintRegion];
-                            v73 = v78;
+                            v79 = v74;
+                            v80 = [*v78 isSpecialPhysFootprintRegion];
+                            v74 = v79;
                             v10 = &unk_1EC1D0000;
                             v9 = MEMORY[0x1E69E9AC0];
                             v6 = a1;
-                            a2 = v89;
-                            a3 = v90;
-                            if (v79)
+                            a2 = v90;
+                            a3 = v91;
+                            if (v80)
                             {
-                              v75 = 0;
+                              v76 = 0;
                             }
 
                             else
                             {
-                              v75 = v77;
+                              v76 = v78;
                             }
 
 LABEL_83:
-                            if (v75)
+                            if (v76)
                             {
-                              v29 = v75;
+                              v29 = v76;
                             }
 
                             else
                             {
-                              v29 = v73;
+                              v29 = v74;
                             }
 
 LABEL_86:
@@ -2156,43 +2144,43 @@ LABEL_15:
                               if (v10[2536] == 1)
                               {
                                 v63 = MEMORY[0x1E69E9848];
-                                fprintf(*MEMORY[0x1E69E9848], "zone %s ", [*(*(*(v6 + 32) + 224) + 24 * v87 + 8) UTF8String]);
-                                v86 = *v63;
-                                v84 = [*v29 address];
+                                fprintf(*MEMORY[0x1E69E9848], "zone %s ", [*(*(*(v6 + 32) + 224) + 24 * v88 + 8) UTF8String]);
+                                v87 = *v63;
+                                v85 = [*v29 address];
                                 v64 = *(*v29 + 24);
-                                v83 = *(*v29 + 16) + *(*v29 + 8);
-                                v82 = (&vm_prot_strings_0)[v64];
-                                v81 = VMURegionTypeDescriptionForTagShareProtAndPager(*(*v29 + 104), *(*v29 + 50), v64, *(*v29 + 49));
-                                v80 = [v81 UTF8String];
-                                v65 = *(*v29 + 16) >> *MEMORY[0x1E69E9AC0];
-                                if (v65 == 1)
+                                v84 = *(*v29 + 16) + *(*v29 + 8);
+                                v83 = (&vm_prot_strings_0)[v64];
+                                v82 = VMURegionTypeDescriptionForTagShareProtAndPager(*(*v29 + 104), *(*v29 + 50), v64, *(*v29 + 49));
+                                v81 = [v82 UTF8String];
+                                v66 = *(*v29 + 16) >> *MEMORY[0x1E69E9AC0];
+                                if (v66 == 1)
                                 {
-                                  v66 = "page";
+                                  v67 = "page";
                                 }
 
                                 else
                                 {
-                                  v66 = "pages";
+                                  v67 = "pages";
                                 }
 
                                 if (*(v29 + 24) == *(v29 + 32))
                                 {
-                                  v67 = "";
+                                  v68 = "";
                                 }
 
                                 else
                                 {
-                                  v67 = " [root]";
+                                  v68 = " [root]";
                                 }
 
-                                v68 = VMUMallocRangeTypeString(v90);
-                                fprintf(v86, "claimed region: [%#llx-%#llx] %s %s (%llu %s)%s - type '%s' range: [%#lx-%#lx]\n", v84, v83, v82, v80, v65, v66, v67, v68, *v11, v11[1] + *v11);
+                                v69 = VMUMallocRangeTypeString(v91, v65);
+                                fprintf(v87, "claimed region: [%#llx-%#llx] %s %s (%llu %s)%s - type '%s' range: [%#lx-%#lx]\n", v85, v84, v83, v81, v66, v67, v68, v69, *v11, v11[1] + *v11);
 
                                 v10 = &unk_1EC1D0000;
                                 v9 = MEMORY[0x1E69E9AC0];
                                 v6 = a1;
-                                a2 = v89;
-                                a3 = v90;
+                                a2 = v90;
+                                a3 = v91;
                                 v31 = *v29;
                               }
 
@@ -2273,14 +2261,14 @@ LABEL_15:
                               {
                                 if (*(*v29 + 16) + *(*v29 + 8) > v17)
                                 {
-                                  v85 = v46;
+                                  v86 = v46;
                                   v53 = [*v29 isSpecialPhysFootprintRegion];
-                                  v54 = v85;
+                                  v54 = v86;
                                   v10 = &unk_1EC1D0000;
                                   v9 = MEMORY[0x1E69E9AC0];
                                   v6 = a1;
-                                  a2 = v89;
-                                  a3 = v90;
+                                  a2 = v90;
+                                  a3 = v91;
                                   if (v53)
                                   {
                                     v55 = 0;
@@ -2339,12 +2327,12 @@ LABEL_44:
                                   v61 = v55;
                                   v62 = [*v59 isSpecialPhysFootprintRegion];
                                   v55 = v61;
-                                  v54 = v85;
+                                  v54 = v86;
                                   v10 = &unk_1EC1D0000;
                                   v9 = MEMORY[0x1E69E9AC0];
                                   v6 = a1;
-                                  a2 = v89;
-                                  a3 = v90;
+                                  a2 = v90;
+                                  a3 = v91;
                                   if (v62)
                                   {
                                     v57 = 0;
@@ -2384,15 +2372,15 @@ LABEL_52:
                             }
                           }
 
-                          v74 = v77 + 8;
-                          v76 = --v75 >> 1;
+                          v75 = v78 + 8;
+                          v77 = --v76 >> 1;
                         }
 
-                        v60 = v75 > 1;
-                        v75 = v76;
+                        v60 = v76 > 1;
+                        v76 = v77;
                         if (!v60)
                         {
-                          v75 = 0;
+                          v76 = 0;
                           goto LABEL_83;
                         }
                       }
@@ -2401,12 +2389,12 @@ LABEL_52:
                     break;
                   }
 
-                  v70 = v29 + 64;
-                  v71 = --v69 >> 1;
+                  v71 = v29 + 64;
+                  v72 = --v70 >> 1;
                 }
 
-                v15 = v69 >= 2;
-                v69 = v71;
+                v15 = v70 >= 2;
+                v70 = v72;
               }
 
               while (v15);
@@ -2475,30 +2463,28 @@ uint64_t __41__VMUKernelCoreMemoryScanner__sortBlocks__block_invoke(uint64_t a1,
 {
   blocksCopy = blocks;
   zonesCopy = zones;
-  v87 = *MEMORY[0x1E69E9840];
-  v84 = 0;
-  v85 = 0;
-  v83 = 0;
-  opaque_1 = self->_coreSymbolicator._opaque_1;
-  opaque_2 = self->_coreSymbolicator._opaque_2;
+  v84 = *MEMORY[0x1E69E9840];
+  v81 = 0;
+  v82 = 0;
+  v80 = 0;
   CSSymbolicatorGetAOutSymbolOwner();
   CSSymbolOwnerGetSymbolWithName();
   Range = CSSymbolGetRange();
-  v10 = v9;
-  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:Range size:v9 returnsBuf:&v85];
-  v11 = v85;
+  v8 = v7;
+  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:Range size:v7 returnsBuf:&v82];
+  v9 = v82;
   CSSymbolOwnerGetSymbolWithName();
-  v12 = CSSymbolGetRange();
-  v14 = v13;
-  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v12 size:v13 returnsBuf:&v84];
+  v10 = CSSymbolGetRange();
+  v12 = v11;
+  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v10 size:v11 returnsBuf:&v81];
   CSSymbolOwnerGetSymbolWithName();
-  v15 = CSSymbolGetRange();
-  v17 = v16;
-  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v15 size:v16 returnsBuf:&v83];
-  v18 = v85;
-  if (!v85 || !v84 || !v83 || v10 >> 9 < 0x159 || v14 < 0x70 || v17 < 0xAC8)
+  v13 = CSSymbolGetRange();
+  v15 = v14;
+  [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v13 size:v14 returnsBuf:&v80];
+  v16 = v82;
+  if (!v82 || !v81 || !v80 || v8 >> 9 < 0x159 || v12 < 0x70 || v15 < 0xAC8)
   {
-    goto LABEL_87;
+    return;
   }
 
   if (zonesCopy)
@@ -2508,207 +2494,207 @@ uint64_t __41__VMUKernelCoreMemoryScanner__sortBlocks__block_invoke(uint64_t a1,
     if (zonesSize <= 1)
     {
       self->_zonesSize = 8;
-      v20 = malloc_type_realloc(self->_zones, 0xC0uLL, 0x10A00404568A766uLL);
-      self->_zones = v20;
-      if (!v20)
+      v18 = malloc_type_realloc(self->_zones, 0xC0uLL, 0x10A00404568A766uLL);
+      self->_zones = v18;
+      if (!v18)
       {
         NSLog(&cfstr_OutOfMemoryFai.isa, "_zones", zonesSize, self->_zonesSize);
         goto LABEL_90;
       }
 
-      bzero(&v20[zonesSize], 24 * (self->_zonesSize - zonesSize));
+      bzero(&v18[zonesSize], 24 * (self->_zonesSize - zonesSize));
     }
 
-    v21 = &self->_zones[self->_zonesCount];
-    v21->var0 = Range;
-    v21->var1 = @"zalloc (no zone)";
-    v21->var2 = 0;
+    v19 = &self->_zones[self->_zonesCount];
+    v19->var0 = Range;
+    v19->var1 = @"zalloc (no zone)";
+    v19->var2 = 0;
     ++self->_zonesCount;
-    v18 = v85;
+    v16 = v82;
   }
 
-  v22 = v11 + v10;
-  if (v18 >= (v11 + v10))
+  v20 = v9 + v8;
+  if (v16 >= (v9 + v8))
   {
-    goto LABEL_87;
+    return;
   }
 
-  v23 = 0;
-  v24 = MEMORY[0x1E69E9AC8];
-  v66 = v11 + v10;
-  while (!*v18)
+  v21 = 0;
+  v22 = MEMORY[0x1E69E9AC8];
+  v63 = v9 + v8;
+  while (!*v16)
   {
 LABEL_33:
-    v18 = &v85[32 * ++v23];
-    if (v18 >= v22)
+    v16 = &v82[32 * ++v21];
+    if (v16 >= v20)
     {
-      goto LABEL_87;
+      return;
     }
   }
 
-  v68 = v23;
-  v25 = v83 + 4 * v23;
-  v26 = [(VMUTaskMemoryCache *)self->_memoryCache peekStringAtAddress:v18[2]];
-  v86[0] = xmmword_1E8277D60;
-  v86[1] = *off_1E8277D70;
-  v81 = v18;
-  if (v26)
+  v65 = v21;
+  v23 = v80 + 4 * v21;
+  v24 = [(VMUTaskMemoryCache *)self->_memoryCache peekStringAtAddress:v16[2]];
+  v83[0] = xmmword_1E8277D60;
+  v83[1] = *off_1E8277D70;
+  v78 = v16;
+  if (v24)
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%s", *(v86 + (*(v25 + 1) & 3)), v26];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%s", *(v83 + (*(v23 + 1) & 3)), v24];
   }
 
   else
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"UnknownZone (%#llx)", v18 + Range - v85, v65];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"UnknownZone (%#llx)", v16 + Range - v82, v62];
   }
-  v71 = ;
+  v68 = ;
   for (i = 24; i != -8; i -= 8)
   {
   }
 
   if (zonesCopy)
   {
-    v79 = v25;
-    v28 = v85;
+    v76 = v23;
+    v26 = v82;
     zonesCount = self->_zonesCount;
     blocksSize = self->_zonesSize;
     if (blocksSize > zonesCount)
     {
 LABEL_28:
-      [(NSMutableArray *)self->_zoneNames addObject:v71];
-      v34 = &self->_zones[self->_zonesCount];
-      v34->var0 = v81 + Range - v28;
-      v34->var1 = v71;
-      v34->var2 = 0;
-      if ((*v79 & 0x4000) != 0 || (*v79 & 0x300) == 0x200)
+      [(NSMutableArray *)self->_zoneNames addObject:v68];
+      v32 = &self->_zones[self->_zonesCount];
+      v32->var0 = v78 + Range - v26;
+      v32->var1 = v68;
+      v32->var2 = 0;
+      if ((*v76 & 0x4000) != 0 || (*v76 & 0x300) == 0x200)
       {
-        [(NSMutableSet *)self->_nonScannableZoneNames addObject:v71];
+        [(NSMutableSet *)self->_nonScannableZoneNames addObject:v68];
       }
 
       ++self->_zonesCount;
 LABEL_32:
 
-      v22 = v66;
-      v23 = v68;
+      v20 = v63;
+      v21 = v65;
       goto LABEL_33;
     }
 
     if ((2 * blocksSize) <= 8)
     {
-      v31 = 8;
+      v29 = 8;
     }
 
     else
     {
-      v31 = 2 * blocksSize;
+      v29 = 2 * blocksSize;
     }
 
     do
     {
-      v32 = v31;
-      v31 *= 2;
+      v30 = v29;
+      v29 *= 2;
     }
 
-    while (v32 < zonesCount);
-    self->_zonesSize = v32;
-    v33 = malloc_type_realloc(self->_zones, 24 * v32, 0x10A00404568A766uLL);
-    self->_zones = v33;
-    if (v33)
+    while (v30 < zonesCount);
+    self->_zonesSize = v30;
+    v31 = malloc_type_realloc(self->_zones, 24 * v30, 0x10A00404568A766uLL);
+    self->_zones = v31;
+    if (v31)
     {
-      bzero(&v33[blocksSize], 24 * (self->_zonesSize - blocksSize));
+      bzero(&v31[blocksSize], 24 * (self->_zonesSize - blocksSize));
       goto LABEL_28;
     }
 
-    v63 = self->_zonesSize;
-    v64 = "_zones";
+    v60 = self->_zonesSize;
+    v61 = "_zones";
 LABEL_89:
-    NSLog(&cfstr_OutOfMemoryFai.isa, v64, blocksSize, v63);
+    NSLog(&cfstr_OutOfMemoryFai.isa, v61, blocksSize, v60);
 LABEL_90:
     abort();
   }
 
-  v35 = [(NSMutableArray *)self->_zoneNames indexOfObject:v71];
-  v36 = v81;
-  v37 = v81 + 39;
-  v70 = v35 << 41;
-  v38 = 1;
-  v69 = Range;
+  v33 = [(NSMutableArray *)self->_zoneNames indexOfObject:v68];
+  v34 = v78;
+  v35 = v78 + 39;
+  v67 = v33 << 41;
+  v36 = 1;
+  v66 = Range;
   while (2)
   {
-    v67 = v38;
-    v39 = *v37;
-    if (!v39)
+    v64 = v36;
+    v37 = *v35;
+    if (!v37)
     {
       goto LABEL_84;
     }
 
 LABEL_37:
-    v40 = (((*&v39 | 0xFFFFFFFF00000000) << *MEMORY[0x1E69E9AC0]) - *v84) >> *MEMORY[0x1E69E9AC0];
-    v41 = v84[4];
-    *&v86[0] = 0;
-    v72 = v41 + 16 * v40;
+    v38 = (((*&v37 | 0xFFFFFFFF00000000) << *MEMORY[0x1E69E9AC0]) - *v81) >> *MEMORY[0x1E69E9AC0];
+    v39 = v81[4];
+    *&v83[0] = 0;
+    v69 = v39 + 16 * v38;
     [VMUTaskMemoryCache peekAtAddress:"peekAtAddress:size:returnsBuf:" size:? returnsBuf:?];
-    v42 = *&v86[0];
-    if (*&v86[0])
+    v40 = *&v83[0];
+    if (*&v83[0])
     {
-      v43 = *(v36 + 15);
-      if ((v43 & 0x100) != 0)
+      v41 = *(v34 + 15);
+      if ((v41 & 0x100) != 0)
       {
-        v77 = *(*&v86[0] + 4);
-        v44 = 1;
-        if ((v43 & 0x40) == 0)
+        v74 = *(*&v83[0] + 4);
+        v42 = 1;
+        if ((v41 & 0x40) == 0)
         {
           goto LABEL_42;
         }
 
 LABEL_40:
-        v45 = *(v36 + 28);
+        v43 = *(v34 + 28);
       }
 
       else
       {
-        v77 = *(v36 + 26);
-        v44 = *(v36 + 29);
-        if ((v43 & 0x40) != 0)
+        v74 = *(v34 + 26);
+        v42 = *(v34 + 29);
+        if ((v41 & 0x40) != 0)
         {
           goto LABEL_40;
         }
 
 LABEL_42:
-        v45 = 1;
+        v43 = 1;
       }
 
-      v76 = v45;
-      if (!v44)
+      v73 = v43;
+      if (!v42)
       {
         goto LABEL_83;
       }
 
-      v46 = 0;
-      v78 = *v84 + *v24 * v40;
-      v73 = v78 + *(v36 + 27);
-      if (v45 <= 1)
+      v44 = 0;
+      v75 = *v81 + *v22 * v38;
+      v70 = v75 + *(v34 + 27);
+      if (v43 <= 1)
       {
-        v47 = 1;
+        v45 = 1;
       }
 
       else
       {
-        v47 = v45;
+        v45 = v43;
       }
 
-      v80 = v44;
-      v48 = !blocksCopy;
-      if (!v45)
+      v77 = v42;
+      v46 = !blocksCopy;
+      if (!v43)
       {
-        v48 = 1;
+        v46 = 1;
       }
 
-      v74 = v48;
+      v71 = v46;
 LABEL_50:
-      if (*(v81 + 61))
+      if (*(v78 + 61))
       {
-        if ((v74 & 1) == 0)
+        if ((v71 & 1) == 0)
         {
           goto LABEL_71;
         }
@@ -2716,47 +2702,47 @@ LABEL_50:
 
       else
       {
-        if (v78 >= v84[10])
+        if (v75 >= v81[10])
         {
-          v49 = *&v86[0];
-          if (v78 > v84[11])
+          v47 = *&v83[0];
+          if (v75 > v81[11])
           {
             goto LABEL_56;
           }
 
-          v52 = (**&v86[0] & 0xF000) == 40960;
+          v50 = (**&v83[0] & 0xF000) == 40960;
         }
 
         else
         {
-          v49 = *&v86[0];
+          v47 = *&v83[0];
 LABEL_56:
-          if ((*v49 & 0x800) != 0)
+          if ((*v47 & 0x800) != 0)
           {
-            v82 = 0;
-            [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v72 + ((v46 >> 1) & 0x3FFFFFF0) size:16 returnsBuf:&v82];
-            if (!v82)
+            v79 = 0;
+            [(VMUTaskMemoryCache *)self->_memoryCache peekAtAddress:v69 + ((v44 >> 1) & 0x3FFFFFF0) size:16 returnsBuf:&v79];
+            if (!v79)
             {
               break;
             }
 
-            v52 = ((*(v82 + 4) >> v46) & 1) == 0;
+            v50 = ((*(v79 + 4) >> v44) & 1) == 0;
           }
 
           else
           {
-            v50 = v84[6];
-            v51 = 8 * (*(v49 + 4) & 0xFFFFFFF);
-            v82 = 0;
-            [(VMUTaskMemoryCache *)self->_memoryCache readPointerAt:v50 + ((v46 >> 3) & 0xFFFFFF8) + v51 value:&v82];
-            v52 = ((v82 >> v46) & 1) == 0;
+            v48 = v81[6];
+            v49 = 8 * (*(v47 + 4) & 0xFFFFFFF);
+            v79 = 0;
+            [(VMUTaskMemoryCache *)self->_memoryCache readPointerAt:v48 + ((v44 >> 3) & 0xFFFFFF8) + v49 value:&v79];
+            v50 = ((v79 >> v44) & 1) == 0;
           }
         }
 
-        if (v52 && blocksCopy && v76 != 0)
+        if (v50 && blocksCopy && v73 != 0)
         {
 LABEL_71:
-          v56 = 0;
+          v54 = 0;
           blocksCount = self->_blocksCount;
           do
           {
@@ -2765,28 +2751,28 @@ LABEL_71:
             {
               if ((2 * blocksSize) <= 0x40000)
               {
-                v59 = 0x40000;
+                v57 = 0x40000;
               }
 
               else
               {
-                v59 = 2 * blocksSize;
+                v57 = 2 * blocksSize;
               }
 
               do
               {
-                v60 = v59;
-                v59 *= 2;
+                v58 = v57;
+                v57 *= 2;
               }
 
-              while (v60 < blocksCount);
-              self->_blocksSize = v60;
-              blocks = malloc_type_realloc(self->_blocks, 16 * v60, 0x1000040451B5BE8uLL);
+              while (v58 < blocksCount);
+              self->_blocksSize = v58;
+              blocks = malloc_type_realloc(self->_blocks, 16 * v58, 0x1000040451B5BE8uLL);
               self->_blocks = blocks;
               if (!blocks)
               {
-                v63 = self->_blocksSize;
-                v64 = "_blocks";
+                v60 = self->_blocksSize;
+                v61 = "_blocks";
                 goto LABEL_89;
               }
 
@@ -2798,32 +2784,32 @@ LABEL_71:
               blocks = self->_blocks;
             }
 
-            v61 = &blocks[blocksCount];
-            v61->var0 = v73 + v46 * v77 + *v24 * v56;
-            *(v61 + 1) = v70 | (32 * v77) | 9;
+            v59 = &blocks[blocksCount];
+            v59->var0 = v70 + v44 * v74 + *v22 * v54;
+            *(v59 + 1) = v67 | (32 * v74) | 9;
             blocksCount = self->_blocksCount + 1;
             self->_blocksCount = blocksCount;
-            ++v56;
+            ++v54;
           }
 
-          while (v56 != v47);
+          while (v54 != v45);
         }
       }
 
-      if (++v46 == v80)
+      if (++v44 == v77)
       {
-        v42 = *&v86[0];
+        v40 = *&v83[0];
         zonesCopy = 0;
-        Range = v69;
-        v36 = v81;
+        Range = v66;
+        v34 = v78;
 LABEL_83:
-        v39 = *(v42 + 8);
-        if (!v39)
+        v37 = *(v40 + 8);
+        if (!v37)
         {
 LABEL_84:
-          v38 = 0;
-          v37 = (v81 + 20);
-          if ((v67 & 1) == 0)
+          v36 = 0;
+          v35 = (v78 + 20);
+          if ((v64 & 1) == 0)
           {
             goto LABEL_32;
           }
@@ -2839,9 +2825,6 @@ LABEL_84:
 
     break;
   }
-
-LABEL_87:
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addMallocNodesFromTaskWithError:(id *)error
@@ -2962,7 +2945,7 @@ LABEL_87:
 
 - (void)printRuntimeMetadataInfo
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__VMUKernelCoreMemoryScanner_printRuntimeMetadataInfo__block_invoke;
@@ -2972,30 +2955,30 @@ LABEL_87:
   allKeys = [(NSMutableDictionary *)self->_addressToRuntimeMetadataChunkInfoDict allKeys];
   v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v11 = *v27;
-    v24 = v3;
+    v11 = *v26;
+    v23 = v3;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         v14 = [(NSMutableDictionary *)self->_addressToRuntimeMetadataChunkInfoDict objectForKeyedSubscript:v13];
         unsignedLongLongValue = [v13 unsignedLongLongValue];
         v16 = &self->_blocks[v10];
@@ -3026,10 +3009,10 @@ LABEL_87:
 
             putchar(10);
             v19 = &self->_blocks[v10];
-            v23 = v18;
+            v22 = v18;
             v11 = v17;
-            v3 = v24;
-            printf("%s %#llx-%#llx[%llu]\n", v23, v19->var0, ((*(v19 + 1) >> 5) & 0xFFFFFFFFFLL) + v19->var0, (*(v19 + 1) >> 5) & 0xFFFFFFFFFLL);
+            v3 = v23;
+            printf("%s %#llx-%#llx[%llu]\n", v22, v19->var0, ((*(v19 + 1) >> 5) & 0xFFFFFFFFFLL) + v19->var0, (*(v19 + 1) >> 5) & 0xFFFFFFFFFLL);
             (*(v3 + 2))(v3, v10, v9, v8);
 
             v8 = 0;
@@ -3040,7 +3023,7 @@ LABEL_87:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -3050,13 +3033,11 @@ LABEL_87:
   {
     v8 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __54__VMUKernelCoreMemoryScanner_printRuntimeMetadataInfo__block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = &VMUObjCClassStructureTypeInfoArray + 24 * a4[3];
   v9 = *(v8 + 4);
   strchr(*(v8 + 1), 40);
@@ -3078,8 +3059,6 @@ void __54__VMUKernelCoreMemoryScanner_printRuntimeMetadataInfo__block_invoke(uin
 
   v14 = [v13 className];
   printf("    +%5llu %#llx[%u]  %-13s  %s %s\n", v11, a3, v9, __s, v12, [v14 UTF8String]);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fixupBlockIsas
@@ -3265,7 +3244,6 @@ void __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_2(uint64_t a
   if (HIDWORD(*v6))
   {
     v7 = (*v6 & 7) == 0;
-    *v6;
   }
 
   else
@@ -3292,43 +3270,42 @@ void __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_2(uint64_t a
       }
 
       v16 = (*(*(a1 + 32) + 96) + 16 * *(a1 + 56));
-      v17 = *(a1 + 48);
-      v18 = [v9 instanceSpecificInfoForObject:*v16 ofSize:v16[1] >> 5 withScanner:? memoryReader:?];
+      v17 = [v9 instanceSpecificInfoForObject:*v16 ofSize:v16[1] >> 5 withScanner:? memoryReader:?];
 
-      v9 = v18;
+      v9 = v17;
     }
 
-    v19 = *(*(*(a1 + 32) + 96) + 16 * *(a1 + 56) + 8) >> 5;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_3;
-    v29[3] = &unk_1E8277890;
-    v34 = a2;
-    v30 = v9;
-    v20 = *(a1 + 40);
-    v21 = *(a1 + 32);
-    v31 = v20;
-    v32 = v21;
-    v33 = *(a1 + 48);
-    v22 = v9;
-    [v22 enumerateSublayoutsForSize:v19 withBlock:v29];
-    v23 = [*(*(a1 + 32) + 288) indexForClassInfo:v22];
-    v24 = *(*(a1 + 32) + 96) + 16 * *(a1 + 56);
-    *(v24 + 8) = *(v24 + 8) & 0x1FFFFFFFFFFLL | (v23 << 41);
-    v25 = *(a1 + 32);
-    v26 = *(*(v25 + 96) + 16 * *(a1 + 56) + 8) >> 5;
+    v18 = *(*(*(a1 + 32) + 96) + 16 * *(a1 + 56) + 8) >> 5;
     v28[0] = MEMORY[0x1E69E9820];
     v28[1] = 3221225472;
-    v28[2] = __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_4;
-    v28[3] = &unk_1E82778B8;
-    v28[4] = v25;
-    [v22 enumerateExternalValuesFromObject:a2 withSize:v26 block:v28];
+    v28[2] = __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_3;
+    v28[3] = &unk_1E8277890;
+    v33 = a2;
+    v29 = v9;
+    v19 = *(a1 + 40);
+    v20 = *(a1 + 32);
+    v30 = v19;
+    v31 = v20;
+    v32 = *(a1 + 48);
+    v21 = v9;
+    [v21 enumerateSublayoutsForSize:v18 withBlock:v28];
+    v22 = [*(*(a1 + 32) + 288) indexForClassInfo:v21];
+    v23 = *(*(a1 + 32) + 96) + 16 * *(a1 + 56);
+    *(v23 + 8) = *(v23 + 8) & 0x1FFFFFFFFFFLL | (v22 << 41);
+    v24 = *(a1 + 32);
+    v25 = *(*(v24 + 96) + 16 * *(a1 + 56) + 8) >> 5;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __45__VMUKernelCoreMemoryScanner__fixupBlockIsas__block_invoke_4;
+    v27[3] = &unk_1E82778B8;
+    v27[4] = v24;
+    [v21 enumerateExternalValuesFromObject:a2 withSize:v25 block:v27];
   }
 
   else
   {
-    v27 = *(*(a1 + 32) + 96) + 16 * *(a1 + 56);
-    *(v27 + 8) &= 0x1FFFFFFFFFFuLL;
+    v26 = *(*(a1 + 32) + 96) + 16 * *(a1 + 56);
+    *(v26 + 8) &= 0x1FFFFFFFFFFuLL;
   }
 
   objc_autoreleasePoolPop(v4);
@@ -4498,7 +4475,7 @@ LABEL_59:
       blocks = self->_blocks;
       if ((*(&blocks->var0 + v6) & 7) == 1)
       {
-        [(VMUKernelCoreMemoryScanner *)self nodeDetails:v5];
+        objc_msgSend_nodeDetails_(self);
         v8 = [(VMUKernelCoreMemoryScanner *)self zoneNameForNode:v5];
         v9 = [v3 objectForKeyedSubscript:v8];
         LODWORD(v10) = [v9 unsignedIntValue];
@@ -4842,7 +4819,7 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
 
 - (void)_buildRegionFirstBlockIndexOnPageArrays
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   self->_regionMap->var0 = self->_blocks;
   regionMap = self->_regionMap;
   regionMap->var1 = self->_blocksCount;
@@ -4869,7 +4846,7 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
         blocksCount = self->_blocksCount;
         if (v5 >= blocksCount)
         {
-          break;
+          return;
         }
 
         v10 = self->_regions + 64 * v4;
@@ -4885,7 +4862,7 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
           ++v14;
           if (blocksCount == v13)
           {
-            goto LABEL_50;
+            return;
           }
         }
 
@@ -4934,13 +4911,13 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
           if ((v5 - v13) > 0xFF)
           {
             v20 = v17->var0;
-            v53 = &v20[v13];
+            v52 = &v20[v13];
             v21 = *MEMORY[0x1E69E9AC8];
             v22 = -*MEMORY[0x1E69E9AC8];
-            v23 = v53->var0 & v22;
+            v23 = v52->var0 & v22;
             v19 = (v5 - 1);
-            v51 = &v20[v19];
-            v24 = ((*(v51 + 1) >> 5) & 0xFFFFFFFFFLL) + v51->var0;
+            v50 = &v20[v19];
+            v24 = ((*(v50 + 1) >> 5) & 0xFFFFFFFFFLL) + v50->var0;
             if (v24 >= *(*v10 + 16) + *(*v10 + 8))
             {
               v24 = *(*v10 + 16) + *(*v10 + 8);
@@ -4952,35 +4929,35 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
             {
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v40 = v53->var0;
-                v43 = (*(v53 + 1) >> 5) & 0xFFFFFFFFFLL;
-                v42 = v43 + v53->var0;
-                v41 = v51->var0;
-                v47 = (*(v51 + 1) >> 5) & 0xFFFFFFFFFLL;
-                v45 = v47 + v51->var0;
-                v49 = [*v10 description];
-                v35 = v49;
-                uTF8String = [v49 UTF8String];
+                v39 = v52->var0;
+                v42 = (*(v52 + 1) >> 5) & 0xFFFFFFFFFLL;
+                v41 = v42 + v52->var0;
+                v40 = v50->var0;
+                v46 = (*(v50 + 1) >> 5) & 0xFFFFFFFFFLL;
+                v44 = v46 + v50->var0;
+                v48 = [*v10 description];
+                v35 = v48;
+                uTF8String = [v48 UTF8String];
                 *buf = 67111426;
-                *v56 = v13;
-                *&v56[4] = 1024;
-                *&v56[6] = v5 - v13;
-                *v57 = 1024;
-                *&v57[2] = v5 - 1;
-                *v58 = 2048;
-                *&v58[2] = v40;
-                v59 = 2048;
-                v60 = v42;
-                v61 = 2048;
-                v62 = v43;
-                v63 = 2048;
-                v64 = v41;
-                v65 = 2048;
-                v66 = v45;
-                v67 = 2048;
-                v68 = v47;
-                v69 = 2080;
-                v70 = uTF8String;
+                *v55 = v13;
+                *&v55[4] = 1024;
+                *&v55[6] = v5 - v13;
+                *v56 = 1024;
+                *&v56[2] = v5 - 1;
+                *v57 = 2048;
+                *&v57[2] = v39;
+                v58 = 2048;
+                v59 = v41;
+                v60 = 2048;
+                v61 = v42;
+                v62 = 2048;
+                v63 = v40;
+                v64 = 2048;
+                v65 = v44;
+                v66 = 2048;
+                v67 = v46;
+                v68 = 2080;
+                v69 = uTF8String;
                 _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VMUTaskMemoryScanner _noteBlocksInRegion startIndex %u count %u lastIndex %u  startBlock %#llx-%#llx[%llu] lastBlock %#llx-%#llx[%llu]  %s\n", buf, 0x5Au);
               }
 
@@ -5003,36 +4980,36 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
               {
                 if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                 {
-                  v44 = v53->var0;
-                  v50 = (*(v53 + 1) >> 5) & 0xFFFFFFFFFLL;
-                  v48 = v50 + v53->var0;
-                  v46 = v51->var0;
-                  v52 = (*(v51 + 1) >> 5) & 0xFFFFFFFFFLL;
-                  v54 = [*v10 description];
-                  v37 = v54;
-                  uTF8String2 = [v54 UTF8String];
+                  v43 = v52->var0;
+                  v49 = (*(v52 + 1) >> 5) & 0xFFFFFFFFFLL;
+                  v47 = v49 + v52->var0;
+                  v45 = v50->var0;
+                  v51 = (*(v50 + 1) >> 5) & 0xFFFFFFFFFLL;
+                  v53 = [*v10 description];
+                  v37 = v53;
+                  uTF8String2 = [v53 UTF8String];
                   *buf = 134220546;
-                  *v56 = v27;
-                  *&v56[8] = 1024;
-                  *v57 = v13;
+                  *v55 = v27;
+                  *&v55[8] = 1024;
+                  *v56 = v13;
+                  *&v56[4] = 1024;
+                  *v57 = v5 - v13;
                   *&v57[4] = 1024;
-                  *v58 = v5 - v13;
-                  *&v58[4] = 1024;
-                  *&v58[6] = v5 - 1;
-                  v59 = 2048;
-                  v60 = v44;
-                  v61 = 2048;
-                  v62 = v48;
-                  v63 = 2048;
-                  v64 = v50;
-                  v65 = 2048;
-                  v66 = v46;
-                  v67 = 2048;
-                  v68 = v52 + v46;
-                  v69 = 2048;
-                  v70 = v52;
-                  v71 = 2080;
-                  v72 = uTF8String2;
+                  *&v57[6] = v5 - 1;
+                  v58 = 2048;
+                  v59 = v43;
+                  v60 = 2048;
+                  v61 = v47;
+                  v62 = 2048;
+                  v63 = v49;
+                  v64 = 2048;
+                  v65 = v45;
+                  v66 = 2048;
+                  v67 = v51 + v45;
+                  v68 = 2048;
+                  v69 = v51;
+                  v70 = 2080;
+                  v71 = uTF8String2;
                   _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "numPages: %zu  VMUTaskMemoryScanner _noteBlocksInRegion startIndex %u count %u lastIndex %u  startBlock %#llx-%#llx[%llu] lastBlock %#llx-%#llx[%llu]  %s\n", buf, 0x64u);
                 }
 
@@ -5105,9 +5082,6 @@ uint64_t __56__VMUKernelCoreMemoryScanner__findMarkedAbandonedBlocks__block_invo
 
     while (v4 < self->_regionsCount);
   }
-
-LABEL_50:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (const)getCachedScanInfoForClassWithIsa:(unsigned int)isa classInfo:(id)info scanCaches:(_VMUScanLocationCache *)caches
@@ -5276,7 +5250,7 @@ void __84__VMUKernelCoreMemoryScanner_getCachedScanInfoForClassWithIsa_classInfo
   }
 }
 
-void __53__VMUKernelCoreMemoryScanner__withOrderedNodeMapper___block_invoke(uint64_t *a1, unsigned int a2, int a3, uint64_t a4)
+void __53__VMUKernelCoreMemoryScanner__withOrderedNodeMapper___block_invoke(void *a1, unsigned int a2, int a3, uint64_t a4)
 {
   if (!a4)
   {
@@ -5755,7 +5729,7 @@ void __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_inv
   {
     v5 = 0;
     v6 = a2 + 16;
-    v107 = a2 + 16;
+    v106 = a2 + 16;
     while (1)
     {
       v7 = *(*(v2 + 96) + 16 * v5 + 8);
@@ -5793,23 +5767,23 @@ void __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_inv
           v20 = *(*(v13 + 112) + ((*v16 >> 35) & 0x1FFFFFC0));
           v21 = _Block_copy(*(a1 + 40));
           v22 = *(a1 + 56);
-          v118[0] = MEMORY[0x1E69E9820];
-          v118[1] = 3221225472;
-          v118[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_6;
-          v118[3] = &unk_1E8277B48;
-          v118[4] = *(a1 + 32);
-          v121 = kcd_size;
-          v122 = kcd_addr_begin;
-          v123 = v15;
-          v126 = v5;
+          v117[0] = MEMORY[0x1E69E9820];
+          v117[1] = 3221225472;
+          v117[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_6;
+          v117[3] = &unk_1E8277B48;
+          v117[4] = *(a1 + 32);
+          v120 = kcd_size;
+          v121 = kcd_addr_begin;
+          v122 = v15;
+          v125 = v5;
           v23 = *(a1 + 48);
-          v124 = v19;
-          v125 = v23;
+          v123 = v19;
+          v124 = v23;
           v24 = v21;
-          v120 = v24;
+          v119 = v24;
           v25 = v20;
-          v119 = v25;
-          (*(a2 + 16))(a2, v5, v22, v118);
+          v118 = v25;
+          (*(a2 + 16))(a2, v5, v22, v117);
         }
 
         _Block_object_dispose(kcd_size, 8);
@@ -5828,9 +5802,9 @@ void __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_inv
         aBlock[3] = &unk_1E8277E00;
         aBlock[4] = v29;
         v31 = v28;
-        v114 = v5;
-        v112 = v31;
-        v113 = v30;
+        v113 = v5;
+        v111 = v31;
+        v112 = v30;
         v32 = _Block_copy(aBlock);
         if ([*(*(a1 + 32) + 8) isCore])
         {
@@ -5847,21 +5821,21 @@ void __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_inv
 
             else
             {
-              v99 = malloc_type_malloc(8 * kcd_addr_begin[0], 0xB75341A9uLL);
-              if (v99)
+              v98 = malloc_type_malloc(8 * kcd_addr_begin[0], 0xB75341A9uLL);
+              if (v98)
               {
-                v100 = v99;
-                v101 = v6;
-                v102 = [*(*(a1 + 32) + 8) memoryCache];
-                v103 = [(VMUTaskMemoryCache *)v102 getCoreFileUdataPointersIntoBuffer:v100 count:kcd_addr_begin];
+                v99 = v98;
+                v100 = v6;
+                v101 = [*(*(a1 + 32) + 8) memoryCache];
+                v102 = [(VMUTaskMemoryCache *)v101 getCoreFileUdataPointersIntoBuffer:v99 count:kcd_addr_begin];
 
-                if (!v103)
+                if (!v102)
                 {
-                  v32[2](v32, v100, kcd_addr_begin[0]);
+                  v32[2](v32, v99, kcd_addr_begin[0]);
                 }
 
-                free(v100);
-                v6 = v101;
+                free(v99);
+                v6 = v100;
               }
             }
           }
@@ -5875,50 +5849,50 @@ LABEL_106:
         kcd_size[0] = 0;
         if (!task_map_corpse_info_64(*MEMORY[0x1E69E9A60], [*(*(a1 + 32) + 8) taskPort], kcd_addr_begin, kcd_size))
         {
-          v91 = v32;
-          v92 = kcd_addr_begin[0];
-          v93 = kcd_size[0];
-          v94 = kcd_size[0] + kcd_addr_begin[0];
-          v95 = kcd_addr_begin[0] + 16;
-          if (v92 + 16 <= kcd_size[0] + v92 && v95 + *(kcd_addr_begin[0] + 4) <= v94 && *kcd_addr_begin[0] == -559025833)
+          v90 = v32;
+          v91 = kcd_addr_begin[0];
+          v92 = kcd_size[0];
+          v93 = kcd_size[0] + kcd_addr_begin[0];
+          v94 = kcd_addr_begin[0] + 16;
+          if (v91 + 16 <= kcd_size[0] + v91 && v94 + *(kcd_addr_begin[0] + 4) <= v93 && *kcd_addr_begin[0] == -559025833)
           {
             do
             {
-              v96 = v95 + *(v92 + 4);
-              if (v96 > v94)
+              v95 = v94 + *(v91 + 4);
+              if (v95 > v93)
               {
                 break;
               }
 
-              v97 = *v92;
-              if (*v92 == -242132755)
+              v96 = *v91;
+              if (*v91 == -242132755)
               {
                 break;
               }
 
-              if (v97 == 17 || (v97 & 0xFFFFFFF0) == 0x20)
+              if (v96 == 17 || (v96 & 0xFFFFFFF0) == 0x20)
               {
-                v98 = *(v92 + 8);
-                if (HIDWORD(v98) == 2076)
+                v97 = *(v91 + 8);
+                if (HIDWORD(v97) == 2076)
                 {
-                  v91[2](v91, (v92 + 16), v98);
-                  v96 = v95 + *(v92 + 4);
+                  v90[2](v90, (v91 + 16), v97);
+                  v95 = v94 + *(v91 + 4);
                 }
               }
 
-              v95 = v96 + 16;
-              v92 = v96;
+              v94 = v95 + 16;
+              v91 = v95;
             }
 
-            while (v96 + 16 <= v94);
-            v92 = kcd_addr_begin[0];
-            v93 = kcd_size[0];
+            while (v95 + 16 <= v93);
+            v91 = kcd_addr_begin[0];
+            v92 = kcd_size[0];
           }
 
-          mach_vm_deallocate(*MEMORY[0x1E69E9A60], v92, v93);
-          v32 = v91;
+          mach_vm_deallocate(*MEMORY[0x1E69E9A60], v91, v92);
+          v32 = v90;
 LABEL_101:
-          v6 = v107;
+          v6 = v106;
           goto LABEL_106;
         }
 
@@ -5930,7 +5904,7 @@ LABEL_101:
         }
 
         v36 = v35;
-        v105 = v32;
+        v104 = v32;
         v37 = malloc_type_malloc((8 * v35), 0x2BA33256uLL);
         [*(a1 + 32) pid];
         proc_list_uptrs();
@@ -5938,8 +5912,8 @@ LABEL_101:
         v39 = 0;
         v40 = v36;
         v41 = MEMORY[0x1E69E9AC0];
-        v110 = v37;
-        v106 = v36;
+        v109 = v37;
+        v105 = v36;
 LABEL_23:
         v42 = *(*(a1 + 32) + 128);
         v43 = v42[6];
@@ -6007,8 +5981,8 @@ LABEL_23:
             if (*(*v58 + 16) + *(*v58 + 8) > v47)
             {
               v78 = [*v58 isSpecialPhysFootprintRegion];
-              v40 = v106;
-              v38 = v110;
+              v40 = v105;
+              v38 = v109;
               v41 = MEMORY[0x1E69E9AC0];
               if (v78)
               {
@@ -6065,11 +6039,11 @@ LABEL_67:
                 goto LABEL_67;
               }
 
-              v104 = v79;
+              v103 = v79;
               v85 = [*v83 isSpecialPhysFootprintRegion];
-              v79 = v104;
-              v40 = v106;
-              v38 = v110;
+              v79 = v103;
+              v40 = v105;
+              v38 = v109;
               v41 = MEMORY[0x1E69E9AC0];
               if (v85)
               {
@@ -6141,11 +6115,10 @@ LABEL_77:
                         goto LABEL_81;
                       }
 
-                      v88 = v38[v39];
-                      v89 = v40;
+                      v88 = v40;
                       (*(*(a1 + 40) + 16))();
-                      v40 = v89;
-                      v38 = v110;
+                      v40 = v88;
+                      v38 = v109;
                       v41 = MEMORY[0x1E69E9AC0];
                     }
                   }
@@ -6212,7 +6185,7 @@ LABEL_81:
               if (++v39 == v40)
               {
                 free(v38);
-                v32 = v105;
+                v32 = v104;
                 goto LABEL_101;
               }
 
@@ -6235,17 +6208,17 @@ LABEL_81:
       if (v9 == 4)
       {
         v26 = *(a1 + 56);
-        v115[0] = MEMORY[0x1E69E9820];
-        v115[1] = 3221225472;
-        v115[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_7;
-        v115[3] = &unk_1E8277B20;
-        v115[4] = *(a1 + 32);
-        v117 = v5;
-        v109 = *(a1 + 40);
-        v27 = v109;
-        v116 = v109;
-        (*(a2 + 16))(a2, v5, v26, v115);
-        v12 = v116;
+        v114[0] = MEMORY[0x1E69E9820];
+        v114[1] = 3221225472;
+        v114[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_7;
+        v114[3] = &unk_1E8277B20;
+        v114[4] = *(a1 + 32);
+        v116 = v5;
+        v108 = *(a1 + 40);
+        v27 = v108;
+        v115 = v108;
+        (*(a2 + 16))(a2, v5, v26, v114);
+        v12 = v115;
         goto LABEL_7;
       }
 
@@ -6259,17 +6232,17 @@ LABEL_107:
     }
 
     v10 = *(a1 + 56);
-    v130[0] = MEMORY[0x1E69E9820];
-    v130[1] = 3221225472;
-    v130[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_3;
-    v130[3] = &unk_1E8277B20;
-    v130[4] = *(a1 + 32);
-    v132 = v5;
-    v108 = *(a1 + 40);
-    v11 = v108;
-    v131 = v108;
-    (*(a2 + 16))(a2, v5, v10, v130);
-    v12 = v131;
+    v129[0] = MEMORY[0x1E69E9820];
+    v129[1] = 3221225472;
+    v129[2] = __61__VMUKernelCoreMemoryScanner_scanNodesWithReferenceRecorder___block_invoke_3;
+    v129[3] = &unk_1E8277B20;
+    v129[4] = *(a1 + 32);
+    v131 = v5;
+    v107 = *(a1 + 40);
+    v11 = v107;
+    v130 = v107;
+    (*(a2 + 16))(a2, v5, v10, v129);
+    v12 = v130;
 LABEL_7:
 
     goto LABEL_107;
@@ -6617,7 +6590,7 @@ LABEL_36:
       goto LABEL_55;
     }
 
-    v47 = (v46 + 64);
+    v47 = v46 + 64;
     v48 = *(v9 + 10) - ((v46 + 64 - v9[4]) >> 6);
     if (!v48)
     {
@@ -6627,7 +6600,7 @@ LABEL_36:
     while (2)
     {
       v49 = v48 >> 1;
-      v50 = &v47[8 * (v48 >> 1)];
+      v50 = v47 + (v48 >> 1 << 6);
       result = *v50;
       if (*(*v50 + 8) > v14)
       {
@@ -6648,14 +6621,14 @@ LABEL_47:
 
     if (*(*v50 + 16) + *(*v50 + 8) <= v14)
     {
-      v47 = v50 + 8;
+      v47 = v50 + 64;
       v49 = --v48 >> 1;
       goto LABEL_47;
     }
 
-    v59 = v46;
+    v57 = v46;
     result = [result isSpecialPhysFootprintRegion];
-    v46 = v59;
+    v46 = v57;
     v8 = &OBJC_IVAR___VMUVMRegion_range;
     v7 = MEMORY[0x1E69E9AC0];
     if (result)
@@ -6728,13 +6701,11 @@ LABEL_57:
               goto LABEL_61;
             }
 
-            v54 = *(v5 + 56);
-            v55 = *(v5 + 48);
-            v56 = v7;
-            v57 = v8;
+            v54 = v7;
+            v55 = v8;
             result = (*(*(v5 + 40) + 16))();
-            v8 = v57;
-            v7 = v56;
+            v8 = v55;
+            v7 = v54;
           }
         }
 
@@ -6809,7 +6780,7 @@ LABEL_61:
   recorderCopy = recorder;
   if (!count)
   {
-    v36 = 0;
+    v32 = 0;
     goto LABEL_5;
   }
 
@@ -6829,7 +6800,7 @@ LABEL_61:
   {
     v13 = 0;
     v14 = self->_blocks + 1;
-    while (1)
+    do
     {
       v15 = *v14;
       v14 += 2;
@@ -6838,33 +6809,25 @@ LABEL_61:
         break;
       }
 
-      if (blocksCount == ++v13)
-      {
-        goto LABEL_11;
-      }
+      ++v13;
     }
-  }
 
-  else
-  {
-LABEL_11:
-    LODWORD(v13) = -1;
+    while (blocksCount != v13);
   }
 
   v16 = 0;
-  v37 = 0;
-  v36 = 0;
-  v35 = v13;
+  v33 = 0;
+  v32 = 0;
   v17 = 0xFFFFFFFFLL;
-  v31 = -1;
-  v34 = recorderCopy;
-  v33 = v10;
+  v28 = -1;
+  v31 = recorderCopy;
+  v30 = v10;
   do
   {
     v18 = nodes[v16];
     if (!v18 || !VMUGraphNodeType_IsVMRegion(*(&self->_blocks[v18] + 2) & 7))
     {
-      goto LABEL_48;
+      goto LABEL_47;
     }
 
     v19 = *(&self->_regions->var0 + ((*(&self->_blocks[v18] + 1) >> 35) & 0x1FFFFFC0));
@@ -6874,32 +6837,29 @@ LABEL_11:
     {
       if (v21 == 88 || v21 == 100)
       {
-LABEL_21:
+LABEL_20:
         if (v10)
         {
-          if (v37)
+          if (v33)
           {
-            v37 = 1;
+            v33 = 1;
           }
 
           else
           {
-            v37 = 1;
+            v33 = 1;
             fwrite("The DT_REPORT_IOKIT_REGION_LEAKS env var is set so leaked IOKit, IOSurface, or IOAccelerator regions will be reported, if -vmalso is passed to 'leaks'\n", 0x97uLL, 1uLL, *MEMORY[0x1E69E9848]);
           }
         }
 
         else
         {
-          blocks = self->_blocks;
-          var0 = blocks[v35].var0;
-          v24 = blocks[v18].var0;
           recorderCopy[2](recorderCopy);
         }
 
-LABEL_46:
+LABEL_45:
         v18 = v17;
-        goto LABEL_47;
+        goto LABEL_46;
       }
     }
 
@@ -6907,133 +6867,133 @@ LABEL_46:
     {
       if (v21 == 21)
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
     }
 
     else if (*(v19 + 50) == 5)
     {
-      goto LABEL_21;
+      goto LABEL_20;
     }
 
     if (v18 == 1)
     {
-      goto LABEL_46;
+      goto LABEL_45;
     }
 
-    v25 = (16 * (v18 - 1)) | 8;
-    v32 = v18 - 1;
-    v26 = v18 - 1;
+    v22 = (16 * (v18 - 1)) | 8;
+    v29 = v18 - 1;
+    v23 = v18 - 1;
     while (1)
     {
-      if (!VMUGraphNodeType_IsVMRegion(*(&self->_blocks->var0 + v25) & 7))
+      if (!VMUGraphNodeType_IsVMRegion(*(&self->_blocks->var0 + v22) & 7))
       {
-        nodes[v36] = v18;
+        nodes[v32] = v18;
         v18 = v17;
-        ++v36;
-        goto LABEL_51;
+        ++v32;
+        goto LABEL_50;
       }
 
-      v27 = *(&self->_regions->var0 + ((*(&self->_blocks->var0 + v25) >> 35) & 0x1FFFFFC0));
-      if (([v27 isSubmap] & 1) == 0)
+      v24 = *(&self->_regions->var0 + ((*(&self->_blocks->var0 + v22) >> 35) & 0x1FFFFFC0));
+      if (([v24 isSubmap] & 1) == 0)
       {
         break;
       }
 
-LABEL_43:
+LABEL_42:
 
-      v25 -= 16;
-      if (!--v26)
+      v22 -= 16;
+      if (!--v23)
       {
         v18 = v17;
-LABEL_51:
-        recorderCopy = v34;
-        v10 = v33;
-        goto LABEL_47;
+LABEL_50:
+        recorderCopy = v31;
+        v10 = v30;
+        goto LABEL_46;
       }
     }
 
-    v28 = *(v27 + 26);
-    if (v28 != *(v20 + 26))
+    v25 = *(v24 + 26);
+    if (v25 != *(v20 + 26))
     {
-      v28 = *(v20 + 26);
-      goto LABEL_37;
+      v25 = *(v20 + 26);
+      goto LABEL_36;
     }
 
-    if (*(v27 + 49) || *(v20 + 49))
+    if (*(v24 + 49) || *(v20 + 49))
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
-    if (v27[1] + v27[2] != *(v20 + 1) && ([v20 isJavascriptJitExecutableAllocator] & 1) == 0)
+    if (v24[1] + v24[2] != *(v20 + 1) && ([v20 isJavascriptJitExecutableAllocator] & 1) == 0)
     {
-      v28 = *(v20 + 26);
-LABEL_37:
-      if (v28 || *(v27 + 26) || v27[1] + v27[2] != *(v20 + 1) || ![*(v20 + 4) isEqualToString:VMUmappedFileLabel[0]] || !objc_msgSend(v27[4], "isEqualToString:", @"__LINKEDIT") || !objc_msgSend(*(v20 + 5), "isEqualToString:", v27[5]))
+      v25 = *(v20 + 26);
+LABEL_36:
+      if (v25 || *(v24 + 26) || v24[1] + v24[2] != *(v20 + 1) || ![*(v20 + 4) isEqualToString:VMUmappedFileLabel[0]] || !objc_msgSend(v24[4], "isEqualToString:", @"__LINKEDIT") || !objc_msgSend(*(v20 + 5), "isEqualToString:", v24[5]))
       {
-        goto LABEL_43;
+        goto LABEL_42;
       }
 
-      if (v17 == v32)
+      if (v17 == v29)
       {
-        v30 = v31;
+        v27 = v28;
       }
 
       else
       {
-        v30 = v26;
+        v27 = v23;
       }
 
-      recorderCopy = v34;
-      (v34[2])(v34, v30, self->_blocks[v30].var0, 1, v18, self->_blocks[v18].var0);
-      v31 = v30;
-LABEL_63:
-      v10 = v33;
-      goto LABEL_64;
+      recorderCopy = v31;
+      (v31[2])(v31, v27, self->_blocks[v27].var0, 1, v18, self->_blocks[v18].var0);
+      v28 = v27;
+LABEL_62:
+      v10 = v30;
+      goto LABEL_63;
     }
 
-    if (v17 == v32)
+    if (v17 == v29)
     {
-      v29 = v31;
+      v26 = v28;
     }
 
     else
     {
-      v29 = v26;
+      v26 = v23;
     }
 
-    recorderCopy = v34;
-    (v34[2])(v34, v29, self->_blocks[v29].var0, 1, v18, self->_blocks[v18].var0);
-    v31 = v29;
-    if (!v36)
+    recorderCopy = v31;
+    (v31[2])(v31, v26, self->_blocks[v26].var0, 1, v18, self->_blocks[v18].var0);
+    v28 = v26;
+    if (!v32)
     {
-      v36 = 0;
-      goto LABEL_63;
+      v32 = 0;
+      goto LABEL_62;
     }
 
-    v10 = v33;
-    if (nodes[v36 - 1] >= v29)
+    v10 = v30;
+    if (nodes[v32 - 1] >= v26)
     {
-      nodes[v36++] = v18;
+      nodes[v32++] = v18;
     }
 
-LABEL_64:
+LABEL_63:
 
-LABEL_47:
+LABEL_46:
     v17 = v18;
-LABEL_48:
+LABEL_47:
     ++v16;
   }
 
   while (v16 != count);
 LABEL_5:
 
-  return v36;
+  return v32;
 }
 
 - (id)processSnapshotGraphWithOptions:(unint64_t)options
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   v4 = [VMUProcessObjectGraph alloc];
   pid = self->_pid;
   blocksCount = self->_blocksCount;
@@ -7069,30 +7029,30 @@ LABEL_5:
 
   v15 = [(VMUTask *)self->_task createSymbolicatorWithFlags:0 andNotification:0];
   v17 = v16;
-  v83 = 0;
+  v82 = 0;
   v18 = 0;
   if (self->_targetProcessHasObjCPatches)
   {
     v18 = CSSymbolicatorCreateForTaskSharedCache();
-    v83 = v19;
+    v82 = v19;
   }
 
-  v124[0] = 0;
-  v124[1] = v124;
-  v124[2] = 0x3010000000;
-  v124[5] = 0;
-  v124[3] = &unk_1C6872315;
-  v124[4] = 0;
   v123[0] = 0;
   v123[1] = v123;
   v123[2] = 0x3010000000;
   v123[5] = 0;
   v123[3] = &unk_1C6872315;
   v123[4] = 0;
-  v121[0] = 0;
-  v121[1] = v121;
-  v121[2] = 0x2020000000;
-  v122 = 0;
+  v122[0] = 0;
+  v122[1] = v122;
+  v122[2] = 0x3010000000;
+  v122[5] = 0;
+  v122[3] = &unk_1C6872315;
+  v122[4] = 0;
+  v120[0] = 0;
+  v120[1] = v120;
+  v120[2] = 0x2020000000;
+  v121 = 0;
   debugTimer = self->_debugTimer;
   if (debugTimer)
   {
@@ -7129,14 +7089,14 @@ LABEL_5:
   if ([(VMUTask *)self->_task isCore])
   {
     sampleAllThreadsOnce = 0;
-    v82 = 0;
+    v81 = 0;
   }
 
   else
   {
     v28 = [[VMUSampler alloc] initWithTask:[(VMUTask *)self->_task taskPort] options:2305];
     sampleAllThreadsOnce = [(VMUSampler *)v28 sampleAllThreadsOnce];
-    v82 = v28;
+    v81 = v28;
   }
 
   v29 = getenv("PreserveMemgraphSampleAndSymbolStore");
@@ -7157,28 +7117,28 @@ LABEL_5:
 
   if (sampleAllThreadsOnce)
   {
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
     v118 = 0u;
+    v119 = 0u;
+    v116 = 0u;
+    v117 = 0u;
     v36 = sampleAllThreadsOnce;
-    v37 = [v36 countByEnumeratingWithState:&v117 objects:v125 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v116 objects:v124 count:16];
     if (v37)
     {
-      v38 = *v118;
+      v38 = *v117;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v118 != v38)
+          if (*v117 != v38)
           {
             objc_enumerationMutation(v36);
           }
 
-          [(VMUSymbolStore *)v33 addBacktrace:*(*(&v117 + 1) + 8 * i) origin:0];
+          [(VMUSymbolStore *)v33 addBacktrace:*(*(&v116 + 1) + 8 * i) origin:0];
         }
 
-        v37 = [v36 countByEnumeratingWithState:&v117 objects:v125 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v116 objects:v124 count:16];
       }
 
       while (v37);
@@ -7186,27 +7146,27 @@ LABEL_5:
   }
 
   *buf = 0;
-  v112 = buf;
-  v113 = 0x3010000000;
-  v116 = 0;
-  v114 = &unk_1C6872315;
+  v111 = buf;
+  v112 = 0x3010000000;
   v115 = 0;
-  v110[0] = 0;
-  v110[1] = v110;
-  v110[2] = 0x3010000000;
-  v110[4] = 0;
-  v110[5] = 0;
-  v110[3] = &unk_1C6872315;
-  v108[0] = 0;
-  v108[1] = v108;
-  v108[2] = 0x3032000000;
-  v108[3] = __Block_byref_object_copy__0;
-  v108[4] = __Block_byref_object_dispose__0;
-  v109 = 0;
-  v106[0] = 0;
-  v106[1] = v106;
-  v106[2] = 0x2020000000;
-  v107 = 0;
+  v113 = &unk_1C6872315;
+  v114 = 0;
+  v109[0] = 0;
+  v109[1] = v109;
+  v109[2] = 0x3010000000;
+  v109[4] = 0;
+  v109[5] = 0;
+  v109[3] = &unk_1C6872315;
+  v107[0] = 0;
+  v107[1] = v107;
+  v107[2] = 0x3032000000;
+  v107[3] = __Block_byref_object_copy__0;
+  v107[4] = __Block_byref_object_dispose__0;
+  v108 = 0;
+  v105[0] = 0;
+  v105[1] = v105;
+  v105[2] = 0x2020000000;
+  v106 = 0;
   if ((options & 2) != 0 && ([(VMUKernelCoreMemoryScanner *)self objectContentLevel]& 0xFFFFFFFE) == 2)
   {
     v40 = self->_debugTimer;
@@ -7220,8 +7180,8 @@ LABEL_5:
         signpostID5 = [(VMUDebugTimer *)self->_debugTimer signpostID];
         if (signpostID5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle3))
         {
-          *v105 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, signpostID5, "processSnapshotGraph", "", v105, 2u);
+          *v104 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, signpostID5, "processSnapshotGraph", "", v104, 2u);
         }
 
         v40 = self->_debugTimer;
@@ -7237,17 +7197,17 @@ LABEL_5:
       signpostID6 = [(VMUDebugTimer *)self->_debugTimer signpostID];
       if (signpostID6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle4))
       {
-        *v105 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_BEGIN, signpostID6, "processSnapshotGraph", "getting node labels", v105, 2u);
+        *v104 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_BEGIN, signpostID6, "processSnapshotGraph", "getting node labels", v104, 2u);
       }
     }
 
-    v104[0] = MEMORY[0x1E69E9820];
-    v104[1] = 3221225472;
-    v104[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke;
-    v104[3] = &unk_1E8277BC0;
-    v104[4] = self;
-    [(VMUKernelCoreMemoryScanner *)self enumerateObjectsWithBlock:v104];
+    v103[0] = MEMORY[0x1E69E9820];
+    v103[1] = 3221225472;
+    v103[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke;
+    v103[3] = &unk_1E8277BC0;
+    v103[4] = self;
+    [(VMUKernelCoreMemoryScanner *)self enumerateObjectsWithBlock:v103];
   }
 
   regionsCount = self->_regionsCount;
@@ -7264,8 +7224,8 @@ LABEL_5:
         signpostID8 = [(VMUDebugTimer *)self->_debugTimer signpostID];
         if (signpostID8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle5))
         {
-          *v105 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_END, signpostID8, "processSnapshotGraph", "", v105, 2u);
+          *v104 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_END, signpostID8, "processSnapshotGraph", "", v104, 2u);
         }
 
         v48 = self->_debugTimer;
@@ -7281,34 +7241,34 @@ LABEL_5:
       signpostID9 = [(VMUDebugTimer *)self->_debugTimer signpostID];
       if (signpostID9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle6))
       {
-        *v105 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_BEGIN, signpostID9, "processSnapshotGraph", "scan nodes into the graph, while recording symbols of __DATA regions and stacks", v105, 2u);
+        *v104 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_BEGIN, signpostID9, "processSnapshotGraph", "scan nodes into the graph, while recording symbols of __DATA regions and stacks", v104, 2u);
       }
     }
 
     v55 = malloc_type_calloc(regionsCount, 4uLL, 0x100004052888210uLL);
-    v87[0] = MEMORY[0x1E69E9820];
-    v87[1] = 3221225472;
-    v87[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_170;
-    v87[3] = &unk_1E8277E28;
-    v98 = v55;
+    v86[0] = MEMORY[0x1E69E9820];
+    v86[1] = 3221225472;
+    v86[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_170;
+    v86[3] = &unk_1E8277E28;
+    v97 = v55;
     optionsCopy = options;
-    v100 = v18;
-    v101 = v83;
-    v102 = v15;
-    v103 = v17;
-    v87[4] = self;
-    v91 = v124;
-    v92 = v121;
-    v93 = v123;
-    v88 = v33;
-    v94 = buf;
-    v95 = v110;
-    v96 = v108;
-    v97 = v106;
-    v89 = sampleAllThreadsOnce;
-    v90 = v82;
-    [(VMUKernelCoreMemoryScanner *)self scanNodesWithReferenceRecorder:v87];
+    v99 = v18;
+    v100 = v82;
+    v101 = v15;
+    v102 = v17;
+    v86[4] = self;
+    v90 = v123;
+    v91 = v120;
+    v92 = v122;
+    v87 = v33;
+    v93 = buf;
+    v94 = v109;
+    v95 = v107;
+    v96 = v105;
+    v88 = sampleAllThreadsOnce;
+    v89 = v81;
+    [(VMUKernelCoreMemoryScanner *)self scanNodesWithReferenceRecorder:v86];
     v56 = self->_debugTimer;
     if (v56)
     {
@@ -7320,8 +7280,8 @@ LABEL_5:
         signpostID11 = [(VMUDebugTimer *)self->_debugTimer signpostID];
         if (signpostID11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle7))
         {
-          *v105 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, signpostID11, "processSnapshotGraph", "", v105, 2u);
+          *v104 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, signpostID11, "processSnapshotGraph", "", v104, 2u);
         }
 
         v56 = self->_debugTimer;
@@ -7337,8 +7297,8 @@ LABEL_5:
       signpostID12 = [(VMUDebugTimer *)self->_debugTimer signpostID];
       if (signpostID12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle8))
       {
-        *v105 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle8, OS_SIGNPOST_INTERVAL_BEGIN, signpostID12, "processSnapshotGraph", "find unreferenced VM regions", v105, 2u);
+        *v104 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle8, OS_SIGNPOST_INTERVAL_BEGIN, signpostID12, "processSnapshotGraph", "find unreferenced VM regions", v104, 2u);
       }
     }
 
@@ -7368,12 +7328,12 @@ LABEL_5:
       while (v66 < v65);
       if (v67)
       {
-        v86[0] = MEMORY[0x1E69E9820];
-        v86[1] = 3221225472;
-        v86[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_187;
-        v86[3] = &unk_1E8277C60;
-        v86[4] = self;
-        [(VMUKernelCoreMemoryScanner *)self _removeFalsePositiveLeakedVMregionsFromNodes:v63 nodeCount:v67 recorder:v86];
+        v85[0] = MEMORY[0x1E69E9820];
+        v85[1] = 3221225472;
+        v85[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_187;
+        v85[3] = &unk_1E8277C60;
+        v85[4] = self;
+        [(VMUKernelCoreMemoryScanner *)self _removeFalsePositiveLeakedVMregionsFromNodes:v63 nodeCount:v67 recorder:v85];
       }
     }
 
@@ -7394,8 +7354,8 @@ LABEL_5:
       signpostID14 = [(VMUDebugTimer *)self->_debugTimer signpostID];
       if (signpostID14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(logHandle9))
       {
-        *v105 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle9, OS_SIGNPOST_INTERVAL_END, signpostID14, "processSnapshotGraph", "", v105, 2u);
+        *v104 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle9, OS_SIGNPOST_INTERVAL_END, signpostID14, "processSnapshotGraph", "", v104, 2u);
       }
 
       v71 = self->_debugTimer;
@@ -7406,18 +7366,18 @@ LABEL_5:
   if (options)
   {
     v75 = [VMUGraphStackLogReader alloc];
-    LODWORD(v81) = self->_zonesCount;
-    v76 = [(VMUGraphStackLogReader *)v75 initWithCore:self->_memoryCache symbolicator:v15 graph:v17 debugTimer:self->_processObjectGraph zones:self->_debugTimer zonesCount:self->_zones, v81];
+    LODWORD(v80) = self->_zonesCount;
+    v76 = [(VMUGraphStackLogReader *)v75 initWithCore:self->_memoryCache symbolicator:v15 graph:v17 debugTimer:self->_processObjectGraph zones:self->_debugTimer zonesCount:self->_zones, v80];
     if (v76)
     {
       [(VMUProcessObjectGraph *)self->_processObjectGraph setStackLogReader:v76];
       v77 = self->_classInfoIndexer;
-      v85[0] = MEMORY[0x1E69E9820];
-      v85[1] = 3221225472;
-      v85[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_189;
-      v85[3] = &unk_1E8277A38;
-      v85[4] = self;
-      [(VMUStackLogReaderBase *)v76 identifyNonObjectsUsingStackBacktraces:self classInfoMap:v77 classInfoSetterBlock:v85];
+      v84[0] = MEMORY[0x1E69E9820];
+      v84[1] = 3221225472;
+      v84[2] = __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_invoke_189;
+      v84[3] = &unk_1E8277A38;
+      v84[4] = self;
+      [(VMUStackLogReaderBase *)v76 identifyNonObjectsUsingStackBacktraces:self classInfoMap:v77 classInfoSetterBlock:v84];
       [(VMUKernelCoreMemoryScanner *)self _updateLinearClassInfos];
     }
   }
@@ -7425,16 +7385,15 @@ LABEL_5:
   [(VMUProcessObjectGraph *)self->_processObjectGraph setIdleExitStatus:self->_idleExitStatus];
   CSRelease();
   v78 = self->_processObjectGraph;
-  _Block_object_dispose(v106, 8);
-  _Block_object_dispose(v108, 8);
+  _Block_object_dispose(v105, 8);
+  _Block_object_dispose(v107, 8);
 
-  _Block_object_dispose(v110, 8);
+  _Block_object_dispose(v109, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v121, 8);
+  _Block_object_dispose(v120, 8);
+  _Block_object_dispose(v122, 8);
   _Block_object_dispose(v123, 8);
-  _Block_object_dispose(v124, 8);
-  v79 = *MEMORY[0x1E69E9840];
 
   return v78;
 }
@@ -7473,67 +7432,11 @@ void __62__VMUKernelCoreMemoryScanner_processSnapshotGraphWithOptions___block_in
         v12 = objc_autoreleasePoolPush();
         v13 = *(*(*(a1 + 32) + 112) + ((*(*(*(a1 + 32) + 96) + 16 * v11 + 8) >> 35) & 0x1FFFFFC0));
         v14 = v13;
-        v15 = *(v13 + 132);
-        if ((v15 & 2) != 0)
+        if ((*(v13 + 132) & 2) != 0)
         {
           if ((*(v13 + 132) & 4) == 0)
           {
-LABEL_17:
-            v21 = (a1 + 152);
-            v23 = (a1 + 160);
-LABEL_18:
-            v24 = *v21;
-            v25 = *v23;
-            if (a3 - *(*(*(a1 + 64) + 8) + 32) >= *(*(*(a1 + 64) + 8) + 40))
-            {
-              CSSymbolicatorGetSectionWithAddressAtTime();
-              Name = CSRegionGetName();
-              if (Name)
-              {
-                v27 = Name;
-                v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
-                Range = CSRegionGetRange();
-                v30 = *(*(a1 + 64) + 8);
-                *(v30 + 32) = Range;
-                *(v30 + 40) = v31;
-                [*(*(a1 + 32) + 480) setBinarySectionName:v28 forRange:{*(*(*(a1 + 64) + 8) + 32), *(*(*(a1 + 64) + 8) + 40)}];
-                v32 = !strncmp(v27, "__DATA __objc_", 0xEuLL) || !strncmp(v27, "__AUTH __objc_", 0xEuLL) || !strncmp(v27, "__DATA_DIRTY __objc_", 0x14uLL) || !strncmp(v27, "__DATA_CONST __objc_", 0x14uLL) || !strncmp(v27, "__AUTH_CONST __objc_", 0x14uLL) || strncmp(v27, "__OBJC ", 7uLL) == 0;
-                *(*(*(a1 + 72) + 8) + 24) = v32;
-              }
-            }
-
-            if (*(*(*(a1 + 72) + 8) + 24))
-            {
-              goto LABEL_33;
-            }
-
-            if (a3 - *(*(*(a1 + 80) + 8) + 32) < *(*(*(a1 + 80) + 8) + 40))
-            {
-              goto LABEL_33;
-            }
-
-            [*(a1 + 40) addAddress:a3 origin:2];
-            CSSymbolicatorGetSymbolWithAddressAtTime();
-            v33 = CSSymbolGetName();
-            if (!v33)
-            {
-              goto LABEL_33;
-            }
-
-            v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v33];
-            v35 = CSSymbolGetRange();
-            v36 = *(*(a1 + 80) + 8);
-            *(v36 + 32) = v35;
-            *(v36 + 40) = v37;
-            v38 = *(*(a1 + 32) + 480);
-            v39 = *(a1 + 80);
-LABEL_32:
-            [v38 setRegionSymbolName:v34 forRange:{*(*(v39 + 8) + 32), *(*(v39 + 8) + 40)}];
-
-LABEL_33:
-
-            objc_autoreleasePoolPop(v12);
-            return;
+            goto LABEL_17;
           }
         }
 
@@ -7541,177 +7444,216 @@ LABEL_33:
         {
           if (*(v13 + 26) != 30 || a3 - *(*(*(a1 + 88) + 8) + 32) < *(*(*(a1 + 88) + 8) + 40))
           {
-            goto LABEL_33;
+            goto LABEL_32;
           }
 
           if (a3 - *(*(*(a1 + 96) + 8) + 32) >= *(*(*(a1 + 96) + 8) + 40))
           {
-            v16 = [*(*(a1 + 32) + 152) indexForLocation:a3];
-            if (v16 == 0x7FFFFFFFFFFFFFFFLL)
+            v15 = [*(*(a1 + 32) + 152) indexForLocation:a3];
+            if (v15 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v17 = *(*(a1 + 96) + 8);
-              *(v17 + 32) = 0;
+              v16 = *(*(a1 + 96) + 8);
+              *(v16 + 32) = 0;
+              *(v16 + 40) = 0;
+              v17 = *(*(a1 + 104) + 8);
+              v18 = *(v17 + 40);
               *(v17 + 40) = 0;
-              v18 = *(*(a1 + 104) + 8);
-              v19 = *(v18 + 40);
-              *(v18 + 40) = 0;
 
               *(*(*(a1 + 112) + 8) + 24) = 0;
             }
 
             else
             {
-              v40 = v16;
-              v41 = [*(*(a1 + 32) + 152) rangeAtIndex:v16];
-              v42 = *(*(a1 + 96) + 8);
-              *(v42 + 32) = v41;
-              *(v42 + 40) = v43;
+              v33 = v15;
+              v34 = [*(*(a1 + 32) + 152) rangeAtIndex:v15];
+              v35 = *(*(a1 + 96) + 8);
+              *(v35 + 32) = v34;
+              *(v35 + 40) = v36;
               if ([*(a1 + 48) count])
               {
-                v44 = 0;
-                v45 = 0;
+                v37 = 0;
+                v38 = 0;
                 while (1)
                 {
-                  v46 = [*(a1 + 48) objectAtIndexedSubscript:v44];
-                  if ([v46 backtraceLength])
+                  v39 = [*(a1 + 48) objectAtIndexedSubscript:v37];
+                  if ([v39 backtraceLength])
                   {
-                    if ([v46 backtraceLength])
+                    if ([v39 backtraceLength])
                     {
-                      v47 = 0;
-                      while (!*([v46 stackFramePointers] + 8 * v47))
+                      v40 = 0;
+                      while (!*([v39 stackFramePointers] + 8 * v40))
                       {
-                        if (++v47 >= [v46 backtraceLength])
+                        if (++v40 >= [v39 backtraceLength])
                         {
-                          goto LABEL_43;
+                          goto LABEL_42;
                         }
                       }
 
-                      v48 = *([v46 stackFramePointers] + 8 * v47);
+                      v41 = *([v39 stackFramePointers] + 8 * v40);
                     }
 
                     else
                     {
-LABEL_43:
-                      v48 = 0;
+LABEL_42:
+                      v41 = 0;
                     }
 
-                    if ((v48 - *(*(*(a1 + 96) + 8) + 32)) < *(*(*(a1 + 96) + 8) + 40))
+                    if ((v41 - *(*(*(a1 + 96) + 8) + 32)) < *(*(*(a1 + 96) + 8) + 40))
                     {
                       break;
                     }
                   }
 
-                  v44 = ++v45;
-                  if ([*(a1 + 48) count] <= v45)
+                  v37 = ++v38;
+                  if ([*(a1 + 48) count] <= v38)
                   {
-                    goto LABEL_49;
+                    goto LABEL_48;
                   }
                 }
 
-                v49 = *(*(a1 + 104) + 8);
-                v50 = *(v49 + 40);
-                *(v49 + 40) = v46;
+                v42 = *(*(a1 + 104) + 8);
+                v43 = *(v42 + 40);
+                *(v42 + 40) = v39;
               }
 
-LABEL_49:
+LABEL_48:
               if (*(*(*(a1 + 104) + 8) + 40))
               {
                 *(*(*(a1 + 112) + 8) + 24) = 0;
-                v51 = [*(a1 + 56) threadDescriptionStringForBacktrace:*(*(*(a1 + 104) + 8) + 40) returnedAddress:0];
-                [*(*(a1 + 32) + 480) setThreadName:v51 forRange:{*(*(*(a1 + 96) + 8) + 32), *(*(*(a1 + 96) + 8) + 40)}];
-                [*(*(a1 + 32) + 480) setThreadName:v51 forRange:{v40, 1}];
+                v44 = [*(a1 + 56) threadDescriptionStringForBacktrace:*(*(*(a1 + 104) + 8) + 40) returnedAddress:0];
+                [*(*(a1 + 32) + 480) setThreadName:v44 forRange:{*(*(*(a1 + 96) + 8) + 32), *(*(*(a1 + 96) + 8) + 40)}];
+                [*(*(a1 + 32) + 480) setThreadName:v44 forRange:{v33, 1}];
               }
 
               else
               {
                 if ([*(*(a1 + 32) + 8) isCore])
                 {
-                  v52 = &stru_1F461F9C8;
+                  v45 = &stru_1F461F9C8;
                 }
 
                 else
                 {
-                  v52 = [*(a1 + 56) threadDescriptionStringForBacktrace:*(*(*(a1 + 104) + 8) + 40) returnedAddress:0];
+                  v45 = [*(a1 + 56) threadDescriptionStringForBacktrace:*(*(*(a1 + 104) + 8) + 40) returnedAddress:0];
                 }
 
-                v53 = [(__CFString *)v52 stringByAppendingString:@"  no associated pthread"];
+                v46 = [(__CFString *)v45 stringByAppendingString:@"  no associated pthread"];
 
-                [*(*(a1 + 32) + 480) setThreadName:v53 forRange:{*(*(*(a1 + 96) + 8) + 32), *(*(*(a1 + 96) + 8) + 40)}];
-                [*(*(a1 + 32) + 480) setThreadName:v53 forRange:{v40, 1}];
+                [*(*(a1 + 32) + 480) setThreadName:v46 forRange:{*(*(*(a1 + 96) + 8) + 32), *(*(*(a1 + 96) + 8) + 40)}];
+                [*(*(a1 + 32) + 480) setThreadName:v46 forRange:{v33, 1}];
               }
             }
           }
 
-          v54 = *(*(*(a1 + 104) + 8) + 40);
-          if (!v54)
+          v47 = *(*(*(a1 + 104) + 8) + 40);
+          if (!v47)
           {
-            goto LABEL_33;
+            goto LABEL_32;
           }
 
-          v55 = [v54 backtraceLength];
-          if (*(*(*(a1 + 112) + 8) + 24) >= v55)
+          v48 = [v47 backtraceLength];
+          if (*(*(*(a1 + 112) + 8) + 24) >= v48)
           {
-            goto LABEL_33;
+            goto LABEL_32;
           }
 
-          v56 = v55;
+          v49 = v48;
           while (1)
           {
-            v57 = *([*(*(*(a1 + 104) + 8) + 40) stackFramePointers] + 8 * *(*(*(a1 + 112) + 8) + 24));
-            v58 = [*(*(*(a1 + 104) + 8) + 40) backtrace];
-            v59 = *(*(a1 + 112) + 8);
-            v60 = *(v59 + 24);
-            if (v57 > a3)
+            v50 = *([*(*(*(a1 + 104) + 8) + 40) stackFramePointers] + 8 * *(*(*(a1 + 112) + 8) + 24));
+            v51 = [*(*(*(a1 + 104) + 8) + 40) backtrace];
+            v52 = *(*(a1 + 112) + 8);
+            v53 = *(v52 + 24);
+            if (v50 > a3)
             {
               break;
             }
 
-            *(v59 + 24) = v60 + 1;
-            if (*(*(*(a1 + 112) + 8) + 24) >= v56)
+            *(v52 + 24) = v53 + 1;
+            if (*(*(*(a1 + 112) + 8) + 24) >= v49)
             {
-              goto LABEL_33;
+              goto LABEL_32;
             }
           }
 
-          v61 = *(v58 + 8 * v60);
-          v62 = *(*(a1 + 88) + 8);
-          *(v62 + 32) = a3;
-          *(v62 + 40) = v57 - a3;
-          v63 = *(a1 + 152);
-          v64 = *(a1 + 160);
+          v54 = *(v51 + 8 * v53);
+          v55 = *(*(a1 + 88) + 8);
+          *(v55 + 32) = a3;
+          *(v55 + 40) = v50 - a3;
           CSSymbolicatorGetSymbolWithAddressAtTime();
           CSSymbolGetSymbolOwner();
-          v65 = CSSymbolOwnerGetName();
+          Name = CSSymbolOwnerGetName();
           if (CSSymbolIsUnnamed())
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"%#llx (in %s)", v61, v65];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"%#llx (in %s)", v54, Name];
           }
 
           else
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"%s (in %s)", CSSymbolGetName(), v65];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"%s (in %s)", CSSymbolGetName(), Name];
           }
-          v34 = ;
-          if (!v34)
+          v27 = ;
+          if (!v27)
           {
-            goto LABEL_33;
+            goto LABEL_32;
           }
 
-          v38 = *(*(a1 + 32) + 480);
-          v39 = *(a1 + 88);
+          v31 = *(*(a1 + 32) + 480);
+          v32 = *(a1 + 88);
+          goto LABEL_31;
+        }
+
+        CSIsNull();
+LABEL_17:
+        if (a3 - *(*(*(a1 + 64) + 8) + 32) >= *(*(*(a1 + 64) + 8) + 40))
+        {
+          CSSymbolicatorGetSectionWithAddressAtTime();
+          v19 = CSRegionGetName();
+          if (v19)
+          {
+            v20 = v19;
+            v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v19];
+            Range = CSRegionGetRange();
+            v23 = *(*(a1 + 64) + 8);
+            *(v23 + 32) = Range;
+            *(v23 + 40) = v24;
+            [*(*(a1 + 32) + 480) setBinarySectionName:v21 forRange:{*(*(*(a1 + 64) + 8) + 32), *(*(*(a1 + 64) + 8) + 40)}];
+            v25 = !strncmp(v20, "__DATA __objc_", 0xEuLL) || !strncmp(v20, "__AUTH __objc_", 0xEuLL) || !strncmp(v20, "__DATA_DIRTY __objc_", 0x14uLL) || !strncmp(v20, "__DATA_CONST __objc_", 0x14uLL) || !strncmp(v20, "__AUTH_CONST __objc_", 0x14uLL) || strncmp(v20, "__OBJC ", 7uLL) == 0;
+            *(*(*(a1 + 72) + 8) + 24) = v25;
+          }
+        }
+
+        if (*(*(*(a1 + 72) + 8) + 24))
+        {
           goto LABEL_32;
         }
 
-        v21 = (a1 + 136);
-        v20 = *(a1 + 136);
-        v23 = (a1 + 144);
-        v22 = *(a1 + 144);
-        if (!CSIsNull())
+        if (a3 - *(*(*(a1 + 80) + 8) + 32) < *(*(*(a1 + 80) + 8) + 40))
         {
-          goto LABEL_18;
+          goto LABEL_32;
         }
 
-        goto LABEL_17;
+        [*(a1 + 40) addAddress:a3 origin:2];
+        CSSymbolicatorGetSymbolWithAddressAtTime();
+        v26 = CSSymbolGetName();
+        if (!v26)
+        {
+          goto LABEL_32;
+        }
+
+        v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v26];
+        v28 = CSSymbolGetRange();
+        v29 = *(*(a1 + 80) + 8);
+        *(v29 + 32) = v28;
+        *(v29 + 40) = v30;
+        v31 = *(*(a1 + 32) + 480);
+        v32 = *(a1 + 80);
+LABEL_31:
+        [v31 setRegionSymbolName:v27 forRange:{*(*(v32 + 8) + 32), *(*(v32 + 8) + 40)}];
+
+LABEL_32:
+
+        objc_autoreleasePoolPop(v12);
       }
     }
   }
@@ -7943,6 +7885,25 @@ LABEL_23:
   return v4;
 }
 
+- (id)vmuVMRegionForNode:(unsigned int)node
+{
+  if ([(VMUKernelCoreMemoryScanner *)self nodeNamespaceSize]<= node)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    objc_msgSend_nodeDetails_(self);
+    v4 = [(VMUKernelCoreMemoryScanner *)self vmuVMRegionForAddress:v6];
+  }
+
+  return v4;
+}
+
 - (id)zoneNameForNode:(unsigned int)node
 {
   if (self->_blocksCount <= node)
@@ -8167,6 +8128,49 @@ LABEL_47:
   {
     return self->_zones[index].var1;
   }
+}
+
+- (id)labelForNode:(unsigned int)node
+{
+  if (self->_blocksCount > node && (v3 = *&node, v5 = &self->_blocks[node], (*(v5 + 1) & 7) == 1))
+  {
+    v6 = *(v5 + 1) >> 41;
+    if (v6 && self->_classInfosCount > v6)
+    {
+      v7 = self->_classInfos[v6];
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v8 = [(VMUObjectIdentifier *)self->_objectIdentifier labelForMemory:[(VMUKernelCoreMemoryScanner *)self contentForNode:v3] length:(*(v5 + 1) >> 5) & 0xFFFFFFFFFLL remoteAddress:v5->var0 classInfo:v7];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (id)shortLabelForNode:(unsigned int)node
+{
+  v3 = [(VMUKernelCoreMemoryScanner *)self labelForNode:*&node];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = shortenString(v3);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
 }
 
 - (void)contentForNode:(unsigned int)node
@@ -9030,26 +9034,24 @@ LABEL_63:
   return self;
 }
 
-uint64_t __59__VMUKernelCoreMemoryScanner_enumerateReferencesWithBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__59__VMUKernelCoreMemoryScanner_enumerateReferencesWithBlock___block_invoke(void *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 8) + 24) & 1) == 0)
   {
-    v6 = result;
-    v7 = *(result + 32);
-    if (v7)
+    v5 = result;
+    v6 = result[4];
+    if (v6)
     {
-      [v7 nodeDetails:a2];
-      v8 = v6[4];
-      if (v8)
+      objc_msgSend_nodeDetails_(v6, a2, a2);
+      v7 = v5[4];
+      if (v7)
       {
-        [v8 nodeDetails:a5];
+        objc_msgSend_nodeDetails_(v7);
       }
     }
 
-    v9 = *(*(v6[7] + 8) + 24);
-    v10 = *(v6[6] + 8);
-    result = (*(v6[5] + 16))();
-    ++*(*(v6[7] + 8) + 24);
+    result = (*(v5[5] + 16))();
+    ++*(*(v5[7] + 8) + 24);
   }
 
   return result;
@@ -9697,1101 +9699,1032 @@ LABEL_11:
       swiftRuntimeInfoPreABI = [*(self + 80) swiftRuntimeInfoPreABI];
     }
 
-    v213 = swiftRuntimeInfoPreABI;
+    v195 = swiftRuntimeInfoPreABI;
 
     hasSwiftContent = [*(self + 80) hasSwiftContent];
     if (length && *(self + 348) == 1)
     {
       v19 = node - 8;
-      if (node < 8)
+      if (node >= 8)
       {
-        goto LABEL_288;
-      }
-
-      v20 = *(*(self + 272) + 8 * length);
-      v21 = [self getCachedScanInfoForClassWithIsa:length classInfo:v20 scanCaches:isa];
-      v22 = v21;
-      v206 = v20;
-      if (v21)
-      {
-        v218 = *v21 >> 31;
-      }
-
-      else
-      {
-        LOBYTE(v218) = 0;
-      }
-
-      v145 = 0;
-      v146 = 0;
-      v217 = a2 + memory;
-      v147 = 0xFFFFFF;
-LABEL_192:
-      v148 = v22[v145];
-      v149 = HIBYTE(v148) & 0x3F;
-      v150 = *&v148 & 0xFFFFFFLL;
-      v151 = v146 + 8;
-      if (v149 == 1)
-      {
-        v151 = v146 + 1;
-      }
-
-      if (v150 == v147)
-      {
-        v146 = v151;
-      }
-
-      else
-      {
-        v146 = v150;
-      }
-
-      if (v150 == v147)
-      {
-        v152 = v145;
-      }
-
-      else
-      {
-        v152 = v145 + 1;
-      }
-
-      if (((*(self + 360) >> HIBYTE(v22[v145])) & 1) == 0 || v146 > v19)
-      {
-        goto LABEL_279;
-      }
-
-      v153 = *(v217 + v146);
-      if (v149 == 3)
-      {
-        v153 &= ~1uLL;
-        v149 = (*(v217 + v146) & 1) != 0 ? 2 : 3;
-      }
-
-      else if (v149 == 5)
-      {
-        v154 = v206;
-        v155 = v213;
-        if (v213)
+        v20 = *(*(self + 272) + 8 * length);
+        v21 = [self getCachedScanInfoForClassWithIsa:length classInfo:v20 scanCaches:isa];
+        v22 = v21;
+        v188 = v20;
+        if (v21)
         {
-          if ([v154 usesSwiftRefcounting] && v146 == objc_msgSend(v154, "pointerSize"))
-          {
-            v156 = v155;
-            v211 = [v156 refcountIsSideTableMarkerMask] & v153;
-            if (v211 == [v156 refcountIsSideTableMarkerValue])
-            {
-              v157 = [v156 sideTablePointerMask] & v153;
-              v158 = v157 >> [v156 sideTablePointerRightShift];
-              v153 = v158 << [v156 sideTablePointerLeftShift];
-            }
+          v200 = *v21 >> 31;
+        }
 
-            else
-            {
-              v153 = 0;
-            }
+        else
+        {
+          LOBYTE(v200) = 0;
+        }
+
+        v133 = 0;
+        v134 = 0;
+        v199 = a2 + memory;
+        v135 = 0xFFFFFF;
+        do
+        {
+          v136 = v22[v133];
+          v137 = HIBYTE(v136) & 0x3F;
+          v138 = *&v136 & 0xFFFFFFLL;
+          v139 = v134 + 8;
+          if (v137 == 1)
+          {
+            v139 = v134 + 1;
+          }
+
+          if (v138 == v135)
+          {
+            v134 = v139;
           }
 
           else
           {
-            v153 &= [v155 nativeWeakReferencePointerMask];
-          }
-        }
-
-        v149 = 5;
-        v147 = 0xFFFFFF;
-      }
-
-      if ((v218 & 1) != 0 || (v22[v145] & 0x40000000) != 0)
-      {
-        v153 &= 0xFFFFFFFFFFFFF8uLL;
-      }
-
-      if (!v153)
-      {
-        goto LABEL_279;
-      }
-
-      v212 = *(*(self + 96) + 16 * offset);
-      v159 = *(self + 128);
-      [VMUTask ptrauthStripDataPointer:?];
-      v147 = 0xFFFFFF;
-      if (*(v159 + 56) < *(v159 + 48))
-      {
-        goto LABEL_279;
-      }
-
-      OUTLINED_FUNCTION_10();
-      if (v33)
-      {
-        goto LABEL_279;
-      }
-
-      v160 = v153 >> *MEMORY[0x1E69E9AC0];
-      if (v160)
-      {
-        v161 = **(v159 + 24);
-        v162 = v153 >> *MEMORY[0x1E69E9AC0];
-        do
-        {
-          if (v161 <= (v162 & 0x3FFFFFF))
-          {
-            goto LABEL_279;
+            v134 = v138;
           }
 
-          OUTLINED_FUNCTION_2();
-          if ((v164 & 1) == 0)
+          if (v138 == v135)
           {
-            goto LABEL_279;
+            v140 = v133;
           }
 
-          v162 = v163 >> 26;
-        }
-
-        while (v162);
-      }
-
-      v165 = v160 & 0x7FFFF;
-      v166 = *(v159 + 64 + 4 * (v160 & 0x7FFFF));
-      v167 = *(v159 + 32);
-      if (v166)
-      {
-        v168 = v167 + ((v166 - 1) << 6);
-        if (v153 - *(*v168 + 8) < *(*v168 + 16))
-        {
-          goto LABEL_229;
-        }
-      }
-
-      v179 = *(v159 + 40);
-      if (!v179)
-      {
-        goto LABEL_279;
-      }
-
-      v180 = *(v159 + 32);
-      while (1)
-      {
-        v181 = v179 >> 1;
-        v168 = v180 + (v179 >> 1 << 6);
-        if (*(*v168 + 8) <= v153)
-        {
-          if (*(*v168 + 16) + *(*v168 + 8) > v153)
+          else
           {
-            v204 = v165;
-            isSpecialPhysFootprintRegion = [*v168 isSpecialPhysFootprintRegion];
-            v184 = v159 + 64;
-            v183 = v204;
-            v147 = 0xFFFFFF;
-            if (isSpecialPhysFootprintRegion)
+            v140 = v133 + 1;
+          }
+
+          if (((*(self + 360) >> HIBYTE(v22[v133])) & 1) != 0 && v134 <= v19)
+          {
+            v141 = *(v199 + v134);
+            if (v137 == 3)
             {
-              v185 = 0;
+              v141 &= ~1uLL;
+              v137 = (*(v199 + v134) & 1) != 0 ? 2 : 3;
             }
 
-            else
+            else if (v137 == 5)
             {
-              v185 = v168;
-            }
-
-            if (isSpecialPhysFootprintRegion)
-            {
-              goto LABEL_279;
-            }
-
-            if ((*(*v185 + 132) & 1) == 0)
-            {
-              goto LABEL_273;
-            }
-
-            v186 = (v185 + 64);
-            v187 = *(v159 + 40) - ((v185 + 64 - *(v159 + 32)) >> 6);
-            if (!v187)
-            {
-              goto LABEL_270;
-            }
-
-            while (2)
-            {
-              v188 = v187 >> 1;
-              v189 = &v186[8 * (v187 >> 1)];
-              if (*(*v189 + 1) > v153)
+              v142 = v188;
+              v143 = v195;
+              if (v195)
               {
-LABEL_265:
-                v64 = v187 > 1;
-                v187 = v188;
-                if (!v64)
+                if ([v142 usesSwiftRefcounting] && v134 == objc_msgSend(v142, "pointerSize"))
                 {
-                  v187 = 0;
-                  goto LABEL_270;
-                }
-
-                continue;
-              }
-
-              break;
-            }
-
-            if (*(*v189 + 2) + *(*v189 + 1) <= v153)
-            {
-              v186 = v189 + 8;
-              v188 = --v187 >> 1;
-              goto LABEL_265;
-            }
-
-            v199 = v185;
-            isSpecialPhysFootprintRegion2 = [*v189 isSpecialPhysFootprintRegion];
-            v185 = v199;
-            v184 = v159 + 64;
-            v183 = v204;
-            v147 = 0xFFFFFF;
-            if (isSpecialPhysFootprintRegion2)
-            {
-              v187 = 0;
-            }
-
-            else
-            {
-              v187 = v189;
-            }
-
-LABEL_270:
-            if (v187)
-            {
-              v185 = v187;
-            }
-
-            v168 = v185;
-LABEL_273:
-            *(v184 + 4 * v183) = ((v185 - v167) >> 6) + 1;
-LABEL_229:
-            if (*(v168 + 20))
-            {
-              if (*(v168 + 8))
-              {
-                if (*(*v159 + 16 * *(v168 + 16)) > v153)
-                {
-                  goto LABEL_279;
-                }
-
-                OUTLINED_FUNCTION_0(*v159);
-                if (v70 || !v33)
-                {
-                  goto LABEL_279;
-                }
-
-                v169 = *MEMORY[0x1E69E9AC8];
-                OUTLINED_FUNCTION_14();
-                v170 = *MEMORY[0x1E69E9AC0];
-                OUTLINED_FUNCTION_1(v171);
-                if (!v70 && v33)
-                {
-                  goto LABEL_279;
-                }
-
-                v175 = *(v173 + 4);
-                if (v175 >= *(v159 + 8) || (OUTLINED_FUNCTION_13(v172), !v70 && v33))
-                {
-                  if (v175 != v174)
+                  v144 = v143;
+                  v193 = [v144 refcountIsSideTableMarkerMask] & v141;
+                  if (v193 == [v144 refcountIsSideTableMarkerValue])
                   {
-                    do
-                    {
-                      OUTLINED_FUNCTION_6();
-                      if (v70 || !v33)
-                      {
-                        OUTLINED_FUNCTION_4();
-                        if (!v70 && v33)
-                        {
-                          goto LABEL_274;
-                        }
+                    v145 = [v144 sideTablePointerMask] & v141;
+                    v146 = v145 >> [v144 sideTablePointerRightShift];
+                    v141 = v146 << [v144 sideTablePointerLeftShift];
+                  }
 
-                        OUTLINED_FUNCTION_11();
-                      }
-                    }
-
-                    while (v177 >= 2);
+                  else
+                  {
+                    v141 = 0;
                   }
                 }
 
                 else
                 {
-                  v191 = *(v176 + 8);
-LABEL_274:
-                  OUTLINED_FUNCTION_8();
-                  if (v33)
+                  v141 &= [v143 nativeWeakReferencePointerMask];
+                }
+              }
+
+              v137 = 5;
+              v135 = 0xFFFFFF;
+            }
+
+            if ((v200 & 1) != 0 || (v22[v133] & 0x40000000) != 0)
+            {
+              v141 &= 0xFFFFFFFFFFFFF8uLL;
+            }
+
+            if (v141)
+            {
+              v194 = *(*(self + 96) + 16 * offset);
+              v147 = *(self + 128);
+              [VMUTask ptrauthStripDataPointer:?];
+              v135 = 0xFFFFFF;
+              if (*(v147 + 56) >= *(v147 + 48))
+              {
+                OUTLINED_FUNCTION_10();
+                if (!v33)
+                {
+                  v148 = v141 >> *MEMORY[0x1E69E9AC0];
+                  if (v148)
                   {
-                    OUTLINED_FUNCTION_7();
-                    if (v193 >= *(v159 + 16))
+                    v149 = **(v147 + 24);
+                    v150 = v141 >> *MEMORY[0x1E69E9AC0];
+                    do
                     {
-                      OUTLINED_FUNCTION_12();
-                      if (!v70 && v33 || v194 == -1)
+                      if (v149 <= (v150 & 0x3FFFFFF))
                       {
                         goto LABEL_279;
                       }
-                    }
 
-                    else if (v192 == -1)
-                    {
-                      goto LABEL_279;
-                    }
-
-                    (*(stride + 16))(stride, offset, v146 + memory + v212, v149);
-                    v147 = 0xFFFFFF;
-                  }
-                }
-              }
-
-              else
-              {
-                do
-                {
-                  OUTLINED_FUNCTION_3();
-                  if (v70 || !v33)
-                  {
-                    OUTLINED_FUNCTION_5();
-                    if (!v70 && v33)
-                    {
-                      goto LABEL_274;
-                    }
-
-                    OUTLINED_FUNCTION_9();
-                  }
-                }
-
-                while (v178 >= 2);
-              }
-            }
-
-LABEL_279:
-            v145 = v152;
-            if (v146 > v19)
-            {
-              v75 = v206;
-              goto LABEL_287;
-            }
-
-            goto LABEL_192;
-          }
-
-          v180 = v168 + 64;
-          v181 = --v179 >> 1;
-        }
-
-        v33 = v179 >= 2;
-        v179 = v181;
-        if (!v33)
-        {
-          goto LABEL_279;
-        }
-      }
-    }
-
-    if (!caches || *(self + 348) != 1)
-    {
-      if ((*(self + 360) & 2) == 0)
-      {
-        goto LABEL_288;
-      }
-
-      v71 = (a2 + memory) % info;
-      if (v71)
-      {
-        v72 = (a2 + memory + info - v71);
-      }
-
-      else
-      {
-        v72 = (a2 + memory);
-      }
-
-      if (length)
-      {
-        v73 = *(*(self + 272) + 8 * length);
-      }
-
-      else
-      {
-        v73 = 0;
-      }
-
-      v74 = hasSwiftContent;
-      v220 = a2 + memory + node - 8;
-      v75 = v73;
-      if (*(self + 300))
-      {
-        v215 = *([*(self + 80) autoreleasePoolPageLayout] + 16);
-      }
-
-      else
-      {
-        v215 = 0;
-      }
-
-      if (v72 > v220)
-      {
-        goto LABEL_287;
-      }
-
-      v203 = stride + 16;
-LABEL_95:
-      v76 = v72 - a2;
-      v77 = *(*(self + 96) + 16 * offset);
-      v78 = *v72;
-      if (*v72)
-      {
-        if (v74)
-        {
-          if (v75 && v76 == 8 && [v75 infoType] == 8 && objc_msgSend(v75, "usesSwiftRefcounting"))
-          {
-            v79 = v213;
-            v80 = v79;
-            if (v213 && (v81 = [v79 refcountIsSideTableMarkerMask] & v78, v81 == objc_msgSend(v80, "refcountIsSideTableMarkerValue")))
-            {
-              v82 = [v80 sideTablePointerMask] & v78;
-              v83 = v82 >> [v80 sideTablePointerRightShift];
-              v78 = v83 << [v80 sideTablePointerLeftShift];
-            }
-
-            else
-            {
-              v78 = 0;
-            }
-          }
-
-          else if ((*(*(self + 96) + 16 * offset + 8) & 7u) - 2 < 3)
-          {
-            v78 &= 0xFFFFFFFFFFFFF8uLL;
-          }
-        }
-
-        if (v215 && ([*(self + 80) isTaggedPointer:v78] & 1) == 0)
-        {
-          v92 = a2;
-          v93 = v75;
-          v94 = v78 & v215;
-          if (v78 != (v78 & v215))
-          {
-            v95 = [*(self + 80) countFromPointerInAutoreleasePool:v78];
-            v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(v95 + 1)];
-            v97 = *(self + 504);
-            v98 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v77 + v76];
-            [v97 setObject:v96 forKeyedSubscript:v98];
-
-            v78 = v94;
-          }
-
-          v75 = v93;
-          a2 = v92;
-          v74 = hasSwiftContent;
-        }
-
-        v99 = *(self + 312);
-        if (v99)
-        {
-          if ((*(*(self + 96) + 16 * offset + 8) & 7) == 2)
-          {
-            v100 = NSMapGet(v99, (v77 + v76));
-            if (v100)
-            {
-              v78 = v100;
-            }
-          }
-        }
-
-        if ([*(self + 520) containsLocation:v77 + v76])
-        {
-          goto LABEL_180;
-        }
-
-        if (!v78)
-        {
-          goto LABEL_180;
-        }
-
-        v101 = *(self + 128);
-        [VMUTask ptrauthStripDataPointer:?];
-        if (*(v101 + 56) < *(v101 + 48))
-        {
-          goto LABEL_180;
-        }
-
-        OUTLINED_FUNCTION_10();
-        if (v33)
-        {
-          goto LABEL_180;
-        }
-
-        v102 = v78 >> *MEMORY[0x1E69E9AC0];
-        if (v102)
-        {
-          v103 = **(v101 + 24);
-          v104 = v78 >> *MEMORY[0x1E69E9AC0];
-          do
-          {
-            if (v103 <= (v104 & 0x3FFFFFF))
-            {
-              goto LABEL_180;
-            }
-
-            OUTLINED_FUNCTION_2();
-            if ((v106 & 1) == 0)
-            {
-              goto LABEL_180;
-            }
-
-            v104 = v105 >> 26;
-          }
-
-          while (v104);
-        }
-
-        v107 = v102 & 0x7FFFF;
-        v108 = *(v101 + 64 + 4 * (v102 & 0x7FFFF));
-        if (v108)
-        {
-          v109 = *(v101 + 32) + ((v108 - 1) << 6);
-          if (v78 - *(*v109 + 8) < *(*v109 + 16))
-          {
-            goto LABEL_130;
-          }
-        }
-
-        v120 = *(v101 + 40);
-        if (!v120)
-        {
-          goto LABEL_180;
-        }
-
-        v121 = *(v101 + 32);
-        while (1)
-        {
-          v122 = v120 >> 1;
-          v109 = v121 + (v120 >> 1 << 6);
-          if (*(*v109 + 8) <= v78)
-          {
-            if (*(*v109 + 16) + *(*v109 + 8) > v78)
-            {
-              v198 = v101 + 64;
-              v200 = v107;
-              v197 = *(v101 + 32);
-              isSpecialPhysFootprintRegion3 = [*v109 isSpecialPhysFootprintRegion];
-              v125 = v197;
-              v124 = v101 + 64;
-              v126 = v200;
-              if (isSpecialPhysFootprintRegion3)
-              {
-                v127 = 0;
-              }
-
-              else
-              {
-                v127 = v109;
-              }
-
-              if (isSpecialPhysFootprintRegion3)
-              {
-                goto LABEL_180;
-              }
-
-              if ((*(*v127 + 132) & 1) == 0)
-              {
-                goto LABEL_178;
-              }
-
-              v128 = (v127 + 64);
-              v129 = *(v101 + 40) - ((v127 + 64 - *(v101 + 32)) >> 6);
-              if (!v129)
-              {
-                goto LABEL_175;
-              }
-
-              v205 = v75;
-              while (1)
-              {
-                v130 = v129 >> 1;
-                v131 = &v128[8 * (v129 >> 1)];
-                if (*(*v131 + 1) <= v78)
-                {
-                  if (*(*v131 + 2) + *(*v131 + 1) > v78)
-                  {
-                    v132 = v127;
-                    isSpecialPhysFootprintRegion4 = [*v131 isSpecialPhysFootprintRegion];
-                    v127 = v132;
-                    v125 = v197;
-                    v124 = v101 + 64;
-                    v126 = v200;
-                    if (isSpecialPhysFootprintRegion4)
-                    {
-                      v129 = 0;
-                    }
-
-                    else
-                    {
-                      v129 = v131;
-                    }
-
-LABEL_174:
-                    v75 = v205;
-LABEL_175:
-                    if (v129)
-                    {
-                      v127 = v129;
-                    }
-
-                    v109 = v127;
-LABEL_178:
-                    *(v124 + 4 * v126) = ((v127 - v125) >> 6) + 1;
-LABEL_130:
-                    if (!*(v109 + 20))
-                    {
-                      goto LABEL_180;
-                    }
-
-                    if (!*(v109 + 8))
-                    {
-                      do
+                      OUTLINED_FUNCTION_2();
+                      if ((v152 & 1) == 0)
                       {
-                        OUTLINED_FUNCTION_3();
-                        if (v70 || !v33)
-                        {
-                          OUTLINED_FUNCTION_5();
-                          if (!v70 && v33)
-                          {
-                            goto LABEL_179;
-                          }
-
-                          OUTLINED_FUNCTION_9();
-                        }
+                        goto LABEL_279;
                       }
 
-                      while (v119 >= 2);
-                      goto LABEL_180;
+                      v150 = v151 >> 26;
                     }
 
-                    if (*(*v101 + 16 * *(v109 + 16)) > v78)
-                    {
-                      goto LABEL_180;
-                    }
+                    while (v150);
+                  }
 
-                    OUTLINED_FUNCTION_0(*v101);
-                    if (v70 || !v33)
+                  v153 = v148 & 0x7FFFF;
+                  v154 = *(v147 + 64 + 4 * (v148 & 0x7FFFF));
+                  v155 = *(v147 + 32);
+                  if (v154)
+                  {
+                    v156 = v155 + ((v154 - 1) << 6);
+                    if (v141 - *(*v156 + 8) < *(*v156 + 16))
                     {
-                      goto LABEL_180;
+                      goto LABEL_229;
                     }
+                  }
 
-                    v110 = *MEMORY[0x1E69E9AC8];
-                    OUTLINED_FUNCTION_14();
-                    v111 = *MEMORY[0x1E69E9AC0];
-                    OUTLINED_FUNCTION_1(v112);
-                    if (!v70 && v33)
+                  v162 = *(v147 + 40);
+                  if (v162)
+                  {
+                    v163 = *(v147 + 32);
+                    do
                     {
-                      goto LABEL_180;
-                    }
-
-                    v116 = *(v114 + 4);
-                    if (v116 >= *(v101 + 8) || (OUTLINED_FUNCTION_13(v113), !v70 && v33))
-                    {
-                      if (v116 != v115)
+                      v164 = v162 >> 1;
+                      v156 = v163 + (v162 >> 1 << 6);
+                      if (*(*v156 + 8) <= v141)
                       {
-                        do
+                        if (*(*v156 + 16) + *(*v156 + 8) > v141)
                         {
-                          OUTLINED_FUNCTION_6();
-                          if (v70 || !v33)
+                          v186 = v153;
+                          isSpecialPhysFootprintRegion = [*v156 isSpecialPhysFootprintRegion];
+                          v167 = v147 + 64;
+                          v166 = v186;
+                          v135 = 0xFFFFFF;
+                          if (isSpecialPhysFootprintRegion)
                           {
-                            OUTLINED_FUNCTION_4();
-                            if (!v70 && v33)
+                            v168 = 0;
+                          }
+
+                          else
+                          {
+                            v168 = v156;
+                          }
+
+                          if (isSpecialPhysFootprintRegion)
+                          {
+                            break;
+                          }
+
+                          if ((*(*v168 + 132) & 1) == 0)
+                          {
+                            goto LABEL_273;
+                          }
+
+                          v169 = (v168 + 64);
+                          v170 = *(v147 + 40) - ((v168 + 64 - *(v147 + 32)) >> 6);
+                          if (!v170)
+                          {
+                            goto LABEL_270;
+                          }
+
+                          while (1)
+                          {
+                            v171 = v170 >> 1;
+                            v172 = &v169[8 * (v170 >> 1)];
+                            if (*(*v172 + 1) <= v141)
                             {
-                              goto LABEL_179;
+                              if (*(*v172 + 2) + *(*v172 + 1) > v141)
+                              {
+                                v181 = v168;
+                                isSpecialPhysFootprintRegion2 = [*v172 isSpecialPhysFootprintRegion];
+                                v168 = v181;
+                                v167 = v147 + 64;
+                                v166 = v186;
+                                v135 = 0xFFFFFF;
+                                if (isSpecialPhysFootprintRegion2)
+                                {
+                                  v170 = 0;
+                                }
+
+                                else
+                                {
+                                  v170 = v172;
+                                }
+
+LABEL_270:
+                                if (v170)
+                                {
+                                  v168 = v170;
+                                }
+
+                                v156 = v168;
+LABEL_273:
+                                *(v167 + 4 * v166) = ((v168 - v155) >> 6) + 1;
+LABEL_229:
+                                if (*(v156 + 20))
+                                {
+                                  if (*(v156 + 8))
+                                  {
+                                    if (*(*v147 + 16 * *(v156 + 16)) <= v141)
+                                    {
+                                      OUTLINED_FUNCTION_0();
+                                      if (!v64 && v33)
+                                      {
+                                        OUTLINED_FUNCTION_14();
+                                        OUTLINED_FUNCTION_1();
+                                        if (v64 || !v33)
+                                        {
+                                          v159 = *(v157 + 4);
+                                          if (v159 >= *(v147 + 8) || (OUTLINED_FUNCTION_13(), !v64 && v33))
+                                          {
+                                            if (v159 != v158)
+                                            {
+                                              do
+                                              {
+                                                OUTLINED_FUNCTION_6();
+                                                if (v64 || !v33)
+                                                {
+                                                  OUTLINED_FUNCTION_4();
+                                                  if (!v64 && v33)
+                                                  {
+                                                    goto LABEL_274;
+                                                  }
+
+                                                  OUTLINED_FUNCTION_11();
+                                                }
+                                              }
+
+                                              while (v160 >= 2);
+                                            }
+                                          }
+
+                                          else
+                                          {
+LABEL_274:
+                                            OUTLINED_FUNCTION_8();
+                                            if (!v33)
+                                            {
+                                              goto LABEL_279;
+                                            }
+
+                                            OUTLINED_FUNCTION_7();
+                                            if (v175 < *(v147 + 16))
+                                            {
+                                              if (v174 == -1)
+                                              {
+                                                goto LABEL_279;
+                                              }
+
+                                              goto LABEL_278;
+                                            }
+
+                                            OUTLINED_FUNCTION_12();
+                                            if ((v64 || !v33) && v176 != -1)
+                                            {
+LABEL_278:
+                                              (*(stride + 16))(stride, offset, v134 + memory + v194, v137);
+                                              v135 = 0xFFFFFF;
+                                              goto LABEL_279;
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+
+                                  else
+                                  {
+                                    do
+                                    {
+                                      OUTLINED_FUNCTION_3();
+                                      if (v64 || !v33)
+                                      {
+                                        OUTLINED_FUNCTION_5();
+                                        if (!v64 && v33)
+                                        {
+                                          goto LABEL_274;
+                                        }
+
+                                        OUTLINED_FUNCTION_9();
+                                      }
+                                    }
+
+                                    while (v161 >= 2);
+                                  }
+                                }
+
+                                goto LABEL_279;
+                              }
+
+                              v169 = v172 + 8;
+                              v171 = --v170 >> 1;
                             }
 
-                            OUTLINED_FUNCTION_11();
+                            v59 = v170 > 1;
+                            v170 = v171;
+                            if (!v59)
+                            {
+                              v170 = 0;
+                              goto LABEL_270;
+                            }
                           }
                         }
 
-                        while (v118 >= 2);
+                        v163 = v156 + 64;
+                        v164 = --v162 >> 1;
                       }
 
-                      goto LABEL_180;
+                      v33 = v162 >= 2;
+                      v162 = v164;
                     }
 
-                    v134 = *(v117 + 8);
-LABEL_179:
-                    OUTLINED_FUNCTION_8();
-                    if (!v33)
-                    {
-LABEL_180:
-                      v72 = (v72 + info);
-                      if (v72 > v220)
-                      {
-LABEL_287:
-
-                        goto LABEL_288;
-                      }
-
-                      goto LABEL_95;
-                    }
-
-                    OUTLINED_FUNCTION_7();
-                    if (v143 >= *(v101 + 16))
-                    {
-                      OUTLINED_FUNCTION_12();
-                      if (!v70 && v33 || v139 == -1)
-                      {
-                        goto LABEL_180;
-                      }
-                    }
-
-                    else if (v139 == -1)
-                    {
-                      goto LABEL_180;
-                    }
-
-                    v90 = OUTLINED_FUNCTION_15_0(v135, v136, v137, v138, v139, v140, v141, v142, v196, v197, v198, v200, v203, v205, strideCopy);
-LABEL_107:
-                    v91(v90);
-                    goto LABEL_180;
+                    while (v33);
                   }
-
-                  v128 = v131 + 8;
-                  v130 = --v129 >> 1;
-                }
-
-                v64 = v129 > 1;
-                v129 = v130;
-                if (!v64)
-                {
-                  v129 = 0;
-                  goto LABEL_174;
                 }
               }
             }
-
-            v121 = v109 + 64;
-            v122 = --v120 >> 1;
           }
 
-          v33 = v120 >= 2;
-          v120 = v122;
-          if (!v33)
-          {
-            goto LABEL_180;
-          }
-        }
-      }
-
-      if (!*(self + 300))
-      {
-        goto LABEL_180;
-      }
-
-      autoreleasePoolPageLayout = [*(self + 80) autoreleasePoolPageLayout];
-      if (v76 < *(autoreleasePoolPageLayout + 8))
-      {
-        goto LABEL_180;
-      }
-
-      v90 = OUTLINED_FUNCTION_15_0(autoreleasePoolPageLayout, v85, v86, v87, *(self + 296), *(*(self + 96) + 16 * *(self + 296)), v88, v89, v196, v197, v198, v200, v203, v205, strideCopy);
-      goto LABEL_107;
-    }
-
-    v23 = ((memory + 7) & 0xFFFFFFF8) - memory;
-    v24 = (v23 + 8);
-    if (v24 > node)
-    {
-      goto LABEL_288;
-    }
-
-    v219 = a2 + memory;
-LABEL_14:
-    v25 = v23;
-    v23 = v24;
-    v221 = 0;
-    v26 = [caches getLeafFieldAtOffset:v25 leafOffset:&v221];
-    v27 = v221 + 8;
-    if (v27 > [v26 size])
-    {
-      goto LABEL_75;
-    }
-
-    v28 = *(v219 + v25);
-    v29 = *(self + 8);
-    v214 = *(*(self + 96) + 16 * offset);
-    scanType = [v26 scanType];
-    if (!v28)
-    {
-      goto LABEL_75;
-    }
-
-    v31 = scanType;
-    v32 = *(self + 128);
-    [VMUTask ptrauthStripDataPointer:v29];
-    if (*(v32 + 56) < *(v32 + 48))
-    {
-      goto LABEL_75;
-    }
-
-    OUTLINED_FUNCTION_10();
-    if (v33)
-    {
-      goto LABEL_75;
-    }
-
-    v34 = v28 >> *MEMORY[0x1E69E9AC0];
-    if (v34)
-    {
-      v35 = **(v32 + 24);
-      v36 = v28 >> *MEMORY[0x1E69E9AC0];
-      do
-      {
-        if (v35 <= (v36 & 0x3FFFFFF))
-        {
-          goto LABEL_75;
+LABEL_279:
+          v133 = v140;
         }
 
-        OUTLINED_FUNCTION_2();
-        if ((v38 & 1) == 0)
-        {
-          goto LABEL_75;
-        }
-
-        v36 = v37 >> 26;
-      }
-
-      while (v36);
-    }
-
-    v39 = v34 & 0x7FFFF;
-    v40 = *(v32 + 64 + 4 * (v34 & 0x7FFFF));
-    if (v40)
-    {
-      v41 = *(v32 + 32) + ((v40 - 1) << 6);
-      if (v28 - *(*v41 + 8) < *(*v41 + 16))
-      {
-        goto LABEL_25;
+        while (v134 <= v19);
+        v69 = v188;
+LABEL_287:
       }
     }
 
-    v52 = *(v32 + 40);
-    if (!v52)
+    else
     {
-      goto LABEL_75;
-    }
-
-    v53 = *(v32 + 32);
-    while (1)
-    {
-      v54 = v52 >> 1;
-      v41 = v53 + (v52 >> 1 << 6);
-      if (*(*v41 + 8) <= v28)
+      if (caches && *(self + 348) == 1)
       {
-        if (*(*v41 + 16) + *(*v41 + 8) > v28)
+        v23 = ((memory + 7) & 0xFFFFFFF8) - memory;
+        v24 = (v23 + 8);
+        if (v24 <= node)
         {
-          v210 = v39;
-          v202 = *(v32 + 32);
-          isSpecialPhysFootprintRegion5 = [*v41 isSpecialPhysFootprintRegion];
-          v57 = v202;
-          v56 = v32 + 64;
-          v58 = v210;
-          if (isSpecialPhysFootprintRegion5)
+          v201 = a2 + memory;
+          do
           {
-            v59 = 0;
-          }
-
-          else
-          {
-            v59 = v41;
-          }
-
-          if (isSpecialPhysFootprintRegion5)
-          {
-            goto LABEL_75;
-          }
-
-          if ((*(*v59 + 132) & 1) == 0)
-          {
-            goto LABEL_69;
-          }
-
-          v60 = (v59 + 64);
-          v61 = *(v32 + 40) - ((v59 + 64 - *(v32 + 32)) >> 6);
-          if (!v61)
-          {
-            goto LABEL_66;
-          }
-
-          while (2)
-          {
-            v62 = v61 >> 1;
-            v63 = &v60[8 * (v61 >> 1)];
-            if (*(*v63 + 1) > v28)
+            v25 = v23;
+            v23 = v24;
+            v203 = 0;
+            v26 = [caches getLeafFieldAtOffset:v25 leafOffset:&v203];
+            v27 = v203 + 8;
+            if (v27 <= [v26 size])
             {
-LABEL_61:
-              v64 = v61 > 1;
-              v61 = v62;
-              if (!v64)
+              v28 = *(v201 + v25);
+              v29 = *(self + 8);
+              v196 = *(*(self + 96) + 16 * offset);
+              scanType = [v26 scanType];
+              if (v28)
               {
-                v61 = 0;
-                goto LABEL_66;
-              }
+                v31 = scanType;
+                v32 = *(self + 128);
+                [VMUTask ptrauthStripDataPointer:v29];
+                if (*(v32 + 56) >= *(v32 + 48))
+                {
+                  OUTLINED_FUNCTION_10();
+                  if (!v33)
+                  {
+                    v34 = v28 >> *MEMORY[0x1E69E9AC0];
+                    if (v34)
+                    {
+                      v35 = **(v32 + 24);
+                      v36 = v28 >> *MEMORY[0x1E69E9AC0];
+                      do
+                      {
+                        if (v35 <= (v36 & 0x3FFFFFF))
+                        {
+                          goto LABEL_75;
+                        }
 
-              continue;
-            }
+                        OUTLINED_FUNCTION_2();
+                        if ((v38 & 1) == 0)
+                        {
+                          goto LABEL_75;
+                        }
 
-            break;
-          }
+                        v36 = v37 >> 26;
+                      }
 
-          if (*(*v63 + 2) + *(*v63 + 1) <= v28)
-          {
-            v60 = v63 + 8;
-            v62 = --v61 >> 1;
-            goto LABEL_61;
-          }
+                      while (v36);
+                    }
 
-          v201 = v59;
-          isSpecialPhysFootprintRegion6 = [*v63 isSpecialPhysFootprintRegion];
-          v59 = v201;
-          v57 = v202;
-          v56 = v32 + 64;
-          v58 = v210;
-          if (isSpecialPhysFootprintRegion6)
-          {
-            v61 = 0;
-          }
+                    v39 = v34 & 0x7FFFF;
+                    v40 = *(v32 + 64 + 4 * (v34 & 0x7FFFF));
+                    if (v40)
+                    {
+                      v41 = *(v32 + 32) + ((v40 - 1) << 6);
+                      if (v28 - *(*v41 + 8) < *(*v41 + 16))
+                      {
+                        goto LABEL_25;
+                      }
+                    }
 
-          else
-          {
-            v61 = v63;
-          }
+                    v47 = *(v32 + 40);
+                    if (v47)
+                    {
+                      v48 = *(v32 + 32);
+                      do
+                      {
+                        v49 = v47 >> 1;
+                        v41 = v48 + (v47 >> 1 << 6);
+                        if (*(*v41 + 8) <= v28)
+                        {
+                          if (*(*v41 + 16) + *(*v41 + 8) > v28)
+                          {
+                            v192 = v39;
+                            v184 = *(v32 + 32);
+                            isSpecialPhysFootprintRegion3 = [*v41 isSpecialPhysFootprintRegion];
+                            v52 = v184;
+                            v51 = v32 + 64;
+                            v53 = v192;
+                            if (isSpecialPhysFootprintRegion3)
+                            {
+                              v54 = 0;
+                            }
+
+                            else
+                            {
+                              v54 = v41;
+                            }
+
+                            if (isSpecialPhysFootprintRegion3)
+                            {
+                              break;
+                            }
+
+                            if ((*(*v54 + 132) & 1) == 0)
+                            {
+                              goto LABEL_69;
+                            }
+
+                            v55 = (v54 + 64);
+                            v56 = *(v32 + 40) - ((v54 + 64 - *(v32 + 32)) >> 6);
+                            if (!v56)
+                            {
+                              goto LABEL_66;
+                            }
+
+                            while (1)
+                            {
+                              v57 = v56 >> 1;
+                              v58 = &v55[8 * (v56 >> 1)];
+                              if (*(*v58 + 1) <= v28)
+                              {
+                                if (*(*v58 + 2) + *(*v58 + 1) > v28)
+                                {
+                                  v183 = v54;
+                                  isSpecialPhysFootprintRegion4 = [*v58 isSpecialPhysFootprintRegion];
+                                  v54 = v183;
+                                  v52 = v184;
+                                  v51 = v32 + 64;
+                                  v53 = v192;
+                                  if (isSpecialPhysFootprintRegion4)
+                                  {
+                                    v56 = 0;
+                                  }
+
+                                  else
+                                  {
+                                    v56 = v58;
+                                  }
 
 LABEL_66:
-          if (v61)
-          {
-            v59 = v61;
-          }
+                                  if (v56)
+                                  {
+                                    v54 = v56;
+                                  }
 
-          v41 = v59;
+                                  v41 = v54;
 LABEL_69:
-          *(v56 + 4 * v58) = ((v59 - v57) >> 6) + 1;
+                                  *(v51 + 4 * v53) = ((v54 - v52) >> 6) + 1;
 LABEL_25:
-          if (*(v41 + 20))
-          {
-            if (*(v41 + 8))
-            {
-              if (*(*v32 + 16 * *(v41 + 16)) > v28)
-              {
-                goto LABEL_75;
-              }
+                                  if (*(v41 + 20))
+                                  {
+                                    if (*(v41 + 8))
+                                    {
+                                      if (*(*v32 + 16 * *(v41 + 16)) <= v28)
+                                      {
+                                        OUTLINED_FUNCTION_0();
+                                        if (!v64 && v33)
+                                        {
+                                          OUTLINED_FUNCTION_14();
+                                          OUTLINED_FUNCTION_1();
+                                          if (v64 || !v33)
+                                          {
+                                            v44 = *(v42 + 4);
+                                            if (v44 >= *(v32 + 8) || (OUTLINED_FUNCTION_13(), !v64 && v33))
+                                            {
+                                              if (v44 != v43)
+                                              {
+                                                do
+                                                {
+                                                  OUTLINED_FUNCTION_6();
+                                                  if (v64 || !v33)
+                                                  {
+                                                    OUTLINED_FUNCTION_4();
+                                                    if (!v64 && v33)
+                                                    {
+                                                      goto LABEL_70;
+                                                    }
 
-              OUTLINED_FUNCTION_0(*v32);
-              if (v70 || !v33)
-              {
-                goto LABEL_75;
-              }
+                                                    OUTLINED_FUNCTION_11();
+                                                  }
+                                                }
 
-              v42 = *MEMORY[0x1E69E9AC8];
-              OUTLINED_FUNCTION_14();
-              v43 = *MEMORY[0x1E69E9AC0];
-              OUTLINED_FUNCTION_1(v44);
-              if (!v70 && v33)
-              {
-                goto LABEL_75;
-              }
+                                                while (v45 >= 2);
+                                              }
+                                            }
 
-              v48 = *(v46 + 4);
-              if (v48 >= *(v32 + 8) || (OUTLINED_FUNCTION_13(v45), !v70 && v33))
-              {
-                if (v48 != v47)
-                {
-                  do
-                  {
-                    OUTLINED_FUNCTION_6();
-                    if (v70 || !v33)
-                    {
-                      OUTLINED_FUNCTION_4();
-                      if (!v70 && v33)
-                      {
-                        goto LABEL_70;
+                                            else
+                                            {
+LABEL_70:
+                                              OUTLINED_FUNCTION_8();
+                                              if (!v33)
+                                              {
+                                                goto LABEL_75;
+                                              }
+
+                                              OUTLINED_FUNCTION_7();
+                                              if (v62 < *(v32 + 16))
+                                              {
+                                                if (v61 == -1)
+                                                {
+                                                  goto LABEL_75;
+                                                }
+
+                                                goto LABEL_74;
+                                              }
+
+                                              OUTLINED_FUNCTION_12();
+                                              v64 = !v64 && v33 || v63 == -1;
+                                              if (!v64)
+                                              {
+LABEL_74:
+                                                (*(stride + 16))(stride, offset, memory + v25 + v196, v31);
+                                                goto LABEL_75;
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      do
+                                      {
+                                        OUTLINED_FUNCTION_3();
+                                        if (v64 || !v33)
+                                        {
+                                          OUTLINED_FUNCTION_5();
+                                          if (!v64 && v33)
+                                          {
+                                            goto LABEL_70;
+                                          }
+
+                                          OUTLINED_FUNCTION_9();
+                                        }
+                                      }
+
+                                      while (v46 >= 2);
+                                    }
+                                  }
+
+                                  goto LABEL_75;
+                                }
+
+                                v55 = v58 + 8;
+                                v57 = --v56 >> 1;
+                              }
+
+                              v59 = v56 > 1;
+                              v56 = v57;
+                              if (!v59)
+                              {
+                                v56 = 0;
+                                goto LABEL_66;
+                              }
+                            }
+                          }
+
+                          v48 = v41 + 64;
+                          v49 = --v47 >> 1;
+                        }
+
+                        v33 = v47 >= 2;
+                        v47 = v49;
                       }
 
-                      OUTLINED_FUNCTION_11();
+                      while (v33);
                     }
                   }
-
-                  while (v50 >= 2);
-                }
-              }
-
-              else
-              {
-                v66 = *(v49 + 8);
-LABEL_70:
-                OUTLINED_FUNCTION_8();
-                if (v33)
-                {
-                  OUTLINED_FUNCTION_7();
-                  if (v68 >= *(v32 + 16))
-                  {
-                    OUTLINED_FUNCTION_12();
-                    v70 = !v70 && v33 || v69 == -1;
-                    if (v70)
-                    {
-                      goto LABEL_75;
-                    }
-                  }
-
-                  else if (v67 == -1)
-                  {
-                    goto LABEL_75;
-                  }
-
-                  (*(stride + 16))(stride, offset, memory + v25 + v214, v31);
                 }
               }
             }
-
-            else
-            {
-              do
-              {
-                OUTLINED_FUNCTION_3();
-                if (v70 || !v33)
-                {
-                  OUTLINED_FUNCTION_5();
-                  if (!v70 && v33)
-                  {
-                    goto LABEL_70;
-                  }
-
-                  OUTLINED_FUNCTION_9();
-                }
-              }
-
-              while (v51 >= 2);
-            }
-          }
 
 LABEL_75:
 
-          v24 = (v23 + 8);
-          if (v24 > node)
-          {
-LABEL_288:
-
-            return;
+            v24 = (v23 + 8);
           }
 
-          goto LABEL_14;
+          while (v24 <= node);
         }
 
-        v53 = v41 + 64;
-        v54 = --v52 >> 1;
+        goto LABEL_288;
       }
 
-      v33 = v52 >= 2;
-      v52 = v54;
-      if (!v33)
+      if ((*(self + 360) & 2) != 0)
       {
-        goto LABEL_75;
+        v65 = (a2 + memory) % info;
+        if (v65)
+        {
+          v66 = (a2 + memory + info - v65);
+        }
+
+        else
+        {
+          v66 = (a2 + memory);
+        }
+
+        if (length)
+        {
+          v67 = *(*(self + 272) + 8 * length);
+        }
+
+        else
+        {
+          v67 = 0;
+        }
+
+        v68 = hasSwiftContent;
+        v202 = a2 + memory + node - 8;
+        v69 = v67;
+        if (*(self + 300))
+        {
+          v197 = *([*(self + 80) autoreleasePoolPageLayout] + 16);
+        }
+
+        else
+        {
+          v197 = 0;
+        }
+
+        if (v66 <= v202)
+        {
+          v185 = stride + 16;
+          do
+          {
+            v70 = v66 - a2;
+            v71 = *(*(self + 96) + 16 * offset);
+            v72 = *v66;
+            if (*v66)
+            {
+              if (v68)
+              {
+                if (v69 && v70 == 8 && [v69 infoType] == 8 && objc_msgSend(v69, "usesSwiftRefcounting"))
+                {
+                  v73 = v195;
+                  v74 = v73;
+                  if (v195 && (v75 = [v73 refcountIsSideTableMarkerMask] & v72, v75 == objc_msgSend(v74, "refcountIsSideTableMarkerValue")))
+                  {
+                    v76 = [v74 sideTablePointerMask] & v72;
+                    v77 = v76 >> [v74 sideTablePointerRightShift];
+                    v72 = v77 << [v74 sideTablePointerLeftShift];
+                  }
+
+                  else
+                  {
+                    v72 = 0;
+                  }
+                }
+
+                else if ((*(*(self + 96) + 16 * offset + 8) & 7u) - 2 < 3)
+                {
+                  v72 &= 0xFFFFFFFFFFFFF8uLL;
+                }
+              }
+
+              if (v197 && ([*(self + 80) isTaggedPointer:v72] & 1) == 0)
+              {
+                v86 = a2;
+                v87 = v69;
+                v88 = v72 & v197;
+                if (v72 != (v72 & v197))
+                {
+                  v89 = [*(self + 80) countFromPointerInAutoreleasePool:v72];
+                  v90 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(v89 + 1)];
+                  v91 = *(self + 504);
+                  v92 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v71 + v70];
+                  [v91 setObject:v90 forKeyedSubscript:v92];
+
+                  v72 = v88;
+                }
+
+                v69 = v87;
+                a2 = v86;
+                v68 = hasSwiftContent;
+              }
+
+              v93 = *(self + 312);
+              if (v93)
+              {
+                if ((*(*(self + 96) + 16 * offset + 8) & 7) == 2)
+                {
+                  v94 = NSMapGet(v93, (v71 + v70));
+                  if (v94)
+                  {
+                    v72 = v94;
+                  }
+                }
+              }
+
+              if (([*(self + 520) containsLocation:v71 + v70] & 1) == 0)
+              {
+                if (v72)
+                {
+                  v95 = *(self + 128);
+                  [VMUTask ptrauthStripDataPointer:?];
+                  if (*(v95 + 56) >= *(v95 + 48))
+                  {
+                    OUTLINED_FUNCTION_10();
+                    if (!v33)
+                    {
+                      v96 = v72 >> *MEMORY[0x1E69E9AC0];
+                      if (v96)
+                      {
+                        v97 = **(v95 + 24);
+                        v98 = v72 >> *MEMORY[0x1E69E9AC0];
+                        do
+                        {
+                          if (v97 <= (v98 & 0x3FFFFFF))
+                          {
+                            goto LABEL_180;
+                          }
+
+                          OUTLINED_FUNCTION_2();
+                          if ((v100 & 1) == 0)
+                          {
+                            goto LABEL_180;
+                          }
+
+                          v98 = v99 >> 26;
+                        }
+
+                        while (v98);
+                      }
+
+                      v101 = v96 & 0x7FFFF;
+                      v102 = *(v95 + 64 + 4 * (v96 & 0x7FFFF));
+                      if (v102)
+                      {
+                        v103 = *(v95 + 32) + ((v102 - 1) << 6);
+                        if (v72 - *(*v103 + 8) < *(*v103 + 16))
+                        {
+                          goto LABEL_130;
+                        }
+                      }
+
+                      v109 = *(v95 + 40);
+                      if (v109)
+                      {
+                        v110 = *(v95 + 32);
+                        do
+                        {
+                          v111 = v109 >> 1;
+                          v103 = v110 + (v109 >> 1 << 6);
+                          if (*(*v103 + 8) <= v72)
+                          {
+                            if (*(*v103 + 16) + *(*v103 + 8) > v72)
+                            {
+                              v180 = v95 + 64;
+                              v182 = v101;
+                              v179 = *(v95 + 32);
+                              isSpecialPhysFootprintRegion5 = [*v103 isSpecialPhysFootprintRegion];
+                              v114 = v179;
+                              v113 = v95 + 64;
+                              v115 = v182;
+                              if (isSpecialPhysFootprintRegion5)
+                              {
+                                v116 = 0;
+                              }
+
+                              else
+                              {
+                                v116 = v103;
+                              }
+
+                              if (isSpecialPhysFootprintRegion5)
+                              {
+                                break;
+                              }
+
+                              if ((*(*v116 + 132) & 1) == 0)
+                              {
+                                goto LABEL_178;
+                              }
+
+                              v117 = (v116 + 64);
+                              v118 = *(v95 + 40) - ((v116 + 64 - *(v95 + 32)) >> 6);
+                              if (!v118)
+                              {
+                                goto LABEL_175;
+                              }
+
+                              v187 = v69;
+                              while (1)
+                              {
+                                v119 = v118 >> 1;
+                                v120 = &v117[8 * (v118 >> 1)];
+                                if (*(*v120 + 1) <= v72)
+                                {
+                                  if (*(*v120 + 2) + *(*v120 + 1) > v72)
+                                  {
+                                    v121 = v116;
+                                    isSpecialPhysFootprintRegion6 = [*v120 isSpecialPhysFootprintRegion];
+                                    v116 = v121;
+                                    v114 = v179;
+                                    v113 = v95 + 64;
+                                    v115 = v182;
+                                    if (isSpecialPhysFootprintRegion6)
+                                    {
+                                      v118 = 0;
+                                    }
+
+                                    else
+                                    {
+                                      v118 = v120;
+                                    }
+
+LABEL_174:
+                                    v69 = v187;
+LABEL_175:
+                                    if (v118)
+                                    {
+                                      v116 = v118;
+                                    }
+
+                                    v103 = v116;
+LABEL_178:
+                                    *(v113 + 4 * v115) = ((v116 - v114) >> 6) + 1;
+LABEL_130:
+                                    if (*(v103 + 20))
+                                    {
+                                      if (*(v103 + 8))
+                                      {
+                                        if (*(*v95 + 16 * *(v103 + 16)) <= v72)
+                                        {
+                                          OUTLINED_FUNCTION_0();
+                                          if (!v64 && v33)
+                                          {
+                                            OUTLINED_FUNCTION_14();
+                                            OUTLINED_FUNCTION_1();
+                                            if (v64 || !v33)
+                                            {
+                                              v106 = *(v104 + 4);
+                                              if (v106 >= *(v95 + 8) || (OUTLINED_FUNCTION_13(), !v64 && v33))
+                                              {
+                                                if (v106 != v105)
+                                                {
+                                                  do
+                                                  {
+                                                    OUTLINED_FUNCTION_6();
+                                                    if (v64 || !v33)
+                                                    {
+                                                      OUTLINED_FUNCTION_4();
+                                                      if (!v64 && v33)
+                                                      {
+                                                        goto LABEL_179;
+                                                      }
+
+                                                      OUTLINED_FUNCTION_11();
+                                                    }
+                                                  }
+
+                                                  while (v107 >= 2);
+                                                }
+                                              }
+
+                                              else
+                                              {
+LABEL_179:
+                                                OUTLINED_FUNCTION_8();
+                                                if (!v33)
+                                                {
+                                                  goto LABEL_180;
+                                                }
+
+                                                OUTLINED_FUNCTION_7();
+                                                if (v131 < *(v95 + 16))
+                                                {
+                                                  if (v127 == -1)
+                                                  {
+                                                    goto LABEL_180;
+                                                  }
+
+LABEL_189:
+                                                  v84 = OUTLINED_FUNCTION_15_0(v123, v124, v125, v126, v127, v128, v129, v130, v178, v179, v180, v182, v185, v187, strideCopy);
+LABEL_107:
+                                                  v85(v84);
+                                                  goto LABEL_180;
+                                                }
+
+                                                OUTLINED_FUNCTION_12();
+                                                if ((v64 || !v33) && v127 != -1)
+                                                {
+                                                  goto LABEL_189;
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+
+                                      else
+                                      {
+                                        do
+                                        {
+                                          OUTLINED_FUNCTION_3();
+                                          if (v64 || !v33)
+                                          {
+                                            OUTLINED_FUNCTION_5();
+                                            if (!v64 && v33)
+                                            {
+                                              goto LABEL_179;
+                                            }
+
+                                            OUTLINED_FUNCTION_9();
+                                          }
+                                        }
+
+                                        while (v108 >= 2);
+                                      }
+                                    }
+
+                                    goto LABEL_180;
+                                  }
+
+                                  v117 = v120 + 8;
+                                  v119 = --v118 >> 1;
+                                }
+
+                                v59 = v118 > 1;
+                                v118 = v119;
+                                if (!v59)
+                                {
+                                  v118 = 0;
+                                  goto LABEL_174;
+                                }
+                              }
+                            }
+
+                            v110 = v103 + 64;
+                            v111 = --v109 >> 1;
+                          }
+
+                          v33 = v109 >= 2;
+                          v109 = v111;
+                        }
+
+                        while (v33);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            else if (*(self + 300))
+            {
+              autoreleasePoolPageLayout = [*(self + 80) autoreleasePoolPageLayout];
+              if (v70 >= *(autoreleasePoolPageLayout + 8))
+              {
+                v84 = OUTLINED_FUNCTION_15_0(autoreleasePoolPageLayout, v79, v80, v81, *(self + 296), *(*(self + 96) + 16 * *(self + 296)), v82, v83, v178, v179, v180, v182, v185, v187, strideCopy);
+                goto LABEL_107;
+              }
+            }
+
+LABEL_180:
+            v66 = (v66 + info);
+          }
+
+          while (v66 <= v202);
+        }
+
+        goto LABEL_287;
       }
     }
+
+LABEL_288:
   }
 }
 

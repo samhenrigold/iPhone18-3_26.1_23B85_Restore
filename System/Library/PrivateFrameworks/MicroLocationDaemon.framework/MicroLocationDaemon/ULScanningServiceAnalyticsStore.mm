@@ -32,22 +32,21 @@
 
 - (BOOL)insertDataObjects:(const void *)objects
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7[0] = &unk_286A56C18;
-  v7[1] = &selfCopy;
-  v7[3] = v7;
-  inserted = ULDBUtils::insertDataObjects<ULScanningServiceAnalyticsDO,ULScanningServiceAnalyticsMO>(self, objects, v7);
-  std::__function::__value_func<ULScanningServiceAnalyticsMO * ()(ULScanningServiceAnalyticsDO const&)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_286A56C18;
+  v6[1] = &selfCopy;
+  v6[3] = v6;
+  inserted = ULDBUtils::insertDataObjects<ULScanningServiceAnalyticsDO,ULScanningServiceAnalyticsMO>(self, objects, v6);
+  std::__function::__value_func<ULScanningServiceAnalyticsMO * ()(ULScanningServiceAnalyticsDO const&)>::~__value_func[abi:ne200100](v6);
   return inserted;
 }
 
 - (vector<ULScanningServiceAnalyticsDO,)fetchScanningServiceEventsForType:(ULScanningServiceAnalyticsStore *)self triggerType:(SEL)type displayState:(optional<ULScanningEventDO:(optional<ULTriggerType>)state :(optional<ULScanningServiceAnalyticsDO:(optional<ULScanningEventDO:(id)o :(id)a9 ScanResultCode>)a7 :DisplayState>)a6 ScanType>)a4 scanResult:startDate:endDate:
 {
-  v41 = retstr;
+  v40 = retstr;
   selfCopy = self;
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   oCopy = o;
   v15 = a9;
   array = [MEMORY[0x277CBEB18] array];
@@ -55,7 +54,7 @@
   {
     v17 = MEMORY[0x277CCAC30];
     v18 = [MEMORY[0x277CCABB0] numberWithShort:a4.var0.var1];
-    selfCopy = [v17 predicateWithFormat:@"%K = %@", @"scanType", v18, v41, selfCopy];
+    selfCopy = [v17 predicateWithFormat:@"%K = %@", @"scanType", v18, v40, selfCopy];
     [array addObject:selfCopy];
   }
 
@@ -104,11 +103,10 @@
   }
 
   v37 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanningEventTimestamp" ascending:0];
-  v43[0] = v37;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
-  ULDBUtils::fetchDataObjects<ULScanningServiceAnalyticsDO,ULScanningServiceAnalyticsMO>(selfCopy, array, v38, +[ULScanningServiceAnalyticsStore maxEntriesInTable], v41);
+  v42[0] = v37;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+  ULDBUtils::fetchDataObjects<ULScanningServiceAnalyticsDO,ULScanningServiceAnalyticsMO>(selfCopy, array, v38, +[ULScanningServiceAnalyticsStore maxEntriesInTable], v40);
 
-  v40 = *MEMORY[0x277D85DE8];
   return result;
 }
 

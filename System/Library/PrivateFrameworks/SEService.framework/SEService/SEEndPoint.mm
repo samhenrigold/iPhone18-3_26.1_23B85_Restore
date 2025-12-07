@@ -14,6 +14,7 @@
 - (id)validateAuthorizedEndpointConfig:(id)config;
 - (unint64_t)getEndpointUser;
 - (unint64_t)hash;
+- (void)configurePrivateDataOffset:(unsigned __int16)offset privateDataLength:(unsigned __int16)length confidentialDataOffset:(unsigned __int16)dataOffset confidentialDataLength:(unsigned __int16)dataLength contactlessVisibility:(BOOL)visibility wiredVisibility:(BOOL)wiredVisibility;
 - (void)encodeWithCoder:(id)coder;
 - (void)prependCertificateChain:(id)chain;
 @end
@@ -68,13 +69,12 @@
     {
       if (error)
       {
-        v28 = SESDefaultLogObject();
-        v29 = *MEMORY[0x1E69E5148];
+        v26 = SESDefaultLogObject();
         base64 = [(__CFData *)dataCopy base64];
         *error = SESCreateAndLogError();
       }
 
-      v24 = 0;
+      v23 = 0;
       goto LABEL_60;
     }
 
@@ -86,35 +86,34 @@
     {
       if (error)
       {
-        v30 = SESDefaultLogObject();
-        v31 = *MEMORY[0x1E69E5148];
+        v27 = SESDefaultLogObject();
         *error = SESCreateAndLogError();
       }
 
-      v24 = 0;
+      v23 = 0;
       goto LABEL_59;
     }
 
     v20 = off_1E82D0FE8[type - 1];
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
-    v97 = 0u;
+    v94 = 0u;
     v95 = 0u;
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x3032000000;
-    v92 = __Block_byref_object_copy__1;
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v81 = 0u;
+    v75 = 0;
+    v76 = &v75;
+    v77 = 0x3032000000;
+    v78 = __Block_byref_object_copy__1;
     if ((type & 6) == 4)
     {
       v21 = &PTALyonEndPointExtensionSpec;
@@ -125,15 +124,15 @@
       v21 = &PTAEndPointExtensionSpec;
     }
 
-    v93 = __Block_byref_object_dispose__1;
-    v94 = [self parsePTAExtension:v20 certificate:v17 specification:v21 output:&v95];
-    if (v90[5])
+    v79 = __Block_byref_object_dispose__1;
+    v80 = [self parsePTAExtension:v20 certificate:v17 specification:v21 output:&v81];
+    if (v76[5])
     {
       if (!error)
       {
-        v24 = 0;
+        v23 = 0;
 LABEL_58:
-        _Block_object_dispose(&v89, 8);
+        _Block_object_dispose(&v75, 8);
 
 LABEL_59:
 LABEL_60:
@@ -142,82 +141,80 @@ LABEL_60:
       }
 
       v22 = SESDefaultLogObject();
-      v23 = *MEMORY[0x1E69E5148];
       SESCreateAndLogError();
-      *error = v24 = 0;
-      v25 = v22;
+      *error = v23 = 0;
+      v24 = v22;
 LABEL_57:
 
       goto LABEL_58;
     }
 
-    v32 = SecCertificateCopyKey(v17);
-    v25 = v32;
-    if (!v32)
+    v28 = SecCertificateCopyKey(v17);
+    v24 = v28;
+    if (!v28)
     {
       if (error)
       {
-        v47 = SESDefaultLogObject();
-        v48 = *MEMORY[0x1E69E5148];
+        v43 = SESDefaultLogObject();
         *error = SESCreateAndLogError();
       }
 
-      v24 = 0;
+      v23 = 0;
       goto LABEL_57;
     }
 
-    v88 = 0;
-    v80 = v32;
+    v74 = 0;
+    v66 = v28;
     SecKeyCopyPublicBytes();
-    v33 = objc_opt_new();
-    *(v33 + 8) = type;
-    objc_storeStrong((v33 + 16), identifier);
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObject:dataCopy];
-    v35 = *(v33 + 136);
-    *(v33 + 136) = v34;
+    v29 = objc_opt_new();
+    *(v29 + 8) = type;
+    objc_storeStrong((v29 + 16), identifier);
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObject:dataCopy];
+    v31 = *(v29 + 136);
+    *(v29 + 136) = v30;
 
     if (v14)
     {
-      v36 = v14;
+      v32 = v14;
     }
 
     else
     {
-      v36 = v18;
+      v32 = v18;
     }
 
-    objc_storeStrong((v33 + 24), v36);
-    objc_storeStrong((v33 + 32), v18);
-    objc_storeStrong((v33 + 40), 0);
+    objc_storeStrong((v29 + 24), v32);
+    objc_storeStrong((v29 + 32), v18);
+    objc_storeStrong((v29 + 40), 0);
     ses_sha1 = [0 ses_sha1];
-    v38 = *(v33 + 48);
-    *(v33 + 48) = ses_sha1;
+    v34 = *(v29 + 48);
+    *(v29 + 48) = ses_sha1;
 
-    objc_storeStrong((v33 + 456), v19);
-    v39 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v96];
-    v40 = *(v33 + 80);
-    *(v33 + 80) = v39;
+    objc_storeStrong((v29 + 456), v19);
+    v35 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v82];
+    v36 = *(v29 + 80);
+    *(v29 + 80) = v35;
 
-    v41 = getPublicKeyBytes();
-    v42 = *(v33 + 88);
-    *(v33 + 88) = v41;
+    v37 = getPublicKeyBytes();
+    v38 = *(v29 + 88);
+    *(v29 + 88) = v37;
 
-    if (*(v33 + 88))
+    if (*(v29 + 88))
     {
-      v43 = [SEEndPointConfiguration configurationWithOpt1:*v97 opt2:*v98];
-      v44 = *(v33 + 72);
-      *(v33 + 72) = v43;
+      v39 = [SEEndPointConfiguration configurationWithOpt1:*v83 opt2:*v84];
+      v40 = *(v29 + 72);
+      *(v29 + 72) = v39;
 
-      if (*(v33 + 72))
+      if (*(v29 + 72))
       {
-        v45 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v101];
-        v46 = *(v33 + 472);
-        *(v33 + 472) = v45;
+        v41 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v87];
+        v42 = *(v29 + 472);
+        *(v29 + 472) = v41;
 
-        v87 = 0;
-        if (*(&v104 + 1))
+        v73 = 0;
+        if (*(&v90 + 1))
         {
-          if (*(&v104 + 1) == 1 || *v104 != 2 || *(v104 + 1) >= 5u)
+          if (*(&v90 + 1) == 1 || *v90 != 2 || *(v90 + 1) >= 5u)
           {
             if (error)
             {
@@ -227,8 +224,8 @@ LABEL_57:
             goto LABEL_55;
           }
 
-          *&v104 = v104 + 2;
-          *(&v104 + 1) -= 2;
+          *&v90 = v90 + 2;
+          *(&v90 + 1) -= 2;
           if (DERParseInteger())
           {
             if (!error)
@@ -239,21 +236,21 @@ LABEL_57:
             goto LABEL_81;
           }
 
-          v53 = v87;
+          v46 = v73;
         }
 
         else
         {
-          v53 = 0;
+          v46 = 0;
         }
 
-        v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v53];
-        v55 = *(v33 + 120);
-        *(v33 + 120) = v54;
+        v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v46];
+        v48 = *(v29 + 120);
+        *(v29 + 120) = v47;
 
-        if (*(&v103 + 1))
+        if (*(&v89 + 1))
         {
-          if (*(&v103 + 1) == 1 || *v103 != 2 || *(v103 + 1) >= 5u)
+          if (*(&v89 + 1) == 1 || *v89 != 2 || *(v89 + 1) >= 5u)
           {
             if (error)
             {
@@ -263,8 +260,8 @@ LABEL_57:
             goto LABEL_55;
           }
 
-          *&v103 = v103 + 2;
-          *(&v103 + 1) -= 2;
+          *&v89 = v89 + 2;
+          *(&v89 + 1) -= 2;
           if (DERParseInteger())
           {
             if (!error)
@@ -275,46 +272,45 @@ LABEL_57:
             goto LABEL_81;
           }
 
-          v56 = v87;
+          v49 = v73;
         }
 
         else
         {
-          v56 = 0;
-          v87 = 0;
+          v49 = 0;
+          v73 = 0;
         }
 
-        v57 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v56];
-        v58 = *(v33 + 112);
-        *(v33 + 112) = v57;
+        v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v49];
+        v51 = *(v29 + 112);
+        *(v29 + 112) = v50;
 
-        if (*(&v105 + 1))
+        if (*(&v91 + 1))
         {
-          if (*(&v105 + 1) == 1 || *v105 != 2 || *(v105 + 1) >= 5u)
+          if (*(&v91 + 1) == 1 || *v91 != 2 || *(v91 + 1) >= 5u)
           {
             if (error)
             {
 LABEL_53:
-              v78 = SESDefaultLogObject();
-              v76 = *MEMORY[0x1E69E5148];
-              v59 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v104];
-              asHexString = [v59 asHexString];
+              v65 = SESDefaultLogObject();
+              v52 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v90];
+              asHexString = [v52 asHexString];
               *error = SESCreateAndLogError();
 
-              v61 = v78;
+              v54 = v65;
 LABEL_54:
             }
 
 LABEL_55:
-            v24 = 0;
+            v23 = 0;
 LABEL_56:
 
-            v25 = v80;
+            v24 = v66;
             goto LABEL_57;
           }
 
-          *&v105 = v105 + 2;
-          *(&v105 + 1) -= 2;
+          *&v91 = v91 + 2;
+          *(&v91 + 1) -= 2;
           if (DERParseInteger())
           {
             if (!error)
@@ -323,62 +319,59 @@ LABEL_56:
             }
 
 LABEL_81:
-            v77 = SESDefaultLogObject();
-            v75 = *MEMORY[0x1E69E5148];
-            v68 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v104];
+            v64 = SESDefaultLogObject();
+            v60 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v90];
             *error = SESCreateAndLogError();
 
-            v61 = v77;
+            v54 = v64;
             goto LABEL_54;
           }
 
-          v63 = v87;
+          v56 = v73;
         }
 
         else
         {
-          v63 = 0;
-          v87 = 0;
+          v56 = 0;
+          v73 = 0;
         }
 
-        v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v63];
-        v65 = *(v33 + 128);
-        *(v33 + 128) = v64;
+        v57 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v56];
+        v58 = *(v29 + 128);
+        *(v29 + 128) = v57;
 
-        if (*(&v102 + 1))
+        if (*(&v88 + 1))
         {
-          v81 = 0;
-          v82 = &v81;
-          v83 = 0x3032000000;
-          v84 = __Block_byref_object_copy__1;
-          v85 = __Block_byref_object_dispose__1;
+          v67 = 0;
+          v68 = &v67;
+          v69 = 0x3032000000;
+          v70 = __Block_byref_object_copy__1;
+          v71 = __Block_byref_object_dispose__1;
           array = [MEMORY[0x1E695DF70] array];
-          if (DERDecodeSequenceWithBlock() || v90[5])
+          if (DERDecodeSequenceWithBlock() || v76[5])
           {
             if (error)
             {
-              v66 = SESDefaultLogObject();
-              v67 = *MEMORY[0x1E69E5148];
-              v74 = v90[5];
+              v59 = SESDefaultLogObject();
               *error = SESCreateAndLogError();
             }
 
-            _Block_object_dispose(&v81, 8);
-            v61 = array;
+            _Block_object_dispose(&v67, 8);
+            v54 = array;
             goto LABEL_54;
           }
 
-          objc_storeStrong((v33 + 104), v82[5]);
-          _Block_object_dispose(&v81, 8);
+          objc_storeStrong((v29 + 104), v68[5]);
+          _Block_object_dispose(&v67, 8);
         }
 
-        generateEndPointPrivacyLongTermPrivacyKey = [v33 generateEndPointPrivacyLongTermPrivacyKey];
-        v70 = v90[5];
-        v90[5] = generateEndPointPrivacyLongTermPrivacyKey;
+        generateEndPointPrivacyLongTermPrivacyKey = [v29 generateEndPointPrivacyLongTermPrivacyKey];
+        v62 = v76[5];
+        v76[5] = generateEndPointPrivacyLongTermPrivacyKey;
 
-        if (!v90[5])
+        if (!v76[5])
         {
-          v24 = v33;
+          v23 = v29;
           goto LABEL_56;
         }
 
@@ -387,84 +380,67 @@ LABEL_81:
           goto LABEL_55;
         }
 
-        v49 = SESDefaultLogObject();
-        v79 = *MEMORY[0x1E69E5148];
-        [v90[5] code];
-        v51 = SESCreateAndLogError();
+        v44 = SESDefaultLogObject();
+        [v76[5] code];
+        v45 = SESCreateAndLogError();
+LABEL_39:
+        *error = v45;
+
+        goto LABEL_55;
       }
 
-      else
-      {
-        if (!error)
-        {
-          goto LABEL_55;
-        }
-
-        v49 = SESDefaultLogObject();
-        v52 = *MEMORY[0x1E69E5148];
-        v72 = *v97;
-        v73 = *v98;
-        v51 = SESCreateAndLogError();
-      }
-    }
-
-    else
-    {
       if (!error)
       {
         goto LABEL_55;
       }
-
-      v49 = SESDefaultLogObject();
-      v50 = *MEMORY[0x1E69E5148];
-      v51 = SESCreateAndLogError();
     }
 
-    *error = v51;
+    else if (!error)
+    {
+      goto LABEL_55;
+    }
 
-    goto LABEL_55;
+    v44 = SESDefaultLogObject();
+    v45 = SESCreateAndLogError();
+    goto LABEL_39;
   }
 
   if (error)
   {
-    v26 = SESDefaultLogObject();
-    v27 = *MEMORY[0x1E69E5148];
+    v25 = SESDefaultLogObject();
     *error = SESCreateAndLogError();
   }
 
-  v24 = 0;
+  v23 = 0;
 LABEL_61:
 
-  return v24;
+  return v23;
 }
 
 uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certificateData_error___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v6 = *(a2 + 8);
-  v7 = *(a2 + 16);
-  v8 = a2 + 8;
-  v9 = getPublicKeyBytes();
-  if (v9)
+  v5 = a2 + 8;
+  v6 = getPublicKeyBytes();
+  if (v6)
   {
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v9];
-    v10 = 0;
+    [*(*(*(a1 + 40) + 8) + 40) addObject:v6];
+    v7 = 0;
   }
 
   else
   {
-    v11 = SESDefaultLogObject();
-    v12 = *MEMORY[0x1E69E5148];
-    v17 = [MEMORY[0x1E695DEF0] dataWithDERItem:v8];
-    v13 = SESCreateAndLogError();
-    v14 = *(*(a1 + 32) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v8 = SESDefaultLogObject();
+    v13 = [MEMORY[0x1E695DEF0] dataWithDERItem:v5];
+    v9 = SESCreateAndLogError();
+    v10 = *(*(a1 + 32) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
     *a3 = 1;
-    v10 = 6;
+    v7 = 6;
   }
 
-  return v10;
+  return v7;
 }
 
 + (id)parsePTAExtension:(__CFString *)extension certificate:(__SecCertificate *)certificate specification:(id *)specification output:(PTAEndPointExtensionContent *)output
@@ -474,25 +450,23 @@ uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certifica
     v6 = SecCertificateCopyExtensionValue();
     if (v6 && !DERParseSequenceSpec())
     {
-      v8 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = SESDefaultLogObject();
-      v10 = *MEMORY[0x1E69E5148];
-      v8 = SESCreateAndLogError();
+      v8 = SESDefaultLogObject();
+      v7 = SESCreateAndLogError();
     }
   }
 
   else
   {
     v6 = SESDefaultLogObject();
-    v7 = *MEMORY[0x1E69E5148];
-    v8 = SESCreateAndLogError();
+    v7 = SESCreateAndLogError();
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)revokedEndpointWithPublicKeyIdentifier:(id)identifier appletIdentifier:(id)appletIdentifier revocationAttestation:(id)attestation error:(id *)error
@@ -518,9 +492,9 @@ uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certifica
     else
     {
       hexStringAsData2 = [@"A00000085801010100000001" hexStringAsData];
-      v21 = [hexStringAsData2 isEqualToData:appletIdentifierCopy];
+      v20 = [hexStringAsData2 isEqualToData:appletIdentifierCopy];
 
-      if (v21)
+      if (v20)
       {
         v17 = 3;
       }
@@ -528,9 +502,9 @@ uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certifica
       else
       {
         hexStringAsData3 = [@"A00000085802010100000001" hexStringAsData];
-        v23 = [hexStringAsData3 isEqualToData:appletIdentifierCopy];
+        v22 = [hexStringAsData3 isEqualToData:appletIdentifierCopy];
 
-        if (v23)
+        if (v22)
         {
           v17 = 2;
         }
@@ -538,18 +512,17 @@ uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certifica
         else
         {
           hexStringAsData4 = [@"A000000909ACCE5501" hexStringAsData];
-          v25 = [hexStringAsData4 isEqualToData:appletIdentifierCopy];
+          v24 = [hexStringAsData4 isEqualToData:appletIdentifierCopy];
 
-          if ((v25 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
             if (error)
             {
-              v27 = SESDefaultLogObject();
-              v28 = *MEMORY[0x1E69E5148];
+              v26 = SESDefaultLogObject();
               *error = SESCreateAndLogError();
             }
 
-            v19 = 0;
+            v18 = 0;
             goto LABEL_15;
           }
 
@@ -559,28 +532,27 @@ uint64_t __81__SEEndPoint_endPointWithType_appletIdentifier_identifier_certifica
     }
 
     *(v14 + 8) = v17;
-    v19 = v14;
+    v18 = v14;
   }
 
   else
   {
     if (!error)
     {
-      v19 = 0;
+      v18 = 0;
       goto LABEL_16;
     }
 
     v14 = SESDefaultLogObject();
-    v18 = *MEMORY[0x1E69E5148];
     SESCreateAndLogError();
-    *error = v19 = 0;
+    *error = v18 = 0;
   }
 
 LABEL_15:
 
 LABEL_16:
 
-  return v19;
+  return v18;
 }
 
 - (id)validateAuthorizedEndpointConfig:(id)config
@@ -605,8 +577,7 @@ LABEL_16:
   {
     [v10 DERItem];
     DERParseSequenceSpec();
-    v13 = SESDefaultLogObject();
-    v14 = *MEMORY[0x1E69E5148];
+    v12 = SESDefaultLogObject();
     v7 = SESCreateAndLogError();
   }
 
@@ -614,7 +585,6 @@ LABEL_16:
   {
 LABEL_8:
     v10 = SESDefaultLogObject();
-    v11 = *MEMORY[0x1E69E5148];
     v7 = SESCreateAndLogError();
   }
 
@@ -633,6 +603,33 @@ LABEL_10:
   self->_certificates = v5;
 }
 
+- (void)configurePrivateDataOffset:(unsigned __int16)offset privateDataLength:(unsigned __int16)length confidentialDataOffset:(unsigned __int16)dataOffset confidentialDataLength:(unsigned __int16)dataLength contactlessVisibility:(BOOL)visibility wiredVisibility:(BOOL)wiredVisibility
+{
+  wiredVisibilityCopy = wiredVisibility;
+  visibilityCopy = visibility;
+  dataLengthCopy = dataLength;
+  dataOffsetCopy = dataOffset;
+  lengthCopy = length;
+  offsetCopy = offset;
+  configuration = [(SEEndPoint *)self configuration];
+  [configuration setOffsetPrivateMailBox:offsetCopy];
+
+  configuration2 = [(SEEndPoint *)self configuration];
+  [configuration2 setLengthPrivateMailBox:lengthCopy];
+
+  configuration3 = [(SEEndPoint *)self configuration];
+  [configuration3 setOffsetConfidentialMailBox:dataOffsetCopy];
+
+  configuration4 = [(SEEndPoint *)self configuration];
+  [configuration4 setLengthConfidentialMailBox:dataLengthCopy];
+
+  configuration5 = [(SEEndPoint *)self configuration];
+  [configuration5 setEnabledOnContactless:visibilityCopy];
+
+  configuration6 = [(SEEndPoint *)self configuration];
+  [configuration6 setEnabledOnWire:wiredVisibilityCopy];
+}
+
 - (id)configurePrivateData:(id)data confidentialData:(id)confidentialData contactlessPersistentVisibility:(id)visibility wiredPersistentVisibility:(id)persistentVisibility nfcExpressOnlyInLPM:(id)m
 {
   dataCopy = data;
@@ -644,15 +641,10 @@ LABEL_10:
   {
     if ([dataCopy length] != 3)
     {
-      configuration7 = SESDefaultLogObject();
-      v28 = *MEMORY[0x1E69E5148];
-      [dataCopy length];
-LABEL_13:
-      v27 = SESCreateAndLogError();
-      goto LABEL_21;
+      goto LABEL_12;
     }
 
-    v47 = visibilityCopy;
+    v43 = visibilityCopy;
     bytes = [dataCopy bytes];
     v18 = *bytes;
     v19 = __rev16(v18);
@@ -664,16 +656,15 @@ LABEL_13:
     if (unsignedIntValue < v21 + HIWORD(v20))
     {
       configuration7 = SESDefaultLogObject();
-      v25 = *MEMORY[0x1E69E5148];
       privateMailBoxSize2 = [(SEEndPoint *)self privateMailBoxSize];
       [privateMailBoxSize2 unsignedIntValue];
-      v27 = SESCreateAndLogError();
+      v26 = SESCreateAndLogError();
 
 LABEL_11:
-      visibilityCopy = v47;
-LABEL_21:
+      visibilityCopy = v43;
+LABEL_20:
 
-      goto LABEL_22;
+      goto LABEL_21;
     }
 
     configuration = [(SEEndPoint *)self configuration];
@@ -682,50 +673,50 @@ LABEL_21:
     configuration2 = [(SEEndPoint *)self configuration];
     [configuration2 setLengthPrivateMailBox:v21];
 
-    visibilityCopy = v47;
+    visibilityCopy = v43;
   }
 
   if (!confidentialDataCopy)
   {
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   if ([confidentialDataCopy length] != 3)
   {
+LABEL_12:
     configuration7 = SESDefaultLogObject();
-    v40 = *MEMORY[0x1E69E5148];
     [dataCopy length];
-    goto LABEL_13;
+    v26 = SESCreateAndLogError();
+    goto LABEL_20;
   }
 
-  v47 = visibilityCopy;
+  v43 = visibilityCopy;
   bytes2 = [confidentialDataCopy bytes];
-  v32 = *bytes2;
-  v33 = __rev16(v32);
-  v34 = bswap32(v32);
-  v35 = *(bytes2 + 2);
+  v30 = *bytes2;
+  v31 = __rev16(v30);
+  v32 = bswap32(v30);
+  v33 = *(bytes2 + 2);
   confidentialMailBoxSize = [(SEEndPoint *)self confidentialMailBoxSize];
   unsignedIntegerValue = [confidentialMailBoxSize unsignedIntegerValue];
 
-  if (unsignedIntegerValue < v35 + HIWORD(v34))
+  if (unsignedIntegerValue < v33 + HIWORD(v32))
   {
     configuration7 = SESDefaultLogObject();
-    v38 = *MEMORY[0x1E69E5148];
     privateMailBoxSize3 = [(SEEndPoint *)self privateMailBoxSize];
     [privateMailBoxSize3 unsignedIntValue];
-    v27 = SESCreateAndLogError();
+    v26 = SESCreateAndLogError();
 
     goto LABEL_11;
   }
 
   configuration3 = [(SEEndPoint *)self configuration];
-  [configuration3 setOffsetConfidentialMailBox:v33];
+  [configuration3 setOffsetConfidentialMailBox:v31];
 
   configuration4 = [(SEEndPoint *)self configuration];
-  [configuration4 setLengthConfidentialMailBox:v35];
+  [configuration4 setLengthConfidentialMailBox:v33];
 
-  visibilityCopy = v47;
-LABEL_15:
+  visibilityCopy = v43;
+LABEL_14:
   if (visibilityCopy)
   {
     configuration5 = [(SEEndPoint *)self configuration];
@@ -743,20 +734,20 @@ LABEL_15:
     bOOLValue = [mCopy BOOLValue];
     configuration7 = [(SEEndPoint *)self configuration];
     [configuration7 setNfcExpressOnlyInLPM:bOOLValue];
-    v27 = 0;
-    goto LABEL_21;
+    v26 = 0;
+    goto LABEL_20;
   }
 
-  v27 = 0;
-LABEL_22:
+  v26 = 0;
+LABEL_21:
 
-  return v27;
+  return v26;
 }
 
 - (id)generateEndPointPrivacyLongTermPrivacyKey
 {
   selfCopy = self;
-  v32[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   privacyKeyIdentifier = [(SEEndPoint *)self privacyKeyIdentifier];
   v4 = [privacyKeyIdentifier length];
 
@@ -773,24 +764,24 @@ LABEL_22:
   SecAccessControlSetConstraints();
   v9 = *MEMORY[0x1E697AD78];
   v10 = *MEMORY[0x1E697AD50];
-  v31[0] = *MEMORY[0x1E697AD68];
-  v31[1] = v10;
-  v32[0] = v9;
-  v32[1] = &unk_1F4762E78;
-  v31[2] = *MEMORY[0x1E697B2D0];
+  v28[0] = *MEMORY[0x1E697AD68];
+  v28[1] = v10;
+  v29[0] = v9;
+  v29[1] = &unk_1F4762E78;
+  v28[2] = *MEMORY[0x1E697B2D0];
   v11 = *MEMORY[0x1E697AD18];
-  v29[0] = *MEMORY[0x1E697B390];
-  v29[1] = v11;
-  v30[0] = MEMORY[0x1E695E118];
-  v30[1] = MEMORY[0x1E695E118];
+  v26[0] = *MEMORY[0x1E697B390];
+  v26[1] = v11;
+  v27[0] = MEMORY[0x1E695E118];
+  v27[1] = MEMORY[0x1E695E118];
   v12 = *MEMORY[0x1E697ABC8];
-  v29[2] = *MEMORY[0x1E697AC48];
-  v29[3] = v12;
-  v30[2] = v7;
-  v30[3] = v8;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
-  v32[2] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v26[2] = *MEMORY[0x1E697AC48];
+  v26[3] = v12;
+  v27[2] = v7;
+  v27[3] = v8;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v29[2] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
 
   error = 0;
   v15 = SecKeyCreateRandomKey(v14, &error);
@@ -799,7 +790,6 @@ LABEL_22:
   if (error || !v15)
   {
     v19 = SESDefaultLogObject();
-    v24 = *MEMORY[0x1E69E5148];
     selfCopy = SESCreateAndLogError();
     v21 = 0;
   }
@@ -815,7 +805,6 @@ LABEL_22:
     if (v20)
     {
       v23 = SESDefaultLogObject();
-      v25 = *MEMORY[0x1E69E5148];
       selfCopy = SESCreateAndLogError();
     }
 
@@ -834,14 +823,12 @@ LABEL_16:
     selfCopy = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 - (id)deleteEndPointLongTermPrivacyKey
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   privacyKeyIdentifier = [(SEEndPoint *)self privacyKeyIdentifier];
   v4 = [privacyKeyIdentifier length];
 
@@ -852,31 +839,30 @@ LABEL_16:
     {
       privacyKeyIdentifier2 = [(SEEndPoint *)self privacyKeyIdentifier];
       *buf = 138412290;
-      v19 = privacyKeyIdentifier2;
+      v17 = privacyKeyIdentifier2;
       _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "Deleting long term privacy key %@", buf, 0xCu);
     }
 
     v7 = *MEMORY[0x1E697AFF8];
-    v17[0] = *MEMORY[0x1E697B020];
+    v15[0] = *MEMORY[0x1E697B020];
     v8 = *MEMORY[0x1E697AC48];
-    v16[0] = v7;
-    v16[1] = v8;
+    v14[0] = v7;
+    v14[1] = v8;
     privacyKeyIdentifier3 = [(SEEndPoint *)self privacyKeyIdentifier];
-    v16[2] = *MEMORY[0x1E697B390];
-    v17[1] = privacyKeyIdentifier3;
-    v17[2] = MEMORY[0x1E695E118];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v14[2] = *MEMORY[0x1E697B390];
+    v15[1] = privacyKeyIdentifier3;
+    v15[2] = MEMORY[0x1E695E118];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
     if (SecItemDelete(v10))
     {
       privacyKeyIdentifier = SESDefaultLogObject();
-      v12 = *MEMORY[0x1E69E5148];
-      v13 = SESCreateAndLogError();
+      v12 = SESCreateAndLogError();
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
       privacyKeyIdentifier = self->_privacyKeyIdentifier;
       self->_privacyKeyIdentifier = 0;
     }
@@ -884,12 +870,10 @@ LABEL_16:
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 - (unint64_t)getEndpointUser
@@ -939,32 +923,32 @@ LABEL_16:
 
 - (id)description
 {
-  v194 = *MEMORY[0x1E69E9840];
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x3032000000;
-  v189 = __Block_byref_object_copy__1;
-  v190 = __Block_byref_object_dispose__1;
+  v193 = *MEMORY[0x1E69E9840];
+  v185 = 0;
+  v186 = &v185;
+  v187 = 0x3032000000;
+  v188 = __Block_byref_object_copy__1;
+  v189 = __Block_byref_object_dispose__1;
   string = [MEMORY[0x1E696AD60] string];
-  v3 = v187[5];
+  v3 = v186[5];
   identifier = [(SEEndPoint *)self identifier];
   [v3 appendFormat:@"Identifier : %@ : {\n", identifier];
 
-  v5 = v187[5];
+  v5 = v186[5];
   appletIdentifier = [(SEEndPoint *)self appletIdentifier];
   asHexString = [appletIdentifier asHexString];
   [v5 appendFormat:@"\tAppletIdentifier : %@\n", asHexString];
 
-  [v187[5] appendFormat:@"\tsharingRecords : {\n"];
+  [v186[5] appendFormat:@"\tsharingRecords : {\n"];
   sharingRecords = self->_sharingRecords;
-  v185[0] = MEMORY[0x1E69E9820];
-  v185[1] = 3221225472;
-  v185[2] = __25__SEEndPoint_description__block_invoke;
-  v185[3] = &unk_1E82D0FA0;
-  v185[4] = &v186;
-  [(NSArray *)sharingRecords enumerateObjectsUsingBlock:v185];
-  [v187[5] appendFormat:@"\t}\n"];
-  v9 = v187[5];
+  v184[0] = MEMORY[0x1E69E9820];
+  v184[1] = 3221225472;
+  v184[2] = __25__SEEndPoint_description__block_invoke;
+  v184[3] = &unk_1E82D0FA0;
+  v184[4] = &v185;
+  [(NSArray *)sharingRecords enumerateObjectsUsingBlock:v184];
+  [v186[5] appendFormat:@"\t}\n"];
+  v9 = v186[5];
   revocationAttestation = [(SEEndPoint *)self revocationAttestation];
   v11 = @"REVOKED";
   if (!revocationAttestation)
@@ -974,100 +958,100 @@ LABEL_16:
 
   [v9 appendFormat:@"\tstate : %@\n", v11];
 
-  v12 = v187[5];
+  v12 = v186[5];
   issuerIdentifier = [(SEEndPoint *)self issuerIdentifier];
   [v12 appendFormat:@"\tissuerIdentifier : %@\n", issuerIdentifier];
 
-  v14 = v187[5];
+  v14 = v186[5];
   subjectIdentifier = [(SEEndPoint *)self subjectIdentifier];
   [v14 appendFormat:@"\tsubjectIdentifier : %@\n", subjectIdentifier];
 
-  v16 = v187[5];
+  v16 = v186[5];
   publicKey = [(SEEndPoint *)self publicKey];
   asHexString2 = [publicKey asHexString];
   [v16 appendFormat:@"\tpublicKey : %@\n", asHexString2];
 
-  v19 = v187[5];
+  v19 = v186[5];
   publicKeyIdentifier = [(SEEndPoint *)self publicKeyIdentifier];
   asHexString3 = [publicKeyIdentifier asHexString];
   [v19 appendFormat:@"\tpublicKeyIdentifier : %@\n", asHexString3];
 
-  v22 = v187[5];
+  v22 = v186[5];
   privacyPublicKey = [(SEEndPoint *)self privacyPublicKey];
   asHexString4 = [privacyPublicKey asHexString];
   [v22 appendFormat:@"\tprivacyPublicKey : %@\n", asHexString4];
 
-  v25 = v187[5];
+  v25 = v186[5];
   privacyPublicKeyIdentifier = [(SEEndPoint *)self privacyPublicKeyIdentifier];
   asHexString5 = [privacyPublicKeyIdentifier asHexString];
   [v25 appendFormat:@"\tprivacyPublicKeyIdentifier : %@\n", asHexString5];
 
-  v28 = v187[5];
+  v28 = v186[5];
   configuration = [(SEEndPoint *)self configuration];
   [v28 appendFormat:@"\tconfiguration : %@, \n", configuration];
 
-  v30 = v187[5];
+  v30 = v186[5];
   readerIdentifier = [(SEEndPoint *)self readerIdentifier];
   asHexString6 = [readerIdentifier asHexString];
   [v30 appendFormat:@"\treaderIdentifier : %@, \n", asHexString6];
 
-  v33 = v187[5];
+  v33 = v186[5];
   readerPublicKey = [(SEEndPoint *)self readerPublicKey];
   asHexString7 = [readerPublicKey asHexString];
   [v33 appendFormat:@"\treaderPublicKey : %@, \n", asHexString7];
 
-  v36 = v187[5];
+  v36 = v186[5];
   keyIdentifier = [(SEEndPoint *)self keyIdentifier];
   asHexString8 = [keyIdentifier asHexString];
   [v36 appendFormat:@"\tkeyIdentifier : %@, \n", asHexString8];
 
-  v39 = v187[5];
+  v39 = v186[5];
   confidentialMailBoxSize = [(SEEndPoint *)self confidentialMailBoxSize];
   [v39 appendFormat:@"\tconfidentialMailBoxSize : %@, \n", confidentialMailBoxSize];
 
-  v41 = v187[5];
+  v41 = v186[5];
   privateMailBoxSize = [(SEEndPoint *)self privateMailBoxSize];
   [v41 appendFormat:@"\tprivateMailBoxSize : %@, \n", privateMailBoxSize];
 
-  v43 = v187[5];
+  v43 = v186[5];
   counter = [(SEEndPoint *)self counter];
   [v43 appendFormat:@"\tcounter : %@, \n", counter];
 
-  v45 = v187[5];
+  v45 = v186[5];
   authorizedKeys = [(SEEndPoint *)self authorizedKeys];
   [v45 appendFormat:@"\tauthorizedKeys (%lu) : {\n", objc_msgSend(authorizedKeys, "count")];
 
-  v183 = 0u;
-  v184 = 0u;
-  v181 = 0u;
   v182 = 0u;
+  v183 = 0u;
+  v180 = 0u;
+  v181 = 0u;
   authorizedKeys2 = [(SEEndPoint *)self authorizedKeys];
-  v48 = [authorizedKeys2 countByEnumeratingWithState:&v181 objects:v193 count:16];
+  v48 = [authorizedKeys2 countByEnumeratingWithState:&v180 objects:v192 count:16];
   if (v48)
   {
-    v49 = *v182;
+    v49 = *v181;
     do
     {
       for (i = 0; i != v48; ++i)
       {
-        if (*v182 != v49)
+        if (*v181 != v49)
         {
           objc_enumerationMutation(authorizedKeys2);
         }
 
-        v51 = v187[5];
-        asHexString9 = [*(*(&v181 + 1) + 8 * i) asHexString];
+        v51 = v186[5];
+        asHexString9 = [*(*(&v180 + 1) + 8 * i) asHexString];
         [v51 appendFormat:@"\t\t%@, \n", asHexString9];
       }
 
-      v48 = [authorizedKeys2 countByEnumeratingWithState:&v181 objects:v193 count:16];
+      v48 = [authorizedKeys2 countByEnumeratingWithState:&v180 objects:v192 count:16];
     }
 
     while (v48);
   }
 
-  [v187[5] appendFormat:@"\t}\n"];
-  v53 = v187[5];
+  [v186[5] appendFormat:@"\t}\n"];
+  v53 = v186[5];
   friendlyName = [(SEEndPoint *)self friendlyName];
   [v53 appendFormat:@"\tfriendlyName : %@, \n", friendlyName];
 
@@ -1076,247 +1060,245 @@ LABEL_16:
 
   if ((friendlyName & 1) == 0)
   {
-    v56 = v187[5];
+    v56 = v186[5];
     keyRole2 = [(SEEndPoint *)self keyRole];
     [v56 appendFormat:@"\tkeyRole : 0x%04X, \n", objc_msgSend(keyRole2, "unsignedShortValue")];
   }
 
-  v58 = v187[5];
+  v58 = v186[5];
   readerInfo = [(SEEndPoint *)self readerInfo];
   [v58 appendFormat:@"\treaderInfo : %@, \n", readerInfo];
 
-  v60 = v187[5];
+  v60 = v186[5];
   invitationIdentifier = [(SEEndPoint *)self invitationIdentifier];
   [v60 appendFormat:@"\tinvitationIdentifier : %@, \n", invitationIdentifier];
 
-  v62 = v187[5];
+  v62 = v186[5];
   sharingSessionUUID = [(SEEndPoint *)self sharingSessionUUID];
   [v62 appendFormat:@"\tsharingSessionUUID : %@, \n", sharingSessionUUID];
 
-  v64 = v187[5];
+  v64 = v186[5];
   ownerIDSIdentifier = [(SEEndPoint *)self ownerIDSIdentifier];
   [v64 appendFormat:@"\townerIDSIdentifier : %@, \n", ownerIDSIdentifier];
 
-  v66 = v187[5];
+  v66 = v186[5];
   mailboxMapping = [(SEEndPoint *)self mailboxMapping];
   asHexString10 = [mailboxMapping asHexString];
   [v66 appendFormat:@"\tmailboxMapping : %@, \n", asHexString10];
 
-  v69 = v187[5];
+  v69 = v186[5];
   trackingRequest = [(SEEndPoint *)self trackingRequest];
   asHexString11 = [trackingRequest asHexString];
   [v69 appendFormat:@"\ttrackingRequest : %@, \n", asHexString11];
 
-  v72 = v187[5];
+  v72 = v186[5];
   trackingReceipt = [(SEEndPoint *)self trackingReceipt];
   asHexString12 = [trackingReceipt asHexString];
   [v72 appendFormat:@"\ttrackingReceipt : %@, \n", asHexString12];
 
-  v75 = v187[5];
+  v75 = v186[5];
   deviceConfiguration = [(SEEndPoint *)self deviceConfiguration];
   asHexString13 = [deviceConfiguration asHexString];
   [v75 appendFormat:@"\tdeviceConfiguration : %@, \n", asHexString13];
 
-  v78 = v187[5];
+  v78 = v186[5];
   sharingAttestationData = [(SEEndPoint *)self sharingAttestationData];
   asHexString14 = [sharingAttestationData asHexString];
   [v78 appendFormat:@"\tsharingAttestationData : %@\n", asHexString14];
 
-  v81 = v187[5];
+  v81 = v186[5];
   ownerEphemeralKey = [(SEEndPoint *)self ownerEphemeralKey];
   asHexString15 = [ownerEphemeralKey asHexString];
   [v81 appendFormat:@"\townerEphemeralKey : %@\n", asHexString15];
 
-  v84 = v187[5];
+  v84 = v186[5];
   additionalAttestationsDict = [(SEEndPoint *)self additionalAttestationsDict];
   [v84 appendFormat:@"\tadditionalAttestationsDict : %lu\n", objc_msgSend(additionalAttestationsDict, "count")];
 
-  v86 = v187[5];
+  v86 = v186[5];
   sharingEncryptedData = [(SEEndPoint *)self sharingEncryptedData];
   asHexString16 = [sharingEncryptedData asHexString];
   [v86 appendFormat:@"\tsharingEncryptedData : %@\n", asHexString16];
 
-  v89 = v187[5];
+  v89 = v186[5];
   revocationAttestation2 = [(SEEndPoint *)self revocationAttestation];
   asHexString17 = [revocationAttestation2 asHexString];
   [v89 appendFormat:@"\trevocationAttestation : %@\n", asHexString17];
 
-  v92 = v187[5];
+  v92 = v186[5];
   terminatedByTaskID = [(SEEndPoint *)self terminatedByTaskID];
   [v92 appendFormat:@"\tterminatedByTaskID : %@\n", terminatedByTaskID];
 
-  [v187[5] appendFormat:@"\tcarOEMProprietaryData : {\n"];
+  [v186[5] appendFormat:@"\tcarOEMProprietaryData : {\n"];
   carOEMProprietaryData = [(SEEndPoint *)self carOEMProprietaryData];
 
   if (carOEMProprietaryData)
   {
-    v95 = v187[5];
+    v95 = v186[5];
     carOEMProprietaryData2 = [(SEEndPoint *)self carOEMProprietaryData];
     version = [carOEMProprietaryData2 version];
     [v95 appendFormat:@"\t\tversion : %@, \n", version];
 
-    v98 = v187[5];
+    v98 = v186[5];
     carOEMProprietaryData3 = [(SEEndPoint *)self carOEMProprietaryData];
     cipherText = [carOEMProprietaryData3 cipherText];
     asHexString18 = [cipherText asHexString];
     [v98 appendFormat:@"\t\tcipherText : %@, \n", asHexString18];
 
-    v102 = v187[5];
+    v102 = v186[5];
     carOEMProprietaryData4 = [(SEEndPoint *)self carOEMProprietaryData];
     ephemeralPublicKeydata = [carOEMProprietaryData4 ephemeralPublicKeydata];
     asHexString19 = [ephemeralPublicKeydata asHexString];
     [v102 appendFormat:@"\t\tephemeralPublicKeydata : %@, \n", asHexString19];
 
-    v106 = v187[5];
+    v106 = v186[5];
     carOEMProprietaryData5 = [(SEEndPoint *)self carOEMProprietaryData];
     receiverPublicKeyHash = [carOEMProprietaryData5 receiverPublicKeyHash];
     asHexString20 = [receiverPublicKeyHash asHexString];
     [v106 appendFormat:@"\t\treceiverPublicKeyHash : %@, \n", asHexString20];
   }
 
-  [v187[5] appendFormat:@"\t}, \n"];
-  v110 = v187[5];
+  [v186[5] appendFormat:@"\t}, \n"];
+  v110 = v186[5];
   environment = [(SEEndPoint *)self environment];
   [v110 appendFormat:@"\tenvironment : %@, \n", environment];
 
-  v112 = v187[5];
+  v112 = v186[5];
   sharingTokenAvailabilityBitmap = [(SEEndPoint *)self sharingTokenAvailabilityBitmap];
   [v112 appendFormat:@"\tsharingTokenAvailabilityBitmap : %@, \n", sharingTokenAvailabilityBitmap];
 
-  v114 = v187[5];
+  v114 = v186[5];
   homeUUIDString = [(SEEndPoint *)self homeUUIDString];
   [v114 appendFormat:@"\thomeUUID : %@, \n", homeUUIDString];
 
-  v116 = v187[5];
+  v116 = v186[5];
   certificates = [(SEEndPoint *)self certificates];
   [v116 appendFormat:@"\tcertificates (%lu) : {\n", objc_msgSend(certificates, "count")];
 
-  v179 = 0u;
-  v180 = 0u;
-  v177 = 0u;
   v178 = 0u;
+  v179 = 0u;
+  v176 = 0u;
+  v177 = 0u;
   certificates2 = [(SEEndPoint *)self certificates];
-  v119 = [certificates2 countByEnumeratingWithState:&v177 objects:v192 count:16];
+  v119 = [certificates2 countByEnumeratingWithState:&v176 objects:v191 count:16];
   if (v119)
   {
-    v120 = *v178;
+    v120 = *v177;
     do
     {
       for (j = 0; j != v119; ++j)
       {
-        if (*v178 != v120)
+        if (*v177 != v120)
         {
           objc_enumerationMutation(certificates2);
         }
 
-        v122 = v187[5];
-        asHexString21 = [*(*(&v177 + 1) + 8 * j) asHexString];
+        v122 = v186[5];
+        asHexString21 = [*(*(&v176 + 1) + 8 * j) asHexString];
         [v122 appendFormat:@"\t\t%@, \n", asHexString21];
       }
 
-      v119 = [certificates2 countByEnumeratingWithState:&v177 objects:v192 count:16];
+      v119 = [certificates2 countByEnumeratingWithState:&v176 objects:v191 count:16];
     }
 
     while (v119);
   }
 
-  [v187[5] appendFormat:@"\t}\n}\n"];
+  [v186[5] appendFormat:@"\t}\n}\n"];
   shareInitiatorCertificateChainData = [(SEEndPoint *)self shareInitiatorCertificateChainData];
 
   if (shareInitiatorCertificateChainData)
   {
-    v125 = v187[5];
+    v125 = v186[5];
     shareInitiatorCertificateChainData2 = [(SEEndPoint *)self shareInitiatorCertificateChainData];
     asHexString22 = [shareInitiatorCertificateChainData2 asHexString];
     [v125 appendFormat:@"\tshareInitiatorCertificateChainData : %@\n", asHexString22];
   }
 
-  v128 = v187[5];
+  v128 = v186[5];
   readerLongTermPublicKeyCertificate = [(SEEndPoint *)self readerLongTermPublicKeyCertificate];
   asHexString23 = [readerLongTermPublicKeyCertificate asHexString];
   [v128 appendFormat:@"\treaderLongTermPublicKeyCertificate : %@, \n", asHexString23];
 
-  v131 = v187[5];
+  v131 = v186[5];
   bleUUID = [(SEEndPoint *)self bleUUID];
   [v131 appendFormat:@"\tbleUUID : %@\n", bleUUID];
 
-  v133 = v187[5];
+  v133 = v186[5];
   bleIntroKey = [(SEEndPoint *)self bleIntroKey];
   asHexString24 = [bleIntroKey asHexString];
   [v133 appendFormat:@"\tbleIntroKey : %@\n", asHexString24];
 
-  v136 = v187[5];
+  v136 = v186[5];
   bleOOBKey = [(SEEndPoint *)self bleOOBKey];
   asHexString25 = [bleOOBKey asHexString];
   [v136 appendFormat:@"\tbleOOBKey : %@\n", asHexString25];
 
-  v139 = v187[5];
+  v139 = v186[5];
   bleOOBMasterKey = [(SEEndPoint *)self bleOOBMasterKey];
   asHexString26 = [bleOOBMasterKey asHexString];
   [v139 appendFormat:@"\tbleOOBMasterKey : %@\n", asHexString26];
 
-  v142 = v187[5];
+  v142 = v186[5];
   bleDCKIdentifier = [(SEEndPoint *)self bleDCKIdentifier];
   asHexString27 = [bleDCKIdentifier asHexString];
   [v142 appendFormat:@"\tbleDCKIdentifier : %@\n", asHexString27];
 
-  v145 = v187[5];
+  v145 = v186[5];
   bleAddress = [(SEEndPoint *)self bleAddress];
   asHexString28 = [bleAddress asHexString];
   [v145 appendFormat:@"\tbleAddress : %@\n", asHexString28];
 
-  v148 = v187[5];
+  v148 = v186[5];
   blePairingRequest = [(SEEndPoint *)self blePairingRequest];
   [v148 appendFormat:@"\tblePairingRequest : %@\n", blePairingRequest];
 
-  v150 = v187[5];
+  v150 = v186[5];
   supportedRKEFunctions = [(SEEndPoint *)self supportedRKEFunctions];
   [v150 appendFormat:@"\tsupportedRKEFunctions : %@\n", supportedRKEFunctions];
 
-  v152 = v187[5];
+  v152 = v186[5];
   longTermSharedSecret = [(SEEndPoint *)self longTermSharedSecret];
   [v152 appendFormat:@"\tlongTermSharedSecret length : %lu\n", objc_msgSend(longTermSharedSecret, "length")];
 
-  v154 = v187[5];
+  v154 = v186[5];
   readerConfigID = [(SEEndPoint *)self readerConfigID];
   asHexString29 = [readerConfigID asHexString];
   [v154 appendFormat:@"\treaderConfigID : %@, \n", asHexString29];
 
-  v157 = v187[5];
+  v157 = v186[5];
   hupData = [(SEEndPoint *)self hupData];
   asHexString30 = [hupData asHexString];
   [v157 appendFormat:@"\thupData : %@, \n", asHexString30];
 
-  v160 = v187[5];
+  v160 = v186[5];
   hupDone = [(SEEndPoint *)self hupDone];
   [v160 appendFormat:@"\thupDone : %d, \n", objc_msgSend(hupDone, "BOOLValue")];
 
-  v162 = v187[5];
+  v162 = v186[5];
   vehicleSupportedVersionsData = [(SEEndPoint *)self vehicleSupportedVersionsData];
   asHexString31 = [vehicleSupportedVersionsData asHexString];
   [v162 appendFormat:@"\tvehicleSupportedVersionsData : %@, \n", asHexString31];
 
-  v165 = v187[5];
+  v165 = v186[5];
   mailboxSizesPlusAdditionalData = [(SEEndPoint *)self mailboxSizesPlusAdditionalData];
   asHexString32 = [mailboxSizesPlusAdditionalData asHexString];
   [v165 appendFormat:@"\tmailboxSizesPlusAdditionalData : %@, \n", asHexString32];
 
-  v168 = v187[5];
+  v168 = v186[5];
   slotIdentifier = [(SEEndPoint *)self slotIdentifier];
   [v168 appendFormat:@"\tslotIdentifier length : %ld, \n", objc_msgSend(slotIdentifier, "length")];
 
-  v170 = v187[5];
+  v170 = v186[5];
   upgradeEndpointJSONData = [(SEEndPoint *)self upgradeEndpointJSONData];
   [v170 appendFormat:@"\tupgradeEndpointJSONData length : %ld, \n", objc_msgSend(upgradeEndpointJSONData, "length")];
 
-  v172 = v187[5];
+  v172 = v186[5];
   anonymizedDsid = [(SEEndPoint *)self anonymizedDsid];
   [v172 appendFormat:@"\tanonymizedDsid length : %ld, \n", objc_msgSend(anonymizedDsid, "length")];
 
-  v174 = v187[5];
-  _Block_object_dispose(&v186, 8);
-
-  v175 = *MEMORY[0x1E69E9840];
+  v174 = v186[5];
+  _Block_object_dispose(&v185, 8);
 
   return v174;
 }
@@ -1796,7 +1778,7 @@ void __23__SEEndPoint_dumpState__block_invoke_2(uint64_t a1, void *a2, uint64_t 
 
 - (SEEndPoint)initWithCoder:(id)coder
 {
-  v140 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
@@ -1806,9 +1788,9 @@ void __23__SEEndPoint_dumpState__block_invoke_2(uint64_t a1, void *a2, uint64_t 
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = [v9 setWithObjects:{v10, v11, objc_opt_class(), 0}];
-  v137.receiver = self;
-  v137.super_class = SEEndPoint;
-  v13 = [(SEEndPoint *)&v137 init];
+  v136.receiver = self;
+  v136.super_class = SEEndPoint;
+  v13 = [(SEEndPoint *)&v136 init];
   if (v13)
   {
     v13->_endPointType = [coderCopy decodeIntForKey:@"endPointType"];
@@ -2051,7 +2033,7 @@ void __23__SEEndPoint_dumpState__block_invoke_2(uint64_t a1, void *a2, uint64_t 
       {
         asHexString = [(NSData *)v13->_publicKeyIdentifier asHexString];
         *buf = 138412290;
-        v139 = asHexString;
+        v138 = asHexString;
         _os_log_impl(&dword_1C7B9A000, v130, OS_LOG_TYPE_INFO, "Loading from pre15.X, inferring SEEndPointTypeAlisha with PKI %@", buf, 0xCu);
       }
 
@@ -2073,7 +2055,6 @@ void __23__SEEndPoint_dumpState__block_invoke_2(uint64_t a1, void *a2, uint64_t 
     }
   }
 
-  v135 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -75,7 +75,7 @@
   else
   {
 
-    [(PUViewControllerTransition *)self duration];
+    objc_msgSend_duration(self);
   }
 
   return result;

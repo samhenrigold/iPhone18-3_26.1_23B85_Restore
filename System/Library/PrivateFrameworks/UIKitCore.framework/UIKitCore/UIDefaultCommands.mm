@@ -3,11 +3,11 @@
 
 @implementation UIDefaultCommands
 
-void __36___UIDefaultCommands_sharedCommands__block_invoke()
+void __36___UIDefaultCommands_sharedCommands__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals_1134;
-  _MergedGlobals_1134 = v0;
+  v1 = objc_opt_new();
+  v2 = _MergedGlobals_1134;
+  _MergedGlobals_1134 = v1;
 }
 
 id __42___UIDefaultCommands_fixedDefaultCommands__block_invoke_9(uint64_t a1)

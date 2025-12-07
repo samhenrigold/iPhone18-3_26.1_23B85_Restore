@@ -11,8 +11,8 @@ void ___AXSClarityBoardEnabled_block_invoke()
 
   if (!v2)
   {
-    v4 = CLFLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = CLFLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       ___AXSClarityBoardEnabled_block_invoke_cold_2();
     }
@@ -20,31 +20,33 @@ void ___AXSClarityBoardEnabled_block_invoke()
     goto LABEL_9;
   }
 
-  v3 = access([v2 cStringUsingEncoding:4], 0);
-  _AXSClarityBoardEnabled_isEnabled = v3 == 0;
-  if (v3 && (v3 != -1 || *__error() != 2))
+  v4 = access([v2 cStringUsingEncoding:4], 0);
+  _AXSClarityBoardEnabled_isEnabled = v4 == 0;
+  if (v4)
   {
-    v4 = CLFLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (v4 != -1 || (v4 = __error(), *v4 != 2))
     {
-      ___AXSClarityBoardEnabled_block_invoke_cold_1(v2, v4);
-    }
+      v5 = CLFLogCommon(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      {
+        ___AXSClarityBoardEnabled_block_invoke_cold_1(v2, v5);
+      }
 
 LABEL_9:
+    }
   }
 }
 
 void ___AXSClarityBoardEnabled_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = __error();
   v5 = strerror(*v4);
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2080;
-  v10 = v5;
-  _os_log_fault_impl(&dword_186307000, a2, OS_LOG_TYPE_FAULT, "Unable to check whether file existed at %@. Error: %s", &v7, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2080;
+  v9 = v5;
+  _os_log_fault_impl(&dword_186307000, a2, OS_LOG_TYPE_FAULT, "Unable to check whether file existed at %@. Error: %s", &v6, 0x16u);
 }
 
 @end

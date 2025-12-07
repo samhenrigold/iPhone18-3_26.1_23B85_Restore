@@ -292,16 +292,14 @@ LABEL_13:
 
 - (void)customContext
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
-    v2 = 136315138;
-    v3 = "self.account";
-    _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!self.account) -- invalid nil value for '%s'", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "self.account";
+    _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!self.account) -- invalid nil value for '%s'", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 @end

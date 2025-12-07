@@ -60,7 +60,7 @@
   dateCopy = date;
   v4 = objc_autoreleasePoolPush();
   algorithms = [(_DASSwapModelAbstractAggregator *)self algorithms];
-  firstObject4 = [algorithms count];
+  firstObject4 = objc_msgSend_count(algorithms);
 
   if (!firstObject4)
   {
@@ -82,7 +82,7 @@ LABEL_4:
   v11 = +[NSMutableSet set];
   v12 = +[NSMutableArray array];
   v13 = [(_DASSwapModeling *)self->_applicationUsageModeling scoresForAllApplicationsAtDate:dateCopy];
-  v14 = [v13 count];
+  v14 = objc_msgSend_count(v13);
   [v12 addObject:v13];
   allKeys = [v13 allKeys];
   v69 = v11;
@@ -118,7 +118,7 @@ LABEL_4:
         if (v21 != self->_applicationUsageModeling)
         {
           v23 = [(_DASSwapModeling *)v21 scoresForAllApplicationsAtDate:dateCopy];
-          v19 &= [v23 count] == 0;
+          v19 &= objc_msgSend_count(v23) == 0;
           [v12 addObject:v23];
           allKeys2 = [v23 allKeys];
           [v69 addObjectsFromArray:allKeys2];
@@ -136,7 +136,7 @@ LABEL_4:
     v4 = v63;
     if ((v19 & 1) == 0)
     {
-      if (!v65 && [v69 count] < 0xA)
+      if (!v65 && objc_msgSend_count(v69) < 0xA)
       {
         v25 = 0;
         v9 = 0;
@@ -283,7 +283,7 @@ LABEL_5:
   applicationCopy = application;
   dateCopy = date;
   algorithms = [(_DASSwapModelAbstractAggregator *)self algorithms];
-  v9 = [algorithms count];
+  v9 = objc_msgSend_count(algorithms);
 
   if (v9)
   {

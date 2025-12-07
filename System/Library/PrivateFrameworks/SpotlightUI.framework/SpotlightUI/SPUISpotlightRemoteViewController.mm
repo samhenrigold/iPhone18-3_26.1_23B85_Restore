@@ -22,7 +22,10 @@
 - (void)updateSafeAreasOnSettings:(id)settings;
 - (void)updateSceneToOrientation:(int64_t)orientation withTransitionCoordinator:(id)coordinator;
 - (void)updateTraitCollection;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willLaunchSpotlightInBackground;
 @end
@@ -228,6 +231,20 @@ void __58__SPUISpotlightRemoteViewController_updateTraitCollection__block_invoke
   }
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = SPUISpotlightRemoteViewController;
+  [(SPUISpotlightRemoteViewController *)&v7 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  scene = [(SPUISpotlightRemoteViewController *)self scene];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __81__SPUISpotlightRemoteViewController_viewDidMoveToWindow_shouldAppearOrDisappear___block_invoke;
+  v6[3] = &unk_279D054C8;
+  v6[4] = self;
+  [scene updateSettingsWithBlock:v6];
+}
+
 - (void)updateSafeAreasOnSettings:(id)settings
 {
   settingsCopy = settings;
@@ -286,18 +303,18 @@ void __59__SPUISpotlightRemoteViewController_setLegibilitySettings___block_invok
 
   transaction = [(SPUISpotlightRemoteViewController *)self transaction];
 
-  v7 = qword_280F8EFF0;
+  v9 = qword_280F8EFF0;
   if (transaction)
   {
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v7 = qword_280F8EFF0;
+      SPUIInitLogging(v7, v8);
+      v9 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(SPUISpotlightRemoteViewController *)v7 createSceneWithPriority:?];
+      [(SPUISpotlightRemoteViewController *)v9 createSceneWithPriority:?];
     }
   }
 
@@ -305,121 +322,122 @@ void __59__SPUISpotlightRemoteViewController_setLegibilitySettings___block_invok
   {
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v7 = qword_280F8EFF0;
+      SPUIInitLogging(v7, v8);
+      v9 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_26B824000, v7, OS_LOG_TYPE_DEFAULT, "Spotlight is running the frontboard transaction", &buf, 2u);
+      _os_log_impl(&dword_26B824000, v9, OS_LOG_TYPE_DEFAULT, "Spotlight is running the frontboard transaction", &buf, 2u);
     }
 
-    v8 = qword_280F8EFF8;
+    v11 = qword_280F8EFF8;
     if (!qword_280F8EFF8)
     {
-      SPUIInitLogging();
-      v8 = qword_280F8EFF8;
+      SPUIInitLogging(0, v10);
+      v11 = qword_280F8EFF8;
     }
 
-    v9 = os_signpost_id_generate(v8);
-    v10 = qword_280F8EFF8;
+    v12 = os_signpost_id_generate(v11);
+    v14 = v12;
+    v15 = qword_280F8EFF8;
     if (!qword_280F8EFF8)
     {
-      SPUIInitLogging();
-      v10 = qword_280F8EFF8;
+      SPUIInitLogging(v12, v13);
+      v15 = qword_280F8EFF8;
     }
 
-    v11 = v10;
-    v12 = v11;
-    if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v16 = v15;
+    v17 = v16;
+    if ((v14 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&dword_26B824000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "sceneTransactionInterval", &unk_26B830347, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_26B824000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "sceneTransactionInterval", &unk_26B830347, &buf, 2u);
     }
 
-    v13 = objc_alloc(MEMORY[0x277D0AA80]);
-    v14 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Spotlight"];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke;
-    v48[3] = &unk_279D054F0;
-    v48[4] = self;
-    v48[5] = priority;
-    v15 = [v13 initWithProcessIdentity:v14 executionContextProvider:v48];
-    [(SPUISpotlightRemoteViewController *)self setTransaction:v15];
+    v18 = objc_alloc(MEMORY[0x277D0AA80]);
+    v19 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Spotlight"];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke;
+    v53[3] = &unk_279D054F0;
+    v53[4] = self;
+    v53[5] = priority;
+    v20 = [v18 initWithProcessIdentity:v19 executionContextProvider:v53];
+    [(SPUISpotlightRemoteViewController *)self setTransaction:v20];
 
     objc_initWeak(&buf, self);
     transaction2 = [(SPUISpotlightRemoteViewController *)self transaction];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_2;
-    v45[3] = &unk_279D05540;
-    objc_copyWeak(v46, &buf);
-    v46[1] = priority;
-    v46[2] = v9;
-    [transaction2 setCompletionBlock:v45];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_2;
+    v50[3] = &unk_279D05540;
+    objc_copyWeak(v51, &buf);
+    v51[1] = priority;
+    v51[2] = v14;
+    [transaction2 setCompletionBlock:v50];
 
     sceneSpecification = [(SPUISpotlightRemoteViewController *)self sceneSpecification];
-    v18 = objc_alloc_init([sceneSpecification settingsClass]);
-    v19 = [v18 mutableCopy];
+    v23 = objc_alloc_init([sceneSpecification settingsClass]);
+    v24 = [v23 mutableCopy];
 
     displayConfiguration = [(SPUISpotlightRemoteViewController *)self displayConfiguration];
-    [v19 setDisplayConfiguration:displayConfiguration];
+    [v24 setDisplayConfiguration:displayConfiguration];
 
     view = [(SPUISpotlightRemoteViewController *)self view];
     tlks_screen = [view tlks_screen];
     traitCollection = [tlks_screen traitCollection];
-    [v19 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
+    [v24 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
 
-    [v19 setForeground:priority == 4];
+    [v24 setForeground:priority == 4];
     [(SPUISpotlightRemoteViewController *)self sceneSettingsFrameFromRect:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
-    [v19 setFrame:?];
-    [v19 setDeviceOrientationEventsEnabled:0];
-    [v19 setInterfaceOrientation:{-[SPUISpotlightRemoteViewController currentOrientation](self, "currentOrientation")}];
-    ignoreOcclusionReasons = [v19 ignoreOcclusionReasons];
+    [v24 setFrame:?];
+    [v24 setDeviceOrientationEventsEnabled:0];
+    [v24 setInterfaceOrientation:{-[SPUISpotlightRemoteViewController currentOrientation](self, "currentOrientation")}];
+    ignoreOcclusionReasons = [v24 ignoreOcclusionReasons];
     [ignoreOcclusionReasons addObject:@"SPUIRemoteSearchIgnoreOcclusionsReason"];
 
-    [v19 setForcedStatusBarForegroundTransparent:1];
-    [v19 setInterruptionPolicy:3];
+    [v24 setForcedStatusBarForegroundTransparent:1];
+    [v24 setInterruptionPolicy:3];
     sceneIdentifier = [(SPUISpotlightRemoteViewController *)self sceneIdentifier];
-    [v19 setPersistenceIdentifier:sceneIdentifier];
+    [v24 setPersistenceIdentifier:sceneIdentifier];
 
     legibilitySettings = [(SPUISpotlightRemoteViewController *)self legibilitySettings];
-    [v19 setLegibilitySettings:legibilitySettings];
+    [v24 setLegibilitySettings:legibilitySettings];
 
-    [v19 addPropagatedProperty:sel_cornerRadiusConfiguration];
+    [v24 addPropagatedProperty:sel_cornerRadiusConfiguration];
     if (+[SPUIDefaults enableFloatingWindow])
     {
-      [v19 setEnhancedWindowingEnabled:1];
+      [v24 setEnhancedWindowingEnabled:1];
     }
 
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_21;
-    v43 = &unk_279D05568;
-    v27 = v19;
-    v44 = v27;
-    v28 = MEMORY[0x26D682990](&v40);
-    v28[2](v28, 1);
-    v28[2](v28, 2);
-    v28[2](v28, 4);
-    v28[2](v28, 3);
-    v29 = objc_alloc_init([sceneSpecification clientSettingsClass]);
-    v30 = [v29 mutableCopy];
+    v45 = MEMORY[0x277D85DD0];
+    v46 = 3221225472;
+    v47 = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_21;
+    v48 = &unk_279D05568;
+    v32 = v24;
+    v49 = v32;
+    v33 = MEMORY[0x26D682990](&v45);
+    v33[2](v33, 1);
+    v33[2](v33, 2);
+    v33[2](v33, 4);
+    v33[2](v33, 3);
+    v34 = objc_alloc_init([sceneSpecification clientSettingsClass]);
+    v35 = [v34 mutableCopy];
 
-    [v30 setStatusBarAlpha:1.0];
-    [v30 setStatusBarHidden:0];
-    [v30 setBackgroundStyle:4];
-    v31 = [MEMORY[0x277D0AD50] parametersForSpecification:sceneSpecification];
-    [v31 setSettings:v27];
-    [v31 setClientSettings:v30];
+    [v35 setStatusBarAlpha:1.0];
+    [v35 setStatusBarHidden:0];
+    [v35 setBackgroundStyle:4];
+    v36 = [MEMORY[0x277D0AD50] parametersForSpecification:sceneSpecification];
+    [v36 setSettings:v32];
+    [v36 setClientSettings:v35];
     transaction3 = [(SPUISpotlightRemoteViewController *)self transaction];
-    v33 = MEMORY[0x277D0ADC0];
+    v38 = MEMORY[0x277D0ADC0];
     sceneIdentifier2 = [(SPUISpotlightRemoteViewController *)self sceneIdentifier];
-    v35 = [v33 identityForIdentifier:sceneIdentifier2 workspaceIdentifier:@"com.apple.Spotlight"];
-    v36 = objc_alloc_init([sceneSpecification transitionContextClass]);
-    [transaction3 updateSceneWithIdentity:v35 parameters:v31 transitionContext:v36];
+    v40 = [v38 identityForIdentifier:sceneIdentifier2 workspaceIdentifier:@"com.apple.Spotlight"];
+    v41 = objc_alloc_init([sceneSpecification transitionContextClass]);
+    [transaction3 updateSceneWithIdentity:v40 parameters:v36 transitionContext:v41];
 
     transaction4 = [(SPUISpotlightRemoteViewController *)self transaction];
     [transaction4 addObserver:self];
@@ -430,7 +448,7 @@ void __59__SPUISpotlightRemoteViewController_setLegibilitySettings___block_invok
     transaction6 = [(SPUISpotlightRemoteViewController *)self transaction];
     [transaction6 setWaitsForSceneCommits:1];
 
-    objc_destroyWeak(v46);
+    objc_destroyWeak(v51);
     objc_destroyWeak(&buf);
   }
 }
@@ -447,20 +465,21 @@ id __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invok
 void __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_2(uint64_t a1, char a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained setTransaction:0];
-  v5 = qword_280F8EFF0;
+  v5 = [WeakRetained setTransaction:0];
+  v7 = qword_280F8EFF0;
   if (a2)
   {
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v5 = qword_280F8EFF0;
+      SPUIInitLogging(v5, v6);
+      v7 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      *v12 = 0;
-      _os_log_impl(&dword_26B824000, v5, OS_LOG_TYPE_DEFAULT, "Spotlight scene transaction passed", v12, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_26B824000, v7, OS_LOG_TYPE_DEFAULT, "Spotlight scene transaction passed", v16, 2u);
     }
   }
 
@@ -468,40 +487,40 @@ void __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_inv
   {
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v5 = qword_280F8EFF0;
+      SPUIInitLogging(v5, v6);
+      v7 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_2_cold_1(v5);
+      __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_2_cold_1(v7);
     }
 
-    v6 = dispatch_time(0, 1000000000);
+    v10 = dispatch_time(0, 1000000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __61__SPUISpotlightRemoteViewController_createSceneWithPriority___block_invoke_16;
     block[3] = &unk_279D05518;
-    v7 = *(a1 + 40);
+    v11 = *(a1 + 40);
     block[4] = WeakRetained;
-    block[5] = v7;
-    dispatch_after(v6, MEMORY[0x277D85CD0], block);
+    block[5] = v11;
+    dispatch_after(v10, MEMORY[0x277D85CD0], block);
   }
 
-  v8 = qword_280F8EFF8;
+  v12 = qword_280F8EFF8;
   if (!qword_280F8EFF8)
   {
-    SPUIInitLogging();
-    v8 = qword_280F8EFF8;
+    SPUIInitLogging(v8, v9);
+    v12 = qword_280F8EFF8;
   }
 
-  v9 = v8;
-  v10 = v9;
-  v11 = *(a1 + 48);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v13 = v12;
+  v14 = v13;
+  v15 = *(a1 + 48);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B824000, v10, OS_SIGNPOST_INTERVAL_END, v11, "sceneTransactionInterval", " enableTelemetry=YES ", v12, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B824000, v14, OS_SIGNPOST_INTERVAL_END, v15, "sceneTransactionInterval", " enableTelemetry=YES ", v16, 2u);
   }
 }
 
@@ -567,37 +586,44 @@ void __61__SPUISpotlightRemoteViewController_setDisplayConfiguration___block_inv
   scene = [(SPUISpotlightRemoteViewController *)self scene];
   if (scene && (v6 = scene, -[SPUISpotlightRemoteViewController scene](self, "scene"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isValid], v7, v6, (v8 & 1) != 0))
   {
-    v9 = qword_280F8EFF0;
+    v11 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v9 = qword_280F8EFF0;
+      SPUIInitLogging(v9, v10);
+      v11 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v12 = v11;
       scene2 = [(SPUISpotlightRemoteViewController *)self scene];
       v14 = 138412290;
       v15 = scene2;
-      _os_log_impl(&dword_26B824000, v10, OS_LOG_TYPE_DEFAULT, "Current scene %@", &v14, 0xCu);
+      _os_log_impl(&dword_26B824000, v12, OS_LOG_TYPE_DEFAULT, "Current scene %@", &v14, 0xCu);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = *MEMORY[0x277D85DE8];
 
     [(SPUISpotlightRemoteViewController *)self createSceneWithPriority:priority];
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(SPUISpotlightRemoteViewController *)self createSceneIfNeededWithPriority:4];
+  v5.receiver = self;
+  v5.super_class = SPUISpotlightRemoteViewController;
+  [(SPUISpotlightRemoteViewController *)&v5 viewWillAppear:appearCopy];
+  [(SPUISpotlightRemoteViewController *)self setForeground:1];
+}
+
 - (void)setForeground:(BOOL)foreground
 {
   foregroundCopy = foreground;
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   hostView = [(SPUISpotlightRemoteViewController *)self hostView];
   presenter = [hostView presenter];
   presentationContext = [presenter presentationContext];
@@ -611,13 +637,13 @@ void __61__SPUISpotlightRemoteViewController_setDisplayConfiguration___block_inv
   }
 
   objc_initWeak(&location, self);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_2;
-  v15[3] = &unk_279D05600;
-  objc_copyWeak(&v16, &location);
-  v17 = foregroundCopy;
-  [(SPUISpotlightRemoteViewController *)self addOrExecuteEventAsNeeded:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_2;
+  v16[3] = &unk_279D05600;
+  objc_copyWeak(&v17, &location);
+  v18 = foregroundCopy;
+  [(SPUISpotlightRemoteViewController *)self addOrExecuteEventAsNeeded:v16];
   v11 = @"background";
   if (foregroundCopy)
   {
@@ -625,23 +651,23 @@ void __61__SPUISpotlightRemoteViewController_setDisplayConfiguration___block_inv
   }
 
   v12 = v11;
-  v13 = qword_280F8EFF0;
+  v14 = v12;
+  v15 = qword_280F8EFF0;
   if (!qword_280F8EFF0)
   {
-    SPUIInitLogging();
-    v13 = qword_280F8EFF0;
+    SPUIInitLogging(v12, v13);
+    v15 = qword_280F8EFF0;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v12;
-    _os_log_impl(&dword_26B824000, v13, OS_LOG_TYPE_DEFAULT, "Spotlight is getting to the %@", buf, 0xCu);
+    v21 = v14;
+    _os_log_impl(&dword_26B824000, v15, OS_LOG_TYPE_DEFAULT, "Spotlight is getting to the %@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_2(uint64_t a1)
@@ -696,6 +722,16 @@ uint64_t __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_3(
   return 0;
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SPUISpotlightRemoteViewController;
+  [(SPUISpotlightRemoteViewController *)&v4 viewDidDisappear:disappear];
+  [(SPUISpotlightRemoteViewController *)self setCrashedWhileForeground:0];
+  [(SPUISpotlightRemoteViewController *)self setForeground:0];
+  [(SPUISpotlightRemoteViewController *)self clearEventQueue];
+}
+
 - (void)sceneDidInvalidate:(id)invalidate withContext:(id)context
 {
   invalidateCopy = invalidate;
@@ -730,18 +766,19 @@ uint64_t __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_3(
 
   [(SPUISpotlightRemoteViewController *)self setCrashedWhileForeground:v12];
 
-  if ([(SPUISpotlightRemoteViewController *)self crashedWhileForeground])
+  crashedWhileForeground = [(SPUISpotlightRemoteViewController *)self crashedWhileForeground];
+  if (crashedWhileForeground)
   {
-    v13 = qword_280F8EFF0;
+    v15 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v13 = qword_280F8EFF0;
+      SPUIInitLogging(crashedWhileForeground, v14);
+      v15 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [SPUISpotlightRemoteViewController sceneDidInvalidate:invalidateCopy withContext:v13];
+      [SPUISpotlightRemoteViewController sceneDidInvalidate:invalidateCopy withContext:v15];
     }
 
     [(SPUISpotlightRemoteViewController *)self createSceneWithPriority:4];
@@ -772,7 +809,7 @@ uint64_t __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_3(
 
 - (void)transaction:(id)transaction didCreateScene:(id)scene
 {
-  *(&v47[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v50[1] + 4) = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   [(SPUISpotlightRemoteViewController *)self setScene:sceneCopy];
   scene = [(SPUISpotlightRemoteViewController *)self scene];
@@ -824,18 +861,18 @@ uint64_t __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_3(
   v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   [v29 setActive:1];
 
-  v30 = qword_280F8EFF0;
+  v32 = qword_280F8EFF0;
   if (!qword_280F8EFF0)
   {
-    SPUIInitLogging();
-    v30 = qword_280F8EFF0;
+    SPUIInitLogging(v30, v31);
+    v32 = qword_280F8EFF0;
   }
 
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v47[0] = sceneCopy;
-    _os_log_impl(&dword_26B824000, v30, OS_LOG_TYPE_DEFAULT, "Spotlight created scene %@", buf, 0xCu);
+    v50[0] = sceneCopy;
+    _os_log_impl(&dword_26B824000, v32, OS_LOG_TYPE_DEFAULT, "Spotlight created scene %@", buf, 0xCu);
   }
 
   [(SPUISpotlightRemoteViewController *)self sceneContentStateDidChange:sceneCopy];
@@ -847,60 +884,58 @@ uint64_t __51__SPUISpotlightRemoteViewController_setForeground___block_invoke_3(
 
   else
   {
-    v39 = v11;
-    v40 = uiPresentationManager;
-    v43 = 0u;
+    v42 = v11;
+    v43 = uiPresentationManager;
+    v46 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
+    v45 = 0u;
     sceneEventsQueue = [(SPUISpotlightRemoteViewController *)self sceneEventsQueue];
-    v32 = [sceneEventsQueue countByEnumeratingWithState:&v41 objects:v45 count:16];
-    if (v32)
+    v34 = [sceneEventsQueue countByEnumeratingWithState:&v44 objects:v48 count:16];
+    if (v34)
     {
-      v33 = v32;
-      v34 = *v42;
+      v35 = v34;
+      v36 = *v45;
       do
       {
-        v35 = 0;
+        v37 = 0;
         do
         {
-          if (*v42 != v34)
+          if (*v45 != v36)
           {
             objc_enumerationMutation(sceneEventsQueue);
           }
 
-          (*(*(*(&v41 + 1) + 8 * v35) + 16))();
-          v36 = qword_280F8EFF0;
+          v38 = (*(*(*(&v44 + 1) + 8 * v37) + 16))();
+          v40 = qword_280F8EFF0;
           if (!qword_280F8EFF0)
           {
-            SPUIInitLogging();
-            v36 = qword_280F8EFF0;
+            SPUIInitLogging(v38, v39);
+            v40 = qword_280F8EFF0;
           }
 
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
-            [(SPUISpotlightRemoteViewController *)buf transaction:v36 didCreateScene:self, v47];
+            [(SPUISpotlightRemoteViewController *)buf transaction:v40 didCreateScene:self, v50];
           }
 
-          ++v35;
+          ++v37;
         }
 
-        while (v33 != v35);
-        v33 = [sceneEventsQueue countByEnumeratingWithState:&v41 objects:v45 count:16];
+        while (v35 != v37);
+        v35 = [sceneEventsQueue countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
-      while (v33);
+      while (v35);
     }
 
     [(SPUISpotlightRemoteViewController *)self clearEventQueue];
-    uiPresentationManager = v40;
-    v11 = v39;
+    uiPresentationManager = v43;
+    v11 = v42;
   }
 
   view2 = [(SPUISpotlightRemoteViewController *)self view];
   [view2 layoutIfNeeded];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SPUISpotlightRemoteViewController_transaction_didCreateScene___block_invoke(uint64_t a1, void *a2)
@@ -916,7 +951,7 @@ void __64__SPUISpotlightRemoteViewController_transaction_didCreateScene___block_
   v2 = qword_280F8EFF0;
   if (!qword_280F8EFF0)
   {
-    SPUIInitLogging();
+    SPUIInitLogging(self, a2);
     v2 = qword_280F8EFF0;
   }
 
@@ -1042,31 +1077,31 @@ id __88__SPUISpotlightRemoteViewController_updateSceneToOrientation_withTransiti
   scene = [(SPUISpotlightRemoteViewController *)self scene];
   if (scene && (v6 = scene, -[SPUISpotlightRemoteViewController scene](self, "scene"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isValid], v7, v6, v8))
   {
-    neededCopy[2](neededCopy);
-    v9 = qword_280F8EFF0;
+    v9 = neededCopy[2](neededCopy);
+    v11 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v9 = qword_280F8EFF0;
+      SPUIInitLogging(v9, v10);
+      v11 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(SPUISpotlightRemoteViewController *)v9 addOrExecuteEventAsNeeded:?];
+      [(SPUISpotlightRemoteViewController *)v11 addOrExecuteEventAsNeeded:?];
     }
   }
 
   else
   {
     sceneEventsQueue = [(SPUISpotlightRemoteViewController *)self sceneEventsQueue];
-    v11 = MEMORY[0x26D682990](neededCopy);
-    [sceneEventsQueue addObject:v11];
+    v13 = MEMORY[0x26D682990](neededCopy);
+    [sceneEventsQueue addObject:v13];
   }
 }
 
 - (id)watchdogPolicyForProcess:(id)process eventContext:(id)context
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([contextCopy event] == 1 || objc_msgSend(contextCopy, "event") == 2)
   {
@@ -1080,14 +1115,12 @@ id __88__SPUISpotlightRemoteViewController_updateSceneToOrientation_withTransiti
 
     v7 = MEMORY[0x277D0AD88];
     FBSProcessResourceAllowanceMakeWithRealTimeInterval();
-    v8 = [v7 provisionWithAllowance:v13];
+    v8 = [v7 provisionWithAllowance:v12];
     v9 = MEMORY[0x277D0AD98];
-    v14[0] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v5 = [v9 policyWithProvisions:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1103,23 +1136,20 @@ id __88__SPUISpotlightRemoteViewController_updateSceneToOrientation_withTransiti
 
 - (void)createSceneWithPriority:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 transaction];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_26B824000, v3, OS_LOG_TYPE_ERROR, "Spotlight has an existing transaction in progress %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_26B824000, v3, OS_LOG_TYPE_ERROR, "Spotlight has an existing transaction in progress %@", &v5, 0xCu);
 }
 
 - (void)sceneDidInvalidate:(uint64_t)a1 withContext:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B824000, a2, OS_LOG_TYPE_ERROR, "Spotlight died in the foreground for scene %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B824000, a2, OS_LOG_TYPE_ERROR, "Spotlight died in the foreground for scene %@", &v2, 0xCu);
 }
 
 - (void)transaction:(void *)a3 didCreateScene:(void *)a4 .cold.1(uint8_t *a1, void *a2, void *a3, void *a4)
@@ -1133,14 +1163,12 @@ id __88__SPUISpotlightRemoteViewController_updateSceneToOrientation_withTransiti
 
 - (void)addOrExecuteEventAsNeeded:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 scene];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_26B824000, v3, OS_LOG_TYPE_DEBUG, "Spotlight scene got updated %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_26B824000, v3, OS_LOG_TYPE_DEBUG, "Spotlight scene got updated %@", &v5, 0xCu);
 }
 
 @end

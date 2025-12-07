@@ -146,7 +146,7 @@
 
 - (void)run3BarsObserver:(void *)observer withActivity:(id)activity withCompletion:(id)completion
 {
-  if (!sub_100076C24(observer))
+  if (!sub_100076C24(observer, a2))
   {
     v13 = objc_autoreleasePoolPush();
     if (off_100298C40)

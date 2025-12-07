@@ -9,7 +9,7 @@
 
 + (void)performOpenIntentForAnnotation:(SFAppEntityAnnotation *)annotation bundleId:(NSString *)id completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -37,7 +37,7 @@
 
 + (void)executeToolInvocationFromData:(id)data completionHandler:(id)handler
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v17 - v7;
   v9 = _Block_copy(handler);
@@ -63,7 +63,7 @@
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v19 - v11;
   v13 = _Block_copy(handler);

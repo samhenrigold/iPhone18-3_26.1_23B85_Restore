@@ -108,7 +108,7 @@ LABEL_7:
 {
   replaceCopy = replace;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -116,14 +116,14 @@ LABEL_7:
 LABEL_14:
       delegate = [(FMRequest *)self delegate];
       delegate2 = [replaceCopy delegate];
-      v11 = delegate == delegate2;
+      v12 = delegate == delegate2;
 
       goto LABEL_15;
     }
 
-    v5 = replaceCopy;
+    v6 = replaceCopy;
     registeredCauses = [(FMRequestRegister *)self registeredCauses];
-    registeredCauses2 = [v5 registeredCauses];
+    registeredCauses2 = [v6 registeredCauses];
     allObjects = [registeredCauses2 allObjects];
     [registeredCauses addObjectsFromArray:allObjects];
 
@@ -135,37 +135,37 @@ LABEL_14:
     else
     {
       registeredCauses4 = [(FMRequestRegister *)self registeredCauses];
-      v13 = [registeredCauses4 containsObject:@"networkStateChanged"];
+      v14 = [registeredCauses4 containsObject:@"networkStateChanged"];
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_11:
-        v14 = sub_100002830();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100002830(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v17 = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Replaced FMRequestRegister with new register.", v17, 2u);
+          *v19 = 0;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Replaced FMRequestRegister with new register.", v19, 2u);
         }
 
         goto LABEL_14;
       }
     }
 
-    -[FMRequestRegister setNonEssentialRetryCount:](self, "setNonEssentialRetryCount:", [v5 nonEssentialRetryCount]);
+    v15 = -[FMRequestRegister setNonEssentialRetryCount:](self, "setNonEssentialRetryCount:", [v6 nonEssentialRetryCount]);
     goto LABEL_11;
   }
 
-  delegate = sub_100002830();
+  delegate = sub_100002830(isKindOfClass);
   if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, "Request not FMRequestRegister or FMRequestQueueCheck. Not replacing.", buf, 2u);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_15:
 
-  return v11;
+  return v12;
 }
 
 - (id)retryCauseExclusions
@@ -205,15 +205,15 @@ LABEL_15:
   [v9 removeObjectsForKeys:excludeCopy];
   v10 = [v9 objectForKeyedSubscript:@"otherDevices"];
   v11 = +[NSMutableArray array];
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_100024F34;
-  v38[3] = &unk_10005E3F0;
-  v36 = excludeCopy;
-  v39 = v36;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_100024F34;
+  v40[3] = &unk_10005E3F0;
+  v38 = excludeCopy;
+  v41 = v38;
   v12 = v11;
-  v40 = v12;
-  [v10 enumerateObjectsUsingBlock:v38];
+  v42 = v12;
+  [v10 enumerateObjectsUsingBlock:v40];
   [v9 setObject:v12 forKeyedSubscript:@"otherDevices"];
   v13 = [(FMRequestRegister *)self flattenedArrayFromObject:v9 parentIndices:&off_1000631C0];
   v14 = [v13 mutableCopy];
@@ -246,53 +246,54 @@ LABEL_13:
   }
 
 LABEL_3:
-  v33 = v12;
-  v34 = lastForcedRegisterTimePrefKey;
+  v35 = v12;
+  v36 = lastForcedRegisterTimePrefKey;
   v19 = dictionaryCopy;
   v20 = v8;
-  v35 = v10;
+  v37 = v10;
   v21 = [v14 componentsJoinedByString:{@", "}];
   v22 = [NSRegularExpression regularExpressionWithPattern:@"authToken.* options:" error:1, 0];
   v23 = [v22 stringByReplacingMatchesInString:v21 options:0 range:0 withTemplate:{objc_msgSend(v21, "length"), @"authToken_redacted, "}];
-  v24 = sub_100002830();
+  v24 = sub_100002830(v23);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     sub_100038AA4(v23, v24);
   }
 
-  v37 = 0;
-  v25 = [NSJSONSerialization dataWithJSONObject:v14 options:0 error:&v37];
-  v26 = v37;
+  v39 = 0;
+  v25 = [NSJSONSerialization dataWithJSONObject:v14 options:0 error:&v39];
+  v26 = v39;
+  v27 = v26;
   if (v26)
   {
-    v31 = v20;
-    v27 = sub_100002830();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      sub_100038B1C(selfCopy, v26, v27);
-    }
-
-    v28 = sub_10001BAE0();
+    v33 = v20;
+    v28 = sub_100002830(v26);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      sub_100038BCC(v23, v28);
+      sub_100038B1C(selfCopy, v27, v28);
     }
 
-    v20 = v31;
+    v30 = sub_10001BAE0(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      sub_100038BCC(v23, v30);
+    }
+
+    v20 = v33;
   }
 
-  lastForcedRegisterTimePrefKey = v34;
-  v10 = v35;
+  lastForcedRegisterTimePrefKey = v36;
+  v10 = v37;
   v8 = v20;
   dictionaryCopy = v19;
-  v12 = v33;
+  v12 = v35;
 LABEL_14:
   CC_SHA1([v25 bytes], objc_msgSend(v25, "length"), md);
-  v29 = [NSData dataWithBytes:md length:20];
+  v31 = [NSData dataWithBytes:md length:20];
 
   objc_autoreleasePoolPop(v8);
 
-  return v29;
+  return v31;
 }
 
 - (id)flattenedArrayFromObject:(id)object parentIndices:(id)indices

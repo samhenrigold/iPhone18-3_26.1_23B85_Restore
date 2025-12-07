@@ -48,7 +48,7 @@
 
 void __55__CSAudioSessionMonitor_notifyAudioSessionStateChange___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 40) != v2)
@@ -58,15 +58,13 @@ void __55__CSAudioSessionMonitor_notifyAudioSessionStateChange___block_invoke(ui
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 136315394;
-      v8 = "[CSAudioSessionMonitor notifyAudioSessionStateChange:]_block_invoke";
-      v9 = 2050;
-      v10 = v5;
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Notifying audio session state change to %{public}lu", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[CSAudioSessionMonitor notifyAudioSessionStateChange:]_block_invoke";
+      v8 = 2050;
+      v9 = v5;
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Notifying audio session state change to %{public}lu", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)getAudioSessionState
@@ -90,30 +88,26 @@ void __55__CSAudioSessionMonitor_notifyAudioSessionStateChange___block_invoke(ui
 
 - (void)_stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSAudioSessionMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : audio session event", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSAudioSessionMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : audio session event", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSAudioSessionMonitor _startMonitoringWithQueue:]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : audio session event", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSAudioSessionMonitor _startMonitoringWithQueue:]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : audio session event", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (CSAudioSessionMonitor)initWithCrashMonitor:(id)monitor
@@ -162,9 +156,11 @@ void __55__CSAudioSessionMonitor_notifyAudioSessionStateChange___block_invoke(ui
 
 uint64_t __39__CSAudioSessionMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_865 = [[CSAudioSessionMonitor alloc] initWithCrashMonitor:0];
+  v0 = [[CSAudioSessionMonitor alloc] initWithCrashMonitor:0];
+  v1 = sharedInstance__sharedInstance_865;
+  sharedInstance__sharedInstance_865 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

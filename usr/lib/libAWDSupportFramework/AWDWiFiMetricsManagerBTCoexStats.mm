@@ -970,7 +970,6 @@ LABEL_49:
   has = self->_has;
   if ((*&has & 0x8000000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -990,7 +989,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  antennaRequests = self->_antennaRequests;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1005,7 +1003,6 @@ LABEL_4:
   }
 
 LABEL_58:
-  antennaGrants = self->_antennaGrants;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1020,7 +1017,6 @@ LABEL_5:
   }
 
 LABEL_59:
-  wlanPreempted = self->_wlanPreempted;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1035,12 +1031,10 @@ LABEL_6:
   }
 
 LABEL_60:
-  psnullExceeded = self->_psnullExceeded;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    highUcodeLatency = self->_highUcodeLatency;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1085,16 +1079,15 @@ LABEL_8:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x200) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) != 0)
   {
-    requestsACL = self->_requestsACL;
     PBDataWriterWriteUint64Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x80000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x80000) == 0)
     {
 LABEL_26:
-      if ((*&v6 & 0x200000) == 0)
+      if ((*&v5 & 0x200000) == 0)
       {
         goto LABEL_27;
       }
@@ -1103,18 +1096,17 @@ LABEL_26:
     }
   }
 
-  else if ((*&v6 & 0x80000) == 0)
+  else if ((*&v5 & 0x80000) == 0)
   {
     goto LABEL_26;
   }
 
-  requestsSCO = self->_requestsSCO;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x200000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000) == 0)
   {
 LABEL_27:
-    if ((*&v6 & 0x100) == 0)
+    if ((*&v5 & 0x100) == 0)
     {
       goto LABEL_28;
     }
@@ -1123,13 +1115,12 @@ LABEL_27:
   }
 
 LABEL_64:
-  requestseSCO = self->_requestseSCO;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x100) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100) == 0)
   {
 LABEL_28:
-    if ((*&v6 & 0x100000) == 0)
+    if ((*&v5 & 0x100000) == 0)
     {
       goto LABEL_29;
     }
@@ -1138,13 +1129,12 @@ LABEL_28:
   }
 
 LABEL_65:
-  requestsA2DP = self->_requestsA2DP;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x100000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100000) == 0)
   {
 LABEL_29:
-    if ((*&v6 & 0x40000) == 0)
+    if ((*&v5 & 0x40000) == 0)
     {
       goto LABEL_30;
     }
@@ -1153,13 +1143,12 @@ LABEL_29:
   }
 
 LABEL_66:
-  requestsSniff = self->_requestsSniff;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) == 0)
   {
 LABEL_30:
-    if ((*&v6 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_31;
     }
@@ -1168,13 +1157,12 @@ LABEL_30:
   }
 
 LABEL_67:
-  requestsPageScan = self->_requestsPageScan;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_31:
-    if ((*&v6 & 0x20000) == 0)
+    if ((*&v5 & 0x20000) == 0)
     {
       goto LABEL_32;
     }
@@ -1183,13 +1171,12 @@ LABEL_31:
   }
 
 LABEL_68:
-  requestsInquiryScan = self->_requestsInquiryScan;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_32:
-    if ((*&v6 & 0x1000) == 0)
+    if ((*&v5 & 0x1000) == 0)
     {
       goto LABEL_33;
     }
@@ -1198,13 +1185,12 @@ LABEL_32:
   }
 
 LABEL_69:
-  requestsPage = self->_requestsPage;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_33:
-    if ((*&v6 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_34;
     }
@@ -1213,13 +1199,12 @@ LABEL_33:
   }
 
 LABEL_70:
-  requestsInquiry = self->_requestsInquiry;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x400) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400) == 0)
   {
 LABEL_34:
-    if ((*&v6 & 0x8000) == 0)
+    if ((*&v5 & 0x8000) == 0)
     {
       goto LABEL_35;
     }
@@ -1228,13 +1213,12 @@ LABEL_34:
   }
 
 LABEL_71:
-  requestsBLE = self->_requestsBLE;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x8000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000) == 0)
   {
 LABEL_35:
-    if ((*&v6 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_36;
     }
@@ -1243,13 +1227,12 @@ LABEL_35:
   }
 
 LABEL_72:
-  requestsOther = self->_requestsOther;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_36:
-    if ((*&v6 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_37;
     }
@@ -1258,13 +1241,12 @@ LABEL_36:
   }
 
 LABEL_73:
-  requestsBLEScan = self->_requestsBLEScan;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_37:
-    if ((*&v6 & 0x10000) == 0)
+    if ((*&v5 & 0x10000) == 0)
     {
       goto LABEL_38;
     }
@@ -1273,13 +1255,12 @@ LABEL_37:
   }
 
 LABEL_74:
-  requestsMSS = self->_requestsMSS;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x10000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000) == 0)
   {
 LABEL_38:
-    if ((*&v6 & 4) == 0)
+    if ((*&v5 & 4) == 0)
     {
       goto LABEL_40;
     }
@@ -1288,52 +1269,47 @@ LABEL_38:
   }
 
 LABEL_75:
-  requestsPARK = self->_requestsPARK;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_39:
-    beaconLostCnt = self->_beaconLostCnt;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_40:
   if (self->_rxMPDUCountPerMCSs.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_rxMPDUCountPerMCSs.list[v8];
       PBDataWriterWriteUint64Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_rxMPDUCountPerMCSs.count);
+    while (v6 < self->_rxMPDUCountPerMCSs.count);
   }
 
   if (self->_txMPDUCountPerMCSs.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_txMPDUCountPerMCSs.list[v10];
       PBDataWriterWriteUint64Field();
-      ++v10;
+      ++v7;
     }
 
-    while (v10 < self->_txMPDUCountPerMCSs.count);
+    while (v7 < self->_txMPDUCountPerMCSs.count);
   }
 
-  v12 = self->_has;
-  if ((*&v12 & 0x4000000) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x4000000) != 0)
   {
-    timeTillResumeAccumulatedMsec = self->_timeTillResumeAccumulatedMsec;
     PBDataWriterWriteUint64Field();
-    v12 = self->_has;
-    if ((*&v12 & 0x400000) == 0)
+    v8 = self->_has;
+    if ((*&v8 & 0x400000) == 0)
     {
 LABEL_48:
-      if ((*&v12 & 8) == 0)
+      if ((*&v8 & 8) == 0)
       {
         goto LABEL_49;
       }
@@ -1342,18 +1318,17 @@ LABEL_48:
     }
   }
 
-  else if ((*&v12 & 0x400000) == 0)
+  else if ((*&v8 & 0x400000) == 0)
   {
     goto LABEL_48;
   }
 
-  resumeTimeAccumulatedMsec = self->_resumeTimeAccumulatedMsec;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 8) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 8) == 0)
   {
 LABEL_49:
-    if ((*&v12 & 0x800000) == 0)
+    if ((*&v8 & 0x800000) == 0)
     {
       goto LABEL_50;
     }
@@ -1362,13 +1337,12 @@ LABEL_49:
   }
 
 LABEL_79:
-  envelopeLowToHighAccumulatedMsec = self->_envelopeLowToHighAccumulatedMsec;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x800000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x800000) == 0)
   {
 LABEL_50:
-    if ((*&v12 & 0x1000000) == 0)
+    if ((*&v8 & 0x1000000) == 0)
     {
       goto LABEL_51;
     }
@@ -1377,13 +1351,12 @@ LABEL_50:
   }
 
 LABEL_80:
-  scoReservedSlotDenyCount = self->_scoReservedSlotDenyCount;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x1000000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x1000000) == 0)
   {
 LABEL_51:
-    if ((*&v12 & 0x2000000) == 0)
+    if ((*&v8 & 0x2000000) == 0)
     {
       goto LABEL_52;
     }
@@ -1392,13 +1365,12 @@ LABEL_51:
   }
 
 LABEL_81:
-  scoRetransmission1DenyCount = self->_scoRetransmission1DenyCount;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x2000000) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x2000000) == 0)
   {
 LABEL_52:
-    if ((*&v12 & 0x10) == 0)
+    if ((*&v8 & 0x10) == 0)
     {
       goto LABEL_53;
     }
@@ -1407,19 +1379,17 @@ LABEL_52:
   }
 
 LABEL_82:
-  scoRetransmission2DenyCount = self->_scoRetransmission2DenyCount;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x10) == 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x10) == 0)
   {
 LABEL_53:
-    if ((*&v12 & 0x40) == 0)
+    if ((*&v8 & 0x40) == 0)
     {
       goto LABEL_54;
     }
 
 LABEL_84:
-    psRequestTxCnt = self->_psRequestTxCnt;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10000000) == 0)
     {
@@ -1430,22 +1400,20 @@ LABEL_84:
   }
 
 LABEL_83:
-  guardTimeMicroseconds = self->_guardTimeMicroseconds;
   PBDataWriterWriteUint64Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x40) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x40) != 0)
   {
     goto LABEL_84;
   }
 
 LABEL_54:
-  if ((*&v12 & 0x10000000) == 0)
+  if ((*&v8 & 0x10000000) == 0)
   {
     return;
   }
 
 LABEL_85:
-  txCTS2Self = self->_txCTS2Self;
 
   PBDataWriterWriteUint64Field();
 }

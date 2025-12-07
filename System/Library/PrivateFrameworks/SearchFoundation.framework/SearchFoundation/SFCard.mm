@@ -15,11 +15,11 @@
 
 - (SFCard)initWithProtobuf:(id)protobuf
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v89.receiver = self;
-  v89.super_class = SFCard;
-  v5 = [(SFCard *)&v89 init];
+  v88.receiver = self;
+  v88.super_class = SFCard;
+  v5 = [(SFCard *)&v88 init];
   if (v5)
   {
     title = [protobufCopy title];
@@ -36,7 +36,7 @@
     }
 
     cardSections = [protobufCopy cardSections];
-    v76 = v5;
+    v75 = v5;
     if (cardSections)
     {
       v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -47,33 +47,33 @@
       v9 = 0;
     }
 
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
     v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     cardSections2 = [protobufCopy cardSections];
-    v11 = [cardSections2 countByEnumeratingWithState:&v85 objects:v92 count:16];
+    v11 = [cardSections2 countByEnumeratingWithState:&v84 objects:v91 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v86;
+      v13 = *v85;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v86 != v13)
+          if (*v85 != v13)
           {
             objc_enumerationMutation(cardSections2);
           }
 
-          v15 = [[SFCardSection alloc] initWithProtobuf:*(*(&v85 + 1) + 8 * i)];
+          v15 = [[SFCardSection alloc] initWithProtobuf:*(*(&v84 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [cardSections2 countByEnumeratingWithState:&v85 objects:v92 count:16];
+        v12 = [cardSections2 countByEnumeratingWithState:&v84 objects:v91 count:16];
       }
 
       while (v12);
@@ -123,45 +123,45 @@
       v25 = 0;
     }
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     dismissalCommands2 = [protobufCopy dismissalCommands];
-    v27 = [dismissalCommands2 countByEnumeratingWithState:&v81 objects:v91 count:16];
+    v27 = [dismissalCommands2 countByEnumeratingWithState:&v80 objects:v90 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v82;
+      v29 = *v81;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v82 != v29)
+          if (*v81 != v29)
           {
             objc_enumerationMutation(dismissalCommands2);
           }
 
-          v31 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v81 + 1) + 8 * j)];
+          v31 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v80 + 1) + 8 * j)];
           if (v31)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [dismissalCommands2 countByEnumeratingWithState:&v81 objects:v91 count:16];
+        v28 = [dismissalCommands2 countByEnumeratingWithState:&v80 objects:v90 count:16];
       }
 
       while (v28);
     }
 
-    [(SFCard *)v76 setDismissalCommands:v25];
+    [(SFCard *)v75 setDismissalCommands:v25];
     cardId = [protobufCopy cardId];
 
     if (cardId)
     {
       cardId2 = [protobufCopy cardId];
-      [(SFCard *)v76 setCardId:cardId2];
+      [(SFCard *)v75 setCardId:cardId2];
     }
 
     contextReferenceIdentifier = [protobufCopy contextReferenceIdentifier];
@@ -169,7 +169,7 @@
     if (contextReferenceIdentifier)
     {
       contextReferenceIdentifier2 = [protobufCopy contextReferenceIdentifier];
-      [(SFCard *)v76 setContextReferenceIdentifier:contextReferenceIdentifier2];
+      [(SFCard *)v75 setContextReferenceIdentifier:contextReferenceIdentifier2];
     }
 
     urlValue = [protobufCopy urlValue];
@@ -178,12 +178,12 @@
     {
       urlValue2 = [protobufCopy urlValue];
       v38 = _SFPBURLHandwrittenTranslator(urlValue2);
-      [(SFCard *)v76 setUrlValue:v38];
+      [(SFCard *)v75 setUrlValue:v38];
     }
 
     if ([protobufCopy source])
     {
-      -[SFCard setSource:](v76, "setSource:", [protobufCopy source]);
+      -[SFCard setSource:](v75, "setSource:", [protobufCopy source]);
     }
 
     entityIdentifier = [protobufCopy entityIdentifier];
@@ -191,7 +191,7 @@
     if (entityIdentifier)
     {
       entityIdentifier2 = [protobufCopy entityIdentifier];
-      [(SFCard *)v76 setEntityIdentifier:entityIdentifier2];
+      [(SFCard *)v75 setEntityIdentifier:entityIdentifier2];
     }
 
     resultIdentifier = [protobufCopy resultIdentifier];
@@ -199,12 +199,12 @@
     if (resultIdentifier)
     {
       resultIdentifier2 = [protobufCopy resultIdentifier];
-      [(SFCard *)v76 setResultIdentifier:resultIdentifier2];
+      [(SFCard *)v75 setResultIdentifier:resultIdentifier2];
     }
 
     if ([protobufCopy queryId])
     {
-      -[SFCard setQueryId:](v76, "setQueryId:", [protobufCopy queryId]);
+      -[SFCard setQueryId:](v75, "setQueryId:", [protobufCopy queryId]);
     }
 
     v43 = [protobufCopy fbr];
@@ -212,12 +212,12 @@
     if (v43)
     {
       v44 = [protobufCopy fbr];
-      [(SFCard *)v76 setFbr:v44];
+      [(SFCard *)v75 setFbr:v44];
     }
 
     if ([protobufCopy flexibleSectionOrder])
     {
-      -[SFCard setFlexibleSectionOrder:](v76, "setFlexibleSectionOrder:", [protobufCopy flexibleSectionOrder]);
+      -[SFCard setFlexibleSectionOrder:](v75, "setFlexibleSectionOrder:", [protobufCopy flexibleSectionOrder]);
     }
 
     entityProtobufMessages = [protobufCopy entityProtobufMessages];
@@ -231,40 +231,40 @@
       v46 = 0;
     }
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     entityProtobufMessages2 = [protobufCopy entityProtobufMessages];
-    v48 = [entityProtobufMessages2 countByEnumeratingWithState:&v77 objects:v90 count:16];
+    v48 = [entityProtobufMessages2 countByEnumeratingWithState:&v76 objects:v89 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v78;
+      v50 = *v77;
       do
       {
         for (k = 0; k != v49; ++k)
         {
-          if (*v78 != v50)
+          if (*v77 != v50)
           {
             objc_enumerationMutation(entityProtobufMessages2);
           }
 
-          v52 = [[SFNamedProtobufMessage alloc] initWithProtobuf:*(*(&v77 + 1) + 8 * k)];
+          v52 = [[SFNamedProtobufMessage alloc] initWithProtobuf:*(*(&v76 + 1) + 8 * k)];
           if (v52)
           {
             [v46 addObject:v52];
           }
         }
 
-        v49 = [entityProtobufMessages2 countByEnumeratingWithState:&v77 objects:v90 count:16];
+        v49 = [entityProtobufMessages2 countByEnumeratingWithState:&v76 objects:v89 count:16];
       }
 
       while (v49);
     }
 
-    v5 = v76;
-    [(SFCard *)v76 setEntityProtobufMessages:v46];
+    v5 = v75;
+    [(SFCard *)v75 setEntityProtobufMessages:v46];
     titleImage = [protobufCopy titleImage];
 
     if (titleImage)
@@ -272,7 +272,7 @@
       v54 = [SFImage alloc];
       titleImage2 = [protobufCopy titleImage];
       v56 = [(SFImage *)v54 initWithProtobuf:titleImage2];
-      [(SFCard *)v76 setTitleImage:v56];
+      [(SFCard *)v75 setTitleImage:v56];
     }
 
     backgroundColor = [protobufCopy backgroundColor];
@@ -282,7 +282,7 @@
       v58 = [SFColor alloc];
       backgroundColor2 = [protobufCopy backgroundColor];
       v60 = [(SFColor *)v58 initWithProtobuf:backgroundColor2];
-      [(SFCard *)v76 setBackgroundColor:v60];
+      [(SFCard *)v75 setBackgroundColor:v60];
     }
 
     metadata = [protobufCopy metadata];
@@ -292,7 +292,7 @@
       v62 = [SFDrillDownMetadata alloc];
       metadata2 = [protobufCopy metadata];
       v64 = [(SFDrillDownMetadata *)v62 initWithProtobuf:metadata2];
-      [(SFCard *)v76 setMetadata:v64];
+      [(SFCard *)v75 setMetadata:v64];
     }
 
     drilldownMetadata = [protobufCopy drilldownMetadata];
@@ -302,7 +302,7 @@
       v66 = [SFDrillDownMetadata alloc];
       drilldownMetadata2 = [protobufCopy drilldownMetadata];
       v68 = [(SFDrillDownMetadata *)v66 initWithProtobuf:drilldownMetadata2];
-      [(SFCard *)v76 setDrilldownMetadata:v68];
+      [(SFCard *)v75 setDrilldownMetadata:v68];
     }
 
     backgroundImage = [protobufCopy backgroundImage];
@@ -312,13 +312,12 @@
       v70 = [SFImage alloc];
       backgroundImage2 = [protobufCopy backgroundImage];
       v72 = [(SFImage *)v70 initWithProtobuf:backgroundImage2];
-      [(SFCard *)v76 setBackgroundImage:v72];
+      [(SFCard *)v75 setBackgroundImage:v72];
     }
 
-    v73 = v76;
+    v73 = v75;
   }
 
-  v74 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

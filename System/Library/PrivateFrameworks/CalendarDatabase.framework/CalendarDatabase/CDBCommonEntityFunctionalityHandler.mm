@@ -140,38 +140,36 @@ void __65__CDBCommonEntityFunctionalityHandler_removeDestructionObserver___block
 
 + (void)_notifyDestructionObservers:(id)observers
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [observersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [observersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(observersCopy);
         }
 
-        CDBRelationEliminateRelatedObjectReference(*(*(&v9 + 1) + 8 * v7++));
+        CDBRelationEliminateRelatedObjectReference(*(*(&v8 + 1) + 8 * v7++));
       }
 
       while (v5 != v7);
-      v5 = [observersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [observersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

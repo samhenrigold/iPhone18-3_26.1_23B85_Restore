@@ -123,7 +123,7 @@
 
 uint64_t __36__MTLibraryQuery_runQueryInContext___block_invoke(uint64_t a1)
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_alloc(MEMORY[0x277CBE428]);
@@ -132,15 +132,15 @@ uint64_t __36__MTLibraryQuery_runQueryInContext___block_invoke(uint64_t a1)
     [v3 setResultType:0];
     [v3 setSortDescriptors:*(a1 + 40)];
     [v3 setFetchLimit:{objc_msgSend(*(a1 + 48), "fetchLimit")}];
-    v42[0] = *MEMORY[0x277D3DE30];
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+    v41[0] = *MEMORY[0x277D3DE30];
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
     [v3 setRelationshipKeyPathsForPrefetching:v4];
 
     [v3 setReturnsObjectsAsFaults:0];
     v5 = *(a1 + 56);
-    v40 = 0;
-    v6 = [v5 executeFetchRequest:v3 error:&v40];
-    v7 = v40;
+    v39 = 0;
+    v6 = [v5 executeFetchRequest:v3 error:&v39];
+    v7 = v39;
     v8 = *(*(a1 + 112) + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v6;
@@ -152,27 +152,27 @@ uint64_t __36__MTLibraryQuery_runQueryInContext___block_invoke(uint64_t a1)
       v10 = *(*(*(a1 + 112) + 8) + 40);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
+      v14 = *v36;
       do
       {
         v15 = 0;
         do
         {
-          if (*v37 != v14)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(*(&v36 + 1) + 8 * v15) channel];
+          v16 = [*(*(&v35 + 1) + 8 * v15) channel];
           v17 = v16;
           if (v16 && [v16 showCount] >= 2 && (objc_msgSend(*(*(*(a1 + 120) + 8) + 40), "containsObject:", v17) & 1) == 0)
           {
@@ -183,7 +183,7 @@ uint64_t __36__MTLibraryQuery_runQueryInContext___block_invoke(uint64_t a1)
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v13);
@@ -231,9 +231,7 @@ uint64_t __36__MTLibraryQuery_runQueryInContext___block_invoke(uint64_t a1)
   v33 = [*(*(*(a1 + 120) + 8) + 40) copy];
   [v32 setChannelResults:v33];
 
-  result = [*(a1 + 48) setCategoryResults:*(*(*(a1 + 136) + 8) + 40)];
-  v35 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) setCategoryResults:*(*(*(a1 + 136) + 8) + 40)];
 }
 
 @end

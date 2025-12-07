@@ -14,7 +14,7 @@
 
 - (void)_removeIntentForActionSet:(id)set
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   uuid = [setCopy uuid];
   v6 = [HMDHomeManager deriveIntentGroupIdentifierFromBaseUUID:uuid];
@@ -30,23 +30,21 @@
   v10 = *v8;
   defaultSearchableIndex = [v9 defaultSearchableIndex];
   uUIDString = [v6 UUIDString];
-  v18[0] = uUIDString;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __48__HMDDonationHandler__removeIntentForActionSet___block_invoke;
-  v16[3] = &unk_2797358C8;
-  v16[4] = self;
-  v17 = setCopy;
+  v17[0] = uUIDString;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __48__HMDDonationHandler__removeIntentForActionSet___block_invoke;
+  v15[3] = &unk_2797358C8;
+  v15[4] = self;
+  v16 = setCopy;
   v14 = setCopy;
-  [defaultSearchableIndex deleteInteractionsWithGroupIdentifiers:v13 bundleID:v10 protectionClass:0 completionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [defaultSearchableIndex deleteInteractionsWithGroupIdentifiers:v13 bundleID:v10 protectionClass:0 completionHandler:v15];
 }
 
 void __48__HMDDonationHandler__removeIntentForActionSet___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -60,20 +58,20 @@ void __48__HMDDonationHandler__removeIntentForActionSet___block_invoke(uint64_t 
       v9 = [*(a1 + 40) name];
       v10 = [*(a1 + 40) home];
       v11 = [v10 name];
-      v17 = 138544130;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v3;
+      v16 = 138544130;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v3;
       v12 = "%{public}@Failed to remove intents for Action Set %@ in Home %@ with error - %@";
       v13 = v7;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 42;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v17, v15);
+      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v16, v15);
     }
   }
 
@@ -83,12 +81,12 @@ LABEL_6:
     v9 = [*(a1 + 40) name];
     v10 = [*(a1 + 40) home];
     v11 = [v10 name];
-    v17 = 138543874;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v11;
+    v16 = 138543874;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v11;
     v12 = "%{public}@Successfully remove home intent(s) for Action Set %@ in Home %@ to Siri Actions";
     v13 = v7;
     v14 = OS_LOG_TYPE_INFO;
@@ -97,7 +95,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateIntent:(id)intent withActionSet:(id)set
@@ -125,7 +122,7 @@ LABEL_6:
 
 void __50__HMDDonationHandler__donateIntent_withActionSet___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) contents];
   v5 = [v4 firstObject];
@@ -145,15 +142,15 @@ void __50__HMDDonationHandler__donateIntent_withActionSet___block_invoke(uint64_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138544130;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v3;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to donate home intent of Action Set %@ in Home %@ with error - %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v3;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to donate home intent of Action Set %@ in Home %@ with error - %@", &v17, 0x2Au);
     }
   }
 
@@ -161,24 +158,23 @@ void __50__HMDDonationHandler__donateIntent_withActionSet___block_invoke(uint64_
   {
     v15 = HMFGetLogIdentifier();
     v16 = *(a1 + 32);
-    v18 = 138544130;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v16;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully donate home intent(s) of Action Set %@ in Home %@ to Siri Actions - intent: %@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v16;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully donate home intent(s) of Action Set %@ in Home %@ to Siri Actions - intent: %@", &v17, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v10);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateActionSet:(id)set withMessage:(id)message
 {
-  v67[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   messageCopy = message;
   actions = [setCopy actions];
@@ -195,8 +191,8 @@ void __50__HMDDonationHandler__donateIntent_withActionSet___block_invoke(uint64_
       name = [setCopy name];
       *buf = 138543618;
       *&buf[4] = v44;
-      v62 = 2112;
-      v63 = name;
+      v61 = 2112;
+      v62 = name;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@There is no action in Action Set: %@", buf, 0x16u);
 
 LABEL_14:
@@ -236,12 +232,12 @@ LABEL_16:
   {
     if (v14)
     {
-      v48 = HMFGetLogIdentifier();
-      v49 = HMDRequestSourceAsString(source);
+      v47 = HMFGetLogIdentifier();
+      v48 = HMDRequestSourceAsString(source);
       *buf = 138543618;
-      *&buf[4] = v48;
-      v62 = 2112;
-      v63 = v49;
+      *&buf[4] = v47;
+      v61 = 2112;
+      v62 = v48;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@The trigger source %@ is not supported for donation in HomeKit. HomeKit intent donation only supports First Party App.", buf, 0x16u);
     }
 
@@ -255,14 +251,14 @@ LABEL_16:
     clientIdentifier = [messageCopy clientIdentifier];
     *buf = 138543874;
     *&buf[4] = v15;
-    v62 = 2112;
-    v63 = @"FirstParty";
-    v64 = 2112;
-    v65 = clientIdentifier;
+    v61 = 2112;
+    v62 = @"FirstParty";
+    v63 = 2112;
+    v64 = clientIdentifier;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@The trigger source is: %@ (bundleID: %@)", buf, 0x20u);
   }
 
-  v59 = messageCopy;
+  v58 = messageCopy;
 
   objc_autoreleasePoolPop(v11);
   v17 = setCopy;
@@ -270,7 +266,7 @@ LABEL_16:
   home = [v17 home];
   spiClientIdentifier2 = [home spiClientIdentifier];
   v19 = objc_alloc(MEMORY[0x277CD4188]);
-  v60 = selfCopy3;
+  v59 = selfCopy3;
   v20 = spiClientIdentifier;
   uUIDString = [spiClientIdentifier UUIDString];
   name2 = [v17 name];
@@ -289,13 +285,13 @@ LABEL_16:
 
   v32 = [objc_alloc(MEMORY[0x277CD3CD0]) initWithType:1 BOOLValue:1];
   v33 = objc_alloc(MEMORY[0x277CD3CE8]);
-  v67[0] = v32;
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+  v66[0] = v32;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
   v35 = [v33 initWithFilter:v31 actions:v34];
 
   v36 = objc_alloc(MEMORY[0x277CD3B10]);
-  v66 = v35;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+  v65 = v35;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
   v38 = [v36 initWithContents:v37];
 
   v39 = isWatch();
@@ -310,36 +306,34 @@ LABEL_16:
 
   if (v38)
   {
-    [(HMDDonationHandler *)v60 _donateIntent:v38 withActionSet:v17];
+    [(HMDDonationHandler *)v59 _donateIntent:v38 withActionSet:v17];
   }
 
   else
   {
-    v50 = objc_autoreleasePoolPush();
-    v51 = v60;
-    v52 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v49 = objc_autoreleasePoolPush();
+    v50 = v59;
+    v51 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
-      v53 = HMFGetLogIdentifier();
+      v52 = HMFGetLogIdentifier();
       name4 = [v17 name];
       home2 = [v17 home];
       name5 = [home2 name];
       *buf = 138543874;
-      *&buf[4] = v53;
-      v62 = 2112;
-      v63 = name4;
-      v64 = 2112;
-      v65 = name5;
-      _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_ERROR, "%{public}@Unable to get the intent of Action Set %@ in Home %@", buf, 0x20u);
+      *&buf[4] = v52;
+      v61 = 2112;
+      v62 = name4;
+      v63 = 2112;
+      v64 = name5;
+      _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_ERROR, "%{public}@Unable to get the intent of Action Set %@ in Home %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v50);
+    objc_autoreleasePoolPop(v49);
   }
 
-  messageCopy = v59;
+  messageCopy = v58;
 LABEL_17:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_init
@@ -417,12 +411,11 @@ LABEL_17:
 
 uint64_t __33__HMDDonationHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_147719;
-  logCategory__hmf_once_v10_147719 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_147719;
+  logCategory__hmf_once_v10_147719 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sharedDonationHandler

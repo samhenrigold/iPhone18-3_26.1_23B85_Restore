@@ -1,4 +1,5 @@
 @interface FMFDevice
++ (id)deviceWithId:(id)id name:(id)name idsDeviceId:(id)deviceId isActive:(BOOL)active isThisDevice:(BOOL)device isCompanionDevice:(BOOL)companionDevice isAutoMeCapable:(BOOL)capable;
 - (BOOL)isEqual:(id)equal;
 - (FMFDevice)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -6,9 +7,31 @@
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
+- (void)updateIsActive:(BOOL)active isThisDevice:(BOOL)device;
 @end
 
 @implementation FMFDevice
+
++ (id)deviceWithId:(id)id name:(id)name idsDeviceId:(id)deviceId isActive:(BOOL)active isThisDevice:(BOOL)device isCompanionDevice:(BOOL)companionDevice isAutoMeCapable:(BOOL)capable
+{
+  companionDeviceCopy = companionDevice;
+  deviceCopy = device;
+  activeCopy = active;
+  deviceIdCopy = deviceId;
+  nameCopy = name;
+  idCopy = id;
+  v17 = objc_alloc_init(objc_opt_class());
+  [v17 setDeviceId:idCopy];
+
+  [v17 setDeviceName:nameCopy];
+  [v17 setIsActiveDevice:activeCopy];
+  [v17 setIsThisDevice:deviceCopy];
+  [v17 setIsCompanionDevice:companionDeviceCopy];
+  [v17 setIsAutoMeCapable:capable];
+  [v17 setIdsDeviceId:deviceIdCopy];
+
+  return v17;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {
@@ -27,6 +50,14 @@
   [v4 setDeviceId:deviceId];
 
   return v4;
+}
+
+- (void)updateIsActive:(BOOL)active isThisDevice:(BOOL)device
+{
+  deviceCopy = device;
+  [(FMFDevice *)self setIsActiveDevice:active];
+
+  [(FMFDevice *)self setIsThisDevice:deviceCopy];
 }
 
 - (void)encodeWithCoder:(id)coder

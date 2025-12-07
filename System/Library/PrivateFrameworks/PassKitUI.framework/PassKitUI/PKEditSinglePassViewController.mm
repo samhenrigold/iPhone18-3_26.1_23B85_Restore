@@ -56,7 +56,7 @@
     v10->_flexibleSpace = v18;
 
     v20 = objc_alloc(MEMORY[0x1E69DC708]);
-    v21 = PKUIBigInfoButtonImageWithDefaultConfiguration();
+    v21 = PKUIBigInfoButtonImageWithDefaultConfiguration(v20);
     v22 = [v20 initWithImage:v21 style:0 target:v10 action:sel__moreButtonPressed];
     infoButton = v10->_infoButton;
     v10->_infoButton = v22;
@@ -120,9 +120,9 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v28.receiver = self;
-  v28.super_class = PKEditSinglePassViewController;
-  [(PKEditSinglePassViewController *)&v28 viewWillLayoutSubviews];
+  v29.receiver = self;
+  v29.super_class = PKEditSinglePassViewController;
+  [(PKEditSinglePassViewController *)&v29 viewWillLayoutSubviews];
   view = [(PKEditSinglePassViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -137,24 +137,27 @@
   v20 = v9 - (v16 + v19);
   [(PKPassView *)self->_passView sizeOfFront];
   passView = self->_passView;
-  if (v21 >= v20)
+  if (v21.n128_f64[0] >= v20)
   {
-    PKFloatRoundToPixel();
-    v25 = v27;
-    v26 = -16.0;
+    v21.n128_f64[0] = v18 + 8.0;
+    PKFloatRoundToPixel(v21, v22);
+    v26 = v28;
+    v27 = -16.0;
   }
 
   else
   {
-    v23 = v21;
-    PKFloatRoundToPixel();
-    v17 = v24;
-    v25 = v18 + 16.0;
-    v26 = -32.0;
-    v20 = v23;
+    v24 = v21.n128_f64[0];
+    v22.n128_u64[0] = 0.5;
+    v21.n128_f64[0] = v17 + (v20 - v21.n128_f64[0]) * 0.5;
+    PKFloatRoundToPixel(v21, v22);
+    v17 = v25;
+    v26 = v18 + 16.0;
+    v27 = -32.0;
+    v20 = v24;
   }
 
-  [(PKPassView *)passView setFrame:v17, v25, v20, v11 - (v13 + v15) + v26];
+  [(PKPassView *)passView setFrame:v17, v26, v20, v11 - (v13 + v15) + v27];
 }
 
 - (void)passViewSetup

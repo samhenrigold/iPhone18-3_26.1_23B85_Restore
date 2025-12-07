@@ -24,15 +24,15 @@
 
 + (CKRecordSystemFieldsTransformer)ic_systemFieldsValueTransformer
 {
-  v0 = objc_opt_class();
-  if (v0 != objc_opt_class())
+  v2 = objc_opt_class();
+  if (v2 != objc_opt_class())
   {
     [MEMORY[0x277D36198] handleFailedAssertWithCondition:"[self class] == [CKRecord class]" functionName:"+[CKRecord(IC) ic_systemFieldsValueTransformer]" simulateCrash:1 showAlert:0 format:{@"-ic_systemFieldsValueTransformer must be overridden, and must not call super: %@", objc_opt_class()}];
   }
 
-  v1 = objc_alloc_init(CKRecordSystemFieldsTransformer);
+  v3 = objc_alloc_init(CKRecordSystemFieldsTransformer);
 
-  return v1;
+  return v3;
 }
 
 - (id)ic_loggingDescription

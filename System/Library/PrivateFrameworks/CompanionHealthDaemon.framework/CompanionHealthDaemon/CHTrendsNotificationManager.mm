@@ -14,13 +14,13 @@
 
 - (void)protectedDataBecameAvailable
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (CHIsFitnessInstalled())
   {
     keyValueDomain = self->_keyValueDomain;
-    v10 = 0;
-    v4 = [(HDKeyValueDomain *)keyValueDomain numberForKey:@"TrendsNotificationManagerDidSendNotification" error:&v10];
-    v5 = v10;
+    v9 = 0;
+    v4 = [(HDKeyValueDomain *)keyValueDomain numberForKey:@"TrendsNotificationManagerDidSendNotification" error:&v9];
+    v5 = v9;
     if (v5)
     {
       _HKInitializeLogging();
@@ -28,7 +28,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v12 = v5;
+        v11 = v5;
         _os_log_impl(&dword_243CCD000, v6, OS_LOG_TYPE_DEFAULT, "Failed to retrieve key-value BOOLean for trends notification key: %{public}@", buf, 0xCu);
       }
     }
@@ -45,17 +45,14 @@
       [(CHTrendsNotificationManager *)self sendNotificationIfAllowed];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationIfAllowed
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_243CCD000, a2, OS_LOG_TYPE_ERROR, "Error fetching user birth date: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_243CCD000, a2, OS_LOG_TYPE_ERROR, "Error fetching user birth date: %@", &v2, 0xCu);
 }
 
 - (HDProfile)profile
@@ -145,7 +142,7 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke(v
 
 void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_314(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -153,9 +150,9 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_3
     v4 = *MEMORY[0x277CCC270];
     if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_243CCD000, v4, OS_LOG_TYPE_DEFAULT, "Failed to send notification: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_243CCD000, v4, OS_LOG_TYPE_DEFAULT, "Failed to send notification: %{public}@", &v6, 0xCu);
     }
   }
 
@@ -164,17 +161,15 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_3
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained notificationDidSendSuccessfully];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationDidSendSuccessfully
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyValueDomain = [(CHTrendsNotificationManager *)self keyValueDomain];
-  v11 = 0;
-  v4 = [keyValueDomain setNumber:MEMORY[0x277CBEC38] forKey:@"TrendsNotificationManagerDidSendNotification" error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [keyValueDomain setNumber:MEMORY[0x277CBEC38] forKey:@"TrendsNotificationManagerDidSendNotification" error:&v10];
+  v5 = v10;
 
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC270];
@@ -195,11 +190,9 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_3
   else if (v7)
   {
     *buf = 138543362;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_243CCD000, v6, OS_LOG_TYPE_DEFAULT, "Failed to set key-value BOOLean for trends notification key: %{public}@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)notificationDelayNumberOfMinutes
@@ -220,7 +213,7 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_3
 
 - (void)sendNotificationWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CE1F60];
   completionCopy = completion;
   v6 = objc_alloc_init(v4);
@@ -249,16 +242,14 @@ void __56__CHTrendsNotificationManager_sendNotificationIfAllowed__block_invoke_3
   v20 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138543362;
-    v25 = v19;
-    _os_log_impl(&dword_243CCD000, v20, OS_LOG_TYPE_DEFAULT, "Posting notification with trigger %{public}@", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v19;
+    _os_log_impl(&dword_243CCD000, v20, OS_LOG_TYPE_DEFAULT, "Posting notification with trigger %{public}@", &v23, 0xCu);
   }
 
   v21 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"ACTIVITY_TRENDS_READY" content:v6 trigger:v19];
   userNotificationCenter = [(CHTrendsNotificationManager *)self userNotificationCenter];
   [userNotificationCenter addNotificationRequest:v21 withCompletionHandler:completionCopy];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

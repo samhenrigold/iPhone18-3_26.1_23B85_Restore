@@ -61,10 +61,9 @@ uint64_t __46__ASDPromiseObserver_notifyResolvedWithValue___block_invoke(uint64_
     Property = objc_getProperty(Property, a2, 8, 1);
   }
 
-  v4 = *(a1 + 40);
-  v5 = Property[2];
+  v3 = Property[2];
 
-  return v5();
+  return v3();
 }
 
 - (void)notifyRejectedWithError:(id)error
@@ -98,10 +97,9 @@ uint64_t __46__ASDPromiseObserver_notifyRejectedWithError___block_invoke(uint64_
     Property = objc_getProperty(Property, a2, 16, 1);
   }
 
-  v4 = *(a1 + 40);
-  v5 = Property[2];
+  v3 = Property[2];
 
-  return v5();
+  return v3();
 }
 
 @end

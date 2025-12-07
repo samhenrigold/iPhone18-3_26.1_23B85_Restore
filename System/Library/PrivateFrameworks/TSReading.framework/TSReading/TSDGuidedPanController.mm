@@ -55,36 +55,36 @@
     if (state == 3)
     {
       canvasLayer = self->_canvasLayer;
-      v23 = *(MEMORY[0x277CD9DE8] + 80);
-      v38 = *(MEMORY[0x277CD9DE8] + 64);
-      v39 = v23;
-      v24 = *(MEMORY[0x277CD9DE8] + 112);
-      v40 = *(MEMORY[0x277CD9DE8] + 96);
-      v41 = v24;
-      v25 = *(MEMORY[0x277CD9DE8] + 16);
-      v34 = *MEMORY[0x277CD9DE8];
-      v35 = v25;
-      v26 = *(MEMORY[0x277CD9DE8] + 48);
-      v36 = *(MEMORY[0x277CD9DE8] + 32);
-      v37 = v26;
-      [(TSDCanvasLayer *)canvasLayer setTransform:&v34];
-      v27 = [(TSDPanGuide *)self->_guide completionAnimationFromContentLocation:v9 movement:self->_movement.x velocity:self->_movement.y, self->_velocity.x, self->_velocity.y];
-      if (v27)
+      v22 = *(MEMORY[0x277CD9DE8] + 80);
+      v37 = *(MEMORY[0x277CD9DE8] + 64);
+      v38 = v22;
+      v23 = *(MEMORY[0x277CD9DE8] + 112);
+      v39 = *(MEMORY[0x277CD9DE8] + 96);
+      v40 = v23;
+      v24 = *(MEMORY[0x277CD9DE8] + 16);
+      v33 = *MEMORY[0x277CD9DE8];
+      v34 = v24;
+      v25 = *(MEMORY[0x277CD9DE8] + 48);
+      v35 = *(MEMORY[0x277CD9DE8] + 32);
+      v36 = v25;
+      [(TSDCanvasLayer *)canvasLayer setTransform:&v33];
+      v26 = [(TSDPanGuide *)self->_guide completionAnimationFromContentLocation:v9 movement:self->_movement.x velocity:self->_movement.y, self->_velocity.x, self->_velocity.y];
+      if (v26)
       {
-        v28 = v27;
+        v27 = v26;
         [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
-        v29 = self->_canvasLayer;
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __43__TSDGuidedPanController_handlePanGesture___block_invoke;
-        v33[3] = &unk_279D49208;
-        v33[4] = self;
+        v28 = self->_canvasLayer;
         v32[0] = MEMORY[0x277D85DD0];
         v32[1] = 3221225472;
-        v32[2] = __43__TSDGuidedPanController_handlePanGesture___block_invoke_2;
-        v32[3] = &unk_279D49230;
+        v32[2] = __43__TSDGuidedPanController_handlePanGesture___block_invoke;
+        v32[3] = &unk_279D49208;
         v32[4] = self;
-        [v28 i_applyToLayer:v29 withTransformBlock:v33 completionBlock:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __43__TSDGuidedPanController_handlePanGesture___block_invoke_2;
+        v31[3] = &unk_279D49230;
+        v31[4] = self;
+        [v27 i_applyToLayer:v28 withTransformBlock:v32 completionBlock:v31];
         return;
       }
 
@@ -98,20 +98,20 @@
         return;
       }
 
-      v15 = self->_canvasLayer;
-      v16 = *(MEMORY[0x277CD9DE8] + 80);
-      v38 = *(MEMORY[0x277CD9DE8] + 64);
-      v39 = v16;
-      v17 = *(MEMORY[0x277CD9DE8] + 112);
-      v40 = *(MEMORY[0x277CD9DE8] + 96);
-      v41 = v17;
-      v18 = *(MEMORY[0x277CD9DE8] + 16);
-      v34 = *MEMORY[0x277CD9DE8];
-      v35 = v18;
-      v19 = *(MEMORY[0x277CD9DE8] + 48);
-      v36 = *(MEMORY[0x277CD9DE8] + 32);
-      v37 = v19;
-      [(TSDCanvasLayer *)v15 setTransform:&v34];
+      v14 = self->_canvasLayer;
+      v15 = *(MEMORY[0x277CD9DE8] + 80);
+      v37 = *(MEMORY[0x277CD9DE8] + 64);
+      v38 = v15;
+      v16 = *(MEMORY[0x277CD9DE8] + 112);
+      v39 = *(MEMORY[0x277CD9DE8] + 96);
+      v40 = v16;
+      v17 = *(MEMORY[0x277CD9DE8] + 16);
+      v33 = *MEMORY[0x277CD9DE8];
+      v34 = v17;
+      v18 = *(MEMORY[0x277CD9DE8] + 48);
+      v35 = *(MEMORY[0x277CD9DE8] + 32);
+      v36 = v18;
+      [(TSDCanvasLayer *)v14 setTransform:&v33];
     }
 
     [(TSDGuidedPanController *)self p_didEnd];
@@ -120,8 +120,8 @@
   else if (state == 1)
   {
     [gesture locationInView:self->_canvasView];
-    self->_startPoint.x = v20;
-    self->_startPoint.y = v21;
+    self->_startPoint.x = v19;
+    self->_startPoint.y = v20;
 
     [(TSDGuidedPanController *)self p_willBegin];
   }
@@ -129,40 +129,39 @@
   else if (state == 2)
   {
     [(TSDGuidedPanController *)self touchContentPlacement];
-    v50 = v11;
-    v51 = v12;
-    v13 = [(TSDPanGuide *)self->_guide contentLocationForMovement:&v50 velocity:v9 placement:self->_movement.x currentLocation:self->_movement.y, self->_velocity.x, self->_velocity.y];
-    if (v13)
+    v49 = v11;
+    v50 = v12;
+    if ([(TSDPanGuide *)self->_guide contentLocationForMovement:&v49 velocity:v9 placement:self->_movement.x currentLocation:self->_movement.y, self->_velocity.x, self->_velocity.y])
     {
-      [(TSDGuidedPanController *)self p_transformForContentLocation:v13 placement:v50, v51];
-      v14 = self->_canvasLayer;
+      objc_msgSend_p_transformForContentLocation_placement_(self, v49, v50);
+      v13 = self->_canvasLayer;
+      v37 = v45;
       v38 = v46;
       v39 = v47;
       v40 = v48;
-      v41 = v49;
+      v33 = v41;
       v34 = v42;
       v35 = v43;
       v36 = v44;
-      v37 = v45;
-      [(TSDCanvasLayer *)v14 setTransform:&v34];
+      [(TSDCanvasLayer *)v13 setTransform:&v33];
       [(TSDPanGuide *)self->_guide guidedPanDidPanWithContentLocation:[(TSDGuidedPanController *)self p_currentContentLocationWithPlacement:0.5, 0.5]];
     }
 
     else
     {
       currentHandler = [MEMORY[0x277D6C290] currentHandler];
-      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDGuidedPanController handlePanGesture:]"];
-      [currentHandler handleFailureInFunction:v31 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGuidedPanController.m"), 100, @"invalid nil value for '%s'", "contentLocation"}];
+      v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDGuidedPanController handlePanGesture:]"];
+      [currentHandler handleFailureInFunction:v30 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGuidedPanController.m"), 100, @"invalid nil value for '%s'", "contentLocation"}];
     }
   }
 }
 
-double __43__TSDGuidedPanController_handlePanGesture___block_invoke@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+double __43__TSDGuidedPanController_handlePanGesture___block_invoke@<D0>(uint64_t a1@<X0>, const char *a2@<X1>, _OWORD *a3@<X8>)
 {
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 p_transformForContentLocation:a2 placement:{0.5, 0.5}];
+    objc_msgSend_p_transformForContentLocation_placement_(v3, a2, a2, 0.5, 0.5);
   }
 
   else
@@ -199,33 +198,24 @@ uint64_t __43__TSDGuidedPanController_handlePanGesture___block_invoke_2(uint64_t
 {
   [(UIScrollView *)self->_canvasScrollView contentOffset];
   v4 = TSDSubtractPoints(self->_startPoint.x, self->_startPoint.y, v3);
-  v6 = TSDAddPoints(v4, v5, self->_movement.x);
-  v8 = v7;
+  TSDAddPoints(v4, v5, self->_movement.x);
   [(UIScrollView *)self->_canvasScrollView bounds];
-  v10 = v6 / v9;
-  bounds = [(UIScrollView *)self->_canvasScrollView bounds];
-  v14.n128_f64[0] = v10;
+  [(UIScrollView *)self->_canvasScrollView bounds];
 
-  v12.n128_f64[0] = v8 / v13;
-  TSDContentPlacementWithAnchorPoint(bounds, v14, v12);
-  result.var0.y = v16;
-  result.var0.x = v15;
+  TSDContentPlacementWithAnchorPoint();
+  result.var0.y = v7;
+  result.var0.x = v6;
   return result;
 }
 
 - ($F5A7A7B85D6989FBEC7A5CF4432B5A5E)centerPlusMovementContentPlacement
 {
-  x = self->_movement.x;
-  y = self->_movement.y;
   [(UIScrollView *)self->_canvasScrollView bounds];
-  v6 = x / v5;
-  bounds = [(UIScrollView *)self->_canvasScrollView bounds];
+  [(UIScrollView *)self->_canvasScrollView bounds];
 
-  v8.n128_f64[0] = v6 + 0.5;
-  v9.n128_f64[0] = y / v10 + 0.5;
-  TSDContentPlacementWithAnchorPoint(bounds, v8, v9);
-  result.var0.y = v12;
-  result.var0.x = v11;
+  TSDContentPlacementWithAnchorPoint();
+  result.var0.y = v4;
+  result.var0.x = v3;
   return result;
 }
 
@@ -288,7 +278,7 @@ uint64_t __43__TSDGuidedPanController_handlePanGesture___block_invoke_2(uint64_t
   {
     v21 = v18 / v19;
 
-    return [(CATransform3D *)result transformToScale:v21 aroundBoundsPoint:v14 afterOffset:v16, -v9, -v11];
+    return objc_msgSend_transformToScale_aroundBoundsPoint_afterOffset_(result, v21, v14, v16, -v9, -v11);
   }
 
   else

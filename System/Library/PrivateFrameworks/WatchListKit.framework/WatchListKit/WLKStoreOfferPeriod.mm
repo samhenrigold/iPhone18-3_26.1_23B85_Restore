@@ -95,9 +95,11 @@
 
 uint64_t __45__WLKStoreOfferPeriod__offerPeriodForString___block_invoke()
 {
-  _offerPeriodForString____durationSet = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"MDY"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"MDY"];
+  v1 = _offerPeriodForString____durationSet;
+  _offerPeriodForString____durationSet = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

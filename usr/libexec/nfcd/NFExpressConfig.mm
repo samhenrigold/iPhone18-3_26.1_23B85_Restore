@@ -1,4 +1,5 @@
 @interface NFExpressConfig
++ (id)atlConfigKeyForType:(unsigned __int8)type;
 + (unsigned)expressTypeForATLConfigKey:(id)key;
 - (BOOL)hasExpressWithAutoSelection;
 - (BOOL)isSEOperational;
@@ -10,14 +11,32 @@
 - (id)getExpressAidsForType:(unsigned __int8)type onlyInExpress:(BOOL)express;
 - (id)passForAid:(id)aid;
 - (id)passIDListForApplet:(id)applet keyIdentifiers:(id)identifiers;
+- (id)reconfigureWithArray:(id)array updateStorage:(BOOL)storage avoidChangingRouting:(BOOL)routing restoreAuthorization:(BOOL)authorization;
 - (id)restoreAuthForApplet:(id)applet;
+- (unint64_t)getNumberOfExpressAidsForType:(unsigned __int8)type;
 - (unsigned)expressTypeForApplet:(id)applet;
 - (void)activateExpressConfig;
+- (void)dumpConfig:(id)config logLevel:(int)level prefix:(id)prefix;
 - (void)removeAppletsFromConfig:(id)config;
 - (void)updateExpressAppletNumbers;
 @end
 
 @implementation NFExpressConfig
+
++ (id)atlConfigKeyForType:(unsigned __int8)type
+{
+  typeCopy = type;
+  if (qword_10035DA28 != -1)
+  {
+    dispatch_once(&qword_10035DA28, &stru_1003196F0);
+  }
+
+  v4 = qword_10035DA20;
+  v5 = [NSNumber numberWithUnsignedChar:typeCopy];
+  v6 = [v4 objectForKeyedSubscript:v5];
+
+  return v6;
+}
 
 + (unsigned)expressTypeForATLConfigKey:(id)key
 {
@@ -40,6 +59,218 @@
   }
 
   return unsignedIntValue;
+}
+
+- (void)dumpConfig:(id)config logLevel:(int)level prefix:(id)prefix
+{
+  v6 = *&level;
+  configCopy = config;
+  prefixCopy = prefix;
+  v10 = prefixCopy;
+  if (v6 <= 6)
+  {
+    if (prefixCopy)
+    {
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        v12 = Logger;
+        Class = object_getClass(self);
+        isMetaClass = class_isMetaClass(Class);
+        ClassName = object_getClassName(self);
+        Name = sel_getName(a2);
+        v15 = 45;
+        if (isMetaClass)
+        {
+          v15 = 43;
+        }
+
+        v12(v6, "%c[%{public}s %{public}s]:%i %@: [", v15, ClassName, Name, 142, v10);
+      }
+
+      v16 = NFSharedLogGetLogger();
+      v17 = v16;
+      if (v6 >= 7)
+      {
+        v18 = OS_LOG_TYPE_DEFAULT;
+      }
+
+      else
+      {
+        v18 = (0x1010000000uLL >> (8 * v6));
+      }
+
+      if (os_log_type_enabled(v16, v18))
+      {
+        v19 = object_getClass(self);
+        if (class_isMetaClass(v19))
+        {
+          v20 = 43;
+        }
+
+        else
+        {
+          v20 = 45;
+        }
+
+        *buf = 67110146;
+        v66 = v20;
+        v67 = 2082;
+        v68 = object_getClassName(self);
+        v69 = 2082;
+        v70 = sel_getName(a2);
+        v71 = 1024;
+        v72 = 142;
+        v73 = 2112;
+        v74 = v10;
+        _os_log_impl(&_mh_execute_header, v17, v18, "%c[%{public}s %{public}s]:%i %@: [", buf, 0x2Cu);
+      }
+    }
+
+    v58 = v6;
+    v55 = v10;
+    v56 = configCopy;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    obj = configCopy;
+    v21 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v61;
+      if (v6 >= 7)
+      {
+        v24 = OS_LOG_TYPE_DEFAULT;
+      }
+
+      else
+      {
+        v24 = (0x1010000000uLL >> (8 * v6));
+      }
+
+      do
+      {
+        for (i = 0; i != v22; i = i + 1)
+        {
+          if (*v61 != v23)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v26 = *(*(&v60 + 1) + 8 * i);
+          v27 = NFLogGetLogger();
+          if (v27)
+          {
+            v28 = v27;
+            v29 = object_getClass(self);
+            v30 = class_isMetaClass(v29);
+            v51 = object_getClassName(self);
+            v53 = sel_getName(a2);
+            v31 = 45;
+            if (v30)
+            {
+              v31 = 43;
+            }
+
+            v28(v58, "%c[%{public}s %{public}s]:%i   %@", v31, v51, v53, 145, v26);
+          }
+
+          v32 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v32, v24))
+          {
+            v33 = object_getClass(self);
+            if (class_isMetaClass(v33))
+            {
+              v34 = 43;
+            }
+
+            else
+            {
+              v34 = 45;
+            }
+
+            v35 = object_getClassName(self);
+            v36 = sel_getName(a2);
+            *buf = 67110146;
+            v66 = v34;
+            v67 = 2082;
+            v68 = v35;
+            v69 = 2082;
+            v70 = v36;
+            v71 = 1024;
+            v72 = 145;
+            v73 = 2112;
+            v74 = v26;
+            _os_log_impl(&_mh_execute_header, v32, v24, "%c[%{public}s %{public}s]:%i   %@", buf, 0x2Cu);
+          }
+        }
+
+        v22 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      }
+
+      while (v22);
+    }
+
+    v37 = NFLogGetLogger();
+    if (v37)
+    {
+      v38 = v37;
+      v39 = object_getClass(self);
+      v40 = class_isMetaClass(v39);
+      v41 = object_getClassName(self);
+      v54 = sel_getName(a2);
+      v42 = 45;
+      if (v40)
+      {
+        v42 = 43;
+      }
+
+      v38(v58, "%c[%{public}s %{public}s]:%i ]", v42, v41, v54, 147);
+    }
+
+    v43 = NFSharedLogGetLogger();
+    v44 = v43;
+    if (v58 >= 7)
+    {
+      v45 = OS_LOG_TYPE_DEFAULT;
+    }
+
+    else
+    {
+      v45 = (0x1010000000uLL >> (8 * v58));
+    }
+
+    v10 = v55;
+    if (os_log_type_enabled(v43, v45))
+    {
+      v46 = object_getClass(self);
+      if (class_isMetaClass(v46))
+      {
+        v47 = 43;
+      }
+
+      else
+      {
+        v47 = 45;
+      }
+
+      v48 = object_getClassName(self);
+      v49 = sel_getName(a2);
+      *buf = 67109890;
+      v66 = v47;
+      v67 = 2082;
+      v68 = v48;
+      v69 = 2082;
+      v70 = v49;
+      v71 = 1024;
+      v72 = 147;
+      _os_log_impl(&_mh_execute_header, v44, v45, "%c[%{public}s %{public}s]:%i ]", buf, 0x22u);
+    }
+
+    configCopy = v56;
+  }
 }
 
 - (void)updateExpressAppletNumbers
@@ -1398,6 +1629,675 @@ LABEL_16:
 LABEL_31:
 }
 
+- (id)reconfigureWithArray:(id)array updateStorage:(BOOL)storage avoidChangingRouting:(BOOL)routing restoreAuthorization:(BOOL)authorization
+{
+  authorizationCopy = authorization;
+  routingCopy = routing;
+  storageCopy = storage;
+  arrayCopy = array;
+  if (!arrayCopy)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v91 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v95 = 45;
+      if (isMetaClass)
+      {
+        v95 = 43;
+      }
+
+      v91(3, "%c[%{public}s %{public}s]:%i no array supplied", v95, ClassName, Name, 617);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v96 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+    {
+      v97 = object_getClass(self);
+      if (class_isMetaClass(v97))
+      {
+        v98 = 43;
+      }
+
+      else
+      {
+        v98 = 45;
+      }
+
+      *buf = 67109890;
+      v199 = v98;
+      v200 = 2082;
+      v201 = object_getClassName(self);
+      v202 = 2082;
+      v203 = sel_getName(a2);
+      v204 = 1024;
+      v205 = 617;
+      _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i no array supplied", buf, 0x22u);
+    }
+
+    v99 = [NSError alloc];
+    v25 = [NSString stringWithUTF8String:"nfcd"];
+    v190[0] = NSLocalizedDescriptionKey;
+    v163 = [NSString stringWithUTF8String:"Invalid Parameter"];
+    v191[0] = v163;
+    v191[1] = &off_100332430;
+    v190[1] = @"Line";
+    v190[2] = @"Method";
+    v89 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v191[2] = v89;
+    v190[3] = NSDebugDescriptionErrorKey;
+    v70 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 618];
+    v191[3] = v70;
+    v100 = [NSDictionary dictionaryWithObjects:v191 forKeys:v190 count:4];
+    v26 = [v99 initWithDomain:v25 code:10 userInfo:v100];
+    goto LABEL_122;
+  }
+
+  if (self)
+  {
+    passes = self->_passes;
+  }
+
+  else
+  {
+    passes = 0;
+  }
+
+  v12 = passes;
+  v13 = [(NFExpressConfig *)self extractConfigFrom:arrayCopy];
+  v162 = v12;
+  v163 = v13;
+  if (!v13)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v101 = NFLogGetLogger();
+    if (v101)
+    {
+      v102 = v101;
+      v103 = object_getClass(self);
+      v104 = class_isMetaClass(v103);
+      v105 = object_getClassName(self);
+      v156 = sel_getName(a2);
+      v106 = 45;
+      if (v104)
+      {
+        v106 = 43;
+      }
+
+      v102(3, "%c[%{public}s %{public}s]:%i Failed to create expressConfig", v106, v105, v156, 626);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v107 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+    {
+      v108 = object_getClass(self);
+      if (class_isMetaClass(v108))
+      {
+        v109 = 43;
+      }
+
+      else
+      {
+        v109 = 45;
+      }
+
+      *buf = 67109890;
+      v199 = v109;
+      v200 = 2082;
+      v201 = object_getClassName(self);
+      v202 = 2082;
+      v203 = sel_getName(a2);
+      v204 = 1024;
+      v205 = 626;
+      _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create expressConfig", buf, 0x22u);
+    }
+
+    v110 = [NSError alloc];
+    v89 = [NSString stringWithUTF8String:"nfcd"];
+    v188[0] = NSLocalizedDescriptionKey;
+    v70 = [NSString stringWithUTF8String:"Unknown Error"];
+    v189[0] = v70;
+    v189[1] = &off_100332448;
+    v188[1] = @"Line";
+    v188[2] = @"Method";
+    v100 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v189[2] = v100;
+    v188[3] = NSDebugDescriptionErrorKey;
+    v111 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 627];
+    v189[3] = v111;
+    v112 = [NSDictionary dictionaryWithObjects:v189 forKeys:v188 count:4];
+    v26 = [v110 initWithDomain:v89 code:6 userInfo:v112];
+LABEL_121:
+    v25 = v162;
+
+LABEL_122:
+    goto LABEL_123;
+  }
+
+  v14 = v13;
+  selfCopy = self;
+  if (![(NSMutableArray *)v12 NF_isEqualToExpressConfigList:arrayCopy])
+  {
+    if (-[NSMutableArray count](v12, "count") && ![v14 count])
+    {
+      v113 = v14;
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v114 = NFLogGetLogger();
+      if (v114)
+      {
+        v115 = v114;
+        v116 = object_getClass(selfCopy);
+        v117 = class_isMetaClass(v116);
+        v118 = object_getClassName(selfCopy);
+        v157 = sel_getName(a2);
+        v119 = 45;
+        if (v117)
+        {
+          v119 = 43;
+        }
+
+        v115(6, "%c[%{public}s %{public}s]:%i Config is now empty! Need to deselect all", v119, v118, v157, 638);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v120 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+      {
+        v121 = object_getClass(selfCopy);
+        if (class_isMetaClass(v121))
+        {
+          v122 = 43;
+        }
+
+        else
+        {
+          v122 = 45;
+        }
+
+        *buf = 67109890;
+        v199 = v122;
+        v200 = 2082;
+        v201 = object_getClassName(selfCopy);
+        v202 = 2082;
+        v203 = sel_getName(a2);
+        v204 = 1024;
+        v205 = 638;
+        _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Config is now empty! Need to deselect all", buf, 0x22u);
+      }
+
+      deactivateExpressConfig = [(NFExpressConfig *)selfCopy deactivateExpressConfig];
+      v14 = v113;
+      self = selfCopy;
+    }
+
+    if (([(NFExpressConfig *)self validateAndUpdateExpressConfig:v14 avoidChangingRouting:routingCopy]& 1) != 0)
+    {
+      if (self)
+      {
+        sub_10027EA60(v124);
+        v126 = *(v125 + 200);
+        v127 = self->_passes;
+        v128 = v14;
+        v129 = [v126 processConfigurationChange:v127 newConfiguration:v128];
+
+        v130 = v129;
+        v131 = [[NSMutableArray alloc] initWithArray:v128];
+        v132 = self->_passes;
+        self->_passes = v131;
+
+        [(NFExpressConfig *)self updateExpressAppletNumbers];
+        v133 = [NSString alloc];
+        seName = [(NFExpressConfig *)self seName];
+        v134 = [v133 initWithFormat:@"%@: new config", seName];
+        [(NFExpressConfig *)self dumpConfig:v128 logLevel:7 prefix:v134];
+
+        self->_expressConfigUpdateRequired = 1;
+      }
+
+      else
+      {
+        v129 = 0;
+      }
+
+      v24 = v129;
+      if (storageCopy)
+      {
+        [(NFExpressConfig *)self updateStorage];
+      }
+
+      goto LABEL_16;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v136 = NFLogGetLogger();
+    if (v136)
+    {
+      v137 = v136;
+      v138 = object_getClass(self);
+      v139 = class_isMetaClass(v138);
+      v140 = object_getClassName(self);
+      v158 = sel_getName(a2);
+      v141 = 45;
+      if (v139)
+      {
+        v141 = 43;
+      }
+
+      v137(3, "%c[%{public}s %{public}s]:%i Validation of express config failed", v141, v140, v158, 643);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v142 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+    {
+      v143 = object_getClass(self);
+      if (class_isMetaClass(v143))
+      {
+        v144 = 43;
+      }
+
+      else
+      {
+        v144 = 45;
+      }
+
+      v145 = object_getClassName(self);
+      v146 = sel_getName(a2);
+      *buf = 67109890;
+      v199 = v144;
+      v200 = 2082;
+      v201 = v145;
+      v202 = 2082;
+      v203 = v146;
+      v204 = 1024;
+      v205 = 643;
+      _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Validation of express config failed", buf, 0x22u);
+    }
+
+    v147 = [NSError alloc];
+    v89 = [NSString stringWithUTF8String:"nfcd"];
+    v186[0] = NSLocalizedDescriptionKey;
+    v70 = [NSString stringWithUTF8String:"Invalid Parameter"];
+    v187[0] = v70;
+    v187[1] = &off_100332460;
+    v186[1] = @"Line";
+    v186[2] = @"Method";
+    v100 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v187[2] = v100;
+    v186[3] = NSDebugDescriptionErrorKey;
+    v111 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 644];
+    v187[3] = v111;
+    v186[4] = NSLocalizedFailureReasonErrorKey;
+    v112 = [[NSString alloc] initWithFormat:@"Validation failed for express config"];
+    v187[4] = v112;
+    v148 = [NSDictionary dictionaryWithObjects:v187 forKeys:v186 count:5];
+    v26 = [v147 initWithDomain:v89 code:10 userInfo:v148];
+
+    goto LABEL_121;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v15 = NFLogGetLogger();
+  if (v15)
+  {
+    v16 = v15;
+    v17 = object_getClass(self);
+    v18 = class_isMetaClass(v17);
+    v19 = object_getClassName(self);
+    v152 = sel_getName(a2);
+    v20 = 45;
+    if (v18)
+    {
+      v20 = 43;
+    }
+
+    v16(6, "%c[%{public}s %{public}s]:%i No change in config", v20, v19, v152, 635);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = object_getClass(self);
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    *buf = 67109890;
+    v199 = v23;
+    v200 = 2082;
+    v201 = object_getClassName(self);
+    v202 = 2082;
+    v203 = sel_getName(a2);
+    v204 = 1024;
+    v205 = 635;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i No change in config", buf, 0x22u);
+  }
+
+  v24 = 0;
+LABEL_16:
+  v25 = v162;
+  v26 = 0;
+  v161 = arrayCopy;
+  if (authorizationCopy && !routingCopy)
+  {
+    v160 = v24;
+    v27 = v162;
+    if (self)
+    {
+      getSecureElementWrapperAndSetRouting = [(NFExpressConfig *)self getSecureElementWrapperAndSetRouting];
+      v164 = objc_opt_new();
+      v166 = objc_opt_new();
+      v179 = 0;
+      v180 = &v179;
+      v181 = 0x3032000000;
+      v182 = sub_100006A9C;
+      v183 = sub_10014BF84;
+      v184 = 0;
+      v175 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v178 = 0u;
+      v159 = v27;
+      obj = v27;
+      v29 = [(NSMutableArray *)obj countByEnumeratingWithState:&v175 objects:buf count:16];
+      v165 = getSecureElementWrapperAndSetRouting;
+      if (v29)
+      {
+        v30 = v29;
+        v31 = *v176;
+        do
+        {
+          for (i = 0; i != v30; i = i + 1)
+          {
+            if (*v176 != v31)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v33 = *(*(&v175 + 1) + 8 * i);
+            v34 = [v33 objectForKeyedSubscript:@"appletIdentifier"];
+            v35 = [NSData NF_dataWithHexString:v34];
+            v36 = [v33 objectForKeyedSubscript:@"keyIdentifier"];
+            v37 = sub_100257F24(getSecureElementWrapperAndSetRouting, v35, 0);
+            if (([(NSMutableArray *)selfCopy->_passes containsObject:v33]& 1) == 0)
+            {
+              if (v36)
+              {
+                v38 = v37 == 0;
+              }
+
+              else
+              {
+                v38 = 1;
+              }
+
+              if (v38)
+              {
+                if (v37 && ([v37 authTransientSupport] & 1) == 0)
+                {
+                  [v164 addObject:v37];
+                }
+              }
+
+              else
+              {
+                v39 = [v166 objectForKeyedSubscript:v35];
+
+                if (!v39)
+                {
+                  v40 = objc_opt_new();
+                  [v166 setObject:v40 forKeyedSubscript:v35];
+                }
+
+                v41 = [v166 objectForKeyedSubscript:v35];
+                [v41 addObject:v36];
+
+                getSecureElementWrapperAndSetRouting = v165;
+              }
+            }
+          }
+
+          v30 = [(NSMutableArray *)obj countByEnumeratingWithState:&v175 objects:buf count:16];
+        }
+
+        while (v30);
+      }
+
+      v42 = v164;
+      v25 = v162;
+      v43 = selfCopy;
+      v44 = v166;
+      if ([v164 count])
+      {
+        v45 = sub_1002040C4(getSecureElementWrapperAndSetRouting, 1, 0xFFFFFFFF, v164, 0);
+        if (v45)
+        {
+          v46 = v45;
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v47 = NFLogGetLogger();
+          if (v47)
+          {
+            v48 = v47;
+            v49 = object_getClass(selfCopy);
+            v50 = class_isMetaClass(v49);
+            v150 = object_getClassName(selfCopy);
+            v153 = sel_getName("_restoreAuthorizationOnRemovedAppletsAndKeysWithOldConfig:");
+            v51 = 45;
+            if (v50)
+            {
+              v51 = 43;
+            }
+
+            v48(3, "%c[%{public}s %{public}s]:%i Failed to restore authorization on applet (%d)", v51, v150, v153, 592, v46);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v52 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          {
+            v53 = object_getClass(selfCopy);
+            if (class_isMetaClass(v53))
+            {
+              v54 = 43;
+            }
+
+            else
+            {
+              v54 = 45;
+            }
+
+            v55 = object_getClassName(selfCopy);
+            v56 = sel_getName("_restoreAuthorizationOnRemovedAppletsAndKeysWithOldConfig:");
+            *v192 = 67110146;
+            *&v192[4] = v54;
+            *v193 = 2082;
+            *&v193[2] = v55;
+            *&v193[10] = 2082;
+            *&v193[12] = v56;
+            *&v193[20] = 1024;
+            *&v193[22] = 592;
+            *&v193[26] = 1024;
+            *&v193[28] = v46;
+            _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to restore authorization on applet (%d)", v192, 0x28u);
+          }
+
+          v57 = [NSError alloc];
+          v58 = [NSString stringWithUTF8String:"nfcd"];
+          v59 = v46;
+          v196[0] = NSLocalizedDescriptionKey;
+          if (v46 >= 0x4C)
+          {
+            v60 = 76;
+          }
+
+          else
+          {
+            v60 = v46;
+          }
+
+          v61 = [NSString stringWithUTF8String:off_100319730[v60]];
+          v197[0] = v61;
+          v197[1] = &off_100332418;
+          v196[1] = @"Line";
+          v196[2] = @"Method";
+          v62 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_restoreAuthorizationOnRemovedAppletsAndKeysWithOldConfig:")];
+          v197[2] = v62;
+          v196[3] = NSDebugDescriptionErrorKey;
+          v63 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_restoreAuthorizationOnRemovedAppletsAndKeysWithOldConfig:"), 593];
+          v197[3] = v63;
+          v196[4] = NSLocalizedFailureReasonErrorKey;
+          v64 = [[NSString alloc] initWithFormat:@"Restoring authorization failed"];
+          v197[4] = v64;
+          v65 = [NSDictionary dictionaryWithObjects:v197 forKeys:v196 count:5];
+          v66 = [v57 initWithDomain:v58 code:v59 userInfo:v65];
+          v67 = v180[5];
+          v180[5] = v66;
+
+          v25 = v162;
+          v43 = selfCopy;
+          v42 = v164;
+          v44 = v166;
+        }
+
+        getSecureElementWrapperAndSetRouting = v165;
+        v68 = sub_100253E14(v165);
+      }
+
+      *v192 = _NSConcreteStackBlock;
+      *v193 = 3221225472;
+      *&v193[8] = sub_10014BF8C;
+      *&v193[16] = &unk_1003199C8;
+      *&v193[24] = getSecureElementWrapperAndSetRouting;
+      v194 = v43;
+      v195 = &v179;
+      v69 = getSecureElementWrapperAndSetRouting;
+      [v44 enumerateKeysAndObjectsUsingBlock:v192];
+      v26 = v180[5];
+
+      _Block_object_dispose(&v179, 8);
+      v27 = v159;
+    }
+
+    else
+    {
+      v26 = 0;
+      v25 = v162;
+    }
+
+    v24 = v160;
+  }
+
+  v173 = 0u;
+  v174 = 0u;
+  v171 = 0u;
+  v172 = 0u;
+  v70 = v24;
+  v71 = [v70 countByEnumeratingWithState:&v171 objects:v185 count:16];
+  if (v71)
+  {
+    v72 = v71;
+    v167 = v26;
+    v73 = *v172;
+    do
+    {
+      v74 = v70;
+      for (j = 0; j != v72; j = j + 1)
+      {
+        if (*v172 != v73)
+        {
+          objc_enumerationMutation(v74);
+        }
+
+        v76 = *(*(&v171 + 1) + 8 * j);
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v77 = NFLogGetLogger();
+        if (v77)
+        {
+          v78 = v77;
+          v79 = object_getClass(selfCopy);
+          v80 = class_isMetaClass(v79);
+          v151 = object_getClassName(selfCopy);
+          v154 = sel_getName(a2);
+          v81 = 45;
+          if (v80)
+          {
+            v81 = 43;
+          }
+
+          v78(6, "%c[%{public}s %{public}s]:%i posting %{public}@ to SESD", v81, v151, v154, 661, v76);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v82 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+        {
+          v83 = object_getClass(selfCopy);
+          if (class_isMetaClass(v83))
+          {
+            v84 = 43;
+          }
+
+          else
+          {
+            v84 = 45;
+          }
+
+          v85 = object_getClassName(selfCopy);
+          v86 = sel_getName(a2);
+          *buf = 67110146;
+          v199 = v84;
+          v200 = 2082;
+          v201 = v85;
+          v202 = 2082;
+          v203 = v86;
+          v204 = 1024;
+          v205 = 661;
+          v206 = 2114;
+          v207 = v76;
+          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i posting %{public}@ to SESD", buf, 0x2Cu);
+        }
+
+        v87 = +[_NFHardwareManager sharedHardwareManager];
+        sesdEventPublisher = [v87 sesdEventPublisher];
+        [sesdEventPublisher sendXpcNotificationEventWithDictionary:v76];
+      }
+
+      v70 = v74;
+      v72 = [v74 countByEnumeratingWithState:&v171 objects:v185 count:16];
+    }
+
+    while (v72);
+    v89 = v74;
+    arrayCopy = v161;
+    v25 = v162;
+    v26 = v167;
+  }
+
+  else
+  {
+    v89 = v70;
+    arrayCopy = v161;
+  }
+
+LABEL_123:
+
+  return v26;
+}
+
 - (id)getExpressAidsForType:(unsigned __int8)type onlyInExpress:(BOOL)express
 {
   expressCopy = express;
@@ -1451,6 +2351,14 @@ LABEL_31:
   }
 
   return v19;
+}
+
+- (unint64_t)getNumberOfExpressAidsForType:(unsigned __int8)type
+{
+  v3 = [(NFExpressConfig *)self getExpressAidsForType:type];
+  v4 = [v3 count];
+
+  return v4;
 }
 
 - (id)deactivateExpressConfig

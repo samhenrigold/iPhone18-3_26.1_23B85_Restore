@@ -6,182 +6,182 @@ id sub_23BCA0328()
   return result;
 }
 
-uint64_t sub_23BCA420C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_23BCA420C(uint64_t a1, __CFString *a2, __CFDictionary *a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
-  v6 = a3;
-  v979 = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_topic(a2, a2, a3, a4, a5);
-  isEqualToString = objc_msgSend_isEqualToString_(v7, v8, @"com.apple.private.ac", v9, v10);
-  v11 = OSLogHandleForIDSCategory();
-  v12 = a4;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v7 = a3;
+  v1169 = *MEMORY[0x277D85DE8];
+  v8 = objc_msgSend_topic(a2, a2, a3, a4, a6, a5);
+  isEqualToString = objc_msgSend_isEqualToString_(v8, v9, @"com.apple.private.ac", v10, v12, v11);
+  v13 = OSLogHandleForIDSCategory();
+  v14 = a4;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = objc_opt_class();
-    v18 = NSStringFromClass(v13);
+    v15 = objc_opt_class();
+    v20 = NSStringFromClass(v15);
     if (isEqualToString)
     {
-      v19 = @"audio";
+      v22 = @"audio";
     }
 
     else
     {
-      v19 = @"video";
+      v22 = @"video";
     }
 
-    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v14, v15, v16, v17);
-    v21 = v20;
-    objc_msgSend_timeSent(a2, v22, v23, v24, v25);
+    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v16, v17, v18, v21, v19);
+    v24 = v23.n128_f64[0];
+    objc_msgSend_timeSent(a2, v25, v26, v27, v23, v28);
     *buf = 138413570;
-    v970 = v18;
-    v971 = 2112;
-    v972 = v6;
-    v973 = 1024;
-    *v974 = v12;
-    *&v974[4] = 2112;
-    *&v974[6] = a5;
-    v975 = 2112;
-    v976 = v19;
-    v977 = 2048;
-    v978 = v21 - v26;
-    _os_log_impl(&dword_23BC9F000, v11, OS_LOG_TYPE_DEFAULT, "Message class: %@  delivered with error: %@  code: %d result: %@  call type: %@   message delivery time: %fs", buf, 0x3Au);
+    v1160 = v20;
+    v1161 = 2112;
+    v1162 = v7;
+    v1163 = 1024;
+    *v1164 = v14;
+    *&v1164[4] = 2112;
+    *&v1164[6] = a5;
+    v1165 = 2112;
+    v1166 = v22;
+    v1167 = 2048;
+    v1168 = v24 - v29;
+    _os_log_impl(&dword_23BC9F000, v13, OS_LOG_TYPE_DEFAULT, "Message class: %@  delivered with error: %@  code: %d result: %@  call type: %@   message delivery time: %fs", buf, 0x3Au);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (MarcoShouldLog())
     {
-      v31 = objc_opt_class();
-      v36 = NSStringFromClass(v31);
+      v35 = objc_opt_class();
+      v40 = NSStringFromClass(v35);
       if (isEqualToString)
       {
-        v37 = @"audio";
+        v42 = @"audio";
       }
 
       else
       {
-        v37 = @"video";
+        v42 = @"video";
       }
 
-      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v32, v33, v34, v35);
-      v39 = v38;
-      objc_msgSend_timeSent(a2, v40, v41, v42, v43);
-      v932 = v39 - v44;
-      v930 = a5;
-      v931 = v37;
-      v926 = v6;
-      v928 = v12;
-      v923 = v36;
+      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v36, v37, v38, v41, v39);
+      v44 = v43.n128_f64[0];
+      objc_msgSend_timeSent(a2, v45, v46, v47, v43, v48);
+      v1122 = v44 - v49;
+      v1120 = a5;
+      v1121 = v42;
+      v1116 = v7;
+      v1118 = v14;
+      v1113 = v40;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v45 = objc_opt_class();
-      v50 = NSStringFromClass(v45);
+      v50 = objc_opt_class();
+      v55 = NSStringFromClass(v50);
       if (isEqualToString)
       {
-        v51 = @"audio";
+        v57 = @"audio";
       }
 
       else
       {
-        v51 = @"video";
+        v57 = @"video";
       }
 
-      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v46, v47, v48, v49, v923, v926, v928, v930, v931, *&v932);
-      v53 = v52;
-      objc_msgSend_timeSent(a2, v54, v55, v56, v57);
-      v932 = v53 - v58;
-      v930 = a5;
-      v931 = v51;
-      v926 = v6;
-      v928 = v12;
-      v923 = v50;
+      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v51, v52, v53, v56, v54, v1113, v1116, v1118, v1120, v1121, *&v1122);
+      v59 = v58.n128_f64[0];
+      objc_msgSend_timeSent(a2, v60, v61, v62, v58, v63);
+      v1122 = v59 - v64;
+      v1120 = a5;
+      v1121 = v57;
+      v1116 = v7;
+      v1118 = v14;
+      v1113 = v55;
       IMLogString();
     }
   }
 
-  v938 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v27, v28, v29, v30, v923, v926, v928, v930, v931, *&v932);
-  if (v12 == 5058)
+  v1128 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v30, v31, v32, v34, v33, v1113, v1116, v1118, v1120, v1121, *&v1122);
+  if (v14 == 5058)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       if (IMOSLoggingEnabled())
       {
-        v63 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+        v70 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v970 = a2;
-          _os_log_impl(&dword_23BC9F000, v63, OS_LOG_TYPE_INFO, "  Peer claimed it was too old to receive a signal, that's ok!  (Message: %@)", buf, 0xCu);
+          v1160 = a2;
+          _os_log_impl(&dword_23BC9F000, v70, OS_LOG_TYPE_INFO, "  Peer claimed it was too old to receive a signal, that's ok!  (Message: %@)", buf, 0xCu);
         }
       }
 
-      v12 = 0;
-      v6 = 0;
+      v14 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v12 = 5058;
+      v14 = 5058;
     }
   }
 
-  v937 = v12;
-  if (v12 == 5020)
+  v1127 = v14;
+  if (v14 == 5020)
   {
-    v64 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v64 = v12;
+    v71 = v14;
   }
 
-  v940 = v64;
-  if (v12 == 5020)
+  v1130 = v71;
+  if (v14 == 5020)
   {
-    v65 = 0;
+    v72 = 0;
   }
 
   else
   {
-    v65 = v6;
+    v72 = v7;
   }
 
-  v935 = v65;
-  v66 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], v59, v60, v61, v62);
-  objc_msgSend_isScreenLocked(v66, v67, v68, v69, v70);
+  v1125 = v72;
+  v73 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], v65, v66, v67, v69, v68);
+  objc_msgSend_isScreenLocked(v73, v74, v75, v76, v78, v77);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    sub_23BCB5020(v940);
-    v75 = objc_msgSend_date(MEMORY[0x277CBEAA8], v71, v72, v73, v74);
-    v80 = objc_msgSend_userInfo(a2, v76, v77, v78, v79);
-    v84 = objc_msgSend_objectForKey_(v80, v81, @"sendDate", v82, v83);
-    objc_msgSend_timeIntervalSinceDate_(v75, v85, v84, v86, v87);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v88, v89, v90, v91);
+    sub_23BCB5020(v1130);
+    v84 = objc_msgSend_date(MEMORY[0x277CBEAA8], v79, v80, v81, v83, v82);
+    v90 = objc_msgSend_userInfo(a2, v85, v86, v87, v89, v88);
+    v95 = objc_msgSend_objectForKey_(v90, v91, @"sendDate", v92, v94, v93);
+    objc_msgSend_timeIntervalSinceDate_(v84, v96, v95, v97, v99, v98);
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v100, v101, v102, v104, v103);
     FTAWDLogCallInvitationSent();
 LABEL_42:
-    v240 = MEMORY[0x277CBEB38];
-    v241 = objc_msgSend_uniqueIDString(a2, v93, v94, v95, v96);
-    v242 = MEMORY[0x277CCACA8];
-    v247 = objc_msgSend_command(a2, v243, v244, v245, v246);
-    v251 = objc_msgSend_stringWithFormat_(v242, v248, @"%d", v249, v250, v247);
-    v938 = objc_msgSend_dictionaryWithObjectsAndKeys_(v240, v252, v92, v253, v254, @"SendDuration", v241, @"MessageIdentifier", v251, @"CommandID", 0);
+    v287 = MEMORY[0x277CBEB38];
+    v288 = objc_msgSend_uniqueIDString(a2, v106, v107, v108, v110, v109);
+    v289 = MEMORY[0x277CCACA8];
+    v295 = objc_msgSend_command(a2, v290, v291, v292, v294, v293);
+    v300 = objc_msgSend_stringWithFormat_(v289, v296, @"%d", v297, v299, v298, v295);
+    v1128 = objc_msgSend_dictionaryWithObjectsAndKeys_(v287, v301, v105, v302, v304, v303, @"SendDuration", v288, @"MessageIdentifier", v300, @"CommandID", 0);
     goto LABEL_43;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    sub_23BCB5020(v940);
-    v101 = objc_msgSend_date(MEMORY[0x277CBEAA8], v97, v98, v99, v100);
-    v106 = objc_msgSend_userInfo(a2, v102, v103, v104, v105);
-    v110 = objc_msgSend_objectForKey_(v106, v107, @"sendDate", v108, v109);
-    objc_msgSend_timeIntervalSinceDate_(v101, v111, v110, v112, v113);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v114, v115, v116, v117);
+    sub_23BCB5020(v1130);
+    v116 = objc_msgSend_date(MEMORY[0x277CBEAA8], v111, v112, v113, v115, v114);
+    v122 = objc_msgSend_userInfo(a2, v117, v118, v119, v121, v120);
+    v127 = objc_msgSend_objectForKey_(v122, v123, @"sendDate", v124, v126, v125);
+    objc_msgSend_timeIntervalSinceDate_(v116, v128, v127, v129, v131, v130);
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v132, v133, v134, v136, v135);
     FTAWDLogCallAcceptSent();
     goto LABEL_42;
   }
@@ -189,12 +189,12 @@ LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    sub_23BCB5020(v940);
-    v122 = objc_msgSend_date(MEMORY[0x277CBEAA8], v118, v119, v120, v121);
-    v127 = objc_msgSend_userInfo(a2, v123, v124, v125, v126);
-    v131 = objc_msgSend_objectForKey_(v127, v128, @"sendDate", v129, v130);
-    objc_msgSend_timeIntervalSinceDate_(v122, v132, v131, v133, v134);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v135, v136, v137, v138);
+    sub_23BCB5020(v1130);
+    v142 = objc_msgSend_date(MEMORY[0x277CBEAA8], v137, v138, v139, v141, v140);
+    v148 = objc_msgSend_userInfo(a2, v143, v144, v145, v147, v146);
+    v153 = objc_msgSend_objectForKey_(v148, v149, @"sendDate", v150, v152, v151);
+    objc_msgSend_timeIntervalSinceDate_(v142, v154, v153, v155, v157, v156);
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v158, v159, v160, v162, v161);
     FTAWDLogCallCancelSent();
     goto LABEL_42;
   }
@@ -202,16 +202,17 @@ LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v143 = objc_msgSend_date(MEMORY[0x277CBEAA8], v139, v140, v141, v142);
-    v148 = objc_msgSend_userInfo(a2, v144, v145, v146, v147);
-    v152 = objc_msgSend_objectForKey_(v148, v149, @"sendDate", v150, v151);
-    objc_msgSend_timeIntervalSinceDate_(v143, v153, v152, v154, v155);
-    v157 = v156;
-    sub_23BCB5020(v940);
-    v162 = objc_msgSend_reason(a2, v158, v159, v160, v161);
-    v167 = objc_msgSend_unsignedIntValue(v162, v163, v164, v165, v166);
-    sub_23BCB5014(v167);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v168, v169, v170, v171, v157);
+    v168 = objc_msgSend_date(MEMORY[0x277CBEAA8], v163, v164, v165, v167, v166);
+    v174 = objc_msgSend_userInfo(a2, v169, v170, v171, v173, v172);
+    v179 = objc_msgSend_objectForKey_(v174, v175, @"sendDate", v176, v178, v177);
+    objc_msgSend_timeIntervalSinceDate_(v168, v180, v179, v181, v183, v182);
+    v185 = v184;
+    sub_23BCB5020(v1130);
+    v191 = objc_msgSend_reason(a2, v186, v187, v188, v190, v189);
+    v197 = objc_msgSend_unsignedIntValue(v191, v192, v193, v194, v196, v195);
+    sub_23BCB5014(v197);
+    v198.n128_u64[0] = v185;
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v199, v200, v201, v198, v202);
     FTAWDLogCallDeclineSent();
     goto LABEL_42;
   }
@@ -219,15 +220,15 @@ LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v176 = objc_msgSend_sessionToken(a2, v172, v173, v174, v175);
-    v181 = objc_msgSend___imHexString(v176, v177, v178, v179, v180);
-    objc_msgSend_containsObject_(*(*(a1 + 32) + 336), v182, v181, v183, v184);
-    sub_23BCB5020(v940);
-    v189 = objc_msgSend_date(MEMORY[0x277CBEAA8], v185, v186, v187, v188);
-    v194 = objc_msgSend_userInfo(a2, v190, v191, v192, v193);
-    v198 = objc_msgSend_objectForKey_(v194, v195, @"sendDate", v196, v197);
-    objc_msgSend_timeIntervalSinceDate_(v189, v199, v198, v200, v201);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v202, v203, v204, v205);
+    v208 = objc_msgSend_sessionToken(a2, v203, v204, v205, v207, v206);
+    v214 = objc_msgSend___imHexString(v208, v209, v210, v211, v213, v212);
+    objc_msgSend_containsObject_(*(*(a1 + 32) + 336), v215, v214, v216, v218, v217);
+    sub_23BCB5020(v1130);
+    v224 = objc_msgSend_date(MEMORY[0x277CBEAA8], v219, v220, v221, v223, v222);
+    v230 = objc_msgSend_userInfo(a2, v225, v226, v227, v229, v228);
+    v235 = objc_msgSend_objectForKey_(v230, v231, @"sendDate", v232, v234, v233);
+    objc_msgSend_timeIntervalSinceDate_(v224, v236, v235, v237, v239, v238);
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v240, v241, v242, v244, v243);
     FTAWDLogCallRelayInitiateSent();
     goto LABEL_42;
   }
@@ -235,58 +236,58 @@ LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v210 = objc_msgSend_sessionToken(a2, v206, v207, v208, v209);
-    v215 = objc_msgSend___imHexString(v210, v211, v212, v213, v214);
-    objc_msgSend_containsObject_(*(*(a1 + 32) + 336), v216, v215, v217, v218);
-    sub_23BCB5020(v940);
-    v223 = objc_msgSend_date(MEMORY[0x277CBEAA8], v219, v220, v221, v222);
-    v228 = objc_msgSend_userInfo(a2, v224, v225, v226, v227);
-    v232 = objc_msgSend_objectForKey_(v228, v229, @"sendDate", v230, v231);
-    objc_msgSend_timeIntervalSinceDate_(v223, v233, v232, v234, v235);
-    v92 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v236, v237, v238, v239);
+    v250 = objc_msgSend_sessionToken(a2, v245, v246, v247, v249, v248);
+    v256 = objc_msgSend___imHexString(v250, v251, v252, v253, v255, v254);
+    objc_msgSend_containsObject_(*(*(a1 + 32) + 336), v257, v256, v258, v260, v259);
+    sub_23BCB5020(v1130);
+    v266 = objc_msgSend_date(MEMORY[0x277CBEAA8], v261, v262, v263, v265, v264);
+    v272 = objc_msgSend_userInfo(a2, v267, v268, v269, v271, v270);
+    v277 = objc_msgSend_objectForKey_(v272, v273, @"sendDate", v274, v276, v275);
+    objc_msgSend_timeIntervalSinceDate_(v266, v278, v277, v279, v281, v280);
+    v105 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v282, v283, v284, v286, v285);
     FTAWDLogCallRelayUpdateSent();
     goto LABEL_42;
   }
 
 LABEL_43:
-  v255 = objc_msgSend_userInfo(a2, v206, v207, v208, v209);
-  v933 = objc_msgSend_objectForKey_(v255, v256, @"conference", v257, v258);
+  v305 = objc_msgSend_userInfo(a2, v245, v246, v247, v249, v248);
+  v1123 = objc_msgSend_objectForKey_(v305, v306, @"conference", v307, v309, v308);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v263 = objc_msgSend_userInfo(a2, v259, v260, v261, v262);
-    v267 = objc_msgSend_objectForKey_(v263, v264, @"conference", v265, v266);
-    v272 = objc_msgSend_sessionToken(a2, v268, v269, v270, v271);
-    v942 = objc_msgSend___imHexString(v272, v273, v274, v275, v276);
-    if (!v940)
+    v315 = objc_msgSend_userInfo(a2, v310, v311, v312, v314, v313);
+    v320 = objc_msgSend_objectForKey_(v315, v316, @"conference", v317, v319, v318);
+    v326 = objc_msgSend_sessionToken(a2, v321, v322, v323, v325, v324);
+    v1132 = objc_msgSend___imHexString(v326, v327, v328, v329, v331, v330);
+    if (!v1130)
     {
-      objc_msgSend__setInitiatedConference_(*(*(*(a1 + 40) + 8) + 40), v277, v942, v278, v279);
-      objc_msgSend__setCallType_forConferenceID_(*(*(*(a1 + 40) + 8) + 40), v280, isEqualToString, v942, v281);
+      objc_msgSend__setInitiatedConference_(*(*(*(a1 + 40) + 8) + 40), v332, v1132, v333, v335, v334);
+      objc_msgSend__setCallType_forConferenceID_(*(*(*(a1 + 40) + 8) + 40), v336, isEqualToString, v1132, v338, v337);
     }
 
-    if ((objc_msgSend_isEqualToString_(v267, v277, v942, v278, v279) & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v320, v332, v1132, v333, v335, v334) & 1) == 0)
     {
       if (IMOSLoggingEnabled())
       {
-        v286 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v286, OS_LOG_TYPE_INFO))
+        v344 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v344, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v970 = v267;
-          v971 = 2112;
-          v972 = v942;
-          _os_log_impl(&dword_23BC9F000, v286, OS_LOG_TYPE_INFO, "  Initiate processed!   CID changed from %@ to %@", buf, 0x16u);
+          v1160 = v320;
+          v1161 = 2112;
+          v1162 = v1132;
+          _os_log_impl(&dword_23BC9F000, v344, OS_LOG_TYPE_INFO, "  Initiate processed!   CID changed from %@ to %@", buf, 0x16u);
         }
       }
 
       if (IMOSLoggingEnabled())
       {
-        v287 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v287, OS_LOG_TYPE_INFO))
+        v345 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v345, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v970 = v942;
-          _os_log_impl(&dword_23BC9F000, v287, OS_LOG_TYPE_INFO, "Conference ID: %@", buf, 0xCu);
+          v1160 = v1132;
+          _os_log_impl(&dword_23BC9F000, v345, OS_LOG_TYPE_INFO, "Conference ID: %@", buf, 0xCu);
         }
       }
 
@@ -295,124 +296,125 @@ LABEL_43:
         MarcoNoteCheckpoint();
       }
 
-      if (!v940)
+      if (!v1130)
       {
-        v292 = *(*(*(a1 + 40) + 8) + 40);
-        v293 = objc_msgSend_sessionToken(a2, v288, v289, v290, v291);
-        objc_msgSend__setConferenceIDMap_forToken_(v292, v294, v267, v293, v295);
+        v351 = *(*(*(a1 + 40) + 8) + 40);
+        v352 = objc_msgSend_sessionToken(a2, v346, v347, v348, v350, v349);
+        objc_msgSend__setConferenceIDMap_forToken_(v351, v353, v320, v352, v355, v354);
       }
 
-      v296 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v288, @"%@", v290, v291, v942);
-      objc_msgSend_setObject_forKey_(v938, v297, v296, @"ConferenceID", v298);
-      v953 = 0u;
-      v954 = 0u;
-      v951 = 0u;
-      v952 = 0u;
-      v303 = objc_msgSend_queuedMessages(qword_281422890, v299, v300, v301, v302);
-      v309 = objc_msgSend_countByEnumeratingWithState_objects_count_(v303, v304, &v951, v960, 16);
-      if (v309)
+      v356 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v346, @"%@", v348, v350, v349, v1132);
+      objc_msgSend_setObject_forKey_(v1128, v357, v356, @"ConferenceID", v359, v358);
+      v1143 = 0u;
+      v1144 = 0u;
+      v1141 = 0u;
+      v1142 = 0u;
+      v364 = objc_msgSend_queuedMessages(qword_281422890, v360, v361, v362, 0, v363);
+      v371 = objc_msgSend_countByEnumeratingWithState_objects_count_(v364, v365, &v1141, v1150, v366, 16);
+      if (v371)
       {
-        v310 = *v952;
+        v373 = *v1142;
+        v372.n128_u64[0] = 138412546;
         do
         {
-          for (i = 0; i != v309; ++i)
+          for (i = 0; i != v371; ++i)
           {
-            if (*v952 != v310)
+            if (*v1142 != v373)
             {
-              objc_enumerationMutation(v303);
+              objc_enumerationMutation(v364);
             }
 
-            v312 = *(*(&v951 + 1) + 8 * i);
-            v313 = objc_msgSend_userInfo(v312, v305, v306, v307, v308);
-            v317 = objc_msgSend_objectForKey_(v313, v314, @"conference", v315, v316);
+            v375 = *(*(&v1141 + 1) + 8 * i);
+            v376 = objc_msgSend_userInfo(v375, v367, v368, v369, v372, v370);
+            v381 = objc_msgSend_objectForKey_(v376, v377, @"conference", v378, v380, v379);
             if (IMOSLoggingEnabled())
             {
-              v321 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v321, OS_LOG_TYPE_INFO))
+              v386 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v386, OS_LOG_TYPE_INFO))
               {
-                v323 = objc_msgSend_sessionToken(v312, v318, v322, v319, v320);
-                v328 = objc_msgSend___imHexString(v323, v324, v325, v326, v327);
+                v388 = objc_msgSend_sessionToken(v375, v382, v387, v383, v385, v384);
+                v394 = objc_msgSend___imHexString(v388, v389, v390, v391, v393, v392);
                 *buf = 138412802;
-                v970 = v312;
-                v971 = 2112;
-                v972 = v317;
-                v973 = 2112;
-                *v974 = v328;
-                _os_log_impl(&dword_23BC9F000, v321, OS_LOG_TYPE_INFO, "  Found queued message: %@   (%@: %@)", buf, 0x20u);
+                v1160 = v375;
+                v1161 = 2112;
+                v1162 = v381;
+                v1163 = 2112;
+                *v1164 = v394;
+                _os_log_impl(&dword_23BC9F000, v386, OS_LOG_TYPE_INFO, "  Found queued message: %@   (%@: %@)", buf, 0x20u);
               }
             }
 
-            if (objc_msgSend_isEqualToString_(v317, v318, v267, v319, v320))
+            if (objc_msgSend_isEqualToString_(v381, v382, v320, v383, v385, v384))
             {
               if (IMOSLoggingEnabled())
               {
-                v333 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v333, OS_LOG_TYPE_INFO))
+                v400 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v400, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v970 = v267;
-                  v971 = 2112;
-                  v972 = v942;
-                  _os_log_impl(&dword_23BC9F000, v333, OS_LOG_TYPE_INFO, "  Fixing conference ID: %@ => %@", buf, 0x16u);
+                  v1160 = v320;
+                  v1161 = 2112;
+                  v1162 = v1132;
+                  _os_log_impl(&dword_23BC9F000, v400, OS_LOG_TYPE_INFO, "  Fixing conference ID: %@ => %@", buf, 0x16u);
                 }
               }
 
-              v334 = objc_msgSend_sessionToken(a2, v329, v330, v331, v332);
-              objc_msgSend_setSessionToken_(v312, v335, v334, v336, v337);
+              v401 = objc_msgSend_sessionToken(a2, v395, v396, v397, v399, v398);
+              objc_msgSend_setSessionToken_(v375, v402, v401, v403, v405, v404);
             }
           }
 
-          v309 = objc_msgSend_countByEnumeratingWithState_objects_count_(v303, v305, &v951, v960, 16);
+          v371 = objc_msgSend_countByEnumeratingWithState_objects_count_(v364, v367, &v1141, v1150, v372, 16);
         }
 
-        while (v309);
+        while (v371);
       }
 
-      v338 = *(*(*(a1 + 40) + 8) + 40);
+      v406 = *(*(*(a1 + 40) + 8) + 40);
       if (isEqualToString)
       {
-        v339 = objc_msgSend_broadcasterForACConferenceListeners(v338, v305, v306, v307, v308);
+        v407 = objc_msgSend_broadcasterForACConferenceListeners(v406, v367, v368, v369, v372, v370);
       }
 
       else
       {
-        v339 = objc_msgSend_broadcasterForVCConferenceListeners(v338, v305, v306, v307, v308);
+        v407 = objc_msgSend_broadcasterForVCConferenceListeners(v406, v367, v368, v369, v372, v370);
       }
 
-      v345 = v339;
-      v346 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v340, v341, v342, v343);
-      objc_msgSend_account_conference_changedToNewConferenceID_(v345, v347, v346, v267, v942);
-      v933 = v942;
+      v414 = v407;
+      v415 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v408, v409, v410, v412, v411);
+      objc_msgSend_account_conference_changedToNewConferenceID_(v414, v416, v415, v320, v417, v1132);
+      v1123 = v1132;
     }
 
-    if (v940)
+    if (v1130)
     {
       PLLogRegisteredEvent();
       goto LABEL_249;
     }
 
-    v348 = *(*(*(a1 + 40) + 8) + 40);
+    v418 = *(*(*(a1 + 40) + 8) + 40);
     if (isEqualToString)
     {
-      v349 = objc_msgSend_broadcasterForACConferenceListeners(v348, v282, v283, v284, v285);
+      v419 = objc_msgSend_broadcasterForACConferenceListeners(v418, v339, v340, v341, v343, v342);
     }
 
     else
     {
-      v349 = objc_msgSend_broadcasterForVCConferenceListeners(v348, v282, v283, v284, v285);
+      v419 = objc_msgSend_broadcasterForVCConferenceListeners(v418, v339, v340, v341, v343, v342);
     }
 
-    v354 = v349;
-    v355 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v350, v351, v352, v353);
-    objc_msgSend_account_conference_invitationSentSuccessfully_(v354, v356, v355, v942, 1);
+    v425 = v419;
+    v426 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v420, v421, v422, v424, v423);
+    objc_msgSend_account_conference_invitationSentSuccessfully_(v425, v427, v426, v1132, v428, 1);
     PLLogRegisteredEvent();
   }
 
   else
   {
     PLLogRegisteredEvent();
-    v344 = v940;
-    if (v940)
+    v413 = v1130;
+    if (v1130)
     {
       goto LABEL_247;
     }
@@ -424,110 +426,110 @@ LABEL_43:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v478 = objc_msgSend_sessionToken(a2, v474, v475, v476, v477);
-      v483 = objc_msgSend___imHexString(v478, v479, v480, v481, v482);
-      v484 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v490 = objc_msgSend_relayType(a2, v485, v486, v487, v488);
-      if (v490)
+      v574 = objc_msgSend_sessionToken(a2, v569, v570, v571, v573, v572);
+      v580 = objc_msgSend___imHexString(v574, v575, v576, v577, v579, v578);
+      v581 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v588 = objc_msgSend_relayType(a2, v582, v583, v584, v586, v585);
+      if (v588)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FE8], v490);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FE8], v588);
       }
 
-      v494 = objc_msgSend_relayConnectionId(a2, v489, v490, v491, v492);
-      if (v494)
+      v593 = objc_msgSend_relayConnectionId(a2, v587, v588, v589, v591, v590);
+      if (v593)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F48], v494);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F48], v593);
       }
 
-      v498 = objc_msgSend_relayTransactionIdAlloc(a2, v493, v494, v495, v496);
-      if (v498)
+      v598 = objc_msgSend_relayTransactionIdAlloc(a2, v592, v593, v594, v596, v595);
+      if (v598)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FE0], v498);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FE0], v598);
       }
 
-      v502 = objc_msgSend_relayTokenAllocReq(a2, v497, v498, v499, v500);
-      if (v502)
+      v603 = objc_msgSend_relayTokenAllocReq(a2, v597, v598, v599, v601, v600);
+      if (v603)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FD8], v502);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FD8], v603);
       }
 
-      v506 = objc_msgSend_peerRelayIP(a2, v501, v502, v503, v504);
-      if (v506)
+      v608 = objc_msgSend_peerRelayIP(a2, v602, v603, v604, v606, v605);
+      if (v608)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F70], v506);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F70], v608);
       }
 
-      v510 = objc_msgSend_peerRelayPort(a2, v505, v506, v507, v508);
-      if (v510)
+      v613 = objc_msgSend_peerRelayPort(a2, v607, v608, v609, v611, v610);
+      if (v613)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F88], v510);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F88], v613);
       }
 
-      v514 = objc_msgSend_selfRelayIP(a2, v509, v510, v511, v512);
-      if (v514)
+      v618 = objc_msgSend_selfRelayIP(a2, v612, v613, v614, v616, v615);
+      if (v618)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FB8], v514);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FB8], v618);
       }
 
-      v517 = objc_msgSend_selfRelayPort(a2, v513, v514, v515, v516);
-      if (v517)
+      v622 = objc_msgSend_selfRelayPort(a2, v617, v618, v619, v621, v620);
+      if (v622)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FD0], v517);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FD0], v622);
       }
 
       if (IMOSLoggingEnabled())
       {
-        v518 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v518, OS_LOG_TYPE_INFO))
+        v623 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v623, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v970 = v483;
-          v971 = 2112;
-          v972 = v484;
-          _os_log_impl(&dword_23BC9F000, v518, OS_LOG_TYPE_INFO, "  Response to relay request %@    parameters: %@", buf, 0x16u);
+          v1160 = v580;
+          v1161 = 2112;
+          v1162 = v581;
+          _os_log_impl(&dword_23BC9F000, v623, OS_LOG_TYPE_INFO, "  Response to relay request %@    parameters: %@", buf, 0x16u);
         }
       }
 
-      v519 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v519, OS_LOG_TYPE_DEFAULT))
+      v624 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v624, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v970 = v483;
-        v971 = 2112;
-        v972 = v484;
-        _os_log_impl(&dword_23BC9F000, v519, OS_LOG_TYPE_DEFAULT, "  Response to relay request %@    parameters: %@", buf, 0x16u);
+        v1160 = v580;
+        v1161 = 2112;
+        v1162 = v581;
+        _os_log_impl(&dword_23BC9F000, v624, OS_LOG_TYPE_DEFAULT, "  Response to relay request %@    parameters: %@", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (MarcoShouldLog())
         {
-          v924 = v483;
-          v927 = v484;
+          v1114 = v580;
+          v1117 = v581;
           MarcoLog();
         }
 
         if (IMShouldLog())
         {
-          v924 = v483;
-          v927 = v484;
+          v1114 = v580;
+          v1117 = v581;
           IMLogString();
         }
       }
 
-      v524 = *(*(*(a1 + 40) + 8) + 40);
+      v630 = *(*(*(a1 + 40) + 8) + 40);
       if (isEqualToString)
       {
 LABEL_243:
-        v594 = objc_msgSend_broadcasterForACConferenceListeners(v524, v520, v521, v522, v523);
+        v714 = objc_msgSend_broadcasterForACConferenceListeners(v630, v625, v626, v627, v629, v628);
 LABEL_393:
-        v686 = v594;
-        v687 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v595, v596, v597, v598, v924, v927);
-        v688 = *(*(*(a1 + 40) + 8) + 40);
-        v693 = objc_msgSend_peerID(a2, v689, v690, v691, v692);
-        v696 = objc_msgSend__displayIDForPeerID_conferenceID_(v688, v694, v693, v483, v695);
-        v697 = sub_23BCA7F48(v696);
-        objc_msgSend_account_relay_handleInitate_fromPerson_(v686, v698, v687, v483, v484, v697);
+        v824 = v714;
+        v825 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v715, v716, v717, v719, v718, v1114, v1117);
+        v826 = *(*(*(a1 + 40) + 8) + 40);
+        v832 = objc_msgSend_peerID(a2, v827, v828, v829, v831, v830);
+        v836 = objc_msgSend__displayIDForPeerID_conferenceID_(v826, v833, v832, v580, v835, v834);
+        v837 = sub_23BCA7F48(v836);
+        objc_msgSend_account_relay_handleInitate_fromPerson_(v824, v838, v825, v580, v839, v581, v837);
 
         goto LABEL_394;
       }
@@ -536,233 +538,234 @@ LABEL_393:
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_relayType(a2, v546, v547, v548, v549))
+      if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_relayType(a2, v655, v656, v657, v659, v658))
       {
         goto LABEL_394;
       }
 
-      v554 = objc_msgSend_sessionToken(a2, v550, v551, v552, v553);
-      v483 = objc_msgSend___imHexString(v554, v555, v556, v557, v558);
-      v484 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v564 = objc_msgSend_relayType(a2, v559, v560, v561, v562);
-      if (v564)
+      v665 = objc_msgSend_sessionToken(a2, v660, v661, v662, v664, v663);
+      v580 = objc_msgSend___imHexString(v665, v666, v667, v668, v670, v669);
+      v581 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v677 = objc_msgSend_relayType(a2, v671, v672, v673, v675, v674);
+      if (v677)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FE8], v564);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FE8], v677);
       }
 
-      v568 = objc_msgSend_relayConnectionId(a2, v563, v564, v565, v566);
-      if (v568)
+      v682 = objc_msgSend_relayConnectionId(a2, v676, v677, v678, v680, v679);
+      if (v682)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F48], v568);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F48], v682);
       }
 
-      v572 = objc_msgSend_relayTransactionIdAlloc(a2, v567, v568, v569, v570);
-      if (v572)
+      v687 = objc_msgSend_relayTransactionIdAlloc(a2, v681, v682, v683, v685, v684);
+      if (v687)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FE0], v572);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FE0], v687);
       }
 
-      v576 = objc_msgSend_relayTokenAllocReq(a2, v571, v572, v573, v574);
-      if (v576)
+      v692 = objc_msgSend_relayTokenAllocReq(a2, v686, v687, v688, v690, v689);
+      if (v692)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FD8], v576);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FD8], v692);
       }
 
-      v580 = objc_msgSend_peerRelayIP(a2, v575, v576, v577, v578);
-      if (v580)
+      v697 = objc_msgSend_peerRelayIP(a2, v691, v692, v693, v695, v694);
+      if (v697)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F70], v580);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F70], v697);
       }
 
-      v584 = objc_msgSend_peerRelayPort(a2, v579, v580, v581, v582);
-      if (v584)
+      v702 = objc_msgSend_peerRelayPort(a2, v696, v697, v698, v700, v699);
+      if (v702)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18F88], v584);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18F88], v702);
       }
 
-      v588 = objc_msgSend_selfRelayIP(a2, v583, v584, v585, v586);
-      if (v588)
+      v707 = objc_msgSend_selfRelayIP(a2, v701, v702, v703, v705, v704);
+      if (v707)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FB8], v588);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FB8], v707);
       }
 
-      v591 = objc_msgSend_selfRelayPort(a2, v587, v588, v589, v590);
-      if (v591)
+      v711 = objc_msgSend_selfRelayPort(a2, v706, v707, v708, v710, v709);
+      if (v711)
       {
-        CFDictionarySetValue(v484, *MEMORY[0x277D18FD0], v591);
+        CFDictionarySetValue(v581, *MEMORY[0x277D18FD0], v711);
       }
 
       if (IMOSLoggingEnabled())
       {
-        v592 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v592, OS_LOG_TYPE_INFO))
+        v712 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v712, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v970 = v483;
-          v971 = 2112;
-          v972 = v484;
-          _os_log_impl(&dword_23BC9F000, v592, OS_LOG_TYPE_INFO, "  Inline request to relay %@    parameters: %@", buf, 0x16u);
+          v1160 = v580;
+          v1161 = 2112;
+          v1162 = v581;
+          _os_log_impl(&dword_23BC9F000, v712, OS_LOG_TYPE_INFO, "  Inline request to relay %@    parameters: %@", buf, 0x16u);
         }
       }
 
-      v593 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v593, OS_LOG_TYPE_DEFAULT))
+      v713 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v713, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v970 = v483;
-        v971 = 2112;
-        v972 = v484;
-        _os_log_impl(&dword_23BC9F000, v593, OS_LOG_TYPE_DEFAULT, "  Inline request to relay %@    parameters: %@", buf, 0x16u);
+        v1160 = v580;
+        v1161 = 2112;
+        v1162 = v581;
+        _os_log_impl(&dword_23BC9F000, v713, OS_LOG_TYPE_DEFAULT, "  Inline request to relay %@    parameters: %@", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (MarcoShouldLog())
         {
-          v924 = v483;
-          v927 = v484;
+          v1114 = v580;
+          v1117 = v581;
           MarcoLog();
         }
 
         if (IMShouldLog())
         {
-          v924 = v483;
-          v927 = v484;
+          v1114 = v580;
+          v1117 = v581;
           IMLogString();
         }
       }
 
-      v524 = *(*(*(a1 + 40) + 8) + 40);
+      v630 = *(*(*(a1 + 40) + 8) + 40);
       if (isEqualToString)
       {
         goto LABEL_243;
       }
     }
 
-    v594 = objc_msgSend_broadcasterForVCConferenceListeners(v524, v520, v521, v522, v523);
+    v714 = objc_msgSend_broadcasterForVCConferenceListeners(v630, v625, v626, v627, v629, v628);
     goto LABEL_393;
   }
 
-  v361 = objc_msgSend_sessionToken(a2, v357, v358, v359, v360);
-  v943 = objc_msgSend___imHexString(v361, v362, v363, v364, v365);
-  obj = objc_msgSend_canonicalizedPeers(a2, v366, v367, v368, v369);
-  v944 = *(*(*(a1 + 40) + 8) + 40);
-  v374 = objc_msgSend_userInfo(a2, v370, v371, v372, v373);
-  v378 = objc_msgSend_objectForKey_(v374, v375, @"ID", v376, v377);
-  if (!objc_msgSend_count(obj, v379, v380, v381, v382) || !objc_msgSend_length(v943, v383, v384, v385, v386))
+  v434 = objc_msgSend_sessionToken(a2, v429, v430, v431, v433, v432);
+  v1133 = objc_msgSend___imHexString(v434, v435, v436, v437, v439, v438);
+  obj = objc_msgSend_canonicalizedPeers(a2, v440, v441, v442, v444, v443);
+  v1134 = *(*(*(a1 + 40) + 8) + 40);
+  v450 = objc_msgSend_userInfo(a2, v445, v446, v447, v449, v448);
+  v455 = objc_msgSend_objectForKey_(v450, v451, @"ID", v452, v454, v453);
+  if (!objc_msgSend_count(obj, v456, v457, v458, v460, v459) || !objc_msgSend_length(v1133, v461, v462, v463, v465, v464))
   {
     goto LABEL_188;
   }
 
-  objc_msgSend__setPeerInfo_conferenceID_(v944, v383, obj, v943, v387);
+  objc_msgSend__setPeerInfo_conferenceID_(v1134, v461, obj, v1133, v465, v466);
   if (IMOSLoggingEnabled())
   {
-    v388 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v388, OS_LOG_TYPE_INFO))
+    v467 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v467, OS_LOG_TYPE_INFO))
     {
-      *v961 = 138412802;
-      v962 = obj;
-      v963 = 2112;
-      v964 = v943;
-      v965 = 2112;
-      v966 = v378;
-      _os_log_impl(&dword_23BC9F000, v388, OS_LOG_TYPE_INFO, "  Processing peers: %@ for conferenceID: %@ and targetID: %@", v961, 0x20u);
+      *v1151 = 138412802;
+      v1152 = obj;
+      v1153 = 2112;
+      v1154 = v1133;
+      v1155 = 2112;
+      v1156 = v455;
+      _os_log_impl(&dword_23BC9F000, v467, OS_LOG_TYPE_INFO, "  Processing peers: %@ for conferenceID: %@ and targetID: %@", v1151, 0x20u);
     }
   }
 
-  v389 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
+  v468 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
   {
-    *v961 = 138412290;
-    v962 = obj;
-    _os_log_impl(&dword_23BC9F000, v389, OS_LOG_TYPE_DEFAULT, "Processing peers: %@", v961, 0xCu);
+    *v1151 = 138412290;
+    v1152 = obj;
+    _os_log_impl(&dword_23BC9F000, v468, OS_LOG_TYPE_DEFAULT, "Processing peers: %@", v1151, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (MarcoShouldLog())
     {
-      v924 = obj;
+      v1114 = obj;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v924 = obj;
+      v1114 = obj;
       IMLogString();
     }
   }
 
-  v957 = 0u;
-  v958 = 0u;
-  v955 = 0u;
-  v956 = 0u;
-  v393 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v390, &v955, buf, 16, v924);
-  if (!v393)
+  v1147 = 0u;
+  v1148 = 0u;
+  v1145 = 0u;
+  v1146 = 0u;
+  v472 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v469, &v1145, buf, 0, 16, v1114);
+  if (!v472)
   {
     goto LABEL_188;
   }
 
-  v394 = 0;
-  v395 = *v956;
+  v473 = 0;
+  v474 = *v1146;
+  v465.n128_u64[0] = 138412802;
   do
   {
-    for (j = 0; j != v393; ++j)
+    for (j = 0; j != v472; ++j)
     {
-      if (*v956 != v395)
+      if (*v1146 != v474)
       {
         objc_enumerationMutation(obj);
       }
 
-      v397 = *(*(&v955 + 1) + 8 * j);
-      v398 = objc_msgSend_objectForKey_(v397, v383, @"status", v391, v392, v924, v927, v929);
-      v402 = objc_msgSend_objectForKey_(v397, v399, @"id", v400, v401);
-      v406 = objc_msgSend_objectForKey_(v397, v403, @"canonical-id", v404, v405);
-      v411 = objc_msgSend__stripFZIDPrefix(v406, v407, v408, v409, v410);
-      if (objc_msgSend_intValue(v398, v412, v413, v414, v415))
+      v476 = *(*(&v1145 + 1) + 8 * j);
+      v477 = objc_msgSend_objectForKey_(v476, v461, @"status", v470, v465, v471, v1114, v1117, v1119);
+      v482 = objc_msgSend_objectForKey_(v476, v478, @"id", v479, v481, v480);
+      v487 = objc_msgSend_objectForKey_(v476, v483, @"canonical-id", v484, v486, v485);
+      v493 = objc_msgSend__stripFZIDPrefix(v487, v488, v489, v490, v492, v491);
+      if (objc_msgSend_intValue(v477, v494, v495, v496, v498, v497))
       {
         if (IMOSLoggingEnabled())
         {
-          v417 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v417, OS_LOG_TYPE_INFO))
+          v501 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v501, OS_LOG_TYPE_INFO))
           {
-            *v961 = 138412802;
-            v962 = v402;
-            v963 = 2112;
-            v964 = v398;
-            v965 = 2112;
-            v966 = v411;
-            _os_log_impl(&dword_23BC9F000, v417, OS_LOG_TYPE_INFO, "  Skipping (non-0 status)   peerID: %@    status code: %@  canonical id: %@", v961, 0x20u);
+            *v1151 = 138412802;
+            v1152 = v482;
+            v1153 = 2112;
+            v1154 = v477;
+            v1155 = 2112;
+            v1156 = v493;
+            _os_log_impl(&dword_23BC9F000, v501, OS_LOG_TYPE_INFO, "  Skipping (non-0 status)   peerID: %@    status code: %@  canonical id: %@", v1151, 0x20u);
           }
         }
 
-        v418 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v418, OS_LOG_TYPE_DEFAULT))
+        v502 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v502, OS_LOG_TYPE_DEFAULT))
         {
-          *v961 = 138412802;
-          v962 = v402;
-          v963 = 2112;
-          v964 = v398;
-          v965 = 2112;
-          v966 = v411;
-          _os_log_impl(&dword_23BC9F000, v418, OS_LOG_TYPE_DEFAULT, "  Skipping (non-0 status)   peerID: %@    status code: %@  canonical id: %@", v961, 0x20u);
+          *v1151 = 138412802;
+          v1152 = v482;
+          v1153 = 2112;
+          v1154 = v477;
+          v1155 = 2112;
+          v1156 = v493;
+          _os_log_impl(&dword_23BC9F000, v502, OS_LOG_TYPE_DEFAULT, "  Skipping (non-0 status)   peerID: %@    status code: %@  canonical id: %@", v1151, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (MarcoShouldLog())
           {
-            v927 = v398;
-            v929 = v411;
-            v924 = v402;
+            v1117 = v477;
+            v1119 = v493;
+            v1114 = v482;
             MarcoLog();
           }
 
           if (IMShouldLog())
           {
-            v927 = v398;
-            v929 = v411;
-            v924 = v402;
+            v1117 = v477;
+            v1119 = v493;
+            v1114 = v482;
             IMLogString();
           }
         }
@@ -770,73 +773,73 @@ LABEL_393:
 
       else
       {
-        objc_msgSend__setAlternateDisplayID_forPeerID_conferenceID_(v944, v416, v378, v402, v943);
+        objc_msgSend__setAlternateDisplayID_forPeerID_conferenceID_(v1134, v499, v455, v482, v500, v1133);
         if (IMOSLoggingEnabled())
         {
-          v419 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v419, OS_LOG_TYPE_INFO))
+          v503 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v503, OS_LOG_TYPE_INFO))
           {
-            *v961 = 138413058;
-            v962 = v411;
-            v963 = 2112;
-            v964 = v402;
-            v965 = 2112;
-            v966 = v378;
-            v967 = 2112;
-            v968 = v411;
-            _os_log_impl(&dword_23BC9F000, v419, OS_LOG_TYPE_INFO, "     Peer: %@    Canonical: %@   Old: %@   New: %@", v961, 0x2Au);
+            *v1151 = 138413058;
+            v1152 = v493;
+            v1153 = 2112;
+            v1154 = v482;
+            v1155 = 2112;
+            v1156 = v455;
+            v1157 = 2112;
+            v1158 = v493;
+            _os_log_impl(&dword_23BC9F000, v503, OS_LOG_TYPE_INFO, "     Peer: %@    Canonical: %@   Old: %@   New: %@", v1151, 0x2Au);
           }
         }
 
-        v420 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
+        v504 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v504, OS_LOG_TYPE_DEFAULT))
         {
-          *v961 = 138413058;
-          v962 = v411;
-          v963 = 2112;
-          v964 = v402;
-          v965 = 2112;
-          v966 = v378;
-          v967 = 2112;
-          v968 = v411;
-          _os_log_impl(&dword_23BC9F000, v420, OS_LOG_TYPE_DEFAULT, "     Peer: %@    Canonical: %@   Old: %@   New: %@", v961, 0x2Au);
+          *v1151 = 138413058;
+          v1152 = v493;
+          v1153 = 2112;
+          v1154 = v482;
+          v1155 = 2112;
+          v1156 = v455;
+          v1157 = 2112;
+          v1158 = v493;
+          _os_log_impl(&dword_23BC9F000, v504, OS_LOG_TYPE_DEFAULT, "     Peer: %@    Canonical: %@   Old: %@   New: %@", v1151, 0x2Au);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (MarcoShouldLog())
           {
-            v929 = v378;
-            v924 = v411;
-            v927 = v402;
+            v1119 = v455;
+            v1114 = v493;
+            v1117 = v482;
             MarcoLog();
           }
 
           if (IMShouldLog())
           {
-            v929 = v378;
-            v924 = v411;
-            v927 = v402;
+            v1119 = v455;
+            v1114 = v493;
+            v1117 = v482;
             IMLogString();
           }
         }
 
-        if (objc_msgSend_isEqualToString_(v378, v421, v411, v422, v423, v924))
+        if (objc_msgSend_isEqualToString_(v455, v505, v493, v506, v508, v507, v1114))
         {
           if (IMOSLoggingEnabled())
           {
-            v428 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v428, OS_LOG_TYPE_INFO))
+            v514 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v514, OS_LOG_TYPE_INFO))
             {
-              *v961 = 138412290;
-              v962 = v378;
-              _os_log_impl(&dword_23BC9F000, v428, OS_LOG_TYPE_INFO, "Peer ID did not change: %@", v961, 0xCu);
+              *v1151 = 138412290;
+              v1152 = v455;
+              _os_log_impl(&dword_23BC9F000, v514, OS_LOG_TYPE_INFO, "Peer ID did not change: %@", v1151, 0xCu);
             }
           }
 
           if (MarcoShouldLogCheckpoints())
           {
-            v924 = v378;
+            v1114 = v455;
             MarcoNoteCheckpoint();
           }
         }
@@ -845,143 +848,143 @@ LABEL_393:
         {
           if (isEqualToString)
           {
-            v429 = objc_msgSend_broadcasterForACConferenceListeners(v944, v424, v425, v426, v427);
+            v515 = objc_msgSend_broadcasterForACConferenceListeners(v1134, v509, v510, v511, v513, v512);
           }
 
           else
           {
-            v429 = objc_msgSend_broadcasterForVCConferenceListeners(v944, v424, v425, v426, v427);
+            v515 = objc_msgSend_broadcasterForVCConferenceListeners(v1134, v509, v510, v511, v513, v512);
           }
 
-          v434 = v429;
-          v435 = objc_msgSend_accountID(v944, v430, v431, v432, v433);
-          objc_msgSend_account_conference_peerIDChangedFromID_toID_(v434, v436, v435, v943, v378, v411);
+          v521 = v515;
+          v522 = objc_msgSend_accountID(v1134, v516, v517, v518, v520, v519);
+          objc_msgSend_account_conference_peerIDChangedFromID_toID_(v521, v523, v522, v1133, v524, v455, v493);
           if (IMOSLoggingEnabled())
           {
-            v437 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v437, OS_LOG_TYPE_INFO))
+            v525 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v525, OS_LOG_TYPE_INFO))
             {
-              *v961 = 138412546;
-              v962 = v378;
-              v963 = 2112;
-              v964 = v411;
-              _os_log_impl(&dword_23BC9F000, v437, OS_LOG_TYPE_INFO, "Peer ID was mapped from: %@ to: %@", v961, 0x16u);
+              *v1151 = 138412546;
+              v1152 = v455;
+              v1153 = 2112;
+              v1154 = v493;
+              _os_log_impl(&dword_23BC9F000, v525, OS_LOG_TYPE_INFO, "Peer ID was mapped from: %@ to: %@", v1151, 0x16u);
             }
           }
 
           if (MarcoShouldLogCheckpoints())
           {
-            v924 = v378;
-            v927 = v411;
+            v1114 = v455;
+            v1117 = v493;
             MarcoNoteCheckpoint();
           }
         }
 
-        v394 = 1;
+        v473 = 1;
       }
     }
 
-    v393 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v383, &v955, buf, 16);
+    v472 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v461, &v1145, buf, v465, 16);
   }
 
-  while (v393);
-  if (v394)
+  while (v472);
+  if (v473)
   {
-    v945 = *(*(*(a1 + 40) + 8) + 40);
-    v955 = 0u;
-    v956 = 0u;
-    v957 = 0u;
-    v958 = 0u;
-    v439 = objc_msgSend_queuedMessages(qword_281422890, v383, v438, v391, v392);
-    v445 = objc_msgSend_countByEnumeratingWithState_objects_count_(v439, v440, &v955, buf, 16);
-    if (v445)
+    v1135 = *(*(*(a1 + 40) + 8) + 40);
+    v1145 = 0u;
+    v1146 = 0u;
+    v1147 = 0u;
+    v1148 = 0u;
+    v527 = objc_msgSend_queuedMessages(qword_281422890, v461, v526, v470, 0, v471);
+    v534 = objc_msgSend_countByEnumeratingWithState_objects_count_(v527, v528, &v1145, buf, v529, 16);
+    if (v534)
     {
-      v446 = *v956;
+      v536 = *v1146;
       do
       {
-        for (k = 0; k != v445; ++k)
+        for (k = 0; k != v534; ++k)
         {
-          if (*v956 != v446)
+          if (*v1146 != v536)
           {
-            objc_enumerationMutation(v439);
+            objc_enumerationMutation(v527);
           }
 
-          v448 = *(*(&v955 + 1) + 8 * k);
-          v449 = objc_msgSend_userInfo(v448, v441, v442, v443, v444, v924);
-          v453 = objc_msgSend_objectForKey_(v449, v450, @"ID", v451, v452);
+          v538 = *(*(&v1145 + 1) + 8 * k);
+          v539 = objc_msgSend_userInfo(v538, v530, v531, v532, v535, v533, v1114);
+          v544 = objc_msgSend_objectForKey_(v539, v540, @"ID", v541, v543, v542);
           if (IMOSLoggingEnabled())
           {
-            v454 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v454, OS_LOG_TYPE_INFO))
+            v545 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v545, OS_LOG_TYPE_INFO))
             {
-              *v961 = 138412546;
-              v962 = v448;
-              v963 = 2112;
-              v964 = v453;
-              _os_log_impl(&dword_23BC9F000, v454, OS_LOG_TYPE_INFO, "  Found queued message: %@  with ID: %@", v961, 0x16u);
+              *v1151 = 138412546;
+              v1152 = v538;
+              v1153 = 2112;
+              v1154 = v544;
+              _os_log_impl(&dword_23BC9F000, v545, OS_LOG_TYPE_INFO, "  Found queued message: %@  with ID: %@", v1151, 0x16u);
             }
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v455 = objc_msgSend_peers(v448, v441, v442, v443, v444);
-            if (!objc_msgSend_count(v455, v456, v457, v458, v459))
+            v546 = objc_msgSend_peers(v538, v530, v531, v532, v535, v533);
+            if (!objc_msgSend_count(v546, v547, v548, v549, v551, v550))
             {
-              v460 = objc_msgSend_sessionToken(v448, v441, v442, v443, v444);
-              v465 = objc_msgSend___imHexString(v460, v461, v462, v463, v464);
-              if (objc_msgSend_isEqualToString_(v465, v466, v943, v467, v468))
+              v552 = objc_msgSend_sessionToken(v538, v530, v531, v532, v535, v533);
+              v558 = objc_msgSend___imHexString(v552, v553, v554, v555, v557, v556);
+              if (objc_msgSend_isEqualToString_(v558, v559, v1133, v560, v562, v561))
               {
-                v469 = objc_msgSend__peerInfoForDisplayID_conferenceID_skippingPairs_(v945, v441, v453, v943, 0);
+                v563 = objc_msgSend__peerInfoForDisplayID_conferenceID_skippingPairs_(v1135, v530, v544, v1133, v535, 0);
                 if (IMOSLoggingEnabled())
                 {
-                  v473 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v473, OS_LOG_TYPE_INFO))
+                  v568 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v568, OS_LOG_TYPE_INFO))
                   {
-                    *v961 = 138412546;
-                    v962 = v453;
-                    v963 = 2112;
-                    v964 = v469;
-                    _os_log_impl(&dword_23BC9F000, v473, OS_LOG_TYPE_INFO, "  Fixing peers for ID: %@ => %@", v961, 0x16u);
+                    *v1151 = 138412546;
+                    v1152 = v544;
+                    v1153 = 2112;
+                    v1154 = v563;
+                    _os_log_impl(&dword_23BC9F000, v568, OS_LOG_TYPE_INFO, "  Fixing peers for ID: %@ => %@", v1151, 0x16u);
                   }
                 }
 
-                objc_msgSend_setPeers_(v448, v470, v469, v471, v472);
+                objc_msgSend_setPeers_(v538, v564, v563, v565, v567, v566);
               }
             }
           }
         }
 
-        v445 = objc_msgSend_countByEnumeratingWithState_objects_count_(v439, v441, &v955, buf, 16);
+        v534 = objc_msgSend_countByEnumeratingWithState_objects_count_(v527, v530, &v1145, buf, v535, 16);
       }
 
-      while (v445);
+      while (v534);
     }
 
-    v344 = 0;
+    v413 = 0;
   }
 
   else
   {
 LABEL_188:
-    v935 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v383, *MEMORY[0x277D07D88], 5030, 0, v924);
+    v1125 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v461, *MEMORY[0x277D07D88], 5030, v465, 0, v1114);
     if (IMOSLoggingEnabled())
     {
-      v525 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v525, OS_LOG_TYPE_INFO))
+      v631 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v631, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v525, OS_LOG_TYPE_INFO, "No peer response in initiate", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v631, OS_LOG_TYPE_INFO, "No peer response in initiate", buf, 2u);
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v526 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v526, OS_LOG_TYPE_INFO))
+      v632 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v632, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v526, OS_LOG_TYPE_INFO, "No peer response in initiate", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v632, OS_LOG_TYPE_INFO, "No peer response in initiate", buf, 2u);
       }
     }
 
@@ -990,128 +993,128 @@ LABEL_188:
       MarcoNoteCheckpoint();
     }
 
-    v344 = 5030;
+    v413 = 5030;
   }
 
-  v527 = objc_msgSend__anyPeersForConferenceIDMayRequireBreakBeforeMake_(*(*(*(a1 + 40) + 8) + 40), v441, v943, v443, v444, v924);
+  v633 = objc_msgSend__anyPeersForConferenceIDMayRequireBreakBeforeMake_(*(*(*(a1 + 40) + 8) + 40), v530, v1133, v532, v535, v533, v1114);
   if (IMOSLoggingEnabled())
   {
-    v528 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v528, OS_LOG_TYPE_INFO))
+    v634 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v634, OS_LOG_TYPE_INFO))
     {
-      v529 = @"NO";
-      if (v527)
+      v635 = @"NO";
+      if (v633)
       {
-        v529 = @"YES";
+        v635 = @"YES";
       }
 
       *buf = 138412290;
-      v970 = v529;
-      _os_log_impl(&dword_23BC9F000, v528, OS_LOG_TYPE_INFO, "Conference may require break before make: %@", buf, 0xCu);
+      v1160 = v635;
+      _os_log_impl(&dword_23BC9F000, v634, OS_LOG_TYPE_INFO, "Conference may require break before make: %@", buf, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v530 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v530, OS_LOG_TYPE_INFO))
+    v636 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v636, OS_LOG_TYPE_INFO))
     {
-      v531 = @"NO";
-      if (v527)
+      v637 = @"NO";
+      if (v633)
       {
-        v531 = @"YES";
+        v637 = @"YES";
       }
 
       *buf = 138412290;
-      v970 = v531;
-      _os_log_impl(&dword_23BC9F000, v530, OS_LOG_TYPE_INFO, "Conference may require break before make: %@", buf, 0xCu);
+      v1160 = v637;
+      _os_log_impl(&dword_23BC9F000, v636, OS_LOG_TYPE_INFO, "Conference may require break before make: %@", buf, 0xCu);
     }
   }
 
   if (MarcoShouldLogCheckpoints())
   {
-    v534 = @"NO";
-    if (v527)
+    v641 = @"NO";
+    if (v633)
     {
-      v534 = @"YES";
+      v641 = @"YES";
     }
 
-    v924 = v534;
+    v1114 = v641;
     MarcoNoteCheckpoint();
   }
 
-  if (v527)
+  if (v633)
   {
-    v539 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v532, MEMORY[0x277CBEC38], *MEMORY[0x277D19528], v533);
-    v540 = *(*(*(a1 + 40) + 8) + 40);
+    v646 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v638, MEMORY[0x277CBEC38], *MEMORY[0x277D19528], v640, v639);
+    v648 = *(*(*(a1 + 40) + 8) + 40);
     if (isEqualToString)
     {
-      v541 = objc_msgSend_broadcasterForACConferenceListeners(v540, v535, v536, v537, v538);
+      v649 = objc_msgSend_broadcasterForACConferenceListeners(v648, v642, v643, v644, v647, v645);
     }
 
     else
     {
-      v541 = objc_msgSend_broadcasterForVCConferenceListeners(v540, v535, v536, v537, v538);
+      v649 = objc_msgSend_broadcasterForVCConferenceListeners(v648, v642, v643, v644, v647, v645);
     }
 
-    v599 = v541;
-    v600 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v542, v543, v544, v545, v924);
-    objc_msgSend_account_conference_peerID_propertiesUpdated_(v599, v601, v600, v943, 0, v539);
+    v720 = v649;
+    v721 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v650, v651, v652, v654, v653, v1114);
+    objc_msgSend_account_conference_peerID_propertiesUpdated_(v720, v722, v721, v1133, v723, 0, v646);
   }
 
 LABEL_247:
-  if (!v344)
+  if (!v413)
   {
 LABEL_394:
-    v603 = 0;
+    v725 = 0;
     goto LABEL_395;
   }
 
-  v937 = v344;
+  v1127 = v413;
 LABEL_249:
   if (IMOSLoggingEnabled())
   {
-    v602 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v602, OS_LOG_TYPE_INFO))
+    v724 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v724, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v970) = v937;
-      _os_log_impl(&dword_23BC9F000, v602, OS_LOG_TYPE_INFO, "Failed delivering message with code: %d", buf, 8u);
+      LODWORD(v1160) = v1127;
+      _os_log_impl(&dword_23BC9F000, v724, OS_LOG_TYPE_INFO, "Failed delivering message with code: %d", buf, 8u);
     }
   }
 
   if (MarcoShouldLogCheckpoints())
   {
-    v924 = v937;
+    v1114 = v1127;
     MarcoNoteCheckpoint();
   }
 
-  v603 = v937;
+  v725 = v1127;
   if (IMOSLoggingEnabled())
   {
-    v604 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v604, OS_LOG_TYPE_INFO))
+    v726 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v726, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v970) = v937;
-      _os_log_impl(&dword_23BC9F000, v604, OS_LOG_TYPE_INFO, "  Message delivery failed with code: %d", buf, 8u);
+      LODWORD(v1160) = v1127;
+      _os_log_impl(&dword_23BC9F000, v726, OS_LOG_TYPE_INFO, "  Message delivery failed with code: %d", buf, 8u);
     }
   }
 
-  if (v937 <= 5031)
+  if (v1127 <= 5031)
   {
-    if (v937 > 5005)
+    if (v1127 > 5005)
     {
-      switch(v937)
+      switch(v1127)
       {
         case 5006:
           if (IMOSLoggingEnabled())
           {
-            v668 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v668, OS_LOG_TYPE_INFO))
+            v803 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v803, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v668, OS_LOG_TYPE_INFO, "Bad push token - will re-register", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v803, OS_LOG_TYPE_INFO, "Bad push token - will re-register", buf, 2u);
             }
           }
 
@@ -1122,25 +1125,25 @@ LABEL_249:
 
           if (IMOSLoggingEnabled())
           {
-            v673 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v673, OS_LOG_TYPE_INFO))
+            v809 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v809, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v673, OS_LOG_TYPE_INFO, "  Bad push token", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v809, OS_LOG_TYPE_INFO, "  Bad push token", buf, 2u);
             }
           }
 
-          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v669, v670, v671, v672, v924);
-          v603 = 5006;
+          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v804, v805, v806, v808, v807, v1114);
+          v725 = 5006;
           break;
         case 5029:
           if (IMOSLoggingEnabled())
           {
-            v680 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v680, OS_LOG_TYPE_INFO))
+            v817 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v817, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v680, OS_LOG_TYPE_INFO, "Not authorized - needs re-register", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v817, OS_LOG_TYPE_INFO, "Not authorized - needs re-register", buf, 2u);
             }
           }
 
@@ -1151,70 +1154,70 @@ LABEL_249:
 
           if (IMOSLoggingEnabled())
           {
-            v685 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v685, OS_LOG_TYPE_INFO))
+            v823 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v823, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v685, OS_LOG_TYPE_INFO, "  Not authorized", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v823, OS_LOG_TYPE_INFO, "  Not authorized", buf, 2u);
             }
           }
 
-          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v681, v682, v683, v684, v924);
-          v603 = 5029;
+          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v818, v819, v820, v822, v821, v1114);
+          v725 = 5029;
           break;
         case 5030:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v949 = 0u;
-            v950 = 0u;
-            v947 = 0u;
-            v948 = 0u;
-            v620 = objc_msgSend_canonicalizedPeers(a2, v616, v617, v618, v619);
-            v626 = objc_msgSend_countByEnumeratingWithState_objects_count_(v620, v621, &v947, v959, 16);
-            if (v626)
+            v1139 = 0u;
+            v1140 = 0u;
+            v1137 = 0u;
+            v1138 = 0u;
+            v744 = objc_msgSend_canonicalizedPeers(a2, v740, v741, v742, 0, v743);
+            v751 = objc_msgSend_countByEnumeratingWithState_objects_count_(v744, v745, &v1137, v1149, v746, 16);
+            if (v751)
             {
-              v627 = *v948;
+              v753 = *v1138;
               do
               {
-                for (m = 0; m != v626; ++m)
+                for (m = 0; m != v751; ++m)
                 {
-                  if (*v948 != v627)
+                  if (*v1138 != v753)
                   {
-                    objc_enumerationMutation(v620);
+                    objc_enumerationMutation(v744);
                   }
 
-                  v629 = *(*(&v947 + 1) + 8 * m);
-                  v630 = objc_msgSend_sharedInstance(MEMORY[0x277D18728], v622, v623, v624, v625, v924);
-                  v634 = objc_msgSend_objectForKey_(v629, v631, @"raw-id", v632, v633);
-                  v639 = objc_msgSend_topic(a2, v635, v636, v637, v638);
-                  objc_msgSend__setCurrentIDStatus_forDestination_service_(v630, v640, 2, v634, v639);
+                  v755 = *(*(&v1137 + 1) + 8 * m);
+                  v756 = objc_msgSend_sharedInstance(MEMORY[0x277D18728], v747, v748, v749, v752, v750, v1114);
+                  v761 = objc_msgSend_objectForKey_(v755, v757, @"raw-id", v758, v760, v759);
+                  v767 = objc_msgSend_topic(a2, v762, v763, v764, v766, v765);
+                  objc_msgSend__setCurrentIDStatus_forDestination_service_(v756, v768, 2, v761, v769, v767);
                 }
 
-                v626 = objc_msgSend_countByEnumeratingWithState_objects_count_(v620, v622, &v947, v959, 16);
+                v751 = objc_msgSend_countByEnumeratingWithState_objects_count_(v744, v747, &v1137, v1149, v752, 16);
               }
 
-              while (v626);
+              while (v751);
             }
           }
 
-          v603 = 5030;
+          v725 = 5030;
           break;
       }
     }
 
     else
     {
-      switch(v937)
+      switch(v1127)
       {
         case 5000:
           if (IMOSLoggingEnabled())
           {
-            v662 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v662, OS_LOG_TYPE_INFO))
+            v796 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v796, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v662, OS_LOG_TYPE_INFO, "Not authenticated - needs re-register", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v796, OS_LOG_TYPE_INFO, "Not authenticated - needs re-register", buf, 2u);
             }
           }
 
@@ -1225,25 +1228,25 @@ LABEL_249:
 
           if (IMOSLoggingEnabled())
           {
-            v667 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v667, OS_LOG_TYPE_INFO))
+            v802 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v802, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v667, OS_LOG_TYPE_INFO, "  Unauthenticated", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v802, OS_LOG_TYPE_INFO, "  Unauthenticated", buf, 2u);
             }
           }
 
-          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v663, v664, v665, v666, v924);
-          v603 = 5000;
+          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v797, v798, v799, v801, v800, v1114);
+          v725 = 5000;
           break;
         case 5002:
           if (IMOSLoggingEnabled())
           {
-            v674 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v674, OS_LOG_TYPE_INFO))
+            v810 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v810, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v674, OS_LOG_TYPE_INFO, "Version mismatch", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v810, OS_LOG_TYPE_INFO, "Version mismatch", buf, 2u);
             }
           }
 
@@ -1254,25 +1257,25 @@ LABEL_249:
 
           if (IMOSLoggingEnabled())
           {
-            v679 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v679, OS_LOG_TYPE_INFO))
+            v816 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v816, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v679, OS_LOG_TYPE_INFO, "  Version Mismatch", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v816, OS_LOG_TYPE_INFO, "  Version Mismatch", buf, 2u);
             }
           }
 
-          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v675, v676, v677, v678, v924);
-          v603 = 5002;
+          objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v811, v812, v813, v815, v814, v1114);
+          v725 = 5002;
           break;
         case 5004:
           if (IMOSLoggingEnabled())
           {
-            v608 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v608, OS_LOG_TYPE_INFO))
+            v731 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v731, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v608, OS_LOG_TYPE_INFO, "Server Busy", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v731, OS_LOG_TYPE_INFO, "Server Busy", buf, 2u);
             }
           }
 
@@ -1283,32 +1286,32 @@ LABEL_249:
 
           if (IMOSLoggingEnabled())
           {
-            v609 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v609, OS_LOG_TYPE_INFO))
+            v732 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v732, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23BC9F000, v609, OS_LOG_TYPE_INFO, "  Server too busy", buf, 2u);
+              _os_log_impl(&dword_23BC9F000, v732, OS_LOG_TYPE_INFO, "  Server too busy", buf, 2u);
             }
           }
 
-          v603 = 5004;
+          v725 = 5004;
           break;
       }
     }
   }
 
-  else if (v937 <= 5056)
+  else if (v1127 <= 5056)
   {
-    switch(v937)
+    switch(v1127)
     {
       case 5032:
         if (IMOSLoggingEnabled())
         {
-          v650 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v650, OS_LOG_TYPE_INFO))
+          v782 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v782, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v650, OS_LOG_TYPE_INFO, "Bad signature - will re-register", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v782, OS_LOG_TYPE_INFO, "Bad signature - will re-register", buf, 2u);
           }
         }
 
@@ -1319,25 +1322,25 @@ LABEL_249:
 
         if (IMOSLoggingEnabled())
         {
-          v655 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v655, OS_LOG_TYPE_INFO))
+          v788 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v788, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v655, OS_LOG_TYPE_INFO, "  Bad signature", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v788, OS_LOG_TYPE_INFO, "  Bad signature", buf, 2u);
           }
         }
 
-        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v651, v652, v653, v654, v924);
-        v603 = 5032;
+        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v783, v784, v785, v787, v786, v1114);
+        v725 = 5032;
         break;
       case 5033:
         if (IMOSLoggingEnabled())
         {
-          v656 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v656, OS_LOG_TYPE_INFO))
+          v789 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v789, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v656, OS_LOG_TYPE_INFO, "New signature required - will re-register", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v789, OS_LOG_TYPE_INFO, "New signature required - will re-register", buf, 2u);
           }
         }
 
@@ -1348,25 +1351,25 @@ LABEL_249:
 
         if (IMOSLoggingEnabled())
         {
-          v661 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v661, OS_LOG_TYPE_INFO))
+          v795 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v795, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v661, OS_LOG_TYPE_INFO, "  Requires new signature", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v795, OS_LOG_TYPE_INFO, "  Requires new signature", buf, 2u);
           }
         }
 
-        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v657, v658, v659, v660, v924);
-        v603 = 5033;
+        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v790, v791, v792, v794, v793, v1114);
+        v725 = 5033;
         break;
       case 5034:
         if (IMOSLoggingEnabled())
         {
-          v610 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v610, OS_LOG_TYPE_INFO))
+          v733 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v733, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v610, OS_LOG_TYPE_INFO, "New registration required - will re-register", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v733, OS_LOG_TYPE_INFO, "New registration required - will re-register", buf, 2u);
           }
         }
 
@@ -1377,31 +1380,31 @@ LABEL_249:
 
         if (IMOSLoggingEnabled())
         {
-          v615 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v615, OS_LOG_TYPE_INFO))
+          v739 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v739, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v615, OS_LOG_TYPE_INFO, "  Requires new registration", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v739, OS_LOG_TYPE_INFO, "  Requires new registration", buf, 2u);
           }
         }
 
-        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v611, v612, v613, v614, v924);
-        v603 = 5034;
+        objc_msgSend_reregister(*(*(*(a1 + 40) + 8) + 40), v734, v735, v736, v738, v737, v1114);
+        v725 = 5034;
         break;
     }
   }
 
-  else if (v937 > 5062)
+  else if (v1127 > 5062)
   {
-    if (v937 == 5063)
+    if (v1127 == 5063)
     {
       if (IMOSLoggingEnabled())
       {
-        v647 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v647, OS_LOG_TYPE_INFO))
+        v778 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v778, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23BC9F000, v647, OS_LOG_TYPE_INFO, "Invitation region context needs update", buf, 2u);
+          _os_log_impl(&dword_23BC9F000, v778, OS_LOG_TYPE_INFO, "Invitation region context needs update", buf, 2u);
         }
       }
 
@@ -1412,27 +1415,27 @@ LABEL_249:
 
       if (IMOSLoggingEnabled())
       {
-        v649 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v649, OS_LOG_TYPE_INFO))
+        v781 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v781, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23BC9F000, v649, OS_LOG_TYPE_INFO, "  Invitation region context needs update", buf, 2u);
+          _os_log_impl(&dword_23BC9F000, v781, OS_LOG_TYPE_INFO, "  Invitation region context needs update", buf, 2u);
         }
       }
 
-      v935 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v648, *MEMORY[0x277D07D88], 5063, 0, v924);
-      v603 = 5063;
+      v1125 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v779, *MEMORY[0x277D07D88], 5063, v780, 0, v1114);
+      v725 = 5063;
     }
 
-    else if (v937 == 5064)
+    else if (v1127 == 5064)
     {
       if (IMOSLoggingEnabled())
       {
-        v641 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v641, OS_LOG_TYPE_INFO))
+        v770 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v770, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23BC9F000, v641, OS_LOG_TYPE_INFO, "Incomplete phone number", buf, 2u);
+          _os_log_impl(&dword_23BC9F000, v770, OS_LOG_TYPE_INFO, "Incomplete phone number", buf, 2u);
         }
       }
 
@@ -1443,28 +1446,28 @@ LABEL_249:
 
       if (IMOSLoggingEnabled())
       {
-        v643 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v643, OS_LOG_TYPE_INFO))
+        v773 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v773, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23BC9F000, v643, OS_LOG_TYPE_INFO, "  Incomplete phone number", buf, 2u);
+          _os_log_impl(&dword_23BC9F000, v773, OS_LOG_TYPE_INFO, "  Incomplete phone number", buf, 2u);
         }
       }
 
-      v935 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v642, *MEMORY[0x277D07D88], 5064, 0, v924);
-      v603 = 5064;
+      v1125 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v771, *MEMORY[0x277D07D88], 5064, v772, 0, v1114);
+      v725 = 5064;
     }
   }
 
-  else if (v937 == 5057)
+  else if (v1127 == 5057)
   {
     if (IMOSLoggingEnabled())
     {
-      v644 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v644, OS_LOG_TYPE_INFO))
+      v774 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v774, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v644, OS_LOG_TYPE_INFO, "Self version is too old", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v774, OS_LOG_TYPE_INFO, "Self version is too old", buf, 2u);
       }
     }
 
@@ -1475,27 +1478,27 @@ LABEL_249:
 
     if (IMOSLoggingEnabled())
     {
-      v646 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v646, OS_LOG_TYPE_INFO))
+      v777 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v777, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v646, OS_LOG_TYPE_INFO, "  Self version is too old", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v777, OS_LOG_TYPE_INFO, "  Self version is too old", buf, 2u);
       }
     }
 
-    v935 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v645, *MEMORY[0x277D07D88], 5057, 0, v924);
-    v603 = 5057;
+    v1125 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v775, *MEMORY[0x277D07D88], 5057, v776, 0, v1114);
+    v725 = 5057;
   }
 
-  else if (v937 == 5058)
+  else if (v1127 == 5058)
   {
     if (IMOSLoggingEnabled())
     {
-      v605 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v605, OS_LOG_TYPE_INFO))
+      v727 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v727, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v605, OS_LOG_TYPE_INFO, "Peer version is too old", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v727, OS_LOG_TYPE_INFO, "Peer version is too old", buf, 2u);
       }
     }
 
@@ -1506,60 +1509,60 @@ LABEL_249:
 
     if (IMOSLoggingEnabled())
     {
-      v607 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v607, OS_LOG_TYPE_INFO))
+      v730 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v730, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v607, OS_LOG_TYPE_INFO, "  Peer verion is too old", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v730, OS_LOG_TYPE_INFO, "  Peer verion is too old", buf, 2u);
       }
     }
 
-    v935 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v606, *MEMORY[0x277D07D88], 5058, 0, v924);
-    v603 = 5058;
+    v1125 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v728, *MEMORY[0x277D07D88], 5058, v729, 0, v1114);
+    v725 = 5058;
   }
 
 LABEL_395:
-  if (!v935)
+  if (!v1125)
   {
     goto LABEL_448;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v699 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v699, OS_LOG_TYPE_INFO))
+    v840 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v840, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v970 = v935;
-      _os_log_impl(&dword_23BC9F000, v699, OS_LOG_TYPE_INFO, "  Message delivery failed with error: %@", buf, 0xCu);
+      v1160 = v1125;
+      _os_log_impl(&dword_23BC9F000, v840, OS_LOG_TYPE_INFO, "  Message delivery failed with error: %@", buf, 0xCu);
     }
   }
 
-  v700 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v705 = objc_msgSend_userInfo(a2, v701, v702, v703, v704);
-  v709 = objc_msgSend_objectForKey_(v705, v706, @"ID", v707, v708);
-  v714 = objc_msgSend_userInfo(a2, v710, v711, v712, v713);
-  v718 = objc_msgSend_objectForKey_(v714, v715, @"properties", v716, v717);
-  if (objc_msgSend_length(v933, v719, v720, v721, v722))
+  v841 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v847 = objc_msgSend_userInfo(a2, v842, v843, v844, v846, v845);
+  v852 = objc_msgSend_objectForKey_(v847, v848, @"ID", v849, v851, v850);
+  v858 = objc_msgSend_userInfo(a2, v853, v854, v855, v857, v856);
+  v863 = objc_msgSend_objectForKey_(v858, v859, @"properties", v860, v862, v861);
+  if (objc_msgSend_length(v1123, v864, v865, v866, v868, v867))
   {
-    objc_msgSend_setObject_forKey_(v700, v723, v933, @"conference", v726);
+    objc_msgSend_setObject_forKey_(v841, v869, v1123, @"conference", v873, v872);
   }
 
-  if (objc_msgSend_length(v709, v723, v724, v725, v726, v924))
+  if (objc_msgSend_length(v852, v869, v870, v871, v873, v872, v1114))
   {
-    objc_msgSend_setObject_forKey_(v700, v727, v709, @"ID", v730);
+    objc_msgSend_setObject_forKey_(v841, v874, v852, @"ID", v878, v877);
   }
 
-  if (objc_msgSend_count(v718, v727, v728, v729, v730))
+  if (objc_msgSend_count(v863, v874, v875, v876, v878, v877))
   {
-    objc_msgSend_setObject_forKey_(v700, v731, v718, @"properties", v734);
+    objc_msgSend_setObject_forKey_(v841, v879, v863, @"properties", v883, v882);
   }
 
-  v735 = objc_msgSend_sessionToken(a2, v731, v732, v733, v734);
-  v740 = objc_msgSend___imHexString(v735, v736, v737, v738, v739);
-  if (objc_msgSend_length(v740, v741, v742, v743, v744))
+  v884 = objc_msgSend_sessionToken(a2, v879, v880, v881, v883, v882);
+  v890 = objc_msgSend___imHexString(v884, v885, v886, v887, v889, v888);
+  if (objc_msgSend_length(v890, v891, v892, v893, v895, v894))
   {
-    objc_msgSend_setObject_forKey_(v700, v745, v740, @"conference", v746);
+    objc_msgSend_setObject_forKey_(v841, v896, v890, @"conference", v898, v897);
   }
 
   objc_opt_class();
@@ -1571,48 +1574,48 @@ LABEL_395:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (objc_msgSend_reason(a2, v751, v752, v753, v754))
+    if (objc_msgSend_reason(a2, v904, v905, v906, v908, v907))
     {
-      v755 = objc_msgSend_reason(a2, v747, v748, v749, v750);
-      objc_msgSend_setObject_forKey_(v700, v756, v755, @"reason", v757);
+      v909 = objc_msgSend_reason(a2, v899, v900, v901, v903, v902);
+      objc_msgSend_setObject_forKey_(v841, v910, v909, @"reason", v912, v911);
     }
 
 LABEL_411:
-    v758 = 1;
-    v759 = 4;
+    v913 = 1;
+    v914 = 4;
     goto LABEL_412;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (objc_msgSend_peers(a2, v886, v887, v888, v889))
+    if (objc_msgSend_peers(a2, v1067, v1068, v1069, v1071, v1070))
     {
-      v894 = objc_msgSend_peers(a2, v890, v891, v892, v893);
-      objc_msgSend_setObject_forKey_(v700, v895, v894, @"peers", v896);
+      v1077 = objc_msgSend_peers(a2, v1072, v1073, v1074, v1076, v1075);
+      objc_msgSend_setObject_forKey_(v841, v1078, v1077, @"peers", v1080, v1079);
     }
 
-    if (objc_msgSend_reason(a2, v890, v891, v892, v893))
+    if (objc_msgSend_reason(a2, v1072, v1073, v1074, v1076, v1075))
     {
-      v897 = objc_msgSend_reason(a2, v747, v748, v749, v750);
-      objc_msgSend_setObject_forKey_(v700, v898, v897, @"reason", v899);
+      v1081 = objc_msgSend_reason(a2, v899, v900, v901, v903, v902);
+      objc_msgSend_setObject_forKey_(v841, v1082, v1081, @"reason", v1084, v1083);
     }
 
-    v758 = 0;
-    v759 = 3;
+    v913 = 0;
+    v914 = 3;
     goto LABEL_412;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (objc_msgSend_peers(a2, v913, v914, v915, v916))
+    if (objc_msgSend_peers(a2, v1101, v1102, v1103, v1105, v1104))
     {
-      v917 = objc_msgSend_peers(a2, v747, v748, v749, v750);
-      objc_msgSend_setObject_forKey_(v700, v918, v917, @"receivers", v919);
+      v1106 = objc_msgSend_peers(a2, v899, v900, v901, v903, v902);
+      objc_msgSend_setObject_forKey_(v841, v1107, v1106, @"receivers", v1109, v1108);
     }
 
-    v759 = 1;
+    v914 = 1;
   }
 
   else
@@ -1620,183 +1623,183 @@ LABEL_411:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v758 = 1;
-      v759 = 7;
+      v913 = 1;
+      v914 = 7;
       goto LABEL_412;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v758 = 1;
-      v759 = 8;
+      v913 = 1;
+      v914 = 8;
       goto LABEL_412;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v758 = 0;
-      v759 = 9;
+      v913 = 0;
+      v914 = 9;
       goto LABEL_412;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v920 = OSLogHandleForIMFoundationCategory();
-      v758 = 1;
-      if (os_log_type_enabled(v920, OS_LOG_TYPE_INFO))
+      v1110 = OSLogHandleForIMFoundationCategory();
+      v913 = 1;
+      if (os_log_type_enabled(v1110, OS_LOG_TYPE_INFO))
       {
-        v921 = objc_opt_class();
-        v922 = NSStringFromClass(v921);
+        v1111 = objc_opt_class();
+        v1112 = NSStringFromClass(v1111);
         *buf = 138412290;
-        v970 = v922;
-        _os_log_impl(&dword_23BC9F000, v920, OS_LOG_TYPE_INFO, "Unexpected message class being delivered: %@", buf, 0xCu);
+        v1160 = v1112;
+        _os_log_impl(&dword_23BC9F000, v1110, OS_LOG_TYPE_INFO, "Unexpected message class being delivered: %@", buf, 0xCu);
       }
 
-      v759 = 0;
+      v914 = 0;
       goto LABEL_412;
     }
 
-    v759 = 0;
+    v914 = 0;
   }
 
-  v758 = 1;
+  v913 = 1;
 LABEL_412:
-  v760 = objc_msgSend_domain(v935, v747, v748, v749, v750);
-  if (objc_msgSend_length(v760, v761, v762, v763, v764))
+  v915 = objc_msgSend_domain(v1125, v899, v900, v901, v903, v902);
+  if (objc_msgSend_length(v915, v916, v917, v918, v920, v919))
   {
-    v769 = objc_msgSend_domain(v935, v765, v766, v767, v768);
-    objc_msgSend_setObject_forKey_(v700, v770, v769, @"internalErrorDomain", v771);
+    v926 = objc_msgSend_domain(v1125, v921, v922, v923, v925, v924);
+    objc_msgSend_setObject_forKey_(v841, v927, v926, @"internalErrorDomain", v929, v928);
   }
 
-  v772 = objc_msgSend_userInfo(v935, v765, v766, v767, v768);
-  if (objc_msgSend_count(v772, v773, v774, v775, v776))
+  v930 = objc_msgSend_userInfo(v1125, v921, v922, v923, v925, v924);
+  if (objc_msgSend_count(v930, v931, v932, v933, v935, v934))
   {
-    v781 = objc_msgSend_userInfo(v935, v777, v778, v779, v780);
-    objc_msgSend_setObject_forKey_(v700, v782, v781, @"internalUserInfo", v783);
+    v941 = objc_msgSend_userInfo(v1125, v936, v937, v938, v940, v939);
+    objc_msgSend_setObject_forKey_(v841, v942, v941, @"internalUserInfo", v944, v943);
   }
 
-  v784 = MEMORY[0x277CCABB0];
-  v785 = objc_msgSend_code(v935, v777, v778, v779, v780);
-  v789 = objc_msgSend_numberWithInteger_(v784, v786, v785, v787, v788);
-  objc_msgSend_setObject_forKey_(v700, v790, v789, @"internalCode", v791);
+  v945 = MEMORY[0x277CCABB0];
+  v946 = objc_msgSend_code(v1125, v936, v937, v938, v940, v939);
+  v951 = objc_msgSend_numberWithInteger_(v945, v947, v946, v948, v950, v949);
+  objc_msgSend_setObject_forKey_(v841, v952, v951, @"internalCode", v954, v953);
   if (a5)
   {
-    v796 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v792, v603, v794, v795);
-    objc_msgSend_setObject_forKey_(v700, v797, v796, @"result", v798);
+    v960 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v955, v725, v957, v959, v958);
+    objc_msgSend_setObject_forKey_(v841, v961, v960, @"result", v963, v962);
   }
 
-  if (objc_msgSend_messageBodyUsingCache(a2, v792, v793, v794, v795))
+  if (objc_msgSend_messageBodyUsingCache(a2, v955, v956, v957, v959, v958))
   {
-    v803 = objc_msgSend_messageBodyUsingCache(a2, v799, v800, v801, v802);
-    objc_msgSend_setObject_forKey_(v700, v804, v803, @"messageBody", v805);
+    v969 = objc_msgSend_messageBodyUsingCache(a2, v964, v965, v966, v968, v967);
+    objc_msgSend_setObject_forKey_(v841, v970, v969, @"messageBody", v972, v971);
   }
 
-  if (objc_msgSend_bagKey(a2, v799, v800, v801, v802))
+  if (objc_msgSend_bagKey(a2, v964, v965, v966, v968, v967))
   {
-    v810 = objc_msgSend_bagKey(a2, v806, v807, v808, v809);
-    objc_msgSend_setObject_forKey_(v700, v811, v810, @"bagKey", v812);
+    v978 = objc_msgSend_bagKey(a2, v973, v974, v975, v977, v976);
+    objc_msgSend_setObject_forKey_(v841, v979, v978, @"bagKey", v981, v980);
   }
 
-  v813 = MEMORY[0x277CCA9B8];
-  v814 = objc_msgSend_count(v700, v806, v807, v808, v809);
-  v816 = *MEMORY[0x277D18F40];
-  if (v814)
+  v982 = MEMORY[0x277CCA9B8];
+  v983 = objc_msgSend_count(v841, v973, v974, v975, v977, v976);
+  v986 = *MEMORY[0x277D18F40];
+  if (v983)
   {
-    v817 = objc_msgSend_errorWithDomain_code_userInfo_(v813, v815, v816, v759, v700);
+    v987 = objc_msgSend_errorWithDomain_code_userInfo_(v982, v984, v986, v914, v985, v841);
   }
 
   else
   {
-    v817 = objc_msgSend_errorWithDomain_code_userInfo_(v813, v815, v816, v759, 0);
+    v987 = objc_msgSend_errorWithDomain_code_userInfo_(v982, v984, v986, v914, v985, 0);
   }
 
-  v818 = v817;
-  if (v758)
+  v988 = v987;
+  if (v913)
   {
-    v819 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v819, OS_LOG_TYPE_DEFAULT))
+    v989 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v989, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v970 = v818;
-      _os_log_impl(&dword_23BC9F000, v819, OS_LOG_TYPE_DEFAULT, "Posting error: %@", buf, 0xCu);
+      v1160 = v988;
+      _os_log_impl(&dword_23BC9F000, v989, OS_LOG_TYPE_DEFAULT, "Posting error: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (MarcoShouldLog())
       {
-        v924 = v818;
+        v1114 = v988;
         MarcoLog();
       }
 
       if (IMShouldLog())
       {
-        v924 = v818;
+        v1114 = v988;
         IMLogString();
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v824 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v824, OS_LOG_TYPE_INFO))
+      v995 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v995, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v970 = v818;
-        _os_log_impl(&dword_23BC9F000, v824, OS_LOG_TYPE_INFO, "Posting error: %@", buf, 0xCu);
+        v1160 = v988;
+        _os_log_impl(&dword_23BC9F000, v995, OS_LOG_TYPE_INFO, "Posting error: %@", buf, 0xCu);
       }
     }
 
-    v825 = objc_msgSend_broadcaster(*(*(*(a1 + 40) + 8) + 40), v820, v821, v822, v823, v924);
-    v830 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v826, v827, v828, v829);
-    objc_msgSend_account_postedError_(v825, v831, v830, v818, v832);
+    v996 = objc_msgSend_broadcaster(*(*(*(a1 + 40) + 8) + 40), v990, v991, v992, v994, v993, v1114);
+    v1002 = objc_msgSend_accountID(*(*(*(a1 + 40) + 8) + 40), v997, v998, v999, v1001, v1000);
+    objc_msgSend_account_postedError_(v996, v1003, v1002, v988, v1005, v1004);
   }
 
   else
   {
-    v833 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v833, OS_LOG_TYPE_DEFAULT))
+    v1006 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v1006, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v970 = v818;
-      _os_log_impl(&dword_23BC9F000, v833, OS_LOG_TYPE_DEFAULT, "Not reporting error: %@", buf, 0xCu);
+      v1160 = v988;
+      _os_log_impl(&dword_23BC9F000, v1006, OS_LOG_TYPE_DEFAULT, "Not reporting error: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (MarcoShouldLog())
       {
-        v924 = v818;
+        v1114 = v988;
         MarcoLog();
       }
 
       if (IMShouldLog())
       {
-        v924 = v818;
+        v1114 = v988;
         IMLogString();
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v834 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v834, OS_LOG_TYPE_INFO))
+      v1007 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v1007, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v970 = v818;
-        _os_log_impl(&dword_23BC9F000, v834, OS_LOG_TYPE_INFO, "Not reporting error: %@", buf, 0xCu);
+        v1160 = v988;
+        _os_log_impl(&dword_23BC9F000, v1007, OS_LOG_TYPE_INFO, "Not reporting error: %@", buf, 0xCu);
       }
     }
   }
 
 LABEL_448:
-  v835 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v835, OS_LOG_TYPE_DEFAULT))
+  v1008 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v1008, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23BC9F000, v835, OS_LOG_TYPE_DEFAULT, "Checking to see if the queue needs flushing", buf, 2u);
+    _os_log_impl(&dword_23BC9F000, v1008, OS_LOG_TYPE_DEFAULT, "Checking to see if the queue needs flushing", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
@@ -1812,71 +1815,71 @@ LABEL_448:
     }
   }
 
-  v840 = &OBJC_IVAR___FaceTimeServiceSession__broadcasterVCInvocationQueue;
+  v1014 = &OBJC_IVAR___FaceTimeServiceSession__broadcasterVCInvocationQueue;
   if (isEqualToString)
   {
-    v840 = &OBJC_IVAR___FaceTimeServiceSession__broadcasterACInvocationQueue;
+    v1014 = &OBJC_IVAR___FaceTimeServiceSession__broadcasterACInvocationQueue;
   }
 
-  v841 = *v840;
-  result = objc_msgSend_isEmpty(*(*(a1 + 32) + v841), v836, v837, v838, v839, v924);
+  v1015 = *v1014;
+  result = objc_msgSend_isEmpty(*(*(a1 + 32) + v1015), v1009, v1010, v1011, v1013, v1012, v1114);
   if ((result & 1) == 0)
   {
-    v844 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v844, OS_LOG_TYPE_DEFAULT))
+    v1017 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v1017, OS_LOG_TYPE_DEFAULT))
     {
-      hasQueuedItems = objc_msgSend_hasQueuedItems(qword_281422890, v845, v846, v847, v848);
+      hasQueuedItems = objc_msgSend_hasQueuedItems(qword_281422890, v1018, v1019, v1020, v1022, v1021);
       *buf = 67109120;
-      LODWORD(v970) = hasQueuedItems;
-      _os_log_impl(&dword_23BC9F000, v844, OS_LOG_TYPE_DEFAULT, "Message delivery has queued items: %d", buf, 8u);
+      LODWORD(v1160) = hasQueuedItems;
+      _os_log_impl(&dword_23BC9F000, v1017, OS_LOG_TYPE_DEFAULT, "Message delivery has queued items: %d", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (MarcoShouldLog())
       {
-        v925 = objc_msgSend_hasQueuedItems(qword_281422890, v850, v851, v852, v853);
+        v1115 = objc_msgSend_hasQueuedItems(qword_281422890, v1024, v1025, v1026, v1028, v1027);
         MarcoLog();
       }
 
       if (IMShouldLog())
       {
-        v925 = objc_msgSend_hasQueuedItems(qword_281422890, v854, v855, v856, v857);
+        v1115 = objc_msgSend_hasQueuedItems(qword_281422890, v1029, v1030, v1031, v1033, v1032);
         IMLogString();
       }
     }
 
-    v858 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v858, OS_LOG_TYPE_DEFAULT))
+    v1034 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v1034, OS_LOG_TYPE_DEFAULT))
     {
-      v863 = objc_msgSend_count(*(*(a1 + 32) + v841), v859, v860, v861, v862);
+      v1040 = objc_msgSend_count(*(*(a1 + 32) + v1015), v1035, v1036, v1037, v1039, v1038);
       *buf = 67109120;
-      LODWORD(v970) = v863;
-      _os_log_impl(&dword_23BC9F000, v858, OS_LOG_TYPE_DEFAULT, "Queue has %d items in it", buf, 8u);
+      LODWORD(v1160) = v1040;
+      _os_log_impl(&dword_23BC9F000, v1034, OS_LOG_TYPE_DEFAULT, "Queue has %d items in it", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (MarcoShouldLog())
       {
-        v925 = objc_msgSend_count(*(*(a1 + 32) + v841), v868, v869, v870, v871);
+        v1115 = objc_msgSend_count(*(*(a1 + 32) + v1015), v1046, v1047, v1048, v1050, v1049);
         MarcoLog();
       }
 
       if (IMShouldLog())
       {
-        v925 = objc_msgSend_count(*(*(a1 + 32) + v841), v864, v865, v866, v867);
+        v1115 = objc_msgSend_count(*(*(a1 + 32) + v1015), v1041, v1042, v1043, v1045, v1044);
         IMLogString();
       }
     }
 
-    if (objc_msgSend_hasQueuedItems(qword_281422890, v864, v865, v866, v867, v925))
+    if (objc_msgSend_hasQueuedItems(qword_281422890, v1041, v1042, v1043, v1045, v1044, v1115))
     {
-      v872 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v872, OS_LOG_TYPE_DEFAULT))
+      v1051 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v1051, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v872, OS_LOG_TYPE_DEFAULT, " => Pending delivery", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v1051, OS_LOG_TYPE_DEFAULT, " => Pending delivery", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -1890,18 +1893,18 @@ LABEL_448:
         result = IMShouldLog();
         if (result)
         {
-          result = IMLogString();
+          return IMLogString();
         }
       }
     }
 
     else
     {
-      v873 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v873, OS_LOG_TYPE_DEFAULT))
+      v1052 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v1052, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23BC9F000, v873, OS_LOG_TYPE_DEFAULT, " => Flushing now", buf, 2u);
+        _os_log_impl(&dword_23BC9F000, v1052, OS_LOG_TYPE_DEFAULT, " => Flushing now", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
@@ -1917,43 +1920,42 @@ LABEL_448:
         }
       }
 
-      v878 = *(a1 + 32);
-      v879 = *(*(*(a1 + 40) + 8) + 40);
+      v1058 = *(a1 + 32);
+      v1059 = *(*(*(a1 + 40) + 8) + 40);
       if (isEqualToString)
       {
-        v880 = 344;
-        v881 = *(v878 + 344);
-        v882 = objc_msgSend_broadcasterForACConferenceListeners(v879, v874, v875, v876, v877);
+        v1060 = 344;
+        v1061 = *(v1058 + 344);
+        v1062 = objc_msgSend_broadcasterForACConferenceListeners(v1059, v1053, v1054, v1055, v1057, v1056);
       }
 
       else
       {
-        v880 = 352;
-        v881 = *(v878 + 352);
-        v882 = objc_msgSend_broadcasterForVCConferenceListeners(v879, v874, v875, v876, v877);
+        v1060 = 352;
+        v1061 = *(v1058 + 352);
+        v1062 = objc_msgSend_broadcasterForVCConferenceListeners(v1059, v1053, v1054, v1055, v1057, v1056);
       }
 
-      objc_msgSend_setTarget_(v881, v883, v882, v884, v885);
-      objc_msgSend_invokeAll(*(*(a1 + 32) + v880), v900, v901, v902, v903);
-      result = objc_msgSend_isEmpty(*(*(a1 + 32) + v880), v904, v905, v906, v907);
+      objc_msgSend_setTarget_(v1061, v1063, v1062, v1064, v1066, v1065);
+      objc_msgSend_invokeAll(*(*(a1 + 32) + v1060), v1085, v1086, v1087, v1089, v1088);
+      result = objc_msgSend_isEmpty(*(*(a1 + 32) + v1060), v1090, v1091, v1092, v1094, v1093);
       if ((result & 1) == 0)
       {
         if (IMOSLoggingEnabled())
         {
-          v912 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v912, OS_LOG_TYPE_INFO))
+          v1100 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v1100, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_23BC9F000, v912, OS_LOG_TYPE_INFO, "Invocations are left over after notifying clients!", buf, 2u);
+            _os_log_impl(&dword_23BC9F000, v1100, OS_LOG_TYPE_INFO, "Invocations are left over after notifying clients!", buf, 2u);
           }
         }
 
-        result = objc_msgSend_removeAllInvocations(*(*(a1 + 32) + v841), v908, v909, v910, v911);
+        return objc_msgSend_removeAllInvocations(*(*(a1 + 32) + v1015), v1095, v1096, v1097, v1099, v1098);
       }
     }
   }
 
-  v843 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1969,76 +1971,76 @@ __CFDictionary *sub_23BCA7F48(const void *a1)
   return v3;
 }
 
-uint64_t sub_23BCAA810(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_23BCAA810(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
-  if (sub_23BCB4FB0(a1, a2, a3, a4, a5))
+  if (sub_23BCB4FB0(a6, a1, a2, a3, a4, a5))
   {
     return 1;
   }
 
-  v10 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v5, v6, v7, v8);
-  valid = objc_msgSend_inValidSIMState(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v16, v17, v18, v19);
-  return valid & (objc_msgSend_isSIMLocked(v20, v21, v22, v23, v24) ^ 1);
+  v12 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v6, v7, v8, v10, v9);
+  valid = objc_msgSend_inValidSIMState(v12, v13, v14, v15, v17, v16);
+  v24 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v19, v20, v21, v23, v22);
+  return valid & (objc_msgSend_isSIMLocked(v24, v25, v26, v27, v29, v28) ^ 1);
 }
 
-uint64_t sub_23BCAAF28(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_23BCAAF28(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
-  if (sub_23BCB4FB0(a1, a2, a3, a4, a5))
+  if (sub_23BCB4FB0(a6, a1, a2, a3, a4, a5))
   {
     return 1;
   }
 
-  v10 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v5, v6, v7, v8);
-  valid = objc_msgSend_inValidSIMState(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v16, v17, v18, v19);
-  isSIMLocked = objc_msgSend_isSIMLocked(v20, v21, v22, v23, v24);
+  v12 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v6, v7, v8, v10, v9);
+  valid = objc_msgSend_inValidSIMState(v12, v13, v14, v15, v17, v16);
+  v24 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v19, v20, v21, v23, v22);
+  isSIMLocked = objc_msgSend_isSIMLocked(v24, v25, v26, v27, v29, v28);
   if (isSIMLocked)
   {
-    v30 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v25, v26, v27, v28);
-    objc_msgSend_showSIMUnlock(v30, v31, v32, v33, v34);
+    v36 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v30, v31, v32, v35, v33);
+    objc_msgSend_showSIMUnlock(v36, v37, v38, v39, v41, v40);
   }
 
   return valid & (isSIMLocked ^ 1u);
 }
 
-void *sub_23BCACF04(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCACF04(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
   if (result)
   {
     if (a2)
     {
-      v11 = objc_msgSend_unsignedIntValue(result, a2, a3, a4, a5);
-      v8 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v6, &v11, 4, v7);
-      return objc_msgSend_setObject_forKey_(a2, v9, v8, @"r", v10);
+      v14 = objc_msgSend_unsignedIntValue(result, a2, a3, a4, a6, a5);
+      v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v7, &v14, 4, v9, v8);
+      return objc_msgSend_setObject_forKey_(a2, v11, v10, @"r", v13, v12);
     }
   }
 
   return result;
 }
 
-uint64_t sub_23BCACF68(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCACF68(void *result, void *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (result)
   {
-    objc_msgSend_setObject_forKey_(a2, a2, result, @"k", a5);
-    v10 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v6, 1, v7, v8);
+    objc_msgSend_setObject_forKey_(a2, a2, result, @"k", a3, a6);
+    v12 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v7, 1, v8, v10, v9);
 
-    return objc_msgSend_setObject_forKey_(a2, v9, v10, @"kv", v11);
+    return objc_msgSend_setObject_forKey_(a2, v11, v12, @"kv", v14, v13);
   }
 
   return result;
 }
 
-void *sub_23BCACFD4(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCACFD4(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
   if (result)
   {
     if (a2)
     {
-      v11 = objc_msgSend_unsignedIntValue(result, a2, a3, a4, a5);
-      v8 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v6, &v11, 4, v7);
-      return objc_msgSend_setObject_forKey_(a2, v9, v8, @"h", v10);
+      v14 = objc_msgSend_unsignedIntValue(result, a2, a3, a4, a6, a5);
+      v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v7, &v14, 4, v9, v8);
+      return objc_msgSend_setObject_forKey_(a2, v11, v10, @"h", v13, v12);
     }
   }
 
@@ -2057,34 +2059,34 @@ void sub_23BCADC48(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *sub_23BCB0E7C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCB0E7C(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"r", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"r", a5, a3, a6);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_msgSend_objectForKey_(a1, v6, @"r", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"r", v8, v10, v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return 0;
     }
 
-    result = objc_msgSend_objectForKey_(a1, v17, @"r", v18, v19);
+    result = objc_msgSend_objectForKey_(a1, v21, @"r", v22, v24, v23);
     if (!result)
     {
       return result;
     }
 
 LABEL_6:
-    v20 = 0;
-    objc_msgSend_getBytes_length_(result, v15, &v20, 4, v16);
-    return (v20 != 0);
+    v25 = 0;
+    objc_msgSend_getBytes_length_(result, v18, &v25, 4, v20, v19);
+    return (v25 != 0);
   }
 
-  v9 = MEMORY[0x277CBEA90];
-  v10 = objc_msgSend_objectForKey_(a1, v6, @"r", v7, v8);
-  result = objc_msgSend__IDSDataFromBase64String_(v9, v11, v10, v12, v13);
+  v11 = MEMORY[0x277CBEA90];
+  v12 = objc_msgSend_objectForKey_(a1, v7, @"r", v8, v10, v9);
+  result = objc_msgSend__IDSDataFromBase64String_(v11, v13, v12, v14, v16, v15);
   if (result)
   {
     goto LABEL_6;
@@ -2093,34 +2095,34 @@ LABEL_6:
   return result;
 }
 
-void *sub_23BCB0F64(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCB0F64(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"s", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"s", a5, a3, a6);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_msgSend_objectForKey_(a1, v6, @"s", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"s", v8, v10, v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return 0;
     }
 
-    result = objc_msgSend_objectForKey_(a1, v17, @"s", v18, v19);
+    result = objc_msgSend_objectForKey_(a1, v21, @"s", v22, v24, v23);
     if (!result)
     {
       return result;
     }
 
 LABEL_6:
-    v23 = 0;
-    objc_msgSend_getBytes_length_(result, v15, &v23, 4, v16);
-    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v20, v23, v21, v22);
+    v29 = 0;
+    objc_msgSend_getBytes_length_(result, v18, &v29, 4, v20, v19);
+    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v25, v29, v26, v28, v27);
   }
 
-  v9 = MEMORY[0x277CBEA90];
-  v10 = objc_msgSend_objectForKey_(a1, v6, @"s", v7, v8);
-  result = objc_msgSend__IDSDataFromBase64String_(v9, v11, v10, v12, v13);
+  v11 = MEMORY[0x277CBEA90];
+  v12 = objc_msgSend_objectForKey_(a1, v7, @"s", v8, v10, v9);
+  result = objc_msgSend__IDSDataFromBase64String_(v11, v13, v12, v14, v16, v15);
   if (result)
   {
     goto LABEL_6;
@@ -2129,34 +2131,34 @@ LABEL_6:
   return result;
 }
 
-void *sub_23BCB1050(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCB1050(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"a", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"a", a5, a3, a6);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_msgSend_objectForKey_(a1, v6, @"a", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"a", v8, v10, v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return 0;
     }
 
-    result = objc_msgSend_objectForKey_(a1, v17, @"a", v18, v19);
+    result = objc_msgSend_objectForKey_(a1, v21, @"a", v22, v24, v23);
     if (!result)
     {
       return result;
     }
 
 LABEL_6:
-    v23 = 0;
-    objc_msgSend_getBytes_length_(result, v15, &v23, 4, v16);
-    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v20, v23, v21, v22);
+    v29 = 0;
+    objc_msgSend_getBytes_length_(result, v18, &v29, 4, v20, v19);
+    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v25, v29, v26, v28, v27);
   }
 
-  v9 = MEMORY[0x277CBEA90];
-  v10 = objc_msgSend_objectForKey_(a1, v6, @"a", v7, v8);
-  result = objc_msgSend__IDSDataFromBase64String_(v9, v11, v10, v12, v13);
+  v11 = MEMORY[0x277CBEA90];
+  v12 = objc_msgSend_objectForKey_(a1, v7, @"a", v8, v10, v9);
+  result = objc_msgSend__IDSDataFromBase64String_(v11, v13, v12, v14, v16, v15);
   if (result)
   {
     goto LABEL_6;
@@ -2165,34 +2167,34 @@ LABEL_6:
   return result;
 }
 
-void *sub_23BCB113C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCB113C(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"h", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"h", a5, a3, a6);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_msgSend_objectForKey_(a1, v6, @"h", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"h", v8, v10, v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return 0;
     }
 
-    result = objc_msgSend_objectForKey_(a1, v17, @"h", v18, v19);
+    result = objc_msgSend_objectForKey_(a1, v21, @"h", v22, v24, v23);
     if (!result)
     {
       return result;
     }
 
 LABEL_6:
-    v20 = 0;
-    objc_msgSend_getBytes_length_(result, v15, &v20, 4, v16);
-    return (v20 != 0);
+    v25 = 0;
+    objc_msgSend_getBytes_length_(result, v18, &v25, 4, v20, v19);
+    return (v25 != 0);
   }
 
-  v9 = MEMORY[0x277CBEA90];
-  v10 = objc_msgSend_objectForKey_(a1, v6, @"h", v7, v8);
-  result = objc_msgSend__IDSDataFromBase64String_(v9, v11, v10, v12, v13);
+  v11 = MEMORY[0x277CBEA90];
+  v12 = objc_msgSend_objectForKey_(a1, v7, @"h", v8, v10, v9);
+  result = objc_msgSend__IDSDataFromBase64String_(v11, v13, v12, v14, v16, v15);
   if (result)
   {
     goto LABEL_6;
@@ -2201,26 +2203,26 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_23BCB1224(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_23BCB1224(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"k", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"k", a5, a3, a6);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = MEMORY[0x277CBEA90];
-    v11 = objc_msgSend_objectForKey_(a1, v6, @"k", v7, v8);
+    v11 = MEMORY[0x277CBEA90];
+    v13 = objc_msgSend_objectForKey_(a1, v7, @"k", v8, v10, v9);
 
-    return objc_msgSend__IDSDataFromBase64String_(v9, v10, v11, v12, v13);
+    return objc_msgSend__IDSDataFromBase64String_(v11, v12, v13, v14, v16, v15);
   }
 
   else
   {
-    objc_msgSend_objectForKey_(a1, v6, @"k", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"k", v8, v10, v9);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
 
-      return objc_msgSend_objectForKey_(a1, v15, @"k", v16, v17);
+      return objc_msgSend_objectForKey_(a1, v18, @"k", v19, v21, v20);
     }
 
     else
@@ -2230,34 +2232,34 @@ uint64_t sub_23BCB1224(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint6
   }
 }
 
-void *sub_23BCB1308(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *sub_23BCB1308(void *a1, const char *a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  objc_msgSend_objectForKey_(a1, a2, @"p", a4, a5);
+  objc_msgSend_objectForKey_(a1, a2, @"p", a5, a3, a6);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_msgSend_objectForKey_(a1, v6, @"p", v7, v8);
+    objc_msgSend_objectForKey_(a1, v7, @"p", v8, v10, v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return 0;
     }
 
-    result = objc_msgSend_objectForKey_(a1, v17, @"p", v18, v19);
+    result = objc_msgSend_objectForKey_(a1, v21, @"p", v22, v24, v23);
     if (!result)
     {
       return result;
     }
 
 LABEL_6:
-    v23 = 0;
-    objc_msgSend_getBytes_length_(result, v15, &v23, 4, v16);
-    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v20, v23, v21, v22);
+    v29 = 0;
+    objc_msgSend_getBytes_length_(result, v18, &v29, 4, v20, v19);
+    return objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v25, v29, v26, v28, v27);
   }
 
-  v9 = MEMORY[0x277CBEA90];
-  v10 = objc_msgSend_objectForKey_(a1, v6, @"p", v7, v8);
-  result = objc_msgSend__IDSDataFromBase64String_(v9, v11, v10, v12, v13);
+  v11 = MEMORY[0x277CBEA90];
+  v12 = objc_msgSend_objectForKey_(a1, v7, @"p", v8, v10, v9);
+  result = objc_msgSend__IDSDataFromBase64String_(v11, v13, v12, v14, v16, v15);
   if (result)
   {
     goto LABEL_6;
@@ -2266,41 +2268,33 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_23BCB27F8(uint64_t a1, const char *a2)
-{
-  v2 = *(a1 + 88);
-  v3 = *(a1 + 120);
-  v4 = *(a1 + 152);
-  return objc_msgSend_handler_sessionAccepted_topic_peerID_peerCN_peerPushToken_peerNATType_peerBlob_peerNatIP_relayType_relayConnectionID_relayTransactionIDAlloc_relayTokenAllocReq_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_clientInfo_serviceData_(*(a1 + 32), a2, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160), *(a1 + 168), *(a1 + 176), *(a1 + 184));
-}
-
 id sub_23BCB2858(uint64_t a1, uint64_t a2)
 {
   v4 = objc_alloc(MEMORY[0x277CBEAC0]);
-  v8 = objc_msgSend_initWithObjectsAndKeys_(v4, v5, a1, v6, v7, @"id", a2, @"push-token", 0);
-  v9 = objc_alloc(MEMORY[0x277CBEA60]);
-  v13 = objc_msgSend_initWithObjects_(v9, v10, v8, v11, v12, 0);
+  v9 = objc_msgSend_initWithObjectsAndKeys_(v4, v5, a1, v6, v8, v7, @"id", a2, @"push-token", 0);
+  v10 = objc_alloc(MEMORY[0x277CBEA60]);
+  v15 = objc_msgSend_initWithObjects_(v10, v11, v9, v12, v14, v13, 0);
 
-  return v13;
+  return v15;
 }
 
-uint64_t sub_23BCB4FB0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_23BCB4FB0(__n128 a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5 = objc_msgSend_sharedInstance(MEMORY[0x277D07DB0], a2, a3, a4, a5);
-  if (!objc_msgSend_isTelephonyDevice(v5, v6, v7, v8, v9))
+  v6 = objc_msgSend_sharedInstance(MEMORY[0x277D07DB0], a3, a4, a5, a1, a6);
+  if (!objc_msgSend_isTelephonyDevice(v6, v7, v8, v9, v11, v10))
   {
     return 1;
   }
 
-  v14 = objc_msgSend_sharedInstance(MEMORY[0x277D07DD8], v10, v11, v12, v13);
-  if (objc_msgSend_allowAnyNetwork(v14, v15, v16, v17, v18))
+  v17 = objc_msgSend_sharedInstance(MEMORY[0x277D07DD8], v12, v13, v14, v16, v15);
+  if (objc_msgSend_allowAnyNetwork(v17, v18, v19, v20, v22, v21))
   {
     return 1;
   }
 
-  v24 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v19, v20, v21, v22);
+  v29 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v23, v24, v25, v27, v26);
 
-  return MEMORY[0x2821F9670](v24, sel_isAirplaneModeEnabled, v25, v26, v27);
+  return MEMORY[0x2821F9670](v29, sel_isAirplaneModeEnabled, v30, v31, v32);
 }
 
 uint64_t sub_23BCB5014(unsigned int a1)
@@ -2601,18 +2595,19 @@ LABEL_89:
 
 uint64_t sub_23BCB5370(uint64_t a1)
 {
-  v7.tv_sec = 0;
-  *&v7.tv_usec = 0;
-  gettimeofday(&v7, 0);
-  memset(&v6, 0, sizeof(v6));
-  localtime_r(&v7.tv_sec, &v6);
-  return objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v2, @"%02d:%02d:%02d.%06d %@", v3, v4, v6.tm_hour, v6.tm_min, v6.tm_sec, v7.tv_usec, a1);
+  v8.tv_sec = 0;
+  *&v8.tv_usec = 0;
+  gettimeofday(&v8, 0);
+  memset(&v7, 0, sizeof(v7));
+  localtime_r(&v8.tv_sec, &v7);
+  return objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v2, @"%02d:%02d:%02d.%06d %@", v3, v5, v4, v7.tm_hour, v7.tm_min, v7.tm_sec, v8.tv_usec, a1);
 }
 
-void sub_23BCB6034(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23BCB6034(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_23BCB8A78()
@@ -2620,40 +2615,40 @@ void sub_23BCB8A78()
   v0 = objc_autoreleasePoolPush();
   v1 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v2 = _Block_copy(&unk_284E71408);
-  v6 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v3, 1, v4, v5);
-  objc_msgSend_setObject_forKey_(v1, v7, v2, v6, v8);
+  v7 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v3, 1, v4, v6, v5);
+  objc_msgSend_setObject_forKey_(v1, v8, v2, v7, v10, v9);
 
-  v9 = _Block_copy(&unk_284E71428);
-  v13 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v10, 127, v11, v12);
-  objc_msgSend_setObject_forKey_(v1, v14, v9, v13, v15);
+  v11 = _Block_copy(&unk_284E71428);
+  v16 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v12, 127, v13, v15, v14);
+  objc_msgSend_setObject_forKey_(v1, v17, v11, v16, v19, v18);
 
-  v16 = _Block_copy(&unk_284E71448);
-  v20 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v17, 2, v18, v19);
-  objc_msgSend_setObject_forKey_(v1, v21, v16, v20, v22);
+  v20 = _Block_copy(&unk_284E71448);
+  v25 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v21, 2, v22, v24, v23);
+  objc_msgSend_setObject_forKey_(v1, v26, v20, v25, v28, v27);
 
-  v23 = _Block_copy(&unk_284E71468);
-  v27 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v24, 3, v25, v26);
-  objc_msgSend_setObject_forKey_(v1, v28, v23, v27, v29);
+  v29 = _Block_copy(&unk_284E71468);
+  v34 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v30, 3, v31, v33, v32);
+  objc_msgSend_setObject_forKey_(v1, v35, v29, v34, v37, v36);
 
-  v30 = _Block_copy(&unk_284E71488);
-  v34 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v31, 4, v32, v33);
-  objc_msgSend_setObject_forKey_(v1, v35, v30, v34, v36);
+  v38 = _Block_copy(&unk_284E71488);
+  v43 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v39, 4, v40, v42, v41);
+  objc_msgSend_setObject_forKey_(v1, v44, v38, v43, v46, v45);
 
-  v37 = _Block_copy(&unk_284E714A8);
-  v41 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v38, 5, v39, v40);
-  objc_msgSend_setObject_forKey_(v1, v42, v37, v41, v43);
+  v47 = _Block_copy(&unk_284E714A8);
+  v52 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v48, 5, v49, v51, v50);
+  objc_msgSend_setObject_forKey_(v1, v53, v47, v52, v55, v54);
 
-  v44 = _Block_copy(&unk_284E714C8);
-  v48 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v45, 6, v46, v47);
-  objc_msgSend_setObject_forKey_(v1, v49, v44, v48, v50);
+  v56 = _Block_copy(&unk_284E714C8);
+  v61 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v57, 6, v58, v60, v59);
+  objc_msgSend_setObject_forKey_(v1, v62, v56, v61, v64, v63);
 
-  v51 = _Block_copy(&unk_284E714E8);
-  v55 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v52, 7, v53, v54);
-  objc_msgSend_setObject_forKey_(v1, v56, v51, v55, v57);
+  v65 = _Block_copy(&unk_284E714E8);
+  v70 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v66, 7, v67, v69, v68);
+  objc_msgSend_setObject_forKey_(v1, v71, v65, v70, v73, v72);
 
-  v58 = _Block_copy(&unk_284E71508);
-  v62 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v59, 8, v60, v61);
-  objc_msgSend_setObject_forKey_(v1, v63, v58, v62, v64);
+  v74 = _Block_copy(&unk_284E71508);
+  v79 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v75, 8, v76, v78, v77);
+  objc_msgSend_setObject_forKey_(v1, v80, v74, v79, v82, v81);
 
   qword_2814228B0 = v1;
 
@@ -2662,14 +2657,14 @@ void sub_23BCB8A78()
 
 void sub_23BCB8C84(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v166 = *MEMORY[0x277D85DE8];
+  v196 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v162 = a4;
+      v192 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleInitatePush: %@", buf, 0xCu);
     }
   }
@@ -2678,7 +2673,7 @@ void sub_23BCB8C84(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v162 = a4;
+    v192 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -2686,292 +2681,290 @@ void sub_23BCB8C84(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v147 = a4;
+      v177 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v147 = a4;
+      v177 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v147);
-  v159 = 0u;
-  v160 = 0u;
-  v157 = 0u;
-  v158 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v157, v165, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v177);
+  v189 = 0u;
+  v190 = 0u;
+  v187 = 0u;
+  v188 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v187, v195, 0, 16);
+  if (v14)
   {
-    v153 = *v158;
-    obj = v11;
+    v183 = *v188;
+    obj = v12;
     do
     {
-      v14 = 0;
-      v154 = v13;
+      v15 = 0;
+      v184 = v14;
       do
       {
-        if (*v158 != v153)
+        if (*v188 != v183)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v157 + 1) + 8 * v14);
+        v16 = *(*(&v187 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v16, @"s", v17, v18);
+          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v20, v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = MEMORY[0x277CBEA90];
-            v23 = objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
-            v152 = objc_msgSend__IDSDataFromBase64String_(v22, v24, v23, v25, v26);
+            v25 = MEMORY[0x277CBEA90];
+            v26 = objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
+            v182 = objc_msgSend__IDSDataFromBase64String_(v25, v27, v26, v28, v30, v29);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
+            objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v152 = objc_msgSend_objectForKey_(a4, v27, @"s", v28, v29);
+              v182 = objc_msgSend_objectForKey_(a4, v31, @"s", v32, v34, v33);
             }
 
             else
             {
-              v152 = 0;
+              v182 = 0;
             }
           }
 
-          v30 = objc_opt_class();
-          v156 = objc_msgSend_objectForKey_(a4, v31, @"i", v32, v33);
+          v35 = objc_opt_class();
+          v186 = objc_msgSend_objectForKey_(a4, v36, @"i", v37, v39, v38);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if (v156)
+            if (v186)
             {
-              v38 = objc_msgSend_registration(MEMORY[0x277D19298], v34, v35, v36, v37);
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+              v45 = objc_msgSend_registration(MEMORY[0x277D19298], v40, v41, v42, v44, v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v162 = @"i";
-                v163 = 2112;
-                v164 = v30;
-                _os_log_fault_impl(&dword_23BC9F000, v38, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                v192 = @"i";
+                v193 = 2112;
+                v194 = v35;
+                _os_log_fault_impl(&dword_23BC9F000, v45, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
               }
             }
 
-            v156 = 0;
+            v186 = 0;
           }
 
-          v39 = objc_opt_class();
-          v155 = objc_msgSend_objectForKey_(a4, v40, @"I", v41, v42);
+          v46 = objc_opt_class();
+          v185 = objc_msgSend_objectForKey_(a4, v47, @"I", v48, v50, v49);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if (v155)
+            if (v185)
             {
-              v47 = objc_msgSend_registration(MEMORY[0x277D19298], v43, v44, v45, v46);
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+              v56 = objc_msgSend_registration(MEMORY[0x277D19298], v51, v52, v53, v55, v54);
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v162 = @"I";
-                v163 = 2112;
-                v164 = v39;
-                _os_log_fault_impl(&dword_23BC9F000, v47, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                v192 = @"I";
+                v193 = 2112;
+                v194 = v46;
+                _os_log_fault_impl(&dword_23BC9F000, v56, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
               }
             }
 
-            v155 = 0;
+            v185 = 0;
           }
 
-          v48 = objc_opt_class();
-          v52 = objc_msgSend_objectForKey_(a4, v49, @"W", v50, v51);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v52)
-          {
-            v57 = objc_msgSend_registration(MEMORY[0x277D19298], v53, v54, v55, v56);
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v162 = @"W";
-              v163 = 2112;
-              v164 = v48;
-              _os_log_fault_impl(&dword_23BC9F000, v57, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
-            v52 = 0;
-          }
-
-          v58 = objc_opt_class();
-          v62 = objc_msgSend_objectForKey_(a4, v59, @"J", v60, v61);
+          v57 = objc_opt_class();
+          v62 = objc_msgSend_objectForKey_(a4, v58, @"W", v59, v61, v60);
           if ((objc_opt_isKindOfClass() & 1) == 0 && v62)
           {
-            v67 = objc_msgSend_registration(MEMORY[0x277D19298], v63, v64, v65, v66);
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+            v68 = objc_msgSend_registration(MEMORY[0x277D19298], v63, v64, v65, v67, v66);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v162 = @"J";
-              v163 = 2112;
-              v164 = v58;
-              _os_log_fault_impl(&dword_23BC9F000, v67, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v192 = @"W";
+              v193 = 2112;
+              v194 = v57;
+              _os_log_fault_impl(&dword_23BC9F000, v68, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
             v62 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v63, @"P", v65, v66);
+          v69 = objc_opt_class();
+          v74 = objc_msgSend_objectForKey_(a4, v70, @"J", v71, v73, v72);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v74)
+          {
+            v80 = objc_msgSend_registration(MEMORY[0x277D19298], v75, v76, v77, v79, v78);
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v192 = @"J";
+              v193 = 2112;
+              v194 = v69;
+              _os_log_fault_impl(&dword_23BC9F000, v80, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v74 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v75, @"P", v77, v79, v78);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v71 = MEMORY[0x277CBEA90];
-            v72 = objc_msgSend_objectForKey_(a4, v68, @"P", v69, v70);
-            v151 = objc_msgSend__IDSDataFromBase64String_(v71, v73, v72, v74, v75);
+            v85 = MEMORY[0x277CBEA90];
+            v86 = objc_msgSend_objectForKey_(a4, v81, @"P", v82, v84, v83);
+            v181 = objc_msgSend__IDSDataFromBase64String_(v85, v87, v86, v88, v90, v89);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v68, @"P", v69, v70);
+            objc_msgSend_objectForKey_(a4, v81, @"P", v82, v84, v83);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v151 = objc_msgSend_objectForKey_(a4, v76, @"P", v77, v78);
+              v181 = objc_msgSend_objectForKey_(a4, v91, @"P", v92, v94, v93);
             }
 
             else
             {
-              v151 = 0;
+              v181 = 0;
             }
           }
 
-          v79 = MEMORY[0x277CCABB0];
-          v80 = objc_opt_class();
-          v84 = objc_msgSend_objectForKey_(a4, v81, @"N", v82, v83);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v84)
+          v95 = MEMORY[0x277CCABB0];
+          v96 = objc_opt_class();
+          v101 = objc_msgSend_objectForKey_(a4, v97, @"N", v98, v100, v99);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v101)
           {
-            v89 = objc_msgSend_registration(MEMORY[0x277D19298], v85, v86, v87, v88);
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
+            v107 = objc_msgSend_registration(MEMORY[0x277D19298], v102, v103, v104, v106, v105);
+            if (os_log_type_enabled(v107, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v162 = @"N";
-              v163 = 2112;
-              v164 = v80;
-              _os_log_fault_impl(&dword_23BC9F000, v89, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v192 = @"N";
+              v193 = 2112;
+              v194 = v96;
+              _os_log_fault_impl(&dword_23BC9F000, v107, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v84 = 0;
+            v101 = 0;
           }
 
-          v90 = objc_msgSend_intValue(v84, v85, v86, v87, v88);
-          v94 = objc_msgSend_numberWithInt_(v79, v91, v90, v92, v93);
-          objc_msgSend_objectForKey_(a4, v95, @"B", v96, v97);
+          v108 = objc_msgSend_intValue(v101, v102, v103, v104, v106, v105);
+          v113 = objc_msgSend_numberWithInt_(v95, v109, v108, v110, v112, v111);
+          objc_msgSend_objectForKey_(a4, v114, @"B", v115, v117, v116);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v101 = MEMORY[0x277CBEA90];
-            v102 = objc_msgSend_objectForKey_(a4, v98, @"B", v99, v100);
-            v106 = objc_msgSend__IDSDataFromBase64String_(v101, v103, v102, v104, v105);
+            v122 = MEMORY[0x277CBEA90];
+            v123 = objc_msgSend_objectForKey_(a4, v118, @"B", v119, v121, v120);
+            v128 = objc_msgSend__IDSDataFromBase64String_(v122, v124, v123, v125, v127, v126);
             goto LABEL_56;
           }
 
-          objc_msgSend_objectForKey_(a4, v98, @"B", v99, v100);
+          objc_msgSend_objectForKey_(a4, v118, @"B", v119, v121, v120);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v106 = objc_msgSend_objectForKey_(a4, v107, @"B", v108, v109);
+            v128 = objc_msgSend_objectForKey_(a4, v129, @"B", v130, v132, v131);
 LABEL_56:
-            v110 = v106;
+            v133 = v128;
           }
 
           else
           {
-            v110 = 0;
+            v133 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v107, @"A", v108, v109);
+          objc_msgSend_objectForKey_(a4, v129, @"A", v130, v132, v131);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v114 = MEMORY[0x277CBEA90];
-            v115 = objc_msgSend_objectForKey_(a4, v111, @"A", v112, v113);
-            v119 = objc_msgSend__IDSDataFromBase64String_(v114, v116, v115, v117, v118);
+            v138 = MEMORY[0x277CBEA90];
+            v139 = objc_msgSend_objectForKey_(a4, v134, @"A", v135, v137, v136);
+            v144 = objc_msgSend__IDSDataFromBase64String_(v138, v140, v139, v141, v143, v142);
             goto LABEL_62;
           }
 
-          objc_msgSend_objectForKey_(a4, v111, @"A", v112, v113);
+          objc_msgSend_objectForKey_(a4, v134, @"A", v135, v137, v136);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v119 = objc_msgSend_objectForKey_(a4, v120, @"A", v121, v122);
+            v144 = objc_msgSend_objectForKey_(a4, v145, @"A", v146, v148, v147);
 LABEL_62:
-            v123 = v119;
+            v149 = v144;
           }
 
           else
           {
-            v123 = 0;
+            v149 = 0;
           }
 
-          v124 = objc_opt_class();
-          v128 = objc_msgSend_objectForKey_(a4, v125, @"x", v126, v127);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v128)
+          v150 = objc_opt_class();
+          v155 = objc_msgSend_objectForKey_(a4, v151, @"x", v152, v154, v153);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v155)
           {
-            v133 = objc_msgSend_registration(MEMORY[0x277D19298], v129, v130, v131, v132);
-            if (os_log_type_enabled(v133, OS_LOG_TYPE_FAULT))
+            v161 = objc_msgSend_registration(MEMORY[0x277D19298], v156, v157, v158, v160, v159);
+            if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v162 = @"x";
-              v163 = 2112;
-              v164 = v124;
-              _os_log_fault_impl(&dword_23BC9F000, v133, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v192 = @"x";
+              v193 = 2112;
+              v194 = v150;
+              _os_log_fault_impl(&dword_23BC9F000, v161, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v128 = 0;
+            v155 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v129, @"d", v131, v132);
+          objc_msgSend_objectForKey_(a4, v156, @"d", v158, v160, v159);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v137 = MEMORY[0x277CBEA90];
-            v138 = objc_msgSend_objectForKey_(a4, v134, @"d", v135, v136);
-            v142 = objc_msgSend__IDSDataFromBase64String_(v137, v139, v138, v140, v141);
+            v166 = MEMORY[0x277CBEA90];
+            v167 = objc_msgSend_objectForKey_(a4, v162, @"d", v163, v165, v164);
+            v172 = objc_msgSend__IDSDataFromBase64String_(v166, v168, v167, v169, v171, v170);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v134, @"d", v135, v136);
+            objc_msgSend_objectForKey_(a4, v162, @"d", v163, v165, v164);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v142 = objc_msgSend_objectForKey_(a4, v143, @"d", v144, v145);
+              v172 = objc_msgSend_objectForKey_(a4, v173, @"d", v175, v174, v176);
             }
 
             else
             {
-              v142 = 0;
+              v172 = 0;
             }
           }
 
-          objc_msgSend_handler_sessionInitated_topic_myID_peerID_peerDisplayID_peerCN_peerPushToken_peerNATType_peerBlob_peerNatIP_clientInfo_serviceData_(v15, v143, a2, v152, a3, v156, v155, v52, v62, v151, v94, v110, v123, v128, v142);
+          objc_msgSend_handler_sessionInitated_topic_myID_peerID_peerDisplayID_peerCN_peerPushToken_peerNATType_peerBlob_peerNatIP_clientInfo_serviceData_(v16, v173, a2, v182, v174, a3, v186, v185, v62, v74, v181, v113, v133, v149, v155, v172);
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v154 != v14);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v157, v165, 16);
+      while (v184 != v15);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v187, v195, v20, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v146 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCB97EC(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
@@ -3002,175 +2995,173 @@ void sub_23BCB97EC(uint64_t a1, void *a2, uint64_t a3, void *a4)
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10);
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v90, v98, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10);
+  v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v105, v113, 0, 16);
+  if (v14)
   {
-    v88 = *v91;
-    *&v14 = 138412802;
-    v84 = v14;
-    obj = v11;
+    v103 = *v106;
+    *&v15 = 138412802;
+    v99 = v15;
+    obj = v12;
     do
     {
-      v15 = 0;
-      v89 = v13;
+      v16 = 0;
+      v104 = v14;
       do
       {
-        if (*v91 != v88)
+        if (*v106 != v103)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v90 + 1) + 8 * v15);
+        v17 = *(*(&v105 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
-          v18 = objc_opt_class();
-          v22 = objc_msgSend_objectForKey_(a4, v19, @"W", v20, v21);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v22)
+          v20 = objc_opt_class();
+          v25 = objc_msgSend_objectForKey_(a4, v21, @"W", v22, v24, v23);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v25)
           {
-            v27 = objc_msgSend_registration(MEMORY[0x277D19298], v23, v24, v25, v26);
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+            v31 = objc_msgSend_registration(MEMORY[0x277D19298], v26, v27, v28, v30, v29);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v95 = @"W";
-              v96 = 2112;
-              v97 = v18;
-              _os_log_fault_impl(&dword_23BC9F000, v27, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v110 = @"W";
+              v111 = 2112;
+              v112 = v20;
+              _os_log_fault_impl(&dword_23BC9F000, v31, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v22 = 0;
+            v25 = 0;
           }
 
-          v28 = objc_opt_class();
-          v32 = objc_msgSend_objectForKey_(a4, v29, @"i", v30, v31);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v32)
+          v32 = objc_opt_class();
+          v37 = objc_msgSend_objectForKey_(a4, v33, @"i", v34, v36, v35);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v37)
           {
-            v37 = objc_msgSend_registration(MEMORY[0x277D19298], v33, v34, v35, v36);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+            v43 = objc_msgSend_registration(MEMORY[0x277D19298], v38, v39, v40, v42, v41);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v95 = @"i";
-              v96 = 2112;
-              v97 = v28;
-              _os_log_fault_impl(&dword_23BC9F000, v37, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v110 = @"i";
+              v111 = 2112;
+              v112 = v32;
+              _os_log_fault_impl(&dword_23BC9F000, v43, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v32 = 0;
+            v37 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v33, @"s", v35, v36);
+          objc_msgSend_objectForKey_(a4, v38, @"s", v40, v42, v41);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v41 = MEMORY[0x277CBEA90];
-            v42 = objc_msgSend_objectForKey_(a4, v38, @"s", v39, v40);
-            v46 = objc_msgSend__IDSDataFromBase64String_(v41, v43, v42, v44, v45);
+            v48 = MEMORY[0x277CBEA90];
+            v49 = objc_msgSend_objectForKey_(a4, v44, @"s", v45, v47, v46);
+            v54 = objc_msgSend__IDSDataFromBase64String_(v48, v50, v49, v51, v53, v52);
             goto LABEL_31;
           }
 
-          objc_msgSend_objectForKey_(a4, v38, @"s", v39, v40);
+          objc_msgSend_objectForKey_(a4, v44, @"s", v45, v47, v46);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v46 = objc_msgSend_objectForKey_(a4, v47, @"s", v48, v49);
+            v54 = objc_msgSend_objectForKey_(a4, v55, @"s", v56, v58, v57);
 LABEL_31:
-            v50 = v46;
+            v59 = v54;
           }
 
           else
           {
-            v50 = 0;
+            v59 = 0;
           }
 
-          v51 = objc_opt_class();
-          v55 = objc_msgSend_objectForKey_(a4, v52, @"x", v53, v54);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v55)
-          {
-            v60 = objc_msgSend_registration(MEMORY[0x277D19298], v56, v57, v58, v59);
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v95 = @"x";
-              v96 = 2112;
-              v97 = v51;
-              _os_log_fault_impl(&dword_23BC9F000, v60, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
-            v55 = 0;
-          }
-
-          v61 = objc_opt_class();
-          v65 = objc_msgSend_objectForKey_(a4, v62, @"I", v63, v64);
+          v60 = objc_opt_class();
+          v65 = objc_msgSend_objectForKey_(a4, v61, @"x", v62, v64, v63);
           if ((objc_opt_isKindOfClass() & 1) == 0 && v65)
           {
-            v70 = objc_msgSend_registration(MEMORY[0x277D19298], v66, v67, v68, v69);
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
+            v71 = objc_msgSend_registration(MEMORY[0x277D19298], v66, v67, v68, v70, v69);
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v95 = @"I";
-              v96 = 2112;
-              v97 = v61;
-              _os_log_fault_impl(&dword_23BC9F000, v70, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v110 = @"x";
+              v111 = 2112;
+              v112 = v60;
+              _os_log_fault_impl(&dword_23BC9F000, v71, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
             v65 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v66, @"P", v68, v69);
+          v72 = objc_opt_class();
+          v77 = objc_msgSend_objectForKey_(a4, v73, @"I", v74, v76, v75);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v77)
+          {
+            v83 = objc_msgSend_registration(MEMORY[0x277D19298], v78, v79, v80, v82, v81);
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v110 = @"I";
+              v111 = 2112;
+              v112 = v72;
+              _os_log_fault_impl(&dword_23BC9F000, v83, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v77 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v78, @"P", v80, v82, v81);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v74 = MEMORY[0x277CBEA90];
-            v75 = objc_msgSend_objectForKey_(a4, v71, @"P", v72, v73);
-            v79 = objc_msgSend__IDSDataFromBase64String_(v74, v76, v75, v77, v78);
+            v88 = MEMORY[0x277CBEA90];
+            v89 = objc_msgSend_objectForKey_(a4, v84, @"P", v85, v87, v86);
+            v94 = objc_msgSend__IDSDataFromBase64String_(v88, v90, v89, v91, v93, v92);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v71, @"P", v72, v73);
+            objc_msgSend_objectForKey_(a4, v84, @"P", v85, v87, v86);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v79 = objc_msgSend_objectForKey_(a4, v80, @"P", v81, v82);
+              v94 = objc_msgSend_objectForKey_(a4, v95, @"P", v97, v96, v98);
             }
 
             else
             {
-              v79 = 0;
+              v94 = 0;
             }
           }
 
-          objc_msgSend_handler_peerDisplay_topic_myID_sessionInitated_clientInfo_peerID_peerPushToken_(v16, v80, a2, v22, a3, v32, v50, v55, v65, v79, v84);
+          objc_msgSend_handler_peerDisplay_topic_myID_sessionInitated_clientInfo_peerID_peerPushToken_(v17, v95, a2, v25, v96, a3, v37, v59, v65, v77, v94, v99);
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v89 != v15);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v90, v98, 16);
+      while (v104 != v16);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v105, v113, v19, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCB9FC4(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v268 = *MEMORY[0x277D85DE8];
+  v321 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v264 = a4;
+      v317 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleAcceptPush: %@", buf, 0xCu);
     }
   }
@@ -3179,7 +3170,7 @@ void sub_23BCB9FC4(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v264 = a4;
+    v317 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -3187,472 +3178,470 @@ void sub_23BCB9FC4(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v243 = a4;
+      v296 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v243 = a4;
+      v296 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v243);
-  v261 = 0u;
-  v262 = 0u;
-  v259 = 0u;
-  v260 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v259, v267, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v296);
+  v314 = 0u;
+  v315 = 0u;
+  v312 = 0u;
+  v313 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v312, v320, 0, 16);
+  if (v14)
   {
-    v255 = *v260;
-    obj = v11;
+    v308 = *v313;
+    obj = v12;
     do
     {
-      v14 = 0;
-      v256 = v13;
+      v15 = 0;
+      v309 = v14;
       do
       {
-        if (*v260 != v255)
+        if (*v313 != v308)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v259 + 1) + 8 * v14);
+        v16 = *(*(&v312 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v16, @"s", v17, v18);
+          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v20, v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = MEMORY[0x277CBEA90];
-            v23 = objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
-            v254 = objc_msgSend__IDSDataFromBase64String_(v22, v24, v23, v25, v26);
+            v25 = MEMORY[0x277CBEA90];
+            v26 = objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
+            v307 = objc_msgSend__IDSDataFromBase64String_(v25, v27, v26, v28, v30, v29);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
+            objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v254 = objc_msgSend_objectForKey_(a4, v27, @"s", v28, v29);
+              v307 = objc_msgSend_objectForKey_(a4, v31, @"s", v32, v34, v33);
             }
 
             else
             {
-              v254 = 0;
+              v307 = 0;
             }
           }
 
-          v30 = objc_opt_class();
-          v258 = objc_msgSend_objectForKey_(a4, v31, @"I", v32, v33);
+          v35 = objc_opt_class();
+          v311 = objc_msgSend_objectForKey_(a4, v36, @"I", v37, v39, v38);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if (v258)
+            if (v311)
             {
-              v38 = objc_msgSend_registration(MEMORY[0x277D19298], v34, v35, v36, v37);
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+              v45 = objc_msgSend_registration(MEMORY[0x277D19298], v40, v41, v42, v44, v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v264 = @"I";
-                v265 = 2112;
-                v266 = v30;
-                _os_log_fault_impl(&dword_23BC9F000, v38, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                v317 = @"I";
+                v318 = 2112;
+                v319 = v35;
+                _os_log_fault_impl(&dword_23BC9F000, v45, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
               }
             }
 
-            v258 = 0;
+            v311 = 0;
           }
 
-          v39 = objc_opt_class();
-          v257 = objc_msgSend_objectForKey_(a4, v40, @"J", v41, v42);
+          v46 = objc_opt_class();
+          v310 = objc_msgSend_objectForKey_(a4, v47, @"J", v48, v50, v49);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if (v257)
+            if (v310)
             {
-              v47 = objc_msgSend_registration(MEMORY[0x277D19298], v43, v44, v45, v46);
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+              v56 = objc_msgSend_registration(MEMORY[0x277D19298], v51, v52, v53, v55, v54);
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v264 = @"J";
-                v265 = 2112;
-                v266 = v39;
-                _os_log_fault_impl(&dword_23BC9F000, v47, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                v317 = @"J";
+                v318 = 2112;
+                v319 = v46;
+                _os_log_fault_impl(&dword_23BC9F000, v56, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
               }
             }
 
-            v257 = 0;
+            v310 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v43, @"P", v45, v46);
+          objc_msgSend_objectForKey_(a4, v51, @"P", v53, v55, v54);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v51 = MEMORY[0x277CBEA90];
-            v52 = objc_msgSend_objectForKey_(a4, v48, @"P", v49, v50);
-            v253 = objc_msgSend__IDSDataFromBase64String_(v51, v53, v52, v54, v55);
+            v61 = MEMORY[0x277CBEA90];
+            v62 = objc_msgSend_objectForKey_(a4, v57, @"P", v58, v60, v59);
+            v306 = objc_msgSend__IDSDataFromBase64String_(v61, v63, v62, v64, v66, v65);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v48, @"P", v49, v50);
+            objc_msgSend_objectForKey_(a4, v57, @"P", v58, v60, v59);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v253 = objc_msgSend_objectForKey_(a4, v56, @"P", v57, v58);
+              v306 = objc_msgSend_objectForKey_(a4, v67, @"P", v68, v70, v69);
             }
 
             else
             {
-              v253 = 0;
+              v306 = 0;
             }
           }
 
-          v59 = MEMORY[0x277CCABB0];
-          v60 = objc_opt_class();
-          v64 = objc_msgSend_objectForKey_(a4, v61, @"N", v62, v63);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v64)
+          v71 = MEMORY[0x277CCABB0];
+          v72 = objc_opt_class();
+          v77 = objc_msgSend_objectForKey_(a4, v73, @"N", v74, v76, v75);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v77)
           {
-            v69 = objc_msgSend_registration(MEMORY[0x277D19298], v65, v66, v67, v68);
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
+            v83 = objc_msgSend_registration(MEMORY[0x277D19298], v78, v79, v80, v82, v81);
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v264 = @"N";
-              v265 = 2112;
-              v266 = v60;
-              _os_log_fault_impl(&dword_23BC9F000, v69, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v317 = @"N";
+              v318 = 2112;
+              v319 = v72;
+              _os_log_fault_impl(&dword_23BC9F000, v83, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v64 = 0;
+            v77 = 0;
           }
 
-          v70 = objc_msgSend_intValue(v64, v65, v66, v67, v68);
-          v252 = objc_msgSend_numberWithInt_(v59, v71, v70, v72, v73);
-          objc_msgSend_objectForKey_(a4, v74, @"B", v75, v76);
+          v84 = objc_msgSend_intValue(v77, v78, v79, v80, v82, v81);
+          v305 = objc_msgSend_numberWithInt_(v71, v85, v84, v86, v88, v87);
+          objc_msgSend_objectForKey_(a4, v89, @"B", v90, v92, v91);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v80 = MEMORY[0x277CBEA90];
-            v81 = objc_msgSend_objectForKey_(a4, v77, @"B", v78, v79);
-            v251 = objc_msgSend__IDSDataFromBase64String_(v80, v82, v81, v83, v84);
+            v97 = MEMORY[0x277CBEA90];
+            v98 = objc_msgSend_objectForKey_(a4, v93, @"B", v94, v96, v95);
+            v304 = objc_msgSend__IDSDataFromBase64String_(v97, v99, v98, v100, v102, v101);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v77, @"B", v78, v79);
+            objc_msgSend_objectForKey_(a4, v93, @"B", v94, v96, v95);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v251 = objc_msgSend_objectForKey_(a4, v85, @"B", v86, v87);
+              v304 = objc_msgSend_objectForKey_(a4, v103, @"B", v104, v106, v105);
             }
 
             else
             {
-              v251 = 0;
+              v304 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v85, @"A", v86, v87);
+          objc_msgSend_objectForKey_(a4, v103, @"A", v104, v106, v105);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v91 = MEMORY[0x277CBEA90];
-            v92 = objc_msgSend_objectForKey_(a4, v88, @"A", v89, v90);
-            v250 = objc_msgSend__IDSDataFromBase64String_(v91, v93, v92, v94, v95);
+            v111 = MEMORY[0x277CBEA90];
+            v112 = objc_msgSend_objectForKey_(a4, v107, @"A", v108, v110, v109);
+            v303 = objc_msgSend__IDSDataFromBase64String_(v111, v113, v112, v114, v116, v115);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v88, @"A", v89, v90);
+            objc_msgSend_objectForKey_(a4, v107, @"A", v108, v110, v109);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v250 = objc_msgSend_objectForKey_(a4, v96, @"A", v97, v98);
+              v303 = objc_msgSend_objectForKey_(a4, v117, @"A", v118, v120, v119);
             }
 
             else
             {
-              v250 = 0;
+              v303 = 0;
             }
           }
 
-          v99 = objc_opt_class();
-          v103 = objc_msgSend_objectForKey_(a4, v100, @"t", v101, v102);
+          v121 = objc_opt_class();
+          v126 = objc_msgSend_objectForKey_(a4, v122, @"t", v123, v125, v124);
           if (objc_opt_isKindOfClass())
           {
-            if (v103)
+            if (v126)
             {
-              v108 = MEMORY[0x277CCABB0];
-              v109 = objc_opt_class();
-              v113 = objc_msgSend_objectForKey_(a4, v110, @"t", v111, v112);
-              if ((objc_opt_isKindOfClass() & 1) == 0 && v113)
+              v132 = MEMORY[0x277CCABB0];
+              v133 = objc_opt_class();
+              v138 = objc_msgSend_objectForKey_(a4, v134, @"t", v135, v137, v136);
+              if ((objc_opt_isKindOfClass() & 1) == 0 && v138)
               {
-                v118 = objc_msgSend_registration(MEMORY[0x277D19298], v114, v115, v116, v117);
-                if (os_log_type_enabled(v118, OS_LOG_TYPE_FAULT))
+                v144 = objc_msgSend_registration(MEMORY[0x277D19298], v139, v140, v141, v143, v142);
+                if (os_log_type_enabled(v144, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
-                  v264 = @"t";
-                  v265 = 2112;
-                  v266 = v109;
-                  _os_log_fault_impl(&dword_23BC9F000, v118, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                  v317 = @"t";
+                  v318 = 2112;
+                  v319 = v133;
+                  _os_log_fault_impl(&dword_23BC9F000, v144, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
                 }
 
-                v113 = 0;
+                v138 = 0;
               }
 
-              v119 = objc_msgSend_intValue(v113, v114, v115, v116, v117);
-              v249 = objc_msgSend_numberWithInt_(v108, v120, v119, v121, v122);
+              v145 = objc_msgSend_intValue(v138, v139, v140, v141, v143, v142);
+              v302 = objc_msgSend_numberWithInt_(v132, v146, v145, v147, v149, v148);
 LABEL_64:
-              objc_msgSend_objectForKey_(a4, v104, @"k", v106, v107);
+              objc_msgSend_objectForKey_(a4, v127, @"k", v129, v131, v130);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v127 = MEMORY[0x277CBEA90];
-                v128 = objc_msgSend_objectForKey_(a4, v124, @"k", v125, v126);
-                v248 = objc_msgSend__IDSDataFromBase64String_(v127, v129, v128, v130, v131);
+                v155 = MEMORY[0x277CBEA90];
+                v156 = objc_msgSend_objectForKey_(a4, v151, @"k", v152, v154, v153);
+                v301 = objc_msgSend__IDSDataFromBase64String_(v155, v157, v156, v158, v160, v159);
               }
 
               else
               {
-                objc_msgSend_objectForKey_(a4, v124, @"k", v125, v126);
+                objc_msgSend_objectForKey_(a4, v151, @"k", v152, v154, v153);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v248 = objc_msgSend_objectForKey_(a4, v132, @"k", v133, v134);
+                  v301 = objc_msgSend_objectForKey_(a4, v161, @"k", v162, v164, v163);
                 }
 
                 else
                 {
-                  v248 = 0;
+                  v301 = 0;
                 }
               }
 
-              objc_msgSend_objectForKey_(a4, v132, @"q", v133, v134);
+              objc_msgSend_objectForKey_(a4, v161, @"q", v162, v164, v163);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v138 = MEMORY[0x277CBEA90];
-                v139 = objc_msgSend_objectForKey_(a4, v135, @"q", v136, v137);
-                v247 = objc_msgSend__IDSDataFromBase64String_(v138, v140, v139, v141, v142);
+                v169 = MEMORY[0x277CBEA90];
+                v170 = objc_msgSend_objectForKey_(a4, v165, @"q", v166, v168, v167);
+                v300 = objc_msgSend__IDSDataFromBase64String_(v169, v171, v170, v172, v174, v173);
               }
 
               else
               {
-                objc_msgSend_objectForKey_(a4, v135, @"q", v136, v137);
+                objc_msgSend_objectForKey_(a4, v165, @"q", v166, v168, v167);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v247 = objc_msgSend_objectForKey_(a4, v143, @"q", v144, v145);
+                  v300 = objc_msgSend_objectForKey_(a4, v175, @"q", v176, v178, v177);
                 }
 
                 else
                 {
-                  v247 = 0;
+                  v300 = 0;
                 }
               }
 
-              objc_msgSend_objectForKey_(a4, v143, @"r", v144, v145);
+              objc_msgSend_objectForKey_(a4, v175, @"r", v176, v178, v177);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v149 = MEMORY[0x277CBEA90];
-                v150 = objc_msgSend_objectForKey_(a4, v146, @"r", v147, v148);
-                v154 = objc_msgSend__IDSDataFromBase64String_(v149, v151, v150, v152, v153);
+                v183 = MEMORY[0x277CBEA90];
+                v184 = objc_msgSend_objectForKey_(a4, v179, @"r", v180, v182, v181);
+                v189 = objc_msgSend__IDSDataFromBase64String_(v183, v185, v184, v186, v188, v187);
                 goto LABEL_78;
               }
 
-              objc_msgSend_objectForKey_(a4, v146, @"r", v147, v148);
+              objc_msgSend_objectForKey_(a4, v179, @"r", v180, v182, v181);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v154 = objc_msgSend_objectForKey_(a4, v155, @"r", v156, v157);
+                v189 = objc_msgSend_objectForKey_(a4, v190, @"r", v191, v193, v192);
 LABEL_78:
-                v158 = v154;
+                v194 = v189;
               }
 
               else
               {
-                v158 = 0;
+                v194 = 0;
               }
 
-              objc_msgSend_objectForKey_(a4, v155, @"h", v156, v157);
+              objc_msgSend_objectForKey_(a4, v190, @"h", v191, v193, v192);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v162 = MEMORY[0x277CBEA90];
-                v163 = objc_msgSend_objectForKey_(a4, v159, @"h", v160, v161);
-                v167 = objc_msgSend__IDSDataFromBase64String_(v162, v164, v163, v165, v166);
+                v199 = MEMORY[0x277CBEA90];
+                v200 = objc_msgSend_objectForKey_(a4, v195, @"h", v196, v198, v197);
+                v205 = objc_msgSend__IDSDataFromBase64String_(v199, v201, v200, v202, v204, v203);
                 goto LABEL_84;
               }
 
-              objc_msgSend_objectForKey_(a4, v159, @"h", v160, v161);
+              objc_msgSend_objectForKey_(a4, v195, @"h", v196, v198, v197);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v167 = objc_msgSend_objectForKey_(a4, v168, @"h", v169, v170);
+                v205 = objc_msgSend_objectForKey_(a4, v206, @"h", v207, v209, v208);
 LABEL_84:
-                v171 = v167;
+                v210 = v205;
               }
 
               else
               {
-                v171 = 0;
+                v210 = 0;
               }
 
-              v172 = MEMORY[0x277CCABB0];
-              v173 = objc_opt_class();
-              v177 = objc_msgSend_objectForKey_(a4, v174, @"o", v175, v176);
-              if ((objc_opt_isKindOfClass() & 1) == 0 && v177)
+              v211 = MEMORY[0x277CCABB0];
+              v212 = objc_opt_class();
+              v217 = objc_msgSend_objectForKey_(a4, v213, @"o", v214, v216, v215);
+              if ((objc_opt_isKindOfClass() & 1) == 0 && v217)
               {
-                v182 = objc_msgSend_registration(MEMORY[0x277D19298], v178, v179, v180, v181);
-                if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                v223 = objc_msgSend_registration(MEMORY[0x277D19298], v218, v219, v220, v222, v221);
+                if (os_log_type_enabled(v223, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
-                  v264 = @"o";
-                  v265 = 2112;
-                  v266 = v173;
-                  _os_log_fault_impl(&dword_23BC9F000, v182, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                  v317 = @"o";
+                  v318 = 2112;
+                  v319 = v212;
+                  _os_log_fault_impl(&dword_23BC9F000, v223, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
                 }
 
-                v177 = 0;
+                v217 = 0;
               }
 
-              v183 = objc_msgSend_intValue(v177, v178, v179, v180, v181);
-              v187 = objc_msgSend_numberWithInt_(v172, v184, v183, v185, v186);
-              objc_msgSend_objectForKey_(a4, v188, @"H", v189, v190);
+              v224 = objc_msgSend_intValue(v217, v218, v219, v220, v222, v221);
+              v229 = objc_msgSend_numberWithInt_(v211, v225, v224, v226, v228, v227);
+              objc_msgSend_objectForKey_(a4, v230, @"H", v231, v233, v232);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v194 = MEMORY[0x277CBEA90];
-                v195 = objc_msgSend_objectForKey_(a4, v191, @"H", v192, v193);
-                v199 = objc_msgSend__IDSDataFromBase64String_(v194, v196, v195, v197, v198);
+                v238 = MEMORY[0x277CBEA90];
+                v239 = objc_msgSend_objectForKey_(a4, v234, @"H", v235, v237, v236);
+                v244 = objc_msgSend__IDSDataFromBase64String_(v238, v240, v239, v241, v243, v242);
                 goto LABEL_95;
               }
 
-              objc_msgSend_objectForKey_(a4, v191, @"H", v192, v193);
+              objc_msgSend_objectForKey_(a4, v234, @"H", v235, v237, v236);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v199 = objc_msgSend_objectForKey_(a4, v200, @"H", v201, v202);
+                v244 = objc_msgSend_objectForKey_(a4, v245, @"H", v246, v248, v247);
 LABEL_95:
-                v203 = v199;
+                v249 = v244;
               }
 
               else
               {
-                v203 = 0;
+                v249 = 0;
               }
 
-              v204 = MEMORY[0x277CCABB0];
-              v205 = objc_opt_class();
-              v209 = objc_msgSend_objectForKey_(a4, v206, @"O", v207, v208);
-              if ((objc_opt_isKindOfClass() & 1) == 0 && v209)
+              v250 = MEMORY[0x277CCABB0];
+              v251 = objc_opt_class();
+              v256 = objc_msgSend_objectForKey_(a4, v252, @"O", v253, v255, v254);
+              if ((objc_opt_isKindOfClass() & 1) == 0 && v256)
               {
-                v214 = objc_msgSend_registration(MEMORY[0x277D19298], v210, v211, v212, v213);
-                if (os_log_type_enabled(v214, OS_LOG_TYPE_FAULT))
+                v262 = objc_msgSend_registration(MEMORY[0x277D19298], v257, v258, v259, v261, v260);
+                if (os_log_type_enabled(v262, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
-                  v264 = @"O";
-                  v265 = 2112;
-                  v266 = v205;
-                  _os_log_fault_impl(&dword_23BC9F000, v214, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                  v317 = @"O";
+                  v318 = 2112;
+                  v319 = v251;
+                  _os_log_fault_impl(&dword_23BC9F000, v262, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
                 }
 
-                v209 = 0;
+                v256 = 0;
               }
 
-              v215 = objc_msgSend_intValue(v209, v210, v211, v212, v213);
-              v219 = objc_msgSend_numberWithInt_(v204, v216, v215, v217, v218);
-              v220 = objc_opt_class();
-              v224 = objc_msgSend_objectForKey_(a4, v221, @"x", v222, v223);
-              if ((objc_opt_isKindOfClass() & 1) == 0 && v224)
+              v263 = objc_msgSend_intValue(v256, v257, v258, v259, v261, v260);
+              v268 = objc_msgSend_numberWithInt_(v250, v264, v263, v265, v267, v266);
+              v269 = objc_opt_class();
+              v274 = objc_msgSend_objectForKey_(a4, v270, @"x", v271, v273, v272);
+              if ((objc_opt_isKindOfClass() & 1) == 0 && v274)
               {
-                v229 = objc_msgSend_registration(MEMORY[0x277D19298], v225, v226, v227, v228);
-                if (os_log_type_enabled(v229, OS_LOG_TYPE_FAULT))
+                v280 = objc_msgSend_registration(MEMORY[0x277D19298], v275, v276, v277, v279, v278);
+                if (os_log_type_enabled(v280, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
-                  v264 = @"x";
-                  v265 = 2112;
-                  v266 = v220;
-                  _os_log_fault_impl(&dword_23BC9F000, v229, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+                  v317 = @"x";
+                  v318 = 2112;
+                  v319 = v269;
+                  _os_log_fault_impl(&dword_23BC9F000, v280, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
                 }
 
-                v224 = 0;
+                v274 = 0;
               }
 
-              objc_msgSend_objectForKey_(a4, v225, @"d", v227, v228);
+              objc_msgSend_objectForKey_(a4, v275, @"d", v277, v279, v278);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v233 = MEMORY[0x277CBEA90];
-                v234 = objc_msgSend_objectForKey_(a4, v230, @"d", v231, v232);
-                v238 = objc_msgSend__IDSDataFromBase64String_(v233, v235, v234, v236, v237);
+                v285 = MEMORY[0x277CBEA90];
+                v286 = objc_msgSend_objectForKey_(a4, v281, @"d", v282, v284, v283);
+                v291 = objc_msgSend__IDSDataFromBase64String_(v285, v287, v286, v288, v290, v289);
               }
 
               else
               {
-                objc_msgSend_objectForKey_(a4, v230, @"d", v231, v232);
+                objc_msgSend_objectForKey_(a4, v281, @"d", v282, v284, v283);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v238 = objc_msgSend_objectForKey_(a4, v239, @"d", v240, v241);
+                  v291 = objc_msgSend_objectForKey_(a4, v292, @"d", v294, v293, v295);
                 }
 
                 else
                 {
-                  v238 = 0;
+                  v291 = 0;
                 }
               }
 
-              objc_msgSend_handler_sessionAccepted_topic_peerID_peerCN_peerPushToken_peerNATType_peerBlob_peerNatIP_relayType_relayConnectionID_relayTransactionIDAlloc_relayTokenAllocReq_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_clientInfo_serviceData_(v15, v239, a2, v254, a3, v258, v257, v253, v252, v251, v250, v249, v248, v247, v158, v171, v187, v203, v219, v224, v238);
+              objc_msgSend_handler_sessionAccepted_topic_peerID_peerCN_peerPushToken_peerNATType_peerBlob_peerNatIP_relayType_relayConnectionID_relayTransactionIDAlloc_relayTokenAllocReq_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_clientInfo_serviceData_(v16, v292, a2, v307, v293, a3, v311, v310, v306, v305, v304, v303, v302, v301, v300, v194, v210, v229, v249, v268, v274, v291);
               goto LABEL_113;
             }
           }
 
-          else if (v103)
+          else if (v126)
           {
-            v123 = objc_msgSend_registration(MEMORY[0x277D19298], v104, v105, v106, v107);
-            if (os_log_type_enabled(v123, OS_LOG_TYPE_FAULT))
+            v150 = objc_msgSend_registration(MEMORY[0x277D19298], v127, v128, v129, v131, v130);
+            if (os_log_type_enabled(v150, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v264 = @"t";
-              v265 = 2112;
-              v266 = v99;
-              _os_log_fault_impl(&dword_23BC9F000, v123, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v317 = @"t";
+              v318 = 2112;
+              v319 = v121;
+              _os_log_fault_impl(&dword_23BC9F000, v150, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
           }
 
-          v249 = 0;
+          v302 = 0;
           goto LABEL_64;
         }
 
 LABEL_113:
-        ++v14;
+        ++v15;
       }
 
-      while (v256 != v14);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v259, v267, 16);
+      while (v309 != v15);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v312, v320, v20, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v242 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBB018(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v106 = a4;
+      v123 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleRejectPush: %@", buf, 0xCu);
     }
   }
@@ -3661,7 +3650,7 @@ void sub_23BCBB018(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v106 = a4;
+    v123 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -3669,195 +3658,193 @@ void sub_23BCBB018(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v95 = a4;
+      v112 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v95 = a4;
+      v112 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v95);
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v101, v109, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v112);
+  v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v118, v126, 0, 16);
+  if (v14)
   {
-    v100 = *v102;
-    *&v14 = 138412802;
-    v96 = v14;
-    obj = v11;
+    v117 = *v119;
+    *&v15 = 138412802;
+    v113 = v15;
+    obj = v12;
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v102 != v100)
+        if (*v119 != v117)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v101 + 1) + 8 * v15);
+        v17 = *(*(&v118 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v19);
+          objc_msgSend_objectForKey_(a4, v18, @"s", v19, v21, v20);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v23 = MEMORY[0x277CBEA90];
-            v24 = objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
-            v28 = objc_msgSend__IDSDataFromBase64String_(v23, v25, v24, v26, v27);
+            v26 = MEMORY[0x277CBEA90];
+            v27 = objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
+            v32 = objc_msgSend__IDSDataFromBase64String_(v26, v28, v27, v29, v31, v30);
             goto LABEL_21;
           }
 
-          objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
+          objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v28 = objc_msgSend_objectForKey_(a4, v29, @"s", v30, v31);
+            v32 = objc_msgSend_objectForKey_(a4, v33, @"s", v34, v36, v35);
 LABEL_21:
-            v32 = v28;
+            v37 = v32;
           }
 
           else
           {
-            v32 = 0;
-          }
-
-          v33 = objc_opt_class();
-          v37 = objc_msgSend_objectForKey_(a4, v34, @"I", v35, v36);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v37)
-          {
-            v42 = objc_msgSend_registration(MEMORY[0x277D19298], v38, v39, v40, v41);
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v106 = @"I";
-              v107 = 2112;
-              v108 = v33;
-              _os_log_fault_impl(&dword_23BC9F000, v42, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
             v37 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v38, @"P", v40, v41);
+          v38 = objc_opt_class();
+          v43 = objc_msgSend_objectForKey_(a4, v39, @"I", v40, v42, v41);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v43)
+          {
+            v49 = objc_msgSend_registration(MEMORY[0x277D19298], v44, v45, v46, v48, v47);
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v123 = @"I";
+              v124 = 2112;
+              v125 = v38;
+              _os_log_fault_impl(&dword_23BC9F000, v49, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v43 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v44, @"P", v46, v48, v47);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v46 = MEMORY[0x277CBEA90];
-            v47 = objc_msgSend_objectForKey_(a4, v43, @"P", v44, v45);
-            v51 = objc_msgSend__IDSDataFromBase64String_(v46, v48, v47, v49, v50);
+            v54 = MEMORY[0x277CBEA90];
+            v55 = objc_msgSend_objectForKey_(a4, v50, @"P", v51, v53, v52);
+            v60 = objc_msgSend__IDSDataFromBase64String_(v54, v56, v55, v57, v59, v58);
             goto LABEL_32;
           }
 
-          objc_msgSend_objectForKey_(a4, v43, @"P", v44, v45);
+          objc_msgSend_objectForKey_(a4, v50, @"P", v51, v53, v52);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v51 = objc_msgSend_objectForKey_(a4, v52, @"P", v53, v54);
+            v60 = objc_msgSend_objectForKey_(a4, v61, @"P", v62, v64, v63);
 LABEL_32:
-            v55 = v51;
+            v65 = v60;
           }
 
           else
           {
-            v55 = 0;
+            v65 = 0;
           }
 
-          v56 = MEMORY[0x277CCABB0];
-          v57 = objc_opt_class();
-          v61 = objc_msgSend_objectForKey_(a4, v58, @"y", v59, v60);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v61)
+          v66 = MEMORY[0x277CCABB0];
+          v67 = objc_opt_class();
+          v72 = objc_msgSend_objectForKey_(a4, v68, @"y", v69, v71, v70);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v72)
           {
-            v66 = objc_msgSend_registration(MEMORY[0x277D19298], v62, v63, v64, v65);
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
+            v78 = objc_msgSend_registration(MEMORY[0x277D19298], v73, v74, v75, v77, v76);
+            if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v106 = @"y";
-              v107 = 2112;
-              v108 = v57;
-              _os_log_fault_impl(&dword_23BC9F000, v66, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v123 = @"y";
+              v124 = 2112;
+              v125 = v67;
+              _os_log_fault_impl(&dword_23BC9F000, v78, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v61 = 0;
+            v72 = 0;
           }
 
-          v67 = objc_msgSend_intValue(v61, v62, v63, v64, v65);
-          v71 = objc_msgSend_numberWithInt_(v56, v68, v67, v69, v70);
-          v72 = objc_opt_class();
-          v76 = objc_msgSend_objectForKey_(a4, v73, @"x", v74, v75);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v76)
+          v79 = objc_msgSend_intValue(v72, v73, v74, v75, v77, v76);
+          v84 = objc_msgSend_numberWithInt_(v66, v80, v79, v81, v83, v82);
+          v85 = objc_opt_class();
+          v90 = objc_msgSend_objectForKey_(a4, v86, @"x", v87, v89, v88);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v90)
           {
-            v81 = objc_msgSend_registration(MEMORY[0x277D19298], v77, v78, v79, v80);
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+            v96 = objc_msgSend_registration(MEMORY[0x277D19298], v91, v92, v93, v95, v94);
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v106 = @"x";
-              v107 = 2112;
-              v108 = v72;
-              _os_log_fault_impl(&dword_23BC9F000, v81, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v123 = @"x";
+              v124 = 2112;
+              v125 = v85;
+              _os_log_fault_impl(&dword_23BC9F000, v96, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v76 = 0;
+            v90 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v77, @"d", v79, v80);
+          objc_msgSend_objectForKey_(a4, v91, @"d", v93, v95, v94);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v85 = MEMORY[0x277CBEA90];
-            v86 = objc_msgSend_objectForKey_(a4, v82, @"d", v83, v84);
-            v90 = objc_msgSend__IDSDataFromBase64String_(v85, v87, v86, v88, v89);
+            v101 = MEMORY[0x277CBEA90];
+            v102 = objc_msgSend_objectForKey_(a4, v97, @"d", v98, v100, v99);
+            v107 = objc_msgSend__IDSDataFromBase64String_(v101, v103, v102, v104, v106, v105);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v82, @"d", v83, v84);
+            objc_msgSend_objectForKey_(a4, v97, @"d", v98, v100, v99);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v90 = objc_msgSend_objectForKey_(a4, v91, @"d", v92, v93);
+              v107 = objc_msgSend_objectForKey_(a4, v108, @"d", v110, v109, v111);
             }
 
             else
             {
-              v90 = 0;
+              v107 = 0;
             }
           }
 
-          objc_msgSend_handler_sessionRejected_topic_peerID_peerPushToken_reason_clientInfo_serviceData_(v16, v91, a2, v32, a3, v37, v55, v71, v76, v90, v96);
+          objc_msgSend_handler_sessionRejected_topic_peerID_peerPushToken_reason_clientInfo_serviceData_(v17, v108, a2, v37, v109, a3, v43, v65, v84, v90, v107, v113);
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v13 != v15);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v101, v109, 16);
+      while (v14 != v16);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v118, v126, v21, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBB848(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v91 = a4;
+      v105 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleCancelPush: %@", buf, 0xCu);
     }
   }
@@ -3866,7 +3853,7 @@ void sub_23BCBB848(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v91 = a4;
+    v105 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -3874,169 +3861,167 @@ void sub_23BCBB848(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v81 = a4;
+      v95 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v81 = a4;
+      v95 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v81);
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v86, v94, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v95);
+  v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v100, v108, 0, 16);
+  if (v14)
   {
-    v85 = *v87;
-    obj = v11;
+    v99 = *v101;
+    obj = v12;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v87 != v85)
+        if (*v101 != v99)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v86 + 1) + 8 * v14);
+        v16 = *(*(&v100 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v16, @"s", v17, v18);
+          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v20, v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = MEMORY[0x277CBEA90];
-            v23 = objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
-            v27 = objc_msgSend__IDSDataFromBase64String_(v22, v24, v23, v25, v26);
+            v25 = MEMORY[0x277CBEA90];
+            v26 = objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
+            v31 = objc_msgSend__IDSDataFromBase64String_(v25, v27, v26, v28, v30, v29);
             goto LABEL_21;
           }
 
-          objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
+          objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = objc_msgSend_objectForKey_(a4, v28, @"s", v29, v30);
+            v31 = objc_msgSend_objectForKey_(a4, v32, @"s", v33, v35, v34);
 LABEL_21:
-            v31 = v27;
+            v36 = v31;
           }
 
           else
           {
-            v31 = 0;
-          }
-
-          v32 = objc_opt_class();
-          v36 = objc_msgSend_objectForKey_(a4, v33, @"I", v34, v35);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v36)
-          {
-            v41 = objc_msgSend_registration(MEMORY[0x277D19298], v37, v38, v39, v40);
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v91 = @"I";
-              v92 = 2112;
-              v93 = v32;
-              _os_log_fault_impl(&dword_23BC9F000, v41, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
             v36 = 0;
           }
 
-          v42 = MEMORY[0x277CCABB0];
-          v43 = objc_opt_class();
-          v47 = objc_msgSend_objectForKey_(a4, v44, @"y", v45, v46);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v47)
+          v37 = objc_opt_class();
+          v42 = objc_msgSend_objectForKey_(a4, v38, @"I", v39, v41, v40);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v42)
           {
-            v52 = objc_msgSend_registration(MEMORY[0x277D19298], v48, v49, v50, v51);
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+            v48 = objc_msgSend_registration(MEMORY[0x277D19298], v43, v44, v45, v47, v46);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v91 = @"y";
-              v92 = 2112;
-              v93 = v43;
-              _os_log_fault_impl(&dword_23BC9F000, v52, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v105 = @"I";
+              v106 = 2112;
+              v107 = v37;
+              _os_log_fault_impl(&dword_23BC9F000, v48, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v47 = 0;
+            v42 = 0;
           }
 
-          v53 = objc_msgSend_intValue(v47, v48, v49, v50, v51);
-          v57 = objc_msgSend_numberWithInt_(v42, v54, v53, v55, v56);
-          v58 = objc_opt_class();
-          v62 = objc_msgSend_objectForKey_(a4, v59, @"x", v60, v61);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v62)
+          v49 = MEMORY[0x277CCABB0];
+          v50 = objc_opt_class();
+          v55 = objc_msgSend_objectForKey_(a4, v51, @"y", v52, v54, v53);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v55)
           {
-            v67 = objc_msgSend_registration(MEMORY[0x277D19298], v63, v64, v65, v66);
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+            v61 = objc_msgSend_registration(MEMORY[0x277D19298], v56, v57, v58, v60, v59);
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v91 = @"x";
-              v92 = 2112;
-              v93 = v58;
-              _os_log_fault_impl(&dword_23BC9F000, v67, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v105 = @"y";
+              v106 = 2112;
+              v107 = v50;
+              _os_log_fault_impl(&dword_23BC9F000, v61, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v62 = 0;
+            v55 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v63, @"d", v65, v66);
+          v62 = objc_msgSend_intValue(v55, v56, v57, v58, v60, v59);
+          v67 = objc_msgSend_numberWithInt_(v49, v63, v62, v64, v66, v65);
+          v68 = objc_opt_class();
+          v73 = objc_msgSend_objectForKey_(a4, v69, @"x", v70, v72, v71);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v73)
+          {
+            v79 = objc_msgSend_registration(MEMORY[0x277D19298], v74, v75, v76, v78, v77);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v105 = @"x";
+              v106 = 2112;
+              v107 = v68;
+              _os_log_fault_impl(&dword_23BC9F000, v79, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v73 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v74, @"d", v76, v78, v77);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v71 = MEMORY[0x277CBEA90];
-            v72 = objc_msgSend_objectForKey_(a4, v68, @"d", v69, v70);
-            v76 = objc_msgSend__IDSDataFromBase64String_(v71, v73, v72, v74, v75);
+            v84 = MEMORY[0x277CBEA90];
+            v85 = objc_msgSend_objectForKey_(a4, v80, @"d", v81, v83, v82);
+            v90 = objc_msgSend__IDSDataFromBase64String_(v84, v86, v85, v87, v89, v88);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v68, @"d", v69, v70);
+            objc_msgSend_objectForKey_(a4, v80, @"d", v81, v83, v82);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v76 = objc_msgSend_objectForKey_(a4, v77, @"d", v78, v79);
+              v90 = objc_msgSend_objectForKey_(a4, v91, @"d", v93, v92, v94);
             }
 
             else
             {
-              v76 = 0;
+              v90 = 0;
             }
           }
 
-          objc_msgSend_handler_sessionCancelled_topic_peerID_reason_clientInfo_serviceData_(v15, v77, a2, v31, a3, v36, v57, v62, v76);
+          objc_msgSend_handler_sessionCancelled_topic_peerID_reason_clientInfo_serviceData_(v16, v91, a2, v36, v92, a3, v42, v67, v73, v90);
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v13 != v14);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v86, v94, 16);
+      while (v14 != v15);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v100, v108, v20, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBBFD0(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v221 = *MEMORY[0x277D85DE8];
+  v264 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v217 = a4;
+      v260 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleRelayInitatePush: %@", buf, 0xCu);
     }
   }
@@ -4045,7 +4030,7 @@ void sub_23BCBBFD0(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v217 = a4;
+    v260 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -4053,380 +4038,378 @@ void sub_23BCBBFD0(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v198 = a4;
+      v241 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v198 = a4;
+      v241 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v198);
-  v214 = 0u;
-  v215 = 0u;
-  v212 = 0u;
-  v213 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v212, v220, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v241);
+  v257 = 0u;
+  v258 = 0u;
+  v255 = 0u;
+  v256 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v255, v263, 0, 16);
+  if (v14)
   {
-    v210 = *v213;
-    *&v14 = 138412802;
-    v199 = v14;
-    obj = v11;
+    v253 = *v256;
+    *&v15 = 138412802;
+    v242 = v15;
+    obj = v12;
     do
     {
-      v15 = 0;
-      v211 = v13;
+      v16 = 0;
+      v254 = v14;
       do
       {
-        if (*v213 != v210)
+        if (*v256 != v253)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v212 + 1) + 8 * v15);
+        v17 = *(*(&v255 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v19);
+          objc_msgSend_objectForKey_(a4, v18, @"s", v19, v21, v20);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v23 = MEMORY[0x277CBEA90];
-            v24 = objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
-            v209 = objc_msgSend__IDSDataFromBase64String_(v23, v25, v24, v26, v27);
+            v26 = MEMORY[0x277CBEA90];
+            v27 = objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
+            v252 = objc_msgSend__IDSDataFromBase64String_(v26, v28, v27, v29, v31, v30);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
+            objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v209 = objc_msgSend_objectForKey_(a4, v28, @"s", v29, v30);
+              v252 = objc_msgSend_objectForKey_(a4, v32, @"s", v33, v35, v34);
             }
 
             else
             {
-              v209 = 0;
+              v252 = 0;
             }
           }
 
-          v31 = objc_opt_class();
-          v35 = objc_msgSend_objectForKey_(a4, v32, @"I", v33, v34);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v35)
+          v36 = objc_opt_class();
+          v41 = objc_msgSend_objectForKey_(a4, v37, @"I", v38, v40, v39);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v41)
           {
-            v40 = objc_msgSend_registration(MEMORY[0x277D19298], v36, v37, v38, v39);
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+            v47 = objc_msgSend_registration(MEMORY[0x277D19298], v42, v43, v44, v46, v45);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v217 = @"I";
-              v218 = 2112;
-              v219 = v31;
-              _os_log_fault_impl(&dword_23BC9F000, v40, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v260 = @"I";
+              v261 = 2112;
+              v262 = v36;
+              _os_log_fault_impl(&dword_23BC9F000, v47, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v35 = 0;
+            v41 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v36, @"P", v38, v39);
+          objc_msgSend_objectForKey_(a4, v42, @"P", v44, v46, v45);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v44 = MEMORY[0x277CBEA90];
-            v45 = objc_msgSend_objectForKey_(a4, v41, @"P", v42, v43);
-            v208 = objc_msgSend__IDSDataFromBase64String_(v44, v46, v45, v47, v48);
+            v52 = MEMORY[0x277CBEA90];
+            v53 = objc_msgSend_objectForKey_(a4, v48, @"P", v49, v51, v50);
+            v251 = objc_msgSend__IDSDataFromBase64String_(v52, v54, v53, v55, v57, v56);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v41, @"P", v42, v43);
+            objc_msgSend_objectForKey_(a4, v48, @"P", v49, v51, v50);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v208 = objc_msgSend_objectForKey_(a4, v49, @"P", v50, v51);
+              v251 = objc_msgSend_objectForKey_(a4, v58, @"P", v59, v61, v60);
             }
 
             else
             {
-              v208 = 0;
+              v251 = 0;
             }
           }
 
-          v52 = MEMORY[0x277CCABB0];
-          v53 = objc_opt_class();
-          v57 = objc_msgSend_objectForKey_(a4, v54, @"t", v55, v56);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v57)
+          v62 = MEMORY[0x277CCABB0];
+          v63 = objc_opt_class();
+          v68 = objc_msgSend_objectForKey_(a4, v64, @"t", v65, v67, v66);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v68)
           {
-            v62 = objc_msgSend_registration(MEMORY[0x277D19298], v58, v59, v60, v61);
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+            v74 = objc_msgSend_registration(MEMORY[0x277D19298], v69, v70, v71, v73, v72);
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v217 = @"t";
-              v218 = 2112;
-              v219 = v53;
-              _os_log_fault_impl(&dword_23BC9F000, v62, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v260 = @"t";
+              v261 = 2112;
+              v262 = v63;
+              _os_log_fault_impl(&dword_23BC9F000, v74, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v57 = 0;
+            v68 = 0;
           }
 
-          v63 = objc_msgSend_intValue(v57, v58, v59, v60, v61);
-          v207 = objc_msgSend_numberWithInt_(v52, v64, v63, v65, v66);
-          objc_msgSend_objectForKey_(a4, v67, @"k", v68, v69);
+          v75 = objc_msgSend_intValue(v68, v69, v70, v71, v73, v72);
+          v250 = objc_msgSend_numberWithInt_(v62, v76, v75, v77, v79, v78);
+          objc_msgSend_objectForKey_(a4, v80, @"k", v81, v83, v82);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v73 = MEMORY[0x277CBEA90];
-            v74 = objc_msgSend_objectForKey_(a4, v70, @"k", v71, v72);
-            v206 = objc_msgSend__IDSDataFromBase64String_(v73, v75, v74, v76, v77);
+            v88 = MEMORY[0x277CBEA90];
+            v89 = objc_msgSend_objectForKey_(a4, v84, @"k", v85, v87, v86);
+            v249 = objc_msgSend__IDSDataFromBase64String_(v88, v90, v89, v91, v93, v92);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v70, @"k", v71, v72);
+            objc_msgSend_objectForKey_(a4, v84, @"k", v85, v87, v86);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v206 = objc_msgSend_objectForKey_(a4, v78, @"k", v79, v80);
+              v249 = objc_msgSend_objectForKey_(a4, v94, @"k", v95, v97, v96);
             }
 
             else
             {
-              v206 = 0;
+              v249 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v78, @"q", v79, v80);
+          objc_msgSend_objectForKey_(a4, v94, @"q", v95, v97, v96);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v84 = MEMORY[0x277CBEA90];
-            v85 = objc_msgSend_objectForKey_(a4, v81, @"q", v82, v83);
-            v205 = objc_msgSend__IDSDataFromBase64String_(v84, v86, v85, v87, v88);
+            v102 = MEMORY[0x277CBEA90];
+            v103 = objc_msgSend_objectForKey_(a4, v98, @"q", v99, v101, v100);
+            v248 = objc_msgSend__IDSDataFromBase64String_(v102, v104, v103, v105, v107, v106);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v81, @"q", v82, v83);
+            objc_msgSend_objectForKey_(a4, v98, @"q", v99, v101, v100);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v205 = objc_msgSend_objectForKey_(a4, v89, @"q", v90, v91);
+              v248 = objc_msgSend_objectForKey_(a4, v108, @"q", v109, v111, v110);
             }
 
             else
             {
-              v205 = 0;
+              v248 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v89, @"r", v90, v91);
+          objc_msgSend_objectForKey_(a4, v108, @"r", v109, v111, v110);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v95 = MEMORY[0x277CBEA90];
-            v96 = objc_msgSend_objectForKey_(a4, v92, @"r", v93, v94);
-            v204 = objc_msgSend__IDSDataFromBase64String_(v95, v97, v96, v98, v99);
+            v116 = MEMORY[0x277CBEA90];
+            v117 = objc_msgSend_objectForKey_(a4, v112, @"r", v113, v115, v114);
+            v247 = objc_msgSend__IDSDataFromBase64String_(v116, v118, v117, v119, v121, v120);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v92, @"r", v93, v94);
+            objc_msgSend_objectForKey_(a4, v112, @"r", v113, v115, v114);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v204 = objc_msgSend_objectForKey_(a4, v100, @"r", v101, v102);
+              v247 = objc_msgSend_objectForKey_(a4, v122, @"r", v123, v125, v124);
             }
 
             else
             {
-              v204 = 0;
+              v247 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v100, @"K", v101, v102);
+          objc_msgSend_objectForKey_(a4, v122, @"K", v123, v125, v124);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v106 = MEMORY[0x277CBEA90];
-            v107 = objc_msgSend_objectForKey_(a4, v103, @"K", v104, v105);
-            v203 = objc_msgSend__IDSDataFromBase64String_(v106, v108, v107, v109, v110);
+            v130 = MEMORY[0x277CBEA90];
+            v131 = objc_msgSend_objectForKey_(a4, v126, @"K", v127, v129, v128);
+            v246 = objc_msgSend__IDSDataFromBase64String_(v130, v132, v131, v133, v135, v134);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v103, @"K", v104, v105);
+            objc_msgSend_objectForKey_(a4, v126, @"K", v127, v129, v128);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v203 = objc_msgSend_objectForKey_(a4, v111, @"K", v112, v113);
+              v246 = objc_msgSend_objectForKey_(a4, v136, @"K", v137, v139, v138);
             }
 
             else
             {
-              v203 = 0;
+              v246 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v111, @"h", v112, v113);
+          objc_msgSend_objectForKey_(a4, v136, @"h", v137, v139, v138);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v117 = MEMORY[0x277CBEA90];
-            v118 = objc_msgSend_objectForKey_(a4, v114, @"h", v115, v116);
-            v122 = objc_msgSend__IDSDataFromBase64String_(v117, v119, v118, v120, v121);
+            v144 = MEMORY[0x277CBEA90];
+            v145 = objc_msgSend_objectForKey_(a4, v140, @"h", v141, v143, v142);
+            v150 = objc_msgSend__IDSDataFromBase64String_(v144, v146, v145, v147, v149, v148);
             goto LABEL_61;
           }
 
-          objc_msgSend_objectForKey_(a4, v114, @"h", v115, v116);
+          objc_msgSend_objectForKey_(a4, v140, @"h", v141, v143, v142);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v122 = objc_msgSend_objectForKey_(a4, v123, @"h", v124, v125);
+            v150 = objc_msgSend_objectForKey_(a4, v151, @"h", v152, v154, v153);
 LABEL_61:
-            v126 = v122;
+            v155 = v150;
           }
 
           else
           {
-            v126 = 0;
+            v155 = 0;
           }
 
-          v127 = MEMORY[0x277CCABB0];
-          v128 = objc_opt_class();
-          v132 = objc_msgSend_objectForKey_(a4, v129, @"o", v130, v131);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v132)
+          v156 = MEMORY[0x277CCABB0];
+          v157 = objc_opt_class();
+          v162 = objc_msgSend_objectForKey_(a4, v158, @"o", v159, v161, v160);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v162)
           {
-            v137 = objc_msgSend_registration(MEMORY[0x277D19298], v133, v134, v135, v136);
-            if (os_log_type_enabled(v137, OS_LOG_TYPE_FAULT))
+            v168 = objc_msgSend_registration(MEMORY[0x277D19298], v163, v164, v165, v167, v166);
+            if (os_log_type_enabled(v168, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v217 = @"o";
-              v218 = 2112;
-              v219 = v128;
-              _os_log_fault_impl(&dword_23BC9F000, v137, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v260 = @"o";
+              v261 = 2112;
+              v262 = v157;
+              _os_log_fault_impl(&dword_23BC9F000, v168, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v132 = 0;
+            v162 = 0;
           }
 
-          v138 = objc_msgSend_intValue(v132, v133, v134, v135, v136);
-          v142 = objc_msgSend_numberWithInt_(v127, v139, v138, v140, v141);
-          objc_msgSend_objectForKey_(a4, v143, @"H", v144, v145);
+          v169 = objc_msgSend_intValue(v162, v163, v164, v165, v167, v166);
+          v174 = objc_msgSend_numberWithInt_(v156, v170, v169, v171, v173, v172);
+          objc_msgSend_objectForKey_(a4, v175, @"H", v176, v178, v177);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v149 = MEMORY[0x277CBEA90];
-            v150 = objc_msgSend_objectForKey_(a4, v146, @"H", v147, v148);
-            v154 = objc_msgSend__IDSDataFromBase64String_(v149, v151, v150, v152, v153);
+            v183 = MEMORY[0x277CBEA90];
+            v184 = objc_msgSend_objectForKey_(a4, v179, @"H", v180, v182, v181);
+            v189 = objc_msgSend__IDSDataFromBase64String_(v183, v185, v184, v186, v188, v187);
             goto LABEL_72;
           }
 
-          objc_msgSend_objectForKey_(a4, v146, @"H", v147, v148);
+          objc_msgSend_objectForKey_(a4, v179, @"H", v180, v182, v181);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v154 = objc_msgSend_objectForKey_(a4, v155, @"H", v156, v157);
+            v189 = objc_msgSend_objectForKey_(a4, v190, @"H", v191, v193, v192);
 LABEL_72:
-            v158 = v154;
+            v194 = v189;
           }
 
           else
           {
-            v158 = 0;
+            v194 = 0;
           }
 
-          v159 = MEMORY[0x277CCABB0];
-          v160 = objc_opt_class();
-          v164 = objc_msgSend_objectForKey_(a4, v161, @"O", v162, v163);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v164)
+          v195 = MEMORY[0x277CCABB0];
+          v196 = objc_opt_class();
+          v201 = objc_msgSend_objectForKey_(a4, v197, @"O", v198, v200, v199);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v201)
           {
-            v169 = objc_msgSend_registration(MEMORY[0x277D19298], v165, v166, v167, v168);
-            if (os_log_type_enabled(v169, OS_LOG_TYPE_FAULT))
+            v207 = objc_msgSend_registration(MEMORY[0x277D19298], v202, v203, v204, v206, v205);
+            if (os_log_type_enabled(v207, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v217 = @"O";
-              v218 = 2112;
-              v219 = v160;
-              _os_log_fault_impl(&dword_23BC9F000, v169, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v260 = @"O";
+              v261 = 2112;
+              v262 = v196;
+              _os_log_fault_impl(&dword_23BC9F000, v207, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v164 = 0;
+            v201 = 0;
           }
 
-          v170 = objc_msgSend_intValue(v164, v165, v166, v167, v168);
-          v174 = objc_msgSend_numberWithInt_(v159, v171, v170, v172, v173);
-          v175 = objc_opt_class();
-          v179 = objc_msgSend_objectForKey_(a4, v176, @"x", v177, v178);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v179)
+          v208 = objc_msgSend_intValue(v201, v202, v203, v204, v206, v205);
+          v213 = objc_msgSend_numberWithInt_(v195, v209, v208, v210, v212, v211);
+          v214 = objc_opt_class();
+          v219 = objc_msgSend_objectForKey_(a4, v215, @"x", v216, v218, v217);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v219)
           {
-            v184 = objc_msgSend_registration(MEMORY[0x277D19298], v180, v181, v182, v183);
-            if (os_log_type_enabled(v184, OS_LOG_TYPE_FAULT))
+            v225 = objc_msgSend_registration(MEMORY[0x277D19298], v220, v221, v222, v224, v223);
+            if (os_log_type_enabled(v225, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v217 = @"x";
-              v218 = 2112;
-              v219 = v175;
-              _os_log_fault_impl(&dword_23BC9F000, v184, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v260 = @"x";
+              v261 = 2112;
+              v262 = v214;
+              _os_log_fault_impl(&dword_23BC9F000, v225, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v179 = 0;
+            v219 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v180, @"d", v182, v183);
+          objc_msgSend_objectForKey_(a4, v220, @"d", v222, v224, v223);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v188 = MEMORY[0x277CBEA90];
-            v189 = objc_msgSend_objectForKey_(a4, v185, @"d", v186, v187);
-            v193 = objc_msgSend__IDSDataFromBase64String_(v188, v190, v189, v191, v192);
+            v230 = MEMORY[0x277CBEA90];
+            v231 = objc_msgSend_objectForKey_(a4, v226, @"d", v227, v229, v228);
+            v236 = objc_msgSend__IDSDataFromBase64String_(v230, v232, v231, v233, v235, v234);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v185, @"d", v186, v187);
+            objc_msgSend_objectForKey_(a4, v226, @"d", v227, v229, v228);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v193 = objc_msgSend_objectForKey_(a4, v194, @"d", v195, v196);
+              v236 = objc_msgSend_objectForKey_(a4, v237, @"d", v239, v238, v240);
             }
 
             else
             {
-              v193 = 0;
+              v236 = 0;
             }
           }
 
-          objc_msgSend_handler_relayInitiated_topic_peerID_peerPushToken_relayType_relayConnectionID_relayTransactionIDAlloc_relayTokenAllocReq_relayCandidateID_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_clientInfo_serviceData_(v16, v194, a2, v209, a3, v35, v208, v207, v206, v205, v204, v203, v126, v142, v158, v174, v179, v193, v199);
+          objc_msgSend_handler_relayInitiated_topic_peerID_peerPushToken_relayType_relayConnectionID_relayTransactionIDAlloc_relayTokenAllocReq_relayCandidateID_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_clientInfo_serviceData_(v17, v237, a2, v252, v238, a3, v41, v251, v250, v249, v248, v247, v246, v155, v174, v194, v213, v219, v236, v242);
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v211 != v15);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v212, v220, 16);
+      while (v254 != v16);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v255, v263, v21, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v197 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBCD70(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v201 = *MEMORY[0x277D85DE8];
+  v240 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v197 = a4;
+      v236 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleRelayUpdatePush: %@", buf, 0xCu);
     }
   }
@@ -4435,7 +4418,7 @@ void sub_23BCBCD70(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v197 = a4;
+    v236 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -4443,263 +4426,586 @@ void sub_23BCBCD70(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v180 = a4;
+      v219 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v180 = a4;
+      v219 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v180);
-  v194 = 0u;
-  v195 = 0u;
-  v192 = 0u;
-  v193 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v192, v200, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v219);
+  v233 = 0u;
+  v234 = 0u;
+  v231 = 0u;
+  v232 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v231, v239, 0, 16);
+  if (v14)
   {
-    v190 = *v193;
-    obj = v11;
+    v229 = *v232;
+    obj = v12;
     do
     {
-      v14 = 0;
-      v191 = v13;
+      v15 = 0;
+      v230 = v14;
       do
       {
-        if (*v193 != v190)
+        if (*v232 != v229)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v192 + 1) + 8 * v14);
+        v16 = *(*(&v231 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v16, @"s", v17, v18);
+          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v20, v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = MEMORY[0x277CBEA90];
-            v23 = objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
-            v189 = objc_msgSend__IDSDataFromBase64String_(v22, v24, v23, v25, v26);
+            v25 = MEMORY[0x277CBEA90];
+            v26 = objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
+            v228 = objc_msgSend__IDSDataFromBase64String_(v25, v27, v26, v28, v30, v29);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
+            objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v189 = objc_msgSend_objectForKey_(a4, v27, @"s", v28, v29);
+              v228 = objc_msgSend_objectForKey_(a4, v31, @"s", v32, v34, v33);
             }
 
             else
             {
-              v189 = 0;
+              v228 = 0;
             }
           }
 
-          v30 = objc_opt_class();
-          v34 = objc_msgSend_objectForKey_(a4, v31, @"I", v32, v33);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v34)
+          v35 = objc_opt_class();
+          v40 = objc_msgSend_objectForKey_(a4, v36, @"I", v37, v39, v38);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v40)
           {
-            v39 = objc_msgSend_registration(MEMORY[0x277D19298], v35, v36, v37, v38);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+            v46 = objc_msgSend_registration(MEMORY[0x277D19298], v41, v42, v43, v45, v44);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v197 = @"I";
-              v198 = 2112;
-              v199 = v30;
-              _os_log_fault_impl(&dword_23BC9F000, v39, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v236 = @"I";
+              v237 = 2112;
+              v238 = v35;
+              _os_log_fault_impl(&dword_23BC9F000, v46, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v34 = 0;
+            v40 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v35, @"P", v37, v38);
+          objc_msgSend_objectForKey_(a4, v41, @"P", v43, v45, v44);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v43 = MEMORY[0x277CBEA90];
-            v44 = objc_msgSend_objectForKey_(a4, v40, @"P", v41, v42);
-            v188 = objc_msgSend__IDSDataFromBase64String_(v43, v45, v44, v46, v47);
+            v51 = MEMORY[0x277CBEA90];
+            v52 = objc_msgSend_objectForKey_(a4, v47, @"P", v48, v50, v49);
+            v227 = objc_msgSend__IDSDataFromBase64String_(v51, v53, v52, v54, v56, v55);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v40, @"P", v41, v42);
+            objc_msgSend_objectForKey_(a4, v47, @"P", v48, v50, v49);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v188 = objc_msgSend_objectForKey_(a4, v48, @"P", v49, v50);
+              v227 = objc_msgSend_objectForKey_(a4, v57, @"P", v58, v60, v59);
             }
 
             else
             {
-              v188 = 0;
+              v227 = 0;
             }
           }
 
-          v51 = MEMORY[0x277CCABB0];
-          v52 = objc_opt_class();
-          v56 = objc_msgSend_objectForKey_(a4, v53, @"t", v54, v55);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v56)
+          v61 = MEMORY[0x277CCABB0];
+          v62 = objc_opt_class();
+          v67 = objc_msgSend_objectForKey_(a4, v63, @"t", v64, v66, v65);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v67)
           {
-            v61 = objc_msgSend_registration(MEMORY[0x277D19298], v57, v58, v59, v60);
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
+            v73 = objc_msgSend_registration(MEMORY[0x277D19298], v68, v69, v70, v72, v71);
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v197 = @"t";
-              v198 = 2112;
-              v199 = v52;
-              _os_log_fault_impl(&dword_23BC9F000, v61, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v236 = @"t";
+              v237 = 2112;
+              v238 = v62;
+              _os_log_fault_impl(&dword_23BC9F000, v73, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v56 = 0;
+            v67 = 0;
           }
 
-          v62 = objc_msgSend_intValue(v56, v57, v58, v59, v60);
-          v187 = objc_msgSend_numberWithInt_(v51, v63, v62, v64, v65);
-          objc_msgSend_objectForKey_(a4, v66, @"k", v67, v68);
+          v74 = objc_msgSend_intValue(v67, v68, v69, v70, v72, v71);
+          v226 = objc_msgSend_numberWithInt_(v61, v75, v74, v76, v78, v77);
+          objc_msgSend_objectForKey_(a4, v79, @"k", v80, v82, v81);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v72 = MEMORY[0x277CBEA90];
-            v73 = objc_msgSend_objectForKey_(a4, v69, @"k", v70, v71);
-            v186 = objc_msgSend__IDSDataFromBase64String_(v72, v74, v73, v75, v76);
+            v87 = MEMORY[0x277CBEA90];
+            v88 = objc_msgSend_objectForKey_(a4, v83, @"k", v84, v86, v85);
+            v225 = objc_msgSend__IDSDataFromBase64String_(v87, v89, v88, v90, v92, v91);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v69, @"k", v70, v71);
+            objc_msgSend_objectForKey_(a4, v83, @"k", v84, v86, v85);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v186 = objc_msgSend_objectForKey_(a4, v77, @"k", v78, v79);
+              v225 = objc_msgSend_objectForKey_(a4, v93, @"k", v94, v96, v95);
             }
 
             else
             {
-              v186 = 0;
+              v225 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v77, @"q", v78, v79);
+          objc_msgSend_objectForKey_(a4, v93, @"q", v94, v96, v95);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v83 = MEMORY[0x277CBEA90];
-            v84 = objc_msgSend_objectForKey_(a4, v80, @"q", v81, v82);
-            v185 = objc_msgSend__IDSDataFromBase64String_(v83, v85, v84, v86, v87);
+            v101 = MEMORY[0x277CBEA90];
+            v102 = objc_msgSend_objectForKey_(a4, v97, @"q", v98, v100, v99);
+            v224 = objc_msgSend__IDSDataFromBase64String_(v101, v103, v102, v104, v106, v105);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v80, @"q", v81, v82);
+            objc_msgSend_objectForKey_(a4, v97, @"q", v98, v100, v99);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v185 = objc_msgSend_objectForKey_(a4, v88, @"q", v89, v90);
+              v224 = objc_msgSend_objectForKey_(a4, v107, @"q", v108, v110, v109);
             }
 
             else
             {
-              v185 = 0;
+              v224 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v88, @"r", v89, v90);
+          objc_msgSend_objectForKey_(a4, v107, @"r", v108, v110, v109);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v94 = MEMORY[0x277CBEA90];
-            v95 = objc_msgSend_objectForKey_(a4, v91, @"r", v92, v93);
-            v184 = objc_msgSend__IDSDataFromBase64String_(v94, v96, v95, v97, v98);
+            v115 = MEMORY[0x277CBEA90];
+            v116 = objc_msgSend_objectForKey_(a4, v111, @"r", v112, v114, v113);
+            v223 = objc_msgSend__IDSDataFromBase64String_(v115, v117, v116, v118, v120, v119);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v91, @"r", v92, v93);
+            objc_msgSend_objectForKey_(a4, v111, @"r", v112, v114, v113);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v184 = objc_msgSend_objectForKey_(a4, v99, @"r", v100, v101);
+              v223 = objc_msgSend_objectForKey_(a4, v121, @"r", v122, v124, v123);
             }
 
             else
             {
-              v184 = 0;
+              v223 = 0;
             }
           }
 
-          objc_msgSend_objectForKey_(a4, v99, @"K", v100, v101);
+          objc_msgSend_objectForKey_(a4, v121, @"K", v122, v124, v123);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v105 = MEMORY[0x277CBEA90];
-            v106 = objc_msgSend_objectForKey_(a4, v102, @"K", v103, v104);
-            v110 = objc_msgSend__IDSDataFromBase64String_(v105, v107, v106, v108, v109);
+            v129 = MEMORY[0x277CBEA90];
+            v130 = objc_msgSend_objectForKey_(a4, v125, @"K", v126, v128, v127);
+            v135 = objc_msgSend__IDSDataFromBase64String_(v129, v131, v130, v132, v134, v133);
             goto LABEL_56;
           }
 
-          objc_msgSend_objectForKey_(a4, v102, @"K", v103, v104);
+          objc_msgSend_objectForKey_(a4, v125, @"K", v126, v128, v127);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v110 = objc_msgSend_objectForKey_(a4, v111, @"K", v112, v113);
+            v135 = objc_msgSend_objectForKey_(a4, v136, @"K", v137, v139, v138);
 LABEL_56:
-            v114 = v110;
+            v140 = v135;
           }
 
           else
           {
-            v114 = 0;
+            v140 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v111, @"L", v112, v113);
+          objc_msgSend_objectForKey_(a4, v136, @"L", v137, v139, v138);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v118 = MEMORY[0x277CBEA90];
-            v119 = objc_msgSend_objectForKey_(a4, v115, @"L", v116, v117);
-            v123 = objc_msgSend__IDSDataFromBase64String_(v118, v120, v119, v121, v122);
+            v145 = MEMORY[0x277CBEA90];
+            v146 = objc_msgSend_objectForKey_(a4, v141, @"L", v142, v144, v143);
+            v151 = objc_msgSend__IDSDataFromBase64String_(v145, v147, v146, v148, v150, v149);
             goto LABEL_62;
           }
 
-          objc_msgSend_objectForKey_(a4, v115, @"L", v116, v117);
+          objc_msgSend_objectForKey_(a4, v141, @"L", v142, v144, v143);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v123 = objc_msgSend_objectForKey_(a4, v124, @"L", v125, v126);
+            v151 = objc_msgSend_objectForKey_(a4, v152, @"L", v153, v155, v154);
 LABEL_62:
-            v127 = v123;
+            v156 = v151;
           }
 
           else
           {
-            v127 = 0;
+            v156 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v124, @"U", v125, v126);
+          objc_msgSend_objectForKey_(a4, v152, @"U", v153, v155, v154);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v131 = MEMORY[0x277CBEA90];
-            v132 = objc_msgSend_objectForKey_(a4, v128, @"U", v129, v130);
-            v136 = objc_msgSend__IDSDataFromBase64String_(v131, v133, v132, v134, v135);
+            v161 = MEMORY[0x277CBEA90];
+            v162 = objc_msgSend_objectForKey_(a4, v157, @"U", v158, v160, v159);
+            v167 = objc_msgSend__IDSDataFromBase64String_(v161, v163, v162, v164, v166, v165);
             goto LABEL_68;
           }
 
-          objc_msgSend_objectForKey_(a4, v128, @"U", v129, v130);
+          objc_msgSend_objectForKey_(a4, v157, @"U", v158, v160, v159);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v136 = objc_msgSend_objectForKey_(a4, v137, @"U", v138, v139);
+            v167 = objc_msgSend_objectForKey_(a4, v168, @"U", v169, v171, v170);
 LABEL_68:
-            v140 = v136;
+            v172 = v167;
+          }
+
+          else
+          {
+            v172 = 0;
+          }
+
+          v173 = MEMORY[0x277CCABB0];
+          v174 = objc_opt_class();
+          v179 = objc_msgSend_objectForKey_(a4, v175, @"V", v176, v178, v177);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v179)
+          {
+            v185 = objc_msgSend_registration(MEMORY[0x277D19298], v180, v181, v182, v184, v183);
+            if (os_log_type_enabled(v185, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v236 = @"V";
+              v237 = 2112;
+              v238 = v174;
+              _os_log_fault_impl(&dword_23BC9F000, v185, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v179 = 0;
+          }
+
+          v186 = objc_msgSend_intValue(v179, v180, v181, v182, v184, v183);
+          v191 = objc_msgSend_numberWithInt_(v173, v187, v186, v188, v190, v189);
+          v192 = objc_opt_class();
+          v197 = objc_msgSend_objectForKey_(a4, v193, @"x", v194, v196, v195);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v197)
+          {
+            v203 = objc_msgSend_registration(MEMORY[0x277D19298], v198, v199, v200, v202, v201);
+            if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v236 = @"x";
+              v237 = 2112;
+              v238 = v192;
+              _os_log_fault_impl(&dword_23BC9F000, v203, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v197 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v198, @"d", v200, v202, v201);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v208 = MEMORY[0x277CBEA90];
+            v209 = objc_msgSend_objectForKey_(a4, v204, @"d", v205, v207, v206);
+            v214 = objc_msgSend__IDSDataFromBase64String_(v208, v210, v209, v211, v213, v212);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v204, @"d", v205, v207, v206);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v214 = objc_msgSend_objectForKey_(a4, v215, @"d", v217, v216, v218);
+            }
+
+            else
+            {
+              v214 = 0;
+            }
+          }
+
+          objc_msgSend_handler_relayUpdated_topic_peerID_peerPushToken_relayType_relayConnectionID_relayTransactionIDChannelBind_relayTokenChannelBind_relayCandidateID_relayBlob_peerRelayNATIP_peerRelayNATPort_clientInfo_serviceData_(v16, v215, a2, v228, v216, a3, v40, v227, v226, v225, v224, v223, v140, v156, v172, v191, v197, v214);
+        }
+
+        ++v15;
+      }
+
+      while (v230 != v15);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v231, v239, v20, 16);
+    }
+
+    while (v14);
+  }
+}
+
+void sub_23BCBDA50(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
+{
+  v261 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v257 = a4;
+      _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleRelayCancelPush: %@", buf, 0xCu);
+    }
+  }
+
+  v6 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v257 = a4;
+    _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled())
+  {
+    if (MarcoShouldLog())
+    {
+      v238 = a4;
+      MarcoLog();
+    }
+
+    if (IMShouldLog())
+    {
+      v238 = a4;
+      IMLogString();
+    }
+  }
+
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v238);
+  v254 = 0u;
+  v255 = 0u;
+  v252 = 0u;
+  v253 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v252, v260, 0, 16);
+  if (v14)
+  {
+    v249 = *v253;
+    *&v15 = 138412802;
+    v239 = v15;
+    obj = v12;
+    do
+    {
+      v16 = 0;
+      v250 = v14;
+      do
+      {
+        if (*v253 != v249)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v17 = *(*(&v252 + 1) + 8 * v16);
+        if (objc_opt_respondsToSelector())
+        {
+          objc_msgSend_objectForKey_(a4, v18, @"s", v19, v21, v20);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v26 = MEMORY[0x277CBEA90];
+            v27 = objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
+            v248 = objc_msgSend__IDSDataFromBase64String_(v26, v28, v27, v29, v31, v30);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v22, @"s", v23, v25, v24);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v248 = objc_msgSend_objectForKey_(a4, v32, @"s", v33, v35, v34);
+            }
+
+            else
+            {
+              v248 = 0;
+            }
+          }
+
+          v36 = objc_opt_class();
+          v251 = objc_msgSend_objectForKey_(a4, v37, @"I", v38, v40, v39);
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            if (v251)
+            {
+              v46 = objc_msgSend_registration(MEMORY[0x277D19298], v41, v42, v43, v45, v44);
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+              {
+                *buf = 138412546;
+                v257 = @"I";
+                v258 = 2112;
+                v259 = v36;
+                _os_log_fault_impl(&dword_23BC9F000, v46, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              }
+            }
+
+            v251 = 0;
+          }
+
+          v47 = MEMORY[0x277CCABB0];
+          v48 = objc_opt_class();
+          v53 = objc_msgSend_objectForKey_(a4, v49, @"t", v50, v52, v51);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v53)
+          {
+            v59 = objc_msgSend_registration(MEMORY[0x277D19298], v54, v55, v56, v58, v57);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v257 = @"t";
+              v258 = 2112;
+              v259 = v48;
+              _os_log_fault_impl(&dword_23BC9F000, v59, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v53 = 0;
+          }
+
+          v60 = objc_msgSend_intValue(v53, v54, v55, v56, v58, v57);
+          v247 = objc_msgSend_numberWithInt_(v47, v61, v60, v62, v64, v63);
+          objc_msgSend_objectForKey_(a4, v65, @"r", v66, v68, v67);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v73 = MEMORY[0x277CBEA90];
+            v74 = objc_msgSend_objectForKey_(a4, v69, @"r", v70, v72, v71);
+            v246 = objc_msgSend__IDSDataFromBase64String_(v73, v75, v74, v76, v78, v77);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v69, @"r", v70, v72, v71);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v246 = objc_msgSend_objectForKey_(a4, v79, @"r", v80, v82, v81);
+            }
+
+            else
+            {
+              v246 = 0;
+            }
+          }
+
+          objc_msgSend_objectForKey_(a4, v79, @"k", v80, v82, v81);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v87 = MEMORY[0x277CBEA90];
+            v88 = objc_msgSend_objectForKey_(a4, v83, @"k", v84, v86, v85);
+            v245 = objc_msgSend__IDSDataFromBase64String_(v87, v89, v88, v90, v92, v91);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v83, @"k", v84, v86, v85);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v245 = objc_msgSend_objectForKey_(a4, v93, @"k", v94, v96, v95);
+            }
+
+            else
+            {
+              v245 = 0;
+            }
+          }
+
+          objc_msgSend_objectForKey_(a4, v93, @"q", v94, v96, v95);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v101 = MEMORY[0x277CBEA90];
+            v102 = objc_msgSend_objectForKey_(a4, v97, @"q", v98, v100, v99);
+            v244 = objc_msgSend__IDSDataFromBase64String_(v101, v103, v102, v104, v106, v105);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v97, @"q", v98, v100, v99);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v244 = objc_msgSend_objectForKey_(a4, v107, @"q", v108, v110, v109);
+            }
+
+            else
+            {
+              v244 = 0;
+            }
+          }
+
+          objc_msgSend_objectForKey_(a4, v107, @"K", v108, v110, v109);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v115 = MEMORY[0x277CBEA90];
+            v116 = objc_msgSend_objectForKey_(a4, v111, @"K", v112, v114, v113);
+            v243 = objc_msgSend__IDSDataFromBase64String_(v115, v117, v116, v118, v120, v119);
+          }
+
+          else
+          {
+            objc_msgSend_objectForKey_(a4, v111, @"K", v112, v114, v113);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v243 = objc_msgSend_objectForKey_(a4, v121, @"K", v122, v124, v123);
+            }
+
+            else
+            {
+              v243 = 0;
+            }
+          }
+
+          objc_msgSend_objectForKey_(a4, v121, @"h", v122, v124, v123);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v129 = MEMORY[0x277CBEA90];
+            v130 = objc_msgSend_objectForKey_(a4, v125, @"h", v126, v128, v127);
+            v135 = objc_msgSend__IDSDataFromBase64String_(v129, v131, v130, v132, v134, v133);
+            goto LABEL_56;
+          }
+
+          objc_msgSend_objectForKey_(a4, v125, @"h", v126, v128, v127);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v135 = objc_msgSend_objectForKey_(a4, v136, @"h", v137, v139, v138);
+LABEL_56:
+            v140 = v135;
           }
 
           else
@@ -4709,478 +5015,151 @@ LABEL_68:
 
           v141 = MEMORY[0x277CCABB0];
           v142 = objc_opt_class();
-          v146 = objc_msgSend_objectForKey_(a4, v143, @"V", v144, v145);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v146)
+          v147 = objc_msgSend_objectForKey_(a4, v143, @"o", v144, v146, v145);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v147)
           {
-            v151 = objc_msgSend_registration(MEMORY[0x277D19298], v147, v148, v149, v150);
-            if (os_log_type_enabled(v151, OS_LOG_TYPE_FAULT))
+            v153 = objc_msgSend_registration(MEMORY[0x277D19298], v148, v149, v150, v152, v151);
+            if (os_log_type_enabled(v153, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v197 = @"V";
-              v198 = 2112;
-              v199 = v142;
-              _os_log_fault_impl(&dword_23BC9F000, v151, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v257 = @"o";
+              v258 = 2112;
+              v259 = v142;
+              _os_log_fault_impl(&dword_23BC9F000, v153, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v146 = 0;
+            v147 = 0;
           }
 
-          v152 = objc_msgSend_intValue(v146, v147, v148, v149, v150);
-          v156 = objc_msgSend_numberWithInt_(v141, v153, v152, v154, v155);
-          v157 = objc_opt_class();
-          v161 = objc_msgSend_objectForKey_(a4, v158, @"x", v159, v160);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v161)
-          {
-            v166 = objc_msgSend_registration(MEMORY[0x277D19298], v162, v163, v164, v165);
-            if (os_log_type_enabled(v166, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v197 = @"x";
-              v198 = 2112;
-              v199 = v157;
-              _os_log_fault_impl(&dword_23BC9F000, v166, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
-            v161 = 0;
-          }
-
-          objc_msgSend_objectForKey_(a4, v162, @"d", v164, v165);
+          v154 = objc_msgSend_intValue(v147, v148, v149, v150, v152, v151);
+          v159 = objc_msgSend_numberWithInt_(v141, v155, v154, v156, v158, v157);
+          objc_msgSend_objectForKey_(a4, v160, @"H", v161, v163, v162);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v170 = MEMORY[0x277CBEA90];
-            v171 = objc_msgSend_objectForKey_(a4, v167, @"d", v168, v169);
-            v175 = objc_msgSend__IDSDataFromBase64String_(v170, v172, v171, v173, v174);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v167, @"d", v168, v169);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v175 = objc_msgSend_objectForKey_(a4, v176, @"d", v177, v178);
-            }
-
-            else
-            {
-              v175 = 0;
-            }
-          }
-
-          objc_msgSend_handler_relayUpdated_topic_peerID_peerPushToken_relayType_relayConnectionID_relayTransactionIDChannelBind_relayTokenChannelBind_relayCandidateID_relayBlob_peerRelayNATIP_peerRelayNATPort_clientInfo_serviceData_(v15, v176, a2, v189, a3, v34, v188, v187, v186, v185, v184, v114, v127, v140, v156, v161, v175);
-        }
-
-        ++v14;
-      }
-
-      while (v191 != v14);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v192, v200, 16);
-    }
-
-    while (v13);
-  }
-
-  v179 = *MEMORY[0x277D85DE8];
-}
-
-void sub_23BCBDA50(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
-{
-  v219 = *MEMORY[0x277D85DE8];
-  if (IMOSLoggingEnabled())
-  {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 138412290;
-      v215 = a4;
-      _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleRelayCancelPush: %@", buf, 0xCu);
-    }
-  }
-
-  v6 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v215 = a4;
-    _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
-  }
-
-  if (os_log_shim_legacy_logging_enabled())
-  {
-    if (MarcoShouldLog())
-    {
-      v196 = a4;
-      MarcoLog();
-    }
-
-    if (IMShouldLog())
-    {
-      v196 = a4;
-      IMLogString();
-    }
-  }
-
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v196);
-  v212 = 0u;
-  v213 = 0u;
-  v210 = 0u;
-  v211 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v210, v218, 16);
-  if (v13)
-  {
-    v207 = *v211;
-    *&v14 = 138412802;
-    v197 = v14;
-    obj = v11;
-    do
-    {
-      v15 = 0;
-      v208 = v13;
-      do
-      {
-        if (*v211 != v207)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v16 = *(*(&v210 + 1) + 8 * v15);
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v19);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v23 = MEMORY[0x277CBEA90];
-            v24 = objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
-            v206 = objc_msgSend__IDSDataFromBase64String_(v23, v25, v24, v26, v27);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v20, @"s", v21, v22);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v206 = objc_msgSend_objectForKey_(a4, v28, @"s", v29, v30);
-            }
-
-            else
-            {
-              v206 = 0;
-            }
-          }
-
-          v31 = objc_opt_class();
-          v209 = objc_msgSend_objectForKey_(a4, v32, @"I", v33, v34);
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            if (v209)
-            {
-              v39 = objc_msgSend_registration(MEMORY[0x277D19298], v35, v36, v37, v38);
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
-              {
-                *buf = 138412546;
-                v215 = @"I";
-                v216 = 2112;
-                v217 = v31;
-                _os_log_fault_impl(&dword_23BC9F000, v39, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-              }
-            }
-
-            v209 = 0;
-          }
-
-          v40 = MEMORY[0x277CCABB0];
-          v41 = objc_opt_class();
-          v45 = objc_msgSend_objectForKey_(a4, v42, @"t", v43, v44);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v45)
-          {
-            v50 = objc_msgSend_registration(MEMORY[0x277D19298], v46, v47, v48, v49);
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v215 = @"t";
-              v216 = 2112;
-              v217 = v41;
-              _os_log_fault_impl(&dword_23BC9F000, v50, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
-            v45 = 0;
-          }
-
-          v51 = objc_msgSend_intValue(v45, v46, v47, v48, v49);
-          v205 = objc_msgSend_numberWithInt_(v40, v52, v51, v53, v54);
-          objc_msgSend_objectForKey_(a4, v55, @"r", v56, v57);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v61 = MEMORY[0x277CBEA90];
-            v62 = objc_msgSend_objectForKey_(a4, v58, @"r", v59, v60);
-            v204 = objc_msgSend__IDSDataFromBase64String_(v61, v63, v62, v64, v65);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v58, @"r", v59, v60);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v204 = objc_msgSend_objectForKey_(a4, v66, @"r", v67, v68);
-            }
-
-            else
-            {
-              v204 = 0;
-            }
-          }
-
-          objc_msgSend_objectForKey_(a4, v66, @"k", v67, v68);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v72 = MEMORY[0x277CBEA90];
-            v73 = objc_msgSend_objectForKey_(a4, v69, @"k", v70, v71);
-            v203 = objc_msgSend__IDSDataFromBase64String_(v72, v74, v73, v75, v76);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v69, @"k", v70, v71);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v203 = objc_msgSend_objectForKey_(a4, v77, @"k", v78, v79);
-            }
-
-            else
-            {
-              v203 = 0;
-            }
-          }
-
-          objc_msgSend_objectForKey_(a4, v77, @"q", v78, v79);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v83 = MEMORY[0x277CBEA90];
-            v84 = objc_msgSend_objectForKey_(a4, v80, @"q", v81, v82);
-            v202 = objc_msgSend__IDSDataFromBase64String_(v83, v85, v84, v86, v87);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v80, @"q", v81, v82);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v202 = objc_msgSend_objectForKey_(a4, v88, @"q", v89, v90);
-            }
-
-            else
-            {
-              v202 = 0;
-            }
-          }
-
-          objc_msgSend_objectForKey_(a4, v88, @"K", v89, v90);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v94 = MEMORY[0x277CBEA90];
-            v95 = objc_msgSend_objectForKey_(a4, v91, @"K", v92, v93);
-            v201 = objc_msgSend__IDSDataFromBase64String_(v94, v96, v95, v97, v98);
-          }
-
-          else
-          {
-            objc_msgSend_objectForKey_(a4, v91, @"K", v92, v93);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v201 = objc_msgSend_objectForKey_(a4, v99, @"K", v100, v101);
-            }
-
-            else
-            {
-              v201 = 0;
-            }
-          }
-
-          objc_msgSend_objectForKey_(a4, v99, @"h", v100, v101);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v105 = MEMORY[0x277CBEA90];
-            v106 = objc_msgSend_objectForKey_(a4, v102, @"h", v103, v104);
-            v110 = objc_msgSend__IDSDataFromBase64String_(v105, v107, v106, v108, v109);
-            goto LABEL_56;
-          }
-
-          objc_msgSend_objectForKey_(a4, v102, @"h", v103, v104);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v110 = objc_msgSend_objectForKey_(a4, v111, @"h", v112, v113);
-LABEL_56:
-            v114 = v110;
-          }
-
-          else
-          {
-            v114 = 0;
-          }
-
-          v115 = MEMORY[0x277CCABB0];
-          v116 = objc_opt_class();
-          v120 = objc_msgSend_objectForKey_(a4, v117, @"o", v118, v119);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v120)
-          {
-            v125 = objc_msgSend_registration(MEMORY[0x277D19298], v121, v122, v123, v124);
-            if (os_log_type_enabled(v125, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v215 = @"o";
-              v216 = 2112;
-              v217 = v116;
-              _os_log_fault_impl(&dword_23BC9F000, v125, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
-            v120 = 0;
-          }
-
-          v126 = objc_msgSend_intValue(v120, v121, v122, v123, v124);
-          v130 = objc_msgSend_numberWithInt_(v115, v127, v126, v128, v129);
-          objc_msgSend_objectForKey_(a4, v131, @"H", v132, v133);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v137 = MEMORY[0x277CBEA90];
-            v138 = objc_msgSend_objectForKey_(a4, v134, @"H", v135, v136);
-            v142 = objc_msgSend__IDSDataFromBase64String_(v137, v139, v138, v140, v141);
+            v168 = MEMORY[0x277CBEA90];
+            v169 = objc_msgSend_objectForKey_(a4, v164, @"H", v165, v167, v166);
+            v174 = objc_msgSend__IDSDataFromBase64String_(v168, v170, v169, v171, v173, v172);
             goto LABEL_67;
           }
 
-          objc_msgSend_objectForKey_(a4, v134, @"H", v135, v136);
+          objc_msgSend_objectForKey_(a4, v164, @"H", v165, v167, v166);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v142 = objc_msgSend_objectForKey_(a4, v143, @"H", v144, v145);
+            v174 = objc_msgSend_objectForKey_(a4, v175, @"H", v176, v178, v177);
 LABEL_67:
-            v146 = v142;
+            v179 = v174;
           }
 
           else
           {
-            v146 = 0;
+            v179 = 0;
           }
 
-          v147 = MEMORY[0x277CCABB0];
-          v148 = objc_opt_class();
-          v152 = objc_msgSend_objectForKey_(a4, v149, @"O", v150, v151);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v152)
+          v180 = MEMORY[0x277CCABB0];
+          v181 = objc_opt_class();
+          v186 = objc_msgSend_objectForKey_(a4, v182, @"O", v183, v185, v184);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v186)
           {
-            v157 = objc_msgSend_registration(MEMORY[0x277D19298], v153, v154, v155, v156);
-            if (os_log_type_enabled(v157, OS_LOG_TYPE_FAULT))
+            v192 = objc_msgSend_registration(MEMORY[0x277D19298], v187, v188, v189, v191, v190);
+            if (os_log_type_enabled(v192, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v215 = @"O";
-              v216 = 2112;
-              v217 = v148;
-              _os_log_fault_impl(&dword_23BC9F000, v157, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v257 = @"O";
+              v258 = 2112;
+              v259 = v181;
+              _os_log_fault_impl(&dword_23BC9F000, v192, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v152 = 0;
+            v186 = 0;
           }
 
-          v158 = objc_msgSend_intValue(v152, v153, v154, v155, v156);
-          v162 = objc_msgSend_numberWithInt_(v147, v159, v158, v160, v161);
-          v163 = objc_opt_class();
-          v167 = objc_msgSend_objectForKey_(a4, v164, @"y", v165, v166);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v167)
+          v193 = objc_msgSend_intValue(v186, v187, v188, v189, v191, v190);
+          v198 = objc_msgSend_numberWithInt_(v180, v194, v193, v195, v197, v196);
+          v199 = objc_opt_class();
+          v204 = objc_msgSend_objectForKey_(a4, v200, @"y", v201, v203, v202);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v204)
           {
-            v172 = objc_msgSend_registration(MEMORY[0x277D19298], v168, v169, v170, v171);
-            if (os_log_type_enabled(v172, OS_LOG_TYPE_FAULT))
+            v210 = objc_msgSend_registration(MEMORY[0x277D19298], v205, v206, v207, v209, v208);
+            if (os_log_type_enabled(v210, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v215 = @"y";
-              v216 = 2112;
-              v217 = v163;
-              _os_log_fault_impl(&dword_23BC9F000, v172, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v257 = @"y";
+              v258 = 2112;
+              v259 = v199;
+              _os_log_fault_impl(&dword_23BC9F000, v210, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v167 = 0;
+            v204 = 0;
           }
 
-          v173 = objc_opt_class();
-          v177 = objc_msgSend_objectForKey_(a4, v174, @"x", v175, v176);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v177)
+          v211 = objc_opt_class();
+          v216 = objc_msgSend_objectForKey_(a4, v212, @"x", v213, v215, v214);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v216)
           {
-            v182 = objc_msgSend_registration(MEMORY[0x277D19298], v178, v179, v180, v181);
-            if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+            v222 = objc_msgSend_registration(MEMORY[0x277D19298], v217, v218, v219, v221, v220);
+            if (os_log_type_enabled(v222, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v215 = @"x";
-              v216 = 2112;
-              v217 = v173;
-              _os_log_fault_impl(&dword_23BC9F000, v182, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v257 = @"x";
+              v258 = 2112;
+              v259 = v211;
+              _os_log_fault_impl(&dword_23BC9F000, v222, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v177 = 0;
+            v216 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v178, @"d", v180, v181);
+          objc_msgSend_objectForKey_(a4, v217, @"d", v219, v221, v220);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v186 = MEMORY[0x277CBEA90];
-            v187 = objc_msgSend_objectForKey_(a4, v183, @"d", v184, v185);
-            v191 = objc_msgSend__IDSDataFromBase64String_(v186, v188, v187, v189, v190);
+            v227 = MEMORY[0x277CBEA90];
+            v228 = objc_msgSend_objectForKey_(a4, v223, @"d", v224, v226, v225);
+            v233 = objc_msgSend__IDSDataFromBase64String_(v227, v229, v228, v230, v232, v231);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v183, @"d", v184, v185);
+            objc_msgSend_objectForKey_(a4, v223, @"d", v224, v226, v225);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v191 = objc_msgSend_objectForKey_(a4, v192, @"d", v193, v194);
+              v233 = objc_msgSend_objectForKey_(a4, v234, @"d", v236, v235, v237);
             }
 
             else
             {
-              v191 = 0;
+              v233 = 0;
             }
           }
 
-          objc_msgSend_handler_relayCancelled_topic_peerID_relayType_relayTokenAllocReq_relayConnectionID_relayTransactionIDAlloc_relayCandidateID_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_reason_clientInfo_serviceData_(v16, v192, a2, v206, a3, v209, v205, v204, v203, v202, v201, v114, v130, v146, v162, v167, v177, v191, v197);
+          objc_msgSend_handler_relayCancelled_topic_peerID_relayType_relayTokenAllocReq_relayConnectionID_relayTransactionIDAlloc_relayCandidateID_myRelayIP_myRelayPort_peerRelayIP_peerRelayPort_reason_clientInfo_serviceData_(v17, v234, a2, v248, v235, a3, v251, v247, v246, v245, v244, v243, v140, v159, v179, v198, v204, v216, v233, v239);
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v208 != v15);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v210, v218, 16);
+      while (v250 != v16);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v252, v260, v21, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v195 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBE7E8(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v91 = a4;
+      v105 = a4;
       _os_log_impl(&dword_23BC9F000, v5, OS_LOG_TYPE_DEBUG, "_handleSendPush: %@", buf, 0xCu);
     }
   }
@@ -5189,7 +5168,7 @@ void sub_23BCBE7E8(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v91 = a4;
+    v105 = a4;
     _os_log_impl(&dword_23BC9F000, v6, OS_LOG_TYPE_DEFAULT, "userInfo: %@", buf, 0xCu);
   }
 
@@ -5197,376 +5176,348 @@ void sub_23BCBE7E8(uint64_t a1, void *a2, uint64_t a3, __CFString *a4)
   {
     if (MarcoShouldLog())
     {
-      v81 = a4;
+      v95 = a4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v81 = a4;
+      v95 = a4;
       IMLogString();
     }
   }
 
-  v11 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v10, v81);
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v86, v94, 16);
-  if (v13)
+  v12 = objc_msgSend_copyHandlersForEnumerating(a2, v7, v8, v9, v11, v10, v95);
+  v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v100, v108, 0, 16);
+  if (v14)
   {
-    v85 = *v87;
-    obj = v11;
+    v99 = *v101;
+    obj = v12;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v87 != v85)
+        if (*v101 != v99)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v86 + 1) + 8 * v14);
+        v16 = *(*(&v100 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          objc_msgSend_objectForKey_(a4, v16, @"s", v17, v18);
+          objc_msgSend_objectForKey_(a4, v17, @"s", v18, v20, v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = MEMORY[0x277CBEA90];
-            v23 = objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
-            v27 = objc_msgSend__IDSDataFromBase64String_(v22, v24, v23, v25, v26);
+            v25 = MEMORY[0x277CBEA90];
+            v26 = objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
+            v31 = objc_msgSend__IDSDataFromBase64String_(v25, v27, v26, v28, v30, v29);
             goto LABEL_21;
           }
 
-          objc_msgSend_objectForKey_(a4, v19, @"s", v20, v21);
+          objc_msgSend_objectForKey_(a4, v21, @"s", v22, v24, v23);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = objc_msgSend_objectForKey_(a4, v28, @"s", v29, v30);
+            v31 = objc_msgSend_objectForKey_(a4, v32, @"s", v33, v35, v34);
 LABEL_21:
-            v31 = v27;
+            v36 = v31;
           }
 
           else
           {
-            v31 = 0;
-          }
-
-          v32 = objc_opt_class();
-          v36 = objc_msgSend_objectForKey_(a4, v33, @"I", v34, v35);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v36)
-          {
-            v41 = objc_msgSend_registration(MEMORY[0x277D19298], v37, v38, v39, v40);
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
-            {
-              *buf = 138412546;
-              v91 = @"I";
-              v92 = 2112;
-              v93 = v32;
-              _os_log_fault_impl(&dword_23BC9F000, v41, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
-            }
-
             v36 = 0;
           }
 
-          v42 = MEMORY[0x277CCABB0];
-          v43 = objc_opt_class();
-          v47 = objc_msgSend_objectForKey_(a4, v44, @"y", v45, v46);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v47)
+          v37 = objc_opt_class();
+          v42 = objc_msgSend_objectForKey_(a4, v38, @"I", v39, v41, v40);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v42)
           {
-            v52 = objc_msgSend_registration(MEMORY[0x277D19298], v48, v49, v50, v51);
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+            v48 = objc_msgSend_registration(MEMORY[0x277D19298], v43, v44, v45, v47, v46);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v91 = @"y";
-              v92 = 2112;
-              v93 = v43;
-              _os_log_fault_impl(&dword_23BC9F000, v52, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v105 = @"I";
+              v106 = 2112;
+              v107 = v37;
+              _os_log_fault_impl(&dword_23BC9F000, v48, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v47 = 0;
+            v42 = 0;
           }
 
-          v53 = objc_msgSend_intValue(v47, v48, v49, v50, v51);
-          v57 = objc_msgSend_numberWithInt_(v42, v54, v53, v55, v56);
-          v58 = objc_opt_class();
-          v62 = objc_msgSend_objectForKey_(a4, v59, @"x", v60, v61);
-          if ((objc_opt_isKindOfClass() & 1) == 0 && v62)
+          v49 = MEMORY[0x277CCABB0];
+          v50 = objc_opt_class();
+          v55 = objc_msgSend_objectForKey_(a4, v51, @"y", v52, v54, v53);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v55)
           {
-            v67 = objc_msgSend_registration(MEMORY[0x277D19298], v63, v64, v65, v66);
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+            v61 = objc_msgSend_registration(MEMORY[0x277D19298], v56, v57, v58, v60, v59);
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v91 = @"x";
-              v92 = 2112;
-              v93 = v58;
-              _os_log_fault_impl(&dword_23BC9F000, v67, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+              v105 = @"y";
+              v106 = 2112;
+              v107 = v50;
+              _os_log_fault_impl(&dword_23BC9F000, v61, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
             }
 
-            v62 = 0;
+            v55 = 0;
           }
 
-          objc_msgSend_objectForKey_(a4, v63, @"d", v65, v66);
+          v62 = objc_msgSend_intValue(v55, v56, v57, v58, v60, v59);
+          v67 = objc_msgSend_numberWithInt_(v49, v63, v62, v64, v66, v65);
+          v68 = objc_opt_class();
+          v73 = objc_msgSend_objectForKey_(a4, v69, @"x", v70, v72, v71);
+          if ((objc_opt_isKindOfClass() & 1) == 0 && v73)
+          {
+            v79 = objc_msgSend_registration(MEMORY[0x277D19298], v74, v75, v76, v78, v77);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 138412546;
+              v105 = @"x";
+              v106 = 2112;
+              v107 = v68;
+              _os_log_fault_impl(&dword_23BC9F000, v79, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", buf, 0x16u);
+            }
+
+            v73 = 0;
+          }
+
+          objc_msgSend_objectForKey_(a4, v74, @"d", v76, v78, v77);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v71 = MEMORY[0x277CBEA90];
-            v72 = objc_msgSend_objectForKey_(a4, v68, @"d", v69, v70);
-            v76 = objc_msgSend__IDSDataFromBase64String_(v71, v73, v72, v74, v75);
+            v84 = MEMORY[0x277CBEA90];
+            v85 = objc_msgSend_objectForKey_(a4, v80, @"d", v81, v83, v82);
+            v90 = objc_msgSend__IDSDataFromBase64String_(v84, v86, v85, v87, v89, v88);
           }
 
           else
           {
-            objc_msgSend_objectForKey_(a4, v68, @"d", v69, v70);
+            objc_msgSend_objectForKey_(a4, v80, @"d", v81, v83, v82);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v76 = objc_msgSend_objectForKey_(a4, v77, @"d", v78, v79);
+              v90 = objc_msgSend_objectForKey_(a4, v91, @"d", v93, v92, v94);
             }
 
             else
             {
-              v76 = 0;
+              v90 = 0;
             }
           }
 
-          objc_msgSend_handler_incomingMessage_topic_peerID_reason_clientInfo_serviceData_(v15, v77, a2, v31, a3, v36, v57, v62, v76);
+          objc_msgSend_handler_incomingMessage_topic_peerID_reason_clientInfo_serviceData_(v16, v91, a2, v36, v92, a3, v42, v67, v73, v90);
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v13 != v14);
-      v11 = obj;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v86, v94, 16);
+      while (v14 != v15);
+      v12 = obj;
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v100, v108, v20, 16);
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BCBF7DC(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_23BC9F000, a2, OS_LOG_TYPE_ERROR, "IMAVInterfaceNetworkCheckResult unknown/unhandled result: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_23BC9F000, a2, OS_LOG_TYPE_ERROR, "IMAVInterfaceNetworkCheckResult unknown/unhandled result: %ld", &v2, 0xCu);
 }
 
 void sub_23BCBF898()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = 138412546;
-  v2 = @"session-token";
-  v3 = 2080;
-  v4 = "dictionary";
-  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v0 = 138412546;
+  v1 = @"session-token";
+  v2 = 2080;
+  v3 = "dictionary";
+  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v0, 0x16u);
 }
 
 void sub_23BCBF934()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBF9BC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFA44()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFACC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFB54()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFBDC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFC64()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFCEC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFD74()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFDFC()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = 138412546;
-  v2 = @"reason";
-  v3 = 2080;
-  v4 = "dictionary";
-  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v0 = 138412546;
+  v1 = @"reason";
+  v2 = 2080;
+  v3 = "dictionary";
+  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v0, 0x16u);
 }
 
 void sub_23BCBFE98()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = 138412546;
-  v2 = @"peers";
-  v3 = 2080;
-  v4 = "dictionary";
-  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v0 = 138412546;
+  v1 = @"peers";
+  v2 = 2080;
+  v3 = "dictionary";
+  _os_log_error_impl(&dword_23BC9F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", &v0, 0x16u);
 }
 
 void sub_23BCBFF34()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCBFFBC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC0044()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC00CC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC0154()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC01DC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC0264()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC02EC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC0374()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC03FC()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC0484()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC050C()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
   sub_23BCB6024();
-  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_23BCB6034(&dword_23BC9F000, MEMORY[0x277D86220], v0, "REQUIRED_ATTRIBUTE - Warning, missing %@ to add to %s", v1, v2, v3, v4, v5);
 }
 
 void sub_23BCC05A8(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"W";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_fault_impl(&dword_23BC9F000, a2, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"W";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_fault_impl(&dword_23BC9F000, a2, OS_LOG_TYPE_FAULT, "_handleInitatePush: %@", &v2, 0x16u);
 }

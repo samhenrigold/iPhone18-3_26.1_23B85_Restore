@@ -66,31 +66,31 @@
 
 - (id)columnNamesForProperties:(id)properties
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(propertiesCopy, "count")}];
   descriptor = [(PPSSQLiteQuery *)self descriptor];
   entity = [descriptor entity];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = propertiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v11 rangeOfString:@"."];
         if (v12 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -106,13 +106,11 @@
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -173,10 +171,9 @@ uint64_t __63__PPSSQLiteQuery_enumerateProperties_error_enumerationHandler___blo
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 + (id)queryWithDatabase:(id)database entity:(id)entity predicate:(id)predicate

@@ -23,28 +23,24 @@
 
 - (MULayoutItem)container
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUCompositionalStackLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C57796A8(v6);
+  sub_1C57796A8(v5);
 
   return Strong;
 }
 
 - (void)setContainer:(id)container
 {
-  v4 = OBJC_IVAR___MUCompositionalStackLayoutInternal_builder;
-  v5 = *(&self->super.super.isa + OBJC_IVAR___MUCompositionalStackLayoutInternal_builder);
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C5623A68(v10);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  v7 = *(&self->super.super.isa + v4);
-  sub_1C57796D8(v10, v9);
-  sub_1C5623B40(v9, v8);
-  sub_1C57796A8(v10);
+  sub_1C57796D8(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C57796A8(v7);
   sub_1C5779578();
   swift_unknownObjectRelease();
 }

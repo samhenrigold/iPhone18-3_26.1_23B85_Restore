@@ -410,32 +410,32 @@ LABEL_18:
     zoneID = [recordID zoneID];
 
     v7 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(recordCopy, "count")}];
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v23 = recordCopy;
+    v28 = 0u;
+    v24 = recordCopy;
     v8 = recordCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v26;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v25 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [[CKRecordID alloc] initWithRecordName:*(*(&v24 + 1) + 8 * i) zoneID:zoneID];
+          v13 = [[CKRecordID alloc] initWithRecordName:*(*(&v25 + 1) + 8 * i) zoneID:zoneID];
           v14 = [[CKReference alloc] initWithRecordID:v13 action:0];
           [v7 addObject:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v10);
@@ -443,41 +443,41 @@ LABEL_18:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_100068094();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100068094(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         recordID2 = [(CKRecord *)selfCopy recordID];
         *buf = 138412546;
-        v29 = v7;
-        v30 = 2114;
-        v31 = recordID2;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Setting proposed contributors to %@ for record %{public}@", buf, 0x16u);
+        v30 = v7;
+        v31 = 2114;
+        v32 = recordID2;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Setting proposed contributors to %@ for record %{public}@", buf, 0x16u);
       }
     }
 
     pluginFields = [(CKRecord *)selfCopy pluginFields];
-    v18 = [pluginFields mutableCopy];
+    v19 = [pluginFields mutableCopy];
 
-    if (!v18)
+    if (!v19)
     {
-      v18 = objc_alloc_init(NSMutableDictionary);
+      v19 = objc_alloc_init(NSMutableDictionary);
     }
 
-    [v18 setValue:v7 forKey:@"proposedContributors"];
-    [(CKRecord *)selfCopy setPluginFields:v18];
-    recordCopy = v23;
+    [v19 setValue:v7 forKey:@"proposedContributors"];
+    [(CKRecord *)selfCopy setPluginFields:v19];
+    recordCopy = v24;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         recordID3 = [(CKRecord *)selfCopy recordID];
         recordName = [recordID3 recordName];
         *buf = 138412546;
-        v29 = v18;
-        v30 = 2112;
-        v31 = recordName;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Setting plugin fields to %@ for %@", buf, 0x16u);
+        v30 = v19;
+        v31 = 2112;
+        v32 = recordName;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Setting plugin fields to %@ for %@", buf, 0x16u);
       }
     }
   }
@@ -635,7 +635,7 @@ LABEL_11:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_1001A334C(self);
+      sub_1001A334C(self, v9);
     }
 
     goto LABEL_17;
@@ -655,7 +655,7 @@ LABEL_11:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = sub_100069014();
+      v16 = sub_100069014(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         recordType = [(CKRecord *)self recordType];
@@ -708,24 +708,25 @@ LABEL_18:
 
     else
     {
-      v15 = 0;
-      v8 = [NSPropertyListSerialization dataWithPropertyList:objectCopy format:200 options:0 error:&v15];
-      v9 = v15;
+      v16 = 0;
+      v8 = [NSPropertyListSerialization dataWithPropertyList:objectCopy format:200 options:0 error:&v16];
+      v9 = v16;
+      v10 = v9;
       if (!v8 && (_CPLSilentLogging & 1) == 0)
       {
-        v10 = sub_100069014();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = sub_100069014(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           recordType = [(CKRecord *)self recordType];
           recordID = [(CKRecord *)self recordID];
           recordName = [recordID recordName];
           *buf = 138543874;
-          v17 = recordType;
-          v18 = 2114;
-          v19 = recordName;
-          v20 = 2112;
-          v21 = v9;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Unable to convert property list for %{public}@.%{public}@: %@", buf, 0x20u);
+          v18 = recordType;
+          v19 = 2114;
+          v20 = recordName;
+          v21 = 2112;
+          v22 = v10;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Unable to convert property list for %{public}@.%{public}@: %@", buf, 0x20u);
         }
       }
     }
@@ -755,12 +756,12 @@ LABEL_15:
   targetCopy = target;
   if (([changeCopy supportsDeletion] & 1) == 0)
   {
-    sub_1001A3474();
+    sub_1001A3474(changeCopy);
   }
 
   if ([changeCopy supportsDirectDeletion])
   {
-    sub_1001A3550();
+    sub_1001A3550(changeCopy);
   }
 
   v10 = CPLBaseCKRecordFromCPLRecordChange(changeCopy, zoneCopy, targetCopy);
@@ -783,12 +784,12 @@ LABEL_15:
   targetCopy = target;
   if (([changeCopy supportsDeletion] & 1) == 0)
   {
-    sub_1001A362C();
+    sub_1001A362C(changeCopy);
   }
 
   if ([changeCopy supportsDirectDeletion])
   {
-    sub_1001A3708();
+    sub_1001A3708(changeCopy);
   }
 
   v10 = CPLBaseSharedCKRecordFromCPLRecordChange(changeCopy, zoneCopy, targetCopy);
@@ -1298,7 +1299,7 @@ LABEL_56:
         *buf = 138412802;
         selfCopy = v13;
         sub_10006D02C();
-        sub_10006D064(&_mh_execute_header, v18, v19, "Mismatching fingerprint (fetched %@ vs. expected %@) for resourceData for %@", v20, v21, v22, v23, v34, v35, buf[0]);
+        sub_10006D064(&_mh_execute_header, v18, v19, "Mismatching fingerprint (fetched %@ vs. expected %@) for resourceData for %@", v20, v21, v22, v23, v34, v35);
       }
     }
 
@@ -1334,7 +1335,7 @@ LABEL_12:
       *buf = 134218498;
       selfCopy = v27;
       sub_10006D02C();
-      sub_10006D064(&_mh_execute_header, v28, v29, "Mismatching filesize (fetched %lu vs. expected %@) for resourceData for %@", v30, v31, v32, v33, v34, v35, buf[0]);
+      sub_10006D064(&_mh_execute_header, v28, v29, "Mismatching filesize (fetched %lu vs. expected %@) for resourceData for %@", v30, v31, v32, v33, v34, v35);
     }
   }
 }

@@ -54,11 +54,11 @@
   [_targetScrollView _scrollToTopFromTouchAtScreenLocation:v5 resultHandler:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
 }
 
-uint64_t __42__ScrollToTopView__tappedScrollToTopView___block_invoke(uint64_t result, int a2)
+id *__42__ScrollToTopView__tappedScrollToTopView___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _showBars];
+    return [result[4] _showBars];
   }
 
   return result;

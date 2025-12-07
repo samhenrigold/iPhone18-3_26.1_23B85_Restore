@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)remoteQuarantineStatusAsString:(int)string;
 - (int)StringAsRemoteQuarantineStatus:(id)status;
 - (int)remoteQuarantineStatus;
 - (unint64_t)hash;
@@ -23,7 +24,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 12))
   {
@@ -78,57 +79,57 @@ LABEL_7:
   }
 
 LABEL_8:
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(fromCopy + 15);
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(VCPBWorkflow *)self addWorkflowTypes:*(*(&v22 + 1) + 8 * i)];
+        [(VCPBWorkflow *)self addWorkflowTypes:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(fromCopy + 9);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(VCPBWorkflow *)self addInputClasses:*(*(&v18 + 1) + 8 * j), v18];
+        [(VCPBWorkflow *)self addInputClasses:*(*(&v17 + 1) + 8 * j), v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
@@ -183,8 +184,6 @@ LABEL_8:
   {
     [(VCPBWorkflow *)self setSubtitle:?];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -344,7 +343,6 @@ LABEL_26:
     }
   }
 
-  v6 = *(equalCopy + 128);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 128) & 0x10) == 0 || self->_iconColor != *(equalCopy + 14))
@@ -356,7 +354,7 @@ LABEL_26:
   else if ((*(equalCopy + 128) & 0x10) != 0)
   {
 LABEL_55:
-    v17 = 0;
+    v14 = 0;
     goto LABEL_56;
   }
 
@@ -432,7 +430,6 @@ LABEL_55:
     }
   }
 
-  v11 = *(equalCopy + 128);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 128) & 4) == 0 || self->_integerMinimumClientVersion != *(equalCopy + 3))
@@ -483,7 +480,6 @@ LABEL_55:
     }
   }
 
-  v15 = *(equalCopy + 128);
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 128) & 0x40) == 0 || self->_remoteQuarantineStatus != *(equalCopy + 26))
@@ -500,22 +496,22 @@ LABEL_55:
   subtitle = self->_subtitle;
   if (subtitle | *(equalCopy + 14))
   {
-    v17 = [(NSString *)subtitle isEqual:?];
+    v14 = [(NSString *)subtitle isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v14 = 1;
   }
 
 LABEL_56:
 
-  return v17;
+  return v14;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_name copyWithZone:zone];
   v7 = *(v5 + 96);
@@ -569,59 +565,59 @@ LABEL_5:
   }
 
 LABEL_6:
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v9 = self->_workflowTypes;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
+    v12 = *v40;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v40 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v39 + 1) + 8 * i) copyWithZone:zone];
         [v5 addWorkflowTypes:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v11);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v15 = self->_inputClasses;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v37;
+    v18 = *v36;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v37 != v18)
+        if (*v36 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v36 + 1) + 8 * j) copyWithZone:{zone, v36}];
+        v20 = [*(*(&v35 + 1) + 8 * j) copyWithZone:{zone, v35}];
         [v5 addInputClasses:v20];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v17);
@@ -649,7 +645,7 @@ LABEL_6:
     *(v5 + 128) |= 2u;
   }
 
-  v26 = [(NSString *)self->_minimumClientVersion copyWithZone:zone, v36];
+  v26 = [(NSString *)self->_minimumClientVersion copyWithZone:zone, v35];
   v27 = *(v5 + 88);
   *(v5 + 88) = v26;
 
@@ -671,7 +667,6 @@ LABEL_6:
   v33 = *(v5 + 112);
   *(v5 + 112) = v32;
 
-  v34 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -822,7 +817,7 @@ LABEL_8:
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_name)
   {
@@ -832,7 +827,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    iconColor = self->_iconColor;
     PBDataWriterWriteFixed32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -852,7 +846,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  iconGlyph = self->_iconGlyph;
   PBDataWriterWriteFixed32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -867,72 +860,68 @@ LABEL_6:
   }
 
 LABEL_43:
-  creationDate = self->_creationDate;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_8:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v7 = self->_workflowTypes;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v8)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_workflowTypes;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v32;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v10)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v13 = self->_inputClasses;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_inputClasses;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v28;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v15; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v28 != v16)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
   if (self->_actionsData)
@@ -945,17 +934,15 @@ LABEL_8:
     PBDataWriterWriteDataField();
   }
 
-  v19 = self->_has;
-  if ((v19 & 4) != 0)
+  v16 = self->_has;
+  if ((v16 & 4) != 0)
   {
-    integerMinimumClientVersion = self->_integerMinimumClientVersion;
     PBDataWriterWriteUint64Field();
-    v19 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v19 & 2) != 0)
+  if ((v16 & 2) != 0)
   {
-    integerLastMigratedClientVersion = self->_integerLastMigratedClientVersion;
     PBDataWriterWriteUint64Field();
   }
 
@@ -976,7 +963,6 @@ LABEL_8:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    remoteQuarantineStatus = self->_remoteQuarantineStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -984,8 +970,6 @@ LABEL_8:
   {
     PBDataWriterWriteStringField();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
@@ -1164,6 +1148,21 @@ LABEL_8:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)remoteQuarantineStatusAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2788FEB70[string - 1];
   }
 
   return v4;

@@ -92,66 +92,65 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_age)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_gender)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_skinTone)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_ethnicity)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_deviceLanguage)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_proofingDecision)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_issuer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_livenessAssessment)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_gestureAssessment)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -277,7 +276,6 @@
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 88);
   if (*&self->_has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -289,7 +287,7 @@
   else if (*(equalCopy + 88))
   {
 LABEL_25:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_26;
   }
 
@@ -365,17 +363,17 @@ LABEL_25:
   gestureAssessment = self->_gestureAssessment;
   if (gestureAssessment | *(equalCopy + 6))
   {
-    v15 = [(NSString *)gestureAssessment isEqual:?];
+    v14 = [(NSString *)gestureAssessment isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_26:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash

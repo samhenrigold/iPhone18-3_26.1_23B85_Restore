@@ -20,7 +20,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
   v5 = equalCopy;
   if (self == equalCopy)
@@ -104,51 +104,50 @@ LABEL_31:
                       v42 = objc_msgSend_count(self->_mappingInterval, v17, v18);
                       if (v42 == objc_msgSend_count(v9->_mappingInterval, v43, v44))
                       {
-                        v70 = 0u;
-                        v71 = 0u;
-                        v68 = 0u;
                         v69 = 0u;
+                        v70 = 0u;
+                        v67 = 0u;
+                        v68 = 0u;
                         v47 = objc_msgSend_allKeys(self->_mappingInterval, v45, v46);
-                        v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v68, v72, 16);
+                        v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v67, v71, 16);
                         if (v49)
                         {
-                          v50 = *v69;
+                          v50 = *v68;
                           obj = v47;
                           while (2)
                           {
                             for (i = 0; i != v49; ++i)
                             {
-                              if (*v69 != v50)
+                              if (*v68 != v50)
                               {
                                 objc_enumerationMutation(obj);
                               }
 
-                              v52 = *(*(&v68 + 1) + 8 * i);
+                              v52 = *(*(&v67 + 1) + 8 * i);
                               v53 = v9->_mappingInterval;
                               v55 = objc_msgSend_objectForKeyedSubscript_(v53, v54, v52);
                               v56 = v55 == 0;
 
-                              if (v56)
+                              if (!v56)
                               {
-                                goto LABEL_45;
+                                v58 = objc_msgSend_objectForKeyedSubscript_(self->_mappingInterval, v57, v52);
+                                v59 = v9->_mappingInterval;
+                                v61 = objc_msgSend_objectForKeyedSubscript_(v59, v60, v52);
+                                isEqual = objc_msgSend_isEqual_(v58, v62, v61);
+
+                                if (isEqual)
+                                {
+                                  continue;
+                                }
                               }
 
-                              v58 = objc_msgSend_objectForKeyedSubscript_(self->_mappingInterval, v57, v52);
-                              v59 = v9->_mappingInterval;
-                              v61 = objc_msgSend_objectForKeyedSubscript_(v59, v60, v52);
-                              isEqual = objc_msgSend_isEqual_(v58, v62, v61);
-
-                              if ((isEqual & 1) == 0)
-                              {
-LABEL_45:
-                                v31 = 0;
-                                v47 = obj;
-                                goto LABEL_47;
-                              }
+                              v31 = 0;
+                              v47 = obj;
+                              goto LABEL_47;
                             }
 
                             v47 = obj;
-                            v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v64, &v68, v72, 16);
+                            v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v64, &v67, v71, 16);
                             v31 = 1;
                             if (v49)
                             {
@@ -239,7 +238,6 @@ LABEL_43:
 
 LABEL_44:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

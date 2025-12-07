@@ -1,9 +1,31 @@
 @interface RPNearFieldValidationPayload
 - (RPNearFieldValidationPayload)initWithDictionary:(id)dictionary;
+- (RPNearFieldValidationPayload)initWithKnownIdentity:(BOOL)identity supportsApplicationLabel:(BOOL)label;
+- (id)descriptionWithLevel:(int)level;
 - (id)dictionaryRepresentation;
 @end
 
 @implementation RPNearFieldValidationPayload
+
+- (RPNearFieldValidationPayload)initWithKnownIdentity:(BOOL)identity supportsApplicationLabel:(BOOL)label
+{
+  labelCopy = label;
+  v12.receiver = self;
+  v12.super_class = RPNearFieldValidationPayload;
+  v6 = [(RPNearFieldMessagePayload *)&v12 initWithType:2];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_isKnownIdentity = identity;
+    v8 = [NSNumber numberWithBool:labelCopy];
+    supportsApplicationLabel = v7->_supportsApplicationLabel;
+    v7->_supportsApplicationLabel = v8;
+
+    v10 = v7;
+  }
+
+  return v7;
+}
 
 - (RPNearFieldValidationPayload)initWithDictionary:(id)dictionary
 {
@@ -55,6 +77,35 @@
   [v6 addEntriesFromDictionary:v4];
 
   return v6;
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v12 = 0;
+  [(RPNearFieldValidationPayload *)self isKnownIdentity];
+  v4 = NSStringFromBOOL();
+  supportsApplicationLabel = [(RPNearFieldValidationPayload *)self supportsApplicationLabel];
+  supportsApplicationLabel2 = [(RPNearFieldValidationPayload *)self supportsApplicationLabel];
+  v7 = supportsApplicationLabel2;
+  if (supportsApplicationLabel)
+  {
+    [supportsApplicationLabel2 BOOLValue];
+    v8 = NSStringFromBOOL();
+  }
+
+  else
+  {
+    v8 = supportsApplicationLabel2;
+  }
+
+  NSAppendPrintF(&v12, ", isKnownIdentity %@, supportsApplicationLabel %@", v4, v8);
+  v9 = v12;
+  v10 = v12;
+  if (supportsApplicationLabel)
+  {
+  }
+
+  return v9;
 }
 
 @end

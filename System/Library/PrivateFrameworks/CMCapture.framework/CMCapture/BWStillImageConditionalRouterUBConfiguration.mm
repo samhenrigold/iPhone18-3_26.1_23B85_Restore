@@ -38,25 +38,25 @@ BOOL __66__BWStillImageConditionalRouterUBConfiguration_initWithPortTypes___bloc
   {
     if ([a2 count])
     {
-      v6.receiver = typesCopy;
-      v6.super_class = BWStillImageConditionalRouterUBConfiguration;
-      typesCopy = objc_msgSendSuper2(&v6, sel_initWithNumberOfOutputs_, [a2 count]);
+      v13.receiver = typesCopy;
+      v13.super_class = BWStillImageConditionalRouterUBConfiguration;
+      typesCopy = objc_msgSendSuper2(&v13, sel_initWithNumberOfOutputs_, [a2 count]);
       if (typesCopy)
       {
         typesCopy[5] = a2;
-        v5[0] = MEMORY[0x1E69E9820];
-        v5[1] = 3221225472;
-        v5[2] = __66__BWStillImageConditionalRouterUBConfiguration_initWithPortTypes___block_invoke;
-        v5[3] = &unk_1E7991470;
-        v5[4] = a2;
-        [typesCopy setShouldEmitSampleBufferDecisionProvider:v5];
+        v8 = MEMORY[0x1E69E9820];
+        v9 = 3221225472;
+        v10 = __66__BWStillImageConditionalRouterUBConfiguration_initWithPortTypes___block_invoke;
+        v11 = &unk_1E7991470;
+        v12 = a2;
+        [typesCopy setShouldEmitSampleBufferDecisionProvider:&v8];
       }
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, v11, v12);
 
       return 0;
     }

@@ -78,11 +78,12 @@ uint64_t __53___SFNavigationBar_fluidProgressViewDidShowProgress___block_invoke(
   return [v2 layoutIfNeeded];
 }
 
-uint64_t __34___SFNavigationBar_layoutSubviews__block_invoke()
+double __34___SFNavigationBar_layoutSubviews__block_invoke(uint64_t a1, double a2, double a3)
 {
   _SFClamp();
 
-  return _SFRoundFloatToPixels();
+  _SFRoundFloatToPixels();
+  return result;
 }
 
 void __34___SFNavigationBar_layoutSubviews__block_invoke_2(uint64_t a1, unint64_t a2)
@@ -464,7 +465,7 @@ uint64_t __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHa
   return [v5 setTransform:&v8];
 }
 
-uint64_t __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_11(uint64_t a1)
+void *__74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_11(uint64_t a1)
 {
   [*(a1 + 32) setNeedsLayout];
   v2 = *(a1 + 32);
@@ -475,14 +476,14 @@ uint64_t __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHa
   return result;
 }
 
-void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12(uint64_t a1)
+void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 48);
-  v3 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-  if (v2 == 1)
+  v4 = *(a1 + 48);
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(a1, a2);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v4 == 1)
   {
-    if (v4)
+    if (v6)
     {
       __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_2(a1);
     }
@@ -490,32 +491,32 @@ void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandle
     [(_SFNavigationBar *)*(a1 + 32) _setHidePlaceholderURLItemsForPencilInput:?];
   }
 
-  else if (v4)
+  else if (v6)
   {
     __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_1(a1);
   }
 
   [*(a1 + 32) setNeedsLayout];
-  v5 = *(a1 + 32);
-  if (*(v5 + 843) == 1)
+  v7 = *(a1 + 32);
+  if (*(v7 + 843) == 1)
   {
-    __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_3(v5, a1 + 32);
+    __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_3(v7, a1 + 32);
   }
 
   else
   {
-    [*(v5 + 872) removeFromSuperview];
+    [*(v7 + 872) removeFromSuperview];
   }
 
   [*(*(a1 + 32) + 528) removeFromSuperview];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 528);
-  *(v6 + 528) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 528);
+  *(v8 + 528) = 0;
 
   [*(*(a1 + 32) + 552) removeFromSuperview];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 552);
-  *(v8 + 552) = 0;
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 552);
+  *(v10 + 552) = 0;
 
   dispatch_group_leave(*(a1 + 40));
 }
@@ -562,69 +563,69 @@ uint64_t __51___SFNavigationBar__hideAvailabilityLabelAnimated___block_invoke_7(
   return [v2 setAccessibilityIdentifier:@"PageFormatMenuButton"];
 }
 
-uint64_t __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke(uint64_t a1)
+void *__65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 48) == 1)
   {
-    [*(*(a1 + 32) + 432) addSubview:*(*(a1 + 32) + 472)];
-    v2 = [*(*(a1 + 32) + 408) currentLabel];
-    [*(*(a1 + 32) + 472) setText:v2];
+    [*(*(a1 + 32) + 432) addSubview:{*(*(a1 + 32) + 472), a2.n128_f64[0]}];
+    v3 = [*(*(a1 + 32) + 408) currentLabel];
+    [*(*(a1 + 32) + 472) setText:v3];
 
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_2;
+    v12[3] = &unk_1E848F810;
+    v12[4] = *(a1 + 32);
+    [MEMORY[0x1E69DD250] animateWithDuration:50331648 delay:v12 options:0 animations:0.2 completion:0.0];
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_2;
+    v11[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_3;
     v11[3] = &unk_1E848F810;
     v11[4] = *(a1 + 32);
-    [MEMORY[0x1E69DD250] animateWithDuration:50331648 delay:v11 options:0 animations:0.2 completion:0.0];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_3;
-    v10[3] = &unk_1E848F810;
-    v10[4] = *(a1 + 32);
-    [MEMORY[0x1E69DD250] animateWithDuration:50331648 delay:v10 options:0 animations:0.5 completion:0.06];
-    v3 = *(a1 + 40);
-    if ((v3 & 0x20) != 0)
+    [MEMORY[0x1E69DD250] animateWithDuration:50331648 delay:v11 options:0 animations:0.5 completion:0.06];
+    v4 = *(a1 + 40);
+    if ((v4 & 0x20) != 0)
     {
       *(*(a1 + 32) + 792) = 1;
     }
 
     else
     {
-      v4 = *(a1 + 32);
-      if ((v3 & 0x40) != 0)
+      v5 = *(a1 + 32);
+      if ((v4 & 0x40) != 0)
       {
-        *(v4 + 792) = 2;
+        *(v5 + 792) = 2;
       }
 
       else
       {
-        *(v4 + 792) = 0;
+        *(v5 + 792) = 0;
       }
     }
 
     [*(*(a1 + 32) + 744) setHighlightsBackground:1];
     [*(*(a1 + 32) + 744) setAccessibilityIdentifier:@"ReaderButton"];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 744);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_4;
-    v9[3] = &unk_1E848F810;
-    v9[4] = v6;
-    [MEMORY[0x1E69DD250] transitionWithView:v7 duration:5242882 options:v9 animations:0 completion:0.1];
-    v5 = 0.0;
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 744);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_4;
+    v10[3] = &unk_1E848F810;
+    v10[4] = v7;
+    [MEMORY[0x1E69DD250] transitionWithView:v8 duration:5242882 options:v10 animations:0 completion:0.1];
+    v6 = 0.0;
     if ((*(a1 + 48) & 1) == 0)
     {
-      v5 = 0.1;
+      v6 = 0.1;
     }
   }
 
   else
   {
-    v5 = 0.1;
+    v6 = 0.1;
   }
 
-  return [(_SFNavigationBar *)*(a1 + 32) _adjustLabelRectForLeadingButtonWithDelay:v5];
+  return [(_SFNavigationBar *)*(a1 + 32) _adjustLabelRectForLeadingButtonWithDelay:v6];
 }
 
 uint64_t __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block_invoke_2(uint64_t a1)
@@ -737,7 +738,7 @@ void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandle
   dispatch_group_leave(v3);
 }
 
-uint64_t __51___SFNavigationBar__hideAvailabilityLabelAnimated___block_invoke_4(uint64_t a1)
+void *__51___SFNavigationBar__hideAvailabilityLabelAnimated___block_invoke_4(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 448) contentView];
   [v2 setAlpha:1.0];
@@ -776,7 +777,7 @@ void __65___SFNavigationBar__updateAvailabilityAndPageMenuButtonAnimated___block
   [*(*(v1 + 32) + 744) setImage:?];
 }
 
-uint64_t __62___SFNavigationBar__adjustLabelRectForLeadingButtonWithDelay___block_invoke(uint64_t a1)
+void *__62___SFNavigationBar__adjustLabelRectForLeadingButtonWithDelay___block_invoke(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_42(a1);
   v3 = v2[54];
@@ -816,7 +817,7 @@ void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandle
   [(_SFNavigationBar *)v3 _updateAccessoryButtonsVisibility];
 }
 
-uint64_t __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_2_cold_2(uint64_t a1, uint64_t *a2)
+id *__74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_2_cold_2(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 872);
   v4 = [*(a1 + 848) text];
@@ -852,7 +853,9 @@ void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandle
   }
 
   v2 = v1;
-  OUTLINED_FUNCTION_63(&dword_1D4644000, v3, v4, "Not changing placeholder hiding after animation because it wasn't hidden before; expanded: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_63(&dword_1D4644000, v3, v4, "Not changing placeholder hiding after animation because it wasn't hidden before; expanded: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_2(uint64_t a1)
@@ -868,7 +871,9 @@ void __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandle
   }
 
   v2 = v1;
-  OUTLINED_FUNCTION_63(&dword_1D4644000, v3, v4, "Unhiding placeholder items since expand animation is complete; expanded: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_63(&dword_1D4644000, v3, v4, "Unhiding placeholder items since expand animation is complete; expanded: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 uint64_t __74___SFNavigationBar_setExpanded_textFieldSelectionRange_completionHandler___block_invoke_12_cold_3(uint64_t a1, uint64_t a2)

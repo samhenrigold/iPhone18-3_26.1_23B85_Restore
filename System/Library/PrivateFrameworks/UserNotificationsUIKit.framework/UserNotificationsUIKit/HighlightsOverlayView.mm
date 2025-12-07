@@ -39,11 +39,11 @@
 
 - (NSArray)automationElements
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED7580);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED7580, &unk_21E948290);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21E948170;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22UserNotificationsUIKit21HighlightsOverlayView_backgroundContainer);
-  v5 = sub_21E796644(0, &qword_280D03C48);
+  v5 = sub_21E796644(0, &qword_280D03C48, 0x277D75D18);
   *(v3 + 56) = v5;
   *(v3 + 32) = v4;
   v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22UserNotificationsUIKit21HighlightsOverlayView_dropletContextView);

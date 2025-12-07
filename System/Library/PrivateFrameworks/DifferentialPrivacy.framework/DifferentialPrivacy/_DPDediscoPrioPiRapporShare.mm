@@ -40,21 +40,21 @@
 
 - (id)serializeAndReturnError:(id *)error
 {
-  v4 = *(*(type metadata accessor for DediscoPrioPiRapporShare() - 8) + 64);
+  type metadata accessor for DediscoPrioPiRapporShare(0);
   MEMORY[0x28223BE20]();
-  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = &v12[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   selfCopy = self;
   sub_22627CD9C();
   selfCopy2 = self;
   sub_22628E8CC();
-  v8 = sub_22628E88C();
-  v10 = v9;
+  v7 = sub_22628E88C();
+  v9 = v8;
 
-  sub_22627CE48(v6);
-  v11 = sub_22628E7BC();
-  sub_22627CDF4(v8, v10);
+  sub_22627CE48(v5);
+  v10 = sub_22628E7BC();
+  sub_22627CDF4(v7, v9);
 
-  return v11;
+  return v10;
 }
 
 - (_DPDediscoPrioPiRapporShare)init

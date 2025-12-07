@@ -79,26 +79,27 @@
 
   equalCopy = equal;
   v5 = objc_opt_class();
-  if ([v5 isEqual:objc_opt_class()] && (v6 = -[_UIEventDeferringEnvironmentsContainer hash](self, "hash"), v6 == objc_msgSend(equalCopy, "hash")))
+  objc_opt_class();
+  if (objc_msgSend_isEqual_(v5) && (v6 = -[_UIEventDeferringEnvironmentsContainer hash](self, "hash"), v6 == [equalCopy hash]))
   {
     environments = self->_environments;
     if (environments == equalCopy[1])
     {
-      v8 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v8 = [(NSSet *)environments isEqual:?];
+      isEqual = objc_msgSend_isEqual_(environments);
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (unint64_t)hash

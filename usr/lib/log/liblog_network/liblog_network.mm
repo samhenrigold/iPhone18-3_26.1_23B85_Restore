@@ -59,7 +59,7 @@ LABEL_19:
 
 uint64_t NWOLCopyFormattedStringData(void *a1)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -67,17 +67,17 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
     v2 = v1;
     if ([v2 bytes] && objc_msgSend(v2, "length"))
     {
-      v26 = [v2 bytes];
-      v27[0] = 0;
-      v27[1] = 0;
-      v28 = 0;
+      v25 = [v2 bytes];
+      v26[0] = 0;
+      v26[1] = 0;
+      v27 = 0;
       v3 = [v2 length];
       *&v4 = 0x2020202020202020;
       *(&v4 + 1) = 0x2020202020202020;
-      v29 = v4;
-      *v30 = v4;
-      *&v30[15] = v4;
-      v31 = 0;
+      v28 = v4;
+      *v29 = v4;
+      *&v29[15] = v4;
+      v30 = 0;
       if (v3)
       {
         v5 = v3;
@@ -97,8 +97,8 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
 
           if (v5 != v6)
           {
-            v10 = &v29 + 1;
-            v11 = (v26 + v6);
+            v10 = &v28 + 1;
+            v11 = (v25 + v6);
             if (v9 <= 1)
             {
               v12 = 1;
@@ -110,7 +110,7 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
             }
 
             v13 = 3 * (v9 - 1);
-            v14 = v27;
+            v14 = v26;
             do
             {
               v16 = *v11++;
@@ -131,7 +131,7 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
               *v10 = NWOLCopyFormattedStringData_hexChars[v15 & 0xF];
               if (!v13)
               {
-                *(v27 + (v9 - 1) + 1) = 0;
+                *(v26 + (v9 - 1) + 1) = 0;
               }
 
               v13 -= 3;
@@ -145,10 +145,10 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
 
           if (v5 - v6 <= 0xF)
           {
-            memset(&v30[3 * v9 - 16], 32, (3 * (16 - v9) - 1));
+            memset(&v29[3 * v9 - 16], 32, (3 * (16 - v9) - 1));
           }
 
-          v8 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"%@%4zu   %s   %s\n", v7, v6, &v29, v27];
+          v8 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"%@%4zu   %s   %s\n", v7, v6, &v28, v26];
 
           v6 += v9;
           v7 = v8;
@@ -180,7 +180,6 @@ uint64_t NWOLCopyFormattedStringData(void *a1)
     v23 = [v19 initWithString:v22];
   }
 
-  v24 = *MEMORY[0x29EDCA608];
   return v23;
 }
 
@@ -234,9 +233,9 @@ uint64_t NWOLCopyFormattedStringQUICPackets(void *a1)
   return v7;
 }
 
-void sub_299A0BE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_299A0BE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -248,31 +247,29 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t __NWOLCopyFormattedStringQUICPackets_block_invoke(uint64_t a1)
+uint64_t __NWOLCopyFormattedStringQUICPackets_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v13 = *MEMORY[0x29EDCA608];
   memset(v12, 0, sizeof(v12));
-  v2 = *(a1 + 40);
   quic_shorthand_describe_entry();
-  v3 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"\t%s", v12];
-  v4 = v3;
-  v5 = *(*(a1 + 32) + 8);
-  if (*(v5 + 40))
+  v4 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"\t%s", v12];
+  v5 = v4;
+  v6 = *(*(a1 + 32) + 8);
+  if (*(v6 + 40))
   {
-    v6 = [v3 stringByAppendingFormat:@"\n%@", *(v5 + 40)];
-    v7 = *(*(a1 + 32) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [v4 stringByAppendingFormat:@"\n%@", *(v6 + 40)];
+    v8 = *(*(a1 + 32) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
   }
 
   else
   {
-    v9 = v3;
-    v8 = *(v5 + 40);
-    *(v5 + 40) = v9;
+    v10 = v4;
+    v9 = *(v6 + 40);
+    *(v6 + 40) = v10;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -333,113 +330,110 @@ LABEL_12:
   return v6;
 }
 
-void sub_299A0C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_299A0C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 BOOL __NWOLCopyFormattedStringTCPPackets_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (a2 == 16)
   {
     v5 = *a3;
     v4 = *(a3 + 4);
     v6 = *(a3 + 8);
     v7 = *(a3 + 10);
-    v8 = *(a3 + 12);
-    v9 = *(a3 + 14);
-    v10 = *(a3 + 15);
-    v11 = nw_log_delta_to_ms();
-    v12 = objc_alloc(MEMORY[0x29EDBA0F8]);
-    v13 = "rcv";
-    if ((v10 & 1) == 0)
+    v8 = *(a3 + 14);
+    v9 = *(a3 + 15);
+    v10 = nw_log_delta_to_ms();
+    v11 = objc_alloc(MEMORY[0x29EDBA0F8]);
+    v12 = "rcv";
+    if ((v9 & 1) == 0)
     {
-      v13 = "snd";
+      v12 = "snd";
     }
 
-    v34 = v13;
-    v35 = v12;
-    v14 = bswap32(v5);
-    v15 = bswap32(v4);
-    v16 = "";
-    v17 = bswap32(v6) >> 16;
-    if (v9)
+    v32 = v12;
+    v33 = v11;
+    v13 = bswap32(v5);
+    v14 = bswap32(v4);
+    v15 = "";
+    v16 = bswap32(v6) >> 16;
+    if (v8)
     {
-      v18 = "F";
+      v17 = "F";
     }
 
     else
+    {
+      v17 = "";
+    }
+
+    v18 = "S";
+    if ((v8 & 2) == 0)
     {
       v18 = "";
     }
 
-    v19 = "S";
-    if ((v9 & 2) == 0)
+    v19 = "R";
+    if ((v8 & 4) == 0)
     {
       v19 = "";
     }
 
-    v20 = "R";
-    if ((v9 & 4) == 0)
+    v20 = "P";
+    if ((v8 & 8) == 0)
     {
       v20 = "";
     }
 
-    v21 = "P";
-    if ((v9 & 8) == 0)
+    v21 = ".";
+    if ((v8 & 0x10) == 0)
     {
       v21 = "";
     }
 
-    v22 = ".";
-    if ((v9 & 0x10) == 0)
+    v22 = "U";
+    if ((v8 & 0x20) == 0)
     {
       v22 = "";
     }
 
-    v23 = "U";
-    if ((v9 & 0x20) == 0)
+    v23 = "E";
+    if ((v8 & 0x40) == 0)
     {
       v23 = "";
     }
 
-    v24 = "E";
-    if ((v9 & 0x40) == 0)
+    if ((v8 & 0x80u) != 0)
     {
-      v24 = "";
+      v15 = "C";
     }
 
-    if ((v9 & 0x80u) != 0)
+    snprintf(__str, 9uLL, "%s%s%s%s%s%s%s%s", v17, v18, v19, v20, v21, v22, v23, v15);
+    v24 = [v33 initWithFormat:@"\t %s %4u.%.03us seq %10u:%-10u ack %-10u win %-5u len %-4u [%s]%s", v32, v10 / 0x3E8uLL, v10 % 0x3E8, v13, (v8 & 1) + v7 + ((v8 >> 1) & 1) + v13, v14, v16, v7, __str, *(&off_29F2810D8 + (v9 & 6))];
+    v25 = v24;
+    v26 = *(*(a1 + 32) + 8);
+    if (*(v26 + 40))
     {
-      v16 = "C";
-    }
-
-    snprintf(__str, 9uLL, "%s%s%s%s%s%s%s%s", v18, v19, v20, v21, v22, v23, v24, v16);
-    v25 = [v35 initWithFormat:@"\t %s %4u.%.03us seq %10u:%-10u ack %-10u win %-5u len %-4u [%s]%s", v34, v11 / 0x3E8uLL, v11 % 0x3E8, v14, (v9 & 1) + v7 + ((v9 >> 1) & 1) + v14, v15, v17, v7, __str, *(&off_29F2810D8 + (v10 & 6))];
-    v26 = v25;
-    v27 = *(*(a1 + 32) + 8);
-    if (*(v27 + 40))
-    {
-      v28 = [v25 stringByAppendingFormat:@"\n%@", *(v27 + 40)];
-      v29 = *(*(a1 + 32) + 8);
-      v30 = *(v29 + 40);
-      *(v29 + 40) = v28;
+      v27 = [v24 stringByAppendingFormat:@"\n%@", *(v26 + 40)];
+      v28 = *(*(a1 + 32) + 8);
+      v29 = *(v28 + 40);
+      *(v28 + 40) = v27;
     }
 
     else
     {
-      v31 = v25;
-      v30 = *(v27 + 40);
-      *(v27 + 40) = v31;
+      v30 = v24;
+      v29 = *(v26 + 40);
+      *(v26 + 40) = v30;
     }
   }
 
-  result = a2 == 16;
-  v33 = *MEMORY[0x29EDCA608];
-  return result;
+  return a2 == 16;
 }
 
 uint64_t NWOLCopyFormattedStringTCPState(void *a1)
@@ -474,7 +468,7 @@ uint64_t NWOLCopyFormattedStringTCPState(void *a1)
 
 uint64_t NWOLCopyFormattedStringTCPFlags(void *a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -540,13 +534,12 @@ uint64_t NWOLCopyFormattedStringTCPFlags(void *a1)
     v14 = [objc_alloc(MEMORY[0x29EDBA038]) initWithString:@"<failed conversion>"];
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t NWOLCopyFormattedStringSockaddr(void *a1)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -575,7 +568,7 @@ LABEL_14:
       {
         v17 = v4;
         v18 = objc_alloc(MEMORY[0x29EDBA038]);
-        v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<fail decode - size> %d > %zu", *v3, v17, v42, v43, v44];
+        v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<fail decode - size> %d > %zu", *v3, v17, v41, v42, v43];
 LABEL_13:
         v20 = v19;
         v9 = [v18 initWithString:v19];
@@ -583,43 +576,43 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v23 = v3[1];
-      if (v23 <= 0x11)
+      v22 = v3[1];
+      if (v22 <= 0x11)
       {
-        if (v23 == 1)
+        if (v22 == 1)
         {
           v18 = objc_alloc(MEMORY[0x29EDBA038]);
-          v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"AF_UNIX:%.*s", *v3 - 2, v3 + 2, v42, v43, v44];
+          v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"AF_UNIX:%.*s", *v3 - 2, v3 + 2, v41, v42, v43];
           goto LABEL_13;
         }
 
-        if (v23 == 2)
+        if (v22 == 2)
         {
           if (v16 <= 0xF)
           {
             v18 = objc_alloc(MEMORY[0x29EDBA038]);
-            v24 = objc_alloc(MEMORY[0x29EDBA0F8]);
-            v25 = *v3;
-            v26 = 16;
+            v23 = objc_alloc(MEMORY[0x29EDBA0F8]);
+            v24 = *v3;
+            v25 = 16;
 LABEL_25:
-            v19 = [v24 initWithFormat:@"<fail decode - size> %d < %lu", v25, v26, v42, v43, v44];
+            v19 = [v23 initWithFormat:@"<fail decode - size> %d < %lu", v24, v25, v41, v42, v43];
             goto LABEL_13;
           }
 
-          v29 = getnameinfo(v3, v16, v46, 0x10u, v45, 6u, 10);
-          if (!v29)
+          v28 = getnameinfo(v3, v16, v45, 0x10u, v44, 6u, 10);
+          if (!v28)
           {
-            v30 = *(v3 + 1);
+            v29 = *(v3 + 1);
             v5 = objc_alloc(MEMORY[0x29EDBA038]);
-            v31 = objc_alloc(MEMORY[0x29EDBA0F8]);
-            if (v30)
+            v30 = objc_alloc(MEMORY[0x29EDBA0F8]);
+            if (v29)
             {
-              v6 = [v31 initWithFormat:@"%s:%s", v46, v45];
+              v6 = [v30 initWithFormat:@"%s:%s", v45, v44];
               goto LABEL_6;
             }
 
 LABEL_55:
-            v6 = [v31 initWithFormat:@"%s", v46, v41];
+            v6 = [v30 initWithFormat:@"%s", v45, v40];
             goto LABEL_6;
           }
 
@@ -629,28 +622,28 @@ LABEL_55:
         goto LABEL_26;
       }
 
-      if (v23 != 18)
+      if (v22 != 18)
       {
-        if (v23 == 30)
+        if (v22 == 30)
         {
           if (v16 <= 0x1B)
           {
             v18 = objc_alloc(MEMORY[0x29EDBA038]);
-            v24 = objc_alloc(MEMORY[0x29EDBA0F8]);
-            v25 = *v3;
-            v26 = 28;
+            v23 = objc_alloc(MEMORY[0x29EDBA0F8]);
+            v24 = *v3;
+            v25 = 28;
             goto LABEL_25;
           }
 
-          v29 = getnameinfo(v3, v16, v46, 0x46u, v45, 6u, 10);
-          if (!v29)
+          v28 = getnameinfo(v3, v16, v45, 0x46u, v44, 6u, 10);
+          if (!v28)
           {
-            v39 = *(v3 + 1);
+            v38 = *(v3 + 1);
             v5 = objc_alloc(MEMORY[0x29EDBA038]);
-            v31 = objc_alloc(MEMORY[0x29EDBA0F8]);
-            if (v39)
+            v30 = objc_alloc(MEMORY[0x29EDBA0F8]);
+            if (v38)
             {
-              v6 = [v31 initWithFormat:@"%s.%s", v46, v45];
+              v6 = [v30 initWithFormat:@"%s.%s", v45, v44];
               goto LABEL_6;
             }
 
@@ -658,80 +651,80 @@ LABEL_55:
           }
 
 LABEL_34:
-          v32 = v29;
+          v31 = v28;
           v5 = objc_alloc(MEMORY[0x29EDBA038]);
-          v6 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<failed conversion> %s", gai_strerror(v32), v41];
+          v6 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<failed conversion> %s", gai_strerror(v31), v40];
           goto LABEL_6;
         }
 
 LABEL_26:
         v18 = objc_alloc(MEMORY[0x29EDBA038]);
-        v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<fail decode - address family> %d", v3[1], v41, v42, v43, v44];
+        v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<fail decode - address family> %d", v3[1], v40, v41, v42, v43];
         goto LABEL_13;
       }
 
-      v27 = v3[5];
-      v28 = v3[6];
-      if (v27 + v28 + v3[7] + 8 > v16)
+      v26 = v3[5];
+      v27 = v3[6];
+      if (v26 + v27 + v3[7] + 8 > v16)
       {
         v18 = objc_alloc(MEMORY[0x29EDBA038]);
         v19 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"<fail decode - size> %d < %zu + %d + %d + %d", *v3, 8, v3[5], v3[6], v3[7]];
         goto LABEL_13;
       }
 
-      if (v28 | v27 || *(v3 + 1))
+      if (v27 | v26 || *(v3 + 1))
       {
-        v33 = [MEMORY[0x29EDBA050] string];
-        v7 = v33;
-        v34 = v3[5];
+        v32 = [MEMORY[0x29EDBA050] string];
+        v7 = v32;
+        v33 = v3[5];
         if (v3[6])
         {
-          [v33 appendFormat:@"%x", v3[v34 + 8]];
+          [v32 appendFormat:@"%x", v3[v33 + 8]];
           if (v3[6] >= 2u)
           {
-            v35 = &v3[v34 + 9];
-            v36 = 1;
+            v34 = &v3[v33 + 9];
+            v35 = 1;
             do
             {
-              v37 = *v35++;
-              [v7 appendFormat:@":%x", v37];
-              ++v36;
+              v36 = *v34++;
+              [v7 appendFormat:@":%x", v36];
+              ++v35;
             }
 
-            while (v36 < v3[6]);
+            while (v35 < v3[6]);
           }
 
-          LODWORD(v34) = v3[5];
+          LODWORD(v33) = v3[5];
         }
 
-        if (v34)
+        if (v33)
         {
           if ([v7 length])
           {
-            v38 = @"%%%.*s";
+            v37 = @"%%%.*s";
           }
 
           else
           {
-            v38 = @"%.*s";
+            v37 = @"%.*s";
           }
 
-          [v7 appendFormat:v38, v3[5], v3 + 8];
+          [v7 appendFormat:v37, v3[5], v3 + 8];
         }
 
         else if (*(v3 + 1))
         {
           if ([v7 length])
           {
-            v40 = @"%%%d";
+            v39 = @"%%%d";
           }
 
           else
           {
-            v40 = @"%d";
+            v39 = @"%d";
           }
 
-          [v7 appendFormat:v40, *(v3 + 1), v41];
+          [v7 appendFormat:v39, *(v3 + 1), v40];
         }
 
         v8 = objc_alloc(MEMORY[0x29EDBA038]);
@@ -759,13 +752,12 @@ LABEL_26:
   v9 = [v10 initWithString:v13];
 
 LABEL_15:
-  v21 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t NWOLCopyFormattedStringIPv6Address(void *a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -780,14 +772,14 @@ uint64_t NWOLCopyFormattedStringIPv6Address(void *a1)
         goto LABEL_11;
       }
 
-      *v16 = 0u;
-      memset(v17, 0, sizeof(v17));
-      v3 = inet_ntop(30, [v2 bytes], v16, 0x2Eu);
+      *v15 = 0u;
+      memset(v16, 0, sizeof(v16));
+      v3 = inet_ntop(30, [v2 bytes], v15, 0x2Eu);
       v4 = objc_alloc(MEMORY[0x29EDBA038]);
       if (v3)
       {
         v5 = v4;
-        v6 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v16];
+        v6 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v15];
 LABEL_11:
         v13 = v6;
         v11 = [v5 initWithString:v6];
@@ -817,17 +809,16 @@ LABEL_12:
   v11 = [v7 initWithString:v10];
 
 LABEL_13:
-  v14 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t NWOLCopyFormattedStringIPv4Address(void *a1)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v1 = a1;
-  v17 = 0;
-  *v18 = 0;
-  v19 = 0;
+  v16 = 0;
+  *v17 = 0;
+  v18 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -867,10 +858,10 @@ uint64_t NWOLCopyFormattedStringIPv4Address(void *a1)
     goto LABEL_12;
   }
 
-  v17 = [v1 unsignedIntValue];
-  v4 = &v17;
+  v16 = [v1 unsignedIntValue];
+  v4 = &v16;
 LABEL_8:
-  v5 = inet_ntop(2, v4, v18, 0x10u);
+  v5 = inet_ntop(2, v4, v17, 0x10u);
   v6 = objc_alloc(MEMORY[0x29EDBA038]);
   if (!v5)
   {
@@ -879,11 +870,10 @@ LABEL_8:
   }
 
   v7 = v6;
-  v8 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v18];
+  v8 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v17];
   v9 = [v7 initWithString:v8];
 LABEL_12:
 
 LABEL_16:
-  v15 = *MEMORY[0x29EDCA608];
   return v9;
 }

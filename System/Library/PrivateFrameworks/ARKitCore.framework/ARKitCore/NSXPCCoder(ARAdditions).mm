@@ -24,7 +24,7 @@
       }
 
       v8 = ARShouldUseLogTypeError_internalOSVersion_50;
-      v9 = _ARLogGeneral_44();
+      v9 = _ARLogGeneral_44(v6);
       v10 = v9;
       if (v8 == 1)
       {

@@ -99,7 +99,7 @@
   v6 = __nwlog_obj();
   *buf = 136446210;
   v16 = "[NWUDPSession setReadHandler:maxDatagrams:]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -301,7 +301,7 @@ void __28__NWUDPSession_readInternal__block_invoke(uint64_t a1, void *a2, void *
     v14 = __nwlog_obj();
     *buf = 136446210;
     v26 = "[NWUDPSession initWithEndpoint:parameters:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -491,7 +491,7 @@ LABEL_22:
     v15 = __nwlog_obj();
     *buf = 136446210;
     v34 = "[NWUDPSession initWithConnection:]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null internalConnection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -578,7 +578,7 @@ LABEL_31:
     v20 = __nwlog_obj();
     *buf = 136446210;
     v34 = "[NWUDPSession initWithConnection:]";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;

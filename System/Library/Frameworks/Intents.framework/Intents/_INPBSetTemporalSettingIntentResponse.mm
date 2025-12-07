@@ -179,7 +179,6 @@ LABEL_18:
 
   if (errorDetail)
   {
-    errorDetail = self->_errorDetail;
     PBDataWriterWriteStringField();
   }
 
@@ -193,13 +192,13 @@ LABEL_18:
 
   updatedValue = [(_INPBSetTemporalSettingIntentResponse *)self updatedValue];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (updatedValue)
   {
     updatedValue2 = [(_INPBSetTemporalSettingIntentResponse *)self updatedValue];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

@@ -173,7 +173,7 @@ LABEL_6:
 
   else
   {
-    [(PVInstructionGraphSourceNode *)self transform];
+    objc_msgSend_transform(self);
     IsIdentity = CGAffineTransformIsIdentity(&v6);
   }
 
@@ -209,7 +209,7 @@ LABEL_6:
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
   v11 = v6;
-  HGTraceGuard::HGTraceGuard(v194, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphSourceTrackNode hgNodeForTime:...]");
+  HGTraceGuard::HGTraceGuard(v192, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphSourceTrackNode hgNodeForTime:...]");
   v14 = atomic_load(HGLogger::_enabled);
   if (v14)
   {
@@ -217,8 +217,8 @@ LABEL_6:
   }
 
   PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::GetNode(inputs, self, v11);
-  PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::GetFrameDataPixelBuffer(inputs, self, &v193);
-  if (v193 && (v15 = v193[16]) != 0)
+  PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::GetFrameDataPixelBuffer(inputs, self, &v191);
+  if (v191 && (v15 = v191[16]) != 0)
   {
     v16 = *(v15 + 24);
   }
@@ -229,19 +229,19 @@ LABEL_6:
   }
 
   v17 = CVPixelBufferRetain(v16);
-  if (v193)
+  if (v191)
   {
-    (*(*v193 + 24))(v193);
+    (*(*v191 + 24))(v191);
   }
 
   stabilizationDelegate = [(PVInstructionGraphSourceTrackNode *)self stabilizationDelegate];
   *&t1.a = *&time->var0;
   *&t1.c = time->var3;
   userContext = [(PVInstructionGraphSourceTrackNode *)self userContext];
-  v175 = v17;
+  v173 = v17;
   v20 = [stabilizationDelegate timedStabilizationConfigForTime:&t1 frameData:v17 userContext:userContext];
 
-  v174 = v20;
+  v172 = v20;
   object = [v20 object];
   if ([object isValid])
   {
@@ -251,33 +251,33 @@ LABEL_6:
     d = t1.d;
     c = t1.c;
     [object cleanAperture];
-    v173 = v24;
-    v172 = v25;
+    v171 = v24;
+    v170 = v25;
     rect2 = v26;
     v28 = v27;
     v29 = *MEMORY[0x277CBF348];
     v30 = *(MEMORY[0x277CBF348] + 8);
     [object normalizedCleanAperture];
-    v167 = v31;
+    v165 = v31;
     v33 = v32;
     v35 = v34;
     v37 = v36;
-    v200.origin.x = a;
-    v200.origin.y = b;
-    v200.size.height = d;
-    v200.size.width = c;
-    v212.origin.x = v173;
-    v212.origin.y = v172;
-    v212.size.width = rect2;
-    v212.size.height = v28;
-    v38 = CGRectEqualToRect(v200, v212);
+    v198.origin.x = a;
+    v198.origin.y = b;
+    v198.size.height = d;
+    v198.size.width = c;
+    v210.origin.x = v171;
+    v210.origin.y = v170;
+    v210.size.width = rect2;
+    v210.size.height = v28;
+    v38 = CGRectEqualToRect(v198, v210);
     if (!v38)
     {
-      v201.origin.x = v173;
-      v201.origin.y = v172;
-      v201.size.width = rect2;
-      v201.size.height = v28;
-      v39 = HGRectMakeWithCGRect(v201);
+      v199.origin.x = v171;
+      v199.origin.y = v170;
+      v199.size.width = rect2;
+      v199.size.height = v28;
+      v39 = HGRectMakeWithCGRect(v199);
       v41 = v40;
       v42 = HGObject::operator new(0x1A0uLL);
       HGCrop::HGCrop(v42);
@@ -297,29 +297,29 @@ LABEL_6:
       }
 
       v44 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v192.a = *MEMORY[0x277CBF2C0];
-      *&v192.c = v44;
-      *&v192.tx = *(MEMORY[0x277CBF2C0] + 32);
-      *&t1.a = *&v192.a;
+      *&v190.a = *MEMORY[0x277CBF2C0];
+      *&v190.c = v44;
+      *&v190.tx = *(MEMORY[0x277CBF2C0] + 32);
+      *&t1.a = *&v190.a;
       *&t1.c = v44;
-      *&t1.tx = *&v192.tx;
+      *&t1.tx = *&v190.tx;
       CGAffineTransformMakeScale(&t2, rect2 / rect2, v28 / v28);
-      CGAffineTransformConcat(&v192, &t1, &t2);
+      CGAffineTransformConcat(&v190, &t1, &t2);
       v45 = *MEMORY[0x277CBF348];
       v46 = *(MEMORY[0x277CBF348] + 8);
-      t2 = v192;
-      CGAffineTransformMakeTranslation(&v195, v45 - v173 * (rect2 / rect2), v46 - v172 * (v28 / v28));
-      CGAffineTransformConcat(&t1, &t2, &v195);
-      v192 = t1;
-      v191 = v43;
+      t2 = v190;
+      CGAffineTransformMakeTranslation(&v193, v45 - v171 * (rect2 / rect2), v46 - v170 * (v28 / v28));
+      CGAffineTransformConcat(&t1, &t2, &v193);
+      v190 = t1;
+      v189 = v43;
       if (v43)
       {
         (*(*v43 + 16))(v43);
       }
 
-      t1 = v192;
+      t1 = v190;
       v47 = (*(**context.m_Obj + 64))();
-      HGXFormForCGAffineTransform(&v191, &t1, v47, &t2);
+      HGXFormForCGAffineTransform(&v189, &t1, v47, &t2);
       v48 = *v11;
       v49 = t2.a;
       if (*v11 == *&t2.a)
@@ -342,9 +342,9 @@ LABEL_6:
         t2.a = 0.0;
       }
 
-      if (v191)
+      if (v189)
       {
-        (*(*v191 + 24))(v191);
+        (*(*v189 + 24))(v189);
       }
 
       (*(*v42 + 24))(v42);
@@ -353,32 +353,32 @@ LABEL_6:
     [object homography];
     v50 = v29 - rect2 * 0.5;
     v51 = v30 - v28 * 0.5;
-    v156.size.width = rect2;
-    v156.size.height = v28;
-    v156.origin.x = v50;
-    v156.origin.y = v51;
-    v211.origin.x = v33;
-    v211.origin.y = v35;
-    v211.size.width = v167;
-    v211.size.height = v37;
-    *v52.i64 = pv_convert_homography_coordinates(v198, v211, v156);
-    v165 = v53;
-    v166 = v52;
-    v164 = v54;
-    memset(&v192, 0, sizeof(v192));
-    v162 = v51;
-    v163 = v50;
-    CGAffineTransformMakeTranslation(&v192, v50, v51);
+    v154.size.width = rect2;
+    v154.size.height = v28;
+    v154.origin.x = v50;
+    v154.origin.y = v51;
+    v209.origin.x = v33;
+    v209.origin.y = v35;
+    v209.size.width = v165;
+    v209.size.height = v37;
+    *v52.i64 = pv_convert_homography_coordinates(v196, v209, v154);
+    v163 = v53;
+    v164 = v52;
+    v162 = v54;
+    memset(&v190, 0, sizeof(v190));
+    v160 = v51;
+    v161 = v50;
+    CGAffineTransformMakeTranslation(&v190, v50, v51);
     v55 = *v11;
-    v190 = v55;
+    v188 = v55;
     if (v55)
     {
       (*(*v55 + 16))(v55);
     }
 
-    t1 = v192;
+    t1 = v190;
     v56 = (*(**context.m_Obj + 64))();
-    HGXFormForCGAffineTransform(&v190, &t1, v56, &t2);
+    HGXFormForCGAffineTransform(&v188, &t1, v56, &t2);
     v57 = *v11;
     v58 = t2.a;
     if (*v11 == *&t2.a)
@@ -401,30 +401,30 @@ LABEL_6:
       t2.a = 0.0;
     }
 
-    if (v190)
+    if (v188)
     {
-      (*(*v190 + 24))(v190);
+      (*(*v188 + 24))(v188);
     }
 
     v59 = *v11;
-    v189 = v59;
+    v187 = v59;
     if (v59)
     {
       (*(*v59 + 16))(v59);
     }
 
     v60 = (*(**context.m_Obj + 64))();
-    v199.columns[0] = vtrn1q_s32(0, v166);
-    v199.columns[0].i64[0] = v166.i64[0];
-    v199.columns[1] = vtrn1q_s32(0, v165);
-    v199.columns[1].i64[0] = v165.i64[0];
-    v199.columns[3] = vtrn1q_s32(0, v164);
-    v199.columns[3].i64[0] = v164.i64[0];
-    v199.columns[2] = xmmword_2603429D0;
-    v159 = v199.columns[1];
-    v160 = v199.columns[0];
-    v161 = v199.columns[3];
-    HGXFormForSIMDFloat4x4(&v189, v60, &t1, v199);
+    v197.columns[0] = vtrn1q_s32(0, v164);
+    v197.columns[0].i64[0] = v164.i64[0];
+    v197.columns[1] = vtrn1q_s32(0, v163);
+    v197.columns[1].i64[0] = v163.i64[0];
+    v197.columns[3] = vtrn1q_s32(0, v162);
+    v197.columns[3].i64[0] = v162.i64[0];
+    v197.columns[2] = xmmword_2603429D0;
+    v157 = v197.columns[1];
+    v158 = v197.columns[0];
+    v159 = v197.columns[3];
+    HGXFormForSIMDFloat4x4(&v187, v60, &t1, v197);
     v61 = *v11;
     v62 = t1.a;
     if (*v11 == *&t1.a)
@@ -447,29 +447,29 @@ LABEL_6:
       t1.a = 0.0;
     }
 
-    if (v189)
+    if (v187)
     {
-      (*(*v189 + 24))(v189);
+      (*(*v187 + 24))(v187);
     }
 
     v63 = *v11;
-    v188 = v63;
+    v186 = v63;
     if (v63)
     {
       (*(*v63 + 16))(v63);
     }
 
-    t2 = v192;
+    t2 = v190;
     CGAffineTransformInvert(&t1, &t2);
     v64 = (*(**context.m_Obj + 64))();
-    HGXFormForCGAffineTransform(&v188, &t1, v64, &v195);
+    HGXFormForCGAffineTransform(&v186, &t1, v64, &v193);
     v65 = *v11;
-    v66 = v195.a;
-    if (*v11 == *&v195.a)
+    v66 = v193.a;
+    if (*v11 == *&v193.a)
     {
       if (v65)
       {
-        (*(**&v195.a + 24))(*&v195.a);
+        (*(**&v193.a + 24))(*&v193.a);
       }
     }
 
@@ -478,57 +478,57 @@ LABEL_6:
       if (v65)
       {
         (*(*v65 + 24))(v65);
-        v66 = v195.a;
+        v66 = v193.a;
       }
 
       *v11 = v66;
-      v195.a = 0.0;
+      v193.a = 0.0;
     }
 
-    if (v188)
+    if (v186)
     {
-      (*(*v188 + 24))(v188);
+      (*(*v186 + 24))(v186);
     }
 
-    memset(&v187, 0, sizeof(v187));
-    CGAffineTransformMakeScale(&t1, rect2 / v167, v28 / v37);
+    memset(&v185, 0, sizeof(v185));
+    CGAffineTransformMakeScale(&t1, rect2 / v165, v28 / v37);
     CGAffineTransformMakeTranslation(&t2, rect2 * 0.5, v28 * 0.5);
-    CGAffineTransformConcat(&v187, &t1, &t2);
+    CGAffineTransformConcat(&v185, &t1, &t2);
     [object cropRect];
-    t1 = v187;
-    v203 = CGRectApplyAffineTransform(v202, &t1);
-    x = v203.origin.x;
-    y = v203.origin.y;
-    width = v203.size.width;
-    height = v203.size.height;
-    MinX = CGRectGetMinX(v203);
+    t1 = v185;
+    v201 = CGRectApplyAffineTransform(v200, &t1);
+    x = v201.origin.x;
+    y = v201.origin.y;
+    width = v201.size.width;
+    height = v201.size.height;
+    MinX = CGRectGetMinX(v201);
+    v202.origin.x = x;
+    v202.origin.y = y;
+    v202.size.width = width;
+    v202.size.height = height;
+    MaxX = CGRectGetMaxX(v202);
+    v203.origin.x = x;
+    v203.origin.y = y;
+    v203.size.width = width;
+    v203.size.height = height;
+    MinY = CGRectGetMinY(v203);
     v204.origin.x = x;
     v204.origin.y = y;
     v204.size.width = width;
     v204.size.height = height;
-    MaxX = CGRectGetMaxX(v204);
-    v205.origin.x = x;
-    v205.origin.y = y;
-    v205.size.width = width;
-    v205.size.height = height;
-    MinY = CGRectGetMinY(v205);
-    v206.origin.x = x;
-    v206.origin.y = y;
-    v206.size.width = width;
-    v206.size.height = height;
     v74 = round(MinX);
     v75 = round(MinY);
     v76 = round(MaxX - (x - v74)) - v74;
-    v77 = round(CGRectGetMaxY(v206) - (y - v75)) - v75;
-    v207.origin.x = 0.0;
-    v207.origin.y = 0.0;
-    v207.size.width = rect2;
-    v207.size.height = v28;
-    v213.origin.x = v74;
-    v213.origin.y = v75;
-    v213.size.width = v76;
-    v213.size.height = v77;
-    if (CGRectEqualToRect(v207, v213))
+    v77 = round(CGRectGetMaxY(v204) - (y - v75)) - v75;
+    v205.origin.x = 0.0;
+    v205.origin.y = 0.0;
+    v205.size.width = rect2;
+    v205.size.height = v28;
+    v211.origin.x = v74;
+    v211.origin.y = v75;
+    v211.size.width = v76;
+    v211.size.height = v77;
+    if (CGRectEqualToRect(v205, v211))
     {
       if (v38)
       {
@@ -539,7 +539,7 @@ LABEL_102:
           *&t1.a = *&time->var0;
           *&t1.c = time->var3;
           userContext2 = [(PVInstructionGraphSourceTrackNode *)self userContext];
-          [stabilizationDelegate2 didStabilize:v20 time:&t1 frameData:v175 inputSize:userContext2 cleanAperture:c centeredCleanAperture:d cleanApertureOriginZero:v173 cropRect:v172 homography:*&v163 homographyMatrix4x4:*&v162 userContext:{*&rect2, *&v28, 0, 0, *&rect2, *&v28, *&v74, *&v75, *&v76, *&v77, v166.i64[0], v166.u32[2], v165.i64[0], v165.u32[2], v164.i64[0], v164.u32[2], *&v160, *&v159, 0, 1065353216, *&v161}];
+          [stabilizationDelegate2 didStabilize:v20 time:&t1 frameData:v173 inputSize:userContext2 cleanAperture:c centeredCleanAperture:d cleanApertureOriginZero:v171 cropRect:v170 homography:*&v161 homographyMatrix4x4:*&v160 userContext:{*&rect2, *&v28, 0, 0, *&rect2, *&v28, *&v74, *&v75, *&v76, *&v77, v164.i64[0], v164.u32[2], v163.i64[0], v163.u32[2], v162.i64[0], v162.u32[2], *&v158, *&v157, 0, 1065353216, *&v159}];
         }
 
         goto LABEL_104;
@@ -548,11 +548,11 @@ LABEL_102:
 
     else
     {
-      v208.origin.x = v74;
-      v208.origin.y = v75;
-      v208.size.width = v76;
-      v208.size.height = v77;
-      v78 = HGRectMakeWithCGRect(v208);
+      v206.origin.x = v74;
+      v206.origin.y = v75;
+      v206.size.width = v76;
+      v206.size.height = v77;
+      v78 = HGRectMakeWithCGRect(v206);
       v80 = v79;
       v81 = HGObject::operator new(0x1A0uLL);
       HGCrop::HGCrop(v81);
@@ -573,19 +573,19 @@ LABEL_102:
       (*(*v81 + 24))(v81);
     }
 
-    v209.origin.x = 0.0;
-    v209.origin.y = 0.0;
-    v209.size.width = rect2;
-    v209.size.height = v28;
-    v214.origin.x = v74;
-    v214.origin.y = v75;
-    v214.size.width = v76;
-    v214.size.height = v77;
-    v210 = CGRectIntersection(v209, v214);
-    v168 = v210.origin.x;
-    v158 = v210.origin.y;
-    v83 = v210.size.width;
-    v84 = v210.size.height;
+    v207.origin.x = 0.0;
+    v207.origin.y = 0.0;
+    v207.size.width = rect2;
+    v207.size.height = v28;
+    v212.origin.x = v74;
+    v212.origin.y = v75;
+    v212.size.width = v76;
+    v212.size.height = v77;
+    v208 = CGRectIntersection(v207, v212);
+    v166 = v208.origin.x;
+    v156 = v208.origin.y;
+    v83 = v208.size.width;
+    v84 = v208.size.height;
     fillMode = [object fillMode];
     v86 = fillMode;
     if (!fillMode)
@@ -593,7 +593,7 @@ LABEL_102:
       goto LABEL_102;
     }
 
-    v157 = v77;
+    v155 = v77;
     if (fillMode > 2)
     {
       v87 = v76;
@@ -622,15 +622,15 @@ LABEL_102:
 LABEL_77:
       v91 = v88 / v83;
       v92 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v186.a = *MEMORY[0x277CBF2C0];
-      *&v186.c = v92;
-      *&v186.tx = *(MEMORY[0x277CBF2C0] + 32);
-      *&t1.a = *&v186.a;
+      *&v184.a = *MEMORY[0x277CBF2C0];
+      *&v184.c = v92;
+      *&v184.tx = *(MEMORY[0x277CBF2C0] + 32);
+      *&t1.a = *&v184.a;
       *&t1.c = v92;
-      *&t1.tx = *&v186.tx;
+      *&t1.tx = *&v184.tx;
       v93 = v89 / v84;
       CGAffineTransformMakeScale(&t2, v91, v93);
-      CGAffineTransformConcat(&v186, &t1, &t2);
+      CGAffineTransformConcat(&v184, &t1, &t2);
       if ((v86 - 1) >= 6 && (v86 - 13) >= 2)
       {
         v95 = *MEMORY[0x277CBF348];
@@ -656,7 +656,7 @@ LABEL_77:
         v97 = d - v89;
       }
 
-      v77 = v157;
+      v77 = v155;
       if (v86 <= 9)
       {
         if (v86 == 6)
@@ -686,20 +686,20 @@ LABEL_91:
         }
 
 LABEL_92:
-        t2 = v186;
-        CGAffineTransformMakeTranslation(&v195, v95 - v168 * v91, v96 - v158 * v93);
-        CGAffineTransformConcat(&t1, &t2, &v195);
-        v186 = t1;
+        t2 = v184;
+        CGAffineTransformMakeTranslation(&v193, v95 - v166 * v91, v96 - v156 * v93);
+        CGAffineTransformConcat(&t1, &t2, &v193);
+        v184 = t1;
         v98 = *v11;
-        v185 = v98;
+        v183 = v98;
         if (v98)
         {
           (*(*v98 + 16))(v98);
         }
 
-        t1 = v186;
+        t1 = v184;
         v99 = (*(**context.m_Obj + 64))();
-        HGXFormForCGAffineTransform(&v185, &t1, v99, &t2);
+        HGXFormForCGAffineTransform(&v183, &t1, v99, &t2);
         v100 = *v11;
         v101 = t2.a;
         if (*v11 == *&t2.a)
@@ -722,9 +722,9 @@ LABEL_92:
           t2.a = 0.0;
         }
 
-        if (v185)
+        if (v183)
         {
-          (*(*v185 + 24))(v185);
+          (*(*v183 + 24))(v183);
         }
 
         goto LABEL_102;
@@ -779,22 +779,22 @@ LABEL_92:
   }
 
 LABEL_104:
-  CVPixelBufferRelease(v175);
+  CVPixelBufferRelease(v173);
   if (!self->_depthTrackID)
   {
-    [(PVInstructionGraphSourceNode *)self transform];
+    objc_msgSend_transform(self);
     t2 = t1;
     v115 = v20;
     goto LABEL_165;
   }
 
-  memset(&v195, 0, sizeof(v195));
-  [(PVInstructionGraphSourceNode *)self transform];
+  memset(&v193, 0, sizeof(v193));
+  objc_msgSend_transform(self);
   v104 = MEMORY[0x277CBF2C0];
   v105 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v192.a = *MEMORY[0x277CBF2C0];
-  *&v192.c = v105;
-  *&v192.tx = *(MEMORY[0x277CBF2C0] + 32);
+  *&v190.a = *MEMORY[0x277CBF2C0];
+  *&v190.c = v105;
+  *&v190.tx = *(MEMORY[0x277CBF2C0] + 32);
   userContext = self->_userContext;
   v106 = self->_clipNaturalSize.width;
   v108 = (*(**context.m_Obj + 40))();
@@ -938,33 +938,33 @@ LABEL_125:
 LABEL_129:
   transformAnimation2 = [(PVInstructionGraphSourceNode *)self transformAnimation];
   rect2a = v110;
-  *&v187.a = *&time->var0;
-  *&v187.c = time->var3;
-  v113 = [PVTransformAnimation getTransformInfoFromAnimation:transformAnimation2 atTime:&v187 renderSize:v112 contentMode:0 invertY:&t1 outInfo:v114, v113];
+  *&v185.a = *&time->var0;
+  *&v185.c = time->var3;
+  v113 = [PVTransformAnimation getTransformInfoFromAnimation:transformAnimation2 atTime:&v185 renderSize:v112 contentMode:0 invertY:&t1 outInfo:v114, v113];
 
   v123 = 0.0;
   v124 = 1.0;
   v125 = 1.0;
   v126 = 0uLL;
-  v115 = v174;
+  v115 = v172;
   if (v113)
   {
     ty = t1.ty;
-    v123 = v184;
+    v123 = v182;
     v125 = ty;
     v126 = vcvtq_f64_f32(vcvt_f32_f64(*&t1.d));
   }
 
-  v171 = v126;
+  v169 = v126;
   v128 = *&userContext * -0.5;
   v129 = v106 * -0.5;
-  memset(&v187, 0, sizeof(v187));
+  memset(&v185, 0, sizeof(v185));
   v130 = v128;
   v131 = v129;
-  CGAffineTransformMakeTranslation(&v187, v128, v129);
-  v186 = v192;
-  v182 = v187;
-  CGAffineTransformConcat(&v192, &v186, &v182);
+  CGAffineTransformMakeTranslation(&v185, v128, v129);
+  v184 = v190;
+  v180 = v185;
+  CGAffineTransformConcat(&v190, &v184, &v180);
   v132 = self->_depthTrackID;
   if (!v132)
   {
@@ -972,16 +972,16 @@ LABEL_129:
   }
 
   v133 = v104[1];
-  *&v182.a = *v104;
-  *&v182.c = v133;
-  *&v182.tx = v104[2];
-  CGAffineTransformTranslate(&v186, &v182, v130, v131);
-  *&v180.a = *&v186.tx;
-  v182 = v186;
-  v181 = v195;
-  CGAffineTransformConcat(&v186, &v182, &v181);
-  v134 = fabs(*&userContext * v186.a + v106 * v186.c);
-  v135 = fabs(*&userContext * v186.b + v106 * v186.d);
+  *&v180.a = *v104;
+  *&v180.c = v133;
+  *&v180.tx = v104[2];
+  CGAffineTransformTranslate(&v184, &v180, v130, v131);
+  *&v178.a = *&v184.tx;
+  v180 = v184;
+  v179 = v193;
+  CGAffineTransformConcat(&v184, &v180, &v179);
+  v134 = fabs(*&userContext * v184.a + v106 * v184.c);
+  v135 = fabs(*&userContext * v184.b + v106 * v184.d);
   if (v132 <= 2)
   {
     if (v132 == 1)
@@ -1047,36 +1047,36 @@ LABEL_146:
 
   v124 = v108 / (v134 / v135) / v135;
 LABEL_162:
-  v182 = v192;
-  v181 = v195;
-  CGAffineTransformConcat(&v186, &v182, &v181);
-  v192 = v186;
+  v180 = v190;
+  v179 = v193;
+  CGAffineTransformConcat(&v184, &v180, &v179);
+  v190 = v184;
   if (v123 != 0.0)
   {
-    v182 = v192;
-    CGAffineTransformMakeRotation(&v181, ((v123 * 3.1416) / 180.0));
-    CGAffineTransformConcat(&v186, &v182, &v181);
-    v192 = v186;
+    v180 = v190;
+    CGAffineTransformMakeRotation(&v179, ((v123 * 3.1416) / 180.0));
+    CGAffineTransformConcat(&v184, &v180, &v179);
+    v190 = v184;
   }
 
-  memset(&v186, 0, sizeof(v186));
-  CGAffineTransformMakeScale(&v186, v125 * v124, v125 * v124);
-  v181 = v192;
-  v180 = v186;
-  CGAffineTransformConcat(&v182, &v181, &v180);
-  v192 = v182;
-  v141 = *&userContext * 0.5 + floor(v108 - *&userContext) * 0.5 + v171.f64[0];
-  v142 = v106 * 0.5 + floor(rect2a - v106) * 0.5 + v171.f64[1];
-  CGAffineTransformMakeTranslation(&v182, v141, v142);
-  v187 = v182;
-  v181 = v192;
-  v180 = v182;
-  CGAffineTransformConcat(&v182, &v181, &v180);
-  v192 = v182;
-  t2 = v182;
+  memset(&v184, 0, sizeof(v184));
+  CGAffineTransformMakeScale(&v184, v125 * v124, v125 * v124);
+  v179 = v190;
+  v178 = v184;
+  CGAffineTransformConcat(&v180, &v179, &v178);
+  v190 = v180;
+  v141 = *&userContext * 0.5 + floor(v108 - *&userContext) * 0.5 + v169.f64[0];
+  v142 = v106 * 0.5 + floor(rect2a - v106) * 0.5 + v169.f64[1];
+  CGAffineTransformMakeTranslation(&v180, v141, v142);
+  v185 = v180;
+  v179 = v190;
+  v178 = v180;
+  CGAffineTransformConcat(&v180, &v179, &v178);
+  v190 = v180;
+  t2 = v180;
 LABEL_165:
   v143 = *v11;
-  v179 = v143;
+  v177 = v143;
   if (v143)
   {
     (*(*v143 + 16))(v143);
@@ -1084,14 +1084,14 @@ LABEL_165:
 
   t1 = t2;
   v144 = (*(**context.m_Obj + 64))();
-  HGXFormForCGAffineTransform(&v179, &t1, v144, &v195);
+  HGXFormForCGAffineTransform(&v177, &t1, v144, &v193);
   v145 = *v11;
-  v146 = v195.a;
-  if (*v11 == *&v195.a)
+  v146 = v193.a;
+  if (*v11 == *&v193.a)
   {
     if (v145)
     {
-      (*(**&v195.a + 24))(*&v195.a);
+      (*(**&v193.a + 24))(*&v193.a);
     }
   }
 
@@ -1100,20 +1100,20 @@ LABEL_165:
     if (v145)
     {
       (*(*v145 + 24))(v145);
-      v146 = v195.a;
+      v146 = v193.a;
     }
 
     *v11 = v146;
-    v195.a = 0.0;
+    v193.a = 0.0;
   }
 
-  if (v179)
+  if (v177)
   {
-    (*(*v179 + 24))(v179);
+    (*(*v177 + 24))(v177);
   }
 
   v147 = *v11;
-  v178 = v147;
+  v176 = v147;
   if (v147)
   {
     (*(*v147 + 16))(v147);
@@ -1121,14 +1121,14 @@ LABEL_165:
 
   (*(**context.m_Obj + 56))(&t1);
   v148 = (*(**context.m_Obj + 64))();
-  HGXFormForCGAffineTransform(&v178, &t1, v148, &v195);
+  HGXFormForCGAffineTransform(&v176, &t1, v148, &v193);
   v149 = *v11;
-  v150 = v195.a;
-  if (*v11 == *&v195.a)
+  v150 = v193.a;
+  if (*v11 == *&v193.a)
   {
     if (v149)
     {
-      (*(**&v195.a + 24))(*&v195.a);
+      (*(**&v193.a + 24))(*&v193.a);
     }
   }
 
@@ -1137,34 +1137,33 @@ LABEL_165:
     if (v149)
     {
       (*(*v149 + 24))(v149);
-      v150 = v195.a;
+      v150 = v193.a;
     }
 
     *v11 = v150;
-    v195.a = 0.0;
+    v193.a = 0.0;
   }
 
-  if (v178)
+  if (v176)
   {
-    (*(*v178 + 24))(v178);
+    (*(*v176 + 24))(v176);
   }
 
   if (-[PVInstructionGraphNode isDebugDrawingEnabled](self, "isDebugDrawingEnabled") && [object isValid])
   {
     v151 = (*(**context.m_Obj + 40))();
-    v153 = v152;
-    v154 = HGObject::operator new(0x280uLL);
-    HGHWMultiBlend::HGHWMultiBlend(v154);
-    (*(*v154 + 96))(v154, 0, 9.0, 0.0, 0.0, 0.0);
-    (*(*v154 + 120))(v154, 0, *v11);
+    v152 = HGObject::operator new(0x280uLL);
+    HGHWMultiBlend::HGHWMultiBlend(v152);
+    (*(*v152 + 96))(v152, 0, 9.0, 0.0, 0.0, 0.0);
+    (*(*v152 + 120))(v152, 0, *v11);
     t1.b = 0.0;
     t1.a = 0.0;
     *&t1.c = xmmword_260342700;
-    coloredDotHGNode(v151 * 0.5 + -13.0, v153 * 0.5 + -13.0, 26.0, 26.0);
+    coloredDotHGNode(v151 * 0.5 + -13.0);
   }
 
-  HGTraceGuard::~HGTraceGuard(v194);
-  return v155;
+  HGTraceGuard::~HGTraceGuard(v192);
+  return v153;
 }
 
 - (PCRect<double>)inputSizeForPVEffect:(id)effect igContext:(HGRef<PVInstructionGraphContext>)context

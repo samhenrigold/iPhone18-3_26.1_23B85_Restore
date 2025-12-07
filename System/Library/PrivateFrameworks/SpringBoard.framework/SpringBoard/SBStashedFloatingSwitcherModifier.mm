@@ -36,7 +36,7 @@
   v13.super_class = SBStashedFloatingSwitcherModifier;
   v10 = [(SBSwitcherModifier *)&v13 handleTapSlideOverTongueEvent:eventCopy];
 
-  v11 = SBAppendSwitcherModifierResponse(v9, v10);
+  v11 = SBAppendSwitcherModifierResponse();
 
   return v11;
 }

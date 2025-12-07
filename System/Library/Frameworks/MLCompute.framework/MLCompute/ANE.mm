@@ -3,7 +3,7 @@
 
 @implementation ANE
 
-void __ANE_ValidateConcatUnit_block_invoke()
+void __ANE_ValidateConcatUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -16,7 +16,7 @@ void __ANE_ValidateConcatUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateConvolutionUnit_block_invoke()
+void __ANE_ValidateConvolutionUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -29,7 +29,7 @@ void __ANE_ValidateConvolutionUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateInstanceNormUnit_block_invoke()
+void __ANE_ValidateInstanceNormUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -42,7 +42,7 @@ void __ANE_ValidateInstanceNormUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateNeuronUnit_block_invoke()
+void __ANE_ValidateNeuronUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -55,7 +55,7 @@ void __ANE_ValidateNeuronUnit_block_invoke()
   }
 }
 
-void __ANE_ValidatePoolingUnit_block_invoke()
+void __ANE_ValidatePoolingUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -68,7 +68,7 @@ void __ANE_ValidatePoolingUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateSoftmaxUnit_block_invoke()
+void __ANE_ValidateSoftmaxUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -81,7 +81,7 @@ void __ANE_ValidateSoftmaxUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateReshapeUnit_block_invoke()
+void __ANE_ValidateReshapeUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -94,7 +94,7 @@ void __ANE_ValidateReshapeUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateTransposeUnit_block_invoke()
+void __ANE_ValidateTransposeUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -107,7 +107,7 @@ void __ANE_ValidateTransposeUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateReductionUnit_block_invoke()
+void __ANE_ValidateReductionUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -120,7 +120,7 @@ void __ANE_ValidateReductionUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateBroadcastUnit_block_invoke()
+void __ANE_ValidateBroadcastUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -133,7 +133,7 @@ void __ANE_ValidateBroadcastUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateElementWiseUnit_block_invoke()
+void __ANE_ValidateElementWiseUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -146,7 +146,7 @@ void __ANE_ValidateElementWiseUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateInputViewUnit_block_invoke()
+void __ANE_ValidateInputViewUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -159,7 +159,7 @@ void __ANE_ValidateInputViewUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateArgMinMaxUnit_block_invoke()
+void __ANE_ValidateArgMinMaxUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -172,7 +172,7 @@ void __ANE_ValidateArgMinMaxUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateGOCUnit_block_invoke()
+void __ANE_ValidateGOCUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -185,7 +185,7 @@ void __ANE_ValidateGOCUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateMatrixMultUnit_block_invoke()
+void __ANE_ValidateMatrixMultUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {
@@ -198,7 +198,7 @@ void __ANE_ValidateMatrixMultUnit_block_invoke()
   }
 }
 
-void __ANE_ValidateLayerNormUnit_block_invoke()
+void __ANE_ValidateLayerNormUnit_block_invoke(uint64_t result, uint64_t a2)
 {
   if (isAppleNeuralEngineAPIAvailable_onceToken != -1)
   {

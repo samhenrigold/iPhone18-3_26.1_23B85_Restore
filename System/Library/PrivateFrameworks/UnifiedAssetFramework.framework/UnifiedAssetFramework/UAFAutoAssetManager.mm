@@ -37,6 +37,7 @@
 + (id)latestStatusForClients:(id)clients error:(id *)error;
 + (id)lockLatestAssetSet:(id)set;
 + (id)manageAssetSet:(id)set specifiers:(id)specifiers lockIfUnchanged:(BOOL)unchanged userInitiated:(BOOL)initiated experiment:(id)experiment;
++ (id)removeAutoAssetSet:(id)set fallbackAlter:(BOOL)alter;
 + (id)setLatestAtomicInstance:(id)instance autoAssetSet:(id)set fallbackAlter:(BOOL)alter;
 + (id)sizeInBytesForConfig:(id)config key:(id)key error:(id *)error;
 + (id)spaceNeededForAssetSetUsages:(id)usages key:(id)key configurationManager:(id)manager error:(id *)error;
@@ -94,41 +95,39 @@
 
 void __42__UAFAutoAssetManager_observeAllAssetSets__block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v0 = +[UAFConfigurationManager defaultManager];
   v1 = [v0 getAllAssetSets];
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [UAFAutoAssetManager observeAssetSet:*(*(&v8 + 1) + 8 * v6++), v8];
+        [UAFAutoAssetManager observeAssetSet:*(*(&v7 + 1) + 8 * v6++), v7];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __41__UAFAutoAssetManager_getConcurrentQueue__block_invoke()
@@ -230,67 +229,67 @@ void __47__UAFAutoAssetManager_completedAtomicInstances__block_invoke()
 
 + (id)getSpecifiers:(id)specifiers assetSetUsages:(id)usages experiment:(id)experiment
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   specifiersCopy = specifiers;
   usagesCopy = usages;
   experimentCopy = experiment;
   v9 = objc_opt_new();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v29 = specifiersCopy;
+  v28 = specifiersCopy;
   name = [specifiersCopy name];
-  v26 = usagesCopy;
+  v25 = usagesCopy;
   v11 = [usagesCopy objectForKeyedSubscript:name];
 
   obj = v11;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v28 = *v37;
+    v27 = *v36;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v37 != v28)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = [v29 getAutoAssets:{*(*(&v36 + 1) + 8 * i), experimentCopy}];
+        v15 = [v28 getAutoAssets:{*(*(&v35 + 1) + 8 * i), experimentCopy}];
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v33;
+          v18 = *v32;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v33 != v18)
+              if (*v32 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = [v15 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * j)];
+              v20 = [v15 objectForKeyedSubscript:*(*(&v31 + 1) + 8 * j)];
               v21 = [v20 objectForKeyedSubscript:@"AssetSpecifier"];
               [v9 addObject:v21];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
           }
 
           while (v17);
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v13 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v13);
@@ -299,15 +298,13 @@ void __47__UAFAutoAssetManager_completedAtomicInstances__block_invoke()
   if (experimentCopy)
   {
     assetSpecifiers = [experimentCopy assetSpecifiers];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_invoke;
-    v30[3] = &unk_1E7FFDC90;
-    v31 = v9;
-    [assetSpecifiers enumerateKeysAndObjectsUsingBlock:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_invoke;
+    v29[3] = &unk_1E7FFDC90;
+    v30 = v9;
+    [assetSpecifiers enumerateKeysAndObjectsUsingBlock:v29];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -323,33 +320,33 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
 
 + (id)getCurrentSpecifiers:(id)specifiers expectedAutoAssetType:(id)type
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   specifiersCopy = specifiers;
   typeCopy = type;
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v26 = specifiersCopy;
+  v25 = specifiersCopy;
   configuredAssetEntries = [specifiersCopy configuredAssetEntries];
-  v8 = [configuredAssetEntries countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v8 = [configuredAssetEntries countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v30;
+    v11 = *v29;
     *&v9 = 136315906;
-    v25 = v9;
+    v24 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(configuredAssetEntries);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         assetSelector = [v13 assetSelector];
         assetType = [assetSelector assetType];
         v16 = [assetType isEqualToString:typeCopy];
@@ -358,7 +355,7 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
         {
           assetSelector2 = [v13 assetSelector];
           assetSpecifier = [assetSelector2 assetSpecifier];
-          [v28 addObject:assetSpecifier];
+          [v27 addObject:assetSpecifier];
         }
 
         else
@@ -370,57 +367,55 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
             assetType2 = [assetSelector3 assetType];
             assetSelector4 = [v13 assetSelector];
             assetSpecifier2 = [assetSelector4 assetSpecifier];
-            assetSetIdentifier = [v26 assetSetIdentifier];
-            *buf = v25;
-            v34 = "+[UAFAutoAssetManager getCurrentSpecifiers:expectedAutoAssetType:]";
-            v35 = 2114;
-            v36 = assetType2;
-            v37 = 2114;
-            v38 = assetSpecifier2;
-            v39 = 2114;
-            v40 = assetSetIdentifier;
+            assetSetIdentifier = [v25 assetSetIdentifier];
+            *buf = v24;
+            v33 = "+[UAFAutoAssetManager getCurrentSpecifiers:expectedAutoAssetType:]";
+            v34 = 2114;
+            v35 = assetType2;
+            v36 = 2114;
+            v37 = assetSpecifier2;
+            v38 = 2114;
+            v39 = assetSetIdentifier;
             _os_log_error_impl(&dword_1BCF2C000, assetSelector2, OS_LOG_TYPE_ERROR, "%s Unexpected auto asset type %{public}@ with specifier %{public}@ in auto asset set %{public}@", buf, 0x2Au);
           }
         }
       }
 
-      v10 = [configuredAssetEntries countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v10 = [configuredAssetEntries countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v10);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v27;
 }
 
 + (id)getAutoSetEntries:(id)entries specifiers:(id)specifiers
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
   specifiersCopy = specifiers;
   v7 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = specifiersCopy;
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         autoAssetType = [entriesCopy autoAssetType];
         v14 = [UAFAssetSetManager cacheDeleteDisabledForAutoAssetType:autoAssetType autoAssetSpecifier:v12];
 
@@ -431,13 +426,11 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
         [v7 addObject:v17];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -480,29 +473,29 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
 
 + (BOOL)cacheDeleteStatusChange:(id)change
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   changeCopy = change;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [changeCopy configuredAssetEntries];
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v43 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
   if (v4)
   {
     v5 = v4;
-    v25 = changeCopy;
-    v6 = *v28;
+    v24 = changeCopy;
+    v6 = *v27;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v26 + 1) + 8 * i);
         assetSelector = [v8 assetSelector];
         assetType = [assetSelector assetType];
         assetSelector2 = [v8 assetSelector];
@@ -512,7 +505,7 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
         if (v13 != [v8 assetLockedInhibitsRemoval])
         {
           v15 = UAFGetLogCategory(&UAFLogContextMAConfig);
-          changeCopy = v25;
+          changeCopy = v24;
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             if ([v8 assetLockedInhibitsRemoval])
@@ -539,19 +532,19 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
             assetType2 = [assetSelector3 assetType];
             assetSelector4 = [v8 assetSelector];
             assetSpecifier2 = [assetSelector4 assetSpecifier];
-            assetSetIdentifier = [v25 assetSetIdentifier];
+            assetSetIdentifier = [v24 assetSetIdentifier];
             *buf = 136316418;
-            v32 = "+[UAFAutoAssetManager cacheDeleteStatusChange:]";
-            v33 = 2114;
-            v34 = v16;
-            v35 = 2114;
-            v36 = v17;
-            v37 = 2114;
-            v38 = assetType2;
-            v39 = 2114;
-            v40 = assetSpecifier2;
-            v41 = 2114;
-            v42 = assetSetIdentifier;
+            v31 = "+[UAFAutoAssetManager cacheDeleteStatusChange:]";
+            v32 = 2114;
+            v33 = v16;
+            v34 = 2114;
+            v35 = v17;
+            v36 = 2114;
+            v37 = assetType2;
+            v38 = 2114;
+            v39 = assetSpecifier2;
+            v40 = 2114;
+            v41 = assetSetIdentifier;
             _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s assetLockedInhibitsRemoval value %{public}@ doesn't match desired value %{public}@ for asset type %{public}@ and specifier %{public}@ in asset set %{public}@", buf, 0x3Eu);
           }
 
@@ -560,7 +553,7 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v43 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
       if (v5)
       {
         continue;
@@ -570,7 +563,7 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
     }
 
     v14 = 1;
-    changeCopy = v25;
+    changeCopy = v24;
   }
 
   else
@@ -580,14 +573,13 @@ void __63__UAFAutoAssetManager_getSpecifiers_assetSetUsages_experiment___block_i
 
 LABEL_20:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)getAutoAssetSet:(id)set specifiers:(id *)specifiers addEntries:(BOOL)entries configured:(BOOL *)configured downloaded:(BOOL *)downloaded currentPolicy:(id *)policy
 {
   entriesCopy = entries;
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   setCopy = set;
   configuredCopy = configured;
   *configured = 0;
@@ -607,9 +599,9 @@ LABEL_20:
   v16 = objc_alloc(MEMORY[0x1E69B1918]);
   name = [setCopy name];
   v18 = +[UAFAutoAssetManager getConcurrentQueue];
-  v105 = 0;
-  v19 = [v16 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name comprisedOfEntries:v15 completingFromQueue:v18 error:&v105];
-  v20 = v105;
+  v104 = 0;
+  v19 = [v16 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name comprisedOfEntries:v15 completingFromQueue:v18 error:&v104];
+  v20 = v104;
 
   if (v20)
   {
@@ -617,16 +609,16 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [setCopy name];
-      v77 = v76 = v19;
+      v76 = v75 = v19;
       *buf = 136315650;
-      v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-      v110 = 2114;
-      v111 = v77;
-      v112 = 2114;
-      v113 = v20;
+      v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+      v109 = 2114;
+      v110 = v76;
+      v111 = 2114;
+      v112 = v20;
       _os_log_error_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
 
-      v19 = v76;
+      v19 = v75;
     }
 
     goto LABEL_8;
@@ -642,264 +634,264 @@ LABEL_8:
 
   if (!entriesCopy)
   {
-    v29 = objc_autoreleasePoolPush();
-    v104 = 0;
-    v30 = [v19 currentSetStatusSync:&v104];
-    v31 = v104;
-    v20 = v31;
-    if (!v30 || v31)
+    v28 = objc_autoreleasePoolPush();
+    v103 = 0;
+    v29 = [v19 currentSetStatusSync:&v103];
+    v30 = v103;
+    v20 = v30;
+    if (!v29 || v30)
     {
-      v38 = UAFGetLogCategory(&UAFLogContextMAConfig);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v37 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [v19 assetSetIdentifier];
-        v83 = v82 = v19;
+        v82 = v81 = v19;
         *buf = 136315650;
-        v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-        v110 = 2114;
-        v111 = v83;
-        v112 = 2114;
-        v113 = v20;
-        _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@ : %{public}@", buf, 0x20u);
+        v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+        v109 = 2114;
+        v110 = v82;
+        v111 = 2114;
+        v112 = v20;
+        _os_log_error_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@ : %{public}@", buf, 0x20u);
 
-        v19 = v82;
+        v19 = v81;
       }
 
-      objc_autoreleasePoolPop(v29);
+      objc_autoreleasePoolPop(v28);
       v22 = 0;
       goto LABEL_76;
     }
 
-    v91 = v19;
-    objc_autoreleasePoolPop(v29);
+    v90 = v19;
+    objc_autoreleasePoolPop(v28);
     if (policy)
     {
-      *policy = [v30 schedulerPolicy];
+      *policy = [v29 schedulerPolicy];
     }
 
-    schedulerPolicy = [v30 schedulerPolicy];
+    schedulerPolicy = [v29 schedulerPolicy];
     if (schedulerPolicy)
     {
-      v33 = schedulerPolicy;
-      schedulerPolicy2 = [v30 schedulerPolicy];
+      v32 = schedulerPolicy;
+      schedulerPolicy2 = [v29 schedulerPolicy];
       blockCheckDownload = [schedulerPolicy2 blockCheckDownload];
 
       if (blockCheckDownload)
       {
-        v36 = UAFGetLogCategory(&UAFLogContextMAConfig);
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v35 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          assetSetIdentifier = [v91 assetSetIdentifier];
+          assetSetIdentifier = [v90 assetSetIdentifier];
           *buf = 136315394;
-          v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-          v110 = 2114;
-          v111 = assetSetIdentifier;
-          _os_log_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ currently has downloads blocked", buf, 0x16u);
+          v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+          v109 = 2114;
+          v110 = assetSetIdentifier;
+          _os_log_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ currently has downloads blocked", buf, 0x16u);
         }
 
-        v19 = v91;
-        v22 = v91;
+        v19 = v90;
+        v22 = v90;
         goto LABEL_76;
       }
     }
 
     autoAssetType = [setCopy autoAssetType];
-    v40 = [UAFAutoAssetManager getCurrentSpecifiers:v30 expectedAutoAssetType:autoAssetType];
+    v39 = [UAFAutoAssetManager getCurrentSpecifiers:v29 expectedAutoAssetType:autoAssetType];
 
-    v41 = UAFGetLogCategory(&UAFLogContextMAConfig);
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v40 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
-      assetSetIdentifier2 = [v91 assetSetIdentifier];
-      allObjects = [v40 allObjects];
+      assetSetIdentifier2 = [v90 assetSetIdentifier];
+      allObjects = [v39 allObjects];
       *buf = 136315650;
-      v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-      v110 = 2114;
-      v111 = assetSetIdentifier2;
-      v112 = 2114;
-      v113 = allObjects;
-      _os_log_debug_impl(&dword_1BCF2C000, v41, OS_LOG_TYPE_DEBUG, "%s Auto asset set %{public}@ has specifiers %{public}@", buf, 0x20u);
+      v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+      v109 = 2114;
+      v110 = assetSetIdentifier2;
+      v111 = 2114;
+      v112 = allObjects;
+      _os_log_debug_impl(&dword_1BCF2C000, v40, OS_LOG_TYPE_DEBUG, "%s Auto asset set %{public}@ has specifiers %{public}@", buf, 0x20u);
     }
 
-    v90 = v15;
-    if ([v40 isEqualToSet:v14])
+    v89 = v15;
+    if ([v39 isEqualToSet:v14])
     {
-      v42 = [UAFAutoAssetManager cacheDeleteStatusChange:v30];
-      *configuredCopy = v42;
-      v19 = v91;
-      if (!v42)
+      v41 = [UAFAutoAssetManager cacheDeleteStatusChange:v29];
+      *configuredCopy = v41;
+      v19 = v90;
+      if (!v41)
       {
 LABEL_34:
-        v89 = v30;
-        v43 = UAFGetLogCategory(&UAFLogContextMAConfig);
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v88 = v29;
+        v42 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
-          assetSetIdentifier3 = [v91 assetSetIdentifier];
+          assetSetIdentifier3 = [v90 assetSetIdentifier];
           allObjects2 = [v14 allObjects];
-          allObjects3 = [v40 allObjects];
+          allObjects3 = [v39 allObjects];
           *buf = 136315906;
-          v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-          v110 = 2114;
-          v111 = assetSetIdentifier3;
-          v112 = 2114;
-          v113 = allObjects2;
-          v114 = 2114;
-          v115 = allObjects3;
-          _os_log_impl(&dword_1BCF2C000, v43, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ does not have expected specifiers %{public}@, has %{public}@", buf, 0x2Au);
+          v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+          v109 = 2114;
+          v110 = assetSetIdentifier3;
+          v111 = 2114;
+          v112 = allObjects2;
+          v113 = 2114;
+          v114 = allObjects3;
+          _os_log_impl(&dword_1BCF2C000, v42, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ does not have expected specifiers %{public}@, has %{public}@", buf, 0x2Au);
         }
 
-        v47 = [MEMORY[0x1E695DFA8] set];
+        v46 = [MEMORY[0x1E695DFA8] set];
+        v99 = 0u;
         v100 = 0u;
         v101 = 0u;
         v102 = 0u;
-        v103 = 0u;
-        v48 = v14;
-        v49 = [v48 countByEnumeratingWithState:&v100 objects:v107 count:16];
-        if (v49)
+        v47 = v14;
+        v48 = [v47 countByEnumeratingWithState:&v99 objects:v106 count:16];
+        if (v48)
         {
-          v50 = v49;
-          v51 = *v101;
+          v49 = v48;
+          v50 = *v100;
           do
           {
-            for (i = 0; i != v50; ++i)
+            for (i = 0; i != v49; ++i)
             {
-              if (*v101 != v51)
+              if (*v100 != v50)
               {
-                objc_enumerationMutation(v48);
+                objc_enumerationMutation(v47);
               }
 
-              v53 = *(*(&v100 + 1) + 8 * i);
-              if (([v40 containsObject:v53] & 1) == 0)
+              v52 = *(*(&v99 + 1) + 8 * i);
+              if (([v39 containsObject:v52] & 1) == 0)
               {
-                [v47 addObject:v53];
+                [v46 addObject:v52];
               }
             }
 
-            v50 = [v48 countByEnumeratingWithState:&v100 objects:v107 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v99 objects:v106 count:16];
           }
 
-          while (v50);
+          while (v49);
         }
 
-        v87 = v14;
-        v88 = setCopy;
+        v86 = v14;
+        v87 = setCopy;
 
-        v54 = UAFGetLogCategory(&UAFLogContextMAConfig);
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v53 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          assetSetIdentifier4 = [v91 assetSetIdentifier];
-          allObjects4 = [v47 allObjects];
+          assetSetIdentifier4 = [v90 assetSetIdentifier];
+          allObjects4 = [v46 allObjects];
           *buf = 136315650;
-          v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-          v110 = 2114;
-          v111 = assetSetIdentifier4;
-          v112 = 2114;
-          v113 = allObjects4;
-          _os_log_impl(&dword_1BCF2C000, v54, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ missing specifiers: %{public}@", buf, 0x20u);
+          v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+          v109 = 2114;
+          v110 = assetSetIdentifier4;
+          v111 = 2114;
+          v112 = allObjects4;
+          _os_log_impl(&dword_1BCF2C000, v53, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ missing specifiers: %{public}@", buf, 0x20u);
         }
 
-        v57 = [MEMORY[0x1E695DFA8] set];
+        v56 = [MEMORY[0x1E695DFA8] set];
+        v95 = 0u;
         v96 = 0u;
         v97 = 0u;
         v98 = 0u;
-        v99 = 0u;
-        v58 = v40;
-        v59 = [v58 countByEnumeratingWithState:&v96 objects:v106 count:16];
-        if (v59)
+        v57 = v39;
+        v58 = [v57 countByEnumeratingWithState:&v95 objects:v105 count:16];
+        if (v58)
         {
-          v60 = v59;
-          v61 = *v97;
+          v59 = v58;
+          v60 = *v96;
           do
           {
-            for (j = 0; j != v60; ++j)
+            for (j = 0; j != v59; ++j)
             {
-              if (*v97 != v61)
+              if (*v96 != v60)
               {
-                objc_enumerationMutation(v58);
+                objc_enumerationMutation(v57);
               }
 
-              v63 = *(*(&v96 + 1) + 8 * j);
-              if (([v48 containsObject:v63] & 1) == 0)
+              v62 = *(*(&v95 + 1) + 8 * j);
+              if (([v47 containsObject:v62] & 1) == 0)
               {
-                [v57 addObject:v63];
+                [v56 addObject:v62];
               }
             }
 
-            v60 = [v58 countByEnumeratingWithState:&v96 objects:v106 count:16];
+            v59 = [v57 countByEnumeratingWithState:&v95 objects:v105 count:16];
           }
 
-          while (v60);
+          while (v59);
         }
 
-        v64 = UAFGetLogCategory(&UAFLogContextMAConfig);
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v63 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
-          assetSetIdentifier5 = [v91 assetSetIdentifier];
-          allObjects5 = [v57 allObjects];
+          assetSetIdentifier5 = [v90 assetSetIdentifier];
+          allObjects5 = [v56 allObjects];
           *buf = 136315650;
-          v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-          v110 = 2114;
-          v111 = assetSetIdentifier5;
-          v112 = 2114;
-          v113 = allObjects5;
-          _os_log_impl(&dword_1BCF2C000, v64, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ extra specifiers: %{public}@", buf, 0x20u);
+          v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+          v109 = 2114;
+          v110 = assetSetIdentifier5;
+          v111 = 2114;
+          v112 = allObjects5;
+          _os_log_impl(&dword_1BCF2C000, v63, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ extra specifiers: %{public}@", buf, 0x20u);
         }
 
-        v14 = v87;
-        setCopy = v88;
-        v19 = v91;
-        v30 = v89;
-        if ([v57 count] && !+[UAFAutoAssetManager allowRemoves](UAFAutoAssetManager, "allowRemoves"))
+        v14 = v86;
+        setCopy = v87;
+        v19 = v90;
+        v29 = v88;
+        if ([v56 count] && !+[UAFAutoAssetManager allowRemoves](UAFAutoAssetManager, "allowRemoves"))
         {
-          v67 = [MEMORY[0x1E695DFA8] setWithSet:v58];
-          v94[0] = MEMORY[0x1E69E9820];
-          v94[1] = 3221225472;
-          v94[2] = __97__UAFAutoAssetManager_getAutoAssetSet_specifiers_addEntries_configured_downloaded_currentPolicy___block_invoke;
-          v94[3] = &unk_1E7FFEBB0;
-          v86 = v67;
-          v95 = v86;
-          [v48 enumerateObjectsUsingBlock:v94];
-          *specifiersCopy = v86;
-          v68 = UAFGetLogCategory(&UAFLogContextMAConfig);
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+          v66 = [MEMORY[0x1E695DFA8] setWithSet:v57];
+          v93[0] = MEMORY[0x1E69E9820];
+          v93[1] = 3221225472;
+          v93[2] = __97__UAFAutoAssetManager_getAutoAssetSet_specifiers_addEntries_configured_downloaded_currentPolicy___block_invoke;
+          v93[3] = &unk_1E7FFEBB0;
+          v85 = v66;
+          v94 = v85;
+          [v47 enumerateObjectsUsingBlock:v93];
+          *specifiersCopy = v85;
+          v67 = UAFGetLogCategory(&UAFLogContextMAConfig);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
           {
-            assetSetIdentifier6 = [v91 assetSetIdentifier];
-            allObjects6 = [v57 allObjects];
+            assetSetIdentifier6 = [v90 assetSetIdentifier];
+            allObjects6 = [v56 allObjects];
             *buf = 136315650;
-            v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-            v110 = 2114;
-            v111 = assetSetIdentifier6;
-            v112 = 2114;
-            v113 = allObjects6;
-            _os_log_impl(&dword_1BCF2C000, v68, OS_LOG_TYPE_DEFAULT, "%s Inhibiting removal of the following specifiers for %{public}@: %{public}@", buf, 0x20u);
+            v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+            v109 = 2114;
+            v110 = assetSetIdentifier6;
+            v111 = 2114;
+            v112 = allObjects6;
+            _os_log_impl(&dword_1BCF2C000, v67, OS_LOG_TYPE_DEFAULT, "%s Inhibiting removal of the following specifiers for %{public}@: %{public}@", buf, 0x20u);
 
-            v30 = v89;
-            v19 = v91;
+            v29 = v88;
+            v19 = v90;
           }
 
-          v71 = v86;
-          if ([v58 isEqualToSet:v86])
+          v70 = v85;
+          if ([v57 isEqualToSet:v85])
           {
-            v72 = [UAFAutoAssetManager cacheDeleteStatusChange:v30];
-            *configuredCopy = v72;
-            if (v72)
+            v71 = [UAFAutoAssetManager cacheDeleteStatusChange:v29];
+            *configuredCopy = v71;
+            if (v71)
             {
-              v73 = UAFGetLogCategory(&UAFLogContextMAConfig);
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+              v72 = UAFGetLogCategory(&UAFLogContextMAConfig);
+              if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
               {
                 assetSetIdentifier7 = [v19 assetSetIdentifier];
-                allObjects7 = [v58 allObjects];
+                allObjects7 = [v57 allObjects];
                 *buf = 136315650;
-                v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-                v110 = 2114;
-                v111 = assetSetIdentifier7;
-                v112 = 2114;
-                v113 = allObjects7;
-                _os_log_impl(&dword_1BCF2C000, v73, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ has expected specifiers after inhibiting removal %{public}@", buf, 0x20u);
+                v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+                v109 = 2114;
+                v110 = assetSetIdentifier7;
+                v111 = 2114;
+                v112 = allObjects7;
+                _os_log_impl(&dword_1BCF2C000, v72, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ has expected specifiers after inhibiting removal %{public}@", buf, 0x20u);
 
-                v19 = v91;
+                v19 = v90;
               }
 
-              v71 = v86;
+              v70 = v85;
             }
           }
         }
@@ -907,7 +899,7 @@ LABEL_34:
 LABEL_75:
         v22 = v19;
 
-        v15 = v90;
+        v15 = v89;
 LABEL_76:
 
         goto LABEL_9;
@@ -916,70 +908,68 @@ LABEL_76:
 
     else
     {
-      v19 = v91;
+      v19 = v90;
       if (!*configuredCopy)
       {
         goto LABEL_34;
       }
     }
 
-    *downloaded = [v30 vendingAtomicInstanceForConfiguredEntries];
-    v47 = UAFGetLogCategory(&UAFLogContextMAConfig);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    *downloaded = [v29 vendingAtomicInstanceForConfiguredEntries];
+    v46 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       assetSetIdentifier8 = [v19 assetSetIdentifier];
-      v79 = v14;
+      v78 = v14;
       if (*downloaded)
       {
-        v80 = @"downloaded";
+        v79 = @"downloaded";
       }
 
       else
       {
-        v80 = @"not downloaded";
+        v79 = @"not downloaded";
       }
 
-      allObjects8 = [v79 allObjects];
+      allObjects8 = [v78 allObjects];
       *buf = 136315906;
-      v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-      v110 = 2114;
-      v111 = assetSetIdentifier8;
-      v112 = 2114;
-      v113 = v80;
-      v14 = v79;
-      v114 = 2114;
-      v115 = allObjects8;
-      _os_log_impl(&dword_1BCF2C000, v47, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is %{public}@ and has expected specifiers %{public}@", buf, 0x2Au);
+      v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+      v109 = 2114;
+      v110 = assetSetIdentifier8;
+      v111 = 2114;
+      v112 = v79;
+      v14 = v78;
+      v113 = 2114;
+      v114 = allObjects8;
+      _os_log_impl(&dword_1BCF2C000, v46, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is %{public}@ and has expected specifiers %{public}@", buf, 0x2Au);
 
-      v19 = v91;
+      v19 = v90;
     }
 
     goto LABEL_75;
   }
 
   *configuredCopy = 1;
-  v25 = UAFGetLogCategory(&UAFLogContextMAConfig);
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v24 = UAFGetLogCategory(&UAFLogContextMAConfig);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     [v19 assetSetIdentifier];
-    v27 = v26 = v19;
+    v26 = v25 = v19;
     allObjects9 = [v14 allObjects];
     *buf = 136315650;
-    v109 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
-    v110 = 2114;
-    v111 = v27;
-    v112 = 2114;
-    v113 = allObjects9;
-    _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ created with specifiers %{public}@", buf, 0x20u);
+    v108 = "+[UAFAutoAssetManager getAutoAssetSet:specifiers:addEntries:configured:downloaded:currentPolicy:]";
+    v109 = 2114;
+    v110 = v26;
+    v111 = 2114;
+    v112 = allObjects9;
+    _os_log_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ created with specifiers %{public}@", buf, 0x20u);
 
-    v19 = v26;
+    v19 = v25;
   }
 
   v22 = v19;
   v20 = 0;
 LABEL_9:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -1000,16 +990,16 @@ LABEL_9:
 
 + (id)configureAssetSet:(id)set specifiers:(id)specifiers changed:(BOOL *)changed downloaded:(BOOL *)downloaded currentPolicy:(id *)policy
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   setCopy = set;
   *changed = 0;
-  v52 = 0;
+  v51 = 0;
   specifiersCopy = specifiers;
   specifiersCopy2 = specifiers;
-  v13 = [UAFAutoAssetManager getAutoAssetSet:setCopy specifiers:&specifiersCopy addEntries:0 configured:&v52 downloaded:downloaded currentPolicy:policy];
+  v13 = [UAFAutoAssetManager getAutoAssetSet:setCopy specifiers:&specifiersCopy addEntries:0 configured:&v51 downloaded:downloaded currentPolicy:policy];
   v14 = specifiersCopy;
 
-  if (!v13 || v52 != 1)
+  if (!v13 || v51 != 1)
   {
     v17 = +[UAFAutoAssetManager immediateNeedPolicy];
     [v17 setAllowCheckDownloadOverExpensive:{objc_msgSend(setCopy, "enableExpensiveCellular")}];
@@ -1037,15 +1027,15 @@ LABEL_9:
           autoAssetType = [setCopy autoAssetType];
           allObjects = [v14 allObjects];
           *buf = 136316162;
-          v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-          v55 = 2114;
-          v56 = name2;
-          v57 = 2114;
-          v58 = autoAssetType;
-          v59 = 2114;
-          *v60 = allObjects;
-          *&v60[8] = 2114;
-          *&v60[10] = v23;
+          v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+          v54 = 2114;
+          v55 = name2;
+          v56 = 2114;
+          v57 = autoAssetType;
+          v58 = 2114;
+          *v59 = allObjects;
+          *&v59[8] = 2114;
+          *&v59[10] = v23;
           _os_log_error_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_ERROR, "%s Could not alter auto asset set %{public}@ with type %{public}@ specifiers %{public}@: %{public}@", buf, 0x34u);
         }
       }
@@ -1059,15 +1049,15 @@ LABEL_9:
           enableExpensiveCellular = [setCopy enableExpensiveCellular];
           allObjects2 = [v14 allObjects];
           *buf = 136316162;
-          v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-          v55 = 2114;
-          v56 = name3;
-          v57 = 2114;
-          v58 = autoAssetType2;
-          v59 = 1024;
-          *v60 = enableExpensiveCellular;
-          *&v60[4] = 2114;
-          *&v60[6] = allObjects2;
+          v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+          v54 = 2114;
+          v55 = name3;
+          v56 = 2114;
+          v57 = autoAssetType2;
+          v58 = 1024;
+          *v59 = enableExpensiveCellular;
+          *&v59[4] = 2114;
+          *&v59[6] = allObjects2;
           v32 = allObjects2;
           _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s Altered auto asset set %{public}@ with type %{public}@ with expensive cellular: %d and specifiers %{public}@", buf, 0x30u);
         }
@@ -1088,11 +1078,11 @@ LABEL_9:
         {
           name4 = [setCopy name];
           *buf = 136315650;
-          v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-          v55 = 2114;
-          v56 = name4;
-          v57 = 2114;
-          v58 = v34;
+          v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+          v54 = 2114;
+          v55 = name4;
+          v56 = 2114;
+          v57 = v34;
           _os_log_error_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_ERROR, "%s Could not indicate need for newly created asset set %{public}@ : %{public}@", buf, 0x20u);
         }
       }
@@ -1104,11 +1094,11 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    v50 = v14;
-    v13 = [UAFAutoAssetManager getAutoAssetSet:setCopy specifiers:&v50 addEntries:1 configured:&v52 downloaded:downloaded currentPolicy:policy];
-    v26 = v50;
+    v49 = v14;
+    v13 = [UAFAutoAssetManager getAutoAssetSet:setCopy specifiers:&v49 addEntries:1 configured:&v51 downloaded:downloaded currentPolicy:policy];
+    v26 = v49;
 
-    if (v52)
+    if (v51)
     {
       v27 = [UAFAutoAssetManager getReason:v13 operation:@"does need"];
       v28 = [v13 needForAtomicSync:v27 withNeedPolicy:v17];
@@ -1116,18 +1106,18 @@ LABEL_28:
       if (!v28)
       {
         *changed = 1;
-        v38 = UAFGetLogCategory(&UAFLogContextMAConfig);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v37 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           name5 = [setCopy name];
           allowCheckDownloadOverExpensive = [v17 allowCheckDownloadOverExpensive];
           *buf = 136315650;
-          v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-          v55 = 2114;
-          v56 = name5;
-          v57 = 1024;
-          LODWORD(v58) = allowCheckDownloadOverExpensive;
-          _os_log_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ newly created with expensive cellular policy: %d", buf, 0x1Cu);
+          v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+          v54 = 2114;
+          v55 = name5;
+          v56 = 1024;
+          LODWORD(v57) = allowCheckDownloadOverExpensive;
+          _os_log_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ newly created with expensive cellular policy: %d", buf, 0x1Cu);
         }
 
         autoAssetEntries = [v13 autoAssetEntries];
@@ -1144,11 +1134,11 @@ LABEL_28:
       {
         name6 = [setCopy name];
         *buf = 136315650;
-        v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-        v55 = 2114;
-        v56 = name6;
-        v57 = 2114;
-        v58 = v28;
+        v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+        v54 = 2114;
+        v55 = name6;
+        v56 = 2114;
+        v57 = v28;
         _os_log_error_impl(&dword_1BCF2C000, name7, OS_LOG_TYPE_ERROR, "%s Could not indicate need for newly created asset set %{public}@ : %{public}@", buf, 0x20u);
       }
     }
@@ -1163,9 +1153,9 @@ LABEL_28:
 
       name7 = [setCopy name];
       *buf = 136315394;
-      v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-      v55 = 2114;
-      v56 = name7;
+      v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+      v54 = 2114;
+      v55 = name7;
       _os_log_error_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_ERROR, "%s Auto asset set %{public}@ could not be created", buf, 0x16u);
     }
 
@@ -1180,9 +1170,9 @@ LABEL_27:
   {
     name8 = [setCopy name];
     *buf = 136315394;
-    v54 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
-    v55 = 2114;
-    v56 = name8;
+    v53 = "+[UAFAutoAssetManager configureAssetSet:specifiers:changed:downloaded:currentPolicy:]";
+    v54 = 2114;
+    v55 = name8;
     _os_log_debug_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEBUG, "%s Auto asset set %{public}@ already defined and properly configured", buf, 0x16u);
   }
 
@@ -1190,14 +1180,12 @@ LABEL_27:
   v16 = v13;
 LABEL_29:
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (void)eliminateAssetType:(id)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v4 = MEMORY[0x1E69B18F8];
   autoAssetType = [typeCopy autoAssetType];
@@ -1211,15 +1199,15 @@ LABEL_29:
     {
       autoAssetType2 = [typeCopy autoAssetType];
       name = [typeCopy name];
-      v12 = 136315906;
-      v13 = "+[UAFAutoAssetManager eliminateAssetType:]";
-      v14 = 2114;
-      v15 = autoAssetType2;
-      v16 = 2114;
-      v17 = name;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Failed to eliminate auto asset type %{public}@ of auto asset set %{public}@: %{public}@", &v12, 0x2Au);
+      v11 = 136315906;
+      v12 = "+[UAFAutoAssetManager eliminateAssetType:]";
+      v13 = 2114;
+      v14 = autoAssetType2;
+      v15 = 2114;
+      v16 = name;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Failed to eliminate auto asset type %{public}@ of auto asset set %{public}@: %{public}@", &v11, 0x2Au);
 LABEL_6:
     }
   }
@@ -1228,22 +1216,20 @@ LABEL_6:
   {
     autoAssetType2 = [typeCopy autoAssetType];
     name = [typeCopy name];
-    v12 = 136315650;
-    v13 = "+[UAFAutoAssetManager eliminateAssetType:]";
-    v14 = 2114;
-    v15 = autoAssetType2;
-    v16 = 2114;
-    v17 = name;
-    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Eliminated auto asset type %{public}@ for auto asset set %{public}@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "+[UAFAutoAssetManager eliminateAssetType:]";
+    v13 = 2114;
+    v14 = autoAssetType2;
+    v15 = 2114;
+    v16 = name;
+    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Eliminated auto asset type %{public}@ for auto asset set %{public}@", &v11, 0x20u);
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)invalidateAtomicInstance:(id)instance assetSetName:(id)name queue:(id)queue completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   nameCopy = name;
   queueCopy = queue;
@@ -1253,9 +1239,9 @@ LABEL_6:
     queueCopy = +[UAFAutoAssetManager getConcurrentQueue];
   }
 
-  v29 = 0;
-  v13 = [UAFAutoAssetManager latestStatusForClients:nameCopy error:&v29];
-  v14 = v29;
+  v28 = 0;
+  v13 = [UAFAutoAssetManager latestStatusForClients:nameCopy error:&v28];
+  v14 = v28;
   if (v14)
   {
     v15 = v14;
@@ -1263,11 +1249,11 @@ LABEL_6:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v33 = "+[UAFAutoAssetManager invalidateAtomicInstance:assetSetName:queue:completion:]";
-      v34 = 2114;
-      v35 = nameCopy;
-      v36 = 2114;
-      v37 = v15;
+      v32 = "+[UAFAutoAssetManager invalidateAtomicInstance:assetSetName:queue:completion:]";
+      v33 = 2114;
+      v34 = nameCopy;
+      v35 = 2114;
+      v36 = v15;
       _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s Could not get short term status for asset set %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1282,9 +1268,9 @@ LABEL_6:
     if (v18)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v30 = *MEMORY[0x1E696A588];
-      v31 = @"Cannot invalidate latest atomic instance";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x1E696A588];
+      v30 = @"Cannot invalidate latest atomic instance";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v15 = [v19 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v20];
 
 LABEL_7:
@@ -1293,20 +1279,20 @@ LABEL_7:
     }
   }
 
-  v28 = 0;
-  v21 = [objc_alloc(MEMORY[0x1E69B1918]) initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:nameCopy comprisedOfEntries:0 completingFromQueue:queueCopy error:&v28];
-  v15 = v28;
+  v27 = 0;
+  v21 = [objc_alloc(MEMORY[0x1E69B1918]) initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:nameCopy comprisedOfEntries:0 completingFromQueue:queueCopy error:&v27];
+  v15 = v27;
   if (v15)
   {
     v22 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v33 = "+[UAFAutoAssetManager invalidateAtomicInstance:assetSetName:queue:completion:]";
-      v34 = 2114;
-      v35 = nameCopy;
-      v36 = 2114;
-      v37 = v15;
+      v32 = "+[UAFAutoAssetManager invalidateAtomicInstance:assetSetName:queue:completion:]";
+      v33 = 2114;
+      v34 = nameCopy;
+      v35 = 2114;
+      v36 = v15;
       _os_log_error_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_ERROR, "%s Could not construct auto asset set %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1317,21 +1303,20 @@ LABEL_7:
   {
     v23 = [UAFAutoAssetManager getReason:v21 operation:@"locking latest version of"];
     v24 = MEMORY[0x1E69B1918];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __78__UAFAutoAssetManager_invalidateAtomicInstance_assetSetName_queue_completion___block_invoke;
-    v26[3] = &unk_1E7FFD580;
-    v27 = completionCopy;
-    [v24 endAtomicLocks:v23 usingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:nameCopy ofAtomicInstance:instanceCopy removingLockCount:-1 completion:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __78__UAFAutoAssetManager_invalidateAtomicInstance_assetSetName_queue_completion___block_invoke;
+    v25[3] = &unk_1E7FFD580;
+    v26 = completionCopy;
+    [v24 endAtomicLocks:v23 usingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:nameCopy ofAtomicInstance:instanceCopy removingLockCount:-1 completion:v25];
   }
 
 LABEL_17:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setMinimalSpecifiers:(id)specifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   specifiersCopy = specifiers;
   v4 = +[UAFAutoAssetManager getSerialQueue];
   dispatch_assert_queue_V2(v4);
@@ -1353,11 +1338,11 @@ LABEL_17:
     {
       if (v12)
       {
-        v17 = 136315394;
-        v18 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
-        v19 = 2114;
-        v20 = specifiersCopy;
-        _os_log_impl(&dword_1BCF2C000, metadataAsset3, OS_LOG_TYPE_DEFAULT, "%s Configuring asset set %{public}@ for minimal specifiers", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
+        v18 = 2114;
+        v19 = specifiersCopy;
+        _os_log_impl(&dword_1BCF2C000, metadataAsset3, OS_LOG_TYPE_DEFAULT, "%s Configuring asset set %{public}@ for minimal specifiers", &v16, 0x16u);
       }
 
       v13 = MEMORY[0x1E695DFD8];
@@ -1368,11 +1353,11 @@ LABEL_17:
 
     else if (v12)
     {
-      v17 = 136315394;
-      v18 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
-      v19 = 2114;
-      v20 = specifiersCopy;
-      _os_log_impl(&dword_1BCF2C000, metadataAsset3, OS_LOG_TYPE_DEFAULT, "%s Asset set configuration error %{public}@ metadata asset defined but not found", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
+      v18 = 2114;
+      v19 = specifiersCopy;
+      _os_log_impl(&dword_1BCF2C000, metadataAsset3, OS_LOG_TYPE_DEFAULT, "%s Asset set configuration error %{public}@ metadata asset defined but not found", &v16, 0x16u);
     }
   }
 
@@ -1381,21 +1366,19 @@ LABEL_17:
     v8 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
-      v19 = 2114;
-      v20 = specifiersCopy;
-      _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Asset set %{public}@ has no metadata asset, skipping", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "+[UAFAutoAssetManager setMinimalSpecifiers:]";
+      v18 = 2114;
+      v19 = specifiersCopy;
+      _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Asset set %{public}@ has no metadata asset, skipping", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)setLatestAtomicInstance:(id)instance autoAssetSet:(id)set fallbackAlter:(BOOL)alter
 {
   alterCopy = alter;
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   setCopy = set;
   v8 = +[UAFAutoAssetManager getSerialQueue];
@@ -1403,12 +1386,12 @@ LABEL_17:
 
   v9 = objc_autoreleasePoolPush();
   v10 = [UAFAutoAssetManager getReason:setCopy operation:@"locking latest version of"];
-  v79 = 0;
-  v69 = setCopy;
-  v11 = [setCopy currentSetStatusSync:&v79];
-  v12 = v79;
+  v78 = 0;
+  v68 = setCopy;
+  v11 = [setCopy currentSetStatusSync:&v78];
+  v12 = v78;
   v13 = v12;
-  v70 = v11;
+  v69 = v11;
   if (!v11 || v12)
   {
     v35 = UAFGetLogCategory(&UAFLogContextMAConfig);
@@ -1416,11 +1399,11 @@ LABEL_17:
     {
       assetSetIdentifier = [setCopy assetSetIdentifier];
       *buf = 136315650;
-      v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-      v84 = 2114;
-      v85 = assetSetIdentifier;
-      v86 = 2114;
-      v87 = v13;
+      v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+      v83 = 2114;
+      v84 = assetSetIdentifier;
+      v85 = 2114;
+      v86 = v13;
       _os_log_error_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1428,37 +1411,37 @@ LABEL_17:
     goto LABEL_37;
   }
 
-  v67 = alterCopy;
-  v68 = v9;
+  v66 = alterCopy;
+  v67 = v9;
   assetSetIdentifier2 = [setCopy assetSetIdentifier];
   [UAFAutoAssetManager cacheAssetSetCompleteness:assetSetIdentifier2 autoAssetSetStatus:v11];
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   currentLockUsage = [v11 currentLockUsage];
   v16 = [currentLockUsage objectForKeyedSubscript:v10];
 
-  v17 = [v16 countByEnumeratingWithState:&v75 objects:v92 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v74 objects:v91 count:16];
   if (!v17)
   {
     goto LABEL_19;
   }
 
   v18 = v17;
-  v19 = *v76;
+  v19 = *v75;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v76 != v19)
+      if (*v75 != v19)
       {
         objc_enumerationMutation(v16);
       }
 
-      v21 = *(*(&v75 + 1) + 8 * i);
-      currentLockUsage2 = [v70 currentLockUsage];
+      v21 = *(*(&v74 + 1) + 8 * i);
+      currentLockUsage2 = [v69 currentLockUsage];
       v23 = [currentLockUsage2 objectForKeyedSubscript:v10];
       v24 = [v23 objectForKeyedSubscript:v21];
       integerValue = [v24 integerValue];
@@ -1474,7 +1457,7 @@ LABEL_17:
       }
 
       v26 = MEMORY[0x1E69B1918];
-      assetSetIdentifier3 = [v69 assetSetIdentifier];
+      assetSetIdentifier3 = [v68 assetSetIdentifier];
       v28 = [v26 endAtomicLocksSync:v10 usingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:assetSetIdentifier3 ofAtomicInstance:v21 removingLockCount:integerValue];
 
       v29 = UAFGetLogCategory(&UAFLogContextMAConfig);
@@ -1483,39 +1466,39 @@ LABEL_17:
       {
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          assetSetIdentifier4 = [v69 assetSetIdentifier];
+          assetSetIdentifier4 = [v68 assetSetIdentifier];
           *buf = 136316162;
-          v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-          v84 = 2114;
-          v85 = v21;
-          v86 = 2114;
-          v87 = assetSetIdentifier4;
-          v88 = 2114;
-          v89 = v10;
-          v90 = 2114;
-          v91 = v28;
+          v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+          v83 = 2114;
+          v84 = v21;
+          v85 = 2114;
+          v86 = assetSetIdentifier4;
+          v87 = 2114;
+          v88 = v10;
+          v89 = 2114;
+          v90 = v28;
           _os_log_error_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_ERROR, "%s Could not decrement locks for atomic instance %{public}@ in auto asset set %{public}@ with reason %{public}@: %{public}@", buf, 0x34u);
         }
       }
 
       else if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        assetSetIdentifier5 = [v69 assetSetIdentifier];
+        assetSetIdentifier5 = [v68 assetSetIdentifier];
         *buf = 136316162;
-        v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-        v84 = 2114;
-        v85 = v21;
-        v86 = 2114;
-        v87 = assetSetIdentifier5;
-        v88 = 2114;
-        v89 = v10;
-        v90 = 2048;
-        v91 = integerValue;
+        v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+        v83 = 2114;
+        v84 = v21;
+        v85 = 2114;
+        v86 = assetSetIdentifier5;
+        v87 = 2114;
+        v88 = v10;
+        v89 = 2048;
+        v90 = integerValue;
         _os_log_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_DEFAULT, "%s Decrement locks for atomic instance %{public}@ in auto asset set %{public}@ with reason %{public}@ lockCount: %ld", buf, 0x34u);
       }
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v75 objects:v92 count:16];
+    v18 = [v16 countByEnumeratingWithState:&v74 objects:v91 count:16];
   }
 
   while (v18);
@@ -1524,20 +1507,20 @@ LABEL_19:
   v33 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    assetSetIdentifier6 = [v69 assetSetIdentifier];
+    assetSetIdentifier6 = [v68 assetSetIdentifier];
     *buf = 136315906;
-    v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-    v84 = 2114;
-    v85 = instanceCopy;
-    v86 = 2114;
-    v87 = assetSetIdentifier6;
-    v88 = 2114;
-    v89 = v10;
+    v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+    v83 = 2114;
+    v84 = instanceCopy;
+    v85 = 2114;
+    v86 = assetSetIdentifier6;
+    v87 = 2114;
+    v88 = v10;
     _os_log_debug_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEBUG, "%s Updated locks to reflect latest atomic instance of %{public}@ for auto asset set %{public}@ with reason %{public}@", buf, 0x2Au);
   }
 
   v13 = 0;
-  v9 = v68;
+  v9 = v67;
   if (instanceCopy)
   {
 LABEL_22:
@@ -1545,22 +1528,22 @@ LABEL_22:
     goto LABEL_37;
   }
 
-  v74 = 0;
-  v36 = [v69 currentSetStatusSync:&v74];
-  v37 = v74;
+  v73 = 0;
+  v36 = [v68 currentSetStatusSync:&v73];
+  v37 = v73;
   if (v37)
   {
     v38 = v37;
     v39 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      assetSetIdentifier7 = [v69 assetSetIdentifier];
+      assetSetIdentifier7 = [v68 assetSetIdentifier];
       *buf = 136315650;
-      v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-      v84 = 2114;
-      v85 = assetSetIdentifier7;
-      v86 = 2114;
-      v87 = v38;
+      v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+      v83 = 2114;
+      v84 = assetSetIdentifier7;
+      v85 = 2114;
+      v86 = v38;
       _os_log_error_impl(&dword_1BCF2C000, v39, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -1576,36 +1559,36 @@ LABEL_22:
     v42 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      assetSetIdentifier8 = [v69 assetSetIdentifier];
+      assetSetIdentifier8 = [v68 assetSetIdentifier];
       *buf = 136315394;
-      v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-      v84 = 2114;
-      v85 = assetSetIdentifier8;
+      v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+      v83 = 2114;
+      v84 = assetSetIdentifier8;
       _os_log_impl(&dword_1BCF2C000, v42, OS_LOG_TYPE_DEFAULT, "%s Could not eliminate unneeded auto asset %{public}@ as there are current locks", buf, 0x16u);
     }
 
     currentLockUsage4 = [v36 currentLockUsage];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __74__UAFAutoAssetManager_setLatestAtomicInstance_autoAssetSet_fallbackAlter___block_invoke;
-    v72[3] = &unk_1E7FFE050;
-    v45 = v69;
-    v73 = v45;
-    [currentLockUsage4 enumerateKeysAndObjectsUsingBlock:v72];
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __74__UAFAutoAssetManager_setLatestAtomicInstance_autoAssetSet_fallbackAlter___block_invoke;
+    v71[3] = &unk_1E7FFE050;
+    v45 = v68;
+    v72 = v45;
+    [currentLockUsage4 enumerateKeysAndObjectsUsingBlock:v71];
 
     v46 = MEMORY[0x1E696ABC0];
     v47 = *MEMORY[0x1E696A578];
-    v80[0] = *MEMORY[0x1E696A588];
-    v80[1] = v47;
-    v81[0] = @"Could not eliminate as there are current locks";
-    v81[1] = @"Could not eliminate as there are current locks";
-    v80[2] = @"currentLockUsage";
+    v79[0] = *MEMORY[0x1E696A588];
+    v79[1] = v47;
+    v80[0] = @"Could not eliminate as there are current locks";
+    v80[1] = @"Could not eliminate as there are current locks";
+    v79[2] = @"currentLockUsage";
     currentLockUsage5 = [v36 currentLockUsage];
-    v81[2] = currentLockUsage5;
-    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:3];
+    v80[2] = currentLockUsage5;
+    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:3];
     v50 = [v46 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v49];
 
-    if (v67)
+    if (v66)
     {
       assetSetIdentifier9 = [v45 assetSetIdentifier];
       [UAFAutoAssetManager setMinimalSpecifiers:assetSetIdentifier9];
@@ -1618,84 +1601,81 @@ LABEL_36:
 
   else
   {
-    v56 = [UAFAutoAssetManager getReason:v69 operation:@"should eliminate"];
-    v57 = MEMORY[0x1E69B1918];
-    assetSetIdentifier10 = [v69 assetSetIdentifier];
-    v34 = [v57 eliminateAtomicSync:v56 usingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:assetSetIdentifier10 awaitingUnlocked:1];
+    v55 = [UAFAutoAssetManager getReason:v68 operation:@"should eliminate"];
+    v56 = MEMORY[0x1E69B1918];
+    assetSetIdentifier10 = [v68 assetSetIdentifier];
+    v34 = [v56 eliminateAtomicSync:v55 usingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:assetSetIdentifier10 awaitingUnlocked:1];
 
-    autoAssetEntries = [v69 autoAssetEntries];
-    [UAFAutoAssetHistory persistAssetSetInfoConfiguring:v69 entries:autoAssetEntries isEliminating:1 reason:@"eliminated"];
+    autoAssetEntries = [v68 autoAssetEntries];
+    [UAFAutoAssetHistory persistAssetSetInfoConfiguring:v68 entries:autoAssetEntries isEliminating:1 reason:@"eliminated"];
 
-    [UAFAutoAssetHistory persistAssetSetInfoLocked:0 atomicEntries:0 autoAssetSet:v69 isEliminating:1 reason:@"eliminated"];
-    assetSetIdentifier11 = [v69 assetSetIdentifier];
+    [UAFAutoAssetHistory persistAssetSetInfoLocked:0 atomicEntries:0 autoAssetSet:v68 isEliminating:1 reason:@"eliminated"];
+    assetSetIdentifier11 = [v68 assetSetIdentifier];
     [UAFStagingLogManager deleteLoggedTargetsForEliminatedAssetSet:assetSetIdentifier11];
 
-    v61 = UAFGetLogCategory(&UAFLogContextMAConfig);
-    v62 = v61;
+    v60 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    v61 = v60;
     if (!v34)
     {
       v13 = 0;
-      v9 = v68;
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v9 = v67;
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
-        assetSetIdentifier12 = [v69 assetSetIdentifier];
+        assetSetIdentifier12 = [v68 assetSetIdentifier];
         *buf = 136315394;
-        v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-        v84 = 2114;
-        v85 = assetSetIdentifier12;
-        _os_log_impl(&dword_1BCF2C000, v62, OS_LOG_TYPE_DEFAULT, "%s Eliminated unneeded auto asset %{public}@", buf, 0x16u);
+        v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+        v83 = 2114;
+        v84 = assetSetIdentifier12;
+        _os_log_impl(&dword_1BCF2C000, v61, OS_LOG_TYPE_DEFAULT, "%s Eliminated unneeded auto asset %{public}@", buf, 0x16u);
       }
 
-      assetSetIdentifier13 = [v69 assetSetIdentifier];
+      assetSetIdentifier13 = [v68 assetSetIdentifier];
       [UAFAssetSetObserver sendUAFNotificationForAssetSet:assetSetIdentifier13 forRoot:0];
 
       goto LABEL_22;
     }
 
     v13 = 0;
-    v9 = v68;
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v9 = v67;
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      assetSetIdentifier14 = [v69 assetSetIdentifier];
+      assetSetIdentifier14 = [v68 assetSetIdentifier];
       *buf = 136315650;
-      v83 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
-      v84 = 2114;
-      v85 = assetSetIdentifier14;
-      v86 = 2114;
-      v87 = v34;
-      _os_log_error_impl(&dword_1BCF2C000, v62, OS_LOG_TYPE_ERROR, "%s Could not eliminate unneeded auto asset %{public}@ : %{public}@", buf, 0x20u);
+      v82 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]";
+      v83 = 2114;
+      v84 = assetSetIdentifier14;
+      v85 = 2114;
+      v86 = v34;
+      _os_log_error_impl(&dword_1BCF2C000, v61, OS_LOG_TYPE_ERROR, "%s Could not eliminate unneeded auto asset %{public}@ : %{public}@", buf, 0x20u);
     }
   }
 
 LABEL_37:
 
   objc_autoreleasePoolPop(v9);
-  v52 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
 
 void __74__UAFAutoAssetManager_setLatestAtomicInstance_autoAssetSet_fallbackAlter___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) assetSetIdentifier];
-    v10 = 136315906;
-    v11 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]_block_invoke";
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ Lock reason: %@, locks: %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "+[UAFAutoAssetManager setLatestAtomicInstance:autoAssetSet:fallbackAlter:]_block_invoke";
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ Lock reason: %@, locks: %@", &v9, 0x2Au);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logAtomicInstance:(id)instance name:(id)name entries:(id)entries
@@ -1719,18 +1699,18 @@ void __74__UAFAutoAssetManager_setLatestAtomicInstance_autoAssetSet_fallbackAlte
 
 void __54__UAFAutoAssetManager_logAtomicInstance_name_entries___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = &stru_1F3B6B510;
     do
     {
@@ -1738,12 +1718,12 @@ void __54__UAFAutoAssetManager_logAtomicInstance_name_entries___block_invoke(uin
       v9 = v7;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * v8) summary];
+        v10 = [*(*(&v14 + 1) + 8 * v8) summary];
         v7 = [(__CFString *)v9 stringByAppendingFormat:@"%@\n", v10];
 
         ++v8;
@@ -1751,7 +1731,7 @@ void __54__UAFAutoAssetManager_logAtomicInstance_name_entries___block_invoke(uin
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v26 count:16];
     }
 
     while (v5);
@@ -1768,18 +1748,17 @@ void __54__UAFAutoAssetManager_logAtomicInstance_name_entries___block_invoke(uin
     v12 = *(a1 + 40);
     v13 = *(a1 + 48);
     *buf = 136315906;
-    v20 = "+[UAFAutoAssetManager logAtomicInstance:name:entries:]_block_invoke";
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2114;
-    v26 = v7;
+    v19 = "+[UAFAutoAssetManager logAtomicInstance:name:entries:]_block_invoke";
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v13;
+    v24 = 2114;
+    v25 = v7;
     _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Asset set %{public}@ atomic instance %{public}@ contains:\n%{public}@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)lockLatestAssetSet:(id)set completion:(id)completion
@@ -1816,14 +1795,14 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
 
 + (id)lockLatestAssetSet:(id)set
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v4 = [UAFAutoAssetManager getReason:setCopy operation:@"locking latest version of"];
   v5 = +[UAFAutoAssetManager fileLockPolicy];
   assetSetIdentifier = [setCopy assetSetIdentifier];
-  v39 = 0;
-  v7 = [UAFAutoAssetManager latestStatusForClients:assetSetIdentifier error:&v39];
-  v29 = v39;
+  v38 = 0;
+  v7 = [UAFAutoAssetManager latestStatusForClients:assetSetIdentifier error:&v38];
+  v28 = v38;
 
   if (v7)
   {
@@ -1836,12 +1815,12 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
   }
 
   v9 = objc_autoreleasePoolPush();
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v30 = v4;
-  v10 = [setCopy lockAtomicSync:v4 forAtomicInstance:0 withNeedPolicy:v5 withTimeout:0 lockedAtomicEntries:&v38 error:&v37];
-  v11 = v38;
-  v12 = v37;
+  v29 = v4;
+  v10 = [setCopy lockAtomicSync:v4 forAtomicInstance:0 withNeedPolicy:v5 withTimeout:0 lockedAtomicEntries:&v37 error:&v36];
+  v11 = v37;
+  v12 = v36;
   objc_autoreleasePoolPop(v9);
   v13 = UAFGetLogCategory(&UAFLogContextMAConfig);
   v14 = v13;
@@ -1851,11 +1830,11 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
     {
       assetSetIdentifier2 = [setCopy assetSetIdentifier];
       *buf = 136315650;
-      v41 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
-      v42 = 2114;
-      v43 = assetSetIdentifier2;
-      v44 = 2114;
-      v45 = v12;
+      v40 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
+      v41 = 2114;
+      v42 = assetSetIdentifier2;
+      v43 = 2114;
+      v44 = v12;
       _os_log_error_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_ERROR, "%s Failed to lock auto asset set %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1870,9 +1849,9 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v41 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
-          v42 = 2114;
-          v43 = v12;
+          v40 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
+          v41 = 2114;
+          v42 = v12;
           _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s Encountered device locked error, scheduling activity for class A unlock: %{public}@", buf, 0x16u);
         }
 
@@ -1885,13 +1864,13 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
     }
 
     v25 = +[UAFInstrumentationProvider getSerialQueue];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __42__UAFAutoAssetManager_lockLatestAssetSet___block_invoke;
-    v34[3] = &unk_1E7FFD098;
-    v35 = setCopy;
-    v36 = v11;
-    dispatch_async(v25, v34);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __42__UAFAutoAssetManager_lockLatestAssetSet___block_invoke;
+    v33[3] = &unk_1E7FFD098;
+    v34 = setCopy;
+    v35 = v11;
+    dispatch_async(v25, v33);
 
     v24 = v12;
     goto LABEL_22;
@@ -1901,11 +1880,11 @@ void __53__UAFAutoAssetManager_lockLatestAssetSet_completion___block_invoke(uint
   {
     assetSetIdentifier3 = [setCopy assetSetIdentifier];
     *buf = 136315650;
-    v41 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
-    v42 = 2114;
-    v43 = assetSetIdentifier3;
-    v44 = 2114;
-    v45 = v10;
+    v40 = "+[UAFAutoAssetManager lockLatestAssetSet:]";
+    v41 = 2114;
+    v42 = assetSetIdentifier3;
+    v43 = 2114;
+    v44 = v10;
     _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Locked auto asset set %{public}@ with atomic instance %{public}@", buf, 0x20u);
   }
 
@@ -1947,22 +1926,20 @@ LABEL_17:
     block[1] = 3221225472;
     block[2] = __42__UAFAutoAssetManager_lockLatestAssetSet___block_invoke_400;
     block[3] = &unk_1E7FFD098;
-    v32 = setCopy;
-    v33 = v11;
+    v31 = setCopy;
+    v32 = v11;
     dispatch_async(v23, block);
   }
 
   v24 = v22;
 LABEL_22:
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 + (BOOL)sendNotificationForAssetSet:(id)set
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69B1928] notifyRegistrationName:@"ATOMIC_INSTANCE_DOWNLOADED" forAssetSetIdentifier:set];
   v4 = notify_post([v3 UTF8String]);
   if (v4)
@@ -1970,48 +1947,47 @@ LABEL_22:
     v5 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "+[UAFAutoAssetManager sendNotificationForAssetSet:]";
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2048;
-      v13 = v4;
-      _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s notify_post to %@ failed: %lu", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "+[UAFAutoAssetManager sendNotificationForAssetSet:]";
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2048;
+      v12 = v4;
+      _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s notify_post to %@ failed: %lu", &v7, 0x20u);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4 == 0;
 }
 
 + (int)listenForUpdates:(id)updates updateHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   handlerCopy = handler;
   v7 = -1;
   out_token = -1;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v8 = [&unk_1F3B732A8 countByEnumeratingWithState:&v25 objects:v36 count:16];
+  v8 = [&unk_1F3B732A8 countByEnumeratingWithState:&v24 objects:v35 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v26;
+    v11 = *v25;
     *&v9 = 136315650;
-    v21 = v9;
+    v20 = v9;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v26 != v11)
+      if (*v25 != v11)
       {
         objc_enumerationMutation(&unk_1F3B732A8);
       }
 
-      v13 = [MEMORY[0x1E69B1928] notifyRegistrationName:*(*(&v25 + 1) + 8 * v12) forAssetSetIdentifier:{updatesCopy, v21}];
+      v13 = [MEMORY[0x1E69B1928] notifyRegistrationName:*(*(&v24 + 1) + 8 * v12) forAssetSetIdentifier:{updatesCopy, v20}];
       uTF8String = [v13 UTF8String];
       v15 = +[UAFAutoAssetManager getConcurrentQueue];
       handler[0] = MEMORY[0x1E69E9820];
@@ -2019,8 +1995,8 @@ LABEL_3:
       handler[2] = __54__UAFAutoAssetManager_listenForUpdates_updateHandler___block_invoke;
       handler[3] = &unk_1E7FFD9C0;
       v16 = v13;
-      v23 = v16;
-      v24 = handlerCopy;
+      v22 = v16;
+      v23 = handlerCopy;
       v17 = notify_register_dispatch(uTF8String, &out_token, v15, handler);
 
       if (v17)
@@ -2028,12 +2004,12 @@ LABEL_3:
         v18 = UAFGetLogCategory(&UAFLogContextMAConfig);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          *buf = v21;
-          v31 = "+[UAFAutoAssetManager listenForUpdates:updateHandler:]";
-          v32 = 2112;
-          v33 = v16;
-          v34 = 2048;
-          v35 = v17;
+          *buf = v20;
+          v30 = "+[UAFAutoAssetManager listenForUpdates:updateHandler:]";
+          v31 = 2112;
+          v32 = v16;
+          v33 = 2048;
+          v34 = v17;
           _os_log_error_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_ERROR, "%s notify_register_dispatch for %@ failed: %lu", buf, 0x20u);
         }
 
@@ -2047,7 +2023,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [&unk_1F3B732A8 countByEnumeratingWithState:&v25 objects:v36 count:16];
+        v10 = [&unk_1F3B732A8 countByEnumeratingWithState:&v24 objects:v35 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -2059,32 +2035,29 @@ LABEL_3:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t __54__UAFAutoAssetManager_listenForUpdates_updateHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "+[UAFAutoAssetManager listenForUpdates:updateHandler:]_block_invoke";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Received notification for %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[UAFAutoAssetManager listenForUpdates:updateHandler:]_block_invoke";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Received notification for %{public}@", &v5, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (void)observeAssetSet:(id)set
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   setCopy = set;
   name = [setCopy name];
   [UAFAutoAssetManager observeAssetSetExperimentalNamespace:setCopy];
@@ -2102,22 +2075,22 @@ uint64_t __54__UAFAutoAssetManager_listenForUpdates_updateHandler___block_invoke
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "+[UAFAutoAssetManager observeAssetSet:]";
-      v16 = 2114;
-      v17 = name;
+      v14 = "+[UAFAutoAssetManager observeAssetSet:]";
+      v15 = 2114;
+      v16 = name;
       _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Already watching for updates to auto asset set %{public}@ to perform auto asset lock maintenance", buf, 0x16u);
     }
   }
 
   else
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __39__UAFAutoAssetManager_observeAssetSet___block_invoke_414;
-    v12[3] = &unk_1E7FFCFD0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __39__UAFAutoAssetManager_observeAssetSet___block_invoke_414;
+    v11[3] = &unk_1E7FFCFD0;
     v7 = name;
-    v13 = v7;
-    v8 = [UAFAutoAssetManager listenForUpdates:v7 updateHandler:v12];
+    v12 = v7;
+    v8 = [UAFAutoAssetManager listenForUpdates:v7 updateHandler:v11];
     v9 = [MEMORY[0x1E696AD98] numberWithInt:v8];
     [qword_1ED7D1270 setObject:v9 forKeyedSubscript:v7];
 
@@ -2125,16 +2098,14 @@ uint64_t __54__UAFAutoAssetManager_listenForUpdates_updateHandler___block_invoke
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "+[UAFAutoAssetManager observeAssetSet:]";
-      v16 = 2114;
-      v17 = v7;
+      v14 = "+[UAFAutoAssetManager observeAssetSet:]";
+      v15 = 2114;
+      v16 = v7;
       _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Watching for updates to auto asset set %{public}@ to perform auto asset lock maintenance", buf, 0x16u);
     }
 
-    v6 = v13;
+    v6 = v12;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __39__UAFAutoAssetManager_observeAssetSet___block_invoke()
@@ -2146,13 +2117,13 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke()
 
 void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_414(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E69B1918]);
   v3 = *(a1 + 32);
   v4 = +[UAFAutoAssetManager getConcurrentQueue];
-  v18 = 0;
-  v5 = [v2 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:v3 comprisedOfEntries:0 completingFromQueue:v4 error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [v2 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:v3 comprisedOfEntries:0 completingFromQueue:v4 error:&v17];
+  v6 = v17;
 
   if (v6)
   {
@@ -2161,11 +2132,11 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_414(uint64_t a1)
     {
       v8 = *(a1 + 32);
       *buf = 136315650;
-      v20 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
-      v21 = 2114;
-      v22 = v8;
-      v23 = 2114;
-      v24 = v6;
+      v19 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
+      v20 = 2114;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v6;
       _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ for updating: %{public}@", buf, 0x20u);
     }
 
@@ -2184,62 +2155,56 @@ LABEL_10:
       {
         description = os_transaction_get_description();
         timestamp = os_transaction_get_timestamp();
-        v14 = [v5 assetSetIdentifier];
+        v13 = [v5 assetSetIdentifier];
         *buf = 136315906;
-        v20 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
-        v21 = 2080;
-        v22 = description;
-        v23 = 2048;
-        v24 = timestamp;
-        v25 = 2112;
-        v26 = v14;
+        v19 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
+        v20 = 2080;
+        v21 = description;
+        v22 = 2048;
+        v23 = timestamp;
+        v24 = 2112;
+        v25 = v13;
         _os_log_debug_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEBUG, "%s Creating transaction %s from %llu to lock latest for asset set %@", buf, 0x2Au);
       }
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416;
-    v15[3] = &unk_1E7FFEBD8;
-    v16 = v9;
-    v17 = v5;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416;
+    v14[3] = &unk_1E7FFEBD8;
+    v15 = v9;
+    v16 = v5;
     v7 = v9;
-    [UAFAutoAssetManager lockLatestAssetSet:v17 completion:v15];
+    [UAFAutoAssetManager lockLatestAssetSet:v16 completion:v14];
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 32);
       description = os_transaction_get_description();
-      v6 = *(a1 + 32);
       timestamp = os_transaction_get_timestamp();
-      v8 = [*(a1 + 40) assetSetIdentifier];
-      v9 = 136315906;
-      v10 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
-      v11 = 2080;
-      v12 = description;
-      v13 = 2048;
-      v14 = timestamp;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s Completing transaction %s from %llu to lock latest for asset set %@", &v9, 0x2Au);
+      v5 = [*(a1 + 40) assetSetIdentifier];
+      v6 = 136315906;
+      v7 = "+[UAFAutoAssetManager observeAssetSet:]_block_invoke";
+      v8 = 2080;
+      v9 = description;
+      v10 = 2048;
+      v11 = timestamp;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s Completing transaction %s from %llu to lock latest for asset set %@", &v6, 0x2Au);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (void)observeAllAssetSets
@@ -2250,7 +2215,7 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
 
 + (void)observeAssetSetExperimentalNamespace:(id)namespace
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   namespaceCopy = namespace;
   if (+[UAFCommonUtilities isTrialAvailable])
   {
@@ -2273,26 +2238,26 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v25 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
-          v26 = 2114;
-          v27 = name;
+          v24 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
+          v25 = 2114;
+          v26 = name;
           _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Already watching for updates to experimental assets for asset set %{public}@", buf, 0x16u);
         }
       }
 
       else
       {
-        v18 = MEMORY[0x1E69E9820];
-        v19 = 3221225472;
-        v20 = __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invoke_424;
-        v21 = &unk_1E7FFEC00;
+        v17 = MEMORY[0x1E69E9820];
+        v18 = 3221225472;
+        v19 = __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invoke_424;
+        v20 = &unk_1E7FFEC00;
         v9 = name;
-        v22 = v9;
+        v21 = v9;
         v10 = trialNamespace;
-        v23 = v10;
-        v11 = MEMORY[0x1BFB33950](&v18);
+        v22 = v10;
+        v11 = MEMORY[0x1BFB33950](&v17);
         v12 = MEMORY[0x1E69DB530];
-        v13 = [UAFAssetSetManager getSerialQueue:v18];
+        v13 = [UAFAssetSetManager getSerialQueue:v17];
         v14 = [v12 registerUpdateForNamespaceName:v10 queue:v13 usingBlock:v11];
 
         if (v14)
@@ -2306,11 +2271,11 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
           if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315650;
-            v25 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
-            v26 = 2114;
-            v27 = v9;
-            v28 = 2114;
-            v29 = v10;
+            v24 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
+            v25 = 2114;
+            v26 = v9;
+            v27 = 2114;
+            v28 = v10;
             _os_log_fault_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_FAULT, "%s Error registering update handler from %{public}@ for namespace %{public}@", buf, 0x20u);
           }
 
@@ -2318,7 +2283,7 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
           UAFFaultCapture(v16, kUAFABCNotifyRegisterFailure, @"trial", 0);
         }
 
-        v8 = v22;
+        v8 = v21;
       }
     }
   }
@@ -2329,12 +2294,10 @@ void __39__UAFAutoAssetManager_observeAssetSet___block_invoke_416(uint64_t a1)
     if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
+      v24 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]";
       _os_log_error_impl(&dword_1BCF2C000, name, OS_LOG_TYPE_ERROR, "%s This system doesn't support Trial. Returning nil.", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invoke()
@@ -2346,37 +2309,35 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
 
 void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invoke_424(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 136315650;
-    v9 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Update notification from %{public}@ for namespace %{public}@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "+[UAFAutoAssetManager observeAssetSetExperimentalNamespace:]_block_invoke";
+    v9 = 2114;
+    v10 = v3;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Update notification from %{public}@ for namespace %{public}@", &v7, 0x20u);
   }
 
   v5 = +[UAFSubscriptionStoreManager writeManager];
   v6 = +[UAFConfigurationManager defaultManager];
   [UAFAssetSetManager configureAssetDelivery:v5 configurationManager:v6 lockIfUnchanged:0 oldSubscriptions:0 newSubscriptions:0 userInitiated:0];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)latestAtomicInstanceFromMA:(id)a error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   aCopy = a;
   v6 = objc_autoreleasePoolPush();
   v7 = [UAFAutoAssetManager getReason:aCopy operation:@"checking"];
-  v18 = 0;
-  v8 = [aCopy checkAtomicSync:v7 forAtomicInstance:0 withTimeout:0 discoveredAtomicEntries:0 error:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [aCopy checkAtomicSync:v7 forAtomicInstance:0 withTimeout:0 discoveredAtomicEntries:0 error:&v17];
+  v9 = v17;
 
   objc_autoreleasePoolPop(v6);
   if (error)
@@ -2393,11 +2354,11 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
     {
       assetSetIdentifier = [aCopy assetSetIdentifier];
       *buf = 136315650;
-      v20 = "+[UAFAutoAssetManager latestAtomicInstanceFromMA:error:]";
-      v21 = 2114;
-      v22 = assetSetIdentifier;
-      v23 = 2114;
-      v24 = v8;
+      v19 = "+[UAFAutoAssetManager latestAtomicInstanceFromMA:error:]";
+      v20 = 2114;
+      v21 = assetSetIdentifier;
+      v22 = 2114;
+      v23 = v8;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is available and has atomic instance %{public}@", buf, 0x20u);
     }
 
@@ -2410,28 +2371,26 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
     {
       assetSetIdentifier2 = [aCopy assetSetIdentifier];
       *buf = 136315650;
-      v20 = "+[UAFAutoAssetManager latestAtomicInstanceFromMA:error:]";
-      v21 = 2114;
-      v22 = assetSetIdentifier2;
-      v23 = 2114;
-      v24 = v9;
+      v19 = "+[UAFAutoAssetManager latestAtomicInstanceFromMA:error:]";
+      v20 = 2114;
+      v21 = assetSetIdentifier2;
+      v22 = 2114;
+      v23 = v9;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ does not yet have assets: %{public}@", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)latestStatusForClients:(id)clients error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   clientsCopy = clients;
   v6 = objc_autoreleasePoolPush();
-  v23 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E69B1918]) initLockerUsingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:clientsCopy error:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [objc_alloc(MEMORY[0x1E69B1918]) initLockerUsingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:clientsCopy error:&v22];
+  v8 = v22;
   if (v7)
   {
     v9 = v8 == 0;
@@ -2445,9 +2404,9 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
   if (v9)
   {
     v11 = [UAFAutoAssetManager getReason:v7 operation:@"file locking latest version of"];
-    v22 = 0;
-    v12 = [v7 lockAtomicSync:v11 forAtomicInstance:0 error:&v22];
-    v13 = v22;
+    v21 = 0;
+    v12 = [v7 lockAtomicSync:v11 forAtomicInstance:0 error:&v21];
+    v13 = v21;
     if (v12)
     {
       v14 = v13 == 0;
@@ -2473,13 +2432,13 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
       {
         latestDownloadedAtomicInstance2 = [v12 latestDownloadedAtomicInstance];
         *buf = 136315906;
-        v25 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
-        v26 = 2114;
-        v27 = clientsCopy;
-        v28 = 2114;
-        v29 = latestDownloadedAtomicInstance2;
-        v30 = 2114;
-        v31 = v10;
+        v24 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
+        v25 = 2114;
+        v26 = clientsCopy;
+        v27 = 2114;
+        v28 = latestDownloadedAtomicInstance2;
+        v29 = 2114;
+        v30 = v10;
         _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s Could not end lock of auto asset set %{public}@ atomic instance %{public}@ : %{public}@", buf, 0x2Au);
       }
     }
@@ -2491,11 +2450,11 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v25 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
-        v26 = 2114;
-        v27 = clientsCopy;
-        v28 = 2114;
-        v29 = v10;
+        v24 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
+        v25 = 2114;
+        v26 = clientsCopy;
+        v27 = 2114;
+        v28 = v10;
         _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s Could not lock auto asset set %{public}@ : %{public}@", buf, 0x20u);
       }
 
@@ -2511,11 +2470,11 @@ void __60__UAFAutoAssetManager_observeAssetSetExperimentalNamespace___block_invo
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v25 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
-      v26 = 2114;
-      v27 = clientsCopy;
-      v28 = 2114;
-      v29 = v10;
+      v24 = "+[UAFAutoAssetManager latestStatusForClients:error:]";
+      v25 = 2114;
+      v26 = clientsCopy;
+      v27 = 2114;
+      v28 = v10;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -2531,14 +2490,12 @@ LABEL_19:
     *error = v10;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)latestAtomicInstanceForClients:(id)clients OSSupported:(BOOL *)supported error:(id *)error
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   clientsCopy = clients;
   *supported = 1;
   name = [clientsCopy name];
@@ -2558,88 +2515,88 @@ LABEL_19:
     goto LABEL_34;
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   assets = [clientsCopy assets];
-  v51 = [assets countByEnumeratingWithState:&v67 objects:v83 count:16];
-  if (!v51)
+  v50 = [assets countByEnumeratingWithState:&v66 objects:v82 count:16];
+  if (!v50)
   {
     goto LABEL_33;
   }
 
-  v52 = *v68;
-  v53 = clientsCopy;
-  v55 = v9;
-  v50 = assets;
+  v51 = *v67;
+  v52 = clientsCopy;
+  v54 = v9;
+  v49 = assets;
   supportedCopy = supported;
   do
   {
-    for (i = 0; i != v51; ++i)
+    for (i = 0; i != v50; ++i)
     {
-      if (*v68 != v52)
+      if (*v67 != v51)
       {
         objc_enumerationMutation(assets);
       }
 
-      v13 = *(*(&v67 + 1) + 8 * i);
+      v13 = *(*(&v66 + 1) + 8 * i);
       metadataAsset2 = [clientsCopy metadataAsset];
       name2 = [v13 name];
       v16 = [metadataAsset2 isEqualToString:name2];
 
       if (v16)
       {
-        v49 = i;
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
+        v48 = i;
         v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
         obj = [v13 expansions];
-        v58 = [obj countByEnumeratingWithState:&v63 objects:v82 count:16];
-        if (!v58)
+        v57 = [obj countByEnumeratingWithState:&v62 objects:v81 count:16];
+        if (!v57)
         {
           goto LABEL_30;
         }
 
-        v57 = *v64;
+        v56 = *v63;
 LABEL_11:
         v17 = 0;
 LABEL_12:
-        if (*v64 != v57)
+        if (*v63 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = [*(*(&v63 + 1) + 8 * v17) getAutoAssetSpecifier:0];
+        v18 = [*(*(&v62 + 1) + 8 * v17) getAutoAssetSpecifier:0];
         if (!v18)
         {
           goto LABEL_28;
         }
 
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
         v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         latestDowloadedAtomicInstanceEntries = [v9 latestDowloadedAtomicInstanceEntries];
-        v20 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v59 objects:v81 count:16];
+        v20 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v58 objects:v80 count:16];
         if (!v20)
         {
           goto LABEL_23;
         }
 
         v21 = v20;
-        v22 = *v60;
+        v22 = *v59;
 LABEL_17:
         v23 = 0;
         while (1)
         {
-          if (*v60 != v22)
+          if (*v59 != v22)
           {
             objc_enumerationMutation(latestDowloadedAtomicInstanceEntries);
           }
 
-          v24 = *(*(&v59 + 1) + 8 * v23);
+          v24 = *(*(&v58 + 1) + 8 * v23);
           fullAssetSelector = [v24 fullAssetSelector];
           assetSpecifier = [fullAssetSelector assetSpecifier];
           v27 = [v18 isEqualToString:assetSpecifier];
@@ -2651,7 +2608,7 @@ LABEL_17:
 
           if (v21 == ++v23)
           {
-            v21 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v59 objects:v81 count:16];
+            v21 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v58 objects:v80 count:16];
             if (v21)
             {
               goto LABEL_17;
@@ -2659,21 +2616,21 @@ LABEL_17:
 
 LABEL_23:
 
-            v9 = v55;
+            v9 = v54;
 LABEL_28:
 
-            if (++v17 != v58)
+            if (++v17 != v57)
             {
               goto LABEL_12;
             }
 
-            v58 = [obj countByEnumeratingWithState:&v63 objects:v82 count:16];
-            if (!v58)
+            v57 = [obj countByEnumeratingWithState:&v62 objects:v81 count:16];
+            if (!v57)
             {
 LABEL_30:
 
-              i = v49;
-              assets = v50;
+              i = v48;
+              assets = v49;
               goto LABEL_31;
             }
 
@@ -2682,48 +2639,38 @@ LABEL_30:
         }
 
         localContentURL = [v24 localContentURL];
-        if (!localContentURL)
+        if (!localContentURL || (v29 = localContentURL, [v24 localContentURL], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "scheme"), v31 = objc_claimAutoreleasedReturnValue(), v31, v30, v29, v31))
         {
-          goto LABEL_36;
-        }
-
-        v29 = localContentURL;
-        localContentURL2 = [v24 localContentURL];
-        scheme = [localContentURL2 scheme];
-
-        if (scheme)
-        {
-LABEL_36:
           v38 = UAFGetLogCategory(&UAFLogContextMAConfig);
-          v9 = v55;
+          v9 = v54;
           if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            metadataAsset3 = [v53 metadataAsset];
-            name3 = [v53 name];
-            localContentURL3 = [v24 localContentURL];
+            metadataAsset3 = [v52 metadataAsset];
+            name3 = [v52 name];
+            localContentURL2 = [v24 localContentURL];
             *buf = 136315906;
-            v72 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:OSSupported:error:]";
-            v73 = 2114;
-            v74 = metadataAsset3;
-            v75 = 2114;
-            v76 = name3;
-            v77 = 2112;
-            v78 = localContentURL3;
+            v71 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:OSSupported:error:]";
+            v72 = 2114;
+            v73 = metadataAsset3;
+            v74 = 2114;
+            v75 = name3;
+            v76 = 2112;
+            v77 = localContentURL2;
             _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, "%s Failed to get a valid URL for metadata asset %{public}@ in asset set %{public}@ at location %@", buf, 0x2Au);
           }
 
-          latestDownloadedAtomicInstance = [v55 latestDownloadedAtomicInstance];
+          latestDownloadedAtomicInstance = [v54 latestDownloadedAtomicInstance];
         }
 
         else
         {
           v32 = MEMORY[0x1E695DFF8];
-          localContentURL4 = [v24 localContentURL];
-          absoluteString = [localContentURL4 absoluteString];
+          localContentURL3 = [v24 localContentURL];
+          absoluteString = [localContentURL3 absoluteString];
           v35 = [v32 fileURLWithPath:absoluteString isDirectory:1];
 
           v36 = [UAFAssetSetMetadata fromAssetDir:v35 error:errorCopy];
-          v9 = v55;
+          v9 = v54;
           if (!*errorCopy)
           {
 
@@ -2732,9 +2679,9 @@ LABEL_36:
               goto LABEL_28;
             }
 
-            clientsCopy = v53;
-            *supportedCopy = [v36 OSSupported:v53];
-            latestDownloadedAtomicInstance = [v55 latestDownloadedAtomicInstance];
+            clientsCopy = v52;
+            *supportedCopy = [v36 OSSupported:v52];
+            latestDownloadedAtomicInstance = [v54 latestDownloadedAtomicInstance];
 
             goto LABEL_44;
           }
@@ -2742,46 +2689,44 @@ LABEL_36:
           v39 = UAFGetLogCategory(&UAFLogContextMAConfig);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            metadataAsset4 = [v53 metadataAsset];
-            name4 = [v53 name];
-            v47 = *errorCopy;
+            metadataAsset4 = [v52 metadataAsset];
+            name4 = [v52 name];
+            v46 = *errorCopy;
             *buf = 136316162;
-            v72 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:OSSupported:error:]";
-            v73 = 2114;
-            v74 = metadataAsset4;
-            v75 = 2114;
-            v76 = name4;
-            v77 = 2112;
-            v78 = v35;
-            v79 = 2114;
-            v80 = v47;
+            v71 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:OSSupported:error:]";
+            v72 = 2114;
+            v73 = metadataAsset4;
+            v74 = 2114;
+            v75 = name4;
+            v76 = 2112;
+            v77 = v35;
+            v78 = 2114;
+            v79 = v46;
             _os_log_error_impl(&dword_1BCF2C000, v39, OS_LOG_TYPE_ERROR, "%s Failed to load asset set metadata from asset %{public}@ in asset set %{public}@ at location %@: %{public}@", buf, 0x34u);
           }
 
-          latestDownloadedAtomicInstance = [v55 latestDownloadedAtomicInstance];
+          latestDownloadedAtomicInstance = [v54 latestDownloadedAtomicInstance];
 
           latestDowloadedAtomicInstanceEntries = v36;
         }
 
-        clientsCopy = v53;
+        clientsCopy = v52;
         goto LABEL_44;
       }
 
 LABEL_31:
-      clientsCopy = v53;
+      clientsCopy = v52;
     }
 
-    v51 = [assets countByEnumeratingWithState:&v67 objects:v83 count:16];
+    v50 = [assets countByEnumeratingWithState:&v66 objects:v82 count:16];
   }
 
-  while (v51);
+  while (v50);
 LABEL_33:
 
 LABEL_34:
   latestDownloadedAtomicInstance = [v9 latestDownloadedAtomicInstance];
 LABEL_44:
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return latestDownloadedAtomicInstance;
 }
@@ -2802,7 +2747,7 @@ LABEL_44:
 
 + (BOOL)isLatestConsistencyToken:(id)token
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   assetSetName = [tokenCopy assetSetName];
 
@@ -2842,11 +2787,11 @@ LABEL_44:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         assetSetName3 = [tokenCopy assetSetName];
-        v21 = 136315394;
-        v22 = "+[UAFAutoAssetManager isLatestConsistencyToken:]";
-        v23 = 2114;
-        v24 = assetSetName3;
-        _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Asset set %{public}@ has no configuration", &v21, 0x16u);
+        v20 = 136315394;
+        v21 = "+[UAFAutoAssetManager isLatestConsistencyToken:]";
+        v22 = 2114;
+        v23 = assetSetName3;
+        _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Asset set %{public}@ has no configuration", &v20, 0x16u);
       }
 
       v16 = 0;
@@ -2860,17 +2805,16 @@ LABEL_44:
     v15 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315394;
-      v22 = "+[UAFAutoAssetManager isLatestConsistencyToken:]";
-      v23 = 2114;
-      v24 = tokenCopy;
-      _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s Consistency token  has no asset set name: %{public}@", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "+[UAFAutoAssetManager isLatestConsistencyToken:]";
+      v22 = 2114;
+      v23 = tokenCopy;
+      _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, "%s Consistency token  has no asset set name: %{public}@", &v20, 0x16u);
     }
 
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -2896,7 +2840,7 @@ LABEL_44:
 {
   downloadedCopy = downloaded;
   changedCopy = changed;
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   setCopy = set;
   assetSetCopy = assetSet;
   experimentCopy = experiment;
@@ -2909,25 +2853,25 @@ LABEL_44:
       [assetSetCopy assetSetIdentifier];
       v20 = v19 = experimentCopy;
       *buf = 136315394;
-      v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-      v79 = 2114;
-      v80 = v20;
+      v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+      v78 = 2114;
+      v79 = v20;
       _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ has had its configuration changed", buf, 0x16u);
 
       experimentCopy = v19;
     }
   }
 
-  v75 = 0;
-  v21 = [UAFAutoAssetManager latestAtomicInstanceFromMA:assetSetCopy error:&v75];
-  v22 = v75;
+  v74 = 0;
+  v21 = [UAFAutoAssetManager latestAtomicInstanceFromMA:assetSetCopy error:&v74];
+  v22 = v74;
   v23 = v22;
-  v65 = v21;
+  v64 = v21;
   if (!v21)
   {
-    v74 = v22;
-    v27 = [assetSetCopy currentSetStatusSync:&v74];
-    v26 = v74;
+    v73 = v22;
+    v27 = [assetSetCopy currentSetStatusSync:&v73];
+    v26 = v73;
 
     if (!v27 || v26)
     {
@@ -2936,11 +2880,11 @@ LABEL_44:
       {
         assetSetIdentifier = [assetSetCopy assetSetIdentifier];
         *buf = 136315650;
-        v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-        v79 = 2114;
-        v80 = assetSetIdentifier;
-        v81 = 2114;
-        v82 = v26;
+        v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+        v78 = 2114;
+        v79 = assetSetIdentifier;
+        v80 = 2114;
+        v81 = v26;
         _os_log_error_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@ : %{public}@", buf, 0x20u);
 LABEL_50:
       }
@@ -2959,13 +2903,13 @@ LABEL_50:
           newerAtomicInstanceDiscovered = [v27 newerAtomicInstanceDiscovered];
           catalogCachedAssetSetID = [v27 catalogCachedAssetSetID];
           *buf = 136315906;
-          v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-          v79 = 2114;
-          v80 = assetSetIdentifier2;
-          v81 = 2114;
-          v82 = newerAtomicInstanceDiscovered;
-          v83 = 2114;
-          v84 = catalogCachedAssetSetID;
+          v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+          v78 = 2114;
+          v79 = assetSetIdentifier2;
+          v80 = 2114;
+          v81 = newerAtomicInstanceDiscovered;
+          v82 = 2114;
+          v83 = catalogCachedAssetSetID;
           _os_log_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is desired but newest published atomic instance %{public}@ from catalog %{public}@ contains no assets", buf, 0x2Au);
         }
 
@@ -2976,9 +2920,9 @@ LABEL_50:
       {
         assetSetIdentifier = [assetSetCopy assetSetIdentifier];
         *buf = 136315394;
-        v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-        v79 = 2114;
-        v80 = assetSetIdentifier;
+        v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+        v78 = 2114;
+        v79 = assetSetIdentifier;
         _os_log_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is desired but no atomic instance is available", buf, 0x16u);
         goto LABEL_50;
       }
@@ -2990,13 +2934,13 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v62 = downloadedCopy;
-  v73 = 0;
-  v72 = v22;
-  v24 = [UAFAutoAssetManager latestAtomicInstanceForClients:setCopy OSSupported:&v73 error:&v72];
-  v25 = v72;
+  v61 = downloadedCopy;
+  v72 = 0;
+  v71 = v22;
+  v24 = [UAFAutoAssetManager latestAtomicInstanceForClients:setCopy OSSupported:&v72 error:&v71];
+  v25 = v71;
 
-  v64 = v24;
+  v63 = v24;
   if ([v21 isEqualToString:v24])
   {
     v26 = v25;
@@ -3008,11 +2952,11 @@ LABEL_52:
   {
     name = [setCopy name];
     *buf = 136315650;
-    v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-    v79 = 2114;
-    v80 = name;
-    v81 = 2114;
-    v82 = v21;
+    v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+    v78 = 2114;
+    v79 = name;
+    v80 = 2114;
+    v81 = v21;
     _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ has atomic instance %{public}@, but is not available to clients, locking latest instance", buf, 0x20u);
   }
 
@@ -3023,11 +2967,11 @@ LABEL_52:
   {
     name2 = [setCopy name];
     *buf = 136315650;
-    v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-    v79 = 2114;
-    v80 = name2;
-    v81 = 2114;
-    v82 = v26;
+    v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+    v78 = 2114;
+    v79 = name2;
+    v80 = 2114;
+    v81 = v26;
     _os_log_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ locking complete with error: %{public}@", buf, 0x20u);
   }
 
@@ -3035,17 +2979,17 @@ LABEL_52:
   if (!v26)
   {
     *locked = 1;
-    v71 = 0;
-    v39 = [UAFAutoAssetManager latestAtomicInstanceForClients:setCopy OSSupported:&v73 error:&v71];
-    v26 = v71;
-    v21 = v65;
+    v70 = 0;
+    v39 = [UAFAutoAssetManager latestAtomicInstanceForClients:setCopy OSSupported:&v72 error:&v70];
+    v26 = v70;
+    v21 = v64;
 LABEL_19:
-    if (v73)
+    if (v72)
     {
-      v40 = [UAFAutoAssetManager consistencyTokenFromConfig:setCopy atomicInstance:v64 experiment:experimentCopy];
-      v66 = v26;
-      v41 = [UAFExpiredAssets assetsExpired:v40 error:&v66];
-      v42 = v66;
+      v40 = [UAFAutoAssetManager consistencyTokenFromConfig:setCopy atomicInstance:v63 experiment:experimentCopy];
+      v65 = v26;
+      v41 = [UAFExpiredAssets assetsExpired:v40 error:&v65];
+      v42 = v65;
 
       if (v41)
       {
@@ -3054,13 +2998,13 @@ LABEL_19:
         {
           name3 = [setCopy name];
           *buf = 136315906;
-          v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-          v79 = 2114;
-          v80 = name3;
-          v81 = 2114;
-          v82 = v21;
-          v83 = 2114;
-          v84 = v40;
+          v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+          v78 = 2114;
+          v79 = name3;
+          v80 = 2114;
+          v81 = v21;
+          v82 = 2114;
+          v83 = v40;
           _os_log_impl(&dword_1BCF2C000, v43, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is configured, has atomic instance %{public}@, is available to clients, and current OS supported but current assets %{public}@ are marked as expired", buf, 0x2Au);
         }
 
@@ -3071,18 +3015,18 @@ LABEL_19:
       else
       {
         v38 = 1;
-        if (v62 && !changedCopy)
+        if (v61 && !changedCopy)
         {
           v57 = UAFGetLogCategory(&UAFLogContextMAConfig);
           if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
             name4 = [setCopy name];
             *buf = 136315650;
-            v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-            v79 = 2114;
-            v80 = name4;
-            v81 = 2114;
-            v82 = v65;
+            v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+            v78 = 2114;
+            v79 = name4;
+            v80 = 2114;
+            v81 = v64;
             _os_log_impl(&dword_1BCF2C000, v57, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is configured, has atomic instance %{public}@, and is available to clients, no further management needed", buf, 0x20u);
           }
 
@@ -3095,43 +3039,43 @@ LABEL_19:
 
     else
     {
-      v61 = experimentCopy;
-      v63 = assetSetCopy;
+      v60 = experimentCopy;
+      v62 = assetSetCopy;
       v45 = UAFGetLogCategory(&UAFLogContextMAConfig);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         name5 = [setCopy name];
         *buf = 136315650;
-        v78 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
-        v79 = 2114;
-        v80 = name5;
-        v81 = 2114;
-        v82 = v21;
+        v77 = "+[UAFAutoAssetManager shouldCheckAssetSet:autoAssetSet:changed:downloaded:experiment:locked:userInitiated:removalNeeded:]";
+        v78 = 2114;
+        v79 = name5;
+        v80 = 2114;
+        v81 = v21;
         _os_log_impl(&dword_1BCF2C000, v45, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ is configured, has atomic instance %{public}@, and is available to clients but current OS is not supported", buf, 0x20u);
       }
 
       v38 = 1;
       *needed = 1;
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
       assets = [setCopy assets];
-      v48 = [assets countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v48 = [assets countByEnumeratingWithState:&v66 objects:v75 count:16];
       if (v48)
       {
         v49 = v48;
-        v50 = *v68;
+        v50 = *v67;
         while (2)
         {
           for (i = 0; i != v49; ++i)
           {
-            if (*v68 != v50)
+            if (*v67 != v50)
             {
               objc_enumerationMutation(assets);
             }
 
-            v52 = *(*(&v67 + 1) + 8 * i);
+            v52 = *(*(&v66 + 1) + 8 * i);
             metadataAsset = [setCopy metadataAsset];
             name6 = [v52 name];
             if ([metadataAsset isEqualToString:name6])
@@ -3150,7 +3094,7 @@ LABEL_19:
             }
           }
 
-          v49 = [assets countByEnumeratingWithState:&v67 objects:v76 count:16];
+          v49 = [assets countByEnumeratingWithState:&v66 objects:v75 count:16];
           if (v49)
           {
             continue;
@@ -3162,33 +3106,32 @@ LABEL_19:
 
 LABEL_40:
 
-      assetSetCopy = v63;
+      assetSetCopy = v62;
       *initiated = 1;
-      experimentCopy = v61;
+      experimentCopy = v60;
     }
   }
 
   LOBYTE(changedCopy) = v38;
 LABEL_53:
 
-  v59 = *MEMORY[0x1E69E9840];
   return changedCopy;
 }
 
 + (void)setBackgroundNeedPolicy:(id)policy configuration:(id)configuration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   configurationCopy = configuration;
   v7 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     assetSetIdentifier = [policyCopy assetSetIdentifier];
-    v16 = 136315394;
-    v17 = "+[UAFAutoAssetManager setBackgroundNeedPolicy:configuration:]";
-    v18 = 2114;
-    v19 = assetSetIdentifier;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Setting need policy for asset set '%{public}@' to not user initiated", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "+[UAFAutoAssetManager setBackgroundNeedPolicy:configuration:]";
+    v17 = 2114;
+    v18 = assetSetIdentifier;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Setting need policy for asset set '%{public}@' to not user initiated", &v15, 0x16u);
   }
 
   v9 = +[UAFAutoAssetManager backgroundNeedPolicy];
@@ -3204,22 +3147,20 @@ LABEL_53:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       assetSetIdentifier2 = [policyCopy assetSetIdentifier];
-      v16 = 136315650;
-      v17 = "+[UAFAutoAssetManager setBackgroundNeedPolicy:configuration:]";
-      v18 = 2114;
-      v19 = assetSetIdentifier2;
-      v20 = 2114;
-      v21 = v12;
-      _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, "%s Could not set discretionary policy for asset set %{public}@ : %{public}@", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "+[UAFAutoAssetManager setBackgroundNeedPolicy:configuration:]";
+      v17 = 2114;
+      v18 = assetSetIdentifier2;
+      v19 = 2114;
+      v20 = v12;
+      _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, "%s Could not set discretionary policy for asset set %{public}@ : %{public}@", &v15, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)releaseIncompatibleAssetSet:(id)set specifiers:(id)specifiers configuration:(id)configuration
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   setCopy = set;
   configurationCopy = configuration;
   specifiersCopy = specifiers;
@@ -3228,9 +3169,9 @@ LABEL_53:
   {
     assetSetIdentifier = [setCopy assetSetIdentifier];
     *buf = 136315394;
-    v29 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
-    v30 = 2114;
-    v31 = assetSetIdentifier;
+    v28 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
+    v29 = 2114;
+    v30 = assetSetIdentifier;
     _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Asset set %{public}@ incompatible with current OS, removing", buf, 0x16u);
   }
 
@@ -3244,9 +3185,9 @@ LABEL_53:
     {
       assetSetIdentifier3 = [setCopy assetSetIdentifier];
       *buf = 136315394;
-      v29 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
-      v30 = 2114;
-      v31 = assetSetIdentifier3;
+      v28 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
+      v29 = 2114;
+      v30 = assetSetIdentifier3;
       _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s Attempting force remove of asset set '%{public}@'", buf, 0x16u);
     }
 
@@ -3260,11 +3201,11 @@ LABEL_53:
       {
         assetSetIdentifier5 = [setCopy assetSetIdentifier];
         *buf = 136315650;
-        v29 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
-        v30 = 2114;
-        v31 = assetSetIdentifier5;
-        v32 = 2112;
-        v33 = v17;
+        v28 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
+        v29 = 2114;
+        v30 = assetSetIdentifier5;
+        v31 = 2112;
+        v32 = v17;
         _os_log_error_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_ERROR, "%s Force remove of asset set '%{public}@' failed: %@", buf, 0x20u);
       }
     }
@@ -3275,14 +3216,14 @@ LABEL_53:
   {
     assetSetIdentifier6 = [setCopy assetSetIdentifier];
     *buf = 136315394;
-    v29 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
-    v30 = 2114;
-    v31 = assetSetIdentifier6;
+    v28 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
+    v29 = 2114;
+    v30 = assetSetIdentifier6;
     _os_log_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_DEFAULT, "%s Removal of incompatible asset set %{public}@ complete, reconfiguring", buf, 0x16u);
   }
 
-  v27 = 0;
-  v21 = [UAFAutoAssetManager configureAssetSet:configurationCopy specifiers:specifiersCopy changed:&v27 + 1 downloaded:&v27 currentPolicy:0];
+  v26 = 0;
+  v21 = [UAFAutoAssetManager configureAssetSet:configurationCopy specifiers:specifiersCopy changed:&v26 + 1 downloaded:&v26 currentPolicy:0];
 
   if (!v21)
   {
@@ -3291,30 +3232,29 @@ LABEL_53:
     {
       assetSetIdentifier7 = [0 assetSetIdentifier];
       *buf = 136315394;
-      v29 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
-      v30 = 2114;
-      v31 = assetSetIdentifier7;
+      v28 = "+[UAFAutoAssetManager releaseIncompatibleAssetSet:specifiers:configuration:]";
+      v29 = 2114;
+      v30 = assetSetIdentifier7;
       _os_log_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_DEFAULT, "%s Reconfiguration of %{public}@ produced no autoAssetSet", buf, 0x16u);
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v21 != 0;
 }
 
 + (id)manageAssetSet:(id)set specifiers:(id)specifiers lockIfUnchanged:(BOOL)unchanged userInitiated:(BOOL)initiated experiment:(id)experiment
 {
   unchangedCopy = unchanged;
-  v47[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   setCopy = set;
   specifiersCopy = specifiers;
   initiatedCopy = initiated;
   experimentCopy = experiment;
-  v40 = 0;
   v39 = 0;
   v38 = 0;
-  v14 = [UAFAutoAssetManager configureAssetSet:setCopy specifiers:specifiersCopy changed:&v40 downloaded:&v39 currentPolicy:&v38];
-  v15 = v38;
+  v37 = 0;
+  v14 = [UAFAutoAssetManager configureAssetSet:setCopy specifiers:specifiersCopy changed:&v39 downloaded:&v38 currentPolicy:&v37];
+  v15 = v37;
   if (!v14)
   {
     goto LABEL_10;
@@ -3325,42 +3265,42 @@ LABEL_53:
   {
     name = [setCopy name];
     *buf = 136315394;
-    v43 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
-    v44 = 2114;
-    v45 = name;
+    v42 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
+    v43 = 2114;
+    v44 = name;
     _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s Managing auto asset set %{public}@", buf, 0x16u);
   }
 
   [UAFAutoAssetManager observeAssetSet:setCopy];
-  v37 = 0;
-  v18 = [UAFAutoAssetManager shouldCheckAssetSet:setCopy autoAssetSet:v14 changed:v40 downloaded:v39 experiment:experimentCopy locked:&v37 + 1 userInitiated:&initiatedCopy removalNeeded:&v37];
+  v36 = 0;
+  v18 = [UAFAutoAssetManager shouldCheckAssetSet:setCopy autoAssetSet:v14 changed:v39 downloaded:v38 experiment:experimentCopy locked:&v36 + 1 userInitiated:&initiatedCopy removalNeeded:&v36];
   name2 = [setCopy name];
   [UAFAutoAssetManager cacheAssetSetCompleteness:name2 complete:!v18];
 
   if (v18)
   {
-    if (v37 != 1 || [UAFAutoAssetManager releaseIncompatibleAssetSet:v14 specifiers:specifiersCopy configuration:setCopy])
+    if (v36 != 1 || [UAFAutoAssetManager releaseIncompatibleAssetSet:v14 specifiers:specifiersCopy configuration:setCopy])
     {
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userInitiated_experiment___block_invoke;
-      v35[3] = &unk_1E7FFEC28;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userInitiated_experiment___block_invoke;
+      v34[3] = &unk_1E7FFEC28;
       v20 = v14;
-      v36 = v20;
-      v21 = MEMORY[0x1BFB33950](v35);
+      v35 = v20;
+      v21 = MEMORY[0x1BFB33950](v34);
       v22 = UAFGetLogCategory(&UAFLogContextMAConfig);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         name3 = [setCopy name];
         enableExpensiveCellular = [setCopy enableExpensiveCellular];
         *buf = 136315906;
-        v43 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
-        v44 = 2114;
-        v45 = name3;
-        v46 = 1024;
-        LODWORD(v47[0]) = enableExpensiveCellular;
-        WORD2(v47[0]) = 1024;
-        *(v47 + 6) = initiatedCopy;
+        v42 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
+        v43 = 2114;
+        v44 = name3;
+        v45 = 1024;
+        LODWORD(v46[0]) = enableExpensiveCellular;
+        WORD2(v46[0]) = 1024;
+        *(v46 + 6) = initiatedCopy;
         _os_log_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_DEFAULT, "%s Checking auto asset set %{public}@ with cellular: %d user initiated: %d", buf, 0x22u);
       }
 
@@ -3379,16 +3319,16 @@ LABEL_10:
     goto LABEL_21;
   }
 
-  if (unchangedCopy && (v37 & 0x100) == 0)
+  if (unchangedCopy && (v36 & 0x100) == 0)
   {
     v28 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       name4 = [setCopy name];
       *buf = 136315394;
-      v43 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
-      v44 = 2114;
-      v45 = name4;
+      v42 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
+      v43 = 2114;
+      v44 = name4;
       _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s Locking latest instance of auto asset set %{public}@ although it is unchanged", buf, 0x16u);
     }
 
@@ -3398,11 +3338,11 @@ LABEL_10:
     {
       name5 = [setCopy name];
       *buf = 136315650;
-      v43 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
-      v44 = 2114;
-      v45 = name5;
-      v46 = 2114;
-      v47[0] = v30;
+      v42 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]";
+      v43 = 2114;
+      v44 = name5;
+      v45 = 2114;
+      v46[0] = v30;
       _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s Auto asset set %{public}@ locking complete with error: %{public}@", buf, 0x20u);
     }
   }
@@ -3415,14 +3355,12 @@ LABEL_10:
   v27 = v14;
 LABEL_21:
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 void __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userInitiated_experiment___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -3434,9 +3372,9 @@ void __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userIni
     {
       v14 = [*(a1 + 32) assetSetIdentifier];
       *buf = 136315394;
-      v21 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]_block_invoke_2";
-      v22 = 2114;
-      v23 = v14;
+      v20 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]_block_invoke_2";
+      v21 = 2114;
+      v22 = v14;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Checked auto asset set %{public}@", buf, 0x16u);
     }
 
@@ -3445,13 +3383,13 @@ void __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userIni
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v16 = [*(a1 + 32) assetSetIdentifier];
+    v15 = [*(a1 + 32) assetSetIdentifier];
     *buf = 136315650;
-    v21 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]_block_invoke";
-    v22 = 2114;
-    v23 = v16;
-    v24 = 2114;
-    v25 = v9;
+    v20 = "+[UAFAutoAssetManager manageAssetSet:specifiers:lockIfUnchanged:userInitiated:experiment:]_block_invoke";
+    v21 = 2114;
+    v22 = v15;
+    v23 = 2114;
+    v24 = v9;
     _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Could not check auto asset set %{public}@: %{public}@", buf, 0x20u);
   }
 
@@ -3468,26 +3406,24 @@ LABEL_9:
   if (v12 != 6205)
   {
     v13 = +[UAFInstrumentationProvider getSerialQueue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userInitiated_experiment___block_invoke_437;
-    v17[3] = &unk_1E7FFD098;
-    v18 = *(a1 + 32);
-    v19 = v8;
-    dispatch_async(v13, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __90__UAFAutoAssetManager_manageAssetSet_specifiers_lockIfUnchanged_userInitiated_experiment___block_invoke_437;
+    v16[3] = &unk_1E7FFD098;
+    v17 = *(a1 + 32);
+    v18 = v8;
+    dispatch_async(v13, v16);
 
-    v11 = v18;
+    v11 = v17;
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)targetForAssetSet:(id)set specifiers:(id)specifiers version:(id)version autoAssetSets:(id)sets
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   setCopy = set;
   specifiersCopy = specifiers;
   versionCopy = version;
@@ -3507,18 +3443,18 @@ LABEL_10:
   {
     name2 = [setCopy name];
     *buf = 136315394;
-    v55 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
-    v56 = 2114;
-    v57 = name2;
+    v54 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
+    v55 = 2114;
+    v56 = name2;
     _os_log_impl(&dword_1BCF2C000, v29, OS_LOG_TYPE_DEFAULT, "%s AutoAssetSet %{public}@ not previously initialized. Creating a new one for staging.", buf, 0x16u);
   }
 
   v31 = objc_alloc(MEMORY[0x1E69B1918]);
   name3 = [setCopy name];
   v33 = +[UAFAutoAssetManager getConcurrentQueue];
-  v53 = 0;
-  v34 = [v31 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name3 comprisedOfEntries:v13 completingFromQueue:v33 error:&v53];
-  v16 = v53;
+  v52 = 0;
+  v34 = [v31 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name3 comprisedOfEntries:v13 completingFromQueue:v33 error:&v52];
+  v16 = v52;
 
   v15 = v34;
   if (!v34 || v16)
@@ -3528,12 +3464,12 @@ LABEL_10:
     {
       assetSetIdentifier = [v34 assetSetIdentifier];
       *buf = 136315650;
-      v55 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
-      v56 = 2114;
-      v57 = assetSetIdentifier;
-      v58 = 2114;
-      v59 = v16;
-      v47 = "%s Could not create auto asset set %{public}@ : %{public}@";
+      v54 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
+      v55 = 2114;
+      v56 = assetSetIdentifier;
+      v57 = 2114;
+      v58 = v16;
+      v46 = "%s Could not create auto asset set %{public}@ : %{public}@";
       goto LABEL_31;
     }
 
@@ -3549,11 +3485,11 @@ LABEL_16:
     goto LABEL_11;
   }
 
-  v52 = 0;
-  v20 = [v34 currentSetStatusSync:&v52];
-  v43 = v52;
-  v16 = v43;
-  if (!v43)
+  v51 = 0;
+  v20 = [v34 currentSetStatusSync:&v51];
+  v42 = v51;
+  v16 = v42;
+  if (!v42)
   {
 LABEL_26:
     if (v20)
@@ -3566,14 +3502,14 @@ LABEL_26:
     {
       assetSetIdentifier = [setCopy name];
       *buf = 136315650;
-      v55 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
-      v56 = 2114;
-      v57 = assetSetIdentifier;
-      v58 = 2114;
-      v59 = v16;
-      v47 = "%s Could not determine status for set %{public}@ : %{public}@";
+      v54 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
+      v55 = 2114;
+      v56 = assetSetIdentifier;
+      v57 = 2114;
+      v58 = v16;
+      v46 = "%s Could not determine status for set %{public}@ : %{public}@";
 LABEL_31:
-      _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, v47, buf, 0x20u);
+      _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, v46, buf, 0x20u);
 
       goto LABEL_16;
     }
@@ -3581,7 +3517,7 @@ LABEL_31:
     goto LABEL_16;
   }
 
-  domain = [v43 domain];
+  domain = [v42 domain];
   if (([domain isEqualToString:@"com.apple.MobileAssetError.AutoAsset"] & 1) == 0)
   {
 
@@ -3620,38 +3556,38 @@ LABEL_3:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       [setCopy name];
-      v21 = v50 = v15;
+      v21 = v49 = v15;
       [v19 minTargetOSVersion];
-      v51 = versionCopy;
+      v50 = versionCopy;
       v23 = v22 = specifiersCopy;
       maxTargetOSVersion = [v19 maxTargetOSVersion];
       autoAssetType = [setCopy autoAssetType];
       [v22 allObjects];
-      v49 = v16;
+      v48 = v16;
       v26 = setCopy;
       v28 = v27 = v13;
       *buf = 136316418;
-      v55 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
-      v56 = 2114;
-      v57 = v21;
-      v58 = 2114;
-      v59 = v23;
-      v60 = 2114;
-      v61 = maxTargetOSVersion;
-      v62 = 2114;
-      v63 = autoAssetType;
-      v64 = 2114;
-      v65 = v28;
+      v54 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
+      v55 = 2114;
+      v56 = v21;
+      v57 = 2114;
+      v58 = v23;
+      v59 = 2114;
+      v60 = maxTargetOSVersion;
+      v61 = 2114;
+      v62 = autoAssetType;
+      v63 = 2114;
+      v64 = v28;
       _os_log_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_DEFAULT, "%s Staging asset set %{public}@ for OS versions %{public}@ through %{public}@ with type %{public}@ and entries %{public}@", buf, 0x3Eu);
 
       v13 = v27;
       setCopy = v26;
-      v16 = v49;
+      v16 = v48;
 
       specifiersCopy = v22;
-      versionCopy = v51;
+      versionCopy = v50;
 
-      v15 = v50;
+      v15 = v49;
     }
 
     goto LABEL_17;
@@ -3664,33 +3600,31 @@ LABEL_3:
   {
     name4 = [setCopy name];
     *buf = 136315650;
-    v55 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
-    v56 = 2114;
-    v57 = name4;
-    v58 = 2114;
-    v59 = v39;
+    v54 = "+[UAFAutoAssetManager targetForAssetSet:specifiers:version:autoAssetSets:]";
+    v55 = 2114;
+    v56 = name4;
+    v57 = 2114;
+    v58 = v39;
     _os_log_error_impl(&dword_1BCF2C000, v40, OS_LOG_TYPE_ERROR, "%s Could not indicate lack of need in this OS for asset set %{public}@ : %{public}@", buf, 0x20u);
   }
 
   v19 = 0;
 LABEL_17:
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (void)stageAssetSet:(id)set targets:(id)targets platformAssetVersion:(id)version
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   setCopy = set;
   targetsCopy = targets;
   versionCopy = version;
   v10 = objc_alloc(MEMORY[0x1E69B1918]);
   v11 = +[UAFAutoAssetManager getConcurrentQueue];
-  v19 = 0;
-  v12 = [v10 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:setCopy comprisedOfEntries:0 completingFromQueue:v11 error:&v19];
-  v13 = v19;
+  v18 = 0;
+  v12 = [v10 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:setCopy comprisedOfEntries:0 completingFromQueue:v11 error:&v18];
+  v13 = v18;
 
   if (v12)
   {
@@ -3717,11 +3651,11 @@ LABEL_17:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "+[UAFAutoAssetManager stageAssetSet:targets:platformAssetVersion:]";
-      v22 = 2114;
-      v23 = setCopy;
-      v24 = 2114;
-      v25 = v13;
+      v20 = "+[UAFAutoAssetManager stageAssetSet:targets:platformAssetVersion:]";
+      v21 = 2114;
+      v22 = setCopy;
+      v23 = 2114;
+      v24 = v13;
       v16 = "%s Could not stage asset set %{public}@ with error: %{public}@";
       goto LABEL_13;
     }
@@ -3733,11 +3667,11 @@ LABEL_17:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "+[UAFAutoAssetManager stageAssetSet:targets:platformAssetVersion:]";
-      v22 = 2114;
-      v23 = setCopy;
-      v24 = 2114;
-      v25 = v13;
+      v20 = "+[UAFAutoAssetManager stageAssetSet:targets:platformAssetVersion:]";
+      v21 = 2114;
+      v22 = setCopy;
+      v23 = 2114;
+      v24 = v13;
       v16 = "%s Could not get auto asset set %{public}@ : %{public}@";
 LABEL_13:
       _os_log_error_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0x20u);
@@ -3745,12 +3679,11 @@ LABEL_13:
   }
 
 LABEL_10:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)stageAssetsWithNewSubscriptions:(id)subscriptions oldSubscriptions:(id)oldSubscriptions knownAutoAssetSets:(id)sets usedAutoAssetSets:(id)assetSets autoAssetSets:(id)autoAssetSets
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   oldSubscriptionsCopy = oldSubscriptions;
   setsCopy = sets;
@@ -3766,9 +3699,9 @@ LABEL_10:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
-      v81 = 2114;
-      v82 = v15;
+      v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+      v80 = 2114;
+      v81 = v15;
       _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s Staging with platform asset version %{public}@", buf, 0x16u);
     }
 
@@ -3776,34 +3709,34 @@ LABEL_10:
     v18 = v17;
     if (v17)
     {
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
       v76 = 0u;
-      v58 = [v17 countByEnumeratingWithState:&v75 objects:v86 count:16];
-      if (!v58)
+      v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
+      v57 = [v17 countByEnumeratingWithState:&v74 objects:v85 count:16];
+      if (!v57)
       {
         goto LABEL_48;
       }
 
-      v52 = v15;
-      v53 = v14;
-      v62 = 0;
-      v54 = *v76;
+      v51 = v15;
+      v52 = v14;
+      v61 = 0;
+      v53 = *v75;
       v19 = 0x1E7FFC000uLL;
-      v55 = v18;
-      v56 = oldSubscriptionsCopy;
+      v54 = v18;
+      v55 = oldSubscriptionsCopy;
       while (1)
       {
         v20 = 0;
         do
         {
-          if (*v76 != v54)
+          if (*v75 != v53)
           {
             objc_enumerationMutation(v18);
           }
 
-          v65 = *(*(&v75 + 1) + 8 * v20);
+          v64 = *(*(&v74 + 1) + 8 * v20);
           v21 = [v18 objectForKeyedSubscript:?];
           v22 = [v21 applySubscriptions:subscriptionsCopy];
           v23 = v22;
@@ -3821,27 +3754,27 @@ LABEL_10:
             allObjects = [v21 getAllAssetSets];
           }
 
-          v59 = v20;
-          v73 = 0u;
-          v74 = 0u;
-          v71 = 0u;
+          v58 = v20;
           v72 = 0u;
+          v73 = 0u;
+          v70 = 0u;
+          v71 = 0u;
           obj = allObjects;
-          v67 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
-          if (v67)
+          v66 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
+          if (v66)
           {
-            v66 = *v72;
-            v64 = v21;
+            v65 = *v71;
+            v63 = v21;
             do
             {
-              for (i = 0; i != v67; ++i)
+              for (i = 0; i != v66; ++i)
               {
-                if (*v72 != v66)
+                if (*v71 != v65)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v29 = *(*(&v71 + 1) + 8 * i);
+                v29 = *(*(&v70 + 1) + 8 * i);
                 autoAssetType = [v29 autoAssetType];
 
                 if (autoAssetType)
@@ -3871,12 +3804,12 @@ LABEL_10:
                       [assetSetsCopy addObject:name3];
                     }
 
-                    v37 = [*(v19 + 2544) targetForAssetSet:v29 specifiers:v35 version:v65 autoAssetSets:autoAssetSetsCopy];
+                    v37 = [*(v19 + 2544) targetForAssetSet:v29 specifiers:v35 version:v64 autoAssetSets:autoAssetSetsCopy];
                     if (v37)
                     {
                       v38 = setsCopy;
-                      v39 = v62;
-                      if (!v62)
+                      v39 = v61;
+                      if (!v61)
                       {
                         v39 = objc_opt_new();
                       }
@@ -3892,7 +3825,7 @@ LABEL_10:
                       }
 
                       name6 = [v29 name];
-                      v62 = v39;
+                      v61 = v39;
                       v45 = [v39 objectForKeyedSubscript:name6];
                       [v45 addObject:v37];
 
@@ -3907,11 +3840,11 @@ LABEL_10:
                       {
                         name7 = [v29 name];
                         *buf = 136315650;
-                        v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
-                        v81 = 2114;
-                        v82 = name7;
-                        v83 = 2114;
-                        v84 = v65;
+                        v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+                        v80 = 2114;
+                        v81 = name7;
+                        v82 = 2114;
+                        v83 = v64;
                         _os_log_impl(&dword_1BCF2C000, name6, OS_LOG_TYPE_DEFAULT, "%s Failed to generate target for Asset set %{public}@ for OS version %{public}@", buf, 0x20u);
                       }
                     }
@@ -3926,17 +3859,17 @@ LABEL_38:
                     {
                       name6 = [v29 name];
                       *buf = 136315650;
-                      v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
-                      v81 = 2114;
-                      v82 = name6;
-                      v83 = 2114;
-                      v84 = v65;
+                      v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+                      v80 = 2114;
+                      v81 = name6;
+                      v82 = 2114;
+                      v83 = v64;
                       _os_log_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_DEFAULT, "%s Asset set %{public}@ should not have any entries for OS version %{public}@", buf, 0x20u);
                       goto LABEL_38;
                     }
                   }
 
-                  v21 = v64;
+                  v21 = v63;
                   goto LABEL_40;
                 }
 
@@ -3945,44 +3878,44 @@ LABEL_38:
                 {
                   name8 = [v29 name];
                   *buf = 136315650;
-                  v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
-                  v81 = 2114;
-                  v82 = name8;
-                  v83 = 2114;
-                  v84 = v65;
+                  v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+                  v80 = 2114;
+                  v81 = name8;
+                  v82 = 2114;
+                  v83 = v64;
                   _os_log_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEFAULT, "%s No auto asset type defined for %{public}@ for OS version %{public}@", buf, 0x20u);
                 }
 
 LABEL_40:
               }
 
-              v67 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
+              v66 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
             }
 
-            while (v67);
+            while (v66);
           }
 
-          v20 = v59 + 1;
-          v18 = v55;
-          oldSubscriptionsCopy = v56;
+          v20 = v58 + 1;
+          v18 = v54;
+          oldSubscriptionsCopy = v55;
         }
 
-        while (v59 + 1 != v58);
-        v58 = [v55 countByEnumeratingWithState:&v75 objects:v86 count:16];
-        if (!v58)
+        while (v58 + 1 != v57);
+        v57 = [v54 countByEnumeratingWithState:&v74 objects:v85 count:16];
+        if (!v57)
         {
-          v15 = v52;
-          v14 = v53;
-          if (v62)
+          v15 = v51;
+          v14 = v52;
+          if (v61)
           {
             getSerialQueue = [*(v19 + 2544) getSerialQueue];
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions_knownAutoAssetSets_usedAutoAssetSets_autoAssetSets___block_invoke;
             block[3] = &unk_1E7FFD098;
-            v69 = v62;
-            v70 = v52;
-            v49 = v62;
+            v68 = v61;
+            v69 = v51;
+            v49 = v61;
             dispatch_async(getSerialQueue, block);
 
             goto LABEL_53;
@@ -3993,7 +3926,7 @@ LABEL_48:
           if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+            v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
             v50 = "%s No staging targets for other OS versions";
             goto LABEL_52;
           }
@@ -4007,7 +3940,7 @@ LABEL_48:
     if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+      v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
       v50 = "%s No version -> configuration managers available when attempting to staging assets";
 LABEL_52:
       _os_log_impl(&dword_1BCF2C000, v49, OS_LOG_TYPE_DEFAULT, v50, buf, 0xCu);
@@ -4022,42 +3955,40 @@ LABEL_53:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v80 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
+      v79 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]";
       _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s No platform assets available when attempting to staging assets", buf, 0xCu);
     }
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions_knownAutoAssetSets_usedAutoAssetSets_autoAssetSets___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        v8 = [*(a1 + 32) objectForKeyedSubscript:{v7, v12}];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [*(a1 + 32) objectForKeyedSubscript:{v7, v11}];
         [UAFAutoAssetManager stageAssetSet:v7 targets:v8 platformAssetVersion:*(a1 + 40)];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v4);
@@ -4068,24 +3999,22 @@ void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions
   {
     v10 = [*(a1 + 32) count];
     *buf = 136315394;
-    v17 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]_block_invoke";
-    v18 = 2048;
-    v19 = v10;
+    v16 = "+[UAFAutoAssetManager stageAssetsWithNewSubscriptions:oldSubscriptions:knownAutoAssetSets:usedAutoAssetSets:autoAssetSets:]_block_invoke";
+    v17 = 2048;
+    v18 = v10;
     _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s Staging completed for %lu targets", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)forceRemoveAutoAssetSet:(id)set
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v4 = objc_alloc(MEMORY[0x1E69B1918]);
   v5 = +[UAFAutoAssetManager getConcurrentQueue];
-  v19 = 0;
-  v6 = [v4 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:setCopy comprisedOfEntries:0 completingFromQueue:v5 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [v4 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:setCopy comprisedOfEntries:0 completingFromQueue:v5 error:&v18];
+  v7 = v18;
 
   if (v7)
   {
@@ -4093,11 +4022,11 @@ void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "+[UAFAutoAssetManager forceRemoveAutoAssetSet:]";
-      v22 = 2114;
-      v23 = setCopy;
-      v24 = 2114;
-      v25 = v7;
+      v20 = "+[UAFAutoAssetManager forceRemoveAutoAssetSet:]";
+      v21 = 2114;
+      v22 = setCopy;
+      v23 = 2114;
+      v24 = v7;
       _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -4112,9 +4041,9 @@ void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions
     {
       assetSetIdentifier = [v6 assetSetIdentifier];
       *buf = 136315394;
-      v21 = "+[UAFAutoAssetManager forceRemoveAutoAssetSet:]";
-      v22 = 2114;
-      v23 = assetSetIdentifier;
+      v20 = "+[UAFAutoAssetManager forceRemoveAutoAssetSet:]";
+      v21 = 2114;
+      v22 = assetSetIdentifier;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Forcibly eliminating auto asset %{public}@ using awaitingUnlocked:NO", buf, 0x16u);
     }
 
@@ -4136,45 +4065,150 @@ void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
+}
+
++ (id)removeAutoAssetSet:(id)set fallbackAlter:(BOOL)alter
+{
+  alterCopy = alter;
+  v30 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  v6 = objc_alloc(MEMORY[0x1E69B1918]);
+  v7 = +[UAFAutoAssetManager getConcurrentQueue];
+  v23 = 0;
+  v8 = [v6 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:setCopy comprisedOfEntries:0 completingFromQueue:v7 error:&v23];
+  v9 = v23;
+
+  if (v9)
+  {
+    v10 = UAFGetLogCategory(&UAFLogContextMAConfig);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v25 = "+[UAFAutoAssetManager removeAutoAssetSet:fallbackAlter:]";
+      v26 = 2114;
+      v27 = setCopy;
+      v28 = 2114;
+      v29 = v9;
+      _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
+    }
+
+    v11 = v9;
+    v12 = v11;
+  }
+
+  else
+  {
+    v22 = 0;
+    v13 = [v8 currentSetStatusSync:&v22];
+    v14 = v22;
+    if (v13)
+    {
+      v15 = v14 == 0;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    if (v15)
+    {
+      v17 = +[UAFAutoAssetManager backgroundNeedPolicy];
+      [v17 setBlockCheckDownload:1];
+      v18 = [UAFAutoAssetManager getReason:v8 operation:@"does not need"];
+      v19 = [v8 needForAtomicSync:v18 withNeedPolicy:v17];
+
+      if (v19)
+      {
+        v20 = UAFGetLogCategory(&UAFLogContextMAConfig);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315650;
+          v25 = "+[UAFAutoAssetManager removeAutoAssetSet:fallbackAlter:]";
+          v26 = 2114;
+          v27 = setCopy;
+          v28 = 2114;
+          v29 = v19;
+          _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s Could not indicate lack of need for asset set %{public}@ : %{public}@", buf, 0x20u);
+        }
+      }
+
+      else
+      {
+        v19 = [UAFAutoAssetManager setLatestAtomicInstance:0 autoAssetSet:v8 fallbackAlter:alterCopy];
+      }
+
+      v11 = v19;
+
+      v12 = v11;
+    }
+
+    else
+    {
+      v11 = v14;
+      v16 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136315650;
+        v25 = "+[UAFAutoAssetManager removeAutoAssetSet:fallbackAlter:]";
+        v26 = 2114;
+        v27 = setCopy;
+        v28 = 2114;
+        v29 = v11;
+        _os_log_debug_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEBUG, "%s Undesired auto asset set %{public}@ doesn't exist: %{public}@", buf, 0x20u);
+      }
+
+      if (v11 && [v11 code] == 6301)
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v11 = v11;
+        v12 = v11;
+      }
+    }
+  }
+
+  return v12;
 }
 
 + (void)removeUnusedAutoAssetSets:(id)sets usedAutoAssetSets:(id)assetSets
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   assetSetsCopy = assetSets;
   if (+[UAFAutoAssetManager allowRemoves])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = setsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
-          if (([assetSetsCopy containsObject:{v12, v15}] & 1) == 0)
+          v12 = *(*(&v14 + 1) + 8 * i);
+          if (([assetSetsCopy containsObject:{v12, v14}] & 1) == 0)
           {
             v13 = [UAFAutoAssetManager removeAutoAssetSet:v12 fallbackAlter:1];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -4187,57 +4221,55 @@ void __123__UAFAutoAssetManager_stageAssetsWithNewSubscriptions_oldSubscriptions
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "+[UAFAutoAssetManager removeUnusedAutoAssetSets:usedAutoAssetSets:]";
+      v20 = "+[UAFAutoAssetManager removeUnusedAutoAssetSets:usedAutoAssetSets:]";
       _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Denying removal of unused asset sets due to inhibiting asset removal", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)findDiffBetweenOldAssetSetUsages:(id)usages newAssetSetUsages:(id)setUsages knownAssetSets:(id)sets usedAssetSets:(id)assetSets configurationManager:(id)manager
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
   setUsagesCopy = setUsages;
   setsCopy = sets;
   assetSetsCopy = assetSets;
   managerCopy = manager;
-  v38 = objc_opt_new();
-  v39 = usagesCopy;
+  v37 = objc_opt_new();
+  v38 = usagesCopy;
   v14 = [UAFAssetSetManager getComparableUsages:usagesCopy];
-  v41 = setUsagesCopy;
+  v40 = setUsagesCopy;
   v15 = [UAFAssetSetManager getComparableUsages:setUsagesCopy];
   v16 = MEMORY[0x1E695DFA8];
-  v43 = v14;
+  v42 = v14;
   allKeys = [v14 allKeys];
   v18 = [v16 setWithArray:allKeys];
 
   allKeys2 = [v15 allKeys];
   [v18 addObjectsFromArray:allKeys2];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v18;
-  v20 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v20 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v46;
+    v22 = *v45;
     v23 = setsCopy;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v46 != v22)
+        if (*v45 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v45 + 1) + 8 * i);
-        v26 = [v43 objectForKeyedSubscript:v25];
+        v25 = *(*(&v44 + 1) + 8 * i);
+        v26 = [v42 objectForKeyedSubscript:v25];
         v27 = [v15 objectForKeyedSubscript:v25];
         v28 = [managerCopy getAssetSet:v25];
         if (!v28)
@@ -4253,7 +4285,7 @@ LABEL_16:
           [setsCopy addObject:v25];
         }
 
-        v29 = [UAFAutoAssetManager getSpecifiers:v28 assetSetUsages:v41 experiment:0];
+        v29 = [UAFAutoAssetManager getSpecifiers:v28 assetSetUsages:v40 experiment:0];
         v30 = [v29 count];
         if (assetSetsCopy && v30)
         {
@@ -4265,10 +4297,10 @@ LABEL_16:
           goto LABEL_16;
         }
 
-        v31 = [UAFAutoAssetManager getSpecifiers:v28 assetSetUsages:v39 experiment:0];
+        v31 = [UAFAutoAssetManager getSpecifiers:v28 assetSetUsages:v38 experiment:0];
         if (([v31 isEqual:v29] & 1) == 0)
         {
-          [v38 addObject:v28];
+          [v37 addObject:v28];
         }
 
 LABEL_17:
@@ -4276,38 +4308,36 @@ LABEL_17:
         setsCopy = v23;
       }
 
-      v21 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v21 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v21);
   }
 
-  if ([v38 count])
+  if ([v37 count])
   {
     v32 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       baseURLs = [managerCopy baseURLs];
       v34 = [baseURLs description];
-      v35 = [v38 description];
+      v35 = [v37 description];
       *buf = 136315650;
-      v50 = "+[UAFAutoAssetManager findDiffBetweenOldAssetSetUsages:newAssetSetUsages:knownAssetSets:usedAssetSets:configurationManager:]";
-      v51 = 2114;
-      v52 = v34;
-      v53 = 2114;
-      v54 = v35;
+      v49 = "+[UAFAutoAssetManager findDiffBetweenOldAssetSetUsages:newAssetSetUsages:knownAssetSets:usedAssetSets:configurationManager:]";
+      v50 = 2114;
+      v51 = v34;
+      v52 = 2114;
+      v53 = v35;
       _os_log_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_DEFAULT, "%s Configuration manager: %{public}@: Need to configure following asset sets: %{public}@", buf, 0x20u);
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v38;
+  return v37;
 }
 
 + (void)configureAutoAssetsFromNewSubscriptions:(id)subscriptions oldSubscriptions:(id)oldSubscriptions configurationManager:(id)manager lockIfUnchanged:(BOOL)unchanged userInitiated:(BOOL)initiated
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   oldSubscriptionsCopy = oldSubscriptions;
   managerCopy = manager;
@@ -4315,7 +4345,7 @@ LABEL_17:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v29 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]";
+    v28 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]";
     _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s Configuring MobileAsset from asset set usages", buf, 0xCu);
   }
 
@@ -4329,9 +4359,9 @@ LABEL_17:
   block[1] = 3221225472;
   block[2] = __131__UAFAutoAssetManager_configureAutoAssetsFromNewSubscriptions_oldSubscriptions_configurationManager_lockIfUnchanged_userInitiated___block_invoke;
   block[3] = &unk_1E7FFEC50;
-  v22 = managerCopy;
-  v23 = subscriptionsCopy;
-  v24 = oldSubscriptionsCopy;
+  v21 = managerCopy;
+  v22 = subscriptionsCopy;
+  v23 = oldSubscriptionsCopy;
   selfCopy = self;
   unchangedCopy = unchanged;
   initiatedCopy = initiated;
@@ -4339,146 +4369,143 @@ LABEL_17:
   v18 = subscriptionsCopy;
   v19 = managerCopy;
   dispatch_sync(v16, block);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __131__UAFAutoAssetManager_configureAutoAssetsFromNewSubscriptions_oldSubscriptions_configurationManager_lockIfUnchanged_userInitiated___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
-  v38 = objc_opt_new();
+  v36 = objc_opt_new();
   v4 = [*(a1 + 32) applySubscriptions:*(a1 + 40)];
   v5 = *(a1 + 32);
-  v39 = a1;
-  v40 = v3;
+  v37 = a1;
+  v38 = v3;
   if (*(a1 + 48))
   {
     v6 = [v5 applySubscriptions:?];
-    v7 = *(a1 + 56);
-    v8 = [objc_opt_class() findDiffBetweenOldAssetSetUsages:v6 newAssetSetUsages:v4 knownAssetSets:v2 usedAssetSets:v3 configurationManager:*(a1 + 32)];
-    v9 = [v8 allObjects];
+    v7 = [objc_opt_class() findDiffBetweenOldAssetSetUsages:v6 newAssetSetUsages:v4 knownAssetSets:v2 usedAssetSets:v3 configurationManager:*(a1 + 32)];
+    v8 = [v7 allObjects];
   }
 
   else
   {
-    v9 = [v5 getAllAssetSets];
+    v8 = [v5 getAllAssetSets];
   }
 
-  v10 = v2;
-  v45 = 0u;
-  v46 = 0u;
+  v9 = v2;
   v43 = 0u;
   v44 = 0u;
-  obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v11)
+  v41 = 0u;
+  v42 = 0u;
+  obj = v8;
+  v10 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v44;
-    v14 = &UAFLogContextMAConfig;
+    v11 = v10;
+    v12 = *v42;
+    v13 = &UAFLogContextMAConfig;
     do
     {
-      v15 = 0;
-      v41 = v12;
+      v14 = 0;
+      v39 = v11;
       do
       {
-        if (*v44 != v13)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * v15);
-        v17 = [v16 autoAssetType];
+        v15 = *(*(&v41 + 1) + 8 * v14);
+        v16 = [v15 autoAssetType];
 
-        if (v17)
+        if (v16)
         {
-          v18 = [v16 name];
-          [v10 addObject:v18];
+          v17 = [v15 name];
+          [v9 addObject:v17];
 
-          v19 = [v16 experimentalAssets];
+          v18 = [v15 experimentalAssets];
 
-          if (v19)
+          if (v18)
           {
-            v20 = [UAFAssetSetExperiment alloc];
-            v21 = [v16 experimentalAssets];
-            v22 = [(UAFAssetSetExperiment *)v20 initWithConfiguration:v21 uuid:0];
+            v19 = [UAFAssetSetExperiment alloc];
+            v20 = [v15 experimentalAssets];
+            v21 = [(UAFAssetSetExperiment *)v19 initWithConfiguration:v20 uuid:0];
           }
 
           else
           {
-            v21 = UAFGetLogCategory(v14);
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v20 = UAFGetLogCategory(v13);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = [v16 name];
+              v23 = [v15 name];
               *buf = 136315394;
-              v48 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
-              v49 = 2114;
-              v50 = v24;
-              _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s No experimental assets for asset set %{public}@", buf, 0x16u);
+              v46 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
+              v47 = 2114;
+              v48 = v23;
+              _os_log_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_DEFAULT, "%s No experimental assets for asset set %{public}@", buf, 0x16u);
             }
 
-            v22 = 0;
+            v21 = 0;
           }
 
-          v23 = [UAFAutoAssetManager getSpecifiers:v16 assetSetUsages:v4 experiment:v22];
-          if ([v23 count])
+          v22 = [UAFAutoAssetManager getSpecifiers:v15 assetSetUsages:v4 experiment:v21];
+          if ([v22 count])
           {
-            if (![v16 subjectToAppleIntelligenceWaitlist] || +[UAFCommonUtilities gmsAllowsAssets](UAFCommonUtilities, "gmsAllowsAssets"))
+            if (![v15 subjectToAppleIntelligenceWaitlist] || +[UAFCommonUtilities gmsAllowsAssets](UAFCommonUtilities, "gmsAllowsAssets"))
             {
+              v24 = v12;
               v25 = v13;
-              v26 = v14;
-              v27 = v4;
-              v28 = v10;
-              v29 = [v16 name];
-              [v40 addObject:v29];
+              v26 = v4;
+              v27 = v9;
+              v28 = [v15 name];
+              [v38 addObject:v28];
 
-              v30 = [UAFAutoAssetManager manageAssetSet:v16 specifiers:v23 lockIfUnchanged:*(v39 + 64) userInitiated:*(v39 + 65) experiment:v22];
-              if (v30 && [v23 count])
+              v29 = [UAFAutoAssetManager manageAssetSet:v15 specifiers:v22 lockIfUnchanged:*(v37 + 64) userInitiated:*(v37 + 65) experiment:v21];
+              if (v29 && [v22 count])
               {
-                v31 = [v16 name];
-                [v38 setObject:v30 forKeyedSubscript:v31];
+                v30 = [v15 name];
+                [v36 setObject:v29 forKeyedSubscript:v30];
               }
 
-              v32 = [v16 name];
-              [UAFAutoAssetInstance clear:v32 path:0];
+              v31 = [v15 name];
+              [UAFAutoAssetInstance clear:v31 path:0];
 
-              v10 = v28;
-              v4 = v27;
-              v14 = v26;
+              v9 = v27;
+              v4 = v26;
               v13 = v25;
-              v12 = v41;
+              v12 = v24;
+              v11 = v39;
               goto LABEL_29;
             }
 
-            v30 = UAFGetLogCategory(v14);
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v29 = UAFGetLogCategory(v13);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v33 = [v16 name];
+              v32 = [v15 name];
               *buf = 136315394;
-              v48 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
-              v49 = 2114;
-              v50 = v33;
-              v34 = v30;
-              v35 = "%s Asset set %{public}@ is not allowed on this device";
+              v46 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
+              v47 = 2114;
+              v48 = v32;
+              v33 = v29;
+              v34 = "%s Asset set %{public}@ is not allowed on this device";
 LABEL_28:
-              _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 0x16u);
+              _os_log_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEFAULT, v34, buf, 0x16u);
             }
           }
 
           else
           {
-            v30 = UAFGetLogCategory(v14);
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v29 = UAFGetLogCategory(v13);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v33 = [v16 name];
+              v32 = [v15 name];
               *buf = 136315394;
-              v48 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
-              v49 = 2114;
-              v50 = v33;
-              v34 = v30;
-              v35 = "%s Asset set %{public}@ should not have any entries";
+              v46 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
+              v47 = 2114;
+              v48 = v32;
+              v33 = v29;
+              v34 = "%s Asset set %{public}@ should not have any entries";
               goto LABEL_28;
             }
           }
@@ -4488,42 +4515,40 @@ LABEL_29:
           goto LABEL_30;
         }
 
-        v23 = UAFGetLogCategory(v14);
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = UAFGetLogCategory(v13);
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
-        v22 = [v16 name];
+        v21 = [v15 name];
         *buf = 136315394;
-        v48 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
-        v49 = 2114;
-        v50 = v22;
-        _os_log_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_DEFAULT, "%s No auto asset type defined for %{public}@", buf, 0x16u);
+        v46 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
+        v47 = 2114;
+        v48 = v21;
+        _os_log_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_DEFAULT, "%s No auto asset type defined for %{public}@", buf, 0x16u);
 LABEL_30:
 
 LABEL_31:
-        ++v15;
+        ++v14;
       }
 
-      while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+      while (v11 != v14);
+      v11 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  [UAFAutoAssetManager stageAssetsWithNewSubscriptions:*(v39 + 40) oldSubscriptions:*(v39 + 48) knownAutoAssetSets:v10 usedAutoAssetSets:v40 autoAssetSets:v38];
-  [UAFAutoAssetManager removeUnusedAutoAssetSets:v10 usedAutoAssetSets:v40];
-  v36 = UAFGetLogCategory(&UAFLogContextMAConfig);
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  [UAFAutoAssetManager stageAssetsWithNewSubscriptions:*(v37 + 40) oldSubscriptions:*(v37 + 48) knownAutoAssetSets:v9 usedAutoAssetSets:v38 autoAssetSets:v36];
+  [UAFAutoAssetManager removeUnusedAutoAssetSets:v9 usedAutoAssetSets:v38];
+  v35 = UAFGetLogCategory(&UAFLogContextMAConfig);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v48 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_DEFAULT, "%s Finished configuring MobileAsset from asset set usages", buf, 0xCu);
+    v46 = "+[UAFAutoAssetManager configureAutoAssetsFromNewSubscriptions:oldSubscriptions:configurationManager:lockIfUnchanged:userInitiated:]_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_DEFAULT, "%s Finished configuring MobileAsset from asset set usages", buf, 0xCu);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_createXPCConnection
@@ -4548,7 +4573,7 @@ LABEL_31:
 
 + (id)atomicInstanceFromLockPath:(id)path
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   lastPathComponent = [pathCopy lastPathComponent];
   stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -4565,33 +4590,31 @@ LABEL_31:
     v9 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315650;
-      v13 = "+[UAFAutoAssetManager atomicInstanceFromLockPath:]";
-      v14 = 2114;
-      v15 = pathCopy;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s Could not parse atomic instance from '%{public}@': uuid: '%{public}@'", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "+[UAFAutoAssetManager atomicInstanceFromLockPath:]";
+      v13 = 2114;
+      v14 = pathCopy;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s Could not parse atomic instance from '%{public}@': uuid: '%{public}@'", &v11, 0x20u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)latestAtomicInstanceForClients:(id)clients
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   clientsCopy = clients;
   v4 = [UAFAutoAssetManager currentLockURLForAssetSet:clientsCopy];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [v4 path];
-  v14 = 0;
-  v7 = [defaultManager destinationOfSymbolicLinkAtPath:path error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [defaultManager destinationOfSymbolicLinkAtPath:path error:&v13];
+  v8 = v13;
 
   if (v7)
   {
@@ -4600,11 +4623,11 @@ LABEL_31:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:]";
-      v17 = 2114;
-      v18 = clientsCopy;
-      v19 = 2114;
-      v20 = v9;
+      v15 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:]";
+      v16 = 2114;
+      v17 = clientsCopy;
+      v18 = 2114;
+      v19 = v9;
       _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Latest atomic instance for '%{public}@': %{public}@", buf, 0x20u);
     }
   }
@@ -4616,27 +4639,25 @@ LABEL_31:
     {
       path2 = [v4 path];
       *buf = 136315906;
-      v16 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:]";
-      v17 = 2114;
-      v18 = clientsCopy;
-      v19 = 2114;
-      v20 = path2;
-      v21 = 2114;
-      v22 = v8;
+      v15 = "+[UAFAutoAssetManager latestAtomicInstanceForClients:]";
+      v16 = 2114;
+      v17 = clientsCopy;
+      v18 = 2114;
+      v19 = path2;
+      v20 = 2114;
+      v21 = v8;
       _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s No destination for current lock for asset set '%{public}@' at path '%{public}@': %{public}@", buf, 0x2Au);
     }
 
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (void)conditionallyLockLatestAssetSet:(id)set newestInstance:(id)instance checkAtomicError:(id)error completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   setCopy = set;
   instanceCopy = instance;
   errorCopy = error;
@@ -4684,21 +4705,21 @@ LABEL_20:
 
   if (code == 6205 && (v18 |= v14 == 0, !instanceCopy) && v14)
   {
-    v33 = 0;
-    v20 = [UAFAutoAssetManager latestAtomicInstanceFromMA:setCopy error:&v33];
-    v21 = v33;
+    v32 = 0;
+    v20 = [UAFAutoAssetManager latestAtomicInstanceFromMA:setCopy error:&v32];
+    v21 = v32;
     if (v20 && ([v14 isEqualToString:v20] & 1) == 0)
     {
-      v28 = UAFGetLogCategory(&UAFLogContextMAConfig);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v27 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v35 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]";
-        v36 = 2114;
-        v37 = v20;
-        v38 = 2114;
-        v39 = v14;
-        _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s Newer instance discovered from MA than is available to clients: %{public}@, client instance: %{public}@", buf, 0x20u);
+        v34 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]";
+        v35 = 2114;
+        v36 = v20;
+        v37 = 2114;
+        v38 = v14;
+        _os_log_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_DEFAULT, "%s Newer instance discovered from MA than is available to clients: %{public}@, client instance: %{public}@", buf, 0x20u);
       }
     }
 
@@ -4729,35 +4750,34 @@ LABEL_23:
   {
     assetSetIdentifier2 = [setCopy assetSetIdentifier];
     *buf = 136315906;
-    v35 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]";
-    v36 = 2114;
-    v37 = assetSetIdentifier2;
-    v38 = 2114;
-    v39 = instanceCopy;
-    v40 = 2114;
-    v41 = v14;
+    v34 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]";
+    v35 = 2114;
+    v36 = assetSetIdentifier2;
+    v37 = 2114;
+    v38 = instanceCopy;
+    v39 = 2114;
+    v40 = v14;
     _os_log_impl(&dword_1BCF2C000, v22, OS_LOG_TYPE_DEFAULT, "%s Discovered newer instance of %{public}@: %{public}@ vs %{public}@, XPC'ing to UAF service to lock", buf, 0x2Au);
   }
 
   v24 = +[UAFAutoAssetManager _createXPCConnection];
   assetSetIdentifier3 = [setCopy assetSetIdentifier];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __98__UAFAutoAssetManager_conditionallyLockLatestAssetSet_newestInstance_checkAtomicError_completion___block_invoke;
-  v29[3] = &unk_1E7FFD648;
-  v30 = setCopy;
-  v31 = v24;
-  v32 = completionCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __98__UAFAutoAssetManager_conditionallyLockLatestAssetSet_newestInstance_checkAtomicError_completion___block_invoke;
+  v28[3] = &unk_1E7FFD648;
+  v29 = setCopy;
+  v30 = v24;
+  v31 = completionCopy;
   v26 = v24;
-  [v26 lockLatestAtomicInstance:assetSetIdentifier3 completion:v29];
+  [v26 lockLatestAtomicInstance:assetSetIdentifier3 completion:v28];
 
 LABEL_27:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __98__UAFAutoAssetManager_conditionallyLockLatestAssetSet_newestInstance_checkAtomicError_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4765,20 +4785,18 @@ void __98__UAFAutoAssetManager_conditionallyLockLatestAssetSet_newestInstance_ch
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) assetSetIdentifier];
-      v7 = 136315650;
-      v8 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]_block_invoke";
-      v9 = 2114;
-      v10 = v5;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Could not lock latest instance of %{public}@: %{public}@", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "+[UAFAutoAssetManager conditionallyLockLatestAssetSet:newestInstance:checkAtomicError:completion:]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Could not lock latest instance of %{public}@: %{public}@", &v6, 0x20u);
     }
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateAutoAssetsFromAssetSetUsages:(id)usages configurationManager:(id)manager expensiveNetworking:(BOOL)networking progress:(id)progress requestId:(id)id completion:(id)completion
@@ -4826,7 +4844,7 @@ void __98__UAFAutoAssetManager_conditionallyLockLatestAssetSet_newestInstance_ch
 
 void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4834,17 +4852,17 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
     v7 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = [v5 assetSetIdentifier];
-      v11 = 136315906;
-      v12 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-      v13 = 2114;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s %{public}@: Error while getting progress about %{public}@: %{public}@", &v11, 0x2Au);
+      v8 = *(a1 + 32);
+      v9 = [v5 assetSetIdentifier];
+      v10 = 136315906;
+      v11 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+      v12 = 2114;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s %{public}@: Error while getting progress about %{public}@: %{public}@", &v10, 0x2Au);
     }
   }
 
@@ -4852,44 +4870,42 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
   {
     [*(a1 + 40) progress:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_452(uint64_t a1)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v1 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v30 = *(a1 + 32);
+    v29 = *(a1 + 32);
     *buf = 136315394;
     *&buf[4] = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
     *&buf[12] = 2114;
-    *&buf[14] = v30;
+    *&buf[14] = v29;
     _os_log_debug_impl(&dword_1BCF2C000, v1, OS_LOG_TYPE_DEBUG, "%s Starting new request: %{public}@", buf, 0x16u);
   }
 
   group = dispatch_group_create();
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = *(a1 + 40);
-  v34 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
+  if (v33)
   {
-    v33 = *v54;
+    v32 = *v53;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v54 != v33)
+        if (*v53 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v53 + 1) + 8 * i);
+        v3 = *(*(&v52 + 1) + 8 * i);
         v4 = [*(a1 + 48) getAssetSet:v3];
         v5 = v4;
         if (v4)
@@ -4902,9 +4918,9 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
             v8 = objc_alloc(MEMORY[0x1E69B1918]);
             v9 = [v5 name];
             v10 = +[UAFAutoAssetManager getConcurrentQueue];
-            v52 = 0;
-            v11 = [v8 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:v9 comprisedOfEntries:0 completingFromQueue:v10 error:&v52];
-            v12 = v52;
+            v51 = 0;
+            v11 = [v8 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:v9 comprisedOfEntries:0 completingFromQueue:v10 error:&v51];
+            v12 = v51;
 
             if (v12)
             {
@@ -4918,9 +4934,9 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
                 *&buf[12] = 2114;
                 *&buf[14] = v14;
                 *&buf[22] = 2114;
-                v66 = v15;
-                LOWORD(v67) = 2114;
-                *(&v67 + 2) = v12;
+                v65 = v15;
+                LOWORD(v66) = 2114;
+                *(&v66 + 2) = v12;
                 _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not initialize auto asset set %{public}@ for updating: %{public}@", buf, 0x2Au);
               }
 
@@ -4938,31 +4954,31 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
               }
 
               dispatch_group_enter(group);
-              v50[0] = 0;
-              v50[1] = v50;
-              v50[2] = 0x2020000000;
-              v51 = 0;
+              v49[0] = 0;
+              v49[1] = v49;
+              v49[2] = 0x2020000000;
+              v50 = 0;
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x3042000000;
-              v66 = __Block_byref_object_copy__10;
-              *&v67 = __Block_byref_object_dispose__10;
-              *(&v67 + 1) = 0;
-              v41[0] = MEMORY[0x1E69E9820];
-              v41[1] = 3221225472;
-              v41[2] = __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_453;
-              v41[3] = &unk_1E7FFECC8;
-              v42 = *(a1 + 32);
+              v65 = __Block_byref_object_copy__10;
+              *&v66 = __Block_byref_object_dispose__10;
+              *(&v66 + 1) = 0;
+              v40[0] = MEMORY[0x1E69E9820];
+              v40[1] = 3221225472;
+              v40[2] = __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_453;
+              v40[3] = &unk_1E7FFECC8;
+              v41 = *(a1 + 32);
               v19 = v11;
-              v43 = v19;
-              v48 = v50;
-              v44 = *(a1 + 56);
-              v45 = group;
-              v49 = buf;
+              v42 = v19;
+              v47 = v49;
+              v43 = *(a1 + 56);
+              v44 = group;
+              v48 = buf;
               v13 = v18;
-              v46 = v13;
-              v47 = *(a1 + 64);
-              v20 = MEMORY[0x1BFB33950](v41);
+              v45 = v13;
+              v46 = *(a1 + 64);
+              v20 = MEMORY[0x1BFB33950](v40);
               objc_storeWeak((*&buf[8] + 40), v20);
               v21 = UAFGetLogCategory(&UAFLogContextMAConfig);
               if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -4970,15 +4986,15 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
                 v22 = *(a1 + 32);
                 v23 = [v19 assetSetIdentifier];
                 v24 = [v13 allowCheckDownloadOverExpensive];
-                *v57 = 136315906;
-                v58 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke_2";
-                v59 = 2114;
-                v60 = v22;
-                v61 = 2114;
-                v62 = v23;
-                v63 = 1024;
-                v64 = v24;
-                _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Checking %{public}@ with expensive: %d", v57, 0x26u);
+                *v56 = 136315906;
+                v57 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke_2";
+                v58 = 2114;
+                v59 = v22;
+                v60 = 2114;
+                v61 = v23;
+                v62 = 1024;
+                v63 = v24;
+                _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Checking %{public}@ with expensive: %d", v56, 0x26u);
               }
 
               v25 = *(a1 + 56);
@@ -4989,9 +5005,9 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
               [v19 checkAtomic:v27 forAtomicInstance:0 awaitingDownload:1 withNeedPolicy:v13 withTimeout:-2 reportingProgress:*(a1 + 64) completion:v20];
 
               _Block_object_dispose(buf, 8);
-              objc_destroyWeak(&v67 + 1);
+              objc_destroyWeak(&v66 + 1);
 
-              _Block_object_dispose(v50, 8);
+              _Block_object_dispose(v49, 8);
 LABEL_23:
             }
 
@@ -5007,7 +5023,7 @@ LABEL_23:
             *&buf[12] = 2114;
             *&buf[14] = v17;
             *&buf[22] = 2114;
-            v66 = v3;
+            v65 = v3;
             _os_log_debug_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEBUG, "%s %{public}@: No auto asset type defined for %{public}@", buf, 0x20u);
           }
         }
@@ -5023,7 +5039,7 @@ LABEL_23:
             *&buf[12] = 2114;
             *&buf[14] = v16;
             *&buf[22] = 2114;
-            v66 = v3;
+            v65 = v3;
             _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not get configuration for asset set %{public}@", buf, 0x20u);
           }
         }
@@ -5031,10 +5047,10 @@ LABEL_23:
 LABEL_25:
       }
 
-      v34 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
+      v33 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   v28 = +[UAFAutoAssetManager getConcurrentQueue];
@@ -5042,18 +5058,16 @@ LABEL_25:
   block[1] = 3221225472;
   block[2] = __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_464;
   block[3] = &unk_1E7FFE810;
-  v37 = *(a1 + 56);
-  v38 = *(a1 + 32);
-  v39 = *(a1 + 40);
-  v40 = *(a1 + 72);
+  v36 = *(a1 + 56);
+  v37 = *(a1 + 32);
+  v38 = *(a1 + 40);
+  v39 = *(a1 + 72);
   dispatch_group_notify(group, v28, block);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_453(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5066,11 +5080,11 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
       v22 = *(a1 + 32);
       v23 = [*(a1 + 40) assetSetIdentifier];
       *buf = 136315650;
-      v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-      v79 = 2114;
-      v80 = v22;
-      v81 = 2114;
-      v82 = v23;
+      v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+      v78 = 2114;
+      v79 = v22;
+      v80 = 2114;
+      v81 = v23;
       _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: @Checked %{public}@", buf, 0x20u);
     }
 
@@ -5109,16 +5123,16 @@ LABEL_13:
             case 'V':
               if (v32)
               {
-                v63 = *(a1 + 32);
-                v64 = [*(a1 + 40) assetSetIdentifier];
+                v62 = *(a1 + 32);
+                v63 = [*(a1 + 40) assetSetIdentifier];
                 *buf = 136315906;
-                v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-                v79 = 2114;
-                v80 = v63;
-                v81 = 2114;
-                v82 = v64;
-                v83 = 2114;
-                v84 = v10;
+                v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+                v78 = 2114;
+                v79 = v62;
+                v80 = 2114;
+                v81 = v63;
+                v82 = 2114;
+                v83 = v10;
                 _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Downgrade condition encountered for %{public}@: %{public}@", buf, 0x2Au);
               }
 
@@ -5136,16 +5150,16 @@ LABEL_13:
             case ',':
               if (v32)
               {
-                v61 = *(a1 + 32);
-                v62 = [*(a1 + 40) assetSetIdentifier];
+                v60 = *(a1 + 32);
+                v61 = [*(a1 + 40) assetSetIdentifier];
                 *buf = 136315906;
-                v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-                v79 = 2114;
-                v80 = v61;
-                v81 = 2114;
-                v82 = v62;
-                v83 = 2114;
-                v84 = v10;
+                v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+                v78 = 2114;
+                v79 = v60;
+                v80 = 2114;
+                v81 = v61;
+                v82 = 2114;
+                v83 = v10;
                 _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Not Found condition encountered for %{public}@: %{public}@", buf, 0x2Au);
               }
 
@@ -5157,11 +5171,11 @@ LABEL_13:
                 v33 = *(a1 + 32);
                 v34 = [*(a1 + 40) assetSetIdentifier];
                 *buf = 136315650;
-                v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-                v79 = 2114;
-                v80 = v33;
-                v81 = 2114;
-                v82 = v34;
+                v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+                v78 = 2114;
+                v79 = v33;
+                v80 = 2114;
+                v81 = v34;
                 _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Out of space condition encountered for %{public}@", buf, 0x20u);
               }
 
@@ -5170,16 +5184,16 @@ LABEL_13:
             default:
               if (v32)
               {
-                v65 = *(a1 + 32);
-                v66 = [*(a1 + 40) assetSetIdentifier];
+                v64 = *(a1 + 32);
+                v65 = [*(a1 + 40) assetSetIdentifier];
                 *buf = 136315906;
-                v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-                v79 = 2114;
-                v80 = v65;
-                v81 = 2114;
-                v82 = v66;
-                v83 = 2114;
-                v84 = v10;
+                v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+                v78 = 2114;
+                v79 = v64;
+                v80 = 2114;
+                v81 = v65;
+                v82 = 2114;
+                v83 = v10;
                 _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Network related error condition encountered for %{public}@: %{public}@", buf, 0x2Au);
               }
 
@@ -5190,20 +5204,20 @@ LABEL_13:
 
         else
         {
-          v51 = UAFGetLogCategory(&UAFLogContextMAConfig);
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          v50 = UAFGetLogCategory(&UAFLogContextMAConfig);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            v52 = *(a1 + 32);
-            v53 = [*(a1 + 40) assetSetIdentifier];
+            v51 = *(a1 + 32);
+            v52 = [*(a1 + 40) assetSetIdentifier];
             *buf = 136315906;
-            v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-            v79 = 2114;
-            v80 = v52;
-            v81 = 2114;
-            v82 = v53;
-            v83 = 2114;
-            v84 = v10;
-            _os_log_impl(&dword_1BCF2C000, v51, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Error condition encountered for %{public}@: %{public}@", buf, 0x2Au);
+            v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+            v78 = 2114;
+            v79 = v51;
+            v80 = 2114;
+            v81 = v52;
+            v82 = 2114;
+            v83 = v10;
+            _os_log_impl(&dword_1BCF2C000, v50, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Error condition encountered for %{public}@: %{public}@", buf, 0x2Au);
           }
 
           v35 = 6;
@@ -5232,22 +5246,22 @@ LABEL_13:
         v42 = UAFGetLogCategory(&UAFLogContextMAConfig);
         if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          v70 = *(a1 + 32);
-          v69 = [v40 integerValue];
-          v59 = [v41 integerValue];
-          v60 = [*(a1 + 40) assetSetIdentifier];
+          v69 = *(a1 + 32);
+          v68 = [v40 integerValue];
+          v58 = [v41 integerValue];
+          v59 = [*(a1 + 40) assetSetIdentifier];
           *buf = 136316418;
-          v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-          v79 = 2114;
-          v80 = v70;
-          v81 = 2048;
-          v82 = v69;
-          v83 = 2048;
-          v84 = v59;
-          v85 = 2114;
-          v86 = v60;
-          v87 = 2114;
-          v88 = v10;
+          v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+          v78 = 2114;
+          v79 = v69;
+          v80 = 2048;
+          v81 = v68;
+          v82 = 2048;
+          v83 = v58;
+          v84 = 2114;
+          v85 = v59;
+          v86 = 2114;
+          v87 = v10;
           _os_log_error_impl(&dword_1BCF2C000, v42, OS_LOG_TYPE_ERROR, "%s %{public}@: Out of Space condition encountered (total: %lld, needed: %lld) for the set %{public}@: %{public}@", buf, 0x3Eu);
         }
 
@@ -5272,20 +5286,20 @@ LABEL_13:
         {
 
 LABEL_47:
-          v54 = UAFGetLogCategory(&UAFLogContextMAConfig);
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v53 = UAFGetLogCategory(&UAFLogContextMAConfig);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v67 = *(a1 + 32);
-            v68 = [*(a1 + 40) assetSetIdentifier];
+            v66 = *(a1 + 32);
+            v67 = [*(a1 + 40) assetSetIdentifier];
             *buf = 136315906;
-            v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-            v79 = 2114;
-            v80 = v67;
-            v81 = 2114;
-            v82 = v68;
-            v83 = 2114;
-            v84 = v10;
-            _os_log_error_impl(&dword_1BCF2C000, v54, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not check auto asset set %{public}@: %{public}@", buf, 0x2Au);
+            v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+            v78 = 2114;
+            v79 = v66;
+            v80 = 2114;
+            v81 = v67;
+            v82 = 2114;
+            v83 = v10;
+            _os_log_error_impl(&dword_1BCF2C000, v53, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not check auto asset set %{public}@: %{public}@", buf, 0x2Au);
           }
 
           v35 = 6;
@@ -5304,16 +5318,16 @@ LABEL_37:
       v35 = 4;
 LABEL_38:
       v46 = *(a1 + 40);
-      v71[0] = MEMORY[0x1E69E9820];
-      v71[1] = 3221225472;
-      v71[2] = __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_463;
-      v71[3] = &unk_1E7FFECA0;
-      v72 = v10;
-      v76 = v35;
-      v73 = *(a1 + 48);
-      v74 = *(a1 + 40);
-      v75 = *(a1 + 56);
-      [UAFAutoAssetManager conditionallyLockLatestAssetSet:v46 newestInstance:v7 checkAtomicError:v72 completion:v71];
+      v70[0] = MEMORY[0x1E69E9820];
+      v70[1] = 3221225472;
+      v70[2] = __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_463;
+      v70[3] = &unk_1E7FFECA0;
+      v71 = v10;
+      v75 = v35;
+      v72 = *(a1 + 48);
+      v73 = *(a1 + 40);
+      v74 = *(a1 + 56);
+      [UAFAutoAssetManager conditionallyLockLatestAssetSet:v46 newestInstance:v7 checkAtomicError:v71 completion:v70];
 
       goto LABEL_39;
     }
@@ -5329,11 +5343,11 @@ LABEL_36:
     v14 = *(a1 + 32);
     v15 = [*(a1 + 40) assetSetIdentifier];
     *buf = 136315650;
-    v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-    v79 = 2114;
-    v80 = v14;
-    v81 = 2114;
-    v82 = v15;
+    v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+    v78 = 2114;
+    v79 = v14;
+    v80 = 2114;
+    v81 = v15;
     _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Checking %{public}@ was cancelled, retrying", buf, 0x20u);
   }
 
@@ -5342,27 +5356,27 @@ LABEL_36:
     WeakRetained = objc_loadWeakRetained((*(*(a1 + 88) + 8) + 40));
     if (WeakRetained)
     {
-      v49 = *(a1 + 40);
-      v50 = [UAFAutoAssetManager getReason:v49 operation:@"checking"];
-      [v49 checkAtomic:v50 forAtomicInstance:0 awaitingDownload:1 withNeedPolicy:*(a1 + 64) withTimeout:-2 reportingProgress:*(a1 + 72) completion:WeakRetained];
+      v48 = *(a1 + 40);
+      v49 = [UAFAutoAssetManager getReason:v48 operation:@"checking"];
+      [v48 checkAtomic:v49 forAtomicInstance:0 awaitingDownload:1 withNeedPolicy:*(a1 + 64) withTimeout:-2 reportingProgress:*(a1 + 72) completion:WeakRetained];
     }
 
     else
     {
-      v55 = UAFGetLogCategory(&UAFLogContextMAConfig);
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v54 = UAFGetLogCategory(&UAFLogContextMAConfig);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = *(a1 + 32);
+        v55 = *(a1 + 32);
         *buf = 136315394;
-        v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-        v79 = 2114;
-        v80 = v56;
-        _os_log_impl(&dword_1BCF2C000, v55, OS_LOG_TYPE_DEFAULT, "%s %{public}@: No strong completion routine, exiting retry cycle", buf, 0x16u);
+        v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+        v78 = 2114;
+        v79 = v55;
+        _os_log_impl(&dword_1BCF2C000, v54, OS_LOG_TYPE_DEFAULT, "%s %{public}@: No strong completion routine, exiting retry cycle", buf, 0x16u);
       }
 
-      v57 = *(a1 + 48);
-      v58 = [*(a1 + 40) assetSetIdentifier];
-      [v57 finished:v58 withStatus:6 withError:v10];
+      v56 = *(a1 + 48);
+      v57 = [*(a1 + 40) assetSetIdentifier];
+      [v56 finished:v57 withStatus:6 withError:v10];
 
       dispatch_group_leave(*(a1 + 56));
     }
@@ -5376,11 +5390,11 @@ LABEL_36:
       v17 = *(a1 + 32);
       v18 = [*(a1 + 40) assetSetIdentifier];
       *buf = 136315650;
-      v78 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
-      v79 = 2114;
-      v80 = v17;
-      v81 = 2114;
-      v82 = v18;
+      v77 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke";
+      v78 = 2114;
+      v79 = v17;
+      v80 = 2114;
+      v81 = v18;
       _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Retry count exceeded for %{public}@", buf, 0x20u);
     }
 
@@ -5392,8 +5406,6 @@ LABEL_36:
   }
 
 LABEL_39:
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_463(uint64_t a1, void *a2)
@@ -5456,34 +5468,33 @@ void __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configuration
 
 uint64_t __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configurationManager_expensiveNetworking_progress_requestId_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) allKeys];
-    v7 = 136315650;
-    v8 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke_2";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Updates asset sets %{public}@ complete", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "+[UAFAutoAssetManager updateAutoAssetsFromAssetSetUsages:configurationManager:expensiveNetworking:progress:requestId:completion:]_block_invoke_2";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Updates asset sets %{public}@ complete", &v6, 0x20u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (unint64_t)getDownloadStatusFromMAAutoAssetSetStatus:(id)status config:(id)config
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   configCopy = config;
   latestDownloadedAtomicInstance = [statusCopy latestDownloadedAtomicInstance];
@@ -5497,11 +5508,11 @@ uint64_t __129__UAFAutoAssetManager_updateAutoAssetsFromAssetSetUsages_configura
     }
 
     buf[0] = 0;
-    v40 = 0;
-    v8 = [UAFAutoAssetManager latestAtomicInstanceForClients:configCopy OSSupported:buf error:&v40];
+    v39 = 0;
+    v8 = [UAFAutoAssetManager latestAtomicInstanceForClients:configCopy OSSupported:buf error:&v39];
     if (v8)
     {
-      v9 = v40;
+      v9 = v39;
       latestDownloadedAtomicInstance2 = [statusCopy latestDownloadedAtomicInstance];
       if ([latestDownloadedAtomicInstance2 isEqualToString:v8])
       {
@@ -5610,13 +5621,13 @@ LABEL_26:
       integerValue2 = [v30 integerValue];
       assetSetIdentifier = [statusCopy assetSetIdentifier];
       *buf = 136315906;
-      v42 = "+[UAFAutoAssetManager getDownloadStatusFromMAAutoAssetSetStatus:config:]";
-      v43 = 2048;
-      v44 = integerValue;
-      v45 = 2048;
-      v46 = integerValue2;
-      v47 = 2114;
-      v48 = assetSetIdentifier;
+      v41 = "+[UAFAutoAssetManager getDownloadStatusFromMAAutoAssetSetStatus:config:]";
+      v42 = 2048;
+      v43 = integerValue;
+      v44 = 2048;
+      v45 = integerValue2;
+      v46 = 2114;
+      v47 = assetSetIdentifier;
       _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s Out of Space condition encountered (total: %lld, needed: %lld) for the set %{public}@", buf, 0x2Au);
     }
 
@@ -5645,13 +5656,12 @@ LABEL_31:
 
 LABEL_35:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (void)cacheAssetSetCompleteness:(id)completeness autoAssetSetStatus:(id)status
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completenessCopy = completeness;
   statusCopy = status;
   v7 = +[UAFConfigurationManager defaultManager];
@@ -5667,20 +5677,18 @@ LABEL_35:
     v9 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "+[UAFAutoAssetManager cacheAssetSetCompleteness:autoAssetSetStatus:]";
-      v13 = 2114;
-      v14 = completenessCopy;
-      _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Could not get configuration for for asset set %{public}@ to cache set completeness", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[UAFAutoAssetManager cacheAssetSetCompleteness:autoAssetSetStatus:]";
+      v12 = 2114;
+      v13 = completenessCopy;
+      _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Could not get configuration for for asset set %{public}@ to cache set completeness", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)assetSetNamesFromUsages:(id)usages configurationManager:(id)manager
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
   managerCopy = manager;
   if (!managerCopy)
@@ -5688,30 +5696,30 @@ LABEL_35:
     managerCopy = +[UAFConfigurationManager defaultManager];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = usagesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
     v11 = 0;
-    v12 = *v23;
+    v12 = *v22;
     *&v9 = 136315394;
-    v21 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
-        v15 = [managerCopy getAssetSet:{v14, v21, v22}];
+        v14 = *(*(&v21 + 1) + 8 * i);
+        v15 = [managerCopy getAssetSet:{v14, v20, v21}];
         v16 = v15;
         if (v15)
         {
@@ -5733,10 +5741,10 @@ LABEL_35:
             name = UAFGetLogCategory(&UAFLogContextMAConfig);
             if (os_log_type_enabled(name, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v21;
-              v27 = "+[UAFAutoAssetManager assetSetNamesFromUsages:configurationManager:]";
-              v28 = 2114;
-              v29 = v14;
+              *buf = v20;
+              v26 = "+[UAFAutoAssetManager assetSetNamesFromUsages:configurationManager:]";
+              v27 = 2114;
+              v28 = v14;
               _os_log_debug_impl(&dword_1BCF2C000, name, OS_LOG_TYPE_DEBUG, "%s No auto asset type defined for %{public}@", buf, 0x16u);
             }
           }
@@ -5747,16 +5755,16 @@ LABEL_35:
           name = UAFGetLogCategory(&UAFLogContextMAConfig);
           if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v27 = "+[UAFAutoAssetManager assetSetNamesFromUsages:configurationManager:]";
-            v28 = 2114;
-            v29 = v14;
+            *buf = v20;
+            v26 = "+[UAFAutoAssetManager assetSetNamesFromUsages:configurationManager:]";
+            v27 = 2114;
+            v28 = v14;
             _os_log_error_impl(&dword_1BCF2C000, name, OS_LOG_TYPE_ERROR, "%s Could not get configuration for for asset set %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v10);
@@ -5767,20 +5775,18 @@ LABEL_35:
     v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)autoAssetSetForStatus:(id)status
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   v4 = objc_alloc(MEMORY[0x1E69B1918]);
   v5 = +[UAFAutoAssetManager getConcurrentQueue];
-  v12 = 0;
-  v6 = [v4 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:statusCopy comprisedOfEntries:0 completingFromQueue:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [v4 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:statusCopy comprisedOfEntries:0 completingFromQueue:v5 error:&v11];
+  v7 = v11;
 
   if (v7)
   {
@@ -5788,11 +5794,11 @@ LABEL_35:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v14 = "+[UAFAutoAssetManager autoAssetSetForStatus:]";
-      v15 = 2114;
-      v16 = statusCopy;
-      v17 = 2114;
-      v18 = v7;
+      v13 = "+[UAFAutoAssetManager autoAssetSetForStatus:]";
+      v14 = 2114;
+      v15 = statusCopy;
+      v16 = 2114;
+      v17 = v7;
       _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ for status: %{public}@", buf, 0x20u);
     }
 
@@ -5804,14 +5810,12 @@ LABEL_35:
     v9 = v6;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (unint64_t)getDownloadStatusForAssetSet:(id)set configurationManager:(id)manager
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   setCopy = set;
   managerCopy = manager;
   if (!managerCopy)
@@ -5821,9 +5825,9 @@ LABEL_35:
 
   v7 = [managerCopy getAssetSet:setCopy];
   v8 = [UAFAutoAssetManager autoAssetSetForStatus:setCopy];
-  v17 = 0;
-  v9 = [v8 currentSetStatusSync:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [v8 currentSetStatusSync:&v16];
+  v10 = v16;
   v11 = v10;
   if (v9)
   {
@@ -5846,18 +5850,17 @@ LABEL_35:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v19 = "+[UAFAutoAssetManager getDownloadStatusForAssetSet:configurationManager:]";
-      v20 = 2114;
-      v21 = setCopy;
-      v22 = 2114;
-      v23 = v11;
+      v18 = "+[UAFAutoAssetManager getDownloadStatusForAssetSet:configurationManager:]";
+      v19 = 2114;
+      v20 = setCopy;
+      v21 = 2114;
+      v22 = v11;
       _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@: %{public}@", buf, 0x20u);
     }
 
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -5884,7 +5887,7 @@ LABEL_35:
 
 + (unint64_t)getDownloadStatusFromAssetSetUsages:(id)usages configurationManager:(id)manager
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
   managerCopy = manager;
   v7 = objc_opt_new();
@@ -5893,33 +5896,33 @@ LABEL_35:
     managerCopy = +[UAFConfigurationManager defaultManager];
   }
 
-  v19 = usagesCopy;
+  v18 = usagesCopy;
   v8 = [UAFAutoAssetManager assetSetNamesFromUsages:usagesCopy configurationManager:managerCopy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [UAFAutoAssetManager getDownloadStatusForAssetSet:v13 configurationManager:managerCopy];
         v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
         [v7 setObject:v15 forKeyedSubscript:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -5927,13 +5930,12 @@ LABEL_35:
 
   v16 = [UAFAssetSetManager coalesceDownloadStatus:v7];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (void)getDownloadStatusFromAssetSetUsages:(id)usages configurationManager:(id)manager queue:(id)queue completion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
   managerCopy = manager;
   queueCopy = queue;
@@ -5951,46 +5953,46 @@ LABEL_35:
     managerCopy = +[UAFConfigurationManager defaultManager];
   }
 
-  v29 = usagesCopy;
+  v28 = usagesCopy;
   [UAFAutoAssetManager assetSetNamesFromUsages:usagesCopy configurationManager:managerCopy, completionCopy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v14 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  obj = v40 = 0u;
+  v14 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v39;
+    v16 = *v38;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v39 != v16)
+        if (*v38 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v38 + 1) + 8 * i);
+        v18 = *(*(&v37 + 1) + 8 * i);
         v19 = [managerCopy getAssetSet:v18];
         [UAFAutoAssetManager autoAssetSetForStatus:v18];
         v21 = v20 = managerCopy;
         dispatch_group_enter(v13);
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configurationManager_queue_completion___block_invoke;
-        v34[3] = &unk_1E7FFED18;
-        v34[4] = v18;
-        v35 = v13;
-        v36 = v19;
-        v37 = v12;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configurationManager_queue_completion___block_invoke;
+        v33[3] = &unk_1E7FFED18;
+        v33[4] = v18;
+        v34 = v13;
+        v35 = v19;
+        v36 = v12;
         v22 = v19;
-        [v21 currentSetStatus:v34];
+        [v21 currentSetStatus:v33];
 
         managerCopy = v20;
       }
 
-      v15 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v15);
@@ -6000,18 +6002,16 @@ LABEL_35:
   block[1] = 3221225472;
   block[2] = __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configurationManager_queue_completion___block_invoke_465;
   block[3] = &unk_1E7FFD5A8;
-  v32 = v12;
-  v33 = v27;
-  v23 = v27;
+  v31 = v12;
+  v32 = v26;
+  v23 = v26;
   v24 = v12;
   dispatch_group_notify(v13, queue, block);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configurationManager_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -6020,14 +6020,14 @@ void __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configuration
     v11 = UAFGetLogCategory(&UAFLogContextMAConfig);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 136315650;
-      v15 = "+[UAFAutoAssetManager getDownloadStatusFromAssetSetUsages:configurationManager:queue:completion:]_block_invoke";
-      v16 = 2114;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v7;
-      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@: %{public}@", &v14, 0x20u);
+      v12 = *(a1 + 32);
+      v13 = 136315650;
+      v14 = "+[UAFAutoAssetManager getDownloadStatusFromAssetSetUsages:configurationManager:queue:completion:]_block_invoke";
+      v15 = 2114;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s Could not get status of auto asset set %{public}@: %{public}@", &v13, 0x20u);
     }
   }
 
@@ -6043,8 +6043,6 @@ void __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configuration
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configurationManager_queue_completion___block_invoke_465(uint64_t a1)
@@ -6112,11 +6110,11 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
 
 + (BOOL)autoAssetExistsWithEntries:(id)entries
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
-  v20 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E69B1918]) initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:entriesCopy comprisedOfEntries:0 error:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [objc_alloc(MEMORY[0x1E69B1918]) initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:entriesCopy comprisedOfEntries:0 error:&v19];
+  v5 = v19;
   if (v5)
   {
     v6 = 1;
@@ -6134,11 +6132,11 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
-      v23 = 2114;
-      v24 = entriesCopy;
-      v25 = 2114;
-      v26 = v11;
+      v21 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
+      v22 = 2114;
+      v23 = entriesCopy;
+      v24 = 2114;
+      v25 = v11;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -6148,11 +6146,11 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
   else
   {
     v8 = [UAFAutoAssetManager getReason:v4 operation:@"checking"];
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v9 = [v4 checkAtomicSync:v8 forAtomicInstance:0 withTimeout:0 discoveredAtomicEntries:&v19 error:&v18];
-    v10 = v19;
-    v11 = v18;
+    v9 = [v4 checkAtomicSync:v8 forAtomicInstance:0 withTimeout:0 discoveredAtomicEntries:&v18 error:&v17];
+    v10 = v18;
+    v11 = v17;
 
     v12 = UAFGetLogCategory(&UAFLogContextMAConfig);
     v13 = v12;
@@ -6172,13 +6170,13 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
       {
         v15 = [v10 count];
         *buf = 136315906;
-        v22 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
-        v23 = 2112;
-        v24 = v9;
-        v25 = 2114;
-        v26 = entriesCopy;
-        v27 = 2048;
-        v28 = v15;
+        v21 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
+        v22 = 2112;
+        v23 = v9;
+        v24 = 2114;
+        v25 = entriesCopy;
+        v26 = 2048;
+        v27 = v15;
         _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s Found existing instance %@ of auto asset set %{public}@ with %lu entries", buf, 0x2Au);
       }
 
@@ -6190,11 +6188,11 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v22 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
-        v23 = 2114;
-        v24 = entriesCopy;
-        v25 = 2114;
-        v26 = v11;
+        v21 = "+[UAFAutoAssetManager autoAssetExistsWithEntries:]";
+        v22 = 2114;
+        v23 = entriesCopy;
+        v24 = 2114;
+        v25 = v11;
         _os_log_debug_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEBUG, "%s Auto asset set %{public}@ does not exist with entries: %{public}@", buf, 0x20u);
       }
 
@@ -6202,13 +6200,12 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (id)spaceNeededForAssetSetUsages:(id)usages key:(id)key configurationManager:(id)manager error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
   keyCopy = key;
   managerCopy = manager;
@@ -6217,31 +6214,31 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
     managerCopy = +[UAFConfigurationManager defaultManager];
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = usagesCopy;
-  v10 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
+  v10 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (v10)
   {
     v12 = v10;
-    v31 = 0;
-    v13 = *v33;
+    v30 = 0;
+    v13 = *v32;
     v14 = &UAFLogContextMAConfig;
     *&v11 = 136315394;
-    v27 = v11;
+    v26 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
-        v17 = [managerCopy getAssetSet:{v16, v27}];
+        v16 = *(*(&v31 + 1) + 8 * i);
+        v17 = [managerCopy getAssetSet:{v16, v26}];
         v18 = v17;
         if (v17)
         {
@@ -6256,17 +6253,17 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v37 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
-              v38 = 2114;
-              v39 = v16;
-              v40 = 2048;
-              v41 = unsignedLongLongValue;
-              v42 = 2114;
-              v43 = keyCopy;
+              v36 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
+              v37 = 2114;
+              v38 = v16;
+              v39 = 2048;
+              v40 = unsignedLongLongValue;
+              v41 = 2114;
+              v42 = keyCopy;
               _os_log_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_DEFAULT, "%s Configured asset name %{public}@ with size %llu for key %{public}@", buf, 0x2Au);
             }
 
-            v31 += unsignedLongLongValue;
+            v30 += unsignedLongLongValue;
             v14 = v22;
           }
 
@@ -6275,10 +6272,10 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
             v20 = UAFGetLogCategory(v14);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v27;
-              v37 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
-              v38 = 2114;
-              v39 = v16;
+              *buf = v26;
+              v36 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
+              v37 = 2114;
+              v38 = v16;
               _os_log_debug_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_DEBUG, "%s No auto asset type defined for %{public}@", buf, 0x16u);
             }
           }
@@ -6289,16 +6286,16 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
           v20 = UAFGetLogCategory(v14);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *buf = v27;
-            v37 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
-            v38 = 2114;
-            v39 = v16;
+            *buf = v26;
+            v36 = "+[UAFAutoAssetManager spaceNeededForAssetSetUsages:key:configurationManager:error:]";
+            v37 = 2114;
+            v38 = v16;
             _os_log_error_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_ERROR, "%s Could get not get configuration for for asset set %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v32 objects:v44 count:16];
+      v12 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
     }
 
     while (v12);
@@ -6306,28 +6303,26 @@ uint64_t __97__UAFAutoAssetManager_getDownloadStatusFromAssetSetUsages_configura
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v31];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v30];
 
   return v24;
 }
 
 + (id)sizeInBytesForConfig:(id)config key:(id)key error:(id *)error
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   configCopy = config;
   keyCopy = key;
   v9 = objc_alloc(MEMORY[0x1E69B1918]);
-  v45 = configCopy;
+  v44 = configCopy;
   name = [configCopy name];
   v11 = +[UAFAutoAssetManager getConcurrentQueue];
-  v61 = 0;
-  v12 = [v9 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name comprisedOfEntries:0 completingFromQueue:v11 error:&v61];
-  v13 = v61;
+  v60 = 0;
+  v12 = [v9 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:@"manager" forAssetSetIdentifier:name comprisedOfEntries:0 completingFromQueue:v11 error:&v60];
+  v13 = v60;
 
   if (v13)
   {
@@ -6339,35 +6334,35 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    name2 = [v45 name];
+    name2 = [v44 name];
     *buf = 136315650;
-    v63 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
-    v64 = 2114;
-    v65 = name2;
-    v66 = 2114;
-    v67 = v13;
+    v62 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
+    v63 = 2114;
+    v64 = name2;
+    v65 = 2114;
+    v66 = v13;
     _os_log_error_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v60 = 0;
-  v14 = [v12 currentSetStatusSync:&v60];
-  v16 = v60;
+  v59 = 0;
+  v14 = [v12 currentSetStatusSync:&v59];
+  v16 = v59;
   if (v16)
   {
     v13 = v16;
     name2 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(name2, OS_LOG_TYPE_ERROR))
     {
-      name3 = [v45 name];
+      name3 = [v44 name];
       *buf = 136315650;
-      v63 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
-      v64 = 2114;
-      v65 = name3;
-      v66 = 2114;
-      v67 = v13;
+      v62 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
+      v63 = 2114;
+      v64 = name3;
+      v65 = 2114;
+      v66 = v13;
       _os_log_error_impl(&dword_1BCF2C000, name2, OS_LOG_TYPE_ERROR, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -6375,80 +6370,80 @@ LABEL_7:
   }
 
   errorCopy = error;
-  v44 = v12;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
+  v43 = v12;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = [v14 newerDiscoveredAtomicEntries];
-  v50 = [obj countByEnumeratingWithState:&v56 objects:v71 count:16];
-  v20 = 0;
-  if (v50)
+  v49 = [obj countByEnumeratingWithState:&v55 objects:v70 count:16];
+  v19 = 0;
+  if (v49)
   {
-    v49 = *v57;
-    v21 = &UAFLogContextClient;
-    v47 = keyCopy;
-    v48 = v14;
+    v48 = *v56;
+    v20 = &UAFLogContextClient;
+    v46 = keyCopy;
+    v47 = v14;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v49; ++i)
       {
-        if (*v57 != v49)
+        if (*v56 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v56 + 1) + 8 * i);
+        v22 = *(*(&v55 + 1) + 8 * i);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
         latestDowloadedAtomicInstanceEntries = [v14 latestDowloadedAtomicInstanceEntries];
-        v25 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v52 objects:v70 count:16];
-        if (v25)
+        v24 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v51 objects:v69 count:16];
+        if (v24)
         {
-          v26 = v25;
-          v27 = v21;
-          v51 = v20;
-          v28 = *v53;
+          v25 = v24;
+          v26 = v20;
+          v50 = v19;
+          v27 = *v52;
           while (2)
           {
-            for (j = 0; j != v26; ++j)
+            for (j = 0; j != v25; ++j)
             {
-              if (*v53 != v28)
+              if (*v52 != v27)
               {
                 objc_enumerationMutation(latestDowloadedAtomicInstanceEntries);
               }
 
-              v30 = *(*(&v52 + 1) + 8 * j);
-              fullAssetSelector = [v23 fullAssetSelector];
-              fullAssetSelector2 = [v30 fullAssetSelector];
-              v33 = [fullAssetSelector isEqual:fullAssetSelector2];
+              v29 = *(*(&v51 + 1) + 8 * j);
+              fullAssetSelector = [v22 fullAssetSelector];
+              fullAssetSelector2 = [v29 fullAssetSelector];
+              v32 = [fullAssetSelector isEqual:fullAssetSelector2];
 
-              if (v33)
+              if (v32)
               {
 
-                v21 = v27;
-                latestDowloadedAtomicInstanceEntries = UAFGetLogCategory(v27);
+                v20 = v26;
+                latestDowloadedAtomicInstanceEntries = UAFGetLogCategory(v26);
                 if (os_log_type_enabled(latestDowloadedAtomicInstanceEntries, OS_LOG_TYPE_DEFAULT))
                 {
-                  assetID = [v23 assetID];
+                  assetID = [v22 assetID];
                   *buf = 136315394;
-                  v63 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
-                  v64 = 2114;
-                  v65 = assetID;
+                  v62 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
+                  v63 = 2114;
+                  v64 = assetID;
                   _os_log_impl(&dword_1BCF2C000, latestDowloadedAtomicInstanceEntries, OS_LOG_TYPE_DEFAULT, "%s Newer asset entry %{public}@ skipped due to having a latest downloaded entry", buf, 0x16u);
                 }
 
-                keyCopy = v47;
-                v14 = v48;
-                v20 = v51;
+                keyCopy = v46;
+                v14 = v47;
+                v19 = v50;
                 goto LABEL_29;
               }
             }
 
-            v26 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v52 objects:v70 count:16];
-            if (v26)
+            v25 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v51 objects:v69 count:16];
+            if (v25)
             {
               continue;
             }
@@ -6456,59 +6451,59 @@ LABEL_7:
             break;
           }
 
-          v14 = v48;
-          v20 = v51;
-          v21 = v27;
-          keyCopy = v47;
+          v14 = v47;
+          v19 = v50;
+          v20 = v26;
+          keyCopy = v46;
         }
 
 LABEL_29:
 
-        assetAttributes = [v23 assetAttributes];
-        v36 = [assetAttributes objectForKey:keyCopy];
+        assetAttributes = [v22 assetAttributes];
+        v35 = [assetAttributes objectForKey:keyCopy];
 
-        if (v36)
+        if (v35)
         {
-          unsignedLongLongValue = [v36 unsignedLongLongValue];
-          v38 = UAFGetLogCategory(v21);
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          unsignedLongLongValue = [v35 unsignedLongLongValue];
+          v37 = UAFGetLogCategory(v20);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            assetID2 = [v23 assetID];
+            assetID2 = [v22 assetID];
             *buf = 136315906;
-            v63 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
-            v64 = 2114;
-            v65 = assetID2;
-            v66 = 2048;
-            v67 = unsignedLongLongValue;
-            v68 = 2114;
-            v69 = keyCopy;
-            _os_log_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_DEFAULT, "%s Newer asset entry %{public}@ has download size %llu for key %{public}@", buf, 0x2Au);
+            v62 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
+            v63 = 2114;
+            v64 = assetID2;
+            v65 = 2048;
+            v66 = unsignedLongLongValue;
+            v67 = 2114;
+            v68 = keyCopy;
+            _os_log_impl(&dword_1BCF2C000, v37, OS_LOG_TYPE_DEFAULT, "%s Newer asset entry %{public}@ has download size %llu for key %{public}@", buf, 0x2Au);
           }
 
-          v20 += unsignedLongLongValue;
+          v19 += unsignedLongLongValue;
         }
 
         else
         {
-          v40 = UAFGetLogCategory(v21);
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = UAFGetLogCategory(v20);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            autoAssetType = [v45 autoAssetType];
+            autoAssetType = [v44 autoAssetType];
             *buf = 136315650;
-            v63 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
-            v64 = 2114;
-            v65 = autoAssetType;
-            v66 = 2114;
-            v67 = keyCopy;
-            _os_log_error_impl(&dword_1BCF2C000, v40, OS_LOG_TYPE_ERROR, "%s Newer asset entry %{public}@ missing download size metadata for key %{public}@", buf, 0x20u);
+            v62 = "+[UAFAutoAssetManager sizeInBytesForConfig:key:error:]";
+            v63 = 2114;
+            v64 = autoAssetType;
+            v65 = 2114;
+            v66 = keyCopy;
+            _os_log_error_impl(&dword_1BCF2C000, v39, OS_LOG_TYPE_ERROR, "%s Newer asset entry %{public}@ missing download size metadata for key %{public}@", buf, 0x20u);
           }
         }
       }
 
-      v50 = [obj countByEnumeratingWithState:&v56 objects:v71 count:16];
+      v49 = [obj countByEnumeratingWithState:&v55 objects:v70 count:16];
     }
 
-    while (v50);
+    while (v49);
   }
 
   if (errorCopy)
@@ -6516,12 +6511,10 @@ LABEL_29:
     *errorCopy = 0;
   }
 
-  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v20];
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v19];
   v13 = 0;
-  v12 = v44;
+  v12 = v43;
 LABEL_9:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

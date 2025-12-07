@@ -83,7 +83,7 @@
 
 void __35__OSABridgeLinkProxy_transfer_key___block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   mach_service = xpc_connection_create_mach_service("com.apple.osanalytics.osanalyticshelper", 0, 2uLL);
   v1 = transfer_key__connection;
   transfer_key__connection = mach_service;
@@ -92,40 +92,32 @@ void __35__OSABridgeLinkProxy_transfer_key___block_invoke()
   {
     xpc_connection_set_event_handler(transfer_key__connection, &__block_literal_global_11);
     v2 = transfer_key__connection;
-    v3 = *MEMORY[0x1E69E9840];
 
     xpc_connection_resume(v2);
   }
 
-  else
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = 136315138;
-      v6 = "com.apple.osanalytics.osanalyticshelper";
-      _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "No XPC connection to %s", &v5, 0xCu);
-    }
-
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = 136315138;
+    v4 = "com.apple.osanalytics.osanalyticshelper";
+    _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "No XPC connection to %s", &v3, 0xCu);
   }
 }
 
 void __35__OSABridgeLinkProxy_transfer_key___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = v2;
   if (v2 != MEMORY[0x1E69E9E18] && MEMORY[0x1B2703B90](v2) == MEMORY[0x1E69E9E98] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     string = xpc_dictionary_get_string(v3, *MEMORY[0x1E69E9E28]);
-    v6 = 136315394;
-    v7 = "com.apple.osanalytics.osanalyticshelper";
-    v8 = 2080;
-    v9 = string;
-    _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "xpc error message from %s: %s\n", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "com.apple.osanalytics.osanalyticshelper";
+    v7 = 2080;
+    v8 = string;
+    _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "xpc error message from %s: %s\n", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

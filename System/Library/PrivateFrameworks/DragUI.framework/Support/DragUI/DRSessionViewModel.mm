@@ -14,6 +14,7 @@
 - (DRSessionViewModelDelegate)delegate;
 - (NSArray)itemModels;
 - (double)_manipulatedScale;
+- (id)addClientModelForClient:(id)client isSource:(BOOL)source;
 - (id)clientModelForClient:(id)client;
 - (id)modelsSortedByStackOrder;
 - (void)_invalidateElasticEffects;
@@ -88,6 +89,24 @@
   return v2;
 }
 
+- (id)addClientModelForClient:(id)client isSource:(BOOL)source
+{
+  sourceCopy = source;
+  clientModelsByClient = self->_clientModelsByClient;
+  clientCopy = client;
+  [(NSMapTable *)clientModelsByClient objectForKey:clientCopy];
+
+  v8 = [[DRClientModel alloc] initWithClient:clientCopy isSource:sourceCopy];
+  [(NSMapTable *)self->_clientModelsByClient setObject:v8 forKey:clientCopy];
+
+  if (sourceCopy)
+  {
+    objc_storeStrong(&self->_sourceClient, v8);
+  }
+
+  return v8;
+}
+
 - (id)clientModelForClient:(id)client
 {
   clientCopy = client;
@@ -105,10 +124,8 @@
   identifierCopy = identifier;
   if (-[DRSessionViewModel usesSynthesizedTouch](self, "usesSynthesizedTouch") && (-[DRSessionViewModel displayIdentifierForSynthesizedTouch](self, "displayIdentifierForSynthesizedTouch"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 isEqualToString:identifierCopy], v6, (v7 & 1) == 0))
   {
-    x = self->_centroidWithoutTouches.x;
-    y = self->_centroidWithoutTouches.y;
     UIDistanceBetweenPoints();
-    v8 = v11 <= 1.0;
+    v8 = v9 <= 1.0;
   }
 
   else
@@ -222,14 +239,22 @@
 {
   dropCopy = drop;
   potentialDrop = self->_potentialDrop;
-  if (potentialDrop != dropCopy && ([(_DUIPotentialDrop *)potentialDrop isEqual:dropCopy]& 1) == 0)
+  if (potentialDrop != dropCopy)
   {
-    objc_storeStrong(&self->_potentialDrop, drop);
-    delegate = [(DRSessionViewModel *)self delegate];
-    [delegate viewModelInvalidated:self];
+    v8 = dropCopy;
+    potentialDrop = [(_DUIPotentialDrop *)potentialDrop isEqual:dropCopy];
+    dropCopy = v8;
+    if ((potentialDrop & 1) == 0)
+    {
+      objc_storeStrong(&self->_potentialDrop, drop);
+      delegate = [(DRSessionViewModel *)self delegate];
+      [delegate viewModelInvalidated:self];
+
+      dropCopy = v8;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(potentialDrop, dropCopy);
 }
 
 - (void)setPotentialDropDestinationClient:(id)client
@@ -846,37 +871,36 @@ LABEL_14:
   if (v4 && ([(UIViewFloatAnimatableProperty *)self->_elasticRotation isInvalidated]& 1) == 0)
   {
     v5 = sub_100001FD4(v4);
-    [(UIViewFloatAnimatableProperty *)self->_elasticPositionX velocity];
-    [(UIViewFloatAnimatableProperty *)self->_elasticPositionY velocity];
-    height = CGSizeZero.height;
+    objc_msgSend_velocity(self->_elasticPositionX);
+    objc_msgSend_velocity(self->_elasticPositionY);
     _UIConvertPointFromOrientationToOrientation();
-    v9 = v7;
+    v8 = v6;
     if ((v5 - 3) >= 2)
     {
-      v10 = v8;
+      v9 = v7;
     }
 
     else
     {
-      v10 = -v8;
+      v9 = -v7;
     }
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10000D390;
-    v12[3] = &unk_100054EC8;
-    v12[4] = self;
-    v12[5] = v7;
-    *&v12[6] = v10;
-    [(DRSessionViewModel *)self _animateSpringWithDampingRatio:v12 response:0.40089 animations:0.25];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10000D3C8;
+    v11[2] = sub_10000D390;
     v11[3] = &unk_100054EC8;
     v11[4] = self;
-    v11[5] = v9;
-    *&v11[6] = v10;
-    [(DRSessionViewModel *)self _animateSpringWithDampingRatio:v11 response:0.53452 animations:0.25];
+    v11[5] = v6;
+    *&v11[6] = v9;
+    [(DRSessionViewModel *)self _animateSpringWithDampingRatio:v11 response:0.40089 animations:0.25];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10000D3C8;
+    v10[3] = &unk_100054EC8;
+    v10[4] = self;
+    v10[5] = v8;
+    *&v10[6] = v9;
+    [(DRSessionViewModel *)self _animateSpringWithDampingRatio:v10 response:0.53452 animations:0.25];
   }
 }
 

@@ -12,9 +12,9 @@
 {
   delegateCopy = delegate;
   v10 = [PNPHandwritingGesturesViewController alloc];
-  v11 = PencilPairingUIBundle();
+  v11 = PencilPairingUIBundle(v10);
   v12 = [v11 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_TITLE" value:&stru_286FDFDB8 table:@"PencilSettings"];
-  v13 = PencilPairingUIBundle();
+  v13 = PencilPairingUIBundle(v12);
   v14 = [v13 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_DETAIL" value:&stru_286FDFDB8 table:@"PencilSettings"];
   v15 = [(PNPHandwritingGesturesViewController *)v10 initWithTitle:v12 detailText:v14 icon:0 contentLayout:2];
 
@@ -77,9 +77,9 @@
 
 - (void)addDeleteBulletItem
 {
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle(self);
   v3 = [v7 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_DELETE_TITLE" value:&stru_286FDFDB8 table:@"PencilSettings"];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_DELETE_DETAIL" value:&stru_286FDFDB8 table:@"PencilSettings"];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_delete" renderingMode:1];
   [(PNPHandwritingGesturesViewController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];
@@ -87,9 +87,9 @@
 
 - (void)addSpaceBulletItem
 {
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle(self);
   v3 = [v7 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_SPACE_TITLE" value:&stru_286FDFDB8 table:@"PencilSettings"];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"HANDWRITING_GESTURES_EDUCATION_PANEL_SPACE_DETAIL" value:&stru_286FDFDB8 table:@"PencilSettings"];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_make_space" renderingMode:1];
   [(PNPHandwritingGesturesViewController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];

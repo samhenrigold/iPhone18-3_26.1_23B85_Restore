@@ -8,6 +8,7 @@
 - (void)performAsynchronousBlock:(id)block;
 - (void)performSynchronousBlock:(id)block;
 - (void)removeDelegate:(id)delegate;
+- (void)setEnabled:(BOOL)enabled;
 - (void)updateEnabled;
 @end
 
@@ -75,6 +76,65 @@
   [(CSDVoiceOverObserver *)&v4 dealloc];
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDVoiceOverObserver *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (self->_enabled != enabledCopy)
+  {
+    self->_enabled = enabledCopy;
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    obj = [(CSDVoiceOverObserver *)self delegateToQueue];
+    v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v18;
+      do
+      {
+        v9 = 0;
+        do
+        {
+          if (*v18 != v8)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v10 = *(*(&v17 + 1) + 8 * v9);
+          if (objc_opt_respondsToSelector())
+          {
+            [(CSDVoiceOverObserver *)self delegateToQueue];
+            v12 = v11 = enabledCopy;
+            v13 = [v12 objectForKey:v10];
+
+            enabledCopy = v11;
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 3221225472;
+            block[2] = sub_10023D760;
+            block[3] = &unk_100619F48;
+            block[4] = v10;
+            block[5] = self;
+            v16 = v11;
+            dispatch_async(v13, block);
+          }
+
+          v9 = v9 + 1;
+        }
+
+        while (v7 != v9);
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      }
+
+      while (v7);
+    }
+  }
+}
+
 - (void)performSynchronousBlock:(id)block
 {
   if (dispatch_get_specific(self) == self)
@@ -139,7 +199,7 @@
 - (void)handleAXSVoiceOverTouchEnabledNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

@@ -7,8 +7,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorMediaMetadata_LargeImageContextualInfo_mediaMetadata_LargeImageContextualInfo);
-  v5 = *&self->mediaMetadata_LargeImageContextualInfo[OBJC_IVAR___BlastDoorMediaMetadata_LargeImageContextualInfo_mediaMetadata_LargeImageContextualInfo + 8];
   sub_2146D9608();
   v2 = sub_2146D9588();
 

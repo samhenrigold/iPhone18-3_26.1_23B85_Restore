@@ -51,9 +51,9 @@
 
 - (void)layoutSubviews
 {
-  v26.receiver = self;
-  v26.super_class = PKPaymentTransactionLocationTableViewCell;
-  [(PKPaymentTransactionLocationTableViewCell *)&v26 layoutSubviews];
+  v57.receiver = self;
+  v57.super_class = PKPaymentTransactionLocationTableViewCell;
+  [(PKPaymentTransactionLocationTableViewCell *)&v57 layoutSubviews];
   contentView = [(PKPaymentTransactionLocationTableViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -75,39 +75,60 @@
     v12 = CGRectMaxXEdge;
   }
 
-  v27.origin.x = v5;
-  v27.origin.y = v7;
-  v27.size.width = v9;
-  v27.size.height = v11;
-  CGRectGetWidth(v27);
+  v58.origin.x = v5;
+  v58.origin.y = v7;
+  v58.size.width = v9;
+  v58.size.height = v11;
+  Width = CGRectGetWidth(v58);
   mapView = self->_mapView;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v15 = PKContentAlignmentMake();
+  v16.n128_f64[0] = Width;
+  v17.n128_u64[0] = 0x4066A00000000000;
+  v18.n128_f64[0] = v5;
+  v19.n128_f64[0] = v7;
+  v20.n128_f64[0] = v9;
+  v21.n128_f64[0] = v11;
+  PKSizeAlignedInRect(v15, v16, v17, v18, v19, v20, v21, v22);
   [(PKTransactionMapView *)mapView setFrame:?];
-  v28.origin.x = v5;
-  v28.origin.y = v7;
-  v28.size.width = v9;
-  v28.size.height = v11;
-  CGRectDivide(v28, &v24, &remainder, 181.0, CGRectMinYEdge);
+  v59.origin.x = v5;
+  v59.origin.y = v7;
+  v59.size.width = v9;
+  v59.size.height = v11;
+  CGRectDivide(v59, &v55, &remainder, 181.0, CGRectMinYEdge);
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
-  v15 = v14;
-  v18.f64[1] = v17;
-  remainder.origin = vaddq_f64(remainder.origin, v18);
-  remainder.size.width = remainder.size.width - (v18.f64[0] + v14);
-  remainder.size.height = remainder.size.height - (v17 + v16);
+  v24 = v23;
+  v27.f64[1] = v26;
+  remainder.origin = vaddq_f64(remainder.origin, v27);
+  remainder.size.width = remainder.size.width - (v27.f64[0] + v23);
+  remainder.size.height = remainder.size.height - (v26 + v25);
   _disclosureView = [(PKPaymentTransactionLocationTableViewCell *)self _disclosureView];
   [_disclosureView bounds];
-  v21 = v20;
+  v30 = v29;
+  v32 = v31;
 
   disclosureView = self->_disclosureView;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v34 = PKContentAlignmentMake();
+  v35.n128_u64[0] = *&remainder.origin.x;
+  v36.n128_u64[0] = *&remainder.origin.y;
+  v37.n128_u64[0] = *&remainder.size.width;
+  v38.n128_u64[0] = *&remainder.size.height;
+  v39.n128_f64[0] = v30;
+  v40.n128_u64[0] = v32;
+  PKSizeAlignedInRect(v34, v39, v40, v35, v36, v37, v38, v41);
   [(UIImageView *)disclosureView setFrame:?];
-  CGRectDivide(remainder, &v24, &remainder, v15 + v21, v12);
+  CGRectDivide(remainder, &v55, &remainder, v24 + v30, v12);
   [(UILabel *)self->_titleLabel pkui_sizeThatFits:remainder.size.width, remainder.size.height];
+  v43 = v42;
+  v45 = v44;
   titleLabel = self->_titleLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v47 = PKContentAlignmentMake();
+  v48.n128_u64[0] = *&remainder.origin.x;
+  v49.n128_u64[0] = *&remainder.origin.y;
+  v50.n128_u64[0] = *&remainder.size.width;
+  v51.n128_u64[0] = *&remainder.size.height;
+  v52.n128_u64[0] = v43;
+  v53.n128_u64[0] = v45;
+  PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
   [(UILabel *)titleLabel setFrame:?];
 }
 

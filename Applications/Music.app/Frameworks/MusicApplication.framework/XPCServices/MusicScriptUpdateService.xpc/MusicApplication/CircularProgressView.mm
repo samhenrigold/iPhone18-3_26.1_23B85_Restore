@@ -11,11 +11,11 @@
 
 - (void)tintColorDidChange
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(CircularProgressView *)&v3 tintColorDidChange];
-  sub_1003276DC();
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v2 = v5.receiver;
+  tintColorDidChange = [(CircularProgressView *)&v5 tintColorDidChange];
+  sub_1003276DC(tintColorDidChange, v4);
 }
 
 - (void)layoutSubviews

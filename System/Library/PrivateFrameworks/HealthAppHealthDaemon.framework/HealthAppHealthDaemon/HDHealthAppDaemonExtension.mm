@@ -64,34 +64,34 @@
   return v9;
 }
 
-void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke()
+void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke(uint64_t a1)
 {
   _HKInitializeLogging();
-  v0 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22939E000, v0, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension requesting background generation because of profile list change", buf, 2u);
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension requesting background generation because of profile list change", buf, 2u);
   }
 
-  v1 = objc_alloc_init(_TtC21HealthAppHealthDaemon40HealthAppHealthDaemonOrchestrationClient);
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305;
-  v3[3] = &unk_278658228;
-  v4 = v1;
-  v2 = v1;
-  [(HealthAppHealthDaemonOrchestrationClient *)v2 requestBackgroundGenerationForFeedItemsAfterUnlockWithCompletion:v3];
+  v2 = objc_alloc_init(_TtC21HealthAppHealthDaemon40HealthAppHealthDaemonOrchestrationClient);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305;
+  v4[3] = &unk_278658228;
+  v5 = v2;
+  v3 = v2;
+  [(HealthAppHealthDaemonOrchestrationClient *)v3 requestBackgroundGenerationForFeedItemsAfterUnlockWithCompletion:v4];
 }
 
-void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
+void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305(uint64_t a1)
 {
   _HKInitializeLogging();
-  v0 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22939E000, v0, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension background generation operation return", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension background generation operation return", v2, 2u);
   }
 }
 
@@ -114,7 +114,7 @@ void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
 
 - (void)resetProfileObservers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_observerLock);
   v3 = MEMORY[0x277CBEB98];
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
@@ -125,29 +125,29 @@ void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
   selfCopy = self;
   v9 = self->_observedProfileIdentifiers;
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v7;
-  v11 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v11 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v28;
+    v14 = *v27;
     *&v12 = 138412290;
-    v25 = v12;
+    v24 = v12;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * i);
-        if ([(NSSet *)v9 containsObject:v16, v25])
+        v16 = *(*(&v26 + 1) + 8 * i);
+        if ([(NSSet *)v9 containsObject:v16, v24])
         {
           [(NSSet *)v10 addObject:v16];
         }
@@ -165,8 +165,8 @@ void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               profileIdentifier = [v19 profileIdentifier];
-              *buf = v25;
-              v32 = profileIdentifier;
+              *buf = v24;
+              v31 = profileIdentifier;
               _os_log_impl(&dword_22939E000, v20, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension observing changes for: %@", buf, 0xCu);
             }
 
@@ -178,7 +178,7 @@ void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v13);
@@ -188,7 +188,6 @@ void __51__HDHealthAppDaemonExtension_initWithDaemon_queue___block_invoke_305()
   selfCopy->_observedProfileIdentifiers = v10;
 
   os_unfair_lock_unlock(&selfCopy->_observerLock);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)daemonReady:(id)ready
@@ -315,28 +314,28 @@ uint64_t __80__HDHealthAppDaemonExtension_performPostInstallUpdateTaskForManager
   [(HealthAppHealthDaemonOrchestrationClient *)v5 requestBackgroundGenerationForFeedItemsAfterUnlockWithCompletion:v6];
 }
 
-void __81__HDHealthAppDaemonExtension_sharedSummaryManagerCommittedTransactionsDidChange___block_invoke()
+void __81__HDHealthAppDaemonExtension_sharedSummaryManagerCommittedTransactionsDidChange___block_invoke(uint64_t a1)
 {
   _HKInitializeLogging();
-  v0 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22939E000, v0, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension background generation for feed triggered by transactions request returning", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "HDHealthAppDaemonExtension background generation for feed triggered by transactions request returning", v2, 2u);
   }
 }
 
 - (void)sharingEntriesDidUpdate:(id)update
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   [(HDHealthAppDaemonExtension *)self updateSharingReminderScheduledAlarm];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = updateCopy;
-  v6 = [(HealthAppHealthDaemonOrchestrationClient *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [(HealthAppHealthDaemonOrchestrationClient *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
   v7 = v5;
   if (!v6)
   {
@@ -347,24 +346,24 @@ LABEL_17:
 
   v8 = v6;
   v9 = 0;
-  v10 = *v21;
+  v10 = *v20;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * i);
+      v12 = *(*(&v19 + 1) + 8 * i);
       if ([v12 direction] == 1 && !objc_msgSend(v12, "status") || !objc_msgSend(v12, "direction") && objc_msgSend(v12, "status") == 1)
       {
         v9 = 1;
       }
     }
 
-    v8 = [(HealthAppHealthDaemonOrchestrationClient *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v8 = [(HealthAppHealthDaemonOrchestrationClient *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
   }
 
   while (v8);
@@ -377,53 +376,49 @@ LABEL_17:
     {
       v14 = objc_opt_class();
       *buf = 138543362;
-      v25 = v14;
+      v24 = v14;
       v15 = v14;
       _os_log_impl(&dword_22939E000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Running background generation because sharing entries changed", buf, 0xCu);
     }
 
     v16 = objc_alloc_init(_TtC21HealthAppHealthDaemon40HealthAppHealthDaemonOrchestrationClient);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __54__HDHealthAppDaemonExtension_sharingEntriesDidUpdate___block_invoke;
-    v18[3] = &unk_278658678;
-    v18[4] = self;
-    v19 = v16;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __54__HDHealthAppDaemonExtension_sharingEntriesDidUpdate___block_invoke;
+    v17[3] = &unk_278658678;
+    v17[4] = self;
+    v18 = v16;
     v7 = v16;
-    [(HealthAppHealthDaemonOrchestrationClient *)v7 runOrRequestBackgroundGenerationWithCompletion:v18];
+    [(HealthAppHealthDaemonOrchestrationClient *)v7 runOrRequestBackgroundGenerationWithCompletion:v17];
 
     goto LABEL_17;
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDHealthAppDaemonExtension_sharingEntriesDidUpdate___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  _HKInitializeLogging();
-  v2 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_22939E000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] background generation for feed triggered by sharing entries request returning", &v6, 0xCu);
-  }
-
   v5 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 138543362;
+    v4 = objc_opt_class();
+    v2 = v4;
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "[%{public}@] background generation for feed triggered by sharing entries request returning", &v3, 0xCu);
+  }
 }
 
 - (void)updateSharingReminderScheduledAlarm
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_1_0(&dword_22939E000, v1, v2, "[%{public}@] Could not remove sharing reminder date: %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  *v10 = 138543618;
+  *&v10[4] = objc_opt_class();
+  *&v10[12] = 2112;
+  *&v10[14] = a2;
+  v3 = *&v10[4];
+  OUTLINED_FUNCTION_1_0(&dword_22939E000, v4, v5, "[%{public}@] Could not remove sharing reminder date: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (HDDaemon)daemon

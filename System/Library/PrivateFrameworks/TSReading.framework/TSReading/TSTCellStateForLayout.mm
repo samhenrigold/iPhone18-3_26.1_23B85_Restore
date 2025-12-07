@@ -93,7 +93,7 @@
     }
 
 LABEL_10:
-    string = NSStringFromNativeTSTCell(mCell);
+    string = NSStringFromNativeTSTCell(mCell, a2);
     self->mCellContents = string;
     goto LABEL_11;
   }
@@ -115,7 +115,7 @@ LABEL_7:
   string = 0;
   self->mCellContents = 0;
 LABEL_11:
-  if (TSTCellFormatUsesAccountingStyle(&self->mCell->super.isa) && string && [(__CFString *)string length]&& !self->mForDrawing)
+  if (TSTCellFormatUsesAccountingStyle(&self->mCell->super.isa, a2) && string && [(__CFString *)string length]&& !self->mForDrawing)
   {
     v8 = [(__CFString *)string stringByReplacingOccurrencesOfString:@"\t" withString:&stru_287D36338];
 

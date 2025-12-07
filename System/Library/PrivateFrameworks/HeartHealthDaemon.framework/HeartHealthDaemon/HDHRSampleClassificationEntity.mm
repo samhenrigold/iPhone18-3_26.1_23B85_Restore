@@ -58,25 +58,22 @@
   return v13;
 }
 
-id __87__HDHRSampleClassificationEntity_sampleClassificationWithSampleUUID_transaction_error___block_invoke(uint64_t a1)
+id __87__HDHRSampleClassificationEntity_sampleClassificationWithSampleUUID_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
+  v2 = MEMORY[0x277CCACA8];
   v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@, %@ FROM %@ WHERE %@ = ?", @"sample_uuid", @"classification", @"sample_start_date", @"sample_duration", @"sample_time_zone", v3, @"sample_uuid", 0];
+  v4 = [v2 stringWithFormat:@"SELECT %@, %@, %@, %@, %@ FROM %@ WHERE %@ = ?", @"sample_uuid", @"classification", @"sample_start_date", @"sample_duration", @"sample_time_zone", v3, @"sample_uuid", 0];
 
   return v4;
 }
 
 uint64_t __87__HDHRSampleClassificationEntity_sampleClassificationWithSampleUUID_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
-  [*(a1 + 32) getUUIDBytes:v5];
-  result = sqlite3_bind_blob(a2, 1, v5, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
+  [*(a1 + 32) getUUIDBytes:v4];
+  return sqlite3_bind_blob(a2, 1, v4, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __87__HDHRSampleClassificationEntity_sampleClassificationWithSampleUUID_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -249,14 +246,12 @@ uint64_t __71__HDHRSampleClassificationEntity_pruneWithProfile_nowDate_limit_err
 
 + (id)foreignKeys
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"sample_uuid";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"sample_uuid";
   v2 = objc_alloc(MEMORY[0x277D10B38]);
   v3 = [v2 initWithEntityClass:objc_opt_class() property:*MEMORY[0x277D10420] deletionAction:2];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -297,14 +292,13 @@ void __141__HDHRSampleClassificationEntity__insertEntityWithSampleUUID_classific
 
 void __80__HDHRSampleClassificationEntity_allSampleClassificationsWithTransaction_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpectedly unable to load sample classification: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpectedly unable to load sample classification: %{public}@", &v4, 0x16u);
 }
 
 @end

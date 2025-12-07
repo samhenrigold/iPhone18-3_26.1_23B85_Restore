@@ -20,45 +20,46 @@
 
 - (MTRemoteFilterManager)init
 {
-  v14.receiver = self;
-  v14.super_class = MTRemoteFilterManager;
-  v2 = [(MTSessionFilterManager *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = MTRemoteFilterManager;
+  v2 = [(MTSessionFilterManager *)&v15 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = MTLoggingRemoteFilterManager();
-    [(MTRemoteFilterManager *)v2 setLogHandle:v3];
+    v4 = MTLoggingRemoteFilterManager(v2);
+    [(MTRemoteFilterManager *)v3 setLogHandle:v4];
 
-    circularTouchService = v2->_circularTouchService;
-    v2->_circularTouchService = 0;
+    circularTouchService = v3->_circularTouchService;
+    v3->_circularTouchService = 0;
 
-    buttonService = v2->_buttonService;
-    v2->_buttonService = 0;
+    buttonService = v3->_buttonService;
+    v3->_buttonService = 0;
 
-    v2->_upButton = 0;
-    v2->_downButton = 0;
-    v2->_leftButton = 0;
-    v2->_rightButton = 0;
-    v2->_touchDisabled = 0;
-    v2->_xpcErrorRetry = 1;
-    v6 = objc_opt_new();
-    activePathIDs = v2->_activePathIDs;
-    v2->_activePathIDs = v6;
+    v3->_upButton = 0;
+    v3->_downButton = 0;
+    v3->_leftButton = 0;
+    v3->_rightButton = 0;
+    v3->_touchDisabled = 0;
+    v3->_xpcErrorRetry = 1;
+    v7 = objc_opt_new();
+    activePathIDs = v3->_activePathIDs;
+    v3->_activePathIDs = v7;
 
-    v8 = objc_opt_new();
-    cancelPathIDs = v2->_cancelPathIDs;
-    v2->_cancelPathIDs = v8;
+    v9 = objc_opt_new();
+    cancelPathIDs = v3->_cancelPathIDs;
+    v3->_cancelPathIDs = v9;
 
-    v10 = objc_opt_new();
-    consumePathIDs = v2->_consumePathIDs;
-    v2->_consumePathIDs = v10;
+    v11 = objc_opt_new();
+    consumePathIDs = v3->_consumePathIDs;
+    v3->_consumePathIDs = v11;
 
-    xpcServiceConnection = v2->_xpcServiceConnection;
-    v2->_xpcServiceConnection = 0;
+    xpcServiceConnection = v3->_xpcServiceConnection;
+    v3->_xpcServiceConnection = 0;
 
-    v2->_touchDisabledToken = -1;
+    v3->_touchDisabledToken = -1;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -799,7 +800,7 @@ void __54__MTRemoteFilterManager_updateTouchDisabledPreference__block_invoke_col
   v6 = [a1[9] allObjects];
   v7 = [v6 componentsJoinedByString:@" "];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_0, v8, v9, "active path IDs [%@] cancel path IDs [%@] consume path IDs [%@]", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_4(&dword_0, v8, v9, "active path IDs [%@] cancel path IDs [%@] consume path IDs [%@]", v10, v11, v12, v13);
 }
 
 - (void)filterButtonEvent:(void *)a1 fromService:.cold.2(void *a1)
@@ -808,8 +809,8 @@ void __54__MTRemoteFilterManager_updateTouchDisabledPreference__block_invoke_col
   [a1 downButton];
   [a1 leftButton];
   [a1 rightButton];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_0, v2, v3, "Remove select button due to dpad button(s): up %d down %d left %d right %d", v4, v5, v6, v7, v8);
+  v2 = OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_5(&dword_0, v3, v4, "Remove select button due to dpad button(s): up %d down %d left %d right %d", v5, v6, v7, v8, v2);
 }
 
 - (void)updateDPadButtonStatesForEvent:(void *)a1 fromService:.cold.1(void *a1)
@@ -818,8 +819,8 @@ void __54__MTRemoteFilterManager_updateTouchDisabledPreference__block_invoke_col
   [a1 downButton];
   [a1 leftButton];
   [a1 rightButton];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_0, v2, v3, "buttons: up %d down %d left %d right %d", v4, v5, v6, v7, v8);
+  v2 = OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_5(&dword_0, v3, v4, "buttons: up %d down %d left %d right %d", v5, v6, v7, v8, v2);
 }
 
 @end

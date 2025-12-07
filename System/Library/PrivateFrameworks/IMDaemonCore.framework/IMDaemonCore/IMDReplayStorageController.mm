@@ -77,7 +77,7 @@ LABEL_2:
 
 - (id)copyNextBatchWithSize:(unint64_t)size iterationContext:(id *)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if (context && *context)
   {
@@ -85,42 +85,41 @@ LABEL_2:
     *context = 0;
   }
 
-  v21 = 0;
-  v7 = [(IDSKVStore *)self->_store datasUpToLimit:size deleteContext:&v21 error:0];
+  v19 = 0;
+  v7 = [(IDSKVStore *)self->_store datasUpToLimit:size deleteContext:&v19 error:0];
   if (v7)
   {
     if (context)
     {
       v8 = objc_alloc_init(IMDReplayStorageIterationContext);
       *context = v8;
-      [(IMDReplayStorageIterationContext *)v8 setDeleteContext:v21];
+      [(IMDReplayStorageIterationContext *)v8 setDeleteContext:v19];
     }
 
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
-    v19 = 0u;
-    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v10 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v15 = 0u;
+    v16 = 0u;
+    v10 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          v14 = objc_autoreleasePoolPush();
+          v13 = objc_autoreleasePoolPush();
           [v9 addObject:JWDecodeDictionary()];
-          objc_autoreleasePoolPop(v14);
+          objc_autoreleasePoolPop(v13);
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v10);
@@ -133,13 +132,12 @@ LABEL_2:
   }
 
   objc_sync_exit(self);
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)deleteReplayDB
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if (IMOSLoggingEnabled())
   {
@@ -147,15 +145,14 @@ LABEL_2:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       filePath = self->_filePath;
-      v6 = 138412290;
-      v7 = filePath;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Deleting replay db with path %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = filePath;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Deleting replay db with path %@", &v5, 0xCu);
     }
   }
 
   [(IDSKVStore *)self->_store deleteDatabase];
   objc_sync_exit(self);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

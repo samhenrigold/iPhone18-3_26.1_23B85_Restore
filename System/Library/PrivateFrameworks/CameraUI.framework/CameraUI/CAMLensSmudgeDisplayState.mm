@@ -20,7 +20,7 @@
 {
   swift_unknownObjectRetain();
   preferencesCopy = preferences;
-  v11 = sub_1A3961900(duration, delegate, position, preferencesCopy);
+  v11 = sub_1A3961900(delegate, position, preferencesCopy, duration);
   swift_unknownObjectRelease();
 
   return v11;

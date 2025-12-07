@@ -1,12 +1,12 @@
 @interface _UIHIDTransformer
 - (CGSize)canvasSize;
+- (_UIHIDPathCollection)pathCollection;
+- (_UIHIDScaleEventTracker)scaleEventTracker;
 - (_UIHIDTransformer)initWithRunLoop:(__CFRunLoop *)loop;
 - (id)_inputEventsForHIDEvent:(__IOHIDEvent *)event contextId:(unsigned int)id;
 - (id)drainOutputHIDEvents;
 - (id)handleHIDEvent:(__IOHIDEvent *)event;
 - (void)addOutputHIDEvent:(id)event injected:(BOOL)injected;
-- (void)pathCollection;
-- (void)scaleEventTracker;
 @end
 
 @implementation _UIHIDTransformer
@@ -48,57 +48,57 @@
   return v4;
 }
 
-- (void)pathCollection
+- (_UIHIDPathCollection)pathCollection
 {
   if (self)
   {
     selfCopy = self;
-    v3 = self[1];
-    if (!v3)
+    pathsById = self->_pathsById;
+    if (!pathsById)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:sel_pathCollection object:selfCopy file:@"_UIHIDTransformer.m" lineNumber:425 description:@"Attempting to access a path collection when no hidEvent is being processed"];
 
-      v3 = selfCopy[1];
+      pathsById = selfCopy->_pathsById;
     }
 
-    v4 = *(v3 + 8);
-    if (!v4)
+    isa = pathsById[1].super.super.isa;
+    if (!isa)
     {
-      v4 = objc_opt_new();
-      v5 = selfCopy[1];
-      v6 = *(v5 + 8);
-      *(v5 + 8) = v4;
+      isa = objc_opt_new();
+      v5 = selfCopy->_pathsById;
+      v6 = v5[1].super.super.isa;
+      v5[1].super.super.isa = isa;
     }
 
-    self = v4;
+    self = isa;
     v1 = vars8;
   }
 
   return self;
 }
 
-- (void)scaleEventTracker
+- (_UIHIDScaleEventTracker)scaleEventTracker
 {
   if (self)
   {
     selfCopy = self;
-    v3 = self[1];
-    if (!v3)
+    scaleZ = self->_scaleZ;
+    if (scaleZ == 0.0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:sel_scaleEventTracker object:selfCopy file:@"_UIHIDTransformer.m" lineNumber:431 description:@"Attempting to access a scaleEventTracker when no hidEvent is being processed"];
 
-      v3 = selfCopy[1];
+      scaleZ = selfCopy->_scaleZ;
     }
 
-    v4 = *(v3 + 16);
+    v4 = *(*&scaleZ + 16);
     if (!v4)
     {
       v4 = objc_opt_new();
-      v5 = selfCopy[1];
-      v6 = *(v5 + 16);
-      *(v5 + 16) = v4;
+      v5 = selfCopy->_scaleZ;
+      v6 = *(*&v5 + 16);
+      *(*&v5 + 16) = v4;
     }
 
     self = v4;
@@ -287,7 +287,7 @@
 {
   v4 = *&id;
   v44 = *MEMORY[0x1E69E9840];
-  v5 = _UIEventHIDShouldTransformEvent();
+  v5 = _UIEventHIDShouldTransformEvent(event);
   Type = IOHIDEventGetType();
   v7 = [UIWindow _windowWithContextId:v4];
   screen = [v7 screen];

@@ -84,7 +84,7 @@
 
 - (void)dump
 {
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(0);

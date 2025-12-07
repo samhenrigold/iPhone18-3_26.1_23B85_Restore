@@ -40,7 +40,7 @@
 - (void)display
 {
   selfCopy = self;
-  sub_1A33F8EE0();
+  sub_1A33F8EE0(selfCopy);
 }
 
 @end

@@ -115,7 +115,7 @@
 - (NSArray)sectionHints
 {
   swift_beginAccess();
-  sub_27602FD90(0, &qword_280A40160);
+  sub_27602FD90(0, &qword_280A40160, &off_27A6A7770);
 
   v2 = sub_276038544();
 
@@ -124,7 +124,7 @@
 
 - (void)setSectionHints:(id)hints
 {
-  sub_27602FD90(0, &qword_280A40160);
+  sub_27602FD90(0, &qword_280A40160, &off_27A6A7770);
   sub_276038554();
   swift_getKeyPath();
   swift_getKeyPath();

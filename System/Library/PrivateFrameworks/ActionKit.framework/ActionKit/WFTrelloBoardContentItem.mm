@@ -48,16 +48,14 @@
 
 + (id)propertyBuilders
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CFC338] block:&__block_literal_global_3361 name:@"Description" class:objc_opt_class()];
   v3 = [v2 userInfo:@"WFTrelloDescriptionProperty"];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x277CFC338] block:&__block_literal_global_166 name:@"URL" class:objc_opt_class()];
   v5 = [v4 userInfo:@"WFTrelloURLProperty"];
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   return v6;
 }

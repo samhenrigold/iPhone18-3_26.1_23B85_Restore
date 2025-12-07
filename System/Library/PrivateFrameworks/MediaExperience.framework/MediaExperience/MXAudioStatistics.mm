@@ -59,7 +59,7 @@ void *__35__MXAudioStatistics_sharedInstance__block_invoke()
 
 - (void)sendSinglePerformanceMessageForAssertion:(const char *)assertion explanation:(id)explanation activity:(id)activity
 {
-  if (MX_FeatureFlags_IsAssertionActivityReportingEnabled())
+  if (MX_FeatureFlags_IsAssertionActivityReportingEnabled(self, a2))
   {
     v9 = objc_autoreleasePoolPush();
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -76,8 +76,8 @@ void *__35__MXAudioStatistics_sharedInstance__block_invoke()
 - (void)sendSingleUserPreferredInputMessage:(id)message hostApplicationDisplayID:(id)d clientInitiator:(id)initiator audioRouteName:(id)name isInputOverride:(BOOL)override
 {
   overrideCopy = override;
-  v20 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsSystemInputPickerEnabled())
+  v17 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsSystemInputPickerEnabled(self, a2))
   {
     v13 = objc_autoreleasePoolPush();
     v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -116,12 +116,10 @@ void *__35__MXAudioStatistics_sharedInstance__block_invoke()
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(MXAudioStatistics *)self sendSingleMessageWithDictionary:v14 eventCategory:3 eventType:0, v18, v19];
+    [(MXAudioStatistics *)self sendSingleMessageWithDictionary:v14 eventCategory:3 eventType:0];
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,13 +1,13 @@
 void _devicePowerChanged(uint64_t a1, uint64_t a2, int a3, intptr_t a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v6, v7))
   {
-    v11[0] = 67109120;
-    v11[1] = a3;
-    _os_log_impl(&dword_2424DF000, v6, v7, "Handling power change call with messageType %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = a3;
+    _os_log_impl(&dword_2424DF000, v6, v7, "Handling power change call with messageType %d", v10, 8u);
   }
 
   v8 = +[DADAgentManager sharedManager];
@@ -25,8 +25,6 @@ LABEL_8:
       [v8 _deviceDidWake];
       break;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2424E10DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -65,19 +63,19 @@ uint64_t launchdActiveSyncPath()
   return v1;
 }
 
-void handleSignal(int a1)
+void handleSignal(int a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a1 <= 14)
   {
     if (a1 == 1)
     {
-      v11 = DALoggingwithCategory();
-      v20 = *(MEMORY[0x277CF3AF0] + 5);
-      if (os_log_type_enabled(v11, v20))
+      v12 = DALoggingwithCategory();
+      v21 = *(MEMORY[0x277CF3AF0] + 5);
+      if (os_log_type_enabled(v12, v21))
       {
-        LOWORD(v21[0]) = 0;
-        _os_log_impl(&dword_2424DF000, v11, v20, "HUP received.  HUP is currently unused.  Ignoring.\n", v21, 2u);
+        LOWORD(v22[0]) = 0;
+        _os_log_impl(&dword_2424DF000, v12, v21, "HUP received.  HUP is currently unused.  Ignoring.\n", v22, 2u);
       }
 
       goto LABEL_16;
@@ -89,19 +87,19 @@ void handleSignal(int a1)
     }
 
 LABEL_13:
-    v8 = DALoggingwithCategory();
-    v9 = *(MEMORY[0x277CF3AF0] + 6);
-    if (os_log_type_enabled(v8, v9))
+    v9 = DALoggingwithCategory();
+    v10 = *(MEMORY[0x277CF3AF0] + 6);
+    if (os_log_type_enabled(v9, v10))
     {
-      LOWORD(v21[0]) = 0;
-      _os_log_impl(&dword_2424DF000, v8, v9, "QUIT received.  Shutting down.\n", v21, 2u);
+      LOWORD(v22[0]) = 0;
+      _os_log_impl(&dword_2424DF000, v9, v10, "QUIT received.  Shutting down.\n", v22, 2u);
     }
 
-    v10 = +[DARefreshManager sharedManager];
-    [v10 setPersistAPSAfterShutdown:1];
+    v11 = +[DARefreshManager sharedManager];
+    [v11 setPersistAPSAfterShutdown:1];
 
-    v11 = +[DADMain sharedMain];
-    [v11 shutdownDAD];
+    v12 = +[DADMain sharedMain];
+    [v12 shutdownDAD];
 LABEL_16:
 
     goto LABEL_20;
@@ -119,27 +117,27 @@ LABEL_16:
       goto LABEL_20;
     }
 
-    v1 = DALoggingwithCategory();
-    v2 = *(MEMORY[0x277CF3AF0] + 5);
-    if (os_log_type_enabled(v1, v2))
+    v2 = DALoggingwithCategory();
+    v3 = *(MEMORY[0x277CF3AF0] + 5);
+    if (os_log_type_enabled(v2, v3))
     {
-      LOWORD(v21[0]) = 0;
-      _os_log_impl(&dword_2424DF000, v1, v2, "Signal USR1 (30) received.  Exit if xpc transaction count is 0.\n", v21, 2u);
+      LOWORD(v22[0]) = 0;
+      _os_log_impl(&dword_2424DF000, v2, v3, "Signal USR1 (30) received.  Exit if xpc transaction count is 0.\n", v22, 2u);
     }
 
-    v3 = [MEMORY[0x277CF3A38] sharedTransactionMonitor];
-    v4 = [v3 transactionCount];
+    v4 = [MEMORY[0x277CF3A38] sharedTransactionMonitor];
+    v5 = [v4 transactionCount];
 
-    if (v4)
+    if (v5)
     {
-      v5 = DALoggingwithCategory();
-      if (os_log_type_enabled(v5, v2))
+      v6 = DALoggingwithCategory();
+      if (os_log_type_enabled(v6, v3))
       {
-        v6 = [MEMORY[0x277CF3A38] sharedTransactionMonitor];
-        v7 = [v6 transactionCount];
-        v21[0] = 67109120;
-        v21[1] = v7;
-        _os_log_impl(&dword_2424DF000, v5, v2, "The xpc transaction count is %d. Do nothing.\n", v21, 8u);
+        v7 = [MEMORY[0x277CF3A38] sharedTransactionMonitor];
+        v8 = [v7 transactionCount];
+        v22[0] = 67109120;
+        v22[1] = v8;
+        _os_log_impl(&dword_2424DF000, v6, v3, "The xpc transaction count is %d. Do nothing.\n", v22, 8u);
       }
 
       goto LABEL_20;
@@ -148,50 +146,49 @@ LABEL_16:
     goto LABEL_13;
   }
 
-  v12 = DALoggingwithCategory();
-  v13 = *(MEMORY[0x277CF3AF0] + 5);
-  if (os_log_type_enabled(v12, v13))
+  v13 = DALoggingwithCategory();
+  v14 = *(MEMORY[0x277CF3AF0] + 5);
+  if (os_log_type_enabled(v13, v14))
   {
-    LOWORD(v21[0]) = 0;
-    _os_log_impl(&dword_2424DF000, v12, v13, "USR2 received.  Dumping our state.\n", v21, 2u);
+    LOWORD(v22[0]) = 0;
+    _os_log_impl(&dword_2424DF000, v13, v14, "USR2 received.  Dumping our state.\n", v22, 2u);
   }
 
-  logState(1);
+  logState(1, v15);
 LABEL_20:
-  v14 = +[DADMain sharedMain];
-  v15 = [v14 isDisabled];
+  v16 = +[DADMain sharedMain];
+  v17 = [v16 isDisabled];
 
-  if (v15)
+  if (v17)
   {
     for (i = 0; i != 5; ++i)
     {
-      v17 = signalSources[i];
-      if (v17)
+      v19 = signalSources[i];
+      if (v19)
       {
-        dispatch_source_cancel(v17);
-        v18 = signalSources[i];
+        dispatch_source_cancel(v19);
+        v20 = signalSources[i];
         signalSources[i] = 0;
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void logState(char a1)
+void logState(uint64_t a1, uint64_t a2)
 {
-  v2 = dataaccess_get_global_queue();
+  v2 = a1;
+  v3 = dataaccess_get_global_queue();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __logState_block_invoke;
   block[3] = &__block_descriptor_33_e5_v8__0l;
-  v4 = a1;
-  dispatch_async(v2, block);
+  v5 = v2;
+  dispatch_async(v3, block);
 }
 
-void sub_2424E97A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2424E97A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -222,7 +219,7 @@ void _languageMayHaveChanged(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void __logState_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = +[DADAgentManager sharedManager];
   v4 = [v3 stateString];
@@ -248,16 +245,15 @@ void __logState_block_invoke(uint64_t a1)
   v11 = *(MEMORY[0x277CF3AF0] + v10);
   if (os_log_type_enabled(v8, v11))
   {
-    v13 = 138412290;
-    v14 = v4;
-    _os_log_impl(&dword_2424DF000, v9, v11, "%@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v4;
+    _os_log_impl(&dword_2424DF000, v9, v11, "%@", &v12, 0xCu);
   }
 
   dispatch_time(0, 1000000000);
   DACPLoggingFlush();
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2424F5744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)

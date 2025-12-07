@@ -19,15 +19,16 @@
 
 - (AVCallbackContextRegistry)init
 {
-  v5.receiver = self;
-  v5.super_class = AVCallbackContextRegistry;
-  v2 = [(AVCallbackContextRegistry *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = AVCallbackContextRegistry;
+  v2 = [(AVCallbackContextRegistry *)&v7 init];
   if (v2)
   {
     v2->_contextsForTokens = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v3 = av_readwrite_dispatch_queue_create([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ read/write queue", v2), "UTF8String"]);
+    v3 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ read/write queue", v2), "UTF8String"];
+    v5 = av_readwrite_dispatch_queue_create(v3, v4);
     v2->_currentToken = 0;
-    v2->_readWriteQueue = v3;
+    v2->_readWriteQueue = v5;
   }
 
   return v2;
@@ -118,7 +119,7 @@ uint64_t __59__AVCallbackContextRegistry_registerCallbackContextObject___block_i
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __63__AVCallbackContextRegistry_unregisterCallbackContextForToken___block_invoke(void *a1)
+void *__63__AVCallbackContextRegistry_unregisterCallbackContextForToken___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) removeObjectForKey:a1[5]];
   *(*(a1[6] + 8) + 24) = *(a1[4] + 16);

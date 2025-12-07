@@ -67,7 +67,7 @@
 
 - (void)didTapShare:(id)share
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   shareCopy = share;
   v5 = [WDElectrocardiogramActivityItemSource alloc];
   pdfData = [(WDElectrocardiogramPDFViewController *)self pdfData];
@@ -79,21 +79,19 @@
   if (v10)
   {
     v11 = objc_alloc(MEMORY[0x277D546D8]);
-    v18[0] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v13 = [v11 initWithActivityItems:v12 applicationActivities:0];
 
     popoverPresentationController = [v13 popoverPresentationController];
     [popoverPresentationController setSourceItem:shareCopy];
 
-    v17 = *MEMORY[0x277D54730];
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = *MEMORY[0x277D54730];
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [v13 setExcludedActivityTypes:v15];
 
     [(WDElectrocardiogramPDFViewController *)self presentViewController:v13 animated:1 completion:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

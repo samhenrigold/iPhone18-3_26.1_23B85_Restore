@@ -1,6 +1,7 @@
 @interface ASABooleanControl
 - (BOOL)value;
 - (id)coreAudioClassName;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (void)setValue:(BOOL)value;
 @end
 
@@ -27,6 +28,25 @@
   }
 
   return v4 != 0;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v11.receiver = self;
+  v11.super_class = ASABooleanControl;
+  indentCopy = indent;
+  v7 = [(ASAControl *)&v11 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  value = [(ASABooleanControl *)self value];
+  v9 = @"NO";
+  if (value)
+  {
+    v9 = @"YES";
+  }
+
+  [v7 appendFormat:@"%@|    Value: %@\n", indentCopy, v9, v11.receiver, v11.super_class];
+
+  return v7;
 }
 
 - (id)coreAudioClassName

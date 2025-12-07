@@ -64,29 +64,29 @@ LABEL_10:
 
 - (vector<float,)getStyleVector
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   styleVector = [(TTSNeuralStyle *)self styleVector];
-  v5 = [styleVector countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [styleVector countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(styleVector);
         }
 
-        [*(*(&v21 + 1) + 8 * i) floatValue];
+        [*(*(&v20 + 1) + 8 * i) floatValue];
         var1 = retstr->var1;
         var2 = retstr->var2;
         if (var1 >= var2)
@@ -143,13 +143,12 @@ LABEL_10:
         retstr->var1 = v11;
       }
 
-      v5 = [styleVector countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [styleVector countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 

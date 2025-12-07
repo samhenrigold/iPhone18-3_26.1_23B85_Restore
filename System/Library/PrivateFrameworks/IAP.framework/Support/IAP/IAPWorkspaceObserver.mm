@@ -25,45 +25,41 @@
 
 - (void)applicationsWillInstall:(id)install
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(LSApplicationWorkspaceObserverProtocol *)v6 applicationsWillInstall:install];
+    [(LSApplicationWorkspaceObserverProtocol *)delegate applicationsWillInstall:install];
   }
 }
 
 - (void)applicationsDidInstall:(id)install
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(LSApplicationWorkspaceObserverProtocol *)v6 applicationsDidInstall:install];
+    [(LSApplicationWorkspaceObserverProtocol *)delegate applicationsDidInstall:install];
   }
 }
 
 - (void)applicationsWillUninstall:(id)uninstall
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(LSApplicationWorkspaceObserverProtocol *)v6 applicationsWillUninstall:uninstall];
+    [(LSApplicationWorkspaceObserverProtocol *)delegate applicationsWillUninstall:uninstall];
   }
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(LSApplicationWorkspaceObserverProtocol *)v6 applicationsDidUninstall:uninstall];
+    [(LSApplicationWorkspaceObserverProtocol *)delegate applicationsDidUninstall:uninstall];
   }
 }
 

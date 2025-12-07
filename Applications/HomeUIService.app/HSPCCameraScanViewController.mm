@@ -19,7 +19,10 @@
 - (void)configureNextViewController:(id)controller;
 - (void)nfcManager:(id)manager didRecognizePayloadString:(id)string;
 - (void)setMode:(unint64_t)mode;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCCameraScanViewController
@@ -203,6 +206,32 @@
     v22 = [NSArray arrayWithObjects:&v41 count:1];
     [NSLayoutConstraint activateConstraints:v22];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCCameraScanViewController;
+  [(HSPCCameraScanViewController *)&v4 viewWillAppear:appear];
+  [(HSPCCameraScanViewController *)self _startReaders];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCCameraScanViewController;
+  [(HSPCCameraScanViewController *)&v4 viewDidAppear:appear];
+  [(HSPCCameraScanViewController *)self _handleOverrideSetupCodeIfNeeded];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HSPCCameraScanViewController;
+  [(HSPCCameraScanViewController *)&v5 viewDidDisappear:disappear];
+  [(HSPCCameraScanViewController *)self _stopReaders];
+  delayedSetupCodeHandler = [(HSPCCameraScanViewController *)self delayedSetupCodeHandler];
+  [delayedSetupCodeHandler cancel];
 }
 
 - (void)_loadCameraReader

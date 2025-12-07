@@ -19,7 +19,7 @@
     v2->_timer = 0;
 
     v3->_timerLock._os_unfair_lock_opaque = 0;
-    v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.timerSerialQueue");
+    v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.timerSerialQueue", 0);
     timerQueue = v3->_timerQueue;
     v3->_timerQueue = v5;
   }

@@ -24,11 +24,11 @@
 
 - (CKDetailsGroupHeaderCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier participants:(id)participants
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
-  v101.receiver = self;
-  v101.super_class = CKDetailsGroupHeaderCell;
-  v9 = [(CKDetailsCell *)&v101 initWithStyle:style reuseIdentifier:identifier];
+  v102.receiver = self;
+  v102.super_class = CKDetailsGroupHeaderCell;
+  v9 = [(CKDetailsCell *)&v102 initWithStyle:style reuseIdentifier:identifier];
   v10 = v9;
   if (v9)
   {
@@ -57,7 +57,7 @@
 
     titleLabel4 = [(CKDetailsGroupHeaderCell *)v10 titleLabel];
     v26 = MEMORY[0x1E696AEC0];
-    v27 = CKFrameworkBundle();
+    v27 = CKFrameworkBundle(titleLabel4);
     v28 = [v27 localizedStringForKey:@"GROUP_PEOPLE_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
     v29 = [v26 localizedStringWithFormat:v28, objc_msgSend(participantsCopy, "count")];
 
@@ -90,28 +90,28 @@
     v38 = MEMORY[0x1E695E0F0];
     v39 = [v37 initWithArray:MEMORY[0x1E695E0F0]];
     v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v38];
-    v97 = 0u;
     v98 = 0u;
     v99 = 0u;
     v100 = 0u;
-    v96 = participantsCopy;
+    v101 = 0u;
+    v97 = participantsCopy;
     v41 = participantsCopy;
-    v42 = [v41 countByEnumeratingWithState:&v97 objects:v102 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v98 objects:v103 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v98;
+      v44 = *v99;
       v45 = MEMORY[0x1E695E0F0];
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v98 != v44)
+          if (*v99 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v47 = *(*(&v97 + 1) + 8 * i);
+          v47 = *(*(&v98 + 1) + 8 * i);
           abbreviatedDisplayName = [v47 abbreviatedDisplayName];
           [v39 addObject:abbreviatedDisplayName];
 
@@ -122,7 +122,7 @@
           [v40 addObject:v51];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v97 objects:v102 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v98 objects:v103 count:16];
       }
 
       while (v43);
@@ -161,20 +161,21 @@
 
     v64 = [v39 count];
     subTitleLabel4 = [(CKDetailsGroupHeaderCell *)v10 subTitleLabel];
+    v66 = subTitleLabel4;
     if (v64)
     {
-      v66 = MEMORY[0x1E696AEC0];
-      v67 = [v39 valueForKey:@"description"];
-      v68 = [v67 componentsJoinedByString:{@", "}];
-      v69 = [v66 stringWithFormat:@"%@", v68];
-      [subTitleLabel4 setText:v69];
+      v67 = MEMORY[0x1E696AEC0];
+      v68 = [v39 valueForKey:@"description"];
+      v69 = [v68 componentsJoinedByString:{@", "}];
+      v70 = [v67 stringWithFormat:@"%@", v69];
+      [v66 setText:v70];
     }
 
     else
     {
-      v67 = CKFrameworkBundle();
-      v68 = [v67 localizedStringForKey:@"CONTACT_DETAILS_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-      [subTitleLabel4 setText:v68];
+      v68 = CKFrameworkBundle(subTitleLabel4);
+      v69 = [v68 localizedStringForKey:@"CONTACT_DETAILS_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      [v66 setText:v69];
     }
 
     subTitleLabel5 = [(CKDetailsGroupHeaderCell *)v10 subTitleLabel];
@@ -188,40 +189,40 @@
 
     [(CKDetailsGroupHeaderCell *)v10 configureCellIconForCollapsedState:1];
     avatarViews = [(CKDetailsGroupHeaderCell *)v10 avatarViews];
-    v74 = [avatarViews count];
-    v75 = +[CKUIBehavior sharedBehaviors];
-    v76 = v75;
-    if (v74 == 3)
+    v75 = [avatarViews count];
+    v76 = +[CKUIBehavior sharedBehaviors];
+    v77 = v76;
+    if (v75 == 3)
     {
-      [v75 detailsAvatarPancakeViewWidth3Avatars];
+      [v76 detailsAvatarPancakeViewWidth3Avatars];
     }
 
     else
     {
-      [v75 detailsAvatarPancakeViewWidth2Avatars];
+      [v76 detailsAvatarPancakeViewWidth2Avatars];
     }
 
-    v78 = v77;
-    participantsCopy = v96;
+    v79 = v78;
+    participantsCopy = v97;
 
     avatarViews2 = [(CKDetailsGroupHeaderCell *)v10 avatarViews];
-    v80 = [avatarViews2 count];
+    v81 = [avatarViews2 count];
 
-    if (v80)
+    if (v81)
     {
-      v81 = [CKDetailsAvatarPancakeView alloc];
-      v82 = +[CKUIBehavior sharedBehaviors];
-      [(CKDetailsAvatarPancakeView *)v82 detailsAvatarCutoutDiameter];
-      v84 = v83;
+      v82 = [CKDetailsAvatarPancakeView alloc];
+      v83 = +[CKUIBehavior sharedBehaviors];
+      [(CKDetailsAvatarPancakeView *)v83 detailsAvatarCutoutDiameter];
+      v85 = v84;
       avatarViews3 = [(CKDetailsGroupHeaderCell *)v10 avatarViews];
-      v86 = [(CKDetailsAvatarPancakeView *)v81 initWithSize:avatarViews3 avatarViews:v78, v84];
-      [(CKDetailsGroupHeaderCell *)v10 setAvatarView:v86];
+      v87 = [(CKDetailsAvatarPancakeView *)v82 initWithSize:avatarViews3 avatarViews:v79, v85];
+      [(CKDetailsGroupHeaderCell *)v10 setAvatarView:v87];
     }
 
     else
     {
-      v82 = objc_alloc_init(CKDetailsAvatarPancakeView);
-      [(CKDetailsGroupHeaderCell *)v10 setAvatarView:v82];
+      v83 = objc_alloc_init(CKDetailsAvatarPancakeView);
+      [(CKDetailsGroupHeaderCell *)v10 setAvatarView:v83];
     }
 
     avatarView = [(CKDetailsGroupHeaderCell *)v10 avatarView];

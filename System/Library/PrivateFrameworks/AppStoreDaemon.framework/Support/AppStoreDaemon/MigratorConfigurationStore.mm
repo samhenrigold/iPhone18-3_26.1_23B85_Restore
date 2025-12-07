@@ -11,7 +11,7 @@
   v2 = [(MigratorConfigurationStore *)&v16 init];
   if (v2)
   {
-    v3 = sub_1003D6C18();
+    v3 = sub_1003D6C18(AppDefaultsManager);
     if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v4 = v3;

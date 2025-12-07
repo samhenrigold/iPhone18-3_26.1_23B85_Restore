@@ -51,7 +51,7 @@
       self->_scrubMomentumIncrementTimer = v8;
 
       [(NSTimer *)self->_scrubMomentumIncrementTimer setTolerance:0.00833333333, v10, v11, v12, v13];
-      [(AVScrubbingGestureController *)self _performScrubIncrement];
+      [(AVScrubbingGestureController *)&self->super.isa _performScrubIncrement];
       objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
     }
@@ -205,7 +205,7 @@ void __79__AVScrubbingGestureController_scrubbingGesturePlatformAdapterDidEndScr
 
 - (void)_performScrubIncrement
 {
-  if (self)
+  if (result)
   {
     if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
     {
@@ -217,7 +217,7 @@ void __79__AVScrubbingGestureController_scrubbingGesturePlatformAdapterDidEndScr
       }
     }
 
-    if ([self state] != 2 && objc_msgSend(self, "state") != 3)
+    if ([result state] != 2 && objc_msgSend(result, "state") != 3)
     {
       v3 = _AVLog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -227,7 +227,7 @@ void __79__AVScrubbingGestureController_scrubbingGesturePlatformAdapterDidEndScr
       }
     }
 
-    if (!*(self + 24))
+    if (!result[3])
     {
       v4 = _AVLog();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -237,11 +237,11 @@ void __79__AVScrubbingGestureController_scrubbingGesturePlatformAdapterDidEndScr
       }
     }
 
-    if ([self state] == 2)
+    if ([result state] == 2)
     {
-      [*(self + 8) timelineVelocity];
+      [result[1] timelineVelocity];
       v6 = v5;
-      usesNaturalDirection = [*(self + 24) usesNaturalDirection];
+      usesNaturalDirection = [result[3] usesNaturalDirection];
       v8 = -v6;
       if (!usesNaturalDirection)
       {
@@ -251,30 +251,30 @@ void __79__AVScrubbingGestureController_scrubbingGesturePlatformAdapterDidEndScr
       goto LABEL_18;
     }
 
-    if ([self state] == 3)
+    if ([result state] == 3)
     {
-      _resumptionRate = [(AVScrubbingGestureController *)self _resumptionRate];
-      v10 = *(self + 32);
+      _resumptionRate = [(AVScrubbingGestureController *)result _resumptionRate];
+      v10 = *(result + 8);
       if (vabds_f32(v10, _resumptionRate) > 0.0333333333)
       {
-        v11 = *(self + 36);
+        v11 = *(result + 9);
         if ((v11 <= _resumptionRate || v10 >= _resumptionRate) && (v11 >= _resumptionRate || v10 <= _resumptionRate))
         {
           v12 = v10 - _resumptionRate;
-          v13 = *(self + 24);
+          v13 = result[3];
           objc_opt_self();
           [v13 syntheticFriction];
           v15 = v14;
 
           v8 = _resumptionRate + (v15 * v12);
 LABEL_18:
-          *(self + 32) = v8;
-          [(AVScrubbingGestureController *)self _seekForScrubIncrement];
+          *(result + 8) = v8;
+          [(AVScrubbingGestureController *)result _seekForScrubIncrement];
           return;
         }
       }
 
-      [(AVScrubbingGestureController *)self _endScrubbingAndResetState];
+      [(AVScrubbingGestureController *)result _endScrubbingAndResetState];
     }
   }
 }
@@ -416,7 +416,7 @@ LABEL_18:
     self->_initialNormalizedTouchTranslation = *&v6;
   }
 
-  [(AVScrubbingGestureController *)self _performScrubIncrement];
+  [(AVScrubbingGestureController *)&self->super.isa _performScrubIncrement];
 }
 
 - (void)scrubbingGesturePlatformAdapterDidBeginScrubbing:(id)scrubbing
@@ -459,7 +459,7 @@ LABEL_18:
     }
 
     [(AVScrubbingGestureController *)self _updateStateTo:?];
-    [(AVScrubbingGestureController *)self _performScrubIncrement];
+    [(AVScrubbingGestureController *)&self->super.isa _performScrubIncrement];
   }
 }
 

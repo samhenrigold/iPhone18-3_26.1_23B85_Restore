@@ -40,43 +40,45 @@
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      v6 = [(ATXPBInfoEngineCachedSuggestions *)v5 length];
-      cachedSuggestionIds = [(ATXPBInfoEngineCachedSuggestions *)v5 cachedSuggestionIds];
-      cachedSuggestionSourceIds = [(ATXPBInfoEngineCachedSuggestions *)v5 cachedSuggestionSourceIds];
-      if ([cachedSuggestionIds count] == v6 && objc_msgSend(cachedSuggestionSourceIds, "count") == v6)
+      v6 = protoCopy;
+      v7 = [(ATXPBInfoEngineCachedSuggestions *)v6 length];
+      cachedSuggestionIds = [(ATXPBInfoEngineCachedSuggestions *)v6 cachedSuggestionIds];
+      cachedSuggestionSourceIds = [(ATXPBInfoEngineCachedSuggestions *)v6 cachedSuggestionSourceIds];
+      v10 = [cachedSuggestionIds count];
+      if (v10 == v7 && (v10 = [cachedSuggestionSourceIds count], v10 == v7))
       {
-        v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v6];
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __48__ATXInfoEngineCachedSuggestions_initWithProto___block_invoke;
-        v16[3] = &unk_1E80C3C88;
-        v17 = cachedSuggestionSourceIds;
-        v10 = v9;
-        v18 = v10;
-        [cachedSuggestionIds enumerateObjectsUsingBlock:v16];
-        v15.receiver = self;
-        v15.super_class = ATXInfoEngineCachedSuggestions;
-        v11 = [(ATXInfoEngineCachedSuggestions *)&v15 init];
+        v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v7];
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __48__ATXInfoEngineCachedSuggestions_initWithProto___block_invoke;
+        v18[3] = &unk_1E80C3C88;
+        v19 = cachedSuggestionSourceIds;
         v12 = v11;
-        if (v11)
+        v20 = v12;
+        [cachedSuggestionIds enumerateObjectsUsingBlock:v18];
+        v17.receiver = self;
+        v17.super_class = ATXInfoEngineCachedSuggestions;
+        v13 = [(ATXInfoEngineCachedSuggestions *)&v17 init];
+        v14 = v13;
+        if (v13)
         {
-          objc_storeStrong(&v11->_entries, v9);
+          objc_storeStrong(&v13->_entries, v11);
         }
 
-        self = v12;
+        self = v14;
 
         selfCopy = self;
       }
 
       else
       {
-        v10 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v12 = __atxlog_handle_gi(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
-          [ATXInfoEngineCachedSuggestions initWithProto:v10];
+          [ATXInfoEngineCachedSuggestions initWithProto:v12];
         }
 
         selfCopy = 0;
@@ -85,10 +87,10 @@
 
     else
     {
-      v5 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_gi(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXInfoEngineCachedSuggestions *)self initWithProto:v5];
+        [(ATXInfoEngineCachedSuggestions *)self initWithProto:v6];
       }
 
       selfCopy = 0;

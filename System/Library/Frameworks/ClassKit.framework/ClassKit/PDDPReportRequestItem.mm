@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)desiredGranularityAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDesiredGranularity:(id)granularity;
 - (int)desiredGranularity;
@@ -62,6 +63,21 @@
   {
     return 0;
   }
+}
+
+- (id)desiredGranularityAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100204D10[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDesiredGranularity:(id)granularity
@@ -160,33 +176,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_handoutIds;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -194,40 +209,38 @@
 
   if (*&self->_has)
   {
-    desiredGranularity = self->_desiredGranularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v12 = self->_studentIds;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v13)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_studentIds;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v18 + 1) + 8 * v16);
         PBDataWriterWriteStringField();
-        v16 = v16 + 1;
+        ++v14;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 }
 
@@ -384,7 +397,6 @@
     }
   }
 
-  v7 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_desiredGranularity != *(equalCopy + 4))
@@ -396,24 +408,24 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
   studentIds = self->_studentIds;
   if (studentIds | *(equalCopy + 4))
   {
-    v9 = [(NSMutableArray *)studentIds isEqual:?];
+    v8 = [(NSMutableArray *)studentIds isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

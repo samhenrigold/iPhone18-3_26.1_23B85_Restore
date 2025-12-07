@@ -51,41 +51,38 @@
 
 - (KNBuildRenderer)initWithAnimatedBuild:(id)build info:(id)info buildStage:(id)stage animatedSlideView:(id)view
 {
-  v32.receiver = self;
-  v32.super_class = KNBuildRenderer;
-  v10 = [(KNBuildRenderer *)&v32 init];
+  v16.receiver = self;
+  v16.super_class = KNBuildRenderer;
+  v10 = [(KNBuildRenderer *)&v16 init];
   v11 = v10;
   if (v10)
   {
     v10->_animatedBuild = build;
     v10->_buildStage = stage;
     v11->_info = info;
-    v11->super._session = objc_msgSend_session(view, v12, v13);
+    v11->super._session = [view session];
     v11->_numberOfAnimationsStarted = 0;
     v11->_animatedLayers = 0;
     v11->_animatedBuildsToStartAtEnd = 0;
     v11->_interrupted = 0;
     v11->super._ASV = view;
-    v11->super._direction = objc_msgSend_direction(build, v14, v15);
+    v11->super._direction = [build direction];
     v11->_isNonCachedTextureValid = 0;
     v11->_texturesToTeardown = objc_alloc_init(MEMORY[0x277CBEB58]);
     session = v11->super._session;
     if (session)
     {
-      v19 = objc_msgSend_registry(session, v16, v17);
+      registry = [(KNPlaybackSession *)session registry];
     }
 
     else
     {
-      v19 = objc_msgSend_instance(KNAnimationRegistry, v16, v17);
+      registry = +[KNAnimationRegistry instance];
     }
 
-    v22 = v19;
-    v23 = objc_msgSend_effectIdentifier(v11->_animatedBuild, v20, v21);
-    v26 = objc_msgSend_buildType(v11->_animatedBuild, v24, v25);
-    v28 = objc_msgSend_animationInfoForEffectIdentifier_animationType_(v22, v27, v23, v26);
-    v11->_animationInfo = v28;
-    v11->super._pluginClass = objc_msgSend_animationClass(v28, v29, v30);
+    v14 = [(KNAnimationRegistryWithFallbacks *)registry animationInfoForEffectIdentifier:[(KNAnimatedBuild *)v11->_animatedBuild effectIdentifier] animationType:[(KNAnimatedBuild *)v11->_animatedBuild buildType]];
+    v11->_animationInfo = v14;
+    v11->super._pluginClass = [(KNAnimationInfo *)v14 animationClass];
   }
 
   return v11;
@@ -93,106 +90,95 @@
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
 
-  objc_msgSend_teardown(self->_finalAttributesTextureSet, v3, v4);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  [(TSDTextureSet *)self->_finalAttributesTextureSet teardown];
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   texturesToTeardown = self->_texturesToTeardown;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(texturesToTeardown, v6, &v18, v22, 16);
-  if (v7)
+  v4 = [(NSMutableSet *)texturesToTeardown countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v10 = v7;
-    v11 = *v19;
+    v5 = v4;
+    v6 = *v10;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v11)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(texturesToTeardown);
         }
 
-        objc_msgSend_teardown(*(*(&v18 + 1) + 8 * i), v8, v9);
+        [*(*(&v9 + 1) + 8 * i) teardown];
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(texturesToTeardown, v8, &v18, v22, 16);
+      v5 = [(NSMutableSet *)texturesToTeardown countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v10);
+    while (v5);
   }
 
-  objc_msgSend_teardown(self->_textureSet, v13, v14);
-  objc_msgSend_teardown(self->_endOfBuildTextureSet, v15, v16);
+  [(TSDTextureSet *)self->_textureSet teardown];
+  [(TSDTextureSet *)self->_endOfBuildTextureSet teardown];
 
   self->super._session = 0;
-  v17.receiver = self;
-  v17.super_class = KNBuildRenderer;
-  [(KNAnimationRenderer *)&v17 dealloc];
+  v8.receiver = self;
+  v8.super_class = KNBuildRenderer;
+  [(KNAnimationRenderer *)&v8 dealloc];
 }
 
 - (void)teardown
 {
-  objc_msgSend_teardown(self->_textureSet, a2, v2);
+  [(TSDTextureSet *)self->_textureSet teardown];
 
   self->_textureSet = 0;
-  objc_msgSend_teardown(self->_finalAttributesTextureSet, v4, v5);
+  [(TSDTextureSet *)self->_finalAttributesTextureSet teardown];
 
   self->_finalAttributesTextureSet = 0;
   self->_isNonCachedTextureValid = 0;
   self->_areAnimationsReadyToStart = 0;
-  v6.receiver = self;
-  v6.super_class = KNBuildRenderer;
-  [(KNAnimationRenderer *)&v6 teardown];
+  v3.receiver = self;
+  v3.super_class = KNBuildRenderer;
+  [(KNAnimationRenderer *)&v3 teardown];
 }
 
 - (NSString)description
 {
-  v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-  if (objc_msgSend_plugin(self, v5, v6))
+  array = [MEMORY[0x277CBEB18] array];
+  if ([(KNAnimationRenderer *)self plugin])
   {
-    v9 = MEMORY[0x277CCACA8];
-    v10 = objc_opt_class();
-    v13 = objc_msgSend_buildType(self->_animatedBuild, v11, v12);
-    v15 = objc_msgSend_localizedMenuString_(v10, v14, v13);
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    v19 = objc_msgSend_stringWithFormat_(v9, v18, @"%@(%@)", v15, v17);
-    objc_msgSend_addObject_(v4, v20, v19);
+    v4 = MEMORY[0x277CCACA8];
+    v5 = [objc_opt_class() localizedMenuString:{-[KNAnimatedBuild buildType](self->_animatedBuild, "buildType")}];
+    v6 = objc_opt_class();
+    [array addObject:{objc_msgSend(v4, "stringWithFormat:", @"%@(%@)", v5, NSStringFromClass(v6))}];
   }
 
-  if (objc_msgSend_build(self->_buildStage, v7, v8))
+  if ([(KNBuildChunk *)self->_buildStage build])
   {
-    objc_msgSend_buildType(self->_animatedBuild, v21, v22);
-    v23 = KNAnimationTypeAsString();
-    objc_msgSend_addObject_(v4, v24, v23);
+    [(KNAnimatedBuild *)self->_animatedBuild buildType];
+    [array addObject:KNAnimationTypeAsString()];
   }
 
-  v25 = MEMORY[0x277CCACA8];
-  objc_msgSend_duration(self->_animatedBuild, v21, v22);
-  v28 = objc_msgSend_stringWithFormat_(v25, v26, @"%0.2fs", v27);
-  objc_msgSend_addObject_(v4, v29, v28);
+  v7 = MEMORY[0x277CCACA8];
+  objc_msgSend_duration(self->_animatedBuild);
+  [array addObject:{objc_msgSend(v7, "stringWithFormat:", @"%0.2fs", v8)}];
   if (self->_isPreview)
   {
-    objc_msgSend_addObject_(v4, v30, @"preview");
+    [array addObject:@"preview"];
   }
 
-  if (objc_msgSend_textureStageIndex(self, v30, v31))
+  if ([(KNBuildRenderer *)self textureStageIndex])
   {
-    v34 = MEMORY[0x277CCACA8];
-    v35 = objc_msgSend_textureStageIndex(self, v32, v33);
-    v37 = objc_msgSend_stringWithFormat_(v34, v36, @"texture stage:%lu", v35);
-    objc_msgSend_addObject_(v4, v38, v37);
+    [array addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"texture stage:%lu", -[KNBuildRenderer textureStageIndex](self, "textureStageIndex"))}];
   }
 
-  v39 = objc_msgSend_componentsJoinedByString_(v4, v32, @", ");
-  v40 = MEMORY[0x277CCACA8];
-  v44.receiver = self;
-  v44.super_class = KNBuildRenderer;
-  v41 = [(KNBuildRenderer *)&v44 description];
-  return objc_msgSend_stringWithFormat_(v40, v42, @"%@: %@", v41, v39);
+  v9 = [array componentsJoinedByString:{@", "}];
+  v11.receiver = self;
+  v11.super_class = KNBuildRenderer;
+  return [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %@", -[KNBuildRenderer description](&v11, sel_description), v9];
 }
 
 - (id)loadPluginIfNeeded
@@ -202,16 +188,15 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer loadPluginIfNeeded]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 157, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer loadPluginIfNeeded]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{157, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  v11 = objc_msgSend_rep(self, a2, v2);
-  objc_sync_enter(v11);
+  v5 = [(KNBuildRenderer *)self rep];
+  objc_sync_enter(v5);
   plugin = self->super._plugin;
   if (!plugin)
   {
@@ -223,14 +208,12 @@
 
     else
     {
-      v15 = objc_alloc(objc_msgSend_pluginClass(self->_animatedBuild, v13, v14));
-      v18 = objc_msgSend_animationContext(self->super._session, v16, v17);
-      plugin = objc_msgSend_initWithAnimationContext_(v15, v19, v18);
+      plugin = [objc_alloc(-[KNAnimatedBuild pluginClass](self->_animatedBuild "pluginClass"))];
       self->super._plugin = plugin;
     }
   }
 
-  objc_sync_exit(v11);
+  objc_sync_exit(v5);
   return plugin;
 }
 
@@ -241,89 +224,77 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[KNBuildRenderer setupPluginContext]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 168, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer setupPluginContext]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{168, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  v72.receiver = self;
-  v72.super_class = KNBuildRenderer;
-  [(KNAnimationRenderer *)&v72 setupPluginContext];
+  v18.receiver = self;
+  v18.super_class = KNBuildRenderer;
+  [(KNAnimationRenderer *)&v18 setupPluginContext];
   objc_opt_class();
-  objc_msgSend_pluginContext(self, v11, v12);
-  v13 = TSUCheckedDynamicCast();
-  objc_msgSend_setRendererType_(v13, v14, 1);
-  objc_msgSend_duration(self->_animatedBuild, v15, v16);
-  objc_msgSend_setDuration_(v13, v17, v18);
-  objc_msgSend_setDirection_(v13, v19, self->super._direction);
-  objc_msgSend_setAnimatedBuild_(v13, v20, self->_animatedBuild);
-  v23 = objc_msgSend_attributes(self->_animatedBuild, v21, v22);
-  v26 = objc_msgSend_attributes(v23, v24, v25);
-  objc_msgSend_setBuildAttributes_(v13, v27, v26);
-  ASV = self->super._ASV;
-  v31 = objc_msgSend_eventIndex(self->_animatedBuild, v29, v30);
-  isMotionBlurEnabledWithEvent = objc_msgSend_isMotionBlurEnabledWithEvent_(ASV, v32, v31);
-  objc_msgSend_setIsMotionBlurred_(v13, v34, isMotionBlurEnabledWithEvent);
-  textureSet = self->_textureSet;
-  v38 = objc_msgSend_textureStageIndex(self, v36, v37);
-  isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v39, v40);
-  isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v42, v43);
-  objc_msgSend_boundingRectForStage_isBuildIn_isContentBuild_(textureSet, v45, v38, isBuildIn, isContentBuild);
-  objc_msgSend_setBoundingRect_(v13, v46, v47);
-  objc_msgSend_boundingRect(v13, v48, v49);
-  v51 = v50;
-  v53 = v52;
-  v55 = v54;
-  v57 = v56;
-  objc_msgSend_frame(self->_textureSet, v58, v59);
-  v61 = v60;
-  objc_msgSend_frame(self->_textureSet, v62, v63);
-  v65 = v64;
-  v73.origin.x = v51;
-  v73.origin.y = v53;
-  v73.size.width = v55;
-  v73.size.height = v57;
-  v74 = CGRectOffset(v73, v61, v65);
-  objc_msgSend_setBoundingRectOnCanvas_(v13, v66, v67, v74.origin.x, v74.origin.y, v74.size.width, v74.size.height);
-  v70 = objc_msgSend_rep(self, v68, v69);
-  objc_msgSend_setRep_(v13, v71, v70);
+  [(KNAnimationRenderer *)self pluginContext];
+  v5 = TSUCheckedDynamicCast();
+  [v5 setRendererType:1];
+  objc_msgSend_duration(self->_animatedBuild);
+  [v5 setDuration:?];
+  [v5 setDirection:self->super._direction];
+  [v5 setAnimatedBuild:self->_animatedBuild];
+  [v5 setBuildAttributes:{-[KNAnimationAttributes attributes](-[KNAnimatedBuild attributes](self->_animatedBuild, "attributes"), "attributes")}];
+  [v5 setIsMotionBlurred:{-[KNAnimatedSlideView isMotionBlurEnabledWithEvent:](self->super._ASV, "isMotionBlurEnabledWithEvent:", -[KNAnimatedBuild eventIndex](self->_animatedBuild, "eventIndex"))}];
+  [(TSDTextureSet *)self->_textureSet boundingRectForStage:[(KNBuildRenderer *)self textureStageIndex] isBuildIn:[(KNAnimatedBuild *)self->_animatedBuild isBuildIn] isContentBuild:[(KNAnimatedBuild *)self->_animatedBuild isContentBuild]];
+  [v5 setBoundingRect:?];
+  [v5 boundingRect];
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  [(TSDTextureSet *)self->_textureSet frame];
+  v15 = v14;
+  [(TSDTextureSet *)self->_textureSet frame];
+  v17 = v16;
+  v19.origin.x = v7;
+  v19.origin.y = v9;
+  v19.size.width = v11;
+  v19.size.height = v13;
+  v20 = CGRectOffset(v19, v15, v17);
+  [v5 setBoundingRectOnCanvas:{v20.origin.x, v20.origin.y, v20.size.width, v20.size.height}];
+  [v5 setRep:{-[KNBuildRenderer rep](self, "rep")}];
 }
 
 - (TSDRep)rep
 {
   session = self->super._session;
   info = self->_info;
-  v6 = objc_msgSend_canvas(self->super._ASV, a2, v2);
+  canvas = [(KNAnimatedSlideView *)self->super._ASV canvas];
 
-  return objc_msgSend_repForInfo_onCanvas_(session, v5, info, v6);
+  return [(KNPlaybackSession *)session repForInfo:info onCanvas:canvas];
 }
 
 - (id)p_filterForTextDelivery:(int64_t)delivery childRepTextDeliveryFilter:(id *)filter
 {
-  objc_msgSend_loadPluginIfNeeded(self, a2, delivery);
-  v7 = *MEMORY[0x277D805A0];
+  [(KNBuildRenderer *)self loadPluginIfNeeded];
+  animationFilter2 = *MEMORY[0x277D805A0];
   if (delivery <= 1)
   {
     if (delivery)
     {
       if (delivery == 1)
       {
-        v9 = *MEMORY[0x277D805A0];
+        animationFilter = *MEMORY[0x277D805A0];
       }
 
       else
       {
-        v9 = 0;
+        animationFilter = 0;
       }
     }
 
     else
     {
-      v10 = objc_opt_class();
-      v9 = objc_msgSend_animationFilter(v10, v11, v12);
+      animationFilter = [objc_opt_class() animationFilter];
     }
   }
 
@@ -341,55 +312,54 @@
         v8 = MEMORY[0x277D80580];
         break;
       default:
-        v9 = 0;
+        animationFilter = 0;
         goto LABEL_15;
     }
 
-    v9 = *v8;
+    animationFilter = *v8;
   }
 
 LABEL_15:
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
-    v14 = objc_msgSend_customAttributesForAttributeKey_(self->_animationInfo, v13, @"KNBuildCustomAttributesTextDelivery");
-    if (v14)
+    v10 = [(KNAnimationInfo *)self->_animationInfo customAttributesForAttributeKey:@"KNBuildCustomAttributesTextDelivery"];
+    if (v10)
     {
-      v16 = objc_msgSend_objectForKeyedSubscript_(v14, v15, &unk_2884F3870);
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = sub_275DA5A88;
-      v22[3] = &unk_27A698A20;
-      v22[4] = &v23;
-      v22[5] = delivery;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v16, v17, v22);
+      v11 = [v10 objectForKeyedSubscript:&unk_2884F3870];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = sub_275DA5A88;
+      v13[3] = &unk_27A698A20;
+      v13[4] = &v14;
+      v13[5] = delivery;
+      [v11 enumerateKeysAndObjectsUsingBlock:v13];
     }
   }
 
-  if ((v24[3] & 1) == 0)
+  if ((v15[3] & 1) == 0)
   {
-    v18 = objc_opt_class();
-    v7 = objc_msgSend_animationFilter(v18, v19, v20);
-    v9 = v7;
+    animationFilter2 = [objc_opt_class() animationFilter];
+    animationFilter = animationFilter2;
   }
 
-  *filter = v7;
-  _Block_object_dispose(&v23, 8);
-  return v9;
+  *filter = animationFilter2;
+  _Block_object_dispose(&v14, 8);
+  return animationFilter;
 }
 
 - (TSDTextureDescription)textureDescription
 {
-  v4 = objc_msgSend_rep(self, a2, v2);
-  objc_sync_enter(v4);
+  v3 = [(KNBuildRenderer *)self rep];
+  objc_sync_enter(v3);
   textureDescription = self->_textureDescription;
   if (textureDescription)
   {
-    if ((objc_msgSend_isMetalEnabled(self->super._session, v5, v6) & 1) != 0 || self->_shouldUseMagicMoveTextures == objc_msgSend_isMagicMove(self->_textureDescription, v8, v9))
+    if ([(KNPlaybackSession *)self->super._session isMetalEnabled]|| self->_shouldUseMagicMoveTextures == [(TSDTextureDescription *)self->_textureDescription isMagicMove])
     {
       goto LABEL_8;
     }
@@ -397,123 +367,116 @@ LABEL_15:
     textureDescription = self->_textureDescription;
   }
 
-  self->_textureDescription = objc_msgSend_descriptionWithSession_(MEMORY[0x277D803D8], v10, self->super._session);
-  if ((objc_msgSend_isMetalEnabled(self->super._session, v11, v12) & 1) == 0 && self->_shouldUseMagicMoveTextures)
+  self->_textureDescription = [MEMORY[0x277D803D8] descriptionWithSession:self->super._session];
+  if (![(KNPlaybackSession *)self->super._session isMetalEnabled]&& self->_shouldUseMagicMoveTextures)
   {
-    objc_msgSend_setIsMagicMove_(self->_textureDescription, v13, 1);
-    objc_msgSend_setShouldSeparateReflection_(self->_textureDescription, v14, 1);
-    objc_msgSend_setShouldSeparateStroke_(self->_textureDescription, v15, 1);
-    objc_msgSend_setShouldSeparateShadow_(self->_textureDescription, v16, 1);
-    objc_msgSend_setShouldAddMasks_(self->_textureDescription, v17, 1);
-    objc_msgSend_setShouldAddVideoBackgroundFill_(self->_textureDescription, v18, 1);
+    [(TSDTextureDescription *)self->_textureDescription setIsMagicMove:1];
+    [(TSDTextureDescription *)self->_textureDescription setShouldSeparateReflection:1];
+    [(TSDTextureDescription *)self->_textureDescription setShouldSeparateStroke:1];
+    [(TSDTextureDescription *)self->_textureDescription setShouldSeparateShadow:1];
+    [(TSDTextureDescription *)self->_textureDescription setShouldAddMasks:1];
+    [(TSDTextureDescription *)self->_textureDescription setShouldAddVideoBackgroundFill:1];
   }
 
 LABEL_8:
-  v19 = self->_textureDescription;
-  objc_sync_exit(v4);
-  return v19;
+  v5 = self->_textureDescription;
+  objc_sync_exit(v3);
+  return v5;
 }
 
 - (void)generateTextures
 {
-  if (objc_msgSend_shouldPreGenerateTextures(self, a2, v2))
+  if ([(KNBuildRenderer *)self shouldPreGenerateTextures]&& ![(KNAnimatedBuild *)[(KNBuildRenderer *)self animatedBuild] previousAttributes])
   {
-    v6 = objc_msgSend_animatedBuild(self, v4, v5);
-    if (!objc_msgSend_previousAttributes(v6, v7, v8))
-    {
-      v12 = objc_msgSend_textureDescription(self, v9, v10);
+    textureDescription = [(KNBuildRenderer *)self textureDescription];
 
-      objc_msgSend_initializeTextureSetForEndOfBuild_endOfSlide_description_isRenderingToContext_(self, v11, 0, 0, v12, 0);
-    }
+    [(KNBuildRenderer *)self initializeTextureSetForEndOfBuild:0 endOfSlide:0 description:textureDescription isRenderingToContext:0];
   }
 }
 
 - (void)renderTextures
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v4 = objc_msgSend_allTextures(self->_textureSet, a2, v2, 0);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
-  if (v6)
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  allTextures = [(TSDTextureSet *)self->_textureSet allTextures];
+  v4 = [allTextures countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
   {
-    v9 = v6;
-    v10 = *v16;
+    v5 = v4;
+    v6 = *v9;
     do
     {
-      v11 = 0;
+      v7 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(allTextures);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = objc_msgSend_textureManager(self->super._session, v7, v8);
-        objc_msgSend_addTextureToRasterizationQueue_asv_(v13, v14, v12, self->super._ASV);
-        ++v11;
+        [(KNAnimatedTextureManager *)[(KNPlaybackSession *)self->super._session textureManager] addTextureToRasterizationQueue:*(*(&v8 + 1) + 8 * v7++) asv:self->super._ASV];
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v15, v19, 16);
+      while (v5 != v7);
+      v5 = [allTextures countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
-    while (v9);
+    while (v5);
   }
 }
 
 - (void)waitUntilAsyncRenderingIsCompleteShouldCancel:(BOOL)cancel
 {
   cancelCopy = cancel;
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v4 = objc_msgSend_allTextures(self->_textureSet, a2, cancel, 0);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v11, v15, 16);
-  if (v6)
+  allTextures = [(TSDTextureSet *)self->_textureSet allTextures];
+  v5 = [allTextures countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v8 = v6;
-    v9 = *v12;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v10 = 0;
+      v8 = 0;
       do
       {
-        if (*v12 != v9)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(allTextures);
         }
 
-        objc_msgSend_waitUntilAsyncRenderingIsCompleteShouldCancel_(*(*(&v11 + 1) + 8 * v10++), v7, cancelCopy);
+        [*(*(&v9 + 1) + 8 * v8++) waitUntilAsyncRenderingIsCompleteShouldCancel:cancelCopy];
       }
 
-      while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v11, v15, 16);
+      while (v6 != v8);
+      v6 = [allTextures countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 }
 
 - (TSDTextureSet)textureSet
 {
-  v4 = objc_msgSend_textureStageIndex(self, a2, v2);
-  v8 = objc_msgSend_textureDescription(self, v5, v6);
+  textureStageIndex = [(KNBuildRenderer *)self textureStageIndex];
+  textureDescription = [(KNBuildRenderer *)self textureDescription];
 
-  return objc_msgSend_textureSetForStage_description_isAtEndOfBuild_shouldForceRebuild_shouldRender_(self, v7, v4, v8, 0, 0, 1);
+  return [(KNBuildRenderer *)self textureSetForStage:textureStageIndex description:textureDescription isAtEndOfBuild:0 shouldForceRebuild:0 shouldRender:1];
 }
 
 - (id)textureSetWithoutRenderedContents
 {
-  v4 = objc_msgSend_textureStageIndex(self, a2, v2);
-  v8 = objc_msgSend_textureDescription(self, v5, v6);
+  textureStageIndex = [(KNBuildRenderer *)self textureStageIndex];
+  textureDescription = [(KNBuildRenderer *)self textureDescription];
 
-  return objc_msgSend_textureSetForStage_description_isAtEndOfBuild_shouldForceRebuild_shouldRender_(self, v7, v4, v8, 0, 0, 0);
+  return [(KNBuildRenderer *)self textureSetForStage:textureStageIndex description:textureDescription isAtEndOfBuild:0 shouldForceRebuild:0 shouldRender:0];
 }
 
 - (id)textureSetForStage:(int64_t)stage description:(id)description isAtEndOfBuild:(BOOL)build shouldForceRebuild:(BOOL)rebuild shouldRender:(BOOL)render
@@ -521,18 +484,18 @@ LABEL_8:
   renderCopy = render;
   rebuildCopy = rebuild;
   buildCopy = build;
-  v13 = objc_msgSend_rep(self, a2, stage);
+  v13 = [(KNBuildRenderer *)self rep];
   objc_sync_enter(v13);
-  shouldRender = objc_msgSend_p_textureSetForStage_description_isAtEndOfBuild_shouldForceRebuild_shouldRender_(self, v14, stage, description, buildCopy, rebuildCopy, renderCopy);
+  v14 = [(KNBuildRenderer *)self p_textureSetForStage:stage description:description isAtEndOfBuild:buildCopy shouldForceRebuild:rebuildCopy shouldRender:renderCopy];
   objc_sync_exit(v13);
-  return shouldRender;
+  return v14;
 }
 
 - (id)textureDescriptionForStage:(int64_t)stage isAtEndOfBuild:(BOOL)build
 {
   buildCopy = build;
-  v7 = objc_msgSend_descriptionWithSession_(MEMORY[0x277D803D8], a2, self->super._session);
-  objc_msgSend_p_updateTextureDescription_forStage_isAtEndOfBuild_(self, v8, v7, stage, buildCopy);
+  v7 = [MEMORY[0x277D803D8] descriptionWithSession:self->super._session];
+  [(KNBuildRenderer *)self p_updateTextureDescription:v7 forStage:stage isAtEndOfBuild:buildCopy];
   return v7;
 }
 
@@ -543,7 +506,7 @@ LABEL_8:
   {
     if (endOfBuildTextureSet)
     {
-      objc_msgSend_addObject_(self->_texturesToTeardown, a2, endOfBuildTextureSet);
+      [(NSMutableSet *)self->_texturesToTeardown addObject:?];
       v6 = self->_endOfBuildTextureSet;
     }
 
@@ -560,28 +523,26 @@ LABEL_8:
 {
   renderCopy = render;
   buildCopy = build;
-  stageCopy = stage;
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_textureSetForStage:description:isAtEndOfBuild:shouldForceRebuild:shouldRender:]");
-      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v16, v13, v15, 345, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18);
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_textureSetForStage:description:isAtEndOfBuild:shouldForceRebuild:shouldRender:]"];
+      [v12 handleFailureInFunction:v13 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{345, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  v19 = objc_msgSend_rep(self, a2, stage);
-  isMovieInfo = objc_msgSend_p_isMovieInfo(self, v20, v21);
+  v14 = [(KNBuildRenderer *)self rep];
+  p_isMovieInfo = [(KNBuildRenderer *)self p_isMovieInfo];
   if (!description)
   {
-    description = objc_msgSend_textureDescription(self, v22, v23);
+    description = [(KNBuildRenderer *)self textureDescription];
   }
 
-  if ((objc_msgSend_isActionBuild(self->_animatedBuild, v22, v23) & isMovieInfo) == 1)
+  if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild]&& p_isMovieInfo)
   {
 
     self->_textureSet = 0;
@@ -589,9 +550,9 @@ LABEL_8:
 
   if (buildCopy)
   {
-    if (objc_msgSend_textureDeliveryStyle(self, v25, v26) && objc_msgSend_suppliesFinalTextures(self->_info, v25, v26))
+    if ([(KNBuildRenderer *)self textureDeliveryStyle]&& [(TSDDrawableInfo *)self->_info suppliesFinalTextures])
     {
-      stageCopy += objc_msgSend_isBuildIn(self->_animatedBuild, v25, v26);
+      stage += [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
     }
 
     p_textureSet = &self->_textureSet;
@@ -604,211 +565,203 @@ LABEL_8:
     p_textureSet = &self->_textureSet;
   }
 
-  v28 = *p_endOfBuildTextureSet;
-  isRenderable = objc_msgSend_isRenderable(*p_endOfBuildTextureSet, v25, v26, p_textureSet);
-  if (!v28 || (v32 = isRenderable, stageCopy != objc_msgSend_textureStageIndex(self, v30, v31)) || rebuild || objc_msgSend_isBaked(v28, v33, v34) && !(isMovieInfo & 1 | ((objc_msgSend_isActionBuild(self->_animatedBuild, v35, v36) & 1) == 0)) || (objc_msgSend_isEqual_(self->_textureDescription, v35, description) & v32) != 1 || (objc_msgSend_isMetalEnabled(self->super._session, v37, v38) & 1) == 0 && self->_shouldUseMagicMoveTextures && !objc_msgSend_isMagicMove(v28, v39, v40) || (objc_msgSend_shouldPreGenerateTextures(self, v39, v40) & 1) == 0 && (objc_msgSend_shouldForceTextureGeneration(self->super._session, v41, v42) & 1) == 0)
+  v17 = *p_endOfBuildTextureSet;
+  isRenderable = [*p_endOfBuildTextureSet isRenderable];
+  if (!v17 || (v19 = isRenderable, stage != -[KNBuildRenderer textureStageIndex](self, "textureStageIndex")) || rebuild || [v17 isBaked] && !(p_isMovieInfo | !-[KNAnimatedBuild isActionBuild](self->_animatedBuild, "isActionBuild")) || (-[TSDTextureDescription isEqual:](self->_textureDescription, "isEqual:", description) & v19) != 1 || !-[KNPlaybackSession isMetalEnabled](self->super._session, "isMetalEnabled") && self->_shouldUseMagicMoveTextures && !objc_msgSend(v17, "isMagicMove") || !-[KNBuildRenderer shouldPreGenerateTextures](self, "shouldPreGenerateTextures") && !-[KNPlaybackSession shouldForceTextureGeneration](self->super._session, "shouldForceTextureGeneration"))
   {
     objc_opt_class();
-    objc_msgSend_info(self, v43, v44);
-    v45 = TSUDynamicCast();
-    v28 = 0;
-    if (v19 && v45)
+    [(KNBuildRenderer *)self info];
+    v20 = TSUDynamicCast();
+    v17 = 0;
+    if (v14 && v20)
     {
-      objc_msgSend_p_updateTextureDescription_forStage_isAtEndOfBuild_(self, v46, description, stageCopy, buildCopy);
-      PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v47, v48);
+      [(KNBuildRenderer *)self p_updateTextureDescription:description forStage:stage isAtEndOfBuild:buildCopy];
+      loadPluginIfNeeded = [(KNBuildRenderer *)self loadPluginIfNeeded];
       if (objc_opt_respondsToSelector())
       {
-        v51 = objc_msgSend_animationInfoForAnimatedBuild_(PluginIfNeeded, v50, self->_animatedBuild);
-        objc_msgSend_setTextureAnimationInfo_(v19, v52, v51);
+        v22 = [loadPluginIfNeeded animationInfoForAnimatedBuild:self->_animatedBuild];
+        [(TSDRep *)v14 setTextureAnimationInfo:v22];
       }
 
       else
       {
-        objc_msgSend_setTextureAnimationInfo_(v19, v50, 0);
+        [(TSDRep *)v14 setTextureAnimationInfo:0];
       }
 
-      Textures = objc_msgSend_shouldPreGenerateTextures(self, v53, v54);
+      shouldPreGenerateTextures = [(KNBuildRenderer *)self shouldPreGenerateTextures];
       ASV = self->super._ASV;
-      if (Textures)
+      if (shouldPreGenerateTextures)
       {
-        shouldRender = objc_msgSend_textureSetForRep_description_shouldRender_(ASV, v55, v19, description, renderCopy);
+        v25 = [(KNAnimatedSlideView *)ASV textureSetForRep:v14 description:description shouldRender:renderCopy];
       }
 
       else
       {
-        shouldRender = objc_msgSend_nonCachedTextureSetForRep_description_shouldRender_(ASV, v55, v19, description, renderCopy);
+        v25 = [(KNAnimatedSlideView *)ASV nonCachedTextureSetForRep:v14 description:description shouldRender:renderCopy];
       }
 
-      v28 = shouldRender;
+      v17 = v25;
       if (buildCopy)
       {
-        objc_msgSend_setEndOfBuildTextureSet_(self, v59, shouldRender);
+        [(KNBuildRenderer *)self setEndOfBuildTextureSet:v25];
       }
 
-      else if (stageCopy == objc_msgSend_textureStageIndex(self, v59, v60) && *v66 != v28)
+      else if (stage == [(KNBuildRenderer *)self textureStageIndex]&& *v28 != v17)
       {
-        objc_msgSend_teardown(*v66, v61, v62);
+        [*v28 teardown];
 
-        *v66 = v28;
-        objc_msgSend_setTextureDescription_(self, v63, description);
+        *v28 = v17;
+        [(KNBuildRenderer *)self setTextureDescription:description];
       }
     }
   }
 
-  return v28;
+  return v17;
 }
 
 - (void)p_updateTextureDescription:(id)description forStage:(int64_t)stage isAtEndOfBuild:(BOOL)build
 {
-  v9 = objc_msgSend_rep(self, a2, description);
+  v9 = [(KNBuildRenderer *)self rep];
   objc_opt_class();
-  objc_msgSend_info(self, v10, v11);
-  v12 = TSUDynamicCast();
-  if (v9 && v12)
+  [(KNBuildRenderer *)self info];
+  v10 = TSUDynamicCast();
+  if (v9 && v10)
   {
-    v15 = objc_msgSend_model(self->super._ASV, v13, v14);
-    v18 = objc_msgSend_textureDeliveryStyle(self, v16, v17);
-    if (objc_msgSend_conformsToProtocol_(self->super._pluginClass, v19, &unk_2885463D0))
+    model = [(KNAnimatedSlideView *)self->super._ASV model];
+    textureDeliveryStyle = [(KNBuildRenderer *)self textureDeliveryStyle];
+    if ([(objc_class *)self->super._pluginClass conformsToProtocol:&unk_2885463D0])
     {
       if (build)
       {
-        objc_msgSend_setShouldSeparateStroke_(description, v20, 0);
-        objc_msgSend_setShouldAddParameterizedStroke_(description, v22, 0);
-        v23 = objc_opt_class();
-        v25 = objc_msgSend_wantsParameterizedStrokeDrawingReversedWithAnimatedBuild_(v23, v24, self->_animatedBuild);
-        objc_msgSend_setShouldReverseStrokeDrawing_(description, v26, v25);
-        objc_msgSend_setShouldSeparateGroupedTextures_(description, v27, 0);
+        [description setShouldSeparateStroke:0];
+        [description setShouldAddParameterizedStroke:0];
+        [description setShouldReverseStrokeDrawing:{objc_msgSend(objc_opt_class(), "wantsParameterizedStrokeDrawingReversedWithAnimatedBuild:", self->_animatedBuild)}];
+        wantsSeparateGroupedTextures = 0;
       }
 
       else
       {
-        v28 = v15;
-        v29 = objc_msgSend_playMode(self->super._session, v20, v21);
-        v30 = v29 != 5;
-        objc_msgSend_setShouldSeparateStroke_(description, v31, v30);
-        objc_msgSend_setShouldAddParameterizedStroke_(description, v32, v30);
-        v33 = objc_opt_class();
-        v35 = objc_msgSend_wantsParameterizedStrokeDrawingReversedWithAnimatedBuild_(v33, v34, self->_animatedBuild);
-        objc_msgSend_setShouldReverseStrokeDrawing_(description, v36, v35);
-        if (v29 == 5)
+        v14 = model;
+        playMode = [(KNPlaybackSession *)self->super._session playMode];
+        v16 = playMode != 5;
+        [description setShouldSeparateStroke:v16];
+        [description setShouldAddParameterizedStroke:v16];
+        [description setShouldReverseStrokeDrawing:{objc_msgSend(objc_opt_class(), "wantsParameterizedStrokeDrawingReversedWithAnimatedBuild:", self->_animatedBuild)}];
+        if (playMode == 5)
         {
-          v41 = 0;
+          wantsSeparateGroupedTextures = 0;
         }
 
         else
         {
-          v38 = objc_opt_class();
-          v41 = objc_msgSend_wantsSeparateGroupedTextures(v38, v39, v40);
+          wantsSeparateGroupedTextures = [objc_opt_class() wantsSeparateGroupedTextures];
         }
 
-        v15 = v28;
-        objc_msgSend_setShouldSeparateGroupedTextures_(description, v37, v41);
+        model = v14;
       }
+
+      [description setShouldSeparateGroupedTextures:wantsSeparateGroupedTextures];
     }
 
-    if (objc_msgSend_suppliesFinalTextures(self->_info, v20, v21))
+    if ([(TSDDrawableInfo *)self->_info suppliesFinalTextures])
     {
-      v44 = v18 == 0;
+      v17 = textureDeliveryStyle == 0;
     }
 
     else
     {
-      v44 = 1;
+      v17 = 1;
     }
 
-    if (!v44 && (objc_msgSend_p_isDriftAnimation(self, v42, v43) & 1) == 0)
+    if (!v17 && ![(KNBuildRenderer *)self p_isDriftAnimation])
     {
-      objc_msgSend_setShouldAddFinal_(description, v42, 1);
+      [description setShouldAddFinal:1];
     }
 
-    objc_msgSend_setDeliveryStyle_(description, v42, v18);
-    objc_msgSend_setStage_(description, v45, stage);
-    PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v46, v47);
-    if (objc_msgSend_conformsToProtocol_(PluginIfNeeded, v49, &unk_288512818))
+    [description setDeliveryStyle:textureDeliveryStyle];
+    [description setStage:stage];
+    loadPluginIfNeeded = [(KNBuildRenderer *)self loadPluginIfNeeded];
+    if ([loadPluginIfNeeded conformsToProtocol:&unk_288512818])
     {
-      LOBYTE(v52) = 0;
+      LOBYTE(v19) = 0;
     }
 
     else
     {
-      v52 = objc_msgSend_conformsToProtocol_(PluginIfNeeded, v50, &unk_288546490) ^ 1;
+      v19 = [loadPluginIfNeeded conformsToProtocol:&unk_288546490] ^ 1;
     }
 
-    v53 = 0;
+    v20 = 0;
     if (build)
     {
-      v54 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v54 = 0;
-      if ((v52 & 1) == 0)
+      v21 = 0;
+      if ((v19 & 1) == 0)
       {
-        if ((objc_msgSend_p_isMovieInfo(self, v50, v51) & 1) != 0 || (v57 = objc_msgSend_animationFilters(self->_info, v55, v56), v58 = MEMORY[0x277D80578], !objc_msgSend_containsObject_(v57, v59, *MEMORY[0x277D80578])))
+        if (-[KNBuildRenderer p_isMovieInfo](self, "p_isMovieInfo") || (v22 = -[TSDDrawableInfo animationFilters](self->_info, "animationFilters"), v23 = MEMORY[0x277D80578], ![v22 containsObject:*MEMORY[0x277D80578]]))
         {
-          v53 = 0;
-          objc_msgSend_setByGlyphStyle_(description, v55, 0);
-          goto LABEL_28;
-        }
-
-        v61 = objc_msgSend_attributes(self->_animatedBuild, v55, v60);
-        v64 = objc_msgSend_attributes(v61, v62, v63);
-        v66 = objc_msgSend_objectForKey_(v64, v65, @"KNBuildCustomAttributesTextDelivery");
-        v87 = *MEMORY[0x277D805A0];
-        v69 = objc_msgSend_integerValue(v66, v67, v68);
-        v71 = objc_msgSend_p_filterForTextDelivery_childRepTextDeliveryFilter_(self, v70, v69, &v87);
-        isEqualToString = objc_msgSend_isEqualToString_(v71, v72, *v58);
-        v75 = MEMORY[0x277D80588];
-        if (isEqualToString)
-        {
-          v54 = 1;
-        }
-
-        else if (objc_msgSend_isEqualToString_(v71, v74, *MEMORY[0x277D80588]))
-        {
-          v54 = 2;
-        }
-
-        else if (objc_msgSend_isEqualToString_(v71, v74, *MEMORY[0x277D80580]))
-        {
-          v54 = 3;
+          v20 = 0;
+          v21 = 0;
         }
 
         else
         {
-          v54 = 0;
-        }
+          v24 = [(NSDictionary *)[(KNAnimationAttributes *)[(KNAnimatedBuild *)self->_animatedBuild attributes] attributes] objectForKey:@"KNBuildCustomAttributesTextDelivery"];
+          v29 = *MEMORY[0x277D805A0];
+          v25 = -[KNBuildRenderer p_filterForTextDelivery:childRepTextDeliveryFilter:](self, "p_filterForTextDelivery:childRepTextDeliveryFilter:", [v24 integerValue], &v29);
+          v26 = [v25 isEqualToString:*v23];
+          v27 = MEMORY[0x277D80588];
+          if (v26)
+          {
+            v21 = 1;
+          }
 
-        if (objc_msgSend_isEqualToString_(v87, v74, *v58))
-        {
-          v53 = 1;
-        }
+          else if ([v25 isEqualToString:*MEMORY[0x277D80588]])
+          {
+            v21 = 2;
+          }
 
-        else if (objc_msgSend_isEqualToString_(v87, v50, *v75))
-        {
-          v53 = 2;
-        }
+          else if ([v25 isEqualToString:*MEMORY[0x277D80580]])
+          {
+            v21 = 3;
+          }
 
-        else
-        {
-          v53 = 0;
+          else
+          {
+            v21 = 0;
+          }
+
+          if ([v29 isEqualToString:*v23])
+          {
+            v20 = 1;
+          }
+
+          else if ([v29 isEqualToString:*v27])
+          {
+            v20 = 2;
+          }
+
+          else
+          {
+            v20 = 0;
+          }
         }
       }
     }
 
-    objc_msgSend_setByGlyphStyle_(description, v50, v54);
-LABEL_28:
-    objc_msgSend_setChildRepByGlyphStyle_(description, v76, v53);
-    isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v77, v78);
-    objc_msgSend_setShouldSeparateText_(description, v80, isContentBuild);
+    [description setByGlyphStyle:v21];
+    [description setChildRepByGlyphStyle:v20];
+    [description setShouldSeparateText:{-[KNAnimatedBuild isContentBuild](self->_animatedBuild, "isContentBuild")}];
     objc_opt_class();
-    objc_msgSend_info(v9, v81, v82);
-    v83 = TSUDynamicCast();
-    objc_msgSend_maxScaleFactorForDrawable_(v15, v84, v83);
-    if (v86 > 1.0)
+    [(TSDRep *)v9 info];
+    [(KNAnimatedSlideModel *)model maxScaleFactorForDrawable:TSUDynamicCast()];
+    if (v28 > 1.0)
     {
-      objc_msgSend_setShouldIgnoreScaleInSourceImage_(description, v85, 1);
+      [description setShouldIgnoreScaleInSourceImage:1];
     }
   }
 }
@@ -818,10 +771,9 @@ LABEL_28:
   if (!self->_info)
   {
     v2 = MEMORY[0x277D81150];
-    v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_isTextDrawable]");
-    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v6, v3, v5, 507, 0, "invalid nil value for '%{public}s'", "_info");
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v7, v8);
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_isTextDrawable]"];
+    [v2 handleFailureInFunction:v3 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{507, 0, "invalid nil value for '%{public}s'", "_info"}];
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   objc_opt_class();
@@ -831,141 +783,135 @@ LABEL_28:
 - (void)setLayerVisibility:(id)visibility isAtEndOfBuild:(BOOL)build
 {
   buildCopy = build;
-  v136 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v7 = MEMORY[0x277D81150];
-      v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer setLayerVisibility:isAtEndOfBuild:]");
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 512, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer setLayerVisibility:isAtEndOfBuild:]"];
+      [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{512, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, a2, visibility);
-  isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v15, v16);
-  v19 = objc_msgSend_textureStageIndex(self, v17, v18);
-  v22 = objc_msgSend_eventIndex(self->_animatedBuild, v20, v21) + buildCopy;
-  v24 = objc_msgSend_viewLayerAtEventIndex_(visibility, v23, v22);
-  objc_msgSend_setHidden_(v24, v25, 0);
-  v28 = objc_msgSend_textureDeliveryStyle(self, v26, v27);
-  v122 = v28;
-  if (objc_msgSend_suppliesFinalTextures(self->_info, v29, v30))
+  isBuildIn = [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
+  isContentBuild = [(KNAnimatedBuild *)self->_animatedBuild isContentBuild];
+  textureStageIndex = [(KNBuildRenderer *)self textureStageIndex];
+  v11 = [(KNAnimatedBuild *)self->_animatedBuild eventIndex]+ buildCopy;
+  [objc_msgSend(visibility viewLayerAtEventIndex:{v11), "setHidden:", 0}];
+  textureDeliveryStyle = [(KNBuildRenderer *)self textureDeliveryStyle];
+  v57 = textureDeliveryStyle;
+  if ([(TSDDrawableInfo *)self->_info suppliesFinalTextures])
   {
-    v33 = v28 == 0;
+    v13 = textureDeliveryStyle == 0;
   }
 
   else
   {
-    v33 = 1;
+    v13 = 1;
   }
 
-  v121 = isBuildIn;
-  if (v33)
+  v56 = isBuildIn;
+  if (v13)
   {
-    if (objc_msgSend_containsFinalTextures(visibility, v31, v32) && objc_msgSend_objectType(visibility, v39, v40) == 1)
+    if ([visibility containsFinalTextures] && objc_msgSend(visibility, "objectType") == 1)
     {
-      objc_msgSend_hideLayersOfFinalTexturesAtEventIndex_(visibility, v39, v22);
+      [visibility hideLayersOfFinalTexturesAtEventIndex:v11];
     }
 
     goto LABEL_21;
   }
 
-  objc_msgSend_setShouldIncludeFinalTexturesInVisibleSet_(visibility, v31, 0);
-  objc_msgSend_hideLayersOfFinalTexturesAtEventIndex_(visibility, v34, v22);
-  v36 = objc_msgSend_finalTexturesForStage_(visibility, v35, v19 - (buildCopy & isBuildIn ^ 1u));
-  v130 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v130, v135, 16);
-  if (v38)
+  [visibility setShouldIncludeFinalTexturesInVisibleSet:0];
+  [visibility hideLayersOfFinalTexturesAtEventIndex:v11];
+  v14 = [visibility finalTexturesForStage:textureStageIndex - (!buildCopy || !isBuildIn)];
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  if (v15)
   {
-    v41 = v38;
-    v42 = *v131;
+    v16 = v15;
+    v17 = *v66;
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v131 != v42)
+        if (*v66 != v17)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v14);
         }
 
-        v44 = objc_msgSend_viewLayerAtEventIndex_(*(*(&v130 + 1) + 8 * i), v39, v22);
-        objc_msgSend_setHidden_(v44, v45, 0);
+        [objc_msgSend(*(*(&v65 + 1) + 8 * i) viewLayerAtEventIndex:{v11), "setHidden:", 0}];
       }
 
-      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v39, &v130, v135, 16);
+      v16 = [v14 countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
-    while (v41);
+    while (v16);
   }
 
-  if (!v36)
+  if (!v14)
   {
 LABEL_21:
-    v120 = 0;
+    v55 = 0;
     goto LABEL_22;
   }
 
-  v120 = objc_msgSend_count(v36, v39, v40) != 0;
+  v55 = [v14 count] != 0;
 LABEL_22:
-  isTextDrawable = objc_msgSend_p_isTextDrawable(self, v39, v40);
-  if (!isTextDrawable)
+  p_isTextDrawable = [(KNBuildRenderer *)self p_isTextDrawable];
+  if (!p_isTextDrawable)
   {
     goto LABEL_33;
   }
 
-  v49 = 0;
-  if (!objc_msgSend_isBuildOut(self->_animatedBuild, v46, v47) || v122 != 3)
+  v20 = 0;
+  if (![(KNAnimatedBuild *)self->_animatedBuild isBuildOut]|| v57 != 3)
   {
     goto LABEL_34;
   }
 
-  v50 = objc_msgSend_model(self->super._ASV, v46, v47);
-  v52 = objc_msgSend_previousBuildInForInfo_priorToBuild_(v50, v51, self->_info, self->_animatedBuild);
-  if (!v52 || (v53 = v52, !objc_msgSend_isBuildIn(v52, v46, v47)))
+  v21 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] previousBuildInForInfo:self->_info priorToBuild:self->_animatedBuild];
+  if (!v21 || (v22 = v21, ![v21 isBuildIn]))
   {
 LABEL_33:
-    v49 = 0;
+    v20 = 0;
     goto LABEL_34;
   }
 
-  v49 = objc_msgSend_deliveryStyle(v53, v46, v47) == 3 && v19 == 0;
+  v20 = [v22 deliveryStyle] == 3 && textureStageIndex == 0;
 LABEL_34:
-  v124 = v19;
-  v123 = buildCopy;
-  v55 = objc_msgSend_titleAndCaptionTextures(visibility, v46, v47);
-  v58 = objc_msgSend_visibleTextures(visibility, v56, v57);
-  v60 = objc_msgSend_arrayByAddingObjectsFromArray_(v55, v59, v58);
-  v63 = v60;
-  if (isContentBuild && (v128 = 0u, v129 = 0u, v126 = 0u, v127 = 0u, (v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v60, v61, &v126, v134, 16)) != 0))
+  v59 = textureStageIndex;
+  v58 = buildCopy;
+  v24 = [objc_msgSend(visibility "titleAndCaptionTextures")];
+  v25 = v24;
+  if (isContentBuild && (v63 = 0u, v64 = 0u, v61 = 0u, v62 = 0u, (v26 = [v24 countByEnumeratingWithState:&v61 objects:v69 count:16]) != 0))
   {
-    v65 = v64;
-    v66 = *v127;
+    v27 = v26;
+    v28 = *v62;
     while (2)
     {
-      for (j = 0; j != v65; ++j)
+      for (j = 0; j != v27; ++j)
       {
-        if (*v127 != v66)
+        if (*v62 != v28)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v25);
         }
 
-        if (objc_msgSend_isIncomingContent(*(*(&v126 + 1) + 8 * j), v61, v62))
+        if ([*(*(&v61 + 1) + 8 * j) isIncomingContent])
         {
-          v68 = 1;
+          v30 = 1;
           goto LABEL_46;
         }
       }
 
-      v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v61, &v126, v134, 16);
-      v68 = 0;
-      if (v65)
+      v27 = [v25 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v30 = 0;
+      if (v27)
       {
         continue;
       }
@@ -976,75 +922,65 @@ LABEL_34:
 
   else
   {
-    v68 = 0;
+    v30 = 0;
   }
 
 LABEL_46:
-  v69 = objc_msgSend_count(v63, v61, v62);
-  if (v69 - 1 >= 0)
+  v31 = [v25 count];
+  if (v31 - 1 >= 0)
   {
-    v71 = v69;
-    v72 = 0;
-    if (v124)
+    v32 = v31;
+    v33 = 0;
+    if (v59)
     {
-      v73 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v73 = v49;
+      v34 = v20;
     }
 
-    if (v122 == 3)
+    v35 = v57 == 3 && p_isTextDrawable;
+    v52 = v35;
+    v53 = v34;
+    v36 = v30 & v58;
+    if (v59 == -1)
     {
-      v74 = isTextDrawable;
+      v36 = 0;
     }
 
-    else
-    {
-      v74 = 0;
-    }
-
-    v117 = v74;
-    v118 = v73;
-    v75 = v68 & v123;
-    if (v124 == -1)
-    {
-      v75 = 0;
-    }
-
-    v119 = v75;
+    v54 = v36;
     while (1)
     {
-      v76 = v72;
-      v77 = objc_msgSend_objectAtIndex_(v63, v70, --v71);
-      v79 = objc_msgSend_viewLayerAtEventIndex_(v77, v78, v22);
-      objc_msgSend_textureOpacity(v77, v80, v81);
-      *&v82 = v82;
-      objc_msgSend_setOpacity_(v79, v83, v84, v82);
-      v86 = objc_msgSend_stageIndexForTexture_(visibility, v85, v77);
-      if (objc_msgSend_isActionBuild(self->_animatedBuild, v87, v88))
+      v37 = v33;
+      v38 = [v25 objectAtIndex:--v32];
+      v39 = [v38 viewLayerAtEventIndex:v11];
+      [v38 textureOpacity];
+      *&v40 = v40;
+      [v39 setOpacity:v40];
+      v41 = [visibility stageIndexForTexture:v38];
+      if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
       {
-        if (objc_msgSend_alternateLayer(visibility, v89, v90))
+        if ([visibility alternateLayer])
         {
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-        if (!objc_msgSend_isVisibleAtBeginning(self->_animatedBuild, v91, v92))
+        if ([(KNAnimatedBuild *)self->_animatedBuild isVisibleAtBeginning])
         {
-LABEL_67:
-          objc_msgSend_setHidden_(v79, v93, 1);
-          goto LABEL_87;
+          v42 = [(KNBuildRenderer *)self textureStageIndex]<= v41 && [(KNBuildRenderer *)self textureStageIndex]!= 0;
         }
 
-        if (objc_msgSend_textureStageIndex(self, v93, v94) <= v86)
+        else
         {
-          v101 = objc_msgSend_textureStageIndex(self, v91, v95) != 0;
-          objc_msgSend_setHidden_(v79, v102, v101);
-          goto LABEL_87;
+          v42 = 1;
         }
 
-        goto LABEL_60;
+        v44 = v39;
+LABEL_88:
+        [v44 setHidden:v42];
+        goto LABEL_89;
       }
 
       if (isContentBuild)
@@ -1052,253 +988,247 @@ LABEL_67:
         break;
       }
 
-      objc_msgSend_setHidden_(v79, v89, 1);
-      if (objc_msgSend_hasTexture_beenFlattenedForKey_(visibility, v99, v77, self) && !objc_msgSend_isPreCachingOperationActive(self->super._session, v91, v92) || objc_msgSend_isFlattenedRepresentation(v77, v91, v92) && (objc_msgSend_isPreCachingOperationActive(self->super._session, v91, v92) & 1) != 0)
+      [v39 setHidden:1];
+      if ([visibility hasTexture:v38 beenFlattenedForKey:self] && !-[KNPlaybackSession isPreCachingOperationActive](self->super._session, "isPreCachingOperationActive") || objc_msgSend(v38, "isFlattenedRepresentation") && -[KNPlaybackSession isPreCachingOperationActive](self->super._session, "isPreCachingOperationActive"))
       {
-        goto LABEL_87;
+        goto LABEL_89;
       }
 
-      if (objc_msgSend_isImplicitlyVisibleAtBeginning(self->_animatedBuild, v91, v92))
+      if ([(KNAnimatedBuild *)self->_animatedBuild isImplicitlyVisibleAtBeginning])
       {
         goto LABEL_73;
       }
 
-      if (v86 == -2)
+      if (v41 == -2)
       {
-        if (objc_msgSend_p_isDriftAnimation(self, v93, v100))
+        if ([(KNBuildRenderer *)self p_isDriftAnimation])
         {
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-        if ((v120 | v121 ^ 1))
+        if (v55 || !v56)
         {
-          if ((v121 | v120))
+          if (v56 || v55)
           {
-            goto LABEL_87;
+            goto LABEL_89;
           }
 
-          if (!v122)
+          if (!v57)
           {
-            goto LABEL_123;
+            goto LABEL_125;
           }
 
-          if (v124)
+          if (v59)
           {
-            if (objc_msgSend_count(v63, v91, v92) != 1)
+            if ([v25 count] != 1)
             {
-              goto LABEL_87;
+              goto LABEL_89;
             }
 
-            goto LABEL_129;
+            goto LABEL_131;
           }
         }
 
         else
         {
-          if (!v122)
+          if (!v57)
           {
-            goto LABEL_129;
+            goto LABEL_131;
           }
 
-          if (v124 != objc_msgSend_count(v63, v91, v92) - 1)
+          if (v59 != [v25 count] - 1)
           {
-            if (objc_msgSend_count(v63, v91, v107) != 1)
+            if ([v25 count] != 1)
             {
-              goto LABEL_87;
+              goto LABEL_89;
             }
 
-            goto LABEL_123;
+            goto LABEL_125;
           }
         }
 
-LABEL_60:
-        objc_msgSend_setHidden_(v79, v91, 0);
-        goto LABEL_87;
+LABEL_132:
+        v44 = v39;
+        v42 = 0;
+        goto LABEL_88;
       }
 
-      if (v86 == -1)
+      if (v41 == -1)
       {
-        if (objc_msgSend_p_isDriftAnimation(self, v93, v100))
+        if ([(KNBuildRenderer *)self p_isDriftAnimation])
         {
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-        if ((v120 | v121 ^ 1))
+        if (v55 || !v56)
         {
-          if ((v121 | v120))
+          if (v56 || v55)
           {
-            goto LABEL_87;
+            goto LABEL_89;
           }
 
-          if (v122)
+          if (v57)
           {
-            if ((v72 & 1) == 0)
+            if ((v33 & 1) == 0)
             {
-              v72 = 0;
-              if (objc_msgSend_count(v63, v91, v92) != 1 || v123)
+              v33 = 0;
+              if ([v25 count] != 1 || v58)
               {
-                goto LABEL_88;
+                goto LABEL_90;
               }
             }
 
-            goto LABEL_60;
+            goto LABEL_132;
           }
 
-LABEL_123:
-          if (v123)
+LABEL_125:
+          if (v58)
           {
-            goto LABEL_87;
+            goto LABEL_89;
           }
 
-          goto LABEL_60;
+          goto LABEL_132;
         }
 
-        if (v122)
+        if (v57)
         {
-          if ((v72 & 1) == 0)
+          if ((v33 & 1) == 0)
           {
-            v72 = 0;
-            if (objc_msgSend_count(v63, v91, v92) != 1 || !v123)
+            v33 = 0;
+            if ([v25 count] != 1 || !v58)
             {
-              goto LABEL_88;
+              goto LABEL_90;
             }
           }
 
-          goto LABEL_60;
+          goto LABEL_132;
         }
 
-LABEL_129:
-        if (!v123)
+LABEL_131:
+        if (!v58)
         {
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-        goto LABEL_60;
+        goto LABEL_132;
       }
 
-      if (objc_msgSend_isIncomingContent(v77, v93, v100))
+      if ([v38 isIncomingContent])
       {
-        goto LABEL_87;
+        goto LABEL_89;
       }
 
-      if (!v121)
+      if (!v56)
       {
-        objc_msgSend_textureOpacity(v77, v91, v92);
-        v109 = v108;
-        v112 = objc_msgSend_requiresStagesBuildingInReverse(self->_info, v110, v111);
-        if (v118)
+        [v38 textureOpacity];
+        v49 = v48;
+        requiresStagesBuildingInReverse = [(TSDDrawableInfo *)self->_info requiresStagesBuildingInReverse];
+        if (v53)
         {
-          if (v86 != objc_msgSend_maxStageIndex(visibility, v113, v114))
+          if (v41 != [visibility maxStageIndex])
           {
-            v109 = v109 * 0.3;
+            v49 = v49 * 0.3;
           }
 
-          objc_msgSend_setHidden_(v79, v116, 0);
-          goto LABEL_137;
+          [v39 setHidden:0];
+          goto LABEL_139;
         }
 
-        if (v86 == v124 && !v123 || !v120 && v86 > v124 && (v112 & 1) != 0 || !((v120 || v86 >= v124) | v112 & 1))
+        if (v41 == v59 && !v58 || !v55 && v41 > v59 && (requiresStagesBuildingInReverse & 1) != 0 || !((v55 || v41 >= v59) | requiresStagesBuildingInReverse & 1))
         {
-          objc_msgSend_setHidden_(v79, v113, 0);
-          v115 = v109 * 0.3;
-          if ((v117 & (v86 > v124)) != 0)
+          [v39 setHidden:0];
+          v51 = v49 * 0.3;
+          if (v52 && v41 > v59)
           {
-            v109 = v109 * 0.3;
+            v49 = v49 * 0.3;
           }
 
-LABEL_137:
-          v76 = 1;
+LABEL_139:
+          v37 = 1;
         }
 
-        *&v115 = v109;
-        objc_msgSend_setOpacity_(v79, v113, v114, v115);
-LABEL_87:
-        v72 = v76;
-        goto LABEL_88;
+        *&v51 = v49;
+        [v39 setOpacity:v51];
+LABEL_89:
+        v33 = v37;
+        goto LABEL_90;
       }
 
-      v104 = !v123;
-      if (v86 != v124)
+      v45 = !v58;
+      if (v41 != v59)
       {
-        v104 = 1;
+        v45 = 1;
       }
 
-      if (v86 < v124)
+      if (v41 < v59)
       {
-        v104 = 0;
+        v45 = 0;
       }
 
-      if ((v120 | v104))
+      if ((v55 | v45))
       {
-        goto LABEL_87;
+        goto LABEL_89;
       }
 
-      if (objc_msgSend_p_isDriftAnimation(self, v91, v92))
+      if ([(KNBuildRenderer *)self p_isDriftAnimation])
       {
-        goto LABEL_88;
+        goto LABEL_90;
       }
 
-      objc_msgSend_setHidden_(v79, v91, 0);
-      if (v86 < v124 - !v123)
+      [v39 setHidden:0];
+      if (v41 < v59 - !v58 && v52)
       {
-        v106 = v117;
-      }
-
-      else
-      {
-        v106 = 0;
-      }
-
-      if (v106 == 1)
-      {
-        LODWORD(v105) = 1050253722;
-        objc_msgSend_setOpacity_(v79, v91, v92, v105);
+        LODWORD(v46) = 1050253722;
+        [v39 setOpacity:v46];
       }
 
 LABEL_74:
-      v72 = 1;
-LABEL_88:
-      if (objc_msgSend_p_isMovieInfo(self, v91, v92))
+      v33 = 1;
+LABEL_90:
+      if ([(KNBuildRenderer *)self p_isMovieInfo])
       {
-        if (objc_msgSend_textureType(v77, v70, v103) == 12)
+        if ([v38 textureType] == 12)
         {
-          objc_msgSend_setHidden_(v79, v70, 1);
+          [v39 setHidden:1];
         }
       }
 
-      if (v71 <= 0)
+      if (v32 <= 0)
       {
         return;
       }
     }
 
-    isIncomingContent = objc_msgSend_isIncomingContent(v77, v89, v90);
-    if (!objc_msgSend_isVisibleAtBeginning(self->_animatedBuild, v97, v98))
+    isIncomingContent = [v38 isIncomingContent];
+    if (![(KNAnimatedBuild *)self->_animatedBuild isVisibleAtBeginning])
     {
       goto LABEL_67;
     }
 
-    if (v86 == v124)
+    if (v41 == v59)
     {
-      if (isIncomingContent & v123)
+      if (isIncomingContent & v58)
       {
 LABEL_73:
-        objc_msgSend_setHidden_(v79, v93, 0);
+        [v39 setHidden:0];
         goto LABEL_74;
       }
 
       if ((isIncomingContent & 1) == 0)
       {
-        if (v119)
+        if (v54)
         {
-          goto LABEL_67;
+LABEL_67:
+          v44 = v39;
+          v42 = 1;
+          goto LABEL_88;
         }
 
         goto LABEL_73;
       }
     }
 
-    if (v86 != -1)
+    if (v41 != -1)
     {
       goto LABEL_67;
     }
@@ -1314,17 +1244,15 @@ LABEL_73:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[KNBuildRenderer animate]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 724, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer animate]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{724, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
   self->_isAnimationForPlayback = 1;
-  v11 = CACurrentMediaTime();
-  if ((objc_msgSend_addAnimationsAtLayerTime_(self, v12, v13, v11) & 1) == 0)
+  if (![(KNBuildRenderer *)self addAnimationsAtLayerTime:CACurrentMediaTime()])
   {
     self->_isAnimationForPlayback = 0;
     buildEndCallbackTarget = self->_buildEndCallbackTarget;
@@ -1338,231 +1266,207 @@ LABEL_73:
       buildEndCallbackSelector = 0;
     }
 
-    objc_msgSend_performSelector_withObject_afterDelay_(buildEndCallbackTarget, v14, buildEndCallbackSelector, self, 0.0);
+    [buildEndCallbackTarget performSelector:buildEndCallbackSelector withObject:self afterDelay:0.0];
   }
 }
 
 - (void)setGeometryAndActionAttributesOnTextureSet:(id)set isAtEndOfBuild:(BOOL)build isAtEndOfSlide:(BOOL)slide isRenderingToContext:(BOOL)context
 {
-  slideCopy = slide;
   buildCopy = build;
-  v119 = *MEMORY[0x277D85DE8];
-  v11 = objc_msgSend_eventIndex(self->_animatedBuild, a2, set) + build;
-  objc_msgSend_setLayerGeometryAtEventIndex_(set, v12, v11);
-  PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v13, v14);
-  v18 = PluginIfNeeded;
-  if (buildCopy && objc_msgSend_conformsToProtocol_(PluginIfNeeded, v16, &unk_288546370))
+  v52 = *MEMORY[0x277D85DE8];
+  v11 = [(KNAnimatedBuild *)self->_animatedBuild eventIndex]+ build;
+  [set setLayerGeometryAtEventIndex:v11];
+  loadPluginIfNeeded = [(KNBuildRenderer *)self loadPluginIfNeeded];
+  v13 = loadPluginIfNeeded;
+  if (buildCopy && [loadPluginIfNeeded conformsToProtocol:&unk_288546370])
   {
-    v21 = objc_msgSend_finalAttributes(self->_animatedBuild, v16, v17);
+    finalAttributes = [(KNAnimatedBuild *)self->_animatedBuild finalAttributes];
   }
 
   else
   {
-    v21 = objc_msgSend_previousAttributes(self->_animatedBuild, v16, v17);
-    v24 = objc_msgSend_model(self->super._ASV, v22, v23);
-    if ((objc_msgSend_isMetalSlide(v24, v25, v26) & 1) == 0 && !context && objc_msgSend_conformsToProtocol_(v18, v19, &unk_288546370) && (objc_msgSend_p_isMovieInfo(self, v19, v20) & 1) == 0 && (objc_msgSend_isImageSource(set, v19, v20) & 1) == 0 && !self->_finalAttributesTextureSet)
+    finalAttributes = [(KNAnimatedBuild *)self->_animatedBuild previousAttributes];
+    if (!-[KNAnimatedSlideModel isMetalSlide](-[KNAnimatedSlideView model](self->super._ASV, "model"), "isMetalSlide") && !context && [v13 conformsToProtocol:&unk_288546370] && !-[KNBuildRenderer p_isMovieInfo](self, "p_isMovieInfo") && (objc_msgSend(set, "isImageSource") & 1) == 0 && !self->_finalAttributesTextureSet)
     {
-      v27 = objc_msgSend_copy(set, v19, v20);
-      self->_finalAttributesTextureSet = v27;
-      objc_msgSend_setShouldTransformUsingTextureCenter_(v27, v28, 1);
-      v29 = objc_opt_class();
-      v32 = objc_msgSend_finalAttributes(self->_animatedBuild, v30, v31);
-      v107 = objc_msgSend_applyActionEffect_toAttributes_(v29, v33, v32, 0);
-      v36 = objc_msgSend_animationContext(self->super._session, v34, v35);
-      v39 = objc_msgSend_colorSpace(v36, v37, v38);
-      objc_msgSend_setColorSpace_(self->_finalAttributesTextureSet, v40, v39);
+      v15 = [set copy];
+      self->_finalAttributesTextureSet = v15;
+      [(TSDTextureSet *)v15 setShouldTransformUsingTextureCenter:1];
+      v40 = [objc_opt_class() applyActionEffect:-[KNAnimatedBuild finalAttributes](self->_animatedBuild toAttributes:{"finalAttributes"), 0}];
+      [(TSDTextureSet *)self->_finalAttributesTextureSet setColorSpace:[(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] colorSpace]];
       finalAttributesTextureSet = self->_finalAttributesTextureSet;
-      v44 = objc_msgSend_animationContext(self->super._session, v42, v43);
-      objc_msgSend_viewScale(v44, v45, v46);
-      objc_msgSend_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys_eventIndex_(finalAttributesTextureSet, v47, v107, 0, 1, 0, 0, 0, v11);
+      [(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] viewScale];
+      [(TSDTextureSet *)finalAttributesTextureSet applyActionEffect:v40 viewScale:0 isMagicMove:1 shouldBake:0 applyScaleOnly:0 ignoreScale:0 shouldCheckActionKeys:v11 eventIndex:?];
     }
   }
 
-  if (v21 || objc_msgSend_isActionBuild(self->_animatedBuild, v19, v20))
+  if (finalAttributes || [(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
   {
-    objc_msgSend_adjustAnchorPointRelativeToCenterOfRotationAtEventIndex_(set, v19, v11);
-    objc_msgSend_adjustAnchorPointRelativeToCenterOfRotationAtEventIndex_(self->_finalAttributesTextureSet, v49, v11);
+    [set adjustAnchorPointRelativeToCenterOfRotationAtEventIndex:v11];
+    [(TSDTextureSet *)self->_finalAttributesTextureSet adjustAnchorPointRelativeToCenterOfRotationAtEventIndex:v11];
   }
 
-  if (objc_msgSend_isBaked(set, v19, v48))
+  if ([set isBaked])
   {
-    objc_msgSend_resetToOriginalSourceAtEventIndex_(set, v50, v11);
-    if (!v21 && (objc_msgSend_isActionBuild(self->_animatedBuild, v50, v51) & 1) == 0)
+    [set resetToOriginalSourceAtEventIndex:v11];
+    if (!finalAttributes && ![(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
     {
-      objc_msgSend_resetAnchorPointAtEventIndex_(set, v50, v11);
+      [set resetAnchorPointAtEventIndex:v11];
     }
   }
 
-  isActionBuild = 0;
-  v108 = v21;
-  v106 = slideCopy;
-  if (!objc_msgSend_isActionBuild(self->_animatedBuild, v50, v51) || context)
+  v41 = finalAttributes;
+  if (![(KNAnimatedBuild *)self->_animatedBuild isActionBuild]|| context)
   {
-    v55 = 0;
-    if (!context)
+    if (context)
     {
-      goto LABEL_43;
-    }
-
-    goto LABEL_41;
-  }
-
-  v55 = 0;
-  if (!slideCopy)
-  {
-    if (objc_msgSend_isImageSource(set, v52, v53) & 1) != 0 || (objc_msgSend_p_isMovieInfo(self, v52, v53))
-    {
-      isActionBuild = 0;
-      v55 = 0;
-      if (!context)
-      {
-        goto LABEL_43;
-      }
-
-LABEL_41:
-      v71 = 0;
       goto LABEL_48;
     }
 
-    active = objc_msgSend_activeAnimatedBuilds(self->super._ASV, v52, v53);
-    v113 = 0u;
-    v114 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    v57 = active;
-    v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(active, v58, &v113, v118, 16);
-    if (!v59)
+    goto LABEL_43;
+  }
+
+  if (slide)
+  {
+LABEL_40:
+    if (context)
     {
-      isActionBuild = 0;
-      v55 = 1;
+      goto LABEL_48;
+    }
+
+    goto LABEL_43;
+  }
+
+  if (([set isImageSource] & 1) == 0 && !-[KNBuildRenderer p_isMovieInfo](self, "p_isMovieInfo"))
+  {
+    activeAnimatedBuilds = [(KNAnimatedSlideView *)self->super._ASV activeAnimatedBuilds];
+    v46 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v18 = activeAnimatedBuilds;
+    v19 = [(NSMutableSet *)activeAnimatedBuilds countByEnumeratingWithState:&v46 objects:v51 count:16];
+    if (!v19)
+    {
       if (context)
       {
-        goto LABEL_41;
+        goto LABEL_48;
       }
 
       goto LABEL_43;
     }
 
-    v60 = v59;
-    v61 = *v114;
+    v20 = v19;
+    v21 = *v47;
     contextCopy = context;
     while (2)
     {
-      for (i = 0; i != v60; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v114 != v61)
+        if (*v47 != v21)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v18);
         }
 
-        v63 = *(*(&v113 + 1) + 8 * i);
-        v64 = objc_msgSend_model(self->super._ASV, v52, v53);
-        v66 = objc_msgSend_rendererForAnimatedBuild_(v64, v65, v63);
-        v69 = objc_msgSend_info(v66, v67, v68);
-        if (v66 != self && v69 == self->_info)
+        v23 = *(*(&v46 + 1) + 8 * i);
+        v24 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] rendererForAnimatedBuild:v23];
+        info = [(KNBuildRenderer *)v24 info];
+        if (v24 != self && info == self->_info)
         {
-          isActionBuild = objc_msgSend_isActionBuild(v63, v52, v53);
-          v55 = 0;
+          [v23 isActionBuild];
           context = contextCopy;
           goto LABEL_40;
         }
       }
 
-      v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v52, &v113, v118, 16);
-      isActionBuild = 0;
-      v55 = 1;
+      v20 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v46 objects:v51 count:16];
       context = contextCopy;
-      if (v60)
+      if (v20)
       {
         continue;
       }
 
-      break;
+      goto LABEL_40;
     }
   }
 
-LABEL_40:
   if (context)
   {
-    goto LABEL_41;
+    goto LABEL_48;
   }
 
 LABEL_43:
-  if (objc_msgSend_isBuildOut(self->_animatedBuild, v52, v53) & 1) != 0 || (isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v52, v53), v108) && (isBuildIn)
+  if (![(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
   {
-    v71 = 1;
-  }
-
-  else
-  {
-    v71 = objc_msgSend_isEmphasisBuild(self->_animatedBuild, v52, v53) & !buildCopy | v106;
+    isBuildIn = [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
+    if (!v41 || !isBuildIn)
+    {
+      [(KNAnimatedBuild *)self->_animatedBuild isEmphasisBuild];
+    }
   }
 
 LABEL_48:
-  v73 = objc_msgSend_animationContext(self->super._session, v52, v53);
-  objc_msgSend_viewScale(v73, v74, v75);
-  objc_msgSend_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys_eventIndex_(set, v76, v108, 0, v71, v55, isActionBuild, 0, v11);
-  if (v108)
+  [(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] viewScale];
+  [set applyActionEffect:v11 viewScale:? isMagicMove:? shouldBake:? applyScaleOnly:? ignoreScale:? shouldCheckActionKeys:? eventIndex:?];
+  if (v41)
   {
     self->_isNonCachedTextureValid = 0;
   }
 
   if (!context)
   {
-    v79 = objc_msgSend_isActionBuild(self->_animatedBuild, v77, v78);
-    if (v108)
+    isActionBuild = [(KNAnimatedBuild *)self->_animatedBuild isActionBuild];
+    if (v41)
     {
-      if (!v79)
+      if (!isActionBuild)
       {
-        objc_msgSend_resetAnchorPointAtEventIndex_(set, v77, v11);
+        [set resetAnchorPointAtEventIndex:v11];
       }
     }
   }
 
-  if ((objc_msgSend_isMetalEnabled(self->super._session, v77, v78) & 1) == 0)
+  if (![(KNPlaybackSession *)self->super._session isMetalEnabled])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (objc_msgSend_isMagicMove(set, v80, v81))
+      if ([set isMagicMove])
       {
-        objc_msgSend_textureAngle(set, v82, v83);
-        if (v86 != 0.0)
+        [set textureAngle];
+        if (v29 != 0.0)
         {
-          v111 = 0u;
-          v112 = 0u;
-          v109 = 0u;
-          v110 = 0u;
-          v87 = objc_msgSend_allTextures(set, v84, v85);
-          v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, &v109, v117, 16);
-          if (v89)
+          v44 = 0u;
+          v45 = 0u;
+          v42 = 0u;
+          v43 = 0u;
+          allTextures = [set allTextures];
+          v31 = [allTextures countByEnumeratingWithState:&v42 objects:v50 count:16];
+          if (v31)
           {
-            v92 = v89;
-            v93 = *v110;
+            v32 = v31;
+            v33 = *v43;
             do
             {
-              for (j = 0; j != v92; ++j)
+              for (j = 0; j != v32; ++j)
               {
-                if (*v110 != v93)
+                if (*v43 != v33)
                 {
-                  objc_enumerationMutation(v87);
+                  objc_enumerationMutation(allTextures);
                 }
 
-                v95 = *(*(&v109 + 1) + 8 * j);
-                if (objc_msgSend_textureType(v95, v90, v91) != 11 && objc_msgSend_textureType(v95, v90, v91) != 3)
+                v35 = *(*(&v42 + 1) + 8 * j);
+                if ([v35 textureType] != 11 && objc_msgSend(v35, "textureType") != 3)
                 {
-                  v96 = objc_msgSend_viewLayerAtEventIndex_(v95, v90, v11);
-                  v97 = MEMORY[0x277CCABB0];
-                  objc_msgSend_textureAngle(set, v98, v99);
-                  v103 = objc_msgSend_numberWithDouble_(v97, v101, v102, -v100);
-                  objc_msgSend_setValue_forKeyPath_(v96, v104, v103, @"transform.rotation.z");
+                  v36 = [v35 viewLayerAtEventIndex:v11];
+                  v37 = MEMORY[0x277CCABB0];
+                  [set textureAngle];
+                  [v36 setValue:objc_msgSend(v37 forKeyPath:{"numberWithDouble:", -v38), @"transform.rotation.z"}];
                 }
               }
 
-              v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v90, &v109, v117, 16);
+              v32 = [allTextures countByEnumeratingWithState:&v42 objects:v50 count:16];
             }
 
-            while (v92);
+            while (v32);
           }
         }
       }
@@ -1575,11 +1479,11 @@ LABEL_48:
   contextCopy = context;
   slideCopy = slide;
   buildCopy = build;
-  v11 = objc_msgSend_rep(self, a2, build);
+  v11 = [(KNBuildRenderer *)self rep];
   objc_sync_enter(v11);
-  isRenderingToContext = objc_msgSend_p_initializeTextureSetForEndOfBuild_endOfSlide_description_isRenderingToContext_(self, v12, buildCopy, slideCopy, description, contextCopy);
+  v12 = [(KNBuildRenderer *)self p_initializeTextureSetForEndOfBuild:buildCopy endOfSlide:slideCopy description:description isRenderingToContext:contextCopy];
   objc_sync_exit(v11);
-  return isRenderingToContext;
+  return v12;
 }
 
 - (id)p_initializeTextureSetForEndOfBuild:(BOOL)build endOfSlide:(BOOL)slide description:(id)description isRenderingToContext:(BOOL)context
@@ -1593,49 +1497,45 @@ LABEL_48:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v11 = MEMORY[0x277D81150];
-      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_initializeTextureSetForEndOfBuild:endOfSlide:description:isRenderingToContext:]");
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v15, v12, v14, 860, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17);
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_initializeTextureSetForEndOfBuild:endOfSlide:description:isRenderingToContext:]"];
+      [v11 handleFailureInFunction:v12 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{860, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  result = objc_msgSend_rep(self, a2, build);
+  result = [(KNBuildRenderer *)self rep];
   if (result)
   {
-    objc_msgSend_begin(MEMORY[0x277CD9FF0], v19, v20);
-    v21 = MEMORY[0x277CD9FF0];
-    isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v22, v23);
-    objc_msgSend_activateBackground_(v21, v25, isMainThread ^ 1u);
-    objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v26, 1);
-    v27 = objc_autoreleasePoolPush();
-    v30 = objc_msgSend_textureStageIndex(self, v28, v29);
-    v34 = objc_msgSend_textureSetForStage_description_isAtEndOfBuild_shouldForceRebuild_shouldRender_(self, v31, v30, description, buildCopy, 0, 0);
-    if (v34)
+    [MEMORY[0x277CD9FF0] begin];
+    [MEMORY[0x277CD9FF0] activateBackground:{objc_msgSend(MEMORY[0x277CCACC8], "isMainThread") ^ 1}];
+    [MEMORY[0x277CD9FF0] setDisableActions:1];
+    v14 = objc_autoreleasePoolPush();
+    v15 = [(KNBuildRenderer *)self textureSetForStage:[(KNBuildRenderer *)self textureStageIndex] description:description isAtEndOfBuild:buildCopy shouldForceRebuild:0 shouldRender:0];
+    if (v15)
     {
-      if (!objc_msgSend_isPreCachingOperationActive(self->super._session, v32, v33) || contextCopy)
+      if (![(KNPlaybackSession *)self->super._session isPreCachingOperationActive]|| contextCopy)
       {
-        objc_msgSend_setGeometryAndActionAttributesOnTextureSet_isAtEndOfBuild_isAtEndOfSlide_isRenderingToContext_(self, v35, v34, buildCopy, slideCopy, contextCopy);
-        v39 = objc_msgSend_textureDeliveryStyle(self, v37, v38);
+        [(KNBuildRenderer *)self setGeometryAndActionAttributesOnTextureSet:v15 isAtEndOfBuild:buildCopy isAtEndOfSlide:slideCopy isRenderingToContext:contextCopy];
+        textureDeliveryStyle = [(KNBuildRenderer *)self textureDeliveryStyle];
         if (buildCopy)
         {
-          if (v39)
+          if (textureDeliveryStyle)
           {
-            if ((objc_msgSend_p_isDriftAnimation(self, v40, v41) & 1) == 0)
+            if (![(KNBuildRenderer *)self p_isDriftAnimation])
             {
-              if (objc_msgSend_suppliesFinalTextures(self->_info, v42, v43))
+              if ([(TSDDrawableInfo *)self->_info suppliesFinalTextures])
               {
-                if ((objc_msgSend_isActionBuild(self->_animatedBuild, v44, v45) & 1) == 0)
+                if (![(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
                 {
-                  isRenderingToContext = objc_msgSend_setupFinalTextureGivenCurrentTextureSet_isRenderingToContext_(self, v46, v34, contextCopy);
-                  if (isRenderingToContext != v34)
+                  v18 = [(KNBuildRenderer *)self setupFinalTextureGivenCurrentTextureSet:v15 isRenderingToContext:contextCopy];
+                  if (v18 != v15)
                   {
-                    v48 = isRenderingToContext;
-                    if (isRenderingToContext)
+                    v19 = v18;
+                    if (v18)
                     {
 
-                      objc_msgSend_setEndOfBuildTextureSet_(self, v49, v48);
-                      v34 = v48;
+                      [(KNBuildRenderer *)self setEndOfBuildTextureSet:v19];
+                      v15 = v19;
                     }
                   }
                 }
@@ -1646,10 +1546,10 @@ LABEL_48:
       }
     }
 
-    objc_autoreleasePoolPop(v27);
-    objc_msgSend_commit(MEMORY[0x277CD9FF0], v50, v51);
+    objc_autoreleasePoolPop(v14);
+    [MEMORY[0x277CD9FF0] commit];
 
-    return v34;
+    return v15;
   }
 
   return result;
@@ -1657,143 +1557,132 @@ LABEL_48:
 
 - (id)animationWillBegin
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
-    v4 = MEMORY[0x277D81150];
-    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer animationWillBegin]");
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 903, 0, "invalid nil value for '%{public}s'", "_animatedBuild");
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer animationWillBegin]"];
+    [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{903, 0, "invalid nil value for '%{public}s'", "_animatedBuild"}];
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  if ((objc_msgSend_isMetalEnabled(self->super._session, a2, v2) & 1) == 0 && objc_msgSend_isActionBuild(self->_animatedBuild, v11, v12) && objc_msgSend_p_isMovieInfo(self, v11, v12))
+  if (![(KNPlaybackSession *)self->super._session isMetalEnabled]&& [(KNAnimatedBuild *)self->_animatedBuild isActionBuild]&& [(KNBuildRenderer *)self p_isMovieInfo])
   {
     self->_shouldUseMagicMoveTextures = 1;
   }
 
-  v13 = objc_msgSend_textureDescription(self, v11, v12);
-  shouldNotBakeActionTextures = objc_msgSend_shouldNotBakeActionTextures(self->super._session, v14, v15);
-  isRenderingToContext = objc_msgSend_initializeTextureSetForEndOfBuild_endOfSlide_description_isRenderingToContext_(self, v17, 0, 0, v13, shouldNotBakeActionTextures);
-  if (isRenderingToContext)
+  v5 = [(KNBuildRenderer *)self initializeTextureSetForEndOfBuild:0 endOfSlide:0 description:[(KNBuildRenderer *)self textureDescription] isRenderingToContext:[(KNPlaybackSession *)self->super._session shouldNotBakeActionTextures]];
+  if (v5)
   {
-    v21 = objc_msgSend_rep(self, v18, v19);
-    objc_sync_enter(v21);
-    objc_msgSend_renderLayerContentsIfNeeded(isRenderingToContext, v22, v23);
-    objc_sync_exit(v21);
-    v26 = objc_msgSend_layer(isRenderingToContext, v24, v25);
-    v29 = objc_msgSend_superlayer(v26, v27, v28);
-    if (objc_msgSend_isActionBuild(self->_animatedBuild, v30, v31))
+    v6 = [(KNBuildRenderer *)self rep];
+    objc_sync_enter(v6);
+    [v5 renderLayerContentsIfNeeded];
+    objc_sync_exit(v6);
+    v7 = [objc_msgSend(v5 "layer")];
+    if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
     {
-      v34 = v29 == 0;
+      v8 = v7 == 0;
     }
 
     else
     {
-      v34 = 1;
+      v8 = 1;
     }
 
-    if (v34)
+    if (v8)
     {
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v35 = objc_msgSend_sublayers(self->_parentLayer, v32, v33);
-      v38 = objc_msgSend_copy(v35, v36, v37);
-      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v52, v56, 16);
-      if (v42)
+      v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v9 = [(NSArray *)[(CALayer *)self->_parentLayer sublayers] copy];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v10)
       {
-        v43 = *v53;
+        v11 = *v16;
         do
         {
-          for (i = 0; i != v42; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v53 != v43)
+            if (*v16 != v11)
             {
-              objc_enumerationMutation(v38);
+              objc_enumerationMutation(v9);
             }
 
-            v45 = *(*(&v52 + 1) + 8 * i);
-            v46 = objc_msgSend_name(v45, v40, v41);
-            if ((objc_msgSend_isEqualToString_(v46, v47, @"dummyLayer") & 1) == 0)
+            v13 = *(*(&v15 + 1) + 8 * i);
+            if (([objc_msgSend(v13 "name")] & 1) == 0)
             {
-              objc_msgSend_removeFromSuperlayer(v45, v40, v41);
+              [v13 removeFromSuperlayer];
             }
           }
 
-          v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v40, &v52, v56, 16);
+          v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
-        while (v42);
+        while (v10);
       }
 
-      parentLayer = self->_parentLayer;
-      v49 = objc_msgSend_layer(isRenderingToContext, v40, v41);
-      objc_msgSend_addSublayer_(parentLayer, v50, v49);
+      -[CALayer addSublayer:](self->_parentLayer, "addSublayer:", [v5 layer]);
     }
 
-    objc_msgSend_setLayerVisibility_isAtEndOfBuild_(self, v32, isRenderingToContext, 0);
+    [(KNBuildRenderer *)self setLayerVisibility:v5 isAtEndOfBuild:0];
   }
 
   self->_areAnimationsReadyToStart = 1;
-  return isRenderingToContext;
+  return v5;
 }
 
 - (void)resetHighlightsBeforeAnimationOnTextureSet:(id)set
 {
-  if (objc_msgSend_isBuildOut(self->_animatedBuild, a2, set))
+  if ([(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
   {
-    if (objc_msgSend_textureDeliveryStyle(self, v5, v6) == 3)
+    if ([(KNBuildRenderer *)self textureDeliveryStyle]== 3)
     {
-      v9 = objc_msgSend_visibleTextures(set, v7, v8);
-      if (objc_msgSend_count(v9, v10, v11))
+      visibleTextures = [set visibleTextures];
+      if ([visibleTextures count])
       {
-        v13 = 0;
-        v14 = *MEMORY[0x277D805D0];
+        v6 = 0;
+        v7 = *MEMORY[0x277D805D0];
         do
         {
-          v15 = objc_msgSend_objectAtIndex_(v9, v12, v13);
-          v18 = objc_msgSend_layer(v15, v16, v17);
-          v20 = objc_msgSend_stageIndexForTexture_(set, v19, v15);
-          objc_msgSend_textureOpacity(v15, v21, v22);
-          v24 = v23;
-          if (objc_msgSend_valueForKey_(v18, v25, @"oldOpacity"))
+          v8 = [visibleTextures objectAtIndex:v6];
+          layer = [v8 layer];
+          v10 = [set stageIndexForTexture:v8];
+          [v8 textureOpacity];
+          v12 = v11;
+          if ([layer valueForKey:@"oldOpacity"])
           {
-            v28 = objc_msgSend_parent(v15, v26, v27);
-            objc_msgSend_textureOpacity(v28, v29, v30);
-            v24 = v31 * v24;
+            [objc_msgSend(v8 "parent")];
+            v12 = v13 * v12;
           }
 
-          if (v20 <= 0xFFFFFFFFFFFFFFFDLL)
+          if (v10 <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v32 = objc_msgSend_textureStageIndex(self, v26, v27);
-            v35 = v24 * 0.3;
-            *&v35 = v35;
-            if (v20 == v32)
+            textureStageIndex = [(KNBuildRenderer *)self textureStageIndex];
+            v15 = v12 * 0.3;
+            *&v15 = v15;
+            if (v10 == textureStageIndex)
             {
-              *&v35 = v24;
+              *&v15 = v12;
             }
 
-            objc_msgSend_setOpacity_(v18, v33, v34, v35);
+            [layer setOpacity:v15];
           }
 
-          if (objc_msgSend_valueForKey_(v18, v26, @"oldOpacity"))
+          if ([layer valueForKey:@"oldOpacity"])
           {
-            v38 = MEMORY[0x277CCABB0];
-            objc_msgSend_opacity(v18, v36, v37);
-            v40 = v39;
-            objc_msgSend_textureOpacity(set, v41, v42);
-            v46 = objc_msgSend_numberWithDouble_(v38, v44, v45, v40 / v43);
-            objc_msgSend_setValue_forKey_(v18, v47, v46, @"oldOpacity");
+            v16 = MEMORY[0x277CCABB0];
+            [layer opacity];
+            v18 = v17;
+            [set textureOpacity];
+            [layer setValue:objc_msgSend(v16 forKey:{"numberWithDouble:", v18 / v19), @"oldOpacity"}];
           }
 
-          v48 = objc_msgSend_layer(v15, v36, v37);
-          objc_msgSend_setValue_forKey_(v48, v49, 0, v14);
-          ++v13;
+          [objc_msgSend(v8 "layer")];
+          ++v6;
         }
 
-        while (v13 < objc_msgSend_count(v9, v50, v51));
+        while (v6 < [visibleTextures count]);
       }
     }
   }
@@ -1801,26 +1690,25 @@ LABEL_48:
 
 - (BOOL)addAnimationsAtLayerTime:(double)time
 {
-  v284 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v6 = MEMORY[0x277D81150];
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer addAnimationsAtLayerTime:]");
-      v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 982, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+      v5 = MEMORY[0x277D81150];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer addAnimationsAtLayerTime:]"];
+      [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{982, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
   self->_interrupted = 0;
-  v13 = 0x277CD9000uLL;
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, v3);
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v14, 1);
-  v15 = objc_autoreleasePoolPush();
-  v18 = CACurrentMediaTime();
+  v7 = 0x277CD9000uLL;
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  v8 = objc_autoreleasePoolPush();
+  v9 = CACurrentMediaTime();
   if (self->_areAnimationsReadyToStart)
   {
     textureSet = self->_textureSet;
@@ -1828,239 +1716,216 @@ LABEL_48:
 
   else
   {
-    textureSet = objc_msgSend_animationWillBegin(self, v16, v17);
+    textureSet = [(KNBuildRenderer *)self animationWillBegin];
   }
 
-  PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v16, v17);
+  loadPluginIfNeeded = [(KNBuildRenderer *)self loadPluginIfNeeded];
   objc_opt_class();
-  if (objc_opt_respondsToSelector() & 1) != 0 && (v22 = objc_opt_class(), (objc_msgSend_requiresSingleTexturePerStage(v22, v23, v24)))
+  if (objc_opt_respondsToSelector() & 1) != 0 && ([objc_opt_class() requiresSingleTexturePerStage])
   {
-    v25 = 0;
-    v26 = 1;
+    v11 = 0;
+    v12 = 1;
   }
 
   else
   {
-    v26 = 0;
-    v25 = objc_msgSend_isActionBuild(self->_animatedBuild, v20, v21) ^ 1;
+    v12 = 0;
+    v11 = [(KNAnimatedBuild *)self->_animatedBuild isActionBuild]^ 1;
   }
 
-  v27 = objc_msgSend_textureStageIndex(self, v20, v21);
-  isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v28, v29);
-  isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v31, v32);
-  shouldIncludeCaptions = objc_msgSend_visibleTexturesForStage_isBuildIn_isContentBuild_shouldFlatten_flattenKey_shouldIncludeCaptions_(textureSet, v34, v27, isBuildIn, isContentBuild, v26, self, v25);
-  if (objc_msgSend_count(shouldIncludeCaptions, v36, v37))
+  v13 = [(TSDTextureSet *)textureSet visibleTexturesForStage:[(KNBuildRenderer *)self textureStageIndex] isBuildIn:[(KNAnimatedBuild *)self->_animatedBuild isBuildIn] isContentBuild:[(KNAnimatedBuild *)self->_animatedBuild isContentBuild] shouldFlatten:v12 flattenKey:self shouldIncludeCaptions:v11];
+  if ([v13 count])
   {
     goto LABEL_12;
   }
 
-  if (objc_msgSend_isActionBuild(self->_animatedBuild, v38, v39))
+  if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
   {
-    if (objc_msgSend_alternateLayer(textureSet, v38, v39))
+    if ([(TSDTextureSet *)textureSet alternateLayer])
     {
 LABEL_12:
-      v40 = 1;
+      v14 = 1;
       goto LABEL_17;
     }
 
-    v41 = objc_msgSend_allTextures(textureSet, v38, v39);
-    v40 = objc_msgSend_count(v41, v42, v43) != 0;
+    v14 = [-[TSDTextureSet allTextures](textureSet "allTextures")] != 0;
   }
 
   else
   {
-    v40 = 0;
+    v14 = 0;
   }
 
 LABEL_17:
-  if (objc_msgSend_isContentBuild(self->_animatedBuild, v38, v39))
+  if ([(KNAnimatedBuild *)self->_animatedBuild isContentBuild])
   {
-    v40 &= objc_msgSend_isVisibleAtBeginning(self->_animatedBuild, v44, v45);
+    v14 &= [(KNAnimatedBuild *)self->_animatedBuild isVisibleAtBeginning];
   }
 
-  if (textureSet && v40)
+  if (textureSet && v14)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v50 = objc_msgSend_deliveryOption(self->_animatedBuild, v46, v47) == 2 || objc_msgSend_deliveryOption(self->_animatedBuild, v48, v49) == 3;
+      v15 = [(KNAnimatedBuild *)self->_animatedBuild deliveryOption]== 2 || [(KNAnimatedBuild *)self->_animatedBuild deliveryOption]== 3;
     }
 
     else
     {
-      v50 = 0;
+      v15 = 0;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 && !v50 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_msgSend_duration(self->_animatedBuild, v87, v88), v89 < 0.001))
+    if (objc_opt_isKindOfClass() & 1) != 0 && !v15 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_msgSend_duration(self->_animatedBuild), v20 < 0.001))
     {
-      if (objc_msgSend_isPreview(self->super._session, v87, v88))
+      isPreview = [(KNPlaybackSession *)self->super._session isPreview];
+      v22 = 0.001;
+      if (isPreview)
       {
-        objc_msgSend_setDuration_(self->_animatedBuild, v90, v91, 0.5);
+        v22 = 0.5;
       }
 
-      else
-      {
-        objc_msgSend_setDuration_(self->_animatedBuild, v90, v91, 0.001);
-      }
+      [(KNAnimatedBuild *)self->_animatedBuild setDuration:v22];
     }
 
-    objc_msgSend_setupPluginContext(self, v87, v88);
-    objc_msgSend_resetHighlightsBeforeAnimationOnTextureSet_(self, v92, textureSet);
+    [(KNBuildRenderer *)self setupPluginContext];
+    [(KNBuildRenderer *)self resetHighlightsBeforeAnimationOnTextureSet:textureSet];
     objc_opt_class();
-    objc_msgSend_pluginContext(self, v93, v94);
-    v95 = TSUDynamicCast();
-    objc_msgSend_setTextures_(v95, v96, shouldIncludeCaptions);
+    [(KNAnimationRenderer *)self pluginContext];
+    [TSUDynamicCast() setTextures:v13];
     if (objc_opt_respondsToSelector())
     {
-      v99 = objc_autoreleasePoolPush();
-      v102 = objc_msgSend_pluginContext(self, v100, v101);
-      objc_msgSend_animationWillBeginWithContext_(PluginIfNeeded, v103, v102);
+      v23 = objc_autoreleasePoolPush();
+      [loadPluginIfNeeded animationWillBeginWithContext:{-[KNAnimationRenderer pluginContext](self, "pluginContext")}];
       self->_animationWillBeginPerformed = 1;
-      objc_autoreleasePoolPop(v99);
+      objc_autoreleasePoolPop(v23);
     }
 
-    v268 = PluginIfNeeded;
-    if (objc_msgSend_isActionBuild(self->_animatedBuild, v97, v98, v15))
+    v66 = loadPluginIfNeeded;
+    if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
     {
-      if (objc_msgSend_textureDeliveryStyle(self, v104, v105))
+      if ([(KNBuildRenderer *)self textureDeliveryStyle])
       {
-        objc_msgSend_setShouldIncludeFinalTexturesInVisibleSet_(textureSet, v106, 1);
-        objc_msgSend_setShouldIncludeFinalTexturesInVisibleSet_(self->_finalAttributesTextureSet, v107, 1);
+        [(TSDTextureSet *)textureSet setShouldIncludeFinalTexturesInVisibleSet:1];
+        [(TSDTextureSet *)self->_finalAttributesTextureSet setShouldIncludeFinalTexturesInVisibleSet:1];
       }
     }
 
     else
     {
-      v279 = 0u;
-      v280 = 0u;
-      v277 = 0u;
-      v278 = 0u;
-      v108 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldIncludeCaptions, v104, &v277, v283, 16);
-      if (v108)
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v24 = [v13 countByEnumeratingWithState:&v75 objects:v81 count:16];
+      if (v24)
       {
-        v110 = v108;
-        v111 = *v278;
+        v25 = v24;
+        v26 = *v76;
         do
         {
-          for (i = 0; i != v110; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v278 != v111)
+            if (*v76 != v26)
             {
-              objc_enumerationMutation(shouldIncludeCaptions);
+              objc_enumerationMutation(v13);
             }
 
-            v113 = *(*(&v277 + 1) + 8 * i);
-            v114 = objc_msgSend_layer(v113, v106, v109);
-            if (v114)
+            v28 = *(*(&v75 + 1) + 8 * i);
+            layer = [v28 layer];
+            if (layer)
             {
-              v115 = v114;
-              v116 = objc_msgSend_superlayer(v114, v106, v109);
-              if (v116 == objc_msgSend_layer(textureSet, v117, v118))
+              v30 = layer;
+              superlayer = [layer superlayer];
+              if (superlayer == [(TSDTextureSet *)textureSet layer])
               {
-                v133 = objc_msgSend_animationContext(self->super._session, v119, v120);
-                v136 = objc_msgSend_showLayer(v133, v134, v135);
-                objc_msgSend_bounds(v136, v137, v138);
-                objc_msgSend_addPerspectiveLayerToTexture_withShowSize_(textureSet, v139, v113, v140, v141);
+                [(CALayer *)[(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] showLayer] bounds];
+                [(TSDTextureSet *)textureSet addPerspectiveLayerToTexture:v28 withShowSize:v34, v35];
               }
 
-              else
+              else if (([objc_msgSend(objc_msgSend(v30 "superlayer")] & 1) == 0)
               {
-                v121 = objc_msgSend_superlayer(v115, v119, v120);
-                v124 = objc_msgSend_name(v121, v122, v123);
-                if ((objc_msgSend_isEqualToString_(v124, v125, @"Perspective layer") & 1) == 0)
-                {
-                  v126 = MEMORY[0x277D81150];
-                  v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v106, "[KNBuildRenderer addAnimationsAtLayerTime:]");
-                  v129 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v128, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-                  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v126, v130, v127, v129, 1038, 0, "Why isn't the texture's layer's superlayer not the texture set's layer?");
-                  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v131, v132);
-                }
+                v32 = MEMORY[0x277D81150];
+                v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer addAnimationsAtLayerTime:]"];
+                [v32 handleFailureInFunction:v33 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1038, 0, "Why isn't the texture's layer's superlayer not the texture set's layer?"}];
+                [MEMORY[0x277D81150] logBacktraceThrottled];
               }
             }
           }
 
-          v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldIncludeCaptions, v106, &v277, v283, 16);
+          v25 = [v13 countByEnumeratingWithState:&v75 objects:v81 count:16];
         }
 
-        while (v110);
+        while (v25);
       }
     }
 
-    if (objc_msgSend_conformsToProtocol_(v268, v106, &unk_288546370))
+    if ([v66 conformsToProtocol:&unk_288546370])
     {
-      v143 = objc_opt_class();
-      v146 = objc_msgSend_animationName(v143, v144, v145);
-      if (objc_msgSend_isEqual_(v146, v147, *MEMORY[0x277D800C0]))
+      if ([objc_msgSend(objc_opt_class() "animationName")])
       {
-        v275 = 0u;
-        v276 = 0u;
-        v273 = 0u;
-        v274 = 0u;
-        v150 = objc_msgSend_allTextures(textureSet, v148, v149);
-        v152 = objc_msgSend_countByEnumeratingWithState_objects_count_(v150, v151, &v273, v282, 16);
-        if (v152)
+        v73 = 0u;
+        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        allTextures = [(TSDTextureSet *)textureSet allTextures];
+        v37 = [allTextures countByEnumeratingWithState:&v71 objects:v80 count:16];
+        if (v37)
         {
-          v155 = v152;
-          v156 = *v274;
+          v38 = v37;
+          v39 = *v72;
           do
           {
-            for (j = 0; j != v155; ++j)
+            for (j = 0; j != v38; ++j)
             {
-              if (*v274 != v156)
+              if (*v72 != v39)
               {
-                objc_enumerationMutation(v150);
+                objc_enumerationMutation(allTextures);
               }
 
-              v158 = objc_msgSend_layer(*(*(&v273 + 1) + 8 * j), v153, v154);
-              v161 = objc_msgSend_superlayer(v158, v159, v160);
-              if (v161 == objc_msgSend_layer(textureSet, v162, v163))
+              layer2 = [*(*(&v71 + 1) + 8 * j) layer];
+              superlayer2 = [layer2 superlayer];
+              if (superlayer2 == [(TSDTextureSet *)textureSet layer])
               {
-                v164 = v158;
-                v167 = objc_msgSend_layer(MEMORY[0x277CD9ED0], v165, v166);
-                objc_msgSend_setName_(v167, v168, @"Perspective layer");
-                v171 = objc_msgSend_layer(textureSet, v169, v170);
-                objc_msgSend_bounds(v171, v172, v173);
-                v175 = v174;
-                v178 = objc_msgSend_layer(textureSet, v176, v177);
-                objc_msgSend_bounds(v178, v179, v180);
-                objc_msgSend_setFrame_(v167, v181, v182, 0.0, 0.0, v175);
-                v185 = objc_msgSend_layer(textureSet, v183, v184);
-                objc_msgSend_replaceSublayer_with_(v185, v186, v164, v167);
-                objc_msgSend_addSublayer_(v167, v187, v164);
-                v190 = objc_msgSend_animationContext(self->super._session, v188, v189);
-                v193 = objc_msgSend_showLayer(v190, v191, v192);
-                objc_msgSend_bounds(v193, v194, v195);
-                objc_msgSend_tsd_addPerspectiveSublayerProjectionUsingScreenSize_(v167, v196, v197, v198, v199);
+                v43 = layer2;
+                layer3 = [MEMORY[0x277CD9ED0] layer];
+                [layer3 setName:@"Perspective layer"];
+                [-[TSDTextureSet layer](textureSet "layer")];
+                v46 = v45;
+                [-[TSDTextureSet layer](textureSet "layer")];
+                [layer3 setFrame:{0.0, 0.0, v46}];
+                [-[TSDTextureSet layer](textureSet "layer")];
+                [layer3 addSublayer:v43];
+                [(CALayer *)[(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] showLayer] bounds];
+                [layer3 tsd_addPerspectiveSublayerProjectionUsingScreenSize:{v47, v48}];
               }
             }
 
-            v155 = objc_msgSend_countByEnumeratingWithState_objects_count_(v150, v153, &v273, v282, 16);
+            v38 = [allTextures countByEnumeratingWithState:&v71 objects:v80 count:16];
           }
 
-          while (v155);
+          while (v38);
         }
 
-        v13 = 0x277CD9000;
-        v15 = v266;
+        v7 = 0x277CD9000;
+        v8 = v64;
         if (objc_opt_respondsToSelector())
         {
-          v202 = objc_msgSend_weakToStrongObjectsMapTable(MEMORY[0x277CCAB00], v200, v201);
-          self->_animatedLayers = v202;
+          weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+          self->_animatedLayers = weakToStrongObjectsMapTable;
           objc_opt_class();
-          objc_msgSend_pluginContext(self, v203, v204);
-          v205 = TSUCheckedDynamicCast();
-          objc_msgSend_addAnimationsTo_forTextureSet_context_(v268, v206, v202, textureSet, v205);
+          [(KNAnimationRenderer *)self pluginContext];
+          [v66 addAnimationsTo:weakToStrongObjectsMapTable forTextureSet:textureSet context:TSUCheckedDynamicCast()];
         }
       }
 
       else
       {
-        v212 = objc_msgSend_weakToStrongObjectsMapTable(MEMORY[0x277CCAB00], v148, v149);
-        self->_animatedLayers = v212;
-        v13 = 0x277CD9000uLL;
-        v15 = v266;
-        if (objc_msgSend_p_isMovieInfo(self, v213, v214))
+        weakToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+        self->_animatedLayers = weakToStrongObjectsMapTable2;
+        v7 = 0x277CD9000uLL;
+        v8 = v64;
+        if ([(KNBuildRenderer *)self p_isMovieInfo])
         {
           finalAttributesTextureSet = 0;
         }
@@ -2070,25 +1935,20 @@ LABEL_17:
           finalAttributesTextureSet = self->_finalAttributesTextureSet;
         }
 
-        objc_msgSend_duration(self->_animatedBuild, v215, v216);
-        v219 = v218;
-        v222 = objc_msgSend_attributes(self->_animatedBuild, v220, v221);
-        v225 = objc_msgSend_attributes(v222, v223, v224);
-        v228 = objc_msgSend_previousAttributes(self->_animatedBuild, v226, v227);
-        objc_msgSend_addAnimationsTo_forTextureSet_finalTextureSet_duration_attributes_previousAttributes_(v268, v229, v212, textureSet, finalAttributesTextureSet, v225, v228, v219);
+        objc_msgSend_duration(self->_animatedBuild);
+        [v66 addAnimationsTo:weakToStrongObjectsMapTable2 forTextureSet:textureSet finalTextureSet:finalAttributesTextureSet duration:-[KNAnimationAttributes attributes](-[KNAnimatedBuild attributes](self->_animatedBuild attributes:"attributes") previousAttributes:{"attributes"), -[KNAnimatedBuild previousAttributes](self->_animatedBuild, "previousAttributes"), v53}];
       }
     }
 
     else
     {
-      v13 = 0x277CD9000;
-      v15 = v266;
-      if (objc_msgSend_conformsToProtocol_(v268, v142, &unk_288512818) || objc_msgSend_conformsToProtocol_(v268, v200, &unk_28852E720))
+      v7 = 0x277CD9000;
+      v8 = v64;
+      if ([v66 conformsToProtocol:&unk_288512818] || objc_msgSend(v66, "conformsToProtocol:", &unk_28852E720))
       {
-        v207 = objc_msgSend_weakToStrongObjectsMapTable(MEMORY[0x277CCAB00], v200, v201);
-        self->_animatedLayers = v207;
-        v210 = objc_msgSend_pluginContext(self, v208, v209);
-        objc_msgSend_addAnimationsTo_context_(v268, v211, v207, v210);
+        weakToStrongObjectsMapTable3 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+        self->_animatedLayers = weakToStrongObjectsMapTable3;
+        [v66 addAnimationsTo:weakToStrongObjectsMapTable3 context:{-[KNAnimationRenderer pluginContext](self, "pluginContext")}];
       }
     }
 
@@ -2099,141 +1959,135 @@ LABEL_17:
 
     if (self->_isAnimationForPlayback)
     {
-      time = time + CACurrentMediaTime() - v18;
+      time = time + CACurrentMediaTime() - v9;
     }
 
     animatedLayers = self->_animatedLayers;
-    if (animatedLayers && objc_msgSend_count(animatedLayers, v200, v201))
+    if (animatedLayers && [(NSMapTable *)animatedLayers count])
     {
-      v271 = 0u;
-      v272 = 0u;
-      v269 = 0u;
-      v270 = 0u;
-      v232 = objc_msgSend_keyEnumerator(self->_animatedLayers, v200, v231);
-      v234 = objc_msgSend_countByEnumeratingWithState_objects_count_(v232, v233, &v269, v281, 16);
-      if (v234)
+      v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      keyEnumerator = [(NSMapTable *)self->_animatedLayers keyEnumerator];
+      v56 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v67 objects:v79 count:16];
+      if (v56)
       {
-        v236 = v234;
-        v237 = *v270;
-        v238 = *MEMORY[0x277CDA230];
+        v57 = v56;
+        v58 = *v68;
+        v59 = *MEMORY[0x277CDA230];
         do
         {
-          for (k = 0; k != v236; ++k)
+          for (k = 0; k != v57; ++k)
           {
-            if (*v270 != v237)
+            if (*v68 != v58)
             {
-              objc_enumerationMutation(v232);
+              objc_enumerationMutation(keyEnumerator);
             }
 
-            v240 = *(*(&v269 + 1) + 8 * k);
-            v241 = objc_msgSend_objectForKey_(self->_animatedLayers, v235, v240);
-            objc_msgSend_convertTime_fromLayer_(v240, v242, 0, time);
-            objc_msgSend_setBeginTime_(v241, v243, v244);
-            objc_msgSend_setDelegate_(v241, v245, self);
-            objc_msgSend_setFillMode_(v241, v246, v238);
-            objc_msgSend_setRemovedOnCompletion_(v241, v247, 0);
-            objc_msgSend_setBeginTime_(v240, v248, v249, 0.0);
-            v252 = objc_msgSend_p_keyForAnimation(self, v250, v251);
-            objc_msgSend_addAnimation_forKey_(v240, v253, v241, v252);
-            if (objc_msgSend_isActionBuild(self->_animatedBuild, v254, v255))
+            v61 = *(*(&v67 + 1) + 8 * k);
+            v62 = [(NSMapTable *)self->_animatedLayers objectForKey:v61];
+            [v61 convertTime:0 fromLayer:time];
+            [v62 setBeginTime:?];
+            [v62 setDelegate:self];
+            [v62 setFillMode:v59];
+            [v62 setRemovedOnCompletion:0];
+            [v61 setBeginTime:0.0];
+            [v61 addAnimation:v62 forKey:{-[KNBuildRenderer p_keyForAnimation](self, "p_keyForAnimation")}];
+            if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
             {
-              v256 = objc_opt_class();
-              v259 = objc_msgSend_animationName(v256, v257, v258);
-              objc_msgSend_setValue_forKey_(v240, v260, @"YES", v259);
+              [v61 setValue:@"YES" forKey:{objc_msgSend(objc_opt_class(), "animationName")}];
             }
 
             ++self->_numberOfAnimationsStarted;
           }
 
-          v236 = objc_msgSend_countByEnumeratingWithState_objects_count_(v232, v235, &v269, v281, 16);
+          v57 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v67 objects:v79 count:16];
         }
 
-        while (v236);
+        while (v57);
       }
 
-      objc_msgSend_fadeOutPreviousStageOn_atLayerTime_(self, v235, textureSet, time);
-      v13 = 0x277CD9000;
-      v15 = v266;
+      [(KNBuildRenderer *)self fadeOutPreviousStageOn:textureSet atLayerTime:time];
+      v7 = 0x277CD9000;
+      v8 = v64;
     }
 
     else
     {
-      objc_msgSend_fadeOutPreviousStageOn_atLayerTime_(self, v200, textureSet, time);
-      objc_msgSend_p_removeAnimations(self, v261, v262);
+      [(KNBuildRenderer *)self fadeOutPreviousStageOn:textureSet atLayerTime:time];
+      [(KNBuildRenderer *)self p_removeAnimations];
     }
   }
 
   else
   {
-    v51 = objc_msgSend_layer(MEMORY[0x277CD9ED0], v44, v45);
-    objc_msgSend_setFrame_(v51, v52, v53, 0.0, 0.0, 100.0, 100.0);
-    v56 = objc_msgSend_clearColor(MEMORY[0x277D81180], v54, v55);
-    v59 = objc_msgSend_CGColor(v56, v57, v58);
-    objc_msgSend_setBackgroundColor_(v51, v60, v59);
-    objc_msgSend_setName_(v51, v61, @"dummyLayer");
-    objc_msgSend_addSublayer_(self->_parentLayer, v62, v51);
-    v64 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v63, @"hidden");
-    objc_msgSend_duration(self->_animatedBuild, v65, v66);
-    objc_msgSend_setDuration_(v64, v67, v68);
-    objc_msgSend_setDelegate_(v64, v69, self);
-    v70 = MEMORY[0x277CBEC28];
-    objc_msgSend_setToValue_(v64, v71, MEMORY[0x277CBEC28]);
-    objc_msgSend_setFromValue_(v64, v72, v70);
-    objc_msgSend_setRemovedOnCompletion_(v64, v73, 0);
-    objc_msgSend_setFillMode_(v64, v74, *MEMORY[0x277CDA230]);
-    objc_msgSend_convertTime_fromLayer_(v51, v75, 0, time);
-    objc_msgSend_setBeginTime_(v64, v76, v77);
-    v80 = objc_msgSend_p_keyForAnimation(self, v78, v79);
-    objc_msgSend_addAnimation_forKey_(v51, v81, v64, v80);
+    layer4 = [MEMORY[0x277CD9ED0] layer];
+    [layer4 setFrame:{0.0, 0.0, 100.0, 100.0}];
+    [layer4 setBackgroundColor:{objc_msgSend(objc_msgSend(MEMORY[0x277D81180], "clearColor"), "CGColor")}];
+    [layer4 setName:@"dummyLayer"];
+    [(CALayer *)self->_parentLayer addSublayer:layer4];
+    v17 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"hidden"];
+    objc_msgSend_duration(self->_animatedBuild);
+    [v17 setDuration:?];
+    [v17 setDelegate:self];
+    v18 = MEMORY[0x277CBEC28];
+    [v17 setToValue:MEMORY[0x277CBEC28]];
+    [v17 setFromValue:v18];
+    [v17 setRemovedOnCompletion:0];
+    [v17 setFillMode:*MEMORY[0x277CDA230]];
+    [layer4 convertTime:0 fromLayer:time];
+    [v17 setBeginTime:?];
+    [layer4 addAnimation:v17 forKey:{-[KNBuildRenderer p_keyForAnimation](self, "p_keyForAnimation")}];
     ++self->_numberOfAnimationsStarted;
-    v84 = objc_msgSend_weakToStrongObjectsMapTable(MEMORY[0x277CCAB00], v82, v83);
-    objc_msgSend_setObject_forKey_(v84, v85, v64, v51);
-    self->_animatedLayers = v84;
-    objc_msgSend_fadeOutPreviousStageOn_atLayerTime_(self, v86, textureSet, time);
+    weakToStrongObjectsMapTable4 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+    [(NSMapTable *)weakToStrongObjectsMapTable4 setObject:v17 forKey:layer4];
+    self->_animatedLayers = weakToStrongObjectsMapTable4;
+    [(KNBuildRenderer *)self fadeOutPreviousStageOn:textureSet atLayerTime:time];
   }
 
-  objc_autoreleasePoolPop(v15);
-  objc_msgSend_commit(*(v13 + 4080), v263, v264);
+  objc_autoreleasePoolPop(v8);
+  [*(v7 + 4080) commit];
   return 1;
 }
 
 - (void)removeAnimationsAndFinish:(BOOL)finish
 {
   finishCopy = finish;
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, finish);
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v5, 1);
-  v8 = objc_autoreleasePoolPush();
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  v5 = objc_autoreleasePoolPush();
   if (self->_numberOfAnimationsStarted < 1 || self->_interrupted)
   {
-    objc_msgSend_teardown(self->_finalAttributesTextureSet, v6, v7);
+    [(TSDTextureSet *)self->_finalAttributesTextureSet teardown];
 
     self->_finalAttributesTextureSet = 0;
-    objc_msgSend_resetAnchorPointAtEventIndex_(self->_textureSet, v9, 0x7FFFFFFFLL);
+    [(TSDTextureSet *)self->_textureSet resetAnchorPointAtEventIndex:0x7FFFFFFFLL];
   }
 
   else if (finishCopy)
   {
     self->_numberOfAnimationsStarted = 0;
-    objc_msgSend_p_removeAnimations(self, v6, v7);
+    [(KNBuildRenderer *)self p_removeAnimations];
   }
 
   else
   {
     self->_interrupted = 1;
-    objc_msgSend_p_resetAnimations(self, v6, v7);
+    [(KNBuildRenderer *)self p_resetAnimations];
   }
 
-  objc_autoreleasePoolPop(v8);
-  v12 = MEMORY[0x277CD9FF0];
+  objc_autoreleasePoolPop(v5);
+  v6 = MEMORY[0x277CD9FF0];
 
-  objc_msgSend_commit(v12, v10, v11);
+  [v6 commit];
 }
 
 - (void)forceRemoveAnimations
 {
   if (self->super._plugin)
   {
-    objc_msgSend_p_removeAnimations(self, a2, v2);
+    [(KNBuildRenderer *)self p_removeAnimations];
   }
 }
 
@@ -2260,39 +2114,35 @@ LABEL_17:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer textureDeliveryStyle]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1201, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer textureDeliveryStyle]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1201, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  v11 = objc_msgSend_deliveryStyle(self->_animatedBuild, a2, v2);
-  if (!objc_msgSend_isActionBuild(self->_animatedBuild, v12, v13))
+  deliveryStyle = [(KNAnimatedBuild *)self->_animatedBuild deliveryStyle];
+  if (![(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
   {
-    return v11;
+    return deliveryStyle;
   }
 
-  v16 = objc_msgSend_model(self->super._ASV, v14, v15);
-  v18 = objc_msgSend_previousAnimatedBuildForInfo_priorToBuild_(v16, v17, self->_info, self->_animatedBuild);
-  if (!v18)
+  v6 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] previousAnimatedBuildForInfo:self->_info priorToBuild:self->_animatedBuild];
+  if (!v6)
   {
-    return v11;
+    return deliveryStyle;
   }
 
-  v21 = v18;
-  v22 = objc_msgSend_model(self->super._ASV, v19, v20);
-  v24 = objc_msgSend_rendererForAnimatedBuild_(v22, v23, v21);
-  if (objc_msgSend_isEmphasisBuild(self->_animatedBuild, v25, v26))
+  v7 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] rendererForAnimatedBuild:v6];
+  if ([(KNAnimatedBuild *)self->_animatedBuild isEmphasisBuild])
   {
-    if (objc_msgSend_deliveryStyle(self->_animatedBuild, v27, v28) == 3 && objc_msgSend_isBuildIn(self->_animatedBuild, v27, v28) && (objc_msgSend_p_isTextDrawable(self, v27, v28) & 1) != 0)
+    if ([(KNAnimatedBuild *)self->_animatedBuild deliveryStyle]== 3 && [(KNAnimatedBuild *)self->_animatedBuild isBuildIn]&& [(KNBuildRenderer *)self p_isTextDrawable])
     {
-      return v11;
+      return deliveryStyle;
     }
   }
 
-  return objc_msgSend_textureDeliveryStyle(v24, v27, v28);
+  return [v7 textureDeliveryStyle];
 }
 
 - (int64_t)textureStageIndex
@@ -2302,159 +2152,151 @@ LABEL_17:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer textureStageIndex]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1219, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer textureStageIndex]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1219, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  if (objc_msgSend_isActionBuild(self->_animatedBuild, a2, v2))
+  if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
   {
-    v13 = objc_msgSend_model(self->super._ASV, v11, v12);
-    v15 = objc_msgSend_previousAnimatedBuildForInfo_priorToBuild_(v13, v14, self->_info, self->_animatedBuild);
-    if (v15)
+    v5 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] previousAnimatedBuildForInfo:self->_info priorToBuild:self->_animatedBuild];
+    if (v5)
     {
-      v18 = v15;
-      v19 = objc_msgSend_model(self->super._ASV, v16, v17);
-      v21 = objc_msgSend_rendererForAnimatedBuild_(v19, v20, v18);
-      v24 = objc_msgSend_textureStageIndex(v21, v22, v23);
-      if (objc_msgSend_isBuildIn(v18, v25, v26))
+      v6 = v5;
+      v7 = [-[KNAnimatedSlideModel rendererForAnimatedBuild:](-[KNAnimatedSlideView model](self->super._ASV "model")];
+      if ([v6 isBuildIn])
       {
-        if (objc_msgSend_deliveryStyle(v18, v27, v28))
+        if ([v6 deliveryStyle])
         {
-          v24 += objc_msgSend_isActionBuild(v18, v29, v30) ^ 1;
+          v7 += [v6 isActionBuild] ^ 1;
         }
       }
 
-      return v24;
+      return v7;
     }
   }
 
-  else if (!objc_msgSend_isContentBuild(self->_animatedBuild, v11, v12))
+  else if (![(KNAnimatedBuild *)self->_animatedBuild isContentBuild])
   {
-    v31 = objc_msgSend_model(self->super._ASV, v16, v17);
-    v33 = objc_msgSend_previousContentBuildForInfo_priorToBuild_(v31, v32, self->_info, self->_animatedBuild);
-    if (v33)
+    v8 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] previousContentBuildForInfo:self->_info priorToBuild:self->_animatedBuild];
+    if (v8)
     {
-      return objc_msgSend_stageIndex(v33, v16, v17) + 1;
+      return [v8 stageIndex] + 1;
     }
   }
 
   animatedBuild = self->_animatedBuild;
 
-  return objc_msgSend_stageIndex(animatedBuild, v16, v17);
+  return [(KNAnimatedBuild *)animatedBuild stageIndex];
 }
 
 - (void)stopAnimations
 {
-  v22 = *MEMORY[0x277D85DE8];
-  objc_msgSend_removeAnimationsAndFinish_(self, a2, 0);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
+  [(KNBuildRenderer *)self removeAnimationsAndFinish:0];
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   animatedBuildsToStartAtEnd = self->_animatedBuildsToStartAtEnd;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(animatedBuildsToStartAtEnd, v4, &v17, v21, 16);
-  if (v5)
+  v4 = [(NSMutableArray *)animatedBuildsToStartAtEnd countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
   {
-    v8 = v5;
-    v9 = *v18;
+    v5 = v4;
+    v6 = *v9;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v9)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(animatedBuildsToStartAtEnd);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = objc_msgSend_model(self->super._ASV, v6, v7);
-        v14 = objc_msgSend_rendererForAnimatedBuild_(v12, v13, v11);
-        objc_msgSend_stopAnimations(v14, v15, v16);
+        [-[KNAnimatedSlideModel rendererForAnimatedBuild:](-[KNAnimatedSlideView model](self->super._ASV "model")];
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(animatedBuildsToStartAtEnd, v6, &v17, v21, 16);
+      v5 = [(NSMutableArray *)animatedBuildsToStartAtEnd countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
-    while (v8);
+    while (v5);
   }
 }
 
 - (void)pauseAnimationsAtTime:(double)time
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_numberOfAnimationsStarted >= 1 && !self->super._areAnimationsPaused)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v6 = objc_msgSend_keyEnumerator(self->_animatedLayers, a2, v3, 0);
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v14, v18, 16);
-    if (v8)
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    keyEnumerator = [(NSMapTable *)self->_animatedLayers keyEnumerator];
+    v6 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v6)
     {
-      v11 = v8;
-      v12 = *v15;
+      v7 = v6;
+      v8 = *v11;
       do
       {
-        v13 = 0;
+        v9 = 0;
         do
         {
-          if (*v15 != v12)
+          if (*v11 != v8)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(keyEnumerator);
           }
 
-          objc_msgSend_kn_pauseAtTime_(*(*(&v14 + 1) + 8 * v13), v9, v10, time);
+          [*(*(&v10 + 1) + 8 * v9) kn_pauseAtTime:time];
           self->super._areAnimationsPaused = 1;
-          ++v13;
+          ++v9;
         }
 
-        while (v11 != v13);
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v14, v18, 16);
+        while (v7 != v9);
+        v7 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      while (v11);
+      while (v7);
     }
   }
 }
 
 - (void)resumeAnimationsIfPausedAtTime:(double)time
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_numberOfAnimationsStarted >= 1 && self->super._areAnimationsPaused)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v6 = objc_msgSend_keyEnumerator(self->_animatedLayers, a2, v3, 0);
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v14, v18, 16);
-    if (v8)
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    keyEnumerator = [(NSMapTable *)self->_animatedLayers keyEnumerator];
+    v6 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v6)
     {
-      v11 = v8;
-      v12 = *v15;
+      v7 = v6;
+      v8 = *v11;
       do
       {
-        v13 = 0;
+        v9 = 0;
         do
         {
-          if (*v15 != v12)
+          if (*v11 != v8)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(keyEnumerator);
           }
 
-          objc_msgSend_kn_resumeAtTime_(*(*(&v14 + 1) + 8 * v13++), v9, v10, time);
+          [*(*(&v10 + 1) + 8 * v9++) kn_resumeAtTime:time];
         }
 
-        while (v11 != v13);
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v14, v18, 16);
+        while (v7 != v9);
+        v7 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      while (v11);
+      while (v7);
     }
 
     self->super._areAnimationsPaused = 0;
@@ -2469,22 +2311,20 @@ LABEL_17:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v5 = MEMORY[0x277D81150];
-      v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer addBuildToStartAtEnd:]");
-      v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 1284, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer addBuildToStartAtEnd:]"];
+      [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1284, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
   animatedBuildsToStartAtEnd = self->_animatedBuildsToStartAtEnd;
   if (!animatedBuildsToStartAtEnd)
   {
-    v13 = objc_alloc(MEMORY[0x277CBEB18]);
-    animatedBuildsToStartAtEnd = objc_msgSend_initWithCapacity_(v13, v14, 1);
+    animatedBuildsToStartAtEnd = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
     self->_animatedBuildsToStartAtEnd = animatedBuildsToStartAtEnd;
   }
 
-  objc_msgSend_addObject_(animatedBuildsToStartAtEnd, a2, end);
+  [(NSMutableArray *)animatedBuildsToStartAtEnd addObject:end];
 }
 
 - (void)removeBuildToStartAtEnd:(id)end
@@ -2492,152 +2332,140 @@ LABEL_17:
   if (!self->_animatedBuild)
   {
     v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer removeBuildToStartAtEnd:]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 1292, 0, "encountered an unexpected nil animated build");
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer removeBuildToStartAtEnd:]"];
+    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1292, 0, "encountered an unexpected nil animated build"}];
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   animatedBuildsToStartAtEnd = self->_animatedBuildsToStartAtEnd;
 
-  objc_msgSend_removeObject_(animatedBuildsToStartAtEnd, a2, end);
+  [(NSMutableArray *)animatedBuildsToStartAtEnd removeObject:end];
 }
 
 - (void)fadeOutPreviousStageOn:(id)on atLayerTime:(double)time
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v7 = MEMORY[0x277D81150];
-      v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer fadeOutPreviousStageOn:atLayerTime:]");
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 1297, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer fadeOutPreviousStageOn:atLayerTime:]"];
+      [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1297, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  if (objc_msgSend_p_isTextDrawable(self, a2, on) && (objc_msgSend_isActionBuild(self->_animatedBuild, v14, v15) & 1) == 0 && objc_msgSend_textureDeliveryStyle(self, v16, v17) == 3)
+  if ([(KNBuildRenderer *)self p_isTextDrawable]&& ![(KNAnimatedBuild *)self->_animatedBuild isActionBuild]&& [(KNBuildRenderer *)self textureDeliveryStyle]== 3)
   {
-    if (objc_msgSend_isBuildIn(self->_animatedBuild, v18, v19))
+    if ([(KNAnimatedBuild *)self->_animatedBuild isBuildIn])
     {
-      v22 = -1;
+      v9 = -1;
     }
 
     else
     {
-      if (!objc_msgSend_isBuildOut(self->_animatedBuild, v20, v21))
+      if (![(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
       {
-        v23 = 0;
+        v10 = 0;
         goto LABEL_13;
       }
 
-      v22 = 1;
+      v9 = 1;
     }
 
-    v23 = objc_msgSend_textureStageIndex(self, v20, v21) + v22;
+    v10 = [(KNBuildRenderer *)self textureStageIndex]+ v9;
 LABEL_13:
-    isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v20, v21);
-    isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v25, v26);
-    v93 = 0u;
-    v94 = 0u;
-    v95 = 0u;
-    v96 = 0u;
-    obj = objc_msgSend_visibleTexturesForStage_isBuildIn_isContentBuild_shouldFlatten_flattenKey_(on, v28, v23, isBuildIn, isContentBuild, 0, 0);
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v93, v97, 16);
-    if (!v30)
+    v11 = [on visibleTexturesForStage:v10 isBuildIn:-[KNAnimatedBuild isBuildIn](self->_animatedBuild isContentBuild:"isBuildIn") shouldFlatten:-[KNAnimatedBuild isContentBuild](self->_animatedBuild flattenKey:{"isContentBuild"), 0, 0}];
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    obj = v11;
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (!v12)
     {
       return;
     }
 
-    v32 = v30;
-    v33 = *v94;
-    v91 = *MEMORY[0x277CDA7B8];
-    v90 = *MEMORY[0x277CDA230];
-    v89 = *MEMORY[0x277D80198];
-    v88 = *MEMORY[0x277D805D0];
+    v13 = v12;
+    v14 = *v31;
+    v28 = *MEMORY[0x277CDA7B8];
+    v27 = *MEMORY[0x277CDA230];
+    v26 = *MEMORY[0x277D80198];
+    v25 = *MEMORY[0x277D805D0];
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v94 != v33)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v93 + 1) + 8 * i);
-        if (objc_msgSend_stageIndexForTexture_(on, v31, v35) <= 0xFFFFFFFFFFFFFFFDLL)
+        v16 = *(*(&v30 + 1) + 8 * i);
+        if ([on stageIndexForTexture:v16] <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v36 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v31, @"opacity");
-          v39 = objc_msgSend_layer(v35, v37, v38);
-          objc_msgSend_convertTime_fromLayer_(v39, v40, 0, time);
-          objc_msgSend_setBeginTime_(v36, v41, v42);
-          objc_msgSend_textureOpacity(v35, v43, v44);
-          v46 = v45;
-          v49 = objc_msgSend_layer(v35, v47, v48);
-          if (objc_msgSend_valueForKey_(v49, v50, @"oldOpacity"))
+          v17 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"opacity"];
+          [objc_msgSend(v16 "layer")];
+          [v17 setBeginTime:?];
+          [v16 textureOpacity];
+          v19 = v18;
+          if ([objc_msgSend(v16 "layer")])
           {
-            v53 = objc_msgSend_parent(v35, v51, v52);
-            objc_msgSend_textureOpacity(v53, v54, v55);
-            v46 = v46 * v56;
+            [objc_msgSend(v16 "parent")];
+            v19 = v19 * v20;
           }
 
-          if (objc_msgSend_isBuildIn(self->_animatedBuild, v51, v52))
+          if ([(KNAnimatedBuild *)self->_animatedBuild isBuildIn])
           {
-            *&v59 = v46;
-            v60 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v57, v58, v59);
-            objc_msgSend_setFromValue_(v36, v61, v60);
-            v46 = v46 * 0.3;
+            *&v21 = v19;
+            [v17 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v21)}];
+            v19 = v19 * 0.3;
             goto LABEL_25;
           }
 
-          if (objc_msgSend_isBuildOut(self->_animatedBuild, v57, v58))
+          if ([(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
           {
-            v67 = v46 * 0.3;
-            *&v67 = v46 * 0.3;
-            v68 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v65, v66, v67);
-            objc_msgSend_setFromValue_(v36, v69, v68);
+            v23 = v19 * 0.3;
+            *&v23 = v19 * 0.3;
+            [v17 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v23)}];
 LABEL_25:
-            *&v64 = v46;
-            v70 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v62, v63, v64);
-            objc_msgSend_setToValue_(v36, v71, v70);
+            *&v22 = v19;
+            [v17 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v22)}];
           }
 
-          v72 = objc_msgSend_functionWithName_(MEMORY[0x277CD9EF8], v65, v91);
-          objc_msgSend_setTimingFunction_(v36, v73, v72);
-          objc_msgSend_duration(self->_animatedBuild, v74, v75);
-          objc_msgSend_setDuration_(v36, v76, v77);
-          objc_msgSend_setRemovedOnCompletion_(v36, v78, 0);
-          objc_msgSend_setFillMode_(v36, v79, v90);
-          v82 = objc_msgSend_layer(v35, v80, v81);
-          objc_msgSend_addAnimation_forKey_(v82, v83, v36, v89);
-          v86 = objc_msgSend_layer(v35, v84, v85);
-          objc_msgSend_setValue_forKey_(v86, v87, MEMORY[0x277CBEC38], v88);
+          [v17 setTimingFunction:{objc_msgSend(MEMORY[0x277CD9EF8], "functionWithName:", v28)}];
+          objc_msgSend_duration(self->_animatedBuild);
+          [v17 setDuration:?];
+          [v17 setRemovedOnCompletion:0];
+          [v17 setFillMode:v27];
+          [objc_msgSend(v16 "layer")];
+          layer = [v16 layer];
+          [layer setValue:MEMORY[0x277CBEC38] forKey:v25];
           continue;
         }
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v31, &v93, v97, 16);
+      v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v32);
+    while (v13);
   }
 }
 
 - (BOOL)p_isDriftAnimation
 {
-  PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, a2, v2);
-  v5 = objc_msgSend_conformsToProtocol_(PluginIfNeeded, v4, &unk_2885461F0);
-  if (v5)
+  v2 = [-[KNBuildRenderer loadPluginIfNeeded](self "loadPluginIfNeeded")];
+  if (v2)
   {
-    v6 = objc_opt_class();
+    v3 = objc_opt_class();
 
-    LOBYTE(v5) = MEMORY[0x2821F9670](v6, sel_isDriftAnimation, v7);
+    LOBYTE(v2) = MEMORY[0x2821F9670](v3, sel_isDriftAnimation);
   }
 
-  return v5;
+  return v2;
 }
 
 - (id)setupFinalTextureGivenCurrentTextureSet:(id)set isRenderingToContext:(BOOL)context
@@ -2648,81 +2476,73 @@ LABEL_25:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v7 = MEMORY[0x277D81150];
-      v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer setupFinalTextureGivenCurrentTextureSet:isRenderingToContext:]");
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 1359, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer setupFinalTextureGivenCurrentTextureSet:isRenderingToContext:]"];
+      [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1359, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  if (!objc_msgSend_rep(self, a2, set))
+  if (![(KNBuildRenderer *)self rep])
   {
     return 0;
   }
 
-  v16 = objc_msgSend_eventIndex(self->_animatedBuild, v14, v15);
-  if (objc_msgSend_p_isMovieInfo(self, v17, v18) & 1) != 0 || (objc_msgSend_p_isDriftAnimation(self, v19, v20))
+  eventIndex = [(KNAnimatedBuild *)self->_animatedBuild eventIndex];
+  if ([(KNBuildRenderer *)self p_isMovieInfo]|| [(KNBuildRenderer *)self p_isDriftAnimation])
   {
     return 0;
   }
 
-  if (objc_msgSend_isBuildIn(self->_animatedBuild, v21, v22) & 1) != 0 || (isActionBuild = objc_msgSend_isActionBuild(self->_animatedBuild, v25, v26), !set) || (isActionBuild)
+  if ([(KNAnimatedBuild *)self->_animatedBuild isBuildIn]|| (v20 = [(KNAnimatedBuild *)self->_animatedBuild isActionBuild], !set) || v20)
   {
-    v27 = objc_msgSend_textureDescription(self, v25, v26);
-    v30 = objc_msgSend_copy(v27, v28, v29);
-    v33 = objc_msgSend_textureStageIndex(self, v31, v32);
-    v36 = v33 + objc_msgSend_isBuildIn(self->_animatedBuild, v34, v35);
-    shouldRender = objc_msgSend_textureSetForStage_description_isAtEndOfBuild_shouldForceRebuild_shouldRender_(self, v37, v36, v30, 0, 0, 0);
-    v39 = objc_msgSend_finalTexturesForStage_(shouldRender, v38, v36 - 1);
-    v42 = v39;
-    if (v39 && objc_msgSend_count(v39, v40, v41))
+    v12 = [(TSDTextureDescription *)[(KNBuildRenderer *)self textureDescription] copy];
+    textureStageIndex = [(KNBuildRenderer *)self textureStageIndex];
+    v14 = textureStageIndex + [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
+    v10 = [(KNBuildRenderer *)self textureSetForStage:v14 description:v12 isAtEndOfBuild:0 shouldForceRebuild:0 shouldRender:0];
+    v15 = [v10 finalTexturesForStage:v14 - 1];
+    v16 = v15;
+    if (v15 && [v15 count])
     {
-      v43 = v16 + 1;
-      objc_msgSend_begin(MEMORY[0x277CD9FF0], v40, v41);
-      v44 = MEMORY[0x277CD9FF0];
-      isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v45, v46);
-      objc_msgSend_activateBackground_(v44, v48, isMainThread ^ 1u);
-      objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v49, 1);
-      v50 = objc_autoreleasePoolPush();
-      objc_msgSend_renderLayerContentsIfNeeded(shouldRender, v51, v52);
-      objc_msgSend_setLayerGeometryAtEventIndex_(shouldRender, v53, v43);
-      v56 = objc_msgSend_previousAttributes(self->_animatedBuild, v54, v55);
-      v59 = objc_msgSend_animationContext(self->super._session, v57, v58);
-      objc_msgSend_viewScale(v59, v60, v61);
-      objc_msgSend_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys_eventIndex_(shouldRender, v62, v56, 0, 0, 0, 0, 0, v43);
+      v17 = eventIndex + 1;
+      [MEMORY[0x277CD9FF0] begin];
+      [MEMORY[0x277CD9FF0] activateBackground:{objc_msgSend(MEMORY[0x277CCACC8], "isMainThread") ^ 1}];
+      [MEMORY[0x277CD9FF0] setDisableActions:1];
+      v18 = objc_autoreleasePoolPush();
+      [v10 renderLayerContentsIfNeeded];
+      [v10 setLayerGeometryAtEventIndex:v17];
+      previousAttributes = [(KNAnimatedBuild *)self->_animatedBuild previousAttributes];
+      [(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] viewScale];
+      [v10 applyActionEffect:previousAttributes viewScale:0 isMagicMove:0 shouldBake:0 applyScaleOnly:0 ignoreScale:0 shouldCheckActionKeys:v17 eventIndex:?];
       if (!context)
       {
-        objc_msgSend_setSublayers_(self->_parentLayer, v63, 0);
-        parentLayer = self->_parentLayer;
-        v67 = objc_msgSend_layer(shouldRender, v65, v66);
-        objc_msgSend_addSublayer_(parentLayer, v68, v67);
+        [(CALayer *)self->_parentLayer setSublayers:0];
+        -[CALayer addSublayer:](self->_parentLayer, "addSublayer:", [v10 layer]);
       }
 
-      objc_autoreleasePoolPop(v50);
-      objc_msgSend_commit(MEMORY[0x277CD9FF0], v69, v70);
+      objc_autoreleasePoolPop(v18);
+      [MEMORY[0x277CD9FF0] commit];
     }
 
     else
     {
-      if (shouldRender != set)
+      if (v10 != set)
       {
-        objc_msgSend_teardown(shouldRender, v40, v41);
+        [v10 teardown];
       }
 
-      shouldRender = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v72 = objc_msgSend_textureStageIndex(self, v25, v26);
-    v74 = objc_msgSend_finalTexturesForStage_(set, v73, v72 - 1);
-    if (!v74)
+    v21 = [set finalTexturesForStage:{-[KNBuildRenderer textureStageIndex](self, "textureStageIndex") - 1}];
+    if (!v21)
     {
       return 0;
     }
 
-    if (objc_msgSend_count(v74, v75, v76))
+    if ([v21 count])
     {
       return set;
     }
@@ -2733,7 +2553,7 @@ LABEL_25:
     }
   }
 
-  return shouldRender;
+  return v10;
 }
 
 - (id)p_keyForAnimation
@@ -2743,39 +2563,37 @@ LABEL_25:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_keyForAnimation]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1415, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_keyForAnimation]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1415, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  if (objc_msgSend_isContentBuild(self->_animatedBuild, a2, v2))
+  if ([(KNAnimatedBuild *)self->_animatedBuild isContentBuild])
   {
-    v13 = MEMORY[0x277D80180];
+    v5 = MEMORY[0x277D80180];
   }
 
   else
   {
-    isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v11, v12);
-    v13 = MEMORY[0x277D80188];
+    isBuildIn = [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
+    v5 = MEMORY[0x277D80188];
     if (!isBuildIn)
     {
-      v13 = MEMORY[0x277D80190];
+      v5 = MEMORY[0x277D80190];
     }
   }
 
-  v15 = *v13;
-  PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v11, v12);
-  if (!objc_msgSend_conformsToProtocol_(PluginIfNeeded, v17, &unk_288546370))
+  v7 = *v5;
+  if (![-[KNBuildRenderer loadPluginIfNeeded](self "loadPluginIfNeeded")])
   {
-    return v15;
+    return v7;
   }
 
-  v18 = objc_opt_class();
+  v8 = objc_opt_class();
 
-  return objc_msgSend_animationName(v18, v19, v20);
+  return [v8 animationName];
 }
 
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
@@ -2786,7 +2604,7 @@ LABEL_25:
     self->_numberOfAnimationsStarted = v5;
     if (!v5 && !self->_interrupted)
     {
-      objc_msgSend_p_removeAnimations(self, a2, stop, finished);
+      [(KNBuildRenderer *)self p_removeAnimations:stop];
       self->_isAnimationForPlayback = 0;
     }
   }
@@ -2794,292 +2612,270 @@ LABEL_25:
 
 - (void)resetPreviousStageToUnhighlightOnTextureSet:(id)set
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v5 = MEMORY[0x277D81150];
-      v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer resetPreviousStageToUnhighlightOnTextureSet:]");
-      v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 1452, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer resetPreviousStageToUnhighlightOnTextureSet:]"];
+      [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1452, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
-  if (objc_msgSend_textureDeliveryStyle(self, a2, set) == 3)
+  if ([(KNBuildRenderer *)self textureDeliveryStyle]== 3)
   {
-    if (objc_msgSend_isBuildIn(self->_animatedBuild, v12, v13))
+    if ([(KNAnimatedBuild *)self->_animatedBuild isBuildIn])
     {
-      v16 = -1;
+      v7 = -1;
     }
 
     else
     {
-      if (!objc_msgSend_isBuildOut(self->_animatedBuild, v14, v15))
+      if (![(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
       {
-        v17 = 0;
+        v8 = 0;
         goto LABEL_11;
       }
 
-      v16 = 1;
+      v7 = 1;
     }
 
-    v17 = objc_msgSend_textureStageIndex(self, v14, v15) + v16;
+    v8 = [(KNBuildRenderer *)self textureStageIndex]+ v7;
 LABEL_11:
-    isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v14, v15);
-    isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v19, v20);
-    shouldFlatten_flattenKey = objc_msgSend_visibleTexturesForStage_isBuildIn_isContentBuild_shouldFlatten_flattenKey_(set, v22, v17, isBuildIn, isContentBuild, 0, 0);
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldFlatten_flattenKey, v24, &v42, v46, 16);
-    if (!v25)
+    v9 = [set visibleTexturesForStage:v8 isBuildIn:-[KNAnimatedBuild isBuildIn](self->_animatedBuild isContentBuild:"isBuildIn") shouldFlatten:-[KNAnimatedBuild isContentBuild](self->_animatedBuild flattenKey:{"isContentBuild"), 0, 0}];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (!v10)
     {
       return;
     }
 
-    v27 = v25;
-    v28 = *v43;
-    v29 = *MEMORY[0x277D80198];
+    v11 = v10;
+    v12 = *v20;
+    v13 = *MEMORY[0x277D80198];
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v43 != v28)
+        if (*v20 != v12)
         {
-          objc_enumerationMutation(shouldFlatten_flattenKey);
+          objc_enumerationMutation(v9);
         }
 
-        v31 = *(*(&v42 + 1) + 8 * i);
-        if (objc_msgSend_stageIndexForTexture_(set, v26, v31) <= 0xFFFFFFFFFFFFFFFDLL)
+        v15 = *(*(&v19 + 1) + 8 * i);
+        if ([set stageIndexForTexture:v15] <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v33 = objc_msgSend_layer(v31, v26, v32);
-          v36 = objc_msgSend_isBuildIn(self->_animatedBuild, v34, v35);
-          LODWORD(v39) = 1050253722;
-          if (v36)
+          layer = [v15 layer];
+          isBuildIn = [(KNAnimatedBuild *)self->_animatedBuild isBuildIn];
+          LODWORD(v18) = 1050253722;
+          if (isBuildIn)
           {
             goto LABEL_20;
           }
 
-          if (objc_msgSend_isBuildOut(self->_animatedBuild, v37, v38, v39))
+          if ([(KNAnimatedBuild *)self->_animatedBuild isBuildOut])
           {
-            objc_msgSend_textureOpacity(v31, v40, v41);
-            *&v39 = v39;
+            [v15 textureOpacity];
+            *&v18 = v18;
 LABEL_20:
-            objc_msgSend_setOpacity_(v33, v37, v38, v39);
+            [layer setOpacity:v18];
           }
 
-          objc_msgSend_removeAnimationForKey_(v33, v40, v29);
+          [layer removeAnimationForKey:v13];
           continue;
         }
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldFlatten_flattenKey, v26, &v42, v46, 16);
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v27);
+    while (v11);
   }
 }
 
 - (void)p_removeAnimations
 {
-  v192 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_removeAnimations]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1484, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_removeAnimations]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1484, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
   if (!self->super._plugin)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_removeAnimations]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v15, v12, v14, 1485, 0, "invalid nil value for '%{public}s'", "_plugin");
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17);
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_removeAnimations]"];
+    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1485, 0, "invalid nil value for '%{public}s'", "_plugin"}];
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, v2);
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v18, 1);
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
   context = objc_autoreleasePoolPush();
   if (self->_animationWillBeginPerformed && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    plugin = self->super._plugin;
-    v22 = objc_msgSend_pluginContext(self, v19, v20);
-    objc_msgSend_animationDidEndWithContext_(plugin, v23, v22);
+    [self->super._plugin animationDidEndWithContext:{-[KNAnimationRenderer pluginContext](self, "pluginContext")}];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_restoreLayerHierarchy(self->super._plugin, v24, v25);
+    [self->super._plugin restoreLayerHierarchy];
   }
 
   self->_animationWillBeginPerformed = 0;
-  active = objc_msgSend_activeAnimatedBuilds(self->super._ASV, v24, v25);
-  v184 = 0u;
-  v185 = 0u;
-  v186 = 0u;
-  v187 = 0u;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(active, v27, &v184, v191, 16);
-  if (v28)
+  activeAnimatedBuilds = [(KNAnimatedSlideView *)self->super._ASV activeAnimatedBuilds];
+  v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v8 = [(NSMutableSet *)activeAnimatedBuilds countByEnumeratingWithState:&v68 objects:v75 count:16];
+  if (v8)
   {
-    v31 = v28;
-    v32 = 0;
-    v33 = *v185;
+    v9 = v8;
+    v10 = 0;
+    v11 = *v69;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v185 != v33)
+        if (*v69 != v11)
         {
-          objc_enumerationMutation(active);
+          objc_enumerationMutation(activeAnimatedBuilds);
         }
 
-        v35 = *(*(&v184 + 1) + 8 * i);
-        v36 = objc_msgSend_model(self->super._ASV, v29, v30);
-        v38 = objc_msgSend_rendererForAnimatedBuild_(v36, v37, v35);
-        v41 = objc_msgSend_info(v38, v39, v40);
-        if (v38 != self && v41 == self->_info)
+        v13 = [(KNAnimatedSlideModel *)[(KNAnimatedSlideView *)self->super._ASV model] rendererForAnimatedBuild:*(*(&v68 + 1) + 8 * i)];
+        info = [(KNBuildRenderer *)v13 info];
+        if (v13 != self && info == self->_info)
         {
-          ++v32;
+          ++v10;
         }
       }
 
-      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(active, v29, &v184, v191, 16);
+      v9 = [(NSMutableSet *)activeAnimatedBuilds countByEnumeratingWithState:&v68 objects:v75 count:16];
     }
 
-    while (v31);
-    v43 = v32 == 0;
+    while (v9);
+    v16 = v10 == 0;
   }
 
   else
   {
-    v43 = 1;
+    v16 = 1;
   }
 
-  v44 = objc_msgSend_rep(self, v29, v30);
-  if (v44)
+  v17 = [(KNBuildRenderer *)self rep];
+  if (v17)
   {
-    v47 = v44;
-    v170 = v43;
+    v18 = v17;
+    v54 = v16;
     textureSet = self->_textureSet;
-    if (objc_msgSend_isActionBuild(self->_animatedBuild, v45, v46))
+    if ([(KNAnimatedBuild *)self->_animatedBuild isActionBuild])
     {
-      v51 = objc_msgSend_p_keyForAnimation(self, v49, v50);
-      v180 = 0u;
-      v181 = 0u;
-      v182 = 0u;
-      v183 = 0u;
-      v52 = 0x280A39000uLL;
-      v55 = objc_msgSend_keyEnumerator(self->_animatedLayers, v53, v54);
-      v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, &v180, v190, 16);
-      if (v57)
+      p_keyForAnimation = [(KNBuildRenderer *)self p_keyForAnimation];
+      v64 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v21 = 0x280A39000uLL;
+      keyEnumerator = [(NSMapTable *)self->_animatedLayers keyEnumerator];
+      v23 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v64 objects:v74 count:16];
+      if (v23)
       {
-        v60 = v57;
-        v61 = *v181;
+        v24 = v23;
+        v25 = *v65;
         do
         {
-          for (j = 0; j != v60; ++j)
+          for (j = 0; j != v24; ++j)
           {
-            if (*v181 != v61)
+            if (*v65 != v25)
             {
-              objc_enumerationMutation(v55);
+              objc_enumerationMutation(keyEnumerator);
             }
 
-            v63 = *(*(&v180 + 1) + 8 * j);
-            objc_msgSend_removeAnimationForKey_(v63, v58, v51);
-            v64 = objc_opt_class();
-            v67 = objc_msgSend_animationName(v64, v65, v66);
-            objc_msgSend_setValue_forKey_(v63, v68, 0, v67);
+            v27 = *(*(&v64 + 1) + 8 * j);
+            [v27 removeAnimationForKey:p_keyForAnimation];
+            [v27 setValue:0 forKey:{objc_msgSend(objc_opt_class(), "animationName")}];
           }
 
-          v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v58, &v180, v190, 16);
+          v24 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v64 objects:v74 count:16];
         }
 
-        while (v60);
+        while (v24);
       }
 
-      v69 = objc_msgSend_layer(textureSet, v58, v59);
-      v70 = objc_opt_class();
-      v73 = objc_msgSend_animationName(v70, v71, v72);
-      objc_msgSend_setValue_forKey_(v69, v74, 0, v73);
+      [-[TSDTextureSet layer](textureSet "layer")];
       self->_isNonCachedTextureValid = 0;
-      v43 = v170;
-      if (v170 || (v77 = objc_msgSend_animationName(self->super._pluginClass, v75, v76), !objc_msgSend_isEqualToString_(v77, v78, *MEMORY[0x277D800E0])))
+      v16 = v54;
+      if (v54 || (v28 = -[objc_class animationName](self->super._pluginClass, "animationName"), ![v28 isEqualToString:*MEMORY[0x277D800E0]]))
       {
-        v79 = 0;
+        v29 = 0;
       }
 
       else
       {
-        v79 = objc_msgSend_shouldNotBakeActionTextures(self->super._session, v75, v76) ^ 1;
+        v29 = [(KNPlaybackSession *)self->super._session shouldNotBakeActionTextures]^ 1;
       }
 
-      v136 = objc_msgSend_finalAttributes(self->_animatedBuild, v75, v76);
-      v139 = objc_msgSend_animationContext(self->super._session, v137, v138);
-      objc_msgSend_viewScale(v139, v140, v141);
-      v143 = v142;
-      v146 = objc_msgSend_eventIndex(self->_animatedBuild, v144, v145);
-      objc_msgSend_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys_eventIndex_(textureSet, v147, v136, 0, v170, v79, 0, 1, v143, v146 + 1);
+      finalAttributes = [(KNAnimatedBuild *)self->_animatedBuild finalAttributes];
+      [(KNAnimationContext *)[(KNPlaybackSession *)self->super._session animationContext] viewScale];
+      [(TSDTextureSet *)textureSet applyActionEffect:finalAttributes viewScale:0 isMagicMove:v54 shouldBake:v29 applyScaleOnly:0 ignoreScale:1 shouldCheckActionKeys:v43 eventIndex:[(KNAnimatedBuild *)self->_animatedBuild eventIndex]+ 1];
     }
 
     else
     {
-      v169 = v47;
-      v80 = objc_msgSend_textureStageIndex(self, v49, v50);
-      isBuildIn = objc_msgSend_isBuildIn(self->_animatedBuild, v81, v82);
-      isContentBuild = objc_msgSend_isContentBuild(self->_animatedBuild, v84, v85);
-      shouldIncludeCaptions = objc_msgSend_visibleTexturesForStage_isBuildIn_isContentBuild_shouldFlatten_flattenKey_shouldIncludeCaptions_(textureSet, v87, v80, isBuildIn, isContentBuild, 0, 0, 1);
-      v176 = 0u;
-      v177 = 0u;
-      v178 = 0u;
-      v179 = 0u;
-      v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldIncludeCaptions, v89, &v176, v189, 16);
-      if (v90)
+      v53 = v18;
+      v30 = [(TSDTextureSet *)textureSet visibleTexturesForStage:[(KNBuildRenderer *)self textureStageIndex] isBuildIn:[(KNAnimatedBuild *)self->_animatedBuild isBuildIn] isContentBuild:[(KNAnimatedBuild *)self->_animatedBuild isContentBuild] shouldFlatten:0 flattenKey:0 shouldIncludeCaptions:1];
+      v60 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v31 = [v30 countByEnumeratingWithState:&v60 objects:v73 count:16];
+      if (v31)
       {
-        v93 = v90;
-        v94 = *v177;
+        v32 = v31;
+        v33 = *v61;
         do
         {
-          for (k = 0; k != v93; ++k)
+          for (k = 0; k != v32; ++k)
           {
-            if (*v177 != v94)
+            if (*v61 != v33)
             {
-              objc_enumerationMutation(shouldIncludeCaptions);
+              objc_enumerationMutation(v30);
             }
 
-            v96 = *(*(&v176 + 1) + 8 * k);
-            v97 = objc_msgSend_layer(v96, v91, v92);
-            v100 = objc_msgSend_superlayer(v97, v98, v99);
-            if (v100 != objc_msgSend_layer(textureSet, v101, v102))
+            v35 = *(*(&v60 + 1) + 8 * k);
+            layer = [v35 layer];
+            superlayer = [layer superlayer];
+            if (superlayer != [(TSDTextureSet *)textureSet layer])
             {
-              v105 = v97;
-              v108 = objc_msgSend_superlayer(v105, v106, v107);
-              objc_msgSend_removeFromSuperlayer(v105, v109, v110);
-              v113 = objc_msgSend_layer(textureSet, v111, v112);
-              objc_msgSend_replaceSublayer_with_(v113, v114, v108, v105);
+              v38 = layer;
+              superlayer2 = [v38 superlayer];
+              [v38 removeFromSuperlayer];
+              [-[TSDTextureSet layer](textureSet "layer")];
             }
 
-            v115 = objc_msgSend_p_keyForAnimation(self, v103, v104);
-            objc_msgSend_removeAnimationForKey_(v97, v116, v115);
-            if (objc_msgSend_isBuildOut(self->_animatedBuild, v117, v118) && !objc_msgSend_isImplicitlyVisibleAtBeginning(self->_animatedBuild, v119, v120))
+            [layer removeAnimationForKey:{-[KNBuildRenderer p_keyForAnimation](self, "p_keyForAnimation")}];
+            if ([(KNAnimatedBuild *)self->_animatedBuild isBuildOut]&& ![(KNAnimatedBuild *)self->_animatedBuild isImplicitlyVisibleAtBeginning])
             {
               isDriftBuild = 1;
             }
 
-            else if (objc_msgSend_isBuildIn(self->_animatedBuild, v119, v120))
+            else if ([(KNAnimatedBuild *)self->_animatedBuild isBuildIn])
             {
-              isDriftBuild = objc_msgSend_isDriftBuild(self->_animatedBuild, v119, v120);
+              isDriftBuild = [(KNAnimatedBuild *)self->_animatedBuild isDriftBuild];
             }
 
             else
@@ -3087,173 +2883,165 @@ LABEL_20:
               isDriftBuild = 0;
             }
 
-            v122 = objc_msgSend_layer(v96, v119, v120);
-            objc_msgSend_setHidden_(v122, v123, isDriftBuild);
+            [objc_msgSend(v35 "layer")];
           }
 
-          v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(shouldIncludeCaptions, v91, &v176, v189, 16);
+          v32 = [v30 countByEnumeratingWithState:&v60 objects:v73 count:16];
         }
 
-        while (v93);
+        while (v32);
       }
 
-      objc_msgSend_resetPreviousStageToUnhighlightOnTextureSet_(self, v91, textureSet);
-      v43 = v170;
-      if (objc_msgSend_isContentBuild(self->_animatedBuild, v124, v125))
+      [(KNBuildRenderer *)self resetPreviousStageToUnhighlightOnTextureSet:textureSet];
+      v16 = v54;
+      if ([(KNAnimatedBuild *)self->_animatedBuild isContentBuild])
       {
-        objc_msgSend_setLayerVisibility_isAtEndOfBuild_(self, v126, textureSet, 1);
+        [(KNBuildRenderer *)self setLayerVisibility:textureSet isAtEndOfBuild:1];
       }
 
-      v128 = objc_msgSend_info(v169, v126, v127);
-      v52 = 0x280A39000;
-      if (objc_msgSend_suppliesFinalTextures(v128, v129, v130) && objc_msgSend_textureDeliveryStyle(self, v131, v132))
+      v21 = 0x280A39000;
+      if ([(TSDInfo *)[(TSDRep *)v53 info] suppliesFinalTextures]&& [(KNBuildRenderer *)self textureDeliveryStyle])
       {
-        isRenderingToContext = objc_msgSend_setupFinalTextureGivenCurrentTextureSet_isRenderingToContext_(self, v131, textureSet, 0);
-        objc_msgSend_setLayerVisibility_isAtEndOfBuild_(self, v134, isRenderingToContext, 1);
-        objc_msgSend_setEndOfBuildTextureSet_(self, v135, isRenderingToContext);
+        v41 = [(KNBuildRenderer *)self setupFinalTextureGivenCurrentTextureSet:textureSet isRenderingToContext:0];
+        [(KNBuildRenderer *)self setLayerVisibility:v41 isAtEndOfBuild:1];
+        [(KNBuildRenderer *)self setEndOfBuildTextureSet:v41];
       }
     }
 
-    objc_msgSend_teardown(self->_finalAttributesTextureSet, v131, v132);
+    [(TSDTextureSet *)self->_finalAttributesTextureSet teardown];
 
     self->_finalAttributesTextureSet = 0;
-    v148 = *(v52 + 1628);
+    v44 = *(v21 + 1628);
 
-    *(&self->super.super.isa + v148) = 0;
+    *(&self->super.super.isa + v44) = 0;
     self->_areAnimationsReadyToStart = 0;
   }
 
-  if (v43)
+  if (v16)
   {
-    v149 = objc_msgSend_sublayers(self->_parentLayer, v45, v46);
-    v152 = objc_msgSend_copy(v149, v150, v151);
-    v172 = 0u;
-    v173 = 0u;
-    v174 = 0u;
-    v175 = 0u;
-    v154 = objc_msgSend_countByEnumeratingWithState_objects_count_(v152, v153, &v172, v188, 16);
-    if (v154)
+    v45 = [(NSArray *)[(CALayer *)self->_parentLayer sublayers] copy];
+    v56 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v46 = [v45 countByEnumeratingWithState:&v56 objects:v72 count:16];
+    if (v46)
     {
-      v157 = v154;
-      v158 = *v173;
+      v47 = v46;
+      v48 = *v57;
       do
       {
-        for (m = 0; m != v157; ++m)
+        for (m = 0; m != v47; ++m)
         {
-          if (*v173 != v158)
+          if (*v57 != v48)
           {
-            objc_enumerationMutation(v152);
+            objc_enumerationMutation(v45);
           }
 
-          v160 = *(*(&v172 + 1) + 8 * m);
-          v161 = objc_msgSend_name(v160, v155, v156);
-          if (objc_msgSend_isEqualToString_(v161, v162, @"dummyLayer"))
+          v50 = *(*(&v56 + 1) + 8 * m);
+          if ([objc_msgSend(v50 "name")])
           {
-            objc_msgSend_removeAllAnimations(v160, v155, v156);
-            objc_msgSend_removeFromSuperlayer(v160, v163, v164);
+            [v50 removeAllAnimations];
+            [v50 removeFromSuperlayer];
           }
         }
 
-        v157 = objc_msgSend_countByEnumeratingWithState_objects_count_(v152, v155, &v172, v188, 16);
+        v47 = [v45 countByEnumeratingWithState:&v56 objects:v72 count:16];
       }
 
-      while (v157);
+      while (v47);
     }
   }
 
   buildEndCallbackTarget = self->_buildEndCallbackTarget;
   if (buildEndCallbackTarget)
   {
-    buildEndCallbackSelector = self->_buildEndCallbackSelector;
-    if (buildEndCallbackSelector)
+    if (self->_buildEndCallbackSelector)
     {
-      objc_msgSend_performSelector_withObject_(buildEndCallbackTarget, v45, buildEndCallbackSelector, self);
+      buildEndCallbackSelector = self->_buildEndCallbackSelector;
     }
 
     else
     {
-      objc_msgSend_performSelector_withObject_(buildEndCallbackTarget, v45, 0, self);
+      buildEndCallbackSelector = 0;
     }
+
+    [buildEndCallbackTarget performSelector:buildEndCallbackSelector withObject:self];
   }
 
   objc_autoreleasePoolPop(context);
-  objc_msgSend_commit(MEMORY[0x277CD9FF0], v167, v168);
+  [MEMORY[0x277CD9FF0] commit];
 }
 
 - (void)p_resetAnimations
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_animatedBuild)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v4 = MEMORY[0x277D81150];
-      v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildRenderer p_resetAnimations]");
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1596, 0, "encountered an unexpected nil animated build");
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+      v3 = MEMORY[0x277D81150];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildRenderer p_resetAnimations]"];
+      [v3 handleFailureInFunction:v4 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" isFatal:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildRenderer.m") description:{1596, 0, "encountered an unexpected nil animated build"}];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
   self->_isAnimationForPlayback = 0;
   self->_areAnimationsReadyToStart = 0;
   self->_numberOfAnimationsStarted = 0;
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, v2);
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v11, 1);
-  v12 = objc_autoreleasePoolPush();
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v15 = objc_msgSend_keyEnumerator(self->_animatedLayers, v13, v14, 0);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v35, v39, 16);
-  if (v17)
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  v5 = objc_autoreleasePoolPush();
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  keyEnumerator = [(NSMapTable *)self->_animatedLayers keyEnumerator];
+  v7 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v20 = v17;
-    v21 = *v36;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v22 = 0;
+      v10 = 0;
       do
       {
-        if (*v36 != v21)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(keyEnumerator);
         }
 
-        v23 = *(*(&v35 + 1) + 8 * v22);
-        v24 = objc_msgSend_p_keyForAnimation(self, v18, v19);
-        objc_msgSend_removeAnimationForKey_(v23, v25, v24);
-        ++v22;
+        [*(*(&v12 + 1) + 8 * v10++) removeAnimationForKey:{-[KNBuildRenderer p_keyForAnimation](self, "p_keyForAnimation")}];
       }
 
-      while (v20 != v22);
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v18, &v35, v39, 16);
+      while (v8 != v10);
+      v8 = [(NSEnumerator *)keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v20);
+    while (v8);
   }
 
-  PluginIfNeeded = objc_msgSend_loadPluginIfNeeded(self, v18, v19);
+  loadPluginIfNeeded = [(KNBuildRenderer *)self loadPluginIfNeeded];
   if (self->_animationWillBeginPerformed && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v29 = objc_msgSend_pluginContext(self, v27, v28);
-    objc_msgSend_animationDidEndWithContext_(PluginIfNeeded, v30, v29);
+    [loadPluginIfNeeded animationDidEndWithContext:{-[KNAnimationRenderer pluginContext](self, "pluginContext")}];
     self->_animationWillBeginPerformed = 0;
   }
 
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_restoreLayerHierarchy(PluginIfNeeded, v31, v32);
+    [loadPluginIfNeeded restoreLayerHierarchy];
   }
 
-  objc_msgSend_removeAllPerspectiveLayers(self->_textureSet, v31, v32);
+  [(TSDTextureSet *)self->_textureSet removeAllPerspectiveLayers];
 
   self->_animatedLayers = 0;
   self->_areAnimationsReadyToStart = 0;
-  objc_autoreleasePoolPop(v12);
-  objc_msgSend_commit(MEMORY[0x277CD9FF0], v33, v34);
+  objc_autoreleasePoolPop(v5);
+  [MEMORY[0x277CD9FF0] commit];
 }
 
 @end

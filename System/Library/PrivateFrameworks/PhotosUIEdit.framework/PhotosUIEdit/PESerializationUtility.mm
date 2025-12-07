@@ -510,7 +510,7 @@ LABEL_4:
     v28 = MEMORY[0x277D3AD10];
     pixelWidth = [assetCopy pixelWidth];
     pixelHeight = [assetCopy pixelHeight];
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     v31 = [v28 exportPropertiesWithImageWidth:pixelWidth imageHeight:pixelHeight exifOrientation:exifOrientation duration:?];
     v32 = objc_opt_new();
     v78 = 0;
@@ -616,7 +616,7 @@ LABEL_4:
 
       if (videoAttributes)
       {
-        [videoAttributes duration];
+        objc_msgSend_duration(videoAttributes);
         [v25 setFullSizeRenderDuration:CMTimeGetSeconds(&buf)];
         controllerCopy = v75;
       }
@@ -1060,7 +1060,7 @@ void __90__PESerializationUtility_compositionControllerForContentEditingInput_as
   memset(&v10, 0, sizeof(v10));
   if (v6)
   {
-    [v6 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v6);
   }
 
   *&v8.start.value = *&v10.start.value;

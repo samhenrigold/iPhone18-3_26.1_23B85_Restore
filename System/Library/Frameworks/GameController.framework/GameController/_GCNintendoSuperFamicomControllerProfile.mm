@@ -7,50 +7,48 @@
 
 + (id)logicalDevice:(id)device makeControllerPhysicalInputProfileDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v20[9] = *MEMORY[0x1E69E9840];
+  v19[9] = *MEMORY[0x1E69E9840];
   bindingsCopy = bindings;
-  v19 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:@"BUTTON_A" symbolName:@"a.circle" sourceAttributes:1 sourceExtendedEventField:4];
+  v18 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:@"BUTTON_A" symbolName:@"a.circle" sourceAttributes:1 sourceExtendedEventField:4];
   v5 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button B" additionalAliases:0 attributes:2 nameLocalizationKey:@"BUTTON_B" symbolName:@"b.circle" sourceAttributes:1 sourceExtendedEventField:5];
   v6 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button X" additionalAliases:0 attributes:2 nameLocalizationKey:@"BUTTON_X" symbolName:@"x.circle" sourceAttributes:1 sourceExtendedEventField:6];
   v7 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button Y" additionalAliases:0 attributes:2 nameLocalizationKey:@"BUTTON_Y" symbolName:@"y.circle" sourceAttributes:1 sourceExtendedEventField:7];
   v8 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Left Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:@"LEFT_SHOULDER" symbolName:@"l1.rectangle.roundedbottom" sourceAttributes:1 sourceExtendedEventField:8];
   v9 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Right Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:@"RIGHT_SHOULDER" symbolName:@"r1.rectangle.roundedbottom" sourceAttributes:1 sourceExtendedEventField:9];
-  v17 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button Menu" additionalAliases:0 attributes:0x4000 nameLocalizationKey:@"BUTTON_MENU" symbolName:@"line.horizontal.3.circle" sourceAttributes:1 sourceExtendedEventField:23];
+  v16 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button Menu" additionalAliases:0 attributes:0x4000 nameLocalizationKey:@"BUTTON_MENU" symbolName:@"line.horizontal.3.circle" sourceAttributes:1 sourceExtendedEventField:23];
   v10 = [[GCDeviceButtonInputDescription alloc] initWithName:@"Button Options" additionalAliases:0 attributes:49152 nameLocalizationKey:@"BUTTON_OPTIONS" symbolName:@"ellipsis.circle" sourceAttributes:1 sourceExtendedEventField:24];
   v11 = [[GCDeviceDirectionPadDescription alloc] initWithName:@"Direction Pad" additionalAliases:0 attributes:2 nameLocalizationKey:@"DIRECTION_PAD" symbolName:@"dpad" sourceAttributes:1 sourceUpExtendedEventField:0 sourceDownExtendedEventField:1 sourceLeftExtendedEventField:2 sourceRightExtendedEventField:3];
   v12 = [_GCDeviceGamepadComponentDescription alloc];
-  v20[0] = v19;
-  v20[1] = v5;
-  v20[2] = v6;
-  v20[3] = v7;
-  v20[4] = v8;
-  v20[5] = v9;
-  v20[6] = v17;
-  v20[7] = v10;
-  v20[8] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:9];
+  v19[0] = v18;
+  v19[1] = v5;
+  v19[2] = v6;
+  v19[3] = v7;
+  v19[4] = v8;
+  v19[5] = v9;
+  v19[6] = v16;
+  v19[7] = v10;
+  v19[8] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:9];
   v14 = [(_GCDevicePhysicalInputComponentDescription *)v12 initWithIdentifier:@"PhysicalInput" elements:v13 bindings:bindingsCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)logicalDevice:(id)device makeControllerInputDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v41[9] = *MEMORY[0x1E69E9840];
+  v40[9] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69A0690];
   bindingsCopy = bindings;
   identifierCopy = identifier;
-  v40 = [v6 descriptionWithIdentifier:@"button.a"];
+  v39 = [v6 descriptionWithIdentifier:@"button.a"];
   v7 = [MEMORY[0x1E695DFD8] setWithObject:@"Button A"];
-  [v40 setAliases:v7];
+  [v39 setAliases:v7];
 
-  [v40 setLocalizedName:*MEMORY[0x1E69A0338]];
+  [v39 setLocalizedName:*MEMORY[0x1E69A0338]];
   v8 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"a.circle"];
-  [v40 setSymbol:v8];
+  [v39 setSymbol:v8];
 
-  [v40 setEventPressedValueField:4];
+  [v39 setEventPressedValueField:4];
   v9 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.b"];
   v10 = [MEMORY[0x1E695DFD8] setWithObject:@"Button B"];
   [v9 setAliases:v10];
@@ -87,15 +85,15 @@
   [v18 setSymbol:v20];
 
   [v18 setEventPressedValueField:8];
-  v37 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
+  v36 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
   v21 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Shoulder"];
-  [v37 setAliases:v21];
+  [v36 setAliases:v21];
 
-  [v37 setLocalizedName:*MEMORY[0x1E69A0518]];
+  [v36 setLocalizedName:*MEMORY[0x1E69A0518]];
   v22 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r1.rectangle.roundedbottom"];
-  [v37 setSymbol:v22];
+  [v36 setSymbol:v22];
 
-  [v37 setEventPressedValueField:9];
+  [v36 setEventPressedValueField:9];
   v23 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.start"];
   v24 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Menu"];
   [v23 setAliases:v24];
@@ -128,20 +126,19 @@
   [v29 setEventLeftValueField:2];
   [v29 setEventRightValueField:3];
   v32 = objc_opt_new();
-  v41[0] = v40;
-  v41[1] = v9;
-  v41[2] = v12;
-  v41[3] = v15;
-  v41[4] = v18;
-  v41[5] = v37;
-  v41[6] = v23;
-  v41[7] = v26;
-  v41[8] = v29;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:9];
+  v40[0] = v39;
+  v40[1] = v9;
+  v40[2] = v12;
+  v40[3] = v15;
+  v40[4] = v18;
+  v40[5] = v36;
+  v40[6] = v23;
+  v40[7] = v26;
+  v40[8] = v29;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:9];
   [v32 setElements:v33];
 
   v34 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:identifierCopy controllerInputs:v32 bindings:bindingsCopy];
-  v35 = *MEMORY[0x1E69E9840];
 
   return v34;
 }

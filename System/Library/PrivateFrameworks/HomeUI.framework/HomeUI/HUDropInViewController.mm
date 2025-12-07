@@ -1745,22 +1745,22 @@ void __52__HUDropInViewController__dismissDownRecordingView___block_invoke_2(uin
   [v13 layoutIfNeeded];
 }
 
-uint64_t __52__HUDropInViewController__dismissDownRecordingView___block_invoke_3(uint64_t result, int a2)
+id *__52__HUDropInViewController__dismissDownRecordingView___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) contentView];
+    v3 = [result[4] contentView];
     [v3 setAlpha:0.0];
 
-    v4 = [*(v2 + 32) closeButtonVisualEffectView];
+    v4 = [v2[4] closeButtonVisualEffectView];
     [v4 setAlpha:0.0];
 
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __52__HUDropInViewController__dismissDownRecordingView___block_invoke_4;
     v6[3] = &unk_277DB8488;
-    v7 = *(v2 + 32);
+    v7 = v2[4];
     v5[0] = MEMORY[0x277D85DD0];
     v5[1] = 3221225472;
     v5[2] = __52__HUDropInViewController__dismissDownRecordingView___block_invoke_6;

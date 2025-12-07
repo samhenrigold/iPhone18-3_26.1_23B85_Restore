@@ -137,21 +137,21 @@
   return v13;
 }
 
-void __69__MPMediaPlaylist_MPArtworkCatalog__artworkCatalogsWithMaximumCount___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void __69__MPMediaPlaylist_MPArtworkCatalog__artworkCatalogsWithMaximumCount___block_invoke(id *a1, void *a2, _BYTE *a3)
 {
   v7 = a2;
   v5 = [v7 artworkCatalog];
   if (v5)
   {
     v6 = [v7 valueForProperty:@"albumPID"];
-    if (([*(a1 + 32) containsObject:v6] & 1) == 0)
+    if (([a1[4] containsObject:v6] & 1) == 0)
     {
-      [*(a1 + 40) addObject:v5];
-      [*(a1 + 32) addObject:v6];
+      [a1[5] addObject:v5];
+      [a1[4] addObject:v6];
     }
   }
 
-  if ([*(a1 + 40) count] == *(a1 + 48))
+  if ([a1[5] count] == a1[6])
   {
     *a3 = 1;
   }

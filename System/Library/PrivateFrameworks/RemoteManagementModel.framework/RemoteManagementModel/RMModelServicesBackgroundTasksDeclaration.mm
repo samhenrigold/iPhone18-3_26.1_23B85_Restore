@@ -13,16 +13,14 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"TaskType";
-  v7[1] = @"TaskDescription";
-  v7[2] = @"ExecutableAssetReference";
-  v7[3] = @"LaunchdConfigurations";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = @"TaskType";
+  v6[1] = @"TaskDescription";
+  v6[2] = @"ExecutableAssetReference";
+  v6[3] = @"LaunchdConfigurations";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -41,16 +39,14 @@
 
 void __60__RMModelServicesBackgroundTasksDeclaration_assetReferences__block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467D30 keyPath:@"$.payloadExecutableAssetReference"];
-  v5[0] = v0;
+  v4[0] = v0;
   v1 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467D48 keyPath:@"$.payloadLaunchdConfigurations.*.payloadFileAssetReference"];
-  v5[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v3 = assetReferences_assetPaths_14;
   assetReferences_assetPaths_14 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier taskType:(id)type taskDescription:(id)description executableAssetReference:(id)reference launchdConfigurations:(id)configurations
@@ -112,17 +108,15 @@ void __60__RMModelServicesBackgroundTasksDeclaration_assetReferences__block_invo
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746BB58;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746BB58;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467D60];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467D78];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

@@ -28,7 +28,7 @@
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v12 = ;
 

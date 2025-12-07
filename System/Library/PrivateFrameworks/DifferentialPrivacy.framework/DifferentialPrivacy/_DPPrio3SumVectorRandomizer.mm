@@ -84,7 +84,7 @@ LABEL_27:
   v10 = +[_DPLog framework];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [(_DPPrio3SumVectorRandomizer *)v10 initWithEpsilon:v11 parameters:v12, v13, v14, v15, v16, v17];
+    [(_DPPrio3SumVectorRandomizer *)v10 initWithEpsilon:v11 parameters:v12, v13, v14, v15, v16, v17, epsilon];
   }
 
   selfCopy = 0;
@@ -278,7 +278,7 @@ LABEL_9:
 
 - (id)recordWithShardResult:(id)result metadata:(id)metadata key:(id)key
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEAA8];
   keyCopy = key;
   metadataCopy = metadata;
@@ -288,16 +288,16 @@ LABEL_9:
   v14 = v13;
 
   v15 = [metadataCopy mutableCopy];
-  v32[0] = @"Prio3SumVectorChunkLength";
+  v31[0] = @"Prio3SumVectorChunkLength";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(resultCopy, "chunkLength")}];
-  v33[0] = v16;
-  v32[1] = @"Nonce";
+  v32[0] = v16;
+  v31[1] = @"Nonce";
   nonce = [resultCopy nonce];
-  v33[1] = nonce;
-  v32[2] = @"PublicShare";
+  v32[1] = nonce;
+  v31[2] = @"PublicShare";
   publicShare = [resultCopy publicShare];
-  v33[2] = publicShare;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v32[2] = publicShare;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
   [v15 setObject:v19 forKeyedSubscript:@"VDAF"];
 
   v20 = [_DPKeyProperties privatizationAlgorithmStringFor:16];
@@ -315,75 +315,74 @@ LABEL_9:
   dimension = [resultCopy dimension];
 
   v29 = [(_DPPrioRecord *)v23 initWithKey:keyCopy share1:v25 share2:v27 dimension:dimension metadata:v15 creationDate:0 submitted:v14 objectId:0];
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 - (id)randomizeBitValues:(id)values metadata:(id)metadata forKey:(id)key
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   metadataCopy = metadata;
   keyCopy = key;
   plistParameters = [(_DPPrio3SumVectorRandomizer *)self plistParameters];
-  v41 = 0;
-  v11 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v41];
-  v12 = v41;
+  v40 = 0;
+  v11 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v40];
+  v12 = v40;
 
   if (v11)
   {
-    v40 = v12;
-    v13 = [v11 auditedMetadataWithError:&v40];
-    v14 = v40;
+    v39 = v12;
+    v13 = [v11 auditedMetadataWithError:&v39];
+    v14 = v39;
 
     if (v13)
     {
-      v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(valuesCopy, "count")}];
+      v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(valuesCopy, "count")}];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       obj = valuesCopy;
-      v15 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v15 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       if (v15)
       {
         v16 = v15;
-        v28 = metadataCopy;
-        v29 = valuesCopy;
-        v33 = *v37;
-        v34 = v11;
+        v27 = metadataCopy;
+        v28 = valuesCopy;
+        v32 = *v36;
+        v33 = v11;
         do
         {
           v17 = 0;
           v18 = v14;
           do
           {
-            if (*v37 != v33)
+            if (*v36 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v36 + 1) + 8 * v17);
-            v20 = [_DPLog framework:v28];
+            v19 = *(*(&v35 + 1) + 8 * v17);
+            v20 = [_DPLog framework:v27];
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v43 = v19;
+              v42 = v19;
               _os_log_debug_impl(&dword_22622D000, v20, OS_LOG_TYPE_DEBUG, "Start to privatize bitValue=%@", buf, 0xCu);
             }
 
             v21 = objc_autoreleasePoolPush();
-            v35 = v18;
-            v22 = [(_DPPrio3SumVectorRandomizer *)self randomizeBitValue:v19 budgetAuditor:v34 metadata:v13 error:&v35];
-            v14 = v35;
+            v34 = v18;
+            v22 = [(_DPPrio3SumVectorRandomizer *)self randomizeBitValue:v19 budgetAuditor:v33 metadata:v13 error:&v34];
+            v14 = v34;
 
             if (v22)
             {
               v23 = [(_DPPrio3SumVectorRandomizer *)self recordWithShardResult:v22 metadata:v13 key:keyCopy];
               if (v23)
               {
-                [v30 addObject:v23];
+                [v29 addObject:v23];
               }
 
               objc_autoreleasePoolPop(v21);
@@ -391,7 +390,7 @@ LABEL_9:
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v43 = v19;
+                v42 = v19;
                 _os_log_debug_impl(&dword_22622D000, v24, OS_LOG_TYPE_DEBUG, "Done to privatize bitValue=%@", buf, 0xCu);
               }
             }
@@ -402,9 +401,9 @@ LABEL_9:
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v43 = v19;
-                v44 = 2112;
-                v45 = v14;
+                v42 = v19;
+                v43 = 2112;
+                v44 = v14;
                 _os_log_error_impl(&dword_22622D000, v25, OS_LOG_TYPE_ERROR, "Fail to privatize bitValue=%@ with error=%@", buf, 0x16u);
               }
 
@@ -416,13 +415,13 @@ LABEL_9:
           }
 
           while (v16 != v17);
-          v16 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+          v16 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
         }
 
         while (v16);
-        metadataCopy = v28;
-        valuesCopy = v29;
-        v11 = v34;
+        metadataCopy = v27;
+        valuesCopy = v28;
+        v11 = v33;
       }
     }
 
@@ -434,7 +433,7 @@ LABEL_9:
         [_DPPrio3SumVectorRandomizer randomizeBitValues:metadata:forKey:];
       }
 
-      v30 = 0;
+      v29 = 0;
     }
 
     v12 = v14;
@@ -448,69 +447,67 @@ LABEL_9:
       [_DPPrio3SumVectorRandomizer randomizeBitValues:metadata:forKey:];
     }
 
-    v30 = 0;
+    v29 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 - (id)randomizeBitVectors:(id)vectors metadata:(id)metadata forKey:(id)key
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
   plistParameters = [(_DPPrio3SumVectorRandomizer *)self plistParameters];
-  v38 = 0;
-  v11 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v38];
-  v12 = v38;
+  v37 = 0;
+  v11 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v37];
+  v12 = v37;
 
   if (v11)
   {
-    v37 = v12;
-    v13 = [v11 auditedMetadataWithError:&v37];
-    v14 = v37;
+    v36 = v12;
+    v13 = [v11 auditedMetadataWithError:&v36];
+    v14 = v36;
 
-    v31 = v13;
+    v30 = v13;
     if (v13)
     {
-      v28 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v27 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       obj = vectorsCopy;
-      v15 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v15 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (v15)
       {
         v16 = v15;
-        v26 = metadataCopy;
-        v27 = vectorsCopy;
-        v17 = *v34;
+        v25 = metadataCopy;
+        v26 = vectorsCopy;
+        v17 = *v33;
         do
         {
           for (i = 0; i != v16; ++i)
           {
             v19 = v14;
-            if (*v34 != v17)
+            if (*v33 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * i);
+            v20 = *(*(&v32 + 1) + 8 * i);
             v21 = objc_autoreleasePoolPush();
-            v32 = v14;
-            v22 = [(_DPPrio3SumVectorRandomizer *)self randomizeVector:v20 budgetAuditor:v11 error:&v32];
-            v14 = v32;
+            v31 = v14;
+            v22 = [(_DPPrio3SumVectorRandomizer *)self randomizeVector:v20 budgetAuditor:v11 error:&v31];
+            v14 = v31;
 
             if (v22)
             {
-              v23 = [(_DPPrio3SumVectorRandomizer *)self recordWithShardResult:v22 metadata:v31 key:keyCopy];
+              v23 = [(_DPPrio3SumVectorRandomizer *)self recordWithShardResult:v22 metadata:v30 key:keyCopy];
               if (v23)
               {
-                [v28 addObject:v23];
+                [v27 addObject:v23];
               }
             }
 
@@ -520,9 +517,9 @@ LABEL_9:
               if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v40 = v20;
-                v41 = 2112;
-                v42 = v14;
+                v39 = v20;
+                v40 = 2112;
+                v41 = v14;
                 _os_log_error_impl(&dword_22622D000, v23, OS_LOG_TYPE_ERROR, "Fail to privatize vector=%@ with error=%@", buf, 0x16u);
               }
             }
@@ -530,12 +527,12 @@ LABEL_9:
             objc_autoreleasePoolPop(v21);
           }
 
-          v16 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+          v16 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
         }
 
         while (v16);
-        metadataCopy = v26;
-        vectorsCopy = v27;
+        metadataCopy = v25;
+        vectorsCopy = v26;
       }
     }
 
@@ -547,7 +544,7 @@ LABEL_9:
         [_DPPrio3SumVectorRandomizer randomizeBitValues:metadata:forKey:];
       }
 
-      v28 = 0;
+      v27 = 0;
     }
 
     v12 = v14;
@@ -555,65 +552,23 @@ LABEL_9:
 
   else
   {
-    v31 = +[_DPLog framework];
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = +[_DPLog framework];
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [_DPPrio3SumVectorRandomizer randomizeBitValues:metadata:forKey:];
     }
 
-    v28 = 0;
+    v27 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
-- (void)initWithEpsilon:parameters:.cold.1()
+- (void)initWithEpsilon:(uint64_t)a3 parameters:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Invalid bitWidth = %@: must be one", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithEpsilon:parameters:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Invalid numOfProofs = %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithEpsilon:parameters:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Unknown VDAFType = %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithEpsilon:(uint64_t)a3 parameters:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "Invalid epsilon = %f.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)randomizeBitValues:metadata:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Donation failed DP auditing check, error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)randomizeBitValues:metadata:forKey:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Failed to create DP budget auditor, error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "Invalid epsilon = %f.", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

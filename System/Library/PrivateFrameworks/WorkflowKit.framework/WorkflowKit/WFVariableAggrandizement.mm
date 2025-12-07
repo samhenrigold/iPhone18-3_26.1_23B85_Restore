@@ -43,7 +43,7 @@
 
 - (WFVariableAggrandizement)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKey:@"Type"];
   v6 = objc_opt_class();
@@ -54,14 +54,14 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v23 = "WFEnforceClass";
-      v24 = 2114;
-      v25 = v7;
-      v26 = 2114;
-      v27 = objc_opt_class();
-      v28 = 2114;
-      v29 = v6;
-      v10 = v27;
+      v22 = "WFEnforceClass";
+      v23 = 2114;
+      v24 = v7;
+      v25 = 2114;
+      v26 = objc_opt_class();
+      v27 = 2114;
+      v28 = v6;
+      v10 = v26;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
 
@@ -90,9 +90,9 @@ LABEL_15:
     }
   }
 
-  v21.receiver = self;
-  v21.super_class = WFVariableAggrandizement;
-  v14 = [(WFVariableAggrandizement *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = WFVariableAggrandizement;
+  v14 = [(WFVariableAggrandizement *)&v20 init];
   if (v14)
   {
     if (!v8)
@@ -113,7 +113,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

@@ -27,10 +27,10 @@
 
 - (CCSignificantLocationAddress)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v58 = 0;
+  v57 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -40,12 +40,12 @@
     v11 = [dictionaryCopy objectForKeyedSubscript:@"locality"];
     v12 = [dictionaryCopy objectForKeyedSubscript:@"country"];
     v13 = [dictionaryCopy objectForKeyedSubscript:@"subPremises"];
-    v51 = v9;
+    v50 = v9;
     if (v13)
     {
       v14 = v13;
       objc_opt_class();
-      v57 = v8;
+      v56 = v8;
       v15 = CCValidateIsInstanceOfExpectedClass();
       v16 = v8;
 
@@ -54,42 +54,42 @@
         CCSetError();
         v31 = 0;
         v8 = v16;
-        v32 = v51;
+        v32 = v50;
 LABEL_22:
 
         goto LABEL_23;
       }
 
-      v42 = v16;
-      v43 = v11;
-      v50 = v12;
-      v44 = v10;
+      v41 = v16;
+      v42 = v11;
+      v49 = v12;
+      v43 = v10;
       selfCopy2 = self;
       v17 = objc_opt_new();
+      v52 = 0u;
       v53 = 0u;
       v54 = 0u;
       v55 = 0u;
-      v56 = 0u;
       v14 = v14;
-      v18 = [v14 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v18 = [v14 countByEnumeratingWithState:&v52 objects:v58 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v54;
+        v20 = *v53;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v54 != v20)
+            if (*v53 != v20)
             {
               objc_enumerationMutation(v14);
             }
 
-            v22 = *(*(&v53 + 1) + 8 * i);
+            v22 = *(*(&v52 + 1) + 8 * i);
             v23 = [CCSignificantLocationSubPremise alloc];
-            v52 = 0;
-            v24 = [(CCSignificantLocationSubPremise *)v23 initWithJSONDictionary:v22 error:&v52];
-            v25 = v52;
+            v51 = 0;
+            v24 = [(CCSignificantLocationSubPremise *)v23 initWithJSONDictionary:v22 error:&v51];
+            v25 = v51;
             if (v24)
             {
               v26 = v25 == 0;
@@ -107,16 +107,16 @@ LABEL_22:
 
               v31 = 0;
               self = selfCopy2;
-              v12 = v50;
-              v32 = v51;
-              v11 = v43;
+              v12 = v49;
+              v32 = v50;
+              v11 = v42;
               goto LABEL_21;
             }
 
             [v17 addObject:v24];
           }
 
-          v19 = [v14 countByEnumeratingWithState:&v53 objects:v59 count:16];
+          v19 = [v14 countByEnumeratingWithState:&v52 objects:v58 count:16];
         }
 
         while (v19);
@@ -128,37 +128,37 @@ LABEL_22:
     else
     {
       errorCopy2 = error;
-      v42 = v8;
-      v50 = v12;
-      v43 = v11;
-      v44 = v10;
+      v41 = v8;
+      v49 = v12;
+      v42 = v11;
+      v43 = v10;
       selfCopy2 = self;
       v17 = 0;
     }
 
-    v40 = [dictionaryCopy objectForKeyedSubscript:@"subThoroughfare"];
-    v49 = [dictionaryCopy objectForKeyedSubscript:@"subAministrativeArea"];
-    v48 = [dictionaryCopy objectForKeyedSubscript:@"administrativeArea"];
-    v47 = [dictionaryCopy objectForKeyedSubscript:@"administrativeAreaCode"];
-    v46 = [dictionaryCopy objectForKeyedSubscript:@"postalCode"];
-    v39 = [dictionaryCopy objectForKeyedSubscript:@"countryCode"];
-    v38 = [dictionaryCopy objectForKeyedSubscript:@"inlandWater"];
-    v37 = [dictionaryCopy objectForKeyedSubscript:@"ocean"];
-    v36 = [dictionaryCopy objectForKeyedSubscript:@"areasOfInterest"];
-    v35 = [dictionaryCopy objectForKeyedSubscript:@"isIsland"];
+    v39 = [dictionaryCopy objectForKeyedSubscript:@"subThoroughfare"];
+    v48 = [dictionaryCopy objectForKeyedSubscript:@"subAministrativeArea"];
+    v47 = [dictionaryCopy objectForKeyedSubscript:@"administrativeArea"];
+    v46 = [dictionaryCopy objectForKeyedSubscript:@"administrativeAreaCode"];
+    v45 = [dictionaryCopy objectForKeyedSubscript:@"postalCode"];
+    v38 = [dictionaryCopy objectForKeyedSubscript:@"countryCode"];
+    v37 = [dictionaryCopy objectForKeyedSubscript:@"inlandWater"];
+    v36 = [dictionaryCopy objectForKeyedSubscript:@"ocean"];
+    v35 = [dictionaryCopy objectForKeyedSubscript:@"areasOfInterest"];
+    v34 = [dictionaryCopy objectForKeyedSubscript:@"isIsland"];
     v27 = [dictionaryCopy objectForKeyedSubscript:@"iso3166CountryCode"];
     v28 = [dictionaryCopy objectForKeyedSubscript:@"iso3166SubdivisionCode"];
     v29 = [dictionaryCopy objectForKeyedSubscript:@"mergedThoroughfare"];
-    v32 = v51;
-    v11 = v43;
-    v10 = v44;
-    v31 = [[CCSignificantLocationAddress alloc] initWithThoroughfare:v51 subLocality:v44 locality:v43 country:v50 subPremises:v17 subThoroughfare:v40 subAministrativeArea:v49 administrativeArea:v48 administrativeAreaCode:v47 postalCode:v46 countryCode:v39 inlandWater:v38 ocean:v37 areasOfInterest:v36 isIsland:v35 iso3166CountryCode:v27 iso3166SubdivisionCode:v28 mergedThoroughfare:v29 error:errorCopy2];
+    v32 = v50;
+    v11 = v42;
+    v10 = v43;
+    v31 = [[CCSignificantLocationAddress alloc] initWithThoroughfare:v50 subLocality:v43 locality:v42 country:v49 subPremises:v17 subThoroughfare:v39 subAministrativeArea:v48 administrativeArea:v47 administrativeAreaCode:v46 postalCode:v45 countryCode:v38 inlandWater:v37 ocean:v36 areasOfInterest:v35 isIsland:v34 iso3166CountryCode:v27 iso3166SubdivisionCode:v28 mergedThoroughfare:v29 error:errorCopy2];
 
     v14 = v17;
-    v12 = v50;
+    v12 = v49;
     self = selfCopy2;
 LABEL_21:
-    v8 = v42;
+    v8 = v41;
     goto LABEL_22;
   }
 
@@ -166,13 +166,12 @@ LABEL_21:
   v31 = 0;
 LABEL_23:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (id)jsonDictionary
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_thoroughfare)
   {
@@ -201,30 +200,30 @@ LABEL_23:
   if (self->_subPremises)
   {
     v8 = objc_opt_new();
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     subPremises = [(CCSignificantLocationAddress *)self subPremises];
-    v10 = [subPremises countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v10 = [subPremises countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(subPremises);
           }
 
-          jsonDictionary = [*(*(&v31 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary = [*(*(&v30 + 1) + 8 * i) jsonDictionary];
           [v8 addObject:jsonDictionary];
         }
 
-        v11 = [subPremises countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v11 = [subPremises countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v11);
@@ -312,8 +311,6 @@ LABEL_23:
   }
 
   v28 = [v3 copy];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -560,8 +557,8 @@ LABEL_23:
   v9 = MEMORY[0x1E6993AB0];
   if (*&v7[*MEMORY[0x1E6993AB8]] >= *&v7[*MEMORY[0x1E6993AB0]])
   {
-    v54 = 0;
-    v55 = 0;
+    v51 = 0;
+    v52 = 0;
 LABEL_71:
     v10 = 0;
   }
@@ -569,8 +566,8 @@ LABEL_71:
   else
   {
     v10 = 0;
-    v54 = 0;
-    v55 = 0;
+    v51 = 0;
+    v52 = 0;
     v11 = MEMORY[0x1E6993AA8];
     v12 = MEMORY[0x1E6993AA0];
     do
@@ -665,18 +662,18 @@ LABEL_21:
           errorCopy2 = error;
           v32 = dataCopy;
           v33 = CCPBReaderReadDataNoCopy();
-          if (!v54)
+          if (!v51)
           {
-            v54 = objc_opt_new();
+            v51 = objc_opt_new();
           }
 
           v34 = [CCSignificantLocationSubPremise alloc];
-          v56 = 0;
-          v35 = [(CCItemMessage *)v34 initWithData:v33 error:&v56];
-          v10 = v56;
+          v53 = 0;
+          v35 = [(CCItemMessage *)v34 initWithData:v33 error:&v53];
+          v10 = v53;
           if (!v10 && v35)
           {
-            [v54 addObject:v35];
+            [v51 addObject:v35];
           }
 
           goto LABEL_55;
@@ -714,14 +711,14 @@ LABEL_21:
           goto LABEL_58;
         case 0xEu:
           v36 = CCPBReaderReadStringNoCopy();
-          if (!v55)
+          if (!v52)
           {
-            v55 = objc_opt_new();
+            v52 = objc_opt_new();
           }
 
           if (v36)
           {
-            [v55 addObject:v36];
+            [v52 addObject:v36];
           }
 
           goto LABEL_59;
@@ -742,7 +739,7 @@ LABEL_21:
           v23 = CCPBReaderReadStringNoCopy();
           v24 = 152;
 LABEL_58:
-          v39 = *(&self->super.super.isa + v24);
+          v38 = *(&self->super.super.isa + v24);
           *(&self->super.super.isa + v24) = v23;
 
           goto LABEL_59;
@@ -759,7 +756,6 @@ LABEL_59:
             NSStringFromClass(v37);
             errorCopy2 = error;
             v33 = v32 = dataCopy;
-            v38 = *&v7[*v11];
             v10 = CCSkipFieldErrorForMessage();
 LABEL_55:
 
@@ -798,8 +794,8 @@ LABEL_55:
 
       *&v7[*v11] = 1;
 LABEL_63:
-      v40 = *&v7[*v11] || v27 == 0;
-      v31 = !v40;
+      v39 = *&v7[*v11] || v27 == 0;
+      v31 = !v39;
 LABEL_69:
       v10 = 0;
       self->_isIsland = v31;
@@ -809,13 +805,13 @@ LABEL_69:
     while (*&v7[*v8] < *&v7[*v9]);
   }
 
-  v41 = [v54 copy];
+  v40 = [v51 copy];
   subPremises = self->_subPremises;
-  self->_subPremises = v41;
+  self->_subPremises = v40;
 
-  v43 = [v55 copy];
+  v42 = [v52 copy];
   areasOfInterest = self->_areasOfInterest;
-  self->_areasOfInterest = v43;
+  self->_areasOfInterest = v42;
 
   if (v10)
   {
@@ -824,32 +820,30 @@ LABEL_69:
 
   else
   {
-    v45 = MEMORY[0x1E6993AA8];
     if (!*&v7[*MEMORY[0x1E6993AA8]])
     {
-      v51 = 1;
+      v48 = 1;
       goto LABEL_77;
     }
 
-    v46 = objc_opt_class();
-    v47 = NSStringFromClass(v46);
-    v48 = *&v7[*v45];
+    v44 = objc_opt_class();
+    v45 = NSStringFromClass(v44);
     CCInvalidBufferErrorForMessage();
-    v50 = v49 = dataCopy;
+    v47 = v46 = dataCopy;
     CCSetError();
 
-    dataCopy = v49;
+    dataCopy = v46;
   }
 
-  v51 = 0;
+  v48 = 0;
 LABEL_77:
 
-  return v51;
+  return v48;
 }
 
 - (CCSignificantLocationAddress)initWithThoroughfare:(id)thoroughfare subLocality:(id)locality locality:(id)a5 country:(id)country subPremises:(id)premises subThoroughfare:(id)subThoroughfare subAministrativeArea:(id)area administrativeArea:(id)self0 administrativeAreaCode:(id)self1 postalCode:(id)self2 countryCode:(id)self3 inlandWater:(id)self4 ocean:(id)self5 areasOfInterest:(id)self6 isIsland:(id)self7 iso3166CountryCode:(id)self8 iso3166SubdivisionCode:(id)self9 mergedThoroughfare:(id)mergedThoroughfare error:(id *)error
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   thoroughfareCopy = thoroughfare;
   localityCopy = locality;
   v28 = a5;
@@ -869,11 +863,11 @@ LABEL_77:
   subdivisionCodeCopy = subdivisionCode;
   mergedThoroughfareCopy = mergedThoroughfare;
   v32 = objc_opt_new();
-  v77 = premisesCopy;
+  v75 = premisesCopy;
   if (thoroughfareCopy)
   {
     objc_opt_class();
-    v112 = 0;
+    v110 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
     v34 = 0;
     if (!IsInstanceOfExpectedClass)
@@ -893,11 +887,11 @@ LABEL_75:
     v34 = 0;
   }
 
-  v76 = areaCopy;
+  v74 = areaCopy;
   if (localityCopy)
   {
     objc_opt_class();
-    v111 = v34;
+    v109 = v34;
     v35 = CCValidateIsInstanceOfExpectedClass();
     v36 = v34;
 
@@ -930,7 +924,7 @@ LABEL_8:
   }
 
   objc_opt_class();
-  v110 = v36;
+  v108 = v36;
   v38 = CCValidateIsInstanceOfExpectedClass();
   v34 = v36;
 
@@ -944,7 +938,7 @@ LABEL_8:
   {
 LABEL_9:
     objc_opt_class();
-    v109 = v34;
+    v107 = v34;
     v37 = CCValidateIsInstanceOfExpectedClass();
     v36 = v34;
 
@@ -973,7 +967,7 @@ LABEL_11:
 
 LABEL_16:
   objc_opt_class();
-  v108 = v36;
+  v106 = v36;
   v39 = CCValidateArrayValues();
   v34 = v36;
 
@@ -982,42 +976,42 @@ LABEL_16:
     goto LABEL_80;
   }
 
-  v72 = thoroughfareCopy;
-  v106 = 0u;
-  v107 = 0u;
+  v70 = thoroughfareCopy;
   v104 = 0u;
   v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   v40 = premisesCopy;
-  v41 = [v40 countByEnumeratingWithState:&v104 objects:v114 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v102 objects:v112 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v105;
+    v43 = *v103;
     do
     {
       for (i = 0; i != v42; ++i)
       {
-        if (*v105 != v43)
+        if (*v103 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        data = [*(*(&v104 + 1) + 8 * i) data];
+        data = [*(*(&v102 + 1) + 8 * i) data];
         CCPBDataWriterWriteDataField();
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v104 objects:v114 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v102 objects:v112 count:16];
     }
 
     while (v42);
   }
 
-  thoroughfareCopy = v72;
+  thoroughfareCopy = v70;
 LABEL_25:
   if (subThoroughfareCopy)
   {
     objc_opt_class();
-    v103 = v34;
+    v101 = v34;
     v46 = CCValidateIsInstanceOfExpectedClass();
     v36 = v34;
 
@@ -1026,26 +1020,26 @@ LABEL_25:
       goto LABEL_74;
     }
 
-    v73 = v28;
+    v71 = v28;
     v47 = countryCopy;
     CCPBDataWriterWriteStringField();
   }
 
   else
   {
-    v73 = v28;
+    v71 = v28;
     v47 = countryCopy;
     v36 = v34;
   }
 
-  if (!v76)
+  if (!v74)
   {
     v34 = v36;
     goto LABEL_33;
   }
 
   objc_opt_class();
-  v102 = v36;
+  v100 = v36;
   v48 = CCValidateIsInstanceOfExpectedClass();
   v34 = v36;
 
@@ -1057,11 +1051,11 @@ LABEL_33:
     if (administrativeAreaCopy)
     {
       objc_opt_class();
-      v101 = v34;
+      v99 = v34;
       v49 = CCValidateIsInstanceOfExpectedClass();
       v36 = v34;
 
-      v28 = v73;
+      v28 = v71;
       if (!v49)
       {
         goto LABEL_74;
@@ -1073,13 +1067,13 @@ LABEL_33:
     else
     {
       v36 = v34;
-      v28 = v73;
+      v28 = v71;
     }
 
     if (codeCopy)
     {
       objc_opt_class();
-      v100 = v36;
+      v98 = v36;
       v52 = CCValidateIsInstanceOfExpectedClass();
       v34 = v36;
 
@@ -1099,7 +1093,7 @@ LABEL_33:
     if (postalCodeCopy)
     {
       objc_opt_class();
-      v99 = v34;
+      v97 = v34;
       v53 = CCValidateIsInstanceOfExpectedClass();
       v36 = v34;
 
@@ -1119,7 +1113,7 @@ LABEL_33:
     if (countryCodeCopy)
     {
       objc_opt_class();
-      v98 = v36;
+      v96 = v36;
       v54 = CCValidateIsInstanceOfExpectedClass();
       v34 = v36;
 
@@ -1139,7 +1133,7 @@ LABEL_33:
     if (waterCopy)
     {
       objc_opt_class();
-      v97 = v34;
+      v95 = v34;
       v55 = CCValidateIsInstanceOfExpectedClass();
       v36 = v34;
 
@@ -1159,7 +1153,7 @@ LABEL_33:
     if (oceanCopy)
     {
       objc_opt_class();
-      v96 = v36;
+      v94 = v36;
       v56 = CCValidateIsInstanceOfExpectedClass();
       v34 = v36;
 
@@ -1179,7 +1173,7 @@ LABEL_33:
     if (interestCopy)
     {
       objc_opt_class();
-      v95 = v34;
+      v93 = v34;
       v57 = CCValidateArrayValues();
       v36 = v34;
 
@@ -1189,51 +1183,50 @@ LABEL_33:
       }
 
       v34 = v36;
-      v74 = thoroughfareCopy;
-      v93 = 0u;
-      v94 = 0u;
+      v72 = thoroughfareCopy;
       v91 = 0u;
       v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
       v58 = interestCopy;
-      v59 = [v58 countByEnumeratingWithState:&v91 objects:v113 count:16];
+      v59 = [v58 countByEnumeratingWithState:&v89 objects:v111 count:16];
       if (v59)
       {
         v60 = v59;
-        v61 = *v92;
+        v61 = *v90;
         do
         {
           for (j = 0; j != v60; ++j)
           {
-            if (*v92 != v61)
+            if (*v90 != v61)
             {
               objc_enumerationMutation(v58);
             }
 
-            v63 = *(*(&v91 + 1) + 8 * j);
             CCPBDataWriterWriteStringField();
           }
 
-          v60 = [v58 countByEnumeratingWithState:&v91 objects:v113 count:16];
+          v60 = [v58 countByEnumeratingWithState:&v89 objects:v111 count:16];
         }
 
         while (v60);
       }
 
-      thoroughfareCopy = v74;
+      thoroughfareCopy = v72;
     }
 
-    areaCopy = v76;
+    areaCopy = v74;
     if (!islandCopy)
     {
       goto LABEL_71;
     }
 
     objc_opt_class();
-    v64 = v34;
-    v75 = CCValidateIsInstanceOfExpectedClass();
+    v63 = v34;
+    v73 = CCValidateIsInstanceOfExpectedClass();
     v34 = v34;
 
-    if (v75)
+    if (v73)
     {
       [islandCopy BOOLValue];
       CCPBDataWriterWriteBOOLField();
@@ -1245,10 +1238,10 @@ LABEL_71:
       }
 
       objc_opt_class();
-      v65 = CCValidateIsInstanceOfExpectedClass();
+      v64 = CCValidateIsInstanceOfExpectedClass();
       v36 = v34;
 
-      if (v65)
+      if (v64)
       {
         CCPBDataWriterWriteStringField();
 LABEL_77:
@@ -1259,10 +1252,10 @@ LABEL_77:
         }
 
         objc_opt_class();
-        v66 = CCValidateIsInstanceOfExpectedClass();
+        v65 = CCValidateIsInstanceOfExpectedClass();
         v34 = v36;
 
-        if (v66)
+        if (v65)
         {
           CCPBDataWriterWriteStringField();
 LABEL_85:
@@ -1277,23 +1270,23 @@ LABEL_88:
           }
 
           objc_opt_class();
-          v69 = CCValidateIsInstanceOfExpectedClass();
-          v70 = v34;
+          v67 = CCValidateIsInstanceOfExpectedClass();
+          v68 = v34;
 
-          if (v69)
+          if (v67)
           {
             CCPBDataWriterWriteStringField();
-            v34 = v70;
+            v34 = v68;
             goto LABEL_88;
           }
 
           CCSetError();
           v50 = 0;
-          v34 = v70;
+          v34 = v68;
 LABEL_81:
           selfCopy3 = self;
 LABEL_82:
-          areaCopy = v76;
+          areaCopy = v74;
           goto LABEL_83;
         }
 
@@ -1316,12 +1309,11 @@ LABEL_74:
   CCSetError();
   v50 = 0;
   selfCopy3 = self;
-  areaCopy = v76;
+  areaCopy = v74;
   countryCopy = v47;
-  v28 = v73;
+  v28 = v71;
 LABEL_83:
 
-  v67 = *MEMORY[0x1E69E9840];
   return v50;
 }
 

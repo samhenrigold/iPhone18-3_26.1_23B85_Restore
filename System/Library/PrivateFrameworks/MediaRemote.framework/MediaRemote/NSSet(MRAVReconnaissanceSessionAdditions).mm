@@ -6,31 +6,31 @@
 
 - (uint64_t)mr_containsObjectUsingWeakMatching:()MRAVReconnaissanceSessionAdditions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = v4;
     [self allObjects];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v6 = v22 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = v21 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v19;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -49,7 +49,7 @@
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           continue;
@@ -67,7 +67,6 @@ LABEL_20:
     v7 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

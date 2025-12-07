@@ -13,7 +13,7 @@
   v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
 
-  v7 = specialized static WorkoutConfigurationImageGenerator.createBlastDoorDataSource(from:)();
+  v7 = specialized static WorkoutConfigurationImageGenerator.createBlastDoorDataSource(from:)(v4, v6);
   outlined consume of Data._Representation(v4, v6);
 
   return v7;
@@ -25,43 +25,43 @@
   v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
 
-  v7 = specialized static WorkoutConfigurationImageGenerator.createImage(from:)();
-  v9 = v8;
+  v8 = specialized static WorkoutConfigurationImageGenerator.createImage(from:)(v4, v6, v7);
+  v10 = v9;
   outlined consume of Data._Representation(v4, v6);
-  if (v9 >> 60 == 15)
+  if (v10 >> 60 == 15)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    outlined consume of Data?(v7, v9);
-    v10 = isa;
+    outlined consume of Data?(v8, v10);
+    v11 = isa;
   }
 
-  return v10;
+  return v11;
 }
 
 + (id)createImageFromBlastDoorDataSource:(id)source scale:(double)scale
 {
   sourceCopy = source;
-  v5 = specialized static WorkoutConfigurationImageGenerator.createImage(from:scale:)(sourceCopy);
-  v7 = v6;
+  v6 = specialized static WorkoutConfigurationImageGenerator.createImage(from:scale:)(sourceCopy, scale);
+  v8 = v7;
 
-  if (v7 >> 60 == 15)
+  if (v8 >> 60 == 15)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    outlined consume of Data?(v5, v7);
-    v8 = isa;
+    outlined consume of Data?(v6, v8);
+    v9 = isa;
   }
 
-  return v8;
+  return v9;
 }
 
 - (NLWorkoutConfigurationImageGenerator)init

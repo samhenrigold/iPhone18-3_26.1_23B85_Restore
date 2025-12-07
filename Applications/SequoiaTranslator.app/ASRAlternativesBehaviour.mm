@@ -42,7 +42,7 @@
   swift_unknownObjectRelease();
   sub_10001297C();
 
-  sub_100008664(&v5);
+  sub_100008664(v5);
 }
 
 @end

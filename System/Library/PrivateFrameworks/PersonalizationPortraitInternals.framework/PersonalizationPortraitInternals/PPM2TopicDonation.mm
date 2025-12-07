@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)donationSourceAsString:(int)string;
 - (int)StringAsDonationSource:(id)source;
 - (int)donationSource;
 - (unint64_t)hash;
@@ -53,7 +54,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_donationSource != *(equalCopy + 4))
@@ -65,24 +65,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   activeTreatments = self->_activeTreatments;
   if (activeTreatments | *(equalCopy + 1))
   {
-    v7 = [(NSString *)activeTreatments isEqual:?];
+    v6 = [(NSString *)activeTreatments isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -122,18 +122,17 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    donationSource = self->_donationSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -308,6 +307,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)donationSourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971C58[string];
   }
 
   return v4;

@@ -30,69 +30,66 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  objc_msgSend_startTime(self, v6, v7);
-  v9 = v8;
-  isEmptySegment = objc_msgSend_isEmptySegment(self, v10, v11);
-  v14 = objc_msgSend_stringWithFormat_(v3, v13, @"<%@: %p startTime=%f, isEmptySegment=%d>", v5, self, v9, isEmptySegment);
+  [(KNMovieSegment *)self startTime];
+  v7 = [v3 stringWithFormat:@"<%@: %p startTime=%f, isEmptySegment=%d>", v5, self, v6, -[KNMovieSegment isEmptySegment](self, "isEmptySegment")];
 
-  return v14;
+  return v7;
 }
 
 - (BOOL)isEmptySegment
 {
-  v3 = objc_msgSend_movieData(self, a2, v2);
-  v4 = v3 == 0;
+  movieData = [(KNMovieSegment *)self movieData];
+  v3 = movieData == 0;
 
-  return v4;
+  return v3;
 }
 
 - (id)movieSegmentByAddingTimeOffset:(double)offset
 {
   v5 = [KNMovieSegment alloc];
-  v8 = objc_msgSend_movieData(self, v6, v7);
-  objc_msgSend_startTime(self, v9, v10);
-  started = objc_msgSend_initWithMovieData_startTime_(v5, v12, v8, v11 + offset);
+  movieData = [(KNMovieSegment *)self movieData];
+  [(KNMovieSegment *)self startTime];
+  offset = [(KNMovieSegment *)v5 initWithMovieData:movieData startTime:v7 + offset];
 
-  return started;
+  return offset;
 }
 
 - (KNMovieSegment)initWithContext:(id)context message:(const void *)message unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v21.receiver = self;
-  v21.super_class = KNMovieSegment;
-  v8 = [(KNMovieSegment *)&v21 init];
-  v10 = v8;
+  v18.receiver = self;
+  v18.super_class = KNMovieSegment;
+  v8 = [(KNMovieSegment *)&v18 init];
+  v9 = v8;
   if (v8)
   {
-    v11 = *(message + 4);
-    if (v11)
+    v10 = *(message + 4);
+    if (v10)
     {
-      v14 = *(message + 3);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = sub_275DBCB08;
-      v19[3] = &unk_27A698368;
-      v20 = v8;
-      v15 = unarchiverCopy;
-      v16 = objc_opt_class();
-      objc_msgSend_readReferenceMessage_class_protocol_completion_(v15, v17, v14, v16, 0, v19);
+      v13 = *(message + 3);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = sub_275DBCB08;
+      v16[3] = &unk_27A698368;
+      v17 = v8;
+      v14 = unarchiverCopy;
+      [v14 readReferenceMessage:v13 class:objc_opt_class() protocol:0 completion:v16];
 
-      movieData = v20;
+      movieData = v17;
     }
 
     else
     {
-      if ((v11 & 2) == 0)
+      if ((v10 & 2) == 0)
       {
 LABEL_7:
-        v10->_startTime = *(message + 5);
+        v9->_startTime = *(message + 5);
         goto LABEL_8;
       }
 
-      v12 = objc_msgSend_readDataReferenceMessage_(unarchiverCopy, v9, *(message + 4));
-      movieData = v10->_movieData;
-      v10->_movieData = v12;
+      v11 = [unarchiverCopy readDataReferenceMessage:*(message + 4)];
+      movieData = v9->_movieData;
+      v9->_movieData = v11;
     }
 
     goto LABEL_7;
@@ -100,7 +97,7 @@ LABEL_7:
 
 LABEL_8:
 
-  return v10;
+  return v9;
 }
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
@@ -110,25 +107,25 @@ LABEL_8:
   if (movieData)
   {
     *(message + 4) |= 2u;
-    v9 = *(message + 4);
-    if (!v9)
+    v7 = *(message + 4);
+    if (!v7)
     {
-      v10 = *(message + 1);
-      if (v10)
+      v8 = *(message + 1);
+      if (v8)
       {
-        v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+        v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v9 = MEMORY[0x277C8EFD0](v10);
-      *(message + 4) = v9;
+      v7 = MEMORY[0x277C8EFD0](v8);
+      *(message + 4) = v7;
     }
 
-    objc_msgSend_setDataReference_message_(archiverCopy, v6, movieData, v9);
+    [archiverCopy setDataReference:movieData message:v7];
   }
 
-  objc_msgSend_startTime(self, v6, v7);
+  [(KNMovieSegment *)self startTime];
   *(message + 4) |= 4u;
-  *(message + 5) = v11;
+  *(message + 5) = v9;
 }
 
 @end

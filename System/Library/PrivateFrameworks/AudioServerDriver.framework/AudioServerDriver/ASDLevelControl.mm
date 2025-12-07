@@ -1,7 +1,10 @@
 @interface ASDLevelControl
++ (id)volumeControlWithDecibelValue:(float)value minimumValue:(float)minimumValue maximumValue:(float)maximumValue isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
+- (ASDLevelControl)initWithDecibelValue:(float)value minimumValue:(float)minimumValue maximumValue:(float)maximumValue isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)self0;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (float)_decibelFromScalar:(float)scalar;
 - (float)_scalarFromDecibel:(float)decibel;
 - (float)decibelFromScalar:(float)scalar;
@@ -10,6 +13,7 @@
 - (float)minimumDecibelValue;
 - (float)scalarFromDecibel:(float)decibel;
 - (float)scalarValue;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)driverClassName;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (void)setDecibelValue:(float)value;
@@ -19,6 +23,41 @@
 @end
 
 @implementation ASDLevelControl
+
+- (ASDLevelControl)initWithDecibelValue:(float)value minimumValue:(float)minimumValue maximumValue:(float)maximumValue isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)self0
+{
+  v10 = *&d;
+  v11 = *&scope;
+  v12 = *&element;
+  pluginCopy = plugin;
+  if (minimumValue > maximumValue)
+  {
+    [ASDLevelControl initWithDecibelValue:a2 minimumValue:self maximumValue:? isSettable:? forElement:? inScope:? withPlugin:? andObjectClassID:?];
+  }
+
+  v31.receiver = self;
+  v31.super_class = ASDLevelControl;
+  v20 = [(ASDControl *)&v31 initWithElement:v12 inScope:v11 withPlugin:pluginCopy andObjectClassID:v10];
+  v21 = v20;
+  if (v20)
+  {
+    v20->_decibelValue = value;
+    v20->_minimumDecibelValue = minimumValue;
+    v20->_maximumDecibelValue = maximumValue;
+    v20->_settable = settable;
+    v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v22 bundleIdentifier];
+    v24 = MEMORY[0x277CCACA8];
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
+    v27 = [v24 stringWithFormat:@"%@.%@.%p", bundleIdentifier, v26, v21];
+    v28 = dispatch_queue_create([v27 UTF8String], 0);
+    valueQueue = v21->_valueQueue;
+    v21->_valueQueue = v28;
+  }
+
+  return v21;
+}
 
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property
 {
@@ -209,6 +248,77 @@ LABEL_7:
   return [(ASDLevelControl *)self isSettable];
 }
 
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_11;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v15 = [(ASDLevelControl *)self hasProperty:?];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  v15 = [(ASDLevelControl *)self isPropertySettable:property];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  mSelector = property->mSelector;
+  if (property->mSelector != 1818456950 && mSelector != 1818453110)
+  {
+    v23.receiver = self;
+    v23.super_class = ASDLevelControl;
+    LOBYTE(v15) = [(ASDObject *)&v23 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    return v15;
+  }
+
+  if (v10 != 4)
+  {
+LABEL_11:
+    LOBYTE(v15) = 0;
+    return v15;
+  }
+
+  v17 = *andData;
+  if (mSelector == 1818456950)
+  {
+    HIDWORD(v18) = 0;
+    *&v18 = fminf(fmaxf(v17, 0.0), 1.0);
+
+    LOBYTE(v15) = [(ASDLevelControl *)self changeScalarValue:v18];
+  }
+
+  else
+  {
+    [(ASDLevelControl *)self minimumDecibelValue];
+    if (v17 <= v19)
+    {
+      [(ASDLevelControl *)self minimumDecibelValue];
+      v17 = v20;
+    }
+
+    [(ASDLevelControl *)self maximumDecibelValue];
+    if (v17 >= *&v21)
+    {
+      [(ASDLevelControl *)self maximumDecibelValue];
+      v17 = *&v21;
+    }
+
+    *&v21 = v17;
+
+    LOBYTE(v15) = [(ASDLevelControl *)self changeDecibelValue:v21];
+  }
+
+  return v15;
+}
+
 - (float)_scalarFromDecibel:(float)decibel
 {
   minimumDecibelValue = self->_minimumDecibelValue;
@@ -267,7 +377,7 @@ LABEL_7:
   return v4;
 }
 
-uint64_t __37__ASDLevelControl_scalarFromDecibel___block_invoke(uint64_t a1, double a2)
+void *__37__ASDLevelControl_scalarFromDecibel___block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(a1 + 48);
   result = [*(a1 + 32) _scalarFromDecibel:a2];
@@ -295,7 +405,7 @@ uint64_t __37__ASDLevelControl_scalarFromDecibel___block_invoke(uint64_t a1, dou
   return v4;
 }
 
-uint64_t __37__ASDLevelControl_decibelFromScalar___block_invoke(uint64_t a1, double a2)
+void *__37__ASDLevelControl_decibelFromScalar___block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(a1 + 48);
   result = [*(a1 + 32) _decibelFromScalar:a2];
@@ -515,6 +625,48 @@ float __31__ASDLevelControl_decibelValue__block_invoke(uint64_t a1)
 
   [(ASDLevelControl *)self scalarFromDecibel:?];
   return result;
+}
+
++ (id)volumeControlWithDecibelValue:(float)value minimumValue:(float)minimumValue maximumValue:(float)maximumValue isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v9 = *&scope;
+  v10 = *&element;
+  settableCopy = settable;
+  pluginCopy = plugin;
+  v16 = objc_alloc(objc_opt_class());
+  *&v17 = value;
+  *&v18 = minimumValue;
+  *&v19 = maximumValue;
+  v20 = [v16 initWithDecibelValue:settableCopy minimumValue:v10 maximumValue:v9 isSettable:pluginCopy forElement:1986817381 inScope:v17 withPlugin:v18 andObjectClassID:v19];
+
+  return v20;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v16.receiver = self;
+  v16.super_class = ASDLevelControl;
+  indentCopy = indent;
+  v7 = [(ASDControl *)&v16 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  isSettable = [(ASDLevelControl *)self isSettable];
+  v9 = @"NO";
+  if (isSettable)
+  {
+    v9 = @"YES";
+  }
+
+  [v7 appendFormat:@"%@|    Is Settable: %@\n", indentCopy, v9];
+  [(ASDLevelControl *)self scalarValue];
+  [v7 appendFormat:@"%@|    Scalar Value: %f\n", indentCopy, v10];
+  [(ASDLevelControl *)self decibelValue];
+  [v7 appendFormat:@"%@|    Decibel Value: %f\n", indentCopy, v11];
+  [(ASDLevelControl *)self minimumDecibelValue];
+  v13 = v12;
+  [(ASDLevelControl *)self maximumDecibelValue];
+  [v7 appendFormat:@"%@|    Decibel Range: Min %f Max %f\n", indentCopy, *&v13, v14];
+
+  return v7;
 }
 
 - (id)driverClassName

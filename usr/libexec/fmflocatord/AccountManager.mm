@@ -24,7 +24,7 @@
 - (void)dealloc
 {
   v3 = +[NSNotificationCenter defaultCenter];
-  v4 = sub_100002830();
+  v4 = sub_100002830(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100036958(self, v4);
@@ -49,7 +49,7 @@
   v2 = qword_1000702D8;
   if (!qword_1000702D8)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -64,7 +64,7 @@
 
 - (AccountManager)init
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10003835C();
@@ -184,15 +184,15 @@ LABEL_9:
     v7 = NSStringFromClass(v6);
     v8 = [accountToStoreMapping objectForKeyedSubscript:v7];
 
-    v9 = sub_100002830();
-    v10 = v9;
+    v10 = sub_100002830(v9);
+    v11 = v10;
     if (v8)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v15 = accountCopy;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Deactivating account %@", buf, 0xCu);
+        v16 = accountCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Deactivating account %@", buf, 0xCu);
       }
 
       [accountCopy setIsActive:0];
@@ -201,17 +201,17 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = sub_10001D56C;
       block[3] = &unk_10005D2B0;
-      v13 = accountCopy;
+      v14 = accountCopy;
       dispatch_async(&_dispatch_main_q, block);
-      v10 = v13;
+      v11 = v14;
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = objc_opt_class();
-      v11 = v15;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Tried to deactivate an account of unknown type : %@", buf, 0xCu);
+      v16 = objc_opt_class();
+      v12 = v16;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Tried to deactivate an account of unknown type : %@", buf, 0xCu);
     }
   }
 }
@@ -225,59 +225,59 @@ LABEL_9:
 
   if (!v9)
   {
-    v11 = sub_100002830();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002830(v10);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     *buf = 138412290;
     typeCopy2 = type;
-    v13 = "Tried to deactivate an account of unknown type : %@";
-    v14 = v11;
-    v15 = 12;
+    v14 = "Tried to deactivate an account of unknown type : %@";
+    v15 = v12;
+    v16 = 12;
 LABEL_11:
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
     goto LABEL_12;
   }
 
-  v10 = sub_100002830();
-  v11 = v10;
+  v11 = sub_100002830(v10);
+  v12 = v11;
   if (!idCopy)
   {
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     *buf = 0;
-    v13 = "Cannot find account to deactivate since uniqueId to search is nil";
-    v14 = v11;
-    v15 = 2;
+    v14 = "Cannot find account to deactivate since uniqueId to search is nil";
+    v15 = v12;
+    v16 = 2;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     typeCopy2 = type;
-    v20 = 2112;
-    v21 = idCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Deactivating accounts of type %@ with unique id %@", buf, 0x16u);
+    v21 = 2112;
+    v22 = idCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Deactivating accounts of type %@ with unique id %@", buf, 0x16u);
   }
 
-  v12 = [(AccountManager *)self _existingAccountInStore:v9 withUniqueId:idCopy];
-  v11 = v12;
-  if (v12)
+  v13 = [(AccountManager *)self _existingAccountInStore:v9 withUniqueId:idCopy];
+  v12 = v13;
+  if (v13)
   {
-    [v12 setIsActive:0];
+    [v13 setIsActive:0];
     [v9 saveChanges];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001D85C;
     block[3] = &unk_10005D2B0;
-    v11 = v11;
-    v17 = v11;
+    v12 = v12;
+    v18 = v12;
     dispatch_async(&_dispatch_main_q, block);
   }
 
@@ -290,15 +290,15 @@ LABEL_12:
   v5 = NSStringFromClass(type);
   v6 = [accountToStoreMapping objectForKeyedSubscript:v5];
 
-  v7 = sub_100002830();
-  v8 = v7;
+  v8 = sub_100002830(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
+      v11 = 138412290;
       typeCopy2 = type;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Deactivating all accounts of type %@", &v10, 0xCu);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Deactivating all accounts of type %@", &v11, 0xCu);
     }
 
     accounts = [v6 accounts];
@@ -309,11 +309,11 @@ LABEL_12:
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
+      v11 = 138412290;
       typeCopy2 = type;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Tried to deactivate an account of unknown type : %@", &v10, 0xCu);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Tried to deactivate an account of unknown type : %@", &v11, 0xCu);
     }
   }
 }
@@ -326,24 +326,25 @@ LABEL_12:
   v7 = NSStringFromClass(v6);
   v8 = [accountToStoreMapping objectForKeyedSubscript:v7];
 
-  if ([accountCopy isActive])
+  isActive = [accountCopy isActive];
+  if (isActive)
   {
-    v9 = sub_100002830();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002830(isActive);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       uniqueId = [accountCopy uniqueId];
-      v13 = 138412290;
-      v14 = uniqueId;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Trying to remove an active account : %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = uniqueId;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Trying to remove an active account : %@", &v14, 0xCu);
     }
   }
 
   else
   {
     accounts = [v8 accounts];
-    v12 = [accounts containsObject:accountCopy];
+    v13 = [accounts containsObject:accountCopy];
 
-    if (v12)
+    if (v13)
     {
       [v8 removeAccount:accountCopy];
     }
@@ -363,17 +364,17 @@ LABEL_12:
   {
     accounts = [v6 accounts];
     +[NSMutableArray array];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10001DF50;
-    v8 = v10[3] = &unk_10005D320;
-    v11 = v8;
-    [accounts enumerateObjectsUsingBlock:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10001DF50;
+    v9 = v11[3] = &unk_10005D320;
+    v12 = v9;
+    [accounts enumerateObjectsUsingBlock:v11];
   }
 
   else
   {
-    accounts = sub_100002830();
+    accounts = sub_100002830(v7);
     if (os_log_type_enabled(accounts, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -381,10 +382,10 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, accounts, OS_LOG_TYPE_DEFAULT, "Tried to fetch accounts of unknown type : %@", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)allAccountsOfType:(Class)type
@@ -396,23 +397,23 @@ LABEL_12:
   if (v6)
   {
     accounts = [v6 accounts];
-    v8 = [accounts copy];
+    v9 = [accounts copy];
   }
 
   else
   {
-    v9 = sub_100002830();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002830(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
+      v12 = 138412290;
       typeCopy = type;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Tried to fetch accounts of unknown type : %@", &v11, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Tried to fetch accounts of unknown type : %@", &v12, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)accountOfType:(Class)type withUniqueId:(id)id

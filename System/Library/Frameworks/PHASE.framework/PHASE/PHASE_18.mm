@@ -182,7 +182,7 @@ LABEL_8:
   return result;
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -231,7 +231,7 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -266,9 +266,9 @@ LABEL_7:
   return v8;
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -690,7 +690,7 @@ uint64_t Phase::GetNodeType(Phase *this, NSString *a2)
   return v3;
 }
 
-uint64_t Phase::TraverseNode(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7, uint64_t a8)
+uint64_t Phase::TraverseNode(uint64_t a1, void *a2, void *a3, void *a4, Phase *a5, void *a6, void *a7, uint64_t a8)
 {
   v15 = a2;
   v16 = a3;
@@ -1071,7 +1071,7 @@ uint64_t Phase::ParseRandom(uint64_t a1, void *a2, void *a3, void *a4, uint64_t 
   v15 = a7;
   if (Phase::ReadString(a1, v13, @"Name", __src, 0x80uLL, 0))
   {
-    if (Phase::ReadPhaseId(a1, v13, @"Name", &v45, a6) & 1) != 0 && (Phase::ReadIntTypeWithDefault<int>(a1, v13, @"UniqueSelectionQueueLength", &v46, 0, 0, 128))
+    if (Phase::ReadPhaseId(a1, v13, @"Name", &v45, a6) & 1) != 0 && (Phase::ReadIntTypeWithDefault<int>(a1, v13, @"UniqueSelectionQueueLength", &v46, 0, 0, 0x80u))
     {
       v44 = 0;
       ChildArray = Phase::GetChildArray(a1, v13, &v44);
@@ -1250,7 +1250,7 @@ LABEL_41:
   return ChildArray;
 }
 
-uint64_t Phase::ParseSwitch(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7)
+uint64_t Phase::ParseSwitch(uint64_t a1, void *a2, void *a3, void *a4, Phase *a5, void *a6, void *a7)
 {
   v47 = *MEMORY[0x277D85DE8];
   v13 = a2;
@@ -1588,7 +1588,7 @@ uint64_t Phase::ParseProcedure(uint64_t a1, void *a2, void *a3, uint64_t a4, voi
     goto LABEL_18;
   }
 
-  if ((Phase::ReadEnumWithDefault<PHASECullOption>(a1, v9, &v14) & 1) == 0 || (Phase::ReadIntTypeWithDefault<int>(a1, v9, @"ProcedureMaxPolyphony", &v16, 16, 1, 0x7FFFFFFF) & 1) == 0 || (Phase::ReadEnumWithDefault<PHASEVoiceStealingType>(a1, v9, &v17) & 1) == 0 || (Phase::ReadEnumWithDefault<Phase::ProcedureMsg::Type>(a1, v9, v18) & 1) == 0)
+  if ((Phase::ReadEnumWithDefault<PHASECullOption>(a1, v9, &v14) & 1) == 0 || (Phase::ReadIntTypeWithDefault<int>(a1, v9, @"ProcedureMaxPolyphony", &v16, 16, 1, 0x7FFFFFFFu) & 1) == 0 || (Phase::ReadEnumWithDefault<PHASEVoiceStealingType>(a1, v9, &v17) & 1) == 0 || (Phase::ReadEnumWithDefault<Phase::ProcedureMsg::Type>(a1, v9, v18) & 1) == 0)
   {
     goto LABEL_17;
   }
@@ -1801,7 +1801,7 @@ LABEL_7:
   return v8;
 }
 
-uint64_t Phase::ParseLeafNode(uint64_t a1, void *a2, char *a3, double *a4, uint64_t a5, void *a6)
+uint64_t Phase::ParseLeafNode(uint64_t a1, void *a2, char *a3, double *a4, Phase *a5, void *a6)
 {
   v11 = a2;
   if ((Phase::ReadPhaseId(a1, v11, @"Submix", a4, a6) & 1) == 0)
@@ -1809,8 +1809,8 @@ uint64_t Phase::ParseLeafNode(uint64_t a1, void *a2, char *a3, double *a4, uint6
     goto LABEL_29;
   }
 
-  v13 = *(a5 + 376);
-  v12 = *(a5 + 384);
+  v13 = *(a5 + 47);
+  v12 = *(a5 + 48);
   v14 = v12 - v13;
   if (v12 == v13)
   {
@@ -1835,7 +1835,7 @@ LABEL_30:
     v17 = v16;
   }
 
-  if (*v13 != *&v15)
+  if (*v13 != v15)
   {
     v23 = 0;
     v24 = (v13 + 5944);
@@ -1845,7 +1845,7 @@ LABEL_30:
       v26 = *v24;
       v24 += 743;
       ++v23;
-      if (v26 == *&v15)
+      if (v26 == v15)
       {
         if (v16 > v23)
         {
@@ -2124,7 +2124,7 @@ LABEL_9:
   return v11;
 }
 
-uint64_t Phase::ReadIntTypeWithDefault<int>(uint64_t a1, void *a2, void *a3, int *a4, int a5, int a6, int a7)
+uint64_t Phase::ReadIntTypeWithDefault<int>(uint64_t a1, void *a2, void *a3, int *a4, int a5, int a6, unsigned int a7)
 {
   v35 = *MEMORY[0x277D85DE8];
   v13 = a2;
@@ -2183,7 +2183,7 @@ LABEL_13:
   return v21;
 }
 
-uint64_t Phase::ReadBoolWithDefault(uint64_t a1, void *a2, _BYTE *a3)
+uint64_t Phase::ReadBoolWithDefault(uint64_t a1, void *a2, unsigned __int8 *a3)
 {
   v5 = a2;
   v6 = @"Normalize";
@@ -2299,7 +2299,7 @@ LABEL_7:
   return v8;
 }
 
-uint64_t Phase::ParseWaterProcedureParams(uint64_t a1, void *a2, const char *a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t Phase::ParseWaterProcedureParams(uint64_t a1, void *a2, const char *a3, uint64_t a4, Phase *a5, void *a6)
 {
   v11 = a2;
   if (Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"FallRate", a4, 1000.0, 0.1, 48000.0) & 1) != 0 && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"AverageDropDiameter", (a4 + 8), 1.0, 0.1, 5.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"MaxDropDiameter", (a4 + 16), 5.0, 5.0, 20.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"ImpulseShape", (a4 + 24), 1.0, 0.1, 10.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"ImpulseGainExponent", (a4 + 32), 4.0, 4.0, 7.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"ImpulseGain", (a4 + 40), 1.0, 0.0, 1.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"ChirpRiseRate", (a4 + 48), 0.1, 0.01, 10.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"BaseFrequencyMultiplier", (a4 + 56), 3.0, 0.1, 10.0) && Phase::ReadFloatTypeWithDefault<double>(a1, v11, @"BubbleGain", (a4 + 64), 1.0, 0.0, 1.0) && Phase::ReadParamIdx(a1, v11, @"FallRateParameterName", a5, (a4 + 72), a6) && Phase::ReadParamIdx(a1, v11, @"AverageDropDiameterParameterName", a5, (a4 + 73), a6) && Phase::ReadParamIdx(a1, v11, @"MaxDropDiameterParameterName", a5, (a4 + 74), a6) && Phase::ReadParamIdx(a1, v11, @"ImpulseShapeParameterName", a5, (a4 + 75), a6) && Phase::ReadParamIdx(a1, v11, @"ImpulseGainExponentParameterName", a5, (a4 + 76), a6) && Phase::ReadParamIdx(a1, v11, @"ImpulseGainParameterName", a5, (a4 + 77), a6) && Phase::ReadParamIdx(a1, v11, @"ChirpRiseRateParameterName", a5, (a4 + 78), a6) && Phase::ReadParamIdx(a1, v11, @"BaseFrequencyMultiplierParameterName", a5, (a4 + 79), a6) && (Phase::ReadParamIdx(a1, v11, @"BubbleGainParameterName", a5, (a4 + 80), a6))
@@ -2471,9 +2471,10 @@ void Phase::ActionTree::~ActionTree(Phase::ActionTree *this)
   }
 }
 
-void sub_23A454950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_23A454950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::deque<int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::deque<int>>,void *>>>>::~unique_ptr[abi:ne200100](&a16);
+  va_start(va, a15);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::deque<int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::deque<int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   std::deque<int>::~deque[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -2510,7 +2511,7 @@ void sub_23A456E30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   if (a19)
   {
-    (*(*a19 + 8))(a19);
+    (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v21)
@@ -2688,7 +2689,7 @@ double PHASEGetPropertyBounded<double>(void *a1, void *a2, double a3, double a4,
       v19 = 2080;
       v20 = [v9 UTF8String];
       v21 = 2080;
-      v22 = [(Phase::Logger *)v11 UTF8String];
+      v22 = [v11 UTF8String];
       v23 = 2048;
       v24 = a3;
       v25 = 2048;
@@ -2718,28 +2719,28 @@ void sub_23A45907C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_23A4597D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A4597D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v9 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
 
   std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](va);
-  MEMORY[0x23EE86470](v5, 0x1000C80D9B47DDELL);
+  MEMORY[0x23EE86470](v7, 0x1000C80D9B47DDELL);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va1);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A459C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A459C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v12 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, Phase::ActionTree *);
+  v16 = va_arg(va2, Phase::ActionTree *);
 
   std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<Phase::ActionTree>::reset[abi:ne200100](va1, 0);
@@ -2771,7 +2772,7 @@ void sub_23A45A41C(_Unwind_Exception *exception_object, int a2)
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::AssetUnloader>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -2779,9 +2780,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::AssetUnlo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -2798,13 +2799,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::AssetUnlo
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2813,7 +2814,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::AssetUnlo
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::Controller::AssetUnloader * const>(v4);
@@ -3031,32 +3032,32 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,PHASEAsset * {
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::unique_ptr<Phase::StringPool>>>(void *a1, unint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::unique_ptr<Phase::StringPool>>>(float *a1, unint64_t a2, uint64_t *a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -3064,39 +3065,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
@@ -3104,9 +3105,9 @@ LABEL_17:
   return 0;
 }
 
-void sub_23A462054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A462054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unique_ptr<Phase::StringPool>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3128,32 +3129,32 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,PHASEDataBundleAsset * {__strong}&>(void *a1, unint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEAsset * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,PHASEDataBundleAsset * {__strong}&>(void *a1, unint64_t a2, void *a3, id *a4)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v6 = a2;
+    if (*&v4 <= a2)
     {
-      v4 = a2 % *&v2;
+      v6 = a2 % *&v4;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v6 = (*&v4 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3161,39 +3162,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v9 >= *&v4)
       {
-        v7 %= *&v2;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v8[2] != a2)
   {
     goto LABEL_17;
   }
@@ -3201,9 +3202,9 @@ LABEL_17:
   return 0;
 }
 
-void sub_23A46230C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A46230C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(NSUUID *,NSUUID *,BOOL)>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(NSUUID *,NSUUID *,BOOL)>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3405,7 +3406,7 @@ uint64_t Phase::Commandable<128,Phase::LockFreeQueueMPSC>::CallAsync<Phase::Glob
   v10 = **(a1 + 8);
   v22 = 0;
   v21 = 1;
-  v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 64, &v22, &v21);
+  v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 0x40uLL, &v22, &v21);
   if (!v11)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4743,13 +4744,13 @@ void sub_23A46DE44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PHASEEngineImpl::PHASEEngineImpl(uint64_t a1, void *a2, double a3, uint64_t a4, uint64_t a5, void *a6)
+void PHASEEngineImpl::PHASEEngineImpl(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, double a7)
 {
-  v10 = a2;
-  a6;
-  objc_initWeak(a1, v10);
-  *(a1 + 8) = a3;
-  *(a1 + 16) = a5;
+  v11 = a2;
+  a5;
+  objc_initWeak(a1, v11);
+  *(a1 + 8) = a7;
+  *(a1 + 16) = a4;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 36) = 0;
@@ -5013,7 +5014,7 @@ LABEL_32:
   }
 }
 
-void *Phase::Controller::TaskManager::RegisterService<Phase::Controller::ClientTapRegistryProxy>(void *result, uint64_t (*a2)(void, void, void, void, void))
+void (***Phase::Controller::TaskManager::RegisterService<Phase::Controller::ClientTapRegistryProxy>(void (***result)(uint64_t), uint64_t (*a2)(void, void, void, void, void)))(uint64_t)
 {
   v5[4] = *MEMORY[0x277D85DE8];
   v3 = result[6];
@@ -5024,14 +5025,14 @@ void *Phase::Controller::TaskManager::RegisterService<Phase::Controller::ClientT
     v3 = *v4;
   }
 
-  if (!*(v3 + 512))
+  if (!v3[64])
   {
     v5[0] = std::__any_imp::_SmallHandler<Phase::Controller::ClientTapRegistryProxy *>::__handle[abi:ne200100];
     v5[1] = a2;
-    if (v5 != (v3 + 512))
+    if (v5 != (v3 + 64))
     {
-      *(v3 + 520) = a2;
-      *(v3 + 512) = std::__any_imp::_SmallHandler<Phase::Controller::ClientTapRegistryProxy *>::__handle[abi:ne200100];
+      v3[65] = a2;
+      v3[64] = std::__any_imp::_SmallHandler<Phase::Controller::ClientTapRegistryProxy *>::__handle[abi:ne200100];
       v5[0] = 0;
     }
 
@@ -6031,14 +6032,14 @@ uint64_t *std::unique_ptr<Phase::Controller::AssetUnloader>::reset[abi:ne200100]
   return result;
 }
 
-void **std::unique_ptr<Phase::ActionTreeManager>::reset[abi:ne200100](void **result, void *a2)
+uint64_t *std::unique_ptr<Phase::ActionTreeManager>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
   if (v2)
   {
-    caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::~guarded_lookup_hash_table((v2 + 10));
-    std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table((v2 + 5));
+    caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::~guarded_lookup_hash_table(v2 + 80);
+    std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table((v2 + 40));
     Phase::Commandable<128,Phase::LockFreeQueueMPSC>::~Commandable(v2);
 
     JUMPOUT(0x23EE864A0);
@@ -6047,7 +6048,7 @@ void **std::unique_ptr<Phase::ActionTreeManager>::reset[abi:ne200100](void **res
   return result;
 }
 
-Phase::Controller::ClientTapRegistryProxy *std::unique_ptr<Phase::Controller::ClientTapRegistryProxy>::reset[abi:ne200100](Phase::Controller::ClientTapRegistryProxy **a1, Phase::Controller::ClientTapRegistryProxy *a2)
+id *std::unique_ptr<Phase::Controller::ClientTapRegistryProxy>::reset[abi:ne200100](id **a1, id *a2)
 {
   result = *a1;
   *a1 = a2;
@@ -7603,7 +7604,7 @@ uint64_t GetDirectivityModelType(NSString *a1)
 
 id GetChannelLayoutString(Phase::ChannelLayout *a1)
 {
-  Phase::ChannelLayout::GetStringFromLayoutTag(a1, __p);
+  Phase::ChannelLayout::GetStringFromLayoutTag(__p, a1);
   v1 = MEMORY[0x277CCACA8];
   v2 = v9;
   v3 = __p[0];
@@ -7749,7 +7750,7 @@ double Phase::Envelope<double>::Range(uint64_t *a1)
   return result;
 }
 
-uint64_t std::vector<Phase::Envelope<double>::Segment,std::allocator<Phase::Envelope<double>::Segment>>::__emplace_back_slow_path<Phase::Envelope<double>::Segment const&>(uint64_t *a1, void *a2)
+uint64_t std::vector<Phase::Envelope<double>::Segment,std::allocator<Phase::Envelope<double>::Segment>>::__emplace_back_slow_path<Phase::Envelope<double>::Segment const&>(void *a1, void *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -7803,9 +7804,9 @@ uint64_t std::vector<Phase::Envelope<double>::Segment,std::allocator<Phase::Enve
   return v13;
 }
 
-void sub_23A47540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A47540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Phase::Envelope<double>::Segment,std::allocator<Phase::Envelope<double>::Segment> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8213,12 +8214,12 @@ void ___ZL13PublishedKeysv_block_invoke()
   _MergedGlobals_19 = v0;
 }
 
-void sub_23A479318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23A479318(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PHASEExternalStream;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8306,43 +8307,43 @@ void sub_23A47D738(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23A47D7D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23A47D7D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PHASEExternalOutputStreamController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
-void sub_23A4800F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4800F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,Phase::Vector<unsigned short,3ul> *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A480A08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A480A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned int,void const*)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -8624,7 +8625,7 @@ void sub_23A485C24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sGetFrequencies(void *a1)
+void **sGetFrequencies(void **a1)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -8699,44 +8700,44 @@ void sub_23A48AC00(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double Phase::Geometry::WeatherUtility<double>::SetTemperatureInCelsius(uint64_t a1, double a2)
+void Phase::Geometry::WeatherUtility<double>::SetTemperatureInCelsius(uint64_t a1, double a2)
 {
-  result = Phase::Controller::sClamp<double>(a1, a2 + 273.15, *a1, *(a1 + 8));
-  if (result == *(a1 + 24))
+  v3 = Phase::Controller::sClamp<double>(a1, a2 + 273.15, *a1, *(a1 + 8));
+  if (v3 == *(a1 + 24))
   {
     if ((*(a1 + 32) & 1) == 0)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    *(a1 + 24) = result;
+    *(a1 + 24) = v3;
     *(a1 + 32) = 1;
   }
 
-  return Phase::Geometry::WeatherUtility<double>::InitInternal(a1);
+  Phase::Geometry::WeatherUtility<double>::InitInternal(a1);
 }
 
-double Phase::Geometry::WeatherUtility<double>::SetRelativeHumidityPercentage(uint64_t a1, double a2)
+void Phase::Geometry::WeatherUtility<double>::SetRelativeHumidityPercentage(uint64_t a1, double a2)
 {
-  result = Phase::Controller::sClamp<double>(a1, a2, *(a1 + 40), *(a1 + 48));
-  if (result == *(a1 + 64))
+  v3 = Phase::Controller::sClamp<double>(a1, a2, *(a1 + 40), *(a1 + 48));
+  if (v3 == *(a1 + 64))
   {
     if ((*(a1 + 72) & 1) == 0)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    *(a1 + 64) = result;
+    *(a1 + 64) = v3;
     *(a1 + 72) = 1;
   }
 
-  return Phase::Geometry::WeatherUtility<double>::InitInternal(a1);
+  Phase::Geometry::WeatherUtility<double>::InitInternal(a1);
 }
 
 long double Phase::Geometry::WeatherUtility<double>::AtmosphericAbsorptionInDecibelsPerMeter(double *a1, double a2)
@@ -8778,7 +8779,7 @@ float PHASEGetPropertyBounded<float>(void *a1, void *a2, float a3, float a4, flo
       v19 = 2080;
       v20 = [v9 UTF8String];
       v21 = 2080;
-      v22 = [(Phase::Logger *)v11 UTF8String];
+      v22 = [v11 UTF8String];
       v23 = 2048;
       v24 = a3;
       v25 = 2048;
@@ -8794,44 +8795,44 @@ float PHASEGetPropertyBounded<float>(void *a1, void *a2, float a3, float a4, flo
   return a3;
 }
 
-double Phase::Geometry::WaterUtility<double>::SetTemperatureInCelsius(uint64_t a1, double a2)
+void Phase::Geometry::WaterUtility<double>::SetTemperatureInCelsius(uint64_t a1, double a2)
 {
-  result = Phase::Controller::sClamp<double>(a1, a2, *a1, *(a1 + 8));
-  if (result == *(a1 + 24))
+  v3 = Phase::Controller::sClamp<double>(a1, a2, *a1, *(a1 + 8));
+  if (v3 == *(a1 + 24))
   {
     if ((*(a1 + 32) & 1) == 0)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    *(a1 + 24) = result;
+    *(a1 + 24) = v3;
     *(a1 + 32) = 1;
   }
 
-  return Phase::Geometry::WaterUtility<double>::InitInternal(a1);
+  Phase::Geometry::WaterUtility<double>::InitInternal(a1);
 }
 
-double Phase::Geometry::WaterUtility<double>::SetDepthInMeters(uint64_t a1, double a2)
+void Phase::Geometry::WaterUtility<double>::SetDepthInMeters(uint64_t a1, double a2)
 {
-  result = Phase::Controller::sClamp<double>(a1, a2, *(a1 + 40), *(a1 + 48));
-  if (result == *(a1 + 64))
+  v3 = Phase::Controller::sClamp<double>(a1, a2, *(a1 + 40), *(a1 + 48));
+  if (v3 == *(a1 + 64))
   {
     if ((*(a1 + 72) & 1) == 0)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    *(a1 + 64) = result;
+    *(a1 + 64) = v3;
     *(a1 + 72) = 1;
   }
 
-  return Phase::Geometry::WaterUtility<double>::InitInternal(a1);
+  Phase::Geometry::WaterUtility<double>::InitInternal(a1);
 }
 
 long double Phase::Geometry::WaterUtility<double>::WaterAbsorptionInDecibelsPerMeter(double *a1, double a2)
@@ -8894,7 +8895,7 @@ uint64_t Phase::Geometry::WeatherUtility<double>::WeatherUtility(uint64_t a1)
   return a1;
 }
 
-long double Phase::Geometry::WeatherUtility<double>::InitInternal(uint64_t a1)
+double Phase::Geometry::WeatherUtility<double>::InitInternal(uint64_t a1)
 {
   v2 = *(a1 + 24);
   v3 = *(a1 + 64);
@@ -9077,49 +9078,49 @@ void sub_23A493AF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23A496AC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A496AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A496D70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A496D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A497020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A497020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A4972D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4972D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A497580(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A497580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23A497844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A497844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -9176,8 +9177,8 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<P
       std::unordered_map<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,std::allocator<std::pair<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey const,Phase::OptionsValue>>>::unordered_map(a3 + v6 + 8, a1 + v6 + 8);
       *(v8 + 48) = 0;
       *(v8 + 56) = 0;
-      v9 = a3 + v6 + 48;
-      *(v9 + 16) = 0;
+      v9 = (a3 + v6 + 48);
+      v9[2] = 0;
       std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(v9, *(v7 + 48), *(v7 + 56), (*(v7 + 56) - *(v7 + 48)) >> 2);
       *(a3 + v6 + 72) = *(a1 + v6 + 72);
       v6 += 88;
@@ -9259,7 +9260,7 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<Phase::LocalizedGeometryPerm
               v14 = v13;
             }
 
-            std::vector<Phase::Geometry::EntityType>::__vallocate[abi:ne200100](v7 + 48, v14);
+            std::vector<Phase::Geometry::EntityType>::__vallocate[abi:ne200100]((v7 + 48), v14);
           }
 
           std::vector<Phase::Controller::GeometryPermutation>::__throw_length_error[abi:ne200100]();
@@ -9494,16 +9495,16 @@ void sub_23A4A1B48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::TapSourceRegistry>(Phase::Logger *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ((a2 - a1) <= 0x220)
   {
     v5 = **(Phase::Logger::GetInstance(a1) + 464);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "TaskManager.hpp";
-      v13 = 1024;
-      v14 = 112;
+      v13 = "TaskManager.hpp";
+      v14 = 1024;
+      v15 = 112;
       _os_log_impl(&dword_23A302000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -9520,13 +9521,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::TapSourceRegistry>(Ph
       Phase::GetBacktraceFrame<1ul>(&__p);
       v8 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v12 = "TaskManager.hpp";
-      v13 = 1024;
-      v14 = 121;
-      v15 = 1024;
-      v16 = 17;
-      v17 = 2080;
-      v18 = v8;
+      v13 = "TaskManager.hpp";
+      v14 = 1024;
+      v15 = 121;
+      v16 = 1024;
+      v17 = 17;
+      v18 = 2080;
+      v19 = v8;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -9535,7 +9536,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::TapSourceRegistry>(Ph
     }
 
     v9 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v9, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v9, "No service registered for Id %i, in call \n%s", v10, __p.__r_.__value_.__l.__data_);
   }
 
   v3 = v2(3, a1 + 544, 0, 0, &std::__any_imp::__unique_typeinfo<Phase::TapSourceRegistry *>::__id);
@@ -9719,7 +9720,7 @@ uint64_t Phase::Commandable<128,Phase::LockFreeQueueMPSC>::CallAsync<Phase::Acti
   v14 = **(a1 + 8);
   v26 = 0;
   v25 = 1;
-  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 80, &v26, &v25);
+  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 0x50uLL, &v26, &v25);
   if (!v15)
   {
     Instance = Phase::Logger::GetInstance(0);

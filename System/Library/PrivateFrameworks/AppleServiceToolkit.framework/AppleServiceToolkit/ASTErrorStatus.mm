@@ -36,7 +36,7 @@
 
 - (id)dictionary
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   code = [(ASTErrorStatus *)self code];
   v4 = [code isEqualToNumber:&unk_2852D5EE0];
 
@@ -50,9 +50,9 @@
     code2 = [(ASTErrorStatus *)self code];
   }
 
-  v19[0] = @"code";
-  v19[1] = @"reason";
-  v20[0] = code2;
+  v18[0] = @"code";
+  v18[1] = @"reason";
+  v19[0] = code2;
   reason = [(ASTErrorStatus *)self reason];
   if (reason)
   {
@@ -64,8 +64,8 @@
     [MEMORY[0x277CBEB68] null];
   }
   v7 = ;
-  v20[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   data = [(ASTErrorStatus *)self data];
   v10 = [data count];
@@ -73,17 +73,15 @@
   if (v10)
   {
     v11 = [v8 mutableCopy];
-    v17 = @"data";
+    v16 = @"data";
     data2 = [(ASTErrorStatus *)self data];
-    v18 = data2;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = data2;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     [v11 addEntriesFromDictionary:v13];
 
     v14 = [v11 copy];
     v8 = v14;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

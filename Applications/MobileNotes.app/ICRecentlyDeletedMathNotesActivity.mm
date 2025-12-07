@@ -61,18 +61,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1002CBA88;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1002CBA88;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_1004A00B8(v5);
-  sub_10000C840(v5);
+  sub_1004A00B8(v7);
+  sub_10000C840(v7, v6);
 }
 
 - (id)menuWithCompletion:(id)completion
@@ -94,7 +97,7 @@
 
   selfCopy = self;
   v9 = sub_10049FD18(v7, v6);
-  sub_10000C840(v7);
+  sub_10000C840(v7, v6);
 
   return v9;
 }

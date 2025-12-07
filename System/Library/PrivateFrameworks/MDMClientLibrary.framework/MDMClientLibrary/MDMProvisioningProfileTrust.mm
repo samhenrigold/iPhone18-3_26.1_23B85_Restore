@@ -15,6 +15,7 @@
 + (id)managedAppSigners;
 + (id)provisioningProfileUUIDsForSignerIdentity:(id)identity;
 + (id)signerIdentitiesFromProvisioningProfileUUID:(id)d;
++ (void)_setAMFITrust:(unsigned int)trust uuid:(id)uuid signer:(id)signer;
 + (void)didSuperviseThroughADE;
 + (void)didSuperviseThroughConfigurator;
 + (void)untrustProvisioningProfileUUID:(id)d;
@@ -92,29 +93,29 @@ void __57__MDMProvisioningProfileTrust_allTrustedSignerIdentities__block_invoke(
 
 + (id)signerIdentitiesFromProvisioningProfileUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v12 = MEMORY[0x277D85DD0];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v11 = MEMORY[0x277D85DD0];
   v5 = dCopy;
-  v13 = v5;
-  if (MISEnumerateInstalledProvisioningProfiles() || !v15[3])
+  v12 = v5;
+  if (MISEnumerateInstalledProvisioningProfiles() || !v14[3])
   {
     v6 = MISCopyErrorStringForErrorCode();
     v7 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v6;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust could not find provisioning profile for UUID %{public}@ with error: %{public}@", buf, 0x16u);
     }
 
-    v8 = v15[3];
+    v8 = v14[3];
     if (v8)
     {
       CFRelease(v8);
@@ -125,12 +126,11 @@ void __57__MDMProvisioningProfileTrust_allTrustedSignerIdentities__block_invoke(
 
   else
   {
-    v9 = [self _signerIdentitiesFromProvisioningProfile:{v12, 3221225472, __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfileUUID___block_invoke, &unk_278857280, v5, &v14}];
-    CFRelease(v15[3]);
+    v9 = [self _signerIdentitiesFromProvisioningProfile:{v11, 3221225472, __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfileUUID___block_invoke, &unk_278857280, v5, &v13}];
+    CFRelease(v14[3]);
   }
 
-  _Block_object_dispose(&v14, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v9;
 }
@@ -152,31 +152,31 @@ uint64_t __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfi
 
 + (id)_signerIdentitiesFromProvisioningProfile:(void *)profile
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   v5 = MISXMLProvisioningProfileGetDeveloperCertificates();
   v6 = v5;
   if (v5)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           v12 = SecCertificateCreateWithData(0, v11);
           if (v12)
           {
@@ -194,8 +194,8 @@ uint64_t __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfi
               {
                 *buf = 138543618;
                 profileCopy3 = profile;
-                v26 = 2112;
-                v27 = v13;
+                v25 = 2112;
+                v26 = v13;
                 _os_log_impl(&dword_22E997000, v16, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust cannot construct identity for profile %{public}@ from cert: %@", buf, 0x16u);
               }
             }
@@ -210,14 +210,14 @@ uint64_t __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfi
             {
               *buf = 138543618;
               profileCopy3 = profile;
-              v26 = 2114;
-              v27 = v11;
+              v25 = 2114;
+              v26 = v11;
               _os_log_impl(&dword_22E997000, v15, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust cannot construct certificate for profile %{public}@ with cert data: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v8);
@@ -234,8 +234,6 @@ uint64_t __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfi
       _os_log_impl(&dword_22E997000, v17, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust cannot get dev certs from DER-encoded profile: %{public}@", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -273,15 +271,15 @@ uint64_t __75__MDMProvisioningProfileTrust_signerIdentitiesFromProvisioningProfi
   return v7;
 }
 
-uint64_t __73__MDMProvisioningProfileTrust_provisioningProfileUUIDsForSignerIdentity___block_invoke(uint64_t a1)
+void *__73__MDMProvisioningProfileTrust_provisioningProfileUUIDsForSignerIdentity___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isEqualToString:?];
   if (result)
   {
-    v3 = *(*(*(a1 + 40) + 8) + 40);
+    v4 = *(*(*(a1 + 40) + 8) + 40);
     UUID = MISProvisioningProfileGetUUID();
 
-    return [v3 addObject:UUID];
+    return [v4 addObject:UUID];
   }
 
   return result;
@@ -289,7 +287,7 @@ uint64_t __73__MDMProvisioningProfileTrust_provisioningProfileUUIDsForSignerIden
 
 + (BOOL)_enumerateProvisioningProfilesWithBlock:(id)block
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v4 = MISEnumerateInstalledProvisioningProfiles();
   if (v4)
@@ -299,50 +297,48 @@ uint64_t __73__MDMProvisioningProfileTrust_provisioningProfileUUIDsForSignerIden
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust could not enumerate provisioning profiles with error: %{public}@", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4 == 0;
 }
 
 uint64_t __71__MDMProvisioningProfileTrust__enumerateProvisioningProfilesWithBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = MISProvisioningProfileProvisionsAllDevices();
   v6 = [*(a1 + 40) _isFreeSignedAppDeveloper:a2];
   if (v5 || (v6 & 1) != 0)
   {
-    v18 = 0u;
-    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = [*(a1 + 40) _signerIdentitiesFromProvisioningProfile:{a2, 0}];
-    v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * v12);
           (*(*(a1 + 32) + 16))();
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -356,13 +352,12 @@ uint64_t __71__MDMProvisioningProfileTrust__enumerateProvisioningProfilesWithBlo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v22 = v7;
+      v20 = v7;
       _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_INFO, "MDMProvisioningProfileTrust ignoring provisioning profile: %{public}@", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -382,7 +377,7 @@ uint64_t __71__MDMProvisioningProfileTrust__enumerateProvisioningProfilesWithBlo
 
 void __75__MDMProvisioningProfileTrust__enumerateProvisioningProfileUUIDsWithBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = MISProvisioningProfileGetUUID();
   v7 = v6;
@@ -396,13 +391,11 @@ void __75__MDMProvisioningProfileTrust__enumerateProvisioningProfileUUIDsWithBlo
     v8 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = a2;
-      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust missing UUID for profile: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = a2;
+      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust missing UUID for profile: %{public}@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)enumerateProvisioningProfilesWithBlock:(id)block
@@ -448,7 +441,7 @@ void __70__MDMProvisioningProfileTrust_enumerateProvisioningProfilesWithBlock___
   return self;
 }
 
-uint64_t __63__MDMProvisioningProfileTrust_anyUPPExistsForManagedAppSigners__block_invoke(uint64_t a1)
+void *__63__MDMProvisioningProfileTrust_anyUPPExistsForManagedAppSigners__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) containsObject:?];
   if (result)
@@ -461,30 +454,30 @@ uint64_t __63__MDMProvisioningProfileTrust_anyUPPExistsForManagedAppSigners__blo
 
 - (void)uiTrustAndVerifyProvisioningProfiles:(id)profiles developer:(id)developer completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   developerCopy = developer;
   completionCopy = completion;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = profilesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         uuid = [v13 uuid];
         v15 = [uuid length];
 
@@ -501,23 +494,22 @@ uint64_t __63__MDMProvisioningProfileTrust_anyUPPExistsForManagedAppSigners__blo
               v19 = v18;
               uuid3 = [v13 uuid];
               *buf = 138543618;
-              v30 = uuid3;
-              v31 = 1026;
-              v32 = v17;
+              v29 = uuid3;
+              v30 = 1026;
+              v31 = v17;
               _os_log_impl(&dword_22E997000, v19, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to reboot check provisioning profile UUID %{public}@ with error: %{public}d", buf, 0x12u);
             }
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
   }
 
   [(MDMProvisioningProfileTrust *)self _uiSetTrustForProvisioningProfiles:v8 developer:developerCopy completion:completionCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiVerifyProvisioningProfileUUID:(id)d completion:(id)completion
@@ -552,27 +544,26 @@ uint64_t __74__MDMProvisioningProfileTrust_uiVerifyProvisioningProfileUUID_compl
 
 + (BOOL)manualTrustSignerIdentities:(id)identities
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__MDMProvisioningProfileTrust_manualTrustSignerIdentities___block_invoke;
-  v9[3] = &unk_278857348;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__MDMProvisioningProfileTrust_manualTrustSignerIdentities___block_invoke;
+  v8[3] = &unk_278857348;
   v4 = identitiesCopy;
-  v10 = v4;
-  v5 = [MDMProvisioningProfileTrust _enumerateProvisioningProfilesWithBlock:v9];
+  v9 = v4;
+  v5 = [MDMProvisioningProfileTrust _enumerateProvisioningProfilesWithBlock:v8];
   if (!v5)
   {
     v6 = *DMCLogObjects();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to manually trust signer identities: %{public}@", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -588,7 +579,7 @@ void __59__MDMProvisioningProfileTrust_manualTrustSignerIdentities___block_invok
 
 + (void)untrustProvisioningProfileUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = AMFIProfileRemoveTrust();
   v5 = *(DMCLogObjects() + 8);
@@ -596,29 +587,27 @@ void __59__MDMProvisioningProfileTrust_manualTrustSignerIdentities___block_invok
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = 67240192;
-      LODWORD(v12) = v4;
+      v10 = 67240192;
+      LODWORD(v11) = v4;
       v6 = "MDMProvisioningProfileTrust AMFI failed to untrust provisioning profile with error: %{public}d";
       v7 = v5;
       v8 = OS_LOG_TYPE_ERROR;
       v9 = 8;
 LABEL_6:
-      _os_log_impl(&dword_22E997000, v7, v8, v6, &v11, v9);
+      _os_log_impl(&dword_22E997000, v7, v8, v6, &v10, v9);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = dCopy;
+    v10 = 138543362;
+    v11 = dCopy;
     v6 = "MDMProvisioningProfileTrust AMFI successfully untrusted provisioning profile: %{public}@";
     v7 = v5;
     v8 = OS_LOG_TYPE_DEFAULT;
     v9 = 12;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)untrustSignerIdentities:(id)identities
@@ -660,31 +649,31 @@ void __55__MDMProvisioningProfileTrust_untrustSignerIdentities___block_invoke(ui
 
 uint64_t __87__MDMProvisioningProfileTrust__uiSetTrustForProvisioningProfiles_developer_completion___block_invoke(uint64_t a1, char a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v27 = 0u;
-    v28 = 0u;
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v26;
+      v7 = *v23;
       *&v5 = 138543362;
-      v24 = v5;
+      v21 = v5;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v25 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           v10 = [v9 uuid];
           v11 = AMFIProfileSetTrust();
 
@@ -696,9 +685,9 @@ uint64_t __87__MDMProvisioningProfileTrust__uiSetTrustForProvisioningProfiles_de
               v13 = v12;
               v14 = [v9 uuid];
               *buf = 138543618;
-              v30 = v14;
-              v31 = 1026;
-              v32 = v11;
+              v27 = v14;
+              v28 = 1026;
+              v29 = v11;
               _os_log_impl(&dword_22E997000, v13, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to set manual trust for provisioning profile UUID %{public}@ with error: %{public}d", buf, 0x12u);
             }
 
@@ -711,8 +700,8 @@ uint64_t __87__MDMProvisioningProfileTrust__uiSetTrustForProvisioningProfiles_de
             {
               v15 = v12;
               v16 = [v9 uuid];
-              *buf = v24;
-              v30 = v16;
+              *buf = v21;
+              v27 = v16;
               _os_log_impl(&dword_22E997000, v15, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust successfully set manual trust for provisioning profile UUID %{public}@", buf, 0xCu);
             }
 
@@ -722,26 +711,21 @@ uint64_t __87__MDMProvisioningProfileTrust__uiSetTrustForProvisioningProfiles_de
           }
         }
 
-        v6 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v6 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v6);
     }
 
-    result = (*(*(a1 + 48) + 16))();
-    v20 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v21 = *(a1 + 48);
-    v22 = *(*(a1 + 48) + 16);
-    v23 = *MEMORY[0x277D85DE8];
+    v20 = *(*(a1 + 48) + 16);
 
-    return v22();
+    return v20();
   }
-
-  return result;
 }
 
 - (void)_uiScheduleTrustForProvisioningProfileUUID:(id)d developer:(id)developer completion:(id)completion
@@ -761,70 +745,64 @@ uint64_t __87__MDMProvisioningProfileTrust__uiSetTrustForProvisioningProfiles_de
 
 uint64_t __95__MDMProvisioningProfileTrust__uiScheduleTrustForProvisioningProfileUUID_developer_completion___block_invoke(uint64_t a1, char a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = AMFIProfileScheduleTrust();
-    v5 = *(DMCLogObjects() + 8);
-    if (v4)
+    v3 = AMFIProfileScheduleTrust();
+    v4 = *(DMCLogObjects() + 8);
+    if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = *(a1 + 32);
-        v14 = 138543618;
-        v15 = v6;
-        v16 = 1026;
-        v17 = v4;
-        _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to schedule trust for provisioning profile UUID %{public}@ with error: %{public}d", &v14, 0x12u);
+        v5 = *(a1 + 32);
+        v10 = 138543618;
+        v11 = v5;
+        v12 = 1026;
+        v13 = v3;
+        _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to schedule trust for provisioning profile UUID %{public}@ with error: %{public}d", &v10, 0x12u);
       }
 
       DMCSendUPPTrustFailedNotification();
-      v7 = *(*(a1 + 40) + 16);
+      v6 = *(*(a1 + 40) + 16);
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
-        v14 = 138543362;
-        v15 = v12;
-        _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust successfully scheduled trust for provisioning profile UUID %{public}@", &v14, 0xCu);
+        v9 = *(a1 + 32);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust successfully scheduled trust for provisioning profile UUID %{public}@", &v10, 0xCu);
       }
 
-      v7 = *(*(a1 + 40) + 16);
+      v6 = *(*(a1 + 40) + 16);
     }
 
-    result = v7();
-    v13 = *MEMORY[0x277D85DE8];
+    return v6();
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v9 = *(*(a1 + 40) + 16);
-    v10 = *MEMORY[0x277D85DE8];
+    v7 = *(*(a1 + 40) + 16);
 
-    return v9();
+    return v7();
   }
-
-  return result;
 }
 
 - (void)_presentTrustAlertForDeveloper:(id)developer restart:(BOOL)restart completion:(id)completion
 {
   restartCopy = restart;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   developerCopy = developer;
   completionCopy = completion;
   v9 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v24 = developerCopy;
-    v25 = 1026;
-    v26 = restartCopy;
+    v23 = developerCopy;
+    v24 = 1026;
+    v25 = restartCopy;
     _os_log_impl(&dword_22E997000, v9, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust presenting trust alert for developer “%{public}@” with restart: %{public}d", buf, 0x12u);
   }
 
@@ -850,93 +828,82 @@ uint64_t __95__MDMProvisioningProfileTrust__uiScheduleTrustForProvisioningProfil
   v15 = DMCLocalizedString();
   v16 = DMCLocalizedString();
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __81__MDMProvisioningProfileTrust__presentTrustAlertForDeveloper_restart_completion___block_invoke;
-  v20[3] = &unk_2788573E8;
-  v21 = developerCopy;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __81__MDMProvisioningProfileTrust__presentTrustAlertForDeveloper_restart_completion___block_invoke;
+  v19[3] = &unk_2788573E8;
+  v20 = developerCopy;
+  v21 = completionCopy;
   v17 = developerCopy;
   v18 = completionCopy;
-  [v12 displayAlertWithTitle:v10 message:v14 defaultButtonText:v15 altButtonText:v16 destructive:1 completion:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v12 displayAlertWithTitle:v10 message:v14 defaultButtonText:v15 altButtonText:v16 destructive:1 completion:v19];
 }
 
 uint64_t __81__MDMProvisioningProfileTrust__presentTrustAlertForDeveloper_restart_completion___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a2 == 1)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = *(DMCLogObjects() + 8);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust not allowing trust for developer: %{public}@", &v10, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust not allowing trust for developer: %{public}@", &v7, 0xCu);
     }
 
-    result = (*(*(a1 + 40) + 16))();
-    v9 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 40) + 16))();
   }
-
-  return result;
 }
 
 - (void)_verifyProvisioningProfileUUID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v8 = *(DMCLogObjects() + 8);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = dCopy;
-    _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust verifying provisioning profile UUID %{public}@...", buf, 0xCu);
+    v12 = dCopy;
+    _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust verifying provisioning profile UUID %{public}@...", buf, 0xCu);
   }
 
-  misVerificationQueue = self->_misVerificationQueue;
-  v13 = dCopy;
-  v10 = completionCopy;
-  v11 = dCopy;
+  v10 = dCopy;
+  v8 = completionCopy;
+  v9 = dCopy;
   MISValidateUPP();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__MDMProvisioningProfileTrust__verifyProvisioningProfileUUID_completion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = *(DMCLogObjects() + 8);
   if (a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = a1[4];
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2050;
-      v18 = a3;
-      _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to verify provisioning profile %{public}@ with error %{public}lld", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v7;
+      v16 = 2050;
+      v17 = a3;
+      _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust failed to verify provisioning profile %{public}@ with error %{public}lld", &v14, 0x16u);
     }
 
     result = a1[6];
     if (result)
     {
       v9 = *(result + 16);
-LABEL_10:
-      result = v9();
+      return v9();
     }
   }
 
@@ -948,30 +915,29 @@ LABEL_10:
       v10 = a1[5];
       v12 = v6;
       v13 = [v10 _descriptionForMISState:a2];
-      v15 = 138543874;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2050;
-      v20 = a2;
-      _os_log_impl(&dword_22E997000, v12, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust successfully verified provisioning profile %{public}@ as %{public}@ (%{public}ld)", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2050;
+      v19 = a2;
+      _os_log_impl(&dword_22E997000, v12, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust successfully verified provisioning profile %{public}@ as %{public}@ (%{public}ld)", &v14, 0x20u);
     }
 
     result = a1[6];
     if (result)
     {
       v9 = *(result + 16);
-      goto LABEL_10;
+      return v9();
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)didEnrollInMDMWithPasscodeContext:(id)context passcode:(id)passcode duringMigration:(BOOL)migration
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   passcodeCopy = passcode;
   self->_isUnenrollingFromMDM = 0;
@@ -1002,16 +968,16 @@ LABEL_10:
       }
 
       v13 = [(__CFString *)v12 dataUsingEncoding:4];
-      v24 = 0;
-      v14 = [v10 setCredential:v13 type:-1 error:&v24];
-      v15 = v24;
+      v23 = 0;
+      v14 = [v10 setCredential:v13 type:-1 error:&v23];
+      v15 = v23;
       if ((v14 & 1) == 0)
       {
         v16 = *(DMCLogObjects() + 8);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v26 = v15;
+          v25 = v15;
           _os_log_impl(&dword_22E997000, v16, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust AMFI failed to set context credential with error: %{public}@", buf, 0xCu);
         }
       }
@@ -1025,7 +991,7 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 67240192;
-      LODWORD(v26) = v17;
+      LODWORD(v25) = v17;
       v19 = "MDMProvisioningProfileTrust AMFI failed to enroll in MDM with error: %{public}d";
       v20 = v18;
       v21 = OS_LOG_TYPE_ERROR;
@@ -1044,13 +1010,11 @@ LABEL_17:
     v22 = 2;
     goto LABEL_17;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUnenrollFromMDM
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   self->_isUnenrollingFromMDM = 1;
   v3 = AMFIMDMModeRemove();
   v4 = *(DMCLogObjects() + 8);
@@ -1058,20 +1022,20 @@ LABEL_17:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v11) = 67240192;
-      HIDWORD(v11) = v3;
+      LODWORD(v10) = 67240192;
+      HIDWORD(v10) = v3;
       v5 = "MDMProvisioningProfileTrust AMFI failed to unenroll from MDM with error: %{public}d";
       v6 = v4;
       v7 = OS_LOG_TYPE_ERROR;
       v8 = 8;
 LABEL_6:
-      _os_log_impl(&dword_22E997000, v6, v7, v5, &v11, v8);
+      _os_log_impl(&dword_22E997000, v6, v7, v5, &v10, v8);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v5 = "MDMProvisioningProfileTrust AMFI successfully unenrolled from MDM";
     v6 = v4;
     v7 = OS_LOG_TYPE_DEFAULT;
@@ -1079,217 +1043,223 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v9 = [MDMProvisioningProfileTrust managedAppSigners:v11];
+  v9 = [MDMProvisioningProfileTrust managedAppSigners:v10];
   [(MDMProvisioningProfileTrust *)self untrustSignerIdentities:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)didSuperviseThroughADE
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = AMFISupervisedModeSetState();
   v3 = *(DMCLogObjects() + 8);
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v9[0] = 67240192;
-      v9[1] = v2;
-      v4 = "MDMProvisioningProfileTrust AMFI failed to supervise through ADE with error: %{public}d";
-      v5 = v3;
-      v6 = OS_LOG_TYPE_ERROR;
-      v7 = 8;
-LABEL_6:
-      _os_log_impl(&dword_22E997000, v5, v6, v4, v9, v7);
+      return;
     }
-  }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v9[0]) = 0;
-    v4 = "MDMProvisioningProfileTrust AMFI successfully supervised through ADE";
+    v8[0] = 67240192;
+    v8[1] = v2;
+    v4 = "MDMProvisioningProfileTrust AMFI failed to supervise through ADE with error: %{public}d";
     v5 = v3;
-    v6 = OS_LOG_TYPE_DEFAULT;
-    v7 = 2;
-    goto LABEL_6;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)didSuperviseThroughConfigurator
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = AMFISupervisedModeSetState();
-  v3 = *(DMCLogObjects() + 8);
-  if (v2)
-  {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v9[0] = 67240192;
-      v9[1] = v2;
-      v4 = "MDMProvisioningProfileTrust AMFI failed to supervise through Configurator with error: %{public}d";
-      v5 = v3;
-      v6 = OS_LOG_TYPE_ERROR;
-      v7 = 8;
-LABEL_6:
-      _os_log_impl(&dword_22E997000, v5, v6, v4, v9, v7);
-    }
-  }
-
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v9[0]) = 0;
-    v4 = "MDMProvisioningProfileTrust AMFI successfully supervised through Configurator";
-    v5 = v3;
-    v6 = OS_LOG_TYPE_DEFAULT;
-    v7 = 2;
-    goto LABEL_6;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateTrustedCodeSigningIdentities:(id)identities validateBundleIDs:(id)ds validateManagedApps:(BOOL)apps
-{
-  v144 = *MEMORY[0x277D85DE8];
-  identitiesCopy = identities;
-  dsCopy = ds;
-  +[MDMProvisioningProfileTrust managedAppSigners];
-  v80 = dsCopy;
-  selfCopy = self;
-  v84 = v86 = apps;
-  if (dsCopy)
-  {
-    v81 = [MDMProvisioningProfileTrust _appSignerIdentitiesFromBundleIDs:dsCopy];
+    v6 = OS_LOG_TYPE_ERROR;
+    v7 = 8;
   }
 
   else
   {
-    v81 = 0;
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LOWORD(v8[0]) = 0;
+    v4 = "MDMProvisioningProfileTrust AMFI successfully supervised through ADE";
+    v5 = v3;
+    v6 = OS_LOG_TYPE_DEFAULT;
+    v7 = 2;
+  }
+
+  _os_log_impl(&dword_22E997000, v5, v6, v4, v8, v7);
+}
+
++ (void)didSuperviseThroughConfigurator
+{
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = AMFISupervisedModeSetState();
+  v3 = *(DMCLogObjects() + 8);
+  if (v2)
+  {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    v8[0] = 67240192;
+    v8[1] = v2;
+    v4 = "MDMProvisioningProfileTrust AMFI failed to supervise through Configurator with error: %{public}d";
+    v5 = v3;
+    v6 = OS_LOG_TYPE_ERROR;
+    v7 = 8;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LOWORD(v8[0]) = 0;
+    v4 = "MDMProvisioningProfileTrust AMFI successfully supervised through Configurator";
+    v5 = v3;
+    v6 = OS_LOG_TYPE_DEFAULT;
+    v7 = 2;
+  }
+
+  _os_log_impl(&dword_22E997000, v5, v6, v4, v8, v7);
+}
+
+- (void)updateTrustedCodeSigningIdentities:(id)identities validateBundleIDs:(id)ds validateManagedApps:(BOOL)apps
+{
+  v143 = *MEMORY[0x277D85DE8];
+  identitiesCopy = identities;
+  dsCopy = ds;
+  +[MDMProvisioningProfileTrust managedAppSigners];
+  v79 = dsCopy;
+  selfCopy = self;
+  v83 = v85 = apps;
+  if (dsCopy)
+  {
+    v80 = [MDMProvisioningProfileTrust _appSignerIdentitiesFromBundleIDs:dsCopy];
+  }
+
+  else
+  {
+    v80 = 0;
   }
 
   v10 = objc_opt_new();
   v11 = objc_opt_new();
+  v128 = 0u;
   v129 = 0u;
   v130 = 0u;
   v131 = 0u;
-  v132 = 0u;
   v12 = identitiesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v129 objects:v143 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v128 objects:v142 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v130;
+    v15 = *v129;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v130 != v15)
+        if (*v129 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [v11 teamIDsWithSigningIdentity:*(*(&v129 + 1) + 8 * i)];
+        v17 = [v11 teamIDsWithSigningIdentity:*(*(&v128 + 1) + 8 * i)];
+        v124 = 0u;
         v125 = 0u;
         v126 = 0u;
         v127 = 0u;
-        v128 = 0u;
-        v18 = [v17 countByEnumeratingWithState:&v125 objects:v142 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v124 objects:v141 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v126;
+          v20 = *v125;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v126 != v20)
+              if (*v125 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              [v10 addObject:*(*(&v125 + 1) + 8 * j)];
+              [v10 addObject:*(*(&v124 + 1) + 8 * j)];
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v125 objects:v142 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v124 objects:v141 count:16];
           }
 
           while (v19);
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v129 objects:v143 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v128 objects:v142 count:16];
     }
 
     while (v14);
   }
 
   v22 = objc_opt_new();
-  v119 = MEMORY[0x277D85DD0];
-  v120 = 3221225472;
-  v121 = __104__MDMProvisioningProfileTrust_updateTrustedCodeSigningIdentities_validateBundleIDs_validateManagedApps___block_invoke;
-  v122 = &unk_278857438;
-  v83 = v11;
-  v123 = v83;
-  v88 = v22;
-  v124 = v88;
+  v118 = MEMORY[0x277D85DD0];
+  v119 = 3221225472;
+  v120 = __104__MDMProvisioningProfileTrust_updateTrustedCodeSigningIdentities_validateBundleIDs_validateManagedApps___block_invoke;
+  v121 = &unk_278857438;
+  v82 = v11;
+  v122 = v82;
+  v87 = v22;
+  v123 = v87;
   MISEnumerateTrustedUPPs();
   v23 = objc_opt_new();
   v24 = objc_opt_new();
   v25 = objc_opt_new();
   v26 = objc_opt_new();
   v27 = objc_opt_new();
-  v109[0] = MEMORY[0x277D85DD0];
-  v109[1] = 3221225472;
-  v109[2] = __104__MDMProvisioningProfileTrust_updateTrustedCodeSigningIdentities_validateBundleIDs_validateManagedApps___block_invoke_2;
-  v109[3] = &unk_278857460;
-  v28 = v84;
-  v110 = v28;
+  v108[0] = MEMORY[0x277D85DD0];
+  v108[1] = 3221225472;
+  v108[2] = __104__MDMProvisioningProfileTrust_updateTrustedCodeSigningIdentities_validateBundleIDs_validateManagedApps___block_invoke_2;
+  v108[3] = &unk_278857460;
+  v28 = v83;
+  v109 = v28;
   v29 = v23;
-  v111 = v29;
-  v118 = v86;
-  v79 = v25;
-  v112 = v79;
+  v110 = v29;
+  v117 = v85;
+  v78 = v25;
+  v111 = v78;
   v30 = v12;
-  v113 = v30;
-  v85 = v24;
-  v114 = v85;
-  v31 = v81;
-  v115 = v31;
+  v112 = v30;
+  v84 = v24;
+  v113 = v84;
+  v31 = v80;
+  v114 = v31;
   v32 = v26;
-  v116 = v32;
-  v87 = v27;
-  v117 = v87;
-  if ([MDMProvisioningProfileTrust _enumerateProvisioningProfileUUIDsWithBlock:v109])
+  v115 = v32;
+  v86 = v27;
+  v116 = v86;
+  if ([MDMProvisioningProfileTrust _enumerateProvisioningProfileUUIDsWithBlock:v108])
   {
-    v75 = v32;
-    v76 = v31;
-    v78 = v30;
-    v107 = 0u;
-    v108 = 0u;
-    v105 = 0u;
+    v74 = v32;
+    v75 = v31;
+    v77 = v30;
     v106 = 0u;
-    v77 = v29;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v76 = v29;
     v33 = v29;
-    v34 = [v33 countByEnumeratingWithState:&v105 objects:v141 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v104 objects:v140 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v106;
+      v36 = *v105;
       do
       {
         for (k = 0; k != v35; ++k)
         {
-          if (*v106 != v36)
+          if (*v105 != v36)
           {
             objc_enumerationMutation(v33);
           }
 
-          v38 = *(*(&v105 + 1) + 8 * k);
-          [v88 removeObject:v38];
-          [v85 removeObject:v38];
+          v38 = *(*(&v104 + 1) + 8 * k);
+          [v87 removeObject:v38];
+          [v84 removeObject:v38];
           if (selfCopy->_isUnenrollingFromMDM)
           {
             v39 = *(DMCLogObjects() + 8);
@@ -1302,69 +1272,69 @@ LABEL_6:
 
           else
           {
-            v40 = [v87 objectForKeyedSubscript:v38];
+            v40 = [v86 objectForKeyedSubscript:v38];
             [MDMProvisioningProfileTrust _setAMFITrust:2 uuid:v38 signer:v40];
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v105 objects:v141 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v104 objects:v140 count:16];
       }
 
       while (v35);
     }
 
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
     v102 = 0u;
-    v41 = v85;
-    v42 = [v41 countByEnumeratingWithState:&v101 objects:v140 count:16];
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v41 = v84;
+    v42 = [v41 countByEnumeratingWithState:&v100 objects:v139 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v102;
+      v44 = *v101;
       do
       {
         for (m = 0; m != v43; ++m)
         {
-          if (*v102 != v44)
+          if (*v101 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v101 + 1) + 8 * m);
-          [v88 removeObject:v46];
-          v47 = [v87 objectForKeyedSubscript:v46];
+          v46 = *(*(&v100 + 1) + 8 * m);
+          [v87 removeObject:v46];
+          v47 = [v86 objectForKeyedSubscript:v46];
           [MDMProvisioningProfileTrust _setAMFITrust:1 uuid:v46 signer:v47];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v101 objects:v140 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v100 objects:v139 count:16];
       }
 
       while (v43);
     }
 
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
     v98 = 0u;
-    v48 = v88;
-    v49 = [v48 countByEnumeratingWithState:&v97 objects:v139 count:16];
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v48 = v87;
+    v49 = [v48 countByEnumeratingWithState:&v96 objects:v138 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v98;
+      v51 = *v97;
       do
       {
         for (n = 0; n != v50; ++n)
         {
-          if (*v98 != v51)
+          if (*v97 != v51)
           {
             objc_enumerationMutation(v48);
           }
 
-          v53 = *(*(&v97 + 1) + 8 * n);
-          v54 = [v83 teamIDWithProfileUUID:v53];
+          v53 = *(*(&v96 + 1) + 8 * n);
+          v54 = [v82 teamIDWithProfileUUID:v53];
           v55 = [v10 containsObject:v54];
           v56 = *(DMCLogObjects() + 8);
           v57 = os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT);
@@ -1373,9 +1343,9 @@ LABEL_6:
             if (v57)
             {
               *buf = 138543618;
-              v136 = v53;
-              v137 = 2114;
-              v138 = v54;
+              v135 = v53;
+              v136 = 2114;
+              v137 = v54;
               _os_log_impl(&dword_22E997000, v56, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust skipping non-orphaned profile UUID %{public}@ because it is trusted by Team ID: %{public}@", buf, 0x16u);
             }
           }
@@ -1385,7 +1355,7 @@ LABEL_6:
             if (v57)
             {
               *buf = 138543362;
-              v136 = v53;
+              v135 = v53;
               _os_log_impl(&dword_22E997000, v56, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust removing trust for orphaned profile UUID: %{public}@", buf, 0xCu);
             }
 
@@ -1393,100 +1363,98 @@ LABEL_6:
           }
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v97 objects:v139 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v96 objects:v138 count:16];
       }
 
       while (v50);
     }
 
     v58 = *(DMCLogObjects() + 8);
-    v59 = v79;
-    v32 = v75;
+    v59 = v78;
+    v32 = v74;
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
       v60 = v58;
-      v61 = [v79 count];
-      v62 = [v75 count];
+      v61 = [v78 count];
+      v62 = [v74 count];
       *buf = 134349312;
-      v136 = v61;
-      v137 = 2050;
-      v138 = v62;
+      v135 = v61;
+      v136 = 2050;
+      v137 = v62;
       _os_log_impl(&dword_22E997000, v60, OS_LOG_TYPE_DEFAULT, "MDMProvisioningProfileTrust will verify %{public}lu managed profiles and %{public}lu other profiles", buf, 0x16u);
     }
 
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
     v94 = 0u;
-    v63 = v79;
-    v64 = [v63 countByEnumeratingWithState:&v93 objects:v134 count:16];
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v63 = v78;
+    v64 = [v63 countByEnumeratingWithState:&v92 objects:v133 count:16];
     if (v64)
     {
       v65 = v64;
-      v66 = *v94;
+      v66 = *v93;
       do
       {
         for (ii = 0; ii != v65; ++ii)
         {
-          if (*v94 != v66)
+          if (*v93 != v66)
           {
             objc_enumerationMutation(v63);
           }
 
-          [(MDMProvisioningProfileTrust *)selfCopy _verifyProvisioningProfileUUID:*(*(&v93 + 1) + 8 * ii) completion:0];
+          [(MDMProvisioningProfileTrust *)selfCopy _verifyProvisioningProfileUUID:*(*(&v92 + 1) + 8 * ii) completion:0];
         }
 
-        v65 = [v63 countByEnumeratingWithState:&v93 objects:v134 count:16];
+        v65 = [v63 countByEnumeratingWithState:&v92 objects:v133 count:16];
       }
 
       while (v65);
     }
 
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
     v90 = 0u;
-    v68 = v75;
-    v69 = [v68 countByEnumeratingWithState:&v89 objects:v133 count:16];
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v68 = v74;
+    v69 = [v68 countByEnumeratingWithState:&v88 objects:v132 count:16];
     if (v69)
     {
       v70 = v69;
-      v71 = *v90;
+      v71 = *v89;
       do
       {
         for (jj = 0; jj != v70; ++jj)
         {
-          if (*v90 != v71)
+          if (*v89 != v71)
           {
             objc_enumerationMutation(v68);
           }
 
-          [(MDMProvisioningProfileTrust *)selfCopy _verifyProvisioningProfileUUID:*(*(&v89 + 1) + 8 * jj) completion:0];
+          [(MDMProvisioningProfileTrust *)selfCopy _verifyProvisioningProfileUUID:*(*(&v88 + 1) + 8 * jj) completion:0];
         }
 
-        v70 = [v68 countByEnumeratingWithState:&v89 objects:v133 count:16];
+        v70 = [v68 countByEnumeratingWithState:&v88 objects:v132 count:16];
       }
 
       while (v70);
     }
 
-    v30 = v78;
-    v31 = v76;
-    v29 = v77;
+    v30 = v77;
+    v31 = v75;
+    v29 = v76;
   }
 
   else
   {
     v73 = *(DMCLogObjects() + 8);
-    v59 = v79;
+    v59 = v78;
     if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_22E997000, v73, OS_LOG_TYPE_ERROR, "MDMProvisioningProfileTrust skipping UPP sync because MIS enumeration failed", buf, 2u);
     }
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 void __104__MDMProvisioningProfileTrust_updateTrustedCodeSigningIdentities_validateBundleIDs_validateManagedApps___block_invoke(uint64_t a1, void *a2)
@@ -1534,6 +1502,52 @@ LABEL_7:
   }
 
   [*(a1 + 88) setObject:v5 forKeyedSubscript:v7];
+}
+
++ (void)_setAMFITrust:(unsigned int)trust uuid:(id)uuid signer:(id)signer
+{
+  v6 = *&trust;
+  v25 = *MEMORY[0x277D85DE8];
+  uuidCopy = uuid;
+  signerCopy = signer;
+  v10 = AMFIProfileSetTrust();
+  v11 = [self _labelForAMFITrust:v6];
+  v12 = *(DMCLogObjects() + 8);
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v17 = 138544130;
+      v18 = v11;
+      v19 = 2114;
+      v20 = signerCopy;
+      v21 = 2114;
+      v22 = uuidCopy;
+      v23 = 1026;
+      v24 = v10;
+      v13 = "MDMProvisioningProfileTrust AMFI failed to set %{public}@ trust for signer: '%{public}@' (%{public}@) with error: %{public}d";
+      v14 = v12;
+      v15 = OS_LOG_TYPE_ERROR;
+      v16 = 38;
+LABEL_6:
+      _os_log_impl(&dword_22E997000, v14, v15, v13, &v17, v16);
+    }
+  }
+
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 138543874;
+    v18 = v11;
+    v19 = 2114;
+    v20 = signerCopy;
+    v21 = 2114;
+    v22 = uuidCopy;
+    v13 = "MDMProvisioningProfileTrust AMFI successfully set %{public}@ trust for signer: '%{public}@' (%{public}@)";
+    v14 = v12;
+    v15 = OS_LOG_TYPE_DEFAULT;
+    v16 = 32;
+    goto LABEL_6;
+  }
 }
 
 + (id)_labelForAMFITrust:(unsigned int)trust
@@ -1591,31 +1605,31 @@ LABEL_7:
 
 + (id)_appSignerIdentitiesFromBundleIDs:(id)ds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = dsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
-        v12 = [MDMProvisioningProfileTrust appSignerIdentityForBundleID:v10, v15];
+        v12 = [MDMProvisioningProfileTrust appSignerIdentityForBundleID:v10, v14];
         if (v12)
         {
           [v4 addObject:v12];
@@ -1624,24 +1638,22 @@ LABEL_7:
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)appSignerIdentityForBundleID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v11 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v10];
+  v5 = v10;
   if (v4)
   {
     signerIdentity = [v4 signerIdentity];
@@ -1651,7 +1663,7 @@ LABEL_7:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v13 = dCopy;
+        v12 = dCopy;
         _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "MDMProvisoningProfileTrust could not find signer identity of managed app '%{public}@'", buf, 0xCu);
       }
     }
@@ -1663,16 +1675,14 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v13 = dCopy;
-      v14 = 2114;
-      v15 = v5;
+      v12 = dCopy;
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "MDMProvisoningProfileTrust could not find record of managed app '%{public}@' with error: %{public}@", buf, 0x16u);
     }
 
     signerIdentity = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return signerIdentity;
 }

@@ -74,7 +74,7 @@
   [(MRLayerClock *)[(MRLayer *)self->super.mTargetLayer clock] phaseInDuration];
   v12 = v10 + v11;
   v13 = v10 / (v10 + v11);
-  [(MRLayer *)self->super.mSourceLayer duration];
+  objc_msgSend_duration(self->super.mSourceLayer);
   v15 = v10 - v12 * time;
   if (v15 < 0.001)
   {

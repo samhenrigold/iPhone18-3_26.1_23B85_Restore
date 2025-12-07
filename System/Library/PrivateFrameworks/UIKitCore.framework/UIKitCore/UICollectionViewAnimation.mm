@@ -321,7 +321,7 @@
 
     else
     {
-      [(UIView *)v19 _animateCollectionTableAnimationWithDuration:v20 delay:UIView options:v35 animations:v29 completion:v30];
+      [UIView _animateCollectionTableAnimationWithDuration:v35 delay:v29 options:v30 animations:v19 completion:v20];
     }
   }
 
@@ -329,7 +329,7 @@
   _Block_object_dispose(buf, 8);
 }
 
-uint64_t __47__UICollectionViewAnimation_startWithAnimator___block_invoke(uint64_t a1)
+void *__47__UICollectionViewAnimation_startWithAnimator___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) layoutBelowIfNeeded];
   if (*(a1 + 48) == 1)
@@ -399,7 +399,7 @@ void __47__UICollectionViewAnimation_startWithAnimator___block_invoke_2(uint64_t
     v10 = *(*(a1 + 40) + 16);
     if (v10)
     {
-      [v10 transform3D];
+      objc_msgSend_transform3D(v10);
     }
 
     else

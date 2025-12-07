@@ -853,7 +853,7 @@
     secureElement = v11->_secureElement;
     v11->_secureElement = v12;
 
-    v14 = sub_100471528();
+    v14 = sub_100471528(PDObjectSettingsManager);
     objectSettingsManager = v11->_objectSettingsManager;
     v11->_objectSettingsManager = v14;
 
@@ -4231,7 +4231,7 @@ LABEL_45:
     while (v10);
   }
 
-  sub_1004719CC();
+  sub_1004719CC(PDObjectSettingsManager);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -6156,7 +6156,7 @@ LABEL_40:
     v42 = loyaltyBalance2;
     if (loyaltyBalance2)
     {
-      [loyaltyBalance2 decimalValue];
+      objc_msgSend_decimalValue(loyaltyBalance2);
     }
 
     else
@@ -9499,40 +9499,41 @@ LABEL_24:
 - (id)_registeredPasses:(id)passes
 {
   passesCopy = passes;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_100005B40;
-  v19 = sub_10000B1AC;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100005B40;
+  v20 = sub_10000B1AC;
+  v21 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100160748;
-  v12[3] = &unk_100848C80;
-  v14 = &v15;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100160748;
+  v13[3] = &unk_100848C80;
+  v15 = &v16;
   v6 = passesCopy;
-  v13 = v6;
-  [WeakRetained readTrueUniqueIDs:v12];
+  v14 = v6;
+  [WeakRetained readTrueUniqueIDs:v13];
 
-  [(PDDatabaseManager *)self _registerPasses:v16[5]];
-  v7 = [v16[5] count];
-  if (v7 < [v6 count])
+  [(PDDatabaseManager *)self _registerPasses:v17[5]];
+  v7 = [v17[5] count];
+  v8 = [v6 count];
+  if (v7 < v8)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(v8);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100160848;
     block[3] = &unk_10083C470;
     block[4] = self;
-    dispatch_async(v8, block);
+    dispatch_async(v9, block);
   }
 
-  v9 = v16[5];
+  v10 = v17[5];
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
-  return v9;
+  return v10;
 }
 
 - (id)_passTypeForPass:(id)pass
@@ -16897,7 +16898,7 @@ LABEL_31:
       }
 
       v18 = [IdentityPassCredentialProperty identityPassCredentialTypesInDatabase:self->_database forPassUniqueIdentifiers:v202[5]];
-      v19 = PDPreferredDocTypeOrder();
+      v19 = PDPreferredDocTypeOrder(v18);
       v20 = v202[5];
       v163[0] = _NSConcreteStackBlock;
       v163[1] = 3221225472;

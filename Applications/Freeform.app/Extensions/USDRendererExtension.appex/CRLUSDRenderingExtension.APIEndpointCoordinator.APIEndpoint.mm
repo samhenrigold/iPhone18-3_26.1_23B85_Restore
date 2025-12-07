@@ -19,7 +19,7 @@
 
 - (void)makeCoreRERendererProxyForUUID:(id)d delegateProxy:(id)proxy flags:(unint64_t)flags response:(id)response
 {
-  v10 = sub_10002A958(&qword_1000D6780);
+  v10 = sub_10002A958(&qword_1000D6780, &qword_1000A57A0);
   __chkstk_darwin(v10 - 8);
   v12 = &v21 - v11;
   v13 = _Block_copy(response);
@@ -51,7 +51,7 @@
 
 - (void)didTeardownCoreRERendererForUUID:(id)d
 {
-  v3 = sub_10002A958(&qword_1000D6780);
+  v3 = sub_10002A958(&qword_1000D6780, &qword_1000A57A0);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = sub_10008AB38();

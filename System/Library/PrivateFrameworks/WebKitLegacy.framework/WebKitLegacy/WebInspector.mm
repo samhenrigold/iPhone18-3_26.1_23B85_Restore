@@ -39,7 +39,7 @@
   inspectedWebView = self->_inspectedWebView;
   if (inspectedWebView)
   {
-    [inspectedWebView page];
+    objc_msgSend_page(inspectedWebView, a2);
     if (v3)
     {
       WebCore::InspectorController::show(*(v3 + 88));
@@ -118,7 +118,7 @@
   inspectedWebView = self->_inspectedWebView;
   if (inspectedWebView)
   {
-    [inspectedWebView page];
+    objc_msgSend_page(inspectedWebView, a2, frontend);
     if (v9)
     {
       v6 = *(v9 + 11);

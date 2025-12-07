@@ -1,4 +1,6 @@
 @interface AnalyticsWorkspace
++ (id)workspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only;
++ (id)workspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only legacyDBContainerPathToMigrate:(id)migrate;
 + (void)initialize;
 + (void)retrieveWorkspaceWithName:(id)name atPath:(id)path queue:(id)queue resultCallback:(id)callback;
 - (BOOL)_primePath:(id)path;
@@ -14,6 +16,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)createNewContext;
 - (id)initInMemoryWorkspaceWithName:(id)name customModelName:(id)modelName objectModelBundle:(id)bundle;
+- (id)initWorkspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only;
 - (id)initWorkspaceWithService:(id)service;
 - (id)resetCompletionBlock;
 - (unint64_t)currentDBSizeInBytes;
@@ -79,59 +82,60 @@
 
 - (BOOL)save
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (self->__persistent && ([(AnalyticsWorkspace *)self persistentStoreCoordinator], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
+  v21 = *MEMORY[0x277D85DE8];
+  if (!self->__persistent)
   {
-    mainObjectContext = [(AnalyticsWorkspace *)self mainObjectContext];
-    hasChanges = [mainObjectContext hasChanges];
+    return 0;
+  }
 
-    if (hasChanges)
+  persistentStoreCoordinator = [(AnalyticsWorkspace *)self persistentStoreCoordinator];
+
+  if (!persistentStoreCoordinator)
+  {
+    return 0;
+  }
+
+  mainObjectContext = [(AnalyticsWorkspace *)self mainObjectContext];
+  hasChanges = [mainObjectContext hasChanges];
+
+  if (hasChanges)
+  {
+    mainObjectContext2 = [(AnalyticsWorkspace *)self mainObjectContext];
+    v16 = 0;
+    v7 = [mainObjectContext2 save:&v16];
+    v8 = v16;
+
+    if (v7)
     {
-      mainObjectContext2 = [(AnalyticsWorkspace *)self mainObjectContext];
-      v17 = 0;
-      v7 = [mainObjectContext2 save:&v17];
-      v8 = v17;
-
-      if (v7)
-      {
-        defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-        [defaultCenter postNotificationName:@"SymptomAnalyticsFrameworkDidSaveNotification" object:0];
-      }
-
-      else
-      {
-        defaultCenter = objectanalyticsHandle();
-        if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
-        {
-          localizedDescription = [v8 localizedDescription];
-          uTF8String = [localizedDescription UTF8String];
-          userInfo = [v8 userInfo];
-          v14 = [userInfo description];
-          uTF8String2 = [v14 UTF8String];
-          *buf = 136315394;
-          v19 = uTF8String;
-          v20 = 2080;
-          v21 = uTF8String2;
-          _os_log_impl(&dword_2324AD000, defaultCenter, OS_LOG_TYPE_ERROR, "Error while saving: %s\n%s", buf, 0x16u);
-        }
-      }
+      defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+      [defaultCenter postNotificationName:@"SymptomAnalyticsFrameworkDidSaveNotification" object:0];
     }
 
-    result = 1;
+    else
+    {
+      defaultCenter = objectanalyticsHandle();
+      if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
+      {
+        localizedDescription = [v8 localizedDescription];
+        uTF8String = [localizedDescription UTF8String];
+        userInfo = [v8 userInfo];
+        v14 = [userInfo description];
+        uTF8String2 = [v14 UTF8String];
+        *buf = 136315394;
+        v18 = uTF8String;
+        v19 = 2080;
+        v20 = uTF8String2;
+        _os_log_impl(&dword_2324AD000, defaultCenter, OS_LOG_TYPE_ERROR, "Error while saving: %s\n%s", buf, 0x16u);
+      }
+    }
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (NSPersistentStoreCoordinator)persistentStoreCoordinator
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v3 = registry;
   objc_sync_enter(v3);
   if (!self->__persistent)
@@ -143,7 +147,7 @@
   if (persistentStoreCoordinator)
   {
 LABEL_82:
-    v54 = persistentStoreCoordinator;
+    v50 = persistentStoreCoordinator;
     goto LABEL_85;
   }
 
@@ -161,7 +165,7 @@ LABEL_81:
   if (self->__connection)
   {
     v5 = 0;
-    v76 = 0;
+    v70 = 0;
   }
 
   else
@@ -177,13 +181,13 @@ LABEL_81:
       }
 
       *buf = 138412546;
-      v85 = backingStore;
-      v86 = 2080;
-      v87 = v9;
+      v79 = backingStore;
+      v80 = 2080;
+      v81 = v9;
       _os_log_impl(&dword_2324AD000, v7, OS_LOG_TYPE_DEFAULT, "opening backingstore %@, read%s", buf, 0x16u);
     }
 
-    v76 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->backingStore];
+    v70 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->backingStore];
     [dictionary addEntriesFromDictionary:&unk_28478CA10];
     v10 = MEMORY[0x277CBEAC0];
     storeProt = self->storeProt;
@@ -273,18 +277,18 @@ LABEL_39:
       else
       {
         storeKind = self->storeKind;
-        v83 = 0;
-        v37 = [v6 addPersistentStoreWithType:storeKind configuration:0 URL:v76 options:v5 error:&v83];
-        v28 = v83;
+        v77 = 0;
+        v36 = [v6 addPersistentStoreWithType:storeKind configuration:0 URL:v70 options:v5 error:&v77];
+        v28 = v77;
 
-        if (!v37)
+        if (!v36)
         {
-          v47 = objectanalyticsHandle();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v44 = objectanalyticsHandle();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v85 = v28;
-            _os_log_impl(&dword_2324AD000, v47, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: addPersistentStoreWithType failed because %@. Will check integrity.", buf, 0xCu);
+            v79 = v28;
+            _os_log_impl(&dword_2324AD000, v44, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: addPersistentStoreWithType failed because %@. Will check integrity.", buf, 0xCu);
           }
 
           v29 = 1;
@@ -324,11 +328,10 @@ LABEL_46:
           }
 
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-          v80 = v28;
-          v34 = [defaultManager removeItemAtURL:v76 error:&v80];
-          v27 = v80;
+          v74 = v28;
+          v34 = [defaultManager removeItemAtURL:v70 error:&v74];
+          v27 = v74;
 
-          healthDelegate = self->_healthDelegate;
           if (objc_opt_respondsToSelector())
           {
             [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate deleteDatabaseCompleted:v34 error:v27];
@@ -339,40 +342,38 @@ LABEL_46:
 
         if (forceDestroyPersistentStore)
         {
-          v38 = objectanalyticsHandle();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v37 = objectanalyticsHandle();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_2324AD000, v38, OS_LOG_TYPE_ERROR, "DATA LOSS: Have been instructed to destroy persistent store.", buf, 2u);
+            _os_log_impl(&dword_2324AD000, v37, OS_LOG_TYPE_ERROR, "DATA LOSS: Have been instructed to destroy persistent store.", buf, 2u);
           }
 
           v27 = v28;
 LABEL_61:
-          v39 = self->_healthDelegate;
           if (objc_opt_respondsToSelector())
           {
             [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate destroyPersistentStoreStarted];
           }
 
-          v40 = *MEMORY[0x277CBE2E8];
-          v79 = v27;
-          v41 = [v6 _destroyPersistentStoreAtURL:v76 withType:v40 options:0 error:&v79];
-          v42 = v79;
+          v38 = *MEMORY[0x277CBE2E8];
+          v73 = v27;
+          v39 = [v6 _destroyPersistentStoreAtURL:v70 withType:v38 options:0 error:&v73];
+          v40 = v73;
 
-          v43 = self->_healthDelegate;
           if (objc_opt_respondsToSelector())
           {
-            [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate destroyPersistentStoreCompleted:v41 error:v42];
+            [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate destroyPersistentStoreCompleted:v39 error:v40];
           }
 
-          if (v41)
+          if (v39)
           {
-            v44 = self->storeKind;
-            v78 = v42;
-            v45 = [v6 addPersistentStoreWithType:v44 configuration:0 URL:v76 options:v5 error:&v78];
-            v27 = v78;
+            v41 = self->storeKind;
+            v72 = v40;
+            v42 = [v6 addPersistentStoreWithType:v41 configuration:0 URL:v70 options:v5 error:&v72];
+            v27 = v72;
 
-            if (v45)
+            if (v42)
             {
               objc_storeStrong(location, v6);
               persistentStoreError = self->_persistentStoreError;
@@ -381,45 +382,45 @@ LABEL_61:
 
             else
             {
-              v59 = objectanalyticsHandle();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+              v54 = objectanalyticsHandle();
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v85 = v27;
-                _os_log_impl(&dword_2324AD000, v59, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Persisting fatal failure to recover incompatibility by creating new sqlite files : %@", buf, 0xCu);
+                v79 = v27;
+                _os_log_impl(&dword_2324AD000, v54, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Persisting fatal failure to recover incompatibility by creating new sqlite files : %@", buf, 0xCu);
               }
 
               if (v27)
               {
-                v60 = v27;
-                v27 = v60;
+                v55 = v27;
+                v27 = v55;
               }
 
               else
               {
-                v60 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3203 userInfo:0];
+                v55 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3203 userInfo:0];
                 v27 = 0;
               }
 
               persistentStoreError = self->_persistentStoreError;
-              self->_persistentStoreError = v60;
+              self->_persistentStoreError = v55;
             }
           }
 
           else
           {
-            v57 = objectanalyticsHandle();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v52 = objectanalyticsHandle();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v85 = v42;
-              _os_log_impl(&dword_2324AD000, v57, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Fatal failure to remove incompatible sqlite files: %@", buf, 0xCu);
+              v79 = v40;
+              _os_log_impl(&dword_2324AD000, v52, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Fatal failure to remove incompatible sqlite files: %@", buf, 0xCu);
             }
 
-            v58 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3204 userInfo:0];
+            v53 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3204 userInfo:0];
             persistentStoreError = self->_persistentStoreError;
-            self->_persistentStoreError = v58;
-            v27 = v42;
+            self->_persistentStoreError = v53;
+            v27 = v40;
           }
 
           goto LABEL_80;
@@ -427,67 +428,66 @@ LABEL_61:
 
         if (v29)
         {
-          v48 = self->_healthDelegate;
           if (objc_opt_respondsToSelector())
           {
             [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate integrityCheckStarted];
           }
 
           [dictionary setObject:@"YES" forKeyedSubscript:@"integrity_check"];
-          v49 = self->storeKind;
-          v82 = v28;
-          v50 = [v6 addPersistentStoreWithType:v49 configuration:0 URL:v76 options:v5 error:&v82];
-          v27 = v82;
+          v45 = self->storeKind;
+          v76 = v28;
+          v46 = [v6 addPersistentStoreWithType:v45 configuration:0 URL:v70 options:v5 error:&v76];
+          v27 = v76;
 
-          if (v50)
+          if (v46)
           {
             objc_storeStrong(location, v6);
-            v51 = objectanalyticsHandle();
-            if (!os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v47 = objectanalyticsHandle();
+            if (!os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
             {
 LABEL_78:
-              v53 = 0;
+              v49 = 0;
               goto LABEL_122;
             }
 
             *buf = 0;
-            v52 = "DATA INTEGRITY: Integrity check passed";
+            v48 = "DATA INTEGRITY: Integrity check passed";
 LABEL_77:
-            _os_log_impl(&dword_2324AD000, v51, OS_LOG_TYPE_INFO, v52, buf, 2u);
+            _os_log_impl(&dword_2324AD000, v47, OS_LOG_TYPE_INFO, v48, buf, 2u);
             goto LABEL_78;
           }
 
-          v61 = objectanalyticsHandle();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+          v56 = objectanalyticsHandle();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_2324AD000, v61, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Integrity check failed", buf, 2u);
+            _os_log_impl(&dword_2324AD000, v56, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Integrity check failed", buf, 2u);
           }
 
           self->_integrityCheckFailed = 1;
           code = [(NSError *)v27 code];
-          v63 = isDBFileCorrupted(v27, 0);
+          v58 = isDBFileCorrupted(v27, 0);
           if ((code - 134000) >= 0x15 && (code - 134100) >= 0x47)
           {
-            v65 = v63;
+            v60 = v58;
           }
 
           else
           {
-            v65 = 1;
+            v60 = 1;
           }
 
-          if (v65 == 1)
+          if (v60 == 1)
           {
-            v51 = objectanalyticsHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v47 = objectanalyticsHandle();
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v85 = v27;
-              _os_log_impl(&dword_2324AD000, v51, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: DB content truncated due to model incompatibility or corruption. PSC creation failed with: %@", buf, 0xCu);
+              v79 = v27;
+              _os_log_impl(&dword_2324AD000, v47, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: DB content truncated due to model incompatibility or corruption. PSC creation failed with: %@", buf, 0xCu);
             }
 
-            v53 = 1;
+            v49 = 1;
           }
 
           else
@@ -495,18 +495,18 @@ LABEL_77:
             domain = [(NSError *)v27 domain];
             if ([domain isEqualToString:*MEMORY[0x277CBE2C8]])
             {
-              v67 = [(NSError *)v27 code]== 13;
+              v62 = [(NSError *)v27 code]== 13;
 
-              if (v67)
+              if (v62)
               {
-                v51 = objectanalyticsHandle();
-                if (!os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+                v47 = objectanalyticsHandle();
+                if (!os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_78;
                 }
 
                 *buf = 0;
-                v52 = "DATA INTEGRITY WARNING: The disk is full";
+                v48 = "DATA INTEGRITY WARNING: The disk is full";
                 goto LABEL_77;
               }
             }
@@ -515,48 +515,47 @@ LABEL_77:
             {
             }
 
-            v68 = objectanalyticsHandle();
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+            v63 = objectanalyticsHandle();
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v85 = v27;
-              _os_log_impl(&dword_2324AD000, v68, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Error while creating persistent store: %@", buf, 0xCu);
+              v79 = v27;
+              _os_log_impl(&dword_2324AD000, v63, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Error while creating persistent store: %@", buf, 0xCu);
             }
 
-            v69 = self->storeKind;
-            v81 = v27;
-            v51 = [MEMORY[0x277CBE4D8] metadataForPersistentStoreOfType:v69 URL:v76 options:v5 error:&v81];
-            v70 = v81;
+            v64 = self->storeKind;
+            v75 = v27;
+            v47 = [MEMORY[0x277CBE4D8] metadataForPersistentStoreOfType:v64 URL:v70 options:v5 error:&v75];
+            v65 = v75;
 
-            if (v51)
+            if (v47)
             {
               objectModel3 = [(AnalyticsWorkspace *)self objectModel];
-              v72 = [objectModel3 isConfiguration:0 compatibleWithStoreMetadata:v51];
+              v67 = [objectModel3 isConfiguration:0 compatibleWithStoreMetadata:v47];
 
-              v73 = objectanalyticsHandle();
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+              v68 = objectanalyticsHandle();
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v85 = v51;
-                v86 = 1024;
-                LODWORD(v87) = v72;
-                _os_log_impl(&dword_2324AD000, v73, OS_LOG_TYPE_INFO, "DATA INTEGRITY WARNING: metadata %@, compat %d", buf, 0x12u);
+                v79 = v47;
+                v80 = 1024;
+                LODWORD(v81) = v67;
+                _os_log_impl(&dword_2324AD000, v68, OS_LOG_TYPE_INFO, "DATA INTEGRITY WARNING: metadata %@, compat %d", buf, 0x12u);
               }
             }
 
-            v53 = 0;
-            v27 = v70;
+            v49 = 0;
+            v27 = v65;
           }
 
 LABEL_122:
 
-          v74 = self->_healthDelegate;
           if (objc_opt_respondsToSelector())
           {
             [(AnalyticsWorkspaceHealthDelegate *)self->_healthDelegate integrityCheckCompleted:!self->_integrityCheckFailed error:v27];
           }
 
-          if (!v53)
+          if (!v49)
           {
             goto LABEL_80;
           }
@@ -601,13 +600,11 @@ LABEL_80:
   }
 
 LABEL_84:
-  v54 = 0;
+  v50 = 0;
 LABEL_85:
   objc_sync_exit(v3);
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v54;
+  return v50;
 }
 
 - (void)dealloc
@@ -694,9 +691,37 @@ LABEL_85:
   return v11;
 }
 
++ (id)workspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only
+{
+  onlyCopy = only;
+  nameCopy = name;
+  pathCopy = path;
+  modelNameCopy = modelName;
+  bundleCopy = bundle;
+  v20 = 0;
+  v15 = assembleFullName(nameCopy, pathCopy, &v20);
+  v16 = v20;
+  v17 = 0;
+  if (v15)
+  {
+    v18 = registry;
+    objc_sync_enter(v18);
+    v17 = [registry objectForKey:v16];
+    if (!v17)
+    {
+      v17 = [[AnalyticsWorkspace alloc] _initWithName:v16 inMemory:0 useReadOnly:onlyCopy customModelName:modelNameCopy loadModelFromBundle:bundleCopy];
+      [registry setObject:v17 forKey:v16];
+    }
+
+    objc_sync_exit(v18);
+  }
+
+  return v17;
+}
+
 + (void)retrieveWorkspaceWithName:(id)name atPath:(id)path queue:(id)queue resultCallback:(id)callback
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
   queueCopy = queue;
@@ -704,9 +729,9 @@ LABEL_85:
   v13 = callbackCopy;
   if (queueCopy && callbackCopy)
   {
-    v28 = 0;
-    v14 = assembleFullName(nameCopy, pathCopy, &v28);
-    v15 = v28;
+    v27 = 0;
+    v14 = assembleFullName(nameCopy, pathCopy, &v27);
+    v15 = v27;
     if (v14)
     {
       v16 = registry;
@@ -718,7 +743,7 @@ LABEL_85:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v30 = v15;
+          v29 = v15;
           _os_log_impl(&dword_2324AD000, v18, OS_LOG_TYPE_DEFAULT, "Retrieve an initialized workspace at %@, dispatching callback with the workspace now", buf, 0xCu);
         }
 
@@ -726,11 +751,11 @@ LABEL_85:
         block[1] = 3221225472;
         block[2] = __76__AnalyticsWorkspace_retrieveWorkspaceWithName_atPath_queue_resultCallback___block_invoke;
         block[3] = &unk_278987440;
-        v27 = v13;
-        v26 = v17;
+        v26 = v13;
+        v25 = v17;
         dispatch_async(queueCopy, block);
 
-        v19 = v27;
+        v19 = v26;
       }
 
       else
@@ -739,7 +764,7 @@ LABEL_85:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v30 = v15;
+          v29 = v15;
           _os_log_impl(&dword_2324AD000, v20, OS_LOG_TYPE_DEFAULT, "Trying to retrieve an uninitialized workspace at %@, adding to a list of callbacks for later invocation", buf, 0xCu);
         }
 
@@ -754,9 +779,9 @@ LABEL_85:
 
         else
         {
-          v24 = registryCallbackBlocks;
+          v23 = registryCallbackBlocks;
           v22 = [MEMORY[0x277CBEB18] arrayWithObject:v21];
-          [v24 setObject:v22 forKey:v15];
+          [v23 setObject:v22 forKey:v15];
         }
       }
 
@@ -768,8 +793,72 @@ LABEL_85:
       v17 = 0;
     }
   }
+}
 
-  v23 = *MEMORY[0x277D85DE8];
++ (id)workspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only legacyDBContainerPathToMigrate:(id)migrate
+{
+  onlyCopy = only;
+  v36 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  pathCopy = path;
+  modelNameCopy = modelName;
+  bundleCopy = bundle;
+  migrateCopy = migrate;
+  v31 = 0;
+  v18 = assembleFullName(nameCopy, pathCopy, &v31);
+  v19 = v31;
+  if (v18)
+  {
+    v20 = registry;
+    objc_sync_enter(v20);
+    v21 = [registry objectForKey:v19];
+    if (!v21)
+    {
+      v21 = [[AnalyticsWorkspace alloc] _initWithName:v19 inMemory:0 useReadOnly:onlyCopy customModelName:modelNameCopy loadModelFromBundle:bundleCopy];
+      [registry setObject:v21 forKey:v19];
+      v22 = [registryCallbackBlocks objectForKey:v19];
+      if (v22)
+      {
+        v23 = objectanalyticsHandle();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = [v22 count];
+          *buf = 138412546;
+          v33 = v19;
+          v34 = 2048;
+          v35 = v24;
+          _os_log_impl(&dword_2324AD000, v23, OS_LOG_TYPE_DEFAULT, "Newly initialized workspace at %@ has %lu pending callback(s)", buf, 0x16u);
+        }
+
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __124__AnalyticsWorkspace_workspaceWithName_atPath_objectModelName_objectModelBundle_useReadOnly_legacyDBContainerPathToMigrate___block_invoke;
+        v29[3] = &unk_278987490;
+        v30 = v21;
+        [v22 enumerateObjectsUsingBlock:v29];
+        [registryCallbackBlocks removeObjectForKey:v19];
+      }
+
+      if (migrateCopy)
+      {
+        v28 = 0;
+        assembleFullName(nameCopy, migrateCopy, &v28);
+        v25 = v28;
+        [v21 _migrateDBFile:v25];
+      }
+    }
+
+    objc_sync_exit(v20);
+
+    v26 = v21;
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  return v26;
 }
 
 void __124__AnalyticsWorkspace_workspaceWithName_atPath_objectModelName_objectModelBundle_useReadOnly_legacyDBContainerPathToMigrate___block_invoke(uint64_t a1, void *a2)
@@ -790,6 +879,28 @@ void __124__AnalyticsWorkspace_workspaceWithName_atPath_objectModelName_objectMo
 {
   v2 = [*(a1 + 32) workspaceCallback];
   v2[2](v2, *(a1 + 40));
+}
+
+- (id)initWorkspaceWithName:(id)name atPath:(id)path objectModelName:(id)modelName objectModelBundle:(id)bundle useReadOnly:(BOOL)only
+{
+  onlyCopy = only;
+  modelNameCopy = modelName;
+  bundleCopy = bundle;
+  v18 = 0;
+  v14 = assembleFullName(name, path, &v18);
+  v15 = v18;
+  if (v14)
+  {
+    self = [(AnalyticsWorkspace *)self _initWithName:v15 inMemory:0 useReadOnly:onlyCopy customModelName:modelNameCopy loadModelFromBundle:bundleCopy];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (id)initWorkspaceWithService:(id)service
@@ -892,7 +1003,7 @@ LABEL_14:
 
 - (NSManagedObjectModel)objectModel
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self->__persistent)
   {
     objectModel = self->__objectModel;
@@ -910,11 +1021,11 @@ LABEL_14:
         uTF8String = [objectModelName UTF8String];
         objectModelResidentBundle = [(AnalyticsWorkspace *)self objectModelResidentBundle];
         bundlePath = [objectModelResidentBundle bundlePath];
-        v23 = 136315394;
-        v24 = uTF8String;
-        v25 = 2080;
+        v22 = 136315394;
+        v23 = uTF8String;
+        v24 = 2080;
         uTF8String2 = [bundlePath UTF8String];
-        _os_log_impl(&dword_2324AD000, v5, OS_LOG_TYPE_DEFAULT, "Loading object model %s.momd from bundle at %s", &v23, 0x16u);
+        _os_log_impl(&dword_2324AD000, v5, OS_LOG_TYPE_DEFAULT, "Loading object model %s.momd from bundle at %s", &v22, 0x16u);
       }
 
       objectModelResidentBundle2 = [(AnalyticsWorkspace *)self objectModelResidentBundle];
@@ -931,9 +1042,9 @@ LABEL_14:
         v16 = objectanalyticsHandle();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 138412290;
-          v24 = v13;
-          _os_log_impl(&dword_2324AD000, v16, OS_LOG_TYPE_DEFAULT, "Loaded object model from URL %@", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = v13;
+          _os_log_impl(&dword_2324AD000, v16, OS_LOG_TYPE_DEFAULT, "Loaded object model from URL %@", &v22, 0xCu);
         }
       }
 
@@ -943,9 +1054,9 @@ LABEL_14:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           objectModelName3 = [(AnalyticsWorkspace *)self objectModelName];
-          v23 = 138412290;
-          v24 = objectModelName3;
-          _os_log_impl(&dword_2324AD000, v13, OS_LOG_TYPE_ERROR, "Did not find path for object model %@", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = objectModelName3;
+          _os_log_impl(&dword_2324AD000, v13, OS_LOG_TYPE_ERROR, "Did not find path for object model %@", &v22, 0xCu);
         }
 
         v14 = 0;
@@ -958,9 +1069,9 @@ LABEL_14:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           objectModelName4 = [(AnalyticsWorkspace *)self objectModelName];
-          v23 = 138412290;
-          v24 = objectModelName4;
-          _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_ERROR, "Couldn't match expected object model %@", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = objectModelName4;
+          _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_ERROR, "Couldn't match expected object model %@", &v22, 0xCu);
         }
 
         v18 = self->__objectModel;
@@ -974,8 +1085,6 @@ LABEL_14:
   {
     v4 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1105,56 +1214,52 @@ uint64_t __46__AnalyticsWorkspace_setResetCompletionBlock___block_invoke(uint64_
 
 - (BOOL)canCloneObjectsOfType:(id)type
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (self->__persistent)
+  v16 = *MEMORY[0x277D85DE8];
+  if (!self->__persistent)
   {
-    relationshipsByName = [type relationshipsByName];
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    allValues = [relationshipsByName allValues];
-    v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v5)
+    return 0;
+  }
+
+  relationshipsByName = [type relationshipsByName];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allValues = [relationshipsByName allValues];
+  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v12;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v13;
-      while (2)
+      for (i = 0; i != v6; ++i)
       {
-        for (i = 0; i != v6; ++i)
+        if (*v12 != v7)
         {
-          if (*v13 != v7)
-          {
-            objc_enumerationMutation(allValues);
-          }
-
-          if ([*(*(&v12 + 1) + 8 * i) isToMany])
-          {
-            v9 = 0;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(allValues);
         }
 
-        v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
+        if ([*(*(&v11 + 1) + 8 * i) isToMany])
         {
-          continue;
+          v9 = 0;
+          goto LABEL_13;
         }
-
-        break;
       }
+
+      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v9 = 1;
+  v9 = 1;
 LABEL_13:
-  }
 
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1205,7 +1310,7 @@ void __64__AnalyticsWorkspace_enumerateResidentObjectsOfType_usingBlock___block_
 
 - (id)_cloneInternal:(id)internal intoWorkspace:(id)workspace ancestry:(id)ancestry iteration:(unint64_t)iteration mustFail:(BOOL *)fail
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   workspaceCopy = workspace;
   ancestryCopy = ancestry;
@@ -1224,7 +1329,7 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    v51 = entity;
+    v50 = entity;
     v22 = mainObjectContext;
     v23 = ancestryCopy;
     if (internalCopy)
@@ -1251,7 +1356,7 @@ LABEL_33:
     ancestryCopy = v23;
     mainObjectContext = v22;
 LABEL_32:
-    entity = v51;
+    entity = v50;
     goto LABEL_33;
   }
 
@@ -1280,53 +1385,53 @@ LABEL_32:
   }
 
   [internalCopy objectID];
-  v26 = v51 = entity;
+  v26 = v50 = entity;
   v25 = [ancestryCopy objectForKeyedSubscript:v26];
 
-  entity = v51;
+  entity = v50;
   if (!v25)
   {
     v25 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:name inManagedObjectContext:mainObjectContext];
     if (v25)
     {
       iterationCopy = iteration;
-      v50 = mainObjectContext;
-      v54 = workspaceCopy;
+      v49 = mainObjectContext;
+      v53 = workspaceCopy;
       objectID = [internalCopy objectID];
-      v53 = ancestryCopy;
+      v52 = ancestryCopy;
       [ancestryCopy setObject:v25 forKey:objectID];
 
       entity2 = [internalCopy entity];
       attributesByName = [entity2 attributesByName];
       allKeys = [attributesByName allKeys];
 
-      v49 = allKeys;
+      v48 = allKeys;
       [internalCopy dictionaryWithValuesForKeys:allKeys];
-      v48 = v52 = v25;
+      v47 = v51 = v25;
       [v25 setValuesForKeysWithDictionary:?];
       entity3 = [internalCopy entity];
       relationshipsByName = [entity3 relationshipsByName];
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       allKeys2 = [relationshipsByName allKeys];
-      v34 = [allKeys2 countByEnumeratingWithState:&v59 objects:v63 count:16];
+      v34 = [allKeys2 countByEnumeratingWithState:&v58 objects:v62 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v60;
+        v36 = *v59;
         while (2)
         {
           for (i = 0; i != v35; ++i)
           {
-            if (*v60 != v36)
+            if (*v59 != v36)
             {
               objc_enumerationMutation(allKeys2);
             }
 
-            v38 = *(*(&v59 + 1) + 8 * i);
+            v38 = *(*(&v58 + 1) + 8 * i);
             v39 = [relationshipsByName objectForKeyedSubscript:v38];
             if (([v39 isToMany] & 1) == 0 && (objc_msgSend(v39, "isTransient") & 1) == 0)
             {
@@ -1334,26 +1439,26 @@ LABEL_32:
               v41 = internalCopy;
               v42 = [internalCopy valueForKey:v38];
               ++iterationCopy;
-              v43 = [AnalyticsWorkspace _cloneInternal:"_cloneInternal:intoWorkspace:ancestry:iteration:mustFail:" intoWorkspace:v42 ancestry:v54 iteration:v53 mustFail:?];
+              v43 = [AnalyticsWorkspace _cloneInternal:"_cloneInternal:intoWorkspace:ancestry:iteration:mustFail:" intoWorkspace:v42 ancestry:v53 iteration:v52 mustFail:?];
               if (!v43)
               {
                 *fail = 1;
 
                 v25 = 0;
                 internalCopy = v41;
-                v15 = v52;
+                v15 = v51;
                 goto LABEL_31;
               }
 
               v44 = v43;
-              [v52 setValue:v43 forKey:v38];
+              [v51 setValue:v43 forKey:v38];
 
               internalCopy = v41;
               allKeys2 = v40;
             }
           }
 
-          v35 = [allKeys2 countByEnumeratingWithState:&v59 objects:v63 count:16];
+          v35 = [allKeys2 countByEnumeratingWithState:&v58 objects:v62 count:16];
           if (v35)
           {
             continue;
@@ -1363,7 +1468,7 @@ LABEL_32:
         }
       }
 
-      v15 = v52;
+      v15 = v51;
       if (*fail)
       {
         v45 = 0;
@@ -1371,98 +1476,92 @@ LABEL_32:
 
       else
       {
-        v45 = v52;
+        v45 = v51;
       }
 
       v25 = v45;
 LABEL_31:
 
-      ancestryCopy = v53;
-      workspaceCopy = v54;
-      mainObjectContext = v50;
+      ancestryCopy = v52;
+      workspaceCopy = v53;
+      mainObjectContext = v49;
       goto LABEL_32;
     }
   }
 
 LABEL_34:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (BOOL)_primePath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->pathKnownToFail)
   {
-    v3 = 0;
+    return 0;
+  }
+
+  stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v16 = 0;
+  if ([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v16] && (v16 & 1) != 0)
+  {
+    v3 = 1;
   }
 
   else
   {
-    stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v17 = 0;
-    if ([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v17] && (v17 & 1) != 0)
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObject:self->storeProt forKey:*MEMORY[0x277CCA1B0]];
+    v15 = 0;
+    [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v7 error:&v15];
+    v8 = v15;
+    v3 = v8 == 0;
+    if (v8)
     {
-      v3 = 1;
-    }
-
-    else
-    {
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObject:self->storeProt forKey:*MEMORY[0x277CCA1B0]];
-      v16 = 0;
-      [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v7 error:&v16];
-      v8 = v16;
-      v3 = v8 == 0;
-      if (v8)
+      v9 = objectanalyticsHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v9 = objectanalyticsHandle();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          localizedDescription = [v8 localizedDescription];
-          uTF8String = [localizedDescription UTF8String];
-          *buf = 136315138;
-          v19 = uTF8String;
-          _os_log_impl(&dword_2324AD000, v9, OS_LOG_TYPE_ERROR, "Error creating directory path: %s", buf, 0xCu);
-        }
-
-        v12 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3101 userInfo:0];
-        persistentStoreError = self->_persistentStoreError;
-        self->_persistentStoreError = v12;
+        localizedDescription = [v8 localizedDescription];
+        uTF8String = [localizedDescription UTF8String];
+        *buf = 136315138;
+        v18 = uTF8String;
+        _os_log_impl(&dword_2324AD000, v9, OS_LOG_TYPE_ERROR, "Error creating directory path: %s", buf, 0xCu);
       }
-    }
 
-    self->pathKnownToFail = !v3;
+      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3101 userInfo:0];
+      persistentStoreError = self->_persistentStoreError;
+      self->_persistentStoreError = v12;
+    }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  self->pathKnownToFail = !v3;
+
   return v3;
 }
 
 - (void)_migrateDBFile:(id)file
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v37 = 0;
+  v36 = 0;
   stringByDeletingLastPathComponent = [(NSString *)self->backingStore stringByDeletingLastPathComponent];
-  if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v37] & 1) == 0)
+  if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v36] & 1) == 0)
   {
     p_super = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"_networkd", *MEMORY[0x277CCA160], @"wheel", *MEMORY[0x277CCA120], 0}];
     v8 = objectanalyticsHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = stringByDeletingLastPathComponent;
+      v38 = stringByDeletingLastPathComponent;
       _os_log_impl(&dword_2324AD000, v8, OS_LOG_TYPE_DEFAULT, "DB Container (%@) doesn't exist. Will create it", buf, 0xCu);
     }
 
     [p_super setObject:self->storeProt forKeyedSubscript:*MEMORY[0x277CCA1B0]];
-    v36 = 0;
-    [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:p_super error:&v36];
-    v9 = v36;
+    v35 = 0;
+    [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:p_super error:&v35];
+    v9 = v35;
     if (v9)
     {
       v10 = v9;
@@ -1470,9 +1569,9 @@ LABEL_34:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v39 = stringByDeletingLastPathComponent;
-        v40 = 2112;
-        v41 = v10;
+        v38 = stringByDeletingLastPathComponent;
+        v39 = 2112;
+        v40 = v10;
         _os_log_impl(&dword_2324AD000, v11, OS_LOG_TYPE_ERROR, "Couldn't create DB Container: %@ because %@", buf, 0x16u);
       }
 
@@ -1484,7 +1583,7 @@ LABEL_34:
     }
   }
 
-  if (!-[NSObject length](fileCopy, "length") || ![defaultManager fileExistsAtPath:fileCopy isDirectory:&v37] || (v37 & 1) != 0)
+  if (!-[NSObject length](fileCopy, "length") || ![defaultManager fileExistsAtPath:fileCopy isDirectory:&v36] || (v36 & 1) != 0)
   {
     p_super = objectanalyticsHandle();
     if (!os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
@@ -1503,16 +1602,16 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v18 = objectanalyticsHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = objectanalyticsHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     backingStore = self->backingStore;
     *buf = 138412290;
-    v39 = backingStore;
-    _os_log_impl(&dword_2324AD000, v18, OS_LOG_TYPE_DEFAULT, "Legacy path netusage exists. backingstore %@", buf, 0xCu);
+    v38 = backingStore;
+    _os_log_impl(&dword_2324AD000, v17, OS_LOG_TYPE_DEFAULT, "Legacy path netusage exists. backingstore %@", buf, 0xCu);
   }
 
-  if (!-[NSString length](self->backingStore, "length") || ([defaultManager fileExistsAtPath:self->backingStore isDirectory:&v37] & 1) != 0 || (v37 & 1) != 0)
+  if (!-[NSString length](self->backingStore, "length") || ([defaultManager fileExistsAtPath:self->backingStore isDirectory:&v36] & 1) != 0 || (v36 & 1) != 0)
   {
     p_super = objectanalyticsHandle();
     if (!os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
@@ -1527,258 +1626,251 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v20 = objectanalyticsHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = objectanalyticsHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2324AD000, v20, OS_LOG_TYPE_DEFAULT, "New path netusage doesn't exist so we shall migrate it from the old location", buf, 2u);
+    _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_DEFAULT, "New path netusage doesn't exist so we shall migrate it from the old location", buf, 2u);
   }
 
-  v21 = self->backingStore;
-  v35 = 0;
-  v22 = [defaultManager moveItemAtPath:fileCopy toPath:v21 error:&v35];
-  v10 = v35;
-  v23 = objectanalyticsHandle();
-  v24 = v23;
-  if (v22)
+  v20 = self->backingStore;
+  v34 = 0;
+  v21 = [defaultManager moveItemAtPath:fileCopy toPath:v20 error:&v34];
+  v10 = v34;
+  v22 = objectanalyticsHandle();
+  v23 = v22;
+  if (v21)
   {
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2324AD000, v24, OS_LOG_TYPE_DEFAULT, "Successfully moved over netusage to new location", buf, 2u);
+      _os_log_impl(&dword_2324AD000, v23, OS_LOG_TYPE_DEFAULT, "Successfully moved over netusage to new location", buf, 2u);
     }
 
     fileCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-shm", fileCopy];
-    if ([defaultManager fileExistsAtPath:fileCopy isDirectory:&v37] && (v37 & 1) == 0)
+    if ([defaultManager fileExistsAtPath:fileCopy isDirectory:&v36] && (v36 & 1) == 0)
     {
-      v34 = v10;
-      v29 = [defaultManager removeItemAtPath:fileCopy error:&v34];
-      v26 = v34;
+      v33 = v10;
+      v28 = [defaultManager removeItemAtPath:fileCopy error:&v33];
+      v25 = v33;
 
-      if ((v29 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
-        v30 = objectanalyticsHandle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v29 = objectanalyticsHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v39 = fileCopy;
-          v40 = 2112;
-          v41 = v26;
-          _os_log_impl(&dword_2324AD000, v30, OS_LOG_TYPE_ERROR, "Failed to remove %@ because %@", buf, 0x16u);
+          v38 = fileCopy;
+          v39 = 2112;
+          v40 = v25;
+          _os_log_impl(&dword_2324AD000, v29, OS_LOG_TYPE_ERROR, "Failed to remove %@ because %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v26 = v10;
+      v25 = v10;
     }
 
     p_super = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-wal", fileCopy];
 
-    if ([defaultManager fileExistsAtPath:p_super isDirectory:&v37] && (v37 & 1) == 0)
+    if ([defaultManager fileExistsAtPath:p_super isDirectory:&v36] && (v36 & 1) == 0)
     {
-      v33 = v26;
-      v31 = [defaultManager removeItemAtPath:p_super error:&v33];
-      v10 = v33;
+      v32 = v25;
+      v30 = [defaultManager removeItemAtPath:p_super error:&v32];
+      v10 = v32;
 
-      if ((v31 & 1) == 0)
+      if ((v30 & 1) == 0)
       {
-        v32 = objectanalyticsHandle();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = objectanalyticsHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v39 = p_super;
-          v40 = 2112;
-          v41 = v10;
-          _os_log_impl(&dword_2324AD000, v32, OS_LOG_TYPE_ERROR, "Failed to remove %@ because %@", buf, 0x16u);
+          v38 = p_super;
+          v39 = 2112;
+          v40 = v10;
+          _os_log_impl(&dword_2324AD000, v31, OS_LOG_TYPE_ERROR, "Failed to remove %@ because %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v10 = v26;
+      v10 = v25;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v27 = self->backingStore;
+      v26 = self->backingStore;
       *buf = 138412802;
-      v39 = fileCopy;
-      v40 = 2112;
-      v41 = v27;
-      v42 = 2112;
-      v43 = v10;
-      _os_log_impl(&dword_2324AD000, v24, OS_LOG_TYPE_ERROR, "Failed to move %@ to %@ because %@", buf, 0x20u);
+      v38 = fileCopy;
+      v39 = 2112;
+      v40 = v26;
+      v41 = 2112;
+      v42 = v10;
+      _os_log_impl(&dword_2324AD000, v23, OS_LOG_TYPE_ERROR, "Failed to move %@ to %@ because %@", buf, 0x20u);
     }
 
-    v28 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3103 userInfo:0];
+    v27 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284789E68 code:3103 userInfo:0];
     p_super = &self->_persistentStoreError->super;
-    self->_persistentStoreError = v28;
+    self->_persistentStoreError = v27;
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)currentDBSizeInBytes
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = v3;
-  if (v3 - self->_lastDBSizeUpdateTimestamp >= 300.0)
+  if (v3 - self->_lastDBSizeUpdateTimestamp < 300.0)
   {
-    persistentStoreCoordinator = [(AnalyticsWorkspace *)self persistentStoreCoordinator];
-    persistentStores = [persistentStoreCoordinator persistentStores];
+    return self->_currentDBSizeInBytes;
+  }
 
-    if (persistentStores)
+  persistentStoreCoordinator = [(AnalyticsWorkspace *)self persistentStoreCoordinator];
+  persistentStores = [persistentStoreCoordinator persistentStores];
+
+  if (persistentStores)
+  {
+    selfCopy = self;
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v30 = persistentStores;
+    v9 = persistentStores;
+    v10 = [v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    if (v10)
     {
-      selfCopy = self;
-      defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v31 = persistentStores;
-      v9 = persistentStores;
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v44 count:16];
-      if (v10)
+      v11 = v10;
+      v33 = 0;
+      v12 = *v36;
+      while (2)
       {
-        v11 = v10;
-        v34 = 0;
-        v12 = *v37;
-        while (2)
+        v13 = 0;
+        v32 = v11;
+        do
         {
-          v13 = 0;
-          v33 = v11;
-          do
+          if (*v36 != v12)
           {
-            if (*v37 != v12)
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = [*(*(&v35 + 1) + 8 * v13) URL];
+          if ([v14 isFileURL])
+          {
+            path = [v14 path];
+            v16 = path;
+            if (!path || ![path length])
             {
-              objc_enumerationMutation(v9);
+              v24 = objectanalyticsHandle();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                v40 = v14;
+                _os_log_impl(&dword_2324AD000, v24, OS_LOG_TYPE_ERROR, "Error retrieving file path, storeURL: %@", buf, 0xCu);
+              }
+
+              goto LABEL_27;
             }
 
-            v14 = [*(*(&v36 + 1) + 8 * v13) URL];
-            if ([v14 isFileURL])
+            v34 = 0;
+            v17 = [defaultManager attributesOfItemAtPath:v16 error:&v34];
+            v18 = v34;
+            if (v18)
             {
-              path = [v14 path];
-              v16 = path;
-              if (!path || ![path length])
+              v19 = objectanalyticsHandle();
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
-                v24 = objectanalyticsHandle();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 138412290;
-                  v41 = v14;
-                  _os_log_impl(&dword_2324AD000, v24, OS_LOG_TYPE_ERROR, "Error retrieving file path, storeURL: %@", buf, 0xCu);
-                }
-
-                goto LABEL_27;
-              }
-
-              v35 = 0;
-              v17 = [defaultManager attributesOfItemAtPath:v16 error:&v35];
-              v18 = v35;
-              if (v18)
-              {
-                v19 = objectanalyticsHandle();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 138412290;
-                  v41 = v18;
-                  _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_ERROR, "Error retrieving file size: %@", buf, 0xCu);
-                }
-              }
-
-              else
-              {
-                v20 = v12;
-                v21 = v9;
-                v22 = defaultManager;
-                fileSize = [v17 fileSize];
-                v34 += fileSize;
-                v19 = objectanalyticsHandle();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 138412546;
-                  v41 = v16;
-                  v42 = 2048;
-                  v43 = *&fileSize;
-                  _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_DEFAULT, "Analytics Workspace path = %@, file size = %llu", buf, 0x16u);
-                }
-
-                defaultManager = v22;
-                v9 = v21;
-                v12 = v20;
-                v11 = v33;
+                *buf = 138412290;
+                v40 = v18;
+                _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_ERROR, "Error retrieving file size: %@", buf, 0xCu);
               }
             }
 
-            ++v13;
+            else
+            {
+              v20 = v12;
+              v21 = v9;
+              v22 = defaultManager;
+              fileSize = [v17 fileSize];
+              v33 += fileSize;
+              v19 = objectanalyticsHandle();
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412546;
+                v40 = v16;
+                v41 = 2048;
+                v42 = *&fileSize;
+                _os_log_impl(&dword_2324AD000, v19, OS_LOG_TYPE_DEFAULT, "Analytics Workspace path = %@, file size = %llu", buf, 0x16u);
+              }
+
+              defaultManager = v22;
+              v9 = v21;
+              v12 = v20;
+              v11 = v32;
+            }
           }
 
-          while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v36 objects:v44 count:16];
-          if (v11)
-          {
-            continue;
-          }
-
-          break;
+          ++v13;
         }
+
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        if (v11)
+        {
+          continue;
+        }
+
+        break;
       }
-
-      else
-      {
-        v34 = 0;
-      }
-
-LABEL_27:
-
-      persistentStores = v31;
-      self = selfCopy;
-      v25 = v34;
     }
 
     else
     {
-      v25 = 0;
+      v33 = 0;
     }
 
-    self->_currentDBSizeInBytes = v25;
-    self->_lastDBSizeUpdateTimestamp = v4;
-    v26 = objectanalyticsHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-    {
-      currentDBSizeInBytes = self->_currentDBSizeInBytes;
-      lastDBSizeUpdateTimestamp = self->_lastDBSizeUpdateTimestamp;
-      *buf = 134218240;
-      v41 = currentDBSizeInBytes;
-      v42 = 2048;
-      v43 = lastDBSizeUpdateTimestamp;
-      _os_log_impl(&dword_2324AD000, v26, OS_LOG_TYPE_DEFAULT, "Total DB size = %llu, last update = %f", buf, 0x16u);
-    }
+LABEL_27:
 
-    v5 = self->_currentDBSizeInBytes;
+    persistentStores = v30;
+    self = selfCopy;
+    v25 = v33;
   }
 
   else
   {
-    v5 = self->_currentDBSizeInBytes;
+    v25 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
+  self->_currentDBSizeInBytes = v25;
+  self->_lastDBSizeUpdateTimestamp = v4;
+  v26 = objectanalyticsHandle();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  {
+    currentDBSizeInBytes = self->_currentDBSizeInBytes;
+    lastDBSizeUpdateTimestamp = self->_lastDBSizeUpdateTimestamp;
+    *buf = 134218240;
+    v40 = currentDBSizeInBytes;
+    v41 = 2048;
+    v42 = lastDBSizeUpdateTimestamp;
+    _os_log_impl(&dword_2324AD000, v26, OS_LOG_TYPE_DEFAULT, "Total DB size = %llu, last update = %f", buf, 0x16u);
+  }
+
+  v5 = self->_currentDBSizeInBytes;
   return v5;
 }
 
 - (unint64_t)fileSystemSizeInBytes
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   result = self->_fileSystemSizeInBytes;
   if (!result)
   {
@@ -1788,29 +1880,29 @@ LABEL_27:
     if (persistentStores)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v6 = persistentStores;
-      v7 = [v6 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v7)
       {
         v9 = v7;
-        v10 = *v27;
-        v23 = *MEMORY[0x277CCA1D8];
+        v10 = *v26;
+        v22 = *MEMORY[0x277CCA1D8];
         *&v8 = 134217984;
-        v22 = v8;
+        v21 = v8;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v27 != v10)
+            if (*v26 != v10)
             {
               objc_enumerationMutation(v6);
             }
 
-            v12 = [*(*(&v26 + 1) + 8 * i) URL];
+            v12 = [*(*(&v25 + 1) + 8 * i) URL];
             if ([v12 isFileURL])
             {
               path = [v12 path];
@@ -1821,7 +1913,7 @@ LABEL_27:
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v31 = v12;
+                  v30 = v12;
                   _os_log_impl(&dword_2324AD000, v15, OS_LOG_TYPE_ERROR, "Error retrieving file path, storeURL: %@", buf, 0xCu);
                 }
 
@@ -1830,31 +1922,31 @@ LABEL_28:
                 goto LABEL_29;
               }
 
-              v25 = 0;
-              v15 = [defaultManager attributesOfFileSystemForPath:v14 error:&v25];
-              v16 = v25;
+              v24 = 0;
+              v15 = [defaultManager attributesOfFileSystemForPath:v14 error:&v24];
+              v16 = v24;
               if (v16 || !v15)
               {
                 v20 = objectanalyticsHandle();
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v31 = v16;
+                  v30 = v16;
                   _os_log_impl(&dword_2324AD000, v20, OS_LOG_TYPE_ERROR, "Error retrieving file system size: %@", buf, 0xCu);
                 }
               }
 
               else
               {
-                v17 = [v15 objectForKeyedSubscript:v23];
+                v17 = [v15 objectForKeyedSubscript:v22];
                 self->_fileSystemSizeInBytes = [v17 unsignedLongLongValue];
 
                 v18 = objectanalyticsHandle();
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                 {
                   fileSystemSizeInBytes = self->_fileSystemSizeInBytes;
-                  *buf = v22;
-                  v31 = fileSystemSizeInBytes;
+                  *buf = v21;
+                  v30 = fileSystemSizeInBytes;
                   _os_log_impl(&dword_2324AD000, v18, OS_LOG_TYPE_DEFAULT, "File System Size = %llu", buf, 0xCu);
                 }
 
@@ -1866,7 +1958,7 @@ LABEL_28:
             }
           }
 
-          v9 = [v6 countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v9 = [v6 countByEnumeratingWithState:&v25 objects:v31 count:16];
           if (v9)
           {
             continue;
@@ -1889,10 +1981,9 @@ LABEL_29:
       }
     }
 
-    result = self->_fileSystemSizeInBytes;
+    return self->_fileSystemSizeInBytes;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 

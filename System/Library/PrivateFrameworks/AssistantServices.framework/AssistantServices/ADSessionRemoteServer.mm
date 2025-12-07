@@ -674,7 +674,7 @@ LABEL_19:
     [v5 setObject:v24 forKey:@"errorCode"];
 
     userInfo = [errorCopy userInfo];
-    v26 = [userInfo objectForKey:NSUnderlyingErrorKey];
+    v26 = objc_msgSend_objectForKey_(userInfo);
 
     if (v26)
     {
@@ -691,7 +691,7 @@ LABEL_19:
     }
 
     userInfo2 = [errorCopy userInfo];
-    v32 = [userInfo2 objectForKey:SiriCoreSiriConnectionHTTPErrorStatusCodeKey];
+    v32 = objc_msgSend_objectForKey_(userInfo2);
 
     if (v32)
     {
@@ -700,7 +700,7 @@ LABEL_19:
       [v33 setObject:stringValue forKey:SiriNetworkBackgroundConnectionHTTPErrorStatusCodeKey];
 
       userInfo3 = [errorCopy userInfo];
-      v36 = [userInfo3 objectForKey:NSLocalizedDescriptionKey];
+      v36 = objc_msgSend_objectForKey_(userInfo3);
 
       if (v36)
       {
@@ -710,7 +710,7 @@ LABEL_19:
 
       userInfo4 = [errorCopy userInfo];
       v39 = SiriNetworkBackgroundConnectionHTTPRedirectValueKey;
-      v40 = [userInfo4 objectForKey:SiriNetworkBackgroundConnectionHTTPRedirectValueKey];
+      v40 = objc_msgSend_objectForKey_(userInfo4);
 
       if (v40)
       {
@@ -3070,7 +3070,7 @@ LABEL_37:
   }
 
   userInfo = [*&v10 userInfo];
-  v24 = [userInfo objectForKey:SiriNetworkBackgroundConnectionShouldSkipIDSOnNextAttemptKey];
+  v24 = objc_msgSend_objectForKey_(userInfo);
   bOOLValue = [v24 BOOLValue];
 
   if (bOOLValue)
@@ -3244,7 +3244,7 @@ LABEL_37:
           refId = [v30 refId];
           if (aceId)
           {
-            v33 = [v22 objectForKey:aceId];
+            v33 = objc_msgSend_objectForKey_(v22);
             if (!v33)
             {
               v33 = SiriCoreUUIDStringCreate();
@@ -3308,7 +3308,7 @@ LABEL_37:
 
             if (refId)
             {
-              v42 = [v22 objectForKey:refId];
+              v42 = objc_msgSend_objectForKey_(v22);
               if (!v42)
               {
                 v42 = SiriCoreUUIDStringCreate();
@@ -3344,36 +3344,37 @@ LABEL_37:
   parametersCopy = parameters;
   errorCopy = error;
   byErrorCopy = byError;
-  if (peer || !sub_100017820())
+  v14 = byErrorCopy;
+  if (peer || !sub_100017820(byErrorCopy))
   {
-    LOBYTE(v17) = secondary;
-    [(ADSessionRemoteServer *)self _reallyRetryPreferringWWAN:parametersCopy skipPeer:1 skipPeerError:errorCopy useWiFiHint:1 causedByError:byErrorCopy forceReconnect:0 useSecondary:v17];
+    LOBYTE(v18) = secondary;
+    [(ADSessionRemoteServer *)self _reallyRetryPreferringWWAN:parametersCopy skipPeer:1 skipPeerError:errorCopy useWiFiHint:1 causedByError:v14 forceReconnect:0 useSecondary:v18];
     _siriNetworkManager = [(ADSessionRemoteServer *)self _siriNetworkManager];
     [_siriNetworkManager resetLinkRecommendationInfo];
   }
 
   else
   {
-    v14 = AFSiriLogContextSession;
+    v15 = AFSiriLogContextSession;
     if (os_log_type_enabled(AFSiriLogContextSession, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v25 = "[ADSessionRemoteServer _retryWithParameters:skipPeer:skipPeerError:causedByError:useSecondary:]";
-      _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%s Peer is nearby", buf, 0xCu);
+      v26 = "[ADSessionRemoteServer _retryWithParameters:skipPeer:skipPeerError:causedByError:useSecondary:]";
+      _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s Peer is nearby", buf, 0xCu);
     }
 
     _siriNetworkManager2 = [(ADSessionRemoteServer *)self _siriNetworkManager];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1002CF824;
-    v18[3] = &unk_10051A178;
-    v18[4] = self;
-    v21 = parametersCopy;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1002CF824;
+    v19[3] = &unk_10051A178;
+    v19[4] = self;
+    v22 = parametersCopy;
     peerCopy = peer;
-    v19 = errorCopy;
-    v20 = byErrorCopy;
+    v20 = errorCopy;
+    v21 = v14;
     secondaryCopy = secondary;
-    [_siriNetworkManager2 getLinkRecommendation:1 recommendation:v18];
+    [_siriNetworkManager2 getLinkRecommendation:1 recommendation:v19];
   }
 }
 
@@ -3709,7 +3710,7 @@ LABEL_17:
   }
 
   userInfo = [timeoutCopy userInfo];
-  v11 = [userInfo objectForKey:NSUnderlyingErrorKey];
+  v11 = objc_msgSend_objectForKey_(userInfo);
 
   domain5 = [v11 domain];
   if ([domain5 isEqualToString:NSPOSIXErrorDomain])
@@ -3779,7 +3780,7 @@ LABEL_20:
   if ([domain isEqualToString:SiriCoreSiriConnectionErrorDomain] && !objc_msgSend(redirectCopy, "code"))
   {
     userInfo = [redirectCopy userInfo];
-    v10 = [userInfo objectForKey:SiriCoreSiriConnectionHTTPErrorStatusCodeKey];
+    v10 = objc_msgSend_objectForKey_(userInfo);
     v5 = [v10 intValue] == 301;
   }
 
@@ -3792,7 +3793,7 @@ LABEL_20:
   if ([domain2 isEqualToString:SiriNetworkBackgroundConnectionErrorDomain] && !objc_msgSend(redirectCopy, "code"))
   {
     userInfo2 = [redirectCopy userInfo];
-    v12 = [userInfo2 objectForKey:SiriNetworkBackgroundConnectionHTTPErrorStatusCodeKey];
+    v12 = objc_msgSend_objectForKey_(userInfo2);
     v7 = [v12 intValue] == 301;
   }
 
@@ -3826,67 +3827,65 @@ LABEL_20:
         {
           if (v11 != 2)
           {
-            goto LABEL_32;
+            goto LABEL_31;
           }
 
-LABEL_23:
+LABEL_22:
           if (connectionPolicyFailureCount)
           {
             if (!++connectionPolicyFailureCount)
             {
-              goto LABEL_36;
+              goto LABEL_35;
             }
           }
 
           else
           {
-            v24 = +[NSDate date];
-            [_account2 setConnectionPolicyFirstFailureDate:v24];
+            v22 = +[NSDate date];
+            [_account2 setConnectionPolicyFirstFailureDate:v22];
 
             connectionPolicyFailureCount = 1;
           }
 
-LABEL_33:
-          v26 = AFSiriLogContextSession;
+LABEL_32:
+          v24 = AFSiriLogContextSession;
           if (os_log_type_enabled(AFSiriLogContextSession, OS_LOG_TYPE_INFO))
           {
-            v28 = 136315394;
-            v29 = "[ADSessionRemoteServer _updateConnectionPolicyFailureCount:]";
-            v30 = 1024;
-            v31 = connectionPolicyFailureCount;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s Setting failure count of %d", &v28, 0x12u);
+            v26 = 136315394;
+            v27 = "[ADSessionRemoteServer _updateConnectionPolicyFailureCount:]";
+            v28 = 1024;
+            v29 = connectionPolicyFailureCount;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s Setting failure count of %d", &v26, 0x12u);
           }
 
           [_account2 setConnectionPolicyFailureCount:connectionPolicyFailureCount];
-          goto LABEL_36;
+          goto LABEL_35;
         }
 
+LABEL_21:
         userInfo = [countCopy userInfo];
-        v16 = userInfo;
-        v17 = &SiriCoreSiriConnectionHTTPErrorStatusCodeKey;
-LABEL_22:
-        v22 = [userInfo objectForKey:*v17];
-        intValue = [v22 intValue];
+        v20 = objc_msgSend_objectForKey_(userInfo);
+        intValue = [v20 intValue];
 
         if (intValue != 503)
         {
-          goto LABEL_32;
+          goto LABEL_31;
         }
 
-        goto LABEL_23;
+        goto LABEL_22;
       }
 
       if (v11 == 7)
       {
-        goto LABEL_23;
+        goto LABEL_22;
       }
 
       if (v11 == 8)
       {
         userInfo2 = [countCopy userInfo];
-        v19 = [userInfo2 objectForKey:NSUnderlyingErrorKey];
+        v16 = objc_msgSend_objectForKey_(userInfo2);
 
-        if (!v19 || ([v19 ad_isNetworkDownError] & 1) == 0)
+        if (!v16 || ([v16 ad_isNetworkDownError] & 1) == 0)
         {
           if (connectionPolicyFailureCount)
           {
@@ -3895,8 +3894,8 @@ LABEL_22:
 
           else
           {
-            v25 = +[NSDate date];
-            [_account2 setConnectionPolicyFirstFailureDate:v25];
+            v23 = +[NSDate date];
+            [_account2 setConnectionPolicyFirstFailureDate:v23];
 
             connectionPolicyFailureCount = 1;
           }
@@ -3916,7 +3915,7 @@ LABEL_22:
         code = [countCopy code];
         if (code == 6)
         {
-          goto LABEL_23;
+          goto LABEL_22;
         }
 
         if (code == 5)
@@ -3930,8 +3929,8 @@ LABEL_22:
 
             else
             {
-              v27 = +[NSDate date];
-              [_account2 setConnectionPolicyFirstFailureDate:v27];
+              v25 = +[NSDate date];
+              [_account2 setConnectionPolicyFirstFailureDate:v25];
 
               connectionPolicyFailureCount = 1;
             }
@@ -3940,40 +3939,37 @@ LABEL_22:
           [(ADSessionRemoteServer *)self _adjustAceHeaderTimeout:0];
           if (!connectionPolicyFailureCount)
           {
-            goto LABEL_36;
+            goto LABEL_35;
           }
 
-          goto LABEL_33;
+          goto LABEL_32;
         }
 
         if (!code)
         {
-          userInfo = [countCopy userInfo];
-          v16 = userInfo;
-          v17 = &SiriNetworkBackgroundConnectionHTTPErrorStatusCodeKey;
-          goto LABEL_22;
+          goto LABEL_21;
         }
       }
 
       else
       {
         domain3 = [countCopy domain];
-        v21 = [domain3 isEqualToString:SiriNetworkNetworkConnectionErrorDomain];
+        v18 = [domain3 isEqualToString:SiriNetworkNetworkConnectionErrorDomain];
 
-        if (v21 && [countCopy code] == 2)
+        if (v18 && [countCopy code] == 2)
         {
-          goto LABEL_23;
+          goto LABEL_22;
         }
       }
     }
 
-LABEL_32:
+LABEL_31:
     if (connectionPolicyFailureCount)
     {
-      goto LABEL_33;
+      goto LABEL_32;
     }
 
-LABEL_36:
+LABEL_35:
   }
 }
 
@@ -4200,7 +4196,7 @@ LABEL_29:
       if ([(ADSessionRemoteServer *)self _connectionErrorIsRedirect:errorCopy]&& AFIsInternalInstall())
       {
         userInfo = [(NSString *)errorCopy userInfo];
-        v53 = [userInfo objectForKey:SiriNetworkBackgroundConnectionHTTPRedirectValueKey];
+        v53 = objc_msgSend_objectForKey_(userInfo);
 
         v54 = self->_currentConnectionHostname;
         v55 = +[ADPreferences sharedPreferences];
@@ -4327,7 +4323,7 @@ LABEL_28:
     if (v17 && code == 16)
     {
       userInfo2 = [(NSString *)errorCopy userInfo];
-      v19 = [userInfo2 objectForKey:NSUnderlyingErrorKey];
+      v19 = objc_msgSend_objectForKey_(userInfo2);
 
       domain3 = [v19 domain];
       if ([domain3 isEqualToString:kNWErrorDomainDNS])

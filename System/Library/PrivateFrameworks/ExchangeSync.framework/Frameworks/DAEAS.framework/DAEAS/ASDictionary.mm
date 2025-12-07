@@ -9,6 +9,7 @@
 - (id)description;
 - (void)_setItems:(id)items;
 - (void)clearPlaceHolder;
+- (void)setObject:(id)object forDCCPT:(int)t;
 @end
 
 @implementation ASDictionary
@@ -141,7 +142,20 @@
 {
   placeHolder = self->_placeHolder;
   self->_placeHolder = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, placeHolder);
+}
+
+- (void)setObject:(id)object forDCCPT:(int)t
+{
+  if (object)
+  {
+    v4 = *&t;
+    placeHolder = self->_placeHolder;
+    v6 = MEMORY[0x277CCABB0];
+    objectCopy = object;
+    v8 = [v6 numberWithInt:v4];
+    [(NSMutableDictionary *)placeHolder setObject:objectCopy forKeyedSubscript:v8];
+  }
 }
 
 - (id)commonValue

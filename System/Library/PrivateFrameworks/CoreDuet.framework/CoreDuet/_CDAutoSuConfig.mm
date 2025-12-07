@@ -9,7 +9,7 @@
 
 - (int)readConfig
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AAE8];
   v4 = +[_CDPaths otaSleepPath];
   v5 = [v3 bundleWithPath:v4];
@@ -20,8 +20,8 @@
   {
     if (v7)
     {
-      LOWORD(v54[0]) = 0;
-      _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Successfully retrieved the bundle from the OTA path", v54, 2u);
+      LOWORD(v53[0]) = 0;
+      _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Successfully retrieved the bundle from the OTA path", v53, 2u);
     }
 
     goto LABEL_10;
@@ -29,8 +29,8 @@
 
   if (v7)
   {
-    LOWORD(v54[0]) = 0;
-    _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Failed to retrieve the bundle from OTA path", v54, 2u);
+    LOWORD(v53[0]) = 0;
+    _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Failed to retrieve the bundle from OTA path", v53, 2u);
   }
 
   v8 = MEMORY[0x1E696AAE8];
@@ -43,8 +43,8 @@
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v54[0]) = 0;
-      _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Successfully retrieved the bundle from the default path", v54, 2u);
+      LOWORD(v53[0]) = 0;
+      _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Successfully retrieved the bundle from the default path", v53, 2u);
     }
 
     v6 = v5;
@@ -145,29 +145,29 @@ LABEL_10:
                             startThreshold = self->_startThreshold;
                             endThreshold = self->_endThreshold;
                             unlockMarginInSlot = self->_unlockMarginInSlot;
-                            v54[0] = 67111680;
-                            v54[1] = restrictionStartInSlot;
-                            v55 = 1024;
-                            v56 = restrictionEndInSlot;
-                            v57 = 1024;
-                            v58 = suStartDefaultTime;
-                            v59 = 1024;
-                            v60 = suEndDefaultTimeOffsetFromSuStart;
-                            v61 = 1024;
-                            v62 = alwaysFallBackToDefault;
-                            v63 = 1024;
-                            v64 = alwaysReturnUnlockNow;
-                            v65 = 1024;
-                            v66 = allowUnlockBeforeNow;
-                            v67 = 2048;
-                            v68 = unlockThreshold;
-                            v69 = 2048;
-                            v70 = startThreshold;
-                            v71 = 2048;
-                            v72 = endThreshold;
-                            v73 = 1024;
-                            v74 = unlockMarginInSlot;
-                            _os_log_impl(&dword_191750000, v39, OS_LOG_TYPE_INFO, "Config parameters: %d, %d, %d, %d, %d, %d, %d, %f, %f, %f, %d", v54, 0x50u);
+                            v53[0] = 67111680;
+                            v53[1] = restrictionStartInSlot;
+                            v54 = 1024;
+                            v55 = restrictionEndInSlot;
+                            v56 = 1024;
+                            v57 = suStartDefaultTime;
+                            v58 = 1024;
+                            v59 = suEndDefaultTimeOffsetFromSuStart;
+                            v60 = 1024;
+                            v61 = alwaysFallBackToDefault;
+                            v62 = 1024;
+                            v63 = alwaysReturnUnlockNow;
+                            v64 = 1024;
+                            v65 = allowUnlockBeforeNow;
+                            v66 = 2048;
+                            v67 = unlockThreshold;
+                            v68 = 2048;
+                            v69 = startThreshold;
+                            v70 = 2048;
+                            v71 = endThreshold;
+                            v72 = 1024;
+                            v73 = unlockMarginInSlot;
+                            _os_log_impl(&dword_191750000, v39, OS_LOG_TYPE_INFO, "Config parameters: %d, %d, %d, %d, %d, %d, %d, %f, %f, %f, %d", v53, 0x50u);
                           }
 
                           v51 = 0;
@@ -276,8 +276,8 @@ LABEL_10:
       v39 = +[_CDLogging autoSUChannel];
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v54[0]) = 0;
-        _os_log_impl(&dword_191750000, v39, OS_LOG_TYPE_INFO, "Failed to get config info from device", v54, 2u);
+        LOWORD(v53[0]) = 0;
+        _os_log_impl(&dword_191750000, v39, OS_LOG_TYPE_INFO, "Failed to get config info from device", v53, 2u);
       }
     }
 
@@ -295,7 +295,6 @@ LABEL_50:
   v51 = -1;
 LABEL_51:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v51;
 }
 
@@ -330,16 +329,16 @@ LABEL_51:
 
 - (void)setParam
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([(_CDAutoSuConfig *)self readConfig])
   {
     v3 = +[_CDLogging autoSUChannel];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
+      LOWORD(v16) = 0;
       v4 = "failed to read configuration file; fall back to hard-coded params";
 LABEL_7:
-      _os_log_impl(&dword_191750000, v3, OS_LOG_TYPE_INFO, v4, &v17, 2u);
+      _os_log_impl(&dword_191750000, v3, OS_LOG_TYPE_INFO, v4, &v16, 2u);
     }
   }
 
@@ -353,7 +352,7 @@ LABEL_7:
     v3 = +[_CDLogging autoSUChannel];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
+      LOWORD(v16) = 0;
       v4 = "invalid params from configuration file; fall back to hard-coded params";
       goto LABEL_7;
     }
@@ -379,30 +378,28 @@ LABEL_9:
     startThreshold = self->_startThreshold;
     endThreshold = self->_endThreshold;
     unlockMarginInSlot = self->_unlockMarginInSlot;
-    LODWORD(v17) = 67111424;
-    HIDWORD(v17) = restrictionStartInSlot;
-    v18 = 1024;
-    v19 = restrictionEndInSlot;
-    v20 = 1024;
-    v21 = suStartDefaultTime;
-    v22 = 1024;
-    v23 = suEndDefaultTimeOffsetFromSuStart;
-    v24 = 1024;
-    v25 = alwaysFallBackToDefault;
-    v26 = 1024;
-    v27 = alwaysReturnUnlockNow;
-    v28 = 2048;
-    v29 = unlockThreshold;
-    v30 = 2048;
-    v31 = startThreshold;
-    v32 = 2048;
-    v33 = endThreshold;
-    v34 = 1024;
-    v35 = unlockMarginInSlot;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Config params: %d, %d, %d, %d, %d, %d, %f, %f, %f, %d", &v17, 0x4Au);
+    LODWORD(v16) = 67111424;
+    HIDWORD(v16) = restrictionStartInSlot;
+    v17 = 1024;
+    v18 = restrictionEndInSlot;
+    v19 = 1024;
+    v20 = suStartDefaultTime;
+    v21 = 1024;
+    v22 = suEndDefaultTimeOffsetFromSuStart;
+    v23 = 1024;
+    v24 = alwaysFallBackToDefault;
+    v25 = 1024;
+    v26 = alwaysReturnUnlockNow;
+    v27 = 2048;
+    v28 = unlockThreshold;
+    v29 = 2048;
+    v30 = startThreshold;
+    v31 = 2048;
+    v32 = endThreshold;
+    v33 = 1024;
+    v34 = unlockMarginInSlot;
+    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Config params: %d, %d, %d, %d, %d, %d, %f, %f, %f, %d", &v16, 0x4Au);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readConfig

@@ -50,7 +50,7 @@
   result = self->_chevron;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   v4 = MEMORY[0x1E695EFD0];

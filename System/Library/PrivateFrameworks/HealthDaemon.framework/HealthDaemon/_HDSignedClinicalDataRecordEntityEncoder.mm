@@ -8,23 +8,21 @@
 
 - (id)orderedProperties
 {
-  v9[10] = *MEMORY[0x277D85DE8];
-  v9[0] = @"credential_types";
-  v9[1] = @"issuer_identifier";
-  v9[2] = @"issued_date";
-  v9[3] = @"relevant_date";
-  v9[4] = @"expiration_date";
-  v9[5] = @"signature_status";
-  v9[6] = @"subject";
-  v9[7] = @"items";
-  v9[8] = @"data_value";
-  v9[9] = @"source_type";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:10];
+  v8[10] = *MEMORY[0x277D85DE8];
+  v8[0] = @"credential_types";
+  v8[1] = @"issuer_identifier";
+  v8[2] = @"issued_date";
+  v8[3] = @"relevant_date";
+  v8[4] = @"expiration_date";
+  v8[5] = @"signature_status";
+  v8[6] = @"subject";
+  v8[7] = @"items";
+  v8[8] = @"data_value";
+  v8[9] = @"source_type";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:10];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

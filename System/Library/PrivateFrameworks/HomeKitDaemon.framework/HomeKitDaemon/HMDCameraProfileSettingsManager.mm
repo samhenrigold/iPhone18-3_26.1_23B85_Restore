@@ -25,6 +25,7 @@
 - (id)_payloadForSettings:(id)settings;
 - (id)_settingsFromSettingsModel:(id)model;
 - (id)_settingsModelForUpdate;
+- (id)_updatedDerivedPropertiesModelWithSettingsModel:(id)model userInitiated:(BOOL)initiated didCreateModel:(BOOL *)createModel;
 - (id)currentNotificationSettings;
 - (id)currentSettingsModel;
 - (id)doorbellInputEventCharacteristic;
@@ -34,6 +35,11 @@
 - (unint64_t)supportedFeatures;
 - (void)_addAccessModeCharacteristicWriteRequestsToArray:(id)array currentAccessMode:(unint64_t)mode;
 - (void)_addHomeKitCameraActiveCharacteristicWriteRequestToArray:(id)array currentAccessMode:(unint64_t)mode;
+- (void)_addNightVisionCharacteristicWriteRequestToArray:(id)array nightVisionEnabled:(BOOL)enabled;
+- (void)_addOperatingModeIndicatorCharacteristicWriteRequestToArray:(id)array accessModeIndicatorEnabled:(BOOL)enabled;
+- (void)_addPeriodicSnapshotsActiveCharacteristicWriteRequestToArray:(id)array periodicSnapshotsAllowed:(BOOL)allowed;
+- (void)_addRecordingAudioEnabledWriteRequestToArray:(id)array recordingAudioEnabled:(BOOL)enabled;
+- (void)_addSnapshotsActiveCharacteristicWriteRequestToArray:(id)array snapshotsAllowed:(BOOL)allowed;
 - (void)_addWriteRequestToArray:(id)array forCharacteristicWithType:(id)type ofServiceWithType:(id)withType value:(id)value;
 - (void)_coordinateDoorbellServiceBulletinNotification:(id)notification;
 - (void)_coordinateNotificationSettingsWithServiceBulletinNotification:(id)notification;
@@ -52,12 +58,16 @@
 - (void)_handleUpdatedDerivedProperties:(id)properties previousProperties:(id)previousProperties;
 - (void)_handleUpdatedSettings:(id)settings previousSettings:(id)previousSettings;
 - (void)_initializeNotificationSettingsUsingSettingsModel:(id)model;
+- (void)_notifyClientsOfChangedSettings:(id)settings isInitialSettingsUpdate:(BOOL)update;
+- (void)_notifyClientsOfChangedSettingsModel:(id)model isInitialSettingsUpdate:(BOOL)update;
 - (void)_notifyClientsOfCurrentSettings;
 - (void)_notifySubscribersOfUpdatedSettings:(id)settings previousSettings:(id)previousSettings;
 - (void)_populateCurrentAccessModeFieldForDerivedProperties:(id)properties currentSettings:(id)settings userInitiated:(BOOL)initiated didUpdateField:(BOOL *)field;
+- (void)_setManuallyDisabledCharacteristicNotificationsEnabled:(BOOL)enabled;
 - (void)_start;
 - (void)_synchronizeCurrentAccessModeSettingToCameraWithCompletion:(id)completion;
 - (void)_updateCameraBulletinNotificationManagerWithSettings:(id)settings forMessage:(id)message;
+- (void)_updateDerivedPropertiesModelWithSettingsModel:(id)model userInitiated:(BOOL)initiated reason:(id)reason;
 - (void)_updateDerivedPropertiesOnSettingsModel:(id)model;
 - (void)_updateNotificationSettings:(id)settings forMessage:(id)message;
 - (void)_writeInitialSettingsCharacteristicsToCamera;
@@ -127,7 +137,7 @@
 
 - (void)listener:(id)listener didUpdateAvailableCharacteristics:(id)characteristics
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   characteristicsCopy = characteristics;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
@@ -140,35 +150,35 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v38 = v11;
-    v39 = 2112;
-    v40 = characteristicsCopy;
+    v37 = v11;
+    v38 = 2112;
+    v39 = characteristicsCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received updated available characteristics: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v12 = characteristicsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       v16 = 0;
-      v31 = v14;
+      v30 = v14;
       do
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * v16);
+        v17 = *(*(&v31 + 1) + 8 * v16);
         service = [v17 service];
         bulletinBoardNotification = [service bulletinBoardNotification];
 
@@ -195,14 +205,14 @@
             v27 = v26 = v12;
             service2 = [v17 service];
             *buf = 138543618;
-            v38 = v27;
-            v39 = 2112;
-            v40 = service2;
+            v37 = v27;
+            v38 = 2112;
+            v39 = service2;
             _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Service unexpectedly does not have a bulletin board notification: %@", buf, 0x16u);
 
             v12 = v26;
             v15 = v25;
-            v14 = v31;
+            v14 = v30;
           }
 
           objc_autoreleasePoolPop(v22);
@@ -212,13 +222,11 @@
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v14);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingsModelUsingBlock:(id)block completion:(id)completion
@@ -248,15 +256,15 @@
 
 - (void)_handleUpdatedSettings:(id)settings previousSettings:(id)previousSettings
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   previousSettingsCopy = previousSettings;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v21 = 0;
-  [settingsCopy hmbIsDifferentFromModel:previousSettingsCopy differingFields:&v21];
-  v9 = v21;
+  v20 = 0;
+  [settingsCopy hmbIsDifferentFromModel:previousSettingsCopy differingFields:&v20];
+  v9 = v20;
   hmf_isEmpty = [v9 hmf_isEmpty];
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -268,7 +276,7 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@No changed fields for updated settings model", buf, 0xCu);
     }
 
@@ -283,13 +291,13 @@
       v17 = [settingsCopy debugDescription];
       v18 = [previousSettingsCopy debugDescription];
       *buf = 138544130;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v18;
-      v28 = 2112;
-      v29 = v9;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v18;
+      v27 = 2112;
+      v28 = v9;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling updated settings model: %@, previous settings model: %@, changed fields: %@", buf, 0x2Au);
     }
 
@@ -302,8 +310,6 @@
       [(HMDCameraProfileSettingsManager *)selfCopy _updateDerivedPropertiesModelWithSettingsModel:currentSettingsModel userInitiated:1 reason:@"Settings model updated"];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDerivedPropertiesOnSettingsModel:(id)model
@@ -326,15 +332,15 @@
 
 - (void)_handleUpdatedDerivedProperties:(id)properties previousProperties:(id)previousProperties
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   previousPropertiesCopy = previousProperties;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v67 = 0;
-  [propertiesCopy hmbIsDifferentFromModel:previousPropertiesCopy differingFields:&v67];
-  v9 = v67;
+  v66 = 0;
+  [propertiesCopy hmbIsDifferentFromModel:previousPropertiesCopy differingFields:&v66];
+  v9 = v66;
   hmf_isEmpty = [(__CFString *)v9 hmf_isEmpty];
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -346,7 +352,7 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v69 = v15;
+      v68 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@No changed fields for updated derived properties model", buf, 0xCu);
     }
 
@@ -361,13 +367,13 @@
       v17 = [propertiesCopy debugDescription];
       v18 = [previousPropertiesCopy debugDescription];
       *buf = 138544130;
-      v69 = v16;
-      v70 = 2112;
-      v71 = v17;
-      v72 = 2112;
-      v73 = v18;
-      v74 = 2112;
-      v75 = v9;
+      v68 = v16;
+      v69 = 2112;
+      v70 = v17;
+      v71 = 2112;
+      v72 = v18;
+      v73 = 2112;
+      v74 = v9;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling updated derived properties model: %@\nprevious derived properties model: %@\nchanged fields: %@", buf, 0x2Au);
     }
 
@@ -384,9 +390,9 @@
         v23 = HMFGetLogIdentifier();
         v24 = HMCameraAccessModeAsString();
         *buf = 138543618;
-        v69 = v23;
-        v70 = 2112;
-        v71 = v24;
+        v68 = v23;
+        v69 = 2112;
+        v70 = v24;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Handling currentAccessMode of %@", buf, 0x16u);
       }
 
@@ -411,11 +417,11 @@
         cameraProfiles = [hapAccessory cameraProfiles];
         anyObject = [cameraProfiles anyObject];
 
-        v66 = anyObject;
+        v65 = anyObject;
         if (previousPropertiesCopy && (anyObject ? (v33 = isAccessModeChangeNotificationEnabled) : (v33 = 0), v33 == 1 && home && [(HMDCameraProfileSettingsManager *)selfCopy canRevealCurrentAccessMode]))
         {
           v34 = objc_autoreleasePoolPush();
-          v64 = selfCopy;
+          v63 = selfCopy;
           v35 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
@@ -423,16 +429,16 @@
             [previousPropertiesCopy currentAccessMode];
             v37 = HMCameraAccessModeAsString();
             HMCameraAccessModeAsString();
-            v38 = v62 = v34;
+            v38 = v61 = v34;
             *buf = 138543874;
-            v69 = v36;
-            v70 = 2112;
-            v71 = v37;
-            v72 = 2112;
-            v73 = v38;
+            v68 = v36;
+            v69 = 2112;
+            v70 = v37;
+            v71 = 2112;
+            v72 = v38;
             _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Current access mode changed from %@ to %@", buf, 0x20u);
 
-            v34 = v62;
+            v34 = v61;
           }
 
           objc_autoreleasePoolPop(v34);
@@ -441,32 +447,32 @@
           currentAccessModeChangeDate = [propertiesCopy currentAccessModeChangeDate];
           if (currentAccessModeChangeDate)
           {
-            v42 = [(HMDCameraAccessModeChangedBulletin *)v39 initWithAccessMode:currentAccessMode camera:v66 home:home changeReason:currentAccessModeChangeReason changeDate:currentAccessModeChangeDate];
+            v42 = [(HMDCameraAccessModeChangedBulletin *)v39 initWithAccessMode:currentAccessMode camera:v65 home:home changeReason:currentAccessModeChangeReason changeDate:currentAccessModeChangeDate];
           }
 
           else
           {
             date = [MEMORY[0x277CBEAA8] date];
-            v42 = [(HMDCameraAccessModeChangedBulletin *)v39 initWithAccessMode:currentAccessMode camera:v66 home:home changeReason:currentAccessModeChangeReason changeDate:date];
+            v42 = [(HMDCameraAccessModeChangedBulletin *)v39 initWithAccessMode:currentAccessMode camera:v65 home:home changeReason:currentAccessModeChangeReason changeDate:date];
           }
 
           if (v42)
           {
-            v54 = objc_autoreleasePoolPush();
-            v55 = v64;
-            v56 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+            v53 = objc_autoreleasePoolPush();
+            v54 = v63;
+            v55 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
             {
-              v57 = HMFGetLogIdentifier();
+              v56 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v69 = v57;
-              v70 = 2112;
-              v71 = v42;
-              _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@Inserting camera access mode changed bulletin: %@", buf, 0x16u);
+              v68 = v56;
+              v69 = 2112;
+              v70 = v42;
+              _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_INFO, "%{public}@Inserting camera access mode changed bulletin: %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v54);
-            bulletinBoard = [(HMDCameraProfileSettingsManager *)v55 bulletinBoard];
+            objc_autoreleasePoolPop(v53);
+            bulletinBoard = [(HMDCameraProfileSettingsManager *)v54 bulletinBoard];
             [bulletinBoard insertCameraAccessModeChangedBulletin:v42];
           }
         }
@@ -479,8 +485,8 @@
           if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
           {
             v46 = HMFGetLogIdentifier();
-            v63 = hapAccessory;
-            v65 = home;
+            v62 = hapAccessory;
+            v64 = home;
             v47 = @"<nil>";
             if (previousPropertiesCopy)
             {
@@ -492,10 +498,10 @@
               v48 = @"<nil>";
             }
 
-            v59 = v48;
+            v58 = v48;
             v49 = HMFBooleanToString();
-            v61 = v43;
-            if (v66)
+            v60 = v43;
+            if (v65)
             {
               v50 = @"<not nil>";
             }
@@ -513,22 +519,22 @@
             [(HMDCameraProfileSettingsManager *)v44 canRevealCurrentAccessMode];
             v51 = HMFBooleanToString();
             *buf = 138544642;
-            v69 = v46;
-            v70 = 2112;
-            v71 = v60;
-            v72 = 2112;
-            v73 = v49;
-            v74 = 2112;
-            v75 = v50;
-            v76 = 2112;
-            v77 = v47;
-            v43 = v61;
-            hapAccessory = v63;
-            v78 = 2112;
-            v79 = v51;
+            v68 = v46;
+            v69 = 2112;
+            v70 = v59;
+            v71 = 2112;
+            v72 = v49;
+            v73 = 2112;
+            v74 = v50;
+            v75 = 2112;
+            v76 = v47;
+            v43 = v60;
+            hapAccessory = v62;
+            v77 = 2112;
+            v78 = v51;
             _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Not posting access mode change notification because previousProperties=%@ accessModeChangeNotificationEnabled=%@ cameraProfile=%@ home=%@ canRevealCurrentAccessMode=%@", buf, 0x3Eu);
 
-            home = v65;
+            home = v64;
           }
 
           objc_autoreleasePoolPop(v43);
@@ -536,8 +542,6 @@
       }
     }
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedDerivedPropertiesModel:(id)model
@@ -556,8 +560,34 @@
 
 void __71__HMDCameraProfileSettingsManager_handleUpdatedDerivedPropertiesModel___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (([*(a1 + 32) hasStarted] & 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([*(a1 + 32) hasStarted])
+  {
+    v2 = [*(a1 + 40) hmbSetProperties];
+    v3 = [v2 hmf_isEmpty];
+
+    if ((v3 & 1) == 0)
+    {
+      v4 = [*(a1 + 32) previousDerivedPropertiesModel];
+      v5 = *(a1 + 40);
+      v12 = v4;
+      if (v4)
+      {
+        v6 = [v4 hmbModelByMergingSetPropertiesFromModel:v5];
+      }
+
+      else
+      {
+        v6 = v5;
+      }
+
+      v11 = v6;
+      [*(a1 + 32) setPreviousDerivedPropertiesModel:v6];
+      [*(a1 + 32) _handleUpdatedDerivedProperties:v11 previousProperties:v12];
+    }
+  }
+
+  else
   {
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 32);
@@ -566,42 +596,12 @@ void __71__HMDCameraProfileSettingsManager_handleUpdatedDerivedPropertiesModel__
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v10;
+      v14 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring derived properties model update because we haven't started yet", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
-    goto LABEL_8;
   }
-
-  v2 = [*(a1 + 40) hmbSetProperties];
-  v3 = [v2 hmf_isEmpty];
-
-  if (v3)
-  {
-LABEL_8:
-    v11 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v4 = [*(a1 + 32) previousDerivedPropertiesModel];
-  v5 = *(a1 + 40);
-  v14 = v4;
-  if (v4)
-  {
-    v6 = [v4 hmbModelByMergingSetPropertiesFromModel:v5];
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  v12 = v6;
-  [*(a1 + 32) setPreviousDerivedPropertiesModel:v6];
-  [*(a1 + 32) _handleUpdatedDerivedProperties:v12 previousProperties:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedSettingsModel:(id)model
@@ -620,8 +620,34 @@ LABEL_8:
 
 void __62__HMDCameraProfileSettingsManager_handleUpdatedSettingsModel___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (([*(a1 + 32) hasStarted] & 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([*(a1 + 32) hasStarted])
+  {
+    v2 = [*(a1 + 40) hmbSetProperties];
+    v3 = [v2 hmf_isEmpty];
+
+    if ((v3 & 1) == 0)
+    {
+      v4 = [*(a1 + 32) previousSettingsModel];
+      v5 = *(a1 + 40);
+      v12 = v4;
+      if (v4)
+      {
+        v6 = [v4 hmbModelByMergingSetPropertiesFromModel:v5];
+      }
+
+      else
+      {
+        v6 = v5;
+      }
+
+      v11 = v6;
+      [*(a1 + 32) setPreviousSettingsModel:v6];
+      [*(a1 + 32) _handleUpdatedSettings:v11 previousSettings:v12];
+    }
+  }
+
+  else
   {
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 32);
@@ -630,42 +656,12 @@ void __62__HMDCameraProfileSettingsManager_handleUpdatedSettingsModel___block_in
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v10;
+      v14 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring settings model update because we haven't started yet", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
-    goto LABEL_8;
   }
-
-  v2 = [*(a1 + 40) hmbSetProperties];
-  v3 = [v2 hmf_isEmpty];
-
-  if (v3)
-  {
-LABEL_8:
-    v11 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v4 = [*(a1 + 32) previousSettingsModel];
-  v5 = *(a1 + 40);
-  v14 = v4;
-  if (v4)
-  {
-    v6 = [v4 hmbModelByMergingSetPropertiesFromModel:v5];
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  v12 = v6;
-  [*(a1 + 32) setPreviousSettingsModel:v6];
-  [*(a1 + 32) _handleUpdatedSettings:v12 previousSettings:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentDeviceConfirmedPrimaryResident
@@ -688,7 +684,7 @@ LABEL_8:
 
 - (void)_start
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -701,7 +697,7 @@ LABEL_8:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v47 = v7;
+      v46 = v7;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring request to start because we've already started", buf, 0xCu);
     }
 
@@ -712,9 +708,9 @@ LABEL_8:
   {
     [(HMDCameraProfileSettingsManager *)self setHasStarted:1];
     coreDataAdapter = [(HMDCameraProfileSettingsManager *)self coreDataAdapter];
-    v45 = 0;
-    v9 = [coreDataAdapter fetchCameraProfileSettingsModelWithError:&v45];
-    v10 = v45;
+    v44 = 0;
+    v9 = [coreDataAdapter fetchCameraProfileSettingsModelWithError:&v44];
+    v10 = v44;
 
     [(HMDCameraProfileSettingsManager *)self _initializeNotificationSettingsUsingSettingsModel:v9];
     if (v9)
@@ -740,9 +736,9 @@ LABEL_8:
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v47 = v18;
-          v48 = 2112;
-          v49 = v10;
+          v46 = v18;
+          v47 = 2112;
+          v48 = v10;
           _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Error fetching currentSettings: %@", buf, 0x16u);
         }
 
@@ -756,7 +752,7 @@ LABEL_8:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v47 = v22;
+        v46 = v22;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Initializing with default settings values", buf, 0xCu);
       }
 
@@ -774,9 +770,9 @@ LABEL_8:
       v26 = HMFGetLogIdentifier();
       v27 = [(HMDCameraProfileSettingsManager *)selfCopy4 _settingsFromSettingsModel:defaultSettingsModel];
       *buf = 138543618;
-      v47 = v26;
-      v48 = 2112;
-      v49 = v27;
+      v46 = v26;
+      v47 = 2112;
+      v48 = v27;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Initializing with current settings: %@", buf, 0x16u);
     }
 
@@ -790,9 +786,9 @@ LABEL_8:
       previousDerivedPropertiesModel = [(HMDCameraProfileSettingsManager *)v29 previousDerivedPropertiesModel];
       v33 = [previousDerivedPropertiesModel debugDescription];
       *buf = 138543618;
-      v47 = v31;
-      v48 = 2112;
-      v49 = v33;
+      v46 = v31;
+      v47 = 2112;
+      v48 = v33;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Initializing with current derived properties model: %@", buf, 0x16u);
     }
 
@@ -822,12 +818,12 @@ LABEL_8:
         if (v13)
         {
           coreDataAdapter3 = [(HMDCameraProfileSettingsManager *)v29 coreDataAdapter];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __41__HMDCameraProfileSettingsManager__start__block_invoke;
-          v44[3] = &unk_27868A250;
-          v44[4] = v29;
-          [coreDataAdapter3 updateCameraProfileSettingsModel:v13 completion:v44];
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __41__HMDCameraProfileSettingsManager__start__block_invoke;
+          v43[3] = &unk_27868A250;
+          v43[4] = v29;
+          [coreDataAdapter3 updateCameraProfileSettingsModel:v13 completion:v43];
         }
 
         if (!v9)
@@ -838,12 +834,12 @@ LABEL_8:
         if (v39)
         {
           coreDataAdapter4 = [(HMDCameraProfileSettingsManager *)v29 coreDataAdapter];
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __41__HMDCameraProfileSettingsManager__start__block_invoke_153;
-          v43[3] = &unk_27868A250;
-          v43[4] = v29;
-          [coreDataAdapter4 updateDerivedPropertiesModel:v39 completion:v43];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __41__HMDCameraProfileSettingsManager__start__block_invoke_153;
+          v42[3] = &unk_27868A250;
+          v42[4] = v29;
+          [coreDataAdapter4 updateDerivedPropertiesModel:v39 completion:v42];
         }
       }
 
@@ -859,13 +855,11 @@ LABEL_8:
       [(HMDCameraProfileSettingsManager *)v29 _notifyClientsOfChangedSettingsModel:defaultSettingsModel isInitialSettingsUpdate:1];
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDCameraProfileSettingsManager__start__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -875,22 +869,20 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update Core Data with initial settings model: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update Core Data with initial settings model: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -900,17 +892,15 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update Core Data with initial derived properties: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update Core Data with initial derived properties: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canModifyCameraSettings
@@ -951,9 +941,24 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
   [settingsCopy setSmartBulletinBoardNotificationCondition:predicate];
 }
 
+- (void)_setManuallyDisabledCharacteristicNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9[1] = *MEMORY[0x277D85DE8];
+  manuallyDisabledCharacteristic = [(HMDCameraProfileSettingsManager *)self manuallyDisabledCharacteristic];
+  if (manuallyDisabledCharacteristic)
+  {
+    hapAccessory = [(HMDCameraProfileSettingsManager *)self hapAccessory];
+    v9[0] = manuallyDisabledCharacteristic;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    clientIdentifier = [(HMDCameraProfileSettingsManager *)self clientIdentifier];
+    [hapAccessory enableNotification:enabledCopy forCharacteristics:v7 message:0 clientIdentifier:clientIdentifier];
+  }
+}
+
 - (void)_coordinateSmartBulletinNotificationWithServiceBulletinNotification:(id)notification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -973,11 +978,11 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
       {
         v12 = HMFGetLogIdentifier();
         service = [notificationCopy service];
-        v18 = 138543618;
-        v19 = v12;
-        v20 = 2112;
-        v21 = service;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Bulletin board notification is enabled for service %@, so enabling smart bulletin board notification with empty significant event types", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v12;
+        v19 = 2112;
+        v20 = service;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Bulletin board notification is enabled for service %@, so enabling smart bulletin board notification with empty significant event types", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -991,13 +996,11 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
       [(HMDCameraProfileSettingsManager *)selfCopy _updateCameraBulletinNotificationManagerWithSettings:v15 forMessage:0];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coordinateDoorbellServiceBulletinNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1009,26 +1012,24 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
   {
     v9 = HMFGetLogIdentifier();
     service = [notificationCopy service];
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2112;
-    v17 = notificationCopy;
-    v18 = 2112;
-    v19 = service;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Coordinating notification settings for: %@ service: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2112;
+    v16 = notificationCopy;
+    v17 = 2112;
+    v18 = service;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Coordinating notification settings for: %@ service: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   currentSettings = [(HMDCameraProfileSettingsManager *)selfCopy currentSettings];
   notificationSettings = [currentSettings notificationSettings];
   [(HMDCameraProfileSettingsManager *)selfCopy _updateCameraBulletinNotificationManagerWithSettings:notificationSettings forMessage:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coordinateNotificationSettingsWithServiceBulletinNotification:(id)notification
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1061,20 +1062,29 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
       {
         v14 = HMFGetLogIdentifier();
         service2 = [notificationCopy service];
-        v17 = 138543874;
-        v18 = v14;
-        v19 = 2112;
-        v20 = notificationCopy;
-        v21 = 2112;
-        v22 = service2;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected bulletin board notification: %@ service: %@ when coordinating settings", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v14;
+        v18 = 2112;
+        v19 = notificationCopy;
+        v20 = 2112;
+        v21 = service2;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected bulletin board notification: %@ service: %@ when coordinating settings", &v16, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)_addRecordingAudioEnabledWriteRequestToArray:(id)array recordingAudioEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  arrayCopy = array;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:enabledCopy];
+  [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:*MEMORY[0x277CCFA00] ofServiceWithType:*MEMORY[0x277CD0E08] value:v8];
 }
 
 - (void)_addAccessModeCharacteristicWriteRequestsToArray:(id)array currentAccessMode:(unint64_t)mode
@@ -1106,9 +1116,60 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
   [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:@"0000021B-0000-1000-8000-0026BB765291" ofServiceWithType:v8 value:v9];
 }
 
+- (void)_addSnapshotsActiveCharacteristicWriteRequestToArray:(id)array snapshotsAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  arrayCopy = array;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = *MEMORY[0x277CCF898];
+  v9 = *MEMORY[0x277CD0DF8];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:allowedCopy];
+  [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:v8 ofServiceWithType:v9 value:v10];
+}
+
+- (void)_addPeriodicSnapshotsActiveCharacteristicWriteRequestToArray:(id)array periodicSnapshotsAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  arrayCopy = array;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = *MEMORY[0x277CD0DF8];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:allowedCopy];
+  [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:@"00000225-0000-1000-8000-0026BB765291" ofServiceWithType:v8 value:v9];
+}
+
+- (void)_addOperatingModeIndicatorCharacteristicWriteRequestToArray:(id)array accessModeIndicatorEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  arrayCopy = array;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = *MEMORY[0x277CCF798];
+  v9 = *MEMORY[0x277CD0DF8];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:v8 ofServiceWithType:v9 value:v10];
+}
+
+- (void)_addNightVisionCharacteristicWriteRequestToArray:(id)array nightVisionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  arrayCopy = array;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = *MEMORY[0x277CCF990];
+  v9 = *MEMORY[0x277CD0DF8];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [(HMDCameraProfileSettingsManager *)self _addWriteRequestToArray:arrayCopy forCharacteristicWithType:v8 ofServiceWithType:v9 value:v10];
+}
+
 - (void)_addWriteRequestToArray:(id)array forCharacteristicWithType:(id)type ofServiceWithType:(id)withType value:(id)value
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   typeCopy = type;
   withTypeCopy = withType;
@@ -1116,30 +1177,30 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   hapAccessory = [(HMDCameraProfileSettingsManager *)self hapAccessory];
   services = [hapAccessory services];
 
-  v16 = [services countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v16 = [services countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(services);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * i);
-        serviceType = [v20 serviceType];
-        v22 = [serviceType isEqualToString:withTypeCopy];
+        v20 = *(*(&v28 + 1) + 8 * i);
+        v21 = objc_msgSend_serviceType(v20);
+        v22 = [v21 isEqualToString:withTypeCopy];
 
         if (v22)
         {
@@ -1155,18 +1216,16 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
         }
       }
 
-      v17 = [services countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v17 = [services countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v17);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCharacteristicWriteRequests:(id)requests completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   completionCopy = completion;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
@@ -1179,35 +1238,35 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
 
     if (home)
     {
-      v30 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Write settings characteristics"];
+      v29 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Write settings characteristics"];
       v11 = objc_autoreleasePoolPush();
       selfCopy = self;
       v13 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = HMFGetLogIdentifier();
-        identifier = [v30 identifier];
+        identifier = [v29 identifier];
         shortDescription = [identifier shortDescription];
         *buf = 138543874;
-        v32 = v14;
-        v33 = 2114;
-        v34 = shortDescription;
-        v35 = 2112;
-        v36 = requestsCopy;
+        v31 = v14;
+        v32 = 2114;
+        v33 = shortDescription;
+        v34 = 2112;
+        v35 = requestsCopy;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Received request to write characteristics: %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
       uUID = [MEMORY[0x277CCAD78] UUID];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_completion___block_invoke;
-      v26[3] = &unk_27868A370;
-      v26[4] = selfCopy;
-      v27 = v30;
-      v29 = completionCopy;
-      v28 = requestsCopy;
-      [home writeCharacteristicValues:v28 source:1070 biomeSource:0 identifier:uUID transport:0 qualityOfService:-1 withCompletionHandler:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_completion___block_invoke;
+      v25[3] = &unk_27868A370;
+      v25[4] = selfCopy;
+      v26 = v29;
+      v28 = completionCopy;
+      v27 = requestsCopy;
+      [home writeCharacteristicValues:v27 source:1070 biomeSource:0 identifier:uUID transport:0 qualityOfService:-1 withCompletionHandler:v25];
 
       __HMFActivityScopeLeave();
     }
@@ -1221,7 +1280,7 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v23;
+        v31 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot handle characteristic write requests because accessory/home reference is nil", buf, 0xCu);
       }
 
@@ -1240,8 +1299,6 @@ void __41__HMDCameraProfileSettingsManager__start__block_invoke_153(uint64_t a1,
       (*(v18 + 2))(v18, 0);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1268,7 +1325,7 @@ void __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_co
 
 void __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_completion___block_invoke_2(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -1281,11 +1338,11 @@ void __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_co
       v7 = [v6 shortDescription];
       v8 = *(a1 + 32);
       *buf = 138543874;
-      v44 = v5;
-      v45 = 2114;
-      v46 = v7;
-      v47 = 2112;
-      v48 = v8;
+      v42 = v5;
+      v43 = 2114;
+      v44 = v7;
+      v45 = 2112;
+      v46 = v8;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to write any settings to accessory: %@", buf, 0x20u);
     }
 
@@ -1294,73 +1351,72 @@ void __81__HMDCameraProfileSettingsManager__handleCharacteristicWriteRequests_co
     v10 = v9;
     if (v9)
     {
-      v11 = *(a1 + 32);
-      v12 = v9[2];
+      v11 = v9[2];
 LABEL_6:
-      v12();
+      v11();
     }
   }
 
   else
   {
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v10 = *(a1 + 56);
-    v13 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
-    if (v13)
+    v12 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v39;
+      v13 = v12;
+      v14 = *v37;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v15)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(a1 + 64);
-          v18 = [*(*(&v38 + 1) + 8 * i) characteristic];
-          v37 = 0;
-          v19 = [v17 hmd_valueOfCharacteristic:v18 error:&v37];
-          v20 = v37;
+          v16 = *(a1 + 64);
+          v17 = [*(*(&v36 + 1) + 8 * i) characteristic];
+          v35 = 0;
+          v18 = [v16 hmd_valueOfCharacteristic:v17 error:&v35];
+          v19 = v35;
 
-          if (!v19)
+          if (!v18)
           {
-            v28 = objc_autoreleasePoolPush();
-            v29 = *(a1 + 40);
-            v30 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v27 = objc_autoreleasePoolPush();
+            v28 = *(a1 + 40);
+            v29 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              v31 = HMFGetLogIdentifier();
-              v32 = [*(a1 + 48) identifier];
-              v33 = [v32 shortDescription];
+              v30 = HMFGetLogIdentifier();
+              v31 = [*(a1 + 48) identifier];
+              v32 = [v31 shortDescription];
               *buf = 138543874;
-              v44 = v31;
-              v45 = 2114;
-              v46 = v33;
-              v47 = 2112;
-              v48 = v20;
-              _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to write settings to accessory: %@", buf, 0x20u);
+              v42 = v30;
+              v43 = 2114;
+              v44 = v32;
+              v45 = 2112;
+              v46 = v19;
+              _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to write settings to accessory: %@", buf, 0x20u);
             }
 
-            objc_autoreleasePoolPop(v28);
-            v34 = _Block_copy(*(a1 + 72));
-            v35 = v34;
-            if (v34)
+            objc_autoreleasePoolPop(v27);
+            v33 = _Block_copy(*(a1 + 72));
+            v34 = v33;
+            if (v33)
             {
-              (*(v34 + 2))(v34, v20);
+              (*(v33 + 2))(v33, v19);
             }
 
             goto LABEL_24;
           }
         }
 
-        v14 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
-        if (v14)
+        v13 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v13)
         {
           continue;
         }
@@ -1369,39 +1425,37 @@ LABEL_6:
       }
     }
 
-    v21 = objc_autoreleasePoolPush();
-    v22 = *(a1 + 40);
-    v23 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v20 = objc_autoreleasePoolPush();
+    v21 = *(a1 + 40);
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v24 = HMFGetLogIdentifier();
-      v25 = [*(a1 + 48) identifier];
-      v26 = [v25 shortDescription];
+      v23 = HMFGetLogIdentifier();
+      v24 = [*(a1 + 48) identifier];
+      v25 = [v24 shortDescription];
       *buf = 138543618;
-      v44 = v24;
-      v45 = 2114;
-      v46 = v26;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully wrote settings to accessory", buf, 0x16u);
+      v42 = v23;
+      v43 = 2114;
+      v44 = v25;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully wrote settings to accessory", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v21);
-    v27 = _Block_copy(*(a1 + 72));
-    v10 = v27;
-    if (v27)
+    objc_autoreleasePoolPop(v20);
+    v26 = _Block_copy(*(a1 + 72));
+    v10 = v26;
+    if (v26)
     {
-      v12 = v27[2];
+      v11 = v26[2];
       goto LABEL_6;
     }
   }
 
 LABEL_24:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeInitialSettingsCharacteristicsToCamera
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1412,7 +1466,7 @@ LABEL_24:
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Writing initial settings characteristics to camera", buf, 0xCu);
   }
 
@@ -1424,19 +1478,17 @@ LABEL_24:
   [(HMDCameraProfileSettingsManager *)selfCopy _addSnapshotsActiveCharacteristicWriteRequestToArray:array snapshotsAllowed:1];
   [(HMDCameraProfileSettingsManager *)selfCopy _addPeriodicSnapshotsActiveCharacteristicWriteRequestToArray:array periodicSnapshotsAllowed:1];
   [(HMDCameraProfileSettingsManager *)selfCopy _addRecordingAudioEnabledWriteRequestToArray:array recordingAudioEnabled:1];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsToCamera__block_invoke;
-  v10[3] = &unk_27868A250;
-  v10[4] = selfCopy;
-  [(HMDCameraProfileSettingsManager *)selfCopy _handleCharacteristicWriteRequests:array completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsToCamera__block_invoke;
+  v9[3] = &unk_27868A250;
+  v9[4] = selfCopy;
+  [(HMDCameraProfileSettingsManager *)selfCopy _handleCharacteristicWriteRequests:array completion:v9];
 }
 
 void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsToCamera__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1447,11 +1499,11 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to write initial settings characteristics: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to write initial settings characteristics: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1462,16 +1514,14 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully wrote initial settings characteristics", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully wrote initial settings characteristics", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) setNeedsInitialSettingsCharacteristicSynchronization:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNotificationSettings:(id)settings forMessage:(id)message
@@ -1479,6 +1529,85 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
   messageCopy = message;
   [(HMDCameraProfileSettingsManager *)self _notifyClientsOfCurrentSettings];
   [messageCopy respondWithSuccess];
+}
+
+- (void)_notifyClientsOfChangedSettings:(id)settings isInitialSettingsUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v37 = *MEMORY[0x277D85DE8];
+  settingsCopy = settings;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    v12 = HMFBooleanToString();
+    *buf = 138543874;
+    v32 = v11;
+    v33 = 2112;
+    v34 = settingsCopy;
+    v35 = 2112;
+    v36 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of changed settings: %@ isInitialSettingsUpdate: %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  v13 = [(HMDCameraProfileSettingsManager *)selfCopy _payloadForSettings:settingsCopy];
+  v14 = [MEMORY[0x277D0F848] entitledMessageWithName:*MEMORY[0x277CCF648] messagePayload:v13];
+  messageDestination = [(HMDCameraProfileSettingsManager *)selfCopy messageDestination];
+  [v14 setDestination:messageDestination];
+
+  msgDispatcher = [(HMDCameraProfileSettingsManager *)selfCopy msgDispatcher];
+  [msgDispatcher sendMessage:v14 completionHandler:0];
+
+  hapAccessory = [(HMDCameraProfileSettingsManager *)selfCopy hapAccessory];
+  v18 = hapAccessory;
+  if (hapAccessory)
+  {
+    home = [hapAccessory home];
+    homeManager = [home homeManager];
+    uniqueIdentifier = [(HMDCameraProfileSettingsManager *)selfCopy uniqueIdentifier];
+    [homeManager updateGenerationCounterWithReason:@"Camera Settings Updated" sourceUUID:uniqueIdentifier shouldNotifyClients:1];
+
+    v22 = [MEMORY[0x277CCABB0] numberWithBool:{updateCopy, @"HMDCameraProfileSettingsNotificationKey", @"HMDCameraProfileSettingsIsInitialSettingsUpdateNotificationKey", settingsCopy}];
+    v30[1] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:2];
+
+    notificationCenter = [(HMDCameraProfileSettingsManager *)selfCopy notificationCenter];
+    [notificationCenter postNotificationName:@"HMDCameraProfileSettingsDidChangeNotification" object:v18 userInfo:v23];
+  }
+
+  else
+  {
+    v25 = objc_autoreleasePoolPush();
+    v26 = selfCopy;
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v32 = v28;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory reference was nil while notifying clients of changed settings", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v25);
+  }
+}
+
+- (void)_notifyClientsOfChangedSettingsModel:(id)model isInitialSettingsUpdate:(BOOL)update
+{
+  updateCopy = update;
+  modelCopy = model;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = [(HMDCameraProfileSettingsManager *)self _settingsFromSettingsModel:modelCopy];
+
+  [(HMDCameraProfileSettingsManager *)self _notifyClientsOfChangedSettings:v8 isInitialSettingsUpdate:updateCopy];
 }
 
 - (void)_notifyClientsOfCurrentSettings
@@ -1492,7 +1621,7 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
 
 - (void)_notifySubscribersOfUpdatedSettings:(id)settings previousSettings:(id)previousSettings
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   previousSettingsCopy = previousSettings;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
@@ -1508,19 +1637,19 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
       v12 = home;
       if (home)
       {
-        v37 = home;
-        v43 = @"HMDCS.AccessModeChange";
-        v41[0] = *MEMORY[0x277CCF0B0];
+        v36 = home;
+        v42 = @"HMDCS.AccessModeChange";
+        v40[0] = *MEMORY[0x277CCF0B0];
         uuid = [v10 uuid];
         uUIDString = [uuid UUIDString];
-        v42[0] = uUIDString;
-        v41[1] = @"HMDCS.amu.value";
+        v41[0] = uUIDString;
+        v40[1] = @"HMDCS.amu.value";
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(settingsCopy, "currentAccessMode")}];
-        v42[1] = v13;
-        v41[2] = @"HMDCS.amu.changeReason";
+        v41[1] = v13;
+        v40[2] = @"HMDCS.amu.changeReason";
         v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(settingsCopy, "currentAccessModeChangeReason")}];
-        v42[2] = v14;
-        v41[3] = @"HMDCS.amu.changeDate";
+        v41[2] = v14;
+        v40[3] = @"HMDCS.amu.changeDate";
         currentAccessModeChangeDate = [settingsCopy currentAccessModeChangeDate];
         date = currentAccessModeChangeDate;
         if (!currentAccessModeChangeDate)
@@ -1528,28 +1657,28 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
           date = [MEMORY[0x277CBEAA8] date];
         }
 
-        v42[3] = date;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
-        v44 = v17;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+        v41[3] = date;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
+        v43 = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
 
         if (!currentAccessModeChangeDate)
         {
         }
 
-        v12 = v37;
-        cameraBulletinNotificationManager = [v37 cameraBulletinNotificationManager];
+        v12 = v36;
+        cameraBulletinNotificationManager = [v36 cameraBulletinNotificationManager];
         v20 = [cameraBulletinNotificationManager devicesToNotifyForAccessModeChangeForAccessory:v10];
 
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_previousSettings___block_invoke;
-        v38[3] = &unk_278678910;
-        v38[4] = self;
-        v39 = v18;
-        v40 = settingsCopy;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_previousSettings___block_invoke;
+        v37[3] = &unk_278678910;
+        v37[4] = self;
+        v38 = v18;
+        v39 = settingsCopy;
         v21 = v18;
-        [v20 hmf_enumerateWithAutoreleasePoolUsingBlock:v38];
+        [v20 hmf_enumerateWithAutoreleasePoolUsingBlock:v37];
       }
 
       else
@@ -1561,7 +1690,7 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
         {
           v33 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v46 = v33;
+          v45 = v33;
           _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Home is nil when attempting to notify subscribers of updated camera settings", buf, 0xCu);
         }
 
@@ -1578,7 +1707,7 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v46 = v29;
+        v45 = v29;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Accessory is nil when attempting to notify subscribers of updated camera settings", buf, 0xCu);
       }
 
@@ -1595,19 +1724,17 @@ void __79__HMDCameraProfileSettingsManager__writeInitialSettingsCharacteristicsT
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v25;
+      v45 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Skip since this is the first time setting is created", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_previousSettings___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HMDRemoteDeviceMessageDestination alloc];
   v5 = [*(a1 + 32) uniqueIdentifier];
@@ -1620,40 +1747,36 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v11 = v17 = v6;
+    v11 = v16 = v6;
     v12 = [v3 shortDescription];
     [*(a1 + 48) currentAccessMode];
     v13 = HMCameraAccessModeAsString();
     v14 = [v7 shortDescription];
     *buf = 138544130;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v14;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v14;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying device %@ for camera access mode change to %@ using message: %@", buf, 0x2Au);
 
-    v6 = v17;
+    v6 = v16;
   }
 
   objc_autoreleasePoolPop(v8);
   v15 = [*(a1 + 32) msgDispatcher];
   [v15 sendMessage:v7];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_payloadForSettings:(id)settings
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = *MEMORY[0x277CCF650];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277CCF650];
   v3 = encodeRootObjectForSPIClients(settings);
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -1691,21 +1814,19 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
   v12 = currentAccessMode;
 
   [v8 setCurrentAccessMode:v12];
-  v13 = [v8 copy];
+  v13 = objc_msgSend_copy(v8);
 
   return v13;
 }
 
 - (NSUUID)derivedPropertiesModelID
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCAD78];
   uniqueIdentifier = [(HMDCameraProfileSettingsManager *)self uniqueIdentifier];
-  v8[0] = @"2b32a3ee-3908-406e-890d-74f9c410ef2b";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = @"2b32a3ee-3908-406e-890d-74f9c410ef2b";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [v2 hm_deriveUUIDFromBaseUUID:uniqueIdentifier withSalts:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1723,7 +1844,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
 
 - (void)_synchronizeCurrentAccessModeSettingToCameraWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1734,9 +1855,9 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Synchronizing current access mode settings to camera", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Synchronizing current access mode settings to camera", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1745,14 +1866,12 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
   -[HMDCameraProfileSettingsManager _addAccessModeCharacteristicWriteRequestsToArray:currentAccessMode:](selfCopy, "_addAccessModeCharacteristicWriteRequestsToArray:currentAccessMode:", array, [currentSettingsModel currentAccessMode]);
   -[HMDCameraProfileSettingsManager _addHomeKitCameraActiveCharacteristicWriteRequestToArray:currentAccessMode:](selfCopy, "_addHomeKitCameraActiveCharacteristicWriteRequestToArray:currentAccessMode:", array, [currentSettingsModel currentAccessMode]);
   [(HMDCameraProfileSettingsManager *)selfCopy _handleCharacteristicWriteRequests:array completion:completionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateCurrentAccessModeFieldForDerivedProperties:(id)properties currentSettings:(id)settings userInitiated:(BOOL)initiated didUpdateField:(BOOL *)field
 {
   initiatedCopy = initiated;
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   settingsCopy = settings;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
@@ -1768,7 +1887,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
     accessModeAtHome = [settingsCopy accessModeAtHome];
     accessModeNotAtHome = [settingsCopy accessModeNotAtHome];
     isAnyUserAtHome = [(HMDCameraProfileSettingsManager *)self isAnyUserAtHome];
-    v78 = isAnyUserAtHome;
+    v77 = isAnyUserAtHome;
     if ([(HMDCameraProfileSettingsManager *)self isCameraManuallyDisabled])
     {
       v16 = objc_autoreleasePoolPush();
@@ -1778,7 +1897,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v80 = v19;
+        v79 = v19;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Camera is manually disabled, setting current access mode to off", buf, 0xCu);
       }
 
@@ -1796,7 +1915,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
         v28 = 2;
       }
 
-      v73 = v28;
+      v72 = v28;
       if (bOOLValue)
       {
         v20 = accessModeAtHome;
@@ -1812,26 +1931,26 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       v30 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v70 = HMFGetLogIdentifier();
-        v69 = HMCameraAccessModeAsString();
-        [v78 BOOLValue];
+        v69 = HMFGetLogIdentifier();
+        v68 = HMCameraAccessModeAsString();
+        [v77 BOOLValue];
         HMFBooleanToString();
-        v31 = v68 = selfCopy2;
+        v31 = v67 = selfCopy2;
         v32 = HMCameraAccessModeAsString();
         v33 = HMCameraAccessModeAsString();
         *buf = 138544386;
-        v80 = v70;
-        v81 = 2112;
-        v82 = v69;
-        v83 = 2112;
-        v84 = v31;
-        v85 = 2112;
-        v86 = v32;
-        v87 = 2112;
-        v88 = v33;
+        v79 = v69;
+        v80 = 2112;
+        v81 = v68;
+        v82 = 2112;
+        v83 = v31;
+        v84 = 2112;
+        v85 = v32;
+        v86 = 2112;
+        v87 = v33;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Determined expected access mode of %@ based on isAnyUserAtHome = %@, accessModeAtHome = %@, accessModeNotAtHome = %@", buf, 0x34u);
 
-        selfCopy2 = v68;
+        selfCopy2 = v67;
       }
 
       objc_autoreleasePoolPop(context);
@@ -1842,7 +1961,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
 
       else
       {
-        v21 = v73;
+        v21 = v72;
       }
     }
 
@@ -1858,7 +1977,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
         {
           v66 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v80 = v66;
+          v79 = v66;
           _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Presence is unavailable; not updating current access mode", buf, 0xCu);
         }
 
@@ -1869,21 +1988,21 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       if (v37)
       {
         contexta = HMFGetLogIdentifier();
-        v74 = v34;
+        v73 = v34;
         v38 = HMCameraAccessModeAsString();
         v39 = HMCameraAccessModeAsString();
         HMCameraAccessModeAsString();
         *buf = 138544130;
-        v80 = contexta;
-        v81 = 2112;
-        v82 = v38;
-        v83 = 2112;
-        v84 = v39;
-        v86 = v85 = 2112;
-        v40 = v86;
+        v79 = contexta;
+        v80 = 2112;
+        v81 = v38;
+        v82 = 2112;
+        v83 = v39;
+        v85 = v84 = 2112;
+        v40 = v85;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Determined expected access mode of %@ because accessModeAtHome (%@) and accessModeNotAtHome (%@) are the same", buf, 0x2Au);
 
-        v34 = v74;
+        v34 = v73;
       }
 
       objc_autoreleasePoolPop(v34);
@@ -1891,7 +2010,7 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       v20 = accessModeAtHome;
     }
 
-    if (([propertiesCopy hmbPropertyWasSet:{@"currentAccessModeField", v68}] & 1) == 0)
+    if (([propertiesCopy hmbPropertyWasSet:{@"currentAccessModeField", v67}] & 1) == 0)
     {
       v41 = objc_autoreleasePoolPush();
       selfCopy4 = self;
@@ -1899,15 +2018,15 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v44 = v75 = v21;
+        v44 = v74 = v21;
         v45 = HMCameraAccessModeAsString();
         *buf = 138543618;
-        v80 = v44;
-        v81 = 2112;
-        v82 = v45;
+        v79 = v44;
+        v80 = 2112;
+        v81 = v45;
         _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Setting initial currentAccessMode to %@", buf, 0x16u);
 
-        v21 = v75;
+        v21 = v74;
       }
 
       objc_autoreleasePoolPop(v41);
@@ -1927,16 +2046,16 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
       {
         v49 = HMFGetLogIdentifier();
         [MEMORY[0x277CCABB0] numberWithInteger:v21];
-        v76 = v20;
+        v75 = v20;
         v51 = v50 = v21;
         *buf = 138543618;
-        v80 = v49;
-        v81 = 2112;
-        v82 = v51;
+        v79 = v49;
+        v80 = 2112;
+        v81 = v51;
         _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Setting initial currentAccessModeChangeReason to %@", buf, 0x16u);
 
         v21 = v50;
-        v20 = v76;
+        v20 = v75;
       }
 
       objc_autoreleasePoolPop(v46);
@@ -1958,20 +2077,20 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
         [propertiesCopy currentAccessMode];
         v56 = HMCameraAccessModeAsString();
         HMCameraAccessModeAsString();
-        v77 = v52;
+        v76 = v52;
         v57 = v20;
         v59 = v58 = v21;
         *buf = 138543874;
-        v80 = v55;
-        v81 = 2112;
-        v82 = v56;
-        v83 = 2112;
-        v84 = v59;
+        v79 = v55;
+        v80 = 2112;
+        v81 = v56;
+        v82 = 2112;
+        v83 = v59;
         _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_INFO, "%{public}@Changing currentAccessMode field from %@ to %@", buf, 0x20u);
 
         v21 = v58;
         v20 = v57;
-        v52 = v77;
+        v52 = v76;
       }
 
       objc_autoreleasePoolPop(v52);
@@ -1987,11 +2106,11 @@ void __88__HMDCameraProfileSettingsManager__notifySubscribersOfUpdatedSettings_p
           v64 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(propertiesCopy, "currentAccessModeChangeReason")}];
           v65 = [MEMORY[0x277CCABB0] numberWithInteger:v21];
           *buf = 138543874;
-          v80 = v63;
-          v81 = 2112;
-          v82 = v64;
-          v83 = 2112;
-          v84 = v65;
+          v79 = v63;
+          v80 = 2112;
+          v81 = v64;
+          v82 = 2112;
+          v83 = v65;
           _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Changing currentAccessModeChangeReason from %@ to %@", buf, 0x20u);
         }
 
@@ -2018,21 +2137,121 @@ LABEL_49:
     v25 = HMFGetLogIdentifier();
     v26 = [settingsCopy debugDescription];
     *buf = 138543618;
-    v80 = v25;
-    v81 = 2112;
-    v82 = v26;
+    v79 = v25;
+    v80 = 2112;
+    v81 = v26;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Cannot update currentAccessMode, settings model does not include accessMode values: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v22);
 LABEL_50:
+}
 
-  v67 = *MEMORY[0x277D85DE8];
+- (id)_updatedDerivedPropertiesModelWithSettingsModel:(id)model userInitiated:(BOOL)initiated didCreateModel:(BOOL *)createModel
+{
+  initiatedCopy = initiated;
+  v26 = *MEMORY[0x277D85DE8];
+  modelCopy = model;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  if (createModel)
+  {
+    *createModel = 0;
+  }
+
+  coreDataAdapter = [(HMDCameraProfileSettingsManager *)self coreDataAdapter];
+  v11 = [coreDataAdapter fetchDerivedPropertiesModelWithError:0];
+
+  if (v11)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v13 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = HMFGetLogIdentifier();
+      v24 = 138543362;
+      v25 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Creating a new derived properties model because one doesn't exist already", &v24, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v13);
+    v17 = [HMDCameraProfileSettingsDerivedPropertiesModel alloc];
+    derivedPropertiesModelID = [(HMDCameraProfileSettingsManager *)selfCopy derivedPropertiesModelID];
+    uniqueIdentifier = [(HMDCameraProfileSettingsManager *)selfCopy uniqueIdentifier];
+    v20 = [(HMBModel *)v17 initWithModelID:derivedPropertiesModelID parentModelID:uniqueIdentifier];
+
+    v21 = v20;
+    v11 = v21;
+    if (createModel)
+    {
+      *createModel = 1;
+    }
+
+    v12 = v21;
+  }
+
+  LOBYTE(v24) = 0;
+  [(HMDCameraProfileSettingsManager *)self _populateCurrentAccessModeFieldForDerivedProperties:v11 currentSettings:modelCopy userInitiated:initiatedCopy didUpdateField:&v24];
+  if (v24 == 1)
+  {
+    v22 = v11;
+
+    v12 = v22;
+  }
+
+  return v12;
+}
+
+- (void)_updateDerivedPropertiesModelWithSettingsModel:(id)model userInitiated:(BOOL)initiated reason:(id)reason
+{
+  initiatedCopy = initiated;
+  v25 = *MEMORY[0x277D85DE8];
+  modelCopy = model;
+  reasonCopy = reason;
+  workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    v14 = HMFGetLogIdentifier();
+    v15 = HMFBooleanToString();
+    *buf = 138543874;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v15;
+    v23 = 2112;
+    v24 = reasonCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating derived properties with userInitiated=%@ due to %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v11);
+  buf[0] = 0;
+  v16 = [(HMDCameraProfileSettingsManager *)selfCopy _updatedDerivedPropertiesModelWithSettingsModel:modelCopy userInitiated:initiatedCopy didCreateModel:buf];
+  if (v16)
+  {
+    coreDataAdapter = [(HMDCameraProfileSettingsManager *)selfCopy coreDataAdapter];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSettingsModel_userInitiated_reason___block_invoke;
+    v18[3] = &unk_27868A250;
+    v18[4] = selfCopy;
+    [coreDataAdapter updateDerivedPropertiesModel:v16 completion:v18];
+  }
 }
 
 void __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSettingsModel_userInitiated_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2042,22 +2261,20 @@ void __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSet
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating derived properties model failed: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating derived properties model failed: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCameraManuallyDisabled
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2092,13 +2309,13 @@ void __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSet
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v16 = 138543874;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v5;
-        v20 = 2112;
-        v21 = 0;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Characteristic %@ has unhandled value type: %@", &v16, 0x20u);
+        v15 = 138543874;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v5;
+        v19 = 2112;
+        v20 = 0;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Characteristic %@ has unhandled value type: %@", &v15, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -2111,7 +2328,6 @@ void __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSet
     bOOLValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -2133,7 +2349,7 @@ void __103__HMDCameraProfileSettingsManager__updateDerivedPropertiesModelWithSet
 
 - (BOOL)_migrateSettingsModel:(id)model
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   version = [modelCopy version];
   if (version != 1)
@@ -2157,11 +2373,11 @@ LABEL_12:
         v10 = HMFGetLogIdentifier();
         [modelCopy recordingEventTriggers];
         v11 = HMCameraSignificantEventTypesAsString();
-        v25 = 138543618;
-        v26 = v10;
-        v27 = 2112;
-        v28 = v11;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera; adding HMCameraSignificantEventTypePackages to existing recording event triggers: %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v10;
+        v26 = 2112;
+        v27 = v11;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera; adding HMCameraSignificantEventTypePackages to existing recording event triggers: %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -2178,11 +2394,11 @@ LABEL_12:
         v15 = HMFGetLogIdentifier();
         [modelCopy recordingEventTriggers];
         v16 = HMCameraSignificantEventTypesAsString();
-        v25 = 138543618;
-        v26 = v15;
-        v27 = 2112;
-        v28 = v16;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Settings have Any Motion recording trigger; adding all significant event types to existing recording event triggers: %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Settings have Any Motion recording trigger; adding all significant event types to existing recording event triggers: %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -2202,13 +2418,13 @@ LABEL_12:
   {
     v21 = HMFGetLogIdentifier();
     version2 = [modelCopy version];
-    v25 = 138543874;
-    v26 = v21;
-    v27 = 2048;
-    v28 = version2;
-    v29 = 2048;
-    v30 = 1;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating settings model version from %ld to %ld", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v21;
+    v26 = 2048;
+    v27 = version2;
+    v28 = 2048;
+    v29 = 1;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating settings model version from %ld to %ld", &v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -2216,13 +2432,12 @@ LABEL_12:
   [modelCopy setVersion:1];
 LABEL_16:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)_migrateNotificationSettings:(id)settings
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2254,9 +2469,9 @@ LABEL_16:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           v26 = HMFGetLogIdentifier();
-          v53 = 138543362;
-          v54 = v26;
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera but there is no notification condition; enabling significant event notifications for HMCameraSignificantEventTypePackages only", &v53, 0xCu);
+          v52 = 138543362;
+          v53 = v26;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera but there is no notification condition; enabling significant event notifications for HMCameraSignificantEventTypePackages only", &v52, 0xCu);
         }
 
         objc_autoreleasePoolPop(v23);
@@ -2285,11 +2500,11 @@ LABEL_16:
       {
         v16 = HMFGetLogIdentifier();
         significantEventReasonCondition2 = [v10 significantEventReasonCondition];
-        v53 = 138543618;
-        v54 = v16;
-        v55 = 2112;
-        v56 = significantEventReasonCondition2;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera; adding HMCameraSignificantEventTypePackages to existing significant event notification condition: %@", &v53, 0x16u);
+        v52 = 138543618;
+        v53 = v16;
+        v54 = 2112;
+        v55 = significantEventReasonCondition2;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera; adding HMCameraSignificantEventTypePackages to existing significant event notification condition: %@", &v52, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -2318,9 +2533,9 @@ LABEL_16:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         v30 = HMFGetLogIdentifier();
-        v53 = 138543362;
-        v54 = v30;
-        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera but there are no significantEventTypes in the condition; enabling significant event notifications for HMCameraSignificantEventTypePackages only", &v53, 0xCu);
+        v52 = 138543362;
+        v53 = v30;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Settings are for doorbell camera but there are no significantEventTypes in the condition; enabling significant event notifications for HMCameraSignificantEventTypePackages only", &v52, 0xCu);
       }
 
       objc_autoreleasePoolPop(v27);
@@ -2346,9 +2561,9 @@ LABEL_22:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         v34 = HMFGetLogIdentifier();
-        v53 = 138543362;
-        v54 = v34;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Forcing access mode notification to disabled during settings migration on Apple TV", &v53, 0xCu);
+        v52 = 138543362;
+        v53 = v34;
+        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Forcing access mode notification to disabled during settings migration on Apple TV", &v52, 0xCu);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -2364,9 +2579,9 @@ LABEL_22:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         v38 = HMFGetLogIdentifier();
-        v53 = 138543362;
-        v54 = v38;
-        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Forcing reachability notification to disabled during settings migration on Apple TV", &v53, 0xCu);
+        v52 = 138543362;
+        v53 = v38;
+        _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Forcing reachability notification to disabled during settings migration on Apple TV", &v52, 0xCu);
       }
 
       objc_autoreleasePoolPop(v35);
@@ -2386,9 +2601,9 @@ LABEL_22:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         v43 = HMFGetLogIdentifier();
-        v53 = 138543362;
-        v54 = v43;
-        _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Forcing all notification settings to disabled during settings migration on HomePod / Watch", &v53, 0xCu);
+        v52 = 138543362;
+        v53 = v43;
+        _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Forcing all notification settings to disabled during settings migration on HomePod / Watch", &v52, 0xCu);
       }
 
       objc_autoreleasePoolPop(v40);
@@ -2412,13 +2627,13 @@ LABEL_38:
     {
       v49 = HMFGetLogIdentifier();
       version3 = [settingsCopy version];
-      v53 = 138543874;
-      v54 = v49;
-      v55 = 2048;
-      v56 = version3;
-      v57 = 2048;
-      v58 = 1;
-      _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Updating notification settings version from %ld to %ld", &v53, 0x20u);
+      v52 = 138543874;
+      v53 = v49;
+      v54 = 2048;
+      v55 = version3;
+      v56 = 2048;
+      v57 = 1;
+      _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Updating notification settings version from %ld to %ld", &v52, 0x20u);
     }
 
     objc_autoreleasePoolPop(v46);
@@ -2426,13 +2641,12 @@ LABEL_38:
     v7 = 1;
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_createNotificationSettingsUsingSettingsModel:(id)model
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2450,13 +2664,13 @@ LABEL_38:
       v12 = HMFGetLogIdentifier();
       v13 = [modelCopy debugDescription];
       smartBulletinBoardNotification = [modelCopy smartBulletinBoardNotification];
-      v35 = 138543874;
-      v36 = v12;
-      v37 = 2112;
-      v38 = v13;
-      v39 = 2112;
-      v40 = smartBulletinBoardNotification;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Migrating notification settings from settings model: %@, smart bulletin board notification: %@", &v35, 0x20u);
+      v34 = 138543874;
+      v35 = v12;
+      v36 = 2112;
+      v37 = v13;
+      v38 = 2112;
+      v39 = smartBulletinBoardNotification;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Migrating notification settings from settings model: %@, smart bulletin board notification: %@", &v34, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2478,9 +2692,9 @@ LABEL_38:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         v21 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v21;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Forcing all notification settings to disabled on HomePod / Watch", &v35, 0xCu);
+        v34 = 138543362;
+        v35 = v21;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Forcing all notification settings to disabled on HomePod / Watch", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -2492,18 +2706,18 @@ LABEL_38:
 
     else if (isAppleTV())
     {
-      v31 = objc_autoreleasePoolPush();
-      v32 = selfCopy;
-      v33 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v30 = objc_autoreleasePoolPush();
+      v31 = selfCopy;
+      v32 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v34;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Forcing access mode and reachability notification settings to disabled on AppleTV", &v35, 0xCu);
+        v33 = HMFGetLogIdentifier();
+        v34 = 138543362;
+        v35 = v33;
+        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Forcing access mode and reachability notification settings to disabled on AppleTV", &v34, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v31);
+      objc_autoreleasePoolPop(v30);
       [v6 setAccessModeChangeNotificationEnabled:0];
       [v6 setReachabilityEventNotificationEnabled:0];
     }
@@ -2514,11 +2728,11 @@ LABEL_38:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       v25 = HMFGetLogIdentifier();
-      v35 = 138543618;
-      v36 = v25;
-      v37 = 2112;
-      v38 = v6;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Migrated to new notification settings: %@", &v35, 0x16u);
+      v34 = 138543618;
+      v35 = v25;
+      v36 = 2112;
+      v37 = v6;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Migrated to new notification settings: %@", &v34, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -2529,9 +2743,9 @@ LABEL_38:
     if (v11)
     {
       v26 = HMFGetLogIdentifier();
-      v35 = 138543362;
-      v36 = v26;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Creating new notification settings using default values", &v35, 0xCu);
+      v34 = 138543362;
+      v35 = v26;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Creating new notification settings using default values", &v34, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2546,16 +2760,14 @@ LABEL_38:
     }
   }
 
-  v28 = [v6 copy];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = objc_msgSend_copy(v6);
 
   return v28;
 }
 
 - (void)_initializeNotificationSettingsUsingSettingsModel:(id)model
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2590,15 +2802,13 @@ LABEL_38:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory reference is nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory reference is nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_coreDataUpdateCompletionForMessage:(id)message
@@ -2638,7 +2848,7 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
 
 void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
@@ -2651,13 +2861,13 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 48) name];
       v9 = *(a1 + 32);
-      v15 = 138543874;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update settings for message %@: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update settings for message %@: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -2672,27 +2882,25 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
     {
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 48) name];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updated settings for message %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updated settings for message %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraProfileSettingsDerivedPropertiesModel)derivedPropertiesModel
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coreDataAdapter = [(HMDCameraProfileSettingsManager *)self coreDataAdapter];
-  v15 = 0;
-  v4 = [coreDataAdapter fetchDerivedPropertiesModelWithError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [coreDataAdapter fetchDerivedPropertiesModelWithError:&v14];
+  v5 = v14;
 
   if (!v4)
   {
@@ -2705,9 +2913,9 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v5;
+        v16 = v9;
+        v17 = 2112;
+        v18 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Error fetching derived properties: %@", buf, 0x16u);
       }
 
@@ -2723,14 +2931,12 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
     [(HMDCameraProfileSettingsDerivedPropertiesModel *)v4 setCurrentAccessMode:1];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_handleConnectedToAccessory
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2740,9 +2946,9 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Connected to accessory", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Connected to accessory", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2758,8 +2964,6 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
       [(HMDCameraProfileSettingsManager *)selfCopy _writeInitialSettingsCharacteristicsToCamera];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBulletinNotificationEnableStateDidChangeNotification:(id)notification
@@ -2778,7 +2982,7 @@ void __71__HMDCameraProfileSettingsManager__coreDataUpdateCompletionForMessage__
 
 void __94__HMDCameraProfileSettingsManager_handleBulletinNotificationEnableStateDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2808,19 +3012,17 @@ void __94__HMDCameraProfileSettingsManager_handleBulletinNotificationEnableState
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 32) name];
       v10 = [*(a1 + 32) object];
-      v12 = 138543874;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected notification object for %@: %@", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected notification object for %@: %@", &v11, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserRemoteAccessDidChangeNotification:(id)notification
@@ -2836,22 +3038,20 @@ void __94__HMDCameraProfileSettingsManager_handleBulletinNotificationEnableState
 
 uint64_t __79__HMDCameraProfileSettingsManager_handleUserRemoteAccessDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Current user's remote access changed, so notifying clients of current settings", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Current user's remote access changed, so notifying clients of current settings", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _notifyClientsOfCurrentSettings];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _notifyClientsOfCurrentSettings];
 }
 
 - (void)handleCharacteristicsValueUpdatedNotification:(id)notification
@@ -2870,7 +3070,7 @@ uint64_t __79__HMDCameraProfileSettingsManager_handleUserRemoteAccessDidChangeNo
 
 void __81__HMDCameraProfileSettingsManager_handleCharacteristicsValueUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isCurrentDeviceConfirmedPrimaryResident])
   {
     v2 = [*(a1 + 40) userInfo];
@@ -2889,28 +3089,28 @@ void __81__HMDCameraProfileSettingsManager_handleCharacteristicsValueUpdatedNoti
 
     v5 = v4;
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v6 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v24;
+      v9 = *v23;
       *&v7 = 138543618;
-      v21 = v7;
+      v20 = v7;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           v12 = [v11 type];
           v13 = [v12 isEqual:@"00000227-0000-1000-8000-0026BB765291"];
 
@@ -2922,10 +3122,10 @@ void __81__HMDCameraProfileSettingsManager_handleCharacteristicsValueUpdatedNoti
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
               v17 = HMFGetLogIdentifier();
-              *buf = v21;
-              v28 = v17;
-              v29 = 2112;
-              v30 = v11;
+              *buf = v20;
+              v27 = v17;
+              v28 = 2112;
+              v29 = v11;
               _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling Manually Disabled characteristic change: %@", buf, 0x16u);
             }
 
@@ -2936,14 +3136,12 @@ void __81__HMDCameraProfileSettingsManager_handleCharacteristicsValueUpdatedNoti
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v8);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRecordingManagementServiceDidUpdateNotification:(id)notification
@@ -2983,7 +3181,7 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
 
 - (BOOL)_setAnyUserAtHomeFromHomeActivityStateWithHome:(id)home
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2997,11 +3195,11 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v11;
-    v33 = 2112;
-    v34 = currentHomeActivityStateDetails;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating with Home Activity State: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v11;
+    v32 = 2112;
+    v33 = currentHomeActivityStateDetails;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating with Home Activity State: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -3027,17 +3225,17 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
         v22 = HMFGetLogIdentifier();
         isAnyUserAtHome2 = [(HMDCameraProfileSettingsManager *)v20 isAnyUserAtHome];
         isHomeSleeping = [(HMDCameraProfileSettingsManager *)v20 isHomeSleeping];
-        v31 = 138544386;
-        v32 = v22;
-        v33 = 2112;
-        v34 = isAnyUserAtHome2;
-        v35 = 2112;
-        v36 = v12;
-        v37 = 2112;
-        v38 = isHomeSleeping;
-        v39 = 2112;
-        v40 = v13;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Updating isAnyUserAtHome/isHomeSleeping using Home Activity State from %@ to %@ / %@ to %@", &v31, 0x34u);
+        v30 = 138544386;
+        v31 = v22;
+        v32 = 2112;
+        v33 = isAnyUserAtHome2;
+        v34 = 2112;
+        v35 = v12;
+        v36 = 2112;
+        v37 = isHomeSleeping;
+        v38 = 2112;
+        v39 = v13;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Updating isAnyUserAtHome/isHomeSleeping using Home Activity State from %@ to %@ / %@ to %@", &v30, 0x34u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -3055,9 +3253,9 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v28;
-      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Home Activity State is unknown; setting isAnyUserAtHome to nil", &v31, 0xCu);
+      v30 = 138543362;
+      v31 = v28;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Home Activity State is unknown; setting isAnyUserAtHome to nil", &v30, 0xCu);
     }
 
     objc_autoreleasePoolPop(v25);
@@ -3066,7 +3264,6 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     v18 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -3101,7 +3298,7 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
 
 - (BOOL)_setAnyUserAtHomeFromPresenceMonitorWithHome:(id)home
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3115,11 +3312,11 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v27 = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = currentHomePresence;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating home presence: %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v11;
+    v28 = 2112;
+    v29 = currentHomePresence;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating home presence: %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -3138,13 +3335,13 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
       {
         v18 = HMFGetLogIdentifier();
         isAnyUserAtHome2 = [(HMDCameraProfileSettingsManager *)v16 isAnyUserAtHome];
-        v27 = 138543874;
-        v28 = v18;
-        v29 = 2112;
-        v30 = isAnyUserAtHome2;
-        v31 = 2112;
-        v32 = v12;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating isAnyUserAtHome from %@ to %@", &v27, 0x20u);
+        v26 = 138543874;
+        v27 = v18;
+        v28 = 2112;
+        v29 = isAnyUserAtHome2;
+        v30 = 2112;
+        v31 = v12;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating isAnyUserAtHome from %@ to %@", &v26, 0x20u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -3162,9 +3359,9 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Presence is unavailable; setting isAnyUserAtHome to nil", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v24;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Presence is unavailable; setting isAnyUserAtHome to nil", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -3172,13 +3369,12 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     v20 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)_evaluateHomePresence
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3211,9 +3407,9 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home is nil; setting isAnyUserAtHome to nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home is nil; setting isAnyUserAtHome to nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -3222,7 +3418,6 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3242,16 +3437,16 @@ void __89__HMDCameraProfileSettingsManager_handleRecordingManagementServiceDidUp
 
 void __75__HMDCameraProfileSettingsManager_handleHomePresenceEvaluatedNotification___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received Home Presence Evaluated", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received Home Presence Evaluated", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -3261,8 +3456,6 @@ void __75__HMDCameraProfileSettingsManager_handleHomePresenceEvaluatedNotificati
     v7 = [v6 currentSettingsModel];
     [v6 _updateDerivedPropertiesModelWithSettingsModel:v7 userInitiated:0 reason:@"Presence changed"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdatedNotification:(id)notification
@@ -3278,7 +3471,7 @@ void __75__HMDCameraProfileSettingsManager_handleHomePresenceEvaluatedNotificati
 
 uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isCurrentDeviceConfirmedPrimaryResident];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -3289,9 +3482,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     if (v6)
     {
       v7 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v7;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@We are now the primary resident", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v7;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@We are now the primary resident", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -3300,7 +3493,7 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     v9 = [v8 currentSettingsModel];
     [v8 _updateDerivedPropertiesModelWithSettingsModel:v9 userInitiated:0 reason:@"Current device became primary resident"];
 
-    result = [*(a1 + 32) _synchronizeCurrentAccessModeSettingToCameraWithCompletion:0];
+    return [*(a1 + 32) _synchronizeCurrentAccessModeSettingToCameraWithCompletion:0];
   }
 
   else
@@ -3308,23 +3501,20 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     if (v6)
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Another device is primary resident, clearing anyUserAtHome", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Another device is primary resident, clearing anyUserAtHome", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setAnyUserAtHome:0];
-    result = [*(a1 + 32) setHomeSleeping:0];
+    return [*(a1 + 32) setHomeSleeping:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_handleCameraSettingsDidChangeMessage:(id)message
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3337,19 +3527,19 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v53 = v9;
-    v54 = 2112;
-    v55 = shortDescription;
+    v52 = v9;
+    v53 = 2112;
+    v54 = shortDescription;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received camera settings did change message: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v11 = [messageCopy dictionaryForKey:@"HMDCS.AccessModeChange"];
   v12 = [v11 hmf_numberForKey:@"HMDCS.amu.value"];
-  v51 = [v11 hmf_numberForKey:@"HMDCS.amu.changeReason"];
+  v50 = [v11 hmf_numberForKey:@"HMDCS.amu.changeReason"];
   v13 = [v11 hmf_dateForKey:@"HMDCS.amu.changeDate"];
   v14 = v13;
-  if (v12 && v51 && v13)
+  if (v12 && v50 && v13)
   {
     hapAccessory = [(HMDCameraProfileSettingsManager *)selfCopy hapAccessory];
     cameraProfiles = [hapAccessory cameraProfiles];
@@ -3362,12 +3552,12 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     if (isAccessModeChangeNotificationEnabled && anyObject && home && [(HMDCameraProfileSettingsManager *)selfCopy canRevealCurrentAccessMode])
     {
       v20 = [HMDCameraAccessModeChangedBulletin alloc];
-      v46 = anyObject;
+      v45 = anyObject;
       unsignedIntegerValue = [v12 unsignedIntegerValue];
-      integerValue = [v51 integerValue];
+      integerValue = [v50 integerValue];
       v23 = unsignedIntegerValue;
-      anyObject = v46;
-      v24 = [(HMDCameraAccessModeChangedBulletin *)v20 initWithAccessMode:v23 camera:v46 home:home changeReason:integerValue changeDate:v14];
+      anyObject = v45;
+      v24 = [(HMDCameraAccessModeChangedBulletin *)v20 initWithAccessMode:v23 camera:v45 home:home changeReason:integerValue changeDate:v14];
       if (v24)
       {
         v25 = objc_autoreleasePoolPush();
@@ -3378,9 +3568,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
           HMFGetLogIdentifier();
           v28 = contexta = v25;
           *buf = 138543618;
-          v53 = v28;
-          v54 = 2112;
-          v55 = v24;
+          v52 = v28;
+          v53 = 2112;
+          v54 = v24;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Posting camera access mode changed bulletin based upon notification: %@", buf, 0x16u);
 
           v25 = contexta;
@@ -3390,7 +3580,7 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
         bulletinBoard = [(HMDCameraProfileSettingsManager *)v26 bulletinBoard];
         [bulletinBoard insertCameraAccessModeChangedBulletin:v24];
 
-        anyObject = v46;
+        anyObject = v45;
       }
     }
 
@@ -3403,7 +3593,7 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
       {
         v37 = HMFGetLogIdentifier();
         v38 = HMFBooleanToString();
-        v47 = anyObject;
+        v46 = anyObject;
         if (anyObject)
         {
           v39 = @"<not nil>";
@@ -3414,7 +3604,7 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
           v39 = @"<nil>";
         }
 
-        v43 = v12;
+        v42 = v12;
         if (home)
         {
           v40 = @"<not nil>";
@@ -3427,22 +3617,22 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
 
         [(HMDCameraProfileSettingsManager *)v35 canRevealCurrentAccessMode];
         HMFBooleanToString();
-        v41 = v45 = v14;
+        v41 = v44 = v14;
         *buf = 138544386;
-        v53 = v37;
-        v54 = 2112;
-        v55 = v38;
-        v56 = 2112;
-        v57 = v39;
-        anyObject = v47;
-        v58 = 2112;
-        v59 = v40;
-        v12 = v44;
-        v60 = 2112;
-        v61 = v41;
+        v52 = v37;
+        v53 = 2112;
+        v54 = v38;
+        v55 = 2112;
+        v56 = v39;
+        anyObject = v46;
+        v57 = 2112;
+        v58 = v40;
+        v12 = v43;
+        v59 = 2112;
+        v60 = v41;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Not posting access mode change bulletin due to settings change message because accessModeChangeNotificationEnabled=%@ cameraProfile=%@ home=%@ canRevealCurrentAccessMode=%@", buf, 0x34u);
 
-        v14 = v45;
+        v14 = v44;
       }
 
       objc_autoreleasePoolPop(context);
@@ -3461,9 +3651,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
       v33 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
       *buf = 138543618;
-      v53 = v33;
-      v54 = 2112;
-      v55 = messagePayload;
+      v52 = v33;
+      v53 = 2112;
+      v54 = messagePayload;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Invalid access mode change payload %@", buf, 0x16u);
     }
 
@@ -3471,13 +3661,11 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     hapAccessory = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
     [messageCopy respondWithError:hapAccessory];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateReachabilityEventNotificationEnabledMessage:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3488,9 +3676,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v27 = 138543362;
-    v28 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change reachability event notification enabled", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change reachability event notification enabled", &v26, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3510,11 +3698,11 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     {
       v18 = HMFGetLogIdentifier();
       v19 = HMFEnabledStatusToString();
-      v27 = 138543618;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v19;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Registering reachability event notifications as %@", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v18;
+      v28 = 2112;
+      v29 = v19;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Registering reachability event notifications as %@", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -3533,22 +3721,20 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v25;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Camera reachability notification cannot be modified when bulletin notifications are not supported.", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v25;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Camera reachability notification cannot be modified when bulletin notifications are not supported.", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v21];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateActivityZonesMessage:(id)message
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3560,7 +3746,7 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v43 = v9;
+    v42 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to update activity zones", buf, 0xCu);
   }
 
@@ -3572,13 +3758,13 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     {
       v16 = MEMORY[0x277CCAAC8];
       v17 = MEMORY[0x277CBEB98];
-      v48[0] = objc_opt_class();
-      v48[1] = objc_opt_class();
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+      v47[0] = objc_opt_class();
+      v47[1] = objc_opt_class();
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
       v19 = [v17 setWithArray:v18];
-      v41 = 0;
-      v20 = [v16 unarchivedObjectOfClasses:v19 fromData:v15 error:&v41];
-      v21 = v41;
+      v40 = 0;
+      v20 = [v16 unarchivedObjectOfClasses:v19 fromData:v15 error:&v40];
+      v21 = v40;
 
       if (v20)
       {
@@ -3594,11 +3780,11 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
           v27 = HMFGetLogIdentifier();
           v28 = HMFBooleanToString();
           *buf = 138543874;
-          v43 = v27;
-          v44 = 2112;
-          v45 = v20;
-          v46 = 2112;
-          v47 = v28;
+          v42 = v27;
+          v43 = 2112;
+          v44 = v20;
+          v45 = 2112;
+          v46 = v28;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Updating activity zones: %@ activityZonesIncludedForSignificantEventDetection: %@", buf, 0x20u);
         }
 
@@ -3617,9 +3803,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v39;
-          v44 = 2112;
-          v45 = v21;
+          v42 = v39;
+          v43 = 2112;
+          v44 = v21;
           _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize activity zones: %@", buf, 0x16u);
         }
 
@@ -3639,9 +3825,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
         v34 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v43 = v34;
-        v44 = 2112;
-        v45 = messagePayload;
+        v42 = v34;
+        v43 = 2112;
+        v44 = messagePayload;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Could not find activity zones in message payload: %@", buf, 0x16u);
       }
 
@@ -3662,9 +3848,9 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
       [(HMDCameraProfileSettingsManager *)v11 supportedFeatures];
       v14 = HMCameraSupportedFeaturesAsString();
       *buf = 138543618;
-      v43 = v13;
-      v44 = 2112;
-      v45 = v14;
+      v42 = v13;
+      v43 = 2112;
+      v44 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ does not support recording", buf, 0x16u);
     }
 
@@ -3672,8 +3858,6 @@ uint64_t __76__HMDCameraProfileSettingsManager_handlePrimaryResidentUpdatedNotif
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v15];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCameraBulletinNotificationManagerWithSettings:(id)settings forMessage:(id)message
@@ -3741,7 +3925,7 @@ void __99__HMDCameraProfileSettingsManager__updateCameraBulletinNotificationMana
 
 - (void)_handleBulletinBoardNotificationCommitMessage:(id)message
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3752,9 +3936,9 @@ void __99__HMDCameraProfileSettingsManager__updateCameraBulletinNotificationMana
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v38 = 138543362;
-    v39 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change bulletin board", &v38, 0xCu);
+    v37 = 138543362;
+    v38 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change bulletin board", &v37, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3770,9 +3954,9 @@ void __99__HMDCameraProfileSettingsManager__updateCameraBulletinNotificationMana
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v38 = 138543362;
-      v39 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Bulletin board notification cannot be modified when bulletin notifications are not supported.", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Bulletin board notification cannot be modified when bulletin notifications are not supported.", &v37, 0xCu);
       goto LABEL_9;
     }
 
@@ -3794,11 +3978,11 @@ LABEL_10:
       v16 = HMFGetLogIdentifier();
       [(HMDCameraProfileSettingsManager *)v14 supportedFeatures];
       v17 = HMCameraSupportedFeaturesAsString();
-      v38 = 138543618;
-      v39 = v16;
-      v40 = 2112;
-      v41 = v17;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ does not support recording", &v38, 0x16u);
+      v37 = 138543618;
+      v38 = v16;
+      v39 = 2112;
+      v40 = v17;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ does not support recording", &v37, 0x16u);
 
 LABEL_9:
       goto LABEL_10;
@@ -3818,13 +4002,13 @@ LABEL_9:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v38 = 138543874;
-      v39 = v24;
-      v40 = 2112;
-      v41 = v18;
-      v42 = 2112;
-      v43 = v20;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating smart bulletin board notification to enabled: %@, condition: %@", &v38, 0x20u);
+      v37 = 138543874;
+      v38 = v24;
+      v39 = 2112;
+      v40 = v18;
+      v41 = 2112;
+      v42 = v20;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating smart bulletin board notification to enabled: %@, condition: %@", &v37, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -3844,11 +4028,11 @@ LABEL_9:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v32 = HMFGetLogIdentifier();
-        v38 = 138543618;
-        v39 = v32;
-        v40 = 2112;
-        v41 = v26;
-        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Requested changes match existing notification settings: %@", &v38, 0x16u);
+        v37 = 138543618;
+        v38 = v32;
+        v39 = 2112;
+        v40 = v26;
+        _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Requested changes match existing notification settings: %@", &v37, 0x16u);
       }
 
       objc_autoreleasePoolPop(v29);
@@ -3869,11 +4053,11 @@ LABEL_9:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       v36 = HMFGetLogIdentifier();
-      v38 = 138543618;
-      v39 = v36;
-      v40 = 2112;
-      v41 = v19;
-      _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Bulletin board commit message missing key: %@", &v38, 0x16u);
+      v37 = 138543618;
+      v38 = v36;
+      v39 = 2112;
+      v40 = v19;
+      _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Bulletin board commit message missing key: %@", &v37, 0x16u);
     }
 
     objc_autoreleasePoolPop(v33);
@@ -3882,12 +4066,11 @@ LABEL_9:
   }
 
 LABEL_24:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateAccessModeChangeNotificationEnabledMessage:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3898,9 +4081,9 @@ LABEL_24:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v27 = 138543362;
-    v28 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change access mode change notification enabled", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change access mode change notification enabled", &v26, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3916,9 +4099,9 @@ LABEL_24:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Access mode change notification cannot be modified when bulletin notifications are not supported.", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Access mode change notification cannot be modified when bulletin notifications are not supported.", &v26, 0xCu);
       goto LABEL_10;
     }
 
@@ -3940,11 +4123,11 @@ LABEL_11:
       v16 = HMFGetLogIdentifier();
       [(HMDCameraProfileSettingsManager *)v14 supportedFeatures];
       v17 = HMCameraSupportedFeaturesAsString();
-      v27 = 138543618;
-      v28 = v16;
-      v29 = 2112;
-      v30 = v17;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ support neither streaming nor recording access control.", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ support neither streaming nor recording access control.", &v26, 0x16u);
 
 LABEL_10:
       goto LABEL_11;
@@ -3961,11 +4144,11 @@ LABEL_10:
   {
     v23 = HMFGetLogIdentifier();
     v24 = HMFBooleanToString();
-    v27 = 138543618;
-    v28 = v23;
-    v29 = 2112;
-    v30 = v24;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Updating access mode change notification enabled to %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v23;
+    v28 = 2112;
+    v29 = v24;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Updating access mode change notification enabled to %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
@@ -3975,13 +4158,11 @@ LABEL_10:
   [v18 setAccessModeChangeNotificationEnabled:v19];
   [(HMDCameraProfileSettingsManager *)v21 _updateCameraBulletinNotificationManagerWithSettings:v18 forMessage:messageCopy];
 LABEL_15:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateRecordingTriggerEventsMessage:(id)message
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3992,9 +4173,9 @@ LABEL_15:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change recording trigger events", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change recording trigger events", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -4012,11 +4193,11 @@ LABEL_15:
       {
         v20 = HMFGetLogIdentifier();
         v21 = HMCameraSignificantEventTypesAsString();
-        v29 = 138543618;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v21;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Updating recordingTriggerEvents to %@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v21;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Updating recordingTriggerEvents to %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -4033,13 +4214,13 @@ LABEL_15:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v29 = 138543874;
-        v30 = v27;
-        v31 = 2112;
-        v32 = 0;
-        v33 = 2112;
-        v34 = messageCopy;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Invalid parameter: %@ for message: %@", &v29, 0x20u);
+        v28 = 138543874;
+        v29 = v27;
+        v30 = 2112;
+        v31 = 0;
+        v32 = 2112;
+        v33 = messageCopy;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Invalid parameter: %@ for message: %@", &v28, 0x20u);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -4058,24 +4239,22 @@ LABEL_15:
       v13 = HMFGetLogIdentifier();
       [(HMDCameraProfileSettingsManager *)v11 supportedFeatures];
       v14 = HMCameraSupportedFeaturesAsString();
-      v29 = 138543618;
-      v30 = v13;
-      v31 = 2112;
-      v32 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ does not support recording", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory with supported features: %@ does not support recording", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v15];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSynchronizeCloudStorageWithRecordingAccessModesMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -4086,21 +4265,19 @@ LABEL_15:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing remote request to synchronize cloud storage with recording access modes", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing remote request to synchronize cloud storage with recording access modes", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   quotaCoordinator = [(HMDCameraProfileSettingsManager *)selfCopy quotaCoordinator];
   [quotaCoordinator synchronizeCloudStorageWithRecordingAccessModes];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateAccessModeMessage:(id)message
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -4112,7 +4289,7 @@ LABEL_15:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v46 = v9;
+    v45 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Processing request to change access mode", buf, 0xCu);
   }
 
@@ -4140,9 +4317,9 @@ LABEL_15:
       v17 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
       *buf = 138543618;
-      v46 = v17;
-      v47 = 2112;
-      v48 = messagePayload;
+      v45 = v17;
+      v46 = 2112;
+      v47 = messagePayload;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Cannot find required parameters in message payload: %@", buf, 0x16u);
     }
 
@@ -4164,9 +4341,9 @@ LABEL_15:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v34;
-      v47 = 2048;
-      v48 = v23;
+      v45 = v34;
+      v46 = 2048;
+      v47 = v23;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Invalid presence type enum value received: %ld", buf, 0x16u);
     }
 
@@ -4182,13 +4359,13 @@ LABEL_15:
         if (!HMIsStreamingAllowedForCameraAccessMode() || ([(HMDCameraProfileSettingsManager *)selfCopy supportedFeatures]& 1) != 0)
         {
           quotaCoordinator = [(HMDCameraProfileSettingsManager *)selfCopy quotaCoordinator];
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___block_invoke;
-          v43[3] = &unk_27868A1D8;
-          v43[4] = selfCopy;
-          v44 = messageCopy;
-          [quotaCoordinator updateCloudStorageAndSettingsWithAccessMode:unsignedIntegerValue forCameraHomePresence:v23 completion:v43];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___block_invoke;
+          v42[3] = &unk_27868A1D8;
+          v42[4] = selfCopy;
+          v43 = messageCopy;
+          [quotaCoordinator updateCloudStorageAndSettingsWithAccessMode:unsignedIntegerValue forCameraHomePresence:v23 completion:v42];
 
           goto LABEL_25;
         }
@@ -4206,11 +4383,11 @@ LABEL_15:
         [(HMDCameraProfileSettingsManager *)v25 supportedFeatures];
         v29 = HMCameraSupportedFeaturesAsString();
         *buf = 138543874;
-        v46 = v27;
-        v47 = 2112;
-        v48 = v28;
-        v49 = 2112;
-        v50 = v29;
+        v45 = v27;
+        v46 = 2112;
+        v47 = v28;
+        v48 = 2112;
+        v49 = v29;
         v30 = "%{public}@Requested access mode %@ enables streaming but supported features do not include streaming: %@";
       }
 
@@ -4234,11 +4411,11 @@ LABEL_31:
         [(HMDCameraProfileSettingsManager *)v25 supportedFeatures];
         v29 = HMCameraSupportedFeaturesAsString();
         *buf = 138543874;
-        v46 = v27;
-        v47 = 2112;
-        v48 = v28;
-        v49 = 2112;
-        v50 = v29;
+        v45 = v27;
+        v46 = 2112;
+        v47 = v28;
+        v48 = 2112;
+        v49 = v29;
         v30 = "%{public}@Requested access mode %@ enables recording but supported features do not include recording: %@";
       }
 
@@ -4254,9 +4431,9 @@ LABEL_31:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v39;
-      v47 = 2048;
-      v48 = unsignedIntegerValue;
+      v45 = v39;
+      v46 = 2048;
+      v47 = unsignedIntegerValue;
       _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Invalid access mode enum value received: %ld", buf, 0x16u);
     }
 
@@ -4271,12 +4448,11 @@ LABEL_24:
   [messageCopy respondWithError:v40];
 
 LABEL_25:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -4288,13 +4464,13 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
     {
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 40) shortDescription];
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update settings for message %@: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update settings for message %@: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -4307,18 +4483,16 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
     {
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) shortDescription];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Updated settings for message: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Updated settings for message: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 40) respondWithSuccess];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeSettingsToCameraWithCompletion:(id)completion
@@ -4365,7 +4539,7 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
 
 - (void)synchronizeCloudStorageWithRecordingAccessModes
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4385,9 +4559,9 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v12 = HMFGetLogIdentifier();
-        v27 = 138543362;
-        v28 = v12;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Locally synchronizing cloud storage with recording access modes because we are the primary resident", &v27, 0xCu);
+        v26 = 138543362;
+        v27 = v12;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Locally synchronizing cloud storage with recording access modes because we are the primary resident", &v26, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -4401,11 +4575,11 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
       {
         v18 = HMFGetLogIdentifier();
         shortDescription = [primaryResident shortDescription];
-        v27 = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = shortDescription;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Forwarding request to synchronize cloud storage with recording access modes to primary resident: %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v18;
+        v28 = 2112;
+        v29 = shortDescription;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Forwarding request to synchronize cloud storage with recording access modes to primary resident: %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -4428,15 +4602,13 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Cannot find primary resident to synchronize cloud storage with recording access modes", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Cannot find primary resident to synchronize cloud storage with recording access modes", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableRecordingAccessModes
@@ -4450,41 +4622,41 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
 
 - (unint64_t)supportedFeatures
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   hapAccessory = [(HMDCameraProfileSettingsManager *)self hapAccessory];
   services = [hapAccessory services];
 
   obj = services;
-  v4 = [services countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v4 = [services countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v36;
+    v7 = *v35;
     v8 = *MEMORY[0x277CD0E00];
     v9 = *MEMORY[0x277CD0E08];
-    v33 = *MEMORY[0x277CD0DF8];
-    v31 = *MEMORY[0x277CCF798];
-    v30 = *MEMORY[0x277CCF990];
-    v29 = *MEMORY[0x277CCF898];
+    v32 = *MEMORY[0x277CD0DF8];
+    v30 = *MEMORY[0x277CCF798];
+    v29 = *MEMORY[0x277CCF990];
+    v28 = *MEMORY[0x277CCF898];
     v10 = *MEMORY[0x277CCF748];
-    v32 = *MEMORY[0x277CCFA00];
+    v31 = *MEMORY[0x277CCFA00];
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v36 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
-        serviceType = [v12 serviceType];
-        v14 = [serviceType isEqualToString:v8];
+        v12 = *(*(&v34 + 1) + 8 * i);
+        v13 = objc_msgSend_serviceType(v12, v28);
+        v14 = [v13 isEqualToString:v8];
 
         if (v14)
         {
@@ -4494,8 +4666,8 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
           continue;
         }
 
-        serviceType2 = [v12 serviceType];
-        v17 = [serviceType2 isEqualToString:v9];
+        v16 = objc_msgSend_serviceType(v12);
+        v17 = [v16 isEqualToString:v9];
 
         if (v17)
         {
@@ -4508,22 +4680,22 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
           }
 
           v20 = v19 | v6;
-          v21 = [v12 findCharacteristicWithType:v32];
+          v21 = [v12 findCharacteristicWithType:v31];
 
           v22 = v20 | 0x40;
         }
 
         else
         {
-          serviceType3 = [v12 serviceType];
-          v24 = [serviceType3 isEqualToString:v33];
+          v23 = objc_msgSend_serviceType(v12);
+          v24 = [v23 isEqualToString:v32];
 
           if (!v24)
           {
             continue;
           }
 
-          v25 = [v12 findCharacteristicWithType:v31];
+          v25 = [v12 findCharacteristicWithType:v30];
 
           if (v25)
           {
@@ -4535,14 +4707,14 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
             v20 = v6;
           }
 
-          v26 = [v12 findCharacteristicWithType:v30];
+          v26 = [v12 findCharacteristicWithType:v29];
 
           if (v26)
           {
             v20 |= 8uLL;
           }
 
-          v21 = [v12 findCharacteristicWithType:v29];
+          v21 = [v12 findCharacteristicWithType:v28];
 
           v22 = v20 | 0x20;
         }
@@ -4558,7 +4730,7 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v5 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (!v5)
       {
         goto LABEL_26;
@@ -4569,7 +4741,6 @@ void __66__HMDCameraProfileSettingsManager__handleUpdateAccessModeMessage___bloc
   v6 = 0;
 LABEL_26:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4592,11 +4763,11 @@ LABEL_26:
 
 - (id)currentSettingsModel
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coreDataAdapter = [(HMDCameraProfileSettingsManager *)self coreDataAdapter];
-  v16 = 0;
-  defaultSettingsModel = [coreDataAdapter fetchCameraProfileSettingsModelWithError:&v16];
-  v5 = v16;
+  v15 = 0;
+  defaultSettingsModel = [coreDataAdapter fetchCameraProfileSettingsModelWithError:&v15];
+  v5 = v15;
 
   if (!defaultSettingsModel)
   {
@@ -4609,9 +4780,9 @@ LABEL_26:
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v5;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Error fetching currentSettings: %@", buf, 0x16u);
       }
 
@@ -4625,7 +4796,7 @@ LABEL_26:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v13;
+      v17 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Setting unavailable, using default values", buf, 0xCu);
     }
 
@@ -4634,8 +4805,6 @@ LABEL_26:
   }
 
   [(HMDCameraProfileSettingsManager *)self _updateDerivedPropertiesOnSettingsModel:defaultSettingsModel];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return defaultSettingsModel;
 }
@@ -4671,7 +4840,7 @@ LABEL_26:
 
 - (void)remove
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4681,18 +4850,17 @@ LABEL_26:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Deleting camera settings", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Deleting camera settings", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraProfileSettingsManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4707,31 +4875,29 @@ LABEL_26:
   {
     v10 = HMFGetLogIdentifier();
     logIdentifier = [anyObject logIdentifier];
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = logIdentifier;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Starting settings manager for camera profile %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = logIdentifier;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Starting settings manager for camera profile %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [(HMDCameraProfileSettingsManager *)selfCopy _start];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher adminMessageDispatcher:(id)messageDispatcher deviceIsResidentCapable:(BOOL)capable
 {
   capableCopy = capable;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   messageDispatcherCopy = messageDispatcher;
-  v61 = dispatcherCopy;
+  v60 = dispatcherCopy;
   [(HMDCameraProfileSettingsManager *)self setMsgDispatcher:dispatcherCopy];
-  v64 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v63 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v62 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
-  [v62 setRoles:4];
+  v63 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+  v62 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
+  v61 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
+  [v61 setRoles:4];
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
   v11 = HMFGetOSLogHandle();
@@ -4742,46 +4908,46 @@ LABEL_26:
     [(HMDCameraProfileSettingsManager *)selfCopy isCurrentDeviceConfirmedPrimaryResident];
     v14 = HMFBooleanToString();
     *buf = 138543874;
-    v71 = v12;
-    v72 = 2112;
-    v73 = v13;
-    v74 = 2112;
-    v75 = v14;
+    v70 = v12;
+    v71 = 2112;
+    v72 = v13;
+    v73 = 2112;
+    v74 = v14;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Configured with deviceIsResidentCapable=%@ and isCurrentDevicePrimaryResident=%@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDCameraProfileSettingsManager *)selfCopy hapAccessory];
-  v15 = v60 = capableCopy;
+  v15 = v59 = capableCopy;
   home = [v15 home];
   v17 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-  v69[0] = v64;
-  v69[1] = v63;
-  v69[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
+  v68[0] = v63;
+  v68[1] = v62;
+  v68[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
   [messageDispatcherCopy registerForMessage:*MEMORY[0x277CCF678] receiver:selfCopy policies:v18 selector:sel__handleUpdateAccessModeMessage_];
   [messageDispatcherCopy registerForMessage:*MEMORY[0x277CCF698] receiver:selfCopy policies:v18 selector:sel__handleUpdateRecordingTriggerEventsMessage_];
   [messageDispatcherCopy registerForMessage:*MEMORY[0x277CCF680] receiver:selfCopy policies:v18 selector:sel__handleUpdateActivityZonesMessage_];
 
   v19 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:1];
-  v68[0] = v19;
+  v67[0] = v19;
   v20 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v68[1] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
-  [v61 registerForMessage:@"HMDCameraSettingsDidChangeMessage" receiver:selfCopy policies:v21 selector:sel__handleCameraSettingsDidChangeMessage_];
+  v67[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  [v60 registerForMessage:@"HMDCameraSettingsDidChangeMessage" receiver:selfCopy policies:v21 selector:sel__handleCameraSettingsDidChangeMessage_];
 
   v22 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-  v67[0] = v22;
-  v67[1] = v62;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
-  [v61 registerForMessage:@"HMDCameraProfileSettingsSynchronizeCloudStorageWithRecordingAccessModesMessage" receiver:selfCopy policies:v23 selector:sel__handleSynchronizeCloudStorageWithRecordingAccessModesMessage_];
+  v66[0] = v22;
+  v66[1] = v61;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  [v60 registerForMessage:@"HMDCameraProfileSettingsSynchronizeCloudStorageWithRecordingAccessModesMessage" receiver:selfCopy policies:v23 selector:sel__handleSynchronizeCloudStorageWithRecordingAccessModesMessage_];
 
-  v66[0] = v64;
-  v66[1] = v63;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
-  [v61 registerForMessage:*MEMORY[0x277CD20D0] receiver:selfCopy policies:v24 selector:sel__handleBulletinBoardNotificationCommitMessage_];
-  [v61 registerForMessage:*MEMORY[0x277CCF670] receiver:selfCopy policies:v24 selector:sel__handleUpdateAccessModeChangeNotificationEnabledMessage_];
-  [v61 registerForMessage:*MEMORY[0x277CCF690] receiver:selfCopy policies:v24 selector:sel__handleUpdateReachabilityEventNotificationEnabledMessage_];
+  v65[0] = v63;
+  v65[1] = v62;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+  [v60 registerForMessage:*MEMORY[0x277CD20D0] receiver:selfCopy policies:v24 selector:sel__handleBulletinBoardNotificationCommitMessage_];
+  [v60 registerForMessage:*MEMORY[0x277CCF670] receiver:selfCopy policies:v24 selector:sel__handleUpdateAccessModeChangeNotificationEnabledMessage_];
+  [v60 registerForMessage:*MEMORY[0x277CCF690] receiver:selfCopy policies:v24 selector:sel__handleUpdateReachabilityEventNotificationEnabledMessage_];
 
   notificationCenter = [(HMDCameraProfileSettingsManager *)selfCopy notificationCenter];
   [notificationCenter removeObserver:selfCopy];
@@ -4790,7 +4956,7 @@ LABEL_26:
   currentUser = [home currentUser];
   [notificationCenter2 addObserver:selfCopy selector:sel_handleUserRemoteAccessDidChangeNotification_ name:@"HMDUserRemoteAccessDidChangeNotification" object:currentUser];
 
-  if (v60)
+  if (v59)
   {
     notificationCenter3 = [(HMDCameraProfileSettingsManager *)selfCopy notificationCenter];
     residentDeviceManager = [home residentDeviceManager];
@@ -4843,7 +5009,7 @@ LABEL_26:
         {
           v54 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v71 = v54;
+          v70 = v54;
           _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Current Home Activity State is Unknown", buf, 0xCu);
         }
 
@@ -4883,7 +5049,7 @@ LABEL_22:
         {
           v58 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v71 = v58;
+          v70 = v58;
           _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_INFO, "%{public}@Current home presence is unavailable", buf, 0xCu);
         }
 
@@ -4908,22 +5074,20 @@ LABEL_22:
     v49 = HMFGetLogIdentifier();
     isAnyUserAtHome = [(HMDCameraProfileSettingsManager *)v45 isAnyUserAtHome];
     *buf = 138543618;
-    v71 = v49;
-    v72 = 2112;
-    v73 = isAnyUserAtHome;
+    v70 = v49;
+    v71 = 2112;
+    v72 = isAnyUserAtHome;
     _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@Initial isAnyUserAtHome is %@", buf, 0x16u);
 
     goto LABEL_15;
   }
 
 LABEL_23:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -4931,58 +5095,56 @@ LABEL_23:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating camera profile settings manager", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCameraProfileSettingsManager *)selfCopy _setManuallyDisabledCharacteristicNotificationsEnabled:0];
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraProfileSettingsManager;
-  [(HMDCameraProfileSettingsManager *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraProfileSettingsManager;
+  [(HMDCameraProfileSettingsManager *)&v7 dealloc];
 }
 
 - (HMDCameraProfileSettingsManager)initWithHAPAccessory:(id)accessory home:(id)home workQueue:(id)queue
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCAD78];
   queueCopy = queue;
   homeCopy = home;
   accessoryCopy = accessory;
   uuid = [accessoryCopy uuid];
-  v37[0] = @"HMDCameraProfileSettingsUUIDSalt";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v36[0] = @"HMDCameraProfileSettingsUUIDSalt";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
   v13 = [v7 hm_deriveUUIDFromBaseUUID:uuid withSalts:v12];
 
   v14 = MEMORY[0x277CCAD78];
-  v36 = @"2b32a3ee-3908-406e-890d-74f9c410ef2b";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v30 = v13;
-  v31 = [v14 hm_deriveUUIDFromBaseUUID:v13 withSalts:v15];
+  v35 = @"2b32a3ee-3908-406e-890d-74f9c410ef2b";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v29 = v13;
+  v30 = [v14 hm_deriveUUIDFromBaseUUID:v13 withSalts:v15];
 
   v16 = [HMDCameraProfileSettingsCoreDataAdapter alloc];
   uuid2 = [accessoryCopy uuid];
   uuid3 = [homeCopy uuid];
 
-  v29 = [(HMDCameraProfileSettingsCoreDataAdapter *)v16 initWithHAPAccessoryUUID:uuid2 homeUUID:uuid3 cameraProfileSettingsModelID:v13 derivedPropertiesModelID:v31];
+  v28 = [(HMDCameraProfileSettingsCoreDataAdapter *)v16 initWithHAPAccessoryUUID:uuid2 homeUUID:uuid3 cameraProfileSettingsModelID:v13 derivedPropertiesModelID:v30];
   v19 = objc_alloc_init(HMDFeaturesDataSource);
   v20 = [[HMDCameraProfileSettingsQuotaCoordinator alloc] initWithWorkQueue:queueCopy accessory:accessoryCopy];
-  v34[0] = *MEMORY[0x277CD0EC0];
+  v33[0] = *MEMORY[0x277CD0EC0];
   v21 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277CCF978]];
-  v35[0] = v21;
-  v34[1] = *MEMORY[0x277CD0E38];
+  v34[0] = v21;
+  v33[1] = *MEMORY[0x277CD0E38];
   v22 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277CCF910]];
-  v35[1] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v34[1] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
   v24 = [[HMDCharacteristicsAvailabilityListener alloc] initWithAccessory:accessoryCopy workQueue:queueCopy interestedCharacteristicTypesByServiceType:v23];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v26 = +[HMDBulletinBoard sharedBulletinBoard];
-  v33 = [(HMDCameraProfileSettingsManager *)self initWithUniqueIdentifier:v30 hapAccessory:accessoryCopy workQueue:queueCopy coreDataAdapter:v29 notificationCenter:defaultCenter bulletinBoard:v26 characteristicsAvailabilityListener:v24 quotaCoordinator:v20 featuresDataSource:v19];
+  v32 = [(HMDCameraProfileSettingsManager *)self initWithUniqueIdentifier:v29 hapAccessory:accessoryCopy workQueue:queueCopy coreDataAdapter:v28 notificationCenter:defaultCenter bulletinBoard:v26 characteristicsAvailabilityListener:v24 quotaCoordinator:v20 featuresDataSource:v19];
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 - (HMDCameraProfileSettingsManager)initWithUniqueIdentifier:(id)identifier hapAccessory:(id)accessory workQueue:(id)queue coreDataAdapter:(id)adapter notificationCenter:(id)center bulletinBoard:(id)board characteristicsAvailabilityListener:(id)listener quotaCoordinator:(id)self0 featuresDataSource:(id)self1
@@ -5036,10 +5198,9 @@ LABEL_23:
 
 void __46__HMDCameraProfileSettingsManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v139;
-  logCategory__hmf_once_v139 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v139;
+  logCategory__hmf_once_v139 = v0;
 }
 
 + (id)zoneNameForHome:(id)home

@@ -33,7 +33,7 @@
   sub_20B9804B0();
   v12[1] = selfCopy;
   sub_20B98019C(v8);
-  sub_20B526824(&qword_27C7685C8, v11, type metadata accessor for FilterOptionsViewController);
+  sub_20B526824(&qword_27C7685C8, v11, type metadata accessor for FilterOptionsViewController, &unk_20C166560);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
 }
@@ -41,7 +41,7 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_20B99EFB0(disappear);
+  sub_20B99EFB0(disappear, v4);
 }
 
 - (void)viewDidLayoutSubviews

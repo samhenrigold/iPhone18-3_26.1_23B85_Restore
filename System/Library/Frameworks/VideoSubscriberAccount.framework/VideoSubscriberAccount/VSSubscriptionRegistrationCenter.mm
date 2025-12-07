@@ -54,7 +54,7 @@
 - (void)dealloc
 {
   v7 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -94,7 +94,7 @@ uint64_t __73__VSSubscriptionRegistrationCenter_defaultSubscriptionRegistrationC
   v27 = *MEMORY[0x277D85DE8];
   v5 = currentSubscription;
   v6 = objc_autoreleasePoolPush();
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -161,45 +161,46 @@ void __59__VSSubscriptionRegistrationCenter_setCurrentSubscription___block_invok
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
     if ([v5 count])
     {
-      v7 = [v5 filteredArrayUsingPredicate:*(a1 + 32)];
+      v8 = [v5 filteredArrayUsingPredicate:*(a1 + 32)];
 
-      if ([v7 count])
+      if ([v8 count])
       {
-        [*(a1 + 40) removeSubscriptions:v7];
+        [*(a1 + 40) removeSubscriptions:v8];
       }
 
       else
       {
-        v9 = VSDefaultLogObject();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = VSDefaultLogObject(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "No app subscriptions to remove.", buf, 2u);
+          _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "No app subscriptions to remove.", buf, 2u);
         }
       }
     }
 
     else
     {
-      v8 = VSDefaultLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = VSDefaultLogObject(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "No active subscriptions to remove.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "No active subscriptions to remove.", v11, 2u);
       }
 
-      v7 = v5;
+      v8 = v5;
     }
   }
 
   else
   {
-    v7 = VSErrorLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VSErrorLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __59__VSSubscriptionRegistrationCenter_setCurrentSubscription___block_invoke_cold_1();
     }
@@ -502,35 +503,35 @@ uint64_t __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block
 
 void __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEAA8] distantFuture];
   v5 = [v3 vs_isBefore:v4];
 
   if (v5)
   {
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Creating delay operation with fireDate: %@", buf, 0xCu);
+      v14 = v3;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Creating delay operation with fireDate: %@", buf, 0xCu);
     }
 
-    v7 = [VSDelayOperation delayOperationWithFireDate:v3];
-    [*(a1 + 32) setExpirationOperation:v7];
+    v8 = [VSDelayOperation delayOperationWithFireDate:v3];
+    [*(a1 + 32) setExpirationOperation:v8];
     objc_initWeak(buf, *(a1 + 32));
-    objc_initWeak(&location, v7);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_invoke_43;
-    v8[3] = &unk_278B732B0;
-    objc_copyWeak(&v9, buf);
-    objc_copyWeak(&v10, &location);
-    [v7 setCompletionBlock:v8];
-    [v7 start];
+    objc_initWeak(&location, v8);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_invoke_43;
+    v9[3] = &unk_278B732B0;
+    objc_copyWeak(&v10, buf);
+    objc_copyWeak(&v11, &location);
+    [v8 setCompletionBlock:v9];
+    [v8 start];
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&v10);
-    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -559,7 +560,7 @@ uint64_t __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)
   {
-    v3 = VSDefaultLogObject();
+    v3 = VSDefaultLogObject(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -572,13 +573,13 @@ uint64_t __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block
   return result;
 }
 
-void __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_invoke_45()
+void __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_invoke_45(uint64_t a1)
 {
-  v0 = VSDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VSDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_23AB8E000, v0, OS_LOG_TYPE_DEFAULT, "No Subscriptions Expired that have not been recently modified", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_23AB8E000, v1, OS_LOG_TYPE_DEFAULT, "No Subscriptions Expired that have not been recently modified", v2, 2u);
   }
 }
 
@@ -737,7 +738,7 @@ void __61__VSSubscriptionRegistrationCenter__resetExpirationOperation__block_inv
   optionsCopy = options;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
-  v9 = VSDefaultLogObject();
+  v9 = VSDefaultLogObject(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -792,7 +793,7 @@ LABEL_5:
     }
 
     v14 = VSPrivateError(-5, 0);
-    v15 = VSErrorLogObject();
+    v15 = VSErrorLogObject(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [VSSubscriptionRegistrationCenter fetchActiveSubscriptionsWithOptions:v15 completionHandler:?];
@@ -810,7 +811,7 @@ void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_
   v2 = objc_autoreleasePoolPush();
   v3 = [a1[4] subscriptionsByOptions];
   v4 = [v3 objectForKey:a1[5]];
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
@@ -867,7 +868,7 @@ void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_
 void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_68(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_68_cold_1();
@@ -901,51 +902,52 @@ uint64_t __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOpti
 
 void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Fetched subscriptions: %@", buf, 0xCu);
+      v23 = v5;
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Fetched subscriptions: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = VSErrorLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VSErrorLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_2_cold_1();
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_71;
-  v14[3] = &unk_278B74D18;
-  v15 = v5;
-  v8 = *(a1 + 32);
-  v16 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v17 = v9;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_71;
+  v15[3] = &unk_278B74D18;
+  v16 = v5;
+  v9 = *(a1 + 32);
+  v17 = *(a1 + 40);
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 56);
+  v12 = *(a1 + 64);
   v18 = v10;
-  v19 = v6;
-  v20 = v11;
-  v12 = v6;
-  v13 = v5;
-  [v8 addOperationWithBlock:v14];
+  v19 = v11;
+  v20 = v7;
+  v21 = v12;
+  v13 = v7;
+  v14 = v5;
+  [v9 addOperationWithBlock:v15];
 }
 
 void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_completionHandler___block_invoke_71(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (v2)
@@ -960,42 +962,41 @@ void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_
     [*(a1 + 40) removeObjectForKey:*(a1 + 48)];
   }
 
-  [*(a1 + 56) _resetExpirationOperation];
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject([*(a1 + 56) _resetExpirationOperation]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = *(a1 + 64);
-    v12 = 138412546;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will call registration center fetch completion handler with subscriptions %@ or error %@.", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will call registration center fetch completion handler with subscriptions %@ or error %@.", &v13, 0x16u);
   }
 
-  (*(*(a1 + 72) + 16))();
-  v9 = VSDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = (*(*(a1 + 72) + 16))();
+  v10 = VSDefaultLogObject(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 64);
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Did call registration center fetch completion handler with subscriptions %@ or error %@.", &v12, 0x16u);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 64);
+    v13 = 138412546;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Did call registration center fetch completion handler with subscriptions %@ or error %@.", &v13, 0x16u);
   }
 }
 
 - (void)registerSubscription:(id)subscription
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   subscriptionCopy = subscription;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(subscriptionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[VSSubscriptionRegistrationCenter registerSubscription:]";
+    v33 = "[VSSubscriptionRegistrationCenter registerSubscription:]";
     _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -1058,7 +1059,7 @@ void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_
         goto LABEL_16;
       }
 
-      v24 = *MEMORY[0x277CBE660];
+      v25 = *MEMORY[0x277CBE660];
     }
 
     else
@@ -1068,39 +1069,39 @@ void __90__VSSubscriptionRegistrationCenter_fetchActiveSubscriptionsWithOptions_
         goto LABEL_16;
       }
 
-      v24 = *MEMORY[0x277CBE660];
+      v25 = *MEMORY[0x277CBE660];
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Only subscriptions with an info string may be registered with an unknown access level."];
     }
 
     v12 = MEMORY[0x277CBEAD8];
     v14 = @"Attempt to register a subscription with an unexpected access level.";
-    v13 = v24;
+    v13 = v25;
   }
 
   [v12 raise:v13 format:v14];
 LABEL_16:
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v25 = subscriptionCopy;
+  v28 = 0u;
+  v26 = subscriptionCopy;
   tierIdentifiers2 = [subscriptionCopy tierIdentifiers];
-  v16 = [tierIdentifiers2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v16 = [tierIdentifiers2 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v28;
     v19 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(tierIdentifiers2);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * i);
+        v21 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -1113,23 +1114,23 @@ LABEL_16:
         }
       }
 
-      v17 = [tierIdentifiers2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [tierIdentifiers2 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v17);
   }
 
-  v22 = VSDefaultLogObject();
-  subscriptionCopy = v25;
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = VSDefaultLogObject(v22);
+  subscriptionCopy = v26;
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v25;
-    _os_log_impl(&dword_23AB8E000, v22, OS_LOG_TYPE_DEFAULT, "Will register subscription: %@", buf, 0xCu);
+    v33 = v26;
+    _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, "Will register subscription: %@", buf, 0xCu);
   }
 
-  v23 = [(VSSubscriptionRegistrationCenter *)self _serviceWithErrorHandler:&__block_literal_global_98];
-  [v23 registerSubscription:v25];
+  v24 = [(VSSubscriptionRegistrationCenter *)self _serviceWithErrorHandler:&__block_literal_global_98];
+  [v24 registerSubscription:v26];
 
 LABEL_30:
 }
@@ -1137,7 +1138,7 @@ LABEL_30:
 void __57__VSSubscriptionRegistrationCenter_registerSubscription___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __57__VSSubscriptionRegistrationCenter_registerSubscription___block_invoke_cold_1();
@@ -1146,13 +1147,13 @@ void __57__VSSubscriptionRegistrationCenter_registerSubscription___block_invoke(
 
 - (void)removeSubscriptions:(id)subscriptions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(subscriptionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[VSSubscriptionRegistrationCenter removeSubscriptions:]";
+    v21 = "[VSSubscriptionRegistrationCenter removeSubscriptions:]";
     _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -1166,30 +1167,30 @@ void __57__VSSubscriptionRegistrationCenter_registerSubscription___block_invoke(
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The subscriptions array must not be empty."];
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v6 = subscriptionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v16;
     v10 = 1;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = v10 && [(VSSubscriptionRegistrationCenter *)self _shouldAllowAccessToSubscription:*(*(&v14 + 1) + 8 * i)];
+        v10 = v10 && [(VSSubscriptionRegistrationCenter *)self _shouldAllowAccessToSubscription:*(*(&v15 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1214,16 +1215,16 @@ void __57__VSSubscriptionRegistrationCenter_registerSubscription___block_invoke(
   {
   }
 
-  v12 = VSDefaultLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = VSDefaultLogObject(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v6;
-    _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Will remove subscriptions: %@", buf, 0xCu);
+    v21 = v6;
+    _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Will remove subscriptions: %@", buf, 0xCu);
   }
 
-  v13 = [(VSSubscriptionRegistrationCenter *)self _serviceWithErrorHandler:&__block_literal_global_109];
-  [v13 removeSubscriptions:v6];
+  v14 = [(VSSubscriptionRegistrationCenter *)self _serviceWithErrorHandler:&__block_literal_global_109];
+  [v14 removeSubscriptions:v6];
 
 LABEL_24:
 }
@@ -1231,7 +1232,7 @@ LABEL_24:
 void __56__VSSubscriptionRegistrationCenter_removeSubscriptions___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__VSSubscriptionRegistrationCenter_removeSubscriptions___block_invoke_cold_1();

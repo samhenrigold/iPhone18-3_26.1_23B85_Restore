@@ -15,11 +15,10 @@ uint64_t ___HDInsertSerializedUDCLinkDataForConceptWithIdentifier_block_invoke_3
 
 uint64_t ___HDInsertSerializedUDCLinkDataForConceptWithIdentifier_block_invoke_5(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 @end

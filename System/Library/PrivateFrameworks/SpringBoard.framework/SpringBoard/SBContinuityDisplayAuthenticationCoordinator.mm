@@ -46,9 +46,9 @@ void __62__SBContinuityDisplayAuthenticationCoordinator_sharedInstance__block_in
 {
   managerCopy = manager;
   bagCopy = bag;
-  v26.receiver = self;
-  v26.super_class = SBContinuityDisplayAuthenticationCoordinator;
-  v9 = [(SBContinuityDisplayAuthenticationCoordinator *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = SBContinuityDisplayAuthenticationCoordinator;
+  v9 = [(SBContinuityDisplayAuthenticationCoordinator *)&v27 init];
   if (v9)
   {
     objc_initWeak(&location, v9);
@@ -65,21 +65,21 @@ void __62__SBContinuityDisplayAuthenticationCoordinator_sharedInstance__block_in
     v12 = MEMORY[0x277CF0BD0];
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __87__SBContinuityDisplayAuthenticationCoordinator_initWithLockScreenManager_mobileKeyBag___block_invoke;
-    v23 = &unk_2783AD688;
-    objc_copyWeak(&v24, &location);
-    v15 = [v12 assertionWithIdentifier:v14 stateDidChangeHandler:&v20];
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __87__SBContinuityDisplayAuthenticationCoordinator_initWithLockScreenManager_mobileKeyBag___block_invoke;
+    v24 = &unk_2783AD688;
+    objc_copyWeak(&v25, &location);
+    v15 = [v12 assertionWithIdentifier:v14 stateDidChangeHandler:&v21];
     continuityDisplaySessionAssertions = v9->_continuityDisplaySessionAssertions;
     v9->_continuityDisplaySessionAssertions = v15;
 
     v17 = v9->_continuityDisplaySessionAssertions;
-    v18 = SBLogContinuityDisplay();
-    [(BSCompoundAssertion *)v17 setLog:v18, v20, v21, v22, v23];
+    v19 = SBLogContinuityDisplay(v18);
+    [(BSCompoundAssertion *)v17 setLog:v19, v21, v22, v23, v24];
 
     [(SBContinuityDisplayAuthenticationCoordinator *)v9 setHeartbeatInterval:30.0];
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
@@ -204,12 +204,12 @@ void __87__SBContinuityDisplayAuthenticationCoordinator_initWithLockScreenManage
       v11 = self->_heartbeatTimer;
       v12 = MEMORY[0x277D85CD0];
       v13 = MEMORY[0x277D85CD0];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __66__SBContinuityDisplayAuthenticationCoordinator__setSessionActive___block_invoke;
-      v20[3] = &unk_2783A8AE8;
-      objc_copyWeak(&v21, location);
-      [(BSContinuousMachTimer *)v11 scheduleRepeatingWithFireInterval:v12 repeatInterval:v20 leewayInterval:v5 queue:v5 handler:v5 * 0.25];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __66__SBContinuityDisplayAuthenticationCoordinator__setSessionActive___block_invoke;
+      v21[3] = &unk_2783A8AE8;
+      objc_copyWeak(&v22, location);
+      [(BSContinuousMachTimer *)v11 scheduleRepeatingWithFireInterval:v12 repeatInterval:v21 leewayInterval:v5 queue:v5 handler:v5 * 0.25];
 
       [(SBLockScreenManager *)self->_lockScreenManager setBiometricAutoUnlockingDisabled:1 forReason:@"SBContinuityDisplayAuthenticationCoordinator"];
       extendedState = [(SBFMobileKeyBag *)self->_mobileKeyBag extendedState];
@@ -217,34 +217,34 @@ void __87__SBContinuityDisplayAuthenticationCoordinator_initWithLockScreenManage
 
       if (lockState != 2)
       {
-        v16 = SBLogContinuityDisplay();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = SBLogContinuityDisplay(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v19 = 0;
-          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Session changed to active but we're not fully locked. Locking key bag", v19, 2u);
+          *v20 = 0;
+          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Session changed to active but we're not fully locked. Locking key bag", v20, 2u);
         }
 
         [(SBFMobileKeyBag *)self->_mobileKeyBag lockSkippingGracePeriod:1 endingContinuityUnlock:1];
       }
 
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(location);
     }
 
     else
     {
       [(BSContinuousMachTimer *)self->_heartbeatTimer invalidate];
-      v17 = self->_heartbeatTimer;
+      v18 = self->_heartbeatTimer;
       self->_heartbeatTimer = 0;
 
       [(SBLockScreenManager *)self->_lockScreenManager setBiometricAutoUnlockingDisabled:0 forReason:@"SBContinuityDisplayAuthenticationCoordinator"];
       if ([(SBContinuityDisplayAuthenticationCoordinator *)self lockState]== 1)
       {
-        v18 = SBLogContinuityDisplay();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = SBLogContinuityDisplay(1);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Session changed to inactive while in continuity unlock. Locking key bag", location, 2u);
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Session changed to inactive while in continuity unlock. Locking key bag", location, 2u);
         }
 
         [(SBFMobileKeyBag *)self->_mobileKeyBag lockSkippingGracePeriod:0 endingContinuityUnlock:1];
@@ -261,16 +261,16 @@ void __66__SBContinuityDisplayAuthenticationCoordinator__setSessionActive___bloc
 
 - (void)_handleKeyBagStateChange
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lockState = [(SBContinuityDisplayAuthenticationCoordinator *)self lockState];
-  v4 = SBLogContinuityDisplay();
+  v4 = SBLogContinuityDisplay(lockState);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     previousLockState = self->_previousLockState;
     *buf = 134218240;
-    v18 = lockState;
-    v19 = 2048;
-    v20 = previousLockState;
+    v19 = lockState;
+    v20 = 2048;
+    v21 = previousLockState;
     _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Key bag state changed with current lock state: %lu, previous lock state: %lu", buf, 0x16u);
   }
 
@@ -278,43 +278,43 @@ void __66__SBContinuityDisplayAuthenticationCoordinator__setSessionActive___bloc
   {
     if (lockState == 1 && !self->_sessionActive)
     {
-      v6 = SBLogContinuityDisplay();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = SBLogContinuityDisplay(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(SBContinuityDisplayAuthenticationCoordinator *)v6 _handleKeyBagStateChange];
+        [(SBContinuityDisplayAuthenticationCoordinator *)v7 _handleKeyBagStateChange];
       }
 
       [(SBFMobileKeyBag *)self->_mobileKeyBag lockSkippingGracePeriod:1 endingContinuityUnlock:1];
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v7 = [(NSHashTable *)self->_observers copy];
-    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v8)
+    v14 = 0u;
+    v8 = [(NSHashTable *)self->_observers copy];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v13;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v13 != v10)
+          if (*v14 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          [*(*(&v12 + 1) + 8 * v11++) continuityDisplayAuthenticationCoordinatorDidUpdateLockState:self];
+          [*(*(&v13 + 1) + 8 * v12++) continuityDisplayAuthenticationCoordinatorDidUpdateLockState:self];
         }
 
-        while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        while (v10 != v12);
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 

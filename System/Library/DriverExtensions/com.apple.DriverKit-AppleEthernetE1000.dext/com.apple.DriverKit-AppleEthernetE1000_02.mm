@@ -1,43 +1,3 @@
-uint64_t e1000_get_speed_and_duplex_copper_generic(uint64_t a1, __int16 *a2, __int16 *a3)
-{
-  readData = 0;
-  IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
-  __dmb(1u);
-  v6 = readData;
-  if ((readData & 0x80) != 0)
-  {
-    v7 = *(a1 + 284) != 36 || (readData & 0x400000) == 0;
-    v8 = 2500;
-    v9 = 1000;
-  }
-
-  else
-  {
-    v7 = (readData & 0x40) == 0;
-    v8 = 100;
-    v9 = 10;
-  }
-
-  if (v7)
-  {
-    v8 = v9;
-  }
-
-  *a2 = v8;
-  if (v6)
-  {
-    v10 = 2;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  *a3 = v10;
-  return 0;
-}
-
 uint64_t e1000_get_speed_and_duplex_fiber_serdes_generic(uint64_t a1, _WORD *a2, _WORD *a3)
 {
   *a2 = 1000;
@@ -2245,9 +2205,9 @@ LABEL_26:
 uint64_t DriverKit_AppleEthernetE1000_IVars::probe(DriverKit_AppleEthernetE1000_IVars *this, IOPCIDevice *a2)
 {
   v4 = 3758097084;
-  v20[0] = 1;
-  IOParseBootArgNumber("e1000", v20, 4);
-  if (v20[0])
+  v18[0] = 1;
+  IOParseBootArgNumber("e1000", v18, 4);
+  if (v18[0])
   {
     obj = 0;
     if (IOService::CopyProperties(a2, &obj, 0))
@@ -2257,20 +2217,18 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::probe(DriverKit_AppleEthernetE1000_
 
     Object = OSDictionary::getObject(obj, "device-id");
     v6 = OSMetaClassBase::safeMetaCast(Object, gOSDataMetaClass);
-    BytesNoCopy = OSData::getBytesNoCopy(v6);
-    v8 = *BytesNoCopy;
-    v9 = &vendor_info_array;
-    v10 = 183;
-    while (*v9 != v8)
+    v7 = *OSData::getBytesNoCopy(v6);
+    v8 = &vendor_info_array;
+    v9 = 183;
+    while (*v8 != v7)
     {
-      v9 += 4;
-      if (!--v10)
+      v8 += 4;
+      if (!--v9)
       {
         if (pcindkll)
         {
-          v18 = *BytesNoCopy;
           DriverKit_AppleEthernetE1000_IVars::probe();
-          v4 = v20[1];
+          v4 = v18[1];
         }
 
         else
@@ -2284,30 +2242,30 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::probe(DriverKit_AppleEthernetE1000_
 
     if (pcindkll)
     {
-      DriverKit_AppleEthernetE1000_IVars::probe(v9);
+      DriverKit_AppleEthernetE1000_IVars::probe();
     }
 
     *this = this;
     *(this + 2) = a2;
     *(this + 4795) = -32634;
-    *(this + 4792) = v8;
-    v11 = OSDictionary::getObject(obj, "subsystem-vendor-id");
-    v12 = OSMetaClassBase::safeMetaCast(v11, gOSDataMetaClass);
-    if (v12)
+    *(this + 4792) = v7;
+    v10 = OSDictionary::getObject(obj, "subsystem-vendor-id");
+    v11 = OSMetaClassBase::safeMetaCast(v10, gOSDataMetaClass);
+    if (v11)
     {
-      *(this + 4793) = *OSData::getBytesNoCopy(v12);
+      *(this + 4793) = *OSData::getBytesNoCopy(v11);
     }
 
-    v13 = OSDictionary::getObject(obj, "subsystem-id");
-    v14 = OSMetaClassBase::safeMetaCast(v13, gOSDataMetaClass);
-    if (v14)
+    v12 = OSDictionary::getObject(obj, "subsystem-id");
+    v13 = OSMetaClassBase::safeMetaCast(v12, gOSDataMetaClass);
+    if (v13)
     {
-      *(this + 4794) = *OSData::getBytesNoCopy(v14);
+      *(this + 4794) = *OSData::getBytesNoCopy(v13);
     }
 
-    v15 = OSDictionary::getObject(obj, "revision-id");
-    v16 = OSMetaClassBase::safeMetaCast(v15, gOSDataMetaClass);
-    *(this + 9592) = *OSData::getBytesNoCopy(v16);
+    v14 = OSDictionary::getObject(obj, "revision-id");
+    v15 = OSMetaClassBase::safeMetaCast(v14, gOSDataMetaClass);
+    *(this + 9592) = *OSData::getBytesNoCopy(v15);
     if (obj)
     {
       (obj->release)(obj);
@@ -2316,7 +2274,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::probe(DriverKit_AppleEthernetE1000_
 
     obj = OSDictionaryCreate();
     OSDictionarySetStringValue(obj, "IOVendor", "Intel");
-    OSDictionarySetStringValue(obj, "IOModel", *(v9 + 1));
+    OSDictionarySetStringValue(obj, "IOModel", *(v8 + 1));
     IOService::SetProperties(*(this + 1200), obj, 0);
     v4 = 0;
 LABEL_17:
@@ -2396,7 +2354,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::start(DriverKit_AppleEthernetE1000_
   *(this + 2643) = v9;
   if (pcindkll)
   {
-    DriverKit_AppleEthernetE1000_IVars::start(this + 2642);
+    DriverKit_AppleEthernetE1000_IVars::start();
   }
 
   *(this + 4836) = 257;
@@ -2506,7 +2464,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::initHW(IOPCIDevice **this)
 {
   if (pcindkll)
   {
-    DriverKit_AppleEthernetE1000_IVars::initHW(this);
+    DriverKit_AppleEthernetE1000_IVars::initHW();
   }
 
   __dmb(2u);
@@ -3211,8 +3169,9 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::down(DriverKit_AppleEthernetE1000_I
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetE1000_IVars::setPromiscuousModeEnable(IOPCIDevice **this, int a2)
+uint64_t DriverKit_AppleEthernetE1000_IVars::setPromiscuousModeEnable(IOPCIDevice **this, uint64_t a2)
 {
+  v2 = a2;
   if (pcindkll)
   {
     DriverKit_AppleEthernetE1000_IVars::setPromiscuousModeEnable();
@@ -3222,7 +3181,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setPromiscuousModeEnable(IOPCIDevic
   IOPCIDevice::MemoryRead32(this[2], 0, 0x100uLL, &readData);
   __dmb(1u);
   v4 = readData & 0xFFFFFFE7;
-  if (a2)
+  if (v2)
   {
     v5 = 24;
   }
@@ -3237,8 +3196,9 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setPromiscuousModeEnable(IOPCIDevic
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(DriverKit_AppleEthernetE1000_IVars *this, int a2)
+uint64_t DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(DriverKit_AppleEthernetE1000_IVars *this, uint64_t a2)
 {
+  v2 = a2;
   if (pcindkll)
   {
     DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable();
@@ -3247,7 +3207,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(DriverKit
   v4 = 0;
   v5 = 0;
   v6 = 0;
-  *(this + 10576) = a2;
+  *(this + 10576) = v2;
   do
   {
     readData = 0;
@@ -3268,7 +3228,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(DriverKit
 
     IOPCIDevice::MemoryRead32(*(this + 2), 0, v8, &readData);
     __dmb(1u);
-    if (a2)
+    if (v2)
     {
       v6 = *(this + v4 + 10580);
     }
@@ -3318,8 +3278,9 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(DriverKit
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetE1000_IVars::setMcastAddresses(DriverKit_AppleEthernetE1000_IVars *this, unsigned __int8 *a2, int a3)
+uint64_t DriverKit_AppleEthernetE1000_IVars::setMcastAddresses(DriverKit_AppleEthernetE1000_IVars *this, unsigned __int8 *a2, uint64_t a3)
 {
+  v3 = a3;
   if (pcindkll)
   {
     DriverKit_AppleEthernetE1000_IVars::setMcastAddresses();
@@ -3364,7 +3325,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setMcastAddresses(DriverKit_AppleEt
   v10 = 13;
   do
   {
-    if (a3)
+    if (v3)
     {
       if ((pcindkll & 0x40000000) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
@@ -3399,7 +3360,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setMcastAddresses(DriverKit_AppleEt
       IOPCIDevice::MemoryWrite32(*(this + 2), 0, v9 - 4, v11);
       __dmb(2u);
       IOPCIDevice::MemoryWrite32(*(this + 2), 0, v9, v12 | 0x800C0000);
-      --a3;
+      --v3;
       a2 += 6;
     }
 
@@ -3445,8 +3406,8 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setMcastAddresses(DriverKit_AppleEt
     while (v19);
   }
 
-  *(this + 10576) = a3 != 0;
-  if (a3)
+  *(this + 10576) = v3 != 0;
+  if (v3)
   {
     while (1)
     {
@@ -3957,7 +3918,7 @@ LABEL_111:
 LABEL_113:
       IOPCIDevice::MemoryWrite32(*(this + 2), 0, v30, (1 << v27) | v26);
       a2 += 6;
-      if (!--a3)
+      if (!--v3)
       {
         goto LABEL_163;
       }
@@ -4000,7 +3961,7 @@ void DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(DriverKit_AppleEtherne
 {
   if (pcindkll)
   {
-    DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(a2, a3, a4);
+    DriverKit_AppleEthernetE1000_IVars::hashMcastAddress();
   }
 
   v7 = a2[4] >> 4;
@@ -4009,7 +3970,7 @@ void DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(DriverKit_AppleEtherne
   *a4 = v7 & 0xFFFFFFEF | (16 * (v8 & 1));
   if (pcindkll)
   {
-    DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(a2, a3);
+    DriverKit_AppleEthernetE1000_IVars::hashMcastAddress();
   }
 }
 
@@ -4036,7 +3997,7 @@ void DriverKit_AppleEthernetE1000_IVars::releaseHWControl(DriverKit_AppleEtherne
 void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(uint64_t a1, uint64_t a2, __n128 a3)
 {
   v3 = a1;
-  *v62 = 0;
+  v62[0] = 0;
   v61 = 0;
   v5 = (a2 + 32);
   v4 = *(a2 + 32);
@@ -4278,7 +4239,7 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(uint64_t a1, uint64_t a2,
     while (v28 < *(a2 + 15));
   }
 
-  if (e1000_read_nvm_eerd(a1, 0x10u, 1u, &v62[1]))
+  if (e1000_read_nvm_eerd(a1, 0x10u, 1, v62 + 1))
   {
     if ((pcindkll & 0x100000) != 0)
     {
@@ -4288,10 +4249,10 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(uint64_t a1, uint64_t a2,
 
   else if ((pcindkll & 0x100000) != 0)
   {
-    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(&v62[1]);
+    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback();
   }
 
-  if (e1000_read_nvm_eerd(a1, 0x25u, 1u, v62))
+  if (e1000_read_nvm_eerd(a1, 0x25u, 1, v62))
   {
     if ((pcindkll & 0x100000) != 0)
     {
@@ -4301,10 +4262,10 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(uint64_t a1, uint64_t a2,
 
   else if ((pcindkll & 0x100000) != 0)
   {
-    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(v62);
+    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback();
   }
 
-  if (e1000_read_nvm_eerd(a1, 0x26u, 1u, &v61))
+  if (e1000_read_nvm_eerd(a1, 0x26u, 1, &v61))
   {
     if ((pcindkll & 0x100000) != 0)
     {
@@ -4314,7 +4275,7 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(uint64_t a1, uint64_t a2,
 
   else if ((pcindkll & 0x100000) != 0)
   {
-    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(&v61);
+    DriverKit_AppleEthernetE1000_IVars::mDNS_Callback();
   }
 
   if ((pcindkll & 0x100000) != 0)
@@ -4354,7 +4315,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setupARPOffload(IOPCIDevice **this,
     IOPCIDevice::MemoryRead32(v5, 0, 0x100uLL, &readData);
     __dmb(1u);
     IOPCIDevice::MemoryWrite32(v5, 0, 0x100uLL, readData | 0x40801E);
-    DriverKit_AppleEthernetE1000_IVars::sendARPCommand(this);
+    DriverKit_AppleEthernetE1000_IVars::sendARPCommand(this, a2);
   }
 
   if ((pcindkll & 0x20000) == 0)
@@ -4483,8 +4444,9 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::setupmDNSOffload(IOPCIDevice **this
   return 3758097130;
 }
 
-void i210_setup_ipv4_flex_filter_wakeup(uint64_t a1, int a2, int a3, int a4)
+void i210_setup_ipv4_flex_filter_wakeup(uint64_t a1, int a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   memset(v14, 0, sizeof(v14));
   v13[0] = 28672;
   v13[1] = 0;
@@ -4553,7 +4515,7 @@ LABEL_7:
   v7 = 3;
 LABEL_14:
   *v6 = v7;
-  igb_setup_flex_filter(a1, a3, 0x40u, v14, v13);
+  igb_setup_flex_filter(a1, v4, 0x40u, v14, v13);
   __dmb(2u);
   IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, 0x5800uLL, 2u);
   __dmb(2u);
@@ -4561,11 +4523,12 @@ LABEL_14:
   readData = 0;
   IOPCIDevice::MemoryRead32(v10, 0, 0x5808uLL, &readData);
   __dmb(1u);
-  IOPCIDevice::MemoryWrite32(v10, 0, 0x5808uLL, readData | (0x10000 << a3));
+  IOPCIDevice::MemoryWrite32(v10, 0, 0x5808uLL, readData | (0x10000 << v4));
 }
 
-void i210_setup_ipv6_flex_filter_wakeup(uint64_t a1, int a2, char a3)
+void i210_setup_ipv6_flex_filter_wakeup(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
@@ -4602,7 +4565,7 @@ void i210_setup_ipv6_flex_filter_wakeup(uint64_t a1, int a2, char a3)
   readData = 0;
   IOPCIDevice::MemoryRead32(v6, 0, 0x5808uLL, &readData);
   __dmb(1u);
-  IOPCIDevice::MemoryWrite32(v6, 0, 0x5808uLL, readData | (0x10000 << a3));
+  IOPCIDevice::MemoryWrite32(v6, 0, 0x5808uLL, readData | (0x10000 << v3));
 }
 
 uint64_t DriverKit_AppleEthernetE1000_IVars::expand_and_save_name(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -4683,7 +4646,7 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::save_header(uint64_t a1, unsigned i
   }
 
   v4 = *(a2 + 1);
-  v5 = *(v4 + 4);
+  v5 = *(v4 + 8);
   v6 = *v4;
   *a4 = v6;
   *(a4 + 4) = v5;
@@ -4740,7 +4703,7 @@ LABEL_37:
   v30 = a3 + v29;
   v31 = a2[1];
   v32 = *v31;
-  *(v30 + 4) = *(v31 + 2);
+  *(v30 + 4) = v31[2];
   *v30 = v32;
   *(a2 + 1) += 6;
   a2[1] = a2[1] + 6;
@@ -5167,8 +5130,9 @@ LABEL_51:
   }
 }
 
-uint64_t FLASH_Write(uint64_t a1, uint32_t *a2, uint32_t data, int a4)
+uint64_t FLASH_Write(uint64_t a1, uint32_t *a2, uint32_t data, uint64_t a4)
 {
+  v4 = a4;
   v11 = 0;
   if ((pcindkll & 0x20000) != 0)
   {
@@ -5182,7 +5146,7 @@ uint64_t FLASH_Write(uint64_t a1, uint32_t *a2, uint32_t data, int a4)
 
   __dmb(2u);
   IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, 0x12050uLL, data);
-  if (flash_set_command(a1, 0x1000000, a4))
+  if (flash_set_command(a1, 0x1000000, v4))
   {
     return 1;
   }
@@ -5227,7 +5191,7 @@ BOOL flash_set_command(uint64_t a1, int a2, int a3)
   return ((readData >> 28) & 1) == 0;
 }
 
-uint64_t flash_wait_for_done(uint64_t a1, BOOL *a2)
+BOOL flash_wait_for_done(uint64_t a1, BOOL *a2)
 {
   if (a2)
   {
@@ -5347,8 +5311,9 @@ BOOL flasher_need_to_erase_sector(const unsigned __int8 *a1, const unsigned __in
   return v5 != 0;
 }
 
-uint64_t flasher_dump_sector(uint64_t a1, const unsigned __int8 *a2, int a3)
+uint64_t flasher_dump_sector(uint64_t a1, const unsigned __int8 *a2, uint64_t a3)
 {
+  v6 = a3;
   if ((pcindkll & 0x20000) != 0)
   {
     flasher_dump_sector();
@@ -5357,7 +5322,7 @@ uint64_t flasher_dump_sector(uint64_t a1, const unsigned __int8 *a2, int a3)
   v7 = 0;
   do
   {
-    if (FLASH_Read(a1, &v15[v7], 0x100u, a3 + v7))
+    if (FLASH_Read(a1, &v15[v7], 0x100u, v6 + v7))
     {
       if ((pcindkll & 0x20000) == 0)
       {
@@ -5375,7 +5340,7 @@ uint64_t flasher_dump_sector(uint64_t a1, const unsigned __int8 *a2, int a3)
   while (!v8);
   if ((pcindkll & 0x20000) != 0)
   {
-    flasher_dump_sector(v15);
+    flasher_dump_sector();
   }
 
   v9 = v15;
@@ -5437,7 +5402,7 @@ uint64_t flasher_dump_sector(uint64_t a1, const unsigned __int8 *a2, int a3)
       v23 = 1024;
       v24 = v11;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "e1000::%s(%d): Need to write offset %x, data is different\n", v20, 0x18u);
-      v13 = v11 + a3;
+      v13 = (v11 + a3);
       if ((pcindkll & 0x20000) == 0)
       {
         goto LABEL_22;
@@ -5486,7 +5451,7 @@ LABEL_22:
     }
 
 LABEL_28:
-    v12 += 256;
+    v12 = (v12 + 256);
     v14 = v11 >= 0xF00;
     v11 += 256;
     if (v14)
@@ -5926,7 +5891,7 @@ void DriverKit_AppleEthernetE1000::free(IOUserNetworkEthernet *this)
   IOUserNetworkEthernet::free(this);
 }
 
-uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *this, IOService *anObject)
+uint64_t DriverKit_AppleEthernetE1000::Start_Impl(IOService *this, IOService *anObject)
 {
   if ((pcindkll & 0x40) != 0)
   {
@@ -5940,9 +5905,9 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
   }
 
   v5 = v4;
-  *(*(this + 8) + 9600) = this;
-  *(*(this + 8) + 9608) = v4;
-  v6 = DriverKit_AppleEthernetE1000_IVars::probe(*(this + 8), v4);
+  this[1].meta[300].__vftable = this;
+  *&this[1].meta[300].refcount = v4;
+  v6 = DriverKit_AppleEthernetE1000_IVars::probe(this[1].meta, v4);
   if (!v6)
   {
     if (IOService::Start(this, anObject, &IOUserNetworkEthernet::_Dispatch))
@@ -5950,17 +5915,17 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
       DriverKit_AppleEthernetE1000::Start_Impl();
     }
 
-    if (OSObject::CopyDispatchQueue(this, "Default", (*(this + 8) + 9616), 0))
+    if (OSObject::CopyDispatchQueue(this, "Default", &this[1].meta[300].meta, 0))
     {
       DriverKit_AppleEthernetE1000::Start_Impl();
     }
 
-    if (IODispatchQueue::Create("interrupt", 0, 0, (*(this + 8) + 9624)))
+    if (IODispatchQueue::Create("interrupt", 0, 0, &this[1].meta[300].metaClassPrivate))
     {
       DriverKit_AppleEthernetE1000::Start_Impl();
     }
 
-    if (OSObject::SetDispatchQueue(this, "interrupt", *(*(this + 8) + 9624), 0))
+    if (OSObject::SetDispatchQueue(this, "interrupt", this[1].meta[300].metaClassPrivate, 0))
     {
       DriverKit_AppleEthernetE1000::Start_Impl();
     }
@@ -5969,8 +5934,8 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
     interruptType = 0;
     v13 = 0;
     IOParseBootArgNumber("e1000.fi0", &v13, 4);
-    e1000_set_mac_type(*(this + 8));
-    if (*(*(this + 8) + 284) >= 29 && v13 != 2)
+    e1000_set_mac_type(this[1].meta);
+    if (SHIDWORD(this[1].meta[8].metaClassPrivate) >= 29 && v13 != 2)
     {
       if (!v13)
       {
@@ -5987,7 +5952,7 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
     {
       if ((interruptType & 0x30000) != 0)
       {
-        if (IOInterruptDispatchSource::Create(v5, v8, *(*(this + 8) + 9624), (*(this + 8) + 8 * v7 + 9632)))
+        if (IOInterruptDispatchSource::Create(v5, v8, this[1].meta[300].metaClassPrivate, &this[1].meta[301].__vftable + v7))
         {
           DriverKit_AppleEthernetE1000::Start_Impl();
         }
@@ -6005,12 +5970,12 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
           DriverKit_AppleEthernetE1000::Start_Impl();
         }
 
-        if (IOInterruptDispatchSource::SetHandler(*(*(this + 8) + 8 * v7 + 9632), action, 0))
+        if (IOInterruptDispatchSource::SetHandler(*(&this[1].meta[301].__vftable + v7), action, 0))
         {
           DriverKit_AppleEthernetE1000::Start_Impl();
         }
 
-        if (IODispatchSource::SetEnable(*(*(this + 8) + 8 * v7 + 9632), 1, 0))
+        if (IODispatchSource::SetEnable(*(&this[1].meta[301].__vftable + v7), 1, 0))
         {
           DriverKit_AppleEthernetE1000::Start_Impl();
         }
@@ -6030,10 +5995,10 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
       }
     }
 
-    v9 = *(this + 8);
-    if (!*(v9 + 9632))
+    meta = this[1].meta;
+    if (!*(meta + 1204))
     {
-      if (IOInterruptDispatchSource::Create(v5, 0, *(v9 + 9624), (v9 + 9632)))
+      if (IOInterruptDispatchSource::Create(v5, 0, *(meta + 1203), meta + 1204))
       {
         DriverKit_AppleEthernetE1000::Start_Impl();
       }
@@ -6043,20 +6008,20 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
         DriverKit_AppleEthernetE1000::Start_Impl();
       }
 
-      if (IOInterruptDispatchSource::SetHandler(*(*(this + 8) + 9632), action, 0))
+      if (IOInterruptDispatchSource::SetHandler(this[1].meta[301].__vftable, action, 0))
       {
         DriverKit_AppleEthernetE1000::Start_Impl();
       }
 
-      if (IODispatchSource::SetEnable(*(*(this + 8) + 9632), 1, 0))
+      if (IODispatchSource::SetEnable(this[1].meta[301].__vftable, 1, 0))
       {
         DriverKit_AppleEthernetE1000::Start_Impl();
       }
 
-      v9 = *(this + 8);
+      meta = this[1].meta;
     }
 
-    if (!*(v9 + 9640) && (pcindkll & 1) != 0)
+    if (!*(meta + 1205) && (pcindkll & 1) != 0)
     {
       DriverKit_AppleEthernetE1000::Start_Impl();
     }
@@ -6069,8 +6034,8 @@ uint64_t DriverKit_AppleEthernetE1000::Start_Impl(DriverKit_AppleEthernetE1000 *
     readData = 0;
     IOPCIDevice::ConfigurationRead8(v5, 4uLL, &readData);
     IOPCIDevice::ConfigurationWrite8(v5, 4uLL, readData | 2);
-    started = DriverKit_AppleEthernetE1000_IVars::start(*(this + 8));
-    if (started || (started = DriverKit_AppleEthernetE1000_IVars::startInterface(*(this + 8)), started))
+    started = DriverKit_AppleEthernetE1000_IVars::start(this[1].meta);
+    if (started || (started = DriverKit_AppleEthernetE1000_IVars::startInterface(this[1].meta), started))
     {
       v6 = started;
     }
@@ -6191,8 +6156,9 @@ void DriverKit_AppleEthernetE1000::InterruptOccurred_Impl(DriverKit_AppleEtherne
   }
 }
 
-uint64_t DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl(DriverKit_AppleEthernetE1000 *this, int a2)
+uint64_t DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl(DriverKit_AppleEthernetE1000 *this, uint64_t a2)
 {
+  v2 = a2;
   if ((pcindkll & 0x40) != 0)
   {
     DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl();
@@ -6200,35 +6166,35 @@ uint64_t DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl(DriverKit_AppleEt
 
   readData = 0;
   IOPCIDevice::ConfigurationRead8(*(*(this + 8) + 9608), 4uLL, &readData);
-  if (a2)
+  if (v2)
   {
     IOPCIDevice::ConfigurationWrite8(*(*(this + 8) + 9608), 4uLL, readData | 4);
   }
 
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x2000000000;
-  v11 = -1;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = -1;
   v4 = *(*(this + 8) + 9624);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 1107296256;
   v7[2] = ___ZN28DriverKit_AppleEthernetE100023SetInterfaceEnable_ImplEb_block_invoke;
   v7[4] = &v9;
   v7[5] = this;
-  v8 = a2;
+  v8 = v2;
   v7[3] = &__block_descriptor_tmp_25;
   IODispatchQueue::DispatchSync(v4, v7);
-  if (!a2 || *(v10[0] + 24))
+  if (!v2 || *(v10 + 6))
   {
     IOPCIDevice::ConfigurationWrite8(*(*(this + 8) + 9608), 4uLL, readData & 0xFB);
   }
 
   if ((pcindkll & 0x40) != 0)
   {
-    DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl(v10);
+    DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl();
   }
 
-  v5 = *(v10[0] + 24);
+  v5 = *(v10 + 6);
   _Block_object_dispose(&v9, 8);
   return v5;
 }
@@ -6256,7 +6222,7 @@ uint64_t ___ZN28DriverKit_AppleEthernetE100023SetInterfaceEnable_ImplEb_block_in
   return result;
 }
 
-uint64_t DriverKit_AppleEthernetE1000::SetAllMulticastModeEnable_Impl(DriverKit_AppleEthernetE1000_IVars **this, int a2)
+uint64_t DriverKit_AppleEthernetE1000::SetAllMulticastModeEnable_Impl(DriverKit_AppleEthernetE1000_IVars **this, uint64_t a2)
 {
   if ((pcindkll & 0x40) != 0)
   {
@@ -6266,8 +6232,9 @@ uint64_t DriverKit_AppleEthernetE1000::SetAllMulticastModeEnable_Impl(DriverKit_
   return DriverKit_AppleEthernetE1000_IVars::setAllMulticastModeEnable(this[8], a2);
 }
 
-uint64_t DriverKit_AppleEthernetE1000::SelectMediaType_Impl(DriverKit_AppleEthernetE1000 *this, int a2)
+uint64_t DriverKit_AppleEthernetE1000::SelectMediaType_Impl(DriverKit_AppleEthernetE1000 *this, uint64_t a2)
 {
+  v2 = a2;
   if ((pcindkll & 0x40) != 0)
   {
     DriverKit_AppleEthernetE1000::SelectMediaType_Impl();
@@ -6284,7 +6251,7 @@ uint64_t DriverKit_AppleEthernetE1000::SelectMediaType_Impl(DriverKit_AppleEther
   block[4] = &v9;
   block[5] = this;
   block[3] = &__block_descriptor_tmp_28;
-  v8 = a2;
+  v8 = v2;
   IODispatchQueue::DispatchSync(v4, block);
   v5 = *(v10 + 6);
   _Block_object_dispose(&v9, 8);
@@ -7770,13 +7737,14 @@ uint64_t e1000_read_nvm_srrd_i225(uint64_t a1, unsigned int a2, unsigned int a3,
   return 13;
 }
 
-uint64_t e1000_write_nvm_srwr_i225(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_write_nvm_srwr_i225(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   if (!a3)
   {
     return 0;
   }
 
+  v6 = a2;
   v8 = 0;
   while (1)
   {
@@ -7791,7 +7759,7 @@ uint64_t e1000_write_nvm_srwr_i225(uint64_t a1, unsigned int a2, unsigned int a3
       v9 = 512;
     }
 
-    v10 = __e1000_write_nvm_srwr(a1, a2, v9, a4 + 2 * v8);
+    v10 = __e1000_write_nvm_srwr(a1, v6, v9, a4 + 2 * v8);
     (*(a1 + 1168))(a1);
     if (v10)
     {
@@ -7808,7 +7776,7 @@ uint64_t e1000_write_nvm_srwr_i225(uint64_t a1, unsigned int a2, unsigned int a3
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __e1000_write_nvm_srwr(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t __e1000_write_nvm_srwr(uint64_t a1, unsigned int a2, signed int a3, uint64_t a4)
 {
   v6 = *(a1 + 1232);
   v7 = v6 >= a2;
@@ -7876,7 +7844,7 @@ uint64_t e1000_validate_nvm_checksum_i225(uint64_t a1)
 uint64_t e1000_update_nvm_checksum_i225(uint64_t a1)
 {
   v9 = 0;
-  v2 = e1000_read_nvm_eerd(a1, 0, 1u, &v9);
+  v2 = e1000_read_nvm_eerd(a1, 0, 1, &v9);
   if (!v2)
   {
     if ((*(a1 + 1152))(a1))
@@ -7891,7 +7859,7 @@ uint64_t e1000_update_nvm_checksum_i225(uint64_t a1)
       do
       {
         v5 = v3;
-        v6 = e1000_read_nvm_eerd(a1, v3, 1u, &v9);
+        v6 = e1000_read_nvm_eerd(a1, v3, 1, &v9);
         if (v6)
         {
           v2 = v6;
@@ -7905,7 +7873,7 @@ uint64_t e1000_update_nvm_checksum_i225(uint64_t a1)
 
       while (v5 < 0x3E);
       v10 = -17734 - v4;
-      v7 = __e1000_write_nvm_srwr(a1, 0x3Fu, 1u, &v10);
+      v7 = __e1000_write_nvm_srwr(a1, 0x3Fu, 1, &v10);
       (*(a1 + 1168))(a1);
       if (v7)
       {
@@ -7974,7 +7942,7 @@ uint64_t e1000_update_flash_i225(uint64_t a1)
           break;
         }
 
-        result = e1000_read_nvm_eerd(a1, v4, 1u, &data);
+        result = e1000_read_nvm_eerd(a1, v4, 1, &data);
         if (result)
         {
           break;
@@ -8385,7 +8353,7 @@ uint64_t e1000_reset_hw_i225(uint64_t a1)
   return e1000_check_alt_mac_addr_generic(a1);
 }
 
-uint64_t e1000_valid_led_default_i225(uint64_t a1, __int16 *a2)
+uint64_t e1000_valid_led_default_i225(uint64_t a1, unsigned __int16 *a2)
 {
   result = (*(a1 + 1160))(a1, 4, 1, a2);
   if (!result)
@@ -8466,7 +8434,6 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::allocRing(uint64_t a1, uint64_t a2,
   if (!v7)
   {
     *(a2 + 272) = range.address;
-    v10 = *(a2 + 280);
     operator new[]();
   }
 
@@ -8901,10 +8868,11 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::disable(IOUserNetworkPacketQueue **
   return DriverKit_AppleEthernetE1000_IVars::freeRings(this);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x18u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x18u);
 }
 
 void DriverKit_AppleEthernetE1000_IVars::intrHandler(DriverKit_AppleEthernetE1000_IVars *this)
@@ -8976,7 +8944,7 @@ void DriverKit_AppleEthernetE1000_IVars::intrHandler(DriverKit_AppleEthernetE100
 
 void DriverKit_AppleEthernetE1000_IVars::otherIntrHandler(IOPCIDevice **this)
 {
-  v1 = (this + 1024);
+  v1 = this + 1024;
   if (*(this + 10392) == 1)
   {
     readData = 0;
@@ -8987,7 +8955,7 @@ void DriverKit_AppleEthernetE1000_IVars::otherIntrHandler(IOPCIDevice **this)
     {
       if ((readData & 0xC) != 0)
       {
-        v1[2192] = 1;
+        *(v1 + 2192) = 1;
         DriverKit_AppleEthernetE1000_IVars::updateCarrier(this);
       }
 

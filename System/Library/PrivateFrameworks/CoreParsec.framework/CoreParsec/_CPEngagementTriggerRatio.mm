@@ -44,20 +44,17 @@
   [(_CPEngagementTriggerRatio *)self go];
   if (v4 != 0.0)
   {
-    go = self->_go;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPEngagementTriggerRatio *)self tap];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    tap = self->_tap;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPEngagementTriggerRatio *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 

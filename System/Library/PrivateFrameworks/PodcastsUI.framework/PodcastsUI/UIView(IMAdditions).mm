@@ -213,28 +213,28 @@ LABEL_22:
   superview = [self superview];
   if (superview)
   {
-    v2 = superview;
+    v4 = superview;
     while ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      superview2 = [v2 superview];
+      superview2 = [v4 superview];
 
-      v2 = superview2;
+      v4 = superview2;
       if (!superview2)
       {
         goto LABEL_5;
       }
     }
 
-    v4 = v2;
+    v6 = v4;
   }
 
   else
   {
 LABEL_5:
-    v4 = 0;
+    v6 = 0;
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)findFirstResponder

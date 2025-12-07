@@ -165,13 +165,6 @@ void __31__REPredictedActionServer_init__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __49__REPredictedActionServer_fetchPredictedActions___block_invoke(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  v2 = *(a2 + 32);
-  return (*(*(a1 + 32) + 16))();
-}
-
 - (void)fetchFirstPerformedActionDate:(id)date
 {
   dateCopy = date;
@@ -216,26 +209,25 @@ void __61__REPredictedActionServer__accessOrEnqueueDataRequest_error___block_inv
   {
     objc_initWeak(&location, v2);
     v3 = *(*(a1 + 32) + 72);
-    v7 = MEMORY[0x277D85DD0];
-    v8 = 3221225472;
-    v9 = __61__REPredictedActionServer__accessOrEnqueueDataRequest_error___block_invoke_2;
-    v10 = &unk_2785FB6D8;
-    objc_copyWeak(&v13, &location);
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v4 = MEMORY[0x22AABC5E0](&v7);
-    [v3 addObject:{v4, v7, v8, v9, v10}];
+    v6 = MEMORY[0x277D85DD0];
+    v7 = 3221225472;
+    v8 = __61__REPredictedActionServer__accessOrEnqueueDataRequest_error___block_invoke_2;
+    v9 = &unk_2785FB6D8;
+    objc_copyWeak(&v12, &location);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v4 = MEMORY[0x22AABC5E0](&v6);
+    [v3 addObject:{v4, v6, v7, v8, v9}];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -288,23 +280,21 @@ void __108__REPredictedActionServer_fetchPerformedTodayCountForActionWithBundleI
 
 void __108__REPredictedActionServer_fetchPerformedTodayCountForActionWithBundleIdentifer_actionIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = RELogForDomain(12);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [v2 localizedDescription];
-    v6 = 136315138;
-    v7 = [v4 UTF8String];
-    _os_log_impl(&dword_22859F000, v3, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy: %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = [v4 UTF8String];
+    _os_log_impl(&dword_22859F000, v3, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy: %s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestPredictions:(id)predictions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   if (predictionsCopy)
   {
@@ -312,9 +302,9 @@ void __108__REPredictedActionServer_fetchPerformedTodayCountForActionWithBundleI
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       name = [predictionsCopy name];
-      v13 = 138543362;
-      v14 = name;
-      _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_INFO, "Received %{public}@ notification that will trigger a prediction fetch from relevanced.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = name;
+      _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_INFO, "Received %{public}@ notification that will trigger a prediction fetch from relevanced.", &v12, 0xCu);
     }
   }
 
@@ -334,8 +324,6 @@ void __108__REPredictedActionServer_fetchPerformedTodayCountForActionWithBundleI
   {
     [(REUpNextScheduler *)self->_scheduler schedule];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_fetchPredicitions
@@ -446,14 +434,14 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_16(uin
 
 uint64_t __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = RELogForDomain(12);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) localizedDescription];
-    v11 = 136315138;
-    v12 = [v3 UTF8String];
-    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy: %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = [v3 UTF8String];
+    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy: %s", &v10, 0xCu);
   }
 
   v4 = *(a1 + 40);
@@ -466,9 +454,7 @@ uint64_t __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_2(
   *(v7 + 32) = v6;
 
   [*(a1 + 40) _finishProcessingData];
-  result = [*(a1 + 40) _notifyObservers];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _notifyObservers];
 }
 
 void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_17(uint64_t a1, void *a2, void *a3)
@@ -499,15 +485,15 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_17(uin
 
 void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_2_18(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = RELogForDomain(12);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) valueForKeyPath:@"bundleIdentifier"];
     v4 = [v3 componentsJoinedByString:{@", "}];
-    v12 = 138543362;
-    v13 = v4;
-    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_INFO, "Received requested predictions from daemon: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v4;
+    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_INFO, "Received requested predictions from daemon: %{public}@", &v11, 0xCu);
   }
 
   v5 = [*(*(a1 + 40) + 24) re_arrayMappedWithArray:*(a1 + 32)];
@@ -521,7 +507,6 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_2_18(u
   *(v9 + 32) = v8;
 
   dispatch_group_leave(*(a1 + 56));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_25(uint64_t a1, void *a2)
@@ -550,19 +535,18 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_25(uin
 
 void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_2_26(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = RELogForDomain(12);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_INFO, "Received first perfomed action date from daemon: (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_INFO, "Received first perfomed action date from daemon: (%@)", &v4, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 40) + 40), *(a1 + 32));
   dispatch_group_leave(*(a1 + 48));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_28(uint64_t a1)
@@ -579,42 +563,40 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_28(uin
 
 - (void)_finishProcessingData
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   self->_fetchingData = 0;
   v3 = [(NSMutableArray *)self->_fetchCompletionBlocks copy];
   [(NSMutableArray *)self->_fetchCompletionBlocks removeAllObjects];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setupConnection
@@ -624,32 +606,32 @@ void __51__REPredictedActionServer__queue_fetchPredicitions__block_invoke_28(uin
   self->_connection = v3;
 
   v5 = self->_connection;
-  v6 = REPredictionServerInterface();
-  [(NSXPCConnection *)v5 setRemoteObjectInterface:v6];
+  v7 = REPredictionServerInterface(v6);
+  [(NSXPCConnection *)v5 setRemoteObjectInterface:v7];
 
-  v7 = self->_connection;
-  v8 = REPredictionClientInterface();
-  [(NSXPCConnection *)v7 setExportedInterface:v8];
+  v8 = self->_connection;
+  v10 = REPredictionClientInterface(v9);
+  [(NSXPCConnection *)v8 setExportedInterface:v10];
 
   [(NSXPCConnection *)self->_connection setExportedObject:self];
   objc_initWeak(&location, self);
-  v9 = self->_connection;
+  v11 = self->_connection;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __49__REPredictedActionServer__queue_setupConnection__block_invoke;
+  v15[3] = &unk_2785F9A90;
+  objc_copyWeak(&v16, &location);
+  [(NSXPCConnection *)v11 setInterruptionHandler:v15];
+  v12 = self->_connection;
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
-  v13[2] = __49__REPredictedActionServer__queue_setupConnection__block_invoke;
+  v13[2] = __49__REPredictedActionServer__queue_setupConnection__block_invoke_33;
   v13[3] = &unk_2785F9A90;
   objc_copyWeak(&v14, &location);
-  [(NSXPCConnection *)v9 setInterruptionHandler:v13];
-  v10 = self->_connection;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__REPredictedActionServer__queue_setupConnection__block_invoke_33;
-  v11[3] = &unk_2785F9A90;
-  objc_copyWeak(&v12, &location);
-  [(NSXPCConnection *)v10 setInvalidationHandler:v11];
+  [(NSXPCConnection *)v12 setInvalidationHandler:v13];
   [(NSXPCConnection *)self->_connection resume];
-  objc_destroyWeak(&v12);
   objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 }
 

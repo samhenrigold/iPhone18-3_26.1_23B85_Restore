@@ -134,33 +134,32 @@ LABEL_8:
   _Block_object_dispose(v34, 8);
 }
 
-uint64_t __119__PXGMetalCaptureSpriteTexture_getTextureInfos_forSpriteIndexes_geometries_spriteStyles_spriteInfos_screenScale_count___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __119__PXGMetalCaptureSpriteTexture_getTextureInfos_forSpriteIndexes_geometries_spriteStyles_spriteInfos_screenScale_count___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v4 = a2 + a3;
   if (a2 + a3 > a2)
   {
-    v6 = result;
     v7 = a2;
     v8 = a2 + 1;
     v9 = xmmword_21AE2D320;
     while (1)
     {
-      if ((*(*(v6 + 40) + 40 * v7 + 34) & 8) != 0)
+      if ((*(*(a1 + 40) + 40 * v7 + 34) & 8) != 0)
       {
-        v21 = *(v6 + 48);
+        v21 = *(a1 + 48);
         v19 = 0;
       }
 
       else
       {
-        v10 = *(v6 + 64) + 20 * v7;
+        v10 = *(a1 + 64) + 20 * v7;
         v11 = *(v10 + 12);
         v12 = vmul_f32(v11, 0x3F0000003F000000);
         v29.origin.x = (*v10 - v12.f32[0]);
         v29.origin.y = (*(v10 + 4) - v12.f32[1]);
         v29.size.width = v11.f32[0];
         v29.size.height = v11.f32[1];
-        v27 = CGRectIntersection(*(v6 + 72), v29);
+        v27 = CGRectIntersection(*(a1 + 72), v29);
         x = v27.origin.x;
         y = v27.origin.y;
         width = v27.size.width;
@@ -171,28 +170,28 @@ uint64_t __119__PXGMetalCaptureSpriteTexture_getTextureInfos_forSpriteIndexes_ge
           v28.origin.y = y;
           v28.size.width = width;
           v28.size.height = height;
-          CGRectOffset(v28, -*(v6 + 72), -*(v6 + 80));
+          CGRectOffset(v28, -*(a1 + 72), -*(a1 + 80));
         }
 
         PXRectScale();
-        result = PXRectRoundToPixel();
+        PXRectRoundToPixel();
         v18.f64[1] = v17;
         v19 = vcvt_f32_f64(v18);
         v21.f64[1] = v20;
         v9 = xmmword_21AE2D320;
       }
 
-      v22 = *(v6 + 112) + (*(*(*(v6 + 32) + 8) + 24) << 6);
+      v22 = *(a1 + 112) + (*(*(*(a1 + 32) + 8) + 24) << 6);
       v23 = vcvt_f32_f64(v21);
-      v24 = vcvt_f32_f64(vcvtq_f64_u64(*(v6 + 120)));
-      v25 = *(v6 + 136);
+      v24 = vcvt_f32_f64(vcvtq_f64_u64(*(a1 + 120)));
+      v25 = *(a1 + 136);
       *v22 = v19;
       *(v22 + 8) = v23;
       *(v22 + 16) = v24;
       *(v22 + 32) = v9;
       *(v22 + 48) = v25;
       *(v22 + 52) = 0;
-      if (++*(*(*(v6 + 32) + 8) + 24) == *(v6 + 140))
+      if (++*(*(*(a1 + 32) + 8) + 24) == *(a1 + 140))
       {
         break;
       }
@@ -200,14 +199,12 @@ uint64_t __119__PXGMetalCaptureSpriteTexture_getTextureInfos_forSpriteIndexes_ge
       v7 = v8;
       if (v4 <= v8++)
       {
-        return result;
+        return;
       }
     }
 
     *a4 = 1;
   }
-
-  return result;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

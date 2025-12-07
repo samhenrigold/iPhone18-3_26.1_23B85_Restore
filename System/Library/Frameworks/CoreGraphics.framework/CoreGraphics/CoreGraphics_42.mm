@@ -16,7 +16,7 @@ uint64_t CGPDFFontGetMutator(uint64_t a1)
   return v2;
 }
 
-void *CGPDFFontGetProcedures(uint64_t a1)
+void *CGPDFFontGetProcedures(unint64_t a1)
 {
   if (!a1 || *(a1 + 200) != 5)
   {
@@ -218,227 +218,227 @@ void emit_function_definition(uint64_t a1, _BYTE *a2)
     goto LABEL_45;
   }
 
-  v98 = a2;
+  v31 = a2;
   v3 = PDFStreamCreateWithObjectNumber(*(a1 + 8), *(a1 + 48));
-  PDFDocumentBeginObject(*v3, v3[1], v4, v5, v6, v7, v8, v9);
-  PDFDocumentPrintf(*v3, "<<", v10, v11, v12, v13, v14, v15, v89);
-  PDFDocumentPrintf(*(a1 + 8), "/FunctionType 0", v16, v17, v18, v19, v20, v21, v90);
-  v22 = *(a1 + 16);
-  if (v22)
+  PDFDocumentBeginObject(*v3, v3[1]);
+  PDFDocumentPrintf(*v3, "<<");
+  PDFDocumentPrintf(*(a1 + 8), "/FunctionType 0");
+  v4 = *(a1 + 16);
+  if (v4)
   {
-    v23 = v22[4];
-    v24 = v22[6];
+    v5 = v4[4];
+    v6 = v4[6];
   }
 
   else
   {
-    v23 = 0;
-    v24 = 0;
+    v5 = 0;
+    v6 = 0;
   }
 
-  v101 = v24;
-  v25 = v23 + v23 * (*(a1 + 40) - *(a1 + 32));
-  if (v25 <= 0x100)
+  v34 = v6;
+  v7 = v5 + v5 * (*(a1 + 40) - *(a1 + 32));
+  if (v7 <= 0x100)
   {
-    v26 = 0x1000 / v25;
+    v8 = 0x1000 / v7;
   }
 
   else
   {
-    v26 = 16;
+    v8 = 16;
   }
 
-  v99[0] = v26;
-  v99[1] = 8;
-  v99[2] = v23;
-  if (v22)
+  v32[0] = v8;
+  v32[1] = 8;
+  v32[2] = v5;
+  if (v4)
   {
-    v27 = v22[5];
-    v100 = v27;
-    v28 = v22[7];
+    v9 = v4[5];
+    v33 = v9;
+    v10 = v4[7];
   }
 
   else
   {
-    v27 = 0;
-    v28 = 0;
-    v100 = 0;
+    v9 = 0;
+    v10 = 0;
+    v33 = 0;
   }
 
-  v102 = v28;
-  v29 = malloc_type_malloc(8 * v23, 0x100004000313F17uLL);
+  v35 = v10;
+  v11 = malloc_type_malloc(8 * v5, 0x100004000313F17uLL);
   __CFSetLastAllocationEventName();
-  v97 = v29;
-  v103 = v29;
-  v30 = malloc_type_malloc(8 * v24, 0x100004000313F17uLL);
+  v30 = v11;
+  v36 = v11;
+  v12 = malloc_type_malloc(8 * v6, 0x100004000313F17uLL);
   __CFSetLastAllocationEventName();
-  v96 = v30;
-  v104 = v30;
-  if (!v27)
+  v29 = v12;
+  v37 = v12;
+  if (!v9)
   {
-    v27 = malloc_type_malloc(16 * v23, 0x100004000313F17uLL);
+    v9 = malloc_type_malloc(16 * v5, 0x100004000313F17uLL);
     __CFSetLastAllocationEventName();
-    if (v23)
+    if (v5)
     {
-      v39 = -3.40282347e38;
+      v15 = -3.40282347e38;
       if (*(a1 + 56))
       {
-        v39 = 0.0;
+        v15 = 0.0;
       }
 
-      v40 = 3.40282347e38;
+      v16 = 3.40282347e38;
       if (*(a1 + 56))
       {
-        v40 = 1.0;
+        v16 = 1.0;
       }
 
-      v41 = (v27 + 1);
-      v42 = v23;
+      v17 = v9 + 1;
+      v18 = v5;
       do
       {
-        *(v41 - 1) = v39;
-        *v41 = v40;
-        v41 += 2;
-        --v42;
+        *(v17 - 1) = v15;
+        *v17 = v16;
+        v17 += 2;
+        --v18;
       }
 
-      while (v42);
+      while (v18);
     }
 
-    v100 = v27;
-    v37 = v27;
-    if (v28)
+    v33 = v9;
+    v13 = v9;
+    if (v10)
     {
       goto LABEL_13;
     }
 
 LABEL_22:
-    v28 = malloc_type_malloc(16 * v24, 0x100004000313F17uLL);
+    v10 = malloc_type_malloc(16 * v6, 0x100004000313F17uLL);
     __CFSetLastAllocationEventName();
-    if (v24)
+    if (v6)
     {
-      v43 = xmmword_18439C990;
-      v44 = v28;
+      v19 = xmmword_18439C990;
+      v20 = v10;
       do
       {
-        *v44++ = xmmword_18439C990;
-        --v24;
+        *v20++ = xmmword_18439C990;
+        --v6;
       }
 
-      while (v24);
+      while (v6);
     }
 
-    evaluate_range(a1, v23 - 1, v99, v28, v43);
-    v102 = v28;
-    v38 = v28;
+    evaluate_range(a1, v5 - 1, v32, v10, v19);
+    v35 = v10;
+    v14 = v10;
     goto LABEL_26;
   }
 
-  v37 = 0;
-  if (!v28)
+  v13 = 0;
+  if (!v10)
   {
     goto LABEL_22;
   }
 
 LABEL_13:
-  v38 = 0;
+  v14 = 0;
 LABEL_26:
-  PDFDocumentPrintf(*(a1 + 8), "/BitsPerSample %d", v31, v32, v33, v34, v35, v36, 8);
-  PDFDocumentPrintf(*(a1 + 8), "/Size [", v45, v46, v47, v48, v49, v50, v91);
-  if (v23)
+  PDFDocumentPrintf(*(a1 + 8), "/BitsPerSample %d", 8);
+  PDFDocumentPrintf(*(a1 + 8), "/Size [");
+  if (v5)
   {
-    v57 = v23;
+    v21 = v5;
     do
     {
-      PDFDocumentPrintf(*(a1 + 8), "%d", v51, v52, v53, v54, v55, v56, v26);
-      --v57;
+      PDFDocumentPrintf(*(a1 + 8), "%d", v8);
+      --v21;
     }
 
-    while (v57);
+    while (v21);
   }
 
-  PDFDocumentPrintf(*(a1 + 8), "]", v51, v52, v53, v54, v55, v56, v92);
-  if (v23 && v27)
+  PDFDocumentPrintf(*(a1 + 8), "]");
+  if (v5 && v9)
   {
-    PDFDocumentPrintf(*(a1 + 8), "/Domain [", v58, v59, v60, v61, v62, v63, v93);
-    v70 = 2 * v23;
-    if (2 * v23)
+    PDFDocumentPrintf(*(a1 + 8), "/Domain [");
+    v22 = 2 * v5;
+    if (2 * v5)
     {
       do
       {
-        v71 = *v27++;
-        PDFDocumentPrintf(*(a1 + 8), "%f", v64, v65, v66, v67, v68, v69, v71);
-        --v70;
+        v23 = *v9++;
+        PDFDocumentPrintf(*(a1 + 8), "%f", v23);
+        --v22;
       }
 
-      while (v70);
+      while (v22);
     }
 
-    PDFDocumentPrintf(*(a1 + 8), "]", v64, v65, v66, v67, v68, v69, v94);
+    PDFDocumentPrintf(*(a1 + 8), "]");
   }
 
-  PDFDocumentPrintf(*(a1 + 8), "/Range [", v58, v59, v60, v61, v62, v63, v93);
-  v78 = *(a1 + 32);
-  if (v78 <= *(a1 + 40))
+  PDFDocumentPrintf(*(a1 + 8), "/Range [");
+  v24 = *(a1 + 32);
+  if (v24 <= *(a1 + 40))
   {
-    v79 = &v28[v78] + 1;
+    v25 = &v10[v24] + 1;
     do
     {
-      v80 = *(v79 - 1);
-      if (fabs(v80) == INFINITY)
+      v26 = *(v25 - 1);
+      if (fabs(v26) == INFINITY)
       {
-        v80 = -2.0;
+        v26 = -2.0;
       }
 
-      if (fabs(*v79) == INFINITY)
+      if (fabs(*v25) == INFINITY)
       {
-        v81 = 3.0;
+        v27 = 3.0;
       }
 
       else
       {
-        v81 = *v79;
+        v27 = *v25;
       }
 
-      PDFDocumentPrintf(*(a1 + 8), "%f", v72, v73, v74, v75, v76, v77, *&v80);
-      PDFDocumentPrintf(*(a1 + 8), "%f", v82, v83, v84, v85, v86, v87, *&v81);
-      ++v78;
-      v79 += 2;
+      PDFDocumentPrintf(*(a1 + 8), "%f", v26);
+      PDFDocumentPrintf(*(a1 + 8), "%f", v27);
+      ++v24;
+      v25 += 2;
     }
 
-    while (v78 <= *(a1 + 40));
+    while (v24 <= *(a1 + 40));
   }
 
-  PDFDocumentPrintf(*(a1 + 8), "]", v72, v73, v74, v75, v76, v77, v95);
+  PDFDocumentPrintf(*(a1 + 8), "]");
   PDFStreamBeginData(v3);
-  emit_samples(a1, v3, v23 - 1, v99);
+  emit_samples(a1, v3, v5 - 1, v32);
   PDFStreamEndData(v3);
-  free(v96);
-  free(v97);
-  free(v37);
-  free(v38);
+  free(v29);
+  free(v30);
+  free(v13);
+  free(v14);
   PDFStreamEnd(v3);
   PDFStreamRelease(v3);
-  v88 = *(a1 + 16);
-  if (v88)
+  v28 = *(a1 + 16);
+  if (v28)
   {
-    CFRelease(v88);
+    CFRelease(v28);
   }
 
   *(a1 + 16) = 0;
   *(a1 + 57) = 1;
-  a2 = v98;
+  a2 = v31;
 LABEL_45:
   *a2 = 1;
 }
 
-_BYTE *ToUnicode::write_epilog(ToUnicode *this, CGDataConsumer *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+_BYTE *ToUnicode::write_epilog(ToUnicode *this, CGDataConsumer *a2)
 {
-  CGDataConsumerPrintf(this, "endcmap\n", a3, a4, a5, a6, a7, a8, v29);
-  CGDataConsumerPrintf(this, "CMapName currentdict /CMap defineresource pop\n", v10, v11, v12, v13, v14, v15, v30);
-  CGDataConsumerPrintf(this, "end\n", v16, v17, v18, v19, v20, v21, v31);
+  CGDataConsumerPrintf(this, "endcmap\n");
+  CGDataConsumerPrintf(this, "CMapName currentdict /CMap defineresource pop\n");
+  CGDataConsumerPrintf(this, "end\n");
 
-  return CGDataConsumerPrintf(this, "end\n", v22, v23, v24, v25, v26, v27, a9);
+  return CGDataConsumerPrintf(this, "end\n");
 }
 
 void std::vector<ToUnicode::bfrange>::push_back[abi:fe200100](uint64_t a1, int *a2)
@@ -522,46 +522,46 @@ void ToUnicode::write<std::set<unsigned short>>(uint64_t a1, uint64_t a2, void *
     goto LABEL_73;
   }
 
-  v15 = v8;
-  CGDataConsumerPrintf(v8, "/CIDInit /ProcSet findresource begin\n", v9, v10, v11, v12, v13, v14, v209);
-  CGDataConsumerPrintf(v15, "12 dict begin\n", v16, v17, v18, v19, v20, v21, v210);
-  CGDataConsumerPrintf(v15, "begincmap\n", v22, v23, v24, v25, v26, v27, v211);
-  CGDataConsumerPrintf(v15, "/CIDSystemInfo <<\n", v28, v29, v30, v31, v32, v33, v212);
-  CGDataConsumerPrintf(v15, "  /Registry (Adobe)\n", v34, v35, v36, v37, v38, v39, v213);
-  CGDataConsumerPrintf(v15, "  /Ordering (UCS)\n", v40, v41, v42, v43, v44, v45, v214);
-  CGDataConsumerPrintf(v15, "  /Supplement 0\n", v46, v47, v48, v49, v50, v51, v215);
-  CGDataConsumerPrintf(v15, ">> def\n", v52, v53, v54, v55, v56, v57, v216);
-  CGDataConsumerPrintf(v15, "/CMapName /Adobe-Identity-UCS def\n", v58, v59, v60, v61, v62, v63, v217);
-  CGDataConsumerPrintf(v15, "/CMapType 2 def\n", v64, v65, v66, v67, v68, v69, v218);
-  CGDataConsumerPrintf(v15, "1 begincodespacerange\n", v70, v71, v72, v73, v74, v75, v219);
-  CGDataConsumerPrintf(v15, "<", v76, v77, v78, v79, v80, v81, v220);
-  CGDataConsumerPrintf(v15, "00", v82, v83, v84, v85, v86, v87, v221);
-  CGDataConsumerPrintf(v15, "00", v88, v89, v90, v91, v92, v93, v222);
-  CGDataConsumerPrintf(v15, "><", v94, v95, v96, v97, v98, v99, v223);
-  CGDataConsumerPrintf(v15, "FF", v100, v101, v102, v103, v104, v105, v224);
-  CGDataConsumerPrintf(v15, "FF", v106, v107, v108, v109, v110, v111, v225);
-  CGDataConsumerPrintf(v15, ">\n", v112, v113, v114, v115, v116, v117, v226);
-  CGDataConsumerPrintf(v15, "endcodespacerange\n", v118, v119, v120, v121, v122, v123, v227);
-  v240[0] = 0;
-  v240[1] = 0;
-  v239 = v240;
-  v124 = *(*a1 + 16);
-  if (v124)
+  v9 = v8;
+  CGDataConsumerPrintf(v8, "/CIDInit /ProcSet findresource begin\n");
+  CGDataConsumerPrintf(v9, "12 dict begin\n");
+  CGDataConsumerPrintf(v9, "begincmap\n");
+  CGDataConsumerPrintf(v9, "/CIDSystemInfo <<\n");
+  CGDataConsumerPrintf(v9, "  /Registry (Adobe)\n");
+  CGDataConsumerPrintf(v9, "  /Ordering (UCS)\n");
+  CGDataConsumerPrintf(v9, "  /Supplement 0\n");
+  CGDataConsumerPrintf(v9, ">> def\n");
+  CGDataConsumerPrintf(v9, "/CMapName /Adobe-Identity-UCS def\n");
+  CGDataConsumerPrintf(v9, "/CMapType 2 def\n");
+  CGDataConsumerPrintf(v9, "1 begincodespacerange\n");
+  CGDataConsumerPrintf(v9, "<");
+  CGDataConsumerPrintf(v9, "00");
+  CGDataConsumerPrintf(v9, "00");
+  CGDataConsumerPrintf(v9, "><");
+  CGDataConsumerPrintf(v9, "FF");
+  CGDataConsumerPrintf(v9, "FF");
+  CGDataConsumerPrintf(v9, ">\n");
+  CGDataConsumerPrintf(v9, "endcodespacerange\n");
+  v52[0] = 0;
+  v52[1] = 0;
+  v51 = v52;
+  v10 = *(*a1 + 16);
+  if (v10)
   {
-    get_unimap(v124);
-    v125 = 256;
+    get_unimap(v10);
+    v11 = 256;
   }
 
   else
   {
-    v125 = 0;
+    v11 = 0;
   }
 
-  std::vector<unsigned short>::vector[abi:fe200100](&__p, v125);
-  v234 = a1;
-  v133 = *(*a1 + 16);
-  v235 = v7;
-  if (v133 && (explicit = atomic_load_explicit(v133 + 11, memory_order_acquire)) != 0)
+  std::vector<unsigned short>::vector[abi:fe200100](&__p, v11);
+  v46 = a1;
+  v13 = *(*a1 + 16);
+  v47 = v7;
+  if (v13 && (explicit = atomic_load_explicit(v13 + 11, memory_order_acquire)) != 0)
   {
     Property = CGPropertiesGetProperty(explicit, @"com.apple.CoreGraphics.CGPDFFontToUnicodeCMap");
   }
@@ -571,147 +571,147 @@ void ToUnicode::write<std::set<unsigned short>>(uint64_t a1, uint64_t a2, void *
     Property = 0;
   }
 
-  v138 = *a3;
-  v137 = a3 + 1;
-  v136 = v138;
-  if (v138 == v137)
+  v18 = *a3;
+  v17 = a3 + 1;
+  v16 = v18;
+  if (v18 == v17)
   {
 LABEL_39:
-    v244 = 0;
-    v174 = 0uLL;
-    v243 = 0u;
-    v175 = v239;
-    if (v239 != v240)
+    v56 = 0;
+    v29 = 0uLL;
+    v55 = 0u;
+    v30 = v51;
+    if (v51 != v52)
     {
       do
       {
-        v176 = 0;
-        v177 = *(v175 + 13);
-        v178 = *(v175 + 14);
-        v179 = v175;
-        while (v177 + v176 == *(v179 + 13) && v178 + v176 == *(v179 + 14))
+        v31 = 0;
+        v32 = *(v30 + 13);
+        v33 = *(v30 + 14);
+        v34 = v30;
+        while (v32 + v31 == *(v34 + 13) && v33 + v31 == *(v34 + 14))
         {
-          v180 = v179[1];
-          if (v180)
+          v35 = v34[1];
+          if (v35)
           {
             do
             {
-              v175 = v180;
-              v180 = *v180;
+              v30 = v35;
+              v35 = *v35;
             }
 
-            while (v180);
+            while (v35);
           }
 
           else
           {
             do
             {
-              v175 = v179[2];
-              v173 = *v175 == v179;
-              v179 = v175;
+              v30 = v34[2];
+              v28 = *v30 == v34;
+              v34 = v30;
             }
 
-            while (!v173);
+            while (!v28);
           }
 
-          ++v176;
-          v179 = v175;
-          if (v175 == v240)
+          ++v31;
+          v34 = v30;
+          if (v30 == v52)
           {
             goto LABEL_51;
           }
         }
 
-        v175 = v179;
+        v30 = v34;
 LABEL_51:
-        LOWORD(v241) = v177;
-        HIWORD(v241) = v176 + v177 - 1;
-        v242 = v178;
-        std::vector<ToUnicode::bfrange>::push_back[abi:fe200100](&v243, &v241);
+        LOWORD(v53) = v32;
+        HIWORD(v53) = v31 + v32 - 1;
+        v54 = v33;
+        std::vector<ToUnicode::bfrange>::push_back[abi:fe200100](&v55, &v53);
       }
 
-      while (v175 != v240);
-      v174 = v243;
+      while (v30 != v52);
+      v29 = v55;
     }
 
-    v181 = v174;
-    v182 = v174;
-    while (*(&v181 + 1) != v182)
+    v36 = v29;
+    v37 = v29;
+    while (*(&v36 + 1) != v37)
     {
-      v183 = 0;
-      v184 = v182;
+      v38 = 0;
+      v39 = v37;
       do
       {
-        v185 = v184;
-        v184 += 6;
-        if (v183 > 0x30)
+        v40 = v39;
+        v39 += 3;
+        if (v38 > 0x30)
         {
           break;
         }
 
-        ++v183;
+        ++v38;
       }
 
-      while (v184 != *(&v181 + 1));
-      if (v182 != v184)
+      while (v39 != *(&v36 + 1));
+      if (v37 != v39)
       {
-        CGDataConsumerPrintf(v15, "%d beginbfrange\n", v127, v128, v129, v130, v131, v132, -85 * ((v184 - v182) >> 1));
+        CGDataConsumerPrintf(v9, "%d beginbfrange\n", -1431655765 * (v39 - v37));
         do
         {
-          CGDataConsumerPrintf(v15, "<%0*x><%0*x><%04x>\n", v186, v187, v188, v189, v190, v191, 4);
-          v173 = v182 == v185;
-          v182 += 6;
+          CGDataConsumerPrintf(v9, "<%0*x><%0*x><%04x>\n", 4, *v37, 4, v37[1], v37[2]);
+          v28 = v37 == v40;
+          v37 += 3;
         }
 
-        while (!v173);
-        CGDataConsumerPrintf(v15, "endbfrange\n", v186, v187, v188, v189, v190, v191, v232);
-        v182 = v184;
+        while (!v28);
+        CGDataConsumerPrintf(v9, "endbfrange\n");
+        v37 = v39;
       }
     }
 
-    if (v181)
+    if (v36)
     {
-      operator delete(v181);
+      operator delete(v36);
     }
 
-    ToUnicode::write_epilog(v15, v126, v127, v128, v129, v130, v131, v132, v228);
-    v7 = v235;
+    ToUnicode::write_epilog(v9, v12);
+    v7 = v47;
     if (__p)
     {
-      v238 = __p;
+      v50 = __p;
       operator delete(__p);
     }
 
-    std::__tree<unsigned long>::destroy(v240[0]);
-    if ((*(v15 + 56) & 1) == 0)
+    std::__tree<unsigned long>::destroy(v52[0]);
+    if ((*(v9 + 56) & 1) == 0)
     {
-      v192 = *(v15 + 12);
-      if (v192)
+      v41 = *(v9 + 12);
+      if (v41)
       {
-        v193 = *(v15 + 10);
-        if (v193)
+        v42 = *(v9 + 10);
+        if (v42)
         {
-          v193(*(v15 + 2));
-          v192 = *(v15 + 12);
+          v42(*(v9 + 2));
+          v41 = *(v9 + 12);
         }
 
-        v192(*(v15 + 2));
-        *(v15 + 56) = 1;
+        v41(*(v9 + 2));
+        *(v9 + 56) = 1;
       }
     }
 
-    CFRelease(v15);
-    v194 = PDFStreamCreateWithObjectNumber(**(*v234 + 8), a2);
-    PDFDocumentBeginObject(*v194, v194[1], v195, v196, v197, v198, v199, v200);
-    PDFDocumentPrintf(*v194, "<<", v201, v202, v203, v204, v205, v206, v233);
-    PDFStreamBeginData(v194);
-    BytePtr = CFDataGetBytePtr(v235);
-    Length = CFDataGetLength(v235);
-    CGDataConsumerPutBytes(v194[3], BytePtr, Length);
-    PDFStreamEndData(v194);
-    PDFStreamEnd(v194);
-    PDFStreamRelease(v194);
+    CFRelease(v9);
+    v43 = PDFStreamCreateWithObjectNumber(**(*v46 + 8), a2);
+    PDFDocumentBeginObject(*v43, v43[1]);
+    PDFDocumentPrintf(*v43, "<<");
+    PDFStreamBeginData(v43);
+    BytePtr = CFDataGetBytePtr(v47);
+    Length = CFDataGetLength(v47);
+    CGDataConsumerPutBytes(v43[3], BytePtr, Length);
+    PDFStreamEndData(v43);
+    PDFStreamEnd(v43);
+    PDFStreamRelease(v43);
 LABEL_73:
 
     CFRelease(v7);
@@ -720,61 +720,59 @@ LABEL_73:
 
   while (1)
   {
-    v139 = *(v136 + 13);
-    LOWORD(v241) = *(v136 + 13);
-    v236 = 0;
+    v19 = *(v16 + 13);
+    LOWORD(v53) = *(v16 + 13);
+    v48 = 0;
     if (Property)
     {
-      LOWORD(v243) = 0;
-      CIDsForGlyphs = CGFontGetCIDsForGlyphs(v133, &v241, 1, &v243);
-      v127 = __p;
-      if (CIDsForGlyphs)
+      LOWORD(v55) = 0;
+      if (CGFontGetCIDsForGlyphs(v13, &v53, 1, &v55))
       {
-        if (v238 == __p)
+        if (v50 == __p)
         {
           goto LABEL_76;
         }
 
-        v141 = *(Property[2] + 48);
-        v142 = &v243;
-        if (!v141)
+        v20 = *(Property[2] + 48);
+        v21 = &v55;
+        if (!v20)
         {
 LABEL_16:
           unichars = 0;
 LABEL_22:
-          v144 = *v142;
+          v23 = *v21;
           goto LABEL_23;
         }
       }
 
       else
       {
-        if (v238 == __p)
+        if (v50 == __p)
         {
           goto LABEL_76;
         }
 
-        v141 = *(Property[2] + 48);
-        v142 = &v241;
-        if (!v141)
+        v20 = *(Property[2] + 48);
+        v21 = &v53;
+        if (!v20)
         {
           goto LABEL_16;
         }
       }
 
-      unichars = cmap_bf_set_get_unichars(*(v141 + 16), *v142, __p, v128, v129, v130, v131, v132);
+      unichars = cmap_bf_set_get_unichars(*(v20 + 16), *v21, __p);
       goto LABEL_22;
     }
 
-    if (v238 == __p)
+    if (v50 == __p)
     {
       goto LABEL_76;
     }
 
-    unichars = CGFontGetUnicharsForGlyph(v133, v139, __p);
-    v144 = v241;
+    unichars = CGFontGetUnicharsForGlyph(v13, v19, __p);
+    v23 = v53;
 LABEL_23:
-    v236 = v144;
+    v48 = v23;
     if (!unichars)
     {
       goto LABEL_33;
@@ -785,67 +783,67 @@ LABEL_23:
       break;
     }
 
-    if (v238 == __p)
+    if (v50 == __p)
     {
       goto LABEL_76;
     }
 
-    v145 = *__p;
-    *&v243 = &v236;
-    *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v239, v144) + 14) = v145;
+    v24 = *__p;
+    *&v55 = &v48;
+    *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v51, v23, &v55) + 14) = v24;
 LABEL_33:
-    v171 = v136[1];
-    if (v171)
+    v26 = v16[1];
+    if (v26)
     {
       do
       {
-        v172 = v171;
-        v171 = *v171;
+        v27 = v26;
+        v26 = *v26;
       }
 
-      while (v171);
+      while (v26);
     }
 
     else
     {
       do
       {
-        v172 = v136[2];
-        v173 = *v172 == v136;
-        v136 = v172;
+        v27 = v16[2];
+        v28 = *v27 == v16;
+        v16 = v27;
       }
 
-      while (!v173);
+      while (!v28);
     }
 
-    v136 = v172;
-    if (v172 == v137)
+    v16 = v27;
+    if (v27 == v17)
     {
       goto LABEL_39;
     }
   }
 
-  CGDataConsumerPrintf(v15, "1 beginbfchar\n", v127, v128, v129, v130, v131, v132, v228);
-  CGDataConsumerPrintf(v15, "<%0*x>", v146, v147, v148, v149, v150, v151, 4);
-  CGDataConsumerPrintf(v15, "<", v152, v153, v154, v155, v156, v157, v229);
-  v164 = 0;
+  CGDataConsumerPrintf(v9, "1 beginbfchar\n");
+  CGDataConsumerPrintf(v9, "<%0*x>", 4, v23);
+  CGDataConsumerPrintf(v9, "<");
+  v25 = 0;
   while (1)
   {
-    if (v164)
+    if (v25)
     {
-      CGDataConsumerPrintf(v15, " ", v158, v159, v160, v161, v162, v163, v230);
+      CGDataConsumerPrintf(v9, " ");
     }
 
-    if (v164 >= (v238 - __p) >> 1)
+    if (v25 >= (v50 - __p) >> 1)
     {
       break;
     }
 
-    CGDataConsumerPrintf(v15, "%04x", v158, v159, v160, v161, v162, v163, *(__p + v164++));
-    if (unichars == v164)
+    CGDataConsumerPrintf(v9, "%04x", *(__p + v25++));
+    if (unichars == v25)
     {
-      CGDataConsumerPrintf(v15, ">\n", v158, v159, v160, v161, v162, v163, v230);
-      CGDataConsumerPrintf(v15, "endbfchar\n", v165, v166, v167, v168, v169, v170, v231);
+      CGDataConsumerPrintf(v9, ">\n");
+      CGDataConsumerPrintf(v9, "endbfchar\n");
       goto LABEL_33;
     }
   }
@@ -869,44 +867,44 @@ void ToUnicode::write<std::vector<unsigned short>>(uint64_t a1, uint64_t a2, voi
     goto LABEL_64;
   }
 
-  v15 = v8;
-  CGDataConsumerPrintf(v8, "/CIDInit /ProcSet findresource begin\n", v9, v10, v11, v12, v13, v14, v191);
-  CGDataConsumerPrintf(v15, "12 dict begin\n", v16, v17, v18, v19, v20, v21, v192);
-  CGDataConsumerPrintf(v15, "begincmap\n", v22, v23, v24, v25, v26, v27, v193);
-  CGDataConsumerPrintf(v15, "/CIDSystemInfo <<\n", v28, v29, v30, v31, v32, v33, v194);
-  CGDataConsumerPrintf(v15, "  /Registry (Adobe)\n", v34, v35, v36, v37, v38, v39, v195);
-  CGDataConsumerPrintf(v15, "  /Ordering (UCS)\n", v40, v41, v42, v43, v44, v45, v196);
-  CGDataConsumerPrintf(v15, "  /Supplement 0\n", v46, v47, v48, v49, v50, v51, v197);
-  CGDataConsumerPrintf(v15, ">> def\n", v52, v53, v54, v55, v56, v57, v198);
-  CGDataConsumerPrintf(v15, "/CMapName /Adobe-Identity-UCS def\n", v58, v59, v60, v61, v62, v63, v199);
-  CGDataConsumerPrintf(v15, "/CMapType 2 def\n", v64, v65, v66, v67, v68, v69, v200);
-  CGDataConsumerPrintf(v15, "1 begincodespacerange\n", v70, v71, v72, v73, v74, v75, v201);
-  CGDataConsumerPrintf(v15, "<", v76, v77, v78, v79, v80, v81, v202);
-  CGDataConsumerPrintf(v15, "00", v82, v83, v84, v85, v86, v87, v203);
-  CGDataConsumerPrintf(v15, "><", v88, v89, v90, v91, v92, v93, v204);
-  CGDataConsumerPrintf(v15, "FF", v94, v95, v96, v97, v98, v99, v205);
-  CGDataConsumerPrintf(v15, ">\n", v100, v101, v102, v103, v104, v105, v206);
-  CGDataConsumerPrintf(v15, "endcodespacerange\n", v106, v107, v108, v109, v110, v111, v207);
-  v219[0] = 0;
-  v219[1] = 0;
-  v218 = v219;
-  v112 = *(*a1 + 16);
-  if (v112)
+  v9 = v8;
+  CGDataConsumerPrintf(v8, "/CIDInit /ProcSet findresource begin\n");
+  CGDataConsumerPrintf(v9, "12 dict begin\n");
+  CGDataConsumerPrintf(v9, "begincmap\n");
+  CGDataConsumerPrintf(v9, "/CIDSystemInfo <<\n");
+  CGDataConsumerPrintf(v9, "  /Registry (Adobe)\n");
+  CGDataConsumerPrintf(v9, "  /Ordering (UCS)\n");
+  CGDataConsumerPrintf(v9, "  /Supplement 0\n");
+  CGDataConsumerPrintf(v9, ">> def\n");
+  CGDataConsumerPrintf(v9, "/CMapName /Adobe-Identity-UCS def\n");
+  CGDataConsumerPrintf(v9, "/CMapType 2 def\n");
+  CGDataConsumerPrintf(v9, "1 begincodespacerange\n");
+  CGDataConsumerPrintf(v9, "<");
+  CGDataConsumerPrintf(v9, "00");
+  CGDataConsumerPrintf(v9, "><");
+  CGDataConsumerPrintf(v9, "FF");
+  CGDataConsumerPrintf(v9, ">\n");
+  CGDataConsumerPrintf(v9, "endcodespacerange\n");
+  v46[0] = 0;
+  v46[1] = 0;
+  v45 = v46;
+  v10 = *(*a1 + 16);
+  if (v10)
   {
-    get_unimap(v112);
-    v113 = 256;
+    get_unimap(v10);
+    v11 = 256;
   }
 
   else
   {
-    v113 = 0;
+    v11 = 0;
   }
 
-  std::vector<unsigned short>::vector[abi:fe200100](&v216, v113);
-  v119 = *(*a1 + 16);
-  v214 = a2;
-  v215 = v7;
-  if (v119 && (explicit = atomic_load_explicit((v119 + 88), memory_order_acquire)) != 0)
+  std::vector<unsigned short>::vector[abi:fe200100](&v43, v11);
+  v12 = *(*a1 + 16);
+  v41 = a2;
+  v42 = v7;
+  if (v12 && (explicit = atomic_load_explicit((v12 + 88), memory_order_acquire)) != 0)
   {
     Property = CGPropertiesGetProperty(explicit, @"com.apple.CoreGraphics.CGPDFFontToUnicodeCMap");
   }
@@ -920,58 +918,57 @@ void ToUnicode::write<std::vector<unsigned short>>(uint64_t a1, uint64_t a2, voi
   {
     if (Property)
     {
-      v123 = v216;
-      if (v217 == v216)
+      if (v44 == v43)
       {
         goto LABEL_67;
       }
 
-      v124 = *(Property[2] + 48);
-      if (!v124)
+      v16 = *(Property[2] + 48);
+      if (!v16)
       {
         continue;
       }
 
-      unichars = cmap_bf_set_get_unichars(*(v124 + 16), i, v216, v114, v115, v116, v117, v118);
+      unichars = cmap_bf_set_get_unichars(*(v16 + 16), i, v43);
     }
 
     else
     {
-      if (i >= (a3[1] - *a3) >> 1 || v217 == v216)
+      if (i >= (a3[1] - *a3) >> 1 || v44 == v43)
       {
         goto LABEL_67;
       }
 
-      unichars = CGFontGetUnicharsForGlyph(*(*a1 + 16), *(*a3 + 2 * i), v216);
+      unichars = CGFontGetUnicharsForGlyph(*(*a1 + 16), *(*a3 + 2 * i), v43);
     }
 
-    v126 = unichars;
-    LOWORD(v220) = i;
+    v18 = unichars;
+    LOWORD(v47) = i;
     if (unichars)
     {
       if (unichars != 1)
       {
-        CGDataConsumerPrintf(v15, "1 beginbfchar\n", v123, v114, v115, v116, v117, v118, v208);
-        CGDataConsumerPrintf(v15, "<%0*x>", v128, v129, v130, v131, v132, v133, 2);
-        CGDataConsumerPrintf(v15, "<", v134, v135, v136, v137, v138, v139, v209);
-        v146 = 0;
+        CGDataConsumerPrintf(v9, "1 beginbfchar\n");
+        CGDataConsumerPrintf(v9, "<%0*x>", 2, i);
+        CGDataConsumerPrintf(v9, "<");
+        v20 = 0;
         while (1)
         {
-          if (v146)
+          if (v20)
           {
-            CGDataConsumerPrintf(v15, " ", v140, v141, v142, v143, v144, v145, v210);
+            CGDataConsumerPrintf(v9, " ");
           }
 
-          if (v146 >= (v217 - v216) >> 1)
+          if (v20 >= v44 - v43)
           {
             break;
           }
 
-          CGDataConsumerPrintf(v15, "%04x", v140, v141, v142, v143, v144, v145, v216[v146++]);
-          if (v126 == v146)
+          CGDataConsumerPrintf(v9, "%04x", v43[v20++]);
+          if (v18 == v20)
           {
-            CGDataConsumerPrintf(v15, ">\n", v140, v141, v142, v143, v144, v145, v210);
-            CGDataConsumerPrintf(v15, "endbfchar\n", v147, v148, v149, v150, v151, v152, v211);
+            CGDataConsumerPrintf(v9, ">\n");
+            CGDataConsumerPrintf(v9, "endbfchar\n");
             goto LABEL_29;
           }
         }
@@ -981,158 +978,158 @@ LABEL_67:
         return;
       }
 
-      if (v217 == v216)
+      if (v44 == v43)
       {
         goto LABEL_67;
       }
 
-      v127 = *v216;
-      *&v222 = &v220;
-      *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v218, i) + 14) = v127;
+      v19 = *v43;
+      *&v49 = &v47;
+      *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v45, i, &v49) + 14) = v19;
     }
 
 LABEL_29:
     ;
   }
 
-  v223 = 0;
-  v153 = 0uLL;
-  v222 = 0u;
-  v154 = v218;
-  if (v218 != v219)
+  v50 = 0;
+  v21 = 0uLL;
+  v49 = 0u;
+  v22 = v45;
+  if (v45 != v46)
   {
     do
     {
-      v155 = 0;
-      v156 = *(v154 + 13);
-      v157 = *(v154 + 14);
-      v158 = v154;
-      while (v156 + v155 == *(v158 + 13) && v157 + v155 == *(v158 + 14))
+      v23 = 0;
+      v24 = *(v22 + 13);
+      v25 = *(v22 + 14);
+      v26 = v22;
+      while (v24 + v23 == *(v26 + 13) && v25 + v23 == *(v26 + 14))
       {
-        v159 = v158[1];
-        if (v159)
+        v27 = v26[1];
+        if (v27)
         {
           do
           {
-            v154 = v159;
-            v159 = *v159;
+            v22 = v27;
+            v27 = *v27;
           }
 
-          while (v159);
+          while (v27);
         }
 
         else
         {
           do
           {
-            v154 = v158[2];
-            v160 = *v154 == v158;
-            v158 = v154;
+            v22 = v26[2];
+            v28 = *v22 == v26;
+            v26 = v22;
           }
 
-          while (!v160);
+          while (!v28);
         }
 
-        ++v155;
-        v158 = v154;
-        if (v154 == v219)
+        ++v23;
+        v26 = v22;
+        if (v22 == v46)
         {
           goto LABEL_42;
         }
       }
 
-      v154 = v158;
+      v22 = v26;
 LABEL_42:
-      LOWORD(v220) = v156;
-      HIWORD(v220) = v155 + v156 - 1;
-      v221 = v157;
-      std::vector<ToUnicode::bfrange>::push_back[abi:fe200100](&v222, &v220);
+      LOWORD(v47) = v24;
+      HIWORD(v47) = v23 + v24 - 1;
+      v48 = v25;
+      std::vector<ToUnicode::bfrange>::push_back[abi:fe200100](&v49, &v47);
     }
 
-    while (v154 != v219);
-    v153 = v222;
+    while (v22 != v46);
+    v21 = v49;
   }
 
-  v161 = v153;
-  v162 = "%d beginbfrange\n";
-  v163 = v153;
-  while (*(&v161 + 1) != v163)
+  v29 = v21;
+  v30 = "%d beginbfrange\n";
+  v31 = v21;
+  while (*(&v29 + 1) != v31)
   {
-    v164 = 0;
-    v165 = v163;
+    v32 = 0;
+    v33 = v31;
     do
     {
-      v166 = v165;
-      v165 += 6;
-      if (v164 > 0x30)
+      v34 = v33;
+      v33 += 3;
+      if (v32 > 0x30)
       {
         break;
       }
 
-      ++v164;
+      ++v32;
     }
 
-    while (v165 != *(&v161 + 1));
-    if (v163 != v165)
+    while (v33 != *(&v29 + 1));
+    if (v31 != v33)
     {
-      v167 = v162;
-      CGDataConsumerPrintf(v15, v162, v123, v114, v115, v116, v117, v118, -85 * ((v165 - v163) >> 1));
+      v35 = v30;
+      CGDataConsumerPrintf(v9, v30, 0xAAAAAAAAAAAAAAABLL * (v33 - v31));
       do
       {
-        CGDataConsumerPrintf(v15, "<%0*x><%0*x><%04x>\n", v168, v169, v170, v171, v172, v173, 2);
-        v160 = v163 == v166;
-        v163 += 6;
+        CGDataConsumerPrintf(v9, "<%0*x><%0*x><%04x>\n", 2, *v31, 2, v31[1], v31[2]);
+        v28 = v31 == v34;
+        v31 += 3;
       }
 
-      while (!v160);
-      CGDataConsumerPrintf(v15, "endbfrange\n", v168, v169, v170, v171, v172, v173, v212);
-      v163 = v165;
-      v162 = v167;
+      while (!v28);
+      CGDataConsumerPrintf(v9, "endbfrange\n");
+      v31 = v33;
+      v30 = v35;
     }
   }
 
-  if (v161)
+  if (v29)
   {
-    operator delete(v161);
+    operator delete(v29);
   }
 
-  ToUnicode::write_epilog(v15, v162, v123, v114, v115, v116, v117, v118, v208);
-  v7 = v215;
-  if (v216)
+  ToUnicode::write_epilog(v9, v30);
+  v7 = v42;
+  if (v43)
   {
-    v217 = v216;
-    operator delete(v216);
+    v44 = v43;
+    operator delete(v43);
   }
 
-  std::__tree<unsigned long>::destroy(v219[0]);
-  if ((*(v15 + 56) & 1) == 0)
+  std::__tree<unsigned long>::destroy(v46[0]);
+  if ((*(v9 + 56) & 1) == 0)
   {
-    v174 = *(v15 + 12);
-    if (v174)
+    v36 = *(v9 + 12);
+    if (v36)
     {
-      v175 = *(v15 + 10);
-      if (v175)
+      v37 = *(v9 + 10);
+      if (v37)
       {
-        v175(*(v15 + 2));
-        v174 = *(v15 + 12);
+        v37(*(v9 + 2));
+        v36 = *(v9 + 12);
       }
 
-      v174(*(v15 + 2));
-      *(v15 + 56) = 1;
+      v36(*(v9 + 2));
+      *(v9 + 56) = 1;
     }
   }
 
-  CFRelease(v15);
-  v176 = PDFStreamCreateWithObjectNumber(**(*a1 + 8), v214);
-  PDFDocumentBeginObject(*v176, v176[1], v177, v178, v179, v180, v181, v182);
-  PDFDocumentPrintf(*v176, "<<", v183, v184, v185, v186, v187, v188, v213);
-  PDFStreamBeginData(v176);
-  BytePtr = CFDataGetBytePtr(v215);
-  Length = CFDataGetLength(v215);
-  CGDataConsumerPutBytes(v176[3], BytePtr, Length);
-  PDFStreamEndData(v176);
-  PDFStreamEnd(v176);
-  PDFStreamRelease(v176);
+  CFRelease(v9);
+  v38 = PDFStreamCreateWithObjectNumber(**(*a1 + 8), v41);
+  PDFDocumentBeginObject(*v38, v38[1]);
+  PDFDocumentPrintf(*v38, "<<");
+  PDFStreamBeginData(v38);
+  BytePtr = CFDataGetBytePtr(v42);
+  Length = CFDataGetLength(v42);
+  CGDataConsumerPutBytes(v38[3], BytePtr, Length);
+  PDFStreamEndData(v38);
+  PDFStreamEnd(v38);
+  PDFStreamRelease(v38);
 LABEL_64:
 
   CFRelease(v7);
@@ -1315,7 +1312,7 @@ LABEL_15:
   v6 = &a1[2 * v2];
   if (*v6 == 258)
   {
-    v7 = *(v6 + 8);
+    v7 = *(v6 + 1);
   }
 
   else
@@ -1325,7 +1322,7 @@ LABEL_15:
       goto LABEL_10;
     }
 
-    v7 = *(v6 + 8);
+    v7 = *(v6 + 2);
   }
 
   v8 = v2 - 2;
@@ -1333,7 +1330,7 @@ LABEL_15:
   v9 = &a1[2 * v8 + 2];
   if (*v9 == 258)
   {
-    v10 = *(v9 + 8);
+    v10 = *(v9 + 1);
     goto LABEL_12;
   }
 
@@ -1345,7 +1342,7 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  v10 = *(v9 + 8);
+  v10 = *(v9 + 2);
 LABEL_12:
   if (v7 == 0.0 && v10 == 0.0)
   {
@@ -1362,7 +1359,7 @@ LABEL_12:
 
   *a1 = v5;
   *v9 = 258;
-  *(v9 + 8) = v11;
+  *(v9 + 1) = v11;
   return 1;
 }
 
@@ -1535,7 +1532,7 @@ uint64_t type4_op_div(uint64_t *a1)
   v5 = &a1[2 * v1];
   if (*v5 == 258)
   {
-    v6 = *(v5 + 8);
+    v6 = *(v5 + 1);
   }
 
   else
@@ -1545,7 +1542,7 @@ uint64_t type4_op_div(uint64_t *a1)
       goto LABEL_10;
     }
 
-    v6 = *(v5 + 8);
+    v6 = *(v5 + 2);
   }
 
   v7 = v1 - 2;
@@ -1553,7 +1550,7 @@ uint64_t type4_op_div(uint64_t *a1)
   v8 = &a1[2 * v7 + 2];
   if (*v8 == 258)
   {
-    v9 = *(v8 + 8);
+    v9 = *(v8 + 1);
     goto LABEL_12;
   }
 
@@ -1565,13 +1562,13 @@ LABEL_10:
     goto LABEL_14;
   }
 
-  v9 = *(v8 + 8);
+  v9 = *(v8 + 2);
 LABEL_12:
   if (v6 != 0.0)
   {
     *a1 = v4;
     *v8 = 258;
-    *(v8 + 8) = v9 / v6;
+    *(v8 + 1) = v9 / v6;
     return 1;
   }
 
@@ -1599,7 +1596,7 @@ LABEL_15:
   v6 = &a1[2 * v2];
   if (*v6 == 258)
   {
-    v7 = *(v6 + 8);
+    v7 = *(v6 + 1);
   }
 
   else
@@ -1609,7 +1606,7 @@ LABEL_15:
       goto LABEL_10;
     }
 
-    v7 = *(v6 + 8);
+    v7 = *(v6 + 2);
   }
 
   v8 = v2 - 2;
@@ -1617,7 +1614,7 @@ LABEL_15:
   v9 = &a1[2 * v8 + 2];
   if (*v9 == 258)
   {
-    v10 = *(v9 + 8);
+    v10 = *(v9 + 1);
     goto LABEL_12;
   }
 
@@ -1629,7 +1626,7 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  v10 = *(v9 + 8);
+  v10 = *(v9 + 2);
 LABEL_12:
   if (v10 < 0.0 && modf(v7, &__y) != 0.0)
   {
@@ -1641,7 +1638,7 @@ LABEL_12:
   v11 = pow(v10, v7);
   *a1 = v5;
   *v9 = 258;
-  *(v9 + 8) = v11;
+  *(v9 + 1) = v11;
   return 1;
 }
 
@@ -2560,30 +2557,30 @@ LABEL_10:
   return 1;
 }
 
-uint64_t type4_op_if (uint64_t a1)
+uint64_t type4_op_if (uint64_t *a1, __n128 a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if ((*a1 + 1) <= 2)
   {
     result = 0;
-    v4 = 4;
+    v5 = 4;
 LABEL_8:
-    *(a1 + 3216) = v4;
+    *(a1 + 804) = v5;
     return result;
   }
 
-  *a1 = v2 - 1;
-  v5 = a1 + 16 + 16 * (v2 - 1);
-  if (*v5 != 259 || (v6 = *(v5 + 8), v7 = v2 - 2, *a1 = v7, v8 = a1 + 16 + 16 * v7, *v8 != 256))
+  *a1 = v3 - 1;
+  v6 = &a1[2 * v3];
+  if (*v6 != 259 || (v7 = v6[1], v8 = v3 - 2, *a1 = v8, v9 = &a1[2 * v8 + 2], *v9 != 256))
   {
     result = 0;
-    v4 = 2;
+    v5 = 2;
     goto LABEL_8;
   }
 
-  if (*(v8 + 8) == 1)
+  if (*(v9 + 8) == 1)
   {
-    return type4_program_execute(v6, a1);
+    return type4_program_execute(v7, a1);
   }
 
   else
@@ -2592,32 +2589,32 @@ LABEL_8:
   }
 }
 
-uint64_t type4_op_ifelse(uint64_t a1)
+uint64_t type4_op_ifelse(uint64_t *a1, __n128 a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if ((*a1 + 1) <= 3)
   {
-    v3 = 4;
+    v4 = 4;
 LABEL_10:
-    *(a1 + 3216) = v3;
+    *(a1 + 804) = v4;
     return 0;
   }
 
-  *a1 = v2 - 1;
-  v4 = a1 + 16;
-  v5 = a1 + 16 + 16 * (v2 - 1);
-  if (*v5 != 259 || (v6 = *(v5 + 8), *a1 = v2 - 2, v7 = v4 + 16 * (v2 - 2), *v7 != 259) || (v8 = *(v7 + 8), v9 = v2 - 3, *a1 = v9, v10 = v4 + 16 * v9, *v10 != 256))
+  *a1 = v3 - 1;
+  v5 = a1 + 2;
+  v6 = &a1[2 * v3];
+  if (*v6 != 259 || (v7 = v6[1], *a1 = v3 - 2, v8 = &v5[2 * v3 - 4], *v8 != 259) || (v9 = v8[1], v10 = v3 - 3, *a1 = v10, v11 = &v5[2 * v10], *v11 != 256))
   {
-    v3 = 2;
+    v4 = 2;
     goto LABEL_10;
   }
 
-  if (*(v10 + 8) == 1)
+  if (*(v11 + 8) == 1)
   {
-    v6 = v8;
+    v7 = v9;
   }
 
-  return type4_program_execute(v6, a1);
+  return type4_program_execute(v7, a1);
 }
 
 uint64_t type4_op_copy(uint64_t a1)
@@ -2841,7 +2838,7 @@ uint64_t type4_op_roll(uint64_t *a1)
           v23 = v13;
           do
           {
-            *v21++ = *&v14[16 * v22++];
+            *v21++ = *&v14[2 * v22++];
             --v23;
           }
 
@@ -2855,7 +2852,7 @@ uint64_t type4_op_roll(uint64_t *a1)
           v26 = v10 - 1 - v13;
           do
           {
-            *&v14[16 * v25--] = *&v14[16 * v26--];
+            *&v14[2 * v25--] = *&v14[2 * v26--];
           }
 
           while (!__CFADD__(v24++, 1));
@@ -2882,7 +2879,7 @@ uint64_t type4_op_roll(uint64_t *a1)
         do
         {
           *v15 = *(v15 + 16 * v10 - 16 * v13);
-          ++v15;
+          v15 += 2;
           --v16;
         }
 
@@ -2893,7 +2890,7 @@ uint64_t type4_op_roll(uint64_t *a1)
         }
 
         v17 = 16 * (v10 - v13);
-        v18 = &v14[16 * v13];
+        v18 = &v14[2 * v13];
       }
 
       memcpy(v18, v28, v17);
@@ -2946,14 +2943,14 @@ CGPDFStringRef CGPDFNameTreeGetValue(CGPDFDictionary *a1, uint64_t a2)
   return value_in_kid;
 }
 
-void sub_18408FE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_18408FE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::__unordered_map_hasher<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::hash<CGPDFFont *>,std::equal_to<CGPDFFont *>,true>,std::__unordered_map_equal<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::equal_to<CGPDFFont *>,std::hash<CGPDFFont *>,true>,std::allocator<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-CGPDFStringRef get_value_in_kid(CGPDFDictionary *a1, size_t *a2, void *a3)
+CGPDFStringRef get_value_in_kid(CGPDFDictionary *a1, size_t *a2, float *a3)
 {
   v30 = 0;
   dict = a1;
@@ -3039,7 +3036,7 @@ CGPDFStringRef get_value_in_kid(CGPDFDictionary *a1, size_t *a2, void *a3)
         return 0;
       }
 
-      v17 = a3[1];
+      v17 = *(a3 + 2);
       if (v17)
       {
         v18 = 0x9DDFEA08EB382D69 * ((8 * (dict & 0x1FFFFFFF) + 8) ^ (dict >> 32));
@@ -3117,7 +3114,7 @@ CGPDFStringRef get_value_in_kid(CGPDFDictionary *a1, size_t *a2, void *a3)
 
       if (string_compare(__s1, a2) < 1 && string_compare(a2, v32) <= 0)
       {
-        std::__hash_table<CGPDFDictionary *,std::hash<CGPDFDictionary *>,std::equal_to<CGPDFDictionary *>,std::allocator<CGPDFDictionary *>>::__emplace_unique_key_args<CGPDFDictionary *,CGPDFDictionary * const&>(a3, dict);
+        std::__hash_table<CGPDFDictionary *,std::hash<CGPDFDictionary *>,std::equal_to<CGPDFDictionary *>,std::allocator<CGPDFDictionary *>>::__emplace_unique_key_args<CGPDFDictionary *,CGPDFDictionary * const&>(a3, dict, &dict);
         return get_value_in_kid(dict, a2, a3);
       }
 
@@ -3147,8 +3144,8 @@ uint64_t string_compare(size_t *__s1, CGPDFString *a2)
     if (__s1[3])
     {
       decrypt_string(__s1);
-      v4 = *(v3 + 9);
-      if (*(v3 + 3))
+      v4 = v3[9];
+      if (v3[3])
       {
         decrypt_string(v3);
       }
@@ -3159,7 +3156,7 @@ uint64_t string_compare(size_t *__s1, CGPDFString *a2)
       v4 = __s1[9];
     }
 
-    v3 = (v3 + 80);
+    v3 += 10;
     if (a2)
     {
       goto LABEL_9;
@@ -3227,35 +3224,35 @@ LABEL_14:
   }
 }
 
-uint64_t std::__hash_table<CGPDFDictionary *,std::hash<CGPDFDictionary *>,std::equal_to<CGPDFDictionary *>,std::allocator<CGPDFDictionary *>>::__emplace_unique_key_args<CGPDFDictionary *,CGPDFDictionary * const&>(void *a1, unint64_t a2)
+uint64_t std::__hash_table<CGPDFDictionary *,std::hash<CGPDFDictionary *>,std::equal_to<CGPDFDictionary *>,std::allocator<CGPDFDictionary *>>::__emplace_unique_key_args<CGPDFDictionary *,CGPDFDictionary * const&>(float *a1, unint64_t a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -3263,39 +3260,39 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
@@ -3311,9 +3308,9 @@ void CGPDFGStateSynchronizeContextForText(uint64_t a1, CGContextRef c)
   }
 
   CGContextSetAlpha(c, 1.0);
-  v16.width = 0.0;
-  v16.height = 0.0;
-  CGContextSetPatternPhase(c, v16);
+  v10.width = 0.0;
+  v10.height = 0.0;
+  CGContextSetPatternPhase(c, v10);
   v4 = *(a1 + 128);
   if (v4 <= 6)
   {
@@ -3342,11 +3339,11 @@ LABEL_8:
 
 LABEL_11:
   CGPDFGStateSynchronizeColorRendering(a1, c);
-  CGPDFGStateSynchronizeRendering(a1, c, v8, v9, v10, v11, v12, v13);
-  v14 = *(a1 + 128);
-  if (v14 <= 7)
+  CGPDFGStateSynchronizeRendering(a1, c);
+  v8 = *(a1 + 128);
+  if (v8 <= 7)
   {
-    CGContextSetTextDrawingMode(c, dword_184564550[v14]);
+    CGContextSetTextDrawingMode(c, dword_184564550[v8]);
   }
 
   CGContextSetFontSize(c, 1.0);
@@ -3357,62 +3354,62 @@ void CGPDFGStateSynchronizeForImages(uint64_t a1, CGContextRef c)
   if (a1 && c)
   {
     CGContextSetAlpha(c, *(a1 + 216));
-    v11.width = 0.0;
-    v11.height = 0.0;
-    CGContextSetPatternPhase(c, v11);
+    v5.width = 0.0;
+    v5.height = 0.0;
+    CGContextSetPatternPhase(c, v5);
     CGPDFGStateSynchronizeColorRendering(a1, c);
 
-    CGPDFGStateSynchronizeRendering(a1, c, v4, v5, v6, v7, v8, v9);
+    CGPDFGStateSynchronizeRendering(a1, c);
   }
 }
 
 uint64_t __CGStyleFilterContextDelegateCreate(const void *a1)
 {
   v2 = ripc_Initialize();
-  Filter = CGContextDelegateCreateFilter(v2, a1, v3, v4, v5, v6, v7, v8);
-  v17 = Filter;
+  Filter = CGContextDelegateCreateFilter(v2, a1);
+  v4 = Filter;
   if (Filter)
   {
     *(Filter + 24) = rips_Finalize;
-    v18 = &off_1EF239788;
+    v5 = &off_1EF239788;
     *(Filter + 32) = rips_GetColorTransform;
-    v19 = 7;
+    v6 = 7;
     do
     {
-      v20 = *(v18 - 2);
-      if (!a1 || (v21 = get_callback_address(a1, *(v18 - 2), "CGContextDelegateImplementsCallback", v12, v13, v14, v15, v16)) != 0 && *v21)
+      v7 = *(v5 - 2);
+      if (!a1 || (v8 = get_callback_address(a1, *(v5 - 2), "CGContextDelegateImplementsCallback")) != 0 && *v8)
       {
-        v22 = *v18;
-        callback_address = get_callback_address(v17, v20, "CGContextDelegateSetCallback", v12, v13, v14, v15, v16);
+        v9 = *v5;
+        callback_address = get_callback_address(v4, v7, "CGContextDelegateSetCallback");
         if (callback_address)
         {
-          *callback_address = v22;
+          *callback_address = v9;
         }
       }
 
-      v18 += 2;
-      --v19;
+      v5 += 2;
+      --v6;
     }
 
-    while (v19);
+    while (v6);
   }
 
   else
   {
-    CGPostError("Failed to create style context delegate", v10, v11, v12, v13, v14, v15, v16, v25);
+    CGPostError("Failed to create style context delegate");
     if (*v2)
     {
       CFRelease(*v2);
     }
   }
 
-  return v17;
+  return v4;
 }
 
 uint64_t rips_DrawDisplayList(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = a1;
-  v140 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v8 = *(*(a3 + 120) + 16);
@@ -3420,8 +3417,8 @@ uint64_t rips_DrawDisplayList(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     {
       v9 = 0;
 LABEL_6:
-      memset(v111, 0, sizeof(v111));
-      v10 = rips_Acquire(v9, a2, v8, v111);
+      memset(v77, 0, sizeof(v77));
+      v10 = rips_Acquire(v9, a2, v8, v77);
       if (!v10)
       {
         CFRetain(v8);
@@ -3439,12 +3436,12 @@ LABEL_6:
         v11 = 0;
       }
 
-      v122 = 0u;
-      v123 = 0u;
-      v121 = 0u;
-      v119 = 0;
+      v88 = 0u;
+      v89 = 0u;
+      v87 = 0u;
+      v85 = 0;
       space = 0;
-      if (!ripc_GetRenderingState(v11, a2, a3, &v121))
+      if (!ripc_GetRenderingState(v11, a2, a3, &v87))
       {
         goto LABEL_42;
       }
@@ -3482,7 +3479,7 @@ LABEL_6:
         v25 = a4[4];
         if (v25)
         {
-          memset(&v126, 0, 32);
+          memset(&v92, 0, 32);
           if (kCGColorSpace_block_invoke_once != -1)
           {
             dispatch_once(&kCGColorSpace_block_invoke_once, &__block_literal_global_75_23302);
@@ -3498,53 +3495,54 @@ LABEL_6:
             dispatch_once(&kCGColorContentHeadroom_block_invoke_once, &__block_literal_global_36_2440);
           }
 
-          CGCFDictionaryGetCFTypeRef(v25, @"kCGContextBackgroundColor", CGColorGetTypeID_color_type_id, &v119);
-          if (CGCFDictionaryGetRect(v25, @"kCGContextBoundingBox", &v126))
+          CGCFDictionaryGetCFTypeRef(v25, @"kCGContextBackgroundColor", CGColorGetTypeID_color_type_id, &v85);
+          if (CGCFDictionaryGetRect(v25, @"kCGContextBoundingBox", &v92))
           {
-            v148.origin.x = v126.a;
-            v148.origin.y = v126.b;
-            v148.size.width = v126.c;
-            v148.size.height = v126.d;
-            v142.origin.x = x;
-            v142.origin.y = y;
-            v142.size.width = width;
-            v142.size.height = height;
-            v143 = CGRectIntersection(v142, v148);
-            x = v143.origin.x;
-            y = v143.origin.y;
-            width = v143.size.width;
-            height = v143.size.height;
+            v114.origin.x = v92.a;
+            v114.origin.y = v92.b;
+            v114.size.width = v92.c;
+            v114.size.height = v92.d;
+            v108.origin.x = x;
+            v108.origin.y = y;
+            v108.size.width = width;
+            v108.size.height = height;
+            v109 = CGRectIntersection(v108, v114);
+            x = v109.origin.x;
+            y = v109.origin.y;
+            width = v109.size.width;
+            height = v109.size.height;
           }
 
 LABEL_37:
           v27 = *(a3 + 40);
-          *&v126.a = *(a3 + 24);
-          *&v126.c = v27;
-          *&v126.tx = *(a3 + 56);
+          *&v92.a = *(a3 + 24);
+          *&v92.c = v27;
+          *&v92.tx = *(a3 + 56);
           v28 = x;
           *&v27 = y;
           v29 = width;
           v30 = height;
-          v144 = CGRectApplyAffineTransform(*(&v27 - 8), &v126);
-          v149.origin.x = SDWORD2(v122);
-          v149.origin.y = SHIDWORD(v122);
-          v149.size.width = v123;
-          v149.size.height = SDWORD1(v123);
-          v145 = CGRectIntersection(v144, v149);
-          v31 = v145.origin.x;
-          if (v145.origin.x == INFINITY || v145.origin.y == INFINITY)
+          v110 = CGRectApplyAffineTransform(*(&v27 - 8), &v92);
+          v115.origin.x = SDWORD2(v88);
+          v115.origin.y = SHIDWORD(v88);
+          v115.size.width = v89;
+          v115.size.height = SDWORD1(v89);
+          *v32.n128_u64 = CGRectIntersection(v110, v115);
+          v31 = v32.n128_f64[0];
+          v32.n128_u64[0] = 0x7FF0000000000000;
+          if (v31 == INFINITY || v111.origin.y == INFINITY)
           {
             goto LABEL_42;
           }
 
-          v35 = v145.size.width;
-          if (v145.size.width == 0.0)
+          v36 = v111.size.width;
+          if (v111.size.width == 0.0)
           {
             goto LABEL_42;
           }
 
-          v36 = v145.size.height;
-          if (v145.size.height == 0.0)
+          v37 = v111.size.height;
+          if (v111.size.height == 0.0)
           {
             goto LABEL_42;
           }
@@ -3552,116 +3550,116 @@ LABEL_37:
           Copy = a3;
           if (!v26)
           {
-            v38 = v145.origin.y;
-            v39 = *(v11 + 200);
-            v40 = *(v11 + 120);
-            if (v39 == v40)
+            v39 = v111.origin.y;
+            v40 = *(v11 + 200);
+            v41 = *(v11 + 120);
+            if (v40 == v41)
             {
-              if (v39)
+              if (v40)
               {
                 CFRetain(*(v11 + 120));
               }
 
-              v43 = *(v11 + 48);
-              if (v43)
+              v44 = *(v11 + 48);
+              if (v44)
               {
-                v42 = *(v43 + 32);
+                v43 = *(v44 + 32);
               }
 
               else
               {
-                v42 = 0;
+                v43 = 0;
               }
             }
 
             else
             {
-              v41 = *(v11 + 48);
-              if (v41)
+              v42 = *(v11 + 48);
+              if (v42)
               {
-                v42 = *(v41 + 32);
+                v43 = *(v42 + 32);
               }
 
               else
               {
-                v42 = 0;
+                v43 = 0;
               }
 
-              if (space && CGColorTransformConvertNeedsCMS(*(v11 + 120), space, 0) && (Model = CGColorSpaceGetModel(space), Model <= kCGColorSpaceModelCMYK) && (v51 = RIPLayerDepthForModel(Model, *v42, v45, v46, v47, v48, v49, v50)) != 0 && (v52 = v51, (v53 = color_transform_create(space, 0)) != 0))
+              if (space && CGColorTransformConvertNeedsCMS(*(v11 + 120), space, 0) && (Model = CGColorSpaceGetModel(space), Model <= kCGColorSpaceModelCMYK) && (v46 = RIPLayerDepthForModel(Model, *v43)) != 0 && (v47 = v46, (v48 = color_transform_create(space, 0)) != 0))
               {
-                v40 = v53;
-                v42 = v52;
+                v41 = v48;
+                v43 = v47;
               }
 
               else
               {
-                v40 = *(v11 + 120);
-                if (v40)
+                v41 = *(v11 + 120);
+                if (v41)
                 {
                   CFRetain(*(v11 + 120));
                 }
               }
             }
 
-            v146.origin.x = v31;
-            v146.origin.y = v38;
-            v146.size.width = v35;
-            v146.size.height = v36;
-            v147 = CGRectIntegral(v146);
-            v61 = v147.origin.x;
-            v62 = v147.origin.y;
-            v63 = v147.size.width;
-            v64 = v147.size.height;
-            LODWORD(v126.a) = v147.origin.x;
-            HIDWORD(v126.a) = v147.origin.y;
-            LODWORD(v126.b) = v147.size.width;
-            HIDWORD(v126.b) = v147.size.height;
-            if (v119)
+            v112.origin.x = v31;
+            v112.origin.y = v39;
+            v112.size.width = v36;
+            v112.size.height = v37;
+            v113 = CGRectIntegral(v112);
+            v49 = v113.origin.x;
+            v50 = v113.origin.y;
+            v51 = v113.size.width;
+            v52 = v113.size.height;
+            LODWORD(v92.a) = v113.origin.x;
+            HIDWORD(v92.a) = v113.origin.y;
+            LODWORD(v92.b) = v113.size.width;
+            HIDWORD(v92.b) = v113.size.height;
+            if (v85)
             {
-              if ((v119 & 0x8000000000000000) != 0)
+              if ((v85 & 0x8000000000000000) != 0)
               {
-                Alpha = CGTaggedColorGetAlpha(v119, v54, v55, v56, v57, v58, v59, v60);
+                Alpha = CGTaggedColorGetAlpha(v85);
               }
 
               else
               {
-                Alpha = *(v119 + 8 * *(v119 + 56) + 64);
+                Alpha = *(v85 + 8 * *(v85 + 56) + 64);
               }
 
               if (Alpha >= 1.0)
               {
-                v66 = 16;
+                v54 = 16;
               }
 
               else
               {
-                v66 = 17;
+                v54 = 17;
               }
             }
 
             else
             {
-              v66 = 17;
+              v54 = 17;
             }
 
             if (a2)
             {
-              v67 = *(a2 + 4);
+              v55 = *(a2 + 4);
             }
 
             else
             {
-              v67 = 3;
+              v55 = 3;
             }
 
-            v68 = RIPLayerCreate(RIPLayer_ripl_class, &v126, v66, v42, v67, v58, v59, v60);
-            if (!v68)
+            v56 = RIPLayerCreate(RIPLayer_ripl_class, &v92, v54, v43, v55);
+            if (!v56)
             {
-              if (v40)
+              if (v41)
               {
-                v86 = v40;
+                v66 = v41;
 LABEL_133:
-                CFRelease(v86);
+                CFRelease(v66);
               }
 
 LABEL_42:
@@ -3682,24 +3680,24 @@ LABEL_43:
               {
                 if (a4)
                 {
-                  v34 = CFRetain(a4);
+                  v35 = CFRetain(a4);
                 }
 
                 else
                 {
-                  v34 = 0;
+                  v35 = 0;
                 }
 
                 v16 = 0;
-                *&v10[4].f64[1] = v34;
+                *&v10[4].f64[1] = v35;
               }
 
               else if ((v15 & 0x200) != 0 && v7)
               {
-                v33 = *(v7 + 128);
-                if (v33)
+                v34 = *(v7 + 128);
+                if (v34)
                 {
-                  v16 = v33(v7, a2, a3, a4);
+                  v16 = v34(v7, a2, a3, a4);
                   if (!v10)
                   {
                     goto LABEL_56;
@@ -3733,10 +3731,10 @@ LABEL_56:
               return v16;
             }
 
-            v69 = v68;
+            v57 = v56;
             v26 = ripc_Initialize();
-            *(v26 + 6) = v69;
-            *(v26 + 2) = v40;
+            *(v26 + 6) = v57;
+            *(v26 + 2) = v41;
             *(v26 + 24) = *(v11 + 24);
             Copy = CGGStateCreateCopy(a3);
             CGGStateSetCompositeOperation(Copy, 2);
@@ -3750,126 +3748,126 @@ LABEL_56:
             CGGStateSetSoftMask(Copy, 0);
             CGGStateResetClip(Copy);
             *(Copy + 24) = CGAffineTransformIdentity;
-            CGGStateClipToRect(Copy, v61, v62, v63, v64);
-            v70 = *(a3 + 24);
-            v71 = *(a3 + 40);
+            CGGStateClipToRect(Copy, v49, v50, v51, v52);
+            v32 = *(a3 + 24);
+            v58 = *(a3 + 40);
             *(Copy + 56) = *(a3 + 56);
-            *(Copy + 40) = v71;
-            *(Copy + 24) = v70;
+            *(Copy + 40) = v58;
+            *(Copy + 24) = v32;
             *(v26 + 54) = *(v11 + 216);
           }
 
-          CGDisplayListDelegateDrawDisplayList(*v26, a2, Copy, a4);
+          CGDisplayListDelegateDrawDisplayList(*v26, a2, Copy, a4, v32);
           if (v26 == v11)
           {
             goto LABEL_42;
           }
 
           CGGStateRelease(Copy);
-          v72 = *(v26 + 6);
-          if ((*(*v72 + 32))(v72, 16, 0))
+          v59 = *(v26 + 6);
+          if ((*(*v59 + 32))(v59, 16, 0))
           {
-            v136 = xmmword_184562D30;
-            v137 = xmmword_184562D40;
-            v138 = xmmword_184562D50;
-            v139 = 0;
-            v132 = xmmword_184562CF0;
-            v133 = unk_184562D00;
-            v134 = xmmword_184562D10;
-            v135 = unk_184562D20;
-            v128 = xmmword_184562CB0;
-            v129 = unk_184562CC0;
-            v130 = xmmword_184562CD0;
-            v131 = unk_184562CE0;
-            memset(&v126, 0, sizeof(v126));
-            v127 = unk_184562CA0;
-            v118 = 0;
-            v116 = 0u;
-            v117 = 0u;
-            v115 = 0u;
-            if (*(v72 + 20) < 1 || *(v72 + 24) < 1 || !*(v72 + 56))
+            v102 = xmmword_184562D30;
+            v103 = xmmword_184562D40;
+            v104 = xmmword_184562D50;
+            v105 = 0;
+            v98 = xmmword_184562CF0;
+            v99 = unk_184562D00;
+            v100 = xmmword_184562D10;
+            v101 = unk_184562D20;
+            v94 = xmmword_184562CB0;
+            v95 = unk_184562CC0;
+            v96 = xmmword_184562CD0;
+            v97 = unk_184562CE0;
+            memset(&v92, 0, sizeof(v92));
+            v93 = unk_184562CA0;
+            v84 = 0;
+            v82 = 0u;
+            v83 = 0u;
+            v81 = 0u;
+            if (*(v59 + 20) < 1 || *(v59 + 24) < 1 || !*(v59 + 56))
             {
 LABEL_129:
-              (*(*v72 + 48))(v72, 0);
+              (*(*v59 + 48))(v59, 0);
               goto LABEL_132;
             }
 
-            v80 = *(*(a3 + 120) + 4);
-            v81 = v80 << 12;
-            if (((v80 >> 20) & 0xF) != 0)
+            v60 = *(*(a3 + 120) + 4);
+            v61 = v60 << 12;
+            if (((v60 >> 20) & 0xF) != 0)
             {
-              v82 = v80 << 8;
+              v62 = v60 << 8;
             }
 
             else
             {
-              v82 = v80 << 12;
+              v62 = v60 << 12;
             }
 
-            if (!(v82 >> 28))
+            if (!(v62 >> 28))
             {
-              v82 = v81;
+              v62 = v61;
             }
 
-            v83 = (v82 >> 28);
+            v63 = (v62 >> 28);
             Cache = CGColorTransformGetCache(*(v26 + 2));
             if (Cache)
             {
-              v85 = Cache[2];
+              v65 = Cache[2];
             }
 
             else
             {
-              v85 = 0;
+              v65 = 0;
             }
 
-            v109 = v85;
-            if ((CGColorTransformConvertNeedsCMS(*(v11 + 120), v85, v83) & 1) == 0)
+            v75 = v65;
+            if ((CGColorTransformConvertNeedsCMS(*(v11 + 120), v65, v63) & 1) == 0)
             {
-              v110 = 0;
-              tx = *(v72 + 32);
-              v126.tx = tx;
-              DWORD2(v127) = *(v72 + 20);
-              LODWORD(v126.ty) = DWORD2(v127);
-              HIDWORD(v127) = *(v72 + 24);
-              *&v127 = 0;
-              HIDWORD(v126.ty) = HIDWORD(v127);
-              LODWORD(v128) = *(v72 + 48);
-              *(&v128 + 1) = *(v72 + 56);
-              *(&v129 + 1) = *(v72 + 72);
-              LODWORD(v129) = *(v72 + 64);
-              v130 = 0uLL;
+              v76 = 0;
+              tx = *(v59 + 32);
+              v92.tx = tx;
+              DWORD2(v93) = *(v59 + 20);
+              LODWORD(v92.ty) = DWORD2(v93);
+              HIDWORD(v93) = *(v59 + 24);
+              *&v93 = 0;
+              HIDWORD(v92.ty) = HIDWORD(v93);
+              LODWORD(v94) = *(v59 + 48);
+              *(&v94 + 1) = *(v59 + 56);
+              *(&v95 + 1) = *(v59 + 72);
+              LODWORD(v95) = *(v59 + 64);
+              v96 = 0uLL;
 LABEL_118:
-              if (*&tx == RIPGetDepthForLayerFormat(0, v87, v88, v89, v90, v91, v92, v93))
+              if (*&tx == RIPGetDepthForLayerFormat(0))
               {
-                v126.tx = 0.0;
+                v92.tx = 0.0;
               }
 
-              else if (*&v126.tx)
+              else if (*&v92.tx)
               {
-                v107 = 0;
+                v73 = 0;
 LABEL_125:
-                v115 = *(v72 + 12);
-                v118 = 0;
-                *&v117 = 0;
-                v116 = &v126;
-                DWORD2(v117) = 0;
-                ripc_RenderImage(v11, a2, a3, &v121, &v115, &v115, v105, v106);
-                if (v107)
+                v81 = *(v59 + 12);
+                v84 = 0;
+                *&v83 = 0;
+                v82 = &v92;
+                DWORD2(v83) = 0;
+                ripc_RenderImage(v11, a2, a3, &v87, &v81, &v81);
+                if (v73)
                 {
-                  CGGStateSetFillColor(a3, v107);
+                  CGGStateSetFillColor(a3, v73);
                 }
 
-                if (v110)
+                if (v76)
                 {
-                  CGSImageDataUnlock(v110);
+                  CGSImageDataUnlock(v76);
                 }
 
                 goto LABEL_129;
               }
 
               FillColor = CGGStateGetFillColor(a3);
-              v107 = FillColor;
+              v73 = FillColor;
               if (FillColor)
               {
                 CFRetain(FillColor);
@@ -3879,32 +3877,32 @@ LABEL_125:
               goto LABEL_125;
             }
 
-            v112 = 0;
-            v94 = *(v72 + 24);
-            v113 = *(v72 + 20);
-            v114 = v94;
-            v95 = *(v72 + 48);
-            v96 = *(v72 + 72);
-            v125[0] = *(v72 + 56);
-            v125[1] = v96;
-            v97 = *(v72 + 64);
-            v124[0] = v95;
-            v124[1] = v97;
-            v98 = CGSImageDataLockPixels(v113, v94, v125, v124, *(v72 + 32), v109, v113, v94, &v112, v83, *(v11 + 120), *(v11 + 216), *(*(v11 + 48) + 32));
-            if (v98)
+            v78 = 0;
+            v67 = *(v59 + 24);
+            v79 = *(v59 + 20);
+            v80 = v67;
+            v68 = *(v59 + 48);
+            v69 = *(v59 + 72);
+            v91[0] = *(v59 + 56);
+            v91[1] = v69;
+            v70 = *(v59 + 64);
+            v90[0] = v68;
+            v90[1] = v70;
+            v71 = CGSImageDataLockPixels(v79, v67, v91, v90, *(v59 + 32), v75, v79, v67, &v78, v63, *(v11 + 120), *(v11 + 216), *(*(v11 + 48) + 32));
+            if (v71)
             {
-              v110 = v98;
-              RIPImageDataInitialize(&v126, v11, v98, v99, v100, v101, v102, v103);
-              tx = v126.tx;
+              v76 = v71;
+              RIPImageDataInitialize(&v92, v11, v71);
+              tx = v92.tx;
               goto LABEL_118;
             }
 
-            (*(*v72 + 48))(v72, 0);
+            (*(*v59 + 48))(v59, 0);
           }
 
-          CGPostError("%s - Cannot acquire group image", v73, v74, v75, v76, v77, v78, v79, "ripc_DrawDisplayList");
+          CGPostError("%s - Cannot acquire group image", "ripc_DrawDisplayList");
 LABEL_132:
-          v86 = *v26;
+          v66 = *v26;
           if (*v26)
           {
             goto LABEL_133;
@@ -3966,15 +3964,15 @@ void *rips_Acquire(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 
   v10 = *(a2 + 40);
   __s2 = *(a2 + 24);
-  v37 = v10;
+  v30 = v10;
   v11 = *(a2 + 56);
-  v38 = v11;
+  v31 = v11;
   v11.n128_u64[0] = *(a1 + 40);
   if (v11.n128_f64[0] != 1.0)
   {
     __s2 = vmulq_n_f64(__s2, v11.n128_f64[0]);
-    v37 = vmulq_n_f64(v37, v11.n128_f64[0]);
-    v38 = vmulq_n_f64(v38, v11.n128_f64[0]);
+    v30 = vmulq_n_f64(v30, v11.n128_f64[0]);
+    v31 = vmulq_n_f64(v31, v11.n128_f64[0]);
   }
 
   if (v8)
@@ -3987,9 +3985,9 @@ void *rips_Acquire(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
         goto LABEL_17;
       }
 
-      v35 = v11;
+      v28 = v11;
       v13 = memcmp((v8 + 32), &__s2, 0x30uLL);
-      v11 = v35;
+      v11 = v28;
       if (!v13)
       {
         goto LABEL_17;
@@ -4023,8 +4021,8 @@ void *rips_Acquire(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
   *(v14 + 24) = v9;
   LOWORD(v12) = v15 | 0x1000;
   *(v14 + 12) = v15 | 0x1000;
-  v16 = v37;
-  v11 = v38;
+  v16 = v30;
+  v11 = v31;
   *(v14 + 32) = __s2;
   *(v14 + 48) = v16;
   *(v14 + 64) = v11;
@@ -4091,17 +4089,17 @@ LABEL_33:
   v25 = malloc_type_calloc(1uLL, 0x90uLL, 0xB2D0F6B3uLL);
   if (v25)
   {
-    v33 = v25;
+    v26 = v25;
     *v25 = RIPLayer_ripl_class;
     *(v25 + 8) = xmmword_18439C9A0;
     *(v25 + 3) = 8388606;
-    *(v25 + 4) = RIPGetDepthForLayerFormat(0, v26, v27, v28, v29, v30, v31, v32);
-    *(v33 + 5) = 0;
-    *(v33 + 12) = 0;
-    *(v33 + 7) = 0;
-    *(v33 + 16) = 0;
-    *(v33 + 9) = 0;
-    *(a1 + 48) = v33;
+    *(v25 + 4) = RIPGetDepthForLayerFormat(0);
+    *(v26 + 5) = 0;
+    *(v26 + 12) = 0;
+    *(v26 + 7) = 0;
+    *(v26 + 16) = 0;
+    *(v26 + 9) = 0;
+    *(a1 + 48) = v26;
     *(a1 + 24) = *(a2 + 8);
     if (a3)
     {
@@ -4455,8 +4453,8 @@ uint64_t rips_DrawShading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     {
       v9 = 0;
 LABEL_6:
-      memset(v25, 0, sizeof(v25));
-      v10 = rips_Acquire(v9, a2, v8, v25);
+      memset(v20, 0, sizeof(v20));
+      v10 = rips_Acquire(v9, a2, v8, v20);
       if (v10)
       {
         if (*v9)
@@ -4490,22 +4488,22 @@ LABEL_6:
 
       if ((v12 & 0x800) != 0)
       {
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v16, v17, v18, v19, v20, v21);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v16);
         *&v10[4].f64[1] = CGDisplayList;
         if (CGDisplayList)
         {
-          CG::DisplayList::createContextDelegate();
+          CG::DisplayList::createContextDelegate(CGDisplayList);
         }
 
-        v23 = 1000;
+        v18 = 1000;
       }
 
       else if ((v12 & 0x200) != 0 && v7)
       {
-        v22 = *(v7 + 96);
-        if (v22)
+        v17 = *(v7 + 96);
+        if (v17)
         {
-          v23 = v22(v7, a2, a3, a4);
+          v18 = v17(v7, a2, a3, a4);
           if (!v10)
           {
             goto LABEL_31;
@@ -4514,7 +4512,7 @@ LABEL_6:
 
         else
         {
-          v23 = 1006;
+          v18 = 1006;
           if (!v10)
           {
             goto LABEL_31;
@@ -4524,19 +4522,19 @@ LABEL_6:
 
       else
       {
-        v23 = 0;
+        v18 = 0;
         if (!v10)
         {
 LABEL_31:
           CGGStateSetStyle(a3, v8);
-          return v23;
+          return v18;
         }
       }
 
       rips_End(v10, v12, v7, a2);
       CGGStateSetStyle(a3, v8);
       rips_Release(v10);
-      return v23;
+      return v18;
     }
 
     return 0;
@@ -4574,8 +4572,8 @@ uint64_t rips_DrawGlyphs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     {
       v15 = 0;
 LABEL_6:
-      memset(v31, 0, sizeof(v31));
-      v16 = rips_Acquire(v15, a2, v14, v31);
+      memset(v26, 0, sizeof(v26));
+      v16 = rips_Acquire(v15, a2, v14, v26);
       if (v16)
       {
         if (*v15)
@@ -4609,22 +4607,22 @@ LABEL_6:
 
       if ((v18 & 0x800) != 0)
       {
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v22, v23, v24, v25, v26, v27);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v22);
         *&v16[4].f64[1] = CGDisplayList;
         if (CGDisplayList)
         {
-          CG::DisplayList::createContextDelegate();
+          CG::DisplayList::createContextDelegate(CGDisplayList);
         }
 
-        v29 = 1000;
+        v24 = 1000;
       }
 
       else if ((v18 & 0x200) != 0 && v13)
       {
-        v28 = *(v13 + 88);
-        if (v28)
+        v23 = *(v13 + 88);
+        if (v23)
         {
-          v29 = v28(v13, a2, a3, a4, a5, a6, a7);
+          v24 = v23(v13, a2, a3, a4, a5, a6, a7);
           if (!v16)
           {
             goto LABEL_31;
@@ -4633,7 +4631,7 @@ LABEL_6:
 
         else
         {
-          v29 = 1006;
+          v24 = 1006;
           if (!v16)
           {
             goto LABEL_31;
@@ -4643,19 +4641,19 @@ LABEL_6:
 
       else
       {
-        v29 = 0;
+        v24 = 0;
         if (!v16)
         {
 LABEL_31:
           CGGStateSetStyle(a3, v14);
-          return v29;
+          return v24;
         }
       }
 
       rips_End(v16, v18, v13, a2);
       CGGStateSetStyle(a3, v14);
       rips_Release(v16);
-      return v29;
+      return v24;
     }
 
     return 0;
@@ -4693,8 +4691,8 @@ uint64_t rips_DrawImage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, doub
     {
       v17 = 0;
 LABEL_6:
-      memset(v33, 0, sizeof(v33));
-      v18 = rips_Acquire(v17, a2, v16, v33);
+      memset(v28, 0, sizeof(v28));
+      v18 = rips_Acquire(v17, a2, v16, v28);
       if (v18)
       {
         if (*v17)
@@ -4728,22 +4726,22 @@ LABEL_6:
 
       if ((v20 & 0x800) != 0)
       {
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v24, v25, v26, v27, v28, v29);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v24);
         *&v18[4].f64[1] = CGDisplayList;
         if (CGDisplayList)
         {
-          CG::DisplayList::createContextDelegate();
+          CG::DisplayList::createContextDelegate(CGDisplayList);
         }
 
-        v31 = 1000;
+        v26 = 1000;
       }
 
       else if ((v20 & 0x200) != 0 && v15)
       {
-        v30 = *(v15 + 80);
-        if (v30)
+        v25 = *(v15 + 80);
+        if (v25)
         {
-          v31 = v30(v15, a2, a3, a4, a5, a6, a7, a8);
+          v26 = v25(v15, a2, a3, a4, a5, a6, a7, a8);
           if (!v18)
           {
             goto LABEL_31;
@@ -4752,7 +4750,7 @@ LABEL_6:
 
         else
         {
-          v31 = 1006;
+          v26 = 1006;
           if (!v18)
           {
             goto LABEL_31;
@@ -4762,19 +4760,19 @@ LABEL_6:
 
       else
       {
-        v31 = 0;
+        v26 = 0;
         if (!v18)
         {
 LABEL_31:
           CGGStateSetStyle(a3, v16);
-          return v31;
+          return v26;
         }
       }
 
       rips_End(v18, v20, v15, a2);
       CGGStateSetStyle(a3, v16);
       rips_Release(v18);
-      return v31;
+      return v26;
     }
 
     return 0;
@@ -4824,8 +4822,8 @@ uint64_t rips_DrawPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, CFTyp
     if (v10)
     {
 LABEL_5:
-      memset(v23, 0, sizeof(v23));
-      v12 = rips_Acquire(v11, a2, v10, v23);
+      memset(v18, 0, sizeof(v18));
+      v12 = rips_Acquire(v11, a2, v10, v18);
       if (v12)
       {
         CGContextDelegateDrawPath(*v11, a2, a3, a4, cf);
@@ -4851,30 +4849,30 @@ LABEL_5:
 
       if ((v13 & 0x800) != 0)
       {
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v15, v16, v17, v18, v19, v20);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v15);
         *&v12[4].f64[1] = CGDisplayList;
         if (CGDisplayList)
         {
-          CG::DisplayList::createContextDelegate();
+          CG::DisplayList::createContextDelegate(CGDisplayList);
         }
 
-        v21 = 1000;
+        v16 = 1000;
       }
 
       else if ((v13 & 0x200) != 0)
       {
-        v21 = CGContextDelegateDrawPath(v9, a2, a3, a4, cf);
+        v16 = CGContextDelegateDrawPath(v9, a2, a3, a4, cf);
         if (!v12)
         {
 LABEL_23:
           CGGStateSetStyle(a3, v10);
-          return v21;
+          return v16;
         }
       }
 
       else
       {
-        v21 = 0;
+        v16 = 0;
         if (!v12)
         {
           goto LABEL_23;
@@ -4884,7 +4882,7 @@ LABEL_23:
       rips_End(v12, v13, v9, a2);
       CGGStateSetStyle(a3, v10);
       rips_Release(v12);
-      return v21;
+      return v16;
     }
   }
 
@@ -4901,8 +4899,8 @@ uint64_t rips_DrawRects(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     {
       v13 = 0;
 LABEL_6:
-      memset(v29, 0, sizeof(v29));
-      v14 = rips_Acquire(v13, a2, v12, v29);
+      memset(v24, 0, sizeof(v24));
+      v14 = rips_Acquire(v13, a2, v12, v24);
       if (v14)
       {
         if (*v13)
@@ -4936,22 +4934,22 @@ LABEL_6:
 
       if ((v16 & 0x800) != 0)
       {
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v20, v21, v22, v23, v24, v25);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v20);
         *&v14[4].f64[1] = CGDisplayList;
         if (CGDisplayList)
         {
-          CG::DisplayList::createContextDelegate();
+          CG::DisplayList::createContextDelegate(CGDisplayList);
         }
 
-        v27 = 1000;
+        v22 = 1000;
       }
 
       else if ((v16 & 0x200) != 0 && v11)
       {
-        v26 = *(v11 + 64);
-        if (v26)
+        v21 = *(v11 + 64);
+        if (v21)
         {
-          v27 = v26(v11, a2, a3, a4, a5, a6);
+          v22 = v21(v11, a2, a3, a4, a5, a6);
           if (!v14)
           {
             goto LABEL_31;
@@ -4960,7 +4958,7 @@ LABEL_6:
 
         else
         {
-          v27 = 1006;
+          v22 = 1006;
           if (!v14)
           {
             goto LABEL_31;
@@ -4970,19 +4968,19 @@ LABEL_6:
 
       else
       {
-        v27 = 0;
+        v22 = 0;
         if (!v14)
         {
 LABEL_31:
           CGGStateSetStyle(a3, v12);
-          return v27;
+          return v22;
         }
       }
 
       rips_End(v14, v16, v11, a2);
       CGGStateSetStyle(a3, v12);
       rips_Release(v14);
-      return v27;
+      return v22;
     }
 
     return 0;
@@ -5037,8 +5035,8 @@ LABEL_8:
 
   v11 = *(a1 + 288);
 LABEL_5:
-  memset(v21, 0, sizeof(v21));
-  v12 = rips_Acquire(v11, a2, v10, v21);
+  memset(v16, 0, sizeof(v16));
+  v12 = rips_Acquire(v11, a2, v10, v16);
   if (v12)
   {
     CGContextDelegateDrawLines(*v11, a2, a3, a4, a5);
@@ -5064,11 +5062,11 @@ LABEL_5:
 
   if ((v13 & 0x800) != 0)
   {
-    CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v14, v15, v16, v17, v18, v19);
+    CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v14);
     *&v12[4].f64[1] = CGDisplayList;
     if (CGDisplayList)
     {
-      CG::DisplayList::createContextDelegate();
+      CG::DisplayList::createContextDelegate(CGDisplayList);
     }
   }
 
@@ -5361,7 +5359,7 @@ LABEL_20:
 
 void JBIG2Stream::readSegments(JBIG2Stream *this)
 {
-  v181 = *MEMORY[0x1E69E9840];
+  v179 = *MEMORY[0x1E69E9840];
   v2 = 0x100004052888210;
   v166 = 0;
   v164 = 0;
@@ -5546,9 +5544,9 @@ LABEL_30:
           {
             if (JBIG2Stream::readULong(this, this + 9))
             {
-              if (JBIG2Stream::readULong(this, &v177))
+              if (JBIG2Stream::readULong(this, v177))
               {
-                if (JBIG2Stream::readULong(this, v180))
+                if (JBIG2Stream::readULong(this, &v178))
                 {
                   v81 = (*(**(this + 10) + 32))(*(this + 10));
                   if (v81 != -1)
@@ -5617,17 +5615,17 @@ LABEL_30:
             v50 = (*(**(this + 10) + 32))(*(this + 10));
             if (v50 != -1)
             {
-              v177 = 0;
-              if (JBIG2Stream::readULong(this, &v177))
+              v177[0].i32[0] = 0;
+              if (JBIG2Stream::readULong(this, v177))
               {
-                v180[0] = 0;
-                if (JBIG2Stream::readULong(this, v180))
+                LODWORD(v178) = 0;
+                if (JBIG2Stream::readULong(this, &v178))
                 {
                   *(*(this + 30) + 8) = 0;
                   v51 = gmalloc_typed(0x80uLL, 0x1000040451B5BE8uLL);
                   v52 = (v50 >> 1) & 7;
-                  v53 = v177;
-                  if (v177 >= v180[0])
+                  v53 = v177[0].i32[0];
+                  if (v177[0].i32[0] >= v178)
                   {
                     v55 = 0;
                     v56 = 8;
@@ -5661,7 +5659,7 @@ LABEL_30:
                       v54 += 2;
                     }
 
-                    while (v53 < v180[0]);
+                    while (v53 < v178);
                   }
 
                   v112 = v50 & 1;
@@ -5672,11 +5670,11 @@ LABEL_30:
                   }
 
                   v114 = &v51[16 * v55];
-                  *v114 = v177 - 1;
+                  *v114 = v177[0].i32[0] - 1;
                   *(v114 + 1) = JBIG2HuffmanDecoder::readBits(*(this + 30), v52 + 1);
                   *(v114 + 2) = -3;
                   v115 = &v51[16 * (v55 + 1)];
-                  *v115 = v180[0];
+                  *v115 = v178;
                   *(v115 + 1) = JBIG2HuffmanDecoder::readBits(*(this + 30), v52 + 1);
                   *(v115 + 2) = 32;
                   v116 = v55 + 2;
@@ -5771,7 +5769,7 @@ LABEL_161:
                         v71 = v70;
                       }
 
-                      v177 = v71;
+                      v177[0].i32[0] = v71;
                       v72 = (*(**(this + 10) + 32))(*(this + 10));
                       if (v72 != -1)
                       {
@@ -5781,7 +5779,7 @@ LABEL_161:
                           v73 = v72;
                         }
 
-                        v180[0] = v73;
+                        LODWORD(v178) = v73;
                         v74 = (*(**(this + 10) + 32))(*(this + 10));
                         if (v74 != -1)
                         {
@@ -5791,7 +5789,7 @@ LABEL_161:
                             v75 = v74;
                           }
 
-                          LODWORD(v178) = v75;
+                          v177[0].i32[1] = v75;
                           v76 = (*(**(this + 10) + 32))(*(this + 10));
                           if (v76 != -1)
                           {
@@ -5801,7 +5799,7 @@ LABEL_161:
                               v77 = v76;
                             }
 
-                            v180[1] = v77;
+                            DWORD1(v178) = v77;
 LABEL_181:
                             if (((v7 != 0) & ~v26) == 0 && *(this + 9) == -1 && v174[0] + v172 > *(this + 10))
                             {
@@ -5812,7 +5810,7 @@ LABEL_181:
                             {
                               if (v7 != 1)
                               {
-                                JBIG2Bitmap::getSlice(*(this + 6));
+                                JBIG2Bitmap::getSlice(*(this + 6), v173, v172, v175, v174[0]);
                               }
 
                               Segment = JBIG2Stream::findSegment(this, *v15);
@@ -5822,7 +5820,7 @@ LABEL_181:
                                 v151 = v174[0];
                                 JBIG2Stream::resetRefinementStats(this, v69 & 1, 0);
                                 JArithmeticDecoder::start(*(this + 13));
-                                GenericRefinementRegion = JBIG2Stream::readGenericRefinementRegion(this, v150, v151, v69 & 1, (v69 >> 1) & 1, v129, 0, 0, &v177, v180);
+                                GenericRefinementRegion = JBIG2Stream::readGenericRefinementRegion(this, v150, v151, v69 & 1, (v69 >> 1) & 1, v129, 0, 0, v177[0].i32, &v178);
                                 v147 = GenericRefinementRegion;
                                 if (GenericRefinementRegion)
                                 {
@@ -5931,11 +5929,11 @@ LABEL_331:
               JArithmeticDecoder::start(*(this + 13));
             }
 
-            v177 = -v61;
-            v178 = 0x2FFFFFFFDLL;
-            v179 = -2;
-            *v180 = xmmword_18439C9C0;
-            JBIG2Stream::readGenericBitmap(this, v65, (v63 + 1) * v61, v62, v64, 0, 0, 0, &v177, v180, v59 - 7);
+            v177[0].i32[0] = -v61;
+            *(v177[0].i64 + 4) = 0x2FFFFFFFDLL;
+            v177[0].i32[3] = -2;
+            v178 = xmmword_18439C9C0;
+            JBIG2Stream::readGenericBitmap(this, v65, (v63 + 1) * v61, v62, v64, 0, 0, 0, v177, &v178, v59 - 7);
           }
         }
 
@@ -6087,7 +6085,7 @@ LABEL_80:
                     v33 = (v31 >> 3) & 1;
                     if (v31)
                     {
-                      JBIG2Stream::readGenericBitmap(this, 1, v175, v174[0], v32, v33, 0, 0, &v177, v180, v30 - 18);
+                      JBIG2Stream::readGenericBitmap(this, 1, v175, v174[0], v32, v33, 0, 0, v177, &v178, v30 - 18);
                     }
 
                     v34 = (*(**(this + 10) + 32))(*(this + 10));
@@ -6101,7 +6099,7 @@ LABEL_80:
                           v35 = v34;
                         }
 
-                        v177 = v35;
+                        v177[0].i32[0] = v35;
                         v36 = (*(**(this + 10) + 32))(*(this + 10));
                         if (v36 != -1)
                         {
@@ -6111,7 +6109,7 @@ LABEL_80:
                             v37 = v36;
                           }
 
-                          v180[0] = v37;
+                          LODWORD(v178) = v37;
                           v38 = v32;
                           goto LABEL_95;
                         }
@@ -6126,7 +6124,7 @@ LABEL_80:
                         v131 = v34;
                       }
 
-                      v177 = v131;
+                      v177[0].i32[0] = v131;
                       v132 = (*(**(this + 10) + 32))(*(this + 10));
                       if (v132 != -1)
                       {
@@ -6136,7 +6134,7 @@ LABEL_80:
                           v133 = v132;
                         }
 
-                        v180[0] = v133;
+                        LODWORD(v178) = v133;
                         v134 = (*(**(this + 10) + 32))(*(this + 10));
                         if (v134 != -1)
                         {
@@ -6146,7 +6144,7 @@ LABEL_80:
                             v135 = v134;
                           }
 
-                          LODWORD(v178) = v135;
+                          v177[0].i32[1] = v135;
                           v136 = (*(**(this + 10) + 32))(*(this + 10));
                           if (v136 != -1)
                           {
@@ -6156,7 +6154,7 @@ LABEL_80:
                               v137 = v136;
                             }
 
-                            v180[1] = v137;
+                            DWORD1(v178) = v137;
                             v138 = (*(**(this + 10) + 32))(*(this + 10));
                             if (v138 != -1)
                             {
@@ -6166,7 +6164,7 @@ LABEL_80:
                                 v139 = v138;
                               }
 
-                              HIDWORD(v178) = v139;
+                              v177[0].i32[2] = v139;
                               v140 = (*(**(this + 10) + 32))(*(this + 10));
                               if (v140 != -1)
                               {
@@ -6176,7 +6174,7 @@ LABEL_80:
                                   v141 = v140;
                                 }
 
-                                v180[2] = v141;
+                                DWORD2(v178) = v141;
                                 v142 = (*(**(this + 10) + 32))(*(this + 10));
                                 if (v142 != -1)
                                 {
@@ -6186,7 +6184,7 @@ LABEL_80:
                                     v143 = v142;
                                   }
 
-                                  v179 = v143;
+                                  v177[0].i32[3] = v143;
                                   v144 = (*(**(this + 10) + 32))(*(this + 10));
                                   if (v144 != -1)
                                   {
@@ -6197,11 +6195,11 @@ LABEL_80:
                                       v145 = v144;
                                     }
 
-                                    v180[3] = v145;
+                                    HIDWORD(v178) = v145;
 LABEL_95:
                                     JBIG2Stream::resetGenericStats(this, v38, 0);
                                     JArithmeticDecoder::start(*(this + 13));
-                                    JBIG2Stream::readGenericBitmap(this, 0, v175, v174[0], v32, v33, 0, 0, &v177, v180, 0);
+                                    JBIG2Stream::readGenericBitmap(this, 0, v175, v174[0], v32, v33, 0, 0, v177, &v178, 0);
                                   }
                                 }
                               }
@@ -6265,7 +6263,7 @@ LABEL_69:
                         v120 = v119;
                       }
 
-                      v180[0] = v120;
+                      LODWORD(v178) = v120;
                       v121 = (*(**(this + 10) + 32))(*(this + 10));
                       if (v121 != -1)
                       {
@@ -6285,7 +6283,7 @@ LABEL_69:
                             v124 = v123;
                           }
 
-                          v180[1] = v124;
+                          DWORD1(v178) = v124;
                           v125 = (*(**(this + 10) + 32))(*(this + 10));
                           if (v125 != -1)
                           {
@@ -6431,7 +6429,7 @@ LABEL_241:
       v89 = v46;
     }
 
-    v177 = v89;
+    v177[0].i32[0] = v89;
     v90 = (*(**(this + 10) + 32))(*(this + 10));
     if (v90 == -1)
     {
@@ -6444,7 +6442,7 @@ LABEL_241:
       v91 = v90;
     }
 
-    v180[0] = v91;
+    LODWORD(v178) = v91;
     v92 = (*(**(this + 10) + 32))(*(this + 10));
     if (v92 == -1)
     {
@@ -6457,7 +6455,7 @@ LABEL_241:
       v93 = v92;
     }
 
-    LODWORD(v178) = v93;
+    v177[0].i32[1] = v93;
     v94 = (*(**(this + 10) + 32))(*(this + 10));
     if (v94 == -1)
     {
@@ -6470,7 +6468,7 @@ LABEL_241:
       v95 = v94;
     }
 
-    v180[1] = v95;
+    DWORD1(v178) = v95;
     v96 = (*(**(this + 10) + 32))(*(this + 10));
     if (v96 == -1)
     {
@@ -6483,7 +6481,7 @@ LABEL_241:
       v97 = v96;
     }
 
-    HIDWORD(v178) = v97;
+    v177[0].i32[2] = v97;
     v98 = (*(**(this + 10) + 32))(*(this + 10));
     if (v98 == -1)
     {
@@ -6496,7 +6494,7 @@ LABEL_241:
       v99 = v98;
     }
 
-    v180[2] = v99;
+    DWORD2(v178) = v99;
     v100 = (*(**(this + 10) + 32))(*(this + 10));
     if (v100 == -1)
     {
@@ -6509,7 +6507,7 @@ LABEL_241:
       v101 = v100;
     }
 
-    v179 = v101;
+    v177[0].i32[3] = v101;
     v102 = (*(**(this + 10) + 32))(*(this + 10));
     if (v102 == -1)
     {
@@ -6522,7 +6520,7 @@ LABEL_241:
       v103 = v102;
     }
 
-    v180[3] = v103;
+    HIDWORD(v178) = v103;
 LABEL_240:
     v45 = v160;
     goto LABEL_241;
@@ -6536,7 +6534,7 @@ LABEL_240:
       v47 = v46;
     }
 
-    v177 = v47;
+    v177[0].i32[0] = v47;
     v48 = (*(**(this + 10) + 32))(*(this + 10));
     if (v48 != -1)
     {
@@ -6546,7 +6544,7 @@ LABEL_240:
         v49 = v48;
       }
 
-      v180[0] = v49;
+      LODWORD(v178) = v49;
       goto LABEL_240;
     }
   }
@@ -6784,7 +6782,7 @@ LABEL_20:
       v18 = 2;
       do
       {
-        v19 = v17 << (v16[1] - result[4 * v18 - 7]);
+        v19 = v17 << (v16[1] - result[4 * (v18 - 2) + 1]);
         v17 = v19 + 1;
         v16[3] = v19;
         v16 = &result[4 * v18++];
@@ -6797,7 +6795,7 @@ LABEL_20:
   return result;
 }
 
-void JBIG2Bitmap::JBIG2Bitmap(JBIG2Bitmap *this, int a2, int a3, signed int a4)
+void JBIG2Bitmap::JBIG2Bitmap(JBIG2Bitmap *this, int a2, int a3, unsigned int a4)
 {
   *(this + 2) = a2;
   *(this + 3) = a3;
@@ -6812,7 +6810,7 @@ void JBIG2Bitmap::JBIG2Bitmap(JBIG2Bitmap *this, int a2, int a3, signed int a4)
     v5 = 2;
   }
 
-  v6 = gmalloc_typed((v5 * a4 + 1), 0x100004077774924uLL);
+  v6 = gmalloc_typed(v5 * a4 + 1, 0x100004077774924uLL);
   *(this + 3) = v6;
   if (v6)
   {
@@ -6943,7 +6941,7 @@ void JBIG2Stream::resetRefinementStats(JBIG2Stream *this, unsigned int a2, JArit
   }
 }
 
-uint64_t JBIG2Stream::readGenericRefinementRegion(JBIG2Stream *this, int a2, int a3, int a4, int a5, JBIG2Bitmap *a6, int a7, int a8, int *a9, int *a10)
+uint64_t JBIG2Stream::readGenericRefinementRegion(JArithmeticDecoder **this, int a2, signed int a3, int a4, int a5, JBIG2Bitmap *a6, int a7, int a8, int *a9, int *a10)
 {
   if (a2 < 0x10000 && a3 < 0x10000)
   {
@@ -6953,7 +6951,7 @@ uint64_t JBIG2Stream::readGenericRefinementRegion(JBIG2Stream *this, int a2, int
   return 0;
 }
 
-uint64_t JBIG2Bitmap::combine(uint64_t this, JBIG2Bitmap *a2, int a3, int a4, int a5)
+uint64_t JBIG2Bitmap::combine(uint64_t this, JBIG2Bitmap *a2, unsigned int a3, int a4, int a5)
 {
   if (a2 && a4 != 0x80000000)
   {
@@ -6972,7 +6970,7 @@ uint64_t JBIG2Bitmap::combine(uint64_t this, JBIG2Bitmap *a2, int a3, int a4, in
       if (v10 < 1 || ((v11 = 0x7FFFFFFFu / v10, v5 + a4 <= v11) ? (v12 = v6 + a4 <= v11) : (v12 = 0), v12))
       {
         v13 = a3 & 0x7FFFFFF8 & ~(a3 >> 31);
-        v14 = *(a2 + 3) + a3 >= *(this + 12) ? *(this + 12) : *(a2 + 3) + a3;
+        v14 = (*(a2 + 3) + a3) >= *(this + 12) ? *(this + 12) : *(a2 + 3) + a3;
         if (v13 < v14)
         {
           v15 = a3 & 7;
@@ -6995,7 +6993,7 @@ uint64_t JBIG2Bitmap::combine(uint64_t this, JBIG2Bitmap *a2, int a3, int a4, in
               break;
             }
 
-            if (a3 < 0)
+            if ((a3 & 0x80000000) != 0)
             {
               v40 = *v22;
               v41 = *(*(a2 + 3) + *(a2 + 5) * v5 + v19);
@@ -7080,7 +7078,7 @@ LABEL_90:
             }
           }
 
-          if (a3 < 0)
+          if ((a3 & 0x80000000) != 0)
           {
             v39 = 0;
             v32 = (*(a2 + 3) + *(a2 + 5) * v5 + v19);
@@ -7302,7 +7300,7 @@ LABEL_5:
   return this;
 }
 
-uint64_t JBIG2Bitmap::clearPixel(uint64_t this, unsigned int a2, int a3)
+uint64_t JBIG2Bitmap::clearPixel(uint64_t this, signed int a2, int a3)
 {
   if ((a2 & 0x80000000) == 0 && (a3 & 0x80000000) == 0 && *(this + 12) > a2 && *(this + 16) > a3)
   {
@@ -7313,7 +7311,7 @@ uint64_t JBIG2Bitmap::clearPixel(uint64_t this, unsigned int a2, int a3)
   return this;
 }
 
-uint64_t JBIG2Bitmap::setPixel(uint64_t this, unsigned int a2, int a3)
+uint64_t JBIG2Bitmap::setPixel(uint64_t this, signed int a2, int a3)
 {
   if ((a2 & 0x80000000) == 0 && (a3 & 0x80000000) == 0 && *(this + 12) > a2 && *(this + 16) > a3)
   {
@@ -7324,9 +7322,9 @@ uint64_t JBIG2Bitmap::setPixel(uint64_t this, unsigned int a2, int a3)
   return this;
 }
 
-uint64_t JBIG2Bitmap::getPixel(JBIG2Bitmap *this, unsigned int a2, int a3)
+uint64_t JBIG2Bitmap::getPixel(JBIG2Bitmap *this, signed int a2, int a3)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -7562,7 +7560,7 @@ LABEL_12:
   return 1;
 }
 
-uint64_t JBIG2HuffmanDecoder::decodeInt(JBIG2HuffmanDecoder *this, _DWORD *a2, int *a3)
+uint64_t JBIG2HuffmanDecoder::decodeInt(JBIG2HuffmanDecoder *this, int *a2, int *a3)
 {
   if (a3[2] == -1)
   {
@@ -7877,53 +7875,53 @@ void JBIG2Stream::~JBIG2Stream(void ***this)
   }
 }
 
-void CGPDFDrawingContextDrawImage(uint64_t a1, CGImage *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGPDFDrawingContextDrawImage(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 192))
   {
-    v10 = a2 == 0;
+    v4 = a2 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v4 = 1;
   }
 
-  if (!v10 && (v11 = *(a2 + 3)) != 0 && (v12 = *(v11 + 48)) != 0 && (image_filter_name = get_image_filter_name(v12)) != 0 && (v14 = image_filter_name, v15 = *MEMORY[0x1E695E480], v16 = CFStringCreateWithCString(*MEMORY[0x1E695E480], image_filter_name, 0x8000100u), *&keys.a = @"kCGPDFImageCallbackInfoKeyImageFilter", *&values[4] = v16, v17 = CFDictionaryCreate(v15, &keys, &values[4], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), CFRelease(v16), LOBYTE(v16) = (*(*(a1 + 192) + 16))(), CFRelease(v17), (v16 & 1) == 0))
+  if (!v4 && (v5 = *(a2 + 24)) != 0 && (v6 = *(v5 + 48)) != 0 && (image_filter_name = get_image_filter_name(v6)) != 0 && (v8 = image_filter_name, v9 = *MEMORY[0x1E695E480], v10 = CFStringCreateWithCString(*MEMORY[0x1E695E480], image_filter_name, 0x8000100u), *&keys.a = @"kCGPDFImageCallbackInfoKeyImageFilter", *&values[4] = v10, v11 = CFDictionaryCreate(v9, &keys, &values[4], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), CFRelease(v10), LOBYTE(v10) = (*(*(a1 + 192) + 16))(), CFRelease(v11), (v10 & 1) == 0))
   {
-    pdf_log("Skipping image with filter (%s)", v14);
+    pdf_log("Skipping image with filter (%s)", v8);
   }
 
   else
   {
     *values = 0;
-    v18 = *a1;
-    Type = CGContextGetType(*(a1 + 88), a2, a3, a4, a5, a6, a7, a8);
-    v20 = 0uLL;
+    v12 = *a1;
+    Type = CGContextGetType(*(a1 + 88));
+    v14 = 0uLL;
     if (Type == 8 || Type == 4)
     {
       memset(&keys, 0, sizeof(keys));
       CGContextGetCTM(&keys, *(a1 + 88));
-      v20 = vrndpq_f64(vabsq_f64(vaddq_f64(*&keys.a, *&keys.c)));
+      v14 = vrndpq_f64(vabsq_f64(vaddq_f64(*&keys.a, *&keys.c)));
     }
 
-    ImageForRenderingSize = CGPDFImageCreateImageForRenderingSize(a2, v18, v20.f64[0], v20.f64[1]);
+    ImageForRenderingSize = CGPDFImageCreateImageForRenderingSize(a2, v12, v14.f64[0], v14.f64[1]);
     if (ImageForRenderingSize)
     {
-      v28 = ImageForRenderingSize;
-      v29 = *(a1 + 32);
-      v30 = *(a1 + 88);
-      if ((*(ImageForRenderingSize + 39) & 2) != 0)
+      v17 = ImageForRenderingSize;
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 88);
+      if ((ImageForRenderingSize[39] & 2) != 0)
       {
-        if (v29 && v30)
+        if (v18 && v19)
         {
           FillColor = CGPDFGStateGetFillColor(*(a1 + 32));
-          CGContextSetFillColorWithColor(v30, FillColor);
-          v50.width = 0.0;
-          v50.height = 0.0;
-          CGContextSetPatternPhase(v30, v50);
-          CGPDFGStateSynchronizeColorRendering(v29, v30);
-          CGPDFGStateSynchronizeRendering(v29, v30, v32, v33, v34, v35, v36, v37);
+          CGContextSetFillColorWithColor(v19, FillColor);
+          v23.width = 0.0;
+          v23.height = 0.0;
+          CGContextSetPatternPhase(v19, v23);
+          CGPDFGStateSynchronizeColorRendering(v18, v19);
+          CGPDFGStateSynchronizeRendering(v18, v19);
         }
       }
 
@@ -7932,12 +7930,12 @@ void CGPDFDrawingContextDrawImage(uint64_t a1, CGImage *a2, uint64_t a3, uint64_
         CGPDFGStateSynchronizeForImages(*(a1 + 32), *(a1 + 88));
       }
 
-      if (*(v28 + 8) == 1)
+      if (*(v17 + 8) == 1)
       {
-        CGContextGetInterpolationQualityRange(*(a1 + 88), &values[4], values, v23, v24, v25, v26, v27);
-        CGContextSetInterpolationQualityRange(*(a1 + 88), 3, 3, v38, v39, v40, v41, v42);
-        draw_image(a1, v28);
-        CGContextSetInterpolationQualityRange(*(a1 + 88), *&values[4], *values, v43, v44, v45, v46, v47);
+        CGContextGetInterpolationQualityRange(*(a1 + 88), &values[4], values);
+        CGContextSetInterpolationQualityRange(*(a1 + 88), 3, 3);
+        draw_image(a1, v17);
+        CGContextSetInterpolationQualityRange(*(a1 + 88), *&values[4], *values);
       }
 
       else
@@ -7947,17 +7945,17 @@ void CGPDFDrawingContextDrawImage(uint64_t a1, CGImage *a2, uint64_t a3, uint64_
         {
           CGContextSaveGState(*(a1 + 88));
           CGContextSetShouldAntialias(*(a1 + 88), 0);
-          draw_image(a1, v28);
+          draw_image(a1, v17);
           CGContextRestoreGState(*(a1 + 88));
         }
 
         else
         {
-          draw_image(a1, v28);
+          draw_image(a1, v17);
         }
       }
 
-      CFRelease(v28);
+      CFRelease(v17);
     }
   }
 }
@@ -7979,120 +7977,125 @@ void draw_image(uint64_t a1, CGImageRef image)
 
 uint64_t CG::DisplayListXMLDeserializer::deserializeTo(CG::DisplayListXMLDeserializer *this, CG::DisplayList *a2)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   *(this + 2) = a2;
   propertyValueTypeRefPtr = 0;
   if (CFURLCopyResourcePropertyForKey(*(this + 1), *MEMORY[0x1E695EB28], &propertyValueTypeRefPtr, 0) && (v3 = CFBooleanGetValue(propertyValueTypeRefPtr) == 0, CFRelease(propertyValueTypeRefPtr), v3))
   {
-    CGPostError("%s: The destination is not an existing directory", v4, v5, v6, v7, v8, v9, v10, "virtual BOOL CG::DisplayListXMLDeserializer::deserializeTo(DisplayList *)");
+    CGPostError("%s: The destination is not an existing directory");
   }
 
   else
   {
-    v11 = *MEMORY[0x1E695E480];
-    v12 = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x1E695E480], *(this + 1), @"Resources", 1u);
-    *(this + 3) = v12;
-    if (v12)
+    v4 = *MEMORY[0x1E695E480];
+    v5 = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x1E695E480], *(this + 1), @"Resources", 1u);
+    *(this + 3) = v5;
+    if (v5)
     {
-      v20 = CFURLCreateCopyAppendingPathComponent(v11, *(this + 1), @"displayList.xml", 0);
-      if (v20)
+      v6 = CFURLCreateCopyAppendingPathComponent(v4, *(this + 1), @"displayList.xml", 0);
+      if (v6)
       {
-        if (CFURLGetFileSystemRepresentation(v20, 1u, buffer, 1025))
+        if (CFURLGetFileSystemRepresentation(v6, 1u, buffer, 1025))
         {
           File = xmlReadFile(buffer, 0, 0);
-          v43 = File;
+          v8 = File;
           if (File)
           {
             RootElement = xmlDocGetRootElement(File);
-            if (!RootElement)
+            if (RootElement)
             {
-              CGPostError("Malformed display list: document does not contain a root node.", 0, v45, v46, v47, v48, v49, v50, v84);
-LABEL_27:
-              xmlFreeDoc(v43);
-              return 0;
-            }
-
-            CG::DisplayListXMLHelper::parseAttributesFromNode(v89, RootElement);
-            v86 = 0;
-            if (CG::DisplayListXMLHelper::parseRectFromAttributes(v89, "frame", &v87))
-            {
-              v58 = *(this + 2);
-              v59 = v88;
-              *(v58 + 24) = v87;
-              *(v58 + 40) = v59;
-              if (CG::DisplayListXMLHelper::parseFormatFromAttributes(v89, "flags", "0x%X", v53, v54, v55, v56, v57, &v86) != 1)
+              CG::DisplayListXMLHelper::parseAttributesFromNode(v26, RootElement);
+              v23 = 0;
+              if (CG::DisplayListXMLHelper::parseRectFromAttributes(v26, "frame", &v24))
               {
-                CGPostError("Failed to parse attribute %s from root node", v60, v61, v62, v63, v64, v65, v66, "flags");
-LABEL_26:
-                std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v90);
-                goto LABEL_27;
+                v10 = *(this + 2);
+                v11 = v25;
+                *(v10 + 24) = v24;
+                *(v10 + 40) = v11;
+                if (CG::DisplayListXMLHelper::parseFormatFromAttributes(v26, "flags", "0x%X", &v23) == 1)
+                {
+                  *(*(this + 2) + 64) = v23;
+                  if (CG::DisplayListXMLHelper::parseRectFromAttributes(v26, "bounds", &v24))
+                  {
+                    v13 = *(this + 2);
+                    v14 = v25;
+                    *(v13 + 72) = v24;
+                    *(v13 + 88) = v14;
+                    NodeSetWithXPath = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v8, "/dl/resources/resource", v12);
+                    v17 = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v8, "/dl/entryStates/entryState", v16);
+                    v19 = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v8, "/dl/entries/entry", v18);
+                    v20 = v19;
+                    if (NodeSetWithXPath && v17 && v19)
+                    {
+                      CG::DisplayListXMLDeserializer::parseResources(this, NodeSetWithXPath->nodesetval);
+                    }
+
+                    CGPostError("%s: Malformed display list: resources = %p, entryStates = %p, entries = %p", "BOOL CG::DisplayListXMLDeserializer::parseModel(xmlDocPtr)", NodeSetWithXPath, v17, v19);
+                    if (NodeSetWithXPath)
+                    {
+                      xmlXPathFreeObject(NodeSetWithXPath);
+                    }
+
+                    if (v17)
+                    {
+                      xmlXPathFreeObject(v17);
+                    }
+
+                    if (v20)
+                    {
+                      xmlXPathFreeObject(v20);
+                    }
+                  }
+
+                  else
+                  {
+                    CGPostError("Failed to parse attribute bounds from root node");
+                  }
+                }
+
+                else
+                {
+                  CGPostError("Failed to parse attribute %s from root node");
+                }
               }
 
-              *(*(this + 2) + 64) = v86;
-              if (CG::DisplayListXMLHelper::parseRectFromAttributes(v89, "bounds", &v87))
+              else
               {
-                v67 = *(this + 2);
-                v68 = v88;
-                *(v67 + 72) = v87;
-                *(v67 + 88) = v68;
-                NodeSetWithXPath = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v43, "/dl/resources/resource", v52);
-                v71 = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v43, "/dl/entryStates/entryState", v70);
-                v73 = CG::DisplayListXMLDeserializer::getNodeSetWithXPath(v43, "/dl/entries/entry", v72);
-                v81 = v73;
-                if (NodeSetWithXPath && v71 && v73)
-                {
-                  CG::DisplayListXMLDeserializer::parseResources(this, NodeSetWithXPath->nodesetval);
-                }
-
-                CGPostError("%s: Malformed display list: resources = %p, entryStates = %p, entries = %p", v74, v75, v76, v77, v78, v79, v80, "BOOL CG::DisplayListXMLDeserializer::parseModel(xmlDocPtr)");
-                if (NodeSetWithXPath)
-                {
-                  xmlXPathFreeObject(NodeSetWithXPath);
-                }
-
-                if (v71)
-                {
-                  xmlXPathFreeObject(v71);
-                }
-
-                if (v81)
-                {
-                  xmlXPathFreeObject(v81);
-                }
-
-                goto LABEL_26;
+                CGPostError("Failed to parse attribute frame from root node");
               }
 
-              v83 = "Failed to parse attribute bounds from root node";
+              std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v27);
             }
 
             else
             {
-              v83 = "Failed to parse attribute frame from root node";
+              CGPostError("Malformed display list: document does not contain a root node.");
             }
 
-            CGPostError(v83, v51, v52, v53, v54, v55, v56, v57, v84);
-            goto LABEL_26;
+            xmlFreeDoc(v8);
           }
 
-          CGPostError("%s: xmlReadFile failed", v36, v37, v38, v39, v40, v41, v42, "virtual BOOL CG::DisplayListXMLDeserializer::deserializeTo(DisplayList *)");
+          else
+          {
+            CGPostError("%s: xmlReadFile failed");
+          }
         }
 
         else
         {
-          CGPostError("%s: Failed to get file system path for URL", v28, v29, v30, v31, v32, v33, v34, "virtual BOOL CG::DisplayListXMLDeserializer::deserializeTo(DisplayList *)");
+          CGPostError("%s: Failed to get file system path for URL");
         }
       }
 
       else
       {
-        CGPostError("%s: Failed to create URL for displayList.xml", v21, v22, v23, v24, v25, v26, v27, "virtual BOOL CG::DisplayListXMLDeserializer::deserializeTo(DisplayList *)");
+        CGPostError("%s: Failed to create URL for displayList.xml");
       }
     }
 
     else
     {
-      CGPostError("%s: Failed to create URL for Resources directory", v13, v14, v15, v16, v17, v18, v19, "virtual BOOL CG::DisplayListXMLDeserializer::deserializeTo(DisplayList *)");
+      CGPostError("%s: Failed to create URL for Resources directory");
     }
   }
 
@@ -8104,27 +8107,27 @@ xmlXPathObject *CG::DisplayListXMLDeserializer::getNodeSetWithXPath(xmlDoc *this
   v4 = xmlXPathNewContext(this);
   if (!v4)
   {
-    CGPostError("%s: xmlXPathNewContext returned NULL", v5, v6, v7, v8, v9, v10, v11, "xmlXPathObjectPtr CG::DisplayListXMLDeserializer::getNodeSetWithXPath(xmlDocPtr, const xmlChar *)");
+    CGPostError("%s: xmlXPathNewContext returned NULL", "xmlXPathObjectPtr CG::DisplayListXMLDeserializer::getNodeSetWithXPath(xmlDocPtr, const xmlChar *)");
     return 0;
   }
 
-  v12 = v4;
-  v13 = MEMORY[0x1865F02A0](a2, v4);
-  xmlXPathFreeContext(v12);
-  if (!v13)
+  v5 = v4;
+  v6 = MEMORY[0x1865F02A0](a2, v4);
+  xmlXPathFreeContext(v5);
+  if (!v6)
   {
-    CGPostError("%s: xmlXPathEvalExpression returned NULL", v14, v15, v16, v17, v18, v19, v20, "xmlXPathObjectPtr CG::DisplayListXMLDeserializer::getNodeSetWithXPath(xmlDocPtr, const xmlChar *)");
-    return v13;
+    CGPostError("%s: xmlXPathEvalExpression returned NULL", "xmlXPathObjectPtr CG::DisplayListXMLDeserializer::getNodeSetWithXPath(xmlDocPtr, const xmlChar *)");
+    return v6;
   }
 
-  nodesetval = v13->nodesetval;
+  nodesetval = v6->nodesetval;
   if (!nodesetval || !nodesetval->nodeNr || !nodesetval->nodeTab)
   {
-    xmlXPathFreeObject(v13);
+    xmlXPathFreeObject(v6);
     return 0;
   }
 
-  return v13;
+  return v6;
 }
 
 void CG::DisplayListXMLDeserializer::parseResources(CG::DisplayListXMLDeserializer *this, _xmlNodeSet *a2)
@@ -8236,9 +8239,9 @@ void sub_1840A1D30(void *a1, int a2)
   JUMPOUT(0x1840A206CLL);
 }
 
-void sub_1840A1D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1840A1D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, char *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  boost::vec_adj_list_impl<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::detail::adj_list_gen<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::config,boost::bidirectional_graph_helper_with_property<boost::detail::adj_list_gen<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::config>>::~vec_adj_list_impl(&a67);
+  boost::vec_adj_list_impl<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::detail::adj_list_gen<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::config,boost::bidirectional_graph_helper_with_property<boost::detail::adj_list_gen<boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>,boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::config>>::~vec_adj_list_impl(&a65);
   if (a21)
   {
     operator delete(a21);
@@ -8281,48 +8284,48 @@ void sub_1840A1D54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     operator delete(a57);
   }
 
-  if (a68 < 0)
+  if (a65 < 0)
   {
     operator delete(a63);
   }
 
-  if (a79 < 0)
-  {
-    operator delete(a78);
-  }
-
   if (a73 < 0)
   {
-    operator delete(a69);
+    operator delete(a72);
   }
 
-  if (a75 < 0)
+  if (a67 < 0)
   {
-    operator delete(a74);
+    operator delete(a66);
   }
 
-  if (*(v81 - 129) < 0)
+  if (a69 < 0)
   {
-    operator delete(*(v81 - 152));
+    operator delete(a68);
   }
 
-  if (*(v81 - 105) < 0)
+  if (*(v75 - 129) < 0)
   {
-    operator delete(*(v81 - 128));
+    operator delete(*(v75 - 152));
   }
 
-  if (a77 < 0)
+  if (*(v75 - 105) < 0)
   {
-    operator delete(a76);
+    operator delete(*(v75 - 128));
   }
 
-  while (v80 != &a80)
+  if (a71 < 0)
   {
-    v82 = *(v80 - 9);
-    v80 -= 4;
-    if (v82 < 0)
+    operator delete(a70);
+  }
+
+  while (v74 != &a74)
+  {
+    v76 = *(v74 - 9);
+    v74 -= 4;
+    if (v76 < 0)
     {
-      operator delete(*v80);
+      operator delete(*v74);
     }
   }
 
@@ -8332,22 +8335,29 @@ void sub_1840A1D54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 void sub_1840A1DF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void **a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::vector<CGPathRandomAccessSubpath>::__destroy_vector::operator()[abi:fe200100](&a57);
-  std::__list_imp<unsigned long>::clear(&a67);
+  std::__list_imp<unsigned long>::clear(&a65);
   JUMPOUT(0x1840A204CLL);
 }
 
-void sub_1840A1E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, char *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1840A1E10(_Unwind_Exception *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, char *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  std::__list_imp<unsigned long>::clear(&a48);
-  boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::~adjacency_list(&a67);
-  if (a21)
+  std::__list_imp<unsigned long>::clear(&a49);
+  boost::adjacency_list<boost::vecS,boost::vecS,boost::bidirectionalS,boost::property<boost::vertex_color_t,boost::default_color_type,boost::no_property>,boost::no_property,boost::no_property,boost::listS>::~adjacency_list(&a65);
+  if (a22)
   {
-    operator delete(a21);
+    operator delete(a22);
   }
 
-  std::__tree<std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>>>::destroy(a52);
-  std::__tree<std::__value_type<std::string,CG::CGDLResourceType>,std::__map_value_compare<std::string,std::__value_type<std::string,CG::CGDLResourceType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CG::CGDLResourceType>>>::destroy(a55);
+  std::__tree<std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::tuple<CG::DisplayListResource *,_xmlNode *,std::map<std::string,std::string>>>>>::destroy(a53);
+  std::__tree<std::__value_type<std::string,CG::CGDLResourceType>,std::__map_value_compare<std::string,std::__value_type<std::string,CG::CGDLResourceType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CG::CGDLResourceType>>>::destroy(a56);
   _Unwind_Resume(a1);
+}
+
+void sub_1840A1E54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:fe200100](va);
+  JUMPOUT(0x1840A1EB4);
 }
 
 void sub_1840A1E7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char *a58)
@@ -8382,17 +8392,17 @@ void sub_1840A1E7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_1840A1EB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a70);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a65);
   if (a12)
   {
     JUMPOUT(0x1840A1EC4);
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*(v70 - 120));
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*(v65 - 120));
   JUMPOUT(0x1840A204CLL);
 }
 
-void sub_1840A1ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55)
+void sub_1840A1ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, char *a55)
 {
   if (a21)
   {
@@ -8532,7 +8542,7 @@ void sub_1840A3950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:fe200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:fe200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -8546,13 +8556,13 @@ _BYTE *std::string::basic_string[abi:fe200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -8586,525 +8596,509 @@ uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value
   return v5;
 }
 
-BOOL DisplayListXMLParserEntryImage::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL DisplayListXMLParserEntryImage::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3))
   {
     return 0;
   }
 
-  if (!v11)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v16 = v11;
-  ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "image", 1, v12, v13, v14, v15);
+  v7 = v6;
+  ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "image", 1);
   if (!ResourceWithAttributeName)
   {
     return 0;
   }
 
-  if (!v18)
+  if (!v9)
   {
-    CGPostError("Entry state for attribute: %s is of the wrong class", v19, v20, v21, v22, v23, v24, v25, "image");
+    CGPostError("Entry state for attribute: %s is of the wrong class");
     return 0;
   }
 
-  *(v16 + 10) = v18;
-  v26 = "ctm";
-  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v46) || (v34 = v46[1], *(v16 + 88) = v46[0], *(v16 + 104) = v34, *(v16 + 120) = v46[2], v45 = 0, v26 = "interpolationQuality", !CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationQuality", &v45)))
+  *(v7 + 10) = v9;
+  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v15) || (v10 = v15[1], *(v7 + 88) = v15[0], *(v7 + 104) = v10, *(v7 + 120) = v15[2], v14 = 0, !CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationQuality", &v14)))
   {
-    CGPostError("Failed to parse %s attribute", v27, v28, v29, v30, v31, v32, v33, v26);
+    CGPostError("Failed to parse %s attribute");
     return 0;
   }
 
-  *(v16 + 34) = v45;
-  if (CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationMin", &v45))
+  *(v7 + 34) = v14;
+  if (CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationMin", &v14))
   {
-    *(v16 + 35) = v45;
+    *(v7 + 35) = v14;
   }
 
-  if (CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationMax", &v45))
+  if (CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationMax", &v14))
   {
-    *(v16 + 36) = v45;
+    *(v7 + 36) = v14;
   }
 
-  v44 = 0;
-  v42 = CG::DisplayListXMLHelper::parseColorRenderingIntentFromAttributes(a2, "renderingIntent", &v44);
-  if (v42)
+  v13 = 0;
+  v11 = CG::DisplayListXMLHelper::parseColorRenderingIntentFromAttributes(a2, "renderingIntent", &v13);
+  if (v11)
   {
-    *(v16 + 37) = v44;
+    *(v7 + 37) = v13;
   }
 
   else
   {
-    CGPostError("Failed to parse %s attribute", v35, v36, v37, v38, v39, v40, v41, "renderingIntent");
+    CGPostError("Failed to parse %s attribute", "renderingIntent");
   }
 
-  return v42;
+  return v11;
 }
 
-BOOL DisplayListXMLParserEntryGlyphs::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL DisplayListXMLParserEntryGlyphs::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3))
   {
     return 0;
   }
 
-  if (!v11)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v16 = v11;
-  ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "font", 1, v12, v13, v14, v15);
+  v7 = v6;
+  ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "font", 1);
   if (!ResourceWithAttributeName)
   {
     return 0;
   }
 
-  if (!v18)
+  if (!v9)
   {
-    v46 = "font";
-    v44 = "Entry state for attribute: %s is of the wrong class";
-    goto LABEL_21;
+    CGPostError("Entry state for attribute: %s is of the wrong class");
+    return 0;
   }
 
-  *(v16 + 10) = v18;
-  v26 = "ctm";
-  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", &v53))
+  *(v7 + 10) = v9;
+  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", &v22))
   {
     goto LABEL_18;
   }
 
-  v27 = v54;
-  *(v16 + 88) = v53;
-  *(v16 + 104) = v27;
-  *(v16 + 120) = v55;
-  v26 = "ftm";
-  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ftm", &v53))
+  v10 = v23;
+  *(v7 + 88) = v22;
+  *(v7 + 104) = v10;
+  *(v7 + 120) = v24;
+  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ftm", &v22))
   {
     goto LABEL_18;
   }
 
-  v28 = v54;
-  *(v16 + 136) = v53;
-  *(v16 + 152) = v28;
-  *(v16 + 168) = v55;
-  v52 = 0;
-  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "scale", "%lg", v21, v22, v23, v24, v25, &v52) != 1)
+  v11 = v23;
+  *(v7 + 136) = v22;
+  *(v7 + 152) = v11;
+  *(v7 + 168) = v24;
+  v21 = 0;
+  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "scale", "%lg", COERCE_DOUBLE(&v21)) != 1)
   {
-    v44 = "Failed to parse scale attribute";
-    goto LABEL_21;
+    CGPostError("Failed to parse scale attribute");
+    return 0;
   }
 
-  *(v16 + 23) = v52;
-  v26 = "dilation";
-  if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "dilation", &v51, v21, v22, v23, v24, v25))
+  *(v7 + 23) = v21;
+  if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "dilation", &v20))
   {
     goto LABEL_18;
   }
 
-  *(v16 + 12) = v51;
-  v29 = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "fontSmoothingBGColor", 0, v22, v23, v24, v25);
-  if (v29)
+  *(v7 + 12) = v20;
+  v12 = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "fontSmoothingBGColor", 0);
+  if (v12)
   {
   }
 
-  v50 = 0;
-  if (!CG::DisplayListXMLHelper::parseTextDrawingModeFromAttributes(a2, &v50))
-  {
-    v46 = "textDrawingMode";
-    goto LABEL_19;
-  }
-
-  *(v16 + 54) = v50;
-  v49 = 0;
-  v26 = "fontRenderingStyle";
-  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "fontRenderingStyle", "0x%X", v21, v22, v23, v24, v25, &v49) != 1)
+  v19 = 0;
+  if (!CG::DisplayListXMLHelper::parseTextDrawingModeFromAttributes(a2, &v19) || (*(v7 + 54) = v19, v18 = 0, CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "fontRenderingStyle", "0x%X", &v18) != 1))
   {
 LABEL_18:
-    LOBYTE(v46) = v26;
-LABEL_19:
-    v44 = "Failed to parse %s attribute";
-LABEL_21:
-    CGPostError(v44, v19, v20, v21, v22, v23, v24, v25, v46);
+    CGPostError("Failed to parse %s attribute");
     return 0;
   }
 
-  *(v16 + 55) = v49;
-  v48 = 0;
-  if (CG::DisplayListXMLHelper::parseBoolFromAttributes(a2, "shouldDrawBMRuns", &v48))
+  *(v7 + 55) = v18;
+  v17 = 0;
+  if (CG::DisplayListXMLHelper::parseBoolFromAttributes(a2, "shouldDrawBMRuns", &v17))
   {
-    v16[224] = v48;
+    v7[224] = v17;
   }
 
-  v47 = 0;
-  v35 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", v30, v31, v32, v33, v34, &v47);
-  v43 = v35 == 1;
-  if (v35 == 1)
+  v16 = 0;
+  v13 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", &v16);
+  v14 = v13 == 1;
+  if (v13 == 1)
   {
-    *(a1 + 16) = v47;
+    *(a1 + 16) = v16;
   }
 
   else
   {
-    CGPostError("Failed to parse %s attribute", v36, v37, v38, v39, v40, v41, v42, "count");
+    CGPostError("Failed to parse %s attribute", "count");
   }
 
-  return v43;
+  return v14;
 }
 
-BOOL DisplayListXMLParserEntryPath::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL DisplayListXMLParserEntryPath::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3))
   {
     return 0;
   }
 
-  if (!v10)
+  if (!v5)
   {
     __cxa_bad_cast();
   }
 
-  v11 = v10;
-  v31 = 0;
-  if (!CG::DisplayListXMLHelper::parsePathDrawingModeFromAttributes(a2, &v31))
+  v6 = v5;
+  v12 = 0;
+  if (!CG::DisplayListXMLHelper::parsePathDrawingModeFromAttributes(a2, &v12))
   {
-    CGPostError("Failed to parse %s attribute", v12, v13, v14, v15, v16, v17, v18, "drawingMode");
+    CGPostError("Failed to parse %s attribute", "drawingMode");
     return 0;
   }
 
-  v11[20] = v31;
-  v30 = 0;
-  if (CG::DisplayListXMLHelper::parseBoolFromAttributes(a2, "direct", &v30))
+  v6[20] = v12;
+  v11 = 0;
+  if (CG::DisplayListXMLHelper::parseBoolFromAttributes(a2, "direct", &v11))
   {
-    *(v11 + 84) = v30;
+    *(v6 + 84) = v11;
   }
 
-  v26 = CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v29);
-  if (v26)
+  v7 = CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v10);
+  if (v7)
   {
-    v27 = v29[1];
-    *(v11 + 6) = v29[0];
-    *(v11 + 7) = v27;
-    *(v11 + 8) = v29[2];
+    v8 = v10[1];
+    *(v6 + 6) = v10[0];
+    *(v6 + 7) = v8;
+    *(v6 + 8) = v10[2];
   }
 
   else
   {
-    CGPostError("Failed to parse %s attribute", v19, v20, v21, v22, v23, v24, v25, "ctm");
+    CGPostError("Failed to parse %s attribute", "ctm");
   }
 
-  return v26;
+  return v7;
 }
 
-BOOL DisplayListXMLParserEntryRects::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL DisplayListXMLParserEntryRects::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3))
   {
     return 0;
   }
 
-  if (!v11)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v12 = v11;
-  v40 = 0;
-  if (!CG::DisplayListXMLHelper::parsePathDrawingModeFromAttributes(a2, &v40))
+  v7 = v6;
+  v14 = 0;
+  if (!CG::DisplayListXMLHelper::parsePathDrawingModeFromAttributes(a2, &v14))
   {
-    CGPostError("Failed to parse %s attribute", v13, v14, v15, v16, v17, v18, v19, "drawingMode");
+    CGPostError("Failed to parse %s attribute", "drawingMode");
     return 0;
   }
 
-  *(v12 + 20) = v40;
-  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v39))
+  *(v7 + 20) = v14;
+  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v13))
   {
-    CGPostError("Failed to parse %s attribute", v20, v21, v22, v23, v24, v25, v26, "ctm");
+    CGPostError("Failed to parse %s attribute", "ctm");
     return 0;
   }
 
-  v27 = v39[1];
-  *(v12 + 88) = v39[0];
-  *(v12 + 104) = v27;
-  *(v12 + 120) = v39[2];
-  v38 = 0;
-  v28 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", v22, v23, v24, v25, v26, &v38);
-  v36 = v28 == 1;
-  if (v28 == 1)
+  v8 = v13[1];
+  *(v7 + 88) = v13[0];
+  *(v7 + 104) = v8;
+  *(v7 + 120) = v13[2];
+  v12 = 0;
+  v9 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", &v12);
+  v10 = v9 == 1;
+  if (v9 == 1)
   {
-    *(a1 + 16) = v38;
+    *(a1 + 16) = v12;
   }
 
   else
   {
-    CGPostError("Failed to parse %s attribute", v29, v30, v31, v32, v33, v34, v35, "count");
+    CGPostError("Failed to parse %s attribute", "count");
   }
 
-  return v36;
+  return v10;
 }
 
-BOOL DisplayListXMLParserEntryLines::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL DisplayListXMLParserEntryLines::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (!DisplayListXMLParserEntry::parseAttributes(a1, a2, a3))
   {
     return 0;
   }
 
-  if (!v11)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v12 = v11;
-  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v32))
+  v7 = v6;
+  if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v13))
   {
-    CGPostError("Failed to parse %s attribute", v13, v14, v15, v16, v17, v18, v19, "ctm");
+    CGPostError("Failed to parse %s attribute", "ctm");
     return 0;
   }
 
-  v20 = v32[1];
-  v12[5] = v32[0];
-  v12[6] = v20;
-  v12[7] = v32[2];
-  v31 = 0;
-  v21 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", v15, v16, v17, v18, v19, &v31);
-  v29 = v21 == 1;
-  if (v21 == 1)
+  v8 = v13[1];
+  v7[5] = v13[0];
+  v7[6] = v8;
+  v7[7] = v13[2];
+  v12 = 0;
+  v9 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "count", "%zu", &v12);
+  v10 = v9 == 1;
+  if (v9 == 1)
   {
-    *(a1 + 16) = v31;
+    *(a1 + 16) = v12;
   }
 
   else
   {
-    CGPostError("Failed to parse %s attribute", v22, v23, v24, v25, v26, v27, v28, "count");
+    CGPostError("Failed to parse %s attribute", "count");
   }
 
-  return v29;
+  return v10;
 }
 
-uint64_t DisplayListXMLParserEntry::parseAttributes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DisplayListXMLParserEntry::parseAttributes(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v62 = 0;
-  v11 = "flags";
-  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "flags", "0x%X", a4, a5, a6, a7, a8, &v62) != 1 || (*(a3 + 8) = *(a3 + 8) | (v62 << 8), v11 = "boundingBox", (CG::DisplayListXMLHelper::parseRectFromAttributes(a2, "boundingBox", v61) & 1) == 0))
+  v15 = 0;
+  v6 = "flags";
+  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "flags", "0x%X", &v15) != 1 || (*(a3 + 8) = *(a3 + 8) | (v15 << 8), v6 = "boundingBox", !CG::DisplayListXMLHelper::parseRectFromAttributes(a2, "boundingBox", v14)))
   {
-    CGPostError("Failed to parse %s attribute", v12, v13, v14, v15, v16, v17, v18, v11);
+    CGPostError("Failed to parse %s attribute", v6);
     return 0;
   }
 
-  v19 = v61[1];
-  *(a3 + 16) = v61[0];
-  *(a3 + 32) = v19;
-  EntryStateWithAttributeName = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "drawState", 0, v15, v16, v17, v18);
+  v7 = v14[1];
+  *(a3 + 16) = v14[0];
+  *(a3 + 32) = v7;
+  EntryStateWithAttributeName = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "drawState", 0);
   if (EntryStateWithAttributeName)
   {
-    if (v27)
+    if (v9)
     {
       goto LABEL_7;
     }
 
-    CGPostError("Entry state for attribute: %s is of the wrong class", v28, v29, v30, v31, v32, v33, v34, "drawState");
+    CGPostError("Entry state for attribute: %s is of the wrong class", "drawState");
   }
 
-  CGLog(1, "entry has NULL drawing state", v21, v22, v23, v24, v25, v26, v60);
-  v27 = 0;
+  CGLog(1, "entry has NULL drawing state");
+  v9 = 0;
 LABEL_7:
-  *(a3 + 48) = v27;
-  v35 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "fillState", 1, v31, v32, v33, v34);
-  if (v35)
+  *(a3 + 48) = v9;
+  v10 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "fillState", 1);
+  if (v10)
   {
-    if (!v35)
+    if (!v10)
     {
-      CGPostError("Entry state for attribute: %s is of the wrong class", v40, v41, v42, v36, v37, v38, v39, "fillState");
-      v35 = 0;
+      CGPostError("Entry state for attribute: %s is of the wrong class", "fillState");
+      v10 = 0;
     }
   }
 
-  *(a3 + 56) = v35;
-  v43 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "strokeState", 1, v36, v37, v38, v39);
-  if (v43)
+  *(a3 + 56) = v10;
+  v11 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "strokeState", 1);
+  if (v11)
   {
-    if (!v43)
+    if (!v11)
     {
-      CGPostError("Entry state for attribute: %s is of the wrong class", v48, v49, v50, v44, v45, v46, v47, "strokeState");
-      v43 = 0;
+      CGPostError("Entry state for attribute: %s is of the wrong class", "strokeState");
+      v11 = 0;
     }
   }
 
-  *(a3 + 64) = v43;
-  v51 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "patternState", 1, v44, v45, v46, v47);
-  if (v51)
+  *(a3 + 64) = v11;
+  v12 = DisplayListXMLParserEntry::_getEntryStateWithAttributeName(a1, a2, "patternState", 1);
+  if (v12)
   {
-    if (!v51)
+    if (!v12)
     {
-      CGPostError("Entry state for attribute: %s is of the wrong class", v52, v53, v54, v55, v56, v57, v58, "patternState");
-      v51 = 0;
+      CGPostError("Entry state for attribute: %s is of the wrong class", "patternState");
+      v12 = 0;
     }
   }
 
-  *(a3 + 72) = v51;
+  *(a3 + 72) = v12;
   return 1;
 }
 
-uint64_t DisplayListXMLParserEntryGradient::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DisplayListXMLParserEntryGradient::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  result = DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = DisplayListXMLParserEntry::parseAttributes(a1, a2, a3);
   if (result)
   {
-    if (!v12)
+    if (!v7)
     {
       __cxa_bad_cast();
     }
 
-    v17 = v12;
-    v18 = "gradient";
-    ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "gradient", 1, v13, v14, v15, v16);
-    if (ResourceWithAttributeName)
+    v8 = v7;
+    ResourceWithAttributeName = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "gradient", 1);
+    if (!ResourceWithAttributeName)
     {
-      if (!v27)
+      goto LABEL_26;
+    }
+
+    if (!v10)
+    {
+      CGPostError("Entry state for attribute: %s is of the wrong class");
+      return 0;
+    }
+
+    *(v8 + 10) = v10;
+    if (!CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v18))
+    {
+      goto LABEL_26;
+    }
+
+    v11 = v18[1];
+    *(v8 + 88) = v18[0];
+    *(v8 + 104) = v11;
+    *(v8 + 120) = v18[2];
+    v17 = 0;
+    if (!CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "options", "%d", &v17))
+    {
+      goto LABEL_26;
+    }
+
+    *(v8 + 35) = v17;
+    v12 = CG::DisplayListXMLHelper::parseStringFromAttributes(a2, "gradientType");
+    if (!v12)
+    {
+      goto LABEL_26;
+    }
+
+    v13 = v12;
+    v15 = 0;
+    if (!strcmp(v12, "linear"))
+    {
+      *(v8 + 34) = 1;
+      if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "startPt", &v16))
       {
-        CGPostError("Entry state for attribute: %s is of the wrong class", v28, v29, v30, v31, v32, v33, v34, "gradient");
+        goto LABEL_26;
+      }
+
+      *(v8 + 9) = v16;
+      if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "endPt", &v16))
+      {
+        goto LABEL_26;
+      }
+
+      *(v8 + 10) = v16;
+    }
+
+    else
+    {
+      if (strcmp(v13, "radial"))
+      {
+        if (strcmp(v13, "conic"))
+        {
+          CGPostError("%s: Invalid gradient type: %s");
+          return 0;
+        }
+
+        *(v8 + 34) = 3;
+        if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "center", &v16))
+        {
+          *(v8 + 14) = v16;
+          v14 = 0;
+          if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "angle", "%lg", COERCE_DOUBLE(&v14)))
+          {
+            *(v8 + 30) = v14;
+            return 1;
+          }
+        }
+
+LABEL_26:
+        CGPostError("Failed to parse %s attribute");
         return 0;
       }
 
-      *(v17 + 10) = v27;
-      v18 = "ctm";
-      if (CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v60))
+      *(v8 + 34) = 2;
+      if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "startCenter", &v16))
       {
-        v35 = v60[1];
-        *(v17 + 88) = v60[0];
-        *(v17 + 104) = v35;
-        *(v17 + 120) = v60[2];
-        v59 = 0;
-        if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "options", "%d", v22, v23, v24, v25, v26, &v59))
-        {
-          *(v17 + 35) = v59;
-          v36 = CG::DisplayListXMLHelper::parseStringFromAttributes(a2, "gradientType");
-          if (!v36)
-          {
-            v55 = "type";
-LABEL_27:
-            CGPostError("Failed to parse %s attribute", v20, v21, v22, v23, v24, v25, v26, v55);
-            return 0;
-          }
-
-          v37 = v36;
-          v57 = 0;
-          if (!strcmp(v36, "linear"))
-          {
-            *(v17 + 34) = 1;
-            v18 = "startPt";
-            if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "startPt", &v58, v38, v39, v40, v41, v42))
-            {
-              *(v17 + 9) = v58;
-              v18 = "endPt";
-              if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "endPt", &v58, v22, v23, v24, v25, v26))
-              {
-                *(v17 + 10) = v58;
-                return 1;
-              }
-            }
-          }
-
-          else
-          {
-            if (strcmp(v37, "radial"))
-            {
-              if (strcmp(v37, "conic"))
-              {
-                CGPostError("%s: Invalid gradient type: %s", v48, v49, v50, v51, v52, v53, v54, "virtual BOOL DisplayListXMLParserEntryGradient::parseAttributes(const DLXMLAttributes &, DisplayListEntry &)");
-                return 0;
-              }
-
-              *(v17 + 34) = 3;
-              v18 = "center";
-              if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "center", &v58, v50, v51, v52, v53, v54))
-              {
-                *(v17 + 14) = v58;
-                v56 = 0;
-                v18 = "angle";
-                if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "angle", "%lg", v22, v23, v24, v25, v26, &v56))
-                {
-                  *(v17 + 30) = v56;
-                  return 1;
-                }
-              }
-
-              goto LABEL_26;
-            }
-
-            *(v17 + 34) = 2;
-            v18 = "startCenter";
-            if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "startCenter", &v58, v43, v44, v45, v46, v47))
-            {
-              *(v17 + 11) = v58;
-              v18 = "endCenter";
-              if (CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "endCenter", &v58, v22, v23, v24, v25, v26))
-              {
-                *(v17 + 12) = v58;
-                v18 = "startRadius";
-                if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "startRadius", "%lg", v22, v23, v24, v25, v26, &v57))
-                {
-                  *(v17 + 26) = v57;
-                  v18 = "endRadius";
-                  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "endRadius", "%lg", v22, v23, v24, v25, v26, &v57))
-                  {
-                    *(v17 + 27) = v57;
-                    return 1;
-                  }
-                }
-              }
-            }
-          }
-        }
+        goto LABEL_26;
       }
+
+      *(v8 + 11) = v16;
+      if (!CG::DisplayListXMLHelper::parsePointFromAttributes(a2, "endCenter", &v16))
+      {
+        goto LABEL_26;
+      }
+
+      *(v8 + 12) = v16;
+      if (!CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "startRadius", "%lg", COERCE_DOUBLE(&v15)))
+      {
+        goto LABEL_26;
+      }
+
+      *(v8 + 26) = v15;
+      if (!CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, "endRadius", "%lg", COERCE_DOUBLE(&v15)))
+      {
+        goto LABEL_26;
+      }
+
+      *(v8 + 27) = v15;
     }
 
-LABEL_26:
-    LOBYTE(v55) = v18;
-    goto LABEL_27;
+    return 1;
   }
 
   return result;
 }
 
-uint64_t DisplayListXMLParserEntryDisplayList::parseAttributes(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DisplayListXMLParserEntryDisplayList::parseAttributes(uint64_t a1, uint64_t a2, const void *a3)
 {
-  result = DisplayListXMLParserEntry::parseAttributes(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = DisplayListXMLParserEntry::parseAttributes(a1, a2, a3);
   if (result)
   {
-    if (!v12)
+    if (!v7)
     {
       __cxa_bad_cast();
     }
 
-    v13 = v12;
-    v14 = "ctm";
-    if (CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v33) && (v22 = v33[1], *(v13 + 88) = v33[0], *(v13 + 104) = v22, *(v13 + 120) = v33[2], v32 = 0, v14 = "interpolationQuality", CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationQuality", &v32)) && (*(v13 + 34) = v32, v31 = 0, v14 = "renderingIntent", CG::DisplayListXMLHelper::parseColorRenderingIntentFromAttributes(a2, "renderingIntent", &v31)))
+    v8 = v7;
+    if (CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(a2, "ctm", v13) && (v9 = v13[1], *(v8 + 88) = v13[0], *(v8 + 104) = v9, *(v8 + 120) = v13[2], v12 = 0, CG::DisplayListXMLHelper::parseInterpolationQualityFromAttributes(a2, "interpolationQuality", &v12)) && (*(v8 + 34) = v12, v11 = 0, CG::DisplayListXMLHelper::parseColorRenderingIntentFromAttributes(a2, "renderingIntent", &v11)))
     {
-      *(v13 + 35) = v31;
-      result = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "displayList", 1, v18, v19, v20, v21);
+      *(v8 + 35) = v11;
+      result = DisplayListXMLParserEntry::getResourceWithAttributeName(a1, a2, "displayList", 1);
       if (!result)
       {
         return result;
       }
 
-      if (v23)
+      if (v10)
       {
-        *(v13 + 10) = v23;
+        *(v8 + 10) = v10;
         return 1;
       }
 
-      CGPostError("Resource for attribute: %s is of the wrong class", v24, v25, v26, v27, v28, v29, v30, "displayList");
+      CGPostError("Resource for attribute: %s is of the wrong class");
     }
 
     else
     {
-      CGPostError("Failed to parse %s attribute", v15, v16, v17, v18, v19, v20, v21, v14);
+      CGPostError("Failed to parse %s attribute");
     }
 
     return 0;
@@ -9267,48 +9261,46 @@ uint64_t CG::DisplayListEntry::_equal_to(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t DisplayListXMLParserEntry::getResourceWithAttributeName(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DisplayListXMLParserEntry::getResourceWithAttributeName(uint64_t a1, uint64_t a2, char *a3, int a4)
 {
-  v8 = a4;
-  v9 = a3;
-  v27 = 0;
-  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, a3, "%llu", a4, a5, a6, a7, a8, &v27) != 1)
+  v15 = 0;
+  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, a3, "%llu", &v15) != 1)
   {
-    if (v8)
+    if (a4)
     {
-      CGPostError("Failed to parse %s attribute", v11, v12, v13, v14, v15, v16, v17, v9);
+      CGPostError("Failed to parse %s attribute");
     }
 
     return 0;
   }
 
-  v18 = *(a1 + 8);
-  v21 = *(v18 + 40);
-  v19 = v18 + 40;
-  v20 = v21;
-  if (!v21)
+  v6 = *(a1 + 8);
+  v9 = *(v6 + 40);
+  v7 = v6 + 40;
+  v8 = v9;
+  if (!v9)
   {
     goto LABEL_10;
   }
 
-  v22 = v19;
+  v10 = v7;
   do
   {
-    v23 = *(v20 + 32);
-    v24 = v23 >= v27;
-    v25 = v23 < v27;
-    if (v24)
+    v11 = *(v8 + 32);
+    v12 = v11 >= v15;
+    v13 = v11 < v15;
+    if (v12)
     {
-      v22 = v20;
+      v10 = v8;
     }
 
-    v20 = *(v20 + 8 * v25);
+    v8 = *(v8 + 8 * v13);
   }
 
-  while (v20);
-  if (v22 != v19 && *(v22 + 32) <= v27)
+  while (v8);
+  if (v10 != v7 && *(v10 + 32) <= v15)
   {
-    result = *(v22 + 40);
+    result = *(v10 + 40);
     if (result)
     {
       return result;
@@ -9321,9 +9313,9 @@ LABEL_10:
     result = 0;
   }
 
-  if (v8)
+  if (a4)
   {
-    CGPostError("resource for id: %llu is NULL", v11, v12, v13, v14, v15, v16, v17, v27);
+    CGPostError("resource for id: %llu is NULL");
     return 0;
   }
 
@@ -9519,49 +9511,47 @@ BOOL std::__tuple_equal<4ul>::operator()[abi:fe200100]<std::tuple<CGPoint const&
   }
 }
 
-uint64_t DisplayListXMLParserEntry::_getEntryStateWithAttributeName(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DisplayListXMLParserEntry::_getEntryStateWithAttributeName(uint64_t a1, uint64_t a2, char *a3, char a4)
 {
-  v8 = a4;
-  v9 = a3;
-  v27 = 0;
-  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, a3, "%llu", a4, a5, a6, a7, a8, &v27) != 1)
+  v15 = 0;
+  if (CG::DisplayListXMLHelper::parseFormatFromAttributes(a2, a3, "%llu", &v15) != 1)
   {
-    if ((v8 & 1) == 0)
+    if ((a4 & 1) == 0)
     {
-      CGPostError("Failed to parse %s attribute", v11, v12, v13, v14, v15, v16, v17, v9);
+      CGPostError("Failed to parse %s attribute");
     }
 
     return 0;
   }
 
-  v18 = *(a1 + 8);
-  v21 = *(v18 + 64);
-  v19 = v18 + 64;
-  v20 = v21;
-  if (!v21)
+  v6 = *(a1 + 8);
+  v9 = *(v6 + 64);
+  v7 = v6 + 64;
+  v8 = v9;
+  if (!v9)
   {
     goto LABEL_11;
   }
 
-  v22 = v19;
+  v10 = v7;
   do
   {
-    v23 = *(v20 + 32);
-    v24 = v23 >= v27;
-    v25 = v23 < v27;
-    if (v24)
+    v11 = *(v8 + 32);
+    v12 = v11 >= v15;
+    v13 = v11 < v15;
+    if (v12)
     {
-      v22 = v20;
+      v10 = v8;
     }
 
-    v20 = *(v20 + 8 * v25);
+    v8 = *(v8 + 8 * v13);
   }
 
-  while (v20);
-  if (v22 == v19 || *(v22 + 32) > v27 || (result = *(v22 + 40)) == 0)
+  while (v8);
+  if (v10 == v7 || *(v10 + 32) > v15 || (result = *(v10 + 40)) == 0)
   {
 LABEL_11:
-    CGPostError("entryState for id: %llu is NULL", v11, v12, v13, v14, v15, v16, v17, v27);
+    CGPostError("entryState for id: %llu is NULL");
     return 0;
   }
 
@@ -9610,7 +9600,7 @@ BOOL DisplayListXMLParserEntryLines::parseChildElements(DisplayListXMLParserEntr
   }
 
   v6 = v5;
-  v14 = malloc_type_malloc(16 * *(this + 2), 0x1000040451B5BE8uLL);
+  v7 = malloc_type_malloc(16 * *(this + 2), 0x1000040451B5BE8uLL);
   children = a2->children;
   if (!children)
   {
@@ -9626,62 +9616,62 @@ BOOL DisplayListXMLParserEntryLines::parseChildElements(DisplayListXMLParserEntr
     }
   }
 
-  v16 = children->children;
-  if (!v16)
+  v9 = children->children;
+  if (!v9)
   {
 LABEL_16:
-    v17 = 0;
+    v10 = 0;
     goto LABEL_17;
   }
 
-  v17 = 0;
-  while (v16->type != XML_ELEMENT_NODE)
+  v10 = 0;
+  while (v9->type != XML_ELEMENT_NODE)
   {
 LABEL_14:
-    v16 = v16->next;
-    if (!v16)
+    v9 = v9->next;
+    if (!v9)
     {
       goto LABEL_17;
     }
   }
 
-  if (!xmlStrcmp(v16->name, "line"))
+  if (!xmlStrcmp(v9->name, "line"))
   {
-    String = xmlNodeListGetString(v16->doc, v16->children, 1);
+    String = xmlNodeListGetString(v9->doc, v9->children, 1);
     if (String)
     {
-      v26 = String;
-      v31 = 0;
-      v32 = 0;
-      if (sscanf(String, "{%lg, %lg}", &v32, &v31) == 2)
+      v12 = String;
+      v17 = 0;
+      v18 = 0;
+      if (sscanf(String, "{%lg, %lg}", &v18, &v17) == 2)
       {
-        v27 = v31;
-        p_x = &v14[v17++].x;
-        *p_x = v32;
-        p_x[1] = v27;
+        v13 = v17;
+        p_x = &v7[v10++].x;
+        *p_x = v18;
+        p_x[1] = v13;
       }
 
-      free(v26);
+      free(v12);
     }
 
     goto LABEL_14;
   }
 
-  CGPostError("Unexpected child node name. Expected %s, got %s", v18, v19, v20, v21, v22, v23, v24, "line");
+  CGPostError("Unexpected child node name. Expected %s, got %s", "line", v9->name);
 LABEL_17:
-  v29 = *(this + 2);
-  if (v17 == v29)
+  v15 = *(this + 2);
+  if (v10 == v15)
   {
-    CG::DisplayListEntryLines::setPoints(v6, v14, v17);
+    CG::DisplayListEntryLines::setPoints(v6, v7, v10);
   }
 
   else
   {
-    CGPostError("Failed to parse expected number of lines. Expected %zu, got %zu", v7, v8, v9, v10, v11, v12, v13, v29);
+    CGPostError("Failed to parse expected number of lines. Expected %zu, got %zu", v15, v10);
   }
 
-  free(v14);
-  return v17 == v29;
+  free(v7);
+  return v10 == v15;
 }
 
 CGPoint *CG::DisplayListEntryLines::setPoints(CG::DisplayListEntryLines *this, const CGPoint *a2, uint64_t a3)

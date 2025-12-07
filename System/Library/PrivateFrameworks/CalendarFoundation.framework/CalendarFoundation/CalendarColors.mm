@@ -16,7 +16,7 @@
 
 + (id)symbolicColorForNewCalendarWithExistingSymbolicNames:(id)names
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   v5 = MEMORY[0x1E695DF70];
   colorNamesOrderedForAssignment = [self colorNamesOrderedForAssignment];
@@ -30,27 +30,27 @@
 
   firstObject = [v7 firstObject];
   v10 = [self countOfColor:firstObject inArray:namesCopy];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
-        v17 = [self countOfColor:v16 inArray:{namesCopy, v22}];
+        v16 = *(*(&v21 + 1) + 8 * i);
+        v17 = [self countOfColor:v16 inArray:{namesCopy, v21}];
         if (v17 < v10)
         {
           v18 = v17;
@@ -61,13 +61,11 @@
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -137,34 +135,34 @@
 
 + (void)_rebuildColors
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v33 = v2;
-  v32 = [v2 pathForResource:@"CalendarColors" ofType:@"plist"];
+  v32 = v2;
+  v31 = [v2 pathForResource:@"CalendarColors" ofType:@"plist"];
   [MEMORY[0x1E695DEC8] arrayWithContentsOfFile:?];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  obj = v43 = 0u;
-  v39 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v39)
+  obj = v42 = 0u;
+  v38 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v38)
   {
-    v38 = *v41;
-    v36 = array;
+    v37 = *v40;
+    v35 = array;
     do
     {
       v4 = 0;
       do
       {
-        if (*v41 != v38)
+        if (*v40 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v40 + 1) + 8 * v4);
+        v5 = *(*(&v39 + 1) + 8 * v4);
         v6 = [v5 objectForKey:@"name"];
         if ([v6 length])
         {
@@ -203,10 +201,10 @@
 
             if (v14)
             {
-              array = v36;
+              array = v35;
               if (v22)
               {
-                [v36 addObject:v6];
+                [v35 addObject:v6];
                 [dictionary setObject:v14 forKey:v6];
                 [dictionary2 setObject:v22 forKey:v6];
 LABEL_18:
@@ -217,7 +215,7 @@ LABEL_18:
 
             else
             {
-              array = v36;
+              array = v35;
             }
           }
 
@@ -235,9 +233,9 @@ LABEL_19:
         ++v4;
       }
 
-      while (v39 != v4);
-      v23 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-      v39 = v23;
+      while (v38 != v4);
+      v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v38 = v23;
     }
 
     while (v23);
@@ -257,13 +255,11 @@ LABEL_19:
 
   v30 = _textColorNameMapping;
   _textColorNameMapping = dictionary2;
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (id)nameOfColor:(id)color
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   [self _bootstrapColorNameMapping];
   v5 = [MEMORY[0x1E69E3C78] symbolicColorForLegacyRGB:colorCopy];
@@ -275,26 +271,26 @@ LABEL_19:
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     allKeys = [_colorNameMapping allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           v14 = [_colorNameMapping objectForKey:v13];
           if (CalColorsAreAlmostEqual(colorCopy, v14))
           {
@@ -304,7 +300,7 @@ LABEL_19:
           }
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -318,8 +314,6 @@ LABEL_19:
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

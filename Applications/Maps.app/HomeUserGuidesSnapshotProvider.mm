@@ -11,9 +11,8 @@
 
 - (void)setHasInitialData:(BOOL)data
 {
-  dataCopy = data;
   selfCopy = self;
-  sub_100486B4C(dataCopy);
+  sub_100486B4C(data);
 }
 
 - (id)observers

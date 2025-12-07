@@ -11,19 +11,19 @@
 
 - (id)_checkDirectoryPathIsValid
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   sharedDirectoryPath = [(HTHangRequest *)self sharedDirectoryPath];
 
   if (sharedDirectoryPath)
   {
-    v22 = 0;
+    v21 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     sharedDirectoryPath2 = [(HTHangRequest *)self sharedDirectoryPath];
-    v6 = [defaultManager fileExistsAtPath:sharedDirectoryPath2 isDirectory:&v22];
+    v6 = [defaultManager fileExistsAtPath:sharedDirectoryPath2 isDirectory:&v21];
 
     if (v6)
     {
-      if (v22)
+      if (v21)
       {
         v7 = 0;
         goto LABEL_9;
@@ -34,11 +34,11 @@
       v12 = [v17 initWithFormat:@"File '%@' is not a directory.", sharedDirectoryPath3];
 
       v13 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A578];
-      v24 = v12;
+      v22 = *MEMORY[0x1E696A578];
+      v23 = v12;
       v14 = MEMORY[0x1E695DF20];
-      v15 = &v24;
-      v16 = &v23;
+      v15 = &v23;
+      v16 = &v22;
     }
 
     else
@@ -48,11 +48,11 @@
       v12 = [v10 initWithFormat:@"File '%@' does not exist", sharedDirectoryPath4];
 
       v13 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
-      v26 = v12;
+      v24 = *MEMORY[0x1E696A578];
+      v25 = v12;
       v14 = MEMORY[0x1E695DF20];
-      v15 = &v26;
-      v16 = &v25;
+      v15 = &v25;
+      v16 = &v24;
     }
 
     v19 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
@@ -62,14 +62,13 @@
   else
   {
     v8 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Directory path not provided by client";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = @"Directory path not provided by client";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v7 = [v8 errorWithDomain:@"kHTHangRequestError" code:0 userInfo:v9];
   }
 
 LABEL_9:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -168,7 +167,7 @@ LABEL_40:
     goto LABEL_35;
   }
 
-  v20 = shared_ht_log_handle();
+  v20 = shared_ht_log_handle(objCType11);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [HTHangRequest _insertNSNumberInXPCDictionaryUsingKey:numberCopy number:v20 dict:?];
@@ -182,31 +181,31 @@ LABEL_36:
 
 - (id)_createXPCDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
     v5 = dictionaryCopy;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v23;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v22 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         v11 = [v5 objectForKeyedSubscript:v10];
         v12 = v11;
         if (v10)
@@ -221,8 +220,8 @@ LABEL_4:
 
         if (v13)
         {
-          v17 = shared_ht_log_handle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = shared_ht_log_handle(v11);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [HTHangRequest _createXPCDictionary:];
           }
@@ -231,7 +230,8 @@ LABEL_4:
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
           break;
         }
@@ -257,10 +257,11 @@ LABEL_4:
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v16 = objc_opt_isKindOfClass();
+            if ((v16 & 1) == 0)
             {
-              v17 = shared_ht_log_handle();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v19 = shared_ht_log_handle(v16);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 [HTHangRequest _createXPCDictionary:];
               }
@@ -268,18 +269,18 @@ LABEL_4:
 LABEL_27:
 
 LABEL_28:
-              v16 = 0;
+              v18 = 0;
               goto LABEL_29;
             }
 
             [v12 timeIntervalSince1970];
-            xpc_dictionary_set_date(v4, uTF8String, (v15 * 1000000000.0));
+            xpc_dictionary_set_date(v4, uTF8String, (v17 * 1000000000.0));
           }
         }
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -289,10 +290,10 @@ LABEL_28:
         }
       }
 
-      v17 = shared_ht_log_handle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = shared_ht_log_handle(isKindOfClass);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [(HTHangRequest *)v10 _createXPCDictionary:v5, v17];
+        [(HTHangRequest *)v10 _createXPCDictionary:v5, v19];
       }
 
       goto LABEL_27;
@@ -300,43 +301,40 @@ LABEL_28:
 
 LABEL_21:
 
-    v16 = v4;
+    v18 = v4;
 LABEL_29:
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v18;
 }
 
 + (id)sandboxExtensionForPath:(id)path
 {
   [path UTF8String];
-  v3 = *MEMORY[0x1E69E9BE0];
-  v4 = sandbox_extension_issue_file();
-  if (v4)
+  v3 = sandbox_extension_issue_file();
+  if (v3)
   {
-    v5 = v4;
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
-    free(v5);
+    v4 = v3;
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
+    free(v4);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)initRequest:(id)request error:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v7 = [(HTHangRequest *)self _createXPCDictionary:requestCopy];
   requestXPCDictionary = self->_requestXPCDictionary;
@@ -348,21 +346,20 @@ LABEL_29:
   {
     requestCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not create xpc_object_t request dictionary from dictionary '%@'", requestCopy];
     v11 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = requestCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = requestCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v13 = [v11 errorWithDomain:@"kHTHangRequestError" code:0 userInfo:v12];
     v14 = *error;
     *error = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)initRequestWithPath:(id)path dictionary:(id)dictionary error:(id *)p_isa
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dictionaryCopy = dictionary;
   objc_storeStrong(&self->_sharedDirectoryPath, path);
@@ -392,17 +389,17 @@ LABEL_29:
       goto LABEL_7;
     }
 
-    v20 = MEMORY[0x1E696AEC0];
+    v19 = MEMORY[0x1E696AEC0];
     sharedDirectoryPath = [(HTHangRequest *)self sharedDirectoryPath];
-    v22 = [v20 stringWithFormat:@"Could not create sandbox extension for '%@'. This may be due to lack of sufficient permissions to access the directory.", sharedDirectoryPath];
+    v21 = [v19 stringWithFormat:@"Could not create sandbox extension for '%@'. This may be due to lack of sufficient permissions to access the directory.", sharedDirectoryPath];
 
-    v23 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = v22;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v25 = [v23 errorWithDomain:@"kHTHangRequestError" code:0 userInfo:v24];
-    v26 = *p_isa;
-    *p_isa = v25;
+    v22 = MEMORY[0x1E696ABC0];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = v21;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v24 = [v22 errorWithDomain:@"kHTHangRequestError" code:0 userInfo:v23];
+    v25 = *p_isa;
+    *p_isa = v24;
 
     goto LABEL_4;
   }
@@ -416,45 +413,25 @@ LABEL_4:
 
 LABEL_7:
 
-  v18 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
 - (void)_insertNSNumberInXPCDictionaryUsingKey:(void *)a1 number:(NSObject *)a2 dict:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 136315138;
-  v5 = [a1 objCType];
-  _os_log_error_impl(&dword_1C8286000, a2, OS_LOG_TYPE_ERROR, "Passed unsupported NSNumber primitive type: %s", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = [a1 objCType];
+  _os_log_error_impl(&dword_1C8286000, a2, OS_LOG_TYPE_ERROR, "Passed unsupported NSNumber primitive type: %s", &v3, 0xCu);
 }
 
 - (void)_createXPCDictionary:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_3();
-  v9 = a2;
+  v8 = a2;
   v6 = v5;
-  _os_log_error_impl(&dword_1C8286000, a3, OS_LOG_TYPE_ERROR, "Encountered non-NSSting key of class '%@' in request dictionary: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createXPCDictionary:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1C8286000, v0, v1, "Key '%@' in dictionary has value '%@' that is not an NSNumber, NSDate, or NSString.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createXPCDictionary:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1C8286000, v0, v1, "Passed nil key or value. key: '%@', val: '%@'");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8286000, a3, OS_LOG_TYPE_ERROR, "Encountered non-NSSting key of class '%@' in request dictionary: %@", v7, 0x16u);
 }
 
 @end

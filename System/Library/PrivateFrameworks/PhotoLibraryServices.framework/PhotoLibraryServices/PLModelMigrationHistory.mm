@@ -126,7 +126,7 @@ uint64_t __48__PLModelMigrationHistory_libraryWasEverRebuilt__block_invoke(uint6
   return [v1 enumerateObjectsUsingBlock:v3];
 }
 
-uint64_t __48__PLModelMigrationHistory_libraryWasEverRebuilt__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__48__PLModelMigrationHistory_libraryWasEverRebuilt__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 migrationType];
   if (result == 1)

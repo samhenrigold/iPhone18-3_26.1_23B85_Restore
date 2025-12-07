@@ -6,10 +6,10 @@
 uint64_t __tcp_Start_block_invoke(uint64_t result)
 {
   v2 = result;
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!*(*(result + 40) + 48))
   {
-    if (pipe(v9))
+    if (pipe(v10))
     {
       result = __error();
       *(*(v2[4] + 8) + 24) = *result;
@@ -17,13 +17,13 @@ uint64_t __tcp_Start_block_invoke(uint64_t result)
     }
 
     v3 = v2[5];
-    v4 = v9[1];
-    *(v3 + 104) = v9[0];
+    v4 = v10[1];
+    *(v3 + 104) = v10[0];
     *(v3 + 92) = v4;
     fcntl(v4, 4, 4);
     if (CFEqual(*(v2[5] + 24), @"Client"))
     {
-      __tcp_Start_block_invoke_cold_1(v2, &v8);
+      __tcp_Start_block_invoke_cold_1(v2, &v9);
     }
 
     else
@@ -31,16 +31,16 @@ uint64_t __tcp_Start_block_invoke(uint64_t result)
       if (!CFEqual(*(v2[5] + 24), @"Server"))
       {
         emitter = fig_log_get_emitter("com.apple.coremedia", "");
-        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EEuLL, "<<< transporttcp >>>", 0x38B, v1, v6, v7);
+        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EEuLL, "<<< transporttcp >>>", 0x38B, v1, v6, v7, v8);
 LABEL_6:
         *(*(v2[4] + 8) + 24) = result;
         goto LABEL_7;
       }
 
-      __tcp_Start_block_invoke_cold_2(v2, &v8);
+      __tcp_Start_block_invoke_cold_2(v2, &v9);
     }
 
-    result = v8;
+    result = v9;
     goto LABEL_6;
   }
 
@@ -75,7 +75,7 @@ void __usb_Start_block_invoke(void *a1)
       values[0] = @"FigTransportConnectionUSB.messagesending";
       v6 = *MEMORY[0x1E695E480];
       v7 = CFDictionaryCreate(*MEMORY[0x1E695E480], &kFigThreadCreateKey_Identifier, values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      FigThreadCreate(usb_messageSendingThreadMain, v4, 0x1Cu, 1, v7, (DerivedStorage + 192), v8, v9);
+      FigThreadCreate(usb_messageSendingThreadMain, v4, 28, 1, v7, (DerivedStorage + 192), v8, v9);
       if (v7)
       {
         CFRelease(v7);
@@ -83,7 +83,7 @@ void __usb_Start_block_invoke(void *a1)
 
       values[0] = @"FigTransportConnectionUSB.client";
       v10 = CFDictionaryCreate(v6, &kFigThreadCreateKey_Identifier, values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      FigThreadCreate(usb_clientThreadMain, v4, 0x1Cu, 1, v10, (DerivedStorage + 128), v11, v12);
+      FigThreadCreate(usb_clientThreadMain, v4, 28, 1, v10, (DerivedStorage + 128), v11, v12);
       if (v10)
       {
         CFRelease(v10);
@@ -96,10 +96,11 @@ void __usb_Start_block_invoke(void *a1)
     {
       v14 = a1[6];
       v15 = CMBaseObjectGetDerivedStorage(v14);
-      v33 = 0;
+      v34 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v33, &type);
-      v17 = v33;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v34, &type);
+      v17 = v34;
+      v18 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v19 = v17;
@@ -112,10 +113,10 @@ void __usb_Start_block_invoke(void *a1)
 
       if (v19)
       {
-        v35 = 136315138;
-        v36 = "usb_startServer";
-        v20 = _os_log_send_and_compose_impl();
-        LOBYTE(v17) = v33;
+        v36 = 136315138;
+        v37 = "usb_startServer";
+        v20 = _os_log_send_and_compose_impl(v19, 0, values, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v18, "<<< transportusb >>> %s: Called", &v36);
+        LOBYTE(v17) = v34;
       }
 
       else
@@ -123,14 +124,14 @@ void __usb_Start_block_invoke(void *a1)
         v20 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v20, v20 != values, v17, 0, v18);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v20, v20 != values, v17);
       *(v15 + 40) = 0;
       *(v15 + 24) = 0;
       *(v15 + 200) = dispatch_semaphore_create(0);
-      v34 = @"FigTransportConnectionUSB.messagesending";
+      v35 = @"FigTransportConnectionUSB.messagesending";
       v24 = *MEMORY[0x1E695E480];
-      v25 = CFDictionaryCreate(*MEMORY[0x1E695E480], &kFigThreadCreateKey_Identifier, &v34, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      FigThreadCreate(usb_messageSendingThreadMain, v14, 0x1Cu, 1, v25, (v15 + 192), v26, v27);
+      v25 = CFDictionaryCreate(*MEMORY[0x1E695E480], &kFigThreadCreateKey_Identifier, &v35, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      FigThreadCreate(usb_messageSendingThreadMain, v14, 28, 1, v25, (v15 + 192), v26, v27);
       if (v25)
       {
         CFRelease(v25);
@@ -140,9 +141,9 @@ void __usb_Start_block_invoke(void *a1)
       *(v15 + 144) = v28;
       if (v28)
       {
-        v34 = @"FigTransportConnectionUSB.server";
-        v29 = CFDictionaryCreate(v24, &kFigThreadCreateKey_Identifier, &v34, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        FigThreadCreate(usb_serverThreadMain, v14, 0x1Cu, 1, v29, (v15 + 128), v30, v31);
+        v35 = @"FigTransportConnectionUSB.server";
+        v29 = CFDictionaryCreate(v24, &kFigThreadCreateKey_Identifier, &v35, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        FigThreadCreate(usb_serverThreadMain, v14, 28, 1, v29, (v15 + 128), v30, v31);
         if (v29)
         {
           CFRelease(v29);
@@ -164,7 +165,7 @@ void __usb_Start_block_invoke(void *a1)
     else
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EEuLL, "<<< transportusb >>>", 0x74A, v1, v22, v23);
+      v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EEuLL, "<<< transportusb >>>", 0x74A, v1, v22, v23, v32);
     }
 
     *(*(a1[4] + 8) + 24) = v13;
@@ -205,7 +206,7 @@ uint64_t __ids_Start_block_invoke(uint64_t a1)
 
     values = @"FigTransportConnectionIDS.mainThread";
     v7 = CFDictionaryCreate(*MEMORY[0x1E695E480], &kFigThreadCreateKey_Identifier, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    FigThreadCreate(ids_threadMain, v2, 0x1Cu, 1, v7, (v4 + 80), v8, v9);
+    FigThreadCreate(ids_threadMain, v2, 28, 1, v7, (v4 + 80), v8, v9);
     if (v7)
     {
       CFRelease(v7);
@@ -274,7 +275,7 @@ void __tcp_Start_block_invoke_cold_2(uint64_t a1, int *a2)
 size_t __usb_Start_block_invoke_cold_1(_DWORD *a1)
 {
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EDuLL, "<<< transportusb >>>", 0x66F, v1, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFD0EDuLL, "<<< transportusb >>>", 0x66F, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }

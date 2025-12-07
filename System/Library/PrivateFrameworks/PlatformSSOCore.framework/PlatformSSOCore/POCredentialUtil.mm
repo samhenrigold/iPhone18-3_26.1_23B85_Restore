@@ -87,7 +87,7 @@ void __50__POCredentialUtil_passwordDataFromContext_error___block_invoke(uint64_
 id __50__POCredentialUtil_passwordDataFromContext_error___block_invoke_2(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"Failure to get credential."];
-  v2 = PO_LOG_POCredentialUtil();
+  v2 = PO_LOG_POCredentialUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -162,10 +162,10 @@ id __50__POCredentialUtil_passwordDataFromContext_error___block_invoke_2(uint64_
 
 + (BOOL)encryptPendingSSOTokens:(id)tokens usingPublicKey:(__SecKey *)key sharedData:(id)data encryptedTokens:(id *)encryptedTokens
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   dataCopy = data;
-  v11 = PO_LOG_POCredentialUtil();
+  v11 = PO_LOG_POCredentialUtil(dataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [POCredentialUtil encryptPendingSSOTokens:v11 usingPublicKey:? sharedData:? encryptedTokens:?];
@@ -176,46 +176,44 @@ id __50__POCredentialUtil_passwordDataFromContext_error___block_invoke_2(uint64_
   {
     if (SecKeyIsAlgorithmSupported(key, kSecKeyOperationTypeEncrypt, *MEMORY[0x277CDC328]))
     {
-      v24 = *MEMORY[0x277CDC400];
-      v25[0] = dataCopy;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-      v23 = 0;
-      v14 = *MEMORY[0x277CDC338];
+      v22 = *MEMORY[0x277CDC400];
+      v23[0] = dataCopy;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v21 = 0;
       EncryptedDataWithParameters = SecKeyCreateEncryptedDataWithParameters();
-      v16 = EncryptedDataWithParameters;
+      v15 = EncryptedDataWithParameters;
       v12 = EncryptedDataWithParameters != 0;
       if (EncryptedDataWithParameters)
       {
-        v17 = EncryptedDataWithParameters;
-        *encryptedTokens = v16;
+        v16 = EncryptedDataWithParameters;
+        *encryptedTokens = v15;
       }
 
       else
       {
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke_26;
-        v22[3] = &__block_descriptor_40_e14___NSError_8__0l;
-        v22[4] = v23;
-        v19 = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke_26(v22);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke_26;
+        v20[3] = &__block_descriptor_40_e14___NSError_8__0l;
+        v20[4] = v21;
+        v18 = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke_26(v20);
       }
     }
 
     else
     {
-      v18 = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke();
+      v17 = __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke();
       v12 = 0;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encryptedTokens___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Encryption algorithm not supported when encrypting pending sso tokens."];
-  v1 = PO_LOG_POCredentialUtil();
+  v1 = PO_LOG_POCredentialUtil(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -229,8 +227,8 @@ id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encr
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Failed to encrypt tokens when encrypting pending sso tokens."];
 
-  v3 = PO_LOG_POCredentialUtil();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POCredentialUtil(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -240,10 +238,10 @@ id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encr
 
 + (id)decryptPendingSSOTokens:(id)tokens UsingPrivateKey:(__SecKey *)key sharedData:(id)data
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   dataCopy = data;
-  v9 = PO_LOG_POCredentialUtil();
+  v9 = PO_LOG_POCredentialUtil(dataCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [POCredentialUtil decryptPendingSSOTokens:v9 UsingPrivateKey:? sharedData:?];
@@ -254,13 +252,12 @@ id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encr
   {
     if (SecKeyIsAlgorithmSupported(key, kSecKeyOperationTypeDecrypt, *MEMORY[0x277CDC328]))
     {
-      v21 = *MEMORY[0x277CDC400];
-      v22[0] = dataCopy;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-      v20 = 0;
-      v12 = *MEMORY[0x277CDC338];
+      v19 = *MEMORY[0x277CDC400];
+      v20[0] = dataCopy;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = 0;
       DecryptedDataWithParameters = SecKeyCreateDecryptedDataWithParameters();
-      v14 = DecryptedDataWithParameters;
+      v13 = DecryptedDataWithParameters;
       if (DecryptedDataWithParameters)
       {
         v10 = DecryptedDataWithParameters;
@@ -268,24 +265,22 @@ id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encr
 
       else
       {
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke_35;
-        v19[3] = &__block_descriptor_40_e14___NSError_8__0l;
-        v19[4] = v20;
-        v16 = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke_35(v19);
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke_35;
+        v17[3] = &__block_descriptor_40_e14___NSError_8__0l;
+        v17[4] = v18;
+        v15 = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke_35(v17);
         v10 = 0;
       }
     }
 
     else
     {
-      v15 = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke();
+      v14 = __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke();
       v10 = 0;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -293,7 +288,7 @@ id __86__POCredentialUtil_encryptPendingSSOTokens_usingPublicKey_sharedData_encr
 id __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Encryption algorithm not supported when decrypting pending sso tokens."];
-  v1 = PO_LOG_POCredentialUtil();
+  v1 = PO_LOG_POCredentialUtil(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -307,8 +302,8 @@ id __71__POCredentialUtil_decryptPendingSSOTokens_UsingPrivateKey_sharedData___b
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"failed to decrypt tokens when decrypting pending sso tokens."];
 
-  v3 = PO_LOG_POCredentialUtil();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POCredentialUtil(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }

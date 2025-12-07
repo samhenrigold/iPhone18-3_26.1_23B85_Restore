@@ -8,6 +8,7 @@
 - (void)invalidate;
 - (void)recordingEndpoint:(id)endpoint inputDeviceConnectedWithID:(unsigned int)d;
 - (void)recordingEndpoint:(id)endpoint inputDeviceDisconnectedWithID:(unsigned int)d;
+- (void)recordingEndpoint:(id)endpoint inputDeviceWithID:(unsigned int)d receivedAudioBuffer:(void *)buffer withTime:(id)time gain:(float)gain;
 @end
 
 @implementation MRAPInputPlugin
@@ -121,16 +122,37 @@
   [(MRAPInputPlugin *)self _reloadInputDevices];
 }
 
-- (void)_reloadInputDevices
+- (void)recordingEndpoint:(id)endpoint inputDeviceWithID:(unsigned int)d receivedAudioBuffer:(void *)buffer withTime:(id)time gain:(float)gain
 {
-  v3 = _MRLogForCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  var1 = time.var1;
+  var0 = time.var0;
+  v12 = [(MRAPInputPlugin *)self _inputDeviceWithIdentifier:*&d];
+  v14 = v12;
+  if (v12)
   {
-    *buf = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[AudioPlugin] Reloading input devices...", buf, 2u);
+    *&v13 = gain;
+    [v12 processVoiceDataWithBuffer:buffer time:var0 gain:{var1, v13}];
   }
 
-  serialQueue = self->_serialQueue;
+  else
+  {
+    v15 = _MRLogForCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_3174(d, v15);
+    }
+  }
+}
+
+- (void)_reloadInputDevices
+{
+  v2 = _MRLogForCategory();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[AudioPlugin] Reloading input devices...", buf, 2u);
+  }
+
   MRVirtualVoiceInputGetDevices();
 }
 

@@ -10,12 +10,12 @@
 
 - (TPSDeliveryPrecondition)initWithDictionary:(id)dictionary fallbackId:(id)id
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   idCopy = id;
-  v34.receiver = self;
-  v34.super_class = TPSDeliveryPrecondition;
-  v8 = [(TPSSerializableObject *)&v34 initWithDictionary:dictionaryCopy];
+  v33.receiver = self;
+  v33.super_class = TPSDeliveryPrecondition;
+  v8 = [(TPSSerializableObject *)&v33 initWithDictionary:dictionaryCopy];
   v9 = v8;
   if (v8)
   {
@@ -27,7 +27,7 @@
 
     v10 = [dictionaryCopy TPSSafeStringForKey:@"joinType"];
     v9->_joinType = 0;
-    v29 = v10;
+    v28 = v10;
     if ([v10 isEqualToString:@"OR"])
     {
       v9->_joinType = 1;
@@ -35,30 +35,30 @@
 
     v11 = [dictionaryCopy TPSSafeArrayForKey:@"conditions"];
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [TPSCondition conditionFromDictionary:*(*(&v30 + 1) + 8 * i)];
+          v18 = [TPSCondition conditionFromDictionary:*(*(&v29 + 1) + 8 * i)];
           [v12 addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v15);
@@ -89,7 +89,6 @@
     v9->_label = v25;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

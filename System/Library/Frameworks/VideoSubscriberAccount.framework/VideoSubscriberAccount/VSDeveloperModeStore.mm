@@ -67,67 +67,68 @@
 
   if (firstObject)
   {
-    v5 = firstObject;
+    v6 = firstObject;
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
 
     if (bundleIdentifier)
     {
-      v8 = [v5 URLByAppendingPathComponent:bundleIdentifier];
-      v9 = v8;
-      if (v8)
+      v9 = [v6 URLByAppendingPathComponent:bundleIdentifier];
+      v10 = v9;
+      if (v9)
       {
-        path = [v8 path];
+        path = [v9 path];
 
         if (!path)
         {
           [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [containerDirectoryOrNil path] parameter must not be nil."];
         }
 
-        path2 = [v9 path];
-        v18 = 0;
-        if (([v2 fileExistsAtPath:path2 isDirectory:&v18] & 1) == 0)
+        path2 = [v10 path];
+        v20 = 0;
+        if (([v2 fileExistsAtPath:path2 isDirectory:&v20] & 1) == 0)
         {
-          v17 = 0;
-          v12 = [v2 createDirectoryAtPath:path2 withIntermediateDirectories:0 attributes:0 error:&v17];
-          v13 = v17;
-          if ((v12 & 1) == 0)
+          v19 = 0;
+          v13 = [v2 createDirectoryAtPath:path2 withIntermediateDirectories:0 attributes:0 error:&v19];
+          v14 = v19;
+          v15 = v14;
+          if ((v13 & 1) == 0)
           {
-            v14 = VSErrorLogObject();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v16 = VSErrorLogObject(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               [VSDeveloperModeStore settingsPropertiesURL];
             }
           }
         }
 
-        v15 = [v9 URLByAppendingPathComponent:@"DeveloperSettings.plist"];
+        v17 = [v10 URLByAppendingPathComponent:@"DeveloperSettings.plist"];
       }
 
       else
       {
-        v15 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v5 = VSErrorLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VSErrorLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VSDeveloperModeStore settingsPropertiesURL];
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
-  return v15;
+  return v17;
 }
 
 - (id)legacySettingsPropertiesPath
@@ -150,7 +151,7 @@
 
     else
     {
-      v12 = VSErrorLogObject();
+      v12 = VSErrorLogObject(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [VSDeveloperModeStore legacySettingsPropertiesPath];
@@ -164,7 +165,7 @@
 
   else
   {
-    v8 = VSErrorLogObject();
+    v8 = VSErrorLogObject(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [VSDeveloperModeStore legacySettingsPropertiesPath];
@@ -249,7 +250,7 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -303,7 +304,7 @@ void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHan
 void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_2_cold_1();
@@ -312,53 +313,53 @@ void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHan
 
 void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_67(uint64_t a1, void *a2)
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v52 = a1;
+  v55 = a1;
   v4 = [*(a1 + 32) _identityProviderFetchRequest];
   v5 = [MEMORY[0x277CCAC30] predicateWithValue:1];
   [v4 setPredicate:v5];
 
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"nameForSorting" ascending:1 selector:sel_localizedCaseInsensitiveCompare_];
-  v68[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
+  v71[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
   [v4 setSortDescriptors:v7];
 
   [v4 setReturnsObjectsAsFaults:0];
-  v63 = 0;
-  v8 = [v3 executeFetchRequest:v4 error:&v63];
-  v9 = v63;
+  v66 = 0;
+  v8 = [v3 executeFetchRequest:v4 error:&v66];
+  v9 = v66;
   v10 = v9;
   if (v8)
   {
-    v47 = v9;
-    v49 = v6;
-    v50 = v4;
-    v51 = v3;
+    v50 = v9;
+    v52 = v6;
+    v53 = v4;
+    v54 = v3;
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    v48 = v8;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v51 = v8;
     obj = v8;
-    v12 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-    v13 = v52;
-    v53 = v11;
+    v12 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v13 = v55;
+    v56 = v11;
     if (v12)
     {
       v14 = v12;
-      v55 = *v60;
+      v58 = *v63;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v60 != v55)
+          if (*v63 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v59 + 1) + 8 * i);
+          v16 = *(*(&v62 + 1) + 8 * i);
           v17 = objc_alloc_init(VSIdentityProvider);
           [v11 addObject:v17];
           [(VSIdentityProvider *)v17 setDeveloper:1];
@@ -382,107 +383,108 @@ void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHan
           -[VSIdentityProvider setRequireAuthenticationURLSystemTrust:](v17, "setRequireAuthenticationURLSystemTrust:", [v16 requireBootUrlSystemTrust]);
           -[VSIdentityProvider setRequireXHRRequestSystemTrust:](v17, "setRequireXHRRequestSystemTrust:", [v16 requireXHRRequestSystemTrust]);
           v27 = [v16 authenticationURL];
+          v28 = v27;
           if (v27)
           {
-            v28 = [MEMORY[0x277CBEBC0] URLWithString:v27];
-            [(VSIdentityProvider *)v17 setAuthenticationURL:v28];
+            v29 = [MEMORY[0x277CBEBC0] URLWithString:v27];
+            [(VSIdentityProvider *)v17 setAuthenticationURL:v29];
           }
 
-          v29 = VSPlatformTemplateElements();
-          v30 = [v29 allObjects];
-          [(VSIdentityProvider *)v17 setSupportedTemplates:v30];
+          v30 = VSPlatformTemplateElements(v27);
+          v31 = [v30 allObjects];
+          [(VSIdentityProvider *)v17 setSupportedTemplates:v31];
 
-          v31 = [(VSIdentityProvider *)v17 supportedAuthenticationSchemes];
-          if (![v31 count])
+          v32 = [(VSIdentityProvider *)v17 supportedAuthenticationSchemes];
+          if (![v32 count])
           {
-            v66[0] = @"SAML";
-            v66[1] = @"API";
-            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
-            [(VSIdentityProvider *)v17 setSupportedAuthenticationSchemes:v32];
+            v69[0] = @"SAML";
+            v69[1] = @"API";
+            v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+            [(VSIdentityProvider *)v17 setSupportedAuthenticationSchemes:v33];
           }
 
-          v33 = *(*(*(v13 + 48) + 8) + 40);
-          if (v33)
+          v34 = *(*(*(v13 + 48) + 8) + 40);
+          if (v34)
           {
-            v34 = v33;
-            if ([v34 isInSetTopBoxMode])
+            v35 = v34;
+            if ([v35 isInSetTopBoxMode])
             {
-              v35 = [(VSIdentityProvider *)v17 uniqueID];
-              v36 = [v35 forceUnwrapObject];
-              v37 = [v34 setTopBoxIdentityProviderID];
-              v38 = [v36 isEqual:v37];
+              v36 = [(VSIdentityProvider *)v17 uniqueID];
+              v37 = [v36 forceUnwrapObject];
+              v38 = [v35 setTopBoxIdentityProviderID];
+              v39 = [v37 isEqual:v38];
 
-              v13 = v52;
-              v11 = v53;
+              v13 = v55;
+              v11 = v56;
 
-              if (v38)
+              if (v39)
               {
-                -[VSIdentityProvider setIsSTBOptOutAllowed:](v17, "setIsSTBOptOutAllowed:", [v34 setTopBoxSupportsOptOut]);
-                v39 = [v34 setTopBoxUserToken];
-                [(VSIdentityProvider *)v17 setUserToken:v39];
+                -[VSIdentityProvider setIsSTBOptOutAllowed:](v17, "setIsSTBOptOutAllowed:", [v35 setTopBoxSupportsOptOut]);
+                v40 = [v35 setTopBoxUserToken];
+                [(VSIdentityProvider *)v17 setUserToken:v40];
 
-                v11 = v53;
+                v11 = v56;
               }
             }
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v14 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
       while (v14);
     }
 
-    v40 = VSDefaultLogObject();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v42 = VSDefaultLogObject(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v65 = "[VSDeveloperModeStore fetchDeveloperIdentityProvidersWithCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_23AB8E000, v40, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
+      v68 = "[VSDeveloperModeStore fetchDeveloperIdentityProvidersWithCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_23AB8E000, v42, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
     }
 
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_86;
-    v56[3] = &unk_278B737F8;
-    v41 = *(v13 + 40);
-    v57 = v53;
-    v58 = v41;
-    v42 = v53;
-    __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_86(v56);
-    v43 = VSDefaultLogObject();
-    v4 = v50;
-    v3 = v51;
-    v8 = v48;
-    v6 = v49;
-    v10 = v47;
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_86;
+    v59[3] = &unk_278B737F8;
+    v43 = *(v13 + 40);
+    v60 = v56;
+    v61 = v43;
+    v44 = v56;
+    v45 = (__77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_86)(v59);
+    v46 = VSDefaultLogObject(v45);
+    v4 = v53;
+    v3 = v54;
+    v8 = v51;
+    v6 = v52;
+    v10 = v50;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v65 = "[VSDeveloperModeStore fetchDeveloperIdentityProvidersWithCompletionHandler:]_block_invoke_2";
-      _os_log_impl(&dword_23AB8E000, v43, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
+      v68 = "[VSDeveloperModeStore fetchDeveloperIdentityProvidersWithCompletionHandler:]_block_invoke_2";
+      _os_log_impl(&dword_23AB8E000, v46, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
     }
 
-    v44 = v58;
+    v47 = v61;
   }
 
   else
   {
-    v45 = VSErrorLogObject();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v48 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHandler___block_invoke_67_cold_1();
     }
 
-    v46 = *(v52 + 40);
+    v49 = *(v55 + 40);
     if (!v10)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The error parameter must not be nil."];
     }
 
-    v44 = v10;
-    v42 = [VSFailable failableWithError:v44];
-    (*(v46 + 16))(v46, v42);
+    v47 = v10;
+    v44 = [VSFailable failableWithError:v47];
+    (*(v49 + 16))(v49, v44);
   }
 }
 
@@ -498,7 +500,7 @@ void __77__VSDeveloperModeStore_fetchDeveloperIdentityProvidersWithCompletionHan
   v16 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   handlerCopy = handler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -551,10 +553,11 @@ void __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler__
 
   [v5 setRequireBootUrlSystemTrust:{objc_msgSend(*(a1 + 40), "requireAuthenticationURLSystemTrust")}];
   [v5 setRequireXHRRequestSystemTrust:{objc_msgSend(*(a1 + 40), "requireXHRRequestSystemTrust")}];
-  v22 = 0;
-  LODWORD(v15) = [v4 save:&v22];
+  v23 = 0;
+  LODWORD(v15) = [v4 save:&v23];
 
-  v17 = v22;
+  v17 = v23;
+  v18 = v17;
   if (v15)
   {
     [*(a1 + 32) fetchDeveloperIdentityProvidersWithCompletionHandler:*(a1 + 48)];
@@ -564,21 +567,21 @@ void __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler__
 
   else
   {
-    v18 = VSErrorLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VSErrorLogObject(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler___block_invoke_cold_1();
     }
 
-    v19 = *(a1 + 48);
-    if (!v17)
+    v20 = *(a1 + 48);
+    if (!v18)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The saveError parameter must not be nil."];
     }
 
-    v20 = v17;
-    v21 = [VSFailable failableWithError:v20];
-    (*(v19 + 16))(v19, v21);
+    v21 = v18;
+    v22 = [VSFailable failableWithError:v21];
+    (*(v20 + 16))(v20, v22);
   }
 }
 
@@ -587,7 +590,7 @@ void __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler__
   v11 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   handlerCopy = handler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315138;
@@ -608,7 +611,7 @@ void __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler__
   v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -635,104 +638,106 @@ void __71__VSDeveloperModeStore_addDeveloperIdentityProvider_completionHandler__
 
 void __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _identityProviderFetchRequest];
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"uniqueID", *(a1 + 40)];
   [v4 setPredicate:v5];
-  v31 = 0;
-  v6 = [v3 executeFetchRequest:v4 error:&v31];
-  v7 = v31;
+  v33 = 0;
+  v6 = [v3 executeFetchRequest:v4 error:&v33];
+  v7 = v33;
+  v8 = v7;
   if (v6)
   {
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v9)
+    v9 = v6;
+    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v28;
+      v11 = v10;
+      v12 = *v30;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v28 != v11)
+          if (*v30 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          [v3 deleteObject:*(*(&v27 + 1) + 8 * v12++)];
+          [v3 deleteObject:*(*(&v29 + 1) + 8 * v13++)];
         }
 
-        while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    v26 = 0;
-    v13 = [v3 save:&v26];
-    v14 = v26;
-    if (v13)
+    v28 = 0;
+    v14 = [v3 save:&v28];
+    v15 = v28;
+    v16 = v15;
+    if (v14)
     {
       [*(a1 + 32) fetchDeveloperIdentityProvidersWithCompletionHandler:*(a1 + 48)];
       [*(a1 + 32) _noteServiceDidChange];
       [*(a1 + 32) _noteProvidersDidChange];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_2;
-      v23[3] = &unk_278B74718;
-      v15 = *(a1 + 32);
-      v16 = *(a1 + 40);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_2;
+      v25[3] = &unk_278B74718;
       v17 = *(a1 + 32);
-      v24 = v16;
-      v25 = v17;
-      [v15 fetchDeveloperSettingsWithCompletionHandler:v23];
-      v18 = v24;
+      v18 = *(a1 + 40);
+      v19 = *(a1 + 32);
+      v26 = v18;
+      v27 = v19;
+      [v17 fetchDeveloperSettingsWithCompletionHandler:v25];
+      v20 = v26;
     }
 
     else
     {
-      v21 = VSErrorLogObject();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = VSErrorLogObject(v15);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_cold_1();
       }
 
-      v22 = *(a1 + 48);
-      if (!v14)
+      v24 = *(a1 + 48);
+      if (!v16)
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The saveError parameter must not be nil."];
       }
 
-      v14 = v14;
-      v18 = [VSFailable failableWithError:v14];
-      (*(v22 + 16))(v22, v18);
+      v16 = v16;
+      v20 = [VSFailable failableWithError:v16];
+      (*(v24 + 16))(v24, v20);
     }
   }
 
   else
   {
-    v19 = VSErrorLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_cold_2();
     }
 
-    v20 = *(a1 + 48);
-    if (!v7)
+    v22 = *(a1 + 48);
+    if (!v8)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The fetchError parameter must not be nil."];
     }
 
-    v18 = v7;
-    v14 = [VSFailable failableWithError:v18];
-    (*(v20 + 16))(v20, v14);
+    v20 = v8;
+    v16 = [VSFailable failableWithError:v20];
+    (*(v22 + 16))(v22, v16);
   }
 }
 
@@ -781,7 +786,7 @@ uint64_t __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_
 
 uint64_t __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_5(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -795,7 +800,7 @@ uint64_t __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_
 void __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_110(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_110_cold_1();
@@ -805,7 +810,7 @@ void __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_comp
 void __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_113(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_completionHandler___block_invoke_113_cold_1();
@@ -816,7 +821,7 @@ void __86__VSDeveloperModeStore_removeDeveloperIdentityProviderWithUniqueID_comp
 {
   v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -842,7 +847,7 @@ void __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___bl
   if (v2)
   {
     v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v2];
-    v4 = VSDefaultLogObject();
+    v4 = VSDefaultLogObject(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v2 absoluteString];
@@ -911,7 +916,7 @@ void __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___bl
         }
 
         v9 = v8;
-        v23 = VSErrorLogObject();
+        v23 = VSErrorLogObject(v9);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___block_invoke_cold_1();
@@ -933,7 +938,7 @@ void __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___bl
 
   else
   {
-    v21 = VSErrorLogObject();
+    v21 = VSErrorLogObject(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___block_invoke_cold_2();
@@ -951,7 +956,7 @@ void __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___bl
   v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   handlerCopy = handler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -979,7 +984,7 @@ void __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___bl
 
 void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) settingsPropertiesURL];
   v3 = v2;
   if (v2)
@@ -992,20 +997,20 @@ void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___bloc
     }
 
     v5 = [v3 path];
-    v6 = VSDefaultLogObject();
+    v6 = VSDefaultLogObject(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v5;
+      v42 = v5;
       _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will update developer settings using path %@", buf, 0xCu);
     }
 
     v7 = [MEMORY[0x277CCAA00] defaultManager];
     if ([v7 fileExistsAtPath:v5])
     {
-      v39 = 0;
-      v8 = [v7 removeItemAtPath:v5 error:&v39];
-      v9 = v39;
+      v40 = 0;
+      v8 = [v7 removeItemAtPath:v5 error:&v40];
+      v9 = v40;
       v10 = v9;
       if ((v8 & 1) == 0)
       {
@@ -1015,7 +1020,7 @@ void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___bloc
         }
 
         v11 = v10;
-        v12 = VSErrorLogObject();
+        v12 = VSErrorLogObject(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___block_invoke_cold_1();
@@ -1051,34 +1056,34 @@ void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___bloc
     v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 40), "setTopBoxSupportsOptOut")}];
     [v13 setObject:v22 forKey:@"VSDeveloperSettingsPropertySetTopBoxSupportsOptOut"];
 
-    v38 = 0;
-    v23 = [MEMORY[0x277CCAC58] dataWithPropertyList:v13 format:200 options:0 error:&v38];
-    v24 = v38;
+    v39 = 0;
+    v23 = [MEMORY[0x277CCAC58] dataWithPropertyList:v13 format:200 options:0 error:&v39];
+    v24 = v39;
     v25 = v24;
     if (v23)
     {
-      v37 = v24;
-      v26 = [v23 writeToFile:v5 options:1 error:&v37];
-      v27 = v37;
+      v38 = v24;
+      v26 = [v23 writeToFile:v5 options:1 error:&v38];
+      v27 = v38;
 
       if (v26)
       {
-        v28 = VSDefaultLogObject();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = VSDefaultLogObject(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v41 = v5;
-          _os_log_impl(&dword_23AB8E000, v28, OS_LOG_TYPE_DEFAULT, "successfully wrote developer settings to %@", buf, 0xCu);
+          v42 = v5;
+          _os_log_impl(&dword_23AB8E000, v29, OS_LOG_TYPE_DEFAULT, "successfully wrote developer settings to %@", buf, 0xCu);
         }
 
         [*(a1 + 32) _noteServiceDidChange];
         [*(a1 + 32) _noteSettingsDidChange];
-        v29 = [*(a1 + 32) accountStoreChangeRemoteNotifier];
-        [v29 postNotification];
+        v30 = [*(a1 + 32) accountStoreChangeRemoteNotifier];
+        [v30 postNotification];
 
-        v30 = *(a1 + 48);
-        v31 = [VSFailable failableWithObject:*(a1 + 40)];
-        (*(v30 + 16))(v30, v31);
+        v31 = *(a1 + 48);
+        v32 = [VSFailable failableWithObject:*(a1 + 40)];
+        (*(v31 + 16))(v31, v32);
         goto LABEL_31;
       }
 
@@ -1087,9 +1092,9 @@ void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___bloc
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The errorOrNil parameter must not be nil."];
       }
 
-      v31 = v27;
-      v34 = VSErrorLogObject();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v32 = v27;
+      v35 = VSErrorLogObject(v32);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___block_invoke_cold_2();
       }
@@ -1102,34 +1107,34 @@ void __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___bloc
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The errorOrNil parameter must not be nil."];
       }
 
-      v31 = v25;
-      v34 = VSErrorLogObject();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v32 = v25;
+      v35 = VSErrorLogObject(v32);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         __66__VSDeveloperModeStore_updateDeveloperSettings_completionHandler___block_invoke_cold_3();
       }
     }
 
-    v35 = *(a1 + 48);
-    v36 = [VSFailable failableWithError:v31];
-    (*(v35 + 16))(v35, v36);
+    v36 = *(a1 + 48);
+    v37 = [VSFailable failableWithError:v32];
+    (*(v36 + 16))(v36, v37);
 
-    v27 = v31;
+    v27 = v32;
 LABEL_31:
 
     goto LABEL_32;
   }
 
-  v32 = VSErrorLogObject();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v33 = VSErrorLogObject(0);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     __68__VSDeveloperModeStore_fetchDeveloperSettingsWithCompletionHandler___block_invoke_cold_2();
   }
 
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"VSDeveloperServiceErrorDomain" code:-2 userInfo:0];
-  v33 = *(a1 + 48);
+  v34 = *(a1 + 48);
   v7 = [VSFailable failableWithError:v5];
-  (*(v33 + 16))(v33, v7);
+  (*(v34 + 16))(v34, v7);
 LABEL_32:
 }
 

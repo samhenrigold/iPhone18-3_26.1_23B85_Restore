@@ -44,9 +44,9 @@
   v6 = atomic_load(&self->_isClosed);
   if (v6)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed", "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDirectoryPackageWriter.mm", 278);
     v8 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]", "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDirectoryPackageWriter.mm", 278);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]");
     v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDirectoryPackageWriter.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 278, 1, "Already closed");
 

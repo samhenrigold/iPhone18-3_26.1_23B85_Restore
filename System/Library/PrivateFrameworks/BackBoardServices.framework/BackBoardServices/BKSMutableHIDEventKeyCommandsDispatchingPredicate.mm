@@ -9,115 +9,114 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [BKSHIDEventKeyCommandsDispatchingPredicate allocWithZone:zone];
-  senderDescriptors = self->super._senderDescriptors;
+  v3 = [BKSHIDEventKeyCommandsDispatchingPredicate allocWithZone:?];
 
-  return [(BKSHIDEventKeyCommandsDispatchingPredicate *)v4 _initWithSenderDescriptors:senderDescriptors];
+  return [(BKSHIDEventKeyCommandsDispatchingPredicate *)v3 _initWithSenderDescriptors:?];
 }
 
 - (void)setSenderDescriptors:(id)descriptors
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   if (descriptorsCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v22 = MEMORY[0x1E696AEC0];
+      v21 = MEMORY[0x1E696AEC0];
       classForCoder = [descriptorsCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v24 = NSStringFromClass(classForCoder);
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = [v22 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"senderDescriptors", v24, v26];
+      v23 = NSStringFromClass(classForCoder);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = [v21 stringWithFormat:@"senderDescriptors", v23, v25];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v28 = NSStringFromSelector(a2);
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v27 = NSStringFromSelector(a2);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544642;
-        v37 = v28;
-        v38 = 2114;
-        v39 = v30;
-        v40 = 2048;
+        v35 = v27;
+        v36 = 2114;
+        v37 = v29;
+        v38 = 2048;
         selfCopy2 = self;
-        v42 = 2114;
-        v43 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
-        v44 = 1024;
-        v45 = 176;
-        v46 = 2114;
-        v47 = v27;
+        v40 = 2114;
+        v41 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
+        v42 = 1024;
+        v43 = 176;
+        v44 = 2114;
+        v45 = v26;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v27 UTF8String];
+      [v26 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863955D0);
     }
 
     v6 = [MEMORY[0x1E695DFA8] set];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v7 = descriptorsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * i);
+          v12 = *(*(&v30 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"set contains non-BKSHIDEventSenderDescriptor elements : %@", v7];
+            v17 = [MEMORY[0x1E696AEC0] stringWithFormat:v7];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v19 = NSStringFromSelector(a2);
-              v20 = objc_opt_class();
-              v21 = NSStringFromClass(v20);
+              v18 = NSStringFromSelector(a2);
+              v19 = objc_opt_class();
+              v20 = NSStringFromClass(v19);
               *buf = 138544642;
-              v37 = v19;
-              v38 = 2114;
-              v39 = v21;
-              v40 = 2048;
+              v35 = v18;
+              v36 = 2114;
+              v37 = v20;
+              v38 = 2048;
               selfCopy2 = self;
-              v42 = 2114;
-              v43 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
-              v44 = 1024;
-              v45 = 180;
-              v46 = 2114;
-              v47 = v18;
+              v40 = 2114;
+              v41 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
+              v42 = 1024;
+              v43 = 180;
+              v44 = 2114;
+              v45 = v17;
               _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            [v18 UTF8String];
+            [v17 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x186395494);
           }
 
           v13 = [v12 copy];
-          [v6 addObject:v13];
+          [v6 addObject:?];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v9);
@@ -133,98 +132,94 @@
     v16 = self->super._senderDescriptors;
     self->super._senderDescriptors = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplays:(id)displays
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   displaysCopy = displays;
   if (displaysCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v7 = MEMORY[0x1E696AEC0];
+      v6 = MEMORY[0x1E696AEC0];
       classForCoder = [displaysCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v9 = NSStringFromClass(classForCoder);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = [v7 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"displays", v9, v11];
+      v8 = NSStringFromClass(classForCoder);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = [v6 stringWithFormat:@"displays", v8, v10];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v12 = NSStringFromSelector(a2);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138544642;
-        v22 = v13;
-        v23 = 2114;
-        v24 = v15;
-        v25 = 2048;
+        v21 = v12;
+        v22 = 2114;
+        v23 = v14;
+        v24 = 2048;
         selfCopy2 = self;
-        v27 = 2114;
-        v28 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
-        v29 = 1024;
-        v30 = 160;
-        v31 = 2114;
-        v32 = v12;
+        v26 = 2114;
+        v27 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
+        v28 = 1024;
+        v29 = 160;
+        v30 = 2114;
+        v31 = v11;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v12 UTF8String];
+      [v11 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863957F8);
     }
 
-    if ([displaysCopy bs_containsObjectPassingTest:&__block_literal_global_119])
+    if ([displaysCopy bs_containsObjectPassingTest:?])
     {
-      displaysCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"displays contains non-BKSHIDEventDisplay elements : %@", displaysCopy];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:displaysCopy];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = NSStringFromSelector(a2);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v16 = NSStringFromSelector(a2);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138544642;
-        v22 = v17;
-        v23 = 2114;
-        v24 = v19;
-        v25 = 2048;
+        v21 = v16;
+        v22 = 2114;
+        v23 = v18;
+        v24 = 2048;
         selfCopy2 = self;
-        v27 = 2114;
-        v28 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
-        v29 = 1024;
-        v30 = 164;
-        v31 = 2114;
-        v32 = displaysCopy;
+        v26 = 2114;
+        v27 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
+        v28 = 1024;
+        v29 = 164;
+        v30 = 2114;
+        v31 = v15;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [displaysCopy UTF8String];
+      [v15 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863958ECLL);
     }
   }
 
-  v5 = [displaysCopy bs_map:&__block_literal_global_126];
-  [(BKSMutableHIDEventKeyCommandsDispatchingPredicate *)self setSenderDescriptors:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [displaysCopy bs_map:?];
+  [(BKSMutableHIDEventKeyCommandsDispatchingPredicate *)self setSenderDescriptors:?];
 }
 
 BKSMutableHIDEventSenderDescriptor *__65__BKSMutableHIDEventKeyCommandsDispatchingPredicate_setDisplays___block_invoke_123(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_alloc_init(BKSMutableHIDEventSenderDescriptor);
-  [(BKSMutableHIDEventSenderDescriptor *)v3 setAssociatedDisplay:v2];
+  [(BKSMutableHIDEventSenderDescriptor *)v3 setAssociatedDisplay:?];
 
   return v3;
 }
@@ -240,41 +235,40 @@ BOOL __65__BKSMutableHIDEventKeyCommandsDispatchingPredicate_setDisplays___block
 
 - (BKSMutableHIDEventKeyCommandsDispatchingPredicate)init
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSMutableHIDEventKeyCommandsDispatchingPredicate cannot be subclassed"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138544642;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2048;
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138544642;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
-      v21 = 1024;
-      v22 = 153;
-      v23 = 2114;
-      v24 = v9;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+      v18 = 2114;
+      v19 = @"BKSHIDEventKeyCommandsDispatchingPredicate.m";
+      v20 = 1024;
+      v21 = 153;
+      v22 = 2114;
+      v23 = v8;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186395B28);
   }
 
   v5 = [MEMORY[0x1E695DFD8] set];
-  v6 = [(BKSHIDEventKeyCommandsDispatchingPredicate *)self _initWithSenderDescriptors:v5];
+  v6 = [(BKSHIDEventKeyCommandsDispatchingPredicate *)self _initWithSenderDescriptors:?];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

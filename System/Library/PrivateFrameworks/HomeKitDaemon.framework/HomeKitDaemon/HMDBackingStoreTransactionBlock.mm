@@ -6,6 +6,7 @@
 - (NSString)description;
 - (void)add:(id)add withMessage:(id)message;
 - (void)addObjects:(id)objects;
+- (void)dumpWithVerbosity:(BOOL)verbosity prefix:(id)prefix logType:(unsigned __int8)type;
 - (void)run:(id)run;
 - (void)runWithCoreDataBlock:(id)block withCompletionBlock:(id)completionBlock;
 - (void)runWithoutSave:(id)save;
@@ -19,6 +20,81 @@
   WeakRetained = objc_loadWeakRetained(&self->_backingStore);
 
   return WeakRetained;
+}
+
+- (void)dumpWithVerbosity:(BOOL)verbosity prefix:(id)prefix logType:(unsigned __int8)type
+{
+  typeCopy = type;
+  verbosityCopy = verbosity;
+  v39 = *MEMORY[0x277D85DE8];
+  prefixCopy = prefix;
+  v7 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, typeCopy))
+  {
+    v10 = HMFGetLogIdentifier();
+    options = [(HMDBackingStoreTransactionBlock *)selfCopy options];
+    v12 = [options debugString:0];
+    *buf = 138543874;
+    v34 = v10;
+    v35 = 2112;
+    v36 = prefixCopy;
+    v37 = 2112;
+    v38 = v12;
+    _os_log_impl(&dword_229538000, v9, typeCopy, "%{public}@%@options: %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v7);
+  objects = [(HMDBackingStoreTransactionBlock *)selfCopy objects];
+  v14 = [objects count];
+
+  if (v14)
+  {
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    obj = [(HMDBackingStoreTransactionBlock *)selfCopy objects];
+    v15 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v29;
+      do
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v29 != v17)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v19 = *(*(&v28 + 1) + 8 * i);
+          change = [v19 change];
+          v21 = changeTypeAsNSString([change objectChangeType]);
+
+          if (verbosityCopy)
+          {
+            v22 = [v21 isEqual:@"delete"] ^ 1;
+          }
+
+          else
+          {
+            v22 = 0;
+          }
+
+          v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@:", prefixCopy, v21];
+          change2 = [v19 change];
+          [change2 dumpWithVerbosity:v22 prefix:v23 logType:typeCopy];
+        }
+
+        v16 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      }
+
+      while (v16);
+    }
+  }
 }
 
 - (NSString)description
@@ -63,60 +139,58 @@
 
 - (void)addObjects:(id)objects
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [objectsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [objectsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        [(HMDBackingStoreTransactionBlock *)self add:*(*(&v10 + 1) + 8 * v8++) withMessage:0];
+        [(HMDBackingStoreTransactionBlock *)self add:*(*(&v9 + 1) + 8 * v8++) withMessage:0];
       }
 
       while (v6 != v8);
-      v6 = [objectsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [objectsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)add:(id)add withMessage:(id)message
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   addCopy = add;
   messageCopy = message;
   uuid = [addCopy uuid];
 
   if (!uuid)
   {
-    v40 = MEMORY[0x277CBEAD8];
-    v41 = *MEMORY[0x277CBE658];
-    v42 = MEMORY[0x277CCACA8];
-    v43 = objc_opt_class();
-    v44 = NSStringFromClass(v43);
+    v39 = MEMORY[0x277CBEAD8];
+    v40 = *MEMORY[0x277CBE658];
+    v41 = MEMORY[0x277CCACA8];
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
     bsoType = [addCopy bsoType];
-    v46 = [v42 stringWithFormat:@"UUID for a transaction object (%@ / %@) must be set before adding to a transaction.", v44, bsoType];
-    v47 = [v40 exceptionWithName:v41 reason:v46 userInfo:0];
-    v48 = v47;
+    v45 = [v41 stringWithFormat:@"UUID for a transaction object (%@ / %@) must be set before adding to a transaction.", v43, bsoType];
+    v46 = [v39 exceptionWithName:v40 reason:v45 userInfo:0];
+    v47 = v46;
 
-    objc_exception_throw(v47);
+    objc_exception_throw(v46);
   }
 
   if ([(HMDBackingStoreTransactionBlock *)self committed])
@@ -128,7 +202,7 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v12;
+      v57 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@adding to a committed transaction block probably indicates a bad state.", buf, 0xCu);
     }
 
@@ -137,28 +211,28 @@
 
   else
   {
-    v49 = messageCopy;
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
+    v48 = messageCopy;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     objects = [(HMDBackingStoreTransactionBlock *)self objects];
-    v52 = [objects countByEnumeratingWithState:&v53 objects:v61 count:16];
-    if (v52)
+    v51 = [objects countByEnumeratingWithState:&v52 objects:v60 count:16];
+    if (v51)
     {
-      v14 = *v54;
-      v50 = addCopy;
-      v51 = *v54;
+      v14 = *v53;
+      v49 = addCopy;
+      v50 = *v53;
       do
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v51; ++i)
         {
-          if (*v54 != v14)
+          if (*v53 != v14)
           {
             objc_enumerationMutation(objects);
           }
 
-          v16 = *(*(&v53 + 1) + 8 * i);
+          v16 = *(*(&v52 + 1) + 8 * i);
           change = [v16 change];
           uuid2 = [change uuid];
           uuid3 = [addCopy uuid];
@@ -177,14 +251,14 @@
               v27 = v26 = self;
               label = [v27 label];
               *buf = 138543618;
-              v58 = v24;
-              v59 = 2112;
-              v60 = label;
+              v57 = v24;
+              v58 = 2112;
+              v59 = label;
               _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Just got request to add duplicate model object to transaction %@! (Both will be processed):", buf, 0x16u);
 
               self = v26;
               objects = v25;
-              addCopy = v50;
+              addCopy = v49;
             }
 
             objc_autoreleasePoolPop(v21);
@@ -200,23 +274,21 @@
             v36 = [v34 stringWithFormat:@"new (%@)", v35];
             [addCopy dumpWithVerbosity:1 prefix:v36 logType:16];
 
-            v14 = v51;
+            v14 = v50;
           }
         }
 
-        v52 = [objects countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v51 = [objects countByEnumeratingWithState:&v52 objects:v60 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
     objects2 = [(HMDBackingStoreTransactionBlock *)self objects];
-    messageCopy = v49;
-    v38 = [[HMDBackingStoreTransactionItem alloc] initWithChange:addCopy message:v49];
+    messageCopy = v48;
+    v38 = [[HMDBackingStoreTransactionItem alloc] initWithChange:addCopy message:v48];
     [objects2 addObject:v38];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBackingStoreTransactionBlock)initWithBackingStore:(id)store options:(id)options label:(id)label
@@ -267,40 +339,39 @@
 
 void __46__HMDBackingStoreTransactionBlock_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_226702;
-  logCategory__hmf_once_v5_226702 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_226702;
+  logCategory__hmf_once_v5_226702 = v0;
 }
 
 + (void)sort:(id)sort
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sortCopy = sort;
   if ([sortCopy count] >= 2)
   {
     v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(sortCopy, "count")}];
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(sortCopy, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = sortCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           change = [v11 change];
           objectChangeType = [change objectChangeType];
 
@@ -317,7 +388,7 @@ void __46__HMDBackingStoreTransactionBlock_logCategory__block_invoke()
           [v14 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -330,8 +401,6 @@ void __46__HMDBackingStoreTransactionBlock_logCategory__block_invoke()
     [v15 addObjectsFromArray:v5];
     [v6 setArray:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,7 +13,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  sub_2747F3FA4(self);
+  sub_2747F3FA4();
   result.height = v4;
   result.width = v3;
   return result;

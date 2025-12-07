@@ -30,75 +30,72 @@
 {
   if (+[CSUtils horsemanDeviceType]== 3)
   {
-    v3 = &unk_1F5916C70;
+    v2 = &unk_1F5916C70;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  instanceContext = self->_instanceContext;
-  v5 = _AFPreferencesValueForKeyWithContext();
+  v3 = _AFPreferencesValueForKeyWithContext();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v5;
+    v2 = v3;
   }
 
-  v6 = v3;
+  v4 = v2;
 
-  return v3;
+  return v2;
 }
 
 - (id)serverAudioSessionActivationDelayAboveMediaPlaybackVolumeThreshold
 {
   if (+[CSUtils horsemanDeviceType]== 3)
   {
-    v3 = &unk_1F5916C60;
+    v2 = &unk_1F5916C60;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  instanceContext = self->_instanceContext;
-  v5 = _AFPreferencesValueForKeyWithContext();
+  v3 = _AFPreferencesValueForKeyWithContext();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v5;
+    v2 = v3;
   }
 
-  v6 = v3;
+  v4 = v2;
 
-  return v3;
+  return v2;
 }
 
 - (id)serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay
 {
   if (+[CSUtils horsemanDeviceType]== 3)
   {
-    v3 = &unk_1F5916C50;
+    v2 = &unk_1F5916C50;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  instanceContext = self->_instanceContext;
-  v5 = _AFPreferencesValueForKeyWithContext();
+  v3 = _AFPreferencesValueForKeyWithContext();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v5;
+    v2 = v3;
   }
 
-  v6 = v3;
+  v4 = v2;
 
-  return v3;
+  return v2;
 }
 
 - (id)overrideAudioSessionActiveDelay

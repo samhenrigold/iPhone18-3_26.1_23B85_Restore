@@ -66,30 +66,30 @@
 
 - (NSString)mostLikelyActionType
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = self->_distribution;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v21, v25, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v20, v24, 16);
   if (v5)
   {
     v7 = v5;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v21;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v3);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v13 = objc_msgSend_objectForKeyedSubscript_(self->_distribution, v6, v12, v21);
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = objc_msgSend_objectForKeyedSubscript_(self->_distribution, v6, v12, v20);
         objc_msgSend_floatValue(v13, v14, v15);
         v17 = v16;
 
@@ -102,7 +102,7 @@
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v21, v25, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v20, v24, 16);
     }
 
     while (v7);
@@ -112,8 +112,6 @@
   {
     v8 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -179,7 +177,7 @@
 
 - (ANSTActionDistribution)initWithCoder:(id)coder
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
@@ -191,9 +189,9 @@
 
   if (v13)
   {
-    v26.receiver = self;
-    v26.super_class = ANSTActionDistribution;
-    v15 = [(ANSTObject *)&v26 initWithCoder:coderCopy];
+    v25.receiver = self;
+    v25.super_class = ANSTActionDistribution;
+    v15 = [(ANSTObject *)&v25 initWithCoder:coderCopy];
     v16 = v15;
     if (v15)
     {
@@ -208,16 +206,15 @@
   {
     v18 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277CCA050];
-    v27 = *MEMORY[0x277CCA068];
-    v28[0] = @"distribution was not encoded.";
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v28, &v27, 1);
+    v26 = *MEMORY[0x277CCA068];
+    v27[0] = @"distribution was not encoded.";
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v27, &v26, 1);
     v22 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v21, v19, 4865, v20);
     objc_msgSend_failWithError_(coderCopy, v23, v22);
 
     selfCopy = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

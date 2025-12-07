@@ -323,7 +323,7 @@
   objc_destroyWeak(&location);
 }
 
-uint64_t __127__FCUIFocusEnablementIndicatorSystemApertureElement_contentProviderWillTransitionToSize_inContainerView_transitionCoordinator___block_invoke(uint64_t a1)
+void *__127__FCUIFocusEnablementIndicatorSystemApertureElement_contentProviderWillTransitionToSize_inContainerView_transitionCoordinator___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) addSubview:*(*(a1 + 40) + 48)];
   [*(a1 + 32) addSubview:*(*(a1 + 40) + 56)];

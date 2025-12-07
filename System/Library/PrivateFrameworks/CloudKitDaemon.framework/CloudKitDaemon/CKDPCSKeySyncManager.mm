@@ -2,11 +2,17 @@
 + (id)sharedManager;
 + (void)sendCoreAnalyticsEventForKeySync:(id)sync;
 - (CKDPCSKeySyncManager)init;
+- (id)_on_queue_createSyncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider;
 - (id)_on_queue_getKeySyncTrackerByServicenameForAccountDSID:(id)d;
+- (id)_on_queue_syncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider;
+- (id)createSyncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider;
 - (id)lastUserKeySyncCompletionDateForAccountDSID:(id)d service:(id)service;
+- (id)syncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider;
 - (void)_on_queue_performKeySyncWithSyncTracker:(id)tracker testableSyncConfig:(unint64_t)config shouldThrottle:(BOOL)throttle testOverrideProvider:(id)provider requestorOperationID:(id)d completionHandler:(id)handler;
 - (void)getKeySyncEligibilityForService:(id)service isManatee:(BOOL)manatee accountDSID:(id)d lastModifiedDate:(id)date testOverrideProvider:(id)provider completionHandler:(id)handler;
+- (void)performKeySyncWithSyncTracker:(id)tracker testableSyncConfig:(unint64_t)config shouldThrottle:(BOOL)throttle testOverrideProvider:(id)provider requestorOperationID:(id)d completionHandler:(id)handler;
 - (void)setRacedWithGuitarfishRepairCallbackOnAllOutstandingHandlersWithCompletion:(id)completion;
+- (void)syncUserKeysForService:(id)service context:(id)context bundleID:(id)d serviceIsManatee:(BOOL)manatee accountDSID:(id)iD accountType:(int64_t)type shouldThrottle:(BOOL)throttle testOverrideProvider:(id)self0 requestorOperationID:(id)self1 completionHandler:(id)self2;
 - (void)syncUserKeysForSessionAcquisitionWithService:(id)service bundleID:(id)d accountDSID:(id)iD accountType:(int64_t)type testOverrideProvider:(id)provider completionHandler:(id)handler;
 @end
 
@@ -63,9 +69,85 @@
   return v19;
 }
 
+- (id)_on_queue_createSyncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider
+{
+  manateeCopy = manatee;
+  dCopy = d;
+  iDCopy = iD;
+  serviceCopy = service;
+  providerCopy = provider;
+  v16 = objc_alloc_init(CKDPCSKeySyncTracker);
+  objc_msgSend_setServiceName_(v16, v17, serviceCopy);
+  objc_msgSend_setManatee_(v16, v18, manateeCopy);
+  objc_msgSend_setAccountDSID_(v16, v19, dCopy);
+  objc_msgSend_setRequestorOperationID_(v16, v20, iDCopy);
+  v23 = objc_msgSend_keySyncTrackerByServiceNameByAccount(self, v21, v22);
+  objc_sync_enter(v23);
+  v25 = objc_msgSend__on_queue_getKeySyncTrackerByServicenameForAccountDSID_(self, v24, dCopy);
+  objc_msgSend_setObject_forKeyedSubscript_(v25, v26, v16, serviceCopy);
+
+  objc_sync_exit(v23);
+
+  return v16;
+}
+
+- (id)createSyncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider
+{
+  manateeCopy = manatee;
+  providerCopy = provider;
+  serviceCopy = service;
+  iDCopy = iD;
+  dCopy = d;
+  v18 = objc_msgSend_keySyncQueue(self, v16, v17);
+  dispatch_assert_queue_V2(v18);
+
+  v20 = objc_msgSend__on_queue_createSyncTrackerForAccountDSID_requestorOperationID_service_manatee_testOverrideProvider_(self, v19, dCopy, iDCopy, serviceCopy, manateeCopy, providerCopy);
+
+  return v20;
+}
+
+- (id)_on_queue_syncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider
+{
+  manateeCopy = manatee;
+  dCopy = d;
+  iDCopy = iD;
+  serviceCopy = service;
+  providerCopy = provider;
+  v18 = objc_msgSend_keySyncTrackerByServiceNameByAccount(self, v16, v17);
+  objc_sync_enter(v18);
+  v20 = objc_msgSend__on_queue_getKeySyncTrackerByServicenameForAccountDSID_(self, v19, dCopy);
+  v22 = objc_msgSend_objectForKeyedSubscript_(v20, v21, serviceCopy);
+  v25 = objc_msgSend_state(v22, v23, v24);
+  if (!v22 || v25 == 3)
+  {
+    v27 = objc_msgSend__on_queue_createSyncTrackerForAccountDSID_requestorOperationID_service_manatee_testOverrideProvider_(self, v26, dCopy, iDCopy, serviceCopy, manateeCopy, providerCopy);
+
+    v22 = v27;
+  }
+
+  objc_sync_exit(v18);
+
+  return v22;
+}
+
+- (id)syncTrackerForAccountDSID:(id)d requestorOperationID:(id)iD service:(id)service manatee:(BOOL)manatee testOverrideProvider:(id)provider
+{
+  manateeCopy = manatee;
+  providerCopy = provider;
+  serviceCopy = service;
+  iDCopy = iD;
+  dCopy = d;
+  v18 = objc_msgSend_keySyncQueue(self, v16, v17);
+  dispatch_assert_queue_V2(v18);
+
+  v20 = objc_msgSend__on_queue_syncTrackerForAccountDSID_requestorOperationID_service_manatee_testOverrideProvider_(self, v19, dCopy, iDCopy, serviceCopy, manateeCopy, providerCopy);
+
+  return v20;
+}
+
 - (void)_on_queue_performKeySyncWithSyncTracker:(id)tracker testableSyncConfig:(unint64_t)config shouldThrottle:(BOOL)throttle testOverrideProvider:(id)provider requestorOperationID:(id)d completionHandler:(id)handler
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
   providerCopy = provider;
   dCopy = d;
@@ -83,11 +165,11 @@
     v23 = objc_msgSend_accountDSID(trackerCopy, v21, v22);
     v26 = objc_msgSend_requestorOperationID(trackerCopy, v24, v25);
     *buf = 138543874;
-    v96 = v20;
-    v97 = 2112;
-    v98 = v23;
-    v99 = 2114;
-    v100 = v26;
+    v95 = v20;
+    v96 = 2112;
+    v97 = v23;
+    v98 = 2114;
+    v99 = v26;
     _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Starting user key sync for service: %{public}@, account dsid %@, operation %{public}@", buf, 0x20u);
   }
 
@@ -98,7 +180,7 @@
   dispatch_group_enter(v31);
 
   v34 = objc_msgSend_keySyncQueue(self, v32, v33);
-  v85 = dCopy;
+  v84 = dCopy;
   objc_msgSend_waitOnSyncWithQueue_waiterOperationID_handler_(trackerCopy, v35, v34, dCopy, handlerCopy);
 
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -107,28 +189,28 @@
   aBlock[3] = &unk_27854BC28;
   aBlock[4] = self;
   v36 = trackerCopy;
-  v92 = v36;
-  v84 = _Block_copy(aBlock);
-  v87[0] = MEMORY[0x277D85DD0];
-  v87[1] = 3221225472;
-  v87[2] = sub_2252905CC;
-  v87[3] = &unk_27854BC50;
+  v91 = v36;
+  v83 = _Block_copy(aBlock);
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = sub_2252905CC;
+  v86[3] = &unk_27854BC50;
   v37 = v36;
-  v88 = v37;
+  v87 = v37;
   selfCopy = self;
   v38 = providerCopy;
-  v90 = v38;
-  v39 = _Block_copy(v87);
-  v93[0] = *MEMORY[0x277D430D8];
+  v89 = v38;
+  v39 = _Block_copy(v86);
+  v92[0] = *MEMORY[0x277D430D8];
   v42 = objc_msgSend_serviceName(v37, v40, v41);
-  v94[0] = v42;
-  v93[1] = *MEMORY[0x277D430A8];
+  v93[0] = v42;
+  v92[1] = *MEMORY[0x277D430A8];
   v45 = objc_msgSend_accountDSID(v37, v43, v44);
-  v94[1] = v45;
-  v93[2] = *MEMORY[0x277D430C0];
+  v93[1] = v45;
+  v92[2] = *MEMORY[0x277D430C0];
   v46 = _Block_copy(v39);
-  v94[2] = v46;
-  v48 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v94, v93, 3);
+  v93[2] = v46;
+  v48 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v93, v92, 3);
 
   v51 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v49, v50);
   if (*MEMORY[0x277CBC880] != -1)
@@ -142,7 +224,7 @@
     v54 = v52;
     v57 = objc_msgSend_ckShortDescription(v51, v55, v56);
     *buf = 138412290;
-    v96 = v57;
+    v95 = v57;
     _os_log_impl(&dword_22506F000, v54, OS_LOG_TYPE_INFO, "Starting user key sync on current persona %@", buf, 0xCu);
   }
 
@@ -175,7 +257,7 @@ LABEL_16:
       if (CKBoolFromCKTernary())
       {
         v70 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v72, v73);
-        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v70, v82, a2, self, @"CKDPCSKeySyncManager.m", 260, @"Expected non-data separated persona");
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v70, v81, a2, self, @"CKDPCSKeySyncManager.m", 260, @"Expected non-data separated persona");
         goto LABEL_40;
       }
     }
@@ -194,7 +276,7 @@ LABEL_17:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v74 = v84;
+      v74 = v83;
       v76 = *MEMORY[0x277CBC858];
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
       {
@@ -215,7 +297,7 @@ LABEL_17:
 
     else
     {
-      v74 = v84;
+      v74 = v83;
       if (config != 3)
       {
         goto LABEL_38;
@@ -233,7 +315,7 @@ LABEL_37:
 
   if (config)
   {
-    v74 = v84;
+    v74 = v83;
     if (config == 1)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -248,20 +330,31 @@ LABEL_37:
         _os_log_debug_impl(&dword_22506F000, v75, OS_LOG_TYPE_DEBUG, "Faking successful user key sync", buf, 2u);
       }
 
-      (*(v84 + 2))(v84, 1, 0);
+      (*(v83 + 2))(v83, 1, 0);
       goto LABEL_37;
     }
   }
 
   else
   {
-    v74 = v84;
+    v74 = v83;
     PCSSyncKeyRegistryWithOptions();
   }
 
 LABEL_38:
+}
 
-  v81 = *MEMORY[0x277D85DE8];
+- (void)performKeySyncWithSyncTracker:(id)tracker testableSyncConfig:(unint64_t)config shouldThrottle:(BOOL)throttle testOverrideProvider:(id)provider requestorOperationID:(id)d completionHandler:(id)handler
+{
+  throttleCopy = throttle;
+  handlerCopy = handler;
+  dCopy = d;
+  providerCopy = provider;
+  trackerCopy = tracker;
+  v19 = objc_msgSend_keySyncQueue(self, v17, v18);
+  dispatch_assert_queue_V2(v19);
+
+  objc_msgSend__on_queue_performKeySyncWithSyncTracker_testableSyncConfig_shouldThrottle_testOverrideProvider_requestorOperationID_completionHandler_(self, v20, trackerCopy, config, throttleCopy, providerCopy, dCopy, handlerCopy);
 }
 
 - (void)getKeySyncEligibilityForService:(id)service isManatee:(BOOL)manatee accountDSID:(id)d lastModifiedDate:(id)date testOverrideProvider:(id)provider completionHandler:(id)handler
@@ -353,9 +446,181 @@ LABEL_38:
   return v17;
 }
 
+- (void)syncUserKeysForService:(id)service context:(id)context bundleID:(id)d serviceIsManatee:(BOOL)manatee accountDSID:(id)iD accountType:(int64_t)type shouldThrottle:(BOOL)throttle testOverrideProvider:(id)self0 requestorOperationID:(id)self1 completionHandler:(id)self2
+{
+  manateeCopy = manatee;
+  v105 = *MEMORY[0x277D85DE8];
+  serviceCopy = service;
+  contextCopy = context;
+  dCopy = d;
+  iDCopy = iD;
+  providerCopy = provider;
+  operationIDCopy = operationID;
+  handlerCopy = handler;
+  if (!serviceCopy)
+  {
+    v72 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v21, v22);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v72, v73, a2, self, @"CKDPCSKeySyncManager.m", 388, @"Must provide a service name to syncUserKeys");
+  }
+
+  v83 = objc_msgSend_date(MEMORY[0x277CBEAA8], v21, v22);
+  v101[0] = 0;
+  v101[1] = v101;
+  v101[2] = 0x2020000000;
+  v101[3] = 0;
+  v77 = type == 0;
+  v26 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], v24, v25);
+  v78 = objc_msgSend_suppressPCSKeySyncThrottling(v26, v27, v28);
+
+  if (iDCopy)
+  {
+    v31 = objc_msgSend_sharedNotifier(CKDPCSNotifier, v29, v30);
+    v35 = objc_msgSend_serviceNeedsDBRReauthentication_(v31, v32, serviceCopy);
+    if (!(manateeCopy | v35) && objc_msgSend_hasOutstandingServicesNeedingDBRReauthentication(v31, v33, v34))
+    {
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+      }
+
+      v36 = *MEMORY[0x277CBC830];
+      if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v104 = serviceCopy;
+        _os_log_debug_impl(&dword_22506F000, v36, OS_LOG_TYPE_DEBUG, "Stingray service %@ requested key sync while other outstanding services require DBR re-auth. Adding service to services needing DBR re-auth.", buf, 0xCu);
+      }
+
+      v102 = serviceCopy;
+      v38 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v37, &v102, 1);
+      objc_msgSend_addServicesNeedingDBRReauthentication_(v31, v39, v38);
+
+      goto LABEL_12;
+    }
+
+    if (v35)
+    {
+LABEL_12:
+      v40 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v33, *MEMORY[0x277CBC120], 10006, @"Service blocked from performing key sync due to DBR account re-auth needed. Direct user to settings to re-auth their account.");
+      if (handlerCopy)
+      {
+        (*(handlerCopy + 2))(handlerCopy, 0, v40, 0);
+      }
+
+      goto LABEL_31;
+    }
+
+    v41 = objc_alloc_init(CKDPCSKeySyncCoreAnalytics);
+    objc_msgSend_setServiceName_(v41, v42, serviceCopy);
+    v44 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v43, manateeCopy);
+    objc_msgSend_setIsManatee_(v41, v45, v44);
+
+    v47 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v46, throttle);
+    objc_msgSend_setShouldThrottle_(v41, v48, v47);
+
+    objc_msgSend_setThrottledDurationSec_(v41, v49, &unk_2838C8460);
+    objc_msgSend_setContext_(v41, v50, contextCopy);
+    objc_msgSend_setBundleID_(v41, v51, dCopy);
+    if (*MEMORY[0x277CBC810] == 1)
+    {
+      v74 = objc_msgSend__checkPCSTestOverrideForKey_(providerCopy, v52, @"AllowThrottlingWithUnitTestAccount");
+      if (type)
+      {
+        v55 = v74;
+      }
+
+      else
+      {
+        v55 = 1;
+      }
+
+      v77 = v55;
+      v56 = objc_msgSend__pcsTestOverrideForKey_(providerCopy, v54, @"ResetKeySyncState");
+      v59 = objc_msgSend_BOOLValue(v56, v57, v58);
+
+      v61 = objc_msgSend__pcsTestOverrideForKey_(providerCopy, v60, @"AllowRealKeySync");
+      v64 = objc_msgSend_BOOLValue(v61, v62, v63);
+
+      v76 = objc_msgSend__checkAndClearPCSTestOverrideForKey_(providerCopy, v65, @"ForceKeySyncFailure");
+      if (objc_msgSend_isEqualToString_(serviceCopy, v66, @"com.apple.reminders"))
+      {
+        v76 |= objc_msgSend__checkAndClearPCSTestOverrideForKey_(providerCopy, v67, @"ForceKeySyncFailureForReminders");
+      }
+
+      v68 = v74 ^ 1 | v78;
+      v75 = v64 ^ 1;
+      v78 = v68;
+      if (objc_msgSend__checkAndClearPCSTestOverrideForKey_(providerCopy, v67, @"FakeDBRAccountNeedsReauthenticationPCSError"))
+      {
+        if (*MEMORY[0x277CBC880] != -1)
+        {
+          dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+        }
+
+        v69 = *MEMORY[0x277CBC858];
+        if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_debug_impl(&dword_22506F000, v69, OS_LOG_TYPE_DEBUG, "Faking DBR account needs re-authentication error from PCS", buf, 2u);
+        }
+
+        v70 = 1;
+        goto LABEL_30;
+      }
+    }
+
+    else
+    {
+      v75 = 0;
+      v76 = 0;
+      v59 = 0;
+    }
+
+    v70 = 0;
+LABEL_30:
+    v71 = objc_msgSend_keySyncQueue(self, v52, v53);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_225291768;
+    block[3] = &unk_27854BCC8;
+    v93 = v59;
+    block[4] = self;
+    v85 = v41;
+    v92 = v101;
+    v86 = v83;
+    v94 = manateeCopy;
+    v91 = handlerCopy;
+    v87 = iDCopy;
+    v88 = operationIDCopy;
+    v89 = serviceCopy;
+    v90 = providerCopy;
+    v95 = v78 & 1;
+    throttleCopy = throttle;
+    v97 = v77;
+    v98 = v76 & 1;
+    v99 = v70;
+    v100 = v75;
+    v40 = v41;
+    dispatch_async(v71, block);
+
+LABEL_31:
+    goto LABEL_32;
+  }
+
+  v31 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v29, *MEMORY[0x277CBC120], 1002, @"No account DSID, so we can't start user key sync");
+  if (handlerCopy)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, v31, 0);
+  }
+
+LABEL_32:
+
+  _Block_object_dispose(v101, 8);
+}
+
 + (void)sendCoreAnalyticsEventForKeySync:(id)sync
 {
-  v104[9] = *MEMORY[0x277D85DE8];
+  v103[9] = *MEMORY[0x277D85DE8];
   syncCopy = sync;
   v6 = objc_msgSend_error(syncCopy, v4, v5);
   if (v6)
@@ -443,34 +708,34 @@ LABEL_18:
 
   if (v46)
   {
-    v103[0] = 0x283872580;
-    v102 = objc_msgSend_serviceName(syncCopy, v47, v48);
-    v104[0] = v102;
-    v103[1] = 0x28387E820;
-    v101 = objc_msgSend_shouldThrottle(syncCopy, v49, v50);
-    v104[1] = v101;
-    v103[2] = 0x28387E840;
+    v102[0] = 0x283872580;
+    v101 = objc_msgSend_serviceName(syncCopy, v47, v48);
+    v103[0] = v101;
+    v102[1] = 0x28387E820;
+    v100 = objc_msgSend_shouldThrottle(syncCopy, v49, v50);
+    v103[1] = v100;
+    v102[2] = 0x28387E840;
     v53 = objc_msgSend_isManatee(syncCopy, v51, v52);
-    v104[2] = v53;
-    v103[3] = 0x28387E860;
+    v103[2] = v53;
+    v102[3] = 0x28387E860;
     v56 = objc_msgSend_keySyncResult(syncCopy, v54, v55);
-    v104[3] = v56;
-    v103[4] = 0x28387E880;
+    v103[3] = v56;
+    v102[4] = 0x28387E880;
     v59 = objc_msgSend_overallResult(syncCopy, v57, v58);
-    v104[4] = v59;
-    v103[5] = 0x28387E8A0;
+    v103[4] = v59;
+    v102[5] = 0x28387E8A0;
     v62 = objc_msgSend_keySyncDurationSec(syncCopy, v60, v61);
-    v104[5] = v62;
-    v103[6] = 0x28387E8C0;
+    v103[5] = v62;
+    v102[6] = 0x28387E8C0;
     v65 = objc_msgSend_throttledDurationSec(syncCopy, v63, v64);
-    v104[6] = v65;
-    v103[7] = 0x28387E8E0;
+    v103[6] = v65;
+    v102[7] = 0x28387E8E0;
     v68 = objc_msgSend_context(syncCopy, v66, v67);
-    v104[7] = v68;
-    v103[8] = 0x28386EE20;
+    v103[7] = v68;
+    v102[8] = 0x28386EE20;
     v71 = objc_msgSend_bundleID(syncCopy, v69, v70);
-    v104[8] = v71;
-    v73 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v72, v104, v103, 9);
+    v103[8] = v71;
+    v73 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v72, v103, v102, 9);
     v17 = objc_msgSend_mutableCopy(v73, v74, v75);
 
     v78 = objc_msgSend_error(syncCopy, v76, v77);
@@ -503,8 +768,6 @@ LABEL_18:
   }
 
 LABEL_24:
-
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRacedWithGuitarfishRepairCallbackOnAllOutstandingHandlersWithCompletion:(id)completion

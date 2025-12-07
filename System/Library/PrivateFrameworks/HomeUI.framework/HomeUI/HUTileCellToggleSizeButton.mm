@@ -67,7 +67,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_20D000FB4();
+  sub_20D000FB4(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

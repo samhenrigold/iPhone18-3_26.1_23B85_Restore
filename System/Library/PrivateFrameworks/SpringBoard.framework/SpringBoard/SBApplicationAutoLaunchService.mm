@@ -526,7 +526,7 @@ LABEL_29:
       queuedApplicationsThrottledForRelaunch = self->_queuedApplicationsThrottledForRelaunch;
     }
 
-    if (([(NSMutableArray *)queuedApplicationsThrottledForRelaunch containsObject:exitedCopy]& 1) == 0)
+    if ((objc_msgSend_containsObject_(queuedApplicationsThrottledForRelaunch) & 1) == 0)
     {
       [(NSMutableArray *)self->_queuedApplicationsThrottledForRelaunch addObject:exitedCopy];
       [(SBApplicationAutoLaunchService *)self _scheduleThrottledApplicationRelaunchTimerIfNecessary];

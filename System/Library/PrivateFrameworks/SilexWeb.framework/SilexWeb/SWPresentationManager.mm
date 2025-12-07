@@ -161,8 +161,7 @@ void __50__SWPresentationManager_inspectionWithCompletion___block_invoke(uint64_
 
   logger = [(SWPresentationManager *)self logger];
   v10 = MEMORY[0x1E696AEC0];
-  name = [messageCopy name];
-  v12 = objc_claimAutoreleasedReturnValue();
+  v12 = name = [messageCopy name];
   [logger log:v12];
 
   objc_opt_class();

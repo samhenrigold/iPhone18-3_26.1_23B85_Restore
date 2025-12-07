@@ -186,7 +186,7 @@ LABEL_11:
 
 - (id)_buildMailHTML
 {
-  v3 = BSUIBundle();
+  v3 = BSUIBundle(self);
   v4 = [v3 localizedStringForKey:@"Set your own reading goals on %@Apple Books%@." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
   _mailMessageForGoalKind = [(_BSUIGoalsSharableTextProvider *)self _mailMessageForGoalKind];
@@ -241,7 +241,7 @@ LABEL_11:
   else
   {
     v3 = off_386E30[v2];
-    v4 = BSUIBundle();
+    v4 = BSUIBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   }
 
@@ -259,7 +259,7 @@ LABEL_11:
   else
   {
     v3 = off_386E70[v2];
-    v4 = BSUIBundle();
+    v4 = BSUIBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   }
 
@@ -277,7 +277,7 @@ LABEL_11:
   else
   {
     v3 = off_386EB0[v2];
-    v4 = BSUIBundle();
+    v4 = BSUIBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   }
 
@@ -295,7 +295,7 @@ LABEL_11:
   else
   {
     v3 = off_386EF0[v2];
-    v4 = BSUIBundle();
+    v4 = BSUIBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   }
 
@@ -305,7 +305,7 @@ LABEL_11:
 - (id)_generateTwitterMessage
 {
   _baseMessageForGoalKind = [(_BSUIGoalsSharableTextProvider *)self _baseMessageForGoalKind];
-  v3 = BSUIBundle();
+  v3 = BSUIBundle(_baseMessageForGoalKind);
   v4 = [v3 localizedStringForKey:@"Set your own #ReadingGoals on @AppleBooks. apple.co/ReadingGoals" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
   v5 = [_baseMessageForGoalKind stringByAppendingFormat:@" %@", v4];

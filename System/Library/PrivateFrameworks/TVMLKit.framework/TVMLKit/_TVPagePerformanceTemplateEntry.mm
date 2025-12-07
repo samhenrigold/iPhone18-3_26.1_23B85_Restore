@@ -49,7 +49,7 @@
 - (void)markTemplateWillRender
 {
   v8 = *MEMORY[0x277D85DE8];
-  if (IsPerformanceLoggingEnabled())
+  if (IsPerformanceLoggingEnabled(self, a2))
   {
     v3 = TVMLKitPerformanceLogObject;
     if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
@@ -69,7 +69,7 @@
 - (void)markTemplateDidRender
 {
   v8 = *MEMORY[0x277D85DE8];
-  if (IsPerformanceLoggingEnabled())
+  if (IsPerformanceLoggingEnabled(self, a2))
   {
     v3 = TVMLKitPerformanceLogObject;
     if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
@@ -87,19 +87,19 @@
 
 - (void)markTemplateWillTransition
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceTemplateEntry *)self templateWillTransition])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = v3;
+        v5 = v4;
         templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
-        v6 = 138412290;
-        v7 = templateElementName;
-        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ markTemplateWillTransition", &v6, 0xCu);
+        v7 = 138412290;
+        v8 = templateElementName;
+        _os_log_impl(&dword_26CD9A000, v5, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ markTemplateWillTransition", &v7, 0xCu);
       }
     }
 
@@ -109,19 +109,19 @@
 
 - (void)markTemplateDidTransition
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceTemplateEntry *)self templateDidTransition])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = v3;
+        v5 = v4;
         templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
-        v6 = 138412290;
-        v7 = templateElementName;
-        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ markTemplateDidTransition", &v6, 0xCu);
+        v7 = 138412290;
+        v8 = templateElementName;
+        _os_log_impl(&dword_26CD9A000, v5, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ markTemplateDidTransition", &v7, 0xCu);
       }
     }
 
@@ -157,26 +157,26 @@
 
 - (void)_beginListeningForInitialImageProxyLoadNotifications
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceTemplateEntry *)self templateDidLoadResources])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = v3;
+        v5 = v4;
         templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
-        v10 = 138412290;
-        v11 = templateElementName;
-        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ beginListeningForImageProxyLoadNotifications", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = templateElementName;
+        _os_log_impl(&dword_26CD9A000, v5, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ beginListeningForImageProxyLoadNotifications", &v11, 0xCu);
       }
     }
 
     [(_TVPagePerformanceTemplateEntry *)self setTemplateWillLoadResources:mach_absolute_time()];
-    v6 = [MEMORY[0x277CCAA50] hashTableWithOptions:512];
+    v7 = [MEMORY[0x277CCAA50] hashTableWithOptions:512];
     initialOnScreenImageProxies = self->_initialOnScreenImageProxies;
-    self->_initialOnScreenImageProxies = v6;
+    self->_initialOnScreenImageProxies = v7;
 
     *&self->_listeningForImageProxyWillLoad = 257;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -192,7 +192,7 @@
   v10 = *MEMORY[0x277D85DE8];
   if (self->_listeningForImageProxyWillLoad || self->_listeningForImageProxyDidLoad)
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(self, a2))
     {
       v3 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
@@ -218,7 +218,7 @@
 
 - (void)_maybeStopListeningForInitialImageProxyLoadNotifications
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   performanceController = [(_TVPagePerformanceTemplateEntry *)self performanceController];
   if ([performanceController viewDidAppear] && -[_TVPagePerformanceTemplateEntry templateDidTransition](self, "templateDidTransition"))
   {
@@ -231,28 +231,29 @@
 
     if (self->_listeningForImageProxyWillLoad || self->_listeningForImageProxyDidLoad)
     {
-      if (IsPerformanceLoggingEnabled())
+      if (IsPerformanceLoggingEnabled(v4, v5))
       {
-        v4 = TVMLKitPerformanceLogObject;
+        v6 = TVMLKitPerformanceLogObject;
         if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v5 = v4;
+          v7 = v6;
           templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
           *buf = 138412290;
-          v14 = templateElementName;
-          _os_log_impl(&dword_26CD9A000, v5, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ maybeStopListeningForInitialImageProxyLoadNotifications", buf, 0xCu);
+          v19 = templateElementName;
+          _os_log_impl(&dword_26CD9A000, v7, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ maybeStopListeningForInitialImageProxyLoadNotifications", buf, 0xCu);
         }
       }
 
-      if ([(NSHashTable *)self->_initialOnScreenImageProxies count])
+      v9 = [(NSHashTable *)self->_initialOnScreenImageProxies count];
+      if (v9)
       {
-        if (IsPerformanceLoggingEnabled())
+        if (IsPerformanceLoggingEnabled(v9, v10))
         {
-          v7 = TVMLKitPerformanceLogObject;
+          v11 = TVMLKitPerformanceLogObject;
           if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_26CD9A000, v7, OS_LOG_TYPE_DEFAULT, "[DEBUG] Stop listening for TVImageProxyWillLoadNotification", buf, 2u);
+            _os_log_impl(&dword_26CD9A000, v11, OS_LOG_TYPE_DEFAULT, "[DEBUG] Stop listening for TVImageProxyWillLoadNotification", buf, 2u);
           }
         }
 
@@ -266,13 +267,13 @@
       {
         if (![(_TVPagePerformanceTemplateEntry *)self templateDidLoadResources])
         {
-          if (IsPerformanceLoggingEnabled())
+          if (IsPerformanceLoggingEnabled(0, v13))
           {
-            v9 = TVMLKitPerformanceLogObject;
+            v14 = TVMLKitPerformanceLogObject;
             if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_26CD9A000, v9, OS_LOG_TYPE_DEFAULT, "[DEBUG] No initial on-screen resources left to load.", buf, 2u);
+              _os_log_impl(&dword_26CD9A000, v14, OS_LOG_TYPE_DEFAULT, "[DEBUG] No initial on-screen resources left to load.", buf, 2u);
             }
           }
 
@@ -309,7 +310,7 @@
 
 - (void)_receivedImageProxyWillLoadNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
@@ -317,18 +318,18 @@
   v7 = [userInfo objectForKey:@"_TVPagePerformanceImageProxyNotificationTimestamp"];
   unsignedLongLongValue = [v7 unsignedLongLongValue];
 
-  if (IsPerformanceLoggingEnabled())
+  if (IsPerformanceLoggingEnabled(v9, v10))
   {
-    v9 = TVMLKitPerformanceLogObject;
+    v11 = TVMLKitPerformanceLogObject;
     if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v12 = v11;
       templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
-      v12 = 138412546;
-      v13 = templateElementName;
-      v14 = 2112;
-      v15 = object;
-      _os_log_impl(&dword_26CD9A000, v10, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ receivedImageProxyWillLoadNotification: %@", &v12, 0x16u);
+      v14 = 138412546;
+      v15 = templateElementName;
+      v16 = 2112;
+      v17 = object;
+      _os_log_impl(&dword_26CD9A000, v12, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ receivedImageProxyWillLoadNotification: %@", &v14, 0x16u);
     }
   }
 
@@ -342,7 +343,7 @@
 
 - (void)_receivedImageProxyDidLoadNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
@@ -350,18 +351,18 @@
   v7 = [userInfo objectForKey:@"_TVPagePerformanceImageProxyNotificationTimestamp"];
   unsignedLongLongValue = [v7 unsignedLongLongValue];
 
-  if (IsPerformanceLoggingEnabled())
+  if (IsPerformanceLoggingEnabled(v9, v10))
   {
-    v9 = TVMLKitPerformanceLogObject;
+    v11 = TVMLKitPerformanceLogObject;
     if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v12 = v11;
       templateElementName = [(_TVPagePerformanceTemplateEntry *)self templateElementName];
-      v14 = 138412546;
-      v15 = templateElementName;
-      v16 = 2112;
-      v17 = object;
-      _os_log_impl(&dword_26CD9A000, v10, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ receivedImageProxyDidLoadNotification %@", &v14, 0x16u);
+      v17 = 138412546;
+      v18 = templateElementName;
+      v19 = 2112;
+      v20 = object;
+      _os_log_impl(&dword_26CD9A000, v12, OS_LOG_TYPE_DEFAULT, "[DEBUG] %@ receivedImageProxyDidLoadNotification %@", &v17, 0x16u);
     }
   }
 
@@ -375,13 +376,13 @@
     [(NSHashTable *)self->_initialOnScreenImageProxies removeObject:object];
     if (!self->_listeningForImageProxyWillLoad && ![(NSHashTable *)self->_initialOnScreenImageProxies count])
     {
-      if (IsPerformanceLoggingEnabled())
+      if (IsPerformanceLoggingEnabled(0, v14))
       {
-        v12 = TVMLKitPerformanceLogObject;
+        v15 = TVMLKitPerformanceLogObject;
         if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v14) = 0;
-          _os_log_impl(&dword_26CD9A000, v12, OS_LOG_TYPE_DEFAULT, "[DEBUG] All initial on-screen resources have finished loading.", &v14, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_26CD9A000, v15, OS_LOG_TYPE_DEFAULT, "[DEBUG] All initial on-screen resources have finished loading.", &v17, 2u);
         }
       }
 

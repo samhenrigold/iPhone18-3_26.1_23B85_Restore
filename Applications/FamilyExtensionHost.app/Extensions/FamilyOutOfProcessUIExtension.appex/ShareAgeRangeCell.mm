@@ -23,8 +23,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_100015550(selected, animated);
+  sub_100015550(selectedCopy, animated);
 }
 
 @end

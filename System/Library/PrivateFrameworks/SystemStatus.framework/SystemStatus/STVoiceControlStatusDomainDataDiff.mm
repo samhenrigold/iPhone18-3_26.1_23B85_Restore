@@ -107,24 +107,24 @@
   [(BSSettings *)v7 enumerateObjectsWithBlock:v9];
 }
 
-uint64_t __57__STVoiceControlStatusDomainDataDiff_applyToMutableData___block_invoke(uint64_t result, uint64_t a2)
+void *__57__STVoiceControlStatusDomainDataDiff_applyToMutableData___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (!a2)
   {
-    v3 = *(result + 32);
+    v4 = result[4];
     IsYes = BSSettingFlagIsYes();
 
-    return [v3 setVoiceControlActive:IsYes];
+    return [v4 setVoiceControlActive:IsYes];
   }
 
   return result;
 }
 
-uint64_t __57__STVoiceControlStatusDomainDataDiff_applyToMutableData___block_invoke_2(uint64_t result, uint64_t a2, void *a3)
+void *__57__STVoiceControlStatusDomainDataDiff_applyToMutableData___block_invoke_2(void *result, uint64_t a2, void *a3)
 {
   if (a2 == 1)
   {
-    v4 = *(result + 32);
+    v4 = result[4];
     v5 = [a3 unsignedIntegerValue];
 
     return [v4 setListeningState:v5];

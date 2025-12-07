@@ -81,10 +81,10 @@
   instantiateContext = [controller instantiateContext];
   environment = [instantiateContext environment];
 
-  [environment viewSafeAreaInsets];
-  left = v12;
-  right = v14;
-  if (TUISwooshUseUnboundedScroll() && ([configurationCopy paginated] & 1) == 0 && (objc_msgSend(environment, "viewSizeWithinSafeArea"), v8 == v16))
+  viewSafeAreaInsets = [environment viewSafeAreaInsets];
+  left = v13;
+  right = v15;
+  if (TUISwooshUseUnboundedScroll(viewSafeAreaInsets, v17) && ([configurationCopy paginated] & 1) == 0 && (objc_msgSend(environment, "viewSizeWithinSafeArea"), v8 == v18))
   {
     bottom = 0.0;
     top = 0.0;
@@ -98,14 +98,14 @@
     right = UIEdgeInsetsZero.right;
   }
 
-  v19 = top;
-  v20 = left;
-  v21 = bottom;
-  v22 = right;
-  result.right = v22;
-  result.bottom = v21;
-  result.left = v20;
-  result.top = v19;
+  v21 = top;
+  v22 = left;
+  v23 = bottom;
+  v24 = right;
+  result.right = v24;
+  result.bottom = v23;
+  result.left = v22;
+  result.top = v21;
   return result;
 }
 
@@ -242,19 +242,19 @@
   }
 
   self->_computedColumns = [TUISmartGridBox columnsWithConfiguration:self->_configuration];
-  children = [contentCopy children];
+  v16 = objc_msgSend_children(contentCopy);
   v18 = rows == &dword_0 + 1 || rows == 0x7FFFFFFFFFFFFFFFLL;
-  sub_63EE4(&v318, children, self->_content, v18);
+  sub_63EE4(&v319, v16, self->_content, v18);
 
-  v266 = rows;
+  v267 = rows;
   if ([(TUISmartGridLayoutConfiguration *)self->_configuration balanceSections])
   {
-    v19 = v319;
-    v20 = v318;
-    if (v319 != v318)
+    v19 = v320;
+    v20 = v319;
+    if (v320 != v319)
     {
       v21 = 0;
-      v22 = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
+      v22 = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
       do
       {
         v23 = v20[6];
@@ -294,40 +294,40 @@
     }
   }
 
-  columnSpacing = [(TUISmartGridLayoutConfiguration *)self->_configuration columnSpacing];
-  self->_computedColumnSpacing = TUILengthValueWithDefault(columnSpacing, v28, 0.0);
+  v27 = objc_msgSend_columnSpacing(self->_configuration);
+  self->_computedColumnSpacing = TUILengthValueWithDefault(v27, v28, 0.0);
   [TUISmartGridBox columnWidthWithConfiguration:self->_configuration columns:self->_computedColumns spacing:?];
   self->_computedColumnWidth = v29;
-  rowSpacing = [(TUISmartGridLayoutConfiguration *)self->_configuration rowSpacing];
-  self->_computedRowSpacing = TUILengthValueWithDefault(rowSpacing, v31, 0.0);
+  v30 = objc_msgSend_rowSpacing(self->_configuration);
+  self->_computedRowSpacing = TUILengthValueWithDefault(v30, v31, 0.0);
   selfCopy = self;
-  v258 = v7;
-  v259 = v13;
+  v259 = v7;
+  v260 = v13;
   if (rows != 0x7FFFFFFFFFFFFFFFLL && rows != &dword_0 + 1)
   {
     v47 = 0;
-    if (v319 != v318)
+    if (v320 != v319)
     {
-      v48 = v318 + 1;
+      v48 = v319 + 1;
       while (*v48 == *(v48 - 1))
       {
         ++v47;
         v48 += 11;
-        if (0x2E8BA2E8BA2E8BA3 * (v319 - v318) == v47)
+        if (0x2E8BA2E8BA2E8BA3 * (v320 - v319) == v47)
         {
-          v47 = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
+          v47 = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
           break;
         }
       }
     }
 
-    *&v283 = &v318;
-    *(&v283 + 1) = v47;
-    v284.i64[0] = 0;
-    v284.i64[1] = &v318;
-    v285 = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-    v286 = 0;
-    v290 = &v318;
+    *&v284 = &v319;
+    *(&v284 + 1) = v47;
+    v285.i64[0] = 0;
+    v285.i64[1] = &v319;
+    v286 = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+    v287 = 0;
+    v291 = &v319;
     verticalPlacement = [(TUISmartGridLayoutConfiguration *)self->_configuration verticalPlacement];
     if ((verticalPlacement - 2) < 4)
     {
@@ -339,10 +339,10 @@
       v50 = 5;
     }
 
-    v289 = v50;
-    v51 = v318;
-    v265 = v319;
-    if (v318 != v319)
+    v290 = v50;
+    v51 = v319;
+    v266 = v320;
+    if (v319 != v320)
     {
       v52 = 0;
       v53 = selfCopy->_computedColumns * maxPages;
@@ -398,7 +398,7 @@ LABEL_74:
         }
 
 LABEL_77:
-        v297.i64[0] = v56;
+        v298.i64[0] = v56;
         v51[7] = v52;
         v51[8] = 0;
         v57 = *v51;
@@ -408,23 +408,23 @@ LABEL_77:
           v59 = *(v57 + 32);
           rowSpan = [v59 rowSpan];
           v61 = *(v57 + 32);
-          sub_D3D7C(__p, rowSpan, [v61 columnSpan], &v273);
+          sub_D3D7C(__p, rowSpan, [v61 columnSpan], &v274);
 
-          *(v57 + 8) = v273;
-          *v57 = *(&v273 + 1) + v52;
-          *(v57 + 16) = vextq_s8(v274, v274, 8uLL);
+          *(v57 + 8) = v274;
+          *v57 = *(&v274 + 1) + v52;
+          *(v57 + 16) = vextq_s8(v275, v275, 8uLL);
           v57 += 96;
         }
 
-        v63 = *(&v296 + 1);
-        v62 = v296;
-        if (v296)
+        v63 = *(&v297 + 1);
+        v62 = v297;
+        if (v297)
         {
           v65 = __p[0];
           v64 = __p[1];
-          v66 = v295.i64[0];
-          v67 = *(&v296 + 1);
-          if (__p[1] != v295.i64[0])
+          v66 = v296.i64[0];
+          v67 = *(&v297 + 1);
+          if (__p[1] != v296.i64[0])
           {
             v68 = __p[1];
             do
@@ -438,12 +438,12 @@ LABEL_77:
             }
 
             while (v68 != v66);
-            v67 = *(&v296 + 1);
+            v67 = *(&v297 + 1);
           }
 
           v69 = v67 + 1;
-          *&v296 = 0;
-          *(&v296 + 1) = v69;
+          *&v297 = 0;
+          *(&v297 + 1) = v69;
           if (v62 < v65)
           {
             goto LABEL_100;
@@ -453,12 +453,12 @@ LABEL_77:
         else
         {
           v64 = __p[1];
-          v66 = v295.i64[0];
-          v69 = *(&v296 + 1);
+          v66 = v296.i64[0];
+          v69 = *(&v297 + 1);
         }
 
         v70 = -1;
-        *&v273 = -1;
+        *&v274 = -1;
         if (v64 == v66)
         {
           goto LABEL_98;
@@ -472,7 +472,7 @@ LABEL_77:
           {
             if (*v71 >= v70)
             {
-              v72 = &v273;
+              v72 = &v274;
             }
 
             else
@@ -482,7 +482,7 @@ LABEL_77:
           }
 
           v70 = *v72;
-          *&v273 = *v72;
+          *&v274 = *v72;
           ++v71;
         }
 
@@ -510,8 +510,8 @@ LABEL_102:
               {
 LABEL_109:
                 v73 = 0;
-                *&v296 = 0;
-                ++*(&v296 + 1);
+                *&v297 = 0;
+                ++*(&v297 + 1);
                 goto LABEL_102;
               }
             }
@@ -528,23 +528,23 @@ LABEL_109:
 
         if ([(TUISmartGridLayoutConfiguration *)selfCopy->_configuration columnMultiple]&& [(TUISmartGridLayoutConfiguration *)selfCopy->_configuration truncate]&& v63 > [(TUISmartGridLayoutConfiguration *)selfCopy->_configuration columnMultiple])
         {
-          v75 = *(&v296 + 1);
-          if (v297.i64[0])
+          v75 = *(&v297 + 1);
+          if (v298.i64[0])
           {
-            v75 = v297.i64[0];
+            v75 = v298.i64[0];
           }
 
           if (v63 < v75)
           {
             columnMultiple = [(TUISmartGridLayoutConfiguration *)selfCopy->_configuration columnMultiple];
             v77 = v63 / columnMultiple * columnMultiple;
-            v296 = 0uLL;
+            v297 = 0uLL;
             if (v77 == 0x7FFFFFFFFFFFFFFFLL)
             {
               v77 = 0;
             }
 
-            v297.i64[0] = v77;
+            v298.i64[0] = v77;
             v78 = *v51;
             v79 = v51[1];
             while (v78 != v79)
@@ -552,39 +552,39 @@ LABEL_109:
               v80 = *(v78 + 32);
               rowSpan2 = [v80 rowSpan];
               v82 = *(v78 + 32);
-              sub_D3D7C(__p, rowSpan2, [v82 columnSpan], &v273);
+              sub_D3D7C(__p, rowSpan2, [v82 columnSpan], &v274);
 
-              *(v78 + 8) = v273;
-              *v78 = *(&v273 + 1) + v52;
-              *(v78 + 16) = vextq_s8(v274, v274, 8uLL);
+              *(v78 + 8) = v274;
+              *v78 = *(&v274 + 1) + v52;
+              *(v78 + 16) = vextq_s8(v275, v275, 8uLL);
               v78 += 96;
             }
           }
         }
 
         v83 = __p[1];
-        if (v297.i64[0])
+        if (v298.i64[0])
         {
-          v84 = v297.i64[0];
+          v84 = v298.i64[0];
         }
 
         else
         {
-          v84 = *(&v296 + 1);
+          v84 = *(&v297 + 1);
         }
 
         v51[9] = v84;
         v51[10] = 1;
         if (v83)
         {
-          v295.i64[0] = v83;
+          v296.i64[0] = v83;
           operator delete(v83);
         }
 
         v52 += v84;
         v51 += 11;
-        rows = v266;
-        if (v51 == v265)
+        rows = v267;
+        if (v51 == v266)
         {
           goto LABEL_175;
         }
@@ -593,31 +593,31 @@ LABEL_109:
 
     v52 = 0;
 LABEL_175:
-    sub_D3F1C(&v318);
-    v321 = v52;
-    v122 = v322;
+    sub_D3F1C(&v319);
+    v322 = v52;
+    v122 = v323;
     self = selfCopy;
     computedColumnWidth = selfCopy->_computedColumnWidth;
     computedColumnSpacing = selfCopy->_computedColumnSpacing;
     computedRowSpacing = selfCopy->_computedRowSpacing;
     controller = [contentCopy controller];
     [controller contentsScale];
-    v303 = v13;
-    v304 = v52;
-    v305 = v122;
-    v306 = *&v5;
-    v307 = v7;
-    v308 = v9;
-    v309 = v11;
-    v310 = computedColumnWidth;
-    v311 = computedColumnSpacing;
-    v314 = computedRowSpacing;
-    v315 = computedLayoutDirection;
-    v316 = v127;
-    v317 = 0;
+    v304 = v13;
+    v305 = v52;
+    v306 = v122;
+    v307 = *&v5;
+    v308 = v7;
+    v309 = v9;
+    v310 = v11;
+    v311 = computedColumnWidth;
+    v312 = computedColumnSpacing;
+    v315 = computedRowSpacing;
+    v316 = computedLayoutDirection;
+    v317 = v127;
+    v318 = 0;
     if (v52 < 2 || computedColumnSpacing == 0.0)
     {
-      v312 = computedColumnWidth;
+      v313 = computedColumnWidth;
     }
 
     else
@@ -628,229 +628,232 @@ LABEL_175:
         v128 = floor(computedColumnWidth * v127) / v127;
       }
 
-      v312 = v128;
+      v313 = v128;
       computedColumnSpacing = ((computedColumnWidth - v128) * v52 + computedColumnSpacing * (v52 - 1)) / (v52 - 1);
     }
 
-    v313 = computedColumnSpacing;
+    v314 = computedColumnSpacing;
 
     if ([(TUISmartGridLayoutConfiguration *)selfCopy->_configuration paginated])
     {
       v129 = selfCopy->_computedColumns;
-      v317 = v129;
+      v318 = v129;
       if (!v129)
       {
-        v129 = v304;
+        v129 = v305;
       }
 
-      v130 = v311;
-      if (v311 == 0.0 || v129 < 2)
+      v130 = v312;
+      if (v312 == 0.0 || v129 < 2)
       {
-        v312 = v310;
+        v313 = v311;
       }
 
       else
       {
-        v131 = v310;
-        if (v316 > 0.0)
+        v131 = v311;
+        if (v317 > 0.0)
         {
-          v131 = floor(v310 * v316) / v316;
+          v131 = floor(v311 * v317) / v317;
         }
 
-        v312 = v131;
-        v130 = ((v310 - v131) * v129 + v311 * (v129 - 1)) / (v129 - 1);
+        v313 = v131;
+        v130 = ((v311 - v131) * v129 + v312 * (v129 - 1)) / (v129 - 1);
       }
 
-      v313 = v130;
+      v314 = v130;
     }
 
-    v132 = sub_618AC(&v318, &dword_4 + 1);
-    v133 = v132;
-    if (v320[1] == v132)
+    v132 = sub_618AC(&v319, &dword_4 + 1);
+    v135 = v132;
+    if (v321[1] == v132)
     {
       *__p = CGSizeZero;
-      v295 = 0u;
       v296 = 0u;
+      v297 = 0u;
       sub_61DD8(&selfCopy->_cellDividers, __p);
-      *&v273 = &v295.i64[1];
-      sub_63928(&v273);
+      *&v274 = &v296.i64[1];
+      sub_63928(&v274);
     }
 
     else
     {
-      if (v317)
+      if (v318)
       {
-        v134 = v312;
-        v135 = v316;
-        v136 = v313 + v312;
-        if (v313 == 0.0)
+        v136 = v313;
+        v137 = v317;
+        v138 = v314 + v313;
+        if (v314 == 0.0)
         {
-          v138 = v136 * 0.0;
-          if (v316 > 0.0)
+          v140 = v138 * 0.0;
+          if (v317 > 0.0)
           {
-            v138 = floor(v138 * v316) / v316;
+            v140 = floor(v140 * v317) / v317;
           }
         }
 
         else
         {
-          v137 = v136 - v313;
-          if (v316 > 0.0)
+          v139 = v138 - v314;
+          if (v317 > 0.0)
           {
-            v137 = floor(v137 * v316) / v316;
+            v139 = floor(v139 * v317) / v317;
           }
 
-          v138 = v137 - v312;
+          v140 = v139 - v313;
         }
       }
 
       else
       {
-        v134 = v312;
-        v135 = v316;
-        v136 = v313 + v312;
-        v138 = 0.0;
+        v136 = v313;
+        v137 = v317;
+        v138 = v314 + v313;
+        v140 = 0.0;
       }
 
-      if (v313 == 0.0)
+      if (v314 == 0.0)
       {
-        v142 = v136 - v313;
-        if (v135 <= 0.0)
+        v144 = v138 - v314;
+        if (v137 <= 0.0)
         {
-          v143 = v136 * 0.0;
+          v145 = v138 * 0.0;
         }
 
         else
         {
-          v142 = floor(v135 * v142) / v135;
-          v143 = floor(v135 * (v136 * 0.0)) / v135;
+          v144 = floor(v137 * v144) / v137;
+          v145 = floor(v137 * (v138 * 0.0)) / v137;
         }
 
         v146 = 0.0;
-        if (v317)
+        if (v318)
         {
-          v146 = v143;
+          v146 = v145;
         }
 
-        v144 = v138 + v142;
-        v145 = v146 + v143;
+        v134.n128_f64[0] = v140 + v144;
+        v133.n128_f64[0] = v146 + v145;
       }
 
       else
       {
-        v139 = v313 * -2.0 + v136 * 2.0;
-        if (v135 <= 0.0)
+        v141 = v314 * -2.0 + v138 * 2.0;
+        if (v137 <= 0.0)
         {
-          v140 = v136 - v313;
-          v141 = v136 - v313 - v134;
+          v142 = v138 - v314;
+          v143 = v138 - v314 - v136;
         }
 
         else
         {
-          v139 = floor(v135 * v139) / v135;
-          v140 = floor(v135 * (v136 - v313)) / v135;
-          v141 = v140 - v134;
+          v141 = floor(v137 * v141) / v137;
+          v142 = floor(v137 * (v138 - v314)) / v137;
+          v143 = v142 - v136;
         }
 
-        if (!v317)
+        if (!v318)
         {
-          v141 = 0.0;
+          v143 = 0.0;
         }
 
-        v144 = v138 + v139 - v134;
-        v145 = v141 + v140 - v134;
+        v134.n128_f64[0] = v140 + v141 - v136;
+        v133.n128_f64[0] = v143 + v142 - v136;
       }
 
-      sub_673FC(&v271, 0, *(v132 + 40), *(v132 + 48), v144 - v145);
+      v133.n128_f64[0] = v134.n128_f64[0] - v133.n128_f64[0];
+      v134.n128_u64[0] = 0x7FF8000000000000;
+      sub_673FC(&v272, 0, *(v132 + 40), *(v132 + 48), v133, v134);
       v148 = v147;
       v150 = v149;
-      v133[9] = v147;
-      v133[10] = v149;
-      sub_61AFC(v133, 1);
+      v135[9] = v147;
+      v135[10] = v149;
+      sub_61AFC(v135, 1);
       v151 = objc_opt_new();
-      sub_61C34(&v318, v133, v151);
+      sub_61C34(&v319, v135, v151);
       v152 = v151;
       __p[0] = v148;
       __p[1] = v150;
-      v295 = v152;
-      v296 = 0uLL;
+      v296 = v152;
+      v297 = 0uLL;
       sub_61DD8(&selfCopy->_cellDividers, __p);
-      *&v273 = &v295.i64[1];
-      sub_63928(&v273);
+      *&v274 = &v296.i64[1];
+      sub_63928(&v274);
     }
 
-    v153 = v318;
-    v154 = v319;
-    if (v318 == v319)
+    v153 = v319;
+    v154 = v320;
+    if (v319 == v320)
     {
-      v161 = v318;
+      v161 = v319;
 LABEL_226:
-      v162 = v306;
-      v273 = &v318;
-      v274 = (0x2E8BA2E8BA2E8BA3 * (v161 - v153));
-      sub_67714(&v273);
-      *&v271 = &v318;
-      *(&v271 + 1) = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-      v272 = *(&v271 + 1);
-      sub_67714(&v271);
-      *__p = v273;
-      v295 = v274;
-      v296 = v271;
+      v162 = v307;
+      v274 = &v319;
+      v275 = (0x2E8BA2E8BA2E8BA3 * (v161 - v153));
+      sub_67714(&v274);
+      *&v272 = &v319;
+      *(&v272 + 1) = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+      v273 = *(&v272 + 1);
+      sub_67714(&v272);
+      *__p = v274;
+      v296 = v275;
       v297 = v272;
-      *&v298 = 0;
-      *(&v298 + 1) = v162;
-      LODWORD(v299) = 0;
+      v298 = v273;
+      *&v299 = 0;
+      *(&v299 + 1) = v162;
+      LODWORD(v300) = 0;
+      v303 = 0;
+      v301[1] = 0;
       v302 = 0;
-      v300[1] = 0;
-      v301 = 0;
-      sub_61F88(__p, &v303, &v318, 0);
+      sub_61F88(__p, &v304, &v319, 0);
       v164 = v163;
       v165 = v162 + v163;
-      sub_D3F90(&v283, &v303, &selfCopy->_cellDividers, 0.0, v162 + v163);
-      v167 = v166;
-      v169 = v168;
-      v271 = &v318;
-      v272 = (0x2E8BA2E8BA2E8BA3 * (v319 - v318));
-      sub_690A0(&v271);
-      *&v269 = &v318;
-      *(&v269 + 1) = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-      v270 = *(&v269 + 1);
-      sub_690A0(&v269);
-      v257 = v167;
-      v170 = v165 + v169;
-      v273 = v271;
+      v166.n128_u64[0] = 0;
+      sub_D3F90(&v284, &v304, &selfCopy->_cellDividers, v166, v162 + v163);
+      v168 = v167;
+      v170 = v169;
+      v272 = &v319;
+      v273 = (0x2E8BA2E8BA2E8BA3 * (v320 - v319));
+      sub_690A0(&v272);
+      *&v270 = &v319;
+      *(&v270 + 1) = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+      v271 = *(&v270 + 1);
+      sub_690A0(&v270);
+      v258 = v168;
+      v171 = v165 + v170;
       v274 = v272;
-      v275 = v269;
+      v275 = v273;
       v276 = v270;
-      v277 = 0;
-      v278 = v165 + v169;
-      v279 = 0;
-      v281 = 0;
-      v282 = 0;
+      v277 = v271;
+      v278 = 0;
+      v279 = v165 + v170;
       v280 = 0;
-      sub_62984(&v273, &v303, &v318, 0);
-      v172 = v171;
-      v173 = v308;
-      sub_95A1C(&v271);
-      sub_D4170(&v271, &v318, &v303, &v318, 0.0, v164, v169);
-      v174 = [v271 copy];
+      v282 = 0;
+      v283 = 0;
+      v281 = 0;
+      sub_62984(&v274, &v304, &v319, 0);
+      v173 = v172;
+      v174 = v309;
+      sub_95A1C(&v272);
+      sub_D4170(&v272, &v319, &v304, &v319, 0.0, v164, v170);
+      v175 = [v272 copy];
       nonScrollableAdornmentLayouts = selfCopy->_nonScrollableAdornmentLayouts;
-      selfCopy->_nonScrollableAdornmentLayouts = v174;
+      selfCopy->_nonScrollableAdornmentLayouts = v175;
 
-      if (v280)
+      if (v281)
       {
-        v281 = v280;
-        operator delete(v280);
+        v282 = v281;
+        operator delete(v281);
       }
 
-      v176 = v170 + v172;
-      if (v300[1])
+      v177 = v171 + v173;
+      if (v301[1])
       {
-        v301 = v300[1];
-        operator delete(v300[1]);
+        v302 = v301[1];
+        operator delete(v301[1]);
       }
 
-      v121 = v176 + v173;
+      v121 = v177 + v174;
       goto LABEL_231;
     }
 
@@ -864,8 +867,8 @@ LABEL_216:
         v153 += 11;
         if (v153 == v154)
         {
-          v161 = v319;
-          v153 = v318;
+          v161 = v320;
+          v153 = v319;
           goto LABEL_226;
         }
 
@@ -898,14 +901,14 @@ LABEL_222:
     }
   }
 
-  v32 = v318;
-  v33 = v319;
-  if (v318 != v319)
+  v32 = v319;
+  v33 = v320;
+  if (v319 != v320)
   {
     v34 = 0;
     v35 = self->_computedColumns * maxPages;
-    v267 = v319;
-    v264 = v35;
+    v268 = v320;
+    v265 = v35;
     while (1)
     {
       v32[7] = v34;
@@ -1014,11 +1017,11 @@ LABEL_39:
       v34 += v41;
       v32 += 11;
       self = selfCopy;
-      v35 = v264;
-      if (v32 == v267)
+      v35 = v265;
+      if (v32 == v268)
       {
-        v32 = v318;
-        v33 = v319;
+        v32 = v319;
+        v33 = v320;
         goto LABEL_129;
       }
     }
@@ -1027,8 +1030,8 @@ LABEL_39:
   v34 = 0;
 LABEL_129:
   v85 = 1;
-  v321 = v34;
-  v322 = 1;
+  v322 = v34;
+  v323 = 1;
   if (v32 != v33)
   {
 LABEL_130:
@@ -1041,8 +1044,8 @@ LABEL_130:
         v32 += 11;
         if (v32 == v33)
         {
-          v34 = v321;
-          v85 = v322;
+          v34 = v322;
+          v85 = v323;
           break;
         }
 
@@ -1080,22 +1083,22 @@ LABEL_136:
   v94 = self->_computedRowSpacing;
   controller2 = [contentCopy controller];
   [controller2 contentsScale];
-  v303 = v13;
-  v304 = v34;
-  v305 = v85;
-  v306 = *&v5;
-  v307 = v7;
-  v308 = v9;
-  v309 = v11;
-  v310 = v93;
-  v311 = v92;
-  v314 = v94;
-  v315 = computedLayoutDirection;
-  v316 = v96;
-  v317 = 0;
+  v304 = v13;
+  v305 = v34;
+  v306 = v85;
+  v307 = *&v5;
+  v308 = v7;
+  v309 = v9;
+  v310 = v11;
+  v311 = v93;
+  v312 = v92;
+  v315 = v94;
+  v316 = computedLayoutDirection;
+  v317 = v96;
+  v318 = 0;
   if (v34 < 2 || v92 == 0.0)
   {
-    v312 = v93;
+    v313 = v93;
   }
 
   else
@@ -1106,94 +1109,94 @@ LABEL_136:
       v97 = floor(v93 * v96) / v96;
     }
 
-    v312 = v97;
+    v313 = v97;
     v92 = ((v93 - v97) * v34 + v92 * (v34 - 1)) / (v34 - 1);
   }
 
-  v313 = v92;
+  v314 = v92;
 
   if ([(TUISmartGridLayoutConfiguration *)self->_configuration paginated])
   {
     v98 = self->_computedColumns;
-    v317 = v98;
+    v318 = v98;
     if (!v98)
     {
-      v98 = v304;
+      v98 = v305;
     }
 
-    v99 = v311;
-    if (v311 == 0.0 || v98 < 2)
+    v99 = v312;
+    if (v312 == 0.0 || v98 < 2)
     {
-      v312 = v310;
+      v313 = v311;
     }
 
     else
     {
-      v100 = v310;
-      if (v316 > 0.0)
+      v100 = v311;
+      if (v317 > 0.0)
       {
-        v100 = floor(v310 * v316) / v316;
+        v100 = floor(v311 * v317) / v317;
       }
 
-      v312 = v100;
-      v99 = ((v310 - v100) * v98 + v311 * (v98 - 1)) / (v98 - 1);
+      v313 = v100;
+      v99 = ((v311 - v100) * v98 + v312 * (v98 - 1)) / (v98 - 1);
     }
 
-    v313 = v99;
+    v314 = v99;
   }
 
-  v101 = v306;
-  v273 = &v318;
-  v274 = (0x2E8BA2E8BA2E8BA3 * (v319 - v318));
-  sub_67714(&v273);
-  *&v283 = &v318;
-  *(&v283 + 1) = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-  v284 = *(&v283 + 1);
-  sub_67714(&v283);
-  *__p = v273;
-  v295 = v274;
-  v296 = v283;
+  v101 = v307;
+  v274 = &v319;
+  v275 = (0x2E8BA2E8BA2E8BA3 * (v320 - v319));
+  sub_67714(&v274);
+  *&v284 = &v319;
+  *(&v284 + 1) = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+  v285 = *(&v284 + 1);
+  sub_67714(&v284);
+  *__p = v274;
+  v296 = v275;
   v297 = v284;
-  *&v298 = 0;
-  *(&v298 + 1) = v101;
-  LODWORD(v299) = 0;
+  v298 = v285;
+  *&v299 = 0;
+  *(&v299 + 1) = v101;
+  LODWORD(v300) = 0;
+  v303 = 0;
+  v301[1] = 0;
   v302 = 0;
-  v300[1] = 0;
-  v301 = 0;
-  sub_61F88(__p, &v303, &v318, 0);
+  sub_61F88(__p, &v304, &v319, 0);
   v103 = v102;
   v104 = v101 + v102;
-  v105 = v318;
+  v105 = v319;
   v106 = 0;
-  if (v319 != v318)
+  if (v320 != v319)
   {
-    v107 = v318 + 1;
+    v107 = v319 + 1;
     while (*v107 == *(v107 - 1))
     {
       ++v106;
       v107 += 11;
-      if (0x2E8BA2E8BA2E8BA3 * (v319 - v318) == v106)
+      if (0x2E8BA2E8BA2E8BA3 * (v320 - v319) == v106)
       {
-        v106 = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
+        v106 = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
         break;
       }
     }
   }
 
-  *&v283 = &v318;
-  *(&v283 + 1) = v106;
-  v284.i64[0] = 0;
-  v284.i64[1] = &v318;
-  v286 = 0;
+  *&v284 = &v319;
+  *(&v284 + 1) = v106;
+  v285.i64[0] = 0;
+  v285.i64[1] = &v319;
   v287 = 0;
-  v285 = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-  v288 = v104;
-  v289 = 0;
-  v292 = 0;
+  v288 = 0;
+  v286 = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+  v289 = v104;
+  v290 = 0;
   v293 = 0;
-  v291 = 0;
+  v294 = 0;
+  v292 = 0;
   v108 = 1;
-  if (v319 != v318)
+  if (v320 != v319)
   {
     do
     {
@@ -1209,206 +1212,206 @@ LABEL_136:
       v105 += 11;
     }
 
-    while (v105 != v319);
+    while (v105 != v320);
   }
 
-  v111 = sub_D3544(&v283, &v303, &v318, v108);
+  v111 = sub_D3544(&v284, &v304, &v319, v108);
   v113 = v112;
-  v271 = &v318;
-  v272 = (0x2E8BA2E8BA2E8BA3 * (v319 - v318));
-  sub_690A0(&v271);
-  *&v269 = &v318;
-  *(&v269 + 1) = 0x2E8BA2E8BA2E8BA3 * (v319 - v318);
-  v270 = *(&v269 + 1);
-  sub_690A0(&v269);
+  v272 = &v319;
+  v273 = (0x2E8BA2E8BA2E8BA3 * (v320 - v319));
+  sub_690A0(&v272);
+  *&v270 = &v319;
+  *(&v270 + 1) = 0x2E8BA2E8BA2E8BA3 * (v320 - v319);
+  v271 = *(&v270 + 1);
+  sub_690A0(&v270);
   v114 = v104 + v113;
-  v273 = v271;
   v274 = v272;
-  v275 = v269;
+  v275 = v273;
   v276 = v270;
-  v277 = 0;
-  v278 = v114;
-  v279 = 0;
-  v281 = 0;
-  v282 = 0;
+  v277 = v271;
+  v278 = 0;
+  v279 = v114;
   v280 = 0;
-  sub_62984(&v273, &v303, &v318, 0);
+  v282 = 0;
+  v283 = 0;
+  v281 = 0;
+  sub_62984(&v274, &v304, &v319, 0);
   v116 = v115;
-  v117 = v308;
-  sub_95A1C(&v271);
-  sub_D3B70(&v271, &v291, &v318, &v303, &v318, 0.0, v103);
-  v118 = [v271 copy];
+  v117 = v309;
+  sub_95A1C(&v272);
+  sub_D3B70(&v272, &v292, &v319, &v304, &v319, 0.0, v103);
+  v118 = [v272 copy];
   v119 = self->_nonScrollableAdornmentLayouts;
   self->_nonScrollableAdornmentLayouts = v118;
 
-  if (v280)
+  if (v281)
   {
-    v281 = v280;
-    operator delete(v280);
+    v282 = v281;
+    operator delete(v281);
   }
 
-  if (v291)
+  if (v292)
   {
-    v292 = v291;
-    operator delete(v291);
+    v293 = v292;
+    operator delete(v292);
   }
 
-  v257 = v111;
+  v258 = v111;
   v120 = v114 + v116;
-  if (v300[1])
+  if (v301[1])
   {
-    v301 = v300[1];
-    operator delete(v300[1]);
+    v302 = v301[1];
+    operator delete(v301[1]);
   }
 
   v121 = v120 + v117;
 LABEL_231:
-  v256 = v121;
-  v177 = v321;
+  v257 = v121;
   v178 = v322;
-  v180 = self->_computedColumnWidth;
-  v179 = self->_computedColumnSpacing;
-  v181 = self->_computedRowSpacing;
+  v179 = v323;
+  v181 = self->_computedColumnWidth;
+  v180 = self->_computedColumnSpacing;
+  v182 = self->_computedRowSpacing;
   controller3 = [contentCopy controller];
   [controller3 contentsScale];
-  v184 = *&v183;
-  __p[0] = v259;
-  __p[1] = v177;
-  v295.i64[0] = v178;
-  v295.i64[1] = v5;
-  *&v296 = v258;
-  *(&v296 + 1) = v9;
-  *v297.i64 = v11;
-  *&v297.i64[1] = v180;
-  *&v298 = v179;
-  *(&v299 + 1) = v181;
-  v300[0] = computedLayoutDirection;
-  v300[1] = v183;
-  v301 = 0;
-  if (v177 < 2 || v179 == 0.0)
+  v185 = *&v184;
+  __p[0] = v260;
+  __p[1] = v178;
+  v296.i64[0] = v179;
+  v296.i64[1] = v5;
+  *&v297 = v259;
+  *(&v297 + 1) = v9;
+  *v298.i64 = v11;
+  *&v298.i64[1] = v181;
+  *&v299 = v180;
+  *(&v300 + 1) = v182;
+  v301[0] = computedLayoutDirection;
+  v301[1] = v184;
+  v302 = 0;
+  if (v178 < 2 || v180 == 0.0)
   {
-    *(&v298 + 1) = v180;
-    v185 = v180;
-    v186 = v179;
+    *(&v299 + 1) = v181;
+    v186 = v181;
+    v187 = v180;
   }
 
   else
   {
-    v185 = v180;
-    if (*&v183 > 0.0)
+    v186 = v181;
+    if (*&v184 > 0.0)
     {
-      v185 = floor(v180 * *&v183) / *&v183;
+      v186 = floor(v181 * *&v184) / *&v184;
     }
 
-    *(&v298 + 1) = v185;
-    v186 = ((v180 - v185) * v177 + v179 * (v177 - 1)) / (v177 - 1);
+    *(&v299 + 1) = v186;
+    v187 = ((v181 - v186) * v178 + v180 * (v178 - 1)) / (v178 - 1);
   }
 
-  *&v299 = v186;
+  *&v300 = v187;
 
   if ([(TUISmartGridLayoutConfiguration *)self->_configuration paginated])
   {
-    v187 = self->_computedColumns;
-    v301 = v187;
-    if (v187)
+    v188 = self->_computedColumns;
+    v302 = v188;
+    if (v188)
     {
-      v188 = v187;
+      v189 = v188;
     }
 
     else
     {
-      v188 = v177;
+      v189 = v178;
     }
 
-    if (v179 == 0.0 || v188 < 2)
+    if (v180 == 0.0 || v189 < 2)
     {
-      *(&v298 + 1) = v180;
+      *(&v299 + 1) = v181;
     }
 
     else
     {
-      v189 = v180;
-      if (v184 > 0.0)
+      v190 = v181;
+      if (v185 > 0.0)
       {
-        v189 = floor(v180 * v184) / v184;
+        v190 = floor(v181 * v185) / v185;
       }
 
-      *(&v298 + 1) = v189;
-      v179 = ((v180 - v189) * v188 + v179 * (v188 - 1)) / (v188 - 1);
-      v180 = v189;
+      *(&v299 + 1) = v190;
+      v180 = ((v181 - v190) * v189 + v180 * (v189 - 1)) / (v189 - 1);
+      v181 = v190;
     }
 
-    *&v299 = v179;
-    v185 = v180;
-    v186 = v179;
+    *&v300 = v180;
+    v186 = v181;
+    v187 = v180;
   }
 
   else
   {
-    v187 = 0;
+    v188 = 0;
   }
 
-  v253 = v187;
-  v190 = v318;
+  v254 = v188;
   v191 = v319;
-  while (v190 != v191)
+  v192 = v320;
+  while (v191 != v192)
   {
-    v193 = *v190;
-    v192 = v190[1];
-    while (v193 != v192)
+    v194 = *v191;
+    v193 = v191[1];
+    while (v194 != v193)
     {
-      if (*(v193 + 16))
+      if (*(v194 + 16))
       {
-        v194 = *(v193 + 24) == 0;
+        v195 = *(v194 + 24) == 0;
       }
 
       else
       {
-        v194 = 1;
+        v195 = 1;
       }
 
-      v195 = v194;
-      sub_62E70(v193, v195);
-      v193 += 96;
+      v196 = v195;
+      sub_62E70(v194, v196);
+      v194 += 96;
     }
 
-    v197 = v190[3];
-    v196 = v190[4];
-    while (v197 != v196)
+    v198 = v191[3];
+    v197 = v191[4];
+    while (v198 != v197)
     {
-      if (*(v197 + 16))
+      if (*(v198 + 16))
       {
-        v198 = *(v197 + 24) == 0;
+        v199 = *(v198 + 24) == 0;
       }
 
       else
       {
-        v198 = 1;
+        v199 = 1;
       }
 
-      v199 = v198;
-      sub_61AFC(v197, v199);
-      v197 += 96;
+      v200 = v199;
+      sub_61AFC(v198, v200);
+      v198 += 96;
     }
 
-    v190 += 11;
+    v191 += 11;
   }
 
-  v255 = v177;
+  v256 = v178;
   p_cellBounds = &self->_cellBounds;
   sub_61808(&self->_cellBounds, self->_cellBounds.__begin_, self->_cellBounds.__end_);
-  v201 = v318;
-  for (j = v319; v201 != j; v201 += 11)
+  v202 = v319;
+  for (j = v320; v202 != j; v202 += 11)
   {
-    v203 = *v201;
-    v202 = v201[1];
-    while (v203 != v202)
+    v204 = *v202;
+    v203 = v202[1];
+    while (v204 != v203)
     {
-      if ((*(v203 + 40) & 1) == 0)
+      if ((*(v204 + 40) & 1) == 0)
       {
-        v205 = *(v203 + 48);
-        v204 = *(v203 + 56);
-        if (v205 == v204)
+        v206 = *(v204 + 48);
+        v205 = *(v204 + 56);
+        if (v206 == v205)
         {
           origin = CGRectNull.origin;
           size = CGRectNull.size;
@@ -1416,78 +1419,78 @@ LABEL_231:
 
         else
         {
-          origin = v205[2];
-          size = vsubq_f64(vaddq_f64(v204[-2], v204[-1]), origin);
+          origin = v206[2];
+          size = vsubq_f64(vaddq_f64(v205[-2], v205[-1]), origin);
         }
 
-        v208 = origin;
+        v209 = origin;
         origin.x = size.height;
-        v268 = size;
+        v269 = size;
         y = origin.y;
         if (!CGRectIsNull(*(&size - 1)))
         {
-          v210 = *(v203 + 32);
+          v211 = *(v204 + 32);
           end = selfCopy->_cellBounds.__end_;
           cap = selfCopy->_cellBounds.__cap_;
           if (end >= cap)
           {
-            v215 = 0xCCCCCCCCCCCCCCCDLL * ((end - p_cellBounds->__begin_) >> 3);
-            v216 = v215 + 1;
-            if (v215 + 1 > 0x666666666666666)
+            v216 = 0xCCCCCCCCCCCCCCCDLL * ((end - p_cellBounds->__begin_) >> 3);
+            v217 = v216 + 1;
+            if (v216 + 1 > 0x666666666666666)
             {
               sub_4050();
             }
 
-            v217 = 0xCCCCCCCCCCCCCCCDLL * ((cap - p_cellBounds->__begin_) >> 3);
-            if (2 * v217 > v216)
+            v218 = 0xCCCCCCCCCCCCCCCDLL * ((cap - p_cellBounds->__begin_) >> 3);
+            if (2 * v218 > v217)
             {
-              v216 = 2 * v217;
+              v217 = 2 * v218;
             }
 
-            if (v217 >= 0x333333333333333)
+            if (v218 >= 0x333333333333333)
             {
-              v218 = 0x666666666666666;
+              v219 = 0x666666666666666;
             }
 
             else
             {
-              v218 = v216;
+              v219 = v217;
             }
 
-            *&v275 = &self->_cellBounds;
-            if (v218)
+            *&v276 = &self->_cellBounds;
+            if (v219)
             {
-              sub_68FF4(p_cellBounds, v218);
+              sub_68FF4(p_cellBounds, v219);
             }
 
-            v219 = 40 * v215;
-            *&v273 = 0;
-            *(&v273 + 1) = v219;
-            v274.i64[1] = 0;
-            *v219 = v210;
-            *(v219 + 8) = v208;
-            *(v219 + 24) = v268;
-            v274.i64[0] = 40 * v215 + 40;
-            sub_68F2C(p_cellBounds, &v273);
-            v214 = selfCopy;
-            v213 = selfCopy->_cellBounds.__end_;
-            sub_6904C(&v273);
+            v220 = 40 * v216;
+            *&v274 = 0;
+            *(&v274 + 1) = v220;
+            v275.i64[1] = 0;
+            *v220 = v211;
+            *(v220 + 8) = v209;
+            *(v220 + 24) = v269;
+            v275.i64[0] = 40 * v216 + 40;
+            sub_68F2C(p_cellBounds, &v274);
+            v215 = selfCopy;
+            v214 = selfCopy->_cellBounds.__end_;
+            sub_6904C(&v274);
           }
 
           else
           {
-            *end = v210;
-            *(end + 8) = v208;
-            v213 = end + 40;
-            *(end + 24) = v268;
-            v214 = selfCopy;
+            *end = v211;
+            *(end + 8) = v209;
+            v214 = end + 40;
+            *(end + 24) = v269;
+            v215 = selfCopy;
           }
 
-          v214->_cellBounds.__end_ = v213;
+          v215->_cellBounds.__end_ = v214;
         }
       }
 
-      v203 += 96;
+      v204 += 96;
     }
   }
 
@@ -1500,195 +1503,195 @@ LABEL_231:
 
   if ([(TUISmartGridLayoutConfiguration *)selfCopy->_configuration paginated])
   {
-    if (v254)
+    if (v255)
     {
-      v222 = v255 - 1;
-      v223 = &v255[v254 - 1];
-      if (v254 <= v223)
+      v223 = v256 - 1;
+      v224 = &v256[v255 - 1];
+      if (v255 <= v224)
       {
-        v224 = 0;
-        v225 = v185 + v186;
-        v226 = v186 * -2.0;
-        v227 = v222 / v254 * v254;
-        v228 = v222 % v254;
-        v229 = v223 / v254;
+        v225 = 0;
+        v226 = v186 + v187;
+        v227 = v187 * -2.0;
+        v228 = v223 / v255 * v255;
+        v229 = v223 % v255;
+        v230 = v224 / v255;
         do
         {
-          v230 = v186 + v185;
-          if (v186 == 0.0)
+          v231 = v187 + v186;
+          if (v187 == 0.0)
           {
-            v234 = v230 * v254;
-            if (v184 > 0.0)
+            v235 = v231 * v255;
+            if (v185 > 0.0)
             {
-              v234 = floor(v234 * v184) / v184;
+              v235 = floor(v235 * v185) / v185;
             }
 
-            v235 = v230 * 0.0;
-            if (v184 > 0.0)
+            v236 = v231 * 0.0;
+            if (v185 > 0.0)
             {
-              v235 = floor(v235 * v184) / v184;
+              v236 = floor(v236 * v185) / v185;
             }
 
-            v233 = v234 + v235;
+            v234 = v235 + v236;
           }
 
           else
           {
-            v231 = -(v186 - v230 * (v254 + 1));
-            if (v184 > 0.0)
+            v232 = -(v187 - v231 * (v255 + 1));
+            if (v185 > 0.0)
             {
-              v231 = floor(v231 * v184) / v184;
+              v232 = floor(v232 * v185) / v185;
             }
 
-            v232 = v230 - v186;
-            if (v184 > 0.0)
+            v233 = v231 - v187;
+            if (v185 > 0.0)
             {
-              v232 = floor(v232 * v184) / v184;
+              v233 = floor(v233 * v185) / v185;
             }
 
-            v233 = v231 - v185 + v232 - v185;
+            v234 = v232 - v186 + v233 - v186;
           }
 
           if (computedLayoutDirection == &dword_0 + 2)
           {
-            if (v186 == 0.0)
+            if (v187 == 0.0)
             {
-              v239 = v225 * v227;
-              if (v184 <= 0.0)
+              v240 = v226 * v228;
+              if (v185 <= 0.0)
               {
-                v240 = v225 * (v228 + 1) - v186;
+                v241 = v226 * (v229 + 1) - v187;
               }
 
               else
               {
-                v239 = floor(v239 * v184) / v184;
-                v240 = floor((v225 * (v228 + 1) - v186) * v184) / v184;
+                v240 = floor(v240 * v185) / v185;
+                v241 = floor((v226 * (v229 + 1) - v187) * v185) / v185;
               }
 
-              v241 = v239 + v240;
+              v242 = v240 + v241;
             }
 
             else
             {
-              v236 = v225 * (v227 + 1) - v186;
-              if (v184 <= 0.0)
+              v237 = v226 * (v228 + 1) - v187;
+              if (v185 <= 0.0)
               {
-                v237 = v226 + v225 * (v228 + 2);
+                v238 = v227 + v226 * (v229 + 2);
               }
 
               else
               {
-                v236 = floor(v236 * v184) / v184;
-                v237 = floor((v226 + v225 * (v228 + 2)) * v184) / v184;
+                v237 = floor(v237 * v185) / v185;
+                v238 = floor((v227 + v226 * (v229 + 2)) * v185) / v185;
               }
 
-              v241 = v236 - v185 + v237 - v185;
+              v242 = v237 - v186 + v238 - v186;
             }
 
-            v238 = v241 - v224 * v233;
+            v239 = v242 - v225 * v234;
           }
 
           else
           {
-            v238 = v233 * v224;
+            v239 = v234 * v225;
           }
 
-          *&v273 = v238;
-          sub_94B48(p_begin, &v273);
-          ++v224;
+          *&v274 = v239;
+          sub_94B48(p_begin, &v274);
+          ++v225;
         }
 
-        while (v224 < v229);
+        while (v225 < v230);
       }
     }
   }
 
   else
   {
-    v242 = v318;
     v243 = v319;
-    if (v318 != v319)
+    v244 = v320;
+    if (v319 != v320)
     {
       if (computedLayoutDirection == &dword_0 + 2)
       {
-        v244 = v11;
+        v245 = v11;
       }
 
       else
       {
-        v244 = -v258;
+        v245 = -v259;
       }
 
       do
       {
-        v245 = *v242;
-        v246 = v242[1];
-        while (v245 != v246)
+        v246 = *v243;
+        v247 = v243[1];
+        while (v246 != v247)
         {
-          v247 = v245[2];
-          if (v247)
+          v248 = v246[2];
+          if (v248)
           {
-            v248 = v245[3] == 0;
+            v249 = v246[3] == 0;
           }
 
           else
           {
-            v248 = 1;
+            v249 = 1;
           }
 
-          if (!v248)
+          if (!v249)
           {
-            sub_67BF8(__p, *v245, v247, 0);
-            *&v273 = v244 + v249;
-            sub_94B48(p_begin, &v273);
+            sub_67BF8(__p, *v246, v248, 0);
+            *&v274 = v245 + v250;
+            sub_94B48(p_begin, &v274);
           }
 
-          v245 += 12;
+          v246 += 12;
         }
 
-        v242 += 11;
+        v243 += 11;
       }
 
-      while (v242 != v243);
+      while (v243 != v244);
     }
   }
 
-  v250 = v299;
-  *&selfCopy->_columnSystem._specifiedColumnSpacing = v298;
-  *&selfCopy->_columnSystem._computedColumnSpacing = v250;
-  *&selfCopy->_columnSystem._layoutDirection = *v300;
-  v251 = v295;
+  v251 = v300;
+  *&selfCopy->_columnSystem._specifiedColumnSpacing = v299;
+  *&selfCopy->_columnSystem._computedColumnSpacing = v251;
+  *&selfCopy->_columnSystem._layoutDirection = *v301;
+  v252 = v296;
   *&selfCopy->_columnSystem._containerWidth = *__p;
-  *&selfCopy->_columnSystem._rows = v251;
-  v252 = v297;
-  *&selfCopy->_columnSystem._insets.left = v296;
-  selfCopy->_columnSystem._columnsPerPage = v301;
-  *&selfCopy->_columnSystem._insets.right = v252;
-  selfCopy->_contentLayoutSize.width = v257;
-  selfCopy->_contentLayoutSize.height = v256;
-  *&selfCopy->_layoutSize.width = v259;
-  selfCopy->_layoutSize.height = v256;
-  if (v327)
+  *&selfCopy->_columnSystem._rows = v252;
+  v253 = v298;
+  *&selfCopy->_columnSystem._insets.left = v297;
+  selfCopy->_columnSystem._columnsPerPage = v302;
+  *&selfCopy->_columnSystem._insets.right = v253;
+  selfCopy->_contentLayoutSize.width = v258;
+  selfCopy->_contentLayoutSize.height = v257;
+  *&selfCopy->_layoutSize.width = v260;
+  selfCopy->_layoutSize.height = v257;
+  if (v328)
   {
-    v328 = v327;
-    operator delete(v327);
+    v329 = v328;
+    operator delete(v328);
   }
 
-  if (v325)
+  if (v326)
   {
-    v326 = v325;
-    operator delete(v325);
+    v327 = v326;
+    operator delete(v326);
   }
 
-  if (v323)
+  if (v324)
   {
-    v324 = v323;
-    operator delete(v323);
+    v325 = v324;
+    operator delete(v324);
   }
 
-  __p[0] = v320;
+  __p[0] = v321;
   sub_63A20(__p);
-  __p[0] = &v318;
+  __p[0] = &v319;
   sub_63C64(__p);
 }
 
@@ -1716,7 +1719,7 @@ LABEL_231:
     v15 = 0u;
     if (layoutCopy)
     {
-      [layoutCopy computedTransformInAncestorLayout:rootCopy];
+      objc_msgSend_computedTransformInAncestorLayout_(layoutCopy);
     }
 
     begin = self->_scrollAnchors.__begin_;
@@ -1789,7 +1792,7 @@ LABEL_231:
         [v21 computedOrigin];
         v23 = v22;
         v25 = v24;
-        [v21 computedTransformedSize];
+        objc_msgSend_computedTransformedSize(v21);
         memset(&v31, 0, sizeof(v31));
         CGAffineTransformMakeTranslation(&t1, v23 + v26 * 0.5 + v18 * 0.5, v25 + v27 * 0.5 + v19 * 0.5);
         v28 = *&transform->c;

@@ -55,7 +55,7 @@ LABEL_14:
   v16 = v15;
   if (v15)
   {
-    [v15 duration];
+    objc_msgSend_duration(v15);
   }
 
   else
@@ -101,7 +101,7 @@ LABEL_15:
 
 - (BOOL)_analyzeWithStart:(id *)start andDuration:(id *)duration error:(id *)error
 {
-  v99[1] = *MEMORY[0x1E69E9840];
+  v101[1] = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E6988168];
   url = self->_url;
   urlAssetOptions = [objc_opt_class() urlAssetOptions];
@@ -142,10 +142,10 @@ LABEL_79:
         }
 
         v33 = MEMORY[0x1E696ABC0];
-        v94 = *MEMORY[0x1E696A578];
+        v96 = *MEMORY[0x1E696A578];
         v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video track contains %d (expecting 1) format description(s)", objc_msgSend(formatDescriptions, "count")];
-        v95 = v25;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        v97 = v25;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
         *error = [v33 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v34];
 
 LABEL_41:
@@ -158,12 +158,12 @@ LABEL_41:
 
       if (MediaSubType != 1635148593 && MediaSubType != 1752589105 && error)
       {
-        v69 = MEMORY[0x1E696ABC0];
-        v92 = *MEMORY[0x1E696A578];
+        v71 = MEMORY[0x1E696ABC0];
+        v94 = *MEMORY[0x1E696A578];
         mediaSubType = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported codec type: %d", MediaSubType];
-        v93 = mediaSubType;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-        *error = [v69 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v20];
+        v95 = mediaSubType;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        *error = [v71 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v20];
       }
 
       if (MediaSubType == 1635148593 || MediaSubType == 1752589105)
@@ -174,8 +174,8 @@ LABEL_12:
 
         formatDescriptions = [(NSDictionary *)self->_decoderSettings mutableCopy];
         [formatDescriptions removeObjectForKey:@"AppliesPreferredTrackTransform"];
-        [v16 preferredTransform];
-        v70 = angleForTransform(&range);
+        objc_msgSend_preferredTransform(v16);
+        v72 = angleForTransform(&range);
         if (self->_requiresSyncFrameDetectionFromNalUnit)
         {
           v23 = 0;
@@ -199,9 +199,9 @@ LABEL_12:
           start.start.epoch = start->var3;
           duration = *duration;
           CMTimeRangeMake(&range, &start.start, &duration);
-          [v16 timeRange];
-          CMTimeRangeGetIntersection(&v81, &range, &start);
-          range = v81;
+          objc_msgSend_timeRange(v16);
+          CMTimeRangeGetIntersection(&v83, &range, &start);
+          range = v83;
           [v14 setTimeRange:&range];
           [v14 addOutput:v25];
           if ([v14 startReading])
@@ -220,19 +220,19 @@ LABEL_12:
             *&range.duration.timescale = __Block_byref_object_dispose__46;
             range.duration.epoch = &unk_1CA01F5A2;
             epoch = 0;
-            v77 = 0uLL;
-            [v14 timeRange];
-            v77 = *&start.start.value;
+            v79 = 0uLL;
+            objc_msgSend_timeRange(v14);
+            v79 = *&start.start.value;
             epoch = start.start.epoch;
-            v73[0] = MEMORY[0x1E69E9820];
-            v73[1] = 3221225472;
-            v73[2] = __57__VCPVideoProcessor__analyzeWithStart_andDuration_error___block_invoke;
-            v73[3] = &unk_1E834FE18;
-            v73[4] = self;
+            v75[0] = MEMORY[0x1E69E9820];
+            v75[1] = 3221225472;
+            v75[2] = __57__VCPVideoProcessor__analyzeWithStart_andDuration_error___block_invoke;
+            v75[3] = &unk_1E834FE18;
+            v75[4] = self;
             p_range = &range;
             v27 = v14;
-            v74 = v27;
-            v68 = [VCPTimer timerWithIntervalSeconds:1 isOneShot:0 andBlock:v73];
+            v76 = v27;
+            v70 = [VCPTimer timerWithIntervalSeconds:1 isOneShot:0 andBlock:v75];
             v28 = atomic_load(&self->_canceled);
             if (v28)
             {
@@ -248,24 +248,24 @@ LABEL_24:
               {
                 if (error)
                 {
-                  v55 = MEMORY[0x1E696ABC0];
-                  v84 = *MEMORY[0x1E696A578];
-                  v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video processor cancelled"];
-                  v85 = v56;
-                  v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-                  *error = [v55 errorWithDomain:*MEMORY[0x1E696A768] code:-128 userInfo:v57];
+                  v57 = MEMORY[0x1E696ABC0];
+                  v86 = *MEMORY[0x1E696A578];
+                  v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Video processor cancelled"];
+                  v87 = v58;
+                  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+                  *error = [v57 errorWithDomain:*MEMORY[0x1E696A768] code:-128 userInfo:v59];
                 }
               }
 
               else if ([v27 status] == 2)
               {
                 session = self->_session;
-                [v27 timeRange];
+                objc_msgSend_timeRange(v27);
                 CMTimeRangeGetEnd(&duration, &start);
                 if ([(VCPVideoProcessorSession *)session flushWithEndTime:&duration error:error])
                 {
 LABEL_25:
-                  [v68 destroy];
+                  [v70 destroy];
                   v29 = self->_progressHandler;
                   if (v29)
                   {
@@ -279,14 +279,14 @@ LABEL_25:
 
               else if (error)
               {
-                v59 = MEMORY[0x1E696ABC0];
-                v82 = *MEMORY[0x1E696A578];
-                v60 = MEMORY[0x1E696AEC0];
+                v61 = MEMORY[0x1E696ABC0];
+                v84 = *MEMORY[0x1E696A578];
+                v62 = MEMORY[0x1E696AEC0];
                 error = [v27 error];
-                v62 = [v60 stringWithFormat:@"Failed to complete video decoding: %@", error];
-                v83 = v62;
-                v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-                *error = [v59 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v63];
+                v64 = [v62 stringWithFormat:@"Failed to complete video decoding: %@", error];
+                v85 = v64;
+                v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+                *error = [v61 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v65];
               }
 
 LABEL_76:
@@ -299,7 +299,7 @@ LABEL_77:
 
             if (bOOLValue)
             {
-              v41 = v70;
+              v41 = v72;
             }
 
             else
@@ -307,32 +307,33 @@ LABEL_77:
               v41 = 0;
             }
 
-            v71 = v41;
+            v73 = v41;
             while (1)
             {
-              if ([(VCPVideoProcessorSession *)self->_session allRequestsFinished])
+              allRequestsFinished = [(VCPVideoProcessorSession *)self->_session allRequestsFinished];
+              if (allRequestsFinished)
               {
                 goto LABEL_23;
               }
 
-              v42 = VCPSignPostLog();
-              v43 = os_signpost_id_generate(v42);
+              v43 = VCPSignPostLog(allRequestsFinished);
+              v44 = os_signpost_id_generate(v43);
 
-              v44 = VCPSignPostLog();
-              v45 = v44;
-              if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+              v46 = VCPSignPostLog(v45);
+              v47 = v46;
+              if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
               {
                 LOWORD(start.start.value) = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_BEGIN, v43, "AVAssetReaderTrackOutput_copyNextSampleBuffer", "", &start, 2u);
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_BEGIN, v44, "AVAssetReaderTrackOutput_copyNextSampleBuffer", "", &start, 2u);
               }
 
               duration.value = [v25 copyNextSampleBuffer];
-              v46 = VCPSignPostLog();
-              v47 = v46;
-              if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+              v48 = VCPSignPostLog(duration.value);
+              v49 = v48;
+              if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
               {
                 LOWORD(start.start.value) = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_END, v43, "AVAssetReaderTrackOutput_copyNextSampleBuffer", "", &start, 2u);
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v49, OS_SIGNPOST_INTERVAL_END, v44, "AVAssetReaderTrackOutput_copyNextSampleBuffer", "", &start, 2u);
               }
 
               value = duration.value;
@@ -352,22 +353,22 @@ LABEL_77:
                 syncFrameDecoder = self->_syncFrameDecoder;
                 if (!syncFrameDecoder)
                 {
-                  v50 = [VCPVideoSyncFrameDecoder alloc];
-                  v51 = [(VCPVideoSyncFrameDecoder *)v50 initWithDecoderSettings:self->_decoderSettings formatDescription:CMSampleBufferGetFormatDescription(duration.value) rotationAngle:v71];
-                  v52 = self->_syncFrameDecoder;
-                  self->_syncFrameDecoder = v51;
+                  v52 = [VCPVideoSyncFrameDecoder alloc];
+                  v53 = [(VCPVideoSyncFrameDecoder *)v52 initWithDecoderSettings:self->_decoderSettings formatDescription:CMSampleBufferGetFormatDescription(duration.value) rotationAngle:v73];
+                  v54 = self->_syncFrameDecoder;
+                  self->_syncFrameDecoder = v53;
 
                   syncFrameDecoder = self->_syncFrameDecoder;
                   if (!syncFrameDecoder)
                   {
                     if (error)
                     {
-                      v65 = MEMORY[0x1E696ABC0];
-                      v86 = *MEMORY[0x1E696A578];
-                      v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create VCPVideoSyncFrameDecoder"];
-                      v87 = v66;
-                      v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-                      *error = [v65 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v67];
+                      v67 = MEMORY[0x1E696ABC0];
+                      v88 = *MEMORY[0x1E696A578];
+                      v68 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create VCPVideoSyncFrameDecoder"];
+                      v89 = v68;
+                      v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+                      *error = [v67 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v69];
                     }
 
                     goto LABEL_75;
@@ -394,13 +395,13 @@ LABEL_75:
               }
 
               CMSampleBufferGetPresentationTimeStamp(&start.start, duration.value);
-              v53 = *&range.start.timescale;
+              v55 = *&range.start.timescale;
               *(*&range.start.timescale + 48) = *&start.start.value;
-              *(v53 + 64) = start.start.epoch;
+              *(v55 + 64) = start.start.epoch;
 LABEL_62:
               CF<__CVBuffer *>::~CF(&duration);
-              v54 = atomic_load(&self->_canceled);
-              if (v54)
+              v56 = atomic_load(&self->_canceled);
+              if (v56)
               {
                 goto LABEL_23;
               }
@@ -410,10 +411,10 @@ LABEL_62:
           if (error)
           {
             v38 = MEMORY[0x1E696ABC0];
-            v88 = *MEMORY[0x1E696A578];
+            v90 = *MEMORY[0x1E696A578];
             v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to start decoding video track"];
-            v89 = v39;
-            v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+            v91 = v39;
+            v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
             *error = [v38 errorWithDomain:*MEMORY[0x1E696A768] code:-19 userInfo:v40];
           }
         }
@@ -421,10 +422,10 @@ LABEL_62:
         else if (error)
         {
           v35 = MEMORY[0x1E696ABC0];
-          v90 = *MEMORY[0x1E696A578];
+          v92 = *MEMORY[0x1E696A578];
           v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create video track output"];
-          v91 = v36;
-          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+          v93 = v36;
+          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
           *error = [v35 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v37];
         }
 
@@ -435,10 +436,10 @@ LABEL_62:
     else if (error)
     {
       v32 = MEMORY[0x1E696ABC0];
-      v96 = *MEMORY[0x1E696A578];
+      v98 = *MEMORY[0x1E696A578];
       formatDescriptions = [MEMORY[0x1E696AEC0] stringWithFormat:@"Asset contains no video tracks"];
-      v97 = formatDescriptions;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+      v99 = formatDescriptions;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
       [v32 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v25];
       *error = v30 = 0;
 LABEL_78:
@@ -455,10 +456,10 @@ LABEL_80:
   if (error)
   {
     v31 = MEMORY[0x1E696ABC0];
-    v98 = *MEMORY[0x1E696A578];
+    v100 = *MEMORY[0x1E696A578];
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load asset"];
-    v99[0] = v14;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:&v98 count:1];
+    v101[0] = v14;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:&v100 count:1];
     [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v16];
     *error = v30 = 0;
     goto LABEL_80;
@@ -479,7 +480,7 @@ void __57__VCPVideoProcessor__analyzeWithStart_andDuration_error___block_invoke(
     v4 = *(*(a1 + 48) + 8);
     if (v3)
     {
-      [v3 timeRange];
+      objc_msgSend_timeRange(v3);
     }
 
     else
@@ -494,7 +495,7 @@ void __57__VCPVideoProcessor__analyzeWithStart_andDuration_error___block_invoke(
     v6 = *(a1 + 40);
     if (v6)
     {
-      [v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else

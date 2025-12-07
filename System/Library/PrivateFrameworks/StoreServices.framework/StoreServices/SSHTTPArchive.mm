@@ -32,41 +32,42 @@
 - (SSHTTPArchive)initWithJSONObject:(id)object
 {
   objectCopy = object;
-  v14.receiver = self;
-  v14.super_class = SSHTTPArchive;
-  v5 = [(SSHTTPArchive *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = SSHTTPArchive;
+  v5 = [(SSHTTPArchive *)&v16 init];
+  v7 = v5;
   if (v5)
   {
-    v6 = SSViTunesStoreFramework();
-    v7 = SSVWeakLinkedSymbolForString("ISCopyGzippedDataForData", v6);
+    v8 = SSViTunesStoreFramework(v5, v6);
+    v9 = SSVWeakLinkedSymbolForString("ISCopyGzippedDataForData", v8);
     if ([MEMORY[0x1E696ACB0] isValidJSONObject:objectCopy])
     {
-      v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:objectCopy options:0 error:0];
+      v10 = [MEMORY[0x1E696ACB0] dataWithJSONObject:objectCopy options:0 error:0];
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
-    v9 = v7(v8);
-    v10 = v9;
-    v11 = v9 != 0;
-    if (v9)
+    v11 = v9(v10);
+    v12 = v11;
+    v13 = v11 != 0;
+    if (v11)
     {
-      v12 = v9;
+      v14 = v11;
     }
 
     else
     {
-      v12 = v8;
+      v14 = v10;
     }
 
-    objc_storeStrong(&v5->_backingJSONData, v12);
-    v5->_compressed = v11;
+    objc_storeStrong(&v7->_backingJSONData, v14);
+    v7->_compressed = v13;
   }
 
-  return v5;
+  return v7;
 }
 
 - (SSHTTPArchive)initWithTaskMetrics:(id)metrics requestData:(id)data responseData:(id)responseData
@@ -82,12 +83,13 @@
 
 - (NSData)JSONData
 {
-  if ([(SSHTTPArchive *)self compressed])
+  compressed = [(SSHTTPArchive *)self compressed];
+  if (compressed)
   {
-    v3 = SSViTunesStoreFramework();
-    v4 = SSVWeakLinkedSymbolForString("ISCopyDecompressedGZipDataForData", v3);
+    v5 = SSViTunesStoreFramework(compressed, v4);
+    v6 = SSVWeakLinkedSymbolForString("ISCopyDecompressedGZipDataForData", v5);
     backingJSONData = [(SSHTTPArchive *)self backingJSONData];
-    backingJSONData2 = v4();
+    backingJSONData2 = v6();
   }
 
   else
@@ -252,7 +254,7 @@
 
 + (void)removeLogsWithLogConfig:(id)config olderThanDate:(id)date
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   configCopy = config;
   dateCopy = date;
   if (!configCopy)
@@ -296,17 +298,16 @@
 
     if (v58)
     {
-      v76 = 138412290;
-      v77 = v8;
-      LODWORD(v67) = 12;
-      v59 = _os_log_send_and_compose_impl();
+      v75 = 138412290;
+      v76 = v8;
+      v59 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@ doesn't exist. There are no HAR files to cleanup.", &v75, 12);
 
       if (!v59)
       {
         goto LABEL_53;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v59 encoding:{4, &v76, v67}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v59 encoding:4];
       free(v59);
       SSFileLog(v15, @"%@", v60, v61, v62, v63, v64, v65, oSLogObject);
     }
@@ -314,39 +315,39 @@
     goto LABEL_53;
   }
 
-  v68 = dateCopy;
+  v67 = dateCopy;
   [dateCopy timeIntervalSinceReferenceDate];
   v12 = v11;
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
   v14 = [defaultManager2 enumeratorAtPath:v8];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v72 objects:v80 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v71 objects:v79 count:16];
   if (!v16)
   {
     goto LABEL_40;
   }
 
   v17 = v16;
-  v18 = *v73;
-  v69 = *v73;
+  v18 = *v72;
+  v68 = *v72;
   do
   {
     v19 = 0;
-    v70 = v17;
+    v69 = v17;
     do
     {
-      if (*v73 != v18)
+      if (*v72 != v18)
       {
         objc_enumerationMutation(v15);
       }
 
-      v20 = *(*(&v72 + 1) + 8 * v19);
-      [self _timeIntervalFromFilename:{v20, v66}];
+      v20 = *(*(&v71 + 1) + 8 * v19);
+      [self _timeIntervalFromFilename:v20];
       if (v21 != 1.79769313e308 && v21 <= v12)
       {
         selfCopy = self;
@@ -380,15 +381,14 @@
 
         if (v32)
         {
-          v76 = 138412290;
-          v77 = v26;
-          LODWORD(v67) = 12;
-          v66 = &v76;
-          v33 = _os_log_send_and_compose_impl();
+          v75 = 138412290;
+          v76 = v26;
+          LODWORD(v66) = 12;
+          v33 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "Removing %@ to cleanup HAR log files.", &v75, v66);
 
           if (v33)
           {
-            oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:{4, &v76, v67}];
+            oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
             free(v33);
             SSFileLog(v28, @"%@", v34, v35, v36, v37, v38, v39, oSLogObject2);
             goto LABEL_23;
@@ -401,9 +401,9 @@ LABEL_23:
         }
 
         defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-        v71 = 0;
-        v41 = [defaultManager3 removeItemAtPath:v26 error:&v71];
-        v42 = v71;
+        v70 = 0;
+        v41 = [defaultManager3 removeItemAtPath:v26 error:&v70];
+        v42 = v70;
 
         if ((v41 & 1) == 0)
         {
@@ -433,17 +433,16 @@ LABEL_23:
 
           if (v47)
           {
-            v76 = 138412546;
-            v77 = v26;
-            v78 = 2112;
-            v79 = v42;
-            LODWORD(v67) = 22;
-            v66 = &v76;
-            v48 = _os_log_send_and_compose_impl();
+            v75 = 138412546;
+            v76 = v26;
+            v77 = 2112;
+            v78 = v42;
+            LODWORD(v66) = 22;
+            v48 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 16, "Failed to remove %@. %@", &v75, v66);
 
             if (v48)
             {
-              oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:{4, &v76, v67}];
+              oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:4];
               free(v48);
               SSFileLog(v44, @"%@", v49, v50, v51, v52, v53, v54, oSLogObject3);
               goto LABEL_35;
@@ -460,21 +459,21 @@ LABEL_35:
         configCopy = v29;
         v15 = v24;
         self = selfCopy;
-        v18 = v69;
-        v17 = v70;
+        v18 = v68;
+        v17 = v69;
       }
 
       ++v19;
     }
 
     while (v17 != v19);
-    v17 = [v15 countByEnumeratingWithState:&v72 objects:v80 count:16];
+    v17 = [v15 countByEnumeratingWithState:&v71 objects:v79 count:16];
   }
 
   while (v17);
 LABEL_40:
 
-  dateCopy = v68;
+  dateCopy = v67;
 LABEL_53:
 }
 
@@ -493,24 +492,24 @@ LABEL_53:
   NSLog(&cfstr_AppStoreStates.isa, v3);
   if (v4 == 2)
   {
-    v5 = SSVFrontBoardServicesFramework();
-    v6 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyActivateSuspended", v5);
-    if (v6)
+    v7 = SSVFrontBoardServicesFramework(v5, v6);
+    v8 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyActivateSuspended", v7);
+    if (v8)
     {
-      v7 = objc_alloc(MEMORY[0x1E695DF90]);
-      v8 = [v7 initWithObjectsAndKeys:{MEMORY[0x1E695E118], v6, 0}];
-      v9 = SSVFrontBoardServicesFramework();
-      v10 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Fbssystemservi.isa, v9));
-      v11 = dispatch_semaphore_create(0);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __63__SSHTTPArchive_sendWriteAllLogsToDiskDecompressedNotification__block_invoke;
-      v14[3] = &unk_1E84B1C40;
-      v15 = v2;
-      v16 = v11;
-      v12 = v11;
-      [v10 openApplication:@"com.apple.AppStore" options:v8 withResult:v14];
-      dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+      v9 = objc_alloc(MEMORY[0x1E695DF90]);
+      v10 = [v9 initWithObjectsAndKeys:{MEMORY[0x1E695E118], v8, 0}];
+      v12 = SSVFrontBoardServicesFramework(v10, v11);
+      v13 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Fbssystemservi.isa, v12));
+      v14 = dispatch_semaphore_create(0);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __63__SSHTTPArchive_sendWriteAllLogsToDiskDecompressedNotification__block_invoke;
+      v17[3] = &unk_1E84B1C40;
+      v18 = v2;
+      v19 = v14;
+      v15 = v14;
+      [v13 openApplication:@"com.apple.AppStore" options:v10 withResult:v17];
+      dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
     }
 
     else
@@ -597,15 +596,14 @@ intptr_t __63__SSHTTPArchive_sendWriteAllLogsToDiskDecompressedNotification__blo
       v63 = v9;
       v64 = 2112;
       v65 = v12;
-      LODWORD(v55) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "Failed to create directory, %@, for HTTP archive files. %@", &v62, 22);
 
       if (!v28)
       {
         goto LABEL_23;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, &v62, v55}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog(v24, @"%@", v29, v30, v31, v32, v33, v34, oSLogObject);
     }
@@ -703,6 +701,7 @@ LABEL_26:
     v62 = 138412290;
     v63 = v23;
     LODWORD(v56) = 12;
+    v44 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 2, "Wrote HTTP archive file to: %@", &v62, v56);
   }
 
   else
@@ -721,15 +720,15 @@ LABEL_26:
     oSLogObject2 = [v40 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v45 = shouldLog3;
+      v46 = shouldLog3;
     }
 
     else
     {
-      v45 = shouldLog3 & 2;
+      v46 = shouldLog3 & 2;
     }
 
-    if (!v45)
+    if (!v46)
     {
       goto LABEL_49;
     }
@@ -737,15 +736,16 @@ LABEL_26:
     v62 = 138412290;
     v63 = v36;
     LODWORD(v56) = 12;
+    v44 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "Failed to write HTTP archive file. %@", &v62, v56);
   }
 
-  v46 = _os_log_send_and_compose_impl();
+  v47 = v44;
 
-  if (v46)
+  if (v47)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v46 encoding:{4, &v62, v56}];
-    free(v46);
-    SSFileLog(v40, @"%@", v47, v48, v49, v50, v51, v52, oSLogObject2);
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v47 encoding:4];
+    free(v47);
+    SSFileLog(v40, @"%@", v48, v49, v50, v51, v52, v53, oSLogObject2);
 LABEL_49:
   }
 
@@ -756,7 +756,7 @@ LABEL_51:
   if (error)
   {
 LABEL_52:
-    v53 = v12;
+    v54 = v12;
     *error = v12;
   }
 
@@ -787,22 +787,22 @@ LABEL_53:
     v12 = [v11 length];
     if (v12)
     {
-      v13 = v12;
-      ShouldIncludeFullResponseBodiesInNetworkLogs = SSDebugShouldIncludeFullResponseBodiesInNetworkLogs();
-      v15 = [dataCopy length];
-      if ((ShouldIncludeFullResponseBodiesInNetworkLogs & 1) == 0 && v15 >= 0x9C41)
+      v14 = v12;
+      ShouldIncludeFullResponseBodiesInNetworkLogs = SSDebugShouldIncludeFullResponseBodiesInNetworkLogs(v12, v13);
+      v16 = [dataCopy length];
+      if ((ShouldIncludeFullResponseBodiesInNetworkLogs & 1) == 0 && v16 >= 0x9C41)
       {
-        if (v13 <= (v13 / [dataCopy length] * 40000.0))
+        if (v14 <= (v14 / [dataCopy length] * 40000.0))
         {
-          v16 = 0;
+          v17 = 0;
         }
 
         else
         {
-          v16 = [v11 substringToIndex:?];
+          v17 = [v11 substringToIndex:?];
         }
 
-        v11 = v16;
+        v11 = v17;
       }
     }
 
@@ -1153,7 +1153,7 @@ uint64_t __43__SSHTTPArchive__dateFormatterForTimeZone___block_invoke_2(uint64_t
 
 + (id)_requestDictionaryForTaskTransactionMetrics:(id)metrics requestData:(id)data
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   request = [metrics request];
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1175,14 +1175,15 @@ uint64_t __43__SSHTTPArchive__dateFormatterForTimeZone___block_invoke_2(uint64_t
   v13 = [request URL];
   absoluteString = [v13 absoluteString];
 
-  if ([absoluteString length])
+  v15 = [absoluteString length];
+  if (v15)
   {
-    [v8 setObject:absoluteString forKeyedSubscript:@"url"];
+    v15 = [v8 setObject:absoluteString forKeyedSubscript:@"url"];
   }
 
-  if (SSDebugShouldLogFullMetricsRequest())
+  if (SSDebugShouldLogFullMetricsRequest(v15, v16))
   {
-    v15 = [absoluteString containsString:@"xp.apple.com"];
+    v17 = [absoluteString containsString:@"xp.apple.com"];
     if (!dataCopy)
     {
       goto LABEL_12;
@@ -1191,55 +1192,56 @@ uint64_t __43__SSHTTPArchive__dateFormatterForTimeZone___block_invoke_2(uint64_t
 
   else
   {
-    v15 = 0;
+    v17 = 0;
     if (!dataCopy)
     {
 LABEL_12:
-      v18 = 0;
+      v22 = 0;
       goto LABEL_13;
     }
   }
 
-  if (!(([dataCopy length] < 0x9C41) | v15 & 1))
+  v18 = [dataCopy length];
+  if (!((v18 < 0x9C41) | v17 & 1))
   {
     goto LABEL_12;
   }
 
-  v16 = SSViTunesStoreFramework();
-  v17 = SSVWeakLinkedSymbolForString("ISCopyDecompressedGZipDataForData", v16);
-  v18 = v17(dataCopy);
-  if (!v18)
+  v20 = SSViTunesStoreFramework(v18, v19);
+  v21 = SSVWeakLinkedSymbolForString("ISCopyDecompressedGZipDataForData", v20);
+  v22 = v21(dataCopy);
+  if (!v22)
   {
-    v18 = dataCopy;
+    v22 = dataCopy;
   }
 
 LABEL_13:
   if ([absoluteString containsString:@"/WebObjects/MZFinance.woa/wa/authenticate"])
   {
-    v19 = [MEMORY[0x1E696AE40] propertyListWithData:v18 options:1 format:0 error:0];
+    v23 = [MEMORY[0x1E696AE40] propertyListWithData:v22 options:1 format:0 error:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = v19;
-      v21 = [v20 valueForKey:@"password"];
+      v24 = v23;
+      v25 = [v24 valueForKey:@"password"];
 
-      if (v21)
+      if (v25)
       {
-        [v20 setValue:@"REDACTED" forKey:@"password"];
-        v22 = [MEMORY[0x1E696AE40] dataWithPropertyList:v20 format:100 options:0 error:0];
+        [v24 setValue:@"REDACTED" forKey:@"password"];
+        v26 = [MEMORY[0x1E696AE40] dataWithPropertyList:v24 format:100 options:0 error:0];
 
-        v18 = v22;
+        v22 = v26;
       }
     }
   }
 
-  v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v18 encoding:4];
-  if ([v23 length])
+  v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v22 encoding:4];
+  if ([v27 length])
   {
-    v26 = @"text";
-    v27[0] = v23;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    [v8 setObject:v24 forKeyedSubscript:@"postData"];
+    v30 = @"text";
+    v31[0] = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    [v8 setObject:v28 forKeyedSubscript:@"postData"];
   }
 
   return v8;

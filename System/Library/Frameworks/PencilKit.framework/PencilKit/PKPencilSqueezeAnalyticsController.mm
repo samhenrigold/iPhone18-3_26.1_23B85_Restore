@@ -68,14 +68,14 @@
 
 - (void)didHideMiniPaletteByDrawing
 {
-  if (self)
+  if (result)
   {
     v1[0] = MEMORY[0x1E69E9820];
     v1[1] = 3221225472;
     v1[2] = __65__PKPencilSqueezeAnalyticsController_didHideMiniPaletteByDrawing__block_invoke;
     v1[3] = &unk_1E82D7148;
-    v1[4] = self;
-    [(PKPencilSqueezeAnalyticsController *)self _didHideMiniPaletteWithBlock:v1];
+    v1[4] = result;
+    [(PKPencilSqueezeAnalyticsController *)result _didHideMiniPaletteWithBlock:v1];
   }
 }
 
@@ -312,10 +312,10 @@ void __72__PKPencilSqueezeAnalyticsController_didHideMiniPaletteBySqueezingAgain
 + (uint64_t)currentSqueezeThresholdIndex
 {
   objc_opt_self();
-  v0 = +[PKPencilDevice squeezeThreshold];
-  v1 = PKPencilSqueezeThresholdMap(v0);
+  v1 = +[PKPencilDevice squeezeThreshold];
+  v2 = PKPencilSqueezeThresholdMap(v1);
 
-  return v1;
+  return v2;
 }
 
 @end

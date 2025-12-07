@@ -114,9 +114,9 @@
 
 - (id)encodeURLV0:(id)v0 error:(id *)error
 {
-  v12 = 0;
-  [(UCAppClipCodeURLEncoder *)self _encodeURL:v0 error:&v12];
-  v6 = v12;
+  v13 = 0;
+  objc_msgSend__encodeURL_error_(self, a2, v0, &v13);
+  v6 = v13;
   v7 = v6;
   if (error)
   {
@@ -124,7 +124,7 @@
     *error = v7;
   }
 
-  if (v13)
+  if (v14)
   {
     v9 = v7 == 0;
   }
@@ -136,7 +136,8 @@
 
   if (v9)
   {
-    v10 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v13)];
+    UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v14);
+    v10 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:v11];
   }
 
   else
@@ -144,9 +145,9 @@
     v10 = 0;
   }
 
-  if (v14)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   return v10;
@@ -159,33 +160,34 @@
   {
     v6 = operator new(0x20uLL);
     UC::SUE::PrefixedURLEncoderImpl::PrefixedURLEncoderImpl(v6, self->_codingVersion);
-    v13[0].__r_.__value_.__r.__words[0] = 0;
+    v14[0].__r_.__value_.__r.__words[0] = 0;
     std::unique_ptr<UC::SUE::PrefixedURLEncoderImpl>::reset[abi:ne200100](&self->_prefixedURLEncoder, v6);
-    std::unique_ptr<UC::SUE::PrefixedURLEncoderImpl>::reset[abi:ne200100](v13, 0);
+    std::unique_ptr<UC::SUE::PrefixedURLEncoderImpl>::reset[abi:ne200100](v14, 0);
   }
 
-  v7 = [UCAppClipCodeEnDecUtility prepareURL:v1Copy withCodingVersion:self->_codingVersion forCompressionVersion:self->_compressionVersion, v13[0].__r_.__value_.__r.__words[0]];
+  v7 = [UCAppClipCodeEnDecUtility prepareURL:v1Copy withCodingVersion:self->_codingVersion forCompressionVersion:self->_compressionVersion, v14[0].__r_.__value_.__r.__words[0]];
 
   ptr = self->_prefixedURLEncoder.__ptr_;
-  UCURLComponentsFromNSURL(v7, v13);
-  UC::SUE::PrefixedURLEncoderImpl::encodeURL(ptr, v13, &v14);
-  UC::UCURLComponents::~UCURLComponents(&v13[0].__r_.__value_.__l.__data_);
-  v9 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(&v14)];
-  v10 = [UCAppClipCodeEnDecUtility prepareData:v9 withCompressionVersion:self->_compressionVersion forCodingVersion:self->_codingVersion];
+  UCURLComponentsFromNSURL(v14, v7);
+  UC::SUE::PrefixedURLEncoderImpl::encodeURL(&v15, ptr, v14);
+  UC::UCURLComponents::~UCURLComponents(&v14[0].__r_.__value_.__l.__data_);
+  UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(&v15);
+  v10 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:v9];
+  v11 = [UCAppClipCodeEnDecUtility prepareData:v10 withCompressionVersion:self->_compressionVersion forCodingVersion:self->_codingVersion];
 
-  v11 = v15;
-  v15 = 0;
-  if (v11)
+  v12 = v16;
+  v16 = 0;
+  if (v12)
   {
-    std::default_delete<UC::SUE::UCSegmentedURLEncodingResult::HostResult>::operator()[abi:ne200100](&v15, v11);
+    std::default_delete<UC::SUE::UCSegmentedURLEncodingResult::HostResult>::operator()[abi:ne200100](&v16, v12);
   }
 
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v15.__r_.__value_.__l.__data_);
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)encodeURL:(id)l error:(id *)error
@@ -215,9 +217,8 @@ LABEL_7:
 - (id)resultForEncodingURL:(id)l error:(id *)error
 {
   lCopy = l;
-  v23 = 0;
-  [(UCAppClipCodeURLEncoder *)self _encodeURL:lCopy error:&v23];
-  v7 = v23;
+  objc_msgSend__encodeURL_error_(self);
+  v7 = 0;
   v8 = v7;
   if (error)
   {
@@ -228,49 +229,50 @@ LABEL_7:
   v10 = 0;
   if (v24 && !v8)
   {
-    v11 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v24)];
-    v12 = MEMORY[0x277CCACA8];
-    EncodingBits = UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v24);
-    if (*(EncodingBits + 23) >= 0)
+    UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v24);
+    v12 = [(UCAppClipCodeURLEncoder *)self _convertRawURLEncodingBitsToAppClipCodeData:v11];
+    v13 = MEMORY[0x277CCACA8];
+    UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(v24);
+    if (*(v14 + 23) >= 0)
     {
-      v14 = EncodingBits;
+      v15 = v14;
     }
 
     else
     {
-      v14 = *EncodingBits;
+      v15 = *v14;
     }
 
-    v15 = [v12 stringWithFormat:@"1%s", v14];
-    v10 = [UCAppClipCodeURLEncodingResult resultWithRawEncodedBits:v15 appClipCodeBytes:v11];
+    v16 = [v13 stringWithFormat:@"1%s", v15];
+    v10 = [UCAppClipCodeURLEncodingResult resultWithRawEncodedBits:v16 appClipCodeBytes:v12];
     [(UCAppClipCodeURLEncodingResult *)v10 setUrl:lCopy];
     HostEncodingResult = UC::SUE::UCSegmentedURLEncodingResult::getHostEncodingResult(v24);
-    v17 = UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(HostEncodingResult);
-    if (*(v17 + 23) >= 0)
+    UC::SUE::UCSegmentedURLEncodingResult::HostResult::getEncodingBits(HostEncodingResult);
+    if (*(v18 + 23) >= 0)
     {
-      v18 = *(v17 + 23);
+      v19 = *(v18 + 23);
     }
 
     else
     {
-      v18 = *(v17 + 8);
+      v19 = *(v18 + 8);
     }
 
-    [(UCAppClipCodeURLEncodingResult *)v10 setHostEncodedBitCount:v18];
+    [(UCAppClipCodeURLEncodingResult *)v10 setHostEncodedBitCount:v19];
     [(UCAppClipCodeURLEncodingResult *)v10 setHasPathOrQueryEncoding:UC::SUE::UCSegmentedURLEncodingResult::getHasPathOrQuery(v24)];
-    v19 = UC::SUE::UCSegmentedURLEncodingResult::getHostEncodingResult(v24);
-    FormatType = UC::SUE::UCSegmentedURLEncodingResult::HostResult::getFormatType(v19);
+    v20 = UC::SUE::UCSegmentedURLEncodingResult::getHostEncodingResult(v24);
+    FormatType = UC::SUE::UCSegmentedURLEncodingResult::HostResult::getFormatType(v20);
     if (FormatType == 2)
     {
-      v21 = 2;
+      v22 = 2;
     }
 
     else
     {
-      v21 = FormatType == 1;
+      v22 = FormatType == 1;
     }
 
-    [(UCAppClipCodeURLEncodingResult *)v10 setHostEncodingFormat:v21];
+    [(UCAppClipCodeURLEncodingResult *)v10 setHostEncodingFormat:v22];
     [(UCAppClipCodeURLEncodingResult *)v10 setTemplateType:UC::SUE::UCSegmentedURLEncodingResult::getTemplateType(v24) != 0];
     [(UCAppClipCodeURLEncodingResult *)v10 setSubdomainType:UC::SUE::UCSegmentedURLEncodingResult::HostResult::getFormatType(v24) != 0];
     [(UCAppClipCodeURLEncodingResult *)v10 setNonTemplatePathAndQueryEncodeType:UC::SUE::UCSegmentedURLEncodingResult::getNonTemplatePathAndQueryEncodeType(v24) != 0];
@@ -286,14 +288,13 @@ LABEL_7:
 
 - (id)_errorWithUnsupportedURLComponentType:(int64_t)type
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"UCURLCoderUnsupportedURLComponentType";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"UCURLCoderUnsupportedURLComponentType";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.URLCompression.URLCoderErrorDomain" code:2 userInfo:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -333,37 +334,37 @@ LABEL_7:
     v7 = *(error + 2);
   }
 
-  if (v7 != strlen("UCSegmentedURLCoderErrorDomain") || ((v8 = *v5, v6 >= 0) ? (v9 = v5) : (v9 = *v5), memcmp(v9, "UCSegmentedURLCoderErrorDomain", v7)))
+  if (v7 != strlen("UCSegmentedURLCoderErrorDomain") || (v6 >= 0 ? (v8 = v5) : (v8 = *v5), memcmp(v8, "UCSegmentedURLCoderErrorDomain", v7)))
   {
-    if (v7 != strlen("UCPrefixedURLCoderErrorDomain") || ((v10 = *v5, v6 >= 0) ? (v11 = v5) : (v11 = *v5), memcmp(v11, "UCPrefixedURLCoderErrorDomain", v7)))
+    if (v7 != strlen("UCPrefixedURLCoderErrorDomain") || (v6 >= 0 ? (v9 = v5) : (v9 = *v5), memcmp(v9, "UCPrefixedURLCoderErrorDomain", v7)))
     {
-      v12 = MEMORY[0x277CCA9B8];
-      v13 = -1;
+      v10 = MEMORY[0x277CCA9B8];
+      v11 = -1;
 LABEL_15:
-      v14 = [v12 errorWithDomain:@"com.apple.URLCompression.URLCoderErrorDomain" code:v13 userInfo:0];
+      v12 = [v10 errorWithDomain:@"com.apple.URLCompression.URLCoderErrorDomain" code:v11 userInfo:0];
 LABEL_16:
-      v15 = v14;
+      v13 = v12;
       goto LABEL_17;
     }
   }
 
-  v15 = 0;
-  v17 = *(error + 8);
-  if (v17 <= 3)
+  v13 = 0;
+  v15 = *(error + 8);
+  if (v15 <= 3)
   {
-    switch(v17)
+    switch(v15)
     {
       case 1:
-        v12 = MEMORY[0x277CCA9B8];
-        v13 = 1;
+        v10 = MEMORY[0x277CCA9B8];
+        v11 = 1;
         goto LABEL_15;
       case 2:
         selfCopy3 = self;
-        v31 = 0;
+        v29 = 0;
         break;
       case 3:
         selfCopy3 = self;
-        v31 = 1;
+        v29 = 1;
         break;
       default:
         goto LABEL_17;
@@ -372,183 +373,183 @@ LABEL_16:
     goto LABEL_72;
   }
 
-  if (v17 <= 5)
+  if (v15 <= 5)
   {
-    if (v17 != 4)
+    if (v15 != 4)
     {
-      v18 = *(error + 63);
-      if (v18 >= 0)
+      v16 = *(error + 63);
+      if (v16 >= 0)
       {
-        v19 = error + 40;
+        v17 = error + 40;
       }
 
       else
       {
-        v19 = *(error + 5);
+        v17 = *(error + 5);
       }
 
-      if (v18 >= 0)
+      if (v16 >= 0)
       {
-        v20 = *(error + 63);
+        v18 = *(error + 63);
       }
 
       else
       {
-        v20 = *(error + 6);
+        v18 = *(error + 6);
       }
 
-      v21 = nsStringFromString(v19, v20);
-      v24 = *(error + 8);
-      v23 = error + 64;
-      v22 = v24;
-      v25 = v23[23];
-      if (v25 >= 0)
+      v19 = nsStringFromString(v17, v18);
+      v22 = *(error + 8);
+      v21 = error + 64;
+      v20 = v22;
+      v23 = v21[23];
+      if (v23 >= 0)
       {
-        v26 = v23;
+        v24 = v21;
       }
 
       else
       {
-        v26 = v22;
+        v24 = v20;
       }
 
-      if (v25 >= 0)
+      if (v23 >= 0)
       {
-        v27 = v23[23];
+        v25 = v21[23];
       }
 
       else
       {
-        v27 = *(v23 + 1);
+        v25 = *(v21 + 1);
       }
 
-      v28 = nsStringFromString(v26, v27);
-      v29 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:3 codingErrorSymbol:v21 message:v28];
+      v26 = nsStringFromString(v24, v25);
+      v27 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:3 codingErrorSymbol:v19 message:v26];
       goto LABEL_70;
     }
 
     selfCopy3 = self;
-    v31 = 2;
+    v29 = 2;
 LABEL_72:
-    v14 = [(UCAppClipCodeURLEncoder *)selfCopy3 _errorWithUnsupportedURLComponentType:v31];
+    v12 = [(UCAppClipCodeURLEncoder *)selfCopy3 _errorWithUnsupportedURLComponentType:v29];
     goto LABEL_16;
   }
 
-  if (v17 == 6)
+  if (v15 == 6)
   {
-    v41 = *(error + 63);
-    if (v41 >= 0)
+    v39 = *(error + 63);
+    if (v39 >= 0)
     {
-      v42 = error + 40;
+      v40 = error + 40;
     }
 
     else
     {
-      v42 = *(error + 5);
+      v40 = *(error + 5);
     }
 
-    if (v41 >= 0)
+    if (v39 >= 0)
     {
-      v43 = *(error + 63);
+      v41 = *(error + 63);
     }
 
     else
     {
-      v43 = *(error + 6);
+      v41 = *(error + 6);
     }
 
-    v21 = nsStringFromString(v42, v43);
-    v46 = *(error + 8);
-    v45 = error + 64;
-    v44 = v46;
-    v47 = v45[23];
-    if (v47 >= 0)
+    v19 = nsStringFromString(v40, v41);
+    v44 = *(error + 8);
+    v43 = error + 64;
+    v42 = v44;
+    v45 = v43[23];
+    if (v45 >= 0)
     {
-      v48 = v45;
+      v46 = v43;
     }
 
     else
     {
-      v48 = v44;
+      v46 = v42;
     }
 
-    if (v47 >= 0)
+    if (v45 >= 0)
     {
-      v49 = v45[23];
+      v47 = v43[23];
     }
 
     else
     {
-      v49 = *(v45 + 1);
+      v47 = *(v43 + 1);
     }
 
-    v28 = nsStringFromString(v48, v49);
-    v29 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:4 codingErrorSymbol:v21 message:v28];
+    v26 = nsStringFromString(v46, v47);
+    v27 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:4 codingErrorSymbol:v19 message:v26];
   }
 
   else
   {
-    if (v17 != 8)
+    if (v15 != 8)
     {
       goto LABEL_17;
     }
 
-    v32 = *(error + 63);
-    if (v32 >= 0)
+    v30 = *(error + 63);
+    if (v30 >= 0)
     {
-      v33 = error + 40;
+      v31 = error + 40;
     }
 
     else
     {
-      v33 = *(error + 5);
+      v31 = *(error + 5);
     }
 
-    if (v32 >= 0)
+    if (v30 >= 0)
     {
-      v34 = *(error + 63);
+      v32 = *(error + 63);
     }
 
     else
     {
-      v34 = *(error + 6);
+      v32 = *(error + 6);
     }
 
-    v21 = nsStringFromString(v33, v34);
-    v37 = *(error + 8);
-    v36 = error + 64;
-    v35 = v37;
-    v38 = v36[23];
-    if (v38 >= 0)
+    v19 = nsStringFromString(v31, v32);
+    v35 = *(error + 8);
+    v34 = error + 64;
+    v33 = v35;
+    v36 = v34[23];
+    if (v36 >= 0)
     {
-      v39 = v36;
+      v37 = v34;
     }
 
     else
     {
-      v39 = v35;
+      v37 = v33;
     }
 
-    if (v38 >= 0)
+    if (v36 >= 0)
     {
-      v40 = v36[23];
+      v38 = v34[23];
     }
 
     else
     {
-      v40 = *(v36 + 1);
+      v38 = *(v34 + 1);
     }
 
-    v28 = nsStringFromString(v39, v40);
-    v29 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:1003 codingErrorSymbol:v21 message:v28];
+    v26 = nsStringFromString(v37, v38);
+    v27 = [(UCAppClipCodeURLEncoder *)self _errorWithCoderErrorCode:1003 codingErrorSymbol:v19 message:v26];
   }
 
 LABEL_70:
-  v15 = v29;
+  v13 = v27;
 
 LABEL_17:
 
-  return v15;
+  return v13;
 }
 
 - (shared_ptr<UC::SUE::UCSegmentedURLEncodingResult>)_encodeURL:(id)l error:(id *)error
@@ -612,7 +613,7 @@ LABEL_17:
   if (lCopy)
   {
     ptr = self->_segmentedEncoder.__ptr_;
-    UCURLComponentsFromNSURL(lCopy, __p);
+    UCURLComponentsFromNSURL(__p, lCopy);
     UC::SUE::SegmentedURLEncoderImpl::encodeURL(ptr, __p, &v21);
     v16 = operator new(0x50uLL);
     *(v16 + 1) = 0;

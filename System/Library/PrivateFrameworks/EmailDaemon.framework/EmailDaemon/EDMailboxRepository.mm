@@ -47,11 +47,11 @@ void __26__EDMailboxRepository_log__block_invoke(uint64_t a1)
 
 - (EDMailboxRepository)initWithMailboxPersistence:(id)persistence
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   persistenceCopy = persistence;
-  v16.receiver = self;
-  v16.super_class = EDMailboxRepository;
-  v6 = [(EDMailboxRepository *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = EDMailboxRepository;
+  v6 = [(EDMailboxRepository *)&v15 init];
   v7 = v6;
   if (v6)
   {
@@ -63,12 +63,11 @@ void __26__EDMailboxRepository_log__block_invoke(uint64_t a1)
     v7->_serializationQueue = v10;
 
     v12 = MEMORY[0x1E699AE28];
-    v17[0] = *MEMORY[0x1E699AB08];
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = *MEMORY[0x1E699AB08];
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v12 addValidSortDescriptorKeyPaths:v13 forTargetClass:objc_opt_class()];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -97,67 +96,62 @@ void __26__EDMailboxRepository_log__block_invoke(uint64_t a1)
 
 void __50__EDMailboxRepository_getMailboxesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDMailboxRepository log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "Number of Mailboxes %ld count", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "Number of Mailboxes %ld count", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startObservingMailboxChangesWithChangeObserver:(id)observer observationIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   identifierCopy = identifier;
   v8 = +[EDMailboxRepository log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = identifierCopy;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "Registering For Mailbox Observation With Observer %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = identifierCopy;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "Registering For Mailbox Observation With Observer %{public}@", &v10, 0xCu);
   }
 
   mailboxPersistence = [(EDMailboxRepository *)self mailboxPersistence];
   [mailboxPersistence addChangeObserver:observerCopy withIdentifier:identifierCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelObservation:(id)observation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   observationCopy = observation;
   v5 = +[EDMailboxRepository log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = observationCopy;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "Unregistering For Mailbox Observation With Observer %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = observationCopy;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "Unregistering For Mailbox Observation With Observer %{public}@", &v7, 0xCu);
   }
 
   mailboxPersistence = [(EDMailboxRepository *)self mailboxPersistence];
   [mailboxPersistence removeChangeObserverWithIdentifier:observationCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMailboxChangeAction:(id)action completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   v8 = +[EDMailboxRepository log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = actionCopy;
+    v16 = actionCopy;
     _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Perform Change Action:%{public}@", buf, 0xCu);
   }
 
@@ -167,22 +161,19 @@ void __50__EDMailboxRepository_getMailboxesWithCompletion___block_invoke(uint64_
   block[2] = __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___block_invoke;
   block[3] = &unk_1E82534D8;
   block[4] = self;
-  v14 = actionCopy;
-  v15 = handlerCopy;
+  v13 = actionCopy;
+  v14 = handlerCopy;
   v10 = handlerCopy;
   v11 = actionCopy;
   dispatch_async(serializationQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___block_invoke(uint64_t a1)
 {
-  v8 = [*(a1 + 32) mailboxPersistence];
-  v2 = [v8 mailboxProvider];
+  v4 = [*(a1 + 32) mailboxPersistence];
+  v2 = [v4 mailboxProvider];
   [v2 beginDeferringInvalidation];
 
-  v3 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -191,7 +182,6 @@ void __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___bl
 
   else
   {
-    v4 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -200,7 +190,6 @@ void __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___bl
 
     else
     {
-      v5 = *(a1 + 40);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -209,7 +198,6 @@ void __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___bl
 
       else
       {
-        v6 = *(a1 + 40);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -220,9 +208,9 @@ void __68__EDMailboxRepository_performMailboxChangeAction_completionHandler___bl
   }
 
   (*(*(a1 + 48) + 16))();
-  v9 = [*(a1 + 32) mailboxPersistence];
-  v7 = [v9 mailboxProvider];
-  [v7 endDeferringInvalidation];
+  v5 = [*(a1 + 32) mailboxPersistence];
+  v3 = [v5 mailboxProvider];
+  [v3 endDeferringInvalidation];
 }
 
 - (void)refreshMailboxList:(int64_t)list

@@ -745,26 +745,26 @@
 
   if (playerID)
   {
-    v19[0] = &off_100382640;
+    v19 = &off_100382640;
     playerID2 = [profileCopy playerID];
     selfCopy = self;
-    v20[0] = playerID2;
-    v19[1] = &off_100382658;
+    v23 = playerID2;
+    v20 = &off_100382658;
     friendList = [profileCopy friendList];
     playerIDs = [friendList playerIDs];
     v7 = [NSSet setWithArray:playerIDs];
-    v20[1] = v7;
-    v19[2] = &off_100382670;
+    v24 = v7;
+    v21 = &off_100382670;
     friendRequestList = [profileCopy friendRequestList];
     playerIDs2 = [friendRequestList playerIDs];
     v10 = [NSSet setWithArray:playerIDs2];
-    v20[2] = v10;
-    v19[3] = &off_100382688;
+    v25 = v10;
+    v22 = &off_100382688;
     friendRecommendationList = [profileCopy friendRecommendationList];
     playerIDs3 = [friendRecommendationList playerIDs];
     v13 = [NSSet setWithArray:playerIDs3];
-    v20[3] = v13;
-    v14 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v26 = v13;
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     _familiarityLookup = [selfCopy _familiarityLookup];
     [_familiarityLookup addEntriesFromDictionary:v14];
@@ -952,23 +952,23 @@ LABEL_11:
   v27 = v26;
   [familiarityCopy enumerateObjectsUsingBlock:v32];
 
-  v42[0] = &off_100382640;
+  v42 = &off_100382640;
   allObjects = [v16 allObjects];
-  v43[0] = allObjects;
-  v42[1] = &off_100382658;
+  v47 = allObjects;
+  v43 = &off_100382658;
   allObjects2 = [v15 allObjects];
-  v43[1] = allObjects2;
-  v42[2] = &off_100382670;
+  v48 = allObjects2;
+  v44 = &off_100382670;
   allObjects3 = [v14 allObjects];
-  v43[2] = allObjects3;
-  v42[3] = &off_100382688;
+  v49 = allObjects3;
+  v45 = &off_100382688;
   allObjects4 = [v25 allObjects];
-  v43[3] = allObjects4;
-  v42[4] = &off_1003826A0;
+  v50 = allObjects4;
+  v46 = &off_1003826A0;
   v21 = v13;
   allObjects5 = [v13 allObjects];
-  v43[4] = allObjects5;
-  v24 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:5];
+  v51 = allObjects5;
+  v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   return v24;
 }

@@ -147,24 +147,24 @@
   return result;
 }
 
-double __51__PVMotionEffectTimelineComponent_timelineDuration__block_invoke(uint64_t a1)
+double __51__PVMotionEffectTimelineComponent_timelineDuration__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 timelineDuration_NoLock];
+    objc_msgSend_timelineDuration_NoLock(v3, a2);
   }
 
   else
   {
-    v5 = 0uLL;
-    v6 = 0;
+    v6 = 0uLL;
+    v7 = 0;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = *&v5;
-  *(v3 + 48) = v5;
-  *(v3 + 64) = v6;
+  v4 = *(*(a1 + 40) + 8);
+  result = *&v6;
+  *(v4 + 48) = v6;
+  *(v4 + 64) = v7;
   return result;
 }
 
@@ -202,7 +202,7 @@ double __51__PVMotionEffectTimelineComponent_timelineDuration__block_invoke(uint
   return motionEffect;
 }
 
-uint64_t __59__PVMotionEffectTimelineComponent_timelineDurationInFrames__block_invoke(uint64_t a1)
+void *__59__PVMotionEffectTimelineComponent_timelineDurationInFrames__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) timelineDurationInFrames_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -240,7 +240,7 @@ uint64_t __59__PVMotionEffectTimelineComponent_timelineDurationInFrames__block_i
   return v4;
 }
 
-uint64_t __60__PVMotionEffectTimelineComponent_timelineDurationInSeconds__block_invoke(uint64_t a1)
+void *__60__PVMotionEffectTimelineComponent_timelineDurationInSeconds__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) timelineDurationInSeconds_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -279,7 +279,7 @@ uint64_t __60__PVMotionEffectTimelineComponent_timelineDurationInSeconds__block_
   return v4;
 }
 
-uint64_t __52__PVMotionEffectTimelineComponent_timelineFrameRate__block_invoke(uint64_t a1)
+void *__52__PVMotionEffectTimelineComponent_timelineFrameRate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) timelineFrameRate_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -319,24 +319,24 @@ uint64_t __52__PVMotionEffectTimelineComponent_timelineFrameRate__block_invoke(u
   return result;
 }
 
-double __56__PVMotionEffectTimelineComponent_timelineFrameDuration__block_invoke(uint64_t a1)
+double __56__PVMotionEffectTimelineComponent_timelineFrameDuration__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 timelineFrameDuration_NoLock];
+    objc_msgSend_timelineFrameDuration_NoLock(v3, a2);
   }
 
   else
   {
-    v5 = 0uLL;
-    v6 = 0;
+    v6 = 0uLL;
+    v7 = 0;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = *&v5;
-  *(v3 + 48) = v5;
-  *(v3 + 64) = v6;
+  v4 = *(*(a1 + 40) + 8);
+  result = *&v6;
+  *(v4 + 48) = v6;
+  *(v4 + 64) = v7;
   return result;
 }
 
@@ -374,24 +374,24 @@ double __56__PVMotionEffectTimelineComponent_timelineFrameDuration__block_invoke
   return result;
 }
 
-double __52__PVMotionEffectTimelineComponent_timelineLastFrame__block_invoke(uint64_t a1)
+double __52__PVMotionEffectTimelineComponent_timelineLastFrame__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 timelineLastFrame_NoLock];
+    objc_msgSend_timelineLastFrame_NoLock(v3, a2);
   }
 
   else
   {
-    v5 = 0uLL;
-    v6 = 0;
+    v6 = 0uLL;
+    v7 = 0;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = *&v5;
-  *(v3 + 48) = v5;
-  *(v3 + 64) = v6;
+  v4 = *(*(a1 + 40) + 8);
+  result = *&v6;
+  *(v4 + 48) = v6;
+  *(v4 + 64) = v7;
   return result;
 }
 
@@ -432,14 +432,14 @@ double __52__PVMotionEffectTimelineComponent_timelineLastFrame__block_invoke(uin
   return result;
 }
 
-double __65__PVMotionEffectTimelineComponent_componentTimeFromTimelineTime___block_invoke(uint64_t a1, uint64_t a2)
+double __65__PVMotionEffectTimelineComponent_componentTimeFromTimelineTime___block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   v6 = *(a1 + 48);
   v7 = *(a1 + 64);
   if (v3)
   {
-    [v3 componentTimeFromTimelineTime_NoLock:&v6 documentInfo:a2];
+    objc_msgSend_componentTimeFromTimelineTime_NoLock_documentInfo_(v3, a2, &v6, a2);
   }
 
   else
@@ -478,14 +478,14 @@ double __65__PVMotionEffectTimelineComponent_componentTimeFromTimelineTime___blo
   return result;
 }
 
-double __65__PVMotionEffectTimelineComponent_timelineTimeFromComponentTime___block_invoke(uint64_t a1, uint64_t a2)
+double __65__PVMotionEffectTimelineComponent_timelineTimeFromComponentTime___block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   v6 = *(a1 + 48);
   v7 = *(a1 + 64);
   if (v3)
   {
-    [v3 timelineTimeFromComponentTime_NoLock:&v6 documentInfo:a2];
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_documentInfo_(v3, a2, &v6, a2);
   }
 
   else
@@ -531,7 +531,7 @@ double __65__PVMotionEffectTimelineComponent_timelineTimeFromComponentTime___blo
   return result;
 }
 
-double __75__PVMotionEffectTimelineComponent_componentTimeRangeFromTimelineTimeRange___block_invoke(uint64_t a1, uint64_t a2)
+double __75__PVMotionEffectTimelineComponent_componentTimeRangeFromTimelineTimeRange___block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 64);
@@ -540,7 +540,7 @@ double __75__PVMotionEffectTimelineComponent_componentTimeRangeFromTimelineTimeR
   v8[2] = *(a1 + 80);
   if (v3)
   {
-    [v3 componentTimeRangeFromTimelineTimeRange_NoLock:v8 documentInfo:a2];
+    objc_msgSend_componentTimeRangeFromTimelineTimeRange_NoLock_documentInfo_(v3, a2, v8, a2);
   }
 
   else
@@ -589,7 +589,7 @@ double __75__PVMotionEffectTimelineComponent_componentTimeRangeFromTimelineTimeR
   return result;
 }
 
-double __75__PVMotionEffectTimelineComponent_timelineTimeRangeFromComponentTimeRange___block_invoke(uint64_t a1, uint64_t a2)
+double __75__PVMotionEffectTimelineComponent_timelineTimeRangeFromComponentTimeRange___block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 64);
@@ -598,7 +598,7 @@ double __75__PVMotionEffectTimelineComponent_timelineTimeRangeFromComponentTimeR
   v8[2] = *(a1 + 80);
   if (v3)
   {
-    [v3 componentTimeRangeFromTimelineTimeRange_NoLock:v8 documentInfo:a2];
+    objc_msgSend_componentTimeRangeFromTimelineTimeRange_NoLock_documentInfo_(v3, a2, v8, a2);
   }
 
   else
@@ -790,7 +790,7 @@ void __52__PVMotionEffectTimelineComponent_posterFrameMarker__block_invoke(uint6
     self->_posterFrameMarker = firstObject;
 
     v11 = self->_posterFrameMarker;
-    if (!v11 || ([(PVTimelineMarker *)v11 timeRange], (BYTE12(v17[0]) & 1) == 0))
+    if (!v11 || (objc_msgSend_timeRange(v11), (BYTE12(v17[0]) & 1) == 0))
     {
       v12 = *(MEMORY[0x277CC08E0] + 16);
       v17[0] = *MEMORY[0x277CC08E0];
@@ -852,7 +852,7 @@ void __52__PVMotionEffectTimelineComponent_posterFrameMarker__block_invoke(uint6
   return motionEffect;
 }
 
-uint64_t __58__PVMotionEffectTimelineComponent_loopTimeOverrideEnabled__block_invoke(uint64_t a1)
+void *__58__PVMotionEffectTimelineComponent_loopTimeOverrideEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) loopTimeOverrideEnabled_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -925,24 +925,24 @@ uint64_t __55__PVMotionEffectTimelineComponent_setLoopTimeOverride___block_invok
   return result;
 }
 
-double __51__PVMotionEffectTimelineComponent_loopTimeOverride__block_invoke(uint64_t a1)
+double __51__PVMotionEffectTimelineComponent_loopTimeOverride__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 loopTimeOverride_NoLock];
+    objc_msgSend_loopTimeOverride_NoLock(v3, a2);
   }
 
   else
   {
-    v5 = 0uLL;
-    v6 = 0;
+    v6 = 0uLL;
+    v7 = 0;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = *&v5;
-  *(v3 + 48) = v5;
-  *(v3 + 64) = v6;
+  v4 = *(*(a1 + 40) + 8);
+  result = *&v6;
+  *(v4 + 48) = v6;
+  *(v4 + 64) = v7;
   return result;
 }
 
@@ -1001,7 +1001,7 @@ double __51__PVMotionEffectTimelineComponent_loopTimeOverride__block_invoke(uint
   return motionEffect;
 }
 
-uint64_t __51__PVMotionEffectTimelineComponent_forceDisableLoop__block_invoke(uint64_t a1)
+void *__51__PVMotionEffectTimelineComponent_forceDisableLoop__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) forceDisableLoop_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1062,7 +1062,7 @@ uint64_t __51__PVMotionEffectTimelineComponent_forceDisableLoop__block_invoke(ui
   return motionEffect;
 }
 
-uint64_t __61__PVMotionEffectTimelineComponent_forceDisableBuildAnimation__block_invoke(uint64_t a1)
+void *__61__PVMotionEffectTimelineComponent_forceDisableBuildAnimation__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) forceDisableBuildAnimation_NoLock];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1105,30 +1105,24 @@ uint64_t __61__PVMotionEffectTimelineComponent_forceDisableBuildAnimation__block
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect2 assertDocumentStatusIsLoadedOrReady];
 
-  v18 = 0u;
-  v19 = 0u;
-  v17 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
   motionEffect3 = [(PVMotionEffectComponent *)self motionEffect];
-  v11 = motionEffect3;
+  v10 = motionEffect3;
   if (motionEffect3)
   {
-    [motionEffect3 effectRange];
+    objc_msgSend_effectRange(motionEffect3);
   }
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v17 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = 0u;
   }
 
-  v12 = *&info->var0;
-  var3 = info->var3;
-  v14[0] = v17;
-  v14[1] = v18;
-  v14[2] = v19;
-  v15 = v12;
-  return [(PVMotionEffectTimelineComponent *)self componentTimeFromTimelineTime_NoLock:&v15 editRange:v14 documentInfo:a5];
+  return objc_msgSend_componentTimeFromTimelineTime_NoLock_editRange_documentInfo_(self, v12, v13, v14, info->var0, *&info->var1, info->var3);
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)componentTimeFromTimelineTime_NoLock:(SEL)lock editRange:(id *)range documentInfo:(id *)info
@@ -1161,7 +1155,7 @@ uint64_t __61__PVMotionEffectTimelineComponent_forceDisableBuildAnimation__block
   }
 
   memset(&range1, 0, 24);
-  METimeRemap::componentTimeFromMotionTime(&self->_timeRemap, range, info, &range1);
+  METimeRemap::componentTimeFromMotionTime(&range1.start.value, &self->_timeRemap, range, info);
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
@@ -1179,30 +1173,24 @@ uint64_t __61__PVMotionEffectTimelineComponent_forceDisableBuildAnimation__block
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect2 assertDocumentStatusIsLoadedOrReady];
 
-  v18 = 0u;
-  v19 = 0u;
-  v17 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
   motionEffect3 = [(PVMotionEffectComponent *)self motionEffect];
-  v11 = motionEffect3;
+  v10 = motionEffect3;
   if (motionEffect3)
   {
-    [motionEffect3 effectRange];
+    objc_msgSend_effectRange(motionEffect3);
   }
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v17 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = 0u;
   }
 
-  v12 = *&info->var0;
-  var3 = info->var3;
-  v14[0] = v17;
-  v14[1] = v18;
-  v14[2] = v19;
-  v15 = v12;
-  return [(PVMotionEffectTimelineComponent *)self timelineTimeFromComponentTime_NoLock:&v15 editRange:v14 documentInfo:a5];
+  return objc_msgSend_timelineTimeFromComponentTime_NoLock_editRange_documentInfo_(self, v12, v13, v14, info->var0, *&info->var1, info->var3);
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)timelineTimeFromComponentTime_NoLock:(SEL)lock editRange:(id *)range documentInfo:(id *)info
@@ -1335,7 +1323,7 @@ LABEL_14:
   v13 = motionEffect3;
   if (motionEffect3)
   {
-    [motionEffect3 effectRange];
+    objc_msgSend_effectRange(motionEffect3);
   }
 
   else
@@ -1366,28 +1354,21 @@ LABEL_14:
   *retstr = **&MEMORY[0x277CC0898];
   if (!infoCopy)
   {
-    goto LABEL_5;
+    return objc_msgSend_timelineTimeFromComponentTime_NoLock_editRange_documentInfo_(self, *&range->var0, range->var3);
   }
 
-  v15 = [(PVMotionEffectTimelineComponent *)self posterFrameMarker_NoLock:a7];
-  v16 = v15;
-  if (v15)
+  v14 = [(PVMotionEffectTimelineComponent *)self posterFrameMarker_NoLock:a7];
+  v15 = v14;
+  if (v14)
   {
-    [v15 timeRange];
-    *&retstr->var0 = v21;
-    retstr->var3 = v22;
+    objc_msgSend_timeRange(v14);
+    *&retstr->var0 = v17;
+    retstr->var3 = v18;
   }
 
   if ((retstr->var2 & 1) == 0)
   {
-LABEL_5:
-    v19 = *&range->var0;
-    var3 = range->var3;
-    v18 = *&frame->var0.var3;
-    v21 = *&frame->var0.var0;
-    v22 = v18;
-    v23 = *&frame->var1.var1;
-    return [(PVMotionEffectTimelineComponent *)self timelineTimeFromComponentTime_NoLock:&v19 editRange:&v21 documentInfo:a7];
+    return objc_msgSend_timelineTimeFromComponentTime_NoLock_editRange_documentInfo_(self, *&range->var0, range->var3);
   }
 
   return result;
@@ -1408,7 +1389,7 @@ LABEL_5:
   v11 = motionEffect3;
   if (motionEffect3)
   {
-    [motionEffect3 effectRange];
+    objc_msgSend_effectRange(motionEffect3);
   }
 
   else
@@ -1436,31 +1417,31 @@ LABEL_5:
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect2 assertDocumentStatusIsLoadedOrReady];
 
-  v23 = 0uLL;
-  v24 = 0;
-  v13 = *&range->var0.var0;
-  v22.epoch = range->var0.var3;
-  v14 = *&info->var0.var3;
-  v19 = *&info->var0.var0;
-  v20 = v14;
-  v21 = *&info->var1.var1;
-  *&v22.value = v13;
-  [(PVMotionEffectTimelineComponent *)self componentTimeFromTimelineTime_NoLock:&v22 editRange:&v19 documentInfo:a6];
-  memset(&v22, 0, sizeof(v22));
-  v15 = *&range->var0.var3;
-  v19 = *&range->var0.var0;
-  v20 = v15;
-  v21 = *&range->var1.var1;
-  PC_CMTimeRangeEnd(&v19, &v18);
-  v16 = *&info->var0.var3;
-  v19 = *&info->var0.var0;
-  v20 = v16;
-  v21 = *&info->var1.var1;
-  [(PVMotionEffectTimelineComponent *)self componentTimeFromTimelineTime_NoLock:&v18 editRange:&v19 documentInfo:a6];
-  v19 = v23;
-  *&v20 = v24;
+  v22 = 0uLL;
+  v23 = 0;
+  v12 = *&range->var0.var0;
+  v21.epoch = range->var0.var3;
+  v13 = *&info->var0.var3;
+  v18 = *&info->var0.var0;
+  v19 = v13;
+  v20 = *&info->var1.var1;
+  *&v21.value = v12;
+  objc_msgSend_componentTimeFromTimelineTime_NoLock_editRange_documentInfo_(self);
+  memset(&v21, 0, sizeof(v21));
+  v14 = *&range->var0.var3;
+  v18 = *&range->var0.var0;
+  v19 = v14;
+  v20 = *&range->var1.var1;
+  PC_CMTimeRangeEnd(&v18, &v17);
+  v15 = *&info->var0.var3;
+  v18 = *&info->var0.var0;
+  v19 = v15;
+  v20 = *&info->var1.var1;
+  objc_msgSend_componentTimeFromTimelineTime_NoLock_editRange_documentInfo_(self);
   v18 = v22;
-  return PC_CMTimeRangeMakeWithStartEnd(&v19, &v18, retstr);
+  *&v19 = v23;
+  v17 = v21;
+  return PC_CMTimeRangeMakeWithStartEnd(&v18, &v17, &retstr->var0.var0);
 }
 
 - ($948BFCBB2DDE7F94AFEDE1DD48437795)timelineTimeRangeFromComponentTimeRange_NoLock:(SEL)lock documentInfo:(id *)info
@@ -1478,7 +1459,7 @@ LABEL_5:
   v11 = motionEffect3;
   if (motionEffect3)
   {
-    [motionEffect3 effectRange];
+    objc_msgSend_effectRange(motionEffect3);
   }
 
   else
@@ -1506,31 +1487,31 @@ LABEL_5:
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect2 assertDocumentStatusIsLoadedOrReady];
 
-  v23 = 0uLL;
-  v24 = 0;
-  v13 = *&range->var0.var0;
-  v22.epoch = range->var0.var3;
-  v14 = *&info->var0.var3;
-  v19 = *&info->var0.var0;
-  v20 = v14;
-  v21 = *&info->var1.var1;
-  *&v22.value = v13;
-  [(PVMotionEffectTimelineComponent *)self componentTimeFromTimelineTime_NoLock:&v22 editRange:&v19 documentInfo:a6];
-  memset(&v22, 0, sizeof(v22));
-  v15 = *&range->var0.var3;
-  v19 = *&range->var0.var0;
-  v20 = v15;
-  v21 = *&range->var1.var1;
-  PC_CMTimeRangeEnd(&v19, &v18);
-  v16 = *&info->var0.var3;
-  v19 = *&info->var0.var0;
-  v20 = v16;
-  v21 = *&info->var1.var1;
-  [(PVMotionEffectTimelineComponent *)self componentTimeFromTimelineTime_NoLock:&v18 editRange:&v19 documentInfo:a6];
-  v19 = v23;
-  *&v20 = v24;
+  v22 = 0uLL;
+  v23 = 0;
+  v12 = *&range->var0.var0;
+  v21.epoch = range->var0.var3;
+  v13 = *&info->var0.var3;
+  v18 = *&info->var0.var0;
+  v19 = v13;
+  v20 = *&info->var1.var1;
+  *&v21.value = v12;
+  objc_msgSend_componentTimeFromTimelineTime_NoLock_editRange_documentInfo_(self);
+  memset(&v21, 0, sizeof(v21));
+  v14 = *&range->var0.var3;
+  v18 = *&range->var0.var0;
+  v19 = v14;
+  v20 = *&range->var1.var1;
+  PC_CMTimeRangeEnd(&v18, &v17);
+  v15 = *&info->var0.var3;
+  v18 = *&info->var0.var0;
+  v19 = v15;
+  v20 = *&info->var1.var1;
+  objc_msgSend_componentTimeFromTimelineTime_NoLock_editRange_documentInfo_(self);
   v18 = v22;
-  return PC_CMTimeRangeMakeWithStartEnd(&v19, &v18, retstr);
+  *&v19 = v23;
+  v17 = v21;
+  return PC_CMTimeRangeMakeWithStartEnd(&v18, &v17, &retstr->var0.var0);
 }
 
 - (void)updateSceneDuration_NoLock:(const void *)lock
@@ -1559,7 +1540,7 @@ LABEL_5:
   [motionEffect2 assertDocumentStatusIsLoadedOrReady];
 
   memset(&v20, 0, sizeof(v20));
-  [(PVMotionEffectTimelineComponent *)self timelineDuration_NoLock];
+  objc_msgSend_timelineDuration_NoLock(self);
   v7 = OZXMarkerCount(*lock);
   if (!v7)
   {
@@ -1632,10 +1613,10 @@ LABEL_19:
   v22.epoch = *(Description + 16);
   *&v22.value = v13;
   PC_CMTimeSaferSubtract(&v18, &v22, &v17);
-  v15 = OZChannelBase::setRangeName(&self->_timeRemap, v14);
+  OZChannelBase::setRangeName(&self->_timeRemap, v14);
   v18 = v17;
   v16 = *v15;
-  v22.epoch = *(v15 + 16);
+  v22.epoch = *(v15 + 2);
   *&v22.value = v16;
   PC_CMTimeSaferSubtract(&v18, &v22, &v21);
   METimeRemap::setScaleableDuration(&self->_timeRemap, &v21);
@@ -1644,7 +1625,7 @@ LABEL_19:
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)introDuration_NoLock
 {
-  result = OZChannelBase::setRangeName(&self->_timeRemap, a3);
+  OZChannelBase::setRangeName(&self->_timeRemap, a3);
   *retstr = *result;
   return result;
 }
@@ -1717,7 +1698,7 @@ LABEL_19:
   v12 = v11;
   if (v11)
   {
-    [v11 CMTimeValue];
+    objc_msgSend_CMTimeValue(v11);
     [(PVMotionEffectTimelineComponent *)self setRenderStartOffset_NoLock:v23];
   }
 

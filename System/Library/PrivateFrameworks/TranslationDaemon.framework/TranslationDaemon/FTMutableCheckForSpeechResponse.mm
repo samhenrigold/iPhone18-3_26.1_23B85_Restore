@@ -2,6 +2,7 @@
 - (BOOL)speech_detected;
 - (FTMutableCheckForSpeechResponse)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setSpeech_detected:(BOOL)speech_detected;
 @end
 
 @implementation FTMutableCheckForSpeechResponse
@@ -37,6 +38,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSpeech_detected:(BOOL)speech_detected
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:speech_detected];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -42,6 +42,7 @@
 - (void)_removeAllActiveTransfers;
 - (void)_removePendingTransfer:(id)transfer;
 - (void)acceptFileTransferIfPreauthorzed:(id)preauthorzed;
+- (void)acceptTransfer:(id)transfer withPath:(id)path autoRename:(BOOL)rename overwrite:(BOOL)overwrite;
 - (void)acceptTransferAndUpdateReasonForTapped:(id)tapped;
 - (void)acknowledgeAllPendingTransfers;
 - (void)assignTransfer:(id)transfer toHandle:(id)handle;
@@ -61,6 +62,8 @@
 - (void)retargetTransfer:(id)transfer toPath:(id)path;
 - (void)retrieveLocalFileURLForFileTransferWithGUID:(id)d options:(int64_t)options completion:(id)completion;
 - (void)retrieveLocalFileURLForFileTransferWithGUIDs:(id)ds options:(int64_t)options completion:(id)completion;
+- (void)setAuxImageForTransfer:(id)transfer value:(BOOL)value;
+- (void)setAuxVideoForTransfer:(id)transfer value:(BOOL)value;
 - (void)setCommSafetySensitiveForTransfer:(id)transfer value:(int64_t)value;
 - (void)stopTransfer:(id)transfer;
 @end
@@ -69,17 +72,17 @@
 
 + (id)sharedInstance
 {
-  v4 = qword_1ED767858;
+  v3 = qword_1ED767858;
   if (!qword_1ED767858)
   {
-    v5 = objc_alloc_init(objc_msgSend_transferCenterClass(self, a2, v2));
-    v6 = qword_1ED767858;
-    qword_1ED767858 = v5;
+    v4 = objc_alloc_init([self transferCenterClass]);
+    v5 = qword_1ED767858;
+    qword_1ED767858 = v4;
 
-    v4 = qword_1ED767858;
+    v3 = qword_1ED767858;
   }
 
-  return v4;
+  return v3;
 }
 
 + (Class)transferCenterClass
@@ -99,52 +102,52 @@
 
 - (void)_clearTransfers
 {
-  objc_msgSend__removeAllActiveTransfers(self, a2, v2);
-  objc_msgSend_acknowledgeAllPendingTransfers(self, v4, v5);
-  objc_msgSend_removeAllObjects(self->_guidToTransferMap, v6, v7);
-  objc_msgSend_removeAllObjects(self->_guidToRemovedTransferMap, v8, v9);
-  objc_msgSend_removeAllObjects(self->_accountIDToTransferGUIDsMap, v10, v11);
-  objc_msgSend_removeAllObjects(self->_preauthorizedInfos, v12, v13);
-  objc_msgSend_removeAllObjects(self->_preauthorizedGUIDs, v14, v15);
-  objc_msgSend_removeAllObjects(self->_activeTransfers, v16, v17);
-  objc_msgSend_removeAllObjects(self->_pendingTransfers, v18, v19);
-  if (!objc_msgSend_count(self->_guidToTransferMap, v20, v21))
+  [(IMFileTransferCenter *)self _removeAllActiveTransfers];
+  [(IMFileTransferCenter *)self acknowledgeAllPendingTransfers];
+  [(NSMutableDictionary *)self->_guidToTransferMap removeAllObjects];
+  [(NSMutableDictionary *)self->_guidToRemovedTransferMap removeAllObjects];
+  [(NSMutableDictionary *)self->_accountIDToTransferGUIDsMap removeAllObjects];
+  [(NSMutableArray *)self->_preauthorizedInfos removeAllObjects];
+  [(NSMutableArray *)self->_preauthorizedGUIDs removeAllObjects];
+  [(NSMutableSet *)self->_activeTransfers removeAllObjects];
+  [(NSMutableSet *)self->_pendingTransfers removeAllObjects];
+  if (![(NSMutableDictionary *)self->_guidToTransferMap count])
   {
     guidToTransferMap = self->_guidToTransferMap;
     self->_guidToTransferMap = 0;
   }
 
-  if (!objc_msgSend_count(self->_guidToRemovedTransferMap, v22, v23))
+  if (![(NSMutableDictionary *)self->_guidToRemovedTransferMap count])
   {
     guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
     self->_guidToRemovedTransferMap = 0;
   }
 
-  if (!objc_msgSend_count(self->_accountIDToTransferGUIDsMap, v25, v26))
+  if (![(NSMutableDictionary *)self->_accountIDToTransferGUIDsMap count])
   {
     accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
     self->_accountIDToTransferGUIDsMap = 0;
   }
 
-  if (!objc_msgSend_count(self->_preauthorizedInfos, v28, v29))
+  if (![(NSMutableArray *)self->_preauthorizedInfos count])
   {
     preauthorizedInfos = self->_preauthorizedInfos;
     self->_preauthorizedInfos = 0;
   }
 
-  if (!objc_msgSend_count(self->_preauthorizedGUIDs, v31, v32))
+  if (![(NSMutableArray *)self->_preauthorizedGUIDs count])
   {
     preauthorizedGUIDs = self->_preauthorizedGUIDs;
     self->_preauthorizedGUIDs = 0;
   }
 
-  if (!objc_msgSend_count(self->_activeTransfers, v34, v35))
+  if (![(NSMutableSet *)self->_activeTransfers count])
   {
     activeTransfers = self->_activeTransfers;
     self->_activeTransfers = 0;
   }
 
-  if (!objc_msgSend_count(self->_pendingTransfers, v37, v38))
+  if (![(NSMutableSet *)self->_pendingTransfers count])
   {
     pendingTransfers = self->_pendingTransfers;
     self->_pendingTransfers = 0;
@@ -153,86 +156,82 @@
 
 - (void)_removeAllActiveTransfers
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_copy(self->_activeTransfers, a2, v2);
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v5 = v4;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
-  if (v7)
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = [(NSMutableSet *)self->_activeTransfers copy];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v9 = v7;
-    v10 = *v14;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v11 = 0;
+      v8 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        objc_msgSend__removeActiveTransfer_(self, v8, *(*(&v13 + 1) + 8 * v11++), v13);
+        [(IMFileTransferCenter *)self _removeActiveTransfer:*(*(&v9 + 1) + 8 * v8++), v9];
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v13, v17, 16);
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acknowledgeAllPendingTransfers
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_copy(self->_pendingTransfers, a2, v2);
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v5 = v4;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
-  if (v7)
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = [(NSMutableSet *)self->_pendingTransfers copy];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v9 = v7;
-    v10 = *v14;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v11 = 0;
+      v8 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        objc_msgSend__removePendingTransfer_(self, v8, *(*(&v13 + 1) + 8 * v11++), v13);
+        [(IMFileTransferCenter *)self _removePendingTransfer:*(*(&v9 + 1) + 8 * v8++), v9];
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v13, v17, 16);
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
-  objc_msgSend_removeObserver_(v4, v5, self);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self];
 
-  v6.receiver = self;
-  v6.super_class = IMFileTransferCenter;
-  [(IMFileTransferCenter *)&v6 dealloc];
+  v4.receiver = self;
+  v4.super_class = IMFileTransferCenter;
+  [(IMFileTransferCenter *)&v4 dealloc];
 }
 
 - (void)_addPendingTransfer:(id)transfer
@@ -250,16 +249,16 @@
     pendingTransfers = self->_pendingTransfers;
   }
 
-  objc_msgSend_addObject_(pendingTransfers, transferCopy, transferCopy);
+  [(NSMutableSet *)pendingTransfers addObject:transferCopy];
 }
 
 - (void)_removePendingTransfer:(id)transfer
 {
   transferCopy = transfer;
-  if (objc_msgSend_containsObject_(self->_pendingTransfers, v4, transferCopy))
+  if ([(NSMutableSet *)self->_pendingTransfers containsObject:?])
   {
-    objc_msgSend_removeObject_(self->_pendingTransfers, v5, transferCopy);
-    if (!objc_msgSend_count(self->_pendingTransfers, v6, v7))
+    [(NSMutableSet *)self->_pendingTransfers removeObject:transferCopy];
+    if (![(NSMutableSet *)self->_pendingTransfers count])
     {
       pendingTransfers = self->_pendingTransfers;
       self->_pendingTransfers = 0;
@@ -271,28 +270,28 @@
 {
   transferCopy = transfer;
   activeTransfers = self->_activeTransfers;
-  v9 = transferCopy;
+  v8 = transferCopy;
   if (!activeTransfers)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v7 = self->_activeTransfers;
     self->_activeTransfers = v6;
 
-    transferCopy = v9;
+    transferCopy = v8;
     activeTransfers = self->_activeTransfers;
   }
 
-  objc_msgSend_addObject_(activeTransfers, transferCopy, transferCopy);
-  objc_msgSend__removePendingTransfer_(self, v8, v9);
+  [(NSMutableSet *)activeTransfers addObject:transferCopy];
+  [(IMFileTransferCenter *)self _removePendingTransfer:v8];
 }
 
 - (void)_removeActiveTransfer:(id)transfer
 {
   transferCopy = transfer;
-  if (objc_msgSend_containsObject_(self->_activeTransfers, v4, transferCopy))
+  if ([(NSMutableSet *)self->_activeTransfers containsObject:?])
   {
-    objc_msgSend_removeObject_(self->_activeTransfers, v5, transferCopy);
-    if (!objc_msgSend_count(self->_activeTransfers, v6, v7))
+    [(NSMutableSet *)self->_activeTransfers removeObject:transferCopy];
+    if (![(NSMutableSet *)self->_activeTransfers count])
     {
       activeTransfers = self->_activeTransfers;
       self->_activeTransfers = 0;
@@ -306,123 +305,121 @@
   accountCopy = account;
   if (accountCopy)
   {
-    v10 = objc_msgSend_objectForKey_(self->_accountIDToTransferGUIDsMap, v6, accountCopy);
-    if (!v10)
+    array = [(NSMutableDictionary *)self->_accountIDToTransferGUIDsMap objectForKey:accountCopy];
+    if (!array)
     {
-      v10 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9);
+      array = [MEMORY[0x1E695DF70] array];
       accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
       if (!accountIDToTransferGUIDsMap)
       {
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v14 = self->_accountIDToTransferGUIDsMap;
+        v10 = self->_accountIDToTransferGUIDsMap;
         self->_accountIDToTransferGUIDsMap = Mutable;
 
         accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
       }
 
-      objc_msgSend_setObject_forKey_(accountIDToTransferGUIDsMap, v11, v10, accountCopy);
+      [(NSMutableDictionary *)accountIDToTransferGUIDsMap setObject:array forKey:accountCopy];
     }
 
-    v15 = objc_msgSend_guid(transferCopy, v8, v9);
-    objc_msgSend_addObject_(v10, v16, v15);
+    guid = [transferCopy guid];
+    [array addObject:guid];
   }
 }
 
 - (void)_addTransfer:(id)transfer
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
-  v7 = transferCopy;
+  v5 = transferCopy;
   if (transferCopy)
   {
-    v8 = objc_msgSend_guid(transferCopy, v5, v6);
+    guid = [transferCopy guid];
 
-    if (v8)
+    if (guid)
     {
       guidToTransferMap = self->_guidToTransferMap;
       if (!guidToTransferMap)
       {
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v13 = self->_guidToTransferMap;
+        v9 = self->_guidToTransferMap;
         self->_guidToTransferMap = Mutable;
 
         guidToTransferMap = self->_guidToTransferMap;
       }
 
-      v14 = objc_msgSend_guid(v7, v9, v10);
-      objc_msgSend_setObject_forKey_(guidToTransferMap, v15, v7, v14);
+      guid2 = [v5 guid];
+      [(NSMutableDictionary *)guidToTransferMap setObject:v5 forKey:guid2];
 
       if (IMOSLoggingEnabled())
       {
-        v18 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v21 = objc_msgSend_guid(v7, v19, v20);
-          v30 = 138412290;
-          v31 = v21;
-          _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "_addTransfer: %@", &v30, 0xCu);
+          guid3 = [v5 guid];
+          v15 = 138412290;
+          v16 = guid3;
+          _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "_addTransfer: %@", &v15, 0xCu);
         }
       }
 
-      v24 = objc_msgSend_accountID(v7, v16, v17);
-      if (v24)
+      accountID = [v5 accountID];
+      if (accountID)
       {
-        objc_msgSend__addTransfer_toAccount_(self, v22, v7, v24);
+        [(IMFileTransferCenter *)self _addTransfer:v5 toAccount:accountID];
       }
 
-      if (!objc_msgSend_transferState(v7, v22, v23))
+      if (![v5 transferState])
       {
-        v27 = objc_msgSend_guid(v7, v25, v26);
-        objc_msgSend__addPendingTransfer_(self, v28, v27);
+        guid4 = [v5 guid];
+        [(IMFileTransferCenter *)self _addPendingTransfer:guid4];
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNewFileTransfer:(id)transfer
 {
   transferCopy = transfer;
-  objc_msgSend__addTransfer_(self, v5, transferCopy);
-  v9 = objc_msgSend_guid(transferCopy, v6, v7);
+  [(IMFileTransferCenter *)self _addTransfer:transferCopy];
+  guid = [transferCopy guid];
 
-  objc_msgSend_registerTransferWithDaemon_(self, v8, v9);
+  [(IMFileTransferCenter *)self registerTransferWithDaemon:guid];
 }
 
 - (BOOL)doesLocalURLRequireArchiving:(id)archiving toHandle:(id)handle
 {
   handleCopy = handle;
   archivingCopy = archiving;
-  v9 = objc_msgSend_path(archivingCopy, v7, v8);
-  v12 = objc_msgSend_defaultHFSFileManager(MEMORY[0x1E69A60D8], v10, v11);
-  v24 = 0;
-  v14 = objc_msgSend_attributesOfItemAtPath_error_(v12, v13, v9, &v24);
+  path = [archivingCopy path];
+  defaultHFSFileManager = [MEMORY[0x1E69A60D8] defaultHFSFileManager];
+  v15 = 0;
+  v9 = [defaultHFSFileManager attributesOfItemAtPath:path error:&v15];
 
-  LOBYTE(v12) = objc_msgSend__doesLocalURLRequireArchiving_(MEMORY[0x1E69A8078], v15, archivingCopy);
-  hasCapability = objc_msgSend_hasCapability_(handleCopy, v16, 0x80000000000);
+  LOBYTE(defaultHFSFileManager) = [MEMORY[0x1E69A8078] _doesLocalURLRequireArchiving:archivingCopy];
+  v10 = [handleCopy hasCapability:0x80000000000];
 
-  v19 = objc_msgSend_objectForKey_(v14, v18, *MEMORY[0x1E696A3D8]);
-  isEqual = objc_msgSend_isEqual_(v19, v20, *MEMORY[0x1E696A3E0]);
+  v11 = [v9 objectForKey:*MEMORY[0x1E696A3D8]];
+  v12 = [v11 isEqual:*MEMORY[0x1E696A3E0]];
 
-  if (v12)
+  if (defaultHFSFileManager)
   {
-    v22 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v22 = isEqual & (hasCapability ^ 1);
+    v13 = v12 & (v10 ^ 1);
   }
 
-  return v22;
+  return v13;
 }
 
 - (id)createNewOutgoingTransferWithLocalFileURL:(id)l
 {
   lCopy = l;
   v5 = IMTemporaryFileTransferGUIDForNewOutgoingTransfer();
-  objc_msgSend_createNewOutgoingFileTransferWithTransferGUID_localFileURL_(self, v6, v5, lCopy);
+  [(IMFileTransferCenter *)self createNewOutgoingFileTransferWithTransferGUID:v5 localFileURL:lCopy];
 
   return v5;
 }
@@ -432,277 +429,266 @@
   lCopy = l;
   v5 = IMTemporaryFileTransferGUIDForNewOutgoingTransfer();
   v6 = IMFileTransferGUIDForAttachmentMessagePartAtMessageGUIDAndMessagePartIndex();
-  objc_msgSend_createNewOutgoingFileTransferWithTransferGUID_localFileURL_(self, v7, v6, lCopy);
+  [(IMFileTransferCenter *)self createNewOutgoingFileTransferWithTransferGUID:v6 localFileURL:lCopy];
 
   return v6;
 }
 
 - (void)createNewOutgoingFileTransferWithTransferGUID:(id)d localFileURL:(id)l
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   lCopy = l;
-  v9 = objc_msgSend_path(lCopy, v7, v8);
-  v12 = objc_msgSend_defaultHFSFileManager(MEMORY[0x1E69A60D8], v10, v11);
-  v54 = 0;
-  v14 = objc_msgSend_attributesOfItemAtPath_error_(v12, v13, v9, &v54);
-  v52 = v54;
+  path = [lCopy path];
+  defaultHFSFileManager = [MEMORY[0x1E69A60D8] defaultHFSFileManager];
+  v24 = 0;
+  v9 = [defaultHFSFileManager attributesOfItemAtPath:path error:&v24];
+  v22 = v24;
 
-  v16 = objc_msgSend_objectForKey_(v14, v15, *MEMORY[0x1E696A3D8]);
-  isEqual = objc_msgSend_isEqual_(v16, v17, *MEMORY[0x1E696A3E0]);
+  v10 = [v9 objectForKey:*MEMORY[0x1E696A3D8]];
+  v11 = [v10 isEqual:*MEMORY[0x1E696A3E0]];
 
-  v19 = objc_opt_class();
-  v22 = objc_alloc(objc_msgSend_fileTransferClass(v19, v20, v21));
-  v25 = objc_msgSend_lastPathComponent(v9, v23, v24);
-  v28 = objc_msgSend_fileSize(v14, v26, v27);
-  LODWORD(v12) = objc_msgSend_fileHFSTypeCode(v14, v29, v30);
-  LODWORD(v16) = objc_msgSend_fileHFSCreatorCode(v14, v31, v32);
-  BYTE2(v51) = 0;
-  LOWORD(v51) = objc_msgSend_fileHFSFlags(v14, v33, v34);
-  isIncoming = objc_msgSend__initWithGUID_filename_isDirectory_localURL_account_otherPerson_totalBytes_hfsType_hfsCreator_hfsFlags_isIncoming_(v22, v35, dCopy, v25, isEqual, lCopy, 0, 0, v28, __PAIR64__(v16, v12), v51);
+  v12 = objc_alloc([objc_opt_class() fileTransferClass]);
+  lastPathComponent = [path lastPathComponent];
+  fileSize = [v9 fileSize];
+  LODWORD(defaultHFSFileManager) = [v9 fileHFSTypeCode];
+  LODWORD(v10) = [v9 fileHFSCreatorCode];
+  BYTE2(v21) = 0;
+  LOWORD(v21) = [v9 fileHFSFlags];
+  v15 = [v12 _initWithGUID:dCopy filename:lastPathComponent isDirectory:v11 localURL:lCopy account:0 otherPerson:0 totalBytes:fileSize hfsType:__PAIR64__(v10 hfsCreator:defaultHFSFileManager) hfsFlags:v21 isIncoming:?];
 
-  if (objc_msgSend_shouldIssueSandboxEstensionsForTransfers(self, v37, v38))
+  if ([(IMFileTransferCenter *)self shouldIssueSandboxEstensionsForTransfers])
   {
-    v40 = v9;
-    objc_msgSend_UTF8String(v9, v41, v42);
-    v43 = *MEMORY[0x1E69E9BA8];
-    v45 = sandbox_extension_issue_file();
-    if (v45)
+    v16 = path;
+    [path UTF8String];
+    v17 = sandbox_extension_issue_file();
+    if (v17)
     {
-      v46 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v44, v45, 4);
-      free(v45);
+      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+      free(v17);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v48 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v49 = *__error();
+          v20 = *__error();
           *buf = 138412546;
-          v56 = v9;
-          v57 = 1024;
-          v58 = v49;
-          _os_log_impl(&dword_1A823F000, v48, OS_LOG_TYPE_INFO, "Failed to issue sandbox extension for path %@, errno %d", buf, 0x12u);
+          v26 = path;
+          v27 = 1024;
+          v28 = v20;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Failed to issue sandbox extension for path %@, errno %d", buf, 0x12u);
         }
       }
 
-      v46 = 0;
+      v18 = 0;
     }
 
-    objc_msgSend_setSandboxToken_(isIncoming, v47, v46);
+    [v15 setSandboxToken:v18];
   }
 
-  objc_msgSend__addTransfer_(self, v39, isIncoming);
-
-  v50 = *MEMORY[0x1E69E9840];
+  [(IMFileTransferCenter *)self _addTransfer:v15];
 }
 
 - (BOOL)registerGUID:(id)d forNewOutgoingTransferWithLocalURL:(id)l
 {
   dCopy = d;
   lCopy = l;
-  v12 = objc_msgSend_length(dCopy, v8, v9);
-  if (v12)
+  v8 = [dCopy length];
+  if (v8)
   {
-    v13 = objc_msgSend_path(lCopy, v10, v11);
-    v16 = objc_msgSend_defaultHFSFileManager(MEMORY[0x1E69A60D8], v14, v15);
-    v47 = 0;
-    v18 = objc_msgSend_attributesOfItemAtPath_error_(v16, v17, v13, &v47);
+    path = [lCopy path];
+    defaultHFSFileManager = [MEMORY[0x1E69A60D8] defaultHFSFileManager];
+    v22 = 0;
+    v11 = [defaultHFSFileManager attributesOfItemAtPath:path error:&v22];
 
-    v20 = objc_msgSend_objectForKey_(v18, v19, *MEMORY[0x1E696A3D8]);
-    isEqual = objc_msgSend_isEqual_(v20, v21, *MEMORY[0x1E696A3E0]);
+    v12 = [v11 objectForKey:*MEMORY[0x1E696A3D8]];
+    v13 = [v12 isEqual:*MEMORY[0x1E696A3E0]];
 
-    isIncoming = objc_msgSend_transferForGUID_(self, v23, dCopy);
-    if (!isIncoming)
+    v14 = [(IMFileTransferCenter *)self transferForGUID:dCopy];
+    if (!v14)
     {
-      v26 = objc_opt_class();
-      v46 = objc_alloc(objc_msgSend_fileTransferClass(v26, v27, v28));
-      v31 = objc_msgSend_lastPathComponent(v13, v29, v30);
-      v45 = objc_msgSend_fileSize(v18, v32, v33);
-      v36 = objc_msgSend_fileHFSTypeCode(v18, v34, v35);
-      v39 = objc_msgSend_fileHFSCreatorCode(v18, v37, v38);
-      BYTE2(v44) = 0;
-      LOWORD(v44) = objc_msgSend_fileHFSFlags(v18, v40, v41);
-      isIncoming = objc_msgSend__initWithGUID_filename_isDirectory_localURL_account_otherPerson_totalBytes_hfsType_hfsCreator_hfsFlags_isIncoming_(v46, v42, dCopy, v31, isEqual, lCopy, 0, 0, v45, __PAIR64__(v39, v36), v44);
+      v21 = objc_alloc([objc_opt_class() fileTransferClass]);
+      lastPathComponent = [path lastPathComponent];
+      fileSize = [v11 fileSize];
+      fileHFSTypeCode = [v11 fileHFSTypeCode];
+      fileHFSCreatorCode = [v11 fileHFSCreatorCode];
+      BYTE2(v19) = 0;
+      LOWORD(v19) = [v11 fileHFSFlags];
+      v14 = [v21 _initWithGUID:dCopy filename:lastPathComponent isDirectory:v13 localURL:lCopy account:0 otherPerson:0 totalBytes:fileSize hfsType:__PAIR64__(fileHFSCreatorCode hfsCreator:fileHFSTypeCode) hfsFlags:v19 isIncoming:?];
     }
 
-    objc_msgSend__addTransfer_(self, v24, isIncoming);
+    [(IMFileTransferCenter *)self _addTransfer:v14];
   }
 
-  return v12 != 0;
+  return v8 != 0;
 }
 
 - (void)assignTransfer:(id)transfer toMessage:(id)message account:(id)account
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
   messageCopy = message;
   accountCopy = account;
-  v14 = objc_msgSend_transferForGUID_(self, v11, transferCopy);
-  if (v14)
+  v11 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if (v11)
   {
-    v15 = objc_msgSend_uniqueID(accountCopy, v12, v13);
-    objc_msgSend__setAccount_otherPerson_(v14, v16, v15, 0);
-    v19 = objc_msgSend_guid(messageCopy, v17, v18);
-    objc_msgSend_setMessageGUID_(v14, v20, v19);
+    uniqueID = [accountCopy uniqueID];
+    [v11 _setAccount:uniqueID otherPerson:0];
+    guid = [messageCopy guid];
+    [v11 setMessageGUID:guid];
 
-    objc_msgSend__addTransfer_toAccount_(self, v21, v14, v15);
+    [(IMFileTransferCenter *)self _addTransfer:v11 toAccount:uniqueID];
     if (IMOSLoggingEnabled())
     {
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v39 = 138412546;
-        v40 = transferCopy;
-        v41 = 2112;
-        v42 = messageCopy;
-        _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Adding transfer guid: %@ to message: %@", &v39, 0x16u);
+        v20 = 138412546;
+        v21 = transferCopy;
+        v22 = 2112;
+        v23 = messageCopy;
+        _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Adding transfer guid: %@ to message: %@", &v20, 0x16u);
       }
     }
 
-    v25 = objc_msgSend_sharedController(IMDaemonController, v22, v23);
-    v28 = objc_msgSend_remoteDaemon(v25, v26, v27);
-    v31 = objc_msgSend__dictionaryRepresentation(v14, v29, v30);
-    objc_msgSend_fileTransfer_createdWithProperties_(v28, v32, transferCopy, v31);
+    v15 = +[IMDaemonController sharedController];
+    remoteDaemon = [v15 remoteDaemon];
+    _dictionaryRepresentation = [v11 _dictionaryRepresentation];
+    [remoteDaemon fileTransfer:transferCopy createdWithProperties:_dictionaryRepresentation];
 
-    v35 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v33, v34);
-    objc_msgSend___mainThreadPostNotificationName_object_(v35, v36, @"__kIMFileTransferCreatedNotification", v14);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferCreatedNotification" object:v11];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v37 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v39 = 138412290;
-      v40 = transferCopy;
-      _os_log_impl(&dword_1A823F000, v37, OS_LOG_TYPE_INFO, "Not assigning transfer guid: %@   transfer doesn't exist", &v39, 0xCu);
+      v20 = 138412290;
+      v21 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Not assigning transfer guid: %@   transfer doesn't exist", &v20, 0xCu);
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assignTransfer:(id)transfer toHandle:(id)handle
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
   handleCopy = handle;
-  v11 = objc_msgSend_transferForGUID_(self, v8, transferCopy);
-  if (v11)
+  v8 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if (v8)
   {
-    v12 = objc_msgSend_account(handleCopy, v9, v10);
-    v15 = objc_msgSend_uniqueID(v12, v13, v14);
+    account = [handleCopy account];
+    uniqueID = [account uniqueID];
 
-    v18 = objc_msgSend_localURL(v11, v16, v17);
-    doesLocalURLRequireArchiving_toHandle = objc_msgSend_doesLocalURLRequireArchiving_toHandle_(self, v19, v18, handleCopy);
+    localURL = [v8 localURL];
+    v12 = [(IMFileTransferCenter *)self doesLocalURLRequireArchiving:localURL toHandle:handleCopy];
 
-    if (doesLocalURLRequireArchiving_toHandle)
+    if (v12)
     {
-      objc_msgSend__setForceArchive_(v11, v21, 1);
+      [v8 _setForceArchive:1];
     }
 
-    v23 = objc_msgSend_ID(handleCopy, v21, v22);
-    objc_msgSend__setAccount_otherPerson_(v11, v24, v15, v23);
+    v13 = [handleCopy ID];
+    [v8 _setAccount:uniqueID otherPerson:v13];
 
-    objc_msgSend__addTransfer_toAccount_(self, v25, v11, v15);
-    v28 = objc_msgSend_sharedController(IMDaemonController, v26, v27);
-    v31 = objc_msgSend_remoteDaemon(v28, v29, v30);
-    v34 = objc_msgSend__dictionaryRepresentation(v11, v32, v33);
-    objc_msgSend_fileTransfer_createdWithProperties_(v31, v35, transferCopy, v34);
+    [(IMFileTransferCenter *)self _addTransfer:v8 toAccount:uniqueID];
+    v14 = +[IMDaemonController sharedController];
+    remoteDaemon = [v14 remoteDaemon];
+    _dictionaryRepresentation = [v8 _dictionaryRepresentation];
+    [remoteDaemon fileTransfer:transferCopy createdWithProperties:_dictionaryRepresentation];
 
-    v38 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v36, v37);
-    objc_msgSend___mainThreadPostNotificationName_object_(v38, v39, @"__kIMFileTransferCreatedNotification", v11);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferCreatedNotification" object:v8];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v40 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v42 = 138412546;
-      v43 = transferCopy;
-      v44 = 2112;
-      v45 = handleCopy;
-      _os_log_impl(&dword_1A823F000, v40, OS_LOG_TYPE_INFO, "Not assigning transfer guid: %@ to handle: %@  transfer doesn't exist", &v42, 0x16u);
+      v19 = 138412546;
+      v20 = transferCopy;
+      v21 = 2112;
+      v22 = handleCopy;
+      _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Not assigning transfer guid: %@ to handle: %@  transfer doesn't exist", &v19, 0x16u);
     }
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerTransferWithDaemon:(id)daemon
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   daemonCopy = daemon;
-  v8 = objc_msgSend_transferForGUID_(self, v5, daemonCopy);
-  if (v8)
+  v5 = [(IMFileTransferCenter *)self transferForGUID:daemonCopy];
+  if (v5)
   {
-    v9 = objc_msgSend_sharedController(IMDaemonController, v6, v7);
-    v12 = objc_msgSend_remoteDaemon(v9, v10, v11);
-    v15 = objc_msgSend__dictionaryRepresentation(v8, v13, v14);
-    objc_msgSend_fileTransfer_createdWithProperties_(v12, v16, daemonCopy, v15);
+    v6 = +[IMDaemonController sharedController];
+    remoteDaemon = [v6 remoteDaemon];
+    _dictionaryRepresentation = [v5 _dictionaryRepresentation];
+    [remoteDaemon fileTransfer:daemonCopy createdWithProperties:_dictionaryRepresentation];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v17 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v9 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412290;
-      v20 = daemonCopy;
-      _os_log_impl(&dword_1A823F000, v17, OS_LOG_TYPE_INFO, "Could not register transfer with daemon %@", &v19, 0xCu);
+      v10 = 138412290;
+      v11 = daemonCopy;
+      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Could not register transfer with daemon %@", &v10, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)chatForTransfer:(id)transfer
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
-  v6 = objc_msgSend_messageGUID(transferCopy, v4, v5);
+  messageGUID = [transferCopy messageGUID];
 
-  if (v6)
+  if (messageGUID)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v9 = objc_msgSend_sharedRegistry(IMChatRegistry, v7, v8, 0);
-    v12 = objc_msgSend_cachedChats(v9, v10, v11);
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v5 = +[IMChatRegistry sharedRegistry];
+    cachedChats = [v5 cachedChats];
 
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v25, v29, 16);
-    if (v16)
+    v7 = [cachedChats countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v7)
     {
-      v17 = *v26;
+      v8 = *v15;
       while (2)
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v26 != v17)
+          if (*v15 != v8)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(cachedChats);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
-          v20 = objc_msgSend_messageGUID(transferCopy, v14, v15);
-          v22 = objc_msgSend_messageForGUID_(v19, v21, v20);
+          v10 = *(*(&v14 + 1) + 8 * i);
+          messageGUID2 = [transferCopy messageGUID];
+          v12 = [v10 messageForGUID:messageGUID2];
 
-          if (v22)
+          if (v12)
           {
-            v16 = v19;
+            v7 = v10;
 
             goto LABEL_12;
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v25, v29, 16);
-        if (v16)
+        v7 = [cachedChats countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v7)
         {
           continue;
         }
@@ -716,78 +702,76 @@ LABEL_12:
 
   else
   {
-    v16 = 0;
+    v7 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v7;
 }
 
 - (id)transferForGUID:(id)d includeRemoved:(BOOL)removed
 {
   removedCopy = removed;
   dCopy = d;
-  v9 = objc_msgSend_objectForKey_(self->_guidToTransferMap, v7, dCopy);
-  if (v9)
+  v7 = [(NSMutableDictionary *)self->_guidToTransferMap objectForKey:dCopy];
+  if (v7)
   {
-    v10 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v10 = !removedCopy;
+    v8 = !removedCopy;
   }
 
-  if (!v10)
+  if (!v8)
   {
-    v9 = objc_msgSend_objectForKey_(self->_guidToRemovedTransferMap, v8, dCopy);
+    v7 = [(NSMutableDictionary *)self->_guidToRemovedTransferMap objectForKey:dCopy];
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)downloadFileTransferWithLocalURL:(id)l completion:(id)completion
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   lCopy = l;
   aBlock = completion;
   if (lCopy)
   {
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v8 = objc_msgSend_transfers(self, v6, v7);
-    v11 = objc_msgSend_allKeys(v8, v9, v10);
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    transfers = [(IMFileTransferCenter *)self transfers];
+    allKeys = [transfers allKeys];
 
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v83, v87, 16);
-    if (v14)
+    v8 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+    if (v8)
     {
-      v15 = *v84;
+      v9 = *v44;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v84 != v15)
+          if (*v44 != v9)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(allKeys);
           }
 
-          v17 = objc_msgSend_transferForGUID_(self, v13, *(*(&v83 + 1) + 8 * i));
-          v20 = v17;
-          if (v17)
+          v11 = [(IMFileTransferCenter *)self transferForGUID:*(*(&v43 + 1) + 8 * i)];
+          v12 = v11;
+          if (v11)
           {
-            v21 = objc_msgSend_localPath(v17, v18, v19);
-            v22 = v21 == 0;
+            localPath = [v11 localPath];
+            v14 = localPath == 0;
 
-            if (!v22)
+            if (!v14)
             {
-              v25 = objc_msgSend_localPath(v20, v23, v24);
-              v28 = objc_msgSend_absoluteString(lCopy, v26, v27);
-              v30 = objc_msgSend_containsString_(v25, v29, v28);
+              localPath2 = [v12 localPath];
+              absoluteString = [lCopy absoluteString];
+              v17 = [localPath2 containsString:absoluteString];
 
-              if (((aBlock != 0) & v30) == 1)
+              if (((aBlock != 0) & v17) == 1)
               {
                 aBlock[2](aBlock, 1, 0);
               }
@@ -795,18 +779,18 @@ LABEL_12:
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v83, v87, 16);
+        v8 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
-      while (v14);
+      while (v8);
     }
 
     if (aBlock)
     {
       if (!self->_disconnectionListenerSetUp)
       {
-        v33 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v31, v32);
-        objc_msgSend_addObserver_selector_name_object_(v33, v34, self, sel__daemonDisconnected_, @"__kIMDaemonDidDisconnectNotification", 0);
+        defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+        [defaultCenter addObserver:self selector:sel__daemonDisconnected_ name:@"__kIMDaemonDidDisconnectNotification" object:0];
 
         self->_disconnectionListenerSetUp = 1;
       }
@@ -814,35 +798,35 @@ LABEL_12:
       redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
       if (!redownloadlocalFilesWithURLCompletionHandlers)
       {
-        v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v37 = self->_redownloadlocalFilesWithURLCompletionHandlers;
-        self->_redownloadlocalFilesWithURLCompletionHandlers = v36;
+        v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v21 = self->_redownloadlocalFilesWithURLCompletionHandlers;
+        self->_redownloadlocalFilesWithURLCompletionHandlers = v20;
 
         redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
       }
 
-      v38 = objc_msgSend_absoluteString(lCopy, v31, v32);
-      v40 = objc_msgSend_objectForKeyedSubscript_(redownloadlocalFilesWithURLCompletionHandlers, v39, v38);
-      v41 = v40 == 0;
+      absoluteString2 = [lCopy absoluteString];
+      v23 = [(NSMutableDictionary *)redownloadlocalFilesWithURLCompletionHandlers objectForKeyedSubscript:absoluteString2];
+      v24 = v23 == 0;
 
-      if (v41)
+      if (v24)
       {
-        v44 = objc_msgSend_array(MEMORY[0x1E695DF70], v42, v43);
-        v45 = self->_redownloadlocalFilesWithURLCompletionHandlers;
-        v48 = objc_msgSend_absoluteString(lCopy, v46, v47);
-        objc_msgSend_setObject_forKeyedSubscript_(v45, v49, v44, v48);
+        array = [MEMORY[0x1E695DF70] array];
+        v26 = self->_redownloadlocalFilesWithURLCompletionHandlers;
+        absoluteString3 = [lCopy absoluteString];
+        [(NSMutableDictionary *)v26 setObject:array forKeyedSubscript:absoluteString3];
       }
 
-      v50 = self->_redownloadlocalFilesWithURLCompletionHandlers;
-      v51 = objc_msgSend_absoluteString(lCopy, v42, v43);
-      v53 = objc_msgSend_objectForKeyedSubscript_(v50, v52, v51);
-      v54 = _Block_copy(aBlock);
-      objc_msgSend_addObject_(v53, v55, v54);
+      v28 = self->_redownloadlocalFilesWithURLCompletionHandlers;
+      absoluteString4 = [lCopy absoluteString];
+      v30 = [(NSMutableDictionary *)v28 objectForKeyedSubscript:absoluteString4];
+      v31 = _Block_copy(aBlock);
+      [v30 addObject:v31];
 
-      objc_msgSend__registerDaemonListenerIfNecessary(self, v56, v57);
-      v60 = objc_msgSend_sharedController(IMDaemonController, v58, v59);
-      v63 = objc_msgSend_remoteDaemon(v60, v61, v62);
-      objc_msgSend_downloadFileTransferWithLocalURL_(v63, v64, lCopy);
+      [(IMFileTransferCenter *)self _registerDaemonListenerIfNecessary];
+      v32 = +[IMDaemonController sharedController];
+      remoteDaemon = [v32 remoteDaemon];
+      [remoteDaemon downloadFileTransferWithLocalURL:lCopy];
 
       goto LABEL_27;
     }
@@ -852,200 +836,269 @@ LABEL_12:
   {
     if (IMOSLoggingEnabled())
     {
-      v67 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+      v34 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v91 = "[IMFileTransferCenter downloadFileTransferWithLocalURL:completion:]";
-        _os_log_impl(&dword_1A823F000, v67, OS_LOG_TYPE_INFO, "%s invalid URL passed", buf, 0xCu);
+        v51 = "[IMFileTransferCenter downloadFileTransferWithLocalURL:completion:]";
+        _os_log_impl(&dword_1A823F000, v34, OS_LOG_TYPE_INFO, "%s invalid URL passed", buf, 0xCu);
       }
     }
 
     if (aBlock)
     {
-      v68 = MEMORY[0x1E696ABC0];
-      v88[0] = *MEMORY[0x1E696A578];
-      v69 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v65, v66);
-      v71 = objc_msgSend_localizedStringForKey_value_table_(v69, v70, @"File transfer local file url retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-      v89[0] = v71;
-      v88[1] = *MEMORY[0x1E696A588];
-      v74 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v72, v73);
-      v76 = objc_msgSend_localizedStringForKey_value_table_(v74, v75, @"The given URL was empty.", &stru_1F1B76F98, 0);
-      v89[1] = v76;
-      v78 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v77, v89, v88, 2);
-      v60 = objc_msgSend_errorWithDomain_code_userInfo_(v68, v79, *MEMORY[0x1E69A7008], 24, v78);
+      v35 = MEMORY[0x1E696ABC0];
+      v48[0] = *MEMORY[0x1E696A578];
+      mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+      v37 = [mainBundle localizedStringForKey:@"File transfer local file url retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+      v49[0] = v37;
+      v48[1] = *MEMORY[0x1E696A588];
+      mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
+      v39 = [mainBundle2 localizedStringForKey:@"The given URL was empty." value:&stru_1F1B76F98 table:0];
+      v49[1] = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+      v32 = [v35 errorWithDomain:*MEMORY[0x1E69A7008] code:24 userInfo:v40];
 
-      (aBlock)[2](aBlock, 0, v60);
+      (aBlock)[2](aBlock, 0, v32);
 LABEL_27:
     }
   }
+}
 
-  v80 = *MEMORY[0x1E69E9840];
+- (void)acceptTransfer:(id)transfer withPath:(id)path autoRename:(BOOL)rename overwrite:(BOOL)overwrite
+{
+  overwriteCopy = overwrite;
+  renameCopy = rename;
+  v26 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  pathCopy = path;
+  if (![(IMFileTransferCenter *)self isActiveTransfer:transferCopy])
+  {
+    v12 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+    [v12 _resetTransferStateIfAttachmentIsMissingAndDownloadable];
+    if (v12 && [v12 transferState]<= 0)
+    {
+      [(IMFileTransferCenter *)self _addActiveTransfer:transferCopy];
+      [v12 _setTransferState:1];
+      if (pathCopy)
+      {
+        v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+        [v12 _setLocalURL:v16];
+      }
+
+      v17 = +[IMDaemonController sharedController];
+      remoteDaemon = [v17 remoteDaemon];
+      v19 = remoteDaemon;
+      if (pathCopy)
+      {
+        [remoteDaemon fileTransfer:transferCopy acceptedWithPath:pathCopy autoRename:renameCopy overwrite:overwriteCopy options:0];
+      }
+
+      else
+      {
+        localPath = [v12 localPath];
+        [v19 fileTransfer:transferCopy acceptedWithPath:localPath autoRename:renameCopy overwrite:overwriteCopy options:0];
+      }
+
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v12];
+    }
+
+    else if (IMIsRunningInAutomation())
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v13 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        {
+          v14 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NSObject transferState](v12, "transferState")}];
+          v22 = 138412546;
+          v23 = v12;
+          v24 = 2112;
+          v25 = v14;
+          _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "We tried to accept a file transfer whose transfer state was greater than the accepted state or we got back a nil transfer -- transfer: %@ transfer state: %@", &v22, 0x16u);
+        }
+      }
+
+      mEMORY[0x1E69A7FE0] = [MEMORY[0x1E69A7FE0] sharedInstance];
+      [mEMORY[0x1E69A7FE0] postCoreAutomationNotificationFinishedTapToDownload:transferCopy downloadedFromCloudKitSuccessfully:0];
+    }
+
+    goto LABEL_20;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v22 = 138412290;
+      v23 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Asked to accept transfer %@ which is already in progress. Returning early.", &v22, 0xCu);
+    }
+
+LABEL_20:
+  }
 }
 
 - (void)acceptTransferAndUpdateReasonForTapped:(id)tapped
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   tappedCopy = tapped;
-  if (objc_msgSend_isActiveTransfer_(self, v5, tappedCopy))
+  if ([(IMFileTransferCenter *)self isActiveTransfer:tappedCopy])
   {
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v22 = 138412290;
-        v23 = tappedCopy;
-        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Asked to accept transfer %@ which is already in progress. Returning early.", &v22, 0xCu);
+        v10 = 138412290;
+        v11 = tappedCopy;
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Asked to accept transfer %@ which is already in progress. Returning early.", &v10, 0xCu);
       }
     }
   }
 
   else
   {
-    v8 = objc_msgSend_transferForGUID_(self, v6, tappedCopy);
-    objc_msgSend_setUpdateReason_(v8, v9, 3);
-    v12 = objc_msgSend_sharedController(IMDaemonController, v10, v11);
-    v15 = objc_msgSend_remoteDaemon(v12, v13, v14);
-    v18 = objc_msgSend__dictionaryRepresentation(v8, v16, v17);
-    objc_msgSend_fileTransfer_updatedWithProperties_(v15, v19, tappedCopy, v18);
+    v6 = [(IMFileTransferCenter *)self transferForGUID:tappedCopy];
+    [v6 setUpdateReason:3];
+    v7 = +[IMDaemonController sharedController];
+    remoteDaemon = [v7 remoteDaemon];
+    _dictionaryRepresentation = [v6 _dictionaryRepresentation];
+    [remoteDaemon fileTransfer:tappedCopy updatedWithProperties:_dictionaryRepresentation];
 
-    objc_msgSend_acceptTransfer_withPath_autoRename_overwrite_(self, v20, tappedCopy, 0, 1, 1);
+    [(IMFileTransferCenter *)self acceptTransfer:tappedCopy withPath:0 autoRename:1 overwrite:1];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopTransfer:(id)transfer
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
-  v6 = objc_msgSend_transferForGUID_(self, v5, transferCopy);
+  v5 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v32 = 138412290;
-      v33 = transferCopy;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "stopping transfer to guid %@", &v32, 0xCu);
+      v11 = 138412290;
+      v12 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "stopping transfer to guid %@", &v11, 0xCu);
     }
   }
 
-  if (v6 && (objc_msgSend_isFinished(v6, v7, v8) & 1) == 0)
+  if (v5 && ([v5 isFinished] & 1) == 0)
   {
-    objc_msgSend__removeActiveTransfer_(self, v10, transferCopy);
-    objc_msgSend__removePendingTransfer_(self, v11, transferCopy);
-    if (objc_msgSend_transferState(v6, v12, v13))
+    [(IMFileTransferCenter *)self _removeActiveTransfer:transferCopy];
+    [(IMFileTransferCenter *)self _removePendingTransfer:transferCopy];
+    if ([v5 transferState])
     {
-      v16 = 10;
+      v7 = 10;
     }
 
-    else if (objc_msgSend_isIncoming(v6, v14, v15))
+    else if ([v5 isIncoming])
     {
-      v16 = 12;
+      v7 = 12;
     }
 
     else
     {
-      v16 = 10;
+      v7 = 10;
     }
 
-    v17 = objc_msgSend_finalTransferStateForSuccess_(v6, v14, 0);
-    objc_msgSend__setTransferState_(v6, v18, v17);
-    objc_msgSend__setError_(v6, v19, v16);
-    v22 = objc_msgSend_sharedController(IMDaemonController, v20, v21);
-    v25 = objc_msgSend_remoteDaemon(v22, v23, v24);
-    objc_msgSend_fileTransferStopped_(v25, v26, transferCopy);
+    [v5 _setTransferState:{objc_msgSend(v5, "finalTransferStateForSuccess:", 0)}];
+    [v5 _setError:v7];
+    v8 = +[IMDaemonController sharedController];
+    remoteDaemon = [v8 remoteDaemon];
+    [remoteDaemon fileTransferStopped:transferCopy];
 
-    v29 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v27, v28);
-    objc_msgSend___mainThreadPostNotificationName_object_(v29, v30, @"__kIMFileTransferUpdatedNotification", v6);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v5];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeTransfer:(id)transfer
 {
   transferCopy = transfer;
-  objc_msgSend__removeActiveTransfer_(self, v4, transferCopy);
-  objc_msgSend__removePendingTransfer_(self, v5, transferCopy);
-  v9 = objc_msgSend_transferForGUID_(self, v6, transferCopy);
-  if (v9)
+  [(IMFileTransferCenter *)self _removeActiveTransfer:transferCopy];
+  [(IMFileTransferCenter *)self _removePendingTransfer:transferCopy];
+  v4 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if (v4)
   {
-    v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8);
-    objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, @"__kIMFileTransferRemovedNotification", v9);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferRemovedNotification" object:v4];
 
     guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
     if (!guidToRemovedTransferMap)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v15 = self->_guidToRemovedTransferMap;
+      v8 = self->_guidToRemovedTransferMap;
       self->_guidToRemovedTransferMap = Mutable;
 
       guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
     }
 
-    objc_msgSend_setObject_forKey_(guidToRemovedTransferMap, v12, v9, transferCopy);
+    [(NSMutableDictionary *)guidToRemovedTransferMap setObject:v4 forKey:transferCopy];
     accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
-    v19 = objc_msgSend_accountID(v9, v17, v18);
-    v21 = objc_msgSend_objectForKey_(accountIDToTransferGUIDsMap, v20, v19);
-    objc_msgSend_removeObject_(v21, v22, transferCopy);
+    accountID = [v4 accountID];
+    v11 = [(NSMutableDictionary *)accountIDToTransferGUIDsMap objectForKey:accountID];
+    [v11 removeObject:transferCopy];
 
-    objc_msgSend_removeObjectForKey_(self->_guidToTransferMap, v23, transferCopy);
-    if (!objc_msgSend_count(self->_guidToTransferMap, v24, v25))
+    [(NSMutableDictionary *)self->_guidToTransferMap removeObjectForKey:transferCopy];
+    if (![(NSMutableDictionary *)self->_guidToTransferMap count])
     {
       guidToTransferMap = self->_guidToTransferMap;
       self->_guidToTransferMap = 0;
     }
 
-    v29 = objc_msgSend_sharedController(IMDaemonController, v26, v27);
-    v32 = objc_msgSend_remoteDaemon(v29, v30, v31);
-    objc_msgSend_fileTransferRemoved_(v32, v33, transferCopy);
+    v13 = +[IMDaemonController sharedController];
+    remoteDaemon = [v13 remoteDaemon];
+    [remoteDaemon fileTransferRemoved:transferCopy];
   }
 }
 
 - (void)deleteTransfer:(id)transfer
 {
   transferCopy = transfer;
-  v5 = objc_msgSend_transferForGUID_(self, v4, transferCopy);
-  objc_msgSend__removeActiveTransfer_(self, v6, transferCopy);
-  objc_msgSend__removePendingTransfer_(self, v7, transferCopy);
-  if (v5)
+  v4 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  [(IMFileTransferCenter *)self _removeActiveTransfer:transferCopy];
+  [(IMFileTransferCenter *)self _removePendingTransfer:transferCopy];
+  if (v4)
   {
-    v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-    objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, @"__kIMFileTransferRemovedNotification", v5);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferRemovedNotification" object:v4];
 
     guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
     if (!guidToRemovedTransferMap)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v15 = self->_guidToRemovedTransferMap;
+      v8 = self->_guidToRemovedTransferMap;
       self->_guidToRemovedTransferMap = Mutable;
 
       guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
     }
 
-    objc_msgSend_setObject_forKey_(guidToRemovedTransferMap, v12, v5, transferCopy);
+    [(NSMutableDictionary *)guidToRemovedTransferMap setObject:v4 forKey:transferCopy];
     accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
-    v19 = objc_msgSend_accountID(v5, v17, v18);
-    v21 = objc_msgSend_objectForKey_(accountIDToTransferGUIDsMap, v20, v19);
-    objc_msgSend_removeObject_(v21, v22, transferCopy);
+    accountID = [v4 accountID];
+    v11 = [(NSMutableDictionary *)accountIDToTransferGUIDsMap objectForKey:accountID];
+    [v11 removeObject:transferCopy];
 
-    objc_msgSend_removeObjectForKey_(self->_guidToTransferMap, v23, transferCopy);
-    if (!objc_msgSend_count(self->_guidToTransferMap, v24, v25))
+    [(NSMutableDictionary *)self->_guidToTransferMap removeObjectForKey:transferCopy];
+    if (![(NSMutableDictionary *)self->_guidToTransferMap count])
     {
       guidToTransferMap = self->_guidToTransferMap;
       self->_guidToTransferMap = 0;
     }
 
-    v29 = objc_msgSend_sharedController(IMDaemonController, v26, v27);
-    v32 = objc_msgSend_remoteDaemon(v29, v30, v31);
-    objc_msgSend_fileTransferRemoved_(v32, v33, transferCopy);
+    v13 = +[IMDaemonController sharedController];
+    remoteDaemon = [v13 remoteDaemon];
+    [remoteDaemon fileTransferRemoved:transferCopy];
 
-    v36 = objc_msgSend_sharedController(IMDaemonController, v34, v35);
-    v39 = objc_msgSend_remoteDaemon(v36, v37, v38);
-    objc_msgSend_deleteFileTransferWithGUID_(v39, v40, transferCopy);
+    v15 = +[IMDaemonController sharedController];
+    remoteDaemon2 = [v15 remoteDaemon];
+    [remoteDaemon2 deleteFileTransferWithGUID:transferCopy];
   }
 }
 
@@ -1053,144 +1106,134 @@ LABEL_27:
 {
   pathCopy = path;
   transferCopy = transfer;
-  v26 = objc_msgSend_transferForGUID_(self, v8, transferCopy);
-  v10 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v9, pathCopy);
+  v13 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
 
-  objc_msgSend__setLocalURL_(v26, v11, v10);
-  v14 = objc_msgSend_sharedController(IMDaemonController, v12, v13);
-  v17 = objc_msgSend_remoteDaemon(v14, v15, v16);
-  v20 = objc_msgSend__dictionaryRepresentation(v26, v18, v19);
-  objc_msgSend_fileTransfer_updatedWithProperties_(v17, v21, transferCopy, v20);
+  [v13 _setLocalURL:v8];
+  v9 = +[IMDaemonController sharedController];
+  remoteDaemon = [v9 remoteDaemon];
+  _dictionaryRepresentation = [v13 _dictionaryRepresentation];
+  [remoteDaemon fileTransfer:transferCopy updatedWithProperties:_dictionaryRepresentation];
 
-  v24 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v22, v23);
-  objc_msgSend___mainThreadPostNotificationName_object_(v24, v25, @"__kIMFileTransferUpdatedNotification", v26);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v13];
 }
 
 - (id)transfersForAccount:(id)account
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_uniqueID(account, a2, account);
-  v6 = objc_msgSend_objectForKey_(self->_accountIDToTransferGUIDsMap, v5, v4);
-  v7 = MEMORY[0x1E695DF70];
-  v10 = objc_msgSend_count(v6, v8, v9);
-  v12 = objc_msgSend_arrayWithCapacity_(v7, v11, v10);
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v13 = v6;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v24, v28, 16);
-  if (v15)
+  v19 = *MEMORY[0x1E69E9840];
+  uniqueID = [account uniqueID];
+  v5 = [(NSMutableDictionary *)self->_accountIDToTransferGUIDsMap objectForKey:uniqueID];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v5;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
   {
-    v17 = v15;
-    v18 = *v25;
+    v9 = v8;
+    v10 = *v15;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v18)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v7);
         }
 
-        v20 = objc_msgSend_transferForGUID_(self, v16, *(*(&v24 + 1) + 8 * i), v24);
-        objc_msgSend_addObject_(v12, v21, v20);
+        v12 = [(IMFileTransferCenter *)self transferForGUID:*(*(&v14 + 1) + 8 * i), v14];
+        [v6 addObject:v12];
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v24, v28, 16);
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v17);
+    while (v9);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v6;
 }
 
 - (NSArray)orderedTransfers
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEB0]);
-  v5 = objc_msgSend_initWithKey_ascending_(v3, v4, @"createdDate", 1);
-  v6 = objc_alloc(MEMORY[0x1E696AEB0]);
-  v8 = objc_msgSend_initWithKey_ascending_(v6, v7, @"filename", 1);
-  v9 = objc_alloc(MEMORY[0x1E695DEC8]);
-  v11 = objc_msgSend_initWithObjects_(v9, v10, v5, v8, 0);
-  v14 = objc_msgSend_allValues(self->_guidToTransferMap, v12, v13);
-  v16 = objc_msgSend_sortedArrayUsingDescriptors_(v14, v15, v11);
+  v3 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"createdDate" ascending:1];
+  v4 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"filename" ascending:1];
+  v5 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v3, v4, 0}];
+  allValues = [(NSMutableDictionary *)self->_guidToTransferMap allValues];
+  v7 = [allValues sortedArrayUsingDescriptors:v5];
 
-  return v16;
+  return v7;
 }
 
 - (NSArray)orderedTransfersGUIDs
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEB0]);
-  v5 = objc_msgSend_initWithKey_ascending_(v3, v4, @"createdDate", 1);
-  v6 = objc_alloc(MEMORY[0x1E696AEB0]);
-  v8 = objc_msgSend_initWithKey_ascending_(v6, v7, @"filename", 1);
-  v9 = objc_alloc(MEMORY[0x1E695DEC8]);
-  v11 = objc_msgSend_initWithObjects_(v9, v10, v5, v8, 0);
-  v14 = objc_msgSend_allValues(self->_guidToTransferMap, v12, v13);
-  v16 = objc_msgSend_sortedArrayUsingDescriptors_(v14, v15, v11);
+  v3 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"createdDate" ascending:1];
+  v4 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"filename" ascending:1];
+  v5 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v3, v4, 0}];
+  allValues = [(NSMutableDictionary *)self->_guidToTransferMap allValues];
+  v7 = [allValues sortedArrayUsingDescriptors:v5];
 
-  return v16;
+  return v7;
 }
 
 - (void)clearFinishedTransfers
 {
-  v47 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_count(self->_guidToTransferMap, a2, v2))
+  v26 = *MEMORY[0x1E69E9840];
+  if ([(NSMutableDictionary *)self->_guidToTransferMap count])
   {
-    v4 = objc_alloc(MEMORY[0x1E695DF70]);
-    v7 = objc_msgSend_allValues(self->_guidToTransferMap, v5, v6);
-    v9 = objc_msgSend_initWithArray_(v4, v8, v7);
+    v3 = objc_alloc(MEMORY[0x1E695DF70]);
+    allValues = [(NSMutableDictionary *)self->_guidToTransferMap allValues];
+    v5 = [v3 initWithArray:allValues];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v10 = v9;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v42, v46, 16);
-    if (v12)
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v7)
     {
-      v15 = v12;
-      v16 = *v43;
+      v8 = v7;
+      v9 = *v22;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v43 != v16)
+          if (*v22 != v9)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v6);
           }
 
-          v18 = *(*(&v42 + 1) + 8 * i);
-          if (objc_msgSend_isFinished(v18, v13, v14, v42))
+          v11 = *(*(&v21 + 1) + 8 * i);
+          if ([v11 isFinished])
           {
-            v19 = objc_msgSend_guid(v18, v13, v14);
-            objc_msgSend__removeActiveTransfer_(self, v20, v19);
-            objc_msgSend__removePendingTransfer_(self, v21, v19);
-            v24 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v22, v23);
-            objc_msgSend___mainThreadPostNotificationName_object_(v24, v25, @"__kIMFileTransferRemovedNotification", v18);
+            guid = [v11 guid];
+            [(IMFileTransferCenter *)self _removeActiveTransfer:guid];
+            [(IMFileTransferCenter *)self _removePendingTransfer:guid];
+            defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+            [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferRemovedNotification" object:v11];
 
             guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
             if (!guidToRemovedTransferMap)
             {
               Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-              v29 = self->_guidToRemovedTransferMap;
+              v16 = self->_guidToRemovedTransferMap;
               self->_guidToRemovedTransferMap = Mutable;
 
               guidToRemovedTransferMap = self->_guidToRemovedTransferMap;
             }
 
-            objc_msgSend_setObject_forKey_(guidToRemovedTransferMap, v26, v18, v19);
+            [(NSMutableDictionary *)guidToRemovedTransferMap setObject:v11 forKey:guid];
             accountIDToTransferGUIDsMap = self->_accountIDToTransferGUIDsMap;
-            v33 = objc_msgSend_accountID(v18, v31, v32);
-            v35 = objc_msgSend_objectForKey_(accountIDToTransferGUIDsMap, v34, v33);
-            objc_msgSend_removeObject_(v35, v36, v19);
+            accountID = [v11 accountID];
+            v19 = [(NSMutableDictionary *)accountIDToTransferGUIDsMap objectForKey:accountID];
+            [v19 removeObject:guid];
 
-            objc_msgSend_removeObjectForKey_(self->_guidToTransferMap, v37, v19);
-            if (!objc_msgSend_count(self->_guidToTransferMap, v38, v39))
+            [(NSMutableDictionary *)self->_guidToTransferMap removeObjectForKey:guid];
+            if (![(NSMutableDictionary *)self->_guidToTransferMap count])
             {
               guidToTransferMap = self->_guidToTransferMap;
               self->_guidToTransferMap = 0;
@@ -1198,59 +1241,57 @@ LABEL_27:
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v42, v46, 16);
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v15);
+      while (v8);
     }
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isFileTransfer:(id)transfer preauthorizedWithDictionary:(id)dictionary
 {
   transferCopy = transfer;
   dictionaryCopy = dictionary;
-  v8 = objc_msgSend_objectForKey_(dictionaryCopy, v7, @"sPreauthorizedTransferDictionaryOtherPersonKey");
-  v10 = objc_msgSend_objectForKey_(dictionaryCopy, v9, @"sPreauthorizedTransferDictionaryAccountKey");
-  v12 = objc_msgSend_objectForKey_(dictionaryCopy, v11, @"sPreauthorizedTransferDictionaryFilenameKey");
+  v7 = [dictionaryCopy objectForKey:@"sPreauthorizedTransferDictionaryOtherPersonKey"];
+  v8 = [dictionaryCopy objectForKey:@"sPreauthorizedTransferDictionaryAccountKey"];
+  v9 = [dictionaryCopy objectForKey:@"sPreauthorizedTransferDictionaryFilenameKey"];
 
-  if (objc_msgSend_transferState(transferCopy, v13, v14))
+  if ([transferCopy transferState])
   {
-    isEqualToString = 0;
+    v10 = 0;
   }
 
   else
   {
-    v18 = objc_msgSend_otherPerson(transferCopy, v15, v16);
-    if (objc_msgSend_isEqualToString_(v18, v19, v8))
+    otherPerson = [transferCopy otherPerson];
+    if ([otherPerson isEqualToString:v7])
     {
-      v22 = objc_msgSend_accountID(transferCopy, v20, v21);
-      if (objc_msgSend_isEqualToString_(v22, v23, v10))
+      accountID = [transferCopy accountID];
+      if ([accountID isEqualToString:v8])
       {
-        v26 = objc_msgSend_filename(transferCopy, v24, v25);
-        isEqualToString = objc_msgSend_isEqualToString_(v26, v27, v12);
+        filename = [transferCopy filename];
+        v10 = [filename isEqualToString:v9];
       }
 
       else
       {
-        isEqualToString = 0;
+        v10 = 0;
       }
     }
 
     else
     {
-      isEqualToString = 0;
+      v10 = 0;
     }
   }
 
-  return isEqualToString;
+  return v10;
 }
 
 - (void)preauthorizeFileTransferFromOtherPerson:(id)person account:(id)account filename:(id)filename saveToPath:(id)path
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   personCopy = person;
   accountCopy = account;
   filenameCopy = filename;
@@ -1264,52 +1305,51 @@ LABEL_27:
       self->_preauthorizedInfos = v14;
     }
 
-    v16 = objc_alloc(MEMORY[0x1E695DF20]);
-    v38 = pathCopy;
-    v18 = objc_msgSend_initWithObjectsAndKeys_(v16, v17, personCopy, @"sPreauthorizedTransferDictionaryOtherPersonKey", accountCopy, @"sPreauthorizedTransferDictionaryAccountKey", filenameCopy, @"sPreauthorizedTransferDictionaryFilenameKey", pathCopy, @"sPreauthorizedTransferDictionarySaveToPathKey", 0);
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v21 = objc_msgSend_allValues(self->_guidToTransferMap, v19, v20);
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v39, v43, 16);
-    if (v23)
+    v27 = pathCopy;
+    v16 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{personCopy, @"sPreauthorizedTransferDictionaryOtherPersonKey", accountCopy, @"sPreauthorizedTransferDictionaryAccountKey", filenameCopy, @"sPreauthorizedTransferDictionaryFilenameKey", pathCopy, @"sPreauthorizedTransferDictionarySaveToPathKey", 0}];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    allValues = [(NSMutableDictionary *)self->_guidToTransferMap allValues];
+    v18 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v18)
     {
-      v25 = v23;
-      v26 = *v40;
+      v19 = v18;
+      v20 = *v29;
       while (2)
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v40 != v26)
+          if (*v29 != v20)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(allValues);
           }
 
-          v28 = *(*(&v39 + 1) + 8 * i);
-          if (objc_msgSend_isFileTransfer_preauthorizedWithDictionary_(self, v24, v28, v18))
+          v22 = *(*(&v28 + 1) + 8 * i);
+          if ([(IMFileTransferCenter *)self isFileTransfer:v22 preauthorizedWithDictionary:v16])
           {
-            v31 = objc_msgSend_guid(v28, v24, v29);
-            pathCopy = v38;
-            objc_msgSend_acceptTransfer_withPath_autoRename_overwrite_(self, v32, v31, v38, 1, 0);
+            guid = [v22 guid];
+            pathCopy = v27;
+            [(IMFileTransferCenter *)self acceptTransfer:guid withPath:v27 autoRename:1 overwrite:0];
             preauthorizedGUIDs = self->_preauthorizedGUIDs;
             if (!preauthorizedGUIDs)
             {
-              v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v36 = self->_preauthorizedGUIDs;
-              self->_preauthorizedGUIDs = v35;
+              v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v26 = self->_preauthorizedGUIDs;
+              self->_preauthorizedGUIDs = v25;
 
               preauthorizedGUIDs = self->_preauthorizedGUIDs;
             }
 
-            objc_msgSend_addObject_(preauthorizedGUIDs, v33, v31);
+            [(NSMutableArray *)preauthorizedGUIDs addObject:guid];
 
             goto LABEL_18;
           }
         }
 
-        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v39, v43, 16);
-        if (v25)
+        v19 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+        if (v19)
         {
           continue;
         }
@@ -1318,46 +1358,44 @@ LABEL_27:
       }
     }
 
-    objc_msgSend_addObject_(self->_preauthorizedInfos, v30, v18);
-    pathCopy = v38;
+    [(NSMutableArray *)self->_preauthorizedInfos addObject:v16];
+    pathCopy = v27;
 LABEL_18:
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acceptFileTransferIfPreauthorzed:(id)preauthorzed
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   preauthorzedCopy = preauthorzed;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   preauthorizedInfos = self->_preauthorizedInfos;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(preauthorizedInfos, v6, &v25, v29, 16);
-  if (v8)
+  v6 = [(NSMutableArray *)preauthorizedInfos countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
   {
-    v9 = *v26;
+    v7 = *v16;
 LABEL_3:
-    v10 = 0;
+    v8 = 0;
     while (1)
     {
-      if (*v26 != v9)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(preauthorizedInfos);
       }
 
-      v11 = *(*(&v25 + 1) + 8 * v10);
-      if (objc_msgSend_isFileTransfer_preauthorizedWithDictionary_(self, v7, preauthorzedCopy, v11, v25))
+      v9 = *(*(&v15 + 1) + 8 * v8);
+      if ([(IMFileTransferCenter *)self isFileTransfer:preauthorzedCopy preauthorizedWithDictionary:v9, v15])
       {
         break;
       }
 
-      if (v8 == ++v10)
+      if (v6 == ++v8)
       {
-        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(preauthorizedInfos, v7, &v25, v29, 16);
-        if (v8)
+        v6 = [(NSMutableArray *)preauthorizedInfos countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v6)
         {
           goto LABEL_3;
         }
@@ -1366,26 +1404,26 @@ LABEL_3:
       }
     }
 
-    v12 = objc_msgSend_objectForKey_(v11, v7, @"sPreauthorizedTransferDictionarySaveToPathKey");
-    v15 = objc_msgSend_guid(preauthorzedCopy, v13, v14);
-    objc_msgSend_acceptTransfer_withPath_autoRename_overwrite_(self, v16, v15, v12, 1, 0);
-    v8 = v11;
+    v10 = [v9 objectForKey:@"sPreauthorizedTransferDictionarySaveToPathKey"];
+    guid = [preauthorzedCopy guid];
+    [(IMFileTransferCenter *)self acceptTransfer:guid withPath:v10 autoRename:1 overwrite:0];
+    v6 = v9;
     preauthorizedGUIDs = self->_preauthorizedGUIDs;
     if (!preauthorizedGUIDs)
     {
-      v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v20 = self->_preauthorizedGUIDs;
-      self->_preauthorizedGUIDs = v19;
+      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v14 = self->_preauthorizedGUIDs;
+      self->_preauthorizedGUIDs = v13;
 
       preauthorizedGUIDs = self->_preauthorizedGUIDs;
     }
 
-    objc_msgSend_addObject_(preauthorizedGUIDs, v17, v15);
+    [(NSMutableArray *)preauthorizedGUIDs addObject:guid];
 
-    if (v8)
+    if (v6)
     {
-      objc_msgSend_removeObject_(self->_preauthorizedInfos, v21, v8);
-      if (!objc_msgSend_count(self->_preauthorizedInfos, v22, v23))
+      [(NSMutableArray *)self->_preauthorizedInfos removeObject:v6];
+      if (![(NSMutableArray *)self->_preauthorizedInfos count])
       {
         preauthorizedInfos = self->_preauthorizedInfos;
         self->_preauthorizedInfos = 0;
@@ -1398,794 +1436,822 @@ LABEL_3:
   {
 LABEL_15:
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleAllFileTransfers:(id)transfers
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   transfersCopy = transfers;
-  objc_msgSend__clearTransfers(self, v5, v6);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v9 = objc_msgSend_allKeys(transfersCopy, v7, v8, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v28, v32, 16);
-  if (v11)
+  [(IMFileTransferCenter *)self _clearTransfers];
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allKeys = [transfersCopy allKeys];
+  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
   {
-    v13 = v11;
-    v14 = *v29;
+    v7 = v6;
+    v8 = *v14;
     do
     {
-      v15 = 0;
+      v9 = 0;
       do
       {
-        if (*v29 != v14)
+        if (*v14 != v8)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(allKeys);
         }
 
-        v16 = objc_msgSend_objectForKey_(transfersCopy, v12, *(*(&v28 + 1) + 8 * v15));
-        v17 = objc_opt_class();
-        v20 = objc_alloc_init(objc_msgSend_fileTransferClass(v17, v18, v19));
-        objc_msgSend__updateWithDictionaryRepresentation_(v20, v21, v16);
-        objc_msgSend__addTransfer_(self, v22, v20);
+        v10 = [transfersCopy objectForKey:*(*(&v13 + 1) + 8 * v9)];
+        v11 = objc_alloc_init([objc_opt_class() fileTransferClass]);
+        [v11 _updateWithDictionaryRepresentation:v10];
+        [(IMFileTransferCenter *)self _addTransfer:v11];
 
-        ++v15;
+        ++v9;
       }
 
-      while (v13 != v15);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v28, v32, 16);
+      while (v7 != v9);
+      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v13);
+    while (v7);
   }
 
-  v25 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v23, v24);
-  objc_msgSend___mainThreadPostNotificationName_object_(v25, v26, @"__kIMFileTransferRefreshAllNotification", transfersCopy);
-
-  v27 = *MEMORY[0x1E69E9840];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferRefreshAllNotification" object:transfersCopy];
 }
 
 - (void)_handleSerializedFileTransfers:(id)transfers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   transfersCopy = transfers;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(transfersCopy, v5, &v18, v22, 16);
-  if (v6)
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [transfersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v9 = v6;
-    v10 = *v19;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      v11 = 0;
+      v8 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(transfersCopy);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
-        v13 = objc_msgSend__dictionaryRepresentationGUIDKey(MEMORY[0x1E69A8078], v7, v8);
-        v15 = objc_msgSend_objectForKeyedSubscript_(v12, v14, v13);
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        _dictionaryRepresentationGUIDKey = [MEMORY[0x1E69A8078] _dictionaryRepresentationGUIDKey];
+        v11 = [v9 objectForKeyedSubscript:_dictionaryRepresentationGUIDKey];
 
-        objc_msgSend__handleFileTransfer_createdWithProperties_(self, v16, v15, v12);
-        ++v11;
+        [(IMFileTransferCenter *)self _handleFileTransfer:v11 createdWithProperties:v9];
+        ++v8;
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(transfersCopy, v7, &v18, v22, 16);
+      while (v6 != v8);
+      v6 = [transfersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleFileTransfer:(id)transfer createdWithProperties:(id)properties
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
   propertiesCopy = properties;
-  v10 = objc_msgSend_transferForGUID_(self, v8, transferCopy);
-  if (v10)
+  v8 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if (v8)
   {
-    objc_msgSend__handleFileTransfer_updatedWithProperties_(self, v9, transferCopy, propertiesCopy);
+    [(IMFileTransferCenter *)self _handleFileTransfer:transferCopy updatedWithProperties:propertiesCopy];
   }
 
   else
   {
-    v11 = objc_opt_class();
-    v10 = objc_alloc_init(objc_msgSend_fileTransferClass(v11, v12, v13));
-    v15 = objc_msgSend__updateWithDictionaryRepresentation_(v10, v14, propertiesCopy);
-    objc_msgSend__addTransfer_(self, v16, v10);
-    v17 = IMOSLoggingEnabled();
-    if (v15)
+    v8 = objc_alloc_init([objc_opt_class() fileTransferClass]);
+    v9 = [v8 _updateWithDictionaryRepresentation:propertiesCopy];
+    [(IMFileTransferCenter *)self _addTransfer:v8];
+    v10 = IMOSLoggingEnabled();
+    if (v9)
     {
-      if (v17)
+      if (v10)
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v22 = objc_msgSend_objectForKeyedSubscript_(propertiesCopy, v21, *MEMORY[0x1E69A7010]);
-          v27 = 138412546;
-          v28 = v10;
-          v29 = 2112;
-          v30 = v22;
-          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Posting transfer created: %@  transferName: %@", &v27, 0x16u);
+          v12 = [propertiesCopy objectForKeyedSubscript:*MEMORY[0x1E69A7010]];
+          v15 = 138412546;
+          v16 = v8;
+          v17 = 2112;
+          v18 = v12;
+          _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Posting transfer created: %@  transferName: %@", &v15, 0x16u);
         }
       }
 
-      v23 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v18, v19);
-      objc_msgSend___mainThreadPostNotificationName_object_(v23, v24, @"__kIMFileTransferCreatedNotification", v10);
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferCreatedNotification" object:v8];
     }
 
-    else if (v17)
+    else if (v10)
     {
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412290;
-        v28 = v10;
-        _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "Nothing changed for create, not posting for: %@", &v27, 0xCu);
+        v15 = 138412290;
+        v16 = v8;
+        _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Nothing changed for create, not posting for: %@", &v15, 0xCu);
       }
     }
 
-    objc_msgSend_acceptFileTransferIfPreauthorzed_(self, v18, v10);
+    [(IMFileTransferCenter *)self acceptFileTransferIfPreauthorzed:v8];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleFileTransfers:(id)transfers createdWithLocalPaths:(id)paths
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   transfersCopy = transfers;
   pathsCopy = paths;
-  v10 = objc_msgSend_count(transfersCopy, v8, v9);
-  if (v10 == objc_msgSend_count(pathsCopy, v11, v12))
+  v8 = [transfersCopy count];
+  if (v8 == [pathsCopy count])
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_1A82C7360;
-    v16[3] = &unk_1E7811580;
-    v17 = pathsCopy;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1A82C7360;
+    v10[3] = &unk_1E7811580;
+    v11 = pathsCopy;
     selfCopy = self;
-    objc_msgSend_enumerateObjectsUsingBlock_(transfersCopy, v13, v16);
+    [transfersCopy enumerateObjectsUsingBlock:v10];
   }
 
   else if (IMOSLoggingEnabled())
-  {
-    v14 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412546;
-      v20 = transfersCopy;
-      v21 = 2112;
-      v22 = pathsCopy;
-      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "IMFileTransferCenter: number of new file transfers %@ does not match number of local urls %@.", buf, 0x16u);
-    }
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransfer:(id)transfer updatedWithProperties:(id)properties
-{
-  v49 = *MEMORY[0x1E69E9840];
-  transferCopy = transfer;
-  propertiesCopy = properties;
-  v9 = objc_msgSend_transferForGUID_(self, v8, transferCopy);
-  v12 = v9;
-  if (v9)
-  {
-    v13 = objc_msgSend_transferState(v9, v10, v11);
-    isFinished = objc_msgSend_isFinished(v12, v14, v15);
-    v18 = objc_msgSend__updateWithDictionaryRepresentation_(v12, v17, propertiesCopy);
-    if (objc_msgSend_isFromMomentShare(v12, v19, v20) && ((objc_msgSend_transferState(v12, v21, v22) == 5) & isFinished) == 1)
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-        {
-          v45 = 138412290;
-          v46 = v12;
-          _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "Overriding changed for CMM transfer %@", &v45, 0xCu);
-        }
-      }
-
-      v18 = 1;
-    }
-
-    v26 = objc_msgSend_transferState(v12, v21, v22);
-    if ((isFinished & 1) != 0 || !objc_msgSend_isFinished(v12, v24, v25))
-    {
-      v28 = 0;
-      if (v13 <= 1 && v26 >= 2)
-      {
-        objc_msgSend__addActiveTransfer_(self, v24, transferCopy);
-        v28 = 0;
-      }
-    }
-
-    else
-    {
-      objc_msgSend__removeActiveTransfer_(self, v24, transferCopy);
-      objc_msgSend__removePendingTransfer_(self, v27, transferCopy);
-      v28 = 1;
-    }
-
-    if (objc_msgSend_isActiveTransfer_(self, v24, transferCopy) && IMFileTransferStateIsNotActive())
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v30 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
-        {
-          v31 = IMStringFromTransferState();
-          v45 = 138412546;
-          v46 = transferCopy;
-          v47 = 2112;
-          v48 = v31;
-          _os_log_impl(&dword_1A823F000, v30, OS_LOG_TYPE_INFO, "Removing %@ from active transfers, as newState is %@", &v45, 0x16u);
-        }
-      }
-
-      objc_msgSend__removeActiveTransfer_(self, v29, transferCopy);
-    }
-
-    v32 = IMOSLoggingEnabled();
-    if (v18)
-    {
-      if (v32)
-      {
-        v35 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-        {
-          v45 = 138412290;
-          v46 = transferCopy;
-          _os_log_impl(&dword_1A823F000, v35, OS_LOG_TYPE_INFO, "Posting transfer, guid: %@", &v45, 0xCu);
-        }
-      }
-
-      v36 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v33, v34);
-      objc_msgSend___mainThreadPostNotificationName_object_(v36, v37, @"__kIMFileTransferUpdatedNotification", v12);
-    }
-
-    else if (v32)
-    {
-      v38 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
-      {
-        v45 = 138412290;
-        v46 = transferCopy;
-        _os_log_impl(&dword_1A823F000, v38, OS_LOG_TYPE_INFO, "Nothing changed for update, not posting, guid: %@", &v45, 0xCu);
-      }
-    }
-
-    if (v28)
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v41 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
-        {
-          v45 = 138412290;
-          v46 = transferCopy;
-          _os_log_impl(&dword_1A823F000, v41, OS_LOG_TYPE_INFO, "Posting transfer, guid: %@  finished", &v45, 0xCu);
-        }
-      }
-
-      v42 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v39, v40);
-      objc_msgSend___mainThreadPostNotificationName_object_(v42, v43, @"__kIMFileTransferFinishedNotification", v12);
-    }
-  }
-
-  else
-  {
-    objc_msgSend__handleFileTransfer_createdWithProperties_(self, v10, transferCopy, propertiesCopy);
-  }
-
-  v44 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransfer:(id)transfer rejectedWithProperties:(id)properties
-{
-  v39 = *MEMORY[0x1E69E9840];
-  transferCopy = transfer;
-  propertiesCopy = properties;
-  v10 = objc_msgSend_transferForGUID_(self, v8, transferCopy);
-  if (!v10)
-  {
-    v11 = objc_opt_class();
-    v10 = objc_alloc_init(objc_msgSend_fileTransferClass(v11, v12, v13));
-  }
-
-  objc_msgSend__updateWithDictionaryRepresentation_(v10, v9, propertiesCopy);
-  if (objc_msgSend_error(v10, v14, v15) == -1)
-  {
-    objc_msgSend__setError_(v10, v16, 28);
-    objc_msgSend__setErrorDescription_(v10, v17, @"File transfer was rejected.");
-  }
-
-  if (IMOSLoggingEnabled())
-  {
-    v20 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-    {
-      v23 = MEMORY[0x1E696AD98];
-      v24 = objc_msgSend_error(v10, v21, v22);
-      v26 = objc_msgSend_numberWithInteger_(v23, v25, v24);
-      v29 = objc_msgSend_errorDescription(v10, v27, v28);
-      v33 = 138412802;
-      v34 = transferCopy;
-      v35 = 2112;
-      v36 = v26;
-      v37 = 2112;
-      v38 = v29;
-      _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Transfer was rejected, guid: %@, error: %@, error description: %@", &v33, 0x20u);
-    }
-  }
-
-  v30 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v18, v19);
-  objc_msgSend___mainThreadPostNotificationName_object_(v30, v31, @"__kIMFileTransferRejectedNotification", v10);
-
-  v32 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransfer:(id)transfer updatedWithCurrentBytes:(unint64_t)bytes totalBytes:(unint64_t)totalBytes averageTransferRate:(unint64_t)rate
-{
-  v56 = *MEMORY[0x1E69E9840];
-  transferCopy = transfer;
-  v12 = objc_msgSend_transferForGUID_(self, v11, transferCopy);
-  if (objc_msgSend_currentBytes(v12, v13, v14) == bytes && objc_msgSend_totalBytes(v12, v15, v16) == totalBytes && objc_msgSend_averageTransferRate(v12, v17, v18) == rate)
-  {
-    if (IMOSLoggingEnabled())
-    {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
-      {
-        v22 = MEMORY[0x1E696AD98];
-        v23 = objc_msgSend_transferState(v12, v20, v21);
-        v25 = objc_msgSend_numberWithInteger_(v22, v24, v23);
-        v27 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v26, bytes);
-        v29 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v28, totalBytes);
-        v48 = 138413058;
-        v49 = transferCopy;
-        v50 = 2112;
-        v51 = v25;
-        v52 = 2112;
-        v53 = v27;
-        v54 = 2112;
-        v55 = v29;
-        _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Ignoring update for transfer guid: %@ state: %@ currentBytes: %@ totalBytes: %@ (values have not changed)", &v48, 0x2Au);
-      }
-    }
-  }
-
-  else
-  {
-    if (IMOSLoggingEnabled())
-    {
-      v31 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
-      {
-        v34 = MEMORY[0x1E696AD98];
-        v35 = objc_msgSend_transferState(v12, v32, v33);
-        v37 = objc_msgSend_numberWithInteger_(v34, v36, v35);
-        v39 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v38, bytes);
-        v41 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v40, totalBytes);
-        v48 = 138413058;
-        v49 = transferCopy;
-        v50 = 2112;
-        v51 = v37;
-        v52 = 2112;
-        v53 = v39;
-        v54 = 2112;
-        v55 = v41;
-        _os_log_impl(&dword_1A823F000, v31, OS_LOG_TYPE_INFO, "Updating transfer guid: %@ state: %@ currentBytes: %@ totalBytes: %@", &v48, 0x2Au);
-      }
-    }
-
-    objc_msgSend__setCurrentBytes_totalBytes_(v12, v30, bytes, totalBytes);
-    objc_msgSend__setAveragedTransferRate_lastAveragedInterval_lastAveragedBytes_(v12, v42, rate, 0, 0.0);
-    v45 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v43, v44);
-    objc_msgSend___mainThreadPostNotificationName_object_(v45, v46, @"__kIMFileTransferUpdatedNotification", v12);
-  }
-
-  v47 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransferFinishedRemoteIntentDownload:(id)download
-{
-  v17 = *MEMORY[0x1E69E9840];
-  downloadCopy = download;
-  v6 = objc_msgSend_transferForGUID_(self, v5, downloadCopy);
-  v7 = IMOSLoggingEnabled();
-  if (v6)
-  {
-    if (v7)
-    {
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        v15 = 138412290;
-        v16 = downloadCopy;
-        _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Finished remote intent download for guid: %@. Posting IMFileTransferUpdatedNotification.", &v15, 0xCu);
-      }
-    }
-
-    v11 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-    objc_msgSend___mainThreadPostNotificationName_object_(v11, v12, @"__kIMFileTransferUpdatedNotification", v6);
-  }
-
-  else if (v7)
-  {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-    {
-      v15 = 138412290;
-      v16 = downloadCopy;
-      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Ignoring finished remote intent download notification for transfer guid: %@", &v15, 0xCu);
-    }
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransfer:(id)transfer highQualityDownloadSucceededWithPath:(id)path
-{
-  v21 = *MEMORY[0x1E69E9840];
-  transferCopy = transfer;
-  pathCopy = path;
-  if (IMOSLoggingEnabled())
   {
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v18 = transferCopy;
-      v19 = 2112;
-      v20 = pathCopy;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "High quality download for transfer %@ succeeded at path %@", buf, 0x16u);
+      v14 = transfersCopy;
+      v15 = 2112;
+      v16 = pathsCopy;
+      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "IMFileTransferCenter: number of new file transfers %@ does not match number of local urls %@.", buf, 0x16u);
     }
   }
-
-  v10 = objc_msgSend_objectForKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v8, transferCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v11, 0, transferCopy);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1A82C809C;
-  v15[3] = &unk_1E78115A8;
-  v16 = pathCopy;
-  v12 = pathCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v10, v13, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_handleFileTransferHighQualityDownloadFailed:(id)failed
+- (void)_handleFileTransfer:(id)transfer updatedWithProperties:(id)properties
 {
-  v13 = *MEMORY[0x1E69E9840];
-  failedCopy = failed;
-  if (IMOSLoggingEnabled())
-  {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      v11 = 138412290;
-      v12 = failedCopy;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "High quality download for transfer %@ failed", &v11, 0xCu);
-    }
-  }
-
-  v7 = objc_msgSend_objectForKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v5, failedCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v8, 0, failedCopy);
-  objc_msgSend_enumerateObjectsUsingBlock_(v7, v9, &unk_1F1B6E340);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransfer:(id)transfer explicitDownloadSucceededWithPath:(id)path livePhotoBundlePath:(id)bundlePath
-{
-  v37 = *MEMORY[0x1E69E9840];
-  transferCopy = transfer;
-  pathCopy = path;
-  bundlePathCopy = bundlePath;
-  if (IMOSLoggingEnabled())
-  {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412546;
-      v34 = transferCopy;
-      v35 = 2112;
-      v36 = pathCopy;
-      _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Download for transfer %@ succeeded at path %@", buf, 0x16u);
-    }
-  }
-
-  v13 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v11, transferCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v14, 0, transferCopy);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = sub_1A82C8454;
-  v30[3] = &unk_1E78115F0;
-  v15 = pathCopy;
-  v31 = v15;
-  v16 = bundlePathCopy;
-  v32 = v16;
-  objc_msgSend_enumerateObjectsUsingBlock_(v13, v17, v30);
-  v19 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v18, transferCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v20, 0, transferCopy);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = sub_1A82C8474;
-  v26[3] = &unk_1E7811618;
-  v27 = transferCopy;
-  v28 = v15;
-  v29 = v16;
-  v21 = v16;
-  v22 = v15;
-  v23 = transferCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v19, v24, v26);
-
-  v25 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransferExplicitDownloadFailed:(id)failed suggestedRetryGUID:(id)d error:(id)error
-{
-  v38 = *MEMORY[0x1E69E9840];
-  failedCopy = failed;
-  dCopy = d;
-  errorCopy = error;
-  if (IMOSLoggingEnabled())
-  {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v37 = failedCopy;
-      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Download for transfer %@ failed", buf, 0xCu);
-    }
-  }
-
-  if (!failedCopy)
-  {
-    v14 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v11, v12);
-    objc_msgSend_forceAutoBugCaptureWithSubType_errorPayload_(v14, v15, @"FileTransferNilGUID", errorCopy);
-  }
-
-  v16 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v11, failedCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v17, 0, failedCopy);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = sub_1A82C872C;
-  v33[3] = &unk_1E78115F0;
-  v18 = dCopy;
-  v34 = v18;
-  v19 = errorCopy;
-  v35 = v19;
-  objc_msgSend_enumerateObjectsUsingBlock_(v16, v20, v33);
-  v22 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v21, failedCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v23, 0, failedCopy);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = sub_1A82C874C;
-  v29[3] = &unk_1E7811618;
-  v30 = failedCopy;
-  v31 = v18;
-  v32 = v19;
-  v24 = v19;
-  v25 = v18;
-  v26 = failedCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v22, v27, v29);
-
   v28 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransferDownloadSucceededWithLocalURL:(id)l
-{
-  v21 = *MEMORY[0x1E69E9840];
-  lCopy = l;
-  if (IMOSLoggingEnabled())
-  {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v19 = 138412290;
-      v20 = lCopy;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Re-Download for transfer at URL %@ succeeded", &v19, 0xCu);
-    }
-  }
-
-  redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
-  v9 = objc_msgSend_absoluteString(lCopy, v5, v6);
-  v11 = objc_msgSend_objectForKeyedSubscript_(redownloadlocalFilesWithURLCompletionHandlers, v10, v9);
-
-  localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
-  v15 = objc_msgSend_absoluteString(lCopy, v13, v14);
-  objc_msgSend_setObject_forKeyedSubscript_(localFileURLRetrievalCompletionHandlers, v16, 0, v15);
-
-  objc_msgSend_enumerateObjectsUsingBlock_(v11, v17, &unk_1F1B6E360);
-  v18 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleFileTransferDownloadFailedWithLocalURL:(id)l error:(id)error
-{
-  v32 = *MEMORY[0x1E69E9840];
-  lCopy = l;
-  errorCopy = error;
-  if (IMOSLoggingEnabled())
-  {
-    v10 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-    {
-      v13 = objc_msgSend_description(errorCopy, v11, v12);
-      *buf = 138412546;
-      v29 = lCopy;
-      v30 = 2112;
-      v31 = v13;
-      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Re-Download for transfer at URL %@ failed %@", buf, 0x16u);
-    }
-  }
-
-  redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
-  v15 = objc_msgSend_absoluteString(lCopy, v8, v9);
-  v17 = objc_msgSend_objectForKeyedSubscript_(redownloadlocalFilesWithURLCompletionHandlers, v16, v15);
-
-  localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
-  v21 = objc_msgSend_absoluteString(lCopy, v19, v20);
-  objc_msgSend_setObject_forKeyedSubscript_(localFileURLRetrievalCompletionHandlers, v22, 0, v21);
-
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = sub_1A82C8AA8;
-  v26[3] = &unk_1E7811660;
-  v27 = errorCopy;
-  v23 = errorCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v17, v24, v26);
-
-  v25 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setCommSafetySensitiveForTransfer:(id)transfer value:(int64_t)value
-{
-  v32 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
-  if (IMOSLoggingEnabled())
+  propertiesCopy = properties;
+  v8 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  v9 = v8;
+  if (v8)
   {
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    transferState = [v8 transferState];
+    isFinished = [v9 isFinished];
+    v12 = [v9 _updateWithDictionaryRepresentation:propertiesCopy];
+    if ([v9 isFromMomentShare] && ((objc_msgSend(v9, "transferState") == 5) & isFinished) == 1)
     {
-      v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v9, value);
-      v28 = 138412546;
-      v29 = v10;
-      v30 = 2112;
-      v31 = transferCopy;
-      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Setting Communication Safety Sensitivity to %@ for transfer %@", &v28, 0x16u);
-    }
-  }
-
-  v11 = objc_msgSend_transferForGUID_(self, v7, transferCopy);
-  objc_msgSend_setCommSafetySensitive_(v11, v12, value);
-  v15 = objc_msgSend_sharedController(IMDaemonController, v13, v14);
-  v18 = objc_msgSend_remoteDaemon(v15, v16, v17);
-  v21 = objc_msgSend__dictionaryRepresentation(v11, v19, v20);
-  objc_msgSend_fileTransfer_updatedWithProperties_(v18, v22, transferCopy, v21);
-
-  v25 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v23, v24);
-  objc_msgSend___mainThreadPostNotificationName_object_(v25, v26, @"__kIMFileTransferUpdatedNotification", v11);
-
-  v27 = *MEMORY[0x1E69E9840];
-}
-
-- (id)guidsForStoredAttachmentPayloadData:(id)data messageGUID:(id)d
-{
-  v63 = *MEMORY[0x1E69E9840];
-  dataCopy = data;
-  dCopy = d;
-  v50 = dataCopy;
-  if (objc_msgSend_count(dataCopy, v6, v7))
-  {
-    v10 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9);
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    obj = v50;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v56, v62, 16);
-    if (v14)
-    {
-      v53 = *v57;
-      v52 = *MEMORY[0x1E69A7020];
-      do
+      if (IMOSLoggingEnabled())
       {
-        v15 = 0;
-        do
+        v13 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          if (*v57 != v53)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v16 = *(*(&v56 + 1) + 8 * v15);
-          v17 = objc_msgSend_stringGUID(MEMORY[0x1E696AEC0], v12, v13);
-          v19 = objc_msgSend_stringByAppendingPathExtension_(v17, v18, v52);
-
-          if (IMIsRunningInMessages() & 1) != 0 || (IMIsRunningInMobileSMS() & 1) != 0 || (IMIsRunningInIMDPersistenceAgent())
-          {
-            v22 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v20, v21);
-            v24 = objc_msgSend_im_randomTemporaryFileURLWithFileName_(v22, v23, v19);
-            v27 = objc_msgSend_path(v24, v25, v26);
-          }
-
-          else
-          {
-            v22 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v20, v21);
-            v27 = objc_msgSend__randomTemporaryPathWithSuffix_withAppendedPathComponent_(v22, v45, v19, @"com.apple.MobileSMS");
-          }
-
-          v30 = objc_msgSend_stringByResolvingAndStandardizingPath(v27, v28, v29);
-
-          v55 = 0;
-          v32 = objc_msgSend_writeToFile_options_error_(v16, v31, v30, 1, &v55);
-          v34 = v55;
-          if ((v32 & 1) == 0 && IMOSLoggingEnabled())
-          {
-            v35 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-            {
-              *buf = 138412290;
-              v61 = v34;
-              _os_log_impl(&dword_1A823F000, v35, OS_LOG_TYPE_INFO, "MessageService Failed writing attachment to disk on incoming: %@", buf, 0xCu);
-            }
-          }
-
-          v36 = objc_msgSend_fileURLWithPath_isDirectory_(MEMORY[0x1E695DFF8], v33, v30, 0);
-          v38 = objc_msgSend_createNewOutgoingTransferWithLocalFileURL_(self, v37, v36);
-          v41 = objc_msgSend_sharedInstance(IMFileTransferCenter, v39, v40);
-          v43 = objc_msgSend_transferForGUID_(v41, v42, v38);
-
-          if (v43)
-          {
-            objc_msgSend_setHideAttachment_(v43, v44, 1);
-          }
-
-          if (v10 && v38)
-          {
-            CFArrayAppendValue(v10, v38);
-          }
-
-          ++v15;
+          v24 = 138412290;
+          v25 = v9;
+          _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Overriding changed for CMM transfer %@", &v24, 0xCu);
         }
-
-        while (v14 != v15);
-        v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v56, v62, 16);
-        v14 = v46;
       }
 
-      while (v46);
+      v12 = 1;
+    }
+
+    transferState2 = [v9 transferState];
+    if ((isFinished & 1) != 0 || ![v9 isFinished])
+    {
+      v15 = 0;
+      if (transferState <= 1 && transferState2 >= 2)
+      {
+        [(IMFileTransferCenter *)self _addActiveTransfer:transferCopy];
+        v15 = 0;
+      }
+    }
+
+    else
+    {
+      [(IMFileTransferCenter *)self _removeActiveTransfer:transferCopy];
+      [(IMFileTransferCenter *)self _removePendingTransfer:transferCopy];
+      v15 = 1;
+    }
+
+    if ([(IMFileTransferCenter *)self isActiveTransfer:transferCopy]&& IMFileTransferStateIsNotActive())
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v16 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        {
+          v17 = IMStringFromTransferState();
+          v24 = 138412546;
+          v25 = transferCopy;
+          v26 = 2112;
+          v27 = v17;
+          _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Removing %@ from active transfers, as newState is %@", &v24, 0x16u);
+        }
+      }
+
+      [(IMFileTransferCenter *)self _removeActiveTransfer:transferCopy];
+    }
+
+    v18 = IMOSLoggingEnabled();
+    if (v12)
+    {
+      if (v18)
+      {
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        {
+          v24 = 138412290;
+          v25 = transferCopy;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Posting transfer, guid: %@", &v24, 0xCu);
+        }
+      }
+
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v9];
+    }
+
+    else if (v18)
+    {
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        v24 = 138412290;
+        v25 = transferCopy;
+        _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Nothing changed for update, not posting, guid: %@", &v24, 0xCu);
+      }
+    }
+
+    if (v15)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v22 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        {
+          v24 = 138412290;
+          v25 = transferCopy;
+          _os_log_impl(&dword_1A823F000, v22, OS_LOG_TYPE_INFO, "Posting transfer, guid: %@  finished", &v24, 0xCu);
+        }
+      }
+
+      defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter2 __mainThreadPostNotificationName:@"__kIMFileTransferFinishedNotification" object:v9];
     }
   }
 
   else
   {
-    v10 = MEMORY[0x1E695E0F0];
+    [(IMFileTransferCenter *)self _handleFileTransfer:transferCopy createdWithProperties:propertiesCopy];
+  }
+}
+
+- (void)_handleFileTransfer:(id)transfer rejectedWithProperties:(id)properties
+{
+  v19 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  propertiesCopy = properties;
+  v8 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if (!v8)
+  {
+    v8 = objc_alloc_init([objc_opt_class() fileTransferClass]);
   }
 
-  v47 = *MEMORY[0x1E69E9840];
+  [v8 _updateWithDictionaryRepresentation:propertiesCopy];
+  if ([v8 error] == -1)
+  {
+    [v8 _setError:28];
+    [v8 _setErrorDescription:@"File transfer was rejected."];
+  }
 
-  return v10;
+  if (IMOSLoggingEnabled())
+  {
+    v9 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "error")}];
+      errorDescription = [v8 errorDescription];
+      v13 = 138412802;
+      v14 = transferCopy;
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = errorDescription;
+      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Transfer was rejected, guid: %@, error: %@, error description: %@", &v13, 0x20u);
+    }
+  }
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferRejectedNotification" object:v8];
+}
+
+- (void)_handleFileTransfer:(id)transfer updatedWithCurrentBytes:(unint64_t)bytes totalBytes:(unint64_t)totalBytes averageTransferRate:(unint64_t)rate
+{
+  v29 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  v11 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  if ([v11 currentBytes] == bytes && objc_msgSend(v11, "totalBytes") == totalBytes && objc_msgSend(v11, "averageTransferRate") == rate)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v11, "transferState")}];
+        v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:bytes];
+        v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:totalBytes];
+        v21 = 138413058;
+        v22 = transferCopy;
+        v23 = 2112;
+        v24 = v13;
+        v25 = 2112;
+        v26 = v14;
+        v27 = 2112;
+        v28 = v15;
+        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Ignoring update for transfer guid: %@ state: %@ currentBytes: %@ totalBytes: %@ (values have not changed)", &v21, 0x2Au);
+      }
+    }
+  }
+
+  else
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v11, "transferState")}];
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:bytes];
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:totalBytes];
+        v21 = 138413058;
+        v22 = transferCopy;
+        v23 = 2112;
+        v24 = v17;
+        v25 = 2112;
+        v26 = v18;
+        v27 = 2112;
+        v28 = v19;
+        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Updating transfer guid: %@ state: %@ currentBytes: %@ totalBytes: %@", &v21, 0x2Au);
+      }
+    }
+
+    [v11 _setCurrentBytes:bytes totalBytes:totalBytes];
+    [v11 _setAveragedTransferRate:rate lastAveragedInterval:0 lastAveragedBytes:0.0];
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v11];
+  }
+}
+
+- (void)_handleFileTransferFinishedRemoteIntentDownload:(id)download
+{
+  v12 = *MEMORY[0x1E69E9840];
+  downloadCopy = download;
+  v5 = [(IMFileTransferCenter *)self transferForGUID:downloadCopy];
+  v6 = IMOSLoggingEnabled();
+  if (v5)
+  {
+    if (v6)
+    {
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        v10 = 138412290;
+        v11 = downloadCopy;
+        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Finished remote intent download for guid: %@. Posting IMFileTransferUpdatedNotification.", &v10, 0xCu);
+      }
+    }
+
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v5];
+  }
+
+  else if (v6)
+  {
+    v9 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = 138412290;
+      v11 = downloadCopy;
+      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Ignoring finished remote intent download notification for transfer guid: %@", &v10, 0xCu);
+    }
+  }
+}
+
+- (void)_handleFileTransfer:(id)transfer highQualityDownloadSucceededWithPath:(id)path
+{
+  v17 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  pathCopy = path;
+  if (IMOSLoggingEnabled())
+  {
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v14 = transferCopy;
+      v15 = 2112;
+      v16 = pathCopy;
+      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "High quality download for transfer %@ succeeded at path %@", buf, 0x16u);
+    }
+  }
+
+  v9 = [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers objectForKeyedSubscript:transferCopy];
+  [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers setObject:0 forKeyedSubscript:transferCopy];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1A82C809C;
+  v11[3] = &unk_1E78115A8;
+  v12 = pathCopy;
+  v10 = pathCopy;
+  [v9 enumerateObjectsUsingBlock:v11];
+}
+
+- (void)_handleFileTransferHighQualityDownloadFailed:(id)failed
+{
+  v9 = *MEMORY[0x1E69E9840];
+  failedCopy = failed;
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v7 = 138412290;
+      v8 = failedCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "High quality download for transfer %@ failed", &v7, 0xCu);
+    }
+  }
+
+  v6 = [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers objectForKeyedSubscript:failedCopy];
+  [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers setObject:0 forKeyedSubscript:failedCopy];
+  [v6 enumerateObjectsUsingBlock:&unk_1F1B6E340];
+}
+
+- (void)_handleFileTransfer:(id)transfer explicitDownloadSucceededWithPath:(id)path livePhotoBundlePath:(id)bundlePath
+{
+  v30 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  pathCopy = path;
+  bundlePathCopy = bundlePath;
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v27 = transferCopy;
+      v28 = 2112;
+      v29 = pathCopy;
+      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Download for transfer %@ succeeded at path %@", buf, 0x16u);
+    }
+  }
+
+  v12 = [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers objectForKeyedSubscript:transferCopy];
+  [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers setObject:0 forKeyedSubscript:transferCopy];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1A82C8454;
+  v23[3] = &unk_1E78115F0;
+  v13 = pathCopy;
+  v24 = v13;
+  v14 = bundlePathCopy;
+  v25 = v14;
+  [v12 enumerateObjectsUsingBlock:v23];
+  v15 = [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers objectForKeyedSubscript:transferCopy];
+  [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers setObject:0 forKeyedSubscript:transferCopy];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_1A82C8474;
+  v19[3] = &unk_1E7811618;
+  v20 = transferCopy;
+  v21 = v13;
+  v22 = v14;
+  v16 = v14;
+  v17 = v13;
+  v18 = transferCopy;
+  [v15 enumerateObjectsUsingBlock:v19];
+}
+
+- (void)_handleFileTransferExplicitDownloadFailed:(id)failed suggestedRetryGUID:(id)d error:(id)error
+{
+  v29 = *MEMORY[0x1E69E9840];
+  failedCopy = failed;
+  dCopy = d;
+  errorCopy = error;
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v28 = failedCopy;
+      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Download for transfer %@ failed", buf, 0xCu);
+    }
+  }
+
+  if (!failedCopy)
+  {
+    mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
+    [mEMORY[0x1E69A8168] forceAutoBugCaptureWithSubType:@"FileTransferNilGUID" errorPayload:errorCopy];
+  }
+
+  v13 = [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers objectForKeyedSubscript:failedCopy];
+  [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers setObject:0 forKeyedSubscript:failedCopy];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1A82C872C;
+  v24[3] = &unk_1E78115F0;
+  v14 = dCopy;
+  v25 = v14;
+  v15 = errorCopy;
+  v26 = v15;
+  [v13 enumerateObjectsUsingBlock:v24];
+  v16 = [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers objectForKeyedSubscript:failedCopy];
+  [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers setObject:0 forKeyedSubscript:failedCopy];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1A82C874C;
+  v20[3] = &unk_1E7811618;
+  v21 = failedCopy;
+  v22 = v14;
+  v23 = v15;
+  v17 = v15;
+  v18 = v14;
+  v19 = failedCopy;
+  [v16 enumerateObjectsUsingBlock:v20];
+}
+
+- (void)_handleFileTransferDownloadSucceededWithLocalURL:(id)l
+{
+  v13 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v11 = 138412290;
+      v12 = lCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Re-Download for transfer at URL %@ succeeded", &v11, 0xCu);
+    }
+  }
+
+  redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
+  absoluteString = [lCopy absoluteString];
+  v8 = [(NSMutableDictionary *)redownloadlocalFilesWithURLCompletionHandlers objectForKeyedSubscript:absoluteString];
+
+  localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
+  absoluteString2 = [lCopy absoluteString];
+  [(NSMutableDictionary *)localFileURLRetrievalCompletionHandlers setObject:0 forKeyedSubscript:absoluteString2];
+
+  [v8 enumerateObjectsUsingBlock:&unk_1F1B6E360];
+}
+
+- (void)_handleFileTransferDownloadFailedWithLocalURL:(id)l error:(id)error
+{
+  v22 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  errorCopy = error;
+  if (IMOSLoggingEnabled())
+  {
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v9 = [errorCopy description];
+      *buf = 138412546;
+      v19 = lCopy;
+      v20 = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Re-Download for transfer at URL %@ failed %@", buf, 0x16u);
+    }
+  }
+
+  redownloadlocalFilesWithURLCompletionHandlers = self->_redownloadlocalFilesWithURLCompletionHandlers;
+  absoluteString = [lCopy absoluteString];
+  v12 = [(NSMutableDictionary *)redownloadlocalFilesWithURLCompletionHandlers objectForKeyedSubscript:absoluteString];
+
+  localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
+  absoluteString2 = [lCopy absoluteString];
+  [(NSMutableDictionary *)localFileURLRetrievalCompletionHandlers setObject:0 forKeyedSubscript:absoluteString2];
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1A82C8AA8;
+  v16[3] = &unk_1E7811660;
+  v17 = errorCopy;
+  v15 = errorCopy;
+  [v12 enumerateObjectsUsingBlock:v16];
+}
+
+- (void)setAuxImageForTransfer:(id)transfer value:(BOOL)value
+{
+  valueCopy = value;
+  v18 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = @"NO";
+      if (valueCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Setting Aux image to %@ for transfer %@", &v14, 0x16u);
+    }
+  }
+
+  v9 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  [v9 setIsAuxImage:valueCopy];
+  v10 = +[IMDaemonController sharedController];
+  remoteDaemon = [v10 remoteDaemon];
+  _dictionaryRepresentation = [v9 _dictionaryRepresentation];
+  [remoteDaemon fileTransfer:transferCopy updatedWithProperties:_dictionaryRepresentation];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v9];
+}
+
+- (void)setAuxVideoForTransfer:(id)transfer value:(BOOL)value
+{
+  valueCopy = value;
+  v18 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = @"NO";
+      if (valueCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Setting Aux video to %@ for transfer %@", &v14, 0x16u);
+    }
+  }
+
+  v9 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  [v9 setIsAuxVideo:valueCopy];
+  v10 = +[IMDaemonController sharedController];
+  remoteDaemon = [v10 remoteDaemon];
+  _dictionaryRepresentation = [v9 _dictionaryRepresentation];
+  [remoteDaemon fileTransfer:transferCopy updatedWithProperties:_dictionaryRepresentation];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v9];
+}
+
+- (void)setCommSafetySensitiveForTransfer:(id)transfer value:(int64_t)value
+{
+  v18 = *MEMORY[0x1E69E9840];
+  transferCopy = transfer;
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = [MEMORY[0x1E696AD98] numberWithInteger:value];
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = transferCopy;
+      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Setting Communication Safety Sensitivity to %@ for transfer %@", &v14, 0x16u);
+    }
+  }
+
+  v9 = [(IMFileTransferCenter *)self transferForGUID:transferCopy];
+  [v9 setCommSafetySensitive:value];
+  v10 = +[IMDaemonController sharedController];
+  remoteDaemon = [v10 remoteDaemon];
+  _dictionaryRepresentation = [v9 _dictionaryRepresentation];
+  [remoteDaemon fileTransfer:transferCopy updatedWithProperties:_dictionaryRepresentation];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMFileTransferUpdatedNotification" object:v9];
+}
+
+- (id)guidsForStoredAttachmentPayloadData:(id)data messageGUID:(id)d
+{
+  v39 = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  dCopy = d;
+  v26 = dataCopy;
+  if ([dataCopy count])
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    obj = v26;
+    v7 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+    if (v7)
+    {
+      v29 = *v33;
+      v28 = *MEMORY[0x1E69A7020];
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v33 != v29)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v9 = *(*(&v32 + 1) + 8 * v8);
+          stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
+          v11 = [stringGUID stringByAppendingPathExtension:v28];
+
+          if (IMIsRunningInMessages() & 1) != 0 || (IMIsRunningInMobileSMS() & 1) != 0 || (IMIsRunningInIMDPersistenceAgent())
+          {
+            defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+            v13 = [defaultManager im_randomTemporaryFileURLWithFileName:v11];
+            path = [v13 path];
+          }
+
+          else
+          {
+            defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+            path = [defaultManager _randomTemporaryPathWithSuffix:v11 withAppendedPathComponent:@"com.apple.MobileSMS"];
+          }
+
+          stringByResolvingAndStandardizingPath = [path stringByResolvingAndStandardizingPath];
+
+          v31 = 0;
+          v16 = [v9 writeToFile:stringByResolvingAndStandardizingPath options:1 error:&v31];
+          v17 = v31;
+          if ((v16 & 1) == 0 && IMOSLoggingEnabled())
+          {
+            v18 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+            {
+              *buf = 138412290;
+              v37 = v17;
+              _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "MessageService Failed writing attachment to disk on incoming: %@", buf, 0xCu);
+            }
+          }
+
+          v19 = [MEMORY[0x1E695DFF8] fileURLWithPath:stringByResolvingAndStandardizingPath isDirectory:0];
+          v20 = [(IMFileTransferCenter *)self createNewOutgoingTransferWithLocalFileURL:v19];
+          v21 = +[IMFileTransferCenter sharedInstance];
+          v22 = [v21 transferForGUID:v20];
+
+          if (v22)
+          {
+            [v22 setHideAttachment:1];
+          }
+
+          if (array && v20)
+          {
+            CFArrayAppendValue(array, v20);
+          }
+
+          ++v8;
+        }
+
+        while (v7 != v8);
+        v23 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v7 = v23;
+      }
+
+      while (v23);
+    }
+  }
+
+  else
+  {
+    array = MEMORY[0x1E695E0F0];
+  }
+
+  return array;
 }
 
 - (void)fetchHighQualityVariantForTransfer:(id)transfer completion:(id)completion
@@ -2194,19 +2260,19 @@ LABEL_15:
   completionCopy = completion;
   if (transferCopy)
   {
-    v10 = objc_msgSend_guid(transferCopy, v7, v8);
-    objc_msgSend__fetchHighQualityVariantForTransferGUID_completion_(self, v11, v10, completionCopy);
+    guid = [transferCopy guid];
+    [(IMFileTransferCenter *)self _fetchHighQualityVariantForTransferGUID:guid completion:completionCopy];
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "fetchHighQualityVariantForTransfer:completion: was given no transfer", v13, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "fetchHighQualityVariantForTransfer:completion: was given no transfer", v10, 2u);
       }
     }
 
@@ -2221,15 +2287,15 @@ LABEL_15:
 {
   dCopy = d;
   completionCopy = completion;
-  v10 = completionCopy;
+  v8 = completionCopy;
   if (dCopy)
   {
     if (completionCopy)
     {
       if (!self->_disconnectionListenerSetUp)
       {
-        v11 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-        objc_msgSend_addObserver_selector_name_object_(v11, v12, self, sel__daemonDisconnected_, @"__kIMDaemonDidDisconnectNotification", 0);
+        defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+        [defaultCenter addObserver:self selector:sel__daemonDisconnected_ name:@"__kIMDaemonDidDisconnectNotification" object:0];
 
         self->_disconnectionListenerSetUp = 1;
       }
@@ -2237,44 +2303,44 @@ LABEL_15:
       fetchHighQualityVariantCompletionHandlers = self->_fetchHighQualityVariantCompletionHandlers;
       if (!fetchHighQualityVariantCompletionHandlers)
       {
-        v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v15 = self->_fetchHighQualityVariantCompletionHandlers;
-        self->_fetchHighQualityVariantCompletionHandlers = v14;
+        v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v12 = self->_fetchHighQualityVariantCompletionHandlers;
+        self->_fetchHighQualityVariantCompletionHandlers = v11;
 
         fetchHighQualityVariantCompletionHandlers = self->_fetchHighQualityVariantCompletionHandlers;
       }
 
-      v16 = objc_msgSend_objectForKeyedSubscript_(fetchHighQualityVariantCompletionHandlers, v8, dCopy);
+      v13 = [(NSMutableDictionary *)fetchHighQualityVariantCompletionHandlers objectForKeyedSubscript:dCopy];
 
-      if (!v16)
+      if (!v13)
       {
-        v19 = objc_msgSend_array(MEMORY[0x1E695DF70], v17, v18);
-        objc_msgSend_setObject_forKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v20, v19, dCopy);
+        array = [MEMORY[0x1E695DF70] array];
+        [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers setObject:array forKeyedSubscript:dCopy];
       }
 
-      v21 = objc_msgSend_objectForKeyedSubscript_(self->_fetchHighQualityVariantCompletionHandlers, v17, dCopy);
-      v22 = _Block_copy(v10);
-      objc_msgSend_addObject_(v21, v23, v22);
+      v15 = [(NSMutableDictionary *)self->_fetchHighQualityVariantCompletionHandlers objectForKeyedSubscript:dCopy];
+      v16 = _Block_copy(v8);
+      [v15 addObject:v16];
     }
 
-    objc_msgSend__initiateHighQualityVariantDownloadWithDaemonForGUID_(self, v8, dCopy);
+    [(IMFileTransferCenter *)self _initiateHighQualityVariantDownloadWithDaemonForGUID:dCopy];
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "fetchHighQualityVariantForTransfer:completion: was given no transfer guid", v25, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_1A823F000, v17, OS_LOG_TYPE_INFO, "fetchHighQualityVariantForTransfer:completion: was given no transfer guid", v18, 2u);
       }
     }
 
-    if (v10)
+    if (v8)
     {
-      v10[2](v10, 0, 0);
+      v8[2](v8, 0, 0);
     }
   }
 }
@@ -2282,114 +2348,112 @@ LABEL_15:
 - (void)_initiateHighQualityVariantDownloadWithDaemonForGUID:(id)d
 {
   dCopy = d;
-  v10 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v8 = objc_msgSend_remoteDaemon(v10, v6, v7);
-  objc_msgSend_downloadHighQualityVariantOfFileTransferWithGUID_(v8, v9, dCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon downloadHighQualityVariantOfFileTransferWithGUID:dCopy];
 }
 
 - (void)_daemonRestarted:(id)restarted
 {
   fetchHighQualityVariantCompletionHandlers = self->_fetchHighQualityVariantCompletionHandlers;
   self->_fetchHighQualityVariantCompletionHandlers = 0;
-  v5 = fetchHighQualityVariantCompletionHandlers;
+  v4 = fetchHighQualityVariantCompletionHandlers;
 
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v5, v4, &unk_1F1B6E380);
+  [(NSMutableDictionary *)v4 enumerateKeysAndObjectsUsingBlock:&unk_1F1B6E380];
 }
 
 - (void)_daemonDisconnected:(id)disconnected
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
   v5 = *MEMORY[0x1E69A7000];
-  v31[0] = *MEMORY[0x1E696A578];
-  v6 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], a2, disconnected);
-  v8 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"File transfer local file URL retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-  v32[0] = v8;
-  v31[1] = *MEMORY[0x1E696A588];
-  v11 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v9, v10);
-  v13 = objc_msgSend_localizedStringForKey_value_table_(v11, v12, @"The daemon disconnected.", &stru_1F1B76F98, 0);
-  v32[1] = v13;
-  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v14, v32, v31, 2);
-  v17 = objc_msgSend_errorWithDomain_code_userInfo_(v4, v16, v5, 24, v15);
+  v22[0] = *MEMORY[0x1E696A578];
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  v7 = [mainBundle localizedStringForKey:@"File transfer local file URL retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+  v23[0] = v7;
+  v22[1] = *MEMORY[0x1E696A588];
+  mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
+  v9 = [mainBundle2 localizedStringForKey:@"The daemon disconnected." value:&stru_1F1B76F98 table:0];
+  v23[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v11 = [v4 errorWithDomain:v5 code:24 userInfo:v10];
 
   localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
   self->_localFileURLRetrievalCompletionHandlers = 0;
-  v19 = localFileURLRetrievalCompletionHandlers;
+  v13 = localFileURLRetrievalCompletionHandlers;
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = sub_1A82C994C;
-  v29[3] = &unk_1E78116D0;
-  v20 = v17;
-  v30 = v20;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v19, v21, v29);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1A82C994C;
+  v20[3] = &unk_1E78116D0;
+  v14 = v11;
+  v21 = v14;
+  [(NSMutableDictionary *)v13 enumerateKeysAndObjectsUsingBlock:v20];
   localFileURLRetrievalWithGuidCompletionHandlers = self->_localFileURLRetrievalWithGuidCompletionHandlers;
   self->_localFileURLRetrievalWithGuidCompletionHandlers = 0;
-  v23 = localFileURLRetrievalWithGuidCompletionHandlers;
+  v16 = localFileURLRetrievalWithGuidCompletionHandlers;
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = sub_1A82C99FC;
-  v27[3] = &unk_1E78116D0;
-  v28 = v20;
-  v24 = v20;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v23, v25, v27);
-
-  v26 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1A82C99FC;
+  v18[3] = &unk_1E78116D0;
+  v19 = v14;
+  v17 = v14;
+  [(NSMutableDictionary *)v16 enumerateKeysAndObjectsUsingBlock:v18];
 }
 
 - (void)preWarmConnection
 {
   if (IMOSLoggingEnabled())
   {
-    v4 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "IMTransferCenter is asked for prewarm", v11, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A823F000, v2, OS_LOG_TYPE_INFO, "IMTransferCenter is asked for prewarm", v5, 2u);
     }
   }
 
-  v5 = objc_msgSend_sharedController(IMDaemonController, v2, v3);
-  v8 = objc_msgSend_remoteDaemon(v5, v6, v7);
-  objc_msgSend_preWarm(v8, v9, v10);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon preWarm];
 }
 
 - (void)retrieveLocalFileURLForFileTransferWithGUID:(id)d options:(int64_t)options completion:(id)completion
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  if (objc_msgSend_length(dCopy, v10, v11))
+  if ([dCopy length])
   {
-    v13 = objc_msgSend_transferForGUID_(self, v12, dCopy);
-    if (objc_msgSend_existsAtLocalPath(v13, v14, v15))
+    v10 = [(IMFileTransferCenter *)self transferForGUID:dCopy];
+    if ([v10 existsAtLocalPath])
     {
       if (completionCopy)
       {
-        v18 = objc_msgSend_localPath(v13, v16, v17);
-        v21 = objc_msgSend_localPath(v13, v19, v20);
-        v24 = objc_msgSend_im_livePhotoBundlePath(v21, v22, v23);
-        (*(completionCopy + 2))(completionCopy, 1, 0, v18, v24, 0);
+        localPath = [v10 localPath];
+        localPath2 = [v10 localPath];
+        im_livePhotoBundlePath = [localPath2 im_livePhotoBundlePath];
+        (*(completionCopy + 2))(completionCopy, 1, 0, localPath, im_livePhotoBundlePath, 0);
       }
     }
 
-    else if (objc_msgSend_isInThumbnailState(v13, v16, v17))
+    else if ([v10 isInThumbnailState])
     {
       if (completionCopy)
       {
-        v42 = MEMORY[0x1E696ABC0];
-        v43 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v40, v41, *MEMORY[0x1E696A578]);
-        v45 = objc_msgSend_localizedStringForKey_value_table_(v43, v44, @"File transfer local file url retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-        v70[0] = v45;
-        v69[1] = *MEMORY[0x1E696A588];
-        v48 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v46, v47);
-        v50 = objc_msgSend_localizedStringForKey_value_table_(v48, v49, @"The given GUID references an attachment which is in thumbnail state. You don't want to analyze this, Skip and retry later, user did not tap to downloaded.", &stru_1F1B76F98, 0);
-        v70[1] = v50;
-        v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v51, v70, v69, 2);
-        v54 = objc_msgSend_errorWithDomain_code_userInfo_(v42, v53, *MEMORY[0x1E69A7008], 24, v52);
+        v21 = MEMORY[0x1E696ABC0];
+        mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+        v23 = [mainBundle localizedStringForKey:@"File transfer local file url retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+        v37[0] = v23;
+        v36[1] = *MEMORY[0x1E696A588];
+        mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
+        v25 = [mainBundle2 localizedStringForKey:@"The given GUID references an attachment which is in thumbnail state. You don't want to analyze this value:Skip and retry later table:{user did not tap to downloaded.", &stru_1F1B76F98, 0}];
+        v37[1] = v25;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+        v27 = [v21 errorWithDomain:*MEMORY[0x1E69A7008] code:24 userInfo:v26];
 
-        (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, v54);
+        (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, v27);
       }
     }
 
@@ -2399,8 +2463,8 @@ LABEL_15:
       {
         if (!self->_disconnectionListenerSetUp)
         {
-          v55 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v40, v41);
-          objc_msgSend_addObserver_selector_name_object_(v55, v56, self, sel__daemonDisconnected_, @"__kIMDaemonDidDisconnectNotification", 0);
+          defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+          [defaultCenter addObserver:self selector:sel__daemonDisconnected_ name:@"__kIMDaemonDidDisconnectNotification" object:0];
 
           self->_disconnectionListenerSetUp = 1;
         }
@@ -2408,27 +2472,27 @@ LABEL_15:
         localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
         if (!localFileURLRetrievalCompletionHandlers)
         {
-          v58 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v59 = self->_localFileURLRetrievalCompletionHandlers;
-          self->_localFileURLRetrievalCompletionHandlers = v58;
+          v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v31 = self->_localFileURLRetrievalCompletionHandlers;
+          self->_localFileURLRetrievalCompletionHandlers = v30;
 
           localFileURLRetrievalCompletionHandlers = self->_localFileURLRetrievalCompletionHandlers;
         }
 
-        v60 = objc_msgSend_objectForKeyedSubscript_(localFileURLRetrievalCompletionHandlers, v40, dCopy);
+        v32 = [(NSMutableDictionary *)localFileURLRetrievalCompletionHandlers objectForKeyedSubscript:dCopy];
 
-        if (!v60)
+        if (!v32)
         {
-          v63 = objc_msgSend_array(MEMORY[0x1E695DF70], v61, v62);
-          objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v64, v63, dCopy);
+          array = [MEMORY[0x1E695DF70] array];
+          [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers setObject:array forKeyedSubscript:dCopy];
         }
 
-        v65 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalCompletionHandlers, v61, dCopy);
-        v66 = _Block_copy(completionCopy);
-        objc_msgSend_addObject_(v65, v67, v66);
+        v34 = [(NSMutableDictionary *)self->_localFileURLRetrievalCompletionHandlers objectForKeyedSubscript:dCopy];
+        v35 = _Block_copy(completionCopy);
+        [v34 addObject:v35];
       }
 
-      objc_msgSend__initiateLocalFileURLRetrievalInDaemonForGUID_options_(self, v40, dCopy, options);
+      [(IMFileTransferCenter *)self _initiateLocalFileURLRetrievalInDaemonForGUID:dCopy options:options];
     }
 
     goto LABEL_23;
@@ -2436,105 +2500,103 @@ LABEL_15:
 
   if (IMOSLoggingEnabled())
   {
-    v27 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v74 = "[IMFileTransferCenter retrieveLocalFileURLForFileTransferWithGUID:options:completion:]";
-      _os_log_impl(&dword_1A823F000, v27, OS_LOG_TYPE_INFO, "%s was given no transfer guid", buf, 0xCu);
+      v41 = "[IMFileTransferCenter retrieveLocalFileURLForFileTransferWithGUID:options:completion:]";
+      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "%s was given no transfer guid", buf, 0xCu);
     }
   }
 
   if (completionCopy)
   {
-    v28 = MEMORY[0x1E696ABC0];
-    v71[0] = *MEMORY[0x1E696A578];
-    v29 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v25, v26);
-    v31 = objc_msgSend_localizedStringForKey_value_table_(v29, v30, @"File transfer local file url retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-    v72[0] = v31;
-    v71[1] = *MEMORY[0x1E696A588];
-    v34 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v32, v33);
-    v36 = objc_msgSend_localizedStringForKey_value_table_(v34, v35, @"The given GUID was empty.", &stru_1F1B76F98, 0);
-    v72[1] = v36;
-    v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, v72, v71, 2);
-    v13 = objc_msgSend_errorWithDomain_code_userInfo_(v28, v39, *MEMORY[0x1E69A7008], 24, v38);
+    v15 = MEMORY[0x1E696ABC0];
+    v38[0] = *MEMORY[0x1E696A578];
+    mainBundle3 = [MEMORY[0x1E696AAE8] mainBundle];
+    v17 = [mainBundle3 localizedStringForKey:@"File transfer local file url retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+    v39[0] = v17;
+    v38[1] = *MEMORY[0x1E696A588];
+    mainBundle4 = [MEMORY[0x1E696AAE8] mainBundle];
+    v19 = [mainBundle4 localizedStringForKey:@"The given GUID was empty." value:&stru_1F1B76F98 table:0];
+    v39[1] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v10 = [v15 errorWithDomain:*MEMORY[0x1E69A7008] code:24 userInfo:v20];
 
-    (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, v13);
+    (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, v10);
 LABEL_23:
   }
-
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveLocalFileURLForFileTransferWithGUIDs:(id)ds options:(int64_t)options completion:(id)completion
 {
   optionsCopy = options;
-  v90 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
-  v71 = dsCopy;
-  if (objc_msgSend_count(dsCopy, v9, v10))
+  v36 = dsCopy;
+  if ([dsCopy count])
   {
-    v75 = objc_opt_new();
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
+    v40 = objc_opt_new();
+    v44 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = dsCopy;
-    v78 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v79, v85, 16);
-    if (!v78)
+    v43 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+    if (!v43)
     {
       goto LABEL_21;
     }
 
-    v77 = *v80;
-    v72 = *MEMORY[0x1E69A7008];
-    v74 = *MEMORY[0x1E696A578];
-    v73 = *MEMORY[0x1E696A588];
+    v42 = *v45;
+    v37 = *MEMORY[0x1E69A7008];
+    v39 = *MEMORY[0x1E696A578];
+    v38 = *MEMORY[0x1E696A588];
     while (1)
     {
-      for (i = 0; i != v78; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v80 != v77)
+        if (*v45 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v79 + 1) + 8 * i);
-        v15 = objc_msgSend_transferForGUID_(self, v12, v14);
-        if (((completionCopy != 0) & objc_msgSend_existsAtLocalPath(v15, v16, v17)) == 1)
+        v10 = *(*(&v44 + 1) + 8 * i);
+        v11 = [(IMFileTransferCenter *)self transferForGUID:v10];
+        if (((completionCopy != 0) & [v11 existsAtLocalPath]) == 1)
         {
-          v20 = objc_msgSend_localPath(v15, v18, v19);
-          v23 = objc_msgSend_localPath(v15, v21, v22);
-          v26 = objc_msgSend_im_livePhotoBundlePath(v23, v24, v25);
-          (*(completionCopy + 2))(completionCopy, 1, v14, 0, v20, v26, 0);
+          localPath = [v11 localPath];
+          localPath2 = [v11 localPath];
+          im_livePhotoBundlePath = [localPath2 im_livePhotoBundlePath];
+          (*(completionCopy + 2))(completionCopy, 1, v10, 0, localPath, im_livePhotoBundlePath, 0);
         }
 
-        else if (objc_msgSend_isInThumbnailState(v15, v18, v19))
+        else if ([v11 isInThumbnailState])
         {
           if (!completionCopy)
           {
             goto LABEL_19;
           }
 
-          v29 = MEMORY[0x1E696ABC0];
-          v83[0] = v74;
-          v30 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v27, v28);
-          v32 = objc_msgSend_localizedStringForKey_value_table_(v30, v31, @"File transfer local file url retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-          v83[1] = v73;
-          v84[0] = v32;
-          v35 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v33, v34);
-          v37 = objc_msgSend_localizedStringForKey_value_table_(v35, v36, @"The given GUID references an attachment which is in thumbnail state. You don't want to analyze this, Skip and retry later, user did not tap to downloaded.", &stru_1F1B76F98, 0);
-          v84[1] = v37;
-          v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v38, v84, v83, 2);
-          v20 = objc_msgSend_errorWithDomain_code_userInfo_(v29, v40, v72, 24, v39);
+          v15 = MEMORY[0x1E696ABC0];
+          v48[0] = v39;
+          mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+          v17 = [mainBundle localizedStringForKey:@"File transfer local file url retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+          v48[1] = v38;
+          v49[0] = v17;
+          mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
+          v19 = [mainBundle2 localizedStringForKey:@"The given GUID references an attachment which is in thumbnail state. You don't want to analyze this value:Skip and retry later table:{user did not tap to downloaded.", &stru_1F1B76F98, 0}];
+          v49[1] = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+          localPath = [v15 errorWithDomain:v37 code:24 userInfo:v20];
 
-          (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, 0, v20);
+          (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, 0, localPath);
         }
 
         else
         {
-          objc_msgSend_addObject_(v75, v27, v14);
+          [v40 addObject:v10];
           if (!completionCopy)
           {
             goto LABEL_19;
@@ -2543,36 +2605,36 @@ LABEL_23:
           localFileURLRetrievalWithGuidCompletionHandlers = self->_localFileURLRetrievalWithGuidCompletionHandlers;
           if (!localFileURLRetrievalWithGuidCompletionHandlers)
           {
-            v43 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            v44 = self->_localFileURLRetrievalWithGuidCompletionHandlers;
-            self->_localFileURLRetrievalWithGuidCompletionHandlers = v43;
+            v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            v23 = self->_localFileURLRetrievalWithGuidCompletionHandlers;
+            self->_localFileURLRetrievalWithGuidCompletionHandlers = v22;
 
             localFileURLRetrievalWithGuidCompletionHandlers = self->_localFileURLRetrievalWithGuidCompletionHandlers;
           }
 
-          v45 = objc_msgSend_objectForKeyedSubscript_(localFileURLRetrievalWithGuidCompletionHandlers, v41, v14, optionsCopy, v71);
-          v46 = v45 == 0;
+          v24 = [(NSMutableDictionary *)localFileURLRetrievalWithGuidCompletionHandlers objectForKeyedSubscript:v10, optionsCopy, v36];
+          v25 = v24 == 0;
 
-          if (v46)
+          if (v25)
           {
-            v49 = objc_msgSend_array(MEMORY[0x1E695DF70], v47, v48);
-            objc_msgSend_setObject_forKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v50, v49, v14);
+            array = [MEMORY[0x1E695DF70] array];
+            [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers setObject:array forKeyedSubscript:v10];
           }
 
-          v20 = objc_msgSend_objectForKeyedSubscript_(self->_localFileURLRetrievalWithGuidCompletionHandlers, v47, v14);
-          v51 = _Block_copy(completionCopy);
-          objc_msgSend_addObject_(v20, v52, v51);
+          localPath = [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers objectForKeyedSubscript:v10];
+          v27 = _Block_copy(completionCopy);
+          [localPath addObject:v27];
         }
 
 LABEL_19:
       }
 
-      v78 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v79, v85, 16);
-      if (!v78)
+      v43 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      if (!v43)
       {
 LABEL_21:
 
-        objc_msgSend__initiateLocalFileURLRetrievalInDaemonForGUIDs_options_(self, v53, v75, optionsCopy);
+        [(IMFileTransferCenter *)self _initiateLocalFileURLRetrievalInDaemonForGUIDs:v40 options:optionsCopy];
         goto LABEL_28;
       }
     }
@@ -2580,52 +2642,50 @@ LABEL_21:
 
   if (IMOSLoggingEnabled())
   {
-    v56 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v89 = "[IMFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-      _os_log_impl(&dword_1A823F000, v56, OS_LOG_TYPE_INFO, "%s was given no transfer guids", buf, 0xCu);
+      v54 = "[IMFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+      _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, "%s was given no transfer guids", buf, 0xCu);
     }
   }
 
   if (completionCopy)
   {
-    v57 = MEMORY[0x1E696ABC0];
-    v86[0] = *MEMORY[0x1E696A578];
-    v58 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v54, v55);
-    v60 = objc_msgSend_localizedStringForKey_value_table_(v58, v59, @"File transfer local file urls retrieval operation was unsuccessful.", &stru_1F1B76F98, 0);
-    v87[0] = v60;
-    v86[1] = *MEMORY[0x1E696A588];
-    v63 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v61, v62);
-    v65 = objc_msgSend_localizedStringForKey_value_table_(v63, v64, @"The given GUIDs was empty.", &stru_1F1B76F98, 0);
-    v87[1] = v65;
-    v67 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v66, v87, v86, 2);
-    v75 = objc_msgSend_errorWithDomain_code_userInfo_(v57, v68, *MEMORY[0x1E69A7008], 24, v67);
+    v29 = MEMORY[0x1E696ABC0];
+    v51[0] = *MEMORY[0x1E696A578];
+    mainBundle3 = [MEMORY[0x1E696AAE8] mainBundle];
+    v31 = [mainBundle3 localizedStringForKey:@"File transfer local file urls retrieval operation was unsuccessful." value:&stru_1F1B76F98 table:0];
+    v52[0] = v31;
+    v51[1] = *MEMORY[0x1E696A588];
+    mainBundle4 = [MEMORY[0x1E696AAE8] mainBundle];
+    v33 = [mainBundle4 localizedStringForKey:@"The given GUIDs was empty." value:&stru_1F1B76F98 table:0];
+    v52[1] = v33;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v40 = [v29 errorWithDomain:*MEMORY[0x1E69A7008] code:24 userInfo:v34];
 
-    (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, 0, v75);
+    (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, 0, v40);
 LABEL_28:
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initiateLocalFileURLRetrievalInDaemonForGUID:(id)d options:(int64_t)options
 {
   dCopy = d;
-  objc_msgSend__registerDaemonListenerIfNecessary(self, v7, v8);
-  v15 = objc_msgSend_sharedController(IMDaemonController, v9, v10);
-  v13 = objc_msgSend_remoteDaemon(v15, v11, v12);
-  objc_msgSend_retrieveLocalFileURLForFileTransferWithGUID_options_(v13, v14, dCopy, options);
+  [(IMFileTransferCenter *)self _registerDaemonListenerIfNecessary];
+  v8 = +[IMDaemonController sharedController];
+  remoteDaemon = [v8 remoteDaemon];
+  [remoteDaemon retrieveLocalFileURLForFileTransferWithGUID:dCopy options:options];
 }
 
 - (void)_initiateLocalFileURLRetrievalInDaemonForGUIDs:(id)ds options:(int64_t)options
 {
   dsCopy = ds;
-  objc_msgSend__registerDaemonListenerIfNecessary(self, v7, v8);
-  v15 = objc_msgSend_sharedController(IMDaemonController, v9, v10);
-  v13 = objc_msgSend_remoteDaemon(v15, v11, v12);
-  objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_(v13, v14, dsCopy, options);
+  [(IMFileTransferCenter *)self _registerDaemonListenerIfNecessary];
+  v8 = +[IMDaemonController sharedController];
+  remoteDaemon = [v8 remoteDaemon];
+  [remoteDaemon retrieveLocalFileURLForFileTransferWithGUIDs:dsCopy options:options];
 }
 
 - (void)createItemForPHAssetWithUUID:(id)d parentChatItemGUID:(id)iD chatGUID:(id)uID
@@ -2633,9 +2693,9 @@ LABEL_28:
   uIDCopy = uID;
   iDCopy = iD;
   dCopy = d;
-  v16 = objc_msgSend_sharedController(IMDaemonController, v10, v11);
-  v14 = objc_msgSend_remoteDaemon(v16, v12, v13);
-  objc_msgSend_createItemForPHAssetWithUUID_parentChatItemGUID_chatGUID_(v14, v15, dCopy, iDCopy, uIDCopy);
+  v11 = +[IMDaemonController sharedController];
+  remoteDaemon = [v11 remoteDaemon];
+  [remoteDaemon createItemForPHAssetWithUUID:dCopy parentChatItemGUID:iDCopy chatGUID:uIDCopy];
 }
 
 - (void)_registerDaemonListenerIfNecessary
@@ -2643,19 +2703,19 @@ LABEL_28:
   daemonConnection = self->_daemonConnection;
   if (!daemonConnection)
   {
-    v5 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], a2, v2);
-    v8 = objc_msgSend_bundleIdentifier(v5, v6, v7);
+    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+    bundleIdentifier = [mainBundle bundleIdentifier];
 
-    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v9, @"%@-IMFileTransferCenter", v8);
-    v13 = objc_msgSend_sharedController(IMDaemonController, v11, v12);
-    v15 = objc_msgSend_multiplexedConnectionWithLabel_capabilities_context_(v13, v14, v10, 0x10000000, 0);
-    v16 = self->_daemonConnection;
-    self->_daemonConnection = v15;
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-IMFileTransferCenter", bundleIdentifier];
+    v7 = +[IMDaemonController sharedController];
+    v8 = [v7 multiplexedConnectionWithLabel:v6 capabilities:0x10000000 context:0];
+    v9 = self->_daemonConnection;
+    self->_daemonConnection = v8;
 
     daemonConnection = self->_daemonConnection;
   }
 
-  objc_msgSend_waitForSetup(daemonConnection, a2, v2);
+  [(IMDaemonMultiplexedConnectionManaging *)daemonConnection waitForSetup];
 }
 
 @end

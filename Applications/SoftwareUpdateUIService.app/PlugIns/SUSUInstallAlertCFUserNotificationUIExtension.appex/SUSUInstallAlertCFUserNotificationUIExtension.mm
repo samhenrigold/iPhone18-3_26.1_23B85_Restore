@@ -42,13 +42,14 @@ id sub_100001DCC(uint64_t a1)
   return result;
 }
 
-id sub_100001F80(uint64_t a1, int a2)
+id sub_100001F80(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = SUSUILogExtension();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"failed";
-    if (a2)
+    if (v2)
     {
       v5 = @"Success";
     }

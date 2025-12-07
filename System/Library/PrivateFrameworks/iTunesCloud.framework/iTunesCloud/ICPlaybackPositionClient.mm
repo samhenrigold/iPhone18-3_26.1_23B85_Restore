@@ -50,9 +50,11 @@
 
 uint64_t __41__ICPlaybackPositionClient_sharedService__block_invoke()
 {
-  sharedService___sharedService = objc_alloc_init(ICPlaybackPositionClient);
+  v0 = objc_alloc_init(ICPlaybackPositionClient);
+  v1 = sharedService___sharedService;
+  sharedService___sharedService = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)synchronizePlaybackPositions

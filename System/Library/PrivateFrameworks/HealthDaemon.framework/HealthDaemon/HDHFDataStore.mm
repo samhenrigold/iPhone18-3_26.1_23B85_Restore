@@ -193,17 +193,9 @@
   return v15;
 }
 
-void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowCheckpoint_error___block_invoke(uint64_t a1)
-{
-  *(a1 + 56);
-  [*(a1 + 32) fileSystemRepresentation];
-  v2 = *(a1 + 48);
-  operator new();
-}
-
 - (BOOL)moveHFDAsideWithoutOverwritingFrom:(id)from to:(id)to error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   if (([(HDHFDataStore *)self _moveFileOnlyIfDestinationEmptyFromURL:fromCopy toURL:toCopy error:error]& 1) != 0)
@@ -217,10 +209,10 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
       v13 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v18 = *error;
-        v19 = 138543362;
-        v20 = v18;
-        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to move production HFD WAL aside (%{public}@)", &v19, 0xCu);
+        v17 = *error;
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to move production HFD WAL aside (%{public}@)", &v18, 0xCu);
       }
     }
   }
@@ -231,22 +223,21 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
     v14 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v17 = *error;
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to move production HFD aside (%{public}@)", &v19, 0xCu);
+      v16 = *error;
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to move production HFD aside (%{public}@)", &v18, 0xCu);
     }
 
     v12 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)deleteHFDAt:(id)at error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   atCopy = at;
   if (([(HDHFDataStore *)self _deleteFileAtURL:atCopy error:error]& 1) != 0)
   {
@@ -258,12 +249,12 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
       v9 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v14 = *error;
-        v15 = 138543618;
-        v16 = v7;
-        v17 = 2114;
-        v18 = v14;
-        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to delete HFD WAL at '%{public}@' (%{public}@)", &v15, 0x16u);
+        v13 = *error;
+        v14 = 138543618;
+        v15 = v7;
+        v16 = 2114;
+        v17 = v13;
+        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to delete HFD WAL at '%{public}@' (%{public}@)", &v14, 0x16u);
       }
     }
   }
@@ -274,18 +265,17 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
     v10 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v13 = *error;
-      v15 = 138543618;
-      v16 = atCopy;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Failed to delete HFD at '%{public}@' (%{public}@)", &v15, 0x16u);
+      v12 = *error;
+      v14 = 138543618;
+      v15 = atCopy;
+      v16 = 2114;
+      v17 = v12;
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Failed to delete HFD at '%{public}@' (%{public}@)", &v14, 0x16u);
     }
 
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -385,55 +375,53 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     v6 = v5;
-    fileSystemPath = self->_fileSystemPath;
-    v8 = atomic_load(&self->_invalidated);
-    if (v8)
+    v7 = atomic_load(&self->_invalidated);
+    if (v7)
     {
-      v9 = "INVALIDATED";
+      v8 = "INVALIDATED";
     }
 
     else
     {
-      v9 = "";
+      v8 = "";
     }
 
-    v10 = [v3 stringWithFormat:@"<%@:%p %@ %s OPEN>", v5, self, self->_fileSystemPath, v9];
+    v9 = [v3 stringWithFormat:@"<%@:%p %@ %s OPEN>", v5, self, self->_fileSystemPath, v8];
   }
 
   else
   {
-    v11 = atomic_load(&self->_hasOpenStore);
-    v12 = MEMORY[0x277CCACA8];
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v6 = v14;
-    v15 = self->_fileSystemPath;
-    v16 = atomic_load(&self->_invalidated);
-    if (v16)
+    v10 = atomic_load(&self->_hasOpenStore);
+    v11 = MEMORY[0x277CCACA8];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v6 = v13;
+    v14 = atomic_load(&self->_invalidated);
+    if (v14)
     {
-      v17 = "INVALIDATED";
+      v15 = "INVALIDATED";
     }
 
     else
     {
-      v17 = "";
+      v15 = "";
     }
 
-    if (v11)
+    if (v10)
     {
-      [v12 stringWithFormat:@"<%@:%p %@ %s PENDING DISCARD>", v14, self, self->_fileSystemPath, v17];
+      [v11 stringWithFormat:@"<%@:%p %@ %s PENDING DISCARD>", v13, self, self->_fileSystemPath, v15];
     }
 
     else
     {
-      [v12 stringWithFormat:@"<%@:%p %@ %s closed>", v14, self, self->_fileSystemPath, v17];
+      [v11 stringWithFormat:@"<%@:%p %@ %s closed>", v13, self, self->_fileSystemPath, v15];
     }
-    v10 = ;
+    v9 = ;
   }
 
-  v18 = v10;
+  v16 = v9;
 
-  return v18;
+  return v16;
 }
 
 - (id)diagnosticDescription
@@ -597,17 +585,17 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
 
 - (void)flushForInvalidation:(BOOL)invalidation
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x4012000000;
-  v9 = __Block_byref_object_copy__153;
-  v10 = __Block_byref_object_dispose__153;
-  v11 = &unk_22929BC4D;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x4012000000;
+  v8 = __Block_byref_object_copy__153;
+  v9 = __Block_byref_object_dispose__153;
+  v10 = &unk_22929BC4D;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
   HKWithUnfairLock();
-  if (v7[6])
+  if (v6[6])
   {
     _HKInitializeLogging();
     v4 = *MEMORY[0x277CCC2A0];
@@ -620,21 +608,19 @@ void __86__HDHFDataStore_HFDMigrationSupport__dataStoreAtURL_filesystem_allowChe
 
     atomic_store(0, &self->_hasOpenStore);
     _HDHFDataStoreWillCloseStore(self);
-    health::TransactionalFile::invalidate(v7[6]);
+    health::TransactionalFile::invalidate(v6[6]);
   }
 
-  _Block_object_dispose(&v6, 8);
-  if (v13)
+  _Block_object_dispose(&v5, 8);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HDHFDataStore_flushForInvalidation___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     atomic_store(1u, (*(a1 + 32) + 48));
@@ -645,9 +631,9 @@ void __38__HDHFDataStore_flushForInvalidation___block_invoke(uint64_t a1)
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v12 = 138543362;
-    v13 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Discarding store and preparing for flush.", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Discarding store and preparing for flush.", &v11, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -675,8 +661,6 @@ void __38__HDHFDataStore_flushForInvalidation___block_invoke(uint64_t a1)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)discardStoreWithError:(id *)error
@@ -722,7 +706,7 @@ void __38__HDHFDataStore_flushForInvalidation___block_invoke(uint64_t a1)
 
 void __39__HDHFDataStore_discardStoreWithError___block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2->_highFrequencyDataStore.__ptr_)
   {
@@ -752,9 +736,9 @@ void __39__HDHFDataStore_discardStoreWithError___block_invoke(void *a1)
     v10 = [v9 stringByAppendingPathExtension:@"hfd-wal"];
 
     v11 = *(a1[5] + 8);
-    v18 = *(v11 + 40);
-    v12 = [v5 removeItemAtPath:v10 error:&v18];
-    objc_storeStrong((v11 + 40), v18);
+    v17 = *(v11 + 40);
+    v12 = [v5 removeItemAtPath:v10 error:&v17];
+    objc_storeStrong((v11 + 40), v17);
     if (v12 & 1) != 0 || ([*(*(a1[5] + 8) + 40) hk_isCocoaNoSuchFileError])
     {
       *(*(a1[6] + 8) + 24) = 1;
@@ -766,9 +750,9 @@ void __39__HDHFDataStore_discardStoreWithError___block_invoke(void *a1)
       v15 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v17 = *(*(a1[5] + 8) + 40);
+        v16 = *(*(a1[5] + 8) + 40);
         *buf = 138543362;
-        v21 = v17;
+        v20 = v16;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Unable to delete HFD writeahead log (%{public}@)", buf, 0xCu);
       }
     }
@@ -782,12 +766,10 @@ void __39__HDHFDataStore_discardStoreWithError___block_invoke(void *a1)
     {
       v14 = *(*(a1[5] + 8) + 40);
       *buf = 138543362;
-      v21 = v14;
+      v20 = v14;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Unable to delete HFD (%{public}@)", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_createNewStore:(id *)store
@@ -830,41 +812,39 @@ void __39__HDHFDataStore_discardStoreWithError___block_invoke(void *a1)
 
 - (void)setRebuildState:(uint64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (state)
   {
     _HKInitializeLogging();
     v4 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
+      v6 = 138543618;
       stateCopy = state;
-      v9 = 2048;
-      v10 = a2;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated rebuild state: %ld", &v7, 0x16u);
+      v8 = 2048;
+      v9 = a2;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated rebuild state: %ld", &v6, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((state + 80));
     [WeakRetained HFDataStore:state setInteger:a2 forKey:@"HKHFDRebuildStage"];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   v3 = *(a1 + 32);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke_2;
-  v17[3] = &unk_27861CAE8;
-  v17[5] = *(a1 + 48);
-  v18 = 0;
-  v17[4] = v3;
-  v4 = [(HDHFDataStore *)v3 _convertExceptionsToError:v17 inBlock:?];
-  v5 = v18;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke_2;
+  v16[3] = &unk_27861CAE8;
+  v16[5] = *(a1 + 48);
+  v17 = 0;
+  v16[4] = v3;
+  v4 = [(HDHFDataStore *)v3 _convertExceptionsToError:v16 inBlock:?];
+  v5 = v17;
   if (v4)
   {
     _HKInitializeLogging();
@@ -875,11 +855,11 @@ void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___bl
       v8 = *(a1 + 64);
       v9 = CFAbsoluteTimeGetCurrent();
       *buf = 138543874;
-      v20 = v7;
-      v21 = 2048;
-      v22 = v8;
-      v23 = 2048;
-      v24 = v9 - Current;
+      v19 = v7;
+      v20 = 2048;
+      v21 = v8;
+      v22 = 2048;
+      v23 = v9 - Current;
       _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished constructing data store (%ld) in %0.3lfs", buf, 0x20u);
     }
   }
@@ -890,15 +870,15 @@ void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___bl
     v10 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 64);
-      v16 = CFAbsoluteTimeGetCurrent();
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 64);
+      v15 = CFAbsoluteTimeGetCurrent();
       *buf = 138543874;
-      v20 = v14;
-      v21 = 2048;
-      v22 = v15;
-      v23 = 2048;
-      v24 = v16 - Current;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v14;
+      v22 = 2048;
+      v23 = v15 - Current;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to construct data store (%ld) in %0.3lfs", buf, 0x20u);
     }
 
@@ -909,19 +889,11 @@ void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___bl
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke_2(uint64_t a1)
-{
-  [*(*(a1 + 32) + 88) UTF8String];
-  v2 = *(a1 + 32);
-  operator new();
 }
 
 - (uint64_t)_convertExceptionsToError:(void *)error inBlock:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = errorCopy;
   if (!self)
@@ -930,14 +902,14 @@ void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___bl
     goto LABEL_20;
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __51__HDHFDataStore__convertExceptionsToError_inBlock___block_invoke;
-  v34[3] = &unk_278627D40;
-  v35 = errorCopy;
-  v33 = 0;
-  v7 = hfd_catchExceptionsAsErrors(v34, &v33, 0);
-  v8 = v33;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __51__HDHFDataStore__convertExceptionsToError_inBlock___block_invoke;
+  v33[3] = &unk_278627D40;
+  v34 = errorCopy;
+  v32 = 0;
+  v7 = hfd_catchExceptionsAsErrors(v33, &v32, 0);
+  v8 = v32;
   v9 = v8;
   if ((v7 & 1) == 0)
   {
@@ -963,8 +935,8 @@ void __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___bl
       goto LABEL_16;
     }
 
-    v30 = [userInfo objectForKeyedSubscript:@"HKDatabaseFailureTypeKey"];
-    intValue = [v30 intValue];
+    v29 = [userInfo objectForKeyedSubscript:@"HKDatabaseFailureTypeKey"];
+    intValue = [v29 intValue];
     v14 = [userInfo objectForKey:@"HKDatabaseSuberrorKey"];
     v15 = v14;
     if (v14)
@@ -1029,14 +1001,14 @@ LABEL_14:
     if (intValue != 100)
     {
       _HKInitializeLogging();
-      v28 = *MEMORY[0x277CCC2A0];
+      v27 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v37 = v18;
-        v38 = 1024;
-        v39 = intValue2;
-        _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Unexpected failure type when considering rebuild request: %ld (%d)", buf, 0x12u);
+        v36 = v18;
+        v37 = 1024;
+        v38 = intValue2;
+        _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "Unexpected failure type when considering rebuild request: %ld (%d)", buf, 0x12u);
       }
     }
 
@@ -1046,15 +1018,14 @@ LABEL_14:
 LABEL_19:
 
 LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __50__HDHFDataStore__highFrequencyDataStoreWithError___block_invoke(void *a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v36 = 0;
+  v35 = 0;
   if (!v2)
   {
     goto LABEL_4;
@@ -1064,7 +1035,7 @@ void __50__HDHFDataStore__highFrequencyDataStoreWithError___block_invoke(void *a
   v3 = atomic_load((v2 + 48));
   if (v3)
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:&v36 code:100 format:@"HFD invalidated"];
+    [MEMORY[0x277CCA9B8] hk_assignError:&v35 code:100 format:@"HFD invalidated"];
 LABEL_4:
     v4 = 0;
     v5 = 0;
@@ -1092,83 +1063,83 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v11 = v2;
+  v10 = v2;
   *&block = MEMORY[0x277D85DD0];
   *(&block + 1) = 3221225472;
-  v51 = ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke;
-  v52 = &unk_278627D90;
-  v53 = v11;
+  v50 = ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke;
+  v51 = &unk_278627D90;
+  v52 = v10;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = ___ZL27_HDHFDataStoreWillOpenStoreP13HDHFDataStore_block_invoke_488;
-  v59 = &unk_278627D68;
-  v60 = v53;
-  v12 = v53;
+  v58 = &unk_278627D68;
+  v59 = v52;
+  v11 = v52;
   active = _WithActiveHFDataStores(&block, buf);
 
   if ((active & 1) == 0)
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:&v36 code:103 format:{@"%@: Reached timeout waiting for existing data store to close the HFD.", v12}];
+    [MEMORY[0x277CCA9B8] hk_assignError:&v35 code:103 format:{@"%@: Reached timeout waiting for existing data store to close the HFD.", v11}];
     _HKInitializeLogging();
-    v24 = *MEMORY[0x277CCC2A0];
+    v23 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
       LODWORD(block) = 138412290;
-      *(&block + 4) = v12;
-      _os_log_fault_impl(&dword_228986000, v24, OS_LOG_TYPE_FAULT, "%@: Reached timeout waiting for existing data store to close the HFD.", &block, 0xCu);
+      *(&block + 4) = v11;
+      _os_log_fault_impl(&dword_228986000, v23, OS_LOG_TYPE_FAULT, "%@: Reached timeout waiting for existing data store to close the HFD.", &block, 0xCu);
     }
 
     goto LABEL_4;
   }
 
   os_unfair_lock_assert_owner((v2 + 24));
-  openAttempt = v12->_openAttempt;
-  v12->_openAttempt = openAttempt + 1;
+  openAttempt = v11->_openAttempt;
+  v11->_openAttempt = openAttempt + 1;
   _HKInitializeLogging();
-  v15 = MEMORY[0x277CCC2A0];
-  v16 = *MEMORY[0x277CCC2A0];
+  v14 = MEMORY[0x277CCC2A0];
+  v15 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    *&buf[4] = v12;
+    *&buf[4] = v11;
     *&buf[12] = 2048;
     *&buf[14] = openAttempt;
-    _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Opening store (%ld)", buf, 0x16u);
+    _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Opening store (%ld)", buf, 0x16u);
   }
 
-  v43 = 0;
+  v42 = 0;
   os_unfair_lock_assert_owner((v2 + 24));
-  WeakRetained = objc_loadWeakRetained(&v12->_delegate);
-  v18 = [WeakRetained allowHFDMigration:v12];
+  WeakRetained = objc_loadWeakRetained(&v11->_delegate);
+  v17 = [WeakRetained allowHFDMigration:v11];
 
-  if (v18)
+  if (v17)
   {
     do
     {
-      v19 = [(HDHFDataStore *)v12 _lock_rebuildOneStep:?];
+      v18 = [(HDHFDataStore *)v11 _lock_rebuildOneStep:?];
     }
 
-    while (v19 == 3);
-    v20 = v43;
-    if (v19)
+    while (v18 == 3);
+    v19 = v42;
+    if (v18)
     {
       _HKInitializeLogging();
-      v21 = *v15;
-      if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+      v20 = *v14;
+      if (os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        *&buf[4] = v12;
+        *&buf[4] = v11;
         *&buf[12] = 2114;
-        *&buf[14] = v20;
-        _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@: Failed to migrate HFD during open: %{public}@", buf, 0x16u);
+        *&buf[14] = v19;
+        _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Failed to migrate HFD during open: %{public}@", buf, 0x16u);
       }
 
-      v22 = v20;
-      v20 = v22;
-      if (v22)
+      v21 = v19;
+      v19 = v21;
+      if (v21)
       {
-        v23 = v22;
-        v36 = v20;
+        v22 = v21;
+        v35 = v19;
       }
 
       goto LABEL_31;
@@ -1177,12 +1148,12 @@ LABEL_8:
 
   else
   {
-    v20 = v43;
+    v19 = v42;
   }
 
-  if ([(HDHFDataStore *)v12 rebuildState]== 100)
+  if ([(HDHFDataStore *)v11 rebuildState]== 100)
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:&v36 code:1104 description:@"Attempt to access the HFD after migration to SQLite and deletion of the HFD"];
+    [MEMORY[0x277CCA9B8] hk_assignError:&v35 code:1104 description:@"Attempt to access the HFD after migration to SQLite and deletion of the HFD"];
 LABEL_31:
 
     v5 = 0;
@@ -1192,45 +1163,45 @@ LABEL_31:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x4012000000;
-  v59 = __Block_byref_object_copy__153;
-  v60 = __Block_byref_object_dispose__153;
-  v61 = &unk_22929BC4D;
+  v58 = __Block_byref_object_copy__153;
+  v59 = __Block_byref_object_dispose__153;
+  v60 = &unk_22929BC4D;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__370;
-  v41 = __Block_byref_object_dispose__371;
-  v42 = 0;
-  v25 = dispatch_semaphore_create(0);
-  openQueue = v12->_openQueue;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__370;
+  v40 = __Block_byref_object_dispose__371;
+  v41 = 0;
+  v24 = dispatch_semaphore_create(0);
+  openQueue = v11->_openQueue;
   *&block = MEMORY[0x277D85DD0];
   *(&block + 1) = 3221225472;
-  v51 = __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke;
-  v52 = &unk_278627CF0;
-  v53 = v12;
-  v55 = buf;
-  v56 = &v37;
-  v57 = openAttempt;
-  v27 = v25;
-  v54 = v27;
+  v50 = __68__HDHFDataStore__lock_primitiveOpenHighFrequencyDataStoreWithError___block_invoke;
+  v51 = &unk_278627CF0;
+  v52 = v11;
+  v54 = buf;
+  v55 = &v36;
+  v56 = openAttempt;
+  v26 = v24;
+  v53 = v26;
   dispatch_async(openQueue, &block);
-  v28 = dispatch_time(0, 20000000000);
-  if (dispatch_semaphore_wait(v27, v28))
+  v27 = dispatch_time(0, 20000000000);
+  if (dispatch_semaphore_wait(v26, v27))
   {
     _HKInitializeLogging();
-    v29 = *v15;
-    if (os_log_type_enabled(*v15, OS_LOG_TYPE_FAULT))
+    v28 = *v14;
+    if (os_log_type_enabled(*v14, OS_LOG_TYPE_FAULT))
     {
-      *v44 = 138543362;
-      v45 = v12;
-      _os_log_fault_impl(&dword_228986000, v29, OS_LOG_TYPE_FAULT, "%{public}@: Timed out attempting to open the HFD, despite tracking saying we should be successful.", v44, 0xCu);
+      *v43 = 138543362;
+      v44 = v11;
+      _os_log_fault_impl(&dword_228986000, v28, OS_LOG_TYPE_FAULT, "%{public}@: Timed out attempting to open the HFD, despite tracking saying we should be successful.", v43, 0xCu);
     }
 
-    [MEMORY[0x277CCA9B8] hk_assignError:&v36 code:1103 format:@"Timed out attempting to open the HFD."];
+    [MEMORY[0x277CCA9B8] hk_assignError:&v35 code:1103 format:@"Timed out attempting to open the HFD."];
 LABEL_38:
-    v30 = 0;
+    v29 = 0;
     v5 = 0;
     goto LABEL_39;
   }
@@ -1238,41 +1209,41 @@ LABEL_38:
   if (!*(*&buf[8] + 48))
   {
     _HKInitializeLogging();
-    v33 = *v15;
-    if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
+    v32 = *v14;
+    if (os_log_type_enabled(*v14, OS_LOG_TYPE_ERROR))
     {
-      v35 = v38[5];
-      *v44 = 138543874;
-      v45 = v12;
-      v46 = 2048;
-      v47 = openAttempt;
-      v48 = 2114;
-      v49 = v35;
-      _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "%{public}@: Failed opening store (%ld): %{public}@", v44, 0x20u);
+      v34 = v37[5];
+      *v43 = 138543874;
+      v44 = v11;
+      v45 = 2048;
+      v46 = openAttempt;
+      v47 = 2114;
+      v48 = v34;
+      _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "%{public}@: Failed opening store (%ld): %{public}@", v43, 0x20u);
     }
 
-    v34 = v38[5];
-    if (v34)
+    v33 = v37[5];
+    if (v33)
     {
-      v34 = v34;
-      v36 = v34;
+      v33 = v33;
+      v35 = v33;
     }
 
     goto LABEL_38;
   }
 
   _HKInitializeLogging();
-  v32 = *v15;
-  if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
+  v31 = *v14;
+  if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v44 = 138543618;
-    v45 = v12;
-    v46 = 2048;
-    v47 = openAttempt;
-    _os_log_impl(&dword_228986000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished opening store (%ld)", v44, 0x16u);
+    *v43 = 138543618;
+    v44 = v11;
+    v45 = 2048;
+    v46 = openAttempt;
+    _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished opening store (%ld)", v43, 0x16u);
   }
 
-  v30 = *(*&buf[8] + 48);
+  v29 = *(*&buf[8] + 48);
   v5 = *(*&buf[8] + 56);
   if (v5)
   {
@@ -1281,29 +1252,29 @@ LABEL_38:
 
 LABEL_39:
 
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v36, 8);
   _Block_object_dispose(buf, 8);
-  if (v63)
+  if (v62)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v62);
   }
 
-  if (v30)
+  if (v29)
   {
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    *(v2 + 32) = v30;
-    cntrl = v12->_highFrequencyDataStore.__cntrl_;
-    v12->_highFrequencyDataStore.__cntrl_ = v5;
+    *(v2 + 32) = v29;
+    cntrl = v11->_highFrequencyDataStore.__cntrl_;
+    v11->_highFrequencyDataStore.__cntrl_ = v5;
     if (cntrl)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
     }
 
-    atomic_store(1u, &v12->_hasOpenStore);
+    atomic_store(1u, &v11->_hasOpenStore);
     if (v5)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -1313,7 +1284,7 @@ LABEL_39:
   }
 
 LABEL_32:
-  _HDHFDataStoreWillCloseStore(v12);
+  _HDHFDataStoreWillCloseStore(v11);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -1322,8 +1293,8 @@ LABEL_32:
 
   v4 = 0;
 LABEL_10:
-  v6 = v36;
-  v7 = v36;
+  v6 = v35;
+  v7 = v35;
   v8 = *(a1[5] + 8);
   v9 = *(v8 + 56);
   *(v8 + 48) = v4;
@@ -1337,8 +1308,6 @@ LABEL_10:
   {
     objc_storeStrong((*(a1[6] + 8) + 40), v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)_errorIndicatesCorruption:(uint64_t)corruption
@@ -1519,37 +1488,31 @@ LABEL_36:
 
 - (BOOL)_requiresRebuildForState:(_BOOL8)result
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (result)
   {
     if (a2 <= 0x14 && ((1 << a2) & 0x1FFC7F) != 0)
     {
-      result = 1;
+      return 1;
     }
 
-    else
+    if (a2 == 100)
     {
-      if (a2 != 100)
-      {
-        _HKInitializeLogging();
-        v4 = *MEMORY[0x277CCC2A0];
-        result = os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT);
-        if (!result)
-        {
-          goto LABEL_5;
-        }
+      return 0;
+    }
 
-        v5 = 134217984;
-        v6 = a2;
-        _os_log_fault_impl(&dword_228986000, v4, OS_LOG_TYPE_FAULT, "Unexpected HFD rebuild state: %ld", &v5, 0xCu);
-      }
-
-      result = 0;
+    _HKInitializeLogging();
+    v3 = *MEMORY[0x277CCC2A0];
+    result = os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT);
+    if (result)
+    {
+      v4 = 134217984;
+      v5 = a2;
+      _os_log_fault_impl(&dword_228986000, v3, OS_LOG_TYPE_FAULT, "Unexpected HFD rebuild state: %ld", &v4, 0xCu);
+      return 0;
     }
   }
 
-LABEL_5:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1636,7 +1599,7 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
 
 - (uint64_t)_lock_rebuildOneStep:(uint64_t)step
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   if (step)
   {
     os_unfair_lock_assert_owner((step + 24));
@@ -1646,12 +1609,12 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
       v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(step + 88)];
       v5 = *MEMORY[0x277CBE838];
       v6 = *MEMORY[0x277CBE7D0];
-      *&v146 = *MEMORY[0x277CBE838];
-      *(&v146 + 1) = v6;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:2];
-      *v145 = 0;
-      v8 = [v4 resourceValuesForKeys:v7 error:v145];
-      v9 = *v145;
+      *&v144 = *MEMORY[0x277CBE838];
+      *(&v144 + 1) = v6;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v144 count:2];
+      *v143 = 0;
+      v8 = [v4 resourceValuesForKeys:v7 error:v143];
+      v9 = *v143;
 
       if (v8)
       {
@@ -1676,7 +1639,7 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
               *&buf[12] = 2048;
               *&buf[14] = longLongValue;
               *&buf[22] = 2048;
-              v154 = (1.0 - v15) * 100.0;
+              v152 = (1.0 - v15) * 100.0;
               _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: HFD is large (%lld bytes) and %02.2lf%% sparse; requesting rebuild.", buf, 0x20u);
             }
 
@@ -1718,7 +1681,7 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
       }
 
       v22 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:step activityName:@"HFD Rebuild"];
-      v133 = 0;
+      v132 = 0;
       os_unfair_lock_assert_owner((step + 24));
       if (rebuildState > 9)
       {
@@ -1726,14 +1689,14 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
         {
           os_unfair_lock_assert_owner((step + 24));
           v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(step + 88)];
-          *v145 = 0;
-          [step dataStoreAtURL:v23 filesystem:step + 8 allowCheckpoint:0 error:v145];
-          v24 = *v145;
+          *v143 = 0;
+          objc_msgSend_dataStoreAtURL_filesystem_allowCheckpoint_error_(step);
+          v24 = *v143;
 
-          if (v146)
+          if (v144)
           {
             v25 = objc_loadWeakRetained((step + 80));
-            v26 = [v25 migrateDataForHFDataStore:step toSQLiteFrom:v146 error:&v133];
+            v26 = [v25 migrateDataForHFDataStore:step toSQLiteFrom:v144 error:&v132];
 
             if (v26)
             {
@@ -1741,7 +1704,7 @@ void __46__HDHFDataStore_rebuildWithTransaction_error___block_invoke(void *a1)
 LABEL_46:
               v51 = 1;
 LABEL_65:
-              std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v146);
+              std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v144);
 
               goto LABEL_80;
             }
@@ -1771,7 +1734,7 @@ LABEL_65:
             if (v56)
             {
               v58 = v56;
-              v133 = v57;
+              v132 = v57;
             }
 
             _HKInitializeLogging();
@@ -1813,7 +1776,7 @@ LABEL_65:
           v66 = @"healthdb_archive_sqlite_migration.hfd";
           v67 = 100;
 LABEL_75:
-          v51 = [(HDHFDataStore *)step _lock_archiveHFDTo:v66 nextState:v67 error:&v133];
+          v51 = [(HDHFDataStore *)step _lock_archiveHFDTo:v66 nextState:v67 error:&v132];
           goto LABEL_80;
         }
 
@@ -1850,11 +1813,11 @@ LABEL_77:
             Current = CFAbsoluteTimeGetCurrent();
             os_unfair_lock_assert_owner((step + 24));
             v30 = objc_loadWeakRetained((step + 80));
-            v132 = [v30 activeTransactionForCurrentThreadForHFDataStore:step forWriting:0];
+            v131 = [v30 activeTransactionForCurrentThreadForHFDataStore:step forWriting:0];
 
-            if (!v132)
+            if (!v131)
             {
-              [MEMORY[0x277CCA9B8] hk_assignError:&v133 code:121 format:@"No active transaction when attempting HFD restore."];
+              [MEMORY[0x277CCA9B8] hk_assignError:&v132 code:121 format:@"No active transaction when attempting HFD restore."];
               v51 = 0;
 LABEL_176:
 
@@ -1862,57 +1825,57 @@ LABEL_176:
             }
 
             directoryURL = [(HDHFDataStore *)step directoryURL];
-            v129 = [directoryURL URLByAppendingPathComponent:@"healthdb_archive.hfd"];
+            v128 = [directoryURL URLByAppendingPathComponent:@"healthdb_archive.hfd"];
 
             directoryURL2 = [(HDHFDataStore *)stepCopy directoryURL];
-            v131 = [directoryURL2 URLByAppendingPathComponent:@"healthdb_archive.hfd.tgz"];
+            v130 = [directoryURL2 URLByAppendingPathComponent:@"healthdb_archive.hfd.tgz"];
 
             fileManager = [stepCopy fileManager];
             v33 = MEMORY[0x277CCACA8];
-            v34 = v131;
-            v35 = [v33 stringWithUTF8String:{objc_msgSend(v131, "fileSystemRepresentation")}];
+            v34 = v130;
+            v35 = [v33 stringWithUTF8String:{objc_msgSend(v130, "fileSystemRepresentation")}];
             v36 = [fileManager fileExistsAtPath:v35];
 
             if (v36)
             {
-              v143 = 0;
-              v37 = [fileManager removeItemAtURL:v129 error:&v143];
-              v38 = v143;
+              v141 = 0;
+              v37 = [fileManager removeItemAtURL:v128 error:&v141];
+              v38 = v141;
               v39 = v38;
               if ((v37 & 1) == 0 && ([v38 hk_isCocoaNoSuchFileError] & 1) == 0)
               {
                 _HKInitializeLogging();
-                v80 = *v20;
+                v79 = *v20;
                 if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
                   *&buf[4] = v39;
-                  _os_log_error_impl(&dword_228986000, v80, OS_LOG_TYPE_ERROR, "Failed to clear target location before decompressing archived HFD: %{public}@", buf, 0xCu);
+                  _os_log_error_impl(&dword_228986000, v79, OS_LOG_TYPE_ERROR, "Failed to clear target location before decompressing archived HFD: %{public}@", buf, 0xCu);
                 }
 
-                v81 = v39;
-                if (v81)
+                v80 = v39;
+                if (v80)
                 {
-                  v82 = v81;
-                  v83 = v81;
-                  v81 = v82;
-                  v133 = v82;
+                  v81 = v80;
+                  v82 = v80;
+                  v80 = v81;
+                  v132 = v81;
                 }
 
-                v52 = v81;
+                v52 = v80;
 
                 v51 = 0;
                 goto LABEL_175;
               }
 
-              v127 = v39;
-              v124 = objc_alloc_init(HDFileArchiver);
+              v126 = v39;
+              v123 = objc_alloc_init(HDFileArchiver);
               directoryURL3 = [(HDHFDataStore *)stepCopy directoryURL];
-              v142 = 0;
-              v126 = [(HDFileArchiver *)v124 decompressArchiveAt:v131 to:directoryURL3 error:&v142];
-              v41 = v142;
+              v140 = 0;
+              v125 = [(HDFileArchiver *)v123 decompressArchiveAt:v130 to:directoryURL3 error:&v140];
+              v41 = v140;
 
-              if (!v126)
+              if (!v125)
               {
                 v42 = stepCopy;
                 v43 = v41;
@@ -1937,17 +1900,17 @@ LABEL_37:
                     if (v48)
                     {
                       v50 = v48;
-                      v133 = v49;
+                      v132 = v49;
                     }
 
                     v51 = 0;
-                    v52 = v127;
+                    v52 = v126;
                     goto LABEL_175;
                   }
 
-                  v120 = [v44 code] == 13;
+                  v119 = [v44 code] == 13;
 
-                  if (v120)
+                  if (v119)
                   {
                     goto LABEL_37;
                   }
@@ -1958,58 +1921,58 @@ LABEL_37:
                 }
 
                 _HKInitializeLogging();
-                v84 = *v20;
+                v83 = *v20;
                 if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
                   *&buf[4] = v44;
-                  _os_log_error_impl(&dword_228986000, v84, OS_LOG_TYPE_ERROR, "Suppressing decompression error %{public}@", buf, 0xCu);
+                  _os_log_error_impl(&dword_228986000, v83, OS_LOG_TYPE_ERROR, "Suppressing decompression error %{public}@", buf, 0xCu);
                 }
 
-                v85 = objc_loadWeakRetained(stepCopy + 10);
-                [v85 didMigrateHFDataStore:stepCopy fromState:4 toState:4 success:0 error:v44];
+                v84 = objc_loadWeakRetained(stepCopy + 10);
+                [v84 didMigrateHFDataStore:stepCopy fromState:4 toState:4 success:0 error:v44];
               }
             }
 
             else
             {
-              v126 = 0;
+              v125 = 0;
             }
 
-            v140 = 0;
-            [stepCopy dataStoreAtURL:v129 filesystem:stepCopy + 1 allowCheckpoint:0 error:&v140];
-            v86 = v140;
-            v128 = v86;
-            if (!v141)
+            v138[1] = 0;
+            objc_msgSend_dataStoreAtURL_filesystem_allowCheckpoint_error_(stepCopy);
+            v85 = 0;
+            v127 = v85;
+            if (!v139)
             {
-              v99 = v86;
-              if ([HDHFDataStore _errorIndicatesCorruption:v86])
+              v98 = v85;
+              if ([HDHFDataStore _errorIndicatesCorruption:v85])
               {
                 _HKInitializeLogging();
-                v100 = *v20;
+                v99 = *v20;
                 if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
                   *&buf[4] = stepCopy;
-                  _os_log_impl(&dword_228986000, v100, OS_LOG_TYPE_DEFAULT, "%{public}@: Archived HFD is too corrupt to open; marking rebuild as complete and continuing with existing production HFD.", buf, 0xCu);
+                  _os_log_impl(&dword_228986000, v99, OS_LOG_TYPE_DEFAULT, "%{public}@: Archived HFD is too corrupt to open; marking rebuild as complete and continuing with existing production HFD.", buf, 0xCu);
                 }
 
-                v101 = objc_loadWeakRetained(stepCopy + 10);
-                [v101 HFDataStoreDidPerformRebuild:stepCopy didDecompressArchivedHFD:0 didOpenArchivedHFD:0 didOpenMovedAsideHFD:0 recoveryAnalytics:MEMORY[0x277CBEC10] duration:CFAbsoluteTimeGetCurrent() - Current];
+                v100 = objc_loadWeakRetained(stepCopy + 10);
+                [v100 HFDataStoreDidPerformRebuild:stepCopy didDecompressArchivedHFD:0 didOpenArchivedHFD:0 didOpenMovedAsideHFD:0 recoveryAnalytics:MEMORY[0x277CBEC10] duration:CFAbsoluteTimeGetCurrent() - Current];
 
-                v52 = v128;
+                v52 = v127;
                 [(HDHFDataStore *)stepCopy setRebuildState:?];
                 v51 = 1;
                 goto LABEL_174;
               }
 
-              v104 = v99;
-              v87 = v104;
-              if (v104)
+              v103 = v98;
+              v86 = v103;
+              if (v103)
               {
-                v105 = v104;
+                v104 = v103;
                 v51 = 0;
-                v133 = v87;
+                v132 = v86;
               }
 
               else
@@ -2019,44 +1982,44 @@ LABEL_37:
 
 LABEL_173:
 
-              v52 = v128;
+              v52 = v127;
 LABEL_174:
-              std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v141);
+              std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v139);
 LABEL_175:
 
               goto LABEL_176;
             }
 
-            v87 = [MEMORY[0x277CBEBC0] fileURLWithPath:stepCopy[11]];
+            v86 = [MEMORY[0x277CBEBC0] fileURLWithPath:stepCopy[11]];
             directoryURL4 = [(HDHFDataStore *)stepCopy directoryURL];
-            v125 = [directoryURL4 URLByAppendingPathComponent:@"healthdb_archive_temporary.hfd"];
+            v124 = [directoryURL4 URLByAppendingPathComponent:@"healthdb_archive_temporary.hfd"];
 
-            v89 = v125;
-            if ([stepCopy moveHFDAsideWithoutOverwritingFrom:v87 to:v125 error:&v133])
+            v88 = v124;
+            if ([stepCopy moveHFDAsideWithoutOverwritingFrom:v86 to:v124 error:&v132])
             {
-              if ([stepCopy deleteHFDAt:v87 error:&v133])
+              if ([stepCopy deleteHFDAt:v86 error:&v132])
               {
-                v138 = 0;
-                [stepCopy dataStoreAtURL:v125 filesystem:stepCopy + 1 allowCheckpoint:0 error:&v138];
-                v90 = v138;
-                if (!v139)
+                v137 = 0;
+                objc_msgSend_dataStoreAtURL_filesystem_allowCheckpoint_error_(stepCopy);
+                v89 = v137;
+                if (!v138[0])
                 {
-                  if (([HDHFDataStore _errorIndicatesCorruption:v90]& 1) == 0)
+                  if (([HDHFDataStore _errorIndicatesCorruption:v89]& 1) == 0)
                   {
                     _HKInitializeLogging();
-                    v108 = *v20;
+                    v107 = *v20;
                     if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
                       *&buf[4] = stepCopy;
-                      _os_log_error_impl(&dword_228986000, v108, OS_LOG_TYPE_ERROR, "%{public}@: Unable to open moved-aside HFD.", buf, 0xCu);
+                      _os_log_error_impl(&dword_228986000, v107, OS_LOG_TYPE_ERROR, "%{public}@: Unable to open moved-aside HFD.", buf, 0xCu);
                     }
 
-                    v109 = v90;
-                    if (v109)
+                    v108 = v89;
+                    if (v108)
                     {
-                      v109 = v109;
-                      v133 = v109;
+                      v108 = v108;
+                      v132 = v108;
                     }
 
                     v51 = 0;
@@ -2064,170 +2027,170 @@ LABEL_175:
                   }
 
                   _HKInitializeLogging();
-                  v106 = *v20;
+                  v105 = *v20;
                   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138543362;
                     *&buf[4] = stepCopy;
-                    _os_log_impl(&dword_228986000, v106, OS_LOG_TYPE_DEFAULT, "%{public}@: Moved-aside HFD is too corrupt to open; marking rebuild as complete and continuing with exisitng production HFD.", buf, 0xCu);
+                    _os_log_impl(&dword_228986000, v105, OS_LOG_TYPE_DEFAULT, "%{public}@: Moved-aside HFD is too corrupt to open; marking rebuild as complete and continuing with exisitng production HFD.", buf, 0xCu);
                   }
                 }
 
-                [stepCopy dataStoreAtURL:v87 filesystem:stepCopy + 1 allowCheckpoint:1 error:&v133];
-                if (!v137)
+                objc_msgSend_dataStoreAtURL_filesystem_allowCheckpoint_error_(stepCopy);
+                if (!v136)
                 {
                   _HKInitializeLogging();
-                  v107 = *v20;
+                  v106 = *v20;
                   if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
                     *&buf[4] = stepCopy;
-                    _os_log_error_impl(&dword_228986000, v107, OS_LOG_TYPE_ERROR, "%{public}@: Failed to open new production HFD.", buf, 0xCu);
+                    _os_log_error_impl(&dword_228986000, v106, OS_LOG_TYPE_ERROR, "%{public}@: Failed to open new production HFD.", buf, 0xCu);
                   }
 
                   v51 = 0;
                   goto LABEL_170;
                 }
 
-                v123 = v90;
-                v91 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                v135 = 0;
-                v136 = v91;
+                v122 = v89;
+                v90 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                v134 = 0;
+                v135 = v90;
                 *buf = MEMORY[0x277D85DD0];
                 *&buf[8] = 3321888768;
                 *&buf[16] = __45__HDHFDataStore__lock_restoreHFDFromArchive___block_invoke;
-                v154 = COERCE_DOUBLE(&__block_descriptor_64_ea8_32c58_ZTSKZ45__HDHFDataStore__lock_restoreHFDFromArchive__E3__0_e9_B16__0__8l);
-                v155 = &stepCopy;
-                v156 = &v137;
-                v157 = &v141;
-                v158 = &v136;
-                v92 = hfd_catchExceptionsAsErrors(buf, &v135, 0);
-                v93 = v135;
-                if ((v92 & 1) == 0)
+                v152 = COERCE_DOUBLE(&__block_descriptor_64_ea8_32c58_ZTSKZ45__HDHFDataStore__lock_restoreHFDFromArchive__E3__0_e9_B16__0__8l);
+                v153 = &stepCopy;
+                v154 = &v136;
+                v155 = &v139;
+                v156 = &v135;
+                v91 = hfd_catchExceptionsAsErrors(buf, &v134, 0);
+                v92 = v134;
+                if ((v91 & 1) == 0)
                 {
-                  if (![HDHFDataStore _errorIndicatesCorruption:v93])
+                  if (![HDHFDataStore _errorIndicatesCorruption:v92])
                   {
                     _HKInitializeLogging();
-                    v112 = *v20;
+                    v111 = *v20;
                     if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                     {
-                      LODWORD(v146) = 138543362;
-                      *(&v146 + 4) = v93;
-                      _os_log_error_impl(&dword_228986000, v112, OS_LOG_TYPE_ERROR, "Failed to migrate contents of archived HFD to new copy (%{public}@)", &v146, 0xCu);
+                      LODWORD(v144) = 138543362;
+                      *(&v144 + 4) = v92;
+                      _os_log_error_impl(&dword_228986000, v111, OS_LOG_TYPE_ERROR, "Failed to migrate contents of archived HFD to new copy (%{public}@)", &v144, 0xCu);
                     }
 
-                    v113 = v93;
-                    v114 = v93;
-                    v115 = v114;
-                    if (v114)
+                    v112 = v92;
+                    v113 = v92;
+                    v114 = v113;
+                    if (v113)
                     {
-                      v116 = v114;
-                      v133 = v115;
+                      v115 = v113;
+                      v132 = v114;
                     }
 
                     goto LABEL_168;
                   }
 
                   _HKInitializeLogging();
-                  v94 = *v20;
+                  v93 = *v20;
                   if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                   {
-                    LOWORD(v146) = 0;
-                    _os_log_error_impl(&dword_228986000, v94, OS_LOG_TYPE_ERROR, "Archival HFD corrupted beyond recovery; silently continuing", &v146, 2u);
+                    LOWORD(v144) = 0;
+                    _os_log_error_impl(&dword_228986000, v93, OS_LOG_TYPE_ERROR, "Archival HFD corrupted beyond recovery; silently continuing", &v144, 2u);
                   }
                 }
 
-                if (!v139)
+                if (!v138[0])
                 {
-                  v121 = v93;
-                  v122 = 0;
+                  v120 = v92;
+                  v121 = 0;
                   goto LABEL_158;
                 }
 
                 _HKInitializeLogging();
-                v95 = *v20;
+                v94 = *v20;
                 if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v146) = 138543362;
-                  *(&v146 + 4) = stepCopy;
-                  _os_log_impl(&dword_228986000, v95, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning migration from moved-aside HFD.", &v146, 0xCu);
+                  LODWORD(v144) = 138543362;
+                  *(&v144 + 4) = stepCopy;
+                  _os_log_impl(&dword_228986000, v94, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning migration from moved-aside HFD.", &v144, 0xCu);
                 }
 
-                *&v146 = MEMORY[0x277D85DD0];
-                *(&v146 + 1) = 3321888768;
-                v147 = __45__HDHFDataStore__lock_restoreHFDFromArchive___block_invoke_403;
-                v148 = &__block_descriptor_64_ea8_32c58_ZTSKZ45__HDHFDataStore__lock_restoreHFDFromArchive__E3__1_e9_B16__0__8l;
-                v149 = &v137;
-                v150 = &stepCopy;
-                v151 = &v139;
-                v152 = &v136;
-                v134 = 0;
-                v96 = hfd_catchExceptionsAsErrors(&v146, &v134, 0);
-                v97 = v134;
-                if (v96)
+                *&v144 = MEMORY[0x277D85DD0];
+                *(&v144 + 1) = 3321888768;
+                v145 = __45__HDHFDataStore__lock_restoreHFDFromArchive___block_invoke_403;
+                v146 = &__block_descriptor_64_ea8_32c58_ZTSKZ45__HDHFDataStore__lock_restoreHFDFromArchive__E3__1_e9_B16__0__8l;
+                v147 = &v136;
+                v148 = &stepCopy;
+                v149 = v138;
+                v150 = &v135;
+                v133 = 0;
+                v95 = hfd_catchExceptionsAsErrors(&v144, &v133, 0);
+                v96 = v133;
+                if (v95)
                 {
 LABEL_134:
-                  v121 = v93;
+                  v120 = v92;
 
-                  v122 = v139 != 0;
+                  v121 = v138[0] != 0;
 LABEL_158:
-                  v110 = objc_loadWeakRetained(stepCopy + 10);
-                  [v110 HFDataStoreDidPerformRebuild:stepCopy didDecompressArchivedHFD:v126 didOpenArchivedHFD:1 didOpenMovedAsideHFD:v122 recoveryAnalytics:v136 duration:CFAbsoluteTimeGetCurrent() - Current];
+                  v109 = objc_loadWeakRetained(stepCopy + 10);
+                  [v109 HFDataStoreDidPerformRebuild:stepCopy didDecompressArchivedHFD:v125 didOpenArchivedHFD:1 didOpenMovedAsideHFD:v121 recoveryAnalytics:v135 duration:CFAbsoluteTimeGetCurrent() - Current];
 
-                  v111 = v121;
+                  v110 = v120;
                   [(HDHFDataStore *)stepCopy setRebuildState:?];
                   v51 = 1;
 LABEL_169:
 
-                  v90 = v123;
+                  v89 = v122;
 LABEL_170:
-                  std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v137);
+                  std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v136);
 LABEL_171:
-                  std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](&v139);
+                  std::unique_ptr<health::DataStore>::~unique_ptr[abi:ne200100](v138);
 
-                  v89 = v125;
+                  v88 = v124;
                   goto LABEL_172;
                 }
 
-                if ([HDHFDataStore _errorIndicatesCorruption:v97])
+                if ([HDHFDataStore _errorIndicatesCorruption:v96])
                 {
                   _HKInitializeLogging();
-                  v98 = *v20;
+                  v97 = *v20;
                   if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                   {
-                    *v145 = 0;
-                    _os_log_error_impl(&dword_228986000, v98, OS_LOG_TYPE_ERROR, "Recovered production DB corrupted; silently continuing", v145, 2u);
+                    *v143 = 0;
+                    _os_log_error_impl(&dword_228986000, v97, OS_LOG_TYPE_ERROR, "Recovered production DB corrupted; silently continuing", v143, 2u);
                   }
 
                   goto LABEL_134;
                 }
 
                 _HKInitializeLogging();
-                v113 = v93;
-                v117 = *v20;
+                v112 = v92;
+                v116 = *v20;
                 if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
                 {
-                  *v145 = 138543362;
-                  *&v145[4] = v97;
-                  _os_log_error_impl(&dword_228986000, v117, OS_LOG_TYPE_ERROR, "Failed to migrate contents of moved-aside production HFD to new copy (%{public}@)", v145, 0xCu);
+                  *v143 = 138543362;
+                  *&v143[4] = v96;
+                  _os_log_error_impl(&dword_228986000, v116, OS_LOG_TYPE_ERROR, "Failed to migrate contents of moved-aside production HFD to new copy (%{public}@)", v143, 0xCu);
                 }
 
-                v118 = v97;
-                v115 = v118;
-                if (v118)
+                v117 = v96;
+                v114 = v117;
+                if (v117)
                 {
-                  v119 = v118;
-                  v133 = v115;
+                  v118 = v117;
+                  v132 = v114;
                 }
 
 LABEL_168:
                 v51 = 0;
-                v111 = v113;
+                v110 = v112;
                 goto LABEL_169;
               }
 
               _HKInitializeLogging();
-              v102 = *v20;
+              v101 = *v20;
               if (!os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
               {
 LABEL_144:
@@ -2238,23 +2201,23 @@ LABEL_172:
               }
 
               *buf = 0;
-              v103 = "Failed to delete stale HFD at production location.";
+              v102 = "Failed to delete stale HFD at production location.";
             }
 
             else
             {
               _HKInitializeLogging();
-              v102 = *v20;
+              v101 = *v20;
               if (!os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_144;
               }
 
               *buf = 0;
-              v103 = "Failed to move aside production HFD in preparation for rebuild.";
+              v102 = "Failed to move aside production HFD in preparation for rebuild.";
             }
 
-            _os_log_error_impl(&dword_228986000, v102, OS_LOG_TYPE_ERROR, v103, buf, 2u);
+            _os_log_error_impl(&dword_228986000, v101, OS_LOG_TYPE_ERROR, v102, buf, 2u);
             goto LABEL_144;
           }
 
@@ -2280,12 +2243,12 @@ LABEL_79:
           directoryURL5 = [(HDHFDataStore *)step directoryURL];
           v61 = [directoryURL5 URLByAppendingPathComponent:@"healthdb_archive_temporary.hfd"];
 
-          if ([step deleteHFDAt:v61 error:&v133])
+          if ([step deleteHFDAt:v61 error:&v132])
           {
             directoryURL6 = [(HDHFDataStore *)step directoryURL];
             v63 = [directoryURL6 URLByAppendingPathComponent:@"healthdb_archive.hfd"];
 
-            if ([step deleteHFDAt:v63 error:&v133])
+            if ([step deleteHFDAt:v63 error:&v132])
             {
               *buf = 0;
               v51 = [(HDHFDataStore *)step _lock_deleteCompressedArchive:buf];
@@ -2298,11 +2261,11 @@ LABEL_79:
 
               else
               {
-                v79 = v64;
-                if (v79)
+                v78 = v64;
+                if (v78)
                 {
-                  v79 = v79;
-                  v133 = v79;
+                  v78 = v78;
+                  v132 = v78;
                 }
               }
             }
@@ -2319,7 +2282,7 @@ LABEL_79:
           }
 
 LABEL_80:
-          v68 = COERCE_DOUBLE(v133);
+          v68 = COERCE_DOUBLE(v132);
           [v22 invalidate];
           rebuildState2 = [step rebuildState];
           if (v51)
@@ -2367,7 +2330,7 @@ LABEL_80:
               *&buf[12] = 2048;
               *&buf[14] = rebuildState;
               *&buf[22] = 2114;
-              v154 = v68;
+              v152 = v68;
               _os_log_error_impl(&dword_228986000, v72, OS_LOG_TYPE_ERROR, "%{public}@: HFD rebuild at state %ld failed: %{public}@", buf, 0x20u);
             }
 
@@ -2394,7 +2357,7 @@ LABEL_80:
           v27 = 1;
 LABEL_96:
 
-          goto LABEL_97;
+          return v27;
         }
 
         if (rebuildState == 6)
@@ -2417,10 +2380,7 @@ LABEL_58:
     }
   }
 
-  v27 = 0;
-LABEL_97:
-  v77 = *MEMORY[0x277D85DE8];
-  return v27;
+  return 0;
 }
 
 - (int64_t)rebuildState
@@ -2440,7 +2400,7 @@ LABEL_97:
 
 - (uint64_t)_lock_archiveHFDTo:(uint64_t)to nextState:(void *)state error:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   os_unfair_lock_assert_owner((self + 24));
   _HKInitializeLogging();
@@ -2456,9 +2416,9 @@ LABEL_97:
   directoryURL = [(HDHFDataStore *)self directoryURL];
   v12 = [directoryURL URLByAppendingPathComponent:v7];
 
-  v22 = 0;
-  v13 = [self moveHFDAsideWithoutOverwritingFrom:v10 to:v12 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [self moveHFDAsideWithoutOverwritingFrom:v10 to:v12 error:&v21];
+  v14 = v21;
   if (v13)
   {
     _HKInitializeLogging();
@@ -2479,7 +2439,7 @@ LABEL_97:
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v24 = v14;
+      v23 = v14;
       _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Failed to archive the current HFD - %{public}@", buf, 0xCu);
     }
 
@@ -2500,21 +2460,20 @@ LABEL_97:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (uint64_t)_lock_deleteCompressedArchive:(os_unfair_lock *)archive
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(archive + 6);
   directoryURL = [(HDHFDataStore *)archive directoryURL];
   v5 = [directoryURL URLByAppendingPathComponent:@"healthdb_archive.hfd.tgz"];
 
   fileManager = [(os_unfair_lock *)archive fileManager];
-  v16 = 0;
-  v7 = [fileManager removeItemAtURL:v5 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [fileManager removeItemAtURL:v5 error:&v15];
+  v8 = v15;
 
   if (v7 & 1) != 0 || ([v8 hk_isCocoaNoSuchFileError])
   {
@@ -2529,8 +2488,8 @@ LABEL_97:
     {
       *buf = 138543618;
       archiveCopy = archive;
-      v19 = 2114;
-      v20 = v8;
+      v18 = 2114;
+      v19 = v8;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete compressed archive - %{public}@", buf, 0x16u);
     }
 
@@ -2553,37 +2512,22 @@ LABEL_97:
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __45__HDHFDataStore__lock_restoreHFDFromArchive___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = a2;
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v7 = **(a1 + 32);
+    v4 = **(a1 + 32);
     *buf = 138543362;
-    v10 = v7;
+    v6 = v4;
     _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Beginning migration from archived HFD.", buf, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 56);
-  v6 = **(a1 + 40);
-  operator new();
-}
-
-void __45__HDHFDataStore__lock_restoreHFDFromArchive___block_invoke_403(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v2 = **(a1 + 32);
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 40);
   operator new();
 }
 

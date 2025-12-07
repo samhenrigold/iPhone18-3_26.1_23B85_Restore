@@ -35,7 +35,7 @@
 - (id)defaultMetricsFromContext:(id)context
 {
   contextCopy = context;
-  if ([contextCopy userInterfaceIdiom] == 1 && objc_msgSend(contextCopy, "keyboardType") == 3 && (-[NSDictionary objectForKey:](self->_defaultMetrics, "objectForKey:", kFeatureFloatingKeyboardUsage), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x277D6FD78]), v5, v6))
+  if ([contextCopy userInterfaceIdiom] == 1 && objc_msgSend(contextCopy, "keyboardType") == 3 && (-[NSDictionary objectForKey:](self->_defaultMetrics, "objectForKey:", kFeatureFloatingKeyboardUsage), v5 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v5), v5, isEqualToString))
   {
     v7 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:self->_defaultMetrics];
     [(NSDictionary *)v7 setObject:*MEMORY[0x277D6FD60] forKey:kFeatureFloatingKeyboardUsage];
@@ -82,7 +82,7 @@
 
 - (void)loadMetricsFromUserModelDataStore:(id)store withContext:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   contextCopy = context;
   v8 = objc_opt_new();
@@ -90,31 +90,31 @@
   self->_cachedMetrics = v8;
 
   v10 = [TIKBUserModel userModelWithInputMode:self->_inputMode userModelDataStore:storeCopy metricDescriptorRegistry:self->_metricDescriptorRegistry fromDate:self->_queryEndDate];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   contexts = [v10 contexts];
-  v12 = [contexts countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [contexts countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(contexts);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         v17 = [(TIFeatureUsageMetricsCache *)self metricsFromUserModel:v10 withContext:v16];
         [(NSMutableDictionary *)self->_cachedMetrics setObject:v17 forKey:v16];
       }
 
-      v13 = [contexts countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [contexts countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -124,8 +124,6 @@
   v19 = [(TIFeatureUsageMetricsCache *)self metricsFromUserModel:v10 withContext:v18];
   defaultMetrics = self->_defaultMetrics;
   self->_defaultMetrics = v19;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)featureUsageMetricFromName:(id)name forContext:(id)context

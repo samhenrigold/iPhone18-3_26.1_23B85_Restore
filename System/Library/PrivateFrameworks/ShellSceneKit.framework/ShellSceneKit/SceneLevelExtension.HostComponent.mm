@@ -1,6 +1,5 @@
 @interface SceneLevelExtension.HostComponent
 - (_TtCC13ShellSceneKit19SceneLevelExtension13HostComponent)init;
-- (void)invalidate;
 - (void)scene:(id)scene didUpdateClientSettings:(id)settings;
 - (void)setScene:(id)scene;
 @end
@@ -11,15 +10,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_265FEADFC();
+  sub_265FEADFC(scene);
   swift_unknownObjectRelease();
-}
-
-- (void)invalidate
-{
-  v2 = *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit19SceneLevelExtension13HostComponent_scene);
-  *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit19SceneLevelExtension13HostComponent_scene) = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (_TtCC13ShellSceneKit19SceneLevelExtension13HostComponent)init

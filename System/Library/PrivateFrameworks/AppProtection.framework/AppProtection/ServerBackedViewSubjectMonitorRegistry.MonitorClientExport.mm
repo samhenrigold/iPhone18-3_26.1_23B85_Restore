@@ -17,17 +17,16 @@
 {
   v6 = sub_185B67AFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = (&v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = (&v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_185B67ADC();
   if (swift_weakLoadStrong())
   {
     selfCopy = self;
-    sub_185AE44AC(v11, update);
+    sub_185AE44AC(v9, update);
   }
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

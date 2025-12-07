@@ -3221,30 +3221,30 @@ void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_40
   objc_destroyWeak(&v7);
 }
 
-void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_2_404(uint64_t a1)
+void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_2_404(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Updated peer payment account", v9, 2u);
+    v10[0] = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Updated peer payment account", v10, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WeakRetained[21];
-    v6 = *(a1 + 32);
-    v7 = v4[21];
-    v4[21] = v6;
-    v8 = v5;
+    v6 = WeakRetained[21];
+    v7 = *(a1 + 32);
+    v8 = v5[21];
+    v5[21] = v7;
+    v9 = v6;
 
-    *(v4 + 219) = 1;
-    LOBYTE(v5) = [v4 _isDisclosureSectionChangedWithPreviousAccount:v8 previousPass:v4[119]];
+    *(v5 + 219) = 1;
+    LOBYTE(v6) = [v5 _isDisclosureSectionChangedWithPreviousAccount:v9 previousPass:v5[119]];
 
-    *(v4 + 760) = v5;
-    [v4 reloadAccount];
+    *(v5 + 760) = v6;
+    [v5 reloadAccount];
   }
 }
 
@@ -3498,7 +3498,7 @@ void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_2_
 - (id)itemAtIndexPath:(id)path
 {
   pathCopy = path;
-  [(PKDashboardPaymentPassDataSource *)self _dataSourceIndicesForIndexPath:pathCopy];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
   v5 = [[PKDashboardPassGroupItem alloc] initWithGroupView:self->_groupView];
 
   return v5;
@@ -3628,7 +3628,7 @@ void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_2_
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)_dataSourceIndicesForIndexSection:(SEL)section
 {
   v6 = [MEMORY[0x1E696AC88] indexPathForItem:-1 inSection:a4];
-  [(PKDashboardPaymentPassDataSource *)self _dataSourceIndicesForIndexPath:v6];
+  objc_msgSend__dataSourceIndicesForIndexPath_(self);
 
   return result;
 }
@@ -3670,7 +3670,7 @@ void __55__PKDashboardPaymentPassDataSource_reloadFrontmostPass__block_invoke_2_
   v13 = 0;
   v14 = 0;
   v15 = 0;
-  result = [(PKDashboardPaymentPassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  result = objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
   switch(v13)
   {
     case 1:
@@ -3821,10 +3821,10 @@ LABEL_29:
   return v3 + 16;
 }
 
-uint64_t __52__PKDashboardPaymentPassDataSource_numberOfSections__block_invoke(uint64_t result, uint64_t a2, void *a3)
+void *__52__PKDashboardPaymentPassDataSource_numberOfSections__block_invoke(void *result, uint64_t a2, void *a3)
 {
   v3 = result;
-  if (*(*(result + 32) + 788) == 1)
+  if (*(result[4] + 788) == 1)
   {
     result = [a3 integerValue];
     v4 = result - 1;
@@ -3835,7 +3835,7 @@ uint64_t __52__PKDashboardPaymentPassDataSource_numberOfSections__block_invoke(u
     v4 = -1;
   }
 
-  *(*(*(v3 + 40) + 8) + 24) += v4;
+  *(*(v3[5] + 8) + 24) += v4;
   return result;
 }
 
@@ -3845,7 +3845,7 @@ uint64_t __52__PKDashboardPaymentPassDataSource_numberOfSections__block_invoke(u
   v50 = 0;
   v51 = 0;
   v52 = 0;
-  [(PKDashboardPaymentPassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
   objc_initWeak(&location, self);
   header = 0;
   if (v50 <= 10)
@@ -4250,7 +4250,7 @@ void __52__PKDashboardPaymentPassDataSource_titleForSection___block_invoke(uint6
   v44 = 0;
   v45 = 0;
   v46 = 0;
-  [(PKDashboardPaymentPassDataSource *)self _dataSourceIndicesForIndexSection:section];
+  objc_msgSend__dataSourceIndicesForIndexSection_(self, a2, section);
   if (!self->_allContentIsLoaded)
   {
     v4 = 0;
@@ -21856,20 +21856,20 @@ LABEL_19:
   }
 }
 
-BOOL __97__PKDashboardPaymentPassDataSource__updateTransitBalanceProperties_dynamicBalances_dynamicPlans___block_invoke(uint64_t a1)
+BOOL __97__PKDashboardPaymentPassDataSource__updateTransitBalanceProperties_dynamicBalances_dynamicPlans___block_invoke(id *a1)
 {
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (![*(a1 + 32) activationState])
+  if (![a1[4] activationState])
   {
     v22 = MEMORY[0x1E69E9820];
     v23 = 3221225472;
     v24 = __97__PKDashboardPaymentPassDataSource__updateTransitBalanceProperties_dynamicBalances_dynamicPlans___block_invoke_2;
     v25 = &unk_1E801E550;
-    v26 = *(a1 + 32);
-    v27 = *(a1 + 40);
+    v26 = a1[4];
+    v27 = a1[5];
     v3 = _Block_copy(&v22);
-    v4 = [*(a1 + 32) isEMoneyPass];
-    v5 = *(a1 + 40);
+    v4 = [a1[4] isEMoneyPass];
+    v5 = a1[5];
     if (v4)
     {
       if ([v5 hasCurrencyBalance])
@@ -21878,19 +21878,19 @@ BOOL __97__PKDashboardPaymentPassDataSource__updateTransitBalanceProperties_dyna
         [v2 addObject:v6];
       }
 
-      if (([*(a1 + 40) hasPointsBalance] & 1) == 0)
+      if (([a1[5] hasPointsBalance] & 1) == 0)
       {
 LABEL_10:
-        if ([*(a1 + 40) hasCommutePlanContent])
+        if ([a1[5] hasCommutePlanContent])
         {
           v9 = v3[2](v3, 3);
-          v10 = [*(a1 + 40) displayableCommutePlans];
+          v10 = [a1[5] displayableCommutePlans];
           [v9 setTransitCommutePlans:v10];
 
           [v2 addObject:v9];
         }
 
-        v11 = [*(a1 + 48) externalActionContent];
+        v11 = [a1[6] externalActionContent];
         if (v11)
         {
           v12 = v3[2](v3, 5);
@@ -21899,7 +21899,7 @@ LABEL_10:
 
         else
         {
-          v13 = [*(a1 + 32) actionGroups];
+          v13 = [a1[4] actionGroups];
           v14 = [v13 count];
 
           if (!v14)
@@ -21910,10 +21910,10 @@ LABEL_17:
           }
 
           v12 = v3[2](v3, 4);
-          v15 = [*(a1 + 40) displayableCommutePlans];
+          v15 = [a1[5] displayableCommutePlans];
           [v12 setTransitCommutePlans:v15];
 
-          v16 = [*(a1 + 32) actionGroups];
+          v16 = [a1[4] actionGroups];
           [v12 setActionGroups:v16];
         }
 
@@ -21942,14 +21942,14 @@ LABEL_17:
   }
 
 LABEL_18:
-  objc_storeStrong((*(a1 + 48) + 200), *(a1 + 40));
+  objc_storeStrong(a1[6] + 25, a1[5]);
   v17 = [v2 copy];
-  v18 = *(a1 + 48);
-  v19 = *(v18 + 208);
-  *(v18 + 208) = v17;
+  v18 = a1[6];
+  v19 = v18[26];
+  v18[26] = v17;
 
-  *(*(a1 + 48) + 216) = 1;
-  v20 = [v2 count] != *(a1 + 56);
+  *(a1[6] + 216) = 1;
+  v20 = [v2 count] != a1[7];
 
   return v20;
 }
@@ -22176,95 +22176,95 @@ void __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block
   objc_destroyWeak(&v10);
 }
 
-void __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2(uint64_t a1)
+void __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2)
+  v38 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v36 = v2;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "enrollPaymentPass error: %{public}@", buf, 0xCu);
+      v37 = v3;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "enrollPaymentPass error: %{public}@", buf, 0xCu);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     *(WeakRetained + 584) = *(a1 + 64) ^ 1;
     *(WeakRetained + 193) = 0;
-    v6 = AMPEnrollmentDismissedKeyForPass();
+    v7 = AMPEnrollmentDismissedKeyForPass();
     PKSharedCacheSetBoolForKey();
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2083;
-    v33[3] = &unk_1E8010998;
-    objc_copyWeak(&v34, (a1 + 48));
-    [v5 _fetchAMPEnrollmentIconIfNeeded:v33];
-    objc_destroyWeak(&v34);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2083;
+    v34[3] = &unk_1E8010998;
+    objc_copyWeak(&v35, (a1 + 48));
+    [v6 _fetchAMPEnrollmentIconIfNeeded:v34];
+    objc_destroyWeak(&v35);
   }
 
-  v7 = objc_loadWeakRetained((a1 + 56));
-  if (v7)
+  v8 = objc_loadWeakRetained((a1 + 56));
+  if (v8)
   {
-    v8 = MEMORY[0x1E69DC650];
+    v9 = MEMORY[0x1E69DC650];
     if (*(a1 + 64) == 1)
     {
-      v9 = PKLocalizedAMPString(&cfstr_PassDashboardA_2.isa);
-      v10 = [*(a1 + 40) localizedDescription];
-      v11 = PKLocalizedAMPString(&cfstr_PassDashboardA_3.isa, &stru_1F3BD5BF0.isa, v10);
-      v12 = [v8 alertControllerWithTitle:v9 message:v11 preferredStyle:1];
+      v10 = PKLocalizedAMPString(&cfstr_PassDashboardA_2.isa);
+      v11 = [*(a1 + 40) localizedDescription];
+      v12 = PKLocalizedAMPString(&cfstr_PassDashboardA_3.isa, &stru_1F3BD5BF0.isa, v11);
+      v13 = [v9 alertControllerWithTitle:v10 message:v12 preferredStyle:1];
 
-      v13 = MEMORY[0x1E69DC648];
-      v14 = PKLocalizedAMPString(&cfstr_PassDashboardA_4.isa);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2_2096;
-      v31[3] = &unk_1E8012CC0;
-      v15 = &v32;
-      objc_copyWeak(&v32, (a1 + 48));
-      v16 = [v13 actionWithTitle:v14 style:0 handler:v31];
-      [v12 addAction:v16];
+      v14 = MEMORY[0x1E69DC648];
+      v15 = PKLocalizedAMPString(&cfstr_PassDashboardA_4.isa);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_2_2096;
+      v32[3] = &unk_1E8012CC0;
+      v16 = &v33;
+      objc_copyWeak(&v33, (a1 + 48));
+      v17 = [v14 actionWithTitle:v15 style:0 handler:v32];
+      [v13 addAction:v17];
 
-      v17 = MEMORY[0x1E69DC648];
-      v18 = PKLocalizedAMPString(&cfstr_PassDashboardA_5.isa);
-      v19 = [v17 actionWithTitle:v18 style:1 handler:0];
-      [v12 addAction:v19];
+      v18 = MEMORY[0x1E69DC648];
+      v19 = PKLocalizedAMPString(&cfstr_PassDashboardA_5.isa);
+      v20 = [v18 actionWithTitle:v19 style:1 handler:0];
+      [v13 addAction:v20];
     }
 
     else
     {
-      v20 = PKLocalizedAMPString(&cfstr_PassDashboardA_6.isa);
-      v21 = PKLocalizedAMPString(&cfstr_PassDashboardA_7.isa);
-      v12 = [v8 alertControllerWithTitle:v20 message:v21 preferredStyle:1];
+      v21 = PKLocalizedAMPString(&cfstr_PassDashboardA_6.isa);
+      v22 = PKLocalizedAMPString(&cfstr_PassDashboardA_7.isa);
+      v13 = [v9 alertControllerWithTitle:v21 message:v22 preferredStyle:1];
 
-      v22 = MEMORY[0x1E69DC648];
-      v23 = PKLocalizedAMPString(&cfstr_PassDashboardA_8.isa);
-      v24 = [v22 actionWithTitle:v23 style:1 handler:0];
-      [v12 addAction:v24];
+      v23 = MEMORY[0x1E69DC648];
+      v24 = PKLocalizedAMPString(&cfstr_PassDashboardA_8.isa);
+      v25 = [v23 actionWithTitle:v24 style:1 handler:0];
+      [v13 addAction:v25];
 
-      v25 = MEMORY[0x1E69DC648];
-      v26 = PKLocalizedAMPString(&cfstr_PassDashboardA_9.isa);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_3;
-      v28[3] = &unk_1E80178E8;
-      v15 = &v30;
-      objc_copyWeak(&v30, (a1 + 48));
-      v29 = *(a1 + 40);
-      v27 = [v25 actionWithTitle:v26 style:0 handler:v28];
-      [v12 addAction:v27];
+      v26 = MEMORY[0x1E69DC648];
+      v27 = PKLocalizedAMPString(&cfstr_PassDashboardA_9.isa);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __65__PKDashboardPaymentPassDataSource__addToAMPButtonTappedForPass___block_invoke_3;
+      v29[3] = &unk_1E80178E8;
+      v16 = &v31;
+      objc_copyWeak(&v31, (a1 + 48));
+      v30 = *(a1 + 40);
+      v28 = [v26 actionWithTitle:v27 style:0 handler:v29];
+      [v13 addAction:v28];
 
-      v18 = v29;
+      v19 = v30;
     }
 
-    objc_destroyWeak(v15);
-    [v7 presentViewController:v12 animated:1 completion:0];
+    objc_destroyWeak(v16);
+    [v8 presentViewController:v13 animated:1 completion:0];
   }
 }
 
@@ -23175,7 +23175,7 @@ void __79__PKDashboardPaymentPassDataSource__peerPaymentResolutionTappedWithReso
     v7 = _MergedGlobals_622();
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     v9 = -[objc_class descriptorForRequiredKeysWithThreeDTouchEnabled:](v7, "descriptorForRequiredKeysWithThreeDTouchEnabled:", [currentDevice _supportsForceTouch]);
-    descriptorForRequiredKeys = [off_1EE98A6B0() descriptorForRequiredKeys];
+    descriptorForRequiredKeys = [(objc_class *)(off_1EE98A6B0)() descriptorForRequiredKeys];
     v16[1] = descriptorForRequiredKeys;
     descriptorForRequiredKeys2 = [off_1EE98A6B8() descriptorForRequiredKeys];
     v16[2] = descriptorForRequiredKeys2;
@@ -26408,149 +26408,149 @@ LABEL_11:
   }
 }
 
-void __104__PKDashboardPaymentPassDataSource_BankConnect__updateWithBankConnectAccount_consentStatus_institution___block_invoke(uint64_t a1)
+void __104__PKDashboardPaymentPassDataSource_BankConnect__updateWithBankConnectAccount_consentStatus_institution___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v39[3] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = PKLogFacilityTypeGetObject();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v40[3] = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = PKLogFacilityTypeGetObject();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      *v37 = 0;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Updating Dashboard with Bank Connect data...", v37, 2u);
+      *v38 = 0;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Updating Dashboard with Bank Connect data...", v38, 2u);
     }
 
-    v5 = [*(a1 + 40) bankConnectLinkedAccountData];
-
     v6 = [*(a1 + 40) bankConnectLinkedAccountData];
-    v7 = [v6 consentStatus] == 1 && *(a1 + 56) == 0;
 
-    v9 = v5 == 0 || v7;
-    v10 = [*(a1 + 40) isEligibleForPersonalizedInsights];
-    v11 = [*(a1 + 32) fullyQualifiedAccountIdentifier];
-    v12 = [v11 accountID];
+    v7 = [*(a1 + 40) bankConnectLinkedAccountData];
+    v8 = [v7 consentStatus] == 1 && *(a1 + 56) == 0;
 
-    v13 = [*(a1 + 40) bankConnectMessage];
-    v14 = [v13 identifier];
+    v10 = v6 == 0 || v8;
+    v11 = [*(a1 + 40) isEligibleForPersonalizedInsights];
+    v12 = [*(a1 + 32) fullyQualifiedAccountIdentifier];
+    v13 = [v12 accountID];
 
-    v15 = [*(a1 + 40) bankConnectMessagesManager];
-    v16 = [v15 isAccountMessageDismissed:2 forAccountIdentifier:v12];
+    v14 = [*(a1 + 40) bankConnectMessage];
+    v15 = [v14 identifier];
 
-    if (v14 != @"bankConnectConnected" || v16)
+    v16 = [*(a1 + 40) bankConnectMessagesManager];
+    v17 = [v16 isAccountMessageDismissed:2 forAccountIdentifier:v13];
+
+    if (v15 != @"bankConnectConnected" || v17)
     {
       [*(a1 + 40) _hideBankConnectMessageAndReloadIfNeeded];
     }
 
-    v17 = objc_alloc_init(PKDashboardBankConnectLinkedAccountData);
-    [(PKDashboardBankConnectLinkedAccountData *)v17 setAccount:*(a1 + 32)];
-    [(PKDashboardBankConnectLinkedAccountData *)v17 setConsentStatus:*(a1 + 56)];
-    [(PKDashboardBankConnectLinkedAccountData *)v17 setInstitution:*(a1 + 48)];
-    [*(a1 + 40) setBankConnectLinkedAccountData:v17];
+    v18 = objc_alloc_init(PKDashboardBankConnectLinkedAccountData);
+    [(PKDashboardBankConnectLinkedAccountData *)v18 setAccount:*(a1 + 32)];
+    [(PKDashboardBankConnectLinkedAccountData *)v18 setConsentStatus:*(a1 + 56)];
+    [(PKDashboardBankConnectLinkedAccountData *)v18 setInstitution:*(a1 + 48)];
+    [*(a1 + 40) setBankConnectLinkedAccountData:v18];
     [*(a1 + 40) _reloadBalance];
     [*(a1 + 40) _showBankConnectMessageIfNeeded];
     [*(a1 + 40) _updateSearchAvailability];
-    v18 = *(a1 + 40);
-    if (v9)
+    v19 = *(a1 + 40);
+    if (v10)
     {
-      [v18 _fetchBankConnectTransactions];
+      [v19 _fetchBankConnectTransactions];
     }
 
-    else if (([v18 supportsBankConnectTransactions] & 1) == 0)
+    else if (([v19 supportsBankConnectTransactions] & 1) == 0)
     {
       [*(a1 + 40) reloadTransactionsWithSummariesReload:1];
       [*(a1 + 40) reloadTransactionGroups];
     }
 
-    v19 = [*(a1 + 40) isEligibleForPersonalizedInsights];
-    if (v10 != v19)
+    v20 = [*(a1 + 40) isEligibleForPersonalizedInsights];
+    if (v11 != v20)
     {
-      v20 = v19;
+      v21 = v20;
       [*(a1 + 40) _beginReportingIfNecessary];
-      v21 = MEMORY[0x1E69B8540];
-      v22 = *MEMORY[0x1E69BABE8];
-      v38[0] = *MEMORY[0x1E69BA680];
-      v38[1] = v22;
-      v23 = *MEMORY[0x1E69BAC20];
-      v39[0] = *MEMORY[0x1E69BA7E0];
+      v22 = MEMORY[0x1E69B8540];
+      v23 = *MEMORY[0x1E69BABE8];
+      v39[0] = *MEMORY[0x1E69BA680];
       v39[1] = v23;
-      v38[2] = *MEMORY[0x1E69BAA08];
-      v24 = *MEMORY[0x1E69BB6F8];
-      if (v20)
+      v24 = *MEMORY[0x1E69BAC20];
+      v40[0] = *MEMORY[0x1E69BA7E0];
+      v40[1] = v24;
+      v39[2] = *MEMORY[0x1E69BAA08];
+      v25 = *MEMORY[0x1E69BB6F8];
+      if (v21)
       {
-        v25 = @"true";
+        v26 = @"true";
       }
 
       else
       {
-        v25 = @"false";
+        v26 = @"false";
       }
 
-      v39[2] = v25;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
-      [v21 subject:v24 sendEvent:v26];
+      v40[2] = v26;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:3];
+      [v22 subject:v25 sendEvent:v27];
     }
 
 LABEL_26:
     if (*(a1 + 64) == 1)
     {
-      v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [v27 safelySetObject:*MEMORY[0x1E69BA7E0] forKey:*MEMORY[0x1E69BA680]];
-      [v27 safelySetObject:*MEMORY[0x1E69BAC10] forKey:*MEMORY[0x1E69BABE8]];
-      [v27 safelySetObject:*MEMORY[0x1E69BAD88] forKey:*MEMORY[0x1E69BAC90]];
-      v28 = [*(a1 + 40) getPassProductType];
-      [v27 safelySetObject:v28 forKey:*MEMORY[0x1E69BAC88]];
+      v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [v28 safelySetObject:*MEMORY[0x1E69BA7E0] forKey:*MEMORY[0x1E69BA680]];
+      [v28 safelySetObject:*MEMORY[0x1E69BAC10] forKey:*MEMORY[0x1E69BABE8]];
+      [v28 safelySetObject:*MEMORY[0x1E69BAD88] forKey:*MEMORY[0x1E69BAC90]];
+      v29 = [*(a1 + 40) getPassProductType];
+      [v28 safelySetObject:v29 forKey:*MEMORY[0x1E69BAC88]];
 
-      v29 = [*(a1 + 40) pass];
-      v30 = [v29 issuerCountryCode];
-      [v27 safelySetObject:v30 forKey:*MEMORY[0x1E69BAC78]];
+      v30 = [*(a1 + 40) pass];
+      v31 = [v30 issuerCountryCode];
+      [v28 safelySetObject:v31 forKey:*MEMORY[0x1E69BAC78]];
 
-      v31 = [*(a1 + 40) pass];
-      v32 = PKDefaultPaymentNetworkNameForPaymentPass();
-      [v27 safelySetObject:v32 forKey:*MEMORY[0x1E69BAD48]];
+      v32 = [*(a1 + 40) pass];
+      v33 = PKDefaultPaymentNetworkNameForPaymentPass();
+      [v28 safelySetObject:v33 forKey:*MEMORY[0x1E69BAD48]];
 
       if ([*(a1 + 40) isBankConnectLinked])
       {
-        v33 = @"true";
+        v34 = @"true";
       }
 
       else
       {
-        v33 = @"false";
+        v34 = @"false";
       }
 
-      [v27 safelySetObject:v33 forKey:*MEMORY[0x1E69BA9E0]];
-      v34 = *(a1 + 48);
-      if (v34)
+      [v28 safelySetObject:v34 forKey:*MEMORY[0x1E69BA9E0]];
+      v35 = *(a1 + 48);
+      if (v35)
       {
-        v35 = [v34 name];
+        v36 = [v35 name];
 
-        if (v35)
+        if (v36)
         {
-          v36 = [*(a1 + 48) name];
-          [v27 safelySetObject:v36 forKey:*MEMORY[0x1E69BAA28]];
+          v37 = [*(a1 + 48) name];
+          [v28 safelySetObject:v37 forKey:*MEMORY[0x1E69BAA28]];
         }
       }
 
-      [MEMORY[0x1E69B8540] subject:*MEMORY[0x1E69BB6F8] sendEvent:v27];
+      [MEMORY[0x1E69B8540] subject:*MEMORY[0x1E69BB6F8] sendEvent:v28];
     }
 
     return;
   }
 
-  if (v4)
+  if (v5)
   {
-    *v37 = 0;
-    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Cleaning up Dashboard Bank Connect state...", v37, 2u);
+    *v38 = 0;
+    _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up Dashboard Bank Connect state...", v38, 2u);
   }
 
   if (([*(a1 + 40) _isShowingSetUpMessage] & 1) == 0)
   {
     [*(a1 + 40) _hideBankConnectMessageAndReloadIfNeeded];
-    v8 = [*(a1 + 40) bankConnectLinkedAccountData];
+    v9 = [*(a1 + 40) bankConnectLinkedAccountData];
 
-    if (v8)
+    if (v9)
     {
       [*(a1 + 40) setBankConnectLinkedAccountData:0];
       [*(a1 + 40) setSpendingSummaryDataProvider:0];

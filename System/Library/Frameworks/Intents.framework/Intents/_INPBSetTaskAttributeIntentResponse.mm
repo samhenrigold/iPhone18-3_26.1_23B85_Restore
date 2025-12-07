@@ -3,6 +3,7 @@
 - (_INPBSetTaskAttributeIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)warningsAsString:(int)string;
 - (int)StringAsWarnings:(id)warnings;
 - (void)addWarnings:(int)warnings;
 - (void)dealloc;
@@ -152,7 +153,6 @@ LABEL_8:
     v7 = 0;
     do
     {
-      v8 = p_warnings->list[v7];
       PBDataWriterWriteInt32Field();
       ++v7;
     }
@@ -192,6 +192,21 @@ LABEL_8:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)warningsAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F840[string];
   }
 
   return v4;

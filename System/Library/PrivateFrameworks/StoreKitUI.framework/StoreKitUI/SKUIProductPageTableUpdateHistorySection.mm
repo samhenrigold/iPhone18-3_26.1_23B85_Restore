@@ -46,10 +46,10 @@
     v9 = schemeCopy;
     objc_storeStrong(&self->_colorScheme, scheme);
     headerView = self->_headerView;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v7 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v7)
     {
-      [(SKUIProductPageTableExpandableHeaderView *)headerView setBottomBorderColor:primaryTextColor];
+      [(SKUIProductPageTableExpandableHeaderView *)headerView setBottomBorderColor:v7];
     }
 
     else
@@ -87,10 +87,10 @@
     [(SKUIProductPageTableExpandableHeaderView *)v6 setTitle:v8];
 
     v9 = self->_headerView;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v10)
     {
-      [(SKUIProductPageTableExpandableHeaderView *)v9 setBottomBorderColor:primaryTextColor];
+      [(SKUIProductPageTableExpandableHeaderView *)v9 setBottomBorderColor:v10];
     }
 
     else
@@ -170,10 +170,10 @@
 {
   pathCopy = path;
   v7 = [(SKUIProductPageTableSection *)self textBoxTableViewCellForTableView:view indexPath:pathCopy];
-  primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-  if (primaryTextColor)
+  v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  if (v8)
   {
-    [v7 setBottomBorderColor:primaryTextColor];
+    [v7 setBottomBorderColor:v8];
   }
 
   else

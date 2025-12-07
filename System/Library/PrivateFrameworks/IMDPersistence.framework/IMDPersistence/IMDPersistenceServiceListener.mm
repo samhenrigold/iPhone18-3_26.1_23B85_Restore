@@ -29,14 +29,13 @@
 {
   v4 = sub_1B7CFDC70();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B7CFDC60();
   selfCopy = self;
   sub_1B7C22370();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)connection:(id)connection registerCleanupHandlerWithID:(id)d usingBlock:(id)block

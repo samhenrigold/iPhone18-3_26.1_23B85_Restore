@@ -11,6 +11,10 @@
 - (void)_runNextInteraction;
 - (void)_setNextInteractionTimeout:(unint64_t)timeout;
 - (void)cancel:(id)cancel;
+- (void)cancelInteractionType:(unsigned __int8)type withDevice:(id)device dueToError:(id)error;
+- (void)registerSessionActivationReason:(unsigned __int8)reason forInteractionType:(unsigned __int8)type withOptions:(unsigned __int16)options completionHandler:(id)handler;
+- (void)submitInteractionType:(unsigned __int8)type withDevice:(id)device reason:(unsigned __int8)reason;
+- (void)unblockInteractionType:(unsigned __int8)type;
 @end
 
 @implementation CCRapportSyncSession
@@ -107,6 +111,37 @@
   return flagsCopy;
 }
 
+- (void)registerSessionActivationReason:(unsigned __int8)reason forInteractionType:(unsigned __int8)type withOptions:(unsigned __int16)options completionHandler:(id)handler
+{
+  typeCopy = type;
+  reasonCopy = reason;
+  handlerCopy = handler;
+  dispatch_assert_queue_V2(self->_queue);
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:reasonCopy];
+  [(NSMutableArray *)self->_activationReasons setObject:v10 atIndexedSubscript:typeCopy];
+
+  self->_options |= options;
+  if (handlerCopy)
+  {
+    completionHandlers = self->_completionHandlers;
+    v12 = MEMORY[0x1DA74EA40](handlerCopy);
+    [(NSMutableArray *)completionHandlers addObject:v12];
+  }
+
+  [(CCRapportSyncSession *)self _addFlags:1 forInteractionType:typeCopy];
+  if (typeCopy == 1)
+  {
+    v13 = 3;
+  }
+
+  else
+  {
+    v13 = 6;
+  }
+
+  [(CCRapportSyncSession *)self _setNextInteractionTimeout:v13];
+}
+
 - (void)_setNextInteractionTimeout:(unint64_t)timeout
 {
   dispatch_assert_queue_V2(self->_queue);
@@ -151,6 +186,101 @@ void __51__CCRapportSyncSession__setNextInteractionTimeout___block_invoke(uint64
   }
 }
 
+- (void)submitInteractionType:(unsigned __int8)type withDevice:(id)device reason:(unsigned __int8)reason
+{
+  reasonCopy = reason;
+  typeCopy = type;
+  v24 = *MEMORY[0x1E69E9840];
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_queue);
+  if (reasonCopy == 4 || reasonCopy == 8 || [(CCRapportSyncSession *)self _hasFlags:1 forInteractionType:typeCopy])
+  {
+    v9 = [(NSMutableArray *)self->_registeredInteractions objectAtIndexedSubscript:typeCopy];
+    rapportIdentifier = [deviceCopy rapportIdentifier];
+    v11 = [v9 objectForKeyedSubscript:rapportIdentifier];
+
+    state = [(CCRapportSyncInteraction *)v11 state];
+    if (state == 3)
+    {
+      if (reasonCopy == 4)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      if (state == 2)
+      {
+LABEL_21:
+
+        goto LABEL_22;
+      }
+
+      if (state == 1 && reasonCopy == 4)
+      {
+        if ([(CCRapportSyncInteraction *)v11 reason]== 4)
+        {
+          if (!v11)
+          {
+            LOBYTE(reasonCopy) = 4;
+LABEL_17:
+            objc_initWeak(&location, self);
+            v13 = [CCRapportSyncInteraction alloc];
+            queue = self->_queue;
+            v15 = self->_interactionIndex + 1;
+            self->_interactionIndex = v15;
+            options = self->_options;
+            v20[0] = MEMORY[0x1E69E9820];
+            v20[1] = 3221225472;
+            v20[2] = __64__CCRapportSyncSession_submitInteractionType_withDevice_reason___block_invoke;
+            v20[3] = &unk_1E85C2BA8;
+            objc_copyWeak(&v21, &location);
+            v11 = [(CCRapportSyncInteraction *)v13 initWithQueue:queue reason:reasonCopy device:deviceCopy index:v15 type:typeCopy options:options completion:v20];
+            v17 = __biome_log_for_category();
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+            {
+              detailedDescription = [(CCRapportSyncInteraction *)v11 detailedDescription];
+              [(CCRapportSyncSession *)self submitInteractionType:detailedDescription withDevice:buf reason:v17];
+            }
+
+            rapportIdentifier2 = [deviceCopy rapportIdentifier];
+            [v9 setObject:v11 forKeyedSubscript:rapportIdentifier2];
+
+            objc_destroyWeak(&v21);
+            objc_destroyWeak(&location);
+          }
+
+LABEL_20:
+          [(CCRapportSyncSession *)self _runNextInteraction];
+          goto LABEL_21;
+        }
+
+        LOBYTE(reasonCopy) = 4;
+LABEL_16:
+
+        goto LABEL_17;
+      }
+    }
+
+    if (v11)
+    {
+      goto LABEL_20;
+    }
+
+    if (reasonCopy)
+    {
+      goto LABEL_17;
+    }
+
+    v11 = [(NSMutableArray *)self->_activationReasons objectAtIndex:typeCopy];
+    reasonCopy = [(CCRapportSyncInteraction *)v11 unsignedIntValue];
+    goto LABEL_16;
+  }
+
+LABEL_22:
+}
+
 void __64__CCRapportSyncSession_submitInteractionType_withDevice_reason___block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
@@ -165,42 +295,49 @@ void __64__CCRapportSyncSession_submitInteractionType_withDevice_reason___block_
   }
 }
 
+- (void)unblockInteractionType:(unsigned __int8)type
+{
+  [(CCRapportSyncSession *)self _addFlags:2 forInteractionType:type];
+
+  [(CCRapportSyncSession *)self _runNextInteraction];
+}
+
 - (void)_runNextInteraction
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (![(CCRapportSyncSession *)self _isRunningInteractionType:1])
   {
     v3 = [(NSMutableArray *)self->_registeredInteractions objectAtIndexedSubscript:0];
     allValues = [v3 allValues];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v5 = allValues;
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * i);
+          v10 = *(*(&v25 + 1) + 8 * i);
           if ([v10 state] == 1)
           {
             [(CCRapportSyncSession *)self _runInteraction:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v7);
@@ -214,27 +351,27 @@ void __64__CCRapportSyncSession_submitInteractionType_withDevice_reason___block_
     v11 = [(NSMutableArray *)self->_registeredInteractions objectAtIndexedSubscript:1];
     allValues2 = [v11 allValues];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v13 = allValues2;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
-      v17 = *v23;
+      v17 = *v22;
       while (2)
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v22 + 1) + 8 * j);
+          v19 = *(*(&v21 + 1) + 8 * j);
           if ([v19 state] == 1)
           {
             if (!v16)
@@ -252,7 +389,7 @@ void __64__CCRapportSyncSession_submitInteractionType_withDevice_reason___block_
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v15)
         {
           continue;
@@ -273,7 +410,7 @@ LABEL_25:
 LABEL_32:
 
 LABEL_33:
-        goto LABEL_34;
+        return;
       }
     }
 
@@ -289,9 +426,55 @@ LABEL_33:
     v16 = 0;
     goto LABEL_32;
   }
+}
 
-LABEL_34:
-  v21 = *MEMORY[0x1E69E9840];
+- (void)cancelInteractionType:(unsigned __int8)type withDevice:(id)device dueToError:(id)error
+{
+  typeCopy = type;
+  v22 = *MEMORY[0x1E69E9840];
+  errorCopy = error;
+  queue = self->_queue;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(queue);
+  v11 = [(CCRapportSyncSession *)self interactionOfType:typeCopy withDevice:deviceCopy];
+
+  if ([v11 state] == 3)
+  {
+    v12 = __biome_log_for_category();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      [CCRapportSyncSession cancelInteractionType:v11 withDevice:v12 dueToError:?];
+    }
+  }
+
+  else
+  {
+    [v11 setError:errorCopy];
+    v13 = __biome_log_for_category();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = CCRapportSyncInteractionStateDescription([v11 state]);
+      detailedDescription = [v11 detailedDescription];
+      v16 = 138412802;
+      selfCopy = self;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = detailedDescription;
+      _os_log_impl(&dword_1DA444000, v13, OS_LOG_TYPE_DEFAULT, "%@ cancelling (%@) interaction: %@", &v16, 0x20u);
+    }
+
+    if ([v11 state] == 2)
+    {
+      [v11 complete];
+    }
+
+    else if ([v11 state] == 1)
+    {
+      [v11 updateState:3];
+      [(NSMutableArray *)self->_completedInteractions addObject:v11];
+    }
+  }
 }
 
 - (id)interactionOfType:(unsigned __int8)type withDevice:(id)device
@@ -354,43 +537,43 @@ LABEL_34:
 
 - (void)_completeSession:(id)session
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_queue);
   if (self->_completionHandlers)
   {
     if (sessionCopy)
     {
-      v47[0] = sessionCopy;
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+      v46[0] = sessionCopy;
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
       v6 = MEMORY[0x1E695E0F0];
     }
 
     else
     {
       v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_completedInteractions, "count")}];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       selfCopy = self;
       v7 = self->_completedInteractions;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v33 objects:v46 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v32 objects:v45 count:16];
       if (v8)
       {
         v9 = v8;
         v5 = 0;
-        v10 = *v34;
+        v10 = *v33;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v34 != v10)
+            if (*v33 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v33 + 1) + 8 * i);
+            v12 = *(*(&v32 + 1) + 8 * i);
             detailedDescription = [v12 detailedDescription];
             [v6 addObject:detailedDescription];
 
@@ -411,7 +594,7 @@ LABEL_34:
             }
           }
 
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v33 objects:v46 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v32 objects:v45 count:16];
         }
 
         while (v9);
@@ -438,38 +621,38 @@ LABEL_34:
         v20 = sessionCopy;
       }
 
-      v40 = 2048;
-      v41 = v19;
-      v42 = 2112;
-      v43 = v6;
-      v44 = 2112;
-      v45 = v20;
+      v39 = 2048;
+      v40 = v19;
+      v41 = 2112;
+      v42 = v6;
+      v43 = 2112;
+      v44 = v20;
       _os_log_impl(&dword_1DA444000, v18, OS_LOG_TYPE_DEFAULT, "Sync session %@ completed with %lu interaction(s) %@ %@", buf, 0x2Au);
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v21 = self->_completionHandlers;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v30;
+      v24 = *v29;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          (*(*(*(&v29 + 1) + 8 * j) + 16))();
+          (*(*(*(&v28 + 1) + 8 * j) + 16))();
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v23);
@@ -487,8 +670,6 @@ LABEL_34:
       [(CCRapportSyncSession *)self _completeSession:sessionCopy, v6];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitInteractionType:(uint8_t *)buf withDevice:(os_log_t)log reason:.cold.1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -502,42 +683,37 @@ LABEL_34:
 
 - (void)cancelInteractionType:(uint64_t)a1 withDevice:(void *)a2 dueToError:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = CCRapportSyncInteractionStateDescription([a2 state]);
   v7 = [a2 detailedDescription];
-  v9 = 138412802;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_debug_impl(&dword_1DA444000, a3, OS_LOG_TYPE_DEBUG, "%@ ignoring cancellation for (%@) interaction: %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412802;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_debug_impl(&dword_1DA444000, a3, OS_LOG_TYPE_DEBUG, "%@ ignoring cancellation for (%@) interaction: %@", &v8, 0x20u);
 }
 
 - (void)_runInteraction:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 detailedDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1DA444000, a3, OS_LOG_TYPE_DEBUG, "%@ Running interaction: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1DA444000, a3, OS_LOG_TYPE_DEBUG, "%@ Running interaction: %@", &v6, 0x16u);
 }
 
 - (void)_completeSession:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Sync session %@ already completed, ignoring (%@)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Sync session %@ already completed, ignoring (%@)", &v3, 0x16u);
 }
 
 @end

@@ -36,7 +36,7 @@
     v13 = v12;
     v15 = v14;
     v17 = v16;
-    [self _safeAreaCornerInsets];
+    objc_msgSend__safeAreaCornerInsets(self);
     tintColor = [self tintColor];
     _isSceneSized = [(_UISceneHostingView *)self _isSceneSized];
     _window = [self _window];
@@ -58,10 +58,10 @@
       v23 = !v22;
     }
 
-    v24 = [traitCollection isEqual:*(self + 408)];
+    isEqual = objc_msgSend_isEqual_(traitCollection);
     if (v13 == *(self + 464) && v11 == *(self + 456) && v17 == *(self + 480))
     {
-      v27 = !((v15 == *(self + 472)) & v24) | v23;
+      v27 = !((v15 == *(self + 472)) & isEqual) | v23;
     }
 
     else
@@ -79,7 +79,7 @@
       }
     }
 
-    v31 = [tintColor isEqual:*(self + 416)] ^ 1;
+    v31 = objc_msgSend_isEqual_(tintColor) ^ 1;
     v33 = interfaceOrientation != *(self + 560) || *(self + 552) != _isSceneSized;
     v34 = v33 | v31 | v28;
     if ((v22 | v34))
@@ -408,7 +408,7 @@ LABEL_7:
   processIdentity = [clientIdentity processIdentity];
 
   xpcServiceIdentifier = [processIdentity xpcServiceIdentifier];
-  self->_requiresFencingHack = [xpcServiceIdentifier isEqualToString:@"com.apple.ScreenTime.ScreenTimeWebExtension"];
+  self->_requiresFencingHack = objc_msgSend_isEqualToString_(xpcServiceIdentifier);
 }
 
 - (BOOL)inheritsSecurity
@@ -526,7 +526,7 @@ LABEL_7:
       v13 = [(_UISceneSafeAreaEdgeInsetConcreteResolver *)v12 initWithSafeAreaEdgeInsets:?];
       [ui_safeAreaSettings setSafeAreaEdgeInsetResolver:v13];
       v14 = [_UISceneSafeAreaCornerInsetConcreteResolver alloc];
-      [(UIView *)self _safeAreaCornerInsets];
+      objc_msgSend__safeAreaCornerInsets(self);
       v15 = [(_UISceneSafeAreaCornerInsetConcreteResolver *)v14 initWithSafeAreaCornerInsets:&v26];
       [ui_safeAreaSettings setSafeAreaCornerInsetResolver:v15];
     }

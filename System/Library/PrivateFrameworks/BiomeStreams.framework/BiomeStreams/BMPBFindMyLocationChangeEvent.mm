@@ -1,8 +1,10 @@
 @interface BMPBFindMyLocationChangeEvent
 - (BOOL)isEqual:(id)equal;
+- (id)activityStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)locationChangeTypeAsString:(int)string;
 - (int)StringAsActivityState:(id)state;
 - (int)StringAsLocationChangeType:(id)type;
 - (int)activityState;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)locationChangeTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E544B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLocationChangeType:(id)type
@@ -98,6 +115,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)activityStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E544C8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsActivityState:(id)state
@@ -241,19 +273,18 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_idsHandle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    locationChangeType = self->_locationChangeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -272,9 +303,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  activityState = self->_activityState;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -288,22 +318,20 @@ LABEL_6:
   }
 
 LABEL_15:
-  latitude = self->_latitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    longitude = self->_longitude;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -451,7 +479,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 56) & 8) == 0 || self->_locationChangeType != *(equalCopy + 10))
@@ -463,7 +490,7 @@ LABEL_6:
   else if ((*(equalCopy + 56) & 8) != 0)
   {
 LABEL_26:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_27;
   }
 
@@ -509,17 +536,17 @@ LABEL_26:
   name = self->_name;
   if (name | *(equalCopy + 6))
   {
-    v8 = [(NSString *)name isEqual:?];
+    v7 = [(NSString *)name isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_27:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

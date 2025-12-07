@@ -3,6 +3,8 @@
 - (TLAttentionAwarenessEffectCoordinator)initWithEffectParameters:(id)parameters audioSession:(id)session;
 - (id)audioMixForAsset:(id)asset;
 - (void)_finalizeAudioProcessingWithEffectAudioTapContext:(id)context;
+- (void)_prepareAudioProcessingWithEffectAudioTapContext:(id)context maximumNumberOfFrames:(unsigned int)frames processingFormat:(const AudioStreamBasicDescription *)format;
+- (void)_processAudioWithEffectAudioTapContext:(id)context bufferList:(AudioBufferList *)list numberOfFramesRequested:(unsigned int)requested numberOfFramesToProcess:(unsigned int)process;
 - (void)_unprepareAudioProcessingWithEffectAudioTapContext:(id)context;
 - (void)dealloc;
 - (void)setEffectParameters:(id)parameters;
@@ -146,8 +148,8 @@ LABEL_3:
       _Block_object_dispose(&v40, 8);
       if (!v16)
       {
-        dlerror();
-        abort_report_np();
+        v22 = dlerror();
+        abort_report_np("%s", v22);
         __break(1u);
       }
 
@@ -172,7 +174,6 @@ LABEL_9:
 LABEL_21:
   v20 = audioMix;
 
-  v21 = *MEMORY[0x1E69E9840];
   return audioMix;
 }
 
@@ -194,106 +195,139 @@ LABEL_21:
 {
   var2 = parameters.var2;
   v4 = *&parameters.var0;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   *&self->_effectParameters.shouldBypassLowPassFilter = v4;
   self->_effectParameters.effectMix = var2;
   v6 = [(NSMutableSet *)self->_effectAudioTapContexts copy];
   os_unfair_lock_unlock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        effectProcessor = [*(*(&v13 + 1) + 8 * v10) effectProcessor];
+        effectProcessor = [*(*(&v12 + 1) + 8 * v10) effectProcessor];
         [effectProcessor setEffectParameters:{v4, LODWORD(var2)}];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEffectParameters:(id)parameters effectMixFadeDuration:(double)duration
 {
   var2 = parameters.var2;
   v6 = *&parameters.var0;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   *&self->_effectParameters.shouldBypassLowPassFilter = v6;
   self->_effectParameters.effectMix = var2;
   v8 = [(NSMutableSet *)self->_effectAudioTapContexts copy];
   os_unfair_lock_unlock(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        effectProcessor = [*(*(&v15 + 1) + 8 * v12) effectProcessor];
+        effectProcessor = [*(*(&v14 + 1) + 8 * v12) effectProcessor];
         [effectProcessor setEffectParameters:v6 effectMixFadeDuration:{LODWORD(var2), duration}];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)_prepareAudioProcessingWithEffectAudioTapContext:(id)context maximumNumberOfFrames:(unsigned int)frames processingFormat:(const AudioStreamBasicDescription *)format
+{
+  v6 = *&frames;
+  contextCopy = context;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  effectProcessor = self->_effectProcessor;
+  if (!effectProcessor)
+  {
+    v10 = [objc_alloc(MEMORY[0x1E6958418]) initWithStreamDescription:format];
+    v11 = [TLAttentionAwarenessEffectProcessor alloc];
+    audioSession = self->_audioSession;
+    effectParameters = [(TLAttentionAwarenessEffectCoordinator *)self effectParameters];
+    v15 = [(TLAttentionAwarenessEffectProcessor *)v11 initWithProcessingFormat:v10 framesPerRender:v6 audioSession:audioSession effectParameters:effectParameters, v14];
+    v16 = self->_effectProcessor;
+    self->_effectProcessor = v15;
+
+    [contextCopy setEffectProcessor:self->_effectProcessor];
+    effectProcessor = self->_effectProcessor;
+  }
+
+  isStarted = [(TLAttentionAwarenessEffectProcessor *)effectProcessor isStarted];
+  if ((isStarted & 1) == 0)
+  {
+    v19 = TLLogPlayback(isStarted, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      [TLAttentionAwarenessEffectCoordinator _prepareAudioProcessingWithEffectAudioTapContext:v19 maximumNumberOfFrames:? processingFormat:?];
+    }
+
+    [(TLAttentionAwarenessEffectProcessor *)self->_effectProcessor start];
+  }
 }
 
 - (void)_unprepareAudioProcessingWithEffectAudioTapContext:(id)context
 {
   contextCopy = context;
   effectProcessor = self->_effectProcessor;
-  if (effectProcessor && [(TLAttentionAwarenessEffectProcessor *)effectProcessor isStarted])
+  if (effectProcessor)
   {
-    v6 = TLLogPlayback();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    isStarted = [(TLAttentionAwarenessEffectProcessor *)effectProcessor isStarted];
+    if (isStarted)
     {
-      [(TLAttentionAwarenessEffectCoordinator *)self _unprepareAudioProcessingWithEffectAudioTapContext:v6];
-    }
+      v8 = TLLogPlayback(isStarted, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      {
+        [(TLAttentionAwarenessEffectCoordinator *)self _unprepareAudioProcessingWithEffectAudioTapContext:v8];
+      }
 
-    effectProcessor = [contextCopy effectProcessor];
-    [effectProcessor stop];
+      effectProcessor = [contextCopy effectProcessor];
+      [effectProcessor stop];
+    }
   }
 }
 
@@ -308,33 +342,91 @@ LABEL_21:
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)_processAudioWithEffectAudioTapContext:(id)context bufferList:(AudioBufferList *)list numberOfFramesRequested:(unsigned int)requested numberOfFramesToProcess:(unsigned int)process
+{
+  v6 = *&process;
+  v31 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  effectProcessor = [contextCopy effectProcessor];
+  v12 = [effectProcessor render:list numberOfFrames:v6];
+  v14 = v12;
+  if (v12)
+  {
+    if (*v12)
+    {
+      v15 = 0;
+      v16 = 4 * requested;
+      v17 = (v12 + 4);
+      requestedCopy = requested;
+      p_mData = &list->mBuffers[0].mData;
+      do
+      {
+        v19 = *(v17 - 1);
+        if (v16 <= v19)
+        {
+          v12 = memcpy(*p_mData, *v17, v16);
+        }
+
+        else
+        {
+          v20 = TLLogPlayback(v12, v13);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138544130;
+            selfCopy = self;
+            v25 = 2048;
+            v26 = requestedCopy;
+            v27 = 2048;
+            v28 = v16;
+            v29 = 2048;
+            v30 = v19;
+            _os_log_error_impl(&dword_1D9356000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Requested more frames (%lu, with size %zu) than available in the buffer (of size %zu).", buf, 0x2Au);
+          }
+        }
+
+        ++v15;
+        v17 += 2;
+        p_mData += 2;
+      }
+
+      while (v15 < *v14);
+    }
+  }
+
+  else
+  {
+    v21 = TLLogPlayback(0, v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [TLAttentionAwarenessEffectCoordinator _processAudioWithEffectAudioTapContext:requested bufferList:v6 numberOfFramesRequested:v21 numberOfFramesToProcess:?];
+    }
+  }
+}
+
 - (void)_prepareAudioProcessingWithEffectAudioTapContext:(uint64_t)a1 maximumNumberOfFrames:(NSObject *)a2 processingFormat:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: starting TLAttentionAwarenessEffectProcessor", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: starting TLAttentionAwarenessEffectProcessor", &v2, 0xCu);
 }
 
 - (void)_unprepareAudioProcessingWithEffectAudioTapContext:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: stopping TLAttentionAwarenessEffectProcessor", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: stopping TLAttentionAwarenessEffectProcessor", &v2, 0xCu);
 }
 
 - (void)_processAudioWithEffectAudioTapContext:(os_log_t)log bufferList:numberOfFramesRequested:numberOfFramesToProcess:.cold.1(unsigned int a1, unsigned int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_1D9356000, log, OS_LOG_TYPE_ERROR, "{public}@: Failed to process and render AudioBufferList. { requestedFrames=%lu, framesToProcess=%lu }", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_1D9356000, log, OS_LOG_TYPE_ERROR, "{public}@: Failed to process and render AudioBufferList. { requestedFrames=%lu, framesToProcess=%lu }", &v3, 0x16u);
 }
 
 @end

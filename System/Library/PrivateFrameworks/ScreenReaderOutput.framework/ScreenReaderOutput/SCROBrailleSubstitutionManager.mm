@@ -22,23 +22,23 @@
   return v3;
 }
 
-uint64_t __48__SCROBrailleSubstitutionManager_sharedInstance__block_invoke()
+uint64_t __48__SCROBrailleSubstitutionManager_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  sharedInstance_Manager = v0;
+  v2 = objc_opt_new();
+  sharedInstance_Manager = v2;
 
-  return MEMORY[0x2821F96F8](v0);
+  return MEMORY[0x2821F96F8](v2);
 }
 
 - (SCROBrailleSubstitutionManager)init
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = SCROBrailleSubstitutionManager;
-  v2 = [(SCROBrailleSubstitutionManager *)&v19 init];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = SCROBrailleSubstitutionManager;
+  v2 = [(SCROBrailleSubstitutionManager *)&v18 init];
   v3 = objc_alloc(MEMORY[0x277CCAAE8]);
-  v20[0] = *MEMORY[0x277CCA408];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = *MEMORY[0x277CCA408];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v5 = [v3 initWithTagSchemes:v4 options:0];
   linguisticTagger = v2->_linguisticTagger;
   v2->_linguisticTagger = v5;
@@ -62,35 +62,34 @@ uint64_t __48__SCROBrailleSubstitutionManager_sharedInstance__block_invoke()
   CFRelease(v15);
   [(SCROBrailleSubstitutionManager *)v2 _loadLanguageSubstitutions:v16 intoDictionary:v9];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)_loadLanguageSubstitutions:(id)substitutions intoDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   substitutionsCopy = substitutions;
   dictionaryCopy = dictionary;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [substitutionsCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([v11 hasSuffix:@"_FULL"])
         {
           v12 = [v11 stringByReplacingOccurrencesOfString:@"_FULL" withString:@"_SHORT"];
@@ -104,13 +103,11 @@ uint64_t __48__SCROBrailleSubstitutionManager_sharedInstance__block_invoke()
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_bundleForStrings
@@ -139,13 +136,12 @@ uint64_t __51__SCROBrailleSubstitutionManager__bundleForStrings__block_invoke(ui
 
   else
   {
-    v3 = *(a1 + 32);
     [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   }
-  v2 = ;
-  _bundleForStrings_Bundle = v2;
+  v1 = ;
+  _bundleForStrings_Bundle = v1;
 
-  return MEMORY[0x2821F96F8](v2);
+  return MEMORY[0x2821F96F8](v1);
 }
 
 - (id)brailleSubstitutionForType:(int64_t)type withLanguage:(id)language
@@ -199,10 +195,10 @@ uint64_t __51__SCROBrailleSubstitutionManager__bundleForStrings__block_invoke(ui
 
 - (id)stringWithBrailleSubstitutions:(id)substitutions withLanguage:(id)language
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   substitutionsCopy = substitutions;
   languageCopy = language;
-  v44 = substitutionsCopy;
+  v43 = substitutionsCopy;
   if (![substitutionsCopy length])
   {
     v9 = substitutionsCopy;
@@ -224,28 +220,28 @@ uint64_t __51__SCROBrailleSubstitutionManager__bundleForStrings__block_invoke(ui
     languageCopy = languageCode;
   }
 
-  v43 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{languageCopy, languageCopy}];
+  v42 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{languageCopy, languageCopy}];
   v12 = MEMORY[0x277CCABF8];
-  languageCode2 = [v43 languageCode];
-  v42 = [v12 defaultOrthographyForLanguage:languageCode2];
+  languageCode2 = [v42 languageCode];
+  v41 = [v12 defaultOrthographyForLanguage:languageCode2];
 
   os_unfair_lock_lock(&selfCopy->_taggerLock);
   [(NSLinguisticTagger *)selfCopy->_linguisticTagger setString:v8];
-  -[NSLinguisticTagger setOrthography:range:](selfCopy->_linguisticTagger, "setOrthography:range:", v42, 0, [v8 length]);
-  v14 = [(NSMutableDictionary *)selfCopy->_lookup objectForKeyedSubscript:v41];
+  -[NSLinguisticTagger setOrthography:range:](selfCopy->_linguisticTagger, "setOrthography:range:", v41, 0, [v8 length]);
+  v14 = [(NSMutableDictionary *)selfCopy->_lookup objectForKeyedSubscript:v40];
   array = [MEMORY[0x277CBEB18] array];
   linguisticTagger = selfCopy->_linguisticTagger;
   v17 = [v8 length];
   v18 = *MEMORY[0x277CCA408];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __78__SCROBrailleSubstitutionManager_stringWithBrailleSubstitutions_withLanguage___block_invoke;
-  v49[3] = &unk_279B74658;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __78__SCROBrailleSubstitutionManager_stringWithBrailleSubstitutions_withLanguage___block_invoke;
+  v48[3] = &unk_279B74658;
   v19 = v8;
-  v50 = v19;
+  v49 = v19;
   v20 = array;
-  v51 = v20;
-  [(NSLinguisticTagger *)linguisticTagger enumerateTagsInRange:0 scheme:v17 options:v18 usingBlock:0, v49];
+  v50 = v20;
+  [(NSLinguisticTagger *)linguisticTagger enumerateTagsInRange:0 scheme:v17 options:v18 usingBlock:0, v48];
   if (![v20 count])
   {
     os_unfair_lock_unlock(&selfCopy->_taggerLock);
@@ -256,8 +252,8 @@ LABEL_20:
   }
 
   v21 = 0;
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
   v22 = 0;
   do
   {
@@ -265,7 +261,7 @@ LABEL_20:
     rangeValue = [v23 rangeValue];
 
     v25 = 0;
-    v48 = v22;
+    v47 = v22;
     v26 = v22 + 3;
     while (1)
     {
@@ -294,39 +290,37 @@ LABEL_20:
       }
     }
 
-    v35 = v46;
-    if (!v46)
+    v35 = v45;
+    if (!v45)
     {
       v35 = [v19 mutableCopy];
     }
 
-    v46 = v35;
-    [v35 replaceCharactersInRange:rangeValue + v47 withString:{v31, v34}];
+    v45 = v35;
+    [v35 replaceCharactersInRange:rangeValue + v46 withString:{v31, v34}];
     v36 = [v34 length];
 
-    v47 = v47 - v31 + v36;
-    v48 = v48 - v25 + 3;
+    v46 = v46 - v31 + v36;
+    v47 = v47 - v25 + 3;
 LABEL_16:
     v37 = [v20 count];
-    v22 = v48 + 1;
-    v21 = v48 + 1;
+    v22 = v47 + 1;
+    v21 = v47 + 1;
   }
 
   while (v37 > v21);
   os_unfair_lock_unlock(&selfCopy->_taggerLock);
-  if (!v46)
+  if (!v45)
   {
     goto LABEL_20;
   }
 
-  v38 = v46;
+  v38 = v45;
   v9 = v38;
 LABEL_21:
 
-  languageCopy = v41;
+  languageCopy = v40;
 LABEL_22:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

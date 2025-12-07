@@ -11,6 +11,8 @@
 - (void)connection:(id)connection didReceiveAuthenticationChallenge:(id)challenge;
 - (void)setAuthURL:(id)l;
 - (void)setNavBarTitle:(id)title;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
 - (void)webView:(id)view didFinishNavigation:(id)navigation;
@@ -64,6 +66,59 @@
   authURL = self->_authURL;
   self->_authURL = v4;
 
+  [(OOPAWebViewController *)self _loadWebViewIfReady];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  self->_hasAlreadyAppeared = 1;
+  v20.receiver = self;
+  v20.super_class = OOPAWebViewController;
+  [(OOPAWebViewController *)&v20 viewWillAppear:appear];
+  navigationItem = [(OOPAWebViewController *)self navigationItem];
+  [navigationItem setHidesBackButton:1];
+
+  navBarTitle = [(OOPAWebViewController *)self navBarTitle];
+
+  if (navBarTitle)
+  {
+    v6 = [OOPASpinnerTitle alloc];
+    navBarTitle2 = [(OOPAWebViewController *)self navBarTitle];
+    v8 = [(OOPASpinnerTitle *)v6 initWithTitle:navBarTitle2];
+
+    navigationItem2 = [(OOPAWebViewController *)self navigationItem];
+    [navigationItem2 setTitleView:v8];
+  }
+
+  v10 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"_cancelButtonTapped:"];
+  navigationItem3 = [(OOPAWebViewController *)self navigationItem];
+  [navigationItem3 setRightBarButtonItem:v10];
+
+  v12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:101 target:self action:"_backButtonTapped:"];
+  backButton = self->_backButton;
+  self->_backButton = v12;
+
+  v14 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:102 target:self action:"_forwardButtonTapped:"];
+  forwardButton = self->_forwardButton;
+  self->_forwardButton = v14;
+
+  navigationItem4 = [(OOPAWebViewController *)self navigationItem];
+  v17 = self->_forwardButton;
+  v21[0] = self->_backButton;
+  v21[1] = v17;
+  v18 = [NSArray arrayWithObjects:v21 count:2];
+  [navigationItem4 setLeftBarButtonItems:v18];
+
+  [(OOPAWebViewController *)self _updateNavigationButtons];
+  authURL = [(OOPAWebViewController *)self authURL];
+  [(OOPAWebViewController *)self _updateNavigationPromptWithActiveURL:authURL];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = OOPAWebViewController;
+  [(OOPAWebViewController *)&v4 viewDidAppear:appear];
   [(OOPAWebViewController *)self _loadWebViewIfReady];
 }
 

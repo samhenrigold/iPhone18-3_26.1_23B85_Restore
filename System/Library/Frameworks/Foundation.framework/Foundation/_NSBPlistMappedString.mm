@@ -3,8 +3,8 @@
 + (void)initialize;
 - (CFIndex)getBPlistPtr:(CFIndex *)ptr bplistSize:(void *)size stringPtr:(_BYTE *)stringPtr isUTF16BE:;
 - (const)_fastCStringContents:(BOOL)contents;
-- (uint64_t)isUTF16BE;
 - (unint64_t)fastestEncoding;
+- (unint64_t)isUTF16BE;
 - (unint64_t)length;
 - (unint64_t)smallestEncoding;
 - (unsigned)characterAtIndex:(unint64_t)index;
@@ -79,7 +79,7 @@
   }
 }
 
-- (uint64_t)isUTF16BE
+- (unint64_t)isUTF16BE
 {
   if (result)
   {

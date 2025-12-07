@@ -2,7 +2,9 @@
 - (CKObjectDescription)initWithObject:(id)object redact:(BOOL)redact avoidShortDescription:(BOOL)description;
 - (id)_arrayDescription:(id)description shouldRedact:(BOOL)redact;
 - (id)_dictionaryDescription:(id)description shouldRedact:(BOOL)redact;
+- (id)_propertyDescriptionForProperty:(id)property shouldRedact:(BOOL)redact;
 - (id)description;
+- (void)_addProperty:(id)property value:(id)value shouldRedact:(BOOL)redact;
 - (void)addBooleanProperty:(id)property value:(BOOL)value defaultValue:(int64_t)defaultValue;
 - (void)addFlagsForKey:(id)key flagsAndConditions:(id)conditions;
 - (void)addPropertyIfExists:(id)exists value:(id)value shouldRedact:(BOOL)redact;
@@ -115,6 +117,26 @@
   }
 }
 
+- (void)_addProperty:(id)property value:(id)value shouldRedact:(BOOL)redact
+{
+  if (value)
+  {
+    redactCopy = redact;
+    propertyCopy = property;
+    v18 = objc_msgSend__propertyDescriptionForProperty_shouldRedact_(self, v10, value, redactCopy);
+    objc_msgSend_addObject_forKey_(self->_orderedDictionary, v11, v18, propertyCopy);
+  }
+
+  else
+  {
+    orderedDictionary = self->_orderedDictionary;
+    v13 = MEMORY[0x1E695DFB0];
+    propertyCopy2 = property;
+    v18 = objc_msgSend_null(v13, v15, v16);
+    objc_msgSend_addObject_forKey_(orderedDictionary, v17, v18, propertyCopy2);
+  }
+}
+
 - (void)addBooleanProperty:(id)property value:(BOOL)value defaultValue:(int64_t)defaultValue
 {
   valueCopy = value;
@@ -159,6 +181,82 @@ LABEL_7:
 
     objc_msgSend_addObject_forKey_(self->_orderedDictionary, v14, v13, keyCopy);
   }
+}
+
+- (id)_propertyDescriptionForProperty:(id)property shouldRedact:(BOOL)redact
+{
+  redactCopy = redact;
+  propertyCopy = property;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = objc_msgSend__arrayDescription_shouldRedact_(self, v7, propertyCopy, redactCopy);
+LABEL_18:
+    v28 = v8;
+    goto LABEL_19;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = objc_msgSend__dictionaryDescription_shouldRedact_(self, v9, propertyCopy, redactCopy);
+    goto LABEL_18;
+  }
+
+  v10 = objc_opt_class();
+  if (objc_msgSend_conformsToProtocol_(v10, v11, &unk_1EFA8A7B0))
+  {
+    v14 = propertyCopy;
+    if ((objc_msgSend_avoidShortDescription(self, v15, v16) & 1) != 0 || (objc_opt_respondsToSelector() & 1) == 0)
+    {
+      v22 = objc_msgSend_redact(self, v17, v18);
+      v25 = objc_msgSend_avoidShortDescription(self, v23, v24);
+      v27 = objc_msgSend_CKObjectDescriptionRedact_avoidShortDescription_(v14, v26, v22, v25);
+    }
+
+    else
+    {
+      if (redactCopy)
+      {
+        v19 = objc_msgSend_redact(self, v17, v18);
+        objc_msgSend_CKShortDescriptionRedact_(v14, v20, v19);
+      }
+
+      else
+      {
+        objc_msgSend_CKShortDescriptionRedact_(v14, v17, 0);
+      }
+      v27 = ;
+    }
+
+    v28 = v27;
+  }
+
+  else
+  {
+    if (!redactCopy || !objc_msgSend_redact(self, v12, v13))
+    {
+      v8 = objc_msgSend_description(propertyCopy, v12, v13);
+      goto LABEL_18;
+    }
+
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_respondsToSelector())
+      {
+        v8 = objc_msgSend_performSelector_(propertyCopy, v21, sel_redactedDescription);
+        goto LABEL_18;
+      }
+    }
+
+    v28 = @"<private>";
+  }
+
+LABEL_19:
+
+  return v28;
 }
 
 - (id)_arrayDescription:(id)description shouldRedact:(BOOL)redact

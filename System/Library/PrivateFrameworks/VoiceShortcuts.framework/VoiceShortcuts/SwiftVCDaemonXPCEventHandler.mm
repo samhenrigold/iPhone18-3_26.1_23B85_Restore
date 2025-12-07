@@ -31,8 +31,8 @@
 - (SwiftVCDaemonXPCEventHandler)initWithStreams:(id)streams
 {
   type metadata accessor for VCXPCEventStream(0);
-  sub_231158F48();
-  return DaemonXPCEventHandler.init(streams:)();
+  v3 = sub_231158F48();
+  return DaemonXPCEventHandler.init(streams:)(v3);
 }
 
 - (void)addObserver:(id)observer selector:(SEL)selector stream:(id)stream eventName:(id)name
@@ -58,7 +58,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_23104AF44();
+  sub_23104AF44(observer);
   swift_unknownObjectRelease();
 }
 

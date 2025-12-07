@@ -144,7 +144,7 @@ LABEL_8:
 
 - (void)stageDetection:(id)detection
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   v5 = detectionCopy;
   if (detectionCopy)
@@ -159,7 +159,7 @@ LABEL_8:
       v9 = v8;
       v10 = [v5 description];
       *buf = 138739971;
-      v30 = v10;
+      v29 = v10;
       _os_log_impl(&dword_26F2E2000, v9, OS_LOG_TYPE_DEFAULT, "#TASingleDeviceRecord staging detection:%{sensitive}@", buf, 0xCu);
     }
 
@@ -177,43 +177,41 @@ LABEL_8:
       self->_firstStagedDetectionDate = date;
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     detection3 = [v5 detection];
     locationHistory = [detection3 locationHistory];
 
-    v18 = [locationHistory countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v18 = [locationHistory countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(locationHistory);
           }
 
-          timestamp = [*(*(&v24 + 1) + 8 * v21) timestamp];
+          timestamp = [*(*(&v23 + 1) + 8 * v21) timestamp];
           [(TASingleDeviceRecord *)self _updateEarliestObservationDateWithDate:timestamp];
 
           ++v21;
         }
 
         while (v19 != v21);
-        v19 = [locationHistory countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v19 = [locationHistory countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v19);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getStagedDetections
@@ -225,22 +223,22 @@ LABEL_8:
 
 - (void)clearAllStagedDetections
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_stagedDetectionResults;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -248,23 +246,22 @@ LABEL_8:
         v8 = TAStatusLog;
         if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           v10 = v8;
           v11 = [v9 description];
           *buf = 138739971;
-          v18 = v11;
+          v17 = v11;
           _os_log_impl(&dword_26F2E2000, v10, OS_LOG_TYPE_DEFAULT, "#TASingleDeviceRecord removing staged detection:%{sensitive}@", buf, 0xCu);
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_stagedDetectionResults removeAllObjects];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)keepStagedDetectionAliveUntilDate
@@ -332,7 +329,7 @@ LABEL_8:
 
 - (BOOL)_shouldPushStagedDetection:(id)detection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   _isAISFetchComplete = [(TASingleDeviceRecord *)self _isAISFetchComplete];
   v6 = [(TASingleDeviceRecord *)self _isKeepInStagingUntilComplete:detectionCopy];
@@ -343,16 +340,15 @@ LABEL_8:
     v8 = v7;
     address = [(TASingleDeviceRecord *)self address];
     hexString = [address hexString];
-    v13[0] = 67240707;
-    v13[1] = _isAISFetchComplete;
-    v14 = 1026;
-    v15 = v6;
-    v16 = 2113;
-    v17 = hexString;
-    _os_log_impl(&dword_26F2E2000, v8, OS_LOG_TYPE_DEFAULT, "#TASingleDeviceRecord shouldPushStagedDetection _isAISFetchComplete:%{public}d _isKeepInStagingUntilComplete:%{public}d for address, %{private}@", v13, 0x18u);
+    v12[0] = 67240707;
+    v12[1] = _isAISFetchComplete;
+    v13 = 1026;
+    v14 = v6;
+    v15 = 2113;
+    v16 = hexString;
+    _os_log_impl(&dword_26F2E2000, v8, OS_LOG_TYPE_DEFAULT, "#TASingleDeviceRecord shouldPushStagedDetection _isAISFetchComplete:%{public}d _isKeepInStagingUntilComplete:%{public}d for address, %{private}@", v12, 0x18u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return _isAISFetchComplete && v6;
 }
 
@@ -466,32 +462,32 @@ LABEL_15:
 
 - (id)purgeStagedDetectionsWithClock:(id)clock
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   clockCopy = clock;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = self->_stagedDetectionResults;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 |= [(TASingleDeviceRecord *)self _shouldPushStagedDetection:*(*(&v21 + 1) + 8 * i), v21];
+        v8 |= [(TASingleDeviceRecord *)self _shouldPushStagedDetection:*(*(&v20 + 1) + 8 * i), v20];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v7);
@@ -510,11 +506,11 @@ LABEL_15:
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67240704;
-    v26 = v13 != 0;
-    v27 = 1026;
-    v28 = v8 & 1;
-    v29 = 1026;
-    v30 = v12 == 1;
+    v25 = v13 != 0;
+    v26 = 1026;
+    v27 = v8 & 1;
+    v28 = 1026;
+    v29 = v12 == 1;
     _os_log_debug_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_DEBUG, "#TASingleDeviceRecord purgeStagedDetetionsWithClock hasStagedDevices:%{public}d hasStagedDetectionReadyToPush:%{public}d shouldKeepStagedDetectionsAlive:%{public}d", buf, 0x14u);
   }
 
@@ -530,37 +526,35 @@ LABEL_15:
 
   v18 = [v16 copy];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)getDetectionsReadyToPushAndCheckForAISFetch
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_stagedDetectionResults;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        if ([(TASingleDeviceRecord *)self _isKeepInStagingUntilComplete:v10, v16]&& [(TASingleDeviceRecord *)self _isAISFetchComplete])
+        v10 = *(*(&v15 + 1) + 8 * i);
+        if ([(TASingleDeviceRecord *)self _isKeepInStagingUntilComplete:v10, v15]&& [(TASingleDeviceRecord *)self _isAISFetchComplete])
         {
           detection = [v10 detection];
           [v4 addObject:detection];
@@ -572,7 +566,7 @@ LABEL_15:
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -582,7 +576,6 @@ LABEL_15:
   self->_stagedDetectionResults = v3;
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -640,7 +633,7 @@ LABEL_15:
 
 - (void)updateAdvertisement:(id)advertisement andAppendOutgoingRequestsTo:(id)to
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   toCopy = to;
   if ([(TASingleDeviceRecord *)self shouldUpdateAdvertisement:advertisementCopy])
@@ -666,13 +659,13 @@ LABEL_15:
       ++self->_numBeepOnMove;
       if ((v16 & 1) == 0)
       {
-        v34[0] = @"timeSinceBOM";
+        v33[0] = @"timeSinceBOM";
         v17 = [MEMORY[0x277CCABB0] numberWithDouble:v13];
-        v34[1] = @"productInfo";
-        v35[0] = v17;
+        v33[1] = @"productInfo";
+        v34[0] = v17;
         productName = [(TASingleDeviceRecord *)self productName];
-        v35[1] = productName;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+        v34[1] = productName;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
         v20 = [TAOutgoingRequests alloc];
         scanDate3 = [advertisementCopy scanDate];
@@ -707,13 +700,11 @@ LABEL_15:
 
   scanDate7 = [advertisementCopy scanDate];
   [(TASingleDeviceRecord *)self _updateEarliestObservationDateWithDate:scanDate7];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeWithAnotherSingleDeviceRecord:(id)record
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   address = self->_address;
   address = [recordCopy address];
@@ -766,9 +757,9 @@ LABEL_15:
           v25 = v23;
           hexString = [(NSData *)v24 hexString];
           buf = 68289283;
-          v119 = 2082;
-          v120 = "";
-          v121 = 2081;
+          v118 = 2082;
+          v119 = "";
+          v120 = 2081;
           uTF8String = [hexString UTF8String];
           v27 = "{msg%{public}.0s:#TASingleDeviceRecord retaining latest advertisement as it is more recent, address:%{private}s}";
 LABEL_11:
@@ -807,9 +798,9 @@ LABEL_12:
     v25 = v30;
     hexString = [(NSData *)v31 hexString];
     buf = 68289283;
-    v119 = 2082;
-    v120 = "";
-    v121 = 2081;
+    v118 = 2082;
+    v119 = "";
+    v120 = 2081;
     uTF8String = [hexString UTF8String];
     v27 = "{msg%{public}.0s:#TASingleDeviceRecord other record has no latest advertisement, address:%{private}s}";
     goto LABEL_11;
@@ -820,26 +811,26 @@ LABEL_13:
   backgroundDetectionTypesInTravelSession = [recordCopy backgroundDetectionTypesInTravelSession];
   [(NSMutableSet *)backgroundDetectionTypesInTravelSession unionSet:backgroundDetectionTypesInTravelSession];
 
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
   v113 = 0u;
+  v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
   obj = [recordCopy backgroundDetectionCount];
-  v36 = [obj countByEnumeratingWithState:&v112 objects:v117 count:16];
+  v36 = [obj countByEnumeratingWithState:&v111 objects:v116 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v113;
+    v38 = *v112;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v113 != v38)
+        if (*v112 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = *(*(&v112 + 1) + 8 * i);
+        v40 = *(*(&v111 + 1) + 8 * i);
         backgroundDetectionCount = [recordCopy backgroundDetectionCount];
         v42 = [backgroundDetectionCount objectForKeyedSubscript:v40];
 
@@ -864,7 +855,7 @@ LABEL_13:
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v112 objects:v117 count:16];
+      v37 = [obj countByEnumeratingWithState:&v111 objects:v116 count:16];
     }
 
     while (v37);
@@ -895,9 +886,9 @@ LABEL_13:
       hexString2 = [(NSData *)v58 hexString];
       uTF8String2 = [hexString2 UTF8String];
       buf = 68289283;
-      v119 = 2082;
-      v120 = "";
-      v121 = 2081;
+      v118 = 2082;
+      v119 = "";
+      v120 = 2081;
       uTF8String = uTF8String2;
       _os_log_impl(&dword_26F2E2000, v59, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TASingleDeviceRecord merging nil latestBeepOnMoveDate, address:%{private}s}", &buf, 0x1Cu);
     }
@@ -924,26 +915,26 @@ LABEL_13:
   }
 
   self->_numBeepOnMove += [recordCopy numBeepOnMove];
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
   v110 = 0u;
-  v111 = 0u;
   firstBackgroundDetectionDate = [recordCopy firstBackgroundDetectionDate];
-  v70 = [firstBackgroundDetectionDate countByEnumeratingWithState:&v108 objects:v116 count:16];
+  v70 = [firstBackgroundDetectionDate countByEnumeratingWithState:&v107 objects:v115 count:16];
   if (v70)
   {
     v71 = v70;
-    v72 = *v109;
+    v72 = *v108;
     do
     {
       for (j = 0; j != v71; ++j)
       {
-        if (*v109 != v72)
+        if (*v108 != v72)
         {
           objc_enumerationMutation(firstBackgroundDetectionDate);
         }
 
-        v74 = *(*(&v108 + 1) + 8 * j);
+        v74 = *(*(&v107 + 1) + 8 * j);
         firstBackgroundDetectionDate2 = [recordCopy firstBackgroundDetectionDate];
         v76 = [firstBackgroundDetectionDate2 objectForKeyedSubscript:v74];
 
@@ -955,7 +946,7 @@ LABEL_13:
         }
       }
 
-      v71 = [firstBackgroundDetectionDate countByEnumeratingWithState:&v108 objects:v116 count:16];
+      v71 = [firstBackgroundDetectionDate countByEnumeratingWithState:&v107 objects:v115 count:16];
     }
 
     while (v71);
@@ -1028,32 +1019,30 @@ LABEL_13:
   }
 
 LABEL_53:
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasStagedImmediateDetections
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   stagedDetectionResults = [(TASingleDeviceRecord *)self stagedDetectionResults];
-  v3 = [stagedDetectionResults countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [stagedDetectionResults countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(stagedDetectionResults);
         }
 
-        detection = [*(*(&v10 + 1) + 8 * i) detection];
+        detection = [*(*(&v9 + 1) + 8 * i) detection];
         immediacyType = [detection immediacyType];
 
         if (immediacyType == 2)
@@ -1063,7 +1052,7 @@ LABEL_53:
         }
       }
 
-      v3 = [stagedDetectionResults countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [stagedDetectionResults countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -1075,28 +1064,26 @@ LABEL_53:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)updateSingleDeviceRecordOnSessionChangeWithCurrentDate:(id)date
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
   {
     backgroundDetectionTypesInTravelSession = self->_backgroundDetectionTypesInTravelSession;
-    v7[0] = 68289283;
-    v7[1] = 0;
-    v8 = 2082;
-    v9 = "";
-    v10 = 2113;
-    v11 = backgroundDetectionTypesInTravelSession;
-    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TASingleDeviceRecord session changed, prevSessionTypes:%{private}@}", v7, 0x1Cu);
+    v6[0] = 68289283;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2113;
+    v10 = backgroundDetectionTypesInTravelSession;
+    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TASingleDeviceRecord session changed, prevSessionTypes:%{private}@}", v6, 0x1Cu);
   }
 
   [(NSMutableSet *)self->_backgroundDetectionTypesInTravelSession removeAllObjects];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)productName
@@ -1122,7 +1109,7 @@ LABEL_11:
 
 - (void)processSurfacedAlert:(id)alert
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
   firstSurfacedAlertDate = self->_firstSurfacedAlertDate;
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
@@ -1149,34 +1136,34 @@ LABEL_11:
   }
 
   ++self->_numSurfacedAlerts;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   locationHistory = [alertCopy locationHistory];
-  v15 = [locationHistory countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [locationHistory countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(locationHistory);
         }
 
-        timestamp = [*(*(&v22 + 1) + 8 * v18) timestamp];
+        timestamp = [*(*(&v21 + 1) + 8 * v18) timestamp];
         [(TASingleDeviceRecord *)self _updateEarliestObservationDateWithDate:timestamp];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [locationHistory countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [locationHistory countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
@@ -1184,13 +1171,11 @@ LABEL_11:
 
   latestAdvertisement = [alertCopy latestAdvertisement];
   [(TASingleDeviceRecord *)self updateAdvertisement:latestAdvertisement andAppendOutgoingRequestsTo:0];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBackgroundDetection:(id)detection
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   v5 = detectionCopy;
   if (detectionCopy)
@@ -1212,12 +1197,12 @@ LABEL_11:
       v10 = TAStatusLog;
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 68289283;
-        *v33 = 2082;
-        *&v33[2] = "";
-        *&v33[10] = 2117;
-        *&v33[12] = v5;
-        _os_log_impl(&dword_26F2E2000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TASingleDeviceRecord adding background detection to record, detection:%{sensitive}@}", &v32, 0x1Cu);
+        v31 = 68289283;
+        *v32 = 2082;
+        *&v32[2] = "";
+        *&v32[10] = 2117;
+        *&v32[12] = v5;
+        _os_log_impl(&dword_26F2E2000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TASingleDeviceRecord adding background detection to record, detection:%{sensitive}@}", &v31, 0x1Cu);
       }
 
       v11 = self->_backgroundDetectionTypesInTravelSession;
@@ -1265,14 +1250,14 @@ LABEL_19:
       v26 = TAStatusLog;
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
       {
-        v32 = 68289283;
-        *v33 = 2082;
-        *&v33[2] = "";
-        *&v33[10] = 2117;
-        *&v33[12] = v5;
+        v31 = 68289283;
+        *v32 = 2082;
+        *&v32[2] = "";
+        *&v32[10] = 2117;
+        *&v32[12] = v5;
         v27 = "{msg%{public}.0s:#TASingleDeviceRecord updating first background detection date, detection:%{sensitive}@}";
 LABEL_17:
-        _os_log_impl(&dword_26F2E2000, v26, OS_LOG_TYPE_DEBUG, v27, &v32, 0x1Cu);
+        _os_log_impl(&dword_26F2E2000, v26, OS_LOG_TYPE_DEBUG, v27, &v31, 0x1Cu);
       }
     }
 
@@ -1281,11 +1266,11 @@ LABEL_17:
       v26 = TAStatusLog;
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
       {
-        v32 = 68289283;
-        *v33 = 2082;
-        *&v33[2] = "";
-        *&v33[10] = 2117;
-        *&v33[12] = v5;
+        v31 = 68289283;
+        *v32 = 2082;
+        *&v32[2] = "";
+        *&v32[10] = 2117;
+        *&v32[12] = v5;
         v27 = "{msg%{public}.0s:#TASingleDeviceRecord setting first background detection date, detection:%{sensitive}@}";
         goto LABEL_17;
       }
@@ -1300,8 +1285,6 @@ LABEL_17:
   }
 
 LABEL_20:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)backgroundDetectionCountForDetectionType:(unint64_t)type
@@ -1458,7 +1441,7 @@ LABEL_17:
 
 - (void)processPlaySoundSuccess:(id)success andAppendOutgoingRequestsTo:(id)to
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   successCopy = success;
   toCopy = to;
   if (!successCopy)
@@ -1518,18 +1501,16 @@ LABEL_11:
   v14 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
   {
-    v23[0] = 68289283;
-    v23[1] = 0;
-    v24 = 2082;
-    v25 = "";
-    v26 = 2113;
-    v27 = successCopy;
-    _os_log_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TASingleDeviceRecord mismatched address, playsoundSuccess:%{private}@}", v23, 0x1Cu);
+    v22[0] = 68289283;
+    v22[1] = 0;
+    v23 = 2082;
+    v24 = "";
+    v25 = 2113;
+    v26 = successCopy;
+    _os_log_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TASingleDeviceRecord mismatched address, playsoundSuccess:%{private}@}", v22, 0x1Cu);
   }
 
 LABEL_14:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)prepareAISFetchTAOutgoingRequest:(id)request lastAISFetchDate:(id)date
@@ -1592,7 +1573,7 @@ LABEL_6:
 
 - (void)processAISFetchEvent:(id)event andAppendOutgoingRequestsTo:(id)to
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   toCopy = to;
   if (!eventCopy)
@@ -1672,18 +1653,16 @@ LABEL_15:
   {
     v17 = v16;
     v18 = [eventCopy description];
-    v27[0] = 68289283;
-    v27[1] = 0;
-    v28 = 2082;
-    v29 = "";
-    v30 = 2113;
-    v31 = v18;
-    _os_log_impl(&dword_26F2E2000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TASingleDeviceRecord mismatched uuid, AISFetchEvent:%{private}@}", v27, 0x1Cu);
+    v26[0] = 68289283;
+    v26[1] = 0;
+    v27 = 2082;
+    v28 = "";
+    v29 = 2113;
+    v30 = v18;
+    _os_log_impl(&dword_26F2E2000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TASingleDeviceRecord mismatched uuid, AISFetchEvent:%{private}@}", v26, 0x1Cu);
   }
 
 LABEL_19:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1769,7 +1748,8 @@ LABEL_19:
                     v13 = 0;
                     v14 = 0;
                     v15 = 0;
-                    *&v117[28] = 0x100000001;
+                    *&v117[28] = 1;
+                    *&v117[32] = 1;
                     *&v117[24] = 1;
                     *&v117[16] = 0x100000000;
                     *&v117[12] = 1;
@@ -2004,9 +1984,10 @@ LABEL_19:
                             v13 = 0;
                             v14 = 0;
                             v15 = 0;
+                            *&v117[32] = 1;
                             *&v117[36] = 0;
                             *&v117[24] = 1;
-                            *&v117[28] = 0x100000001;
+                            *&v117[28] = 1;
                             *&v117[16] = 0x100000001;
                             *&v117[8] = 0x100000001;
                             v10 = 1;
@@ -2095,11 +2076,13 @@ LABEL_19:
                     v13 = 0;
                     v14 = 0;
                     v15 = 0;
-                    *&v117[36] = 0x100000000;
+                    *&v117[32] = 1;
+                    *&v117[36] = 0;
                     *&v117[24] = 1;
-                    *&v117[28] = 0x100000001;
+                    *&v117[28] = 1;
                     *&v117[16] = 0x100000001;
                     *&v117[12] = 1;
+                    *&v117[40] = 1;
                   }
                 }
 
@@ -2115,7 +2098,8 @@ LABEL_19:
                   v13 = 0;
                   v14 = 0;
                   v15 = 0;
-                  *&v117[28] = 0x100000001;
+                  *&v117[28] = 1;
+                  *&v117[32] = 1;
                   *&v117[24] = 1;
                   *&v117[16] = 0x100000000;
                   *&v117[12] = 1;
@@ -2133,9 +2117,10 @@ LABEL_19:
                 v13 = 0;
                 v14 = 0;
                 v15 = 0;
+                *&v117[32] = 1;
                 *&v117[36] = 0;
                 *&v117[24] = 1;
-                *&v117[28] = 0x100000001;
+                *&v117[28] = 1;
                 *&v117[20] = 1;
                 HIDWORD(v118[2]) = 1;
               }
@@ -2152,9 +2137,10 @@ LABEL_19:
               v13 = 0;
               v14 = 0;
               v15 = 0;
+              *&v117[32] = 1;
               *&v117[36] = 0;
               *&v117[24] = 1;
-              *&v117[28] = 0x100000001;
+              *&v117[28] = 1;
               *&v117[48] = 1;
             }
           }
@@ -2171,7 +2157,8 @@ LABEL_19:
             v13 = 0;
             v14 = 0;
             v15 = 0;
-            *&v117[28] = 0x100000000;
+            *&v117[28] = 0;
+            *&v117[32] = 1;
             *&v117[24] = 1;
           }
         }
@@ -2196,7 +2183,7 @@ LABEL_19:
 
       else
       {
-        *&v117[40] = 0uLL;
+        *&v117[48] = 0;
         v10 = 0;
         v11 = 0;
         memset(v117, 0, 32);
@@ -2205,7 +2192,7 @@ LABEL_19:
         v13 = 0;
         v14 = 0;
         v15 = 0;
-        *&v117[32] = 1;
+        *&v117[32] = 1uLL;
       }
     }
 
@@ -2365,28 +2352,26 @@ LABEL_72:
 
 - (id)descriptionDictionary
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"Address";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"Address";
   hexString = [(NSData *)self->_address hexString];
-  v13[0] = hexString;
-  v12[1] = @"State";
+  v12[0] = hexString;
+  v11[1] = @"State";
   v4 = [TADeviceRecord notificationInternalStateToString:self->_state];
-  v13[1] = v4;
-  v12[2] = @"Type";
+  v12[1] = v4;
+  v11[2] = @"Type";
   v5 = [TADeviceInformation deviceTypeToString:self->_type];
-  v13[2] = v5;
-  v12[3] = @"CreationDate";
+  v12[2] = v5;
+  v11[3] = @"CreationDate";
   getDateString = [(NSDate *)self->_creationDate getDateString];
-  v13[3] = getDateString;
-  v12[4] = @"Surfaced";
+  v12[3] = getDateString;
+  v11[4] = @"Surfaced";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasSurfacedNotification];
-  v13[4] = v7;
-  v12[5] = @"AISState";
+  v12[4] = v7;
+  v11[5] = @"AISState";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_AISFetchState];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
@@ -2577,12 +2562,11 @@ LABEL_72:
 
 - (void)_isAISFetchComplete
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 134349056;
-  v5 = v2;
-  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TASingleDeviceRecord receiving undefined AIS fetch state %{public}lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134349056;
+  v4 = v2;
+  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TASingleDeviceRecord receiving undefined AIS fetch state %{public}lu", &v3, 0xCu);
 }
 
 @end

@@ -99,7 +99,7 @@ LABEL_3:
   }
 
 LABEL_4:
-  sub_2212DFCE8(p_multiEvalSet, leaf);
+  sub_2212DFCE8(p_multiEvalSet, &leaf->coordinate);
 LABEL_7:
   os_unfair_lock_unlock(&self->_leafQueueMutex);
   return v9;

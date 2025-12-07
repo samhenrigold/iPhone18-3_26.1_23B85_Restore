@@ -171,7 +171,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_24DFF8694();
+  sub_24DFF8694(delegate);
 }
 
 - (void)awakeFromNib

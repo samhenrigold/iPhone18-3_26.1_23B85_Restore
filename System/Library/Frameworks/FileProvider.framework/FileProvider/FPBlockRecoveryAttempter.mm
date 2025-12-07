@@ -154,9 +154,9 @@ void __65__FPBlockRecoveryAttempter_attemptRecoveryFromError_optionIndex___block
 
 void __65__FPBlockRecoveryAttempter_attemptRecoveryFromError_optionIndex___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, a2, a3, "[ERROR] Suppression: Error async sending suppression checkbox notification to extension: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, a2, a3, "[ERROR] Suppression: Error async sending suppression checkbox notification to extension: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

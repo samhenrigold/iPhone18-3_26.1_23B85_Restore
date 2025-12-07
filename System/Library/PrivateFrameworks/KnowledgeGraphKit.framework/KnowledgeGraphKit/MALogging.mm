@@ -22,9 +22,7 @@ uint64_t __26__MALogging_sharedLogging__block_invoke()
   v1 = sharedLogging_sharedLogging;
   sharedLogging_sharedLogging = v0;
 
-  v2 = os_log_create("com.apple.Matisse", "default");
-  v3 = *(sharedLogging_sharedLogging + 8);
-  *(sharedLogging_sharedLogging + 8) = v2;
+  *(sharedLogging_sharedLogging + 8) = os_log_create("com.apple.Matisse", "default");
 
   return MEMORY[0x2821F96F8]();
 }

@@ -12,7 +12,7 @@
 
 + (id)currentAnimationState
 {
-  v2 = arui_rings_log();
+  v2 = arui_rings_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[ARUIRingGroupAnimationState currentAnimationState];
@@ -70,7 +70,7 @@
 + (void)pushAnimationState:(id)state
 {
   stateCopy = state;
-  v4 = arui_rings_log();
+  v4 = arui_rings_log(stateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[ARUIRingGroupAnimationState pushAnimationState:];
@@ -78,22 +78,22 @@
 
   if (__currentRingGroupAnimationState)
   {
-    v5 = arui_rings_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = arui_rings_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       +[ARUIRingGroupAnimationState pushAnimationState:];
     }
 
-    [stateCopy setNextAnimationState:__currentRingGroupAnimationState];
+    v5 = [stateCopy setNextAnimationState:__currentRingGroupAnimationState];
   }
 
-  v6 = arui_rings_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = arui_rings_log(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[ARUIRingGroupAnimationState pushAnimationState:];
   }
 
-  v7 = __currentRingGroupAnimationState;
+  v8 = __currentRingGroupAnimationState;
   __currentRingGroupAnimationState = stateCopy;
 }
 

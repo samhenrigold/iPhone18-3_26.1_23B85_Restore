@@ -21,7 +21,7 @@
 
 + (void)_gkLoadRemoteImageDataForUrl:()GKAdditions session:queue:reply:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -44,7 +44,7 @@
     {
       v17 = v16;
       *buf = 67109120;
-      v32 = GKAtomicIncrement32(imageLoadCount);
+      v31 = GKAtomicIncrement32(imageLoadCount);
       _os_log_impl(&dword_227904000, v17, OS_LOG_TYPE_INFO, "BEGIN daemon image load: (%d)", buf, 8u);
     }
   }
@@ -54,28 +54,26 @@
 
   if (v10)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke;
-    v26[3] = &unk_2785DDBE8;
-    v27 = v10;
-    v28 = v11;
-    v30 = a2;
-    v29 = v19;
-    [v29 perform:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke;
+    v25[3] = &unk_2785DDBE8;
+    v26 = v10;
+    v27 = v11;
+    v29 = a2;
+    v28 = v19;
+    [v28 perform:v25];
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_9;
-  v23[3] = &unk_2785DDC10;
-  v24 = v19;
-  v25 = v13;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_9;
+  v22[3] = &unk_2785DDC10;
+  v23 = v19;
+  v24 = v13;
   v20 = v19;
   v21 = v13;
-  [v20 notifyOnQueue:v12 block:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [v20 notifyOnQueue:v12 block:v22];
 }
 
 + (void)_gkLoadRemoteImageDataForURL:()GKAdditions session:subdirectory:filename:queue:handler:
@@ -103,14 +101,14 @@
 
 + (void)_gkLoadRemoteImageDataForUrl:()GKAdditions session:subdirectory:filename:queue:imageQueue:handler:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v14 = a3;
-  v48 = a4;
-  v46 = a5;
-  v47 = a6;
+  v47 = a4;
+  v45 = a5;
+  v46 = a6;
   v15 = a7;
-  v49 = a8;
-  v45 = a9;
+  v48 = a8;
+  v44 = a9;
   v16 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
   {
@@ -123,7 +121,7 @@
     v18 = v16;
     absoluteString = [v14 absoluteString];
     *buf = 138412290;
-    v61 = absoluteString;
+    v60 = absoluteString;
     _os_log_impl(&dword_227904000, v18, OS_LOG_TYPE_INFO, "_gkLoadRemoteImageDataForUrl: %@", buf, 0xCu);
   }
 
@@ -133,7 +131,7 @@
   }
 
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "NSData+GKAdditions.m", 136, "+[NSData(GKAdditions) _gkLoadRemoteImageDataForUrl:session:subdirectory:filename:queue:imageQueue:handler:]"];
-  v44 = [GKDispatchGroup dispatchGroupWithName:v20];
+  v43 = [GKDispatchGroup dispatchGroupWithName:v20];
 
   path = [v14 path];
   v22 = GKImageCacheRoot(&stru_283AFD1E0);
@@ -158,23 +156,23 @@
       v31 = 0;
     }
 
-    v32 = v48;
-    v33 = v46;
+    v32 = v47;
+    v33 = v45;
   }
 
   else
   {
     v31 = 0;
-    v32 = v48;
-    v33 = v46;
+    v32 = v47;
+    v33 = v45;
   }
 
   if (v14 && (([v14 _gkIsValidServerURL] | v31 | v23) & 1) != 0)
   {
-    v34 = [MEMORY[0x277CBEA90] _gkImageCachePathForURL:v14 subdirectory:v33 filename:v47];
+    v34 = [MEMORY[0x277CBEA90] _gkImageCachePathForURL:v14 subdirectory:v33 filename:v46];
     if ([v34 containsString:@"../"])
     {
-      v35 = v44;
+      v35 = v43;
       if (!os_log_GKGeneral)
       {
         v36 = GKOSLoggers();
@@ -189,10 +187,10 @@
     else
     {
       v39 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v34];
-      v35 = v44;
+      v35 = v43;
       if ([v39 length])
       {
-        [v44 setResult:v39];
+        [v43 setResult:v39];
         if (!os_log_GKGeneral)
         {
           v40 = GKOSLoggers();
@@ -206,17 +204,17 @@
 
       else
       {
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_31;
-        v53[3] = &unk_2785DDA00;
-        v54 = v34;
-        v55 = v49;
-        v56 = v44;
-        v57 = v14;
-        v58 = v32;
-        v59 = v15;
-        [v56 perform:v53];
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_31;
+        v52[3] = &unk_2785DDA00;
+        v53 = v34;
+        v54 = v48;
+        v55 = v43;
+        v56 = v14;
+        v57 = v32;
+        v58 = v15;
+        [v55 perform:v52];
       }
     }
   }
@@ -230,26 +228,24 @@
       v37 = os_log_GKGeneral;
     }
 
-    v35 = v44;
+    v35 = v43;
     if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v61 = v14;
+      v60 = v14;
       _os_log_impl(&dword_227904000, v37, OS_LOG_TYPE_INFO, "Image URL not HTTPS compliant, and not ImageCacheRoot for: %@", buf, 0xCu);
     }
   }
 
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_35;
-  v50[3] = &unk_2785DDC10;
-  v51 = v35;
-  v52 = v45;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_35;
+  v49[3] = &unk_2785DDC10;
+  v50 = v35;
+  v51 = v44;
   v41 = v35;
-  v42 = v45;
-  [v41 notifyOnQueue:v15 block:v50];
-
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = v44;
+  [v41 notifyOnQueue:v15 block:v49];
 }
 
 + (id)_gkImageCachePathForURL:()GKAdditions subdirectory:filename:
@@ -290,20 +286,11 @@
   return v2;
 }
 
-+ (void)_gkLoadRemoteImageDataForUrl:()GKAdditions session:subdirectory:filename:queue:imageQueue:handler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "Loaded cached image from file cache path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_gkLoadRemoteImageDataForUrl:()GKAdditions session:subdirectory:filename:queue:imageQueue:handler:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "Illegal file cache path: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "Illegal file cache path: %@", v1, 0xCu);
 }
 
 @end

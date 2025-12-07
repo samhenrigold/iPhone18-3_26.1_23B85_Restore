@@ -41,22 +41,22 @@ uint64_t __33___NSPersistentHistoryToken_hash__block_invoke(uint64_t a1, uint64_
 
 - (NSPersistentHistoryToken)initWithCoder:(id)coder
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
 }
 
 - (id)storeTokens
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return MEMORY[0x1E695E0F8];
 }
 

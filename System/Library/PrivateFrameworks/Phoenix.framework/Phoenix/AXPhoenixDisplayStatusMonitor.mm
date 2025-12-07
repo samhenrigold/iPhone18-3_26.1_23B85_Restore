@@ -112,7 +112,6 @@ void __59__AXPhoenixDisplayStatusMonitor__startMonitoringWithQueue___block_invok
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoring
@@ -132,7 +131,6 @@ void __59__AXPhoenixDisplayStatusMonitor__startMonitoringWithQueue___block_invok
   }
 
   objc_storeStrong(oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForSpringboardNotificationsWithQueue:(id)queue
@@ -169,7 +167,6 @@ void __59__AXPhoenixDisplayStatusMonitor__startMonitoringWithQueue___block_invok
   objc_destroyWeak(&v11);
   objc_destroyWeak(&from);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __79__AXPhoenixDisplayStatusMonitor__registerForSpringboardNotificationsWithQueue___block_invoke(id *a1, int a2)
@@ -207,7 +204,6 @@ void __79__AXPhoenixDisplayStatusMonitor__registerForSpringboardNotificationsWit
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterForSpringboardNotifications
@@ -266,14 +262,12 @@ void __54__AXPhoenixDisplayStatusMonitor__displayStateChanged___block_invoke(uin
   {
     if (!v7[0])
     {
-      v8 = 1;
-      goto LABEL_9;
+      return 1;
     }
 
     if (v7[0] == 1)
     {
-      v8 = 0;
-      goto LABEL_9;
+      return 0;
     }
   }
 
@@ -289,10 +283,7 @@ void __54__AXPhoenixDisplayStatusMonitor__displayStateChanged___block_invoke(uin
   }
 
   objc_storeStrong(&oslog, 0);
-  v8 = 1;
-LABEL_9:
-  *MEMORY[0x277D85DE8];
-  return v8 & 1;
+  return 1;
 }
 
 - (void)_notifyObserver:(id)observer isDisplayOn:(BOOL)on timestamp:(double)timestamp

@@ -305,7 +305,7 @@ LABEL_3:
 
 + (id)localeIDWithDefaultRegionCode:(id)code
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   v3 = [objc_msgSend(MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:{code), "mutableCopy"}];
   v4 = *MEMORY[0x277CBE6C8];
   v5 = [objc_msgSend(v3 objectForKeyedSubscript:{*MEMORY[0x277CBE6C8]), "isEqualToString:", @"zh"}];
@@ -360,7 +360,8 @@ LABEL_3:
     v9 = *MEMORY[0x277CBE690];
     if (![v3 objectForKeyedSubscript:*MEMORY[0x277CBE690]])
     {
-      [v3 setObject:objc_msgSend(objc_msgSend(objc_msgSend(objc_alloc(MEMORY[0x277CBEAC0]) forKeyedSubscript:{"initWithContentsOfFile:", objc_msgSend(SFUBundle(), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"DefaultRegionCodes", "objectForKeyedSubscript:", objc_msgSend(v3, "objectForKeyedSubscript:", v4)), v9}];
+      v13 = objc_alloc(MEMORY[0x277CBEAC0]);
+      [v3 setObject:objc_msgSend(objc_msgSend(objc_msgSend(v13 forKeyedSubscript:{"initWithContentsOfFile:", objc_msgSend(SFUBundle(v13, v14), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"DefaultRegionCodes", "objectForKeyedSubscript:", objc_msgSend(v3, "objectForKeyedSubscript:", v4)), v9}];
       if (![v3 objectForKeyedSubscript:v9])
       {
         v11 = [objc_msgSend(MEMORY[0x277CBEAF8] "currentLocale")];
@@ -371,39 +372,39 @@ LABEL_17:
   }
 
   allKeys = [v3 allKeys];
-  v26[0] = v4;
-  v26[1] = v9;
-  v26[2] = *v6;
-  v14 = [MEMORY[0x277CBEB98] setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v26, 3)}];
-  v21 = 0u;
-  v22 = 0u;
+  v28[0] = v4;
+  v28[1] = v9;
+  v28[2] = *v6;
+  v16 = [MEMORY[0x277CBEB98] setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v28, 3)}];
   v23 = 0u;
   v24 = 0u;
-  v15 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v15)
+  v25 = 0u;
+  v26 = 0u;
+  v17 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v17)
   {
-    v16 = v15;
-    v17 = *v22;
+    v18 = v17;
+    v19 = *v24;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v22 != v17)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * i);
-        if (([v14 containsObject:v19] & 1) == 0)
+        v21 = *(*(&v23 + 1) + 8 * i);
+        if (([v16 containsObject:v21] & 1) == 0)
         {
-          [v3 removeObjectForKey:v19];
+          [v3 removeObjectForKey:v21];
         }
       }
 
-      v16 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
   return [MEMORY[0x277CBEAF8] localeIdentifierFromComponents:v3];
@@ -435,15 +436,16 @@ LABEL_17:
     v11 = *MEMORY[0x277CBE690];
   }
 
-  if ([objc_msgSend(v7 objectForKeyedSubscript:{v11), "isEqualToString:", objc_msgSend(objc_msgSend(objc_msgSend(objc_alloc(MEMORY[0x277CBEAC0]), "initWithContentsOfFile:", objc_msgSend(SFUBundle(), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"DefaultRegionCodes", "objectForKeyedSubscript:", objc_msgSend(v7, "objectForKeyedSubscript:", v8))}])
+  v12 = objc_alloc(MEMORY[0x277CBEAC0]);
+  if ([objc_msgSend(v7 objectForKeyedSubscript:{v11), "isEqualToString:", objc_msgSend(objc_msgSend(objc_msgSend(v12, "initWithContentsOfFile:", objc_msgSend(SFUBundle(v12, v13), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"DefaultRegionCodes", "objectForKeyedSubscript:", objc_msgSend(v7, "objectForKeyedSubscript:", v8))}])
   {
 LABEL_10:
     [v7 setObject:0 forKeyedSubscript:v11];
   }
 
-  v12 = MEMORY[0x277CBEAF8];
+  v14 = MEMORY[0x277CBEAF8];
 
-  return [v12 localeIdentifierFromComponents:v7];
+  return [v14 localeIdentifierFromComponents:v7];
 }
 
 + (id)simplifiedDisplayNameForLocaleID:(id)d displayStandalone:(BOOL)standalone
@@ -493,42 +495,43 @@ LABEL_10:
 
 id __41__OITSULocale_allSupportedTier1Languages__block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v0 = [objc_msgSend(objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:{objc_msgSend(SFUBundle(), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"Tiers0and1"}];
-  v1 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
-  v2 = [v0 mutableCopy];
-  v9 = 0u;
-  v10 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v0 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v2 = [objc_msgSend(v0 initWithContentsOfFile:{objc_msgSend(SFUBundle(v0, v1), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"Tiers0and1"}];
+  v3 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
+  v4 = [v2 mutableCopy];
   v11 = 0u;
   v12 = 0u;
-  v3 = [v0 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v13 = 0u;
+  v14 = 0u;
+  v5 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v4 = v3;
-    v5 = *v10;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v10 != v5)
+        if (*v12 != v7)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
-        if (([v1 containsObject:v7] & 1) == 0 && (objc_msgSend(v1, "containsObject:", objc_msgSend(v7, "substringToIndex:", 2)) & 1) == 0)
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if (([v3 containsObject:v9] & 1) == 0 && (objc_msgSend(v3, "containsObject:", objc_msgSend(v9, "substringToIndex:", 2)) & 1) == 0)
         {
-          [v2 removeObject:v7];
+          [v4 removeObject:v9];
         }
       }
 
-      v4 = [v0 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v6 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v4);
+    while (v6);
   }
 
-  allSupportedTier1Languages_supportedTiers0and1 = [MEMORY[0x277CBEA60] arrayWithArray:v2];
+  allSupportedTier1Languages_supportedTiers0and1 = [MEMORY[0x277CBEA60] arrayWithArray:v4];
 
   return allSupportedTier1Languages_supportedTiers0and1;
 }
@@ -545,48 +548,49 @@ id __41__OITSULocale_allSupportedTier1Languages__block_invoke()
 
 id __41__OITSULocale_allSupportedTier3Languages__block_invoke()
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v0 = [objc_msgSend(objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:{objc_msgSend(SFUBundle(), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"Tiers0thru3"}];
-  v1 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
-  v2 = [v0 mutableCopy];
-  v10 = 0u;
-  v11 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  v0 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v2 = [objc_msgSend(v0 initWithContentsOfFile:{objc_msgSend(SFUBundle(v0, v1), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"Tiers0thru3"}];
+  v3 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
+  v4 = [v2 mutableCopy];
   v12 = 0u;
   v13 = 0u;
-  v3 = [v0 countByEnumeratingWithState:&v10 objects:v15 count:16];
-  if (v3)
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  if (v5)
   {
-    v4 = v3;
-    v5 = *v11;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      v6 = 0;
+      v8 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v2);
         }
 
-        v14 = *(*(&v10 + 1) + 8 * v6);
-        v7 = v14;
-        v8 = [objc_msgSend(MEMORY[0x277CCA8D8] preferredLocalizationsFromArray:v1 forPreferences:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v14, 1)), "objectAtIndexedSubscript:", 0}];
-        if (([v7 hasPrefix:{objc_msgSend(v8, "substringToIndex:", 2)}] & 1) == 0 && (!objc_msgSend(v7, "isEqualToString:", @"nb") || (objc_msgSend(v8, "isEqualToString:", @"no") & 1) == 0))
+        v16 = *(*(&v12 + 1) + 8 * v8);
+        v9 = v16;
+        v10 = [objc_msgSend(MEMORY[0x277CCA8D8] preferredLocalizationsFromArray:v3 forPreferences:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v16, 1)), "objectAtIndexedSubscript:", 0}];
+        if (([v9 hasPrefix:{objc_msgSend(v10, "substringToIndex:", 2)}] & 1) == 0 && (!objc_msgSend(v9, "isEqualToString:", @"nb") || (objc_msgSend(v10, "isEqualToString:", @"no") & 1) == 0))
         {
-          [v2 removeObject:v7];
+          [v4 removeObject:v9];
         }
 
-        ++v6;
+        ++v8;
       }
 
-      while (v4 != v6);
-      v4 = [v0 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      while (v6 != v8);
+      v6 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
-    while (v4);
+    while (v6);
   }
 
-  allSupportedTier3Languages_supportedLanguages = [MEMORY[0x277CBEA60] arrayWithArray:v2];
+  allSupportedTier3Languages_supportedLanguages = [MEMORY[0x277CBEA60] arrayWithArray:v4];
 
   return allSupportedTier3Languages_supportedLanguages;
 }
@@ -605,12 +609,13 @@ id __50__OITSULocale_allSupportedTemplatePickerLanguages__block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [v0 addObjectsFromArray:{+[OITSULocale allSupportedTier3Languages](OITSULocale, "allSupportedTier3Languages")}];
-  [v0 addObjectsFromArray:{objc_msgSend(objc_msgSend(objc_alloc(MEMORY[0x277CBEAC0]), "initWithContentsOfFile:", objc_msgSend(SFUBundle(), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"AdditionalTemplatePickerLanguages"}];
+  v1 = objc_alloc(MEMORY[0x277CBEAC0]);
+  [v0 addObjectsFromArray:{objc_msgSend(objc_msgSend(v1, "initWithContentsOfFile:", objc_msgSend(SFUBundle(v1, v2), "pathForResource:ofType:", @"LocaleIDData", @"plist", "objectForKeyedSubscript:", @"AdditionalTemplatePickerLanguages"}];
   allSupportedTemplatePickerLanguages_supportedLanguages = [v0 allObjects];
 
-  v1 = allSupportedTemplatePickerLanguages_supportedLanguages;
+  v3 = allSupportedTemplatePickerLanguages_supportedLanguages;
 
-  return v1;
+  return v3;
 }
 
 + (BOOL)localeIsAutoUpdating:(id)updating

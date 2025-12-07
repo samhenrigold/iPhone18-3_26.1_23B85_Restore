@@ -1,10 +1,10 @@
 @interface NSMutableArray(ENShuffle)
-- (unint64_t)enRandomlyShuffle;
+- (char)enRandomlyShuffle;
 @end
 
 @implementation NSMutableArray(ENShuffle)
 
-- (unint64_t)enRandomlyShuffle
+- (char)enRandomlyShuffle
 {
   result = [self count];
   if (result >= 2)

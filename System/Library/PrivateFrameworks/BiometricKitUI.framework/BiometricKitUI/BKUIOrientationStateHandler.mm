@@ -74,7 +74,7 @@
 - (void)registerRotationObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
@@ -104,7 +104,7 @@
 
 void __56__BKUIOrientationStateHandler_registerRotationObserver___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -113,12 +113,12 @@ void __56__BKUIOrientationStateHandler_registerRotationObserver___block_invoke(u
   }
 
   v6 = [BKUIOrientationStateHandler bkui_getState:a2];
-  v7 = _BKUILoggingFacility();
+  v7 = _BKUILoggingFacility(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = v6;
-    _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "ForcedRotation:[Rotation Callback] device orientation: %i", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v6;
+    _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "ForcedRotation:[Rotation Callback] device orientation: %i", v9, 8u);
   }
 
   v8 = *(a1 + 32);
@@ -126,8 +126,6 @@ void __56__BKUIOrientationStateHandler_registerRotationObserver___block_invoke(u
   {
     (*(v8 + 16))(v8, v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerRotationLockObserver:(id)observer

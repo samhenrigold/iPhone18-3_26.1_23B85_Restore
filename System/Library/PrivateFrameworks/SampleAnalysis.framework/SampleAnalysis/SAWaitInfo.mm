@@ -11,8 +11,8 @@
 - (int)blockingPid;
 - (int64_t)compare:(id)compare;
 - (uint64_t)_displaysContentForPid:(uint64_t)pid tid:(char)tid options:(void *)options displayString:(uint64_t)string nameCallback:;
-- (uint64_t)displaysSameContentAs:(int)as forPid:(uint64_t)pid tid:(char)tid displayOptions:;
-- (uint64_t)matchesKCDataWaitInfo:(uint64_t)info portName:(uint64_t)name flags:(uint64_t)flags domain:;
+- (uint64_t)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(uint64_t)tid displayOptions:;
+- (uint64_t)matchesKCDataWaitInfo:(uint64_t)info portName:(void *)name flags:(void *)flags domain:;
 - (unint64_t)blockingTid;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary;
@@ -23,67 +23,62 @@
 - (unint64_t)blockingTid
 {
   result = 0;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   type_low = LOBYTE(self->_type);
   if (type_low <= 0x1F)
   {
     if (((1 << type_low) & 0x3FE2F07C) != 0)
     {
-      goto LABEL_5;
+      return result;
     }
 
     if (((1 << type_low) & 0xC01C0F80) != 0)
     {
-      result = self->_owner;
-      goto LABEL_5;
+      return self->_owner;
     }
 
     if (type_low == 16)
     {
       owner = self->_owner;
-      v7 = (owner & 0xFFFFFFFFFFFFFFFELL) == -8;
+      v6 = (owner & 0xFFFFFFFFFFFFFFFELL) == -8;
       goto LABEL_11;
     }
   }
 
   if (!LOBYTE(self->_type))
   {
-    goto LABEL_5;
+    return result;
   }
 
   if (type_low == 1)
   {
     owner = self->_owner;
-    v7 = owner == -6;
+    v6 = owner == -6;
 LABEL_11:
-    if (v7)
+    if (v6)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = owner;
+      return owner;
     }
-
-    goto LABEL_5;
   }
 
-  v8 = *__error();
-  v9 = _sa_logt();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+  v7 = *__error();
+  v8 = _sa_logt();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     type = self->_type;
-    v12[0] = 67109120;
-    v12[1] = type;
-    _os_log_fault_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_FAULT, "waitinfo has unknown type %u", v12, 8u);
+    v11[0] = 67109120;
+    v11[1] = type;
+    _os_log_fault_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_FAULT, "waitinfo has unknown type %u", v11, 8u);
   }
 
-  v10 = __error();
+  v9 = __error();
   result = 0;
-  *v10 = v8;
-LABEL_5:
-  v5 = *MEMORY[0x1E69E9840];
+  *v9 = v7;
   return result;
 }
 
@@ -111,47 +106,47 @@ LABEL_5:
 
 + (id)waitInfoWithKCDataWaitInfo:(void *)info portName:(unint64_t)name flags:(unint64_t)flags domain:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v9 = objc_opt_self();
   if (info)
   {
     v10 = [SAWaitInfoWithPortLabel alloc];
     if (v10)
     {
-      v19.receiver = v10;
-      v19.super_class = SAWaitInfoWithPortLabel;
-      v11 = objc_msgSendSuper2(&v19, sel_initWithKCDataWaitInfo_, a2);
+      v18.receiver = v10;
+      v18.super_class = SAWaitInfoWithPortLabel;
+      v11 = objc_msgSendSuper2(&v18, sel_initWithKCDataWaitInfo_, a2);
       v12 = v11;
       if (v11)
       {
         objc_storeStrong(v11 + 4, info);
         if (name >= 0x10000)
         {
-          v15 = *__error();
-          v16 = _sa_logt();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v14 = *__error();
+          v15 = _sa_logt();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
             flagsCopy = name;
-            _os_log_fault_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_FAULT, "port label flags 0x%llx is too large", buf, 0xCu);
+            _os_log_fault_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_FAULT, "port label flags 0x%llx is too large", buf, 0xCu);
           }
 
-          *__error() = v15;
+          *__error() = v14;
         }
 
         *(v12 + 40) = name;
         if (flags >= 0x100)
         {
-          v17 = *__error();
-          v18 = _sa_logt();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+          v16 = *__error();
+          v17 = _sa_logt();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
             flagsCopy = flags;
-            _os_log_fault_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_FAULT, "port label domain %llu is too large", buf, 0xCu);
+            _os_log_fault_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_FAULT, "port label domain %llu is too large", buf, 0xCu);
           }
 
-          *__error() = v17;
+          *__error() = v16;
         }
 
         *(v12 + 42) = flags;
@@ -169,12 +164,10 @@ LABEL_5:
     v12 = [[v9 alloc] initWithKCDataWaitInfo:a2];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
-- (uint64_t)displaysSameContentAs:(int)as forPid:(uint64_t)pid tid:(char)tid displayOptions:
+- (uint64_t)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(uint64_t)tid displayOptions:
 {
   if (result)
   {
@@ -184,6 +177,7 @@ LABEL_5:
       return 1;
     }
 
+    tidCopy = tid;
     if (!a2)
     {
       return [(SAWaitInfo *)result _displaysContentForPid:as tid:pid options:tid displayString:0 nameCallback:0]^ 1;
@@ -206,7 +200,7 @@ LABEL_5:
     }
 
     portDomain = [v6 portDomain];
-    if (portDomain != [a2 portDomain] || (tid & 2) != 0 && v6[3] != *(a2 + 24))
+    if (portDomain != [a2 portDomain] || (tidCopy & 2) != 0 && v6[3] != *(a2 + 24))
     {
       return 0;
     }
@@ -256,37 +250,29 @@ LABEL_5:
 
 - (uint64_t)_displaysContentForPid:(uint64_t)pid tid:(char)tid options:(void *)options displayString:(uint64_t)string nameCallback:
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-LABEL_287:
-    v12 = 0;
-    goto LABEL_284;
+    return 0;
   }
 
-  optionsCopy = options;
   if ((options != 0) != (string != 0))
   {
-    v103 = *__error();
-    v104 = _sa_logt();
-    v105 = string != 0;
-    if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+    v102 = *__error();
+    v103 = _sa_logt();
+    v104 = string != 0;
+    v105 = options != 0;
+    if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(optionsCopy) = optionsCopy != 0;
       *buf = 67109376;
-      v114 = optionsCopy;
-      v115 = 1024;
-      v116 = v105;
-      _os_log_error_impl(&dword_1E0E2F000, v104, OS_LOG_TYPE_ERROR, "string_out:%d StringForPidAndTid:%d", buf, 0xEu);
+      v108 = v105;
+      v109 = 1024;
+      v110 = v104;
+      _os_log_error_impl(&dword_1E0E2F000, v103, OS_LOG_TYPE_ERROR, "string_out:%d StringForPidAndTid:%d", buf, 0xEu);
     }
 
-    else
-    {
-      LOBYTE(optionsCopy) = optionsCopy != 0;
-    }
-
-    *__error() = v103;
-    _SASetCrashLogMessage(2219, "string_out:%d StringForPidAndTid:%d", v106, v107, v108, v109, v110, v111, optionsCopy);
+    *__error() = v102;
+    _SASetCrashLogMessage(2219, "string_out:%d StringForPidAndTid:%d", v105, v104);
     _os_crash();
     __break(1u);
   }
@@ -306,7 +292,7 @@ LABEL_287:
 
       v12 = 0;
       *__error() = v14;
-      goto LABEL_284;
+      return v12;
     case 1:
       v42 = *(self + 16) | v13;
       v12 = v42 != 0;
@@ -334,7 +320,7 @@ LABEL_287:
         goto LABEL_184;
       }
 
-      goto LABEL_284;
+      return v12;
     case 2:
       if ((tid & 1) == 0)
       {
@@ -345,14 +331,14 @@ LABEL_287:
           v25 = *(self + 16);
           if (v25 != -3 && v25 != -5)
           {
-            goto LABEL_287;
+            return 0;
           }
         }
       }
 
-      if (!optionsCopy)
+      if (!options)
       {
-        goto LABEL_283;
+        return 1;
       }
 
       v17 = [@"mach_msg receive" mutableCopy];
@@ -410,9 +396,9 @@ LABEL_287:
     case 3:
       if ((tid & 1) != 0 || ([self portName], v55 = objc_claimAutoreleasedReturnValue(), v55, v55))
       {
-        if (!optionsCopy)
+        if (!options)
         {
-          goto LABEL_283;
+          return 1;
         }
       }
 
@@ -420,9 +406,9 @@ LABEL_287:
       {
         v99 = *(self + 16);
         v12 = v99 == -4;
-        if (!optionsCopy || v99 != -4)
+        if (!options || v99 != -4)
         {
-          goto LABEL_284;
+          return v12;
         }
       }
 
@@ -471,7 +457,7 @@ LABEL_111:
       {
         if (!options)
         {
-          goto LABEL_283;
+          return 1;
         }
       }
 
@@ -480,9 +466,9 @@ LABEL_111:
         portName6 = [self portName];
         v12 = portName6 != 0;
 
-        if (!optionsCopy || !portName6)
+        if (!options || !portName6)
         {
-          goto LABEL_284;
+          return v12;
         }
       }
 
@@ -558,7 +544,7 @@ LABEL_111:
       {
         if (!options)
         {
-          goto LABEL_283;
+          return 1;
         }
       }
 
@@ -567,9 +553,9 @@ LABEL_111:
         portName9 = [self portName];
         v12 = portName9 != 0;
 
-        if (!optionsCopy || !portName9)
+        if (!options || !portName9)
         {
-          goto LABEL_284;
+          return v12;
         }
       }
 
@@ -639,9 +625,9 @@ LABEL_171:
           portName13 = [self portName];
           v12 = portName13 != 0;
 
-          if (!optionsCopy || !portName13)
+          if (!options || !portName13)
           {
-            goto LABEL_284;
+            return v12;
           }
 
 LABEL_236:
@@ -705,8 +691,8 @@ LABEL_255:
 
           [v65 appendFormat:v95];
 LABEL_260:
-          v85 = *optionsCopy;
-          *optionsCopy = v65;
+          v85 = *options;
+          *options = v65;
           goto LABEL_282;
         }
       }
@@ -718,7 +704,7 @@ LABEL_260:
 
       if (!options)
       {
-        goto LABEL_283;
+        return 1;
       }
 
       goto LABEL_236;
@@ -727,7 +713,7 @@ LABEL_260:
       v12 = v38 != 0;
       if (!options || !v38)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v39 = [@"krwlock" mutableCopy];
@@ -744,7 +730,7 @@ LABEL_260:
       v12 = v77 != 0;
       if (!options || !v77)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v78 = [@"krwlock" mutableCopy];
@@ -761,7 +747,7 @@ LABEL_260:
       v12 = v20 != 0;
       if (!options || !v20)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v21 = [@"krwlock" mutableCopy];
@@ -778,7 +764,7 @@ LABEL_260:
       v12 = v36 != 0;
       if (!options || !v36)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v37 = @"user lock";
@@ -788,7 +774,7 @@ LABEL_260:
       v12 = v62 != 0;
       if (!options || !v62)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v37 = @"pthread mutex";
@@ -803,13 +789,13 @@ LABEL_121:
     case 0xC:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v18 = [@"pthread rwlock" mutableCopy];
@@ -824,13 +810,13 @@ LABEL_121:
     case 0xD:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v41 = [@"pthread rwlock" mutableCopy];
@@ -845,24 +831,24 @@ LABEL_121:
     case 0xE:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v17 = [@"pthread condvar" mutableCopy];
       goto LABEL_111;
     case 0xF:
     case 0x15:
-      goto LABEL_284;
+      return v12;
     case 0x10:
       if (!options)
       {
-        goto LABEL_283;
+        return 1;
       }
 
       v49 = [@"queue" mutableCopy];
@@ -903,7 +889,7 @@ LABEL_121:
     case 0x11:
       if (!options)
       {
-        goto LABEL_283;
+        return 1;
       }
 
       v52 = [@"wait4" mutableCopy];
@@ -922,7 +908,7 @@ LABEL_121:
           goto LABEL_278;
         }
 
-        v112 = -v75;
+        v106 = -v75;
         v54 = @" on any process in pgrp %lld";
       }
 
@@ -932,7 +918,7 @@ LABEL_121:
       v12 = v88 != 0;
       if (!options || !v88)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v52 = [@"turnstile" mutableCopy];
@@ -949,7 +935,7 @@ LABEL_121:
       v12 = v51 != 0;
       if (!options || !v51)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v52 = [@"event link" mutableCopy];
@@ -975,7 +961,7 @@ LABEL_199:
       v12 = v60 != 0;
       if (!options || !v60)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v52 = [@"compressor segment" mutableCopy];
@@ -990,7 +976,7 @@ LABEL_199:
       {
         v54 = @" busy for this thread";
 LABEL_280:
-        [v52 appendFormat:v54, v112];
+        [v52 appendFormat:v54, v106];
         goto LABEL_281;
       }
 
@@ -999,19 +985,19 @@ LABEL_280:
 LABEL_278:
 
 LABEL_281:
-      v85 = *optionsCopy;
-      *optionsCopy = v52;
+      v85 = *options;
+      *options = v52;
       goto LABEL_282;
     case 0x16:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v16 = @"busy page";
@@ -1019,13 +1005,13 @@ LABEL_281:
     case 0x17:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"pager initialization";
@@ -1033,13 +1019,13 @@ LABEL_281:
     case 0x18:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"pager ready";
@@ -1047,13 +1033,13 @@ LABEL_281:
     case 0x19:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"paging/activity in progress";
@@ -1061,13 +1047,13 @@ LABEL_281:
     case 0x1A:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"mapping in progress";
@@ -1075,13 +1061,13 @@ LABEL_281:
     case 0x1B:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v16 = @"blocked vm object";
@@ -1096,13 +1082,13 @@ LABEL_194:
     case 0x1C:
       if ((tid & 1) == 0)
       {
-        goto LABEL_217;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"paging in progress";
@@ -1110,15 +1096,13 @@ LABEL_194:
     case 0x1D:
       if ((tid & 1) == 0)
       {
-LABEL_217:
-        v12 = tid & 1;
-        goto LABEL_284;
+        return tid & 1;
       }
 
       v12 = tid & 1;
       if (!options)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v40 = @"pagein throttle";
@@ -1126,22 +1110,22 @@ LABEL_213:
       v17 = [(__CFString *)v40 mutableCopy];
       if ((tid & 2) != 0)
       {
-        v112 = *(self + 24);
+        v106 = *(self + 24);
         v19 = @" for vm object 0x%llx";
 LABEL_215:
-        [v17 appendFormat:v19, v112];
+        [v17 appendFormat:v19, v106];
       }
 
 LABEL_216:
-      v85 = *optionsCopy;
-      *optionsCopy = v17;
+      v85 = *options;
+      *options = v17;
       goto LABEL_282;
     case 0x1E:
       v83 = *(self + 16) | v13;
       v12 = v83 != 0;
       if (!options || !v83)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v48 = @"exclave core";
@@ -1151,7 +1135,7 @@ LABEL_216:
       v12 = v47 != 0;
       if (!options || !v47)
       {
-        goto LABEL_284;
+        return v12;
       }
 
       v48 = @"exclave kit";
@@ -1159,10 +1143,10 @@ LABEL_177:
       v22 = [(__CFString *)v48 mutableCopy];
       if ((tid & 2) != 0)
       {
-        v112 = *(self + 24);
+        v106 = *(self + 24);
         v23 = @" id 0x%llx";
 LABEL_179:
-        [v22 appendFormat:v23, v112];
+        [v22 appendFormat:v23, v106];
       }
 
 LABEL_180:
@@ -1188,29 +1172,25 @@ LABEL_184:
 LABEL_186:
 
 LABEL_187:
-      v85 = *optionsCopy;
-      *optionsCopy = v22;
+      v85 = *options;
+      *options = v22;
 LABEL_282:
 
-LABEL_283:
-      v12 = 1;
-LABEL_284:
-      v100 = *MEMORY[0x1E69E9840];
-      return v12;
+      return 1;
     default:
       v86 = *__error();
       v87 = _sa_logt();
       if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
       {
-        v102 = *(self + MEMORY[0x250]);
+        v101 = *(self + MEMORY[0x250]);
         *buf = 67109120;
-        v114 = v102;
+        v108 = v101;
         _os_log_error_impl(&dword_1E0E2F000, v87, OS_LOG_TYPE_ERROR, "waitinfo has unknown type %u", buf, 8u);
       }
 
       v12 = 0;
       *__error() = v86;
-      goto LABEL_284;
+      return v12;
   }
 }
 
@@ -1330,7 +1310,7 @@ LABEL_25:
   }
 }
 
-- (uint64_t)matchesKCDataWaitInfo:(uint64_t)info portName:(uint64_t)name flags:(uint64_t)flags domain:
+- (uint64_t)matchesKCDataWaitInfo:(uint64_t)info portName:(void *)name flags:(void *)flags domain:
 {
   if (!self || *(self + 8) != *(a2 + 24) || *(self + 24) != *(a2 + 16) || *(self + 16) != *a2 || [self portDomain] != flags || objc_msgSend(self, "portFlags") != name)
   {
@@ -1383,42 +1363,40 @@ LABEL_25:
 
 - (int)blockingPid
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   type_low = LOBYTE(self->_type);
   if (type_low > 0x1F)
   {
-    v9 = *__error();
-    v10 = _sa_logt();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = *__error();
+    v9 = _sa_logt();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       type = self->_type;
-      v12[0] = 67109120;
-      v12[1] = type;
-      _os_log_fault_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_FAULT, "waitinfo has unknown type %u", v12, 8u);
+      v11[0] = 67109120;
+      v11[1] = type;
+      _os_log_fault_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_FAULT, "waitinfo has unknown type %u", v11, 8u);
     }
 
-    *__error() = v9;
-    goto LABEL_3;
+    *__error() = v8;
+    return -1;
   }
 
   v4 = 1 << type_low;
   if ((v4 & 0xFFFDFFAF) != 0)
   {
-LABEL_3:
-    result = -1;
-    goto LABEL_4;
+    return -1;
   }
 
   if ((v4 & 0x20040) != 0)
   {
     if (SLODWORD(self->_owner) < 0)
     {
-      result = -1;
+      return -1;
     }
 
     else
     {
-      result = self->_owner;
+      return self->_owner;
     }
   }
 
@@ -1427,28 +1405,24 @@ LABEL_3:
     owner = self->_owner;
     if (owner == -5 || owner == -3)
     {
-      goto LABEL_3;
+      return -1;
     }
 
     if (owner == -2)
     {
-      result = 0;
+      return 0;
     }
 
     else if ((owner & 0x80000000) != 0)
     {
-      result = -1;
+      return -1;
     }
 
     else
     {
-      result = self->_owner;
+      return self->_owner;
     }
   }
-
-LABEL_4:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)descriptionForPid:(int)pid tid:(unint64_t)tid options:(unint64_t)options nameCallback:(id)callback
@@ -1462,28 +1436,26 @@ LABEL_4:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(SAWaitInfo *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v12 = *__error();
-    v13 = _sa_logt();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = *__error();
+    v12 = _sa_logt();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(SAWaitInfo *)self debugDescription];
+      v13 = [(SAWaitInfo *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v14 UTF8String];
-      v25 = 2048;
+      uTF8String = [v13 UTF8String];
+      v17 = 2048;
       sizeInBytesForSerializedVersion = [(SAWaitInfo *)self sizeInBytesForSerializedVersion];
-      v27 = 2048;
+      v19 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v12;
-    v15 = [(SAWaitInfo *)self debugDescription];
-    uTF8String2 = [v15 UTF8String];
-    [(SAWaitInfo *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(5741, "%s: size %lu != buffer length %lu", v17, v18, v19, v20, v21, v22, uTF8String2);
+    *__error() = v11;
+    v14 = [(SAWaitInfo *)self debugDescription];
+    _SASetCrashLogMessage(5741, "%s: size %lu != buffer length %lu", [v14 UTF8String], -[SAWaitInfo sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -1498,7 +1470,6 @@ LABEL_4:
 
   *(&buffer->var5 + 4) = [(SABlockingInfo *)self portFlags];
   *(&buffer->var6 + 4) = [(SABlockingInfo *)self portDomain];
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1516,7 +1487,7 @@ LABEL_4:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_17;
@@ -1524,40 +1495,40 @@ LABEL_4:
 
   if (length <= 0x13)
   {
-    v9 = *__error();
-    v10 = _sa_logt();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = *__error();
+    v9 = _sa_logt();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 20;
-      _os_log_error_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo struct %lu", buf, 0x16u);
+      v15 = 2048;
+      v16 = 20;
+      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v9;
-    _SASetCrashLogMessage(5772, "bufferLength %lu < serialized SAWaitInfo struct %lu", v11, v12, v13, v14, v15, v16, length);
+    *__error() = v8;
+    _SASetCrashLogMessage(5772, "bufferLength %lu < serialized SAWaitInfo struct %lu", length, 20);
     _os_crash();
     __break(1u);
 LABEL_14:
-    v17 = *__error();
-    v18 = _sa_logt();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 44;
-      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", buf, 0x16u);
+      v15 = 2048;
+      v16 = 44;
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", buf, 0x16u);
     }
 
-    *__error() = v17;
-    _SASetCrashLogMessage(5778, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", v19, v20, v21, v22, v23, v24, length);
+    *__error() = v10;
+    _SASetCrashLogMessage(5778, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", length, 44);
     _os_crash();
     __break(1u);
 LABEL_17:
-    v25 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAWaitInfo version" userInfo:0];
-    objc_exception_throw(v25);
+    v12 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAWaitInfo version" userInfo:0];
+    objc_exception_throw(v12);
   }
 
   if (*(buffer + 1) < 2u)
@@ -1584,13 +1555,12 @@ LABEL_10:
   v6->super._type = *(buffer + 2);
   v6->super._owner = *(buffer + 4);
   v6->super._context = *(buffer + 12);
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_21;
@@ -1598,88 +1568,84 @@ LABEL_10:
 
   if (length <= 0x13)
   {
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v14 = *__error();
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v45 = 2048;
-      v46 = 20;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo struct %lu", buf, 0x16u);
+      v25 = 2048;
+      v26 = 20;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v16;
-    _SASetCrashLogMessage(5806, "bufferLength %lu < serialized SAWaitInfo struct %lu", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v14;
+    _SASetCrashLogMessage(5806, "bufferLength %lu < serialized SAWaitInfo struct %lu", length, 20);
     _os_crash();
     __break(1u);
-    goto LABEL_15;
-  }
-
-  if (*(buffer + 1) < 2u)
-  {
-LABEL_11:
-    v15 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (length <= 0x2B)
-  {
 LABEL_15:
-    v24 = *__error();
+    v16 = *__error();
     self = _sa_logt();
     if (os_log_type_enabled(&self->super.super, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v45 = 2048;
-      v46 = 44;
+      v25 = 2048;
+      v26 = 44;
       _os_log_error_impl(&dword_1E0E2F000, &self->super.super, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", buf, 0x16u);
     }
 
-    *__error() = v24;
-    _SASetCrashLogMessage(5810, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", v25, v26, v27, v28, v29, v30, length);
+    *__error() = v16;
+    _SASetCrashLogMessage(5810, "bufferLength %lu < serialized SAWaitInfo_v2 struct %lu", length, 44);
     _os_crash();
     __break(1u);
-    goto LABEL_18;
+LABEL_18:
+    v17 = *__error();
+    v18 = _sa_logt();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      ClassName = object_getClassName(self);
+      *buf = 136315138;
+      lengthCopy2 = ClassName;
+      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "wait info with port info, but class is %s", buf, 0xCu);
+    }
+
+    *__error() = v17;
+    v20 = object_getClassName(self);
+    _SASetCrashLogMessage(5816, "wait info with port info, but class is %s", v20);
+    _os_crash();
+    __break(1u);
+LABEL_21:
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAWaitInfo version" userInfo:0];
+    objc_exception_throw(v21);
+  }
+
+  if (*(buffer + 1) < 2u)
+  {
+    return;
+  }
+
+  if (length <= 0x2B)
+  {
+    goto LABEL_15;
   }
 
   if (*(buffer + 20) == 0xFFFFFFFFFFFFFFFFLL && !*(buffer + 36))
   {
-    goto LABEL_11;
+    return;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-LABEL_18:
-    v31 = *__error();
-    v32 = _sa_logt();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-    {
-      ClassName = object_getClassName(self);
-      *buf = 136315138;
-      lengthCopy2 = ClassName;
-      _os_log_error_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_ERROR, "wait info with port info, but class is %s", buf, 0xCu);
-    }
-
-    *__error() = v31;
-    v34 = object_getClassName(self);
-    _SASetCrashLogMessage(5816, "wait info with port info, but class is %s", v35, v36, v37, v38, v39, v40, v34);
-    _os_crash();
-    __break(1u);
-LABEL_21:
-    v41 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAWaitInfo version" userInfo:0];
-    objc_exception_throw(v41);
+    goto LABEL_18;
   }
 
   v11 = *(buffer + 20);
   selfCopy = self;
   v13 = objc_opt_class();
-  v42 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v11, dictionary, bufferDictionary, v13, 0);
+  v22 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v11, dictionary, bufferDictionary, v13, 0);
   [(SAWaitInfo *)selfCopy setPortName:?];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (SAWaitInfo)stateWithPAStyleSerializedWaitInfo:(uint64_t)info

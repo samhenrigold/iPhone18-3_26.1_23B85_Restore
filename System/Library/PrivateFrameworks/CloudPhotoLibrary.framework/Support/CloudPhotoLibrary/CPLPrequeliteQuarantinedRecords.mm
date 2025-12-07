@@ -1,4 +1,5 @@
 @interface CPLPrequeliteQuarantinedRecords
+- (BOOL)addQuarantinedRecordWithScopedIdentifier:(id)identifier related:(BOOL)related recordClass:(Class)class reason:(id)reason error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)initializeStorage;
 - (BOOL)isRecordWithScopedIdentifierQuarantined:(id)quarantined;
@@ -135,6 +136,48 @@ LABEL_16:
   }
 
   return pqStore2;
+}
+
+- (BOOL)addQuarantinedRecordWithScopedIdentifier:(id)identifier related:(BOOL)related recordClass:(Class)class reason:(id)reason error:(id *)error
+{
+  relatedCopy = related;
+  identifierCopy = identifier;
+  reasonCopy = reason;
+  v14 = [(CPLPrequeliteStorage *)self scopeIndexForLocalScopedIdentifier:identifierCopy];
+  if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    if (error)
+    {
+      [CPLErrors invalidScopeErrorWithScopedIdentifier:identifierCopy];
+      *error = v15 = 0;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v16 = v14;
+    +[NSDate timeIntervalSinceReferenceDate];
+    v18 = v17;
+    pqStore = [(CPLPrequeliteStorage *)self pqStore];
+    pqlConnection = [pqStore pqlConnection];
+
+    mainTable = [(CPLPrequeliteStorage *)self mainTable];
+    identifier = [identifierCopy identifier];
+    v23 = NSStringFromClass(class);
+    v15 = [pqlConnection cplExecute:{@"INSERT OR IGNORE INTO %@ (scopeIndex, localIdentifier, quarantineDate, class, reason, related) VALUES (%ld, %@, %lu, %@, %@, %d)", mainTable, v16, identifier, v18, v23, reasonCopy, relatedCopy}];
+
+    if (error && (v15 & 1) == 0)
+    {
+      *error = [pqlConnection lastCPLError];
+    }
+  }
+
+  return v15;
 }
 
 - (BOOL)removeQuarantinedRecordWithScopedIdentifier:(id)identifier removed:(BOOL *)removed error:(id *)error
@@ -292,14 +335,15 @@ LABEL_16:
 
   if (v8)
   {
-    if ([pqlConnection changes] >= 1 && (_CPLSilentLogging & 1) == 0)
+    changes = [pqlConnection changes];
+    if (changes >= 1 && (_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_10017DA04();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_10017DA04(changes);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        changes = [pqlConnection changes];
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Removed %lu related records from quarantine", buf, 0xCu);
+        changes2 = [pqlConnection changes];
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Removed %lu related records from quarantine", buf, 0xCu);
       }
     }
   }

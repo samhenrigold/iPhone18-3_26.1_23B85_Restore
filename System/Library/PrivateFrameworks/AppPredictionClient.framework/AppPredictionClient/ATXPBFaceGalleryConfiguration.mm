@@ -2,16 +2,16 @@
 + (uint64_t)sectionsType;
 - (BOOL)isEqual:(id)equal;
 - (__CFString)sourceAsString:(__CFString *)string;
+- (id)clearSections;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)sectionsAtIndex:(id *)index;
+- (id)sectionsCount;
 - (uint64_t)StringAsSource:(uint64_t)source;
 - (uint64_t)addSections:(uint64_t)sections;
-- (uint64_t)clearSections;
 - (uint64_t)hasSource;
 - (uint64_t)sections;
-- (uint64_t)sectionsCount;
 - (uint64_t)setHasSource:(uint64_t)result;
 - (uint64_t)setSource:(uint64_t)result;
 - (uint64_t)source;
@@ -247,11 +247,11 @@ LABEL_9:
   return v4 ^ v3;
 }
 
-- (uint64_t)clearSections
+- (id)clearSections
 {
   if (result)
   {
-    return [*(result + 8) removeAllObjects];
+    return [result[1] removeAllObjects];
   }
 
   return result;
@@ -281,11 +281,11 @@ LABEL_9:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)sectionsCount
+- (id)sectionsCount
 {
   if (result)
   {
-    return [*(result + 8) count];
+    return [result[1] count];
   }
 
   return result;

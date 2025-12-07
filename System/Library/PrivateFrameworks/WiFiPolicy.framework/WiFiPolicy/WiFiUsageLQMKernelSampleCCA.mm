@@ -26,34 +26,34 @@
 - (WiFiUsageLQMKernelSampleCCA)initWithStruct:(ccaStats *)struct andTimestamp:(id)timestamp
 {
   timestampCopy = timestamp;
+  v17 = 0;
   v18 = 0;
   v19 = 0;
-  v20 = 0;
-  [WiFiUsageLQMTransformations ccaStatsWithDuration:struct->var1 ccaSelf:struct->var2 ccaOther:struct->var3 interference:struct->var4];
+  objc_msgSend_ccaStatsWithDuration_ccaSelf_ccaOther_interference_(WiFiUsageLQMTransformations);
+  v14 = 0;
   v15 = 0;
   v16 = 0;
-  v17 = 0;
-  [WiFiUsageLQMTransformations ccaStatsWithDuration:struct->var5 ccaSelf:struct->var6 ccaOther:struct->var7 interference:struct->var8];
+  objc_msgSend_ccaStatsWithDuration_ccaSelf_ccaOther_interference_(WiFiUsageLQMTransformations);
+  v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
-  [WiFiUsageLQMTransformations ccaStatsWithDuration:struct->var9 ccaSelf:struct->var10 ccaOther:struct->var11 interference:struct->var12];
-  v11.receiver = self;
-  v11.super_class = WiFiUsageLQMKernelSampleCCA;
-  v8 = [(WiFiUsageLQMKernelSampleCCA *)&v11 init];
-  objc_storeStrong(&v8->_timestamp, timestamp);
-  v8->_selfCca = v18;
-  v8->_otherCca = v19;
-  v8->_interference = v20;
-  v8->_selfCcaSleepPerc = v15;
-  v8->_otherCcaSleepPerc = v16;
-  v8->_interferenceSleepPerc = v17;
-  v8->_selfCcaWakePerc = v12;
-  v8->_otherCcaWakePerc = v13;
-  v8->_interferenceWakePerc = v14;
-  v9 = v8;
+  objc_msgSend_ccaStatsWithDuration_ccaSelf_ccaOther_interference_(WiFiUsageLQMTransformations);
+  v10.receiver = self;
+  v10.super_class = WiFiUsageLQMKernelSampleCCA;
+  v7 = [(WiFiUsageLQMKernelSampleCCA *)&v10 init];
+  objc_storeStrong(&v7->_timestamp, timestamp);
+  v7->_selfCca = v17;
+  v7->_otherCca = v18;
+  v7->_interference = v19;
+  v7->_selfCcaSleepPerc = v14;
+  v7->_otherCcaSleepPerc = v15;
+  v7->_interferenceSleepPerc = v16;
+  v7->_selfCcaWakePerc = v11;
+  v7->_otherCcaWakePerc = v12;
+  v7->_interferenceWakePerc = v13;
+  v8 = v7;
 
-  return v9;
+  return v8;
 }
 
 @end

@@ -15,7 +15,7 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for AppleCardFamilySettingsViewModel();
+  v6.super_class = type metadata accessor for AppleCardFamilySettingsViewModel(0);
   [(AppleCardFamilySettingsViewModel *)&v6 dealloc];
 }
 

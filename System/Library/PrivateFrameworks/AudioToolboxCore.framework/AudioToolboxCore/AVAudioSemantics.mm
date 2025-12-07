@@ -24,43 +24,43 @@
 
 - (AVAudioSemantics)initWithAudioSemantics:(__CFArray *)semantics
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = AVAudioSemantics;
-  v4 = [(AVAudioSemantics *)&v21 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = AVAudioSemantics;
+  v4 = [(AVAudioSemantics *)&v20 init];
   if (v4)
   {
     semanticsCopy = semantics;
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[__CFArray count](semanticsCopy, "count")}];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = semanticsCopy;
-    v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         v10 = 0;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * v10);
+          v11 = *(*(&v16 + 1) + 8 * v10);
           v12 = [AVAudioChannelGroupSemantics alloc];
-          v13 = [(AVAudioChannelGroupSemantics *)v12 initWithAudioChannelGroupSemantics:v11, v17];
+          v13 = [(AVAudioChannelGroupSemantics *)v12 initWithAudioChannelGroupSemantics:v11, v16];
           [(NSArray *)v6 addObject:v13];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v8);
@@ -70,7 +70,6 @@
     v4->_channelGroups = v6;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

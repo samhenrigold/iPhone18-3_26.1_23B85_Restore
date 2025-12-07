@@ -42,15 +42,16 @@
   skippedMinCopy = skippedMin;
   scheduledMedsCopy = scheduledMeds;
   sourceCopy = source;
+  shouldSubmit = [self shouldSubmit];
   v47 = minCopy;
   v48 = maxCopy;
   v45 = loggedMinCopy;
   v46 = loggedMaxCopy;
-  if ([self shouldSubmit])
+  if (shouldSubmit)
   {
-    HKMedicationsSharedAnalyticsQueue();
+    HKMedicationsSharedAnalyticsQueue(shouldSubmit);
     v43 = skippedMinCopy;
-    v28 = v27 = skippedMaxCopy;
+    v29 = v28 = skippedMaxCopy;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_provenance_context_medicationIdentifiers_loggingMultipleMeds_hoursAgoLoggedForMax_hoursAgoLoggedForMin_hoursFromScheduledTimeLoggedMax_hoursFromScheduledTimeLoggedMin_hoursFromScheduledToTakenOrSkippedMax_hoursFromScheduledToTakenOrSkippedMin_isPartiallyLoggingScheduledMeds_dataSource___block_invoke;
@@ -66,56 +67,55 @@
     v54 = minCopy;
     v55 = loggedMaxCopy;
     v56 = loggedMinCopy;
-    v57 = v27;
+    v57 = v28;
     v58 = v43;
     v59 = scheduledMedsCopy;
     v60 = sourceCopy;
-    dispatch_async(v28, block);
+    dispatch_async(v29, block);
 
-    skippedMaxCopy = v27;
+    skippedMaxCopy = v28;
     skippedMinCopy = v43;
 
-    v29 = v51;
-    v30 = storeCopy;
-    v31 = identifiersCopy;
+    v30 = v51;
+    v31 = storeCopy;
+    v32 = identifiersCopy;
   }
 
   else
   {
     _HKInitializeLogging();
-    v32 = HKLogMedication();
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_INFO);
+    v33 = HKLogMedication();
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_INFO);
 
-    v30 = storeCopy;
-    v31 = identifiersCopy;
-    if (!v33)
+    v31 = storeCopy;
+    v32 = identifiersCopy;
+    if (!v34)
     {
       goto LABEL_7;
     }
 
-    v29 = HKLogMedication();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v30 = HKLogMedication();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      v34 = objc_opt_class();
-      v35 = MEMORY[0x277CCABB0];
-      v44 = v34;
-      v36 = [v35 numberWithBool:{objc_msgSend(self, "_isMetricEnabled")}];
-      v37 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "_isAllowed")}];
+      v35 = objc_opt_class();
+      v36 = MEMORY[0x277CCABB0];
+      v44 = v35;
+      v37 = [v36 numberWithBool:{objc_msgSend(self, "_isMetricEnabled")}];
+      v38 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "_isAllowed")}];
       *buf = 138543874;
-      v67 = v34;
-      v30 = storeCopy;
+      v67 = v35;
+      v31 = storeCopy;
       v68 = 2114;
-      v69 = v36;
+      v69 = v37;
       v70 = 2114;
-      v71 = v37;
-      _os_log_impl(&dword_2517E7000, v29, OS_LOG_TYPE_INFO, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", buf, 0x20u);
+      v71 = v38;
+      _os_log_impl(&dword_2517E7000, v30, OS_LOG_TYPE_INFO, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", buf, 0x20u);
 
-      v31 = identifiersCopy;
+      v32 = identifiersCopy;
     }
   }
 
 LABEL_7:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_provenance_context_medicationIdentifiers_loggingMultipleMeds_hoursAgoLoggedForMax_hoursAgoLoggedForMin_hoursFromScheduledTimeLoggedMax_hoursFromScheduledTimeLoggedMin_hoursFromScheduledToTakenOrSkippedMax_hoursFromScheduledToTakenOrSkippedMin_isPartiallyLoggingScheduledMeds_dataSource___block_invoke(uint64_t a1)
@@ -155,7 +155,7 @@ void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_
 
 void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_provenance_context_medicationIdentifiers_loggingMultipleMeds_hoursAgoLoggedForMax_hoursAgoLoggedForMin_hoursFromScheduledTimeLoggedMax_hoursFromScheduledTimeLoggedMin_hoursFromScheduledToTakenOrSkippedMax_hoursFromScheduledToTakenOrSkippedMin_isPartiallyLoggingScheduledMeds_dataSource___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 96) _unitTesting_detailedLoggingContextForLoggingContext:*(a1 + 104) schedules:a2];
   v4 = [[HKMedicationLogMetric alloc] initWithActions:*(a1 + 112) provenance:*(a1 + 120) context:v3 loggingMultipleMeds:*(a1 + 128) hoursAgoLoggedForMax:*(a1 + 32) hoursAgoLoggedForMin:*(a1 + 40) hoursFromScheduledTimeLoggedMax:*(a1 + 48) hoursFromScheduledTimeLoggedMin:*(a1 + 56) hoursFromScheduledToTakenOrSkippedMax:*(a1 + 64) hoursFromScheduledToTakenOrSkippedMin:*(a1 + 72) isPartiallyLoggingScheduledMeds:*(a1 + 80) dataSource:*(a1 + 88)];
   v5 = +[HKMedicationLogMetric eventName];
@@ -171,22 +171,19 @@ void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_
     v8 = HKLogMedication();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 96);
-      v10 = objc_opt_class();
-      v11 = v10;
-      v12 = HKSensitiveLogItem();
-      v13 = HKStringFromMedicationLoggingContext(v3);
+      v9 = objc_opt_class();
+      v10 = v9;
+      v11 = HKSensitiveLogItem();
+      v12 = HKStringFromMedicationLoggingContext(v3);
       *buf = 138543874;
-      v16 = v10;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
       v17 = 2114;
       v18 = v12;
-      v19 = 2114;
-      v20 = v13;
       _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_INFO, "[%{public}@] Submitted metric %{public}@ with context: %{public}@", buf, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_unitTesting_detailedLoggingContextForLoggingContext:(int64_t)context schedules:(id)schedules
@@ -216,28 +213,28 @@ void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_
 
 + (int64_t)_extractCommonScheduleTypeForMedicationSchedules:(id)schedules
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   schedulesCopy = schedules;
-  v4 = [schedulesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [schedulesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(schedulesCopy);
         }
 
-        scheduleType = [*(*(&v12 + 1) + 8 * i) scheduleType];
+        scheduleType = [*(*(&v11 + 1) + 8 * i) scheduleType];
         if (v6)
         {
           if (v6 != scheduleType)
@@ -252,7 +249,7 @@ void __357__HKMedicationLoggingAnalytics_submitLogMetricWithHealthStore_actions_
         }
       }
 
-      v5 = [schedulesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [schedulesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -264,7 +261,6 @@ LABEL_13:
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

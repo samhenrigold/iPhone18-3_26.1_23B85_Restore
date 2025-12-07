@@ -267,17 +267,20 @@ LABEL_36:
 
 - (void)enforceMaxContextLength:(unint64_t)length
 {
-  if (+[TIInputContextHistory isMail]&& [(NSString *)self->_text length]> length)
+  if (+[TIInputContextHistory isMail]&& (v5 = [(NSString *)self->_text length], v5 > length))
   {
+    text = self->_text;
     self->_text = 0;
   }
 
   else
   {
-    self->_text = [(NSString *)self->_text _stringWithLongestWhitespaceDelimitedSuffixOfMaxLength:length];
+    v5 = [(NSString *)self->_text _stringWithLongestWhitespaceDelimitedSuffixOfMaxLength:length];
+    text = self->_text;
+    self->_text = v5;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, text);
 }
 
 - (void)encodeWithCoder:(id)coder

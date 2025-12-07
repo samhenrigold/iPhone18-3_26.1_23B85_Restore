@@ -41,7 +41,7 @@
 
 - (void)startSyncTask:(id)task
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_taskGroupedByServiceName)
   {
     if (IMOSLoggingEnabled())
@@ -50,19 +50,16 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         className = self->_className;
-        v8 = 138412290;
-        v9 = className;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "%@: Start sync should not be called more than once.  Ignoring request.", &v8, 0xCu);
+        v6 = 138412290;
+        v7 = className;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "%@: Start sync should not be called more than once.  Ignoring request.", &v6, 0xCu);
       }
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [(IMDMessageHistoryFirstUnlockReplaySyncTask *)self setSyncTaskCompletionBlock:task];
-    v7 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x2821F9670](self, sel__setupAndBeginSync);
   }
@@ -70,7 +67,7 @@
 
 - (void)_setupAndBeginSync
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activeSessions = [(IMDAccountController *)[(IMDMessageHistoryFirstUnlockReplaySyncTask *)self accountController] activeSessions];
   -[IMDMessageHistoryFirstUnlockReplaySyncTask setTaskGroupedByServiceName:](self, "setTaskGroupedByServiceName:", [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](activeSessions, "count")}]);
   if (IMOSLoggingEnabled())
@@ -79,30 +76,30 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v19 = [(NSArray *)activeSessions count];
+      v18 = [(NSArray *)activeSessions count];
       _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "IMDMessageHistoryFirstUnlockReplaySyncTask: Begin replaying first unlock database for %ld services", buf, 0xCu);
     }
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v5 = [(NSArray *)activeSessions countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = [(NSArray *)activeSessions countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(activeSessions);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = objc_alloc_init(MEMORY[0x277D187B0]);
         v10 = [(IMDMessageHistoryFirstUnlockReplaySyncTask *)self _createProcessBatchBlockWithServiceSession:v8];
         v11 = [(IMDMessageHistoryFirstUnlockReplaySyncTask *)self _createSyncCompletionBlockForServiceSession:v8];
@@ -115,14 +112,13 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)activeSessions countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSArray *)activeSessions countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   [(IMDReplayController *)self->_replayController scheduleSyncTaskForServices:[(IMDMessageHistoryFirstUnlockReplaySyncTask *)self taskGroupedByServiceName]];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createProcessBatchBlockWithServiceSession:(id)session

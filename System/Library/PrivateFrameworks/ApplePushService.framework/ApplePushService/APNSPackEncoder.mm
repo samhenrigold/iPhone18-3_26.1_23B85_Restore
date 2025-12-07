@@ -165,7 +165,7 @@
 
 - (id)keyTable
 {
-  v2 = nullsub_7(self->_encoder, a2);
+  nullsub_7();
 
   return sub_100074660(v2);
 }

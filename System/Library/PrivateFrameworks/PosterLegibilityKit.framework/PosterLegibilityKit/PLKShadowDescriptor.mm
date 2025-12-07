@@ -26,21 +26,21 @@
 
 + (id)shadowWithRadius:(double)radius offset:(CGSize)offset alpha:(double)alpha strength:(double)strength
 {
-  v6 = [[self alloc] initWithRadius:radius offset:offset.width alpha:offset.height strength:{alpha, strength}];
+  v6 = [[self alloc] initWithRadius:? offset:? alpha:? strength:?];
 
   return v6;
 }
 
 + (id)shadowWithRadius:(double)radius offset:(CGSize)offset alpha:(double)alpha
 {
-  v5 = [[self alloc] initWithRadius:radius offset:offset.width alpha:offset.height strength:{alpha, 1.0}];
+  v5 = [[self alloc] initWithRadius:? offset:? alpha:? strength:?];
 
   return v5;
 }
 
 - (PLKShadowDescriptor)init
 {
-  [(PLKShadowDescriptor *)self doesNotRecognizeSelector:a2];
+  [(PLKShadowDescriptor *)self doesNotRecognizeSelector:?];
 
   return 0;
 }
@@ -73,9 +73,14 @@
     v6 = 1;
   }
 
+  else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v6 = [(PLKShadowDescriptor *)self isEqualToShadow:?];
+  }
+
   else
   {
-    v6 = equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [(PLKShadowDescriptor *)self isEqualToShadow:v5];
+    v6 = 0;
   }
 
   return v6;
@@ -131,7 +136,7 @@
 
   currentImage = [v13 currentImage];
   [v13 contentRect];
-  [self drawShadows:shadowsCopy forImage:currentImage contentRect:v14 renderScale:? color:?];
+  [self drawShadows:? forImage:? contentRect:? renderScale:? color:?];
 
   if (!colorCopy)
   {
@@ -161,46 +166,37 @@ id __61__PLKShadowDescriptor_drawShadows_renderScale_color_context___block_invok
 
 + (void)drawShadows:(id)shadows forImage:(id)image contentRect:(CGRect)rect renderScale:(double)scale color:(id)color
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
-  v85 = *MEMORY[0x277D85DE8];
   shadowsCopy = shadows;
   imageCopy = image;
   colorCopy = color;
   CurrentContext = UIGraphicsGetCurrentContext();
   CGContextSaveGState(CurrentContext);
-  v17 = shadowsCopy;
-  if ([v17 count] == 1)
+  v14 = shadowsCopy;
+  if ([v14 count] == 1)
   {
   }
 
   else
   {
-    firstObject = [v17 firstObject];
+    firstObject = [v14 firstObject];
     [firstObject strength];
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    v19 = v17;
-    v20 = [v19 countByEnumeratingWithState:&v77 objects:v84 count:16];
-    if (v20)
+    v16 = v14;
+    v17 = [v16 countByEnumeratingWithState:? objects:? count:?];
+    if (v17)
     {
-      v21 = v20;
-      v22 = *v78;
+      v18 = v17;
+      v19 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v18; i = (i + 1))
         {
-          if (*v78 != v22)
+          if (MEMORY[0] != v19)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v16);
           }
 
-          [*(*(&v77 + 1) + 8 * i) strength];
+          [*(8 * i) strength];
           if (!BSFloatEqualToFloat())
           {
 
@@ -208,8 +204,8 @@ id __61__PLKShadowDescriptor_drawShadows_renderScale_color_context___block_invok
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v77 objects:v84 count:16];
-        if (v21)
+        v18 = [v16 countByEnumeratingWithState:? objects:? count:?];
+        if (v18)
         {
           continue;
         }
@@ -219,77 +215,70 @@ id __61__PLKShadowDescriptor_drawShadows_renderScale_color_context___block_invok
     }
   }
 
-  firstObject2 = [v17 firstObject];
+  firstObject2 = [v14 firstObject];
   [firstObject2 strength];
   IsOne = BSFloatIsOne();
 
   if (IsOne)
   {
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v26 = v17;
-    v27 = [v26 countByEnumeratingWithState:&v73 objects:v83 count:16];
-    if (v27)
+    v23 = v14;
+    v24 = [v23 countByEnumeratingWithState:? objects:? count:?];
+    if (v24)
     {
-      v28 = v27;
-      v29 = *v74;
+      v25 = v24;
+      v26 = MEMORY[0];
       do
       {
-        for (j = 0; j != v28; ++j)
+        for (j = 0; j != v25; j = (j + 1))
         {
-          if (*v74 != v29)
+          if (MEMORY[0] != v26)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v23);
           }
 
-          v31 = *(*(&v73 + 1) + 8 * j);
-          [v31 offset];
-          v33 = v32 * scale;
-          [v31 offset];
-          v35 = v34 * scale;
-          [v31 radius];
-          v37 = v36 * scale;
-          [v31 alpha];
-          v38 = [colorCopy colorWithAlphaComponent:?];
-          cGColor = [v38 CGColor];
-          v86.width = v33;
-          v86.height = v35;
-          CGContextSetShadowWithColor(CurrentContext, v86, v37, cGColor);
+          v28 = *(8 * j);
+          [v28 offset];
+          v30 = v29 * scale;
+          [v28 offset];
+          v32 = v31 * scale;
+          [v28 radius];
+          v34 = v33 * scale;
+          [v28 alpha];
+          v35 = [colorCopy colorWithAlphaComponent:?];
+          cGColor = [v35 CGColor];
+          v59.width = v30;
+          v59.height = v32;
+          CGContextSetShadowWithColor(CurrentContext, v59, v34, cGColor);
 
           CGContextBeginTransparencyLayer(CurrentContext, 0);
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v73 objects:v83 count:16];
+        v25 = [v23 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v28);
+      while (v25);
     }
 
-    [imageCopy drawInRect:{x, y, width, height}];
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v40 = v26;
-    v41 = [v40 countByEnumeratingWithState:&v69 objects:v82 count:16];
-    if (v41)
+    [imageCopy drawInRect:?];
+    v37 = v23;
+    v38 = [v37 countByEnumeratingWithState:? objects:? count:?];
+    if (v38)
     {
-      v42 = v41;
-      v43 = *v70;
+      v39 = v38;
+      v40 = MEMORY[0];
       while (1)
       {
-        if (*v70 != v43)
+        if (MEMORY[0] != v40)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v37);
         }
 
         CGContextEndTransparencyLayer(CurrentContext);
-        if (!--v42)
+        v39 = (v39 - 1);
+        if (!v39)
         {
-          v42 = [v40 countByEnumeratingWithState:&v69 objects:v82 count:16];
-          if (!v42)
+          v39 = [v37 countByEnumeratingWithState:? objects:? count:?];
+          if (!v39)
           {
             break;
           }
@@ -302,136 +291,115 @@ id __61__PLKShadowDescriptor_drawShadows_renderScale_color_context___block_invok
   {
 LABEL_28:
     scaleCopy = scale;
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v44 = v17;
-    v45 = [v44 countByEnumeratingWithState:&v65 objects:v81 count:16];
-    if (v45)
+    v41 = v14;
+    v42 = [v41 countByEnumeratingWithState:? objects:? count:?];
+    if (v42)
     {
-      v46 = v45;
-      v47 = *v66;
+      v43 = v42;
+      v44 = MEMORY[0];
       do
       {
-        for (k = 0; k != v46; ++k)
+        for (k = 0; k != v43; k = (k + 1))
         {
-          if (*v66 != v47)
+          if (MEMORY[0] != v44)
           {
-            objc_enumerationMutation(v44);
+            objc_enumerationMutation(v41);
           }
 
-          v49 = *(*(&v65 + 1) + 8 * k);
-          [v49 strength];
+          v46 = *(8 * k);
+          [v46 strength];
           if ((BSFloatLessThanOrEqualToFloat() & 1) == 0)
           {
-            [v49 offset];
-            v51 = v50 * scaleCopy;
-            [v49 offset];
-            v53 = v52 * scaleCopy;
-            [v49 radius];
-            v55 = v54 * scaleCopy;
+            [v46 offset];
+            v48 = v47 * scaleCopy;
+            [v46 offset];
+            v50 = v49 * scaleCopy;
+            [v46 radius];
+            v52 = v51 * scaleCopy;
             cGColor2 = [colorCopy CGColor];
-            v87.width = v51;
-            v87.height = v53;
-            CGContextSetShadowWithColor(CurrentContext, v87, v55, cGColor2);
+            v60.width = v48;
+            v60.height = v50;
+            CGContextSetShadowWithColor(CurrentContext, v60, v52, cGColor2);
             CGContextBeginTransparencyLayer(CurrentContext, 0);
-            [v49 alpha];
-            v58 = v57;
-            [v49 strength];
-            for (m = v58 * v59; m > 0.00000011920929; m = m + -1.0)
+            [v46 alpha];
+            v55 = v54;
+            [v46 strength];
+            for (m = v55 * v56; m > 0.00000011920929; m = m + -1.0)
             {
-              if (m + 0.00000011920929 <= 1.0)
-              {
-                v61 = m;
-              }
-
-              else
-              {
-                v61 = 1.0;
-              }
-
-              [imageCopy drawInRect:0 blendMode:x alpha:{y, width, height, v61}];
+              [imageCopy drawInRect:? blendMode:? alpha:?];
             }
 
             CGContextEndTransparencyLayer(CurrentContext);
           }
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v65 objects:v81 count:16];
+        v43 = [v41 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v46);
+      while (v43);
     }
   }
 
   CGContextRestoreGState(CurrentContext);
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 + (void)classicDrawShadows:(id)shadows renderScale:(double)scale color:(id)color context:(id)context
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v65[17] = *MEMORY[0x277D85DE8];
   shadowsCopy = shadows;
   i = color;
   contextCopy = context;
   v11 = contextCopy;
   if (i)
   {
-    v64 = i;
+    v45 = i;
   }
 
   else
   {
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke;
-    v104[3] = &unk_27835B760;
-    v105 = contextCopy;
-    v64 = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke(v104);
-    v58 = &v105;
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke;
+    v64[3] = &unk_27835B760;
+    v65[0] = contextCopy;
+    v45 = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke(v64);
+    v39 = v65;
   }
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = shadowsCopy;
-  v63 = [obj countByEnumeratingWithState:&v100 objects:v106 count:16];
-  if (v63)
+  v44 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v44)
   {
-    v62 = *v101;
-    v60 = v11;
-    v61 = i;
+    v43 = *v61;
+    v41 = v11;
+    v42 = i;
     do
     {
       v12 = 0;
       do
       {
-        if (*v101 != v62)
+        if (*v61 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v100 + 1) + 8 * v12);
+        v13 = *(*(&v60 + 1) + 8 * v12);
         [v13 strength];
-        v73 = v14;
+        v49 = v14;
         [v13 radius];
-        v75 = v15;
+        v51 = v15;
         [v13 alpha];
-        v72 = v16;
+        v48 = v16;
         [v13 offset];
-        v70 = v17;
-        v71 = v18;
         currentImage = [v11 currentImage];
         [v11 contentRect];
-        v21 = v20;
-        v23 = v22;
-        v25 = v24;
-        v27 = v26;
         [currentImage size];
-        v29 = v28;
-        v31 = v30;
+        v19 = v18;
+        v21 = v20;
         format = [v11 format];
         if (objc_opt_respondsToSelector())
         {
@@ -444,7 +412,7 @@ LABEL_28:
         }
 
         [format scale];
-        v77 = v34;
+        v52 = v24;
         if (objc_opt_respondsToSelector())
         {
           memoryPool = [format memoryPool];
@@ -455,109 +423,67 @@ LABEL_28:
           memoryPool = 0;
         }
 
-        v36 = currentImage;
-        v37 = v36;
-        v38 = v36;
+        v26 = currentImage;
+        v27 = v26;
+        v28 = v26;
         if (contextType == 4)
         {
-          v38 = [v36 _flatImageWithColor:v64];
+          v28 = [v26 _flatImageWithColor:?];
         }
 
-        v39 = (v29 + v75 * 2.0) * scale;
-        v40 = ceilf(v39);
-        v41 = (v31 + v75 * 2.0) * scale;
-        v42 = ceilf(v41);
-        v57 = v77;
+        v29 = (v19 + v51 * 2.0) * scale;
+        v30 = ceilf(v29);
+        v31 = (v21 + v51 * 2.0) * scale;
+        v32 = ceilf(v31);
+        v38 = v52;
         UIRectCenteredIntegralRectScale();
-        v68 = v44;
-        v69 = v43;
-        v67 = v45;
-        v47 = v46;
-        v48 = v77 * scale;
-        v49 = v75 * (v77 * scale);
-        if (v49 < 2.0)
-        {
-          v49 = 2.0;
-        }
-
-        v76 = v49;
-        v65 = v37;
-        v66 = v12;
+        v46 = v27;
+        v47 = v12;
         if (memoryPool)
         {
-          v94 = v40;
-          v95 = v42;
-          v96 = *&v77;
-          v97 = contextType;
-          if (([memoryPool plk_compatibleWithDescriptor:{&v94, *&v77}] & 1) == 0)
+          v54 = v30;
+          v55 = v32;
+          v56 = v52;
+          v57 = contextType;
+          if (([memoryPool plk_compatibleWithDescriptor:v52] & 1) == 0)
           {
 
             memoryPool = 0;
           }
         }
 
-        v94 = 0.0;
-        v95 = COERCE_DOUBLE(&v94);
-        v96 = 0x3032000000;
-        v97 = __Block_byref_object_copy_;
-        v98 = __Block_byref_object_dispose_;
-        v99 = 0;
-        v50 = MEMORY[0x277D755B8];
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke_8;
-        v78[3] = &unk_27835B7A8;
-        v79 = v64;
-        v83 = v40;
-        v84 = v42;
-        v85 = v69;
-        v86 = v47;
-        v87 = v68;
-        v88 = v67;
-        v51 = v38;
-        v80 = v51;
-        v82 = &v94;
-        v89 = v77;
-        v90 = contextType;
-        v52 = memoryPool;
-        v81 = v52;
-        v91 = (v70 * v48);
-        v92 = (v71 * v48);
-        v93 = vcvtmd_u64_f64(v76 * 3.0 * 2.50662827 * 0.25 + 0.5) | 1;
-        v53 = [v50 plk_imageFromContextWithSize:contextType scale:v52 type:v78 pool:v40 drawing:{v42, v77}];
-        v54 = v73 * v72;
-        v11 = v60;
-        for (i = v61; v54 > 0.00000011920929; v54 = v54 + -1.0)
+        v54 = 0.0;
+        v55 = COERCE_DOUBLE(&v54);
+        v56 = 0x3032000000;
+        v57 = __Block_byref_object_copy_;
+        v58 = __Block_byref_object_dispose_;
+        v59 = 0;
+        v33 = MEMORY[0x277D755B8];
+        v53 = v45;
+        v34 = v28;
+        v35 = memoryPool;
+        v36 = [v33 plk_imageFromContextWithSize:? scale:? type:? pool:? drawing:?];
+        v37 = v49 * v48;
+        v11 = v41;
+        for (i = v42; v37 > 0.00000011920929; v37 = v37 + -1.0)
         {
-          if (v54 + 0.00000011920929 <= 1.0)
-          {
-            v55 = v54;
-          }
-
-          else
-          {
-            v55 = 1.0;
-          }
-
-          [*(*&v95 + 40) drawInRect:0 blendMode:v21 alpha:{v23, v25, v27, v55, *&v57}];
+          [*(*&v55 + 40) drawInRect:v38 blendMode:? alpha:?];
         }
 
-        _Block_object_dispose(&v94, 8);
-        v12 = v66 + 1;
+        _Block_object_dispose(&v54, 8);
+        v12 = v47 + 1;
       }
 
-      while (v66 + 1 != v63);
-      v63 = [obj countByEnumeratingWithState:&v100 objects:v106 count:16];
+      while ((v47 + 1) != v44);
+      v44 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v63);
+    while (v44);
   }
 
   if (!i)
   {
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 id __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke(uint64_t a1)
@@ -602,24 +528,22 @@ void __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___bl
   Width = CGBitmapContextGetWidth(CurrentContext);
   Height = CGBitmapContextGetHeight(CurrentContext);
   BytesPerRow = CGBitmapContextGetBytesPerRow(CurrentContext);
-  v7 = *(a1 + 112);
-  v8 = *(a1 + 120);
-  v9 = *(a1 + 48);
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke_2;
-  v16 = &__block_descriptor_84_e5_v8__0l;
-  v17 = v8;
-  v18 = Data;
-  v19 = Height;
-  v20 = Width;
-  v21 = BytesPerRow;
-  v22 = *(a1 + 128);
-  v23 = *(a1 + 136);
-  v10 = [MEMORY[0x277D755B8] plk_imageFromContextWithSize:*(a1 + 64) scale:*(a1 + 72) type:v7 pool:? drawing:?];
-  v11 = *(*(a1 + 56) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v10;
+  v7 = *(a1 + 120);
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke_2;
+  v14 = &__block_descriptor_84_e5_v8__0l;
+  v15 = v7;
+  v16 = Data;
+  v17 = Height;
+  v18 = Width;
+  v19 = BytesPerRow;
+  v20 = *(a1 + 128);
+  v21 = *(a1 + 136);
+  v8 = [MEMORY[0x277D755B8] plk_imageFromContextWithSize:? scale:? type:? pool:? drawing:?];
+  v9 = *(*(a1 + 56) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 vImage_Error __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_context___block_invoke_2(uint64_t a1)
@@ -645,33 +569,22 @@ vImage_Error __68__PLKShadowDescriptor_classicDrawShadows_renderScale_color_cont
 
 - (void)encodeWithCoder:(id)coder
 {
-  radius = self->_radius;
   coderCopy = coder;
-  *&v5 = radius;
-  [coderCopy encodeFloat:@"_radius" forKey:v5];
-  [coderCopy encodeCGSize:@"_offset" forKey:{self->_offset.width, self->_offset.height}];
-  alpha = self->_alpha;
-  *&alpha = alpha;
-  [coderCopy encodeFloat:@"_alpha" forKey:alpha];
-  strength = self->_strength;
-  *&strength = strength;
-  [coderCopy encodeFloat:@"_strength" forKey:strength];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeCGSize:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
 }
 
 - (PLKShadowDescriptor)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy decodeFloatForKey:@"_radius"];
-  v6 = v5;
-  [coderCopy decodeCGSizeForKey:@"_offset"];
-  v8 = v7;
-  v10 = v9;
-  [coderCopy decodeFloatForKey:@"_alpha"];
-  v12 = v11;
-  [coderCopy decodeFloatForKey:@"_strength"];
-  v14 = v13;
+  [coderCopy decodeFloatForKey:?];
+  [coderCopy decodeCGSizeForKey:?];
+  [coderCopy decodeFloatForKey:?];
+  [coderCopy decodeFloatForKey:?];
 
-  return [(PLKShadowDescriptor *)self initWithRadius:v6 offset:v8 alpha:v10 strength:v12, v14];
+  return [PLKShadowDescriptor initWithRadius:"initWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
 }
 
 @end

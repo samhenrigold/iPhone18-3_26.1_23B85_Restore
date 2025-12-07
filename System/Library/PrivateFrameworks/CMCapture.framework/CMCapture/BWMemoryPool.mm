@@ -10,14 +10,14 @@
 - (int)enableForCaptureDevice:(id)device;
 - (int)enableForCaptureStream:(id)stream;
 - (uint64_t)_createMemoryPoolWithMaximizeSystemMemory:(uint64_t)result;
-- (uint64_t)_ensureMemoryWithSize:(int)size withMaximizeSystemMemory:(int)memory useOptimizedMemorySizeDistributionsIfAvailable:;
-- (uint64_t)_maximizeAvailableSystemMemory;
-- (uint64_t)_sizesDistributionWithTotalSize:(int)size useOptimizedMemorySizeDistributionsIfAvailable:;
+- (uint64_t)_ensureMemoryWithSize:(uint64_t)size withMaximizeSystemMemory:(uint64_t)memory useOptimizedMemorySizeDistributionsIfAvailable:;
 - (void)_addFlushAssertion;
 - (void)_checkRemainingFlushAssertions;
 - (void)_disable;
+- (void)_maximizeAvailableSystemMemory;
 - (void)_releaseModelManagerAssertion;
 - (void)_removeFlushAssertion;
+- (void)_sizesDistributionWithTotalSize:(int)size useOptimizedMemorySizeDistributionsIfAvailable:;
 - (void)dealloc;
 - (void)disableForClientBundleId:(id)id;
 - (void)disableWithCompletionHandler:(id)handler;
@@ -94,7 +94,7 @@
   dispatch_async(queue, block);
 }
 
-void __46__BWMemoryPool__maximizeAvailableSystemMemory__block_invoke()
+double __46__BWMemoryPool__maximizeAvailableSystemMemory__block_invoke()
 {
   if (dword_1ED8445D0)
   {
@@ -102,6 +102,8 @@ void __46__BWMemoryPool__maximizeAvailableSystemMemory__block_invoke()
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
+
+  return result;
 }
 
 - (void)ensureMemoryAsyncWithSize:(unint64_t)size withMaximizeSystemMemory:(BOOL)memory useOptimizedMemorySizeDistributionsIfAvailable:(BOOL)available forClientBundleId:(id)id
@@ -253,15 +255,15 @@ void __47__BWMemoryPool_enableForPixelBufferAttributes___block_invoke(uint64_t a
   return v4;
 }
 
-uint64_t __39__BWMemoryPool_enableForCaptureStream___block_invoke(uint64_t result)
+void *__39__BWMemoryPool_enableForCaptureStream___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 16))
   {
     v2 = result;
-    result = [*(result + 40) setProperty:*off_1E798C048 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(v1 + 24))}];
-    *(*(*(v2 + 48) + 8) + 24) = result;
-    v3 = *(*(v2 + 48) + 8);
+    result = [*(result + 5) setProperty:*off_1E798C048 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(v1 + 24))}];
+    *(*(v2[6] + 8) + 24) = result;
+    v3 = *(v2[6] + 8);
     v4 = *(v3 + 24);
     if (v4 == -12784 || v4 == -12787)
     {
@@ -291,7 +293,7 @@ uint64_t __39__BWMemoryPool_enableForCaptureStream___block_invoke(uint64_t resul
   return v4;
 }
 
-uint64_t __40__BWMemoryPool_disableForCaptureStream___block_invoke(uint64_t a1)
+void *__40__BWMemoryPool_disableForCaptureStream___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setProperty:*off_1E798A010 value:&unk_1F2246378];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -325,15 +327,15 @@ uint64_t __40__BWMemoryPool_disableForCaptureStream___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __39__BWMemoryPool_enableForCaptureDevice___block_invoke(uint64_t result)
+void *__39__BWMemoryPool_enableForCaptureDevice___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 16))
   {
     v2 = result;
-    result = [*(result + 40) setProperty:*off_1E798A010 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(v1 + 24))}];
-    *(*(*(v2 + 48) + 8) + 24) = result;
-    v3 = *(*(v2 + 48) + 8);
+    result = [*(result + 5) setProperty:*off_1E798A010 value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(v1 + 24))}];
+    *(*(v2[6] + 8) + 24) = result;
+    v3 = *(v2[6] + 8);
     v4 = *(v3 + 24);
     if (v4 == -12784 || v4 == -12787)
     {
@@ -400,7 +402,7 @@ uint64_t __39__BWMemoryPool_enableForCaptureDevice___block_invoke(uint64_t resul
   return v4;
 }
 
-uint64_t __40__BWMemoryPool_disableForCaptureDevice___block_invoke(uint64_t a1)
+void *__40__BWMemoryPool_disableForCaptureDevice___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setProperty:*off_1E798A010 value:&unk_1F2246378];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -454,14 +456,14 @@ BWMemoryPool *__32__BWMemoryPool_sharedMemoryPool__block_invoke()
 
 - (void)_disable
 {
-  if (self)
+  if (result)
   {
 
-    *(self + 16) = 0;
-    *(self + 24) = 0;
-    [(BWMemoryPool *)self _checkRemainingFlushAssertions];
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    [(BWMemoryPool *)result _checkRemainingFlushAssertions];
 
-    [(BWMemoryPool *)self _releaseModelManagerAssertion];
+    [(BWMemoryPool *)result _releaseModelManagerAssertion];
   }
 }
 
@@ -477,39 +479,40 @@ BWMemoryPool *__32__BWMemoryPool_sharedMemoryPool__block_invoke()
         OUTLINED_FUNCTION_0_104();
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         v4 = OUTLINED_FUNCTION_8_5(os_log_and_send_and_compose_flags_and_os_log_type);
-        if (OUTLINED_FUNCTION_6(v4))
+        v5 = OUTLINED_FUNCTION_6(v4);
+        if (v5)
         {
-          v5 = *(self + 40);
-          v8 = 136315394;
-          v9 = "[BWMemoryPool _releaseModelManagerAssertion]";
-          v10 = 2048;
-          v11 = v5;
-          OUTLINED_FUNCTION_58_1();
+          v8 = *(self + 40);
+          v11 = 136315394;
+          v12 = "[BWMemoryPool _releaseModelManagerAssertion]";
+          v13 = 2048;
+          v14 = v8;
+          OUTLINED_FUNCTION_58_1(v5, v6, v15, v7, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_5_75();
         v2 = *(self + 40);
       }
 
-      v6 = v2;
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __45__BWMemoryPool__releaseModelManagerAssertion__block_invoke;
-      v7[3] = &unk_1E798F870;
-      v7[4] = v6;
-      [v6 invalidateWithCompletionHandler:v7];
+      v9 = v2;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __45__BWMemoryPool__releaseModelManagerAssertion__block_invoke;
+      v10[3] = &unk_1E798F870;
+      v10[4] = v9;
+      [v9 invalidateWithCompletionHandler:v10];
 
       *(self + 40) = 0;
     }
   }
 }
 
-- (uint64_t)_maximizeAvailableSystemMemory
+- (void)_maximizeAvailableSystemMemory
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 40))
+    if (!result[5])
     {
       if (dword_1ED8445D0)
       {
@@ -519,37 +522,38 @@ BWMemoryPool *__32__BWMemoryPool_sharedMemoryPool__block_invoke()
         if (OUTLINED_FUNCTION_6(v3))
         {
           OUTLINED_FUNCTION_5_6();
-          OUTLINED_FUNCTION_58_1();
+          OUTLINED_FUNCTION_58_1(v4, v5, v8, v6, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_5_75();
       }
 
-      v4 = [objc_alloc(MEMORY[0x1E69B26E0]) initWithPolicy:@"Camera" description:@"com.apple.cameracapture"];
-      *(v1 + 40) = v4;
-      return [v4 acquireWithCompletionHandler:&__block_literal_global_110];
+      v7 = [objc_alloc(MEMORY[0x1E69B26E0]) initWithPolicy:@"Camera" description:@"com.apple.cameracapture"];
+      v1[5] = v7;
+      return [v7 acquireWithCompletionHandler:&__block_literal_global_110];
     }
   }
 
   return result;
 }
 
-- (uint64_t)_ensureMemoryWithSize:(int)size withMaximizeSystemMemory:(int)memory useOptimizedMemorySizeDistributionsIfAvailable:
+- (uint64_t)_ensureMemoryWithSize:(uint64_t)size withMaximizeSystemMemory:(uint64_t)memory useOptimizedMemorySizeDistributionsIfAvailable:
 {
   selfCopy = self;
   if (self)
   {
     if (a2)
     {
+      memoryCopy = memory;
       if (*(self + 16) || [(BWMemoryPool *)self _createMemoryPoolWithMaximizeSystemMemory:size])
       {
-        v8 = [(BWMemoryPool *)selfCopy _sizesDistributionWithTotalSize:a2 useOptimizedMemorySizeDistributionsIfAvailable:memory];
+        v8 = [(BWMemoryPool *)selfCopy _sizesDistributionWithTotalSize:a2 useOptimizedMemorySizeDistributionsIfAvailable:memoryCopy];
         v9 = *(selfCopy + 16);
-        v64 = *MEMORY[0x1E696CF80];
-        v65 = v8;
-        v10 = [v9 ensureMemory:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v65, &v64, 1)}];
+        v63 = *MEMORY[0x1E696CF80];
+        v64 = v8;
+        v10 = [v9 ensureMemory:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v64, &v63, 1)}];
         selfCopy = v10 == 0;
-        v18 = OUTLINED_FUNCTION_2_0(v10, v11, v12, v13, v14, v15, v16, v17, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, 0);
+        v18 = OUTLINED_FUNCTION_2_0(v10, v11, v12, v13, v14, v15, v16, v17, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
         if (v18)
         {
           v19 = v18;
@@ -567,7 +571,7 @@ BWMemoryPool *__32__BWMemoryPool_sharedMemoryPool__block_invoke()
               v23 = [objc_msgSend(*(8 * i) valueForKey:{v21), "intValue"}];
             }
 
-            v19 = OUTLINED_FUNCTION_2_0(v23, v24, v25, v26, v27, v28, v29, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v63);
+            v19 = OUTLINED_FUNCTION_2_0(v23, v24, v25, v26, v27, v28, v29, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62);
           }
 
           while (v19);
@@ -634,7 +638,7 @@ void __21__BWMemoryPool_flush__block_invoke(uint64_t a1)
       if (OUTLINED_FUNCTION_6(v3))
       {
         OUTLINED_FUNCTION_5_6();
-        OUTLINED_FUNCTION_58_1();
+        OUTLINED_FUNCTION_58_1(v4, v5, v7, v6, &dword_1AC90E000);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -652,7 +656,7 @@ void __21__BWMemoryPool_flush__block_invoke(uint64_t a1)
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
     if (*(v3 + 16))
@@ -665,13 +669,13 @@ void __21__BWMemoryPool_flush__block_invoke(uint64_t a1)
       [(BWMemoryPool *)v3 _maximizeAvailableSystemMemory];
     }
 
-    v6[0] = *MEMORY[0x1E696CF88];
-    v7[0] = [MEMORY[0x1E696AD98] numberWithBool:0];
-    v6[1] = *MEMORY[0x1E696CF78];
-    v6[2] = @"IOSurfaceMemoryPoolEntitlement";
-    v7[1] = [MEMORY[0x1E696AD98] numberWithBool:1];
-    v7[2] = @"com.apple.private.cameracapture.memorypool";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
+    v8 = *MEMORY[0x1E696CF88];
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:0];
+    v9 = *MEMORY[0x1E696CF78];
+    v10 = @"IOSurfaceMemoryPoolEntitlement";
+    v12 = [MEMORY[0x1E696AD98] numberWithBool:1];
+    v13 = @"com.apple.private.cameracapture.memorypool";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v8 count:3];
     v5 = [objc_alloc(MEMORY[0x1E696CDF8]) initWithProperties:v4];
     *(v3 + 16) = v5;
     result = [v5 poolId];
@@ -685,7 +689,7 @@ void __21__BWMemoryPool_flush__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_sizesDistributionWithTotalSize:(int)size useOptimizedMemorySizeDistributionsIfAvailable:
+- (void)_sizesDistributionWithTotalSize:(int)size useOptimizedMemorySizeDistributionsIfAvailable:
 {
   if (result)
   {
@@ -818,7 +822,7 @@ void __55__BWMemoryPool_getInUseFootprint_andOutOfUseFootprint___block_invoke(ui
       v105 = 0u;
       v102 = 0u;
       v103 = 0u;
-      v29 = OUTLINED_FUNCTION_9_55(0, v14, v15, v16, v17, v18, v19, v20, v57, v60, obj, a1, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, *(&v82 + 1), v83, *(&v83 + 1), v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, 0);
+      v29 = OUTLINED_FUNCTION_9_55(0, v14, v15, v16, v17, v18, v19, v20, v57, v60, obj, a1, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, *(&v82 + 1), v83, *(&v83 + 1), v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101);
       if (v29)
       {
         v30 = v29;
@@ -873,7 +877,7 @@ void __55__BWMemoryPool_getInUseFootprint_andOutOfUseFootprint___block_invoke(ui
             }
           }
 
-          v30 = OUTLINED_FUNCTION_9_55(v44, v45, v46, v47, v48, v49, v50, v51, v58, v61, obja, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, *(&v82 + 1), v83, *(&v83 + 1), v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102);
+          v30 = OUTLINED_FUNCTION_9_55(v44, v45, v46, v47, v48, v49, v50, v51, v58, v61, obja, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, *(&v82 + 1), v83, *(&v83 + 1), v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101);
           if (v30)
           {
             continue;
@@ -914,13 +918,6 @@ LABEL_35:
   {
     v2 = 0;
   }
-}
-
-- (void)newMTLBufferWithLength:(const void *)a1 forDevice:.cold.1(const void *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  CFRelease(a1);
 }
 
 @end

@@ -61,11 +61,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:4294048773 commandID:14 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v17, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v17, *(v18 + 8), *(v18 + 24));
     v8 = sub_2393C6FD0(v17, 256);
     if (!v8)
     {
@@ -149,16 +149,16 @@ LABEL_6:
       [field14 setMyBitmap:0];
     }
 
-    if (*(struct + 24) == 1 && (sub_238DE36D8(struct + 24)[1] & 1) != 0)
+    if (*(struct + 24) == 1 && (BYTE1(sub_238DE36D8(struct + 24, v15)->super.isa) & 1) != 0)
     {
-      v15 = MEMORY[0x277CCABB0];
-      v16 = sub_238DE36D8(struct + 24);
-      if ((v16[1] & 1) == 0)
+      v17 = MEMORY[0x277CCABB0];
+      v18 = sub_238DE36D8(struct + 24, v16);
+      if ((v18[1] & 1) == 0)
       {
         sub_238EA195C();
       }
 
-      field16 = [v15 numberWithUnsignedChar:*v16];
+      field16 = [v17 numberWithUnsignedChar:*v18];
       field15 = [(MTRUnitTestingClusterGlobalEchoResponseParams *)self field1];
       [field15 setMyEnum:field16];
     }
@@ -169,8 +169,8 @@ LABEL_6:
       [field16 setMyEnum:0];
     }
 
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(struct + 32)];
-    [(MTRUnitTestingClusterGlobalEchoResponseParams *)self setField2:v19];
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(struct + 32)];
+    [(MTRUnitTestingClusterGlobalEchoResponseParams *)self setField2:v21];
 
     v13 = 0;
     v14 = 0;
@@ -184,10 +184,10 @@ LABEL_6:
     v14 = 47;
   }
 
-  v20 = v14 | v13;
+  v22 = v14 | v13;
   result.mFile = v12;
-  result.mError = v20;
-  result.mLine = HIDWORD(v20);
+  result.mError = v22;
+  result.mLine = HIDWORD(v22);
   return result;
 }
 

@@ -202,7 +202,7 @@ LABEL_46:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   free(self->_edges);
   numV = self->_numV;
   if (numV)
@@ -224,18 +224,17 @@ LABEL_46:
   }
 
   free(self->_vertices);
-  v7.receiver = self;
-  v7.super_class = __NSSKGraph;
-  [(__NSSKGraph *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = __NSSKGraph;
+  [(__NSSKGraph *)&v6 dealloc];
 }
 
 - (__NSSKGraph)initWithNumberOfVertices:(int64_t)vertices numberOfEdges:(int64_t)edges
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = __NSSKGraph;
-  v6 = [(__NSSKGraph *)&v9 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = __NSSKGraph;
+  v6 = [(__NSSKGraph *)&v8 init];
   if (v6)
   {
     v6->_vertices = malloc_type_calloc(vertices, 0x18uLL, 0x1010040A79CA2DEuLL);
@@ -247,7 +246,6 @@ LABEL_46:
     v6->_l_end = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

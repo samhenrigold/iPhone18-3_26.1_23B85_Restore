@@ -43,7 +43,7 @@
 {
   semaphore = self->_semaphore;
   self->_semaphore = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, semaphore);
 }
 
 - (void)lock

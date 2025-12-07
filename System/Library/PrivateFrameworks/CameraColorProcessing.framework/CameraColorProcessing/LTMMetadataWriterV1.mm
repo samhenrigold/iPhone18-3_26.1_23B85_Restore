@@ -562,108 +562,149 @@ LABEL_15:
 
 + (void)createLTMMetadataFromLTMOutput:statistics:driverInputMetadata:geometryData:.cold.1()
 {
-  LODWORD(v11) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v1, v29, v32, v36, v38, v39, v40);
   v2 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v10 = OUTLINED_FUNCTION_5(v2, v3, v4, v5, v6, v7, v8, v9, v11, v1, v12, 0, *v13, v13[2], OS_LOG_TYPE_DEFAULT);
-  if (OUTLINED_FUNCTION_9(v10))
+  v10 = OUTLINED_FUNCTION_5(v2, v3, v4, v5, v6, v7, v8, v9, v25, v27, v30, 0, v34, v35, OS_LOG_TYPE_DEFAULT);
+  v11 = OUTLINED_FUNCTION_9(v10);
+  if (v11)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 createLTMMetadataFromLTMOutput:statistics:driverInputMetadata:geometryData:]");
-    OUTLINED_FUNCTION_4();
+    v11 = OUTLINED_FUNCTION_4(v18, v19, v20, v21, &dword_1C92CA000, v22, v23, "<<<< LTMAlgorithmV1 >>>> %s: Can't allocate the metadata", v26, v28, v31, v33);
+    v24 = v11;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v24 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v11, v12, v13, v24, v14, v15, v16, v17, v26, v28, v31, v33, SHIDWORD(v33), v37);
 }
 
 + (void)_addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: rgbToneCurve malloc failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 + (void)_addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: globalLUT malloc failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 + (void)_addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addLTMCurvesToMetadata:curvesType:fromOutput:statistics:geometryData:isSIFR:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: ltmLTC malloc failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
-}
+  else
+  {
+    v23 = 0;
+  }
 
-+ (uint64_t)_addLocalHistToMetadata:statistics:geometryData:.cold.1()
-{
-  FigDebugAssert3();
-
-  return FigSignalErrorAtGM();
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 + (void)_addLocalClippingDataToMetadata:statistics:geometryData:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addLocalClippingDataToMetadata:statistics:geometryData:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: clippingData malloc failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 + (void)_addSpatialCCMDataToMetadata:fromOutput:driverInputMetadata:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addSpatialCCMDataToMetadata:fromOutput:driverInputMetadata:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: spatialCCMData is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 + (void)_addSpatialCCMDataToMetadata:fromOutput:driverInputMetadata:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("+[LTMMetadataWriterV1 _addSpatialCCMDataToMetadata:fromOutput:driverInputMetadata:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV1 >>>> %s: spatialCCM malloc failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 @end

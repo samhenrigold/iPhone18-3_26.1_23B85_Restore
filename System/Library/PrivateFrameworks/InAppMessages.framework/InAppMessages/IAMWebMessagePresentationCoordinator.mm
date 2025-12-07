@@ -77,7 +77,7 @@
 
 void __44__IAMWebMessagePresentationCoordinator_load__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IAMLogCategoryDefault();
   v5 = v4;
@@ -89,13 +89,13 @@ void __44__IAMWebMessagePresentationCoordinator_load__block_invoke(uint64_t a1, 
       v7 = [v6 applicationMessage];
       v8 = [v7 identifier];
       v9 = [*(*(a1 + 32) + 8) absoluteString];
-      v18 = 138543874;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v3;
-      _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_ERROR, "WebView for message identifier = %{public}@ - webArchiveURL = %{public}@, did fail navigation with error = %{public}@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v3;
+      _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_ERROR, "WebView for message identifier = %{public}@ - webArchiveURL = %{public}@, did fail navigation with error = %{public}@", &v17, 0x20u);
     }
 
     v10 = [*(a1 + 32) delegate];
@@ -109,11 +109,11 @@ void __44__IAMWebMessagePresentationCoordinator_load__block_invoke(uint64_t a1, 
     v12 = [v11 applicationMessage];
     v13 = [v12 identifier];
     v14 = [*(*(a1 + 32) + 8) absoluteString];
-    v18 = 138543618;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v14;
-    _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_DEFAULT, "WebView for message identifier = %{public}@, did load with webArchiveURL = %{public}@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v14;
+    _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_DEFAULT, "WebView for message identifier = %{public}@, did load with webArchiveURL = %{public}@", &v17, 0x16u);
   }
 
   v15 = [*(a1 + 32) delegate];
@@ -125,13 +125,11 @@ void __44__IAMWebMessagePresentationCoordinator_load__block_invoke(uint64_t a1, 
     [v10 webMessagePresentationCoordinatorWebMessageDidLoad:*(a1 + 32)];
 LABEL_9:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)present
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   presentingViewController = [(IAMWebMessagePresentationCoordinator *)self presentingViewController];
   v4 = presentingViewController;
   if (!presentingViewController)
@@ -143,7 +141,7 @@ LABEL_9:
       applicationMessage = [webMessageEntry applicationMessage];
       identifier = [applicationMessage identifier];
       *buf = 138412290;
-      v27 = identifier;
+      v26 = identifier;
       v10 = "Presenting View Controller or presentation method not provided for message with identifier = %@";
       goto LABEL_7;
     }
@@ -166,7 +164,7 @@ LABEL_8:
       applicationMessage = [webMessageEntry applicationMessage];
       identifier = [applicationMessage identifier];
       *buf = 138412290;
-      v27 = identifier;
+      v26 = identifier;
       v10 = "Presenting View Controller is already presenting another View Controller = %@";
 LABEL_7:
       _os_log_impl(&dword_254AF4000, v6, OS_LOG_TYPE_ERROR, v10, buf, 0xCu);
@@ -201,9 +199,9 @@ LABEL_7:
     identifier2 = [applicationMessage3 identifier];
     absoluteString = [(NSURL *)self->_webArchiveURL absoluteString];
     *buf = 138543618;
-    v27 = identifier2;
-    v28 = 2114;
-    v29 = absoluteString;
+    v26 = identifier2;
+    v27 = 2114;
+    v28 = absoluteString;
     _os_log_impl(&dword_254AF4000, v19, OS_LOG_TYPE_DEFAULT, "WebView for message identifier = %{public}@, did present with webArchiveURL = %{public}@", buf, 0x16u);
   }
 
@@ -211,7 +209,6 @@ LABEL_7:
   [(IAMWebMessagePresentationCoordinator *)self setIsPresenting:1];
 
 LABEL_12:
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -235,7 +232,7 @@ LABEL_12:
 
 - (void)_handleWebMessageDismissed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modalViewControllerDismissedCompletion = self->_modalViewControllerDismissedCompletion;
   if (modalViewControllerDismissedCompletion)
   {
@@ -257,9 +254,9 @@ LABEL_12:
     webMessageEntry = [(IAMWebMessagePresentationCoordinator *)self webMessageEntry];
     applicationMessage = [webMessageEntry applicationMessage];
     identifier = [applicationMessage identifier];
-    v15 = 138543362;
-    v16 = identifier;
-    _os_log_impl(&dword_254AF4000, v7, OS_LOG_TYPE_DEFAULT, "WebView for message identifier = %{public}@, did finish presentation.", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = identifier;
+    _os_log_impl(&dword_254AF4000, v7, OS_LOG_TYPE_DEFAULT, "WebView for message identifier = %{public}@, did finish presentation.", &v14, 0xCu);
   }
 
   delegate = [(IAMWebMessagePresentationCoordinator *)self delegate];
@@ -270,8 +267,6 @@ LABEL_12:
     delegate2 = [(IAMWebMessagePresentationCoordinator *)self delegate];
     [delegate2 webMessagePresentationCoordinatorWebMessageDidFinishPresentation:self];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleOpenURL:(id)l
@@ -291,7 +286,7 @@ LABEL_12:
 
 void __55__IAMWebMessagePresentationCoordinator__handleOpenURL___block_invoke(uint64_t a1, char a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = IAMLogCategoryDefault();
   v5 = v4;
   if (a2)
@@ -299,28 +294,26 @@ void __55__IAMWebMessagePresentationCoordinator__handleOpenURL___block_invoke(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 32) absoluteString];
-      v11 = 138543362;
-      v12 = v6;
+      v10 = 138543362;
+      v11 = v6;
       v7 = "Did open URL = %{public}@";
       v8 = v5;
       v9 = OS_LOG_TYPE_DEFAULT;
 LABEL_6:
-      _os_log_impl(&dword_254AF4000, v8, v9, v7, &v11, 0xCu);
+      _os_log_impl(&dword_254AF4000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = [*(a1 + 32) absoluteString];
-    v11 = 138543362;
-    v12 = v6;
+    v10 = 138543362;
+    v11 = v6;
     v7 = "Unable to open URL = %{public}@";
     v8 = v5;
     v9 = OS_LOG_TYPE_ERROR;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissModalViewController:(id)controller

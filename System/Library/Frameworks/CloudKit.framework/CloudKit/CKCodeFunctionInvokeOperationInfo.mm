@@ -78,11 +78,11 @@
 
 - (CKCodeFunctionInvokeOperationInfo)initWithCoder:(id)coder
 {
-  v56[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v54.receiver = self;
-  v54.super_class = CKCodeFunctionInvokeOperationInfo;
-  v5 = [(CKDatabaseOperationInfo *)&v54 initWithCoder:coderCopy];
+  v53.receiver = self;
+  v53.super_class = CKCodeFunctionInvokeOperationInfo;
+  v5 = [(CKDatabaseOperationInfo *)&v53 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -96,18 +96,18 @@
     v5->_functionName = v12;
 
     v14 = MEMORY[0x1E695DFD8];
-    v56[0] = objc_opt_class();
-    v56[1] = objc_opt_class();
-    v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v15, v56, 2);
+    v55[0] = objc_opt_class();
+    v55[1] = objc_opt_class();
+    v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v15, v55, 2);
     v18 = objc_msgSend_setWithArray_(v14, v17, v16);
     v20 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v19, v18, @"RequestLocalSerializations");
     requestLocalSerializations = v5->_requestLocalSerializations;
     v5->_requestLocalSerializations = v20;
 
     v22 = MEMORY[0x1E695DFD8];
-    v55[0] = objc_opt_class();
-    v55[1] = objc_opt_class();
-    v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v23, v55, 2);
+    v54[0] = objc_opt_class();
+    v54[1] = objc_opt_class();
+    v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v23, v54, 2);
     v26 = objc_msgSend_setWithArray_(v22, v25, v24);
     v28 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v27, v26, @"RequestLocalEnvelopes");
     requestLocalEnvelopes = v5->_requestLocalEnvelopes;
@@ -141,7 +141,6 @@
     v5->_enqueuedOnContainerService = objc_msgSend_decodeBoolForKey_(coderCopy, v51, v50);
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

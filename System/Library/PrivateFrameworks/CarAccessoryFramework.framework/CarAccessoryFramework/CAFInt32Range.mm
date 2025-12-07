@@ -1,4 +1,6 @@
 @interface CAFInt32Range
+- (BOOL)valueIsInRange:(int)range;
+- (int)limitedValueForValue:(int)value;
 - (int)maximumValue;
 - (int)minimumValue;
 - (int)stepValue;
@@ -31,6 +33,14 @@
   return intValue;
 }
 
+- (BOOL)valueIsInRange:(int)range
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&range];
+  LOBYTE(self) = [(CAFRange *)self isInRange:v4];
+
+  return self;
+}
+
 - (int)valueRoundedToNearestStepValue:(int)value
 {
   if ([(CAFInt32Range *)self stepValue])
@@ -42,6 +52,15 @@
   }
 
   return value;
+}
+
+- (int)limitedValueForValue:(int)value
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&value];
+  v5 = [(CAFRange *)self limitedToRange:v4];
+  intValue = [v5 intValue];
+
+  return intValue;
 }
 
 @end

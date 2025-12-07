@@ -51,11 +51,11 @@
 
 - (HDDemoDataFoodSampleGenerator)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = HDDemoDataFoodSampleGenerator;
-  v5 = [(HDDemoDataBaseSampleGenerator *)&v28 initWithCoder:coderCopy];
+  v27.receiver = self;
+  v27.super_class = HDDemoDataFoodSampleGenerator;
+  v5 = [(HDDemoDataBaseSampleGenerator *)&v27 initWithCoder:coderCopy];
   if (v5)
   {
     [coderCopy decodeDoubleForKey:@"HDDemoDataFoodSampleGeneratorNextMealTimeKey"];
@@ -71,9 +71,9 @@
     [coderCopy decodeDoubleForKey:@"HDDemoDataFoodSampleGeneratorLastMealTimeKey"];
     v5->_lastMealTime = v11;
     v12 = MEMORY[0x277CBEB98];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"HDDemoDataFoodSampleGeneratorLastMealKey"];
     lastMeal = v5->_lastMeal;
@@ -99,7 +99,6 @@
     v5->_nextWaterConsumedSampleTime = v25;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -167,11 +166,11 @@
 
 - (void)generateFirstRunObjectsForDemoPerson:(id)person firstDate:(id)date objectCollection:(id)collection
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = HDDemoDataFoodSampleGenerator;
+  v28[2] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = HDDemoDataFoodSampleGenerator;
   collectionCopy = collection;
-  [(HDDemoDataBaseSampleGenerator *)&v28 generateFirstRunObjectsForDemoPerson:person firstDate:date objectCollection:collectionCopy];
+  [(HDDemoDataBaseSampleGenerator *)&v27 generateFirstRunObjectsForDemoPerson:person firstDate:date objectCollection:collectionCopy];
   v9 = collectionCopy;
   if (self)
   {
@@ -180,8 +179,8 @@
 
     if ([v11 shouldGenerateRecentLiquidsIntake])
     {
-      v26 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCAF8]];
-      v27 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC9D8]];
+      v25 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCAF8]];
+      v26 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC9D8]];
       v12 = MEMORY[0x277CCD7E8];
       fluidOunceUSUnit = [MEMORY[0x277CCDAB0] fluidOunceUSUnit];
       v14 = [v12 quantityWithUnit:fluidOunceUSUnit doubleValue:8.0];
@@ -195,40 +194,38 @@
       date = [MEMORY[0x277CBEAA8] date];
       v21 = [v19 dateBySettingHour:8 minute:0 second:0 ofDate:date options:0];
 
-      v22 = [MEMORY[0x277CCD800] quantitySampleWithType:v26 quantity:v14 startDate:v21 endDate:v21];
-      v23 = [MEMORY[0x277CCD800] quantitySampleWithType:v27 quantity:v17 startDate:v21 endDate:v21];
-      v29[0] = v22;
-      v29[1] = v23;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+      v22 = [MEMORY[0x277CCD800] quantitySampleWithType:v25 quantity:v14 startDate:v21 endDate:v21];
+      v23 = [MEMORY[0x277CCD800] quantitySampleWithType:v26 quantity:v17 startDate:v21 endDate:v21];
+      v28[0] = v22;
+      v28[1] = v23;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
       [v9 addObjectsFromPhone:v24];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   personCopy = person;
   dateCopy = date;
   selfCopy = self;
   v15 = dateCopy;
-  v180.receiver = selfCopy;
-  v180.super_class = HDDemoDataFoodSampleGenerator;
+  v179.receiver = selfCopy;
+  v179.super_class = HDDemoDataFoodSampleGenerator;
   collectionCopy = collection;
-  v166 = v15;
-  [(HDDemoDataBaseSampleGenerator *)&v180 generateObjectsForDemoPerson:personCopy fromTime:v15 toTime:toTime currentDate:toTime objectCollection:?];
+  v165 = v15;
+  [(HDDemoDataBaseSampleGenerator *)&v179 generateObjectsForDemoPerson:personCopy fromTime:v15 toTime:toTime currentDate:toTime objectCollection:?];
   if (qword_280D67B00 != -1)
   {
     dispatch_once(&qword_280D67B00, &__block_literal_global_23);
   }
 
-  v167 = selfCopy;
-  v159 = personCopy;
+  v166 = selfCopy;
+  v158 = personCopy;
   if (!selfCopy)
   {
-    v157 = personCopy;
+    v156 = personCopy;
     v23 = 0.0;
     goto LABEL_8;
   }
@@ -245,7 +242,7 @@
   v23 = v20 * fmax(1.0 - v22, 0.0);
   v24 = [(HDDemoDataFoodSampleGenerator *)selfCopy mealTypeForTime:toTime];
   v25 = v16;
-  v158 = v24;
+  v157 = v24;
   if (selfCopy->_nextDinnerTime <= toTime)
   {
     v27 = selfCopy->_foodDatabase;
@@ -256,8 +253,8 @@
 
     selfCopy->_nextDinnerTime = [(HDDemoDataFoodSampleGenerator *)selfCopy _nextMealTimeForDemoPerson:v25 atTime:toTime];
     selfCopy->_nextMealTime = selfCopy->_nextBreakfastTime;
-    v189[0] = v28;
-    v31 = v189;
+    v188[0] = v28;
+    v31 = v188;
   }
 
   else if (selfCopy->_nextSnackTime <= toTime)
@@ -272,8 +269,8 @@
     [v28 setRecommendedNumServings:v34 * 0.5];
     selfCopy->_nextSnackTime = [(HDDemoDataFoodSampleGenerator *)selfCopy _nextMealTimeForDemoPerson:v25 atTime:toTime];
     selfCopy->_nextMealTime = selfCopy->_nextDinnerTime;
-    *&v190 = v28;
-    v31 = &v190;
+    *&v189 = v28;
+    v31 = &v189;
   }
 
   else if (selfCopy->_nextLunchTime <= toTime)
@@ -286,8 +283,8 @@
 
     selfCopy->_nextLunchTime = [(HDDemoDataFoodSampleGenerator *)selfCopy _nextMealTimeForDemoPerson:v25 atTime:toTime];
     selfCopy->_nextMealTime = selfCopy->_nextSnackTime;
-    v188 = v28;
-    v31 = &v188;
+    v187 = v28;
+    v31 = &v187;
   }
 
   else
@@ -295,7 +292,7 @@
     if (selfCopy->_nextBreakfastTime > toTime)
     {
 LABEL_8:
-      v26 = v159;
+      v26 = v158;
 
       obj = 0;
       goto LABEL_60;
@@ -309,8 +306,8 @@ LABEL_8:
 
     selfCopy->_nextBreakfastTime = [(HDDemoDataFoodSampleGenerator *)selfCopy _nextMealTimeForDemoPerson:v25 atTime:toTime];
     selfCopy->_nextMealTime = selfCopy->_nextLunchTime;
-    v187 = v28;
-    v31 = &v187;
+    v186 = v28;
+    v31 = &v186;
   }
 
   v31[1] = v30;
@@ -323,50 +320,50 @@ LABEL_8:
   }
 
   objc_storeStrong(&selfCopy->_lastMeal, v39);
-  v178 = 0u;
-  v179 = 0u;
   v177 = 0u;
+  v178 = 0u;
   v176 = 0u;
+  v175 = 0u;
   obj = v39;
-  v163 = [obj countByEnumeratingWithState:&v176 objects:v186 count:16];
-  if (v163)
+  v162 = [obj countByEnumeratingWithState:&v175 objects:v185 count:16];
+  if (v162)
   {
-    v162 = *v177;
-    v160 = *MEMORY[0x277CCC4A0];
+    v161 = *v176;
+    v159 = *MEMORY[0x277CCC4A0];
     do
     {
       v40 = 0;
       do
       {
-        if (*v177 != v162)
+        if (*v176 != v161)
         {
           objc_enumerationMutation(obj);
         }
 
-        v164 = v40;
-        v41 = *(*(&v176 + 1) + 8 * v40);
-        v168 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v163 = v40;
+        v41 = *(*(&v175 + 1) + 8 * v40);
+        v167 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v171 = 0u;
         v172 = 0u;
         v173 = 0u;
         v174 = 0u;
-        v175 = 0u;
         nutritionFacts = [v41 nutritionFacts];
-        v43 = [nutritionFacts countByEnumeratingWithState:&v172 objects:v185 count:16];
+        v43 = [nutritionFacts countByEnumeratingWithState:&v171 objects:v184 count:16];
         if (v43)
         {
           v44 = v43;
-          v45 = *v173;
+          v45 = *v172;
           do
           {
             v46 = 0;
             do
             {
-              if (*v173 != v45)
+              if (*v172 != v45)
               {
                 objc_enumerationMutation(nutritionFacts);
               }
 
-              v47 = *(*(&v172 + 1) + 8 * v46);
+              v47 = *(*(&v171 + 1) + 8 * v46);
               if ([v25 nutritionTrackingType] == 2)
               {
                 goto LABEL_28;
@@ -389,11 +386,11 @@ LABEL_28:
                   v52 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v47];
                   v53 = [(HDDemoDataFoodDatabase *)selfCopy->_foodDatabase canonicalDietaryUnitForQuantityTypeIdentifier:v47];
                   v54 = [MEMORY[0x277CCD7E8] quantityWithUnit:v53 doubleValue:v50];
-                  v55 = [MEMORY[0x277CCD800] quantitySampleWithType:v52 quantity:v54 startDate:v166 endDate:v166];
+                  v55 = [MEMORY[0x277CCD800] quantitySampleWithType:v52 quantity:v54 startDate:v165 endDate:v165];
                   [collectionCopy addObjectFromPhone:v55];
-                  [v168 addObject:v55];
+                  [v167 addObject:v55];
 
-                  selfCopy = v167;
+                  selfCopy = v166;
                 }
               }
 
@@ -401,53 +398,53 @@ LABEL_28:
             }
 
             while (v44 != v46);
-            v44 = [nutritionFacts countByEnumeratingWithState:&v172 objects:v185 count:16];
+            v44 = [nutritionFacts countByEnumeratingWithState:&v171 objects:v184 count:16];
           }
 
           while (v44);
         }
 
-        if ([v168 count])
+        if ([v167 count])
         {
-          v183 = v160;
+          v182 = v159;
           brandName = [v41 brandName];
-          v184 = brandName;
-          v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
+          v183 = brandName;
+          v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
 
-          v58 = [MEMORY[0x277CCD240] correlationWithType:_MergedGlobals_9 startDate:v166 endDate:v166 objects:v168 metadata:v57];
+          v58 = [MEMORY[0x277CCD240] correlationWithType:_MergedGlobals_9 startDate:v165 endDate:v165 objects:v167 metadata:v57];
           [collectionCopy addObjectFromPhone:v58];
 
-          selfCopy = v167;
+          selfCopy = v166;
         }
 
-        v40 = v164 + 1;
+        v40 = v163 + 1;
       }
 
-      while (v164 + 1 != v163);
-      v163 = [obj countByEnumeratingWithState:&v176 objects:v186 count:16];
+      while (v163 + 1 != v162);
+      v162 = [obj countByEnumeratingWithState:&v175 objects:v185 count:16];
     }
 
-    while (v163);
+    while (v162);
   }
 
   v59 = obj;
 
-  if ((v158 - 2) < 3)
+  if ((v157 - 2) < 3)
   {
     goto LABEL_47;
   }
 
-  if (v158 != 1)
+  if (v157 != 1)
   {
 LABEL_59:
-    v26 = v159;
+    v26 = v158;
     goto LABEL_60;
   }
 
   v60 = qword_280D67AF0;
   v61 = v25;
   v62 = v60;
-  v63 = v166;
+  v63 = v165;
   if (v23 == 0.0 || [v61 insulinTherapy])
   {
     v64 = 0;
@@ -455,17 +452,17 @@ LABEL_59:
 
   else
   {
-    v152 = MEMORY[0x277CCD7E8];
+    v151 = MEMORY[0x277CCD7E8];
     internationalUnit = [MEMORY[0x277CCDAB0] internationalUnit];
-    v154 = [v152 quantityWithUnit:internationalUnit doubleValue:floor(v23 * 0.5)];
+    v153 = [v151 quantityWithUnit:internationalUnit doubleValue:floor(v23 * 0.5)];
 
-    v155 = MEMORY[0x277CCD800];
-    *&v190 = *MEMORY[0x277CCC4C8];
-    v189[0] = &unk_283CB0588;
-    v156 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v189 forKeys:&v190 count:1];
-    v64 = [v155 quantitySampleWithType:v62 quantity:v154 startDate:v63 endDate:v63 metadata:v156];
+    v154 = MEMORY[0x277CCD800];
+    *&v189 = *MEMORY[0x277CCC4C8];
+    v188[0] = &unk_283CB0588;
+    v155 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v188 forKeys:&v189 count:1];
+    v64 = [v154 quantitySampleWithType:v62 quantity:v153 startDate:v63 endDate:v63 metadata:v155];
 
-    selfCopy = v167;
+    selfCopy = v166;
   }
 
   if (v64)
@@ -482,40 +479,40 @@ LABEL_47:
     goto LABEL_56;
   }
 
-  v192 = 0u;
-  v193 = 0u;
-  v190 = 0u;
   v191 = 0u;
-  v66 = [v65 countByEnumeratingWithState:&v190 objects:v189 count:16];
+  v192 = 0u;
+  v189 = 0u;
+  v190 = 0u;
+  v66 = [v65 countByEnumeratingWithState:&v189 objects:v188 count:16];
   v65 = obj;
   if (!v66)
   {
     goto LABEL_56;
   }
 
-  v67 = *v191;
+  v67 = *v190;
   v68 = *MEMORY[0x277CCC9E8];
   v69 = 0.0;
   do
   {
     for (i = 0; i != v66; ++i)
     {
-      if (*v191 != v67)
+      if (*v190 != v67)
       {
         objc_enumerationMutation(obj);
       }
 
-      nutritionFacts2 = [*(*(&v190 + 1) + 8 * i) nutritionFacts];
+      nutritionFacts2 = [*(*(&v189 + 1) + 8 * i) nutritionFacts];
       v72 = [nutritionFacts2 objectForKeyedSubscript:v68];
       [v72 doubleValue];
       v69 = v69 + v73;
     }
 
-    v66 = [obj countByEnumeratingWithState:&v190 objects:v189 count:16];
+    v66 = [obj countByEnumeratingWithState:&v189 objects:v188 count:16];
   }
 
   while (v66);
-  selfCopy = v167;
+  selfCopy = v166;
   v65 = obj;
   if (v69 == 0.0)
   {
@@ -526,26 +523,26 @@ LABEL_56:
 
   else
   {
-    v146 = MEMORY[0x277CCD7E8];
+    v145 = MEMORY[0x277CCD7E8];
     internationalUnit2 = [MEMORY[0x277CCDAB0] internationalUnit];
-    v74 = [v146 quantityWithUnit:internationalUnit2 doubleValue:floor(v69 / (500.0 / v23))];
+    v74 = [v145 quantityWithUnit:internationalUnit2 doubleValue:floor(v69 / (500.0 / v23))];
 
     if (v74)
     {
-      v148 = MEMORY[0x277CCD800];
-      v149 = qword_280D67AF0;
-      v181 = *MEMORY[0x277CCC4C8];
-      v182 = &unk_283CB0570;
-      v150 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-      v151 = [v148 quantitySampleWithType:v149 quantity:v74 startDate:v166 endDate:v166 metadata:v150];
+      v147 = MEMORY[0x277CCD800];
+      v148 = qword_280D67AF0;
+      v180 = *MEMORY[0x277CCC4C8];
+      v181 = &unk_283CB0570;
+      v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+      v150 = [v147 quantitySampleWithType:v148 quantity:v74 startDate:v165 endDate:v165 metadata:v149];
 
-      [collectionCopy addObjectFromPhone:v151];
+      [collectionCopy addObjectFromPhone:v150];
     }
 
-    selfCopy = v167;
+    selfCopy = v166;
   }
 
-  v26 = v159;
+  v26 = v158;
 
 LABEL_60:
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -554,9 +551,9 @@ LABEL_60:
   aBlock[3] = &unk_278616268;
   aBlock[4] = selfCopy;
   v75 = v26;
-  v170 = v75;
+  v169 = v75;
   v76 = collectionCopy;
-  v171 = v76;
+  v170 = v76;
   v77 = _Block_copy(aBlock);
   if ([v75 useContinuousGlucoseMonitoring])
   {
@@ -575,14 +572,14 @@ LABEL_60:
   v79 = qword_280D67AF0;
   v80 = v75;
   v81 = v79;
-  v82 = v166;
+  v82 = v165;
   v83 = 0;
-  if (v167 && v23 != 0.0)
+  if (v166 && v23 != 0.0)
   {
-    if ([v80 insulinTherapy] == 1 && v167[11] <= toTime)
+    if ([v80 insulinTherapy] == 1 && v166[11] <= toTime)
     {
       [v80 timeIncrement];
-      v167[11] = v84 + toTime;
+      v166[11] = v84 + toTime;
       [v80 timeIncrement];
       v86 = floor(v23 * 0.5 * v85 * 40.0) / 40.0;
       v87 = MEMORY[0x277CCD7E8];
@@ -592,11 +589,11 @@ LABEL_60:
       [v80 timeIncrement];
       v91 = [v82 dateByAddingTimeInterval:v90 * -86400.0];
       v92 = MEMORY[0x277CCD800];
-      *&v190 = *MEMORY[0x277CCC4C8];
-      v189[0] = &unk_283CB0588;
+      *&v189 = *MEMORY[0x277CCC4C8];
+      v188[0] = &unk_283CB0588;
       v93 = MEMORY[0x277CBEAC0];
       v94 = v82;
-      v95 = [v93 dictionaryWithObjects:v189 forKeys:&v190 count:1];
+      v95 = [v93 dictionaryWithObjects:v188 forKeys:&v189 count:1];
       v83 = [v92 quantitySampleWithType:v81 quantity:v89 startDate:v91 endDate:v94 metadata:v95];
     }
 
@@ -613,25 +610,8 @@ LABEL_60:
 
   v96 = v80;
   v97 = v96;
-  if (!v167)
+  if (!v166 || v166[15] > toTime || ([v96 waterConsumedSampleFrequency], v166[15] = v98 + toTime, objc_msgSend(v166, "demoDataGenerator"), v99 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v99, "sleepSampleGenerator"), v100 = objc_claimAutoreleasedReturnValue(), v101 = objc_msgSend(v100, "isDemoPersonSleeping:atTime:", v97, toTime), v100, v99, (v101 & 1) != 0))
   {
-    goto LABEL_76;
-  }
-
-  if (v167[15] > toTime)
-  {
-    goto LABEL_76;
-  }
-
-  [v96 waterConsumedSampleFrequency];
-  v167[15] = v98 + toTime;
-  demoDataGenerator2 = [v167 demoDataGenerator];
-  sleepSampleGenerator = [demoDataGenerator2 sleepSampleGenerator];
-  v101 = [sleepSampleGenerator isDemoPersonSleeping:v97 atTime:toTime];
-
-  if (v101)
-  {
-LABEL_76:
     v102 = 0;
     v103 = v97;
 LABEL_77:
@@ -639,11 +619,11 @@ LABEL_77:
     goto LABEL_78;
   }
 
-  demoDataGenerator3 = [v167 demoDataGenerator];
+  demoDataGenerator2 = [v166 demoDataGenerator];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v107 = [demoDataGenerator3 isDemoDataTimeInWeekend:currentCalendar calendar:toTime];
+  v106 = [demoDataGenerator2 isDemoDataTimeInWeekend:currentCalendar calendar:toTime];
 
-  if (v107)
+  if (v106)
   {
     [v97 weekendSleepParameters];
   }
@@ -652,35 +632,35 @@ LABEL_77:
   {
     [v97 weekdaySleepParameters];
   }
-  v108 = ;
-  demoDataGenerator4 = [v167 demoDataGenerator];
-  sleepSampleGenerator2 = [demoDataGenerator4 sleepSampleGenerator];
-  [v108 bedtime];
-  v112 = v111;
+  v107 = ;
+  demoDataGenerator3 = [v166 demoDataGenerator];
+  sleepSampleGenerator = [demoDataGenerator3 sleepSampleGenerator];
+  [v107 bedtime];
+  v111 = v110;
   [v97 bedtimeNoiseStdDev];
-  [sleepSampleGenerator2 computeSleepTimeFromCurrentTime:toTime mean:v112 stdDev:v113];
-  v115 = v114;
+  [sleepSampleGenerator computeSleepTimeFromCurrentTime:toTime mean:v111 stdDev:v112];
+  v114 = v113;
 
-  demoDataGenerator5 = [v167 demoDataGenerator];
-  sleepSampleGenerator3 = [demoDataGenerator5 sleepSampleGenerator];
-  [v108 wakeUpTime];
-  v119 = v118;
+  demoDataGenerator4 = [v166 demoDataGenerator];
+  sleepSampleGenerator2 = [demoDataGenerator4 sleepSampleGenerator];
+  [v107 wakeUpTime];
+  v118 = v117;
   [v97 wakeUpTimeNoiseStdDev];
-  [sleepSampleGenerator3 computeSleepTimeFromCurrentTime:toTime mean:v119 stdDev:v120];
-  v122 = v121;
+  [sleepSampleGenerator2 computeSleepTimeFromCurrentTime:toTime mean:v118 stdDev:v119];
+  v121 = v120;
 
   [v97 waterConsumedSampleFrequency];
-  v124 = ((v115 - v122) / v123);
+  v123 = ((v114 - v121) / v122);
   [v97 waterConsumedDailyMean];
-  v126 = v125;
+  v125 = v124;
   [v97 waterConsumedIntervalMean];
-  v128 = ((v126 / v127) / v124);
-  demoDataGenerator6 = [v167 demoDataGenerator];
-  statisticsSampleGenerator = [demoDataGenerator6 statisticsSampleGenerator];
+  v127 = ((v125 / v126) / v123);
+  demoDataGenerator5 = [v166 demoDataGenerator];
+  statisticsSampleGenerator = [demoDataGenerator5 statisticsSampleGenerator];
   [statisticsSampleGenerator pseudoRandomDoubleFromTime:toTime];
-  v132 = v131;
+  v131 = v130;
 
-  if (v132 >= v128)
+  if (v131 >= v127)
   {
     v102 = 0;
   }
@@ -688,43 +668,41 @@ LABEL_77:
   else
   {
     [v97 waterConsumedIntervalMean];
-    v134 = v133;
-    demoDataGenerator7 = [v167 demoDataGenerator];
-    statisticsSampleGenerator2 = [demoDataGenerator7 statisticsSampleGenerator];
+    v133 = v132;
+    demoDataGenerator6 = [v166 demoDataGenerator];
+    statisticsSampleGenerator2 = [demoDataGenerator6 statisticsSampleGenerator];
     [v97 waterConsumedIntervalStdDev];
-    [statisticsSampleGenerator2 computeNoiseFromTime:toTime stdDev:v137];
-    v139 = v134 + v138;
+    [statisticsSampleGenerator2 computeNoiseFromTime:toTime stdDev:v136];
+    v138 = v133 + v137;
 
-    v140 = 100 * (v139 / 100.0);
-    if (v140 < 0)
+    v139 = 100 * (v138 / 100.0);
+    if (v139 < 0)
     {
-      v140 = -100 * (v139 / 100.0);
+      v139 = -100 * (v138 / 100.0);
     }
 
-    v141 = v140;
-    if (v140 < 200.0)
+    v140 = v139;
+    if (v139 < 200.0)
     {
-      v141 = 200.0;
+      v140 = 200.0;
     }
 
-    v102 = [MEMORY[0x277CCABB0] numberWithDouble:v141];
+    v102 = [MEMORY[0x277CCABB0] numberWithDouble:v140];
   }
 
   if (v102)
   {
-    v142 = MEMORY[0x277CCD7E8];
-    v143 = qword_280D67AE0;
+    v141 = MEMORY[0x277CCD7E8];
+    v142 = qword_280D67AE0;
     [v102 doubleValue];
-    v103 = [v142 quantityWithUnit:v143 doubleValue:v144 / 1000.0];
-    v145 = [MEMORY[0x277CCD800] quantitySampleWithType:qword_280D67AF8 quantity:v103 startDate:v82 endDate:v82];
-    [v76 addObjectFromPhone:v145];
+    v103 = [v141 quantityWithUnit:v142 doubleValue:v143 / 1000.0];
+    v144 = [MEMORY[0x277CCD800] quantitySampleWithType:qword_280D67AF8 quantity:v103 startDate:v82 endDate:v82];
+    [v76 addObjectFromPhone:v144];
 
     goto LABEL_77;
   }
 
 LABEL_78:
-
-  v104 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_toTime_currentDate_objectCollection___block_invoke()
@@ -749,9 +727,11 @@ uint64_t __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromT
   v9 = qword_280D67AF0;
   qword_280D67AF0 = v8;
 
-  qword_280D67AF8 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCAF8]];
+  v10 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCAF8]];
+  v11 = qword_280D67AF8;
+  qword_280D67AF8 = v10;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v10, v11);
 }
 
 - (uint64_t)mealTypeForTime:(uint64_t)result
@@ -908,7 +888,7 @@ LABEL_24:
 
 void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_toTime_currentDate_objectCollection___block_invoke_370(id *a1, double a2)
 {
-  v163 = *MEMORY[0x277D85DE8];
+  v162 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   v5 = a1[5];
   v6 = v5;
@@ -947,7 +927,7 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
     v17 = v16;
     [v6 exerciseStartTimeStdDev];
     [v15 _computeExerciseTimeFromCurrentTime:a2 mean:v17 stdDev:v18];
-    v155 = v19;
+    v154 = v19;
 
     v20 = [v4 demoDataGenerator];
     v21 = [v20 activitySampleGenerator];
@@ -972,19 +952,19 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
     v39 = v38;
     [v6 mealTimeSampleNoiseStdDev];
     [v4 _computeMealTimeForDemoPerson:v6 fromTime:3 mealTimeType:a2 timeMean:v39 stdDev:v40];
-    v153 = v41;
+    v152 = v41;
     [v6 breakfastTime];
     v43 = v42;
     [v6 mealTimeSampleNoiseStdDev];
     [v4 _computeMealTimeForDemoPerson:v6 fromTime:4 mealTimeType:a2 timeMean:v43 stdDev:v44];
-    v152 = v45;
+    v151 = v45;
     v46 = [v4 demoDataGenerator];
     v47 = [v46 sleepSampleGenerator];
     [v13 bedtime];
     v49 = v48;
     [v6 bedtimeNoiseStdDev];
     [v47 computeSleepTimeFromCurrentTime:a2 mean:v49 stdDev:v50];
-    v151 = v51;
+    v150 = v51;
 
     v52 = [v4 demoDataGenerator];
     v53 = [v52 sleepSampleGenerator];
@@ -1002,15 +982,15 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
     [v60 _computeExerciseTimeFromCurrentTime:a2 + 1.0 mean:v62 stdDev:v63];
     v65 = v64;
 
-    if (*&v155 <= a2)
+    if (*&v154 <= a2)
     {
       v67 = v37 + v27;
       if (v32 <= a2)
       {
-        v68 = v153 + v27;
+        v68 = v152 + v27;
         if (v67 <= a2)
         {
-          v69 = v152 + v27;
+          v69 = v151 + v27;
           if (v68 <= a2)
           {
             if (v69 <= a2)
@@ -1020,7 +1000,7 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
 
             else
             {
-              v66 = v69 + (v151 + v27 - v69) * 0.5;
+              v66 = v69 + (v150 + v27 - v69) * 0.5;
             }
           }
 
@@ -1061,38 +1041,38 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
     v8 = 0;
   }
 
-  v156 = [v4 demoDataGenerator];
-  v154 = [v156 bodySampleGenerator];
-  [v154 lastWeightInKg];
+  v155 = [v4 demoDataGenerator];
+  v153 = [v155 bodySampleGenerator];
+  [v153 lastWeightInKg];
   v76 = v75;
   v77 = v6;
   if (*(v4 + 9) < a2)
   {
-    v160 = 0u;
-    v161 = 0u;
-    v158 = 0u;
     v159 = 0u;
+    v160 = 0u;
+    v157 = 0u;
+    v158 = 0u;
     v78 = *(v4 + 6);
-    v79 = [v78 countByEnumeratingWithState:&v158 objects:v162 count:16];
+    v79 = [v78 countByEnumeratingWithState:&v157 objects:v161 count:16];
     if (v79)
     {
       v80 = v79;
-      v81 = *v159;
+      v81 = *v158;
       v82 = *MEMORY[0x277CCC9E8];
       v83 = 0.0;
       do
       {
         for (i = 0; i != v80; ++i)
         {
-          if (*v159 != v81)
+          if (*v158 != v81)
           {
             objc_enumerationMutation(v78);
           }
 
-          v83 = v83 + [(HDDemoDataFoodSampleGenerator *)v4 _computeNutrientForDemoPerson:v77 atTime:*(*(&v158 + 1) + 8 * i) mealItem:v82 quantityType:a2];
+          v83 = v83 + [(HDDemoDataFoodSampleGenerator *)v4 _computeNutrientForDemoPerson:v77 atTime:*(*(&v157 + 1) + 8 * i) mealItem:v82 quantityType:a2];
         }
 
-        v80 = [v78 countByEnumeratingWithState:&v158 objects:v162 count:16];
+        v80 = [v78 countByEnumeratingWithState:&v157 objects:v161 count:16];
       }
 
       while (v80);
@@ -1315,10 +1295,10 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
     v143 = v139 + v142;
 
     *(v4 + 10) = floor(v143);
-    v157 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v156 = [MEMORY[0x277CCABB0] numberWithDouble:?];
 
-    v144 = v157;
-    if (!v157)
+    v144 = v156;
+    if (!v156)
     {
       goto LABEL_79;
     }
@@ -1328,7 +1308,7 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
 
     v146 = MEMORY[0x277CCD7E8];
     v147 = qword_280D67AD8;
-    [v157 doubleValue];
+    [v156 doubleValue];
     v148 = [v146 quantityWithUnit:v147 doubleValue:?];
     v149 = [MEMORY[0x277CCD800] quantitySampleWithType:qword_280D67AE8 quantity:v148 startDate:v6 endDate:v6];
     [a1[6] addObjectFromPhone:v149];
@@ -1337,33 +1317,30 @@ void __107__HDDemoDataFoodSampleGenerator_generateObjectsForDemoPerson_fromTime_
   else
   {
 LABEL_77:
-    v157 = 0;
+    v156 = 0;
   }
 
-  v144 = v157;
+  v144 = v156;
 LABEL_79:
-  v150 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDDemoDataFoodSampleGenerator__isTypicalNutritionTrackingQuantityType___block_invoke()
 {
-  v8[6] = *MEMORY[0x277D85DE8];
+  v7[6] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CCC9D8];
-  v8[0] = *MEMORY[0x277CCC9E8];
-  v8[1] = v1;
+  v7[0] = *MEMORY[0x277CCC9E8];
+  v7[1] = v1;
   v2 = *MEMORY[0x277CCCAB0];
-  v8[2] = *MEMORY[0x277CCCA30];
-  v8[3] = v2;
+  v7[2] = *MEMORY[0x277CCCA30];
+  v7[3] = v2;
   v3 = *MEMORY[0x277CCCA10];
-  v8[4] = *MEMORY[0x277CCCA90];
-  v8[5] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:6];
+  v7[4] = *MEMORY[0x277CCCA90];
+  v7[5] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
   v5 = [v0 setWithArray:v4];
   v6 = qword_280D67B08;
   qword_280D67B08 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isDemoPersonConsumingCaffeine:(id)caffeine atTime:(double)time
@@ -1525,7 +1502,7 @@ LABEL_10:
 
 - (void)_generateRandomLastMeal
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   if (self)
   {
     foodDatabase = self->_foodDatabase;
@@ -1552,13 +1529,11 @@ LABEL_10:
   v7 = v6;
   v8 = [(HDDemoDataFoodDatabase *)v7 randomFoodForType:5];
 
-  v12[0] = v5;
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   lastMeal = self->_lastMeal;
   self->_lastMeal = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

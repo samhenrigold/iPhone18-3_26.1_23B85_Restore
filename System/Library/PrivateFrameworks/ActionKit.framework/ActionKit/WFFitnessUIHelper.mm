@@ -2,6 +2,7 @@
 + (BOOL)isWheelchairUser;
 + (id)activityTypeForLocalizedActivityName:(id)name;
 + (id)allActivityTypes;
++ (id)allActivityTypesIncludingWheelchairWorkouts:(BOOL)workouts includingSwimmingWorkouts:(BOOL)swimmingWorkouts;
 + (id)quantityTypesForActivityType:(id)type;
 + (id)timeUnits;
 + (void)preferredUnitsForActivityType:(id)type completion:(id)completion;
@@ -56,14 +57,12 @@
 
 + (id)timeUnits
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   minuteUnit = [MEMORY[0x277CCDAB0] minuteUnit];
-  v7[0] = minuteUnit;
+  v6[0] = minuteUnit;
   hourUnit = [MEMORY[0x277CCDAB0] hourUnit];
-  v7[1] = hourUnit;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = hourUnit;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -91,7 +90,7 @@
 
 void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -100,9 +99,9 @@ void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "+[WFFitnessUIHelper preferredUnitsForActivityType:completion:]_block_invoke";
-      v25 = 2114;
-      v26 = v6;
+      v23 = "+[WFFitnessUIHelper preferredUnitsForActivityType:completion:]_block_invoke";
+      v24 = 2114;
+      v25 = v6;
       _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_ERROR, "%s Failed to fetch preferred units for quantity types: %{public}@", buf, 0x16u);
     }
   }
@@ -111,27 +110,27 @@ void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_in
   v9 = [*(a1 + 48) timeUnits];
   v10 = [v8 arrayWithArray:v9];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(a1 + 32);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [v5 objectForKeyedSubscript:{*(*(&v18 + 1) + 8 * v15), v18}];
+        v16 = [v5 objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * v15), v17}];
         if (v16)
         {
           [v10 addObject:v16];
@@ -141,23 +140,22 @@ void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_in
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
 
   (*(*(a1 + 40) + 16))();
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isWheelchairUser
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   wf_shortcutsAppHealthStore = [MEMORY[0x277CCD4D8] wf_shortcutsAppHealthStore];
-  v9 = 0;
-  v3 = [wf_shortcutsAppHealthStore wheelchairUseWithError:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [wf_shortcutsAppHealthStore wheelchairUseWithError:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = [v3 wheelchairUse] == 2;
@@ -169,16 +167,15 @@ void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_in
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "+[WFFitnessUIHelper isWheelchairUser]";
-      v12 = 2114;
-      v13 = v4;
+      v10 = "+[WFFitnessUIHelper isWheelchairUser]";
+      v11 = 2114;
+      v12 = v4;
       _os_log_impl(&dword_23DE30000, v6, OS_LOG_TYPE_ERROR, "%s Failed to fetch wheelchair use: %{public}@", buf, 0x16u);
     }
 
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -193,6 +190,43 @@ void __62__WFFitnessUIHelper_preferredUnitsForActivityType_completion___block_in
   v8 = [v7 objectForKey:nameCopy];
 
   return v8;
+}
+
++ (id)allActivityTypesIncludingWheelchairWorkouts:(BOOL)workouts includingSwimmingWorkouts:(BOOL)swimmingWorkouts
+{
+  swimmingWorkoutsCopy = swimmingWorkouts;
+  workoutsCopy = workouts;
+  v20[3] = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_new();
+  v7 = [getFIUIWorkoutActivityTypeClass() optimizedActivityTypesWithIsWheelchairUser:workoutsCopy isSwimmingSupported:swimmingWorkoutsCopy];
+  nonOptimizedActivityTypes = [getFIUIWorkoutActivityTypeClass() nonOptimizedActivityTypes];
+  v9 = [objc_alloc(getFIUIWorkoutActivityTypeClass()) initWithActivityTypeIdentifier:53 isIndoor:0];
+  v20[0] = v9;
+  v10 = [objc_alloc(getFIUIWorkoutActivityTypeClass()) initWithActivityTypeIdentifier:54 isIndoor:0];
+  v20[1] = v10;
+  v11 = [objc_alloc(getFIUIWorkoutActivityTypeClass()) initWithActivityTypeIdentifier:55 isIndoor:0];
+  v20[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+
+  if (swimmingWorkoutsCopy)
+  {
+    v13 = [nonOptimizedActivityTypes arrayByAddingObjectsFromArray:v12];
+  }
+
+  else
+  {
+    v13 = nonOptimizedActivityTypes;
+  }
+
+  v14 = v13;
+  [v6 addObjectsFromArray:v7];
+  [v6 addObjectsFromArray:v14];
+  v15 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"localizedName" ascending:1];
+  v19 = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v17 = [v6 sortedArrayUsingDescriptors:v16];
+
+  return v17;
 }
 
 + (id)allActivityTypes

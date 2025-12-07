@@ -178,7 +178,7 @@ id __EAAuthSerialStringGetterCB(uint64_t a1)
 void __convertIAPAccessoryToEAAccessory(void *a1, void *a2)
 {
   v3 = a1;
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D183F0];
   v5 = [a1 objectForKey:*MEMORY[0x277D183F0]];
   if (v5)
@@ -456,106 +456,106 @@ void __convertIAPAccessoryToEAAccessory(void *a1, void *a2)
   v50 = *MEMORY[0x277D18440];
   if ([v3 objectForKey:*MEMORY[0x277D18440]])
   {
-    v69 = v3;
-    v70 = a2;
+    v68 = v3;
+    v69 = a2;
     v51 = [v3 objectForKey:v50];
-    v72 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v86 = 0u;
     v87 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v90 = 0u;
     obj = v51;
-    v73 = [v51 countByEnumeratingWithState:&v87 objects:v93 count:16];
-    if (v73)
+    v72 = [v51 countByEnumeratingWithState:&v86 objects:v92 count:16];
+    if (v72)
     {
-      v71 = *v88;
+      v70 = *v87;
       do
       {
         v52 = 0;
         do
         {
-          if (*v88 != v71)
+          if (*v87 != v70)
           {
             objc_enumerationMutation(obj);
           }
 
-          v75 = *(*(&v87 + 1) + 8 * v52);
-          v76 = v52;
+          v74 = *(*(&v86 + 1) + 8 * v52);
+          v75 = v52;
           v53 = [obj objectForKey:?];
-          v78 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v77 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v82 = 0u;
           v83 = 0u;
           v84 = 0u;
           v85 = 0u;
-          v86 = 0u;
-          v54 = [v53 countByEnumeratingWithState:&v83 objects:v92 count:16];
+          v54 = [v53 countByEnumeratingWithState:&v82 objects:v91 count:16];
           if (v54)
           {
             v55 = v54;
-            v77 = *v84;
+            v76 = *v83;
             do
             {
               for (i = 0; i != v55; ++i)
               {
-                if (*v84 != v77)
+                if (*v83 != v76)
                 {
                   objc_enumerationMutation(v53);
                 }
 
-                v57 = *(*(&v83 + 1) + 8 * i);
+                v57 = *(*(&v82 + 1) + 8 * i);
                 v58 = [v53 objectForKey:v57];
                 v59 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                v78 = 0u;
                 v79 = 0u;
                 v80 = 0u;
                 v81 = 0u;
-                v82 = 0u;
-                v60 = [v58 countByEnumeratingWithState:&v79 objects:v91 count:16];
+                v60 = [v58 countByEnumeratingWithState:&v78 objects:v90 count:16];
                 if (v60)
                 {
                   v61 = v60;
-                  v62 = *v80;
+                  v62 = *v79;
                   do
                   {
                     for (j = 0; j != v61; ++j)
                     {
-                      if (*v80 != v62)
+                      if (*v79 != v62)
                       {
                         objc_enumerationMutation(v58);
                       }
 
-                      [v59 setObject:objc_msgSend(v58 forKey:{"objectForKey:", *(*(&v79 + 1) + 8 * j)), *(*(&v79 + 1) + 8 * j)}];
+                      [v59 setObject:objc_msgSend(v58 forKey:{"objectForKey:", *(*(&v78 + 1) + 8 * j)), *(*(&v78 + 1) + 8 * j)}];
                     }
 
-                    v61 = [v58 countByEnumeratingWithState:&v79 objects:v91 count:16];
+                    v61 = [v58 countByEnumeratingWithState:&v78 objects:v90 count:16];
                   }
 
                   while (v61);
                 }
 
-                [v78 setObject:v59 forKey:v57];
+                [v77 setObject:v59 forKey:v57];
               }
 
-              v55 = [v53 countByEnumeratingWithState:&v83 objects:v92 count:16];
+              v55 = [v53 countByEnumeratingWithState:&v82 objects:v91 count:16];
             }
 
             while (v55);
           }
 
-          [v72 setObject:v78 forKey:v75];
+          [v71 setObject:v77 forKey:v74];
 
-          v52 = v76 + 1;
+          v52 = v75 + 1;
         }
 
-        while (v76 + 1 != v73);
-        v73 = [obj countByEnumeratingWithState:&v87 objects:v93 count:16];
+        while (v75 + 1 != v72);
+        v72 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
       }
 
-      while (v73);
+      while (v72);
     }
 
-    a2 = v70;
-    [v70 setAudioPorts:v72];
+    a2 = v69;
+    [v69 setAudioPorts:v71];
 
-    v3 = v69;
+    v3 = v68;
   }
 
   v64 = *MEMORY[0x277D18418];
@@ -591,35 +591,33 @@ void __convertIAPAccessoryToEAAccessory(void *a1, void *a2)
   {
     NSLog(&cfstr_Externalaccess_75.isa);
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 id __findAccessoryByUUID(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [__accessoryListLock lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v4 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v4 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(a2);
         }
 
         if (a1)
         {
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           if ([objc_msgSend(v8 "coreAccessoriesPrimaryUUID")])
           {
             v9 = v8;
@@ -633,7 +631,7 @@ id __findAccessoryByUUID(uint64_t a1, void *a2)
         }
       }
 
-      v5 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -661,7 +659,6 @@ LABEL_13:
   }
 
   [__accessoryListLock unlock];
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -676,29 +673,29 @@ void __notificationCleanup(const void *a1)
 
 id __findAccessory(unsigned int a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [__accessoryListLock lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v4 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v4 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(a2);
         }
 
         if (a1)
         {
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           if ([v8 connectionID] == a1)
           {
             v9 = v8;
@@ -712,7 +709,7 @@ id __findAccessory(unsigned int a1, void *a2)
         }
       }
 
-      v5 = [a2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [a2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -740,20 +737,19 @@ LABEL_13:
   }
 
   [__accessoryListLock unlock];
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void sub_2382EACB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2382EACB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2382EB838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2382EB838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -782,37 +778,37 @@ uint64_t getBTDevicePickerClass()
   return v0;
 }
 
-void sub_2382EDAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2382EDAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getBTDevicePickerClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!CoreBluetoothUILibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __CoreBluetoothUILibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278A4E880;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __CoreBluetoothUILibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278A4E880;
+    v5 = 0;
     CoreBluetoothUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreBluetoothUILibraryCore_frameworkLibrary)
   {
-    __getBTDevicePickerClass_block_invoke_cold_2(v4);
+    __getBTDevicePickerClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("BTDevicePicker");
@@ -823,17 +819,13 @@ Class __getBTDevicePickerClass_block_invoke(uint64_t a1)
   }
 
   getBTDevicePickerClass_softClass = *(*(*(a1 + 32) + 8) + 40);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CoreBluetoothUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreBluetoothUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

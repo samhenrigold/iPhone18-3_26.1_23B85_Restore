@@ -52,10 +52,10 @@ LABEL_7:
 LABEL_8:
 }
 
-void __67___DKSyncCloudKitKnowledgeStorage__cloudSyncAvailabilityDidChange___block_invoke(uint64_t a1)
+void __67___DKSyncCloudKitKnowledgeStorage__cloudSyncAvailabilityDidChange___block_invoke(uint64_t result)
 {
-  v2 = (a1 + 32);
-  v1 = *(a1 + 32);
+  v2 = (result + 32);
+  v1 = *(result + 32);
   if (!v1)
   {
     goto LABEL_6;
@@ -132,7 +132,7 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
 
 void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_88(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_DKSyncSerializer underlyingQueue];
   dispatch_assert_queue_V2(v4);
@@ -151,13 +151,12 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v8 = [objc_opt_class() description];
-      v9 = *(a1 + 40);
+      v7 = [objc_opt_class() description];
+      v8 = *(a1 + 40);
       *buf = 138543618;
+      v12 = v7;
+      v13 = 2114;
       v14 = v8;
-      v15 = 2114;
-      v16 = v9;
       _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "%{public}@: Recreated zone %{public}@ due to unrecoverable decryption error", buf, 0x16u);
     }
 
@@ -168,76 +167,68 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   }
 
   [*(a1 + 56) addObject:*(a1 + 40)];
-  v10 = [*(a1 + 56) count];
-  if (v10 == [*(a1 + 64) count])
+  v9 = [*(a1 + 56) count];
+  if (v9 == [*(a1 + 64) count])
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_89;
-    v12[3] = &unk_1E7367440;
-    v12[4] = *(a1 + 32);
-    [_DKSyncSerializer performAsyncBlock:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_89;
+    v10[3] = &unk_1E7367440;
+    v10[4] = *(a1 + 32);
+    [_DKSyncSerializer performAsyncBlock:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_89(uint64_t a1)
+void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_89(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() description];
+    v3 = [objc_opt_class() description];
     *buf = 138543362;
-    v14 = v4;
+    v7 = v3;
     _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "%{public}@: Fetching source device identifiers after handling unrecoverable decryption errors", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_90;
-  v11 = &unk_1E73675F8;
-  v12 = v5;
-  result = [_DKSyncCloudKitKnowledgeStorage performUpdateSourceDeviceIdentifiersWithCompletion:];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *(a1 + 32);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_90;
+  v5[3] = &unk_1E73675F8;
+  v5[4] = v4;
+  [(_DKSyncCloudKitKnowledgeStorage *)v4 performUpdateSourceDeviceIdentifiersWithCompletion:v5];
 }
 
 void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_90(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = +[_CDLogging syncChannel];
-  v5 = v4;
-  if (v3)
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = +[_CDLogging syncChannel];
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_90_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "%{public}@: Done fetching source device identifiers after handling unrecoverable decryption errors", &v9, 0xCu);
+    v5 = [objc_opt_class() description];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "%{public}@: Done fetching source device identifiers after handling unrecoverable decryption errors", &v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke(uint64_t a1)
+void __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke(uint64_t *a1)
 {
-  if ([*(a1 + 32) associateWithCompletedOperation:*(a1 + 40)])
+  if ([a1[4] associateWithCompletedOperation:a1[5]])
   {
-    v2 = *(*(a1 + 48) + 56);
-    v3 = *(a1 + 32);
+    v2 = *(a1[6] + 56);
+    v3 = a1[4];
 
     [v2 submitEventMetric:v3];
   }
@@ -247,7 +238,7 @@ void __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabas
     v4 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke_cold_1(a1);
+      __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke_cold_1(a1, v4);
     }
   }
 }
@@ -359,7 +350,7 @@ LABEL_15:
 LABEL_8:
 }
 
-void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithRecordZonesByZoneID_completion___block_invoke(uint64_t a1, void *a2)
+void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithRecordZonesByZoneID_completion___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   if (v3)
@@ -373,10 +364,10 @@ void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithReco
 
   else
   {
-    [*(*(a1 + 32) + 16) setBool:1 forKey:@"HaveCreatedMyZone"];
+    [*(a1[4] + 16) setBool:1 forKey:@"HaveCreatedMyZone"];
   }
 
-  [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) finishUpdatingSourceDeviceIdentifiersWithZoneIDsBySourceDeviceID:v3 orError:*(a1 + 56) completion:?];
+  [(_DKSyncCloudKitKnowledgeStorage *)a1[4] finishUpdatingSourceDeviceIdentifiersWithZoneIDsBySourceDeviceID:v3 orError:a1[7] completion:?];
 }
 
 void __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -386,7 +377,7 @@ void __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdenti
     v3 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2_cold_1(a1);
+      __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2_cold_1(a1, v3);
     }
   }
 }
@@ -416,28 +407,6 @@ void __68___DKSyncCloudKitKnowledgeStorage__createZoneWithZoneID_completion___bl
   [_DKSyncSerializer performSyncBlock:v14];
 
   objc_destroyWeak(&v20);
-}
-
-void __68___DKSyncCloudKitKnowledgeStorage__createZoneWithZoneID_completion___block_invoke_2(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 80));
-  if (WeakRetained)
-  {
-    v2 = [WeakRetained metrics];
-    v3 = [v2 cloudKitMetrics];
-    v4 = [v3 startDate];
-
-    v5 = [MEMORY[0x1E695DF00] date];
-    v6 = [*(*(a1 + 32) + 160) syncType];
-    +[_DKSyncPowerlog recordWithSyncType:transportType:startDate:endDate:isEmpty:](_DKSyncPowerlog, "recordWithSyncType:transportType:startDate:endDate:isEmpty:", v6, 8, v4, v5, [*(a1 + 40) count] == 0);
-  }
-
-  [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) _storeZoneIDFromRecords:*(a1 + 56) orError:?];
-  v7 = *(a1 + 72);
-  if (v7)
-  {
-    (*(v7 + 16))(v7, *(a1 + 56));
-  }
 }
 
 void __68___DKSyncCloudKitKnowledgeStorage__deleteZoneWithZoneID_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -510,37 +479,34 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() description];
-    v5 = *(a1 + 40);
-    *v21 = 138543618;
-    *&v21[4] = v4;
-    *&v21[12] = 2114;
-    *&v21[14] = v5;
-    _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "%{public}@: Zone %{public}@ has changes.", v21, 0x16u);
+    v3 = [objc_opt_class() description];
+    v4 = *(a1 + 40);
+    *v19 = 138543618;
+    *&v19[4] = v3;
+    *&v19[12] = 2114;
+    *&v19[14] = v4;
+    _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "%{public}@: Zone %{public}@ has changes.", v19, 0x16u);
   }
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    v8 = +[_DKSyncCloudKitKnowledgeStorage mySyncZoneID];
-    v9 = [v6 isEqual:v8];
+    v6 = +[_DKSyncCloudKitKnowledgeStorage mySyncZoneID];
+    v7 = [v5 isEqual:v6];
 
-    if ((v9 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
-      [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) setHasZoneAdditionChanges:*(a1 + 40) forZone:v10, v11, v12, v13, v14, *v21, *&v21[8]];
-      [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) setHasZoneDeletionChanges:*(a1 + 40) forZone:v15, v16, v17, v18, v19, *v21, *&v21[8]];
+      [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) setHasZoneAdditionChanges:*(a1 + 40) forZone:v8, v9, v10, v11, v12, *v19, *&v19[8]];
+      [(_DKSyncCloudKitKnowledgeStorage *)*(a1 + 32) setHasZoneDeletionChanges:*(a1 + 40) forZone:v13, v14, v15, v16, v17, *v19, *&v19[8]];
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [(_DKSyncCloudKitKnowledgeStorage *)WeakRetained addSourceDeviceIdentifierWithRecordZoneID:?];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_182(uint64_t a1, void *a2)
@@ -560,27 +526,24 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_183(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() description];
-    v5 = *(a1 + 40);
-    v13 = 138543618;
+    v3 = [objc_opt_class() description];
+    v4 = *(a1 + 40);
+    v11 = 138543618;
+    v12 = v3;
+    v13 = 2114;
     v14 = v4;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "%{public}@: Zone %{public}@ was deleted.", &v13, 0x16u);
+    _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "%{public}@: Zone %{public}@ was deleted.", &v11, 0x16u);
   }
 
-  v11 = *(a1 + 40);
-  if (v11)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_183_cold_1(a1, v11, (a1 + 40), v6, v7, v8, v9, v10);
+    __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_183_cold_1(a1, v10, (a1 + 40), v5, v6, v7, v8, v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_184(uint64_t a1, void *a2)
@@ -617,7 +580,7 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
   {
     if (v4)
     {
-      __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_185_cold_2(a1);
+      __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_185_cold_2(a1, v3);
     }
   }
 }
@@ -672,7 +635,7 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
       v10 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_2(a1);
+        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_2(a1, v10);
       }
 
       v11 = *(a1 + 32);
@@ -683,7 +646,7 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
       v13 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_3((a1 + 32));
+        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_3((a1 + 32), v13);
       }
     }
 
@@ -725,7 +688,7 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
     {
       if (v17)
       {
-        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_5(a1);
+        __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_5(a1, v16);
       }
     }
 
@@ -740,27 +703,27 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
   }
 }
 
-void __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneID___block_invoke(uint64_t a1, uint64_t a2)
+void __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneID___block_invoke(uint64_t result, uint64_t a2)
 {
   if (!a2)
   {
-    __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneID___block_invoke_cold_1(a1);
+    __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneID___block_invoke_cold_1(result);
   }
 }
 
 void __65___DKSyncCloudKitKnowledgeStorage_hasZoneAdditionChangesForZone___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v1 = (a1 + 32);
+  v22 = *MEMORY[0x1E69E9840];
+  v1 = a1 + 32;
   v2 = [*(*(a1 + 32) + 16) dataForKey:@"ZoneIDsWithAdditionChanges"];
   if (v2)
   {
     v3 = MEMORY[0x1E695DFD8];
     v4 = objc_opt_class();
     v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
-    v19 = 0;
-    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v5 fromData:v2 error:&v19];
-    v7 = v19;
+    v17 = 0;
+    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v5 fromData:v2 error:&v17];
+    v7 = v17;
     v8 = *(*v1 + 104);
     *(*v1 + 104) = v6;
 
@@ -780,14 +743,13 @@ void __65___DKSyncCloudKitKnowledgeStorage_hasZoneAdditionChangesForZone___block
 
     else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v14 = *v1;
-      v15 = [objc_opt_class() description];
-      v16 = [*(*v1 + 104) valueForKeyPath:@"zoneName"];
-      v17 = _CDPrettyPrintCollection(v16, 0, 0, 0);
+      v14 = [objc_opt_class() description];
+      v15 = [*(*v1 + 104) valueForKeyPath:@"zoneName"];
+      v16 = _CDPrettyPrintCollection(v15, 0, 0, 0);
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v17;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v16;
       _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_INFO, "%{public}@: Unarchived _zoneIDsWithAdditionChanges: %@", buf, 0x16u);
     }
   }
@@ -798,23 +760,21 @@ void __65___DKSyncCloudKitKnowledgeStorage_hasZoneAdditionChangesForZone___block
     v13 = *(*v1 + 104);
     *(*v1 + 104) = v12;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __65___DKSyncCloudKitKnowledgeStorage_hasZoneDeletionChangesForZone___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v1 = (a1 + 32);
+  v22 = *MEMORY[0x1E69E9840];
+  v1 = a1 + 32;
   v2 = [*(*(a1 + 32) + 16) dataForKey:@"ZoneIDsWithDeletionChanges"];
   if (v2)
   {
     v3 = MEMORY[0x1E695DFD8];
     v4 = objc_opt_class();
     v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
-    v19 = 0;
-    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v5 fromData:v2 error:&v19];
-    v7 = v19;
+    v17 = 0;
+    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v5 fromData:v2 error:&v17];
+    v7 = v17;
     v8 = *(*v1 + 112);
     *(*v1 + 112) = v6;
 
@@ -834,14 +794,13 @@ void __65___DKSyncCloudKitKnowledgeStorage_hasZoneDeletionChangesForZone___block
 
     else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v14 = *v1;
-      v15 = [objc_opt_class() description];
-      v16 = [*(*v1 + 112) valueForKeyPath:@"zoneName"];
-      v17 = _CDPrettyPrintCollection(v16, 0, 0, 0);
+      v14 = [objc_opt_class() description];
+      v15 = [*(*v1 + 112) valueForKeyPath:@"zoneName"];
+      v16 = _CDPrettyPrintCollection(v15, 0, 0, 0);
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v17;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v16;
       _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_INFO, "%{public}@: Unarchived _zoneIDsWithDeletionChanges: %@", buf, 0x16u);
     }
   }
@@ -852,8 +811,6 @@ void __65___DKSyncCloudKitKnowledgeStorage_hasZoneDeletionChangesForZone___block
     v13 = *(*v1 + 112);
     *(*v1 + 112) = v12;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __116___DKSyncCloudKitKnowledgeStorage_fetchEventsFromPeer_windows_streamNames_limit_fetchOrder_highPriority_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -997,20 +954,20 @@ void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID
   {
     if (([_DKCKError isIgnorableError:v15]& 1) == 0)
     {
-      v25 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID_windows_streamNames_limit_fetchOrder_completion___block_invoke_4_cold_3(a1, a1 + 72, v25);
+        __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID_windows_streamNames_limit_fetchOrder_completion___block_invoke_4_cold_3(a1, a1 + 72, v24, v25, v26, v27, v28, v29, *v37, *&v37[16], *&v37[20], v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50);
       }
     }
 
-    v26 = objc_loadWeakRetained((a1 + 104));
-    v27 = [(_DKSyncCloudKitKnowledgeStorage *)v26 _handleAnySpecialnessWithOperationError:?];
+    v30 = objc_loadWeakRetained((a1 + 104));
+    v31 = [(_DKSyncCloudKitKnowledgeStorage *)v30 _handleAnySpecialnessWithOperationError:?];
 
-    v28 = *(a1 + 88);
-    if (v28)
+    v32 = *(a1 + 88);
+    if (v32)
     {
-      (*(v28 + 16))(v28, 0, 0, v27);
+      (*(v32 + 16))(v32, 0, 0, v31);
     }
 
     v22 = 0;
@@ -1032,20 +989,19 @@ void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID
         v21 = +[_CDLogging syncChannel];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(a1 + 40);
-          v30 = [objc_opt_class() description];
-          v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count") - objc_msgSend(v19, "count")}];
-          v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-          v33 = *(a1 + 56);
-          v34 = 138544130;
-          v35 = v30;
-          v36 = 2112;
-          v37 = v31;
+          v33 = [objc_opt_class() description];
+          v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count") - objc_msgSend(v19, "count")}];
+          v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
+          v36 = *(a1 + 56);
+          *v37 = 138544130;
+          *&v37[4] = v33;
+          *&v37[12] = 2112;
+          *&v37[14] = v34;
           v38 = 2112;
-          v39 = v32;
-          v40 = 2114;
-          v41 = v33;
-          _os_log_debug_impl(&dword_191750000, v21, OS_LOG_TYPE_DEBUG, "%{public}@: Unable to convert %@ of %@ records from %{public}@", &v34, 0x2Au);
+          v39 = v35;
+          LOWORD(v40) = 2114;
+          *(&v40 + 2) = v36;
+          _os_log_debug_impl(&dword_191750000, v21, OS_LOG_TYPE_DEBUG, "%{public}@: Unable to convert %@ of %@ records from %{public}@", v37, 0x2Au);
         }
       }
     }
@@ -1062,8 +1018,6 @@ void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID
       (*(v23 + 16))(v23, v19, v22, 0);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __116___DKSyncCloudKitKnowledgeStorage_fetchDeletedEventIDsFromPeer_sinceDate_streamNames_limit_highPriority_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1169,29 +1123,6 @@ void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID
   objc_destroyWeak(&v22);
 }
 
-void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_4(uint64_t a1)
-{
-  v2 = +[_DKSyncSerializer underlyingQueue];
-  dispatch_assert_queue_V2(v2);
-
-  if (*(a1 + 32))
-  {
-    WeakRetained = objc_loadWeakRetained((a1 + 56));
-    v4 = [(_DKSyncCloudKitKnowledgeStorage *)WeakRetained _handleAnySpecialnessWithOperationError:?];
-  }
-
-  else
-  {
-    if (!*(a1 + 40))
-    {
-      return;
-    }
-
-    v4 = objc_loadWeakRetained((a1 + 56));
-    [(_DKSyncCloudKitKnowledgeStorage *)v4 _setPreviousServerChangeToken:*(a1 + 48) forRecordZoneID:?];
-  }
-}
-
 void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_5(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1219,7 +1150,7 @@ void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID
 
 void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_6(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = +[_DKSyncSerializer underlyingQueue];
   dispatch_assert_queue_V2(v2);
 
@@ -1240,48 +1171,47 @@ LABEL_2:
   {
     if (([_DKCKError isIgnorableError:?]& 1) == 0)
     {
-      v18 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v15 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_6_cold_1();
       }
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    v19 = [(_DKSyncCloudKitKnowledgeStorage *)&WeakRetained->isa _handleAnySpecialnessWithOperationError:?];
+    v16 = [(_DKSyncCloudKitKnowledgeStorage *)&WeakRetained->isa _handleAnySpecialnessWithOperationError:?];
 
-    v3 = v19;
+    v3 = v16;
     goto LABEL_21;
   }
 
-  v6 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_6_cold_2();
   }
 
-  v7 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v6 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 40);
-    v9 = [objc_opt_class() description];
-    v10 = *(a1 + 48);
-    v20 = 138543618;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v10;
-    _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "%{public}@: Change token expired, may retry syncing down delections for %@", &v20, 0x16u);
+    v7 = [objc_opt_class() description];
+    v8 = *(a1 + 48);
+    v17 = 138543618;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "%{public}@: Change token expired, may retry syncing down delections for %@", &v17, 0x16u);
   }
 
-  v11 = objc_loadWeakRetained((a1 + 72));
-  [(_DKSyncCloudKitKnowledgeStorage *)v11 _resetPreviousServerChangeTokenForRecordZoneID:?];
+  v9 = objc_loadWeakRetained((a1 + 72));
+  [(_DKSyncCloudKitKnowledgeStorage *)v9 _resetPreviousServerChangeTokenForRecordZoneID:?];
 
-  v12 = *(a1 + 80);
-  v13 = +[_CDLogging syncChannel];
-  WeakRetained = v13;
-  if (v12 > 2)
+  v10 = *(a1 + 80);
+  v11 = +[_CDLogging syncChannel];
+  WeakRetained = v11;
+  if (v10 > 2)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_6_cold_3();
     }
@@ -1291,20 +1221,18 @@ LABEL_21:
     goto LABEL_2;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v15 = *(a1 + 40);
-    v16 = [objc_opt_class() description];
-    v20 = 138543362;
-    v21 = v16;
-    _os_log_impl(&dword_191750000, WeakRetained, OS_LOG_TYPE_INFO, "%{public}@: Will retry syncing down deletions", &v20, 0xCu);
+    v13 = [objc_opt_class() description];
+    v17 = 138543362;
+    v18 = v13;
+    _os_log_impl(&dword_191750000, WeakRetained, OS_LOG_TYPE_INFO, "%{public}@: Will retry syncing down deletions", &v17, 0xCu);
   }
 
-  v17 = objc_loadWeakRetained((a1 + 72));
-  [(_DKSyncCloudKitKnowledgeStorage *)v17 syncDownDeletionsFromCloudWithZoneID:*(a1 + 56) deletedRecordIDsAndTypes:*(a1 + 80) + 1 attempt:*(a1 + 64) completion:?];
+  v14 = objc_loadWeakRetained((a1 + 72));
+  [(_DKSyncCloudKitKnowledgeStorage *)v14 syncDownDeletionsFromCloudWithZoneID:*(a1 + 56) deletedRecordIDsAndTypes:(*(a1 + 80) + 1) attempt:*(a1 + 64) completion:?];
 
 LABEL_4:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __95___DKSyncCloudKitKnowledgeStorage_syncUpToCloudWithRecordsToSave_recordIDsToDelete_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1403,7 +1331,7 @@ void __98___DKSyncCloudKitKnowledgeStorage_registerUpdateSourceDeviceIdentifiers
     v4 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __98___DKSyncCloudKitKnowledgeStorage_registerUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(a1);
+      __98___DKSyncCloudKitKnowledgeStorage_registerUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(a1, v4);
     }
 
     v5 = *(a1 + 40);
@@ -1424,7 +1352,7 @@ void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPerio
   v5 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(a1);
+    __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(a1, v5);
   }
 
   if (*(a1 + 40))
@@ -1439,7 +1367,7 @@ void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPerio
       v6 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_2(a1);
+        __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_2(a1, v6);
       }
     }
 
@@ -1456,25 +1384,24 @@ LABEL_11:
   v8 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_3(a1);
+    __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_3(a1, v8);
   }
 }
 
-uint64_t __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke(uint64_t a1)
+void __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke()
 {
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_14();
-  v4 = __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2;
-  v5 = &unk_1E73675F8;
-  v6 = v2;
-  return [_DKSyncCloudKitKnowledgeStorage performUpdateSourceDeviceIdentifiersWithCompletion:];
+  v2 = __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2;
+  v3 = &unk_1E73675F8;
+  v4 = v0;
+  [(_DKSyncCloudKitKnowledgeStorage *)v0 performUpdateSourceDeviceIdentifiersWithCompletion:v1];
 }
 
 void __71___DKSyncCloudKitKnowledgeStorage__registerDatabaseChangesSubscription__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
@@ -1482,24 +1409,18 @@ void __71___DKSyncCloudKitKnowledgeStorage__registerDatabaseChangesSubscription_
   OUTLINED_FUNCTION_28_0();
   OUTLINED_FUNCTION_8_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __71___DKSyncCloudKitKnowledgeStorage__registerDatabaseChangesSubscription__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_16();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *v1;
-  v3 = [objc_opt_class() description];
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v0, "count")}];
+  v1 = [objc_opt_class() description];
+  v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v0, "count")}];
   OUTLINED_FUNCTION_28_0();
   OUTLINED_FUNCTION_22_0();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage__cloudSyncAvailabilityDidChange___block_invoke_cold_1(char a1, uint64_t a2, void *a3)
@@ -1526,7 +1447,7 @@ void __67___DKSyncCloudKitKnowledgeStorage__cloudSyncAvailabilityDidChange___blo
 void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_87_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
@@ -1534,9 +1455,7 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   OUTLINED_FUNCTION_28_0();
   OUTLINED_FUNCTION_8_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_88_cold_1()
@@ -1544,10 +1463,7 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_16();
   v2 = v1;
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = v1[4];
-  v4 = [objc_opt_class() description];
-  v5 = v2[5];
+  v3 = [objc_opt_class() description];
   [v0 domain];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() code];
@@ -1555,16 +1471,15 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   OUTLINED_FUNCTION_21_1();
   OUTLINED_FUNCTION_24_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x34u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x34u);
 
-  v11 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
 }
 
 void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationError___block_invoke_90_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
@@ -1572,53 +1487,41 @@ void __75___DKSyncCloudKitKnowledgeStorage__handleAnySpecialnessWithOperationErr
   OUTLINED_FUNCTION_28_0();
   OUTLINED_FUNCTION_8_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
-void __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke_cold_1(uint64_t a1)
+void __97___DKSyncCloudKitKnowledgeStorage__queueOperationForPrivateCloudDatabase_dependent_policy_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __96___DKSyncCloudKitKnowledgeStorage__performThrottledUpdateSourceDeviceIdentifiersWithCompletion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v3 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_72() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_81();
-  v4 = *v0;
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __96___DKSyncCloudKitKnowledgeStorage__performThrottledUpdateSourceDeviceIdentifiersWithCompletion___block_invoke_2_cold_2()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v3 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_72() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_81();
-  v4 = *v0;
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithRecordZonesByZoneID_completion___block_invoke_cold_1()
@@ -1626,10 +1529,7 @@ void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithReco
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_16();
   v2 = v1;
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = v1[4];
-  v4 = [objc_opt_class() description];
-  v5 = v2[5];
+  v3 = [objc_opt_class() description];
   [v0 domain];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() code];
@@ -1637,21 +1537,17 @@ void __99___DKSyncCloudKitKnowledgeStorage_updateSourceDeviceIdentifiersWithReco
   OUTLINED_FUNCTION_21_1();
   OUTLINED_FUNCTION_24_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x34u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x34u);
 
-  v11 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
 }
 
-void __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2_cold_1(uint64_t a1)
+void __77___DKSyncCloudKitKnowledgeStorage_scheduleRetryUpdateSourceDeviceIdentifiers__block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_183_cold_1(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1665,93 +1561,66 @@ void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___blo
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_185_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 40);
-  v3 = [objc_opt_class() description];
-  v4 = *v0;
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_70();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
-void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_185_cold_2(uint64_t a1)
+void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_185_cold_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v3 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_72() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_81();
-  v4 = *v0;
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
-void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_2(uint64_t a1)
+void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_3(uint64_t *a1)
+void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_3(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_4()
 {
   OUTLINED_FUNCTION_16();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 32);
-  v3 = [objc_opt_class() description];
-  v4 = *v0;
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_70();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
-void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_5(uint64_t a1)
+void __67___DKSyncCloudKitKnowledgeStorage_fetchChangedZonesWithCompletion___block_invoke_2_188_cold_5(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneID___block_invoke_cold_1(uint64_t a1)
@@ -1763,42 +1632,32 @@ void __74___DKSyncCloudKitKnowledgeStorage_configurePeerWithSourceDeviceID_zoneI
 void __65___DKSyncCloudKitKnowledgeStorage_hasZoneAdditionChangesForZone___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *v0;
-  v2 = [objc_opt_class() description];
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void __65___DKSyncCloudKitKnowledgeStorage_hasZoneDeletionChangesForZone___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *v0;
-  v2 = [objc_opt_class() description];
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID_windows_streamNames_limit_fetchOrder_completion___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_10_2();
   v1 = v0;
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_62(v0) description];
+  v3 = [OUTLINED_FUNCTION_62(v0 v2)];
   [*(v1 + 48) count];
   v4 = [OUTLINED_FUNCTION_37() numberWithUnsignedInteger:?];
   v5 = [*(v1 + 56) zoneName];
   OUTLINED_FUNCTION_11_3();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x2Au);
 
-  v11 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
 }
 
@@ -1806,8 +1665,7 @@ void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID
 {
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_30_1();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = [OUTLINED_FUNCTION_62(v3) description];
+  v4 = [OUTLINED_FUNCTION_62(v2 v3)];
   [v0 count];
   v5 = [OUTLINED_FUNCTION_37() numberWithUnsignedInteger:?];
   v6 = [*(v1 + 56) zoneName];
@@ -1816,7 +1674,32 @@ void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID
   OUTLINED_FUNCTION_11_3();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x2Au);
 
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9_0();
+}
+
+void __120___DKSyncCloudKitKnowledgeStorage_syncDownAdditionsFromCloudWithZoneID_windows_streamNames_limit_fetchOrder_completion___block_invoke_4_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, int a10, __int16 a11, __int16 a12, void *a13, __int128 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  OUTLINED_FUNCTION_10_2();
+  a23 = v27;
+  a24 = v28;
+  OUTLINED_FUNCTION_30_1();
+  v31 = [OUTLINED_FUNCTION_62(v29 v30)];
+  v32 = *(v26 + 56);
+  v33 = [*v25 domain];
+  v34 = [*v25 code];
+  v35 = *v25;
+  LODWORD(a9) = 138544386;
+  *(&a9 + 4) = v31;
+  WORD6(a9) = 2114;
+  *(&a9 + 14) = v32;
+  a12 = 2114;
+  a13 = v33;
+  LOWORD(a14) = 2048;
+  *(&a14 + 2) = v34;
+  WORD5(a14) = 2112;
+  *(&a14 + 12) = v35;
+  OUTLINED_FUNCTION_17(&dword_191750000, v24, v36, "%{public}@: Failed to sync down records from %{public}@: %{public}@:%lld (%@)", &a9);
+
   OUTLINED_FUNCTION_9_0();
 }
 
@@ -1824,17 +1707,13 @@ void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID
 {
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_30_1();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = [OUTLINED_FUNCTION_62(v3) description];
-  v5 = *(v1 + 48);
-  v6 = [*v0 domain];
+  v3 = [OUTLINED_FUNCTION_62(v1 v2)];
+  v4 = [*v0 domain];
   [*v0 code];
-  v7 = *v0;
   OUTLINED_FUNCTION_26_0();
   OUTLINED_FUNCTION_11_3();
-  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x34u);
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x34u);
 
-  v13 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
 }
 
@@ -1842,32 +1721,23 @@ void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID
 {
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_30_1();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = [OUTLINED_FUNCTION_62(v3) description];
-  v5 = *(v1 + 48);
-  v6 = [*v0 domain];
+  v3 = [OUTLINED_FUNCTION_62(v1 v2)];
+  v4 = [*v0 domain];
   [*v0 code];
-  v7 = *v0;
   OUTLINED_FUNCTION_26_0();
   OUTLINED_FUNCTION_11_3();
-  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x34u);
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x34u);
 
-  v13 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
 }
 
 void __116___DKSyncCloudKitKnowledgeStorage_syncDownDeletionsFromCloudWithZoneID_deletedRecordIDsAndTypes_attempt_completion___block_invoke_6_cold_3()
 {
   OUTLINED_FUNCTION_16();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 40);
-  v3 = [objc_opt_class() description];
-  v4 = *v0;
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void __95___DKSyncCloudKitKnowledgeStorage_fetchAdditionsHighWaterMarkWithPeer_highPriority_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -1878,32 +1748,30 @@ void __95___DKSyncCloudKitKnowledgeStorage_fetchAdditionsHighWaterMarkWithPeer_h
   v30 = v29;
   v32 = v31;
   v34 = v33;
-  v35 = *MEMORY[0x1E69E9840];
-  v36 = [OUTLINED_FUNCTION_78(v33) description];
-  v37 = &stru_1F05B9908;
+  v35 = [OUTLINED_FUNCTION_78(v33 v31)];
+  v36 = &stru_1F05B9908;
   [v34[5] me];
-  v38 = [v34[5] identifier];
-  v39 = [v34[5] model];
-  if (v39)
+  v37 = [v34[5] identifier];
+  v38 = [v34[5] model];
+  if (v38)
   {
-    v40 = MEMORY[0x1E696AEC0];
+    v39 = MEMORY[0x1E696AEC0];
     [v34[5] model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_66();
-    v37 = [v40 stringWithFormat:@" (%@)"];
+    v36 = [v39 stringWithFormat:@" (%@)"];
   }
 
-  v41 = [(NSDate *)v32 dk_localtimeString];
+  v40 = [(NSDate *)v32 dk_localtimeString];
   LODWORD(a11) = 138544386;
-  *(&a11 + 4) = v36;
+  *(&a11 + 4) = v35;
   OUTLINED_FUNCTION_25_0();
   OUTLINED_FUNCTION_31_0();
-  OUTLINED_FUNCTION_49(&dword_191750000, v30, v42, "%{public}@: Found no additions high water mark for %{public}@peer %{public}@%{public}@, using %@", &a11);
-  if (v39)
+  OUTLINED_FUNCTION_49(&dword_191750000, v30, v41, "%{public}@: Found no additions high water mark for %{public}@peer %{public}@%{public}@, using %@", &a11);
+  if (v38)
   {
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_38_0();
 }
 
@@ -1912,30 +1780,28 @@ void __95___DKSyncCloudKitKnowledgeStorage_fetchAdditionsHighWaterMarkWithPeer_h
   OUTLINED_FUNCTION_39();
   v1 = v0;
   v3 = v2;
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = [OUTLINED_FUNCTION_78(v2) description];
-  v6 = [(NSDate *)v1 dk_localtimeString];
-  v7 = &stru_1F05B9908;
+  v4 = [OUTLINED_FUNCTION_78(v2 v0)];
+  v5 = [(NSDate *)v1 dk_localtimeString];
+  v6 = &stru_1F05B9908;
   [v3[5] me];
-  v8 = [v3[5] identifier];
-  v9 = [v3[5] model];
-  if (v9)
+  v7 = [v3[5] identifier];
+  v8 = [v3[5] model];
+  if (v8)
   {
-    v10 = MEMORY[0x1E696AEC0];
+    v9 = MEMORY[0x1E696AEC0];
     [v3[5] model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_66();
-    v7 = [v10 stringWithFormat:@" (%@)"];
+    v6 = [v9 stringWithFormat:@" (%@)"];
   }
 
   OUTLINED_FUNCTION_27_0();
   OUTLINED_FUNCTION_12_1();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x34u);
-  if (v9)
+  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x34u);
+  if (v8)
   {
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_38_0();
 }
 
@@ -1947,32 +1813,30 @@ void __95___DKSyncCloudKitKnowledgeStorage_fetchDeletionsHighWaterMarkWithPeer_h
   v30 = v29;
   v32 = v31;
   v34 = v33;
-  v35 = *MEMORY[0x1E69E9840];
-  v36 = [OUTLINED_FUNCTION_78(v33) description];
-  v37 = &stru_1F05B9908;
+  v35 = [OUTLINED_FUNCTION_78(v33 v31)];
+  v36 = &stru_1F05B9908;
   [v34[5] me];
-  v38 = [v34[5] identifier];
-  v39 = [v34[5] model];
-  if (v39)
+  v37 = [v34[5] identifier];
+  v38 = [v34[5] model];
+  if (v38)
   {
-    v40 = MEMORY[0x1E696AEC0];
+    v39 = MEMORY[0x1E696AEC0];
     [v34[5] model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_66();
-    v37 = [v40 stringWithFormat:@" (%@)"];
+    v36 = [v39 stringWithFormat:@" (%@)"];
   }
 
-  v41 = [(NSDate *)v32 dk_localtimeString];
+  v40 = [(NSDate *)v32 dk_localtimeString];
   LODWORD(a11) = 138544386;
-  *(&a11 + 4) = v36;
+  *(&a11 + 4) = v35;
   OUTLINED_FUNCTION_25_0();
   OUTLINED_FUNCTION_31_0();
-  OUTLINED_FUNCTION_49(&dword_191750000, v30, v42, "%{public}@: Found no deletions high water mark for %{public}@peer %{public}@%{public}@, using %@", &a11);
-  if (v39)
+  OUTLINED_FUNCTION_49(&dword_191750000, v30, v41, "%{public}@: Found no deletions high water mark for %{public}@peer %{public}@%{public}@, using %@", &a11);
+  if (v38)
   {
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_38_0();
 }
 
@@ -1981,91 +1845,74 @@ void __95___DKSyncCloudKitKnowledgeStorage_fetchDeletionsHighWaterMarkWithPeer_h
   OUTLINED_FUNCTION_39();
   v1 = v0;
   v3 = v2;
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = [OUTLINED_FUNCTION_78(v2) description];
-  v6 = [(NSDate *)v1 dk_localtimeString];
-  v7 = &stru_1F05B9908;
+  v4 = [OUTLINED_FUNCTION_78(v2 v0)];
+  v5 = [(NSDate *)v1 dk_localtimeString];
+  v6 = &stru_1F05B9908;
   [v3[5] me];
-  v8 = [v3[5] identifier];
-  v9 = [v3[5] model];
-  if (v9)
+  v7 = [v3[5] identifier];
+  v8 = [v3[5] model];
+  if (v8)
   {
-    v10 = MEMORY[0x1E696AEC0];
+    v9 = MEMORY[0x1E696AEC0];
     [v3[5] model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_66();
-    v7 = [v10 stringWithFormat:@" (%@)"];
+    v6 = [v9 stringWithFormat:@" (%@)"];
   }
 
   OUTLINED_FUNCTION_27_0();
   OUTLINED_FUNCTION_12_1();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x34u);
-  if (v9)
+  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x34u);
+  if (v8)
   {
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_38_0();
 }
 
 void __95___DKSyncCloudKitKnowledgeStorage_syncUpToCloudWithRecordsToSave_recordIDsToDelete_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v3 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_72() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_81();
-  v4 = *v0;
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
-void __98___DKSyncCloudKitKnowledgeStorage_registerUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(uint64_t a1)
+void __98___DKSyncCloudKitKnowledgeStorage_registerUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(uint64_t a1)
+void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_2(uint64_t a1)
+void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_3(uint64_t a1)
+void __93___DKSyncCloudKitKnowledgeStorage_runUpdateSourceDeviceIdentifiersPeriodicJobWithCompletion___block_invoke_cold_3(uint64_t a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_56(a1) description];
+  v2 = [OUTLINED_FUNCTION_56(a1 a2)];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

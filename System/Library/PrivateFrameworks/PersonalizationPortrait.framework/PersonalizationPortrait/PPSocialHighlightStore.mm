@@ -77,31 +77,30 @@ void __50__PPSocialHighlightStore__sharedAdaptiveCoalescer__block_invoke()
 
 void __88__PPSocialHighlightStore_iterRankedHighlightsForSyncedItems_client_variant_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -110,7 +109,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -121,8 +120,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)iterRankedCollaborationsWithLimit:(unint64_t)limit client:(id)client variant:(id)variant error:(id *)error block:(id)block
@@ -144,31 +141,30 @@ LABEL_4:
 
 void __87__PPSocialHighlightStore_iterRankedCollaborationsWithLimit_client_variant_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -177,7 +173,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -188,8 +184,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)iterRankedHighlightsWithLimit:(unint64_t)limit client:(id)client variant:(id)variant reason:(id)reason error:(id *)error block:(id)block
@@ -236,46 +230,46 @@ LABEL_4:
 
 void __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_reason_error_block___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 mutableCopy];
   v7 = +[PPSocialHighlightClient sharedInstance];
   v8 = [v5 limit];
   v9 = [v5 client];
   v10 = [v5 variant];
-  v29 = 0;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_reason_error_block___block_invoke_2;
-  v26[3] = &unk_1E77F7130;
+  v28 = 0;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_reason_error_block___block_invoke_2;
+  v25[3] = &unk_1E77F7130;
   v11 = v6;
-  v27 = v11;
-  v28 = *(a1 + 32);
-  v12 = [v7 rankedHighlightsWithLimit:v8 client:v9 variant:v10 error:&v29 handleBatch:v26];
-  v13 = v29;
-  v14 = v29;
+  v26 = v11;
+  v27 = *(a1 + 32);
+  v12 = [v7 rankedHighlightsWithLimit:v8 client:v9 variant:v10 error:&v28 handleBatch:v25];
+  v13 = v28;
+  v14 = v28;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v15 = v11;
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       v19 = 0;
       do
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v22 + 1) + 8 * v19);
+        v20 = *(*(&v21 + 1) + 8 * v19);
         *(v20 + 8) = v12;
         objc_storeStrong((v20 + 16), v13);
         dispatch_semaphore_signal(*(v20 + 32));
@@ -283,19 +277,17 @@ void __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_r
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_reason_error_block___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v18 = a2;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = a2;
   v4 = [*(a1 + 32) count];
   if (v4)
   {
@@ -304,50 +296,49 @@ void __90__PPSocialHighlightStore_iterRankedHighlightsWithLimit_client_variant_r
     {
       --v5;
       v6 = objc_autoreleasePoolPush();
-      v23 = 0;
+      v21 = 0;
+      v17 = 0u;
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v7 = v18;
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v7 = v16;
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v18;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v20 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
-            v13 = objc_autoreleasePoolPush();
-            v14 = [*(a1 + 32) objectAtIndexedSubscript:v5];
-            if (*(v14 + 8))
+            v12 = objc_autoreleasePoolPush();
+            v13 = [*(a1 + 32) objectAtIndexedSubscript:v5];
+            if (*(v13 + 8))
             {
-              v16 = [MEMORY[0x1E696AAA8] currentHandler];
-              [v16 handleFailureInMethod:*(a1 + 48) object:*(a1 + 40) file:@"PPSocialHighlightStore.m" lineNumber:246 description:{@"Invalid parameter not satisfying: %@", @"remainingHandler->_successful == NO"}];
+              v14 = [MEMORY[0x1E696AAA8] currentHandler];
+              [v14 handleFailureInMethod:*(a1 + 48) object:*(a1 + 40) file:@"PPSocialHighlightStore.m" lineNumber:246 description:{@"Invalid parameter not satisfying: %@", @"remainingHandler->_successful == NO"}];
             }
 
-            (*(*(v14 + 24) + 16))();
-            if (v23 == 1)
+            (*(*(v13 + 24) + 16))();
+            if (v21 == 1)
             {
-              *(v14 + 8) = v23;
-              dispatch_semaphore_signal(*(v14 + 32));
+              *(v13 + 8) = v21;
+              dispatch_semaphore_signal(*(v13 + 32));
               [*(a1 + 32) removeObjectAtIndex:v5];
 
-              objc_autoreleasePoolPop(v13);
+              objc_autoreleasePoolPop(v12);
               goto LABEL_15;
             }
 
-            objc_autoreleasePoolPop(v13);
+            objc_autoreleasePoolPop(v12);
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
           if (v9)
           {
             continue;
@@ -369,8 +360,6 @@ LABEL_15:
   {
     *a3 = 1;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (double)decayInterval

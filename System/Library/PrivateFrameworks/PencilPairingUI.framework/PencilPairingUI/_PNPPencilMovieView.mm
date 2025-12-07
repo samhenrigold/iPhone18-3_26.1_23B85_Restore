@@ -66,7 +66,7 @@
   if (!self->_player)
   {
     assetName = [(_PNPPencilMovieView *)self assetName];
-    v4 = PencilPairingUIBundle();
+    v4 = PencilPairingUIBundle(assetName);
     v5 = [v4 URLForResource:assetName withExtension:@"mov"];
 
     v6 = [MEMORY[0x277CE6598] playerWithURL:v5];

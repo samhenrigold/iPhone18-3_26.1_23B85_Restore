@@ -40,15 +40,15 @@
   v7.super_class = _UIFeedbackHapticFilePattern;
   if ([(_UIFeedback *)&v7 isEqual:equalCopy])
   {
-    v5 = [(NSURL *)self->_fileURL isEqual:equalCopy[17]];
+    isEqual = objc_msgSend_isEqual_(self->_fileURL);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (_UIFeedbackHapticFilePattern)initWithDictionaryRepresentation:(id)representation

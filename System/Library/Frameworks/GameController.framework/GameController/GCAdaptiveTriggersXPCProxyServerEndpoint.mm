@@ -61,9 +61,9 @@
 
 - (void)invalidateClient
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
-    [GCBatteryXPCProxyServerEndpoint invalidateClient];
+    [(GCBatteryXPCProxyServerEndpoint *)self invalidateClient];
   }
 
   clientEndpoint = self->_clientEndpoint;
@@ -100,13 +100,13 @@
   clientEndpoint = self->_clientEndpoint;
   self->_clientEndpoint = 0;
 
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __76__GCAdaptiveTriggersXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
-  v24 = &unk_1E8418D18;
-  objc_copyWeak(&v25, &location);
-  v14 = _Block_copy(&v21);
-  v15 = [connectionCopy addInterruptionHandler:{v14, v21, v22, v23, v24}];
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __76__GCAdaptiveTriggersXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
+  v27 = &unk_1E8418D18;
+  objc_copyWeak(&v28, &location);
+  v14 = _Block_copy(&v24);
+  v15 = [connectionCopy addInterruptionHandler:{v14, v24, v25, v26, v27}];
   v16 = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v15;
 
@@ -117,13 +117,14 @@
   objc_storeStrong(&self->_connection, connection);
   objc_storeStrong(&self->_clientEndpoint, client);
   self->_pendingUpdates = 0;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v19, v20);
+  if (isInternalBuild)
   {
-    v20 = getGCLogger();
-    [GCAdaptiveTriggersXPCProxyServerEndpoint acceptClient:v20 onConnection:? error:?];
+    v23 = getGCLogger(isInternalBuild);
+    [GCAdaptiveTriggersXPCProxyServerEndpoint acceptClient:v23 onConnection:? error:?];
   }
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 
   return 1;
@@ -132,21 +133,22 @@
 void __76__GCAdaptiveTriggersXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(WeakRetained, v2))
     {
-      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
+      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1(v3);
     }
 
-    v2 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v3[4];
+    v3[4] = 0;
 
-    v3 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v3[3];
+    v3[3] = 0;
 
-    v4 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    v6 = v3[1];
+    v3[1] = 0;
   }
 }
 
@@ -176,40 +178,41 @@ void __76__GCAdaptiveTriggersXPCProxyServerEndpoint_acceptClient_onConnection_er
     objc_sync_exit(selfCopy);
 
     v7 = selfCopy->_clientEndpoint;
+    v9 = v7;
     if (v7)
     {
-      v8 = selfCopy->_pendingUpdates + 1;
-      selfCopy->_pendingUpdates = v8;
-      if (v8 <= 6)
+      v10 = selfCopy->_pendingUpdates + 1;
+      selfCopy->_pendingUpdates = v10;
+      if (v10 <= 6)
       {
-        isInternalBuild = gc_isInternalBuild();
-        if (v8 == 6)
+        isInternalBuild = gc_isInternalBuild(v7, v8);
+        if (v10 == 6)
         {
           if (isInternalBuild)
           {
-            [GCAdaptiveTriggersXPCProxyServerEndpoint setStatuses:];
+            [GCAdaptiveTriggersXPCProxyServerEndpoint setStatuses:selfCopy];
           }
 
-          [(GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface *)v7 refreshStatuses];
+          [(GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface *)v9 refreshStatuses];
         }
 
         else
         {
           if (isInternalBuild)
           {
-            [GCAdaptiveTriggersXPCProxyServerEndpoint setStatuses:];
+            [GCAdaptiveTriggersXPCProxyServerEndpoint setStatuses:selfCopy];
           }
 
-          [(GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface *)v7 newStatuses:statusesCopy];
+          [(GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface *)v9 newStatuses:statusesCopy];
           if (selfCopy->_pendingUpdates == 3)
           {
             connection = selfCopy->_connection;
-            v11[0] = MEMORY[0x1E69E9820];
-            v11[1] = 3221225472;
-            v11[2] = __56__GCAdaptiveTriggersXPCProxyServerEndpoint_setStatuses___block_invoke;
-            v11[3] = &unk_1E8418C28;
-            v11[4] = selfCopy;
-            [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v11];
+            v13[0] = MEMORY[0x1E69E9820];
+            v13[1] = 3221225472;
+            v13[2] = __56__GCAdaptiveTriggersXPCProxyServerEndpoint_setStatuses___block_invoke;
+            v13[3] = &unk_1E8418C28;
+            v13[4] = selfCopy;
+            [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v13];
           }
         }
       }
@@ -309,40 +312,31 @@ void __64__GCAdaptiveTriggersXPCProxyServerEndpoint_invalidateConnection__block_
 
 - (void)acceptClient:(NSObject *)a1 onConnection:error:.cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Client has arrived for %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v2, v3, "Client has arrived for %@", v4, v5, v6, v7);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setStatuses:.cold.1()
+- (void)setStatuses:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending new status to remote endpoint: %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending new status to remote endpoint: %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setStatuses:.cold.2()
+- (void)setStatuses:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending statuses refresh request to remote endpoint: %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending statuses refresh request to remote endpoint: %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

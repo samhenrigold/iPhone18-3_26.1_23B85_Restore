@@ -245,7 +245,7 @@
 - (void)performAction:(int)action forElement:(id)element completion:(id)completion
 {
   v6 = *&action;
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   completionCopy = completion;
   parent = [(RUIElement *)self parent];
@@ -258,23 +258,24 @@
 
   else
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v11, v12);
+    if (isInternalInstall)
     {
-      v12 = _RUILoggingFacility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14[0] = 67109378;
-        v14[1] = v6;
-        v15 = 2112;
-        v16 = elementCopy;
-        _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Dropping action %i on the floor for element %@", v14, 0x12u);
+        v17[0] = 67109378;
+        v17[1] = v6;
+        v18 = 2112;
+        v19 = elementCopy;
+        _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "Dropping action %i on the floor for element %@", v17, 0x12u);
       }
     }
 
     if (completionCopy)
     {
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.RemoteUI" code:2 userInfo:0];
-      completionCopy[2](completionCopy, 0, v13);
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.RemoteUI" code:2 userInfo:0];
+      completionCopy[2](completionCopy, 0, v16);
     }
   }
 }
@@ -1261,7 +1262,7 @@ LABEL_16:
   else
   {
     swift_getObjectType();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ED20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ED20, &qword_21BA997E8);
     sub_21BA87D4C();
   }
 
@@ -1285,7 +1286,7 @@ LABEL_16:
   else
   {
     swift_getObjectType();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ED20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ED20, &qword_21BA997E8);
     sub_21BA87D4C();
   }
 

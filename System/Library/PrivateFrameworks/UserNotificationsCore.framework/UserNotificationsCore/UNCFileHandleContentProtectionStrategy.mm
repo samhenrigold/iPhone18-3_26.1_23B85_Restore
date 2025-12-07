@@ -34,9 +34,9 @@
 
 - (id)allDataAtPath:(id)path
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = [(UNCFileHandleContentProtectionStrategy *)self dataAtPath:pathCopy];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   stringByDeletingPathExtension = [pathCopy stringByDeletingPathExtension];
@@ -45,45 +45,45 @@
 
   if ([defaultManager fileExistsAtPath:v9])
   {
-    v27 = defaultManager;
-    v28 = v5;
-    v35 = 0;
-    v26 = v9;
-    v10 = [defaultManager unc_contentsSortedByLastModificationDateOfDirectoryAtPath:v9 error:&v35];
-    v25 = v35;
+    v26 = defaultManager;
+    v27 = v5;
+    v34 = 0;
+    v25 = v9;
+    v10 = [defaultManager unc_contentsSortedByLastModificationDateOfDirectoryAtPath:v9 error:&v34];
+    v24 = v34;
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         v15 = 0;
         do
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * v15);
-          v17 = [(NSMutableDictionary *)self->_keyedFileHandles objectForKey:pathCopy, v25];
+          v16 = *(*(&v30 + 1) + 8 * v15);
+          v17 = [(NSMutableDictionary *)self->_keyedFileHandles objectForKey:pathCopy, v24];
           path = [v17 path];
           v19 = [v16 isEqualToString:path];
 
           if ((v19 & 1) == 0)
           {
-            v30 = 0;
-            v20 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v16 options:0 error:&v30];
-            v21 = v30;
+            v29 = 0;
+            v20 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v16 options:0 error:&v29];
+            v21 = v29;
             if (v20)
             {
-              [v29 addObject:v20];
+              [v28 addObject:v20];
             }
 
             else
@@ -92,9 +92,9 @@
               if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v37 = pathCopy;
-                v38 = 2114;
-                v39 = v21;
+                v36 = pathCopy;
+                v37 = 2114;
+                v38 = v21;
                 _os_log_error_impl(&dword_1DA7A9000, v22, OS_LOG_TYPE_ERROR, "Could not access data at %{public}@: %{public}@", buf, 0x16u);
               }
             }
@@ -104,25 +104,23 @@
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v13);
     }
 
-    defaultManager = v27;
-    v5 = v28;
-    v9 = v26;
+    defaultManager = v26;
+    v5 = v27;
+    v9 = v25;
   }
 
   if (v5)
   {
-    [v29 addObject:v5];
+    [v28 addObject:v5];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (BOOL)removeAllDataAtPath:(id)path error:(id *)error
@@ -139,7 +137,7 @@
     {
       if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
       {
-        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:pathCopy error:error];
+        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:error:];
       }
 
       v11 = 0;
@@ -272,7 +270,7 @@ LABEL_14:
     {
       if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
       {
-        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:path error:error];
+        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:error:];
       }
 
       v12 = 0;
@@ -290,7 +288,7 @@ LABEL_14:
     {
       if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
       {
-        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:pathCopy error:error];
+        [UNCFileHandleContentProtectionStrategy removeAllDataAtPath:error:];
       }
 
       v12 = 0;
@@ -309,13 +307,13 @@ LABEL_14:
 
 - (void)migrateDataAtPath:(id)path toPath:(id)toPath
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   toPathCopy = toPath;
   v8 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy];
-  v15 = 0;
-  [(UNCFileHandleContentProtectionStrategy *)self writeData:v8 atPath:toPathCopy error:&v15];
-  v9 = v15;
+  v14 = 0;
+  [(UNCFileHandleContentProtectionStrategy *)self writeData:v8 atPath:toPathCopy error:&v14];
+  v9 = v14;
   if (v9)
   {
     v10 = v9;
@@ -323,11 +321,11 @@ LABEL_14:
     if (os_log_type_enabled(*MEMORY[0x1E6983380], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v17 = pathCopy;
-      v18 = 2114;
-      v19 = toPathCopy;
-      v20 = 2114;
-      v21 = v10;
+      v16 = pathCopy;
+      v17 = 2114;
+      v18 = toPathCopy;
+      v19 = 2114;
+      v20 = v10;
       _os_log_error_impl(&dword_1DA7A9000, v11, OS_LOG_TYPE_ERROR, "Migrating repository from: %{public}@ to: %{public}@ failed %{public}@", buf, 0x20u);
     }
 
@@ -336,9 +334,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v14 = 0;
-  [(UNCFileHandleContentProtectionStrategy *)self removeItemAtPath:pathCopy error:&v14];
-  v12 = v14;
+  v13 = 0;
+  [(UNCFileHandleContentProtectionStrategy *)self removeItemAtPath:pathCopy error:&v13];
+  v12 = v13;
   if (v12)
   {
     v10 = v12;
@@ -351,8 +349,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_fileHandleForCreatingStoreAtPath:(id)path protectionType:(id)type
@@ -433,55 +429,21 @@ LABEL_17:
   }
 }
 
-- (void)removeAllDataAtPath:(uint64_t)a1 error:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v3, v4, "Could not delete %{public}@: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)writeData:atPath:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not create directory at %{public}@; error: %{public}@ for protection");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)writeData:(void *)a1 atPath:(uint64_t)a2 error:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = objc_begin_catch(a1);
   v5 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543618;
-    v8 = a3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = a3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v6, 0x16u);
   }
 
   objc_end_catch();
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)migrateDataAtPath:toPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Removing migrated repository from: %{public}@ failed %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_excludeItemFromBackupAtPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not set 'exclude from backup' key on %{public}@; error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -29,7 +29,7 @@
   if (v7)
   {
     v7->_entityIdentifier = identifier;
-    v9 = [schemaIdentifierCopy copy];
+    v9 = objc_msgSend_copy(schemaIdentifierCopy);
     schemaIdentifier = v8->_schemaIdentifier;
     v8->_schemaIdentifier = v9;
   }

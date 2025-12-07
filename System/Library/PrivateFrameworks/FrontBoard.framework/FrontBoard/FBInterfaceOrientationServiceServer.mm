@@ -30,7 +30,7 @@
 
 - (FBInterfaceOrientationServiceServer)init
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   bootstrapConfiguration = [MEMORY[0x1E698F508] bootstrapConfiguration];
   v4 = [bootstrapConfiguration domainForMachName:@"com.apple.frontboard.systemappservices"];
   identifier = [MEMORY[0x1E699FB98] identifier];
@@ -49,15 +49,14 @@
     v9 = FBLogInterfaceOrientationObserver();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = identifier;
-      _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_INFO, "Domain is missing %@ service, not creating interface orientation server.", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = identifier;
+      _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_INFO, "Domain is missing %@ service, not creating interface orientation server.", &v11, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -140,7 +139,7 @@ void __63__FBInterfaceOrientationServiceServer__initWithDomain_service___block_i
 
 - (void)startService
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_serviceSuspended)
   {
@@ -155,40 +154,37 @@ void __63__FBInterfaceOrientationServiceServer__initWithDomain_service___block_i
     v4 = [(NSMutableSet *)self->_lock_pendingConnections copy];
     [(NSMutableSet *)self->_lock_pendingConnections removeAllObjects];
     os_unfair_lock_unlock(&self->_lock);
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v11;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v12 + 1) + 8 * i) activate];
+          [*(*(&v10 + 1) + 8 * i) activate];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
       }
 
       while (v7);
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -229,7 +225,7 @@ void __63__FBInterfaceOrientationServiceServer__initWithDomain_service___block_i
   v9 = remoteToken;
   if (remoteToken)
   {
-    [remoteToken realToken];
+    objc_msgSend_realToken(remoteToken);
   }
 
   else
@@ -308,14 +304,14 @@ void __81__FBInterfaceOrientationServiceServer_listener_didReceiveConnection_wit
 
 - (void)_connectionInvalidated:(id)invalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
   v5 = FBLogInterfaceOrientationObserver();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = invalidatedCopy;
-    _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "Connection invalidated %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = invalidatedCopy;
+    _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "Connection invalidated %{public}@", &v6, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -324,67 +320,62 @@ void __81__FBInterfaceOrientationServiceServer_listener_didReceiveConnection_wit
   [(NSMutableSet *)self->_lock_connections removeObject:invalidatedCopy];
   os_unfair_lock_unlock(&self->_lock);
   [invalidatedCopy invalidate];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_noteInterfaceOrientationChanged:(int64_t)changed animationSettings:(id)settings direction:(int64_t)direction
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [settings duration];
   v9 = v8;
   v10 = FBLogInterfaceOrientationObserver();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    lock_interfaceOrientation = self->_lock_interfaceOrientation;
+    v11 = BSInterfaceOrientationDescription();
     v12 = BSInterfaceOrientationDescription();
-    v13 = BSInterfaceOrientationDescription();
     *buf = 138543874;
+    v22 = v11;
+    v23 = 2114;
     v24 = v12;
-    v25 = 2114;
-    v26 = v13;
-    v27 = 2048;
-    v28 = v9;
+    v25 = 2048;
+    v26 = v9;
     _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Received active interface orientation did change from %{public}@ to %{public}@ with duration %.1f", buf, 0x20u);
   }
 
   if (self->_lock_interfaceOrientation != changed)
   {
-    v14 = self->_lock_sequenceNumber + 1;
+    v13 = self->_lock_sequenceNumber + 1;
     self->_lock_interfaceOrientation = changed;
-    self->_lock_sequenceNumber = v14;
+    self->_lock_sequenceNumber = v13;
   }
 
   if ([(NSMutableSet *)self->_lock_interestedConnections count])
   {
-    v15 = FBLogInterfaceOrientationObserver();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = FBLogInterfaceOrientationObserver();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = BSInterfaceOrientationDescription();
+      v15 = BSInterfaceOrientationDescription();
       lock_sequenceNumber = self->_lock_sequenceNumber;
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2048;
-      v26 = lock_sequenceNumber;
-      _os_log_impl(&dword_1A89DD000, v15, OS_LOG_TYPE_DEFAULT, "Broadcasting active interface orientation (%{public}@) change to registered clients with sequence #: %lu.", buf, 0x16u);
+      v22 = v15;
+      v23 = 2048;
+      v24 = lock_sequenceNumber;
+      _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_DEFAULT, "Broadcasting active interface orientation (%{public}@) change to registered clients with sequence #: %lu.", buf, 0x16u);
     }
 
-    v18 = [objc_alloc(MEMORY[0x1E699FBA0]) initWithOrientation:changed sequenceNumber:self->_lock_sequenceNumber duration:direction rotationDirection:v9];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __105__FBInterfaceOrientationServiceServer__lock_noteInterfaceOrientationChanged_animationSettings_direction___block_invoke;
-    v21[3] = &unk_1E783B4B8;
-    v22 = v18;
-    v19 = v18;
-    [(FBInterfaceOrientationServiceServer *)self _lock_sendMessageToInterestedClients:v21];
+    v17 = [objc_alloc(MEMORY[0x1E699FBA0]) initWithOrientation:changed sequenceNumber:self->_lock_sequenceNumber duration:direction rotationDirection:v9];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __105__FBInterfaceOrientationServiceServer__lock_noteInterfaceOrientationChanged_animationSettings_direction___block_invoke;
+    v19[3] = &unk_1E783B4B8;
+    v20 = v17;
+    v18 = v17;
+    [(FBInterfaceOrientationServiceServer *)self _lock_sendMessageToInterestedClients:v19];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_registerOrientationInterest:(unsigned int)interest connection:(id)connection completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   completionCopy = completion;
   v10 = FBLogInterfaceOrientationObserver();
@@ -393,9 +384,9 @@ void __81__FBInterfaceOrientationServiceServer_listener_didReceiveConnection_wit
   {
     if (v11)
     {
-      v14 = 138412290;
-      v15 = connectionCopy;
-      _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Registering orientation interest for %@ ", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = connectionCopy;
+      _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Registering orientation interest for %@ ", &v13, 0xCu);
     }
 
     [(NSMutableSet *)self->_lock_interestedConnections addObject:connectionCopy];
@@ -411,56 +402,52 @@ void __81__FBInterfaceOrientationServiceServer_listener_didReceiveConnection_wit
   {
     if (v11)
     {
-      v14 = 138412290;
-      v15 = connectionCopy;
-      _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Unregistering orientation interest for %@ ", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = connectionCopy;
+      _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "Unregistering orientation interest for %@ ", &v13, 0xCu);
     }
 
     [(NSMutableSet *)self->_lock_interestedConnections removeObject:connectionCopy];
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_sendMessageToInterestedClients:(id)clients
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   clientsCopy = clients;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_lock_interestedConnections;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        remoteTarget = [*(*(&v12 + 1) + 8 * v9) remoteTarget];
+        remoteTarget = [*(*(&v11 + 1) + 8 * v9) remoteTarget];
         clientsCopy[2](clientsCopy, remoteTarget);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -362,7 +362,7 @@
 
 - (void)_handleAccessoryUpdateTransaction:(id)transaction
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -371,7 +371,7 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v22 = v8;
+    v21 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Observed accessory update", buf, 0xCu);
   }
 
@@ -395,13 +395,13 @@
   if (v12)
   {
     queue = [(HMDCompositeSettingsHH2DatabaseAdapter *)selfCopy queue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __76__HMDCompositeSettingsHH2DatabaseAdapter__handleAccessoryUpdateTransaction___block_invoke;
-    v19[3] = &unk_27868A750;
-    v19[4] = selfCopy;
-    v20 = v12;
-    dispatch_async(queue, v19);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __76__HMDCompositeSettingsHH2DatabaseAdapter__handleAccessoryUpdateTransaction___block_invoke;
+    v18[3] = &unk_27868A750;
+    v18[4] = selfCopy;
+    v19 = v12;
+    dispatch_async(queue, v18);
   }
 
   else
@@ -413,16 +413,14 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = transactionCopy;
+      v21 = v17;
+      v22 = 2112;
+      v23 = transactionCopy;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_FAULT, "%{public}@Received accessory update transaction that was nil or an invalid type: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMDCompositeSettingsHH2DatabaseAdapter__handleAccessoryUpdateTransaction___block_invoke(uint64_t a1)
@@ -684,7 +682,7 @@ LABEL_13:
 
 - (void)addModel:(id)model withOptionsLabel:(id)label completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   labelCopy = label;
   completionCopy = completion;
@@ -709,9 +707,9 @@ LABEL_13:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v17;
-    v29 = 2112;
-    v30 = labelCopy;
+    v27 = v17;
+    v28 = 2112;
+    v29 = labelCopy;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Attempting add model via database adapter with options label: %@", buf, 0x16u);
   }
 
@@ -719,14 +717,14 @@ LABEL_13:
   if (v13)
   {
     context = [(HMDCompositeSettingsHH2DatabaseAdapter *)selfCopy context];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke;
-    v24[3] = &unk_278689F98;
-    v24[4] = selfCopy;
-    v25 = v13;
-    v26 = completionCopy;
-    [context performBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke;
+    v23[3] = &unk_278689F98;
+    v23[4] = selfCopy;
+    v24 = v13;
+    v25 = completionCopy;
+    [context performBlock:v23];
   }
 
   else
@@ -738,21 +736,19 @@ LABEL_13:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v11;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to cast settings model %@ while adding to the database.", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryID];
   v3 = [HMCContext findHAPAccessoryWithModelID:v2];
 
@@ -760,9 +756,9 @@ void __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_comp
   {
     [*(a1 + 32) _copySettingsFromModel:*(a1 + 40) toAccessory:v3];
     v4 = [*(a1 + 32) context];
-    v28 = 0;
-    v5 = [v4 save:&v28];
-    v6 = v28;
+    v27 = 0;
+    v5 = [v4 save:&v27];
+    v6 = v27;
 
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 32);
@@ -774,7 +770,7 @@ void __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_comp
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v11;
+        v29 = v11;
         v12 = "%{public}@Successfully saved settings update";
         v13 = v10;
         v14 = OS_LOG_TYPE_INFO;
@@ -788,9 +784,9 @@ LABEL_10:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v11;
-      v31 = 2112;
-      v32 = v6;
+      v29 = v11;
+      v30 = 2112;
+      v31 = v6;
       v12 = "%{public}@Failed to save settings update: %@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
@@ -810,9 +806,9 @@ LABEL_10:
     v19 = HMFGetLogIdentifier();
     v20 = [*(a1 + 32) accessoryID];
     *buf = 138543618;
-    v30 = v19;
-    v31 = 2112;
-    v32 = v20;
+    v29 = v19;
+    v30 = 2112;
+    v31 = v20;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the MKFHAPAccessory with identifier: %@", buf, 0x16u);
   }
 
@@ -825,24 +821,22 @@ LABEL_12:
   block[2] = __79__HMDCompositeSettingsHH2DatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke_6;
   block[3] = &unk_27868A7A0;
   v22 = *(a1 + 48);
-  v26 = v6;
-  v27 = v22;
+  v25 = v6;
+  v26 = v22;
   v23 = v6;
   dispatch_async(v21, block);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchModelWithID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__43810;
-  v22 = __Block_byref_object_dispose__43811;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__43810;
+  v21 = __Block_byref_object_dispose__43811;
+  v22 = 0;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -850,35 +844,33 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v8;
-    v26 = 2112;
-    v27 = dCopy;
+    v24 = v8;
+    v25 = 2112;
+    v26 = dCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Fetching model with id %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   context = [(HMDCompositeSettingsHH2DatabaseAdapter *)selfCopy context];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59__HMDCompositeSettingsHH2DatabaseAdapter_fetchModelWithID___block_invoke;
-  v14[3] = &unk_27868A4D8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__HMDCompositeSettingsHH2DatabaseAdapter_fetchModelWithID___block_invoke;
+  v13[3] = &unk_27868A4D8;
   v10 = dCopy;
-  v15 = v10;
-  v16 = selfCopy;
-  v17 = &v18;
-  [context unsafeSynchronousBlock:v14];
+  v14 = v10;
+  v15 = selfCopy;
+  v16 = &v17;
+  [context unsafeSynchronousBlock:v13];
 
-  v11 = v19[5];
-  _Block_object_dispose(&v18, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   return v11;
 }
 
 void __59__HMDCompositeSettingsHH2DatabaseAdapter_fetchModelWithID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [HMCContext findHAPAccessoryWithModelID:*(a1 + 32)];
   if (v2)
   {
@@ -897,17 +889,15 @@ void __59__HMDCompositeSettingsHH2DatabaseAdapter_fetchModelWithID___block_invok
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the MKFHAPAccessory with identifier: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the MKFHAPAccessory with identifier: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithDelegate:(id)delegate
@@ -926,23 +916,21 @@ void __59__HMDCompositeSettingsHH2DatabaseAdapter_fetchModelWithID___block_invok
 
 uint64_t __60__HMDCompositeSettingsHH2DatabaseAdapter_startWithDelegate___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting composite settings database adapter", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting composite settings database adapter", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   objc_storeWeak((*(a1 + 32) + 24), *(a1 + 40));
-  result = [*(a1 + 40) database:*(a1 + 32) didConfigureWithError:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) database:*(a1 + 32) didConfigureWithError:0];
 }
 
 - (HMDCompositeSettingsHH2DatabaseAdapter)initWithAccessory:(id)accessory homeID:(id)d workingManagedObjectContext:(id)context queue:(id)queue notificationCenter:(id)center

@@ -151,52 +151,48 @@
 
 - (void)playerIndicatorXPCProxyServerEndpoint:(id)endpoint didReceivePlayerIndexChange:(int64_t)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(_GCNintendoFusedJoyConDevice *)self setIndicatedPlayerIndex:change];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   objectEnumerator = [(NSMapTable *)self->_clientPlayerIndicatorEndpoints objectEnumerator];
-  v7 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setPlayerIndex:change];
+        [*(*(&v11 + 1) + 8 * v10++) setPlayerIndex:change];
       }
 
       while (v8 != v10);
-      v8 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)underlyingDevices
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   rightDevice = self->_rightDevice;
-  v8[0] = self->_leftDevice;
-  v8[1] = rightDevice;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = self->_leftDevice;
+  v7[1] = rightDevice;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -244,22 +240,23 @@
     {
       objc_initWeak(&location, selfCopy);
       objc_initWeak(&from, clientCopy);
-      v9 = MEMORY[0x1E69E9820];
-      v10 = 3221225472;
-      v11 = __51___GCNintendoFusedJoyConDevice_Client___addClient___block_invoke;
-      v12 = &unk_1E8419D00;
-      objc_copyWeak(&v13, &location);
-      objc_copyWeak(&v14, &from);
-      v7 = [clientCopy addInvalidationHandler:&v9];
-      [(NSMapTable *)selfCopy->_clients setObject:v7 forKey:clientCopy, v9, v10, v11, v12];
-      if (gc_isInternalBuild())
+      v12 = MEMORY[0x1E69E9820];
+      v13 = 3221225472;
+      v14 = __51___GCNintendoFusedJoyConDevice_Client___addClient___block_invoke;
+      v15 = &unk_1E8419D00;
+      objc_copyWeak(&v16, &location);
+      objc_copyWeak(&v17, &from);
+      v7 = [clientCopy addInvalidationHandler:&v12];
+      v8 = [(NSMapTable *)selfCopy->_clients setObject:v7 forKey:clientCopy, v12, v13, v14, v15];
+      isInternalBuild = gc_isInternalBuild(v8, v9);
+      if (isInternalBuild)
       {
-        v8 = getGCLogger();
-        [_GCNintendoFusedJoyConDevice(Client) _addClient:v8];
+        v11 = getGCLogger(isInternalBuild);
+        [_GCNintendoFusedJoyConDevice(Client) _addClient:v11];
       }
 
-      objc_destroyWeak(&v14);
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
@@ -282,11 +279,12 @@
       [(NSMapTable *)selfCopy->_clientPlayerIndicatorEndpoints removeObjectForKey:clientCopy];
       [(NSMapTable *)selfCopy->_clientBatteryEndpoints removeObjectForKey:clientCopy];
       [(NSMapTable *)selfCopy->_clientSettingsEndpoints removeObjectForKey:clientCopy];
-      [(NSMapTable *)selfCopy->_clients removeObjectForKey:clientCopy];
-      if (gc_isInternalBuild())
+      v7 = [(NSMapTable *)selfCopy->_clients removeObjectForKey:clientCopy];
+      isInternalBuild = gc_isInternalBuild(v7, v8);
+      if (isInternalBuild)
       {
-        v7 = getGCLogger();
-        [_GCNintendoFusedJoyConDevice(Client) _removeClient:v7];
+        v10 = getGCLogger(isInternalBuild);
+        [_GCNintendoFusedJoyConDevice(Client) _removeClient:v10];
       }
     }
   }
@@ -296,7 +294,7 @@
 
 - (id)makeControllerForClient:(id)client
 {
-  v208[1] = *MEMORY[0x1E69E9840];
+  v207[1] = *MEMORY[0x1E69E9840];
   clientCopy = client;
   array = [MEMORY[0x1E695DF70] array];
   v3 = [[GCProductInformation alloc] initWithIdentifier:@"ProductInfo"];
@@ -306,145 +304,145 @@
   [array addObject:v4];
 
   gamepadEventSource = [(_GCNintendoFusedJoyConDevice *)self gamepadEventSource];
-  v190 = 0u;
-  v191 = 0u;
-  v188 = 0u;
   v189 = 0u;
-  v186 = 0u;
+  v190 = 0u;
   v187 = 0u;
-  v184 = 0u;
+  v188 = 0u;
   v185 = 0u;
+  v186 = 0u;
   v183 = 0u;
-  memset(v182, 0, sizeof(v182));
-  GCExtendedGamepadInitInfoMake(v182);
+  v184 = 0u;
+  v182 = 0u;
+  memset(v181, 0, sizeof(v181));
+  GCExtendedGamepadInitInfoMake(v181);
   for (i = 0; i != 1152; i += 72)
   {
-    *(v182 + i + 8) = 257;
+    *(v181 + i + 8) = 257;
   }
 
-  BYTE1(v183) = 0;
-  BYTE9(v187) = 0;
-  v7 = [(GCExtendedGamepad *)[_GCNintendoSwitchGamepad alloc] initWithIdentifier:@"PhysicalInput" info:v182];
+  BYTE1(v182) = 0;
+  BYTE9(v186) = 0;
+  v7 = [(GCExtendedGamepad *)[_GCNintendoSwitchGamepad alloc] initWithIdentifier:@"PhysicalInput" info:v181];
   v8 = [_GCControllerComponentDescription alloc];
-  v208[0] = gamepadEventSource;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v208 count:1];
+  v207[0] = gamepadEventSource;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v207 count:1];
   v10 = [(_GCControllerComponentDescription *)v8 initWithComponent:v7 bindings:v9];
 
   [array addObject:v10];
   for (j = 0; j != 1584; j += 72)
   {
-    __destructor_8_s0_s48_s56_s64(v182 + j);
+    __destructor_8_s0_s48_s56_s64(v181 + j);
   }
 
   gamepadEventSource2 = [(_GCNintendoFusedJoyConDevice *)self gamepadEventSource];
-  v179 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.home"];
+  v178 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.home"];
   v12 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Home"];
-  [v179 setAliases:v12];
+  [v178 setAliases:v12];
 
-  [v179 setLocalizedName:*MEMORY[0x1E69A0540]];
+  [v178 setLocalizedName:*MEMORY[0x1E69A0540]];
   v13 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"house.circle"];
-  [v179 setSymbol:v13];
+  [v178 setSymbol:v13];
 
-  [v179 setEventPressedValueField:22];
-  v178 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.capture"];
+  [v178 setEventPressedValueField:22];
+  v177 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.capture"];
   v14 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Share"];
-  [v178 setAliases:v14];
+  [v177 setAliases:v14];
 
-  [v178 setLocalizedName:*MEMORY[0x1E69A03A0]];
+  [v177 setLocalizedName:*MEMORY[0x1E69A03A0]];
   v15 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.square"];
-  [v178 setSymbol:v15];
+  [v177 setSymbol:v15];
 
-  [v178 setEventPressedValueField:40];
-  v177 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.plus"];
+  [v177 setEventPressedValueField:40];
+  v176 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.plus"];
   v16 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Menu"];
-  [v177 setAliases:v16];
+  [v176 setAliases:v16];
 
-  [v177 setLocalizedName:*MEMORY[0x1E69A0550]];
+  [v176 setLocalizedName:*MEMORY[0x1E69A0550]];
   v17 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"plus.circle"];
-  [v177 setSymbol:v17];
+  [v176 setSymbol:v17];
 
-  [v177 setEventPressedValueField:23];
-  v176 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.minus"];
+  [v176 setEventPressedValueField:23];
+  v175 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.minus"];
   v18 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Options"];
-  [v176 setAliases:v18];
+  [v175 setAliases:v18];
 
-  [v176 setLocalizedName:*MEMORY[0x1E69A0558]];
+  [v175 setLocalizedName:*MEMORY[0x1E69A0558]];
   v19 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"minus.circle"];
-  [v176 setSymbol:v19];
+  [v175 setSymbol:v19];
 
-  [v176 setEventPressedValueField:24];
-  v175 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.a"];
+  [v175 setEventPressedValueField:24];
+  v174 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.a"];
   v20 = [MEMORY[0x1E695DFD8] setWithObject:@"Button A"];
-  [v175 setAliases:v20];
+  [v174 setAliases:v20];
 
-  [v175 setLocalizedName:*MEMORY[0x1E69A0530]];
+  [v174 setLocalizedName:*MEMORY[0x1E69A0530]];
   v21 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"a.circle"];
-  [v175 setSymbol:v21];
+  [v174 setSymbol:v21];
 
-  [v175 setEventPressedValueField:4];
-  v174 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.b"];
+  [v174 setEventPressedValueField:4];
+  v173 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.b"];
   v22 = [MEMORY[0x1E695DFD8] setWithObject:@"Button B"];
-  [v174 setAliases:v22];
+  [v173 setAliases:v22];
 
-  [v174 setLocalizedName:*MEMORY[0x1E69A0538]];
+  [v173 setLocalizedName:*MEMORY[0x1E69A0538]];
   v23 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"b.circle"];
-  [v174 setSymbol:v23];
+  [v173 setSymbol:v23];
 
-  [v174 setEventPressedValueField:5];
-  v173 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.x"];
+  [v173 setEventPressedValueField:5];
+  v172 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.x"];
   v24 = [MEMORY[0x1E695DFD8] setWithObject:@"Button X"];
-  [v173 setAliases:v24];
+  [v172 setAliases:v24];
 
-  [v173 setLocalizedName:*MEMORY[0x1E69A0568]];
+  [v172 setLocalizedName:*MEMORY[0x1E69A0568]];
   v25 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"x.circle"];
-  [v173 setSymbol:v25];
+  [v172 setSymbol:v25];
 
-  [v173 setEventPressedValueField:6];
-  v172 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.y"];
+  [v172 setEventPressedValueField:6];
+  v171 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.y"];
   v26 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Y"];
-  [v172 setAliases:v26];
+  [v171 setAliases:v26];
 
-  [v172 setLocalizedName:*MEMORY[0x1E69A0570]];
+  [v171 setLocalizedName:*MEMORY[0x1E69A0570]];
   v27 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"y.circle"];
-  [v172 setSymbol:v27];
+  [v171 setSymbol:v27];
 
-  [v172 setEventPressedValueField:7];
-  v171 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l"];
+  [v171 setEventPressedValueField:7];
+  v170 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l"];
   v28 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Shoulder"];
-  [v171 setAliases:v28];
+  [v170 setAliases:v28];
 
-  [v171 setLocalizedName:*MEMORY[0x1E69A0580]];
+  [v170 setLocalizedName:*MEMORY[0x1E69A0580]];
   v29 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l1.rectangle.roundedbottom"];
-  [v171 setSymbol:v29];
+  [v170 setSymbol:v29];
 
-  [v171 setEventPressedValueField:8];
-  v170 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
+  [v170 setEventPressedValueField:8];
+  v169 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
   v30 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Shoulder"];
-  [v170 setAliases:v30];
+  [v169 setAliases:v30];
 
-  [v170 setLocalizedName:*MEMORY[0x1E69A05C0]];
+  [v169 setLocalizedName:*MEMORY[0x1E69A05C0]];
   v31 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r1.rectangle.roundedbottom"];
-  [v170 setSymbol:v31];
+  [v169 setSymbol:v31];
 
-  [v170 setEventPressedValueField:9];
-  v169 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zl"];
+  [v169 setEventPressedValueField:9];
+  v168 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zl"];
   v32 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Trigger"];
-  [v169 setAliases:v32];
+  [v168 setAliases:v32];
 
-  [v169 setLocalizedName:*MEMORY[0x1E69A0590]];
+  [v168 setLocalizedName:*MEMORY[0x1E69A0590]];
   v33 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"zl.rectangle.roundedtop"];
-  [v169 setSymbol:v33];
+  [v168 setSymbol:v33];
 
-  [v169 setEventPressedValueField:18];
-  v168 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zr"];
+  [v168 setEventPressedValueField:18];
+  v167 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zr"];
   v34 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Trigger"];
-  [v168 setAliases:v34];
+  [v167 setAliases:v34];
 
-  [v168 setLocalizedName:*MEMORY[0x1E69A05D0]];
+  [v167 setLocalizedName:*MEMORY[0x1E69A05D0]];
   v35 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"zr.rectangle.roundedtop"];
-  [v168 setSymbol:v35];
+  [v167 setSymbol:v35];
 
-  [v168 setEventPressedValueField:19];
+  [v167 setEventPressedValueField:19];
   v36 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"dpad"];
   v37 = [MEMORY[0x1E695DFD8] setWithObject:@"Direction Pad"];
   [v36 setAliases:v37];
@@ -477,8 +475,8 @@
   localizedName = [v39 localizedName];
   symbol = [v39 symbol];
   v46 = [v42 sourceWithElementAliases:v43 localizedName:localizedName symbol:symbol direction:10];
-  v207 = v46;
-  v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v207 count:1];
+  v206 = v46;
+  v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v206 count:1];
   [v39 setXSources:v47];
 
   v48 = MEMORY[0x1E69A06B8];
@@ -486,8 +484,8 @@
   localizedName2 = [v39 localizedName];
   symbol2 = [v39 symbol];
   v52 = [v48 sourceWithElementAliases:v49 localizedName:localizedName2 symbol:symbol2 direction:5];
-  v206 = v52;
-  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v206 count:1];
+  v205 = v52;
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v205 count:1];
   [v39 setYSources:v53];
 
   v54 = MEMORY[0x1E69A06B8];
@@ -495,8 +493,8 @@
   localizedName3 = [v39 localizedName];
   symbol3 = [v39 symbol];
   v58 = [v54 sourceWithElementAliases:v55 localizedName:localizedName3 symbol:symbol3 direction:1];
-  v205 = v58;
-  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v205 count:1];
+  v204 = v58;
+  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v204 count:1];
   [v39 setUpSources:v59];
 
   v60 = MEMORY[0x1E69A06B8];
@@ -504,8 +502,8 @@
   localizedName4 = [v39 localizedName];
   symbol4 = [v39 symbol];
   v64 = [v60 sourceWithElementAliases:v61 localizedName:localizedName4 symbol:symbol4 direction:2];
-  v204 = v64;
-  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v204 count:1];
+  v203 = v64;
+  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v203 count:1];
   [v39 setRightSources:v65];
 
   v66 = MEMORY[0x1E69A06B8];
@@ -513,8 +511,8 @@
   localizedName5 = [v39 localizedName];
   symbol5 = [v39 symbol];
   v70 = [v66 sourceWithElementAliases:v67 localizedName:localizedName5 symbol:symbol5 direction:4];
-  v203 = v70;
-  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v203 count:1];
+  v202 = v70;
+  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v202 count:1];
   [v39 setDownSources:v71];
 
   v72 = MEMORY[0x1E69A06B8];
@@ -522,16 +520,16 @@
   localizedName6 = [v39 localizedName];
   symbol6 = [v39 symbol];
   v76 = [v72 sourceWithElementAliases:v73 localizedName:localizedName6 symbol:symbol6 direction:8];
-  v202 = v76;
-  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v202 count:1];
+  v201 = v76;
+  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v201 count:1];
   [v39 setLeftSources:v77];
 
   v78 = MEMORY[0x1E69A06B8];
   v79 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Thumbstick Button"];
   v80 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l.joystick.press.down"];
   v81 = [v78 sourceWithElementAliases:v79 localizedName:*MEMORY[0x1E69A0548] symbol:v80];
-  v201 = v81;
-  v82 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v201 count:1];
+  v200 = v81;
+  v82 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v200 count:1];
   [v39 setPressedSources:v82];
 
   v83 = [MEMORY[0x1E69A06A0] descriptionWithIdentifier:@"stick.right"];
@@ -553,8 +551,8 @@
   localizedName7 = [v83 localizedName];
   symbol7 = [v83 symbol];
   v90 = [v86 sourceWithElementAliases:v87 localizedName:localizedName7 symbol:symbol7 direction:10];
-  v200 = v90;
-  v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v200 count:1];
+  v199 = v90;
+  v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v199 count:1];
   [v83 setXSources:v91];
 
   v92 = MEMORY[0x1E69A06B8];
@@ -562,8 +560,8 @@
   localizedName8 = [v83 localizedName];
   symbol8 = [v83 symbol];
   v96 = [v92 sourceWithElementAliases:v93 localizedName:localizedName8 symbol:symbol8 direction:5];
-  v199 = v96;
-  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v199 count:1];
+  v198 = v96;
+  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v198 count:1];
   [v83 setYSources:v97];
 
   v98 = MEMORY[0x1E69A06B8];
@@ -571,8 +569,8 @@
   localizedName9 = [v83 localizedName];
   symbol9 = [v83 symbol];
   v102 = [v98 sourceWithElementAliases:v99 localizedName:localizedName9 symbol:symbol9 direction:1];
-  v198 = v102;
-  v103 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v198 count:1];
+  v197 = v102;
+  v103 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v197 count:1];
   [v83 setUpSources:v103];
 
   v104 = MEMORY[0x1E69A06B8];
@@ -580,8 +578,8 @@
   localizedName10 = [v83 localizedName];
   symbol10 = [v83 symbol];
   v108 = [v104 sourceWithElementAliases:v105 localizedName:localizedName10 symbol:symbol10 direction:2];
-  v197 = v108;
-  v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v197 count:1];
+  v196 = v108;
+  v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v196 count:1];
   [v83 setRightSources:v109];
 
   v110 = MEMORY[0x1E69A06B8];
@@ -589,8 +587,8 @@
   localizedName11 = [v83 localizedName];
   symbol11 = [v83 symbol];
   v114 = [v110 sourceWithElementAliases:v111 localizedName:localizedName11 symbol:symbol11 direction:4];
-  v196 = v114;
-  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v196 count:1];
+  v195 = v114;
+  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v195 count:1];
   [v83 setDownSources:v115];
 
   v116 = MEMORY[0x1E69A06B8];
@@ -598,40 +596,40 @@
   localizedName12 = [v83 localizedName];
   symbol12 = [v83 symbol];
   v120 = [v116 sourceWithElementAliases:v117 localizedName:localizedName12 symbol:symbol12 direction:8];
-  v195 = v120;
-  v121 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v195 count:1];
+  v194 = v120;
+  v121 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v194 count:1];
   [v83 setLeftSources:v121];
 
   v122 = MEMORY[0x1E69A06B8];
   v123 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick Button"];
   v124 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r.joystick.press.down"];
   v125 = [v122 sourceWithElementAliases:v123 localizedName:*MEMORY[0x1E69A0560] symbol:v124];
-  v194 = v125;
-  v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v194 count:1];
+  v193 = v125;
+  v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v193 count:1];
   [v83 setPressedSources:v126];
 
   v127 = objc_opt_new();
-  v193[0] = v179;
-  v193[1] = v178;
-  v193[2] = v177;
-  v193[3] = v176;
-  v193[4] = v175;
-  v193[5] = v174;
-  v193[6] = v173;
-  v193[7] = v172;
-  v193[8] = v171;
-  v193[9] = v170;
-  v193[10] = v169;
-  v193[11] = v168;
-  v193[12] = v36;
-  v193[13] = v39;
-  v193[14] = v83;
-  v128 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:15];
+  v192[0] = v178;
+  v192[1] = v177;
+  v192[2] = v176;
+  v192[3] = v175;
+  v192[4] = v174;
+  v192[5] = v173;
+  v192[6] = v172;
+  v192[7] = v171;
+  v192[8] = v170;
+  v192[9] = v169;
+  v192[10] = v168;
+  v192[11] = v167;
+  v192[12] = v36;
+  v192[13] = v39;
+  v192[14] = v83;
+  v128 = [MEMORY[0x1E695DEC8] arrayWithObjects:v192 count:15];
   [v127 setElements:v128];
 
   v129 = [_GCControllerInputComponentDescription alloc];
-  v192 = gamepadEventSource2;
-  v130 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v192 count:1];
+  v191 = gamepadEventSource2;
+  v130 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v191 count:1];
   v131 = [(_GCControllerInputComponentDescription *)v129 initWithIdentifier:@"Input" controllerInputs:v127 bindings:v130];
 
   [array addObject:v131];
@@ -711,14 +709,12 @@
   identifier = [v150 identifier];
   v163 = [(_GCControllerDescription *)v161 initWithIdentifier:identifier components:array];
 
-  v164 = *MEMORY[0x1E69E9840];
-
   return v163;
 }
 
 - (_GCGamepadEventSourceDescription)gamepadEventSource
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   gamepadEventSource = [(_GCNintendoJoyConDevice *)self->_leftDevice gamepadEventSource];
   gamepadEventSource2 = [(_GCNintendoJoyConDevice *)self->_rightDevice gamepadEventSource];
   v5 = [[_GCGamepadEventFusionConfig alloc] initWithSourceCount:2];
@@ -748,12 +744,10 @@
   [(_GCGamepadEventFusionConfig *)v5 setPassRule:1 forElement:22 forSourceAtIndex:1];
   [(_GCGamepadEventFusionConfig *)v5 setPassRule:1 forElement:23 forSourceAtIndex:1];
   v6 = [_GCGamepadEventFusionDescription alloc];
-  v11[0] = gamepadEventSource;
-  v11[1] = gamepadEventSource2;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = gamepadEventSource;
+  v10[1] = gamepadEventSource2;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v8 = [(_GCGamepadEventFusionDescription *)v6 initWithConfiguration:v5 sources:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -796,38 +790,36 @@
 
 - (void)_propagateBattery
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   objectEnumerator = [(NSMapTable *)self->_clientBatteryEndpoints objectEnumerator];
-  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setBattery:self->_battery];
+        [*(*(&v8 + 1) + 8 * v7++) setBattery:self->_battery];
       }
 
       while (v5 != v7);
-      v5 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (GCDeviceBattery)battery
@@ -840,8 +832,8 @@
 
 - (void)settingsDidChange
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = getGCSettingsLogger();
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = getGCSettingsLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -850,25 +842,25 @@
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   keyEnumerator = [(NSMapTable *)selfCopy->_clientSettingsEndpoints keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v6)
   {
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(NSMapTable *)selfCopy->_clientSettingsEndpoints objectForKey:v9];
         settingsStore = selfCopy->_settingsStore;
         persistentIdentifierForSettings = [(_GCNintendoFusedJoyConDevice *)selfCopy persistentIdentifierForSettings];
@@ -879,14 +871,13 @@
         [v10 setSettingsProfile:anonymizedCopy];
       }
 
-      v6 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)persistentIdentifierForSettings

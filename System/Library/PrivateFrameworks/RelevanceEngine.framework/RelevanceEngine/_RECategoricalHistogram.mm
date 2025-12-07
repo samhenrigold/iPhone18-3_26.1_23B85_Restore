@@ -83,24 +83,8 @@
 
 - (unint64_t)countOfValuesBetweenMinValue:(unint64_t)value maxValue:(unint64_t)maxValue
 {
-  if (value == maxValue)
+  if (value == maxValue || (v9 = REFeatureValueTypeForTaggedPointer(value), v9 == REFeatureValueTypeForTaggedPointer(maxValue)) && (REFeatureValueForTaggedPointer(value), v10 = objc_claimAutoreleasedReturnValue(), REFeatureValueForTaggedPointer(maxValue), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v10 isEqual:v11], v11, v10, v12))
   {
-    goto LABEL_2;
-  }
-
-  v9 = REFeatureValueTypeForTaggedPointer(value);
-  if (v9 != REFeatureValueTypeForTaggedPointer(maxValue))
-  {
-    goto LABEL_7;
-  }
-
-  v10 = REFeatureValueForTaggedPointer(value);
-  v11 = REFeatureValueForTaggedPointer(maxValue);
-  v12 = [v10 isEqual:v11];
-
-  if (v12)
-  {
-LABEL_2:
     values = self->_values;
 
     return [(RETaggedFeatureValueCountedSet *)values countForFeatureValue:value];
@@ -108,7 +92,6 @@ LABEL_2:
 
   else
   {
-LABEL_7:
     v13 = [(RETaggedFeatureValueCountedSet *)self->_values countForFeatureValue:value];
     return [(RETaggedFeatureValueCountedSet *)self->_values countForFeatureValue:maxValue]+ v13;
   }

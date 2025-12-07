@@ -69,13 +69,11 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      publicKeyCredentialOperationUUID = self->_publicKeyCredentialOperationUUID;
       publicKeyCredentialOperationUUID = [v5 publicKeyCredentialOperationUUID];
-      LODWORD(publicKeyCredentialOperationUUID) = WBSIsEqual();
+      v10 = WBSIsEqual();
 
-      if (publicKeyCredentialOperationUUID && [(NSString *)self->_name isEqualToString:v6[1]]&& [(NSString *)self->_displayName isEqualToString:v6[2]])
+      if (v10 && [(NSString *)self->_name isEqualToString:v6[1]]&& [(NSString *)self->_displayName isEqualToString:v6[2]])
       {
-        identifier = self->_identifier;
         identifier = [v6 identifier];
         v8 = WBSIsEqual();
 

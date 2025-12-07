@@ -35,41 +35,41 @@
   textCopy = text;
   if (optionsCopy)
   {
-    v10 = objc_msgSend_whitespaceBefore(self, v6, v7, v8, v9);
+    v9 = objc_msgSend_whitespaceBefore(self, v6, v7, v8);
 
-    if (v10)
+    if (v9)
     {
-      v15 = objc_msgSend_whitespaceBefore(self, v11, v12, v13, v14);
-      objc_msgSend_takeText_(textCopy, v16, v15, v17, v18);
+      v13 = objc_msgSend_whitespaceBefore(self, v10, v11, v12);
+      objc_msgSend_takeText_(textCopy, v14, v13, v15);
     }
 
-    v19 = objc_msgSend_whitespaceAfter(self, v11, v12, v13, v14);
+    v16 = objc_msgSend_whitespaceAfter(self, v10, v11, v12);
 
-    if (v19)
+    if (v16)
     {
-      v24 = objc_msgSend_whitespaceAfter(self, v20, v21, v22, v23);
-      objc_msgSend_takeText_(textCopy, v25, v24, v26, v27);
+      v20 = objc_msgSend_whitespaceAfter(self, v17, v18, v19);
+      objc_msgSend_takeText_(textCopy, v21, v20, v22);
     }
   }
 }
 
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
-  TSCEASTTagOnlyElement::appendTagOnlyElement(array, 23, array, *&cell, table);
-  v11 = objc_msgSend_whitespaceBefore(self, v7, v8, v9, v10);
+  TSCEASTTagOnlyElement::appendTagOnlyElement(array, 23, array, *&cell);
+  v10 = objc_msgSend_whitespaceBefore(self, v7, v8, v9);
 
-  if (v11)
+  if (v10)
   {
-    v21 = objc_msgSend_whitespaceBefore(self, v12, v13, v14, v15);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v21);
+    v18 = objc_msgSend_whitespaceBefore(self, v11, v12, v13);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v18);
   }
 
-  v16 = objc_msgSend_whitespaceAfter(self, v12, v13, v14, v15);
+  v14 = objc_msgSend_whitespaceAfter(self, v11, v12, v13);
 
-  if (v16)
+  if (v14)
   {
-    v22 = objc_msgSend_whitespaceAfter(self, v17, v18, v19, v20);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v22);
+    v19 = objc_msgSend_whitespaceAfter(self, v15, v16, v17);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v19);
   }
 }
 
@@ -77,18 +77,18 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[230], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[230], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221380740, off_2812E4498[230], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221380740, off_2812E4498[230]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -135,9 +135,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v7, v8, v5, self);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v7, v5, self);
 
-  return v9;
+  return v8;
 }
 
 @end

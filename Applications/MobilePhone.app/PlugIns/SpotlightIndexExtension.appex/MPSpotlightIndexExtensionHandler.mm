@@ -43,7 +43,7 @@
   v3 = OBJC_IVAR___MPSpotlightIndexExtensionHandler_featureFlags;
   *(&self->super.super.isa + v3) = [objc_allocWithZone(TUFeatureFlags) init];
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MPSpotlightIndexExtensionHandler();
+  v5.super_class = type metadata accessor for MPSpotlightIndexExtensionHandler(0);
   return [(MPSpotlightIndexExtensionHandler *)&v5 init];
 }
 

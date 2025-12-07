@@ -233,7 +233,7 @@ void __47__WBSPerSitePreferencesSQLiteStore_sharedStore__block_invoke(uint64_t a
 
 void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_withTimestamp_completionHandler___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
@@ -255,13 +255,13 @@ void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_wit
       v5 = 0;
     }
 
-    v26 = v5;
+    v28 = v5;
     v8 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:*(*(a1 + 32) + 24) query:{@"INSERT INTO preference_values (domain, preference, preference_value, timestamp)VALUES (?, ?, ?, ?)ON CONFLICT (domain, preference)DO UPDATE SET domain = excluded.domain, preference = excluded.preference, preference_value = excluded.preference_value, timestamp = excluded.timestamp"}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       *buf = [*(a1 + 48) integerValue];
-      SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSString * const {__strong},long,NSString * {__strong}&>(v8, (a1 + 56), (a1 + 64), buf, &v26);
+      SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSString * const {__strong},long,NSString * {__strong}&>(v8, (a1 + 56), (a1 + 64), buf, &v28);
     }
 
     else
@@ -269,65 +269,65 @@ void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_wit
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v25 = *(a1 + 48);
-        SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSString * const {__strong},NSString * {__strong},NSString * const {__strong}&&>(v8, (a1 + 56), (a1 + 64), &v25, &v26);
+        v27 = *(a1 + 48);
+        SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSString * const {__strong},NSString * {__strong},NSString * const {__strong}&&>(v8, (a1 + 56), (a1 + 64), &v27, &v28);
       }
     }
 
     v9 = [v8 execute];
-    [v8 invalidate];
+    v10 = [v8 invalidate];
     if (v9 != 101)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 56);
-        v20 = *(a1 + 64);
-        v22 = *(a1 + 48);
-        v23 = v26;
-        v24 = [*(*(a1 + 32) + 24) lastErrorMessage];
+        v23 = *(a1 + 56);
+        v22 = *(a1 + 64);
+        v24 = *(a1 + 48);
+        v25 = v28;
+        v26 = [*(*(a1 + 32) + 24) lastErrorMessage];
         *buf = 138413570;
-        *&buf[4] = v22;
-        v30 = 2112;
-        v31 = v20;
+        *&buf[4] = v24;
         v32 = 2112;
-        v33 = v21;
+        v33 = v22;
         v34 = 2112;
         v35 = v23;
-        v36 = 2114;
-        v37 = v24;
-        v38 = 1024;
-        v39 = v9;
-        _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to insert or replace preference value: %@ for preference: %@ for domain: %@ with date: %@: %{public}@ (%d)", buf, 0x3Au);
+        v36 = 2112;
+        v37 = v25;
+        v38 = 2114;
+        v39 = v26;
+        v40 = 1024;
+        v41 = v9;
+        _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to insert or replace preference value: %@ for preference: %@ for domain: %@ with date: %@: %{public}@ (%d)", buf, 0x3Au);
       }
     }
 
-    v11 = *(a1 + 72);
-    if (v11)
+    v13 = *(a1 + 72);
+    if (v13)
     {
-      (*(v11 + 16))(v11, v9 == 101);
+      (*(v13 + 16))(v13, v9 == 101);
       if (v9 == 101 && *(a1 + 64) && *(a1 + 48) && *(a1 + 56) && [objc_opt_class() isPreferenceSyncable:*(a1 + 64)] && objc_msgSend(MEMORY[0x1E69C8880], "isPerSiteSettingSyncEnabled"))
       {
-        v12 = *(*(a1 + 32) + 8);
-        v13 = [MEMORY[0x1E69C89E8] inMemoryDatabaseURL];
-        LOBYTE(v12) = [v12 isEqual:v13];
+        v14 = *(*(a1 + 32) + 8);
+        v15 = [MEMORY[0x1E69C89E8] inMemoryDatabaseURL];
+        LOBYTE(v14) = [v14 isEqual:v15];
 
-        if ((v12 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
-          v27[0] = @"PerSiteSettingName";
-          v27[1] = @"Domain";
-          v14 = *(a1 + 56);
-          v15 = *(a1 + 48);
-          v28[0] = *(a1 + 64);
-          v28[1] = v14;
-          v27[2] = @"Value";
-          v28[2] = v15;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
-          v17 = [v16 mutableCopy];
+          v29[0] = @"PerSiteSettingName";
+          v29[1] = @"Domain";
+          v16 = *(a1 + 56);
+          v17 = *(a1 + 48);
+          v30[0] = *(a1 + 64);
+          v30[1] = v16;
+          v29[2] = @"Value";
+          v30[2] = v17;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+          v19 = [v18 mutableCopy];
 
-          v18 = *(*(a1 + 32) + 32);
-          v19 = [v17 copy];
-          [v18 saveCloudPerSiteSettingWithDictionaryRepresentation:v19 successCompletionHandler:&__block_literal_global_89];
+          v20 = *(*(a1 + 32) + 32);
+          v21 = [v19 copy];
+          [v20 saveCloudPerSiteSettingWithDictionaryRepresentation:v21 successCompletionHandler:&__block_literal_global_89];
         }
       }
     }
@@ -345,13 +345,13 @@ void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_wit
   }
 }
 
-void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_withTimestamp_completionHandler___block_invoke_22()
+void __100__WBSPerSitePreferencesSQLiteStore_setValue_ofPreference_forDomain_withTimestamp_completionHandler___block_invoke_22(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BB6F3000, v0, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v3, 2u);
   }
 }
 
@@ -383,13 +383,13 @@ void __105__WBSPerSitePreferencesSQLiteStore_getValueOfPreference_forDomain_with
 
 - (id)_valueOfPreferences:(id)preferences forDomain:(id)domain
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   domainCopy = domain;
   if (!domainCopy)
   {
-    v25 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(0, v7);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [WBSPerSitePreferencesSQLiteStore _valueOfPreferences:forDomain:];
     }
@@ -401,78 +401,78 @@ void __105__WBSPerSitePreferencesSQLiteStore_getValueOfPreference_forDomain_with
   if (![(WBSPerSitePreferencesSQLiteStore *)self _isDatabaseOpen])
   {
 LABEL_16:
-    v26 = [objc_alloc(MEMORY[0x1E69C88F0]) initWithFirst:&unk_1F3A9AF70 second:0];
+    v27 = [objc_alloc(MEMORY[0x1E69C88F0]) initWithFirst:&unk_1F3A9AF70 second:0];
     goto LABEL_19;
   }
 
   string = [MEMORY[0x1E696AD60] string];
-  v36[0] = domainCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-  v29 = [v8 arrayByAddingObjectsFromArray:preferencesCopy];
+  v37[0] = domainCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+  v30 = [v9 arrayByAddingObjectsFromArray:preferencesCopy];
 
-  v9 = MEMORY[0x1E696AEC0];
-  v10 = [@"?" safari_stringByRepeatingWithCount:objc_msgSend(preferencesCopy joinedByString:{"count"), @", "}];
-  v11 = [v9 stringWithFormat:@"preference IN (%@)", v10];
-  [string appendString:v11];
+  v10 = MEMORY[0x1E696AEC0];
+  v11 = [@"?" safari_stringByRepeatingWithCount:objc_msgSend(preferencesCopy joinedByString:{"count"), @", "}];
+  v12 = [v10 stringWithFormat:@"preference IN (%@)", v11];
+  [string appendString:v12];
 
-  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT preference_value, preference FROM preference_values WHERE domain = ? AND (%@)", string];
-  v28 = [(WBSSQLiteDatabase *)self->_database fetchQuery:v12 stringArguments:v29];
+  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT preference_value, preference FROM preference_values WHERE domain = ? AND (%@)", string];
+  v29 = [(WBSSQLiteDatabase *)self->_database fetchQuery:v13 stringArguments:v30];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v14 = v28;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v15)
+  v33 = 0u;
+  v15 = v29;
+  v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v16)
   {
-    v16 = *v32;
+    v17 = *v33;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v32 != v16)
+        if (*v33 != v17)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
-        v19 = [v18 stringAtIndex:1];
-        if (v19)
+        v19 = *(*(&v32 + 1) + 8 * i);
+        v20 = [v19 stringAtIndex:1];
+        if (v20)
         {
-          v20 = [v18 objectAtIndex:0];
-          [dictionary setObject:v20 forKeyedSubscript:v19];
+          v21 = [v19 objectAtIndex:0];
+          [dictionary setObject:v21 forKeyedSubscript:v20];
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  statement = [v14 statement];
+  statement = [v15 statement];
   [statement invalidate];
 
-  if ([v14 lastResultCode] == 101)
+  if ([v15 lastResultCode] == 101)
   {
-    v22 = objc_alloc(MEMORY[0x1E69C88F0]);
-    v23 = &unk_1F3A9AF88;
-    v24 = dictionary;
+    v23 = objc_alloc(MEMORY[0x1E69C88F0]);
+    v24 = &unk_1F3A9AF88;
+    v25 = dictionary;
   }
 
   else
   {
-    v22 = objc_alloc(MEMORY[0x1E69C88F0]);
-    v24 = 0;
-    v23 = &unk_1F3A9AF70;
+    v23 = objc_alloc(MEMORY[0x1E69C88F0]);
+    v25 = 0;
+    v24 = &unk_1F3A9AF70;
   }
 
-  v26 = [v22 initWithFirst:v23 second:v24];
+  v27 = [v23 initWithFirst:v24 second:v25];
 
 LABEL_19:
 
-  return v26;
+  return v27;
 }
 
 - (id)valueOfPreference:(id)preference forDomain:(id)domain
@@ -872,35 +872,35 @@ void __107__WBSPerSitePreferencesSQLiteStore_getValuesOfPreference_forDomains_wi
 
 void __91__WBSPerSitePreferencesSQLiteStore_getAllDomainsConfiguredForPreference_completionHandler___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&>(*(*(a1 + 32) + 24), @"SELECT domain FROM preference_values WHERE preference = ?", (a1 + 40));
     v3 = [MEMORY[0x1E695DFA8] set];
+    v20 = 0u;
+    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v26 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v5)
     {
-      v6 = *v17;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [*(*(&v16 + 1) + 8 * i) stringAtIndex:0];
+          v8 = [*(*(&v18 + 1) + 8 * i) stringAtIndex:0];
           [v3 addObject:v8];
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v16 objects:v26 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v5);
@@ -910,20 +910,21 @@ void __91__WBSPerSitePreferencesSQLiteStore_getAllDomainsConfiguredForPreference
     [v9 invalidate];
 
     v10 = [v4 lastResultCode];
+    v12 = v10;
     if (v10 != 101)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 40);
-        v14 = [*(*(a1 + 32) + 24) lastErrorMessage];
+        v15 = *(a1 + 40);
+        v16 = [*(*(a1 + 32) + 24) lastErrorMessage];
         *buf = 138412802;
-        v21 = v13;
-        v22 = 2114;
-        v23 = v14;
-        v24 = 1024;
-        v25 = v10;
-        _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to get all domains configured for preference: %@: %{public}@ (%d)", buf, 0x1Cu);
+        v23 = v15;
+        v24 = 2114;
+        v25 = v16;
+        v26 = 1024;
+        v27 = v12;
+        _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to get all domains configured for preference: %@: %{public}@ (%d)", buf, 0x1Cu);
       }
     }
 
@@ -932,9 +933,9 @@ void __91__WBSPerSitePreferencesSQLiteStore_getAllDomainsConfiguredForPreference
 
   else
   {
-    v12 = *(a1 + 48);
-    v15 = [MEMORY[0x1E695DFD8] set];
-    (*(v12 + 16))(v12);
+    v14 = *(a1 + 48);
+    v17 = [MEMORY[0x1E695DFD8] set];
+    (*(v14 + 16))(v14);
   }
 }
 
@@ -984,29 +985,29 @@ void __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomains_fr
 
 uint64_t __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomains_fromPreference_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v44 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v24 objects:v39 count:16];
+  v2 = [obj countByEnumeratingWithState:&v28 objects:v43 count:16];
   if (v2)
   {
-    v4 = *v25;
+    v4 = *v29;
     *&v3 = 141558787;
-    v22 = v3;
+    v26 = v3;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v25 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v24 + 1) + 8 * i);
-        v6 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&,NSString * const {__strong}>(*(*(a1 + 40) + 24), @"SELECT sync_data FROM preference_values WHERE preference = ? AND domain = ?", (a1 + 48), &v28);
+        v32 = *(*(&v28 + 1) + 8 * i);
+        v6 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&,NSString * const {__strong}>(*(*(a1 + 40) + 24), @"SELECT sync_data FROM preference_values WHERE preference = ? AND domain = ?", (a1 + 48), &v32);
         v7 = [v6 nextObject];
         v8 = v7;
         if (v7)
@@ -1022,67 +1023,69 @@ uint64_t __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomain
         v10 = [v6 statement];
         [v10 invalidate];
 
-        if (([v6 lastResultCode] & 0xFFFFFFFE) != 0x64)
+        v11 = [v6 lastResultCode];
+        if ((v11 & 0xFFFFFFFE) != 0x64)
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v13 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v16 = *(a1 + 48);
-            *buf = v22;
-            v32 = 1752392040;
-            v33 = 2117;
-            v34 = v16;
-            v35 = 2160;
+            v20 = *(a1 + 48);
+            *buf = v26;
             v36 = 1752392040;
             v37 = 2117;
-            v38 = v28;
-            _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to fetch sync data before deletion for preference: %{sensitive, mask.hash}@ and domain: %{sensitive, mask.hash}@", buf, 0x2Au);
+            v38 = v20;
+            v39 = 2160;
+            v40 = 1752392040;
+            v41 = 2117;
+            v42 = v32;
+            _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to fetch sync data before deletion for preference: %{sensitive, mask.hash}@ and domain: %{sensitive, mask.hash}@", buf, 0x2Au);
           }
         }
 
-        v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,NSString * const {__strong}>(*(*(a1 + 40) + 24), 0, @"DELETE from preference_values WHERE preference = ? AND domain = ?", (a1 + 48), &v28);
-        if (v12 != 101)
+        v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,NSString * const {__strong}>(*(*(a1 + 40) + 24), 0, @"DELETE from preference_values WHERE preference = ? AND domain = ?", (a1 + 48), &v32);
+        v16 = v14;
+        if (v14 != 101)
         {
-          v18 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v22 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v14, v15);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v20 = v28;
-            v21 = [*(*(a1 + 40) + 24) lastErrorMessage];
+            v24 = v32;
+            v25 = [*(*(a1 + 40) + 24) lastErrorMessage];
             *buf = 138412802;
-            v32 = v20;
-            v33 = 2114;
-            v34 = v21;
-            v35 = 1024;
-            LODWORD(v36) = v12;
-            _os_log_error_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_ERROR, "Failed to delete domain: %@ from preference_values: %{public}@ (%d)", buf, 0x1Cu);
+            v36 = v24;
+            v37 = 2114;
+            v38 = v25;
+            v39 = 1024;
+            LODWORD(v40) = v16;
+            _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Failed to delete domain: %@ from preference_values: %{public}@ (%d)", buf, 0x1Cu);
           }
 
-          v17 = 0;
+          v21 = 0;
           goto LABEL_24;
         }
 
         if ([objc_opt_class() isPreferenceSyncable:*(a1 + 48)] && objc_msgSend(MEMORY[0x1E69C8880], "isPerSiteSettingSyncEnabled"))
         {
-          v29[0] = @"UseDefaultValue";
-          v29[1] = @"PerSiteSettingName";
-          v13 = *(a1 + 48);
-          v30[0] = MEMORY[0x1E695E118];
-          v30[1] = v13;
-          v29[2] = @"Domain";
-          v30[2] = v28;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
-          v15 = [v14 mutableCopy];
+          v33[0] = @"UseDefaultValue";
+          v33[1] = @"PerSiteSettingName";
+          v17 = *(a1 + 48);
+          v34[0] = MEMORY[0x1E695E118];
+          v34[1] = v17;
+          v33[2] = @"Domain";
+          v34[2] = v32;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
+          v19 = [v18 mutableCopy];
 
           if (v9)
           {
-            [v15 setObject:v9 forKeyedSubscript:@"SyncData"];
+            [v19 setObject:v9 forKeyedSubscript:@"SyncData"];
           }
 
-          [*(*(a1 + 40) + 32) saveCloudPerSiteSettingWithDictionaryRepresentation:v15 successCompletionHandler:{&__block_literal_global_68, v22}];
+          [*(*(a1 + 40) + 32) saveCloudPerSiteSettingWithDictionaryRepresentation:v19 successCompletionHandler:{&__block_literal_global_68, v26}];
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v24 objects:v39 count:16];
+      v2 = [obj countByEnumeratingWithState:&v28 objects:v43 count:16];
       if (v2)
       {
         continue;
@@ -1092,19 +1095,19 @@ uint64_t __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomain
     }
   }
 
-  v17 = 1;
+  v21 = 1;
 LABEL_24:
 
-  return v17;
+  return v21;
 }
 
-void __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomains_fromPreference_completionHandler___block_invoke_66()
+void __102__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomains_fromPreference_completionHandler___block_invoke_66(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BB6F3000, v0, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v3, 2u);
   }
 }
 
@@ -1152,49 +1155,49 @@ void __110__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomainPref
 
 uint64_t __110__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomainPrefixes_fromPreferences_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v14 = [*(a1 + 32) _queryListForPreferences:*(a1 + 40)];
+  v29 = *MEMORY[0x1E69E9840];
+  v16 = [*(a1 + 32) _queryListForPreferences:*(a1 + 40)];
+  v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   obj = *(a1 + 48);
-  v2 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
+  v2 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v2)
   {
-    v3 = *v17;
+    v3 = *v19;
     while (2)
     {
       v4 = 0;
       do
       {
-        if (*v17 != v3)
+        if (*v19 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v16 + 1) + 8 * v4);
+        v5 = *(*(&v18 + 1) + 8 * v4);
         v6 = *(*(a1 + 32) + 24);
-        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DELETE from preference_values WHERE preference in (%@) AND domain LIKE ?", v14];
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%%", v5];
-        v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}>(v6, 0, v7, &v15);
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DELETE from preference_values WHERE preference in (%@) AND domain LIKE ?", v16];
+        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%%", v5];
+        v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}>(v6, 0, v7, &v17);
 
         if (v8 != 101)
         {
-          v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v12 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v9, v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v12 = [*(*(a1 + 32) + 24) lastErrorMessage];
+            v14 = [*(*(a1 + 32) + 24) lastErrorMessage];
             *buf = 138412802;
-            v21 = v5;
-            v22 = 2114;
-            v23 = v12;
-            v24 = 1024;
-            v25 = v8;
-            _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete domain prefix: %@ from preference_values: %{public}@ (%d)", buf, 0x1Cu);
+            v23 = v5;
+            v24 = 2114;
+            v25 = v14;
+            v26 = 1024;
+            v27 = v8;
+            _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to delete domain prefix: %@ from preference_values: %{public}@ (%d)", buf, 0x1Cu);
           }
 
-          v9 = 0;
+          v11 = 0;
           goto LABEL_13;
         }
 
@@ -1202,7 +1205,7 @@ uint64_t __110__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomain
       }
 
       while (v2 != v4);
-      v2 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
+      v2 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
       if (v2)
       {
         continue;
@@ -1212,15 +1215,15 @@ uint64_t __110__WBSPerSitePreferencesSQLiteStore_removePreferenceValuesForDomain
     }
   }
 
-  v9 = 1;
+  v11 = 1;
 LABEL_13:
 
-  return v9;
+  return v11;
 }
 
 - (id)_defaultValueForPreference:(id)preference
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   preferenceCopy = preference;
   [(WBSPerSitePreferencesSQLiteStore *)self _openDatabaseIfNecessary];
   if ([(WBSPerSitePreferencesSQLiteStore *)self _isDatabaseOpen])
@@ -1242,26 +1245,28 @@ LABEL_13:
     [statement invalidate];
 
     lastResultCode = [v4 lastResultCode];
+    v13 = lastResultCode;
+    v14 = lastResultCode & 0xFFFFFFFE;
     if ((lastResultCode & 0xFFFFFFFE) != 0x64)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(lastResultCode, v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = preferenceCopy;
+        v19 = preferenceCopy;
         lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         *buf = 138412802;
-        v20 = v16;
-        v21 = 2114;
-        v22 = lastErrorMessage;
-        v23 = 1024;
-        v24 = lastResultCode;
-        _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch default value for preference: %@: %{public}@ (%d)", buf, 0x1Cu);
+        v23 = v19;
+        v24 = 2114;
+        v25 = lastErrorMessage;
+        v26 = 1024;
+        v27 = v13;
+        _os_log_error_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_ERROR, "Failed to fetch default value for preference: %@: %{public}@ (%d)", buf, 0x1Cu);
       }
     }
 
-    v13 = objc_alloc(MEMORY[0x1E69C88F0]);
-    v14 = [MEMORY[0x1E696AD98] numberWithBool:(lastResultCode & 0xFFFFFFFE) == 100];
-    v9 = [v13 initWithFirst:v14 second:v7];
+    v16 = objc_alloc(MEMORY[0x1E69C88F0]);
+    v17 = [MEMORY[0x1E696AD98] numberWithBool:v14 == 100];
+    v9 = [v16 initWithFirst:v17 second:v7];
   }
 
   else
@@ -1357,7 +1362,7 @@ void __83__WBSPerSitePreferencesSQLiteStore_getDefaultValueForPreference_complet
 
 void __84__WBSPerSitePreferencesSQLiteStore_setDefaultValue_forPreference_completionHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
@@ -1366,44 +1371,46 @@ void __84__WBSPerSitePreferencesSQLiteStore_setDefaultValue_forPreference_comple
     {
       v2 = *(*(a1 + 32) + 24);
       *buf = [*(a1 + 40) integerValue];
-      v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,long>(v2, 0, @"INSERT INTO default_preferences (preference, default_value) VALUES (?, ?) ON CONFLICT (preference) DO UPDATE SET preference = excluded.preference, default_value = excluded.default_value", (a1 + 48), buf);
+      isKindOfClass = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,long>(v2, 0, @"INSERT INTO default_preferences (preference, default_value) VALUES (?, ?) ON CONFLICT (preference) DO UPDATE SET preference = excluded.preference, default_value = excluded.default_value", (a1 + 48), buf);
+      v5 = isKindOfClass;
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v3 = 1;
+        v5 = 1;
         goto LABEL_13;
       }
 
-      v6 = *(*(a1 + 32) + 24);
-      v15 = *(a1 + 40);
-      v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,NSString * {__strong}>(v6, 0, @"INSERT INTO default_preferences (preference, default_value) VALUES (?, ?) ON CONFLICT (preference) DO UPDATE SET preference = excluded.preference, default_value = excluded.default_value", (a1 + 48), &v15);
+      v8 = *(*(a1 + 32) + 24);
+      v17 = *(a1 + 40);
+      v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,NSString * {__strong}>(v8, 0, @"INSERT INTO default_preferences (preference, default_value) VALUES (?, ?) ON CONFLICT (preference) DO UPDATE SET preference = excluded.preference, default_value = excluded.default_value", (a1 + 48), &v17);
     }
 
-    if (v3 == 101)
+    if (v5 == 101)
     {
-      v7 = 1;
+      v9 = 1;
 LABEL_16:
-      v9 = *(a1 + 56);
-      if (v9)
+      v11 = *(a1 + 56);
+      if (v11)
       {
-        (*(v9 + 16))(v9, v7);
+        (*(v11 + 16))(v11, v9);
       }
 
-      if (v7 && *(a1 + 48) && *(a1 + 40) && [objc_opt_class() isPreferenceSyncable:*(a1 + 48)])
+      if (v9 && *(a1 + 48) && *(a1 + 40) && [objc_opt_class() isPreferenceSyncable:*(a1 + 48)])
       {
         if ([MEMORY[0x1E69C8880] isPerSiteSettingSyncEnabled])
         {
-          v16[0] = @"PerSiteSettingName";
-          v16[1] = @"Value";
-          v10 = *(a1 + 40);
-          v17[0] = *(a1 + 48);
-          v17[1] = v10;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
-          [*(*(a1 + 32) + 32) saveCloudPerSiteSettingWithDictionaryRepresentation:v11 successCompletionHandler:&__block_literal_global_84];
+          v18[0] = @"PerSiteSettingName";
+          v18[1] = @"Value";
+          v12 = *(a1 + 40);
+          v19[0] = *(a1 + 48);
+          v19[1] = v12;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+          [*(*(a1 + 32) + 32) saveCloudPerSiteSettingWithDictionaryRepresentation:v13 successCompletionHandler:&__block_literal_global_84];
         }
       }
 
@@ -1411,43 +1418,43 @@ LABEL_16:
     }
 
 LABEL_13:
-    v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(isKindOfClass, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v14 = [*(*(a1 + 32) + 24) lastErrorMessage];
+      v15 = *(a1 + 40);
+      v14 = *(a1 + 48);
+      v16 = [*(*(a1 + 32) + 24) lastErrorMessage];
       *buf = 138413058;
-      *&buf[4] = v13;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2114;
+      *&buf[4] = v15;
+      v21 = 2112;
       v22 = v14;
-      v23 = 1024;
-      v24 = v3;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set default value: %@ for preference: %@: %{public}@ (%d)", buf, 0x26u);
+      v23 = 2114;
+      v24 = v16;
+      v25 = 1024;
+      v26 = v5;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to set default value: %@ for preference: %@: %{public}@ (%d)", buf, 0x26u);
     }
 
-    v7 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
-  v4 = *(a1 + 56);
-  if (v4)
+  v6 = *(a1 + 56);
+  if (v6)
   {
-    v5 = *(v4 + 16);
+    v7 = *(v6 + 16);
 
-    v5();
+    v7();
   }
 }
 
-void __84__WBSPerSitePreferencesSQLiteStore_setDefaultValue_forPreference_completionHandler___block_invoke_82()
+void __84__WBSPerSitePreferencesSQLiteStore_setDefaultValue_forPreference_completionHandler___block_invoke_82(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BB6F3000, v0, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Safari's per-site settings have been updated in CloudKit", v3, 2u);
   }
 }
 
@@ -1524,25 +1531,25 @@ void __97__WBSPerSitePreferencesSQLiteStore_getTimestampAndValueOfPreference_for
 
 void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPreference_completionHandler___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
-    v17 = a1;
-    v16 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&>(*(*(a1 + 32) + 24), @"SELECT domain, preference_value, strftime('%s', timestamp) FROM preference_values WHERE preference = ?", (a1 + 40));
-    v19 = [MEMORY[0x1E695DFA8] set];
+    v19 = a1;
+    v18 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&>(*(*(a1 + 32) + 24), @"SELECT domain, preference_value, strftime('%s', timestamp) FROM preference_values WHERE preference = ?", (a1 + 40));
+    v21 = [MEMORY[0x1E695DFA8] set];
+    v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    obj = v16;
+    obj = v18;
     v2 = 0;
     v3 = 0;
     v4 = 0;
-    v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v5)
     {
-      v6 = *v22;
+      v6 = *v24;
       do
       {
         v7 = 0;
@@ -1551,12 +1558,12 @@ void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPrefer
         v10 = v4;
         do
         {
-          if (*v22 != v6)
+          if (*v24 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v7);
+          v11 = *(*(&v23 + 1) + 8 * v7);
           v4 = [v11 stringAtIndex:0];
 
           v3 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v11, "intAtIndex:", 1)}];
@@ -1564,7 +1571,7 @@ void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPrefer
           v2 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:{objc_msgSend(v11, "intAtIndex:", 2)}];
 
           v12 = [[WBSPerSitePreferenceValueInformation alloc] initWithDomain:v4 value:v3 creationDate:v2];
-          [v19 addObject:v12];
+          [v21 addObject:v12];
 
           ++v7;
           v8 = v2;
@@ -1573,7 +1580,7 @@ void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPrefer
         }
 
         while (v5 != v7);
-        v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v5);
@@ -1582,25 +1589,26 @@ void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPrefer
     v13 = [obj statement];
     [v13 invalidate];
 
-    if ([obj lastResultCode] != 101)
+    v14 = [obj lastResultCode];
+    if (v14 != 101)
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [*(*(v17 + 32) + 24) lastErrorMessage];
+        [*(*(v19 + 32) + 24) lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
         __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPreference_completionHandler___block_invoke_cold_1();
       }
     }
 
-    (*(*(v17 + 48) + 16))();
+    (*(*(v19 + 48) + 16))();
   }
 
   else
   {
-    v15 = *(a1 + 48);
-    v20 = [MEMORY[0x1E695DFD8] set];
-    (*(v15 + 16))(v15);
+    v17 = *(a1 + 48);
+    v22 = [MEMORY[0x1E695DFD8] set];
+    (*(v17 + 16))(v17);
   }
 }
 
@@ -1623,32 +1631,33 @@ void __95__WBSPerSitePreferencesSQLiteStore_getAllPreferenceInformationForPrefer
 
 uint64_t __94__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValuesFromPreference_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 24), 0, @"DELETE FROM preference_values WHERE preference = ?", (a1 + 40));
+    v4 = v2;
     if (v2 != 101)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v2, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v6 = *(a1 + 40);
-        v7 = [*(*(a1 + 32) + 24) lastErrorMessage];
-        v8 = 138412802;
-        v9 = v6;
-        v10 = 2114;
-        v11 = v7;
-        v12 = 1024;
-        v13 = v2;
-        _os_log_error_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_ERROR, "Failed to delete all preference values from preference %@: %{public}@ (%d)", &v8, 0x1Cu);
+        v8 = *(a1 + 40);
+        v9 = [*(*(a1 + 32) + 24) lastErrorMessage];
+        v10 = 138412802;
+        v11 = v8;
+        v12 = 2114;
+        v13 = v9;
+        v14 = 1024;
+        v15 = v4;
+        _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Failed to delete all preference values from preference %@: %{public}@ (%d)", &v10, 0x1Cu);
       }
     }
 
     result = *(a1 + 48);
     if (result)
     {
-      return (*(result + 16))(result, v2 == 101);
+      return (*(result + 16))(result, v4 == 101);
     }
   }
 
@@ -1657,9 +1666,9 @@ uint64_t __94__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValuesFromPre
     result = *(a1 + 48);
     if (result)
     {
-      v5 = *(result + 16);
+      v7 = *(result + 16);
 
-      return v5();
+      return v7();
     }
   }
 
@@ -1685,7 +1694,7 @@ uint64_t __94__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValuesFromPre
 
 void __95__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValuesFromPreferences_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
@@ -1696,35 +1705,35 @@ void __95__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValuesFromPrefere
 
     if (v5 != 101)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = [*(*(a1 + 32) + 24) lastErrorMessage];
+        v12 = [*(*(a1 + 32) + 24) lastErrorMessage];
         *buf = 138412802;
-        v12 = v2;
-        v13 = 2114;
-        v14 = v10;
-        v15 = 1024;
-        v16 = v5;
-        _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Failed to delete all preference values from preferences (%@): %{public}@ (%d)", buf, 0x1Cu);
+        v14 = v2;
+        v15 = 2114;
+        v16 = v12;
+        v17 = 1024;
+        v18 = v5;
+        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete all preference values from preferences (%@): %{public}@ (%d)", buf, 0x1Cu);
       }
     }
 
-    v7 = *(a1 + 48);
-    if (v7)
+    v9 = *(a1 + 48);
+    if (v9)
     {
-      (*(v7 + 16))(v7, v5 == 101);
+      (*(v9 + 16))(v9, v5 == 101);
     }
   }
 
   else
   {
-    v8 = *(a1 + 48);
-    if (v8)
+    v10 = *(a1 + 48);
+    if (v10)
     {
-      v9 = *(v8 + 16);
+      v11 = *(v10 + 16);
 
-      v9();
+      v11();
     }
   }
 }
@@ -1749,10 +1758,11 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"DELETE FROM preference_values");
+    v4 = v2;
     if (v2 != 101)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v2, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [*(*(a1 + 32) + 24) lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -1763,7 +1773,7 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
     result = *(a1 + 40);
     if (result)
     {
-      return (*(result + 16))(result, v2 == 101);
+      return (*(result + 16))(result, v4 == 101);
     }
   }
 
@@ -1772,9 +1782,9 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
     result = *(a1 + 40);
     if (result)
     {
-      v5 = *(result + 16);
+      v7 = *(result + 16);
 
-      return v5();
+      return v7();
     }
   }
 
@@ -1783,26 +1793,26 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
 
 - (void)savePerSiteSettingCloudKitRecordToDisk:(id)disk completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
   handlerCopy = handler;
   v8 = [diskCopy objectForKeyedSubscript:@"UseDefaultValue"];
 
   if (v8)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       safari_encodedRecordData = [diskCopy safari_encodedRecordData];
       recordID = [diskCopy recordID];
       recordName = [recordID recordName];
-      v28 = 141558531;
-      v29 = 1752392040;
-      v30 = 2117;
-      v31 = safari_encodedRecordData;
-      v32 = 2114;
-      v33 = recordName;
-      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Saving deleted CloudKit sync data: %{sensitive, mask.hash}@ with record name: %{public}@.", &v28, 0x20u);
+      v32 = 141558531;
+      v33 = 1752392040;
+      v34 = 2117;
+      v35 = safari_encodedRecordData;
+      v36 = 2114;
+      v37 = recordName;
+      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Saving deleted CloudKit sync data: %{sensitive, mask.hash}@ with record name: %{public}@.", &v32, 0x20u);
     }
 
     safari_encodedRecordData2 = [diskCopy safari_encodedRecordData];
@@ -1821,27 +1831,27 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
 
     if (safari_encodedRecordData2)
     {
-      v18 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v22 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         recordID3 = [diskCopy recordID];
         recordName3 = [recordID3 recordName];
         safari_encodedRecordData3 = [diskCopy safari_encodedRecordData];
-        v28 = 141559555;
-        v29 = 1752392040;
-        v30 = 2117;
-        v31 = recordName3;
-        v32 = 2114;
-        v33 = safari_encodedRecordData3;
-        v34 = 2160;
-        v35 = 1752392040;
-        v36 = 2117;
-        v37 = recordID2;
+        v32 = 141559555;
+        v33 = 1752392040;
+        v34 = 2117;
+        v35 = recordName3;
+        v36 = 2114;
+        v37 = safari_encodedRecordData3;
         v38 = 2160;
         v39 = 1752392040;
         v40 = 2117;
-        v41 = safari_encodedRecordData2;
-        _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_INFO, "Saving sync data: %{sensitive, mask.hash}@ and record name: %{public}@ for preference: %{sensitive, mask.hash}@ and domain: %{sensitive, mask.hash}@.", &v28, 0x48u);
+        v41 = recordID2;
+        v42 = 2160;
+        v43 = 1752392040;
+        v44 = 2117;
+        v45 = safari_encodedRecordData2;
+        _os_log_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_INFO, "Saving sync data: %{sensitive, mask.hash}@ and record name: %{public}@ for preference: %{sensitive, mask.hash}@ and domain: %{sensitive, mask.hash}@.", &v32, 0x48u);
       }
 
       recordName2 = [diskCopy safari_encodedRecordData];
@@ -1852,23 +1862,23 @@ uint64_t __62__WBSPerSitePreferencesSQLiteStore_removeAllPreferenceValues___bloc
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v28 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v20, v21);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         recordID5 = [diskCopy recordID];
         recordName5 = [recordID5 recordName];
         safari_encodedRecordData4 = [diskCopy safari_encodedRecordData];
-        v28 = 141559043;
-        v29 = 1752392040;
-        v30 = 2117;
-        v31 = recordName5;
-        v32 = 2114;
-        v33 = safari_encodedRecordData4;
-        v34 = 2160;
-        v35 = 1752392040;
-        v36 = 2117;
-        v37 = recordID2;
-        _os_log_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_INFO, "Saving sync data: %{sensitive, mask.hash}@ and record name: %{public}@ for preference: %{sensitive, mask.hash}@.", &v28, 0x34u);
+        v32 = 141559043;
+        v33 = 1752392040;
+        v34 = 2117;
+        v35 = recordName5;
+        v36 = 2114;
+        v37 = safari_encodedRecordData4;
+        v38 = 2160;
+        v39 = 1752392040;
+        v40 = 2117;
+        v41 = recordID2;
+        _os_log_impl(&dword_1BB6F3000, v28, OS_LOG_TYPE_INFO, "Saving sync data: %{sensitive, mask.hash}@ and record name: %{public}@ for preference: %{sensitive, mask.hash}@.", &v32, 0x34u);
       }
 
       recordName2 = [diskCopy safari_encodedRecordData];
@@ -1915,20 +1925,21 @@ void __79__WBSPerSitePreferencesSQLiteStore_getSyncDataForPreference_completionH
     v7 = [v2 statement];
     [v7 invalidate];
 
-    v8 = [v2 lastResultCode] & 0xFFFFFFFE;
-    if (v8 != 100)
+    v8 = [v2 lastResultCode];
+    v10 = v8 & 0xFFFFFFFE;
+    if ((v8 & 0xFFFFFFFE) != 0x64)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __79__WBSPerSitePreferencesSQLiteStore_getSyncDataForPreference_completionHandler___block_invoke_cold_1();
       }
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v12 = *(a1 + 48);
+    if (v12)
     {
-      (*(v10 + 16))(v10, v5, v8 == 100);
+      (*(v12 + 16))(v12, v5, v10 == 100);
     }
   }
 
@@ -1981,20 +1992,21 @@ void __86__WBSPerSitePreferencesSQLiteStore_getSyncDataForPreference_domain_comp
     v7 = [v2 statement];
     [v7 invalidate];
 
-    v8 = [v2 lastResultCode] & 0xFFFFFFFE;
-    if (v8 != 100)
+    v8 = [v2 lastResultCode];
+    v10 = v8 & 0xFFFFFFFE;
+    if ((v8 & 0xFFFFFFFE) != 0x64)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __86__WBSPerSitePreferencesSQLiteStore_getSyncDataForPreference_domain_completionHandler___block_invoke_cold_1();
       }
     }
 
-    v10 = *(a1 + 56);
-    if (v10)
+    v12 = *(a1 + 56);
+    if (v12)
     {
-      (*(v10 + 16))(v10, v5, v8 == 100);
+      (*(v12 + 16))(v12, v5, v10 == 100);
     }
   }
 
@@ -2044,20 +2056,21 @@ void __94__WBSPerSitePreferencesSQLiteStore_getDeletedCloudKitSyncDataForRecordN
     v7 = [v2 statement];
     [v7 invalidate];
 
-    v8 = [v2 lastResultCode] & 0xFFFFFFFE;
-    if (v8 != 100)
+    v8 = [v2 lastResultCode];
+    v10 = v8 & 0xFFFFFFFE;
+    if ((v8 & 0xFFFFFFFE) != 0x64)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __94__WBSPerSitePreferencesSQLiteStore_getDeletedCloudKitSyncDataForRecordName_completionHandler___block_invoke_cold_1();
       }
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v12 = *(a1 + 48);
+    if (v12)
     {
-      (*(v10 + 16))(v10, v5, v8 == 100);
+      (*(v12 + 16))(v12, v5, v10 == 100);
     }
   }
 
@@ -2092,10 +2105,11 @@ uint64_t __90__WBSPerSitePreferencesSQLiteStore_removePreferenceValueWithRecordN
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 24), 0, @"DELETE FROM preference_values WHERE record_name = ?", (a1 + 40));
+    v4 = v2;
     if (v2 != 101)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v2, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __90__WBSPerSitePreferencesSQLiteStore_removePreferenceValueWithRecordName_completionHandler___block_invoke_cold_1();
       }
@@ -2104,7 +2118,7 @@ uint64_t __90__WBSPerSitePreferencesSQLiteStore_removePreferenceValueWithRecordN
     result = *(a1 + 48);
     if (result)
     {
-      return (*(result + 16))(result, v2 == 101);
+      return (*(result + 16))(result, v4 == 101);
     }
   }
 
@@ -2113,9 +2127,9 @@ uint64_t __90__WBSPerSitePreferencesSQLiteStore_removePreferenceValueWithRecordN
     result = *(a1 + 48);
     if (result)
     {
-      v5 = *(result + 16);
+      v7 = *(result + 16);
 
-      return v5();
+      return v7();
     }
   }
 
@@ -2141,29 +2155,32 @@ uint64_t __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithComp
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"UPDATE default_preferences SET sync_data = NULL") != 101)
+    v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"UPDATE default_preferences SET sync_data = NULL");
+    if (v2 != 101)
     {
-      v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithCompletionHandler___block_invoke_cold_1();
       }
     }
 
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"UPDATE preference_values SET sync_data = NULL") != 101)
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"UPDATE preference_values SET sync_data = NULL");
+    if (v5 != 101)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithCompletionHandler___block_invoke_cold_2();
       }
     }
 
-    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"DROP TABLE IF EXISTS deleted_cloudkit_records");
-    if (v4 != 101)
+    v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 24), 0, @"DROP TABLE IF EXISTS deleted_cloudkit_records");
+    v10 = v8;
+    if (v8 != 101)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithCompletionHandler___block_invoke_cold_3();
       }
@@ -2172,7 +2189,7 @@ uint64_t __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithComp
     result = *(a1 + 40);
     if (result)
     {
-      return (*(result + 16))(result, v4 == 101);
+      return (*(result + 16))(result, v10 == 101);
     }
   }
 
@@ -2181,9 +2198,9 @@ uint64_t __82__WBSPerSitePreferencesSQLiteStore_removeAllCloudKitRecordsWithComp
     result = *(a1 + 40);
     if (result)
     {
-      v7 = *(result + 16);
+      v13 = *(result + 16);
 
-      return v7();
+      return v13();
     }
   }
 
@@ -2212,10 +2229,11 @@ uint64_t __84__WBSPerSitePreferencesSQLiteStore_removeTombstoneWithRecordName_co
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 24), 0, @"DELETE FROM deleted_cloudkit_records WHERE record_name = ?", (a1 + 40)) != 101)
+    v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(*(*(a1 + 32) + 24), 0, @"DELETE FROM deleted_cloudkit_records WHERE record_name = ?", (a1 + 40));
+    if (v2 != 101)
     {
-      v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __84__WBSPerSitePreferencesSQLiteStore_removeTombstoneWithRecordName_completionHandler___block_invoke_cold_1();
       }
@@ -2226,9 +2244,9 @@ uint64_t __84__WBSPerSitePreferencesSQLiteStore_removeTombstoneWithRecordName_co
 
   else
   {
-    v4 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v6();
   }
 }
 
@@ -2241,11 +2259,11 @@ uint64_t __84__WBSPerSitePreferencesSQLiteStore_removeTombstoneWithRecordName_co
   [(WBSPerSitePreferencesSQLiteStore *)self removeAllCloudKitRecordsWithCompletionHandler:&__block_literal_global_127_1];
 }
 
-void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke(uint64_t a1, int a2)
+void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
+    v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke_cold_1();
@@ -2253,11 +2271,11 @@ void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke(uint
   }
 }
 
-void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke_125(uint64_t a1, int a2)
+void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke_125(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
+    v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke_125_cold_1();
@@ -2287,43 +2305,43 @@ void __53__WBSPerSitePreferencesSQLiteStore_removeAllSyncData__block_invoke_125(
 
 void __81__WBSPerSitePreferencesSQLiteStore__setSyncData_forPreference_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNecessary];
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:*(*(a1 + 32) + 24) query:{@"INSERT INTO default_preferences (preference, sync_data) VALUES (?, ?) ON CONFLICT (preference) DO UPDATE SET sync_data = excluded.sync_data"}];
     SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSData * const {__strong}&>(v2, (a1 + 40), (a1 + 48));
     v3 = [v2 execute];
-    [v2 invalidate];
+    v4 = [v2 invalidate];
     if (v3 != 101)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v5 = *(a1 + 40);
-        v9 = 141558275;
-        v10 = 1752392040;
-        v11 = 2117;
-        v12 = v5;
-        _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Failed to insert default sync data for preference: %{sensitive, mask.hash}@", &v9, 0x16u);
+        v7 = *(a1 + 40);
+        v11 = 141558275;
+        v12 = 1752392040;
+        v13 = 2117;
+        v14 = v7;
+        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Failed to insert default sync data for preference: %{sensitive, mask.hash}@", &v11, 0x16u);
       }
     }
 
-    v6 = *(a1 + 56);
-    if (v6)
+    v8 = *(a1 + 56);
+    if (v8)
     {
-      (*(v6 + 16))(v6, v3 == 101);
+      (*(v8 + 16))(v8, v3 == 101);
     }
   }
 
   else
   {
-    v7 = *(a1 + 56);
-    if (v7)
+    v9 = *(a1 + 56);
+    if (v9)
     {
-      v8 = *(v7 + 16);
+      v10 = *(v9 + 16);
 
-      v8();
+      v10();
     }
   }
 }
@@ -2362,31 +2380,31 @@ void __99__WBSPerSitePreferencesSQLiteStore__setSyncData_forPreference_domain_re
     v2 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:*(*(a1 + 32) + 24) query:{@"INSERT INTO preference_values (domain, preference, sync_data, record_name) VALUES (?, ?, ?, ?) ON CONFLICT (domain, preference) DO UPDATE SET sync_data = excluded.sync_data, record_name = excluded.record_name"}];
     SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSString * const {__strong},NSData * const {__strong}&,NSString * const {__strong}>(v2, (a1 + 40), (a1 + 48), (a1 + 56), (a1 + 64));
     v3 = [v2 execute];
-    [v2 invalidate];
+    v4 = [v2 invalidate];
     if (v3 != 101)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __99__WBSPerSitePreferencesSQLiteStore__setSyncData_forPreference_domain_recordName_completionHandler___block_invoke_cold_1();
       }
     }
 
-    v5 = *(a1 + 72);
-    if (v5)
+    v7 = *(a1 + 72);
+    if (v7)
     {
-      (*(v5 + 16))(v5, v3 == 101);
+      (*(v7 + 16))(v7, v3 == 101);
     }
   }
 
   else
   {
-    v6 = *(a1 + 72);
-    if (v6)
+    v8 = *(a1 + 72);
+    if (v8)
     {
-      v7 = *(v6 + 16);
+      v9 = *(v8 + 16);
 
-      v7();
+      v9();
     }
   }
 }
@@ -2419,32 +2437,32 @@ void __96__WBSPerSitePreferencesSQLiteStore__setDeletedCloudKitSyncData_forRecor
     v2 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:*(*(a1 + 32) + 24) query:{@"INSERT INTO deleted_cloudkit_records (record_name, sync_data) VALUES (?, ?) ON CONFLICT (record_name) DO UPDATE SET sync_data = excluded.sync_data"}];
     SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * const {__strong}&,NSData * const {__strong}&>(v2, (a1 + 40), (a1 + 48));
     v3 = [v2 execute];
-    [v2 invalidate];
+    v4 = [v2 invalidate];
     if (v3 != 101)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Failed to insert deleted CloudKit sync data.", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Failed to insert deleted CloudKit sync data.", v10, 2u);
       }
     }
 
-    v5 = *(a1 + 56);
-    if (v5)
+    v7 = *(a1 + 56);
+    if (v7)
     {
-      (*(v5 + 16))(v5, v3 == 101);
+      (*(v7 + 16))(v7, v3 == 101);
     }
   }
 
   else
   {
-    v6 = *(a1 + 56);
-    if (v6)
+    v8 = *(a1 + 56);
+    if (v8)
     {
-      v7 = *(v6 + 16);
+      v9 = *(v8 + 16);
 
-      v7();
+      v9();
     }
   }
 }
@@ -2538,24 +2556,24 @@ BOOL __60__WBSPerSitePreferencesSQLiteStore__migrateToSchemaVersion___block_invo
 
 - (int)_setDatabaseSchemaVersion:(int)version
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   database = self->_database;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", *&version];
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       *buf = 67109634;
       versionCopy = version;
-      v13 = 2114;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set the Per Site Preferences store database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+      v15 = 2114;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to set the Per Site Preferences store database schema version to %d: %{public}@ (%d)", buf, 0x18u);
     }
   }
 
@@ -2567,9 +2585,9 @@ BOOL __60__WBSPerSitePreferencesSQLiteStore__migrateToSchemaVersion___block_invo
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE default_preferences (id INTEGER PRIMARY KEY AUTOINCREMENT,preference TEXT NOT NULL UNIQUE,default_value NUMERIC,sync_data BLOB NULL)");
   if (v3 != 101)
   {
-    v5 = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v3;
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2579,26 +2597,27 @@ BOOL __60__WBSPerSitePreferencesSQLiteStore__migrateToSchemaVersion___block_invo
     goto LABEL_10;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE preference_values (id INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL,preference TEXT NOT NULL,preference_value NUMERIC,timestamp TEXT NULL,sync_data BLOB NULL,record_name TEXT NULL,UNIQUE(domain, preference))");
-  if (v4 != 101)
-  {
-    v5 = v4;
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSPerSitePreferencesSQLiteStore _createFreshDatabaseSchema];
-    }
-
-    goto LABEL_10;
-  }
-
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE deleted_cloudkit_records (record_name TEXT NOT NULL UNIQUE,sync_data BLOB)");
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE preference_values (id INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL,preference TEXT NOT NULL,preference_value NUMERIC,timestamp TEXT NULL,sync_data BLOB NULL,record_name TEXT NULL,UNIQUE(domain, preference))");
   if (v5 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v5;
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSPerSitePreferencesSQLiteStore _createFreshDatabaseSchema];
+    }
+
+    goto LABEL_10;
+  }
+
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE deleted_cloudkit_records (record_name TEXT NOT NULL UNIQUE,sync_data BLOB)");
+  v9 = v7;
+  if (v7 != 101)
+  {
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2608,16 +2627,17 @@ BOOL __60__WBSPerSitePreferencesSQLiteStore__migrateToSchemaVersion___block_invo
 LABEL_10:
   }
 
-  return v5;
+  return v9;
 }
 
 - (int)_migrateToSchemaVersion_2
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE preference_values ADD COLUMN timestamp TEXT");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2625,7 +2645,7 @@ LABEL_10:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_3
@@ -2633,9 +2653,9 @@ LABEL_10:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE preference_values ADD COLUMN sync_data BLOB");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2645,11 +2665,12 @@ LABEL_10:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE preference_values ADD COLUMN record_name TEXT");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE preference_values ADD COLUMN record_name TEXT");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2659,16 +2680,17 @@ LABEL_10:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 - (int)_migrateToSchemaVersion_4
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE default_preferences ADD COLUMN sync_data BLOB");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2676,16 +2698,17 @@ LABEL_7:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_6
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS deleted_cloudkit_records (record_name TEXT NOT NULL UNIQUE,sync_data BLOB)");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2693,7 +2716,7 @@ LABEL_7:
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)_closeDatabase
@@ -2711,10 +2734,11 @@ LABEL_7:
     goto LABEL_15;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION") != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
+  if (v5 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2727,15 +2751,16 @@ LABEL_7:
   if (!blockCopy[2](blockCopy))
   {
 LABEL_11:
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ROLLBACK TRANSACTION") == 101)
+    v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ROLLBACK TRANSACTION");
+    if (v12 == 101)
     {
 LABEL_15:
-      v5 = 0;
+      v9 = 0;
       goto LABEL_16;
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v12, v13);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2747,10 +2772,11 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION") != 101)
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+  if (v7 != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v7, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -2760,10 +2786,10 @@ LABEL_14:
     goto LABEL_11;
   }
 
-  v5 = 1;
+  v9 = 1;
 LABEL_16:
 
-  return v5;
+  return v9;
 }
 
 - (void)_valueOfPreferences:forDomain:.cold.1()

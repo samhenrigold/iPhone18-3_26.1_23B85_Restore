@@ -1,4 +1,5 @@
 @interface IOKitNotificationPort
++ (void)callbackWithContext:(void *)context iterator:(unsigned int)iterator;
 - (IOKitNotificationPort)init;
 - (void)addMatching:(id)matching type:(const char *)type block:(id)block;
 - (void)dealloc;
@@ -34,6 +35,32 @@
   [(IOKitNotificationPort *)&v3 dealloc];
 }
 
++ (void)callbackWithContext:(void *)context iterator:(unsigned int)iterator
+{
+  v5 = [[IOKitObjectHolder alloc] initWithObject:*&iterator];
+  if (context && v5)
+  {
+    v10 = v5;
+    contextCopy = context;
+    nextObject = [(IOKitObjectHolder *)v10 nextObject];
+    if (nextObject)
+    {
+      v8 = nextObject;
+      do
+      {
+        (*(contextCopy[3] + 16))();
+        nextObject2 = [(IOKitObjectHolder *)v10 nextObject];
+
+        v8 = nextObject2;
+      }
+
+      while (nextObject2);
+    }
+
+    v5 = v10;
+  }
+}
+
 - (void)addMatching:(id)matching type:(const char *)type block:(id)block
 {
   refCon = self;
@@ -48,7 +75,7 @@
   if (v13)
   {
     v14 = v13;
-    v15 = sub_100001170();
+    v15 = sub_100001170(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10001428C(v12, v14, v15);

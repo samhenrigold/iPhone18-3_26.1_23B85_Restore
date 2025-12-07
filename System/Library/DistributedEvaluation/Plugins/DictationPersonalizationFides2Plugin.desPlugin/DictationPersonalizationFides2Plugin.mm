@@ -1,3 +1,33 @@
+void sub_3220(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v33 = objc_begin_catch(a1);
+    v34 = AFSiriLogContextFides;
+    if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "[FidesSelfHelper _decodingMetricsFromMetricsDict:]";
+      WORD6(buf) = 2112;
+      *(&buf + 14) = a10;
+      _os_log_error_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "%s Fides SELF: Encountered malformed string during SELF logging for interpolation weights in speech results from recognizer. String: %@", &buf, 0x16u);
+      v34 = AFSiriLogContextFides;
+    }
+
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = "[FidesSelfHelper _decodingMetricsFromMetricsDict:]";
+      _os_log_error_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "%s Fides SELF: Expected interpolation weight sets separated by delimter ';' - starting with a set of weights delimited by ',' and ending the with start/end times delimited by ':'. Ex: '0.999646,0.000354:0:4280;0.947514,0.000158:0:3859'", &buf, 0xCu);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x31ACLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_3330(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
@@ -120,11 +150,7 @@ uint64_t sub_6C18(uint64_t result)
 {
   if ((*(*(result + 32) + 16) & 1) == 0)
   {
-    v2 = result;
-    v3 = [[CoreEmbeddedSpeechRecognizer alloc] initWithDelegate:0 instanceUUID:&CoreEmbeddedSpeechRecognizerInstanceUUIDBackground];
-    v4 = *(v2 + 32);
-    v5 = *(v4 + 32);
-    *(v4 + 32) = v3;
+    *(*(result + 32) + 32) = [[CoreEmbeddedSpeechRecognizer alloc] initWithDelegate:0 instanceUUID:&CoreEmbeddedSpeechRecognizerInstanceUUIDBackground];
 
     return _objc_release_x1();
   }
@@ -183,9 +209,9 @@ void sub_6E70(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v56 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
-      v57 = 2112;
-      v58 = v6;
+      v54 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
+      v55 = 2112;
+      v56 = v6;
       _os_log_error_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%s Error running evaluation %@", buf, 0x16u);
     }
   }
@@ -196,168 +222,165 @@ void sub_6E70(uint64_t a1, void *a2, void *a3)
     v9 = [v5 objectForKeyedSubscript:@"modelVersion"];
     [v8 setValue:v9 forKey:@"modelVersion"];
 
-    v52 = 0u;
-    v53 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v43 = v5;
+    v48 = 0u;
+    v49 = 0u;
+    v41 = v5;
     obj = [v5 objectForKeyedSubscript:@"results"];
-    v10 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v10 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = &NSStringFromClass_ptr;
-      v46 = *v51;
+      v44 = *v49;
       do
       {
-        v13 = 0;
-        v44 = v11;
+        v12 = 0;
+        v42 = v11;
         do
         {
-          if (*v51 != v46)
+          if (*v49 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v50 + 1) + 8 * v13);
-          v15 = v12[103];
-          v16 = objc_opt_new();
-          v17 = [v14 objectForKeyedSubscript:@"correctedOutput"];
-          v18 = [v14 objectForKeyedSubscript:@"recognizedOutput"];
-          v49 = v16;
-          if (v17)
+          v13 = *(*(&v48 + 1) + 8 * v12);
+          v14 = objc_opt_new();
+          v15 = [v13 objectForKeyedSubscript:@"correctedOutput"];
+          v16 = [v13 objectForKeyedSubscript:@"recognizedOutput"];
+          v47 = v14;
+          if (v15)
           {
-            v48 = v13;
-            if (*(a1 + 64) == 1 && ([v14 objectForKeyedSubscript:@"editDistanceRecognizedTTSASR"], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "integerValue"), v19, v16 = v49, v20))
+            v46 = v12;
+            if (*(a1 + 64) == 1 && ([v13 objectForKeyedSubscript:@"editDistanceRecognizedTTSASR"], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "integerValue"), v17, v14 = v47, v18))
             {
-              v21 = AFSiriLogContextFides;
+              v19 = AFSiriLogContextFides;
               if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315138;
-                v56 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
-                _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%s Recognized text and TTS ASR output did not match but was required to match, continuing", buf, 0xCu);
+                v54 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
+                _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%s Recognized text and TTS ASR output did not match but was required to match, continuing", buf, 0xCu);
               }
 
-              v22 = v49;
-              [v49 setValue:&off_11680 forKey:@"errorCode"];
-              [*(a1 + 32) addObject:v49];
+              v20 = v47;
+              [v47 setValue:&off_11680 forKey:@"errorCode"];
+              [*(a1 + 32) addObject:v47];
             }
 
             else
             {
-              [v16 setValue:&off_11698 forKey:@"errorCode"];
-              v23 = [v14 objectForKeyedSubscript:@"timestamp"];
-              [v49 setValue:v23 forKey:@"timestamp"];
+              [v14 setValue:&off_11698 forKey:@"errorCode"];
+              v21 = [v13 objectForKeyedSubscript:@"timestamp"];
+              [v47 setValue:v21 forKey:@"timestamp"];
 
-              v24 = [v14 objectForKeyedSubscript:@"interactionId"];
-              [v49 setValue:v24 forKey:@"interactionId"];
+              v22 = [v13 objectForKeyedSubscript:@"interactionId"];
+              [v47 setValue:v22 forKey:@"interactionId"];
 
-              v25 = [v14 objectForKeyedSubscript:@"asrSelfComponentIdentifier"];
-              [v49 setValue:v25 forKey:@"asrSelfComponentIdentifier"];
+              v23 = [v13 objectForKeyedSubscript:@"asrSelfComponentIdentifier"];
+              [v47 setValue:v23 forKey:@"asrSelfComponentIdentifier"];
 
-              v22 = v49;
-              v26 = [v17 count];
-              v27 = [v49 mutableCopy];
-              if (v26 >= 1)
+              v20 = v47;
+              v24 = [v15 count];
+              v25 = [v47 mutableCopy];
+              if (v24 >= 1)
               {
-                v28 = 0;
+                v26 = 0;
                 do
                 {
-                  v47 = v27;
-                  v29 = (v28 + 1);
+                  v45 = v25;
+                  v27 = (v26 + 1);
                   while (1)
                   {
-                    v30 = [v17 objectAtIndexedSubscript:v28];
-                    v31 = [v18 objectAtIndexedSubscript:v28];
-                    v32 = sub_7478(v30, v31, *(a1 + 65));
+                    v28 = [v15 objectAtIndexedSubscript:v26];
+                    v29 = [v16 objectAtIndexedSubscript:v26];
+                    v30 = sub_7478(v28, v29, *(a1 + 65));
 
-                    if ((v32 & 1) == 0)
+                    if ((v30 & 1) == 0)
                     {
                       break;
                     }
 
-                    ++v28;
-                    ++v29;
-                    if (v28 >= v26)
+                    ++v26;
+                    ++v27;
+                    if (v26 >= v24)
                     {
-                      v22 = v49;
-                      v27 = v47;
+                      v20 = v47;
+                      v25 = v45;
                       goto LABEL_31;
                     }
                   }
 
                   do
                   {
-                    v33 = v29;
-                    if (v29 >= v26)
+                    v31 = v27;
+                    if (v27 >= v24)
                     {
                       break;
                     }
 
-                    v34 = [v17 objectAtIndexedSubscript:v29];
-                    v35 = [v18 objectAtIndexedSubscript:v29];
-                    v36 = sub_7478(v34, v35, *(a1 + 65));
+                    v32 = [v15 objectAtIndexedSubscript:v27];
+                    v33 = [v16 objectAtIndexedSubscript:v27];
+                    v34 = sub_7478(v32, v33, *(a1 + 65));
 
-                    ++v29;
+                    ++v27;
                   }
 
-                  while (!v36);
-                  v37 = &v28[-*(a1 + 48)];
-                  v38 = v37 & ~(v37 >> 63);
-                  v39 = *(a1 + 56) + v33;
-                  if (v26 >= v39)
+                  while (!v34);
+                  v35 = &v26[-*(a1 + 48)];
+                  v36 = v35 & ~(v35 >> 63);
+                  v37 = *(a1 + 56) + v31;
+                  if (v24 >= v37)
                   {
-                    v28 = v39;
+                    v26 = v37;
                   }
 
                   else
                   {
-                    v28 = v26;
+                    v26 = v24;
                   }
 
-                  v40 = [v17 subarrayWithRange:{v37 & ~(v37 >> 63), &v28[-v38]}];
-                  [v47 setValue:v40 forKey:@"correctedPair"];
+                  v38 = [v15 subarrayWithRange:{v35 & ~(v35 >> 63), &v26[-v36]}];
+                  [v45 setValue:v38 forKey:@"correctedPair"];
 
-                  v41 = [v18 subarrayWithRange:{v38, &v28[-v38]}];
-                  [v47 setValue:v41 forKey:@"recognizedPair"];
+                  v39 = [v16 subarrayWithRange:{v36, &v26[-v36]}];
+                  [v45 setValue:v39 forKey:@"recognizedPair"];
 
-                  [*(a1 + 32) addObject:v47];
-                  v22 = v49;
-                  v27 = [v49 mutableCopy];
+                  [*(a1 + 32) addObject:v45];
+                  v20 = v47;
+                  v25 = [v47 mutableCopy];
                 }
 
-                while (v39 < v26);
+                while (v37 < v24);
               }
 
 LABEL_31:
 
-              v11 = v44;
-              v12 = &NSStringFromClass_ptr;
+              v11 = v42;
             }
 
-            v13 = v48;
+            v12 = v46;
           }
 
           else
           {
-            v42 = AFSiriLogContextFides;
+            v40 = AFSiriLogContextFides;
             if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v56 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
-              _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "%s ASR failure when performing systematic error evaluation, continuing", buf, 0xCu);
+              v54 = "[DictationPersonalizationFidesPlugin performSystematicErrorEvaluation:]_block_invoke";
+              _os_log_impl(&dword_0, v40, OS_LOG_TYPE_INFO, "%s ASR failure when performing systematic error evaluation, continuing", buf, 0xCu);
             }
 
-            v22 = v49;
-            [v49 setValue:&off_11668 forKey:@"errorCode"];
-            [*(a1 + 32) addObject:v49];
+            v20 = v47;
+            [v47 setValue:&off_11668 forKey:@"errorCode"];
+            [*(a1 + 32) addObject:v47];
           }
 
-          v13 = v13 + 1;
+          v12 = v12 + 1;
         }
 
-        while (v13 != v11);
-        v11 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+        while (v12 != v11);
+        v11 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v11);
@@ -365,7 +388,7 @@ LABEL_31:
 
     [*(*(*(a1 + 40) + 8) + 40) setValue:*(a1 + 32) forKey:@"confusionPairs"];
     v6 = 0;
-    v5 = v43;
+    v5 = v41;
   }
 }
 
@@ -394,7 +417,7 @@ unint64_t sub_7478(void *a1, void *a2, int a3)
 void sub_7C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Unwind_Resume(a1);
 }
 
@@ -402,11 +425,7 @@ uint64_t sub_7CA4(uint64_t result)
 {
   if ((*(*(result + 32) + 16) & 1) == 0)
   {
-    v2 = result;
-    v3 = [[CoreEmbeddedSpeechRecognizer alloc] initWithDelegate:0 instanceUUID:&CoreEmbeddedSpeechRecognizerInstanceUUIDBackground];
-    v4 = *(v2 + 32);
-    v5 = *(v4 + 32);
-    *(v4 + 32) = v3;
+    *(*(result + 32) + 32) = [[CoreEmbeddedSpeechRecognizer alloc] initWithDelegate:0 instanceUUID:&CoreEmbeddedSpeechRecognizerInstanceUUIDBackground];
 
     return _objc_release_x1();
   }
@@ -510,6 +529,13 @@ void sub_7EC4(void *a1, void *a2, void *a3)
   }
 }
 
+void sub_8D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_8D58(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -521,11 +547,7 @@ uint64_t sub_8DB8(uint64_t result)
 {
   if ((*(*(result + 32) + 16) & 1) == 0)
   {
-    v2 = result;
-    v3 = objc_alloc_init(SpeechModelTrainingClient);
-    v4 = *(v2 + 32);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = v3;
+    *(*(result + 32) + 24) = objc_alloc_init(SpeechModelTrainingClient);
 
     return _objc_release_x1();
   }

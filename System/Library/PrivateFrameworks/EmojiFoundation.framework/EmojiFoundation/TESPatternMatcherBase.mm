@@ -80,33 +80,35 @@ void __54__TESPatternMatcherBase_matchesForString_searchRange___block_invoke(uin
   v7 = [v4 createMatchResultForMatchRange:v5 sourceString:{v6, *(a1 + 40)}];
   v8 = [v3 range];
   [v3 range];
-  if (v9 + v8 != [*(a1 + 40) length])
+  v10 = v9 + v8;
+  v11 = [*(a1 + 40) length];
+  if (v10 != v11)
   {
-    v10 = *(a1 + 40);
-    v11 = [v3 range];
+    v12 = *(a1 + 40);
+    v13 = [v3 range];
     [v3 range];
-    v13 = [v10 characterAtIndex:v12 + v11];
-    v14 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-    if ([v14 characterIsMember:v13])
+    v15 = [v12 characterAtIndex:v14 + v13];
+    v16 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
+    if ([v16 characterIsMember:v15])
     {
     }
 
     else
     {
-      v15 = [MEMORY[0x1E696AB08] punctuationCharacterSet];
-      v16 = [v15 characterIsMember:v13];
+      v17 = [MEMORY[0x1E696AB08] punctuationCharacterSet];
+      v18 = [v17 characterIsMember:v15];
 
-      if (!v16)
+      if (!v18)
       {
         goto LABEL_8;
       }
     }
   }
 
-  v17 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = emf_logging_get_default_log(v11);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    __54__TESPatternMatcherBase_matchesForString_searchRange___block_invoke_cold_1(v7, v17);
+    __54__TESPatternMatcherBase_matchesForString_searchRange___block_invoke_cold_1(v7, v19);
   }
 
   [*(a1 + 48) addObject:v7];

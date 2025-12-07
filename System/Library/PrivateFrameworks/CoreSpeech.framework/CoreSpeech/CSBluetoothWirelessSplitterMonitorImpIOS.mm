@@ -1,12 +1,24 @@
 @interface CSBluetoothWirelessSplitterMonitorImpIOS
 - (CSBluetoothWirelessSplitterMonitorImpIOS)init;
 - (void)_didReceiveWirelessSplitterStateChange;
+- (void)_notifyObserver:(id)observer splitterState:(unint64_t)state shouldDisableSpeakerVerificationInSplitterMode:(BOOL)mode;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 - (void)splitterState:(id)state;
 @end
 
 @implementation CSBluetoothWirelessSplitterMonitorImpIOS
+
+- (void)_notifyObserver:(id)observer splitterState:(unint64_t)state shouldDisableSpeakerVerificationInSplitterMode:(BOOL)mode
+{
+  modeCopy = mode;
+  observerCopy = observer;
+  [(CSBluetoothWirelessSplitterMonitorImpIOS *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSBluetoothWirelessSplitterMonitor:self didReceiveSplitterStateChange:state shouldDisableSpeakerVerificationInSplitterMode:modeCopy];
+  }
+}
 
 - (void)_didReceiveWirelessSplitterStateChange
 {

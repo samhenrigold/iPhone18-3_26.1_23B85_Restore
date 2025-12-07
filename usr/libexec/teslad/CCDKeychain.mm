@@ -1,9 +1,77 @@
 @interface CCDKeychain
 + (BOOL)setData:(id)data forService:(id)service account:(id)account label:(id)label description:(id)description access:(void *)access group:(id)group useSystemKeychain:(BOOL)self0 sysBound:(BOOL)self1 outError:(id *)self2;
 + (__CFDictionary)_newQueryWithService:(id)service account:(id)account label:(id)label description:(id)description group:(id)group useSystemKeychain:(BOOL)keychain outError:(id *)error;
++ (id)dataFromService:(id)service account:(id)account label:(id)label description:(id)description group:(id)group useSystemKeychain:(BOOL)keychain outError:(id *)error;
 @end
 
 @implementation CCDKeychain
+
++ (id)dataFromService:(id)service account:(id)account label:(id)label description:(id)description group:(id)group useSystemKeychain:(BOOL)keychain outError:(id *)error
+{
+  v20 = 0;
+  v9 = [CCDKeychain _newQueryWithService:service account:account label:label description:description group:group useSystemKeychain:keychain outError:&v20];
+  v10 = v20;
+  if (v10)
+  {
+    v11 = v10;
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+
+    goto LABEL_4;
+  }
+
+  CFDictionaryAddValue(v9, kSecReturnData, kCFBooleanTrue);
+  *buf = 0;
+  v15 = SecItemCopyMatching(v9, buf);
+  CFRelease(v9);
+  if (v15)
+  {
+    v16 = v15 == -25300;
+  }
+
+  else
+  {
+    v16 = 1;
+  }
+
+  if (!v16)
+  {
+    v18 = [NSString stringWithFormat:@"%d", v15];
+    v19 = DEPErrorArray();
+    v11 = [NSError DEPErrorWithDomain:@"CCDKeychainErrorDomain" code:6000 descriptionArray:v19 errorType:DEPErrorTypeFatal, v18, 0];
+
+    if (!v11)
+    {
+LABEL_9:
+      v14 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_4:
+    if (error)
+    {
+      v12 = v11;
+      *error = v11;
+    }
+
+    v13 = *(DEPLogObjects() + 8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      *&buf[4] = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Cannot retrieve item from keychain. Error: %{public}@", buf, 0xCu);
+    }
+
+    goto LABEL_9;
+  }
+
+  v14 = *buf;
+LABEL_16:
+
+  return v14;
+}
 
 + (BOOL)setData:(id)data forService:(id)service account:(id)account label:(id)label description:(id)description access:(void *)access group:(id)group useSystemKeychain:(BOOL)self0 sysBound:(BOOL)self1 outError:(id *)self2
 {

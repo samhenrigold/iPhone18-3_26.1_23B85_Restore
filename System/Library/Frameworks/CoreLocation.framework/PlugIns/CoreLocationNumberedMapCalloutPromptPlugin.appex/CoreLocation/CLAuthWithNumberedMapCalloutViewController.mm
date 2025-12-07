@@ -594,27 +594,20 @@ LABEL_17:
 
 - (void)viewWillLayoutSubviews
 {
-  v33.receiver = self;
-  v33.super_class = CLAuthWithNumberedMapCalloutViewController;
-  [(CLAuthBaseViewController *)&v33 viewWillLayoutSubviews];
+  v29.receiver = self;
+  v29.super_class = CLAuthWithNumberedMapCalloutViewController;
+  [(CLAuthBaseViewController *)&v29 viewWillLayoutSubviews];
   mapCountSubLabel = [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
 
   if (mapCountSubLabel)
   {
     mapCountSubLabel2 = [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
     [mapCountSubLabel2 intrinsicContentSize];
-    v6 = v5 + 8.0;
-  }
-
-  else
-  {
-    v6 = 0.0;
   }
 
   if ([(CLAuthWithNumberedMapCalloutViewController *)self showMapView])
   {
-    mapCountSubLabel3 = [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
-    v8 = v6 + dbl_10000AFF0[mapCountSubLabel3 == 0];
+    [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
   }
 
   mapSubLabel = [(CLAuthWithNumberedMapCalloutViewController *)self mapSubLabel];
@@ -623,8 +616,8 @@ LABEL_17:
   {
     mapSubLabel2 = [(CLAuthWithNumberedMapCalloutViewController *)self mapSubLabel];
     [mapSubLabel2 intrinsicContentSize];
-    mapCountSubLabel4 = [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
-    if (!mapCountSubLabel4)
+    mapCountSubLabel3 = [(CLAuthWithNumberedMapCalloutViewController *)self mapCountSubLabel];
+    if (!mapCountSubLabel3)
     {
       [(CLAuthWithNumberedMapCalloutViewController *)self showMapView];
     }
@@ -635,18 +628,18 @@ LABEL_17:
   mapView = [(CLAuthBaseViewController *)self mapView];
   mapView2 = [(CLAuthBaseViewController *)self mapView];
   [mapView2 region];
-  v15 = v14;
-  v17 = v16;
+  v11 = v10;
+  v13 = v12;
   view = [(CLAuthWithNumberedMapCalloutViewController *)self view];
-  [mapView convertCoordinate:view toPointToView:{v15, v17}];
-  v20 = v19;
-  v22 = v21;
+  [mapView convertCoordinate:view toPointToView:{v11, v13}];
+  v16 = v15;
+  v18 = v17;
 
   blueDotView = [(CLAuthWithNumberedMapCalloutViewController *)self blueDotView];
-  [blueDotView setCenter:{v20, v22 + -3.0}];
+  [blueDotView setCenter:{v16, v18 + -3.0}];
 
   hudCircleView = [(CLAuthWithNumberedMapCalloutViewController *)self hudCircleView];
-  [hudCircleView setCenter:{v20, v22 + -3.0}];
+  [hudCircleView setCenter:{v16, v18 + -3.0}];
 
   annotationViews = [(CLAuthWithNumberedMapCalloutViewController *)self annotationViews];
   sub_10000560C([annotationViews count], __p);
@@ -654,17 +647,17 @@ LABEL_17:
   for (i = 0; ; ++i)
   {
     annotationViews2 = [(CLAuthWithNumberedMapCalloutViewController *)self annotationViews];
-    v28 = [annotationViews2 count];
+    v24 = [annotationViews2 count];
 
-    if (i >= v28)
+    if (i >= v24)
     {
       break;
     }
 
-    v29 = __sincos_stret(*(__p[0] + i) * -3.14159265 / 180.0);
+    v25 = __sincos_stret(*(__p[0] + i) * -3.14159265 / 180.0);
     annotationViews3 = [(CLAuthWithNumberedMapCalloutViewController *)self annotationViews];
-    v31 = [annotationViews3 objectAtIndexedSubscript:i];
-    [v31 setFrame:{v20 + -80.0 + 80.0 + v29.__cosval * 80.0 + -80.0, v22 + -80.0 + -3.0 + 80.0 + v29.__sinval * 80.0 + -80.0, 160.0, 160.0}];
+    v27 = [annotationViews3 objectAtIndexedSubscript:i];
+    [v27 setFrame:{v16 + -80.0 + 80.0 + v25.__cosval * 80.0 + -80.0, v18 + -80.0 + -3.0 + 80.0 + v25.__sinval * 80.0 + -80.0, 160.0, 160.0}];
   }
 
   if (__p[0])

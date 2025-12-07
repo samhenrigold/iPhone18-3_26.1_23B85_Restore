@@ -1,16 +1,16 @@
-void sub_25C660904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_25C660904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(&a20);
   Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(&a46);
-  Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(&a72);
-  Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(v72);
-  Nightingale::fwEstimatorLuna::~fwEstimatorLuna((v73 - 184));
-  Nightingale::fwEstimatorOPK::~fwEstimatorOPK((v73 - 136));
-  Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar((v73 - 112));
+  Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(&a65);
+  Nightingale::fwEstimatorHistOutACycle::~fwEstimatorHistOutACycle(v65);
+  Nightingale::fwEstimatorLuna::~fwEstimatorLuna((v66 - 184));
+  Nightingale::fwEstimatorOPK::~fwEstimatorOPK((v66 - 136));
+  Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar((v66 - 112));
   _Unwind_Resume(a1);
 }
 
-void std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<float>,false> const&>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<float>,false> const&>(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 24) == *(a2 + 24))
   {
@@ -29,7 +29,7 @@ void std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:n
     v6 = *a1;
     if (*a1)
     {
-      *(a1 + 8) = v6;
+      a1[1] = v6;
       operator delete(v6);
     }
 
@@ -39,8 +39,8 @@ void std::__optional_storage_base<std::vector<float>,false>::__assign_from[abi:n
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
     *(a1 + 24) = 1;
   }
@@ -134,7 +134,7 @@ uint64_t julianDayMinAnalysisWindow(NSNumber *a1)
   return v6 | v4 | v5;
 }
 
-id deviation(uint64_t a1)
+NgtMenstrualAlgorithmsDeviation *deviation(uint64_t a1)
 {
   if (*a1 != 1 || (*(a1 + 4) & 0x80000000) != 0 || (*(a1 + 8) & 0x80000000) != 0)
   {
@@ -151,7 +151,7 @@ id deviation(uint64_t a1)
   return v2;
 }
 
-id deviationAnalysis(uint64_t a1)
+NgtMenstrualAlgorithmsDeviationAnalysis *deviationAnalysis(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = deviation(a1);
@@ -274,7 +274,7 @@ void sub_25C666310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -288,37 +288,37 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void convert_day_input(NgtMenstrualAlgorithmsDayInput *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void convert_day_input(uint64_t *__return_ptr a1@<X8>, NgtMenstrualAlgorithmsDayInput *a2@<X0>, int a3@<W1>)
 {
-  v5 = a1;
-  *(a3 + 12) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 20) = 0;
-  *(a3 + 24) = 0;
-  *(a3 + 28) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 36) = 0;
-  *(a3 + 40) = 0;
-  *(a3 + 44) = 0;
-  *(a3 + 48) = 0;
-  *(a3 + 56) = 0;
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  v5 = a2;
+  *(a1 + 3) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 20) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 28) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 36) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 44) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *a1 = 0;
+  *(a1 + 8) = 0;
   v21 = v5;
-  *a3 = [(NgtMenstrualAlgorithmsDayInput *)v5 julianDay];
-  *(a3 + 4) = [(NgtMenstrualAlgorithmsDayInput *)v21 flow];
-  *(a3 + 8) = [(NgtMenstrualAlgorithmsDayInput *)v21 spotting];
-  *(a3 + 12) = [(NgtMenstrualAlgorithmsDayInput *)v21 ovulationTestResult];
+  *a1 = [(NgtMenstrualAlgorithmsDayInput *)v5 julianDay];
+  *(a1 + 1) = [(NgtMenstrualAlgorithmsDayInput *)v21 flow];
+  *(a1 + 8) = [(NgtMenstrualAlgorithmsDayInput *)v21 spotting];
+  *(a1 + 3) = [(NgtMenstrualAlgorithmsDayInput *)v21 ovulationTestResult];
   v6 = [(NgtMenstrualAlgorithmsDayInput *)v21 sedentaryHeartRateStatistics];
   v7 = [v6 lowerPercentile];
 
@@ -326,18 +326,18 @@ void convert_day_input(NgtMenstrualAlgorithmsDayInput *a1@<X0>, int a2@<W1>, uin
   {
     v8 = [v6 lowerPercentile];
     [v8 floatValue];
-    *(a3 + 16) = v9;
-    *(a3 + 20) = 1;
+    *(a1 + 4) = v9;
+    *(a1 + 20) = 1;
 
     v10 = [v6 sampleCount];
-    *(a3 + 36) = 1;
-    *(a3 + 32) = v10;
+    *(a1 + 36) = 1;
+    *(a1 + 8) = v10;
   }
 
   else
   {
-    *(a3 + 32) = 0;
-    *(a3 + 36) = 1;
+    *(a1 + 8) = 0;
+    *(a1 + 36) = 1;
   }
 
   v11 = [(NgtMenstrualAlgorithmsDayInput *)v21 sleepHeartRateStatistics];
@@ -347,18 +347,18 @@ void convert_day_input(NgtMenstrualAlgorithmsDayInput *a1@<X0>, int a2@<W1>, uin
   {
     v13 = [v11 lowerPercentile];
     [v13 floatValue];
-    *(a3 + 24) = v14;
-    *(a3 + 28) = 1;
+    *(a1 + 6) = v14;
+    *(a1 + 28) = 1;
 
     v15 = [v11 sampleCount];
-    *(a3 + 44) = 1;
-    *(a3 + 40) = v15;
+    *(a1 + 44) = 1;
+    *(a1 + 10) = v15;
   }
 
   else
   {
-    *(a3 + 40) = 0;
-    *(a3 + 44) = 1;
+    *(a1 + 10) = 0;
+    *(a1 + 44) = 1;
   }
 
   v16 = [(NgtMenstrualAlgorithmsDayInput *)v21 wristTemperature];
@@ -370,9 +370,9 @@ void convert_day_input(NgtMenstrualAlgorithmsDayInput *a1@<X0>, int a2@<W1>, uin
     v19 = v18;
 
     v20 = v19;
-    *(a3 + 48) = a2;
-    *(a3 + 52) = v20;
-    *(a3 + 56) = 1;
+    *(a1 + 12) = a3;
+    *(a1 + 13) = v20;
+    *(a1 + 56) = 1;
   }
 }
 
@@ -396,19 +396,19 @@ void sub_25C666B50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25C6676B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25C6676B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::pair<std::vector<float>,std::vector<float>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25C667C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25C667C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v7 = v6;
-  MEMORY[0x25F88A130](v7, 0x10B2C40BD969C95);
+  va_start(va, a7);
+  v10 = v9;
+  MEMORY[0x25F88A130](v10, 0x10B2C40BD969C95);
   Nightingale::ngt_Config::~ngt_Config(va);
 
   _Unwind_Resume(a1);
@@ -522,7 +522,7 @@ Nightingale::ngt_DayStreamProcessor *std::unique_ptr<Nightingale::ngt_DayStreamP
   return result;
 }
 
-Nightingale::ngt_HistoricalAnalyzer *std::unique_ptr<Nightingale::ngt_HistoricalAnalyzer>::reset[abi:ne200100](Nightingale::ngt_HistoricalAnalyzer **a1, Nightingale::ngt_HistoricalAnalyzer *a2)
+void **std::unique_ptr<Nightingale::ngt_HistoricalAnalyzer>::reset[abi:ne200100](void ***a1, void **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -538,7 +538,7 @@ Nightingale::ngt_HistoricalAnalyzer *std::unique_ptr<Nightingale::ngt_Historical
 
 Nightingale::ngt_DayStreamProcessor *Nightingale::ngt_DayStreamProcessor::ngt_DayStreamProcessor(Nightingale::ngt_DayStreamProcessor *this, Nightingale::ngt_Config *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(this + 14) = 0;
   *(this + 5) = 0u;
   *(this + 6) = 0u;
@@ -547,22 +547,22 @@ Nightingale::ngt_DayStreamProcessor *Nightingale::ngt_DayStreamProcessor::ngt_Da
   *(this + 1) = 0u;
   *(this + 2) = 0u;
   *this = 0u;
-  Nightingale::ngt_Config::ngt_Config((this + 120), a2);
+  v3 = Nightingale::ngt_Config::ngt_Config((this + 120), a2);
   *(this + 61) = 0;
   *(this + 62) = 0;
   *(this + 27) = 0u;
   *(this + 28) = 0u;
   *(this + 29) = 0u;
   *(this + 60) = this + 488;
-  log = ha_get_log();
+  log = ha_get_log(v3);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 6;
+    v7 = 6;
     strcpy(__p, "4.12.1");
     *buf = 136315138;
-    v8 = __p;
+    v9 = __p;
     _os_log_impl(&dword_25C4D8000, log, OS_LOG_TYPE_DEFAULT, "DayStreamProcessor: %s,\n", buf, 0xCu);
-    if (v6 < 0)
+    if (v7 < 0)
     {
       operator delete(__p[0]);
     }
@@ -668,26 +668,26 @@ void Nightingale::ngt_DayStreamProcessor::~ngt_DayStreamProcessor(Nightingale::n
   }
 }
 
-void *Nightingale::ngt_DayStreamProcessor::appendDay(void *result, __int128 *a2)
+void Nightingale::ngt_DayStreamProcessor::appendDay(void *a1, __int128 *a2)
 {
-  v2 = result[1];
-  v3 = 0xEEEEEEEEEEEEEEEFLL * ((v2 - *result) >> 2);
+  v2 = a1[1];
+  v3 = 0xEEEEEEEEEEEEEEEFLL * ((v2 - *a1) >> 2);
   if (v3 <= 0x2AC5)
   {
-    v4 = result[2];
+    v4 = a1[2];
     if (v2 >= v4)
     {
-      if (0xDDDDDDDDDDDDDDDELL * ((v4 - *result) >> 2) <= v3 + 1)
+      if (0xDDDDDDDDDDDDDDDELL * ((v4 - *a1) >> 2) <= v3 + 1)
       {
         v8 = v3 + 1;
       }
 
       else
       {
-        v8 = 0xDDDDDDDDDDDDDDDELL * ((v4 - *result) >> 2);
+        v8 = 0xDDDDDDDDDDDDDDDELL * ((v4 - *a1) >> 2);
       }
 
-      if (0xEEEEEEEEEEEEEEEFLL * ((v4 - *result) >> 2) >= 0x222222222222222)
+      if (0xEEEEEEEEEEEEEEEFLL * ((v4 - *a1) >> 2) >= 0x222222222222222)
       {
         v9 = 0x444444444444444;
       }
@@ -697,7 +697,7 @@ void *Nightingale::ngt_DayStreamProcessor::appendDay(void *result, __int128 *a2)
         v9 = v8;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<Nightingale::ngt_DayInput>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<Nightingale::ngt_DayInput>>(a1, v9);
     }
 
     v5 = *a2;
@@ -707,17 +707,15 @@ void *Nightingale::ngt_DayStreamProcessor::appendDay(void *result, __int128 *a2)
     v2[1] = v6;
     v2[2] = v7;
     *v2 = v5;
-    result[1] = v2 + 60;
+    a1[1] = v2 + 60;
   }
-
-  return result;
 }
 
-void Nightingale::ngt_DayStreamProcessor::appendPhaseSet(uint64_t *a1, uint64_t a2, int a3)
+void Nightingale::ngt_DayStreamProcessor::appendPhaseSet(void *a1, uint64_t a2, int a3)
 {
   v25 = a3;
   v4 = a1 + 3;
-  if ((a1[4] - a1[3]) <= 0xAB17)
+  if (a1[4] - a1[3] <= 0xAB17uLL)
   {
     std::vector<int>::push_back[abi:ne200100](a1 + 3, &v25);
     v7 = a1[7];
@@ -779,7 +777,7 @@ void Nightingale::ngt_DayStreamProcessor::appendPhaseSet(uint64_t *a1, uint64_t 
     a1[7] = v8;
   }
 
-  std::pair<std::vector<int>,std::vector<Nightingale::PhaseSet>>::pair[abi:ne200100]<std::vector<int>&,std::vector<Nightingale::PhaseSet>&,0>(__p, v4, a1 + 6);
+  std::pair<std::vector<int>,std::vector<Nightingale::PhaseSet>>::pair[abi:ne200100]<std::vector<int>&,std::vector<Nightingale::PhaseSet>&,0>(__p, v4, (a1 + 6));
   v19 = a1[9];
   if (v19)
   {
@@ -811,28 +809,28 @@ void Nightingale::ngt_DayStreamProcessor::appendPhaseSet(uint64_t *a1, uint64_t 
   }
 }
 
-void Nightingale::ngt_DayStreamProcessor::analyze(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void Nightingale::ngt_DayStreamProcessor::analyze(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v147 = *MEMORY[0x277D85DE8];
-  Nightingale::PhaseCondenser::phase_updates((a1 + 480), &v89);
-  v8 = v89;
-  v9 = v90;
-  if (v89 != v90)
+  v154 = *MEMORY[0x277D85DE8];
+  Nightingale::PhaseCondenser::phase_updates((a1 + 480), &v93);
+  v9 = v93;
+  v10 = v94;
+  if (v93 != v94)
   {
     do
     {
-      Nightingale::ngt_DayStreamProcessor::appendPhaseSet(a1, *v8, *(v8 + 2));
-      v8 += 2;
+      Nightingale::ngt_DayStreamProcessor::appendPhaseSet(a1, *v9, *(v9 + 2));
+      v9 += 2;
     }
 
-    while (v8 != v9);
-    v8 = v89;
+    while (v9 != v10);
+    v9 = v93;
   }
 
-  if (v8)
+  if (v9)
   {
-    v90 = v8;
-    operator delete(v8);
+    v94 = v9;
+    operator delete(v9);
   }
 
   *(a4 + 52) = 0;
@@ -863,444 +861,453 @@ void Nightingale::ngt_DayStreamProcessor::analyze(uint64_t a1@<X0>, uint64_t a2@
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
   *a4 = 0u;
-  log = ha_get_log();
-  v11 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
-  if (v11)
+  log = ha_get_log(v8);
+  v12 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+  if (v12)
   {
     Nightingale::ngt_DayStreamProcessor::analyze();
   }
 
-  Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(v11, a1, (a1 + 72));
+  Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(v12, a1, (a1 + 72), a1 + 120);
   *(a1 + 160) = a2;
   *(a1 + 164) = BYTE4(a2);
-  Nightingale::uiLogProcessor::uiLogProcessor(v145, *(a1 + 168));
-  Nightingale::uiLogProcessor::extractCycles(v145, a1, (a1 + 72), a1 + 120, &v141);
-  v12 = a1 + 432;
-  v13 = *(a1 + 432);
-  *(a1 + 440) = v13;
-  v14 = a1 + 456;
+  Nightingale::uiLogProcessor::uiLogProcessor(v152, *(a1 + 168));
+  Nightingale::uiLogProcessor::extractCycles(v152, a1, (a1 + 72), a1 + 120, &v148);
+  v13 = a1 + 432;
+  v14 = *(a1 + 432);
+  *(a1 + 440) = v14;
+  v15 = a1 + 456;
   *(a1 + 464) = *(a1 + 456);
-  if (v141 != v142 && v143 == 1 && (*(a1 + 156) & 1) != 0)
+  if (v148 != v149 && v150 == 1 && (*(a1 + 156) & 1) != 0)
   {
-    memset(v138, 0, sizeof(v138));
-    std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v138, v141, v142, 0xAAAAAAAAAAAAAAABLL * ((v142 - v141) >> 5));
-    Nightingale::ngt_DayStreamProcessor::compute_stats(v138, a1 + 120, (a1 + 72), v144, v139);
-    v89 = v138;
-    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v89);
-    v16 = Nightingale::ngt_DayStreamProcessor::inactiveDetect(v15, &v141, (a1 + 72), *&v139[0], *(a1 + 152));
+    memset(v142, 0, sizeof(v142));
+    std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v142, v148, v149, 0xAAAAAAAAAAAAAAABLL * ((v149 - v148) >> 5));
+    Nightingale::ngt_DayStreamProcessor::compute_stats(v142, a1 + 120, (a1 + 72), v151, &v143);
+    v93 = v142;
+    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v93);
+    v17 = Nightingale::ngt_DayStreamProcessor::inactiveDetect(v16, &v148, (a1 + 72), v143, *(a1 + 152));
+    v132 = 0;
+    v133 = 0;
+    memset(&v153[2], 255, 20);
+    v130 = 0;
+    v131 = 0;
     v128 = 0;
     v129 = 0;
-    memset(&v146[2], 255, 20);
     v126 = 0;
     v127 = 0;
-    v124 = 0;
-    v125 = 0;
-    v122 = 0;
-    v123 = 0;
-    v48 = v16;
+    v52 = v17;
     if (*(a1 + 248) == 1)
     {
-      Nightingale::ngt_deviationAnalyzer::ngt_deviationAnalyzer(&v77);
-      Nightingale::ngt_deviationAnalyzer::deviation_process(&v77, a1 + 120, a1, &v141, (a1 + 72), a3, &v89);
-      v136 = *(&v89 + 1);
-      v137 = BYTE3(v89);
-      v51 = __PAIR64__(v90, HIDWORD(v89));
-      LOBYTE(v60) = BYTE4(v90);
-      BYTE4(v60) = v89;
-      v134 = *(&v90 + 5);
-      v135 = HIBYTE(v90);
-      v52 = v91;
-      v132 = v93;
-      v133 = v94;
-      v53 = v95;
-      v54 = v96;
-      LOBYTE(v59) = v97;
-      BYTE4(v59) = v92;
-      v131 = v99;
-      v130 = v98;
-      v55 = v100;
-      v129 = v102;
-      v128 = v101;
-      *&v146[14] = *&v103[14];
-      *v146 = *v103;
-      v127 = v105;
-      v126 = v104;
-      v49 = v107;
-      v17 = v108;
-      v125 = v111;
-      v124 = v110;
-      v46 = v112;
-      v47 = v106;
-      v18 = v113;
-      v19 = v114;
-      v56 = v109;
-      v57 = v115;
-      v123 = v117;
-      v122 = v116;
-      v45 = v118;
-      v20 = v119;
-      v50 = v120;
-      v58 = v121;
-      Nightingale::ngt_deviationAnalyzer::~ngt_deviationAnalyzer(&v77);
+      Nightingale::ngt_deviationAnalyzer::ngt_deviationAnalyzer(&v81);
+      Nightingale::ngt_deviationAnalyzer::deviation_process(&v81, a1 + 120, &v148, (a1 + 72), a3, &v93, a1);
+      v140 = *(&v93 + 1);
+      v141 = BYTE3(v93);
+      v55 = __PAIR64__(v94, HIDWORD(v93));
+      LOBYTE(v64) = BYTE4(v94);
+      BYTE4(v64) = v93;
+      v138 = *(&v94 + 5);
+      v139 = HIBYTE(v94);
+      v56 = v95;
+      v136 = v97;
+      v137 = v98;
+      v57 = v99;
+      v58 = v100;
+      LOBYTE(v63) = v101;
+      BYTE4(v63) = v96;
+      v135 = v103;
+      v134 = v102;
+      v59 = v104;
+      v133 = v106;
+      v132 = v105;
+      *&v153[14] = *&v107[14];
+      *v153 = *v107;
+      v131 = v109;
+      v130 = v108;
+      v53 = v111;
+      v18 = v112;
+      v129 = v115;
+      v128 = v114;
+      v50 = v116;
+      v51 = v110;
+      v19 = v117;
+      v20 = v118;
+      v60 = v113;
+      v61 = v119;
+      v127 = v121;
+      v126 = v120;
+      v49 = v122;
+      v21 = v123;
+      v54 = v124;
+      v62 = v125;
+      Nightingale::ngt_deviationAnalyzer::~ngt_deviationAnalyzer(&v81);
     }
 
     else
     {
-      v59 = 0;
-      v60 = 0;
-      v49 = -1;
-      v50 = -1;
-      v20 = -1;
-      v57 = -1;
-      v58 = -1;
-      v19 = -1;
-      v18 = -1;
-      v56 = -1;
-      v17 = -1;
-      v54 = -1;
-      v55 = -1;
+      v63 = 0;
+      v64 = 0;
       v53 = -1;
-      v52 = -1;
-      v51 = -1;
+      v54 = -1;
+      v21 = -1;
+      v61 = -1;
+      v62 = -1;
+      v20 = -1;
+      v19 = -1;
+      v60 = -1;
+      v18 = -1;
+      v58 = -1;
+      v59 = -1;
+      v57 = -1;
+      v56 = -1;
+      v55 = -1;
     }
 
-    Nightingale::ngtProjector::ngtProjector(&v89, a1, a1 + 120, &v141, a1 + 72);
-    BYTE8(v77) = 0;
-    LOBYTE(v78) = 0;
-    BYTE8(v78) = 0;
-    LOBYTE(v79) = 0;
-    BYTE8(v79) = 0;
-    BYTE12(v79) = 0;
-    LOBYTE(v80) = 0;
-    BYTE4(v80) = 0;
-    BYTE8(v80) = 0;
-    LOBYTE(v81) = 0;
+    Nightingale::ngtProjector::ngtProjector(&v93, a1, a1 + 120, &v148, a1 + 72);
     BYTE8(v81) = 0;
     LOBYTE(v82) = 0;
     BYTE8(v82) = 0;
-    BYTE12(v82) = 0;
     LOBYTE(v83) = 0;
-    BYTE4(v83) = 0;
     BYTE8(v83) = 0;
     BYTE12(v83) = 0;
-    v84[0] = 0;
-    v84[4] = 0;
-    *&v84[8] = 0;
-    *&v84[12] = -4294967291;
-    *&v84[20] = 0;
-    *&v84[24] = -1;
-    *&v85 = -1;
+    LOBYTE(v84) = 0;
+    BYTE4(v84) = 0;
+    BYTE8(v84) = 0;
+    LOBYTE(v85) = 0;
     BYTE8(v85) = 0;
-    BYTE12(v85) = 0;
-    DWORD1(v86) = -1082130432;
-    *(&v86 + 1) = -1;
-    *v87 = -1;
+    LOBYTE(v86) = 0;
+    BYTE8(v86) = 0;
+    BYTE12(v86) = 0;
+    LOBYTE(v87) = 0;
+    BYTE4(v87) = 0;
+    BYTE8(v87) = 0;
+    BYTE12(v87) = 0;
+    v88[0] = 0;
+    v88[4] = 0;
+    *&v88[8] = 0;
+    *&v88[12] = -4294967291;
+    *&v88[20] = 0;
+    *&v88[24] = -1;
+    *&v89 = -1;
+    BYTE8(v89) = 0;
+    BYTE12(v89) = 0;
+    DWORD1(v90) = -1082130432;
+    *(&v90 + 1) = -1;
+    *v91 = -1;
     __asm { FMOV            V0.4S, #-1.0 }
 
-    *&v87[8] = _Q0;
+    *&v91[8] = _Q0;
     __asm { FMOV            V0.2S, #-1.0 }
 
-    *&v87[24] = _Q0;
-    *v88 = 0;
-    v88[2] = 0;
-    *&v88[4] = xmmword_25C67C5E0;
-    *&v88[20] = 9;
-    Nightingale::ngtProjector::projector(&v89, a1 + 432, a1 + 456, v145, a3, &v77);
-    Nightingale::uiLogProcessor::print_anUILog(v145, &v141);
-    v27 = *(a4 + 496);
-    v28 = *v88;
-    *(a4 + 456) = *&v87[16];
-    *(a4 + 472) = v28;
-    *(a4 + 488) = *&v88[16];
-    v29 = v85;
-    *(a4 + 392) = *&v84[16];
-    *(a4 + 408) = v29;
-    v30 = *v87;
-    *(a4 + 424) = v86;
-    *(a4 + 440) = v30;
-    v31 = v82;
-    *(a4 + 328) = v81;
-    *(a4 + 344) = v31;
-    v32 = *v84;
-    *(a4 + 360) = v83;
-    *(a4 + 376) = v32;
-    v33 = v78;
-    *(a4 + 264) = v77;
-    *(a4 + 280) = v33;
-    v34 = v80;
-    *(a4 + 296) = v79;
-    *(a4 + 312) = v34;
-    if ((v27 & 1) == 0)
+    *&v91[24] = _Q0;
+    *v92 = 0;
+    v92[2] = 0;
+    *&v92[4] = xmmword_25C67C5E0;
+    *&v92[20] = 9;
+    Nightingale::ngtProjector::projector(&v93, a1 + 432, a1 + 456, v152, a3, &v81);
+    Nightingale::uiLogProcessor::print_anUILog(v152, &v148);
+    v30 = *(a4 + 496);
+    v31 = *v92;
+    *(a4 + 456) = *&v91[16];
+    *(a4 + 472) = v31;
+    *(a4 + 488) = *&v92[16];
+    v32 = v89;
+    *(a4 + 392) = *&v88[16];
+    *(a4 + 408) = v32;
+    v33 = *v91;
+    *(a4 + 424) = v90;
+    *(a4 + 440) = v33;
+    v34 = v86;
+    *(a4 + 328) = v85;
+    *(a4 + 344) = v34;
+    v35 = *v88;
+    *(a4 + 360) = v87;
+    *(a4 + 376) = v35;
+    v36 = v82;
+    *(a4 + 264) = v81;
+    *(a4 + 280) = v36;
+    v37 = v84;
+    *(a4 + 296) = v83;
+    *(a4 + 312) = v37;
+    if ((v30 & 1) == 0)
     {
       *(a4 + 496) = 1;
     }
 
-    Nightingale::ngt_DayStreamProcessor::printStats();
-    LOBYTE(v61) = BYTE4(v60);
-    *(&v61 + 1) = v136;
-    BYTE3(v61) = v137;
-    *(&v61 + 4) = v51;
-    BYTE12(v61) = v60;
-    *(&v61 + 13) = v134;
-    HIBYTE(v61) = v135;
-    *&v62 = v52;
-    BYTE8(v62) = BYTE4(v59);
-    *(&v62 + 9) = v132;
-    BYTE11(v62) = v133;
-    HIDWORD(v62) = v53;
-    LODWORD(v63) = v54;
-    BYTE4(v63) = v59;
-    BYTE7(v63) = v131;
-    *(&v63 + 5) = v130;
-    *(&v63 + 1) = v55;
-    *&v64[4] = v129;
-    *v64 = v128;
-    *&v64[20] = *&v146[14];
-    *&v64[6] = *v146;
-    *&v64[32] = v127;
-    *&v64[28] = v126;
-    *&v64[34] = v47;
-    *&v64[36] = v49;
-    *&v64[40] = v17;
-    v66 = v125;
-    *&v64[44] = v56;
-    v65 = v124;
-    v67 = v46;
-    v68 = v18;
-    v69 = v19;
-    v72 = v123;
-    v70 = v57;
-    v71 = v122;
-    v73 = v45;
-    v74 = v20;
-    v75 = v50;
-    v76 = v58;
-    Nightingale::ngt_DayStreamProcessor::printDeviations(v35, &v61);
-    v36 = ha_get_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v67 = v145;
+    *v68 = v146;
+    *&v68[16] = v147;
+    v65 = v143;
+    v66 = v144;
+    Nightingale::ngt_DayStreamProcessor::printStats(v29, &v65);
+    LOBYTE(v65) = BYTE4(v64);
+    *(&v65 + 1) = v140;
+    BYTE3(v65) = v141;
+    *(&v65 + 4) = v55;
+    BYTE12(v65) = v64;
+    *(&v65 + 13) = v138;
+    HIBYTE(v65) = v139;
+    *&v66 = v56;
+    BYTE8(v66) = BYTE4(v63);
+    *(&v66 + 9) = v136;
+    BYTE11(v66) = v137;
+    HIDWORD(v66) = v57;
+    LODWORD(v67) = v58;
+    BYTE4(v67) = v63;
+    BYTE7(v67) = v135;
+    *(&v67 + 5) = v134;
+    *(&v67 + 1) = v59;
+    *&v68[4] = v133;
+    *v68 = v132;
+    *&v68[20] = *&v153[14];
+    *&v68[6] = *v153;
+    *&v68[32] = v131;
+    *&v68[28] = v130;
+    *&v68[34] = v51;
+    *&v68[36] = v53;
+    *&v68[40] = v18;
+    v70 = v129;
+    *&v68[44] = v60;
+    v69 = v128;
+    v71 = v50;
+    v72 = v19;
+    v73 = v20;
+    v76 = v127;
+    v74 = v61;
+    v75 = v126;
+    v77 = v49;
+    v78 = v21;
+    v79 = v54;
+    v80 = v62;
+    Nightingale::ngt_DayStreamProcessor::printDeviations(v38, &v65);
+    v40 = ha_get_log(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::ngt_DayStreamProcessor::analyze();
     }
 
-    *(a4 + 260) = v144;
-    if (v12 != a4)
+    *(a4 + 260) = v151;
+    if (v13 != a4)
     {
       std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(a4, *(a1 + 432), *(a1 + 440), 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 440) - *(a1 + 432)) >> 3));
     }
 
-    if (a4 + 24 != v14)
+    if (a4 + 24 != v15)
     {
       std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>((a4 + 24), *(a1 + 456), *(a1 + 464), 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 464) - *(a1 + 456)) >> 3));
     }
 
-    v37 = v139[3];
-    *(a4 + 80) = v139[2];
-    *(a4 + 96) = v37;
-    *(a4 + 112) = v140;
-    v38 = v139[1];
-    *(a4 + 48) = v139[0];
-    *(a4 + 64) = v38;
+    v41 = v146;
+    *(a4 + 80) = v145;
+    *(a4 + 96) = v41;
+    *(a4 + 112) = v147;
+    v42 = v144;
+    *(a4 + 48) = v143;
+    *(a4 + 64) = v42;
     if (*(a1 + 248) == 1)
     {
-      v39 = *(a4 + 256);
-      *(a4 + 120) = BYTE4(v60);
-      *(a4 + 121) = v136;
-      *(a4 + 123) = v137;
-      *(a4 + 124) = v51;
-      *(a4 + 132) = v60;
-      *(a4 + 133) = v134;
-      *(a4 + 135) = v135;
-      *(a4 + 136) = v52;
-      *(a4 + 144) = BYTE4(v59);
-      v40 = v132;
-      *(a4 + 147) = v133;
-      *(a4 + 145) = v40;
-      *(a4 + 148) = v53;
-      *(a4 + 152) = v54;
-      *(a4 + 156) = v59;
-      *(a4 + 157) = v130;
-      *(a4 + 159) = v131;
-      *(a4 + 160) = v55;
-      *(a4 + 168) = v128;
-      *(a4 + 172) = v129;
-      *(a4 + 188) = *&v146[14];
-      *(a4 + 174) = *v146;
-      *(a4 + 200) = v127;
-      *(a4 + 196) = v126;
-      *(a4 + 202) = v47;
-      *(a4 + 204) = v49;
-      *(a4 + 208) = v17;
-      *(a4 + 220) = v125;
-      v41 = v124;
-      *(a4 + 212) = v56;
-      *(a4 + 216) = v41;
-      *(a4 + 222) = v46;
-      *(a4 + 224) = v18;
-      *(a4 + 228) = v19;
-      v42 = v122;
-      *(a4 + 240) = v123;
-      *(a4 + 232) = v57;
-      *(a4 + 236) = v42;
-      *(a4 + 242) = v45;
-      *(a4 + 244) = v20;
-      *(a4 + 248) = v50;
-      *(a4 + 252) = v58;
-      if ((v39 & 1) == 0)
+      v43 = *(a4 + 256);
+      *(a4 + 120) = BYTE4(v64);
+      *(a4 + 121) = v140;
+      *(a4 + 123) = v141;
+      *(a4 + 124) = v55;
+      *(a4 + 132) = v64;
+      *(a4 + 133) = v138;
+      *(a4 + 135) = v139;
+      *(a4 + 136) = v56;
+      *(a4 + 144) = BYTE4(v63);
+      v44 = v136;
+      *(a4 + 147) = v137;
+      *(a4 + 145) = v44;
+      *(a4 + 148) = v57;
+      *(a4 + 152) = v58;
+      *(a4 + 156) = v63;
+      *(a4 + 157) = v134;
+      *(a4 + 159) = v135;
+      *(a4 + 160) = v59;
+      *(a4 + 168) = v132;
+      *(a4 + 172) = v133;
+      *(a4 + 188) = *&v153[14];
+      *(a4 + 174) = *v153;
+      *(a4 + 200) = v131;
+      *(a4 + 196) = v130;
+      *(a4 + 202) = v51;
+      *(a4 + 204) = v53;
+      *(a4 + 208) = v18;
+      *(a4 + 220) = v129;
+      v45 = v128;
+      *(a4 + 212) = v60;
+      *(a4 + 216) = v45;
+      *(a4 + 222) = v50;
+      *(a4 + 224) = v19;
+      *(a4 + 228) = v20;
+      v46 = v126;
+      *(a4 + 240) = v127;
+      *(a4 + 232) = v61;
+      *(a4 + 236) = v46;
+      *(a4 + 242) = v49;
+      *(a4 + 244) = v21;
+      *(a4 + 248) = v54;
+      *(a4 + 252) = v62;
+      if ((v43 & 1) == 0)
       {
         *(a4 + 256) = 1;
       }
     }
 
-    *(a4 + 261) = v48;
-    Nightingale::ngtProjector::getEnsembleTelemetry(&v89, &v61);
-    v43 = *v64;
-    *(a4 + 536) = v63;
-    *(a4 + 552) = v43;
-    *(a4 + 568) = *&v64[16];
-    *(a4 + 581) = *&v64[29];
-    v44 = v62;
-    *(a4 + 504) = v61;
-    *(a4 + 520) = v44;
-    Nightingale::ngtProjector::~ngtProjector(&v89);
+    *(a4 + 261) = v52;
+    Nightingale::ngtProjector::getEnsembleTelemetry(&v93, &v65);
+    v47 = *v68;
+    *(a4 + 536) = v67;
+    *(a4 + 552) = v47;
+    *(a4 + 568) = *&v68[16];
+    *(a4 + 581) = *&v68[29];
+    v48 = v66;
+    *(a4 + 504) = v65;
+    *(a4 + 520) = v48;
+    Nightingale::ngtProjector::~ngtProjector(&v93);
   }
 
   else
   {
     *(a4 + 260) = 0;
-    if (v12 != a4)
+    if (v13 != a4)
     {
-      std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(a4, v13, v13, 0);
+      std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(a4, v14, v14, 0);
     }
 
-    if (a4 + 24 != v14)
+    v22 = (a4 + 24);
+    if (a4 + 24 != v15)
     {
-      std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>((a4 + 24), *(a1 + 456), *(a1 + 464), 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 464) - *(a1 + 456)) >> 3));
+      v22 = std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(v22, *(a1 + 456), *(a1 + 464), 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 464) - *(a1 + 456)) >> 3));
     }
 
-    v21 = ha_get_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = ha_get_log(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::ngt_DayStreamProcessor::analyze();
     }
   }
 
-  v89 = &v141;
-  std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v89);
-  Nightingale::uiLogProcessor::~uiLogProcessor(v145);
+  v93 = &v148;
+  std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v93);
+  Nightingale::uiLogProcessor::~uiLogProcessor(v152);
 }
 
-void sub_25C669450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_25C669450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   Nightingale::ngt_deviationAnalyzer::~ngt_deviationAnalyzer(&a39);
   __p = &STACK[0x568];
   std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&__p);
   Nightingale::uiLogProcessor::~uiLogProcessor(&STACK[0x5F0]);
-  std::pair<std::vector<float>,std::vector<float>>::~pair(v68);
+  std::pair<std::vector<float>,std::vector<float>>::~pair(v65);
   _Unwind_Resume(a1);
 }
 
-void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(uint64_t a1, uint64_t *a2, void *a3)
+void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
 {
-  v83 = *MEMORY[0x277D85DE8];
-  log = ha_get_log();
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  v91 = *MEMORY[0x277D85DE8];
+  log = ha_get_log(a1);
+  v7 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
     Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
   }
 
-  v6 = *a2;
-  v7 = a2[1];
-  v8 = ha_get_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-  if (v6 != v7)
+  v8 = *a2;
+  v9 = a2[1];
+  v10 = ha_get_log(v7);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v8 != v9)
   {
-    v69 = a3;
-    if (v9)
+    v77 = a3;
+    if (v11)
     {
       Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
     }
 
-    v10 = *a2;
-    v11 = a2[1];
-    v12 = v11 - *a2;
-    if (v12 == 60)
+    v12 = *a2;
+    v13 = a2[1];
+    v14 = v13 - *a2;
+    if (v14 == 60)
     {
 LABEL_7:
-      v14 = *(v11 - 60);
-      v13 = *(v11 - 56);
-      v15 = *(v11 - 52);
-      v16 = *(v11 - 48);
-      v17 = *(v11 - 44);
-      v18 = *(v11 - 40);
-      v19 = *(v11 - 36);
-      v20 = *(v11 - 32);
-      v21 = *(v11 - 28);
-      v22 = *(v11 - 24);
-      v74 = *(v11 - 16);
-      v76 = *(v11 - 20);
-      v23 = *(v11 - 4);
-      v24 = ha_get_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v16 = *(v13 - 60);
+      v15 = *(v13 - 56);
+      v17 = *(v13 - 52);
+      v18 = *(v13 - 48);
+      v19 = *(v13 - 44);
+      v20 = *(v13 - 40);
+      v21 = *(v13 - 36);
+      v22 = *(v13 - 32);
+      v23 = *(v13 - 28);
+      v24 = *(v13 - 24);
+      v82 = *(v13 - 16);
+      v84 = *(v13 - 20);
+      v25 = *(v13 - 4);
+      v26 = ha_get_log(v11);
+      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+      if (v27)
       {
         *buf = 67109888;
-        *v79 = v14;
-        *&v79[4] = 1024;
-        *&v79[6] = v13;
-        *&v79[10] = 1024;
-        *&v79[12] = v15 & 1;
-        *&v79[16] = 1024;
-        *v80 = v16;
-        _os_log_debug_impl(&dword_25C4D8000, v24, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, flow: %d, spotting: %d, opk: %d, ", buf, 0x1Au);
+        *v87 = v16;
+        *&v87[4] = 1024;
+        *&v87[6] = v15;
+        *&v87[10] = 1024;
+        *&v87[12] = v17 & 1;
+        *&v87[16] = 1024;
+        *v88 = v18;
+        _os_log_debug_impl(&dword_25C4D8000, v26, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, flow: %d, spotting: %d, opk: %d, ", buf, 0x1Au);
       }
 
-      v25 = ha_get_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v28 = ha_get_log(v27);
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+      if (v29)
       {
-        v65 = v17;
-        v66 = -1.0;
-        if ((v18 & 1) == 0)
+        v73 = v19;
+        v74 = -1.0;
+        if ((v20 & 1) == 0)
         {
-          v65 = -1.0;
+          v73 = -1.0;
         }
 
-        if (v20)
+        if (v22)
         {
-          v66 = v19;
+          v74 = v21;
         }
 
         *buf = 134218752;
-        *v79 = v65;
-        if (v22)
+        *v87 = v73;
+        if (v24)
         {
-          v67 = v21;
+          v75 = v23;
         }
 
         else
         {
-          v67 = -1;
+          v75 = -1;
         }
 
-        *&v79[8] = 2048;
-        *&v79[10] = v66;
-        *v80 = 1024;
-        *&v80[2] = v67;
-        v68 = v76;
-        if ((v74 & 1) == 0)
+        *&v87[8] = 2048;
+        *&v87[10] = v74;
+        *v88 = 1024;
+        *&v88[2] = v75;
+        v76 = v84;
+        if ((v82 & 1) == 0)
         {
-          v68 = -1;
+          v76 = -1;
         }
 
-        v81 = 1024;
-        v82 = v68;
-        _os_log_debug_impl(&dword_25C4D8000, v25, OS_LOG_TYPE_DEBUG, "sensor: {aHR: %5.2f, sHR: %5.2f, aHRCnt: %d, sHRCnt: %d, ", buf, 0x22u);
+        v89 = 1024;
+        v90 = v76;
+        _os_log_debug_impl(&dword_25C4D8000, v28, OS_LOG_TYPE_DEBUG, "sensor: {aHR: %5.2f, sHR: %5.2f, aHRCnt: %d, sHRCnt: %d, ", buf, 0x22u);
       }
 
-      v26 = ha_get_log();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
-      if (v23)
+      v30 = ha_get_log(v29);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+      if (v25)
       {
-        a3 = v69;
-        if (v27)
+        a3 = v77;
+        if (v31)
         {
           Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
         }
@@ -1308,15 +1315,16 @@ LABEL_7:
 
       else
       {
-        a3 = v69;
-        if (v27)
+        a3 = v77;
+        if (v31)
         {
           Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
         }
       }
 
-      v50 = ha_get_log();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      v55 = ha_get_log(v31);
+      v11 = os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG);
+      if (v11)
       {
         Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
       }
@@ -1324,135 +1332,137 @@ LABEL_7:
       goto LABEL_41;
     }
 
-    v28 = 0;
-    v29 = 0xEEEEEEEEEEEEEEEFLL * (v12 >> 2);
-    v30 = 56;
+    v32 = 0;
+    v33 = 0xEEEEEEEEEEEEEEEFLL * (v14 >> 2);
+    v34 = 56;
     while (1)
     {
-      if (v29 <= v28)
+      if (v33 <= v32)
       {
         std::vector<int>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v31 = (v10 + v30);
-      v33 = *(v31 - 14);
-      v32 = *(v31 - 13);
-      v34 = *(v31 - 48);
-      v35 = *(v31 - 11);
-      v36 = *(v31 - 10);
-      v37 = *(v31 - 36);
-      v38 = *(v31 - 8);
-      v71 = *(v31 - 28);
-      v72 = *(v31 - 20);
-      v75 = *(v31 - 6);
-      v77 = *(v31 - 4);
-      v73 = *(v31 - 12);
-      v70 = *(v31 - 8);
-      v39 = *(v31 - 1);
-      v40 = *v31;
-      v41 = ha_get_log();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      v35 = (v12 + v34);
+      v37 = *(v35 - 14);
+      v36 = *(v35 - 13);
+      v38 = *(v35 - 48);
+      v39 = *(v35 - 11);
+      v40 = *(v35 - 10);
+      v41 = *(v35 - 36);
+      v42 = *(v35 - 8);
+      v79 = *(v35 - 28);
+      v80 = *(v35 - 20);
+      v83 = *(v35 - 6);
+      v85 = *(v35 - 4);
+      v81 = *(v35 - 12);
+      v78 = *(v35 - 8);
+      v43 = *(v35 - 1);
+      v44 = *v35;
+      v45 = ha_get_log(v11);
+      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG);
+      if (v46)
       {
         *buf = 67109888;
-        *v79 = v33;
-        *&v79[4] = 1024;
-        *&v79[6] = v32;
-        *&v79[10] = 1024;
-        *&v79[12] = v34 & 1;
-        *&v79[16] = 1024;
-        *v80 = v35;
-        _os_log_debug_impl(&dword_25C4D8000, v41, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, flow: %d, spotting: %d, opk: %d, ", buf, 0x1Au);
+        *v87 = v37;
+        *&v87[4] = 1024;
+        *&v87[6] = v36;
+        *&v87[10] = 1024;
+        *&v87[12] = v38 & 1;
+        *&v87[16] = 1024;
+        *v88 = v39;
+        _os_log_debug_impl(&dword_25C4D8000, v45, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, flow: %d, spotting: %d, opk: %d, ", buf, 0x1Au);
       }
 
-      v42 = ha_get_log();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v47 = ha_get_log(v46);
+      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG);
+      if (v48)
       {
-        v46 = v36;
-        if ((v37 & 1) == 0)
+        v51 = v40;
+        if ((v41 & 1) == 0)
         {
-          v46 = -1.0;
+          v51 = -1.0;
         }
 
-        v47 = v38;
-        if ((v71 & 1) == 0)
+        v52 = v42;
+        if ((v79 & 1) == 0)
         {
-          v47 = -1.0;
+          v52 = -1.0;
         }
 
         *buf = 134218752;
-        *v79 = v46;
-        v48 = v75;
-        if ((v72 & 1) == 0)
+        *v87 = v51;
+        v53 = v83;
+        if ((v80 & 1) == 0)
         {
-          v48 = -1;
+          v53 = -1;
         }
 
-        *&v79[8] = 2048;
-        *&v79[10] = v47;
-        *v80 = 1024;
-        *&v80[2] = v48;
-        v49 = v77;
-        if ((v73 & 1) == 0)
+        *&v87[8] = 2048;
+        *&v87[10] = v52;
+        *v88 = 1024;
+        *&v88[2] = v53;
+        v54 = v85;
+        if ((v81 & 1) == 0)
         {
-          v49 = -1;
+          v54 = -1;
         }
 
-        v81 = 1024;
-        v82 = v49;
-        _os_log_debug_impl(&dword_25C4D8000, v42, OS_LOG_TYPE_DEBUG, "sensor: {aHR: %5.2f, sHR: %5.2f, aHRCnt: %d, sHRCnt: %d,", buf, 0x22u);
+        v89 = 1024;
+        v90 = v54;
+        _os_log_debug_impl(&dword_25C4D8000, v47, OS_LOG_TYPE_DEBUG, "sensor: {aHR: %5.2f, sHR: %5.2f, aHRCnt: %d, sHRCnt: %d,", buf, 0x22u);
       }
 
-      v43 = ha_get_log();
-      v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG);
-      if (v40)
+      v49 = ha_get_log(v48);
+      v11 = os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG);
+      if (v44)
       {
-        if (v44)
+        if (v11)
         {
           *buf = 67109376;
-          *v79 = v70;
-          *&v79[4] = 2048;
-          *&v79[6] = v39;
-          v45 = v43;
+          *v87 = v78;
+          *&v87[4] = 2048;
+          *&v87[6] = v43;
+          v50 = v49;
 LABEL_36:
-          _os_log_debug_impl(&dword_25C4D8000, v45, OS_LOG_TYPE_DEBUG, "wTmp: {watchID: %d, tp: %5.2f}}},\n", buf, 0x12u);
+          _os_log_debug_impl(&dword_25C4D8000, v50, OS_LOG_TYPE_DEBUG, "wTmp: {watchID: %d, tp: %5.2f}}},\n", buf, 0x12u);
         }
       }
 
-      else if (v44)
+      else if (v11)
       {
         *buf = 67109376;
-        *v79 = -1;
-        *&v79[4] = 2048;
-        *&v79[6] = 0xBFF0000000000000;
-        v45 = v43;
+        *v87 = -1;
+        *&v87[4] = 2048;
+        *&v87[6] = 0xBFF0000000000000;
+        v50 = v49;
         goto LABEL_36;
       }
 
-      ++v28;
-      v10 = *a2;
-      v11 = a2[1];
-      v29 = 0xEEEEEEEEEEEEEEEFLL * ((v11 - *a2) >> 2);
-      v30 += 60;
-      if (v29 - 1 <= v28)
+      ++v32;
+      v12 = *a2;
+      v13 = a2[1];
+      v33 = 0xEEEEEEEEEEEEEEEFLL * ((v13 - *a2) >> 2);
+      v34 += 60;
+      if (v33 - 1 <= v32)
       {
         goto LABEL_7;
       }
     }
   }
 
-  if (v9)
+  if (v11)
   {
     Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
   }
 
 LABEL_41:
-  v51 = *a3;
-  v52 = a3[1];
-  v53 = ha_get_log();
-  v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG);
-  if (v51 == v52)
+  v56 = *a3;
+  v57 = a3[1];
+  v58 = ha_get_log(v11);
+  v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG);
+  if (v56 == v57)
   {
-    if (v54)
+    if (v59)
     {
       Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
     }
@@ -1460,72 +1470,77 @@ LABEL_41:
 
   else
   {
-    if (v54)
+    if (v59)
     {
       Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
     }
 
     if (a3[1] - *a3 != 4)
     {
-      v60 = 0;
+      v68 = 0;
       do
       {
-        v61 = ha_get_log();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+        v69 = ha_get_log(v59);
+        v59 = os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG);
+        if (v59)
         {
-          if (v60 >= (a3[1] - *a3) >> 2)
+          if (v68 >= (a3[1] - *a3) >> 2)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v62 = a3[3];
-          if (v60 >= (a3[4] - v62) >> 3)
+          v70 = a3[3];
+          if (v68 >= (a3[4] - v70) >> 3)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v63 = *(*a3 + 4 * v60);
-          v64 = *(v62 + 8 * v60);
+          v71 = *(*a3 + 4 * v68);
+          v72 = *(v70 + 8 * v68);
           *buf = 67109376;
-          *v79 = v63;
-          *&v79[4] = 1024;
-          *&v79[6] = v64;
-          _os_log_debug_impl(&dword_25C4D8000, v61, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, phase: %d}, \n", buf, 0xEu);
+          *v87 = v71;
+          *&v87[4] = 1024;
+          *&v87[6] = v72;
+          _os_log_debug_impl(&dword_25C4D8000, v69, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, phase: %d}, \n", buf, 0xEu);
         }
 
-        ++v60;
+        ++v68;
       }
 
-      while (((a3[1] - *a3) >> 2) - 1 > v60);
+      while (((a3[1] - *a3) >> 2) - 1 > v68);
     }
 
-    v55 = ha_get_log();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+    v60 = ha_get_log(v59);
+    v61 = os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG);
+    if (v61)
     {
       Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
     }
 
-    v56 = ha_get_log();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+    v62 = ha_get_log(v61);
+    v59 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
+    if (v59)
     {
       Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
     }
   }
 
-  v57 = ha_get_log();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+  v63 = ha_get_log(v59);
+  v64 = os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG);
+  if (v64)
   {
     Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
   }
 
-  v58 = ha_get_log();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+  v65 = ha_get_log(v64);
+  v66 = os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG);
+  if (v66)
   {
     Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
   }
 
-  v59 = ha_get_log();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+  v67 = ha_get_log(v66);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
   {
     Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc();
   }
@@ -1975,320 +1990,273 @@ void sub_25C66A39C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::ngt_DayStreamProcessor::printStats()
+void Nightingale::ngt_DayStreamProcessor::printStats(uint64_t a1, uint64_t a2)
 {
-  log = ha_get_log();
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  log = ha_get_log(a1);
+  v3 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+  if (v3)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v1 = ha_get_log();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v4 = ha_get_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  if (v5)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v2 = ha_get_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v6 = ha_get_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v3 = ha_get_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v8 = ha_get_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  if (v9)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v4 = ha_get_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v10 = ha_get_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v11)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v5 = ha_get_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v12 = ha_get_log(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  if (v13)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v6 = ha_get_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v14 = ha_get_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+  if (v15)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v7 = ha_get_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v16 = ha_get_log(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+  if (v17)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v8 = ha_get_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v18 = ha_get_log(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+  if (v19)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v9 = ha_get_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v20 = ha_get_log(v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+  if (v21)
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
 
-  v10 = ha_get_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v22 = ha_get_log(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     Nightingale::ngt_DayStreamProcessor::printStats();
   }
-}
-
-{
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 void Nightingale::ngt_DayStreamProcessor::printDeviations(uint64_t a1, uint64_t a2)
 {
-  v73 = *MEMORY[0x277D85DE8];
-  log = ha_get_log();
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  v82 = *MEMORY[0x277D85DE8];
+  log = ha_get_log(a1);
+  v4 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 
-  v4 = ha_get_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = ha_get_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v6)
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 
-  v5 = ha_get_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = ha_get_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 
-  v6 = ha_get_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v9 = ha_get_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+  if (v10)
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 
-  v7 = ha_get_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v11 = ha_get_log(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+  if (v12)
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 
-  v8 = *(a2 + 48);
-  v9 = *(a2 + 49);
-  v10 = *(a2 + 50);
-  v11 = *(a2 + 51);
-  v12 = *(a2 + 52);
-  v13 = *(a2 + 53);
-  v14 = *(a2 + 56);
-  v15 = ha_get_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v13 = *(a2 + 48);
+  v14 = *(a2 + 49);
+  v15 = *(a2 + 50);
+  v16 = *(a2 + 51);
+  v17 = *(a2 + 52);
+  v18 = *(a2 + 53);
+  v19 = *(a2 + 56);
+  v20 = ha_get_log(v12);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+  if (v21)
   {
-    v41 = *(a2 + 60);
-    v42 = *(a2 + 64);
-    v43 = *(a2 + 68);
-    v44 = *(a2 + 72);
-    v51 = 67111680;
-    v52 = v8 & 1;
-    v53 = 1024;
-    v54 = v9 & 1;
-    v55 = 1024;
-    v56 = v10 & 1;
-    v57 = 1024;
-    v58 = v11 & 1;
-    v59 = 1024;
-    v60 = v12 & 1;
-    v61 = 1024;
-    v62 = v13 & 1;
-    v63 = 1024;
-    v64 = v14;
-    v65 = 1024;
-    v66 = v41;
-    v67 = 1024;
-    v68 = v42;
-    v69 = 1024;
-    v70 = v43;
-    v71 = 1024;
-    v72 = v44;
-    _os_log_debug_impl(&dword_25C4D8000, v15, OS_LOG_TYPE_DEBUG, "irregMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1CycleLenDiff: %d, win2CycleLenDiff: %d, win1NumCycles: %d, win2NumCycles: %d},\n", &v51, 0x44u);
+    v50 = *(a2 + 60);
+    v51 = *(a2 + 64);
+    v52 = *(a2 + 68);
+    v53 = *(a2 + 72);
+    v60 = 67111680;
+    v61 = v13 & 1;
+    v62 = 1024;
+    v63 = v14 & 1;
+    v64 = 1024;
+    v65 = v15 & 1;
+    v66 = 1024;
+    v67 = v16 & 1;
+    v68 = 1024;
+    v69 = v17 & 1;
+    v70 = 1024;
+    v71 = v18 & 1;
+    v72 = 1024;
+    v73 = v19;
+    v74 = 1024;
+    v75 = v50;
+    v76 = 1024;
+    v77 = v51;
+    v78 = 1024;
+    v79 = v52;
+    v80 = 1024;
+    v81 = v53;
+    _os_log_debug_impl(&dword_25C4D8000, v20, OS_LOG_TYPE_DEBUG, "irregMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1CycleLenDiff: %d, win2CycleLenDiff: %d, win1NumCycles: %d, win2NumCycles: %d},\n", &v60, 0x44u);
   }
 
-  v16 = *(a2 + 76);
-  v17 = *(a2 + 77);
-  v18 = *(a2 + 78);
-  v19 = *(a2 + 79);
-  v20 = *(a2 + 80);
-  v21 = *(a2 + 81);
-  v22 = *(a2 + 84);
-  v23 = ha_get_log();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v22 = *(a2 + 76);
+  v23 = *(a2 + 77);
+  v24 = *(a2 + 78);
+  v25 = *(a2 + 79);
+  v26 = *(a2 + 80);
+  v27 = *(a2 + 81);
+  v28 = *(a2 + 84);
+  v29 = ha_get_log(v21);
+  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+  if (v30)
   {
-    v45 = *(a2 + 88);
-    v46 = *(a2 + 92);
-    v51 = 67111168;
-    v52 = v16 & 1;
-    v53 = 1024;
-    v54 = v17 & 1;
-    v55 = 1024;
-    v56 = v18 & 1;
-    v57 = 1024;
-    v58 = v19 & 1;
-    v59 = 1024;
-    v60 = v20 & 1;
-    v61 = 1024;
-    v62 = v21 & 1;
-    v63 = 1024;
-    v64 = v22;
-    v65 = 1024;
-    v66 = v45;
-    v67 = 1024;
-    v68 = v46;
-    _os_log_debug_impl(&dword_25C4D8000, v23, OS_LOG_TYPE_DEBUG, "infreqMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1NumPeriods: %d, win2NumPeriods: %d}, \n", &v51, 0x38u);
+    v54 = *(a2 + 88);
+    v55 = *(a2 + 92);
+    v60 = 67111168;
+    v61 = v22 & 1;
+    v62 = 1024;
+    v63 = v23 & 1;
+    v64 = 1024;
+    v65 = v24 & 1;
+    v66 = 1024;
+    v67 = v25 & 1;
+    v68 = 1024;
+    v69 = v26 & 1;
+    v70 = 1024;
+    v71 = v27 & 1;
+    v72 = 1024;
+    v73 = v28;
+    v74 = 1024;
+    v75 = v54;
+    v76 = 1024;
+    v77 = v55;
+    _os_log_debug_impl(&dword_25C4D8000, v29, OS_LOG_TYPE_DEBUG, "infreqMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1NumPeriods: %d, win2NumPeriods: %d}, \n", &v60, 0x38u);
   }
 
-  v24 = *(a2 + 96);
-  v25 = *(a2 + 97);
-  v26 = *(a2 + 98);
-  v27 = *(a2 + 99);
-  v28 = *(a2 + 100);
-  v29 = *(a2 + 101);
-  v30 = *(a2 + 104);
-  v31 = ha_get_log();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+  v31 = *(a2 + 96);
+  v32 = *(a2 + 97);
+  v33 = *(a2 + 98);
+  v34 = *(a2 + 99);
+  v35 = *(a2 + 100);
+  v36 = *(a2 + 101);
+  v37 = *(a2 + 104);
+  v38 = ha_get_log(v30);
+  v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
+  if (v39)
   {
-    v48 = *(a2 + 108);
-    v47 = *(a2 + 112);
-    v51 = 67111168;
-    v52 = v24 & 1;
-    v53 = 1024;
-    v54 = v25 & 1;
-    v55 = 1024;
-    v56 = v26 & 1;
-    v57 = 1024;
-    v58 = v27 & 1;
-    v59 = 1024;
-    v60 = v28 & 1;
-    v61 = 1024;
-    v62 = v29 & 1;
-    v63 = 1024;
-    v64 = v30;
-    v65 = 1024;
-    v66 = v47;
-    v67 = 1024;
-    v68 = v48;
-    _os_log_debug_impl(&dword_25C4D8000, v31, OS_LOG_TYPE_DEBUG, "prolongMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, numLongPeriodsDetected: %d, numPeriodsUsed: %d}, \n", &v51, 0x38u);
+    v57 = *(a2 + 108);
+    v56 = *(a2 + 112);
+    v60 = 67111168;
+    v61 = v31 & 1;
+    v62 = 1024;
+    v63 = v32 & 1;
+    v64 = 1024;
+    v65 = v33 & 1;
+    v66 = 1024;
+    v67 = v34 & 1;
+    v68 = 1024;
+    v69 = v35 & 1;
+    v70 = 1024;
+    v71 = v36 & 1;
+    v72 = 1024;
+    v73 = v37;
+    v74 = 1024;
+    v75 = v56;
+    v76 = 1024;
+    v77 = v57;
+    _os_log_debug_impl(&dword_25C4D8000, v38, OS_LOG_TYPE_DEBUG, "prolongMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, numLongPeriodsDetected: %d, numPeriodsUsed: %d}, \n", &v60, 0x38u);
   }
 
-  v32 = *(a2 + 116);
-  v33 = *(a2 + 117);
-  v34 = *(a2 + 118);
-  v35 = *(a2 + 119);
-  v36 = *(a2 + 120);
-  v37 = *(a2 + 121);
-  v38 = *(a2 + 124);
-  v39 = ha_get_log();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v40 = *(a2 + 116);
+  v41 = *(a2 + 117);
+  v42 = *(a2 + 118);
+  v43 = *(a2 + 119);
+  v44 = *(a2 + 120);
+  v45 = *(a2 + 121);
+  v46 = *(a2 + 124);
+  v47 = ha_get_log(v39);
+  v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG);
+  if (v48)
   {
-    v49 = *(a2 + 128);
-    v50 = *(a2 + 132);
-    v51 = 67111168;
-    v52 = v32 & 1;
-    v53 = 1024;
-    v54 = v33 & 1;
-    v55 = 1024;
-    v56 = v34 & 1;
-    v57 = 1024;
-    v58 = v35 & 1;
-    v59 = 1024;
-    v60 = v36 & 1;
-    v61 = 1024;
-    v62 = v37 & 1;
-    v63 = 1024;
-    v64 = v38;
-    v65 = 1024;
-    v66 = v49;
-    v67 = 1024;
-    v68 = v50;
-    _os_log_debug_impl(&dword_25C4D8000, v39, OS_LOG_TYPE_DEBUG, "spottingMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1NumSpottingDays: %d, win2NumSpottingDays: %d}", &v51, 0x38u);
+    v58 = *(a2 + 128);
+    v59 = *(a2 + 132);
+    v60 = 67111168;
+    v61 = v40 & 1;
+    v62 = 1024;
+    v63 = v41 & 1;
+    v64 = 1024;
+    v65 = v42 & 1;
+    v66 = 1024;
+    v67 = v43 & 1;
+    v68 = 1024;
+    v69 = v44 & 1;
+    v70 = 1024;
+    v71 = v45 & 1;
+    v72 = 1024;
+    v73 = v46;
+    v74 = 1024;
+    v75 = v58;
+    v76 = 1024;
+    v77 = v59;
+    _os_log_debug_impl(&dword_25C4D8000, v47, OS_LOG_TYPE_DEBUG, "spottingMeta: {common: {bfrRule: %d, minWS: %d, minWE: %d,enough: %d, washout: %d,inWin: %d,age: %d}, win1NumSpottingDays: %d, win2NumSpottingDays: %d}", &v60, 0x38u);
   }
 
-  v40 = ha_get_log();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  v49 = ha_get_log(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
     Nightingale::ngt_DayStreamProcessor::printDeviations();
   }
 }
 
-void *std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]<Nightingale::ngt_Prediction*,Nightingale::ngt_Prediction*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2364,7 +2332,7 @@ void *std::vector<Nightingale::ngt_Prediction>::__assign_with_size[abi:ne200100]
   return result;
 }
 
-void std::vector<Nightingale::ngt_Prediction>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Nightingale::ngt_Prediction>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x276276276276277)
   {
@@ -2538,7 +2506,7 @@ uint64_t Nightingale::fwPredictorWrapper_t::predictFW(uint64_t a1, uint64_t **a2
       }
 
       *(4 * v41) = v35;
-      v38 = 4 * v41 + 4;
+      v38 = (4 * v41 + 4);
       memcpy(0, v39, v40);
       v45 = *a3;
       *a3 = 0;
@@ -2553,7 +2521,7 @@ uint64_t Nightingale::fwPredictorWrapper_t::predictFW(uint64_t a1, uint64_t **a2
     else
     {
       *v37 = v35;
-      v38 = (v37 + 1);
+      v38 = v37 + 1;
     }
 
     a3[1] = v38;
@@ -2595,7 +2563,7 @@ double Nightingale::fwPredictorWrapper_t::fwPredictorWrapper_t(Nightingale::fwPr
   return result;
 }
 
-float Nightingale::vVar<float>(float *a1, int a2, char a3)
+float Nightingale::vVar<float>(float *a1, unsigned int a2, char a3)
 {
   if (!a2)
   {
@@ -2681,7 +2649,7 @@ LABEL_11:
   return result / v17;
 }
 
-float Nightingale::vMean<float>(float *a1, int a2)
+float Nightingale::vMean<float>(float *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -2721,7 +2689,7 @@ float Nightingale::vMean<float>(float *a1, int a2)
   }
 }
 
-double Nightingale::vVar<double>(float *a1, int a2, char a3)
+double Nightingale::vVar<double>(float *a1, unsigned int a2, char a3)
 {
   if (!a2)
   {
@@ -2807,7 +2775,7 @@ LABEL_11:
   return result / v17;
 }
 
-double Nightingale::vMean<double>(float *a1, int a2)
+double Nightingale::vMean<double>(float *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -2847,7 +2815,7 @@ double Nightingale::vMean<double>(float *a1, int a2)
   }
 }
 
-float Nightingale::vMedian<float>(uint64_t a1, unsigned int a2)
+float Nightingale::vMedian<float>(int *a1, int a2)
 {
   if (!a2)
   {
@@ -2857,7 +2825,7 @@ float Nightingale::vMedian<float>(uint64_t a1, unsigned int a2)
   __p = 0;
   v7 = 0;
   v8 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, a1, a1 + 4 * a2, a2);
+  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, a1, &a1[a2], a2);
   if (4 * (a2 / 2) != -4)
   {
     std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>,std::__wrap_iter<float *>>(__p, __p + a2 / 2 + 1, v7, &v9);
@@ -2889,7 +2857,7 @@ void sub_25C66B518(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double Nightingale::vMedian<double>(uint64_t a1, unsigned int a2)
+double Nightingale::vMedian<double>(int *a1, int a2)
 {
   if (!a2)
   {
@@ -2899,7 +2867,7 @@ double Nightingale::vMedian<double>(uint64_t a1, unsigned int a2)
   __p = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, a1, a1 + 4 * a2, a2);
+  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, a1, &a1[a2], a2);
   if (4 * (a2 / 2) != -4)
   {
     std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>,std::__wrap_iter<float *>>(__p, __p + a2 / 2 + 1, v8, &v10);
@@ -2935,8 +2903,8 @@ void sub_25C66B5E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t Nightingale::getLowRangeStartDur@<X0>(float a1@<S0>, float a2@<S1>, uint64_t a3@<X8>)
 {
   LODWORD(a3) = llroundf(a1);
-  LODWORD(v4) = llround((a2 - a1) + 1.0);
-  return a3 | (v4 << 32);
+  LODWORD(v3) = llround((a2 - a1) + 1.0);
+  return a3 | (v3 << 32);
 }
 
 uint64_t Nightingale::getIdxOfMinValFromVec(int **a1)
@@ -3120,10 +3088,10 @@ void Nightingale::pooledVar2Win(float **a1, float **a2, int a3)
   }
 }
 
-uint64_t Nightingale::getMeanDiffOf2Windows(uint64_t *a1, uint64_t *a2, float a3)
+uint64_t Nightingale::getMeanDiffOf2Windows(uint64_t a1, float **a2, float a3)
 {
   v5 = *a1;
-  v6 = a1[1];
+  v6 = *(a1 + 8);
   if (*a1 == v6)
   {
     v10 = 0;
@@ -3164,7 +3132,7 @@ uint64_t Nightingale::getMeanDiffOf2Windows(uint64_t *a1, uint64_t *a2, float a3
   }
 
   v16 = (v6 - v5) >> 2;
-  if (v10 == (v16 * a3) || v15 == (((v11 - *a2) >> 2) * a3))
+  if (v10 == (v16 * a3) || v15 == ((v11 - *a2) * a3))
   {
     v17 = 0;
     v18 = 0;
@@ -3186,7 +3154,7 @@ uint64_t Nightingale::getMeanDiffOf2Windows(uint64_t *a1, uint64_t *a2, float a3
     v22 = 0;
     v23 = 0;
     v24 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v22, *a2, a2[1], (a2[1] - *a2) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v22, *a2, a2[1], a2[1] - *a2);
     v20 = Nightingale::getMeanWin<float>(&v22, a3);
     if (v22)
     {
@@ -3221,7 +3189,7 @@ void sub_25C66BAC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float Nightingale::getSlidingWinScore(uint64_t *a1, uint64_t *a2, float a3)
+float Nightingale::getSlidingWinScore(uint64_t a1, float **a2, float a3)
 {
   v3 = a3;
   MeanDiffOf2Windows = Nightingale::getMeanDiffOf2Windows(a1, a2, a3);
@@ -3369,12 +3337,12 @@ long double Nightingale::gamma_pdf(Nightingale *this, long double a2, double a3,
   return v9 / tgamma(v6);
 }
 
-void Nightingale::get_cdf(float **a1, uint64_t a2, char a3)
+void Nightingale::get_cdf(float **a1, const void **a2, char a3)
 {
   v6 = *a1;
   v5 = a1[1];
   v7 = v5 - *a1;
-  *(a2 + 8) = *a2;
+  a2[1] = *a2;
   if (a3)
   {
     v8 = a1[1];
@@ -3525,12 +3493,12 @@ void sub_25C66C018(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::convolve(void *a1, float **a2, uint64_t a3)
+void Nightingale::convolve(void *a1, float **a2, const void **a3)
 {
   v3 = (a1[1] - *a1) >> 2;
   v5 = *a2;
   v4 = a2[1];
-  *(a3 + 8) = *a3;
+  a3[1] = *a3;
   if (v3)
   {
     v9 = 0;
@@ -3579,11 +3547,11 @@ void Nightingale::convolve(void *a1, float **a2, uint64_t a3)
   }
 }
 
-void Nightingale::convolve_on_top(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
+void Nightingale::convolve_on_top(uint64_t *a1, uint64_t a2, const void **a3, char a4)
 {
   v7 = *a1;
   v6 = a1[1];
-  *(a3 + 8) = *a3;
+  a3[1] = *a3;
   v8 = v6 - v7;
   if (v8)
   {
@@ -3937,12 +3905,12 @@ uint64_t Nightingale::CGradient::normalize(uint64_t this)
   return this;
 }
 
-uint64_t Nightingale::CGradient::get_list_reference@<X0>(Nightingale::CGradient *this@<X0>, void *a2@<X8>)
+uint64_t *Nightingale::CGradient::get_list_reference@<X0>(uint64_t *__return_ptr a1@<X8>, Nightingale::CGradient *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, *this, *(this + 1), (*(this + 1) - *this) >> 2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *this, *(this + 1), (*(this + 1) - *this) >> 2);
 }
 
 char **Nightingale::CGradient::set_vGrad(char **result, char **a2)
@@ -4056,16 +4024,16 @@ double Nightingale::CGradient::get_variance(Nightingale::CGradient *this)
   return v7;
 }
 
-float Nightingale::cumsum@<S0>(uint64_t *a1@<X0>, float **a2@<X8>)
+float Nightingale::cumsum@<S0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, *a1, a1[1], (a1[1] - *a1) >> 2);
-  if (*a1 != a1[1])
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
+  if (*a1 != *(a1 + 8))
   {
     v5 = *a2;
-    v6 = a2[1] - *a2;
+    v6 = (a2[1] - *a2) >> 2;
     if (v6 >= 2)
     {
       v8 = *v5;
@@ -4086,7 +4054,7 @@ float Nightingale::cumsum@<S0>(uint64_t *a1@<X0>, float **a2@<X8>)
   return result;
 }
 
-unint64_t Nightingale::argquantile(uint64_t *a1, float a2)
+unint64_t Nightingale::argquantile(void *a1, float a2)
 {
   Nightingale::cumsum(a1, &__p);
   if (*a1 == a1[1] || __p == v15)
@@ -4456,15 +4424,15 @@ unint64_t Nightingale::lstmModelCommonFw::fwDLPostProcess@<X0>(uint64_t a1@<X1>,
     v9 = *a1;
     v10 = *(a1 + 8) - 4;
     *(a1 + 8) = v10;
-    v11 = v10 - (v9 + 4);
-    if (v10 == v9 + 4)
+    v11 = v10 - (v9 + 1);
+    if (v10 == v9 + 1)
     {
       v12 = v9;
     }
 
     else
     {
-      memmove(v9, (v9 + 4), v10 - (v9 + 4));
+      memmove(v9, v9 + 1, v10 - (v9 + 1));
       v12 = *a1;
     }
 
@@ -4523,7 +4491,7 @@ void sub_25C66CFE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(uint64_t *a1@<X1>, int a2@<W2>, uint64_t a3@<X8>)
+void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(void *a1@<X1>, int a2@<W2>, void **a3@<X8>)
 {
   Nightingale::CGradient::CGradient(__p);
   v6 = Nightingale::argquantile(a1, 0.1);
@@ -4533,14 +4501,14 @@ void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(uint64_t *a1@<X1>, 
   if (v6 & 1) != 0 || (v7 & 1) != 0 || (v8 & 1) != 0 || (v9)
   {
     *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    a3[1] = 0;
+    a3[2] = 0;
     std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3, __p[0], __p[1], (__p[1] - __p[0]) >> 2);
-    *(a3 + 24) = v24[0];
+    *(a3 + 3) = v24[0];
     *(a3 + 33) = *(v24 + 9);
-    *(a3 + 56) = 0;
+    *(a3 + 14) = 0;
     *(a3 + 60) = 1;
-    *(a3 + 64) = 0;
+    *(a3 + 16) = 0;
     *(a3 + 68) = 1;
     *(a3 + 72) = 0;
     *(a3 + 76) = 0;
@@ -4614,7 +4582,7 @@ void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(uint64_t *a1@<X1>, 
   *(a3 + 84) = 0;
   if (__p == a3)
   {
-    *(a3 + 24) = v24[0];
+    *(a3 + 3) = v24[0];
     *(a3 + 33) = *(v24 + 9);
   }
 
@@ -4622,7 +4590,7 @@ void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(uint64_t *a1@<X1>, 
   {
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a3, __p[0], __p[1], (__p[1] - __p[0]) >> 2);
     v18 = *(a3 + 60);
-    *(a3 + 24) = v24[0];
+    *(a3 + 3) = v24[0];
     *(a3 + 33) = *(v24 + 9);
     if (v18)
     {
@@ -4632,13 +4600,13 @@ void Nightingale::lstmModelCommonPeriod::periodDLPostProcess(uint64_t *a1@<X1>, 
 
   *(a3 + 60) = 1;
 LABEL_28:
-  *(a3 + 56) = v16;
+  *(a3 + 14) = v16;
   if ((*(a3 + 68) & 1) == 0)
   {
     *(a3 + 68) = 1;
   }
 
-  *(a3 + 64) = v17;
+  *(a3 + 16) = v17;
 LABEL_6:
   if (__p[0])
   {
@@ -4799,13 +4767,13 @@ uint64_t Nightingale::lstmModelCommonPeriod::applyNoflowUpdateDL(Nightingale::ls
   return result;
 }
 
-void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale::ngt_Config *a1@<X3>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W4>, int a5@<W5>, int a6@<W6>, int a7@<W7>, uint64_t *a8@<X8>)
+void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(unint64_t *__return_ptr a1@<X8>, Nightingale::ngt_Config *a2@<X3>, uint64_t a3@<X1>, uint64_t a4@<X2>, int a5@<W4>, int a6@<W5>, int a7@<W6>, int a8@<W7>)
 {
-  Nightingale::periodEstimatorCalendarWithEnd::periodEstimatorCalendarWithEnd(v70, a1);
-  *a8 = 0;
-  a8[1] = 0;
-  a8[2] = 0;
-  v16 = *(a3 + 8);
+  Nightingale::periodEstimatorCalendarWithEnd::periodEstimatorCalendarWithEnd(v70, a2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v16 = *(a4 + 8);
   v64[0] = *(v16 - 96);
   v17 = *(v16 - 80);
   v18 = *(v16 - 64);
@@ -4818,9 +4786,9 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
   v69 = 0;
   v67 = 0;
   std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&v67, *(v16 - 24), *(v16 - 16), *(v16 - 16) - *(v16 - 24));
-  if (!Nightingale::CGradient::get_vGrad_empty(a2) && *(a2 + 76) == 1 && BYTE4(v65) == 1 && (BYTE12(v65) & 1) != 0)
+  if (!Nightingale::CGradient::get_vGrad_empty(a3) && *(a3 + 76) == 1 && BYTE4(v65) == 1 && (BYTE12(v65) & 1) != 0)
   {
-    v40 = *(a3 + 124);
+    v40 = *(a4 + 124);
     Nightingale::CGradient::CGradient(v56);
     v58 = 0;
     v59 = 0;
@@ -4836,15 +4804,15 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
     v55[16] = 0;
     v55[20] = 0;
     Nightingale::CGradient::CGradient(__p);
-    if (*(a2 + 76) != 1 || (expectation = *(a2 + 72), (BYTE12(v65) & 1) == 0))
+    if (*(a3 + 76) != 1 || (expectation = *(a3 + 72), (BYTE12(v65) & 1) == 0))
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
     v72 = *(&v65 + 2);
-    if (a7)
+    if (a8)
     {
-      v20 = *(a2 + 44);
+      v20 = *(a3 + 44);
       if ((v20 & 0x100000000) != 0)
       {
         variance = (*&v20 * *&v20);
@@ -4852,16 +4820,16 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
 
       else
       {
-        variance = Nightingale::CGradient::get_variance(a2);
+        variance = Nightingale::CGradient::get_variance(a3);
       }
 
       v72 = variance;
     }
 
-    if (a4 >= 1)
+    if (a5 >= 1)
     {
       v22 = 0;
-      v23 = a5 - *(a3 + 128);
+      v23 = a6 - *(a4 + 128);
       do
       {
         if (BYTE4(v65) != 1 || (v24 = expectation + *&v65, expectation = v24, (BYTE12(v65) & 1) == 0))
@@ -4878,10 +4846,10 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
         v72 = v25;
         v26 = v24;
         v27 = v25;
-        v28 = (*(a3 + 112) - LOBYTE(v64[0]));
-        if (*(a3 + 116))
+        v28 = (*(a4 + 112) - LOBYTE(v64[0]));
+        if (*(a4 + 116))
         {
-          v8 = (*(a3 + 112) - LODWORD(v64[0])) >> 8;
+          v8 = (*(a4 + 112) - LODWORD(v64[0])) >> 8;
         }
 
         else
@@ -4889,7 +4857,7 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
           v28 = 0;
         }
 
-        Nightingale::periodEstimatorCalendar::getCalBasedPeriodStartGradient(v70, v28 | (v8 << 8) | (*(a3 + 116) << 32), v41, v26, v27);
+        Nightingale::periodEstimatorCalendar::getCalBasedPeriodStartGradient(v70, v28 | (v8 << 8) | (*(a4 + 116) << 32), v41, v26, v27);
         if (__p[0])
         {
           __p[1] = __p[0];
@@ -4900,7 +4868,7 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
         v50 = v42;
         v51[0] = v43[0];
         *(v51 + 9) = *(v43 + 9);
-        if (a6)
+        if (a7)
         {
           expectation = Nightingale::CGradient::get_expectation(__p);
           std = Nightingale::CGradient::get_std(__p);
@@ -4941,12 +4909,12 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
         *v55 = *v44;
         *&v55[13] = *&v44[13];
         std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100]<Nightingale::periodEstimationOutStruct&,Nightingale::periodEstimationOutStruct&,0>(v41, v56, v52);
-        v33 = a8[1];
-        if (v33 >= a8[2])
+        v33 = a1[1];
+        if (v33 >= a1[2])
         {
-          v38 = std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(a8, v41);
+          v38 = std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(a1, v41);
           v39 = v45[0];
-          a8[1] = v38;
+          a1[1] = v38;
           if (v39)
           {
             v45[1] = v39;
@@ -4984,7 +4952,7 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
           v37 = *v48;
           *(v33 + 149) = *&v48[13];
           *(v33 + 136) = v37;
-          a8[1] = v33 + 160;
+          a1[1] = v33 + 160;
         }
 
         if (v41[0])
@@ -4996,7 +4964,7 @@ void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale:
         ++v22;
       }
 
-      while (a4 != v22);
+      while (a5 != v22);
     }
 
     if (__p[0])
@@ -5059,7 +5027,7 @@ void sub_25C66DAB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
@@ -5138,9 +5106,9 @@ uint64_t std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingal
   return v17;
 }
 
-void sub_25C66DCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25C66DCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5251,46 +5219,46 @@ uint64_t Nightingale::lstmHr::lstmHr(uint64_t a1, uint64_t a2, uint64_t a3, uint
   return a1;
 }
 
-void sub_25C66DF08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25C66DF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = v3[43];
-  if (v6)
-  {
-    v3[44] = v6;
-    operator delete(v6);
-  }
-
-  v7 = v3[40];
+  va_start(va, a3);
+  v7 = v4[43];
   if (v7)
   {
-    v3[41] = v7;
+    v4[44] = v7;
     operator delete(v7);
   }
 
-  v8 = v3[37];
+  v8 = v4[40];
   if (v8)
   {
-    v3[38] = v8;
+    v4[41] = v8;
     operator delete(v8);
   }
 
-  v9 = v3[34];
+  v9 = v4[37];
   if (v9)
   {
-    v3[35] = v9;
+    v4[38] = v9;
     operator delete(v9);
   }
 
-  v10 = *v4;
-  if (*v4)
+  v10 = v4[34];
+  if (v10)
   {
-    v3[32] = v10;
+    v4[35] = v10;
     operator delete(v10);
   }
 
+  v11 = *v5;
+  if (*v5)
+  {
+    v4[32] = v11;
+    operator delete(v11);
+  }
+
   std::vector<std::vector<BOOL>>::__destroy_vector::operator()[abi:ne200100](va);
-  Nightingale::hrSlicesStruct::~hrSlicesStruct(v2);
+  Nightingale::hrSlicesStruct::~hrSlicesStruct(v3);
   _Unwind_Resume(a1);
 }
 
@@ -5390,7 +5358,7 @@ uint64_t Nightingale::lstmHr::acquireHr(Nightingale::lstmHr *this)
       v4 = *(this + 8);
       v9 = 0;
       v8 = 0uLL;
-      std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::optional<float>*,std::optional<float>*>(&v8, v4 - 360, v4, 0x2DuLL);
+      std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::optional<float>*,std::optional<float>*>(&v8, (v4 - 360), v4, 0x2DuLL);
       v5 = *(this + 31);
       if (v5)
       {
@@ -5403,7 +5371,7 @@ uint64_t Nightingale::lstmHr::acquireHr(Nightingale::lstmHr *this)
       v6 = *(this + 11);
       v9 = 0;
       v8 = 0uLL;
-      std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::optional<float>*,std::optional<float>*>(&v8, v6 - 360, v6, 0x2DuLL);
+      std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::optional<float>*,std::optional<float>*>(&v8, (v6 - 360), v6, 0x2DuLL);
       v7 = *(this + 34);
       if (v7)
       {
@@ -5448,17 +5416,17 @@ uint64_t Nightingale::lstmHr::getJDay1stValidAwakeHr(Nightingale::lstmHr *this)
   return *v2 | 0x100000000;
 }
 
-uint64_t Nightingale::lstmHr::acquireHrSlices(uint64_t this)
+uint64_t *Nightingale::lstmHr::acquireHrSlices(uint64_t *this)
 {
-  v1 = *(this + 192);
+  v1 = this[24];
   if (*(v1 + 36) == 1)
   {
     v2 = this;
-    Nightingale::heartRateInputAcquisition::acquireSlicesFwDayStream(this + 372, *(this + 176), *(v1 + 32), *(*(this + 184) + 80), this + 8);
+    Nightingale::heartRateInputAcquisition::acquireSlicesFwDayStream(this + 372, this[22], *(v1 + 32), *(this[23] + 80), (this + 1));
     this = Nightingale::heartRateInputAcquisition::get1stJDayDailyIdx((v2 + 372));
-    *(v2 + 232) = this;
+    *(v2 + 58) = this;
     *(v2 + 236) = BYTE4(this);
-    *(v2 + 240) = v3;
+    *(v2 + 60) = v3;
     *(v2 + 244) = v4;
   }
 
@@ -5468,7 +5436,7 @@ uint64_t Nightingale::lstmHr::acquireHrSlices(uint64_t this)
 BOOL Nightingale::lstmHr::validateHr(const Nightingale::ngt_Config **this, int a2)
 {
   Nightingale::heartRateInputValidation::heartRateInputValidation(v12, this[24]);
-  Nightingale::heartRateInputValidation::process(v12, this + 1, (this + 26), a2);
+  Nightingale::heartRateInputValidation::process(v12, (this + 1), this + 26, a2);
   if (*(this + 108) == 1 && *(this + 116) == 1 && (v4 = this[24], *(v4 + 36) == 1))
   {
     v5 = *(*(this[23] + 1) - 96);
@@ -5515,9 +5483,9 @@ uint64_t Nightingale::lstmHr::preConditionHr(Nightingale::lstmHr *this)
   return v1;
 }
 
-void sub_25C66E424(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25C66E424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Nightingale::heartRateInputPreCondition::~heartRateInputPreCondition(va);
   _Unwind_Resume(a1);
 }
@@ -5536,7 +5504,7 @@ BOOL Nightingale::lstmHr::prepareUiVectors(Nightingale::lstmHr *this, int a2, in
   v16 = xmmword_25C67CA20;
   v17 = 0x3FB8CEF8402F005CLL;
   Nightingale::uiProcessForLstm::uiProcessForLstm(v18, v5, v6, v7, &v16);
-  Nightingale::uiProcessForLstm::prepareUiLogForDL(v18, &v19, this + 296, this + 320, this + 344);
+  Nightingale::uiProcessForLstm::prepareUiLogForDL(v18, &v19, this + 37, this + 320, this + 344);
   v8 = *(this + 37);
   v9 = *(this + 38);
   if (v8 == v9 || (v10 = *(this + 40), v11 = *(this + 41), v10 == v11))
@@ -5562,9 +5530,9 @@ BOOL Nightingale::lstmHr::prepareUiVectors(Nightingale::lstmHr *this, int a2, in
   return v12;
 }
 
-void sub_25C66E54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25C66E54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   Nightingale::uiProcessForLstm::~uiProcessForLstm(va);
   _Unwind_Resume(a1);
 }
@@ -5573,7 +5541,8 @@ uint64_t Nightingale::lstmHrFw::lstmHrFw(uint64_t a1, uint64_t a2, uint64_t a3, 
 {
   v7 = Nightingale::lstmHr::lstmHr(a1, a2, a3, a4, a5);
   *v7 = &unk_286E2A2E8;
-  std::vector<BOOL>::vector(v7 + 49, 8);
+  v14 = 0;
+  std::vector<BOOL>::vector(v7 + 49, 8, &v14);
   *(a1 + 444) = 0;
   *(a1 + 448) = 0;
   *(a1 + 452) = 0;
@@ -5614,22 +5583,22 @@ uint64_t Nightingale::lstmHrFw::lstmHrFw(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 void sub_25C66E654(_Unwind_Exception *a1)
 {
-  Nightingale::ngt_dnn_fw_predict_t::~ngt_dnn_fw_predict_t((v1 + 60));
-  v3 = v1[57];
+  Nightingale::ngt_dnn_fw_predict_t::~ngt_dnn_fw_predict_t((v1 + 480));
+  v3 = *(v1 + 456);
   if (v3)
   {
-    v1[58] = v3;
+    *(v1 + 464) = v3;
     operator delete(v3);
   }
 
-  v4 = v1[52];
+  v4 = *(v1 + 416);
   if (v4)
   {
-    v1[53] = v4;
+    *(v1 + 424) = v4;
     operator delete(v4);
   }
 
-  v5 = v1[49];
+  v5 = *(v1 + 392);
   if (v5)
   {
     operator delete(v5);
@@ -5639,26 +5608,26 @@ void sub_25C66E654(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Nightingale::lstmHrFw::~lstmHrFw(Nightingale::lstmHrFw *this)
+void Nightingale::lstmHrFw::~lstmHrFw(id **this)
 {
   *this = &unk_286E2A2E8;
-  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 488));
-  Nightingale::ngt_dnn_fw_predict_t::~ngt_dnn_fw_predict_t((this + 480));
-  v2 = *(this + 57);
+  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 61));
+  Nightingale::ngt_dnn_fw_predict_t::~ngt_dnn_fw_predict_t(this + 60);
+  v2 = this[57];
   if (v2)
   {
-    *(this + 58) = v2;
+    this[58] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 52);
+  v3 = this[52];
   if (v3)
   {
-    *(this + 53) = v3;
+    this[53] = v3;
     operator delete(v3);
   }
 
-  v4 = *(this + 49);
+  v4 = this[49];
   if (v4)
   {
     operator delete(v4);
@@ -5667,25 +5636,25 @@ void Nightingale::lstmHrFw::~lstmHrFw(Nightingale::lstmHrFw *this)
   Nightingale::lstmHr::~lstmHr(this);
 }
 
-__n128 Nightingale::lstmHrFw::getFWEndHr@<Q0>(Nightingale::lstmHrFw *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+__n128 Nightingale::lstmHrFw::getFWEndHr@<Q0>(uint64_t *__return_ptr a1@<X8>, Nightingale::lstmHrFw *this@<X0>, int a3@<W1>)
 {
-  *a3 = 0;
-  *(a3 + 4) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 20) = 0;
-  *(a3 + 24) = -1082130432;
-  *(a3 + 28) = -1;
-  *(a3 + 36) = -1;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 12) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 20) = 0;
+  *(a1 + 6) = -1082130432;
+  *(a1 + 28) = -1;
+  *(a1 + 36) = -1;
   __asm { FMOV            V0.4S, #-1.0 }
 
-  *(a3 + 44) = _Q0;
+  *(a1 + 44) = _Q0;
   __asm { FMOV            V0.2S, #-1.0 }
 
-  *(a3 + 60) = _Q0;
-  *(a3 + 68) = 0;
-  *(a3 + 72) = 0;
+  *(a1 + 60) = _Q0;
+  *(a1 + 68) = 0;
+  *(a1 + 72) = 0;
   if (Nightingale::lstmHr::acquireHr(this) && Nightingale::lstmHr::validateHr(this, 1) && Nightingale::lstmHr::preConditionHr(this))
   {
     if ((*(this + 108) & 1) == 0 || (*(this + 116) & 1) == 0 || (*(this + 236) & 1) == 0)
@@ -5696,14 +5665,14 @@ __n128 Nightingale::lstmHrFw::getFWEndHr@<Q0>(Nightingale::lstmHrFw *this@<X0>, 
     if (Nightingale::lstmHr::prepareUiVectors(this, *(this + 26), *(this + 28), *(this + 58)))
     {
       Nightingale::lstmHrFw::applyAlgs(this);
-      Nightingale::lstmHrFw::computeHrFwCA(this, a2);
+      Nightingale::lstmHrFw::computeHrFwCA(this, a3);
       v12 = *(this + 564);
-      *(a3 + 32) = *(this + 548);
-      *(a3 + 48) = v12;
-      *(a3 + 60) = *(this + 36);
+      *(a1 + 2) = *(this + 548);
+      *(a1 + 3) = v12;
+      *(a1 + 60) = *(this + 36);
       result = *(this + 532);
-      *a3 = *(this + 516);
-      *(a3 + 16) = result;
+      *a1 = *(this + 516);
+      *(a1 + 1) = result;
     }
   }
 
@@ -5725,7 +5694,8 @@ LABEL_25:
     for (i = 0; ; ++i)
     {
       v5 = v2 + i;
-      Nightingale::lstmHrFw::applyAlgsADay(v1, i);
+      v6 = i;
+      Nightingale::lstmHrFw::applyAlgsADay(v1, v6);
       if (*(v1 + 444) == 1 && (*(v1 + 520) & 1) == 0 && Nightingale::lstmHrFw::validateFwRsltADay(v1, v2 + i))
       {
         if ((*(v1 + 444) & 1) == 0)
@@ -5739,24 +5709,24 @@ LABEL_25:
         *(v1 + 528) = 1;
       }
 
-      v6 = *(v1 + 208);
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v1 + 216) - v6) >> 3) <= i)
+      v7 = *(v1 + 208);
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v1 + 216) - v7) >> 3) <= v6)
       {
         std::vector<int>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v7 = *(v6 + 24 * i + 8) - 1;
-      if ((*(*(v6 + 24 * i) + ((v7 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v7))
+      v8 = *(v7 + 24 * v6 + 8) - 1;
+      if ((*(*(v7 + 24 * v6) + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v8))
       {
-        v8 = *(v1 + 536) ^ 1;
+        v9 = *(v1 + 536) ^ 1;
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
-      this = Nightingale::lstmHrFw::validateToRunPeriodADay(v1, v2 + i, v8 & 1);
+      this = Nightingale::lstmHrFw::validateToRunPeriodADay(v1, v2 + i, v9 & 1);
       if (this)
       {
         *(v1 + 532) = v5;
@@ -5781,18 +5751,18 @@ LABEL_25:
   return this;
 }
 
-void Nightingale::lstmHrFw::computeHrFwCA(Nightingale::lstmHrFw *this, int a2)
+void Nightingale::lstmHrFw::computeHrFwCA(uint64_t *this, int a2)
 {
   if (a2)
   {
-    if (*(this + 31) != *(this + 32))
+    if (this[31] != this[32])
     {
-      Nightingale::lstmHrFw::computeHrSignalQuality(this, &v5);
+      Nightingale::lstmHrFw::computeHrSignalQuality(&v5, this);
       v3 = *v6;
       *(this + 540) = v5;
       *(this + 556) = v3;
-      *(this + 568) = *&v6[12];
-      v4 = *(this + 23);
+      *(this + 71) = *&v6[12];
+      v4 = this[23];
       if (*(v4 + 108) == 1 && *(this + 520) == 1)
       {
         *(this + 146) = *(this + 129) + ~*(v4 + 104);
@@ -5802,12 +5772,13 @@ void Nightingale::lstmHrFw::computeHrFwCA(Nightingale::lstmHrFw *this, int a2)
   }
 }
 
-void Nightingale::lstmHrFw::applyAlgsADay(Nightingale::lstmHrFw *this, unsigned int a2)
+void Nightingale::lstmHrFw::applyAlgsADay(Nightingale::lstmHrFw *this, uint64_t a2)
 {
   v2 = *(this + 26);
   v3 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 27) - v2) >> 3);
   if (a2 < v3)
   {
+    v4 = a2;
     if (v3 <= a2)
     {
       std::vector<int>::__throw_out_of_range[abi:ne200100]();
@@ -5816,7 +5787,7 @@ void Nightingale::lstmHrFw::applyAlgsADay(Nightingale::lstmHrFw *this, unsigned 
     v5 = a2;
     if (**(v2 + 24 * a2))
     {
-      v7 = a2 + 44;
+      v7 = (a2 + 44);
       if (v7 < (*(this + 2) - *(this + 1)) >> 3 && v7 < (*(this + 5) - *(this + 4)) >> 3 && v7 < (*(this + 38) - *(this + 37)) >> 2 && v7 < (*(this + 41) - *(this + 40)) >> 2 && v7 < (*(this + 44) - *(this + 43)) >> 2)
       {
         v8 = a2 + 45;
@@ -5830,10 +5801,10 @@ void Nightingale::lstmHrFw::applyAlgsADay(Nightingale::lstmHrFw *this, unsigned 
         *v20 = 0u;
         memset(v18, 0, sizeof(v18));
         Nightingale::lstmHr::copyASliceToLstmStruct(this, v18, this + 1, a2, (a2 + 45));
-        Nightingale::lstmHr::copyASliceToLstmStruct(this, &v18[1] + 1, this + 4, a2, v8);
+        Nightingale::lstmHr::copyASliceToLstmStruct(this, &v18[1] + 1, this + 4, v4, v8);
         v9 = *(this + 37);
-        v10 = (v9 + 4 * a2);
-        v11 = 4 * v8;
+        v10 = (v9 + 4 * v4);
+        v11 = (4 * v8);
         std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(__src, __src[0], v10, (v9 + v11), (v11 - 4 * v5) >> 2);
         v12 = 4 * v5;
         std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v20[1], v20[1], (v12 + *(this + 40)), (*(this + 40) + v11), (v11 - v12) >> 2);
@@ -5869,15 +5840,15 @@ void Nightingale::lstmHrFw::applyAlgsADay(Nightingale::lstmHrFw *this, unsigned 
   }
 }
 
-void sub_25C66EC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C66EC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Nightingale::ngt_hr_DLin_t::~ngt_hr_DLin_t(va);
-  v9 = *(v7 - 88);
-  if (v9)
+  v15 = *(v13 - 88);
+  if (v15)
   {
-    *(v7 - 80) = v9;
-    operator delete(v9);
+    *(v13 - 80) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -6169,8 +6140,8 @@ uint64_t Nightingale::lstmHrFw::validateToRunPeriodADay(Nightingale::lstmHrFw *t
 
 void Nightingale::lstmHr::copyASliceToLstmStruct(uint64_t a1, const void **a2, void *a3, unsigned int a4, unsigned int a5)
 {
-  v6 = *a3 + 8 * a4;
-  v7 = *a3 + 8 * a5;
+  v6 = (*a3 + 8 * a4);
+  v7 = (*a3 + 8 * a5);
   v22 = 0;
   v23 = 0;
   v21 = 0;
@@ -6222,7 +6193,7 @@ void Nightingale::lstmHr::copyASliceToLstmStruct(uint64_t a1, const void **a2, v
         }
 
         *(8 * v16) = v10;
-        v13 = 8 * v16 + 8;
+        v13 = (8 * v16 + 8);
         memcpy(0, v14, v15);
         v20 = *a2;
         *a2 = 0;
@@ -6237,7 +6208,7 @@ void Nightingale::lstmHr::copyASliceToLstmStruct(uint64_t a1, const void **a2, v
       else
       {
         *v12 = v10;
-        v13 = (v12 + 1);
+        v13 = v12 + 1;
       }
 
       a2[1] = v13;
@@ -6349,26 +6320,26 @@ BOOL Nightingale::lstmHrFw::consistencyCheck(uint64_t a1, int **a2, int a3)
   return v8 == 0;
 }
 
-void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<X0>, uint64_t a2@<X8>)
+void Nightingale::lstmHrFw::computeHrSignalQuality(uint64_t *__return_ptr a1@<X8>, Nightingale::lstmHrFw *this@<X0>)
 {
-  *a2 = -1082130432;
-  *(a2 + 4) = -1;
-  v4 = (a2 + 4);
-  *(a2 + 12) = -1;
+  *a1 = -1082130432;
+  *(a1 + 4) = -1;
+  v4 = a1 + 1;
+  *(a1 + 12) = -1;
   __asm { FMOV            V0.4S, #-1.0 }
 
-  *(a2 + 20) = _Q0;
+  *(a1 + 20) = _Q0;
   __asm { FMOV            V0.2S, #-1.0 }
 
-  *(a2 + 36) = _Q0;
+  *(a1 + 36) = _Q0;
   v11 = *(this + 31);
   v10 = *(this + 32);
   if (v10 == v11)
   {
-    *(a2 + 24) = 0;
-    *(a2 + 20) = 0;
-    *a2 = 1065353216;
-    *(a2 + 12) = 0;
+    a1[3] = 0;
+    *(a1 + 5) = 0;
+    *a1 = 1065353216;
+    *(a1 + 3) = 0;
   }
 
   else
@@ -6385,7 +6356,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
     while (v14 != v10);
     v15 = 0;
     v16 = v13;
-    *a2 = v12 / v13;
+    *a1 = v12 / v13;
     v17 = v11;
     do
     {
@@ -6399,7 +6370,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
 
     while (v17 != v10);
     v18 = 0;
-    *(a2 + 20) = v15 / v16;
+    *(a1 + 5) = v15 / v16;
     v19 = v11;
     do
     {
@@ -6413,7 +6384,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
 
     while (v19 != v10);
     v20 = 0;
-    *(a2 + 24) = v18 / v16;
+    *(a1 + 6) = v18 / v16;
     v21 = v11;
     do
     {
@@ -6426,7 +6397,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
     }
 
     while (v21 != v10);
-    *(a2 + 28) = v20 / v16;
+    *(a1 + 7) = v20 / v16;
     __p = 0;
     v40 = 0;
     v41 = 0;
@@ -6464,7 +6435,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
         v24 = 50.0;
       }
 
-      *(a2 + 12) = llroundf(v24);
+      *(a1 + 3) = llroundf(v24);
       v22 = __p;
     }
 
@@ -6480,10 +6451,10 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
   v26 = *(v27 + 1);
   if (v26 == v25)
   {
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a1[4] = 0;
+    *(a1 + 10) = 0;
+    *(a1 + 2) = 0;
+    *(a1 + 4) = 0;
   }
 
   else
@@ -6504,7 +6475,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
     while (v30 != v26);
     v31 = 0;
     v32 = v29;
-    *(a2 + 32) = v28 / v29;
+    *(a1 + 8) = v28 / v29;
     v33 = v25;
     do
     {
@@ -6518,7 +6489,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
 
     while (v33 != v26);
     v34 = 0;
-    *(a2 + 36) = v31 / v32;
+    *(a1 + 9) = v31 / v32;
     v35 = v25;
     do
     {
@@ -6531,7 +6502,7 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
     }
 
     while (v35 != v26);
-    *(a2 + 40) = v34 / v32;
+    *(a1 + 10) = v34 / v32;
     __p = 0;
     v40 = 0;
     v41 = 0;
@@ -6562,14 +6533,14 @@ void Nightingale::lstmHrFw::computeHrSignalQuality(Nightingale::lstmHrFw *this@<
         v37 = 50.0;
       }
 
-      *(a2 + 8) = llroundf(v37);
+      *(a1 + 2) = llroundf(v37);
       v38 = Nightingale::getPercentile(&__p, 1, 0.3);
       if (v38 > 50.0)
       {
         v38 = 50.0;
       }
 
-      *(a2 + 16) = llroundf(v38);
+      *(a1 + 4) = llroundf(v38);
       v36 = __p;
     }
 
@@ -6596,7 +6567,7 @@ double Nightingale::lstmHrFw::getHrSignalQuality@<D0>(Nightingale::lstmHrFw *thi
   if (Nightingale::lstmHr::acquireHr(this))
   {
 
-    Nightingale::lstmHrFw::computeHrSignalQuality(this, a2);
+    Nightingale::lstmHrFw::computeHrSignalQuality(a2, this);
   }
 
   else
@@ -6647,17 +6618,17 @@ void Nightingale::lstmHrPeriod::~lstmHrPeriod(Nightingale::lstmHrPeriod *this)
   Nightingale::lstmHr::~lstmHr(this);
 }
 
-__n128 Nightingale::lstmHrPeriod::estimatePeriodStartHr@<Q0>(Nightingale::lstmHrPeriod *this@<X0>, uint64_t a2@<X8>)
+__n128 Nightingale::lstmHrPeriod::estimatePeriodStartHr@<Q0>(void *__return_ptr a1@<X8>, Nightingale::lstmHrPeriod *this@<X0>)
 {
-  Nightingale::CGradient::CGradient(a2);
-  *(a2 + 56) = 0;
-  *(a2 + 60) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 68) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 76) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 84) = 0;
+  Nightingale::CGradient::CGradient(a1);
+  *(a1 + 56) = 0;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 68) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
   if (*(this + 392) == 1)
   {
     v5 = *(*(this + 23) + 104);
@@ -6672,16 +6643,16 @@ __n128 Nightingale::lstmHrPeriod::estimatePeriodStartHr@<Q0>(Nightingale::lstmHr
 
         Nightingale::lstmHr::prepareUiVectors(this, *(this + 26), *(this + 28), *(this + 58));
         Nightingale::lstmHrPeriod::applyAlgs(this);
-        if ((this + 400) != a2)
+        if ((this + 400) != a1)
         {
-          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a2, *(this + 50), *(this + 51), (*(this + 51) - *(this + 50)) >> 2);
+          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1, *(this + 50), *(this + 51), (*(this + 51) - *(this + 50)) >> 2);
         }
 
-        *(a2 + 24) = *(this + 424);
-        *(a2 + 33) = *(this + 433);
-        *(a2 + 56) = *(this + 456);
+        *(a1 + 3) = *(this + 424);
+        *(a1 + 33) = *(this + 433);
+        *(a1 + 7) = *(this + 456);
         result = *(this + 469);
-        *(a2 + 69) = result;
+        *(a1 + 69) = result;
       }
     }
   }
@@ -6716,18 +6687,18 @@ void Nightingale::lstmHrPeriod::applyAlgs(Nightingale::lstmHrPeriod *this)
   Nightingale::lstmModelCommonPeriod::~lstmModelCommonPeriod(&v3);
 }
 
-__n128 Nightingale::lstmHrPeriod::getEnsembleTelemetry@<Q0>(Nightingale::lstmHrPeriod *this@<X0>, uint64_t a2@<X8>)
+__n128 Nightingale::lstmHrPeriod::getEnsembleTelemetry@<Q0>(uint64_t *__return_ptr a1@<X8>, Nightingale::lstmHrPeriod *this@<X0>)
 {
   v2 = *(this + 536);
-  *(a2 + 32) = *(this + 520);
-  *(a2 + 48) = v2;
+  *(a1 + 2) = *(this + 520);
+  *(a1 + 3) = v2;
   v3 = *(this + 568);
-  *(a2 + 64) = *(this + 552);
-  *(a2 + 80) = v3;
+  *(a1 + 4) = *(this + 552);
+  *(a1 + 5) = v3;
   result = *(this + 488);
   v5 = *(this + 504);
-  *a2 = result;
-  *(a2 + 16) = v5;
+  *a1 = result;
+  *(a1 + 1) = v5;
   return result;
 }
 
@@ -6749,7 +6720,7 @@ uint64_t Nightingale::lstmHrPeriod::acquireHrSlices(Nightingale::lstmHrPeriod *t
 
 void Nightingale::lstmHrPeriod::getPeriodProjFromLstmModel(Nightingale::lstmHrPeriod *this, Nightingale::lstmModelCommonPeriod *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v33 = 0;
   v34 = 0;
   v31 = 0;
@@ -6790,20 +6761,20 @@ void Nightingale::lstmHrPeriod::getPeriodProjFromLstmModel(Nightingale::lstmHrPe
     *(this + 50) = *v36;
     v6 = *&v36[8];
     *(this + 408) = *&v36[8];
-    *(this + 424) = v37[0];
-    *(this + 433) = *(v37 + 9);
-    *(this + 456) = v38[0];
-    *(this + 469) = *(v38 + 13);
+    *(this + 424) = *&v36[24];
+    *(this + 433) = *&v36[33];
+    *(this + 456) = *&v36[56];
+    *(this + 469) = *&v36[69];
     v20 = 0;
     v21 = 0;
     v22 = 0;
-    memset(v36, 0, sizeof(v36));
+    memset(v36, 0, 24);
     std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v36, v5, v6, (v6 - v5) >> 2);
-    v37[0] = *(this + 424);
-    *(v37 + 9) = *(this + 433);
-    v38[0] = *(this + 456);
-    *(v38 + 13) = *(this + 469);
-    v39 = 0;
+    *&v36[24] = *(this + 424);
+    *&v36[33] = *(this + 433);
+    *&v36[56] = *(this + 456);
+    *&v36[69] = *(this + 469);
+    v37 = 0;
     std::vector<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>>::insert(&v20, 0, v36);
     std::__variant_detail::__dtor<std::__variant_detail::__traits<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v36);
     v7 = *(this + 24);
@@ -6836,7 +6807,7 @@ LABEL_21:
       v17 = 0;
       v18 = 0;
       v19 = 0;
-      v10 = Nightingale::ngt_dnn_period_predict_transformer_t::ngt_dnn_period_predict_transformer_t(buf, v8);
+      v10 = Nightingale::ngt_dnn_period_predict_transformer_t::ngt_dnn_period_predict_transformer_t(buf);
       if (Nightingale::ngt_dnn_period_predict_transformer_t::predict(v10, &v24, &v17))
       {
         break;
@@ -6854,10 +6825,10 @@ LABEL_21:
       __p[1] = 0;
       v14 = 0;
       __p[0] = 0;
-      v37[0] = v15[0];
-      *(v37 + 9) = *(v15 + 9);
-      *&v38[0] = v16;
-      v39 = 1;
+      *&v36[24] = v15[0];
+      *&v36[33] = *(v15 + 9);
+      *&v36[56] = v16;
+      v37 = 1;
       std::vector<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>>::insert(&v20, v11, v36);
       std::__variant_detail::__dtor<std::__variant_detail::__traits<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v36);
       if (__p[0])
@@ -6929,7 +6900,7 @@ LABEL_22:
   }
 }
 
-void sub_25C6700A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, char a26, int a27, __int16 a28, char a29, char a30)
+void sub_25C6700A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, id *a26, __int16 a27, char a28, char a29)
 {
   Nightingale::ngt_dnn_period_predict_Ensemble_t::~ngt_dnn_period_predict_Ensemble_t(&a20);
   if (__p)
@@ -6937,15 +6908,15 @@ void sub_25C6700A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  v30[20] = &a23;
-  std::vector<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>>::__destroy_vector::operator()[abi:ne200100]((v31 - 208));
+  v29[20] = &a23;
+  std::vector<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>>::__destroy_vector::operator()[abi:ne200100]((v30 - 208));
   Nightingale::ngt_dnn_period_predict_t::~ngt_dnn_period_predict_t(&a26);
-  Nightingale::ngt_hr_DLin_t::~ngt_hr_DLin_t(&a28);
-  v33 = v30[15];
-  if (v33)
+  Nightingale::ngt_hr_DLin_t::~ngt_hr_DLin_t(&a27);
+  v32 = v29[15];
+  if (v32)
   {
-    v30[16] = v33;
-    operator delete(v33);
+    v29[16] = v32;
+    operator delete(v32);
   }
 
   _Unwind_Resume(a1);
@@ -7013,28 +6984,28 @@ uint64_t std::vector<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::
   return v4;
 }
 
-void sub_25C6702E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25C6702E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::variant<Nightingale::lstmPeriodOutStruct,Nightingale::lstmPeriodTFOutStruct>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void Nightingale::lstmHrPeriod::getEnsembleInput(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, _DWORD *a4@<X8>)
+void Nightingale::lstmHrPeriod::getEnsembleInput(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, _DWORD *a4@<X8>)
 {
   Nightingale::uiLogProcessor::uiLogProcessor(v16, *(*(a1 + 192) + 48));
   Nightingale::uiLogProcessor::getEnsembleInput(v16, *(a1 + 184), *(a1 + 192), a4);
-  if (*(a2 + 8) != *a2)
+  if (a2[1] != *a2)
   {
     Nightingale::get_width_and_days_to_drs(*a2, a3);
     a4[3] = v8;
     a4[4] = v9;
-    if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 5) > 1)
+    if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) > 1)
     {
       Nightingale::get_width_and_days_to_drs((*a2 + 96), a3);
       a4[5] = v10;
       a4[6] = v11;
-      if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 5) > 2)
+      if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) > 2)
       {
         Nightingale::get_width_and_days_to_drs((*a2 + 192), a3);
         a4[7] = v12;
@@ -7063,8 +7034,9 @@ void Nightingale::lstmHrPeriod::getEnsembleInput(uint64_t a1@<X0>, uint64_t a2@<
   std::vector<int>::__throw_out_of_range[abi:ne200100]();
 }
 
-void sub_25C670770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25C670770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     operator delete(__p);
@@ -7075,7 +7047,7 @@ void sub_25C670770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a14);
   }
 
-  Nightingale::uiLogProcessor::~uiLogProcessor(&a17);
+  Nightingale::uiLogProcessor::~uiLogProcessor(va);
   _Unwind_Resume(a1);
 }
 
@@ -7132,12 +7104,12 @@ uint64_t Nightingale::get_days_since(uint64_t a1, int a2)
   }
 }
 
-uint64_t Nightingale::get_width_and_days_to_drs(unsigned int *a1, int a2)
+uint64_t Nightingale::get_width_and_days_to_drs(Nightingale::CGradient *a1, uint64_t a2)
 {
   v5 = a2;
   v4[0] = &v5;
   v4[1] = &v5;
-  v2 = a1[22];
+  v2 = *(a1 + 22);
   if (v2 == -1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -7220,6 +7192,19 @@ void Nightingale::hrSlicesStruct::~hrSlicesStruct(Nightingale::hrSlicesStruct *t
   }
 }
 
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void *std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(void *result, unint64_t a2)
 {
   v2 = a2;
@@ -7295,7 +7280,7 @@ void std::__fill_n_BOOL[abi:ne200100]<false,std::vector<BOOL>>(uint64_t a1, unin
   }
 }
 
-uint64_t std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::optional<float> const*>,std::__wrap_iter<std::optional<float> const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::optional<float>>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::optional<float> const*>,std::__wrap_iter<std::optional<float> const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7759,42 +7744,42 @@ uint64_t Nightingale::lstmLuna::lstmLuna(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 void sub_25C671718(_Unwind_Exception *a1)
 {
-  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process((v1 + 47));
+  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process((v1 + 376));
   Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation((v1 + 369));
-  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((v1 + 46));
+  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((v1 + 368));
   Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition((v3 + 13));
-  v6 = v1[33];
+  v6 = *(v1 + 264);
   if (v6)
   {
-    v1[34] = v6;
+    *(v1 + 272) = v6;
     operator delete(v6);
   }
 
   v7 = *v4;
   if (*v4)
   {
-    v1[30] = v7;
+    *(v1 + 240) = v7;
     operator delete(v7);
   }
 
   v8 = *v3;
   if (*v3)
   {
-    v1[25] = v8;
+    *(v1 + 200) = v8;
     operator delete(v8);
   }
 
-  v9 = v1[19];
+  v9 = *(v1 + 152);
   if (v9)
   {
-    v1[20] = v9;
+    *(v1 + 160) = v9;
     operator delete(v9);
   }
 
-  v10 = v1[16];
+  v10 = *(v1 + 128);
   if (v10)
   {
-    v1[17] = v10;
+    *(v1 + 136) = v10;
     operator delete(v10);
   }
 
@@ -7802,64 +7787,64 @@ void sub_25C671718(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Nightingale::lstmLuna::~lstmLuna(Nightingale::lstmLuna *this)
+void Nightingale::lstmLuna::~lstmLuna(id **this)
 {
   *this = &unk_286E2A398;
-  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 384));
-  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process((this + 376));
+  Nightingale::lstmModelCommonFw::~lstmModelCommonFw((this + 48));
+  Nightingale::ngt_luna_fw_dl_tmp_process::~ngt_luna_fw_dl_tmp_process(this + 47);
   Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation((this + 369));
-  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((this + 368));
-  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition((this + 296));
-  v2 = *(this + 33);
+  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess((this + 46));
+  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition((this + 37));
+  v2 = this[33];
   if (v2)
   {
-    *(this + 34) = v2;
+    this[34] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 29);
+  v3 = this[29];
   if (v3)
   {
-    *(this + 30) = v3;
+    this[30] = v3;
     operator delete(v3);
   }
 
-  v4 = *(this + 24);
+  v4 = this[24];
   if (v4)
   {
-    *(this + 25) = v4;
+    this[25] = v4;
     operator delete(v4);
   }
 
-  v5 = *(this + 19);
+  v5 = this[19];
   if (v5)
   {
-    *(this + 20) = v5;
+    this[20] = v5;
     operator delete(v5);
   }
 
-  v6 = *(this + 16);
+  v6 = this[16];
   if (v6)
   {
-    *(this + 17) = v6;
+    this[17] = v6;
     operator delete(v6);
   }
 
-  v7 = *(this + 13);
+  v7 = this[13];
   if (v7)
   {
-    *(this + 14) = v7;
+    this[14] = v7;
     operator delete(v7);
   }
 
-  v8 = *(this + 10);
+  v8 = this[10];
   if (v8)
   {
-    *(this + 11) = v8;
+    this[11] = v8;
     operator delete(v8);
   }
 
-  v9 = (this + 48);
+  v9 = (this + 6);
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v9);
 }
 
@@ -7895,7 +7880,7 @@ LABEL_8:
   *(this + 40) = 1;
 LABEL_10:
   memset(v24, 0, sizeof(v24));
-  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(this + 37, a3 - a2 + 1, a3, *(*(*(this + 2) + 8) - 96) - 43, *(this + 1), *(this + 4), &v17);
+  Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(this + 37, (a3 - a2 + 1), a3, *(*(*(this + 2) + 8) - 96) - 43, *(this + 1), *(this + 4), &v17);
   std::vector<std::vector<float>>::__vdeallocate(this + 6);
   *(this + 3) = v17;
   v9 = *(this + 10);
@@ -7950,7 +7935,7 @@ LABEL_10:
 
   else
   {
-    Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches((this + 48), 45, 1, a2, &v17);
+    Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches(&v17, (this + 48), 45, 1, a2);
     v13 = v17;
     v8 = v17 != *(&v17 + 1);
     if (v17 == *(&v17 + 1))
@@ -8015,12 +8000,12 @@ uint64_t Nightingale::lstmLuna::validateWTmp(Nightingale::lstmLuna *this, int a2
   v30 = 0;
   v31 = 0;
   v29 = 0;
-  std::vector<Nightingale::fwEndConfirmationFailureReason_t>::__init_with_size[abi:ne200100]<Nightingale::fwEndConfirmationFailureReason_t const*,Nightingale::fwEndConfirmationFailureReason_t const*>(&v29, &v33, &v33 + 4, 1uLL);
+  std::vector<Nightingale::fwEndConfirmationFailureReason_t>::__init_with_size[abi:ne200100]<Nightingale::fwEndConfirmationFailureReason_t const*,Nightingale::fwEndConfirmationFailureReason_t const*>(&v29, &v33, &v33 + 1, 1uLL);
   *&v33 = a3;
   v27 = 0;
   v28 = 0;
   v26 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v26, &v33, &v33 + 4, 1uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v26, &v33, &v33 + 1, 1uLL);
   v33 = &unk_286E2A0F0;
   v34 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
   v35 = 0;
@@ -8063,7 +8048,7 @@ uint64_t Nightingale::lstmLuna::validateWTmp(Nightingale::lstmLuna *this, int a2
   v34 = 0;
   v35 = 0;
   v33 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, v10 - 84, v10, 0x15uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, (v10 - 84), v10, 0x15uLL);
   v21 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpDay2dayNoiseHigh;
   v22 = 0;
   std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::operator=<std::pair<BOOL,float> (Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::*)(std::vector<float> const&,int,float),void>(v32[0], &v21);
@@ -8260,7 +8245,7 @@ uint64_t Nightingale::lstmLuna::preCondition(uint64_t a1, float a2, float a3)
   {
     v7 = *(a1 + 152);
     v8 = *(a1 + 160);
-    v6 = (a1 + 152);
+    v6 = a1 + 152;
     if (v7 != v8)
     {
       v9 = v4 + 8 * v5;
@@ -8453,7 +8438,7 @@ uint64_t Nightingale::lstmLunaFw::validateLunaRslt(Nightingale::lstmLunaFw *this
   v31 = 0;
   v32 = 0;
   v33 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v31, v7 + 4 * (v4 - 7), v7, (-4 * (v4 - 7)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v31, (v7 + 4 * (v4 - 7)), v7, (-4 * (v4 - 7)) >> 2);
   v28 = 0;
   v29 = 0;
   __p = 0;
@@ -8589,7 +8574,7 @@ uint64_t Nightingale::lstmLunaFw::getOngoingFwLstmLunaAvailibilityFail(Nightinga
 
 uint64_t Nightingale::lstmLunaFw::adjustLSTMFwEnd(uint64_t a1, uint64_t a2, int a3)
 {
-  v5 = 4 * a3;
+  v5 = a3;
   v6 = 0.0;
   v7 = -2;
   v8 = a3;
@@ -8597,16 +8582,16 @@ uint64_t Nightingale::lstmLunaFw::adjustLSTMFwEnd(uint64_t a1, uint64_t a2, int 
   v10 = -4 * a3;
   while (a3 <= 0)
   {
-    v11 = v5 + *(a2 + 8);
+    v11 = (v5 * 4 + *(a2 + 8));
     v21 = 0;
     v22 = 0;
     v20 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v20, v11 - 28, v11, 7uLL);
+    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v20, v11 - 7, v11, 7uLL);
     v12 = *(a2 + 8);
     v18 = 0;
     v19 = 0;
     __p = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, v5 + v12, v12, v10 >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, &v12[v5], v12, v10 >> 2);
     MeanDiffOf2Windows = Nightingale::getMeanDiffOf2Windows(&v20, &__p, -1.0);
     if ((MeanDiffOf2Windows & 0x100000000) != 0)
     {
@@ -8649,7 +8634,7 @@ uint64_t Nightingale::lstmLunaFw::adjustLSTMFwEnd(uint64_t a1, uint64_t a2, int 
     ++v7;
     --v8;
     v10 += 4;
-    v5 -= 4;
+    --v5;
     if (v15)
     {
       return v9 | 0x100000000;
@@ -8674,15 +8659,15 @@ void sub_25C672988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Nightingale::lstmLunaFw::signalShiftHighCheck(float a1, float a2, uint64_t a3, int a4, uint64_t *a5)
+uint64_t Nightingale::lstmLunaFw::signalShiftHighCheck(float a1, float a2, uint64_t a3, int a4, uint64_t a5)
 {
   v9 = *a5;
   v21 = 0;
   v22 = 0;
   v20 = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v20, v9, v9 + 4 * a4, a4);
-  v10 = a5[1];
-  v11 = *a5 + 4 * a4;
+  v10 = *(a5 + 8);
+  v11 = (*a5 + 4 * a4);
   v18 = 0;
   v19 = 0;
   __p = 0;
@@ -8755,7 +8740,7 @@ unint64_t Nightingale::lstmLunaFw::missingRateAtDetectionCheck(float a1, uint64_
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v7 + 4 * a3, v7, (-4 * a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, (v7 + 4 * a3), v7, (-4 * a3) >> 2);
   MissingCnt = Nightingale::getMissingCnt(&__p);
   if (a3)
   {
@@ -8907,32 +8892,32 @@ _BYTE *Nightingale::lstmLunaPeriod::lstmLunaPeriod(_BYTE *a1, uint64_t a2, uint6
 
 void sub_25C672DC4(_Unwind_Exception *a1)
 {
-  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((v1 + 70));
-  v3 = v1[59];
+  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((v1 + 560));
+  v3 = *(v1 + 472);
   if (v3)
   {
-    v1[60] = v3;
+    *(v1 + 480) = v3;
     operator delete(v3);
   }
 
-  v4 = v1[56];
+  v4 = *(v1 + 448);
   if (v4)
   {
-    v1[57] = v4;
+    *(v1 + 456) = v4;
     operator delete(v4);
   }
 
-  v5 = v1[53];
+  v5 = *(v1 + 424);
   if (v5)
   {
-    v1[54] = v5;
+    *(v1 + 432) = v5;
     operator delete(v5);
   }
 
-  v6 = v1[50];
+  v6 = *(v1 + 400);
   if (v6)
   {
-    v1[51] = v6;
+    *(v1 + 408) = v6;
     operator delete(v6);
   }
 
@@ -8940,53 +8925,53 @@ void sub_25C672DC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Nightingale::lstmLunaPeriod::~lstmLunaPeriod(Nightingale::lstmLunaPeriod *this)
+void Nightingale::lstmLunaPeriod::~lstmLunaPeriod(id **this)
 {
   *this = &unk_286E2A3D8;
-  Nightingale::lstmModelCommonPeriod::~lstmModelCommonPeriod((this + 568));
-  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((this + 560));
-  v2 = *(this + 59);
+  Nightingale::lstmModelCommonPeriod::~lstmModelCommonPeriod((this + 71));
+  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process(this + 70);
+  v2 = this[59];
   if (v2)
   {
-    *(this + 60) = v2;
+    this[60] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 56);
+  v3 = this[56];
   if (v3)
   {
-    *(this + 57) = v3;
+    this[57] = v3;
     operator delete(v3);
   }
 
-  v4 = *(this + 53);
+  v4 = this[53];
   if (v4)
   {
-    *(this + 54) = v4;
+    this[54] = v4;
     operator delete(v4);
   }
 
-  v5 = *(this + 50);
+  v5 = this[50];
   if (v5)
   {
-    *(this + 51) = v5;
+    this[51] = v5;
     operator delete(v5);
   }
 
   Nightingale::lstmLuna::~lstmLuna(this);
 }
 
-__n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(Nightingale::lstmLunaPeriod *this@<X0>, uint64_t a2@<X8>)
+__n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(void *__return_ptr a1@<X8>, Nightingale::lstmLunaPeriod *this@<X0>)
 {
-  Nightingale::CGradient::CGradient(a2);
-  *(a2 + 56) = 0;
-  *(a2 + 60) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 68) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 76) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 84) = 0;
+  Nightingale::CGradient::CGradient(a1);
+  *(a1 + 56) = 0;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 68) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
   v4 = *(this + 97);
   if (v4 <= *(this + 98))
   {
@@ -9005,16 +8990,16 @@ __n128 Nightingale::lstmLunaPeriod::estimatePeriodStartLuna@<Q0>(Nightingale::ls
     while (v5);
   }
 
-  if ((this + 472) != a2)
+  if ((this + 472) != a1)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a2, *(this + 59), *(this + 60), (*(this + 60) - *(this + 59)) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1, *(this + 59), *(this + 60), (*(this + 60) - *(this + 59)) >> 2);
   }
 
-  *(a2 + 24) = *(this + 31);
-  *(a2 + 33) = *(this + 505);
-  *(a2 + 56) = *(this + 33);
+  *(a1 + 3) = *(this + 31);
+  *(a1 + 33) = *(this + 505);
+  *(a1 + 7) = *(this + 33);
   result = *(this + 541);
-  *(a2 + 69) = result;
+  *(a1 + 69) = result;
   return result;
 }
 
@@ -9070,7 +9055,7 @@ BOOL Nightingale::lstmLunaPeriod::prepareUiVectors(Nightingale::lstmLunaPeriod *
   v20 = xmmword_25C67CAB0;
   v21 = 0x3FB09540401F4DA4;
   Nightingale::uiProcessForLstm::uiProcessForLstm(v22, v5, v6, v7, &v20);
-  Nightingale::uiProcessForLstm::prepareUiLogForDL(v22, &v23, this + 400, this + 424, this + 448);
+  Nightingale::uiProcessForLstm::prepareUiLogForDL(v22, &v23, this + 50, this + 424, this + 448);
   v8 = *(this + 50);
   v9 = *(this + 51);
   if (v8 == v9 || (v10 = *(this + 53), v11 = *(this + 54), v10 == v11))
@@ -9098,9 +9083,9 @@ BOOL Nightingale::lstmLunaPeriod::prepareUiVectors(Nightingale::lstmLunaPeriod *
   return v18;
 }
 
-void sub_25C6731BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25C6731BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   Nightingale::uiProcessForLstm::~uiProcessForLstm(va);
   _Unwind_Resume(a1);
 }
@@ -9133,12 +9118,12 @@ uint64_t Nightingale::lstmLunaPeriod::validateWTmp(Nightingale::lstmLunaPeriod *
   v22 = 0;
   v23 = 0;
   v21 = 0;
-  std::vector<Nightingale::fwEndConfirmationFailureReason_t>::__init_with_size[abi:ne200100]<Nightingale::fwEndConfirmationFailureReason_t const*,Nightingale::fwEndConfirmationFailureReason_t const*>(&v21, &v25, &v25 + 4, 1uLL);
+  std::vector<Nightingale::fwEndConfirmationFailureReason_t>::__init_with_size[abi:ne200100]<Nightingale::fwEndConfirmationFailureReason_t const*,Nightingale::fwEndConfirmationFailureReason_t const*>(&v21, &v25, &v25 + 1, 1uLL);
   LODWORD(v25) = 1050253722;
   v19 = 0;
   v20 = 0;
   v18 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v18, &v25, &v25 + 4, 1uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v18, &v25, &v25 + 1, 1uLL);
   v25 = &unk_286E2A0F0;
   v26 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
   v27 = 0;
@@ -9302,21 +9287,21 @@ void Nightingale::lstmLunaPeriod::getPeriodProjFromLstmModel(Nightingale::lstmLu
   }
 }
 
-void sub_25C6736AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25C6736AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   Nightingale::ngt_luna_DLin_periodRegressorLSTM_t::~ngt_luna_DLin_periodRegressorLSTM_t(va);
-  v15 = *(v13 - 72);
-  if (v15)
+  v22 = *(v20 - 72);
+  if (v22)
   {
-    *(v13 - 64) = v15;
-    operator delete(v15);
+    *(v20 - 64) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
 }
 
-double *std::vector<double>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(double **a1, float *a2, float *a3, unint64_t a4)
+double *std::vector<double>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *a1, float *a2, float *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -9391,7 +9376,7 @@ double *std::vector<double>::__assign_with_size[abi:ne200100]<std::__wrap_iter<f
       {
         v15 = *v12++;
         *v11++ = v15;
-        ++v14;
+        v14 += 8;
       }
 
       while (v12 != a3);
@@ -9911,12 +9896,12 @@ void Nightingale::uiLogProcessor::print_anUILog(_BYTE *a1, _BYTE *a2)
 void Nightingale::ngt_HistoricalAnalyzer::analyze()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "Historical Analyzer debug message: {\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "Historical Analyzer debug message: {\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "  CycleProcessHistOut: {fwStart: [", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "  CycleProcessHistOut: {fwStart: [", v2, v3, v4, v5);
 }
 
 {
@@ -9928,12 +9913,12 @@ void Nightingale::ngt_HistoricalAnalyzer::analyze()
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "],\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "],\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\tfwEnd: [", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\tfwEnd: [", v2, v3, v4, v5);
 }
 
 {
@@ -9945,12 +9930,12 @@ void Nightingale::ngt_HistoricalAnalyzer::analyze()
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "]},\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "]},\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\talgUsed: [", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\talgUsed: [", v2, v3, v4, v5);
 }
 
 {
@@ -9962,7 +9947,7 @@ void Nightingale::ngt_HistoricalAnalyzer::analyze()
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\tFailureCode: [", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, "\t\t\tFailureCode: [", v2, v3, v4, v5);
 }
 
 {
@@ -9974,7 +9959,7 @@ void Nightingale::ngt_HistoricalAnalyzer::analyze()
 
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, " dummy_key:0 \n},\n\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_25C4D8000, v0, v1, " dummy_key:0 \n},\n\n", v2, v3, v4, v5);
 }
 
 void std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](uint64_t a1)
@@ -10078,6 +10063,73 @@ void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void Nightingale::ngt_DayStreamProcessor::printStats()
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
 void Nightingale::ngt_DayStreamProcessor::printDeviations()
 {
   OUTLINED_FUNCTION_3();
@@ -10156,15 +10208,6 @@ uint64_t Array.subscript.getter()
 
 {
   return MEMORY[0x2821FC3C0]();
-}
-
-uint64_t _assertionFailure(_:_:file:line:flags:)()
-{
-  return MEMORY[0x2821FD718]();
-}
-
-{
-  return MEMORY[0x2821FD720]();
 }
 
 uint64_t DefaultStringInterpolation.appendInterpolation<A>(_:)()

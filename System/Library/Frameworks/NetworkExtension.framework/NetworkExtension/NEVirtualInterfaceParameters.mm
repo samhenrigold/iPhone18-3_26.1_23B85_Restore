@@ -59,7 +59,7 @@
 
 - (NEVirtualInterface_s)createVirtualInterfaceWithQueue:(id)queue clientInfo:(void *)info
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   controlSocket = [(NEVirtualInterfaceParameters *)self controlSocket];
   v8 = dup([controlSocket fileDescriptor]);
@@ -75,11 +75,11 @@
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v16[0] = 67109378;
-      v16[1] = v12;
-      v17 = 2080;
-      v18 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Failed to dup the interface control socket: [%d] %s", v16, 0x12u);
+      v15[0] = 67109378;
+      v15[1] = v12;
+      v16 = 2080;
+      v17 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Failed to dup the interface control socket: [%d] %s", v15, 0x12u);
     }
 
     v11 = 0;
@@ -92,7 +92,6 @@
     v11 = NEVirtualInterfaceCreateFromSocketAndName(v9, v8, [name UTF8String], -[NEVirtualInterfaceParameters type](self, "type"), queueCopy, info);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

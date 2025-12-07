@@ -103,7 +103,7 @@
     [off_1E70ECC18 defaultFontSize];
     v13 = [off_1E70ECC18 systemFontOfSize:?];
     familyName = [v13 familyName];
-    v7->_isSystemFont = [(NSString *)v12 isEqualToString:familyName];
+    v7->_isSystemFont = objc_msgSend_isEqualToString_(v12);
   }
 
   return v7;
@@ -165,7 +165,7 @@
     [off_1E70ECC18 defaultFontSize];
     v14 = [off_1E70ECC18 systemFontOfSize:?];
     familyName = [v14 familyName];
-    v6->_isSystemFont = [(NSString *)v13 isEqualToString:familyName];
+    v6->_isSystemFont = objc_msgSend_isEqualToString_(v13);
   }
 
   return v6;
@@ -336,7 +336,7 @@
   }
 
   preferredContentSizeCategory = [v3 preferredContentSizeCategory];
-  if (![preferredContentSizeCategory isEqualToString:self->_previewImageContentSize] || (objc_msgSend(v13, "displayScale"), v5 != self->_previewImageDisplayScale))
+  if (!objc_msgSend_isEqualToString_(preferredContentSizeCategory) || ([v13 displayScale], v5 != self->_previewImageDisplayScale))
   {
 
 LABEL_5:
@@ -642,7 +642,7 @@ LABEL_7:
 - (void)_updateAttributedStringIfNeeded
 {
   v9 = +[UITraitCollection _currentTraitCollectionWithUnmarkedFallback];
-  if (!self->_attributedString || ([v9 preferredContentSizeCategory], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isEqualToString:", self->_attributedStringContentSize), v3, (v4 & 1) == 0))
+  if (!self->_attributedString || ([v9 preferredContentSizeCategory], v3 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v3), v3, (isEqualToString & 1) == 0))
   {
     v5 = [(_UIFontPickerFontInfo *)self _fontStringForTraitCollection:v9];
     attributedString = self->_attributedString;
@@ -689,18 +689,18 @@ LABEL_7:
 - (BOOL)matchesFamilyName:(id)name
 {
   nameCopy = name;
-  if (nameCopy && ![(NSString *)self->_familyName isEqualToString:nameCopy])
+  if (nameCopy && (objc_msgSend_isEqualToString_(self->_familyName) & 1) == 0)
   {
     v6 = [(UIFontDescriptor *)self->_fontDescriptor objectForKey:*off_1E70ECC90];
-    v5 = [v6 isEqualToString:nameCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
   }
 
   else
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)matchesFontNames:(id)names
@@ -860,7 +860,7 @@ LABEL_14:
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if ([(NSString *)self->_familyName isEqualToString:v5->_familyName])
+      if (objc_msgSend_isEqualToString_(self->_familyName))
       {
         v6 = 0;
       }
@@ -878,7 +878,7 @@ LABEL_14:
       styleName = self->_styleName;
       if (styleName | v5->_styleName)
       {
-        v9 = ![(NSString *)styleName isEqualToString:?];
+        v9 = objc_msgSend_isEqualToString_(styleName) ^ 1;
       }
 
       else
@@ -925,9 +925,17 @@ LABEL_14:
 - (BOOL)matchesFamilyForFontDescriptor:(id)descriptor
 {
   v4 = [descriptor objectForKey:*off_1E70ECC90];
-  v6 = v4 && (familyName = self->_familyName) != 0 && [(NSString *)familyName isEqualToString:v4];
+  if (v4 && (familyName = self->_familyName) != 0)
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(familyName);
+  }
 
-  return v6;
+  else
+  {
+    isEqualToString = 0;
+  }
+
+  return isEqualToString;
 }
 
 - (BOOL)matchesFontDescriptor:(id)descriptor
@@ -937,7 +945,7 @@ LABEL_14:
   postscriptName = [fontDescriptor postscriptName];
   postscriptName2 = [descriptorCopy postscriptName];
 
-  LOBYTE(descriptorCopy) = [postscriptName isEqualToString:postscriptName2];
+  LOBYTE(descriptorCopy) = objc_msgSend_isEqualToString_(postscriptName);
   return descriptorCopy;
 }
 

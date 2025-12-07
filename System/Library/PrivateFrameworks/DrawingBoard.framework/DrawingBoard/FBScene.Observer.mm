@@ -25,9 +25,9 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  swift_getKeyPath();
-  MEMORY[0x28223BE20]();
-  sub_249D39124(&qword_27EF1B090, _s8ObserverCMa);
+  KeyPath = swift_getKeyPath();
+  MEMORY[0x28223BE20](KeyPath);
+  sub_249D39124(&qword_27EF1B090, _s8ObserverCMa, &unk_249D75274);
   changeCopy = change;
   selfCopy = self;
   sub_249D72864();
@@ -62,9 +62,9 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  swift_getKeyPath();
-  MEMORY[0x28223BE20]();
-  sub_249D39124(&qword_27EF1B090, _s8ObserverCMa);
+  KeyPath = swift_getKeyPath();
+  MEMORY[0x28223BE20](KeyPath);
+  sub_249D39124(&qword_27EF1B090, _s8ObserverCMa, &unk_249D75274);
   selfCopy = self;
   sub_249D72864();
 }
@@ -79,7 +79,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_249D38A20(0, &qword_27EF1B0A0);
+  sub_249D38A20(0, &qword_27EF1B0A0, 0x277CF0B58);
   sub_249D38A68();
   v6 = sub_249D732D4();
   sceneCopy = scene;

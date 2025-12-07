@@ -51,9 +51,11 @@ uint64_t __38__PXUserDefaults_standardUserDefaults__block_invoke()
   standardUserDefaults_dataSource = v0;
 
   v2 = [PXUserDefaults alloc];
-  standardUserDefaults_standardUserDefaults = [(PXUserDefaults *)v2 initWithDataSource:standardUserDefaults_dataSource];
+  v3 = [(PXUserDefaults *)v2 initWithDataSource:standardUserDefaults_dataSource];
+  v4 = standardUserDefaults_standardUserDefaults;
+  standardUserDefaults_standardUserDefaults = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (NSNumber)includeSharedWithYou

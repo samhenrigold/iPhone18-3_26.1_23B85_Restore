@@ -131,7 +131,14 @@ void sub_23F0C0858(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394CC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394CC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0C0964()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0C09EC(__p);
 }
 
 void sub_23F0C09D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -144,21 +151,21 @@ void sub_23F0C09D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0C09EC()
+void sub_23F0C09EC(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Argb32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Argb32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5187,14 +5194,14 @@ LABEL_504:
   }
 }
 
-void sub_23F0C6EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F0C6EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v6 = *(v4 - 88);
-  *(v4 - 88) = 0;
-  if (v6)
+  va_start(va, a7);
+  v9 = *(v7 - 88);
+  *(v7 - 88) = 0;
+  if (v9)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v9 + 8))(v9, a2, a3, a4);
   }
 
   sub_23F08FF34(va);

@@ -44,15 +44,14 @@
 {
   v6 = sub_55734();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_55724();
   viewCopy = view;
   selfCopy = self;
   sub_52A50(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (SearchEngineSettingsController)initWithNibName:(id)name bundle:(id)bundle

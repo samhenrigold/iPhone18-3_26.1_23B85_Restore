@@ -991,7 +991,7 @@ LABEL_14:
   return IOConnectCallStructMethod(v27, 1u, inputStruct, 0x1B0uLL, 0, 0);
 }
 
-uint64_t IOSurfaceAcceleratorSetCustomFilter(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, uint64_t a8)
+uint64_t IOSurfaceAcceleratorSetCustomFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   memset(v10, 0, sizeof(v10));
   result = prepareCustomFilter(a2, a3, a4, a5, a6, a7, a8, v10);
@@ -1030,7 +1030,7 @@ uint64_t prepareCustomFilter(int a1, int a2, int a3, int a4, int a5, int a6, uin
   return v8;
 }
 
-uint64_t ioSurfaceAcceleratorFinalize(uint64_t a1)
+void ioSurfaceAcceleratorFinalize(uint64_t a1)
 {
   v2 = *(a1 + 16);
   if (v2)
@@ -1041,10 +1041,10 @@ uint64_t ioSurfaceAcceleratorFinalize(uint64_t a1)
   v3 = *(a1 + 36);
   if (v3)
   {
-    v3 = IOServiceClose(v3);
+    IOServiceClose(v3);
   }
 
-  return log_stop(v3);
+  log_stop();
 }
 
 uint64_t log_set_verbosity(uint64_t result)
@@ -1065,16 +1065,14 @@ uint64_t log_set_verbosity(uint64_t result)
 
 uint64_t printf_listener(int *a1, const char *a2, va_list a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   log_format_munge(__str, a2, a1);
-  result = vprintf(__str, a3);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return vprintf(__str, a3);
 }
 
 void syslog_listener(uint64_t a1, const char *a2, char *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   log_format_munge(__str, a2, a1);
   v5 = *(a1 + 4);
   if (v5 > 5)
@@ -1088,7 +1086,6 @@ void syslog_listener(uint64_t a1, const char *a2, char *a3)
   }
 
   vsyslog(v6, __str, a3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 BOOL log_level_enabled(unsigned int a1, int a2)
@@ -1169,7 +1166,7 @@ LABEL_6:
     v11 = 0;
     do
     {
-      result = (gIosaLogListenerQueue[v11++])(&v12, a7, &a9);
+      result = (gIosaLogListenerQueue[v11++])(&v12, a7, &a9, a4, a5, a6, a7, a8);
     }
 
     while (v11 < gIosaLogListenerRegisteredCount);
@@ -1178,17 +1175,18 @@ LABEL_6:
   return result;
 }
 
-void log_panic_debug(int a1, const char *a2, const char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void log_panic_debug(int a1, const char *a2, const char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = snprintf(__str, 0x200uLL, "[%s][%s:%zu, %s] ", log_module_desc[a1], a3, a4, a2);
-  vsnprintf(&__str[v10], 512 - v10, a5, &a9);
+  va_start(va, a8);
+  v9 = snprintf(__str, 0x200uLL, "[%s][%s:%zu, %s] ", log_module_desc[a1], a3, a4, a2);
+  vsnprintf(&__str[v9], 512 - v9, a5, va);
   syslog(3, "%s", __str);
   abort();
 }
 
 uint64_t log_format_munge(char *__str, const char *a2, int *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = *a3;
   if (*a3)
   {
@@ -1303,14 +1301,14 @@ LABEL_17:
 
     v14 = 0;
 LABEL_31:
-    str_truncate(v25, &v9[v14]);
-    str_truncate(v24, *(a3 + 3));
+    str_truncate(v24, &v9[v14]);
+    str_truncate(v23, *(a3 + 3));
     if ((v7 & 0x80000000) != 0)
     {
       log_format_munge();
     }
 
-    v7 += snprintf(&__str[v7], 255 - v7, "[%*s %*s:%-*lu]", 24, v24, 24, v25, 4, *(a3 + 5));
+    v7 += snprintf(&__str[v7], 255 - v7, "[%*s %*s:%-*lu]", 24, v23, 24, v24, 4, *(a3 + 5));
     if (v7 - 256 <= 0xFFFFFF00)
     {
       log_format_munge();
@@ -1338,13 +1336,13 @@ LABEL_31:
 
     v21 = 0;
 LABEL_42:
-    str_truncate(v25, &v16[v21]);
+    str_truncate(v24, &v16[v21]);
     if ((v7 & 0x80000000) != 0)
     {
       log_format_munge();
     }
 
-    v7 += snprintf(&__str[v7], 255 - v7, "[%*s:%-*lu]", 24, v25, 4, *(a3 + 5));
+    v7 += snprintf(&__str[v7], 255 - v7, "[%*s:%-*lu]", 24, v24, 4, *(a3 + 5));
     if (v7 - 256 <= 0xFFFFFF00)
     {
       log_format_munge();
@@ -1355,8 +1353,8 @@ LABEL_42:
 
   if ((v6 & 8) != 0)
   {
-    str_truncate(v25, *(a3 + 3));
-    v7 += snprintf(&__str[v7], 255 - v7, "[%*s:%-*lu]", 24, v25, 4, *(a3 + 5));
+    str_truncate(v24, *(a3 + 3));
+    v7 += snprintf(&__str[v7], 255 - v7, "[%*s:%-*lu]", 24, v24, 4, *(a3 + 5));
     if (v7 - 256 <= 0xFFFFFF00)
     {
       log_format_munge();
@@ -1369,7 +1367,7 @@ LABEL_28:
     if (!v7)
     {
       v15 = 0;
-      goto LABEL_49;
+      return snprintf(&__str[v15], 255 - v15, "%s", a2);
     }
   }
 
@@ -1385,10 +1383,7 @@ LABEL_46:
     __str[v7] = 32;
   }
 
-LABEL_49:
-  result = snprintf(&__str[v15], 255 - v15, "%s", a2);
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return snprintf(&__str[v15], 255 - v15, "%s", a2);
 }
 
 size_t str_truncate(char *a1, const char *__s)

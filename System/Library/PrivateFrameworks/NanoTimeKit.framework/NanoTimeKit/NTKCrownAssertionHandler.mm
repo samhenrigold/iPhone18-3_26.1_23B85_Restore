@@ -8,7 +8,7 @@
 
 - (id)takeCrownAssertionForToken:(id)token
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DA2CEC0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DA2CEC0, &qword_22DCEA4F0);
   MEMORY[0x28223BE20](v5 - 8, v6, v7);
   v9 = &v19 - v8;
   v10 = sub_22DCB5B3C();
@@ -41,11 +41,11 @@
   v3 = sub_22DCB5B3C();
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3, v5, v6);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22DCB5B1C();
-  v9 = sub_22DC99A6C(v8);
+  v10 = sub_22DC99A6C(v8, v9);
   (*(v4 + 8))(v8, v3);
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (NTKCrownAssertionHandler)init

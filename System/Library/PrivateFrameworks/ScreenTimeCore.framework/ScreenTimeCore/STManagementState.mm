@@ -9,6 +9,7 @@
 - (BOOL)needsToSetRestrictionsPasscode;
 - (BOOL)performMigrationFromMCXSettings:(id)settings error:(id *)error;
 - (BOOL)permitWebFilterURL:(id)l pageTitle:(id)title error:(id *)error;
+- (BOOL)setScreenTimeEnabled:(BOOL)enabled error:(id *)error;
 - (BOOL)shouldRequestMoreTime;
 - (BOOL)triggerDowngradeMigrationWithOutError:(id *)error;
 - (STManagementState)init;
@@ -37,6 +38,7 @@
 - (void)isWebContentRestricted:(id)restricted;
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)lastModifcationDateForDSID:(id)d completionHandler:(id)handler;
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler;
 - (void)managingGuardianAppleIDsForLocalUserWithCompletionHandler:(id)handler;
 - (void)postNotificationForContext:(id)context;
 - (void)requestToManageContactsForDSID:(id)d completionHandler:(id)handler;
@@ -44,8 +46,11 @@
 - (void)saveExpressIntroductionSettingsDefaults:(id)defaults completionHandler:(id)handler;
 - (void)screenTimeStateWithCompletionHandler:(id)handler;
 - (void)screenTimeSyncStateWithCompletionHandler:(id)handler;
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler;
 - (void)setManageContactsEnabled:(BOOL)enabled forDSID:(id)d completionHandler:(id)handler;
 - (void)setRestrictionsPasscode:(id)passcode completionHandler:(id)handler;
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)shouldRequestMoreTime:(id)time;
 @end
 
@@ -107,14 +112,14 @@
     [STManagementState isLocalUserManaged];
   }
 
-  v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x2020000000;
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x2020000000;
   v16 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x2020000000;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   connection = [(STManagementState *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
@@ -122,7 +127,7 @@
   v10[3] = &unk_1E7CE7710;
   v10[4] = self;
   v10[5] = &v11;
-  v10[6] = &v14;
+  v10[6] = v15;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -131,17 +136,17 @@
   v9[3] = &unk_1E7CE7738;
   v9[4] = self;
   v9[5] = &v11;
-  v9[6] = &v14;
+  v9[6] = v15;
   [v5 shouldRequestMoreTimeWithCompletionHandler:v9];
   v6 = +[STLog ask];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(STManagementState *)v12 isLocalUserManaged];
+    [STManagementState isLocalUserManaged];
   }
 
-  v7 = *(v12[0] + 24);
+  v7 = *(v12 + 24);
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v15, 8);
   return v7;
 }
 
@@ -233,7 +238,7 @@ void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_inv
   }
 }
 
-void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_invoke_16(uint64_t a1, uint64_t a2, void *a3)
+void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_invoke_16(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = *(a1 + 32);
@@ -267,14 +272,14 @@ void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_inv
     [STManagementState isRestrictionsPasscodeSet];
   }
 
-  v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x2020000000;
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x2020000000;
   v16 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x2020000000;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   connection = [(STManagementState *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
@@ -282,7 +287,7 @@ void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_inv
   v10[3] = &unk_1E7CE7710;
   v10[4] = self;
   v10[5] = &v11;
-  v10[6] = &v14;
+  v10[6] = v15;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -291,17 +296,17 @@ void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_inv
   v9[3] = &unk_1E7CE7738;
   v9[4] = self;
   v9[5] = &v11;
-  v9[6] = &v14;
+  v9[6] = v15;
   [v5 isRestrictionsPasscodeSetWithCompletionHandler:v9];
   v6 = +[STLog ask];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(STManagementState *)v12 isRestrictionsPasscodeSet];
+    [STManagementState isRestrictionsPasscodeSet];
   }
 
-  v7 = *(v12[0] + 24);
+  v7 = *(v12 + 24);
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v15, 8);
   return v7;
 }
 
@@ -429,7 +434,7 @@ void __47__STManagementState_isRestrictionsPasscodeSet___block_invoke(uint64_t a
   }
 }
 
-void __47__STManagementState_isRestrictionsPasscodeSet___block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
+void __47__STManagementState_isRestrictionsPasscodeSet___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   if (v5)
@@ -602,6 +607,42 @@ void __63__STManagementState_setRestrictionsPasscode_completionHandler___block_i
   [v7 screenTimeStateWithCompletionHandler:v9];
 }
 
+- (BOOL)setScreenTimeEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__9;
+  v17 = __Block_byref_object_dispose__9;
+  v18 = 0;
+  connection = [(STManagementState *)self connection];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __48__STManagementState_setScreenTimeEnabled_error___block_invoke;
+  v12[3] = &unk_1E7CE6BA8;
+  v12[4] = &v13;
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v12];
+
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __48__STManagementState_setScreenTimeEnabled_error___block_invoke_2;
+  v11[3] = &unk_1E7CE6BA8;
+  v11[4] = &v13;
+  [v7 setScreenTimeEnabled:enabledCopy completionHandler:v11];
+  v8 = v14[5];
+  if (error && v8)
+  {
+    v8 = v8;
+    *error = v8;
+  }
+
+  v9 = v8 == 0;
+
+  _Block_object_dispose(&v13, 8);
+  return v9;
+}
+
 - (BOOL)enableScreenTimeForDSID:(id)d error:(id *)error
 {
   dCopy = d;
@@ -672,6 +713,52 @@ void __63__STManagementState_setRestrictionsPasscode_completionHandler___block_i
 
   _Block_object_dispose(&v14, 8);
   return v10;
+}
+
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  connection = [(STManagementState *)self connection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __60__STManagementState_setScreenTimeEnabled_completionHandler___block_invoke;
+  v13[3] = &unk_1E7CE6CE8;
+  v8 = handlerCopy;
+  v14 = v8;
+  v9 = [connection remoteObjectProxyWithErrorHandler:v13];
+
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __60__STManagementState_setScreenTimeEnabled_completionHandler___block_invoke_2;
+  v11[3] = &unk_1E7CE6BF8;
+  v11[4] = self;
+  v12 = v8;
+  v10 = v8;
+  [v9 setScreenTimeEnabled:enabledCopy completionHandler:v11];
+}
+
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  connection = [(STManagementState *)self connection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__STManagementState_setScreenTimeSyncingEnabled_completionHandler___block_invoke;
+  v13[3] = &unk_1E7CE6CE8;
+  v8 = handlerCopy;
+  v14 = v8;
+  v9 = [connection remoteObjectProxyWithErrorHandler:v13];
+
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__STManagementState_setScreenTimeSyncingEnabled_completionHandler___block_invoke_2;
+  v11[3] = &unk_1E7CE6BF8;
+  v11[4] = self;
+  v12 = v8;
+  v10 = v8;
+  [v9 setScreenTimeSyncingEnabled:enabledCopy completionHandler:v11];
 }
 
 - (void)screenTimeSyncStateWithCompletionHandler:(id)handler
@@ -785,7 +872,7 @@ void __63__STManagementState_setRestrictionsPasscode_completionHandler___block_i
 
 void __52__STManagementState_communicationPoliciesWithError___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v8 = a4;
   if (v8)
   {
@@ -794,19 +881,17 @@ void __52__STManagementState_communicationPoliciesWithError___block_invoke_2(uin
 
   else
   {
-    v15[0] = 0x1F3048DC0;
+    v14[0] = 0x1F3048DC0;
     v9 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
-    v15[1] = 0x1F3048DE0;
-    v16[0] = v9;
+    v14[1] = 0x1F3048DE0;
+    v15[0] = v9;
     v10 = [MEMORY[0x1E696AD98] numberWithLongLong:a3];
-    v16[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v15[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     v12 = *(*(a1 + 40) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v11;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)communicationPoliciesForDSID:(id)d withCompletionHandler:(id)handler
@@ -1450,6 +1535,36 @@ void __73__STManagementState_shouldAllowOneMoreMinuteForCategoryIdentifier_error
   [v11 isLocationSharingModificationAllowedForDSID:dCopy completionHandler:v13];
 }
 
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler
+{
+  allowedCopy = allowed;
+  handlerCopy = handler;
+  dCopy = d;
+  v10 = +[STLog ask];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [STManagementState setLocationSharingModificationAllowed:forDSID:completionHandler:];
+  }
+
+  connection = [(STManagementState *)self connection];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __85__STManagementState_setLocationSharingModificationAllowed_forDSID_completionHandler___block_invoke;
+  v17[3] = &unk_1E7CE6CE8;
+  v12 = handlerCopy;
+  v18 = v12;
+  v13 = [connection remoteObjectProxyWithErrorHandler:v17];
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __85__STManagementState_setLocationSharingModificationAllowed_forDSID_completionHandler___block_invoke_2;
+  v15[3] = &unk_1E7CE6BF8;
+  v15[4] = self;
+  v16 = v12;
+  v14 = v12;
+  [v13 setLocationSharingModificationAllowed:allowedCopy forDSID:dCopy completionHandler:v15];
+}
+
 - (void)postNotificationForContext:(id)context
 {
   contextCopy = context;
@@ -1573,6 +1688,30 @@ void __67__STManagementState_isCommunicationSafetyEnabledForUserDSID_error___blo
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v6;
+}
+
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler
+{
+  unratedCopy = unrated;
+  handlerCopy = handler;
+  storefrontCopy = storefront;
+  connection = [(STManagementState *)self connection];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __89__STManagementState_loadRegionRatingsDataForStorefront_includeUnrated_completionHandler___block_invoke;
+  v16[3] = &unk_1E7CE6CE8;
+  v11 = handlerCopy;
+  v17 = v11;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v16];
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __89__STManagementState_loadRegionRatingsDataForStorefront_includeUnrated_completionHandler___block_invoke_2;
+  v14[3] = &unk_1E7CE7918;
+  v14[4] = self;
+  v15 = v11;
+  v13 = v11;
+  [v12 loadRegionRatingsDataForStorefront:storefrontCopy includeUnrated:unratedCopy completionHandler:v14];
 }
 
 - (void)saveExpressIntroductionSettingsDefaults:(id)defaults completionHandler:(id)handler
@@ -1727,130 +1866,34 @@ void __67__STManagementState_managingGuardianAppleIDsForLocalUserWithError___blo
 
 - (void)isLocalUserManaged
 {
-  v10 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_1(a2, *self);
-  v3 = *(v2 + 24);
+  OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_5_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __39__STManagementState_isLocalUserManaged__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Using cached value. isLocalUserManaged call failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __39__STManagementState_isLocalUserManaged__block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "isLocalUserManaged call failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "isLocalUserManaged call failed: %{public}@. Using cached value.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = [*(a1 + 32) cachedShouldRequestMoreTime];
-  v5[0] = 67240192;
-  v5[1] = v3;
-  _os_log_debug_impl(&dword_1B831F000, a2, OS_LOG_TYPE_DEBUG, "Calling completionHandler with cached value: %{public}d", v5, 8u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __61__STManagementState_isLocalUserManagedWithCompletionHandler___block_invoke_16_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
   v5 = *MEMORY[0x1E69E9840];
+  v3 = [*(a1 + 32) cachedShouldRequestMoreTime];
+  v4[0] = 67240192;
+  v4[1] = v3;
+  _os_log_debug_impl(&dword_1B831F000, a2, OS_LOG_TYPE_DEBUG, "Calling completionHandler with cached value: %{public}d", v4, 8u);
 }
 
 - (void)isRestrictionsPasscodeSet
 {
-  v10 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_1(a2, *self);
-  v3 = *(v2 + 24);
+  OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_5_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __46__STManagementState_isRestrictionsPasscodeSet__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Requesting restrictions passcode failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __46__STManagementState_isRestrictionsPasscodeSet__block_invoke_17_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "failed to fetch isRestrictionsPasscodeSet, falling back to last known good value: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)clearRestrictionsPasscodeWithError:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, a2, a3, "Failed clearing restrictions passcode with error: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __47__STManagementState_isRestrictionsPasscodeSet___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "proxy: fetching isRestrictionPasscodeSet failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47__STManagementState_isRestrictionsPasscodeSet___block_invoke_18_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "fetching isRestrictionPasscodeSet failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__STManagementState_needsToSetRestrictionsPasscode__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to communicate with Screen Time agent to get needsToSetRestrictionsPasscode, %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__STManagementState_needsToSetRestrictionsPasscode__block_invoke_19_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to get needsToSetRestrictionsPasscode, %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__STManagementState_setRestrictionsPasscode_completionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to set Restrictions Passcode, %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, a2, a3, "Failed clearing restrictions passcode with error: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

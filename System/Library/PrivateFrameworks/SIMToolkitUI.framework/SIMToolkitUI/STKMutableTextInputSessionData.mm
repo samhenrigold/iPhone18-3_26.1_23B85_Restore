@@ -6,9 +6,7 @@
 
 - (void)setDefaultText:(id)text
 {
-  v4 = [text copy];
-  defaultText = self->super._defaultText;
-  self->super._defaultText = v4;
+  self->super._defaultText = [text copy];
 
   MEMORY[0x2821F96F8]();
 }

@@ -9,39 +9,39 @@
 
 + (double)safari_defaultHeightOfTrivialInstance
 {
-  v0 = objc_opt_self();
-  v1 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
+  v1 = objc_opt_self();
+  v2 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
   if (!safari_defaultHeightOfTrivialInstance_cellForMeasurement)
   {
-    v2 = [[v0 alloc] initWithStyle:3 reuseIdentifier:0];
-    v3 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
-    safari_defaultHeightOfTrivialInstance_cellForMeasurement = v2;
+    v3 = [[v1 alloc] initWithStyle:3 reuseIdentifier:0];
+    v4 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
+    safari_defaultHeightOfTrivialInstance_cellForMeasurement = v3;
 
-    v1 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
+    v2 = safari_defaultHeightOfTrivialInstance_cellForMeasurement;
   }
 
-  [v1 sizeThatFits:{1.79769313e308, 1.79769313e308}];
-  return v4;
+  [v2 sizeThatFits:{1.79769313e308, 1.79769313e308}];
+  return v5;
 }
 
 - (void)safari_setLinkedPageTitle:(uint64_t)title description:
 {
-  if (self)
+  if (result)
   {
-    return [self _safari_setLinkedPageTitle:a2 description:title];
+    return [result _safari_setLinkedPageTitle:a2 description:title];
   }
 
-  return self;
+  return result;
 }
 
 - (void)safari_setLinkedPageTitle:(uint64_t)title URL:
 {
-  if (self)
+  if (result)
   {
-    return [self _safari_setLinkedPageTitle:a2 URL:title];
+    return [result _safari_setLinkedPageTitle:a2 URL:title];
   }
 
-  return self;
+  return result;
 }
 
 - (void)safari_setCompletionIcon:(void *)icon

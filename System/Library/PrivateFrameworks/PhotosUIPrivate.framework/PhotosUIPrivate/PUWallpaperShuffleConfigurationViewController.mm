@@ -20,7 +20,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B3728FA4();
+  sub_1B3728FA4(delegate);
 }
 
 - (_TtC15PhotosUIPrivate45PUWallpaperShuffleConfigurationViewController)initWithPhotoLibrary:(id)library style:(int64_t)style posterConfiguration:(id)configuration centerMedia:(id)media

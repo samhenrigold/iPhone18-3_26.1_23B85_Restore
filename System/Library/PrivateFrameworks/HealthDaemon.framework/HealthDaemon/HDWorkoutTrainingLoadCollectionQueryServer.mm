@@ -15,7 +15,7 @@
   v11 = [(HDQueryServer *)&v15 initWithUUID:d configuration:configurationCopy client:client delegate:delegate];
   if (v11)
   {
-    v12 = [configurationCopy copy];
+    v12 = objc_msgSend_copy(configurationCopy);
     trainingLoadCollectionQueryServerConfiguration = v11->_trainingLoadCollectionQueryServerConfiguration;
     v11->_trainingLoadCollectionQueryServerConfiguration = v12;
   }
@@ -25,10 +25,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -132,7 +131,7 @@
 
 void __90__HDWorkoutTrainingLoadCollectionQueryServer__queue_fetchTrainingLoadCollectionWithError___block_invoke(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -143,11 +142,11 @@ void __90__HDWorkoutTrainingLoadCollectionQueryServer__queue_fetchTrainingLoadCo
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       v9 = a1[4];
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v7;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch training load collection: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch training load collection: %{public}@", &v10, 0x16u);
     }
   }
 
@@ -155,8 +154,6 @@ void __90__HDWorkoutTrainingLoadCollectionQueryServer__queue_fetchTrainingLoadCo
   {
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

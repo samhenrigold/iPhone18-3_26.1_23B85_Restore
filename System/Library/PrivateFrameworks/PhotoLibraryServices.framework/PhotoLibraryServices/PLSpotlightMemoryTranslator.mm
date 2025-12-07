@@ -17,7 +17,7 @@
   if ([memoryCopy isEligibleForSearchIndexing])
   {
     curatedAssets = [memoryCopy curatedAssets];
-    v7 = [curatedAssets count];
+    v7 = objc_msgSend_count(curatedAssets);
 
     if (v7)
     {

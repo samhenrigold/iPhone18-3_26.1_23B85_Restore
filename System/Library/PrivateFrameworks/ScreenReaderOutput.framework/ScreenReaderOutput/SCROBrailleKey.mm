@@ -101,11 +101,11 @@
 
 - (SCROBrailleKey)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = SCROBrailleKey;
-  v5 = [(SCROBrailleKey *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SCROBrailleKey;
+  v5 = [(SCROBrailleKey *)&v20 init];
   v5->_isRouterKey = [coderCopy decodeBoolForKey:@"_isRouterKey"];
   v5->_routerIndex = [coderCopy decodeIntegerForKey:@"_routerIndex"];
   v5->_routerToken = [coderCopy decodeIntegerForKey:@"_routerToken"];
@@ -116,9 +116,9 @@
   v5->_identifier = v6;
 
   v8 = MEMORY[0x277CBEB98];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"_maskArray"];
   v12 = [v11 mutableCopy];
@@ -126,10 +126,10 @@
   v5->_maskArray = v12;
 
   v14 = MEMORY[0x277CBEB98];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v22[2] = objc_opt_class();
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v21[2] = objc_opt_class();
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   v16 = [v14 setWithArray:v15];
   v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"_appToken"];
   appToken = v5->_appToken;
@@ -138,7 +138,6 @@
   v5->_displayToken = [coderCopy decodeIntegerForKey:@"_displayToken"];
   v5->_displayMode = [coderCopy decodeIntegerForKey:@"_displayModeToken"];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -207,7 +206,7 @@
 
 - (id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifier = self->_identifier;
   if (!identifier)
   {
@@ -215,29 +214,29 @@
     selfCopy = self;
     v5 = [(NSMutableArray *)self->_maskArray sortedArrayUsingSelector:sel_compare_];
     v6 = [v5 count];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         v12 = 0;
         v13 = v10 + 1;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          stringValue = [*(*(&v20 + 1) + 8 * v12) stringValue];
+          stringValue = [*(*(&v19 + 1) + 8 * v12) stringValue];
           [v4 appendString:stringValue];
 
           if (v13 < v6)
@@ -251,7 +250,7 @@
 
         while (v9 != v12);
         v10 += v9;
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -263,8 +262,6 @@
 
     identifier = selfCopy->_identifier;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return identifier;
 }

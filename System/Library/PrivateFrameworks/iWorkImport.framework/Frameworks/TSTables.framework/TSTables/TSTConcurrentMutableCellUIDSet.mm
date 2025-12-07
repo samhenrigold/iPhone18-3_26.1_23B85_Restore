@@ -29,27 +29,28 @@
   v6 = sub_2210875C4(&self->_rowUIDToColumnUIDSetMap.__table_.__bucket_list_.__ptr_, &d->_row._lower);
   if (v6)
   {
-    v9 = v6[4];
+    v8 = v6[4];
     lower = d->_column._lower;
     upper = d->_column._upper;
 
-    objc_msgSend_addUUID_(v9, v7, lower, upper, v8);
+    objc_msgSend_addUUID_(v8, v7, lower, upper);
   }
 
   else
   {
-    v12 = [TSCEMutableUIDSet alloc];
-    v15 = objc_msgSend_initWithUUID_(v12, v13, d->_column._lower, d->_column._upper, v14);
-    v16 = sub_2213EDAC0(&self->_rowUIDToColumnUIDSetMap.__table_.__bucket_list_.__ptr_, p_row);
-    v17 = v16[4];
-    v16[4] = v15;
+    v11 = [TSCEMutableUIDSet alloc];
+    v13 = objc_msgSend_initWithUUID_(v11, v12, d->_column._lower, d->_column._upper);
+    v16 = p_row;
+    v14 = sub_2213EDAC0(&self->_rowUIDToColumnUIDSetMap.__table_.__bucket_list_.__ptr_, p_row, &unk_2217E1AF4, &v16);
+    v15 = v14[4];
+    v14[4] = v13;
   }
 }
 
 - (void)addCellUID:(const TSKUIDStructCoord *)d
 {
   os_unfair_lock_lock(&self->_unfairLock);
-  objc_msgSend_p_addCellUID_(self, v5, d, v6, v7);
+  objc_msgSend_p_addCellUID_(self, v5, d, v6);
 
   os_unfair_lock_unlock(&self->_unfairLock);
 }
@@ -90,108 +91,108 @@
 {
   tableCopy = table;
   os_unfair_lock_lock(&self->_unfairLock);
-  v37 = 0;
-  v38 = 0;
-  v39 = 0;
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
   next = self->_rowUIDToColumnUIDSetMap.__table_.__first_node_.__next_;
   if (next)
   {
-    v9 = 0;
+    v8 = 0;
     do
     {
-      if (v9 >= v39)
+      if (v8 >= v36)
       {
-        v10 = (v9 - v37) >> 4;
-        if ((v10 + 1) >> 60)
+        v9 = (v8 - v34) >> 4;
+        if ((v9 + 1) >> 60)
         {
           sub_22107C148();
         }
 
-        v11 = (v39 - v37) >> 3;
-        if (v11 <= v10 + 1)
+        v10 = (v36 - v34) >> 3;
+        if (v10 <= v9 + 1)
         {
-          v11 = v10 + 1;
+          v10 = v9 + 1;
         }
 
-        if (v39 - v37 >= 0x7FFFFFFFFFFFFFF0)
+        if (v36 - v34 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v12 = 0xFFFFFFFFFFFFFFFLL;
+          v11 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v12 = v11;
+          v11 = v10;
         }
 
+        if (v11)
+        {
+          sub_221086F74(&v34, v11);
+        }
+
+        *(16 * v9) = next[1];
+        v8 = (16 * v9 + 16);
+        memcpy((16 * v9 - (v35 - v34)), v34, v35 - v34);
+        v12 = v34;
+        v34 = (16 * v9 - (v35 - v34));
+        v35 = v8;
+        v36 = 0;
         if (v12)
         {
-          sub_221086F74(&v37, v12);
-        }
-
-        *(16 * v10) = next[1];
-        v9 = (16 * v10 + 16);
-        memcpy((16 * v10 - (v38 - v37)), v37, v38 - v37);
-        v13 = v37;
-        v37 = (16 * v10 - (v38 - v37));
-        v38 = v9;
-        v39 = 0;
-        if (v13)
-        {
-          operator delete(v13);
+          operator delete(v12);
         }
       }
 
       else
       {
-        *v9 = next[1];
-        v9 += 16;
+        *v8 = next[1];
+        v8 += 16;
       }
 
-      v38 = v9;
+      v35 = v8;
       next = *next;
     }
 
     while (next);
   }
 
-  v14 = objc_msgSend_rowIndexesForUIDs_(tableCopy, v5, &v37, v6, v7);
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x4812000000;
-  v31 = sub_2213ED618;
-  v32 = sub_2213ED63C;
-  v33 = &unk_22188E88F;
-  v35 = 0;
-  v36 = 0;
+  v13 = objc_msgSend_rowIndexesForUIDs_(tableCopy, v5, &v34, v6);
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x4812000000;
+  v28 = sub_2213ED618;
+  v29 = sub_2213ED63C;
+  v30 = &unk_22188E88F;
+  v32 = 0;
+  v33 = 0;
   __p = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_2213ED654;
-  v24[3] = &unk_278463BE0;
-  v15 = tableCopy;
-  v25 = v15;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_2213ED654;
+  v21[3] = &unk_278463BE0;
+  v14 = tableCopy;
+  v22 = v14;
   selfCopy = self;
-  v27 = &v28;
-  objc_msgSend_enumerateIndexesUsingBlock_(v14, v16, v24, v17, v18);
-  v22 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v19, (v29 + 6), v20, v21);
+  v24 = &v25;
+  objc_msgSend_enumerateIndexesUsingBlock_(v13, v15, v21, v16);
+  v19 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v17, (v26 + 6), v18);
   sub_221087B24(&self->_rowUIDToColumnUIDSetMap);
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v25, 8);
   if (__p)
   {
-    v35 = __p;
+    v32 = __p;
     operator delete(__p);
   }
 
-  if (v37)
+  if (v34)
   {
-    v38 = v37;
-    operator delete(v37);
+    v35 = v34;
+    operator delete(v34);
   }
 
   os_unfair_lock_unlock(&self->_unfairLock);
 
-  return v22;
+  return v19;
 }
 
 - (id).cxx_construct

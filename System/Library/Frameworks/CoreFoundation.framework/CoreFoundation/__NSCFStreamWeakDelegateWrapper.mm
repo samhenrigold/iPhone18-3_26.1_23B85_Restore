@@ -7,27 +7,25 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   _NSObjectStoreWeak(&self->_object, 0, &self->_useFallback);
-  v4.receiver = self;
-  v4.super_class = __NSCFStreamWeakDelegateWrapper;
-  [(__NSCFStreamWeakDelegateWrapper *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = __NSCFStreamWeakDelegateWrapper;
+  [(__NSCFStreamWeakDelegateWrapper *)&v3 dealloc];
 }
 
 - (__NSCFStreamWeakDelegateWrapper)initWithDelegate:(id)delegate
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = __NSCFStreamWeakDelegateWrapper;
-  v4 = [(__NSCFStreamWeakDelegateWrapper *)&v8 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSCFStreamWeakDelegateWrapper;
+  v4 = [(__NSCFStreamWeakDelegateWrapper *)&v7 init];
   v5 = v4;
   if (v4)
   {
     _NSObjectStoreWeak(&v4->_object, delegate, &v4->_useFallback);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

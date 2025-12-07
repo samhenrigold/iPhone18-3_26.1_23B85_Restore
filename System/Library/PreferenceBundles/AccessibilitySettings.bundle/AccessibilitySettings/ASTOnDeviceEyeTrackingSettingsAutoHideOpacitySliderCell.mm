@@ -19,24 +19,25 @@
 
 - (void)_updateRightLabelWithValue:(double)value
 {
-  v4 = AXFormatFloatWithPercentage();
-  [(ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell *)self setLabelText:v4];
+  valueCopy = value;
+  v5 = AXFormatFloatWithPercentage(valueCopy);
+  [(ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell *)self setLabelText:v5];
 
   slider = [(ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell *)self slider];
-  v6 = objc_opt_respondsToSelector();
+  v7 = objc_opt_respondsToSelector();
 
-  if (v6)
+  if (v7)
   {
-    v7 = objc_initWeak(&location, self);
+    v8 = objc_initWeak(&location, self);
     slider2 = [(ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell *)self slider];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = __86__ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell__updateRightLabelWithValue___block_invoke;
-    v9[3] = &unk_255F00;
-    objc_copyWeak(&v10, &location);
-    [slider2 _setAccessibilityValueBlock:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __86__ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell__updateRightLabelWithValue___block_invoke;
+    v10[3] = &unk_255F00;
+    objc_copyWeak(&v11, &location);
+    [slider2 _setAccessibilityValueBlock:v10];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 }
@@ -45,9 +46,10 @@ id __86__ASTOnDeviceEyeTrackingSettingsAutoHideOpacitySliderCell__updateRightLab
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained initialValue];
-  v2 = AXFormatFloatWithPercentage();
+  *&v2 = v2;
+  v3 = AXFormatFloatWithPercentage(*&v2);
 
-  return v2;
+  return v3;
 }
 
 - (void)handleSliderBeingDragged:(id)dragged

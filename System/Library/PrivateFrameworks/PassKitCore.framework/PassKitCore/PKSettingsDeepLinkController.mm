@@ -45,7 +45,7 @@
   if ([v10 length])
   {
     v11 = [v10 substringToIndex:1];
-    if (v11 == @"/" || (v12 = v11) != 0 && (v13 = [(__CFString *)v11 isEqualToString:@"/"], v12, v12, v13))
+    if (v11 == @"/" || (v12 = v11) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v11), v12, v12, isEqualToString))
     {
       v14 = [v10 substringFromIndex:1];
 
@@ -71,7 +71,7 @@
     goto LABEL_17;
   }
 
-  v20 = [(__CFString *)firstObject isEqualToString:v18];
+  v20 = objc_msgSend_isEqualToString_(firstObject);
 
   if (v20)
   {
@@ -112,7 +112,7 @@ LABEL_17:
     goto LABEL_28;
   }
 
-  v28 = [(__CFString *)v25 isEqualToString:v26];
+  v28 = objc_msgSend_isEqualToString_(v25);
 
   if (v28)
   {
@@ -144,7 +144,7 @@ LABEL_28:
       goto LABEL_43;
     }
 
-    v33 = [(__CFString *)v30 isEqualToString:v31];
+    v33 = objc_msgSend_isEqualToString_(v30);
   }
 
   v34 = v16 > 1;
@@ -191,7 +191,7 @@ LABEL_115:
             goto LABEL_116;
           }
 
-          v75 = [(__CFString *)v73 isEqualToString:@"delete"];
+          v75 = objc_msgSend_isEqualToString_(v73);
 
           if (!v75)
           {
@@ -211,7 +211,7 @@ LABEL_24:
         goto LABEL_64;
       }
 
-      v37 = [(__CFString *)v35 isEqualToString:@"cardInformation"];
+      v37 = objc_msgSend_isEqualToString_(v35);
 
       if (!v37)
       {
@@ -244,7 +244,7 @@ LABEL_43:
     goto LABEL_52;
   }
 
-  v41 = [(__CFString *)v38 isEqualToString:v39];
+  v41 = objc_msgSend_isEqualToString_(v38);
 
   if (v41)
   {
@@ -306,7 +306,7 @@ LABEL_52:
     goto LABEL_71;
   }
 
-  v52 = [(__CFString *)v48 isEqualToString:v49];
+  v52 = objc_msgSend_isEqualToString_(v48);
 
   if (v52)
   {
@@ -338,7 +338,7 @@ LABEL_68:
         goto LABEL_95;
       }
 
-      v60 = [(__CFString *)v58 isEqualToString:@"autoReload"];
+      v60 = objc_msgSend_isEqualToString_(v58);
 
       v61 = v261;
       if (!v60)
@@ -356,7 +356,7 @@ LABEL_95:
 
           if (v76 && @"recurringPayment")
           {
-            v78 = [(__CFString *)v76 isEqualToString:@"recurringPayment"];
+            v78 = objc_msgSend_isEqualToString_(v76);
 
             if (!v78)
             {
@@ -412,7 +412,7 @@ LABEL_137:
                 goto LABEL_156;
               }
 
-              v92 = [(__CFString *)v90 isEqualToString:@"transferToBank"];
+              v92 = objc_msgSend_isEqualToString_(v90);
 
               if (!v92)
               {
@@ -437,7 +437,7 @@ LABEL_175:
                     goto LABEL_176;
                   }
 
-                  v101 = [(__CFString *)v98 isEqualToString:@"addMoney"];
+                  v101 = objc_msgSend_isEqualToString_(v98);
 
                   if (!v101)
                   {
@@ -463,7 +463,7 @@ LABEL_135:
             goto LABEL_63;
           }
 
-          v89 = [(__CFString *)v87 isEqualToString:@"cardInformation"];
+          v89 = objc_msgSend_isEqualToString_(v87);
 
           if (!v89)
           {
@@ -505,7 +505,7 @@ LABEL_71:
     goto LABEL_105;
   }
 
-  v57 = [(__CFString *)v54 isEqualToString:v55];
+  v57 = objc_msgSend_isEqualToString_(v54);
 
   if (v57)
   {
@@ -546,7 +546,7 @@ LABEL_113:
     goto LABEL_118;
   }
 
-  v82 = [(__CFString *)v79 isEqualToString:v80];
+  v82 = objc_msgSend_isEqualToString_(v79);
 
   if (v82)
   {
@@ -576,7 +576,7 @@ LABEL_143:
     goto LABEL_148;
   }
 
-  v86 = [(__CFString *)v83 isEqualToString:v84];
+  v86 = objc_msgSend_isEqualToString_(v83);
 
   if (v86)
   {
@@ -599,7 +599,7 @@ LABEL_148:
     goto LABEL_167;
   }
 
-  v97 = [(__CFString *)v94 isEqualToString:v95];
+  v97 = objc_msgSend_isEqualToString_(v94);
 
   if (v97)
   {
@@ -642,7 +642,7 @@ LABEL_167:
     goto LABEL_187;
   }
 
-  v113 = [(__CFString *)v110 isEqualToString:v111];
+  v113 = objc_msgSend_isEqualToString_(v110);
 
   if (v113)
   {
@@ -738,7 +738,7 @@ LABEL_187:
     goto LABEL_198;
   }
 
-  v134 = [(__CFString *)v131 isEqualToString:v132];
+  v134 = objc_msgSend_isEqualToString_(v131);
 
   if (v134)
   {
@@ -778,7 +778,7 @@ LABEL_198:
     goto LABEL_214;
   }
 
-  v139 = [(__CFString *)v136 isEqualToString:v137];
+  v139 = objc_msgSend_isEqualToString_(v136);
 
   if (v139)
   {
@@ -814,7 +814,7 @@ LABEL_220:
         goto LABEL_240;
       }
 
-      v149 = [(__CFString *)v147 isEqualToString:@"details"];
+      v149 = objc_msgSend_isEqualToString_(v147);
 
       if (!v149)
       {
@@ -833,7 +833,7 @@ LABEL_240:
             goto LABEL_268;
           }
 
-          v160 = [(__CFString *)v158 isEqualToString:@"documents"];
+          v160 = objc_msgSend_isEqualToString_(v158);
 
           if ((v160 & 1) == 0)
           {
@@ -852,7 +852,7 @@ LABEL_268:
                 goto LABEL_296;
               }
 
-              v180 = [(__CFString *)v178 isEqualToString:@"addMoney"];
+              v180 = objc_msgSend_isEqualToString_(v178);
 
               if ((v180 & 1) == 0)
               {
@@ -891,7 +891,7 @@ LABEL_352:
 
                         if (v148 && @"bankVerification")
                         {
-                          v216 = [(__CFString *)v214 isEqualToString:@"bankVerification"];
+                          v216 = objc_msgSend_isEqualToString_(v214);
 
                           if (!v216)
                           {
@@ -919,7 +919,7 @@ LABEL_399:
                         goto LABEL_400;
                       }
 
-                      v209 = [(__CFString *)v207 isEqualToString:@"fccStepUp"];
+                      v209 = objc_msgSend_isEqualToString_(v207);
 
                       if ((v209 & 1) == 0)
                       {
@@ -937,7 +937,7 @@ LABEL_400:
                     goto LABEL_62;
                   }
 
-                  v193 = [(__CFString *)v191 isEqualToString:@"withdrawMoney"];
+                  v193 = objc_msgSend_isEqualToString_(v191);
 
                   if ((v193 & 1) == 0)
                   {
@@ -983,7 +983,7 @@ LABEL_400:
         goto LABEL_291;
       }
 
-      v153 = [(__CFString *)v150 isEqualToString:v151];
+      v153 = objc_msgSend_isEqualToString_(v150);
 
       if ((v153 & 1) == 0)
       {
@@ -1003,7 +1003,7 @@ LABEL_291:
             goto LABEL_327;
           }
 
-          v190 = [(__CFString *)v187 isEqualToString:v188];
+          v190 = objc_msgSend_isEqualToString_(v187);
 
           if ((v190 & 1) == 0)
           {
@@ -1023,7 +1023,7 @@ LABEL_327:
                 goto LABEL_358;
               }
 
-              v206 = [(__CFString *)v203 isEqualToString:v204];
+              v206 = objc_msgSend_isEqualToString_(v203);
 
               if ((v206 & 1) == 0)
               {
@@ -1056,7 +1056,7 @@ LABEL_377:
                         goto LABEL_399;
                       }
 
-                      v229 = [(__CFString *)v226 isEqualToString:v227];
+                      v229 = objc_msgSend_isEqualToString_(v226);
 
                       if (!v229)
                       {
@@ -1069,7 +1069,7 @@ LABEL_377:
                     goto LABEL_400;
                   }
 
-                  v220 = [(__CFString *)v217 isEqualToString:v218];
+                  v220 = objc_msgSend_isEqualToString_(v217);
 
                   if ((v220 & 1) == 0)
                   {
@@ -1118,7 +1118,7 @@ LABEL_214:
       goto LABEL_246;
     }
 
-    v146 = [(__CFString *)v143 isEqualToString:v144];
+    v146 = objc_msgSend_isEqualToString_(v143);
   }
 
   v260 = v16 == 3;
@@ -1145,7 +1145,7 @@ LABEL_214:
         goto LABEL_277;
       }
 
-      v157 = [(__CFString *)v154 isEqualToString:@"details"];
+      v157 = objc_msgSend_isEqualToString_(v154);
 
       if (!v157)
       {
@@ -1190,7 +1190,7 @@ LABEL_246:
     goto LABEL_259;
   }
 
-  v164 = [(__CFString *)v161 isEqualToString:v162];
+  v164 = objc_msgSend_isEqualToString_(v161);
 
   if (v164)
   {
@@ -1245,7 +1245,7 @@ LABEL_306:
         goto LABEL_307;
       }
 
-      v169 = [(__CFString *)v167 isEqualToString:@"feature"];
+      v169 = objc_msgSend_isEqualToString_(v167);
 
       if (!v169)
       {
@@ -1291,7 +1291,7 @@ LABEL_281:
     goto LABEL_283;
   }
 
-  v173 = [(__CFString *)v170 isEqualToString:v171];
+  v173 = objc_msgSend_isEqualToString_(v170);
 
   if (v173)
   {
@@ -1314,7 +1314,7 @@ LABEL_283:
     goto LABEL_319;
   }
 
-  v186 = [(__CFString *)v183 isEqualToString:v184];
+  v186 = objc_msgSend_isEqualToString_(v183);
 
   if (v186)
   {
@@ -1349,7 +1349,7 @@ LABEL_340:
     goto LABEL_344;
   }
 
-  v202 = [(__CFString *)v199 isEqualToString:v200];
+  v202 = objc_msgSend_isEqualToString_(v199);
 
   if (v202)
   {
@@ -1372,7 +1372,7 @@ LABEL_344:
     goto LABEL_367;
   }
 
-  v213 = [(__CFString *)v210 isEqualToString:v211];
+  v213 = objc_msgSend_isEqualToString_(v210);
 
   if (v213)
   {
@@ -1449,7 +1449,7 @@ LABEL_208:
 
   if (firstObject && v223)
   {
-    v225 = [(__CFString *)v222 isEqualToString:v223];
+    v225 = objc_msgSend_isEqualToString_(v222);
 
     if (!v225)
     {
@@ -1480,7 +1480,7 @@ LABEL_390:
       goto LABEL_404;
     }
 
-    v236 = [(__CFString *)v233 isEqualToString:v234]& v261;
+    v236 = objc_msgSend_isEqualToString_(v233) & v261;
 
     if ((v236 & 1) == 0)
     {
@@ -1500,7 +1500,7 @@ LABEL_404:
           goto LABEL_420;
         }
 
-        v243 = [(__CFString *)v240 isEqualToString:v241];
+        v243 = objc_msgSend_isEqualToString_(v240);
 
         if (!v243)
         {
@@ -1519,7 +1519,7 @@ LABEL_420:
               goto LABEL_431;
             }
 
-            v253 = [(__CFString *)v251 isEqualToString:@"applePayDefaults"];
+            v253 = objc_msgSend_isEqualToString_(v251);
 
             if (!v253)
             {
@@ -1550,7 +1550,7 @@ LABEL_439:
                       goto LABEL_447;
                     }
 
-                    v259 = [(__CFString *)v257 isEqualToString:@"savings-closed"];
+                    v259 = objc_msgSend_isEqualToString_(v257);
 
                     if (!v259)
                     {
@@ -1573,7 +1573,7 @@ LABEL_342:
                   goto LABEL_62;
                 }
 
-                v256 = [(__CFString *)v254 isEqualToString:@"manageAutoFillCards"];
+                v256 = objc_msgSend_isEqualToString_(v254);
 
                 if (!v256)
                 {
@@ -1731,9 +1731,9 @@ LABEL_20:
               goto LABEL_36;
             }
 
-            v16 = [v8 isEqualToString:v14];
+            isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-            if (!v16)
+            if (!isEqualToString)
             {
 LABEL_36:
               v8 = v8;
@@ -1751,7 +1751,7 @@ LABEL_36:
                   goto LABEL_54;
                 }
 
-                v26 = [v8 isEqualToString:v24];
+                v26 = objc_msgSend_isEqualToString_(v8);
 
                 if (!v26)
                 {
@@ -1771,7 +1771,7 @@ LABEL_54:
                       goto LABEL_74;
                     }
 
-                    v37 = [v8 isEqualToString:v35];
+                    v37 = objc_msgSend_isEqualToString_(v8);
 
                     if (!v37)
                     {
@@ -1791,7 +1791,7 @@ LABEL_74:
                           goto LABEL_90;
                         }
 
-                        v43 = [v8 isEqualToString:v41];
+                        v43 = objc_msgSend_isEqualToString_(v8);
 
                         if (!v43)
                         {
@@ -1811,7 +1811,7 @@ LABEL_90:
                               goto LABEL_106;
                             }
 
-                            v49 = [v8 isEqualToString:v47];
+                            v49 = objc_msgSend_isEqualToString_(v8);
 
                             if (!v49)
                             {
@@ -1882,7 +1882,7 @@ LABEL_114:
           goto LABEL_115;
         }
 
-        v7 = [(__CFString *)v4 isEqualToString:v5];
+        v7 = objc_msgSend_isEqualToString_(v4);
 
         if (!v7)
         {
@@ -1916,7 +1916,7 @@ LABEL_113:
             goto LABEL_28;
           }
 
-          v12 = [(__CFString *)v10 isEqualToString:@"makeDefaultAtApple"];
+          v12 = objc_msgSend_isEqualToString_(v10);
 
           if ((v12 & 1) == 0)
           {
@@ -1935,7 +1935,7 @@ LABEL_28:
                 goto LABEL_44;
               }
 
-              v19 = [(__CFString *)v17 isEqualToString:@"scheduledPayments"];
+              v19 = objc_msgSend_isEqualToString_(v17);
 
               if ((v19 & 1) == 0)
               {
@@ -1954,7 +1954,7 @@ LABEL_44:
                     goto LABEL_65;
                   }
 
-                  v29 = [(__CFString *)v27 isEqualToString:@"order"];
+                  v29 = objc_msgSend_isEqualToString_(v27);
 
                   if ((v29 & 1) == 0)
                   {
@@ -1973,7 +1973,7 @@ LABEL_65:
                         goto LABEL_84;
                       }
 
-                      v40 = [(__CFString *)v38 isEqualToString:@"replace"];
+                      v40 = objc_msgSend_isEqualToString_(v38);
 
                       if ((v40 & 1) == 0)
                       {
@@ -2006,7 +2006,7 @@ LABEL_111:
                                 goto LABEL_112;
                               }
 
-                              v52 = [(__CFString *)v50 isEqualToString:@"activate"];
+                              v52 = objc_msgSend_isEqualToString_(v50);
 
                               if (!v52)
                               {
@@ -2020,7 +2020,7 @@ LABEL_112:
                             goto LABEL_113;
                           }
 
-                          v46 = [(__CFString *)v44 isEqualToString:@"track"];
+                          v46 = objc_msgSend_isEqualToString_(v44);
 
                           if ((v46 & 1) == 0)
                           {

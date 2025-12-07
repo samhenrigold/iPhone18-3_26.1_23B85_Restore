@@ -185,9 +185,9 @@
 - (BOOL)isDeleteCandidate:(id)candidate
 {
   candidate = [candidate candidate];
-  v4 = [candidate isEqualToString:@"DELETE"];
+  isEqualToString = objc_msgSend_isEqualToString_(candidate);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)setCandidates:(id)candidates inlineText:(id)text inlineRect:(CGRect)rect maxX:(double)x layout:(BOOL)layout

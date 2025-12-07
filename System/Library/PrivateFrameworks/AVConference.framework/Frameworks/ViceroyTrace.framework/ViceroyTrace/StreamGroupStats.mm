@@ -105,25 +105,23 @@
 
 - (void)processKeyFrameReceived:(double)received
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   oldestPendingFirTime = self->_oldestPendingFirTime;
   if (oldestPendingFirTime != 0.0)
   {
     firResponseTime = self->_firResponseTime;
-    v7[0] = @"FIRResponseTimeSum";
-    v7[1] = @"FIRResponseTimeCount";
-    v8[0] = [MEMORY[0x277CCABA8] numberWithDouble:(received - oldestPendingFirTime) * 1000.0];
-    v8[1] = &unk_284FA5420;
-    -[VCReportingDistribution updateWithPayload:](firResponseTime, "updateWithPayload:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2]);
+    v6[0] = @"FIRResponseTimeSum";
+    v6[1] = @"FIRResponseTimeCount";
+    v7[0] = [MEMORY[0x277CCABA8] numberWithDouble:(received - oldestPendingFirTime) * 1000.0];
+    v7[1] = &unk_284FA5420;
+    -[VCReportingDistribution updateWithPayload:](firResponseTime, "updateWithPayload:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2]);
     self->_oldestPendingFirTime = 0.0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processMLStreamData:(id)data
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v5 = [data objectForKeyedSubscript:@"DecOutMLEnhancedFrameCnt"];
   v6 = [data objectForKeyedSubscript:@"DecOutFrameCnt"];
   v7 = v6;
@@ -192,13 +190,13 @@
           v36 = [v18 count];
           [v19 count];
           *buf = 136316418;
-          v41 = v34;
-          v42 = 2080;
+          v40 = v34;
+          v41 = 2080;
           OUTLINED_FUNCTION_52();
-          v43 = v37;
-          *v44 = v36;
-          *&v44[4] = v37;
-          *&v44[6] = v38;
+          v42 = v37;
+          *v43 = v36;
+          *&v43[4] = v37;
+          *&v43[6] = v38;
           LOWORD(selfCopy) = v37;
           *(&selfCopy + 2) = 35;
           v31 = v35;
@@ -229,19 +227,19 @@
           v28 = [v18 count];
           [v19 count];
           *buf = 136316930;
-          v41 = v26;
-          v42 = 2080;
+          v40 = v26;
+          v41 = 2080;
           OUTLINED_FUNCTION_52();
-          v43 = 2112;
-          *v44 = v25;
-          *&v44[8] = 2048;
+          v42 = 2112;
+          *v43 = v25;
+          *&v43[8] = 2048;
           selfCopy = self;
-          v46 = v29;
-          v47 = v28;
-          v48 = v29;
-          v49 = v30;
-          v50 = v29;
-          v51 = 35;
+          v45 = v29;
+          v46 = v28;
+          v47 = v29;
+          v48 = v30;
+          v49 = v29;
+          v50 = 35;
           v31 = v27;
           v32 = " [%s] %s:%d %@(%p) ML array size does not match histogram size! inputResolutionArraySize=%d outputResolutionArraySize=%d VCReportingVideoResolutionCount=%d";
           v33 = 66;
@@ -256,8 +254,6 @@ LABEL_25:
 
     while (v14 != 4);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finalizeStats

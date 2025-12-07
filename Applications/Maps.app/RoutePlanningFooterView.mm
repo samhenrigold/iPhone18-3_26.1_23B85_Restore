@@ -50,7 +50,7 @@
         return;
       }
 
-      if (!sub_100741964())
+      if (!sub_100741964(8))
       {
         return;
       }
@@ -376,33 +376,34 @@
 {
   v3 = [[NSMutableArray alloc] initWithCapacity:2];
   visibleCommandSet = [(RoutePlanningFooterView *)self visibleCommandSet];
-  if (sub_100741964() && (visibleCommandSet & 8) != 0)
+  v5 = visibleCommandSet;
+  if (sub_100741964(visibleCommandSet) && (v5 & 8) != 0)
   {
-    v55[1] = @"title";
-    v56[0] = &off_1016E8678;
-    v55[0] = @"command";
-    v5 = +[NSBundle mainBundle];
-    v6 = [v5 localizedStringForKey:@"Report an Issue" value:@"localized string not found" table:0];
-    v56[1] = v6;
-    v7 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:2];
-    [v3 addObject:v7];
+    v56[1] = @"title";
+    v57[0] = &off_1016E8678;
+    v56[0] = @"command";
+    v6 = +[NSBundle mainBundle];
+    v7 = [v6 localizedStringForKey:@"Report an Issue" value:@"localized string not found" table:0];
+    v57[1] = v7;
+    v8 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:2];
+    [v3 addObject:v8];
   }
 
-  if (visibleCommandSet)
+  if (v5)
   {
-    v54[0] = &off_1016E8690;
-    v53[0] = @"command";
-    v53[1] = @"title";
-    v17 = +[NSBundle mainBundle];
-    v18 = [v17 localizedStringForKey:@"More Rides" value:@"localized string not found" table:0];
-    v54[1] = v18;
-    v19 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:2];
-    [v3 addObject:v19];
+    v55[0] = &off_1016E8690;
+    v54[0] = @"command";
+    v54[1] = @"title";
+    v18 = +[NSBundle mainBundle];
+    v19 = [v18 localizedStringForKey:@"More Rides" value:@"localized string not found" table:0];
+    v55[1] = v19;
+    v20 = [NSDictionary dictionaryWithObjects:v55 forKeys:v54 count:2];
+    [v3 addObject:v20];
 
-    if ((visibleCommandSet & 2) == 0)
+    if ((v5 & 2) == 0)
     {
 LABEL_6:
-      if ((visibleCommandSet & 4) == 0)
+      if ((v5 & 4) == 0)
       {
         goto LABEL_8;
       }
@@ -411,83 +412,83 @@ LABEL_6:
     }
   }
 
-  else if ((visibleCommandSet & 2) == 0)
+  else if ((v5 & 2) == 0)
   {
     goto LABEL_6;
   }
 
-  v51[1] = @"title";
-  v52[0] = &off_1016E86A8;
-  v51[0] = @"command";
-  v20 = +[NSBundle mainBundle];
-  v21 = [v20 localizedStringForKey:@"Share" value:@"localized string not found" table:0];
-  v52[1] = v21;
-  v22 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
-  [v3 addObject:v22];
+  v52[1] = @"title";
+  v53[0] = &off_1016E86A8;
+  v52[0] = @"command";
+  v21 = +[NSBundle mainBundle];
+  v22 = [v21 localizedStringForKey:@"Share" value:@"localized string not found" table:0];
+  v53[1] = v22;
+  v23 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:2];
+  [v3 addObject:v23];
 
-  if ((visibleCommandSet & 4) != 0)
+  if ((v5 & 4) != 0)
   {
 LABEL_7:
-    v50[0] = &off_1016E86C0;
-    v49[0] = @"command";
-    v49[1] = @"title";
-    v8 = +[NSBundle mainBundle];
-    v9 = [v8 localizedStringForKey:@"Get Tickets" value:@"localized string not found" table:0];
-    v50[1] = v9;
-    v49[2] = @"menuProvider";
+    v51[0] = &off_1016E86C0;
+    v50[0] = @"command";
+    v50[1] = @"title";
+    v9 = +[NSBundle mainBundle];
+    v10 = [v9 localizedStringForKey:@"Get Tickets" value:@"localized string not found" table:0];
+    v51[1] = v10;
+    v50[2] = @"menuProvider";
     _getTicketsMenuProvider = [(RoutePlanningFooterView *)self _getTicketsMenuProvider];
-    v50[2] = _getTicketsMenuProvider;
-    v11 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:3];
-    [v3 addObject:v11];
+    v51[2] = _getTicketsMenuProvider;
+    v12 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:3];
+    [v3 addObject:v12];
   }
 
 LABEL_8:
-  v46 = v3;
+  v47 = v3;
   firstObject = [v3 firstObject];
-  v13 = firstObject;
+  v14 = firstObject;
   if (firstObject)
   {
-    v45 = [firstObject objectForKeyedSubscript:@"title"];
-    v14 = [v13 objectForKeyedSubscript:@"command"];
-    integerValue = [v14 integerValue];
+    v46 = [firstObject objectForKeyedSubscript:@"title"];
+    v15 = [v14 objectForKeyedSubscript:@"command"];
+    integerValue = [v15 integerValue];
 
-    v16 = [v13 objectForKeyedSubscript:@"menuProvider"];
+    v17 = [v14 objectForKeyedSubscript:@"menuProvider"];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
     integerValue = 0;
-    v45 = &stru_1016631F0;
+    v46 = &stru_1016631F0;
   }
 
-  lastObject = [v46 lastObject];
+  lastObject = [v47 lastObject];
   integerValue2 = 0;
-  v25 = &stru_1016631F0;
+  v26 = &stru_1016631F0;
   if (lastObject)
   {
-    v26 = 0;
-    if (lastObject != v13)
+    v27 = 0;
+    if (lastObject != v14)
     {
-      v25 = [lastObject objectForKeyedSubscript:@"title"];
-      v27 = [lastObject objectForKeyedSubscript:@"command"];
-      integerValue2 = [v27 integerValue];
+      v26 = [lastObject objectForKeyedSubscript:@"title"];
+      v28 = [lastObject objectForKeyedSubscript:@"command"];
+      integerValue2 = [v28 integerValue];
 
-      v26 = [lastObject objectForKeyedSubscript:@"menuProvider"];
+      v27 = [lastObject objectForKeyedSubscript:@"menuProvider"];
     }
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  v28 = [(__CFString *)v45 length]== 0;
+  v29 = [(__CFString *)v46 length]== 0;
   leadingButton = [(RoutePlanningFooterView *)self leadingButton];
-  [leadingButton setHidden:v28];
+  [leadingButton setHidden:v29];
 
   leadingButton2 = [(RoutePlanningFooterView *)self leadingButton];
-  [leadingButton2 setTitle:v45 forState:0];
+  [leadingButton2 setTitle:v46 forState:0];
 
   leadingButton3 = [(RoutePlanningFooterView *)self leadingButton];
   [leadingButton3 setTag:integerValue];
@@ -495,21 +496,21 @@ LABEL_8:
   if (sub_10000FA08(self) == 5)
   {
     leadingButton4 = [(RoutePlanningFooterView *)self leadingButton];
-    [leadingButton4 _setMenuProvider:v16];
+    [leadingButton4 _setMenuProvider:v17];
 
     leadingButton5 = [(RoutePlanningFooterView *)self leadingButton];
     [leadingButton5 setContextMenuInteractionEnabled:1];
 
     leadingButton6 = [(RoutePlanningFooterView *)self leadingButton];
-    [leadingButton6 setShowsMenuAsPrimaryAction:v16 != 0];
+    [leadingButton6 setShowsMenuAsPrimaryAction:v17 != 0];
   }
 
-  v35 = [(__CFString *)v25 length]== 0;
+  v36 = [(__CFString *)v26 length]== 0;
   trailingButton = [(RoutePlanningFooterView *)self trailingButton];
-  [trailingButton setHidden:v35];
+  [trailingButton setHidden:v36];
 
   trailingButton2 = [(RoutePlanningFooterView *)self trailingButton];
-  [trailingButton2 setTitle:v25 forState:0];
+  [trailingButton2 setTitle:v26 forState:0];
 
   trailingButton3 = [(RoutePlanningFooterView *)self trailingButton];
   [trailingButton3 setTag:integerValue2];
@@ -517,22 +518,22 @@ LABEL_8:
   if (sub_10000FA08(self) == 5)
   {
     trailingButton4 = [(RoutePlanningFooterView *)self trailingButton];
-    [trailingButton4 _setMenuProvider:v44];
+    [trailingButton4 _setMenuProvider:v45];
 
     trailingButton5 = [(RoutePlanningFooterView *)self trailingButton];
     [trailingButton5 setContextMenuInteractionEnabled:1];
 
     trailingButton6 = [(RoutePlanningFooterView *)self trailingButton];
-    [trailingButton6 setShowsMenuAsPrimaryAction:v44 != 0];
+    [trailingButton6 setShowsMenuAsPrimaryAction:v45 != 0];
   }
 
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_100B00780;
-  v47[3] = &unk_101637FF8;
-  v48 = 1;
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_100B00780;
+  v48[3] = &unk_101637FF8;
+  v49 = 1;
   trailingButton7 = [(RoutePlanningFooterView *)self trailingButton];
-  [trailingButton7 setTitleColorProvider:v47];
+  [trailingButton7 setTitleColorProvider:v48];
 
   trailingButton8 = [(RoutePlanningFooterView *)self trailingButton];
   [trailingButton8 setUserInteractionEnabled:1];

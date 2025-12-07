@@ -5,6 +5,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requiresUserAttentionReasonAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsRequiresUserAttentionReason:(id)reason;
 - (int)StringAsState:(id)state;
 - (int)requiresUserAttentionReason;
@@ -147,6 +149,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061EA88 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
@@ -207,6 +224,21 @@
   {
     return 0;
   }
+}
+
+- (id)requiresUserAttentionReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061EAA8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequiresUserAttentionReason:(id)reason
@@ -346,45 +378,42 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_events;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_events;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (*&self->_has)
   {
-    requiresUserAttentionReason = self->_requiresUserAttentionReason;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -500,7 +529,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 32);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_state != *(equalCopy + 5))
@@ -520,14 +548,14 @@
     if (![(NSMutableArray *)events isEqual:?])
     {
 LABEL_16:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_17;
     }
 
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 32) & 1) == 0;
+  v8 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_requiresUserAttentionReason != *(equalCopy + 4))
@@ -535,12 +563,12 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_17:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

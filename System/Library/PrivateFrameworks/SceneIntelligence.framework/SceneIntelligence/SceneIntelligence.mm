@@ -1,25 +1,19 @@
 uint64_t sub_21DE0F6F4()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
 uint64_t sub_21DE0F72C()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t sub_21DE0F774()
 {
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93FA0, &qword_21DECD510);
-  v1 = *(v27 - 8);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93FA0, &qword_21DECD510);
+  v1 = *(v23 - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
   v4 = *(v1 + 64);
@@ -29,56 +23,48 @@ uint64_t sub_21DE0F774()
   v8 = (v3 + v4 + v7) & ~v7;
   v9 = *(v6 + 64);
   v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93F90, &qword_21DECD500) - 8);
-  v28 = *(v10 + 80);
-  v11 = (v8 + v9 + v28) & ~v28;
+  v24 = *(v10 + 80);
+  v11 = (v8 + v9 + v24) & ~v24;
   v12 = *(v10 + 64);
-  v13 = *(v0 + 16);
   swift_unknownObjectRelease();
-  (*(v1 + 8))(v0 + v3, v27);
+  (*(v1 + 8))(v0 + v3, v23);
   (*(v6 + 8))(v0 + v8, v5);
-  v14 = v0 + v11;
-  v15 = type metadata accessor for SanitizerResource(0);
-  if (!(*(*(v15 - 8) + 48))(v0 + v11, 1, v15))
+  v13 = v0 + v11;
+  v14 = type metadata accessor for SanitizerResource(0);
+  if (!(*(*(v14 - 8) + 48))(v0 + v11, 1, v14))
   {
-    v16 = sub_21DEC6C50();
-    v17 = *(v16 - 8);
-    if (!(*(v17 + 48))(v0 + v11, 1, v16))
+    v15 = sub_21DEC6C50();
+    v16 = *(v15 - 8);
+    if (!(*(v16 + 48))(v0 + v11, 1, v15))
     {
-      (*(v17 + 8))(v0 + v11, v16);
+      (*(v16 + 8))(v0 + v11, v15);
     }
 
-    v18 = *(v15 + 20);
-    v19 = sub_21DEC6C10();
-    v20 = *(v19 - 8);
-    if (!(*(v20 + 48))(v14 + v18, 1, v19))
+    v17 = *(v14 + 20);
+    v18 = sub_21DEC6C10();
+    v19 = *(v18 - 8);
+    if (!(*(v19 + 48))(v13 + v17, 1, v18))
     {
-      (*(v20 + 8))(v14 + v18, v19);
+      (*(v19 + 8))(v13 + v17, v18);
     }
 
-    v21 = *(v15 + 24);
-    v22 = sub_21DEC6C30();
-    (*(*(v22 - 8) + 8))(v14 + v21, v22);
+    v20 = *(v14 + 24);
+    v21 = sub_21DEC6C30();
+    (*(*(v21 - 8) + 8))(v13 + v20, v21);
   }
 
-  v23 = (v12 + v11 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v24 = (v23 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *(v0 + v23);
-
-  return MEMORY[0x2821FE8E8](v0, v24 + 10, v2 | v7 | v28 | 7);
+  return MEMORY[0x2821FE8E8](v0, ((((v12 + v11 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 10, v2 | v7 | v24 | 7);
 }
 
 uint64_t sub_21DE0FB10()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_21DE0FB48()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -234,8 +220,8 @@ uint64_t sub_21DE0FFAC(uint64_t a1, uint64_t a2, int a3, int *a4)
 uint64_t sub_21DE1010C()
 {
   v1 = v0;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93FA0, &qword_21DECD510);
-  v2 = *(v27 - 8);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93FA0, &qword_21DECD510);
+  v2 = *(v26 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -245,40 +231,39 @@ uint64_t sub_21DE1010C()
   v9 = (v5 + v8 + 9) & ~v8;
   v10 = *(v7 + 64);
   v11 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE93F90, &qword_21DECD500) - 8);
-  v28 = *(v11 + 80);
-  v12 = (v9 + v10 + v28) & ~v28;
+  v27 = *(v11 + 80);
+  v12 = (v9 + v10 + v27) & ~v27;
   v13 = *(v11 + 64);
-  v14 = *(v1 + 16);
   swift_unknownObjectRelease();
-  (*(v2 + 8))(v1 + v4, v27);
-  v15 = v1 + v9;
-  v16 = v1;
-  (*(v7 + 8))(v15, v6);
-  v17 = v1 + v12;
-  v18 = type metadata accessor for SanitizerResource(0);
-  if (!(*(*(v18 - 8) + 48))(v17, 1, v18))
+  (*(v2 + 8))(v1 + v4, v26);
+  v14 = v1 + v9;
+  v15 = v1;
+  (*(v7 + 8))(v14, v6);
+  v16 = v1 + v12;
+  v17 = type metadata accessor for SanitizerResource(0);
+  if (!(*(*(v17 - 8) + 48))(v16, 1, v17))
   {
-    v19 = sub_21DEC6C50();
-    v20 = *(v19 - 8);
-    if (!(*(v20 + 48))(v17, 1, v19))
+    v18 = sub_21DEC6C50();
+    v19 = *(v18 - 8);
+    if (!(*(v19 + 48))(v16, 1, v18))
     {
-      (*(v20 + 8))(v17, v19);
+      (*(v19 + 8))(v16, v18);
     }
 
-    v21 = *(v18 + 20);
-    v22 = sub_21DEC6C10();
-    v23 = *(v22 - 8);
-    if (!(*(v23 + 48))(v17 + v21, 1, v22))
+    v20 = *(v17 + 20);
+    v21 = sub_21DEC6C10();
+    v22 = *(v21 - 8);
+    if (!(*(v22 + 48))(v16 + v20, 1, v21))
     {
-      (*(v23 + 8))(v17 + v21, v22);
+      (*(v22 + 8))(v16 + v20, v21);
     }
 
-    v24 = *(v18 + 24);
-    v25 = sub_21DEC6C30();
-    (*(*(v25 - 8) + 8))(v17 + v24, v25);
+    v23 = *(v17 + 24);
+    v24 = sub_21DEC6C30();
+    (*(*(v24 - 8) + 8))(v16 + v23, v24);
   }
 
-  return MEMORY[0x2821FE8E8](v16, v13 + v12 + 1, v3 | v8 | v28 | 7);
+  return MEMORY[0x2821FE8E8](v15, v13 + v12 + 1, v3 | v8 | v27 | 7);
 }
 
 uint64_t sub_21DE104A4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -378,18 +363,12 @@ uint64_t sub_21DE10870(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_21DE10A00()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_21DE10A38()
 {
-  v1 = v0[7];
-
-  v2 = v0[8];
-
-  v3 = v0[9];
 
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
@@ -435,7 +414,7 @@ uint64_t sub_21DE10B00(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_21DE11A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, char a20, void *a21)
+void sub_21DE11A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, void *a21)
 {
   if (__p)
   {
@@ -447,34 +426,34 @@ void sub_21DE11A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::pair<int,int>,half>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<std::pair<int,int>,half>>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<std::pair<std::pair<int,int>,half>>::__append(a1, v4);
+    std::vector<std::pair<std::pair<int,int>,half>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,half>>(uint64_t a1, int *a2)
+uint64_t std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,half>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(uint64_t a1, void *a2, int *a3)
+uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(uint64_t a1, uint64_t **a2, int *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -486,7 +465,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_val
     while (1)
     {
       v8 = v4;
-      v9 = *(v4 + 7);
+      v9 = *(v4 + 28);
       if (v6 == v9)
       {
         v10 = *(v8 + 8);
@@ -564,7 +543,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -590,12 +569,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -609,22 +588,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -658,13 +637,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -818,12 +797,12 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<std::pair<i
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(unint64_t result, unint64_t a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(unint64_t result, short float *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
-  v8 = (a2 - 12);
-  v211 = (a2 - 8);
+  v8 = a2 - 6;
+  v211 = a2 - 4;
   j = v7;
   while (1)
   {
@@ -836,13 +815,13 @@ LABEL_2:
       {
         case 3:
 
-          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), (a2 - 12));
+          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), a2 - 6);
         case 4:
 
-          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), (j + 24), (a2 - 12));
+          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), (j + 24), a2 - 6);
         case 5:
 
-          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), (j + 24), (j + 36), (a2 - 12));
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(j, (j + 12), (j + 24), (j + 36), a2 - 6);
       }
     }
 
@@ -855,11 +834,11 @@ LABEL_2:
 
       if (v11 == 2)
       {
-        v86 = *(a2 - 4);
+        v86 = *(a2 - 2);
         v87 = *(j + 8);
         if (v86 == v87)
         {
-          v89 = *(a2 - 12);
+          v89 = *(a2 - 3);
           v88 = *j;
           v206 = -1;
           if (v89 >= *j)
@@ -869,7 +848,7 @@ LABEL_2:
 
           if (v89 == v88)
           {
-            v207 = *(a2 - 8);
+            v207 = *(a2 - 2);
             v208 = *(j + 4);
             v209 = v207 == v208;
             v187 = v207 < v208;
@@ -899,16 +878,16 @@ LABEL_2:
           }
 
           v88 = *j;
-          v89 = *(a2 - 12);
+          v89 = *(a2 - 3);
         }
 
         *j = v89;
-        *(a2 - 12) = v88;
+        *(a2 - 3) = v88;
         v210 = *(j + 4);
-        *(j + 4) = *(a2 - 8);
-        *(a2 - 8) = v210;
+        *(j + 4) = *(a2 - 2);
+        *(a2 - 2) = v210;
         *(j + 8) = v86;
-        *(a2 - 4) = v87;
+        *(a2 - 2) = v87;
         return result;
       }
     }
@@ -1220,19 +1199,19 @@ LABEL_339:
             }
 
             while (v153 <= ((v152 - 2) >> 1));
-            if (v157 == a2 - 12)
+            if (v157 == a2 - 6)
             {
               *v157 = v154;
               *(v157 + 4) = v155;
               goto LABEL_386;
             }
 
-            *v157 = *(a2 - 12);
-            *(v157 + 4) = *(a2 - 8);
-            *(v157 + 8) = *(a2 - 4);
-            *(a2 - 12) = v154;
-            *(a2 - 8) = v155;
-            *(a2 - 4) = v156;
+            *v157 = *(a2 - 3);
+            *(v157 + 4) = *(a2 - 2);
+            *(v157 + 8) = *(a2 - 2);
+            *(a2 - 3) = v154;
+            *(a2 - 2) = v155;
+            *(a2 - 2) = v156;
             v171 = v157 - j + 12;
             if (v171 < 13)
             {
@@ -1356,7 +1335,7 @@ LABEL_386:
             }
 
 LABEL_387:
-            a2 -= 12;
+            a2 -= 6;
             v187 = v152-- <= 2;
             if (v187)
             {
@@ -1371,17 +1350,17 @@ LABEL_387:
     v13 = j + 12 * (v11 >> 1);
     if (v10 < 0x601)
     {
-      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 12 * v12), v7, (a2 - 12));
+      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 12 * v12), v7, a2 - 6);
     }
 
     else
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(v7, (v7 + 12 * v12), (a2 - 12));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(v7, (v7 + 12 * v12), a2 - 6);
       v14 = 3 * v12;
       v15 = (v7 + 12 * v12 - 12);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 12), v15, (a2 - 24));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 12), v15, a2 - 12);
       v16 = (v7 + 12 + 4 * v14);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 24), v16, (a2 - 36));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>((v7 + 24), v16, a2 - 18);
       result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(v15, v13, v16);
       v17 = *v7;
       *v7 = *v13;
@@ -1446,12 +1425,12 @@ LABEL_34:
 
 LABEL_35:
       v29 = v7 + v21 + 12;
-      i = a2 - 12;
+      i = a2 - 6;
       if (v21)
       {
         while (1)
         {
-          v31 = *(i + 8);
+          v31 = i[4];
           if (v31 == v19)
           {
             if (*i >= v18)
@@ -1466,7 +1445,7 @@ LABEL_35:
 
             if (*i == v18)
             {
-              v33 = *(i + 4);
+              v33 = *(i + 1);
               v34 = v33 == v22;
               v32 = v33 >= v22 ? 1 : -1;
               if (v34)
@@ -1486,16 +1465,16 @@ LABEL_35:
             goto LABEL_71;
           }
 
-          i -= 12;
+          i -= 6;
         }
       }
 
       i = a2;
       if (v29 < a2)
       {
-        for (i = a2 - 12; ; i -= 12)
+        for (i = a2 - 6; ; i -= 6)
         {
-          v35 = *(i + 8);
+          v35 = i[4];
           if (v35 == v19)
           {
             if (*i >= v18)
@@ -1510,7 +1489,7 @@ LABEL_35:
 
             if (*i == v18)
             {
-              v38 = *(i + 4);
+              v38 = *(i + 1);
               v39 = v38 == v22;
               v37 = v38 >= v22 ? 1 : -1;
               if (v39)
@@ -1543,11 +1522,11 @@ LABEL_71:
           *j = *v40;
           *v40 = v41;
           v42 = *(j + 4);
-          *(j + 4) = *(v40 + 4);
-          *(v40 + 4) = v42;
+          *(j + 4) = *(v40 + 1);
+          *(v40 + 1) = v42;
           v43 = *(j + 8);
-          *(j + 8) = *(v40 + 8);
-          *(v40 + 8) = v43;
+          *(j + 8) = v40[4];
+          *(v40 + 4) = v43;
           do
           {
             while (1)
@@ -1593,8 +1572,8 @@ LABEL_71:
 LABEL_98:
             while (1)
             {
-              v40 -= 12;
-              v51 = *(v40 + 8);
+              v40 -= 6;
+              v51 = v40[4];
               if (v51 == v19)
               {
                 break;
@@ -1618,7 +1597,7 @@ LABEL_98:
 
             if (*v40 == v18)
             {
-              v49 = *(v40 + 4);
+              v49 = *(v40 + 1);
               v50 = v49 == v22;
               v48 = v49 >= v22 ? 1 : -1;
               if (v50)
@@ -1649,17 +1628,17 @@ LABEL_100:
       if (v29 < i)
       {
 LABEL_106:
-        result = std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(v7, j - 12, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(v7, (j - 12), a3, a4 & 1);
         a4 = 0;
       }
 
       else
       {
-        v52 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*>(v7, j - 12);
+        v52 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*>(v7, (j - 12));
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*>(j, a2);
         if (result)
         {
-          a2 = j - 12;
+          a2 = (j - 12);
           if (v52)
           {
             return result;
@@ -1722,7 +1701,7 @@ LABEL_106:
       }
 
       v59 = *(v7 + 4);
-      v60 = *(a2 - 4);
+      v60 = *(a2 - 2);
       if (v19 == v60)
       {
         if (v18 >= *v8)
@@ -1837,7 +1816,7 @@ LABEL_161:
         goto LABEL_206;
       }
 
-      v71 = (a2 - 8);
+      v71 = a2 - 4;
       while (v19 != v60)
       {
         if (v19 <= v60)
@@ -2063,7 +2042,7 @@ LABEL_422:
 
 LABEL_423:
       v90 = (v7 + 12);
-      if (v7 + 12 == a2)
+      if ((v7 + 12) == a2)
       {
         return result;
       }
@@ -2112,8 +2091,8 @@ LABEL_423:
   {
     v95 = v94;
     v94 = v90;
-    v96 = v95[10];
-    v97 = v95[4];
+    v96 = *(v95 + 20);
+    v97 = *(v95 + 8);
     if (v96 == v97)
     {
       v98 = *v90;
@@ -2130,8 +2109,8 @@ LABEL_423:
 
       if (v98 == v99)
       {
-        v101 = *(v95 + 4);
-        v102 = *(v95 + 1);
+        v101 = *(v95 + 16);
+        v102 = *(v95 + 4);
         v103 = v101 == v102;
         v100 = v101 >= v102 ? 1 : -1;
         if (v103)
@@ -2157,10 +2136,10 @@ LABEL_423:
       v99 = *v95;
     }
 
-    v104 = *(v95 + 4);
-    *(v95 + 3) = v99;
-    v94[1] = *(v95 + 1);
-    *(v94 + 4) = v97;
+    v104 = *(v95 + 16);
+    *(v95 + 12) = v99;
+    *(v94 + 4) = *(v95 + 4);
+    *(v94 + 8) = v97;
     v105 = j;
     if (v95 == j)
     {
@@ -2211,7 +2190,7 @@ LABEL_423:
 LABEL_261:
         v113 = j + v106;
         v114 = *(j + v106 - 8);
-        v95 -= 6;
+        v95 -= 12;
         *v113 = v109;
         *(v113 + 4) = v114;
         *(v113 + 8) = v108;
@@ -2234,9 +2213,9 @@ LABEL_265:
     *(v105 + 4) = v104;
     *(v105 + 8) = v96;
 LABEL_266:
-    v90 = v94 + 3;
+    v90 = (v94 + 12);
     v93 += 12;
-    if (v94 + 3 != a2)
+    if ((v94 + 12) != a2)
     {
       continue;
     }
@@ -2909,7 +2888,7 @@ LABEL_45:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*>(short float *a1, int *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 2);
   if (v4 > 2)
@@ -2917,13 +2896,13 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, (a1 + 12), (a2 - 12));
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, a1 + 6, a2 - 6);
         return 1;
       case 4:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, (a1 + 12), (a1 + 24), (a2 - 12));
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, a1 + 6, a1 + 12, a2 - 6);
         return 1;
       case 5:
-        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, (a1 + 12), (a1 + 24), (a1 + 36), (a2 - 12));
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, a1 + 6, a1 + 12, a1 + 18, a2 - 6);
         return 1;
     }
   }
@@ -2937,11 +2916,11 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
 
     if (v4 == 2)
     {
-      v5 = *(a2 - 4);
-      v6 = *(a1 + 8);
+      v5 = *(a2 - 2);
+      v6 = a1[4];
       if (v5 == v6)
       {
-        v8 = *(a2 - 12);
+        v8 = *(a2 - 3);
         v7 = *a1;
         v31 = -1;
         if (v8 >= *a1)
@@ -2951,8 +2930,8 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
 
         if (v8 == v7)
         {
-          v32 = *(a2 - 8);
-          v33 = *(a1 + 4);
+          v32 = *(a2 - 2);
+          v33 = *(a1 + 1);
           v34 = v32 == v33;
           v35 = v32 < v33;
           v31 = -1;
@@ -2981,24 +2960,24 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
         }
 
         v7 = *a1;
-        v8 = *(a2 - 12);
+        v8 = *(a2 - 3);
       }
 
       *a1 = v8;
-      *(a2 - 12) = v7;
-      v36 = *(a1 + 4);
-      *(a1 + 4) = *(a2 - 8);
-      *(a2 - 8) = v36;
-      *(a1 + 8) = v5;
-      *(a2 - 4) = v6;
+      *(a2 - 3) = v7;
+      v36 = *(a1 + 1);
+      *(a1 + 1) = *(a2 - 2);
+      *(a2 - 2) = v36;
+      a1[4] = v5;
+      *(a2 - 2) = v6;
       return 1;
     }
   }
 
-  v9 = a1 + 24;
-  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, (a1 + 12), (a1 + 24));
-  v10 = a1 + 36;
-  if (a1 + 36 == a2)
+  v9 = a1 + 12;
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,0>(a1, a1 + 6, a1 + 12);
+  v10 = a1 + 18;
+  if (a1 + 18 == a2)
   {
     return 1;
   }
@@ -3007,8 +2986,8 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
   v12 = 0;
   while (2)
   {
-    v13 = *(v10 + 8);
-    v14 = *(v9 + 8);
+    v13 = v10[4];
+    v14 = v9[4];
     if (v13 == v14)
     {
       v15 = *v10;
@@ -3025,8 +3004,8 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
 
       if (v15 == v16)
       {
-        v18 = *(v10 + 4);
-        v19 = *(v9 + 4);
+        v18 = *(v10 + 1);
+        v19 = *(v9 + 1);
         v20 = v18 == v19;
         v17 = v18 >= v19 ? 1 : -1;
         if (v20)
@@ -3052,10 +3031,10 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
       v16 = *v9;
     }
 
-    v21 = *(v10 + 4);
+    v21 = *(v10 + 1);
     *v10 = v16;
-    *(v10 + 4) = *(v9 + 4);
-    *(v10 + 8) = v14;
+    *(v10 + 1) = *(v9 + 1);
+    v10[4] = v14;
     v22 = v11;
     while (1)
     {
@@ -3123,7 +3102,7 @@ LABEL_44:
 LABEL_45:
       v9 = v10;
       v11 += 12;
-      v10 += 12;
+      v10 += 6;
       if (v10 == a2)
       {
         return 1;
@@ -3132,7 +3111,7 @@ LABEL_45:
       continue;
     }
 
-    return v10 + 12 == a2;
+    return v10 + 6 == a2;
   }
 }
 
@@ -3226,31 +3205,31 @@ void std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_co
   }
 }
 
-void std::vector<std::pair<std::pair<int,int>,float>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<std::pair<int,int>,float>>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<std::pair<std::pair<int,int>,float>>::__append(a1, v4);
+    std::vector<std::pair<std::pair<int,int>,float>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,float>>(uint64_t a1, int *a2)
+uint64_t std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,float>>(uint64_t **a1, int *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__find_equal<std::pair<int,int>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__copy_impl::operator()[abi:nn200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::back_insert_iterator<std::vector<std::pair<std::pair<int,int>,float>>>>(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -3363,12 +3342,12 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<std::pair<i
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(unint64_t result, unint64_t a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(unint64_t result, float *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
-  v8 = (a2 - 12);
-  v211 = (a2 - 8);
+  v8 = a2 - 3;
+  v211 = a2 - 2;
   j = v7;
   while (1)
   {
@@ -3381,13 +3360,13 @@ LABEL_2:
       {
         case 3:
 
-          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, (j + 12), (a2 - 12));
+          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, (j + 12), a2 - 3);
         case 4:
 
-          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, j + 12, j + 24, a2 - 12);
+          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, j + 12, j + 24, (a2 - 3));
         case 5:
 
-          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, j + 12, j + 24, j + 36, (a2 - 12));
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(j, (j + 12), (j + 24), (j + 36), a2 - 3);
       }
     }
 
@@ -3400,11 +3379,11 @@ LABEL_2:
 
       if (v11 == 2)
       {
-        v86 = *(a2 - 4);
+        v86 = *(a2 - 1);
         v87 = *(j + 8);
         if (v86 == v87)
         {
-          v89 = *(a2 - 12);
+          v89 = *(a2 - 3);
           v88 = *j;
           v206 = -1;
           if (v89 >= *j)
@@ -3414,7 +3393,7 @@ LABEL_2:
 
           if (v89 == LODWORD(v88))
           {
-            v207 = *(a2 - 8);
+            v207 = *(a2 - 2);
             v208 = *(j + 4);
             v209 = v207 == v208;
             v187 = v207 < v208;
@@ -3444,16 +3423,16 @@ LABEL_2:
           }
 
           v88 = *j;
-          v89 = *(a2 - 12);
+          v89 = *(a2 - 3);
         }
 
         *j = v89;
-        *(a2 - 12) = v88;
+        *(a2 - 3) = v88;
         v210 = *(j + 4);
-        *(j + 4) = *(a2 - 8);
-        *(a2 - 8) = v210;
+        *(j + 4) = *(a2 - 2);
+        *(a2 - 2) = v210;
         *(j + 8) = v86;
-        *(a2 - 4) = v87;
+        *(a2 - 1) = v87;
         return result;
       }
     }
@@ -3702,8 +3681,8 @@ LABEL_291:
             do
             {
               v158 = v157;
-              v159 = &v157[3 * v153];
-              v157 = v159 + 3;
+              v159 = v157 + 12 * v153;
+              v157 = v159 + 12;
               v160 = 2 * v153;
               v153 = (2 * v153) | 1;
               v161 = v160 + 2;
@@ -3712,8 +3691,8 @@ LABEL_291:
                 goto LABEL_339;
               }
 
-              v162 = *(v159 + 5);
-              v163 = *(v159 + 8);
+              v162 = *(v159 + 20);
+              v163 = *(v159 + 32);
               if (v162 != v163)
               {
                 if (v162 <= v163)
@@ -3722,13 +3701,13 @@ LABEL_291:
                 }
 
 LABEL_338:
-                v157 = v159 + 6;
+                v157 = v159 + 24;
                 v153 = v161;
                 goto LABEL_339;
               }
 
-              v164 = v159[3];
-              v165 = v159[6];
+              v164 = *(v159 + 12);
+              v165 = *(v159 + 24);
               v166 = v164 == v165;
               if (v164 >= v165)
               {
@@ -3742,8 +3721,8 @@ LABEL_338:
 
               if (v166)
               {
-                v168 = v159[4];
-                v169 = v159[7];
+                v168 = *(v159 + 16);
+                v169 = *(v159 + 28);
                 v170 = v168 == v169;
                 v167 = v168 >= v169 ? 1 : -1;
                 if (v170)
@@ -3759,25 +3738,25 @@ LABEL_338:
 
 LABEL_339:
               *v158 = *v157;
-              result = v157[1];
+              result = *(v157 + 4);
               v158[1] = result;
-              v158[2] = v157[2];
+              v158[2] = *(v157 + 8);
             }
 
             while (v153 <= ((v152 - 2) >> 1));
-            if (v157 == (a2 - 12))
+            if (v157 == a2 - 3)
             {
               *v157 = v154;
-              v157[1] = v155;
+              *(v157 + 4) = v155;
               goto LABEL_386;
             }
 
-            *v157 = *(a2 - 12);
-            v157[1] = *(a2 - 8);
-            v157[2] = *(a2 - 4);
-            *(a2 - 12) = v154;
-            *(a2 - 8) = v155;
-            *(a2 - 4) = v156;
+            *v157 = *(a2 - 3);
+            *(v157 + 4) = *(a2 - 2);
+            *(v157 + 8) = *(a2 - 1);
+            *(a2 - 3) = v154;
+            *(a2 - 2) = v155;
+            *(a2 - 1) = v156;
             v171 = v157 - j + 12;
             if (v171 < 13)
             {
@@ -3788,7 +3767,7 @@ LABEL_339:
             v172 = result >> 1;
             v173 = j + 12 * (result >> 1);
             v174 = *(v173 + 8);
-            v156 = *(v157 + 2);
+            v156 = *(v157 + 8);
             if (v174 == v156)
             {
               v176 = *v173;
@@ -3803,10 +3782,10 @@ LABEL_339:
                 v177 = -1;
               }
 
-              if (v176 == v175)
+              if (LODWORD(v176) == LODWORD(v175))
               {
                 v178 = *(v173 + 4);
-                v179 = v157[1];
+                v179 = *(v157 + 4);
                 v180 = v178 == v179;
                 v177 = v178 >= v179 ? 1 : -1;
                 if (v180)
@@ -3821,22 +3800,22 @@ LABEL_339:
               }
 
 LABEL_369:
-              v181 = v157[1];
+              v181 = *(v157 + 4);
               *v157 = v176;
-              v157[1] = *(v173 + 4);
-              *(v157 + 2) = v174;
+              *(v157 + 4) = *(v173 + 4);
+              *(v157 + 8) = v174;
               if (result >= 2)
               {
                 while (1)
                 {
                   result = v172 - 1;
                   v172 = (v172 - 1) >> 1;
-                  v157 = (j + 12 * v172);
-                  v182 = *(v157 + 2);
+                  v157 = j + 12 * v172;
+                  v182 = *(v157 + 8);
                   if (v182 == v156)
                   {
                     v183 = *v157;
-                    if (*v157 >= v175)
+                    if (*v157 >= SLODWORD(v175))
                     {
                       v184 = 1;
                     }
@@ -3846,9 +3825,9 @@ LABEL_369:
                       v184 = -1;
                     }
 
-                    if (v183 == v175)
+                    if (LODWORD(v183) == LODWORD(v175))
                     {
-                      v185 = v157[1];
+                      v185 = *(v157 + 4);
                       v186 = v185 == v181;
                       v184 = v185 >= v181 ? 1 : -1;
                       if (v186)
@@ -3874,7 +3853,7 @@ LABEL_369:
                   }
 
                   *v173 = v183;
-                  *(v173 + 4) = v157[1];
+                  *(v173 + 4) = *(v157 + 4);
                   *(v173 + 8) = v182;
                   v173 = j + 12 * v172;
                   if (result <= 1)
@@ -3887,9 +3866,9 @@ LABEL_369:
               v157 = v173;
 LABEL_385:
               *v157 = v175;
-              v157[1] = v181;
+              *(v157 + 4) = v181;
 LABEL_386:
-              *(v157 + 2) = v156;
+              *(v157 + 8) = v156;
               goto LABEL_387;
             }
 
@@ -3901,7 +3880,7 @@ LABEL_386:
             }
 
 LABEL_387:
-            a2 -= 12;
+            a2 -= 3;
             v187 = v152-- <= 2;
             if (v187)
             {
@@ -3916,17 +3895,17 @@ LABEL_387:
     v13 = j + 12 * (v11 >> 1);
     if (v10 < 0x601)
     {
-      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 12 * v12), v7, (a2 - 12));
+      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 12 * v12), v7, a2 - 3);
     }
 
     else
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(v7, (v7 + 12 * v12), (a2 - 12));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(v7, (v7 + 12 * v12), a2 - 3);
       v14 = 3 * v12;
       v15 = (v7 + 12 * v12 - 12);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 12), v15, (a2 - 24));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 12), v15, a2 - 6);
       v16 = (v7 + 12 + 4 * v14);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 24), v16, (a2 - 36));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>((v7 + 24), v16, a2 - 9);
       result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(v15, v13, v16);
       v17 = *v7;
       *v7 = *v13;
@@ -3991,12 +3970,12 @@ LABEL_34:
 
 LABEL_35:
       v29 = v7 + v21 + 12;
-      i = a2 - 12;
+      i = a2 - 3;
       if (v21)
       {
         while (1)
         {
-          v31 = *(i + 8);
+          v31 = i[2];
           if (v31 == v19)
           {
             if (*i >= SLODWORD(v18))
@@ -4011,7 +3990,7 @@ LABEL_35:
 
             if (*i == LODWORD(v18))
             {
-              v33 = *(i + 4);
+              v33 = *(i + 1);
               v34 = v33 == v22;
               v32 = v33 >= v22 ? 1 : -1;
               if (v34)
@@ -4031,16 +4010,16 @@ LABEL_35:
             goto LABEL_71;
           }
 
-          i -= 12;
+          i -= 3;
         }
       }
 
       i = a2;
       if (v29 < a2)
       {
-        for (i = a2 - 12; ; i -= 12)
+        for (i = a2 - 3; ; i -= 3)
         {
-          v35 = *(i + 8);
+          v35 = i[2];
           if (v35 == v19)
           {
             if (*i >= SLODWORD(v18))
@@ -4055,7 +4034,7 @@ LABEL_35:
 
             if (*i == LODWORD(v18))
             {
-              v38 = *(i + 4);
+              v38 = *(i + 1);
               v39 = v38 == v22;
               v37 = v38 >= v22 ? 1 : -1;
               if (v39)
@@ -4194,17 +4173,17 @@ LABEL_100:
       if (v29 < i)
       {
 LABEL_106:
-        result = std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(v7, j - 12, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(v7, (j - 12), a3, a4 & 1);
         a4 = 0;
       }
 
       else
       {
-        v52 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*>(v7, j - 12);
+        v52 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*>(v7, (j - 12));
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*>(j, a2);
         if (result)
         {
-          a2 = j - 12;
+          a2 = (j - 12);
           if (v52)
           {
             return result;
@@ -4267,7 +4246,7 @@ LABEL_106:
       }
 
       v59 = *(v7 + 4);
-      v60 = *(a2 - 4);
+      v60 = *(a2 - 1);
       if (v19 == v60)
       {
         if (SLODWORD(v18) >= *v8)
@@ -4382,7 +4361,7 @@ LABEL_161:
         goto LABEL_206;
       }
 
-      v71 = (a2 - 8);
+      v71 = a2 - 2;
       while (v19 != v60)
       {
         if (v19 <= v60)
@@ -4608,7 +4587,7 @@ LABEL_422:
 
 LABEL_423:
       v90 = (v7 + 12);
-      if (v7 + 12 == a2)
+      if ((v7 + 12) == a2)
       {
         return result;
       }
@@ -4657,8 +4636,8 @@ LABEL_423:
   {
     v95 = v94;
     v94 = v90;
-    v96 = v95[5];
-    v97 = v95[2];
+    v96 = *(v95 + 20);
+    v97 = *(v95 + 8);
     if (v96 == v97)
     {
       v98 = *v90;
@@ -4675,8 +4654,8 @@ LABEL_423:
 
       if (v98 == v99)
       {
-        v101 = *(v95 + 4);
-        v102 = *(v95 + 1);
+        v101 = *(v95 + 16);
+        v102 = *(v95 + 4);
         v103 = v101 == v102;
         v100 = v101 >= v102 ? 1 : -1;
         if (v103)
@@ -4702,10 +4681,10 @@ LABEL_423:
       v99 = *v95;
     }
 
-    v104 = *(v95 + 4);
-    *(v95 + 3) = v99;
-    v94[1] = *(v95 + 1);
-    *(v94 + 2) = v97;
+    v104 = *(v95 + 16);
+    *(v95 + 12) = v99;
+    *(v94 + 4) = *(v95 + 4);
+    *(v94 + 8) = v97;
     v105 = j;
     if (v95 == j)
     {
@@ -4756,7 +4735,7 @@ LABEL_423:
 LABEL_261:
         v113 = j + v106;
         v114 = *(j + v106 - 8);
-        v95 -= 3;
+        v95 -= 12;
         *v113 = v109;
         *(v113 + 4) = v114;
         *(v113 + 8) = v108;
@@ -4779,9 +4758,9 @@ LABEL_265:
     *(v105 + 4) = v104;
     *(v105 + 8) = v96;
 LABEL_266:
-    v90 = v94 + 3;
+    v90 = (v94 + 12);
     v93 += 12;
-    if (v94 + 3 != a2)
+    if ((v94 + 12) != a2)
     {
       continue;
     }
@@ -4841,7 +4820,7 @@ LABEL_15:
         v22 = 1;
       }
 
-      if (LODWORD(v14) == LODWORD(v13))
+      if (v14 == v13)
       {
         v23 = *(a3 + 1);
         v24 = *(a2 + 1);
@@ -4895,7 +4874,7 @@ LABEL_15:
         v36 = 1;
       }
 
-      if (LODWORD(v30) == LODWORD(v29))
+      if (v30 == v29)
       {
         v37 = *(a2 + 1);
         v38 = *(result + 1);
@@ -4957,7 +4936,7 @@ LABEL_3:
       v16 = 1;
     }
 
-    if (LODWORD(v6) == LODWORD(v15))
+    if (v6 == v15)
     {
       v17 = *(a3 + 1);
       v18 = *(a2 + 1);
@@ -5031,7 +5010,7 @@ LABEL_61:
     v41 = 1;
   }
 
-  if (LODWORD(v35) == LODWORD(v34))
+  if (v35 == v34)
   {
     v42 = *(a3 + 1);
     v43 = v42 == v32;
@@ -5234,11 +5213,11 @@ LABEL_34:
   return result;
 }
 
-float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float *a5)
+float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(float *a1, float *a2, float *a3, float *a4, float *a5)
 {
   result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, a2, a3, a4);
   v11 = a5[2];
-  v12 = *(a4 + 8);
+  v12 = a4[2];
   if (v11 == v12)
   {
     v14 = *a5;
@@ -5249,10 +5228,10 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
       v15 = 1;
     }
 
-    if (LODWORD(v14) == v13)
+    if (v14 == LODWORD(v13))
     {
       v16 = *(a5 + 1);
-      v17 = *(a4 + 4);
+      v17 = *(a4 + 1);
       v18 = v16 == v17;
       v19 = v16 < v17;
       v15 = -1;
@@ -5286,13 +5265,13 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
 
   *a4 = v14;
   *a5 = v13;
-  v20 = *(a4 + 4);
-  *(a4 + 4) = a5[1];
+  v20 = *(a4 + 1);
+  a4[1] = a5[1];
   *(a5 + 1) = v20;
-  *(a4 + 8) = v11;
+  a4[2] = v11;
   a5[2] = v12;
-  v21 = *(a4 + 8);
-  v22 = *(a3 + 8);
+  v21 = a4[2];
+  v22 = a3[2];
   if (v21 == v22)
   {
     v24 = *a4;
@@ -5303,10 +5282,10 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
       v25 = 1;
     }
 
-    if (v24 == v23)
+    if (LODWORD(v24) == LODWORD(v23))
     {
-      v26 = *(a4 + 4);
-      v27 = *(a3 + 4);
+      v26 = *(a4 + 1);
+      v27 = *(a3 + 1);
       v28 = v26 == v27;
       v19 = v26 < v27;
       v25 = -1;
@@ -5340,13 +5319,13 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
 
   *a3 = v24;
   *a4 = v23;
-  v29 = *(a3 + 4);
-  *(a3 + 4) = *(a4 + 4);
-  *(a4 + 4) = v29;
-  *(a3 + 8) = v21;
-  *(a4 + 8) = v22;
-  v30 = *(a3 + 8);
-  v31 = *(a2 + 8);
+  v29 = *(a3 + 1);
+  a3[1] = a4[1];
+  *(a4 + 1) = v29;
+  a3[2] = v21;
+  a4[2] = v22;
+  v30 = a3[2];
+  v31 = a2[2];
   if (v30 == v31)
   {
     v33 = *a3;
@@ -5357,10 +5336,10 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
       v34 = 1;
     }
 
-    if (v33 == v32)
+    if (LODWORD(v33) == LODWORD(v32))
     {
-      v35 = *(a3 + 4);
-      v36 = *(a2 + 4);
+      v35 = *(a3 + 1);
+      v36 = *(a2 + 1);
       v37 = v35 == v36;
       v19 = v35 < v36;
       v34 = -1;
@@ -5394,13 +5373,13 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
 
   *a2 = v33;
   *a3 = v32;
-  v38 = *(a2 + 4);
-  *(a2 + 4) = *(a3 + 4);
-  *(a3 + 4) = v38;
-  *(a2 + 8) = v30;
-  *(a3 + 8) = v31;
-  v39 = *(a2 + 8);
-  v40 = *(a1 + 8);
+  v38 = *(a2 + 1);
+  a2[1] = a3[1];
+  *(a3 + 1) = v38;
+  a2[2] = v30;
+  a3[2] = v31;
+  v39 = a2[2];
+  v40 = a1[2];
   if (v39 != v40)
   {
     if (v39 <= v40)
@@ -5421,10 +5400,10 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
     v43 = 1;
   }
 
-  if (v42 == v41)
+  if (LODWORD(v42) == LODWORD(v41))
   {
-    v44 = *(a2 + 4);
-    v45 = *(a1 + 4);
+    v44 = *(a2 + 1);
+    v45 = *(a1 + 1);
     v46 = v44 == v45;
     v19 = v44 < v45;
     v43 = -1;
@@ -5444,17 +5423,17 @@ float *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoun
 LABEL_45:
     *a1 = v42;
     *a2 = v41;
-    v47 = *(a1 + 4);
-    *(a1 + 4) = *(a2 + 4);
-    *(a2 + 4) = v47;
-    *(a1 + 8) = v39;
-    *(a2 + 8) = v40;
+    v47 = *(a1 + 1);
+    a1[1] = a2[1];
+    *(a2 + 1) = v47;
+    a1[2] = v39;
+    a2[2] = v40;
   }
 
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*>(uint64_t a1, int *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 2);
   if (v4 > 2)
@@ -5462,13 +5441,13 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, (a1 + 12), (a2 - 12));
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, (a1 + 12), a2 - 3);
         return 1;
       case 4:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, a1 + 12, a1 + 24, a2 - 12);
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, a1 + 12, a1 + 24, (a2 - 3));
         return 1;
       case 5:
-        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, a1 + 12, a1 + 24, a1 + 36, (a2 - 12));
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, (a1 + 12), (a1 + 24), (a1 + 36), a2 - 3);
         return 1;
     }
   }
@@ -5482,11 +5461,11 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
 
     if (v4 == 2)
     {
-      v5 = *(a2 - 4);
+      v5 = *(a2 - 1);
       v6 = *(a1 + 8);
       if (v5 == v6)
       {
-        v8 = *(a2 - 12);
+        v8 = *(a2 - 3);
         v7 = *a1;
         v31 = -1;
         if (v8 >= *a1)
@@ -5496,7 +5475,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
 
         if (v8 == LODWORD(v7))
         {
-          v32 = *(a2 - 8);
+          v32 = *(a2 - 2);
           v33 = *(a1 + 4);
           v34 = v32 == v33;
           v35 = v32 < v33;
@@ -5526,24 +5505,24 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
         }
 
         v7 = *a1;
-        v8 = *(a2 - 12);
+        v8 = *(a2 - 3);
       }
 
       *a1 = v8;
-      *(a2 - 12) = v7;
+      *(a2 - 3) = v7;
       v36 = *(a1 + 4);
-      *(a1 + 4) = *(a2 - 8);
-      *(a2 - 8) = v36;
+      *(a1 + 4) = *(a2 - 2);
+      *(a2 - 2) = v36;
       *(a1 + 8) = v5;
-      *(a2 - 4) = v6;
+      *(a2 - 1) = v6;
       return 1;
     }
   }
 
-  v9 = a1 + 24;
+  v9 = (a1 + 24);
   std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,0>(a1, (a1 + 12), (a1 + 24));
-  v10 = a1 + 36;
-  if (a1 + 36 == a2)
+  v10 = (a1 + 36);
+  if ((a1 + 36) == a2)
   {
     return 1;
   }
@@ -5552,8 +5531,8 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
   v12 = 0;
   while (2)
   {
-    v13 = *(v10 + 8);
-    v14 = *(v9 + 8);
+    v13 = v10[2];
+    v14 = v9[2];
     if (v13 == v14)
     {
       v15 = *v10;
@@ -5568,10 +5547,10 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
         v17 = -1;
       }
 
-      if (v15 == v16)
+      if (LODWORD(v15) == LODWORD(v16))
       {
-        v18 = *(v10 + 4);
-        v19 = *(v9 + 4);
+        v18 = *(v10 + 1);
+        v19 = *(v9 + 1);
         v20 = v18 == v19;
         v17 = v18 >= v19 ? 1 : -1;
         if (v20)
@@ -5597,10 +5576,10 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,SIRes
       v16 = *v9;
     }
 
-    v21 = *(v10 + 4);
+    v21 = *(v10 + 1);
     *v10 = v16;
-    *(v10 + 4) = *(v9 + 4);
-    *(v10 + 8) = v14;
+    v10[1] = v9[1];
+    v10[2] = v14;
     v22 = v11;
     while (1)
     {
@@ -5631,7 +5610,7 @@ LABEL_41:
     }
 
     v25 = *(v23 + 12);
-    if (v15 >= v25)
+    if (SLODWORD(v15) >= v25)
     {
       v26 = 1;
     }
@@ -5641,7 +5620,7 @@ LABEL_41:
       v26 = -1;
     }
 
-    if (v15 == v25)
+    if (LODWORD(v15) == v25)
     {
       v27 = *(a1 + v22 + 16);
       v28 = v21 == v27;
@@ -5668,7 +5647,7 @@ LABEL_44:
 LABEL_45:
       v9 = v10;
       v11 += 12;
-      v10 += 12;
+      v10 += 3;
       if (v10 == a2)
       {
         return 1;
@@ -5677,7 +5656,7 @@ LABEL_45:
       continue;
     }
 
-    return v10 + 12 == a2;
+    return v10 + 3 == a2;
   }
 }
 
@@ -5746,35 +5725,37 @@ void std::vector<std::pair<std::pair<int,int>,float>>::__append(uint64_t a1, uni
   }
 }
 
-uint64_t scale_task()
+uint64_t scale_task(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v0 = ps_task_context_get_userdata();
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = ps_task_context_get_userdata();
   resource = ps_resource_array_get_resource();
-  if ((MEMORY[0x223D4CF20](resource, 0) & 1) == 0)
+  v5 = MEMORY[0x223D4CF20](resource, 0);
+  if ((v5 & 1) == 0)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v12 = __SceneIntelligenceLogSharedInstance(v5);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
-    v11 = 136380931;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
-    v13 = 1025;
-    v14 = 161;
-    v8 = " %{private}s:%{private}d *** scale_task: invalid input resource received ***";
+    v15 = 136380931;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
+    v17 = 1025;
+    v18 = 161;
+    v13 = " %{private}s:%{private}d *** scale_task: invalid input resource received ***";
 LABEL_14:
-    _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, v8, &v11, 0x12u);
+    _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, v13, &v15, 0x12u);
     goto LABEL_15;
   }
 
   pixelbuffer = ps_resource_get_pixelbuffer();
-  v3 = ps_resource_array_get_resource();
-  v4 = ps_resource_get_class();
-  if (v4 == 3)
+  v7 = ps_resource_array_get_resource();
+  opaque_ptr = ps_resource_get_class();
+  if (opaque_ptr == 3)
   {
     opaque_ptr = ps_resource_get_opaque_ptr();
+    v9 = opaque_ptr;
     if (opaque_ptr)
     {
       goto LABEL_5;
@@ -5783,50 +5764,50 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  if (v4 != 7 || (opaque_ptr = ps_resource_get_pixelbuffer(), SICopyMetadataFromExistingPolarisPixelBufferResource(resource, v3), !opaque_ptr))
+  if (opaque_ptr != 7 || (v9 = ps_resource_get_pixelbuffer(), opaque_ptr = SICopyMetadataFromExistingPolarisPixelBufferResource(resource, v7), !v9))
   {
 LABEL_10:
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v12 = __SceneIntelligenceLogSharedInstance(opaque_ptr);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
-    v11 = 136380931;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
-    v13 = 1025;
-    v14 = 177;
-    v8 = " %{private}s:%{private}d *** Failed to get the output bufferk. ***";
+    v15 = 136380931;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
+    v17 = 1025;
+    v18 = 177;
+    v13 = " %{private}s:%{private}d *** Failed to get the output bufferk. ***";
     goto LABEL_14;
   }
 
 LABEL_5:
-  if (([v0 scaleImage:pixelbuffer outputBuffer:opaque_ptr] & 1) == 0)
+  v10 = [v3 scaleImage:pixelbuffer outputBuffer:v9];
+  if ((v10 & 1) == 0)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v12 = __SceneIntelligenceLogSharedInstance(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136380931;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
-      v13 = 1025;
-      v14 = 185;
-      v8 = " %{private}s:%{private}d *** Failed to scale the image in scaling task. ***";
+      v15 = 136380931;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
+      v17 = 1025;
+      v18 = 185;
+      v13 = " %{private}s:%{private}d *** Failed to scale the image in scaling task. ***";
       goto LABEL_14;
     }
 
 LABEL_15:
 
-    v6 = 1;
+    v11 = 1;
     goto LABEL_16;
   }
 
   ps_resource_get_timestamp_seconds();
   ps_resource_set_timestamp_seconds();
-  v6 = 0;
+  v11 = 0;
 LABEL_16:
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v11;
 }
 
 id camera_resource_buffer_allocator(void *a1, uint64_t a2)
@@ -5854,14 +5835,14 @@ id camera_resource_buffer_allocator(void *a1, uint64_t a2)
         break;
       }
 
-      v15 = pixelBufferOut;
+      v16 = pixelBufferOut;
 
-      if (!v15)
+      if (!v16)
       {
         goto LABEL_7;
       }
 
-      [v18 replacePointerAtIndex:v4 withPointer:v15];
+      [v18 replacePointerAtIndex:v4 withPointer:v16];
 LABEL_12:
       if (a2 == ++v4)
       {
@@ -5870,7 +5851,7 @@ LABEL_12:
     }
 
     v12 = v11;
-    v13 = __SceneIntelligenceLogSharedInstance();
+    v13 = __SceneIntelligenceLogSharedInstance(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136381187;
@@ -5883,14 +5864,14 @@ LABEL_12:
     }
 
 LABEL_7:
-    v14 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = __SceneIntelligenceLogSharedInstance(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 136380931;
       v21 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIScaleTask.m";
       v22 = 1025;
       v23 = 221;
-      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** Failed to create cv pixel buffer! ***", buf, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** Failed to create cv pixel buffer! ***", buf, 0x12u);
     }
 
     goto LABEL_12;
@@ -5898,20 +5879,18 @@ LABEL_7:
 
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 uint64_t si::BufferTiling::CropTile<unsigned char>(uint64_t a1, void *a2, __int128 *a3, uint64_t *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
   v9 = *(a1 + 32);
   if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
@@ -5925,14 +5904,14 @@ uint64_t si::BufferTiling::CropTile<unsigned char>(uint64_t a1, void *a2, __int1
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -5943,258 +5922,246 @@ uint64_t si::BufferTiling::CropTile<unsigned char>(uint64_t a1, void *a2, __int1
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::CropTile<unsigned char>(a2, buf, &v20, a4, v19);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::CropTile<unsigned char>(a2, buf, &v19, a4, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::CropTile<unsigned char>(void *a1, size_t *a2, __int128 *a3, uint64_t *a4, __int128 *a5)
+uint64_t si::CropTile<unsigned char>(void *a1, size_t *a2, unint64_t *a3, uint64_t *a4, size_t *a5)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2[2];
-  v6 = a5[1];
-  if (v5 != *(a5 + 2))
+  if (v5 != a5[2])
   {
-    v27 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v23 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      v59 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v60 = 1025;
-      v61 = 27;
-      v28 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v29 = v27;
-      v30 = 18;
+      v54 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v55 = 1025;
+      v56 = 27;
+      v24 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v25 = v23;
+      v26 = 18;
 LABEL_24:
-      _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_ERROR, v28, buf, v30);
+      _os_log_impl(&dword_21DE0D000, v25, OS_LOG_TYPE_ERROR, v24, buf, v26);
       goto LABEL_25;
     }
 
     goto LABEL_25;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = a2[1];
-  v11 = *a2;
-  v56 = *a2 * v10;
-  if (a1[1] != v56 * v5)
+  v51 = *a2 * v8;
+  if (a1[1] != v51 * v5)
   {
-    v27 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v23 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v31 = a1[1];
-    v32 = *a2;
-    v33 = a2[2];
+    v27 = a1[1];
+    v28 = *a2;
+    v29 = a2[2];
     *buf = 136381955;
-    v59 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v60 = 1025;
-    v61 = 31;
-    v62 = 2048;
-    v63 = v31;
-    v64 = 2048;
-    v65 = v32;
-    v66 = 2048;
-    v67 = *(&v32 + 1);
-    v68 = 2048;
-    v69 = v33;
-    v28 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
+    v54 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v55 = 1025;
+    v56 = 31;
+    v57 = 2048;
+    v58 = v27;
+    v59 = 2048;
+    v60 = v28;
+    v61 = 2048;
+    v62 = *(&v28 + 1);
+    v63 = 2048;
+    v64 = v29;
+    v24 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
 LABEL_23:
-    v29 = v27;
-    v30 = 58;
+    v25 = v23;
+    v26 = 58;
     goto LABEL_24;
   }
 
-  v13 = a4;
-  v14 = *a5;
-  v15 = *(a5 + 1);
-  v16 = *a5;
-  v57 = *a5 * v15;
-  if (a4[1] != v57 * v5)
+  v11 = a4;
+  v12 = a5[1];
+  v13 = *a5;
+  v52 = *a5 * v12;
+  if (a4[1] != v52 * v5)
   {
-    v27 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v23 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v34 = v13[1];
-    v35 = *a5;
-    v36 = *(a5 + 2);
+    v30 = v11[1];
+    v31 = *a5;
+    v32 = a5[2];
     *buf = 136381955;
-    v59 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v60 = 1025;
-    v61 = 35;
-    v62 = 2048;
-    v63 = v34;
-    v64 = 2048;
-    v65 = v35;
-    v66 = 2048;
-    v67 = *(&v35 + 1);
-    v68 = 2048;
-    v69 = v36;
-    v28 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v54 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v55 = 1025;
+    v56 = 35;
+    v57 = 2048;
+    v58 = v30;
+    v59 = 2048;
+    v60 = v31;
+    v61 = 2048;
+    v62 = *(&v31 + 1);
+    v63 = 2048;
+    v64 = v32;
+    v24 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_23;
   }
 
-  v17 = *a3;
-  v18 = *(a3 + 1);
-  v19 = *a3;
-  if (v11 < *a3 || (v50 = v10 - v18, v10 < v18))
+  v14 = a3[1];
+  v15 = *a3;
+  if (v9 < *a3 || (v45 = v8 - v14, v8 < v14))
   {
-    v27 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v23 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381955;
-      v59 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v60 = 1025;
-      v61 = 51;
-      v62 = 2048;
-      v63 = v19;
-      v64 = 2048;
-      v65 = v18;
-      v66 = 2048;
-      v67 = v11;
-      v68 = 2048;
-      v69 = v10;
-      v28 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
+      v54 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v55 = 1025;
+      v56 = 51;
+      v57 = 2048;
+      v58 = v15;
+      v59 = 2048;
+      v60 = v14;
+      v61 = 2048;
+      v62 = v9;
+      v63 = 2048;
+      v64 = v8;
+      v24 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
       goto LABEL_23;
     }
 
 LABEL_25:
 
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v54 = a2[2];
-  if (v19 + v16 <= v11 && v18 + v15 <= v10)
+  v49 = a2[2];
+  if (v15 + v13 <= v9 && v14 + v12 <= v8)
   {
     if (v5)
     {
-      v20 = 0;
-      v21 = 0;
-      v22 = v19 + v18 * v11;
+      v16 = 0;
+      v17 = 0;
+      v18 = v15 + v14 * v9;
       do
       {
-        if (v15)
+        if (v12)
         {
-          v23 = (*a1 + v22);
-          v24 = (*v13 + v20);
-          v25 = v15;
+          v19 = (*a1 + v18);
+          v20 = (*v11 + v16);
+          v21 = v12;
           do
           {
-            memcpy(v24, v23, v16);
-            v23 += v11;
-            v24 += v16;
-            --v25;
+            memcpy(v20, v19, v13);
+            v19 += v9;
+            v20 += v13;
+            --v21;
           }
 
-          while (v25);
+          while (v21);
         }
 
-        ++v21;
-        v22 += v56;
-        v20 += v57;
+        ++v17;
+        v18 += v51;
+        v16 += v52;
         result = 1;
       }
 
-      while (v21 != v54);
-      goto LABEL_26;
+      while (v17 != v49);
+      return result;
     }
 
-LABEL_42:
-    result = 1;
-    goto LABEL_26;
+    return 1;
   }
 
-  if (v11 - *a3 >= v16)
+  if (v9 - *a3 >= v13)
   {
-    v38 = *a5;
-  }
-
-  else
-  {
-    v38 = v11 - *a3;
-  }
-
-  if (v50 >= v15)
-  {
-    v39 = *(a5 + 1);
+    v33 = *a5;
   }
 
   else
   {
-    v39 = v10 - v18;
+    v33 = v9 - *a3;
+  }
+
+  if (v45 >= v12)
+  {
+    v34 = a5[1];
+  }
+
+  else
+  {
+    v34 = v8 - v14;
   }
 
   if (!v5)
   {
-    goto LABEL_42;
+    return 1;
   }
 
-  v53 = v39;
-  v40 = 0;
-  v41 = 0;
-  v47 = v16 * v39;
-  v48 = *(a5 + 1);
-  v46 = v16 * (v15 - v39);
-  v42 = v19 + v18 * v11;
+  v48 = v34;
+  v35 = 0;
+  v36 = 0;
+  v42 = v13 * v34;
+  v43 = a5[1];
+  v41 = v13 * (v12 - v34);
+  v37 = v15 + v14 * v9;
   do
   {
-    v55 = *v13;
-    if (v39)
+    v50 = *v11;
+    if (v34)
     {
-      v43 = v53;
-      v44 = (*a1 + v42);
-      v45 = (v55 + v40);
+      v38 = v48;
+      v39 = (*a1 + v37);
+      v40 = (v50 + v35);
       do
       {
-        memcpy(v45, v44, v38);
-        bzero(&v45[v38], v16 - v38);
-        v44 += v11;
-        v45 += v16;
-        --v43;
+        memcpy(v40, v39, v33);
+        bzero(&v40[v33], v13 - v33);
+        v39 += v9;
+        v40 += v13;
+        --v38;
       }
 
-      while (v43);
+      while (v38);
     }
 
-    if (v50 < v48)
+    if (v45 < v43)
     {
-      bzero((v55 + v47 + v57 * v41), v46);
+      bzero((v50 + v42 + v52 * v36), v41);
     }
 
-    ++v41;
-    v42 += v56;
-    v40 += v57;
+    ++v36;
+    v37 += v51;
+    v35 += v52;
     result = 1;
-    v39 = v53;
-    v13 = a4;
+    v34 = v48;
+    v11 = a4;
   }
 
-  while (v41 != v54);
-LABEL_26:
-  v37 = *MEMORY[0x277D85DE8];
+  while (v36 != v49);
   return result;
 }
 
 uint64_t si::BufferTiling::CropTile<float>(uint64_t a1, void *a2, __int128 *a3, uint64_t *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
   v9 = *(a1 + 32);
   if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
@@ -6208,14 +6175,14 @@ uint64_t si::BufferTiling::CropTile<float>(uint64_t a1, void *a2, __int128 *a3, 
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -6226,262 +6193,250 @@ uint64_t si::BufferTiling::CropTile<float>(uint64_t a1, void *a2, __int128 *a3, 
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::CropTile<float>(a2, buf, &v20, a4, v19);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::CropTile<float>(a2, buf, &v19, a4, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::CropTile<float>(void *a1, __int128 *a2, __int128 *a3, uint64_t *a4, __int128 *a5)
+uint64_t si::CropTile<float>(void *a1, unint64_t *a2, unint64_t *a3, uint64_t *a4, unint64_t *a5)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v5 = *(a2 + 2);
-  v6 = a5[1];
-  if (v5 != *(a5 + 2))
+  v76 = *MEMORY[0x277D85DE8];
+  v5 = a2[2];
+  if (v5 != a5[2])
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v71 = 1025;
-      v72 = 27;
-      v34 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v35 = v33;
-      v36 = 18;
+      v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v66 = 1025;
+      v67 = 27;
+      v30 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v31 = v29;
+      v32 = 18;
 LABEL_24:
-      _os_log_impl(&dword_21DE0D000, v35, OS_LOG_TYPE_ERROR, v34, buf, v36);
+      _os_log_impl(&dword_21DE0D000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
       goto LABEL_25;
     }
 
     goto LABEL_25;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = *(a2 + 1);
-  v11 = *a2;
-  v12 = *a2 * v10;
-  if (a1[1] != v12 * v5)
+  v10 = *a2 * v8;
+  if (a1[1] != v10 * v5)
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v37 = a1[1];
-    v38 = *a2;
-    v39 = *(a2 + 2);
+    v33 = a1[1];
+    v34 = *a2;
+    v35 = a2[2];
     *buf = 136381955;
-    v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v71 = 1025;
-    v72 = 31;
-    v73 = 2048;
-    v74 = v37;
-    v75 = 2048;
-    v76 = v38;
-    v77 = 2048;
-    v78 = *(&v38 + 1);
-    v79 = 2048;
-    v80 = v39;
-    v34 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
+    v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v66 = 1025;
+    v67 = 31;
+    v68 = 2048;
+    v69 = v33;
+    v70 = 2048;
+    v71 = v34;
+    v72 = 2048;
+    v73 = *(&v34 + 1);
+    v74 = 2048;
+    v75 = v35;
+    v30 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
 LABEL_23:
-    v35 = v33;
-    v36 = 58;
+    v31 = v29;
+    v32 = 58;
     goto LABEL_24;
   }
 
-  v15 = *a5;
-  v16 = *(a5 + 1);
-  v17 = *a5;
-  v18 = *a5 * v16;
-  if (a4[1] != v18 * v5)
+  v13 = a5[1];
+  v14 = *a5;
+  v15 = *a5 * v13;
+  if (a4[1] != v15 * v5)
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v40 = a4[1];
-    v41 = *a5;
-    v42 = *(a5 + 2);
+    v36 = a4[1];
+    v37 = *a5;
+    v38 = a5[2];
     *buf = 136381955;
-    v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v71 = 1025;
-    v72 = 35;
-    v73 = 2048;
-    v74 = v40;
-    v75 = 2048;
-    v76 = v41;
-    v77 = 2048;
-    v78 = *(&v41 + 1);
-    v79 = 2048;
-    v80 = v42;
-    v34 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v66 = 1025;
+    v67 = 35;
+    v68 = 2048;
+    v69 = v36;
+    v70 = 2048;
+    v71 = v37;
+    v72 = 2048;
+    v73 = *(&v37 + 1);
+    v74 = 2048;
+    v75 = v38;
+    v30 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_23;
   }
 
-  v19 = *a3;
-  v20 = *(a3 + 1);
-  v21 = *a3;
-  v22 = v11 - *a3;
-  if (v11 < *a3 || (v59 = v10 - v20, v10 < v20))
+  v16 = a3[1];
+  v17 = *a3;
+  v18 = v9 - *a3;
+  if (v9 < *a3 || (v54 = v8 - v16, v8 < v16))
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381955;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v71 = 1025;
-      v72 = 51;
-      v73 = 2048;
-      v74 = v21;
-      v75 = 2048;
-      v76 = v20;
-      v77 = 2048;
-      v78 = v11;
-      v79 = 2048;
-      v80 = v10;
-      v34 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
+      v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v66 = 1025;
+      v67 = 51;
+      v68 = 2048;
+      v69 = v17;
+      v70 = 2048;
+      v71 = v16;
+      v72 = 2048;
+      v73 = v9;
+      v74 = 2048;
+      v75 = v8;
+      v30 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
       goto LABEL_23;
     }
 
 LABEL_25:
 
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v66 = *(a2 + 2);
-  if (v21 + v17 <= v11 && v20 + v16 <= v10)
+  v61 = a2[2];
+  if (v17 + v14 <= v9 && v16 + v13 <= v8)
   {
     if (v5)
     {
-      v23 = 0;
-      v24 = 0;
-      v25 = 4 * v17;
-      v26 = 4 * v20 * v11 + 4 * v21;
-      v67 = 4 * v12;
-      v27 = 4 * v11;
-      v28 = 4 * v18;
+      v19 = 0;
+      v20 = 0;
+      v21 = 4 * v14;
+      v22 = 4 * v16 * v9 + 4 * v17;
+      v62 = 4 * v10;
+      v23 = 4 * v9;
+      v24 = 4 * v15;
       do
       {
-        if (v16)
+        if (v13)
         {
-          v29 = (*a1 + v26);
-          v30 = (*a4 + v23);
-          v31 = v16;
+          v25 = (*a1 + v22);
+          v26 = (*a4 + v19);
+          v27 = v13;
           do
           {
-            memcpy(v30, v29, v25);
-            v29 += v27;
-            v30 += v25;
-            --v31;
+            memcpy(v26, v25, v21);
+            v25 += v23;
+            v26 += v21;
+            --v27;
           }
 
-          while (v31);
+          while (v27);
         }
 
-        ++v24;
-        v26 += v67;
-        v23 += v28;
+        ++v20;
+        v22 += v62;
+        v19 += v24;
         result = 1;
       }
 
-      while (v24 != v66);
-      goto LABEL_26;
+      while (v20 != v61);
+      return result;
     }
 
-LABEL_41:
-    result = 1;
-    goto LABEL_26;
+    return 1;
   }
 
-  if (v22 >= v17)
+  if (v18 >= v14)
   {
-    v22 = *a5;
+    v18 = *a5;
   }
 
-  if (v59 >= v16)
+  if (v54 >= v13)
   {
-    v44 = *(a5 + 1);
+    v39 = a5[1];
   }
 
   else
   {
-    v44 = v10 - v20;
+    v39 = v8 - v16;
   }
 
   if (!v5)
   {
-    goto LABEL_41;
+    return 1;
   }
 
-  v45 = 0;
-  v46 = 0;
-  v47 = 4 * v22;
-  v48 = 4 * (v17 - v22);
-  v62 = 4 * v18;
-  v49 = 4 * v20 * v11 + 4 * v21;
-  v55 = 4 * v17 * (v16 - v44);
-  v56 = 4 * v17 * v44;
-  v57 = 4 * v12;
-  v58 = *(a5 + 1);
-  v50 = 4 * v11;
-  v51 = 4 * v17;
-  v63 = v44;
+  v40 = 0;
+  v41 = 0;
+  v42 = 4 * v18;
+  v43 = 4 * (v14 - v18);
+  v57 = 4 * v15;
+  v44 = 4 * v16 * v9 + 4 * v17;
+  v50 = 4 * v14 * (v13 - v39);
+  v51 = 4 * v14 * v39;
+  v52 = 4 * v10;
+  v53 = a5[1];
+  v45 = 4 * v9;
+  v46 = 4 * v14;
+  v58 = v39;
   do
   {
-    v68 = *a4;
-    if (v44)
+    v63 = *a4;
+    if (v39)
     {
-      v52 = (*a1 + v49);
-      v53 = (v68 + v45);
-      v54 = v63;
+      v47 = (*a1 + v44);
+      v48 = (v63 + v40);
+      v49 = v58;
       do
       {
-        memcpy(v53, v52, v47);
-        bzero(&v53[v47], v48);
-        v52 += v50;
-        v53 += v51;
-        --v54;
+        memcpy(v48, v47, v42);
+        bzero(&v48[v42], v43);
+        v47 += v45;
+        v48 += v46;
+        --v49;
       }
 
-      while (v54);
+      while (v49);
     }
 
-    if (v59 < v58)
+    if (v54 < v53)
     {
-      bzero((v68 + v56 + v62 * v46), v55);
+      bzero((v63 + v51 + v57 * v41), v50);
     }
 
-    ++v46;
-    v49 += v57;
-    v44 = v63;
-    v45 += v62;
+    ++v41;
+    v44 += v52;
+    v39 = v58;
+    v40 += v57;
     result = 1;
   }
 
-  while (v46 != v66);
-LABEL_26:
-  v43 = *MEMORY[0x277D85DE8];
+  while (v41 != v61);
   return result;
 }
 
 uint64_t si::BufferTiling::CropTile<half>(uint64_t a1, void *a2, __int128 *a3, uint64_t *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
   v9 = *(a1 + 32);
   if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
@@ -6495,14 +6450,14 @@ uint64_t si::BufferTiling::CropTile<half>(uint64_t a1, void *a2, __int128 *a3, u
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -6513,267 +6468,255 @@ uint64_t si::BufferTiling::CropTile<half>(uint64_t a1, void *a2, __int128 *a3, u
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::CropTile<half>(a2, buf, &v20, a4, v19);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::CropTile<half>(a2, buf, &v19, a4, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::CropTile<half>(void *a1, __int128 *a2, __int128 *a3, uint64_t *a4, __int128 *a5)
+uint64_t si::CropTile<half>(void *a1, unint64_t *a2, unint64_t *a3, uint64_t *a4, unint64_t *a5)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v5 = *(a2 + 2);
-  v6 = a5[1];
-  if (v5 != *(a5 + 2))
+  v76 = *MEMORY[0x277D85DE8];
+  v5 = a2[2];
+  if (v5 != a5[2])
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v71 = 1025;
-      v72 = 27;
-      v34 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v35 = v33;
-      v36 = 18;
+      v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v66 = 1025;
+      v67 = 27;
+      v30 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v31 = v29;
+      v32 = 18;
 LABEL_24:
-      _os_log_impl(&dword_21DE0D000, v35, OS_LOG_TYPE_ERROR, v34, buf, v36);
+      _os_log_impl(&dword_21DE0D000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
       goto LABEL_25;
     }
 
     goto LABEL_25;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = *(a2 + 1);
-  v11 = *a2;
-  v12 = *a2 * v10;
-  if (a1[1] != v12 * v5)
+  v10 = *a2 * v8;
+  if (a1[1] != v10 * v5)
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v37 = a1[1];
-    v38 = *a2;
-    v39 = *(a2 + 2);
+    v33 = a1[1];
+    v34 = *a2;
+    v35 = a2[2];
     *buf = 136381955;
-    v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v71 = 1025;
-    v72 = 31;
-    v73 = 2048;
-    v74 = v37;
-    v75 = 2048;
-    v76 = v38;
-    v77 = 2048;
-    v78 = *(&v38 + 1);
-    v79 = 2048;
-    v80 = v39;
-    v34 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
+    v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v66 = 1025;
+    v67 = 31;
+    v68 = 2048;
+    v69 = v33;
+    v70 = 2048;
+    v71 = v34;
+    v72 = 2048;
+    v73 = *(&v34 + 1);
+    v74 = 2048;
+    v75 = v35;
+    v30 = " %{private}s:%{private}d *** Number of sourceBuffer elements (%lu) must match sourceSize (%lu, %lu, %lu) ***";
 LABEL_23:
-    v35 = v33;
-    v36 = 58;
+    v31 = v29;
+    v32 = 58;
     goto LABEL_24;
   }
 
-  v15 = *a5;
-  v16 = *(a5 + 1);
-  v17 = *a5;
-  v18 = *a5 * v16;
-  if (a4[1] != v18 * v5)
+  v13 = a5[1];
+  v14 = *a5;
+  v15 = *a5 * v13;
+  if (a4[1] != v15 * v5)
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
-    v40 = a4[1];
-    v41 = *a5;
-    v42 = *(a5 + 2);
+    v36 = a4[1];
+    v37 = *a5;
+    v38 = a5[2];
     *buf = 136381955;
-    v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v71 = 1025;
-    v72 = 35;
-    v73 = 2048;
-    v74 = v40;
-    v75 = 2048;
-    v76 = v41;
-    v77 = 2048;
-    v78 = *(&v41 + 1);
-    v79 = 2048;
-    v80 = v42;
-    v34 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v66 = 1025;
+    v67 = 35;
+    v68 = 2048;
+    v69 = v36;
+    v70 = 2048;
+    v71 = v37;
+    v72 = 2048;
+    v73 = *(&v37 + 1);
+    v74 = 2048;
+    v75 = v38;
+    v30 = " %{private}s:%{private}d *** Number of targetTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_23;
   }
 
-  v19 = *a3;
-  v20 = *(a3 + 1);
-  v21 = *a3;
-  v22 = v11 - *a3;
-  if (v11 < *a3 || (v59 = v10 - v20, v10 < v20))
+  v16 = a3[1];
+  v17 = *a3;
+  v18 = v9 - *a3;
+  if (v9 < *a3 || (v54 = v8 - v16, v8 < v16))
   {
-    v33 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v29 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381955;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v71 = 1025;
-      v72 = 51;
-      v73 = 2048;
-      v74 = v21;
-      v75 = 2048;
-      v76 = v20;
-      v77 = 2048;
-      v78 = v11;
-      v79 = 2048;
-      v80 = v10;
-      v34 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
+      v65 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v66 = 1025;
+      v67 = 51;
+      v68 = 2048;
+      v69 = v17;
+      v70 = 2048;
+      v71 = v16;
+      v72 = 2048;
+      v73 = v9;
+      v74 = 2048;
+      v75 = v8;
+      v30 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for source buffer (%lu, %lu) ***";
       goto LABEL_23;
     }
 
 LABEL_25:
 
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v66 = *(a2 + 2);
-  if (v21 + v17 <= v11 && v20 + v16 <= v10)
+  v61 = a2[2];
+  if (v17 + v14 <= v9 && v16 + v13 <= v8)
   {
     if (v5)
     {
-      v23 = 0;
-      v24 = 0;
-      v25 = 2 * v17;
-      v26 = 2 * v20 * v11 + 2 * v21;
-      v67 = 2 * v12;
-      v27 = 2 * v11;
-      v28 = 2 * v18;
+      v19 = 0;
+      v20 = 0;
+      v21 = 2 * v14;
+      v22 = 2 * v16 * v9 + 2 * v17;
+      v62 = 2 * v10;
+      v23 = 2 * v9;
+      v24 = 2 * v15;
       do
       {
-        if (v16)
+        if (v13)
         {
-          v29 = (*a1 + v26);
-          v30 = (*a4 + v23);
-          v31 = v16;
+          v25 = (*a1 + v22);
+          v26 = (*a4 + v19);
+          v27 = v13;
           do
           {
-            memcpy(v30, v29, v25);
-            v29 += v27;
-            v30 += v25;
-            --v31;
+            memcpy(v26, v25, v21);
+            v25 += v23;
+            v26 += v21;
+            --v27;
           }
 
-          while (v31);
+          while (v27);
         }
 
-        ++v24;
-        v26 += v67;
-        v23 += v28;
+        ++v20;
+        v22 += v62;
+        v19 += v24;
         result = 1;
       }
 
-      while (v24 != v66);
-      goto LABEL_26;
+      while (v20 != v61);
+      return result;
     }
 
-LABEL_41:
-    result = 1;
-    goto LABEL_26;
+    return 1;
   }
 
-  if (v22 >= v17)
+  if (v18 >= v14)
   {
-    v22 = *a5;
+    v18 = *a5;
   }
 
-  if (v59 >= v16)
+  if (v54 >= v13)
   {
-    v44 = *(a5 + 1);
+    v39 = a5[1];
   }
 
   else
   {
-    v44 = v10 - v20;
+    v39 = v8 - v16;
   }
 
   if (!v5)
   {
-    goto LABEL_41;
+    return 1;
   }
 
-  v45 = 0;
-  v46 = 0;
-  v47 = 2 * v22;
-  v48 = 2 * (v17 - v22);
-  v62 = 2 * v18;
-  v49 = 2 * v20 * v11 + 2 * v21;
-  v55 = 2 * v17 * (v16 - v44);
-  v56 = 2 * v17 * v44;
-  v57 = 2 * v12;
-  v58 = *(a5 + 1);
-  v50 = 2 * v11;
-  v51 = 2 * v17;
-  v63 = v44;
+  v40 = 0;
+  v41 = 0;
+  v42 = 2 * v18;
+  v43 = 2 * (v14 - v18);
+  v57 = 2 * v15;
+  v44 = 2 * v16 * v9 + 2 * v17;
+  v50 = 2 * v14 * (v13 - v39);
+  v51 = 2 * v14 * v39;
+  v52 = 2 * v10;
+  v53 = a5[1];
+  v45 = 2 * v9;
+  v46 = 2 * v14;
+  v58 = v39;
   do
   {
-    v68 = *a4;
-    if (v44)
+    v63 = *a4;
+    if (v39)
     {
-      v52 = (*a1 + v49);
-      v53 = (v68 + v45);
-      v54 = v63;
+      v47 = (*a1 + v44);
+      v48 = (v63 + v40);
+      v49 = v58;
       do
       {
-        memcpy(v53, v52, v47);
-        bzero(&v53[v47], v48);
-        v52 += v50;
-        v53 += v51;
-        --v54;
+        memcpy(v48, v47, v42);
+        bzero(&v48[v42], v43);
+        v47 += v45;
+        v48 += v46;
+        --v49;
       }
 
-      while (v54);
+      while (v49);
     }
 
-    if (v59 < v58)
+    if (v54 < v53)
     {
-      bzero((v68 + v56 + v62 * v46), v55);
+      bzero((v63 + v51 + v57 * v41), v50);
     }
 
-    ++v46;
-    v49 += v57;
-    v44 = v63;
-    v45 += v62;
+    ++v41;
+    v44 += v52;
+    v39 = v58;
+    v40 += v57;
     result = 1;
   }
 
-  while (v46 != v66);
-LABEL_26:
-  v43 = *MEMORY[0x277D85DE8];
+  while (v41 != v61);
   return result;
 }
 
-uint64_t si::BufferTiling::AddTile<unsigned char>(uint64_t a1, void *a2, __int128 *a3, void *a4, uint64_t a5)
+uint64_t si::BufferTiling::AddTile<unsigned char>(__int128 *a1, void *a2, __int128 *a3, void *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
-  v9 = *(a1 + 32);
-  if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
+  v9 = *(a1 + 4);
+  if (*a3 >= ((*(a1 + 5) - v9) >> 3) || (v10 = *(a1 + 7), *(&v7 + 1) >= ((*(a1 + 8) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
-      v16 = ((*(a1 + 40) - *(a1 + 32)) >> 3) - 1;
-      v17 = ((*(a1 + 64) - *(a1 + 56)) >> 3) - 1;
+      v16 = ((*(a1 + 5) - *(a1 + 4)) >> 3) - 1;
+      v17 = ((*(a1 + 8) - *(a1 + 7)) >> 3) - 1;
       *buf = 136381955;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
       *&buf[12] = 1025;
@@ -6782,223 +6725,212 @@ uint64_t si::BufferTiling::AddTile<unsigned char>(uint64_t a1, void *a2, __int12
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     *&v7 = a5;
     v11 = *a1;
-    *buf = *(a1 + 16);
+    *buf = a1[1];
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::AddTile<unsigned char>(a2, buf, a4, v19, &v20);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::AddTile<unsigned char>(a2, buf, a4, v18, &v19);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::AddTile<unsigned char>(void *a1, __int128 *a2, void *a3, __int128 *a4, __int128 *a5)
+uint64_t si::AddTile<unsigned char>(void *a1, unint64_t *a2, void *a3, unint64_t *a4, unint64_t *a5)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v5 = *(a2 + 2);
-  v6 = a4[1];
-  if (v5 != *(a4 + 2))
+  v52 = *MEMORY[0x277D85DE8];
+  v5 = a2[2];
+  if (v5 != a4[2])
   {
-    v34 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v45 = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v47 = 1025;
-      v48 = 92;
-      v35 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v36 = v34;
-      v37 = 18;
+      v40 = 136380931;
+      v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v42 = 1025;
+      v43 = 92;
+      v31 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v32 = v30;
+      v33 = 18;
 LABEL_28:
-      _os_log_impl(&dword_21DE0D000, v36, OS_LOG_TYPE_ERROR, v35, &v45, v37);
+      _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_ERROR, v31, &v40, v33);
       goto LABEL_29;
     }
 
     goto LABEL_29;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = *(a2 + 1);
-  v11 = *a2;
-  v12 = *a2 * v10;
-  if (a1[1] != v12 * v5)
+  v10 = *a2 * v8;
+  if (a1[1] != v10 * v5)
   {
-    v34 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v38 = a1[1];
-    v39 = *a2;
-    v40 = *(a2 + 2);
-    v45 = 136381955;
-    v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v47 = 1025;
-    v48 = 96;
-    v49 = 2048;
-    v50 = v38;
-    v51 = 2048;
-    v52 = v39;
-    v53 = 2048;
-    v54 = *(&v39 + 1);
-    v55 = 2048;
-    v56 = v40;
-    v35 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v34 = a1[1];
+    v35 = *a2;
+    v36 = a2[2];
+    v40 = 136381955;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v42 = 1025;
+    v43 = 96;
+    v44 = 2048;
+    v45 = v34;
+    v46 = 2048;
+    v47 = v35;
+    v48 = 2048;
+    v49 = *(&v35 + 1);
+    v50 = 2048;
+    v51 = v36;
+    v31 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
 LABEL_27:
-    v36 = v34;
-    v37 = 58;
+    v32 = v30;
+    v33 = 58;
     goto LABEL_28;
   }
 
-  v15 = *a4;
-  v16 = *(a4 + 1);
-  v17 = *a4;
-  v18 = *a4 * v16;
-  if (a3[1] != v18 * v5)
+  v13 = a4[1];
+  v14 = *a4;
+  v15 = *a4 * v13;
+  if (a3[1] != v15 * v5)
   {
-    v34 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v41 = a3[1];
-    v42 = *a4;
-    v43 = *(a4 + 2);
-    v45 = 136381955;
-    v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v47 = 1025;
-    v48 = 100;
-    v49 = 2048;
-    v50 = v41;
-    v51 = 2048;
-    v52 = v42;
-    v53 = 2048;
-    v54 = *(&v42 + 1);
-    v55 = 2048;
-    v56 = v43;
-    v35 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v37 = a3[1];
+    v38 = *a4;
+    v39 = a4[2];
+    v40 = 136381955;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v42 = 1025;
+    v43 = 100;
+    v44 = 2048;
+    v45 = v37;
+    v46 = 2048;
+    v47 = v38;
+    v48 = 2048;
+    v49 = *(&v38 + 1);
+    v50 = 2048;
+    v51 = v39;
+    v31 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_27;
   }
 
-  v19 = *a5;
-  v20 = *(a5 + 1);
-  v21 = *a5;
-  v22 = v17 - *a5;
-  if (v17 < *a5 || v16 < v20)
+  v16 = a5[1];
+  v17 = *a5;
+  v18 = v14 - *a5;
+  if (v14 < *a5 || v13 < v16)
   {
-    v34 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v45 = 136381955;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v47 = 1025;
-      v48 = 116;
-      v49 = 2048;
-      v50 = v21;
-      v51 = 2048;
-      v52 = v20;
-      v53 = 2048;
-      v54 = v17;
-      v55 = 2048;
-      v56 = v16;
-      v35 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
+      v40 = 136381955;
+      v41 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v42 = 1025;
+      v43 = 116;
+      v44 = 2048;
+      v45 = v17;
+      v46 = 2048;
+      v47 = v16;
+      v48 = 2048;
+      v49 = v14;
+      v50 = 2048;
+      v51 = v13;
+      v31 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
       goto LABEL_27;
     }
 
 LABEL_29:
 
-    result = 0;
-    goto LABEL_30;
+    return 0;
   }
 
-  if (v22 >= v11)
+  if (v18 >= v9)
   {
-    v22 = *a2;
+    v18 = *a2;
   }
 
-  if (v16 - v20 < v10)
+  if (v13 - v16 < v8)
   {
-    v10 = v16 - v20;
+    v8 = v13 - v16;
   }
 
   if (v5)
   {
-    v23 = 0;
-    v24 = 0;
-    v25 = v21 + v20 * v17;
+    v19 = 0;
+    v20 = 0;
+    v21 = v17 + v16 * v14;
     do
     {
-      if (v10)
+      if (v8)
       {
-        v26 = 0;
-        v27 = (*a3 + v25);
-        v28 = (*a1 + v23);
+        v22 = 0;
+        v23 = (*a3 + v21);
+        v24 = (*a1 + v19);
         do
         {
-          v29 = v22;
-          v30 = v28;
-          for (i = v27; v29; --v29)
+          v25 = v18;
+          v26 = v24;
+          for (i = v23; v25; --v25)
           {
-            v32 = *v30++;
-            *i++ += v32;
+            v28 = *v26++;
+            *i++ += v28;
           }
 
-          ++v26;
-          v27 += v17;
-          v28 += v11;
+          ++v22;
+          v23 += v14;
+          v24 += v9;
         }
 
-        while (v26 != v10);
+        while (v22 != v8);
       }
 
-      ++v24;
-      v25 += v18;
-      v23 += v12;
+      ++v20;
+      v21 += v15;
+      v19 += v10;
     }
 
-    while (v24 != v5);
+    while (v20 != v5);
   }
 
-  result = 1;
-LABEL_30:
-  v44 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t si::BufferTiling::AddTile<float>(uint64_t a1, void *a2, __int128 *a3, void *a4, uint64_t a5)
+uint64_t si::BufferTiling::AddTile<float>(__int128 *a1, void *a2, __int128 *a3, void *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
-  v9 = *(a1 + 32);
-  if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
+  v9 = *(a1 + 4);
+  if (*a3 >= ((*(a1 + 5) - v9) >> 3) || (v10 = *(a1 + 7), *(&v7 + 1) >= ((*(a1 + 8) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
-      v16 = ((*(a1 + 40) - *(a1 + 32)) >> 3) - 1;
-      v17 = ((*(a1 + 64) - *(a1 + 56)) >> 3) - 1;
+      v16 = ((*(a1 + 5) - *(a1 + 4)) >> 3) - 1;
+      v17 = ((*(a1 + 8) - *(a1 + 7)) >> 3) - 1;
       *buf = 136381955;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
       *&buf[12] = 1025;
@@ -7007,225 +6939,214 @@ uint64_t si::BufferTiling::AddTile<float>(uint64_t a1, void *a2, __int128 *a3, v
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     *&v7 = a5;
     v11 = *a1;
-    *buf = *(a1 + 16);
+    *buf = a1[1];
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::AddTile<float>(a2, buf, a4, v19, &v20);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::AddTile<float>(a2, buf, a4, v18, &v19);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::AddTile<float>(void *a1, __int128 *a2, void *a3, __int128 *a4, __int128 *a5)
+uint64_t si::AddTile<float>(void *a1, unint64_t *a2, void *a3, unint64_t *a4, unint64_t *a5)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v5 = *(a2 + 2);
-  v6 = a4[1];
-  if (v5 != *(a4 + 2))
+  v55 = *MEMORY[0x277D85DE8];
+  v5 = a2[2];
+  if (v5 != a4[2])
   {
-    v32 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v28 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      v49 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v50 = 1025;
-      v51 = 92;
-      v33 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v34 = v32;
-      v35 = 18;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v45 = 1025;
+      v46 = 92;
+      v29 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v30 = v28;
+      v31 = 18;
 LABEL_27:
-      _os_log_impl(&dword_21DE0D000, v34, OS_LOG_TYPE_ERROR, v33, buf, v35);
+      _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_ERROR, v29, buf, v31);
       goto LABEL_28;
     }
 
     goto LABEL_28;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = *(a2 + 1);
-  v11 = *a2;
-  v12 = *a2 * v10;
-  if (a1[1] != v12 * v5)
+  v10 = *a2 * v8;
+  if (a1[1] != v10 * v5)
   {
-    v32 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v28 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_28;
     }
 
-    v36 = a1[1];
-    v37 = *a2;
-    v38 = *(a2 + 2);
+    v32 = a1[1];
+    v33 = *a2;
+    v34 = a2[2];
     *buf = 136381955;
-    v49 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v50 = 1025;
-    v51 = 96;
-    v52 = 2048;
-    v53 = v36;
-    v54 = 2048;
-    v55 = v37;
-    v56 = 2048;
-    v57 = *(&v37 + 1);
-    v58 = 2048;
-    v59 = v38;
-    v33 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v44 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v45 = 1025;
+    v46 = 96;
+    v47 = 2048;
+    v48 = v32;
+    v49 = 2048;
+    v50 = v33;
+    v51 = 2048;
+    v52 = *(&v33 + 1);
+    v53 = 2048;
+    v54 = v34;
+    v29 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
 LABEL_26:
-    v34 = v32;
-    v35 = 58;
+    v30 = v28;
+    v31 = 58;
     goto LABEL_27;
   }
 
-  v15 = *a4;
-  v16 = *(a4 + 1);
-  v17 = *a4;
-  v18 = *a4 * v16;
-  if (a3[1] != v18 * v5)
+  v13 = a4[1];
+  v14 = *a4;
+  v15 = *a4 * v13;
+  if (a3[1] != v15 * v5)
   {
-    v32 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v28 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_28;
     }
 
-    v39 = a3[1];
-    v40 = *a4;
-    v41 = *(a4 + 2);
+    v35 = a3[1];
+    v36 = *a4;
+    v37 = a4[2];
     *buf = 136381955;
-    v49 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v50 = 1025;
-    v51 = 100;
-    v52 = 2048;
-    v53 = v39;
-    v54 = 2048;
-    v55 = v40;
-    v56 = 2048;
-    v57 = *(&v40 + 1);
-    v58 = 2048;
-    v59 = v41;
-    v33 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v44 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v45 = 1025;
+    v46 = 100;
+    v47 = 2048;
+    v48 = v35;
+    v49 = 2048;
+    v50 = v36;
+    v51 = 2048;
+    v52 = *(&v36 + 1);
+    v53 = 2048;
+    v54 = v37;
+    v29 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_26;
   }
 
-  v19 = *a5;
-  v20 = *(a5 + 1);
-  v21 = *a5;
-  if (v17 < *a5 || v16 < v20)
+  v16 = a5[1];
+  v17 = *a5;
+  if (v14 < *a5 || v13 < v16)
   {
-    v32 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v28 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381955;
-      v49 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v50 = 1025;
-      v51 = 116;
-      v52 = 2048;
-      v53 = v21;
-      v54 = 2048;
-      v55 = v20;
-      v56 = 2048;
-      v57 = v17;
-      v58 = 2048;
-      v59 = v16;
-      v33 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
+      v44 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v45 = 1025;
+      v46 = 116;
+      v47 = 2048;
+      v48 = v17;
+      v49 = 2048;
+      v50 = v16;
+      v51 = 2048;
+      v52 = v14;
+      v53 = 2048;
+      v54 = v13;
+      v29 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
       goto LABEL_26;
     }
 
 LABEL_28:
 
-    result = 0;
-    goto LABEL_29;
+    return 0;
   }
 
-  if (v17 - *a5 >= v11)
+  if (v14 - *a5 >= v9)
   {
-    v22 = *a2;
+    v18 = *a2;
   }
 
   else
   {
-    v22 = v17 - *a5;
+    v18 = v14 - *a5;
   }
 
-  if (v16 - v20 < v10)
+  if (v13 - v16 < v8)
   {
-    v10 = v16 - v20;
+    v8 = v13 - v16;
   }
 
-  v47 = v10;
+  v42 = v8;
   if (v5)
   {
-    v23 = 0;
-    v24 = 0;
-    v25 = 4 * v20 * v17 + 4 * v21;
-    v26 = 4 * v17;
-    v45 = 4 * v12;
-    v46 = 4 * v18;
-    v27 = 4 * v11;
+    v19 = 0;
+    v20 = 0;
+    v21 = 4 * v16 * v14 + 4 * v17;
+    v22 = 4 * v14;
+    v40 = 4 * v10;
+    v41 = 4 * v15;
+    v23 = 4 * v9;
     do
     {
-      if (v47)
+      if (v42)
       {
-        v28 = *a3 + v25;
-        v29 = *a1 + v23;
-        v30 = v47;
+        v24 = *a3 + v21;
+        v25 = *a1 + v19;
+        v26 = v42;
         do
         {
-          MEMORY[0x223D4D420](v29, 1, v28, 1, v28, 1, v22);
-          v28 += v26;
-          v29 += v27;
-          --v30;
+          MEMORY[0x223D4D420](v25, 1, v24, 1, v24, 1, v18);
+          v24 += v22;
+          v25 += v23;
+          --v26;
         }
 
-        while (v30);
+        while (v26);
       }
 
-      ++v24;
-      v25 += v46;
-      v23 += v45;
+      ++v20;
+      v21 += v41;
+      v19 += v40;
     }
 
-    while (v24 != v5);
+    while (v20 != v5);
   }
 
-  result = 1;
-LABEL_29:
-  v42 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t si::BufferTiling::AddTile<half>(uint64_t a1, short float **a2, __int128 *a3, void *a4, uint64_t a5)
+uint64_t si::BufferTiling::AddTile<half>(__int128 *a1, short float **a2, __int128 *a3, void *a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   v8 = *a3;
-  v9 = *(a1 + 32);
-  if (*a3 >= ((*(a1 + 40) - v9) >> 3) || (v10 = *(a1 + 56), *(&v7 + 1) >= ((*(a1 + 64) - v10) >> 3)))
+  v9 = *(a1 + 4);
+  if (*a3 >= ((*(a1 + 5) - v9) >> 3) || (v10 = *(a1 + 7), *(&v7 + 1) >= ((*(a1 + 8) - v10) >> 3)))
   {
-    v14 = __SceneIntelligenceLogSharedInstance();
+    v14 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *a3;
-      v16 = ((*(a1 + 40) - *(a1 + 32)) >> 3) - 1;
-      v17 = ((*(a1 + 64) - *(a1 + 56)) >> 3) - 1;
+      v16 = ((*(a1 + 5) - *(a1 + 4)) >> 3) - 1;
+      v17 = ((*(a1 + 8) - *(a1 + 7)) >> 3) - 1;
       *buf = 136381955;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
       *&buf[12] = 1025;
@@ -7234,273 +7155,258 @@ uint64_t si::BufferTiling::AddTile<half>(uint64_t a1, short float **a2, __int128
       *&buf[20] = v15;
       *&buf[28] = 2048;
       *&buf[30] = *(&v15 + 1);
-      v22 = 2048;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
       _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Tile index (%lu,%lu) is out of valid range (0...%lu,0...%lu) ***", buf, 0x3Au);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     *&v7 = a5;
     v11 = *a1;
-    *buf = *(a1 + 16);
+    *buf = a1[1];
     *&buf[16] = v7;
     *&v12 = *(v10 + 8 * *(&v7 + 1));
     *(&v12 + 1) = *(v9 + 8 * v8);
-    v19[1] = v7;
-    v20 = v12;
-    v19[0] = v11;
-    result = si::AddTile<half>(a2, buf, a4, v19, &v20);
+    v18[1] = v7;
+    v19 = v12;
+    v18[0] = v11;
+    return si::AddTile<half>(a2, buf, a4, v18, &v19);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t si::AddTile<half>(short float **a1, __int128 *a2, void *a3, __int128 *a4, __int128 *a5)
+uint64_t si::AddTile<half>(short float **a1, unint64_t *a2, void *a3, unint64_t *a4, unint64_t *a5)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v5 = *(a2 + 2);
-  v6 = a4[1];
-  if (v5 != *(a4 + 2))
+  v54 = *MEMORY[0x277D85DE8];
+  v5 = a2[2];
+  if (v5 != a4[2])
   {
-    v36 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v47 = 136380931;
-      v48 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v49 = 1025;
-      v50 = 92;
-      v37 = " %{private}s:%{private}d *** Number of color channels must match ***";
-      v38 = v36;
-      v39 = 18;
+      v42 = 136380931;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v44 = 1025;
+      v45 = 92;
+      v33 = " %{private}s:%{private}d *** Number of color channels must match ***";
+      v34 = v32;
+      v35 = 18;
 LABEL_28:
-      _os_log_impl(&dword_21DE0D000, v38, OS_LOG_TYPE_ERROR, v37, &v47, v39);
+      _os_log_impl(&dword_21DE0D000, v34, OS_LOG_TYPE_ERROR, v33, &v42, v35);
       goto LABEL_29;
     }
 
     goto LABEL_29;
   }
 
+  v8 = a2[1];
   v9 = *a2;
-  v10 = *(a2 + 1);
-  v11 = *a2;
-  v12 = *a2 * v10;
-  if (a1[1] != (v12 * v5))
+  v10 = *a2 * v8;
+  if (a1[1] != (v10 * v5))
   {
-    v36 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v40 = a1[1];
-    v41 = *a2;
-    v42 = *(a2 + 2);
-    v47 = 136381955;
-    v48 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v49 = 1025;
-    v50 = 96;
-    v51 = 2048;
-    v52 = v40;
-    v53 = 2048;
-    v54 = v41;
-    v55 = 2048;
-    v56 = *(&v41 + 1);
-    v57 = 2048;
-    v58 = v42;
-    v37 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v36 = a1[1];
+    v37 = *a2;
+    v38 = a2[2];
+    v42 = 136381955;
+    v43 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v44 = 1025;
+    v45 = 96;
+    v46 = 2048;
+    v47 = v36;
+    v48 = 2048;
+    v49 = v37;
+    v50 = 2048;
+    v51 = *(&v37 + 1);
+    v52 = 2048;
+    v53 = v38;
+    v33 = " %{private}s:%{private}d *** Number of sourceTileBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
 LABEL_27:
-    v38 = v36;
-    v39 = 58;
+    v34 = v32;
+    v35 = 58;
     goto LABEL_28;
   }
 
-  v15 = *a4;
-  v16 = *(a4 + 1);
-  v17 = *a4;
-  if (a3[1] != *a4 * v16 * v5)
+  v13 = a4[1];
+  v14 = *a4;
+  if (a3[1] != *a4 * v13 * v5)
   {
-    v36 = __SceneIntelligenceLogSharedInstance();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(a1);
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v43 = a3[1];
-    v44 = *a4;
-    v45 = *(a4 + 2);
-    v47 = 136381955;
-    v48 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-    v49 = 1025;
-    v50 = 100;
-    v51 = 2048;
-    v52 = v43;
-    v53 = 2048;
-    v54 = v44;
-    v55 = 2048;
-    v56 = *(&v44 + 1);
-    v57 = 2048;
-    v58 = v45;
-    v37 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
+    v39 = a3[1];
+    v40 = *a4;
+    v41 = a4[2];
+    v42 = 136381955;
+    v43 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+    v44 = 1025;
+    v45 = 100;
+    v46 = 2048;
+    v47 = v39;
+    v48 = 2048;
+    v49 = v40;
+    v50 = 2048;
+    v51 = *(&v40 + 1);
+    v52 = 2048;
+    v53 = v41;
+    v33 = " %{private}s:%{private}d *** Number of sumBuffer elements (%lu) must match tileSize (%lu, %lu, %lu) ***";
     goto LABEL_27;
   }
 
-  v18 = *a5;
-  v19 = *(a5 + 1);
-  v20 = *a5;
-  v21 = v17 - *a5;
-  if (v17 < *a5 || v16 < v19)
+  v15 = a5[1];
+  v16 = *a5;
+  v17 = v14 - *a5;
+  if (v14 < *a5 || v13 < v15)
   {
-    v36 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v32 = __SceneIntelligenceLogSharedInstance(a1);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v47 = 136381955;
-      v48 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v49 = 1025;
-      v50 = 116;
-      v51 = 2048;
-      v52 = v20;
-      v53 = 2048;
-      v54 = v19;
-      v55 = 2048;
-      v56 = v17;
-      v57 = 2048;
-      v58 = v16;
-      v37 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
+      v42 = 136381955;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v44 = 1025;
+      v45 = 116;
+      v46 = 2048;
+      v47 = v16;
+      v48 = 2048;
+      v49 = v15;
+      v50 = 2048;
+      v51 = v14;
+      v52 = 2048;
+      v53 = v13;
+      v33 = " %{private}s:%{private}d *** Invalid offset (%lu,%lu) for target buffer (%lu, %lu) ***";
       goto LABEL_27;
     }
 
 LABEL_29:
 
-    result = 0;
-    goto LABEL_30;
+    return 0;
   }
 
-  if (v21 >= v11)
+  if (v17 >= v9)
   {
-    v21 = *a2;
+    v17 = *a2;
   }
 
-  if (v16 - v19 < v10)
+  if (v13 - v15 < v8)
   {
-    v10 = v16 - v19;
+    v8 = v13 - v15;
   }
 
   if (v5)
   {
-    v22 = 0;
-    v23 = *a1;
-    v24 = *a3 + 2 * v19 * v17 + 2 * v20;
-    v25 = 2 * *a4 * v16;
-    v26 = 2 * v12;
-    v27 = 2 * v11;
+    v18 = 0;
+    v19 = *a1;
+    v20 = *a3 + 2 * v15 * v14 + 2 * v16;
+    v21 = 2 * *a4 * v13;
+    v22 = 2 * v10;
+    v23 = 2 * v9;
     do
     {
-      if (v10)
+      if (v8)
       {
-        v28 = 0;
-        v29 = v23;
-        v30 = v24;
+        v24 = 0;
+        v25 = v19;
+        v26 = v20;
         do
         {
-          v31 = v21;
-          v32 = v29;
-          for (i = v30; v31; --v31)
+          v27 = v17;
+          v28 = v25;
+          for (i = v26; v27; --v27)
           {
-            v34 = *v32++;
-            *i = v34 + *i;
+            v30 = *v28++;
+            *i = v30 + *i;
             ++i;
           }
 
-          ++v28;
-          v30 += v17;
-          v29 = (v29 + v27);
+          ++v24;
+          v26 += v14;
+          v25 = (v25 + v23);
         }
 
-        while (v28 != v10);
+        while (v24 != v8);
       }
 
-      ++v22;
-      v24 += v25;
-      v23 = (v23 + v26);
+      ++v18;
+      v20 += v21;
+      v19 = (v19 + v22);
     }
 
-    while (v22 != v5);
+    while (v18 != v5);
   }
 
-  result = 1;
-LABEL_30:
-  v46 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t *si::BufferTiling::BufferTiling(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
+uint64_t si::BufferTiling::BufferTiling(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v7 = *a2;
   *a1 = *a2;
   v8 = *a3;
-  *(a1 + 2) = 0u;
-  v9 = a1 + 4;
-  *(a1 + 1) = v8;
-  *(a1 + 3) = 0u;
-  *(a1 + 4) = 0u;
+  *(a1 + 32) = 0u;
+  v9 = a1 + 32;
+  *(a1 + 16) = v8;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
   v10 = "imageResolution.x > 0 && imageResolution.y > 0";
   v11 = 146;
-  if (!*a2 || !(*(a2 + 8) >> 64) || (v12 = *a3, v13 = *a3, v10 = "tileResolution.x > 0 && tileResolution.y > 0", v11 = 147, !v13) || !*(&v12 + 1) || (v10 = "minTileOverlap < tileResolution.x && minTileOverlap < tileResolution.y", v11 = 148, v13 <= a4) || *(&v12 + 1) <= a4)
+  if (!*a2 || !*(a2 + 1) || (v12 = *a3, v13 = *a3, v10 = "tileResolution.x > 0 && tileResolution.y > 0", v11 = 147, !v13) || !*(&v12 + 1) || (v10 = "minTileOverlap < tileResolution.x && minTileOverlap < tileResolution.y", v11 = 148, v13 <= a4) || *(&v12 + 1) <= a4)
   {
     __assert_rtn("BufferTiling", "SIBufferTiling.mm", v11, v10);
   }
 
   v14 = si::BufferTiling::CalculateNumTiles(v7, v8, a4);
-  v15 = si::BufferTiling::CalculateNumTiles(a1[1], a1[3], a4);
-  v16 = *a1;
-  v17 = a1[2];
-  si::BufferTiling::CalculateOverlaps(v14, v26);
-  v18 = a1[1];
-  v19 = a1[3];
-  si::BufferTiling::CalculateOverlaps(v15, __p);
-  si::BufferTiling::CalculateOffsets(v26, a1[2], &v23);
-  v20 = v9[3];
-  if (v20)
+  v15 = si::BufferTiling::CalculateNumTiles(*(a1 + 8), *(a1 + 24), a4);
+  si::BufferTiling::CalculateOverlaps(v22, v14);
+  si::BufferTiling::CalculateOverlaps(__p, v15);
+  si::BufferTiling::CalculateOffsets(v22, *(a1 + 16), &v19);
+  v16 = *(v9 + 24);
+  if (v16)
   {
-    a1[8] = v20;
-    operator delete(v20);
-    v9[3] = 0;
-    v9[4] = 0;
-    v9[5] = 0;
+    *(a1 + 64) = v16;
+    operator delete(v16);
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 0;
   }
 
-  *(a1 + 7) = v23;
-  a1[9] = v24;
-  si::BufferTiling::CalculateOffsets(__p, a1[3], &v23);
-  v21 = *v9;
+  *(a1 + 56) = v19;
+  *(a1 + 72) = v20;
+  si::BufferTiling::CalculateOffsets(__p, *(a1 + 24), &v19);
+  v17 = *v9;
   if (*v9)
   {
-    a1[5] = v21;
-    operator delete(v21);
+    *(a1 + 40) = v17;
+    operator delete(v17);
     *v9 = 0;
-    v9[1] = 0;
-    v9[2] = 0;
+    *(v9 + 8) = 0;
+    *(v9 + 16) = 0;
   }
 
-  *(a1 + 2) = v23;
-  a1[6] = v24;
+  *(a1 + 32) = v19;
+  *(a1 + 48) = v20;
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v26[0])
+  if (v22[0])
   {
-    v26[1] = v26[0];
-    operator delete(v26[0]);
+    v22[1] = v22[0];
+    operator delete(v22[0]);
   }
 
   return a1;
@@ -7537,62 +7443,59 @@ void sub_21DE18C08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unint64_t si::BufferTiling::CalculateNumTiles(si::BufferTiling *this, unint64_t a2, unint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2 <= a3)
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
+    v6 = __SceneIntelligenceLogSharedInstance(this);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136381443;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
-      v10 = 1025;
-      v11 = 198;
-      v12 = 2048;
-      v13 = a3;
-      v14 = 2048;
-      v15 = a2;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** minTileOverlap (%lu) must be smaller than tileSideLength (%lu) ***", &v8, 0x26u);
+      v7 = 136381443;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIBufferTiling.mm";
+      v9 = 1025;
+      v10 = 198;
+      v11 = 2048;
+      v12 = a3;
+      v13 = 2048;
+      v14 = a2;
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** minTileOverlap (%lu) must be smaller than tileSideLength (%lu) ***", &v7, 0x26u);
     }
 
-    result = 0;
+    return 0;
   }
 
   else if (this <= a2)
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = vcvtps_u32_f32((this - a2) / (a2 - a3)) + 1;
+    return vcvtps_u32_f32((this - a2) / (a2 - a3)) + 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void si::BufferTiling::CalculateOverlaps(unint64_t a1@<X2>, void *a2@<X8>)
+void si::BufferTiling::CalculateOverlaps(unint64_t **__return_ptr a1@<X8>, unint64_t a4@<X2>)
 {
-  if (a1 > 1)
+  if (a4 > 1)
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
-    std::vector<unsigned long>::__vallocate[abi:nn200100](a2, a1 - 1);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    std::vector<unsigned long>::__vallocate[abi:nn200100](a1, a4 - 1);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
 }
 
-uint64_t **si::BufferTiling::CalculateOffsets@<X0>(uint64_t **result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void si::BufferTiling::CalculateOffsets(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t **a3@<X8>)
 {
-  v4 = *result;
-  v5 = result[1];
-  v6 = v5 - *result;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = v5 - *a1;
+  a3[1] = 0;
+  a3[2] = 0;
   *a3 = 0;
   if (v6 >> 3 != -1)
   {
@@ -7602,7 +7505,7 @@ uint64_t **si::BufferTiling::CalculateOffsets@<X0>(uint64_t **result@<X0>, uint6
   v7 = -1;
   if (v5 != v4)
   {
-    v8 = (*a3 + 8);
+    v8 = *a3 + 1;
     v9 = **a3;
     do
     {
@@ -7614,11 +7517,9 @@ uint64_t **si::BufferTiling::CalculateOffsets@<X0>(uint64_t **result@<X0>, uint6
 
     while (v7);
   }
-
-  return result;
 }
 
-void std::vector<unsigned long>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7638,7 +7539,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(uint6
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-uint64_t SIInternalOSBuild()
+uint64_t SIInternalOSBuild(uint64_t a1, uint64_t a2)
 {
   if (SIInternalOSBuild_onceToken != -1)
   {
@@ -7808,7 +7709,7 @@ void SIImageFormatFromTexture(void *a1@<X0>, void *a2@<X8>)
 
 uint64_t SIImageFormatMatch(uint64_t *a1, uint64_t *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (*a1 == *a2 && a1[1] == a2[1])
   {
     result = 1;
@@ -7816,194 +7717,190 @@ uint64_t SIImageFormatMatch(uint64_t *a1, uint64_t *a2)
 
   else
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
+    v5 = __SceneIntelligenceLogSharedInstance(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 125;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 125;
       _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: unexpected resolution ***", buf, 0x12u);
     }
 
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __SceneIntelligenceLogSharedInstance(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *a1;
-      v8 = a1[1];
+      v8 = *a1;
+      v9 = a1[1];
       *buf = 136381443;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 126;
-      v37 = 2049;
-      v38 = v7;
-      v39 = 2049;
-      v40 = v8;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected (%{private}lu x %{private}lu) ***", buf, 0x26u);
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 126;
+      v42 = 2049;
+      v43 = v8;
+      v44 = 2049;
+      v45 = v9;
+      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected (%{private}lu x %{private}lu) ***", buf, 0x26u);
     }
 
-    v9 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = __SceneIntelligenceLogSharedInstance(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *a2;
-      v11 = a2[1];
+      v12 = *a2;
+      v13 = a2[1];
       *buf = 136381443;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 127;
-      v37 = 2048;
-      v38 = v10;
-      v39 = 2048;
-      v40 = v11;
-      _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received (%lu x %lu) ***", buf, 0x26u);
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 127;
+      v42 = 2048;
+      v43 = v12;
+      v44 = 2048;
+      v45 = v13;
+      _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received (%lu x %lu) ***", buf, 0x26u);
     }
 
     result = 0;
   }
 
-  v12 = *(a2 + 4);
-  if (v12 && v12 != *(a1 + 4))
+  v14 = *(a2 + 4);
+  if (v14 && v14 != *(a1 + 4))
   {
-    v13 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = __SceneIntelligenceLogSharedInstance(result);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 132;
-      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: unexpected ostype ***", buf, 0x12u);
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 132;
+      _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: unexpected ostype ***", buf, 0x12u);
     }
 
-    v14 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15.i32[0] = *(a1 + 4);
-      v16 = vrev64_s16(*&vmovl_u8(v15));
-      *buf = vuzp1_s8(v16, v16).u32[0];
-      LOBYTE(v34) = 0;
-      v27 = 136381187;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v29 = 1025;
-      v30 = 133;
-      v31 = 2081;
-      v32 = buf;
-      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected %{private}s ***", &v27, 0x1Cu);
-    }
-
-    v17 = __SceneIntelligenceLogSharedInstance();
+    v17 = __SceneIntelligenceLogSharedInstance(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v18.i32[0] = *(a2 + 4);
+      v18.i32[0] = *(a1 + 4);
       v19 = vrev64_s16(*&vmovl_u8(v18));
       *buf = vuzp1_s8(v19, v19).u32[0];
-      LOBYTE(v34) = 0;
-      v27 = 136381187;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v29 = 1025;
-      v30 = 134;
-      v31 = 2081;
-      v32 = buf;
-      _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received %{private}s ***", &v27, 0x1Cu);
+      LOBYTE(v39) = 0;
+      v32 = 136381187;
+      v33 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v34 = 1025;
+      v35 = 133;
+      v36 = 2081;
+      v37 = buf;
+      _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected %{private}s ***", &v32, 0x1Cu);
     }
 
-    result = 0;
-  }
-
-  v20 = a2[3];
-  if (v20 && v20 != a1[3])
-  {
-    v21 = __SceneIntelligenceLogSharedInstance();
+    v21 = __SceneIntelligenceLogSharedInstance(v20);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136380931;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 138;
-      _os_log_impl(&dword_21DE0D000, v21, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: unexpected pixelFormat ***", buf, 0x12u);
-    }
-
-    v22 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-    {
-      v23 = a1[3];
-      *buf = 136381187;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 139;
-      v37 = 2049;
-      v38 = v23;
-      _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected %{private}lu ***", buf, 0x1Cu);
-    }
-
-    v24 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-    {
-      v25 = a2[3];
-      *buf = 136381187;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v35 = 1025;
-      v36 = 140;
-      v37 = 2048;
-      v38 = v25;
-      _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received %lu ***", buf, 0x1Cu);
+      v22.i32[0] = *(a2 + 4);
+      v23 = vrev64_s16(*&vmovl_u8(v22));
+      *buf = vuzp1_s8(v23, v23).u32[0];
+      LOBYTE(v39) = 0;
+      v32 = 136381187;
+      v33 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v34 = 1025;
+      v35 = 134;
+      v36 = 2081;
+      v37 = buf;
+      _os_log_impl(&dword_21DE0D000, v21, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received %{private}s ***", &v32, 0x1Cu);
     }
 
     result = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = a2[3];
+  if (v24 && v24 != a1[3])
+  {
+    v25 = __SceneIntelligenceLogSharedInstance(result);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136380931;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 138;
+      _os_log_impl(&dword_21DE0D000, v25, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: unexpected pixelFormat ***", buf, 0x12u);
+    }
+
+    v27 = __SceneIntelligenceLogSharedInstance(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = a1[3];
+      *buf = 136381187;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 139;
+      v42 = 2049;
+      v43 = v28;
+      _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   expected %{private}lu ***", buf, 0x1Cu);
+    }
+
+    v30 = __SceneIntelligenceLogSharedInstance(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      v31 = a2[3];
+      *buf = 136381187;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v40 = 1025;
+      v41 = 140;
+      v42 = 2048;
+      v43 = v31;
+      _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d ***   received %lu ***", buf, 0x1Cu);
+    }
+
+    return 0;
+  }
+
   return result;
 }
 
 uint64_t SICheckPixelBuffer(__CVBuffer *a1, _OWORD *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     SIImageFormatFromPixelBuffer(a1, buf);
     v3 = a2[1];
-    v7[0] = *a2;
-    v7[1] = v3;
-    result = SIImageFormatMatch(v7, buf);
+    v6[0] = *a2;
+    v6[1] = v3;
+    return SIImageFormatMatch(v6, buf);
   }
 
   else
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
+    v5 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v10 = 1025;
-      v11 = 147;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v9 = 1025;
+      v10 = 147;
       _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: pixelbuffer is null ***", buf, 0x12u);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t SICheckSurface(__IOSurface *a1, _OWORD *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     *buf = IOSurfaceGetWidth(a1);
     *&buf[8] = IOSurfaceGetHeight(a1);
-    v10 = 0;
+    v9 = 0;
     *&buf[16] = IOSurfaceGetPixelFormat(a1);
     v4 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v4;
-    result = SIImageFormatMatch(v8, buf);
+    v7[0] = *a2;
+    v7[1] = v4;
+    return SIImageFormatMatch(v7, buf);
   }
 
   else
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
+    v6 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
@@ -8013,63 +7910,57 @@ uint64_t SICheckSurface(__IOSurface *a1, _OWORD *a2)
       _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: surface is null ***", buf, 0x12u);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t SICheckTexture(void *a1, _OWORD *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     SIImageFormatFromTexture(a1, buf);
     v3 = a2[1];
-    v7[0] = *a2;
-    v7[1] = v3;
-    result = SIImageFormatMatch(v7, buf);
+    v6[0] = *a2;
+    v6[1] = v3;
+    return SIImageFormatMatch(v6, buf);
   }
 
   else
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
+    v5 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
-      v10 = 1025;
-      v11 = 164;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIImageFormat.m";
+      v9 = 1025;
+      v10 = 164;
       _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** ERROR: texture is null ***", buf, 0x12u);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 CVPixelBufferRef SICreateCVPixelBufferFromTexture(void *a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   pixelBufferOut = 0;
   if (![v1 iosurface])
   {
-    v14 = *MEMORY[0x277CC4DE8];
-    v15[0] = MEMORY[0x277CBEC10];
-    pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CC4DE8];
+    v14[0] = MEMORY[0x277CBEC10];
+    pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v3 = SIOSTypeFromMTLPixelFormat([v1 pixelFormat]);
     v4 = [v1 width];
     v5 = 4 * v4 * SIBytesPerElement(v3);
     v6 = malloc_type_malloc([v1 height] * v5, 0x100004077774924uLL);
-    memset(v12, 0, 24);
-    v12[3] = [v1 width];
-    v12[4] = [v1 height];
-    v12[5] = 1;
-    [v1 getBytes:v6 bytesPerRow:v5 fromRegion:v12 mipmapLevel:0];
+    memset(v11, 0, 24);
+    v11[3] = [v1 width];
+    v11[4] = [v1 height];
+    v11[5] = 1;
+    [v1 getBytes:v6 bytesPerRow:v5 fromRegion:v11 mipmapLevel:0];
     v7 = CVPixelBufferCreateWithBytes(0, [v1 width], objc_msgSend(v1, "height"), v3, v6, v5, callback, 0, pixelBufferAttributes, &pixelBufferOut);
     if (v3 == 1380411457 || v3 == 1380410945)
     {
@@ -8099,7 +7990,6 @@ LABEL_9:
   v9 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -8209,13 +8099,13 @@ BOOL SISaveIOSurfaceTIFF(void *a1, void *a2)
 
 BOOL SISavePixelBufferPNG(__CVBuffer *a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBF758] imageWithCVPixelBuffer:a1];
   v5 = MEMORY[0x277CBF740];
-  v14 = *MEMORY[0x277CBF940];
-  v15[0] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x277CBF940];
+  v14[0] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = [v5 contextWithOptions:v6];
 
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
@@ -8225,7 +8115,6 @@ BOOL SISavePixelBufferPNG(__CVBuffer *a1, void *a2)
   CGImageRelease(v10);
   CGColorSpaceRelease(DeviceRGB);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -8242,10 +8131,9 @@ BOOL SISaveIOSurfacePNG(__IOSurface *a1, void *a2)
 
 void SIDumpCVPixelBufferToFile(__CVBuffer *a1, void *a2)
 {
-  v41[19] = *MEMORY[0x277D85DE8];
-  v34 = a2;
-  [v34 UTF8String];
-  std::ofstream::basic_ofstream(&v39);
+  v40[19] = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  std::ofstream::basic_ofstream(&v38, [v33 UTF8String], 16);
   CVPixelBufferLockBaseAddress(a1, 0);
   pixelBuffer = a1;
   if (CVPixelBufferGetPixelFormatType(a1) == 1111970369)
@@ -8265,21 +8153,21 @@ void SIDumpCVPixelBufferToFile(__CVBuffer *a1, void *a2)
         v11 = Width;
         for (i = v9; v11; --v11)
         {
-          v13 = MEMORY[0x223D4C3C0](&v39, *(i - 3));
+          v13 = MEMORY[0x223D4C3C0](&v38, *(i - 3));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, " ", 1);
-          v14 = MEMORY[0x223D4C3C0](&v39, *(i - 2));
+          v14 = MEMORY[0x223D4C3C0](&v38, *(i - 2));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, " ", 1);
-          v15 = MEMORY[0x223D4C3C0](&v39, *(i - 1));
+          v15 = MEMORY[0x223D4C3C0](&v38, *(i - 1));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, " ", 1);
-          v16 = MEMORY[0x223D4C3C0](&v39, *i);
+          v16 = MEMORY[0x223D4C3C0](&v38, *i);
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, " ", 1);
           i += 4;
         }
 
-        std::ios_base::getloc(&v40[*(v39 - 24) - 8]);
-        v17 = std::locale::use_facet(&v38, v10);
+        std::ios_base::getloc(&v39[*(v38 - 24) - 8]);
+        v17 = std::locale::use_facet(&v37, v10);
         (v17->__vftable[2].~facet_0)(v17, 10);
-        std::locale::~locale(&v38);
+        std::locale::~locale(&v37);
         std::ostream::put();
         std::ostream::flush();
         ++v8;
@@ -8295,10 +8183,10 @@ void SIDumpCVPixelBufferToFile(__CVBuffer *a1, void *a2)
     BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, 0);
     v19 = CVPixelBufferGetBaseAddressOfPlane(a1, 1uLL);
     v20 = CVPixelBufferGetWidth(a1);
-    v37 = CVPixelBufferGetHeight(a1);
+    v36 = CVPixelBufferGetHeight(a1);
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
     v21 = CVPixelBufferGetBytesPerRowOfPlane(a1, 1uLL);
-    if (v37)
+    if (v36)
     {
       v22 = v21;
       v23 = 0;
@@ -8310,19 +8198,19 @@ void SIDumpCVPixelBufferToFile(__CVBuffer *a1, void *a2)
         for (j = BaseAddressOfPlane; v25; --v25)
         {
           v28 = *j++;
-          v29 = MEMORY[0x223D4C3C0](&v39, v28);
+          v29 = MEMORY[0x223D4C3C0](&v38, v28);
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, " ", 1);
-          v30 = MEMORY[0x223D4C3C0](&v39, *(v26 - 1));
+          v30 = MEMORY[0x223D4C3C0](&v38, *(v26 - 1));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v30, " ", 1);
-          v31 = MEMORY[0x223D4C3C0](&v39, *v26);
+          v31 = MEMORY[0x223D4C3C0](&v38, *v26);
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, " ", 1);
           v26 += 2;
         }
 
-        std::ios_base::getloc(&v40[*(v39 - 24) - 8]);
-        v32 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
+        std::ios_base::getloc(&v39[*(v38 - 24) - 8]);
+        v32 = std::locale::use_facet(&v37, MEMORY[0x277D82680]);
         (v32->__vftable[2].~facet_0)(v32, 10);
-        std::locale::~locale(&v38);
+        std::locale::~locale(&v37);
         std::ostream::put();
         std::ostream::flush();
         ++v23;
@@ -8330,49 +8218,47 @@ void SIDumpCVPixelBufferToFile(__CVBuffer *a1, void *a2)
         v24 += v22;
       }
 
-      while (v23 != v37);
+      while (v23 != v36);
     }
   }
 
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
   if (!std::filebuf::close())
   {
-    std::ios_base::clear(&v40[*(v39 - 24) - 8], *&v40[*(v39 - 24) + 24] | 4);
+    std::ios_base::clear(&v39[*(v38 - 24) - 8], *&v39[*(v38 - 24) + 24] | 4);
   }
 
-  v39 = *MEMORY[0x277D82810];
-  *&v40[*(v39 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x223D4C360](v40);
+  v38 = *MEMORY[0x277D82810];
+  *&v39[*(v38 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x223D4C360](v39);
   std::ostream::~ostream();
-  MEMORY[0x223D4C420](v41);
-
-  v33 = *MEMORY[0x277D85DE8];
+  MEMORY[0x223D4C420](v40);
 }
 
 void sub_21DE1AA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::ofstream::~ofstream(&a14, MEMORY[0x277D82810]);
-  MEMORY[0x223D4C420](&a66);
+  MEMORY[0x223D4C420](&a65);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
+  v4 = MEMORY[0x277D82860] + 64;
   a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x223D4C350](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -8391,22 +8277,22 @@ void sub_21DE1AC20(_Unwind_Exception *a1)
 
 uint64_t SICreateCVPixelBufferFromUrl(void *a1, OSType a2, void *a3, int a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
   v10 = [MEMORY[0x277CBF758] imageWithContentsOfURL:v9];
   if (!v10)
   {
-    v19 = __SceneIntelligenceLogSharedInstance();
+    v19 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *pixelBufferOut = 136381187;
       *&pixelBufferOut[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v25 = 1025;
-      v26 = 289;
-      v27 = 2113;
-      v28 = v7;
+      v24 = 1025;
+      v25 = 289;
+      v26 = 2113;
+      v27 = v7;
       _os_log_impl(&dword_21DE0D000, v19, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not load image resource '%{private}@' ***", pixelBufferOut, 0x1Cu);
     }
 
@@ -8434,16 +8320,15 @@ LABEL_9:
   }
 
   v15 = objc_alloc(MEMORY[0x277CBF740]);
-  v22 = *MEMORY[0x277CBF940];
-  v23 = MEMORY[0x277CBEC38];
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = *MEMORY[0x277CBF940];
+  v22 = MEMORY[0x277CBEC38];
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   v17 = [v15 initWithOptions:v16];
 
   [v17 render:v10 toCVPixelBuffer:*pixelBufferOut];
   v18 = *pixelBufferOut;
 LABEL_10:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -8457,8 +8342,8 @@ uint64_t SIEnsureDirectoryExist(void *a1)
 
   if ((v3 & 1) == 0)
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = __SceneIntelligenceLogSharedInstance(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136381187;
       v13 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
@@ -8466,21 +8351,21 @@ uint64_t SIEnsureDirectoryExist(void *a1)
       v15 = 322;
       v16 = 2112;
       v17 = v1;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** Path %@ does not exist in the system, create one to save the output data. ***", buf, 0x1Cu);
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** Path %@ does not exist in the system, create one to save the output data. ***", buf, 0x1Cu);
     }
 
-    v6 = [MEMORY[0x277CCAA00] defaultManager];
+    v7 = [MEMORY[0x277CCAA00] defaultManager];
     v10 = 0;
-    v4 = [v6 createDirectoryAtPath:v1 withIntermediateDirectories:1 attributes:0 error:&v10];
-    v7 = v10;
+    v5 = [v7 createDirectoryAtPath:v1 withIntermediateDirectories:1 attributes:0 error:&v10];
+    v8 = v10;
 
     goto LABEL_10;
   }
 
   if ((v11 & 1) == 0)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381187;
       v13 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
@@ -8488,109 +8373,109 @@ uint64_t SIEnsureDirectoryExist(void *a1)
       v15 = 325;
       v16 = 2112;
       v17 = v1;
-      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Path %@ exists, but it is not a directory ***", buf, 0x1Cu);
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Path %@ exists, but it is not a directory ***", buf, 0x1Cu);
     }
 
-    v4 = 0;
+    v5 = 0;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v4 = 1;
+  v5 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 uint64_t SIRemoveAllFilesInDirectory(void *a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v27 = v1;
+  v28 = v1;
   v2 = [MEMORY[0x277CCAA00] defaultManager];
-  v34 = 0;
-  v3 = [v2 contentsOfDirectoryAtPath:v1 error:&v34];
-  v4 = v34;
-  v23 = v3;
+  v35 = 0;
+  v3 = [v2 contentsOfDirectoryAtPath:v1 error:&v35];
+  v4 = v35;
+  v24 = v3;
   if (!v4)
   {
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     log = v3;
     v5 = 0;
-    v8 = [log countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v8 = [log countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (!v8)
     {
       v7 = 1;
       goto LABEL_25;
     }
 
-    v9 = *v31;
-    v24 = *MEMORY[0x277CCA1F0];
-    v25 = *MEMORY[0x277CCA1E0];
+    v9 = *v32;
+    v25 = *MEMORY[0x277CCA1F0];
+    v26 = *MEMORY[0x277CCA1E0];
     v7 = 1;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(log);
         }
 
-        v11 = [v27 stringByAppendingPathComponent:*(*(&v30 + 1) + 8 * v10)];
-        v29 = v5;
-        v12 = [v2 attributesOfItemAtPath:v11 error:&v29];
-        v13 = v29;
+        v11 = [v28 stringByAppendingPathComponent:*(*(&v31 + 1) + 8 * v10)];
+        v30 = v5;
+        v12 = [v2 attributesOfItemAtPath:v11 error:&v30];
+        v13 = v30;
 
         if (v13)
         {
-          v14 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = __SceneIntelligenceLogSharedInstance(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v15 = [v13 localizedDescription];
+            v16 = [v13 localizedDescription];
             *buf = 136381443;
-            v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-            v38 = 1025;
-            v39 = 348;
-            v40 = 2113;
-            v41 = v11;
-            v42 = 2112;
-            v43 = v15;
-            _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get attributes for %{private}@, error: %@ ***", buf, 0x26u);
+            v38 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+            v39 = 1025;
+            v40 = 348;
+            v41 = 2113;
+            v42 = v11;
+            v43 = 2112;
+            v44 = v16;
+            _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get attributes for %{private}@, error: %@ ***", buf, 0x26u);
           }
 
           goto LABEL_13;
         }
 
-        v16 = [v12 objectForKeyedSubscript:v25];
-        v17 = [v16 isEqualToString:v24];
+        v17 = [v12 objectForKeyedSubscript:v26];
+        v18 = [v17 isEqualToString:v25];
 
-        if (v17)
+        if (v18)
         {
-          v28 = 0;
-          v18 = [v2 removeItemAtPath:v11 error:&v28];
-          v13 = v28;
-          if ((v18 & 1) == 0)
+          v29 = 0;
+          v19 = [v2 removeItemAtPath:v11 error:&v29];
+          v20 = v29;
+          v13 = v20;
+          if ((v19 & 1) == 0)
           {
-            v14 = __SceneIntelligenceLogSharedInstance();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v15 = __SceneIntelligenceLogSharedInstance(v20);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v19 = [v13 localizedDescription];
+              v21 = [v13 localizedDescription];
               *buf = 136381443;
-              v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-              v38 = 1025;
-              v39 = 357;
-              v40 = 2113;
-              v41 = v11;
-              v42 = 2112;
-              v43 = v19;
-              _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to delete file: %{private}@, error: %@ ***", buf, 0x26u);
+              v38 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+              v39 = 1025;
+              v40 = 357;
+              v41 = 2113;
+              v42 = v11;
+              v43 = 2112;
+              v44 = v21;
+              _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to delete file: %{private}@, error: %@ ***", buf, 0x26u);
             }
 
 LABEL_13:
@@ -8609,9 +8494,9 @@ LABEL_15:
       }
 
       while (v8 != v10);
-      v20 = [log countByEnumeratingWithState:&v30 objects:v35 count:16];
-      v8 = v20;
-      if (!v20)
+      v22 = [log countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = v22;
+      if (!v22)
       {
         goto LABEL_25;
       }
@@ -8619,25 +8504,24 @@ LABEL_15:
   }
 
   v5 = v4;
-  log = __SceneIntelligenceLogSharedInstance();
+  log = __SceneIntelligenceLogSharedInstance(v4);
   if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
   {
     v6 = [v5 localizedDescription];
     *buf = 136381443;
-    v37 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-    v38 = 1025;
-    v39 = 339;
-    v40 = 2113;
-    v41 = v1;
-    v42 = 2112;
-    v43 = v6;
+    v38 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    v39 = 1025;
+    v40 = 339;
+    v41 = 2113;
+    v42 = v1;
+    v43 = 2112;
+    v44 = v6;
     _os_log_impl(&dword_21DE0D000, log, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to list directory: %{private}@, error: %@ ***", buf, 0x26u);
   }
 
   v7 = 0;
 LABEL_25:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
@@ -8731,28 +8615,27 @@ void PrintMIMEAttachment(NSData *a1, NSString *a2, NSString *a3)
   [v14 appendFormat:@"Content-Disposition: attachment; filename=%@\n", v15];
   [v14 appendString:@"\n"];
   [v14 appendString:v10];
-  if ([v14 length] > v13)
+  v16 = [v14 length];
+  if (v16 > v13)
   {
-    v16 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __SceneIntelligenceLogSharedInstance(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
       v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
       v26 = 1025;
       v27 = 733;
-      _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Actual MIME message size exceeded estimated. ***", buf, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Actual MIME message size exceeded estimated. ***", buf, 0x12u);
     }
   }
 
-  v17 = [v7 stringWithFormat:@"%@", v14];
-  v18 = v17;
-  printf("%s", [v17 UTF8String]);
+  v18 = [v7 stringWithFormat:@"%@", v14];
+  v19 = v18;
+  printf("%s", [v18 UTF8String]);
 
-  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n--END_MIME--\n"];
-  v20 = v19;
-  printf("%s", [v19 UTF8String]);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n--END_MIME--\n"];
+  v21 = v20;
+  printf("%s", [v20 UTF8String]);
 }
 
 uint64_t SISavePixelBufferRAW(uint64_t a1, void *a2)
@@ -8836,16 +8719,16 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8951,48 +8834,51 @@ void sub_21DE21530(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-id SIPolarisTimestampDictionary()
+id SIPolarisTimestampDictionary(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   count = ps_resource_array_get_count();
-  v1 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:count];
+  v2 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:count];
   if (count)
   {
     for (i = 0; count != i; ++i)
     {
       resource = ps_resource_array_get_resource();
       key = ps_resource_get_key();
-      if (MEMORY[0x223D4CEB0](resource) == 1)
+      v6 = MEMORY[0x223D4CEB0](resource);
+      if (v6 == 1)
       {
-        if (MEMORY[0x223D4CF20](resource, 0))
+        v7 = MEMORY[0x223D4CF20](resource, 0);
+        if (v7)
         {
           ps_resource_get_timestamp_seconds();
-          v6 = v5;
-          v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:key];
-          v8 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          [v1 setObject:v8 forKeyedSubscript:v7];
+          v9 = v8;
+          v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:key];
+          v11 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
+          [v2 setObject:v11 forKeyedSubscript:v10];
         }
 
         else
         {
-          v7 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v10 = __SceneIntelligenceLogSharedInstance(v7);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 136381187;
-            v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIPolarisTimestampDictionary.m";
-            v17 = 1025;
-            v18 = 31;
-            v19 = 2081;
-            v20 = key;
-            v10 = v7;
-            v11 = " %{private}s:%{private}d *** resource Key %{private}s invalid ***";
-            v12 = 28;
+            v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIPolarisTimestampDictionary.m";
+            v19 = 1025;
+            v20 = 31;
+            v21 = 2081;
+            v22 = key;
+            v13 = v10;
+            v14 = " %{private}s:%{private}d *** resource Key %{private}s invalid ***";
+            v15 = 28;
             goto LABEL_10;
           }
         }
@@ -9000,31 +8886,29 @@ id SIPolarisTimestampDictionary()
 
       else
       {
-        v7 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = __SceneIntelligenceLogSharedInstance(v6);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v9 = MEMORY[0x223D4CEB0](resource);
+          v12 = MEMORY[0x223D4CEB0](resource);
           *buf = 136381443;
-          v16 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIPolarisTimestampDictionary.m";
-          v17 = 1025;
-          v18 = 26;
-          v19 = 2081;
-          v20 = key;
-          v21 = 2048;
-          v22 = v9;
-          v10 = v7;
-          v11 = " %{private}s:%{private}d *** expected item count for %{private}s to be 1, but got %zu ***";
-          v12 = 38;
+          v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/PolarisGraph/Common/SIPolarisTimestampDictionary.m";
+          v19 = 1025;
+          v20 = 26;
+          v21 = 2081;
+          v22 = key;
+          v23 = 2048;
+          v24 = v12;
+          v13 = v10;
+          v14 = " %{private}s:%{private}d *** expected item count for %{private}s to be 1, but got %zu ***";
+          v15 = 38;
 LABEL_10:
-          _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, v11, buf, v12);
+          _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, v14, buf, v15);
         }
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v1;
+  return v2;
 }
 
 void sub_21DE228C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -9037,10 +8921,10 @@ void sub_21DE228C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_21DE22FF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21DE22FF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SISceneUnderstanding;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9052,6 +8936,31 @@ void std::__shared_weak_count::__release_shared[abi:nn200100](std::__shared_weak
 
     std::__shared_weak_count::__release_weak(a1);
   }
+}
+
+void sub_21DE23594(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int128 a12)
+{
+  if (a2 == 1)
+  {
+    v15 = objc_begin_catch(a1);
+    v16 = __SceneIntelligenceLogSharedInstance(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = [v15 reason];
+      LODWORD(buf) = 136381187;
+      *(&buf + 4) = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIBaseNetworkE5RT.mm";
+      WORD6(buf) = 1025;
+      *(&buf + 14) = 117;
+      WORD1(a12) = 2112;
+      *(&a12 + 4) = v17;
+      _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Exception when accessing the E5 backend information: %@ ***", &buf, 0x1Cu);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x21DE2343CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_21DE2378C(_Unwind_Exception *a1)
@@ -9076,7 +8985,7 @@ void sub_21DE249A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9090,20 +8999,20 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_21DE24C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21DE24C60(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SIBaseNetworkE5RT;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9178,9 +9087,9 @@ void *std::vector<SIE5RTPort * {__strong}>::push_back[abi:nn200100](void *result
   return result;
 }
 
-void sub_21DE27C10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21DE27C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<SIE5RTPort * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9215,7 +9124,7 @@ void sub_21DE280B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<char const*>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<char const*>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9364,13 +9273,13 @@ uint64_t std::unordered_set<unsigned long long>::unordered_set(uint64_t a1, uint
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9386,7 +9295,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9394,7 +9303,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9418,7 +9327,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -9445,33 +9354,33 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -9479,44 +9388,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(uint64_t a1)
@@ -9555,10 +9464,10 @@ uint64_t std::pair<std::string const,std::unordered_set<unsigned long long>>::~p
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(void *a1, uint64_t a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::find<std::string>(void *a1, const void **a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);

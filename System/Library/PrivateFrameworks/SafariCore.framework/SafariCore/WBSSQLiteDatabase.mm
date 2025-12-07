@@ -6,6 +6,7 @@
 - (BOOL)executeQuery:(id)query error:(id *)error;
 - (BOOL)openWithAccessType:(int64_t)type protectionType:(int64_t)protectionType vfs:(id)vfs error:(id *)error;
 - (BOOL)reportErrorWithCode:(int)code query:(id)query error:(id *)error;
+- (BOOL)reportErrorWithCode:(int)code statement:(sqlite3_stmt *)statement error:(id *)error;
 - (BOOL)tryToPerformTransactionInBlock:(id)block;
 - (NSString)lastErrorMessage;
 - (WBSSQLiteDatabase)initWithURL:(id)l queue:(id)queue;
@@ -25,15 +26,15 @@
 
 - (id)checkIntegrity
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  *buf = &v15;
-  v3 = SafariShared::WBSSQLiteDatabaseEnumerate<std::tuple<NSString * {__strong}&>>(self, &v14, @"PRAGMA integrity_check(128)", buf);
-  v4 = v14;
+  *buf = &v14;
+  v3 = SafariShared::WBSSQLiteDatabaseEnumerate<std::tuple<NSString * {__strong}&>>(self, &v13, @"PRAGMA integrity_check(128)", buf);
+  v4 = v13;
   if (v3)
   {
-    if ([v15 isEqualToString:@"ok"])
+    if ([v14 isEqualToString:@"ok"])
     {
       v5 = v4;
       v4 = 0;
@@ -47,10 +48,10 @@
       [(WBSSQLiteDatabase(Extras) *)v10 checkIntegrity:buf];
     }
 
-    v13 = v4;
-    [(WBSSQLiteDatabase *)self reportErrorWithCode:11 query:0 error:&v13];
+    v12 = v4;
+    [(WBSSQLiteDatabase *)self reportErrorWithCode:11 query:0 error:&v12];
     v6 = v4;
-    v4 = v13;
+    v4 = v12;
   }
 
   else
@@ -62,10 +63,10 @@
       safari_privacyPreservingDescription = [v4 safari_privacyPreservingDescription];
       *buf = 138412802;
       *&buf[4] = v7;
-      v17 = 2114;
-      v18 = safari_privacyPreservingDescription;
-      v19 = 2112;
-      v20 = v15;
+      v16 = 2114;
+      v17 = safari_privacyPreservingDescription;
+      v18 = 2112;
+      v19 = v14;
       _os_log_error_impl(&dword_1B8447000, v6, OS_LOG_TYPE_ERROR, "Failed database integrity check on %@: %{public}@: %@", buf, 0x20u);
     }
   }
@@ -73,15 +74,13 @@
   v5 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (int)close
 {
-  v10 = *MEMORY[0x1E69E9840];
-  SafariShared::SuddenTerminationDisabler::SuddenTerminationDisabler(v8, &cfstr_Wbssqlitedatab.isa);
+  v9 = *MEMORY[0x1E69E9840];
+  SafariShared::SuddenTerminationDisabler::SuddenTerminationDisabler(v7, &cfstr_Wbssqlitedatab.isa);
   v3 = sqlite3_close_v2(self->_handle);
   if (v3)
   {
@@ -98,8 +97,7 @@ LABEL_10:
     self->_handle = 0;
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v8);
-  v6 = *MEMORY[0x1E69E9840];
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v7);
   return v3;
 }
 
@@ -262,9 +260,29 @@ LABEL_11:
   }
 }
 
+- (BOOL)reportErrorWithCode:(int)code statement:(sqlite3_stmt *)statement error:(id *)error
+{
+  v6 = *&code;
+  if (statement && (v8 = sqlite3_expanded_sql(statement)) != 0)
+  {
+    v9 = v8;
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
+    v11 = [(WBSSQLiteDatabase *)self reportErrorWithCode:v6 query:v10 error:error];
+
+    sqlite3_free(v9);
+    return v11;
+  }
+
+  else
+  {
+
+    return [(WBSSQLiteDatabase *)self reportErrorWithCode:v6 query:0 error:error];
+  }
+}
+
 - (BOOL)reportErrorWithCode:(int)code query:(id)query error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v10 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
   url = self->_url;
@@ -307,7 +325,7 @@ LABEL_11:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       safari_privacyPreservingDescription = [v16 safari_privacyPreservingDescription];
-      [WBSSQLiteDatabase reportErrorWithCode:safari_privacyPreservingDescription query:v22 error:v18];
+      [WBSSQLiteDatabase reportErrorWithCode:safari_privacyPreservingDescription query:v21 error:v18];
     }
   }
 
@@ -316,7 +334,6 @@ LABEL_11:
     [(WBSSQLiteDatabase *)self _reportSevereError:v16];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -381,7 +398,7 @@ LABEL_11:
 
 - (int)checkpointWriteAheadLogWithLogFrameCount:(int *)count checkpointedFrameCount:(int *)frameCount
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v5 = sqlite3_wal_checkpoint_v2(self->_handle, 0, 2, count, frameCount);
   if (v5)
   {
@@ -389,11 +406,10 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [(WBSSQLiteDatabase *)self lastErrorMessage];
-      [(WBSSQLiteDatabase *)lastErrorMessage checkpointWriteAheadLogWithLogFrameCount:v10 checkpointedFrameCount:v5];
+      [(WBSSQLiteDatabase *)lastErrorMessage checkpointWriteAheadLogWithLogFrameCount:v9 checkpointedFrameCount:v5];
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -559,20 +575,20 @@ LABEL_18:
 
 - (BOOL)tryToPerformTransactionInBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if ([(WBSSQLiteDatabase *)self handle])
   {
-    v19 = 0;
-    v5 = [(WBSSQLiteDatabase *)self executeQuery:@"BEGIN TRANSACTION" error:&v19];
-    v6 = v19;
+    v18 = 0;
+    v5 = [(WBSSQLiteDatabase *)self executeQuery:@"BEGIN TRANSACTION" error:&v18];
+    v6 = v18;
     if (v5)
     {
       if (blockCopy[2](blockCopy))
       {
-        v17 = v6;
-        v7 = [(WBSSQLiteDatabase *)self executeQuery:@"COMMIT TRANSACTION" error:&v17];
-        v8 = v17;
+        v16 = v6;
+        v7 = [(WBSSQLiteDatabase *)self executeQuery:@"COMMIT TRANSACTION" error:&v16];
+        v8 = v16;
 
         if (v7)
         {
@@ -586,15 +602,15 @@ LABEL_17:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           safari_privacyPreservingDescription = [v8 safari_privacyPreservingDescription];
-          [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription tryToPerformTransactionInBlock:v20, v10];
+          [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription tryToPerformTransactionInBlock:v19, v10];
         }
       }
 
       else
       {
-        v18 = v6;
-        v12 = [(WBSSQLiteDatabase *)self executeQuery:@"ROLLBACK TRANSACTION" error:&v18];
-        v8 = v18;
+        v17 = v6;
+        v12 = [(WBSSQLiteDatabase *)self executeQuery:@"ROLLBACK TRANSACTION" error:&v17];
+        v8 = v17;
 
         if (v12)
         {
@@ -606,7 +622,7 @@ LABEL_17:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           safari_privacyPreservingDescription2 = [v8 safari_privacyPreservingDescription];
-          [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription2 tryToPerformTransactionInBlock:v20, v10];
+          [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription2 tryToPerformTransactionInBlock:v19, v10];
         }
       }
 
@@ -619,7 +635,7 @@ LABEL_17:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         safari_privacyPreservingDescription3 = [v6 safari_privacyPreservingDescription];
-        [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription3 tryToPerformTransactionInBlock:v20, v10];
+        [(WBSSQLiteDatabase(Extras) *)safari_privacyPreservingDescription3 tryToPerformTransactionInBlock:v19, v10];
       }
     }
 
@@ -631,7 +647,6 @@ LABEL_17:
   v9 = 0;
 LABEL_18:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -656,12 +671,11 @@ LABEL_18:
 
 - (void)_openWithFlags:(uint64_t *)a1 useLock:(NSObject *)a2 vfs:error:.cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unable to create parent folder for database at path: %{private}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unable to create parent folder for database at path: %{private}@", &v3, 0xCu);
 }
 
 @end

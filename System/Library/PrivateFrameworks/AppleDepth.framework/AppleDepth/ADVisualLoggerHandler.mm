@@ -116,7 +116,7 @@
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        PixelBufferUtils::pixelFormatAsString(PixelFormatType, buf);
+        PixelBufferUtils::pixelFormatAsString(buf, PixelFormatType);
         v13 = v17 >= 0 ? buf : *buf;
         *v18 = 136446210;
         v19 = v13;

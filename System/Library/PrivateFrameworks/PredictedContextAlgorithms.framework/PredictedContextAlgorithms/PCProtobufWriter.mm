@@ -26,7 +26,7 @@
 
 - (BOOL)openFileWithName:(id)name append:(BOOL)append error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (self->_fileHandle)
   {
@@ -37,9 +37,9 @@
   if ([defaultManager fileExistsAtPath:nameCopy] & 1) != 0 || (objc_msgSend(defaultManager, "createFileAtPath:contents:attributes:", nameCopy, 0, 0))
   {
     v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:nameCopy];
-    v22 = 0;
-    v11 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v10 error:&v22];
-    v12 = v22;
+    v21 = 0;
+    v11 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v10 error:&v21];
+    v12 = v21;
     fileHandle = self->_fileHandle;
     self->_fileHandle = v11;
 
@@ -69,9 +69,9 @@
       else
       {
         v18 = MEMORY[0x1E696ABC0];
-        v23 = *MEMORY[0x1E696A578];
-        v24 = @"Failed to open file for writing";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v22 = *MEMORY[0x1E696A578];
+        v23 = @"Failed to open file for writing";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
         *error = [v18 errorWithDomain:@"PCProtobufWriter" code:2 userInfo:v19];
       }
     }
@@ -82,9 +82,9 @@
   if (error)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"Failed to create output file";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"Failed to create output file";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [v17 errorWithDomain:@"PCProtobufWriter" code:1 userInfo:v10];
     *error = v15 = 0;
 LABEL_17:
@@ -95,13 +95,12 @@ LABEL_17:
   v15 = 0;
 LABEL_18:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (id)convertData:(id)data error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = dataCopy;
   if (dataCopy)
@@ -147,16 +146,14 @@ LABEL_18:
     if (error)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A578];
-      v25[0] = @"Failed to serialize record";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E696A578];
+      v24[0] = @"Failed to serialize record";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       *error = [v15 errorWithDomain:@"PCProtobufWriter" code:4 userInfo:v16];
     }
 
     v17 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -197,7 +194,7 @@ LABEL_18:
 
 - (BOOL)writeRecord:(id)record error:(id *)error
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v7 = recordCopy;
   if (self->_fileHandle)
@@ -209,7 +206,7 @@ LABEL_18:
     {
       bytes = [data bytes];
       v12 = [v9 length];
-      v36 = v10;
+      v35 = v10;
       if (v12)
       {
         v13 = 0;
@@ -232,7 +229,7 @@ LABEL_18:
       }
 
       v19 = PCEncodeLittleEndianUInt32(v16);
-      v35 = PCEncodeVarint([v9 length]);
+      v34 = PCEncodeVarint([v9 length]);
       v20 = [MEMORY[0x1E695DF88] dataWithData:?];
       [v20 appendData:v9];
       [v20 appendData:v19];
@@ -250,27 +247,27 @@ LABEL_18:
         {
           v28 = *bytes2++;
           v27 = v28;
-          v38 = v28;
+          v37 = v28;
           if (v26 && (v27 & 0xFFFFFFDF) == 0x5D)
           {
-            v37 = 93;
+            v36 = 93;
             v29 = self->_fileHandle;
-            v30 = [MEMORY[0x1E695DEF0] dataWithBytes:&v37 length:1];
+            v30 = [MEMORY[0x1E695DEF0] dataWithBytes:&v36 length:1];
             [(NSFileHandle *)v29 writeData:v30];
           }
 
           v31 = self->_fileHandle;
-          v32 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:1];
+          v32 = [MEMORY[0x1E695DEF0] dataWithBytes:&v37 length:1];
           [(NSFileHandle *)v31 writeData:v32];
 
-          v26 = v38 == 126;
+          v26 = v37 == 126;
           --v25;
         }
 
         while (v25);
       }
 
-      v10 = v36;
+      v10 = v35;
     }
 
     else
@@ -283,9 +280,9 @@ LABEL_18:
       }
 
       v18 = MEMORY[0x1E696ABC0];
-      v39 = *MEMORY[0x1E696A578];
-      v40 = @"Failed to serialize record";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v38 = *MEMORY[0x1E696A578];
+      v39 = @"Failed to serialize record";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
       *error = [v18 errorWithDomain:@"PCProtobufWriter" code:4 userInfo:v19];
     }
   }
@@ -299,9 +296,9 @@ LABEL_18:
     }
 
     v17 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A578];
-    v42[0] = @"File not open";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x1E696A578];
+    v41[0] = @"File not open";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     [v17 errorWithDomain:@"PCProtobufWriter" code:3 userInfo:v9];
     *error = v10 = 0;
   }
@@ -309,7 +306,6 @@ LABEL_18:
 LABEL_20:
 
 LABEL_21:
-  v33 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

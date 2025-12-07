@@ -9,10 +9,10 @@
 
 - (id)parameterOverrides
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = WFLinkSearchAction;
-  parameterOverrides = [(WFOverridableLinkAction *)&v11 parameterOverrides];
+  v12[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = WFLinkSearchAction;
+  parameterOverrides = [(WFOverridableLinkAction *)&v10 parameterOverrides];
   v3 = [parameterOverrides mutableCopy];
   v4 = v3;
   if (v3)
@@ -27,26 +27,22 @@
 
   v6 = v5;
 
-  v12 = @"Prompt";
+  v11 = @"Prompt";
   v7 = WFLocalizedStringWithKey(@"What do you want to search for? (searchPhrase)", @"What do you want to search for?");
-  v13[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   WFAddEntriesToDictionary(v6, @"searchPhrase", v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)overrideLabelsByParameter
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"searchPhrase";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"searchPhrase";
   v2 = WFLocalizedStringResourceWithKey(@"Text (searchPhrase)", @"Text");
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

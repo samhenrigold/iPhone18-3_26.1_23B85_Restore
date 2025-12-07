@@ -11,7 +11,7 @@
 
 - (void)invalidate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   statement = self->_statement;
   if (statement)
   {
@@ -32,19 +32,17 @@
         v9 = v8;
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
-        v14 = 138543618;
-        v15 = v11;
-        v16 = 2048;
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_1883EA000, v9, OS_LOG_TYPE_INFO, "%{public}@(%p): End enumeration", &v14, 0x16u);
+        _os_log_impl(&dword_1883EA000, v9, OS_LOG_TYPE_INFO, "%{public}@(%p): End enumeration", &v13, 0x16u);
       }
     }
   }
 
   table = self->_table;
   self->_table = 0;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

@@ -160,7 +160,7 @@
 
 - (void)_refetch
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (self->_needsRefetch)
   {
     self->_needsRefetch = 0;
@@ -188,10 +188,10 @@
     v6 = _refetch__pasExprOnceResult;
     state.opaque[0] = 0;
     state.opaque[1] = &state;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy_;
-    v28 = __Block_byref_object_dispose_;
-    v29 = 0;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy_;
+    v27 = __Block_byref_object_dispose_;
+    v28 = 0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __31___CDInteractionCache__refetch__block_invoke_92;
@@ -199,14 +199,14 @@
     p_state = &state;
     block[4] = self;
     v7 = v5;
-    v23 = v7;
+    v22 = v7;
     dispatch_sync(v6, block);
     v8 = +[_CDLogging interactionChannel];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(state.opaque[1] + 40) count];
       *buf = 134217984;
-      v32 = v9;
+      v31 = v9;
       _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, "Re-fetched interaction cache with %tu interactions", buf, 0xCu);
     }
 
@@ -214,30 +214,30 @@
     mutableInteractions = self->_mutableInteractions;
     self->_mutableInteractions = v10;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = *(state.opaque[1] + 40);
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v30 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v29 count:16];
     if (v13)
     {
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v18 + 1) + 8 * i);
-          [(_CDInteractionCache *)self _countConversationIDsForInteraction:v16 deleted:0, v18];
+          v16 = *(*(&v17 + 1) + 8 * i);
+          [(_CDInteractionCache *)self _countConversationIDsForInteraction:v16 deleted:0, v17];
           [(_CDInteractionCache *)self _updateMostRecentInteractionsWithInteraction:v16 deleted:0];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v18 objects:v30 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v17 objects:v29 count:16];
       }
 
       while (v13);
@@ -245,8 +245,6 @@
 
     _Block_object_dispose(&state, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceRefetch
@@ -422,43 +420,41 @@ LABEL_4:
 
 - (void)_rebuildMostRecentInteractions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(NSMutableDictionary *)self->_mostRecentInteractionsByTaxonomyAndIdentifier removeAllObjects];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = self->_mutableInteractions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
-        [(_CDInteractionCache *)self _updateMostRecentInteractionsWithInteraction:v8 deleted:0, v11];
+        [(_CDInteractionCache *)self _updateMostRecentInteractionsWithInteraction:v8 deleted:0, v10];
         objc_autoreleasePoolPop(v9);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interactionsRecorded:(id)recorded
@@ -513,32 +509,32 @@ LABEL_4:
 
 - (void)_cacheInteractions:(id)interactions
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   interactionsCopy = interactions;
   oslog = +[_CDLogging interactionChannel];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = interactionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v33;
+    v8 = *v32;
     *&v6 = 138740227;
-    v29 = v6;
+    v28 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
+        v10 = *(*(&v31 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         filterBlock = [(_CDInteractionCache *)self filterBlock];
         if (!filterBlock || (v13 = filterBlock, [(_CDInteractionCache *)self filterBlock], v14 = objc_claimAutoreleasedReturnValue(), v15 = (v14)[2](v14, v10), v14, v13, v15))
@@ -548,10 +544,10 @@ LABEL_4:
           {
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v29;
-              v37 = v10;
-              v38 = 2048;
-              v39 = v16;
+              *buf = v28;
+              v36 = v10;
+              v37 = 2048;
+              v38 = v16;
               _os_log_debug_impl(&dword_191750000, oslog, OS_LOG_TYPE_DEBUG, "Caching interaction %{sensitive}@ to index %tu", buf, 0x16u);
             }
 
@@ -566,7 +562,7 @@ LABEL_4:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v7);
@@ -580,67 +576,65 @@ LABEL_4:
     v22 = v21 - [(_CDInteractionCache *)self size];
     if (v22)
     {
-      v25 = 1;
+      v24 = 1;
       *&v23 = 138740227;
-      v29 = v23;
-      v26 = v20;
+      v28 = v23;
+      v25 = v20;
       do
       {
-        v27 = [(NSMutableArray *)self->_mutableInteractions objectAtIndexedSubscript:v26, v29];
+        v26 = [(NSMutableArray *)self->_mutableInteractions objectAtIndexedSubscript:v25, v28];
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v29;
-          v37 = v27;
-          v38 = 2048;
-          v39 = v26;
+          *buf = v28;
+          v36 = v26;
+          v37 = 2048;
+          v38 = v25;
           _os_log_debug_impl(&dword_191750000, oslog, OS_LOG_TYPE_DEBUG, "Will truncate interaction %{sensitive}@ at index %tu", buf, 0x16u);
         }
 
-        [(_CDInteractionCache *)self _handleInteractionRemoval:v27];
+        [(_CDInteractionCache *)self _handleInteractionRemoval:v26];
 
-        if (v20 > ++v26)
+        if (v20 > ++v25)
         {
           break;
         }
       }
 
-      while (v25++ < v22);
+      while (v24++ < v22);
     }
 
-    [(NSMutableArray *)self->_mutableInteractions removeObjectsInRange:v20, v22, v29];
+    [(NSMutableArray *)self->_mutableInteractions removeObjectsInRange:v20, v22, v28];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteInteractions:(id)interactions
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   interactionsCopy = interactions;
   oslog = +[_CDLogging interactionChannel];
-  v21 = [(NSMutableArray *)self->_mutableInteractions count];
+  v20 = [(NSMutableArray *)self->_mutableInteractions count];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = interactionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v24;
+    v9 = *v23;
     *&v7 = 138740227;
-    v20 = v7;
+    v19 = v7;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         filterBlock = [(_CDInteractionCache *)self filterBlock];
         if (!filterBlock || (v14 = filterBlock, [(_CDInteractionCache *)self filterBlock], v15 = objc_claimAutoreleasedReturnValue(), v16 = v15[2](v15, v11), v15, v14, v16))
@@ -651,16 +645,16 @@ LABEL_4:
             v18 = v17;
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v20;
-              v28 = v11;
-              v29 = 2048;
-              v30 = v18;
+              *buf = v19;
+              v27 = v11;
+              v28 = 2048;
+              v29 = v18;
               _os_log_debug_impl(&dword_191750000, oslog, OS_LOG_TYPE_DEBUG, "Deleting interaction %{sensitive}@ at index %tu", buf, 0x16u);
             }
 
             [(NSMutableArray *)self->_mutableInteractions removeObjectAtIndex:v18];
             [(_CDInteractionCache *)self _handleInteractionRemoval:v11];
-            if (v21 >= self->_minCacheSize && [(NSMutableArray *)self->_mutableInteractions count]< self->_minCacheSize)
+            if (v20 >= self->_minCacheSize && [(NSMutableArray *)self->_mutableInteractions count]< self->_minCacheSize)
             {
               [(_CDInteractionCache *)self _forceRefetch];
               objc_autoreleasePoolPop(v12);
@@ -672,7 +666,7 @@ LABEL_4:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
       if (v8)
       {
         continue;
@@ -683,8 +677,6 @@ LABEL_4:
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleInteractionRemoval:(id)removal

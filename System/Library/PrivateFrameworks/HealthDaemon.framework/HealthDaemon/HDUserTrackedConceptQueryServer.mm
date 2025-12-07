@@ -44,10 +44,10 @@
 
 - (void)_queue_start
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = HDUserTrackedConceptQueryServer;
-  [(HDQueryServer *)&v20 _queue_start];
+  v24 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = HDUserTrackedConceptQueryServer;
+  [(HDQueryServer *)&v19 _queue_start];
   queryUUID = [(HDQueryServer *)self queryUUID];
   clientProxy = [(HDQueryServer *)self clientProxy];
   client = [(HDQueryServer *)self client];
@@ -57,9 +57,9 @@
   if ((clientHasAuthorizationForAllTypes & 1) == 0)
   {
     objectType = [(HDQueryServer *)self objectType];
-    v19 = 0;
-    v9 = [(HDQueryServer *)self authorizationStatusRecordForType:objectType error:&v19];
-    v10 = v19;
+    v18 = 0;
+    v9 = [(HDQueryServer *)self authorizationStatusRecordForType:objectType error:&v18];
+    v10 = v18;
 
     if (!v9)
     {
@@ -76,9 +76,9 @@
   }
 
   profile = [(HDQueryServer *)self profile];
-  v18 = 0;
-  v12 = [HDUserDomainConceptAPIObjectManager allAPIObjectsFromUserDomainConceptsWithProfile:profile error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v12 = [HDUserDomainConceptAPIObjectManager allAPIObjectsFromUserDomainConceptsWithProfile:profile error:&v17];
+  v10 = v17;
 
   v9 = [v12 hk_filter:&__block_literal_global_134];
 
@@ -95,10 +95,10 @@ LABEL_12:
   v15 = HKLogHealthOntology();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v17 = HKSensitiveLogItem();
+    v16 = HKSensitiveLogItem();
     *buf = 138543618;
-    v22 = v17;
-    v23 = 2114;
+    v21 = v16;
+    v22 = 2114;
     selfCopy = self;
     _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Error while fetching concepts: %{public}@", buf, 0x16u);
   }
@@ -106,8 +106,6 @@ LABEL_12:
   [clientProxy client_deliverError:v10 forQuery:queryUUID];
   v9 = 0;
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__HDUserTrackedConceptQueryServer__queue_start__block_invoke(uint64_t a1, void *a2)

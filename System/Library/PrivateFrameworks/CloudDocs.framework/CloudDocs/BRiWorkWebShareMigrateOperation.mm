@@ -110,13 +110,10 @@
 - (void)main
 {
   OUTLINED_FUNCTION_6_1();
-  v11 = *MEMORY[0x1E69E9840];
   v1 = [v0 url];
   path = [v1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] migrating share for '%@'%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] migrating share for '%@'%@", v5, v6, v7, v8);
 }
 
 - (void)finishWithResult:(id)result error:(id)error

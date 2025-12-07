@@ -45,22 +45,22 @@
   strongHealthDataSource = WeakRetained;
   if (WeakRetained || (strongHealthDataSource = self->_strongHealthDataSource) != 0)
   {
-    v5 = strongHealthDataSource;
+    v6 = strongHealthDataSource;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogInfrastructure();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(0, v3);
+    v10 = HKLogInfrastructure(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(HKAnalyticsDataSource *)self healthDataSource];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (HKAnalyticsHealthDataSource)weakHealthDataSource
@@ -72,13 +72,11 @@
 
 - (void)healthDataSource
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@]: Health data source is nil", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@]: Health data source is nil", &v4, 0xCu);
 }
 
 @end

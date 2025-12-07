@@ -9,10 +9,10 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_1A46E66B8();
+  v7 = sub_1A46E66B8(animated);
   swift_unknownObjectRelease();
 
-  return v6;
+  return v7;
 }
 
 - (_TtCC12PhotosUICore31LemonadeCuratedLibraryViewModelP33_11848A52FD5D3BAEA42050E5375D858922AllPhotosDelegateProxy)init

@@ -115,22 +115,20 @@
 
 void __86__FCCKPrivateDatabaseVersionMapping_initWithBaseValues_V2Changes_V3Changes_V4Changes___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) containsObject:a2] & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"versioned changes should be keyed by base value"];
-    v4 = 136315906;
-    v5 = "[FCCKPrivateDatabaseVersionMapping initWithBaseValues:V2Changes:V3Changes:V4Changes:]_block_invoke";
-    v6 = 2080;
-    v7 = "FCCKPrivateDatabaseVersionMapping.m";
-    v8 = 1024;
-    v9 = 55;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
+    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"versioned changes should be keyed by base value"];
+    v3 = 136315906;
+    v4 = "[FCCKPrivateDatabaseVersionMapping initWithBaseValues:V2Changes:V3Changes:V4Changes:]_block_invoke";
+    v5 = 2080;
+    v6 = "FCCKPrivateDatabaseVersionMapping.m";
+    v7 = 1024;
+    v8 = 55;
+    v9 = 2114;
+    v10 = v2;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3, 0x26u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __86__FCCKPrivateDatabaseVersionMapping_initWithBaseValues_V2Changes_V3Changes_V4Changes___block_invoke_6(uint64_t a1, void *a2)

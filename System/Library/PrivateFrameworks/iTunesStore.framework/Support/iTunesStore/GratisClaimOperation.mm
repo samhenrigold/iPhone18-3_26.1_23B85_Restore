@@ -180,40 +180,45 @@
       sharedDaemonConfig = [v6[412] sharedConfig];
     }
 
-    shouldLog = [sharedDaemonConfig shouldLog];
+    LODWORD(v11) = [sharedDaemonConfig shouldLog];
     if ([sharedDaemonConfig shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v11) = v11 | 2;
     }
 
-    if (!os_log_type_enabled([sharedDaemonConfig OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [sharedDaemonConfig OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v11 = v11;
     }
 
-    if (shouldLog)
+    else
     {
-      v12 = objc_opt_class();
+      v11 &= 2u;
+    }
+
+    if (v11)
+    {
+      v13 = objc_opt_class();
       requestBody = self->_requestBody;
-      *v33 = 138412546;
-      *&v33[4] = v12;
-      v34 = 2112;
-      v35 = requestBody;
-      LODWORD(v30) = 22;
-      v29 = v33;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      *v34 = 138412546;
+      *&v34[4] = v13;
+      v35 = 2112;
+      v36 = requestBody;
+      LODWORD(v31) = 22;
+      v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running claim with body: %@", v34, v31);
+      if (v15)
       {
-        v15 = v14;
-        v16 = [NSString stringWithCString:v14 encoding:4, v33, v30];
-        free(v15);
-        v29 = v16;
+        v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v30 = v17;
         SSFileLog();
       }
     }
 
-    *v33 = 0;
-    v17 = [(GratisClaimOperation *)self runSubOperation:v7 returningError:v33, v29];
+    *v34 = 0;
+    v18 = [(GratisClaimOperation *)self runSubOperation:v7 returningError:v34, v30];
     redirectedClaimURL = [provider redirectedClaimURL];
     if (redirectedClaimURL)
     {
@@ -227,32 +232,32 @@
       output = [provider output];
       if (output)
       {
-        v20 = output;
-        v31 = [NSPropertyListSerialization dataWithPropertyList:output format:100 options:0 error:0];
-        self->_rawOutput = v20;
-        v21 = _newDefaultRequestProperties;
-        v22 = v6;
-        v23 = p_cache;
-        v24 = v4;
-        v25 = [SSURLConnectionResponse alloc];
+        v21 = output;
+        v32 = [NSPropertyListSerialization dataWithPropertyList:output format:100 options:0 error:0];
+        self->_rawOutput = v21;
+        v22 = _newDefaultRequestProperties;
+        v23 = v6;
+        v24 = p_cache;
+        v25 = v4;
+        v26 = [SSURLConnectionResponse alloc];
         response = [v7 response];
-        v27 = v25;
-        v4 = v24;
-        p_cache = v23;
-        v6 = v22;
-        _newDefaultRequestProperties = v21;
-        self->_urlResponse = [v27 initWithURLResponse:response bodyData:v31];
-        v28 = [v20 objectForKey:@"duAnonymousPings"];
+        v28 = v26;
+        v4 = v25;
+        p_cache = v24;
+        v6 = v23;
+        _newDefaultRequestProperties = v22;
+        self->_urlResponse = [v28 initWithURLResponse:response bodyData:v32];
+        v29 = [v21 objectForKey:@"duAnonymousPings"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [PurchaseOperation reportAnonymousPings:v28];
+          [PurchaseOperation reportAnonymousPings:v29];
         }
       }
 
       [(GratisClaimOperation *)self unlock];
-      [(GratisClaimOperation *)self setError:*v33];
-      [(GratisClaimOperation *)self setSuccess:v17];
+      [(GratisClaimOperation *)self setError:*v34];
+      [(GratisClaimOperation *)self setSuccess:v18];
     }
 
     [v7 setDelegate:0];

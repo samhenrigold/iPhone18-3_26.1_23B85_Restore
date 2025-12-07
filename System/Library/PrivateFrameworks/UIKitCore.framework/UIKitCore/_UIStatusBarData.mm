@@ -272,9 +272,9 @@ LABEL_23:
                 goto LABEL_24;
               }
 
-              v19 = [v15 isEqual:v16];
+              isEqual = objc_msgSend_isEqual_(v15);
 
-              if (!v19)
+              if (!isEqual)
               {
                 goto LABEL_23;
               }
@@ -643,7 +643,7 @@ LABEL_11:
             v14 = 1;
           }
 
-          if (!v14 && [v12 isEqual:v11])
+          if (!v14 && objc_msgSend_isEqual_(v12))
           {
             [(_UIStatusBarData *)self setValue:0 forKey:v10];
           }

@@ -214,11 +214,10 @@ void __35__CAFDimensionManager_initWithCar___block_invoke(uint64_t a1)
 
 - (void)invalidate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ time to invalidate", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ time to invalidate", &v2, 0xCu);
 }
 
 - (void)currentLocaleChanged

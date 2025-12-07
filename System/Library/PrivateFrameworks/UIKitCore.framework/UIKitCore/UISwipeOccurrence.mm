@@ -638,7 +638,7 @@ LABEL_30:
     v22 = swipeHandler;
     if (swipeHandler)
     {
-      [swipeHandler currentSwipeConfig];
+      objc_msgSend_currentSwipeConfig(swipeHandler);
     }
 
     else
@@ -757,7 +757,7 @@ uint64_t __74__UISwipeOccurrence__resetItemWithSwipeInfo_animated_deletion_compl
     v17 = swipeHandler;
     if (swipeHandler)
     {
-      [swipeHandler currentSwipeConfig];
+      objc_msgSend_currentSwipeConfig(swipeHandler);
     }
 
     else
@@ -798,7 +798,7 @@ uint64_t __74__UISwipeOccurrence__resetItemWithSwipeInfo_animated_deletion_compl
       v14 = swipeHandler2;
       if (swipeHandler2)
       {
-        [swipeHandler2 currentSwipeConfig];
+        objc_msgSend_currentSwipeConfig(swipeHandler2);
       }
 
       else
@@ -1323,9 +1323,9 @@ void __62__UISwipeOccurrence__performSwipeAction_inPullView_swipeInfo___block_in
 - (BOOL)isDynamicPullView
 {
   v2 = +[UISwipeOccurrence pullViewClass];
-  v3 = objc_opt_class();
+  objc_opt_class();
 
-  return [(objc_class *)v2 isEqual:v3];
+  return objc_msgSend_isEqual_(v2);
 }
 
 - (double)_extraOffsetForOffset:(double)offset withDirection:(unint64_t)direction
@@ -1857,7 +1857,7 @@ LABEL_32:
 
 - (id)_actionView
 {
-  [(UISwipeOccurrence *)self currentSwipeInfo];
+  objc_msgSend_currentSwipeInfo(self, a2);
 
   return 0;
 }

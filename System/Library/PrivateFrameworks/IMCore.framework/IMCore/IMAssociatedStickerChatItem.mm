@@ -11,161 +11,161 @@
 
 - (id)commSafetyMessageGUID
 {
-  v3 = objc_msgSend_message(self, a2, v2);
-  v6 = objc_msgSend_guid(v3, v4, v5);
+  message = [(IMAssociatedMessageChatItem *)self message];
+  guid = [message guid];
 
-  return v6;
+  return guid;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v8.receiver = self;
-  v8.super_class = IMAssociatedStickerChatItem;
-  v4 = [(IMTranscriptChatItem *)&v8 description];
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"[[%@] transferGUID: %@]", v4, self->_transferGUID);
+  v7.receiver = self;
+  v7.super_class = IMAssociatedStickerChatItem;
+  v4 = [(IMTranscriptChatItem *)&v7 description];
+  v5 = [v3 stringWithFormat:@"[[%@] transferGUID: %@]", v4, self->_transferGUID];
 
-  return v6;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v10 = objc_msgSend_sender(self, v8, v9);
-  v12 = objc_msgSend__initWithItem_sender_transferGUID_(v4, v11, v7, v10, self->_transferGUID);
+  _item = [(IMChatItem *)self _item];
+  sender = [(IMAssociatedMessageChatItem *)self sender];
+  v7 = [v4 _initWithItem:_item sender:sender transferGUID:self->_transferGUID];
 
-  return v12;
+  return v7;
 }
 
 - (id)_initWithItem:(id)item sender:(id)sender transferGUID:(id)d
 {
   dCopy = d;
-  v17.receiver = self;
-  v17.super_class = IMAssociatedStickerChatItem;
-  v11 = [(IMAssociatedMessageChatItem *)&v17 _initWithItem:item sender:sender];
-  if (v11)
+  v13.receiver = self;
+  v13.super_class = IMAssociatedStickerChatItem;
+  v9 = [(IMAssociatedMessageChatItem *)&v13 _initWithItem:item sender:sender];
+  if (v9)
   {
-    v12 = objc_msgSend_copy(dCopy, v9, v10);
-    v13 = v11[20];
-    v11[20] = v12;
+    v10 = [dCopy copy];
+    v11 = v9[20];
+    v9[20] = v10;
 
-    objc_msgSend__refreshGeometryDescriptorFromStickerUserInfo(v11, v14, v15);
+    [v9 _refreshGeometryDescriptorFromStickerUserInfo];
   }
 
-  return v11;
+  return v9;
 }
 
 - (void)_refreshGeometryDescriptorFromStickerUserInfo
 {
-  v4 = objc_msgSend_sharedInstance(IMFileTransferCenter, a2, v2);
-  v6 = objc_msgSend_transferForGUID_(v4, v5, self->_transferGUID);
+  v3 = +[IMFileTransferCenter sharedInstance];
+  v4 = [v3 transferForGUID:self->_transferGUID];
 
-  if (objc_msgSend_isSticker(v6, v7, v8))
+  if ([v4 isSticker])
   {
-    v11 = objc_msgSend_stickerUserInfo(v6, v9, v10);
-    v13 = objc_msgSend_objectForKey_(v11, v12, *MEMORY[0x1E69A7C60]);
-    v16 = v13;
-    if (v13)
+    stickerUserInfo = [v4 stickerUserInfo];
+    v6 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7C60]];
+    v7 = v6;
+    if (v6)
     {
-      v52 = objc_msgSend_unsignedIntValue(v13, v14, v15);
+      unsignedIntValue = [v6 unsignedIntValue];
     }
 
     else
     {
-      v52 = 0;
+      unsignedIntValue = 0;
     }
 
-    v17 = objc_msgSend_objectForKey_(v11, v14, *MEMORY[0x1E69A7C50]);
-    v20 = v17;
-    if (v17)
+    v8 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7C50]];
+    v9 = v8;
+    if (v8)
     {
-      v51 = objc_msgSend_unsignedIntValue(v17, v18, v19);
+      unsignedIntValue2 = [v8 unsignedIntValue];
     }
 
     else
     {
-      v51 = 0;
+      unsignedIntValue2 = 0;
     }
 
-    v21 = objc_msgSend_objectForKey_(v11, v18, *MEMORY[0x1E69A7C68]);
-    v24 = v21;
-    v25 = 0.0;
-    v26 = 0.0;
-    if (v21)
+    v10 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7C68]];
+    v11 = v10;
+    v12 = 0.0;
+    v13 = 0.0;
+    if (v10)
     {
-      objc_msgSend_floatValue(v21, v22, v23);
-      v26 = v27;
+      [v10 floatValue];
+      v13 = v14;
     }
 
-    v28 = objc_msgSend_objectForKey_(v11, v22, *MEMORY[0x1E69A7CC8]);
-    v31 = v28;
-    if (v28)
+    v15 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7CC8]];
+    v16 = v15;
+    if (v15)
     {
-      objc_msgSend_floatValue(v28, v29, v30);
-      v25 = v32;
+      [v15 floatValue];
+      v12 = v17;
     }
 
-    v33 = objc_msgSend_objectForKey_(v11, v29, *MEMORY[0x1E69A7CD0]);
-    v36 = v33;
-    v37 = 0.0;
-    v38 = 0.0;
-    if (v33)
+    v18 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7CD0]];
+    v19 = v18;
+    v20 = 0.0;
+    v21 = 0.0;
+    if (v18)
     {
-      objc_msgSend_floatValue(v33, v34, v35);
-      v38 = v39;
+      [v18 floatValue];
+      v21 = v22;
     }
 
-    v40 = objc_msgSend_objectForKey_(v11, v34, *MEMORY[0x1E69A7C78]);
-    v43 = v40;
-    if (v40)
+    v23 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7C78]];
+    v24 = v23;
+    if (v23)
     {
-      objc_msgSend_floatValue(v40, v41, v42);
-      v37 = v44;
+      [v23 floatValue];
+      v20 = v25;
     }
 
-    v45 = objc_msgSend_objectForKey_(v11, v41, *MEMORY[0x1E69A7C70]);
-    v48 = v45;
-    if (v45)
+    v26 = [stickerUserInfo objectForKey:*MEMORY[0x1E69A7C70]];
+    v27 = v26;
+    if (v26)
     {
-      objc_msgSend_floatValue(v45, v46, v47);
-      v50 = v49;
+      [v26 floatValue];
+      v29 = v28;
     }
 
     else
     {
-      v50 = 0.0;
+      v29 = 0.0;
     }
 
-    v53[0] = v52;
-    v53[1] = v51;
-    *&v53[2] = v26;
-    *&v53[3] = v25;
-    *&v53[4] = v38;
-    *&v53[5] = v37;
-    *&v53[6] = v50;
-    objc_msgSend__setGeometryDescriptor_(self, v46, v53);
+    v32[0] = unsignedIntValue;
+    v32[1] = unsignedIntValue2;
+    *&v32[2] = v13;
+    *&v32[3] = v12;
+    *&v32[4] = v21;
+    *&v32[5] = v20;
+    *&v32[6] = v29;
+    [(IMAssociatedMessageChatItem *)self _setGeometryDescriptor:v32];
   }
 }
 
 - (unint64_t)stickerPositionVersion
 {
-  v4 = objc_msgSend_sharedInstance(IMFileTransferCenter, a2, v2);
-  v6 = objc_msgSend_transferForGUID_(v4, v5, self->_transferGUID);
+  v3 = +[IMFileTransferCenter sharedInstance];
+  v4 = [v3 transferForGUID:self->_transferGUID];
 
-  if (objc_msgSend_isSticker(v6, v7, v8))
+  if ([v4 isSticker])
   {
-    v11 = objc_msgSend_stickerUserInfo(v6, v9, v10);
-    v13 = objc_msgSend_valueForKey_(v11, v12, *MEMORY[0x1E69A7CB8]);
-    v16 = objc_msgSend_unsignedIntValue(v13, v14, v15);
+    stickerUserInfo = [v4 stickerUserInfo];
+    v6 = [stickerUserInfo valueForKey:*MEMORY[0x1E69A7CB8]];
+    unsignedIntValue = [v6 unsignedIntValue];
   }
 
   else
   {
-    v16 = 0x7FFFFFFFFFFFFFFFLL;
+    unsignedIntValue = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v16;
+  return unsignedIntValue;
 }
 
 @end

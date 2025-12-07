@@ -122,7 +122,7 @@
   }
 
   memset(&v32, 0, sizeof(v32));
-  [(TVPExternalImagePlayer *)self elapsedTime];
+  objc_msgSend_elapsedTime(self);
   time = v32;
   Seconds = CMTimeGetSeconds(&time);
   [(TVPExternalImagePlayer *)self rate];
@@ -133,7 +133,7 @@
   if (referenceDate)
   {
     memset(&v30, 0, sizeof(v30));
-    [(TVPExternalImagePlayer *)self referenceTime];
+    objc_msgSend_referenceTime(self);
     v28 = time;
     CMTimeSubtract(&v30, &v28, &rhs);
     rhs = v30;
@@ -193,15 +193,15 @@
 
 - (void)_loadImagesIfNecessary
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   imageLoader = [(TVPExternalImagePlayer *)self imageLoader];
   if (imageLoader)
   {
     [(TVPExternalImagePlayer *)self rate];
     v4 = v3;
-    memset(&v42, 0, sizeof(v42));
-    [(TVPExternalImagePlayer *)self elapsedTime];
-    time = v42;
+    memset(&v41, 0, sizeof(v41));
+    objc_msgSend_elapsedTime(self);
+    time = v41;
     [(TVPExternalImagePlayer *)self _timeAfterRemovingInterstitials:CMTimeGetSeconds(&time)];
     v6 = v5;
     [(TVPExternalImagePlayer *)self imageInterval];
@@ -209,17 +209,17 @@
     v9 = v8;
     [(TVPExternalImagePlayer *)self imageInterval];
     v11 = v10;
-    v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (v4 <= 0.0)
     {
       [imageLoader firstImageTime];
       for (i = v15; v9 >= i; v9 = v9 - v11)
       {
-        if (([imageLoader imageIsLoadedForTime:{v9, v31}] & 1) == 0)
+        if (([imageLoader imageIsLoadedForTime:{v9, v30}] & 1) == 0)
         {
           v17 = objc_alloc_init(TVPPlaybackImageLoadInfo);
           [(TVPPlaybackImageLoadInfo *)v17 setRequestedTime:v9];
-          [v31 addObject:v17];
+          [v30 addObject:v17];
         }
       }
     }
@@ -229,38 +229,38 @@
       [imageLoader lastImageTime];
       for (j = v12; v9 <= j; v9 = v11 + v9)
       {
-        if (([imageLoader imageIsLoadedForTime:{v9, v31}] & 1) == 0)
+        if (([imageLoader imageIsLoadedForTime:{v9, v30}] & 1) == 0)
         {
           v14 = objc_alloc_init(TVPPlaybackImageLoadInfo);
           [(TVPPlaybackImageLoadInfo *)v14 setRequestedTime:v9];
-          [v31 addObject:v14];
+          [v30 addObject:v14];
         }
       }
     }
 
-    v18 = v31;
-    if (v31)
+    v18 = v30;
+    if (v30)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v19 = v31;
-      v20 = [v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v19 = v30;
+      v20 = [v19 countByEnumeratingWithState:&v36 objects:v42 count:16];
       if (v20)
       {
-        v21 = *v38;
+        v21 = *v37;
         do
         {
           v22 = 0;
           do
           {
-            if (*v38 != v21)
+            if (*v37 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            v23 = *(*(&v37 + 1) + 8 * v22);
+            v23 = *(*(&v36 + 1) + 8 * v22);
             imageInfosBeingLoaded = [(TVPExternalImagePlayer *)self imageInfosBeingLoaded];
             imageInfosBeingLoaded2 = [(TVPExternalImagePlayer *)self imageInfosBeingLoaded];
             v26 = [imageInfosBeingLoaded indexOfObject:v23 inSortedRange:0 options:objc_msgSend(imageInfosBeingLoaded2 usingComparator:{"count"), 1024, &__block_literal_global_7}];
@@ -272,7 +272,7 @@
           }
 
           while (v20 != v22);
-          v20 = [v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v36 objects:v42 count:16];
         }
 
         while (v20);
@@ -280,27 +280,25 @@
 
       objc_initWeak(&time, self);
       v28 = [v19 valueForKey:@"requestedTime"];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke_2;
-      v35[3] = &unk_279D7BD50;
-      objc_copyWeak(&v36, &time);
-      v29 = [imageLoader loadImagesForTimes:v28 maxSize:v35 withHandler:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke_2;
+      v34[3] = &unk_279D7BD50;
+      objc_copyWeak(&v35, &time);
+      v29 = [imageLoader loadImagesForTimes:v28 maxSize:v34 withHandler:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke_2_11;
-      v33[3] = &unk_279D7BD78;
-      v34 = v19;
-      [v29 enumerateObjectsUsingBlock:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke_2_11;
+      v32[3] = &unk_279D7BD78;
+      v33 = v19;
+      [v29 enumerateObjectsUsingBlock:v32];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(&time);
-      v18 = v31;
+      v18 = v30;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -429,7 +427,7 @@ void __48__TVPExternalImagePlayer__loadImagesIfNecessary__block_invoke_2_11(uint
   [imageInfosBeingLoaded2 removeObjectsAtIndexes:v5];
 }
 
-uint64_t __56__TVPExternalImagePlayer__cancelStaleImageLoadsForTime___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__TVPExternalImagePlayer__cancelStaleImageLoadsForTime___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 requestedTime];
   if (v8 >= *(a1 + 40))
@@ -447,7 +445,7 @@ uint64_t __56__TVPExternalImagePlayer__cancelStaleImageLoadsForTime___block_invo
   return result;
 }
 
-uint64_t __56__TVPExternalImagePlayer__cancelStaleImageLoadsForTime___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__TVPExternalImagePlayer__cancelStaleImageLoadsForTime___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 requestedTime];
   if (v8 <= *(a1 + 40))

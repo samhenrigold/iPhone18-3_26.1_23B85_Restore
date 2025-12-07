@@ -143,7 +143,7 @@ LABEL_6:
 
 void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -158,19 +158,19 @@ void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke(uint6
     if (os_log_type_enabled(_TVLLogDefault_log_3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Incoming Message: %{public}@", buf, 0xCu);
     }
 
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16;
-    v18 = &unk_279D6BBB0;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16;
+    v17 = &unk_279D6BBB0;
     v10 = v6;
-    v19 = v10;
-    v20 = v7;
-    v11 = MEMORY[0x26D6AEC20](&v15);
-    v12 = [v10 objectForKey:{@"MESSAGE", v15, v16, v17, v18}];
+    v18 = v10;
+    v19 = v7;
+    v11 = MEMORY[0x26D6AEC20](&v14);
+    v12 = [v10 objectForKey:{@"MESSAGE", v14, v15, v16, v17}];
     if ([v12 isEqualToString:@"SYNC_CLOCK"])
     {
       v13 = [v10 objectForKey:@"OPTIONS"];
@@ -200,13 +200,11 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (_TVLLogDefault_onceToken_3 != -1)
@@ -228,20 +226,19 @@ void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16(ui
       v11 = 0;
     }
 
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Responding To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_DEFAULT, "Responding To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", &v12, 0x20u);
     if (a2)
     {
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activate
@@ -252,17 +249,17 @@ void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16(ui
 
 - (void)estimateAudioLatencyWithToneIdentifier:(id)identifier
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [(TVLAudioLatencyEstimator *)self _postProgressEvent:0 withInfo:0];
   v5 = objc_alloc(MEMORY[0x277CBEB38]);
-  v20[0] = identifierCopy;
-  v19[0] = @"TONE";
-  v19[1] = @"VERSION";
+  v19[0] = identifierCopy;
+  v18[0] = @"TONE";
+  v18[1] = @"VERSION";
   *&v6 = self->_version;
   v7 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v20[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v9 = [v5 initWithDictionary:v8];
 
   if (DeviceProductType_onceToken != -1)
@@ -288,27 +285,25 @@ void __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_16(ui
   }
 
   objc_initWeak(&location, self);
-  v17[0] = @"MESSAGE";
-  v17[1] = @"OPTIONS";
-  v18[0] = @"START";
-  v18[1] = v9;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___block_invoke;
-  v14[3] = &unk_279D6BF28;
-  objc_copyWeak(&v15, &location);
-  [(TVLAudioLatencyEstimator *)self _sendMessage:v12 withResponse:v14];
+  v16[0] = @"MESSAGE";
+  v16[1] = @"OPTIONS";
+  v17[0] = @"START";
+  v17[1] = v9;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___block_invoke;
+  v13[3] = &unk_279D6BF28;
+  objc_copyWeak(&v14, &location);
+  [(TVLAudioLatencyEstimator *)self _sendMessage:v12 withResponse:v13];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -339,27 +334,25 @@ void __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___blo
     {
       v10 = v9;
       [v5 version];
-      v13 = 134217984;
-      v14 = v11;
-      _os_log_impl(&dword_26CD78000, v10, OS_LOG_TYPE_DEFAULT, "TVLatency will use protocol v%.1f", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v11;
+      _os_log_impl(&dword_26CD78000, v10, OS_LOG_TYPE_DEFAULT, "TVLatency will use protocol v%.1f", &v12, 0xCu);
     }
 
     [v5 startNetworkMonitoring];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateWithError:(id)error
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(TVLAudioLatencyEstimator *)self _tearDown];
   if (errorCopy)
   {
-    v7 = @"TVLAudioLatencyEstimationProgressEventErrorObjectKey";
-    v8[0] = errorCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"TVLAudioLatencyEstimationProgressEventErrorObjectKey";
+    v7[0] = errorCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [(TVLAudioLatencyEstimator *)self _postProgressEvent:2 withInfo:v5];
   }
 
@@ -367,8 +360,6 @@ void __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___blo
   {
     [(TVLAudioLatencyEstimator *)self _postProgressEvent:3 withInfo:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDown
@@ -384,7 +375,7 @@ void __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___blo
 
 - (void)_sendMessage:(id)message withResponse:(id)response
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   responseCopy = response;
   if (_TVLLogDefault_onceToken_3 != -1)
@@ -396,32 +387,30 @@ void __67__TVLAudioLatencyEstimator_estimateAudioLatencyWithToneIdentifier___blo
   if (os_log_type_enabled(_TVLLogDefault_log_3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = messageCopy;
+    v17 = messageCopy;
     _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "Outgoing Message: %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   session = [(TVLAudioLatencyEstimator *)self session];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__TVLAudioLatencyEstimator__sendMessage_withResponse___block_invoke;
-  v13[3] = &unk_279D6BF50;
-  objc_copyWeak(&v16, buf);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __54__TVLAudioLatencyEstimator__sendMessage_withResponse___block_invoke;
+  v12[3] = &unk_279D6BF50;
+  objc_copyWeak(&v15, buf);
   v10 = messageCopy;
-  v14 = v10;
+  v13 = v10;
   v11 = responseCopy;
-  v15 = v11;
-  [session sendRequestID:@"com.apple.tvlatency" options:0 request:v10 responseHandler:v13];
+  v14 = v11;
+  [session sendRequestID:@"com.apple.tvlatency" options:0 request:v10 responseHandler:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__TVLAudioLatencyEstimator__sendMessage_withResponse___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -446,11 +435,11 @@ void __54__TVLAudioLatencyEstimator__sendMessage_withResponse___block_invoke(uin
       }
 
       *buf = 138543874;
-      v27 = v9;
-      v28 = 2114;
-      v29 = v6;
-      v30 = 2114;
-      v31 = v10;
+      v26 = v9;
+      v27 = 2114;
+      v28 = v6;
+      v29 = 2114;
+      v30 = v10;
       _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "Received Response To Message: %{public}@ | Response: %{public}@ | Error: %{public}@", buf, 0x20u);
       if (a2)
       {
@@ -472,53 +461,51 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v14 = [MEMORY[0x277CBEB68] null];
-    v25 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    if ([v6 isEqualToDictionary:v15])
+    v13 = [MEMORY[0x277CBEB68] null];
+    v24 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    if ([v6 isEqualToDictionary:v14])
     {
     }
 
     else
     {
-      v16 = [v6 objectForKey:@"MESSAGE"];
-      v17 = [v16 isEqualToString:@"FAILURE"];
+      v15 = [v6 objectForKey:@"MESSAGE"];
+      v16 = [v15 isEqualToString:@"FAILURE"];
 
-      if (v17)
+      if (v16)
       {
-        v18 = *(a1 + 40);
-        if (v18)
+        v17 = *(a1 + 40);
+        if (v17)
         {
-          (*(v18 + 16))(v18, 0);
+          (*(v17 + 16))(v17, 0);
         }
 
         v12 = [v6 objectForKey:@"OPTIONS"];
-        v19 = [v12 objectForKey:@"ERROR_DOMAIN"];
-        v20 = [v12 objectForKey:@"ERROR_CODE"];
-        v21 = [v20 integerValue];
+        v18 = [v12 objectForKey:@"ERROR_DOMAIN"];
+        v19 = [v12 objectForKey:@"ERROR_CODE"];
+        v20 = [v19 integerValue];
 
-        v22 = [MEMORY[0x277CCA9B8] errorWithDomain:v19 code:v21 userInfo:0];
-        [WeakRetained _invalidateWithError:v22];
+        v21 = [MEMORY[0x277CCA9B8] errorWithDomain:v18 code:v20 userInfo:0];
+        [WeakRetained _invalidateWithError:v21];
 
         goto LABEL_14;
       }
     }
 
-    v23 = *(a1 + 40);
-    if (v23)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      (*(v23 + 16))(v23, v6);
+      (*(v22 + 16))(v22, v6);
     }
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeClocksWithOptions:(id)options withResponseHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -551,41 +538,39 @@ LABEL_15:
     ipv42 = [(TVLNetworkInterface *)self->_wifiInterface ipv4];
     ipv62 = [(TVLNetworkInterface *)self->_wifiInterface ipv6];
     *buf = 138543874;
-    v30 = interfaceName2;
-    v31 = 2114;
-    v32 = ipv42;
-    v33 = 2114;
-    v34 = ipv62;
+    v29 = interfaceName2;
+    v30 = 2114;
+    v31 = ipv42;
+    v32 = 2114;
+    v33 = ipv62;
     _os_log_impl(&dword_26CD78000, v13, OS_LOG_TYPE_INFO, "synchronizeClocksWithOptions WIFI %{public}@,%{public}@,%{public}@", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHandler___block_invoke;
-  v25[3] = &unk_279D6BF78;
-  objc_copyWeak(&v26, buf);
-  v17 = MEMORY[0x26D6AEC20](v25);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHandler___block_invoke;
+  v24[3] = &unk_279D6BF78;
+  objc_copyWeak(&v25, buf);
+  v17 = MEMORY[0x26D6AEC20](v24);
   if (v10 | v9 && interfaceName && (-[TVLAudioLatencyEstimator session](self, "session"), v18 = objc_claimAutoreleasedReturnValue(), +[TVLTimeSync timeSyncWithRemoteIPv4:IPv6:interface:session:master:completion:](TVLTimeSync, "timeSyncWithRemoteIPv4:IPv6:interface:session:master:completion:", v10, v9, interfaceName, v18, 0, v17), v18, [v6 count]))
   {
-    v27[0] = @"MESSAGE";
-    v27[1] = @"OPTIONS";
-    v28[0] = @"SYNC_CLOCK";
-    v28[1] = v6;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-    (v22)[2](v22, 0, 0, v19);
+    v26[0] = @"MESSAGE";
+    v26[1] = @"OPTIONS";
+    v27[0] = @"SYNC_CLOCK";
+    v27[1] = v6;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    (v21)[2](v21, 0, 0, v19);
   }
 
   else
   {
     v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TVLatencyErrorDomain" code:1202 userInfo:0];
-    [(TVLAudioLatencyEstimator *)self _respondAndInvalidateWithError:v19 responseHandler:v22];
+    [(TVLAudioLatencyEstimator *)self _respondAndInvalidateWithError:v19 responseHandler:v21];
   }
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHandler___block_invoke(uint64_t a1, void *a2)
@@ -610,16 +595,16 @@ void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHa
 
 - (void)_estimateAudioLatencyWithOptions:(id)options withResponseHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = [optionsCopy objectForKey:@"TONE"];
   if (v8 && ([optionsCopy objectForKey:@"TIME"], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
   {
     v10 = [optionsCopy objectForKey:@"TONE"];
-    v29 = 0;
-    v11 = [TVLToneProvider provideToneWithIdentifier:v10 error:&v29];
-    v12 = v29;
+    v28 = 0;
+    v11 = [TVLToneProvider provideToneWithIdentifier:v10 error:&v28];
+    v12 = v28;
 
     if (v12)
     {
@@ -642,9 +627,9 @@ void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHa
       v15 = [optionsCopy objectForKey:@"TIME"];
       unsignedLongLongValue = [v15 unsignedLongLongValue];
 
-      v28 = 0;
+      v27 = 0;
       timeSync = [(TVLAudioLatencyEstimator *)self timeSync];
-      v18 = [timeSync convertToHostTimeFromDomainTime:unsignedLongLongValue grandmasterIdentity:&v28];
+      v18 = [timeSync convertToHostTimeFromDomainTime:unsignedLongLongValue grandmasterIdentity:&v27];
 
       if (_TVLLogDefault_onceToken_3 != -1)
       {
@@ -655,11 +640,11 @@ void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHa
       if (os_log_type_enabled(_TVLLogDefault_log_3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v31 = v18;
-        v32 = 2048;
-        v33 = unsignedLongLongValue;
-        v34 = 2048;
-        v35 = v28;
+        v30 = v18;
+        v31 = 2048;
+        v32 = unsignedLongLongValue;
+        v33 = 2048;
+        v34 = v27;
         _os_log_impl(&dword_26CD78000, v19, OS_LOG_TYPE_DEFAULT, "Estimate audio latency with startTime=%llu PTPtime=%llu GM=%llu", buf, 0x20u);
       }
 
@@ -679,19 +664,19 @@ void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHa
       }
 
       objc_initWeak(buf, self);
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke;
-      v23[3] = &unk_279D6C018;
-      objc_copyWeak(v27, buf);
-      v26 = handlerCopy;
-      v27[1] = v18;
-      v24 = v11;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke;
+      v22[3] = &unk_279D6C018;
+      objc_copyWeak(v26, buf);
+      v25 = handlerCopy;
+      v26[1] = v18;
+      v23 = v11;
       v21 = v20;
-      v25 = v21;
-      [TVLListenEngine engineWithCompletion:v23];
+      v24 = v21;
+      [TVLListenEngine engineWithCompletion:v22];
 
-      objc_destroyWeak(v27);
+      objc_destroyWeak(v26);
       objc_destroyWeak(buf);
     }
   }
@@ -701,13 +686,11 @@ void __78__TVLAudioLatencyEstimator__synchronizeClocksWithOptions_withResponseHa
     v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TVLatencyErrorDomain" code:1207 userInfo:0];
     [(TVLAudioLatencyEstimator *)self _respondAndInvalidateWithError:v14 responseHandler:handlerCopy];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -715,10 +698,10 @@ void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withRespons
     if (v3)
     {
       v5 = *(a1 + 48);
-      v19 = @"MESSAGE";
+      v18 = @"MESSAGE";
       v6 = [MEMORY[0x277CBEB68] null];
-      v20[0] = v6;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v19[0] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       (*(v5 + 16))(v5, 0, 0, v7);
 
       v8 = *(a1 + 64);
@@ -733,19 +716,19 @@ void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withRespons
       v10 = *(a1 + 64);
       v12 = *(a1 + 32);
       v11 = *(a1 + 40);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_3;
-      v17[3] = &unk_279D6BFA0;
-      v17[4] = WeakRetained;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_4;
-      v15[3] = &unk_279D6BFF0;
-      objc_copyWeak(&v16, (a1 + 56));
-      [v9 startListeningWithReferenceTone:v12 at:v10 saveToFile:v11 withCallback:v17 completion:v15];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_3;
+      v16[3] = &unk_279D6BFA0;
+      v16[4] = WeakRetained;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_4;
+      v14[3] = &unk_279D6BFF0;
+      objc_copyWeak(&v15, (a1 + 56));
+      [v9 startListeningWithReferenceTone:v12 at:v10 saveToFile:v11 withCallback:v16 completion:v14];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
     }
 
     else
@@ -754,58 +737,54 @@ void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withRespons
       [WeakRetained _respondAndInvalidateWithError:v13 responseHandler:*(a1 + 48)];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_3(uint64_t a1, double a2, float a3)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10[0] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationLatencyKey";
-  v5 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v9[0] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationLatencyKey";
+  v5 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   v6 = v5;
-  v10[1] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationConfidenceKey";
+  v9[1] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationConfidenceKey";
   v7 = MEMORY[0x277CBEC28];
   if (a3 > 0.0)
   {
     v7 = MEMORY[0x277CBEC38];
   }
 
-  v11[0] = v5;
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = v5;
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 _postInternalProgressEvent:0 withInfo:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_4(uint64_t a1, uint64_t a2, void *a3, double a4)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v26[0] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationLatencyKey";
+    v25[0] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationLatencyKey";
     v9 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
-    v27[0] = v9;
-    v26[1] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationConfidenceKey";
+    v26[0] = v9;
+    v25[1] = @"TVLAudioLatencyEstimationInternalProgressEventEstimationConfidenceKey";
     v10 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v27[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     [WeakRetained _postInternalProgressEvent:1 withInfo:v11];
 
     v12 = objc_alloc(MEMORY[0x277CBEB38]);
-    v25[0] = MEMORY[0x277CBEC38];
-    v24[0] = @"COMPLETE";
-    v24[1] = @"LATENCY";
+    v24[0] = MEMORY[0x277CBEC38];
+    v23[0] = @"COMPLETE";
+    v23[1] = @"LATENCY";
     v13 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
-    v25[1] = v13;
-    v24[2] = @"CONFIDENT";
+    v24[1] = v13;
+    v23[2] = @"CONFIDENT";
     v14 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v25[2] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+    v24[2] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
     v16 = [v12 initWithDictionary:v15];
 
     if (v7)
@@ -813,22 +792,20 @@ void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withRespons
       [v16 setObject:v7 forKey:@"STATISTICS"];
     }
 
-    v22[0] = @"MESSAGE";
-    v22[1] = @"OPTIONS";
-    v23[0] = @"AUDIO_LATENCY_ESTIMATION";
-    v23[1] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_5;
-    v20[3] = &unk_279D6BFC8;
-    v20[4] = WeakRetained;
-    v21 = v16;
+    v21[0] = @"MESSAGE";
+    v21[1] = @"OPTIONS";
+    v22[0] = @"AUDIO_LATENCY_ESTIMATION";
+    v22[1] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_5;
+    v19[3] = &unk_279D6BFC8;
+    v19[4] = WeakRetained;
+    v20 = v16;
     v18 = v16;
-    [WeakRetained _sendMessage:v17 withResponse:v20];
+    [WeakRetained _sendMessage:v17 withResponse:v19];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TVLAudioLatencyEstimator__estimateAudioLatencyWithOptions_withResponseHandler___block_invoke_5(uint64_t a1, void *a2)
@@ -912,26 +889,25 @@ LABEL_19:
 
 - (void)_respondAndInvalidateWithError:(id)error responseHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = @"MESSAGE";
-  v17[1] = @"OPTIONS";
-  v18[0] = @"FAILURE";
-  v15[0] = @"ERROR_CODE";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = @"MESSAGE";
+  v16[1] = @"OPTIONS";
+  v17[0] = @"FAILURE";
+  v14[0] = @"ERROR_CODE";
   v7 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   errorCopy = error;
   v10 = [v7 numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-  v15[1] = @"ERROR_DOMAIN";
-  v16[0] = v10;
+  v14[1] = @"ERROR_DOMAIN";
+  v15[0] = v10;
   domain = [errorCopy domain];
-  v16[1] = domain;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v15[1] = domain;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   (*(handler + 2))(handlerCopy, 0, 0, v13);
 
   [(TVLAudioLatencyEstimator *)self _invalidateWithError:errorCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postProgressEvent:(unint64_t)event withInfo:(id)info
@@ -950,7 +926,7 @@ LABEL_19:
 
 void __56__TVLAudioLatencyEstimator__postProgressEvent_withInfo___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (_TVLLogDefault_onceToken_3 != -1)
   {
     __52__TVLAudioLatencyEstimator__initWithMessageSession___block_invoke_cold_1();
@@ -974,13 +950,13 @@ void __56__TVLAudioLatencyEstimator__postProgressEvent_withInfo___block_invoke(u
     }
 
     v8 = *(a1 + 40);
-    v17 = 138412802;
-    v18 = v4;
-    v19 = 2082;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v8;
-    _os_log_impl(&dword_26CD78000, v2, OS_LOG_TYPE_DEFAULT, "Calling Progress Event Handler: %@ with Event: %{public}s | Info %{public}@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v4;
+    v18 = 2082;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v8;
+    _os_log_impl(&dword_26CD78000, v2, OS_LOG_TYPE_DEFAULT, "Calling Progress Event Handler: %@ with Event: %{public}s | Info %{public}@", &v16, 0x20u);
   }
 
   v9 = [*(a1 + 32) progressEventHandler];
@@ -1004,21 +980,19 @@ void __56__TVLAudioLatencyEstimator__postProgressEvent_withInfo___block_invoke(u
         v13 = v11;
         v14 = [v12 progressEventHandler];
         v15 = MEMORY[0x26D6AEC20]();
-        v17 = 138412290;
-        v18 = v15;
-        _os_log_impl(&dword_26CD78000, v13, OS_LOG_TYPE_DEFAULT, "Deleting Progress Event Handler: %@ | This should not be invoked again!", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v15;
+        _os_log_impl(&dword_26CD78000, v13, OS_LOG_TYPE_DEFAULT, "Deleting Progress Event Handler: %@ | This should not be invoked again!", &v16, 0xCu);
       }
 
       [*(a1 + 32) setProgressEventHandler:0];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postInternalProgressEvent:(unint64_t)event withInfo:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (_TVLLogDefault_onceToken_3 != -1)
   {
@@ -1033,16 +1007,16 @@ void __56__TVLAudioLatencyEstimator__postProgressEvent_withInfo___block_invoke(u
     v10 = MEMORY[0x26D6AEC20]();
     v11 = "Final Estimation";
     *buf = 138412802;
-    v18 = v10;
+    v17 = v10;
     if (!event)
     {
       v11 = "New Estimation";
     }
 
-    v19 = 2082;
-    v20 = v11;
-    v21 = 2112;
-    v22 = infoCopy;
+    v18 = 2082;
+    v19 = v11;
+    v20 = 2112;
+    v21 = infoCopy;
     _os_log_impl(&dword_26CD78000, v8, OS_LOG_TYPE_DEFAULT, "Calling Internal Progress Event Handler: %@ with Event: %{public}s | Info: %@", buf, 0x20u);
   }
 
@@ -1050,13 +1024,11 @@ void __56__TVLAudioLatencyEstimator__postProgressEvent_withInfo___block_invoke(u
   block[1] = 3221225472;
   block[2] = __64__TVLAudioLatencyEstimator__postInternalProgressEvent_withInfo___block_invoke;
   block[3] = &unk_279D6C040;
-  v15 = infoCopy;
+  v14 = infoCopy;
   eventCopy = event;
   block[4] = self;
   v12 = infoCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TVLAudioLatencyEstimator__postInternalProgressEvent_withInfo___block_invoke(uint64_t a1)
@@ -1072,11 +1044,10 @@ void __64__TVLAudioLatencyEstimator__postInternalProgressEvent_withInfo___block_
 
 - (void)_estimateAudioLatencyWithOptions:(uint64_t)a1 withResponseHandler:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CD78000, a2, OS_LOG_TYPE_ERROR, "Failed to provide tone. Error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CD78000, a2, OS_LOG_TYPE_ERROR, "Failed to provide tone. Error=%{public}@", &v2, 0xCu);
 }
 
 @end

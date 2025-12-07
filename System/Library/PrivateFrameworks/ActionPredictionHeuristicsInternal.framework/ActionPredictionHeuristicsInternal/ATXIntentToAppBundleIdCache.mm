@@ -123,10 +123,10 @@ uint64_t __45__ATXIntentToAppBundleIdCache_sharedInstance__block_invoke()
 
 void __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v30 = a3;
-  v31 = v5;
+  v28 = a3;
+  v29 = v5;
   if (v5)
   {
     v6 = __atxlog_handle_heuristic();
@@ -134,44 +134,44 @@ void __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completion
     {
       v7 = *(a1 + 40);
       *buf = 138543618;
-      v38 = v7;
-      v39 = 2112;
-      v40 = v5;
+      v36 = v7;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_INFO, "ATXIntentToAppBundleIdCache: intent type %{public}@ has extensions %@", buf, 0x16u);
     }
 
-    v29 = [v5 _pas_mappedArrayWithTransform:&__block_literal_global_20_0];
+    v27 = [v5 _pas_mappedArrayWithTransform:&__block_literal_global_20_0];
     v8 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 40);
       *buf = 138543618;
-      v38 = v9;
-      v39 = 2112;
-      v40 = v29;
+      v36 = v9;
+      v37 = 2112;
+      v38 = v27;
       _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_INFO, "ATXIntentToAppBundleIdCache: intent type %{public}@ has bundle ids %@", buf, 0x16u);
     }
 
     v10 = objc_opt_new();
     [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
-    v11 = v33 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v11 = v31 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v12)
     {
-      v13 = *v33;
+      v13 = *v31;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v33 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * i);
+          v15 = *(*(&v30 + 1) + 8 * i);
           v16 = MEMORY[0x277CEB3B8];
           v17 = [v15 bundleIdentifier];
           v18 = [v16 appInfoForBundle:v17];
@@ -184,13 +184,13 @@ void __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completion
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v12);
     }
 
-    v21 = [objc_alloc(MEMORY[0x277CBEB40]) initWithArray:v29];
+    v21 = [objc_alloc(MEMORY[0x277CBEB40]) initWithArray:v27];
     [v21 addObjectsFromArray:v10];
     v22 = [v21 array];
     v23 = *(a1 + 32);
@@ -198,28 +198,25 @@ void __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completion
     [*(*(a1 + 32) + 8) setObject:v22 forKey:*(a1 + 40)];
     objc_sync_exit(v23);
 
-    v24 = *(a1 + 48);
-    v25 = objc_opt_self();
+    v24 = objc_opt_self();
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v26 = *(a1 + 32);
-    objc_sync_enter(v26);
+    v25 = *(a1 + 32);
+    objc_sync_enter(v25);
     [*(*(a1 + 32) + 8) removeObjectForKey:*(a1 + 40)];
-    objc_sync_exit(v26);
+    objc_sync_exit(v25);
 
-    v27 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = __atxlog_handle_heuristic();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHandler___block_invoke_cold_1((a1 + 40), v30, v27);
+      __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHandler___block_invoke_cold_1((a1 + 40), v28, v26);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHandler___block_invoke_17(uint64_t a1, void *a2)
@@ -238,36 +235,32 @@ id __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHa
 
 - (void)fetchBundleIdsForIntent:(NSObject *)a3 completionHandler:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 _className];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_debug_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_DEBUG, "ATXIntentToAppBundleIdCache: using cached value for %{public}@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_debug_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_DEBUG, "ATXIntentToAppBundleIdCache: using cached value for %{public}@: %@", &v6, 0x16u);
 }
 
 - (void)_slowlyFetchBundleIdsForIntent:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "ATXIntentToAppBundleIdCache: fetching value for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "ATXIntentToAppBundleIdCache: fetching value for %{public}@", &v2, 0xCu);
 }
 
 void __80__ATXIntentToAppBundleIdCache__slowlyFetchBundleIdsForIntent_completionHandler___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "ATXIntentToAppBundleIdCache: error getting extensions for intent of type %{public}@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "ATXIntentToAppBundleIdCache: error getting extensions for intent of type %{public}@: %@", &v4, 0x16u);
 }
 
 @end

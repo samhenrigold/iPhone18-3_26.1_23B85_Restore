@@ -385,11 +385,12 @@ void __29__AXDragManager_moveToPoint___block_invoke(uint64_t a1)
   [v5 moveToPoint:0 forRequestor:v6 completion:{v3, v4}];
 }
 
-void __29__AXDragManager_moveToPoint___block_invoke_2(uint64_t a1, int a2)
+void __29__AXDragManager_moveToPoint___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = AXLogDragging();
   v5 = v4;
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
@@ -463,11 +464,12 @@ void __38__AXDragManager_moveToAndDropAtPoint___block_invoke(uint64_t a1)
   [v5 moveToPoint:0 forRequestor:v6 completion:{v3, v4}];
 }
 
-void __38__AXDragManager_moveToAndDropAtPoint___block_invoke_2(uint64_t a1, int a2)
+void __38__AXDragManager_moveToAndDropAtPoint___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = AXLogDragging();
   v5 = v4;
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {

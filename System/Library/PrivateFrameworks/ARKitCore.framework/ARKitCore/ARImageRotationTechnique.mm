@@ -34,7 +34,7 @@
     }
 
     v10 = ARShouldUseLogTypeError_internalOSVersion_9;
-    v11 = _ARLogTechnique_4();
+    v11 = _ARLogTechnique_4(v8);
     dictionary = v11;
     if (v10 == 1)
     {
@@ -103,7 +103,7 @@ LABEL_15:
     }
 
     v22 = ARShouldUseLogTypeError_internalOSVersion_9;
-    v23 = _ARLogTechnique_4();
+    v23 = _ARLogTechnique_4(v20);
     v24 = v23;
     if (v22 == 1)
     {
@@ -175,7 +175,7 @@ LABEL_29:
 
 - (int)_rotateAccelerate:(__CVBuffer *)accelerate pOutputBuffer:(__CVBuffer *)buffer
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (!accelerate || !buffer)
   {
     if (ARShouldUseLogTypeError_onceToken_9 != -1)
@@ -184,7 +184,7 @@ LABEL_29:
     }
 
     v11 = ARShouldUseLogTypeError_internalOSVersion_9;
-    v12 = _ARLogTechnique_4();
+    v12 = _ARLogTechnique_4(self);
     v13 = v12;
     if (v11 == 1)
     {
@@ -198,10 +198,10 @@ LABEL_29:
         *(&buf.height + 6) = self;
         v16 = "%{public}@ <%p>: Arguments can't be nil";
 LABEL_36:
-        v25 = v13;
-        v26 = OS_LOG_TYPE_ERROR;
+        v26 = v13;
+        v27 = OS_LOG_TYPE_ERROR;
 LABEL_40:
-        _os_log_impl(&dword_1C241C000, v25, v26, v16, &buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v26, v27, v16, &buf, 0x16u);
       }
     }
 
@@ -261,18 +261,18 @@ LABEL_54:
           [ARImageRotationTechnique _rotateAccelerate:pOutputBuffer:];
         }
 
-        v31 = ARShouldUseLogTypeError_internalOSVersion_9;
-        v32 = _ARLogTechnique_4();
-        v13 = v32;
-        if (v31 == 1)
+        v32 = ARShouldUseLogTypeError_internalOSVersion_9;
+        v33 = _ARLogTechnique_4(PixelFormatType);
+        v13 = v33;
+        if (v32 == 1)
         {
-          if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_41;
           }
 
-          v33 = objc_opt_class();
-          v15 = NSStringFromClass(v33);
+          v34 = objc_opt_class();
+          v15 = NSStringFromClass(v34);
           LODWORD(buf.data) = 138543618;
           *(&buf.data + 4) = v15;
           WORD2(buf.height) = 2048;
@@ -281,21 +281,21 @@ LABEL_54:
           goto LABEL_36;
         }
 
-        if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
           goto LABEL_41;
         }
 
-        v34 = objc_opt_class();
-        v15 = NSStringFromClass(v34);
+        v35 = objc_opt_class();
+        v15 = NSStringFromClass(v35);
         LODWORD(buf.data) = 138543618;
         *(&buf.data + 4) = v15;
         WORD2(buf.height) = 2048;
         *(&buf.height + 6) = self;
         v16 = "Error: %{public}@ <%p>: Accelerate currently only supports kCVPixelFormatType_32BGRA, kCVPixelFormatType_32ARGB formats or kCVPixelFormatType_128RGBAFloat, kCVPixelFormatType_DepthFloat32, kCVPixelFormatType_OneComponent32Float and kCVPixelFormatType_OneComponent8";
 LABEL_39:
-        v25 = v13;
-        v26 = OS_LOG_TYPE_INFO;
+        v26 = v13;
+        v27 = OS_LOG_TYPE_INFO;
         goto LABEL_40;
       }
     }
@@ -319,22 +319,23 @@ LABEL_17:
 
 LABEL_25:
   v19 = CVPixelBufferGetPixelFormatType(accelerate);
-  if (v19 != CVPixelBufferGetPixelFormatType(*buffer))
+  v20 = CVPixelBufferGetPixelFormatType(*buffer);
+  if (v19 != v20)
   {
     if (ARShouldUseLogTypeError_onceToken_9 != -1)
     {
       [ARImageRotationTechnique _rotateAccelerate:pOutputBuffer:];
     }
 
-    v22 = ARShouldUseLogTypeError_internalOSVersion_9;
-    v23 = _ARLogTechnique_4();
-    v13 = v23;
-    if (v22 == 1)
+    v23 = ARShouldUseLogTypeError_internalOSVersion_9;
+    v24 = _ARLogTechnique_4(v20);
+    v13 = v24;
+    if (v23 == 1)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_opt_class();
-        v15 = NSStringFromClass(v24);
+        v25 = objc_opt_class();
+        v15 = NSStringFromClass(v25);
         LODWORD(buf.data) = 138543618;
         *(&buf.data + 4) = v15;
         WORD2(buf.height) = 2048;
@@ -344,10 +345,10 @@ LABEL_25:
       }
     }
 
-    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v15 = NSStringFromClass(v27);
+      v28 = objc_opt_class();
+      v15 = NSStringFromClass(v28);
       LODWORD(buf.data) = 138543618;
       *(&buf.data + 4) = v15;
       WORD2(buf.height) = 2048;
@@ -363,12 +364,12 @@ LABEL_25:
   CVPixelBufferLockBaseAddress(*buffer, 0);
   memset(&buf, 0, sizeof(buf));
   ARWrapCVPixelBufferVImage(accelerate, &buf.data);
-  memset(&v35, 0, sizeof(v35));
-  ARWrapCVPixelBufferVImage(*buffer, &v35.data);
+  memset(&v36, 0, sizeof(v36));
+  ARWrapCVPixelBufferVImage(*buffer, &v36.data);
   rotationAngle = [(ARImageRotationTechnique *)self rotationAngle];
   if (rotationAngle == 180)
   {
-    v21 = 2;
+    v22 = 2;
     if (!v9)
     {
       goto LABEL_47;
@@ -381,7 +382,7 @@ LABEL_25:
   {
     if (rotationAngle == -90)
     {
-      v21 = 1;
+      v22 = 1;
       if (!v9)
       {
         goto LABEL_47;
@@ -390,7 +391,7 @@ LABEL_25:
 
     else
     {
-      v21 = 0;
+      v22 = 0;
       if (!v9)
       {
         goto LABEL_47;
@@ -398,20 +399,20 @@ LABEL_25:
     }
 
 LABEL_45:
-    v29 = vImageRotate90_ARGB8888(&buf, &v35, v21, _rotateAccelerate_pOutputBuffer___bgColor, 0x10u);
+    v30 = vImageRotate90_ARGB8888(&buf, &v36, v22, _rotateAccelerate_pOutputBuffer___bgColor, 0x10u);
 LABEL_63:
-    v30 = v29;
+    v31 = v30;
     goto LABEL_64;
   }
 
-  v21 = 3;
+  v22 = 3;
   if (v9)
   {
     goto LABEL_45;
   }
 
 LABEL_47:
-  v30 = -21778;
+  v31 = -21778;
   if (v8 > 1380410944)
   {
     if (v8 != 1717855600)
@@ -421,18 +422,18 @@ LABEL_47:
         goto LABEL_64;
       }
 
-      v29 = vImageRotate90_ARGBFFFF(&buf, &v35, v21, _rotateAccelerate_pOutputBuffer___bgColor_3, 0x10u);
+      v30 = vImageRotate90_ARGBFFFF(&buf, &v36, v22, _rotateAccelerate_pOutputBuffer___bgColor_3, 0x10u);
       goto LABEL_63;
     }
 
 LABEL_59:
-    v29 = vImageRotate90_PlanarF(&buf, &v35, v21, 0.0, 0x10u);
+    v30 = vImageRotate90_PlanarF(&buf, &v36, v22, 0.0, 0x10u);
     goto LABEL_63;
   }
 
   if (v8 == 1278226488)
   {
-    v29 = vImageRotate90_Planar8(&buf, &v35, v21, 0, 0x10u);
+    v30 = vImageRotate90_Planar8(&buf, &v36, v22, 0, 0x10u);
     goto LABEL_63;
   }
 
@@ -444,7 +445,7 @@ LABEL_59:
 LABEL_64:
   CVPixelBufferUnlockBaseAddress(*buffer, 0);
   CVPixelBufferUnlockBaseAddress(accelerate, 0);
-  if (v30)
+  if (v31)
   {
     return -1;
   }
@@ -457,7 +458,7 @@ LABEL_64:
 
 - (id)processData:(id)data
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = dataCopy;
   if (*&self->_rotationAngle == 0)
@@ -509,8 +510,8 @@ LABEL_64:
     if (bufferPool)
     {
       selfCopy = self;
-      v85 = v22;
-      v83 = v5;
+      v86 = v22;
+      v84 = v5;
       v16 = CVPixelBufferPoolGetPixelBufferAttributes(bufferPool);
       v17 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6966208]];
       v18 = [v16 objectForKeyedSubscript:*MEMORY[0x1E69660B8]];
@@ -531,14 +532,14 @@ LABEL_64:
       if ((v20 & 1) == 0 && v21)
       {
         v13 = v19;
-        v5 = v83;
-        v22 = v85;
+        v5 = v84;
+        v22 = v86;
         goto LABEL_30;
       }
 
       v13 = v19;
-      v5 = v83;
-      v22 = v85;
+      v5 = v84;
+      v22 = v86;
       if (v21)
       {
         CVPixelBufferPoolRelease(selfCopy->_bufferPool);
@@ -557,7 +558,7 @@ LABEL_64:
       }
 
       v26 = ARShouldUseLogTypeError_internalOSVersion_9;
-      v27 = _ARLogTechnique_4();
+      v27 = _ARLogTechnique_4(New);
       v28 = v27;
       if (v26 == 1)
       {
@@ -566,11 +567,11 @@ LABEL_64:
           v29 = objc_opt_class();
           v30 = NSStringFromClass(v29);
           *buf = 138543874;
-          v89 = v30;
-          v90 = 2048;
+          v90 = v30;
+          v91 = 2048;
           selfCopy9 = self;
-          v92 = 1024;
-          v93 = v25;
+          v93 = 1024;
+          v94 = v25;
           v31 = "%{public}@ <%p>: Creation of CVPixelBufferPool failed with error %d";
 LABEL_36:
           v37 = v28;
@@ -600,11 +601,11 @@ LABEL_79:
       v39 = objc_opt_class();
       v30 = NSStringFromClass(v39);
       *buf = 138543874;
-      v89 = v30;
-      v90 = 2048;
+      v90 = v30;
+      v91 = 2048;
       selfCopy9 = self;
-      v92 = 1024;
-      v93 = v25;
+      v93 = 1024;
+      v94 = v25;
       v31 = "Error: %{public}@ <%p>: Creation of CVPixelBufferPool failed with error %d";
 LABEL_44:
       v37 = v28;
@@ -625,7 +626,7 @@ LABEL_30:
       }
 
       v34 = ARShouldUseLogTypeError_internalOSVersion_9;
-      v35 = _ARLogTechnique_4();
+      v35 = _ARLogTechnique_4(v32);
       v28 = v35;
       if (v34 == 1)
       {
@@ -634,11 +635,11 @@ LABEL_30:
           v36 = objc_opt_class();
           v30 = NSStringFromClass(v36);
           *buf = 138543874;
-          v89 = v30;
-          v90 = 2048;
+          v90 = v30;
+          v91 = 2048;
           selfCopy9 = self;
-          v92 = 1024;
-          v93 = v33;
+          v93 = 1024;
+          v94 = v33;
           v31 = "%{public}@ <%p>: Could not create pixel buffer for rotation. (%i)";
           goto LABEL_36;
         }
@@ -654,11 +655,11 @@ LABEL_30:
       v43 = objc_opt_class();
       v30 = NSStringFromClass(v43);
       *buf = 138543874;
-      v89 = v30;
-      v90 = 2048;
+      v90 = v30;
+      v91 = 2048;
       selfCopy9 = self;
-      v92 = 1024;
-      v93 = v33;
+      v93 = 1024;
+      v94 = v33;
       v31 = "Error: %{public}@ <%p>: Could not create pixel buffer for rotation. (%i)";
       goto LABEL_44;
     }
@@ -695,7 +696,7 @@ LABEL_30:
           goto LABEL_51;
         }
 
-        v77 = 1717855600;
+        v78 = 1717855600;
       }
 
       else
@@ -705,10 +706,10 @@ LABEL_30:
           goto LABEL_51;
         }
 
-        v77 = 1278226534;
+        v78 = 1278226534;
       }
 
-      if (v41 != v77)
+      if (v41 != v78)
       {
         selfCopy7 = self;
         vtPixelRotationSession = self->_vtPixelRotationSession;
@@ -727,67 +728,68 @@ LABEL_51:
 LABEL_53:
       pixelBuffer = [v50 pixelBuffer];
       v52 = VTPixelRotationSessionRotateImage(vtPixelRotationSession, pixelBuffer, pixelBufferOut);
+      v53 = v52;
       self = selfCopy7;
       if (v52)
       {
-        v53 = v13;
+        v54 = v13;
         if (ARShouldUseLogTypeError_onceToken_9 != -1)
         {
           [ARImageRotationTechnique initWithRotation:mirror:];
         }
 
-        v54 = ARShouldUseLogTypeError_internalOSVersion_9;
-        v55 = _ARLogTechnique_4();
-        v56 = v55;
-        if (v54 == 1)
+        v55 = ARShouldUseLogTypeError_internalOSVersion_9;
+        v56 = _ARLogTechnique_4(v52);
+        v57 = v56;
+        if (v55 == 1)
         {
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v57 = v53;
-            v58 = objc_opt_class();
-            v59 = NSStringFromClass(v58);
-            v60 = AROSTypeToString(v41);
+            v58 = v54;
+            v59 = objc_opt_class();
+            v60 = NSStringFromClass(v59);
+            v61 = AROSTypeToString(v41);
             *buf = 138544642;
-            v89 = v59;
-            v90 = 2048;
+            v90 = v60;
+            v91 = 2048;
             selfCopy9 = selfCopy7;
-            v92 = 1024;
-            v93 = v11;
-            v94 = 1024;
-            v95 = v57;
-            v96 = 2112;
-            v97 = v60;
-            v98 = 1024;
-            v99 = v52;
-            v61 = "%{public}@ <%p>: Could not transform image with size %ix%i and format %@. (%i)";
-            v62 = v56;
-            v63 = OS_LOG_TYPE_ERROR;
+            v93 = 1024;
+            v94 = v11;
+            v95 = 1024;
+            v96 = v58;
+            v97 = 2112;
+            v98 = v61;
+            v99 = 1024;
+            v100 = v53;
+            v62 = "%{public}@ <%p>: Could not transform image with size %ix%i and format %@. (%i)";
+            v63 = v57;
+            v64 = OS_LOG_TYPE_ERROR;
 LABEL_71:
-            _os_log_impl(&dword_1C241C000, v62, v63, v61, buf, 0x32u);
+            _os_log_impl(&dword_1C241C000, v63, v64, v62, buf, 0x32u);
           }
         }
 
-        else if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
-          v78 = v53;
-          v79 = objc_opt_class();
-          v59 = NSStringFromClass(v79);
-          v60 = AROSTypeToString(v41);
+          v79 = v54;
+          v80 = objc_opt_class();
+          v60 = NSStringFromClass(v80);
+          v61 = AROSTypeToString(v41);
           *buf = 138544642;
-          v89 = v59;
-          v90 = 2048;
+          v90 = v60;
+          v91 = 2048;
           selfCopy9 = selfCopy7;
-          v92 = 1024;
-          v93 = v11;
-          v94 = 1024;
-          v95 = v78;
-          v96 = 2112;
-          v97 = v60;
-          v98 = 1024;
-          v99 = v52;
-          v61 = "Error: %{public}@ <%p>: Could not transform image with size %ix%i and format %@. (%i)";
-          v62 = v56;
-          v63 = OS_LOG_TYPE_INFO;
+          v93 = 1024;
+          v94 = v11;
+          v95 = 1024;
+          v96 = v79;
+          v97 = 2112;
+          v98 = v61;
+          v99 = 1024;
+          v100 = v53;
+          v62 = "Error: %{public}@ <%p>: Could not transform image with size %ix%i and format %@. (%i)";
+          v63 = v57;
+          v64 = OS_LOG_TYPE_INFO;
           goto LABEL_71;
         }
 
@@ -800,16 +802,16 @@ LABEL_77:
       }
 
 LABEL_59:
-      v64 = [[ARModifiedImageData alloc] initWithImageData:v22];
-      delegate2 = v64;
-      if (v64)
+      v65 = [[ARModifiedImageData alloc] initWithImageData:v22];
+      delegate2 = v65;
+      if (v65)
       {
-        [(ARImageData *)v64 setPixelBuffer:pixelBufferOut];
+        [(ARImageData *)v65 setPixelBuffer:pixelBufferOut];
         [v22 cameraIntrinsics];
-        v84 = v67;
-        v86 = v66;
+        v85 = v68;
+        v87 = v67;
         [v22 imageResolution];
-        ARAdjustIntrincisForOrientation(self->_rotationAngle, v86, v84);
+        ARAdjustIntrincisForOrientation(self->_rotationAngle, v87, v85);
         [delegate2 imageResolution];
         ARAdjustIntrincisForMirroring();
         [delegate2 setCameraIntrinsics:?];
@@ -828,44 +830,44 @@ LABEL_78:
         [ARImageRotationTechnique initWithRotation:mirror:];
       }
 
-      v69 = ARShouldUseLogTypeError_internalOSVersion_9;
-      v70 = _ARLogTechnique_4();
-      v71 = v70;
-      if (v69 == 1)
+      v70 = ARShouldUseLogTypeError_internalOSVersion_9;
+      v71 = _ARLogTechnique_4(v65);
+      v72 = v71;
+      if (v70 == 1)
       {
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
-          v72 = objc_opt_class();
-          v73 = NSStringFromClass(v72);
+          v73 = objc_opt_class();
+          v74 = NSStringFromClass(v73);
           *buf = 138543618;
-          v89 = v73;
-          v90 = 2048;
+          v90 = v74;
+          v91 = 2048;
           selfCopy9 = self;
-          v74 = "%{public}@ <%p>: Could not allocated image.";
-          v75 = v71;
-          v76 = OS_LOG_TYPE_ERROR;
+          v75 = "%{public}@ <%p>: Could not allocated image.";
+          v76 = v72;
+          v77 = OS_LOG_TYPE_ERROR;
 LABEL_75:
-          _os_log_impl(&dword_1C241C000, v75, v76, v74, buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v76, v77, v75, buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
       {
-        v80 = objc_opt_class();
-        v73 = NSStringFromClass(v80);
+        v81 = objc_opt_class();
+        v74 = NSStringFromClass(v81);
         *buf = 138543618;
-        v89 = v73;
-        v90 = 2048;
+        v90 = v74;
+        v91 = 2048;
         selfCopy9 = self;
-        v74 = "Error: %{public}@ <%p>: Could not allocated image.";
-        v75 = v71;
-        v76 = OS_LOG_TYPE_INFO;
+        v75 = "Error: %{public}@ <%p>: Could not allocated image.";
+        v76 = v72;
+        v77 = OS_LOG_TYPE_INFO;
         goto LABEL_75;
       }
 
       delegate3 = [(ARTechnique *)self delegate];
-      v81 = ARErrorWithCodeAndUserInfo(151, 0);
-      [delegate3 technique:self didFailWithError:v81];
+      v82 = ARErrorWithCodeAndUserInfo(151, 0);
+      [delegate3 technique:self didFailWithError:v82];
 
       goto LABEL_77;
     }

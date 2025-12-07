@@ -93,7 +93,7 @@
   v24 = v9 + v15;
   v25 = v11 - (v17 + v21);
   v26 = v13 - (v15 + v19);
-  [statusBarWindow frame];
+  objc_msgSend_frame(statusBarWindow);
   v41.origin.x = v27;
   v41.origin.y = v28;
   v41.size.width = v29;

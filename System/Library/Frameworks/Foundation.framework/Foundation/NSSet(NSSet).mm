@@ -102,15 +102,15 @@
 
 - (uint64_t)initWithCoder:()NSSet
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   if (([a3 allowsKeyedCoding] & 1) == 0)
   {
-    v27 = 0;
-    v8 = [a3 decodeValueOfObjCType:"I" at:&v27 size:4];
-    v9 = v27;
+    v28 = 0;
+    v8 = [a3 decodeValueOfObjCType:"I" at:&v28 size:4];
+    v9 = v28;
     v10 = MEMORY[0x1EEE9AC00](v8);
-    v12 = v26 - v11;
-    v26[1] = 0;
+    v12 = &v26 - v11;
+    v27 = 0;
     if (v9 >= 0x101)
     {
       v13 = _CFCreateArrayStorage();
@@ -205,9 +205,9 @@ LABEL_30:
   }
 
   free(v20);
-  v28 = @"NSLocalizedDescription";
-  v29[0] = [NSString stringWithFormat:@"%@: set is too large to unarchive (%qd)", _NSMethodExceptionProem(self, a2), v22];
-  [a3 failWithError:{+[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"NSCocoaErrorDomain", 4864, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v29, &v28, 1))}];
+  v29 = @"NSLocalizedDescription";
+  v30[0] = [NSString stringWithFormat:@"%@: set is too large to unarchive (%qd)", _NSMethodExceptionProem(self, a2), v22];
+  [a3 failWithError:{+[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"NSCocoaErrorDomain", 4864, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v30, &v29, 1))}];
   return 0;
 }
 

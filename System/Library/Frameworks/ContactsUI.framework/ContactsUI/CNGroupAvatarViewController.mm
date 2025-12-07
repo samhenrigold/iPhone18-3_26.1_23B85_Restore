@@ -303,17 +303,17 @@ uint64_t __85__CNGroupAvatarViewController_performTransitionAnimationWithStartHa
 {
   groupCopy = group;
   group = [(CNGroupAvatarViewController *)self group];
-  contacts = [group contacts];
-  v7 = [contacts count];
-  contacts2 = [groupCopy contacts];
-  v9 = [contacts2 count];
+  v6 = objc_msgSend_contacts(group);
+  v7 = [v6 count];
+  v8 = objc_msgSend_contacts(groupCopy);
+  v9 = [v8 count];
 
   if (v7 == v9)
   {
     group2 = [(CNGroupAvatarViewController *)self group];
-    contacts3 = [group2 contacts];
-    contacts4 = [groupCopy contacts];
-    v13 = [contacts3 _cn_zip:contacts4];
+    v11 = objc_msgSend_contacts(group2);
+    v12 = objc_msgSend_contacts(groupCopy);
+    v13 = [v11 _cn_zip:v12];
 
     v14 = [v13 _cn_all:&__block_literal_global_29_45174];
   }
@@ -376,8 +376,8 @@ LABEL_7:
   {
     if (v17)
     {
-      contacts = [updateCopy contacts];
-      v24 = [contacts count];
+      v23 = objc_msgSend_contacts(updateCopy);
+      v24 = [v23 count];
       avatarViewController = [(CNGroupAvatarViewController *)self avatarViewController];
       containingCellView = [avatarViewController containingCellView];
       *buf = 134218242;
@@ -403,8 +403,8 @@ LABEL_7:
   {
     if (v17)
     {
-      contacts2 = [updateCopy contacts];
-      v19 = [contacts2 count];
+      v18 = objc_msgSend_contacts(updateCopy);
+      v19 = [v18 count];
       avatarViewController2 = [(CNGroupAvatarViewController *)self avatarViewController];
       containingCellView2 = [avatarViewController2 containingCellView];
       *buf = 134218242;

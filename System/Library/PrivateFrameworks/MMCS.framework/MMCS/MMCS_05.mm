@@ -1,10 +1,36 @@
+void *copy_error_response_nv_pairs(const __CFString *a1, __CFString *a2, uint64_t a3)
+{
+  result = createNameValuePair(a1, a2);
+  v6 = *(a3 + 64);
+  v5 = *(a3 + 72);
+  *(a3 + 64) = v6 + 1;
+  *(v5 + 8 * v6) = result;
+  return result;
+}
+
+_BYTE *Copy_MethodCompletionInfo(void **a1, uint64_t a2)
+{
+  packed_size = chunkserver__method_completion_info__get_packed_size(a1, a2);
+  result = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+  if (result)
+  {
+    v5 = result;
+    v6 = chunkserver__method_completion_info__pack(a1, result);
+    v7 = chunkserver__method_completion_info__unpack(0, v6, v5);
+    free(v5);
+    return v7;
+  }
+
+  return result;
+}
+
 _DWORD *Create_MethodCompletionInfo(__CFError *a1, __CFHTTPMessage *a2, uint64_t a3, const char *a4, unsigned int a5, int a6, int a7)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v14 = malloc_type_malloc(0xB8uLL, 0x10F004063C8919BuLL);
   if (!v14)
   {
-    goto LABEL_54;
+    return v14;
   }
 
   if (a1)
@@ -18,15 +44,15 @@ _DWORD *Create_MethodCompletionInfo(__CFError *a1, __CFHTTPMessage *a2, uint64_t
       {
         v18 = Value;
         cf = mmcs_cferror_copy_description(a1);
-        v47 = mmcs_cferror_copy_description(v18);
-        v19 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v53 = mmcs_cferror_copy_description(v18);
+        v20 = mmcs_logging_logger_default(v53, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v49 = v47;
-          v50 = 2112;
-          v51 = cf;
-          _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEBUG, "Reporting underlyingError %@ back to iCloud instead of %@", buf, 0x16u);
+          v55 = v53;
+          v56 = 2112;
+          v57 = cf;
+          _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_DEBUG, "Reporting underlyingError %@ back to iCloud instead of %@", buf, 0x16u);
         }
 
         if (cf)
@@ -34,9 +60,9 @@ _DWORD *Create_MethodCompletionInfo(__CFError *a1, __CFHTTPMessage *a2, uint64_t
           CFRelease(cf);
         }
 
-        if (v47)
+        if (v53)
         {
-          CFRelease(v47);
+          CFRelease(v53);
         }
       }
 
@@ -65,41 +91,46 @@ _DWORD *Create_MethodCompletionInfo(__CFError *a1, __CFHTTPMessage *a2, uint64_t
   chunkserver__method_completion_info__init(v14);
   v14[44] = 1;
   v14[45] = a7;
-  if (v18 && mmcs_report_is_enabled_for_config_key(@"client.error.on.failure", a6, a5))
+  if (v18)
   {
-    *(v14 + 11) = create_error_response_for_Error(v18);
+    is_enabled_for_config_key = mmcs_report_is_enabled_for_config_key(@"client.error.on.failure", a6, a5);
+    if (is_enabled_for_config_key)
+    {
+      is_enabled_for_config_key = create_error_response_for_Error(v18);
+      *(v14 + 11) = is_enabled_for_config_key;
+    }
   }
 
   if (!a2)
   {
-    v23 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = mmcs_logging_logger_default(is_enabled_for_config_key, v22);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_28;
     }
 
     *buf = 0;
-    v24 = "expected request url.";
+    v28 = "expected request url.";
     goto LABEL_27;
   }
 
-  v20 = CFHTTPMessageCopyRequestURL(a2);
-  if (v20)
+  v23 = CFHTTPMessageCopyRequestURL(a2);
+  if (v23)
   {
-    v21 = v20;
-    v22 = CFURLGetString(v20);
-    *(v14 + 3) = createCStringWithCFString(v22);
-    CFRelease(v21);
+    v25 = v23;
+    v26 = CFURLGetString(v23);
+    *(v14 + 3) = createCStringWithCFString(v26);
+    CFRelease(v25);
     goto LABEL_28;
   }
 
-  v23 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v27 = mmcs_logging_logger_default(0, v24);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    v24 = "can't get request url.";
+    v28 = "can't get request url.";
 LABEL_27:
-    _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_ERROR, v24, buf, 2u);
+    _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_ERROR, v28, buf, 2u);
   }
 
 LABEL_28:
@@ -110,54 +141,55 @@ LABEL_28:
 
   if (mmcs_report_is_enabled_for_config_key(@"vendor.response.code", a6, a5))
   {
-    if (mmcs_http_context_has_http_status(a3))
+    has_http_status = mmcs_http_context_has_http_status(a3);
+    if (has_http_status)
     {
-      v25 = mmcs_http_context_http_status(a3);
+      v32 = mmcs_http_context_http_status(a3, v31);
     }
 
     else
     {
-      v26 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v33 = mmcs_logging_logger_default(has_http_status, v31);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v49 = a3;
-        _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_ERROR, "mmcs http context <%p> does not have status code!", buf, 0xCu);
+        v55 = a3;
+        _os_log_impl(&dword_2577D8000, v33, OS_LOG_TYPE_ERROR, "mmcs http context <%p> does not have status code!", buf, 0xCu);
       }
 
-      v25 = -1;
+      v32 = -1;
     }
 
-    v14[8] = v25;
+    v14[8] = v32;
   }
 
-  v27 = mmcs_http_context_status_succeeded(a3);
+  v34 = mmcs_http_context_status_succeeded(a3, v29);
   response_message = mmcs_http_context_get_response_message(a3);
   *(v14 + 6) = 0;
-  v29 = mmcs_report_copy_headers_from_vendor_response(response_message, v27, a6, a5);
-  if (v29)
+  v36 = mmcs_report_copy_headers_from_vendor_response(response_message, v34, a6, a5);
+  if (v36)
   {
-    v30 = v29;
-    Count = CFDictionaryGetCount(v29);
+    v37 = v36;
+    Count = CFDictionaryGetCount(v36);
     *(v14 + 7) = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
-    CFDictionaryApplyFunction(v30, copy_vendor_response_headers, v14);
-    CFRelease(v30);
+    CFDictionaryApplyFunction(v37, copy_vendor_response_headers, v14);
+    CFRelease(v37);
   }
 
-  if (v27)
+  if (v34)
   {
     goto LABEL_52;
   }
 
   if (mmcs_report_is_enabled_for_config_key(@"status.line.on.failure", a6, a5))
   {
-    v32 = mmcs_http_context_get_response_message(a3);
-    v33 = CFHTTPMessageCopyResponseStatusLine(v32);
-    if (v33)
+    v39 = mmcs_http_context_get_response_message(a3);
+    v40 = CFHTTPMessageCopyResponseStatusLine(v39);
+    if (v40)
     {
-      v34 = v33;
-      *(v14 + 5) = createCStringWithCFString(v33);
-      CFRelease(v34);
+      v41 = v40;
+      *(v14 + 5) = createCStringWithCFString(v40);
+      CFRelease(v41);
     }
   }
 
@@ -166,52 +198,50 @@ LABEL_28:
     goto LABEL_52;
   }
 
-  v35 = mmcs_report_value_for_config_key(@"vendor.body.max.bytes.on.failure.internal", a6, a5);
-  cfindex_from_cftype_using_description = mmcs_get_cfindex_from_cftype_using_description(@"vendor.body.max.bytes.on.failure.internal", v35, 0);
+  v42 = mmcs_report_value_for_config_key(@"vendor.body.max.bytes.on.failure.internal", a6, a5);
+  cfindex_from_cftype_using_description = mmcs_get_cfindex_from_cftype_using_description(@"vendor.body.max.bytes.on.failure.internal", v42, 0);
   if (cfindex_from_cftype_using_description < 1)
   {
     goto LABEL_52;
   }
 
-  v37 = cfindex_from_cftype_using_description;
-  v38 = mmcs_http_context_copy_response_body(a3);
-  if (!v38)
+  v44 = cfindex_from_cftype_using_description;
+  v45 = mmcs_http_context_copy_response_body(a3);
+  if (!v45)
   {
     goto LABEL_52;
   }
 
-  v39 = v38;
-  if (v37 < CFDataGetLength(v38))
+  v46 = v45;
+  if (v44 < CFDataGetLength(v45))
   {
     goto LABEL_49;
   }
 
-  Length = CFDataGetLength(v39);
+  Length = CFDataGetLength(v46);
   if (Length)
   {
-    v37 = Length;
+    v44 = Length;
 LABEL_49:
-    v41 = malloc_type_malloc(v37, 0x100004077774924uLL);
-    *(v14 + 10) = v41;
-    if (v41)
+    v48 = malloc_type_malloc(v44, 0x100004077774924uLL);
+    *(v14 + 10) = v48;
+    if (v48)
     {
-      v42 = v41;
-      *(v14 + 9) = v37;
-      BytePtr = CFDataGetBytePtr(v39);
-      memcpy(v42, BytePtr, v37);
+      v49 = v48;
+      *(v14 + 9) = v44;
+      BytePtr = CFDataGetBytePtr(v46);
+      memcpy(v49, BytePtr, v44);
       v14[16] = 1;
     }
   }
 
-  CFRelease(v39);
+  CFRelease(v46);
 LABEL_52:
   if (a4)
   {
     *(v14 + 19) = strdup(a4);
   }
 
-LABEL_54:
-  v44 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -255,146 +285,142 @@ void *copy_client_nv_pairs(const __CFString *a1, __CFString *a2, uint64_t a3)
   return result;
 }
 
-_OWORD *mmcs_create_FileReferenceData(const __CFArray *a1)
+void *mmcs_create_FileReferenceData(const __CFArray *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = malloc_type_malloc(0x40uLL, 0x10E004044EB5B3DuLL);
   if (!v2)
   {
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = mmcs_logging_logger_default(0, v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "mmcs_create_FileReferenceData";
-      v9 = "%s failed to allocate fileReferenceData.";
+      v13 = 136315138;
+      v14 = "mmcs_create_FileReferenceData";
+      v11 = "%s failed to allocate fileReferenceData.";
 LABEL_12:
-      _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_ERROR, v9, &v12, 0xCu);
+      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, v11, &v13, 0xCu);
     }
 
-LABEL_13:
-    v3 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
-  v3 = v2;
+  v4 = v2;
   opaque__file_reference_data__init(v2);
   if (!a1)
   {
-    goto LABEL_14;
+    return v4;
   }
 
   Count = CFArrayGetCount(a1);
-  v5 = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
-  if (!v5)
+  v6 = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
+  if (!v6)
   {
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = mmcs_logging_logger_default(0, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "mmcs_create_FileReferenceData";
-      v9 = "%s failed to allocate package section item list";
+      v13 = 136315138;
+      v14 = "mmcs_create_FileReferenceData";
+      v11 = "%s failed to allocate package section item list";
       goto LABEL_12;
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
-  v6 = v5;
+  v8 = v6;
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
-      v6[i] = CFArrayGetValueAtIndex(a1, i);
+      v8[i] = CFArrayGetValueAtIndex(a1, i);
     }
   }
 
-  *(v3 + 6) = Count;
-  *(v3 + 7) = v6;
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
-  return v3;
+  *(v4 + 6) = Count;
+  *(v4 + 7) = v8;
+  return v4;
 }
 
-_OWORD *mmcs_create_FileReferenceDataV3Chunk(uint64_t a1, uint64_t a2, uint64_t a3)
+void *mmcs_create_FileReferenceDataV3Chunk(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
-    v11 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
 
-    v17 = 0;
-    v12 = "mmcs_create_FileReferenceDataV1Chunk cannot have NULL chunkEncryptionKey.";
-    v13 = &v17;
+    v19 = 0;
+    v14 = "mmcs_create_FileReferenceDataV1Chunk cannot have NULL chunkEncryptionKey.";
+    v15 = &v19;
 LABEL_15:
-    _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, v12, v13, 2u);
+    _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, v14, v15, 2u);
     return 0;
   }
 
   v5 = CKChunkSchemeAndEncryptionKeySize();
   if (!v5)
   {
-    v11 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = mmcs_logging_logger_default(0, v6);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
 
-    v16 = 0;
-    v12 = "mmcs_create_FileReferenceDataV1Chunk cannot have zero length chunkEncryptionSignature.";
-    v13 = &v16;
+    v18 = 0;
+    v14 = "mmcs_create_FileReferenceDataV1Chunk cannot have zero length chunkEncryptionSignature.";
+    v15 = &v18;
     goto LABEL_15;
   }
 
-  v6 = v5;
-  v7 = malloc_type_malloc(0x40uLL, 0x10700407A2CD8F7uLL);
-  if (!v7)
+  v7 = v5;
+  v8 = malloc_type_malloc(0x40uLL, 0x10700407A2CD8F7uLL);
+  if (!v8)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = mmcs_logging_logger_default(0, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 0;
-      v12 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate fileReferenceDataChunk.";
-      v13 = &v15;
+      v17 = 0;
+      v14 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate fileReferenceDataChunk.";
+      v15 = &v17;
       goto LABEL_15;
     }
 
     return 0;
   }
 
-  v8 = v7;
-  opaque__file_reference_data__v3__chunk__init(v7);
-  *(v8 + 3) = v6;
-  *(v8 + 4) = a1;
+  v10 = v8;
+  opaque__file_reference_data__v3__chunk__init(v8);
+  *(v10 + 3) = v7;
+  *(v10 + 4) = a1;
   if (a3)
   {
-    v9 = CKSubchunkBlobSize();
-    if (v9)
+    v11 = CKSubchunkBlobSize();
+    if (v11)
     {
-      v10 = a3;
+      v12 = a3;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
-    *(v8 + 6) = v9;
-    *(v8 + 7) = v10;
-    *(v8 + 10) = 1;
+    *(v10 + 6) = v11;
+    *(v10 + 7) = v12;
+    *(v10 + 10) = 1;
   }
 
   else
   {
-    *(v8 + 10) = 0;
+    *(v10 + 10) = 0;
   }
 
-  return v8;
+  return v10;
 }
 
-void _add_index_set(int a1, uint64_t a2, uint64_t a3)
+void _add_index_set(int a1, uint64_t a2, uint64_t *a3)
 {
   if (*(a3 + 16))
   {
@@ -412,7 +438,7 @@ void _add_index_set(int a1, uint64_t a2, uint64_t a3)
       ProtobufCBinaryData_SetCopyBufferLen(v8 + 3, &v11, 4uLL);
       if (v8[4])
       {
-        *(a3 + 8) = v8;
+        a3[1] = v8;
         mmcs_index_set_apply_function(a2, _add_index_set_range, a3);
       }
 
@@ -434,17 +460,18 @@ void *_index_set_applier_function(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2 >= 1)
   {
-    v10 = v3;
-    v11 = v4;
+    v12 = v3;
+    v13 = v4;
     v6 = result;
     v7 = a2 + result - 1;
-    if (mmcs_index_set_contains_range(a3, result, v7))
+    v8 = mmcs_index_set_contains_range(a3, result, v7);
+    if (v8)
     {
-      v8 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = mmcs_logging_logger_default(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_ERROR, "index set overlap", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, "index set overlap", v11, 2u);
       }
     }
 
@@ -454,11 +481,11 @@ void *_index_set_applier_function(void *result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void _add_index_set_range(int a1, uint64_t a2, uint64_t a3)
+void _add_index_set_range(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 16))
   {
-    if (a2 && (v6 = *(a3 + 8), (v7 = malloc_type_realloc(*(v6 + 48), 8 * *(v6 + 40) + 8, 0x2004093837F09uLL)) != 0))
+    if (a2 && (v5 = result, v6 = *(a3 + 8), (v7 = malloc_type_realloc(*(v6 + 48), 8 * *(v6 + 40) + 8, 0x2004093837F09uLL)) != 0))
     {
       *(v6 + 48) = v7;
       v8 = malloc_type_malloc(0x28uLL, 0x10600409AC856DDuLL);
@@ -467,7 +494,7 @@ void _add_index_set_range(int a1, uint64_t a2, uint64_t a3)
       v9 = *(v6 + 48);
       *(v6 + 40) = v10 + 1;
       *(v9 + 8 * v10) = v8;
-      v8[6] = a1;
+      v8[6] = v5;
       if (a2 >= 2)
       {
         v8[7] = 1;
@@ -573,100 +600,103 @@ uint64_t mmcs_http_session_pool_entry_equal_callback(uint64_t a1, uint64_t a2)
 
 void schedulePutComplete(uint64_t *a1)
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a1[1];
-  LODWORD(v4) = mmcs_put_state_containers_done_count(a1);
-  v5 = v3 == v4;
-  if (v3 != v4 && CFAbsoluteTimeGetCurrent() - *(*(v2 + 304) + 16) < 0.0)
+  LODWORD(v5) = mmcs_put_state_containers_done_count(a1);
+  v6 = v3 == v5;
+  if (v3 != v5 && CFAbsoluteTimeGetCurrent() - *(*(v2 + 304) + 16) < 0.0)
   {
-    goto LABEL_63;
+    return;
   }
 
-  v4 = v4;
-  request_activity_marker = mmcs_request_get_request_activity_marker(v2);
+  v5 = v5;
+  request_activity_marker = mmcs_request_get_request_activity_marker(v2, v4);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   object = _os_activity_create(&dword_2577D8000, "mmcs-put-complete", request_activity_marker, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(object, &state);
-  v7 = *(v2 + 32);
+  v8 = *(v2 + 32);
   value = 0;
   if (*(v2 + 144))
   {
     error = CFRetain(*(v2 + 152));
     Mutable = 0;
-    v15 = 0;
-LABEL_5:
     v16 = 0;
-LABEL_6:
+LABEL_5:
     v17 = 0;
-LABEL_7:
+LABEL_6:
     v18 = 0;
+LABEL_7:
+    v19 = 0;
     goto LABEL_8;
   }
 
-  v90 = v7;
-  v92 = v3;
+  v116 = v8;
+  v118 = v3;
   allocator = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, &kC3BaseArrayCallBacks);
   if (a1[1])
   {
-    v19 = 0;
+    v20 = 0;
     do
     {
-      v20 = *(a1[8] + 8 * v19);
-      if (mmcs_put_container_needs_put_complete(v20, v5))
+      v21 = *(a1[8] + 8 * v20);
+      v22 = mmcs_put_container_needs_put_complete(v21, v6);
+      if (v22)
       {
-        v21 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = mmcs_logging_logger_default(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = **(v20[11] + 8);
+          v25 = **(v21[11] + 8);
           LODWORD(buf) = 136446210;
-          *(&buf + 4) = v22;
-          _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_DEFAULT, "Adding container %{public}s to putComplete.", &buf, 0xCu);
+          *(&buf + 4) = v25;
+          _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_DEFAULT, "Adding container %{public}s to putComplete.", &buf, 0xCu);
         }
 
-        *(v20[11] + 33) = 1;
-        mmcs_container_clear_complete_error(v20);
-        CFArrayAppendValue(Mutable, v20);
+        *(v21[11] + 33) = 1;
+        mmcs_container_clear_complete_error(v21);
+        CFArrayAppendValue(Mutable, v21);
       }
 
-      ++v19;
+      ++v20;
     }
 
-    while (v19 < a1[1]);
+    while (v20 < a1[1]);
   }
 
   if (CFArrayGetCount(Mutable))
   {
     if (*(*(v2 + 304) + 120))
     {
-      v23 = @"cloneComplete";
+      v27 = @"cloneComplete";
     }
 
     else
     {
-      v23 = @"putComplete";
+      v27 = @"putComplete";
     }
 
-    v15 = CFURLCreateCopyAppendingPathComponent(allocator, *(v2 + 160), v23, 0);
-    if (!v15)
+    v28 = CFURLCreateCopyAppendingPathComponent(allocator, *(v2 + 160), v27, 0);
+    v16 = v28;
+    if (!v28)
     {
       error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, @"Failed to create putComplete request url");
-      v16 = 0;
       v17 = 0;
       v18 = 0;
-      v4 = v4;
-      v3 = v92;
+      v19 = 0;
+      v5 = v5;
+      v3 = v118;
       goto LABEL_8;
     }
 
     if (*(*(v2 + 304) + 80))
     {
-      if (mmcs_put_complete_create(&value, *a1, Mutable))
+      v30 = mmcs_put_complete_create(&value, *a1, Mutable);
+      if (v30)
       {
         CFSetAddValue(*(*(v2 + 304) + 128), value);
-        v4 = v4;
+        v5 = v5;
         if (*(*(v2 + 304) + 120))
         {
           clone_complete_request_body = mmcs_put_state_create_clone_complete_request_body(v2, a1, value);
@@ -677,23 +707,23 @@ LABEL_7:
           clone_complete_request_body = mmcs_put_state_create_put_complete_request_body(a1, value);
         }
 
-        v16 = clone_complete_request_body;
+        v17 = clone_complete_request_body;
         if (clone_complete_request_body)
         {
-          if (v92 == v4)
+          if (v118 == v5)
           {
             mmcs_put_request_notify_all_items_with_pending_progress(v2);
             if (*(v2 + 144))
             {
 LABEL_85:
               error = CFRetain(*(v2 + 152));
-              v17 = 0;
               v18 = 0;
-              v3 = v92;
+              v19 = 0;
+              v3 = v118;
 LABEL_8:
-              if (!v18 && !error)
+              if (!v19 && !error)
               {
-                error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Unknown local error %s", v8, v9, v10, v11, v12, "send_request_putComplete");
+                error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Unknown local error %s", v9, v10, v11, v12, v13, "send_request_putComplete");
               }
 
               if (!value)
@@ -701,9 +731,9 @@ LABEL_8:
                 goto LABEL_36;
               }
 
-              if (v18)
+              if (v19)
               {
-                v18 = 1;
+                v19 = 1;
               }
 
               else
@@ -719,21 +749,26 @@ LABEL_36:
                 goto LABEL_40;
               }
 
-              if ((v18 & 1) == 0)
+              if ((v19 & 1) == 0)
               {
-                v121.length = CFArrayGetCount(Mutable);
-                v121.location = 0;
-                CFArrayApplyFunction(Mutable, v121, failed_to_send_put_complete, error);
+                v147.length = CFArrayGetCount(Mutable);
+                v147.location = 0;
+                CFArrayApplyFunction(Mutable, v147, failed_to_send_put_complete, error);
               }
 
 LABEL_39:
               CFRelease(Mutable);
 LABEL_40:
-              v26 = 0;
-              if (!v18 && error)
+              v35 = 0;
+              if (!v19 && error)
               {
                 CFRetain(error);
-                v26 = error;
+                v35 = error;
+              }
+
+              if (v18)
+              {
+                CFRelease(v18);
               }
 
               if (v17)
@@ -746,11 +781,6 @@ LABEL_40:
                 CFRelease(v16);
               }
 
-              if (v15)
-              {
-                CFRelease(v15);
-              }
-
               if (error)
               {
                 CFRelease(error);
@@ -759,7 +789,7 @@ LABEL_40:
               goto LABEL_51;
             }
 
-            mmcs_put_item_progress_make_state(5, &buf);
+            mmcs_put_item_progress_make_state(5, v51, &buf);
             mmcs_put_request_set_progress_and_notify_all_items_not_done(v2, &buf);
           }
 
@@ -768,28 +798,28 @@ LABEL_40:
             goto LABEL_85;
           }
 
-          v41 = v90[8];
-          v42 = v90[10];
+          v56 = v116[8];
+          v57 = v116[10];
           dataclass = mmcs_request_get_dataclass(v2);
-          http_protobuf_message = create_http_protobuf_message(v41, v42, dataclass, *(v2 + 168), *(v2 + 176), v15, v16);
+          http_protobuf_message = create_http_protobuf_message(v56, v57, dataclass, *(v2 + 168), *(v2 + 176), v16, v17);
           if (!http_protobuf_message)
           {
-            v48 = mmcs_logging_logger_default();
-            v3 = v92;
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v66 = mmcs_logging_logger_default(0, v60);
+            v3 = v118;
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
-              v49 = CFStringCreateWithFormat(allocator, 0, @"unable to create put complete msg");
-              v50 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+              v67 = CFStringCreateWithFormat(allocator, 0, @"unable to create put complete msg");
+              v69 = mmcs_logging_logger_default(v67, v68);
+              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(buf) = 138543362;
-                *(&buf + 4) = v49;
-                _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+                *(&buf + 4) = v67;
+                _os_log_impl(&dword_2577D8000, v69, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
               }
 
-              if (v49)
+              if (v67)
               {
-                CFRelease(v49);
+                CFRelease(v67);
               }
             }
 
@@ -797,43 +827,44 @@ LABEL_40:
             goto LABEL_6;
           }
 
-          v17 = http_protobuf_message;
+          v18 = http_protobuf_message;
           ValueAtIndex = CFArrayGetValueAtIndex(*(value + 3), 0);
-          if (!mmcs_put_container_http_msg_add_token_header(ValueAtIndex, v17))
+          v62 = mmcs_put_container_http_msg_add_token_header(ValueAtIndex, v18);
+          if (!v62)
           {
-            v51 = mmcs_logging_logger_default();
-            v3 = v92;
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v70 = mmcs_logging_logger_default(v62, v63);
+            v3 = v118;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
-              v57 = CFStringCreateWithFormat(allocator, 0, @"unable to add put container token header");
-              v58 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              v76 = CFStringCreateWithFormat(allocator, 0, @"unable to add put container token header");
+              v78 = mmcs_logging_logger_default(v76, v77);
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(buf) = 138543362;
-                *(&buf + 4) = v57;
-                _os_log_impl(&dword_2577D8000, v58, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+                *(&buf + 4) = v76;
+                _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
               }
 
-              if (v57)
+              if (v76)
               {
-                CFRelease(v57);
+                CFRelease(v76);
               }
             }
 
-            error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to add put container token header", v52, v53, v54, v55, v56, v88);
+            error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to add put container token header", v71, v72, v73, v74, v75);
             goto LABEL_7;
           }
 
-          mmcs_request_insert_headers(v2, v17);
+          mmcs_request_insert_headers(v2, v18);
           if (*(*(v2 + 56) + 56))
           {
             numberc = *(*(v2 + 56) + 56);
             cf = CFLocaleCreate(allocator, @"en_US");
-            v46 = CFNumberFormatterCreate(allocator, cf, kCFNumberFormatterDecimalStyle);
-            number = CFNumberFormatterCreateStringWithNumber(allocator, v46, numberc);
-            if (v46)
+            v64 = CFNumberFormatterCreate(allocator, cf, kCFNumberFormatterDecimalStyle);
+            number = CFNumberFormatterCreateStringWithNumber(allocator, v64, numberc);
+            if (v64)
             {
-              CFRelease(v46);
+              CFRelease(v64);
             }
 
             if (cf)
@@ -843,15 +874,15 @@ LABEL_40:
 
             if (number)
             {
-              v47 = number;
+              v65 = number;
             }
 
             else
             {
-              v47 = @"NULL";
+              v65 = @"NULL";
             }
 
-            CFHTTPMessageSetHeaderFieldValue(v17, @"mmcs_network_service_type", v47);
+            CFHTTPMessageSetHeaderFieldValue(v18, @"mmcs_network_service_type", v65);
             if (number)
             {
               CFRelease(number);
@@ -860,126 +891,128 @@ LABEL_40:
 
           else
           {
-            CFHTTPMessageSetHeaderFieldValue(v17, @"mmcs_network_service_type", @"NULL");
+            CFHTTPMessageSetHeaderFieldValue(v18, @"mmcs_network_service_type", @"NULL");
           }
 
-          v59 = mmcs_request_get_dataclass(v2);
-          if (CFStringCompare(v59, @"com.apple.Dataclass.Messenger", 1uLL) == kCFCompareEqualTo)
+          v79 = mmcs_request_get_dataclass(v2);
+          if (CFStringCompare(v79, @"com.apple.Dataclass.Messenger", 1uLL) == kCFCompareEqualTo)
           {
-            v60 = CFURLCopyHostName(*(v2 + 160));
-            if (v60)
+            v80 = CFURLCopyHostName(*(v2 + 160));
+            if (v80)
             {
-              v61 = v60;
-              ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v60, @"-");
+              v81 = v80;
+              ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v80, @"-");
               if (ArrayBySeparatingStrings)
               {
                 numbera = ArrayBySeparatingStrings;
                 if (CFArrayGetCount(ArrayBySeparatingStrings) >= 2)
                 {
-                  v63 = CFArrayGetValueAtIndex(numbera, 0);
-                  CFHTTPMessageSetHeaderFieldValue(v17, @"x-apple-content-partition", v63);
+                  v83 = CFArrayGetValueAtIndex(numbera, 0);
+                  CFHTTPMessageSetHeaderFieldValue(v18, @"x-apple-content-partition", v83);
                 }
 
-                CFRelease(v61);
-                v64 = numbera;
+                CFRelease(v81);
+                v84 = numbera;
               }
 
               else
               {
-                v64 = v61;
+                v84 = v81;
               }
 
-              CFRelease(v64);
+              CFRelease(v84);
             }
           }
 
           promoted_to_foreground_copy = mmcs_http_request_options_create_promoted_to_foreground_copy(*(v2 + 56));
-          v119 = 0;
-          v118 = 0u;
-          v117 = 0u;
+          v145 = 0;
+          v144 = 0u;
+          v143 = 0u;
           *&buf = @"putComplete";
-          *(&buf + 1) = v17;
-          v66 = promoted_to_foreground_copy;
-          v104 = promoted_to_foreground_copy;
-          v105 = *(v2 + 96);
-          v106 = 0;
-          v107 = -1;
-          v109 = 0;
-          v110 = 0;
-          v108 = -1;
-          v111 = mmcs_put_req_will_retry_put_complete_after_error;
-          v112 = handle_response_putComplete;
-          v113 = 0;
-          v114 = 0;
-          v115 = 0;
-          v116 = value;
-          *&v117 = mmcs_engine_get_sparse_block_size();
-          *(&v117 + 1) = mmcs_engine_owner(v90);
-          LOBYTE(v118) = 0;
-          *(&v118 + 1) = 0;
-          v119 = object;
-          memset(v98, 0, sizeof(v98));
-          mmcs_read_stream_pool_parameters_make_pool_timeout_max(v90[4], 100, v98, 90.0);
-          numberb = v66;
-          if (mmcs_http_context_create(value + 1, *(v2 + 140), &buf))
+          *(&buf + 1) = v18;
+          v86 = promoted_to_foreground_copy;
+          v130 = promoted_to_foreground_copy;
+          v131 = *(v2 + 96);
+          v132 = 0;
+          v133 = -1;
+          v135 = 0;
+          v136 = 0;
+          v134 = -1;
+          v137 = mmcs_put_req_will_retry_put_complete_after_error;
+          v138 = handle_response_putComplete;
+          v139 = 0;
+          v140 = 0;
+          v141 = 0;
+          v142 = value;
+          *&v143 = mmcs_engine_get_sparse_block_size();
+          *(&v143 + 1) = mmcs_engine_owner(v116);
+          LOBYTE(v144) = 0;
+          *(&v144 + 1) = 0;
+          v145 = object;
+          memset(v124, 0, sizeof(v124));
+          mmcs_read_stream_pool_parameters_make_pool_timeout_max(v116[4], 100, v124, 90.0);
+          v87 = mmcs_http_context_create(value + 1, *(v2 + 140), &buf);
+          numberb = v86;
+          if (v87)
           {
-            mmcs_put_req_context_make_put_complete_metrics(v2, value, v66);
-            *(*(v2 + 304) + 136) = v5;
-            v3 = v92;
-            if (mmcs_http_context_send(*(value + 1), v98, v90[7]))
+            mmcs_put_req_context_make_put_complete_metrics(v2, value, v86);
+            *(*(v2 + 304) + 136) = v6;
+            v89 = mmcs_http_context_send(*(value + 1), v124, v116[7]);
+            v3 = v118;
+            if (v89)
             {
               if (gMMCS_DebugLevel >= 4)
               {
-                v67 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+                v91 = mmcs_logging_logger_default(v89, v90);
+                if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
                 {
-                  v68 = CFStringCreateWithFormat(allocator, 0, @"sent mmcs_put_complete (%p) for put request: %p", value, v2);
-                  v69 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+                  v92 = CFStringCreateWithFormat(allocator, 0, @"sent mmcs_put_complete (%p) for put request: %p", value, v2);
+                  v94 = mmcs_logging_logger_default(v92, v93);
+                  if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
                   {
-                    *v101 = 138543362;
-                    v102 = v68;
-                    _os_log_impl(&dword_2577D8000, v69, OS_LOG_TYPE_DEBUG, "%{public}@", v101, 0xCu);
+                    *v127 = 138543362;
+                    v128 = v92;
+                    _os_log_impl(&dword_2577D8000, v94, OS_LOG_TYPE_DEBUG, "%{public}@", v127, 0xCu);
                   }
 
-                  if (v68)
+                  if (v92)
                   {
-                    CFRelease(v68);
+                    CFRelease(v92);
                   }
                 }
               }
 
               error = 0;
               *(*(v2 + 304) + 16) = CFAbsoluteTimeGetCurrent();
-              v18 = 1;
+              v19 = 1;
               goto LABEL_152;
             }
 
-            v79 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+            v105 = mmcs_logging_logger_default(v89, v90);
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
-              v85 = CFStringCreateWithFormat(allocator, 0, @"unable to send http msg");
-              v86 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+              v111 = CFStringCreateWithFormat(allocator, 0, @"unable to send http msg");
+              v113 = mmcs_logging_logger_default(v111, v112);
+              if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
               {
-                *v101 = 138543362;
-                v102 = v85;
-                _os_log_impl(&dword_2577D8000, v86, OS_LOG_TYPE_ERROR, "%{public}@", v101, 0xCu);
+                *v127 = 138543362;
+                v128 = v111;
+                _os_log_impl(&dword_2577D8000, v113, OS_LOG_TYPE_ERROR, "%{public}@", v127, 0xCu);
               }
 
-              if (v85)
+              if (v111)
               {
-                CFRelease(v85);
+                CFRelease(v111);
               }
             }
 
-            v87 = *(value + 1);
-            if (v87 && mmcs_http_context_get_error(v87))
+            v114 = *(value + 1);
+            if (v114 && mmcs_http_context_get_error(v114))
             {
               error = mmcs_http_context_get_error(*(value + 1));
               CFRetain(error);
 LABEL_151:
-              v18 = 0;
+              v19 = 0;
 LABEL_152:
               if (numberb)
               {
@@ -989,140 +1022,140 @@ LABEL_152:
               goto LABEL_8;
             }
 
-            v78 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to send http msg %s", v80, v81, v82, v83, v84, "send_request_putComplete");
+            v104 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to send http msg %s", v106, v107, v108, v109, v110, "send_request_putComplete");
           }
 
           else
           {
-            v70 = mmcs_logging_logger_default();
-            v3 = v92;
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v95 = mmcs_logging_logger_default(v87, v88);
+            v3 = v118;
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
-              v76 = CFStringCreateWithFormat(allocator, 0, @"unable to create http context");
-              v77 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+              v101 = CFStringCreateWithFormat(allocator, 0, @"unable to create http context");
+              v103 = mmcs_logging_logger_default(v101, v102);
+              if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
               {
-                *v101 = 138543362;
-                v102 = v76;
-                _os_log_impl(&dword_2577D8000, v77, OS_LOG_TYPE_ERROR, "%{public}@", v101, 0xCu);
+                *v127 = 138543362;
+                v128 = v101;
+                _os_log_impl(&dword_2577D8000, v103, OS_LOG_TYPE_ERROR, "%{public}@", v127, 0xCu);
               }
 
-              if (v76)
+              if (v101)
               {
-                CFRelease(v76);
+                CFRelease(v101);
               }
             }
 
-            v78 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Failed to create http context %s", v71, v72, v73, v74, v75, "send_request_putComplete");
+            v104 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Failed to create http context %s", v96, v97, v98, v99, v100, "send_request_putComplete");
           }
 
-          error = v78;
+          error = v104;
           goto LABEL_151;
         }
 
-        v38 = mmcs_logging_logger_default();
-        v3 = v92;
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v52 = mmcs_logging_logger_default(0, v33);
+        v3 = v118;
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v39 = CFStringCreateWithFormat(allocator, 0, @"unable to create putComplete request");
-          v40 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v53 = CFStringCreateWithFormat(allocator, 0, @"unable to create putComplete request");
+          v55 = mmcs_logging_logger_default(v53, v54);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v39;
-            _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+            *(&buf + 4) = v53;
+            _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
           }
 
-          if (v39)
+          if (v53)
           {
-            CFRelease(v39);
+            CFRelease(v53);
           }
         }
 
-        v34 = @"Failed to create putComplete request body";
+        v46 = @"Failed to create putComplete request body";
       }
 
       else
       {
-        v35 = mmcs_logging_logger_default();
-        v4 = v4;
-        v3 = v92;
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v47 = mmcs_logging_logger_default(v30, v31);
+        v5 = v5;
+        v3 = v118;
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v36 = CFStringCreateWithFormat(allocator, 0, @"unable to create mmcs_put_complete");
-          v37 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v48 = CFStringCreateWithFormat(allocator, 0, @"unable to create mmcs_put_complete");
+          v50 = mmcs_logging_logger_default(v48, v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v36;
-            _os_log_impl(&dword_2577D8000, v37, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+            *(&buf + 4) = v48;
+            _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
           }
 
-          if (v36)
+          if (v48)
           {
-            CFRelease(v36);
+            CFRelease(v48);
           }
         }
 
-        v34 = @"Failed to create mmcs_put_complete";
+        v46 = @"Failed to create mmcs_put_complete";
       }
     }
 
     else
     {
-      v31 = mmcs_logging_logger_default();
-      v4 = v4;
-      v3 = v92;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v42 = mmcs_logging_logger_default(v28, v29);
+      v5 = v5;
+      v3 = v118;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v32 = CFStringCreateWithFormat(allocator, 0, @"no put state");
-        v33 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v43 = CFStringCreateWithFormat(allocator, 0, @"no put state");
+        v45 = mmcs_logging_logger_default(v43, v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v32;
-          _os_log_impl(&dword_2577D8000, v33, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+          *(&buf + 4) = v43;
+          _os_log_impl(&dword_2577D8000, v45, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
         }
 
-        if (v32)
+        if (v43)
         {
-          CFRelease(v32);
+          CFRelease(v43);
         }
       }
 
-      v34 = @"no put state";
+      v46 = @"no put state";
     }
 
-    error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v34);
+    error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v46);
     goto LABEL_5;
   }
 
-  v25 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v34 = mmcs_logging_logger_default(0, v26);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_DEFAULT, "no containers were eligible for putComplete.", &buf, 2u);
+    _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEFAULT, "no containers were eligible for putComplete.", &buf, 2u);
   }
 
-  v3 = v92;
+  v3 = v118;
   if (value)
   {
+    v18 = 0;
     v17 = 0;
     v16 = 0;
-    v15 = 0;
     error = 0;
-    v18 = 1;
-    v4 = v4;
+    v19 = 1;
+    v5 = v5;
     goto LABEL_35;
   }
 
   error = 0;
-  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v26 = 0;
-  v18 = 1;
-  v4 = v4;
+  v18 = 0;
+  v35 = 0;
+  v19 = 1;
+  v5 = v5;
   if (Mutable)
   {
     goto LABEL_39;
@@ -1135,47 +1168,44 @@ LABEL_51:
   }
 
   os_activity_scope_leave(&state);
-  if (!v18)
+  if (!v19)
   {
-    if (v3 == v4)
+    if (v3 == v5)
     {
-      mmcs_put_request_context_cleanup(v2, v26);
+      mmcs_put_request_context_cleanup(v2, v35);
     }
 
     else
     {
-      v27 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v38 = mmcs_logging_logger_default(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Incremental put complete failed with error: %@", v26);
-        v29 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Incremental put complete failed with error: %@", v35);
+        v41 = mmcs_logging_logger_default(v39, v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v28;
-          _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+          *(&buf + 4) = v39;
+          _os_log_impl(&dword_2577D8000, v41, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
         }
 
-        if (v28)
+        if (v39)
         {
-          CFRelease(v28);
+          CFRelease(v39);
         }
       }
     }
   }
 
-  if (v26)
+  if (v35)
   {
-    CFRelease(v26);
+    CFRelease(v35);
   }
-
-LABEL_63:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void handle_response_uploadChunks(uint64_t a1, CFDataRef *a2, uint64_t a3)
 {
-  v162 = *MEMORY[0x277D85DE8];
+  v189 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     handle_response_uploadChunks_cold_6();
@@ -1215,10 +1245,10 @@ void handle_response_uploadChunks(uint64_t a1, CFDataRef *a2, uint64_t a3)
   {
     if (!*(v8 + 72))
     {
-      v25 = mmcs_http_context_copy_blocked_application_header_value(a1);
-      if (v25)
+      v26 = mmcs_http_context_copy_blocked_application_header_value(a1);
+      if (v26)
       {
-        error = mmcs_cferror_create_error(@"com.apple.mmcs", 51, v25);
+        error = mmcs_cferror_create_error(@"com.apple.mmcs", 51, v26);
         goto LABEL_91;
       }
     }
@@ -1234,22 +1264,22 @@ void handle_response_uploadChunks(uint64_t a1, CFDataRef *a2, uint64_t a3)
       {
         CFRelease(v13);
 LABEL_87:
-        v155 = 0;
-        v27 = @"ResponseHeader x-apple-put-complete-response malformed with value %@";
+        v182 = 0;
+        v28 = @"ResponseHeader x-apple-put-complete-response malformed with value %@";
 LABEL_89:
-        v28 = 6;
+        v29 = 6;
         goto LABEL_90;
       }
 
-      v29 = MEMORY[0x277CBED10];
+      v30 = MEMORY[0x277CBED10];
     }
 
     else
     {
-      v29 = MEMORY[0x277CBED28];
+      v30 = MEMORY[0x277CBED28];
     }
 
-    v19 = *v29;
+    v19 = *v30;
     CFRelease(v13);
     if (!v19)
     {
@@ -1273,17 +1303,18 @@ LABEL_89:
       goto LABEL_28;
     }
 
-    v23 = 3;
+    v24 = 3;
     goto LABEL_22;
   }
 
   if (v19)
   {
-    v23 = 2;
+    v24 = 2;
 LABEL_22:
-    if (CFBooleanGetValue(v19))
+    is_request_body_done = CFBooleanGetValue(v19);
+    if (is_request_body_done)
     {
-      v24 = 1;
+      v25 = 1;
       goto LABEL_32;
     }
 
@@ -1292,76 +1323,76 @@ LABEL_22:
 
   if (is_request_body_done)
   {
-    v24 = 1;
-    v23 = 2;
+    v25 = 1;
+    v24 = 2;
     goto LABEL_32;
   }
 
 LABEL_28:
   if (!*(v8 + 296))
   {
-    v24 = 2;
-    v23 = 1;
+    v25 = 2;
+    v24 = 1;
 LABEL_32:
     if (!*(v8 + 297))
     {
-      v24 = v23;
+      v25 = v24;
     }
 
-    if (v24 != 1)
+    if (v25 != 1)
     {
-      if (v24 != 2 && !*(v8 + 296))
+      if (v25 != 2 && !*(v8 + 296))
       {
-        v27 = @"PutCompleteAtEdge Returned Without Being Requested By Vendor When PutCompleteAtEdge Response Was Not Required";
+        v28 = @"PutCompleteAtEdge Returned Without Being Requested By Vendor When PutCompleteAtEdge Response Was Not Required";
         goto LABEL_89;
       }
 
-      v30 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v31 = mmcs_logging_logger_default(is_request_body_done, v23);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEFAULT, "Handling PutComplete Response", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_DEFAULT, "Handling PutComplete Response", buf, 2u);
       }
 
-      v31 = _os_activity_create(&dword_2577D8000, "mmcs-inline-put-complete", *(v6 + 80), OS_ACTIVITY_FLAG_DEFAULT);
+      v32 = _os_activity_create(&dword_2577D8000, "mmcs-inline-put-complete", *(v6 + 80), OS_ACTIVITY_FLAG_DEFAULT);
       state.opaque[0] = 0;
       state.opaque[1] = 0;
-      os_activity_scope_enter(v31, &state);
+      os_activity_scope_enter(v32, &state);
       C3BaseRetain(a3);
-      v32 = *(*(***(v6 + 88) + 32) + 48);
+      v33 = *(*(***(v6 + 88) + 32) + 48);
       is_connection_reused = mmcs_http_context_is_connection_reused(a1);
       Current = CFAbsoluteTimeGetCurrent();
-      mmcs_request_queue_request_did_complete(v32, a3, 0, is_connection_reused, 0, Current);
+      mmcs_request_queue_request_did_complete(v33, a3, 0, is_connection_reused, 0, Current);
       mmcs_put_container_vendor_put_done(v6);
-      v35 = mmcs_http_context_get_metrics(a1);
-      mmcs_metrics_http_info_set_final_try_in_request(v35, 1);
+      v36 = mmcs_http_context_get_metrics(a1);
+      mmcs_metrics_http_info_set_final_try_in_request(v36, 1);
       method_completion_info = mmcs_put_container_create_method_completion_info(v6, a3, 0);
       mmcs_transaction_add_method_completion_info(a3, method_completion_info);
       value = 0;
-      v42 = *(v6 + 88);
-      v43 = **v42;
-      if (*(v42 + 33))
+      v43 = *(v6 + 88);
+      v44 = **v43;
+      if (*(v43 + 33))
       {
-        v44 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 16, @"Already handled putComplete for this container. Retry", v37, v38, v39, v40, v41, v155);
+        v45 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 16, @"Already handled putComplete for this container. Retry", v38, v39, v40, v41, v42);
         goto LABEL_65;
       }
 
-      *(v42 + 33) = 1;
-      v63 = *(v6 + 56);
-      if (v63)
+      *(v43 + 33) = 1;
+      v68 = *(v6 + 56);
+      if (v68)
       {
-        CFRelease(v63);
+        CFRelease(v68);
       }
 
       *(v6 + 56) = 0;
-      mmcs_put_request_notify_all_items_with_pending_progress(v43);
-      if (*(v43 + 144))
+      mmcs_put_request_notify_all_items_with_pending_progress(v44);
+      if (*(v44 + 144))
       {
-        v44 = CFRetain(*(v43 + 152));
+        v45 = CFRetain(*(v44 + 152));
 LABEL_65:
-        v64 = v44;
-        v65 = 0;
-        if (v44)
+        v69 = v45;
+        v70 = 0;
+        if (v45)
         {
           goto LABEL_67;
         }
@@ -1369,68 +1400,68 @@ LABEL_65:
         goto LABEL_66;
       }
 
-      v65 = XCFArrayCreateWithObject(v6);
-      if (!mmcs_put_complete_create(&value, v43, v65))
+      v70 = XCFArrayCreateWithObject(v6);
+      if (!mmcs_put_complete_create(&value, v44, v70))
       {
-        v64 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, @"Error initializing putComplete", v94, v95, v96, v97, v98, v155);
-        if (v64)
+        v69 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, @"Error initializing putComplete", v108, v109, v110, v111, v112);
+        if (v69)
         {
 LABEL_67:
-          mmcs_container_set_complete_error_if_absent(v6, v64);
-          if (!mmcs_put_request_has_outstanding_async_transactions(v43))
+          mmcs_container_set_complete_error_if_absent(v6, v69);
+          if (!mmcs_put_request_has_outstanding_async_transactions(v44))
           {
             *buf = 0;
             *&buf[8] = 0;
-            request_activity_marker = mmcs_request_get_request_activity_marker(v43);
+            request_activity_marker = mmcs_request_get_request_activity_marker(v44, v71);
             os_activity_scope_enter(request_activity_marker, buf);
-            v67 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+            v75 = mmcs_logging_logger_default(v73, v74);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
-              v68 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done (with errors)! (Put request %p)", v43);
-              v69 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+              v76 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done (with errors)! (Put request %p)", v44);
+              v78 = mmcs_logging_logger_default(v76, v77);
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
               {
-                *v160 = 138543362;
-                *&v160[4] = v68;
-                _os_log_impl(&dword_2577D8000, v69, OS_LOG_TYPE_DEFAULT, "%{public}@", v160, 0xCu);
+                *v187 = 138543362;
+                *&v187[4] = v76;
+                _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_DEFAULT, "%{public}@", v187, 0xCu);
               }
 
-              if (v68)
+              if (v76)
               {
-                CFRelease(v68);
+                CFRelease(v76);
               }
             }
 
-            mmcs_put_request_all_put_completes_done(v43);
+            mmcs_put_request_all_put_completes_done(v44);
             os_activity_scope_leave(buf);
           }
 
-          if (!v65)
+          if (!v70)
           {
             goto LABEL_76;
           }
 
 LABEL_75:
-          CFRelease(v65);
+          CFRelease(v70);
 LABEL_76:
-          if (v64)
+          if (v69)
           {
-            CFRelease(v64);
+            CFRelease(v69);
           }
 
-          if (v31)
+          if (v32)
           {
-            os_release(v31);
+            os_release(v32);
           }
 
-          v70 = *(a3 + 16);
-          if (v70)
+          v79 = *(a3 + 16);
+          if (v79)
           {
-            mmcs_http_context_invalidate(v70);
-            v71 = *(a3 + 16);
-            if (v71)
+            mmcs_http_context_invalidate(v79);
+            v80 = *(a3 + 16);
+            if (v80)
             {
-              C3BaseRelease(v71);
+              C3BaseRelease(v80);
             }
 
             *(a3 + 16) = 0;
@@ -1442,71 +1473,72 @@ LABEL_76:
         }
 
 LABEL_66:
-        v64 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Error Occured Handling Inline Put Complete", v45, v46, v47, v48, v49, v155);
+        v69 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Error Occured Handling Inline Put Complete", v46, v47, v48, v49, v50);
         goto LABEL_67;
       }
 
-      CFSetAddValue(*(*(v43 + 304) + 128), value);
+      CFSetAddValue(*(*(v44 + 304) + 128), value);
       handle_response_putComplete(a1, a2, value);
       if (mmcs_transaction_is_proxy(a3))
       {
         mmcs_http_context_get_error(a1);
-        *v160 = 0;
+        *v187 = 0;
         CFHTTPMessageCopyRequestURL(*(a1 + 336));
-        if (!ACSUpdateCachingServerHealth())
+        v113 = ACSUpdateCachingServerHealth();
+        if (!v113)
         {
-          v99 = *v160;
-          v100 = mmcs_logging_logger_default();
-          v101 = os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
-          if (v99)
+          v115 = *v187;
+          v116 = mmcs_logging_logger_default(v113, v114);
+          v117 = os_log_type_enabled(v116, OS_LOG_TYPE_ERROR);
+          if (v115)
           {
-            if (v101)
+            if (v117)
             {
-              v102 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with error %@", *v160);
-              v103 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+              v118 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with error %@", *v187);
+              v120 = mmcs_logging_logger_default(v118, v119);
+              if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                *&buf[4] = v102;
-                _os_log_impl(&dword_2577D8000, v103, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+                *&buf[4] = v118;
+                _os_log_impl(&dword_2577D8000, v120, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
               }
 
-              if (v102)
+              if (v118)
               {
-                CFRelease(v102);
+                CFRelease(v118);
               }
             }
 
-            v104 = *v160;
+            v121 = *v187;
           }
 
           else
           {
-            if (!v101)
+            if (!v117)
             {
               goto LABEL_156;
             }
 
-            v104 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with unknown error");
-            v118 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+            v121 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with unknown error");
+            v135 = mmcs_logging_logger_default(v121, v134);
+            if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v104;
-              _os_log_impl(&dword_2577D8000, v118, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v121;
+              _os_log_impl(&dword_2577D8000, v135, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
           }
 
-          if (v104)
+          if (v121)
           {
-            CFRelease(v104);
+            CFRelease(v121);
           }
         }
       }
 
 LABEL_156:
-      v64 = 0;
-      if (!v65)
+      v69 = 0;
+      if (!v70)
       {
         goto LABEL_76;
       }
@@ -1514,11 +1546,12 @@ LABEL_156:
       goto LABEL_75;
     }
 
-    v50 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v51 = mmcs_logging_logger_default(is_request_body_done, v23);
+    v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
+    if (v52)
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_DEFAULT, "Handling Vendor Response", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v51, OS_LOG_TYPE_DEFAULT, "Handling Vendor Response", buf, 2u);
     }
 
     if (*(a3 + 16) != a1)
@@ -1526,252 +1559,256 @@ LABEL_156:
       handle_response_uploadChunks_cold_2();
     }
 
-    v51 = *(a3 + 64);
-    v52 = v51[11];
-    v53 = *v52;
-    v54 = v52[1];
+    v54 = *(a3 + 64);
+    v55 = v54[11];
+    v56 = *v55;
+    v57 = v55[1];
     *(a3 + 48) = 4;
     if (a2)
     {
+      v52 = *a2;
       if (*a2)
       {
-        CFRelease(*a2);
+        CFRelease(v52);
       }
 
       *a2 = 0;
     }
 
-    if (!v53)
+    if (!v56)
     {
-      v85 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+      v97 = mmcs_logging_logger_default(v52, v53);
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
       {
-        v86 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"null put state backref in put container");
-        v87 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+        v98 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"null put state backref in put container");
+        v100 = mmcs_logging_logger_default(v98, v99);
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v86;
-          _os_log_impl(&dword_2577D8000, v87, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v98;
+          _os_log_impl(&dword_2577D8000, v100, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v86)
+        if (v98)
         {
-          CFRelease(v86);
+          CFRelease(v98);
         }
       }
 
-      goto LABEL_109;
+      return;
     }
 
-    v55 = *v53;
-    C3BaseRetain(*v53);
+    v58 = *v56;
+    C3BaseRetain(*v56);
     if (!mmcs_http_context_get_error(a1))
     {
-      mmcs_http_session_pool_entry_close(v51);
+      mmcs_http_session_pool_entry_close();
     }
 
-    v56 = *(v55 + 144);
-    v160[0] = 1;
-    v57 = *(v55[4] + 48);
+    v59 = *(v58 + 144);
+    v187[0] = 1;
+    v60 = *(v58[4] + 48);
     if (mmcs_transaction_is_proxy(a3) || mmcs_http_context_is_background(a1))
     {
-      v58 = 0;
+      v61 = 0;
     }
 
     else
     {
-      v58 = mmcs_http_context_get_error(a1);
+      v61 = mmcs_http_context_get_error(a1);
     }
 
-    v59 = mmcs_http_context_is_connection_reused(a1);
-    v60 = CFAbsoluteTimeGetCurrent();
-    mmcs_request_queue_request_did_complete(v57, a3, v58, v59, v160, v60);
-    if (*(v55 + 144))
+    v62 = mmcs_http_context_is_connection_reused(a1);
+    v63 = CFAbsoluteTimeGetCurrent();
+    v64 = mmcs_request_queue_request_did_complete(v60, a3, v61, v62, v187, v63);
+    if (*(v58 + 144))
     {
-      v61 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+      v66 = mmcs_logging_logger_default(v64, v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
       {
-        v62 = "Already c";
-        if (!v56)
+        v67 = "Already c";
+        if (!v59)
         {
-          v62 = "C";
+          v67 = "C";
         }
 
         *buf = 136446210;
-        *&buf[4] = v62;
-        _os_log_impl(&dword_2577D8000, v61, OS_LOG_TYPE_INFO, "%{public}sancelled during container completion handler.", buf, 0xCu);
+        *&buf[4] = v67;
+        _os_log_impl(&dword_2577D8000, v66, OS_LOG_TYPE_INFO, "%{public}sancelled during container completion handler.", buf, 0xCu);
       }
 
-      if (!mmcs_put_state_has_outstanding_async_transactions(*(v55[38] + 80)))
+      if (!mmcs_put_state_has_outstanding_async_transactions(*(v58[38] + 80)))
       {
-        mmcs_put_request_context_cleanup(v55, v55[19]);
+        mmcs_put_request_context_cleanup(v58, v58[19]);
       }
 
       goto LABEL_221;
     }
 
-    if (*(v55[38] + 136))
+    if (*(v58[38] + 136))
     {
 LABEL_221:
-      C3BaseRelease(v55);
-      goto LABEL_109;
+      C3BaseRelease(v58);
+      return;
     }
 
-    v88 = *(a3 + 32);
-    v89 = v88 < 1;
-    v90 = v88 - 1;
-    if (!v89)
+    v101 = *(a3 + 32);
+    v102 = v101 < 1;
+    v103 = v101 - 1;
+    if (!v102)
     {
-      *(a3 + 32) = v90;
+      *(a3 + 32) = v103;
     }
 
-    v91 = mmcs_http_context_get_error(a1);
-    v92 = v91;
-    v156 = v54;
-    if (!v91)
+    is_proxy = mmcs_http_context_get_error(a1);
+    v106 = is_proxy;
+    v183 = v57;
+    if (!is_proxy)
     {
-      v105 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+      v122 = mmcs_logging_logger_default(0, v105);
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_INFO))
       {
-        v106 = *v54;
+        v123 = *v57;
         *buf = 136446210;
-        *&buf[4] = v106;
-        _os_log_impl(&dword_2577D8000, v105, OS_LOG_TYPE_INFO, "Container %{public}s successfully put", buf, 0xCu);
+        *&buf[4] = v123;
+        _os_log_impl(&dword_2577D8000, v122, OS_LOG_TYPE_INFO, "Container %{public}s successfully put", buf, 0xCu);
       }
 
-      v107 = mmcs_http_context_get_metrics(a1);
-      v108 = 1;
-      mmcs_metrics_http_info_set_final_try_in_request(v107, 1);
-      v109 = 0;
+      v124 = mmcs_http_context_get_metrics(a1);
+      v125 = 1;
+      mmcs_metrics_http_info_set_final_try_in_request(v124, 1);
+      v126 = 0;
       cf = 0;
 LABEL_192:
       if (mmcs_transaction_is_proxy(a3))
       {
         state.opaque[0] = 0;
         CFHTTPMessageCopyRequestURL(*(a1 + 336));
-        if (!ACSUpdateCachingServerHealth())
+        v148 = ACSUpdateCachingServerHealth();
+        if (!v148)
         {
-          v130 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+          v150 = mmcs_logging_logger_default(v148, v149);
+          if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
           {
-            v132 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with unknown error");
-            v133 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+            v152 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to update proxy cache server health with unknown error");
+            v154 = mmcs_logging_logger_default(v152, v153);
+            if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v132;
-              _os_log_impl(&dword_2577D8000, v133, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v152;
+              _os_log_impl(&dword_2577D8000, v154, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v132)
+            if (v152)
             {
-              CFRelease(v132);
+              CFRelease(v152);
             }
           }
         }
       }
 
-      if (!v108)
+      if (!v125)
       {
         goto LABEL_207;
       }
 
-      v134 = mmcs_put_state_containers_failed_count(v53);
-      done = mmcs_put_state_containers_done_count(v53);
+      v155 = mmcs_put_state_containers_failed_count(v56);
+      done = mmcs_put_state_containers_done_count(v56);
       has_http_status = mmcs_http_context_has_http_status(a1);
-      v137 = mmcs_logging_logger_default();
-      v138 = os_log_type_enabled(v137, OS_LOG_TYPE_INFO);
-      if (has_http_status)
+      v158 = has_http_status;
+      v160 = mmcs_logging_logger_default(has_http_status, v159);
+      v161 = os_log_type_enabled(v160, OS_LOG_TYPE_INFO);
+      if (v158)
       {
-        if (!v138)
+        if (!v161)
         {
           goto LABEL_207;
         }
 
-        v139 = *v156;
-        v140 = mmcs_http_context_http_status(a1);
-        v141 = *(v53 + 8);
+        v163 = *v183;
+        v164 = mmcs_http_context_http_status(a1, v162);
+        v165 = *(v56 + 8);
         *buf = 136447234;
-        *&buf[4] = v139;
+        *&buf[4] = v163;
         *&buf[12] = 1024;
-        *&buf[14] = v140;
+        *&buf[14] = v164;
         *&buf[18] = 2048;
-        *&buf[20] = v134;
+        *&buf[20] = v155;
         *&buf[28] = 2048;
         *&buf[30] = done;
         *&buf[38] = 2048;
-        *&buf[40] = v141;
-        v142 = "Completed container %{public}s status %d (%llu failed / %llu completed / %llu count)";
-        v143 = v137;
-        v144 = 48;
+        *&buf[40] = v165;
+        v166 = "Completed container %{public}s status %d (%llu failed / %llu completed / %llu count)";
+        v167 = v160;
+        v168 = 48;
       }
 
       else
       {
-        if (!v138)
+        if (!v161)
         {
           goto LABEL_207;
         }
 
-        v145 = *v156;
-        v146 = *(v53 + 8);
+        v169 = *v183;
+        v170 = *(v56 + 8);
         *buf = 136446978;
-        *&buf[4] = v145;
+        *&buf[4] = v169;
         *&buf[12] = 2048;
-        *&buf[14] = v134;
+        *&buf[14] = v155;
         *&buf[22] = 2048;
         *&buf[24] = done;
         *&buf[32] = 2048;
-        *&buf[34] = v146;
-        v142 = "Completed container %{public}s status N/A (%llu failed / %llu completed / %llu count)";
-        v143 = v137;
-        v144 = 42;
+        *&buf[34] = v170;
+        v166 = "Completed container %{public}s status N/A (%llu failed / %llu completed / %llu count)";
+        v167 = v160;
+        v168 = 42;
       }
 
-      _os_log_impl(&dword_2577D8000, v143, OS_LOG_TYPE_INFO, v142, buf, v144);
+      _os_log_impl(&dword_2577D8000, v167, OS_LOG_TYPE_INFO, v166, buf, v168);
 LABEL_207:
-      if ((v109 & 1) == 0)
+      if ((v126 & 1) == 0)
       {
-        mmcs_put_container_vendor_put_done(v51);
+        mmcs_put_container_vendor_put_done(v54);
         if (*(a3 + 16))
         {
-          v147 = mmcs_put_container_create_method_completion_info(v51, a3, 0);
-          mmcs_transaction_add_method_completion_info(a3, v147);
+          v171 = mmcs_put_container_create_method_completion_info(v54, a3, 0);
+          mmcs_transaction_add_method_completion_info(a3, v171);
           mmcs_http_context_invalidate(*(a3 + 16));
-          v148 = *(a3 + 16);
-          if (v148)
+          v172 = *(a3 + 16);
+          if (v172)
           {
-            C3BaseRelease(v148);
+            C3BaseRelease(v172);
           }
 
           *(a3 + 16) = 0;
         }
       }
 
-      schedulePutComplete(v53);
-      if (!*(v55 + 144))
+      schedulePutComplete(v56);
+      if (!*(v58 + 144))
       {
-        v149 = *(v53 + 8);
-        if (v149 < mmcs_put_state_containers_done_count(v53))
+        v173 = *(v56 + 8);
+        v174 = mmcs_put_state_containers_done_count(v56);
+        if (v173 < v174)
         {
-          v150 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+          v176 = mmcs_logging_logger_default(v174, v175);
+          if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
           {
-            v151 = *MEMORY[0x277CBECE8];
-            v152 = mmcs_put_state_containers_done_count(v53);
-            v153 = CFStringCreateWithFormat(v151, 0, @"completed count (%llu) exceeds upload count (%llu).", v152, *(v53 + 8));
-            v154 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+            v177 = *MEMORY[0x277CBECE8];
+            v178 = mmcs_put_state_containers_done_count(v56);
+            v179 = CFStringCreateWithFormat(v177, 0, @"completed count (%llu) exceeds upload count (%llu).", v178, *(v56 + 8));
+            v181 = mmcs_logging_logger_default(v179, v180);
+            if (os_log_type_enabled(v181, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v153;
-              _os_log_impl(&dword_2577D8000, v154, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v179;
+              _os_log_impl(&dword_2577D8000, v181, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v153)
+            if (v179)
             {
-              CFRelease(v153);
+              CFRelease(v179);
             }
           }
         }
@@ -1785,10 +1822,10 @@ LABEL_207:
       goto LABEL_221;
     }
 
-    if (v51[5])
+    if (v54[5])
     {
       cf = 0;
-      v93 = v91;
+      v107 = is_proxy;
     }
 
     else
@@ -1797,69 +1834,73 @@ LABEL_207:
       cf = host_error;
       if (host_error)
       {
-        v93 = host_error;
+        v107 = host_error;
       }
 
       else
       {
-        v93 = v92;
+        v107 = v106;
       }
 
-      mmcs_container_set_error(v51, v93);
+      is_proxy = mmcs_container_set_error(v54, v107);
     }
 
     if (*(a3 + 32) >= 1)
     {
-      Domain = CFErrorGetDomain(v93);
-      Code = CFErrorGetCode(v93);
-      if (!CFEqual(@"com.apple.mmcs", Domain))
+      Domain = CFErrorGetDomain(v107);
+      Code = CFErrorGetCode(v107);
+      is_proxy = CFEqual(@"com.apple.mmcs", Domain);
+      if (!is_proxy)
       {
-        if (CFEqual(*MEMORY[0x277CBEE40], Domain))
+        is_proxy = CFEqual(*MEMORY[0x277CBEE40], Domain);
+        if (is_proxy)
         {
-          v117 = Code == -9810;
+          v133 = Code == -9810;
         }
 
         else
         {
-          if (!CFEqual(*MEMORY[0x277CBACE8], Domain))
+          is_proxy = CFEqual(*MEMORY[0x277CBACE8], Domain);
+          if (!is_proxy)
           {
-            v113 = CFEqual(*MEMORY[0x277CBEE48], Domain) != 0;
+            is_proxy = CFEqual(*MEMORY[0x277CBEE48], Domain);
+            v130 = is_proxy != 0;
             goto LABEL_178;
           }
 
-          v117 = Code == -1005;
+          v133 = Code == -1005;
         }
 
-        v113 = v117;
+        v130 = v133;
         goto LABEL_178;
       }
 
-      v113 = 1;
+      v130 = 1;
       if (Code <= 15)
       {
         if (Code != 3)
         {
           if (Code == 6)
           {
-            v114 = CFErrorCopyUserInfo(v93);
-            if (v114)
+            is_proxy = CFErrorCopyUserInfo(v107);
+            if (is_proxy)
             {
-              v115 = v114;
-              v116 = CFDictionaryGetValue(v114, @"kMMCSErrorHTTPStatusKey");
-              if (v116)
+              v131 = is_proxy;
+              v132 = CFDictionaryGetValue(is_proxy, @"kMMCSErrorHTTPStatusKey");
+              if (v132)
               {
                 *buf = -1;
-                CFNumberGetValue(v116, kCFNumberCFIndexType, buf);
-                v113 = *buf == 500;
+                CFNumberGetValue(v132, kCFNumberCFIndexType, buf);
+                v130 = *buf == 500;
               }
 
               else
               {
-                v113 = 0;
+                v130 = 0;
               }
 
 LABEL_177:
-              CFRelease(v115);
+              CFRelease(v131);
               goto LABEL_178;
             }
           }
@@ -1868,57 +1909,57 @@ LABEL_177:
         }
 
 LABEL_178:
-        if (v160[0] && (mmcs_transaction_is_proxy(a3) || v113))
+        if (v187[0] && (is_proxy = mmcs_transaction_is_proxy(a3), is_proxy != 0 || v130))
         {
-          v122 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+          v138 = mmcs_logging_logger_default(is_proxy, v105);
+          if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
           {
-            v123 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Container %s failed and will be retried", *v156);
-            v124 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+            v139 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Container %s failed and will be retried", *v183);
+            v141 = mmcs_logging_logger_default(v139, v140);
+            if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *&buf[4] = v123;
-              _os_log_impl(&dword_2577D8000, v124, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+              *&buf[4] = v139;
+              _os_log_impl(&dword_2577D8000, v141, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
             }
 
-            if (v123)
+            if (v139)
             {
-              CFRelease(v123);
+              CFRelease(v139);
             }
           }
 
-          v125 = mmcs_http_context_get_metrics(a1);
-          mmcs_metrics_http_info_set_final_try_in_request(v125, 0);
-          mmcs_put_container_vendor_put_retry(v51, a3);
-          v108 = 0;
-          v109 = 1;
+          v142 = mmcs_http_context_get_metrics(a1);
+          mmcs_metrics_http_info_set_final_try_in_request(v142, 0);
+          mmcs_put_container_vendor_put_retry(v54, a3);
+          v125 = 0;
+          v126 = 1;
         }
 
         else
         {
-          v126 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+          v143 = mmcs_logging_logger_default(is_proxy, v105);
+          if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
           {
-            v127 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Container %s failed permanently", *v156);
-            v128 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+            v144 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Container %s failed permanently", *v183);
+            v146 = mmcs_logging_logger_default(v144, v145);
+            if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *&buf[4] = v127;
-              _os_log_impl(&dword_2577D8000, v128, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+              *&buf[4] = v144;
+              _os_log_impl(&dword_2577D8000, v146, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
             }
 
-            if (v127)
+            if (v144)
             {
-              CFRelease(v127);
+              CFRelease(v144);
             }
           }
 
-          v129 = mmcs_http_context_get_metrics(a1);
-          v108 = 1;
-          mmcs_metrics_http_info_set_final_try_in_request(v129, 1);
-          v109 = 0;
+          v147 = mmcs_http_context_get_metrics(a1);
+          v125 = 1;
+          mmcs_metrics_http_info_set_final_try_in_request(v147, 1);
+          v126 = 0;
         }
 
         goto LABEL_192;
@@ -1926,17 +1967,17 @@ LABEL_178:
 
       if (Code == 16)
       {
-        v119 = CFErrorCopyUserInfo(v93);
-        if (v119)
+        is_proxy = CFErrorCopyUserInfo(v107);
+        if (is_proxy)
         {
-          v115 = v119;
-          v120 = CFDictionaryGetValue(v119, @"kMMCSErrorSupplementalDictionaryKey");
-          if (v120)
+          v131 = is_proxy;
+          v136 = CFDictionaryGetValue(is_proxy, @"kMMCSErrorSupplementalDictionaryKey");
+          if (v136)
           {
-            v121 = CFDictionaryGetValue(v120, @"Retry-After");
-            if (v121)
+            v137 = CFDictionaryGetValue(v136, @"Retry-After");
+            if (v137)
             {
-              v113 = CFStringGetIntValue(v121) < 6;
+              v130 = CFStringGetIntValue(v137) < 6;
             }
           }
 
@@ -1953,47 +1994,47 @@ LABEL_178:
     }
 
 LABEL_160:
-    v113 = 0;
+    v130 = 0;
     goto LABEL_178;
   }
 
-  v27 = @"Vendor Response Received, Inline PutCompleteAtEdge Required.";
-  v28 = 16;
+  v28 = @"Vendor Response Received, Inline PutCompleteAtEdge Required.";
+  v29 = 16;
 LABEL_90:
-  error = mmcs_cferror_create_with_format(@"com.apple.mmcs", v28, v27, v14, v15, v16, v17, v18, v155);
+  error = mmcs_cferror_create_with_format(@"com.apple.mmcs", v29, v28, v14, v15, v16, v17, v18, v182);
 LABEL_91:
-  v73 = error;
+  v82 = error;
   if (!error)
   {
     handle_response_uploadChunks_cold_4();
   }
 
-  v74 = *(*(***(v6 + 88) + 32) + 48);
-  v75 = mmcs_http_context_is_connection_reused(a1);
-  v76 = CFAbsoluteTimeGetCurrent();
-  mmcs_request_queue_request_did_complete(v74, a3, v73, v75, 0, v76);
+  v83 = *(*(***(v6 + 88) + 32) + 48);
+  v84 = mmcs_http_context_is_connection_reused(a1);
+  v85 = CFAbsoluteTimeGetCurrent();
+  mmcs_request_queue_request_did_complete(v83, a3, v82, v84, 0, v85);
   mmcs_put_container_vendor_put_done(v6);
-  v77 = *(a3 + 16);
-  if (v77)
+  v86 = *(a3 + 16);
+  if (v86)
   {
-    if (v77 != a1)
+    if (v86 != a1)
     {
       handle_response_uploadChunks_cold_3();
     }
 
-    v78 = mmcs_put_container_create_method_completion_info(v6, a3, 0);
-    mmcs_transaction_add_method_completion_info(a3, v78);
+    v87 = mmcs_put_container_create_method_completion_info(v6, a3, 0);
+    mmcs_transaction_add_method_completion_info(a3, v87);
     mmcs_http_context_invalidate(*(a3 + 16));
-    v79 = *(a3 + 16);
-    if (v79)
+    v88 = *(a3 + 16);
+    if (v88)
     {
-      C3BaseRelease(v79);
+      C3BaseRelease(v88);
     }
 
     *(a3 + 16) = 0;
   }
 
-  mmcs_container_set_complete_error_if_absent(v6, v73);
+  mmcs_container_set_complete_error_if_absent(v6, v82);
   if (a2)
   {
     if (*a2)
@@ -2004,28 +2045,28 @@ LABEL_91:
     *a2 = 0;
   }
 
-  CFRelease(v73);
+  CFRelease(v82);
   if (!mmcs_put_request_has_outstanding_async_transactions(v8))
   {
     *buf = 0;
     *&buf[8] = 0;
-    v80 = mmcs_request_get_request_activity_marker(v8);
-    os_activity_scope_enter(v80, buf);
-    v81 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+    v90 = mmcs_request_get_request_activity_marker(v8, v89);
+    os_activity_scope_enter(v90, buf);
+    v93 = mmcs_logging_logger_default(v91, v92);
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
     {
-      v82 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done! (Put request %p)", v8);
-      v83 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+      v94 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done! (Put request %p)", v8);
+      v96 = mmcs_logging_logger_default(v94, v95);
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(state.opaque[0]) = 138543362;
-        *(state.opaque + 4) = v82;
-        _os_log_impl(&dword_2577D8000, v83, OS_LOG_TYPE_DEFAULT, "%{public}@", &state, 0xCu);
+        *(state.opaque + 4) = v94;
+        _os_log_impl(&dword_2577D8000, v96, OS_LOG_TYPE_DEFAULT, "%{public}@", &state, 0xCu);
       }
 
-      if (v82)
+      if (v94)
       {
-        CFRelease(v82);
+        CFRelease(v94);
       }
     }
 
@@ -2034,9 +2075,6 @@ LABEL_91:
 LABEL_108:
     os_activity_scope_leave(p_state);
   }
-
-LABEL_109:
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mmcs_put_request_has_outstanding_async_transactions(uint64_t a1)
@@ -2088,7 +2126,7 @@ void mmcs_put_request_all_put_completes_done(void *context)
 
   CFSetApplyFunction(*(v2 + 56), notify_item_of_put_container_errors, context);
   v7 = mmcs_put_state_copy_error_for_failed_containers(*(context[38] + 80));
-  if (v7 || (v7 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 7, @"There was no specific acknowledgement of success", v8, v9, v10, v11, v12, v14)) != 0)
+  if (v7 || (v7 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 7, @"There was no specific acknowledgement of success", v8, v9, v10, v11, v12)) != 0)
   {
     v13 = v7;
     mmcs_put_request_put_complete_failed(context, v7);
@@ -2106,108 +2144,109 @@ void mmcs_put_request_all_put_completes_done(void *context)
 
 void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v4 = mmcs_logging_logger_default();
+  v85 = *MEMORY[0x277D85DE8];
+  v4 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = *MEMORY[0x277CBECE8];
     Length = CFDataGetLength(*a2);
-    v6 = CFStringCreateWithFormat(v5, 0, @"Got %ld bytes");
-    v7 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v7 = CFStringCreateWithFormat(v5, 0, @"Got %ld bytes", Length);
+    v9 = mmcs_logging_logger_default(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v68 = v6;
-      _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v84 = v7;
+      _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v6)
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
     }
   }
 
   if (mmcs_server_version_compare(*(a1 + 120), *(a1 + 128), 5, 0) == -1)
   {
-    v22 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v31 = mmcs_logging_logger_default(-1, v10);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Server version %ld.%ld not supported. Must be at least %ld.%ld", *(a1 + 120), *(a1 + 128), 5, 0);
-      v29 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Server version %ld.%ld not supported. Must be at least %ld.%ld", *(a1 + 120), *(a1 + 128), 5, 0);
+      v39 = mmcs_logging_logger_default(v37, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = v28;
-        _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v84 = v37;
+        _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v28)
+      if (v37)
       {
-        CFRelease(v28);
+        CFRelease(v37);
       }
     }
 
-    v65 = *(a1 + 128);
-    v30 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Server version %ld.%ld not supported. Must be at least %ld.%ld", v23, v24, v25, v26, v27, *(a1 + 120));
+    v40 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Server version %ld.%ld not supported. Must be at least %ld.%ld", v32, v33, v34, v35, v36, *(a1 + 120), *(a1 + 128), 5, 0);
   }
 
   else
   {
-    v8 = *(a1 + 272);
-    v9 = CFDataGetLength(*a2);
+    v11 = *(a1 + 272);
+    v12 = CFDataGetLength(*a2);
     BytePtr = CFDataGetBytePtr(*a2);
-    v11 = v9;
-    if (v8)
+    v14 = v12;
+    if (v11)
     {
-      v12 = chunkserver__authorize_simulcast_response__unpack(0, v9, BytePtr);
-      v13 = v12[3];
-      v14 = v12[4];
-      v15 = v12[7];
-      v16 = v12[8];
-      *(a1 + 280) = CFDataCreate(0, v12[6], v12[5]);
-      *(a1 + 288) = CFDataCreate(0, v16, v15);
-      v11 = v13;
-      BytePtr = v14;
+      v15 = chunkserver__authorize_simulcast_response__unpack(0, v12, BytePtr);
+      v16 = v15[3];
+      v17 = v15[4];
+      v18 = v15[7];
+      v19 = v15[8];
+      *(a1 + 280) = CFDataCreate(0, v15[6], v15[5]);
+      *(a1 + 288) = CFDataCreate(0, v19, v18);
+      v14 = v16;
+      BytePtr = v17;
     }
 
-    v17 = chunkserver__storage_container_chunk_lists__unpack(0, v11, BytePtr);
+    v21 = chunkserver__storage_container_chunk_lists__unpack(0, v14, BytePtr);
+    v22 = *a2;
     if (*a2)
     {
-      CFRelease(*a2);
+      CFRelease(v22);
     }
 
     *a2 = 0;
-    if (v17)
+    if (v21)
     {
       cf = 0;
-      if (!mmcs_put_state_create((*(a1 + 304) + 80), a1, v17, &cf))
+      v23 = mmcs_put_state_create((*(a1 + 304) + 80), a1, v21, &cf);
+      if (!v23)
       {
-        v40 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v51 = mmcs_logging_logger_default(v23, v24);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
-          v46 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create upload state");
-          v47 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v57 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create upload state");
+          v59 = mmcs_logging_logger_default(v57, v58);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v68 = v46;
-            _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v84 = v57;
+            _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v46)
+          if (v57)
           {
-            CFRelease(v46);
+            CFRelease(v57);
           }
         }
 
-        v48 = cf;
+        v60 = cf;
         if (!cf)
         {
-          v48 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Failed to create upload state", v41, v42, v43, v44, v45, Length);
-          cf = v48;
+          v60 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Failed to create upload state", v52, v53, v54, v55, v56);
+          cf = v60;
         }
 
-        mmcs_put_request_context_cleanup(a1, v48);
+        mmcs_put_request_context_cleanup(a1, v60);
         if (cf)
         {
           CFRelease(cf);
@@ -2221,46 +2260,52 @@ void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
       {
         if (!*(a1 + 72))
         {
-          v57 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+          v70 = mmcs_logging_logger_default(v23, v24);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
           {
-            v58 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"not using proxy locator");
-            v59 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+            v72 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"not using proxy locator");
+            v74 = mmcs_logging_logger_default(v72, v73);
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v68 = v58;
-              _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v84 = v72;
+              _os_log_impl(&dword_2577D8000, v74, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v58)
+            if (v72)
             {
-              CFRelease(v58);
+              CFRelease(v72);
             }
           }
 
-          send_request_uploadChunks(a1);
+          send_request_uploadChunks(a1, v71);
           goto LABEL_67;
         }
 
-        v18 = *MEMORY[0x277CBECE8];
+        v25 = *MEMORY[0x277CBECE8];
         Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, &kC3BaseArrayCallBacks);
-        v20 = *(*(a1 + 304) + 80);
-        if (*(v20 + 8))
+        v27 = *(*(a1 + 304) + 80);
+        if (*(v27 + 8))
         {
-          v21 = 0;
+          v28 = 0;
           do
           {
-            CFArrayAppendValue(Mutable, *(*(v20 + 64) + 8 * v21++));
-            v20 = *(*(a1 + 304) + 80);
+            CFArrayAppendValue(Mutable, *(*(v27 + 64) + 8 * v28++));
+            v27 = *(*(a1 + 304) + 80);
           }
 
-          while (v21 < *(v20 + 8));
+          while (v28 < *(v27 + 8));
         }
 
-        if (mmcs_request_setup_proxy_locator_for_containers(a1, Mutable))
+        v29 = mmcs_request_setup_proxy_locator_for_containers(a1, Mutable);
+        if (v29)
         {
-          mmcs_proxy_locator_locate(*(a1 + 192));
+          v81[0] = MEMORY[0x277D85DD0];
+          v81[1] = 0x40000000;
+          v81[2] = __mmcs_put_request_process_put_authorization_data_block_invoke;
+          v81[3] = &__block_descriptor_tmp_2;
+          v81[4] = a1;
+          mmcs_proxy_locator_locate(*(a1 + 192), v81);
           if (!Mutable)
           {
             goto LABEL_67;
@@ -2269,25 +2314,25 @@ void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
 
         else
         {
-          v60 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+          v75 = mmcs_logging_logger_default(v29, v30);
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
           {
-            v61 = CFStringCreateWithFormat(v18, 0, @"couldn't create proxy locator");
-            v62 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+            v77 = CFStringCreateWithFormat(v25, 0, @"couldn't create proxy locator");
+            v79 = mmcs_logging_logger_default(v77, v78);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v68 = v61;
-              _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+              v84 = v77;
+              _os_log_impl(&dword_2577D8000, v79, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
             }
 
-            if (v61)
+            if (v77)
             {
-              CFRelease(v61);
+              CFRelease(v77);
             }
           }
 
-          send_request_uploadChunks(a1);
+          send_request_uploadChunks(a1, v76);
           if (!Mutable)
           {
             goto LABEL_67;
@@ -2297,21 +2342,21 @@ void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
 
       else
       {
-        v49 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+        v61 = mmcs_logging_logger_default(v23, v24);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
-          v50 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"No work to do");
-          v51 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          v62 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"No work to do");
+          v64 = mmcs_logging_logger_default(v62, v63);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v68 = v50;
-            _os_log_impl(&dword_2577D8000, v51, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            v84 = v62;
+            _os_log_impl(&dword_2577D8000, v64, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v50)
+          if (v62)
           {
-            CFRelease(v50);
+            CFRelease(v62);
           }
         }
 
@@ -2321,7 +2366,7 @@ void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
           goto LABEL_67;
         }
 
-        Mutable = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Item not specifically handled by the server", v52, v53, v54, v55, v56, Length);
+        Mutable = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Item not specifically handled by the server", v65, v66, v67, v68, v69);
         mmcs_put_request_context_cleanup(a1, Mutable);
         if (!Mutable)
         {
@@ -2331,48 +2376,45 @@ void mmcs_put_request_process_put_authorization_data(uint64_t a1, CFDataRef *a2)
 
       CFRelease(Mutable);
 LABEL_67:
-      chunkserver__storage_container_chunk_lists__free_unpacked(v17, 0);
-      goto LABEL_68;
+      chunkserver__storage_container_chunk_lists__free_unpacked(v21, 0);
+      return;
     }
 
-    v31 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v41 = mmcs_logging_logger_default(v22, v20);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Malformed put authorization");
-      v38 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v47 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Malformed put authorization");
+      v49 = mmcs_logging_logger_default(v47, v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = v37;
-        _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v84 = v47;
+        _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v37)
+      if (v47)
       {
-        CFRelease(v37);
+        CFRelease(v47);
       }
     }
 
-    v30 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Malformed put authorization", v32, v33, v34, v35, v36, Length);
+    v40 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Malformed put authorization", v42, v43, v44, v45, v46, v80);
   }
 
-  v39 = v30;
-  mmcs_put_request_context_cleanup(a1, v30);
-  if (v39)
+  v50 = v40;
+  mmcs_put_request_context_cleanup(a1, v40);
+  if (v50)
   {
-    CFRelease(v39);
+    CFRelease(v50);
   }
-
-LABEL_68:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
-void send_request_uploadChunks(uint64_t a1)
+void send_request_uploadChunks(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  request_activity_marker = mmcs_request_get_request_activity_marker(a1);
+  request_activity_marker = mmcs_request_get_request_activity_marker(a1, a2);
   os_activity_scope_enter(request_activity_marker, &state);
   if (!*(a1 + 144))
   {
@@ -2388,30 +2430,30 @@ void send_request_uploadChunks(uint64_t a1)
       }
 
       mmcs_engine_poll_for_preferences_update(*(a1 + 32));
-      v27.opaque[0] = 0;
-      v27.opaque[1] = 0;
-      v5 = mmcs_request_get_request_activity_marker(a1);
-      os_activity_scope_enter(v5, &v27);
-      v6 = *(*(a1 + 304) + 80);
-      if (!*(v6 + 8))
+      v31.opaque[0] = 0;
+      v31.opaque[1] = 0;
+      v6 = mmcs_request_get_request_activity_marker(a1, v5);
+      os_activity_scope_enter(v6, &v31);
+      v9 = *(*(a1 + 304) + 80);
+      if (!*(v9 + 8))
       {
 LABEL_19:
         mmcs_proxy_locator_finish(*(a1 + 192));
-        os_activity_scope_leave(&v27);
+        os_activity_scope_leave(&v31);
         schedulePutComplete(*(*(a1 + 304) + 80));
         goto LABEL_4;
       }
 
-      v7 = 0;
+      v10 = 0;
       alloc = *MEMORY[0x277CBECE8];
       while (1)
       {
-        v8 = *(*(v6 + 64) + 8 * v7);
-        v9 = (v8 + 24);
-        if (!*(v8 + 24))
+        v11 = *(*(v9 + 64) + 8 * v10);
+        v12 = (v11 + 24);
+        if (!*(v11 + 24))
         {
-          v9 = (v8 + 16);
-          v11 = 3;
+          v12 = (v11 + 16);
+          v14 = 3;
           goto LABEL_18;
         }
 
@@ -2420,66 +2462,66 @@ LABEL_19:
           goto LABEL_16;
         }
 
-        v10 = mmcs_logging_logger_default();
-        v11 = 2;
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v13 = mmcs_logging_logger_default(v7, v8);
+        v14 = 2;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           break;
         }
 
 LABEL_18:
-        v14 = *v9;
-        *(v8 + 68) = v11;
-        v15 = mmcs_http_request_options_network_behavior_type(*(*(v14 + 24) + 24));
-        v16 = mmcs_request_type_for_behavior_and_activity(v15, 0);
+        v18 = *v12;
+        *(v11 + 68) = v14;
+        v19 = mmcs_http_request_options_network_behavior_type(*(*(v18 + 24) + 24), v8);
+        v20 = mmcs_request_type_for_behavior_and_activity(v19, 0);
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        mmcs_container_requirements(v8);
+        mmcs_container_requirements(v11);
         *&buf = 0;
-        *(&buf + 1) = v14;
-        v17 = *(a1 + 88);
-        v29 = v16;
-        v30 = v17;
-        v33 = v23;
-        v34 = v24;
+        *(&buf + 1) = v18;
+        v21 = *(a1 + 88);
+        v33 = v20;
+        v34 = v21;
+        v37 = v27;
+        v38 = v28;
+        v39 = v29;
+        v40 = v30;
         v35 = v25;
         v36 = v26;
-        v31 = v21;
-        v32 = v22;
-        v37 = mmcs_container_schedule_request_callback;
-        v38 = mmcs_container_cancel_request_callback;
-        v39 = C3BaseRetain;
-        v40 = C3BaseRelease;
-        *(v14 + 48) = 2;
+        v41 = mmcs_container_schedule_request_callback;
+        v42 = mmcs_container_cancel_request_callback;
+        v43 = C3BaseRetain;
+        v44 = C3BaseRelease;
+        *(v18 + 48) = 2;
         Current = CFAbsoluteTimeGetCurrent();
-        *(v14 + 56) = Current;
-        mmcs_request_queue_enqueue_request(*(*(a1 + 32) + 48), &buf, Current);
-        if (++v7 >= *(v6 + 8))
+        *(v18 + 56) = Current;
+        v7 = mmcs_request_queue_enqueue_request(*(*(a1 + 32) + 48), &buf, Current);
+        if (++v10 >= *(v9 + 8))
         {
           goto LABEL_19;
         }
       }
 
-      v12 = CFStringCreateWithFormat(alloc, 0, @"using proxy transaction for container %s", **(*(v8 + 88) + 8));
-      v13 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = CFStringCreateWithFormat(alloc, 0, @"using proxy transaction for container %s", **(*(v11 + 88) + 8));
+      v17 = mmcs_logging_logger_default(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v12;
-        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+        *(&buf + 4) = v15;
+        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
       }
 
-      if (v12)
+      if (v15)
       {
-        CFRelease(v12);
+        CFRelease(v15);
       }
 
 LABEL_16:
-      v11 = 2;
+      v14 = 2;
       goto LABEL_18;
     }
   }
@@ -2489,13 +2531,12 @@ LABEL_16:
   mmcs_put_request_context_cleanup(a1, *(a1 + 152));
 LABEL_4:
   os_activity_scope_leave(&state);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t send_request_authorizePut(uint64_t a1, void *a2)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  request_activity_marker = mmcs_request_get_request_activity_marker(a1);
+  v82 = *MEMORY[0x277D85DE8];
+  request_activity_marker = mmcs_request_get_request_activity_marker(a1, a2);
   v5 = _os_activity_create(&dword_2577D8000, "mmcs-authorize-put", request_activity_marker, OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -2542,10 +2583,10 @@ uint64_t send_request_authorizePut(uint64_t a1, void *a2)
     v13 = CFURLCreateCopyAppendingPathComponent(v16, v17, v18, 0);
     if (v13)
     {
-      *(*(a1 + 304) + 104) = mmcs_put_request_create_AuthorizePutRequestBody(a1);
+      *(*(a1 + 304) + 104) = mmcs_put_request_create_AuthorizePutRequestBody(a1, v19);
       if (*(*(a1 + 304) + 104))
       {
-        mmcs_put_item_progress_make_state(3, buf);
+        mmcs_put_item_progress_make_state(3, v20, buf);
         mmcs_put_request_set_progress_and_notify_all_items_not_done(a1, buf);
         if (*(a1 + 144))
         {
@@ -2559,30 +2600,31 @@ uint64_t send_request_authorizePut(uint64_t a1, void *a2)
           goto LABEL_11;
         }
 
-        v24 = v11[8];
-        v25 = v11[10];
+        v25 = v11[8];
+        v26 = v11[10];
         dataclass = mmcs_request_get_dataclass(a1);
-        http_protobuf_message = create_http_protobuf_message(v24, v25, dataclass, *(a1 + 168), *(a1 + 176), v13, 0);
+        http_protobuf_message = create_http_protobuf_message(v25, v26, dataclass, *(a1 + 168), *(a1 + 176), v13, 0);
         if (http_protobuf_message)
         {
           v14 = http_protobuf_message;
-          v28 = *(a1 + 304);
+          v30 = *(a1 + 304);
           if (*(a1 + 272))
           {
-            if (!mmcs_http_msg_add_items_token_header_simulcast(http_protobuf_message, v28 + 152, *(v28 + 144)))
+            v31 = mmcs_http_msg_add_items_token_header_simulcast(http_protobuf_message, v30 + 152, *(v30 + 144));
+            if (!v31)
             {
-              v29 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              v33 = mmcs_logging_logger_default(v31, v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
-                v30 = CFStringCreateWithFormat(v16, 0, @"unable to add token header for simulcast request");
-                v31 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                v34 = CFStringCreateWithFormat(v16, 0, @"unable to add token header for simulcast request");
+                v36 = mmcs_logging_logger_default(v34, v35);
+                if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_89;
                 }
 
                 *buf = 138543362;
-                v64 = v30;
+                v81 = v34;
                 goto LABEL_88;
               }
 
@@ -2590,150 +2632,156 @@ uint64_t send_request_authorizePut(uint64_t a1, void *a2)
             }
           }
 
-          else if (!mmcs_http_msg_add_items_token_header(http_protobuf_message, *(v28 + 144), v28 + 152, 1, *(v28 + 120) == 0))
+          else
           {
-            v56 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+            v41 = mmcs_http_msg_add_items_token_header(http_protobuf_message, *(v30 + 144), v30 + 152, 1, *(v30 + 120) == 0);
+            if (!v41)
             {
-              v30 = CFStringCreateWithFormat(v16, 0, @"unable to add token header");
-              v31 = mmcs_logging_logger_default();
-              if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v72 = mmcs_logging_logger_default(v41, v42);
+              if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_89;
-              }
+                v34 = CFStringCreateWithFormat(v16, 0, @"unable to add token header");
+                v36 = mmcs_logging_logger_default(v34, v73);
+                if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_89;
+                }
 
-              *buf = 138543362;
-              v64 = v30;
+                *buf = 138543362;
+                v81 = v34;
 LABEL_88:
-              _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+                _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
 LABEL_89:
-              if (v30)
-              {
-                CFRelease(v30);
+                if (v34)
+                {
+                  CFRelease(v34);
+                }
               }
-            }
 
 LABEL_91:
-            v51 = @"A token was missing from the put reqeust";
-            v52 = 31;
-            goto LABEL_92;
+              v66 = @"A token was missing from the put reqeust";
+              v67 = 31;
+              goto LABEL_92;
+            }
           }
 
           mmcs_request_insert_headers(a1, v14);
-          v35 = *(a1 + 304);
-          v36 = *(v35 + 40);
-          if (v36)
+          v43 = *(a1 + 304);
+          v44 = *(v43 + 40);
+          if (v44)
           {
-            CFHTTPMessageSetHeaderFieldValue(v14, @"x-apple-client-location", v36);
-            v35 = *(a1 + 304);
+            CFHTTPMessageSetHeaderFieldValue(v14, @"x-apple-client-location", v44);
+            v43 = *(a1 + 304);
           }
 
-          v37 = *(v35 + 24);
-          if (v37 || (v43 = CFPreferencesCopyAppValue(@"VendorHintValue", @"com.apple.mmcs")) != 0 && (v37 = v43, TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v37)))
+          v45 = *(v43 + 24);
+          if (v45 || (v52 = CFPreferencesCopyAppValue(@"VendorHintValue", @"com.apple.mmcs")) != 0 && (v45 = v52, TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v45)))
           {
-            CFHTTPMessageSetHeaderFieldValue(v14, @"x-apple-mmcs-storage-bin", v37);
+            CFHTTPMessageSetHeaderFieldValue(v14, @"x-apple-mmcs-storage-bin", v45);
           }
 
-          v38 = *(a1 + 304);
-          v39 = *(v38 + 32);
-          if (v39)
+          v46 = *(a1 + 304);
+          v47 = *(v46 + 32);
+          if (v47)
           {
-            CFHTTPMessageSetHeaderFieldValue(v14, @"StorageContainerSizeHint", v39);
-            v38 = *(a1 + 304);
+            CFHTTPMessageSetHeaderFieldValue(v14, @"StorageContainerSizeHint", v47);
+            v46 = *(a1 + 304);
           }
 
-          Length = CFDataGetLength(*(v38 + 104));
-          v41 = CFStringCreateWithFormat(v16, 0, @"%ld", Length);
-          if (v41)
+          Length = CFDataGetLength(*(v46 + 104));
+          v49 = CFStringCreateWithFormat(v16, 0, @"%ld", Length);
+          if (v49)
           {
-            v42 = v41;
-            CFHTTPMessageSetHeaderFieldValue(v14, @"Content-Length", v41);
+            v51 = v49;
+            CFHTTPMessageSetHeaderFieldValue(v14, @"Content-Length", v49);
           }
 
           else
           {
-            v45 = mmcs_logging_logger_default();
-            if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            v54 = mmcs_logging_logger_default(0, v50);
+            if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_66;
             }
 
-            v42 = CFStringCreateWithFormat(v16, 0, @"unable to add Content-Length header");
-            v46 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v51 = CFStringCreateWithFormat(v16, 0, @"unable to add Content-Length header");
+            v56 = mmcs_logging_logger_default(v51, v55);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v64 = v42;
-              _os_log_impl(&dword_2577D8000, v46, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              v81 = v51;
+              _os_log_impl(&dword_2577D8000, v56, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (!v42)
+            if (!v51)
             {
               goto LABEL_66;
             }
           }
 
-          CFRelease(v42);
+          CFRelease(v51);
 LABEL_66:
-          v59 = 0;
-          v58[0] = @"authPut";
-          v58[1] = v14;
-          v58[2] = *(a1 + 56);
-          v58[3] = *(a1 + 96);
+          v76 = 0;
+          v75[0] = @"authPut";
+          v75[1] = v14;
+          v75[2] = *(a1 + 56);
+          v75[3] = *(a1 + 96);
           if (mmcs_request_is_background(a1))
           {
-            v47 = *(a1 + 104);
+            v57 = *(a1 + 104);
           }
 
           else
           {
-            v47 = 0;
+            v57 = 0;
           }
 
-          v58[4] = v47;
-          v58[5] = Length;
-          v58[6] = -1;
-          v58[7] = mmcs_put_req_context_auth_put_data_callback;
-          v58[8] = mmcs_put_req_will_reset_request_body_stream;
-          v58[9] = mmcs_put_req_will_retry_auth_put_after_background_error;
-          v58[10] = handle_response_authorizePut;
-          memset(&v58[11], 0, 24);
-          v58[14] = a1;
-          v58[15] = mmcs_engine_get_sparse_block_size();
-          v58[16] = mmcs_engine_owner(v11);
-          LOBYTE(v59) = 0;
-          v60 = 0;
-          v61 = v5;
-          memset(v57, 0, sizeof(v57));
-          mmcs_read_stream_pool_parameters_make_pool_timeout_max(v11[4], 100, v57, 90.0);
-          if (mmcs_http_context_create((*(a1 + 304) + 96), *(a1 + 140), v58))
+          v75[4] = v57;
+          v75[5] = Length;
+          v75[6] = -1;
+          v75[7] = mmcs_put_req_context_auth_put_data_callback;
+          v75[8] = mmcs_put_req_will_reset_request_body_stream;
+          v75[9] = mmcs_put_req_will_retry_auth_put_after_background_error;
+          v75[10] = handle_response_authorizePut;
+          memset(&v75[11], 0, 24);
+          v75[14] = a1;
+          v75[15] = mmcs_engine_get_sparse_block_size();
+          v75[16] = mmcs_engine_owner(v11);
+          LOBYTE(v76) = 0;
+          v77 = 0;
+          v78 = v5;
+          memset(v74, 0, sizeof(v74));
+          mmcs_read_stream_pool_parameters_make_pool_timeout_max(v11[4], 100, v74, 90.0);
+          v58 = mmcs_http_context_create((*(a1 + 304) + 96), *(a1 + 140), v75);
+          if (v58)
           {
             mmcs_put_req_context_make_auth_metrics(a1, *(a1 + 56));
-            if (mmcs_http_context_send(*(*(a1 + 304) + 96), v57, v11[7]))
+            v60 = mmcs_http_context_send(*(*(a1 + 304) + 96), v74, v11[7]);
+            if (v60)
             {
               error = 0;
-              v20 = 1;
+              v22 = 1;
 LABEL_29:
               CFRelease(v14);
-              v21 = v20;
+              v23 = v22;
               goto LABEL_30;
             }
 
-            v53 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            v68 = mmcs_logging_logger_default(v60, v61);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
-              v54 = CFStringCreateWithFormat(v16, 0, @"unable to send http context");
-              v55 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+              v69 = CFStringCreateWithFormat(v16, 0, @"unable to send http context");
+              v71 = mmcs_logging_logger_default(v69, v70);
+              if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v64 = v54;
-                _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+                v81 = v69;
+                _os_log_impl(&dword_2577D8000, v71, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
               }
 
-              if (v54)
+              if (v69)
               {
-                CFRelease(v54);
+                CFRelease(v69);
               }
             }
 
@@ -2753,64 +2801,64 @@ LABEL_24:
             goto LABEL_25;
           }
 
-          v48 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v62 = mmcs_logging_logger_default(v58, v59);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
-            v49 = CFStringCreateWithFormat(v16, 0, @"unable to create http context");
-            v50 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+            v63 = CFStringCreateWithFormat(v16, 0, @"unable to create http context");
+            v65 = mmcs_logging_logger_default(v63, v64);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v64 = v49;
-              _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              v81 = v63;
+              _os_log_impl(&dword_2577D8000, v65, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v49)
+            if (v63)
             {
-              CFRelease(v49);
+              CFRelease(v63);
             }
           }
 
-          v51 = @"http context";
-          v52 = 37;
+          v66 = @"http context";
+          v67 = 37;
 LABEL_92:
-          error = mmcs_cferror_create_error(@"com.apple.mmcs", v52, v51);
+          error = mmcs_cferror_create_error(@"com.apple.mmcs", v67, v66);
           goto LABEL_24;
         }
 
-        v32 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v37 = mmcs_logging_logger_default(0, v29);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          v33 = CFStringCreateWithFormat(v16, 0, @"unable to create auth put msg");
-          v34 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v38 = CFStringCreateWithFormat(v16, 0, @"unable to create auth put msg");
+          v40 = mmcs_logging_logger_default(v38, v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v64 = v33;
-            _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v81 = v38;
+            _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v33)
+          if (v38)
           {
-            CFRelease(v33);
+            CFRelease(v38);
           }
         }
 
-        v19 = @"auth put msg";
+        v21 = @"auth put msg";
       }
 
       else
       {
-        v19 = @"The auth put request could not be created.";
+        v21 = @"The auth put request could not be created.";
       }
     }
 
     else
     {
-      v19 = @"authorizePut url";
+      v21 = @"authorizePut url";
     }
 
-    error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v19);
+    error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v21);
     v14 = 0;
     goto LABEL_24;
   }
@@ -2837,8 +2885,8 @@ LABEL_26:
     *a2 = error;
   }
 
-  v20 = 0;
-  v21 = 0;
+  v22 = 0;
+  v23 = 0;
   if (v14)
   {
     goto LABEL_29;
@@ -2861,221 +2909,219 @@ LABEL_30:
   }
 
   os_activity_scope_leave(&state);
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v23;
 }
 
 void mmcs_put_req_context_auth_put_data_callback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = mmcs_logging_logger_default(a1, 0);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL mrc");
-      v10 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 138543362;
-      v25 = v9;
-      goto LABEL_13;
+      return;
     }
 
-    goto LABEL_18;
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL mrc");
+    v13 = mmcs_logging_logger_default(v11, v15);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 138543362;
+    v34 = v11;
+    goto LABEL_13;
   }
 
   v4 = *(a2 + 304);
   v5 = *(v4 + 96);
   if (!v5)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL hc");
-      v10 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 138543362;
-      v25 = v9;
-      goto LABEL_13;
+      return;
     }
 
-    goto LABEL_18;
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL hc");
+    v13 = mmcs_logging_logger_default(v11, v17);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 138543362;
+    v34 = v11;
+    goto LABEL_13;
   }
 
-  if (mmcs_http_context_is_complete(*(v4 + 96)))
+  is_complete = mmcs_http_context_is_complete(*(v4 + 96));
+  if (is_complete)
   {
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = mmcs_logging_logger_default(is_complete, v9);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transactionComplete");
-      v10 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 138543362;
-      v25 = v9;
-      goto LABEL_13;
+      return;
     }
 
-LABEL_18:
-    v15 = *MEMORY[0x277D85DE8];
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transactionComplete");
+    v13 = mmcs_logging_logger_default(v11, v12);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 138543362;
+    v34 = v11;
+    goto LABEL_13;
+  }
+
+  is_cancelled = mmcs_http_context_is_cancelled(v5);
+  if (is_cancelled)
+  {
     return;
-  }
-
-  if (mmcs_http_context_is_cancelled(v5))
-  {
-    goto LABEL_18;
   }
 
   if (v5 != a1)
   {
-    v16 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v22 = mmcs_logging_logger_default(is_cancelled, v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_18;
+      return;
     }
 
-    v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback for unknown context %p; Expected %p", a1, v5);
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback for unknown context %p; Expected %p", a1, v5);
+    v13 = mmcs_logging_logger_default(v11, v23);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *buf = 138543362;
-      v25 = v9;
-LABEL_13:
-      v13 = v10;
-      v14 = OS_LOG_TYPE_ERROR;
-LABEL_14:
-      _os_log_impl(&dword_2577D8000, v13, v14, "%{public}@", buf, 0xCu);
       goto LABEL_15;
     }
 
-    goto LABEL_15;
+    *buf = 138543362;
+    v34 = v11;
+    goto LABEL_13;
   }
 
   if (a3 > 2)
   {
     if (a3 == 3)
     {
-      v23 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v31 = mmcs_logging_logger_default(is_cancelled, v21);
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_18;
+        return;
       }
 
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context had an error");
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context had an error");
+      v13 = mmcs_logging_logger_default(v11, v32);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        *buf = 138543362;
-        v25 = v9;
-        goto LABEL_13;
+        goto LABEL_15;
       }
 
+      *buf = 138543362;
+      v34 = v11;
+LABEL_13:
+      v18 = v13;
+      v19 = OS_LOG_TYPE_ERROR;
+LABEL_14:
+      _os_log_impl(&dword_2577D8000, v18, v19, "%{public}@", buf, 0xCu);
 LABEL_15:
-      if (v9)
+      if (v11)
       {
-        CFRelease(v9);
+        CFRelease(v11);
       }
 
-      goto LABEL_18;
+      return;
     }
 
     if (a3 == 4)
     {
-      goto LABEL_18;
+      return;
     }
 
-LABEL_31:
-    v18 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_18;
-    }
-
-    v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context got unknown type %d", a3);
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543362;
-      v25 = v9;
-      v13 = v19;
-      v14 = OS_LOG_TYPE_DEFAULT;
-      goto LABEL_14;
-    }
-
-    goto LABEL_15;
-  }
-
-  if (a3 == 1)
-  {
-    if (gMMCS_DebugLevel >= 4)
-    {
-      v20 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context (%p) opened", v5);
-        v22 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          v25 = v21;
-          _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-        }
-
-        if (v21)
-        {
-          CFRelease(v21);
-        }
-      }
-    }
-
-    *(*(a2 + 304) + 112) = 0;
-    goto LABEL_18;
-  }
-
-  if (a3 != 2)
-  {
     goto LABEL_31;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  if (a3 != 1)
+  {
+    if (a3 == 2)
+    {
 
-  mmcs_put_req_context_write_put_auth_request_body(a2, v5);
+      mmcs_put_req_context_write_put_auth_request_body(a2, v5);
+      return;
+    }
+
+LABEL_31:
+    v24 = mmcs_logging_logger_default(is_cancelled, v21);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context got unknown type %d", a3);
+    v26 = mmcs_logging_logger_default(v11, v25);
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 138543362;
+    v34 = v11;
+    v18 = v26;
+    v19 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_14;
+  }
+
+  if (gMMCS_DebugLevel >= 4)
+  {
+    v27 = mmcs_logging_logger_default(is_cancelled, v21);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    {
+      v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"request data for context (%p) opened", v5);
+      v30 = mmcs_logging_logger_default(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138543362;
+        v34 = v28;
+        _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      }
+
+      if (v28)
+      {
+        CFRelease(v28);
+      }
+    }
+  }
+
+  *(*(a2 + 304) + 112) = 0;
 }
 
 void mmcs_put_req_will_retry_auth_put_after_background_error(uint64_t a1, uint64_t a2, __CFError *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = mmcs_logging_logger_default();
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = mmcs_request_copy_description(a2);
     v7 = mmcs_cferror_copy_description(a3);
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = mmcs_logging_logger_default(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ retry auth put after error %@", v6, v7);
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ retry auth put after error %@", v6, v7);
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v14 = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v9)
+      if (v10)
       {
-        CFRelease(v9);
+        CFRelease(v10);
       }
     }
 
@@ -3089,22 +3135,20 @@ void mmcs_put_req_will_retry_auth_put_after_background_error(uint64_t a1, uint64
       CFRelease(v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void handle_response_authorizePut(uint64_t a1, CFTypeRef *a2, uint64_t a3)
 {
-  if (mmcs_http_context_status_succeeded(a1))
+  if (mmcs_http_context_status_succeeded(a1, a2))
   {
     if (*(a3 + 272))
     {
       if (!*(a3 + 72))
       {
-        v22 = mmcs_http_context_copy_blocked_application_header_value(a1);
-        if (v22)
+        v23 = mmcs_http_context_copy_blocked_application_header_value(a1);
+        if (v23)
         {
-          v23 = v22;
+          v24 = v23;
           if (a2)
           {
             if (*a2)
@@ -3115,7 +3159,7 @@ void handle_response_authorizePut(uint64_t a1, CFTypeRef *a2, uint64_t a3)
             *a2 = 0;
           }
 
-          error = mmcs_cferror_create_error(@"com.apple.mmcs", 51, v23);
+          error = mmcs_cferror_create_error(@"com.apple.mmcs", 51, v24);
           goto LABEL_29;
         }
       }
@@ -3127,21 +3171,21 @@ void handle_response_authorizePut(uint64_t a1, CFTypeRef *a2, uint64_t a3)
       {
         if (CFDataGetLength(*a2))
         {
-          mmcs_http_context_validate_request_uuid_with_response(a1);
+          mmcs_http_context_validate_request_uuid_with_response(a1, v11);
           *(a3 + 120) = mmcs_get_proto_version(a1);
-          *(a3 + 128) = v11;
+          *(a3 + 128) = v12;
           http_clock_skew_metrics_with_http_context = mmcs_create_http_clock_skew_metrics_with_http_context(a1);
           if (http_clock_skew_metrics_with_http_context)
           {
-            v13 = http_clock_skew_metrics_with_http_context;
+            v14 = http_clock_skew_metrics_with_http_context;
             mmcs_request_set_http_clock_skew_metrics(a3, http_clock_skew_metrics_with_http_context);
-            CFRelease(v13);
+            CFRelease(v14);
           }
 
           mmcs_http_context_cleanup_response(a1);
           if (*(a3 + 248))
           {
-            authorization_error_with_format = mmcs_cferror_create_authorization_error_with_format(*a2, @"Successfully fetched put authorization", v14, v15, v16, v17, v18, v19, v26);
+            authorization_error_with_format = mmcs_cferror_create_authorization_error_with_format(*a2, @"Successfully fetched put authorization", v15, v16, v17, v18, v19, v20);
             mmcs_put_request_context_cleanup(a3, authorization_error_with_format);
             if (authorization_error_with_format)
             {
@@ -3172,14 +3216,14 @@ void handle_response_authorizePut(uint64_t a1, CFTypeRef *a2, uint64_t a3)
       *a2 = 0;
     }
 
-    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"The authorize put response had no body.", v6, v7, v8, v9, v10, v26);
+    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"The authorize put response had no body.", v6, v7, v8, v9, v10);
 LABEL_29:
-    v25 = error;
+    v26 = error;
     mmcs_put_request_context_cleanup(a3, error);
-    if (v25)
+    if (v26)
     {
 
-      CFRelease(v25);
+      CFRelease(v26);
     }
 
     return;
@@ -3195,9 +3239,9 @@ LABEL_29:
     *a2 = 0;
   }
 
-  v21 = mmcs_http_context_get_error(a1);
+  v22 = mmcs_http_context_get_error(a1);
 
-  mmcs_put_request_context_cleanup(a3, v21);
+  mmcs_put_request_context_cleanup(a3, v22);
 }
 
 __CFArray *mmcs_put_req_context_make_auth_metrics(__CFArray *result, uint64_t a2)
@@ -3229,38 +3273,40 @@ const __CFSet *mmcs_put_request_has_outstanding_chunk_jobs(uint64_t a1)
 const __CFArray *mmcs_put_items(uint64_t a1, uint64_t a2, const __CFDictionary *a3, const void *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, CFErrorRef *a11)
 {
   v18 = a11;
-  v50 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v19 = _os_activity_create(&dword_2577D8000, "mmcs-put-items", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v19, &state);
-  v46 = 0;
+  v54 = 0;
   if (a11)
   {
     *a11 = 0;
   }
 
   values = 0;
-  v20 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v22 = mmcs_logging_logger_default(v20, v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+  if (v23)
   {
-    v26 = v19;
-    v27 = a3;
-    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"baseurl: %@", a4);
-    v29 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v30 = v19;
+    v31 = a3;
+    v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"baseurl: %@", a4);
+    v34 = mmcs_logging_logger_default(v32, v33);
+    v23 = os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG);
+    if (v23)
     {
       *buf = 138543362;
-      v49 = v28;
-      _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v57 = v32;
+      _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    a3 = v27;
-    v19 = v26;
+    a3 = v31;
+    v19 = v30;
     v18 = a11;
-    if (v28)
+    if (v32)
     {
-      CFRelease(v28);
+      CFRelease(v32);
     }
   }
 
@@ -3268,28 +3314,28 @@ const __CFArray *mmcs_put_items(uint64_t a1, uint64_t a2, const __CFDictionary *
   {
     if (v18)
     {
-      v34 = @"Missing required parameters.";
+      v40 = @"Missing required parameters.";
       goto LABEL_29;
     }
 
 LABEL_52:
-    v36 = 0;
+    v42 = 0;
     goto LABEL_53;
   }
 
   if (!a6)
   {
 LABEL_35:
-    v36 = 1;
+    v42 = 1;
     goto LABEL_53;
   }
 
   if (a6 >= 1)
   {
-    v30 = 0;
-    while (*(a9 + 8 * v30))
+    v35 = 0;
+    while (*(a9 + 8 * v35))
     {
-      if ((a6 & 0x7FFFFFFF) == ++v30)
+      if ((a6 & 0x7FFFFFFF) == ++v35)
       {
         goto LABEL_19;
       }
@@ -3297,7 +3343,7 @@ LABEL_35:
 
     if (v18)
     {
-      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 35, @"Missing auth token for item at index %d.", v21, v22, v23, v24, v25, v30);
+      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 35, @"Missing auth token for item at index %d.", v25, v26, v27, v28, v29, v35);
       goto LABEL_30;
     }
 
@@ -3307,31 +3353,31 @@ LABEL_35:
 LABEL_19:
   if (*(a1 + 120))
   {
-    v31 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v36 = mmcs_logging_logger_default(v23, v24);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine is already closed.");
-      v33 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine is already closed.");
+      v39 = mmcs_logging_logger_default(v37, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v49 = v32;
-        _os_log_impl(&dword_2577D8000, v33, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v57 = v37;
+        _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v32)
+      if (v37)
       {
-        CFRelease(v32);
+        CFRelease(v37);
       }
     }
 
     if (v18)
     {
-      v34 = @"engine is already closed.";
+      v40 = @"engine is already closed.";
 LABEL_29:
-      error = mmcs_cferror_create_error(@"com.apple.mmcs", 35, v34);
+      error = mmcs_cferror_create_error(@"com.apple.mmcs", 35, v40);
 LABEL_30:
-      v36 = 0;
+      v42 = 0;
       *v18 = error;
       goto LABEL_53;
     }
@@ -3339,32 +3385,33 @@ LABEL_30:
     goto LABEL_52;
   }
 
-  if (mmcs_put_req_context_create(&v46, a1, a2, a3, a4, a5, 0, 0, a6, a7, a8, a9, a10, v19, &values) != -1)
+  v43 = mmcs_put_req_context_create(&v54, a1, a2, a3, a4, a5, 0, 0, a6, a7, a8, a9, a10, v19, &values);
+  if (v43 != -1)
   {
-    mmcs_engine_add_request(a1, v46);
-    mmcs_metrics_request_started(v46[23], *(v46[38] + 144));
-    v37 = voucher_copy();
-    v38 = v46;
-    v46[28] = v37;
-    mmcs_put_req_context_init_items(v38);
+    mmcs_engine_add_request(a1, v54);
+    mmcs_metrics_request_started(v54[23], *(v54[38] + 144));
+    v45 = voucher_copy();
+    v46 = v54;
+    v54[28] = v45;
+    mmcs_put_req_context_init_items(v46);
     goto LABEL_35;
   }
 
-  v39 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  v47 = mmcs_logging_logger_default(v43, v44);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
-    v40 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create authPut request");
-    v41 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v48 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create authPut request");
+    v50 = mmcs_logging_logger_default(v48, v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v49 = v40;
-      _os_log_impl(&dword_2577D8000, v41, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v57 = v48;
+      _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    if (v40)
+    if (v48)
     {
-      CFRelease(v40);
+      CFRelease(v48);
     }
   }
 
@@ -3372,7 +3419,7 @@ LABEL_30:
   {
     if (values)
     {
-      v36 = CFArrayCreate(*MEMORY[0x277CBECE8], &values, 1, MEMORY[0x277CBF128]);
+      v42 = CFArrayCreate(*MEMORY[0x277CBECE8], &values, 1, MEMORY[0x277CBF128]);
       if (values)
       {
         CFRelease(values);
@@ -3383,13 +3430,13 @@ LABEL_30:
 
     else
     {
-      v36 = 0;
+      v42 = 0;
     }
 
-    *v18 = mmcs_cferror_create_error_with_underlying_errors(@"com.apple.mmcs", 35, @"Failed to create authPut request", v36, 0);
-    if (v36)
+    *v18 = mmcs_cferror_create_error_with_underlying_errors(@"com.apple.mmcs", 35, @"Failed to create authPut request", v42, 0);
+    if (v42)
     {
-      CFRelease(v36);
+      CFRelease(v42);
       goto LABEL_52;
     }
   }
@@ -3401,14 +3448,14 @@ LABEL_30:
       CFRelease(values);
     }
 
-    v36 = 0;
+    v42 = 0;
     values = 0;
   }
 
 LABEL_53:
-  if (v46)
+  if (v54)
   {
-    C3BaseRelease(v46);
+    C3BaseRelease(v54);
   }
 
   if (v19)
@@ -3417,43 +3464,44 @@ LABEL_53:
   }
 
   os_activity_scope_leave(&state);
-  v42 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v42;
 }
 
-uint64_t mmcs_put_section_with_items(uint64_t a1, const void *a2, const char *a3, uint64_t a4, const __CFDictionary *a5, const void *a6, uint64_t a7, CFIndex a8, uint64_t a9, uint64_t a10, int a11, CFErrorRef *a12)
+uint64_t mmcs_put_section_with_items(uint64_t a1, const void *a2, const char *a3, uint64_t a4, const __CFDictionary *a5, const void *a6, uint64_t a7, CFIndex a8, char *a9, uint64_t a10, int a11, CFErrorRef *a12)
 {
   v18 = a12;
-  v79 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v19 = _os_activity_create(&dword_2577D8000, "mmcs-put-section-with-items", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v19, &state);
-  v72 = 0;
+  v84 = 0;
   if (a12)
   {
     *a12 = 0;
   }
 
   values = 0;
-  v20 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v22 = mmcs_logging_logger_default(v20, v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+  if (v23)
   {
-    v21 = v19;
-    v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"baseurl: %@", a2);
-    v23 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v25 = v19;
+    v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"baseurl: %@", a2);
+    v28 = mmcs_logging_logger_default(v26, v27);
+    v23 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+    if (v23)
     {
       *buf = 138543362;
-      v78 = v22;
-      _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v90 = v26;
+      _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    v19 = v21;
+    v19 = v25;
     v18 = a12;
-    if (v22)
+    if (v26)
     {
-      CFRelease(v22);
+      CFRelease(v26);
     }
   }
 
@@ -3461,7 +3509,7 @@ uint64_t mmcs_put_section_with_items(uint64_t a1, const void *a2, const char *a3
   {
     if (v18)
     {
-      v29 = @"Missing required parameters.";
+      v35 = @"Missing required parameters.";
       goto LABEL_25;
     }
 
@@ -3470,41 +3518,41 @@ uint64_t mmcs_put_section_with_items(uint64_t a1, const void *a2, const char *a3
 
   if (!a8)
   {
-    v31 = 1;
+    v37 = 1;
     goto LABEL_66;
   }
 
   if (*(a1 + 120))
   {
-    v24 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(v23, v24);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v25 = v18;
-      v26 = v19;
-      v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine is already closed.");
-      v28 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = v18;
+      v31 = v19;
+      v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine is already closed.");
+      v34 = mmcs_logging_logger_default(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v78 = v27;
-        _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v90 = v32;
+        _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      v19 = v26;
-      v18 = v25;
-      if (v27)
+      v19 = v31;
+      v18 = v30;
+      if (v32)
       {
-        CFRelease(v27);
+        CFRelease(v32);
       }
     }
 
     if (v18)
     {
-      v29 = @"engine is already closed.";
+      v35 = @"engine is already closed.";
 LABEL_25:
-      error = mmcs_cferror_create_error(@"com.apple.mmcs", 35, v29);
+      error = mmcs_cferror_create_error(@"com.apple.mmcs", 35, v35);
 LABEL_26:
-      v31 = 0;
+      v37 = 0;
       *v18 = error;
       goto LABEL_66;
     }
@@ -3512,90 +3560,25 @@ LABEL_26:
     goto LABEL_65;
   }
 
-  v76 = 666;
-  v74 = a10;
-  v75 = a7;
-  v70 = a11;
-  if (mmcs_put_req_context_create(&v72, a1, a4, a5, a2, a3, a6, 1, 1, &v76, &v75, &v74, &v70, v19, &values) == -1)
+  v88 = 666;
+  v86 = a10;
+  v87 = a7;
+  v82 = a11;
+  v38 = mmcs_put_req_context_create(&v84, a1, a4, a5, a2, a3, a6, 1, 1, &v88, &v87, &v86, &v82, v19, &values);
+  if (v38 == -1)
   {
-    v43 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-    {
-      v44 = v18;
-      v45 = v19;
-      v46 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create authPut request");
-      v47 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543362;
-        v78 = v46;
-        _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-      }
-
-      v19 = v45;
-      v18 = v44;
-      if (v46)
-      {
-        CFRelease(v46);
-      }
-    }
-
-    if (!v18)
-    {
-      if (values)
-      {
-        CFRelease(values);
-      }
-
-      v31 = 0;
-      values = 0;
-      goto LABEL_66;
-    }
-
-    if (values)
-    {
-      v31 = CFArrayCreate(*MEMORY[0x277CBECE8], &values, 1, MEMORY[0x277CBF128]);
-      if (values)
-      {
-        CFRelease(values);
-      }
-
-      values = 0;
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    *v18 = mmcs_cferror_create_error_with_underlying_errors(@"com.apple.mmcs", 35, @"Failed to create authPut request", v31, 0);
-    if (!v31)
-    {
-      goto LABEL_66;
-    }
-
-    CFRelease(v31);
-LABEL_65:
-    v31 = 0;
-    goto LABEL_66;
-  }
-
-  v32 = *MEMORY[0x277CBECE8];
-  Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], a8, MEMORY[0x277CBF158]);
-  if (!Mutable)
-  {
-    v48 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v53 = mmcs_logging_logger_default(v38, v39);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       v54 = v18;
       v55 = v19;
-      v56 = CFStringCreateWithFormat(v32, 0, @"Failed to allocate itemIdSet for %llu itemds.", a8);
-      v57 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v56 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to create authPut request");
+      v58 = mmcs_logging_logger_default(v56, v57);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v78 = v56;
-        _os_log_impl(&dword_2577D8000, v57, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v90 = v56;
+        _os_log_impl(&dword_2577D8000, v58, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       v19 = v55;
@@ -3606,95 +3589,160 @@ LABEL_65:
       }
     }
 
+    if (!v18)
+    {
+      if (values)
+      {
+        CFRelease(values);
+      }
+
+      v37 = 0;
+      values = 0;
+      goto LABEL_66;
+    }
+
+    if (values)
+    {
+      v37 = CFArrayCreate(*MEMORY[0x277CBECE8], &values, 1, MEMORY[0x277CBF128]);
+      if (values)
+      {
+        CFRelease(values);
+      }
+
+      values = 0;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+    *v18 = mmcs_cferror_create_error_with_underlying_errors(@"com.apple.mmcs", 35, @"Failed to create authPut request", v37, 0);
+    if (!v37)
+    {
+      goto LABEL_66;
+    }
+
+    CFRelease(v37);
+LABEL_65:
+    v37 = 0;
+    goto LABEL_66;
+  }
+
+  v40 = *MEMORY[0x277CBECE8];
+  Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], a8, MEMORY[0x277CBF158]);
+  if (!Mutable)
+  {
+    v59 = mmcs_logging_logger_default(0, v42);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    {
+      v65 = v18;
+      v66 = v19;
+      v67 = CFStringCreateWithFormat(v40, 0, @"Failed to allocate itemIdSet for %llu itemds.", a8);
+      v69 = mmcs_logging_logger_default(v67, v68);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v90 = v67;
+        _os_log_impl(&dword_2577D8000, v69, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      }
+
+      v19 = v66;
+      v18 = v65;
+      if (v67)
+      {
+        CFRelease(v67);
+      }
+    }
+
     if (v18)
     {
-      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to allocate itemIdSet for %llu itemds.", v49, v50, v51, v52, v53, a8);
+      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to allocate itemIdSet for %llu itemds.", v60, v61, v62, v63, v64, a8);
       goto LABEL_26;
     }
 
     goto LABEL_65;
   }
 
-  v34 = Mutable;
-  v35 = v19;
-  v36 = a8;
-  v37 = a9;
-  v38 = a9;
-  v39 = v36;
+  v43 = Mutable;
+  v44 = v19;
+  v45 = a8;
+  v46 = a9;
+  v47 = a9;
+  v48 = v45;
   while (1)
   {
-    v40 = CFNumberCreate(v32, kCFNumberSInt64Type, v37);
-    if (!v40)
+    v49 = CFNumberCreate(v40, kCFNumberSInt64Type, v46);
+    if (!v49)
     {
       break;
     }
 
-    CFSetAddValue(v34, v40);
-    v38 += 8;
-    v37 += 8;
-    if (!--v36)
+    CFSetAddValue(v43, v49);
+    v47 += 8;
+    v46 += 8;
+    if (!--v45)
     {
-      *(v72[38] + 72) = v34;
-      v41 = voucher_copy();
-      v42 = v72;
-      v72[28] = v41;
-      mmcs_engine_add_request(a1, v42);
-      mmcs_metrics_request_started(v72[23], *(v72[38] + 144));
-      if (mmcs_put_req_context_init_items_for_section(v72, v39, a9, v18))
+      *(v84[38] + 72) = v43;
+      v51 = voucher_copy();
+      v52 = v84;
+      v84[28] = v51;
+      mmcs_engine_add_request(a1, v52);
+      mmcs_metrics_request_started(v84[23], *(v84[38] + 144));
+      if (mmcs_put_req_context_init_items_for_section(v84, v48, a9, v18))
       {
-        v31 = 1;
+        v37 = 1;
         goto LABEL_73;
       }
 
-      mmcs_engine_remove_request(a1, v72);
+      mmcs_engine_remove_request(a1, v84);
       goto LABEL_72;
     }
   }
 
-  v58 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+  v70 = mmcs_logging_logger_default(0, v50);
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
   {
-    v64 = CFStringCreateWithFormat(v32, 0, @"Failed to allocate itemIdWrapper for itemId %llu.", v38);
-    v65 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v76 = CFStringCreateWithFormat(v40, 0, @"Failed to allocate itemIdWrapper for itemId %llu.", v47);
+    v78 = mmcs_logging_logger_default(v76, v77);
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v78 = v64;
-      _os_log_impl(&dword_2577D8000, v65, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v90 = v76;
+      _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    if (v64)
+    if (v76)
     {
-      CFRelease(v64);
+      CFRelease(v76);
     }
   }
 
   if (v18)
   {
-    v31 = 0;
-    *v18 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to allocate itemIdWrapper for itemId %llu.", v59, v60, v61, v62, v63, v38);
+    v37 = 0;
+    *v18 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Failed to allocate itemIdWrapper for itemId %llu.", v71, v72, v73, v74, v75, v47);
     goto LABEL_73;
   }
 
 LABEL_72:
-  v31 = 0;
+  v37 = 0;
 LABEL_73:
-  v19 = v35;
+  v19 = v44;
 LABEL_66:
-  if (v72)
+  if (v84)
   {
-    C3BaseRelease(v72);
+    C3BaseRelease(v84);
   }
 
-  v72 = 0;
+  v84 = 0;
   if (v19)
   {
     os_release(v19);
   }
 
   os_activity_scope_leave(&state);
-  v66 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v37;
 }
 
 uint64_t mmcs_put_request_has_outstanding_put_completes(uint64_t result, _BYTE *a2)
@@ -3723,28 +3771,28 @@ uint64_t mmcs_put_request_has_outstanding_put_completes(uint64_t result, _BYTE *
 
 void mmcs_put_req_will_retry_put_complete_after_error(uint64_t a1, uint64_t *a2, __CFError *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  v5 = mmcs_logging_logger_default();
+  v5 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = mmcs_request_copy_description(v4);
     v7 = mmcs_cferror_copy_description(a3);
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = mmcs_logging_logger_default(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ retry put complete after error %@", v6, v7);
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ retry put complete after error %@", v6, v7);
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v14 = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v9)
+      if (v10)
       {
-        CFRelease(v9);
+        CFRelease(v10);
       }
     }
 
@@ -3758,99 +3806,99 @@ void mmcs_put_req_will_retry_put_complete_after_error(uint64_t a1, uint64_t *a2,
       CFRelease(v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void handle_response_putComplete(uint64_t a1, CFDataRef *a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v6 = *a3;
   mmcs_http_context_cleanup_response(a1);
-  if (mmcs_http_context_status_succeeded(a1))
+  Length = mmcs_http_context_status_succeeded(a1, v7);
+  if (Length)
   {
     if (a2)
     {
+      Length = *a2;
       if (*a2)
       {
-        Length = CFDataGetLength(*a2);
+        Length = CFDataGetLength(Length);
         if (Length)
         {
-          v8 = Length;
-          v9 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v10 = Length;
+          v11 = mmcs_logging_logger_default(Length, v9);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            v45 = v8;
-            v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Got %ld bytes");
-            v11 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+            v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Got %ld bytes", v10);
+            v14 = mmcs_logging_logger_default(v12, v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               LODWORD(buf.opaque[0]) = 138543362;
-              *(buf.opaque + 4) = v10;
-              _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+              *(buf.opaque + 4) = v12;
+              _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
             }
 
-            if (v10)
+            if (v12)
             {
-              CFRelease(v10);
+              CFRelease(v12);
             }
           }
 
-          v12 = *(v6[38] + 120);
+          v15 = *(v6[38] + 120);
           BytePtr = CFDataGetBytePtr(*a2);
-          if (v12)
+          if (v15)
           {
-            v14 = chunkserver__clone_complete_response__unpack(0, v8, BytePtr);
-            if (v14)
+            v17 = chunkserver__clone_complete_response__unpack(0, v10, BytePtr);
+            if (v17)
             {
-              v15 = v14;
-              mmcs_put_state_process_clone_complete(*(v6[38] + 80), v14);
-              chunkserver__clone_complete_response__free_unpacked(v15, 0);
+              v19 = v17;
+              mmcs_put_state_process_clone_complete(*(v6[38] + 80), v17);
+              chunkserver__clone_complete_response__free_unpacked(v19, 0);
             }
           }
 
           else
           {
-            v27 = chunkserver__storage_container_error_list__unpack(0, v8, BytePtr);
-            if (v27)
+            v35 = chunkserver__storage_container_error_list__unpack(0, v10, BytePtr);
+            if (v35)
             {
-              v28 = v27;
-              mmcs_put_state_process_storage_container_error_list(*(v6[38] + 80), v27);
-              chunkserver__storage_container_error_list__free_unpacked(v28, 0);
+              v37 = v35;
+              mmcs_put_state_process_storage_container_error_list(*(v6[38] + 80), v35);
+              chunkserver__storage_container_error_list__free_unpacked(v37, 0);
             }
 
             else
             {
-              v29 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v38 = mmcs_logging_logger_default(0, v36);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
               {
-                v35 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Error parsing response from server.");
-                v36 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                v44 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Error parsing response from server.");
+                v46 = mmcs_logging_logger_default(v44, v45);
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                 {
                   LODWORD(buf.opaque[0]) = 138543362;
-                  *(buf.opaque + 4) = v35;
-                  _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
+                  *(buf.opaque + 4) = v44;
+                  _os_log_impl(&dword_2577D8000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
                 }
 
-                if (v35)
+                if (v44)
                 {
-                  CFRelease(v35);
+                  CFRelease(v44);
                 }
               }
 
-              v37 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 5, @"Unable to unpack protobuf response from server", v30, v31, v32, v33, v34, v45);
-              mmcs_put_complete_set_error_and_push_to_containers(a3, v37);
-              if (v37)
+              v47 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 5, @"Unable to unpack protobuf response from server", v39, v40, v41, v42, v43);
+              mmcs_put_complete_set_error_and_push_to_containers(a3, v47);
+              if (v47)
               {
-                CFRelease(v37);
+                CFRelease(v47);
               }
             }
           }
 
+          v21 = *a2;
           if (*a2)
           {
-            CFRelease(*a2);
+            CFRelease(v21);
           }
 
           *a2 = 0;
@@ -3859,19 +3907,21 @@ void handle_response_putComplete(uint64_t a1, CFDataRef *a2, uint64_t a3)
       }
     }
 
-    v16 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = mmcs_logging_logger_default(Length, v9);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    if (!v21)
     {
       goto LABEL_36;
     }
 
     error_with_underlying_error = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"No body in putComplete response");
-    v18 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v24 = mmcs_logging_logger_default(error_with_underlying_error, v23);
+    v21 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+    if (v21)
     {
       LODWORD(buf.opaque[0]) = 138543362;
       *(buf.opaque + 4) = error_with_underlying_error;
-      _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
     }
   }
 
@@ -3879,26 +3929,26 @@ void handle_response_putComplete(uint64_t a1, CFDataRef *a2, uint64_t a3)
   {
     if (mmcs_http_context_has_http_status(a1))
     {
-      if (mmcs_http_context_http_status(a1) == 330)
+      if (mmcs_http_context_http_status(a1, v25) == 330)
       {
         error = mmcs_http_context_get_error(a1);
         mmcs_put_request_put_complete_failed(v6, error);
         goto LABEL_36;
       }
 
-      v26 = mmcs_http_context_get_error(a1);
-      v45 = mmcs_http_context_http_status(a1);
-      v25 = @"HTTP request failed with status: %d";
-      v20 = v26;
+      v33 = mmcs_http_context_get_error(a1);
+      v58 = mmcs_http_context_http_status(a1, v34);
+      v32 = @"HTTP request failed with status: %d";
+      v27 = v33;
     }
 
     else
     {
-      v20 = mmcs_http_context_get_error(a1);
-      v25 = @"HTTP request failed without status!";
+      v27 = mmcs_http_context_get_error(a1);
+      v32 = @"HTTP request failed without status!";
     }
 
-    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 5, v20, v25, v21, v22, v23, v24, v45);
+    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 5, v27, v32, v28, v29, v30, v31, v58);
     mmcs_put_complete_set_error_and_push_to_containers(a3, error_with_underlying_error);
   }
 
@@ -3908,13 +3958,13 @@ void handle_response_putComplete(uint64_t a1, CFDataRef *a2, uint64_t a3)
   }
 
 LABEL_36:
-  v38 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+  v48 = mmcs_logging_logger_default(v21, v18);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
   {
     Count = CFArrayGetCount(*(a3 + 24));
     LODWORD(buf.opaque[0]) = 134217984;
     *(buf.opaque + 4) = Count;
-    _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_INFO, "PutComplete performed for %ld containers.", &buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v48, OS_LOG_TYPE_INFO, "PutComplete performed for %ld containers.", &buf, 0xCu);
   }
 
   mmcs_put_complete_cleanup_containers(a3);
@@ -3922,23 +3972,23 @@ LABEL_36:
   {
     buf.opaque[0] = 0;
     buf.opaque[1] = 0;
-    request_activity_marker = mmcs_request_get_request_activity_marker(v6);
+    request_activity_marker = mmcs_request_get_request_activity_marker(v6, v50);
     os_activity_scope_enter(request_activity_marker, &buf);
-    v41 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v54 = mmcs_logging_logger_default(v52, v53);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done! (Put request %p)", v6);
-      v43 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v55 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Uploads complete. All done! (Put request %p)", v6);
+      v57 = mmcs_logging_logger_default(v55, v56);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 138543362;
-        v47 = v42;
-        _os_log_impl(&dword_2577D8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@", v46, 0xCu);
+        *v59 = 138543362;
+        v60 = v55;
+        _os_log_impl(&dword_2577D8000, v57, OS_LOG_TYPE_DEFAULT, "%{public}@", v59, 0xCu);
       }
 
-      if (v42)
+      if (v55)
       {
-        CFRelease(v42);
+        CFRelease(v55);
       }
     }
 
@@ -3955,8 +4005,6 @@ LABEL_36:
 
     *a2 = 0;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 __CFArray *mmcs_put_req_context_make_put_complete_metrics(__CFArray *result, uint64_t a2, uint64_t a3)
@@ -3981,10 +4029,10 @@ void failed_to_send_put_complete(void *a1, const void *a2)
   *(v3 + 33) = 0;
   if (a2)
   {
-    mmcs_container_set_complete_error_if_absent(a1, a2);
+    a1 = mmcs_container_set_complete_error_if_absent(a1, a2);
   }
 
-  v4 = mmcs_logging_logger_default();
+  v4 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = *(v3 + 8);
@@ -3999,12 +4047,12 @@ void failed_to_send_put_complete(void *a1, const void *a2)
     }
 
     v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"failed to create putComplete for container '%s', error: %@", v6, a2);
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = mmcs_logging_logger_default(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
       v11 = v7;
-      _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     if (v7)
@@ -4012,8 +4060,6 @@ void failed_to_send_put_complete(void *a1, const void *a2)
       CFRelease(v7);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void notify_item_of_put_container_errors(uint64_t a1, uint64_t a2)
@@ -4088,11 +4134,11 @@ void notify_item_of_put_container_errors(uint64_t a1, uint64_t a2)
       {
         keys[0] = @"kMMCSErrorRetryClientInitiatedKey";
         values[0] = *MEMORY[0x277CBED28];
-        v17 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        ValueAtIndex = mmcs_cferror_create_with_swiss_army_knife(@"com.apple.mmcs", 16, 0, v17, 0, 0, 0, @"Item %lld in this batch failed, so this item should be retried.", valuePtr);
-        if (v17)
+        v18 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        ValueAtIndex = mmcs_cferror_create_with_swiss_army_knife(@"com.apple.mmcs", 16, 0, v18, 0, 0, 0, @"Item %lld in this batch failed, so this item should be retried.", valuePtr);
+        if (v18)
         {
-          CFRelease(v17);
+          CFRelease(v18);
         }
 
         goto LABEL_31;
@@ -4101,78 +4147,77 @@ void notify_item_of_put_container_errors(uint64_t a1, uint64_t a2)
 
     ValueAtIndex = mmcs_cferror_create_error_with_underlying_errors(@"com.apple.mmcs", 7, @"Put container(s) failed.", *(a1 + 184), 0);
 LABEL_31:
-    mmcs_put_item_progress_make_done_error(ValueAtIndex, keys);
+    mmcs_put_item_progress_make_done_error(ValueAtIndex, v16, keys);
     mmcs_put_request_set_progress_and_notify_items_like_item(a2, a1, keys);
     if (ValueAtIndex)
     {
       CFRelease(ValueAtIndex);
     }
 
-    goto LABEL_33;
+    return;
   }
 
-  v16 = *(a1 + 240);
-  if (v16)
+  v17 = *(a1 + 240);
+  if (v17)
   {
-    mmcs_put_item_progress_make_done_error(v16, keys);
+    mmcs_put_item_progress_make_done_error(v17, a2, keys);
     mmcs_put_request_set_progress_and_notify_items_like_item(a2, a1, keys);
   }
-
-LABEL_33:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_put_req_context_write_put_auth_request_body(uint64_t a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 304) + 104))
   {
     v4 = *MEMORY[0x277CBECE8];
     while (1)
     {
-      if (!mmcs_http_request_body_can_accept_data(a2))
+      can_accept_data = mmcs_http_request_body_can_accept_data(a2);
+      if (!can_accept_data)
       {
         if (gMMCS_DebugLevel >= 5)
         {
-          v23 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v29 = mmcs_logging_logger_default(can_accept_data, v6);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
-            v24 = CFStringCreateWithFormat(v4, 0, @"Stream says it is full");
-            v25 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            v30 = CFStringCreateWithFormat(v4, 0, @"Stream says it is full");
+            v32 = mmcs_logging_logger_default(v30, v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v46 = v24;
-              _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v57 = v30;
+              _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v24)
+            if (v30)
             {
-              CFRelease(v24);
+              CFRelease(v30);
             }
           }
         }
 
 LABEL_27:
-        if (CFDataGetLength(*(*(a1 + 304) + 104)) <= *(*(a1 + 304) + 112))
+        Length = CFDataGetLength(*(*(a1 + 304) + 104));
+        if (Length <= *(*(a1 + 304) + 112))
         {
           if (gMMCS_DebugLevel >= 4)
           {
-            v26 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            v35 = mmcs_logging_logger_default(Length, v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
-              v27 = CFStringCreateWithFormat(v4, 0, @"closing request body for context (%p): all done", a2);
-              v28 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              v36 = CFStringCreateWithFormat(v4, 0, @"closing request body for context (%p): all done", a2);
+              v38 = mmcs_logging_logger_default(v36, v37);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v46 = v27;
-                _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v57 = v36;
+                _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v27)
+              if (v36)
               {
-                CFRelease(v27);
+                CFRelease(v36);
               }
             }
           }
@@ -4180,142 +4225,141 @@ LABEL_27:
           mmcs_http_set_request_body_done(a2);
         }
 
-        goto LABEL_51;
+        return;
       }
 
-      Length = CFDataGetLength(*(*(a1 + 304) + 104));
-      v6 = *(a1 + 304);
-      v7 = Length - *(v6 + 112);
-      if (v7 < 1)
+      v7 = CFDataGetLength(*(*(a1 + 304) + 104));
+      v8 = *(a1 + 304);
+      v9 = v7 - *(v8 + 112);
+      if (v9 < 1)
       {
         goto LABEL_27;
       }
 
-      BytePtr = CFDataGetBytePtr(*(v6 + 104));
-      v9 = mmcs_http_write_request_body(a2, &BytePtr[*(*(a1 + 304) + 112)], v7);
+      BytePtr = CFDataGetBytePtr(*(v8 + 104));
+      v11 = mmcs_http_write_request_body(a2, &BytePtr[*(*(a1 + 304) + 112)], v9);
+      v13 = v11;
       if (gMMCS_DebugLevel >= 5)
       {
-        v10 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v14 = mmcs_logging_logger_default(v11, v12);
+        v11 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+        if (v11)
         {
-          v44 = a2;
-          v11 = CFStringCreateWithFormat(v4, 0, @"context (%p) wrote %d bytes");
-          v12 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138543362;
-            v46 = v11;
-            _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-          }
-
+          v15 = CFStringCreateWithFormat(v4, 0, @"context (%p) wrote %d bytes", a2, v13);
+          v17 = mmcs_logging_logger_default(v15, v16);
+          v11 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
           if (v11)
           {
-            CFRelease(v11);
+            *buf = 138543362;
+            v57 = v15;
+            _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          }
+
+          if (v15)
+          {
+            CFRelease(v15);
           }
         }
       }
 
-      if ((v9 & 0x8000000000000000) != 0)
+      if (v13 < 0)
       {
         break;
       }
 
-      *(*(a1 + 304) + 112) += v9;
-      if (v9 != v7)
+      *(*(a1 + 304) + 112) += v13;
+      if (v13 != v9)
       {
         goto LABEL_27;
       }
     }
 
-    v29 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v39 = mmcs_logging_logger_default(v11, v12);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      v35 = CFStringCreateWithFormat(v4, 0, @"mmcs_http_write_request_body() failed ");
-      v36 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v45 = CFStringCreateWithFormat(v4, 0, @"mmcs_http_write_request_body() failed ");
+      v47 = mmcs_logging_logger_default(v45, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v46 = v35;
-        _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v57 = v45;
+        _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v35)
+      if (v45)
       {
-        CFRelease(v35);
+        CFRelease(v45);
       }
     }
 
-    v37 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 38, @"mmcs_http_write_request_body() failed", v30, v31, v32, v33, v34, v44);
-    v38 = *(a1 + 304);
-    v39 = *(v38 + 104);
-    if (v39)
+    v49 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 38, @"mmcs_http_write_request_body() failed", v40, v41, v42, v43, v44);
+    v50 = *(a1 + 304);
+    v51 = *(v50 + 104);
+    if (v51)
     {
-      CFRelease(v39);
-      v38 = *(a1 + 304);
+      CFRelease(v51);
+      v50 = *(a1 + 304);
     }
 
-    *(v38 + 104) = 0;
+    *(v50 + 104) = 0;
     if (gMMCS_DebugLevel >= 4)
     {
-      v40 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v52 = mmcs_logging_logger_default(v51, v48);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v41 = CFStringCreateWithFormat(v4, 0, @"closing request body for context (%p) had an error %@.", a2, v37);
-        v42 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v53 = CFStringCreateWithFormat(v4, 0, @"closing request body for context (%p) had an error %@.", a2, v49);
+        v55 = mmcs_logging_logger_default(v53, v54);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v46 = v41;
-          _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          v57 = v53;
+          _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v41)
+        if (v53)
         {
-          CFRelease(v41);
+          CFRelease(v53);
         }
       }
     }
 
-    mmcs_http_context_should_stop_with_error(*(*(a1 + 304) + 96), v37);
-    if (v37)
+    mmcs_http_context_should_stop_with_error(*(*(a1 + 304) + 96), v49);
+    if (v49)
     {
-      v22 = v37;
+      v28 = v49;
       goto LABEL_50;
     }
   }
 
   else
   {
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v18 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"There was no request body");
-      v20 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"There was no request body");
+      v26 = mmcs_logging_logger_default(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v46 = v19;
-        _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v57 = v24;
+        _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v19)
+      if (v24)
       {
-        CFRelease(v19);
+        CFRelease(v24);
       }
     }
 
-    v21 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"There was no request body.", v14, v15, v16, v17, v18, v44);
-    mmcs_http_context_should_stop_with_error(*(*(a1 + 304) + 96), v21);
-    if (v21)
+    v27 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"There was no request body.", v19, v20, v21, v22, v23);
+    mmcs_http_context_should_stop_with_error(*(*(a1 + 304) + 96), v27);
+    if (v27)
     {
-      v22 = v21;
+      v28 = v27;
 LABEL_50:
-      CFRelease(v22);
+      CFRelease(v28);
     }
   }
-
-LABEL_51:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 char *ub_dirname_alloced(const char *a1)
@@ -4366,7 +4410,7 @@ LABEL_19:
         return v3;
       }
 
-      v8 = (v4 - 1);
+      v8 = v4 - 1;
       do
       {
         v9 = v7;
@@ -4456,13 +4500,13 @@ const void *IsValidCFDictionary(const void *result)
 
 void initClientInfoHeaderTemplate()
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(v18, 0, sizeof(v18));
-  v16 = 128;
-  *v17 = 0x200000006;
-  if (sysctl(v17, 2u, v18, &v16, 0, 0) == -1)
+  v18 = *MEMORY[0x277D85DE8];
+  memset(v17, 0, sizeof(v17));
+  v15 = 128;
+  *v16 = 0x200000006;
+  if (sysctl(v16, 2u, v17, &v15, 0, 0) == -1)
   {
-    *&v18[0] = 0x4E574F4E4B4E55;
+    *&v17[0] = 0x4E574F4E4B4E55;
   }
 
   v0 = *MEMORY[0x277CBECE8];
@@ -4526,13 +4570,11 @@ LABEL_16:
     v12 = v11;
   }
 
-  sClientInfoHeaderTemplate = CFStringCreateWithFormat(v0, 0, @"<%s> <%@>", v18, v12);
+  sClientInfoHeaderTemplate = CFStringCreateWithFormat(v0, 0, @"<%s> <%@>", v17, v12);
   if (v11)
   {
     CFRelease(v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *mmcs_request_class_short_description(unsigned int a1)
@@ -4556,7 +4598,7 @@ uint64_t mmcs_request_allocate(uint64_t *a1, int a2, uint64_t a3)
     return 0;
   }
 
-  v7 = C3TypeRegister(&mmcs_requestGetTypeID_typeID);
+  v7 = C3TypeRegister(&mmcs_requestGetTypeID_typeID, &kmmcs_requestContextClass);
   result = C3TypeCreateInstance_(0, v7, a3 + 312);
   if (result)
   {
@@ -4623,7 +4665,7 @@ CFStringRef mmcs_request_copy_description(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    return _requestCallbacks[5 * v1 + 1]();
+    return (_requestCallbacks[5 * v1 + 1])();
   }
 
   else
@@ -4639,16 +4681,16 @@ uint64_t mmcs_request_append_description(uint64_t result)
     v1 = *(*result + 16);
     if (v1)
     {
-      return _requestCallbacks[5 * v1 + 4]();
+      return (_requestCallbacks[5 * v1 + 4])();
     }
   }
 
   return result;
 }
 
-uint64_t _mmcs_request_init(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDictionary *a4, const void *a5, const char *a6, void *a7, CFErrorRef *a8)
+uint64_t _mmcs_request_init(uint64_t a1, const void *a2, uint64_t a3, const __CFDictionary *a4, const void *a5, const char *a6, void *a7, CFErrorRef *a8)
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (a8)
   {
     *a8 = 0;
@@ -4701,24 +4743,24 @@ uint64_t _mmcs_request_init(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDic
     cfBOOLean_from_cfpreferences_object_for_key = mmcs_get_cfBOOLean_from_cfpreferences_object_for_key(@"UseEdge", 0);
     *(a1 + 74) = mmcs_get_BOOLean_from_cfpreferences_object_for_key(@"UseLimp", *(a1 + 74));
     *(a1 + 75) = mmcs_get_BOOLean_from_cfpreferences_object_for_key(@"UseContainerInterrupting", *(a1 + 75));
-    mmcs_report_tickle(*(a1 + 56));
+    v18 = mmcs_report_tickle(*(a1 + 56));
     if (!a4)
     {
 LABEL_67:
       if (cfBOOLean_from_cfpreferences_object_for_key)
       {
-        v70 = *(a1 + 56);
+        v78 = *(a1 + 56);
         if (CFBooleanGetValue(cfBOOLean_from_cfpreferences_object_for_key))
         {
-          v71 = @"true";
+          v79 = @"true";
         }
 
         else
         {
-          v71 = @"false";
+          v79 = @"false";
         }
 
-        mmcs_http_request_options_add_inserted_header_if_absent(v70, @"x-apple-use-edge", v71);
+        mmcs_http_request_options_add_inserted_header_if_absent(v78, @"x-apple-use-edge", v79);
       }
 
       BOOLean_from_cfdictionary_object_for_key = mmcs_get_BOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSRequestOptionMetaserverCheckDisabled", 0);
@@ -4739,48 +4781,52 @@ LABEL_67:
           }
         }
 
-        v75 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionMetaserverAllowedSchemesOverride");
-        if (v75)
+        v84 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionMetaserverAllowedSchemesOverride");
+        if (v84)
         {
-          v76 = v75;
-          v77 = CFArrayGetTypeID();
-          v78 = v77 == CFGetTypeID(v76) ? v76 : 0;
+          v85 = v84;
+          v86 = CFArrayGetTypeID();
+          v87 = v86 == CFGetTypeID(v85) ? v85 : 0;
         }
 
         else
         {
-          v78 = 0;
+          v87 = 0;
         }
       }
 
       else
       {
-        v78 = 0;
+        v87 = 0;
         Value = 0;
       }
 
-      if (mmcs_report_is_valid_base_url_for_mobile_me(Value, v78, a5))
+      BOOLean_from_cfdictionary_object_for_key = mmcs_report_is_valid_base_url_for_mobile_me(Value, v87, a5);
+      if (BOOLean_from_cfdictionary_object_for_key)
       {
 LABEL_146:
         if (*(a1 + 72))
         {
-          if (mmcs_proxy_locator_should_disable_for_request(a1))
+          BOOLean_from_cfdictionary_object_for_key = mmcs_proxy_locator_should_disable_for_request(a1);
+          if (BOOLean_from_cfdictionary_object_for_key)
           {
-            v80 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+            v89 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+            BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG);
+            if (BOOLean_from_cfdictionary_object_for_key)
             {
-              v81 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"LAN Asset Cache Disabled for this request");
-              v82 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+              v90 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"LAN Asset Cache Disabled for this request");
+              v92 = mmcs_logging_logger_default(v90, v91);
+              BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG);
+              if (BOOLean_from_cfdictionary_object_for_key)
               {
                 *buf = 138543362;
-                *&buf[4] = v81;
-                _os_log_impl(&dword_2577D8000, v82, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                *&buf[4] = v90;
+                _os_log_impl(&dword_2577D8000, v92, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v81)
+              if (v90)
               {
-                CFRelease(v81);
+                CFRelease(v90);
               }
             }
 
@@ -4790,25 +4836,27 @@ LABEL_146:
 
           if (*(a1 + 72))
           {
-            v95 = mmcs_proxy_locator_exists();
-            *(a1 + 72) = v95;
-            if (v95)
+            BOOLean_from_cfdictionary_object_for_key = mmcs_proxy_locator_exists();
+            *(a1 + 72) = BOOLean_from_cfdictionary_object_for_key;
+            if (BOOLean_from_cfdictionary_object_for_key)
             {
               if (*(a1 + 68) == 2)
               {
                 *(a1 + 68) = 0;
-                v96 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
+                v109 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+                BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG);
+                if (BOOLean_from_cfdictionary_object_for_key)
                 {
-                  v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Disabling inline put complete due to LAN Asset Cache.");
-                  v98 = mmcs_logging_logger_default();
-                  if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+                  v110 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Disabling inline put complete due to LAN Asset Cache.");
+                  v112 = mmcs_logging_logger_default(v110, v111);
+                  BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG);
+                  if (!BOOLean_from_cfdictionary_object_for_key)
                   {
                     goto LABEL_142;
                   }
 
                   *buf = 138543362;
-                  *&buf[4] = v97;
+                  *&buf[4] = v110;
                   goto LABEL_141;
                 }
               }
@@ -4816,24 +4864,26 @@ LABEL_146:
 
             else
             {
-              v109 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
+              v123 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+              BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG);
+              if (BOOLean_from_cfdictionary_object_for_key)
               {
-                v97 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to find LAN Asset Cache for eligable request.");
-                v98 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+                v110 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to find LAN Asset Cache for eligable request.");
+                v112 = mmcs_logging_logger_default(v110, v124);
+                BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG);
+                if (!BOOLean_from_cfdictionary_object_for_key)
                 {
                   goto LABEL_142;
                 }
 
                 *buf = 138543362;
-                *&buf[4] = v97;
+                *&buf[4] = v110;
 LABEL_141:
-                _os_log_impl(&dword_2577D8000, v98, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                _os_log_impl(&dword_2577D8000, v112, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
 LABEL_142:
-                if (v97)
+                if (v110)
                 {
-                  CFRelease(v97);
+                  CFRelease(v110);
                 }
               }
             }
@@ -4843,125 +4893,128 @@ LABEL_142:
 LABEL_95:
         if (*(a1 + 75))
         {
-          v83 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+          v93 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+          BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v93, OS_LOG_TYPE_ERROR);
+          if (BOOLean_from_cfdictionary_object_for_key)
           {
-            v84 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS CONTAINER TRANSACTIONS *********************");
-            v85 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+            v94 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS CONTAINER TRANSACTIONS *********************");
+            v96 = mmcs_logging_logger_default(v94, v95);
+            BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v96, OS_LOG_TYPE_ERROR);
+            if (BOOLean_from_cfdictionary_object_for_key)
             {
               *buf = 138543362;
-              *&buf[4] = v84;
-              _os_log_impl(&dword_2577D8000, v85, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v94;
+              _os_log_impl(&dword_2577D8000, v96, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v84)
+            if (v94)
             {
-              CFRelease(v84);
+              CFRelease(v94);
             }
           }
         }
 
         if (*(a1 + 296))
         {
-          v86 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+          v97 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+          BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v97, OS_LOG_TYPE_ERROR);
+          if (BOOLean_from_cfdictionary_object_for_key)
           {
-            v87 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS NON-INLINE UPLOAD CHUNK RESPONSES *********************");
-            v88 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+            v98 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS NON-INLINE UPLOAD CHUNK RESPONSES *********************");
+            v100 = mmcs_logging_logger_default(v98, v99);
+            BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
+            if (BOOLean_from_cfdictionary_object_for_key)
             {
               *buf = 138543362;
-              *&buf[4] = v87;
-              _os_log_impl(&dword_2577D8000, v88, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v98;
+              _os_log_impl(&dword_2577D8000, v100, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v87)
+            if (v98)
             {
-              CFRelease(v87);
+              CFRelease(v98);
             }
           }
         }
 
         if (*(a1 + 297))
         {
-          v89 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+          v101 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+          BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v101, OS_LOG_TYPE_ERROR);
+          if (BOOLean_from_cfdictionary_object_for_key)
           {
-            v90 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS COMPLETE TRANSACTIONS *********************");
-            v91 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+            v102 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH FAILS COMPLETE TRANSACTIONS *********************");
+            v104 = mmcs_logging_logger_default(v102, v103);
+            BOOLean_from_cfdictionary_object_for_key = os_log_type_enabled(v104, OS_LOG_TYPE_ERROR);
+            if (BOOLean_from_cfdictionary_object_for_key)
             {
               *buf = 138543362;
-              *&buf[4] = v90;
-              _os_log_impl(&dword_2577D8000, v91, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v102;
+              _os_log_impl(&dword_2577D8000, v104, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v90)
+            if (v102)
             {
-              CFRelease(v90);
+              CFRelease(v102);
             }
           }
         }
 
         if (*(a1 + 298))
         {
-          v92 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+          v105 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
-            v93 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH CANCELS REQUEST ON VERIFICATION QUEUE *********************");
-            v94 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+            v106 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"********************* ENABLING TESTING MODE WHICH CANCELS REQUEST ON VERIFICATION QUEUE *********************");
+            v108 = mmcs_logging_logger_default(v106, v107);
+            if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v93;
-              _os_log_impl(&dword_2577D8000, v94, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v106;
+              _os_log_impl(&dword_2577D8000, v108, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v93)
+            if (v106)
             {
-              CFRelease(v93);
+              CFRelease(v106);
             }
           }
         }
 
-        result = 1;
-        goto LABEL_137;
+        return 1;
       }
 
-      v99 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v113 = mmcs_logging_logger_default(BOOLean_from_cfdictionary_object_for_key, v81);
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
       {
-        v105 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to provide valid base url %@ for mobileme request.", a5);
-        v106 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+        v119 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to provide valid base url %@ for mobileme request.", a5);
+        v121 = mmcs_logging_logger_default(v119, v120);
+        if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v105;
-          _os_log_impl(&dword_2577D8000, v106, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v119;
+          _os_log_impl(&dword_2577D8000, v121, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v105)
+        if (v119)
         {
-          CFRelease(v105);
+          CFRelease(v119);
         }
       }
 
       if (a8)
       {
-        v107 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, @"Failed to provide valid base url %@ for mobileme request.", v100, v101, v102, v103, v104, a5);
+        v122 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, @"Failed to provide valid base url %@ for mobileme request.", v114, v115, v116, v117, v118, a5);
         result = 0;
-        *a8 = v107;
-        goto LABEL_137;
+        *a8 = v122;
+        return result;
       }
 
-LABEL_136:
-      result = 0;
-      goto LABEL_137;
+      return 0;
     }
 
-    v18 = mmcs_logging_logger_default();
-    XCFPrint(v18, @"RequestOptions", a4);
+    v20 = mmcs_logging_logger_default(v18, v19);
+    XCFPrint(v20, @"RequestOptions", a4);
     cfBOOLean_from_cfpreferences_object_for_key = mmcs_get_cfBOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSRequestOptionUseEdge", cfBOOLean_from_cfpreferences_object_for_key);
     *(a1 + 64) = mmcs_get_BOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSRequestDisableVendorTLS", *(a1 + 64));
     *(a1 + 68) = mmcs_get_cfindex_from_options(@"kMMCSRequestOptionSupportsInlinePutComplete", a4, *(a1 + 68));
@@ -4974,112 +5027,112 @@ LABEL_136:
     *(a1 + 76) = mmcs_get_BOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSChunkingLibraryCorruptionMode", *(a1 + 76));
     *(a1 + 248) = mmcs_get_BOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSRequestFetchAuthorizationOnly", *(a1 + 248));
     *(a1 + 249) = mmcs_get_BOOLean_from_cfdictionary_object_for_key(a4, @"kMMCSRequestReturnDownloadAuthorization", *(a1 + 249));
-    v19 = mmcs_network_request_options_for_options(a4);
-    v111 = 0;
-    if (v19)
+    v21 = mmcs_network_request_options_for_options(a4);
+    v125 = 0;
+    if (v21)
     {
-      v20 = v19;
-      if (mmcs_http_request_options_create_with_dictionary(&v111, v19))
+      v22 = v21;
+      v23 = mmcs_http_request_options_create_with_dictionary(&v125, v21);
+      if (v23)
       {
-        v21 = *(a1 + 56);
-        if (v21)
+        v25 = *(a1 + 56);
+        if (v25)
         {
-          CFRelease(v21);
+          CFRelease(v25);
         }
 
-        *(a1 + 56) = v111;
+        *(a1 + 56) = v125;
       }
 
       else
       {
-        v22 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v26 = mmcs_logging_logger_default(v23, v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v110 = v20;
-          v23 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to initialize using network request options %@");
-          v24 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to initialize using network request options %@", v22);
+          v29 = mmcs_logging_logger_default(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v23;
-            _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            *&buf[4] = v27;
+            _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v23)
+          if (v27)
           {
-            CFRelease(v23);
+            CFRelease(v27);
           }
         }
       }
 
-      CFRelease(v20);
+      CFRelease(v22);
     }
 
-    v25 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionMmeDataClass");
-    if (v25)
+    v30 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionMmeDataClass");
+    if (v30)
     {
-      v26 = v25;
-      v27 = CFStringGetTypeID();
-      if (v27 == CFGetTypeID(v26))
+      v31 = v30;
+      v32 = CFStringGetTypeID();
+      if (v32 == CFGetTypeID(v31))
       {
-        *(a1 + 48) = CFStringCreateCopy(*MEMORY[0x277CBECE8], v26);
+        *(a1 + 48) = CFStringCreateCopy(*MEMORY[0x277CBECE8], v31);
       }
     }
 
-    v28 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionServerProtocolVersion");
-    if (v28)
+    v33 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionServerProtocolVersion");
+    if (v33)
     {
-      v29 = v28;
-      v30 = CFStringGetTypeID();
-      if (v30 == CFGetTypeID(v29))
+      v34 = v33;
+      v35 = CFStringGetTypeID();
+      if (v35 == CFGetTypeID(v34))
       {
-        *(a1 + 120) = mmcs_server_version_make_from_CFString(v29);
-        *(a1 + 128) = v31;
+        *(a1 + 120) = mmcs_server_version_make_from_CFString(v34);
+        *(a1 + 128) = v36;
       }
     }
 
-    v32 = CFDictionaryGetValue(a4, @"kMMCSRequestUrlExpiryDuration");
-    if (v32)
+    v37 = CFDictionaryGetValue(a4, @"kMMCSRequestUrlExpiryDuration");
+    if (v37)
     {
-      v33 = v32;
-      v34 = CFNumberGetTypeID();
-      if (v34 == CFGetTypeID(v33))
+      v38 = v37;
+      v39 = CFNumberGetTypeID();
+      if (v39 == CFGetTypeID(v38))
       {
-        CFNumberGetValue(v33, kCFNumberIntType, (a1 + 80));
+        CFNumberGetValue(v38, kCFNumberIntType, (a1 + 80));
       }
     }
 
-    v35 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionContainerIdentifier");
-    if (v35)
+    v40 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionContainerIdentifier");
+    if (v40)
     {
-      v36 = v35;
-      v37 = CFStringGetTypeID();
-      if (v37 == CFGetTypeID(v36))
+      v41 = v40;
+      v42 = CFStringGetTypeID();
+      if (v42 == CFGetTypeID(v41))
       {
-        *(a1 + 240) = v36;
+        *(a1 + 240) = v41;
       }
     }
 
-    v38 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPriority");
-    if (v38)
+    v43 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPriority");
+    if (v43)
     {
-      v39 = v38;
-      v40 = CFNumberGetTypeID();
-      if (v40 == CFGetTypeID(v39))
+      v44 = v43;
+      v45 = CFNumberGetTypeID();
+      if (v45 == CFGetTypeID(v44))
       {
-        mmcs_request_set_priority(a1, v39);
+        mmcs_request_set_priority(a1, v44);
       }
     }
 
-    v41 = CFDictionaryGetValue(a4, @"kMMCSRequestTimeoutPeriod");
-    if (v41)
+    v46 = CFDictionaryGetValue(a4, @"kMMCSRequestTimeoutPeriod");
+    if (v46)
     {
-      v42 = v41;
-      v43 = CFNumberGetTypeID();
-      if (v43 == CFGetTypeID(v42))
+      v47 = v46;
+      v48 = CFNumberGetTypeID();
+      if (v48 == CFGetTypeID(v47))
       {
         *buf = 0;
-        if (CFNumberGetValue(v42, kCFNumberDoubleType, buf))
+        if (CFNumberGetValue(v47, kCFNumberDoubleType, buf))
         {
           if (*buf > 0.0)
           {
@@ -5089,15 +5142,15 @@ LABEL_136:
       }
     }
 
-    v44 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionAuthTokenTimeout");
-    if (v44)
+    v49 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionAuthTokenTimeout");
+    if (v49)
     {
-      v45 = v44;
-      v46 = CFNumberGetTypeID();
-      if (v46 == CFGetTypeID(v45))
+      v50 = v49;
+      v51 = CFNumberGetTypeID();
+      if (v51 == CFGetTypeID(v50))
       {
         *buf = 0;
-        if (CFNumberGetValue(v45, kCFNumberDoubleType, buf))
+        if (CFNumberGetValue(v50, kCFNumberDoubleType, buf))
         {
           if (*buf > 0.0)
           {
@@ -5107,110 +5160,107 @@ LABEL_136:
       }
     }
 
-    v47 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionCallerRequestUUID");
-    if (v47)
+    v52 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionCallerRequestUUID");
+    if (v52)
     {
-      v48 = v47;
-      v49 = CFStringGetTypeID();
-      if (v49 == CFGetTypeID(v48))
+      v53 = v52;
+      v54 = CFStringGetTypeID();
+      if (v54 == CFGetTypeID(v53))
       {
-        CFRetain(v48);
-        *(a1 + 176) = v48;
+        CFRetain(v53);
+        *(a1 + 176) = v53;
       }
     }
 
-    v50 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionHTTPClass");
-    if (v50)
+    v55 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionHTTPClass");
+    if (v55)
     {
-      v51 = v50;
-      v52 = CFStringGetTypeID();
-      if (v52 == CFGetTypeID(v51))
+      v56 = v55;
+      v57 = CFStringGetTypeID();
+      if (v57 == CFGetTypeID(v56))
       {
-        v53 = mmcs_http_class_for_string(v51);
-        if (v53)
+        v58 = mmcs_http_class_for_string(v56);
+        if (v58)
         {
-          *(a1 + 140) = v53;
+          *(a1 + 140) = v58;
         }
 
         else
         {
-          v54 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v60 = mmcs_logging_logger_default(v58, v59);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
-            v55 = *MEMORY[0x277CBECE8];
-            v110 = v51;
-            mmcs_http_class_description(*(a1 + 140));
-            v56 = CFStringCreateWithFormat(v55, 0, @"Unknown http class %@: using %@");
-            v57 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v61 = *MEMORY[0x277CBECE8];
+            v62 = mmcs_http_class_description(*(a1 + 140));
+            v63 = CFStringCreateWithFormat(v61, 0, @"Unknown http class %@: using %@", v56, v62);
+            v65 = mmcs_logging_logger_default(v63, v64);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v56;
-              _os_log_impl(&dword_2577D8000, v57, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v63;
+              _os_log_impl(&dword_2577D8000, v65, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v56)
+            if (v63)
             {
-              CFRelease(v56);
+              CFRelease(v63);
             }
           }
         }
       }
     }
 
-    v58 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPreauthorization");
-    if (v58)
+    v66 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPreauthorization");
+    if (v66)
     {
-      v59 = v58;
-      v60 = CFDataGetTypeID();
-      if (v60 == CFGetTypeID(v59))
+      v67 = v66;
+      v68 = CFDataGetTypeID();
+      if (v68 == CFGetTypeID(v67))
       {
-        v66 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPreauthorizationSignature");
-        if (mmcs_request_validate_preauthorization_object(v59, v66))
+        v74 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionPreauthorizationSignature");
+        if (mmcs_request_validate_preauthorization_object(v67, v74))
         {
-          mmcs_request_set_preauthorization_object(a1, v59);
+          mmcs_request_set_preauthorization_object(a1, v67);
           goto LABEL_64;
         }
 
         if (!a8)
         {
-          goto LABEL_136;
+          return 0;
         }
 
-        v79 = @"preauthentication object is not authentic";
+        v88 = @"preauthentication object is not authentic";
       }
 
       else
       {
         if (!a8)
         {
-          goto LABEL_136;
+          return 0;
         }
 
-        v79 = @"preauthentication object must be type CFData";
+        v88 = @"preauthentication object must be type CFData";
       }
 
-      *a8 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v79, v61, v62, v63, v64, v65, v110);
-      goto LABEL_136;
+      *a8 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v88, v69, v70, v71, v72, v73);
+      return 0;
     }
 
 LABEL_64:
-    v67 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionSimulcast");
-    if (v67)
+    v75 = CFDictionaryGetValue(a4, @"kMMCSRequestOptionSimulcast");
+    if (v75)
     {
-      v68 = v67;
-      v69 = CFBooleanGetTypeID();
-      if (v69 == CFGetTypeID(v68))
+      v76 = v75;
+      v77 = CFBooleanGetTypeID();
+      if (v77 == CFGetTypeID(v76))
       {
-        *(a1 + 272) = CFBooleanGetValue(v68);
+        *(a1 + 272) = CFBooleanGetValue(v76);
       }
     }
 
     goto LABEL_67;
   }
 
-LABEL_137:
-  v108 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5322,73 +5372,73 @@ CFTypeRef mmcs_request_set_http_clock_skew_metrics(uint64_t a1, CFTypeRef cf)
 
 uint64_t mmcs_request_cancel(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 200), &state);
   v2 = *(a1 + 144);
-  v3 = mmcs_logging_logger_default();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  v5 = mmcs_logging_logger_default(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (!v2)
   {
-    if (v4)
+    if (v6)
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request %p", a1);
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request %p", a1);
+      v14 = mmcs_logging_logger_default(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v21 = v9;
-        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v24 = v12;
+        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v9)
+      if (v12)
       {
-        CFRelease(v9);
+        CFRelease(v12);
       }
     }
 
-    v11 = *(a1 + 16);
-    if (v11 && (v12 = (_requestCallbacks[5 * v11 + 1])(a1)) != 0)
+    v15 = *(a1 + 16);
+    if (v15 && (v16 = (_requestCallbacks[5 * v15 + 1])(a1)) != 0)
     {
-      v13 = v12;
-      v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@", @"Request was cancelled.", v12);
-      CFRelease(v13);
+      v17 = v16;
+      v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@", @"Request was cancelled.", v16);
+      CFRelease(v17);
     }
 
     else
     {
-      v14 = 0;
+      v18 = 0;
     }
 
-    if (v14)
+    if (v18)
     {
-      v15 = v14;
+      v19 = v18;
     }
 
     else
     {
-      v15 = @"Request was cancelled.";
+      v19 = @"Request was cancelled.";
     }
 
-    error = mmcs_cferror_create_error(@"com.apple.mmcs", 4, v15);
-    if (v14)
+    error = mmcs_cferror_create_error(@"com.apple.mmcs", 4, v19);
+    if (v18)
     {
-      CFRelease(v14);
+      CFRelease(v18);
     }
 
-    v16 = *(a1 + 16);
-    if (v16)
+    v20 = *(a1 + 16);
+    if (v20)
     {
-      v7 = (_requestCallbacks[5 * v16 + 2])(a1, error);
+      v10 = (_requestCallbacks[5 * v20 + 2])(a1, error);
     }
 
     else
     {
-      v7 = 0;
+      v10 = 0;
     }
 
-    v8 = v7;
+    v11 = v10;
     if (!error)
     {
       goto LABEL_27;
@@ -5396,27 +5446,27 @@ uint64_t mmcs_request_cancel(uint64_t a1)
 
 LABEL_26:
     CFRelease(error);
-    v8 = v7;
+    v11 = v10;
     goto LABEL_27;
   }
 
-  if (!v4)
+  if (!v6)
   {
-    v8 = 0;
+    v11 = 0;
     goto LABEL_27;
   }
 
   error = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Already cancelling. Ignoring cancel of request %p.", a1);
-  v6 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v9 = mmcs_logging_logger_default(error, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v21 = error;
-    _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+    v24 = error;
+    _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
   }
 
-  v7 = 0;
-  v8 = 0;
+  v10 = 0;
+  v11 = 0;
   if (error)
   {
     goto LABEL_26;
@@ -5424,8 +5474,7 @@ LABEL_26:
 
 LABEL_27:
   os_activity_scope_leave(&state);
-  v17 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v11;
 }
 
 uint64_t mmcs_request_cancel_with_requestor(uint64_t a1, uint64_t a2)
@@ -5499,115 +5548,135 @@ void mmcs_request_insert_headers(uint64_t a1, void *context)
 
 void _insert_header(const __CFString *a1, const __CFString *a2, __CFHTTPMessage *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   TypeID = CFStringGetTypeID();
-  if (TypeID != CFGetTypeID(a1))
+  if (TypeID == CFGetTypeID(a1))
   {
-    goto LABEL_14;
-  }
-
-  v7 = CFStringGetTypeID();
-  if (v7 != CFGetTypeID(a2))
-  {
-    goto LABEL_14;
-  }
-
-  if (!_case_insensitive_equals(a1, @"x-apple-mmcs-proto-version") && !_case_insensitive_equals(a1, @"x-apple-caller-request-uuid") && !_case_insensitive_equals(a1, @"x-mme-client-info") && !_case_insensitive_equals(a1, @"x-apple-mme-dsid") && !_case_insensitive_equals(a1, @"X-Apple-MMCS"))
-  {
-    if (_case_insensitive_equals(a1, @"X-"))
+    v7 = CFStringGetTypeID();
+    if (v7 == CFGetTypeID(a2))
     {
+      v8 = _case_insensitive_equals(a1, @"x-apple-mmcs-proto-version");
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+
+      v8 = _case_insensitive_equals(a1, @"x-apple-caller-request-uuid");
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+
+      v8 = _case_insensitive_equals(a1, @"x-mme-client-info");
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+
+      v8 = _case_insensitive_equals(a1, @"x-apple-mme-dsid");
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+
+      v8 = _case_insensitive_equals(a1, @"X-Apple-MMCS");
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+
+      if (!_case_insensitive_equals(a1, @"X-"))
+      {
+        v8 = _case_insensitive_equals(a1, @"x-apple-persistent-identifier");
+LABEL_8:
+        v10 = mmcs_logging_logger_default(v8, v9);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return;
+        }
+
+        v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring insertion of header %@: %@", a3, a1, a2);
+        v13 = mmcs_logging_logger_default(v11, v12);
+        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_12;
+        }
+
+        *buf = 138543362;
+        v22 = v11;
+        v14 = v13;
+        v15 = OS_LOG_TYPE_ERROR;
+        goto LABEL_11;
+      }
+
       CFHTTPMessageSetHeaderFieldValue(a3, a1, a2);
-      if (gMMCS_DebugLevel <= 3)
+      if (gMMCS_DebugLevel > 3)
       {
-        goto LABEL_14;
-      }
-
-      v14 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_14;
-      }
-
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ inserting header %@: %@", a3, a1, a2);
-      v15 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_12;
-      }
-
-      *buf = 138543362;
-      v17 = v9;
-      v11 = v15;
-      v12 = OS_LOG_TYPE_DEBUG;
-      goto LABEL_11;
-    }
-
-    _case_insensitive_equals(a1, @"x-apple-persistent-identifier");
-  }
-
-  v8 = mmcs_logging_logger_default();
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_14;
-  }
-
-  v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring insertion of header %@: %@", a3, a1, a2);
-  v10 = mmcs_logging_logger_default();
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_12;
-  }
-
-  *buf = 138543362;
-  v17 = v9;
-  v11 = v10;
-  v12 = OS_LOG_TYPE_ERROR;
-LABEL_11:
-  _os_log_impl(&dword_2577D8000, v11, v12, "%{public}@", buf, 0xCu);
+        v18 = mmcs_logging_logger_default(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        {
+          v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ inserting header %@: %@", a3, a1, a2);
+          v20 = mmcs_logging_logger_default(v11, v19);
+          if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          {
 LABEL_12:
-  if (v9)
-  {
-    CFRelease(v9);
-  }
+            if (v11)
+            {
+              CFRelease(v11);
+            }
 
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
+            return;
+          }
+
+          *buf = 138543362;
+          v22 = v11;
+          v14 = v20;
+          v15 = OS_LOG_TYPE_DEBUG;
+LABEL_11:
+          _os_log_impl(&dword_2577D8000, v14, v15, "%{public}@", buf, 0xCu);
+          goto LABEL_12;
+        }
+      }
+    }
+  }
 }
 
 uint64_t mmcs_request_validate_preauthorization_with_key(const __CFData *a1, const __CFData *a2, const __CFData *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v16 = 256;
+    v19 = 256;
     error = 0;
     v6 = *MEMORY[0x277CBECE8];
-    v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongType, &v16);
+    v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongType, &v19);
     Mutable = CFDictionaryCreateMutable(v6, 2, 0, 0);
     CFDictionarySetValue(Mutable, *MEMORY[0x277CDC028], *MEMORY[0x277CDC040]);
     CFDictionarySetValue(Mutable, *MEMORY[0x277CDBFE0], *MEMORY[0x277CDC000]);
     CFDictionarySetValue(Mutable, *MEMORY[0x277CDC018], v7);
     v9 = SecKeyCreateWithData(a3, Mutable, &error);
+    v11 = v9;
     if (error)
     {
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412290;
-        v19 = error;
-        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, "public key can't be imported due to error: %@", buf, 0xCu);
-      }
-    }
-
-    v11 = SecKeyVerifySignature(v9, *MEMORY[0x277CDC300], a1, a2, &error);
-    if (error)
-    {
-      v12 = mmcs_logging_logger_default();
+      v12 = mmcs_logging_logger_default(v9, v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = error;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "simulcast metadata failed integrity check due to error: %@", buf, 0xCu);
+        v22 = error;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "public key can't be imported due to error: %@", buf, 0xCu);
+      }
+    }
+
+    v13 = SecKeyVerifySignature(v11, *MEMORY[0x277CDC300], a1, a2, &error);
+    v15 = v13;
+    if (error)
+    {
+      v16 = mmcs_logging_logger_default(v13, v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v22 = error;
+        _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, "simulcast metadata failed integrity check due to error: %@", buf, 0xCu);
       }
 
       if (error)
@@ -5622,29 +5691,28 @@ uint64_t mmcs_request_validate_preauthorization_with_key(const __CFData *a1, con
       CFRelease(Mutable);
     }
 
-    if (v9)
+    if (v11)
     {
-      CFRelease(v9);
+      CFRelease(v11);
     }
   }
 
   else
   {
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, "unable to verify integrity of preauthorization object due to missing public key", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_ERROR, "unable to verify integrity of preauthorization object due to missing public key", buf, 2u);
     }
 
-    v11 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v15;
 }
 
-uint64_t mmcs_request_get_request_activity_marker(uint64_t a1)
+uint64_t mmcs_request_get_request_activity_marker(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 200);
   if (!result)
@@ -5708,122 +5776,122 @@ void _mmcs_requestCFFinalize(uint64_t a1)
 
   *(a1 + 40) = 0;
   mmcs_proxy_locator_invalidate(*(a1 + 192));
-  v4 = *(a1 + 112);
-  if (v4)
-  {
-    C3BaseRelease(v4);
-  }
-
-  *(a1 + 112) = 0;
-  v5 = *(a1 + 192);
+  v5 = *(a1 + 112);
   if (v5)
   {
     C3BaseRelease(v5);
   }
 
-  *(a1 + 192) = 0;
-  v6 = *(a1 + 56);
+  *(a1 + 112) = 0;
+  v6 = *(a1 + 192);
   if (v6)
   {
     C3BaseRelease(v6);
   }
 
-  *(a1 + 56) = 0;
-  v7 = *(a1 + 48);
+  *(a1 + 192) = 0;
+  v7 = *(a1 + 56);
   if (v7)
   {
-    CFRelease(v7);
+    C3BaseRelease(v7);
   }
 
-  *(a1 + 48) = 0;
-  v8 = *(a1 + 160);
+  *(a1 + 56) = 0;
+  v8 = *(a1 + 48);
   if (v8)
   {
     CFRelease(v8);
   }
 
-  *(a1 + 160) = 0;
-  v9 = *(a1 + 168);
+  *(a1 + 48) = 0;
+  v9 = *(a1 + 160);
   if (v9)
   {
     CFRelease(v9);
   }
 
-  *(a1 + 168) = 0;
-  v10 = *(a1 + 176);
+  *(a1 + 160) = 0;
+  v10 = *(a1 + 168);
   if (v10)
   {
     CFRelease(v10);
   }
 
-  *(a1 + 176) = 0;
-  v11 = *(a1 + 152);
+  *(a1 + 168) = 0;
+  v11 = *(a1 + 176);
   if (v11)
   {
     CFRelease(v11);
   }
 
-  *(a1 + 152) = 0;
-  v12 = *(a1 + 184);
+  *(a1 + 176) = 0;
+  v12 = *(a1 + 152);
   if (v12)
   {
-    mmcs_metrics_request_release(v12);
+    CFRelease(v12);
+  }
+
+  *(a1 + 152) = 0;
+  v13 = *(a1 + 184);
+  if (v13)
+  {
+    mmcs_metrics_request_release(v13, v4);
     *(a1 + 184) = 0;
   }
 
-  v13 = *(a1 + 264);
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
-  *(a1 + 264) = 0;
-  v14 = *(a1 + 256);
+  v14 = *(a1 + 264);
   if (v14)
   {
     CFRelease(v14);
   }
 
-  *(a1 + 256) = 0;
-  v15 = *(a1 + 88);
+  *(a1 + 264) = 0;
+  v15 = *(a1 + 256);
   if (v15)
   {
     CFRelease(v15);
   }
 
-  *(a1 + 88) = 0;
-  v16 = *(a1 + 200);
+  *(a1 + 256) = 0;
+  v16 = *(a1 + 88);
   if (v16)
   {
-    os_release(v16);
+    CFRelease(v16);
   }
 
-  *(a1 + 200) = 0;
-  v17 = *(a1 + 208);
+  *(a1 + 88) = 0;
+  v17 = *(a1 + 200);
   if (v17)
   {
     os_release(v17);
   }
 
-  *(a1 + 208) = 0;
-  v18 = *(a1 + 216);
+  *(a1 + 200) = 0;
+  v18 = *(a1 + 208);
   if (v18)
   {
     os_release(v18);
   }
 
-  *(a1 + 216) = 0;
-  v19 = *(a1 + 224);
+  *(a1 + 208) = 0;
+  v19 = *(a1 + 216);
   if (v19)
   {
     os_release(v19);
   }
 
-  *(a1 + 224) = 0;
-  v20 = *(a1 + 232);
+  *(a1 + 216) = 0;
+  v20 = *(a1 + 224);
   if (v20)
   {
     os_release(v20);
+  }
+
+  *(a1 + 224) = 0;
+  v21 = *(a1 + 232);
+  if (v21)
+  {
+    os_release(v21);
   }
 
   *(a1 + 232) = 0;
@@ -5984,31 +6052,31 @@ void mmcs_user_info_add_http_message_response(__CFDictionary *a1, __CFHTTPMessag
 
 uint64_t mmcs_put_container_create(void *a1, uint64_t *a2)
 {
-  v9 = 0;
-  result = mmcs_container_create(&v9, 1, 64);
+  v10 = 0;
+  result = mmcs_container_create(&v10, 1, 64);
   if (result)
   {
-    request_activity_marker = mmcs_request_get_request_activity_marker(*a2);
-    v6 = _os_activity_create(&dword_2577D8000, "mmcs-put-container", request_activity_marker, OS_ACTIVITY_FLAG_DEFAULT);
-    v7 = v9;
-    v9[10] = v6;
-    v8 = v7[11];
-    if (v8)
+    request_activity_marker = mmcs_request_get_request_activity_marker(*a2, v5);
+    v7 = _os_activity_create(&dword_2577D8000, "mmcs-put-container", request_activity_marker, OS_ACTIVITY_FLAG_DEFAULT);
+    v8 = v10;
+    v10[10] = v7;
+    v9 = v8[11];
+    if (v9)
     {
-      *v8 = a2;
-      *(v8 + 8) = 0;
-      *(v8 + 16) = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &itemItemIDEqualitySetCallbacks);
-      *(v8 + 24) = 0;
-      *(v8 + 40) = 0;
-      *(v8 + 48) = 0;
-      C3BaseRetain(**v8);
-      *a1 = v9;
+      *v9 = a2;
+      *(v9 + 8) = 0;
+      *(v9 + 16) = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &itemItemIDEqualitySetCallbacks);
+      *(v9 + 24) = 0;
+      *(v9 + 40) = 0;
+      *(v9 + 48) = 0;
+      C3BaseRetain(**v9);
+      *a1 = v10;
       return 1;
     }
 
     else
     {
-      C3BaseRelease(v7);
+      C3BaseRelease(v8);
       return 0;
     }
   }
@@ -6033,7 +6101,7 @@ uint64_t mmcs_put_container_get_request(uint64_t a1)
 uint64_t mmcs_put_container_http_msg_add_token_header(uint64_t a1, __CFHTTPMessage *a2)
 {
   result = 0;
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a2)
@@ -6042,77 +6110,73 @@ uint64_t mmcs_put_container_http_msg_add_token_header(uint64_t a1, __CFHTTPMessa
       result = *(v5 + 8);
       if (result)
       {
-        if (*result)
+        if (!*result)
         {
-          if (!*(result + 16))
-          {
-            v10 = mmcs_logging_logger_default();
-            if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_14;
-            }
-
-            v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Missing token for container %s", **(v5 + 8));
-            v12 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-            {
-              *buf = 138543362;
-              v18 = v11;
-              _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-            }
-
-            if (!v11)
-            {
-              goto LABEL_14;
-            }
-
-            v9 = v11;
-LABEL_13:
-            CFRelease(v9);
-LABEL_14:
-            result = 1;
-            goto LABEL_21;
-          }
-
-          v6 = mmcs_request_index(result);
-          v7 = mmcs_item_copy_token_header_value(**(v5 + 8), 0, *(*(v5 + 8) + 16), v6, 1);
-          if (v7)
-          {
-            v8 = v7;
-            CFHTTPMessageSetHeaderFieldValue(a2, @"x-apple-mmcs-auth", v7);
-            v9 = v8;
-            goto LABEL_13;
-          }
-
-          v13 = mmcs_logging_logger_default();
-          result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
-          if (!result)
-          {
-            goto LABEL_21;
-          }
-
-          v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to create token header for put container %s", **(v5 + 8));
-          v15 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138543362;
-            v18 = v14;
-            _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-          }
-
-          if (v14)
-          {
-            CFRelease(v14);
-          }
+          return 0;
         }
 
-        result = 0;
+        if (!*(result + 16))
+        {
+          v11 = mmcs_logging_logger_default(result, a2);
+          if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          {
+            return 1;
+          }
+
+          v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Missing token for container %s", **(v5 + 8));
+          v14 = mmcs_logging_logger_default(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138543362;
+            v20 = v12;
+            _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          }
+
+          if (!v12)
+          {
+            return 1;
+          }
+
+          v10 = v12;
+LABEL_13:
+          CFRelease(v10);
+          return 1;
+        }
+
+        v6 = mmcs_request_index(result);
+        v7 = mmcs_item_copy_token_header_value(**(v5 + 8), 0, *(*(v5 + 8) + 16), v6, 1);
+        if (v7)
+        {
+          v9 = v7;
+          CFHTTPMessageSetHeaderFieldValue(a2, @"x-apple-mmcs-auth", v7);
+          v10 = v9;
+          goto LABEL_13;
+        }
+
+        v15 = mmcs_logging_logger_default(0, v8);
+        result = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+        if (result)
+        {
+          v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to create token header for put container %s", **(v5 + 8));
+          v18 = mmcs_logging_logger_default(v16, v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            v20 = v16;
+            _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          }
+
+          if (v16)
+          {
+            CFRelease(v16);
+          }
+
+          return 0;
+        }
       }
     }
   }
 
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6262,7 +6326,7 @@ void mmcs_put_container_should_stop_with_error(void *a1, void *a2)
 
 uint64_t mmcs_put_container_requirements@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
 {
-  v6 = mmcs_http_request_options_network_behavior_type(*(*(a2 + 24) + 24));
+  v6 = mmcs_http_request_options_network_behavior_type(*(*(a2 + 24) + 24), a2);
   v7 = mmcs_request_type_for_behavior_and_activity(v6, 0);
   *a3 = 0u;
   a3[2] = 0u;
@@ -6318,75 +6382,75 @@ void mmcs_put_container_failed_to_schedule_transaction(uint64_t a1, uint64_t a2)
 
 uint64_t mmcs_put_container_vendor_put_retry(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (mmcs_transaction_is_proxy(a2))
+  v32 = *MEMORY[0x277D85DE8];
+  is_proxy = mmcs_transaction_is_proxy(a2);
+  if (is_proxy)
   {
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = mmcs_logging_logger_default(is_proxy, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"caching server failed; retrying with vendor");
-      v6 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"caching server failed; retrying with vendor");
+      v9 = mmcs_logging_logger_default(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v5;
-        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+        *(&buf + 4) = v7;
+        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
       }
 
-      if (v5)
+      if (v7)
       {
-        CFRelease(v5);
+        CFRelease(v7);
       }
     }
   }
 
-  v7 = *(a1 + 88);
-  v8 = *(a1 + 16);
+  v10 = *(a1 + 88);
+  v11 = *(a1 + 16);
   mmcs_container_remember_error(a1, a2);
   mmcs_container_reset_error_for_retry(a1);
-  mmcs_put_state_container_will_be_retried(*v7, a1);
-  v9 = *(a2 + 16);
-  if (v9)
+  mmcs_put_state_container_will_be_retried(*v10, a1);
+  v12 = *(a2 + 16);
+  if (v12)
   {
-    mmcs_http_context_invalidate(v9);
-    v10 = *(a2 + 16);
-    if (v10)
+    mmcs_http_context_invalidate(v12);
+    v13 = *(a2 + 16);
+    if (v13)
     {
-      C3BaseRelease(v10);
+      C3BaseRelease(v13);
     }
 
     *(a2 + 16) = 0;
   }
 
   *(a1 + 68) = 3;
-  *(v8 + 48) = 2;
-  *(v8 + 56) = CFAbsoluteTimeGetCurrent();
-  v11 = mmcs_http_request_options_network_behavior_type(*(*(v8 + 24) + 24));
-  v12 = mmcs_request_type_for_behavior_and_activity(v11, 0);
+  *(v11 + 48) = 2;
+  *(v11 + 56) = CFAbsoluteTimeGetCurrent();
+  v15 = mmcs_http_request_options_network_behavior_type(*(*(v11 + 24) + 24), v14);
+  v16 = mmcs_request_type_for_behavior_and_activity(v15, 0);
   mmcs_container_requirements(a1);
   *&buf = 0;
-  *(&buf + 1) = v8;
-  v17 = v12;
-  priority = mmcs_request_get_priority(**v7);
-  v21 = 0u;
+  *(&buf + 1) = v11;
+  v20 = v16;
+  priority = mmcs_request_get_priority(**v10);
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v25 = mmcs_container_schedule_request_callback;
-  v26 = mmcs_container_cancel_request_callback;
-  v27 = C3BaseRetain;
-  v28 = C3BaseRelease;
-  v13 = mmcs_chunk_instance_offset(**v7);
-  mmcs_request_queue_enqueue_request(*(v13 + 48), &buf, *(v8 + 56));
-  v14 = *MEMORY[0x277D85DE8];
+  v28 = mmcs_container_schedule_request_callback;
+  v29 = mmcs_container_cancel_request_callback;
+  v30 = C3BaseRetain;
+  v31 = C3BaseRelease;
+  v17 = mmcs_chunk_instance_offset(**v10);
+  mmcs_request_queue_enqueue_request(*(v17 + 48), &buf, *(v11 + 56));
   return 1;
 }
 
 uint64_t mmcs_put_container_schedule(uint64_t a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v4 = _os_activity_create(&dword_2577D8000, "mmcs-put-schedule", *(a1 + 80), OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -6402,7 +6466,7 @@ uint64_t mmcs_put_container_schedule(uint64_t a1, uint64_t a2)
   v8 = mmcs_chunk_instance_offset(**v5);
   v9 = **v5;
   copy = mmcs_http_request_options_create_copy(*(*(a2 + 24) + 24));
-  v11 = copy;
+  v12 = copy;
   if (*(*(a2 + 24) + 56) && !(*v5)[7])
   {
     *(copy + 144) = 1;
@@ -6410,121 +6474,122 @@ uint64_t mmcs_put_container_schedule(uint64_t a1, uint64_t a2)
 
   if (*(a2 + 56) == 0.0)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = mmcs_logging_logger_default(copy, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"enqueueTime should be defined for put request");
-      v14 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"enqueueTime should be defined for put request");
+      v16 = mmcs_logging_logger_default(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v13;
-        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v14;
+        _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v13)
+      if (v14)
       {
-        CFRelease(v13);
+        CFRelease(v14);
       }
     }
   }
 
-  v42 = 0;
-  v15 = *(*(a2 + 24) + 16);
-  v41[0] = @"putContainer";
-  v41[1] = v15;
-  v41[2] = v11;
-  v41[3] = mmcs_request_get_network_timeout_period(v9);
+  v47 = 0;
+  v17 = *(*(a2 + 24) + 16);
+  v46[0] = @"putContainer";
+  v46[1] = v17;
+  v46[2] = v12;
+  v46[3] = mmcs_request_get_network_timeout_period(v9);
   if (mmcs_request_is_background(v9))
   {
-    v16 = *(*(a2 + 24) + 40);
+    v18 = *(*(a2 + 24) + 40);
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v41[4] = v16;
-  v41[5] = mmcs_request_index(v6);
-  v41[6] = -1;
-  v41[7] = mmcs_put_container_write_data_callback;
-  v41[8] = mmcs_put_container_will_reset_request_body_stream;
-  v41[9] = mmcs_put_container_will_retry_after_background_error;
-  v41[11] = 0;
-  v41[12] = 0;
-  v41[10] = handle_response_uploadChunks;
-  v41[13] = mmcs_container_xmitcallback;
-  v41[14] = a2;
-  v41[15] = mmcs_engine_get_sparse_block_size();
-  v41[16] = mmcs_engine_owner(v8);
-  LOBYTE(v42) = 1;
-  v17 = *(a2 + 16);
-  v43 = *(a2 + 56);
-  v44 = v4;
-  if (v17)
+  v46[4] = v18;
+  v46[5] = mmcs_request_index(v6);
+  v46[6] = -1;
+  v46[7] = mmcs_put_container_write_data_callback;
+  v46[8] = mmcs_put_container_will_reset_request_body_stream;
+  v46[9] = mmcs_put_container_will_retry_after_background_error;
+  v46[11] = 0;
+  v46[12] = 0;
+  v46[10] = handle_response_uploadChunks;
+  v46[13] = mmcs_container_xmitcallback;
+  v46[14] = a2;
+  v46[15] = mmcs_engine_get_sparse_block_size();
+  v46[16] = mmcs_engine_owner(v8);
+  LOBYTE(v47) = 1;
+  v19 = *(a2 + 16);
+  v48 = *(a2 + 56);
+  v49 = v4;
+  if (v19)
   {
     mmcs_put_container_schedule_cold_1();
   }
 
   *cf = 0u;
-  v40 = 0u;
+  v45 = 0u;
   mmcs_read_stream_pool_parameters_make_pool(*(v8 + 40), cf);
   http_class = mmcs_request_get_http_class(v9);
-  v19 = mmcs_http_context_create((a2 + 16), http_class, v41);
-  if (v19)
+  v22 = mmcs_http_context_create((a2 + 16), http_class, v46);
+  if (v22)
   {
     mmcs_http_context_set_to_mobileme(*(a2 + 16), 0);
     mmcs_http_context_set_is_container_upload(*(a2 + 16), 1);
-    mmcs_http_context_extract_vendor_name_from_message_and_create_pool_parameters(*(a2 + 16), *(v8 + 40), buf);
+    mmcs_http_context_extract_vendor_name_from_message_and_create_pool_parameters(*(v8 + 40), buf, *(a2 + 16));
     *cf = *buf;
-    v40 = v47;
-    v20 = *(*(a2 + 24) + 24);
-    v21 = *(*(a2 + 64) + 88);
-    v22 = *(v21 + 8);
-    if (mmcs_get_req_context_get_current_request_metrics(**v21))
+    v45 = v52;
+    v23 = *(*(a2 + 24) + 24);
+    v24 = *(*(a2 + 64) + 88);
+    v25 = *(v24 + 8);
+    if (mmcs_get_req_context_get_current_request_metrics(**v24))
     {
-      v23 = *v22 ? CFStringCreateWithCString(*MEMORY[0x277CBECE8], *v22, 0x8000100u) : 0;
-      mmcs_transaction_make_req_context_metrics(a2, **v21, v20, @"putContainer", v23);
-      if (v23)
+      v26 = *v25 ? CFStringCreateWithCString(*MEMORY[0x277CBECE8], *v25, 0x8000100u) : 0;
+      mmcs_transaction_make_req_context_metrics(a2, **v24, v23, @"putContainer", v26);
+      if (v26)
       {
-        CFRelease(v23);
+        CFRelease(v26);
       }
     }
 
-    v24 = mmcs_http_context_send(*(a2 + 16), cf, *(v8 + 56)) == 0;
+    v27 = mmcs_http_context_send(*(a2 + 16), cf, *(v8 + 56)) == 0;
   }
 
   else
   {
-    v24 = 1;
+    v27 = 1;
   }
 
+  v28 = cf[1];
   if (cf[1])
   {
     CFRelease(cf[1]);
   }
 
-  if (v19)
+  if (v22)
   {
-    if (!v24 || (v25 = mmcs_logging_logger_default(), !os_log_type_enabled(v25, OS_LOG_TYPE_ERROR)))
+    if (!v27 || (v29 = mmcs_logging_logger_default(v28, v21), !os_log_type_enabled(v29, OS_LOG_TYPE_ERROR)))
     {
       v7 = 1;
       goto LABEL_41;
     }
 
-    v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to send http msg");
-    v27 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v30 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to send http msg");
+    v32 = mmcs_logging_logger_default(v30, v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *&buf[4] = v26;
-      _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      *&buf[4] = v30;
+      _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    v28 = 1;
+    v33 = 1;
     v7 = 1;
-    if (!v26)
+    if (!v30)
     {
       goto LABEL_41;
     }
@@ -6532,40 +6597,40 @@ uint64_t mmcs_put_container_schedule(uint64_t a1, uint64_t a2)
 
   else
   {
-    v29 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v34 = mmcs_logging_logger_default(v28, v21);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v35 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to create put transaction request");
-      v36 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v40 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"unable to create put transaction request");
+      v42 = mmcs_logging_logger_default(v40, v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v35;
-        _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v40;
+        _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v35)
+      if (v40)
       {
-        CFRelease(v35);
+        CFRelease(v40);
       }
     }
 
-    v26 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"unable to create put container request", v30, v31, v32, v33, v34, cf[0]);
-    mmcs_container_set_error(a1, v26);
-    v28 = 0;
+    v30 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"unable to create put container request", v35, v36, v37, v38, v39);
+    mmcs_container_set_error(a1, v30);
+    v33 = 0;
     v7 = 0;
-    if (!v26)
+    if (!v30)
     {
       goto LABEL_41;
     }
   }
 
-  CFRelease(v26);
-  v7 = v28;
+  CFRelease(v30);
+  v7 = v33;
 LABEL_41:
-  if (v11)
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
 LABEL_43:
@@ -6575,193 +6640,189 @@ LABEL_43:
   }
 
   os_activity_scope_leave(&state);
-  v37 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void mmcs_put_container_write_data_callback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 64);
   if (!v3)
   {
-    v10 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return;
     }
 
-    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL putContainer");
-    v12 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL putContainer");
+    v16 = mmcs_logging_logger_default(v14, v15);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
     *buf = 138543362;
-    v25 = v11;
+    v33 = v14;
     goto LABEL_24;
   }
 
   if (!a1)
   {
-    v13 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return;
     }
 
-    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL hc");
-    v12 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL hc");
+    v16 = mmcs_logging_logger_default(v14, v18);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
     *buf = 138543362;
-    v25 = v11;
+    v33 = v14;
     goto LABEL_24;
   }
 
-  if (mmcs_http_context_is_complete(a1))
+  is_complete = mmcs_http_context_is_complete(a1);
+  if (is_complete)
   {
-    v7 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = mmcs_logging_logger_default(is_complete, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction already completed for (%p); http stream event %d", a1, a3);
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction already completed for (%p); http stream event %d", a1, a3);
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v25 = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v33 = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
 
     mmcs_http_context_invalidate(a1);
-    goto LABEL_28;
-  }
-
-  if (mmcs_http_context_is_cancelled(a1))
-  {
-    v14 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction for (%p) cancelled; http stream event %d", a1, a3);
-      v12 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_26;
-      }
-
-      *buf = 138543362;
-      v25 = v11;
-      goto LABEL_24;
-    }
-
-LABEL_28:
-    v18 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  if (*(a2 + 16) != a1)
+  is_cancelled = mmcs_http_context_is_cancelled(a1);
+  if (is_cancelled)
   {
-    v15 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v21 = mmcs_logging_logger_default(is_cancelled, v20);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback for unknown http context %p; Expected %p", a1, *(a2 + 16));
-      v12 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_26;
-      }
-
-      *buf = 138543362;
-      v25 = v11;
-      goto LABEL_24;
+      return;
     }
 
-    goto LABEL_28;
-  }
-
-  if (a3 > 2)
-  {
-    if (a3 != 3)
-    {
-      if (a3 == 4)
-      {
-        goto LABEL_28;
-      }
-
-LABEL_37:
-      v20 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_28;
-      }
-
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"write stream got unknown type %d", a3);
-      v21 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138543362;
-        v25 = v11;
-        v16 = v21;
-        v17 = OS_LOG_TYPE_DEFAULT;
-        goto LABEL_25;
-      }
-
-LABEL_26:
-      if (v11)
-      {
-        CFRelease(v11);
-      }
-
-      goto LABEL_28;
-    }
-
-    v23 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_28;
-    }
-
-    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"http context (%p) for put container (%p) had an error", a1, v3);
-    v12 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction for (%p) cancelled; http stream event %d", a1, a3);
+    v16 = mmcs_logging_logger_default(v14, v22);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
     *buf = 138543362;
-    v25 = v11;
-LABEL_24:
-    v16 = v12;
-    v17 = OS_LOG_TYPE_ERROR;
-LABEL_25:
-    _os_log_impl(&dword_2577D8000, v16, v17, "%{public}@", buf, 0xCu);
-    goto LABEL_26;
+    v33 = v14;
+    goto LABEL_24;
   }
 
-  if (a3 != 1)
+  if (*(a2 + 16) != a1)
   {
-    if (a3 == 2)
+    v23 = mmcs_logging_logger_default(is_cancelled, v20);
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v19 = *MEMORY[0x277D85DE8];
+      return;
+    }
 
-      mmcs_put_container_write_container_data(v3, a1);
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback for unknown http context %p; Expected %p", a1, *(a2 + 16));
+    v16 = mmcs_logging_logger_default(v14, v24);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_26;
+    }
+
+    *buf = 138543362;
+    v33 = v14;
+    goto LABEL_24;
+  }
+
+  if (a3 > 2)
+  {
+    if (a3 == 3)
+    {
+      v30 = mmcs_logging_logger_default(is_cancelled, v20);
+      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"http context (%p) for put container (%p) had an error", a1, v3);
+      v16 = mmcs_logging_logger_default(v14, v31);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_26;
+      }
+
+      *buf = 138543362;
+      v33 = v14;
+LABEL_24:
+      v25 = v16;
+      v26 = OS_LOG_TYPE_ERROR;
+LABEL_25:
+      _os_log_impl(&dword_2577D8000, v25, v26, "%{public}@", buf, 0xCu);
+LABEL_26:
+      if (v14)
+      {
+        CFRelease(v14);
+      }
+
+      return;
+    }
+
+    if (a3 == 4)
+    {
       return;
     }
 
     goto LABEL_37;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
+  if (a3 != 1)
+  {
+    if (a3 == 2)
+    {
+
+      mmcs_put_container_write_container_data(v3, a1);
+      return;
+    }
+
+LABEL_37:
+    v27 = mmcs_logging_logger_default(is_cancelled, v20);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"write stream got unknown type %d", a3);
+    v29 = mmcs_logging_logger_default(v14, v28);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_26;
+    }
+
+    *buf = 138543362;
+    v33 = v14;
+    v25 = v29;
+    v26 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_25;
+  }
 
   mmcs_put_container_will_begin_streaming(v3);
 }
@@ -6771,16 +6832,16 @@ void mmcs_put_container_will_retry_after_background_error(uint64_t a1, uint64_t 
   v13 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 64);
   v6 = v5[11];
-  v7 = mmcs_logging_logger_default();
+  v7 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"putContainer %p remembering error %@ for container '%s'", v5, a3, **(v6 + 8));
-    v9 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = mmcs_logging_logger_default(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
       v12 = v8;
-      _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     if (v8)
@@ -6792,7 +6853,6 @@ void mmcs_put_container_will_retry_after_background_error(uint64_t a1, uint64_t 
   mmcs_container_set_error(v5, a3);
   mmcs_container_remember_error(v5, a2);
   mmcs_container_reset_error_for_retry(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_put_container_put_complete_done(uint64_t a1)
@@ -6823,7 +6883,7 @@ BOOL mmcs_put_container_needs_put_complete(uint64_t a1, int a2)
 CFIndex *mmcs_put_container_create_method_completion_info(void *a1, uint64_t a2, int a3)
 {
   v3 = 0;
-  v41 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     v6 = a1[11];
@@ -6848,52 +6908,52 @@ CFIndex *mmcs_put_container_create_method_completion_info(void *a1, uint64_t a2,
       v3 = MethodCompletionInfo;
       if (MethodCompletionInfo)
       {
-        v15 = MEMORY[0x277CBECE8];
+        v16 = MEMORY[0x277CBECE8];
         if ((*(MethodCompletionInfo + 8) - 200) <= 0x63)
         {
-          v16 = *(v6 + 8);
-          if (!v16 || !*(v16 + 8))
+          v17 = *(v6 + 8);
+          if (!v17 || !*(v17 + 8))
           {
-            v17 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v18 = mmcs_logging_logger_default(MethodCompletionInfo, v15);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              v18 = CFStringCreateWithFormat(*v15, 0, @"the put container received a successful http response status, but there is no md5 computed on the client");
-              v19 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v19 = CFStringCreateWithFormat(*v16, 0, @"the put container received a successful http response status, but there is no md5 computed on the client");
+              v21 = mmcs_logging_logger_default(v19, v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v40 = v18;
-                _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+                v44 = v19;
+                _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
               }
 
-              if (v18)
+              if (v19)
               {
-                CFRelease(v18);
+                CFRelease(v19);
               }
             }
           }
         }
 
-        v20 = *(v6 + 8);
-        if (v20)
+        v22 = *(v6 + 8);
+        if (v22)
         {
-          v21 = *(v20 + 8);
-          if (v21)
+          v23 = *(v22 + 8);
+          if (v23)
           {
             *(v3 + 24) = 1;
-            ProtobufCBinaryData_SetData(v3 + 13, v21);
+            ProtobufCBinaryData_SetData(v3 + 13, v23);
           }
         }
 
-        v22 = *(a2 + 16);
-        v23 = mmcs_request_get_reporting_level(**v6);
-        vendor_http_stats = mmcs_report_create_vendor_http_stats(v22, 1, v23);
-        v25 = a1[11];
-        v26 = *v15;
-        Mutable = CFDictionaryCreateMutable(*v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v28 = mmcs_request_get_reporting_level(**v25);
-        mmcs_put_req_copy_client_stats(**v25, Mutable, v28);
-        if (Mutable && mmcs_report_property_for_config_key(@"client.kpis", @"cachingServer.bytes", 1, v28))
+        v24 = *(a2 + 16);
+        v25 = mmcs_request_get_reporting_level(**v6);
+        vendor_http_stats = mmcs_report_create_vendor_http_stats(v24, 1, v25);
+        v27 = a1[11];
+        v28 = *v16;
+        Mutable = CFDictionaryCreateMutable(*v16, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v30 = mmcs_request_get_reporting_level(**v27);
+        mmcs_put_req_copy_client_stats(**v27, Mutable, v30);
+        if (Mutable && mmcs_report_property_for_config_key(@"client.kpis", @"cachingServer.bytes", 1, v30))
         {
           if (mmcs_transaction_is_proxy(a2))
           {
@@ -6901,31 +6961,31 @@ CFIndex *mmcs_put_container_create_method_completion_info(void *a1, uint64_t a2,
             bytes_from_caching_server = mmcs_transaction_get_bytes_from_caching_server(a2);
             if (bytes_from_caching_server)
             {
-              v30 = bytes_from_caching_server;
-              v31 = CFStringCreateWithFormat(v26, 0, @"%llu", bytes_from_caching_server);
-              CFDictionaryAddValue(Mutable, @"cachingServer.bytes", v31);
-              if (v31)
+              v32 = bytes_from_caching_server;
+              v33 = CFStringCreateWithFormat(v28, 0, @"%llu", bytes_from_caching_server);
+              CFDictionaryAddValue(Mutable, @"cachingServer.bytes", v33);
+              if (v33)
               {
-                CFRelease(v31);
+                CFRelease(v33);
               }
 
               if (gMMCS_DebugLevel >= 5)
               {
-                v32 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+                v36 = mmcs_logging_logger_default(v34, v35);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                 {
-                  v33 = CFStringCreateWithFormat(v26, 0, @"proxy put got %llu from caching server", v30);
-                  v34 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+                  v37 = CFStringCreateWithFormat(v28, 0, @"proxy put got %llu from caching server", v32);
+                  v39 = mmcs_logging_logger_default(v37, v38);
+                  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543362;
-                    v40 = v33;
-                    _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                    v44 = v37;
+                    _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
                   }
 
-                  if (v33)
+                  if (v37)
                   {
-                    CFRelease(v33);
+                    CFRelease(v37);
                   }
                 }
               }
@@ -6941,40 +7001,39 @@ CFIndex *mmcs_put_container_create_method_completion_info(void *a1, uint64_t a2,
         Count = CFDictionaryGetCount(Mutable);
         if (Count)
         {
-          v36 = Mutable;
+          v41 = Mutable;
         }
 
         else
         {
-          v36 = 0;
+          v41 = 0;
         }
 
         if (Mutable && !Count)
         {
           CFRelease(Mutable);
-          v36 = 0;
+          v41 = 0;
         }
 
-        MethodCompletionInfo_SetReportingProperties(v3, vendor_http_stats, v36);
+        MethodCompletionInfo_SetReportingProperties(v3, vendor_http_stats, v41);
         if (vendor_http_stats)
         {
           CFRelease(vendor_http_stats);
         }
 
-        if (v36)
+        if (v41)
         {
-          CFRelease(v36);
+          CFRelease(v41);
         }
       }
     }
 
     else
     {
-      v3 = 0;
+      return 0;
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -6994,34 +7053,34 @@ void mmcs_put_container_chunk_reference_was_read(uint64_t **a1, uint64_t a2, voi
   }
 }
 
-int64x2_t mmcs_put_container_append_description(uint64_t a1)
+int64x2_t mmcs_put_container_append_description(__int128 *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 5);
   if (v3 >= 10 && *(v2[2] + 48) == 2 && ((v4 = v2[3]) == 0 || *(v4 + 48) == 2))
   {
-    *(a1 + 40) = v3 + 1;
+    *(a1 + 5) = v3 + 1;
   }
 
   else if (mmcs_container_request_enqueued_or_inflight(*a1))
   {
-    v6 = *(a1 + 16);
-    v7 = *a1;
-    v8 = v6;
-    v9 = *(a1 + 32);
-    *(&v8 + 1) = *(&v6 + 1) + 1;
+    v6 = a1[1];
+    v9 = *a1;
+    v10 = v6;
+    v11 = a1[2];
+    *(&v10 + 1) = *(&v6 + 1) + 1;
     mmcs_op_requestor_context_indent(a1);
-    CFStringAppendFormat(*(a1 + 16), 0, @"<container %p> %s\n", v2, **(v2[11] + 8), v7, v8);
-    *&v7 = v2[2];
-    mmcs_transaction_append_description(&v7);
+    CFStringAppendFormat(*(a1 + 2), 0, @"<container %p> %s\n", v2, **(v2[11] + 8), v9, v10);
+    *&v9 = v2[2];
+    mmcs_transaction_append_description(&v9, v7);
     if (v2[3])
     {
-      *&v7 = v2[3];
-      mmcs_transaction_append_description(&v7);
+      *&v9 = v2[3];
+      mmcs_transaction_append_description(&v9, v8);
     }
 
-    result = vaddq_s64(*(a1 + 32), v9);
-    *(a1 + 32) = result;
+    result = vaddq_s64(*(a1 + 2), v11);
+    a1[2] = result;
   }
 
   return result;
@@ -7057,168 +7116,178 @@ uint64_t mmcs_put_container_will_begin_streaming(uint64_t a1)
 
 void mmcs_put_container_write_container_data(void *a1, uint64_t a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v4 = a1[11];
   cf = 0;
-  v50 = 0;
+  v63 = 0;
   if (*(v4 + 40) || (v5 = *MEMORY[0x277CBECE8], Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0x8000), (*(v4 + 40) = Mutable) != 0))
   {
-    if (mmcs_http_request_body_can_accept_data(a2))
+    can_accept_data = mmcs_http_request_body_can_accept_data(a2);
+    if (can_accept_data)
     {
       v5 = *MEMORY[0x277CBECE8];
       while (1)
       {
         Length = CFDataGetLength(*(v4 + 40));
-        v8 = Length;
+        v11 = Length;
         if (Length > 0x8000)
         {
-          v23 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v31 = mmcs_logging_logger_default(Length, v10);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
-            v49 = v8;
-            v29 = CFStringCreateWithFormat(v5, 0, @"write stream data buffer larger (%d) than fixed buffer size (%d) ");
-            v30 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+            v37 = CFStringCreateWithFormat(v5, 0, @"write stream data buffer larger (%d) than fixed buffer size (%d) ", v11, 0x8000);
+            v39 = mmcs_logging_logger_default(v37, v38);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v53 = v29;
-              _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v66 = v37;
+              _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v29)
+            if (v37)
             {
-              CFRelease(v29);
+              CFRelease(v37);
             }
           }
 
-          v31 = @"data buffer larger than fixed buffer size";
+          v40 = @"data buffer larger than fixed buffer size";
           goto LABEL_37;
         }
 
-        if (Length != 0x8000 && !mmcs_storage_container_stream_read(*(v4 + 56), *(v4 + 40), 0x8000 - Length, &cf, &v50))
+        if (Length != 0x8000)
         {
-          if (!cf)
+          error = mmcs_storage_container_stream_read(*(v4 + 56), *(v4 + 40), 0x8000 - Length, &cf, &v63);
+          if (!error)
           {
-            v40 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+            if (!cf)
             {
-              v41 = CFStringCreateWithFormat(v5, 0, @"mmcs_storage_container_stream_read failed with NULL error ");
-              v42 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+              v52 = mmcs_logging_logger_default(error, v13);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
               {
-                *buf = 138543362;
-                v53 = v41;
-                _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v53 = CFStringCreateWithFormat(v5, 0, @"mmcs_storage_container_stream_read failed with NULL error ");
+                v55 = mmcs_logging_logger_default(v53, v54);
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+                {
+                  *buf = 138543362;
+                  v66 = v53;
+                  _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                }
+
+                if (v53)
+                {
+                  CFRelease(v53);
+                }
               }
 
-              if (v41)
-              {
-                CFRelease(v41);
-              }
+              v40 = @"mmcs_storage_container_stream_read failed with NULL error";
+LABEL_37:
+              v41 = 1;
+LABEL_49:
+              error = mmcs_cferror_create_with_format(@"com.apple.mmcs", v41, v40, v32, v33, v34, v35, v36);
+              goto LABEL_50;
             }
 
-            v31 = @"mmcs_storage_container_stream_read failed with NULL error";
-LABEL_37:
-            v32 = 1;
-LABEL_49:
-            error = mmcs_cferror_create_with_format(@"com.apple.mmcs", v32, v31, v24, v25, v26, v27, v28, v49);
-            goto LABEL_50;
+            goto LABEL_51;
           }
-
-          goto LABEL_51;
         }
 
-        v9 = CFDataGetLength(*(v4 + 40)) - *(v4 + 48);
-        if (v9 < 1)
+        can_accept_data = CFDataGetLength(*(v4 + 40));
+        v14 = can_accept_data - *(v4 + 48);
+        if (v14 < 1)
         {
           break;
         }
 
         MutableBytePtr = CFDataGetMutableBytePtr(*(v4 + 40));
-        v11 = mmcs_http_write_request_body(a2, &MutableBytePtr[*(v4 + 48)], v9);
+        v16 = mmcs_http_write_request_body(a2, &MutableBytePtr[*(v4 + 48)], v14);
+        v18 = v16;
         if (gMMCS_DebugLevel >= 5)
         {
-          v12 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v19 = mmcs_logging_logger_default(v16, v17);
+          v16 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+          if (v16)
           {
-            v49 = a2;
-            v13 = CFStringCreateWithFormat(v5, 0, @"context (%p) wrote %d bytes");
-            v14 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v20 = CFStringCreateWithFormat(v5, 0, @"context (%p) wrote %d bytes", a2, v18);
+            v22 = mmcs_logging_logger_default(v20, v21);
+            v16 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+            if (v16)
             {
               *buf = 138543362;
-              v53 = v13;
-              _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v66 = v20;
+              _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v13)
+            if (v20)
             {
-              CFRelease(v13);
+              CFRelease(v20);
             }
           }
         }
 
-        if ((v11 & 0x8000000000000000) != 0)
+        if (v18 < 0)
         {
-          v34 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v44 = mmcs_logging_logger_default(v16, v17);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
-            v35 = CFStringCreateWithFormat(v5, 0, @"mmcs_http_write_request_body() failed ");
-            v36 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+            v45 = CFStringCreateWithFormat(v5, 0, @"mmcs_http_write_request_body() failed ");
+            v47 = mmcs_logging_logger_default(v45, v46);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v53 = v35;
-              _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v66 = v45;
+              _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v35)
+            if (v45)
             {
-              CFRelease(v35);
+              CFRelease(v45);
             }
           }
 
-          v31 = @"mmcs_http_write_request_body failed";
-          v32 = 38;
+          v40 = @"mmcs_http_write_request_body failed";
+          v41 = 38;
           goto LABEL_49;
         }
 
-        v15 = *(v4 + 40);
-        v16 = *(v4 + 48) + v11;
-        *(v4 + 48) = v16;
-        if (v16 >= CFDataGetLength(v15))
+        v23 = *(v4 + 40);
+        v24 = *(v4 + 48) + v18;
+        *(v4 + 48) = v24;
+        if (v24 >= CFDataGetLength(v23))
         {
           CFDataSetLength(*(v4 + 40), 0);
           *(v4 + 48) = 0;
         }
 
-        if (v11 != v9)
+        if (v18 != v14)
         {
           goto LABEL_77;
         }
 
-        if (!mmcs_http_request_body_can_accept_data(a2))
+        can_accept_data = mmcs_http_request_body_can_accept_data(a2);
+        if (!can_accept_data)
         {
           goto LABEL_22;
         }
       }
 
-      if (!v50)
+      if (!v63)
       {
-        v43 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v56 = mmcs_logging_logger_default(can_accept_data, v8);
+        can_accept_data = os_log_type_enabled(v56, OS_LOG_TYPE_ERROR);
+        if (!can_accept_data)
         {
           goto LABEL_68;
         }
 
-        v18 = CFStringCreateWithFormat(v5, 0, @"attempt to write but no data available");
-        v44 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v26 = CFStringCreateWithFormat(v5, 0, @"attempt to write but no data available");
+        v58 = mmcs_logging_logger_default(v26, v57);
+        can_accept_data = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+        if (can_accept_data)
         {
           *buf = 138543362;
-          v53 = v18;
-          v20 = v44;
-          v21 = OS_LOG_TYPE_ERROR;
+          v66 = v26;
+          v29 = v58;
+          v30 = OS_LOG_TYPE_ERROR;
           goto LABEL_27;
         }
 
@@ -7230,68 +7299,72 @@ LABEL_49:
         goto LABEL_68;
       }
 
-      v33 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v42 = mmcs_logging_logger_default(can_accept_data, v8);
+      can_accept_data = os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG);
+      if (!can_accept_data)
       {
         goto LABEL_68;
       }
 
-      v18 = CFStringCreateWithFormat(v5, 0, @"%p there is nothing left in the buffer and the container is empty", a2);
-      v19 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v26 = CFStringCreateWithFormat(v5, 0, @"%p there is nothing left in the buffer and the container is empty", a2);
+      v28 = mmcs_logging_logger_default(v26, v43);
+      can_accept_data = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+      if (!can_accept_data)
       {
         goto LABEL_28;
       }
 
       *buf = 138543362;
-      v53 = v18;
+      v66 = v26;
     }
 
     else
     {
-      v9 = 0;
+      v14 = 0;
 LABEL_22:
       if (gMMCS_DebugLevel < 5)
       {
         goto LABEL_68;
       }
 
-      v17 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v25 = mmcs_logging_logger_default(can_accept_data, v8);
+      can_accept_data = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+      if (!can_accept_data)
       {
         goto LABEL_68;
       }
 
-      v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"HTTP request body says it is full");
-      v19 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"HTTP request body says it is full");
+      v28 = mmcs_logging_logger_default(v26, v27);
+      can_accept_data = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+      if (!can_accept_data)
       {
 LABEL_28:
-        if (v18)
+        if (v26)
         {
-          CFRelease(v18);
+          CFRelease(v26);
         }
 
 LABEL_68:
-        if (v9 <= 0 && v50)
+        if (v14 <= 0 && v63)
         {
           if (gMMCS_DebugLevel >= 4)
           {
-            v45 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v59 = mmcs_logging_logger_default(can_accept_data, v8);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
             {
-              v46 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"closing http request body for context (%p): all done", a2);
-              v47 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+              v60 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"closing http request body for context (%p): all done", a2);
+              v62 = mmcs_logging_logger_default(v60, v61);
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v53 = v46;
-                _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v66 = v60;
+                _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v46)
+              if (v60)
               {
-                CFRelease(v46);
+                CFRelease(v60);
               }
             }
           }
@@ -7303,13 +7376,13 @@ LABEL_68:
       }
 
       *buf = 138543362;
-      v53 = v18;
+      v66 = v26;
     }
 
-    v20 = v19;
-    v21 = OS_LOG_TYPE_DEBUG;
+    v29 = v28;
+    v30 = OS_LOG_TYPE_DEBUG;
 LABEL_27:
-    _os_log_impl(&dword_2577D8000, v20, v21, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v29, v30, "%{public}@", buf, 0xCu);
     goto LABEL_28;
   }
 
@@ -7319,21 +7392,21 @@ LABEL_50:
 LABEL_51:
   if (gMMCS_DebugLevel >= 4)
   {
-    v37 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v48 = mmcs_logging_logger_default(error, v13);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      v38 = CFStringCreateWithFormat(v5, 0, @"closing http request body for context (%p) had an error %@.", a2, cf);
-      v39 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v49 = CFStringCreateWithFormat(v5, 0, @"closing http request body for context (%p) had an error %@.", a2, cf);
+      v51 = mmcs_logging_logger_default(v49, v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v53 = v38;
-        _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v66 = v49;
+        _os_log_impl(&dword_2577D8000, v51, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v38)
+      if (v49)
       {
-        CFRelease(v38);
+        CFRelease(v49);
       }
     }
   }
@@ -7344,8 +7417,6 @@ LABEL_77:
   {
     CFRelease(cf);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_put_req_copy_client_stats(uint64_t a1, __CFDictionary *a2, unsigned int a3)
@@ -7423,28 +7494,27 @@ uint64_t mmcs_put_req_context_create(void *a1, uint64_t a2, uint64_t a3, const _
 {
   v22 = a15;
   v23 = a9;
-  v158 = *MEMORY[0x277D85DE8];
+  v165 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   if (a15)
   {
     *a15 = 0;
   }
 
-  v129 = 0;
-  v24 = mmcs_logging_logger_default();
+  v136 = 0;
+  v24 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     v25 = a4;
     v26 = a8;
     v27 = a7;
-    LOBYTE(v120) = a9;
-    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_put_items called for %llu items");
-    v29 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_put_items called for %llu items", a9);
+    v30 = mmcs_logging_logger_default(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
       *&buf[4] = v28;
-      _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     a7 = v27;
@@ -7457,47 +7527,46 @@ uint64_t mmcs_put_req_context_create(void *a1, uint64_t a2, uint64_t a3, const _
     }
   }
 
-  if (!mmcs_put_request_alloc(&v129, a8, a9) || !v129)
+  if (!mmcs_put_request_alloc(&v136, a8, a9) || !v136)
   {
     if (!v22)
     {
-      goto LABEL_94;
+      return 0xFFFFFFFFLL;
     }
 
-    error_with_underlying_error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 36, @"Cannot allocate put request", v30, v31, v32, v33, v34, v120);
+    error_with_underlying_error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 36, @"Cannot allocate put request", v31, v32, v33, v34, v35);
 LABEL_27:
     *v22 = error_with_underlying_error;
-    goto LABEL_94;
+    return 0xFFFFFFFFLL;
   }
 
-  v128 = 0;
-  if (!_mmcs_request_init(v129, a2, a3, a4, a5, a6, a14, &v128))
+  v135 = 0;
+  if (!_mmcs_request_init(v136, a2, a3, a4, a5, a6, a14, &v135))
   {
-    if (v129)
+    if (v136)
     {
-      C3BaseRelease(v129);
+      C3BaseRelease(v136);
     }
 
     if (!v22)
     {
-      goto LABEL_94;
+      return 0xFFFFFFFFLL;
     }
 
-    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 36, v128, @"Cannot initialize underlying mmcs_request", v35, v36, v37, v38, v120);
+    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 36, v135, @"Cannot initialize underlying mmcs_request", v36, v37, v38, v39);
     goto LABEL_27;
   }
 
-  v39 = *(v129 + 3);
   kdebug_trace();
   v40 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, &itemsBySignatureReferenceDictionaryKeyCallbacks, MEMORY[0x277CBF150]);
-  *(*(v129 + 38) + 48) = Mutable;
+  *(*(v136 + 38) + 48) = Mutable;
   v42 = CFSetCreateMutable(v40, 0, &itemSignatureReferenceEqualitySetCallbacks);
-  v43 = v129;
-  *(*(v129 + 38) + 56) = v42;
+  v43 = v136;
+  *(*(v136 + 38) + 56) = v42;
   *(v43[38] + 72) = 0;
   v44 = CFSetCreateMutable(v40, 0, &chunkReferenceSignatureEqualitySetCallbacks);
-  *(*(v129 + 38) + 64) = v44;
+  *(*(v136 + 38) + 64) = v44;
   if (*(a2 + 175))
   {
     if (a8)
@@ -7511,12 +7580,12 @@ LABEL_27:
     }
 
     v46 = mmcs_metrics_request_create(v45);
-    *(v129 + 23) = v46;
+    *(v136 + 23) = v46;
   }
 
   v47 = CFSetCreateMutable(v40, 0, 0);
-  v48 = v129;
-  *(*(v129 + 38) + 128) = v47;
+  v48 = v136;
+  *(*(v136 + 38) + 128) = v47;
   *(v48[38] + 80) = 0;
   *(v48[38] + 104) = 0;
   *(v48[38] + 112) = 0;
@@ -7532,7 +7601,7 @@ LABEL_27:
         if (CFArrayGetCount(Value) != a9)
         {
           Count = CFArrayGetCount(Value);
-          v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Item options array had %d elements but request had %d elements", v52, v53, v54, v55, v56, Count);
+          v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Item options array had %d elements but request had %d elements", v52, v53, v54, v55, v56, Count, a9);
 LABEL_83:
           v85 = 0;
           goto LABEL_84;
@@ -7554,7 +7623,7 @@ LABEL_83:
       if (v61 == CFGetTypeID(v60))
       {
         CFRetain(v60);
-        *(*(v129 + 38) + 24) = v60;
+        *(*(v136 + 38) + 24) = v60;
       }
     }
 
@@ -7566,7 +7635,7 @@ LABEL_83:
       if (v64 == CFGetTypeID(v63))
       {
         CFRetain(v63);
-        *(*(v129 + 38) + 32) = v63;
+        *(*(v136 + 38) + 32) = v63;
       }
     }
 
@@ -7578,7 +7647,7 @@ LABEL_83:
       if (v67 == CFGetTypeID(v66))
       {
         CFRetain(v66);
-        *(*(v129 + 38) + 40) = v66;
+        *(*(v136 + 38) + 40) = v66;
       }
     }
 
@@ -7590,7 +7659,7 @@ LABEL_83:
       if (v70 == CFGetTypeID(v69))
       {
         CFRetain(v69);
-        *(*(v129 + 38) + 120) = v69;
+        *(*(v136 + 38) + 120) = v69;
       }
     }
 
@@ -7605,36 +7674,36 @@ LABEL_83:
 
   callBacks = *byte_2868BF128;
   v71 = CFSetCreateMutable(v40, 0, &callBacks);
-  **(v129 + 38) = v71;
-  v77 = v129;
-  *(*(v129 + 38) + 8) = 0;
+  **(v136 + 38) = v71;
+  v77 = v136;
+  *(*(v136 + 38) + 8) = 0;
   v78 = v77[38];
   if (!v78[6] || !v78[7] || !v78[8] || !v77[21] || !v78[16] || !*v78)
   {
-    v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Cannot allocate put request data structures", v72, v73, v74, v75, v76, v120);
+    v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Cannot allocate put request data structures", v72, v73, v74, v75, v76, v127);
     goto LABEL_83;
   }
 
   v79 = *(a2 + 56);
   *buf = v77;
   *&buf[8] = C3BaseRetain;
-  *&v133 = C3BaseRelease;
-  *(&v133 + 1) = _mmcs_put_req_context_progress_timer_fired;
+  *&v140 = C3BaseRelease;
+  *(&v140 + 1) = _mmcs_put_req_context_progress_timer_fired;
   if (!mmcs_perform_target_create_timer(v79, (v78 + 11), buf, v72))
   {
     v85 = 0;
-    goto LABEL_99;
+    goto LABEL_98;
   }
 
   v85 = CFSetCreateMutable(v40, 0, &itemItemIDEqualitySetCallbacks);
   if (!v85)
   {
-    v114 = @"Cannot allocate itemSet";
-    v115 = 37;
-LABEL_103:
-    v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v115, v114, v80, v81, v82, v83, v84, v120);
+    v120 = @"Cannot allocate itemSet";
+    v121 = 37;
+LABEL_102:
+    v57 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v121, v120, v80, v81, v82, v83, v84);
 LABEL_84:
-    v128 = v57;
+    v135 = v57;
     if (!v57)
     {
       goto LABEL_87;
@@ -7645,72 +7714,74 @@ LABEL_84:
 
   if (!a9)
   {
-LABEL_102:
-    v114 = @"No items added to put request";
-    v115 = 30;
-    goto LABEL_103;
+LABEL_101:
+    v120 = @"No items added to put request";
+    v121 = 30;
+    goto LABEL_102;
   }
 
   v86 = 0;
-  v124 = 0;
+  v131 = 0;
   v87 = a10;
   cf = a7;
   while (1)
   {
-    v156 = 0u;
+    v163 = 0u;
+    v164 = 0u;
+    v161 = 0u;
+    v162 = 0u;
+    v159 = 0u;
+    v160 = 0u;
     v157 = 0u;
-    v154 = 0u;
+    v158 = 0u;
     v155 = 0u;
-    v152 = 0u;
+    v156 = 0u;
     v153 = 0u;
-    v150 = 0u;
+    v154 = 0u;
     v151 = 0u;
-    v148 = 0u;
+    v152 = 0u;
     v149 = 0u;
-    v146 = 0u;
+    v150 = 0u;
     v147 = 0u;
-    v144 = 0u;
+    v148 = 0u;
     v145 = 0u;
-    v142 = 0u;
+    v146 = 0u;
     v143 = 0u;
-    v140 = 0u;
+    v144 = 0u;
     v141 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v134 = 0u;
-    v135 = 0u;
+    v142 = 0u;
     *buf = 0u;
-    v133 = 0u;
-    *(&v134 + 1) = *(v87 + 8 * v86);
-    if (!CFSetContainsValue(v85, buf))
+    v140 = 0u;
+    *(&v141 + 1) = *(v87 + 8 * v86);
+    v88 = CFSetContainsValue(v85, buf);
+    if (!v88)
     {
       break;
     }
 
-    v89 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+    v91 = mmcs_logging_logger_default(v88, v89);
+    v92 = os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT);
+    if (v92)
     {
-      v90 = a8;
-      v91 = a7;
-      v120 = *(v87 + 8 * v86);
-      v92 = CFStringCreateWithFormat(v40, 0, @"put request contained duplicate item IDs. Ignoring extra references to itemID %lld");
-      v93 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
-      {
-        *v130 = 138543362;
-        v131 = v92;
-        _os_log_impl(&dword_2577D8000, v93, OS_LOG_TYPE_DEFAULT, "%{public}@", v130, 0xCu);
-      }
-
-      a7 = v91;
+      v94 = a8;
+      v95 = a7;
+      v96 = CFStringCreateWithFormat(v40, 0, @"put request contained duplicate item IDs. Ignoring extra references to itemID %lld", *(v87 + 8 * v86));
+      v98 = mmcs_logging_logger_default(v96, v97);
+      v92 = os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT);
       if (v92)
       {
-        CFRelease(v92);
+        *v137 = 138543362;
+        v138 = v96;
+        _os_log_impl(&dword_2577D8000, v98, OS_LOG_TYPE_DEFAULT, "%{public}@", v137, 0xCu);
       }
 
-      a8 = v90;
+      a7 = v95;
+      if (v96)
+      {
+        CFRelease(v96);
+      }
+
+      a8 = v94;
       v23 = a9;
 LABEL_76:
       v87 = a10;
@@ -7718,41 +7789,42 @@ LABEL_76:
 
     if (v23 == ++v86)
     {
-      if (!v124)
+      if (!v131)
       {
-        goto LABEL_102;
+        goto LABEL_101;
       }
 
-      v109 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+      v116 = mmcs_logging_logger_default(v92, v93);
+      if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v129;
-        CFDictionaryApplyFunction(*(*(v129 + 38) + 48), mmcs_put_req_context_items_by_signature_description, buf);
+        *buf = v136;
+        CFDictionaryApplyFunction(*(*(v136 + 38) + 48), mmcs_put_req_context_items_by_signature_description, buf);
       }
 
-      *(*(v129 + 38) + 144) = v124;
+      *(*(v136 + 38) + 144) = v131;
       CFRelease(v85);
       result = 0;
-      *a1 = v129;
-      goto LABEL_95;
+      *a1 = v136;
+      return result;
     }
   }
 
   if (a12)
   {
-    v94 = *(a12 + 8 * v86);
+    v99 = *(a12 + 8 * v86);
   }
 
   else
   {
-    v94 = 0;
+    v99 = 0;
   }
 
-  v95 = *(v129 + 38) + 416 * v124;
-  if (mmcs_item_init(v95 + 152, *(v87 + 8 * v86), *(a11 + 8 * v86), v94, *(a13 + 4 * v86), 1, &v128, v88))
+  v100 = *(v136 + 38) + 416 * v131;
+  v101 = mmcs_item_init(v100 + 152, *(v87 + 8 * v86), *(a11 + 8 * v86), v99, *(a13 + 4 * v86), 1, &v135, v90);
+  if (v101)
   {
-    *(v95 + 256) = BOOLean_from_cfdictionary_object_for_key;
-    *(v95 + 248) = 0;
+    *(v100 + 256) = BOOLean_from_cfdictionary_object_for_key;
+    *(v100 + 248) = 0;
     if (a8)
     {
       if (v23 != 1)
@@ -7762,98 +7834,97 @@ LABEL_76:
 
       if (cf)
       {
-        mmcs_item_set_section_identifier(v95 + 152, cf);
+        mmcs_item_set_section_identifier(v100 + 152, cf);
       }
 
       if (!a4)
       {
-        if (v128)
+        if (v135)
         {
-          goto LABEL_99;
+          goto LABEL_98;
         }
 
-        v119 = @"Section Upload Missing Request Options";
-        goto LABEL_118;
+        v126 = @"Section Upload Missing Request Options";
+        goto LABEL_117;
       }
     }
 
     if (Value)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(Value, v86);
-      v122 = CFDictionaryGetTypeID();
-      if (v122 != CFGetTypeID(ValueAtIndex))
+      v129 = CFDictionaryGetTypeID();
+      if (v129 != CFGetTypeID(ValueAtIndex))
       {
         if (v22)
         {
-          *v22 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Invalid item option type: Expected dictionary, Got %@", v102, v103, v104, v105, v106, ValueAtIndex);
+          *v22 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Invalid item option type: Expected dictionary, Got %@", v109, v110, v111, v112, v113, ValueAtIndex);
         }
 
-        goto LABEL_99;
+        goto LABEL_98;
       }
 
-      if (!mmcs_put_req_context_setup_item_with_options(v95 + 152, a8, ValueAtIndex, &v128))
+      if (!mmcs_put_req_context_setup_item_with_options(v100 + 152, a8, ValueAtIndex, &v135))
       {
-        if (v128)
+        if (v135)
         {
-          goto LABEL_99;
+          goto LABEL_98;
         }
 
-        v119 = @"Failed to set item options";
-        goto LABEL_118;
+        v126 = @"Failed to set item options";
+        goto LABEL_117;
       }
     }
 
-    v107 = CFDictionaryGetValue(*(*(v129 + 38) + 48), (v95 + 152));
-    if (!v107)
+    v114 = CFDictionaryGetValue(*(*(v136 + 38) + 48), (v100 + 152));
+    if (!v114)
     {
-      v108 = CFArrayCreateMutable(v40, 0, &itemArrayCallbacks);
-      if (!v108)
+      v115 = CFArrayCreateMutable(v40, 0, &itemArrayCallbacks);
+      if (!v115)
       {
-        v119 = @"Cannot allocate itemsWithSameSignature";
-        goto LABEL_118;
+        v126 = @"Cannot allocate itemsWithSameSignature";
+        goto LABEL_117;
       }
 
-      v107 = v108;
-      CFDictionarySetValue(*(*(v129 + 38) + 48), (v95 + 152), v108);
-      CFSetAddValue(*(*(v129 + 38) + 56), (v95 + 152));
-      CFRelease(v107);
+      v114 = v115;
+      CFDictionarySetValue(*(*(v136 + 38) + 48), (v100 + 152), v115);
+      CFSetAddValue(*(*(v136 + 38) + 56), (v100 + 152));
+      CFRelease(v114);
     }
 
-    CFArrayAppendValue(v107, (v95 + 152));
-    ++v124;
+    CFArrayAppendValue(v114, (v100 + 152));
+    ++v131;
     a7 = cf;
     goto LABEL_76;
   }
 
-  v116 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+  v122 = mmcs_logging_logger_default(v101, v102);
+  if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
   {
-    v120 = *(v87 + 8 * v86);
-    v117 = CFStringCreateWithFormat(v40, 0, @"couldn't init item %lld. error: %@");
-    v118 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
+    v123 = CFStringCreateWithFormat(v40, 0, @"couldn't init item %lld. error: %@", *(v87 + 8 * v86), v135);
+    v125 = mmcs_logging_logger_default(v123, v124);
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
     {
-      *v130 = 138543362;
-      v131 = v117;
-      _os_log_impl(&dword_2577D8000, v118, OS_LOG_TYPE_DEFAULT, "%{public}@", v130, 0xCu);
+      *v137 = 138543362;
+      v138 = v123;
+      _os_log_impl(&dword_2577D8000, v125, OS_LOG_TYPE_DEFAULT, "%{public}@", v137, 0xCu);
     }
 
-    if (v117)
+    if (v123)
     {
-      CFRelease(v117);
+      CFRelease(v123);
     }
   }
 
-  if (!v128)
+  if (!v135)
   {
-    v119 = @"Cannot init item";
-LABEL_118:
-    v128 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, v119, v96, v97, v98, v99, v100, v120);
+    v126 = @"Cannot init item";
+LABEL_117:
+    v135 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, v126, v103, v104, v105, v106, v107);
   }
 
-LABEL_99:
-  v57 = v128;
-  if (!v128)
+LABEL_98:
+  v57 = v135;
+  if (!v135)
   {
 LABEL_87:
     if (v85)
@@ -7872,7 +7943,7 @@ LABEL_85:
   }
 
   CFRelease(v57);
-  v128 = 0;
+  v135 = 0;
   if (v85)
   {
 LABEL_88:
@@ -7880,28 +7951,24 @@ LABEL_88:
   }
 
 LABEL_89:
-  v111 = v129;
-  if (*(*(v129 + 38) + 88))
+  v118 = v136;
+  if (*(*(v136 + 38) + 88))
   {
-    mmcs_perform_timer_invalidate(*(*(v129 + 38) + 88));
-    v111 = v129;
-    v112 = *(v129 + 38);
-    if (*(v112 + 88))
+    mmcs_perform_timer_invalidate(*(*(v136 + 38) + 88));
+    v118 = v136;
+    v119 = *(v136 + 38);
+    if (*(v119 + 88))
     {
-      CFRelease(*(v112 + 88));
-      v111 = v129;
-      v112 = *(v129 + 38);
+      CFRelease(*(v119 + 88));
+      v118 = v136;
+      v119 = *(v136 + 38);
     }
 
-    *(v112 + 88) = 0;
+    *(v119 + 88) = 0;
   }
 
-  C3BaseRelease(v111);
-LABEL_94:
-  result = 0xFFFFFFFFLL;
-LABEL_95:
-  v113 = *MEMORY[0x277D85DE8];
-  return result;
+  C3BaseRelease(v118);
+  return 0xFFFFFFFFLL;
 }
 
 void _mmcs_put_req_context_progress_timer_fired(uint64_t a1, void *a2)
@@ -7993,7 +8060,7 @@ uint64_t mmcs_put_req_context_has_items_to_put(uint64_t a1)
 
 void mmcs_put_req_context_init_items(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 304);
   if (*(v2 + 144))
   {
@@ -8019,31 +8086,30 @@ LABEL_40:
       }
     }
 
-    v51 = 0;
+    v54 = 0;
     v7 = *(a1 + 32);
-    v8 = *(v7 + 16);
-    v9 = *(v5 - 96);
-    if ((CKGetRegisteredFileMetadata() & 1) == 0)
+    v8 = CKGetRegisteredFileMetadata();
+    if ((v8 & 1) == 0)
     {
-      v28 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = mmcs_logging_logger_default(v8, v9);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v34 = CFStringCreateWithFormat(alloc, 0, @"no registered file signature for %lld", *(v5 - 96));
-        v35 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v36 = CFStringCreateWithFormat(alloc, 0, @"no registered file signature for %lld", *(v5 - 96));
+        v38 = mmcs_logging_logger_default(v36, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v34;
-          _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v36;
+          _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v34)
+        if (v36)
         {
-          CFRelease(v34);
+          CFRelease(v36);
         }
       }
 
-      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"No file signature registered for item %lld", v29, v30, v31, v32, v33, *(v5 - 96));
+      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"No file signature registered for item %lld", v31, v32, v33, v34, v35, *(v5 - 96));
       goto LABEL_35;
     }
 
@@ -8055,36 +8121,35 @@ LABEL_40:
 
     if (mmcs_item_is_metadata_only(v2 + v4 - 136))
     {
-      v11 = *(v7 + 16);
-      v12 = *(v5 - 96);
-      if ((CKGetRegisteredChunksForItemID() & 1) == 0)
+      v11 = CKGetRegisteredChunksForItemID();
+      if ((v11 & 1) == 0)
       {
-        v37 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v40 = mmcs_logging_logger_default(v11, v12);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v43 = CFStringCreateWithFormat(alloc, 0, @"get chunk list failed for item %lld", *(v5 - 96));
-          v44 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v46 = CFStringCreateWithFormat(alloc, 0, @"get chunk list failed for item %lld", *(v5 - 96));
+          v48 = mmcs_logging_logger_default(v46, v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v43;
-            _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            *&buf[4] = v46;
+            _os_log_impl(&dword_2577D8000, v48, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v43)
+          if (v46)
           {
-            CFRelease(v43);
+            CFRelease(v46);
           }
         }
 
-        error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"get chunk list failed for item %lld", v38, v39, v40, v41, v42, *(v5 - 96));
+        error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"get chunk list failed for item %lld", v41, v42, v43, v44, v45, *(v5 - 96));
         goto LABEL_35;
       }
 
       v13 = (v2 + v4);
       *v13 = 20000;
       *(v13 - 1) = 0;
-      if (!mmcs_put_req_context_init_item_with_chunks(a1, (v2 + v4 - 136), *(v2 + v4 - 120), 0x4E20uLL, &v51))
+      if (!mmcs_put_req_context_init_item_with_chunks(a1, (v2 + v4 - 136), *(v2 + v4 - 120), 0x4E20uLL, &v54))
       {
         goto LABEL_36;
       }
@@ -8097,45 +8162,42 @@ LABEL_40:
       }
     }
 
-    v15 = *v6;
-    v16 = *(v2 + v4 - 120);
-    v17 = *(v2 + v4 - 48);
-    if (CKFileDigestResultsCreate())
+    v16 = CKFileDigestResultsCreate();
+    if (v16)
     {
       if (CKFileDigestResultsEqual())
       {
 LABEL_37:
-        if (v51)
+        if (v54)
         {
-          CFRelease(v51);
+          CFRelease(v54);
         }
 
-        v51 = 0;
+        v54 = 0;
         goto LABEL_40;
       }
 
       v18 = CFCopyDescription(0);
       v19 = CFCopyDescription(0);
-      v20 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = mmcs_logging_logger_default(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v26 = CFStringCreateWithFormat(alloc, 0, @"file signature mismatch for %lld item has %@ != %@ for the chunk store", *(v5 - 96), v18, v19);
-        v27 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v27 = CFStringCreateWithFormat(alloc, 0, @"file signature mismatch for %lld item has %@ != %@ for the chunk store", *(v5 - 96), v18, v19);
+        v29 = mmcs_logging_logger_default(v27, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v26;
-          _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v27;
+          _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v26)
+        if (v27)
         {
-          CFRelease(v26);
+          CFRelease(v27);
         }
       }
 
-      v49 = *(v5 - 96);
-      v51 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 28, @"The file signature changed: from %@ on the item to %@ registered in the chunk store for item %lld", v21, v22, v23, v24, v25, v18);
+      v54 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 28, @"The file signature changed: from %@ on the item to %@ registered in the chunk store for item %lld", v22, v23, v24, v25, v26, v18, v19, *(v5 - 96));
       if (v18)
       {
         CFRelease(v18);
@@ -8147,32 +8209,32 @@ LABEL_37:
       }
 
 LABEL_36:
-      mmcs_put_item_progress_make_done_error(v51, buf);
+      mmcs_put_item_progress_make_done_error(v54, v14, buf);
       mmcs_put_request_set_progress_and_notify_items_like_item(a1, v6, buf);
       goto LABEL_37;
     }
 
-    v45 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v49 = mmcs_logging_logger_default(v16, v17);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v46 = CFStringCreateWithFormat(alloc, 0, @"no expectedFileDigestResults for %lld", *(v5 - 96));
-      v47 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v50 = CFStringCreateWithFormat(alloc, 0, @"no expectedFileDigestResults for %lld", *(v5 - 96));
+      v52 = mmcs_logging_logger_default(v50, v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v46;
-        _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v50;
+        _os_log_impl(&dword_2577D8000, v52, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v46)
+      if (v50)
       {
-        CFRelease(v46);
+        CFRelease(v50);
       }
     }
 
     error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, @"no expectedFileDigestResults");
 LABEL_35:
-    v51 = error;
+    v54 = error;
     goto LABEL_36;
   }
 
@@ -8182,13 +8244,11 @@ LABEL_48:
   {
     mmcs_put_req_context_chunking_complete(a1);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_put_req_context_schedule_chunk_jobs(uint64_t a1)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   chunking_activity_marker = mmcs_request_get_chunking_activity_marker(a1);
@@ -8207,25 +8267,26 @@ void mmcs_put_req_context_schedule_chunk_jobs(uint64_t a1)
 
       v5 = *(a1 + 304);
       v6 = (v5 + 416 * *(v5 + 8) + 152);
-      if (CFSetGetValue(*(v5 + 56), v6) == v6)
+      Value = CFSetGetValue(*(v5 + 56), v6);
+      if (Value == v6)
       {
         break;
       }
 
-      v7 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = mmcs_logging_logger_default(Value, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v6[5];
-        v9 = *(a1 + 304);
-        v10 = *(v9 + 8) + 1;
-        v11 = *(v9 + 144);
+        v10 = v6[5];
+        v11 = *(a1 + 304);
+        v12 = *(v11 + 8) + 1;
+        v13 = *(v11 + 144);
         *buf = 134218496;
-        *&buf[4] = v8;
+        *&buf[4] = v10;
         *&buf[12] = 2048;
-        *&buf[14] = v10;
+        *&buf[14] = v12;
         *&buf[22] = 2048;
-        *&v91 = v11;
-        _os_log_impl(v4, v7, OS_LOG_TYPE_DEFAULT, "Skipping item (%llu) %ld of %ld, duplicate item signature", buf, 0x20u);
+        *&v103 = v13;
+        _os_log_impl(v4, v9, OS_LOG_TYPE_DEFAULT, "Skipping item (%llu) %ld of %ld, duplicate item signature", buf, 0x20u);
       }
 
 LABEL_72:
@@ -8237,19 +8298,15 @@ LABEL_72:
       }
     }
 
-    v12 = *(a1 + 32);
-    v88 = 0;
+    v100 = 0;
     cf.opaque[0] = 0;
-    v13 = *(v12 + 16);
-    v14 = v6[5];
-    if (CKGetRegisteredFileMetadata())
+    v14 = CKGetRegisteredFileMetadata();
+    if (v14)
     {
-      v15 = CKFileDigestResultsFileVerificationKey();
-      mmcs_item_set_file_verification_key(v6, v15);
-      v16 = *v6;
-      v17 = v6[2];
-      v18 = v6[11];
-      if (CKFileDigestResultsCreate())
+      v16 = CKFileDigestResultsFileVerificationKey();
+      mmcs_item_set_file_verification_key(v6, v16);
+      v17 = CKFileDigestResultsCreate();
+      if (v17)
       {
         if (CKFileDigestResultsEqual())
         {
@@ -8258,27 +8315,26 @@ LABEL_72:
 
         v19 = v4;
         v20 = CFCopyDescription(cf.opaque[0]);
-        v21 = CFCopyDescription(v88);
-        v22 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v21 = CFCopyDescription(v100);
+        v23 = mmcs_logging_logger_default(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v28 = CFStringCreateWithFormat(alloc, 0, @"file signature mismatch for %lld item has %@ != %@ for the chunk store", v6[5], v20, v21);
-          v29 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v29 = CFStringCreateWithFormat(alloc, 0, @"file signature mismatch for %lld item has %@ != %@ for the chunk store", v6[5], v20, v21);
+          v31 = mmcs_logging_logger_default(v29, v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v28;
-            _os_log_impl(v19, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            *&buf[4] = v29;
+            _os_log_impl(v19, v31, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v28)
+          if (v29)
           {
-            CFRelease(v28);
+            CFRelease(v29);
           }
         }
 
-        v84 = v6[5];
-        v30 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 28, @"The file signature changed: from %@ on the item to %@ registered in the chunk store for item %lld", v23, v24, v25, v26, v27, v20);
+        v33 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 28, @"The file signature changed: from %@ on the item to %@ registered in the chunk store for item %lld", v24, v25, v26, v27, v28, v20, v21, v6[5]);
         if (v20)
         {
           CFRelease(v20);
@@ -8291,7 +8347,7 @@ LABEL_72:
 
         v4 = v19;
 LABEL_33:
-        mmcs_put_item_progress_make_done_error(v30, buf);
+        mmcs_put_item_progress_make_done_error(v33, v32, buf);
         mmcs_put_request_set_progress_and_notify_items_like_item(a1, v6, buf);
 LABEL_34:
         if (cf.opaque[0])
@@ -8300,170 +8356,171 @@ LABEL_34:
         }
 
         cf.opaque[0] = 0;
-        if (v88)
+        if (v100)
         {
-          C3BaseRelease(v88);
+          C3BaseRelease(v100);
         }
 
-        if (mmcs_item_is_metadata_only(v6))
+        is_metadata_only = mmcs_item_is_metadata_only(v6);
+        if (is_metadata_only)
         {
           goto LABEL_72;
         }
 
-        v43 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v50 = mmcs_logging_logger_default(is_metadata_only, v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = v6[5];
-          v45 = *(a1 + 304);
-          v46 = *(v45 + 8) + 1;
-          v47 = *(v45 + 144);
+          v51 = v6[5];
+          v52 = *(a1 + 304);
+          v53 = *(v52 + 8) + 1;
+          v54 = *(v52 + 144);
           *buf = 134218496;
-          *&buf[4] = v44;
+          *&buf[4] = v51;
           *&buf[12] = 2048;
-          *&buf[14] = v46;
+          *&buf[14] = v53;
           *&buf[22] = 2048;
-          *&v91 = v47;
-          _os_log_impl(v4, v43, OS_LOG_TYPE_DEFAULT, "Chunking item (%llu) %ld of %ld", buf, 0x20u);
+          *&v103 = v54;
+          _os_log_impl(v4, v50, OS_LOG_TYPE_DEFAULT, "Chunking item (%llu) %ld of %ld", buf, 0x20u);
         }
 
-        v48 = mmcs_request_get_chunking_activity_marker(a1);
-        v49 = v4;
-        v50 = _os_activity_create(v4, "mmcs-chunk-job", v48, OS_ACTIVITY_FLAG_DEFAULT);
+        v55 = mmcs_request_get_chunking_activity_marker(a1);
+        v56 = v4;
+        v57 = _os_activity_create(v4, "mmcs-chunk-job", v55, OS_ACTIVITY_FLAG_DEFAULT);
         cf.opaque[0] = 0;
         cf.opaque[1] = 0;
-        os_activity_scope_enter(v50, &cf);
-        v87 = 0;
-        v88 = 0;
-        v51 = *(a1 + 32);
-        v52 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+        os_activity_scope_enter(v57, &cf);
+        v99 = 0;
+        v100 = 0;
+        v58 = *(a1 + 32);
+        v61 = mmcs_logging_logger_default(v59, v60);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
         {
-          v53 = mmcs_file_signature_to_hexstring(*v6);
-          v54 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+          v62 = mmcs_file_signature_to_hexstring(*v6);
+          v64 = mmcs_logging_logger_default(v62, v63);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
           {
-            v55 = v6[5];
+            v65 = v6[5];
             *buf = 134218242;
-            *&buf[4] = v55;
+            *&buf[4] = v65;
             *&buf[12] = 2082;
-            *&buf[14] = v53;
-            _os_log_impl(v49, v54, OS_LOG_TYPE_INFO, "Chunking started for itemId %lld with signature %{public}s", buf, 0x16u);
+            *&buf[14] = v62;
+            _os_log_impl(v56, v64, OS_LOG_TYPE_INFO, "Chunking started for itemId %lld with signature %{public}s", buf, 0x16u);
           }
 
-          if (v53)
+          if (v62)
           {
-            free(v53);
+            free(v62);
           }
         }
 
-        v56 = mmcs_engine_owner(v51);
+        v66 = mmcs_engine_owner(v58);
         requestor = mmcs_request_get_requestor(a1);
-        if (mmcs_engine_get_item_reader_writer_for_item_callback(v51, v56, requestor, v6[5], &v87, &v88) && MMCSItemReaderWriterOpen(v87, &v88))
+        item_reader_writer_for_item_callback = mmcs_engine_get_item_reader_writer_for_item_callback(v58, v66, requestor, v6[5], &v99, &v100);
+        if (item_reader_writer_for_item_callback && (item_reader_writer_for_item_callback = MMCSItemReaderWriterOpen(v99, &v100), item_reader_writer_for_item_callback))
         {
-          v58 = *(v87[3] + 16);
-          v59 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+          v70 = *(v99[3] + 16);
+          v71 = mmcs_logging_logger_default(item_reader_writer_for_item_callback, v69);
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
           {
-            v83 = v6[5];
-            v60 = CFStringCreateWithFormat(alloc, 0, @"opened itemid %lld ");
-            v61 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+            v72 = CFStringCreateWithFormat(alloc, 0, @"opened itemid %lld ", v6[5]);
+            v74 = mmcs_logging_logger_default(v72, v73);
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              *&buf[4] = v60;
-              _os_log_impl(v49, v61, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v72;
+              _os_log_impl(v56, v74, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v60)
+            if (v72)
             {
-              CFRelease(v60);
+              CFRelease(v72);
             }
           }
 
           is_encrypted = mmcs_item_is_encrypted(v6);
           *buf = 2;
           *&buf[8] = 0u;
-          v91 = 0u;
+          v103 = 0u;
           mmcs_put_request_set_progress_and_notify_items_like_item(a1, v6, buf);
           if (*(a1 + 144))
           {
-            v63 = CFRetain(*(a1 + 152));
+            v76 = CFRetain(*(a1 + 152));
           }
 
           else
           {
-            v72 = mmcs_fixed_chunk_size_for_item_type_hint(v58);
+            v87 = mmcs_fixed_chunk_size_for_item_type_hint(v70);
             *buf = 0;
             *&buf[8] = a1;
             *&buf[16] = C3BaseRetain;
-            *&v91 = C3BaseRelease;
-            *(&v91 + 1) = 0;
-            v92 = mmcs_put_req_context_did_chunk_item;
-            v73 = mmcs_chunk_job_create(buf, v51, v87, v6, v72, is_encrypted != 0, v50);
-            if (v73)
+            *&v103 = C3BaseRelease;
+            *(&v103 + 1) = 0;
+            v104 = mmcs_put_req_context_did_chunk_item;
+            v88 = mmcs_chunk_job_create(buf, v58, v99, v6, v87, is_encrypted != 0, v57);
+            if (v88)
             {
-              v79 = v73;
-              v80 = *(a1 + 184);
-              if (v80)
+              v94 = v88;
+              v95 = *(a1 + 184);
+              if (v95)
               {
-                v81 = v79[25];
-                if (v81)
+                v96 = v94[25];
+                if (v96)
                 {
-                  mmcs_metrics_request_add_chunking_info(v80, v81);
+                  mmcs_metrics_request_add_chunking_info(v95, v96);
                 }
               }
 
-              CFSetSetValue(**(a1 + 304), v79);
-              mmcs_engine_chunk_job_dispatch_async(v79, *(v51 + 24));
-              C3BaseRelease(v79);
+              CFSetSetValue(**(a1 + 304), v94);
+              mmcs_engine_chunk_job_dispatch_async(v94, *(v58 + 24));
+              C3BaseRelease(v94);
               error_with_underlying_error = 0;
-              v4 = v49;
+              v4 = v56;
               goto LABEL_65;
             }
 
-            v63 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"NULL chunk job", v74, v75, v76, v77, v78, v83);
+            v76 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"NULL chunk job", v89, v90, v91, v92, v93);
           }
 
-          error_with_underlying_error = v63;
-          v4 = v49;
+          error_with_underlying_error = v76;
+          v4 = v56;
         }
 
         else
         {
-          v65 = mmcs_logging_logger_default();
-          v4 = v49;
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v79 = mmcs_logging_logger_default(item_reader_writer_for_item_callback, v69);
+          v4 = v56;
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
-            v70 = CFStringCreateWithFormat(alloc, 0, @"unable to open itemid %lld %@", v6[5], v88);
-            v71 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+            v84 = CFStringCreateWithFormat(alloc, 0, @"unable to open itemid %lld %@", v6[5], v100);
+            v86 = mmcs_logging_logger_default(v84, v85);
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              *&buf[4] = v70;
-              _os_log_impl(v49, v71, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              *&buf[4] = v84;
+              _os_log_impl(v56, v86, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v70)
+            if (v84)
             {
-              CFRelease(v70);
+              CFRelease(v84);
             }
           }
 
-          error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 39, v88, @"Unable to open file for item %lld", v66, v67, v68, v69, v6[5]);
-          if (v88)
+          error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 39, v100, @"Unable to open file for item %lld", v80, v81, v82, v83, v6[5]);
+          if (v100)
           {
-            CFRelease(v88);
+            CFRelease(v100);
           }
 
-          v88 = 0;
+          v100 = 0;
         }
 
-        mmcs_put_item_progress_make_done_error(error_with_underlying_error, buf);
+        mmcs_put_item_progress_make_done_error(error_with_underlying_error, v77, buf);
         mmcs_put_request_set_progress_and_notify_items_like_item(a1, v6, buf);
 LABEL_65:
-        if (v87)
+        if (v99)
         {
-          C3BaseRelease(v87);
+          C3BaseRelease(v99);
         }
 
         if (error_with_underlying_error)
@@ -8471,31 +8528,30 @@ LABEL_65:
           CFRelease(error_with_underlying_error);
         }
 
-        if (v50)
+        if (v57)
         {
-          os_release(v50);
+          os_release(v57);
         }
 
         os_activity_scope_leave(&cf);
         goto LABEL_72;
       }
 
-      v40 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = mmcs_logging_logger_default(v17, v18);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v83 = v6[5];
-        v41 = CFStringCreateWithFormat(alloc, 0, @"no expectedFileDigestResults for %lld");
-        v42 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v45 = CFStringCreateWithFormat(alloc, 0, @"no expectedFileDigestResults for %lld", v6[5]);
+        v47 = mmcs_logging_logger_default(v45, v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v41;
-          _os_log_impl(v4, v42, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v45;
+          _os_log_impl(v4, v47, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v41)
+        if (v45)
         {
-          CFRelease(v41);
+          CFRelease(v45);
         }
       }
 
@@ -8504,41 +8560,41 @@ LABEL_65:
 
     else
     {
-      v31 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = mmcs_logging_logger_default(v14, v15);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v37 = CFStringCreateWithFormat(alloc, 0, @"no registered file signature for %lld", v6[5]);
-        v38 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v40 = CFStringCreateWithFormat(alloc, 0, @"no registered file signature for %lld", v6[5]);
+        v42 = mmcs_logging_logger_default(v40, v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v37;
-          _os_log_impl(v4, v38, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v40;
+          _os_log_impl(v4, v42, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v37)
+        if (v40)
         {
-          CFRelease(v37);
+          CFRelease(v40);
         }
       }
 
-      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"No file signature registered for item %lld", v32, v33, v34, v35, v36, v6[5]);
+      error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 27, @"No file signature registered for item %lld", v35, v36, v37, v38, v39, v6[5]);
     }
 
-    v30 = error;
+    v33 = error;
     goto LABEL_33;
   }
 
 LABEL_80:
   os_activity_scope_leave(&state);
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_put_req_context_chunking_complete(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   cf = 0;
-  if (!mmcs_put_req_context_has_items_to_put(a1))
+  has_items_to_put = mmcs_put_req_context_has_items_to_put(a1);
+  if (!has_items_to_put)
   {
     if (*(a1 + 144))
     {
@@ -8547,209 +8603,206 @@ void mmcs_put_req_context_chunking_complete(uint64_t a1)
 
     else
     {
-      v26 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v38 = mmcs_logging_logger_default(has_items_to_put, v3);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"There were no items that could be put.");
-        v28 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"There were no items that could be put.");
+        v41 = mmcs_logging_logger_default(v39, v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v27;
-          _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v39;
+          _os_log_impl(&dword_2577D8000, v41, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v27)
+        if (v39)
         {
-          CFRelease(v27);
+          CFRelease(v39);
         }
       }
 
       error = mmcs_cferror_create_error(@"com.apple.mmcs", 17, @"There was an undefined error with chunking the item.");
     }
 
-LABEL_41:
-    v22 = error;
-    cf = error;
-    mmcs_put_request_context_cleanup(a1, error);
-    goto LABEL_42;
+    goto LABEL_41;
   }
 
   if (gMMCS_DebugLevel >= 5)
   {
-    v2 = CFCopyDescription(*(*(a1 + 304) + 64));
+    v4 = CFCopyDescription(*(*(a1 + 304) + 64));
+    v6 = v4;
     if (gMMCS_DebugLevel >= 5)
     {
-      v3 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v7 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v33 = v2;
-        v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"all chunk references for put %@");
-        v5 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"all chunk references for put %@", v6);
+        v10 = mmcs_logging_logger_default(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          *&buf[4] = v4;
-          _os_log_impl(&dword_2577D8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          *&buf[4] = v8;
+          _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v4)
+        if (v8)
         {
-          CFRelease(v4);
+          CFRelease(v8);
         }
       }
     }
 
-    if (v2)
+    if (v6)
     {
-      CFRelease(v2);
+      CFRelease(v6);
     }
   }
 
-  if (*(a1 + 264))
+  if (!*(a1 + 264))
   {
-    if (mmcs_server_version_not_a_version(*(a1 + 120), *(a1 + 128)))
+    v24 = send_request_authorizePut(a1, &cf);
+    v30 = cf;
+    if (!v24)
     {
-      v6 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (!cf)
       {
-        v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"client failed to provide server proto version for preauthorization data");
-        v13 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          *&buf[4] = v12;
-          _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-        }
-
-        if (v12)
-        {
-          CFRelease(v12);
-        }
+        cf = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"An unknown error caused the put authorization to fail.", v25, v26, v27, v28, v29);
       }
 
-      v14 = @"client failed to provide server proto version for preauthorization data";
+      mmcs_metrics_request_set_error(*(a1 + 184), *(a1 + 152));
+      mmcs_put_request_context_cleanup(a1, cf);
+      v33 = mmcs_logging_logger_default(v31, v32);
+      XCFPrint(v33, @"AuthorizePutIssue", cf);
+      v30 = cf;
     }
 
-    else
-    {
-      v24 = CFGetTypeID(*(a1 + 264));
-      if (v24 == CFDataGetTypeID())
-      {
-        *buf = *(a1 + 264);
-        CFRetain(*buf);
-        mmcs_put_request_process_put_authorization_data(a1, buf);
-        v25 = *buf;
-        if (!*buf)
-        {
-          goto LABEL_45;
-        }
-
-        goto LABEL_44;
-      }
-
-      v29 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-      {
-        v30 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"put preauthorization data type not supported.");
-        v31 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          *&buf[4] = v30;
-          _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-        }
-
-        if (v30)
-        {
-          CFRelease(v30);
-        }
-      }
-
-      v14 = @"put preauthorization data type not supported.";
-    }
-
-    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v14, v7, v8, v9, v10, v11, v33);
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
-  v16 = send_request_authorizePut(a1, &cf);
-  v22 = cf;
-  if (!v16)
+  v11 = mmcs_server_version_not_a_version(*(a1 + 120), *(a1 + 128));
+  if (v11)
   {
-    if (!cf)
+    v13 = mmcs_logging_logger_default(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      cf = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"An unknown error caused the put authorization to fail.", v17, v18, v19, v20, v21, v33);
+      v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"client failed to provide server proto version for preauthorization data");
+      v21 = mmcs_logging_logger_default(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        *&buf[4] = v19;
+        _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      }
+
+      if (v19)
+      {
+        CFRelease(v19);
+      }
     }
 
-    mmcs_metrics_request_set_error(*(a1 + 184), *(a1 + 152));
-    mmcs_put_request_context_cleanup(a1, cf);
-    v23 = mmcs_logging_logger_default();
-    XCFPrint(v23, @"AuthorizePutIssue", cf);
-    v22 = cf;
-  }
-
+    v22 = @"client failed to provide server proto version for preauthorization data";
+LABEL_40:
+    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v22, v14, v15, v16, v17, v18);
+LABEL_41:
+    v30 = error;
+    cf = error;
+    mmcs_put_request_context_cleanup(a1, error);
 LABEL_42:
-  if (v22)
-  {
-    v25 = v22;
-LABEL_44:
-    CFRelease(v25);
+    if (!v30)
+    {
+      return;
+    }
+
+    v37 = v30;
+    goto LABEL_44;
   }
 
-LABEL_45:
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = CFGetTypeID(*(a1 + 264));
+  TypeID = CFDataGetTypeID();
+  if (v34 != TypeID)
+  {
+    v42 = mmcs_logging_logger_default(TypeID, v36);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      v43 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"put preauthorization data type not supported.");
+      v45 = mmcs_logging_logger_default(v43, v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        *&buf[4] = v43;
+        _os_log_impl(&dword_2577D8000, v45, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      }
+
+      if (v43)
+      {
+        CFRelease(v43);
+      }
+    }
+
+    v22 = @"put preauthorization data type not supported.";
+    goto LABEL_40;
+  }
+
+  *buf = *(a1 + 264);
+  CFRetain(*buf);
+  mmcs_put_request_process_put_authorization_data(a1, buf);
+  v37 = *buf;
+  if (*buf)
+  {
+LABEL_44:
+    CFRelease(v37);
+  }
 }
 
-uint64_t mmcs_put_req_context_init_items_for_section(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t mmcs_put_req_context_init_items_for_section(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
-  v102 = *MEMORY[0x277D85DE8];
-  v91 = *(a1 + 304);
-  if (*(v91 + 144) != 1)
+  v121 = *MEMORY[0x277D85DE8];
+  v110 = *(a1 + 304);
+  if (*(v110 + 144) != 1)
   {
     mmcs_put_req_context_init_items_for_section_cold_1();
   }
 
   v5 = a1;
-  v99 = 0;
-  v100 = 0;
+  v118 = 0;
+  v119 = 0;
   v6 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, &kC3BaseArrayCallBacks);
-  v89 = CFArrayCreateMutable(v6, 0, &kAssignArrayCallBacks);
-  v7 = mmcs_logging_logger_default();
-  v8 = 0;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v108 = CFArrayCreateMutable(v6, 0, &kAssignArrayCallBacks);
+  v8 = mmcs_logging_logger_default(v108, v7);
+  v9 = 0;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = CFStringCreateMutable(v6, 0);
+    v9 = CFStringCreateMutable(v6, 0);
   }
 
-  v87 = v5;
+  v106 = v5;
   if (!a2)
   {
-    v32 = 0;
-    v31 = 0;
-    v29 = 0;
+    v36 = 0;
+    v35 = 0;
+    v33 = 0;
     goto LABEL_34;
   }
 
-  v85 = v6;
-  v86 = a4;
-  v9 = 0;
-  v94 = 0;
-  ptr = 0;
+  v104 = v6;
+  v105 = a4;
   v10 = 0;
+  v113 = 0;
+  ptr = 0;
   v11 = 0;
-  v93 = 0;
-  v13 = Mutable;
-  v12 = v89;
+  v12 = 0;
+  v112 = 0;
+  v14 = Mutable;
+  v13 = v108;
   do
   {
-    v14 = *(a3 + 8 * v10);
+    v15 = *(a3 + 8 * v11);
     *buf = 0;
-    v98 = 0;
-    v99 = 0;
+    v117 = 0;
+    v118 = 0;
     value = 0;
-    if (*(v91 + 256))
+    if (*(v110 + 256))
     {
       p_value = &value;
     }
@@ -8759,176 +8812,178 @@ uint64_t mmcs_put_req_context_init_items_for_section(uint64_t a1, uint64_t a2, u
       p_value = 0;
     }
 
-    if (!mmcs_GetSortedRegisteredChunksForItemID(*(*(v5 + 32) + 16), v14, &v99, buf, p_value, &v98))
+    if (!mmcs_GetSortedRegisteredChunksForItemID(*(*(v5 + 32) + 16), v15, &v118, buf, p_value, &v117))
     {
-      v52 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 2, @"Unable to get the chunklist for item %lld was it registered and chunked?", v16, v17, v18, v19, v20, v14);
+      v64 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 2, @"Unable to get the chunklist for item %lld was it registered and chunked?", v17, v18, v19, v20, v21, v15);
 LABEL_71:
-      v100 = v52;
-      v6 = v85;
-      a4 = v86;
-      v66 = ptr;
+      v119 = v64;
+      v6 = v104;
+      a4 = v105;
+      v81 = ptr;
       goto LABEL_85;
     }
 
-    v21 = *buf;
-    v22 = CKRegisteredChunkSize();
-    if (v8)
+    v22 = *buf;
+    v23 = CKRegisteredChunkSize();
+    if (v9)
     {
-      v23 = 0;
-      if (v21)
+      v24 = 0;
+      if (v22)
       {
-        v24 = v21;
+        v25 = v22;
         do
         {
-          v23 += CKRegisteredChunkLength();
+          v24 += CKRegisteredChunkLength();
           CKRegisteredChunkSize();
-          --v24;
+          --v25;
         }
 
-        while (v24);
+        while (v25);
       }
 
-      CFStringAppendFormat(v8, 0, @"\t\t%lld sectionOffset:%llu itemSize:%llu\n", v14, v93, v23);
-      v93 += v23;
-      v5 = v87;
-      v13 = Mutable;
-      v12 = v89;
+      CFStringAppendFormat(v9, 0, @"\t\t%lld sectionOffset:%llu itemSize:%llu\n", v15, v112, v24);
+      v112 += v24;
+      v5 = v106;
+      v14 = Mutable;
+      v13 = v108;
     }
 
-    v25 = v98;
-    if (!v98)
+    v26 = v117;
+    if (!v117)
     {
-      if (!mmcs_chunking_profile_create(&v98, v21, 0))
+      v27 = mmcs_chunking_profile_create(&v117, v22, 0);
+      if (!v27)
       {
-        v57 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v72 = mmcs_logging_logger_default(v27, v28);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
-          *v96 = 0;
-          _os_log_impl(&dword_2577D8000, v57, OS_LOG_TYPE_ERROR, "Unable to create chunking profile.", v96, 2u);
+          *v115 = 0;
+          _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, "Unable to create chunking profile.", v115, 2u);
         }
 
-        v58 = @"Unable to create chunking profile.";
+        v73 = @"Unable to create chunking profile.";
         goto LABEL_70;
       }
 
-      v25 = v98;
+      v26 = v117;
     }
 
-    CFArrayAppendValue(v13, v25);
-    CFArrayAppendValue(v12, value);
+    CFArrayAppendValue(v14, v26);
+    CFArrayAppendValue(v13, value);
     value = 0;
-    if (v98)
+    if (v117)
     {
-      CFRelease(v98);
+      CFRelease(v117);
     }
 
-    v98 = 0;
-    v26 = v22 * v21;
-    if (v10)
+    v117 = 0;
+    v29 = v23 * v22;
+    if (v11)
     {
-      v27 = v26 + v11;
-      if (v94 - v11 >= v26)
+      v30 = v29 + v12;
+      if (v113 - v12 >= v29)
       {
-        v28 = ptr;
+        v31 = ptr;
       }
 
       else
       {
-        v94 = 2 * v27;
-        v28 = malloc_type_realloc(ptr, (2 * v27), 0x100004077774924uLL);
-        if (!v28)
+        v113 = 2 * v30;
+        v31 = malloc_type_realloc(ptr, (2 * v30), 0x100004077774924uLL);
+        if (!v31)
         {
-          v59 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v74 = mmcs_logging_logger_default(0, v32);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
-            *v96 = 0;
-            _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_ERROR, "Failed to realloc when computing package section chunk list.", v96, 2u);
+            *v115 = 0;
+            _os_log_impl(&dword_2577D8000, v74, OS_LOG_TYPE_ERROR, "Failed to realloc when computing package section chunk list.", v115, 2u);
           }
 
-          v58 = @"Failed to realloc when computing package section chunk list.";
+          v73 = @"Failed to realloc when computing package section chunk list.";
 LABEL_70:
-          v52 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, v58, v61, v62, v63, v64, v65, v84);
+          v64 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, v73, v76, v77, v78, v79, v80, v103);
           goto LABEL_71;
         }
       }
 
-      ptr = v28;
-      memcpy(&v28[v11], v99, v26);
-      v9 += v21;
-      if (v99)
+      ptr = v31;
+      memcpy(&v31[v12], v118, v29);
+      v10 += v22;
+      if (v118)
       {
-        free(v99);
+        free(v118);
       }
     }
 
     else
     {
-      v94 = v26;
-      ptr = v99;
-      v27 = v26;
-      v9 = v21;
+      v113 = v29;
+      ptr = v118;
+      v30 = v29;
+      v10 = v22;
     }
 
-    v99 = 0;
-    ++v10;
-    v11 = v27;
+    v118 = 0;
+    ++v11;
+    v12 = v30;
   }
 
-  while (v10 != a2);
-  if (v9)
+  while (v11 != a2);
+  if (v10)
   {
-    v29 = 0;
-    v30 = v9;
-    v31 = ptr;
-    v6 = v85;
-    a4 = v86;
+    v33 = 0;
+    v34 = v10;
+    v35 = ptr;
+    v6 = v104;
+    a4 = v105;
     do
     {
-      v29 += CKRegisteredChunkLength();
+      v33 += CKRegisteredChunkLength();
       CKRegisteredChunkSize();
-      --v30;
+      --v34;
     }
 
-    while (v30);
-    v32 = v9;
-    v5 = v87;
+    while (v34);
+    v36 = v10;
+    v5 = v106;
   }
 
   else
   {
-    v32 = 0;
-    v29 = 0;
-    v6 = v85;
-    a4 = v86;
-    v31 = ptr;
+    v36 = 0;
+    v33 = 0;
+    v6 = v104;
+    a4 = v105;
+    v35 = ptr;
   }
 
 LABEL_34:
-  *(v91 + 264) = Mutable;
-  *(v91 + 272) = v89;
-  *(v91 + 280) = v31;
-  if (!mmcs_put_req_context_init_item_with_chunks(v5, (v91 + 152), v29, v32, &v100))
+  *(v110 + 264) = Mutable;
+  *(v110 + 272) = v108;
+  *(v110 + 280) = v35;
+  if (!mmcs_put_req_context_init_item_with_chunks(v5, (v110 + 152), v33, v36, &v119))
   {
     goto LABEL_84;
   }
 
-  if (!mmcs_put_req_context_has_items_to_put(v5))
+  has_items_to_put = mmcs_put_req_context_has_items_to_put(v5);
+  if (!has_items_to_put)
   {
-    v53 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v65 = mmcs_logging_logger_default(has_items_to_put, v43);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v54 = CFStringCreateWithFormat(v6, 0, @"There were no items that could be put.");
-      v55 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v66 = CFStringCreateWithFormat(v6, 0, @"There were no items that could be put.");
+      v68 = mmcs_logging_logger_default(v66, v67);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v54;
-        _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v66;
+        _os_log_impl(&dword_2577D8000, v68, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v54)
+      if (v66)
       {
-        CFRelease(v54);
+        CFRelease(v66);
       }
     }
 
@@ -8937,69 +8992,71 @@ LABEL_34:
 
   if (gMMCS_DebugLevel >= 5)
   {
-    v38 = CFCopyDescription(*(*(v87 + 304) + 64));
+    v44 = CFCopyDescription(*(*(v106 + 304) + 64));
+    v46 = v44;
     if (gMMCS_DebugLevel >= 5)
     {
-      v39 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v47 = mmcs_logging_logger_default(v44, v45);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
-        v40 = v8;
-        v84 = v38;
-        v41 = CFStringCreateWithFormat(v6, 0, @"all chunk references for put %@");
-        v42 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          *&buf[4] = v41;
-          _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-        }
-
-        v8 = v40;
-        if (v41)
-        {
-          CFRelease(v41);
-        }
-      }
-    }
-
-    if (v38)
-    {
-      CFRelease(v38);
-    }
-  }
-
-  if (*(v87 + 264))
-  {
-    if (mmcs_server_version_not_a_version(*(v87 + 120), *(v87 + 128)))
-    {
-      v43 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-      {
-        v49 = CFStringCreateWithFormat(v6, 0, @"client failed to provide server proto version for preauthorization data for section");
-        v50 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v48 = v9;
+        v49 = CFStringCreateWithFormat(v6, 0, @"all chunk references for put %@", v46);
+        v51 = mmcs_logging_logger_default(v49, v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
           *&buf[4] = v49;
-          _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          _os_log_impl(&dword_2577D8000, v51, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
+        v9 = v48;
         if (v49)
         {
           CFRelease(v49);
         }
       }
+    }
 
-      v51 = @"client failed to provide server proto version for preauthorization data for section";
+    if (v46)
+    {
+      CFRelease(v46);
+    }
+  }
+
+  if (*(v106 + 264))
+  {
+    v52 = mmcs_server_version_not_a_version(*(v106 + 120), *(v106 + 128));
+    if (v52)
+    {
+      v54 = mmcs_logging_logger_default(v52, v53);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      {
+        v60 = CFStringCreateWithFormat(v6, 0, @"client failed to provide server proto version for preauthorization data for section");
+        v62 = mmcs_logging_logger_default(v60, v61);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543362;
+          *&buf[4] = v60;
+          _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        }
+
+        if (v60)
+        {
+          CFRelease(v60);
+        }
+      }
+
+      v63 = @"client failed to provide server proto version for preauthorization data for section";
       goto LABEL_83;
     }
 
-    v67 = CFGetTypeID(*(v87 + 264));
-    if (v67 == CFDataGetTypeID())
+    v82 = CFGetTypeID(*(v106 + 264));
+    TypeID = CFDataGetTypeID();
+    if (v82 == TypeID)
     {
-      *buf = *(v87 + 264);
+      *buf = *(v106 + 264);
       CFRetain(*buf);
-      mmcs_put_request_process_put_authorization_data(v87, buf);
+      mmcs_put_request_process_put_authorization_data(v106, buf);
       if (*buf)
       {
         CFRelease(*buf);
@@ -9008,63 +9065,63 @@ LABEL_34:
       goto LABEL_75;
     }
 
-    v70 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    v87 = mmcs_logging_logger_default(TypeID, v84);
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
     {
-      v71 = CFStringCreateWithFormat(v6, 0, @"section-put preauthorization data type not supported.");
-      v72 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      v88 = CFStringCreateWithFormat(v6, 0, @"section-put preauthorization data type not supported.");
+      v90 = mmcs_logging_logger_default(v88, v89);
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v71;
-        _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v88;
+        _os_log_impl(&dword_2577D8000, v90, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v71)
+      if (v88)
       {
-        CFRelease(v71);
+        CFRelease(v88);
       }
     }
 
-    v51 = @"section-put preauthorization data type not supported.";
+    v63 = @"section-put preauthorization data type not supported.";
 LABEL_83:
-    v100 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v51, v44, v45, v46, v47, v48, v84);
-    mmcs_put_request_context_cleanup(v87, v100);
+    v119 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 40, v63, v55, v56, v57, v58, v59);
+    mmcs_put_request_context_cleanup(v106, v119);
 LABEL_84:
     Mutable = 0;
-    v89 = 0;
-    v66 = 0;
+    v108 = 0;
+    v81 = 0;
 LABEL_85:
-    v69 = 0;
-    v68 = 1;
-    if (v8)
+    v86 = 0;
+    v85 = 1;
+    if (v9)
     {
 LABEL_86:
-      v73 = v8;
-      v74 = *(v87 + 304);
-      v75 = mmcs_file_signature_to_hexstring(*(v74 + 152));
-      CStringDescription = XCFDataCreateCStringDescription(*(v74 + 216));
-      v77 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      v91 = v9;
+      v92 = *(v106 + 304);
+      v93 = mmcs_file_signature_to_hexstring(*(v92 + 152));
+      CStringDescription = XCFDataCreateCStringDescription(*(v92 + 216));
+      v96 = mmcs_logging_logger_default(CStringDescription, v95);
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
       {
-        v78 = CFStringCreateWithFormat(v6, 0, @"PUT section %@ sig:%s ref:%s items:(%@\t)", *(v74 + 488), v75, CStringDescription, v73);
-        v79 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v97 = CFStringCreateWithFormat(v6, 0, @"PUT section %@ sig:%s ref:%s items:(%@\t)", *(v92 + 488), v93, CStringDescription, v91);
+        v99 = mmcs_logging_logger_default(v97, v98);
+        if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v78;
-          _os_log_impl(&dword_2577D8000, v79, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+          *&buf[4] = v97;
+          _os_log_impl(&dword_2577D8000, v99, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
 
-        if (v78)
+        if (v97)
         {
-          CFRelease(v78);
+          CFRelease(v97);
         }
       }
 
-      if (v75)
+      if (v93)
       {
-        free(v75);
+        free(v93);
       }
 
       if (CStringDescription)
@@ -9072,90 +9129,89 @@ LABEL_86:
         free(CStringDescription);
       }
 
-      CFRelease(v73);
+      CFRelease(v91);
     }
   }
 
   else
   {
-    if (!send_request_authorizePut(v87, &v100))
+    if (!send_request_authorizePut(v106, &v119))
     {
-      if (!v100)
+      if (!v119)
       {
-        v100 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"An unknown error caused the put authorization to fail.", v33, v34, v35, v36, v37, v84);
+        v119 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"An unknown error caused the put authorization to fail.", v37, v38, v39, v40, v41);
       }
 
-      mmcs_metrics_request_set_error(*(v87 + 184), *(v87 + 152));
-      mmcs_put_request_context_cleanup(v87, v100);
-      v56 = mmcs_logging_logger_default();
-      XCFPrint(v56, @"AuthorizePut Send Error", v100);
+      mmcs_metrics_request_set_error(*(v106 + 184), *(v106 + 152));
+      mmcs_put_request_context_cleanup(v106, v119);
+      v71 = mmcs_logging_logger_default(v69, v70);
+      XCFPrint(v71, @"AuthorizePut Send Error", v119);
     }
 
 LABEL_75:
     Mutable = 0;
-    v89 = 0;
-    v66 = 0;
-    v68 = 0;
-    v69 = 1;
-    if (v8)
+    v108 = 0;
+    v81 = 0;
+    v85 = 0;
+    v86 = 1;
+    if (v9)
     {
       goto LABEL_86;
     }
   }
 
-  if (v66)
+  if (v81)
   {
-    free(v66);
+    free(v81);
   }
 
-  if (v99)
+  if (v118)
   {
-    free(v99);
+    free(v118);
   }
 
-  v99 = 0;
+  v118 = 0;
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  if (v89)
+  if (v108)
   {
-    CFRelease(v89);
+    CFRelease(v108);
   }
 
-  v80 = v68 ^ 1;
-  v81 = v100;
+  v100 = v85 ^ 1;
+  v101 = v119;
   if (!a4)
   {
-    v80 = 1;
+    v100 = 1;
   }
 
-  if ((v80 & 1) == 0)
+  if ((v100 & 1) == 0)
   {
-    if (!v100)
+    if (!v119)
     {
-      v81 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"missing local error %s %d", v33, v34, v35, v36, v37, "mmcs_put_req_context_init_items_for_section");
-      v100 = v81;
+      v101 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"missing local error %s %d", v37, v38, v39, v40, v41, "mmcs_put_req_context_init_items_for_section", 612);
+      v119 = v101;
     }
 
-    CFRetain(v81);
-    v81 = v100;
-    *a4 = v100;
+    CFRetain(v101);
+    v101 = v119;
+    *a4 = v119;
   }
 
-  if (v81)
+  if (v101)
   {
-    CFRelease(v81);
+    CFRelease(v101);
   }
 
-  v82 = *MEMORY[0x277D85DE8];
-  return v69;
+  return v86;
 }
 
 uint64_t mmcs_put_req_context_init_item_with_chunks(uint64_t a1, char **a2, uint64_t a3, unint64_t a4, CFErrorRef *a5)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     *a5 = 0;
@@ -9166,29 +9222,30 @@ uint64_t mmcs_put_req_context_init_item_with_chunks(uint64_t a1, char **a2, uint
     mmcs_item_set_size(a2, a3);
   }
 
-  if (!mmcs_item_set_chunk_instance_capacity(a2, a4))
+  v9 = mmcs_item_set_chunk_instance_capacity(a2, a4);
+  if (!v9)
   {
-    v26 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v32 = mmcs_logging_logger_default(v9, v10);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_item_set_chunk_instance_capacity");
-      v33 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v38 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_item_set_chunk_instance_capacity");
+      v40 = mmcs_logging_logger_default(v38, v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v55 = v32;
-        _os_log_impl(&dword_2577D8000, v33, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v62 = v38;
+        _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v32)
+      if (v38)
       {
-        CFRelease(v32);
+        CFRelease(v38);
       }
     }
 
-    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Unable to set chunk instance capacity for item %lld", v27, v28, v29, v30, v31, a2[5]);
+    error = mmcs_cferror_create_with_format(@"com.apple.mmcs", 37, @"Unable to set chunk instance capacity for item %lld", v33, v34, v35, v36, v37, a2[5]);
 LABEL_51:
-    v43 = error;
+    v50 = error;
     if (!a5)
     {
       goto LABEL_53;
@@ -9201,42 +9258,40 @@ LABEL_51:
   {
 LABEL_25:
     mmcs_item_setup_chunk_references(a2);
-    result = 1;
-    goto LABEL_56;
+    return 1;
   }
 
-  v9 = 0;
-  v10 = a2[16];
-  v11 = 16;
-  v52 = a1;
+  v11 = 0;
+  v12 = 16;
+  v59 = a1;
   while (1)
   {
     if (gMMCS_DebugLevel >= 4)
     {
-      v12 = CKRegisteredChunkSignatureCopyCString();
-      v13 = mmcs_logging_logger_chunk();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v13 = CKRegisteredChunkSignatureCopyCString();
+      v15 = mmcs_logging_logger_chunk(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = a2[17];
-        v15 = CKRegisteredChunkOffset();
-        v16 = CKRegisteredChunkLength();
+        v16 = a2[17];
+        v17 = CKRegisteredChunkOffset();
+        v18 = CKRegisteredChunkLength();
         *buf = 134219010;
-        v55 = (v9 + 1);
-        a1 = v52;
-        v56 = 2048;
-        v57 = v14;
-        v58 = 2048;
-        v59 = v15;
-        v60 = 1024;
-        v61 = v16;
-        v62 = 2082;
-        v63 = v12;
-        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEFAULT, "Chunk %lu of %llu at itemOffset %llu with byteLength %u has signature %{public}s", buf, 0x30u);
+        v62 = (v11 + 1);
+        a1 = v59;
+        v63 = 2048;
+        v64 = v16;
+        v65 = 2048;
+        v66 = v17;
+        v67 = 1024;
+        v68 = v18;
+        v69 = 2082;
+        v70 = v13;
+        _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_DEFAULT, "Chunk %lu of %llu at itemOffset %llu with byteLength %u has signature %{public}s", buf, 0x30u);
       }
 
-      if (v12)
+      if (v13)
       {
-        free(v12);
+        free(v13);
       }
     }
 
@@ -9245,70 +9300,72 @@ LABEL_25:
       break;
     }
 
-    v53 = 0;
-    v17 = CKRegisteredChunkLength();
-    v18 = CKRegisteredChunkSignature();
-    v19 = CKRegisteredChunkKey();
-    if (!mmcs_chunk_reference_create(&v53, v17, v18, v19, 0))
+    v60 = 0;
+    v19 = CKRegisteredChunkLength();
+    v20 = CKRegisteredChunkSignature();
+    v21 = CKRegisteredChunkKey();
+    v22 = mmcs_chunk_reference_create(&v60, v19, v20, v21, 0);
+    if (!v22)
     {
-      v44 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v51 = mmcs_logging_logger_default(v22, v23);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v45 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"nomem: mmcs_chunk_reference_create for item %lld", a2[5]);
-        v46 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v52 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"nomem: mmcs_chunk_reference_create for item %lld", a2[5]);
+        v54 = mmcs_logging_logger_default(v52, v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v55 = v45;
-          _os_log_impl(&dword_2577D8000, v46, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          v62 = v52;
+          _os_log_impl(&dword_2577D8000, v54, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        v47 = @"no memory to create chunk reference";
-        if (v45)
+        v55 = @"no memory to create chunk reference";
+        if (v52)
         {
 LABEL_47:
-          CFRelease(v45);
+          CFRelease(v52);
         }
       }
 
       else
       {
-        v47 = @"no memory to create chunk reference";
+        v55 = @"no memory to create chunk reference";
       }
 
 LABEL_50:
-      error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v47);
+      error = mmcs_cferror_create_error(@"com.apple.mmcs", 37, v55);
       goto LABEL_51;
     }
 
-    v20 = mmcs_put_req_context_add_chunk_reference(a1, v53);
-    if (v20 != v53)
+    v24 = mmcs_put_req_context_add_chunk_reference(a1, v60);
+    if (v24 != v60)
     {
-      mmcs_chunk_reference_dealloc(v53);
-      v53 = v20;
+      mmcs_chunk_reference_dealloc(v60);
+      v60 = v24;
     }
 
-    v21 = CKRegisteredSubchunkDigest();
-    v22 = v53;
-    *(v53 + 4) = v21;
-    v23 = a2[34];
-    v24 = CKRegisteredChunkOffset();
-    if (!mmcs_chunk_instance_init(&v23[v11 - 16], v22, v24, v9, a2))
+    v25 = CKRegisteredSubchunkDigest();
+    v26 = v60;
+    *(v60 + 4) = v25;
+    v27 = a2[34];
+    v28 = CKRegisteredChunkOffset();
+    v29 = mmcs_chunk_instance_init(&v27[v12 - 16], v26, v28, v11, a2);
+    if (!v29)
     {
-      v48 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v56 = mmcs_logging_logger_default(v29, v30);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        v45 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_chunk_instance_init for item %lld", a2[5]);
-        v49 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v52 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_chunk_instance_init for item %lld", a2[5]);
+        v58 = mmcs_logging_logger_default(v52, v57);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v55 = v45;
-          _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          v62 = v52;
+          _os_log_impl(&dword_2577D8000, v58, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        v47 = @"no memory to init chunk instance";
-        if (v45)
+        v55 = @"no memory to init chunk instance";
+        if (v52)
         {
           goto LABEL_47;
         }
@@ -9316,7 +9373,7 @@ LABEL_50:
 
       else
       {
-        v47 = @"no memory to init chunk instance";
+        v55 = @"no memory to init chunk instance";
       }
 
       goto LABEL_50;
@@ -9329,83 +9386,79 @@ LABEL_50:
         mmcs_put_req_context_init_item_with_chunks_cold_1();
       }
 
-      *&v23[v11] = CKRegisteredChunkItemID();
+      *&v27[v12] = CKRegisteredChunkItemID();
     }
 
     ++a2[18];
-    mmcs_chunk_reference_add_instance(v53, &v23[v11 - 16]);
+    mmcs_chunk_reference_add_instance(v60, &v27[v12 - 16]);
     CKRegisteredChunkSize();
-    ++v9;
-    v11 += 104;
-    if (v9 >= a2[17])
+    ++v11;
+    v12 += 104;
+    if (v11 >= a2[17])
     {
       goto LABEL_25;
     }
   }
 
   mmcs_item_set_does_not_need_put(a2);
-  v35 = CKRegisteredChunkSignatureCopyCString();
+  v42 = CKRegisteredChunkSignatureCopyCString();
   IsEncrypted = CKRegisteredChunkIsEncrypted();
-  v42 = "En";
+  v49 = "En";
   if (!IsEncrypted)
   {
-    v42 = "Unen";
+    v49 = "Unen";
   }
 
-  v51 = a2[5];
-  v43 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 17, @"%scrypted chunk %s was not expected for item %lld", v37, v38, v39, v40, v41, v42);
-  if (v35)
+  v50 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 17, @"%scrypted chunk %s was not expected for item %lld", v44, v45, v46, v47, v48, v49, v42, a2[5]);
+  if (v42)
   {
-    free(v35);
+    free(v42);
   }
 
   if (a5)
   {
 LABEL_52:
-    CFRetain(v43);
-    *a5 = v43;
+    CFRetain(v50);
+    *a5 = v50;
   }
 
 LABEL_53:
-  if (v43)
+  if (v50)
   {
-    CFRelease(v43);
+    CFRelease(v50);
   }
 
-  result = 0;
-LABEL_56:
-  v50 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void mmcs_put_request_context_cleanup(uint64_t a1, uint64_t a2)
+void mmcs_put_request_context_cleanup(void *a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  request_activity_marker = mmcs_request_get_request_activity_marker(a1);
+  request_activity_marker = mmcs_request_get_request_activity_marker(a1, a2);
   os_activity_scope_enter(request_activity_marker, &state);
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   if (a2)
   {
     *buf = 7;
     *&buf[8] = 0xBFF0000000000000;
     *&buf[16] = 0;
-    v31 = 0;
-    v32 = a2;
+    v36 = 0;
+    v37 = a2;
     mmcs_put_request_set_progress_and_notify_all_items_not_done(a1, buf);
   }
 
-  v6 = *(*(a1 + 304) + 88);
+  v6 = *(a1[38] + 88);
   if (v6)
   {
     mmcs_perform_timer_invalidate(v6);
-    v7 = *(a1 + 304);
+    v7 = a1[38];
     v8 = *(v7 + 88);
     if (v8)
     {
       CFRelease(v8);
-      v7 = *(a1 + 304);
+      v7 = a1[38];
     }
 
     *(v7 + 88) = 0;
@@ -9413,38 +9466,37 @@ void mmcs_put_request_context_cleanup(uint64_t a1, uint64_t a2)
 
   if (mmcs_engine_contains_request(v5, a1))
   {
-    v9 = *(a1 + 24);
     kdebug_trace();
-    v29.opaque[0] = 0;
-    v29.opaque[1] = 0;
-    v10 = mmcs_request_get_request_activity_marker(a1);
-    os_activity_scope_enter(v10, &v29);
-    if (*(a1 + 184))
+    v34.opaque[0] = 0;
+    v34.opaque[1] = 0;
+    v10 = mmcs_request_get_request_activity_marker(a1, v9);
+    os_activity_scope_enter(v10, &v34);
+    if (a1[23])
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      *(*(a1 + 32) + 200) = C3BaseRetain(a1);
-      v12 = *(a1 + 184);
-      if (v12)
+      *(a1[4] + 200) = C3BaseRetain(a1);
+      v14 = a1[23];
+      if (v14)
       {
-        _mmcs_metrics_request_stopped(*(a1 + 184), 0, *(a1 + 152));
-        *(v12 + 24) = mmcs_server_version_as_double(*(a1 + 120), *(a1 + 128));
-        v13 = *(*(a1 + 304) + 80);
-        if (v13)
+        _mmcs_metrics_request_stopped(a1[23], 0, a1[19]);
+        *(v14 + 24) = mmcs_server_version_as_double(a1[15], a1[16]);
+        v15 = *(a1[38] + 80);
+        if (v15)
         {
-          v14 = *(v13 + 16);
-          if (v14)
+          v16 = *(v15 + 16);
+          if (v16)
           {
-            *(v12 + 128) = CFDictionaryGetCount(v14);
-            v13 = *(*(a1 + 304) + 80);
+            *(v14 + 128) = CFDictionaryGetCount(v16);
+            v15 = *(a1[38] + 80);
           }
 
-          *(v12 + 160) = *(v13 + 40);
-          *(v12 + 152) = *(*(*(a1 + 304) + 80) + 32);
-          *(v12 + 144) = *(*(*(a1 + 304) + 80) + 24);
+          *(v14 + 160) = *(v15 + 40);
+          *(v14 + 152) = *(*(a1[38] + 80) + 32);
+          *(v14 + 144) = *(*(a1[38] + 80) + 24);
         }
       }
 
-      metric_object = mmcs_metrics_create_metric_object(*(a1 + 184));
+      metric_object = mmcs_metrics_create_metric_object(a1[23]);
       CFDictionaryAddValue(Mutable, @"metricObject", metric_object);
       if (metric_object)
       {
@@ -9457,48 +9509,49 @@ void mmcs_put_request_context_cleanup(uint64_t a1, uint64_t a2)
       Mutable = 0;
     }
 
-    v20 = *(*(a1 + 304) + 80);
-    if (v20 && *(v20 + 56))
+    v24 = *(a1[38] + 80);
+    if (v24 && *(v24 + 56))
     {
       if (!Mutable)
       {
-        Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v11 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        Mutable = v11;
       }
 
-      v21 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v25 = mmcs_logging_logger_default(v11, v12);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        Length = CFDataGetLength(*(*(*(a1 + 304) + 80) + 56));
+        Length = CFDataGetLength(*(*(a1[38] + 80) + 56));
         *buf = 134217984;
         *&buf[4] = Length;
-        _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_INFO, "Appending warmContainerState of length %llu to result dict", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_INFO, "Appending warmContainerState of length %llu to result dict", buf, 0xCu);
       }
 
-      CFDictionaryAddValue(Mutable, @"kMMCSWarmContainerState", *(*(*(a1 + 304) + 80) + 56));
+      CFDictionaryAddValue(Mutable, @"kMMCSWarmContainerState", *(*(a1[38] + 80) + 56));
     }
 
-    v23 = mmcs_request_copy_description(a1);
-    v24 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v27 = mmcs_request_copy_description(a1);
+    v29 = mmcs_logging_logger_default(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v25 = *(a1 + 32);
+      v30 = a1[4];
       *buf = 134218242;
-      *&buf[4] = v25;
+      *&buf[4] = v30;
       *&buf[12] = 2114;
-      *&buf[14] = v23;
-      _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_INFO, "Engine %p request will notify request %{public}@ done", buf, 0x16u);
+      *&buf[14] = v27;
+      _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_INFO, "Engine %p request will notify request %{public}@ done", buf, 0x16u);
     }
 
-    if (v23)
+    if (v27)
     {
-      CFRelease(v23);
+      CFRelease(v27);
     }
 
-    MMCSEngineClientContextRequestCompleted(*(v5 + 152), *(a1 + 40), Mutable);
-    if (*(a1 + 184))
+    MMCSEngineClientContextRequestCompleted(*(v5 + 152), a1[5], Mutable);
+    if (a1[23])
     {
       C3BaseRelease(a1);
-      *(*(a1 + 32) + 200) = 0;
+      *(a1[4] + 200) = 0;
     }
 
     if (Mutable)
@@ -9506,12 +9559,12 @@ void mmcs_put_request_context_cleanup(uint64_t a1, uint64_t a2)
       CFRelease(Mutable);
     }
 
-    os_activity_scope_leave(&v29);
-    mmcs_put_req_context_log_timing(a1);
-    v26 = *(*(a1 + 304) + 80);
-    if (v26)
+    os_activity_scope_leave(&v34);
+    mmcs_put_req_context_log_timing(a1, v31);
+    v32 = *(a1[38] + 80);
+    if (v32)
     {
-      mmcs_put_state_invalidate(v26);
+      mmcs_put_state_invalidate(v32);
     }
 
     mmcs_engine_remove_request(v5, a1);
@@ -9519,33 +9572,32 @@ void mmcs_put_request_context_cleanup(uint64_t a1, uint64_t a2)
 
   else
   {
-    v16 = mmcs_request_copy_description(a1);
-    v17 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = mmcs_request_copy_description(a1);
+    v20 = mmcs_logging_logger_default(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ignoring unknown put req %@", v16);
-      v19 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ignoring unknown put req %@", v18);
+      v23 = mmcs_logging_logger_default(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v21;
+        _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v18)
+      if (v21)
       {
-        CFRelease(v18);
+        CFRelease(v21);
       }
     }
 
-    if (v16)
+    if (v18)
     {
-      CFRelease(v16);
+      CFRelease(v18);
     }
   }
 
   os_activity_scope_leave(&state);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 const void *mmcs_put_request_get_distinct_item_with_signature_reference(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9581,287 +9633,196 @@ const void *mmcs_put_request_get_distinct_item_with_signature_reference(uint64_t
   return CFSetGetValue(*(*(a1 + 304) + 56), &v4);
 }
 
-void mmcs_put_req_context_log_timing(uint64_t a1)
+void mmcs_put_req_context_log_timing(uint64_t a1, uint64_t a2)
 {
-  v99 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_summary();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = a1;
+  v146 = *MEMORY[0x277D85DE8];
+  v3 = mmcs_logging_logger_summary(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    timing_activity_marker = mmcs_request_get_timing_activity_marker(a1);
+    timing_activity_marker = mmcs_request_get_timing_activity_marker(v2);
     os_activity_scope_enter(timing_activity_marker, &state);
-    v4 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v7 = mmcs_logging_logger_summary(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"PUT request timing==========================================");
-      v6 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138543362;
-        *&buf[4] = v5;
-        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-      }
-
-      if (v5)
-      {
-        CFRelease(v5);
-      }
-    }
-
-    v7 = mmcs_request_copy_description(a1);
-    v8 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine %p request %@", *(a1 + 32), v7);
-      v10 = mmcs_logging_logger_summary();
+      v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"PUT request timing==========================================");
+      v10 = mmcs_logging_logger_summary(v8, v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v9;
+        *&buf[4] = v8;
         _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v9)
+      if (v8)
       {
-        CFRelease(v9);
+        CFRelease(v8);
       }
     }
 
-    if (v7)
+    v11 = mmcs_request_copy_description(v2);
+    v13 = mmcs_logging_logger_summary(v11, v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+    if (v14)
     {
-      CFRelease(v7);
-    }
-
-    if (*(a1 + 144))
-    {
-      v11 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"engine %p request %@", *(v2 + 32), v11);
+      v18 = mmcs_logging_logger_summary(v16, v17);
+      v14 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+      if (v14)
       {
-        v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"\trequest was cancelled.");
-        v13 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          *&buf[4] = v12;
-          _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-        }
+        *buf = 138543362;
+        *&buf[4] = v16;
+        _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      }
 
-        if (v12)
-        {
-          CFRelease(v12);
-        }
+      if (v16)
+      {
+        CFRelease(v16);
       }
     }
 
-    if (*(a1 + 264))
+    if (v11)
     {
-      v14 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-      {
-        v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"\tmmcs was pre-authorized by client application");
-        v16 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          *&buf[4] = v15;
-          _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-        }
-
-        if (v15)
-        {
-          CFRelease(v15);
-        }
-      }
+      CFRelease(v11);
     }
 
-    if (*(*(a1 + 304) + 96))
+    if (*(v2 + 144))
     {
-      v17 = mmcs_logging_logger_summary();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-      v19 = *MEMORY[0x277CBECE8];
-      if (v18)
+      v19 = mmcs_logging_logger_summary(v14, v15);
+      v14 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+      if (v14)
       {
-        v20 = mmcs_http_context_elapsed_seconds(*(*(a1 + 304) + 96));
-        v21 = CFStringCreateWithFormat(v19, 0, @"\tmmcs put auth:     \t%0.4lf sec.", *&v20);
-        v22 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"\trequest was cancelled.");
+        v22 = mmcs_logging_logger_summary(v20, v21);
+        v14 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+        if (v14)
         {
           *buf = 138543362;
-          *&buf[4] = v21;
+          *&buf[4] = v20;
           _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v21)
+        if (v20)
         {
-          CFRelease(v21);
+          CFRelease(v20);
         }
       }
+    }
 
-      v23 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    if (*(v2 + 264))
+    {
+      v23 = mmcs_logging_logger_summary(v14, v15);
+      v14 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
+      if (v14)
       {
-        v24 = mmcs_http_context_enqueued_seconds(*(*(a1 + 304) + 96));
-        v25 = CFStringCreateWithFormat(v19, 0, @"\tmmcs put auth(inQ):\t%0.4lf sec.", *&v24);
-        v26 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"\tmmcs was pre-authorized by client application");
+        v26 = mmcs_logging_logger_summary(v24, v25);
+        v14 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+        if (v14)
         {
           *buf = 138543362;
-          *&buf[4] = v25;
+          *&buf[4] = v24;
           _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v25)
+        if (v24)
         {
-          CFRelease(v25);
+          CFRelease(v24);
+        }
+      }
+    }
+
+    if (*(*(v2 + 304) + 96))
+    {
+      v27 = mmcs_logging_logger_summary(v14, v15);
+      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
+      v30 = *MEMORY[0x277CBECE8];
+      if (v28)
+      {
+        v31 = mmcs_http_context_elapsed_seconds(*(*(v2 + 304) + 96));
+        v32 = CFStringCreateWithFormat(v30, 0, @"\tmmcs put auth:     \t%0.4lf sec.", *&v31);
+        v34 = mmcs_logging_logger_summary(v32, v33);
+        v28 = os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG);
+        if (v28)
+        {
+          *buf = 138543362;
+          *&buf[4] = v32;
+          _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        }
+
+        if (v32)
+        {
+          CFRelease(v32);
+        }
+      }
+
+      v35 = mmcs_logging_logger_summary(v28, v29);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      {
+        v37 = mmcs_http_context_enqueued_seconds(*(*(v2 + 304) + 96), v36);
+        v38 = CFStringCreateWithFormat(v30, 0, @"\tmmcs put auth(inQ):\t%0.4lf sec.", *&v37);
+        v40 = mmcs_logging_logger_summary(v38, v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138543362;
+          *&buf[4] = v38;
+          _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        }
+
+        if (v38)
+        {
+          CFRelease(v38);
         }
       }
     }
 
     else
     {
-      v19 = *MEMORY[0x277CBECE8];
+      v30 = *MEMORY[0x277CBECE8];
     }
 
-    Mutable = CFArrayCreateMutable(v19, 0, &itemArrayCallbacks);
-    v28 = *(a1 + 304);
-    if (*(v28 + 144))
+    Mutable = CFArrayCreateMutable(v30, 0, &itemArrayCallbacks);
+    v42 = *(v2 + 304);
+    if (*(v42 + 144))
     {
-      v29 = 0;
-      v30 = 152;
+      v43 = 0;
+      v44 = 152;
       do
       {
-        CFArrayAppendValue(Mutable, (v28 + v30));
-        ++v29;
-        v28 = *(a1 + 304);
-        v30 += 416;
+        CFArrayAppendValue(Mutable, (v42 + v44));
+        ++v43;
+        v42 = *(v2 + 304);
+        v44 += 416;
       }
 
-      while (v29 < *(v28 + 144));
+      while (v43 < *(v42 + 144));
     }
 
     if (CFArrayGetCount(Mutable) >= 1)
     {
-      v94 = Mutable;
+      v141 = Mutable;
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(Mutable, 0);
-        Value = CFDictionaryGetValue(*(*(a1 + 304) + 48), ValueAtIndex);
-        v33 = mmcs_file_signature_to_hexstring(*ValueAtIndex);
-        v34 = CFStringCreateMutable(v19, 0);
-        v100.length = CFArrayGetCount(Value);
+        Value = CFDictionaryGetValue(*(*(v2 + 304) + 48), ValueAtIndex);
+        v47 = mmcs_file_signature_to_hexstring(*ValueAtIndex);
+        v48 = CFStringCreateMutable(v30, 0);
+        v147.length = CFArrayGetCount(Value);
         theArray = Value;
-        v100.location = 0;
-        CFArrayApplyFunction(Value, v100, log_item_applier, v34);
-        v35 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v147.location = 0;
+        CFArrayApplyFunction(Value, v147, log_item_applier, v48);
+        v51 = mmcs_logging_logger_summary(v49, v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
-          v36 = CFStringCreateWithFormat(v19, 0, @"\tsignature: %s", v33);
-          v37 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138543362;
-            *&buf[4] = v36;
-            _os_log_impl(&dword_2577D8000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-          }
-
-          if (v36)
-          {
-            CFRelease(v36);
-          }
-        }
-
-        CStringDescription = XCFDataCreateCStringDescription(ValueAtIndex[8]);
-        v39 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
-        {
-          v40 = CFStringCreateWithFormat(v19, 0, @"\treference: %s", CStringDescription);
-          v41 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138543362;
-            *&buf[4] = v40;
-            _os_log_impl(&dword_2577D8000, v41, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-          }
-
-          if (v40)
-          {
-            CFRelease(v40);
-          }
-        }
-
-        v42 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
-        {
-          v43 = CFStringCreateWithFormat(v19, 0, @"\tsize: %lld bytes", ValueAtIndex[2]);
-          v44 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138543362;
-            *&buf[4] = v43;
-            _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-          }
-
-          if (v43)
-          {
-            CFRelease(v43);
-          }
-        }
-
-        v45 = *(a1 + 16);
-        v46 = mmcs_logging_logger_summary();
-        v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
-        if (v45 == 3)
-        {
-          if (v47)
-          {
-            v48 = CFStringCreateWithFormat(v19, 0, @"\tsection ID: %@", *(*(a1 + 304) + 488));
-            v49 = mmcs_logging_logger_summary();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
-            {
-LABEL_64:
-              *buf = 138543362;
-              *&buf[4] = v48;
-              _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-            }
-
-LABEL_65:
-            if (v48)
-            {
-              CFRelease(v48);
-            }
-          }
-        }
-
-        else if (v47)
-        {
-          v48 = CFStringCreateWithFormat(v19, 0, @"\titem(s): %@", v34);
-          v49 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
-          {
-            goto LABEL_64;
-          }
-
-          goto LABEL_65;
-        }
-
-        if (v34)
-        {
-          CFRelease(v34);
-        }
-
-        v95 = CStringDescription;
-        v50 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
-        {
-          v51 = mmcs_item_chunking_elapsed_seconds(ValueAtIndex);
-          v52 = CFStringCreateWithFormat(v19, 0, @"\tmmcs item chunking:\t%0.4lf sec.", *&v51);
-          v53 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+          v52 = CFStringCreateWithFormat(v30, 0, @"\tsignature: %s", v47);
+          v54 = mmcs_logging_logger_summary(v52, v53);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
             *&buf[4] = v52;
-            _os_log_impl(&dword_2577D8000, v53, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            _os_log_impl(&dword_2577D8000, v54, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
           if (v52)
@@ -9870,232 +9831,348 @@ LABEL_65:
           }
         }
 
-        v54 = a1;
-        v55 = *(*(a1 + 304) + 80);
-        if (v55 && v55[1])
+        CStringDescription = XCFDataCreateCStringDescription(ValueAtIndex[8]);
+        v57 = mmcs_logging_logger_summary(CStringDescription, v56);
+        v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG);
+        if (v58)
         {
-          v56 = 0;
+          v60 = CFStringCreateWithFormat(v30, 0, @"\treference: %s", CStringDescription);
+          v62 = mmcs_logging_logger_summary(v60, v61);
+          v58 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
+          if (v58)
+          {
+            *buf = 138543362;
+            *&buf[4] = v60;
+            _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          }
+
+          if (v60)
+          {
+            CFRelease(v60);
+          }
+        }
+
+        v63 = mmcs_logging_logger_summary(v58, v59);
+        v64 = os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG);
+        if (v64)
+        {
+          v66 = CFStringCreateWithFormat(v30, 0, @"\tsize: %lld bytes", ValueAtIndex[2]);
+          v68 = mmcs_logging_logger_summary(v66, v67);
+          v64 = os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG);
+          if (v64)
+          {
+            *buf = 138543362;
+            *&buf[4] = v66;
+            _os_log_impl(&dword_2577D8000, v68, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          }
+
+          if (v66)
+          {
+            CFRelease(v66);
+          }
+        }
+
+        v69 = *(v2 + 16);
+        v70 = mmcs_logging_logger_summary(v64, v65);
+        v71 = os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG);
+        if (v69 == 3)
+        {
+          if (v71)
+          {
+            v73 = CFStringCreateWithFormat(v30, 0, @"\tsection ID: %@", *(*(v2 + 304) + 488));
+            v75 = mmcs_logging_logger_summary(v73, v74);
+            v71 = os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG);
+            if (v71)
+            {
+LABEL_64:
+              *buf = 138543362;
+              *&buf[4] = v73;
+              _os_log_impl(&dword_2577D8000, v75, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            }
+
+LABEL_65:
+            if (v73)
+            {
+              CFRelease(v73);
+            }
+          }
+        }
+
+        else if (v71)
+        {
+          v73 = CFStringCreateWithFormat(v30, 0, @"\titem(s): %@", v48);
+          v75 = mmcs_logging_logger_summary(v73, v76);
+          v71 = os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG);
+          if (v71)
+          {
+            goto LABEL_64;
+          }
+
+          goto LABEL_65;
+        }
+
+        if (v48)
+        {
+          CFRelease(v48);
+        }
+
+        v142 = CStringDescription;
+        v77 = mmcs_logging_logger_summary(v71, v72);
+        v78 = os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG);
+        if (v78)
+        {
+          v80 = mmcs_item_chunking_elapsed_seconds(ValueAtIndex);
+          v81 = CFStringCreateWithFormat(v30, 0, @"\tmmcs item chunking:\t%0.4lf sec.", *&v80);
+          v83 = mmcs_logging_logger_summary(v81, v82);
+          v78 = os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG);
+          if (v78)
+          {
+            *buf = 138543362;
+            *&buf[4] = v81;
+            _os_log_impl(&dword_2577D8000, v83, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          }
+
+          if (v81)
+          {
+            CFRelease(v81);
+          }
+        }
+
+        v84 = v2;
+        v85 = *(*(v2 + 304) + 80);
+        if (v85 && v85[1])
+        {
+          v86 = 0;
           do
           {
-            v57 = *(v55[8] + 8 * v56);
-            v58 = v57[11];
-            if (CFSetContainsValue(*(v58 + 16), ValueAtIndex))
+            v87 = *(v85[8] + 8 * v86);
+            v88 = v87[11];
+            v78 = CFSetContainsValue(*(v88 + 16), ValueAtIndex);
+            if (v78)
             {
-              v59 = mmcs_logging_logger_summary();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+              v89 = mmcs_logging_logger_summary(v78, v79);
+              if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
               {
-                v60 = CFStringCreateWithFormat(v19, 0, @"\tmmcs put container %lu:\t%s", v56 + 1, **(v58 + 8));
-                v61 = mmcs_logging_logger_summary();
-                if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+                v91 = CFStringCreateWithFormat(v30, 0, @"\tmmcs put container %lu:\t%s", v86 + 1, **(v88 + 8));
+                v93 = mmcs_logging_logger_summary(v91, v92);
+                if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138543362;
-                  *&buf[4] = v60;
-                  _os_log_impl(&dword_2577D8000, v61, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                  *&buf[4] = v91;
+                  _os_log_impl(&dword_2577D8000, v93, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
                 }
 
-                if (v60)
+                if (v91)
                 {
-                  CFRelease(v60);
+                  CFRelease(v91);
                 }
               }
 
-              mmcs_transaction_log_timing(v57[2]);
-              v62 = v57[3];
-              if (v62)
+              mmcs_transaction_log_timing(v87[2], v90);
+              v95 = v87[3];
+              if (v95)
               {
-                mmcs_transaction_log_timing(v62);
+                mmcs_transaction_log_timing(v95, v94);
               }
 
-              v63 = v57[5];
-              if (v63)
+              v96 = v87[5];
+              if (v96)
               {
-                v64 = mmcs_cferror_copy_description(v63);
-                v65 = mmcs_logging_logger_summary();
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+                v97 = mmcs_cferror_copy_description(v96);
+                v99 = mmcs_logging_logger_summary(v97, v98);
+                if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
                 {
-                  v66 = CFStringCreateWithFormat(v19, 0, @"\terror:             \t%@", v64);
-                  v67 = mmcs_logging_logger_summary();
-                  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+                  v100 = CFStringCreateWithFormat(v30, 0, @"\terror:             \t%@", v97);
+                  v102 = mmcs_logging_logger_summary(v100, v101);
+                  if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543362;
-                    *&buf[4] = v66;
-                    _os_log_impl(&dword_2577D8000, v67, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                    *&buf[4] = v100;
+                    _os_log_impl(&dword_2577D8000, v102, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
                   }
 
-                  if (v66)
+                  if (v100)
                   {
-                    CFRelease(v66);
+                    CFRelease(v100);
                   }
                 }
 
-                if (v64)
+                if (v97)
                 {
-                  CFRelease(v64);
+                  CFRelease(v97);
                 }
               }
 
-              v68 = v57[6];
-              if (v68)
+              v103 = v87[6];
+              if (v103)
               {
                 *buf = 1;
-                v101.length = CFArrayGetCount(v68);
-                v101.location = 0;
-                CFArrayApplyFunction(v68, v101, _log_error_0, buf);
+                v148.length = CFArrayGetCount(v103);
+                v148.location = 0;
+                CFArrayApplyFunction(v103, v148, _log_error_0, buf);
               }
 
-              *buf = v57;
-              CFSetApplyFunction(*(*(*v55 + 304) + 128), find_put_complete, buf);
-              v69 = *&buf[8];
+              *buf = v87;
+              CFSetApplyFunction(*(*(*v85 + 304) + 128), find_put_complete, buf);
+              v104 = *&buf[8];
               if (*&buf[8] && *(*&buf[8] + 8))
               {
-                v70 = mmcs_logging_logger_summary();
-                if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+                v105 = mmcs_logging_logger_summary(v78, v79);
+                v106 = os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG);
+                if (v106)
                 {
-                  v71 = mmcs_http_context_elapsed_seconds(*(v69 + 8));
-                  v72 = CFStringCreateWithFormat(v19, 0, @"\tmmcs put complete: \t%0.4lf sec.", *&v71);
-                  v73 = mmcs_logging_logger_summary();
-                  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+                  v108 = mmcs_http_context_elapsed_seconds(*(v104 + 8));
+                  v109 = CFStringCreateWithFormat(v30, 0, @"\tmmcs put complete: \t%0.4lf sec.", *&v108);
+                  v111 = mmcs_logging_logger_summary(v109, v110);
+                  v106 = os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG);
+                  if (v106)
                   {
                     *buf = 138543362;
-                    *&buf[4] = v72;
-                    _os_log_impl(&dword_2577D8000, v73, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                    *&buf[4] = v109;
+                    _os_log_impl(&dword_2577D8000, v111, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
                   }
 
-                  if (v72)
+                  if (v109)
                   {
-                    CFRelease(v72);
+                    CFRelease(v109);
                   }
                 }
 
-                v74 = mmcs_logging_logger_summary();
-                if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+                v112 = mmcs_logging_logger_summary(v106, v107);
+                v78 = os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG);
+                if (v78)
                 {
-                  v75 = mmcs_http_context_enqueued_seconds(*(v69 + 8));
-                  v76 = CFStringCreateWithFormat(v19, 0, @"\tmmcs put complete(inQ):\t%0.4lf sec.", *&v75);
-                  v77 = mmcs_logging_logger_summary();
-                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+                  v113 = mmcs_http_context_enqueued_seconds(*(v104 + 8), v79);
+                  v114 = CFStringCreateWithFormat(v30, 0, @"\tmmcs put complete(inQ):\t%0.4lf sec.", *&v113);
+                  v116 = mmcs_logging_logger_summary(v114, v115);
+                  v78 = os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG);
+                  if (v78)
                   {
                     *buf = 138543362;
-                    *&buf[4] = v76;
-                    _os_log_impl(&dword_2577D8000, v77, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                    *&buf[4] = v114;
+                    _os_log_impl(&dword_2577D8000, v116, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
                   }
 
-                  if (v76)
+                  if (v114)
                   {
-                    CFRelease(v76);
+                    CFRelease(v114);
                   }
                 }
               }
             }
 
-            ++v56;
+            ++v86;
           }
 
-          while (v56 < v55[1]);
+          while (v86 < v85[1]);
         }
 
-        a1 = v54;
-        Mutable = v94;
+        v2 = v84;
+        Mutable = v141;
         if (ValueAtIndex[28])
         {
-          v78 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+          v117 = mmcs_logging_logger_summary(v78, v79);
+          if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
           {
-            v79 = CFStringCreateWithFormat(v19, 0, @"\treceipt:           \t%@", ValueAtIndex[28]);
-            v80 = mmcs_logging_logger_summary();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+            v118 = CFStringCreateWithFormat(v30, 0, @"\treceipt:           \t%@", ValueAtIndex[28]);
+            v120 = mmcs_logging_logger_summary(v118, v119);
+            if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              *&buf[4] = v79;
-              _os_log_impl(&dword_2577D8000, v80, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v118;
+              _os_log_impl(&dword_2577D8000, v120, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v79)
+            if (v118)
             {
-              CFRelease(v79);
+              CFRelease(v118);
             }
           }
         }
 
-        v81 = ValueAtIndex[24];
-        if (v81)
+        v121 = ValueAtIndex[24];
+        if (v121)
         {
-          v82 = mmcs_cferror_copy_description(v81);
-          v83 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+          v122 = mmcs_cferror_copy_description(v121);
+          v124 = mmcs_logging_logger_summary(v122, v123);
+          v125 = os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG);
+          if (v125)
           {
-            v84 = CFStringCreateWithFormat(v19, 0, @"\terror uploading item %lld w/signature: %s reference: %s", ValueAtIndex[5], v33, v95);
-            v85 = mmcs_logging_logger_summary();
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+            v127 = CFStringCreateWithFormat(v30, 0, @"\terror uploading item %lld w/signature: %s reference: %s", ValueAtIndex[5], v47, v142);
+            v129 = mmcs_logging_logger_summary(v127, v128);
+            v125 = os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG);
+            if (v125)
             {
               *buf = 138543362;
-              *&buf[4] = v84;
-              _os_log_impl(&dword_2577D8000, v85, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v127;
+              _os_log_impl(&dword_2577D8000, v129, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v84)
+            if (v127)
             {
-              CFRelease(v84);
+              CFRelease(v127);
             }
           }
 
-          v86 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
+          v130 = mmcs_logging_logger_summary(v125, v126);
+          v131 = os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG);
+          if (v131)
           {
-            v87 = CFStringCreateWithFormat(v19, 0, @"\terror:             \t%@", v82);
-            v88 = mmcs_logging_logger_summary();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+            v133 = CFStringCreateWithFormat(v30, 0, @"\terror:             \t%@", v122);
+            v135 = mmcs_logging_logger_summary(v133, v134);
+            v131 = os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG);
+            if (v131)
             {
               *buf = 138543362;
-              *&buf[4] = v87;
-              _os_log_impl(&dword_2577D8000, v88, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v133;
+              _os_log_impl(&dword_2577D8000, v135, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v87)
+            if (v133)
             {
-              CFRelease(v87);
+              CFRelease(v133);
             }
           }
 
-          v89 = mmcs_logging_logger_summary();
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+          v136 = mmcs_logging_logger_summary(v131, v132);
+          if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
           {
-            v90 = MMCSPutItemStateCString(*(ValueAtIndex + 42));
-            v91 = CFStringCreateWithFormat(v19, 0, @"\terror state:       \t%s", v90);
-            v92 = mmcs_logging_logger_summary();
-            if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
+            v137 = MMCSPutItemStateCString(*(ValueAtIndex + 42));
+            v138 = CFStringCreateWithFormat(v30, 0, @"\terror state:       \t%s", v137);
+            v140 = mmcs_logging_logger_summary(v138, v139);
+            if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              *&buf[4] = v91;
-              _os_log_impl(&dword_2577D8000, v92, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v138;
+              _os_log_impl(&dword_2577D8000, v140, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v91)
+            if (v138)
             {
-              CFRelease(v91);
+              CFRelease(v138);
             }
           }
 
-          if (v82)
+          if (v122)
           {
-            CFRelease(v82);
+            CFRelease(v122);
           }
         }
 
-        if (v95)
+        if (v142)
         {
-          free(v95);
+          free(v142);
         }
 
-        if (v33)
+        if (v47)
         {
-          free(v33);
+          free(v47);
         }
 
-        XCFArrayRemoveAllValuesWithArray(v94, theArray);
+        XCFArrayRemoveAllValuesWithArray(v141, theArray);
       }
 
-      while (CFArrayGetCount(v94) > 0);
+      while (CFArrayGetCount(v141) > 0);
     }
 
     if (Mutable)
@@ -10105,6 +10182,4 @@ LABEL_65:
 
     os_activity_scope_leave(&state);
   }
-
-  v93 = *MEMORY[0x277D85DE8];
 }

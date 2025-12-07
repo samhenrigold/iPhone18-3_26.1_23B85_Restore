@@ -2,6 +2,7 @@
 + (void)initialize;
 - (BWStillImageFilterNode)initWithNodeConfiguration:(id)configuration sensorConfigurationsByPortType:(id)type statusDelegate:(id)delegate depthDataDeliveryEnabled:(BOOL)enabled personSegmentationEnabled:(BOOL)segmentationEnabled refinedDepthEnabled:(BOOL)depthEnabled portraitRenderQuality:(int)quality targetAspectRatio:(float)self0 defaultPortType:(id)self1 defaultZoomFactor:(float)self2 backPressureDrivenPipelining:(BOOL)self3;
 - (id)_initWithNodeConfiguration:(id)configuration sensorConfigurationsByPortType:(id)type statusDelegate:(id)delegate depthDataDeliveryEnabled:(BOOL)enabled personSegmentationEnabled:(BOOL)segmentationEnabled refinedDepthEnabled:(BOOL)depthEnabled portraitRenderQuality:(int)quality targetAspectRatio:(float)self0 defaultPortType:(id)self1 defaultZoomFactor:(float)self2 backPressureDrivenPipelining:(BOOL)self3 renderResourceProvider:(id)self4;
+- (id)_releaseResourcesForLiveReconfiguration;
 - (id)provideApplySmartStyleRenderer;
 - (id)provideCoreImageFilterRenderer;
 - (id)provideMetalFilterRenderer;
@@ -9,13 +10,12 @@
 - (id)provideStillImageMetalBlurMapRenderer;
 - (id)provideStillImageMetalSDOFRenderer;
 - (uint64_t)_downsampleAttachedMediaForSampleBuffer:(uint64_t)buffer;
-- (uint64_t)_downsampleImageForSampleBuffer:(CFTypeRef *)buffer outputSampleBuffer:(uint64_t)sampleBuffer dimensions:;
-- (uint64_t)_downsamplePixelBuffer:(CVPixelBufferRef *)buffer outputPixelBuffer:(uint64_t)pixelBuffer dimensions:;
+- (uint64_t)_downsampleImageForSampleBuffer:(CFTypeRef *)buffer outputSampleBuffer:(unint64_t)sampleBuffer dimensions:;
+- (uint64_t)_downsamplePixelBuffer:(CVPixelBufferRef *)buffer outputPixelBuffer:(unint64_t)pixelBuffer dimensions:;
 - (uint64_t)_ensureCCPortraitLoaded;
 - (uint64_t)_ensureOutputBufferPool;
 - (uint64_t)_ensureResourcesWithSharedMetalAllocatorBackend:(uint64_t)backend;
 - (uint64_t)_provideCIContext;
-- (uint64_t)_releaseResourcesForLiveReconfiguration;
 - (void)_emitNodeErrorForErrorStatus:(int)status numberOfNodeErrors:(uint64_t)errors stillImageSettings:(uint64_t)settings metadata:;
 - (void)_emitSampleBufferAsync:(uint64_t)async;
 - (void)_prepareStillImageFilterRenderersForOriginalFilters:(id)filters processedFilters:(void *)processedFilters metadata:(void *)metadata settings:(uint64_t)settings inputDimensions:;
@@ -195,9 +195,9 @@ LABEL_14:
 
 - (void)prepareForCurrentConfigurationToBecomeLive
 {
-  v22.receiver = self;
-  v22.super_class = BWStillImageFilterNode;
-  [(BWNode *)&v22 prepareForCurrentConfigurationToBecomeLive];
+  v23.receiver = self;
+  v23.super_class = BWStillImageFilterNode;
+  [(BWNode *)&v23 prepareForCurrentConfigurationToBecomeLive];
   v3 = [(BWNodeInput *)self->super._input mediaPropertiesForAttachedMediaKey:@"Depth"];
   v4 = [objc_msgSend(v3 "resolvedVideoFormat")];
   if (v3)
@@ -233,40 +233,45 @@ LABEL_14:
     }
   }
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   inputs = [(BWNode *)self inputs];
-  v11 = [(NSArray *)inputs countByEnumeratingWithState:&v18 objects:v17 count:16];
+  v11 = [(NSArray *)inputs countByEnumeratingWithState:&v19 objects:v18 count:16];
   if (v11)
   {
-    v12 = v11;
-    v13 = *v19;
+    v13 = v11;
+    v14 = *v20;
     do
     {
-      for (i = 0; i != v12; ++i)
+      v15 = 0;
+      do
       {
-        if (*v19 != v13)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(inputs);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
-        if (v15 != self->super._input)
+        v16 = *(*(&v19 + 1) + 8 * v15);
+        if (v16 != self->super._input)
         {
-          [(BWFormat *)[(BWNodeInput *)v15 format] isEqual:[(BWNodeInput *)self->super._input format]];
+          [(BWFormat *)[(BWNodeInput *)v16 format] isEqual:[(BWNodeInput *)self->super._input format]];
         }
+
+        ++v15;
       }
 
-      v12 = [(NSArray *)inputs countByEnumeratingWithState:&v18 objects:v17 count:16];
+      while (v13 != v15);
+      v11 = [(NSArray *)inputs countByEnumeratingWithState:&v19 objects:v18 count:16];
+      v13 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 
-  v16 = BWDeviceSupportsDeferredPhotoProcessorPrewarming();
-  if (![(BWStillImageNodeConfiguration *)self->_nodeConfiguration deferredPhotoProcessorEnabled]|| !v16)
+  v17 = BWDeviceSupportsDeferredPhotoProcessorPrewarming(v11, v12);
+  if (![(BWStillImageNodeConfiguration *)self->_nodeConfiguration deferredPhotoProcessorEnabled]|| !v17)
   {
     [(BWStillImageFilterNode *)self _ensureResourcesWithSharedMetalAllocatorBackend:?];
   }
@@ -275,7 +280,7 @@ LABEL_14:
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
   v9 = [(BWNodeOutput *)self->super._output mediaConfigurationForAttachedMediaKey:key];
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     output = self->super._output;
 
@@ -738,7 +743,7 @@ LABEL_76:
   dispatch_async(emitQueue, v7);
 }
 
-uint64_t __51__BWStillImageFilterNode_handleNodeError_forInput___block_invoke(uint64_t a1)
+void *__51__BWStillImageFilterNode_handleNodeError_forInput___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "stillImageSettings")];
   if (result >= 1)
@@ -773,7 +778,7 @@ uint64_t __51__BWStillImageFilterNode_handleNodeError_forInput___block_invoke(ui
     v8 = [objc_msgSend(input "videoFormat")];
     if (v8 != [objc_msgSend(input "videoFormat")])
     {
-      [(BWStillImageFilterNode *)self _releaseResourcesForLiveReconfiguration];
+      [(BWStillImageFilterNode *)&self->super.super.isa _releaseResourcesForLiveReconfiguration];
     }
   }
 
@@ -830,15 +835,15 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
   return v4;
 }
 
-- (uint64_t)_releaseResourcesForLiveReconfiguration
+- (id)_releaseResourcesForLiveReconfiguration
 {
   if (result)
   {
     v1 = result;
 
-    *(v1 + 424) = 0;
-    *(v1 + 184) = 0;
-    result = [*(v1 + 128) deferredPhotoProcessorEnabled];
+    v1[53] = 0;
+    v1[23] = 0;
+    result = [v1[16] deferredPhotoProcessorEnabled];
     if (result)
     {
       *(v1 + 464) = 0;
@@ -872,7 +877,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
     [(objc_class *)v3 performSelector:NSSelectorFromString(&cfstr_Clearcache.isa)];
   }
 
-  [(BWStillImageFilterNode *)self _releaseResourcesForLiveReconfiguration];
+  [(BWStillImageFilterNode *)&self->super.super.isa _releaseResourcesForLiveReconfiguration];
   [(BWStillImageFilterNode *)self _releaseResources];
 
   self->_rendererProvider = 0;
@@ -935,7 +940,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
   {
     v6 = _ensureOutputBufferPool;
     OUTLINED_FUNCTION_1_5();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v13, v14, v15, v16, v17, v18, v19);
     return v6;
   }
 
@@ -1006,8 +1011,8 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
       [(BWVideoFormatRequirements *)v3 setHeight:v4 >> 32];
     }
 
-    v49 = v3;
-    v5 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1]);
+    v61 = v3;
+    v5 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1]);
     if (*(v1 + 412) == 2)
     {
       v6 = 0x5E8000007E0;
@@ -1069,29 +1074,31 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
         OUTLINED_FUNCTION_11_31();
         OUTLINED_FUNCTION_10_31();
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v31 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v47);
-        v32 = v48 & 0xFFFFFFFE;
+        HIDWORD(v44) = v59;
+        v31 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v59);
+        v32 = v60 & 0xFFFFFFFE;
         if (v31)
         {
-          v32 = v48;
+          v32 = v60;
         }
 
+        v46 = FrameworkRadarComponent;
         if (v32)
         {
-          v41 = 136315394;
-          v42 = "[BWStillImageFilterNode _ensureOutputBufferPool]";
-          v43 = 2112;
-          v44 = BWStringFromDimensions();
+          v53 = 136315394;
+          v54 = "[BWStillImageFilterNode _ensureOutputBufferPool]";
+          v55 = 2112;
+          v56 = BWStringFromDimensions();
           _os_log_send_and_compose_impl();
         }
 
         OUTLINED_FUNCTION_8_1();
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v45 = 138412290;
-        v46 = BWStringFromDimensions();
-        v33 = OUTLINED_FUNCTION_6_0();
-        FigCapturePleaseFileRadar(FrameworkRadarComponent, v33, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 1561, @"LastShownDate:BWStillImageFilterNode.m:1561", @"LastShownBuild:BWStillImageFilterNode.m:1561", 0);
-        free(v33);
+        v57 = 138412290;
+        v58 = BWStringFromDimensions();
+        v36 = OUTLINED_FUNCTION_6_0(v58, v33, v34, v35, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+        FigCapturePleaseFileRadar(FrameworkRadarComponent, v36, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 1561, @"LastShownDate:BWStillImageFilterNode.m:1561", @"LastShownBuild:BWStillImageFilterNode.m:1561", 0);
+        free(v36);
       }
 
       else
@@ -1126,8 +1133,8 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
     [(BWVideoFormatRequirements *)v17 setSupportedCacheModes:+[BWVideoFormatRequirements cacheModesForOptimizedHWAccess]];
     if ([v5 colorSpaceProperties])
     {
-      v40 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "colorSpaceProperties")}];
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+      v52 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "colorSpaceProperties")}];
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
     }
 
     else
@@ -1137,21 +1144,21 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
 
     [(BWVideoFormatRequirements *)v17 setSupportedColorSpaceProperties:v18];
 
-    v39 = v17;
-    *(v1 + 432) = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1]);
+    v51 = v17;
+    *(v1 + 432) = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1]);
 
     v19 = objc_alloc_init(BWVideoFormatRequirements);
     [(BWVideoFormatRequirements *)v19 setWidth:*(v1 + 384)];
     [(BWVideoFormatRequirements *)v19 setHeight:*(v1 + 388)];
-    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v5, "pixelFormat")}];
-    -[BWVideoFormatRequirements setSupportedPixelFormats:](v19, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1]);
+    v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v5, "pixelFormat")}];
+    -[BWVideoFormatRequirements setSupportedPixelFormats:](v19, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1]);
     [OUTLINED_FUNCTION_13_29() setBytesPerRowAlignment:?];
     [OUTLINED_FUNCTION_13_29() setPlaneAlignment:?];
     [(BWVideoFormatRequirements *)v19 setSupportedCacheModes:+[BWVideoFormatRequirements cacheModesForOptimizedHWAccess]];
     if ([v5 colorSpaceProperties])
     {
-      v37 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "colorSpaceProperties")}];
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+      v49 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "colorSpaceProperties")}];
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
     }
 
     else
@@ -1161,17 +1168,17 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
 
     [(BWVideoFormatRequirements *)v19 setSupportedColorSpaceProperties:v20];
 
-    v36 = v19;
+    v48 = v19;
     deferredPhotoProcessorEnabled = 1;
-    *(v1 + 376) = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1]);
+    *(v1 + 376) = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1]);
 
     if ((*(v1 + 172) & 1) == 0)
     {
       deferredPhotoProcessorEnabled = [*(v1 + 128) deferredPhotoProcessorEnabled];
     }
 
-    LOBYTE(v34) = deferredPhotoProcessorEnabled;
-    v22 = -[BWPixelBufferPool initWithVideoFormat:capacity:name:clientProvidesPool:memoryPool:providesBackPressure:reportSlowBackPressureAllocations:]([BWPixelBufferPool alloc], "initWithVideoFormat:capacity:name:clientProvidesPool:memoryPool:providesBackPressure:reportSlowBackPressureAllocations:", *(v1 + 376), 2, @"Still Image Filter Processing Pool", 0, [*(v1 + 16) memoryPool], deferredPhotoProcessorEnabled, v34);
+    LOBYTE(v40) = deferredPhotoProcessorEnabled;
+    v22 = -[BWPixelBufferPool initWithVideoFormat:capacity:name:clientProvidesPool:memoryPool:providesBackPressure:reportSlowBackPressureAllocations:]([BWPixelBufferPool alloc], "initWithVideoFormat:capacity:name:clientProvidesPool:memoryPool:providesBackPressure:reportSlowBackPressureAllocations:", *(v1 + 376), 2, @"Still Image Filter Processing Pool", 0, [*(v1 + 16) memoryPool], deferredPhotoProcessorEnabled, v40);
     *(v1 + 424) = v22;
     if (v22)
     {
@@ -1180,8 +1187,10 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
 
     else
     {
-      FigDebugAssert3();
-      return FigSignalErrorAtGM();
+      v37 = v47;
+      LODWORD(v41) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v47, v43, v44, os_log_and_send_and_compose_flags_and_os_log_type, v46, v47, v48);
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E358, 0xFFFFCE0ELL, "<<<< BWStillImageFilterNode >>>>", 0x63F, v37, v38, v39, v42);
     }
   }
 
@@ -1226,7 +1235,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
       else
       {
         OUTLINED_FUNCTION_0_8();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v3, v4, v5, v6, vars0, vars8);
         return 4294954510;
       }
     }
@@ -1248,45 +1257,46 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
       [(BWStillImageFilterNode *)self _ensureResourcesWithSharedMetalAllocatorBackend:?];
       [(BWRenderListProcessor *)self->_renderListProcessor waitForAllProcessingToComplete];
       v11 = *off_1E798A3C8;
-      v131 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-      if (v131)
+      v144 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+      if (v144)
       {
         key = v11;
-        v129 = 184;
+        v142 = 184;
         target = buffer;
+        v140 = v5;
         captureSettings = [v10 captureSettings];
         requestedSettings = [v10 requestedSettings];
-        v135 = v10;
+        v148 = v10;
         v13 = [objc_msgSend(v10 "processingSettings")];
         originalImageFilters = [requestedSettings originalImageFilters];
         processedImageFilters = [requestedSettings processedImageFilters];
-        v178 = 0u;
-        v179 = 0u;
-        v180 = 0u;
-        v181 = 0u;
+        v191 = 0u;
+        v192 = 0u;
+        v193 = 0u;
+        v194 = 0u;
         photoDescriptors = [v13 photoDescriptors];
-        v15 = [photoDescriptors countByEnumeratingWithState:&v178 objects:v177 count:16];
+        v15 = [photoDescriptors countByEnumeratingWithState:&v191 objects:v190 count:16];
         if (v15)
         {
           v16 = v15;
           LODWORD(v8) = 0;
           v17 = 0;
-          v18 = *v179;
+          v18 = *v192;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v179 != v18)
+              if (*v192 != v18)
               {
                 objc_enumerationMutation(photoDescriptors);
               }
 
-              processingFlags = [*(*(&v178 + 1) + 8 * i) processingFlags];
+              processingFlags = [*(*(&v191 + 1) + 8 * i) processingFlags];
               LODWORD(v8) = v8 | ((processingFlags & 4) >> 2);
               v17 |= (processingFlags & 8) >> 3;
             }
 
-            v16 = [photoDescriptors countByEnumeratingWithState:&v178 objects:v177 count:16];
+            v16 = [photoDescriptors countByEnumeratingWithState:&v191 objects:v190 count:16];
           }
 
           while (v16);
@@ -1372,7 +1382,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
           v26 = self->_unstyledFullResolutionSbuf;
         }
 
-        v138 = v27;
+        v151 = v27;
         sbuf = v26;
         if (v27)
         {
@@ -1384,7 +1394,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
           v32 = v26;
         }
 
-        v134 = v32;
+        v147 = v32;
         v33 = CMGetAttachment(v32, *off_1E798D2B8, 0);
         v34 = 0x1E696A000;
         if (v33)
@@ -1398,7 +1408,7 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
           else
           {
             v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v33];
-            OUTLINED_FUNCTION_12_34(v134);
+            OUTLINED_FUNCTION_12_34(v147);
             OUTLINED_FUNCTION_12_34(cf);
           }
 
@@ -1427,61 +1437,61 @@ void __102__BWStillImageFilterNode__emitNodeErrorForErrorStatus_numberOfNodeErro
         optimizedEnhancedResolutionDepthPipelineEnabled2 = [(BWStillImageNodeConfiguration *)self->_nodeConfiguration optimizedEnhancedResolutionDepthPipelineEnabled];
         if (optimizedEnhancedResolutionDepthPipelineEnabled2)
         {
-          if (v138)
+          if (v151)
           {
             [(BWStillImageFilterStatusDelegate *)self->_statusDelegate filterNodeDidReceiveStandardResolutionDeepFusionBuffer:self error:0];
             coreImageBlurMapRenderer = self->_coreImageBlurMapRenderer;
             ImageBuffer = CMSampleBufferGetImageBuffer(v21);
-            v176[0] = MEMORY[0x1E69E9820];
-            v176[1] = 3221225472;
-            v176[2] = __54__BWStillImageFilterNode_renderSampleBuffer_forInput___block_invoke;
-            v176[3] = &unk_1E7998930;
-            v176[4] = self;
-            v176[5] = v21;
-            [(BWStillImageCoreImageBlurMapRenderer *)coreImageBlurMapRenderer renderUsingParameters:0 inputPixelBuffer:ImageBuffer inputSampleBuffer:v21 originalPixelBuffer:0 processedPixelBuffer:0 completionHandler:v176];
+            v189[0] = MEMORY[0x1E69E9820];
+            v189[1] = 3221225472;
+            v189[2] = __54__BWStillImageFilterNode_renderSampleBuffer_forInput___block_invoke;
+            v189[3] = &unk_1E7998930;
+            v189[4] = self;
+            v189[5] = v21;
+            [(BWStillImageCoreImageBlurMapRenderer *)coreImageBlurMapRenderer renderUsingParameters:0 inputPixelBuffer:ImageBuffer inputSampleBuffer:v21 originalPixelBuffer:0 processedPixelBuffer:0 completionHandler:v189];
             code = 0;
 LABEL_46:
             v50 = 0;
 LABEL_47:
-            v10 = v135;
+            v10 = v148;
             goto LABEL_113;
           }
 
           if (sbuf && cf)
           {
-            v174 = 0u;
-            v175 = 0u;
-            v172 = 0u;
-            v173 = 0u;
+            v187 = 0u;
+            v188 = 0u;
+            v185 = 0u;
+            v186 = 0u;
             selfCopy = self;
             attachedMediaFromStandardResolutionImage = self->_attachedMediaFromStandardResolutionImage;
-            v53 = OUTLINED_FUNCTION_17_22(optimizedEnhancedResolutionDepthPipelineEnabled2, v40, v41, v42, v43, v44, v45, v46, v118, v120, v122, v124, v33, v5, key, 184, originalImageFilters, v131, captureSettings, processedImageFilters, v134, v135, target, cf, 280, sbuf, v142, v143, v144, v145, v146, selfCopy2, v148, v149, v150, v151, *v152, *&v152[8], *&v152[16], v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, 0);
+            v53 = OUTLINED_FUNCTION_17_22(optimizedEnhancedResolutionDepthPipelineEnabled2, v40, v41, v42, v43, v44, v45, v46, v134, v135, v136, v137, v33, v5, key, 184, originalImageFilters, v144, captureSettings, processedImageFilters, v147, v148, target, cf, 280, sbuf, v155, v156, v157, v158, v159, selfCopy2, v161, v162, v163, v164, *v165, *&v165[8], *&v165[16], v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, v181, v182, v183, v184);
             if (v53)
             {
               v54 = v53;
-              v55 = *v173;
+              v55 = *v186;
               do
               {
                 for (j = 0; j != v54; ++j)
                 {
-                  if (*v173 != v55)
+                  if (*v186 != v55)
                   {
                     objc_enumerationMutation(attachedMediaFromStandardResolutionImage);
                   }
 
-                  v57 = *(*(&v172 + 1) + 8 * j);
-                  v58 = [v57 isEqualToString:0x1F21AAE30];
-                  if ((v58 & 1) == 0)
+                  v57 = *(*(&v185 + 1) + 8 * j);
+                  isEqualToString = objc_msgSend_isEqualToString_(v57);
+                  if ((isEqualToString & 1) == 0)
                   {
-                    BWSampleBufferSetAttachedMedia(cf, v57, [*(&selfCopy->super.super.isa + v139) objectForKeyedSubscript:v57]);
+                    BWSampleBufferSetAttachedMedia(cf, v57, [*(&selfCopy->super.super.isa + v152) objectForKeyedSubscript:v57]);
                     if (cf != sbuf)
                     {
-                      BWSampleBufferSetAttachedMedia(sbuf, v57, [*(&selfCopy->super.super.isa + v139) objectForKeyedSubscript:v57]);
+                      BWSampleBufferSetAttachedMedia(sbuf, v57, [*(&selfCopy->super.super.isa + v152) objectForKeyedSubscript:v57]);
                     }
                   }
                 }
 
-                v54 = OUTLINED_FUNCTION_17_22(v58, v59, v60, v61, v62, v63, v64, v65, v119, v121, v123, v125, v126, v127, key, v129, originalImageFilters, v131, captureSettings, processedImageFilters, v134, v135, target, cf, v139, sbuf, v142, v143, v144, v145, v146, selfCopy2, v148, v149, v150, v151, *v152, *&v152[8], *&v152[16], v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172);
+                v54 = OUTLINED_FUNCTION_17_22(isEqualToString, v59, v60, v61, v62, v63, v64, v65, v134, v135, v136, v138, v139, v140, key, v142, originalImageFilters, v144, captureSettings, processedImageFilters, v147, v148, target, cf, v152, sbuf, v155, v156, v157, v158, v159, selfCopy2, v161, v162, v163, v164, *v165, *&v165[8], *&v165[16], v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, v181, v182, v183, v184);
               }
 
               while (v54);
@@ -1493,6 +1503,7 @@ LABEL_47:
               sifn_mergeInferenceResults(sbuf, selfCopy->_inferenceResultsFromStandardResolutionImage);
             }
 
+            v137 = 288;
             CMSetAttachment(cf, @"PortraitStillImageAuxDepthMetadata", selfCopy->_portraitStillImageAuxDepthMetadata, 1u);
             v66 = selfCopy;
             CMSetAttachment(cf, @"PortraitStillImageFaceAdjustedBlurMap", selfCopy->_faceAdjustedBlurMapFromStandardResolutionImage, 1u);
@@ -1512,14 +1523,14 @@ LABEL_47:
 
             portraitStillImageAuxDepthMetadata = v66->_portraitStillImageAuxDepthMetadata;
             self = v66;
-            v33 = v126;
+            v33 = v139;
             if (portraitStillImageAuxDepthMetadata)
             {
               CFRelease(portraitStillImageAuxDepthMetadata);
               v66->_portraitStillImageAuxDepthMetadata = 0;
             }
 
-            *(&v66->super.super.isa + v139) = 0;
+            *(&v66->super.super.isa + v152) = 0;
             v66->_inferenceResultsFromStandardResolutionImage = 0;
             v21 = target;
           }
@@ -1541,12 +1552,12 @@ LABEL_47:
         {
           if ([captureSettings captureType] != 10)
           {
-            v140 = 0;
+            v153 = 0;
 LABEL_77:
             v70 = BWCIFilterArrayContainsPortraitFilters(processedImageFilters);
             v71 = BWCIFilterArrayOnlyContainsPortraitFilters(processedImageFilters);
             v72 = [objc_msgSend(v33 objectForKeyedSubscript:{*off_1E798D008), "intValue"}];
-            v73 = BWSampleBufferGetAttachedMedia(v134, @"Depth");
+            v73 = BWSampleBufferGetAttachedMedia(v147, @"Depth");
             v74 = v73;
             if (v70)
             {
@@ -1579,23 +1590,23 @@ LABEL_77:
                 os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
                 if (OUTLINED_FUNCTION_18_18(os_log_and_send_and_compose_flags_and_os_log_type))
                 {
-                  v84 = v74;
+                  v86 = v74;
                 }
 
                 else
                 {
-                  v84 = v74 & 0xFFFFFFFE;
+                  v86 = v74 & 0xFFFFFFFE;
                 }
 
-                if (v84)
+                if (v86)
                 {
-                  v85 = self->_blurMapRenderErrorFromStandardResolutionImage;
-                  *v152 = 136315394;
-                  *&v152[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
-                  *&v152[12] = 2114;
-                  *&v152[14] = v85;
+                  v87 = self->_blurMapRenderErrorFromStandardResolutionImage;
+                  *v165 = 136315394;
+                  *&v165[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
+                  *&v165[12] = 2114;
+                  *&v165[14] = v87;
                   OUTLINED_FUNCTION_76();
-                  OUTLINED_FUNCTION_5_0();
+                  OUTLINED_FUNCTION_5_0(v88, v89, v195, v90, &dword_1AC90E000);
                 }
 
                 v21 = target;
@@ -1617,8 +1628,8 @@ LABEL_77:
               OUTLINED_FUNCTION_11_31();
               OUTLINED_FUNCTION_10_31();
               v77 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v78 = v183;
-              if (os_log_type_enabled(v77, v182))
+              v78 = v197;
+              if (os_log_type_enabled(v77, v196))
               {
                 v79 = v78;
               }
@@ -1641,17 +1652,17 @@ LABEL_77:
                   v81 = @"missing";
                 }
 
-                *v152 = 136315906;
-                *&v152[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
-                *&v152[12] = 2114;
-                *&v152[14] = v81;
+                *v165 = 136315906;
+                *&v165[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
+                *&v165[12] = 2114;
+                *&v165[14] = v81;
                 v76 = v80;
-                *&v152[22] = 2050;
-                v153 = BWStillImageCaptureIDForSampleBuffer(target);
-                LOWORD(v154) = 1026;
-                *(&v154 + 2) = -16809;
+                *&v165[22] = 2050;
+                v166 = BWStillImageCaptureIDForSampleBuffer(target);
+                LOWORD(v167) = 1026;
+                *(&v167 + 2) = -16809;
                 OUTLINED_FUNCTION_76();
-                OUTLINED_FUNCTION_5_0();
+                OUTLINED_FUNCTION_5_0(v79, v82, v195, v83, &dword_1AC90E000);
               }
 
               OUTLINED_FUNCTION_8_36();
@@ -1663,27 +1674,27 @@ LABEL_77:
 
             if (((v8 | v17) & 1) == 0)
             {
-              v86 = self->_unstyledFullResolutionSbuf;
-              if (v86)
+              v91 = self->_unstyledFullResolutionSbuf;
+              if (v91)
               {
-                CFRelease(v86);
+                CFRelease(v91);
                 self->_unstyledFullResolutionSbuf = 0;
               }
 
-              v87 = self->_learnedCoefficientsSbuf;
-              v10 = v135;
-              if (v87)
+              v92 = self->_learnedCoefficientsSbuf;
+              v10 = v148;
+              if (v92)
               {
-                CFRelease(v87);
+                CFRelease(v92);
                 self->_learnedCoefficientsSbuf = 0;
               }
 
-              v88 = v7[850];
-              v89 = *(&self->super.super.isa + v88);
-              if (v89)
+              v93 = v7[850];
+              v94 = *(&self->super.super.isa + v93);
+              if (v94)
               {
-                CFRelease(v89);
-                *(&self->super.super.isa + v88) = 0;
+                CFRelease(v94);
+                *(&self->super.super.isa + v93) = 0;
               }
 
               [(BWStillImageFilterNode *)self _emitSampleBufferAsync:v21];
@@ -1693,22 +1704,22 @@ LABEL_112:
               goto LABEL_113;
             }
 
-            v95 = BWPixelBufferDimensionsFromSampleBuffer(v21);
-            [(BWStillImageFilterNode *)self _prepareStillImageFilterRenderersForOriginalFilters:originalImageFilters processedFilters:processedImageFilters metadata:v131 settings:v135 inputDimensions:v95];
+            v100 = BWPixelBufferDimensionsFromSampleBuffer(v21);
+            [(BWStillImageFilterNode *)self _prepareStillImageFilterRenderersForOriginalFilters:originalImageFilters processedFilters:processedImageFilters metadata:v144 settings:v148 inputDimensions:v100];
             if (v8)
             {
-              v96 = CFRetain(cf);
-              sampleBufferOut[0] = v96;
+              v101 = CFRetain(cf);
+              sampleBufferOut[0] = v101;
 LABEL_145:
-              if (!v96)
+              if (!v101)
               {
                 goto LABEL_46;
               }
 
-              v105 = CMSampleBufferGetImageBuffer(v96);
-              if (v105)
+              v110 = CMSampleBufferGetImageBuffer(v101);
+              if (v110)
               {
-                v106 = v105;
+                v111 = v110;
                 BWSampleBufferSetAttachedMedia(sampleBufferOut[0], 0x1F21AAFD0, self->_learnedCoefficientsSbuf);
                 CFRetain(cf);
                 if (sbuf)
@@ -1716,29 +1727,29 @@ LABEL_145:
                   CFRetain(sbuf);
                 }
 
-                v107 = *(&self->super.super.isa + v129);
+                v112 = *(&self->super.super.isa + v142);
                 renderList = self->_renderList;
-                v142 = MEMORY[0x1E69E9820];
-                v143 = 3221225472;
-                v144 = __54__BWStillImageFilterNode_renderSampleBuffer_forInput___block_invoke_86;
-                v145 = &unk_1E7998958;
-                BYTE4(v151) = v8 & 1;
-                BYTE5(v151) = v17 & 1;
-                BYTE6(v151) = v76;
-                HIBYTE(v151) = v140;
-                v10 = v135;
-                v146 = v135;
+                v155 = MEMORY[0x1E69E9820];
+                v156 = 3221225472;
+                v157 = __54__BWStillImageFilterNode_renderSampleBuffer_forInput___block_invoke_86;
+                v158 = &unk_1E7998958;
+                BYTE4(v164) = v8 & 1;
+                BYTE5(v164) = v17 & 1;
+                BYTE6(v164) = v76;
+                HIBYTE(v164) = v153;
+                v10 = v148;
+                v159 = v148;
                 selfCopy2 = self;
-                v148 = processedImageFilters;
-                v149 = cf;
-                LODWORD(v151) = code;
-                v150 = sbuf;
-                [v107 processRenderList:renderList inputPixelBuffer:v106 inputSampleBuffer:sampleBufferOut[0] resultHandler:&v142];
+                v161 = processedImageFilters;
+                v162 = cf;
+                LODWORD(v164) = code;
+                v163 = sbuf;
+                [v112 processRenderList:renderList inputPixelBuffer:v111 inputSampleBuffer:sampleBufferOut[0] resultHandler:&v155];
                 goto LABEL_112;
               }
 
               OUTLINED_FUNCTION_0();
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v134, v135, v136, v137, v139, v140, key, v142);
 LABEL_167:
               v50 = -12780;
               goto LABEL_47;
@@ -1746,35 +1757,35 @@ LABEL_167:
 
             if (sbuf)
             {
-              v97 = v76;
+              v102 = v76;
               if (self->_portraitRenderQuality == 2)
               {
-                v98 = CMSampleBufferGetImageBuffer(sbuf);
-                if (!v98)
+                v103 = CMSampleBufferGetImageBuffer(sbuf);
+                if (!v103)
                 {
                   OUTLINED_FUNCTION_0();
-                  FigDebugAssert3();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v134, v135, v136, v137, v139, v140, key, v142);
                   LOBYTE(v8) = 0;
                   goto LABEL_167;
                 }
 
                 height = self->_outputDimensions.height;
-                v100 = CVPixelBufferGetHeight(v98);
+                v105 = CVPixelBufferGetHeight(v103);
                 [(BWStillImageFilterNode *)self _downsampleImageForSampleBuffer:sampleBufferOut outputSampleBuffer:*&self->_outputDimensions dimensions:?];
                 if (!sampleBufferOut[0])
                 {
                   OUTLINED_FUNCTION_0();
-                  FigDebugAssert3();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v134, v135, v136, v137, v139, v140, key, v142);
                   LOBYTE(v8) = 0;
                   goto LABEL_46;
                 }
 
-                v101 = height / v100;
-                v102 = [v131 mutableCopy];
-                v103 = 1;
-                CMSetAttachment(sampleBufferOut[0], key, v102, 1u);
-                *&v104 = v101;
-                [v102 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v104), *off_1E798A780}];
+                v106 = height / v105;
+                v107 = [v144 mutableCopy];
+                v108 = 1;
+                CMSetAttachment(sampleBufferOut[0], key, v107, 1u);
+                *&v109 = v106;
+                [v107 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v109), *off_1E798A780}];
 
                 goto LABEL_140;
               }
@@ -1784,60 +1795,60 @@ LABEL_167:
 
             else
             {
-              v97 = v76;
+              v102 = v76;
             }
 
-            v103 = 0;
+            v108 = 0;
 LABEL_140:
-            if (v97 && (v140 & 1) == 0)
+            if (v102 && (v153 & 1) == 0)
             {
               CMSetAttachment(cf, @"SDOFCustomRendered", [MEMORY[0x1E696AD98] numberWithShort:9], 1u);
             }
 
             [(BWStillImageFilterNode *)self _emitSampleBufferAsync:?];
-            if (v103)
+            if (v108)
             {
-              v109 = [(BWStillImageFilterNode *)self _downsampleAttachedMediaForSampleBuffer:?];
-              if (v109)
+              v114 = [(BWStillImageFilterNode *)self _downsampleAttachedMediaForSampleBuffer:?];
+              if (v114)
               {
-                v50 = v109;
+                v50 = v114;
                 OUTLINED_FUNCTION_1_5();
-                FigDebugAssert3();
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v134, v135, v136, v137, v139, v140, key, v142);
                 LOBYTE(v8) = 0;
                 goto LABEL_47;
               }
             }
 
-            v96 = sampleBufferOut[0];
-            LOBYTE(v76) = v97;
+            v101 = sampleBufferOut[0];
+            LOBYTE(v76) = v102;
             goto LABEL_145;
           }
 
           v69 = ([captureSettings captureFlags] >> 20) & 1;
         }
 
-        v140 = v69;
+        v153 = v69;
         goto LABEL_77;
       }
 
       FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
       OUTLINED_FUNCTION_11_31();
       OUTLINED_FUNCTION_10_31();
-      v114 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      if (os_log_type_enabled(v114, v182))
+      v122 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      if (os_log_type_enabled(v122, v196))
       {
-        v115 = v183;
+        v123 = v197;
       }
 
       else
       {
-        v115 = v183 & 0xFFFFFFFE;
+        v123 = v197 & 0xFFFFFFFE;
       }
 
-      if (v115)
+      if (v123)
       {
-        *v152 = 136315138;
-        *&v152[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
+        *v165 = 136315138;
+        *&v165[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
         OUTLINED_FUNCTION_76();
         _os_log_send_and_compose_impl();
       }
@@ -1845,46 +1856,46 @@ LABEL_140:
       OUTLINED_FUNCTION_8_1();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       OUTLINED_FUNCTION_14_25();
-      v117 = OUTLINED_FUNCTION_6_0();
-      FigCapturePleaseFileRadar(FrameworkRadarComponent, v117, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 598, @"LastShownDate:BWStillImageFilterNode.m:598", @"LastShownBuild:BWStillImageFilterNode.m:598", 0);
-      free(v117);
+      v133 = OUTLINED_FUNCTION_6_0(v129, v130, v131, v132, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+      FigCapturePleaseFileRadar(FrameworkRadarComponent, v133, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 598, @"LastShownDate:BWStillImageFilterNode.m:598", @"LastShownBuild:BWStillImageFilterNode.m:598", 0);
+      free(v133);
     }
   }
 
   else
   {
-    v110 = FigCaptureGetFrameworkRadarComponent();
+    v115 = FigCaptureGetFrameworkRadarComponent();
     OUTLINED_FUNCTION_11_31();
     OUTLINED_FUNCTION_10_31();
-    v111 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (OUTLINED_FUNCTION_18_18(v111))
+    v116 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    if (OUTLINED_FUNCTION_18_18(v116))
     {
-      v112 = v4;
+      v117 = v4;
     }
 
     else
     {
-      v112 = v4 & 0xFFFFFFFE;
+      v117 = v4 & 0xFFFFFFFE;
     }
 
-    if (v112)
+    if (v117)
     {
-      *v152 = 136315138;
-      *&v152[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
+      *v165 = 136315138;
+      *&v165[4] = "[BWStillImageFilterNode renderSampleBuffer:forInput:]";
       OUTLINED_FUNCTION_76();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v118, v119, v195, v120, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_8_1();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_14_25();
-    v116 = OUTLINED_FUNCTION_6_0();
-    FigCapturePleaseFileRadar(v110, v116, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 585, @"LastShownDate:BWStillImageFilterNode.m:585", @"LastShownBuild:BWStillImageFilterNode.m:585", 0);
-    free(v116);
+    v128 = OUTLINED_FUNCTION_6_0(v124, v125, v126, v127, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    FigCapturePleaseFileRadar(v115, v128, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageFilterNode.m", 585, @"LastShownDate:BWStillImageFilterNode.m:585", @"LastShownBuild:BWStillImageFilterNode.m:585", 0);
+    free(v128);
     v10 = 0;
   }
 
-  v131 = 0;
+  v144 = 0;
   code = 0;
   v50 = -12780;
 LABEL_113:
@@ -1900,46 +1911,46 @@ LABEL_113:
       return;
     }
 
-    v90 = 1;
+    v95 = 1;
     v50 = code;
 LABEL_129:
-    [(BWStillImageFilterNode *)self _emitNodeErrorForErrorStatus:v50 numberOfNodeErrors:v90 stillImageSettings:v10 metadata:v131];
+    [(BWStillImageFilterNode *)self _emitNodeErrorForErrorStatus:v50 numberOfNodeErrors:v95 stillImageSettings:v10 metadata:v144];
     return;
   }
 
   if (v10)
   {
-    v90 = [objc_msgSend(v10 "processingSettings")];
+    v95 = [objc_msgSend(v10 "processingSettings")];
   }
 
   else
   {
-    v90 = 2;
+    v95 = 2;
   }
 
-  v91 = self->_unstyledFullResolutionSbuf;
-  if (v91)
+  v96 = self->_unstyledFullResolutionSbuf;
+  if (v96)
   {
-    CFRelease(v91);
+    CFRelease(v96);
     self->_unstyledFullResolutionSbuf = 0;
   }
 
-  v92 = self->_learnedCoefficientsSbuf;
-  if (v92)
+  v97 = self->_learnedCoefficientsSbuf;
+  if (v97)
   {
-    CFRelease(v92);
+    CFRelease(v97);
     self->_learnedCoefficientsSbuf = 0;
   }
 
-  v93 = v7[850];
-  v94 = *(&self->super.super.isa + v93);
-  if (v94)
+  v98 = v7[850];
+  v99 = *(&self->super.super.isa + v98);
+  if (v99)
   {
-    CFRelease(v94);
-    *(&self->super.super.isa + v93) = 0;
+    CFRelease(v99);
+    *(&self->super.super.isa + v98) = 0;
   }
 
-  if (v90 >= 1)
+  if (v95 >= 1)
   {
     goto LABEL_129;
   }
@@ -1958,7 +1969,7 @@ LABEL_129:
     if ([filters count])
     {
       v12 = 0;
-      while (![objc_msgSend(objc_msgSend(filters objectAtIndex:{v12), "name"), "isEqualToString:", @"CIDepthEffect"}])
+      while (!objc_msgSend_isEqualToString_([objc_msgSend(filters objectAtIndex:{v12), "name"}]))
       {
         if ([filters count] <= ++v12)
         {
@@ -1977,7 +1988,7 @@ LABEL_9:
     filters = v11;
   }
 
-  v42 = *(self + 176);
+  v51 = *(self + 176);
   [a2 valueForKeyPath:@"name"];
   v13 = [OUTLINED_FUNCTION_36() setWithArray:?];
   [filters valueForKeyPath:@"name"];
@@ -2005,17 +2016,31 @@ LABEL_9:
       v15 = [processedFilters objectForKeyedSubscript:*off_1E798B540];
     }
 
-    FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect();
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(settings, settings >> 32, FinalCropRect, v22, v23, v24, [objc_msgSend(metadata "requestedSettings")] / objc_msgSend(objc_msgSend(metadata, "requestedSettings"), "outputHeight"));
-    height = v44.size.height;
-    if (!CGRectIsNull(v44))
+    FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(processedFilters);
+    v23 = v22;
+    v25 = v24;
+    v27 = v26;
+    v28 = [objc_msgSend(metadata "requestedSettings")];
+    v29.n128_f64[0] = v28 / [objc_msgSend(metadata "requestedSettings")];
+    v30.n128_f64[0] = FinalCropRect;
+    v31.n128_u64[0] = v25;
+    v32.n128_u64[0] = v27;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(settings, settings >> 32, v30, v23, v31, v32, v29, v33);
+    height = v53.size.height;
+    if (CGRectIsNull(v53))
+    {
+      OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    }
+
+    else
     {
       if ([objc_msgSend(metadata "requestedSettings")])
       {
         [objc_msgSend(objc_msgSend(metadata "captureSettings")];
-        v27 = v26;
-        v28 = 1.0;
-        if (v27 > 1.0)
+        v36 = v35;
+        v37 = 1.0;
+        if (v36 > 1.0)
         {
           [objc_msgSend(objc_msgSend(metadata "captureSettings")];
         }
@@ -2023,28 +2048,28 @@ LABEL_9:
 
       else
       {
-        v29 = [objc_msgSend(metadata "requestedSettings")] / height;
-        v30 = [objc_msgSend(processedFilters objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-        if (v30)
+        v38 = [objc_msgSend(metadata "requestedSettings")] / height;
+        v39 = [objc_msgSend(processedFilters objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+        if (v39)
         {
-          v29 = v29 / vcvts_n_f32_s32(v30, 1uLL);
+          v38 = v38 / vcvts_n_f32_s32(v39, 1uLL);
         }
 
         [objc_msgSend(processedFilters objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
-        if (v31 == 0.0)
+        if (v40 == 0.0)
         {
-          v31 = 1.0;
+          v40 = 1.0;
         }
 
-        v28 = v29 * v31;
+        v37 = v38 * v40;
       }
 
-      v32 = fmaxf(v28, 1.0);
-      if ([v15 isEqualToString:*(self + 352)])
+      v41 = fmaxf(v37, 1.0);
+      if (objc_msgSend_isEqualToString_(v15))
       {
-        v33 = *(self + 360);
-        v34 = v32 != v33;
-        if (!((v42 == 0) | v14 & 1) && v32 == v33)
+        v42 = *(self + 360);
+        v43 = v41 != v42;
+        if (!((v51 == 0) | v14 & 1) && v41 == v42)
         {
           goto LABEL_31;
         }
@@ -2052,10 +2077,10 @@ LABEL_9:
 
       else
       {
-        v34 = 1;
+        v43 = 1;
       }
 
-      v35 = *(self + 352);
+      v44 = *(self + 352);
 
       *(self + 176) = 0;
       *(self + 352) = 0;
@@ -2063,56 +2088,57 @@ LABEL_9:
       *(self + 368) = 0;
       *(self + 360) = 0;
       *(self + 464) = 0;
-      if (v34)
+      if (v43)
       {
 
         *(self + 216) = 0;
         *(self + 224) = 0;
       }
 
-      v36 = [objc_msgSend(*(self + 136) objectForKeyedSubscript:{v15), "sensorIDDictionary"}];
-      *&v37 = v32;
-      v38 = [FigCaptureCameraParameters sdofTuningParametersForSensorIDDictionary:v36 zoomFactor:v37];
-      *(self + 368) = v38;
-      if (v38)
+      v45 = [objc_msgSend(*(self + 136) objectForKeyedSubscript:{v15), "sensorIDDictionary"}];
+      *&v46 = v41;
+      v47 = [FigCaptureCameraParameters sdofTuningParametersForSensorIDDictionary:v45 zoomFactor:v46];
+      *(self + 368) = v47;
+      if (v47)
       {
         *(self + 352) = v15;
-        *(self + 360) = v32;
+        *(self + 360) = v41;
         if ([*(self + 128) deferredPhotoProcessorEnabled])
         {
           if ([*(self + 128) optimizedEnhancedResolutionDepthPipelineEnabled])
           {
-            v39 = 3;
+            v48 = 3;
           }
 
           else
           {
-            v39 = 2;
+            v48 = 2;
           }
         }
 
         else
         {
-          v39 = 1;
+          v48 = 1;
         }
 
         v16 = [BWRenderList alloc];
         v17 = *(self + 192);
-        v20 = v39;
+        v20 = v48;
         v18 = a2;
         filtersCopy2 = filters;
         goto LABEL_42;
       }
+
+      OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
-    OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
 LABEL_31:
     OUTLINED_FUNCTION_16_26();
     return;
   }
 
-  if (!((v42 == 0) | v14 & 1))
+  if (!((v51 == 0) | v14 & 1))
   {
     goto LABEL_31;
   }
@@ -2126,10 +2152,10 @@ LABEL_42:
   *(self + 176) = [(BWRenderList *)v16 initWithResourceProvider:v17 originalFilters:v18 processedFilters:filtersCopy2 optimizationStrategy:v20 stillImageSettings:metadata];
   OUTLINED_FUNCTION_16_26();
 
-  [v40 prepareWithParameters:? forInputVideoFormat:? inputMediaPropertiesByAttachedMediaKey:?];
+  [v49 prepareWithParameters:? forInputVideoFormat:? inputMediaPropertiesByAttachedMediaKey:?];
 }
 
-- (uint64_t)_downsampleImageForSampleBuffer:(CFTypeRef *)buffer outputSampleBuffer:(uint64_t)sampleBuffer dimensions:
+- (uint64_t)_downsampleImageForSampleBuffer:(CFTypeRef *)buffer outputSampleBuffer:(unint64_t)sampleBuffer dimensions:
 {
   if (!self)
   {
@@ -2152,14 +2178,15 @@ LABEL_42:
       }
 
       OUTLINED_FUNCTION_0_67();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
       OUTLINED_FUNCTION_0_8();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     }
 
-    FigDebugAssert3();
     v6 = 0;
   }
 
@@ -2196,83 +2223,83 @@ LABEL_8:
 
   if (a2)
   {
-    v4 = BWSampleBufferCopyDictionaryOfAttachedMedia(a2);
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v23[0] = @"PersonSegmentationMask";
-    v23[1] = @"PersonSemanticsHair";
-    v23[2] = @"PersonSemanticsGlasses";
-    v23[3] = @"RefinedDepth";
-    v23[4] = @"Depth";
-    v23[5] = @"GainMap";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:6];
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v18 count:16];
-    if (v6)
+    v5 = BWSampleBufferCopyDictionaryOfAttachedMedia(a2);
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30[0] = @"PersonSegmentationMask";
+    v30[1] = @"PersonSemanticsHair";
+    v30[2] = @"PersonSemanticsGlasses";
+    v30[3] = @"RefinedDepth";
+    v30[4] = @"Depth";
+    v30[5] = @"GainMap";
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:6];
+    v7 = [v6 countByEnumeratingWithState:&v26 objects:&v22 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v20;
+      v8 = v7;
+      v9 = *v27;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v20 != v8)
+          if (*v27 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * v9);
-          v11 = [v4 objectForKeyedSubscript:v10];
-          if (v11)
+          v11 = *(*(&v26 + 1) + 8 * v10);
+          v12 = [v5 objectForKeyedSubscript:v11];
+          if (v12)
           {
-            v12 = v11;
-            v23[0] = 0;
-            v13 = [v10 isEqualToString:@"Depth"];
-            v14 = &OBJC_IVAR___BWStillImageFilterNode__maskDimensions;
-            if (v13)
+            v13 = v12;
+            v30[0] = 0;
+            isEqualToString = objc_msgSend_isEqualToString_(v11);
+            v15 = &OBJC_IVAR___BWStillImageFilterNode__maskDimensions;
+            if (isEqualToString)
             {
-              v14 = &OBJC_IVAR___BWStillImageFilterNode__depthDataMapDimensions;
+              v15 = &OBJC_IVAR___BWStillImageFilterNode__depthDataMapDimensions;
             }
 
-            [(BWStillImageFilterNode *)buffer _downsampleImageForSampleBuffer:v12 outputSampleBuffer:v23 dimensions:*(buffer + *v14)];
-            if (!v23[0])
+            [(BWStillImageFilterNode *)buffer _downsampleImageForSampleBuffer:v13 outputSampleBuffer:v30 dimensions:*(buffer + *v15)];
+            if (!v30[0])
             {
               OUTLINED_FUNCTION_0();
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v20, v21, v2, v22, v23, v24, v25);
               goto LABEL_17;
             }
 
-            BWSampleBufferSetAttachedMedia(a2, v10, v23[0]);
-            if (v23[0])
+            BWSampleBufferSetAttachedMedia(a2, v11, v30[0]);
+            if (v30[0])
             {
-              CFRelease(v23[0]);
+              CFRelease(v30[0]);
             }
           }
 
-          ++v9;
+          ++v10;
         }
 
-        while (v7 != v9);
-        v15 = [v5 countByEnumeratingWithState:&v19 objects:v18 count:16];
-        v7 = v15;
+        while (v8 != v10);
+        v16 = [v6 countByEnumeratingWithState:&v26 objects:&v22 count:16];
+        v8 = v16;
       }
 
-      while (v15);
+      while (v16);
     }
 
 LABEL_17:
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v4 = 0;
-    v16 = 4294954516;
+    v5 = 0;
+    v17 = 4294954516;
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)_emitNodeErrorForErrorStatus:(int)status numberOfNodeErrors:(uint64_t)errors stillImageSettings:(uint64_t)settings metadata:
@@ -2293,7 +2320,7 @@ LABEL_17:
   }
 }
 
-- (uint64_t)_downsamplePixelBuffer:(CVPixelBufferRef *)buffer outputPixelBuffer:(uint64_t)pixelBuffer dimensions:
+- (uint64_t)_downsamplePixelBuffer:(CVPixelBufferRef *)buffer outputPixelBuffer:(unint64_t)pixelBuffer dimensions:
 {
   if (!self)
   {
@@ -2347,13 +2374,13 @@ LABEL_9:
 
       v6 = v14;
       OUTLINED_FUNCTION_0_67();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
       OUTLINED_FUNCTION_0_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v17, v18, pixelBufferOut, v20, v21, v22, v23);
       v6 = 4294954510;
     }
   }
@@ -2370,24 +2397,25 @@ LABEL_9:
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     result = *(result + 200);
     if (!result)
     {
-      v2 = 0;
-      *(v1 + 200) = +[BWCoreImageFilterRenderer context:deferredPhotoProcessorEnabled:allocatorBackend:err:](BWCoreImageFilterRenderer, "context:deferredPhotoProcessorEnabled:allocatorBackend:err:", *(v1 + 400), [*(v1 + 128) deferredPhotoProcessorEnabled], *(v1 + 456), &v2);
-      if ([*(v1 + 128) deferredPhotoProcessorEnabled])
+      HIDWORD(v5) = 0;
+      *(v2 + 200) = +[BWCoreImageFilterRenderer context:deferredPhotoProcessorEnabled:allocatorBackend:err:](BWCoreImageFilterRenderer, "context:deferredPhotoProcessorEnabled:allocatorBackend:err:", *(v2 + 400), [*(v2 + 128) deferredPhotoProcessorEnabled], *(v2 + 456), &v5 + 4);
+      if ([*(v2 + 128) deferredPhotoProcessorEnabled])
       {
-        [*(v1 + 200) loadArchiveWithName:@"ccportrait_archive" fromURL:{objc_msgSend(BWLoadProcessorBundle(@"CCPortrait", 0xFFFFFFFFLL), "bundleURL")}];
-        [*(v1 + 200) loadArchive:*MEMORY[0x1E695FB60]];
+        [*(v2 + 200) loadArchiveWithName:@"ccportrait_archive" fromURL:{objc_msgSend(BWLoadProcessorBundle(@"CCPortrait", 0xFFFFFFFFLL), "bundleURL")}];
+        [*(v2 + 200) loadArchive:*MEMORY[0x1E695FB60]];
       }
 
-      if (v2)
+      if (HIDWORD(v5))
       {
-        FigDebugAssert3();
+        v3 = HIDWORD(v5);
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v1, v4, v5, v6, v7, v8, v9);
       }
 
-      return *(v1 + 200);
+      return *(v2 + 200);
     }
   }
 
@@ -2463,12 +2491,6 @@ LABEL_9:
   v4 = coreImageBlurMapRenderer;
 
   return v4;
-}
-
-- (void)_initWithNodeConfiguration:(uint64_t)a1 sensorConfigurationsByPortType:(void *)a2 statusDelegate:depthDataDeliveryEnabled:personSegmentationEnabled:refinedDepthEnabled:portraitRenderQuality:targetAspectRatio:defaultPortType:defaultZoomFactor:backPressureDrivenPipelining:renderResourceProvider:.cold.1(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_1_5();
-  FigDebugAssert3();
 }
 
 @end

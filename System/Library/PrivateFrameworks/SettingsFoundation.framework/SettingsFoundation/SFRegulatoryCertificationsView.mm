@@ -36,7 +36,7 @@
 
 - (void)render
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v39[4] = *MEMORY[0x277D85DE8];
   [(SFRegulatoryCertificationsView *)self setTranslatesAutoresizingMaskIntoConstraints:0];
   v3 = objc_alloc_init(MEMORY[0x277D75A68]);
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -51,7 +51,7 @@
   v7 = SF_LocalizedStringForSettingsFoundation(@"AX_REGULATORY_INFORMATION");
   [v6 setAccessibilityLabel:v7];
 
-  v39 = v6;
+  v38 = v6;
   [v3 addArrangedSubview:v6];
   if (SFShouldShowIndiaBIS())
   {
@@ -116,27 +116,25 @@ LABEL_15:
   }
 
 LABEL_16:
-  v34 = MEMORY[0x277CCAAD0];
+  v33 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(SFRegulatoryCertificationsView *)self leadingAnchor];
   leadingAnchor2 = [v3 leadingAnchor];
-  v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v40[0] = v36;
+  v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v39[0] = v35;
   trailingAnchor = [(SFRegulatoryCertificationsView *)self trailingAnchor];
   trailingAnchor2 = [v3 trailingAnchor];
   v25 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v40[1] = v25;
+  v39[1] = v25;
   topAnchor = [(SFRegulatoryCertificationsView *)self topAnchor];
   topAnchor2 = [v3 topAnchor];
   v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v40[2] = v28;
+  v39[2] = v28;
   bottomAnchor = [(SFRegulatoryCertificationsView *)self bottomAnchor];
   bottomAnchor2 = [v3 bottomAnchor];
   v31 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v40[3] = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
-  [v34 activateConstraints:v32];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v39[3] = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
+  [v33 activateConstraints:v32];
 }
 
 @end

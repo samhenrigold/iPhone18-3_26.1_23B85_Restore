@@ -124,7 +124,7 @@
 
 - (void)_addPropertyName:(id)name identifier:(id)identifier database:(id)database
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   databaseCopy = database;
@@ -143,14 +143,14 @@ LABEL_6:
       v16 = KGLoggingConnection();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v18 = [(NSMutableDictionary *)self->_attrIdByPropertyName objectForKeyedSubscript:nameCopy];
-        v19 = 138543874;
-        v20 = identifierCopy;
-        v21 = 2114;
-        v22 = v18;
-        v23 = 2114;
-        v24 = nameCopy;
-        _os_log_fault_impl(&dword_255870000, v16, OS_LOG_TYPE_FAULT, "duplicate property by identifiers %{public}@ and %{public}@, name %{public}@", &v19, 0x20u);
+        v17 = [(NSMutableDictionary *)self->_attrIdByPropertyName objectForKeyedSubscript:nameCopy];
+        v18 = 138543874;
+        v19 = identifierCopy;
+        v20 = 2114;
+        v21 = v17;
+        v22 = 2114;
+        v23 = nameCopy;
+        _os_log_fault_impl(&dword_255870000, v16, OS_LOG_TYPE_FAULT, "duplicate property by identifiers %{public}@ and %{public}@, name %{public}@", &v18, 0x20u);
       }
     }
 
@@ -163,11 +163,11 @@ LABEL_6:
     v13 = KGLoggingConnection();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138543618;
-      v20 = nameCopy;
-      v21 = 2114;
-      v22 = identifierCopy;
-      _os_log_error_impl(&dword_255870000, v13, OS_LOG_TYPE_ERROR, "redundant insert of property in cache name=%{public}@, identifier=%{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = nameCopy;
+      v20 = 2114;
+      v21 = identifierCopy;
+      _os_log_error_impl(&dword_255870000, v13, OS_LOG_TYPE_ERROR, "redundant insert of property in cache name=%{public}@, identifier=%{public}@", &v18, 0x16u);
     }
 
     goto LABEL_6;
@@ -177,23 +177,21 @@ LABEL_6:
   v15 = KGLoggingConnection();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    v19 = 138543874;
-    v20 = nameCopy;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = identifierCopy;
-    _os_log_fault_impl(&dword_255870000, v15, OS_LOG_TYPE_FAULT, "duplicate property by name=%{public}@, other name=%{public}@, identifier %{public}@", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = nameCopy;
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2114;
+    v23 = identifierCopy;
+    _os_log_fault_impl(&dword_255870000, v15, OS_LOG_TYPE_FAULT, "duplicate property by name=%{public}@, other name=%{public}@, identifier %{public}@", &v18, 0x20u);
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addLabelName:(id)name identifier:(id)identifier database:(id)database
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   databaseCopy = database;
@@ -212,13 +210,13 @@ LABEL_6:
       v16 = KGLoggingConnection();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v18 = 138543874;
-        v19 = identifierCopy;
-        v20 = 2114;
-        v21 = v15;
-        v22 = 2114;
-        v23 = nameCopy;
-        _os_log_fault_impl(&dword_255870000, v16, OS_LOG_TYPE_FAULT, "duplicate label by identifiers %{public}@ and %{public}@, name %{public}@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = identifierCopy;
+        v19 = 2114;
+        v20 = v15;
+        v21 = 2114;
+        v22 = nameCopy;
+        _os_log_fault_impl(&dword_255870000, v16, OS_LOG_TYPE_FAULT, "duplicate label by identifiers %{public}@ and %{public}@, name %{public}@", &v17, 0x20u);
       }
     }
 
@@ -231,11 +229,11 @@ LABEL_6:
     v13 = KGLoggingConnection();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138543618;
-      v19 = nameCopy;
-      v20 = 2114;
-      v21 = identifierCopy;
-      _os_log_error_impl(&dword_255870000, v13, OS_LOG_TYPE_ERROR, "redundant insert of label in cache name=%{public}@, identifier=%{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = nameCopy;
+      v19 = 2114;
+      v20 = identifierCopy;
+      _os_log_error_impl(&dword_255870000, v13, OS_LOG_TYPE_ERROR, "redundant insert of label in cache name=%{public}@, identifier=%{public}@", &v17, 0x16u);
     }
 
     goto LABEL_6;
@@ -245,18 +243,16 @@ LABEL_6:
   v15 = KGLoggingConnection();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    v18 = 138543874;
-    v19 = nameCopy;
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2114;
-    v23 = identifierCopy;
-    _os_log_fault_impl(&dword_255870000, v15, OS_LOG_TYPE_FAULT, "duplicate label by name=%{public}@, other name=%{public}@, identifier %{public}@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = nameCopy;
+    v19 = 2114;
+    v20 = v12;
+    v21 = 2114;
+    v22 = identifierCopy;
+    _os_log_fault_impl(&dword_255870000, v15, OS_LOG_TYPE_FAULT, "duplicate label by name=%{public}@, other name=%{public}@, identifier %{public}@", &v17, 0x20u);
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertyNameForIdentifier:(id)identifier database:(id)database

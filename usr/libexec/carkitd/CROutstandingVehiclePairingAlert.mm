@@ -33,19 +33,17 @@
 
 - (id)alertDeclineButtonTitle
 {
-  declineType = [(CROutstandingVehiclePairingAlert *)self declineType];
-  if (declineType > 2)
+  if ([(CROutstandingVehiclePairingAlert *)self declineType]> 2)
   {
-    v4 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v3 = off_1000DE990[declineType];
-    v4 = CRLocalizedStringForKey();
+    v2 = CRLocalizedStringForKey();
   }
 
-  return v4;
+  return v2;
 }
 
 @end

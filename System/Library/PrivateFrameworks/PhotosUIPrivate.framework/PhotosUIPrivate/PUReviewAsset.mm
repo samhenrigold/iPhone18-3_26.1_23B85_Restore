@@ -72,7 +72,7 @@
   v6 = [PUReviewAsset alloc];
   pixelWidth = [(PUReviewAsset *)self pixelWidth];
   pixelHeight = [(PUReviewAsset *)self pixelHeight];
-  [(PUReviewAsset *)self duration];
+  objc_msgSend_duration(self);
   v9 = [(PUReviewAsset *)v6 initWithReviewAsset:self baseImageURL:_baseImageURL renderedImageURL:0 baseVideoURL:_baseVideoURL renderedVideoURL:0 pixelWidth:pixelWidth pixelHeight:pixelHeight assetAdjustments:0 duration:?];
 
   return v9;
@@ -105,7 +105,7 @@
   v21 = [PUReviewAsset alloc];
   pixelWidth = [(PUReviewAsset *)self pixelWidth];
   pixelHeight = [(PUReviewAsset *)self pixelHeight];
-  [(PUReviewAsset *)self duration];
+  objc_msgSend_duration(self);
   v24 = [(PUReviewAsset *)v21 initWithReviewAsset:self baseImageURL:_baseImageURL renderedImageURL:renderedImageFileURL baseVideoURL:_baseVideoURL renderedVideoURL:renderedVideoFileURL pixelWidth:pixelWidth pixelHeight:pixelHeight assetAdjustments:v20 duration:?];
 
   return v24;
@@ -944,7 +944,7 @@ void __34__PUReviewAsset__removeFileAtURL___block_invoke(uint64_t a1, char a2, v
     v25[11] = photoCopy == 0;
     if (photoCopy)
     {
-      [photoCopy photoTime];
+      objc_msgSend_photoTime(photoCopy, obj);
     }
 
     else
@@ -1372,17 +1372,17 @@ LABEL_21:
     *(v5 + 14) = modificationDate;
 
     v5[9] = [assetCopy isHDR];
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     *(v5 + 15) = v14;
     v5[10] = [assetCopy isLivePhoto];
     v5[12] = [assetCopy canPlayPhotoIris];
     v5[11] = [assetCopy isLivePhotoPlaceholder];
     if (assetCopy)
     {
-      [assetCopy livePhotoSynchronizedDisplayTime];
+      objc_msgSend_livePhotoSynchronizedDisplayTime(assetCopy);
       *(v5 + 200) = v36;
       *(v5 + 27) = v37;
-      [assetCopy livePhotoDuration];
+      objc_msgSend_livePhotoDuration(assetCopy);
     }
 
     else
@@ -1480,17 +1480,17 @@ LABEL_21:
     *(v5 + 14) = modificationDate;
 
     v5[9] = [assetCopy isHDR];
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     *(v5 + 15) = v14;
     v5[10] = [assetCopy isLivePhoto];
     v5[12] = [assetCopy canPlayPhotoIris];
     v5[11] = [assetCopy isLivePhotoPlaceholder];
     if (assetCopy)
     {
-      [assetCopy livePhotoSynchronizedDisplayTime];
+      objc_msgSend_livePhotoSynchronizedDisplayTime(assetCopy);
       *(v5 + 200) = v33;
       *(v5 + 27) = v34;
-      [assetCopy livePhotoDuration];
+      objc_msgSend_livePhotoDuration(assetCopy);
     }
 
     else

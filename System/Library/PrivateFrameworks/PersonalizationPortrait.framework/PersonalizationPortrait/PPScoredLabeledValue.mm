@@ -1,4 +1,5 @@
 @interface PPScoredLabeledValue
++ (id)scoredLabeledValueWithLabeledValue:(id)value score:(double)score flags:(unsigned __int8)flags;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToScoredLabeledValue:(id)value;
 - (PPScoredLabeledValue)initWithCoder:(id)coder;
@@ -150,6 +151,15 @@ LABEL_9:
   }
 
   return v12;
+}
+
++ (id)scoredLabeledValueWithLabeledValue:(id)value score:(double)score flags:(unsigned __int8)flags
+{
+  flagsCopy = flags;
+  valueCopy = value;
+  v9 = [[self alloc] initWithLabeledValue:valueCopy score:flagsCopy flags:score];
+
+  return v9;
 }
 
 @end

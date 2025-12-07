@@ -42,7 +42,7 @@
 
 - (double)pitch
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v2 = *gdc::Camera::pitch(v4);
   if (v5)
   {
@@ -54,7 +54,7 @@
 
 - (void)setPitch:(double)pitch
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   gdc::Camera::setPitch(v4, COERCE__INT64(pitch * 0.0174532925));
   if (v5)
   {
@@ -64,7 +64,7 @@
 
 - (double)heading
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v2 = *gdc::Camera::heading(v4);
   if (v5)
   {
@@ -76,7 +76,7 @@
 
 - (void)setHeading:(double)heading
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   gdc::Camera::setHeading(v4, COERCE__INT64(heading * 0.0174532925));
   if (v5)
   {
@@ -86,8 +86,8 @@
 
 - (void)setAltitude:(double)altitude
 {
-  [(VKCameraController *)self camera];
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
+  objc_msgSend_camera(self);
   v5 = gdc::Camera::pitch(v7);
   v6 = cos(*v5);
   gdc::Camera::setDistanceFromTarget(v9, COERCE__INT64(v6 * altitude));
@@ -104,7 +104,7 @@
 
 - (double)distanceFromCenterCoordinate
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v2 = *grl::IconMetricsRenderResult::size(v4);
   if (v5)
   {
@@ -116,7 +116,7 @@
 
 - (void)setDistanceFromCenterCoordinate:(double)coordinate
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   gdc::Camera::setDistanceFromTarget(v4, *&coordinate);
   if (v5)
   {
@@ -126,9 +126,9 @@
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)centerCoordinate
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v3 = *gdc::Camera::cameraFrame(v9);
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v4 = *(gdc::Camera::cameraFrame(v7) + 8);
   if (v8)
   {
@@ -152,7 +152,7 @@
   var1 = coordinate.var1;
   v6 = vmulq_f64(coordinate, vdupq_n_s64(0x3F91DF46A2529D39uLL));
   v7 = 0;
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   gdc::Camera::setTarget(v4, &v6);
   if (v5)
   {
@@ -215,15 +215,15 @@
   if (v5)
   {
     currentFrame = [v5 currentFrame];
-    camera = [currentFrame camera];
-    md::MDARCamera::MDARCamera(&v41, camera);
+    v7 = objc_msgSend_camera(currentFrame);
+    md::MDARCamera::MDARCamera(&v41, v7);
 
     currentFrame2 = [v5 currentFrame];
-    camera2 = [currentFrame2 camera];
-    v10 = +[MDARSession stringWithARTrackingState:](MDARSession, "stringWithARTrackingState:", [camera2 trackingState]);
+    v9 = objc_msgSend_camera(currentFrame2);
+    v10 = +[MDARSession stringWithARTrackingState:](MDARSession, "stringWithARTrackingState:", [v9 trackingState]);
     currentFrame3 = [v5 currentFrame];
-    camera3 = [currentFrame3 camera];
-    v13 = +[MDARSession stringWithARTrackingStateReason:](MDARSession, "stringWithARTrackingStateReason:", [camera3 trackingStateReason]);
+    v12 = objc_msgSend_camera(currentFrame3);
+    v13 = +[MDARSession stringWithARTrackingStateReason:](MDARSession, "stringWithARTrackingStateReason:", [v12 trackingStateReason]);
     [v4 appendFormat:@"tracking_state:\n\tstate:%@\n\treason:%@\n", v10, v13];
 
     currentFrame4 = [v5 currentFrame];
@@ -313,18 +313,18 @@
       v10 = currentFrame;
       if (currentFrame)
       {
-        camera = [currentFrame camera];
+        v11 = objc_msgSend_camera(currentFrame);
       }
 
       else
       {
-        camera = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      camera = 0;
+      v11 = 0;
       v10 = 0;
     }
 
@@ -347,10 +347,10 @@
       self->_coordinate.altitude._value = v17;
     }
 
-    if (camera)
+    if (v11)
     {
-      camera2 = [v10 camera];
-      md::MDARCamera::MDARCamera(&v42, camera2);
+      v18 = objc_msgSend_camera(v10);
+      md::MDARCamera::MDARCamera(&v42, v18);
 
       v19 = *(self->_arLogic + 22) - 1;
       v20 = 0.0;
@@ -365,7 +365,7 @@
       self->_eulerAngles.pitch._value = v39 + 1.57079633;
       md::MDARCamera::yaw(&v39, v43);
       self->_eulerAngles.yaw._value = v39;
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self);
       v21 = *&v39;
       md::MDARCamera::widestFieldOfView(&v37, &v42);
       gdc::Camera::setWidestFieldOfView(v21, COERCE__INT64(*&v37 * 0.0174532925));
@@ -382,7 +382,7 @@
       self->_eulerAngles.yaw._value = 0.0;
       self->_eulerAngles.roll._value = 0.0;
       self->_eulerAngles.pitch._value = 0.0;
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self);
       gdc::Camera::setWidestFieldOfView(v42, 0x3FF0C152382D7365);
       if (v43)
       {
@@ -423,7 +423,7 @@
     geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(&v42, &v39);
     v46 = self->_eulerAngles.roll._value;
     v45 = *&self->_eulerAngles.pitch._value;
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     *&v35 = gdc::Camera::setCameraFrame(v37, &v42).n128_u64[0];
     if (v38)
     {
@@ -438,7 +438,7 @@
 
 - (void)_updateClipPlanes
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v3[0] = self->_maxClipDistance._value + 10.0;
   gdc::Camera::setNearFar(*&v3[1], 0x3FB999999999999ALL, v3);
   if (v4)

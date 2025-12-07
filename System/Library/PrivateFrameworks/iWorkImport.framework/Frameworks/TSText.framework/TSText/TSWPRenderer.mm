@@ -1073,10 +1073,10 @@ LABEL_67:
   length = range.length;
   location = range.location;
   v17 = TSDCGContextGetPdfTagger();
-  v30 = TSUProtocolCast();
+  v29 = TSUProtocolCast();
 
   v18 = sub_276DD1F38(line);
-  v29 = CTLineGetGlyphRuns(v18);
+  v28 = CTLineGetGlyphRuns(v18);
   var4 = state->var4;
   selfCopy = self;
   stateCopy = state;
@@ -1092,27 +1092,27 @@ LABEL_67:
     lineCopy2 = line;
   }
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3321888768;
-  v31[2] = sub_276D8FB30;
-  v31[3] = &unk_2885FE880;
-  v39[104] = label;
-  v31[4] = v23;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3321888768;
+  v30[2] = sub_276D8FB30;
+  v30[3] = &unk_2885FE880;
+  labelCopy = label;
+  v30[4] = v23;
   fragmentCopy = fragment;
-  v24 = v29;
-  v39[105] = ruby;
-  v39[106] = yoko;
-  v39[107] = ref;
-  v32 = v24;
-  v36 = location;
-  v37 = length;
-  v25 = v30;
-  v38 = stateCopy;
-  v33 = v25;
-  v34 = selfCopy;
-  *&v26 = sub_276DD1E84(v39, lineCopy2).n128_u64[0];
-  objc_msgSend_enumerateRanges_(v23, v27, v31, v26);
-  sub_276DD1EBC(v39);
+  v24 = v28;
+  rubyCopy = ruby;
+  yokoCopy = yoko;
+  refCopy = ref;
+  v31 = v24;
+  v35 = location;
+  v36 = length;
+  v25 = v29;
+  v37 = stateCopy;
+  v32 = v25;
+  v33 = selfCopy;
+  sub_276DD1E84(v38, lineCopy2);
+  objc_msgSend_enumerateRanges_(v23, v26, v30);
+  sub_276DD1EBC(v38);
 }
 
 - (void)drawRun:(const __CTRun *)run attributes:(id)attributes canvasIsInteractive:(BOOL)interactive glyphRange:(id)range

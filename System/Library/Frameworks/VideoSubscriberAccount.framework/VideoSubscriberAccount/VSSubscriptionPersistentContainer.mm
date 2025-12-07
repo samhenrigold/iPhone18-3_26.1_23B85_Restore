@@ -120,7 +120,7 @@ void __59__VSSubscriptionPersistentContainer__removePersistentStore__block_invok
 void __59__VSSubscriptionPersistentContainer__removePersistentStore__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59__VSSubscriptionPersistentContainer__removePersistentStore__block_invoke_3_cold_1();
@@ -129,29 +129,30 @@ void __59__VSSubscriptionPersistentContainer__removePersistentStore__block_invok
 
 - (BOOL)_setupPersistenceIfNeeded:(id *)needed
 {
-  v66[1] = *MEMORY[0x277D85DE8];
-  if (![(VSSubscriptionPersistentContainer *)self didSetupPersistence])
+  v73[1] = *MEMORY[0x277D85DE8];
+  didSetupPersistence = [(VSSubscriptionPersistentContainer *)self didSetupPersistence];
+  if ((didSetupPersistence & 1) == 0)
   {
     neededCopy = needed;
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(didSetupPersistence);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will setup persistence.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Will setup persistence.", buf, 2u);
     }
 
-    v7 = objc_alloc_init(MEMORY[0x277CCAA00]);
+    v8 = objc_alloc_init(MEMORY[0x277CCAA00]);
     subscriptionsPropertyListURL = [(VSSubscriptionPersistentContainer *)self subscriptionsPropertyListURL];
     persistentStoreURL = [(VSSubscriptionPersistentContainer *)self persistentStoreURL];
-    v10 = [MEMORY[0x277CBE450] vs_subscriptionModelForVersion:3];
+    v11 = [MEMORY[0x277CBE450] vs_subscriptionModelForVersion:3];
     persistentStoreType = [(VSSubscriptionPersistentContainer *)self persistentStoreType];
     path = [persistentStoreURL path];
-    v56 = subscriptionsPropertyListURL;
+    v63 = subscriptionsPropertyListURL;
     path2 = [subscriptionsPropertyListURL path];
-    v13 = path2;
+    v14 = path2;
     if (path && path2)
     {
-      v14 = path;
+      v15 = path;
     }
 
     else
@@ -162,205 +163,207 @@ void __59__VSSubscriptionPersistentContainer__removePersistentStore__block_invok
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The sqlitePathOrNil parameter must not be nil."];
       }
 
-      v15 = path;
-      if (!v13)
+      v16 = path;
+      if (!v14)
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The plistPathOrNil parameter must not be nil."];
       }
     }
 
-    v58 = v13;
+    v65 = v14;
     uRLByDeletingLastPathComponent = [persistentStoreURL URLByDeletingLastPathComponent];
     if (!uRLByDeletingLastPathComponent)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unable to determine container for SQL store."];
     }
 
-    v17 = 0x278B72000uLL;
-    v54 = uRLByDeletingLastPathComponent;
+    v18 = 0x278B72000uLL;
+    v61 = uRLByDeletingLastPathComponent;
     path3 = [uRLByDeletingLastPathComponent path];
-    v19 = [VSOptional optionalWithObject:path3];
-    forceUnwrapObject = [v19 forceUnwrapObject];
+    v20 = [VSOptional optionalWithObject:path3];
+    forceUnwrapObject = [v20 forceUnwrapObject];
 
-    v63 = 0;
-    v53 = forceUnwrapObject;
-    if ([v7 fileExistsAtPath:forceUnwrapObject isDirectory:&v63])
+    v70 = 0;
+    v22 = [v8 fileExistsAtPath:forceUnwrapObject isDirectory:&v70];
+    v60 = forceUnwrapObject;
+    if (v22)
     {
-      if (v63)
+      if (v70)
       {
-        v21 = 0;
+        v23 = 0;
         goto LABEL_26;
       }
 
-      v24 = VSErrorLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = VSErrorLogObject(v22);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:v24];
+        [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:v27];
       }
 
-      v21 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v22 = VSDefaultLogObject();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = VSDefaultLogObject(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AB8E000, v22, OS_LOG_TYPE_DEFAULT, "Will create container directory.", buf, 2u);
+        _os_log_impl(&dword_23AB8E000, v24, OS_LOG_TYPE_DEFAULT, "Will create container directory.", buf, 2u);
       }
 
-      v62 = 0;
-      v23 = [v7 createDirectoryAtPath:forceUnwrapObject withIntermediateDirectories:1 attributes:0 error:&v62];
-      v21 = v62;
-      if (v23)
+      v69 = 0;
+      v25 = [v8 createDirectoryAtPath:forceUnwrapObject withIntermediateDirectories:1 attributes:0 error:&v69];
+      v26 = v69;
+      v23 = v26;
+      if (v25)
       {
 LABEL_26:
-        v55 = v10;
-        if (![v7 fileExistsAtPath:v58] || (objc_msgSend(v7, "fileExistsAtPath:", path) & 1) != 0 || -[VSSubscriptionPersistentContainer skipMigration](self, "skipMigration"))
+        v28 = [v8 fileExistsAtPath:v65];
+        v62 = v11;
+        if (!v28 || (v28 = [v8 fileExistsAtPath:path], (v28 & 1) != 0) || (v28 = -[VSSubscriptionPersistentContainer skipMigration](self, "skipMigration"), (v28 & 1) != 0))
         {
-          v25 = VSDefaultLogObject();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v29 = VSDefaultLogObject(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v25, OS_LOG_TYPE_DEFAULT, "Did NOT migrate plist data.", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v29, OS_LOG_TYPE_DEFAULT, "Did NOT migrate plist data.", buf, 2u);
           }
         }
 
         else
         {
-          v38 = VSDefaultLogObject();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v43 = VSDefaultLogObject(v28);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v38, OS_LOG_TYPE_DEFAULT, "Will migrate plist data.", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v43, OS_LOG_TYPE_DEFAULT, "Will migrate plist data.", buf, 2u);
           }
 
-          v25 = [MEMORY[0x277CBE450] vs_subscriptionModelForVersion:0];
-          v61 = v21;
-          v31 = [MEMORY[0x277CBE458] inferredMappingModelForSourceModel:v25 destinationModel:v10 error:&v61];
-          v39 = v61;
+          v29 = [MEMORY[0x277CBE450] vs_subscriptionModelForVersion:0];
+          v68 = v23;
+          v35 = [MEMORY[0x277CBE458] inferredMappingModelForSourceModel:v29 destinationModel:v11 error:&v68];
+          v44 = v68;
 
-          if (!v31)
+          if (!v35)
           {
-            v46 = VSErrorLogObject();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v53 = VSErrorLogObject(v45);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
               [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:];
             }
 
             if (neededCopy)
             {
-              v47 = v39;
-              v5 = 0;
-              *neededCopy = v39;
+              v54 = v44;
+              v6 = 0;
+              *neededCopy = v44;
             }
 
             else
             {
-              v5 = 0;
+              v6 = 0;
             }
 
-            v21 = v39;
+            v23 = v44;
             goto LABEL_39;
           }
 
-          v40 = v39;
-          v50 = v39;
-          v41 = [objc_alloc(MEMORY[0x277CBE468]) initWithSourceModel:v25 destinationModel:v10];
-          v42 = VSSubscriptionPropertyListStoreType();
-          v65 = *MEMORY[0x277CBE2B0];
-          v66[0] = MEMORY[0x277CBEC38];
-          v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:&v65 count:1];
-          v60 = v40;
-          v51 = v41;
-          v44 = v42;
-          LODWORD(v41) = [v41 migrateStoreFromURL:v56 type:v42 options:v43 withMappingModel:v31 toDestinationURL:persistentStoreURL destinationType:persistentStoreType destinationOptions:0 error:&v60];
-          v21 = v60;
+          v46 = v44;
+          v57 = v44;
+          v47 = [objc_alloc(MEMORY[0x277CBE468]) initWithSourceModel:v29 destinationModel:v11];
+          v48 = VSSubscriptionPropertyListStoreType(v47);
+          v72 = *MEMORY[0x277CBE2B0];
+          v73[0] = MEMORY[0x277CBEC38];
+          v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+          v67 = v46;
+          v58 = v47;
+          v50 = v48;
+          LODWORD(v47) = [v47 migrateStoreFromURL:v63 type:v48 options:v49 withMappingModel:v35 toDestinationURL:persistentStoreURL destinationType:persistentStoreType destinationOptions:0 error:&v67];
+          v23 = v67;
 
-          if (!v41)
+          if (!v47)
           {
-            v48 = VSErrorLogObject();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v55 = VSErrorLogObject(v51);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:];
             }
 
             if (neededCopy)
             {
-              v49 = v21;
-              *neededCopy = v21;
+              v56 = v23;
+              *neededCopy = v23;
             }
 
-            v5 = 0;
+            v6 = 0;
             goto LABEL_39;
           }
 
-          v45 = VSDefaultLogObject();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v52 = VSDefaultLogObject(v51);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v45, OS_LOG_TYPE_DEFAULT, "Migration of plist data completed successfully.", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v52, OS_LOG_TYPE_DEFAULT, "Migration of plist data completed successfully.", buf, 2u);
           }
 
-          v10 = v55;
-          v17 = 0x278B72000;
+          v11 = v62;
+          v18 = 0x278B72000;
         }
 
-        v26 = v21;
+        v30 = v23;
 
-        v27 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v10];
+        v31 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v11];
         persistentStoreCoordinator = self->_persistentStoreCoordinator;
-        self->_persistentStoreCoordinator = v27;
+        self->_persistentStoreCoordinator = v31;
 
-        v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v29 = MEMORY[0x277CBEC38];
-        [v25 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE178]];
-        [v25 setObject:v29 forKey:*MEMORY[0x277CBE1D8]];
-        v30 = self->_persistentStoreCoordinator;
-        v59 = v21;
-        v31 = [(NSPersistentStoreCoordinator *)v30 addPersistentStoreWithType:persistentStoreType configuration:0 URL:persistentStoreURL options:v25 error:&v59];
-        v21 = v59;
+        v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v33 = MEMORY[0x277CBEC38];
+        [v29 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE178]];
+        [v29 setObject:v33 forKey:*MEMORY[0x277CBE1D8]];
+        v34 = self->_persistentStoreCoordinator;
+        v66 = v23;
+        v35 = [(NSPersistentStoreCoordinator *)v34 addPersistentStoreWithType:persistentStoreType configuration:0 URL:persistentStoreURL options:v29 error:&v66];
+        v23 = v66;
 
-        v5 = v31 != 0;
-        if (v31)
+        v6 = v35 != 0;
+        if (v35)
         {
-          v32 = [objc_alloc(MEMORY[0x277CBE440]) initWithConcurrencyType:1];
-          [v32 setPersistentStoreCoordinator:self->_persistentStoreCoordinator];
-          v33 = [*(v17 + 2272) optionalWithObject:v32];
-          [(VSSubscriptionPersistentContainer *)self setViewContext:v33];
+          v37 = [objc_alloc(MEMORY[0x277CBE440]) initWithConcurrencyType:1];
+          [v37 setPersistentStoreCoordinator:self->_persistentStoreCoordinator];
+          v38 = [*(v18 + 2272) optionalWithObject:v37];
+          [(VSSubscriptionPersistentContainer *)self setViewContext:v38];
 
-          [(VSSubscriptionPersistentContainer *)self setDidSetupPersistence:1];
-          v34 = VSDefaultLogObject();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v39 = VSDefaultLogObject([(VSSubscriptionPersistentContainer *)self setDidSetupPersistence:1]);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v34, OS_LOG_TYPE_DEFAULT, "Did setup persistence.", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v39, OS_LOG_TYPE_DEFAULT, "Did setup persistence.", buf, 2u);
           }
         }
 
         else
         {
-          v35 = VSErrorLogObject();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v40 = VSErrorLogObject(v36);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:];
           }
 
           if (neededCopy)
           {
-            v36 = v21;
-            *neededCopy = v21;
+            v41 = v23;
+            *neededCopy = v23;
           }
         }
 
 LABEL_39:
 
-        return v5;
+        return v6;
       }
 
-      v24 = VSErrorLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = VSErrorLogObject(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [VSSubscriptionPersistentContainer _setupPersistenceIfNeeded:];
       }

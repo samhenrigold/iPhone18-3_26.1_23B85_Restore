@@ -84,8 +84,8 @@
     {
       if ([(MCProfileConnection *)self->_profileConnection effectiveBoolValueForSetting:MCFeatureCloudBackupAllowed]!= 2)
       {
-        v11 = 1;
-        return v11 & 1;
+        v12 = 1;
+        return v12 & 1;
       }
 
       v7 = [MBError errorWithCode:22 format:@"Cloud backup is disabled by MDM"];
@@ -97,26 +97,26 @@
         v16 = v9;
         _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "=managed-policy= %@", buf, 0xCu);
 
-        v13 = [v7 description];
-        _MBLog();
+        v10 = [v7 description];
+        _MBLog(@"Df", "=managed-policy= %@", v10);
       }
 
       if (allowed)
       {
-        v10 = v7;
+        v11 = v7;
         *allowed = v7;
       }
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v14;
+    v12 = v14;
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (BOOL)checkIfEnablingCloudBackupIsAllowed:(id *)allowed
@@ -138,31 +138,31 @@
         v16 = v9;
         _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "=managed-policy= %@", buf, 0xCu);
 
-        v13 = [v7 description];
-        _MBLog();
+        v10 = [v7 description];
+        _MBLog(@"Df", "=managed-policy= %@", v10);
       }
 
       if (allowed)
       {
-        v10 = v7;
+        v11 = v7;
         *allowed = v7;
       }
 
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v11 = v14;
+    v12 = v14;
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (BOOL)checkIfCloudAccountModificationIsAllowed:(id *)allowed
@@ -184,31 +184,31 @@
         v16 = v9;
         _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "=managed-policy= %@", buf, 0xCu);
 
-        v13 = [v7 description];
-        _MBLog();
+        v10 = [v7 description];
+        _MBLog(@"Df", "=managed-policy= %@", v10);
       }
 
       if (allowed)
       {
-        v10 = v7;
+        v11 = v7;
         *allowed = v7;
       }
 
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v11 = v14;
+    v12 = v14;
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (BOOL)checkIfDiagnosticTelemetryIsAllowed:(id *)allowed
@@ -225,13 +225,13 @@
       v12 = v7;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "=managed-policy= %@", buf, 0xCu);
 
-      v10 = [v5 description];
-      _MBLog();
+      v8 = [v5 description];
+      _MBLog(@"Df", "=managed-policy= %@", v8);
     }
 
     if (allowed)
     {
-      v8 = v5;
+      v9 = v5;
       *allowed = v5;
     }
   }
@@ -275,13 +275,13 @@
       v16 = v11;
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "=managed-policy= %@", buf, 0xCu);
 
-      v14 = [v8 description];
-      _MBLog();
+      v12 = [v8 description];
+      _MBLog(@"I ", "=managed-policy= %@", v12);
     }
 
     if (error)
     {
-      v12 = v8;
+      v13 = v8;
       *error = v8;
     }
   }
@@ -315,7 +315,7 @@
         *buf = 138412290;
         v19 = v11;
         _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "=managed-policy= %@ force allowed by behavior option", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "=managed-policy= %@ force allowed by behavior option", v11);
       }
     }
 
@@ -331,13 +331,13 @@
         v19 = v14;
         _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "=managed-policy= %@", buf, 0xCu);
 
-        v17 = [v12 description];
-        _MBLog();
+        v15 = [v12 description];
+        _MBLog(@"I ", "=managed-policy= %@", v15);
       }
 
       if (error)
       {
-        v15 = v12;
+        v16 = v12;
         *error = v12;
       }
     }

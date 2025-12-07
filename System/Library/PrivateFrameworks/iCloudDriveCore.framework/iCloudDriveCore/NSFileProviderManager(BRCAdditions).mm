@@ -53,32 +53,32 @@
 
 - (void)br_removeDomain:()BRCAdditions options:sync:completionHandler:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a6;
   if (a5)
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__49;
-    v33 = __Block_byref_object_dispose__49;
-    v34 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__49;
+    v32 = __Block_byref_object_dispose__49;
+    v33 = 0;
     v12 = MEMORY[0x277CFAF00];
     v13 = [BRCUserDefaults defaultsForMangledID:0];
     xpcConnectionFailureRetries = [v13 xpcConnectionFailureRetries];
-    v28 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_completionHandler___block_invoke;
-    v24[3] = &unk_278506B98;
-    v24[4] = self;
+    v27 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_completionHandler___block_invoke;
+    v23[3] = &unk_278506B98;
+    v23[4] = self;
     v15 = v10;
-    v25 = v15;
-    v26 = &v29;
-    v27 = a4;
-    LODWORD(v12) = [v12 executeXPCWithMaxRetries:xpcConnectionFailureRetries error:&v28 block:v24];
-    v16 = v28;
+    v24 = v15;
+    v25 = &v28;
+    v26 = a4;
+    LODWORD(v12) = [v12 executeXPCWithMaxRetries:xpcConnectionFailureRetries error:&v27 block:v23];
+    v16 = v27;
 
     if (v12)
     {
@@ -97,40 +97,38 @@
       if (os_log_type_enabled(v18, 0x90u))
       {
         *buf = 138412802;
-        v36 = v15;
-        v37 = 2112;
-        v38 = v16;
-        v39 = 2112;
-        v40 = v17;
+        v35 = v15;
+        v36 = 2112;
+        v37 = v16;
+        v38 = 2112;
+        v39 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] couldn't remove domain %@ in a sync way: %@%@", buf, 0x20u);
       }
     }
 
-    v11[2](v11, v30[5], v16);
-    _Block_object_dispose(&v29, 8);
+    v11[2](v11, v29[5], v16);
+    _Block_object_dispose(&v28, 8);
   }
 
   else
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__49;
-    v33 = __Block_byref_object_dispose__49;
-    v34 = 0;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_completionHandler___block_invoke_6;
-    v20[3] = &unk_278506BC0;
-    v23 = &v29;
-    v21 = v10;
-    v22 = v11;
-    [self br_removeDomain:v21 options:a4 completionHandler:v20];
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__49;
+    v32 = __Block_byref_object_dispose__49;
+    v33 = 0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_completionHandler___block_invoke_6;
+    v19[3] = &unk_278506BC0;
+    v22 = &v28;
+    v20 = v10;
+    v21 = v11;
+    [self br_removeDomain:v20 options:a4 completionHandler:v19];
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)br_importDomain:()BRCAdditions forProviderIdentifier:fromDirectoryAtURL:error:

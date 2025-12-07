@@ -119,7 +119,7 @@
     {
       v6 = equalCopy;
       objc_opt_class();
-      v7 = (objc_opt_isKindOfClass() & 1) != 0 && [(_UITreeDataSourceSnapshotter *)self->_snapshotter isEqual:v6->_snapshotter]&& [(NSOrderedSet *)self->_identifiers isEqualToOrderedSet:v6->_identifiers];
+      v7 = (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqual_(self->_snapshotter) && [(NSOrderedSet *)self->_identifiers isEqualToOrderedSet:v6->_identifiers];
     }
   }
 

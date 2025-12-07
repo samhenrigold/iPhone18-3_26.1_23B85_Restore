@@ -70,8 +70,9 @@
   keysCopy = keys;
   blockCopy = block;
   completionBlockCopy = completionBlock;
-  v16 = a7;
-  if (CPLCloudKitUseGateKeeperForOperationType(self->_currentOperationType))
+  v15 = a7;
+  v16 = CPLCloudKitUseGateKeeperForOperationType();
+  if (v16)
   {
     v17 = CPLCloudKitGateKeeperDefaultDownloadType;
     v43[0] = _NSConcreteStackBlock;
@@ -83,8 +84,8 @@
     v41[1] = 3221225472;
     v41[2] = sub_1000815EC;
     v41[3] = &unk_100272EC0;
-    v42 = v16;
-    v18 = v16;
+    v42 = v15;
+    v18 = v15;
     v19 = completionBlockCopy;
     v20 = [CPLCKResourceDownloadOperation downloadOperationWithRecordIDsAndTasks:tasksCopy keys:keysCopy downloadType:v17 perRecordProgressBlock:blockCopy perRecordCompletionBlock:v43 completionBlock:v41];
 
@@ -95,7 +96,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v22 = sub_100003964();
+      v22 = sub_100003964(v16);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         allKeys = [tasksCopy allKeys];
@@ -139,8 +140,8 @@
     v34[1] = 3221225472;
     v34[2] = sub_10008173C;
     v34[3] = &unk_100272F88;
-    v35 = v16;
-    v32 = v16;
+    v35 = v15;
+    v32 = v15;
     [v20 setFetchRecordsCompletionBlock:v34];
   }
 
@@ -162,24 +163,24 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_100003964();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100003964(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         resourceScopedIdentifier2 = [v8 resourceScopedIdentifier];
         cloudResource2 = [taskCopy cloudResource];
         *buf = 138412546;
-        v21 = resourceScopedIdentifier2;
-        v22 = 2112;
-        v23 = cloudResource2;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Impossible to find cloudkit scope for %@ (%@)", buf, 0x16u);
+        v22 = resourceScopedIdentifier2;
+        v23 = 2112;
+        v24 = cloudResource2;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Impossible to find cloudkit scope for %@ (%@)", buf, 0x16u);
       }
     }
 
-    v16 = +[NSAssertionHandler currentHandler];
-    v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitResourcesDownloadTask.m"];
+    v17 = +[NSAssertionHandler currentHandler];
+    v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitResourcesDownloadTask.m"];
     resourceScopedIdentifier3 = [v8 resourceScopedIdentifier];
     cloudResource3 = [taskCopy cloudResource];
-    [v16 handleFailureInMethod:a2 object:self file:v17 lineNumber:205 description:{@"Impossible to find cloudkit scope for %@ (%@)", resourceScopedIdentifier3, cloudResource3}];
+    [v17 handleFailureInMethod:a2 object:self file:v18 lineNumber:205 description:{@"Impossible to find cloudkit scope for %@ (%@)", resourceScopedIdentifier3, cloudResource3}];
 
     abort();
   }
@@ -199,158 +200,160 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_100003964();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100003964(v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v17 = resourceScopedIdentifier;
-        v18 = 2112;
-        v19 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Impossible to find cloudkit scope for %@ (%@)", buf, 0x16u);
+        v18 = resourceScopedIdentifier;
+        v19 = 2112;
+        v20 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Impossible to find cloudkit scope for %@ (%@)", buf, 0x16u);
       }
     }
 
-    v14 = +[NSAssertionHandler currentHandler];
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitResourcesDownloadTask.m"];
-    [v14 handleFailureInMethod:a2 object:self file:v15 lineNumber:213 description:{@"Impossible to find cloudkit scope for %@ (%@)", resourceScopedIdentifier, identifierCopy}];
+    v15 = +[NSAssertionHandler currentHandler];
+    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitResourcesDownloadTask.m"];
+    [v15 handleFailureInMethod:a2 object:self file:v16 lineNumber:213 description:{@"Impossible to find cloudkit scope for %@ (%@)", resourceScopedIdentifier, identifierCopy}];
 
     abort();
   }
 
   identifier = [resourceScopedIdentifier identifier];
-  v11 = [v9 recordIDWithRecordName:identifier];
+  v12 = [v9 recordIDWithRecordName:identifier];
 
-  return v11;
+  return v12;
 }
 
 - (void)_downloadCurrentGroup
 {
-  v49 = 0;
-  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v49];
-  v4 = v49;
+  v51 = 0;
+  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v51];
+  v4 = v51;
+  v5 = v4;
   if (v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_100003964();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = sub_100003964(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         downloadGroup = self->_downloadGroup;
         *buf = 138412290;
-        v51 = downloadGroup;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Will download %@", buf, 0xCu);
+        v53 = downloadGroup;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Will download %@", buf, 0xCu);
       }
     }
 
     propertyKeys = [(_CPLCloudKitDownloadGroup *)self->_downloadGroup propertyKeys];
-    v8 = [[NSMutableDictionary alloc] initWithCapacity:{-[_CPLCloudKitDownloadGroup countOfDownloadTasks](self->_downloadGroup, "countOfDownloadTasks")}];
-    v9 = [[CPLCloudKitDownloadResourcesOperationContext alloc] initWithResourceType:[(_CPLCloudKitDownloadGroup *)self->_downloadGroup resourceType]];
-    v10 = objc_alloc_init(NSMutableDictionary);
-    v11 = self->_downloadGroup;
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1001A823C;
-    v43[3] = &unk_100275EA0;
-    v12 = v9;
-    v44 = v12;
-    selfCopy = self;
+    v9 = [[NSMutableDictionary alloc] initWithCapacity:{-[_CPLCloudKitDownloadGroup countOfDownloadTasks](self->_downloadGroup, "countOfDownloadTasks")}];
+    v10 = [[CPLCloudKitDownloadResourcesOperationContext alloc] initWithResourceType:[(_CPLCloudKitDownloadGroup *)self->_downloadGroup resourceType]];
+    v11 = objc_alloc_init(NSMutableDictionary);
+    v12 = self->_downloadGroup;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_1001A823C;
+    v45[3] = &unk_100275EA0;
     v13 = v10;
     v46 = v13;
-    v14 = v8;
-    v47 = v14;
-    v15 = propertyKeys;
-    v48 = v15;
-    [(_CPLCloudKitDownloadGroup *)v11 enumerateRecordScopedIdentifiersAndTasksWithBlock:v43];
-    v16 = objc_alloc_init(CPLCloudKitDownloadMetric);
-    -[CPLCloudKitDownloadMetric setRequestedItemCount:](v16, "setRequestedItemCount:", [v14 count]);
-    [(CPLCloudKitDownloadMetric *)v16 setExpectedSize:[(_CPLCloudKitDownloadGroup *)self->_downloadGroup downloadSize]];
-    [(CPLCloudKitTransportTask *)self associateMetric:v16];
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_100082148;
-    v40[3] = &unk_100275EC8;
-    v40[4] = self;
-    v41 = v13;
-    v42 = v12;
+    selfCopy = self;
+    v14 = v11;
+    v48 = v14;
+    v15 = v9;
+    v49 = v15;
+    v16 = propertyKeys;
+    v50 = v16;
+    [(_CPLCloudKitDownloadGroup *)v12 enumerateRecordScopedIdentifiersAndTasksWithBlock:v45];
+    v17 = objc_alloc_init(CPLCloudKitDownloadMetric);
+    -[CPLCloudKitDownloadMetric setRequestedItemCount:](v17, "setRequestedItemCount:", [v15 count]);
+    [(CPLCloudKitDownloadMetric *)v17 setExpectedSize:[(_CPLCloudKitDownloadGroup *)self->_downloadGroup downloadSize]];
+    [(CPLCloudKitTransportTask *)self associateMetric:v17];
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_100082148;
+    v42[3] = &unk_100275EC8;
+    v42[4] = self;
+    v43 = v14;
+    v44 = v13;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_100082348;
+    v38[3] = &unk_100275F18;
+    v38[4] = self;
+    v35 = v43;
+    v39 = v35;
+    v18 = v44;
+    v40 = v18;
+    v41 = v17;
     v36[0] = _NSConcreteStackBlock;
     v36[1] = 3221225472;
-    v36[2] = sub_100082348;
-    v36[3] = &unk_100275F18;
+    v36[2] = sub_1000824D4;
+    v36[3] = &unk_100272268;
     v36[4] = self;
-    v33 = v41;
-    v37 = v33;
-    v17 = v42;
-    v38 = v17;
-    v39 = v16;
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1000824D4;
-    v34[3] = &unk_100272268;
-    v34[4] = self;
-    v18 = v39;
-    v35 = v18;
-    v19 = [(CPLCloudKitResourcesDownloadTask *)self _downloadOperationWithRecordIDsAndTasks:v14 keys:v15 perRecordProgressBlock:v40 perRecordCompletionBlock:v36 completionBlock:v34];
+    v19 = v41;
+    v37 = v19;
+    v20 = [(CPLCloudKitResourcesDownloadTask *)self _downloadOperationWithRecordIDsAndTasks:v15 keys:v16 perRecordProgressBlock:v42 perRecordCompletionBlock:v38 completionBlock:v36];
     if ([(CPLCloudKitTransportTask *)self foreground]&& [(_CPLCloudKitDownloadGroup *)self->_downloadGroup shouldBoostPriority])
     {
-      [v19 setQueuePriority:4];
+      [v20 setQueuePriority:4];
     }
 
-    v20 = [objc_opt_class() allowsCellularForDownloadOperationOfSize:-[_CPLCloudKitDownloadGroup downloadSize](self->_downloadGroup isForeground:"downloadSize") isHighPriority:{-[CPLCloudKitTransportTask foreground](self, "foreground"), -[_CPLCloudKitDownloadGroup isHighPriority](self->_downloadGroup, "isHighPriority")}];
-    if (v20 && (_CPLSilentLogging & 1) == 0)
+    v21 = [objc_opt_class() allowsCellularForDownloadOperationOfSize:-[_CPLCloudKitDownloadGroup downloadSize](self->_downloadGroup isForeground:"downloadSize") isHighPriority:{-[CPLCloudKitTransportTask foreground](self, "foreground"), -[_CPLCloudKitDownloadGroup isHighPriority](self->_downloadGroup, "isHighPriority")}];
+    v22 = v21;
+    if (v21 && (_CPLSilentLogging & 1) == 0)
     {
-      v21 = sub_100003964();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v23 = sub_100003964(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [NSByteCountFormatter stringFromByteCount:[(_CPLCloudKitDownloadGroup *)self->_downloadGroup downloadSize] countStyle:1];
-        v22 = v32 = v18;
-        v23 = v15;
+        v24 = v34 = v19;
+        v25 = v16;
         if ([(CPLCloudKitTransportTask *)self foreground])
         {
-          v24 = @" in foreground";
+          v26 = @" in foreground";
         }
 
         else
         {
-          v24 = &stru_10027C2F0;
-        }
-
-        isHighPriority = [(_CPLCloudKitDownloadGroup *)self->_downloadGroup isHighPriority];
-        v26 = @" high priority";
-        *buf = 138412802;
-        v51 = v22;
-        if (!isHighPriority)
-        {
           v26 = &stru_10027C2F0;
         }
 
-        v52 = 2112;
+        isHighPriority = [(_CPLCloudKitDownloadGroup *)self->_downloadGroup isHighPriority];
+        v28 = @" high priority";
+        *buf = 138412802;
         v53 = v24;
-        v15 = v23;
+        if (!isHighPriority)
+        {
+          v28 = &stru_10027C2F0;
+        }
+
         v54 = 2112;
         v55 = v26;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Allowing cellular access for resources download for %@%@%@", buf, 0x20u);
+        v16 = v25;
+        v56 = 2112;
+        v57 = v28;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "Allowing cellular access for resources download for %@%@%@", buf, 0x20u);
 
-        v18 = v32;
+        v19 = v34;
       }
     }
 
-    [(CPLCloudKitTransportTask *)self setAllowsCellular:v20];
+    [(CPLCloudKitTransportTask *)self setAllowsCellular:v22];
     mainSourceBundleIdentifier = [(_CPLCloudKitDownloadGroup *)self->_downloadGroup mainSourceBundleIdentifier];
     [(CPLCloudKitTransportTask *)self setSourceBundleIdentifier:mainSourceBundleIdentifier];
 
-    v28 = self->_downloadGroup;
-    operationID = [v19 operationID];
-    [(_CPLCloudKitDownloadGroup *)v28 allDownloadsDidStartWithOperationID:operationID];
+    v30 = self->_downloadGroup;
+    operationID = [v20 operationID];
+    [(_CPLCloudKitDownloadGroup *)v30 allDownloadsDidStartWithOperationID:operationID];
 
     currentOperationType = self->_currentOperationType;
     allSourceBundleIdentifiers = [(_CPLCloudKitDownloadGroup *)self->_downloadGroup allSourceBundleIdentifiers];
-    [(CPLCloudKitTransportTask *)self launchOperation:v19 type:currentOperationType withContext:v17 sourceBundleIdentifiers:allSourceBundleIdentifiers];
+    [(CPLCloudKitTransportTask *)self launchOperation:v20 type:currentOperationType withContext:v18 sourceBundleIdentifiers:allSourceBundleIdentifiers];
   }
 
   else
   {
     [(_CPLCloudKitDownloadGroup *)self->_downloadGroup allDownloadsDidFailWithError:v4];
-    [(CPLCloudKitResourcesDownloadTask *)self _finishRemainingTasksWithError:v4];
+    [(CPLCloudKitResourcesDownloadTask *)self _finishRemainingTasksWithError:v5];
   }
 }
 
@@ -454,7 +457,7 @@
 
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v25 = sub_100003964();
+            v25 = sub_100003964(0);
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               v26 = self->_downloadGroup;
@@ -546,29 +549,29 @@ LABEL_22:
   selfCopy = self;
   self->_targetMapping = v7;
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   v9 = tasksCopy;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v39 objects:v51 count:16];
   if (v10)
   {
     v11 = v10;
     obj = v9;
-    v36 = 0;
+    v37 = 0;
     v12 = 0;
-    v13 = *v39;
+    v13 = *v40;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v39 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * i);
+        v15 = *(*(&v39 + 1) + 8 * i);
         transportScopeMapping = [v15 transportScopeMapping];
         v17 = transportScopeMapping;
         if (v12)
@@ -595,28 +598,28 @@ LABEL_22:
           identity = [cloudResource2 identity];
           fingerPrint = [identity fingerPrint];
 
-          v26 = v36;
-          if (!v36)
+          v26 = v37;
+          if (!v37)
           {
             v26 = objc_alloc_init(NSMutableSet);
           }
 
           cloudResource3 = [v15 cloudResource];
           itemScopedIdentifier2 = [cloudResource3 itemScopedIdentifier];
-          v36 = v26;
+          v37 = v26;
           [v26 addObject:itemScopedIdentifier2];
         }
       }
 
       v9 = obj;
-      v11 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v11 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
     }
 
     while (v11);
 
     if (v12)
     {
-      [(CPLCloudKitTransportTask *)selfCopy setTransportScopeMapping:v12];
+      v29 = [(CPLCloudKitTransportTask *)selfCopy setTransportScopeMapping:v12];
     }
   }
 
@@ -624,32 +627,32 @@ LABEL_22:
   {
 
     v12 = 0;
-    v36 = 0;
+    v37 = 0;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v29 = sub_100003964();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100003964(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [v9 count];
-      v31 = [v36 count];
+      v31 = [v9 count];
+      v32 = [v37 count];
       targetDescriptions = [(CPLRecordTargetMapping *)selfCopy->_targetMapping targetDescriptions];
       *buf = 134218754;
-      v43 = v30;
-      v44 = 2048;
-      v45 = v31;
-      v46 = 2112;
-      v47 = targetDescriptions;
-      v48 = 2112;
-      v49 = v12;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Will download %lu tasks (%lu missing placeholders) using:\n%@\nand:\n%@", buf, 0x2Au);
+      v44 = v31;
+      v45 = 2048;
+      v46 = v32;
+      v47 = 2112;
+      v48 = targetDescriptions;
+      v49 = 2112;
+      v50 = v12;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Will download %lu tasks (%lu missing placeholders) using:\n%@\nand:\n%@", buf, 0x2Au);
     }
   }
 
-  v33 = [v36 copy];
+  v34 = [v37 copy];
   scopedIdentifiersNeedingPlaceholderRecords = selfCopy->_scopedIdentifiersNeedingPlaceholderRecords;
-  selfCopy->_scopedIdentifiersNeedingPlaceholderRecords = v33;
+  selfCopy->_scopedIdentifiersNeedingPlaceholderRecords = v34;
 }
 
 @end

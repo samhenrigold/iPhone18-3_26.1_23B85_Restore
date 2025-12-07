@@ -16,7 +16,7 @@
 
 - (void)executeCommand
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100228C2C(self, v3);
@@ -25,15 +25,16 @@
   v4 = +[FMDStartupRegisterManager sharedInstance];
   [v4 eventDidOccur:9];
 
-  if ([(FMDCommandHandler *)self isPreviouslyHandledCommand])
+  isPreviouslyHandledCommand = [(FMDCommandHandler *)self isPreviouslyHandledCommand];
+  if (isPreviouslyHandledCommand)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(isPreviouslyHandledCommand);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FMDCommandHandler *)self fm_logID];
       *buf = 138412290;
-      v13 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ already seen before. Ignoring this & sending the same ack as last time...", buf, 0xCu);
+      v14 = fm_logID;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ already seen before. Ignoring this & sending the same ack as last time...", buf, 0xCu);
     }
 
     [(FMDCommandHandler *)self requiresAsynchronousAck];
@@ -50,16 +51,16 @@
 
   provider = [(FMDCommandHandler *)self provider];
   commandID = [(FMDCommandHandler *)self commandID];
-  v9 = [provider futureForCommandId:commandID];
+  v10 = [provider futureForCommandId:commandID];
 
-  if (v9)
+  if (v10)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10015F59C;
-    v11[3] = &unk_1002CD7C0;
-    v11[4] = self;
-    v10 = [v9 addCompletionBlock:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10015F59C;
+    v12[3] = &unk_1002CD7C0;
+    v12[4] = self;
+    v11 = [v10 addCompletionBlock:v12];
   }
 
   else

@@ -8,7 +8,9 @@
 - (void)setLearnFromAppClipsEnabled:(id)enabled specifier:(id)specifier;
 - (void)setShowInSearchEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSuggestAppClipsEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantAppClipSettingsController
@@ -35,6 +37,13 @@
   return [(AssistantAppClipSettingsController *)&v3 init];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AssistantAppClipSettingsController;
+  [(AssistantAppClipSettingsController *)&v3 viewWillAppear:appear];
+}
+
 - (void)viewDidLoad
 {
   v5.receiver = self;
@@ -45,9 +54,53 @@
   [(AssistantAppClipSettingsController *)self setTitle:v4];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = AssistantAppClipSettingsController;
+  [(AssistantAppClipSettingsController *)&v24 viewDidAppear:appear];
+  v23 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/ASSISTANT_APP_CLIPS_SETTINGS_ID"];
+  v4 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  deviceSupported = [v4 deviceSupported];
+
+  if (deviceSupported)
+  {
+    v6 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v6 = @"Siri";
+  }
+
+  v7 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v9 bundleURL];
+  v11 = [v7 initWithKey:v6 table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v14 bundleURL];
+  v16 = [v12 initWithKey:@"App Clips" table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v17 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v19 bundleURL];
+  v21 = [v17 initWithKey:v6 table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v25[0] = v11;
+  v25[1] = v16;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  [(AssistantAppClipSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v21 localizedNavigationComponents:v22 deepLink:v23];
+}
+
 - (id)specifiers
 {
-  v41[5] = *MEMORY[0x277D85DE8];
+  v40[5] = *MEMORY[0x277D85DE8];
   if (!self->_appClipsSuggestionsController)
   {
     mEMORY[0x277CEF5F8] = [MEMORY[0x277CEF5F8] sharedController];
@@ -58,31 +111,31 @@
   v5 = MEMORY[0x277D3FAD8];
   bundle = [objc_opt_class() bundle];
   v7 = [bundle localizedStringForKey:@"APP_CLIPS_IN_APP_CLIPS_HEADER" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v40 = [v5 groupSpecifierWithName:v7];
+  v39 = [v5 groupSpecifierWithName:v7];
 
   bundle2 = [objc_opt_class() bundle];
   v9 = [bundle2 localizedStringForKey:@"APP_CLIPS_IN_APP_CLIPS_FOOTER" value:&stru_285317CF0 table:@"AssistantSettings"];
   v10 = *MEMORY[0x277D3FF88];
-  [v40 setObject:v9 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+  [v39 setObject:v9 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
   v11 = MEMORY[0x277D3FAD8];
   bundle3 = [objc_opt_class() bundle];
   v13 = [bundle3 localizedStringForKey:@"APP_CLIPS_LEARN_FROM_APP_CLIPS" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v38 = [v11 preferenceSpecifierNamed:v13 target:self set:sel_setLearnFromAppClipsEnabled_specifier_ get:sel_learnFromAppClipsEnabled_ detail:0 cell:6 edit:0];
+  v37 = [v11 preferenceSpecifierNamed:v13 target:self set:sel_setLearnFromAppClipsEnabled_specifier_ get:sel_learnFromAppClipsEnabled_ detail:0 cell:6 edit:0];
 
   v14 = *MEMORY[0x277D3FD80];
   v15 = MEMORY[0x277CBEC38];
-  [v38 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+  [v37 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
   v16 = *MEMORY[0x277D3FF38];
-  [v38 setProperty:v15 forKey:*MEMORY[0x277D3FF38]];
+  [v37 setProperty:v15 forKey:*MEMORY[0x277D3FF38]];
   v17 = MEMORY[0x277D3FAD8];
   bundle4 = [objc_opt_class() bundle];
   v19 = [bundle4 localizedStringForKey:@"SIRIANDSEARCH_PERAPP_ONHOMESCREEN_HEADER" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v39 = [v17 groupSpecifierWithName:v19];
+  v38 = [v17 groupSpecifierWithName:v19];
 
   bundle5 = [objc_opt_class() bundle];
   v21 = [bundle5 localizedStringForKey:@"APP_CLIPS_IN_SEARCH_FOOTER" value:&stru_285317CF0 table:@"AssistantSettings"];
-  [v39 setObject:v21 forKeyedSubscript:v10];
+  [v38 setObject:v21 forKeyedSubscript:v10];
 
   v22 = MEMORY[0x277D3FAD8];
   bundle6 = [objc_opt_class() bundle];
@@ -99,12 +152,12 @@
 
   [v30 setProperty:v26 forKey:v14];
   [v30 setProperty:v26 forKey:v16];
-  v41[0] = v40;
-  v41[1] = v38;
-  v41[2] = v39;
-  v41[3] = v25;
-  v41[4] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:5];
+  v40[0] = v39;
+  v40[1] = v37;
+  v40[2] = v38;
+  v40[3] = v25;
+  v40[4] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:5];
   v32 = *MEMORY[0x277D3FC48];
   v33 = *(&self->super.super.super.super.super.isa + v32);
   *(&self->super.super.super.super.super.isa + v32) = v31;
@@ -112,7 +165,6 @@
   v34 = *(&self->super.super.super.super.super.isa + v32);
   v35 = v34;
 
-  v36 = *MEMORY[0x277D85DE8];
   return v34;
 }
 

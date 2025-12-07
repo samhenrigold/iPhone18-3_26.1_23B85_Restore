@@ -9,10 +9,10 @@
 
 - (PFMirroredOneToManyRelationship)initWithManagedObject:(id)object withRecordName:(id)name relatedToRecordWithRecordName:(id)recordName byRelationship:(id)relationship
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = PFMirroredOneToManyRelationship;
-  v10 = [(PFMirroredOneToManyRelationship *)&v17 init];
+  v25 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = PFMirroredOneToManyRelationship;
+  v10 = [(PFMirroredOneToManyRelationship *)&v16 init];
   if (v10)
   {
     if (([objc_msgSend(name "zoneID")] & 1) == 0)
@@ -22,12 +22,12 @@
       {
         name = [relationship name];
         *buf = 138413058;
-        v19 = name;
-        v20 = 2112;
+        v18 = name;
+        v19 = 2112;
         nameCopy2 = name;
-        v22 = 2112;
+        v21 = 2112;
         recordNameCopy2 = recordName;
-        v24 = 2112;
+        v23 = 2112;
         objectCopy2 = object;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to link objects across zones via one-to-many relationship '%@': %@ / %@\n%@\n", buf, 0x2Au);
       }
@@ -37,12 +37,12 @@
       {
         name2 = [relationship name];
         *buf = 138413058;
-        v19 = name2;
-        v20 = 2112;
+        v18 = name2;
+        v19 = 2112;
         nameCopy2 = name;
-        v22 = 2112;
+        v21 = 2112;
         recordNameCopy2 = recordName;
-        v24 = 2112;
+        v23 = 2112;
         objectCopy2 = object;
         _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Attempting to link objects across zones via one-to-many relationship '%@': %@ / %@\n%@", buf, 0x2Au);
       }
@@ -54,7 +54,6 @@
     v10->_relatedRecordID = recordName;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -73,7 +72,7 @@
 
 - (BOOL)updateRelationshipValueUsingImportContext:(id)context andManagedObjectContext:(id)objectContext error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   recordID = self->_recordID;
   name = [(NSEntityDescription *)[(NSPropertyDescription *)self->_relationshipDescription entity] name];
   if (context)
@@ -139,24 +138,24 @@
 
         if (os_log_type_enabled(Stream, v22))
         {
-          v45 = v17;
+          v44 = v17;
           v23 = self->_recordID;
           v24 = self->_relatedRecordID;
           name2 = [(NSPropertyDescription *)self->_relationshipDescription name];
           *buf = 136316674;
-          v47 = "[PFMirroredOneToManyRelationship updateRelationshipValueUsingImportContext:andManagedObjectContext:error:]";
-          v48 = 1024;
-          *v49 = 444;
-          *&v49[4] = 2112;
-          *&v49[6] = v23;
-          v17 = v45;
-          v50 = 2112;
-          v51 = v24;
-          v52 = 2112;
-          v53 = name2;
-          v54 = 2112;
-          v55 = v12;
-          v56 = 2112;
+          v46 = "[PFMirroredOneToManyRelationship updateRelationshipValueUsingImportContext:andManagedObjectContext:error:]";
+          v47 = 1024;
+          *v48 = 444;
+          *&v48[4] = 2112;
+          *&v48[6] = v23;
+          v17 = v44;
+          v49 = 2112;
+          v50 = v24;
+          v51 = 2112;
+          v52 = name2;
+          v53 = 2112;
+          v54 = v12;
+          v55 = 2112;
           objectID = [v16 objectID];
           _os_log_impl(&dword_18565F000, v19, v22, "CoreData+CloudKit: %s(%d): Linking object with record name %@ to %@ via %@ on %@->%@", buf, 0x44u);
         }
@@ -164,7 +163,7 @@
         objc_autoreleasePoolPop(v17);
         [v13 setValue:v16 forKey:{-[NSPropertyDescription name](self->_relationshipDescription, "name")}];
         LOBYTE(v26) = 1;
-        goto LABEL_43;
+        return v26;
       }
 
       v31 = objc_autoreleasePoolPush();
@@ -192,15 +191,15 @@ LABEL_32:
         v36 = self->_relatedRecordID;
         name3 = [(NSPropertyDescription *)self->_relationshipDescription name];
         *buf = 136316162;
-        v47 = "[PFMirroredOneToManyRelationship updateRelationshipValueUsingImportContext:andManagedObjectContext:error:]";
-        v48 = 1024;
-        *v49 = 449;
-        *&v49[4] = 2112;
-        *&v49[6] = v35;
-        v50 = 2112;
-        v51 = v36;
-        v52 = 2112;
-        v53 = name3;
+        v46 = "[PFMirroredOneToManyRelationship updateRelationshipValueUsingImportContext:andManagedObjectContext:error:]";
+        v47 = 1024;
+        *v48 = 449;
+        *&v48[4] = 2112;
+        *&v48[6] = v35;
+        v49 = 2112;
+        v50 = v36;
+        v51 = 2112;
+        v52 = name3;
         _os_log_impl(&dword_18565F000, v33, v34, "CoreData+CloudKit: %s(%d): Couldn't find related object to link for object with record name %@ to %@ via %@", buf, 0x30u);
       }
 
@@ -212,12 +211,12 @@ LABEL_32:
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    v42 = self->_recordID;
+    v41 = self->_recordID;
     relationshipDescription = self->_relationshipDescription;
     *buf = 138412546;
-    v47 = v42;
-    v48 = 2112;
-    *v49 = relationshipDescription;
+    v46 = v41;
+    v47 = 2112;
+    *v48 = relationshipDescription;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Import context cache is stale. To-one mirrored relationship source object has gone missing: %@ - %@\n", buf, 0x16u);
   }
 
@@ -227,9 +226,9 @@ LABEL_32:
     v29 = self->_recordID;
     v30 = self->_relationshipDescription;
     *buf = 138412546;
-    v47 = v29;
-    v48 = 2112;
-    *v49 = v30;
+    v46 = v29;
+    v47 = 2112;
+    *v48 = v30;
     _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Import context cache is stale. To-one mirrored relationship source object has gone missing: %@ - %@", buf, 0x16u);
   }
 
@@ -242,12 +241,12 @@ LABEL_35:
       v38 = v26;
       LOBYTE(v26) = 0;
       *error = v38;
-      goto LABEL_43;
+      return v26;
     }
 
 LABEL_42:
     LOBYTE(v26) = 0;
-    goto LABEL_43;
+    return v26;
   }
 
 LABEL_38:
@@ -255,9 +254,9 @@ LABEL_38:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v47 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFMirroredRelationship.m";
-    v48 = 1024;
-    *v49 = 466;
+    v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFMirroredRelationship.m";
+    v47 = 1024;
+    *v48 = 466;
     _os_log_error_impl(&dword_18565F000, v39, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -266,15 +265,13 @@ LABEL_38:
   if (v26)
   {
     *buf = 136315394;
-    v47 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFMirroredRelationship.m";
-    v48 = 1024;
-    *v49 = 466;
+    v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFMirroredRelationship.m";
+    v47 = 1024;
+    *v48 = 466;
     _os_log_fault_impl(&dword_18565F000, v40, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_42;
   }
 
-LABEL_43:
-  v41 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

@@ -22,19 +22,19 @@
 {
   nameCopy = name;
   MLIRElementType = getMLIRElementType(*builder, *(&self->_dataType + 1));
-  v23 = 0;
-  v24 = mlir::TypeAttr::get(MLIRElementType);
+  v22 = 0;
+  v23 = mlir::TypeAttr::get(MLIRElementType);
   if (self->_axis)
   {
     IntegerType = mlir::Builder::getIntegerType(builder, 32, 1);
-    v23 = mlir::IntegerAttr::get(IntegerType, [(NSNumber *)self->_axis intValue]);
+    v22 = mlir::IntegerAttr::get(IntegerType, [(NSNumber *)self->_axis intValue]);
   }
 
-  mpsFileLoc("[MPSGraphDequantizeOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphQuantizationOps.mm", __p);
-  v14 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::DequantizeOp>(table, builder, __p, 0x74u, nameCopy);
-  if (v22 < 0)
+  mpsFileLoc(&__p, "[MPSGraphDequantizeOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphQuantizationOps.mm");
+  v14 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::DequantizeOp>(table, builder, &__p, 0x74u, nameCopy);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     v15 = *values;
     v16 = *(values + 1);
     v17 = v16 - *values;
@@ -52,7 +52,7 @@
     if (v17 == 24)
     {
 LABEL_5:
-      v18 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v14, v15, v15 + 1, v15 + 2, &v24, &v23);
+      v18 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v14, v15, v15 + 1, v15 + 2, &v23, &v22);
       goto LABEL_10;
     }
   }
@@ -62,7 +62,7 @@ LABEL_5:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v18 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v14, v15, v15 + 1, v15 + 2, v15 + 3, &v24, &v23);
+  v18 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v14, v15, v15 + 1, v15 + 2, v15 + 3, &v23, &v22);
 LABEL_10:
   v19 = v18;
 

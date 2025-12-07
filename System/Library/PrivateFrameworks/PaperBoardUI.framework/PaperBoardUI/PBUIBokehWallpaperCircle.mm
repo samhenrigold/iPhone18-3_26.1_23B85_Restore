@@ -55,11 +55,11 @@
   }
 
   v7 = v6 * v5;
-  v21 = CGRectInset(self->_superviewBounds, v6 * v5 * -0.5, v6 * v5 * -0.5);
-  y = v21.origin.y;
-  height = v21.size.height;
-  x = v21.origin.x;
-  width = v21.size.width;
+  v22 = CGRectInset(self->_superviewBounds, v6 * v5 * -0.5, v6 * v5 * -0.5);
+  y = v22.origin.y;
+  height = v22.size.height;
+  x = v22.origin.x;
+  width = v22.size.width;
   v12 = (x + (vcvts_n_f32_s32(rand(), 0x1FuLL) * (width - x)));
   *&y = y;
   *&height = height;
@@ -67,21 +67,21 @@
   [(PBUIBokehWallpaperCircle *)self setBounds:0.0, 0.0, v7, v7];
   [(PBUIBokehWallpaperCircle *)self setPosition:v12, v13];
   [(PBUIBokehWallpaperCircle *)self setZPosition:v7];
-  v14 = [PBUIBokehImageArbiter bokehImageForDiameter:v7];
-  v15 = [PBUIBokehImageArbiter imageForBokehImage:v14];
-  -[PBUIBokehWallpaperCircle setContents:](self, "setContents:", [v15 CGImage]);
+  v15 = [PBUIBokehImageArbiter bokehImageForDiameter:v14, v7];
+  v16 = [PBUIBokehImageArbiter imageForBokehImage:v15];
+  -[PBUIBokehWallpaperCircle setContents:](self, "setContents:", [v16 CGImage]);
 
   [(PBUIBokehWallpaperCircle *)self setColor:self->_color];
-  v16 = ((vcvts_n_f32_s32(rand(), 0x1FuLL) * 6.2832) + 0.0);
-  v17 = ((vcvts_n_f32_s32(rand(), 0x1FuLL) * 0.07) + 0.0);
-  v18 = __sincos_stret(v16);
-  self->_dxdt = v18.__cosval * v17;
-  self->_dydt = v18.__sinval * v17;
+  v17 = ((vcvts_n_f32_s32(rand(), 0x1FuLL) * 6.2832) + 0.0);
+  v18 = ((vcvts_n_f32_s32(rand(), 0x1FuLL) * 0.07) + 0.0);
+  v19 = __sincos_stret(v17);
+  self->_dxdt = v19.__cosval * v18;
+  self->_dydt = v19.__sinval * v18;
   self->_speed = v7 * 1.5 / 170.0;
   [(PBUIBokehWallpaperCircle *)self configureAnimationsWithPhase:0.0];
-  v19 = MEMORY[0x277CD9FF0];
+  v20 = MEMORY[0x277CD9FF0];
 
-  [v19 commit];
+  [v20 commit];
 }
 
 - (void)updatePositionWithTime:(double)time dx:(double)dx dy:(double)dy lockScreen:(BOOL)screen

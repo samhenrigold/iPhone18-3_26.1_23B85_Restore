@@ -54,12 +54,12 @@
 - (void)_resolveAllProperties
 {
   v20 = *MEMORY[0x1E69E9840];
-  os_unfair_recursive_lock_lock_with_options();
+  v3 = os_unfair_recursive_lock_lock_with_options();
   if (self->_context.db)
   {
     _resolvingMethods = [(LSRecord *)self _resolvingMethods];
-    v4 = _resolvingMethods[1];
-    if (v4 != *_resolvingMethods)
+    v5 = _resolvingMethods[1];
+    if (v5 != *_resolvingMethods)
     {
       resolvedProperties = self->_resolvedProperties;
       if (!resolvedProperties)
@@ -67,52 +67,51 @@
         operator new();
       }
 
-      std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__rehash<true>(resolvedProperties, vcvtps_u32_f32((((v4 - *_resolvingMethods) >> 4) + 1) / resolvedProperties[8]));
+      std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__rehash<true>(resolvedProperties, vcvtps_u32_f32((((v5 - *_resolvingMethods) >> 4) + 1) / resolvedProperties[8]));
     }
 
-    v7 = objc_autoreleasePoolPush();
-    v8 = malloc_type_malloc(0x100uLL, 0x100004077774924uLL);
-    strlcpy(v8, "LSRecord: resolving ", 0x100uLL);
-    v9 = strlen(v8);
-    qword_1ED444C70 = v8;
-    v10 = *_resolvingMethods;
-    v11 = _resolvingMethods[1];
-    if (*_resolvingMethods != v11)
+    v8 = objc_autoreleasePoolPush();
+    v9 = malloc_type_malloc(0x100uLL, 0x100004077774924uLL);
+    strlcpy(v9, "LSRecord: resolving ", 0x100uLL);
+    v10 = strlen(v9);
+    qword_1ED444C70 = v9;
+    v11 = *_resolvingMethods;
+    v12 = _resolvingMethods[1];
+    if (*_resolvingMethods != v12)
     {
-      v12 = v9;
-      v13 = 256 - v9;
+      v13 = v10;
+      v14 = 256 - v10;
       do
       {
-        v14 = *v10;
-        v15 = *(v10 + 8);
-        Name = sel_getName(*v10);
-        strlcpy(&v8[v12], Name, v13);
-        v15(self, v14);
-        v10 += 16;
+        v15 = *v11;
+        v16 = *(v11 + 8);
+        Name = sel_getName(*v11);
+        strlcpy(&v9[v13], Name, v14);
+        v16(self, v15);
+        v11 += 16;
       }
 
-      while (v10 != v11);
+      while (v11 != v12);
     }
 
     qword_1ED444C70 = 0;
-    free(v8);
-    objc_autoreleasePoolPop(v7);
+    free(v9);
+    objc_autoreleasePoolPop(v8);
     [(LSRecord *)self persistentIdentifier];
   }
 
   else if ((*(self + 31) & 0x40) == 0)
   {
-    v6 = _LSRecordLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _LSRecordLog(v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v18 = 138477827;
       selfCopy = self;
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEBUG, "Record %{private}@ may be incomplete during encoding.", &v18, 0xCu);
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "Record %{private}@ may be incomplete during encoding.", &v18, 0xCu);
     }
   }
 
   os_unfair_recursive_lock_unlock();
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (const)_resolvingMethods
@@ -224,7 +223,7 @@
 
     std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>::shrink_to_fit(&__src);
     *outCount = v28;
-    v5 = std::__hash_table<std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>>>::__emplace_unique_key_args<void const*,void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>([LSRecord(Private) _resolvingMethods]::resultsByClass, outCount);
+    v5 = std::__hash_table<std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>>>::__emplace_unique_key_args<void const*,void const*,std::vector<std::pair<objc_selector *,void (*)(objc_object *,objc_selector *)>>>([LSRecord(Private) _resolvingMethods]::resultsByClass, outCount, outCount, &__src);
     if ((v24 & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -246,11 +245,11 @@
 {
   if (*(self + 31) < 0)
   {
-    v15 = _LSRecordLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v13 = _LSRecordLog(self);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "Attempting to detach a shared record. Please file a bug report.", v16, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_ERROR, "Attempting to detach a shared record. Please file a bug report.", v14, 2u);
     }
   }
 
@@ -272,17 +271,15 @@
       {
         v8 = selfCopy;
         [(_LSDatabase *)*p_context store];
-        v9 = *(v8 + 14);
-        unitID = v8->_unitID;
         Unit = CSStoreGetUnit();
-        v12 = *(v8 + 14);
-        v13 = v8->_unitID;
+        v10 = *(v8 + 14);
+        unitID = v8->_unitID;
         [(LSRecord *)v8 persistentIdentifier];
 
-        [(LSRecord *)v8 _detachFromContext:p_context tableID:v12 unitID:v13 unitBytes:Unit];
+        [(LSRecord *)v8 _detachFromContext:p_context tableID:v10 unitID:unitID unitBytes:Unit];
       }
 
-      v14 = *p_context;
+      v12 = *p_context;
       *p_context = 0;
     }
 
@@ -295,15 +292,15 @@
   if (objc_opt_class() == self)
   {
     LaunchServices::Record::recordClass = self;
-    std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LSRECORD_IS_CONSTRUCTING_A_COMPATIBILITY_OBJECT__);
+    std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 
-    std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LSRECORD_IS_PERFORMING_IO_FOR_A_CALLER__);
+    std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
   }
 }
 
 - (id)compatibilityObject
 {
-  v16 = 0;
+  v14 = 0;
   selfCopy = self;
   selfCopy2 = self;
   os_unfair_recursive_lock_lock_with_options();
@@ -320,28 +317,26 @@
   {
     v8 = v4;
     [(_LSDatabase *)v5[2] store];
-    v9 = *(v8 + 14);
-    unitID = v8->_unitID;
     Unit = CSStoreGetUnit();
-    v12 = *(v8 + 14);
-    v13 = v8->_unitID;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = ___ZZ31__LSRecord_compatibilityObject_ENK3__0clEP9LSContextjjPKv_block_invoke;
-    v18[3] = &__block_descriptor_72_e5_v8__0ls32l8s40l8;
-    v18[4] = &v16;
-    v18[5] = &selfCopy;
-    v19 = v12;
-    v20 = v13;
-    v18[6] = p_context;
-    v18[7] = Unit;
-    __LSRECORD_IS_CONSTRUCTING_A_COMPATIBILITY_OBJECT__(v18);
+    v10 = *(v8 + 14);
+    unitID = v8->_unitID;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = ___ZZ31__LSRecord_compatibilityObject_ENK3__0clEP9LSContextjjPKv_block_invoke;
+    v16[3] = &__block_descriptor_72_e5_v8__0ls32l8s40l8;
+    v16[4] = &v14;
+    v16[5] = &selfCopy;
+    v17 = v10;
+    v18 = unitID;
+    v16[6] = p_context;
+    v16[7] = Unit;
+    __LSRECORD_IS_CONSTRUCTING_A_COMPATIBILITY_OBJECT__(v16);
   }
 
   os_unfair_recursive_lock_unlock();
-  v14 = v16;
+  v12 = v14;
 
-  return v14;
+  return v12;
 }
 
 - (id)_propertyClassesForCoding
@@ -365,7 +360,7 @@
   {
     v4 = objc_autoreleasePoolPush();
     v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v6 = XNSGetPropertyListClasses();
+    v6 = XNSGetPropertyListClasses(v5);
     [v5 unionSet:v6];
 
     [v5 addObject:objc_opt_class()];
@@ -378,7 +373,7 @@
     v9 = [v5 copy];
     v12 = v2;
     v13 = v9;
-    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *&,objc_object * const {__strong}&>([LSRecord(Private) _propertyClassesForCoding]::resultsByClass, &v12);
+    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *&,objc_object * const {__strong}&>([LSRecord(Private) _propertyClassesForCoding]::resultsByClass, &v12, &v12, &v13);
 
     objc_autoreleasePoolPop(v4);
   }
@@ -395,16 +390,17 @@
   v18 = 0;
   v7 = _LSCheckRecordPISizeAndVersionReturningPIInnerBytes(identifier, &v18);
   v8 = v18;
+  v9 = v8;
   if (!v7)
   {
-    v10 = _LSRecordLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _LSRecordLog(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *uu1 = 138412546;
       *&uu1[4] = identifier;
       *&uu1[12] = 2112;
-      *&uu1[14] = v8;
-      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEBUG, "failed to initialize record with persistent identifier %@: %@", uu1, 0x16u);
+      *&uu1[14] = v9;
+      _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEBUG, "failed to initialize record with persistent identifier %@: %@", uu1, 0x16u);
     }
 
     goto LABEL_8;
@@ -412,21 +408,21 @@
 
   *uu1 = 0;
   *&uu1[8] = 0;
-  db = context->db;
   _LSDatabaseGetCacheGUIDBytes();
-  if (uuid_compare(uu1, v7 + 12))
+  v10 = uuid_compare(uu1, v7 + 12);
+  if (v10)
   {
-    v10 = _LSRecordLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _LSRecordLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       identifierCopy = identifier;
-      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEBUG, "Failed to initialize record with persistent identifier %@ because it came from a different database.", buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEBUG, "Failed to initialize record with persistent identifier %@ because it came from a different database.", buf, 0xCu);
     }
 
 LABEL_8:
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_17;
   }
 
@@ -435,31 +431,30 @@ LABEL_8:
     SubclassForTable = LaunchServices::Record::findSubclassForTable(context, *(v7 + 2));
     if (SubclassForTable)
     {
-      v13 = [SubclassForTable alloc];
+      v14 = [SubclassForTable alloc];
     }
 
     else
     {
-      v14 = _LSRecordLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _LSRecordLog(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(v7 + 2);
+        v16 = *(v7 + 2);
         *buf = 134217984;
-        identifierCopy = v15;
-        _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "Unexpected table ID 0x%llx when instantiating an LSRecord from a persistent identifier.", buf, 0xCu);
+        identifierCopy = v16;
+        _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "Unexpected table ID 0x%llx when instantiating an LSRecord from a persistent identifier.", buf, 0xCu);
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
-    self = v13;
+    self = v14;
   }
 
-  v11 = -[LSRecord _initWithContext:persistentIdentifierData:length:](self, "_initWithContext:persistentIdentifierData:length:", context, v7, [identifier length]);
+  v12 = -[LSRecord _initWithContext:persistentIdentifierData:length:](self, "_initWithContext:persistentIdentifierData:length:", context, v7, [identifier length]);
 LABEL_17:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 - (LSRecord)initWithPersistentIdentifier:(id)identifier
@@ -474,53 +469,52 @@ LABEL_17:
 
   if (v6)
   {
-    v7 = [(LSRecord *)self _initWithContext:v6 persistentIdentifier:identifier];
+    v8 = [(LSRecord *)self _initWithContext:v6 persistentIdentifier:identifier];
   }
 
   else
   {
-    v8 = _LSRecordLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _LSRecordLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = +[_LSDServiceDomain defaultServiceDomain];
-      v10 = LaunchServices::Database::Context::_get(&CurrentContext, v9, 0);
+      v10 = +[_LSDServiceDomain defaultServiceDomain];
+      v11 = LaunchServices::Database::Context::_get(&CurrentContext, v10, 0);
 
-      if (v10)
+      if (v11)
       {
-        v11 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v11 = v20;
+        v12 = v20;
       }
 
       *buf = 138412546;
       identifierCopy = identifier;
       v23 = 2112;
-      v24 = v11;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEBUG, "Failed to initialize record with persistent identifier %@ because the current database was not reachable. Error %@", buf, 0x16u);
+      v24 = v12;
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEBUG, "Failed to initialize record with persistent identifier %@ because the current database was not reachable. Error %@", buf, 0x16u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v12 = v7;
+  v13 = v8;
   if (CurrentContext && v19 == 1)
   {
     _LSContextDestroy(CurrentContext);
   }
 
-  v13 = v18;
+  v14 = v18;
   CurrentContext = 0;
   v18 = 0;
 
   v19 = 0;
-  v14 = v20;
+  v15 = v20;
   v20 = 0;
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v13;
 }
 
 - (id)_initWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD
@@ -568,44 +562,42 @@ LABEL_17:
 
 - (void)_setResolvedPropertyValue:(id)value forGetter:(SEL)getter
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v7 = _LSRecordLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v7 = _LSRecordLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136446466;
+    v9 = 136446466;
     Name = sel_getName(getter);
-    v12 = 2112;
+    v11 = 2112;
     valueCopy = value;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "Setting value of property %{public}s to %@", &v10, 0x16u);
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "Setting value of property %{public}s to %@", &v9, 0x16u);
   }
 
   os_unfair_recursive_lock_lock_with_options();
   LaunchServices::Record::setCachedPropertyValue(self, getter, value, v8);
   os_unfair_recursive_lock_unlock();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeResolvedPropertyValueForGetter:(SEL)getter
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = _LSRecordLog();
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = _LSRecordLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    *v8 = 136446210;
-    *&v8[4] = sel_getName(getter);
-    _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEBUG, "Removing value of property %{public}s", v8, 0xCu);
+    *v7 = 136446210;
+    *&v7[4] = sel_getName(getter);
+    _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEBUG, "Removing value of property %{public}s", v7, 0xCu);
   }
 
   os_unfair_recursive_lock_lock_with_options();
-  *v8 = getter;
+  *v7 = getter;
   resolvedProperties = self->_resolvedProperties;
   if (resolvedProperties)
   {
-    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__erase_unique<objc_selector *>(resolvedProperties, v8);
+    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__erase_unique<objc_selector *>(resolvedProperties, v7);
   }
 
   os_unfair_recursive_lock_unlock();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_resolvedPropertyValueForGetter:(SEL)getter nullPlaceholder:(id)placeholder
@@ -641,7 +633,7 @@ LABEL_17:
   v5 = selfCopy;
   p_context = &v5->_context;
   db = v5->_context.db;
-  v12 = v5;
+  v10 = v5;
   if ((*(v5 + 31) & 0x40) == 0 && !db)
   {
     __LSRECORD_IS_CRASHING_DUE_TO_A_CALLER_BUG__(v5, 0);
@@ -650,9 +642,7 @@ LABEL_17:
   if (db)
   {
     v8 = v5;
-    [(_LSDatabase *)v12[2] store];
-    v9 = *(v8 + 14);
-    unitID = v8->_unitID;
+    [(_LSDatabase *)v10[2] store];
     Unit = CSStoreGetUnit();
     (*(context + 2))(context, p_context, *(v8 + 14), v8->_unitID, Unit);
   }
@@ -667,8 +657,6 @@ LABEL_17:
   {
     selfCopy = self;
     [(_LSDatabase *)self->_context.db store];
-    v8 = *(selfCopy + 14);
-    unitID = selfCopy->_unitID;
     Unit = CSStoreGetUnit();
     (*(attached + 2))(attached, &self->_context, *(selfCopy + 14), selfCopy->_unitID, Unit);
 
@@ -680,9 +668,9 @@ LABEL_17:
     os_unfair_recursive_lock_unlock();
     if (else)
     {
-      v11 = *(else + 2);
+      v9 = *(else + 2);
 
-      v11(else);
+      v9(else);
     }
   }
 }
@@ -702,13 +690,9 @@ LABEL_17:
 
   if (db)
   {
-    v8 = v4;
+    v4;
     [(_LSDatabase *)v5[2] store];
-    v9 = *(v8 + 14);
-    unitID = v8->_unitID;
     CSStoreGetUnit();
-    v11 = *(v8 + 14);
-    v12 = v8->_unitID;
     _LSContextCreateVisualizer(p_context);
   }
 
@@ -800,10 +784,10 @@ LABEL_17:
 
 - (LSRecord)initWithCoder:(id)coder
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = LSRecord;
-  v4 = [(LSRecord *)&v15 init];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = LSRecord;
+  v4 = [(LSRecord *)&v14 init];
   v5 = v4;
   if (v4)
   {
@@ -838,9 +822,9 @@ LABEL_17:
 
     else
     {
-      v16 = *MEMORY[0x1E696A278];
-      v17[0] = @"Could not decode the set of resolved property values for this record.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E696A278];
+      v16[0] = @"Could not decode the set of resolved property values for this record.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A250], 4865, v11, "[LSRecord initWithCoder:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 581);
       [coder failWithError:v12];
 
@@ -848,24 +832,23 @@ LABEL_17:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-void *__26__LSRecord_initWithCoder___block_invoke(uint64_t a1, NSString *aSelectorName, uint64_t a3)
+void *__26__LSRecord_initWithCoder___block_invoke(uint64_t a1, NSString *aSelectorName, void *a3)
 {
-  v5[1] = a3;
+  v6 = a3;
   v3 = *(*(a1 + 40) + 8);
   if (*(a1 + 32) == a3)
   {
-    v5[0] = NSSelectorFromString(aSelectorName);
-    return std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *,decltype(nullptr)>(v3, v5);
+    v5 = NSSelectorFromString(aSelectorName);
+    return std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *,decltype(nullptr)>(v3, &v5, &v5);
   }
 
   else
   {
-    v5[0] = NSSelectorFromString(aSelectorName);
-    return std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *&,objc_object * const {__strong}&>(v3, v5);
+    v5 = NSSelectorFromString(aSelectorName);
+    return std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,objc_selector *&,objc_object * const {__strong}&>(v3, &v5, &v5, &v6);
   }
 }
 
@@ -875,27 +858,28 @@ void *__26__LSRecord_initWithCoder___block_invoke(uint64_t a1, NSString *aSelect
   os_unfair_recursive_lock_lock_with_options();
   v10 = self->_context.db;
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "_initWithContext:tableID:unitID:", &v10, *(self + 14), self->_unitID}];
+  v6 = v5;
   if (v5)
   {
     if (self->_context.db)
     {
-      v6 = _LSRecordLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = _LSRecordLog(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEBUG, "Copied attached record %@; not copying its properties.", buf, 0xCu);
+        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "Copied attached record %@; not copying its properties.", buf, 0xCu);
       }
     }
 
     else if (self->_resolvedProperties)
     {
-      v7 = _LSRecordLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _LSRecordLog(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "Copied detached record %@; copying its properties.", buf, 0xCu);
+        _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEBUG, "Copied detached record %@; copying its properties.", buf, 0xCu);
       }
 
       operator new();
@@ -903,8 +887,7 @@ void *__26__LSRecord_initWithCoder___block_invoke(uint64_t a1, NSString *aSelect
   }
 
   os_unfair_recursive_lock_unlock();
-  v8 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 - (BOOL)beginContentAccess
@@ -1024,79 +1007,80 @@ void __49__LSRecord_CSStoreViewerAdditions__visualizerURL__block_invoke(uint64_t
     if (queue)
     {
 LABEL_5:
-      v24 = 0;
-      v25 = 0;
       v26 = 0;
-      std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(&v24, recordsCopy, &recordsCopy[count], count);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3321888768;
-      v22[2] = __79__LSRecord_LSDetachable__resolveAllPropertiesOfRecords_count_andDetachOnQueue___block_invoke;
-      v22[3] = &__block_descriptor_56_ea8_32c58_ZTSNSt3__16vectorIU6__weakP8LSRecordNS_9allocatorIS3_EEEE_e5_v8__0l;
-      memset(v23, 0, sizeof(v23));
-      std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(v23, v24, v25, (v25 - v24) >> 3);
-      [queue addOperationWithBlock:v22];
-      v27 = v23;
-      std::vector<LSRecord * {__weak}>::__destroy_vector::operator()[abi:nn200100](&v27);
-      v27 = &v24;
-      std::vector<LSRecord * {__weak}>::__destroy_vector::operator()[abi:nn200100](&v27);
+      v27 = 0;
+      v28 = 0;
+      std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(&v26, recordsCopy, &recordsCopy[count], count);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3321888768;
+      v24[2] = __79__LSRecord_LSDetachable__resolveAllPropertiesOfRecords_count_andDetachOnQueue___block_invoke;
+      v24[3] = &__block_descriptor_56_ea8_32c58_ZTSNSt3__16vectorIU6__weakP8LSRecordNS_9allocatorIS3_EEEE_e5_v8__0l;
+      memset(v25, 0, sizeof(v25));
+      std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(v25, v26, v27, v27 - v26);
+      [queue addOperationWithBlock:v24];
+      v29 = v25;
+      std::vector<LSRecord * {__weak}>::__destroy_vector::operator()[abi:nn200100](&v29);
+      v29 = &v26;
+      std::vector<LSRecord * {__weak}>::__destroy_vector::operator()[abi:nn200100](&v29);
       return;
     }
   }
 
-  if (pthread_main_np() && ([__LSDefaultsGetSharedInstance() isServer] & 1) == 0)
+  v11 = pthread_main_np();
+  if (v11 && ([__LSDefaultsGetSharedInstance(v11 v12)] & 1) == 0)
   {
-    v16 = LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool;
+    v18 = LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool;
     if (!LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool)
     {
       operator new();
     }
 
-    v17 = *LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool;
-    v18 = *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8);
-    if (v17 == v18)
+    v19 = *LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool;
+    v20 = *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8);
+    if (v19 == v20)
     {
-      std::vector<LSRecord * {__weak}>::__insert_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool, v17, recordsCopy, &recordsCopy[count], count);
-      v21 = MEMORY[0x1E69E96A0];
+      std::vector<LSRecord * {__weak}>::__insert_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool, v19, recordsCopy, &recordsCopy[count], count);
+      v23 = MEMORY[0x1E69E96A0];
 
-      dispatch_async(v21, &__block_literal_global_255);
+      dispatch_async(v23, &__block_literal_global_255);
     }
 
     else
     {
-      v24 = 0;
-      v19 = std::remove[abi:nn200100]<std::__wrap_iter<LSRecord * {__weak}*>,decltype(nullptr)>(&v17[LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::nilScanIndex], v18);
-      std::vector<LSRecord * {__weak}>::erase(v16, v19, *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8));
-      v20 = *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8);
-      LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::nilScanIndex = (v20 - *LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool) >> 3;
-      std::vector<LSRecord * {__weak}>::__insert_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool, v20, recordsCopy, &recordsCopy[count], count);
+      v26 = 0;
+      v21 = std::remove[abi:nn200100]<std::__wrap_iter<LSRecord * {__weak}*>,decltype(nullptr)>(&v19[LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::nilScanIndex], v20);
+      std::vector<LSRecord * {__weak}>::erase(v18, v21, *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8));
+      v22 = *(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool + 8);
+      LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::nilScanIndex = (v22 - *LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool) >> 3;
+      std::vector<LSRecord * {__weak}>::__insert_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(LaunchServices::Record::detachRecordsOnMainThread(LSRecord * const*,unsigned long)::detachPool, v22, recordsCopy, &recordsCopy[count], count);
     }
   }
 
   else
   {
-    v11 = 8 * count;
-    v12 = 8 * count;
-    v13 = recordsCopy;
+    v13 = 8 * count;
+    v14 = 8 * count;
+    v15 = recordsCopy;
     do
     {
-      v14 = *v13;
-      [v14 _resolveAllProperties];
+      v16 = *v15;
+      [v16 _resolveAllProperties];
 
-      ++v13;
-      v12 -= 8;
+      ++v15;
+      v14 -= 8;
     }
 
-    while (v12);
+    while (v14);
     do
     {
-      v15 = *recordsCopy;
-      [v15 detach];
+      v17 = *recordsCopy;
+      [v17 detach];
 
       ++recordsCopy;
-      v11 -= 8;
+      v13 -= 8;
     }
 
-    while (v11);
+    while (v13);
   }
 }
 
@@ -1162,12 +1146,11 @@ void __79__LSRecord_LSDetachable__resolveAllPropertiesOfRecords_count_andDetachO
 
 - (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, sizeof(v9));
-  v10 = 0;
-  _LSPersistentIdentifierDataMake(context, d, iD, v9);
-  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v9 length:28];
-  v7 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, sizeof(v8));
+  v9 = 0;
+  _LSPersistentIdentifierDataMake(d, iD, v8);
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v8 length:28];
 
   return v6;
 }
@@ -1175,8 +1158,6 @@ void __79__LSRecord_LSDetachable__resolveAllPropertiesOfRecords_count_andDetachO
 - (id)_initWithContext:(LSContext *)context persistentIdentifierData:(const LSPersistentIdentifierData *)data length:(unint64_t)length
 {
   [(_LSDatabase *)context->db store];
-  var2 = data->var2;
-  var3 = data->var3;
   if (CSStoreGetUnit())
   {
     return [(LSRecord *)self _initWithContext:context tableID:data->var3 unitID:data->var2];

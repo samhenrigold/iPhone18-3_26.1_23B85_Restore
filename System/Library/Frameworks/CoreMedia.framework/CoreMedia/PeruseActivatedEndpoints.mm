@@ -10,6 +10,7 @@ void __endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke(uint64_t a1)
   type = OS_LOG_TYPE_DEFAULT;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v14, &type);
   v3 = v14;
+  v4 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v5 = v3;
@@ -27,7 +28,7 @@ void __endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke(uint64_t a1)
     v16 = "endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke";
     v17 = 1024;
     v18 = v6;
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(v5, 0, v19, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<< EndpointCentricHALPlugin >>> %s: Device list changed; updating list with %d changed devices\n", &v15, 18);
     LOBYTE(v3) = v14;
   }
 
@@ -36,12 +37,13 @@ void __endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != v19, v3, 0, v4);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v19, v3);
   FigHALAudioPropertySendChanges(**(a1 + 48), 1, 2, "#vedbolg");
   v14 = 0;
   type = OS_LOG_TYPE_DEFAULT;
   v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v14, &type);
   v9 = v14;
+  v10 = type;
   if (os_log_type_enabled(v8, type))
   {
     v11 = v9;
@@ -56,7 +58,7 @@ void __endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke(uint64_t a1)
   {
     v15 = 136315138;
     v16 = "endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v11, 0, v19, 128, &dword_196FA7000, v8, v10, "<<< EndpointCentricHALPlugin >>> %s: Updating device list ... [done]\n", &v15);
     LOBYTE(v9) = v14;
   }
 
@@ -65,7 +67,7 @@ void __endpointCentricPlugin_PeruseActivatedEndpoints_block_invoke(uint64_t a1)
     v12 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v12, v12 != v19, v9, 0, v10);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v12, v12 != v19, v9);
 }
 
 @end

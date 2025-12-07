@@ -60,6 +60,8 @@
 - (void)dealloc;
 - (void)deleteLocalAccount;
 - (void)registerForTraitChanges;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsPlugin
@@ -104,6 +106,27 @@
   v4.receiver = self;
   v4.super_class = ICSettingsPlugin;
   [(ICSettingsPlugin *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsPlugin;
+  [(ICSettingsPlugin *)&v4 viewWillAppear:appear];
+  +[ICQuickNoteSessionSettings disableNotesOnLockScreenIfNecessary];
+  [(ICSettingsPlugin *)self reloadSpecifiers];
+  if ((+[UIDevice ic_isVision]& 1) == 0)
+  {
+    [(ICSettingsPlugin *)self setTitle:0];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsPlugin;
+  [(ICSettingsPlugin *)&v4 viewDidAppear:appear];
+  [(ICSettingsPlugin *)self ic_submitNavigationEventForIdentifier:0 titleStringKey:@"Notes" navigationComponents:&__NSArray0__struct];
 }
 
 - (void)registerForTraitChanges
@@ -1018,49 +1041,48 @@
 
 - (id)_accountValuesForSpecifier:(id)specifier
 {
-  v17 = objc_alloc_init(NoteContext);
+  v16 = objc_alloc_init(NoteContext);
   v3 = [(ICSettingsPlugin *)self allAccountsIncludingThoseInHTMLNoteContext:?];
   v4 = objc_alloc_init(NSMutableArray);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        objc_opt_class();
+        v10 = ICDynamicCast();
         objc_opt_class();
         v11 = ICDynamicCast();
-        objc_opt_class();
-        v12 = ICDynamicCast();
-        if (v11 && [v11 accountType] != 3)
+        if (v10 && [v10 accountType] != 3)
         {
-          identifier = [v11 identifier];
+          identifier = [v10 identifier];
         }
 
         else
         {
-          if (!v12 || ![v12 accountType])
+          if (!v11 || ![v11 accountType])
           {
             goto LABEL_14;
           }
 
-          identifier = [v12 accountIdentifier];
+          identifier = [v11 accountIdentifier];
         }
 
-        v14 = identifier;
+        v13 = identifier;
         if (identifier)
         {
           [v4 addObject:identifier];
@@ -1069,7 +1091,7 @@
 LABEL_14:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -1085,49 +1107,48 @@ LABEL_14:
 
 - (id)_accountTitlesForSpecifier:(id)specifier
 {
-  v18 = objc_alloc_init(NoteContext);
+  v17 = objc_alloc_init(NoteContext);
   v3 = [(ICSettingsPlugin *)self allAccountsIncludingThoseInHTMLNoteContext:?];
   v4 = objc_alloc_init(NSMutableArray);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        objc_opt_class();
+        v10 = ICDynamicCast();
         objc_opt_class();
         v11 = ICDynamicCast();
-        objc_opt_class();
-        v12 = ICDynamicCast();
-        if (v11 && [v11 accountType] != 3)
+        if (v10 && [v10 accountType] != 3)
         {
-          accountName = [v11 accountName];
+          accountName = [v10 accountName];
         }
 
         else
         {
-          if (!v12 || ![v12 accountType])
+          if (!v11 || ![v11 accountType])
           {
             goto LABEL_14;
           }
 
-          accountName = [v12 name];
+          accountName = [v11 name];
         }
 
-        v14 = accountName;
+        v13 = accountName;
         if (accountName)
         {
           [v4 addObject:accountName];
@@ -1136,7 +1157,7 @@ LABEL_14:
 LABEL_14:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -1144,10 +1165,10 @@ LABEL_14:
 
   if (-[ICSettingsPlugin localAccountExists](self, "localAccountExists") || ![v4 count])
   {
-    v15 = [ACUILocalization localizedTitleForLocalSourceOfDataclass:ACAccountDataclassNotes usedAtBeginningOfSentence:1];
-    if (v15)
+    v14 = [ACUILocalization localizedTitleForLocalSourceOfDataclass:ACAccountDataclassNotes usedAtBeginningOfSentence:1];
+    if (v14)
     {
-      [v4 addObject:v15];
+      [v4 addObject:v14];
     }
   }
 

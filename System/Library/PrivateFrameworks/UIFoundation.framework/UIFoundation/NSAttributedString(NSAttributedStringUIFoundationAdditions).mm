@@ -18,11 +18,8 @@
 - (uint64_t)RTFDFileWrapperFromRange:()NSAttributedStringUIFoundationAdditions documentAttributes:;
 - (uint64_t)RTFDFromRange:()NSAttributedStringUIFoundationAdditions documentAttributes:;
 - (uint64_t)RTFFromRange:()NSAttributedStringUIFoundationAdditions documentAttributes:;
-- (uint64_t)_atStartOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:;
-- (uint64_t)_atStartOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:;
 - (uint64_t)_documentFromRange:()NSAttributedStringUIFoundationAdditions document:documentAttributes:subresources:;
 - (uint64_t)_htmlDocumentFragmentString:()NSAttributedStringUIFoundationAdditions documentAttributes:subresources:;
-- (uint64_t)_lineBreakBeforeIndex:()NSAttributedStringUIFoundationAdditions withinRange:lineBreakStrategy:;
 - (uint64_t)_rangeOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:completeRow:;
 - (uint64_t)containsAttachments;
 - (uint64_t)containsAttachmentsInRange:()NSAttributedStringUIFoundationAdditions;
@@ -34,12 +31,15 @@
 - (uint64_t)initWithRTFD:()NSAttributedStringUIFoundationAdditions documentAttributes:;
 - (uint64_t)prefersRTFDInRange:()NSAttributedStringUIFoundationAdditions;
 - (uint64_t)rangeOfTextBlock:()NSAttributedStringUIFoundationAdditions atIndex:;
-- (uint64_t)rangeOfTextList:()NSAttributedStringUIFoundationAdditions atIndex:;
 - (uint64_t)rangeOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:;
+- (unint64_t)_lineBreakBeforeIndex:()NSAttributedStringUIFoundationAdditions withinRange:lineBreakStrategy:;
 - (unint64_t)doubleClickAtIndex:()NSAttributedStringUIFoundationAdditions inRange:;
 - (unint64_t)nextWordFromIndex:()NSAttributedStringUIFoundationAdditions forward:;
+- (unint64_t)rangeOfTextList:()NSAttributedStringUIFoundationAdditions atIndex:;
 - (void)_atEndOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:;
 - (void)_atEndOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:;
+- (void)_atStartOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:;
+- (void)_atStartOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:;
 - (void)_initWithRTFSelector:()NSAttributedStringUIFoundationAdditions argument:documentAttributes:;
 @end
 
@@ -463,7 +463,7 @@ LABEL_116:
     goto LABEL_125;
   }
 
-  v61 = _NSCopyBreakIterator(v27, v30, a5, 1u);
+  v61 = _NSCopyBreakIterator(v27, v30, a5, 1u, 0xFFFFu);
   if (!v61)
   {
 LABEL_125:
@@ -494,7 +494,7 @@ LABEL_131:
     }
   }
 
-  else if (v61 || (v61 = _NSCopyBreakIterator(v68, v30, a5, 1u)) != 0)
+  else if (v61 || (v61 = _NSCopyBreakIterator(v68, v30, a5, 1u, 0xFFFFu)) != 0)
   {
     ubrk_following();
     goto LABEL_131;
@@ -509,34 +509,34 @@ LABEL_132:
   return v60;
 }
 
-- (uint64_t)_lineBreakBeforeIndex:()NSAttributedStringUIFoundationAdditions withinRange:lineBreakStrategy:
+- (unint64_t)_lineBreakBeforeIndex:()NSAttributedStringUIFoundationAdditions withinRange:lineBreakStrategy:
 {
   string = [self string];
-  v8 = [self length];
-  if (!v8)
+  v11 = [self length];
+  if (!v11)
   {
     return 0;
   }
 
-  v9 = 0x7FFFFFFFFFFFFFFFLL;
+  v12 = 0x7FFFFFFFFFFFFFFFLL;
   if (a4 < a3)
   {
-    v10 = v8;
-    if (v8 >= a4)
+    v13 = v11;
+    if (v11 >= a4)
     {
-      if (v8 >= a3)
+      if (v11 >= a3)
       {
-        v11 = a3;
+        v14 = a3;
       }
 
       else
       {
-        v11 = v8;
+        v14 = v11;
       }
 
       theString = string;
-      v66 = a4;
-      v67 = v8 - a4;
+      v69 = a4;
+      v70 = v11 - a4;
       CharactersPtr = CFStringGetCharactersPtr(string);
       if (CharactersPtr)
       {
@@ -548,186 +548,186 @@ LABEL_132:
         CStringPtr = CFStringGetCStringPtr(string, 0x600u);
       }
 
-      v13 = 0;
-      v61 = 0u;
+      v16 = 0;
+      v64 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
+      v61 = 0u;
       *buffer = 0u;
-      v56 = 0u;
-      v14 = v11 - a4;
-      v68 = 0;
+      v59 = 0u;
+      v17 = v14 - a4;
+      v71 = 0;
       length = 0;
-      v15 = v11 - a4;
-      v65 = CStringPtr;
+      v18 = v14 - a4;
+      v68 = CStringPtr;
       do
       {
-        v16 = v15;
-        if (v15 < 0 || (v17 = v67, v67 <= v15))
+        v19 = v18;
+        if (v18 < 0 || (v20 = v70, v70 <= v18))
         {
-          v18 = 0;
+          v21 = 0;
         }
 
         else if (CharactersPtr)
         {
-          v18 = CharactersPtr[v66 + v15];
+          v21 = CharactersPtr[v69 + v18];
         }
 
-        else if (v65)
+        else if (v68)
         {
-          v18 = v65[v66 + v15];
+          v21 = v68[v69 + v18];
         }
 
         else
         {
-          if (length <= v15 || v13 > v15)
+          if (length <= v18 || v16 > v18)
           {
-            v19 = v15 - 4;
-            if (v15 < 4)
+            v22 = v18 - 4;
+            if (v18 < 4)
             {
-              v19 = 0;
+              v22 = 0;
             }
 
-            if (v19 + 64 < v67)
+            if (v22 + 64 < v70)
             {
-              v17 = v19 + 64;
+              v20 = v22 + 64;
             }
 
-            v68 = v19;
-            length = v17;
-            v70.length = v17 - v19;
-            v70.location = v66 + v19;
-            CFStringGetCharacters(theString, v70, buffer);
-            v13 = v68;
+            v71 = v22;
+            length = v20;
+            v73.length = v20 - v22;
+            v73.location = v69 + v22;
+            CFStringGetCharacters(theString, v73, buffer);
+            v16 = v71;
           }
 
-          v18 = buffer[v16 - v13];
+          v21 = buffer[v19 - v16];
         }
 
-        v15 = v16 + 1;
+        v18 = v19 + 1;
       }
 
-      while (v18 == 32 || ((v18 - 3712) >> 7) > 0x1FEu);
-      if (v16 <= v67)
+      while (v21 == 32 || ((v21 - 3712) >> 7) > 0x1FEu);
+      if (v19 <= v70)
       {
         if (CharactersPtr)
         {
-          v27 = 0;
-          v14 = 0;
-          v28 = &CharactersPtr[v66];
+          v30 = 0;
+          v17 = 0;
+          v31 = &CharactersPtr[v69];
           goto LABEL_115;
         }
 
-        if (v16 <= 64)
+        if (v19 <= 64)
         {
-          if (v16 > length || v13 >= 1)
+          if (v19 > length || v16 >= 1)
           {
-            if (v67 >= 64)
+            if (v70 >= 64)
             {
-              v31.length = 64;
+              v34.length = 64;
             }
 
             else
             {
-              v31.length = v67;
+              v34.length = v70;
             }
 
-            v68 = 0;
-            length = v31.length;
-            v31.location = v66;
-            if (v65)
+            v71 = 0;
+            length = v34.length;
+            v34.location = v69;
+            if (v68)
             {
-              if (v67)
+              if (v70)
               {
-                v32 = &v65[v66];
-                v33 = buffer;
+                v35 = &v68[v69];
+                v36 = buffer;
                 do
                 {
-                  v34 = *v32++;
-                  *v33++ = v34;
-                  --v31.length;
+                  v37 = *v35++;
+                  *v36++ = v37;
+                  --v34.length;
                 }
 
-                while (v31.length);
+                while (v34.length);
               }
             }
 
             else
             {
-              CFStringGetCharacters(theString, v31, buffer);
+              CFStringGetCharacters(theString, v34, buffer);
             }
           }
 
-          v27 = 0;
-          v14 = 0;
-          v28 = &buffer[-v68];
+          v30 = 0;
+          v17 = 0;
+          v31 = &buffer[-v71];
           goto LABEL_115;
         }
       }
 
-      v54 = v11;
-      if (v14 < 1)
+      v57 = v14;
+      if (v17 < 1)
       {
 LABEL_60:
-        v14 = 0;
+        v17 = 0;
         goto LABEL_65;
       }
 
       while (1)
       {
-        v20 = v14--;
-        v21 = v67;
-        if (v67 >= v20)
+        v23 = v17--;
+        v24 = v70;
+        if (v70 >= v23)
         {
           if (CharactersPtr)
           {
-            v22 = CharactersPtr[v66 + v14];
+            v25 = CharactersPtr[v69 + v17];
           }
 
-          else if (v65)
+          else if (v68)
           {
-            v22 = v65[v66 + v14];
+            v25 = v68[v69 + v17];
           }
 
           else
           {
-            v23 = v68;
-            v24 = length >= v20 && v68 < v20;
-            if (!v24)
+            v26 = v71;
+            v27 = length >= v23 && v71 < v23;
+            if (!v27)
             {
-              v25 = v20 - 5;
-              if (v20 < 5)
+              v28 = v23 - 5;
+              if (v23 < 5)
               {
-                v25 = 0;
+                v28 = 0;
               }
 
-              if (v25 + 64 < v67)
+              if (v28 + 64 < v70)
               {
-                v21 = v25 + 64;
+                v24 = v28 + 64;
               }
 
-              v68 = v25;
-              length = v21;
-              v71.length = v21 - v25;
-              v71.location = v66 + v25;
-              CFStringGetCharacters(theString, v71, buffer);
-              v23 = v68;
+              v71 = v28;
+              length = v24;
+              v74.length = v24 - v28;
+              v74.location = v69 + v28;
+              CFStringGetCharacters(theString, v74, buffer);
+              v26 = v71;
             }
 
-            v22 = buffer[v14 - v23];
+            v25 = buffer[v17 - v26];
           }
 
-          if (v22 > 0x84u)
+          if (v25 > 0x84u)
           {
-            if (v22 - 8232 < 2 || v22 == 133)
+            if (v25 - 8232 < 2 || v25 == 133)
             {
               goto LABEL_63;
             }
           }
 
-          else if (v22 == 13)
+          else if (v25 == 13)
           {
             if ([0 length] < 2 || objc_msgSend(0, "characterAtIndex:", 1) != 10)
             {
@@ -735,178 +735,178 @@ LABEL_60:
             }
           }
 
-          else if (v22 == 10 || v22 == 12)
+          else if (v25 == 10 || v25 == 12)
           {
 LABEL_63:
-            v16 -= v14;
-            if (v16 == 1)
+            v19 -= v17;
+            if (v19 == 1)
             {
-              return v14 + a4;
+              return v17 + a4;
             }
 
 LABEL_65:
-            v29 = v16 + v14;
-            if (v16 + v14 > v67)
+            v32 = v19 + v17;
+            if (v19 + v17 > v70)
             {
 LABEL_66:
-              v30 = NSZoneMalloc([self zone], 2 * v16);
-              v28 = v30;
+              v33 = NSZoneMalloc([self zone], 2 * v19);
+              v31 = v33;
               if (CharactersPtr)
               {
-                memmove(v30, &CharactersPtr[v66 + v14], 2 * v16);
+                memmove(v33, &CharactersPtr[v69 + v17], 2 * v19);
                 goto LABEL_68;
               }
 
-              if (v14 < v68 || length <= v14)
+              if (v17 < v71 || length <= v17)
               {
-                v36 = v30;
-                v37 = v14;
-                v38 = v16;
-                if (v29 > v68)
+                v39 = v33;
+                v40 = v17;
+                v41 = v19;
+                if (v32 > v71)
                 {
-                  v36 = v30;
-                  v37 = v14;
-                  v38 = v16;
-                  if (v29 < length)
+                  v39 = v33;
+                  v40 = v17;
+                  v41 = v19;
+                  if (v32 < length)
                   {
-                    v38 = v68 - v14;
-                    memmove(&v30[v68 - v14], buffer, 2 * (v29 - v68));
-                    v36 = v28;
-                    v37 = v14;
+                    v41 = v71 - v17;
+                    memmove(&v33[v71 - v17], buffer, 2 * (v32 - v71));
+                    v39 = v31;
+                    v40 = v17;
                   }
                 }
               }
 
               else
               {
-                if (v16 >= length - v14)
+                if (v19 >= length - v17)
                 {
-                  v35 = length - v14;
+                  v38 = length - v17;
                 }
 
                 else
                 {
-                  v35 = v16;
+                  v38 = v19;
                 }
 
-                memmove(v30, &buffer[v14 - v68], 2 * v35);
-                v36 = &v28[v35];
-                v37 = v35 + v14;
-                v38 = v16 - v35;
+                memmove(v33, &buffer[v17 - v71], 2 * v38);
+                v39 = &v31[v38];
+                v40 = v38 + v17;
+                v41 = v19 - v38;
               }
 
-              if (v38 >= 1)
+              if (v41 >= 1)
               {
-                v46.location = v66 + v37;
-                v11 = v54;
-                if (v65)
+                v49.location = v69 + v40;
+                v14 = v57;
+                if (v68)
                 {
-                  v47 = &v65[v46.location];
+                  v50 = &v68[v49.location];
                   do
                   {
-                    v48 = *v47++;
-                    *v36++ = v48;
-                    --v38;
+                    v51 = *v50++;
+                    *v39++ = v51;
+                    --v41;
                   }
 
-                  while (v38);
+                  while (v41);
                 }
 
                 else
                 {
-                  v46.length = v38;
-                  CFStringGetCharacters(theString, v46, v36);
+                  v49.length = v41;
+                  CFStringGetCharacters(theString, v49, v39);
                 }
 
-                v27 = v28;
+                v30 = v31;
                 goto LABEL_115;
               }
 
 LABEL_68:
-              v27 = v28;
+              v30 = v31;
 LABEL_71:
-              v11 = v54;
+              v14 = v57;
               goto LABEL_115;
             }
 
             if (CharactersPtr)
             {
-              v27 = 0;
-              v28 = &CharactersPtr[v66 + v14];
+              v30 = 0;
+              v31 = &CharactersPtr[v69 + v17];
               goto LABEL_71;
             }
 
-            if (v16 > 64)
+            if (v19 > 64)
             {
               goto LABEL_66;
             }
 
-            v24 = v29 <= length;
-            v11 = v54;
-            if (!v24 || v14 < v68)
+            v27 = v32 <= length;
+            v14 = v57;
+            if (!v27 || v17 < v71)
             {
-              v39 = v14 + 64;
-              if (v14 + 64 >= v67)
+              v42 = v17 + 64;
+              if (v17 + 64 >= v70)
               {
-                v39 = v67;
+                v42 = v70;
               }
 
-              v68 = v14;
-              length = v39;
-              v40.location = v66 + v14;
-              v40.length = v39 - v14;
-              if (v65)
+              v71 = v17;
+              length = v42;
+              v43.location = v69 + v17;
+              v43.length = v42 - v17;
+              if (v68)
               {
-                if (v40.length)
+                if (v43.length)
                 {
-                  v41 = &v65[v40.location];
-                  v42 = v14 - v39;
-                  v43 = buffer;
+                  v44 = &v68[v43.location];
+                  v45 = v17 - v42;
+                  v46 = buffer;
                   do
                   {
-                    v44 = *v41++;
-                    *v43++ = v44;
+                    v47 = *v44++;
+                    *v46++ = v47;
                   }
 
-                  while (!__CFADD__(v42++, 1));
+                  while (!__CFADD__(v45++, 1));
                 }
               }
 
               else
               {
-                CFStringGetCharacters(theString, v40, buffer);
+                CFStringGetCharacters(theString, v43, buffer);
               }
             }
 
-            v27 = 0;
-            v28 = &buffer[v14 - v68];
+            v30 = 0;
+            v31 = &buffer[v17 - v71];
 LABEL_115:
-            v49 = [self attribute:NSLanguageAttributeName atIndex:v11 - (v10 <= a3) effectiveRange:0];
-            v50 = _NSCopyBreakIterator(v49, v28, v16, 0);
-            if (!v50 || (v51 = v50, v52 = ubrk_preceding(), _NSDisposeBreakIterator(v51, v49, 0), v52 == -1))
+            v52 = [self attribute:NSLanguageAttributeName atIndex:v14 - (v13 <= a3) effectiveRange:0];
+            v53 = _NSCopyBreakIterator(v52, v31, v19, 0, a6);
+            if (!v53 || (v54 = v53, v55 = ubrk_preceding(), _NSDisposeBreakIterator(v54, v52, 0), v55 == -1))
             {
-              v9 = 0x7FFFFFFFFFFFFFFFLL;
-              if (!v27)
+              v12 = 0x7FFFFFFFFFFFFFFFLL;
+              if (!v30)
               {
-                return v9;
+                return v12;
               }
             }
 
             else
             {
-              v9 = v14 + a4 + v52;
-              if (!v27)
+              v12 = v17 + a4 + v55;
+              if (!v30)
               {
-                return v9;
+                return v12;
               }
             }
 
-            NSZoneFree([self zone], v27);
-            return v9;
+            NSZoneFree([self zone], v30);
+            return v12;
           }
         }
 
-        if (v20 <= 1)
+        if (v23 <= 1)
         {
           goto LABEL_60;
         }
@@ -914,7 +914,7 @@ LABEL_115:
     }
   }
 
-  return v9;
+  return v12;
 }
 
 - (CFIndex)lineBreakByHyphenatingBeforeIndex:()NSAttributedStringUIFoundationAdditions withinRange:
@@ -1151,7 +1151,7 @@ LABEL_52:
         CFStringGetCharacters(string, v55, v20);
       }
 
-      v22 = _NSCopyBreakIterator(v21, v20, v11, 1u);
+      v22 = _NSCopyBreakIterator(v21, v20, v11, 1u, 0xFFFFu);
       if (!v22)
       {
         goto LABEL_73;
@@ -1476,7 +1476,7 @@ LABEL_133:
     v47 = 0;
     v27 = 0;
 LABEL_147:
-    v38 = _NSCopyBreakIterator(v48, v36, v26, 1u);
+    v38 = _NSCopyBreakIterator(v48, v36, v26, 1u, 0xFFFFu);
     if (!v38)
     {
       break;
@@ -1673,8 +1673,8 @@ LABEL_185:
   selfCopy = self;
   v8 = [self length];
   v9 = _NSAttachmentCharacterSet();
-  v10 = a3 + a4;
-  v52 = a3 + a4;
+  v10 = &a4[a3];
+  v52 = &a4[a3];
   if (!a4)
   {
     return &stru_1F01AD578;
@@ -1691,7 +1691,7 @@ LABEL_185:
   if (a3 < v10)
   {
     v12 = 0;
-    v45 = a3 + a4;
+    v45 = &a4[a3];
     while (1)
     {
       v50 = 0;
@@ -1748,7 +1748,7 @@ LABEL_185:
 
       if (baseWritingDirection != -1 && v17 > v15)
       {
-        v18 = _NSStringImputedBaseWritingDirectionAtIndex(string, v15, v15, v17 - v15);
+        v18 = _NSStringImputedBaseWritingDirectionAtIndex(string, v15, v15, &v17[-v15]);
         if (v18 != -1 && v18 != baseWritingDirection)
         {
           if (baseWritingDirection == 1)
@@ -2017,7 +2017,7 @@ LABEL_72:
       v18 = [[NSRTFWriter alloc] initWithAttributedString:v12];
       if (v18)
       {
-        v24 = v18;
+        p_isa = &v18->super.isa;
         if (a5)
         {
           [NSRTFWriter setDocumentAttributes:v18];
@@ -2027,11 +2027,11 @@ LABEL_72:
         v26 = [a5 objectForKey:@"SourceTextScaling"];
         if (v26 && v25)
         {
-          -[NSRTFWriter _setTextScalingConversionSource:](v24, [v26 integerValue]);
-          -[NSRTFWriter _setTextScalingConversionTarget:](v24, [v25 integerValue]);
+          -[NSRTFWriter _setTextScalingConversionSource:](p_isa, [v26 integerValue]);
+          -[NSRTFWriter _setTextScalingConversionTarget:](p_isa, [v25 integerValue]);
         }
 
-        rTFD = [(NSRTFWriter *)v24 RTF];
+        rTFD = [(NSRTFWriter *)p_isa RTF];
         goto LABEL_48;
       }
 
@@ -2048,7 +2048,7 @@ LABEL_50:
         goto LABEL_50;
       }
 
-      v24 = v18;
+      p_isa = &v18->super.isa;
       if (a5)
       {
         [NSRTFWriter setDocumentAttributes:v18];
@@ -2058,11 +2058,11 @@ LABEL_50:
       v29 = [a5 objectForKey:@"SourceTextScaling"];
       if (v29 && v28)
       {
-        -[NSRTFWriter _setTextScalingConversionSource:](v24, [v29 integerValue]);
-        -[NSRTFWriter _setTextScalingConversionTarget:](v24, [v28 integerValue]);
+        -[NSRTFWriter _setTextScalingConversionSource:](p_isa, [v29 integerValue]);
+        -[NSRTFWriter _setTextScalingConversionTarget:](p_isa, [v28 integerValue]);
       }
 
-      rTFD = [(NSRTFWriter *)v24 RTFD];
+      rTFD = [(NSRTFWriter *)p_isa RTFD];
     }
 
     else if ([@"NSHTML" isEqual:v11])
@@ -2073,13 +2073,13 @@ LABEL_50:
         goto LABEL_50;
       }
 
-      v24 = v18;
+      p_isa = &v18->super.isa;
       if (a5)
       {
         [(NSHTMLWriter *)v18 setDocumentAttributes:a5];
       }
 
-      rTFD = [(NSHTMLWriter *)v24 HTMLData];
+      rTFD = [p_isa HTMLData];
     }
 
     else
@@ -2103,13 +2103,13 @@ LABEL_50:
         goto LABEL_50;
       }
 
-      v24 = v18;
+      p_isa = &v18->super.isa;
       if (a5)
       {
         [(NSHTMLWriter *)v18 setDocumentAttributes:a5];
       }
 
-      rTFD = [(NSHTMLWriter *)v24 webArchiveData];
+      rTFD = [p_isa webArchiveData];
     }
 
 LABEL_48:
@@ -2268,7 +2268,7 @@ LABEL_52:
     v26 = [[NSRTFWriter alloc] initWithAttributedString:v12];
     if (v26)
     {
-      v27 = v26;
+      p_isa = v26;
       if (a5)
       {
         [NSRTFWriter setDocumentAttributes:v26];
@@ -2278,11 +2278,11 @@ LABEL_52:
       v29 = [a5 objectForKey:@"SourceTextScaling"];
       if (v29 && v28)
       {
-        -[NSRTFWriter _setTextScalingConversionSource:](v27, [v29 integerValue]);
-        -[NSRTFWriter _setTextScalingConversionTarget:](v27, [v28 integerValue]);
+        -[NSRTFWriter _setTextScalingConversionSource:](p_isa, [v29 integerValue]);
+        -[NSRTFWriter _setTextScalingConversionTarget:](p_isa, [v28 integerValue]);
       }
 
-      rTFDFileWrapper = [(NSRTFWriter *)v27 RTFDFileWrapper];
+      rTFDFileWrapper = [(NSRTFWriter *)p_isa RTFDFileWrapper];
 LABEL_38:
       v18 = rTFDFileWrapper;
 
@@ -2297,13 +2297,13 @@ LABEL_38:
     v31 = [[NSHTMLWriter alloc] initWithAttributedString:v12];
     if (v31)
     {
-      v27 = v31;
+      p_isa = &v31->super.isa;
       if (a5)
       {
         [(NSHTMLWriter *)v31 setDocumentAttributes:a5];
       }
 
-      rTFDFileWrapper = [(NSHTMLWriter *)v27 HTMLFileWrapper];
+      rTFDFileWrapper = [p_isa HTMLFileWrapper];
       goto LABEL_38;
     }
 
@@ -2604,7 +2604,7 @@ LABEL_12:
 
 - (uint64_t)initWithPath:()NSAttributedStringUIFoundationAdditions documentAttributes:
 {
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
 
   return [self initWithURL:v6 options:0 documentAttributes:a4 error:0];
 }
@@ -3108,7 +3108,7 @@ LABEL_12:
   return v10;
 }
 
-- (uint64_t)_atStartOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:
+- (void)_atStartOfTextTable:()NSAttributedStringUIFoundationAdditions atIndex:
 {
   v25[0] = 0;
   v25[1] = 0;
@@ -3510,7 +3510,7 @@ LABEL_16:
   return v13;
 }
 
-- (uint64_t)_atStartOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:
+- (void)_atStartOfTextTableRow:()NSAttributedStringUIFoundationAdditions atIndex:
 {
   v27[0] = 0;
   v27[1] = 0;
@@ -3730,7 +3730,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)rangeOfTextList:()NSAttributedStringUIFoundationAdditions atIndex:
+- (unint64_t)rangeOfTextList:()NSAttributedStringUIFoundationAdditions atIndex:
 {
   selfCopy = self;
   string = [self string];

@@ -7,6 +7,7 @@
 - (id)isRunningAutoPauseEnabled;
 - (id)specifiers;
 - (void)dealloc;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerAppAutoPauseController
@@ -74,6 +75,14 @@
   v18 = v17;
 
   return v17;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFSessionTrackerAppAutoPauseController;
+  [(HPRFSessionTrackerAppAutoPauseController *)&v3 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForAutoPauseSettings];
 }
 
 - (id)bundle

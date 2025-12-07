@@ -7,22 +7,22 @@
 
 + (void)prepareNotificationBodyFromMessage:(id)message completionHandler:(id)handler
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   messageType = [objc_opt_class() messageType];
-  v105 = 0;
-  v106 = &v105;
-  v107 = 0x3032000000;
-  v108 = __Block_byref_object_copy__0;
-  v109 = __Block_byref_object_dispose__0;
-  v110 = 0;
+  v104 = 0;
+  v105 = &v104;
+  v106 = 0x3032000000;
+  v107 = __Block_byref_object_copy__0;
+  v108 = __Block_byref_object_dispose__0;
+  v109 = 0;
   switch(messageType)
   {
     case 3:
       summaryText = [messageCopy summaryText];
-      v22 = v106[5];
-      v106[5] = summaryText;
+      v22 = v105[5];
+      v105[5] = summaryText;
 
       v23 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
@@ -30,56 +30,56 @@
         v24 = objc_opt_class();
         v25 = NSStringFromClass(v24);
         v26 = NSStringFromSelector(a2);
-        v27 = v106[5];
+        v27 = v105[5];
         *buf = 138412802;
-        v112 = v25;
-        v113 = 2112;
-        v114 = v26;
-        v115 = 2112;
-        v116 = v27;
+        v111 = v25;
+        v112 = 2112;
+        v113 = v26;
+        v114 = 2112;
+        v115 = v27;
         _os_log_impl(&dword_26455D000, v23, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageType SMMessageTypeKeyRelease summaryText: %@", buf, 0x20u);
       }
 
-      handlerCopy[2](handlerCopy, v106[5], 0);
+      handlerCopy[2](handlerCopy, v105[5], 0);
       goto LABEL_42;
     case 2:
       v16 = messageCopy;
       summaryText2 = [v16 summaryText];
-      v18 = v106[5];
-      v106[5] = summaryText2;
+      v18 = v105[5];
+      v105[5] = summaryText2;
 
       if ([v16 sessionEndReason] == 1 && objc_msgSend(v16, "destinationType") == 4)
       {
         destinationMapItem = [v16 destinationMapItem];
-        v88[0] = MEMORY[0x277D85DD0];
-        v88[1] = 3221225472;
-        v88[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_66;
-        v88[3] = &unk_279B65438;
+        v87[0] = MEMORY[0x277D85DD0];
+        v87[1] = 3221225472;
+        v87[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_66;
+        v87[3] = &unk_279B65438;
         selfCopy = self;
-        v92 = a2;
-        v89 = handlerCopy;
-        v90 = &v105;
-        [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem completionHandler:v88];
+        v91 = a2;
+        v88 = handlerCopy;
+        v89 = &v104;
+        [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem completionHandler:v87];
 
-        v20 = v89;
+        v20 = v88;
       }
 
       else
       {
-        handlerCopy[2](handlerCopy, v106[5], 0);
+        handlerCopy[2](handlerCopy, v105[5], 0);
         v20 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           v33 = objc_opt_class();
           v34 = NSStringFromClass(v33);
           v35 = NSStringFromSelector(a2);
-          v36 = v106[5];
+          v36 = v105[5];
           *buf = 138412802;
-          v112 = v34;
-          v113 = 2112;
-          v114 = v35;
-          v115 = 2112;
-          v116 = v36;
+          v111 = v34;
+          v112 = 2112;
+          v113 = v35;
+          v114 = 2112;
+          v115 = v36;
           _os_log_impl(&dword_26455D000, v20, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageTypeSessionEnd DEFAULT summaryText: %@", buf, 0x20u);
         }
       }
@@ -88,8 +88,8 @@
     case 1:
       v10 = messageCopy;
       summaryText3 = [v10 summaryText];
-      v12 = v106[5];
-      v106[5] = summaryText3;
+      v12 = v105[5];
+      v105[5] = summaryText3;
 
       coarseEstimatedEndTime = [v10 coarseEstimatedEndTime];
       v14 = coarseEstimatedEndTime;
@@ -115,8 +115,8 @@
         roundedTime = [v20 roundedTime];
         v55 = [roundedTime absoluteTimeString:0 preposition:1 capitalized:0];
         v56 = [v53 localizedStringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:0, v55];
-        v57 = v106[5];
-        v106[5] = v56;
+        v57 = v105[5];
+        v105[5] = v56;
 
         v47 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -124,13 +124,13 @@
           v58 = objc_opt_class();
           v59 = NSStringFromClass(v58);
           v60 = NSStringFromSelector(a2);
-          v61 = v106[5];
+          v61 = v105[5];
           *buf = 138412802;
-          v112 = v59;
-          v113 = 2112;
-          v114 = v60;
-          v115 = 2112;
-          v116 = v61;
+          v111 = v59;
+          v112 = 2112;
+          v113 = v60;
+          v114 = 2112;
+          v115 = v61;
           _os_log_impl(&dword_26455D000, v47, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionTypeTimeBound summaryText: %@", buf, 0x20u);
         }
       }
@@ -142,36 +142,36 @@
           if (sessionType == 3)
           {
             destinationMapItem2 = [v10 destinationMapItem];
-            v93[0] = MEMORY[0x277D85DD0];
-            v93[1] = 3221225472;
-            v93[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_53;
-            v93[3] = &unk_279B65410;
-            v96 = &v105;
-            v94 = v20;
+            v92[0] = MEMORY[0x277D85DD0];
+            v92[1] = 3221225472;
+            v92[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_53;
+            v92[3] = &unk_279B65410;
+            v95 = &v104;
+            v93 = v20;
             selfCopy2 = self;
-            v98 = a2;
-            v95 = handlerCopy;
-            [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem2 completionHandler:v93];
+            v97 = a2;
+            v94 = handlerCopy;
+            [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem2 completionHandler:v92];
 
-            v39 = v94;
+            v39 = v93;
           }
 
           else
           {
-            handlerCopy[2](handlerCopy, v106[5], 0);
+            handlerCopy[2](handlerCopy, v105[5], 0);
             v39 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               v62 = objc_opt_class();
               v63 = NSStringFromClass(v62);
               v64 = NSStringFromSelector(a2);
-              v65 = v106[5];
+              v65 = v105[5];
               *buf = 138412802;
-              v112 = v63;
-              v113 = 2112;
-              v114 = v64;
-              v115 = 2112;
-              v116 = v65;
+              v111 = v63;
+              v112 = 2112;
+              v113 = v64;
+              v114 = 2112;
+              v115 = v65;
               _os_log_impl(&dword_26455D000, v39, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageTypeSessionStart DEFAULT summaryText: %@", buf, 0x20u);
             }
           }
@@ -190,8 +190,8 @@
             roundedTime2 = [v20 roundedTime];
             v79 = [roundedTime2 absoluteTimeString:0 preposition:1 capitalized:0];
             v80 = [v77 localizedStringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:0, v79];
-            v81 = v106[5];
-            v106[5] = v80;
+            v81 = v105[5];
+            v105[5] = v80;
 
             v47 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -199,13 +199,13 @@
               v82 = objc_opt_class();
               v83 = NSStringFromClass(v82);
               v84 = NSStringFromSelector(a2);
-              v85 = v106[5];
+              v85 = v105[5];
               *buf = 138412802;
-              v112 = v83;
-              v113 = 2112;
-              v114 = v84;
-              v115 = 2112;
-              v116 = v85;
+              v111 = v83;
+              v112 = 2112;
+              v113 = v84;
+              v114 = 2112;
+              v115 = v85;
               _os_log_impl(&dword_26455D000, v47, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionTypeDestinationBound SCHOOL summaryText: %@", buf, 0x20u);
             }
 
@@ -218,8 +218,8 @@
             roundedTime3 = [v20 roundedTime];
             v69 = [roundedTime3 absoluteTimeString:0 preposition:1 capitalized:0];
             v70 = [v67 localizedStringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:0, v69];
-            v71 = v106[5];
-            v106[5] = v70;
+            v71 = v105[5];
+            v105[5] = v70;
 
             v47 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -227,13 +227,13 @@
               v72 = objc_opt_class();
               v73 = NSStringFromClass(v72);
               v74 = NSStringFromSelector(a2);
-              v75 = v106[5];
+              v75 = v105[5];
               *buf = 138412802;
-              v112 = v73;
-              v113 = 2112;
-              v114 = v74;
-              v115 = 2112;
-              v116 = v75;
+              v111 = v73;
+              v112 = 2112;
+              v113 = v74;
+              v114 = 2112;
+              v115 = v75;
               _os_log_impl(&dword_26455D000, v47, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionTypeDestinationBound WORK summaryText: %@", buf, 0x20u);
             }
 
@@ -246,8 +246,8 @@
             roundedTime4 = [v20 roundedTime];
             v44 = [roundedTime4 absoluteTimeString:0 preposition:1 capitalized:0];
             v45 = [v42 localizedStringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:0, v44];
-            v46 = v106[5];
-            v106[5] = v45;
+            v46 = v105[5];
+            v105[5] = v45;
 
             v47 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -255,36 +255,36 @@
               v48 = objc_opt_class();
               v49 = NSStringFromClass(v48);
               v50 = NSStringFromSelector(a2);
-              v51 = v106[5];
+              v51 = v105[5];
               *buf = 138412802;
-              v112 = v49;
-              v113 = 2112;
-              v114 = v50;
-              v115 = 2112;
-              v116 = v51;
+              v111 = v49;
+              v112 = 2112;
+              v113 = v50;
+              v114 = 2112;
+              v115 = v51;
               _os_log_impl(&dword_26455D000, v47, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionTypeDestinationBound HOME summaryText: %@", buf, 0x20u);
             }
 
             break;
           default:
             destinationMapItem3 = [v10 destinationMapItem];
-            v99[0] = MEMORY[0x277D85DD0];
-            v99[1] = 3221225472;
-            v99[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke;
-            v99[3] = &unk_279B65410;
-            v102 = &v105;
-            v100 = v20;
+            v98[0] = MEMORY[0x277D85DD0];
+            v98[1] = 3221225472;
+            v98[2] = __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke;
+            v98[3] = &unk_279B65410;
+            v101 = &v104;
+            v99 = v20;
             selfCopy3 = self;
-            v104 = a2;
-            v101 = handlerCopy;
-            [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem3 completionHandler:v99];
+            v103 = a2;
+            v100 = handlerCopy;
+            [SMReceiverNotificationUtilities fetchDestinationNameFromMapItem:destinationMapItem3 completionHandler:v98];
 
-            v39 = v100;
+            v39 = v99;
             goto LABEL_40;
         }
       }
 
-      handlerCopy[2](handlerCopy, v106[5], 0);
+      handlerCopy[2](handlerCopy, v105[5], 0);
 LABEL_40:
 
 LABEL_41:
@@ -299,26 +299,24 @@ LABEL_42:
     v29 = objc_opt_class();
     v30 = NSStringFromClass(v29);
     v31 = NSStringFromSelector(a2);
-    v32 = v106[5];
+    v32 = v105[5];
     *buf = 138412802;
-    v112 = v30;
-    v113 = 2112;
-    v114 = v31;
-    v115 = 2112;
-    v116 = v32;
+    v111 = v30;
+    v112 = 2112;
+    v113 = v31;
+    v114 = 2112;
+    v115 = v32;
     _os_log_impl(&dword_26455D000, v28, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageType DEFAULT summaryText: %@", buf, 0x20u);
   }
 
-  handlerCopy[2](handlerCopy, v106[5], 0);
+  handlerCopy[2](handlerCopy, v105[5], 0);
 LABEL_43:
-  _Block_object_dispose(&v105, 8);
-
-  v87 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v104, 8);
 }
 
 void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -338,16 +336,15 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
     v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v30 = *(a1 + 56);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = NSStringFromSelector(*(a1 + 64));
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = NSStringFromSelector(*(a1 + 64));
       *buf = 138412802;
-      v35 = v32;
-      v36 = 2112;
-      v37 = v33;
-      v38 = 2112;
-      v39 = v6;
+      v31 = v28;
+      v32 = 2112;
+      v33 = v29;
+      v34 = 2112;
+      v35 = v6;
       _os_log_error_impl(&dword_26455D000, v16, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@,Unable to fetch destination name due to error %@", buf, 0x20u);
     }
   }
@@ -367,30 +364,26 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
     v16 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 56);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = NSStringFromSelector(*(a1 + 64));
-      v27 = *(*(*(a1 + 48) + 8) + 40);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = NSStringFromSelector(*(a1 + 64));
+      v26 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412802;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v27;
+      v31 = v24;
+      v32 = 2112;
+      v33 = v25;
+      v34 = 2112;
+      v35 = v26;
       _os_log_impl(&dword_26455D000, v16, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionDestinationTypeOther summaryText: %@", buf, 0x20u);
     }
   }
 
-  v28 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_53(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -410,16 +403,15 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
     v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v30 = *(a1 + 56);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = NSStringFromSelector(*(a1 + 64));
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = NSStringFromSelector(*(a1 + 64));
       *buf = 138412802;
-      v35 = v32;
-      v36 = 2112;
-      v37 = v33;
-      v38 = 2112;
-      v39 = v6;
+      v31 = v28;
+      v32 = 2112;
+      v33 = v29;
+      v34 = 2112;
+      v35 = v6;
       _os_log_error_impl(&dword_26455D000, v16, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@,Unable to fetch destination name due to error %@", buf, 0x20u);
     }
   }
@@ -439,30 +431,26 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
     v16 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 56);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = NSStringFromSelector(*(a1 + 64));
-      v27 = *(*(*(a1 + 48) + 8) + 40);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = NSStringFromSelector(*(a1 + 64));
+      v26 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412802;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v27;
+      v31 = v24;
+      v32 = 2112;
+      v33 = v25;
+      v34 = 2112;
+      v35 = v26;
       _os_log_impl(&dword_26455D000, v16, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMSessionTypeRoundTrip summaryText: %@", buf, 0x20u);
     }
   }
 
-  v28 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_completionHandler___block_invoke_66(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -470,55 +458,49 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
     v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(a1 + 48);
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      v25 = NSStringFromSelector(*(a1 + 56));
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = NSStringFromSelector(*(a1 + 56));
       *buf = 138412802;
-      v27 = v24;
-      v28 = 2112;
-      v29 = v25;
-      v30 = 2112;
-      v31 = v6;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v6;
       _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@,Unable to fetch destination name due to error %@", buf, 0x20u);
     }
 
-    v8 = *(*(*(a1 + 40) + 8) + 40);
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"END_MESSAGE_SAFE_ARRIVAL_CUSTOMISED_DESTINATION_SUMMARY" value:@"Check In: Arrived at %@" table:0];
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v9 = [v8 localizedStringForKey:@"END_MESSAGE_SAFE_ARRIVAL_CUSTOMISED_DESTINATION_SUMMARY" value:@"Check In: Arrived at %@" table:0];
 
-    v11 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:0, v5];
-    v12 = *(*(a1 + 40) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v10 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v9 validFormatSpecifiers:@"%@" error:0, v5];
+    v11 = *(*(a1 + 40) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
 
-    v14 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 48);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = NSStringFromSelector(*(a1 + 56));
-      v19 = *(*(*(a1 + 40) + 8) + 40);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = NSStringFromSelector(*(a1 + 56));
+      v17 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412802;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v18;
-      v30 = 2112;
-      v31 = v19;
-      _os_log_impl(&dword_26455D000, v14, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageTypeSessionEnd Safe Arrival at customised destination summaryText: %@", buf, 0x20u);
+      v22 = v15;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_26455D000, v13, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, SMMessageTypeSessionEnd Safe Arrival at customised destination summaryText: %@", buf, 0x20u);
     }
 
-    v20 = *(*(*(a1 + 40) + 8) + 40);
     (*(*(a1 + 32) + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchDestinationNameFromMapItem:(id)item completionHandler:(id)handler
@@ -540,7 +522,7 @@ void __88__SMReceiverNotificationUtilities_prepareNotificationBodyFromMessage_co
 
 void __85__SMReceiverNotificationUtilities_fetchDestinationNameFromMapItem_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (!a3)
@@ -566,18 +548,17 @@ void __85__SMReceiverNotificationUtilities_fetchDestinationNameFromMapItem_compl
 
       if (!v17)
       {
-        v20 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v21 = *(a1 + 40);
-          v22 = objc_opt_class();
-          v23 = NSStringFromClass(v22);
-          v24 = NSStringFromSelector(*(a1 + 48));
-          v25 = 138412546;
-          v26 = v23;
-          v27 = 2112;
-          v28 = v24;
-          _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@, Unable to retrieve destination address from geoMapItem", &v25, 0x16u);
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
+          v22 = NSStringFromSelector(*(a1 + 48));
+          v23 = 138412546;
+          v24 = v21;
+          v25 = 2112;
+          v26 = v22;
+          _os_log_error_impl(&dword_26455D000, v19, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@, Unable to retrieve destination address from geoMapItem", &v23, 0x16u);
         }
 
         v7 = *(*(a1 + 32) + 16);
@@ -596,8 +577,6 @@ void __85__SMReceiverNotificationUtilities_fetchDestinationNameFromMapItem_compl
 LABEL_3:
   v7();
 LABEL_9:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

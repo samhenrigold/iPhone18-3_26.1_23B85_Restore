@@ -32,11 +32,11 @@
     requestLookup = v2->_requestLookup;
     v2->_requestLookup = v8;
 
-    v10 = sub_1003C27BC();
+    v10 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v10;
 
-    v12 = sub_1003710C0();
+    v12 = sub_1003710C0(AssetSession);
     assetSession = v2->_assetSession;
     v2->_assetSession = v12;
 
@@ -58,7 +58,7 @@
     connection = [transactionCopy connection];
     v10 = [(SQLiteEntity *)v8 initWithPersistentID:d onConnection:connection];
 
-    v11 = sub_1004027FC();
+    v11 = sub_1004027FC(AppInstallInfo);
     v12 = [(SQLiteEntity *)v10 getValuesForProperties:v11];
 
     v13 = [AppInstallInfo alloc];
@@ -83,7 +83,7 @@
     connection = [transactionCopy connection];
     v10 = [(SQLiteEntity *)v8 initWithPersistentID:d onConnection:connection];
 
-    v11 = sub_1004027FC();
+    v11 = sub_1004027FC(AppInstallInfo);
     v12 = [(SQLiteEntity *)v10 getValuesForProperties:v11];
 
     v13 = [AppInstallInfo alloc];
@@ -157,7 +157,7 @@
     connection = [v20 connection];
     v23 = sub_1002D3F5C(AppInstallEntity, connection, v21);
 
-    v24 = sub_1004027FC();
+    v24 = sub_1004027FC(AppInstallInfo);
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
     v32 = sub_1003FDCD8;
@@ -180,7 +180,7 @@
     connection = [transactionCopy connection];
     v11 = [(SQLiteEntity *)v9 initWithPersistentID:d onConnection:connection];
 
-    v12 = sub_1004027FC();
+    v12 = sub_1004027FC(AppInstallInfo);
     v13 = [(SQLiteEntity *)v11 getValuesForProperties:v12];
 
     v14 = [AppInstallInfo alloc];

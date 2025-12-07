@@ -90,16 +90,17 @@
 
 - (SCNTimingFunction)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = SCNTimingFunction;
-  v4 = [(SCNTimingFunction *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = SCNTimingFunction;
+  v4 = [(SCNTimingFunction *)&v9 init];
+  v6 = v4;
   if (v4)
   {
-    v5 = [coder decodeObjectOfClasses:SCNPlistClasses() forKey:@"c3dTimingFunction"];
-    v4->_timingFunction = C3DTimingFunctionCreateWithPropertyList(v5);
+    v7 = [coder decodeObjectOfClasses:SCNPlistClasses(v4 forKey:{v5), @"c3dTimingFunction"}];
+    v6->_timingFunction = C3DTimingFunctionCreateWithPropertyList(v7);
   }
 
-  return v4;
+  return v6;
 }
 
 @end

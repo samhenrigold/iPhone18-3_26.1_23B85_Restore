@@ -154,79 +154,71 @@
 
 - (void)_delegateAdded:(id)added
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   os_unfair_lock_assert_owner(&self->super._lock);
-  v11.receiver = self;
-  v11.super_class = MTRDevice_XPC;
-  [(MTRDevice *)&v11 _delegateAdded:addedCopy];
+  v8.receiver = self;
+  v8.super_class = MTRDevice_XPC;
+  [(MTRDevice *)&v8 _delegateAdded:addedCopy];
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = addedCopy;
+    v11 = 2112;
+    v12 = addedCopy;
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ delegate added: %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    v9 = addedCopy;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ delegate added: %@", self, addedCopy);
   }
 
-  v6 = [(MTRDevice_XPC *)self queue:selfCopy2];
+  queue = [(MTRDevice_XPC *)self queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2392992DC;
   block[3] = &unk_278A72320;
   block[4] = self;
-  dispatch_async(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, block);
 }
 
 - (void)_delegateRemoved:(id)removed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   os_unfair_lock_assert_owner(&self->super._lock);
-  v11.receiver = self;
-  v11.super_class = MTRDevice_XPC;
-  [(MTRDevice *)&v11 _delegateRemoved:removedCopy];
+  v8.receiver = self;
+  v8.super_class = MTRDevice_XPC;
+  [(MTRDevice *)&v8 _delegateRemoved:removedCopy];
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = removedCopy;
+    v11 = 2112;
+    v12 = removedCopy;
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ delegate removed: %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    v9 = removedCopy;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ delegate removed: %@", self, removedCopy);
   }
 
-  v6 = [(MTRDevice_XPC *)self queue:selfCopy2];
+  queue = [(MTRDevice_XPC *)self queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2392994D0;
   block[3] = &unk_278A72320;
   block[4] = self;
-  dispatch_async(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, block);
 }
 
 - (void)device:(id)device receivedAttributeReport:(id)report
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   reportCopy = report;
   v6 = sub_2393D9044(0);
@@ -234,14 +226,14 @@
   {
     *buf = 138412546;
     selfCopy6 = self;
-    v28 = 2080;
-    v29 = "[MTRDevice_XPC device:receivedAttributeReport:]";
+    v27 = 2080;
+    v28 = "[MTRDevice_XPC device:receivedAttributeReport:]";
     _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ %s", self, "[MTRDevice_XPC device:receivedAttributeReport:]");
   }
 
   objc_opt_class();
@@ -249,37 +241,37 @@
   {
     if (sub_23938A994(reportCopy))
     {
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = sub_239299B84;
-      v23[3] = &unk_278A744A0;
-      v23[4] = self;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = sub_239299B84;
+      v22[3] = &unk_278A744A0;
+      v22[4] = self;
       v7 = reportCopy;
-      v24 = v7;
-      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v23];
+      v23 = v7;
+      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v22];
       os_unfair_lock_lock(&self->super._lock);
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       obj = v7;
-      v8 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
       if (!v8)
       {
         goto LABEL_34;
       }
 
-      v9 = *v20;
+      v9 = *v19;
       while (1)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & (v11 != 0)) != 0)
           {
@@ -306,14 +298,14 @@
                     {
                       *buf = 138412546;
                       selfCopy6 = self;
-                      v28 = 2112;
-                      v29 = v11;
+                      v27 = 2112;
+                      v28 = v11;
                       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ invalid data-value reported: %@", buf, 0x16u);
                     }
 
                     if (sub_2393D5398(1u))
                     {
-                      sub_2393D5320(0, 1);
+                      sub_2393D5320(0, 1, "%@ invalid data-value reported: %@", self, v11);
                     }
                   }
                 }
@@ -330,14 +322,14 @@
             {
               *buf = 138412546;
               selfCopy6 = self;
-              v28 = 2112;
-              v29 = v11;
+              v27 = 2112;
+              v28 = v11;
               _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ no valid path for attribute report %@", buf, 0x16u);
             }
 
             if (sub_2393D5398(1u))
             {
-              goto LABEL_21;
+              sub_2393D5320(0, 1, "%@ no valid path for attribute report %@", self, v11);
             }
           }
 
@@ -347,21 +339,19 @@
             {
               *buf = 138412546;
               selfCopy6 = self;
-              v28 = 2112;
-              v29 = v11;
+              v27 = 2112;
+              v28 = v11;
               _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ handed a response-value that is not a dictionary: %@", buf, 0x16u);
             }
 
             if (sub_2393D5398(1u))
             {
-LABEL_21:
-              sub_2393D5320(0, 1);
-              continue;
+              sub_2393D5320(0, 1, "%@ handed a response-value that is not a dictionary: %@", self, v11);
             }
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
         if (!v8)
         {
 LABEL_34:
@@ -376,15 +366,14 @@ LABEL_34:
     {
       *buf = 138412546;
       selfCopy6 = self;
-      v28 = 2112;
-      v29 = reportCopy;
+      v27 = 2112;
+      v28 = reportCopy;
       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ invalid device:receivedAttributeReport: attributeReport: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-LABEL_42:
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ invalid device:receivedAttributeReport: attributeReport: %@", self, reportCopy);
     }
   }
 
@@ -394,25 +383,23 @@ LABEL_42:
     {
       *buf = 138412546;
       selfCopy6 = self;
-      v28 = 2112;
-      v29 = deviceCopy;
+      v27 = 2112;
+      v28 = deviceCopy;
       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ invalid device:receivedAttributeReport: nodeID: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      goto LABEL_42;
+      sub_2393D5320(0, 1, "%@ invalid device:receivedAttributeReport: nodeID: %@", self, deviceCopy);
     }
   }
 
 LABEL_43:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)device:(id)device receivedEventReport:(id)report
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   reportCopy = report;
   v8 = sub_2393D9044(0);
@@ -420,14 +407,14 @@ LABEL_43:
   {
     *buf = 138412546;
     selfCopy3 = self;
-    v14 = 2080;
-    v15 = "[MTRDevice_XPC device:receivedEventReport:]";
+    v13 = 2080;
+    v14 = "[MTRDevice_XPC device:receivedEventReport:]";
     _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ %s", self, "[MTRDevice_XPC device:receivedEventReport:]");
   }
 
   objc_opt_class();
@@ -435,30 +422,30 @@ LABEL_43:
   {
     if (sub_23938B148(reportCopy))
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = sub_239299E40;
-      v10[3] = &unk_278A744A0;
-      v10[4] = self;
-      v11 = reportCopy;
-      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v10];
-
-      goto LABEL_16;
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = sub_239299E40;
+      v9[3] = &unk_278A744A0;
+      v9[4] = self;
+      v10 = reportCopy;
+      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v9];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else
     {
-      *buf = 138412546;
-      selfCopy3 = self;
-      v14 = 2112;
-      v15 = reportCopy;
-      _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:receivedEventReport: eventReport: %@", buf, 0x16u);
-    }
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        selfCopy3 = self;
+        v13 = 2112;
+        v14 = reportCopy;
+        _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:receivedEventReport: eventReport: %@", buf, 0x16u);
+      }
 
-    if (sub_2393D5398(1u))
-    {
-LABEL_15:
-      sub_2393D5320(0, 1);
+      if (sub_2393D5398(1u))
+      {
+        sub_2393D5320(0, 1, "%@ invalid device:receivedEventReport: eventReport: %@", self, reportCopy);
+      }
     }
   }
 
@@ -468,50 +455,46 @@ LABEL_15:
     {
       *buf = 138412546;
       selfCopy3 = self;
-      v14 = 2112;
-      v15 = deviceCopy;
+      v13 = 2112;
+      v14 = deviceCopy;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:receivedEventReport: nodeID: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      goto LABEL_15;
+      sub_2393D5320(0, 1, "%@ invalid device:receivedEventReport: nodeID: %@", self, deviceCopy);
     }
   }
-
-LABEL_16:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceBecameActive:(id)active
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v10 = 2080;
-    v11 = "[MTRDevice_XPC deviceBecameActive:]";
+    v9 = 2080;
+    v10 = "[MTRDevice_XPC deviceBecameActive:]";
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ %s", self, "[MTRDevice_XPC deviceBecameActive:]");
   }
 
   objc_opt_class();
   if (((activeCopy != 0) & objc_opt_isKindOfClass()) != 0)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = sub_23929A050;
-    v7[3] = &unk_278A744C8;
-    v7[4] = self;
-    [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = sub_23929A050;
+    v6[3] = &unk_278A744C8;
+    v6[4] = self;
+    [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v6];
   }
 
   else
@@ -520,18 +503,16 @@ LABEL_16:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v10 = 2112;
-      v11 = activeCopy;
+      v9 = 2112;
+      v10 = activeCopy;
       _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_ERROR, "%@ invalid deviceBecameActive: nodeID: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ invalid deviceBecameActive: nodeID: %@", self, activeCopy);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)diagnosticLogTransferInProgress
@@ -556,32 +537,32 @@ LABEL_16:
 
 - (void)deviceConfigurationChanged:(id)changed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v10 = 2080;
-    v11 = "[MTRDevice_XPC deviceConfigurationChanged:]";
+    v9 = 2080;
+    v10 = "[MTRDevice_XPC deviceConfigurationChanged:]";
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ %s", self, "[MTRDevice_XPC deviceConfigurationChanged:]");
   }
 
   objc_opt_class();
   if (((changedCopy != 0) & objc_opt_isKindOfClass()) != 0)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = sub_23929A3B4;
-    v7[3] = &unk_278A744C8;
-    v7[4] = self;
-    [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = sub_23929A3B4;
+    v6[3] = &unk_278A744C8;
+    v6[4] = self;
+    [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v6];
   }
 
   else
@@ -590,46 +571,44 @@ LABEL_16:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v10 = 2112;
-      v11 = changedCopy;
+      v9 = 2112;
+      v10 = changedCopy;
       _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_ERROR, "%@ invalid deviceConfigurationChanged: nodeID: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ invalid deviceConfigurationChanged: nodeID: %@", self, changedCopy);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_ensureValidValuesForKeys:(id)keys inInternalState:(id)state valueRequired:(BOOL)required
 {
   requiredCopy = required;
-  v41 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   stateCopy = state;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v9 = keysCopy;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v10)
   {
-    v11 = *v29;
+    v11 = *v25;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
-        v14 = [stateCopy objectForKeyedSubscript:{v13, v23, v24, v25, v26}];
+        v13 = *(*(&v24 + 1) + 8 * i);
+        v14 = [stateCopy objectForKeyedSubscript:v13];
         if (v14)
         {
           [v9 objectForKeyedSubscript:v13];
@@ -642,23 +621,20 @@ LABEL_16:
               v17 = NSStringFromClass(v16);
               *buf = 138413058;
               selfCopy2 = self;
+              v30 = 2112;
+              v31 = v17;
+              v32 = 2112;
+              v33 = v13;
               v34 = 2112;
-              v35 = v17;
-              v36 = 2112;
-              v37 = v13;
-              v38 = 2112;
-              v39 = v14;
+              v35 = v14;
               _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "%@ device:internalStateUpdated: handed state with invalid value of type %@ for %@: %@", buf, 0x2Au);
             }
 
             if (sub_2393D5398(1u))
             {
               v18 = objc_opt_class();
-              NSStringFromClass(v18);
-              v25 = v13;
-              v26 = v14;
-              v24 = v23 = self;
-              sub_2393D5320(0, 1);
+              v19 = NSStringFromClass(v18);
+              sub_2393D5320(0, 1, "%@ device:internalStateUpdated: handed state with invalid value of type %@ for %@: %@", self, v19, v13, v14);
             }
 
             if (requiredCopy)
@@ -672,31 +648,31 @@ LABEL_16:
 
         else if (requiredCopy)
         {
-          v20 = sub_2393D9044(0);
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = sub_2393D9044(0);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
             selfCopy2 = self;
-            v34 = 2112;
-            v35 = v13;
-            v36 = 2112;
-            v37 = 0;
-            _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "%@ device:internalStateUpdated: handed state with no value for %@: %@", buf, 0x20u);
+            v30 = 2112;
+            v31 = v13;
+            v32 = 2112;
+            v33 = 0;
+            _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "%@ device:internalStateUpdated: handed state with no value for %@: %@", buf, 0x20u);
           }
 
           if (sub_2393D5398(1u))
           {
-            sub_2393D5320(0, 1);
+            sub_2393D5320(0, 1, "%@ device:internalStateUpdated: handed state with no value for %@: %@", self, v13, 0);
           }
 
 LABEL_22:
 
-          v19 = 0;
+          v20 = 0;
           goto LABEL_23;
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v36 count:16];
       if (v10)
       {
         continue;
@@ -706,16 +682,15 @@ LABEL_22:
     }
   }
 
-  v19 = 1;
+  v20 = 1;
 LABEL_23:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v20;
 }
 
 - (void)device:(id)device internalStateUpdated:(id)updated
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   updatedCopy = updated;
   v8 = sub_2393D9044(0);
@@ -723,14 +698,14 @@ LABEL_23:
   {
     *buf = 138412546;
     selfCopy3 = self;
-    v13 = 2080;
-    v14 = "[MTRDevice_XPC device:internalStateUpdated:]";
+    v12 = 2080;
+    v13 = "[MTRDevice_XPC device:internalStateUpdated:]";
     _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ %s", self, "[MTRDevice_XPC device:internalStateUpdated:]");
   }
 
   objc_opt_class();
@@ -741,23 +716,23 @@ LABEL_23:
     {
       v9 = [updatedCopy mutableCopy];
       [(MTRDevice_XPC *)self _updateInternalState:v9];
-
-      goto LABEL_16;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else
     {
-      *buf = 138412546;
-      selfCopy3 = self;
-      v13 = 2112;
-      v14 = updatedCopy;
-      _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:internalStateUpdated dictionary: %@", buf, 0x16u);
-    }
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        selfCopy3 = self;
+        v12 = 2112;
+        v13 = updatedCopy;
+        _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:internalStateUpdated dictionary: %@", buf, 0x16u);
+      }
 
-    if (sub_2393D5398(1u))
-    {
-LABEL_15:
-      sub_2393D5320(0, 1);
+      if (sub_2393D5398(1u))
+      {
+        sub_2393D5320(0, 1, "%@ invalid device:internalStateUpdated dictionary: %@", self, updatedCopy);
+      }
     }
   }
 
@@ -767,51 +742,47 @@ LABEL_15:
     {
       *buf = 138412546;
       selfCopy3 = self;
-      v13 = 2112;
-      v14 = deviceCopy;
+      v12 = 2112;
+      v13 = deviceCopy;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ invalid device:internalStateUpdated: nodeID: %@", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
-      goto LABEL_15;
+      sub_2393D5320(0, 1, "%@ invalid device:internalStateUpdated: nodeID: %@", self, deviceCopy);
     }
   }
-
-LABEL_16:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInternalState:(id)state
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ((atomic_load_explicit(&qword_27DF77610, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DF77610))
   {
-    v23[0] = @"MTRDeviceInternalPropertyDeviceState";
-    v23[1] = @"kMTRDeviceInternalPropertyLastSubscriptionAttemptWait";
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    qword_27DF77608 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = @"MTRDeviceInternalPropertyDeviceState";
+    v22[1] = @"kMTRDeviceInternalPropertyLastSubscriptionAttemptWait";
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    qword_27DF77608 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     __cxa_guard_release(&qword_27DF77610);
   }
 
   if ((atomic_load_explicit(&qword_27DF77620, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DF77620))
   {
-    v21[0] = @"MTRDeviceInternalStateKeyVendorID";
-    v22[0] = objc_opt_class();
-    v21[1] = @"MTRDeviceInternalStateKeyProductID";
-    v22[1] = objc_opt_class();
-    v21[2] = @"MTRDeviceInternalPropertyNetworkFeatures";
-    v22[2] = objc_opt_class();
-    v21[3] = @"MTRDeviceInternalPropertyMostRecentReportTime";
-    v22[3] = objc_opt_class();
-    v21[4] = @"MTRDeviceInternalPropertyLastSubscriptionFailureTime";
-    v22[4] = objc_opt_class();
-    v21[5] = @"MTRDeviceInternalPropertyDiagnosticLogTransferInProgress";
-    v22[5] = objc_opt_class();
-    qword_27DF77618 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+    v20[0] = @"MTRDeviceInternalStateKeyVendorID";
+    v21[0] = objc_opt_class();
+    v20[1] = @"MTRDeviceInternalStateKeyProductID";
+    v21[1] = objc_opt_class();
+    v20[2] = @"MTRDeviceInternalPropertyNetworkFeatures";
+    v21[2] = objc_opt_class();
+    v20[3] = @"MTRDeviceInternalPropertyMostRecentReportTime";
+    v21[3] = objc_opt_class();
+    v20[4] = @"MTRDeviceInternalPropertyLastSubscriptionFailureTime";
+    v21[4] = objc_opt_class();
+    v20[5] = @"MTRDeviceInternalPropertyDiagnosticLogTransferInProgress";
+    v21[5] = objc_opt_class();
+    qword_27DF77618 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
     __cxa_guard_release(&qword_27DF77620);
   }
 
@@ -873,27 +844,25 @@ LABEL_16:
     if ((sub_238DB32F8(v8, v10) & 1) == 0)
     {
       state = [(MTRDevice_XPC *)self state];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_23929AF50;
-      v20[3] = &unk_278A744F0;
-      v20[4] = self;
-      v20[5] = state;
-      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = sub_23929AF50;
+      v19[3] = &unk_278A744F0;
+      v19[4] = self;
+      v19[5] = state;
+      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v19];
     }
 
     if ((sub_238DB32F8(v14, v16) & 1) == 0)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = sub_23929AF5C;
-      v19[3] = &unk_278A744C8;
-      v19[4] = self;
-      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = sub_23929AF5C;
+      v18[3] = &unk_278A744C8;
+      v18[4] = self;
+      [(MTRDevice *)self _lockAndCallDelegatesWithBlock:v18];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)state
@@ -991,48 +960,46 @@ LABEL_16:
 
 - (id)readAttributeWithEndpointID:(id)d clusterID:(id)iD attributeID:(id)attributeID params:(id)params
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   attributeIDCopy = attributeID;
   paramsCopy = params;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_23929B75C;
-  v30 = sub_23929B76C;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_23929B75C;
+  v29 = sub_23929B76C;
+  v30 = 0;
   deviceController = [(MTRDevice *)self deviceController];
   xpcConnection = [deviceController xpcConnection];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = sub_23929B774;
-  v25[3] = &unk_278A73D30;
-  v25[4] = self;
-  v25[5] = a2;
-  v16 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_23929B774;
+  v24[3] = &unk_278A73D30;
+  v24[4] = self;
+  v24[5] = a2;
+  v16 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v24];
   deviceController2 = [(MTRDevice *)self deviceController];
   uniqueIdentifier = [deviceController2 uniqueIdentifier];
   nodeID = [(MTRDevice *)self nodeID];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_23929B8BC;
-  v24[3] = &unk_278A74518;
-  v24[4] = &v26;
-  [v16 deviceController:uniqueIdentifier nodeID:nodeID readAttributeWithEndpointID:dCopy clusterID:iDCopy attributeID:attributeIDCopy params:paramsCopy withReply:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_23929B8BC;
+  v23[3] = &unk_278A74518;
+  v23[4] = &v25;
+  [v16 deviceController:uniqueIdentifier nodeID:nodeID readAttributeWithEndpointID:dCopy clusterID:iDCopy attributeID:attributeIDCopy params:paramsCopy withReply:v23];
 
-  v20 = v27[5];
-  _Block_object_dispose(&v26, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = v26[5];
+  _Block_object_dispose(&v25, 8);
 
   return v20;
 }
 
 - (void)writeAttributeWithEndpointID:(id)d clusterID:(id)iD attributeID:(id)attributeID value:(id)value expectedValueInterval:(id)interval timedWriteTimeout:(id)timeout
 {
-  v28[10] = *MEMORY[0x277D85DE8];
+  v27[10] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   attributeIDCopy = attributeID;
@@ -1042,62 +1009,58 @@ LABEL_16:
   deviceController = [(MTRDevice *)self deviceController];
   xpcConnection = [deviceController xpcConnection];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_23929BC00;
-  v28[3] = &unk_278A73D30;
-  v28[4] = self;
-  v28[5] = a2;
-  v20 = [xpcConnection remoteObjectProxyWithErrorHandler:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_23929BC00;
+  v27[3] = &unk_278A73D30;
+  v27[4] = self;
+  v27[5] = a2;
+  v20 = [xpcConnection remoteObjectProxyWithErrorHandler:v27];
   deviceController2 = [(MTRDevice *)self deviceController];
   uniqueIdentifier = [deviceController2 uniqueIdentifier];
   nodeID = [(MTRDevice *)self nodeID];
   [v20 deviceController:uniqueIdentifier nodeID:nodeID writeAttributeWithEndpointID:dCopy clusterID:iDCopy attributeID:attributeIDCopy value:valueCopy expectedValueInterval:intervalCopy timedWriteTimeout:timeoutCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePaths:(id)paths
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_23929B75C;
-  v21 = sub_23929B76C;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_23929B75C;
+  v20 = sub_23929B76C;
   array = [MEMORY[0x277CBEA60] array];
   deviceController = [(MTRDevice *)self deviceController];
   xpcConnection = [deviceController xpcConnection];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_23929C11C;
-  v16[3] = &unk_278A73D30;
-  v16[4] = self;
-  v16[5] = a2;
-  v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_23929C11C;
+  v15[3] = &unk_278A73D30;
+  v15[4] = self;
+  v15[5] = a2;
+  v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
   deviceController2 = [(MTRDevice *)self deviceController];
   uniqueIdentifier = [deviceController2 uniqueIdentifier];
   nodeID = [(MTRDevice *)self nodeID];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_23929C264;
-  v15[3] = &unk_278A73D58;
-  v15[4] = &v17;
-  [v8 deviceController:uniqueIdentifier nodeID:nodeID readAttributePaths:pathsCopy withReply:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_23929C264;
+  v14[3] = &unk_278A73D58;
+  v14[4] = &v16;
+  [v8 deviceController:uniqueIdentifier nodeID:nodeID readAttributePaths:pathsCopy withReply:v14];
 
-  v12 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v12;
 }
 
 - (void)_invokeCommandWithEndpointID:(id)d clusterID:(id)iD commandID:(id)commandID commandFields:(id)fields expectedValues:(id)values expectedValueInterval:(id)interval timedInvokeTimeout:(id)timeout serverSideProcessingTimeout:(id)self0 queue:(id)self1 completion:(id)self2
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   commandIDCopy = commandID;
@@ -1111,73 +1074,36 @@ LABEL_16:
   deviceController = [(MTRDevice *)self deviceController];
   xpcConnection = [deviceController xpcConnection];
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = sub_23929C760;
-  v45[3] = &unk_278A72D20;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = sub_23929C760;
+  v44[3] = &unk_278A72D20;
   v20 = queueCopy;
-  v46 = v20;
+  v45 = v20;
   v21 = completionCopy;
-  v47 = v21;
-  v29 = xpcConnection;
-  v22 = [xpcConnection remoteObjectProxyWithErrorHandler:v45];
+  v46 = v21;
+  v28 = xpcConnection;
+  v22 = [xpcConnection remoteObjectProxyWithErrorHandler:v44];
   deviceController2 = [(MTRDevice *)self deviceController];
   uniqueIdentifier = [deviceController2 uniqueIdentifier];
   nodeID = [(MTRDevice *)self nodeID];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = sub_23929C944;
-  v38[3] = &unk_278A74568;
-  v39 = v20;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = sub_23929C944;
+  v37[3] = &unk_278A74568;
+  v38 = v20;
   selfCopy = self;
-  v41 = dCopy;
-  v42 = iDCopy;
-  v43 = commandIDCopy;
-  v44 = v21;
-  [v22 deviceController:uniqueIdentifier nodeID:nodeID invokeCommandWithEndpointID:v41 clusterID:v42 commandID:v43 commandFields:fieldsCopy expectedValues:valuesCopy expectedValueInterval:intervalCopy timedInvokeTimeout:timeoutCopy serverSideProcessingTimeout:processingTimeoutCopy completion:v38];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v40 = dCopy;
+  v41 = iDCopy;
+  v42 = commandIDCopy;
+  v43 = v21;
+  [v22 deviceController:uniqueIdentifier nodeID:nodeID invokeCommandWithEndpointID:v40 clusterID:v41 commandID:v42 commandFields:fieldsCopy expectedValues:valuesCopy expectedValueInterval:intervalCopy timedInvokeTimeout:timeoutCopy serverSideProcessingTimeout:processingTimeoutCopy completion:v37];
 }
 
 - (void)invokeCommands:(id)commands queue:(id)queue completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
-  commandsCopy = commands;
-  queueCopy = queue;
-  completionCopy = completion;
-  deviceController = [(MTRDevice *)self deviceController];
-  xpcConnection = [deviceController xpcConnection];
-
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_23929D3EC;
-  v26[3] = &unk_278A74590;
-  v26[4] = self;
-  v29 = a2;
-  v12 = queueCopy;
-  v27 = v12;
-  v13 = completionCopy;
-  v28 = v13;
-  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:v26];
-  deviceController2 = [(MTRDevice *)self deviceController];
-  uniqueIdentifier = [deviceController2 uniqueIdentifier];
-  nodeID = [(MTRDevice *)self nodeID];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = sub_23929D630;
-  v21[3] = &unk_278A745E0;
-  v22 = v12;
-  selfCopy = self;
-  v24 = commandsCopy;
-  v25 = v13;
-  [v14 deviceController:uniqueIdentifier nodeID:nodeID invokeCommands:v24 completion:v21];
-
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-- (void)downloadLogOfType:(int64_t)type timeout:(double)timeout queue:(id)queue completion:(id)completion
-{
   v29 = *MEMORY[0x277D85DE8];
+  commandsCopy = commands;
   queueCopy = queue;
   completionCopy = completion;
   deviceController = [(MTRDevice *)self deviceController];
@@ -1185,27 +1111,58 @@ LABEL_16:
 
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = sub_23929E070;
+  v25[2] = sub_23929D3EC;
   v25[3] = &unk_278A74590;
   v25[4] = self;
   v28 = a2;
-  v13 = queueCopy;
-  v26 = v13;
-  v14 = completionCopy;
-  v27 = v14;
-  v15 = [xpcConnection remoteObjectProxyWithErrorHandler:v25];
+  v12 = queueCopy;
+  v26 = v12;
+  v13 = completionCopy;
+  v27 = v13;
+  v14 = [xpcConnection remoteObjectProxyWithErrorHandler:v25];
   deviceController2 = [(MTRDevice *)self deviceController];
   uniqueIdentifier = [deviceController2 uniqueIdentifier];
   nodeID = [(MTRDevice *)self nodeID];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_23929E2B4;
-  v22[3] = &unk_278A74608;
-  v23 = v13;
-  v24 = v14;
-  [v15 deviceController:uniqueIdentifier nodeID:nodeID downloadLogOfType:type timeout:v22 completion:timeout];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_23929D630;
+  v20[3] = &unk_278A745E0;
+  v21 = v12;
+  selfCopy = self;
+  v23 = commandsCopy;
+  v24 = v13;
+  [v14 deviceController:uniqueIdentifier nodeID:nodeID invokeCommands:v23 completion:v20];
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)downloadLogOfType:(int64_t)type timeout:(double)timeout queue:(id)queue completion:(id)completion
+{
+  v28 = *MEMORY[0x277D85DE8];
+  queueCopy = queue;
+  completionCopy = completion;
+  deviceController = [(MTRDevice *)self deviceController];
+  xpcConnection = [deviceController xpcConnection];
+
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_23929E070;
+  v24[3] = &unk_278A74590;
+  v24[4] = self;
+  v27 = a2;
+  v13 = queueCopy;
+  v25 = v13;
+  v14 = completionCopy;
+  v26 = v14;
+  v15 = [xpcConnection remoteObjectProxyWithErrorHandler:v24];
+  deviceController2 = [(MTRDevice *)self deviceController];
+  uniqueIdentifier = [deviceController2 uniqueIdentifier];
+  nodeID = [(MTRDevice *)self nodeID];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_23929E2B4;
+  v21[3] = &unk_278A74608;
+  v22 = v13;
+  v23 = v14;
+  [v15 deviceController:uniqueIdentifier nodeID:nodeID downloadLogOfType:type timeout:v21 completion:timeout];
 }
 
 @end

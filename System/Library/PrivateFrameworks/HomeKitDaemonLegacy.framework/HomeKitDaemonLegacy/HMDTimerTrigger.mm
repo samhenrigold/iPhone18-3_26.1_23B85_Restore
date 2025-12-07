@@ -52,7 +52,7 @@
 
 - (void)handleTimerFiredNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMD.BGTM.NK"];
@@ -69,23 +69,21 @@
     {
       v12 = HMFGetLogIdentifier();
       timerID2 = [(HMDTimerTrigger *)selfCopy timerID];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = timerID2;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Timer Trigger fired : %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = timerID2;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Timer Trigger fired : %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     [(HMDTimerTrigger *)selfCopy timerTriggered];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -116,15 +114,13 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Received unknown model object", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Received unknown model object", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -157,11 +153,11 @@
 
 - (HMDTimerTrigger)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = HMDTimerTrigger;
-  v5 = [(HMDTrigger *)&v26 initWithCoder:coderCopy];
+  v25.receiver = self;
+  v25.super_class = HMDTimerTrigger;
+  v5 = [(HMDTrigger *)&v25 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timerTriggerInitialFireDate"];
@@ -177,9 +173,9 @@
     v5->_fireRepeatInterval = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"HM.timerTriggerRecurrences"];
     recurrences = v5->_recurrences;
@@ -207,7 +203,6 @@
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -258,7 +253,7 @@ LABEL_7:
 
 - (void)_closestDatesForStartDate:(id)date earliestDate:(id)earliestDate timeZone:(id)zone deliveryRepeatInterval:(id)interval returnDateBefore:(id *)before returnDateAfter:(id *)after
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   earliestDateCopy = earliestDate;
   zoneCopy = zone;
@@ -286,7 +281,7 @@ LABEL_7:
     if (intervalCopy)
     {
       selfCopy = self;
-      v76 = dateCopy;
+      v75 = dateCopy;
       v35 = 0;
       v36 = 1;
       do
@@ -299,7 +294,7 @@ LABEL_7:
       }
 
       while ([v35 compare:earliestDateCopy] == -1);
-      v82 = zoneCopy;
+      v81 = zoneCopy;
       if (v38 < 2)
       {
         v41 = v38;
@@ -340,32 +335,32 @@ LABEL_7:
         {
           v62 = v29;
           *after = v29;
-          v79 = objc_autoreleasePoolPush();
+          v78 = objc_autoreleasePoolPush();
           v63 = selfCopy;
           v64 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
           {
             v65 = HMFGetLogIdentifier();
-            v73 = *after;
+            v72 = *after;
             contexta = v65;
             date2 = [MEMORY[0x277CBEAA8] date];
             *buf = 138543874;
-            v90 = v65;
-            v91 = 2112;
-            v92 = v73;
+            v89 = v65;
+            v90 = 2112;
+            v91 = v72;
             self = selfCopy;
-            v93 = 2112;
-            v94 = date2;
+            v92 = 2112;
+            v93 = date2;
             _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_INFO, "%{public}@(d) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v79);
+          objc_autoreleasePoolPop(v78);
         }
 
         if (before)
         {
           *before = _NCSchedulerDateWithMultiple(v30, getCalendar, intervalCopy, v41 - 1);
-          v80 = objc_autoreleasePoolPush();
+          v79 = objc_autoreleasePoolPush();
           selfCopy2 = self;
           v23 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -374,21 +369,21 @@ LABEL_7:
             v69 = *before;
             date3 = [MEMORY[0x277CBEAA8] date];
             *buf = 138543874;
-            v90 = v68;
-            v91 = 2112;
-            v92 = v69;
+            v89 = v68;
+            v90 = 2112;
+            v91 = v69;
             self = selfCopy;
-            v93 = 2112;
-            v94 = date3;
+            v92 = 2112;
+            v93 = date3;
             _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@(e) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
           }
 
-          dateCopy = v76;
-          v31 = v80;
+          dateCopy = v75;
+          v31 = v79;
           goto LABEL_47;
         }
 
-        dateCopy = v76;
+        dateCopy = v75;
       }
 
       else
@@ -400,34 +395,34 @@ LABEL_7:
           *after = v29;
           v31 = objc_autoreleasePoolPush();
           v58 = selfCopy;
-          v87 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+          v86 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
           {
             v59 = HMFGetLogIdentifier();
             v60 = *after;
             date4 = [MEMORY[0x277CBEAA8] date];
             *buf = 138543874;
-            v90 = v59;
-            v91 = 2112;
-            v92 = v60;
+            v89 = v59;
+            v90 = 2112;
+            v91 = v60;
             self = selfCopy;
-            v23 = v87;
-            v93 = 2112;
-            v94 = date4;
-            _os_log_impl(&dword_2531F8000, v87, OS_LOG_TYPE_INFO, "%{public}@(f) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
+            v23 = v86;
+            v92 = 2112;
+            v93 = date4;
+            _os_log_impl(&dword_2531F8000, v86, OS_LOG_TYPE_INFO, "%{public}@(f) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
 
-            dateCopy = v76;
+            dateCopy = v75;
             goto LABEL_47;
           }
 
-          dateCopy = v76;
+          dateCopy = v75;
 LABEL_51:
-          zoneCopy = v82;
-          v23 = v87;
+          zoneCopy = v81;
+          v23 = v86;
           goto LABEL_52;
         }
 
-        dateCopy = v76;
+        dateCopy = v75;
         if (v48 == -1)
         {
           if (before)
@@ -435,26 +430,26 @@ LABEL_51:
             v49 = v29;
             *before = v29;
             context = objc_autoreleasePoolPush();
-            v78 = selfCopy;
+            v77 = selfCopy;
             v50 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
               v51 = HMFGetLogIdentifier();
-              v72 = *before;
+              v71 = *before;
               date5 = [MEMORY[0x277CBEAA8] date];
               *buf = 138543874;
               v52 = v51;
-              v90 = v51;
-              v91 = 2112;
-              v92 = v72;
+              v89 = v51;
+              v90 = 2112;
+              v91 = v71;
               self = selfCopy;
-              v93 = 2112;
-              v94 = date5;
+              v92 = 2112;
+              v93 = date5;
               _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_INFO, "%{public}@(b) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(context);
-            dateCopy = v76;
+            dateCopy = v75;
           }
 
           if (after)
@@ -462,25 +457,25 @@ LABEL_51:
             *after = _NCSchedulerDateWithMultiple(v30, getCalendar, intervalCopy, v41 + 1);
             v31 = objc_autoreleasePoolPush();
             selfCopy3 = self;
-            v87 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+            v86 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
             {
               v54 = HMFGetLogIdentifier();
               v55 = *after;
               date6 = [MEMORY[0x277CBEAA8] date];
               *buf = 138543874;
-              v90 = v54;
-              v91 = 2112;
-              v92 = v55;
+              v89 = v54;
+              v90 = 2112;
+              v91 = v55;
               self = selfCopy;
-              v23 = v87;
-              v93 = 2112;
-              v94 = date6;
-              _os_log_impl(&dword_2531F8000, v87, OS_LOG_TYPE_INFO, "%{public}@(c) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
+              v23 = v86;
+              v92 = 2112;
+              v93 = date6;
+              _os_log_impl(&dword_2531F8000, v86, OS_LOG_TYPE_INFO, "%{public}@(c) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
 
-              dateCopy = v76;
+              dateCopy = v75;
 LABEL_47:
-              zoneCopy = v82;
+              zoneCopy = v81;
 LABEL_52:
 
               objc_autoreleasePoolPop(v31);
@@ -492,7 +487,7 @@ LABEL_52:
         }
       }
 
-      zoneCopy = v82;
+      zoneCopy = v81;
       goto LABEL_53;
     }
 
@@ -521,11 +516,11 @@ LABEL_23:
           selfCopy5 = self;
           v47 = v46 = zoneCopy;
           *buf = 138543874;
-          v90 = v45;
-          v91 = 2112;
-          v92 = v30;
-          v93 = 2112;
-          v94 = v47;
+          v89 = v45;
+          v90 = 2112;
+          v91 = v30;
+          v92 = 2112;
+          v93 = v47;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@(g) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
 
           zoneCopy = v46;
@@ -547,7 +542,7 @@ LABEL_23:
     afterCopy2 = after;
     v21 = dateCopy;
     *after = dateCopy;
-    v77 = objc_autoreleasePoolPush();
+    v76 = objc_autoreleasePoolPush();
     selfCopy6 = self;
     v23 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -557,31 +552,29 @@ LABEL_23:
       selfCopy7 = self;
       v27 = *afterCopy2;
       [MEMORY[0x277CBEAA8] date];
-      v28 = v81 = zoneCopy;
+      v28 = v80 = zoneCopy;
       *buf = 138543874;
-      v90 = v24;
-      v91 = 2112;
-      v92 = v27;
+      v89 = v24;
+      v90 = 2112;
+      v91 = v27;
       self = selfCopy7;
       v23 = v25;
-      v93 = 2112;
-      v94 = v28;
+      v92 = 2112;
+      v93 = v28;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@(a) Timer fires next at %@; current time (GMT): %@", buf, 0x20u);
 
-      zoneCopy = v81;
+      zoneCopy = v80;
     }
 
     v29 = 0;
     v30 = 0;
-    v31 = v77;
+    v31 = v76;
     goto LABEL_52;
   }
 
   v29 = 0;
   v30 = 0;
 LABEL_53:
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reactiveTriggerAfterDelay
@@ -611,7 +604,7 @@ void __45__HMDTimerTrigger__reactiveTriggerAfterDelay__block_invoke(uint64_t a1)
 
 - (void)_timerTriggered
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _shouldExecuteActionSet = [(HMDTimerTrigger *)self _shouldExecuteActionSet];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -623,17 +616,17 @@ void __45__HMDTimerTrigger__reactiveTriggerAfterDelay__block_invoke(uint64_t a1)
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Going to execute the Action set.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __34__HMDTimerTrigger__timerTriggered__block_invoke;
-    v11[3] = &unk_279734E00;
-    v11[4] = selfCopy;
-    [(HMDTrigger *)selfCopy _executeActionSetsWithCompletionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __34__HMDTimerTrigger__timerTriggered__block_invoke;
+    v10[3] = &unk_279734E00;
+    v10[4] = selfCopy;
+    [(HMDTrigger *)selfCopy _executeActionSetsWithCompletionHandler:v10];
     [(HMDTrigger *)selfCopy triggerFired];
   }
 
@@ -643,7 +636,7 @@ void __45__HMDTimerTrigger__reactiveTriggerAfterDelay__block_invoke(uint64_t a1)
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Should execute action set returned NO, going ahead to reactivate trigger", buf, 0xCu);
     }
 
@@ -651,113 +644,108 @@ void __45__HMDTimerTrigger__reactiveTriggerAfterDelay__block_invoke(uint64_t a1)
   }
 
   [(HMDTimerTrigger *)selfCopy _reactiveTriggerAfterDelay];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldExecuteActionSet
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   recurrences = [(HMDTimerTrigger *)self recurrences];
   v4 = [recurrences count];
 
-  if (v4)
+  if (!v4)
   {
-    v5 = [MEMORY[0x277CBEAA8] now];
-    recurrences2 = [(HMDTimerTrigger *)self recurrences];
-    firstObject = [recurrences2 firstObject];
-    calendar = [firstObject calendar];
+    return 1;
+  }
 
-    if (!calendar)
-    {
-      calendar = [MEMORY[0x277CBEA80] currentCalendar];
-    }
+  v5 = [MEMORY[0x277CBEAA8] now];
+  recurrences2 = [(HMDTimerTrigger *)self recurrences];
+  firstObject = [recurrences2 firstObject];
+  calendar = [firstObject calendar];
 
-    v9 = [calendar components:512 fromDate:v5];
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    obj = [(HMDTimerTrigger *)self recurrences];
-    v10 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
-    if (v10)
+  if (!calendar)
+  {
+    calendar = [MEMORY[0x277CBEA80] currentCalendar];
+  }
+
+  v9 = [calendar components:512 fromDate:v5];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  obj = [(HMDTimerTrigger *)self recurrences];
+  v10 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v26 = calendar;
+    v27 = v5;
+    v12 = *v30;
+    while (2)
     {
-      v11 = v10;
-      v27 = calendar;
-      v28 = v5;
-      v12 = *v31;
-      while (2)
+      for (i = 0; i != v11; ++i)
       {
-        for (i = 0; i != v11; ++i)
+        if (*v30 != v12)
         {
-          if (*v31 != v12)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v14 = *(*(&v30 + 1) + 8 * i);
-          v15 = objc_autoreleasePoolPush();
-          selfCopy = self;
-          v17 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-          {
-            v18 = HMFGetLogIdentifier();
-            *buf = 138543874;
-            v35 = v18;
-            v36 = 2112;
-            v37 = v14;
-            v38 = 2112;
-            v39 = v9;
-            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Comparing date components iter: %@, now: %@", buf, 0x20u);
-          }
-
-          objc_autoreleasePoolPop(v15);
-          weekday = [v9 weekday];
-          if (weekday == [v14 weekday])
-          {
-            v21 = objc_autoreleasePoolPush();
-            v22 = selfCopy;
-            v23 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-            {
-              v24 = HMFGetLogIdentifier();
-              *buf = 138543362;
-              v35 = v24;
-              _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Current week day matches with a recurring instance, allowing execution of action set", buf, 0xCu);
-            }
-
-            objc_autoreleasePoolPop(v21);
-            v20 = 1;
-            goto LABEL_18;
-          }
+          objc_enumerationMutation(obj);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
-        if (v11)
+        v14 = *(*(&v29 + 1) + 8 * i);
+        v15 = objc_autoreleasePoolPush();
+        selfCopy = self;
+        v17 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          continue;
+          v18 = HMFGetLogIdentifier();
+          *buf = 138543874;
+          v34 = v18;
+          v35 = 2112;
+          v36 = v14;
+          v37 = 2112;
+          v38 = v9;
+          _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Comparing date components iter: %@, now: %@", buf, 0x20u);
         }
 
-        break;
+        objc_autoreleasePoolPop(v15);
+        weekday = [v9 weekday];
+        if (weekday == [v14 weekday])
+        {
+          v21 = objc_autoreleasePoolPush();
+          v22 = selfCopy;
+          v23 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          {
+            v24 = HMFGetLogIdentifier();
+            *buf = 138543362;
+            v34 = v24;
+            _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Current week day matches with a recurring instance, allowing execution of action set", buf, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v21);
+          v20 = 1;
+          goto LABEL_18;
+        }
       }
 
-      v20 = 0;
-LABEL_18:
-      calendar = v27;
-      v5 = v28;
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
     }
 
-    else
-    {
-      v20 = 0;
-    }
+    v20 = 0;
+LABEL_18:
+    calendar = v26;
+    v5 = v27;
   }
 
   else
   {
-    v20 = 1;
+    v20 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -775,14 +763,14 @@ LABEL_18:
 
 - (id)_nextFireDate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireDate = [(HMDTimerTrigger *)self fireDate];
   v4 = [MEMORY[0x277CBEAA8] now];
   fireDateTimeZone = [(HMDTimerTrigger *)self fireDateTimeZone];
   getFireInterval = [(HMDTimerTrigger *)self getFireInterval];
-  v14 = 0;
-  [(HMDTimerTrigger *)self _closestDatesForStartDate:fireDate earliestDate:v4 timeZone:fireDateTimeZone deliveryRepeatInterval:getFireInterval returnDateBefore:0 returnDateAfter:&v14];
-  v7 = v14;
+  v13 = 0;
+  [(HMDTimerTrigger *)self _closestDatesForStartDate:fireDate earliestDate:v4 timeZone:fireDateTimeZone deliveryRepeatInterval:getFireInterval returnDateBefore:0 returnDateAfter:&v13];
+  v7 = v13;
 
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -791,14 +779,13 @@ LABEL_18:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v7;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Next Fire Date : [%@]", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -833,7 +820,7 @@ LABEL_18:
 
 void __43__HMDTimerTrigger__activateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -847,9 +834,9 @@ void __43__HMDTimerTrigger__activateWithCompletion___block_invoke(uint64_t a1, v
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Activate on super class failed, bailing out", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Activate on super class failed, bailing out", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -877,9 +864,9 @@ LABEL_19:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v20 = HMFGetLogIdentifier();
-          v23 = 138543362;
-          v24 = v20;
-          _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Looks like the timer is already running. Stopping it.", &v23, 0xCu);
+          v22 = 138543362;
+          v23 = v20;
+          _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Looks like the timer is already running. Stopping it.", &v22, 0xCu);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -902,9 +889,9 @@ LABEL_19:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@TimerTrigger instance is gone. Doing Nothing.", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@TimerTrigger instance is gone. Doing Nothing.", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -912,8 +899,6 @@ LABEL_19:
     v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (*(v15 + 16))(v15, v16);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldActivateOnLocalDevice
@@ -975,7 +960,7 @@ LABEL_12:
 
 - (BOOL)_reactivateSignificantEventTrigger
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _nextSignificantEventFireDate = [(HMDTimerTrigger *)self _nextSignificantEventFireDate];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -987,11 +972,11 @@ LABEL_12:
     {
       v8 = HMFGetLogIdentifier();
       hmf_localTimeDescription = [_nextSignificantEventFireDate hmf_localTimeDescription];
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = hmf_localTimeDescription;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting timer based on significant event with %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2112;
+      v15 = hmf_localTimeDescription;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting timer based on significant event with %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1003,22 +988,21 @@ LABEL_12:
     if (v7)
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@No valid next significant fire date, disabling the timer", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@No valid next significant fire date, disabling the timer", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [(HMDTimerTrigger *)selfCopy _disableTimerOffReactivationFailure];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_reactivateFireDateTrigger
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _nextFireDate = [(HMDTimerTrigger *)self _nextFireDate];
   if (_nextFireDate)
   {
@@ -1033,16 +1017,15 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@No valid next fire date, disabling the timer", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@No valid next fire date, disabling the timer", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [(HMDTimerTrigger *)selfCopy _disableTimerOffReactivationFailure];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1152,12 +1135,10 @@ LABEL_12:
 
 - (id)backingStoreObjects:(int64_t)objects
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = [(HMDTimerTrigger *)self modelObjectWithChangeType:1];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -1342,22 +1323,20 @@ LABEL_15:
 
 - (void)_registerForMessages
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = HMDTimerTrigger;
-  [(HMDTrigger *)&v10 _registerForMessages];
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = HMDTimerTrigger;
+  [(HMDTrigger *)&v9 _registerForMessages];
   home = [(HMDTrigger *)self home];
   administratorHandler = [home administratorHandler];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v11[0] = v5;
+  v10[0] = v5;
   v6 = [HMDXPCBackgroundMessagePolicy policyWithEntitlementRequirement:1];
-  v11[1] = v6;
+  v10[1] = v6;
   v7 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v11[2] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   [administratorHandler registerForMessage:@"kScheduleTimerTriggerRequestKey" receiver:self policies:v8 selector:sel__handleUpdateTimerTriggerPropertiesRequest_];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTimer
@@ -1371,7 +1350,7 @@ LABEL_15:
 
 - (void)_startTimer:(id)timer
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   home = [(HMDTrigger *)self home];
   if (home)
@@ -1380,9 +1359,9 @@ LABEL_15:
     {
       v6 = +[HMDBackgroundTaskManager sharedManager];
       timerID = [(HMDTimerTrigger *)self timerID];
-      v27 = 0;
-      [v6 scheduleTaskWithIdentifier:timerID fireDate:timerCopy onObserver:self selector:sel_handleTimerFiredNotification_ error:&v27];
-      v8 = v27;
+      v26 = 0;
+      [v6 scheduleTaskWithIdentifier:timerID fireDate:timerCopy onObserver:self selector:sel_handleTimerFiredNotification_ error:&v26];
+      v8 = v26;
 
       if (v8)
       {
@@ -1394,11 +1373,11 @@ LABEL_15:
           v12 = HMFGetLogIdentifier();
           timerID2 = [(HMDTimerTrigger *)selfCopy timerID];
           *buf = 138543874;
-          v29 = v12;
-          v30 = 2112;
-          v31 = timerID2;
-          v32 = 2112;
-          v33 = v8;
+          v28 = v12;
+          v29 = 2112;
+          v30 = timerID2;
+          v31 = 2112;
+          v32 = v8;
           _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to start timer %@ with error %@", buf, 0x20u);
         }
 
@@ -1417,9 +1396,9 @@ LABEL_15:
         v17 = HMFGetLogIdentifier();
         name = [(HMDTrigger *)selfCopy2 name];
         *buf = 138543618;
-        v29 = v17;
-        v30 = 2112;
-        v31 = name;
+        v28 = v17;
+        v29 = 2112;
+        v30 = name;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Trigger %@ not activated on local device - skipping scheduling the trigger", buf, 0x16u);
       }
 
@@ -1440,23 +1419,21 @@ LABEL_15:
     uuid = [(HMDTrigger *)selfCopy3 uuid];
     uUIDString = [uuid UUIDString];
     *buf = 138543874;
-    v29 = v22;
-    v30 = 2112;
-    v31 = name2;
-    v32 = 2112;
-    v33 = uUIDString;
+    v28 = v22;
+    v29 = 2112;
+    v30 = name2;
+    v31 = 2112;
+    v32 = uUIDString;
     _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@/%@: Home reference is nil", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v19);
 LABEL_15:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimerWithFireDate:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [dateCopy timeIntervalSinceNow];
   if (v5 <= 0.0)
@@ -1472,11 +1449,11 @@ LABEL_15:
     {
       v12 = HMFGetLogIdentifier();
       hmf_localTimeDescription = [v6 hmf_localTimeDescription];
-      v20 = 138543618;
-      v21 = v12;
-      v22 = 2112;
-      v23 = hmf_localTimeDescription;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Revised Next Fire Date %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v12;
+      v21 = 2112;
+      v22 = hmf_localTimeDescription;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Revised Next Fire Date %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1494,22 +1471,20 @@ LABEL_15:
   {
     v17 = HMFGetLogIdentifier();
     hmf_localTimeDescription2 = [v6 hmf_localTimeDescription];
-    v20 = 138543618;
-    v21 = v17;
-    v22 = 2112;
-    v23 = hmf_localTimeDescription2;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Next fire date %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v17;
+    v21 = 2112;
+    v22 = hmf_localTimeDescription2;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Next fire date %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
   [(HMDTimerTrigger *)selfCopy2 _startTimer:v6];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1517,7 +1492,7 @@ LABEL_15:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating the trigger", buf, 0xCu);
   }
 
@@ -1526,15 +1501,14 @@ LABEL_15:
   timerID = [(HMDTimerTrigger *)selfCopy timerID];
   [v7 cancelTaskWithIdentifier:timerID onObserver:selfCopy];
 
-  v10.receiver = selfCopy;
-  v10.super_class = HMDTimerTrigger;
-  [(HMDTrigger *)&v10 invalidate];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = selfCopy;
+  v9.super_class = HMDTimerTrigger;
+  [(HMDTrigger *)&v9 invalidate];
 }
 
 - (void)timerTriggered
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1542,7 +1516,7 @@ LABEL_15:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Timer Triggered", buf, 0xCu);
   }
 
@@ -1553,12 +1527,11 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __33__HMDTimerTrigger_timerTriggered__block_invoke;
   block[3] = &unk_279732FD8;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   dispatch_async(workQueue, block);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __33__HMDTimerTrigger_timerTriggered__block_invoke(uint64_t a1)
@@ -1594,13 +1567,13 @@ void __33__HMDTimerTrigger_timerTriggered__block_invoke(uint64_t a1)
 
 - (void)configure:(id)configure messageDispatcher:(id)dispatcher queue:(id)queue
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   dispatcherCopy = dispatcher;
   queueCopy = queue;
-  v29.receiver = self;
-  v29.super_class = HMDTimerTrigger;
-  [(HMDTrigger *)&v29 configure:configureCopy messageDispatcher:dispatcherCopy queue:queueCopy];
+  v28.receiver = self;
+  v28.super_class = HMDTimerTrigger;
+  [(HMDTrigger *)&v28 configure:configureCopy messageDispatcher:dispatcherCopy queue:queueCopy];
   timerID = [(HMDTimerTrigger *)self timerID];
 
   if (!timerID)
@@ -1618,9 +1591,9 @@ void __33__HMDTimerTrigger_timerTriggered__block_invoke(uint64_t a1)
       v18 = HMFGetLogIdentifier();
       timerID2 = [(HMDTimerTrigger *)selfCopy timerID];
       *buf = 138543618;
-      v31 = v18;
-      v32 = 2112;
-      v33 = timerID2;
+      v30 = v18;
+      v31 = 2112;
+      v32 = timerID2;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Null timerID -- initializing with %@", buf, 0x16u);
     }
 
@@ -1638,20 +1611,18 @@ void __33__HMDTimerTrigger_timerTriggered__block_invoke(uint64_t a1)
     timerID3 = [(HMDTimerTrigger *)selfCopy2 timerID];
     v27 = [timerID3 cStringUsingEncoding:4];
     *buf = 138544130;
-    v31 = v23;
-    v32 = 2112;
-    v33 = fireDate;
-    v34 = 2112;
-    v35 = fireDateTimeZone;
-    v36 = 2080;
-    v37 = v27;
+    v30 = v23;
+    v31 = 2112;
+    v32 = fireDate;
+    v33 = 2112;
+    v34 = fireDateTimeZone;
+    v35 = 2080;
+    v36 = v27;
     _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Configuring with firedate %@ and timezone %@ for %s", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v20);
   [(HMDTimerTrigger *)selfCopy2 _activateWithCompletion:0];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentFireDate:(id)date
@@ -1861,7 +1832,7 @@ LABEL_11:
 
 + (id)validateTriggerModel:(id)model message:(id)message currentFireDate:(id)date
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   dateCopy = date;
@@ -1893,7 +1864,7 @@ LABEL_9:
     }
 
     v24 = [messageCopy dateComponentsForKey:*MEMORY[0x277CD26D0]];
-    v61 = dateCopy;
+    v60 = dateCopy;
     if (v24)
     {
       v25 = [HMDTimerTrigger getCalendar:v24];
@@ -1908,7 +1879,7 @@ LABEL_9:
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v63 = v29;
+          v62 = v29;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Not a valid recurrence", buf, 0xCu);
         }
 
@@ -1920,7 +1891,7 @@ LABEL_9:
           responseHandler7 = 0;
 LABEL_59:
 
-          dateCopy = v61;
+          dateCopy = v60;
           goto LABEL_60;
         }
 
@@ -1943,7 +1914,7 @@ LABEL_58:
 
     v33 = *MEMORY[0x277CD26D8];
     v34 = [messageCopy numberForKey:*MEMORY[0x277CD26D8]];
-    v60 = v34;
+    v59 = v34;
     if (v34)
     {
       [v34 unsignedIntegerValue];
@@ -1967,12 +1938,12 @@ LABEL_58:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v39 = v57 = v36;
+          v39 = v56 = v36;
           *buf = 138543362;
-          v63 = v39;
+          v62 = v39;
           _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Invalid recurrence instances", buf, 0xCu);
 
-          v36 = v57;
+          v36 = v56;
         }
 
         objc_autoreleasePoolPop(v36);
@@ -2014,12 +1985,12 @@ LABEL_56:
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v50 = v59 = v47;
+          v50 = v58 = v47;
           *buf = 138543362;
-          v63 = v50;
+          v62 = v50;
           _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_ERROR, "%{public}@Significant event is not valid", buf, 0xCu);
 
-          v47 = v59;
+          v47 = v58;
         }
 
         objc_autoreleasePoolPop(v47);
@@ -2059,9 +2030,9 @@ LABEL_55:
         v45 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v55 = HMFGetLogIdentifier();
+          v54 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v63 = v55;
+          v62 = v54;
           _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Invalid significant event offset", buf, 0xCu);
         }
 
@@ -2102,7 +2073,7 @@ LABEL_55:
     HMFGetLogIdentifier();
     v19 = v18 = dateCopy;
     *buf = 138543362;
-    v63 = v19;
+    v62 = v19;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Fire date is not valid", buf, 0xCu);
 
     dateCopy = v18;
@@ -2123,26 +2094,25 @@ LABEL_55:
 LABEL_60:
 
 LABEL_61:
-  v53 = *MEMORY[0x277D85DE8];
 
   return responseHandler7;
 }
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   receiverCopy = receiver;
   messageCopy = message;
   v11 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v22[0] = v11;
+  v21[0] = v11;
   v12 = [HMDXPCBackgroundMessagePolicy policyWithEntitlementRequirement:1];
-  v22[1] = v12;
+  v21[1] = v12;
   v13 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v22[2] = v13;
+  v21[2] = v13;
   v14 = objc_opt_new();
-  v22[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v21[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
 
   name = [messageCopy name];
   LODWORD(v12) = HMFEqualObjects();
@@ -2157,45 +2127,43 @@ LABEL_61:
 
   else
   {
-    v21.receiver = self;
-    v21.super_class = &OBJC_METACLASS___HMDTimerTrigger;
-    v18 = objc_msgSendSuper2(&v21, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
+    v20.receiver = self;
+    v20.super_class = &OBJC_METACLASS___HMDTimerTrigger;
+    v18 = objc_msgSendSuper2(&v20, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)validateRecurrences:(id)recurrences
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   recurrencesCopy = recurrences;
   if ([recurrencesCopy count])
   {
     firstObject = [recurrencesCopy firstObject];
     calendar = [firstObject calendar];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v7 = recurrencesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v42;
+      v10 = *v41;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v42 != v10)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          calendar2 = [*(*(&v41 + 1) + 8 * i) calendar];
+          calendar2 = [*(*(&v40 + 1) + 8 * i) calendar];
           v13 = HMFEqualObjects();
 
           if ((v13 & 1) == 0)
@@ -2207,7 +2175,7 @@ LABEL_61:
             {
               v25 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v46 = v25;
+              v45 = v25;
               _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Calendars are not matching in the recurrence instances", buf, 0xCu);
             }
 
@@ -2219,7 +2187,7 @@ LABEL_23:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
         if (v9)
         {
           continue;
@@ -2229,42 +2197,42 @@ LABEL_23:
       }
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v14 = v7;
-    v15 = [v14 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v36 objects:v48 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v38;
+      v17 = *v37;
       while (2)
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v38 != v17)
+          if (*v37 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * j);
+          v19 = *(*(&v36 + 1) + 8 * j);
           if (![v19 weekday])
           {
-            v29 = objc_autoreleasePoolPush();
+            v28 = objc_autoreleasePoolPush();
             selfCopy2 = self;
-            v31 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v30 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
-              v32 = HMFGetLogIdentifier();
+              v31 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v46 = v32;
-              v47 = 2112;
-              v48 = v19;
-              _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Invalid values for week day: %@", buf, 0x16u);
+              v45 = v31;
+              v46 = 2112;
+              v47 = v19;
+              _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Invalid values for week day: %@", buf, 0x16u);
             }
 
-            v26 = v29;
+            v26 = v28;
             goto LABEL_23;
           }
 
@@ -2273,27 +2241,27 @@ LABEL_23:
           [v20 setCalendar:calendar];
           if (([v19 isEqual:v20] & 1) == 0)
           {
-            v33 = objc_autoreleasePoolPush();
+            v32 = objc_autoreleasePoolPush();
             selfCopy3 = self;
-            v35 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v34 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
-              v36 = HMFGetLogIdentifier();
+              v35 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v46 = v36;
-              v47 = 2112;
-              v48 = v19;
-              _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Miscellaneous fields have been set recurrence instances: %@", buf, 0x16u);
+              v45 = v35;
+              v46 = 2112;
+              v47 = v19;
+              _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Miscellaneous fields have been set recurrence instances: %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v33);
+            objc_autoreleasePoolPop(v32);
             v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
 
             goto LABEL_24;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v37 objects:v49 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v36 objects:v48 count:16];
         v21 = 0;
         if (v16)
         {
@@ -2316,8 +2284,6 @@ LABEL_24:
   {
     v21 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -2370,12 +2336,11 @@ LABEL_24:
 
 uint64_t __30__HMDTimerTrigger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_28058;
-  logCategory__hmf_once_v1_28058 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_28058;
+  logCategory__hmf_once_v1_28058 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

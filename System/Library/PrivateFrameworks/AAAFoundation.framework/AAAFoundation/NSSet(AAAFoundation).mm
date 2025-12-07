@@ -16,9 +16,9 @@
     +[NSSet(AAAFoundation) aaf_empty];
   }
 
-  v1 = aaf_empty__aaf_empty;
+  v2 = aaf_empty__aaf_empty;
 
-  return v1;
+  return v2;
 }
 
 - (id)aaf_filter:()AAAFoundation

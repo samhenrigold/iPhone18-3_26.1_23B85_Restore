@@ -10,11 +10,11 @@
 
 - (HDMobilityProfileExtension)initWithProfile:(id)profile
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v38.receiver = self;
-  v38.super_class = HDMobilityProfileExtension;
-  v5 = [(HDMobilityProfileExtension *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = HDMobilityProfileExtension;
+  v5 = [(HDMobilityProfileExtension *)&v37 init];
   v6 = v5;
   if (v5)
   {
@@ -75,16 +75,15 @@
       v33 = objc_opt_class();
       profileType = [profileCopy profileType];
       *buf = 138543618;
-      v40 = v33;
-      v41 = 2048;
-      v42 = profileType;
+      v39 = v33;
+      v40 = 2048;
+      v41 = profileType;
       _os_log_impl(&dword_251962000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ Plugin loaded for profileType %ld", buf, 0x16u);
     }
 
     v35 = v6;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -124,16 +123,16 @@ LABEL_7:
 - (void)settingsMigrationManagerDidCompleteMigration:(id)migration didRunMigrationSteps:(BOOL)steps
 {
   stepsCopy = steps;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v15 = 138543362;
-    v16 = objc_opt_class();
-    v8 = v16;
-    _os_log_impl(&dword_251962000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Settings migration finished, initiating onboarding acknowledgement migration manager", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = objc_opt_class();
+    v8 = v15;
+    _os_log_impl(&dword_251962000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Settings migration finished, initiating onboarding acknowledgement migration manager", &v14, 0xCu);
   }
 
   settingsMigrationManager = self->_settingsMigrationManager;
@@ -149,31 +148,27 @@ LABEL_7:
   {
     [(HDMobilityProfileExtension *)self _triggerImmediateSyncWithReason:@"HDMobilityProfileExtension.settingsMigrationManagerDidRunMigrationSteps"];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onboardingAcknowledgementMigrationManager:(id)manager didCompleteMigrationWithDidUpdate:(BOOL)update
 {
   updateCopy = update;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v10 = 138543362;
-    v11 = objc_opt_class();
-    v8 = v11;
-    _os_log_impl(&dword_251962000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding acknowledgement migration completed", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = objc_opt_class();
+    v8 = v10;
+    _os_log_impl(&dword_251962000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding acknowledgement migration completed", &v9, 0xCu);
   }
 
   if (updateCopy)
   {
     [(HDMobilityProfileExtension *)self _triggerImmediateSyncWithReason:@"HDMobilityProfileExtension.onboardingAcknowledgementMigrationManagerDidRunMigrationSteps"];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerImmediateSyncWithReason:(id)reason
@@ -196,7 +191,7 @@ LABEL_7:
 
 void __62__HDMobilityProfileExtension__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F8];
@@ -205,16 +200,15 @@ void __62__HDMobilityProfileExtension__triggerImmediateSyncWithReason___block_in
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
-      v14 = 138543618;
+      v8 = v6;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      v12 = v10;
-      _os_log_impl(&dword_251962000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v14, 0x16u);
+      v11 = v9;
+      _os_log_impl(&dword_251962000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v12, 0x16u);
     }
   }
 
@@ -222,27 +216,22 @@ void __62__HDMobilityProfileExtension__triggerImmediateSyncWithReason___block_in
   {
     __62__HDMobilityProfileExtension__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HDMobilityProfileExtension__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2114;
   v12 = v7;
   v13 = 2114;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a3;
-  v9 = v7;
-  _os_log_error_impl(&dword_251962000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = a3;
+  v8 = v6;
+  _os_log_error_impl(&dword_251962000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v9, 0x20u);
 }
 
 @end

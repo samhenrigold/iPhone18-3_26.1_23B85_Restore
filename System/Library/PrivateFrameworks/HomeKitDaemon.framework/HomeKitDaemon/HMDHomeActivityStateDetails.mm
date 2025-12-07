@@ -22,28 +22,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  state = [(HMDHomeActivityStateDetails *)self state];
-  if (state != [v6 state])
-  {
-    goto LABEL_9;
-  }
-
-  isHoldActive = [(HMDHomeActivityStateDetails *)self isHoldActive];
-  if (isHoldActive != [v6 isHoldActive])
-  {
-    goto LABEL_9;
-  }
-
-  holdExpiryTime = [(HMDHomeActivityStateDetails *)self holdExpiryTime];
-  holdExpiryTime2 = [v6 holdExpiryTime];
-  v11 = HMFEqualObjects();
-
-  if (v11)
+  if (v6 && (v7 = -[HMDHomeActivityStateDetails state](self, "state"), v7 == [v6 state]) && (v8 = -[HMDHomeActivityStateDetails isHoldActive](self, "isHoldActive"), v8 == objc_msgSend(v6, "isHoldActive")) && (-[HMDHomeActivityStateDetails holdExpiryTime](self, "holdExpiryTime"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "holdExpiryTime"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11))
   {
     transitionalStateEndDate = [(HMDHomeActivityStateDetails *)self transitionalStateEndDate];
     transitionalStateEndDate2 = [v6 transitionalStateEndDate];
@@ -52,7 +31,6 @@
 
   else
   {
-LABEL_9:
     v14 = 0;
   }
 
@@ -74,35 +52,33 @@ LABEL_9:
   transitionalStateEndDate = [(HMDHomeActivityStateDetails *)self transitionalStateEndDate];
   [dictionary setObject:transitionalStateEndDate forKeyedSubscript:*MEMORY[0x277CCFE08]];
 
-  v8 = [dictionary copy];
+  v8 = objc_msgSend_copy(dictionary);
 
   return v8;
 }
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeActivityStateDetails *)self state];
   v4 = HMHomeActivityStateToString();
   v5 = [v3 initWithName:@"activityState" value:v4];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   transitionalStateEndDate = [(HMDHomeActivityStateDetails *)self transitionalStateEndDate];
   v8 = [v6 initWithName:@"transitionalStateEndDate" value:transitionalStateEndDate];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeActivityStateDetails *)self isHoldActive];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"isActivityStateHoldActive" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   holdExpiryTime = [(HMDHomeActivityStateDetails *)self holdExpiryTime];
   v14 = [v12 initWithName:@"activityStateHoldEndDate" value:holdExpiryTime];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }

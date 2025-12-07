@@ -224,7 +224,7 @@ uint64_t __34__DRSTailspinRequest__shouldScrub__block_invoke()
 
 - (BOOL)_dumpTailspinToDirectory:(id)directory
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   directoryCopy = directory;
   v6 = [v4 alloc];
@@ -240,24 +240,24 @@ uint64_t __34__DRSTailspinRequest__shouldScrub__block_invoke()
     v19 = objc_alloc(MEMORY[0x277CCACA8]);
     v20 = __error();
     v21 = [v19 initWithFormat:@"Could not open file handle for new tailspin due to error: %s", strerror(*v20)];
-    v44 = 0;
-    [(DRSRequest *)self updateToState:4352 errorDescription:v21 errorOut:&v44];
-    _tailspinOptions = v44;
+    v46 = 0;
+    [(DRSRequest *)self updateToState:4352 errorDescription:v21 errorOut:&v46];
+    _tailspinOptions = v46;
 
-    defaultManager = DPLogHandle_TailspinError();
+    defaultManager = DPLogHandle_TailspinError(v22);
     if (!os_signpost_enabled(defaultManager))
     {
 LABEL_26:
-      v37 = 0;
+      v39 = 0;
       goto LABEL_27;
     }
 
     errorDescription = [(DRSRequest *)self errorDescription];
     *buf = 138543362;
-    v47 = errorDescription;
-    v23 = "TailspinCreationFailure";
-    v24 = "%{public}@";
-    v25 = defaultManager;
+    v49 = errorDescription;
+    v24 = "TailspinCreationFailure";
+    v25 = "%{public}@";
+    v26 = defaultManager;
     goto LABEL_16;
   }
 
@@ -267,55 +267,55 @@ LABEL_26:
   close(v12);
   if ((v14 & 1) == 0)
   {
-    [(DRSRequest *)self updateToState:4352 errorDescription:@"Dumping tailspin failed" errorOut:0];
-    v26 = DPLogHandle_TailspinError();
-    if (os_signpost_enabled(v26))
+    v27 = DPLogHandle_TailspinError([(DRSRequest *)self updateToState:4352 errorDescription:@"Dumping tailspin failed" errorOut:0]);
+    if (os_signpost_enabled(v27))
     {
       errorDescription2 = [(DRSRequest *)self errorDescription];
       *buf = 138543362;
-      v47 = errorDescription2;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinCreationFailure", "%{public}@", buf, 0xCu);
+      v49 = errorDescription2;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinCreationFailure", "%{public}@", buf, 0xCu);
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    if ([defaultManager fileExistsAtPath:v10])
+    v29 = [defaultManager fileExistsAtPath:v10];
+    if (v29)
     {
-      v43 = 0;
-      v28 = [defaultManager removeItemAtPath:v10 error:&v43];
-      errorDescription = v43;
-      v29 = DPLogHandle_TailspinError();
-      v30 = os_signpost_enabled(v29);
-      if (v28)
+      v45 = 0;
+      v30 = [defaultManager removeItemAtPath:v10 error:&v45];
+      errorDescription = v45;
+      v31 = DPLogHandle_TailspinError(errorDescription);
+      v32 = os_signpost_enabled(v31);
+      if (v30)
       {
-        if (v30)
+        if (v32)
         {
           *buf = 138543362;
-          v47 = v10;
-          _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTailspinCleanup", "Removed failed tailspin file: '%{public}@'", buf, 0xCu);
+          v49 = v10;
+          _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTailspinCleanup", "Removed failed tailspin file: '%{public}@'", buf, 0xCu);
         }
       }
 
-      else if (v30)
+      else if (v32)
       {
         localizedDescription = [errorDescription localizedDescription];
-        v35 = localizedDescription;
-        v36 = @"Unknown";
+        v37 = localizedDescription;
+        v38 = @"Unknown";
         if (localizedDescription)
         {
-          v36 = localizedDescription;
+          v38 = localizedDescription;
         }
 
         *buf = 138543618;
-        v47 = v10;
-        v48 = 2114;
-        v49 = v36;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTailspinCleanupFailed", "Failed to remove '%{public}@' due to error: %{public}@", buf, 0x16u);
+        v49 = v10;
+        v50 = 2114;
+        v51 = v38;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTailspinCleanupFailed", "Failed to remove '%{public}@' due to error: %{public}@", buf, 0x16u);
       }
 
       goto LABEL_25;
     }
 
-    errorDescription = DPLogHandle_TailspinError();
+    errorDescription = DPLogHandle_TailspinError(v29);
     if (!os_signpost_enabled(errorDescription))
     {
 LABEL_25:
@@ -324,28 +324,28 @@ LABEL_25:
     }
 
     *buf = 138543362;
-    v47 = v10;
-    v23 = "FailedTailspinCleanupNotNecessary";
-    v24 = "Nothing to remove at '%{public}@";
-    v25 = errorDescription;
+    v49 = v10;
+    v24 = "FailedTailspinCleanupNotNecessary";
+    v25 = "Nothing to remove at '%{public}@";
+    v26 = errorDescription;
 LABEL_16:
-    _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v23, v24, buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v24, v25, buf, 0xCu);
     goto LABEL_25;
   }
 
   defaultManager = [[DRSLog alloc] _initWithLogPath:v10 transferOwnership:1];
   if (!defaultManager)
   {
-    v31 = DPLogHandle_TailspinError();
-    if (os_signpost_enabled(v31))
+    v33 = DPLogHandle_TailspinError(0);
+    if (os_signpost_enabled(v33))
     {
       path = [0 path];
       requestID2 = [(DRSRequest *)self requestID];
       *buf = 138543618;
-      v47 = path;
-      v48 = 2114;
-      v49 = requestID2;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinSizeError", "Could not lookup size of %{public, name=path}@ for Request ID: %{public}@", buf, 0x16u);
+      v49 = path;
+      v50 = 2114;
+      v51 = requestID2;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinSizeError", "Could not lookup size of %{public, name=path}@ for Request ID: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_26;
@@ -362,28 +362,27 @@ LABEL_16:
 
   else
   {
-    v45 = defaultManager;
-    logs2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+    v47 = defaultManager;
+    logs2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
     [(DRSRequest *)self setLogs:logs2];
   }
 
-  v40 = DPLogHandle_Tailspin();
-  if (os_signpost_enabled(v40))
+  v42 = DPLogHandle_Tailspin(v41);
+  if (os_signpost_enabled(v42))
   {
     logPath = [(DRSRequest *)self logPath];
     requestID3 = [(DRSRequest *)self requestID];
     *buf = 138543618;
-    v47 = logPath;
-    v48 = 2114;
-    v49 = requestID3;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinSaved", "Tailspin saved to %{public, name=path}@ for Request ID: %{public}@", buf, 0x16u);
+    v49 = logPath;
+    v50 = 2114;
+    v51 = requestID3;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v42, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TailspinSaved", "Tailspin saved to %{public, name=path}@ for Request ID: %{public}@", buf, 0x16u);
   }
 
-  v37 = [(DRSRequest *)self updateToState:1 errorDescription:0 errorOut:0];
+  v39 = [(DRSRequest *)self updateToState:1 errorDescription:0 errorOut:0];
 LABEL_27:
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v37;
+  return v39;
 }
 
 - (id)logType
@@ -427,59 +426,15 @@ LABEL_27:
   {
     v5 = requestCopy;
     includeOsSignpost = [(DRSTailspinRequest *)self includeOsSignpost];
-    if (includeOsSignpost != [v5 includeOsSignpost])
+    if (includeOsSignpost == [v5 includeOsSignpost] && (v7 = -[DRSTailspinRequest includeOsLog](self, "includeOsLog"), v7 == objc_msgSend(v5, "includeOsLog")) && (v8 = -[DRSTailspinRequest scrubbed](self, "scrubbed"), v8 == objc_msgSend(v5, "scrubbed")) && (-[DRSTailspinRequest minMAT](self, "minMAT"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "minMAT"), v10 = objc_claimAutoreleasedReturnValue(), IsNil = _oneIsNil(v9, v10), v10, v9, (IsNil & 1) == 0) && ((-[DRSTailspinRequest minMAT](self, "minMAT"), (v12 = objc_claimAutoreleasedReturnValue()) == 0) || (v13 = v12, -[DRSTailspinRequest minMAT](self, "minMAT"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "minMAT"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToNumber:", v15), v15, v14, v13, v16)) && (-[DRSTailspinRequest maxMAT](self, "maxMAT"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "maxMAT"), v18 = objc_claimAutoreleasedReturnValue(), v19 = _oneIsNil(v17, v18), v18, v17, (v19 & 1) == 0))
     {
-      goto LABEL_9;
-    }
-
-    includeOsLog = [(DRSTailspinRequest *)self includeOsLog];
-    if (includeOsLog != [v5 includeOsLog])
-    {
-      goto LABEL_9;
-    }
-
-    scrubbed = [(DRSTailspinRequest *)self scrubbed];
-    if (scrubbed != [v5 scrubbed])
-    {
-      goto LABEL_9;
-    }
-
-    minMAT = [(DRSTailspinRequest *)self minMAT];
-    minMAT2 = [v5 minMAT];
-    IsNil = _oneIsNil(minMAT, minMAT2);
-
-    if (IsNil)
-    {
-      goto LABEL_9;
-    }
-
-    minMAT3 = [(DRSTailspinRequest *)self minMAT];
-    if (minMAT3)
-    {
-      v13 = minMAT3;
-      minMAT4 = [(DRSTailspinRequest *)self minMAT];
-      minMAT5 = [v5 minMAT];
-      v16 = [minMAT4 isEqualToNumber:minMAT5];
-
-      if (!v16)
+      maxMAT = [(DRSTailspinRequest *)self maxMAT];
+      if (maxMAT)
       {
-        goto LABEL_9;
-      }
-    }
-
-    maxMAT = [(DRSTailspinRequest *)self maxMAT];
-    maxMAT2 = [v5 maxMAT];
-    v19 = _oneIsNil(maxMAT, maxMAT2);
-
-    if ((v19 & 1) == 0)
-    {
-      maxMAT3 = [(DRSTailspinRequest *)self maxMAT];
-      if (maxMAT3)
-      {
-        v23 = maxMAT3;
-        maxMAT4 = [(DRSTailspinRequest *)self maxMAT];
-        maxMAT5 = [v5 maxMAT];
-        v20 = [maxMAT4 isEqualToNumber:maxMAT5];
+        v23 = maxMAT;
+        maxMAT2 = [(DRSTailspinRequest *)self maxMAT];
+        maxMAT3 = [v5 maxMAT];
+        v20 = [maxMAT2 isEqualToNumber:maxMAT3];
       }
 
       else
@@ -490,7 +445,6 @@ LABEL_27:
 
     else
     {
-LABEL_9:
       v20 = 0;
     }
   }
@@ -509,7 +463,7 @@ LABEL_9:
   v6 = &v5;
   v7 = 0x2020000000;
   v8 = 0;
-  v2 = _minBufferDurationQueue();
+  v2 = _minBufferDurationQueue(self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __51__DRSTailspinRequest_enforceMinTraceBufferDuration__block_invoke;
@@ -529,19 +483,19 @@ LABEL_9:
 
   if (isInternal)
   {
-    v6 = _minBufferDurationQueue();
+    v7 = _minBufferDurationQueue(v6);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__DRSTailspinRequest_setEnforceMinTraceBufferDuration___block_invoke;
     block[3] = &__block_descriptor_33_e5_v8__0l;
     durationCopy = duration;
-    dispatch_sync(v6, block);
+    dispatch_sync(v7, block);
   }
 }
 
 + (void)resetEnforceMinTraceBufferDuration
 {
-  v2 = _minBufferDurationQueue();
+  v2 = _minBufferDurationQueue(self);
   dispatch_sync(v2, &__block_literal_global_832);
 }
 

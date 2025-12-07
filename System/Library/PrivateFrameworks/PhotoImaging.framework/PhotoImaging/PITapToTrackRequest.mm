@@ -30,7 +30,7 @@
 - (id)newRenderJob
 {
   v3 = [(NURenderJob *)[PITapToTrackRenderJob alloc] initWithRequest:self];
-  [(PITapToTrackRequest *)self startTime];
+  objc_msgSend_startTime(self);
   v6 = v8;
   v7 = v9;
   [(PITapToTrackRenderJob *)v3 setStartTime:&v6];
@@ -47,7 +47,7 @@
   v11.receiver = self;
   v11.super_class = PITapToTrackRequest;
   v4 = [(NURenderRequest *)&v11 copyWithZone:zone];
-  [(PITapToTrackRequest *)self startTime];
+  objc_msgSend_startTime(self);
   v7 = v9;
   v8 = v10;
   [v4 setStartTime:&v7];

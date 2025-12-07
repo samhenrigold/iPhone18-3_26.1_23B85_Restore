@@ -58,7 +58,7 @@
   {
     if ((a2 & 0x8000000000000000) != 0 || (v5 = result, [*(result + 72) count] <= a2))
     {
-      objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Index out of range" userInfo:0]);
+      objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Index out of range" userInfo:{0, p}]);
     }
 
     v8.receiver = v5;

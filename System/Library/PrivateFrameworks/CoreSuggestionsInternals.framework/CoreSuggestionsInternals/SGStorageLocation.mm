@@ -97,11 +97,9 @@ LABEL_7:
   v6 = MEMORY[0x277D02000];
   originCopy = origin;
   idCopy = id;
-  v9 = [v6 alloc];
-  v10 = *&self->_state;
-  v11 = [v9 initWithId:idCopy origin:originCopy type:self->_locationType label:self->_label address:self->_address airportCode:self->_airportCode latitude:self->_latitude longitude:self->_longitude accuracy:self->_accuracy quality:self->_quality handle:self->_handle country:self->_country state:self->_state city:self->_city thoroughfare:self->_thoroughfare subThoroughfare:self->_subThoroughfare postalCode:self->_postalCode];
+  v9 = [[v6 alloc] initWithId:idCopy origin:originCopy type:self->_locationType label:self->_label address:self->_address airportCode:self->_airportCode latitude:self->_latitude longitude:self->_longitude accuracy:self->_accuracy quality:self->_quality handle:self->_handle country:self->_country state:self->_state city:self->_city thoroughfare:self->_thoroughfare subThoroughfare:self->_subThoroughfare postalCode:self->_postalCode];
 
-  return v11;
+  return v9;
 }
 
 - (int64_t)compare:(id)compare

@@ -12,38 +12,38 @@
   BOOL = GEOConfigGetBOOL();
   placeViewController = [(MapsAppTestPlacecardChrome *)self placeViewController];
   view = [placeViewController view];
-  objc_opt_class();
-  v7 = sub_1009F0B70(view);
+  v7 = objc_opt_class();
+  v8 = sub_1009F0B70(view, v7);
 
   if (BOOL)
   {
     RPTContentSizeInDirection();
-    v9 = v8;
+    v10 = v9;
     RPTGetBoundsForView();
-    v14 = [[RPTScrollViewTestParameters alloc] initWithTestName:testName scrollBounds:1 scrollContentLength:&stru_1016318C8 direction:v10 completionHandler:{v11, v12, v13, v9}];
-    window = [v7 window];
-    v16 = [RPTCoordinateSpaceConverter converterFromWindow:window];
-    [v14 setConversion:v16];
+    v15 = [[RPTScrollViewTestParameters alloc] initWithTestName:testName scrollBounds:1 scrollContentLength:&stru_1016318C8 direction:v11 completionHandler:{v12, v13, v14, v10}];
+    window = [v8 window];
+    v17 = [RPTCoordinateSpaceConverter converterFromWindow:window];
+    [v15 setConversion:v17];
 
     objc_initWeak(&location, self);
-    v23 = v14;
-    v17 = [NSArray arrayWithObjects:&v23 count:1];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1009F32C0;
-    v19[3] = &unk_101661340;
-    objc_copyWeak(&v21, &location);
-    v20 = testName;
-    v18 = [RPTGroupScrollTestParameters newWithTestName:v20 parameters:v17 completionHandler:v19];
+    v24 = v15;
+    v18 = [NSArray arrayWithObjects:&v24 count:1];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1009F32C0;
+    v20[3] = &unk_101661340;
+    objc_copyWeak(&v22, &location);
+    v21 = testName;
+    v19 = [RPTGroupScrollTestParameters newWithTestName:v21 parameters:v18 completionHandler:v20];
 
-    [RPTTestRunner runTestWithParameters:v18];
-    objc_destroyWeak(&v21);
+    [RPTTestRunner runTestWithParameters:v19];
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    [v7 _performScrollTest:testName iterations:10 delta:20];
+    [v8 _performScrollTest:testName iterations:10 delta:20];
   }
 }
 

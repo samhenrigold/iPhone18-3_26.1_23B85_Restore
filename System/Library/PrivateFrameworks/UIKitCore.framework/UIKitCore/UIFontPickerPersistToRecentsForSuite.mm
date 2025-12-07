@@ -11,9 +11,9 @@ void ___UIFontPickerPersistToRecentsForSuite_block_invoke(uint64_t a1, void *a2)
   {
     v4 = [v3 familyName];
     v5 = [*(a1 + 32) familyName];
-    v6 = [v4 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v4);
 
-    if ((v6 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [*(a1 + 40) addObject:v7];
     }

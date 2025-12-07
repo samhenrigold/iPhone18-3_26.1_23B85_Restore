@@ -6,6 +6,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)initButtons;
 - (void)processTouch:(id)touch;
+- (void)setHighlight:(id)highlight highlight:(BOOL)a4;
 - (void)setThumbstickPos:(CGPoint)pos center:(CGPoint)center;
 - (void)setValueChangedHandler:(void *)handler;
 - (void)touchesBegan:(id)began withEvent:(id)event;
@@ -149,7 +150,7 @@
 
 - (void)initButtons
 {
-  v57 = VirtualControllerBundle();
+  v57 = VirtualControllerBundle(self);
   v3 = [UIImage imageNamed:@"dpad_backing_mask" inBundle:v57 withConfiguration:0];
   cGImage = [v3 CGImage];
   [v3 scale];
@@ -361,6 +362,24 @@
     }
 
     v6 = endedCopy;
+  }
+}
+
+- (void)setHighlight:(id)highlight highlight:(BOOL)a4
+{
+  v4 = a4;
+  highlightCopy = highlight;
+  contentView = [highlightCopy contentView];
+  v9 = [contentView viewWithTag:1];
+
+  contentView2 = [highlightCopy contentView];
+
+  v8 = [contentView2 viewWithTag:2];
+
+  if ([v9 isHidden] != v4)
+  {
+    [v9 setHidden:v4];
+    [v8 setHidden:v4 ^ 1];
   }
 }
 

@@ -74,16 +74,16 @@
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  sub_1D6F90460();
-  v14 = v13;
+  sub_1D6F90460(v13, viewCopy, v10);
+  v15 = v14;
 
   (*(v7 + 8))(v10, v6);
 
-  return v14;
+  return v15;
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section

@@ -1,609 +1,3 @@
-uint64_t ktrace_iter_get_event(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 56);
-  if (v2 != 7680)
-  {
-    if (v2 == 20982)
-    {
-      v5 = (*(result + 24) + *(result + 16));
-      v6 = *v5;
-      *a2 = *v5 & 0xFFFFFFFFFFFFFFLL;
-      v7 = *(v5 + 3);
-      *(a2 + 48) = *(v5 + 2);
-      *(a2 + 52) = HIBYTE(v6);
-      *(a2 + 8) = *(v5 + 1);
-      *(a2 + 24) = *(v5 + 2);
-      *(a2 + 40) = v7;
-      return result;
-    }
-
-    if (v2 != 7936)
-    {
-      ktrace_stream_iterate_group_cold_1();
-    }
-  }
-
-  if (!*(result + 48))
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  v3 = (*(result + 24) + *(result + 16));
-  v4 = *v3;
-  if (*(*(result + 8) + 972) == 1)
-  {
-    *a2 = v4;
-    *(a2 + 48) = *(v3 + 12);
-    *(a2 + 8) = v3[1];
-    *(a2 + 16) = v3[2];
-    *(a2 + 24) = v3[3];
-    *(a2 + 32) = v3[4];
-    *(a2 + 40) = v3[5];
-    *(a2 + 52) = *(v3 + 13);
-  }
-
-  else
-  {
-    *a2 = v4 & 0xFFFFFFFFFFFFFFLL;
-    *(a2 + 48) = *(v3 + 7);
-    *(a2 + 8) = *(v3 + 2);
-    *(a2 + 16) = *(v3 + 3);
-    *(a2 + 24) = *(v3 + 4);
-    *(a2 + 32) = *(v3 + 5);
-    *(a2 + 40) = *(v3 + 6);
-    *(a2 + 52) = *(v3 + 7);
-  }
-
-  return result;
-}
-
-BOOL ktrace_iter_equal(unint64_t a1, unint64_t a2)
-{
-  if (!(a1 | a2))
-  {
-    return 1;
-  }
-
-  result = 0;
-  if (a1 && a2)
-  {
-    return *a1 == *a2 && *(a1 + 16) == *(a2 + 16);
-  }
-
-  return result;
-}
-
-void jetsam_coalition_release(int a1, void *a2)
-{
-  if (a2)
-  {
-    free(a2);
-  }
-}
-
-void thread_group_release(int a1, void *a2)
-{
-  if (a2)
-  {
-    free(a2);
-  }
-}
-
-uint64_t kthmap_read_kdebug_map(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
-{
-  if (!a1)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  if (!a2)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  if ((*(a1 + 96) & 2) == 0)
-  {
-    return 0;
-  }
-
-  if (!a4)
-  {
-    if (a5)
-    {
-      v24 = 32;
-    }
-
-    else
-    {
-      v24 = 28;
-    }
-
-    if (!a3)
-    {
-      return 0;
-    }
-
-    v25 = 0;
-    while (1)
-    {
-      if (a5)
-      {
-        v26 = *(a2 + v25);
-        if (v26)
-        {
-          v27 = *(a2 + v25 + 8);
-          v28 = (a2 + v25 + 12);
-          goto LABEL_30;
-        }
-      }
-
-      else
-      {
-        v26 = *(a2 + v25);
-        if (v26)
-        {
-          v27 = *(a2 + v25 + 4);
-          v28 = (a2 + v25 + 8);
-LABEL_30:
-          result = insert_legacy_entry_internal(a1, v26, v27, v28);
-          if (result)
-          {
-            return result;
-          }
-        }
-      }
-
-      v25 += v24;
-      if (v25 >= a3)
-      {
-        return 0;
-      }
-    }
-  }
-
-  if (a3 >= 33)
-  {
-    v9 = a2 + a3;
-    v10 = a2 + 32;
-    *a1 = *a2;
-    if (*(a2 + 16))
-    {
-      v11 = 0;
-      do
-      {
-        v12 = (v10 + *(a2 + 20));
-        if (v12 >= v9)
-        {
-          return 1;
-        }
-
-        v13 = malloc_type_malloc(0x28uLL, 0x1010040139C5EC2uLL);
-        if (!v13)
-        {
-          return 1;
-        }
-
-        v14 = v13;
-        *(v13 + 3) = strdup(v12);
-        v15 = *(v10 + 8);
-        v14[2] = v15;
-        v14[4] = *(v10 + 12);
-        v16 = *v10;
-        *v14 = *v10;
-        v17 = strdup(v12);
-        *(v14 + 3) = v17;
-        v10 = &v12[strlen(v17) + 1];
-        if (v10 >= v9)
-        {
-          free(v14);
-          return 1;
-        }
-
-        CFDictionarySetValue(*(a1 + 16), v15, v14);
-        CFDictionarySetValue(*(a1 + 24), v16, v14);
-      }
-
-      while (++v11 < *(a2 + 16));
-    }
-
-    if (*(a2 + 24))
-    {
-      v18 = 0;
-      while (1)
-      {
-        v19 = (v10 + *(a2 + 28));
-        if (v19 >= v9)
-        {
-          break;
-        }
-
-        v20 = *v10;
-        Value = CFDictionaryGetValue(*(a1 + 16), *(v10 + 8));
-        if (Value)
-        {
-          CFDictionarySetValue(*(a1 + 32), v20, Value);
-          v22 = strdup(v19);
-          CFDictionarySetValue(*(a1 + 40), v20, v22);
-          v19 += strlen(v22) + 1;
-          if (v19 >= v9)
-          {
-            break;
-          }
-        }
-
-        result = 0;
-        ++v18;
-        v10 = v19;
-        if (v18 >= *(a2 + 24))
-        {
-          return result;
-        }
-      }
-
-      return 1;
-    }
-
-    return 0;
-  }
-
-  return 1;
-}
-
-uint64_t kthmap_prepass_stackshot(uint64_t result, void *a2)
-{
-  if (result)
-  {
-    v3 = result;
-    result = ktrace_chunk_tag(a2);
-    switch(result)
-    {
-      case 0x51FE:
-        goto LABEL_8;
-      case 0x8002:
-        result = ktrace_chunk_version_major(a2);
-        if (result > 1)
-        {
-          return result;
-        }
-
-        goto LABEL_8;
-      case 0x9000:
-        result = ktrace_chunk_version_major(a2);
-        if (!result)
-        {
-LABEL_8:
-          v4[0] = MEMORY[0x277D85DD0];
-          v4[1] = 0x40000000;
-          v4[2] = __kthmap_prepass_stackshot_block_invoke;
-          v4[3] = &__block_descriptor_tmp_11;
-          v4[4] = v3;
-          return ktrace_stackshot_chunk_unwrap(a2, v4);
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-void kthmap_update_stackshot(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  if (!a1)
-  {
-    ktrace_postprocess_file_internal_cold_4();
-  }
-
-  if ((*(a1 + 96) & 2) != 0)
-  {
-    CFDictionaryRemoveAllValues(*(a1 + 32));
-  }
-
-  v6 = a2 + 16;
-  if (a2 + 16 <= a3)
-  {
-    v7 = 0;
-    v36 = 0;
-    v8 = -1;
-    v9 = &ktrace_log;
-    v10 = -1;
-    while (1)
-    {
-      v11 = *(a2 + 4);
-      if (v6 + v11 > a3)
-      {
-        return;
-      }
-
-      v12 = *a2;
-      if ((*a2 & 0xFFFFFFF0) == 0x20)
-      {
-        v13 = 17;
-      }
-
-      else
-      {
-        v13 = *a2;
-      }
-
-      if (v13 > 2309)
-      {
-        if (v13 > 2334)
-        {
-          if (v13 == 2335)
-          {
-            set_thread_thread_group(a1, v10, *(a2 + 16));
-          }
-
-          else if (v13 == 2337 && v7)
-          {
-            v7[4] = *(a2 + 16);
-          }
-        }
-
-        else if (v13 == 2310)
-        {
-          if ((*(a2 + 81) & 0x20) != 0 && v7)
-          {
-            CFSetAddValue(*(a1 + 88), *(a2 + 16));
-          }
-        }
-
-        else if (v13 == 2313)
-        {
-          v15 = v11 >= (*(a2 + 8) & 0xFu);
-          v16 = v11 - (*(a2 + 8) & 0xF);
-          if (!v15)
-          {
-            v16 = 0;
-          }
-
-          if (*(a2 + 16 + (v16 - 1)))
-          {
-            ktrace_log_init();
-            if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-            {
-              kthmap_update_stackshot_cold_1(&v39, v40);
-            }
-          }
-
-          else if (v10 != -1 && (*(a1 + 96) & 2) != 0)
-          {
-            rename_thread(a1, v10);
-          }
-        }
-
-        goto LABEL_92;
-      }
-
-      if (v13 <= 19)
-      {
-        break;
-      }
-
-      if (v13 == 20)
-      {
-        v23 = v36;
-        if (v36 == 2)
-        {
-          v10 = -1;
-        }
-
-        --v36;
-        if (v23 == 1)
-        {
-          v8 = -1;
-          v7 = 0;
-        }
-
-        goto LABEL_92;
-      }
-
-      if (v13 == 2309 && v8 != -1)
-      {
-        v15 = v11 >= (*(a2 + 8) & 0xFu);
-        v17 = v11 - (*(a2 + 8) & 0xF);
-        if (!v15)
-        {
-          v17 = 0;
-        }
-
-        if (v17 <= 0x77)
-        {
-          ktrace_log_init();
-          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-          {
-            kthmap_update_stackshot_cold_1(&v43, v44);
-          }
-
-          goto LABEL_92;
-        }
-
-        if (*(a2 + 16) != v8)
-        {
-          ktrace_log_init();
-          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-          {
-            kthmap_update_stackshot_cold_1(&v41, v42);
-          }
-
-          goto LABEL_92;
-        }
-
-        Value = CFDictionaryGetValue(*(a1 + 16), *(a2 + 100));
-        v7 = Value;
-        if ((*(a1 + 96) & 2) != 0)
-        {
-          if (!Value)
-          {
-            v29 = task_alloc(*(a2 + 16), *(a2 + 100), (a2 + 104), 0x20uLL);
-            if (!v29)
-            {
-              ktrace_postprocess_file_internal_cold_4();
-            }
-
-            v7 = v29;
-            CFDictionarySetValue(*(a1 + 16), *(a2 + 100), v29);
-          }
-
-          v35 = v10;
-          v30 = *v7;
-          if (*v7 == -1)
-          {
-            *v7 = v8;
-            CFDictionarySetValue(*(a1 + 24), v8, v7);
-            v30 = *v7;
-          }
-
-          v31 = v7[3];
-          if (v30 == v8)
-          {
-            *(v7 + 2) = *(a2 + 100);
-            if (!v31)
-            {
-              goto LABEL_90;
-            }
-
-            v32 = strlen(v31);
-            if (v32 < strnlen((a2 + 104), 0x20uLL))
-            {
-              free(v31);
-              v7[3] = 0;
-              goto LABEL_90;
-            }
-          }
-
-          else
-          {
-            if (v31)
-            {
-              free(v7[3]);
-              v7[3] = 0;
-            }
-
-            *(v7 + 12) = -1;
-            *(v7 + 2) = *(a2 + 100);
-LABEL_90:
-            v7[3] = strndup((a2 + 104), 0x20uLL);
-          }
-
-LABEL_91:
-          v10 = v35;
-        }
-      }
-
-LABEL_92:
-      a2 = v6 + *(a2 + 4);
-      v6 = a2 + 16;
-      if (a2 + 16 > a3)
-      {
-        return;
-      }
-    }
-
-    if (v13 != 17)
-    {
-      if (v13 == 19)
-      {
-        if (v11 >= 4 && v12 == 19)
-        {
-          v14 = *(a2 + 16);
-          ++v36;
-          if (v14 == 2308)
-          {
-            v10 = *(a2 + 8);
-            if (v7 && (*(a1 + 96) & 2) != 0)
-            {
-              CFDictionarySetValue(*(a1 + 32), *(a2 + 8), v7);
-            }
-          }
-
-          else if (v14 == 2307)
-          {
-            v8 = *(a2 + 8);
-          }
-        }
-
-        else
-        {
-          ktrace_log_init();
-          if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
-          {
-            kthmap_update_stackshot_cold_1(&v37, v38);
-          }
-        }
-      }
-
-      goto LABEL_92;
-    }
-
-    v18 = *(a2 + 8);
-    if (HIDWORD(v18) != 2334)
-    {
-      if (HIDWORD(v18) == 2336 && v18)
-      {
-        v19 = v8;
-        v20 = v9;
-        v21 = 0;
-        v22 = (a2 + 40);
-        do
-        {
-          new_jetsam_coalition(a1, *(v22 - 3), *(v22 - 2), *(v22 - 1), *v22);
-          ++v21;
-          v22 += 4;
-        }
-
-        while (v21 < *(a2 + 8));
-        v9 = v20;
-        v8 = v19;
-      }
-
-      goto LABEL_92;
-    }
-
-    if (v12 == 17 || !v18 || (v11 - (*a2 & 0xF)) / v18 < 0x20)
-    {
-      if (v18)
-      {
-        v33 = 0;
-        v34 = (a2 + 24);
-        do
-        {
-          new_thread_group(a1, *(v34 - 1), v34);
-          ++v33;
-          v34 += 3;
-        }
-
-        while (v33 < *(a2 + 8));
-      }
-
-      v9 = &ktrace_log;
-      goto LABEL_92;
-    }
-
-    v35 = v10;
-    v24 = 0;
-    v25 = a2 + 24;
-    do
-    {
-      new_thread_group(a1, *(v25 - 8), v25);
-      v26 = *(v25 + 16);
-      v27 = CFDictionaryGetValue(*(a1 + 64), *(v25 - 8));
-      if (v27)
-      {
-        v27[3] = v26 | 0x8000000000000000;
-      }
-
-      v25 += 32;
-      ++v24;
-    }
-
-    while (v24 < *(a2 + 8));
-    v9 = &ktrace_log;
-    goto LABEL_91;
-  }
-}
-
 void *ktrace_thread_map_task_for_thread(uint64_t a1, const void *a2)
 {
   if (!a1)
@@ -658,18 +52,18 @@ uint64_t get_jetsam_coalition_for_tid(uint64_t a1, const void *a2)
   }
 }
 
-void rename_thread(uint64_t a1, const void *a2)
+void rename_thread(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v4 = malloc_type_malloc(0x40uLL, 0x4DA560C5uLL);
+  v6 = malloc_type_malloc(0x40uLL, 0x4DA560C5uLL);
   __strlcpy_chk();
-  v5 = *(a1 + 40);
+  v7 = *(a1 + 40);
 
-  CFDictionarySetValue(v5, a2, v4);
+  CFDictionarySetValue(v7, a2, v6);
 }
 
 const char *extend_thread_name(uint64_t a1, const void *a2, const char *a3, uint64_t a4)
@@ -1015,27 +409,27 @@ uint64_t kthmap_flags_for_thread_group(uint64_t a1, const void *a2, uint64_t *a3
   return result;
 }
 
-unint64_t ktrace_thread_map_estimate_threads(uint64_t a1)
+unint64_t ktrace_thread_map_estimate_threads(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  if (ktrace_chunk_tag(a1) != 7424)
+  if (ktrace_chunk_tag(a1, a2) != 7424)
   {
     return 0;
   }
 
-  v2 = ktrace_chunk_size(a1);
+  v4 = ktrace_chunk_size(a1, v3);
   if (ktrace_chunk_is_64_bit(a1))
   {
-    return v2 >> 5;
+    return v4 >> 5;
   }
 
   else
   {
-    return v2 / 0x1C;
+    return v4 / 0x1C;
   }
 }
 
@@ -1079,13 +473,6 @@ void kthmap_iterate_threads(uint64_t a1, uint64_t a2)
   context[3] = &unk_27886EB50;
   context[4] = a2;
   CFDictionaryApplyFunction(v2, CFDictionaryApplierTrampoline, context);
-}
-
-uint64_t __kthmap_iterate_threads_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  v3 = *(a3 + 2);
-  v4 = *a3;
-  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t kthmap_read_catalog(uint64_t a1, uint64_t a2)
@@ -1178,15 +565,16 @@ uint64_t __kthmap_read_catalog_block_invoke_2(uint64_t a1, void *a2)
   name = ktrace_thread_last_name(a2);
   if (name)
   {
-    strlen(name);
-    v5 = *(a1 + 32);
-    v6 = ktrace_thread_id(a2);
-    rename_thread(v5, v6);
+    v5 = name;
+    v6 = strlen(name);
+    v7 = *(a1 + 32);
+    v8 = ktrace_thread_id(a2);
+    rename_thread(v7, v8, v5, v6);
   }
 
-  v7 = *(*(a1 + 32) + 32);
-  v8 = ktrace_thread_id(a2);
-  CFDictionarySetValue(v7, v8, *(a1 + 40));
+  v9 = *(*(a1 + 32) + 32);
+  v10 = ktrace_thread_id(a2);
+  CFDictionarySetValue(v9, v10, *(a1 + 40));
   return 1;
 }
 
@@ -1287,7 +675,7 @@ LABEL_6:
       }
 
 LABEL_16:
-      v13 = *__error();
+      v14 = *__error();
       ktrace_log_init();
       if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
       {
@@ -1322,7 +710,7 @@ LABEL_7:
 
   if (!CFDictionaryGetValueIfPresent(a2, @"PID", &value))
   {
-    v13 = *__error();
+    v14 = *__error();
     ktrace_log_init();
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
@@ -1330,8 +718,8 @@ LABEL_7:
     }
 
 LABEL_20:
-    *__error() = v13;
-    goto LABEL_21;
+    *__error() = v14;
+    return;
   }
 
   if (CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr))
@@ -1346,14 +734,11 @@ LABEL_20:
       v19 = 0u;
       if (CFStringGetCString(theString, __endptr, 65, 0x8000100u))
       {
-        strlen(__endptr);
-        rename_thread(a3, v11);
+        v13 = strlen(__endptr);
+        rename_thread(a3, v11, __endptr, v13);
       }
     }
   }
-
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void _ariadne_process_dict_apply(const __CFString *a1, const __CFDictionary *a2, uint64_t a3)
@@ -1544,7 +929,7 @@ void OUTLINED_FUNCTION_3_0(void *a1, int a2, os_log_t log, const char *a4, uint8
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, a5, 2u);
 }
 
-unint64_t *ktrace_uuid_map_create(uint64_t a1, uint64_t a2)
+void *ktrace_uuid_map_create(uint64_t a1, uint64_t a2)
 {
   ktrace_log_init();
   if (ktrace_register_types(void)::once != -1)
@@ -1560,12 +945,12 @@ unint64_t *ktrace_uuid_map_create(uint64_t a1, uint64_t a2)
     v7 = -4097;
     if (a2)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __ktrace_uuid_map_create_block_invoke;
-      v17[3] = &__block_descriptor_40_e149_B16__0__ktrace_chunk___ktrace_file_Q___q____CFData__QISS__ktrace_chunk__ktrace_chunk_array____ktrace_chunk___ktrace_chunk_QQQqq______ktrace_chunk___8l;
-      v17[4] = Instance;
-      ktrace_file_iterate(a2, 0, v17);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __ktrace_uuid_map_create_block_invoke;
+      v13[3] = &__block_descriptor_40_e149_B16__0__ktrace_chunk___ktrace_file_Q___q____CFData__QISS__ktrace_chunk__ktrace_chunk_array____ktrace_chunk___ktrace_chunk_QQQqq______ktrace_chunk___8l;
+      v13[4] = Instance;
+      ktrace_file_iterate(a2, 0, v13);
       if (!*(a2 + 298))
       {
         v7 = 4294901759;
@@ -1573,52 +958,49 @@ unint64_t *ktrace_uuid_map_create(uint64_t a1, uint64_t a2)
       }
     }
 
-    v8 = v5 + 34;
     v5[34] = 0;
     if (a1)
     {
       if (*(a1 + 204))
       {
-        v9 = 0x1000000;
+        v8 = 0x1000000;
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      *v8 = v9 | *(a1 + 192) | (*(a1 + 196) << 32);
+      v5[34] = v8 | *(a1 + 192) | (*(a1 + 196) << 32);
     }
 
     else
     {
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x2020000000;
-      v22 = 0;
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x2020000000;
+      v18 = 0;
       if (!a2)
       {
-        _Block_object_dispose(&v19, 8);
+        _Block_object_dispose(&v15, 8);
         goto LABEL_28;
       }
 
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = ___ZL15figure_out_archP15_CSArchitectureP14ktrace_machineP11ktrace_file_block_invoke;
-      v18[3] = &unk_27886DDC0;
-      v18[4] = &v19;
-      v18[5] = v5 + 34;
-      ktrace_file_iterate(a2, 0, v18);
-      v10 = *(v20 + 24);
-      _Block_object_dispose(&v19, 8);
-      if ((v10 & 1) == 0)
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = ___ZL15figure_out_archP15_CSArchitectureP14ktrace_machineP11ktrace_file_block_invoke;
+      v14[3] = &unk_27886DDC0;
+      v14[4] = &v15;
+      v14[5] = v5 + 34;
+      ktrace_file_iterate(a2, 0, v14);
+      v9 = *(v16 + 24);
+      _Block_object_dispose(&v15, 8);
+      if ((v9 & 1) == 0)
       {
 LABEL_28:
         v5[32] = v6;
         goto LABEL_29;
       }
-
-      v11 = *v8;
     }
 
     if (CSArchitectureIsArm64())
@@ -1631,28 +1013,27 @@ LABEL_28:
       }
 
 LABEL_23:
-      v15 = *(a1 + 16);
-      v14 = *(a1 + 24);
-      if (v15 == -1)
+      v11 = *(a1 + 16);
+      v10 = *(a1 + 24);
+      if (v11 == -1)
       {
-        v15 = v6;
+        v11 = v6;
       }
 
-      v5[32] = v15;
-      if (v14)
+      v5[32] = v11;
+      if (v10)
       {
 LABEL_30:
-        v5[33] = v14;
+        v5[33] = v10;
         v5[2] = 0;
         operator new();
       }
 
 LABEL_29:
-      v14 = v7;
+      v10 = v7;
       goto LABEL_30;
     }
 
-    v12 = *v8;
     if (CSArchitectureIsArm())
     {
       v7 = 4294901759;
@@ -1665,7 +1046,6 @@ LABEL_29:
       goto LABEL_23;
     }
 
-    v13 = *v8;
     if (CSArchitectureIsX86_64())
     {
       v6 = 0xFFFFFF8000000000;
@@ -1680,7 +1060,7 @@ LABEL_29:
 
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      ktrace_uuid_map_create_cold_2(a1 == 0, a1);
+      ktrace_uuid_map_create_cold_2();
     }
 
     CFRelease(v5);
@@ -1692,12 +1072,12 @@ LABEL_29:
 
 uint64_t __ktrace_uuid_map_create_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (ktrace_chunk_tag(a2) >= 0x9000 && ktrace_chunk_tag(a2) >> 13 <= 4)
+  if (ktrace_chunk_tag(a2, a2) >= 0x9000 && ktrace_chunk_tag(a2, v4) >> 13 <= 4)
   {
     *(*(a1 + 32) + 288) = 1;
   }
 
-  if (ktrace_chunk_tag(a2) >= 0x5000 && ktrace_chunk_tag(a2) >> 13 <= 2)
+  if (ktrace_chunk_tag(a2, v4) >= 0x5000 && ktrace_chunk_tag(a2, v5) >> 13 <= 2)
   {
     *(*(a1 + 32) + 289) = 1;
   }
@@ -1715,23 +1095,23 @@ BOOL ktrace_uuid_map_plausible_kernel_address(_BOOL8 result, unint64_t a2)
   return result;
 }
 
-void ktrace_uuid_map_update_with_stackshot(uint64_t a1, kcdata_iter a2)
+void ktrace_uuid_map_update_with_stackshot(uint64_t a1, kcdata_iter a2, uint64_t a3)
 {
   v34 = *MEMORY[0x277D85DE8];
-  v2 = a2.item + 1;
+  v3 = a2.item + 1;
   if (&a2.item[1] <= a2.end)
   {
     if (a1)
     {
       item = a2.item;
-      if ((v2 + a2.item->size) <= a2.end)
+      if ((v3 + a2.item->size) <= a2.end)
       {
         v19 = 0;
         v21 = 0;
         do
         {
           size = item->size;
-          if ((v2 + size) > a2.end)
+          if ((v3 + size) > a2.end)
           {
             break;
           }
@@ -1831,8 +1211,8 @@ LABEL_21:
             LODWORD(size) = item->size;
           }
 
-          item = (v2 + size);
-          v2 = item + 1;
+          item = (v3 + size);
+          v3 = item + 1;
         }
 
         while (&item[1] <= a2.end);
@@ -1874,36 +1254,34 @@ LABEL_21:
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDB6410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EDB6410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   SymbolOwner::~SymbolOwner(va);
   _Unwind_Resume(a1);
 }
 
-void ktrace_address_space_from_dscsym(void *a1)
+void ktrace_address_space_from_dscsym(void *a1, uint64_t a2)
 {
-  v1[0] = 0;
-  v1[1] = v1;
-  v1[2] = 0x5812000000;
-  v1[3] = __Block_byref_object_copy__2;
-  v1[4] = __Block_byref_object_dispose__2;
-  v1[5] = "";
-  v2 = 0u;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x5812000000;
+  v2[3] = __Block_byref_object_copy__2;
+  v2[4] = __Block_byref_object_dispose__2;
+  v2[5] = "";
   v3 = 0u;
-  v4 = 1065353216;
+  v4 = 0u;
+  v5 = 1065353216;
   ktrace_address_space_create(-1);
 }
 
-void sub_22EDB6584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22EDB6584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v8 + 48);
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v15 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -1958,7 +1336,7 @@ uint64_t ___Z32ktrace_address_space_from_dscsymPvm_block_invoke(uint64_t a1, __i
     SymbolOwner::~SymbolOwner(v15);
   }
 
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((*(*(a1 + 32) + 8) + 48), &v24);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((*(*(a1 + 32) + 8) + 48), &v24, &v24);
   SymbolOwner::~SymbolOwner(&v18);
   return 0;
 }
@@ -2031,7 +1409,7 @@ LABEL_23:
           v9 = v18;
           if (v18)
           {
-            v10 = *(v19 + 16);
+            v10 = *(v19 + 2);
             v11 = *v10;
             v12 = v10[1];
             while (v11 != v12)
@@ -2066,7 +1444,7 @@ void ktrace_uuid_map_associate_path_with_uuid(ktrace_uuid_map *a1, CFUUIDBytes a
     v3 = a3;
     v4 = *(a1 + 27);
     v15 = &v14;
-    v5 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v4, &v14);
+    v5 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v4, &v14, &std::piecewise_construct, &v15);
     v6 = v5[4];
     if (!v6)
     {
@@ -2119,56 +1497,55 @@ LABEL_13:
   }
 }
 
-void sub_22EDB6AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22EDB6AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ktrace_uuid_map_learn_sharedcache_with_chunk(uint64_t result, void *a2)
+ktrace_uuid_map *ktrace_uuid_map_learn_sharedcache_with_chunk(ktrace_uuid_map *result, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
-    if (ktrace_chunk_tag(a2) == 32769 || (result = ktrace_chunk_tag(a2), result == 36869))
+    if (ktrace_chunk_tag(a2, a2) == 32769 || (result = ktrace_chunk_tag(a2, v4), result == 36869))
     {
       result = ktrace_chunk_version_major(a2);
       if (!result)
       {
-        v4 = ktrace_chunk_size(a2);
-        result = ktrace_chunk_map_data(a2, 0, v4);
+        v6 = ktrace_chunk_size(a2, v5);
+        result = ktrace_chunk_map_data(a2, 0, v6);
         if (result)
         {
-          v5 = result;
-          v8 = 0;
-          v9 = &v8;
-          v10 = 0x2020000000;
-          v11 = 0;
-          *&v12.byte0 = 0;
-          *&v12.byte8 = 0;
+          v7 = result;
+          v9 = 0;
+          v10 = &v9;
+          v11 = 0x2020000000;
+          v12 = 0;
+          *&v13.byte0 = 0;
+          *&v13.byte8 = 0;
           dscsym_iterate_buffer();
-          v6 = *(v9 + 24);
-          _Block_object_dispose(&v8, 8);
-          if (v6 == 1)
+          v8 = *(v10 + 24);
+          _Block_object_dispose(&v9, 8);
+          if (v8 == 1)
           {
-            ktrace_uuid_map_learn_sharedcache_with_buffer(v3, v12, v5);
+            ktrace_uuid_map_learn_sharedcache_with_buffer(v3, v13, v7, v6);
           }
 
-          result = ktrace_chunk_unmap_data(a2, v5, v4);
+          return ktrace_chunk_unmap_data(a2, v7, v6);
         }
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_22EDB6C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22EDB6C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2197,8 +1574,9 @@ const void *cfdict_get_dictionary(const __CFDictionary *a1, const void *a2)
 
 void __ktrace_uuid_map_learn_tailspin_process_info_with_chunk_block_invoke(uint64_t a1, const __CFString *a2, const __CFNumber *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  memset(uu, 0, 16);
+  v21 = *MEMORY[0x277D85DE8];
+  *uu = 0;
+  *&uu[8] = 0;
   v5 = utf8(a2);
   if (!uuid_parse(v5, uu))
   {
@@ -2220,32 +1598,32 @@ void __ktrace_uuid_map_learn_tailspin_process_info_with_chunk_block_invoke(uint6
         v6 = 0;
       }
 
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
-      *&v17 = v6;
-      v14 = *uu;
-      v15 = 0u;
-      LODWORD(v15) = 2;
-      DWORD2(v15) = 1163157343;
-      *(&v15 + 11) = 5527621;
-      BYTE8(v19) = 1;
-      v8 = *(a1 + 32);
-      v12[0] = *uu;
-      v12[1] = v15;
-      v12[4] = 0u;
-      v12[5] = v19;
-      v12[2] = 0u;
-      v12[3] = v17;
+      *&v16 = v6;
+      v13 = *uu;
       v14 = 0u;
-      v15 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
+      LODWORD(v14) = 2;
+      DWORD2(v14) = 1163157343;
+      *(&v14 + 11) = 5527621;
+      BYTE8(v18) = 1;
+      v8 = *(a1 + 32);
+      v11[0] = *uu;
+      v11[1] = v14;
+      v11[4] = 0u;
+      v11[5] = v18;
+      v11[2] = 0u;
+      v11[3] = v16;
+      v13 = 0u;
+      v14 = 0u;
       v17 = 0u;
-      ktrace_address_space_append(v8, v12);
-      v9 = v12;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      ktrace_address_space_append(v8, v11);
+      v9 = v11;
     }
 
     else
@@ -2266,44 +1644,42 @@ void __ktrace_uuid_map_learn_tailspin_process_info_with_chunk_block_invoke(uint6
         v7 = 0;
       }
 
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
-      v14 = *uu;
-      v15 = 0u;
-      LODWORD(v15) = 5;
-      *&v17 = v7;
-      BYTE8(v19) = 1;
-      v10 = *(a1 + 32);
-      v13[2] = 0u;
-      v13[3] = v17;
-      v13[4] = 0u;
-      v13[5] = v19;
-      v13[0] = *uu;
-      v13[1] = v15;
+      v13 = *uu;
       v14 = 0u;
-      v15 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
+      LODWORD(v14) = 5;
+      *&v16 = v7;
+      BYTE8(v18) = 1;
+      v10 = *(a1 + 32);
+      v12[2] = 0u;
+      v12[3] = v16;
+      v12[4] = 0u;
+      v12[5] = v18;
+      v12[0] = *uu;
+      v12[1] = v14;
+      v13 = 0u;
+      v14 = 0u;
       v17 = 0u;
-      ktrace_address_space_append(v10, v13);
-      v9 = v13;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      ktrace_address_space_append(v10, v12);
+      v9 = v12;
     }
 
     SymbolOwner::~SymbolOwner(v9);
-    SymbolOwner::~SymbolOwner(&v14);
+    SymbolOwner::~SymbolOwner(&v13);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDB6EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22EDB6EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   SymbolOwner::~SymbolOwner(va);
-  SymbolOwner::~SymbolOwner((v13 - 176));
+  SymbolOwner::~SymbolOwner((v20 - 176));
   _Unwind_Resume(a1);
 }
 
@@ -2401,19 +1777,19 @@ void SymbolOwner::set_path(SymbolOwner *this, CFTypeRef cf)
 
 void ktrace_uuid_map_learn_ariadne_process_dict_with_chunk(uint64_t a1, uint64_t a2)
 {
-  if (a1 && ktrace_chunk_tag(a2) == 20530 && !ktrace_chunk_version_major(a2))
+  if (a1 && ktrace_chunk_tag(a2, a2) == 20530 && !ktrace_chunk_version_major(a2))
   {
-    v4 = ktrace_chunk_copy_plist(a2);
-    if (v4)
+    v5 = ktrace_chunk_copy_plist(a2, v4);
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       context[0] = MEMORY[0x277D85DD0];
       context[1] = 3221225472;
       context[2] = __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke;
       context[3] = &__block_descriptor_40_e41_v24__0____CFString__8____CFDictionary__16l;
       context[4] = a1;
-      CFDictionaryApplyFunction(v4, CFDictionaryApplierTrampoline, context);
-      CFRelease(v5);
+      CFDictionaryApplyFunction(v5, CFDictionaryApplierTrampoline, context);
+      CFRelease(v6);
     }
 
     else if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
@@ -2425,19 +1801,19 @@ void ktrace_uuid_map_learn_ariadne_process_dict_with_chunk(uint64_t a1, uint64_t
 
 void __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke(uint64_t a1, const __CFString *a2, const __CFDictionary *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  *v9 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  *v8 = 0;
   v4 = utf8(a2);
-  v5 = sscanf(v4, "%ld", v9);
+  v5 = sscanf(v4, "%ld", v8);
   Value = CFDictionaryGetValue(a3, @"Library");
   if (Value)
   {
     v7 = CFGetTypeID(Value);
     if (v7 == CFArrayGetTypeID())
     {
-      if (v5 == 1 && !(*v9 >> 31))
+      if (v5 == 1 && !(*v8 >> 31))
       {
-        ktrace_address_space_create(v9[0]);
+        ktrace_address_space_create(v8[0]);
       }
     }
 
@@ -2455,15 +1831,13 @@ void __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke(uint64
   {
     __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_11();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDB778C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22EDB778C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   SymbolOwner::~SymbolOwner(va);
-  SymbolOwner::~SymbolOwner((v15 - 208));
+  SymbolOwner::~SymbolOwner((v22 - 208));
   _Unwind_Resume(a1);
 }
 
@@ -2481,7 +1855,7 @@ void ktrace_uuid_map_learn_inodes_with_chunk(uint64_t a1, uint64_t a2)
       return;
     }
 
-    v5 = ktrace_chunk_size_t(a2);
+    v5 = ktrace_chunk_size_t(a2, a2);
     v6 = ktrace_chunk_copy_cfdata(a2, 0, v5);
     if (v6)
     {
@@ -2644,9 +2018,9 @@ void __ktrace_uuid_map_learn_inodes_with_chunk_block_invoke_3(uint64_t a1, int a
   }
 }
 
-uint64_t ktrace_uuid_map_read_process_info_dict(ktrace_uuid_map *a1, CFDictionaryRef theDict, char a3)
+const void *ktrace_uuid_map_read_process_info_dict(ktrace_uuid_map *a1, CFDictionaryRef theDict, char a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = 0;
@@ -2683,17 +2057,14 @@ LABEL_7:
     ktrace_uuid_map_read_process_info_dict();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void sub_22EDB83F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22EDB83F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
@@ -2703,6 +2074,8 @@ void sub_22EDB83F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   SymbolOwner::~SymbolOwner(va);
   SymbolOwner::~SymbolOwner(va1);
   _Unwind_Resume(a1);
@@ -2712,32 +2085,32 @@ void ktrace_uuid_map_learn_kernelmap_with_chunk(uint64_t a1, void *a2)
 {
   if (a1)
   {
-    v4 = ktrace_chunk_size(a2);
-    if (ktrace_chunk_tag(a2) == 32773 && !ktrace_chunk_version_major(a2))
+    v4 = ktrace_chunk_size(a2, a2);
+    if (ktrace_chunk_tag(a2, v5) == 32773 && !ktrace_chunk_version_major(a2))
     {
       if (*(a1 + 248))
       {
         return;
       }
 
-      v6 = ktrace_chunk_map_data(a2, 0, v4);
-      if (v6)
+      v7 = ktrace_chunk_map_data(a2, 0, v4);
+      if (v7)
       {
-        v7 = CFDataCreateWithBytesNoCopy(0, v6, v4, *MEMORY[0x277CBED00]);
-        v5 = CFPropertyListCreateWithData(0, v7, 0, 0, 0);
-        CFRelease(v7);
-        if (v5)
+        v8 = CFDataCreateWithBytesNoCopy(0, v7, v4, *MEMORY[0x277CBED00]);
+        v6 = CFPropertyListCreateWithData(0, v8, 0, 0, 0);
+        CFRelease(v8);
+        if (v6)
         {
-          process_info_dict = ktrace_uuid_map_read_process_info_dict(v8, v5, 1);
+          process_info_dict = ktrace_uuid_map_read_process_info_dict(v9, v6, 1);
           *(a1 + 248) = process_info_dict;
           if (process_info_dict)
           {
 LABEL_8:
-            CFRelease(v5);
+            CFRelease(v6);
 LABEL_9:
-            if (v6)
+            if (v7)
             {
-              ktrace_chunk_unmap_data(a2, v6, v4);
+              ktrace_chunk_unmap_data(a2, v7, v4);
             }
 
             return;
@@ -2747,14 +2120,14 @@ LABEL_9:
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v5 = 0;
       v6 = 0;
+      v7 = 0;
     }
 
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
@@ -2763,7 +2136,7 @@ LABEL_9:
     }
 
     *(a1 + 248) = 0;
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_9;
     }
@@ -2772,18 +2145,18 @@ LABEL_9:
   }
 }
 
-uint64_t ktrace_uuid_map_learn_live_kernelmap(uint64_t result)
+ktrace_uuid_map *ktrace_uuid_map_learn_live_kernelmap(ktrace_uuid_map *result)
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 248))
+    if (!*(result + 31))
     {
       result = ktrace_get_live_kernel_map();
       if (result)
       {
         result = ktrace_uuid_map_read_process_info_dict(result, result, 1);
-        *(v1 + 248) = result;
+        *(v1 + 31) = result;
       }
     }
   }
@@ -2825,21 +2198,21 @@ void ktrace_uuid_map_learn_process_info_with_chunk(uint64_t a1, void *a2)
 {
   if (a1)
   {
-    v4 = ktrace_chunk_size(a2);
-    if (ktrace_chunk_tag(a2) == 32784 && !ktrace_chunk_version_major(a2))
+    v4 = ktrace_chunk_size(a2, a2);
+    if (ktrace_chunk_tag(a2, v5) == 32784 && !ktrace_chunk_version_major(a2))
     {
-      v7 = ktrace_chunk_map_data(a2, 0, v4);
-      if (v7)
+      v8 = ktrace_chunk_map_data(a2, 0, v4);
+      if (v8)
       {
-        v8 = CFDataCreateWithBytesNoCopy(0, v7, v4, *MEMORY[0x277CBED00]);
-        v6 = CFPropertyListCreateWithData(0, v8, 0, 0, 0);
-        CFRelease(v8);
-        Value = CFDictionaryGetValue(v6, @"Processes");
-        v10 = Value;
+        v9 = CFDataCreateWithBytesNoCopy(0, v8, v4, *MEMORY[0x277CBED00]);
+        v7 = CFPropertyListCreateWithData(0, v9, 0, 0, 0);
+        CFRelease(v9);
+        Value = CFDictionaryGetValue(v7, @"Processes");
+        v11 = Value;
         if (Value)
         {
-          v11 = CFGetTypeID(Value);
-          if (v11 != CFArrayGetTypeID())
+          v12 = CFGetTypeID(Value);
+          if (v12 != CFArrayGetTypeID())
           {
             ktrace_log_init();
             if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
@@ -2847,61 +2220,61 @@ void ktrace_uuid_map_learn_process_info_with_chunk(uint64_t a1, void *a2)
               __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_1();
             }
 
-            v10 = 0;
+            v11 = 0;
           }
         }
 
-        if (CFArrayGetCount(v10) < 1)
+        if (CFArrayGetCount(v11) < 1)
         {
 LABEL_9:
-          ktrace_chunk_unmap_data(a2, v7, v4);
+          ktrace_chunk_unmap_data(a2, v8, v4);
 LABEL_10:
-          if (v6)
+          if (v7)
           {
-            CFRelease(v6);
+            CFRelease(v7);
           }
 
           return;
         }
 
-        v12 = 0;
+        v13 = 0;
         while (1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v10, v12);
-          v14 = ValueAtIndex;
+          ValueAtIndex = CFArrayGetValueAtIndex(v11, v13);
+          v15 = ValueAtIndex;
           if (ValueAtIndex)
           {
-            v15 = CFGetTypeID(ValueAtIndex);
+            v16 = CFGetTypeID(ValueAtIndex);
             ValueAtIndex = CFDictionaryGetTypeID();
-            if (v15 != ValueAtIndex)
+            if (v16 != ValueAtIndex)
             {
               ktrace_log_init();
               ValueAtIndex = os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR);
               if (ValueAtIndex)
               {
-                __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_2(&v18, v19);
+                __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_2(&v19, v20);
               }
 
-              v14 = 0;
+              v15 = 0;
             }
           }
 
-          process_info_dict = ktrace_uuid_map_read_process_info_dict(ValueAtIndex, v14, 0);
-          v5 = process_info_dict;
+          process_info_dict = ktrace_uuid_map_read_process_info_dict(ValueAtIndex, v15, 0);
+          v6 = process_info_dict;
           if (!process_info_dict)
           {
             break;
           }
 
-          v17 = process_info_dict[8];
-          if (!v17)
+          v18 = process_info_dict[8];
+          if (!v18)
           {
             break;
           }
 
-          set_address_space_for_pid(a1, v17, process_info_dict);
-          CFRelease(v5);
-          if (CFArrayGetCount(v10) <= ++v12)
+          set_address_space_for_pid(a1, v18, process_info_dict);
+          CFRelease(v6);
+          if (CFArrayGetCount(v11) <= ++v13)
           {
             goto LABEL_8;
           }
@@ -2910,25 +2283,25 @@ LABEL_10:
 
       else
       {
-        v5 = 0;
         v6 = 0;
+        v7 = 0;
       }
     }
 
     else
     {
-      v5 = 0;
       v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
     {
       ktrace_uuid_map_learn_process_info_with_chunk_cold_3();
-      if (!v5)
+      if (!v6)
       {
 LABEL_8:
-        if (!v7)
+        if (!v8)
         {
           goto LABEL_10;
         }
@@ -2937,12 +2310,12 @@ LABEL_8:
       }
     }
 
-    else if (!v5)
+    else if (!v6)
     {
       goto LABEL_8;
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
     goto LABEL_8;
   }
 }
@@ -2951,50 +2324,56 @@ uint64_t ktrace_uuid_map_learn_sharedcache(ktrace_uuid_map *a1, CFUUIDBytes a2)
 {
   if (!dscsym_mmap_dscsym_for_uuid())
   {
-    ktrace_uuid_map_learn_sharedcache_with_buffer(a1, a2, 0);
+    ktrace_uuid_map_learn_sharedcache_with_buffer(a1, a2, 0, 0);
   }
 
   return 0;
 }
 
-void ktrace_address_space_get_offset_for_address(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+void ktrace_address_space_get_offset_for_address(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  memset(v30, 0, sizeof(v30));
+  v30 = *MEMORY[0x277D85DE8];
+  memset(v29, 0, sizeof(v29));
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   *dst = 0u;
   v7 = ktrace_address_space_symbol_owner_for_address(a2, a3, 0);
   if (!v7)
   {
-    goto LABEL_17;
+LABEL_17:
+    a4[3] = 0u;
+    a4[4] = 0u;
+    a4[1] = 0u;
+    a4[2] = 0u;
+    *a4 = 0u;
+    return;
   }
 
   v8 = v7;
   if (!*(v7 + 56))
   {
-    BYTE4(v30[0]) = 1;
+    BYTE4(v29[0]) = 1;
   }
 
   *src = *v7;
   uuid_copy(dst, src);
   v9 = *(v8 + 16);
-  LODWORD(v30[0]) = v9;
-  *(&v30[1] + 1) = *(v8 + 80);
-  *(v30 + 8) = *(v8 + 64);
+  LODWORD(v29[0]) = v9;
+  *(&v29[1] + 1) = *(v8 + 80);
+  *(v29 + 8) = *(v8 + 64);
   if (v9 <= 2)
   {
     if (v9 == 1)
     {
-      v17 = a3 - *(v8 + 48);
-      *(&v29 + 1) = v17;
-      if (BYTE4(v30[0]) == 1)
+      v16 = a3 - *(v8 + 48);
+      *(&v28 + 1) = v16;
+      if (BYTE4(v29[0]) == 1)
       {
-        v19 = *(v8 + 24);
-        v18 = (v8 + 24);
-        if (v19)
+        v18 = *(v8 + 24);
+        v17 = (v8 + 24);
+        if (v18)
         {
-          BYTE4(v30[0]) = v17 >= optional_uint64::value(v18);
+          BYTE4(v29[0]) = v16 >= optional_uint64::value(v17);
         }
       }
 
@@ -3006,83 +2385,75 @@ void ktrace_address_space_get_offset_for_address(uint64_t a1@<X0>, uint64_t a2@<
       goto LABEL_8;
     }
 
-LABEL_12:
-    ktrace_address_space_deep_iterate_symbol_owners();
+    goto LABEL_12;
   }
 
   if (v9 == 3)
   {
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
-    get_sc_and_slide(a1, v8, &v21, &v20);
-    if (v21)
+    get_sc_and_slide(a1, v8, &v20, &v19);
+    if (v20)
     {
-      *(&v29 + 1) = a3 - optional_uint64::value(&v21);
-      v13 = v20;
-      if (v20)
+      *(&v28 + 1) = a3 - optional_uint64::value(&v20);
+      v13 = v19;
+      if (v19)
       {
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         *src = 0u;
-        v14 = optional_uint64::value(&v21);
-        ktrace_address_space_get_offset_for_address(src, a1, v13, a3 - v14);
-        if (v25)
+        v14 = optional_uint64::value(&v20);
+        ktrace_address_space_get_offset_for_address(a1, v13, a3 - v14, src);
+        if (v24)
         {
-          v29 = v24;
-          v30[0] = v25;
-          v30[1] = v26;
-          *dst = *src;
           v28 = v23;
+          v29[0] = v24;
+          v29[1] = v25;
+          *dst = *src;
+          v27 = v22;
         }
       }
 
       goto LABEL_9;
     }
 
-LABEL_17:
-    *(a4 + 48) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 16) = 0u;
-    *(a4 + 32) = 0u;
-    *a4 = 0u;
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
-  if (v9 == 4)
+  if (v9 != 4)
   {
-    v16 = *(a1 + 248);
-    if (v16)
+    if (v9 == 5)
     {
-      ktrace_address_space_get_offset_for_address(a4, a1, v16, a3);
-      goto LABEL_18;
+LABEL_8:
+      *(&v28 + 1) = a3 - *(v8 + 48);
+      v10 = *(v8 + 40);
+      v27 = *(v8 + 24);
+      LOBYTE(v28) = v10;
+LABEL_9:
+      v11 = v29[0];
+      a4[2] = v28;
+      a4[3] = v11;
+      a4[4] = v29[1];
+      v12 = v27;
+      *a4 = *dst;
+      a4[1] = v12;
+      return;
     }
 
-    *(&v29 + 1) = a3;
+LABEL_12:
+    ktrace_address_space_deep_iterate_symbol_owners();
+  }
+
+  v15 = *(a1 + 248);
+  if (!v15)
+  {
+    *(&v28 + 1) = a3;
     goto LABEL_9;
   }
 
-  if (v9 != 5)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_8:
-  *(&v29 + 1) = a3 - *(v8 + 48);
-  v10 = *(v8 + 40);
-  v28 = *(v8 + 24);
-  LOBYTE(v29) = v10;
-LABEL_9:
-  v11 = v30[0];
-  *(a4 + 32) = v29;
-  *(a4 + 48) = v11;
-  *(a4 + 64) = v30[1];
-  v12 = v28;
-  *a4 = *dst;
-  *(a4 + 16) = v12;
-LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
+  ktrace_address_space_get_offset_for_address(a1, v15, a3, a4);
 }
 
 uint64_t ktrace_uuid_map_dump_address_space(ktrace_uuid_map *a1, unint64_t a2, FILE *a3)
@@ -3179,10 +2550,9 @@ double ktrace_uuid_map_get_offset_for_pid_address@<D0>(ktrace_uuid_map *a1@<X0>,
   return result;
 }
 
-void ktrace_address_space_merge_owner(uint64_t a1, SymbolOwner *this, __int128 *a3, char a4)
+void ktrace_address_space_merge_owner(uint64_t a1, SymbolOwner *this, uint64_t a3, char a4)
 {
-  v7 = *a3;
-  if (*this != *a3 || *(this + 8) >> 64 != *(a3 + 8) >> 64)
+  if (*this != *a3 || *(this + 1) != *(a3 + 8))
   {
     if ((a4 & 1) != 0 && !*(a1 + 32))
     {
@@ -3203,123 +2573,123 @@ void ktrace_address_space_merge_owner(uint64_t a1, SymbolOwner *this, __int128 *
 
   if (*(this + 88))
   {
-    v9 = *(a3 + 88);
+    v8 = *(a3 + 88);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  *(this + 88) = *(this + 88) & 0xFE | v9 & 1;
+  *(this + 88) = *(this + 88) & 0xFE | v8 & 1;
   if (!*(this + 10))
   {
-    v10 = *(a3 + 10);
-    if (v10)
+    v9 = *(a3 + 80);
+    if (v9)
     {
-      SymbolOwner::set_path(this, v10);
+      SymbolOwner::set_path(this, v9);
     }
   }
 
   if (!*(this + 8))
   {
-    v11 = *(a3 + 8);
-    if (v11)
+    v10 = *(a3 + 64);
+    if (v10)
     {
-      *(this + 8) = v11;
+      *(this + 8) = v10;
     }
   }
 
   if (!*(this + 9))
   {
-    v12 = *(a3 + 9);
-    if (v12)
+    v11 = *(a3 + 72);
+    if (v11)
     {
-      *(this + 9) = v12;
+      *(this + 9) = v11;
     }
   }
 
-  v13 = *(this + 7);
-  if (!v13)
+  v12 = *(this + 7);
+  if (!v12)
   {
-    v13 = *(a3 + 7);
-    if (v13)
+    v12 = *(a3 + 56);
+    if (v12)
     {
-      if (*(this + 4) == *(a3 + 4))
+      if (*(this + 4) == *(a3 + 16))
       {
-        *(this + 7) = v13;
+        *(this + 7) = v12;
       }
 
       else
       {
-        v13 = 0;
+        v12 = 0;
       }
     }
   }
 
-  v14 = *(a3 + 4);
-  if (v14 != 1)
+  v13 = *(a3 + 16);
+  if (v13 != 1)
   {
-    if (v14 == 2 || v14 == 5)
+    if (v13 == 2 || v13 == 5)
     {
-      v15 = *(this + 4);
-      if (v15 == 1)
+      v14 = *(this + 4);
+      if (v14 == 1)
       {
-        v16 = *(this + 6);
-        v17 = *(a3 + 6);
-        if (v17 == v16 && (v14 == 5 || !strcmp(a3 + 24, "__TEXT")) && !*(this + 3))
+        v15 = *(this + 6);
+        v16 = *(a3 + 48);
+        if (v16 == v15 && (v13 == 5 || !strcmp((a3 + 24), "__TEXT")) && !*(this + 3))
         {
-          *(this + 3) = *(a3 + 7);
+          *(this + 3) = *(a3 + 56);
         }
 
-        v18 = v17 >= v16;
-        v19 = v17 - v16;
-        if (v19 != 0 && v18 && !*(a1 + 32) && (v14 == 5 || !strcmp(a3 + 24, "__TEXT_EXEC")))
+        v17 = v16 >= v15;
+        v18 = v16 - v15;
+        if (v18 != 0 && v17 && !*(a1 + 32) && (v13 == 5 || !strcmp((a3 + 24), "__TEXT_EXEC")))
         {
           if (!*(this + 4))
           {
-            *(this + 4) = v19 + 1;
+            *(this + 4) = v18 + 1;
           }
 
           if (!*(this + 5))
           {
-            *(this + 5) = *(a3 + 7);
+            *(this + 5) = *(a3 + 56);
           }
         }
 
         return;
       }
 
-      v20 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v20 = 0;
-      v15 = *(this + 4);
+      v19 = 0;
+      v14 = *(this + 4);
     }
 
     goto LABEL_57;
   }
 
-  v15 = *(this + 4);
-  if (v15 != 1)
+  v14 = *(this + 4);
+  if (v14 != 1)
   {
-    v20 = 1;
+    v19 = 1;
 LABEL_57:
-    if ((v15 == 5 || v15 == 2) && v20 && *(this + 6) == *(a3 + 6) && (v15 == 5 || !strcmp(this + 24, "__TEXT")))
+    if ((v14 == 5 || v14 == 2) && v19 && *(this + 6) == *(a3 + 48) && (v14 == 5 || !strcmp(this + 24, "__TEXT")))
     {
       *(this + 3) = 0;
       *(this + 4) = 0;
       *(this + 5) = 0;
       *(this + 4) = 1;
-      if (!v13)
+      if (!v12)
       {
-        v13 = *(a3 + 3);
+        v12 = *(a3 + 24);
       }
 
-      *(this + 3) = v13;
-      *(this + 7) = *(a3 + 7);
+      *(this + 3) = v12;
+      *(this + 7) = *(a3 + 56);
     }
 
     return;
@@ -3327,17 +2697,17 @@ LABEL_57:
 
   if (!*(this + 3))
   {
-    *(this + 3) = *(a3 + 3);
+    *(this + 3) = *(a3 + 24);
   }
 
   if (!*(this + 5))
   {
-    *(this + 5) = *(a3 + 5);
+    *(this + 5) = *(a3 + 40);
   }
 
   if (!*(this + 4))
   {
-    *(this + 4) = *(a3 + 4);
+    *(this + 4) = *(a3 + 32);
   }
 }
 
@@ -3351,36 +2721,20 @@ uint64_t ktrace_visit_uuid(unint64_t a1, uint64_t *a2)
 
 uint64_t visit_uuid(void *a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*a1)
   {
-    v3 = a1[6];
-    v4 = a1[7];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = ___ZL10visit_uuidP16operating_system11CFUUIDBytes_block_invoke;
-    v15 = &__block_descriptor_40_e53_v32__0_fsid__2i__8_fsobj_id_II_16____CFDictionary__24l;
-    v16 = a1;
     ktrace_client_get_file_info();
   }
 
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = ___ZL10visit_uuidP16operating_system11CFUUIDBytes_block_invoke_2;
-  v10 = &__block_descriptor_40_e9_B16__0r_8l;
-  v11 = a1;
-  v17 = 0;
-  v18 = 0;
   memset(dst, 0, sizeof(dst));
   *src = a2;
-  v20 = a3;
+  v5 = a3;
   uuid_copy(dst, src);
-  result = OSLogLookupPathWithUUID();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return OSLogLookupPathWithUUID();
 }
 
-void ktrace_visit_inode(unint64_t a1, uint64_t a2, uint64_t a3)
+void ktrace_visit_inode(unint64_t a1, fsid_t a2, uint64_t a3)
 {
   v3[3] = 0u;
   memset(v3, 0, 32);
@@ -3388,9 +2742,9 @@ void ktrace_visit_inode(unint64_t a1, uint64_t a2, uint64_t a3)
   visit_inode_while_locked(v3, a2, a3);
 }
 
-void visit_inode_while_locked(uint64_t a1, uint64_t a2, uint64_t a3)
+void visit_inode_while_locked(uint64_t a1, fsid_t a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 48);
   if (v6)
   {
@@ -3406,8 +2760,8 @@ void visit_inode_while_locked(uint64_t a1, uint64_t a2, uint64_t a3)
     {
 LABEL_13:
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v25 = a2;
-      if (fsgetpath(cStr, 0x400uLL, &v25, a3) < 0)
+      v21 = a2;
+      if (fsgetpath(cStr, 0x400uLL, &v21, a3) < 0)
       {
         if (Mutable)
         {
@@ -3417,74 +2771,74 @@ LABEL_13:
 
       else
       {
-        v15 = CFStringCreateWithCString(0, cStr, 0x8000100u);
-        if (!v15)
+        v13 = CFStringCreateWithCString(0, cStr, 0x8000100u);
+        if (!v13)
         {
-          v15 = CFStringCreateWithCString(0, cStr, 0x100u);
+          v13 = CFStringCreateWithCString(0, cStr, 0x100u);
         }
 
-        if (v15)
+        if (v13)
         {
-          v16 = v15;
+          v14 = v13;
         }
 
         else
         {
-          v16 = @"!!!invalid-enc!!!";
+          v14 = @"!!!invalid-enc!!!";
         }
 
-        CFAutorelease(v16);
-        CFDictionarySetValue(Mutable, @"Path", v16);
-        utf8(v16);
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2020000000;
-        v28 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v17 = v26[3];
-        if (!v17)
-        {
-          _os_assert_log();
-          v20 = _os_crash();
-          ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v20);
-        }
-
-        CFAutorelease(v17);
+        CFAutorelease(v14);
+        CFDictionarySetValue(Mutable, @"Path", v14);
+        utf8(v14);
         v21 = 0;
         v22 = &v21;
         v23 = 0x2020000000;
-        v24 = 1;
-        *cStr = MEMORY[0x277D85DD0];
-        v30 = 3221225472;
-        v31 = ___ZL22get_summary_from_machoPKc_block_invoke;
-        v32 = &unk_27886F008;
-        v33 = &v25;
-        v34 = &v21;
-        CSSymbolicatorForeachSymbolicatorWithPath();
-        if (v22[3])
+        v24 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v15 = v22[3];
+        if (!v15)
         {
-          v18 = 0;
+          _os_assert_log();
+          _os_crash();
+          ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
+        }
+
+        CFAutorelease(v15);
+        v17 = 0;
+        v18 = &v17;
+        v19 = 0x2020000000;
+        v20 = 1;
+        *cStr = MEMORY[0x277D85DD0];
+        v26 = 3221225472;
+        v27 = ___ZL22get_summary_from_machoPKc_block_invoke;
+        v28 = &unk_27886F008;
+        v29 = &v21;
+        v30 = &v17;
+        CSSymbolicatorForeachSymbolicatorWithPath();
+        if (v18[3])
+        {
+          v16 = 0;
         }
 
         else
         {
-          v18 = v26[3];
+          v16 = v22[3];
         }
 
+        _Block_object_dispose(&v17, 8);
         _Block_object_dispose(&v21, 8);
-        _Block_object_dispose(&v25, 8);
-        if (v18)
+        if (v16)
         {
-          CFDictionarySetValue(Mutable, @"Images", v18);
+          CFDictionarySetValue(Mutable, @"Images", v16);
         }
 
         if (Mutable)
         {
-          merge_info_while_locked(a1, a2, a3, Mutable);
+          merge_info_while_locked(a1, *&a2, a3, Mutable);
           CFRelease(Mutable);
         }
       }
 
-      goto LABEL_29;
+      return;
     }
 
     v10 = *(a1 + 24);
@@ -3506,61 +2860,55 @@ LABEL_13:
     {
       if (*a1)
       {
-        v12 = *(a1 + 48);
-        v13 = *(a1 + 56);
         ktrace_client_get_file_info();
       }
 
       goto LABEL_13;
     }
   }
-
-LABEL_29:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDB9690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22EDB9690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void __ktrace_get_live_kernel_map_block_invoke(uint64_t a1, uint64_t a2)
+void __ktrace_get_live_kernel_map_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   image_summary = make_image_summary(a2);
   if (image_summary)
   {
-    v4 = image_summary;
-    v5 = *(a1 + 32);
+    v5 = image_summary;
+    v6 = *(a1 + 32);
 
-    CFArrayAppendValue(v5, v4);
+    CFArrayAppendValue(v6, v5);
   }
 }
 
-uint64_t make_image_summary(uint64_t a1)
+__CFDictionary *make_image_summary(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (!CFUUIDBytes)
   {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
     {
-      make_image_summary();
+      make_image_summary(v6, v5);
     }
 
-    v10 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v8 = CFUUIDBytes;
@@ -3615,8 +2963,6 @@ LABEL_11:
     CFAutorelease(v18);
     CFDictionarySetValue(v10, @"Flags", v19);
     CFAutorelease(v10);
-LABEL_17:
-    v20 = *MEMORY[0x277D85DE8];
     return v10;
   }
 
@@ -3630,13 +2976,13 @@ LABEL_17:
     goto LABEL_11;
   }
 
-  image_summary = make_image_summary(v24, Path, v6, v5, out);
-  return ktrace_uuid_map_postprocess_file(image_summary);
+  image_summary = make_image_summary(v27, Path, v6, v5, out);
+  return ktrace_uuid_map_postprocess_file(image_summary, v22, v23, v24, v25);
 }
 
-uint64_t ktrace_uuid_map_postprocess_file(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t *a5)
+uint64_t ktrace_uuid_map_postprocess_file(_WORD *a1, uint64_t a2, uint64_t a3, int a4, _WORD **a5)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
@@ -3644,56 +2990,56 @@ uint64_t ktrace_uuid_map_postprocess_file(uint64_t a1, uint64_t a2, uint64_t a3,
   }
 
   v11 = Mutable;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x16012000000;
-  v28[3] = __Block_byref_object_copy__81;
-  v28[4] = __Block_byref_object_dispose__82;
-  v28[5] = "%1";
-  v28[6] = a3;
-  memset(&v28[7], 0, 24);
-  v28[10] = Mutable;
-  v28[11] = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  v28[12] = ktrace_postprocessing_get_processing_queue(a5);
-  v28[13] = dispatch_group_create();
-  memset(v29, 0, sizeof(v29));
-  v30 = 1065353216;
-  v33 = 0;
-  v31 = 0;
-  v32 = 0;
-  v34 = 0;
-  v37 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x16012000000;
+  v30[3] = __Block_byref_object_copy__81;
+  v30[4] = __Block_byref_object_dispose__82;
+  v30[5] = "%1";
+  v30[6] = a3;
+  memset(&v30[7], 0, 24);
+  v30[10] = Mutable;
+  v30[11] = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  v30[12] = ktrace_postprocessing_get_processing_queue(a5);
+  v30[13] = dispatch_group_create();
+  memset(v31, 0, sizeof(v31));
+  v32 = 1065353216;
   v35 = 0;
+  v33 = 0;
+  v34 = 0;
   v36 = 0;
-  v38 &= 0xFCu;
-  v39 = -1;
-  memset(v40, 0, sizeof(v40));
-  v41 = 1065353216;
-  v42 = 1;
-  memset(v43, 0, sizeof(v43));
-  v44 = 1065353216;
+  v39 = 0;
+  v37 = 0;
+  v38 = 0;
+  v40 &= 0xFCu;
+  v41 = -1;
+  memset(v42, 0, sizeof(v42));
+  v43 = 1065353216;
+  v44 = 1;
   memset(v45, 0, sizeof(v45));
   v46 = 1065353216;
-  v27[0] = 0;
-  v27[1] = 0;
-  is_64_bit = ktrace_file_is_64_bit(a2);
+  memset(v47, 0, sizeof(v47));
+  v48 = 1065353216;
+  v29[0] = 0;
+  v29[1] = 0;
+  is_64_bit = ktrace_file_is_64_bit(a2, v12);
   v25 = 0;
-  v26[0] = &v25;
-  v26[1] = 0x2020000000;
-  v26[2] = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
   v24[2] = __ktrace_uuid_map_postprocess_file_block_invoke;
   v24[3] = &unk_27886E988;
   v24[4] = &v25;
   ktrace_file_header_iterate(a2, 0, v24);
-  if (!*(v26[0] + 24))
+  if (!v26[3])
   {
-    *(v26[0] + 24) = 64;
+    v26[3] = 64;
     ktrace_log_init();
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
     {
-      ktrace_uuid_map_postprocess_file_cold_1(v26);
+      ktrace_uuid_map_postprocess_file_cold_1();
     }
   }
 
@@ -3701,56 +3047,56 @@ uint64_t ktrace_uuid_map_postprocess_file(uint64_t a1, uint64_t a2, uint64_t a3,
   v22[1] = 3221225472;
   v22[2] = __ktrace_uuid_map_postprocess_file_block_invoke_84;
   v22[3] = &unk_27886ED58;
-  v22[4] = v28;
+  v22[4] = v30;
   v23 = a4;
   ktrace_file_iterate(a2, 0, v22);
-  v13 = malloc_type_calloc(*(v26[0] + 24), 0x18uLL, 0x1000040BD32EBF2uLL);
+  v14 = malloc_type_calloc(v26[3], 0x18uLL, 0x1000040BD32EBF2uLL);
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __ktrace_uuid_map_postprocess_file_block_invoke_3;
   v21[3] = &unk_27886ED80;
-  v21[4] = v28;
+  v21[4] = v30;
   ktrace_events_single(a1, 117440520, v21);
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
   v20[2] = __ktrace_uuid_map_postprocess_file_block_invoke_4;
   v20[3] = &unk_27886ED80;
-  v20[4] = v28;
+  v20[4] = v30;
   ktrace_events_single(a1, 117571592, v20);
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
   v18[2] = __ktrace_uuid_map_postprocess_file_block_invoke_5;
   v18[3] = &unk_27886EDD0;
   v19 = is_64_bit;
-  v18[4] = v28;
+  v18[4] = v30;
   v18[5] = a2;
-  v18[6] = v27;
+  v18[6] = v29;
   ktrace_events_range(a1, 520421376, 520486912, v18);
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
   v16[2] = __ktrace_uuid_map_postprocess_file_block_invoke_7;
   v16[3] = &unk_27886EE20;
   v17 = a4;
-  v16[4] = v28;
+  v16[4] = v30;
   v16[5] = a3;
   v16[6] = a2;
   v16[7] = v11;
-  v16[8] = v13;
+  v16[8] = v14;
   ktrace_postprocessing_set_completed_handler(a5, v16);
   _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v30, 8);
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v47);
   std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v45);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v43);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v40);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v29);
-  v14 = *MEMORY[0x277D85DE8];
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v42);
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v31);
   return 0;
 }
 
-void sub_22EDB9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_22EDB9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
-  _Block_object_dispose(&a57, 8);
-  postprocess_data::~postprocess_data((v57 + 48));
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  postprocess_data::~postprocess_data((v56 + 48));
   _Unwind_Resume(a1);
 }
 
@@ -3790,7 +3136,7 @@ uint64_t __Block_byref_object_dispose__82(uint64_t a1)
 
 BOOL __ktrace_uuid_map_postprocess_file_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v3 = ktrace_machine_create(a2);
+  v3 = ktrace_machine_create(a2, a2);
   v4 = v3;
   if (v3)
   {
@@ -3803,7 +3149,7 @@ BOOL __ktrace_uuid_map_postprocess_file_block_invoke(uint64_t a1, uint64_t *a2)
 
 uint64_t __ktrace_uuid_map_postprocess_file_block_invoke_84(uint64_t a1, void *a2)
 {
-  v4 = ktrace_chunk_tag(a2);
+  v4 = ktrace_chunk_tag(a2, a2);
   if (v4 == 20990)
   {
     goto LABEL_7;
@@ -3945,7 +3291,7 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_2(uint64_t a1, unint64_t a2
           if (v24 >= 0x20 && !uuid_is_null((v5 + 24)))
           {
             block = *(v5 + 24);
-            std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 34, &block);
+            std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 34, &block, &block);
           }
         }
       }
@@ -4076,7 +3422,7 @@ LABEL_174:
               else
               {
                 block = *(v50 + 8);
-                std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 39, &block);
+                std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 39, &block, &block);
               }
 
               ++v48;
@@ -4288,7 +3634,7 @@ LABEL_104:
             else
             {
               block = *(v38 + 4);
-              std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 39, &block);
+              std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v8 + 39, &block, &block);
             }
 
             ++v36;
@@ -4410,11 +3756,11 @@ LABEL_80:
   }
 }
 
-void __ktrace_uuid_map_postprocess_file_block_invoke_3(uint64_t a1, uint64_t a2)
+void __ktrace_uuid_map_postprocess_file_block_invoke_3(uint64_t a1, fsid_t *a2)
 {
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  if (v3 | v4)
+  v3 = a2[2];
+  v4 = a2[3];
+  if (*&v3 | v4)
   {
     visit_inode_while_locked(*(*(a1 + 32) + 8) + 48, v3, v4);
   }
@@ -4422,31 +3768,29 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_3(uint64_t a1, uint64_t a2)
 
 uint64_t DyldDecodeWindow::reset(DyldDecodeWindow *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v4, 0, sizeof(v4));
-  v5 = 1065353216;
-  *&v7 = 0;
-  v6 = 0uLL;
-  DWORD2(v7) = 0;
-  *&v9 = 0;
-  v8 = 0uLL;
-  BYTE8(v9) = 0;
-  v10 = -1;
-  memset(v11, 0, sizeof(v11));
-  v12 = 1065353216;
-  v13 = 1;
-  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(this, v4);
-  *(this + 56) = v7;
-  *(this + 72) = v8;
-  *(this + 88) = v9;
-  *(this + 13) = v10;
-  *(this + 40) = v6;
-  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(this + 112, v11);
-  *(this + 38) = v13;
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v11);
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v3, 0, sizeof(v3));
+  v4 = 1065353216;
+  *&v6 = 0;
+  v5 = 0uLL;
+  DWORD2(v6) = 0;
+  *&v8 = 0;
+  v7 = 0uLL;
+  BYTE8(v8) = 0;
+  v9 = -1;
+  memset(v10, 0, sizeof(v10));
+  v11 = 1065353216;
+  v12 = 1;
+  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(this, v3);
+  *(this + 56) = v6;
+  *(this + 72) = v7;
+  *(this + 88) = v8;
+  *(this + 13) = v9;
+  *(this + 40) = v5;
+  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(this + 112, v10);
+  *(this + 38) = v12;
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v10);
+  return std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v3);
 }
 
 void __ktrace_uuid_map_postprocess_file_block_invoke_5(uint64_t a1, uint64_t a2)
@@ -4464,24 +3808,24 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_5(uint64_t a1, uint64_t a2)
         return;
       }
 
-      v12 = dyldtp_decode_window_update(*(a1 + 56), *(a2 + 40), (*(*(a1 + 32) + 8) + 112), a2);
-      if (!v12)
+      v13 = dyldtp_decode_window_update(*(a1 + 56), *(a2 + 40), (*(*(a1 + 32) + 8) + 112), a2);
+      if (!v13)
       {
         return;
       }
 
-      v13 = v12;
-      if (!uuid_compare(v12 + 12, *(a1 + 48)))
+      v14 = v13;
+      if (!uuid_compare(v13 + 12, *(a1 + 48)))
       {
         return;
       }
 
-      uuid_copy(*(a1 + 48), v13 + 12);
-      if (!uuid_is_null(v13 + 12))
+      uuid_copy(*(a1 + 48), v14 + 12);
+      if (!uuid_is_null(v14 + 12))
       {
-        v14 = *(*(a1 + 32) + 8);
-        valuePtr = *(v13 + 12);
-        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>((v14 + 272), &valuePtr);
+        v15 = *(*(a1 + 32) + 8);
+        valuePtr = *(v14 + 12);
+        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>((v15 + 272), &valuePtr, &valuePtr);
       }
     }
 
@@ -4493,7 +3837,7 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_5(uint64_t a1, uint64_t a2)
       {
         v9 = *(*(a1 + 32) + 8);
         valuePtr = *(v8 + 12);
-        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>((v9 + 312), &valuePtr);
+        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>((v9 + 312), &valuePtr, &valuePtr);
       }
 
       if (*(v8 + 12))
@@ -4502,18 +3846,19 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_5(uint64_t a1, uint64_t a2)
         v11 = *(v10 + 8);
         if (*(v8 + 10))
         {
-          visit_inode_while_locked((v11 + 6), *(v8 + 5), *(v8 + 6));
+          v12 = *(v8 + 5);
+          visit_inode_while_locked((v11 + 6), v12, *(v8 + 6));
           return;
         }
 
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v25 = __ktrace_uuid_map_postprocess_file_block_invoke_6;
-        v26 = &unk_27886EDA8;
-        v27 = v10;
-        v28 = v8;
-        v15 = v11[8];
-        if (v15)
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v26 = __ktrace_uuid_map_postprocess_file_block_invoke_6;
+        v27 = &unk_27886EDA8;
+        v28 = v10;
+        v29 = v8;
+        v16 = v11[8];
+        if (v16)
         {
           goto LABEL_21;
         }
@@ -4523,40 +3868,40 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_5(uint64_t a1, uint64_t a2)
           ktrace_client_get_mounts();
         }
 
-        v16 = getfsstat(0, 0, 2);
-        if (v16 >= 1)
+        v17 = getfsstat(0, 0, 2);
+        if (v17 >= 1)
         {
-          v17 = v16;
-          v18 = v16;
-          v19 = 2168 * v16;
-          v20 = malloc_type_malloc(2168 * v16, 0x100004087E0324AuLL);
-          v11[7] = v20;
-          v11[8] = v18;
-          if (!v20)
+          v18 = v17;
+          v19 = v17;
+          v20 = 2168 * v17;
+          v21 = malloc_type_malloc(2168 * v17, 0x100004087E0324AuLL);
+          v11[7] = v21;
+          v11[8] = v19;
+          if (!v21)
           {
             ktrace_postprocess_file_internal_cold_4();
           }
 
-          if (getfsstat(v20, v19, 2) != v17)
+          if (getfsstat(v21, v20, 2) != v18)
           {
             ktrace_postprocess_file_internal_cold_4();
           }
 
-          v15 = v11[8];
+          v16 = v11[8];
 LABEL_21:
-          if (v15 >= 1)
+          if (v16 >= 1)
           {
-            v21 = 0;
-            for (i = 0; i < v15; ++i)
+            v22 = 0;
+            for (i = 0; i < v16; ++i)
             {
-              v23 = v11[7] + v21;
-              if ((*(v23 + 65) & 0x10) != 0)
+              v24 = v11[7] + v22;
+              if ((*(v24 + 65) & 0x10) != 0)
               {
-                v25(v24, *(v23 + 48));
-                v15 = v11[8];
+                (v26)(v25, *(v24 + 48));
+                v16 = v11[8];
               }
 
-              v21 += 2168;
+              v22 += 2168;
             }
           }
         }
@@ -4567,7 +3912,7 @@ LABEL_21:
 
 void __ktrace_uuid_map_postprocess_file_block_invoke_7(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 72) & 2) != 0)
   {
     v2 = *(a1 + 32);
@@ -4577,19 +3922,19 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_7(uint64_t a1)
       do
       {
         memset(dst, 0, sizeof(dst));
-        *v27 = *(v3 + 1);
-        uuid_copy(dst, v27);
+        *v26 = *(v3 + 1);
+        uuid_copy(dst, v26);
         if (*(a1 + 40))
         {
           ktrace_client_get_dscsym();
         }
 
-        v27[0] = 0;
-        v31 = 0;
+        v26[0] = 0;
+        v30 = 0;
         if (!dscsym_mmap_dscsym_for_uuid())
         {
-          ktrace_file_append_chunk(*(a1 + 48), 32769, 0, 0, v27[0], v31);
-          munmap(v27[0], v31);
+          ktrace_file_append_chunk(*(a1 + 48), 32769, 0, 0, v26[0], v30);
+          munmap(v26[0], v30);
         }
 
         v3 = *v3;
@@ -4599,13 +3944,13 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_7(uint64_t a1)
       v2 = *(a1 + 32);
     }
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __ktrace_uuid_map_postprocess_file_block_invoke_8;
-    v30[3] = &unk_27886EDF8;
-    v30[4] = v2;
-    v27[0] = 0;
-    if (pthread_create(v27, 0, _block_trampoline, v30))
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __ktrace_uuid_map_postprocess_file_block_invoke_8;
+    v29[3] = &unk_27886EDF8;
+    v29[4] = v2;
+    v26[0] = 0;
+    if (pthread_create(v26, 0, _block_trampoline, v29))
     {
       v4 = *__error();
       ktrace_log_init();
@@ -4617,7 +3962,7 @@ void __ktrace_uuid_map_postprocess_file_block_invoke_7(uint64_t a1)
       *__error() = v4;
     }
 
-    else if (!pthread_join(v27[0], 0))
+    else if (!pthread_join(v26[0], 0))
     {
       goto LABEL_17;
     }
@@ -4710,19 +4055,18 @@ LABEL_17:
     CFRelease(v25);
   }
 
-  *v27 = 0u;
-  v28 = 0u;
-  v29 = 1065353216;
-  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(*(*(a1 + 32) + 8) + 272, v27);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v27);
-  *v27 = 0u;
-  v28 = 0u;
-  v29 = 1065353216;
-  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(*(*(a1 + 32) + 8) + 312, v27);
-  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v27);
+  *v26 = 0u;
+  v27 = 0u;
+  v28 = 1065353216;
+  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(*(*(a1 + 32) + 8) + 272, v26);
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v26);
+  *v26 = 0u;
+  v27 = 0u;
+  v28 = 1065353216;
+  std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__move_assign(*(*(a1 + 32) + 8) + 312, v26);
+  std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(v26);
   free(*(a1 + 64));
   CFRelease(*(a1 + 56));
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __ktrace_uuid_map_postprocess_file_block_invoke_8(uint64_t result)
@@ -4743,7 +4087,7 @@ uint64_t __ktrace_uuid_map_postprocess_file_block_invoke_8(uint64_t result)
   return result;
 }
 
-void symbolication_context::symbolication_context(uint64_t a1)
+void symbolication_context::symbolication_context(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *(a1 + 28) = 0u;
   *a1 = 0u;
@@ -4785,18 +4129,18 @@ void symbolication_context::~symbolication_context(symbolication_context *this)
 
 uint64_t __ktrace_symbolicate_file_block_invoke(uint64_t a1, void *a2)
 {
-  if (ktrace_chunk_tag(a2) == 32771 && !ktrace_chunk_version_major(a2))
+  if (ktrace_chunk_tag(a2, a2) == 32771 && !ktrace_chunk_version_major(a2))
   {
-    if (ktrace_chunk_size(a2) > 0x18)
+    if (ktrace_chunk_size(a2, v4) > 0x18)
     {
-      v4 = ktrace_chunk_map_data(a2, 0, 0x18uLL);
-      if (v4)
+      v5 = ktrace_chunk_map_data(a2, 0, 0x18uLL);
+      if (v5)
       {
-        v5 = v4;
-        v6 = *(*(a1 + 32) + 16);
-        v8 = *v5;
-        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v6, &v8);
-        ktrace_chunk_unmap_data(a2, v5, 24);
+        v6 = v5;
+        v7 = *(*(a1 + 32) + 16);
+        v9 = *v6;
+        std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(v7, &v9, &v9);
+        ktrace_chunk_unmap_data(a2, v6, 24);
       }
 
       else if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
@@ -4816,9 +4160,10 @@ uint64_t __ktrace_symbolicate_file_block_invoke(uint64_t a1, void *a2)
 
 uint64_t ktrace_symbolicate_path(uint64_t a1, uint64_t a2, const char *a3)
 {
-  if (ktrace_file_open(a3, 1))
+  v5 = ktrace_file_open(a3, 1);
+  if (v5)
   {
-    ktrace_symbolicate_file();
+    ktrace_symbolicate_file(a1, a2, v5);
   }
 
   return 0xFFFFFFFFLL;
@@ -4836,7 +4181,7 @@ KtraceSymbolicator *ktrace_symbolicator_destroy(KtraceSymbolicator *result)
   return result;
 }
 
-uint64_t KtraceSymbolicator::enable_symbolication(void *a1)
+uint64_t KtraceSymbolicator::enable_symbolication(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!*a1)
   {
@@ -4846,40 +4191,33 @@ uint64_t KtraceSymbolicator::enable_symbolication(void *a1)
   return 0;
 }
 
-uint64_t ktrace_symbolicator_symbolicate(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+uint64_t ktrace_symbolicator_symbolicate(uint64_t a1, __int128 *a2, _BYTE *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
   }
 
-  v30[0] = *a2;
-  v12 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>((a1 + 8), v30);
-  if (v12)
+  v26[0] = *a2;
+  if (!std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>((a1 + 8), v26))
   {
-    v14 = v12[4];
-    v13 = v12[5];
-  }
-
-  else
-  {
-    v15 = *a1;
+    v12 = *a1;
     if (*a1)
     {
-      UUIDContext::UUIDContext(v30, a2);
-      uuid = find_or_create_uuid(v15, v30);
-      UUIDContext::~UUIDContext(v30);
+      UUIDContext::UUIDContext(v26, a2);
+      uuid = find_or_create_uuid(v12, v26);
+      UUIDContext::~UUIDContext(v26);
       if (uuid)
       {
         if (ktrace_make_symbolicator(*a1, uuid))
         {
-          CS::TypeRef::retain(uuid[11], uuid[12], v30);
-          v28 = *a2;
-          v29 = &v28;
-          v17 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes&&>,std::tuple<>>((a1 + 8), &v28);
-          CS::TypeRef::operator=(v17 + 2, v30);
-          CS::TypeRef::~TypeRef(v30);
+          CS::TypeRef::retain(uuid[11], uuid[12], v26);
+          v24 = *a2;
+          v25 = &v24;
+          v14 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes&&>,std::tuple<>>((a1 + 8), &v24, &std::piecewise_construct, &v25);
+          CS::TypeRef::operator=(v14 + 2, v26);
+          CS::TypeRef::~TypeRef(v26);
         }
       }
     }
@@ -4887,54 +4225,53 @@ uint64_t ktrace_symbolicator_symbolicate(uint64_t a1, uint64_t a2, _BYTE *a3, ui
 
   if (CSIsNull())
   {
-    v18 = 0;
-    goto LABEL_25;
+    return 0;
   }
 
   SymbolOwner = CSSymbolicatorGetSymbolOwner();
-  v21 = v20;
+  v18 = v17;
   if (CSIsNull())
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v28.n128_u64[0] = 0;
-  v22 = *(a2 + 48);
-  v30[2] = *(a2 + 32);
-  v30[3] = v22;
-  v30[4] = *(a2 + 64);
-  v23 = *(a2 + 16);
-  v30[0] = *a2;
-  v30[1] = v23;
-  v18 = translate_offset(SymbolOwner, v21, v30, &v28, a3);
-  if (v18)
+  *&v24 = 0;
+  v19 = a2[3];
+  v26[2] = a2[2];
+  v26[3] = v19;
+  v26[4] = a2[4];
+  v20 = a2[1];
+  v26[0] = *a2;
+  v26[1] = v20;
+  v15 = translate_offset(SymbolOwner, v18, v26, &v24, a3);
+  if (v15)
   {
     if (a4)
     {
       *a4 = SymbolOwner;
-      a4[1] = v21;
+      a4[1] = v18;
     }
 
     if (a5)
     {
       *a5 = CSSymbolicatorGetSymbolWithAddressAtTime();
-      a5[1] = v24;
-      if (*(a2 + 48) != 1 || !CSIsNull())
+      a5[1] = v21;
+      if (*(a2 + 12) != 1 || !CSIsNull())
       {
-LABEL_23:
+LABEL_22:
         if (a6)
         {
           *a6 = CSSymbolicatorGetSourceInfoWithAddressAtTime();
-          a6[1] = v25;
+          a6[1] = v22;
         }
 
-        goto LABEL_25;
+        return v15;
       }
     }
 
-    else if (*(a2 + 48) != 1)
+    else if (*(a2 + 12) != 1)
     {
-      goto LABEL_23;
+      goto LABEL_22;
     }
 
     if (a3 && (*(a2 + 52) & 1) != 0)
@@ -4943,49 +4280,45 @@ LABEL_23:
       CSSymbolOwnerForeachSegment();
     }
 
-    goto LABEL_23;
+    goto LABEL_22;
   }
 
-LABEL_25:
-  v26 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v15;
 }
 
-void sub_22EDBBC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22EDBBC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   CS::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
 void *find_or_create_uuid(uint64_t a1, __int128 *a2)
 {
-  v7 = *a2;
-  v3 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>(*(a1 + 24), &v7);
-  if (!v3)
+  v8 = *a2;
+  v4 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>(*(a1 + 24), &v8);
+  if (!v4)
   {
-    v4 = *(a1 + 24);
-    if (v4[3] >= *(a1 + 40))
+    v5 = *(a1 + 24);
+    if (v5[3] >= *(a1 + 40))
     {
       result = 0;
       *(a1 + 56) = 0;
       return result;
     }
 
-    v3 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,UUIDContext>(v4, &v7);
-    if ((v5 & 1) == 0)
+    v4 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,UUIDContext>(v5, &v8, &v8, a2);
+    if ((v6 & 1) == 0)
     {
-      kteventnames_append_cold_1();
+      kteventnames_append_cold_1(v6);
     }
   }
 
-  return v3 + 4;
+  return v4 + 4;
 }
 
 uint64_t ktrace_make_symbolicator(FILE **a1, UUIDContext *a2)
 {
-  v4 = *(a2 + 11);
-  v5 = *(a2 + 12);
   if (!CSIsNull())
   {
     return 1;
@@ -4993,17 +4326,15 @@ uint64_t ktrace_make_symbolicator(FILE **a1, UUIDContext *a2)
 
   if (ktrace_find_executable(a1, a2) && ktrace_find_arch_with_default(a1, a2, 0))
   {
-    v6 = *(a2 + 13);
-    v7 = *(a2 + 15);
     *(a2 + 11) = CSSymbolicatorCreateWithURLAndArchitecture();
-    *(a2 + 12) = v8;
+    *(a2 + 12) = v4;
     if (CSIsNull())
     {
-      v9 = *a1;
+      v5 = *a1;
       if (*a1)
       {
-        v10 = describe2(a1, a2);
-        fprintf(v9, "failed to create a symbolicator for %s\n", v10);
+        v6 = describe2(a1, a2);
+        fprintf(v5, "failed to create a symbolicator for %s\n", v6);
         ktrace_log_init();
         if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
         {
@@ -5014,19 +4345,17 @@ uint64_t ktrace_make_symbolicator(FILE **a1, UUIDContext *a2)
 
     else
     {
-      v12 = *(a2 + 11);
-      v13 = *(a2 + 12);
       result = CSSymbolicatorGetSymbolOwnerCountAtTime();
       if (result == 1)
       {
         return result;
       }
 
-      v14 = *a1;
+      v8 = *a1;
       if (*a1)
       {
-        v15 = describe2(a1, a2);
-        fprintf(v14, "failed to set up symbolicator for %s: expected 1 symbol owner\n", v15);
+        v9 = describe2(a1, a2);
+        fprintf(v8, "failed to set up symbolicator for %s: expected 1 symbol owner\n", v9);
         ktrace_log_init();
         if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
         {
@@ -5050,12 +4379,8 @@ uint64_t CS::TypeRef::retain@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<
 
 __n128 CS::TypeRef::operator=(__n128 *a1, __n128 *a2)
 {
-  v4 = a1->n128_u64[0];
-  v5 = a1->n128_i64[1];
   if ((CSIsNull() & 1) == 0)
   {
-    v6 = a1->n128_u64[0];
-    v7 = a1->n128_i64[1];
     CSRelease();
   }
 
@@ -5069,11 +4394,11 @@ __n128 CS::TypeRef::operator=(__n128 *a1, __n128 *a2)
 uint64_t translate_offset(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, uint64_t a5)
 {
   v8 = 0;
-  v43 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v41 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v9 = *(a3 + 12);
   if (v9 > 2)
   {
@@ -5085,18 +4410,18 @@ uint64_t translate_offset(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, uint
       }
 
       *(a3 + 12) = 2;
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x2020000000;
-      v29 = 0;
-      v21 = MEMORY[0x277D85DD0];
-      v22 = 3221225472;
-      v23 = ___ZL18owner_is_text_exec10_CSTypeRef_block_invoke;
-      v24 = &unk_27886F1D0;
-      v25 = &v26;
+      v24 = 0;
+      v25 = &v24;
+      v26 = 0x2020000000;
+      v27 = 0;
+      v19 = MEMORY[0x277D85DD0];
+      v20 = 3221225472;
+      v21 = ___ZL18owner_is_text_exec10_CSTypeRef_block_invoke;
+      v22 = &unk_27886F1D0;
+      v23 = &v24;
       CSSymbolOwnerForeachSegment();
-      v10 = *(v27 + 24);
-      _Block_object_dispose(&v26, 8);
+      v10 = *(v25 + 24);
+      _Block_object_dispose(&v24, 8);
       if (v10)
       {
         v11 = "__TEXT_EXEC";
@@ -5109,28 +4434,28 @@ uint64_t translate_offset(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, uint
 
       strlcpy(a3 + 16, v11, 0x11uLL);
 LABEL_12:
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2020000000;
-      LOBYTE(v24) = 0;
-      v30 = MEMORY[0x277D85DD0];
-      v31 = 3221225472;
-      v32 = ___ZL16translate_offset10_CSTypeRef18ktrace_uuid_offsetPyPb_block_invoke;
-      v33 = &unk_27886F1A8;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2020000000;
+      LOBYTE(v22) = 0;
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = ___ZL16translate_offset10_CSTypeRef18ktrace_uuid_offsetPyPb_block_invoke;
+      v31 = &unk_27886F1A8;
       v12 = a3[3];
-      v38 = a3[2];
-      v39 = v12;
-      v40 = a3[4];
+      v36 = a3[2];
+      v37 = v12;
+      v38 = a3[4];
       v13 = a3[1];
-      v36 = *a3;
-      v37 = v13;
-      v34 = &v21;
-      v35 = &v17;
-      v41 = a4;
-      v42 = a5;
+      v34 = *a3;
+      v35 = v13;
+      v32 = &v19;
+      v33 = &v15;
+      v39 = a4;
+      v40 = a5;
       CSSymbolOwnerForeachSegment();
-      _Block_object_dispose(&v21, 8);
-      v8 = *(v18 + 24);
+      _Block_object_dispose(&v19, 8);
+      v8 = *(v16 + 24);
     }
   }
 
@@ -5140,30 +4465,29 @@ LABEL_12:
     {
       *a4 = *(a3 + 5) + CSSymbolOwnerGetBaseAddress();
       v8 = 1;
-      *(v18 + 24) = 1;
+      *(v16 + 24) = 1;
       goto LABEL_14;
     }
 
     if (v9 != 2)
     {
 LABEL_15:
-      v16 = _os_crash();
-      ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v16);
+      _os_crash();
+      ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
     }
 
     goto LABEL_12;
   }
 
 LABEL_14:
-  _Block_object_dispose(&v17, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
   return v8 & 1;
 }
 
-uint64_t __ktrace_symbolicator_symbolicate_block_invoke(uint64_t a1)
+uint64_t __ktrace_symbolicator_symbolicate_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSRegionGetRange();
-  if (*(a1 + 32) - result < v3)
+  if (*(a1 + 32) - result < v5)
   {
     **(a1 + 40) = 0;
   }
@@ -5185,103 +4509,104 @@ void free_symbol_callback(const __CFAllocator *a1, void *a2)
 void ktrace_symboilcator_learn_ariadne_chunk(KtraceSymbolicator *a1, ktrace_chunk *a2)
 {
   v20 = *MEMORY[0x277D85DE8];
-  if (ktrace_chunk_tag(a2) == 20580 && !ktrace_chunk_version_major(a2))
+  if (ktrace_chunk_tag(a2, a2) != 20580 || ktrace_chunk_version_major(a2))
   {
-    v18 = 0;
-    memset(v17, 0, sizeof(v17));
-    if (!ktrace_chunk_copy_data(a2, 0, v17, 0x20uLL))
-    {
-      memset(uu, 0, sizeof(uu));
-      strcpy(in, "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
-      v5 = v17[0];
-      if (LOBYTE(v17[0]))
-      {
-        v6 = 0;
-        v7 = in;
-        do
-        {
-          do
-          {
-            v8 = *v7++;
-          }
+    return;
+  }
 
-          while (v8 == 45);
-          *(v7 - 1) = v5;
-          if (v6 > 0x1E)
-          {
-            break;
-          }
-
-          ++v6;
-          v5 = *(v17 + v6);
-        }
-
-        while (v5);
-      }
-
-      if (uuid_parse(in, uu))
-      {
-        if (!os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_3;
-        }
-      }
-
-      else
-      {
-        v9 = ktrace_chunk_size_t(a2);
-        v10 = ktrace_chunk_copy_cfdata(a2, 0x20uLL, (v9 - 32));
-        if (v10)
-        {
-          v11 = CFPropertyListCreateWithData(0, v10, 0, 0, 0);
-          CFRelease(v10);
-          if (v11)
-          {
-            Mutable = CFArrayCreateMutable(0, 0, &symbol_array_callbacks);
-            context[0] = MEMORY[0x277D85DD0];
-            context[1] = 3221225472;
-            context[2] = ___Z39ktrace_symboilcator_learn_ariadne_chunkP18KtraceSymbolicatorP12ktrace_chunk_block_invoke;
-            context[3] = &__block_descriptor_40_e41_v24__0____CFString__8____CFDictionary__16l;
-            context[4] = Mutable;
-            CFDictionaryApplyFunction(v11, CFDictionaryApplierTrampoline, context);
-            CFRelease(v11);
-            v21.length = CFArrayGetCount(Mutable);
-            v21.location = 0;
-            CFArraySortValues(Mutable, v21, cmp_symbol, 0);
-            v13 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            CFDictionarySetValue(v13, @"__TEXT*", Mutable);
-            CFRelease(Mutable);
-            *in = *uu;
-            v14 = v13;
-            std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes,CF::TypeRef>(a1 + 6, in);
-            CF::TypeRef::~TypeRef(&v14);
-            goto LABEL_3;
-          }
-
-          if (!os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_3;
-          }
-        }
-
-        else if (!os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_3;
-        }
-      }
-
-      ktrace_symboilcator_learn_ariadne_chunk();
-      goto LABEL_3;
-    }
-
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  if (ktrace_chunk_copy_data(a2, 0, v17, 0x20uLL))
+  {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
       ktrace_symboilcator_learn_ariadne_chunk();
     }
+
+    return;
   }
 
-LABEL_3:
-  v4 = *MEMORY[0x277D85DE8];
+  memset(uu, 0, sizeof(uu));
+  strcpy(in, "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
+  v4 = v17[0];
+  if (LOBYTE(v17[0]))
+  {
+    v5 = 0;
+    v6 = in;
+    do
+    {
+      do
+      {
+        v7 = *v6++;
+      }
+
+      while (v7 == 45);
+      *(v6 - 1) = v4;
+      if (v5 > 0x1E)
+      {
+        break;
+      }
+
+      ++v5;
+      v4 = *(v17 + v5);
+    }
+
+    while (v4);
+  }
+
+  if (uuid_parse(in, uu))
+  {
+    if (!os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    goto LABEL_21;
+  }
+
+  v9 = ktrace_chunk_size_t(a2, v8);
+  v10 = ktrace_chunk_copy_cfdata(a2, 0x20uLL, (v9 - 32));
+  if (!v10)
+  {
+    if (!os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+LABEL_21:
+    ktrace_symboilcator_learn_ariadne_chunk();
+    return;
+  }
+
+  v11 = CFPropertyListCreateWithData(0, v10, 0, 0, 0);
+  CFRelease(v10);
+  if (v11)
+  {
+    Mutable = CFArrayCreateMutable(0, 0, &symbol_array_callbacks);
+    context[0] = MEMORY[0x277D85DD0];
+    context[1] = 3221225472;
+    context[2] = ___Z39ktrace_symboilcator_learn_ariadne_chunkP18KtraceSymbolicatorP12ktrace_chunk_block_invoke;
+    context[3] = &__block_descriptor_40_e41_v24__0____CFString__8____CFDictionary__16l;
+    context[4] = Mutable;
+    CFDictionaryApplyFunction(v11, CFDictionaryApplierTrampoline, context);
+    CFRelease(v11);
+    v21.length = CFArrayGetCount(Mutable);
+    v21.location = 0;
+    CFArraySortValues(Mutable, v21, cmp_symbol, 0);
+    v13 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    CFDictionarySetValue(v13, @"__TEXT*", Mutable);
+    CFRelease(Mutable);
+    *in = *uu;
+    v14 = v13;
+    std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes,CF::TypeRef>(a1 + 6, in, in, &v14);
+    CF::TypeRef::~TypeRef(&v14);
+    return;
+  }
+
+  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_21;
+  }
 }
 
 void ___Z39ktrace_symboilcator_learn_ariadne_chunkP18KtraceSymbolicatorP12ktrace_chunk_block_invoke(uint64_t a1, const __CFString *a2, const __CFDictionary *a3)
@@ -5334,9 +4659,9 @@ uint64_t cmp_symbol(void *a1, void *a2, void *a3)
 void ktrace_symboilcator_learn_tailspin_chunk(KtraceSymbolicator *a1, ktrace_chunk *a2)
 {
   v25 = *MEMORY[0x277D85DE8];
-  if (ktrace_chunk_tag(a2) == 36870 && !ktrace_chunk_version_major(a2))
+  if (ktrace_chunk_tag(a2, a2) == 36870 && !ktrace_chunk_version_major(a2))
   {
-    v5 = ktrace_chunk_copy_plist(a2);
+    v5 = ktrace_chunk_copy_plist(a2, v4);
     if (v5)
     {
       v6 = v5;
@@ -5392,7 +4717,8 @@ void ktrace_symboilcator_learn_tailspin_chunk(KtraceSymbolicator *a1, ktrace_chu
         }
       }
 
-      memset(uu, 0, 16);
+      *uu = 0;
+      *&uu[8] = 0;
       v16 = utf8(v8);
       v17 = uuid_parse(v16, uu);
       if (v14 && v11 && v8 && !v17)
@@ -5422,7 +4748,7 @@ void ktrace_symboilcator_learn_tailspin_chunk(KtraceSymbolicator *a1, ktrace_chu
         CFRelease(Mutable);
         v22 = *uu;
         v21 = v19;
-        std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes,CF::TypeRef>(a1 + 6, &v22);
+        std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes,CF::TypeRef>(a1 + 6, &v22, &v22, &v21);
         CF::TypeRef::~TypeRef(&v21);
       }
 
@@ -5437,13 +4763,11 @@ void ktrace_symboilcator_learn_tailspin_chunk(KtraceSymbolicator *a1, ktrace_chu
       ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_8();
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDBC99C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22EDBC99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5505,90 +4829,101 @@ void ___Z40ktrace_symboilcator_learn_tailspin_chunkP18KtraceSymbolicatorP12ktrac
   }
 }
 
-CFDataRef ktrace_copy_cs_signature_data(uint64_t *a1)
+CFDataRef ktrace_copy_cs_signature_data(uint64_t *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (ktrace_chunk_tag(a1) != 32771 || ktrace_chunk_version_major(a1) || ktrace_chunk_copy_data(a1, 0, &v5, 0x18uLL) || (v2 = v7 + v6, v2 > ktrace_chunk_size(a1)))
+  v9 = *MEMORY[0x277D85DE8];
+  if (ktrace_chunk_tag(a1, a2) != 32771)
   {
-    result = 0;
+    return 0;
+  }
+
+  if (ktrace_chunk_version_major(a1))
+  {
+    return 0;
+  }
+
+  if (ktrace_chunk_copy_data(a1, 0, &v6, 0x18uLL))
+  {
+    return 0;
+  }
+
+  v4 = v8 + v7;
+  if (v4 > ktrace_chunk_size(a1, v3))
+  {
+    return 0;
   }
 
   else
   {
-    result = ktrace_chunk_copy_cfdata(a1, v6, v7);
+    return ktrace_chunk_copy_cfdata(a1, v7, v8);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ktrace_copy_symbolicator_from_chunk(uint64_t *a1, _OWORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ktrace_chunk_tag(a1) != 32771 || ktrace_chunk_version_major(a1))
+  v16 = *MEMORY[0x277D85DE8];
+  if (ktrace_chunk_tag(a1, a2) != 32771 || ktrace_chunk_version_major(a1))
   {
-LABEL_20:
-    v8 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
-  if (ktrace_chunk_size(a1) <= 0x18)
+  if (ktrace_chunk_size(a1, v4) <= 0x18)
   {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
       __ktrace_symbolicate_file_block_invoke_cold_2();
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
-  if (ktrace_chunk_copy_data(a1, 0, &v11, 0x18uLL))
+  if (ktrace_chunk_copy_data(a1, 0, &v13, 0x18uLL))
   {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
       ktrace_copy_symbolicator_from_chunk_cold_1();
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
-  v4 = v13 + v12;
-  if (v4 > ktrace_chunk_size(a1))
+  v6 = v15 + v14;
+  if (v6 > ktrace_chunk_size(a1, v5))
   {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
       __ktrace_symbolicate_file_block_invoke_cold_2();
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
-  v5 = ktrace_chunk_size(a1);
-  v6 = ktrace_chunk_copy_cfdata(a1, 0, v5);
-  if (!v6)
+  v8 = ktrace_chunk_size(a1, v7);
+  v9 = ktrace_chunk_copy_cfdata(a1, 0, v8);
+  if (!v9)
   {
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
       __ktrace_symbolicate_file_block_invoke_cold_1();
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
-  v7 = v6;
-  if (![(__CFData *)v6 subdataWithRange:v12, v13])
+  v10 = v9;
+  if (![(__CFData *)v9 subdataWithRange:v14, v15])
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v8 = CSSymbolicatorCreateWithSignature();
+  v11 = CSSymbolicatorCreateWithSignature();
 
   if (CSIsNull() && os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
   {
     ktrace_copy_symbolicator_from_chunk_cold_2();
     if (!a2)
     {
-      goto LABEL_21;
+      return v11;
     }
 
     goto LABEL_17;
@@ -5597,12 +4932,10 @@ LABEL_20:
   if (a2)
   {
 LABEL_17:
-    *a2 = v11;
+    *a2 = v13;
   }
 
-LABEL_21:
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v11;
 }
 
 uint64_t ktrace_symbolicator_read_file(uint64_t a1, uint64_t a2)
@@ -5624,10 +4957,10 @@ uint64_t __ktrace_symbolicator_read_file_block_invoke(uint64_t a1, ktrace_chunk 
   if ((CSIsNull() & 1) == 0)
   {
     v7 = *(a1 + 32);
-    v9[0] = v4;
-    v9[1] = v6;
-    std::__hash_table<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,CS::TypeRef>((v7 + 8), &v10);
-    CS::TypeRef::~TypeRef(v9);
+    *&v9 = v4;
+    *(&v9 + 1) = v6;
+    std::__hash_table<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,CS::TypeRef>((v7 + 8), &v10, &v10, &v9);
+    CS::TypeRef::~TypeRef(&v9);
   }
 
   return 1;
@@ -5635,21 +4968,21 @@ uint64_t __ktrace_symbolicator_read_file_block_invoke(uint64_t a1, ktrace_chunk 
 
 UInt8 *ktrace_uuid_offset_get_description_internal(uint64_t a1, unsigned __int8 *uu, char *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(uu + 12))
   {
     uuid_unparse(uu, out);
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     v6 = *(uu + 9);
     if (v6)
     {
       v7 = utf8(v6);
-      v8 = basename_r(v7, v25);
-      v9 = v21;
-      v21[3] = v8;
+      v8 = basename_r(v7, v23);
+      v9 = v19;
+      v19[3] = v8;
       if (!a1 || v8)
       {
 LABEL_10:
@@ -5687,13 +5020,13 @@ LABEL_12:
             if (strcmp(v12, "__TEXT"))
             {
               v13 = strcmp(v12, "__TEXT_EXEC");
-              v14 = v21;
+              v14 = v19;
               if (v13)
               {
 LABEL_28:
                 v10 = v15;
-                _Block_object_dispose(&v20, 8);
-                goto LABEL_29;
+                _Block_object_dispose(&v18, 8);
+                return v10;
               }
 
 LABEL_23:
@@ -5717,42 +5050,39 @@ LABEL_23:
           if (v11 != 5)
           {
 LABEL_30:
-            v18 = _os_crash();
-            ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v18);
+            _os_crash();
+            ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
           }
         }
 
-        v14 = v21;
+        v14 = v19;
         goto LABEL_23;
       }
     }
 
     else if (!a1)
     {
-      v9 = &v20;
+      v9 = &v18;
       goto LABEL_10;
     }
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = ___Z43ktrace_uuid_offset_get_description_internalP15ktrace_uuid_map18ktrace_uuid_offsetPKc_block_invoke;
-    v19[3] = &unk_27886EE68;
-    v19[4] = &v20;
-    v19[5] = v25;
-    ktrace_uuid_map_iterate_associated_paths(a1, uu, v19);
-    v9 = v21;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = ___Z43ktrace_uuid_offset_get_description_internalP15ktrace_uuid_map18ktrace_uuid_offsetPKc_block_invoke;
+    v17[3] = &unk_27886EE68;
+    v17[4] = &v18;
+    v17[5] = v23;
+    ktrace_uuid_map_iterate_associated_paths(a1, uu, v17);
+    v9 = v19;
     goto LABEL_10;
   }
 
-  v10 = 0;
-LABEL_29:
-  v16 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 0;
 }
 
-void sub_22EDBD154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22EDBD154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5764,7 +5094,7 @@ void ktrace_uuid_map_iterate_associated_paths(uint64_t a1, __int128 *a2, void (*
     v11 = *a2;
     v4 = *(a1 + 216);
     v12 = &v11;
-    v5 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v4, &v11);
+    v5 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v4, &v11, &std::piecewise_construct, &v12);
     v6 = v5[4];
     if (v6)
     {
@@ -5805,43 +5135,40 @@ char *___Z43ktrace_uuid_offset_get_description_internalP15ktrace_uuid_map18ktrac
 
 UInt8 *ktrace_uuid_offset_get_description(uint64_t a1, _OWORD *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2[3];
-  v6[2] = a2[2];
-  v6[3] = v2;
-  v6[4] = a2[4];
+  v5[2] = a2[2];
+  v5[3] = v2;
+  v5[4] = a2[4];
   v3 = a2[1];
-  v6[0] = *a2;
-  v6[1] = v3;
-  result = ktrace_uuid_offset_get_description_internal(a1, v6, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = *a2;
+  v5[1] = v3;
+  return ktrace_uuid_offset_get_description_internal(a1, v5, 0);
 }
 
-UInt8 *ktrace_symbolicator_get_description(uint64_t a1, uint64_t a2, __int128 *a3)
+UInt8 *ktrace_symbolicator_get_description(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v36 = 0;
-  v35[0] = 0;
-  v35[1] = 0;
+  v41 = *MEMORY[0x277D85DE8];
+  v35 = 0;
   v34[0] = 0;
   v34[1] = 0;
   v33[0] = 0;
   v33[1] = 0;
-  v6 = a3[3];
-  v39 = a3[2];
-  v40 = v6;
-  v41 = a3[4];
-  v7 = a3[1];
+  v32[0] = 0;
+  v32[1] = 0;
+  v6 = *(a3 + 48);
+  v38 = *(a3 + 32);
+  v39 = v6;
+  v40 = *(a3 + 64);
+  v7 = *(a3 + 16);
   value = *a3;
-  v38 = v7;
-  ktrace_symbolicator_symbolicate(a2, &value, &v36, v33, v34, v35);
+  v37 = v7;
+  ktrace_symbolicator_symbolicate(a2, &value, &v35, v32, v33, v34);
   if (CSIsNull())
   {
-    if (v36)
+    if (v35)
     {
-      result = 0;
-      goto LABEL_40;
+      return 0;
     }
 
     value = *a3;
@@ -5852,7 +5179,7 @@ UInt8 *ktrace_symbolicator_get_description(uint64_t a1, uint64_t a2, __int128 *a
     }
 
     v11 = v10[4];
-    v12 = *(a3 + 12);
+    v12 = *(a3 + 48);
     switch(v12)
     {
       case 1:
@@ -5862,10 +5189,10 @@ UInt8 *ktrace_symbolicator_get_description(uint64_t a1, uint64_t a2, __int128 *a
         v14 = @"__TEXT*";
         break;
       case 2:
-        v13 = CFStringCreateWithCString(0, a3 + 16, 0x8000100u);
+        v13 = CFStringCreateWithCString(0, (a3 + 16), 0x8000100u);
         if (!v13)
         {
-          v13 = CFStringCreateWithCString(0, a3 + 16, 0x100u);
+          v13 = CFStringCreateWithCString(0, (a3 + 16), 0x100u);
         }
 
         if (v13)
@@ -5922,13 +5249,13 @@ LABEL_23:
     }
 
 LABEL_25:
-    v20 = *(a3 + 5);
-    *&v38 = 0;
+    v20 = *(a3 + 40);
+    *&v37 = 0;
     value = v20;
     Count = CFArrayGetCount(v16);
-    v43.location = 0;
-    v43.length = Count;
-    v22 = CFArrayBSearchValues(v16, v43, &value, cmp_symbol, 0);
+    v42.location = 0;
+    v42.length = Count;
+    v22 = CFArrayBSearchValues(v16, v42, &value, cmp_symbol, 0);
     if (v22 >= Count)
     {
       v23 = Count - 1;
@@ -5945,7 +5272,7 @@ LABEL_25:
       while (1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v16, v23);
-        v26 = *(a3 + 5);
+        v26 = *(a3 + 40);
         if (v26 >= *ValueAtIndex && v26 < *(ValueAtIndex + 1) + *ValueAtIndex)
         {
           break;
@@ -5967,15 +5294,14 @@ LABEL_25:
 LABEL_38:
     v27 = 0;
 LABEL_39:
-    v30 = a3[3];
-    v39 = a3[2];
-    v40 = v30;
-    v41 = a3[4];
-    v31 = a3[1];
+    v30 = *(a3 + 48);
+    v38 = *(a3 + 32);
+    v39 = v30;
+    v40 = *(a3 + 64);
+    v31 = *(a3 + 16);
     value = *a3;
-    v38 = v31;
-    result = ktrace_uuid_offset_get_description_internal(a1, &value, v27);
-    goto LABEL_40;
+    v37 = v31;
+    return ktrace_uuid_offset_get_description_internal(a1, &value, v27);
   }
 
   v9 = CSIsNull();
@@ -5985,15 +5311,8 @@ LABEL_39:
   {
   }
 
-  else
-  {
-    CSSourceInfoGetFilename();
-    CSSourceInfoGetLineNumber();
-  }
-
-LABEL_40:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  CSSourceInfoGetFilename();
+  CSSourceInfoGetLineNumber();
 }
 
 __CFString *cfstring(const char *cStr)
@@ -6018,7 +5337,7 @@ __CFString *cfstring(const char *cStr)
   return v3;
 }
 
-uint64_t ktrace_uuid_map_create_cssymbolicator_for_task(uint64_t a1)
+uint64_t ktrace_uuid_map_create_cssymbolicator_for_task(ktrace_uuid_map *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a1)
   {
@@ -6036,84 +5355,84 @@ uint64_t ktrace_address_space_create_cssymbolicator(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
   v3 = 0xAAAAAAAAAAAAAAABLL * ((v2[1] - *v2) >> 5);
-  v54 = v3;
+  v50 = v3;
   if (HIDWORD(v3))
   {
     _os_assert_log();
-    v32 = _os_crash();
-    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v32);
+    _os_crash();
+    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
   }
 
   v6 = *(a1 + 80);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke;
-  v50[3] = &unk_27886F1F8;
-  v50[4] = &v51;
-  ktrace_address_space_deep_iterate_symbol_owners(v6, a2, v50);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke;
+  v46[3] = &unk_27886F1F8;
+  v46[4] = &v47;
+  ktrace_address_space_deep_iterate_symbol_owners(v6, a2, v46);
   if (!*(a1 + 40))
   {
-    *(a1 + 40) = *(v52 + 6);
+    *(a1 + 40) = *(v48 + 6);
   }
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x3812000000;
-  v45[3] = __Block_byref_object_copy__251;
-  v45[4] = __Block_byref_object_dispose__252;
-  v45[5] = "";
-  v45[6] = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3812000000;
+  v41[3] = __Block_byref_object_copy__251;
+  v41[4] = __Block_byref_object_dispose__252;
+  v41[5] = "";
+  v41[6] = 0;
   v7 = *(a1 + 80);
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_254;
-  v44[3] = &unk_27886F220;
-  v44[5] = v45;
-  v44[6] = a1;
-  v44[4] = &v46;
-  ktrace_address_space_deep_iterate_symbol_owners(v7, a2, v44);
-  v8 = malloc_type_calloc(0x40uLL, *(v52 + 6), 0x107004011CD6FB7uLL);
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = v8;
-  v9 = malloc_type_calloc(0x28uLL, v47[3], 0x100004074F221ECuLL);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_254;
+  v40[3] = &unk_27886F220;
+  v40[5] = v41;
+  v40[6] = a1;
+  v40[4] = &v42;
+  ktrace_address_space_deep_iterate_symbol_owners(v7, a2, v40);
+  v8 = malloc_type_calloc(0x40uLL, *(v48 + 6), 0x107004011CD6FB7uLL);
   v36 = 0;
   v37 = &v36;
   v38 = 0x2020000000;
-  v39 = v9;
+  v39 = v8;
+  v9 = malloc_type_calloc(0x28uLL, v43[3], 0x100004074F221ECuLL);
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = v9;
   v10 = *(a1 + 80);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_2;
-  v35[3] = &unk_27886F248;
-  v35[4] = &v40;
-  v35[5] = &v36;
-  v35[6] = v45;
-  v35[7] = a1;
-  v35[8] = a2;
-  ktrace_address_space_deep_iterate_symbol_owners(v10, a2, v35);
-  v11 = (v41[3] - v8) >> 6;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_2;
+  v31[3] = &unk_27886F248;
+  v31[4] = &v36;
+  v31[5] = &v32;
+  v31[6] = v41;
+  v31[7] = a1;
+  v31[8] = a2;
+  ktrace_address_space_deep_iterate_symbol_owners(v10, a2, v31);
+  v11 = (v37[3] - v8) >> 6;
   if (HIDWORD(v11))
   {
     _os_assert_log();
-    v33 = _os_crash();
-    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v33);
+    _os_crash();
+    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((v37[3] - v9) >> 3) > v47[3])
+  if (0xCCCCCCCCCCCCCCCDLL * ((v33[3] - v9) >> 3) > v43[3])
   {
     _os_assert_log();
-    v34 = _os_crash();
-    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7(v34);
+    _os_crash();
+    ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_7();
   }
 
   if (v11)
@@ -6208,29 +5527,29 @@ uint64_t ktrace_address_space_create_cssymbolicator(uint64_t a1, uint64_t a2)
     }
   }
 
-  v30 = *(a2 + 32);
   v29 = CSSymbolicatorCreateWithBinaryImageListCountPidFlagsAndNotification();
   free(v9);
   free(v8);
+  _Block_object_dispose(&v32, 8);
   _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(v45, 8);
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v47, 8);
   return v29;
 }
 
-void sub_22EDBDBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_22EDBDBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 168), 8);
-  _Block_object_dispose((v33 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 168), 8);
+  _Block_object_dispose((v32 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ktrace_uuid_map_create_cssymbolicator_for_pid(uint64_t a1)
+uint64_t ktrace_uuid_map_create_cssymbolicator_for_pid(ktrace_uuid_map *a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (a1)
   {
@@ -6632,10 +5951,10 @@ void __ktrace_uuid_map_event_prepass_block_invoke(uint64_t a1, uint64_t a2, void
   PrepassOp::~PrepassOp(v4);
 }
 
-uint64_t std::vector<PrepassOp>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void *std::vector<PrepassOp>::push_back[abi:ne200100](void *a1, void *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<PrepassOp>::__emplace_back_slow_path<PrepassOp>(a1, a2);
   }
@@ -6648,10 +5967,10 @@ uint64_t std::vector<PrepassOp>::push_back[abi:ne200100](uint64_t a1, void *a2)
     *v3 = *a2;
     v3[1] = v4;
     a2[1] = 0;
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -6787,7 +6106,7 @@ void sub_22EDBE9AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6801,40 +6120,40 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t ktrace_dumpbuffer_address_space(uint64_t a1, unint64_t a2, char a3)
+uint64_t ktrace_dumpbuffer_address_space(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    v3 = *(a1 + 304);
-    if (v3)
+    v4 = *(a1 + 304);
+    if (v4)
     {
       memset(__p, 0, sizeof(__p));
       if ((a3 & 2) != 0)
       {
-        for (i = *(*(v3 + 32) + 16); i; i = *i)
+        for (i = *(*(v4 + 32) + 16); i; i = *i)
         {
-          v6 = i[3];
-          std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v6);
+          v7 = i[3];
+          std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v7);
         }
 
 LABEL_9:
-        ktrace_dumpbuffer();
+        ktrace_dumpbuffer(a1, v4, __p);
       }
 
-      v6 = address_space_for_taskid(v3, a2);
-      if (v6)
+      v7 = address_space_for_taskid(v4, a2);
+      if (v7)
       {
-        std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v6);
+        std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v7);
         goto LABEL_9;
       }
     }
@@ -6912,7 +6231,7 @@ void std::vector<ktrace_address_space *>::push_back[abi:ne200100](uint64_t a1, v
   *(a1 + 8) = v6;
 }
 
-void sub_22EDBF140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44)
+void sub_22EDBF140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44)
 {
   if (__p)
   {
@@ -6926,30 +6245,30 @@ void sub_22EDBF140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ktrace_dumpbuffer_address_space_pid(uint64_t a1, int a2, char a3)
+CFDataRef ktrace_dumpbuffer_address_space_pid(uint64_t a1, int a2, char a3)
 {
   if (a1)
   {
-    v3 = *(a1 + 304);
-    if (v3)
+    v4 = *(a1 + 304);
+    if (v4)
     {
       memset(__p, 0, sizeof(__p));
       if ((a3 & 2) != 0)
       {
-        for (i = *(*(v3 + 32) + 16); i; i = *i)
+        for (i = *(*(v4 + 32) + 16); i; i = *i)
         {
-          v6 = i[3];
-          std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v6);
+          v7 = i[3];
+          std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v7);
         }
 
 LABEL_9:
-        ktrace_dumpbuffer();
+        ktrace_dumpbuffer(a1, v4, __p);
       }
 
-      v6 = address_space_for_pid(v3, a2);
-      if (v6)
+      v7 = address_space_for_pid(v4, a2);
+      if (v7)
       {
-        std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v6);
+        std::vector<ktrace_address_space *>::push_back[abi:ne200100](__p, &v7);
         goto LABEL_9;
       }
     }
@@ -7082,7 +6401,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CF::TypeRef>,st
 
 BOOL ___ZL15figure_out_archP15_CSArchitectureP14ktrace_machineP11ktrace_file_block_invoke(uint64_t a1, void *a2)
 {
-  v4 = ktrace_chunk_tag(a2);
+  v4 = ktrace_chunk_tag(a2, a2);
   if (v4 == 20990)
   {
     goto LABEL_7;
@@ -7110,7 +6429,7 @@ LABEL_7:
   return (*(*(*(a1 + 32) + 8) + 24) & 1) == 0;
 }
 
-uint64_t ___ZL15figure_out_archP15_CSArchitectureP14ktrace_machineP11ktrace_file_block_invoke_2(uint64_t result, uint64_t a2, unint64_t a3)
+char *___ZL15figure_out_archP15_CSArchitectureP14ktrace_machineP11ktrace_file_block_invoke_2(char *result, uint64_t a2, unint64_t a3)
 {
   v3 = a2 + 16;
   if (a2 + 16 <= a3)
@@ -7266,8 +6585,8 @@ LABEL_46:
 
 LABEL_47:
         result = CSArchitectureGetArchitectureForName();
-        **(v5 + 40) = result;
-        *(*(*(v5 + 32) + 8) + 24) = 1;
+        **(v5 + 5) = result;
+        *(*(*(v5 + 4) + 8) + 24) = 1;
         return result;
       }
 
@@ -7515,33 +6834,33 @@ LABEL_21:
   return fprintf(v16, v13, v17, v18, v19, v20, v21);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7549,47 +6868,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_point>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,dyld_trace_point>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,dyld_trace_point>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<unsigned long long,CF::TypeRef>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CF::TypeRef>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CF::TypeRef>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CF::TypeRef>>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -7698,13 +7017,13 @@ uint64_t ___ZL10visit_uuidP16operating_system11CFUUIDBytes_block_invoke_2(uint64
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    if (!stat(a2, &v8))
+    if (!stat(a2, &v9))
     {
       v4 = v2[6];
       v3 = v2[7];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
-      v7 = v8;
+      v8 = v9;
       block[2] = ___ZL10visit_pathP16operating_systemPKc_block_invoke;
       block[3] = &__block_descriptor_184_e5_v8__0l;
       block[4] = v2;
@@ -7715,7 +7034,8 @@ uint64_t ___ZL10visit_uuidP16operating_system11CFUUIDBytes_block_invoke_2(uint64
 
       else
       {
-        visit_inode_while_locked(v2, v7.st_dev, v7.st_ino);
+        st_dev = v8.st_dev;
+        visit_inode_while_locked(v2, st_dev, v8.st_ino);
       }
     }
   }
@@ -7723,23 +7043,22 @@ uint64_t ___ZL10visit_uuidP16operating_system11CFUUIDBytes_block_invoke_2(uint64
   return 1;
 }
 
-uint64_t ___ZL22get_summary_from_machoPKc_block_invoke(uint64_t a1)
+uint64_t ___ZL22get_summary_from_machoPKc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CSSymbolicatorGetArchitecture();
   FamilyName = CSArchitectureGetFamilyName();
-  v3 = CFStringCreateWithCString(0, FamilyName, 0x8000100u);
-  if (!v3)
+  v4 = CFStringCreateWithCString(0, FamilyName, 0x8000100u);
+  if (!v4)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  CFAutorelease(v3);
+  CFAutorelease(v4);
   if (CSSymbolicatorGetSymbolOwnerCountAtTime() != 1)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v5 = *(a1 + 32);
   return CSSymbolicatorForeachSymbolOwnerAtTime();
 }
 
@@ -7755,7 +7074,7 @@ void ___ZL22get_summary_from_machoPKc_block_invoke_2(uint64_t a1, uint64_t a2)
 
 void ___ZL18make_image_summary10_CSTypeRefb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   CSRegionGetSegmentName(a2, a3, cStr);
   if (*cStr != 0x455A454741505F5FLL || *&cStr[3] != 0x4F52455A454741)
   {
@@ -7808,8 +7127,6 @@ void ___ZL18make_image_summary10_CSTypeRefb_block_invoke(uint64_t a1, uint64_t a
     CFArrayAppendValue(*(a1 + 32), v6);
     CFRelease(v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void CSRegionGetSegmentName(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -7894,27 +7211,25 @@ void postprocess_data::~postprocess_data(postprocess_data *this)
   std::__hash_table<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,KernelTraceCatalog::Process const*>>>::~__hash_table(this + 64);
 }
 
-void ___ZL13visit_processP16operating_systemj_block_invoke(uint64_t a1)
+void ___ZL13visit_processP16operating_systemj_block_invoke(void *a1)
 {
-  v16 = 0;
-  v2 = *MEMORY[0x277D85F48];
-  v4 = (a1 + 56);
-  v3 = *(a1 + 56);
+  v14 = 0;
+  v2 = (a1 + 7);
   if (task_read_for_pid())
   {
-    v5 = *__error();
+    v3 = *__error();
     ktrace_log_init();
     if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
     {
-      ___ZL13visit_processP16operating_systemj_block_invoke_cold_1(v4);
+      ___ZL13visit_processP16operating_systemj_block_invoke_cold_1();
     }
 
-    *__error() = v5;
+    *__error() = v3;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
     dyld_process_create_for_task();
     dyld_process_snapshot_create_for_process();
     dyld_process_dispose();
@@ -7924,46 +7239,46 @@ void ___ZL13visit_processP16operating_systemj_block_invoke(uint64_t a1)
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v7 = Mutable;
-    v8 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+    v5 = Mutable;
+    v6 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+    if (!v6)
+    {
+      ktrace_postprocess_file_internal_cold_4();
+    }
+
+    v7 = v6;
+    block[6] = MEMORY[0x277D85DD0];
+    block[7] = 3221225472;
+    block[8] = ___ZL13visit_processP16operating_systemj_block_invoke_194;
+    block[9] = &__block_descriptor_40_e23_v16__0__dyld_image_s__8l;
+    block[10] = v6;
+    dyld_process_snapshot_for_each_image();
+    CFDictionarySetValue(v5, @"Binaries", v7);
+    valuePtr = *v2;
+    v8 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
     if (!v8)
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
     v9 = v8;
-    block[6] = MEMORY[0x277D85DD0];
-    block[7] = 3221225472;
-    block[8] = ___ZL13visit_processP16operating_systemj_block_invoke_194;
-    block[9] = &__block_descriptor_40_e23_v16__0__dyld_image_s__8l;
-    block[10] = v8;
-    dyld_process_snapshot_for_each_image();
-    CFDictionarySetValue(v7, @"Binaries", v9);
-    valuePtr = *v4;
-    v10 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
-    if (!v10)
-    {
-      ktrace_postprocess_file_internal_cold_4();
-    }
-
-    v11 = v10;
-    CFAutorelease(v10);
-    CFDictionarySetValue(v7, @"PID", v11);
-    CFRelease(v9);
+    CFAutorelease(v8);
+    CFDictionarySetValue(v5, @"PID", v9);
+    CFRelease(v7);
     dyld_process_snapshot_dispose();
-    v12 = *(*(*(a1 + 32) + 8) + 40);
-    v13 = *(*(*(a1 + 40) + 8) + 40);
+    v10 = *(*(a1[4] + 8) + 40);
+    v11 = *(*(a1[5] + 8) + 40);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = ___ZL13visit_processP16operating_systemj_block_invoke_2;
     block[3] = &unk_27886E8C0;
-    block[4] = *(a1 + 48);
-    block[5] = v7;
-    dispatch_group_async(v12, v13, block);
+    block[4] = a1[6];
+    block[5] = v5;
+    dispatch_group_async(v10, v11, block);
   }
 }
 
-void ___ZL13visit_processP16operating_systemj_block_invoke_194(uint64_t a1)
+void ___ZL13visit_processP16operating_systemj_block_invoke_194(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *uu = 0;
@@ -7976,60 +7291,58 @@ void ___ZL13visit_processP16operating_systemj_block_invoke_194(uint64_t a1)
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v3 = Mutable;
+    v4 = Mutable;
     memset(out, 0, 37);
     uuid_unparse(uu, out);
-    v4 = CFStringCreateWithCString(0, out, 0x8000100u);
-    if (!v4)
+    v5 = CFStringCreateWithCString(0, out, 0x8000100u);
+    if (!v5)
     {
-      v4 = CFStringCreateWithCString(0, out, 0x100u);
+      v5 = CFStringCreateWithCString(0, out, 0x100u);
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
     }
 
     else
     {
-      v5 = @"!!!invalid-enc!!!";
+      v6 = @"!!!invalid-enc!!!";
     }
 
-    CFAutorelease(v5);
-    CFDictionarySetValue(v3, @"UUID_String", v5);
+    CFAutorelease(v6);
+    CFDictionarySetValue(v4, @"UUID_String", v6);
     file_path = dyld_image_get_file_path();
     if (file_path || (file_path = dyld_image_get_installname()) != 0)
     {
-      v7 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], file_path, 0x8000100u);
-      CFDictionarySetValue(v3, @"Path", v7);
-      CFRelease(v7);
+      v8 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], file_path, 0x8000100u);
+      CFDictionarySetValue(v4, @"Path", v8);
+      CFRelease(v8);
     }
 
-    v8 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    if (!v8)
+    v9 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+    if (!v9)
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v9 = v8;
+    v10 = v9;
     dyld_image_for_each_segment_info();
-    CFDictionarySetValue(v3, @"Segments", v9);
-    CFRelease(v9);
+    CFDictionarySetValue(v4, @"Segments", v10);
+    CFRelease(v10);
     *out = 0;
-    v10 = CFNumberCreate(0, kCFNumberLongLongType, out);
-    if (!v10)
+    v11 = CFNumberCreate(0, kCFNumberLongLongType, out);
+    if (!v11)
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v11 = v10;
-    CFAutorelease(v10);
-    CFDictionarySetValue(v3, @"Flags", v11);
-    CFAutorelease(v3);
-    CFArrayAppendValue(*(a1 + 32), v3);
+    v12 = v11;
+    CFAutorelease(v11);
+    CFDictionarySetValue(v4, @"Flags", v12);
+    CFAutorelease(v4);
+    CFArrayAppendValue(*(a1 + 32), v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZL13visit_processP16operating_systemj_block_invoke_2(uint64_t a1)
@@ -8173,7 +7486,7 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,dyld_trace_poi
   return result;
 }
 
-void ___ZL33ktrace_add_symbols_for_some_uuidsP21symbolication_contexti_block_invoke(uint64_t a1, unint64_t *a2)
+void ___ZL33ktrace_add_symbols_for_some_uuidsP21symbolication_contexti_block_invoke(uint64_t a1, void *a2)
 {
   *(*(a1 + 32) + 80) = *(*(a1 + 40) + 304);
   ktrace_collect_address(*(a1 + 32), *(a1 + 40), a2, a2[1]);
@@ -8188,44 +7501,43 @@ void ___ZL33ktrace_add_symbols_for_some_uuidsP21symbolication_contexti_block_inv
 
 void ktrace_collect_address(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  ktrace_get_uuid_offset_for_thread_address(a2, *(a3 + 40), a4, &v14);
+  v15 = 0u;
+  v13 = 0u;
+  ktrace_get_uuid_offset_for_thread_address(a2, *(a3 + 40), a4, &v13);
+  v10 = v15;
   v11 = v16;
   v12 = v17;
-  v13 = v18;
+  v8 = v13;
   v9 = v14;
-  v10 = v15;
-  ktrace_collect_uuid_offset(a1, &v9);
-  if (ktrace_plausible_kernel_address(a2, a4) && ktrace_get_pid_for_thread(a2, *(a3 + 40)))
+  ktrace_collect_uuid_offset(a1, &v8);
+  if (ktrace_plausible_kernel_address(a2, a4))
   {
-    ktrace_get_uuid_offset_for_pid_address(a2, 0, a4, &v9);
-    v14 = v9;
-    v15 = v10;
-    v17 = v12;
-    v18 = v13;
-    v16 = v11;
-    ktrace_collect_uuid_offset(a1, &v9);
+    if (ktrace_get_pid_for_thread(a2, *(a3 + 40)))
+    {
+      ktrace_get_uuid_offset_for_pid_address(a2, 0, a4, &v8);
+      v13 = v8;
+      v14 = v9;
+      v16 = v11;
+      v17 = v12;
+      v15 = v10;
+      ktrace_collect_uuid_offset(a1, &v8);
+    }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZL33ktrace_add_symbols_for_some_uuidsP21symbolication_contexti_block_invoke_3(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = *(v2 + 16);
-  v5 = *(v2 + 24);
   if (CSIsNull())
   {
     *(v2 + 16) = CSAddressSetCreate();
-    *(v2 + 24) = v6;
+    *(v2 + 24) = v4;
     if (CSIsNull())
     {
       ktrace_postprocess_file_internal_cold_4();
@@ -8234,107 +7546,101 @@ void ___ZL33ktrace_add_symbols_for_some_uuidsP21symbolication_contexti_block_inv
 
   if (ktrace_make_symbolicator(v3, v2))
   {
-    v7 = *(v2 + 88);
-    v8 = *(v2 + 96);
     SymbolOwner = CSSymbolicatorGetSymbolOwner();
-    v11 = v10;
+    v7 = v6;
     if (CSIsNull())
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v12 = *(v2 + 32);
-    if (v12)
+    v8 = *(v2 + 32);
+    if (v8)
     {
       context = MEMORY[0x277D85DD0];
-      v34 = 3221225472;
-      v35 = ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke;
-      v36 = &__block_descriptor_56_e8_v16__0Q8l;
-      v37 = SymbolOwner;
-      v38 = v11;
-      v39 = v2;
-      CFSetApplyFunction(v12, CFSetApplierTrampoline, &context);
+      v27 = 3221225472;
+      v28 = ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke;
+      v29 = &__block_descriptor_56_e8_v16__0Q8l;
+      v30 = SymbolOwner;
+      v31 = v7;
+      v32 = v2;
+      CFSetApplyFunction(v8, CFSetApplierTrampoline, &context);
       CFRelease(*(v2 + 32));
       *(v2 + 32) = 0;
     }
 
-    v13 = *(v2 + 40);
-    if (v13)
+    v9 = *(v2 + 40);
+    if (v9)
     {
-      *&v27 = MEMORY[0x277D85DD0];
-      *(&v27 + 1) = 3221225472;
-      v28 = ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke_2;
-      v29 = &__block_descriptor_56_e34_v24__0____CFString__8____CFSet__16l;
-      v30 = SymbolOwner;
-      v31 = v11;
-      v32 = v2;
-      CFDictionaryApplyFunction(v13, CFDictionaryApplierTrampoline, &v27);
+      *&v20 = MEMORY[0x277D85DD0];
+      *(&v20 + 1) = 3221225472;
+      v21 = ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke_2;
+      v22 = &__block_descriptor_56_e34_v24__0____CFString__8____CFSet__16l;
+      v23 = SymbolOwner;
+      v24 = v7;
+      v25 = v2;
+      CFDictionaryApplyFunction(v9, CFDictionaryApplierTrampoline, &v20);
       CFRelease(*(v2 + 40));
       *(v2 + 40) = 0;
     }
   }
 
-  v15 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  if (ktrace_make_symbolicator(v15, v14))
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  if (ktrace_make_symbolicator(v11, v10))
   {
-    v16 = *(v14 + 88);
-    v17 = *(v14 + 96);
-    v18 = CSSymbolicatorGetSymbolOwner();
-    v20 = v19;
+    v12 = CSSymbolicatorGetSymbolOwner();
+    v14 = v13;
     if (CSIsNull())
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v21 = MEMORY[0x2318F6990](v18, v20, *(v14 + 16), *(v14 + 24));
-    if (v21)
+    v15 = MEMORY[0x2318F6990](v12, v14, *(v10 + 16), *(v10 + 24));
+    if (v15)
     {
-      v22 = v21;
-      v27 = 0uLL;
-      LODWORD(v28) = 24;
-      HIDWORD(v28) = CFDataGetLength(v21);
-      uuid_copy(&v27, v14);
-      v23 = HIDWORD(v28);
-      if (CFDataGetLength(v22) != v23)
+      v16 = v15;
+      v20 = 0uLL;
+      LODWORD(v21) = 24;
+      HIDWORD(v21) = CFDataGetLength(v15);
+      uuid_copy(&v20, v10);
+      v17 = HIDWORD(v21);
+      if (CFDataGetLength(v16) != v17)
       {
         ktrace_postprocess_file_internal_cold_4();
       }
 
-      v25 = *(v15 + 88);
-      v24 = *(v15 + 96);
+      v19 = *(v11 + 88);
+      v18 = *(v11 + 96);
       context = MEMORY[0x277D85DD0];
-      v34 = 3221225472;
-      v35 = ___ZL27ktrace_add_symbols_for_uuidP21symbolication_contextP11UUIDContext_block_invoke_207;
-      v36 = &__block_descriptor_80_e5_v8__0l;
-      v40 = v27;
-      v41 = v28;
-      v37 = v15;
-      v38 = v22;
-      v39 = v14;
+      v27 = 3221225472;
+      v28 = ___ZL27ktrace_add_symbols_for_uuidP21symbolication_contextP11UUIDContext_block_invoke_207;
+      v29 = &__block_descriptor_80_e5_v8__0l;
+      v33 = v20;
+      v34 = v21;
+      v30 = v11;
+      v31 = v16;
+      v32 = v10;
     }
 
     else
     {
-      v25 = *(v15 + 88);
-      v24 = *(v15 + 96);
+      v19 = *(v11 + 88);
+      v18 = *(v11 + 96);
       context = MEMORY[0x277D85DD0];
-      v34 = 3221225472;
-      v35 = ___ZL27ktrace_add_symbols_for_uuidP21symbolication_contextP11UUIDContext_block_invoke;
-      v36 = &__block_descriptor_48_e5_v8__0l;
-      v37 = v15;
-      v38 = v14;
+      v27 = 3221225472;
+      v28 = ___ZL27ktrace_add_symbols_for_uuidP21symbolication_contextP11UUIDContext_block_invoke;
+      v29 = &__block_descriptor_48_e5_v8__0l;
+      v30 = v11;
+      v31 = v10;
     }
 
-    dispatch_group_async(v24, v25, &context);
+    dispatch_group_async(v18, v19, &context);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void ktrace_collect_uuid_offset(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 48);
   if (v2 > 5)
   {
@@ -8343,39 +7649,39 @@ void ktrace_collect_uuid_offset(uint64_t a1, uint64_t a2)
 
   if (((1 << v2) & 0x19) != 0)
   {
-    goto LABEL_4;
+    return;
   }
 
   v5 = *(a1 + 16);
-  v15[0] = *a2;
-  if (std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::find<CFUUIDBytes>(v5, v15) || !uuid_is_null((a1 + 57)) && uuid_compare(a2, (a1 + 57)))
+  v14[0] = *a2;
+  if (std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::find<CFUUIDBytes>(v5, v14) || !uuid_is_null((a1 + 57)) && uuid_compare(a2, (a1 + 57)))
   {
-    goto LABEL_4;
+    return;
   }
 
-  v7 = *(a2 + 48);
-  v14[2] = *(a2 + 32);
-  v14[3] = v7;
-  v14[4] = *(a2 + 64);
-  v8 = *(a2 + 16);
-  v14[0] = *a2;
-  v14[1] = v8;
-  UUIDContext::UUIDContext(v15, v14);
-  uuid = find_or_create_uuid(a1, v15);
-  UUIDContext::~UUIDContext(v15);
+  v6 = *(a2 + 48);
+  v13[2] = *(a2 + 32);
+  v13[3] = v6;
+  v13[4] = *(a2 + 64);
+  v7 = *(a2 + 16);
+  v13[0] = *a2;
+  v13[1] = v7;
+  UUIDContext::UUIDContext(v14, v13);
+  uuid = find_or_create_uuid(a1, v14);
+  UUIDContext::~UUIDContext(v14);
   if (!uuid || (uuid[20] & 1) != 0)
   {
-    goto LABEL_4;
+    return;
   }
 
-  v10 = *(a2 + 48);
-  switch(v10)
+  v9 = *(a2 + 48);
+  switch(v9)
   {
     case 5:
-      v12 = @"__TEXT*";
+      v11 = @"__TEXT*";
       goto LABEL_17;
     case 2:
-      v12 = cfstring((a2 + 16));
+      v11 = cfstring((a2 + 16));
 LABEL_17:
       Mutable = uuid[5];
       if (!Mutable)
@@ -8384,11 +7690,11 @@ LABEL_17:
         uuid[5] = Mutable;
       }
 
-      Value = CFDictionaryGetValue(Mutable, v12);
+      Value = CFDictionaryGetValue(Mutable, v11);
       if (!Value)
       {
         Value = CFSetCreateMutable(0, 0, &long_set_callbacks);
-        CFDictionarySetValue(uuid[5], v12, Value);
+        CFDictionarySetValue(uuid[5], v11, Value);
         CFRelease(Value);
       }
 
@@ -8405,14 +7711,11 @@ LABEL_21:
       CFSetAddValue(Value, *(a2 + 40));
       break;
   }
-
-LABEL_4:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22EDC1558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22EDC1558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   UUIDContext::~UUIDContext(va);
   _Unwind_Resume(a1);
 }
@@ -8448,45 +7751,37 @@ void *std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDB
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -8494,28 +7789,24 @@ void *std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDB
 
 uint64_t ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   v3 = a1[4];
   v4 = a1[5];
-  memset(v11, 0, sizeof(v11));
+  memset(v7, 0, sizeof(v7));
+  v8 = 0;
+  v9 = a2;
+  v10 = 1;
+  v11 = 0;
+  v13 = 0;
   v12 = 0;
-  v13 = a2;
-  v14 = 1;
-  v15 = 0;
-  v17 = 0;
-  v16 = 0;
-  v18 = 0;
-  result = translate_offset(v3, v4, v11, &v10, 0);
+  v14 = 0;
+  result = translate_offset(v3, v4, v7, &v6, 0);
   if (result)
   {
-    v6 = a1[6];
-    v7 = *(v6 + 16);
-    v8 = *(v6 + 24);
-    result = CSAddressSetAdd();
+    return CSAddressSetAdd();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8546,38 +7837,34 @@ void ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block
 
 uint64_t ___ZL24ktrace_translate_offsetsP21symbolication_contextP11UUIDContext_block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  *&v15 = 0;
-  v16 = 0u;
-  v17 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  *&v11 = 0;
+  v12 = 0u;
   v13 = 0u;
-  *(&v15 + 1) = a2;
-  LODWORD(v16) = *(a1 + 64);
+  v9 = 0u;
+  *(&v11 + 1) = a2;
+  LODWORD(v12) = *(a1 + 64);
   v3 = *(a1 + 32);
   if (v3)
   {
-    strlcpy(&v14, v3, 0x11uLL);
+    strlcpy(&v10, v3, 0x11uLL);
   }
 
-  v11 = 0;
+  v7 = 0;
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v12[2] = v15;
-  v12[3] = v16;
-  v12[4] = v17;
-  v12[0] = v13;
-  v12[1] = v14;
-  result = translate_offset(v4, v5, v12, &v11, 0);
+  v8[2] = v11;
+  v8[3] = v12;
+  v8[4] = v13;
+  v8[0] = v9;
+  v8[1] = v10;
+  result = translate_offset(v4, v5, v8, &v7, 0);
   if (result)
   {
-    v7 = *(a1 + 56);
-    v8 = *(v7 + 16);
-    v9 = *(v7 + 24);
-    result = CSAddressSetAdd();
+    return CSAddressSetAdd();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8600,9 +7887,9 @@ void ___ZL27ktrace_add_symbols_for_uuidP21symbolication_contextP11UUIDContext_bl
   }
 }
 
-char *describe2(uint64_t a1, unsigned __int8 *uu)
+UInt8 *describe2(uint64_t a1, unsigned __int8 *uu)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   memset(out, 0, 37);
   uuid_unparse(uu, out);
   v4 = *(uu + 17);
@@ -8612,56 +7899,48 @@ char *describe2(uint64_t a1, unsigned __int8 *uu)
     {
       Mutable = CFStringCreateMutable(0, 0);
       CFStringAppendCString(Mutable, out, 0x8000100u);
-      v14[0] = 0;
-      v14[1] = v14;
-      v14[2] = 0x2020000000;
-      v15 = 1;
+      v13[0] = 0;
+      v13[1] = v13;
+      v13[2] = 0x2020000000;
+      v14 = 1;
       v9 = *(a1 + 80);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = ___ZL9describe2P21symbolication_contextP11UUIDContext_block_invoke;
-      v13[3] = &unk_27886EE68;
-      v13[4] = v14;
-      v13[5] = Mutable;
-      ktrace_uuid_map_iterate_associated_paths(v9, uu, v13);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = ___ZL9describe2P21symbolication_contextP11UUIDContext_block_invoke;
+      v12[3] = &unk_27886EE68;
+      v12[4] = v13;
+      v12[5] = Mutable;
+      ktrace_uuid_map_iterate_associated_paths(v9, uu, v12);
       CFAutorelease(Mutable);
       v7 = utf8(Mutable);
-      _Block_object_dispose(v14, 8);
-      goto LABEL_6;
+      _Block_object_dispose(v13, 8);
+      return v7;
     }
 
     if (*(uu + 18))
     {
-      v12 = *(uu + 19);
-      if (v12)
+      v11 = *(uu + 19);
+      if (v11)
       {
-        v6 = aasprintf("%s /.vol/%lld/%lld", out, *(uu + 18), v12);
-        goto LABEL_3;
+        return aasprintf("%s /.vol/%lld/%lld", out, *(uu + 18), v11);
       }
     }
 
     else if (*(uu + 38))
     {
-      v6 = aasprintf("%s /.vol/?/%lld", out, *(uu + 19));
-      goto LABEL_3;
+      return aasprintf("%s /.vol/?/%lld", out, *(uu + 19));
     }
 
-    v6 = aasprintf("%s", out);
-    goto LABEL_3;
+    return aasprintf("%s", out);
   }
 
   v5 = utf8(v4);
-  v6 = aasprintf("%s %s", out, v5);
-LABEL_3:
-  v7 = v6;
-LABEL_6:
-  v10 = *MEMORY[0x277D85DE8];
-  return v7;
+  return aasprintf("%s %s", out, v5);
 }
 
-void sub_22EDC1AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22EDC1AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8727,33 +8006,33 @@ void ___ZL9describe2P21symbolication_contextP11UUIDContext_block_invoke(uint64_t
   CFStringAppend(v6, a2);
 }
 
-void *std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(void *a1, void *a2)
+void *std::__hash_table<CFUUIDBytes,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,std::allocator<CFUUIDBytes>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes const&>(void *a1, void *a2, _OWORD *a3)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = a2[1] ^ *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v6 = a2[1] ^ *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_22:
     operator new();
@@ -8761,62 +8040,62 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v8[2] != *a2 || v8[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -8880,33 +8159,33 @@ void std::__hash_table<std::__hash_value_type<CFUUIDBytes,CS::TypeRef>,std::__un
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,UUIDContext>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::__emplace_unique_key_args<CFUUIDBytes,CFUUIDBytes&,UUIDContext>(void *a1, void *a2, __int128 *a3, __int128 *a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -8914,49 +8193,49 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_22EDC233C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22EDC233C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<CFUUIDBytes,UUIDContext>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<CFUUIDBytes,UUIDContext>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9018,76 +8297,72 @@ void UUIDContext::~UUIDContext(UUIDContext *this)
     CFRelease(v3);
   }
 
-  v4 = *(this + 2);
-  v5 = *(this + 3);
   if ((CSIsNull() & 1) == 0)
   {
-    v6 = *(this + 2);
-    v7 = *(this + 3);
     CSRelease();
   }
 
-  v8 = *(this + 11);
-  v9 = *(this + 12);
   if ((CSIsNull() & 1) == 0)
   {
-    v10 = *(this + 11);
-    v11 = *(this + 12);
     CSRelease();
   }
 
-  v12 = *(this + 14);
-  if (v12)
+  v4 = *(this + 14);
+  if (v4)
   {
-    CFRelease(v12);
+    CFRelease(v4);
   }
 
-  v13 = *(this + 13);
-  if (v13)
+  v5 = *(this + 13);
+  if (v5)
   {
-    CFRelease(v13);
+    CFRelease(v5);
   }
 
-  v14 = *(this + 17);
-  if (v14)
+  v6 = *(this + 17);
+  if (v6)
   {
-    CFRelease(v14);
+    CFRelease(v6);
   }
 
-  v15 = *(this + 16);
-  if (v15)
+  v7 = *(this + 16);
+  if (v7)
   {
-    CFRelease(v15);
+    CFRelease(v7);
   }
 }
 
 BOOL ktrace_find_executable(symbolication_context *a1, UUIDContext *uu)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if ((*(uu + 80) & 2) != 0)
   {
-    goto LABEL_43;
+    return 1;
   }
 
-  if ((*(uu + 80) & 0x400) != 0 || (v3 = *(a1 + 1)) == 0)
+  if ((*(uu + 80) & 0x400) != 0)
   {
-LABEL_47:
-    result = 0;
-    goto LABEL_48;
+    return 0;
+  }
+
+  v3 = *(a1 + 1);
+  if (!v3)
+  {
+    return 0;
   }
 
   if (*v3)
   {
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke;
-    v50[3] = &__block_descriptor_48_e21_v16__0____CFString__8l;
-    v50[4] = v3;
-    v50[5] = uu;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke;
+    v49[3] = &__block_descriptor_48_e21_v16__0____CFString__8l;
+    v49[4] = v3;
+    v49[5] = uu;
     v5 = *(uu + 17);
     if (v5)
     {
-      ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke(v50, v5);
+      ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke(v49, v5);
     }
 
     else
@@ -9095,246 +8370,250 @@ LABEL_47:
       v6 = *(a1 + 10);
       if (v6)
       {
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke_4;
-        v49[3] = &unk_27886F180;
-        v49[4] = v50;
-        v49[5] = uu;
-        ktrace_uuid_map_iterate_associated_paths(v6, uu, v49);
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke_4;
+        v48[3] = &unk_27886F180;
+        v48[4] = v49;
+        v48[5] = uu;
+        ktrace_uuid_map_iterate_associated_paths(v6, uu, v48);
       }
     }
 
     if ((*(uu + 80) & 2) != 0)
     {
-      goto LABEL_43;
+      return 1;
     }
   }
 
   v7 = v3[1];
-  if (!v7 || !CFArrayGetCount(v7))
+  if (v7 && CFArrayGetCount(v7))
   {
-    goto LABEL_88;
-  }
-
-  v8 = *(a1 + 4);
-  if (!v8)
-  {
-    pthread_mutex_lock(&ktrace_find_executable(symbolication_context *,UUIDContext *)::lock);
-    if (!*(a1 + 4))
-    {
-      calculateRecursiveSearchCache();
-    }
-
-    pthread_mutex_unlock(&ktrace_find_executable(symbolication_context *,UUIDContext *)::lock);
     v8 = *(a1 + 4);
+    if (!v8)
+    {
+      pthread_mutex_lock(&ktrace_find_executable(symbolication_context *,UUIDContext *)::lock);
+      if (!*(a1 + 4))
+      {
+        calculateRecursiveSearchCache(v3);
+      }
+
+      pthread_mutex_unlock(&ktrace_find_executable(symbolication_context *,UUIDContext *)::lock);
+      v8 = *(a1 + 4);
+    }
+
+    *__ptr = *uu;
+    v9 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>(v8, __ptr);
+    if (v9)
+    {
+      v10 = v9[4];
+      *(uu + 13) = v10;
+      CFRetain(v10);
+      *(uu + 80) |= 2u;
+      return 1;
+    }
   }
 
-  *__ptr = *uu;
-  v9 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,UUIDContext>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,UUIDContext>>>::find<CFUUIDBytes>(v8, __ptr);
-  if (!v9)
+  if (v3[2])
   {
-LABEL_88:
-    if (!v3[2] || (v11 = *(a1 + 1)) == 0)
+    v11 = *(a1 + 1);
+    if (v11)
     {
-LABEL_44:
-      *(uu + 80) |= 0x400u;
-      v26 = *a1;
-      if (*a1)
+      *v56 = -1;
+      v52 = 0;
+      posix_spawn_file_actions_init(&v52);
+      memset(out, 0, 37);
+      uuid_unparse_upper(uu, out);
+      v12 = utf8(*(v11 + 16));
+      v13 = aasprintf("%s %s", v12, out);
+      v51 = -1;
+      v50 = pipe(v56);
+      if (v50)
       {
-        v27 = describe2(a1, uu);
-        fprintf(v26, "could not find executable for %s\n", v27);
-        ktrace_log_init();
-        result = os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG);
-        if (!result)
-        {
-          goto LABEL_48;
-        }
-
-        ktrace_find_executable(a1, uu);
-      }
-
-      goto LABEL_47;
-    }
-
-    *v57 = -1;
-    v53 = 0;
-    posix_spawn_file_actions_init(&v53);
-    memset(out, 0, 37);
-    uuid_unparse_upper(uu, out);
-    v12 = utf8(*(v11 + 16));
-    v13 = aasprintf("%s %s", v12, out);
-    v52 = -1;
-    v51 = pipe(v57);
-    if (v51)
-    {
-      v14 = *a1;
-      if (*a1)
-      {
-        v15 = __error();
-        v16 = strerror(*v15);
-        fprintf(v14, "pipe failed: %s\n", v16);
-      }
-
-      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
-      {
-        ktrace_find_executable();
-      }
-    }
-
-    else
-    {
-      __argv[0] = "sh";
-      __argv[1] = "-c";
-      __argv[2] = v13;
-      __argv[3] = 0;
-      posix_spawn_file_actions_addclose(&v53, 1);
-      posix_spawn_file_actions_addclose(&v53, v57[0]);
-      posix_spawn_file_actions_adddup2(&v53, v57[1], 1);
-      v17 = _NSGetEnviron();
-      v18 = posix_spawn(&v52, "/bin/sh", &v53, 0, __argv, *v17);
-      v51 = v18;
-      if (v18)
-      {
-        v19 = *a1;
+        v14 = *a1;
         if (*a1)
         {
-          v20 = strerror(v18);
-          fprintf(v19, "posix_spawn failed: %s\n", v20);
+          v15 = __error();
+          v16 = strerror(*v15);
+          fprintf(v14, "pipe failed: %s\n", v16);
         }
 
         if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
         {
-          ktrace_find_executable(&v51);
+          ktrace_find_executable();
         }
       }
 
       else
       {
-        close(v57[1]);
-        v57[1] = -1;
-        v29 = fdopen(v57[0], "r");
-        if (v29)
+        __argv[0] = "sh";
+        __argv[1] = "-c";
+        __argv[2] = v13;
+        __argv[3] = 0;
+        posix_spawn_file_actions_addclose(&v52, 1);
+        posix_spawn_file_actions_addclose(&v52, v56[0]);
+        posix_spawn_file_actions_adddup2(&v52, v56[1], 1);
+        v17 = _NSGetEnviron();
+        v18 = posix_spawn(&v51, "/bin/sh", &v52, 0, __argv, *v17);
+        v50 = v18;
+        if (v18)
         {
-          v23 = v29;
-          Mutable = CFDataCreateMutable(0, 0);
-          if (!Mutable)
+          v19 = *a1;
+          if (*a1)
           {
-            ktrace_postprocess_file_internal_cold_4();
+            v20 = strerror(v18);
+            fprintf(v19, "posix_spawn failed: %s\n", v20);
           }
 
-          v22 = Mutable;
-          v31 = fread(__ptr, 1uLL, 0x200uLL, v23);
-          if (v31)
+          if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
           {
-            v32 = v31;
-            do
+            ktrace_find_executable(&v50);
+          }
+        }
+
+        else
+        {
+          close(v56[1]);
+          v56[1] = -1;
+          v28 = fdopen(v56[0], "r");
+          if (v28)
+          {
+            v23 = v28;
+            Mutable = CFDataCreateMutable(0, 0);
+            if (!Mutable)
             {
-              CFDataAppendBytes(v22, __ptr, v32);
-              v32 = fread(__ptr, 1uLL, 0x200uLL, v23);
+              ktrace_postprocess_file_internal_cold_4();
             }
 
-            while (v32);
-          }
-
-          if (feof(v23))
-          {
-            v33 = waitpid(v52, &v51, 0);
-            if (v33 == v52)
+            v22 = Mutable;
+            v30 = fread(__ptr, 1uLL, 0x200uLL, v23);
+            if (v30)
             {
-              if (v51)
+              v31 = v30;
+              do
               {
-                if (*a1)
+                CFDataAppendBytes(v22, __ptr, v31);
+                v31 = fread(__ptr, 1uLL, 0x200uLL, v23);
+              }
+
+              while (v31);
+            }
+
+            if (feof(v23))
+            {
+              v32 = waitpid(v51, &v50, 0);
+              if (v32 == v51)
+              {
+                if (v50)
                 {
-                  fprintf(*a1, "command failed: %s (exit status %d)\n", v13, v51);
+                  if (*a1)
+                  {
+                    fprintf(*a1, "command failed: %s (exit status %d)\n", v13, v50);
+                  }
+
+                  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+                  {
+                    ktrace_find_executable();
+                  }
                 }
 
-                if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+                else
                 {
-                  ktrace_find_executable(v13, &v51);
+                  v39 = CFPropertyListCreateWithData(0, v22, 0, 0, 0);
+                  if (v39)
+                  {
+                    v21 = v39;
+                    v40 = cfstring(out);
+                    dictionary = cfdict_get_dictionary(v21, v40);
+                    if (dictionary)
+                    {
+                      string = cfdict_get_string(dictionary, @"DBGSymbolRichExecutable");
+                      if (string)
+                      {
+                        v43 = string;
+                        v44 = *a1;
+                        if (*a1)
+                        {
+                          filePath = string;
+                          v45 = utf8(string);
+                          fprintf(v44, "found executable: %s\n\tusing command: %s\n", v45, v13);
+                          ktrace_log_init();
+                          v46 = os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG);
+                          v43 = filePath;
+                          if (v46)
+                          {
+                            ktrace_find_executable(filePath);
+                            v43 = filePath;
+                          }
+                        }
+
+                        *(uu + 13) = CFURLCreateWithFileSystemPath(0, v43, kCFURLPOSIXPathStyle, 0);
+                        *(uu + 80) |= 2u;
+                        v24 = 1;
+LABEL_32:
+                        posix_spawn_file_actions_destroy(&v52);
+                        if (v56[0] != -1)
+                        {
+                          close(v56[0]);
+                        }
+
+                        if (v56[1] != -1)
+                        {
+                          close(v56[1]);
+                        }
+
+                        if (v23)
+                        {
+                          fclose(v23);
+                        }
+
+                        if (v22)
+                        {
+                          CFRelease(v22);
+                        }
+
+                        if (v21)
+                        {
+                          CFRelease(v21);
+                        }
+
+                        if (v24)
+                        {
+                          return 1;
+                        }
+
+                        goto LABEL_44;
+                      }
+                    }
+
+LABEL_31:
+                    v24 = 0;
+                    goto LABEL_32;
+                  }
+
+                  if (*a1)
+                  {
+                    fprintf(*a1, "failed to parse output from command: %s\n", v13);
+                  }
+
+                  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+                  {
+                    ktrace_find_executable();
+                  }
                 }
               }
 
               else
               {
-                v40 = CFPropertyListCreateWithData(0, v22, 0, 0, 0);
-                if (v40)
-                {
-                  v21 = v40;
-                  v41 = cfstring(out);
-                  dictionary = cfdict_get_dictionary(v21, v41);
-                  if (dictionary)
-                  {
-                    string = cfdict_get_string(dictionary, @"DBGSymbolRichExecutable");
-                    if (string)
-                    {
-                      v44 = string;
-                      v45 = *a1;
-                      if (*a1)
-                      {
-                        filePath = string;
-                        v46 = utf8(string);
-                        fprintf(v45, "found executable: %s\n\tusing command: %s\n", v46, v13);
-                        ktrace_log_init();
-                        v47 = os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG);
-                        v44 = filePath;
-                        if (v47)
-                        {
-                          ktrace_find_executable(filePath);
-                          v44 = filePath;
-                        }
-                      }
-
-                      *(uu + 13) = CFURLCreateWithFileSystemPath(0, v44, kCFURLPOSIXPathStyle, 0);
-                      *(uu + 80) |= 2u;
-                      v24 = 1;
-LABEL_32:
-                      posix_spawn_file_actions_destroy(&v53);
-                      if (v57[0] != -1)
-                      {
-                        close(v57[0]);
-                      }
-
-                      if (v57[1] != -1)
-                      {
-                        close(v57[1]);
-                      }
-
-                      if (v23)
-                      {
-                        fclose(v23);
-                      }
-
-                      if (v22)
-                      {
-                        CFRelease(v22);
-                      }
-
-                      if (v21)
-                      {
-                        CFRelease(v21);
-                      }
-
-                      if (v24)
-                      {
-                        goto LABEL_43;
-                      }
-
-                      goto LABEL_44;
-                    }
-                  }
-
-LABEL_31:
-                  v24 = 0;
-                  goto LABEL_32;
-                }
-
+                v36 = *a1;
                 if (*a1)
                 {
-                  fprintf(*a1, "failed to parse output from command: %s\n", v13);
+                  v37 = __error();
+                  v38 = strerror(*v37);
+                  fprintf(v36, "waitpid failed! %s\n", v38);
                 }
 
-                if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
                 {
                   ktrace_find_executable();
                 }
@@ -9343,68 +8622,61 @@ LABEL_31:
 
             else
             {
-              v37 = *a1;
+              v33 = *a1;
               if (*a1)
               {
-                v38 = __error();
-                v39 = strerror(*v38);
-                fprintf(v37, "waitpid failed! %s\n", v39);
+                v34 = ferror(v23);
+                v35 = strerror(v34);
+                fprintf(v33, "error reading from pipe! %s\n", v35);
               }
 
               if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
               {
-                ktrace_find_executable();
+                ktrace_find_executable(v23);
               }
             }
+
+            v21 = 0;
+            goto LABEL_31;
           }
 
-          else
+          if (*a1)
           {
-            v34 = *a1;
-            if (*a1)
-            {
-              v35 = ferror(v23);
-              v36 = strerror(v35);
-              fprintf(v34, "error reading from pipe! %s\n", v36);
-            }
-
-            if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
-            {
-              ktrace_find_executable(v23);
-            }
+            fwrite("fdopen failed!\n", 0xFuLL, 1uLL, *a1);
           }
 
-          v21 = 0;
-          goto LABEL_31;
-        }
-
-        if (*a1)
-        {
-          fwrite("fdopen failed!\n", 0xFuLL, 1uLL, *a1);
-        }
-
-        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
-        {
-          ktrace_find_executable();
+          if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_FAULT))
+          {
+            ktrace_find_executable();
+          }
         }
       }
-    }
 
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    goto LABEL_31;
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      goto LABEL_31;
+    }
   }
 
-  v10 = v9[4];
-  *(uu + 13) = v10;
-  CFRetain(v10);
-  *(uu + 80) |= 2u;
-LABEL_43:
-  result = 1;
-LABEL_48:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_44:
+  *(uu + 80) |= 0x400u;
+  v26 = *a1;
+  if (*a1)
+  {
+    v27 = describe2(a1, uu);
+    fprintf(v26, "could not find executable for %s\n", v27);
+    ktrace_log_init();
+    result = os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    ktrace_find_executable(a1, uu);
+  }
+
+  return 0;
 }
 
 CFIndex ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke(CFIndex result, CFStringRef theString)
@@ -9430,7 +8702,7 @@ CFIndex ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_bloc
               ktrace_log_init();
               if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
               {
-                __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_5(&v13, v14);
+                __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_5(&v12, v13);
               }
             }
 
@@ -9450,7 +8722,6 @@ CFIndex ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_bloc
               v9 = CFURLCreateWithFileSystemPath(0, v8, kCFURLPOSIXPathStyle, 0);
               if (CFURLResourceIsReachable(v9, 0))
               {
-                v12 = *(v3 + 40);
                 CSSymbolicatorForeachSymbolicatorWithURL();
               }
 
@@ -9467,7 +8738,7 @@ CFIndex ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_bloc
   return result;
 }
 
-void *___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+CFTypeRef ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = owner_matches_uuid(a2, a3, *(a1 + 32));
   if (result)
@@ -9504,44 +8775,44 @@ uint64_t ___ZL22ktrace_find_executableP21symbolication_contextP11UUIDContext_blo
   return result;
 }
 
-void sub_22EDC30F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22EDC30F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void ___ZL29calculateRecursiveSearchCacheP32ktrace_dsym_search_configuration_block_invoke_2(uint64_t a1)
+void ___ZL29calculateRecursiveSearchCacheP32ktrace_dsym_search_configuration_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (CFUUIDBytes)
   {
-    v3 = CFUUIDBytes;
-    v7[0] = *(a1 + 40);
-    CFRetain(v7[0]);
-    v4 = *(a1 + 32);
-    v7[2] = v3;
-    v5 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v4, v3);
-    v6 = v5[4];
-    if (v6)
+    v5 = CFUUIDBytes;
+    v9 = *(a1 + 40);
+    CFRetain(v9);
+    v6 = *(a1 + 32);
+    v10 = v5;
+    v7 = std::__hash_table<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::__unordered_map_hasher<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::hash<CFUUIDBytes>,std::equal_to<CFUUIDBytes>,true>,std::__unordered_map_equal<CFUUIDBytes,std::__hash_value_type<CFUUIDBytes,CF::TypeRef>,std::equal_to<CFUUIDBytes>,std::hash<CFUUIDBytes>,true>,std::allocator<std::__hash_value_type<CFUUIDBytes,CF::TypeRef>>>::__emplace_unique_key_args<CFUUIDBytes,std::piecewise_construct_t const&,std::tuple<CFUUIDBytes const&>,std::tuple<>>(v6, v5, &std::piecewise_construct, &v10);
+    v8 = v7[4];
+    if (v8)
     {
-      CFRelease(v6);
+      CFRelease(v8);
     }
 
-    v5[4] = v7[0];
-    v7[0] = 0;
-    CF::TypeRef::~TypeRef(v7);
+    v7[4] = v9;
+    v9 = 0;
+    CF::TypeRef::~TypeRef(&v9);
   }
 }
 
-void sub_22EDC3214(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22EDC3214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ktrace_find_arch_with_default(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ktrace_find_arch_with_default(symbolication_context *a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a2 + 160) & 4) != 0)
   {
@@ -9555,12 +8826,12 @@ uint64_t ktrace_find_arch_with_default(uint64_t a1, uint64_t a2, uint64_t a3)
     return 1;
   }
 
-  v7 = *(a1 + 8);
+  v7 = *(a1 + 1);
   if (v7)
   {
     if (*(v7 + 25) == 1)
     {
-      v8 = *(a1 + 80);
+      v8 = *(a1 + 10);
       if (v8)
       {
         v9 = *(v8 + 272);
@@ -9598,7 +8869,7 @@ LABEL_11:
     }
   }
 
-  v13 = *(a1 + 8);
+  v13 = *(a1 + 1);
   if (v13)
   {
     v14 = *(v13 + 26);
@@ -9690,36 +8961,888 @@ LABEL_17:
   }
 }
 
-void ktrace_analyze_executable(FILE **a1, UUIDContext *a2)
+void ktrace_analyze_executable(FILE **a1, CFURLRef *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (ktrace_find_executable(a1, a2))
   {
-    v4 = *(a2 + 13);
     CSSymbolicatorForeachSymbolicatorWithURL();
-    if ((*(a2 + 80) & 4) == 0)
+    if ((a2[20] & 4) == 0)
     {
-      v5 = *a1;
+      v4 = *a1;
       if (*a1)
       {
-        v6 = CFURLGetString(*(a2 + 13));
-        v7 = utf8(v6);
-        v8 = describe2(a1, a2);
-        fprintf(v5, "failed to analyze executable at %s for %s\n", v7, v8);
+        v5 = CFURLGetString(a2[13]);
+        v6 = utf8(v5);
+        v7 = describe2(a1, a2);
+        fprintf(v4, "failed to analyze executable at %s for %s\n", v6, v7);
         ktrace_log_init();
-        v9 = ktrace_log;
+        v8 = ktrace_log;
         if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
         {
-          v11 = CFURLGetString(*(a2 + 13));
+          v9 = CFURLGetString(a2[13]);
           *buf = 136315394;
-          v13 = utf8(v11);
-          v14 = 2080;
-          v15 = describe2(a1, a2);
-          _os_log_debug_impl(&dword_22ED7A000, v9, OS_LOG_TYPE_DEBUG, "failed to analyze executable at %s for %s\n", buf, 0x16u);
+          v11 = utf8(v9);
+          v12 = 2080;
+          v13 = describe2(a1, a2);
+          _os_log_debug_impl(&dword_22ED7A000, v8, OS_LOG_TYPE_DEBUG, "failed to analyze executable at %s for %s\n", buf, 0x16u);
         }
       }
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+const void *lookup_inode(const __CFDictionary *a1, fsid a2, fsobj_id a3)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v5 = cfaasprintf("%llx", a2);
+  Value = CFDictionaryGetValue(a1, v5);
+  if (!Value)
+  {
+    return 0;
+  }
+
+  v7 = Value;
+  v8 = CFGetTypeID(Value);
+  if (v8 != CFDictionaryGetTypeID())
+  {
+    ktrace_log_init();
+    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    {
+LABEL_9:
+      ktrace_uuid_map_learn_tailspin_process_info_with_chunk_cold_2();
+    }
+
+    return 0;
+  }
+
+  v9 = cfaasprintf("%llx", a3);
+  v10 = CFDictionaryGetValue(v7, v9);
+  v11 = v10;
+  if (v10)
+  {
+    v12 = CFGetTypeID(v10);
+    if (v12 != CFDictionaryGetTypeID())
+    {
+      ktrace_log_init();
+      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_9;
+      }
+
+      return 0;
+    }
+  }
+
+  return v11;
+}
+
+void ktrace_find_summary_in_fat_summary(UUIDContext *a1, CFDictionaryRef theDict)
+{
+  if (theDict)
+  {
+    Value = CFDictionaryGetValue(theDict, @"Images");
+    if (Value)
+    {
+      v4 = Value;
+      v5 = CFGetTypeID(Value);
+      if (v5 == CFDictionaryGetTypeID())
+      {
+        context[0] = MEMORY[0x277D85DD0];
+        context[1] = 3221225472;
+        context[2] = ___ZL34ktrace_find_summary_in_fat_summaryP11UUIDContextPK14__CFDictionary_block_invoke;
+        context[3] = &__block_descriptor_40_e41_v24__0____CFString__8____CFDictionary__16l;
+        context[4] = a1;
+        CFDictionaryApplyFunction(v4, CFDictionaryApplierTrampoline, context);
+      }
+
+      else
+      {
+        ktrace_log_init();
+        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+        {
+          ktrace_uuid_map_learn_tailspin_process_info_with_chunk_cold_2();
+        }
+      }
+    }
+  }
+}
+
+void ___ZL19ktrace_find_summaryP21symbolication_contextP11UUIDContext_block_invoke(uint64_t a1, const void *a2)
+{
+  if (!*(*(a1 + 32) + 128))
+  {
+    Value = CFDictionaryGetValue(*(*(*(a1 + 40) + 80) + 232), a2);
+    v4 = Value;
+    if (Value)
+    {
+      v5 = CFGetTypeID(Value);
+      if (v5 != CFDictionaryGetTypeID())
+      {
+        ktrace_log_init();
+        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+        {
+          ktrace_uuid_map_learn_tailspin_process_info_with_chunk_cold_2();
+        }
+
+        v4 = 0;
+      }
+    }
+
+    ktrace_find_summary_in_fat_summary(*(a1 + 32), v4);
+  }
+}
+
+uint64_t ___ZL34ktrace_find_summary_in_fat_summaryP11UUIDContextPK14__CFDictionary_block_invoke(uint64_t result, const __CFString *a2, CFDictionaryRef theDict)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  if (!*(*(result + 32) + 128))
+  {
+    v5 = result;
+    memset(uu, 0, sizeof(uu));
+    Value = CFDictionaryGetValue(theDict, @"UUID_String");
+    v7 = Value;
+    if (Value)
+    {
+      v8 = CFGetTypeID(Value);
+      if (v8 != CFStringGetTypeID())
+      {
+        ktrace_log_init();
+        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+        {
+          ktrace_uuid_map_learn_tailspin_symbols_with_chunk_cold_1();
+        }
+
+        v7 = 0;
+      }
+    }
+
+    v9 = utf8(v7);
+    uuid_parse(v9, uu);
+    result = uuid_compare(uu, *(v5 + 32));
+    if (!result)
+    {
+      if ((*(*(v5 + 32) + 160) & 4) == 0)
+      {
+        utf8(a2);
+        *(*(v5 + 32) + 120) = CSArchitectureGetArchitectureForName();
+        *(*(v5 + 32) + 160) = *(*(v5 + 32) + 160) & 0xFFFB | (4 * (*(*(v5 + 32) + 120) != 0));
+      }
+
+      result = CFRetain(theDict);
+      *(*(v5 + 32) + 128) = theDict;
+    }
+  }
+
+  return result;
+}
+
+const unsigned __int8 *___ZL25ktrace_analyze_executableP21symbolication_contextP11UUIDContext_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = owner_matches_uuid(a2, a3, *(a1 + 32));
+  if (result)
+  {
+    *(*(a1 + 32) + 120) = CSSymbolOwnerGetArchitecture();
+    *(*(a1 + 32) + 160) |= 4u;
+    *(*(a1 + 32) + 80) = 0;
+    CSSymbolOwnerForeachSegment();
+    *(*(a1 + 32) + 160) |= 0x20u;
+    BaseAddress = CSSymbolOwnerGetBaseAddress();
+    v6 = *(a1 + 32);
+    *(v6 + 48) = BaseAddress;
+    *(v6 + 160) = *(v6 + 160) & 0xFFBF | ((BaseAddress != -1) << 6);
+    if (CSSymbolOwnerIsAOut())
+    {
+      v7 = 256;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    *(*(a1 + 32) + 160) = *(*(a1 + 32) + 160) & 0xFEFF | v7;
+    result = CSSymbolOwnerIsDyld();
+    if (result)
+    {
+      v8 = 512;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    *(*(a1 + 32) + 160) = *(*(a1 + 32) + 160) & 0xFDFF | v8;
+    *(*(a1 + 32) + 160) |= 0x80u;
+  }
+
+  return result;
+}
+
+uint64_t ___ZL25ktrace_analyze_executableP21symbolication_contextP11UUIDContext_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  ++*(*(a1 + 32) + 80);
+  result = CSRegionGetName();
+  if (result)
+  {
+    result = strcmp("__TEXT SEGMENT", result);
+    if (!result)
+    {
+      *(*(a1 + 32) + 160) |= 8u;
+      result = CSRegionGetRange();
+      *(*(a1 + 32) + 56) = v5;
+    }
+  }
+
+  return result;
+}
+
+void CS::TypeRef::~TypeRef(CS::TypeRef *this)
+{
+  if ((CSIsNull() & 1) == 0)
+  {
+    CSRelease();
+  }
+}
+
+uint64_t ___ZL16translate_offset10_CSTypeRef18ktrace_uuid_offsetPyPb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  Name = CSRegionGetName();
+  v5 = strnlen((a1 + 64), 0x10uLL);
+  result = strncmp(Name, (a1 + 64), v5);
+  if (!result && Name[v5] == 32)
+  {
+    v7 = *(*(a1 + 32) + 8);
+    if (*(v7 + 24) == 1)
+    {
+      ktrace_postprocess_file_internal_cold_4();
+    }
+
+    if (strcmp(&Name[v5], " SEGMENT"))
+    {
+      ktrace_postprocess_file_internal_cold_4();
+    }
+
+    *(v7 + 24) = 1;
+    v8 = *(a1 + 88);
+    result = CSRegionGetRange();
+    if (v8 >= v9)
+    {
+      v10 = *(a1 + 136);
+      if (v10)
+      {
+        if (*(a1 + 100) == 1)
+        {
+          *v10 = 1;
+        }
+      }
+    }
+
+    else
+    {
+      result = CSRegionGetRange();
+      **(a1 + 128) = result + *(a1 + 88);
+      *(*(*(a1 + 40) + 8) + 24) = 1;
+    }
+  }
+
+  return result;
+}
+
+void ___ZL18owner_is_text_exec10_CSTypeRef_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  CSRegionGetSegmentName(a2, a3, &v5);
+  if (v5 == 0x455F545845545F5FLL && v6 == 4408664)
+  {
+    *(*(*(a1 + 32) + 8) + 24) = 1;
+  }
+}
+
+UUIDContext *___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_254(uint64_t a1, SymbolOwner *a2)
+{
+  result = find_or_create_uuid(*(a1 + 48), a2);
+  if (!result)
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  v5 = *(a2 + 4);
+  if (v5 != 1)
+  {
+    if (v5 == 5 || v5 == 2)
+    {
+      ++*(*(*(a1 + 32) + 8) + 24);
+    }
+
+    return result;
+  }
+
+  v7 = result;
+  ktrace_find_segment_count(*(a1 + 48), result);
+  if ((*(v7 + 80) & 0x20) != 0)
+  {
+    v12 = *(v7 + 20);
+  }
+
+  else
+  {
+    ktrace_find_text_size(*(a1 + 48), v7, v8, v9, v10);
+    v11 = *(v7 + 80);
+    if ((v11 & 8) != 0)
+    {
+      ++*(*(*(a1 + 32) + 8) + 24);
+      v11 = *(v7 + 80);
+    }
+
+    if ((v11 & 0x10) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    v12 = 1;
+  }
+
+  *(*(*(a1 + 32) + 8) + 24) += v12;
+LABEL_17:
+  ktrace_find_image_type(*(a1 + 48), v7);
+  result = ktrace_find_arch_with_default(*(a1 + 48), v7, 0);
+  if ((*(v7 + 80) & 4) != 0)
+  {
+    v13 = *(*(a1 + 40) + 8);
+    if ((*(v7 + 80) & 0x100) != 0 || !*(v13 + 48))
+    {
+      *(v13 + 48) = *(v7 + 15);
+    }
+  }
+
+  return result;
+}
+
+void *find_or_create_uuid(symbolication_context *a1, SymbolOwner *a2)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  UUIDContext::UUIDContext(v5, a2);
+  uuid = find_or_create_uuid(a1, v5);
+  UUIDContext::~UUIDContext(v5);
+  return uuid;
+}
+
+void ktrace_find_segment_count(FILE **a1, UUIDContext *a2)
+{
+  if ((*(a2 + 80) & 0x20) == 0)
+  {
+    ktrace_find_summary(a1, a2);
+    v4 = *(a2 + 16);
+    if (v4)
+    {
+      Value = CFDictionaryGetValue(v4, @"Segments");
+      if (Value)
+      {
+        v6 = Value;
+        v7 = CFGetTypeID(Value);
+        if (v7 == CFArrayGetTypeID())
+        {
+          *(a2 + 20) = CFArrayGetCount(v6);
+          *(a2 + 80) |= 0x20u;
+          return;
+        }
+
+        ktrace_log_init();
+        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+        {
+          __ktrace_uuid_map_learn_ariadne_process_dict_with_chunk_block_invoke_cold_1();
+        }
+      }
+    }
+
+    ktrace_analyze_executable(a1, a2);
+    if (!*(a2 + 20))
+    {
+      v8 = *a1;
+      if (*a1)
+      {
+        v9 = describe2(a1, a2);
+        fprintf(v8, "could not figure segment count for %s\n", v9);
+        ktrace_log_init();
+        if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
+        {
+          ktrace_find_segment_count(a1, a2);
+        }
+      }
+    }
+  }
+}
+
+void ktrace_find_text_size(FILE **a1, UUIDContext *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if ((*(a2 + 80) & 8) != 0)
+  {
+    return;
+  }
+
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = ___ZL21ktrace_find_text_sizeP21symbolication_contextP11UUIDContext_block_invoke;
+  v11[3] = &__block_descriptor_40_e24_v32__0r_8__CSRange_QQ_16l;
+  v11[4] = a2;
+  ktrace_iterate_segments(a1, a2, v11);
+  if ((*(a2 + 80) & 8) != 0)
+  {
+    return;
+  }
+
+  ktrace_find_summary(a1, a2);
+  v7 = *(a2 + 16);
+  if (!v7 || (Value = CFDictionaryGetValue(v7, @"TextSize")) == 0)
+  {
+LABEL_10:
+    ktrace_analyze_executable(a1, a2);
+    return;
+  }
+
+  v9 = Value;
+  v10 = CFGetTypeID(Value);
+  if (v10 != CFNumberGetTypeID())
+  {
+    ktrace_log_init();
+    if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+    {
+      ktrace_uuid_map_learn_tailspin_process_info_with_chunk_cold_1();
+    }
+
+    goto LABEL_10;
+  }
+
+  valuePtr = 0;
+  if (!CFNumberGetValue(v9, kCFNumberLongLongType, &valuePtr))
+  {
+    ktrace_postprocess_file_internal_cold_4();
+  }
+
+  *(a2 + 7) = valuePtr;
+  *(a2 + 80) |= 8u;
+}
+
+uint64_t ktrace_find_image_type(FILE **a1, UUIDContext *a2)
+{
+  if ((*(a2 + 80) & 0x80) != 0)
+  {
+    return 1;
+  }
+
+  ktrace_find_summary(a1, a2);
+  v4 = *(a2 + 16);
+  if (v4)
+  {
+    Value = CFDictionaryGetValue(v4, @"Flags");
+    if (Value)
+    {
+      v6 = Value;
+      v7 = CFGetTypeID(Value);
+      if (v7 == CFNumberGetTypeID())
+      {
+        valuePtr = 0;
+        if (!CFNumberGetValue(v6, kCFNumberLongLongType, &valuePtr))
+        {
+          ktrace_postprocess_file_internal_cold_4();
+        }
+
+        v8 = valuePtr;
+        goto LABEL_17;
+      }
+
+      ktrace_log_init();
+      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_ERROR))
+      {
+        ktrace_uuid_map_learn_tailspin_process_info_with_chunk_cold_1();
+      }
+    }
+
+    v8 = 0;
+LABEL_17:
+    *(a2 + 80) = (16 * v8) & 0x100 | (((v8 >> 6) & 1) << 9) | *(a2 + 80) & 0xFCFF | 0x80;
+    return 1;
+  }
+
+  ktrace_analyze_executable(a1, a2);
+  if ((*(a2 + 80) & 0x80) == 0)
+  {
+    v9 = *a1;
+    if (*a1)
+    {
+      v10 = describe2(a1, a2);
+      fprintf(v9, "could not figure out image type for %s\n", v10);
+      ktrace_log_init();
+      if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
+      {
+        ktrace_find_image_type(a1, a2);
+      }
+    }
+  }
+
+  v11 = a1[1];
+  if (v11)
+  {
+    v12 = BYTE3(v11->_bf._base);
+    v13 = *(a2 + 80);
+    if (v12 == 1)
+    {
+      v13 |= 0x80u;
+      *(a2 + 80) = v13;
+    }
+  }
+
+  else
+  {
+    v13 = *(a2 + 80);
+  }
+
+  return (v13 >> 7) & 1;
+}
+
+void ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_2(void *a1, __int128 *a2, uint64_t *a3)
+{
+  v78[7] = *MEMORY[0x277D85DE8];
+  v3 = *(a1[4] + 8);
+  v4 = *(a1[5] + 8);
+  v5 = a1[7];
+  v55 = *a3;
+  v7 = a2 + 1;
+  v6 = *(a2 + 4);
+  if (v6 > 5)
+  {
+    goto LABEL_10;
+  }
+
+  v8 = 1 << v6;
+  if ((v8 & 0x26) == 0)
+  {
+    if ((v8 & 0x18) != 0)
+    {
+      return;
+    }
+
+LABEL_10:
+    ktrace_address_space_deep_iterate_symbol_owners();
+  }
+
+  v9 = a2;
+  v10 = *(*(a1[6] + 8) + 48);
+  v11 = *(a1[8] + 32);
+  uuid = find_or_create_uuid(v5, a2);
+  if (uuid)
+  {
+    v13 = uuid;
+    if ((uuid[20] & 1) == 0)
+    {
+      v54 = v11;
+      v14 = v7 + 8;
+      if (*v7 == 5)
+      {
+        v15 = *(v5 + 1);
+        if (v15 && *(v15 + 28))
+        {
+          *v14 = 0;
+          *(v7 + 2) = 0;
+          *(v7 + 3) = 0;
+          *v7 = 2;
+          strlcpy(v7 + 8, (*(v5 + 1) + 28), 0x11uLL);
+        }
+
+        else
+        {
+          *&v59 = 0;
+          *(&v59 + 1) = &v59;
+          *&v60 = 0x2020000000;
+          BYTE8(v60) = 0;
+          *v71 = MEMORY[0x277D85DD0];
+          v72 = 3221225472;
+          v73 = ___ZL23fix_tailspin_kext_ownerP11SymbolOwnerP21symbolication_contextP11UUIDContext_block_invoke;
+          v74 = &unk_27886F328;
+          v75 = &v59;
+          if ((ktrace_iterate_segments(v5, uuid, v71) & 1) == 0)
+          {
+            v29 = &v59;
+LABEL_73:
+            _Block_object_dispose(v29, 8);
+            return;
+          }
+
+          if (*v7 != 2)
+          {
+            *v14 = 0;
+            *(v7 + 2) = 0;
+            *(v7 + 3) = 0;
+            *v7 = 2;
+          }
+
+          if (*(*(&v59 + 1) + 24))
+          {
+            v16 = "__TEXT_EXEC";
+          }
+
+          else
+          {
+            v16 = "__TEXT";
+          }
+
+          strlcpy(v7 + 8, v16, 0x11uLL);
+          _Block_object_dispose(&v59, 8);
+        }
+      }
+
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x2020000000;
+      v70 = 0;
+      v63 = 0;
+      v64 = &v63;
+      v65 = 0x2020000000;
+      v66 = 0;
+      arch_with_default = ktrace_find_arch_with_default(v5, v13, v10);
+      if (!v55)
+      {
+        if (!arch_with_default)
+        {
+          goto LABEL_29;
+        }
+
+        LOBYTE(arch_with_default) = ktrace_find_image_type(v5, v13);
+      }
+
+      if (arch_with_default)
+      {
+        v18 = v7 + 5;
+        v19 = v7 + 2;
+        v61 = 0u;
+        memset(v62, 0, sizeof(v62));
+        v59 = 0u;
+        v60 = 0u;
+        v20 = *v7;
+        if (*v7 != 1)
+        {
+          goto LABEL_41;
+        }
+
+        ktrace_find_segment_count(v5, v13);
+        if ((*(v13 + 160) & 0x20) == 0)
+        {
+          ktrace_find_text_size(v5, v13, v21, v22, v23);
+          v24 = *(v13 + 160);
+          if ((v24 & 8) != 0)
+          {
+            SymbolOwner::operator=(&v59, v9);
+            v19 = v62;
+            v14 = &v60 + 8;
+            v18 = &v62[1];
+            if (v60 != 2)
+            {
+              *(&v60 + 1) = 0;
+              v61 = 0uLL;
+              LODWORD(v60) = 2;
+            }
+
+            v27 = (v13 + 56);
+            v25 = 1;
+            v28 = &v62[1];
+            v26 = "__TEXT";
+          }
+
+          else
+          {
+            if ((v24 & 0x10) == 0)
+            {
+              goto LABEL_35;
+            }
+
+            SymbolOwner::operator=(&v59, v9);
+            v19 = v62;
+            v14 = &v60 + 8;
+            v18 = &v62[1];
+            if (v60 != 2)
+            {
+              *(&v60 + 1) = 0;
+              v61 = 0uLL;
+              LODWORD(v60) = 2;
+            }
+
+            v25 = *(v13 + 64);
+            v62[1] = *(v13 + 72) + 1;
+            v26 = "__TEXT_EXEC";
+            v27 = v62;
+            v28 = v62;
+          }
+
+          *v28 = *v27 + v25;
+          strlcpy(&v60 + 8, v26, 0x11uLL);
+          v7 = &v60;
+          v9 = &v59;
+        }
+
+LABEL_35:
+        v20 = *(v9 + 4);
+        if (v20 == 1)
+        {
+          v30 = *(v13 + 160);
+          if ((v30 & 0x20) == 0)
+          {
+            *(v13 + 160) = v30 | 1;
+LABEL_71:
+            SymbolOwner::~SymbolOwner(&v59);
+            goto LABEL_72;
+          }
+
+          v31 = *(v4 + 24);
+          v68[3] = v31;
+          *(v4 + 24) = v31 + 40 * *(v13 + 80);
+          *v71 = 0;
+          v72 = v71;
+          v73 = 0x2020000000;
+          LODWORD(v74) = 0;
+          if ((ktrace_find_base_address(v5, v13) & 1) == 0 || (v57[0] = MEMORY[0x277D85DD0], v57[1] = 3321888768, v57[2] = ___ZL9fill_infoPP25_CSBinaryImageInformationPP30_CSBinaryRelocationInformationP21symbolication_contextP11SymbolOwner15optional_uint6415_CSArchitecturei_block_invoke, v57[3] = &unk_2843A01B0, v58 = v54, v57[4] = &v67, v57[5] = v71, v57[8] = v5, v57[9] = v9, v57[10] = v55, v57[6] = &v63, v57[7] = v13, !ktrace_iterate_segments(v5, v13, v57)))
+          {
+LABEL_48:
+            *(v13 + 160) |= 1u;
+            _Block_object_dispose(v71, 8);
+            goto LABEL_71;
+          }
+
+          _Block_object_dispose(v71, 8);
+          v20 = *v7;
+        }
+
+LABEL_41:
+        if (v20 == 2)
+        {
+          *v71 = 0;
+          v72 = v71;
+          v73 = 0x3812000000;
+          v74 = __Block_byref_object_copy__262;
+          v75 = __Block_byref_object_dispose__263;
+          v76 = "";
+          if (!*v18)
+          {
+            if (strcmp(v14, "__TEXT") || ((ktrace_find_text_size(v5, v13, v32, v33, v34), (*(v13 + 160) & 8) != 0) ? (v38 = *(v13 + 56) + 1, *(v72 + 48) = v38) : (v38 = *(v72 + 48)), !v38))
+            {
+              v56[0] = MEMORY[0x277D85DD0];
+              v56[1] = 3221225472;
+              v56[2] = ___ZL9fill_infoPP25_CSBinaryImageInformationPP30_CSBinaryRelocationInformationP21symbolication_contextP11SymbolOwner15optional_uint6415_CSArchitecturei_block_invoke_265;
+              v56[3] = &unk_27886F2E0;
+              v56[4] = v71;
+              v56[5] = v9;
+              ktrace_iterate_segments(v5, v13, v56);
+              if (!*(v72 + 48))
+              {
+                v35 = *v5;
+                if (*v5)
+                {
+                  v36 = describe2(v5, v13);
+                  fprintf(v35, "coulnd't figure out segment length for %s of %s\n", v14, v36);
+                  ktrace_log_init();
+                  if (os_log_type_enabled(ktrace_log, OS_LOG_TYPE_DEBUG))
+                  {
+                    v37 = describe2(v5, v13);
+                    ___ZL42ktrace_address_space_create_cssymbolicatorP21symbolication_contextP20ktrace_address_space_block_invoke_2_cold_1(v14, v37, v78);
+                  }
+                }
+
+                goto LABEL_48;
+              }
+            }
+          }
+
+          v39 = *(v4 + 24);
+          v40 = v68;
+          *v39 = *v19;
+          *(v4 + 24) = v39 + 5;
+          v40[3] = v39;
+          if (v55)
+          {
+            v41 = optional_uint64::value(&v55);
+            *v68[3] += v41;
+          }
+
+          v42 = *v68[3];
+          v43 = optional_uint64::value((v72 + 48));
+          *(v68[3] + 8) = v43 + v42;
+          v44 = v68[3];
+          v45 = v14[16];
+          *(v44 + 16) = *v14;
+          *(v44 + 32) = v45;
+          ++*(v64 + 6);
+          _Block_object_dispose(v71, 8);
+        }
+
+        v46 = *(v3 + 24);
+        *(v3 + 24) = v46 + 64;
+        *(v46 + 16) = *v9;
+        *(v46 + 32) = *(v13 + 120);
+        v47 = *(v13 + 136);
+        if (v47)
+        {
+          v48 = utf8(v47);
+        }
+
+        else
+        {
+          v49 = *(v5 + 10);
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v78[2] = ___ZL9fill_infoPP25_CSBinaryImageInformationPP30_CSBinaryRelocationInformationP21symbolication_contextP11SymbolOwner15optional_uint6415_CSArchitecturei_block_invoke_267;
+          v78[3] = &__block_descriptor_56_e21_v16__0____CFString__8l;
+          v78[4] = v46;
+          v78[5] = v13;
+          v78[6] = v5;
+          ktrace_uuid_map_iterate_associated_paths(v49, v13, v78);
+          v48 = *(v46 + 40);
+          if (v48)
+          {
+            goto LABEL_60;
+          }
+
+          v48 = "<unknown>";
+        }
+
+        *(v46 + 40) = v48;
+LABEL_60:
+        *(v46 + 60) = 0;
+        v50 = (*(v13 + 160) >> 4) & 0x10;
+        *(v46 + 60) = v50;
+        if ((*(v13 + 160) & 0x200) != 0)
+        {
+          *(v46 + 60) = v50 | 0x40;
+        }
+
+        v51 = *(v5 + 10);
+        if (v51 && ((*(v51 + 288) & 1) != 0 || (*(v51 + 289) & 1) != 0) || (v52 = *(v5 + 1)) != 0 && *(v52 + 46) == 1)
+        {
+          if (v48)
+          {
+            v53 = basename_r(v48, v71);
+            if (!strcmp("dyld", v53))
+            {
+              *(v46 + 60) |= 0x40u;
+            }
+          }
+        }
+
+        *(v46 + 48) = v68[3];
+        *(v46 + 56) = *(v64 + 6);
+        goto LABEL_71;
+      }
+
+LABEL_29:
+      *(v13 + 160) |= 1u;
+LABEL_72:
+      _Block_object_dispose(&v63, 8);
+      v29 = &v67;
+      goto LABEL_73;
+    }
+  }
 }

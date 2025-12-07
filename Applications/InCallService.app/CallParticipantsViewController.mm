@@ -18,7 +18,7 @@
   selfCopy = self;
   sub_1001A2918();
 
-  sub_1000064BC(0, &qword_1003AAF18);
+  sub_1000064BC(0, &qword_1003AAF18, TUCallGroup_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -36,7 +36,7 @@
   contactsCopy = contacts;
   if (contacts)
   {
-    sub_1000064BC(0, &qword_1003AFB10);
+    sub_1000064BC(0, &qword_1003AFB10, CNContact_ptr);
     contactsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

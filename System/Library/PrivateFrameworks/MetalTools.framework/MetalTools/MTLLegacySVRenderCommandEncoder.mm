@@ -7,6 +7,8 @@
 - (void)_useResourceCommon:(id)common usage:(unint64_t)usage stages:(optional<unsigned long>)stages;
 - (void)dispatchThreadsPerTile:(id *)tile;
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition;
 - (void)dispatchThreadsPerTile:(id *)tile withCondition:(int64_t)condition;
 - (void)drawIndexedPatches:(unint64_t)patches patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)indirectBufferOffset;
 - (void)drawIndexedPatches:(unint64_t)patches patchStart:(unint64_t)start patchCount:(unint64_t)count patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset instanceCount:(unint64_t)self0 baseInstance:(unint64_t)self1;
@@ -169,7 +171,6 @@
   if (*(&self->_enableUseResourceValidation + 1))
   {
     self->_drawID.entryPointImageID = [(MTLLegacySVRenderPipelineState *)self->_currentPipeline vertexFunctionData];
-    self->_options->var0;
     [MTLToolsObject setVertexBytes:"setVertexBytes:length:atIndex:" length:? atIndex:?];
   }
 
@@ -177,7 +178,6 @@
   if (self->_enableUseResourceValidation)
   {
     self->_drawID.entryPointImageID = [(MTLLegacySVRenderPipelineState *)self->_currentPipeline fragmentFunctionData];
-    self->_options->var0;
     [MTLToolsObject setFragmentBytes:"setFragmentBytes:length:atIndex:" length:58 atIndex:?];
     if ((*&self->_options->var0 & 0x400000001) != 0)
     {
@@ -202,7 +202,6 @@
   if (self->_objectStageActive)
   {
     self->_drawID.entryPointImageID = [(MTLLegacySVRenderPipelineState *)self->_currentPipeline tileFunctionData];
-    self->_options->var0;
     [MTLToolsObject setTileBytes:"setTileBytes:length:atIndex:" length:v75 atIndex:?];
     if ((*&self->_options->var0 & 0x400000001) != 0)
     {
@@ -227,7 +226,6 @@
   if (*(&self->_enableUseResourceValidation + 2))
   {
     self->_drawID.entryPointImageID = [(MTLLegacySVRenderPipelineState *)self->_currentPipeline objectFunctionData];
-    self->_options->var0;
     [MTLToolsObject setObjectBytes:"setObjectBytes:length:atIndex:" length:v75 atIndex:?];
     if ((*&self->_options->var0 & 0x400000001) != 0)
     {
@@ -252,7 +250,6 @@
   if (*(&self->_enableUseResourceValidation + 3))
   {
     self->_drawID.entryPointImageID = [(MTLLegacySVRenderPipelineState *)self->_currentPipeline meshFunctionData];
-    self->_options->var0;
     [MTLToolsObject setMeshBytes:"setMeshBytes:length:atIndex:" length:v75 atIndex:?];
     if ((*&self->_options->var0 & 0x400000001) != 0)
     {
@@ -829,7 +826,7 @@ LABEL_18:
 
 - (void)setRenderPipelineStateBuffers:(id)buffers
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(&self->_enableUseResourceValidation + 1))
   {
     vertexConstantsBuffer = [buffers vertexConstantsBuffer];
@@ -882,40 +879,40 @@ LABEL_18:
 
   if ((*(&self->_options->var0 + 2) & 0x80) != 0)
   {
-    v19 = tileConstantsBuffer;
-    v20 = meshConstantsBuffer;
-    v21 = objectConstantsBuffer;
-    v25 = 0u;
-    v26 = 0u;
+    v17 = tileConstantsBuffer;
+    v18 = meshConstantsBuffer;
+    v19 = objectConstantsBuffer;
     v23 = 0u;
     v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     binaryFunctionData = [buffers binaryFunctionData];
-    v13 = [binaryFunctionData countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v13)
+    v12 = [binaryFunctionData countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v24;
+      v13 = v12;
+      v14 = *v22;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v15)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * i);
-          if (*(v17 + 8))
+          v16 = *(*(&v21 + 1) + 8 * i);
+          if (*(v16 + 8))
           {
             [(MTLToolsCommandEncoder *)self addRetainedObject:?];
-            [(MTLLegacySVRenderCommandEncoder *)self useResource:*(v17 + 8) usage:1];
+            [(MTLLegacySVRenderCommandEncoder *)self useResource:*(v16 + 8) usage:1];
           }
         }
 
-        v14 = [binaryFunctionData countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [binaryFunctionData countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     if (vertexConstantsBuffer)
@@ -932,86 +929,82 @@ LABEL_18:
 
     if (*(&self->_enableUseResourceValidation + 1))
     {
-      v22 = [vertexConstantsBuffer handleForOffset:0];
-      [(MTLToolsObject *)self->super.super.super._baseObject setVertexBytes:&v22 length:8 atIndex:12];
+      v20 = [vertexConstantsBuffer handleForOffset:0];
+      [(MTLToolsObject *)self->super.super.super._baseObject setVertexBytes:&v20 length:8 atIndex:12];
     }
 
     if (self->_enableUseResourceValidation)
     {
-      v22 = [fragmentConstantsBuffer handleForOffset:0];
-      [(MTLToolsObject *)self->super.super.super._baseObject setFragmentBytes:&v22 length:8 atIndex:12];
+      v20 = [fragmentConstantsBuffer handleForOffset:0];
+      [(MTLToolsObject *)self->super.super.super._baseObject setFragmentBytes:&v20 length:8 atIndex:12];
     }
 
     if (self->_objectStageActive)
     {
-      v22 = [v19 handleForOffset:0];
-      [(MTLToolsObject *)self->super.super.super._baseObject setTileBytes:&v22 length:8 atIndex:12];
+      v20 = [v17 handleForOffset:0];
+      [(MTLToolsObject *)self->super.super.super._baseObject setTileBytes:&v20 length:8 atIndex:12];
     }
 
     if (*(&self->_enableUseResourceValidation + 3))
     {
-      v22 = [v20 handleForOffset:0];
-      [(MTLToolsObject *)self->super.super.super._baseObject setMeshBytes:&v22 length:8 atIndex:12];
+      v20 = [v18 handleForOffset:0];
+      [(MTLToolsObject *)self->super.super.super._baseObject setMeshBytes:&v20 length:8 atIndex:12];
     }
 
     if (*(&self->_enableUseResourceValidation + 2))
     {
-      v22 = [v21 handleForOffset:0];
-      [(MTLToolsObject *)self->super.super.super._baseObject setObjectBytes:&v22 length:8 atIndex:12];
+      v20 = [v19 handleForOffset:0];
+      [(MTLToolsObject *)self->super.super.super._baseObject setObjectBytes:&v20 length:8 atIndex:12];
     }
 
-    if (v19)
+    if (v17)
+    {
+      [(MTLToolsCommandEncoder *)self addRetainedObject:v17];
+      [(MTLLegacySVRenderCommandEncoder *)self useResource:v17 usage:1 stages:4];
+    }
+
+    if (*(&self->_enableUseResourceValidation + 3) && v18)
+    {
+      [(MTLToolsCommandEncoder *)self addRetainedObject:v18];
+      [(MTLLegacySVRenderCommandEncoder *)self useResource:v18 usage:1 stages:16];
+    }
+
+    if (*(&self->_enableUseResourceValidation + 2) && v19)
     {
       [(MTLToolsCommandEncoder *)self addRetainedObject:v19];
-      [(MTLLegacySVRenderCommandEncoder *)self useResource:v19 usage:1 stages:4];
+      [(MTLLegacySVRenderCommandEncoder *)self useResource:v19 usage:1 stages:8];
     }
+  }
 
-    if (*(&self->_enableUseResourceValidation + 3) && v20)
+  else
+  {
+    if (vertexConstantsBuffer)
     {
-      [(MTLToolsCommandEncoder *)self addRetainedObject:v20];
-      [(MTLLegacySVRenderCommandEncoder *)self useResource:v20 usage:1 stages:16];
+      [(MTLToolsObject *)self->super.super.super._baseObject setVertexBuffer:vertexConstantsBuffer offset:0 atIndex:12];
     }
 
-    if (*(&self->_enableUseResourceValidation + 2) && v21)
+    if (fragmentConstantsBuffer)
     {
-      [(MTLToolsCommandEncoder *)self addRetainedObject:v21];
-      [(MTLLegacySVRenderCommandEncoder *)self useResource:v21 usage:1 stages:8];
+      [(MTLToolsObject *)self->super.super.super._baseObject setFragmentBuffer:fragmentConstantsBuffer offset:0 atIndex:12];
     }
 
-    goto LABEL_60;
+    if (tileConstantsBuffer)
+    {
+      [(MTLToolsObject *)self->super.super.super._baseObject setTileBuffer:tileConstantsBuffer offset:0 atIndex:12];
+    }
+
+    if (meshConstantsBuffer)
+    {
+      [(MTLToolsObject *)self->super.super.super._baseObject setMeshBuffer:meshConstantsBuffer offset:0 atIndex:12];
+    }
+
+    if (objectConstantsBuffer)
+    {
+      baseObject = self->super.super.super._baseObject;
+
+      [(MTLToolsObject *)baseObject setObjectBuffer:objectConstantsBuffer offset:0 atIndex:12];
+    }
   }
-
-  if (vertexConstantsBuffer)
-  {
-    [(MTLToolsObject *)self->super.super.super._baseObject setVertexBuffer:vertexConstantsBuffer offset:0 atIndex:12];
-  }
-
-  if (fragmentConstantsBuffer)
-  {
-    [(MTLToolsObject *)self->super.super.super._baseObject setFragmentBuffer:fragmentConstantsBuffer offset:0 atIndex:12];
-  }
-
-  if (tileConstantsBuffer)
-  {
-    [(MTLToolsObject *)self->super.super.super._baseObject setTileBuffer:tileConstantsBuffer offset:0 atIndex:12];
-  }
-
-  if (meshConstantsBuffer)
-  {
-    [(MTLToolsObject *)self->super.super.super._baseObject setMeshBuffer:meshConstantsBuffer offset:0 atIndex:12];
-  }
-
-  if (!objectConstantsBuffer)
-  {
-LABEL_60:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  baseObject = self->super.super.super._baseObject;
-  v11 = *MEMORY[0x277D85DE8];
-
-  [(MTLToolsObject *)baseObject setObjectBuffer:objectConstantsBuffer offset:0 atIndex:12];
 }
 
 - (void)setVertexBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index
@@ -1621,6 +1614,22 @@ LABEL_60:
   [(MTLToolsRenderCommandEncoder *)&v9 dispatchThreadsPerTile:&v11 inRegion:v10];
 }
 
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index
+{
+  v5 = *&index;
+  [(MTLLegacySVRenderCommandEncoder *)self flushBindings];
+  v9 = *&tile->var0;
+  var2 = tile->var2;
+  v10 = *&region->var0.var2;
+  v12[0] = *&region->var0.var0;
+  v12[1] = v10;
+  v12[2] = *&region->var1.var1;
+  v13 = v9;
+  v11.receiver = self;
+  v11.super_class = MTLLegacySVRenderCommandEncoder;
+  [(MTLToolsRenderCommandEncoder *)&v11 dispatchThreadsPerTile:&v13 inRegion:v12 withRenderTargetArrayIndex:v5];
+}
+
 - (void)resetTileCondition
 {
   v2.receiver = self;
@@ -1635,6 +1644,22 @@ LABEL_60:
   v7.receiver = self;
   v7.super_class = MTLLegacySVRenderCommandEncoder;
   [(MTLToolsRenderCommandEncoder *)&v7 dispatchThreadsPerTile:&v8 withCondition:condition];
+}
+
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition
+{
+  v7 = *&index;
+  [(MTLLegacySVRenderCommandEncoder *)self flushBindings];
+  v11 = *&tile->var0;
+  var2 = tile->var2;
+  v12 = *&region->var0.var2;
+  v14[0] = *&region->var0.var0;
+  v14[1] = v12;
+  v14[2] = *&region->var1.var1;
+  v15 = v11;
+  v13.receiver = self;
+  v13.super_class = MTLLegacySVRenderCommandEncoder;
+  [(MTLToolsRenderCommandEncoder *)&v13 dispatchThreadsPerTile:&v15 inRegion:v14 withRenderTargetArrayIndex:v7 withCondition:condition];
 }
 
 - (void)drawMeshThreadgroups:(id *)threadgroups threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup

@@ -1,5 +1,6 @@
 @interface MKBasicMapViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (MKBasicMapViewAccessibility)initWithFrame:(CGRect)frame andGlobe:(BOOL)globe shouldRasterize:(BOOL)rasterize allowsAntialiasing:(BOOL)antialiasing;
 - (id)accessibilityCustomActions;
 - (id)accessibilityCustomRotors;
 - (id)accessibilityElements;
@@ -15,6 +16,16 @@
   [validationsCopy validateClass:@"MKBasicMapView" hasInstanceMethod:@"initWithFrame:andGlobe:shouldRasterize:allowsAntialiasing:" withFullSignature:{"@", "{CGRect={CGPoint=dd}{CGSize=dd}}", "B", "B", "B", 0}];
   [validationsCopy validateClass:@"MKBasicMapView" hasInstanceMethod:@"mapView" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"MKMapView" hasInstanceMethod:@"setUserTrackingMode:" withFullSignature:{"v", "q", 0}];
+}
+
+- (MKBasicMapViewAccessibility)initWithFrame:(CGRect)frame andGlobe:(BOOL)globe shouldRasterize:(BOOL)rasterize allowsAntialiasing:(BOOL)antialiasing
+{
+  v9.receiver = self;
+  v9.super_class = MKBasicMapViewAccessibility;
+  v6 = [(MKBasicMapViewAccessibility *)&v9 initWithFrame:globe andGlobe:rasterize shouldRasterize:antialiasing allowsAntialiasing:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  accessibilityElements = [(MKBasicMapViewAccessibility *)v6 accessibilityElements];
+
+  return v6;
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -58,7 +69,7 @@
 
 - (id)accessibilityCustomRotors
 {
-  v34[4] = *MEMORY[0x29EDCA608];
+  v33[4] = *MEMORY[0x29EDCA608];
   if (accessibilityCustomRotors__VKFeatureAccessibilityElementClassOnceToken != -1)
   {
     [MKBasicMapViewAccessibility accessibilityCustomRotors];
@@ -80,15 +91,15 @@
       objc_initWeak(&location, self);
       v12 = objc_alloc(MEMORY[0x29EDC78E8]);
       v13 = AXMapKitLocString(@"POI_TITLE");
-      v31[0] = MEMORY[0x29EDCA5F8];
-      v31[1] = 3221225472;
-      v31[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_2;
-      v31[3] = &unk_29F2CB118;
-      objc_copyWeak(&v32, &location);
-      v8 = [v12 initWithName:v13 itemSearchBlock:v31];
+      v30[0] = MEMORY[0x29EDCA5F8];
+      v30[1] = 3221225472;
+      v30[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_2;
+      v30[3] = &unk_29F2CB118;
+      objc_copyWeak(&v31, &location);
+      v8 = [v12 initWithName:v13 itemSearchBlock:v30];
 
       [(MKBasicMapViewAccessibility *)self _accessibilitySetRetainedValue:v8 forKey:@"AXPOIRotor"];
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v31);
       objc_destroyWeak(&location);
     }
 
@@ -97,15 +108,15 @@
       objc_initWeak(&location, self);
       v14 = objc_alloc(MEMORY[0x29EDC78E8]);
       v15 = AXMapKitLocString(@"TRANSIT_STOPS_TITLE");
-      v29[0] = MEMORY[0x29EDCA5F8];
-      v29[1] = 3221225472;
-      v29[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_4;
-      v29[3] = &unk_29F2CB118;
-      objc_copyWeak(&v30, &location);
-      v9 = [v14 initWithName:v15 itemSearchBlock:v29];
+      v28[0] = MEMORY[0x29EDCA5F8];
+      v28[1] = 3221225472;
+      v28[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_4;
+      v28[3] = &unk_29F2CB118;
+      objc_copyWeak(&v29, &location);
+      v9 = [v14 initWithName:v15 itemSearchBlock:v28];
 
       [(MKBasicMapViewAccessibility *)self _accessibilitySetRetainedValue:v9 forKey:@"AXTransitStopsRotor"];
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
     }
 
@@ -114,15 +125,15 @@
       objc_initWeak(&location, self);
       v16 = objc_alloc(MEMORY[0x29EDC78E8]);
       v17 = AXMapKitLocString(@"TRANSIT_LINES_TITLE");
-      v27[0] = MEMORY[0x29EDCA5F8];
-      v27[1] = 3221225472;
-      v27[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_6;
-      v27[3] = &unk_29F2CB118;
-      objc_copyWeak(&v28, &location);
-      v10 = [v16 initWithName:v17 itemSearchBlock:v27];
+      v26[0] = MEMORY[0x29EDCA5F8];
+      v26[1] = 3221225472;
+      v26[2] = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_6;
+      v26[3] = &unk_29F2CB118;
+      objc_copyWeak(&v27, &location);
+      v10 = [v16 initWithName:v17 itemSearchBlock:v26];
 
       [(MKBasicMapViewAccessibility *)self _accessibilitySetRetainedValue:v10 forKey:@"AXTransitLinesRotor"];
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(&location);
     }
 
@@ -131,26 +142,24 @@
       objc_initWeak(&location, self);
       v18 = objc_alloc(MEMORY[0x29EDC78E8]);
       v19 = AXMapKitLocString(@"CURRENT_LOCATION_TITLE");
-      v22 = MEMORY[0x29EDCA5F8];
-      v23 = 3221225472;
-      v24 = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_8;
-      v25 = &unk_29F2CB118;
-      objc_copyWeak(&v26, &location);
-      v11 = [v18 initWithName:v19 itemSearchBlock:&v22];
+      v21 = MEMORY[0x29EDCA5F8];
+      v22 = 3221225472;
+      v23 = __56__MKBasicMapViewAccessibility_accessibilityCustomRotors__block_invoke_8;
+      v24 = &unk_29F2CB118;
+      objc_copyWeak(&v25, &location);
+      v11 = [v18 initWithName:v19 itemSearchBlock:&v21];
 
-      [(MKBasicMapViewAccessibility *)self _accessibilitySetRetainedValue:v11 forKey:@"AXCurrentLocationRotor", v22, v23, v24, v25];
-      objc_destroyWeak(&v26);
+      [(MKBasicMapViewAccessibility *)self _accessibilitySetRetainedValue:v11 forKey:@"AXCurrentLocationRotor", v21, v22, v23, v24];
+      objc_destroyWeak(&v25);
       objc_destroyWeak(&location);
     }
 
-    v34[0] = v8;
-    v34[1] = v9;
-    v34[2] = v10;
-    v34[3] = v11;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v34 count:4];
+    v33[0] = v8;
+    v33[1] = v9;
+    v33[2] = v10;
+    v33[3] = v11;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v33 count:4];
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

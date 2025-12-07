@@ -58,14 +58,13 @@ void __45__TPSAnalyticsEventController_analyticsQueue__block_invoke()
 
 - (void)logAnalyticsEventFromTipsd:(id)tipsd
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   tipsdCopy = tipsd;
   v4 = MEMORY[0x1E695DEC8];
   tipsdCopy2 = tipsd;
   v6 = [v4 arrayWithObjects:&tipsdCopy count:1];
 
-  [(TPSAnalyticsEventController *)self logAnalyticsEventsFromTipsd:v6, tipsdCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(TPSAnalyticsEventController *)self logAnalyticsEventsFromTipsd:v6, tipsdCopy, v8];
 }
 
 - (void)logAnalyticsEventsFromTipsd:(id)tipsd
@@ -84,52 +83,50 @@ void __45__TPSAnalyticsEventController_analyticsQueue__block_invoke()
 
 void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         v8 = [*(a1 + 40) dataProvider];
         [v7 setDataProvider:v8];
 
         v9 = [*(a1 + 40) analyticsQueue];
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke_2;
-        v12[3] = &unk_1E8101390;
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke_2;
+        v11[3] = &unk_1E8101390;
         v10 = *(a1 + 40);
-        v12[4] = v7;
-        v12[5] = v10;
-        dispatch_async(v9, v12);
+        v11[4] = v7;
+        v11[5] = v10;
+        dispatch_async(v9, v11);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke_2(uint64_t a1)
@@ -162,7 +159,6 @@ void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invok
 
 - (void)logAnalyticsEvent:(id)event
 {
-  v9 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (eventCopy)
   {
@@ -186,8 +182,6 @@ void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invok
       objc_sync_exit(selfCopy);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49__TPSAnalyticsEventController_logAnalyticsEvent___block_invoke(uint64_t a1, void *a2)
@@ -308,24 +302,20 @@ void __50__TPSAnalyticsEventController_logAnalyticsEvents___block_invoke(uint64_
 
 void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke_2_cold_1(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [*a1 eventName];
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "logging analytics event: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "logging analytics event: %@", v4, 0xCu);
 }
 
 void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invoke_2_cold_2(id *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [*a1 eventName];
   OUTLINED_FUNCTION_1_2();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_DEBUG, "event: %@ \n dictionary: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_DEBUG, "event: %@ \n dictionary: %@", v6, 0x16u);
 }
 
 - (void)logAnalyticsEvent:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -337,11 +327,9 @@ void __59__TPSAnalyticsEventController_logAnalyticsEventsFromTipsd___block_invok
 
 void __49__TPSAnalyticsEventController_logAnalyticsEvent___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logAnalyticsEvents:.cold.1()

@@ -6,7 +6,7 @@
 - (id)_defaultDictionary;
 - (id)_mergedDict;
 - (id)description;
-- (uint64_t)createNotification;
+- (int)createNotification;
 - (void)_ensureXPCStarted;
 - (void)_handleResponseForNotification:(__CFUserNotification *)notification flags:(unint64_t)flags;
 - (void)_interrupted;
@@ -30,20 +30,19 @@
 
 - (SFUserAlert)init
 {
-  v7.receiver = self;
-  v7.super_class = SFUserAlert;
-  v2 = [(SFUserAlert *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFUserAlert;
+  v2 = [(SFUserAlert *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v3->_hasDefaultButton = 1;
+    v2->_hasDefaultButton = 1;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
@@ -55,16 +54,20 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v8 = 0;
+  v11 = 0;
+  NSAppendPrintF(&v11, "<SFUserAlert %{ptr}", self);
+  v3 = v11;
+  v10 = v3;
   _mergedDict = [(SFUserAlert *)self _mergedDict];
-  NSAppendPrintF();
-  v3 = v8;
+  NSAppendPrintF(&v10, "internal options: %@", _mergedDict);
+  v5 = v10;
 
-  NSAppendPrintF();
-  v4 = v3;
+  v9 = v5;
+  NSAppendPrintF(&v9, ">");
+  v6 = v9;
+  v7 = v9;
 
-  return v3;
+  return v6;
 }
 
 - (void)invalidate
@@ -199,7 +202,7 @@ uint64_t __52__SFUserAlert__handleResponseForNotification_flags___block_invoke_3
 
 - (void)_postNotification:(__CFUserNotification *)notification
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __33__SFUserAlert__postNotification___block_invoke;
@@ -220,8 +223,7 @@ uint64_t __52__SFUserAlert__handleResponseForNotification_flags___block_invoke_3
     if (gLogCategory_SFUserAlert != -1)
     {
 LABEL_6:
-      v16 = timeout;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFUserAlert, "[SFUserAlert _postNotification:]", 90, "### Cannot have negative timeout (%f)", timeout);
       goto LABEL_8;
     }
 
@@ -236,31 +238,29 @@ LABEL_8:
   errorHandler = self->_errorHandler;
   if (errorHandler)
   {
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A768];
-    v18 = *MEMORY[0x1E696A578];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v12 = v11;
-    v13 = @"?";
-    if (v11)
+    v8 = MEMORY[0x1E696ABC0];
+    v9 = *MEMORY[0x1E696A768];
+    v16 = *MEMORY[0x1E696A578];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v11 = v10;
+    v12 = @"?";
+    if (v10)
     {
-      v13 = v11;
+      v12 = v10;
     }
 
-    v19[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:{1, *&v16}];
-    v15 = [v9 errorWithDomain:v10 code:-6737 userInfo:v14];
-    errorHandler[2](errorHandler, v15);
+    v17[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v14 = [v8 errorWithDomain:v9 code:-6737 userInfo:v13];
+    errorHandler[2](errorHandler, v14);
   }
 
 LABEL_3:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __33__SFUserAlert__postNotification___block_invoke(uint64_t a1)
 {
-  v4 = callbackRoutingDict();
+  v4 = callbackRoutingDict(a1);
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(a1 + 40)];
   [v4 setObject:*(a1 + 32) forKeyedSubscript:v2];
   if (gLogCategory_SFUserAlert <= 50 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
@@ -344,7 +344,7 @@ LABEL_15:
   timeout = self->_timeout;
   if (timeout < 0.0)
   {
-    [(SFUserAlert *)&error createNotification];
+    [(SFUserAlert *)&error createNotification:&v16];
     goto LABEL_15;
   }
 
@@ -362,7 +362,7 @@ LABEL_15:
   {
     if (gLogCategory_SFUserAlert != -1 || (v7 = _LogCategory_Initialize(), timeout = *p_timeout, v7))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFUserAlert, "[SFUserAlert createNotification]", 50, "Creating CFUserNotification with _timeout=%.2f, options=%lu", timeout, v6);
       timeout = *p_timeout;
     }
   }
@@ -397,14 +397,14 @@ LABEL_12:
 
 void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 56);
   v2 = *(a1 + 40);
   if (v2)
   {
     v3 = MEMORY[0x1E696ABC0];
     v4 = *MEMORY[0x1E696A768];
-    v14 = *MEMORY[0x1E696A578];
+    v12 = *MEMORY[0x1E696A578];
     v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v6 = v5;
     v7 = @"?";
@@ -413,21 +413,18 @@ void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
       v7 = v5;
     }
 
-    v15[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v1 + 16}];
+    v13[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:{1, v1 + 16}];
     v9 = [v3 errorWithDomain:v4 code:v2 userInfo:v8];
     (*(v1 + 16))(v1, v9);
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v11 = *(v1 + 16);
-    v12 = *MEMORY[0x1E69E9840];
-    v13 = *(*(a1 + 32) + 56);
+    v10 = *(v1 + 16);
+    v11 = *(*(a1 + 32) + 56);
 
-    v11(v13, 0);
+    v10(v11, 0);
   }
 }
 
@@ -469,7 +466,7 @@ void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
     {
       if (gLogCategory_SFUserAlert != -1 || (v6 = _LogCategory_Initialize(), _mergedDict = dictionary, v6))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFUserAlert, "[SFUserAlert updateNotification]", 50, "Updating CFUserNotification %{ptr} with %@", self, _mergedDict);
         _mergedDict = dictionary;
       }
     }
@@ -481,36 +478,39 @@ void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
 - (void)_ensureXPCStarted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFUserAlert <= 30)
   {
-    [SFUserAlert _ensureXPCStarted];
+    if (gLogCategory_SFUserAlert != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFUserAlert *)v3 _ensureXPCStarted];
+    }
   }
 
   if (!self->_xpcCnx)
   {
-    v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.SharingServices" options:0];
+    v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.SharingServices" options:0];
     xpcCnx = self->_xpcCnx;
-    self->_xpcCnx = v3;
+    self->_xpcCnx = v6;
 
     [(NSXPCConnection *)self->_xpcCnx _setQueue:self->_dispatchQueue];
-    v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1D855A0];
-    [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v5];
+    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1D855A0];
+    [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v8];
 
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __32__SFUserAlert__ensureXPCStarted__block_invoke;
-    v8[3] = &unk_1E788B198;
-    v8[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v8];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __32__SFUserAlert__ensureXPCStarted__block_invoke_2;
-    v7[3] = &unk_1E788B198;
-    v7[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v7];
-    v6 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1DAEAE0];
-    [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v6];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __32__SFUserAlert__ensureXPCStarted__block_invoke;
+    v11[3] = &unk_1E788B198;
+    v11[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __32__SFUserAlert__ensureXPCStarted__block_invoke_2;
+    v10[3] = &unk_1E788B198;
+    v10[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v10];
+    v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1DAEAE0];
+    [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v9];
 
     [(NSXPCConnection *)self->_xpcCnx resume];
     if (gLogCategory_SFUserAlert <= 10 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
@@ -522,17 +522,21 @@ void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
 
 - (void)_interrupted
 {
-  if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFUserAlert <= 30)
   {
-    [SFUserAlert _interrupted];
+    if (gLogCategory_SFUserAlert != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFUserAlert *)self _interrupted];
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
+  dispatchQueue = selfCopy->_dispatchQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __27__SFUserAlert__interrupted__block_invoke;
   block[3] = &unk_1E788B198;
-  block[4] = self;
+  block[4] = selfCopy;
   dispatch_async(dispatchQueue, block);
 }
 
@@ -540,81 +544,89 @@ void __33__SFUserAlert_createNotification__block_invoke(uint64_t a1)
 {
   if (!self->_invalidateCalled)
   {
-    if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_SFUserAlert <= 30)
     {
-      [SFUserAlert _invalidate];
+      if (gLogCategory_SFUserAlert != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFUserAlert *)self _invalidate];
+      }
     }
 
-    self->_invalidateCalled = 1;
-    xpcCnx = self->_xpcCnx;
+    selfCopy->_invalidateCalled = 1;
+    xpcCnx = selfCopy->_xpcCnx;
     if (xpcCnx)
     {
       [(NSXPCConnection *)xpcCnx invalidate];
-      v4 = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      v5 = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
     }
 
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __26__SFUserAlert__invalidate__block_invoke;
     block[3] = &unk_1E788B198;
-    block[4] = self;
+    block[4] = selfCopy;
     dispatch_async(dispatchQueue, block);
   }
 }
 
 - (void)_invalidated
 {
-  if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFUserAlert <= 30)
   {
-    [SFUserAlert _invalidated];
+    if (gLogCategory_SFUserAlert != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFUserAlert *)self _invalidated];
+    }
   }
 
-  if (!self->_invalidateDone)
+  if (!selfCopy->_invalidateDone)
   {
-    if (!self->_invalidateCalled)
+    if (!selfCopy->_invalidateCalled)
     {
-      dispatchQueue = self->_dispatchQueue;
+      dispatchQueue = selfCopy->_dispatchQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __27__SFUserAlert__invalidated__block_invoke;
       block[3] = &unk_1E788B198;
-      block[4] = self;
+      block[4] = selfCopy;
       dispatch_async(dispatchQueue, block);
     }
 
-    cfNotif = self->_cfNotif;
+    cfNotif = selfCopy->_cfNotif;
     if (cfNotif)
     {
       CFUserNotificationCancel(cfNotif);
-      v5 = self->_cfNotif;
-      if (v5)
+      v6 = selfCopy->_cfNotif;
+      if (v6)
       {
-        CFRelease(v5);
-        self->_cfNotif = 0;
+        CFRelease(v6);
+        selfCopy->_cfNotif = 0;
       }
     }
 
-    errorHandler = self->_errorHandler;
-    self->_errorHandler = 0;
+    errorHandler = selfCopy->_errorHandler;
+    selfCopy->_errorHandler = 0;
 
-    responseHandler = self->_responseHandler;
-    self->_responseHandler = 0;
+    responseHandler = selfCopy->_responseHandler;
+    selfCopy->_responseHandler = 0;
 
-    textResponseHandler = self->_textResponseHandler;
-    self->_textResponseHandler = 0;
+    textResponseHandler = selfCopy->_textResponseHandler;
+    selfCopy->_textResponseHandler = 0;
 
-    dictionaryResponseHandler = self->_dictionaryResponseHandler;
-    self->_dictionaryResponseHandler = 0;
+    dictionaryResponseHandler = selfCopy->_dictionaryResponseHandler;
+    selfCopy->_dictionaryResponseHandler = 0;
 
-    self->_invalidateDone = 1;
+    selfCopy->_invalidateDone = 1;
   }
 }
 
 void __27__SFUserAlert__invalidated__block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (gLogCategory_SFUserAlert <= 50 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
   {
     __27__SFUserAlert__invalidated__block_invoke_cold_1();
@@ -625,7 +637,7 @@ void __27__SFUserAlert__invalidated__block_invoke(uint64_t a1)
   {
     v3 = MEMORY[0x1E696ABC0];
     v4 = *MEMORY[0x1E696A768];
-    v11 = *MEMORY[0x1E696A578];
+    v10 = *MEMORY[0x1E696A578];
     v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v6 = v5;
     v7 = @"?";
@@ -634,13 +646,11 @@ void __27__SFUserAlert__invalidated__block_invoke(uint64_t a1)
       v7 = v5;
     }
 
-    v12[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v11[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v3 errorWithDomain:v4 code:-6762 userInfo:v8];
     (*(v2 + 16))(v2, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userNotificationError:(id)error
@@ -672,7 +682,7 @@ uint64_t __37__SFUserAlert_userNotificationError___block_invoke(uint64_t a1)
 {
   if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
   {
-    [SFUserAlert userNotificationResponse:];
+    [SFUserAlert userNotificationResponse:response];
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -724,20 +734,24 @@ uint64_t __44__SFUserAlert_userNotificationTextResponse___block_invoke(uint64_t 
 - (void)userNotificationDictionaryResponse:(id)response
 {
   responseCopy = response;
-  if (gLogCategory_SFUserAlert <= 30 && (gLogCategory_SFUserAlert != -1 || _LogCategory_Initialize()))
+  v7 = responseCopy;
+  if (gLogCategory_SFUserAlert <= 30)
   {
-    [SFUserAlert userNotificationDictionaryResponse:];
+    if (gLogCategory_SFUserAlert != -1 || (responseCopy = _LogCategory_Initialize(), responseCopy))
+    {
+      [(SFUserAlert *)responseCopy userNotificationDictionaryResponse:v5, v6];
+    }
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __50__SFUserAlert_userNotificationDictionaryResponse___block_invoke;
-  v7[3] = &unk_1E788A658;
-  v7[4] = self;
-  v8 = responseCopy;
-  v6 = responseCopy;
-  dispatch_async(dispatchQueue, v7);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __50__SFUserAlert_userNotificationDictionaryResponse___block_invoke;
+  v10[3] = &unk_1E788A658;
+  v10[4] = self;
+  v11 = v7;
+  v9 = v7;
+  dispatch_async(dispatchQueue, v10);
 }
 
 uint64_t __50__SFUserAlert_userNotificationDictionaryResponse___block_invoke(uint64_t a1)
@@ -896,9 +910,9 @@ uint64_t __50__SFUserAlert_userNotificationDictionaryResponse___block_invoke(uin
   return v5;
 }
 
-- (uint64_t)createNotification
+- (int)createNotification
 {
-  v1 = result;
+  v2 = result;
   if (gLogCategory_SFUserAlert <= 90)
   {
     if (gLogCategory_SFUserAlert == -1)
@@ -909,14 +923,14 @@ uint64_t __50__SFUserAlert_userNotificationDictionaryResponse___block_invoke(uin
         goto LABEL_5;
       }
 
-      v2 = *v1;
+      a2 = *v2;
     }
 
-    result = LogPrintF();
+    result = LogPrintF(&gLogCategory_SFUserAlert, "[SFUserAlert createNotification]", 90, "### Failed to create notification. (err %ld)", a2);
   }
 
 LABEL_5:
-  *v1 = -6700;
+  *v2 = -6700;
   return result;
 }
 
@@ -927,7 +941,7 @@ LABEL_5:
   {
     if (gLogCategory_SFUserAlert != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_SFUserAlert, "[SFUserAlert createNotification]", 90, "### Title not set");
     }
   }
 

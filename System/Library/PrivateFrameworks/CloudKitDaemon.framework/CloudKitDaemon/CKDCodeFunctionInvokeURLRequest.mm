@@ -52,17 +52,15 @@
 
 - (id)additionalHeaderValues
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_msgSend_serviceName(self, a2, v2);
   v8 = objc_msgSend_functionName(self, v6, v7);
   v10 = objc_msgSend_stringWithFormat_(v4, v9, @"%@/%@", v5, v8);
 
-  v15 = 0x28387C7C0;
-  v16[0] = v10;
-  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v16, &v15, 1);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = 0x28387C7C0;
+  v15[0] = v10;
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v15, &v14, 1);
 
   return v12;
 }
@@ -89,10 +87,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -107,7 +104,7 @@
 
 - (id)generateRequestOperations
 {
-  v80[1] = *MEMORY[0x277D85DE8];
+  v79[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v6 = objc_msgSend_serviceName(self, v4, v5);
   objc_msgSend_setServiceName_(v3, v7, v6);
@@ -169,17 +166,15 @@
   v72 = objc_msgSend_operationType(self, v40, v41);
   v74 = objc_msgSend_operationRequestWithType_(self, v73, v72);
   objc_msgSend_setFunctionInvokeRequest_(v74, v75, v3);
-  v80[0] = v74;
-  v77 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v76, v80, 1);
-
-  v78 = *MEMORY[0x277D85DE8];
+  v79[0] = v74;
+  v77 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v76, v79, 1);
 
   return v77;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_fakeResponseOperationResultByItemID(self, v5, v6);
 
@@ -199,14 +194,14 @@
       v16 = *MEMORY[0x277CBC860];
       if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
       {
-        v42 = v16;
-        v45 = objc_msgSend_requestUUID(self, v43, v44);
-        v48 = objc_msgSend_functionName(self, v46, v47);
-        v49 = 138543618;
-        v50 = v45;
-        v51 = 2114;
-        v52 = v48;
-        _os_log_error_impl(&dword_22506F000, v42, OS_LOG_TYPE_ERROR, "req: %{public}@, Inlining fake response operation result for function %{public}@", &v49, 0x16u);
+        v41 = v16;
+        v44 = objc_msgSend_requestUUID(self, v42, v43);
+        v47 = objc_msgSend_functionName(self, v45, v46);
+        v48 = 138543618;
+        v49 = v44;
+        v50 = 2114;
+        v51 = v47;
+        _os_log_error_impl(&dword_22506F000, v41, OS_LOG_TYPE_ERROR, "req: %{public}@, Inlining fake response operation result for function %{public}@", &v48, 0x16u);
       }
 
       objc_msgSend_setResult_(objectCopy, v17, v15);
@@ -245,7 +240,6 @@
     (v36)[2](v36, v32, v39);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

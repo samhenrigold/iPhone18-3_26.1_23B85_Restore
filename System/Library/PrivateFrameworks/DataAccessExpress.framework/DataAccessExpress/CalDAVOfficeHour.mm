@@ -108,7 +108,7 @@ uint64_t __29__CalDAVOfficeHour_logHandle__block_invoke()
 
 + (id)officeHoursFromICS:(id)s
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   sCopy = s;
   v3 = 7;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:7];
@@ -123,33 +123,33 @@ uint64_t __29__CalDAVOfficeHour_logHandle__block_invoke()
   while (v3);
   date = [MEMORY[0x277CBEAA8] date];
   calendar = [sCopy calendar];
+  v103 = 0u;
+  v104 = 0u;
   v105 = 0u;
   v106 = 0u;
-  v107 = 0u;
-  v108 = 0u;
   calendar2 = [sCopy calendar];
   components = [calendar2 components];
 
   obj = components;
   v9 = v4;
-  v74 = [components countByEnumeratingWithState:&v105 objects:v111 count:16];
-  if (v74)
+  v72 = [components countByEnumeratingWithState:&v103 objects:v109 count:16];
+  if (v72)
   {
     v10 = 0x277D7F000uLL;
-    v73 = *v106;
-    v77 = calendar;
+    v71 = *v104;
+    v75 = calendar;
     do
     {
       v11 = 0;
       do
       {
-        if (*v106 != v73)
+        if (*v104 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v76 = v11;
-        v12 = *(*(&v105 + 1) + 8 * v11);
+        v74 = v11;
+        v12 = *(*(&v103 + 1) + 8 * v11);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -160,200 +160,199 @@ uint64_t __29__CalDAVOfficeHour_logHandle__block_invoke()
         dtstart = [v13 dtstart];
         v15 = [calendar systemDateForDate:dtstart options:0];
 
-        v80 = v13;
+        v78 = v13;
         dtend = [v13 dtend];
         v17 = [calendar systemDateForDate:dtend options:0];
 
-        v75 = v17;
+        v73 = v17;
         if (!v17)
         {
-          duration = [v80 duration];
+          duration = [v78 duration];
           v19 = duration;
           if (duration)
           {
             [duration timeInterval];
-            v75 = [v15 dateByAddingTimeInterval:?];
+            v73 = [v15 dateByAddingTimeInterval:?];
           }
 
           else
           {
-            v75 = 0;
+            v73 = 0;
           }
         }
 
         v20 = v15;
-        if ((!v15 || [date compare:v15] == 1) && (!v75 || objc_msgSend(date, "compare:", v75) == -1))
+        if ((!v15 || [date compare:v15] == 1) && (!v73 || objc_msgSend(date, "compare:", v73) == -1))
         {
-          v103 = 0u;
-          v104 = 0u;
           v101 = 0u;
           v102 = 0u;
-          components2 = [v80 components];
-          v22 = [components2 countByEnumeratingWithState:&v101 objects:v110 count:16];
+          v99 = 0u;
+          v100 = 0u;
+          components2 = [v78 components];
+          v22 = [components2 countByEnumeratingWithState:&v99 objects:v108 count:16];
           if (!v22)
           {
             goto LABEL_70;
           }
 
           v23 = v22;
-          v70 = v20;
-          v24 = *v102;
-          v78 = *v102;
-          v79 = components2;
+          v68 = v20;
+          v24 = *v100;
+          v76 = *v100;
+          v77 = components2;
           while (1)
           {
             v25 = 0;
-            v84 = v23;
+            v82 = v23;
             do
             {
-              if (*v102 != v24)
+              if (*v100 != v24)
               {
                 objc_enumerationMutation(components2);
               }
 
-              v26 = *(*(&v101 + 1) + 8 * v25);
-              v27 = *(v10 + 192);
+              v26 = *(*(&v99 + 1) + 8 * v25);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v28 = v26;
-                dtstart2 = [v28 dtstart];
-                v88 = v28;
-                dtend2 = [v28 dtend];
-                v90 = [calendar systemDateForDate:dtstart2 options:0];
-                v87 = dtstart2;
-                v89 = [calendar systemCalendarForDate:dtstart2 options:0];
-                v31 = [calendar systemDateForDate:dtend2 options:0];
-                v86 = dtend2;
-                v32 = [calendar systemCalendarForDate:dtend2 options:0];
-                v33 = v32;
-                v91 = v31;
-                if (v31)
+                v27 = v26;
+                dtstart2 = [v27 dtstart];
+                v86 = v27;
+                dtend2 = [v27 dtend];
+                v88 = [calendar systemDateForDate:dtstart2 options:0];
+                v85 = dtstart2;
+                v87 = [calendar systemCalendarForDate:dtstart2 options:0];
+                v30 = [calendar systemDateForDate:dtend2 options:0];
+                v84 = dtend2;
+                v31 = [calendar systemCalendarForDate:dtend2 options:0];
+                v32 = v31;
+                v89 = v30;
+                if (v30)
                 {
-                  v34 = v89;
+                  v33 = v87;
                 }
 
                 else
                 {
-                  v35 = v24;
-                  v36 = calendar;
-                  v37 = components2;
-                  v38 = v10;
-                  v39 = v32;
-                  duration2 = [v80 duration];
-                  v41 = duration2;
+                  v34 = v24;
+                  v35 = calendar;
+                  v36 = components2;
+                  v37 = v10;
+                  v38 = v31;
+                  duration2 = [v78 duration];
+                  v40 = duration2;
                   if (duration2)
                   {
                     [duration2 timeInterval];
-                    v91 = [v90 dateByAddingTimeInterval:?];
+                    v89 = [v88 dateByAddingTimeInterval:?];
                   }
 
                   else
                   {
-                    v91 = 0;
+                    v89 = 0;
                   }
 
-                  v34 = v89;
-                  v33 = v89;
+                  v33 = v87;
+                  v32 = v87;
 
-                  v10 = v38;
-                  components2 = v37;
-                  calendar = v36;
-                  v24 = v35;
-                  v23 = v84;
+                  v10 = v37;
+                  components2 = v36;
+                  calendar = v35;
+                  v24 = v34;
+                  v23 = v82;
                 }
 
-                v42 = [v34 components:764 fromDate:v90];
-                v93 = v33;
-                v43 = [v33 components:764 fromDate:v91];
-                v95 = v42;
-                weekday = [v42 weekday];
-                v94 = v43;
-                if (weekday == [v43 weekday])
+                v41 = [v33 components:764 fromDate:v88];
+                v91 = v32;
+                v42 = [v32 components:764 fromDate:v89];
+                v93 = v41;
+                weekday = [v41 weekday];
+                v92 = v42;
+                if (weekday == [v42 weekday])
                 {
-                  rrule = [v88 rrule];
+                  rrule = [v86 rrule];
                   if ([rrule count]== 1)
                   {
                     lastObject = [rrule lastObject];
                     byday = [lastObject byday];
-                    v48 = byday;
-                    v49 = v89;
-                    v82 = rrule;
-                    v83 = v25;
-                    v81 = lastObject;
+                    v47 = byday;
+                    v48 = v87;
+                    v80 = rrule;
+                    v81 = v25;
+                    v79 = lastObject;
                     if (byday)
                     {
-                      v99 = 0u;
-                      v100 = 0u;
                       v97 = 0u;
                       v98 = 0u;
-                      v50 = [byday countByEnumeratingWithState:&v97 objects:v109 count:16];
-                      if (!v50)
+                      v95 = 0u;
+                      v96 = 0u;
+                      v49 = [byday countByEnumeratingWithState:&v95 objects:v107 count:16];
+                      if (!v49)
                       {
                         goto LABEL_64;
                       }
 
-                      v51 = v50;
-                      v52 = *v98;
-                      v92 = v48;
+                      v50 = v49;
+                      v51 = *v96;
+                      v90 = v47;
                       while (1)
                       {
-                        for (i = 0; i != v51; ++i)
+                        for (i = 0; i != v50; ++i)
                         {
-                          if (*v98 != v52)
+                          if (*v96 != v51)
                           {
-                            objc_enumerationMutation(v92);
+                            objc_enumerationMutation(v90);
                           }
 
-                          v54 = [v9 objectAtIndex:{objc_msgSend(*(*(&v97 + 1) + 8 * i), "weekday") - 1}];
-                          [v54 setEnabled:1];
-                          startDate = [v54 startDate];
+                          v53 = [v9 objectAtIndex:{objc_msgSend(*(*(&v95 + 1) + 8 * i), "weekday") - 1}];
+                          [v53 setEnabled:1];
+                          startDate = [v53 startDate];
                           if (!startDate)
                           {
-                            v57 = 0;
+                            v56 = 0;
 LABEL_45:
-                            [v54 setStartDate:v95];
+                            [v53 setStartDate:v93];
                             goto LABEL_46;
                           }
 
-                          v56 = [v49 dateFromComponents:startDate];
-                          v57 = v56;
-                          if (!v56)
+                          v55 = [v48 dateFromComponents:startDate];
+                          v56 = v55;
+                          if (!v55)
                           {
                             goto LABEL_45;
                           }
 
-                          v58 = [v56 laterDate:v90];
+                          v57 = [v55 laterDate:v88];
 
-                          if (v58 == v57)
+                          if (v57 == v56)
                           {
                             goto LABEL_45;
                           }
 
 LABEL_46:
-                          endDate = [v54 endDate];
+                          endDate = [v53 endDate];
                           if (!endDate)
                           {
-                            v61 = 0;
+                            v60 = 0;
 LABEL_52:
-                            [v54 setEndDate:v94];
+                            [v53 setEndDate:v92];
                             goto LABEL_53;
                           }
 
-                          v60 = [v93 dateFromComponents:endDate];
-                          v61 = v60;
-                          if (!v60)
+                          v59 = [v91 dateFromComponents:endDate];
+                          v60 = v59;
+                          if (!v59)
                           {
                             goto LABEL_52;
                           }
 
-                          [v60 earlierDate:v91];
-                          v63 = v62 = v9;
+                          [v59 earlierDate:v89];
+                          v62 = v61 = v9;
 
-                          v64 = v63 == v61;
-                          v9 = v62;
-                          v49 = v89;
-                          if (v64)
+                          v63 = v62 == v60;
+                          v9 = v61;
+                          v48 = v87;
+                          if (v63)
                           {
                             goto LABEL_52;
                           }
@@ -361,9 +360,9 @@ LABEL_52:
 LABEL_53:
                         }
 
-                        v48 = v92;
-                        v51 = [v92 countByEnumeratingWithState:&v97 objects:v109 count:16];
-                        if (!v51)
+                        v47 = v90;
+                        v50 = [v90 countByEnumeratingWithState:&v95 objects:v107 count:16];
+                        if (!v50)
                         {
                           goto LABEL_64;
                         }
@@ -378,20 +377,20 @@ LABEL_53:
                     }
 
 LABEL_64:
-                    calendar = v77;
-                    v24 = v78;
+                    calendar = v75;
+                    v24 = v76;
                     v10 = 0x277D7F000;
-                    components2 = v79;
-                    v25 = v83;
-                    v23 = v84;
-                    logHandle2 = v81;
-                    rrule = v82;
+                    components2 = v77;
+                    v25 = v81;
+                    v23 = v82;
+                    logHandle2 = v79;
+                    rrule = v80;
                   }
 
                   else
                   {
                     logHandle2 = [self logHandle];
-                    v49 = v89;
+                    v48 = v87;
                     if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
@@ -409,7 +408,7 @@ LABEL_64:
                     _os_log_impl(&dword_2243BD000, rrule, OS_LOG_TYPE_DEFAULT, "Discarding non-same-day AVAILABLE, iCal doesn't understand it.", buf, 2u);
                   }
 
-                  v49 = v89;
+                  v48 = v87;
                 }
               }
 
@@ -417,10 +416,10 @@ LABEL_64:
             }
 
             while (v25 != v23);
-            v23 = [components2 countByEnumeratingWithState:&v101 objects:v110 count:16];
+            v23 = [components2 countByEnumeratingWithState:&v99 objects:v108 count:16];
             if (!v23)
             {
-              v20 = v70;
+              v20 = v68;
               goto LABEL_70;
             }
           }
@@ -436,17 +435,15 @@ LABEL_64:
 LABEL_70:
 
 LABEL_71:
-        v11 = v76 + 1;
+        v11 = v74 + 1;
       }
 
-      while (v76 + 1 != v74);
-      v74 = [obj countByEnumeratingWithState:&v105 objects:v111 count:16];
+      while (v74 + 1 != v72);
+      v72 = [obj countByEnumeratingWithState:&v103 objects:v109 count:16];
     }
 
-    while (v74);
+    while (v72);
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

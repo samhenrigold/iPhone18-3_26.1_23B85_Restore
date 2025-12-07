@@ -2,7 +2,7 @@ void sub_1AF589BA0()
 {
   if (!qword_1EB63A9C0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSpawnOverDistance, MEMORY[0x1E69E6448], &off_1F25676C0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63A9C0);
@@ -18,26 +18,26 @@ uint64_t sub_1AF589C00@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF589CE4()
+void sub_1AF589CE4(uint64_t a1)
 {
   if (!qword_1EB63A9C8)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleVariableSpawn, v2, &off_1F2567620);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63A9C8);
+      atomic_store(v3, &qword_1EB63A9C8);
     }
   }
 }
 
-void sub_1AF589DF0()
+void sub_1AF589DF0(uint64_t a1)
 {
   if (!qword_1EB633870)
   {
     sub_1AF589E74(255, &qword_1ED72F950, MEMORY[0x1E69E6530], MEMORY[0x1E69E6548], MEMORY[0x1E69E66A8]);
-    Set = type metadata accessor for EntityGetSet();
-    if (!v1)
+    Set = type metadata accessor for EntityGetSet(a1, v2, v3, v4);
+    if (!v6)
     {
       atomic_store(Set, &qword_1EB633870);
     }
@@ -56,49 +56,49 @@ void sub_1AF589E74(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_
   }
 }
 
-void sub_1AF589F0C()
+void sub_1AF589F0C(uint64_t a1)
 {
   if (!qword_1EB63A9D0)
   {
     sub_1AF589E74(255, &qword_1ED72F950, MEMORY[0x1E69E6530], MEMORY[0x1E69E6548], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for EntityValueAccessors();
-    if (!v1)
+    v5 = type metadata accessor for EntityValueAccessors(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB63A9D0);
+      atomic_store(v5, &qword_1EB63A9D0);
     }
   }
 }
 
-void sub_1AF589FB4()
+void sub_1AF589FB4(uint64_t a1)
 {
   if (!qword_1EB63A9E0)
   {
     sub_1AF589E74(255, &qword_1ED72F950, MEMORY[0x1E69E6530], MEMORY[0x1E69E6548], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleBurstSpawn, v2, &off_1F2567580);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63A9E0);
+      atomic_store(v3, &qword_1EB63A9E0);
     }
   }
 }
 
-uint64_t sub_1AF58A104@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58A104@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF534878(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF534878(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-void sub_1AF58A1D8()
+void sub_1AF58A1D8(uint64_t a1)
 {
   if (!qword_1EB63A9E8)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePeriodicBurstSpawn, v2, &off_1F25674E0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63A9E8);
+      atomic_store(v3, &qword_1EB63A9E8);
     }
   }
 }
@@ -112,15 +112,15 @@ uint64_t sub_1AF58A26C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(u
   return result;
 }
 
-void sub_1AF58A2A8()
+void sub_1AF58A2A8(uint64_t a1)
 {
   if (!qword_1EB63A9F0)
   {
     sub_1AF589E74(255, &qword_1ED72F950, MEMORY[0x1E69E6530], MEMORY[0x1E69E6548], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePeriodicBurstSpawn, v2, &off_1F25674E0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63A9F0);
+      atomic_store(v3, &qword_1EB63A9F0);
     }
   }
 }
@@ -137,7 +137,7 @@ void sub_1AF58A41C()
 {
   if (!qword_1EB63A9F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSpawnDuration, MEMORY[0x1E69E6448], &off_1F2567440);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63A9F8);
@@ -157,7 +157,7 @@ void sub_1AF58A55C()
 {
   if (!qword_1EB63AA00)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSpawnDelay, MEMORY[0x1E69E6448], &off_1F2567420);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA00);
@@ -177,7 +177,7 @@ void sub_1AF58A69C()
 {
   if (!qword_1EB63AA08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRespawn, MEMORY[0x1E69E6530], &off_1F2567380);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA08);
@@ -185,33 +185,33 @@ void sub_1AF58A69C()
   }
 }
 
-uint64_t sub_1AF58A6FC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58A6FC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52A03C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52A03C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF58A7CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58A7CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52A188(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52A188(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58A89C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58A89C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52A0E8(a1);
-  *a2 = result;
+  result = sub_1AF52A0E8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF58AA00@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58AA00@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF529F9C(a1);
-  *a2 = result;
+  result = sub_1AF529F9C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -219,7 +219,7 @@ void sub_1AF58AAF8()
 {
   if (!qword_1EB63AA28)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSubSpawn, &type metadata for ParticleSubSpawn.Mode, &off_1F2566840);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA28);
@@ -231,7 +231,7 @@ void sub_1AF58AB58()
 {
   if (!qword_1EB63AA30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSubSpawn, MEMORY[0x1E69E7360], &off_1F2566840);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA30);
@@ -243,7 +243,7 @@ void sub_1AF58ABB8()
 {
   if (!qword_1EB63AA38)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSubSpawn, MEMORY[0x1E69E6370], &off_1F2566840);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA38);
@@ -255,7 +255,7 @@ void sub_1AF58AC18()
 {
   if (!qword_1EB63AA40)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSubSpawn, MEMORY[0x1E69E6448], &off_1F2566840);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA40);
@@ -267,7 +267,7 @@ void sub_1AF58AC78()
 {
   if (!qword_1EB63AA48)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSubSpawn, &type metadata for Entity, &off_1F2566840);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA48);
@@ -275,26 +275,26 @@ void sub_1AF58AC78()
   }
 }
 
-uint64_t sub_1AF58AD74@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58AD74@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52D3A4(a1);
-  *a2 = result;
+  result = sub_1AF52D3A4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58AEFC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58AEFC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52D20C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52D20C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58AFCC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58AFCC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52D45C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52D45C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
@@ -302,7 +302,7 @@ void sub_1AF58B09C()
 {
   if (!qword_1EB63AA58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGrowEmitter, MEMORY[0x1E69E6530], &off_1F254DA00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA58);
@@ -314,7 +314,7 @@ void sub_1AF58B0FC()
 {
   if (!qword_1EB63AA60)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGrowEmitter, MEMORY[0x1E69E6448], &off_1F254DA00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA60);
@@ -322,15 +322,15 @@ void sub_1AF58B0FC()
   }
 }
 
-void sub_1AF58B15C()
+void sub_1AF58B15C(uint64_t a1)
 {
   if (!qword_1EB63AA68)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleGrowEmitter, v2, &off_1F254DA00);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AA68);
+      atomic_store(v3, &qword_1EB63AA68);
     }
   }
 }
@@ -339,7 +339,7 @@ void sub_1AF58B1FC()
 {
   if (!qword_1EB63AA80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGrowEmitter, &type metadata for NoiseKind, &off_1F254DA00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA80);
@@ -351,7 +351,7 @@ void sub_1AF58B25C()
 {
   if (!qword_1EB63AA88)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGrowEmitter, MEMORY[0x1E69E7360], &off_1F254DA00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA88);
@@ -367,31 +367,31 @@ uint64_t sub_1AF58B2BC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58B3A0()
+void sub_1AF58B3A0(uint64_t a1)
 {
   if (!qword_1EB63AA90)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleMassInit, v2, &off_1F254E090);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AA90);
+      atomic_store(v3, &qword_1EB63AA90);
     }
   }
 }
 
-uint64_t sub_1AF58B434@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58B434@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF529DAC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF529DAC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58B508@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58B508@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF529D14(a1);
-  *a2 = result;
+  result = sub_1AF529D14(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -399,7 +399,7 @@ void sub_1AF58B5D0()
 {
   if (!qword_1EB63AA98)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLifeInit, MEMORY[0x1E69E6370], &off_1F254DE20);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AA98);
@@ -407,51 +407,51 @@ void sub_1AF58B5D0()
   }
 }
 
-void sub_1AF58B630()
+void sub_1AF58B630(uint64_t a1)
 {
   if (!qword_1EB63AAA0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleLifeInit, v2, &off_1F254DE20);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AAA0);
+      atomic_store(v3, &qword_1EB63AAA0);
     }
   }
 }
 
-uint64_t sub_1AF58B6C4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58B6C4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52F1C4(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52F1C4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58B794@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58B794@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52F328(a1);
-  *a2 = result;
+  result = sub_1AF52F328(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58B85C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58B85C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52F270(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52F270(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-void sub_1AF58B9CC()
+void sub_1AF58B9CC(uint64_t a1)
 {
   if (!qword_1EB63AAB0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleVelocityInit, v2, &off_1F254F688);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AAB0);
+      atomic_store(v3, &qword_1EB63AAB0);
     }
   }
 }
@@ -460,7 +460,7 @@ void sub_1AF58BA60()
 {
   if (!qword_1EB63AAB8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleVelocityInit, MEMORY[0x1E69E6448], &off_1F254F688);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AAB8);
@@ -472,7 +472,7 @@ void sub_1AF58BAC0()
 {
   if (!qword_1EB63AAD0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleVelocityInit, &type metadata for Composition.Operation, &off_1F254F688);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AAD0);
@@ -484,7 +484,7 @@ void sub_1AF58BB20()
 {
   if (!qword_1EB63AAD8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleVelocityInit, MEMORY[0x1E69E7360], &off_1F254F688);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AAD8);
@@ -500,15 +500,15 @@ uint64_t sub_1AF58BB80@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58BC64()
+void sub_1AF58BC64(uint64_t a1)
 {
   if (!qword_1EB63AAE0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOrientationInit, v2, &off_1F254E398);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AAE0);
+      atomic_store(v3, &qword_1EB63AAE0);
     }
   }
 }
@@ -521,43 +521,43 @@ uint64_t sub_1AF58BCF8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58BDDC()
+void sub_1AF58BDDC(uint64_t a1)
 {
   if (!qword_1EB63AAE8)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleAngularVelocityInit, v2, &off_1F254CBF0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AAE8);
+      atomic_store(v3, &qword_1EB63AAE8);
     }
   }
 }
 
-uint64_t sub_1AF58BE70@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58BE70@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF529E50(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF529E50(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58BF40@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58BF40@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF529EFC(a1);
-  *a2 = result;
+  result = sub_1AF529EFC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF58C0A8()
+void sub_1AF58C0A8(uint64_t a1)
 {
   if (!qword_1EB63AAF8)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleSizeInit, v2, &off_1F254EC68);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AAF8);
+      atomic_store(v3, &qword_1EB63AAF8);
     }
   }
 }
@@ -566,7 +566,7 @@ void sub_1AF58C16C()
 {
   if (!qword_1EB63AB10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeInit, &type metadata for ScaleMode, &off_1F254EC68);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB10);
@@ -578,7 +578,7 @@ void sub_1AF58C1CC()
 {
   if (!qword_1EB63AB18)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeInit, MEMORY[0x1E69E7360], &off_1F254EC68);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB18);
@@ -594,15 +594,15 @@ uint64_t sub_1AF58C22C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58C310()
+void sub_1AF58C310(uint64_t a1)
 {
   if (!qword_1EB63AB20)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePivotInit, v2, &off_1F254E6A0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AB20);
+      atomic_store(v3, &qword_1EB63AB20);
     }
   }
 }
@@ -615,15 +615,15 @@ uint64_t sub_1AF58C3A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58C488()
+void sub_1AF58C488(uint64_t a1)
 {
   if (!qword_1EB63AB28)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleAngleInit, v2, &off_1F254C5E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AB28);
+      atomic_store(v3, &qword_1EB63AB28);
     }
   }
 }
@@ -636,15 +636,15 @@ uint64_t sub_1AF58C51C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58C600()
+void sub_1AF58C600(uint64_t a1)
 {
   if (!qword_1EB63AB30)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleAngleVelocityInit, v2, &off_1F254C8E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AB30);
+      atomic_store(v3, &qword_1EB63AB30);
     }
   }
 }
@@ -657,55 +657,55 @@ uint64_t sub_1AF58C694@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58C778()
+void sub_1AF58C778(uint64_t a1)
 {
   if (!qword_1EB63AB38)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleTextureFrameInit, v2, &off_1F254F380);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AB38);
+      atomic_store(v3, &qword_1EB63AB38);
     }
   }
 }
 
-uint64_t sub_1AF58C80C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58C80C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52AA84(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52AA84(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58C8DC@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58C8DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52A9A0(a1);
-  *a2 = result;
+  result = sub_1AF52A9A0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58C9A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58C9A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52A8A4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52A8A4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-unint64_t sub_1AF58CA74@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58CA74@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52A794(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF52A794(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58CC78@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58CC78@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52A4CC(a1);
-  *a2 = result;
+  result = sub_1AF52A4CC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -713,7 +713,7 @@ void sub_1AF58CD40()
 {
   if (!qword_1EB63AB48)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, MEMORY[0x1E69E6370], &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB48);
@@ -721,15 +721,15 @@ void sub_1AF58CD40()
   }
 }
 
-void sub_1AF58CDF4()
+void sub_1AF58CDF4(uint64_t a1)
 {
   if (!qword_1EB63AB50)
   {
     sub_1AF583D60(255, &qword_1ED72F6E0, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E74A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleColorInit, v2, &off_1F254CF90);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AB50);
+      atomic_store(v3, &qword_1EB63AB50);
     }
   }
 }
@@ -738,7 +738,7 @@ void sub_1AF58CF4C()
 {
   if (!qword_1EB63AB58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, &type metadata for ColorRamp, &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB58);
@@ -750,7 +750,7 @@ void sub_1AF58CFDC()
 {
   if (!qword_1EB63AB70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, &type metadata for ParticleColorInit.Mode, &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB70);
@@ -762,7 +762,7 @@ void sub_1AF58D03C()
 {
   if (!qword_1EB63AB78)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, MEMORY[0x1E69E6448], &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB78);
@@ -774,7 +774,7 @@ void sub_1AF58D0CC()
 {
   if (!qword_1EB63AB80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, &type metadata for Composition.Operation, &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB80);
@@ -786,7 +786,7 @@ void sub_1AF58D12C()
 {
   if (!qword_1EB63AB88)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorInit, MEMORY[0x1E69E7360], &off_1F254CF90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB88);
@@ -794,19 +794,19 @@ void sub_1AF58D12C()
   }
 }
 
-unint64_t sub_1AF58D18C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58D18C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF528BB8(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF528BB8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58D25C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58D25C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF528B10(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF528B10(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
@@ -814,7 +814,7 @@ void sub_1AF58D32C()
 {
   if (!qword_1EB63AB90)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterRuntime, MEMORY[0x1E69E6530], &off_1F2563418);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB90);
@@ -826,7 +826,7 @@ void sub_1AF58D3E0()
 {
   if (!qword_1EB63AB98)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterRuntime, MEMORY[0x1E69E6448], &off_1F2563418);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AB98);
@@ -834,80 +834,80 @@ void sub_1AF58D3E0()
   }
 }
 
-uint64_t sub_1AF58D440@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58D440@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF526EF0(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF526EF0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF58D510@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58D510@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5273FC(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF5273FC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-unint64_t sub_1AF58D5CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58D5CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF527210(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF527210(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58D9EC@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58D9EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF527178(a1);
-  *a2 = result;
+  result = sub_1AF527178(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF58DAB8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58DAB8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF527358(a1);
-  *a2 = result;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v5;
+  result = sub_1AF527358(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6;
+  *(a3 + 16) = v7;
   return result;
 }
 
-uint64_t sub_1AF58DC38@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58DC38@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52702C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v5;
+  result = sub_1AF52702C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6;
+  *(a3 + 16) = v7;
   return result;
 }
 
-void sub_1AF58DC7C()
+void sub_1AF58DC7C(uint64_t a1)
 {
   if (!qword_1EB6338B0)
   {
     sub_1AF5A9240(255, &unk_1EB6338F8, &type metadata for EmitterShape.Direction, MEMORY[0x1E69E6720]);
-    Set = type metadata accessor for EntityGetSet();
-    if (!v1)
+    Set = type metadata accessor for EntityGetSet(a1, v2, v3, v4);
+    if (!v6)
     {
       atomic_store(Set, &qword_1EB6338B0);
     }
   }
 }
 
-uint64_t sub_1AF58DD3C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58DD3C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF526F94(a1);
-  *a2 = result;
+  result = sub_1AF526F94(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF58DEA0@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58DEA0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5272C0(a1);
-  *a2 = result;
+  result = sub_1AF5272C0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -915,7 +915,7 @@ void sub_1AF58DF9C()
 {
   if (!qword_1EB63ABA8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for AddressMode, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ABA8);
@@ -927,7 +927,7 @@ void sub_1AF58DFFC()
 {
   if (!qword_1EB63ABB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for Entity, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ABB0);
@@ -939,7 +939,7 @@ void sub_1AF58E08C()
 {
   if (!qword_1EB63ABC8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for MotionDistribution, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ABC8);
@@ -947,15 +947,15 @@ void sub_1AF58E08C()
   }
 }
 
-void sub_1AF58E0EC()
+void sub_1AF58E0EC(uint64_t a1)
 {
   if (!qword_1EB63ABD0)
   {
     sub_1AF5A9240(255, &unk_1EB6338F8, &type metadata for EmitterShape.Direction, MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for EntityValueAccessors();
-    if (!v1)
+    v5 = type metadata accessor for EntityValueAccessors(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB63ABD0);
+      atomic_store(v5, &qword_1EB63ABD0);
     }
   }
 }
@@ -982,41 +982,41 @@ uint64_t sub_1AF58E174(uint64_t a1)
   return (*(v4 + 16))(v3, v5, &v9);
 }
 
-void sub_1AF58E1D8()
+void sub_1AF58E1D8(uint64_t a1)
 {
   if (!qword_1EB63ABD8)
   {
     sub_1AF5A9240(255, &unk_1EB6338F8, &type metadata for EmitterShape.Direction, MEMORY[0x1E69E6720]);
-    v0 = sub_1AFDFEA18();
-    if (!v1)
+    v1 = sub_1AFDFEA18();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB63ABD8);
+      atomic_store(v1, &qword_1EB63ABD8);
     }
   }
 }
 
-void sub_1AF58E254()
+void sub_1AF58E254(uint64_t a1)
 {
   if (!qword_1EB63ABE8)
   {
     sub_1AF5A9240(255, &unk_1EB6338F8, &type metadata for EmitterShape.Direction, MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for EmitterShape, v2, &off_1F254C2E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ABE8);
+      atomic_store(v3, &qword_1EB63ABE8);
     }
   }
 }
 
-void sub_1AF58E2E0()
+void sub_1AF58E2E0(uint64_t a1)
 {
   if (!qword_1EB63ABF0)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for EmitterShape, v2, &off_1F254C2E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ABF0);
+      atomic_store(v3, &qword_1EB63ABF0);
     }
   }
 }
@@ -1025,7 +1025,7 @@ void sub_1AF58E3B4()
 {
   if (!qword_1EB63AC00)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for EmitterShape.Direction, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC00);
@@ -1037,7 +1037,7 @@ void sub_1AF58E414()
 {
   if (!qword_1EB63AC08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, MEMORY[0x1E69E6370], &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC08);
@@ -1049,7 +1049,7 @@ void sub_1AF58E474()
 {
   if (!qword_1EB63AC10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, MEMORY[0x1E69E7668], &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC10);
@@ -1079,15 +1079,15 @@ uint64_t sub_1AF58E508(void *a1)
   return (*(v4 + 16))(v3, v5, v9);
 }
 
-void sub_1AF58E560()
+void sub_1AF58E560(uint64_t a1)
 {
   if (!qword_1EB63AC18)
   {
     sub_1AF583D60(255, &qword_1ED72F730, sub_1AF477BB4, MEMORY[0x1E69E7668], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for EmitterShape, v2, &off_1F254C2E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AC18);
+      atomic_store(v3, &qword_1EB63AC18);
     }
   }
 }
@@ -1096,7 +1096,7 @@ void sub_1AF58E630()
 {
   if (!qword_1EB63AC30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for EmissionOrder, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC30);
@@ -1130,7 +1130,7 @@ void sub_1AF58E73C()
 {
   if (!qword_1EB63AC48)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for ShapeDistribution, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC48);
@@ -1138,15 +1138,15 @@ void sub_1AF58E73C()
   }
 }
 
-void sub_1AF58E7BC()
+void sub_1AF58E7BC(uint64_t a1)
 {
   if (!qword_1EB63AC50)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for EmitterShape, v2, &off_1F254C2E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AC50);
+      atomic_store(v3, &qword_1EB63AC50);
     }
   }
 }
@@ -1155,7 +1155,7 @@ void sub_1AF58E850()
 {
   if (!qword_1EB63AC58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, MEMORY[0x1E69E6448], &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC58);
@@ -1167,7 +1167,7 @@ void sub_1AF58E8E4()
 {
   if (!qword_1EB63AC70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, &type metadata for EmitterShape.Shape, &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC70);
@@ -1179,7 +1179,7 @@ void sub_1AF58E944()
 {
   if (!qword_1EB63AC78)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for EmitterShape, MEMORY[0x1E69E7360], &off_1F254C2E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC78);
@@ -1187,33 +1187,33 @@ void sub_1AF58E944()
   }
 }
 
-uint64_t sub_1AF58E9A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58E9A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52ADF8(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52ADF8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58EB14@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58EB14@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52AF4C(a1);
-  *a2 = result;
+  result = sub_1AF52AF4C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58EBDC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58EBDC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52AE9C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52AE9C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58ED48@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58ED48@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52AD60(a1);
-  *a2 = result;
+  result = sub_1AF52AD60(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -1221,7 +1221,7 @@ void sub_1AF58EE10()
 {
   if (!qword_1EB63AC80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheEmitter, &type metadata for MotionDistribution, &off_1F2568E10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC80);
@@ -1233,7 +1233,7 @@ void sub_1AF58EE70()
 {
   if (!qword_1EB63AC88)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheEmitter, MEMORY[0x1E69E7360], &off_1F2568E10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC88);
@@ -1245,7 +1245,7 @@ void sub_1AF58EED0()
 {
   if (!qword_1EB63AC90)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheEmitter, MEMORY[0x1E69E6448], &off_1F2568E10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC90);
@@ -1257,7 +1257,7 @@ void sub_1AF58EF30()
 {
   if (!qword_1EB63AC98)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheEmitter, MEMORY[0x1E69E6370], &off_1F2568E10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AC98);
@@ -1265,15 +1265,15 @@ void sub_1AF58EF30()
   }
 }
 
-void sub_1AF58EF90()
+void sub_1AF58EF90(uint64_t a1)
 {
   if (!qword_1EB63ACA0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for PointCacheEmitter, v2, &off_1F2568E10);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ACA0);
+      atomic_store(v3, &qword_1EB63ACA0);
     }
   }
 }
@@ -1282,7 +1282,7 @@ void sub_1AF58F024()
 {
   if (!qword_1EB63ACA8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheEmitter, &type metadata for Entity, &off_1F2568E10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACA8);
@@ -1290,18 +1290,18 @@ void sub_1AF58F024()
   }
 }
 
-uint64_t sub_1AF58F084@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58F084@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52B094(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52B094(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58F154@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58F154@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52AFE4(a1);
-  *a2 = result;
+  result = sub_1AF52AFE4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -1309,7 +1309,7 @@ void sub_1AF58F21C()
 {
   if (!qword_1EB63ACB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheSpawner, MEMORY[0x1E69E6370], &off_1F2568D70);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACB0);
@@ -1321,7 +1321,7 @@ void sub_1AF58F27C()
 {
   if (!qword_1EB63ACB8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointCacheSpawner, &type metadata for Entity, &off_1F2568D70);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACB8);
@@ -1337,46 +1337,46 @@ uint64_t sub_1AF58F2DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8
   return result;
 }
 
-void sub_1AF58F3C0()
+void sub_1AF58F3C0(uint64_t a1)
 {
   if (!qword_1EB63ACC0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleTargetFromPositionInit, v2, &off_1F254F080);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ACC0);
+      atomic_store(v3, &qword_1EB63ACC0);
     }
   }
 }
 
-uint64_t sub_1AF58F454@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58F454@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5302F0(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5302F0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58F524@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58F524@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF530224(a1);
-  *a2 = result;
+  result = sub_1AF530224(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58F5EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58F5EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF530140(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF530140(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58F744@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58F744@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52FF9C(a1);
-  *a2 = result;
+  result = sub_1AF52FF9C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -1384,7 +1384,7 @@ void sub_1AF58F80C()
 {
   if (!qword_1EB63ACC8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverLife, MEMORY[0x1E69E6370], &off_1F2554DE0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACC8);
@@ -1396,7 +1396,7 @@ void sub_1AF58F91C()
 {
   if (!qword_1EB63ACD0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverLife, &type metadata for ColorRamp, &off_1F2554DE0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACD0);
@@ -1408,7 +1408,7 @@ void sub_1AF58F97C()
 {
   if (!qword_1EB63ACD8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverLife, MEMORY[0x1E69E6448], &off_1F2554DE0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACD8);
@@ -1420,7 +1420,7 @@ void sub_1AF58F9DC()
 {
   if (!qword_1EB63ACE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverLife, &type metadata for Composition.Operation, &off_1F2554DE0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACE0);
@@ -1432,7 +1432,7 @@ void sub_1AF58FA3C()
 {
   if (!qword_1EB63ACE8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverLife, MEMORY[0x1E69E7360], &off_1F2554DE0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACE8);
@@ -1440,33 +1440,33 @@ void sub_1AF58FA3C()
   }
 }
 
-uint64_t sub_1AF58FA9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF58FA9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52F0AC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52F0AC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF58FB6C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58FB6C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52EFB4(a1);
-  *a2 = result;
+  result = sub_1AF52EFB4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF58FC34@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF58FC34@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52EE9C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52EE9C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF58FD04@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF58FD04@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52EDA4(a1);
-  *a2 = result;
+  result = sub_1AF52EDA4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -1480,15 +1480,15 @@ uint64_t sub_1AF58FDE4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(u
   return result;
 }
 
-void sub_1AF58FEF0()
+void sub_1AF58FEF0(uint64_t a1)
 {
   if (!qword_1EB63ACF0)
   {
     sub_1AF589E74(255, qword_1ED72F9E0, MEMORY[0x1E69E6448], &off_1F2532E98, type metadata accessor for Curve);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleSizeOverLife, v2, &off_1F25577E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ACF0);
+      atomic_store(v3, &qword_1EB63ACF0);
     }
   }
 }
@@ -1497,7 +1497,7 @@ void sub_1AF58FFD8()
 {
   if (!qword_1EB63ACF8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverLife, &type metadata for ScaleMode, &off_1F25577E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ACF8);
@@ -1509,7 +1509,7 @@ void sub_1AF590038()
 {
   if (!qword_1EB63AD00)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverLife, MEMORY[0x1E69E6448], &off_1F25577E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD00);
@@ -1521,7 +1521,7 @@ void sub_1AF590098()
 {
   if (!qword_1EB63AD08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverLife, &type metadata for Composition.Operation, &off_1F25577E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD08);
@@ -1533,7 +1533,7 @@ void sub_1AF5900F8()
 {
   if (!qword_1EB63AD10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverLife, MEMORY[0x1E69E7360], &off_1F25577E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD10);
@@ -1541,39 +1541,39 @@ void sub_1AF5900F8()
   }
 }
 
-void sub_1AF590250()
+void sub_1AF590250(uint64_t a1)
 {
   if (!qword_1EB63AD18)
   {
     sub_1AF589E74(255, qword_1ED72F9E0, MEMORY[0x1E69E6448], &off_1F2532E98, type metadata accessor for Curve);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOpacityOverLife, v2, &off_1F2557000);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AD18);
+      atomic_store(v3, &qword_1EB63AD18);
     }
   }
 }
 
-uint64_t sub_1AF5902E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5902E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533DB0(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF533DB0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5903B4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5903B4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF533F6C(a1);
-  *a2 = result;
+  result = sub_1AF533F6C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59047C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59047C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533E88(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF533E88(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -1581,7 +1581,7 @@ void sub_1AF5906D0()
 {
   if (!qword_1EB63AD20)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverVelocity, &type metadata for ColorRamp, &off_1F25555B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD20);
@@ -1589,15 +1589,15 @@ void sub_1AF5906D0()
   }
 }
 
-void sub_1AF590730()
+void sub_1AF590730(uint64_t a1)
 {
   if (!qword_1EB63AD28)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleColorOverVelocity, v2, &off_1F25555B0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AD28);
+      atomic_store(v3, &qword_1EB63AD28);
     }
   }
 }
@@ -1606,7 +1606,7 @@ void sub_1AF5907C4()
 {
   if (!qword_1EB63AD30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverVelocity, MEMORY[0x1E69E6448], &off_1F25555B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD30);
@@ -1618,7 +1618,7 @@ void sub_1AF590824()
 {
   if (!qword_1EB63AD38)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverVelocity, &type metadata for Composition.Operation, &off_1F25555B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD38);
@@ -1630,7 +1630,7 @@ void sub_1AF590884()
 {
   if (!qword_1EB63AD40)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverVelocity, MEMORY[0x1E69E7360], &off_1F25555B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD40);
@@ -1638,36 +1638,36 @@ void sub_1AF590884()
   }
 }
 
-uint64_t sub_1AF5908E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5908E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF535410(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF535410(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-void sub_1AF590AA0()
+void sub_1AF590AA0(uint64_t a1)
 {
   if (!qword_1EB63AD48)
   {
     sub_1AF589E74(255, qword_1ED72F9E0, MEMORY[0x1E69E6448], &off_1F2532E98, type metadata accessor for Curve);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOpacityOverVelocity, v2, &off_1F2557260);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AD48);
+      atomic_store(v3, &qword_1EB63AD48);
     }
   }
 }
 
-void sub_1AF590B34()
+void sub_1AF590B34(uint64_t a1)
 {
   if (!qword_1EB63AD50)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOpacityOverVelocity, v2, &off_1F2557260);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AD50);
+      atomic_store(v3, &qword_1EB63AD50);
     }
   }
 }
@@ -1680,11 +1680,11 @@ unint64_t sub_1AF590BC8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   return result;
 }
 
-uint64_t sub_1AF590CA8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF590CA8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF531F14(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF531F14(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
@@ -1699,7 +1699,7 @@ void sub_1AF590E80()
 {
   if (!qword_1EB63AD70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationOverVelocity, &type metadata for OrientationOverVelocity.DirectionAxis, &off_1F2554630);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD70);
@@ -1711,7 +1711,7 @@ void sub_1AF590EE0()
 {
   if (!qword_1EB63AD78)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationOverVelocity, MEMORY[0x1E69E7360], &off_1F2554630);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD78);
@@ -1723,7 +1723,7 @@ void sub_1AF590F40()
 {
   if (!qword_1EB63AD80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationOverVelocity, MEMORY[0x1E69E6448], &off_1F2554630);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD80);
@@ -1731,45 +1731,45 @@ void sub_1AF590F40()
   }
 }
 
-uint64_t sub_1AF590FA0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF590FA0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533350(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF533350(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF591070@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF591070@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF533554(a1);
-  *a2 = result;
+  result = sub_1AF533554(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF591138@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF591138@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF53349C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF53349C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF591208@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF591208@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5333FC(a1);
-  *a2 = result;
+  result = sub_1AF5333FC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF591370()
+void sub_1AF591370(uint64_t a1)
 {
   if (!qword_1EB63AD88)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleSizeOverVelocity, v2, &off_1F2557D20);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AD88);
+      atomic_store(v3, &qword_1EB63AD88);
     }
   }
 }
@@ -1778,7 +1778,7 @@ void sub_1AF591404()
 {
   if (!qword_1EB63AD90)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverVelocity, &type metadata for ScaleMode, &off_1F2557D20);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD90);
@@ -1790,7 +1790,7 @@ void sub_1AF591464()
 {
   if (!qword_1EB63AD98)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverVelocity, MEMORY[0x1E69E6448], &off_1F2557D20);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AD98);
@@ -1802,7 +1802,7 @@ void sub_1AF5914C4()
 {
   if (!qword_1EB63ADA0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverVelocity, &type metadata for Composition.Operation, &off_1F2557D20);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADA0);
@@ -1814,7 +1814,7 @@ void sub_1AF591524()
 {
   if (!qword_1EB63ADA8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverVelocity, MEMORY[0x1E69E7360], &off_1F2557D20);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADA8);
@@ -1822,18 +1822,18 @@ void sub_1AF591524()
   }
 }
 
-unint64_t sub_1AF591584@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF591584@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52A2E0(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52A2E0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF591654@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF591654@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52A240(a1);
-  *a2 = result;
+  result = sub_1AF52A240(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -1841,7 +1841,7 @@ void sub_1AF59171C()
 {
   if (!qword_1EB63ADB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WrapAroundCamera, MEMORY[0x1E69E6370], &off_1F2558BD8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADB0);
@@ -1853,7 +1853,7 @@ void sub_1AF59177C()
 {
   if (!qword_1EB63ADB8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WrapAroundCamera, MEMORY[0x1E69E6448], &off_1F2558BD8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADB8);
@@ -1861,38 +1861,38 @@ void sub_1AF59177C()
   }
 }
 
-uint64_t sub_1AF5917DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5917DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5327A0(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5327A0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF591948@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF591948@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF53284C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF53284C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF591AB4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF591AB4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532904(a1);
-  *a2 = result;
+  result = sub_1AF532904(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF591C1C()
+void sub_1AF591C1C(uint64_t a1)
 {
   if (!qword_1EB63ADC0)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleColorOverTexture, v2, &off_1F2555348);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ADC0);
+      atomic_store(v3, &qword_1EB63ADC0);
     }
   }
 }
@@ -1901,7 +1901,7 @@ void sub_1AF591CBC()
 {
   if (!qword_1EB63ADC8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverTexture, &type metadata for AddressMode, &off_1F2555348);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADC8);
@@ -1913,7 +1913,7 @@ void sub_1AF591D1C()
 {
   if (!qword_1EB63ADD0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverTexture, &type metadata for Entity, &off_1F2555348);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADD0);
@@ -1925,7 +1925,7 @@ void sub_1AF591D7C()
 {
   if (!qword_1EB63ADD8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverTexture, MEMORY[0x1E69E6448], &off_1F2555348);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADD8);
@@ -1937,7 +1937,7 @@ void sub_1AF591DDC()
 {
   if (!qword_1EB63ADE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverTexture, &type metadata for Composition.Operation, &off_1F2555348);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADE0);
@@ -1949,7 +1949,7 @@ void sub_1AF591E3C()
 {
   if (!qword_1EB63ADE8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverTexture, MEMORY[0x1E69E7360], &off_1F2555348);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63ADE8);
@@ -1957,65 +1957,65 @@ void sub_1AF591E3C()
   }
 }
 
-uint64_t sub_1AF591E9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF591E9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5320A4(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5320A4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF592008@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF592008@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF532278(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF532278(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF592174@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF592174@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5321E0(a1);
-  *a2 = result;
+  result = sub_1AF5321E0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59223C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59223C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532328(a1);
-  *a2 = result;
+  result = sub_1AF532328(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF592304@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF592304@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532148(a1);
-  *a2 = result;
+  result = sub_1AF532148(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF59250C()
+void sub_1AF59250C(uint64_t a1)
 {
   if (!qword_1EB63ADF0)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleSizeOverTexture, v2, &off_1F2557A90);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ADF0);
+      atomic_store(v3, &qword_1EB63ADF0);
     }
   }
 }
 
-void sub_1AF5925AC()
+void sub_1AF5925AC(uint64_t a1)
 {
   if (!qword_1EB63ADF8)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleSizeOverTexture, v2, &off_1F2557A90);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63ADF8);
+      atomic_store(v3, &qword_1EB63ADF8);
     }
   }
 }
@@ -2024,7 +2024,7 @@ void sub_1AF592640()
 {
   if (!qword_1EB63AE00)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, &type metadata for ScaleMode, &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE00);
@@ -2036,7 +2036,7 @@ void sub_1AF5926A0()
 {
   if (!qword_1EB63AE08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, &type metadata for AddressMode, &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE08);
@@ -2048,7 +2048,7 @@ void sub_1AF592730()
 {
   if (!qword_1EB63AE10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, &type metadata for TextureChannel, &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE10);
@@ -2060,7 +2060,7 @@ void sub_1AF592790()
 {
   if (!qword_1EB63AE18)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, &type metadata for Entity, &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE18);
@@ -2072,7 +2072,7 @@ void sub_1AF5927F0()
 {
   if (!qword_1EB63AE20)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, MEMORY[0x1E69E6448], &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE20);
@@ -2084,7 +2084,7 @@ void sub_1AF592850()
 {
   if (!qword_1EB63AE28)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, &type metadata for Composition.Operation, &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE28);
@@ -2096,7 +2096,7 @@ void sub_1AF5928B0()
 {
   if (!qword_1EB63AE30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSizeOverTexture, MEMORY[0x1E69E7360], &off_1F2557A90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE30);
@@ -2104,33 +2104,33 @@ void sub_1AF5928B0()
   }
 }
 
-uint64_t sub_1AF592910@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF592910@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5355B4(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5355B4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF592A7C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF592A7C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF535700(a1);
-  *a2 = result;
+  result = sub_1AF535700(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF592B44@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF592B44@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF535660(a1);
-  *a2 = result;
+  result = sub_1AF535660(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF592D4C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF592D4C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5354FC(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5354FC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -2138,7 +2138,7 @@ void sub_1AF592E1C()
 {
   if (!qword_1EB63AE38)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePositionOverTexture, MEMORY[0x1E69E6448], &off_1F25574B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE38);
@@ -2146,28 +2146,28 @@ void sub_1AF592E1C()
   }
 }
 
-void sub_1AF592E7C()
+void sub_1AF592E7C(uint64_t a1)
 {
   if (!qword_1EB63AE40)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePositionOverTexture, v2, &off_1F25574B8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AE40);
+      atomic_store(v3, &qword_1EB63AE40);
     }
   }
 }
 
-void sub_1AF592F1C()
+void sub_1AF592F1C(uint64_t a1)
 {
   if (!qword_1EB63AE48)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePositionOverTexture, v2, &off_1F25574B8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AE48);
+      atomic_store(v3, &qword_1EB63AE48);
     }
   }
 }
@@ -2176,7 +2176,7 @@ void sub_1AF592FB0()
 {
   if (!qword_1EB63AE50)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePositionOverTexture, &type metadata for AddressMode, &off_1F25574B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE50);
@@ -2188,7 +2188,7 @@ void sub_1AF593010()
 {
   if (!qword_1EB63AE58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePositionOverTexture, &type metadata for TextureChannel, &off_1F25574B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE58);
@@ -2200,7 +2200,7 @@ void sub_1AF593070()
 {
   if (!qword_1EB63AE60)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePositionOverTexture, MEMORY[0x1E69E7360], &off_1F25574B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE60);
@@ -2212,7 +2212,7 @@ void sub_1AF5930D0()
 {
   if (!qword_1EB63AE68)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePositionOverTexture, &type metadata for Entity, &off_1F25574B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE68);
@@ -2220,26 +2220,26 @@ void sub_1AF5930D0()
   }
 }
 
-uint64_t sub_1AF593130@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF593130@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533BF4(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF533BF4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF59329C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59329C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533A30(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF533A30(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF593408@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF593408@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF533B1C(a1);
-  *a2 = result;
+  result = sub_1AF533B1C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -2256,7 +2256,7 @@ void sub_1AF59362C()
 {
   if (!qword_1EB63AE78)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, &type metadata for ColorRamp, &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE78);
@@ -2274,7 +2274,7 @@ void sub_1AF5936D4()
 {
   if (!qword_1EB63AE80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, &type metadata for AddressMode, &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE80);
@@ -2286,7 +2286,7 @@ void sub_1AF593764()
 {
   if (!qword_1EB63AE98)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, &type metadata for ParticleColorOverPosition.GradientMode, &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AE98);
@@ -2298,7 +2298,7 @@ void sub_1AF5937C4()
 {
   if (!qword_1EB63AEA0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, MEMORY[0x1E69E6448], &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AEA0);
@@ -2310,7 +2310,7 @@ void sub_1AF593824()
 {
   if (!qword_1EB63AEA8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, &type metadata for Composition.Operation, &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AEA8);
@@ -2322,7 +2322,7 @@ void sub_1AF593884()
 {
   if (!qword_1EB63AEB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleColorOverPosition, MEMORY[0x1E69E7360], &off_1F25550D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AEB0);
@@ -2330,26 +2330,26 @@ void sub_1AF593884()
   }
 }
 
-uint64_t sub_1AF5938E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5938E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52FEF8(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52FEF8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5939B4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5939B4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52FE60(a1);
-  *a2 = result;
+  result = sub_1AF52FE60(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF593A7C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF593A7C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52FDB0(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52FDB0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -2357,7 +2357,7 @@ void sub_1AF593B4C()
 {
   if (!qword_1EB63AEC0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationConstraint, MEMORY[0x1E69E6448], &off_1F25542A0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AEC0);
@@ -2369,7 +2369,7 @@ void sub_1AF593BDC()
 {
   if (!qword_1EB63AED8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationConstraint, &type metadata for OrientationConstraint.Mode, &off_1F25542A0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AED8);
@@ -2381,7 +2381,7 @@ void sub_1AF593C3C()
 {
   if (!qword_1EB63AEE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for OrientationConstraint, MEMORY[0x1E69E7360], &off_1F25542A0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AEE0);
@@ -2397,30 +2397,30 @@ unint64_t sub_1AF593C9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   return result;
 }
 
-void sub_1AF593DD4()
+void sub_1AF593DD4(uint64_t a1)
 {
   if (!qword_1EB63AEF0)
   {
     sub_1AF589E74(255, qword_1ED72F9E0, MEMORY[0x1E69E6448], &off_1F2532E98, type metadata accessor for Curve);
-    v0 = sub_1AFDFDD58();
-    if (!v1)
+    v1 = sub_1AFDFDD58();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB63AEF0);
+      atomic_store(v1, &qword_1EB63AEF0);
     }
   }
 }
 
-uint64_t sub_1AF593EE4(uint64_t result)
+uint64_t sub_1AF593EE4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result != 1)
   {
-    return sub_1AF593EF4(result);
+    return sub_1AF593EF4(result, a2, a3);
   }
 
   return result;
 }
 
-uint64_t sub_1AF593EF4(uint64_t result)
+uint64_t sub_1AF593EF4(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -2433,7 +2433,7 @@ void sub_1AF593FE8()
 {
   if (!qword_1EB63AF20)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleAngleEvolution, MEMORY[0x1E69E6448], &off_1F2554AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AF20);
@@ -2463,7 +2463,7 @@ void sub_1AF59430C()
 {
   if (!qword_1EB63AF30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleTextureFrameEvolution, MEMORY[0x1E69E6448], &off_1F25584B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AF30);
@@ -2471,26 +2471,26 @@ void sub_1AF59430C()
   }
 }
 
-uint64_t sub_1AF59436C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59436C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5267C8(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5267C8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5944E4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5944E4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF526914(a1);
-  *a2 = result;
+  result = sub_1AF526914(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF5945AC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5945AC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF526718(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF526718(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -2498,7 +2498,7 @@ void sub_1AF594AA4()
 {
   if (!qword_1EB63AF68)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, &type metadata for CollisionLayerSet, &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AF68);
@@ -2510,7 +2510,7 @@ void sub_1AF594B04()
 {
   if (!qword_1EB63AF70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, &type metadata for Entity, &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AF70);
@@ -2518,15 +2518,15 @@ void sub_1AF594B04()
   }
 }
 
-void sub_1AF594B98()
+void sub_1AF594B98(uint64_t a1)
 {
   if (!qword_1EB63AF78)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ForceField, v2, &off_1F2560F10);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63AF78);
+      atomic_store(v3, &qword_1EB63AF78);
     }
   }
 }
@@ -2535,7 +2535,7 @@ void sub_1AF594D40()
 {
   if (!qword_1EB63AFB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, MEMORY[0x1E69E76D8], &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFB0);
@@ -2547,7 +2547,7 @@ void sub_1AF594DD4()
 {
   if (!qword_1EB63AFB8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, MEMORY[0x1E69E6448], &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFB8);
@@ -2559,7 +2559,7 @@ void sub_1AF594E34()
 {
   if (!qword_1EB63AFC0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, MEMORY[0x1E69E6370], &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFC0);
@@ -2571,7 +2571,7 @@ void sub_1AF594F30()
 {
   if (!qword_1EB63AFE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceField, MEMORY[0x1E69E7360], &off_1F2560F10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFE0);
@@ -2579,11 +2579,11 @@ void sub_1AF594F30()
   }
 }
 
-unint64_t sub_1AF594F90@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF594F90@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52BDE0(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52BDE0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -2591,7 +2591,7 @@ void sub_1AF595110()
 {
   if (!qword_1EB63AFE8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleForceField, &type metadata for CollisionLayerSet, &off_1F25613E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFE8);
@@ -2603,7 +2603,7 @@ void sub_1AF595170()
 {
   if (!qword_1EB63AFF0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleForceField, MEMORY[0x1E69E6448], &off_1F25613E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFF0);
@@ -2623,7 +2623,7 @@ void sub_1AF5952B0()
 {
   if (!qword_1EB63AFF8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for Vortex, MEMORY[0x1E69E6448], &off_1F2569E68);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63AFF8);
@@ -2631,18 +2631,18 @@ void sub_1AF5952B0()
   }
 }
 
-uint64_t sub_1AF5953D0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5953D0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52838C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52838C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5954A0@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5954A0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5282F4(a1);
-  *a2 = result;
+  result = sub_1AF5282F4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -2650,7 +2650,7 @@ void sub_1AF595568()
 {
   if (!qword_1EB63B000)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleForce, &type metadata for EntitySpace, &off_1F2555DA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B000);
@@ -2662,7 +2662,7 @@ void sub_1AF5955C8()
 {
   if (!qword_1EB63B008)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleForce, MEMORY[0x1E69E7360], &off_1F2555DA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B008);
@@ -2670,15 +2670,15 @@ void sub_1AF5955C8()
   }
 }
 
-void sub_1AF595628()
+void sub_1AF595628(uint64_t a1)
 {
   if (!qword_1EB63B010)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleForce, v2, &off_1F2555DA0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B010);
+      atomic_store(v3, &qword_1EB63B010);
     }
   }
 }
@@ -2695,7 +2695,7 @@ void sub_1AF5957A8()
 {
   if (!qword_1EB63B018)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSPHSimulation, MEMORY[0x1E69E6448], &off_1F2558028);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B018);
@@ -2703,26 +2703,26 @@ void sub_1AF5957A8()
   }
 }
 
-uint64_t sub_1AF595808@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF595808@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52EBFC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52EBFC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF595998@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF595998@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52EAAC(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52EAAC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF595A68@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF595A68@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52EA1C(a1);
-  *a2 = result;
+  result = sub_1AF52EA1C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -2730,7 +2730,7 @@ void sub_1AF595B30()
 {
   if (!qword_1EB63B020)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonTrails, MEMORY[0x1E69E6370], &off_1F25665D0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B020);
@@ -2742,7 +2742,7 @@ void sub_1AF595B90()
 {
   if (!qword_1EB63B028)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonTrails, MEMORY[0x1E69E6448], &off_1F25665D0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B028);
@@ -2750,15 +2750,15 @@ void sub_1AF595B90()
   }
 }
 
-void sub_1AF595BF0()
+void sub_1AF595BF0(uint64_t a1)
 {
   if (!qword_1EB63B030)
   {
     sub_1AF5A9240(255, &unk_1ED72F970, MEMORY[0x1E69E6530], MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleRibbonTrails, v2, &off_1F25665D0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B030);
+      atomic_store(v3, &qword_1EB63B030);
     }
   }
 }
@@ -2767,7 +2767,7 @@ void sub_1AF595C7C()
 {
   if (!qword_1EB63B038)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonTrails, &type metadata for Entity, &off_1F25665D0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B038);
@@ -2775,33 +2775,33 @@ void sub_1AF595C7C()
   }
 }
 
-uint64_t sub_1AF595CDC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF595CDC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF536400(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF536400(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF595DAC@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF595DAC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF536348(a1);
-  *a2 = result;
+  result = sub_1AF536348(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF595E74@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF595E74@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF536278(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF536278(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF596004@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF596004@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5360F8(a1);
-  *a2 = result;
+  result = sub_1AF5360F8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -2809,7 +2809,7 @@ void sub_1AF5960CC()
 {
   if (!qword_1EB63B048)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingAlignOrientation, MEMORY[0x1E69E6370], &off_1F2565588);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B048);
@@ -2817,15 +2817,15 @@ void sub_1AF5960CC()
   }
 }
 
-void sub_1AF59612C()
+void sub_1AF59612C(uint64_t a1)
 {
   if (!qword_1EB63B050)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFlockingAlignOrientation, v2, &off_1F2565588);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B050);
+      atomic_store(v3, &qword_1EB63B050);
     }
   }
 }
@@ -2834,7 +2834,7 @@ void sub_1AF5961CC()
 {
   if (!qword_1EB63B058)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingAlignOrientation, MEMORY[0x1E69E6448], &off_1F2565588);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B058);
@@ -2846,7 +2846,7 @@ void sub_1AF59622C()
 {
   if (!qword_1EB63B070)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingAlignOrientation, &type metadata for FlockingLocalAxis, &off_1F2565588);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B070);
@@ -2858,7 +2858,7 @@ void sub_1AF59628C()
 {
   if (!qword_1EB63B078)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingAlignOrientation, MEMORY[0x1E69E7360], &off_1F2565588);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B078);
@@ -2866,23 +2866,23 @@ void sub_1AF59628C()
   }
 }
 
-unint64_t sub_1AF5962EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5962EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5369D8(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5369D8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-void sub_1AF59647C()
+void sub_1AF59647C(uint64_t a1)
 {
   if (!qword_1EB63B080)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFlockingAlignVelocityOnPlane, v2, &off_1F25654E8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B080);
+      atomic_store(v3, &qword_1EB63B080);
     }
   }
 }
@@ -2891,7 +2891,7 @@ void sub_1AF59651C()
 {
   if (!qword_1EB63B088)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingAlignVelocityOnPlane, MEMORY[0x1E69E6448], &off_1F25654E8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B088);
@@ -2918,7 +2918,7 @@ void sub_1AF596804()
 {
   if (!qword_1EB63B090)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingConstrainToArea, MEMORY[0x1E69E6370], &off_1F2565448);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B090);
@@ -2926,15 +2926,15 @@ void sub_1AF596804()
   }
 }
 
-void sub_1AF596864()
+void sub_1AF596864(uint64_t a1)
 {
   if (!qword_1EB63B098)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFlockingConstrainToArea, v2, &off_1F2565448);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B098);
+      atomic_store(v3, &qword_1EB63B098);
     }
   }
 }
@@ -2943,7 +2943,7 @@ void sub_1AF596904()
 {
   if (!qword_1EB63B0A0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingConstrainToArea, MEMORY[0x1E69E6448], &off_1F2565448);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0A0);
@@ -2970,7 +2970,7 @@ void sub_1AF596BEC()
 {
   if (!qword_1EB63B0A8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingConstrainToPlane, MEMORY[0x1E69E6370], &off_1F25653A8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0A8);
@@ -2978,15 +2978,15 @@ void sub_1AF596BEC()
   }
 }
 
-void sub_1AF596C4C()
+void sub_1AF596C4C(uint64_t a1)
 {
   if (!qword_1EB63B0B0)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFlockingConstrainToPlane, v2, &off_1F25653A8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B0B0);
+      atomic_store(v3, &qword_1EB63B0B0);
     }
   }
 }
@@ -2995,7 +2995,7 @@ void sub_1AF596CEC()
 {
   if (!qword_1EB63B0B8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingConstrainToPlane, MEMORY[0x1E69E6448], &off_1F25653A8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0B8);
@@ -3003,18 +3003,18 @@ void sub_1AF596CEC()
   }
 }
 
-unint64_t sub_1AF596D4C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF596D4C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF535F1C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF535F1C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF596E1C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF596E1C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF535E7C(a1);
-  *a2 = result;
+  result = sub_1AF535E7C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -3022,7 +3022,7 @@ void sub_1AF596EE4()
 {
   if (!qword_1EB63B0C0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingFlyTowardsArea, MEMORY[0x1E69E6370], &off_1F2565308);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0C0);
@@ -3034,7 +3034,7 @@ void sub_1AF596F44()
 {
   if (!qword_1EB63B0C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingFlyTowardsArea, MEMORY[0x1E69E6448], &off_1F2565308);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0C8);
@@ -3042,46 +3042,46 @@ void sub_1AF596F44()
   }
 }
 
-unint64_t sub_1AF596FA4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF596FA4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF530FE4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF530FE4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF597074@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF597074@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF530ED8(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF530ED8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5971E0@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5971E0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF530DE0(a1);
-  *a2 = result;
+  result = sub_1AF530DE0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF5972FC()
+void sub_1AF5972FC(uint64_t a1)
 {
   if (!qword_1EB63B0E0)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = sub_1AFDFDD58();
-    if (!v1)
+    v1 = sub_1AFDFDD58();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB63B0E0);
+      atomic_store(v1, &qword_1EB63B0E0);
     }
   }
 }
 
-uint64_t sub_1AF5973D8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5973D8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF530BCC(a1);
-  *a2 = result;
+  result = sub_1AF530BCC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -3089,7 +3089,7 @@ void sub_1AF5974A0()
 {
   if (!qword_1EB63B0E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSolver, MEMORY[0x1E69E6370], &off_1F2565268);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B0E8);
@@ -3133,7 +3133,7 @@ void sub_1AF597668()
 {
   if (!qword_1EB63B118)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSolver, &type metadata for FlockingSizeMode, &off_1F2565268);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B118);
@@ -3145,7 +3145,7 @@ void sub_1AF5976C8()
 {
   if (!qword_1EB63B120)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSolver, MEMORY[0x1E69E7360], &off_1F2565268);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B120);
@@ -3157,7 +3157,7 @@ void sub_1AF597728()
 {
   if (!qword_1EB63B128)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSolver, MEMORY[0x1E69E6530], &off_1F2565268);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B128);
@@ -3169,7 +3169,7 @@ void sub_1AF597788()
 {
   if (!qword_1EB63B130)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSolver, MEMORY[0x1E69E6448], &off_1F2565268);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B130);
@@ -3177,26 +3177,26 @@ void sub_1AF597788()
   }
 }
 
-unint64_t sub_1AF5977E8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5977E8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5358EC(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5358EC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF5978B8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5978B8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF535840(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF535840(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF597A28@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF597A28@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5357A0(a1);
-  *a2 = result;
+  result = sub_1AF5357A0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -3223,7 +3223,7 @@ void sub_1AF597B6C()
 {
   if (!qword_1EB63B138)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSpeedControl, &type metadata for FlockingLocalAxis, &off_1F25651C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B138);
@@ -3235,7 +3235,7 @@ void sub_1AF597BCC()
 {
   if (!qword_1EB63B140)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSpeedControl, MEMORY[0x1E69E7360], &off_1F25651C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B140);
@@ -3243,15 +3243,15 @@ void sub_1AF597BCC()
   }
 }
 
-void sub_1AF597C2C()
+void sub_1AF597C2C(uint64_t a1)
 {
   if (!qword_1EB63B148)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFlockingSpeedControl, v2, &off_1F25651C8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B148);
+      atomic_store(v3, &qword_1EB63B148);
     }
   }
 }
@@ -3260,7 +3260,7 @@ void sub_1AF597CCC()
 {
   if (!qword_1EB63B150)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFlockingSpeedControl, MEMORY[0x1E69E6448], &off_1F25651C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B150);
@@ -3268,26 +3268,26 @@ void sub_1AF597CCC()
   }
 }
 
-uint64_t sub_1AF597D2C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF597D2C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF535B08(a1);
-  *a2 = result;
+  result = sub_1AF535B08(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF597DF4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF597DF4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF535A5C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF535A5C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF597EC4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF597EC4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5359A4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5359A4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -3295,7 +3295,7 @@ void sub_1AF597F94()
 {
   if (!qword_1EB63B158)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DEmitter, MEMORY[0x1E69E6448], &off_1F2565B90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B158);
@@ -3307,7 +3307,7 @@ void sub_1AF597FF4()
 {
   if (!qword_1EB63B160)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DEmitter, &type metadata for Entity, &off_1F2565B90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B160);
@@ -3319,7 +3319,7 @@ void sub_1AF598054()
 {
   if (!qword_1EB63B168)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DEmitter, MEMORY[0x1E69E6370], &off_1F2565B90);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B168);
@@ -3327,113 +3327,113 @@ void sub_1AF598054()
   }
 }
 
-uint64_t sub_1AF5980B4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5980B4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF535230(a1);
-  *a2 = result;
+  result = sub_1AF535230(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59817C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59817C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF535138(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF535138(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF59824C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59824C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF53504C(a1);
-  *a2 = result;
+  result = sub_1AF53504C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF598314@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF598314@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF534F60(a1);
-  *a2 = result;
+  result = sub_1AF534F60(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF5983DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5983DC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF534E5C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF534E5C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-unint64_t sub_1AF59856C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59856C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF534C48(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF534C48(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-void sub_1AF5985E8()
+void sub_1AF5985E8(uint64_t a1)
 {
   if (!qword_1EB63B180)
   {
     sub_1AF5A9240(255, &qword_1EB63B188, MEMORY[0x1E69E6448], MEMORY[0x1E69E6720]);
-    Set = type metadata accessor for EntityGetSet();
-    if (!v1)
+    Set = type metadata accessor for EntityGetSet(a1, v2, v3, v4);
+    if (!v6)
     {
       atomic_store(Set, &qword_1EB63B180);
     }
   }
 }
 
-void sub_1AF5986A8()
+void sub_1AF5986A8(uint64_t a1)
 {
   if (!qword_1EB63B190)
   {
     sub_1AF5A9240(255, &qword_1EB63B188, MEMORY[0x1E69E6448], MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for EntityValueAccessors();
-    if (!v1)
+    v5 = type metadata accessor for EntityValueAccessors(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB63B190);
+      atomic_store(v5, &qword_1EB63B190);
     }
   }
 }
 
-void sub_1AF598730()
+void sub_1AF598730(uint64_t a1)
 {
   if (!qword_1EB63B198)
   {
     sub_1AF5A9240(255, &qword_1EB63B188, MEMORY[0x1E69E6448], MEMORY[0x1E69E6720]);
-    v0 = sub_1AFDFEA18();
-    if (!v1)
+    v1 = sub_1AFDFEA18();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB63B198);
+      atomic_store(v1, &qword_1EB63B198);
     }
   }
 }
 
-void sub_1AF5987AC()
+void sub_1AF5987AC(uint64_t a1)
 {
   if (!qword_1EB63B1A0)
   {
     sub_1AF5A9240(255, &qword_1EB63B188, MEMORY[0x1E69E6448], MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFluidSolver2DSolver, v2, &off_1F2565C50);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B1A0);
+      atomic_store(v3, &qword_1EB63B1A0);
     }
   }
 }
 
-void sub_1AF59888C()
+void sub_1AF59888C(uint64_t a1)
 {
   if (!qword_1EB63B1A8)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleFluidSolver2DSolver, v2, &off_1F2565C50);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B1A8);
+      atomic_store(v3, &qword_1EB63B1A8);
     }
   }
 }
@@ -3442,7 +3442,7 @@ void sub_1AF59892C()
 {
   if (!qword_1EB63B1B0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DSolver, MEMORY[0x1E69E6448], &off_1F2565C50);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1B0);
@@ -3454,7 +3454,7 @@ void sub_1AF5989BC()
 {
   if (!qword_1EB63B1C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DSolver, &type metadata for FluidSolver2DSolverBorderType, &off_1F2565C50);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1C8);
@@ -3466,7 +3466,7 @@ void sub_1AF598A4C()
 {
   if (!qword_1EB63B1E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DSolver, &type metadata for FluidSolver2DSolverSetupType, &off_1F2565C50);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1E0);
@@ -3478,7 +3478,7 @@ void sub_1AF598AAC()
 {
   if (!qword_1EB63B1E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DSolver, MEMORY[0x1E69E7360], &off_1F2565C50);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1E8);
@@ -3528,7 +3528,7 @@ void sub_1AF598CC8()
 {
   if (!qword_1EB63B1F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleFluidSolver2DSolver, MEMORY[0x1E69E6370], &off_1F2565C50);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1F0);
@@ -3555,7 +3555,7 @@ void sub_1AF598EE0()
 {
   if (!qword_1EB63B1F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleDrag, MEMORY[0x1E69E6370], &off_1F2555AC0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B1F8);
@@ -3567,7 +3567,7 @@ void sub_1AF598F40()
 {
   if (!qword_1EB63B200)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleDrag, MEMORY[0x1E69E6448], &off_1F2555AC0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B200);
@@ -3575,25 +3575,25 @@ void sub_1AF598F40()
   }
 }
 
-uint64_t sub_1AF598FA0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF598FA0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF529C58(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF529C58(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF599070@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF599070@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF529BA8(a1);
-  *a2 = result;
+  result = sub_1AF529BA8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF599138@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF599138@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF529AF8(a1);
-  *a2 = result;
+  result = sub_1AF529AF8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -3628,15 +3628,15 @@ uint64_t sub_1AF599324(uint64_t a1)
   return (*(v4 + 16))(v3, v5, &v9);
 }
 
-void sub_1AF599384()
+void sub_1AF599384(uint64_t a1)
 {
   if (!qword_1EB63B218)
   {
     sub_1AF5A9240(255, &unk_1ED72F970, MEMORY[0x1E69E6530], MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleCopyData, v2, &off_1F25557E0);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B218);
+      atomic_store(v3, &qword_1EB63B218);
     }
   }
 }
@@ -3645,7 +3645,7 @@ void sub_1AF599440()
 {
   if (!qword_1EB63B230)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCopyData, &type metadata for TargetDataKind, &off_1F25557E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B230);
@@ -3676,7 +3676,7 @@ void sub_1AF59952C()
 {
   if (!qword_1EB63B248)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCopyData, &type metadata for SourceDataKind, &off_1F25557E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B248);
@@ -3688,7 +3688,7 @@ void sub_1AF59958C()
 {
   if (!qword_1EB63B250)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCopyData, &type metadata for Entity, &off_1F25557E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B250);
@@ -3696,33 +3696,33 @@ void sub_1AF59958C()
   }
 }
 
-uint64_t sub_1AF599688@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF599688@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF528660(a1);
-  *a2 = result;
+  result = sub_1AF528660(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF599750@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF599750@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF528590(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF528590(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF599820@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF599820@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5284D8(a1);
-  *a2 = result;
+  result = sub_1AF5284D8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5998E8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5998E8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF528718(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF528718(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
@@ -3730,7 +3730,7 @@ void sub_1AF5999B8()
 {
   if (!qword_1EB63B258)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleNoise, MEMORY[0x1E69E6530], &off_1F2556AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B258);
@@ -3742,7 +3742,7 @@ void sub_1AF599A18()
 {
   if (!qword_1EB63B260)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleNoise, MEMORY[0x1E69E6370], &off_1F2556AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B260);
@@ -3754,7 +3754,7 @@ void sub_1AF599A78()
 {
   if (!qword_1EB63B268)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleNoise, MEMORY[0x1E69E6448], &off_1F2556AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B268);
@@ -3766,7 +3766,7 @@ void sub_1AF599B08()
 {
   if (!qword_1EB63B270)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleNoise, &type metadata for NoiseKind, &off_1F2556AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B270);
@@ -3778,7 +3778,7 @@ void sub_1AF599B68()
 {
   if (!qword_1EB63B278)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleNoise, MEMORY[0x1E69E7360], &off_1F2556AA0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B278);
@@ -3786,26 +3786,26 @@ void sub_1AF599B68()
   }
 }
 
-unint64_t sub_1AF599BC8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF599BC8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52DB60(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52DB60(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF599CE4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF599CE4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52DAC8(a1);
-  *a2 = result;
+  result = sub_1AF52DAC8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF599DAC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF599DAC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52DA24(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52DA24(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
@@ -3813,7 +3813,7 @@ void sub_1AF599E7C()
 {
   if (!qword_1EB63B288)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ProjectorParameters, &type metadata for Entity, &off_1F2558848);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B288);
@@ -3825,7 +3825,7 @@ void sub_1AF599EDC()
 {
   if (!qword_1EB63B290)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ProjectorParameters, MEMORY[0x1E69E6370], &off_1F2558848);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B290);
@@ -3837,7 +3837,7 @@ void sub_1AF599F3C()
 {
   if (!qword_1EB63B298)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ProjectorParameters, MEMORY[0x1E69E6448], &off_1F2558848);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B298);
@@ -3868,7 +3868,7 @@ void sub_1AF59A024()
 {
   if (!qword_1EB63B2B0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ProjectorParameters, &type metadata for AngleF, &off_1F2558848);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2B0);
@@ -3888,7 +3888,7 @@ void sub_1AF59A164()
 {
   if (!qword_1EB63B2B8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for DistanceConstraint, MEMORY[0x1E69E6448], &off_1F2553FB0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2B8);
@@ -3915,7 +3915,7 @@ void sub_1AF59A37C()
 {
   if (!qword_1EB63B2C0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for Attach, MEMORY[0x1E69E6370], &off_1F2553DA8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2C0);
@@ -3927,7 +3927,7 @@ void sub_1AF59A3DC()
 {
   if (!qword_1EB63B2C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for Attach, MEMORY[0x1E69E6448], &off_1F2553DA8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2C8);
@@ -3947,7 +3947,7 @@ void sub_1AF59A51C()
 {
   if (!qword_1EB63B2D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for DirectionalLight, MEMORY[0x1E69E6448], &off_1F252AAB0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2D0);
@@ -3967,7 +3967,7 @@ void sub_1AF59A65C()
 {
   if (!qword_1EB63B2D8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PointLight, MEMORY[0x1E69E6448], &off_1F252AB60);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2D8);
@@ -3987,7 +3987,7 @@ void sub_1AF59A79C()
 {
   if (!qword_1EB63B2E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for AmbientLight, MEMORY[0x1E69E6448], &off_1F252ACC0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2E0);
@@ -4007,7 +4007,7 @@ void sub_1AF59A8DC()
 {
   if (!qword_1EB63B2E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SpotLight, MEMORY[0x1E69E6448], &off_1F252AC10);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2E8);
@@ -4015,11 +4015,11 @@ void sub_1AF59A8DC()
   }
 }
 
-unint64_t sub_1AF59A93C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59A93C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5376B0(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5376B0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4027,7 +4027,7 @@ void sub_1AF59AA0C()
 {
   if (!qword_1EB63B2F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for Shadow, MEMORY[0x1E69E6448], &off_1F2530118);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2F0);
@@ -4047,7 +4047,7 @@ void sub_1AF59ABFC()
 {
   if (!qword_1EB63B2F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCollide, &type metadata for CollisionLayerSet, &off_1F2553720);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B2F8);
@@ -4059,7 +4059,7 @@ void sub_1AF59AC5C()
 {
   if (!qword_1EB63B300)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCollide, MEMORY[0x1E69E6448], &off_1F2553720);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B300);
@@ -4067,18 +4067,18 @@ void sub_1AF59AC5C()
   }
 }
 
-uint64_t sub_1AF59ACBC@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59ACBC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF530480(a1);
-  *a2 = result;
+  result = sub_1AF530480(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59AD84@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59AD84@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5303C8(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5303C8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4086,7 +4086,7 @@ void sub_1AF59AF04()
 {
   if (!qword_1EB63B308)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePlaneCollider, &type metadata for CollisionLayerSet, &off_1F25530C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B308);
@@ -4098,7 +4098,7 @@ void sub_1AF59AF64()
 {
   if (!qword_1EB63B310)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePlaneCollider, MEMORY[0x1E69E6448], &off_1F25530C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B310);
@@ -4110,7 +4110,7 @@ void sub_1AF59AFC4()
 {
   if (!qword_1EB63B318)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePlaneCollider, MEMORY[0x1E69E6370], &off_1F25530C8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B318);
@@ -4118,18 +4118,18 @@ void sub_1AF59AFC4()
   }
 }
 
-uint64_t sub_1AF59B024@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59B024@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF531634(a1);
-  *a2 = result;
+  result = sub_1AF531634(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59B0EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59B0EC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF531574(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF531574(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4137,7 +4137,7 @@ void sub_1AF59B26C()
 {
   if (!qword_1EB63B320)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereCollider, &type metadata for CollisionLayerSet, &off_1F2553488);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B320);
@@ -4149,7 +4149,7 @@ void sub_1AF59B2CC()
 {
   if (!qword_1EB63B328)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereCollider, MEMORY[0x1E69E6448], &off_1F2553488);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B328);
@@ -4161,7 +4161,7 @@ void sub_1AF59B32C()
 {
   if (!qword_1EB63B330)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereCollider, MEMORY[0x1E69E6370], &off_1F2553488);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B330);
@@ -4169,18 +4169,18 @@ void sub_1AF59B32C()
   }
 }
 
-uint64_t sub_1AF59B38C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59B38C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52D17C(a1);
-  *a2 = result;
+  result = sub_1AF52D17C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59B454@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59B454@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52D0D4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52D0D4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4188,7 +4188,7 @@ void sub_1AF59B5D4()
 {
   if (!qword_1EB63B338)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxCollider, &type metadata for CollisionLayerSet, &off_1F2552898);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B338);
@@ -4200,7 +4200,7 @@ void sub_1AF59B634()
 {
   if (!qword_1EB63B340)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxCollider, MEMORY[0x1E69E6448], &off_1F2552898);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B340);
@@ -4212,7 +4212,7 @@ void sub_1AF59B694()
 {
   if (!qword_1EB63B348)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxCollider, MEMORY[0x1E69E6370], &off_1F2552898);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B348);
@@ -4232,7 +4232,7 @@ void sub_1AF59B884()
 {
   if (!qword_1EB63B350)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCylinderCollider, &type metadata for CollisionLayerSet, &off_1F2552A70);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B350);
@@ -4244,7 +4244,7 @@ void sub_1AF59B8E4()
 {
   if (!qword_1EB63B358)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleCylinderCollider, MEMORY[0x1E69E6448], &off_1F2552A70);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B358);
@@ -4272,7 +4272,7 @@ void sub_1AF59BBB4()
 {
   if (!qword_1EB63B360)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSDFCollider, &type metadata for CollisionLayerSet, &off_1F25532A8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B360);
@@ -4284,7 +4284,7 @@ void sub_1AF59BC14()
 {
   if (!qword_1EB63B368)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSDFCollider, MEMORY[0x1E69E6448], &off_1F25532A8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B368);
@@ -4296,7 +4296,7 @@ void sub_1AF59BC74()
 {
   if (!qword_1EB63B370)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSDFCollider, &type metadata for Entity, &off_1F25532A8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B370);
@@ -4343,7 +4343,7 @@ void sub_1AF59BF9C()
 {
   if (!qword_1EB63B378)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshCollider, &type metadata for CollisionLayerSet, &off_1F2552EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B378);
@@ -4355,7 +4355,7 @@ void sub_1AF59BFFC()
 {
   if (!qword_1EB63B380)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshCollider, MEMORY[0x1E69E6448], &off_1F2552EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B380);
@@ -4367,7 +4367,7 @@ void sub_1AF59C05C()
 {
   if (!qword_1EB63B388)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshCollider, &type metadata for Entity, &off_1F2552EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B388);
@@ -4375,29 +4375,29 @@ void sub_1AF59C05C()
   }
 }
 
-double sub_1AF59C0BC@<D0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+double sub_1AF59C0BC@<D0>(unint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  sub_1AF532EA0(a1, v5);
-  result = *v5;
-  v4 = v5[1];
-  *a2 = v5[0];
-  *(a2 + 16) = v4;
-  *(a2 + 32) = v6;
+  sub_1AF532EA0(a1, v6);
+  result = *v6;
+  v5 = v6[1];
+  *a3 = v6[0];
+  *(a3 + 16) = v5;
+  *(a3 + 32) = v7;
   return result;
 }
 
-uint64_t sub_1AF59C1A4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59C1A4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532E00(a1);
-  *a2 = result;
+  result = sub_1AF532E00(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59C26C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59C26C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF532D48(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF532D48(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4405,7 +4405,7 @@ void sub_1AF59C33C()
 {
   if (!qword_1EB63B390)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLocalBoxCollider, MEMORY[0x1E69E6448], &off_1F2552C48);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B390);
@@ -4417,7 +4417,7 @@ void sub_1AF59C39C()
 {
   if (!qword_1EB63B398)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLocalBoxCollider, MEMORY[0x1E69E6370], &off_1F2552C48);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B398);
@@ -4429,7 +4429,7 @@ void sub_1AF59C3FC()
 {
   if (!qword_1EB63B3A0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLocalBoxCollider, &type metadata for AABB, &off_1F2552C48);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B3A0);
@@ -4437,18 +4437,18 @@ void sub_1AF59C3FC()
   }
 }
 
-uint64_t sub_1AF59C45C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59C45C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF538414(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF538414(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF59C52C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59C52C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF53837C(a1);
-  *a2 = result;
+  result = sub_1AF53837C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -4463,7 +4463,7 @@ void sub_1AF59C6CC()
 {
   if (!qword_1EB63B3B0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for KillShape, MEMORY[0x1E69E6370], &off_1F2561EB0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B3B0);
@@ -4475,7 +4475,7 @@ void sub_1AF59C75C()
 {
   if (!qword_1EB63B3C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for KillShape, &type metadata for KillShape.Shape, &off_1F2561EB0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B3C8);
@@ -4487,7 +4487,7 @@ void sub_1AF59C7BC()
 {
   if (!qword_1EB63B3D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for KillShape, MEMORY[0x1E69E7360], &off_1F2561EB0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B3D0);
@@ -4510,13 +4510,13 @@ uint64_t sub_1AF59C900@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   return result;
 }
 
-uint64_t sub_1AF59CA24(unint64_t *a1, unint64_t *a2, uint64_t a3)
+uint64_t sub_1AF59CA24(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4)
 {
   result = *a1;
   if (!result)
   {
     sub_1AF5A9240(255, a2, a3, MEMORY[0x1E69E62F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a4, v7);
     atomic_store(result, a1);
   }
 
@@ -4553,31 +4553,31 @@ uint64_t sub_1AF59CD68@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   return result;
 }
 
-unint64_t sub_1AF59CE8C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59CE8C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5305C4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5305C4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF59CF5C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59CF5C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF530520(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF530520(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-void sub_1AF59D030()
+void sub_1AF59D030(uint64_t a1)
 {
   if (!qword_1EB63B420)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticlePointRenderer, v2, &off_1F2550B88);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B420);
+      atomic_store(v3, &qword_1EB63B420);
     }
   }
 }
@@ -4586,7 +4586,7 @@ void sub_1AF59D0C4()
 {
   if (!qword_1EB63B428)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, MEMORY[0x1E69E6448], &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B428);
@@ -4599,40 +4599,40 @@ unint64_t sub_1AF59D124()
   result = qword_1EB63B430;
   if (!qword_1EB63B430)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE8FB88, &type metadata for ParticlePointRenderer, v0, v1);
     atomic_store(result, &qword_1EB63B430);
   }
 
   return result;
 }
 
-unint64_t sub_1AF59D2B0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59D2B0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF53083C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF53083C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF59D36C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59D36C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5307A4(a1);
-  *a2 = result;
+  result = sub_1AF5307A4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59D434@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59D434@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF53070C(a1);
-  *a2 = result;
+  result = sub_1AF53070C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59D5AC@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59D5AC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF530674(a1);
-  *a2 = result;
+  result = sub_1AF530674(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -4647,7 +4647,7 @@ void sub_1AF59D6B4()
 {
   if (!qword_1EB63B448)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, &type metadata for ParticleAnimationMode, &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B448);
@@ -4659,7 +4659,7 @@ void sub_1AF59D714()
 {
   if (!qword_1EB63B450)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, MEMORY[0x1E69E7668], &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B450);
@@ -4671,7 +4671,7 @@ void sub_1AF59D774()
 {
   if (!qword_1EB63B468)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, &type metadata for ParticleSortMode, &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B468);
@@ -4683,7 +4683,7 @@ void sub_1AF59D7D4()
 {
   if (!qword_1EB63B470)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, MEMORY[0x1E69E6370], &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B470);
@@ -4695,7 +4695,7 @@ void sub_1AF59D834()
 {
   if (!qword_1EB63B478)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, &type metadata for BlendMode, &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B478);
@@ -4707,7 +4707,7 @@ void sub_1AF59D894()
 {
   if (!qword_1EB63B480)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, MEMORY[0x1E69E7360], &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B480);
@@ -4719,7 +4719,7 @@ void sub_1AF59D8F4()
 {
   if (!qword_1EB63B488)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePointRenderer, &type metadata for Entity, &off_1F2550B88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B488);
@@ -4727,11 +4727,11 @@ void sub_1AF59D8F4()
   }
 }
 
-unint64_t sub_1AF59D954@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59D954@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52DE4C(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52DE4C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -4739,7 +4739,7 @@ void sub_1AF59DA24()
 {
   if (!qword_1EB63B490)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, MEMORY[0x1E69E6448], &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B490);
@@ -4752,48 +4752,48 @@ unint64_t sub_1AF59DA84()
   result = qword_1EB63B498;
   if (!qword_1EB63B498)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE8F768, &type metadata for ParticleLineRenderer, v0, v1);
     atomic_store(result, &qword_1EB63B498);
   }
 
   return result;
 }
 
-uint64_t sub_1AF59DAD8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59DAD8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E1B0(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52E1B0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF59DC44@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59DC44@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E0E4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF52E0E4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF59DD00@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59DD00@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E044(a1);
-  *a2 = result;
+  result = sub_1AF52E044(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59DDC8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59DDC8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52DFA4(a1);
-  *a2 = result;
+  result = sub_1AF52DFA4(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59DF40@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59DF40@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52DF04(a1);
-  *a2 = result;
+  result = sub_1AF52DF04(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -4801,7 +4801,7 @@ void sub_1AF59E008()
 {
   if (!qword_1EB63B4A0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, &type metadata for ParticleAnimationMode, &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4A0);
@@ -4813,7 +4813,7 @@ void sub_1AF59E068()
 {
   if (!qword_1EB63B4A8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, MEMORY[0x1E69E7668], &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4A8);
@@ -4825,7 +4825,7 @@ void sub_1AF59E0C8()
 {
   if (!qword_1EB63B4B0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, &type metadata for ParticleSortMode, &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4B0);
@@ -4837,7 +4837,7 @@ void sub_1AF59E128()
 {
   if (!qword_1EB63B4B8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, MEMORY[0x1E69E6370], &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4B8);
@@ -4849,7 +4849,7 @@ void sub_1AF59E188()
 {
   if (!qword_1EB63B4C0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, &type metadata for BlendMode, &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4C0);
@@ -4861,7 +4861,7 @@ void sub_1AF59E1E8()
 {
   if (!qword_1EB63B4C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, MEMORY[0x1E69E7360], &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4C8);
@@ -4873,7 +4873,7 @@ void sub_1AF59E248()
 {
   if (!qword_1EB63B4D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleLineRenderer, &type metadata for Entity, &off_1F2550648);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4D0);
@@ -4881,40 +4881,40 @@ void sub_1AF59E248()
   }
 }
 
-uint64_t sub_1AF59E2A8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF59E2A8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E4FC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52E4FC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF59E420@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59E420@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E828(a1);
-  *a2 = result;
+  result = sub_1AF52E828(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF59E644@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59E644@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E650(a1);
-  *a2 = result;
+  result = sub_1AF52E650(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF59E70C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59E70C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E5A0(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52E5A0(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF59E918@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59E918@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E790(a1);
-  *a2 = result;
+  result = sub_1AF52E790(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -4922,7 +4922,7 @@ void sub_1AF59E9E0()
 {
   if (!qword_1EB63B4D8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for TextureChannel, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4D8);
@@ -4934,7 +4934,7 @@ void sub_1AF59EA40()
 {
   if (!qword_1EB63B4E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for Entity, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4E0);
@@ -4942,15 +4942,15 @@ void sub_1AF59EA40()
   }
 }
 
-void sub_1AF59EAA0()
+void sub_1AF59EAA0(uint64_t a1)
 {
   if (!qword_1EB63B4E8)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleQuadRenderer, v2, &off_1F2551038);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B4E8);
+      atomic_store(v3, &qword_1EB63B4E8);
     }
   }
 }
@@ -4959,7 +4959,7 @@ void sub_1AF59EB40()
 {
   if (!qword_1EB63B4F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, MEMORY[0x1E69E6448], &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4F0);
@@ -4971,7 +4971,7 @@ void sub_1AF59EBA0()
 {
   if (!qword_1EB63B4F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, MEMORY[0x1E69E6370], &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B4F8);
@@ -4979,15 +4979,15 @@ void sub_1AF59EBA0()
   }
 }
 
-void sub_1AF59EC00()
+void sub_1AF59EC00(uint64_t a1)
 {
   if (!qword_1EB63B500)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleQuadRenderer, v2, &off_1F2551038);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B500);
+      atomic_store(v3, &qword_1EB63B500);
     }
   }
 }
@@ -4996,7 +4996,7 @@ void sub_1AF59ECD0()
 {
   if (!qword_1EB63B518)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for ParticleOrientationMode, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B518);
@@ -5008,7 +5008,7 @@ void sub_1AF59ED60()
 {
   if (!qword_1EB63B530)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for ParticleQuadRenderer.Shape, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B530);
@@ -5020,7 +5020,7 @@ void sub_1AF59EE2C()
 {
   if (!qword_1EB63B540)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, MEMORY[0x1E69E7360], &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B540);
@@ -5033,26 +5033,26 @@ unint64_t sub_1AF59EE8C()
   result = qword_1ED724FA8;
   if (!qword_1ED724FA8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE8FF58, &type metadata for ParticleQuadRenderer, v0, v1);
     atomic_store(result, &qword_1ED724FA8);
   }
 
   return result;
 }
 
-unint64_t sub_1AF59EEE0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF59EEE0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E958(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF52E958(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF59EF9C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF59EF9C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E8C0(a1);
-  *a2 = result;
+  result = sub_1AF52E8C0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -5060,7 +5060,7 @@ void sub_1AF59F1B0()
 {
   if (!qword_1EB63B550)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for ParticleAnimationMode, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B550);
@@ -5072,7 +5072,7 @@ void sub_1AF59F210()
 {
   if (!qword_1EB63B558)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, MEMORY[0x1E69E7668], &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B558);
@@ -5084,7 +5084,7 @@ void sub_1AF59F270()
 {
   if (!qword_1EB63B560)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for ParticleSortMode, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B560);
@@ -5096,7 +5096,7 @@ void sub_1AF59F2D0()
 {
   if (!qword_1EB63B568)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleQuadRenderer, &type metadata for BlendMode, &off_1F2551038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B568);
@@ -5109,7 +5109,7 @@ unint64_t sub_1AF59F330()
   result = qword_1EB63B570;
   if (!qword_1EB63B570)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aUmeb, &type metadata for ParticleBoxRenderer, v0, v1);
     atomic_store(result, &qword_1EB63B570);
   }
 
@@ -5166,7 +5166,7 @@ void sub_1AF59FA14()
 {
   if (!qword_1EB63B578)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, &type metadata for ParticleAnimationMode, &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B578);
@@ -5178,7 +5178,7 @@ void sub_1AF59FA74()
 {
   if (!qword_1EB63B580)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, MEMORY[0x1E69E7668], &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B580);
@@ -5190,7 +5190,7 @@ void sub_1AF59FB08()
 {
   if (!qword_1EB63B588)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, &type metadata for ParticleSortMode, &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B588);
@@ -5202,7 +5202,7 @@ void sub_1AF59FB68()
 {
   if (!qword_1EB63B590)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, MEMORY[0x1E69E6370], &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B590);
@@ -5214,7 +5214,7 @@ void sub_1AF59FBC8()
 {
   if (!qword_1EB63B598)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, MEMORY[0x1E69E6448], &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B598);
@@ -5226,7 +5226,7 @@ void sub_1AF59FC70()
 {
   if (!qword_1EB63B5A0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, &type metadata for BlendMode, &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5A0);
@@ -5238,7 +5238,7 @@ void sub_1AF59FCD0()
 {
   if (!qword_1EB63B5A8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, MEMORY[0x1E69E7360], &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5A8);
@@ -5250,7 +5250,7 @@ void sub_1AF59FD30()
 {
   if (!qword_1EB63B5B0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleBoxRenderer, &type metadata for Entity, &off_1F254FC88);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5B0);
@@ -5263,7 +5263,7 @@ unint64_t sub_1AF59FD90()
   result = qword_1EB63B5B8;
   if (!qword_1EB63B5B8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a8eb, &type metadata for ParticleSphereRenderer, v0, v1);
     atomic_store(result, &qword_1EB63B5B8);
   }
 
@@ -5320,7 +5320,7 @@ void sub_1AF5A0444()
 {
   if (!qword_1EB63B5C0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, &type metadata for ParticleAnimationMode, &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5C0);
@@ -5332,7 +5332,7 @@ void sub_1AF5A04A4()
 {
   if (!qword_1EB63B5C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, MEMORY[0x1E69E7668], &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5C8);
@@ -5344,7 +5344,7 @@ void sub_1AF5A0504()
 {
   if (!qword_1EB63B5D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, &type metadata for ParticleSortMode, &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5D0);
@@ -5356,7 +5356,7 @@ void sub_1AF5A0564()
 {
   if (!qword_1EB63B5D8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, MEMORY[0x1E69E6370], &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5D8);
@@ -5368,7 +5368,7 @@ void sub_1AF5A05C4()
 {
   if (!qword_1EB63B5E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, MEMORY[0x1E69E6448], &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5E0);
@@ -5380,7 +5380,7 @@ void sub_1AF5A0624()
 {
   if (!qword_1EB63B5E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, &type metadata for BlendMode, &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5E8);
@@ -5392,7 +5392,7 @@ void sub_1AF5A0684()
 {
   if (!qword_1EB63B5F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, MEMORY[0x1E69E7360], &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5F0);
@@ -5404,7 +5404,7 @@ void sub_1AF5A06E4()
 {
   if (!qword_1EB63B5F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSphereRenderer, &type metadata for Entity, &off_1F25518F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B5F8);
@@ -5424,7 +5424,7 @@ void sub_1AF5A0824()
 {
   if (!qword_1EB63B600)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleSurfaceRenderer, MEMORY[0x1E69E6448], &off_1F2551CD0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B600);
@@ -5432,11 +5432,11 @@ void sub_1AF5A0824()
   }
 }
 
-unint64_t sub_1AF5A0884@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A0884@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5349C4(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF5349C4(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
@@ -5444,7 +5444,7 @@ void sub_1AF5A0954()
 {
   if (!qword_1EB63B608)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleVolumetricRenderer, MEMORY[0x1E69E6448], &off_1F2552450);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B608);
@@ -5452,18 +5452,18 @@ void sub_1AF5A0954()
   }
 }
 
-uint64_t sub_1AF5A09B4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A09B4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5340DC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5340DC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A0A84@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A0A84@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF53403C(a1);
-  *a2 = result;
+  result = sub_1AF53403C(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -5471,7 +5471,7 @@ void sub_1AF5A0B7C()
 {
   if (!qword_1EB63B628)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, &type metadata for ParticlePrimitiveRenderer.Shape, &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B628);
@@ -5483,7 +5483,7 @@ void sub_1AF5A0BDC()
 {
   if (!qword_1EB63B630)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, MEMORY[0x1E69E7360], &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B630);
@@ -5496,48 +5496,48 @@ unint64_t sub_1AF5A0C3C()
   result = qword_1EB63B638;
   if (!qword_1EB63B638)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a5Ebd, &type metadata for ParticlePrimitiveRenderer, v0, v1);
     atomic_store(result, &qword_1EB63B638);
   }
 
   return result;
 }
 
-unint64_t sub_1AF5A0D2C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A0D2C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF534420(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF534420(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-unint64_t sub_1AF5A0DE8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A0DE8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF534228(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF534228(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF5A0EB8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A0EB8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF534380(a1);
-  *a2 = result;
+  result = sub_1AF534380(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5A0F80@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A0F80@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5342E0(a1);
-  *a2 = result;
+  result = sub_1AF5342E0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5A10F8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A10F8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF534188(a1);
-  *a2 = result;
+  result = sub_1AF534188(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -5545,7 +5545,7 @@ void sub_1AF5A11C0()
 {
   if (!qword_1EB63B640)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, &type metadata for ParticleAnimationMode, &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B640);
@@ -5557,7 +5557,7 @@ void sub_1AF5A1220()
 {
   if (!qword_1EB63B648)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, MEMORY[0x1E69E7668], &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B648);
@@ -5569,7 +5569,7 @@ void sub_1AF5A1280()
 {
   if (!qword_1EB63B650)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, &type metadata for ParticleSortMode, &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B650);
@@ -5581,7 +5581,7 @@ void sub_1AF5A12E0()
 {
   if (!qword_1EB63B658)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, MEMORY[0x1E69E6370], &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B658);
@@ -5593,7 +5593,7 @@ void sub_1AF5A1340()
 {
   if (!qword_1EB63B660)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, MEMORY[0x1E69E6448], &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B660);
@@ -5605,7 +5605,7 @@ void sub_1AF5A13A0()
 {
   if (!qword_1EB63B668)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, &type metadata for BlendMode, &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B668);
@@ -5617,7 +5617,7 @@ void sub_1AF5A1400()
 {
   if (!qword_1EB63B670)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticlePrimitiveRenderer, &type metadata for Entity, &off_1F2550EF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B670);
@@ -5637,7 +5637,7 @@ void sub_1AF5A1540()
 {
   if (!qword_1EB63B678)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleAOSphereRenderer, MEMORY[0x1E69E6448], &off_1F254FB28);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B678);
@@ -5657,7 +5657,7 @@ void sub_1AF5A1680()
 {
   if (!qword_1EB63B680)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleAOBoxRenderer, MEMORY[0x1E69E6448], &off_1F254F8D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B680);
@@ -5677,7 +5677,7 @@ void sub_1AF5A17C0()
 {
   if (!qword_1EB63B688)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleDecalRenderer, &type metadata for Entity, &off_1F2550050);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B688);
@@ -5685,68 +5685,68 @@ void sub_1AF5A17C0()
   }
 }
 
-uint64_t sub_1AF5A1820@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A1820@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF5310FC(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF5310FC(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-unint64_t sub_1AF5A1A28@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A1A28@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF531418(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result);
-  *(a2 + 5) = BYTE5(result) & 1;
+  result = sub_1AF531418(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result);
+  *(a3 + 5) = BYTE5(result) & 1;
   return result;
 }
 
-unint64_t sub_1AF5A1AE4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A1AE4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF531238(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF531238(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF5A1BB4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A1BB4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF531380(a1);
-  *a2 = result;
+  result = sub_1AF531380(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5A1C7C@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A1C7C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5312E8(a1);
-  *a2 = result;
+  result = sub_1AF5312E8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5A1DF4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A1DF4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5311A0(a1);
-  *a2 = result;
+  result = sub_1AF5311A0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-uint64_t sub_1AF5A1F58@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A1F58@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5314DC(a1);
-  *a2 = result;
+  result = sub_1AF5314DC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF5A215C()
+void sub_1AF5A215C(uint64_t a1)
 {
   if (!qword_1EB63B6A0)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleRibbonRenderer, v2, &off_1F2551800);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B6A0);
+      atomic_store(v3, &qword_1EB63B6A0);
     }
   }
 }
@@ -5755,7 +5755,7 @@ void sub_1AF5A222C()
 {
   if (!qword_1EB63B6B8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for ParticleRibbonTextureMode, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6B8);
@@ -5767,7 +5767,7 @@ void sub_1AF5A22BC()
 {
   if (!qword_1EB63B6D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for ParticleRibbonProfile, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6D0);
@@ -5779,7 +5779,7 @@ void sub_1AF5A231C()
 {
   if (!qword_1EB63B6D8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, MEMORY[0x1E69E6530], &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6D8);
@@ -5810,7 +5810,7 @@ void sub_1AF5A23D4()
 {
   if (!qword_1EB63B6E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for ParticleAnimationMode, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6E0);
@@ -5822,7 +5822,7 @@ void sub_1AF5A2434()
 {
   if (!qword_1EB63B6E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, MEMORY[0x1E69E7668], &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6E8);
@@ -5834,7 +5834,7 @@ void sub_1AF5A2494()
 {
   if (!qword_1EB63B6F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for ParticleSortMode, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6F0);
@@ -5846,7 +5846,7 @@ void sub_1AF5A24F4()
 {
   if (!qword_1EB63B6F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, MEMORY[0x1E69E6370], &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B6F8);
@@ -5858,7 +5858,7 @@ void sub_1AF5A2554()
 {
   if (!qword_1EB63B700)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, MEMORY[0x1E69E6448], &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B700);
@@ -5892,7 +5892,7 @@ void sub_1AF5A2658()
 {
   if (!qword_1EB63B708)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for BlendMode, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B708);
@@ -5904,7 +5904,7 @@ void sub_1AF5A26B8()
 {
   if (!qword_1EB63B710)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for ParticleOrientationMode, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B710);
@@ -5916,7 +5916,7 @@ void sub_1AF5A2718()
 {
   if (!qword_1EB63B718)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, MEMORY[0x1E69E7360], &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B718);
@@ -5928,7 +5928,7 @@ void sub_1AF5A2778()
 {
   if (!qword_1EB63B720)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleRibbonRenderer, &type metadata for Entity, &off_1F2551800);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B720);
@@ -5936,18 +5936,18 @@ void sub_1AF5A2778()
   }
 }
 
-uint64_t sub_1AF5A27D8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A27D8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52E450(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52E450(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A2944@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A2944@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52E3B0(a1);
-  *a2 = result;
+  result = sub_1AF52E3B0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -5955,7 +5955,7 @@ void sub_1AF5A2AA8()
 {
   if (!qword_1EB63B728)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshRenderer, MEMORY[0x1E69E6530], &off_1F2550788);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B728);
@@ -5967,7 +5967,7 @@ void sub_1AF5A2B08()
 {
   if (!qword_1EB63B730)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshRenderer, &type metadata for ParticleSortMode, &off_1F2550788);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B730);
@@ -5979,7 +5979,7 @@ void sub_1AF5A2B68()
 {
   if (!qword_1EB63B738)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshRenderer, MEMORY[0x1E69E7360], &off_1F2550788);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B738);
@@ -5991,7 +5991,7 @@ void sub_1AF5A2BC8()
 {
   if (!qword_1EB63B740)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleMeshRenderer, &type metadata for Entity, &off_1F2550788);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B740);
@@ -5999,33 +5999,33 @@ void sub_1AF5A2BC8()
   }
 }
 
-uint64_t sub_1AF5A2C28@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A2C28@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF532C8C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF532C8C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A2CF8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A2CF8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532BDC(a1);
-  *a2 = result;
+  result = sub_1AF532BDC(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-unint64_t sub_1AF5A2DC0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A2DC0@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF532B14(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF532B14(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF5A2E90@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A2E90@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF532A64(a1);
-  *a2 = result;
+  result = sub_1AF532A64(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -6033,7 +6033,7 @@ void sub_1AF5A2F58()
 {
   if (!qword_1EB63B748)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGaussianRenderer, MEMORY[0x1E69E6370], &off_1F25502B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B748);
@@ -6045,7 +6045,7 @@ void sub_1AF5A2FB8()
 {
   if (!qword_1EB63B750)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGaussianRenderer, MEMORY[0x1E69E6448], &off_1F25502B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B750);
@@ -6057,7 +6057,7 @@ void sub_1AF5A3018()
 {
   if (!qword_1EB63B758)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGaussianRenderer, &type metadata for ParticleSortMode, &off_1F25502B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B758);
@@ -6069,7 +6069,7 @@ void sub_1AF5A3078()
 {
   if (!qword_1EB63B760)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleGaussianRenderer, MEMORY[0x1E69E7360], &off_1F25502B0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B760);
@@ -6077,18 +6077,18 @@ void sub_1AF5A3078()
   }
 }
 
-uint64_t sub_1AF5A30D8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A30D8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF530A90(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF530A90(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A31A8@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A31A8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF5309F8(a1);
-  *a2 = result;
+  result = sub_1AF5309F8(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -6096,7 +6096,7 @@ void sub_1AF5A32A0()
 {
   if (!qword_1EB63B768)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SceneKitAssetInstance, MEMORY[0x1E69E6370], &off_1F2546F58);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B768);
@@ -6127,7 +6127,7 @@ void sub_1AF5A3378()
 {
   if (!qword_1EB63B770)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SceneKitAssetInstance, &type metadata for Entity, &off_1F2546F58);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B770);
@@ -6135,14 +6135,14 @@ void sub_1AF5A3378()
   }
 }
 
-double sub_1AF5A33D8@<D0>(unint64_t a1@<X0>, _OWORD *a2@<X8>)
+double sub_1AF5A33D8@<D0>(unint64_t a1@<X0>, _OWORD *a3@<X8>)
 {
-  sub_1AF529278(a1, v5);
-  v3 = v5[1];
-  *a2 = v5[0];
-  a2[1] = v3;
-  result = *&v6;
-  a2[2] = v6;
+  sub_1AF529278(a1, v6);
+  v4 = v6[1];
+  *a3 = v6[0];
+  a3[1] = v4;
+  result = *&v7;
+  a3[2] = v7;
   return result;
 }
 
@@ -6150,7 +6150,7 @@ void sub_1AF5A3504()
 {
   if (!qword_1EB63B778)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SceneFileAsset, &type metadata for Asset, &off_1F252BBF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B778);
@@ -6158,33 +6158,33 @@ void sub_1AF5A3504()
   }
 }
 
-double sub_1AF5A35B8@<D0>(unint64_t a1@<X0>, _OWORD *a2@<X8>)
+double sub_1AF5A35B8@<D0>(unint64_t a1@<X0>, _OWORD *a3@<X8>)
 {
-  sub_1AF526DD0(a1, v5);
-  v3 = v5[1];
-  *a2 = v5[0];
-  a2[1] = v3;
-  result = *&v6;
-  a2[2] = v6;
+  sub_1AF526DD0(a1, v6);
+  v4 = v6[1];
+  *a3 = v6[0];
+  a3[1] = v4;
+  result = *&v7;
+  a3[2] = v7;
   return result;
 }
 
-uint64_t sub_1AF5A366C@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1AF5A366C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  result = sub_1AF526CE0(a1);
-  *a2 = result;
+  result = sub_1AF526CE0(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
-void sub_1AF5A37B8()
+void sub_1AF5A37B8(uint64_t a1)
 {
   if (!qword_1EB63B780)
   {
     sub_1AF5A9240(255, &qword_1ED723210, MEMORY[0x1E69E6448], MEMORY[0x1E69E62F8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CSVFileAsset, v2, &off_1F2542D80);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B780);
+      atomic_store(v3, &qword_1EB63B780);
     }
   }
 }
@@ -6193,7 +6193,7 @@ void sub_1AF5A38A0()
 {
   if (!qword_1EB63B788)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CSVFileAsset, &type metadata for Asset, &off_1F2542D80);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B788);
@@ -6201,18 +6201,18 @@ void sub_1AF5A38A0()
   }
 }
 
-double sub_1AF5A3900@<D0>(unint64_t a1@<X0>, _OWORD *a2@<X8>)
+double sub_1AF5A3900@<D0>(unint64_t a1@<X0>, _OWORD *a3@<X8>)
 {
-  sub_1AF529710(a1, &type metadata for HeaderFileAsset, &off_1F2542470, v5);
-  v3 = v5[1];
-  *a2 = v5[0];
-  a2[1] = v3;
-  result = *&v6;
-  a2[2] = v6;
+  sub_1AF529710(a1, &type metadata for HeaderFileAsset, &off_1F2542470, v6);
+  v4 = v6[1];
+  *a3 = v6[0];
+  a3[1] = v4;
+  result = *&v7;
+  a3[2] = v7;
   return result;
 }
 
-__int128 *sub_1AF5A3A60(uint64_t a1, uint64_t a2, void (*a3)(unint64_t, uint64_t, __n128), uint64_t (*a4)(void), uint64_t a5)
+__int128 *sub_1AF5A3A60(uint64_t a1, uint64_t a2, void (*a3)(unint64_t, uint64_t, double), uint64_t (*a4)(void), uint64_t a5)
 {
   v11 = v5[2];
   v10 = v5[3];
@@ -6228,7 +6228,7 @@ void sub_1AF5A3AC4()
 {
   if (!qword_1EB63B790)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for HeaderFileAsset, &type metadata for Asset, &off_1F2542470);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B790);
@@ -6300,10 +6300,10 @@ uint64_t sub_1AF5A3EF8(uint64_t a1)
   return (*(v4 + 16))(v3, v5, &v8);
 }
 
-uint64_t sub_1AF5A3F50@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A3F50@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF538618(a1);
-  *a2 = result;
+  result = sub_1AF538618(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -6311,7 +6311,7 @@ void sub_1AF5A4018()
 {
   if (!qword_1EB63B7A8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SetActive, MEMORY[0x1E69E6370], &off_1F2569580);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B7A8);
@@ -6319,39 +6319,39 @@ void sub_1AF5A4018()
   }
 }
 
-uint64_t sub_1AF5A4078@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A4078@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF53306C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF53306C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A4148@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A4148@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533260(a1);
-  *a2 = result;
-  *(a2 + 8) = v4;
+  result = sub_1AF533260(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6;
   return result;
 }
 
-unint64_t sub_1AF5A41CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A41CC@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF533160(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF533160(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-void sub_1AF5A4484()
+void sub_1AF5A4484(uint64_t a1)
 {
   if (!qword_1EB63B7B8)
   {
     sub_1AF589E74(255, qword_1ED72F9E0, MEMORY[0x1E69E6448], &off_1F2532E98, type metadata accessor for Curve);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOpacityEvolution, v2, &off_1F2556D00);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B7B8);
+      atomic_store(v3, &qword_1EB63B7B8);
     }
   }
 }
@@ -6362,15 +6362,15 @@ uint64_t sub_1AF5A4518()
   return MEMORY[0x1EEE6BDD0](v0, 49, 7);
 }
 
-void sub_1AF5A4568()
+void sub_1AF5A4568(uint64_t a1)
 {
   if (!qword_1EB63B7C0)
   {
     sub_1AF589E74(255, &qword_1ED72F958, MEMORY[0x1E69E6448], MEMORY[0x1E69E6468], MEMORY[0x1E69E66A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ParticleOpacityEvolution, v2, &off_1F2556D00);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B7C0);
+      atomic_store(v3, &qword_1EB63B7C0);
     }
   }
 }
@@ -6379,7 +6379,7 @@ void sub_1AF5A45FC()
 {
   if (!qword_1EB63B7C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleOpacityEvolution, MEMORY[0x1E69E6448], &off_1F2556D00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B7C8);
@@ -6413,7 +6413,7 @@ void sub_1AF5A46C8()
 {
   if (!qword_1EB63B7E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleOpacityEvolution, &type metadata for EvolutionMode, &off_1F2556D00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B7E0);
@@ -6425,7 +6425,7 @@ void sub_1AF5A4728()
 {
   if (!qword_1EB63B7E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParticleOpacityEvolution, MEMORY[0x1E69E7360], &off_1F2556D00);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B7E8);
@@ -6433,23 +6433,23 @@ void sub_1AF5A4728()
   }
 }
 
-unint64_t sub_1AF5A4788@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A4788@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF529424(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF529424(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-void sub_1AF5A4918()
+void sub_1AF5A4918(uint64_t a1)
 {
   if (!qword_1EB63B7F0)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for SineMoveAction, v2, &off_1F2510728);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B7F0);
+      atomic_store(v3, &qword_1EB63B7F0);
     }
   }
 }
@@ -6458,7 +6458,7 @@ void sub_1AF5A49B8()
 {
   if (!qword_1EB63B7F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for SineMoveAction, MEMORY[0x1E69E6448], &off_1F2510728);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B7F8);
@@ -6466,35 +6466,35 @@ void sub_1AF5A49B8()
   }
 }
 
-unint64_t sub_1AF5A4A18@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t sub_1AF5A4A18@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52D024(a1);
-  *a2 = result;
-  *(a2 + 4) = BYTE4(result) & 1;
+  result = sub_1AF52D024(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 4) = BYTE4(result) & 1;
   return result;
 }
 
-uint64_t sub_1AF5A4AE8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A4AE8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52CED8(a1);
-  *a2 = result;
-  *(a2 + 8) = v4 & 1;
+  result = sub_1AF52CED8(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t sub_1AF5A4BB8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AF5A4BB8@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = sub_1AF52CF7C(a1);
-  *a2 = result;
-  *(a2 + 8) = v4;
-  *(a2 + 12) = v5;
+  result = sub_1AF52CF7C(a1, a2, v3);
+  *a3 = result;
+  *(a3 + 8) = v6;
+  *(a3 + 12) = v7;
   return result;
 }
 
-uint64_t sub_1AF5A4CD4@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1AF5A4CD4@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_1AF52CE40(a1);
-  *a2 = result;
+  result = sub_1AF52CE40(a1, a2, v3);
+  *a3 = result;
   return result;
 }
 
@@ -6521,7 +6521,7 @@ void sub_1AF5A4E24()
 {
   if (!qword_1EB63B820)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for AnimationTimeSource, &type metadata for FillMode, &off_1F2510EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B820);
@@ -6529,15 +6529,15 @@ void sub_1AF5A4E24()
   }
 }
 
-void sub_1AF5A4E84()
+void sub_1AF5A4E84(uint64_t a1)
 {
   if (!qword_1EB63B828)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for AnimationTimeSource, v2, &off_1F2510EB8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B828);
+      atomic_store(v3, &qword_1EB63B828);
     }
   }
 }
@@ -6571,7 +6571,7 @@ void sub_1AF5A5008()
 {
   if (!qword_1EB63B840)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for AnimationTimeSource, &type metadata for EasingFunction, &off_1F2510EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B840);
@@ -6583,7 +6583,7 @@ void sub_1AF5A5068()
 {
   if (!qword_1EB63B848)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for AnimationTimeSource, MEMORY[0x1E69E7360], &off_1F2510EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B848);
@@ -6595,7 +6595,7 @@ void sub_1AF5A50C8()
 {
   if (!qword_1EB63B850)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for AnimationTimeSource, MEMORY[0x1E69E6448], &off_1F2510EB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B850);
@@ -6621,15 +6621,15 @@ uint64_t sub_1AF5A516C@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   return result;
 }
 
-void sub_1AF5A52BC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1AF5A52BC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5)
 {
   if (!*a2)
   {
-    a3(255);
-    v4 = type metadata accessor for ComponentValueWriter();
-    if (!v5)
+    v9 = a3(255);
+    v10 = type metadata accessor for ComponentValueWriter(a1, v9, a4, a5);
+    if (!v11)
     {
-      atomic_store(v4, a2);
+      atomic_store(v10, a2);
     }
   }
 }
@@ -6638,7 +6638,7 @@ void sub_1AF5A5350()
 {
   if (!qword_1EB63B888)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, MEMORY[0x1E69E6370], &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B888);
@@ -6650,7 +6650,7 @@ void sub_1AF5A5414()
 {
   if (!qword_1EB63B890)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, MEMORY[0x1E69E6530], &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B890);
@@ -6662,7 +6662,7 @@ void sub_1AF5A54D0()
 {
   if (!qword_1EB63B8A0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, MEMORY[0x1E69E6448], &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B8A0);
@@ -6674,7 +6674,7 @@ void sub_1AF5A5540()
 {
   if (!qword_1EB63B8A8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, MEMORY[0x1E69E6158], &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B8A8);
@@ -6705,7 +6705,7 @@ void sub_1AF5A5614()
 {
   if (!qword_1EB63B8C8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, &type metadata for PrimitiveGenerator.PrimitiveType, &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B8C8);
@@ -6717,7 +6717,7 @@ void sub_1AF5A567C()
 {
   if (!qword_1EB63B8D0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PrimitiveGenerator, MEMORY[0x1E69E7360], &off_1F252F1F0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B8D0);
@@ -6741,7 +6741,7 @@ void sub_1AF5A5948()
 {
   if (!qword_1EB640080)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for TextureShaderAsset, &type metadata for MetalFunctionReflection, &off_1F2543F30);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB640080);
@@ -6753,7 +6753,7 @@ void sub_1AF5A59B8()
 {
   if (!qword_1EB63B930)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for TextureShaderAsset, MEMORY[0x1E69E6530], &off_1F2543F30);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B930);
@@ -6765,7 +6765,7 @@ void sub_1AF5A5A60()
 {
   if (!qword_1EB63B940)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for TextureShaderAsset, MEMORY[0x1E69E6158], &off_1F2543F30);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B940);
@@ -6805,7 +6805,7 @@ void sub_1AF5A5B80()
 {
   if (!qword_1EB63B960)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for TextureShaderAsset, &type metadata for KernelReference, &off_1F2543F30);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B960);
@@ -6813,7 +6813,7 @@ void sub_1AF5A5B80()
   }
 }
 
-void sub_1AF5A5BE0(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t))
+void sub_1AF5A5BE0(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t))
 {
   if (!*a2)
   {
@@ -6832,7 +6832,7 @@ unint64_t sub_1AF5A5C3C()
   if (!qword_1EB63B9A0)
   {
     sub_1AF5A5BE0(255, &qword_1EB63B998, &qword_1ED726BB0, &protocolRef_MTLResource, sub_1AF447DFC);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v3, v0, v1);
     atomic_store(result, &qword_1EB63B9A0);
   }
 
@@ -6845,22 +6845,22 @@ unint64_t sub_1AF5A5CC0()
   if (!qword_1EB63B9B8)
   {
     sub_1AF5A5BE0(255, &qword_1EB63B9B0, &qword_1EB6427A0, &off_1E7A77AA8, sub_1AF0D4478);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v3, v0, v1);
     atomic_store(result, &qword_1EB63B9B8);
   }
 
   return result;
 }
 
-void sub_1AF5A5E1C()
+void sub_1AF5A5E1C(uint64_t a1)
 {
   if (!qword_1EB63B9D0)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for NodeTransformController, v2, &off_1F256D418);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63B9D0);
+      atomic_store(v3, &qword_1EB63B9D0);
     }
   }
 }
@@ -6869,7 +6869,7 @@ void sub_1AF5A5ECC()
 {
   if (!qword_1EB63B9D8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for NodeVisibilityController, MEMORY[0x1E69E6530], &off_1F256D3F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B9D8);
@@ -6881,7 +6881,7 @@ void sub_1AF5A5FEC()
 {
   if (!qword_1EB63B9E0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for NodeVisibilityController, MEMORY[0x1E69E6448], &off_1F256D3F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B9E0);
@@ -6893,7 +6893,7 @@ void sub_1AF5A605C()
 {
   if (!qword_1EB63B9E8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for NodeVisibilityController, MEMORY[0x1E69E6370], &off_1F256D3F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B9E8);
@@ -6905,7 +6905,7 @@ void sub_1AF5A60CC()
 {
   if (!qword_1EB63B9F0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for LightController, MEMORY[0x1E69E6530], &off_1F256D358);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B9F0);
@@ -6917,7 +6917,7 @@ void sub_1AF5A61EC()
 {
   if (!qword_1EB63B9F8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for LightController, MEMORY[0x1E69E6370], &off_1F256D358);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63B9F8);
@@ -6925,15 +6925,15 @@ void sub_1AF5A61EC()
   }
 }
 
-void sub_1AF5A625C()
+void sub_1AF5A625C(uint64_t a1)
 {
   if (!qword_1EB63BA00)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for LightController, v2, &off_1F256D358);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BA00);
+      atomic_store(v3, &qword_1EB63BA00);
     }
   }
 }
@@ -6942,7 +6942,7 @@ void sub_1AF5A630C()
 {
   if (!qword_1EB63BA08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for LightController, MEMORY[0x1E69E6448], &off_1F256D358);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA08);
@@ -6950,28 +6950,28 @@ void sub_1AF5A630C()
   }
 }
 
-void sub_1AF5A6374()
+void sub_1AF5A6374(uint64_t a1)
 {
   if (!qword_1EB63BA10)
   {
     sub_1AF583D60(255, &qword_1ED72F6E0, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E74A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for LightController, v2, &off_1F256D358);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BA10);
+      atomic_store(v3, &qword_1EB63BA10);
     }
   }
 }
 
-void sub_1AF5A6584()
+void sub_1AF5A6584(uint64_t a1)
 {
   if (!qword_1EB63BA40)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CameraController, v2, &off_1F256D2B8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BA40);
+      atomic_store(v3, &qword_1EB63BA40);
     }
   }
 }
@@ -6980,7 +6980,7 @@ void sub_1AF5A6634()
 {
   if (!qword_1EB63BA48)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraController, MEMORY[0x1E69E6370], &off_1F256D2B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA48);
@@ -6992,7 +6992,7 @@ void sub_1AF5A66A4()
 {
   if (!qword_1EB63BA50)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraController, MEMORY[0x1E69E6448], &off_1F256D2B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA50);
@@ -7004,7 +7004,7 @@ void sub_1AF5A6714()
 {
   if (!qword_1EB63BA58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectBloomController, MEMORY[0x1E69E6530], &off_1F256D218);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA58);
@@ -7012,15 +7012,15 @@ void sub_1AF5A6714()
   }
 }
 
-void sub_1AF5A6834()
+void sub_1AF5A6834(uint64_t a1)
 {
   if (!qword_1EB63BA60)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CameraEffectBloomController, v2, &off_1F256D218);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BA60);
+      atomic_store(v3, &qword_1EB63BA60);
     }
   }
 }
@@ -7029,7 +7029,7 @@ void sub_1AF5A68E4()
 {
   if (!qword_1EB63BA68)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectBloomController, MEMORY[0x1E69E6448], &off_1F256D218);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA68);
@@ -7041,7 +7041,7 @@ void sub_1AF5A6954()
 {
   if (!qword_1EB63BA70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectBloomController, MEMORY[0x1E69E6370], &off_1F256D218);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA70);
@@ -7053,7 +7053,7 @@ void sub_1AF5A69C4()
 {
   if (!qword_1EB63BA78)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectToneMappingController, MEMORY[0x1E69E6448], &off_1F256D178);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BA78);
@@ -7065,7 +7065,7 @@ void sub_1AF5A6B60()
 {
   if (!qword_1EB63BAA0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectToneMappingController, MEMORY[0x1E69E6370], &off_1F256D178);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAA0);
@@ -7077,7 +7077,7 @@ void sub_1AF5A6BD0()
 {
   if (!qword_1EB63BAA8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectExposureController, MEMORY[0x1E69E6448], &off_1F256D0D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAA8);
@@ -7089,7 +7089,7 @@ void sub_1AF5A6CF0()
 {
   if (!qword_1EB63BAB0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectExposureController, MEMORY[0x1E69E6370], &off_1F256D0D8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAB0);
@@ -7101,7 +7101,7 @@ void sub_1AF5A6D60()
 {
   if (!qword_1EB63BAB8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectLensBlurController, MEMORY[0x1E69E6448], &off_1F256D038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAB8);
@@ -7113,7 +7113,7 @@ void sub_1AF5A6E80()
 {
   if (!qword_1EB63BAC0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectLensBlurController, MEMORY[0x1E69E6370], &off_1F256D038);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAC0);
@@ -7125,7 +7125,7 @@ void sub_1AF5A6EF0()
 {
   if (!qword_1EB63BAC8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectGrainController, MEMORY[0x1E69E6448], &off_1F256CF98);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAC8);
@@ -7137,7 +7137,7 @@ void sub_1AF5A7010()
 {
   if (!qword_1EB63BAD0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectGrainController, MEMORY[0x1E69E6370], &off_1F256CF98);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAD0);
@@ -7149,7 +7149,7 @@ void sub_1AF5A7080()
 {
   if (!qword_1EB63BAD8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectMotionBlurController, MEMORY[0x1E69E6448], &off_1F256CEF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAD8);
@@ -7161,7 +7161,7 @@ void sub_1AF5A71A0()
 {
   if (!qword_1EB63BAE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectMotionBlurController, MEMORY[0x1E69E6370], &off_1F256CEF8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAE0);
@@ -7173,7 +7173,7 @@ void sub_1AF5A7210()
 {
   if (!qword_1EB63BAE8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectDepthOfFieldController, MEMORY[0x1E69E6448], &off_1F256CE58);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAE8);
@@ -7185,7 +7185,7 @@ void sub_1AF5A7330()
 {
   if (!qword_1EB63BAF0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectDepthOfFieldController, MEMORY[0x1E69E6370], &off_1F256CE58);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BAF0);
@@ -7193,28 +7193,28 @@ void sub_1AF5A7330()
   }
 }
 
-void sub_1AF5A73A0()
+void sub_1AF5A73A0(uint64_t a1)
 {
   if (!qword_1EB63BAF8)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CameraEffectChromaticTransformController, v2, &off_1F256CDB8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BAF8);
+      atomic_store(v3, &qword_1EB63BAF8);
     }
   }
 }
 
-void sub_1AF5A7500()
+void sub_1AF5A7500(uint64_t a1)
 {
   if (!qword_1EB63BB00)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CameraEffectChromaticTransformController, v2, &off_1F256CDB8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BB00);
+      atomic_store(v3, &qword_1EB63BB00);
     }
   }
 }
@@ -7223,7 +7223,7 @@ void sub_1AF5A75B0()
 {
   if (!qword_1EB63BB08)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectChromaticTransformController, MEMORY[0x1E69E6448], &off_1F256CDB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB08);
@@ -7235,7 +7235,7 @@ void sub_1AF5A7620()
 {
   if (!qword_1EB63BB10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectChromaticTransformController, MEMORY[0x1E69E6370], &off_1F256CDB8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB10);
@@ -7262,15 +7262,15 @@ uint64_t sub_1AF5A7690(uint64_t a1)
   return (*(v4 + 16))(v3, v5, &v8);
 }
 
-void sub_1AF5A76E8()
+void sub_1AF5A76E8(uint64_t a1)
 {
   if (!qword_1EB63BB18)
   {
     sub_1AF583D60(255, &unk_1ED72F770, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7428]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for CameraEffectDoughnutBokehController, v2, &off_1F256CD18);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BB18);
+      atomic_store(v3, &qword_1EB63BB18);
     }
   }
 }
@@ -7279,7 +7279,7 @@ void sub_1AF5A7848()
 {
   if (!qword_1EB63BB20)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectDoughnutBokehController, MEMORY[0x1E69E6448], &off_1F256CD18);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB20);
@@ -7291,7 +7291,7 @@ void sub_1AF5A78B8()
 {
   if (!qword_1EB63BB28)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for CameraEffectDoughnutBokehController, MEMORY[0x1E69E6370], &off_1F256CD18);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB28);
@@ -7303,7 +7303,7 @@ void sub_1AF5A7928()
 {
   if (!qword_1EB63BB30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ParametricModelController, MEMORY[0x1E69E6448], &off_1F256CC78);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB30);
@@ -7315,7 +7315,7 @@ void sub_1AF5A7AC4()
 {
   if (!qword_1EB63BB58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for PhysicsBodyController, MEMORY[0x1E69E6448], &off_1F256CBD8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB58);
@@ -7323,28 +7323,28 @@ void sub_1AF5A7AC4()
   }
 }
 
-void sub_1AF5A7BE4()
+void sub_1AF5A7BE4(uint64_t a1)
 {
   if (!qword_1EB63BB60)
   {
     sub_1AF583D60(255, &qword_1ED72F6E0, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E74A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for PhysicsBodyController, v2, &off_1F256CBD8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BB60);
+      atomic_store(v3, &qword_1EB63BB60);
     }
   }
 }
 
-void sub_1AF5A7C8C()
+void sub_1AF5A7C8C(uint64_t a1)
 {
   if (!qword_1EB63BB68)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for PhysicsBodyController, v2, &off_1F256CBD8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BB68);
+      atomic_store(v3, &qword_1EB63BB68);
     }
   }
 }
@@ -7353,7 +7353,7 @@ void sub_1AF5A7D3C()
 {
   if (!qword_1EB63BB70)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceFieldsController, MEMORY[0x1E69E76D8], &off_1F256CB38);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BB70);
@@ -7361,15 +7361,15 @@ void sub_1AF5A7D3C()
   }
 }
 
-void sub_1AF5A7F4C()
+void sub_1AF5A7F4C(uint64_t a1)
 {
   if (!qword_1EB63BBB8)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for ForceFieldsController, v2, &off_1F256CB38);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BBB8);
+      atomic_store(v3, &qword_1EB63BBB8);
     }
   }
 }
@@ -7378,7 +7378,7 @@ void sub_1AF5A8070()
 {
   if (!qword_1EB63BBE0)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceFieldsController, MEMORY[0x1E69E6370], &off_1F256CB38);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BBE0);
@@ -7390,7 +7390,7 @@ void sub_1AF5A80E0()
 {
   if (!qword_1EB63BBE8)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceFieldsController, MEMORY[0x1E69E6448], &off_1F256CB38);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BBE8);
@@ -7402,7 +7402,7 @@ void sub_1AF5A81BC()
 {
   if (!qword_1EB63BC10)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for ForceFieldsController, MEMORY[0x1E69E7360], &off_1F256CB38);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC10);
@@ -7414,7 +7414,7 @@ void sub_1AF5A822C()
 {
   if (!qword_1EB63BC18)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for MaterialController, MEMORY[0x1E69E6448], &off_1F256AC70);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC18);
@@ -7422,15 +7422,15 @@ void sub_1AF5A822C()
   }
 }
 
-void sub_1AF5A834C()
+void sub_1AF5A834C(uint64_t a1)
 {
   if (!qword_1EB63BC20)
   {
     sub_1AF583D60(255, &qword_1ED72F6E0, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E74A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for MaterialController, v2, &off_1F256AC70);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BC20);
+      atomic_store(v3, &qword_1EB63BC20);
     }
   }
 }
@@ -7439,7 +7439,7 @@ void sub_1AF5A84BC()
 {
   if (!qword_1EB63BC30)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WorldBackgroundController, MEMORY[0x1E69E6448], &off_1F256CA98);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC30);
@@ -7451,7 +7451,7 @@ void sub_1AF5A85EC()
 {
   if (!qword_1EB63BC40)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WorldIBLController, MEMORY[0x1E69E6448], &off_1F256C9F8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC40);
@@ -7463,7 +7463,7 @@ void sub_1AF5A865C()
 {
   if (!qword_1EB63BC48)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WorldPhysicsController, MEMORY[0x1E69E6448], &off_1F256C958);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC48);
@@ -7471,15 +7471,15 @@ void sub_1AF5A865C()
   }
 }
 
-void sub_1AF5A877C()
+void sub_1AF5A877C(uint64_t a1)
 {
   if (!qword_1EB63BC50)
   {
     sub_1AF583D60(255, &qword_1ED72F740, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E7450]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for WorldPhysicsController, v2, &off_1F256C958);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BC50);
+      atomic_store(v3, &qword_1EB63BC50);
     }
   }
 }
@@ -7488,7 +7488,7 @@ void sub_1AF5A882C()
 {
   if (!qword_1EB63BC58)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for WorldFogController, MEMORY[0x1E69E6448], &off_1F256C8B8);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC58);
@@ -7496,15 +7496,15 @@ void sub_1AF5A882C()
   }
 }
 
-void sub_1AF5A894C()
+void sub_1AF5A894C(uint64_t a1)
 {
   if (!qword_1EB63BC60)
   {
     sub_1AF583D60(255, &qword_1ED72F6E0, sub_1AF43A0C8, MEMORY[0x1E69E6448], MEMORY[0x1E69E74A8]);
-    v0 = type metadata accessor for ComponentValueWriter();
-    if (!v1)
+    v3 = type metadata accessor for ComponentValueWriter(a1, &type metadata for WorldFogController, v2, &off_1F256C8B8);
+    if (!v4)
     {
-      atomic_store(v0, &qword_1EB63BC60);
+      atomic_store(v3, &qword_1EB63BC60);
     }
   }
 }
@@ -7513,7 +7513,7 @@ void sub_1AF5A8A0C()
 {
   if (!qword_1EB63BC68)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for MorpherController, MEMORY[0x1E69E7CA0] + 8, &off_1F256A6E0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BC68);
@@ -7521,7 +7521,7 @@ void sub_1AF5A8A0C()
   }
 }
 
-void sub_1AF5A8B20(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1AF5A8B20(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -7534,13 +7534,13 @@ void sub_1AF5A8B20(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-uint64_t sub_1AF5A8B84(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1AF5A8B84(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -7553,7 +7553,7 @@ uint64_t sub_1AF5A8BCC(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
   if (!result)
   {
     sub_1AF51B13C(255, a2, a3, MEMORY[0x1E69E62F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v5);
     atomic_store(result, a1);
   }
 
@@ -7566,14 +7566,14 @@ unint64_t sub_1AF5A8C30()
   if (!qword_1EB63BD30)
   {
     sub_1AF5A5BE0(255, &qword_1EB63BD28, &qword_1EB63BD20, &protocolRef_MTLBinaryArchive, sub_1AF447DFC);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v3, v0, v1);
     atomic_store(result, &qword_1EB63BD30);
   }
 
   return result;
 }
 
-uint64_t destroy for ShaderArchive.Library()
+uint64_t destroy for ShaderArchive.Library(uint64_t a1)
 {
 }
 
@@ -7770,7 +7770,7 @@ unint64_t sub_1AF5A90A4()
   result = qword_1EB63BD50;
   if (!qword_1EB63BD50)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE613C4, &_s15CaptureDeviceIDV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EB63BD50);
   }
 
@@ -7782,7 +7782,7 @@ unint64_t sub_1AF5A90FC()
   result = qword_1EB63BD58;
   if (!qword_1EB63BD58)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61334, &_s15CaptureDeviceIDV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EB63BD58);
   }
 
@@ -7794,7 +7794,7 @@ unint64_t sub_1AF5A9154()
   result = qword_1EB63BD60;
   if (!qword_1EB63BD60)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(asc_1AFE6135C, &_s15CaptureDeviceIDV10CodingKeysON, v0, v1);
     atomic_store(result, &qword_1EB63BD60);
   }
 
@@ -7836,7 +7836,7 @@ void sub_1AF5A9290()
 {
   if (!qword_1EB63BD80)
   {
-    v0 = type metadata accessor for ComponentValueWriter();
+    v0 = type metadata accessor for ComponentValueWriter(0, &type metadata for GraphScriptingConfig, &type metadata for GraphScriptingConfig.Mode, &off_1F253C070);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB63BD80);
@@ -7872,17 +7872,17 @@ uint64_t sub_1AF5AA8C4(uint64_t a1)
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t sub_1AF5AA950(void *a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(void), uint64_t a6, void (*a7)(void))
+uint64_t sub_1AF5AA950(void *a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(void), uint64_t a6, uint64_t (*a7)(void))
 {
   sub_1AF5AB678(0, a4, a5, a6, MEMORY[0x1E69E6F58]);
   v10 = v9;
   v11 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v16 - v13;
+  MEMORY[0x1EEE9AC00](v9);
+  v13 = &v15 - v12;
   sub_1AF441150(a1, a1[3]);
   a7();
   sub_1AFDFF3F8();
-  return (*(v11 + 8))(v14, v10);
+  return (*(v11 + 8))(v13, v10);
 }
 
 uint64_t sub_1AF5AAA8C(unint64_t a1, uint64_t a2)
@@ -8143,12 +8143,12 @@ uint64_t sub_1AF5AB190(uint64_t a1)
 
 uint64_t sub_1AF5AB1CC@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
 {
-  v15 = a2;
+  v14 = a2;
   sub_1AF5AB678(0, &qword_1EB63BDB8, sub_1AF5AB624, &type metadata for Opacity.CodingKeys, MEMORY[0x1E69E6F48]);
   v5 = v4;
   v6 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v14 - v8;
+  MEMORY[0x1EEE9AC00](v4);
+  v8 = &v13 - v7;
   sub_1AF441150(a1, a1[3]);
   sub_1AF5AB624();
   sub_1AFDFF3B8();
@@ -8157,12 +8157,12 @@ uint64_t sub_1AF5AB1CC@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
     return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(a1);
   }
 
-  v10 = v15;
+  v9 = v14;
   sub_1AFDFE738();
-  v12 = v11;
-  (*(v6 + 8))(v9, v5);
+  v11 = v10;
+  (*(v6 + 8))(v8, v5);
   result = _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(a1);
-  *v10 = v12;
+  *v9 = v11;
   return result;
 }
 
@@ -8171,13 +8171,13 @@ uint64_t sub_1AF5AB384(void *a1)
   sub_1AF5AB678(0, &qword_1EB63BDC8, sub_1AF5AB624, &type metadata for Opacity.CodingKeys, MEMORY[0x1E69E6F58]);
   v3 = v2;
   v4 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2, v5);
-  v7 = &v9 - v6;
+  MEMORY[0x1EEE9AC00](v2);
+  v6 = &v8 - v5;
   sub_1AF441150(a1, a1[3]);
   sub_1AF5AB624();
   sub_1AFDFF3F8();
   sub_1AFDFE8E8();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
 unint64_t sub_1AF5AB4F0()
@@ -8185,7 +8185,7 @@ unint64_t sub_1AF5AB4F0()
   result = qword_1EB63BDA0;
   if (!qword_1EB63BDA0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aA_30, &type metadata for HiddenOrHasHiddenAncestor.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDA0);
   }
 
@@ -8197,7 +8197,7 @@ unint64_t sub_1AF5AB578()
   result = qword_1EB63BDA8;
   if (!qword_1EB63BDA8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aI_19, &type metadata for HiddenOrHasHiddenAncestor.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDA8);
   }
 
@@ -8209,7 +8209,7 @@ unint64_t sub_1AF5AB5D0()
   result = qword_1EB63BDB0;
   if (!qword_1EB63BDB0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61AB0, &type metadata for HiddenOrHasHiddenAncestor.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDB0);
   }
 
@@ -8221,7 +8221,7 @@ unint64_t sub_1AF5AB624()
   result = qword_1EB63BDC0;
   if (!qword_1EB63BDC0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61D20, &type metadata for Opacity.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDC0);
   }
 
@@ -8246,7 +8246,7 @@ unint64_t sub_1AF5AB6E0()
   result = qword_1EB63BDD8;
   if (!qword_1EB63BDD8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61CD0, &type metadata for Hidden.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDD8);
   }
 
@@ -8258,7 +8258,7 @@ unint64_t sub_1AF5AB758()
   result = qword_1EB63BDE0;
   if (!qword_1EB63BDE0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61C58, &type metadata for Opacity.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDE0);
   }
 
@@ -8270,7 +8270,7 @@ unint64_t sub_1AF5AB7B0()
   result = qword_1EB63BDE8;
   if (!qword_1EB63BDE8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aQ_42, &type metadata for Hidden.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDE8);
   }
 
@@ -8282,7 +8282,7 @@ unint64_t sub_1AF5AB808()
   result = qword_1EB63BDF0;
   if (!qword_1EB63BDF0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE61CA8, &type metadata for Hidden.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDF0);
   }
 
@@ -8294,7 +8294,7 @@ unint64_t sub_1AF5AB860()
   result = qword_1EB63BDF8;
   if (!qword_1EB63BDF8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(asc_1AFE61BC8, &type metadata for Opacity.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BDF8);
   }
 
@@ -8306,7 +8306,7 @@ unint64_t sub_1AF5AB8B8()
   result = qword_1EB63BE00;
   if (!qword_1EB63BE00)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aA_31, &type metadata for Opacity.CodingKeys, v0, v1);
     atomic_store(result, &qword_1EB63BE00);
   }
 
@@ -8368,12 +8368,12 @@ uint64_t sub_1AF5AB97C(unint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1AF5ABAB4@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+unint64_t sub_1AF5ABAB4@<X0>(unint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_1AF5B0CC4(a1);
+  result = sub_1AF5B0CC4(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -8383,8 +8383,8 @@ uint64_t sub_1AF5ABAE0(void *a1)
 {
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3D8();
-  v5 = *v1;
-  sub_1AF448018(v3, v4);
+  v3[6] = *v1;
+  sub_1AF448018(v3, v3[3]);
   sub_1AF480018();
   sub_1AFDFEF28();
   return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v3);
@@ -8410,8 +8410,7 @@ uint64_t sub_1AF5ABBF0(uint64_t a1, uint64_t a2)
     v8 = 32;
     do
     {
-      v9 = *(v3 + v8);
-      sub_1AF62BFF0(v9, 1, ObjectType, a2);
+      sub_1AF62BFF0(*(v3 + v8), 1, ObjectType, a2);
       v16 = v6;
       v11 = *(v6 + 16);
       v10 = *(v6 + 24);
@@ -8444,12 +8443,12 @@ uint64_t sub_1AF5ABBF0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *sub_1AF5ABD1C@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *sub_1AF5ABD1C@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_1AF5B0F5C(a1);
+  result = sub_1AF5B0F5C(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -8460,15 +8459,15 @@ uint64_t sub_1AF5ABD48(void *a1)
   v2 = *v1;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3D8();
-  v6 = v2;
-  sub_1AF448018(v4, v5);
+  v4[6] = v2;
+  sub_1AF448018(v4, v4[3]);
   sub_1AF47815C(0, &unk_1ED723230, &type metadata for Entity, MEMORY[0x1E69E62F8]);
-  sub_1AF5B2A80(&qword_1EB642E80, sub_1AF480018);
+  sub_1AF5B2A80(&qword_1EB642E80, sub_1AF480018, MEMORY[0x1E69E6300]);
   sub_1AFDFEF28();
   return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v4);
 }
 
-uint64_t sub_1AF5ABE50(unint64_t a1, uint64_t a2, unint64_t a3)
+BOOL sub_1AF5ABE50(unint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v4 = a1;
@@ -8523,7 +8522,7 @@ LABEL_11:
 
 uint64_t sub_1AF5ABF9C(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  if (a2 && (sub_1AF5ABE50(a1, a2, a3) & 1) == 0)
+  if (a2 && !sub_1AF5ABE50(a1, a2, a3))
   {
     if (qword_1ED730EA0 != -1)
     {
@@ -8673,10 +8672,9 @@ uint64_t sub_1AF5AC358(unint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1AF5AC464(uint64_t result, unint64_t a2)
+void sub_1AF5AC464(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8685,88 +8683,78 @@ uint64_t sub_1AF5AC464(uint64_t result, unint64_t a2)
     v8 = sub_1AF67CACC(&type metadata for Children, &off_1F252A420, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFD360(v5, a2);
+    sub_1AFBFD360(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v10[0] = a2;
-      v10[1] = v6;
-      v11 = v7;
-      sub_1AF5B2158(0, &qword_1EB63BE08);
-      v14 = v9;
-      v15 = &off_1F2536170;
-      v12 = v5;
-      v13 = !v8;
-      v16 = 12;
+      v10[0] = __PAIR64__(v6, a2);
+      v10[1] = v7;
+      sub_1AF5B2158(0, &qword_1EB63BE08, &type metadata for Children, &off_1F252A4A0);
+      v12 = v9;
+      v13 = &off_1F2536170;
+      v10[2] = a1;
+      v11 = !v8;
+      v14 = 12;
 
       sub_1AF6C67D0(v10);
 
-      return sub_1AF57955C(v10);
+      sub_1AF57955C(v10);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AC5A8(uint64_t result, unint64_t a2)
+void sub_1AF5AC5A8(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
     v7 = *v2;
     swift_unownedRetainStrong();
-    v8 = type metadata accessor for HeaderScript();
+    v8 = type metadata accessor for HeaderScript(0);
     v9 = sub_1AF67CACC(v8, &off_1F25421A0, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDF4C(v5, a2);
+    sub_1AFBFDF4C(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE58, type metadata accessor for HeaderScript, &off_1F2542220, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, type metadata accessor for HeaderScript);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, type metadata accessor for HeaderScript);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AC738(uint64_t result, unint64_t a2)
+void sub_1AF5AC738(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8776,43 +8764,38 @@ uint64_t sub_1AF5AC738(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F250F288, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDF34(v5, a2);
+    sub_1AFBFDF34(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE50, sub_1AF5B21E4, &off_1F250F310, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B21E4);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B21E4);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AC8C8(uint64_t result, unint64_t a2)
+void sub_1AF5AC8C8(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8822,43 +8805,38 @@ uint64_t sub_1AF5AC8C8(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F2558F10, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDF04(v5, a2);
+    sub_1AFBFDF04(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE48, sub_1AF5B21A8, &off_1F2558F90, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B21A8);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B21A8);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5ACA58(uint64_t result, unint64_t a2)
+void sub_1AF5ACA58(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8868,43 +8846,38 @@ uint64_t sub_1AF5ACA58(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F255BB48, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDF94(v5, a2);
+    sub_1AFBFDF94(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE70, type metadata accessor for TriggerScript, &off_1F255BBC8, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, type metadata accessor for TriggerScript);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, type metadata accessor for TriggerScript);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5ACBE8(uint64_t result, unint64_t a2)
+void sub_1AF5ACBE8(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8914,43 +8887,38 @@ uint64_t sub_1AF5ACBE8(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F250F288, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDF7C(v5, a2);
+    sub_1AFBFDF7C(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE68, sub_1AF5B225C, &off_1F250F310, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B225C);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B225C);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5ACD78(uint64_t result, unint64_t a2)
+void sub_1AF5ACD78(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -8960,43 +8928,38 @@ uint64_t sub_1AF5ACD78(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F2558F10, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDEEC(v5, a2);
+    sub_1AFBFDEEC(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE60, sub_1AF5B2220, &off_1F2558F90, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B2220);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B2220);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5ACF08(uint64_t result, unint64_t a2)
+void sub_1AF5ACF08(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -9006,43 +8969,38 @@ uint64_t sub_1AF5ACF08(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(updated, &off_1F255BA18, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDFF4(v5, a2);
+    sub_1AFBFDFF4(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE88, type metadata accessor for ParticleUpdateScript, &off_1F255BAD0, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, type metadata accessor for ParticleUpdateScript);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, type metadata accessor for ParticleUpdateScript);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AD098(uint64_t result, unint64_t a2)
+void sub_1AF5AD098(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -9052,43 +9010,38 @@ uint64_t sub_1AF5AD098(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F250F288, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDFDC(v5, a2);
+    sub_1AFBFDFDC(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE80, sub_1AF5B22D4, &off_1F250F310, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B22D4);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B22D4);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AD228(uint64_t result, unint64_t a2)
+void sub_1AF5AD228(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -9098,43 +9051,38 @@ uint64_t sub_1AF5AD228(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(v8, &off_1F2558F10, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFDFAC(v5, a2);
+    sub_1AFBFDFAC(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BE78, sub_1AF5B2298, &off_1F2558F90, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, sub_1AF5B2298);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B2298);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_1AF5AD3B8(uint64_t result, unint64_t a2)
+void sub_1AF5AD3B8(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v5 = result;
   v6 = HIDWORD(a2);
   if (HIDWORD(a2) || a2 != -1)
   {
@@ -9144,35 +9092,72 @@ uint64_t sub_1AF5AD3B8(uint64_t result, unint64_t a2)
     v9 = sub_1AF67CACC(inited, &off_1F255B908, a2);
 
     swift_unownedRetainStrong();
-    sub_1AFBFE054(v5, a2);
+    sub_1AFBFE054(a1, a2);
 
     swift_unownedRetainStrong();
 
-    result = swift_unknownObjectUnownedLoadStrong();
-    if (result)
+    if (swift_unknownObjectUnownedLoadStrong())
     {
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
 
     if (*(v3 + 24) == 1)
     {
       swift_unownedRetainStrong();
-      v13[0] = a2;
-      v13[1] = v6;
-      v14 = v7;
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
       sub_1AF5B25E0(0, &qword_1EB63BEA0, type metadata accessor for ParticleInitScript, &off_1F255B9C0, type metadata accessor for ComponentWriter);
       v11 = v10;
-      v15[3] = v10;
-      v15[4] = &off_1F2536170;
-      v12 = sub_1AF585714(v15);
-      sub_1AF5B264C(v5, v12, type metadata accessor for ParticleInitScript);
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, type metadata accessor for ParticleInitScript);
       *(v12 + *(v11 + 36)) = !v9;
-      v16 = 12;
+      v15 = 12;
       sub_1AF6C67D0(v13);
 
-      return sub_1AF57955C(v13);
+      sub_1AF57955C(v13);
     }
   }
+}
 
-  return result;
+void sub_1AF5AD548(uint64_t a1, unint64_t a2)
+{
+  v3 = v2;
+  v6 = HIDWORD(a2);
+  if (HIDWORD(a2) || a2 != -1)
+  {
+    v7 = *v2;
+    swift_unownedRetainStrong();
+    sub_1AF5B234C(0);
+    v9 = sub_1AF67CACC(v8, &off_1F250F288, a2);
+
+    swift_unownedRetainStrong();
+    sub_1AFBFE03C(a1, a2);
+
+    swift_unownedRetainStrong();
+
+    if (swift_unknownObjectUnownedLoadStrong())
+    {
+      swift_unknownObjectRelease();
+    }
+
+    if (*(v3 + 24) == 1)
+    {
+      swift_unownedRetainStrong();
+      v13[0] = __PAIR64__(v6, a2);
+      v13[1] = v7;
+      sub_1AF5B25E0(0, &qword_1EB63BE98, sub_1AF5B234C, &off_1F250F310, type metadata accessor for ComponentWriter);
+      v11 = v10;
+      v14[3] = v10;
+      v14[4] = &off_1F2536170;
+      v12 = sub_1AF585714(v14);
+      sub_1AF5B264C(a1, v12, sub_1AF5B234C);
+      *(v12 + *(v11 + 36)) = !v9;
+      v15 = 12;
+      sub_1AF6C67D0(v13);
+
+      sub_1AF57955C(v13);
+    }
+  }
 }

@@ -41,9 +41,9 @@
     goto LABEL_9;
   }
 
-  v11 = [(__CFString *)lowercaseString isEqualToString:@"accepted"];
+  isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-  if (v11)
+  if (isEqualToString)
   {
 LABEL_5:
     v12 = 2;
@@ -51,7 +51,7 @@ LABEL_5:
   }
 
   v13 = v10;
-  if (v13 == @"pending" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"pending"], v14, v15))
+  if (v13 == @"pending" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v15))
   {
     v12 = 1;
   }
@@ -310,9 +310,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v9 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v9)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -384,7 +384,7 @@ LABEL_10:
   v6 = memberCopy;
   if (!memberCopy)
   {
-    v3 = 0;
+    isEqualToString = 0;
     goto LABEL_16;
   }
 
@@ -396,12 +396,12 @@ LABEL_5:
     v9 = v6[6];
     if (dsid && v9)
     {
-      v3 = [(NSNumber *)dsid isEqual:?];
+      isEqualToString = [(NSNumber *)dsid isEqual:?];
     }
 
     else
     {
-      v3 = dsid == v9;
+      isEqualToString = dsid == v9;
     }
 
     goto LABEL_16;
@@ -423,20 +423,20 @@ LABEL_5:
   v13 = v12;
   if (v11 == v12)
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v3 = 0;
+    isEqualToString = 0;
     if (v11 && v12)
     {
-      v3 = [(NSString *)v11 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
     }
   }
 
 LABEL_16:
-  return v3 & 1;
+  return isEqualToString & 1;
 }
 
 - (unint64_t)hash

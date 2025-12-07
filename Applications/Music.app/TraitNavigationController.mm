@@ -20,17 +20,17 @@
 - (void)pushViewController:(id)controller animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v7 = sub_10010FC20(&unk_10119F3A0);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v14 - v8;
-  v10 = type metadata accessor for UITraitOverrides();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = *((swift_isaMask & self->super.super.super.super.isa) + 0x50);
+  sub_10010FC20(&unk_10119F3A0, &qword_100EC7CD0);
+  __chkstk_darwin();
+  v8 = &v13 - v7;
+  v9 = type metadata accessor for UITraitOverrides();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = *((swift_isaMask & self->super.super.super.super.isa) + 0x50);
   controllerCopy = controller;
   selfCopy = self;
-  v11(controllerCopy, v9, animatedCopy);
+  v10(controllerCopy, v8, animatedCopy);
 
-  sub_1000095E8(v9, &unk_10119F3A0);
+  sub_1000095E8(v8, &unk_10119F3A0, &qword_100EC7CD0);
 }
 
 - (id)_traitCollectionForChildEnvironment:(id)environment
@@ -49,7 +49,7 @@
   controllerCopy = controller;
   selfCopy = self;
   viewControllers = [(TraitNavigationController *)selfCopy viewControllers];
-  sub_100009F78(0, &qword_101183D40);
+  sub_100009F78(0, &qword_101183D40, UIViewController_ptr);
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v15 = controllerCopy;

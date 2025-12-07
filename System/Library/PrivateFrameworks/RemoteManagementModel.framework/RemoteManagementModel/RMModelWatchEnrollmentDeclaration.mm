@@ -13,14 +13,12 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"EnrollmentProfileURL";
-  v7[1] = @"AnchorCertificateAssetReferences";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"EnrollmentProfileURL";
+  v6[1] = @"AnchorCertificateAssetReferences";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -39,14 +37,12 @@
 
 void __52__RMModelWatchEnrollmentDeclaration_assetReferences__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_28746A898 keyPath:@"$.payloadAnchorCertificateAssetReferences.*"];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = assetReferences_assetPaths_16;
   assetReferences_assetPaths_16 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier enrollmentProfileURL:(id)l anchorCertificateAssetReferences:(id)references
@@ -103,17 +99,15 @@ void __52__RMModelWatchEnrollmentDeclaration_assetReferences__block_invoke()
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746D358;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746D358;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_28746A8B0];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_28746A8C8];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

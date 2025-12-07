@@ -157,23 +157,23 @@ void ApplePMUFirmwareDriver::ApplePMUFirmwareDriver(ApplePMUFirmwareDriver *this
   OSMetaClass::instanceConstructed(&ApplePMUFirmwareDriver::gMetaClass);
 }
 
-uint64_t ApplePMUFirmwareDriver::start(uint64_t this, IOService *a2)
+uint64_t ApplePMUFirmwareDriver::start(OSObject *this, IOService *a2)
 {
   v4 = (a2->getName)(a2, 0);
-  *(this + 144) = OSString::withCString(v4);
-  v5 = (this + 136);
-  *(this + 136) = 3;
-  PE_parse_boot_argn("pmu-fw-debug", (this + 136), 4);
+  this[9].__vftable = OSString::withCString(v4);
+  p_retainCount = &this[8].retainCount;
+  this[8].retainCount = 3;
+  PE_parse_boot_argn("pmu-fw-debug", &this[8].retainCount, 4);
   v6 = OSMetaClassBase::safeMetaCast(a2, AppleARMSPMIDevice::metaClass);
-  *(this + 152) = v6;
+  *&this[9].retainCount = v6;
   if (!v6)
   {
-    ApplePMUFirmwareDriver::start((this + 136), (this + 144), this, &v40);
+    ApplePMUFirmwareDriver::start(&this[8].retainCount, &this[9], this, &v40);
     return v40;
   }
 
   {
-    ApplePMUFirmwareDriver::start((this + 136), (this + 144), this, &v38);
+    ApplePMUFirmwareDriver::start(&this[8].retainCount, &this[9], this, &v38);
     return v38;
   }
 
@@ -182,22 +182,22 @@ uint64_t ApplePMUFirmwareDriver::start(uint64_t this, IOService *a2)
   v9 = OSMetaClassBase::safeMetaCast(v7, OSData::metaClass);
   if (!v9)
   {
-    if ((*v5 & 0x80) != 0)
+    if ((*p_retainCount & 0x80) != 0)
     {
       v32 = "(%s) %s::%s: failed to find property with key %s\n";
 LABEL_34:
-      ApplePMUFirmwareDriver::start((this + 144), this, v32);
+      ApplePMUFirmwareDriver::start(&this[9], this, v32);
     }
 
 LABEL_35:
-    ApplePMUFirmwareDriver::start((this + 136), (this + 144), this, &v39);
+    ApplePMUFirmwareDriver::start(&this[8].retainCount, &this[9], this, &v39);
     return v39;
   }
 
   v10 = (v9->__vftable[2].release)(v9, 0, 4);
   if (!v10)
   {
-    if ((*v5 & 0x80) != 0)
+    if ((*p_retainCount & 0x80) != 0)
     {
       v32 = "(%s) %s::%s: failed to get data from key %s\n";
       goto LABEL_34;
@@ -207,10 +207,10 @@ LABEL_35:
   }
 
   v11 = *v10;
-  if ((*v5 & 0x80) != 0)
+  if ((*p_retainCount & 0x80) != 0)
   {
-    v12 = (*(**(this + 144) + 168))(*(this + 144));
-    v13 = (*(*this + 56))(this);
+    v12 = (*(this[9].~OSObject + 21))(this[9].__vftable);
+    v13 = (this->getMetaClass)(this);
     ClassName = OSMetaClass::getClassName(v13);
     IOLog("(%s) %s::%s: [%s] = 0x%x\n", v12, ClassName, "getDTProperty", "has-fw", v11);
   }
@@ -221,12 +221,12 @@ LABEL_35:
   }
 
   v15 = (a2->getName)(a2, 0);
-  if (((*(*this + 208))(this, "PMUName", v15) & 1) == 0)
+  if (((this->__vftable[1].taggedRelease_0)(this, "PMUName", v15) & 1) == 0)
   {
-    if ((*v5 & 2) != 0)
+    if ((*p_retainCount & 2) != 0)
     {
-      (*(**(this + 144) + 168))(*(this + 144));
-      v33 = (*(*this + 56))(this);
+      (*(this[9].~OSObject + 21))(this[9].__vftable);
+      v33 = (this->getMetaClass)(this);
       OSMetaClass::getClassName(v33);
       IOLog("(%s) %s::%s: setProperty failed\n");
     }
@@ -235,13 +235,13 @@ LABEL_35:
   }
 
   v16 = IOWorkLoop::workLoop();
-  *(this + 160) = v16;
+  this[10].__vftable = v16;
   if (!v16)
   {
-    if ((*v5 & 2) != 0)
+    if ((*p_retainCount & 2) != 0)
     {
-      (*(**(this + 144) + 168))(*(this + 144));
-      v34 = (*(*this + 56))(this);
+      (*(this[9].~OSObject + 21))(this[9].__vftable);
+      v34 = (this->getMetaClass)(this);
       OSMetaClass::getClassName(v34);
       IOLog("(%s) %s::%s: failed to create IOWorkLoop\n");
     }
@@ -250,13 +250,13 @@ LABEL_35:
   }
 
   v17 = IOCommandGate::commandGate(this, 0);
-  *(this + 168) = v17;
+  *&this[10].retainCount = v17;
   if (!v17)
   {
-    if ((*v5 & 2) != 0)
+    if ((*p_retainCount & 2) != 0)
     {
-      (*(**(this + 144) + 168))(*(this + 144));
-      v35 = (*(*this + 56))(this);
+      (*(this[9].~OSObject + 21))(this[9].__vftable);
+      v35 = (this->getMetaClass)(this);
       OSMetaClass::getClassName(v35);
       IOLog("(%s) %s::%s: failed to create IOCommandGate\n");
     }
@@ -264,13 +264,13 @@ LABEL_35:
     return 0;
   }
 
-  if ((*(**(this + 160) + 160))(*(this + 160), v17))
+  if ((*(this[10].~OSObject + 20))(this[10].__vftable, v17))
   {
-    if ((*v5 & 2) != 0)
+    if ((*p_retainCount & 2) != 0)
     {
 LABEL_45:
-      (*(**(this + 144) + 168))(*(this + 144));
-      v36 = (*(*this + 56))(this);
+      (*(this[9].~OSObject + 21))(this[9].__vftable);
+      v36 = (this->getMetaClass)(this);
       OSMetaClass::getClassName(v36);
       IOLog("(%s) %s::%s: failed to add event source to work loop, rc = 0x%x\n");
     }
@@ -278,13 +278,13 @@ LABEL_45:
     return 0;
   }
 
-  if ((ApplePMUFirmwareDriver::getDTProperty<unsigned short>(this, a2, "fw-host-irq-address", (this + 176)) & 1) == 0)
+  if ((ApplePMUFirmwareDriver::getDTProperty<unsigned short>(this, a2, "fw-host-irq-address", &this[11]) & 1) == 0)
   {
 LABEL_27:
-    if ((*v5 & 2) != 0)
+    if ((*p_retainCount & 2) != 0)
     {
-      (*(**(this + 144) + 168))(*(this + 144));
-      v31 = (*(*this + 56))(this);
+      (*(this[9].~OSObject + 21))(this[9].__vftable);
+      v31 = (this->getMetaClass)(this);
       OSMetaClass::getClassName(v31);
       IOLog("(%s) %s::%s: failed to find property %s\n");
     }
@@ -292,11 +292,11 @@ LABEL_27:
     return 0;
   }
 
-  if (ApplePMUFirmwareDriver::getDTProperty<unsigned short>(this, a2, "fw-mcom-address", (this + 180)))
+  if (ApplePMUFirmwareDriver::getDTProperty<unsigned short>(this, a2, "fw-mcom-address", &this[11].__vftable + 2))
   {
-    *(this + 178) = 1;
-    *(this + 179) = 0;
-    *(this + 184) = IOLockAlloc();
+    BYTE2(this[11].__vftable) = 1;
+    BYTE3(this[11].__vftable) = 0;
+    *&this[11].retainCount = IOLockAlloc();
     v18 = (a2->getProperty_1)(a2, "fw-mcom-int-index");
     v19 = OSMetaClassBase::safeMetaCast(v18, v8);
     if (v19)
@@ -305,24 +305,24 @@ LABEL_27:
       if (v20)
       {
         v21 = *v20;
-        *(this + 192) = *v20;
-        if ((*(this + 136) & 0x80) != 0)
+        LODWORD(this[12].__vftable) = *v20;
+        if ((this[8].retainCount & 0x80) != 0)
         {
-          v22 = (*(**(this + 144) + 168))(*(this + 144));
-          v23 = (*(*this + 56))(this);
+          v22 = (*(this[9].~OSObject + 21))(this[9].__vftable);
+          v23 = (this->getMetaClass)(this);
           v24 = OSMetaClass::getClassName(v23);
-          IOLog("(%s) %s::%s: [%s] = 0x%x\n", v22, v24, "getDTProperty", "fw-mcom-int-index", *(this + 192));
-          v21 = *(this + 192);
+          IOLog("(%s) %s::%s: [%s] = 0x%x\n", v22, v24, "getDTProperty", "fw-mcom-int-index", LODWORD(this[12].__vftable));
+          v21 = this[12].__vftable;
         }
 
         v25 = IOInterruptEventSource::interruptEventSource(this, ApplePMUFirmwareDriver::handleMailboxInterrupt, a2, v21);
-        *(this + 200) = v25;
+        *&this[12].retainCount = v25;
         if (!v25)
         {
-          if ((*v5 & 2) != 0)
+          if ((*p_retainCount & 2) != 0)
           {
-            (*(**(this + 144) + 168))(*(this + 144));
-            v37 = (*(*this + 56))(this);
+            (*(this[9].~OSObject + 21))(this[9].__vftable);
+            v37 = (this->getMetaClass)(this);
             OSMetaClass::getClassName(v37);
             IOLog("(%s) %s::%s: failed to create IOInterruptEventSource\n");
           }
@@ -330,13 +330,13 @@ LABEL_27:
           return 0;
         }
 
-        if (!(*(**(this + 160) + 160))(*(this + 160), v25))
+        if (!(*(this[10].~OSObject + 20))(this[10].__vftable, v25))
         {
-          (*(**(this + 200) + 176))(*(this + 200));
+          (*(**&this[12].retainCount + 176))(*&this[12].retainCount);
           goto LABEL_21;
         }
 
-        if ((*v5 & 2) != 0)
+        if ((*p_retainCount & 2) != 0)
         {
           goto LABEL_45;
         }
@@ -344,7 +344,7 @@ LABEL_27:
         return 0;
       }
 
-      if ((*v5 & 0x80) == 0)
+      if ((*p_retainCount & 0x80) == 0)
       {
         goto LABEL_27;
       }
@@ -354,7 +354,7 @@ LABEL_27:
 
     else
     {
-      if ((*v5 & 0x80) == 0)
+      if ((*p_retainCount & 0x80) == 0)
       {
         goto LABEL_27;
       }
@@ -362,16 +362,16 @@ LABEL_27:
       v30 = "(%s) %s::%s: failed to find property with key %s\n";
     }
 
-    ApplePMUFirmwareDriver::start((this + 144), this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v30);
+    ApplePMUFirmwareDriver::start(&this[9], this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v30);
     goto LABEL_27;
   }
 
 LABEL_21:
-  (*(*this + 672))(this, 0);
-  if ((*(this + 136) & 8) != 0)
+  (this->__vftable[5].taggedRetain)(this, 0);
+  if ((this[8].retainCount & 8) != 0)
   {
-    v26 = (*(**(this + 144) + 168))(*(this + 144));
-    v27 = (*(*this + 56))(this);
+    v26 = (*(this[9].~OSObject + 21))(this[9].__vftable);
+    v27 = (this->getMetaClass)(this);
     v28 = OSMetaClass::getClassName(v27);
     IOLog("(%s) %s::%s: started\n", v26, v28, "start");
   }
@@ -528,20 +528,20 @@ uint64_t ApplePMUFirmwareDriver::mailboxTransactionGated(uint64_t a1, uint64_t a
   v21 = 15;
   if ((*(**(a1 + 152) + 1424))(*(a1 + 152), (*(a1 + 180) + 10), &v21, 1, 0))
   {
-    ApplePMUFirmwareDriver::mailboxTransactionGated(a1);
+    ApplePMUFirmwareDriver::mailboxTransactionGated();
     return v22;
   }
 
   if ((*(**(a1 + 152) + 1424))(*(a1 + 152), *(a1 + 180), a2, 5, 0))
   {
-    ApplePMUFirmwareDriver::mailboxTransactionGated(a1);
+    ApplePMUFirmwareDriver::mailboxTransactionGated();
     return v22;
   }
 
   v21 = 1;
   if ((*(**(a1 + 152) + 1424))(*(a1 + 152), (*(a1 + 180) + 5), &v21, 1, 0))
   {
-    ApplePMUFirmwareDriver::mailboxTransactionGated(a1);
+    ApplePMUFirmwareDriver::mailboxTransactionGated();
     return v22;
   }
 
@@ -753,13 +753,6 @@ const OSSymbol *_GLOBAL__sub_I_ApplePMUFirmwareDriver_cpp()
   return result;
 }
 
-uint64_t *OUTLINED_FUNCTION_0(uint64_t a1)
-{
-  result = *(a1 + 144);
-  v2 = *result;
-  return result;
-}
-
 uint64_t _start()
 {
   if (_realmain)
@@ -816,17 +809,17 @@ OSMetaClassBase *ApplePMUFirmwareDriverUserClient::start(ApplePMUFirmwareDriverU
   return result;
 }
 
-void ApplePMUFirmwareDriver::start(_BYTE *a1, uint64_t **a2, uint64_t a3, _BYTE *a4)
+void ApplePMUFirmwareDriver::start(_BYTE *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   if ((*a1 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_3(*a2);
-    (*(v7 + 168))(v6);
+    OUTLINED_FUNCTION_3();
+    (*(v6 + 168))();
     OUTLINED_FUNCTION_2();
-    v9 = (*(v8 + 56))(a3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(a3);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_6();
-    IOLog("(%s) %s::%s: super::start() failed\n", v10, v11, v12);
+    IOLog("(%s) %s::%s: super::start() failed\n", v9, v10, v11);
   }
 
   *a4 = 0;
@@ -835,13 +828,13 @@ void ApplePMUFirmwareDriver::start(_BYTE *a1, uint64_t **a2, uint64_t a3, _BYTE 
 {
   if ((*a1 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_3(*a2);
-    (*(v7 + 168))(v6);
+    OUTLINED_FUNCTION_3();
+    (*(v6 + 168))();
     OUTLINED_FUNCTION_2();
-    v9 = (*(v8 + 56))(a3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(a3);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_6();
-    IOLog("(%s) %s::%s: expected to find has_fw property\n", v10, v11, v12);
+    IOLog("(%s) %s::%s: expected to find has_fw property\n", v9, v10, v11);
   }
 
   *a4 = 0;
@@ -850,34 +843,34 @@ void ApplePMUFirmwareDriver::start(_BYTE *a1, uint64_t **a2, uint64_t a3, _BYTE 
 {
   if ((*a1 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_3(*a2);
-    (*(v7 + 168))(v6);
+    OUTLINED_FUNCTION_3();
+    (*(v6 + 168))();
     OUTLINED_FUNCTION_2();
-    v9 = (*(v8 + 56))(a3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(a3);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_6();
-    IOLog("(%s) %s::%s: failed to cast provider\n", v10, v11, v12);
+    IOLog("(%s) %s::%s: failed to cast provider\n", v9, v10, v11);
   }
 
   *a4 = 0;
 }
 
-void ApplePMUFirmwareDriver::start(uint64_t **a1, uint64_t a2, uint64_t a3, const char *a4)
+void ApplePMUFirmwareDriver::start(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v6 = OUTLINED_FUNCTION_3(*a1);
-  v8 = (*(v7 + 168))(v6);
-  v9 = (*(*a2 + 56))(a2);
-  ClassName = OSMetaClass::getClassName(v9);
-  IOLog(a4, v8, ClassName, "getDTProperty", "fw-mcom-int-index");
+  OUTLINED_FUNCTION_3();
+  v7 = (*(v6 + 168))();
+  v8 = (*(*a2 + 56))(a2);
+  ClassName = OSMetaClass::getClassName(v8);
+  IOLog(a4, v7, ClassName, "getDTProperty", "fw-mcom-int-index");
 }
 
-void ApplePMUFirmwareDriver::start(uint64_t **a1, uint64_t a2, const char *a3)
+void ApplePMUFirmwareDriver::start(uint64_t a1, uint64_t a2, const char *a3)
 {
-  v6 = OUTLINED_FUNCTION_3(*a1);
-  (*(v7 + 168))(v6);
+  OUTLINED_FUNCTION_3();
+  (*(v6 + 168))();
   OUTLINED_FUNCTION_2();
-  v9 = (*(v8 + 56))(a2);
-  ClassName = OSMetaClass::getClassName(v9);
+  v8 = (*(v7 + 56))(a2);
+  ClassName = OSMetaClass::getClassName(v8);
   IOLog(a3, v3, ClassName, "getDTProperty", "has-fw");
 }
 
@@ -885,78 +878,78 @@ void ApplePMUFirmwareDriver::mailboxTransaction(char a1, uint64_t a2, _DWORD *a3
 {
   if ((a1 & 2) != 0)
   {
-    v5 = OUTLINED_FUNCTION_3(*(a2 + 144));
-    (*(v6 + 168))(v5);
+    OUTLINED_FUNCTION_3();
+    (*(v5 + 168))();
     OUTLINED_FUNCTION_2();
-    v8 = (*(v7 + 56))(a2);
-    OSMetaClass::getClassName(v8);
+    v7 = (*(v6 + 56))(a2);
+    OSMetaClass::getClassName(v7);
     OUTLINED_FUNCTION_6();
-    IOLog("(%s) %s::%s: mailbox is not supported\n", v9, v10, v11);
+    IOLog("(%s) %s::%s: mailbox is not supported\n", v8, v9, v10);
   }
 
   *a3 = -536870201;
 }
 
-void ApplePMUFirmwareDriver::mailboxTransactionGated(uint64_t a1)
+void ApplePMUFirmwareDriver::mailboxTransactionGated()
 {
-  v4 = OUTLINED_FUNCTION_4(a1);
-  if ((v5 & 2) != 0)
+  OUTLINED_FUNCTION_4();
+  if ((v4 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_0(v4);
-    (*(v7 + 168))(v6);
+    v5 = OUTLINED_FUNCTION_0(v3);
+    (*(v6 + 168))(v5);
     OUTLINED_FUNCTION_1();
-    v9 = (*(v8 + 56))(v3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(v2);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_5();
-    IOLog("(%s) %s::%s: extRegisterWriteLong(RECEIVE_EVENT) failed, rc=0x%x\n", v10, v11, v12, v13);
+    IOLog("(%s) %s::%s: extRegisterWriteLong(RECEIVE_EVENT) failed, rc=0x%x\n", v9, v10, v11, v12);
   }
 
-  *v1 = v2;
+  *v0 = v1;
 }
 
 {
-  v4 = OUTLINED_FUNCTION_4(a1);
-  if ((v5 & 2) != 0)
+  OUTLINED_FUNCTION_4();
+  if ((v4 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_0(v4);
-    (*(v7 + 168))(v6);
+    v5 = OUTLINED_FUNCTION_0(v3);
+    (*(v6 + 168))(v5);
     OUTLINED_FUNCTION_1();
-    v9 = (*(v8 + 56))(v3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(v2);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_5();
-    IOLog("(%s) %s::%s: extRegisterWriteLong(TRANSMIT0) failed, rc=0x%x\n", v10, v11, v12, v13);
+    IOLog("(%s) %s::%s: extRegisterWriteLong(TRANSMIT0) failed, rc=0x%x\n", v9, v10, v11, v12);
   }
 
-  *v1 = v2;
+  *v0 = v1;
 }
 
 {
-  v4 = OUTLINED_FUNCTION_4(a1);
-  if ((v5 & 2) != 0)
+  OUTLINED_FUNCTION_4();
+  if ((v4 & 2) != 0)
   {
-    v6 = OUTLINED_FUNCTION_0(v4);
-    (*(v7 + 168))(v6);
+    v5 = OUTLINED_FUNCTION_0(v3);
+    (*(v6 + 168))(v5);
     OUTLINED_FUNCTION_1();
-    v9 = (*(v8 + 56))(v3);
-    OSMetaClass::getClassName(v9);
+    v8 = (*(v7 + 56))(v2);
+    OSMetaClass::getClassName(v8);
     OUTLINED_FUNCTION_5();
-    IOLog("(%s) %s::%s: extRegisterWriteLong(TRANSMIT_INTR) failed, rc=0x%x\n", v10, v11, v12, v13);
+    IOLog("(%s) %s::%s: extRegisterWriteLong(TRANSMIT_INTR) failed, rc=0x%x\n", v9, v10, v11, v12);
   }
 
-  *v1 = v2;
+  *v0 = v1;
 }
 
 void ApplePMUFirmwareDriver::mailboxTransactionGated(_BYTE *a1, uint64_t a2, int a3, _DWORD *a4)
 {
   if ((*a1 & 2) != 0)
   {
-    v7 = OUTLINED_FUNCTION_3(*(a2 + 144));
-    (*(v8 + 168))(v7);
+    OUTLINED_FUNCTION_3();
+    (*(v7 + 168))();
     OUTLINED_FUNCTION_1();
-    v10 = (*(v9 + 56))(a2);
-    OSMetaClass::getClassName(v10);
+    v9 = (*(v8 + 56))(a2);
+    OSMetaClass::getClassName(v9);
     OUTLINED_FUNCTION_5();
-    IOLog("(%s) %s::%s: extRegisterReadLong(RECEIVE0) failed, rc=0x%x\n", v11, v12, v13, v14);
+    IOLog("(%s) %s::%s: extRegisterReadLong(RECEIVE0) failed, rc=0x%x\n", v10, v11, v12, v13);
   }
 
   *a4 = a3;
@@ -965,13 +958,13 @@ void ApplePMUFirmwareDriver::mailboxTransactionGated(_BYTE *a1, uint64_t a2, int
 {
   if ((*a1 & 2) != 0)
   {
-    v7 = OUTLINED_FUNCTION_3(*(a2 + 144));
-    (*(v8 + 168))(v7);
+    OUTLINED_FUNCTION_3();
+    (*(v7 + 168))();
     OUTLINED_FUNCTION_1();
-    v10 = (*(v9 + 56))(a2);
-    OSMetaClass::getClassName(v10);
+    v9 = (*(v8 + 56))(a2);
+    OSMetaClass::getClassName(v9);
     OUTLINED_FUNCTION_5();
-    IOLog("(%s) %s::%s: extRegisterReadLong(RECEIVE_EVENT) failed, rc=0x%x\n", v11, v12, v13, v14);
+    IOLog("(%s) %s::%s: extRegisterReadLong(RECEIVE_EVENT) failed, rc=0x%x\n", v10, v11, v12, v13);
   }
 
   *a4 = a3;

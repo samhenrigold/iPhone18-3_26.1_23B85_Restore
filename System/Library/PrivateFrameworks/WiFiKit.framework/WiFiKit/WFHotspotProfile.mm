@@ -14,7 +14,7 @@
     [WFHotspotProfile initWithProfile:? anqpResponse:?];
 LABEL_9:
 
-    v12 = 0;
+    v11 = 0;
     goto LABEL_5;
   }
 
@@ -24,68 +24,69 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v9 = *MEMORY[0x277CBECE8];
   [profileCopy scanAttributes];
-  v10 = WiFiNetworkCreate();
-  if (!v10)
+  v9 = WiFiNetworkCreate();
+  if (!v9)
   {
-    [WFHotspotProfile initWithProfile:profileCopy anqpResponse:&v14];
+    [WFHotspotProfile initWithProfile:profileCopy anqpResponse:&v13];
     goto LABEL_9;
   }
 
-  v11 = v10;
+  v10 = v9;
   WiFiNetworkMerge();
-  v12 = [(WFNetworkProfile *)self initWithNetworkRef:v11];
-  CFRelease(v11);
+  v11 = [(WFNetworkProfile *)self initWithNetworkRef:v10];
+  CFRelease(v10);
 LABEL_5:
 
-  return v12;
+  return v11;
 }
 
 - (void)initWithProfile:(uint64_t)a1 anqpResponse:(NSObject *)a2 .cold.1(uint64_t a1, NSObject **a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    v7 = 136315394;
-    v8 = "[WFHotspotProfile initWithProfile:anqpResponse:]";
-    v9 = 2112;
-    v10 = a1;
-    _os_log_impl(&dword_273ECD000, v4, v5, "%s: failed to create network from profile %@", &v7, 0x16u);
+    v8 = 136315394;
+    v9 = "[WFHotspotProfile initWithProfile:anqpResponse:]";
+    v10 = 2112;
+    v11 = a1;
+    _os_log_impl(&dword_273ECD000, v4, v6, "%s: failed to create network from profile %@", &v8, 0x16u);
   }
 
   *a2 = v4;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithProfile:(NSObject *)a1 anqpResponse:.cold.2(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: nil anqp response", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFHotspotProfile initWithProfile:anqpResponse:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: nil anqp response", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithProfile:(NSObject *)a1 anqpResponse:.cold.3(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: nil profile", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFHotspotProfile initWithProfile:anqpResponse:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: nil profile", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -97,11 +97,11 @@
 
 - (id)_initWithSubActivity:(id)activity
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
-  v23.receiver = self;
-  v23.super_class = IDSActivityInfo;
-  v6 = [(IDSActivityInfo *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = IDSActivityInfo;
+  v6 = [(IDSActivityInfo *)&v22 init];
   p_isa = &v6->super.isa;
   if (!v6)
   {
@@ -146,14 +146,13 @@ LABEL_7:
   {
     v20 = p_isa[2];
     *buf = 138412290;
-    v25 = v20;
+    v24 = v20;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Expiration dates in the past are not allowed: %@", buf, 0xCu);
   }
 
   v18 = 0;
 LABEL_11:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

@@ -148,7 +148,7 @@
   asset = [(AVPlayerItem *)self->_playerItem asset];
   if (asset)
   {
-    [(AVAsset *)asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -164,7 +164,7 @@
   playerItem = self->_playerItem;
   if (playerItem)
   {
-    [(AVPlayerItem *)playerItem currentTime];
+    objc_msgSend_currentTime(playerItem, a2);
   }
 
   else
@@ -488,7 +488,7 @@ void __42__OKVideoPlayerController_playPlayerItem___block_invoke(uint64_t a1)
     v12 = [*(a1 + 40) asset];
     if (v12)
     {
-      [v12 duration];
+      objc_msgSend_duration(v12);
       v13 = v22;
     }
 

@@ -99,7 +99,7 @@
 
 - (void)_setup
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D756B8]);
   characterLabel = self->_characterLabel;
   self->_characterLabel = v3;
@@ -114,38 +114,34 @@
   centerXAnchor = [(UILabel *)self->_characterLabel centerXAnchor];
   centerXAnchor2 = [(LACUIPasscodeDotView *)self centerXAnchor];
   v10 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v16[0] = v10;
+  v15[0] = v10;
   centerYAnchor = [(UILabel *)self->_characterLabel centerYAnchor];
   centerYAnchor2 = [(LACUIPasscodeDotView *)self centerYAnchor];
   v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v16[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [v7 activateConstraints:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __30__LACUIPasscodeDotView__setup__block_invoke()
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76A08]];
   v1 = [v0 fontDescriptor];
-  v13 = *MEMORY[0x277D74338];
+  v12 = *MEMORY[0x277D74338];
   v2 = *MEMORY[0x277D74388];
-  v10[0] = *MEMORY[0x277D74398];
-  v10[1] = v2;
-  v11[0] = &unk_286827178;
-  v11[1] = &unk_286827190;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v12 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v14[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9[0] = *MEMORY[0x277D74398];
+  v9[1] = v2;
+  v10[0] = &unk_286827178;
+  v10[1] = &unk_286827190;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v13[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v6 = [v1 fontDescriptorByAddingAttributes:v5];
 
   v7 = [MEMORY[0x277D74300] fontWithDescriptor:v6 size:0.0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

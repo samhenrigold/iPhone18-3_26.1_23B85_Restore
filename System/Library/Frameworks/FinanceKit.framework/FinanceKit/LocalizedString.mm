@@ -32,9 +32,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = LocalizedString.hash.getter();
+  v4 = LocalizedString.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)encodeWithCoder:(id)coder

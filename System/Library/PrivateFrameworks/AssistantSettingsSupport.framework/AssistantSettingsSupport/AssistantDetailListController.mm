@@ -4,6 +4,8 @@
 - (UIImage)checkmarkImage;
 - (UIImage)transparentImage;
 - (void)setChecked:(BOOL)checked forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantDetailListController
@@ -34,6 +36,41 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AssistantDetailListController;
+  [(AssistantDetailListController *)&v3 viewWillAppear:appear];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = AssistantDetailListController;
+  [(AssistantDetailListController *)&v13 viewDidAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri"];
+  v5 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  deviceSupported = [v5 deviceSupported];
+
+  if (deviceSupported)
+  {
+    v7 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v7 = @"Siri";
+  }
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v10 bundleURL];
+  v12 = [v8 initWithKey:v7 table:0 locale:currentLocale bundleURL:bundleURL];
+
+  [(AssistantDetailListController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v12 localizedNavigationComponents:MEMORY[0x277CBEBF8] deepLink:v4];
 }
 
 - (void)setChecked:(BOOL)checked forSpecifier:(id)specifier

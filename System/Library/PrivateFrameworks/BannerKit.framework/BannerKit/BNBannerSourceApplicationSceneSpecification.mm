@@ -35,7 +35,7 @@
 
   v5 = v4;
   v6 = objc_opt_class();
-  v7 = BNBundleIdentifier();
+  v7 = BNBundleIdentifier(v6);
   [v5 setObject:v6 forKey:v7];
 
   return v5;

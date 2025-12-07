@@ -32,9 +32,11 @@
 
 uint64_t __34__COHomeHubAdapter_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_result = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_result;
+  sharedInstance_result = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)accessoryIdentifierForPeerInstance:(id)instance usingHomeKitAdapter:(id)adapter

@@ -77,7 +77,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -87,16 +87,16 @@
     {
       _systemColorName = [(UIColor *)equalCopy _systemColorName];
       _systemColorName2 = [(UIColor *)self _systemColorName];
-      v7 = [_systemColorName isEqualToString:_systemColorName2];
+      isEqualToString = objc_msgSend_isEqualToString_(_systemColorName);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (id)_resolvedColorWithTraitCollection:(id)collection

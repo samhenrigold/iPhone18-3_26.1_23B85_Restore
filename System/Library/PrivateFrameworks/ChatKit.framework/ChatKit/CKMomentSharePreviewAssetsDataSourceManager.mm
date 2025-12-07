@@ -171,14 +171,14 @@ LABEL_19:
 {
   uuid = [*(self + 192) uuid];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_2(&dword_19020E000, v2, v3, "<%p> Create initial data source for moment share: %{public}@, URL: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_2(&dword_19020E000, v2, v3, "<%p> Create initial data source for moment share: %{public}@, URL: %@", v4, v5, v6, v7);
 }
 
 - (void)_handleFetchedMomentShare:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 uuid];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Fetched moment share: %{public}@ for URL: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Fetched moment share: %{public}@ for URL: %@", v5, v6, v7, v8);
 }
 
 - (void)_handleFetchedMomentShare:error:.cold.2()
@@ -194,7 +194,7 @@ LABEL_19:
 {
   v2 = [a2 uuid];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Provide preview for moment share: %{public}@, URL: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Provide preview for moment share: %{public}@, URL: %@", v5, v6, v7, v8);
 }
 
 - (void)_handleFetchedMomentShare:error:.cold.4()
@@ -216,7 +216,7 @@ LABEL_19:
 {
   v2 = [a2 uuid];
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Ignoring redundant update for moment share: %{public}@, URL: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_2(&dword_19020E000, v3, v4, "<%p> Ignoring redundant update for moment share: %{public}@, URL: %@", v5, v6, v7, v8);
 }
 
 - (void)_momentShareCacheDidChange:.cold.1()

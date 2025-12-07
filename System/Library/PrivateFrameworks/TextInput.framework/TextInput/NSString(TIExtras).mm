@@ -32,10 +32,12 @@
 - (BOOL)_looksLikeNumberInput;
 - (BOOL)_looksLikeURL;
 - (BOOL)_ti_isKeyEquivalentMirroringCandidate;
+- (_BYTE)_rangeOfString:()TIExtras fromLocation:;
 - (__CFString)_stringByConvertingFromFullWidthToHalfWidth;
 - (__CFString)_stringByConvertingFromHalfWidthToFullWidth;
 - (__CFString)_stringWithLongestWhitespaceDelimitedSuffixOfMaxLength:()TIExtras;
 - (__CFString)_trimmedOfLeadingNeutralCharacters;
+- (char)_indexByTrimmingWordsBeforeIndex:()TIExtras;
 - (id)_firstGrapheme;
 - (id)_graphemeAtIndex:()TIExtras;
 - (id)_lastGrapheme;
@@ -69,26 +71,24 @@
 - (uint64_t)_contentsExclusivelyInScript:()TIExtras;
 - (uint64_t)_editDistanceFrom:()TIExtras;
 - (uint64_t)_endsSentence;
-- (uint64_t)_firstChar;
-- (uint64_t)_firstLongCharacter;
 - (uint64_t)_graphemeCount;
 - (uint64_t)_indexByTrimmingWordsAfterIndex:()TIExtras;
-- (uint64_t)_indexByTrimmingWordsBeforeIndex:()TIExtras;
 - (uint64_t)_indexFromStartingIndex:()TIExtras byIncrementingComposedCharacterSequenceCount:;
-- (uint64_t)_isBasicLatin;
 - (uint64_t)_isIdeographicGlyphs;
 - (uint64_t)_isLeftAssociative;
 - (uint64_t)_isLowercaseStringWithLocale:()TIExtras;
-- (uint64_t)_isModifierSymbol;
 - (uint64_t)_isOnlyIdeographs;
 - (uint64_t)_isTripledPunctuation;
-- (uint64_t)_lastLongCharacter;
 - (uint64_t)_rangeOfCharacterClusterAtIndex:()TIExtras withClusterOffset:;
 - (uint64_t)_rangeOfLongCharacterAtIndex:()TIExtras;
-- (uint64_t)_rangeOfString:()TIExtras fromLocation:;
 - (uint64_t)_ti_supplementalPrefixOfLastToken:()TIExtras;
 - (uint64_t)smartQuoteInsensitiveStringEquivalent:()TIExtras forLocale:;
+- (unint64_t)_firstLongCharacter;
+- (unint64_t)_lastLongCharacter;
 - (void)_enumerateLongCharactersInRange:()TIExtras usingBlock:;
+- (void)_firstChar;
+- (void)_isBasicLatin;
+- (void)_isModifierSymbol;
 - (void)_reverseEnumerateLongCharactersInRange:()TIExtras usingBlock:;
 @end
 
@@ -300,7 +300,7 @@
   return v3;
 }
 
-- (uint64_t)_indexByTrimmingWordsBeforeIndex:()TIExtras
+- (char)_indexByTrimmingWordsBeforeIndex:()TIExtras
 {
   if (!a3)
   {
@@ -1086,8 +1086,7 @@
   v2 = 0;
   do
   {
-    [self characterAtIndex:v2];
-    IsCJScript = TICharIsCJScript();
+    IsCJScript = TICharIsCJScript([self characterAtIndex:v2]);
     if (IsCJScript)
     {
       break;
@@ -1199,12 +1198,12 @@ LABEL_18:
   return [self rangeOfCharacterFromSet:_looksLikeNumberInput___nonNumberInputSet] == 0x7FFFFFFFFFFFFFFFLL;
 }
 
-- (uint64_t)_isBasicLatin
+- (void)_isBasicLatin
 {
   result = [self length];
   if (result)
   {
-    return ublock_getCode([self _firstLongCharacter]) == UBLOCK_BASIC_LATIN;
+    return (ublock_getCode([self _firstLongCharacter]) == UBLOCK_BASIC_LATIN);
   }
 
   return result;
@@ -1296,12 +1295,12 @@ LABEL_18:
   }
 }
 
-- (uint64_t)_isModifierSymbol
+- (void)_isModifierSymbol
 {
   result = [self length];
   if (result)
   {
-    return u_charType([self _firstLongCharacter]) == 26;
+    return (u_charType([self _firstLongCharacter]) == 26);
   }
 
   return result;
@@ -1367,7 +1366,7 @@ LABEL_18:
   return v11;
 }
 
-- (uint64_t)_rangeOfString:()TIExtras fromLocation:
+- (_BYTE)_rangeOfString:()TIExtras fromLocation:
 {
   v6 = a3;
   if ([v6 length])
@@ -1457,7 +1456,7 @@ LABEL_18:
 
 - (id)_stringByReplacingCharacter:()TIExtras withCharacter:
 {
-  v6 = [MEMORY[0x1E696AEC0] _stringWithUnichar:?];
+  v6 = [MEMORY[0x1E696AEC0] _stringWithUnichar:a3];
   v7 = [MEMORY[0x1E696AEC0] _stringWithUnichar:a4];
   v8 = [self stringByReplacingOccurrencesOfString:v6 withString:v7 options:2 range:{0, objc_msgSend(self, "length")}];
 
@@ -1589,50 +1588,50 @@ LABEL_9:
 
 - (BOOL)_contentsExclusivelyInCharacterSet:()TIExtras
 {
-  v11[125] = *MEMORY[0x1E69E9840];
-  v2 = [self length];
+  v13[125] = *MEMORY[0x1E69E9840];
+  v4 = [self length];
   if ([self _fastCharacterContents])
   {
     return uset_containsAllCodePoints() != 0;
   }
 
-  if (v2 > 0x1F3)
+  if (v4 > 0x1F3)
   {
-    v5 = v2;
-    v6 = 500;
+    v7 = v4;
+    v8 = 500;
     do
     {
-      v7 = v5 - 500;
-      if (v5 >= 0x1F4)
+      v9 = v7 - 500;
+      if (v7 >= 0x1F4)
       {
-        v8 = 500;
+        v10 = 500;
       }
 
       else
       {
-        v8 = v5;
+        v10 = v7;
       }
 
-      [self getCharacters:v11 range:{v6 - 500, v8}];
-      v9 = uset_containsAllCodePoints();
-      result = v9 != 0;
-      if (!v9)
+      [self getCharacters:v13 range:{v8 - 500, v10}];
+      v11 = uset_containsAllCodePoints();
+      result = v11 != 0;
+      if (!v11)
       {
         break;
       }
 
-      v5 = v7;
-      v10 = v6 >= v2;
-      v6 += 500;
+      v7 = v9;
+      v12 = v8 >= v4;
+      v8 += 500;
     }
 
-    while (!v10);
+    while (!v12);
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
-    [self getCharacters:v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v2}];
+    MEMORY[0x1EEE9AC00](0);
+    [self getCharacters:v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v4}];
     return uset_containsAllCodePoints() != 0;
   }
 
@@ -1769,7 +1768,7 @@ LABEL_11:
   return a3;
 }
 
-- (uint64_t)_lastLongCharacter
+- (unint64_t)_lastLongCharacter
 {
   v2 = [self length];
   if (!v2)
@@ -1791,7 +1790,7 @@ LABEL_11:
   return v4;
 }
 
-- (uint64_t)_firstLongCharacter
+- (unint64_t)_firstLongCharacter
 {
   if (![self length])
   {
@@ -1887,7 +1886,7 @@ LABEL_13:
   return v8;
 }
 
-- (uint64_t)_firstChar
+- (void)_firstChar
 {
   result = [self length];
   if (result)
@@ -2223,7 +2222,7 @@ LABEL_13:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](0);
     [v3 getCharacters:&v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v4}];
     v5 = uset_openPattern();
   }

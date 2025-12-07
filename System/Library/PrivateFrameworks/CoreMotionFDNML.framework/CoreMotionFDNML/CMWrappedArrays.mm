@@ -25,14 +25,12 @@
 
 - (id)keys
 {
-  v3 = OBJC_IVAR____TtC15CoreMotionFDNML15CMWrappedArrays_arrays;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
 
-  sub_245F706A0(v5);
-  v6 = sub_245F768D8();
+  sub_245F706A0(v2);
+  v3 = sub_245F768D8();
 
-  return v6;
+  return v3;
 }
 
 - (void)shapeOfArrayWithKey:(id)key shape:(unsigned int *)shape expectedShapeSize:(unsigned __int8)size

@@ -892,23 +892,23 @@
 
   value3 = [v13 value];
 
-  v15 = sub_1000034AC();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = sub_1000034AC(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  if (v16)
+  if (v17)
   {
-    v17 = sub_1000034AC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_1000034AC(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [value2 UUIDString];
       uUIDString2 = [value3 UUIDString];
-      v21 = 138412802;
-      v22 = uUIDString;
-      v23 = 2112;
-      v24 = uUIDString2;
+      v23 = 138412802;
+      v24 = uUIDString;
       v25 = 2112;
-      v26 = v10;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "cloudIdentifierForDevice(pairingID=%@) btID=%@ IDSID=%@", &v21, 0x20u);
+      v26 = uUIDString2;
+      v27 = 2112;
+      v28 = v10;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "cloudIdentifierForDevice(pairingID=%@) btID=%@ IDSID=%@", &v23, 0x20u);
     }
   }
 
@@ -919,63 +919,63 @@
 {
   dateCopy = date;
   identifiersCopy = identifiers;
-  v8 = sub_1000034AC();
+  v8 = sub_1000034AC(identifiersCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = sub_1000034AC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000034AC(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v24 = dateCopy;
-      v25 = 2112;
-      v26 = identifiersCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "setLastMessageSendDate: %@ for %@", buf, 0x16u);
+      v25 = dateCopy;
+      v26 = 2112;
+      v27 = identifiersCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "setLastMessageSendDate: %@ for %@", buf, 0x16u);
     }
   }
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   obj = identifiersCopy;
-  v11 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v11)
+  v12 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v19;
+    v13 = v12;
+    v14 = *v20;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = [NSString stringWithFormat:@"%@.%@", @"lastAdvertisingNotificationDate", *(*(&v18 + 1) + 8 * v14)];
+        v16 = [NSString stringWithFormat:@"%@.%@", @"lastAdvertisingNotificationDate", *(*(&v19 + 1) + 8 * v15)];
         if (dateCopy)
         {
           [dateCopy timeIntervalSinceReferenceDate];
-          v16 = [NSNumber numberWithDouble:?];
-          [(NRPreferences *)self->_prefs setObject:v16 forKeyedSubscript:v15];
+          v17 = [NSNumber numberWithDouble:?];
+          [(NRPreferences *)self->_prefs setObject:v17 forKeyedSubscript:v16];
         }
 
         else
         {
-          [(NRPreferences *)self->_prefs setObject:0 forKeyedSubscript:v15];
+          [(NRPreferences *)self->_prefs setObject:0 forKeyedSubscript:v16];
         }
 
-        v14 = v14 + 1;
+        v15 = v15 + 1;
       }
 
-      while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v13 != v15);
+      v13 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   [(NRPreferences *)self->_prefs synchronize];

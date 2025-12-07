@@ -24,9 +24,10 @@
 
 uint64_t __37__ICHTMLConverterClient_sharedClient__block_invoke()
 {
-  sharedClient_sharedClient = objc_alloc_init(ICHTMLConverterClient);
+  v0 = objc_alloc_init(ICHTMLConverterClient);
+  sharedClient_sharedClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICHTMLConverterClient)init
@@ -280,7 +281,7 @@ LABEL_6:
   dispatch_sync(requestCountQueue, block);
 }
 
-uint64_t __50__ICHTMLConverterClient_suspendConnectionIfNeeded__block_invoke(uint64_t a1)
+void *__50__ICHTMLConverterClient_suspendConnectionIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) requestCount];
   if (result)

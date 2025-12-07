@@ -505,7 +505,7 @@ void __42__TabSwitcherViewController__applyContent__block_invoke(uint64_t a1)
 
 id __41__TabSwitcherViewController__makeContent__block_invoke(uint64_t a1, void *a2)
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_alloc(MEMORY[0x277CCAD78]);
   v4 = [v2 uuid];
@@ -513,126 +513,126 @@ id __41__TabSwitcherViewController__makeContent__block_invoke(uint64_t a1, void 
 
   if (v5)
   {
-    v6 = [v2 isPrivateBrowsing];
-    v7 = [v2 isNamed];
-    v8 = [objc_alloc(MEMORY[0x277D28DF0]) initWithIdentifier:v5];
-    [v8 setAllowsLargeTitle:v7];
-    [v8 setAllowsRetitling:v7];
-    if (v7)
+    v8 = [v2 isPrivateBrowsing];
+    v9 = [v2 isNamed];
+    v10 = [objc_alloc(MEMORY[0x277D28DF0]) initWithIdentifier:v5];
+    [v10 setAllowsLargeTitle:v9];
+    [v10 setAllowsRetitling:v9];
+    if (v9)
     {
-      v9 = +[FeatureManager sharedFeatureManager];
-      [v8 setAllowsSharing:{objc_msgSend(v9, "areSharedTabGroupsEnabled")}];
+      v11 = +[FeatureManager sharedFeatureManager];
+      [v10 setAllowsSharing:{objc_msgSend(v11, "areSharedTabGroupsEnabled")}];
     }
 
     else
     {
-      [v8 setAllowsSharing:0];
+      [v10 setAllowsSharing:0];
     }
 
-    [v8 setCollapsesCapsuleViewWhenSelected:v7 ^ 1];
-    if (v6)
+    [v10 setCollapsesCapsuleViewWhenSelected:v9 ^ 1];
+    if (v8)
     {
-      v11 = [MEMORY[0x277D755B8] systemImageNamed:@"hand.raised.fill"];
-      [v8 setImage:v11];
+      v13 = [MEMORY[0x277D755B8] systemImageNamed:@"hand.raised.fill"];
+      [v10 setImage:v13];
 
-      [v8 setItemsCanMoveBetweenPages:0];
-      v12 = 0;
+      [v10 setItemsCanMoveBetweenPages:0];
+      v14 = 0;
     }
 
     else
     {
-      [v8 setImage:0];
-      [v8 setItemsCanMoveBetweenPages:1];
-      v12 = *(a1 + 32);
+      [v10 setImage:0];
+      [v10 setItemsCanMoveBetweenPages:1];
+      v14 = *(a1 + 32);
     }
 
-    [v8 setProfile:v12];
-    v13 = [v2 displayTitle];
-    [v8 setTitle:v13];
+    [v10 setProfile:v14];
+    v15 = [v2 displayTitle];
+    [v10 setTitle:v15];
 
-    v14 = [objc_alloc(MEMORY[0x277D28E18]) initWithIdentifier:v5];
-    [v14 setIsPinned:1];
-    v15 = [*(*(a1 + 40) + 1112) pinnedWBTabsForTabGroup:v2];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __41__TabSwitcherViewController__makeContent__block_invoke_54;
-    v35[3] = &unk_2781DC148;
-    v35[4] = *(a1 + 40);
-    v16 = [v15 safari_mapAndFilterObjectsUsingBlock:v35];
-    [v14 setItems:v16];
+    v16 = [objc_alloc(MEMORY[0x277D28E18]) initWithIdentifier:v5];
+    [v16 setIsPinned:1];
+    v17 = [*(*(a1 + 40) + 1112) pinnedWBTabsForTabGroup:v2];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __41__TabSwitcherViewController__makeContent__block_invoke_54;
+    v37[3] = &unk_2781DC148;
+    v37[4] = *(a1 + 40);
+    v18 = [v17 safari_mapAndFilterObjectsUsingBlock:v37];
+    [v16 setItems:v18];
 
-    v17 = [objc_alloc(MEMORY[0x277D28E18]) initWithIdentifier:v5];
-    v18 = [v2 tabs];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __41__TabSwitcherViewController__makeContent__block_invoke_2;
-    v34[3] = &unk_2781DC148;
-    v34[4] = *(a1 + 40);
-    v19 = [v18 safari_mapAndFilterObjectsUsingBlock:v34];
-    [v17 setItems:v19];
+    v19 = [objc_alloc(MEMORY[0x277D28E18]) initWithIdentifier:v5];
+    v20 = [v2 tabs];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __41__TabSwitcherViewController__makeContent__block_invoke_2;
+    v36[3] = &unk_2781DC148;
+    v36[4] = *(a1 + 40);
+    v21 = [v20 safari_mapAndFilterObjectsUsingBlock:v36];
+    [v19 setItems:v21];
 
-    v36[0] = v14;
-    v36[1] = v17;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-    [v8 setSections:v20];
+    v38[0] = v16;
+    v38[1] = v19;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    [v10 setSections:v22];
 
-    if (v6)
+    if (v8)
     {
-      v21 = +[Application sharedApplication];
-      v22 = [v21 isPrivateBrowsingLocked];
+      v23 = +[Application sharedApplication];
+      v24 = [v23 isPrivateBrowsingLocked];
 
-      if (v22)
+      if (v24)
       {
         objc_initWeak(&location, *(a1 + 40));
-        v23 = MEMORY[0x277D28DF8];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __41__TabSwitcherViewController__makeContent__block_invoke_3;
-        v31[3] = &unk_2781D5598;
-        objc_copyWeak(&v32, &location);
-        v24 = [v23 lockedPrivateBrowsingOverlayWithUnlockHandler:v31];
-        [v8 setOverlay:v24];
+        v25 = MEMORY[0x277D28DF8];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __41__TabSwitcherViewController__makeContent__block_invoke_3;
+        v33[3] = &unk_2781D5598;
+        objc_copyWeak(&v34, &location);
+        v26 = [v25 lockedPrivateBrowsingOverlayWithUnlockHandler:v33];
+        [v10 setOverlay:v26];
 
-        [v8 setIsLocked:1];
-        v25 = [MEMORY[0x277D28E00] lockedPrivateBrowsing];
-        [v8 setPeekingOverlay:v25];
+        [v10 setIsLocked:1];
+        v27 = [MEMORY[0x277D28E00] lockedPrivateBrowsing];
+        [v10 setPeekingOverlay:v27];
 
-        objc_destroyWeak(&v32);
+        objc_destroyWeak(&v34);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        if (([v8 hasAnyItems] & 1) == 0)
+        if (([v10 hasAnyItems] & 1) == 0)
         {
-          v26 = [MEMORY[0x277D28DF8] emptyPrivateBrowsing];
-          [v8 setOverlay:v26];
+          v28 = [MEMORY[0x277D28DF8] emptyPrivateBrowsing];
+          [v10 setOverlay:v28];
         }
 
-        v27 = [MEMORY[0x277D28E00] privateBrowsing];
-        [v8 setPeekingOverlay:v27];
+        v29 = [MEMORY[0x277D28E00] privateBrowsing];
+        [v10 setPeekingOverlay:v29];
       }
     }
 
-    v28 = [*(*(a1 + 40) + 1112) cachedTabSwitcherShareConfigurationForTabGroup:v2];
-    if (v28)
+    v30 = [*(*(a1 + 40) + 1112) cachedTabSwitcherShareConfigurationForTabGroup:v2];
+    if (v30)
     {
-      [v8 setShareConfiguration:v28];
+      [v10 setShareConfiguration:v30];
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXTabView();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXTabView(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __41__TabSwitcherViewController__makeContent__block_invoke_cold_1(v10, v2);
+      __41__TabSwitcherViewController__makeContent__block_invoke_cold_1(v12, v2);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 void __41__TabSwitcherViewController__makeContent__block_invoke_3(uint64_t a1)
@@ -1119,7 +1119,7 @@ void __58__TabSwitcherViewController_setNeedsApplyContentAnimated___block_invoke
 
 - (id)_itemForTab:(id)tab
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   tabCopy = tab;
   v5 = objc_alloc(MEMORY[0x277CCAD78]);
   uuid = [tabCopy uuid];
@@ -1127,23 +1127,23 @@ void __58__TabSwitcherViewController_setNeedsApplyContentAnimated___block_invoke
 
   if (v7)
   {
-    uuid2 = [(TabController *)self->_tabController tabDocumentWithUUID:v7];
+    v8 = [(TabController *)self->_tabController tabDocumentWithUUID:v7];
     v9 = [objc_alloc(MEMORY[0x277D28DE8]) initWithIdentifier:v7];
     [v9 setCanBeClosed:{-[TabController canCloseWBTab:](self->_tabController, "canCloseWBTab:", tabCopy)}];
     [v9 setCanBeCopied:{objc_msgSend(tabCopy, "hasLinkToCopy")}];
     [v9 setCanBePinned:{-[TabController isTabPinnable:](self->_tabController, "isTabPinnable:", tabCopy)}];
-    [v9 setIsInteractivelyInserted:{objc_msgSend(uuid2, "isInteractivelyInserted")}];
-    [v9 setMediaStateIcon:{objc_msgSend(uuid2, "mediaStateIcon")}];
+    [v9 setIsInteractivelyInserted:{objc_msgSend(v8, "isInteractivelyInserted")}];
+    [v9 setMediaStateIcon:{objc_msgSend(v8, "mediaStateIcon")}];
     objc_initWeak(location, self);
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __41__TabSwitcherViewController__itemForTab___block_invoke;
-    v29 = &unk_2781DC120;
-    objc_copyWeak(&v31, location);
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __41__TabSwitcherViewController__itemForTab___block_invoke;
+    v31 = &unk_2781DC120;
+    objc_copyWeak(&v33, location);
     v10 = v7;
-    v30 = v10;
-    [v9 setSearchPredicate:&v26];
-    v11 = [(TabController *)self->_tabController tabWithUUID:v10, v26, v27, v28, v29];
+    v32 = v10;
+    [v9 setSearchPredicate:&v28];
+    v11 = [(TabController *)self->_tabController tabWithUUID:v10, v28, v29, v30, v31];
     [v9 setIsUnread:{objc_msgSend(v11, "isUnread")}];
     shareParticipants = [v11 shareParticipants];
     [v9 setShareParticipants:shareParticipants];
@@ -1151,39 +1151,30 @@ void __58__TabSwitcherViewController_setNeedsApplyContentAnimated___block_invoke
     v13 = [(TabSwitcherViewController *)self _titleForTab:tabCopy];
     [v9 setTitle:v13];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(location);
   }
 
   else
   {
     uuid2 = [tabCopy uuid];
+    v8 = uuid2;
     if (uuid2)
     {
-      v14 = [(TabController *)self->_tabController tabGroupRelatedToTabWithUUID:uuid2];
+      uuid2 = [(TabController *)self->_tabController tabGroupRelatedToTabWithUUID:uuid2];
+      v16 = uuid2;
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXTabView();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = WBS_LOG_CHANNEL_PREFIXTabView(uuid2, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v17 = v15;
+      v19 = v17;
       if ([tabCopy isInUnnamedTabGroup])
-      {
-        v18 = @"YES";
-      }
-
-      else
-      {
-        v18 = @"NO";
-      }
-
-      v19 = v18;
-      if ([tabCopy isPinned])
       {
         v20 = @"YES";
       }
@@ -1194,7 +1185,7 @@ void __58__TabSwitcherViewController_setNeedsApplyContentAnimated___block_invoke
       }
 
       v21 = v20;
-      if ([tabCopy isPrivateBrowsing])
+      if ([tabCopy isPinned])
       {
         v22 = @"YES";
       }
@@ -1205,21 +1196,32 @@ void __58__TabSwitcherViewController_setNeedsApplyContentAnimated___block_invoke
       }
 
       v23 = v22;
-      profileIdentifier = [v14 profileIdentifier];
-      uuid3 = [v14 uuid];
+      if ([tabCopy isPrivateBrowsing])
+      {
+        v24 = @"YES";
+      }
+
+      else
+      {
+        v24 = @"NO";
+      }
+
+      v25 = v24;
+      profileIdentifier = [v16 profileIdentifier];
+      uuid3 = [v16 uuid];
       *location = 138544642;
-      *&location[4] = uuid2;
-      v33 = 2114;
-      v34 = v19;
+      *&location[4] = v8;
       v35 = 2114;
       v36 = v21;
       v37 = 2114;
       v38 = v23;
       v39 = 2114;
-      v40 = profileIdentifier;
+      v40 = v25;
       v41 = 2114;
-      v42 = uuid3;
-      _os_log_fault_impl(&dword_215819000, v17, OS_LOG_TYPE_FAULT, "Unexpectedly found tab with invalid UUID %{public}@. inUnnamedGroup = %{public}@; pinned = %{public}@; private = %{public}@; profileIdentifier = %{public}@; tabGroupUUID = %{public}@", location, 0x3Eu);
+      v42 = profileIdentifier;
+      v43 = 2114;
+      v44 = uuid3;
+      _os_log_fault_impl(&dword_215819000, v19, OS_LOG_TYPE_FAULT, "Unexpectedly found tab with invalid UUID %{public}@. inUnnamedGroup = %{public}@; pinned = %{public}@; private = %{public}@; profileIdentifier = %{public}@; tabGroupUUID = %{public}@", location, 0x3Eu);
     }
 
     v9 = 0;
@@ -1473,11 +1475,11 @@ void __52__TabSwitcherViewController__performDropWithIntent___block_invoke(uint6
   }
 }
 
-uint64_t __44__TabSwitcherViewController__addItemOnPage___block_invoke(uint64_t result, int a2)
+id *__44__TabSwitcherViewController__addItemOnPage___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _addItemOnPage:*(result + 40)];
+    return [result[4] _addItemOnPage:result[5]];
   }
 
   return result;
@@ -1901,21 +1903,21 @@ void __57__TabSwitcherViewController__presentTabGroupPickerSheet___block_invoke(
       [(TabSwitcherViewController *)self _selectTabWithUUID:uuid2];
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      if ((objc_opt_respondsToSelector() & 1) != 0 && ([WeakRetained tabCollectionViewCanDismiss:self] & 1) == 0)
+      if ((objc_opt_respondsToSelector() & 1) != 0 && (v11 = [WeakRetained tabCollectionViewCanDismiss:self], (v11 & 1) == 0))
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXTabView();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = WBS_LOG_CHANNEL_PREFIXTabView(v11, v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          *v14 = 0;
-          _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Request to dismiss tab overview vetoed by delegate", v14, 2u);
+          *v16 = 0;
+          _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "Request to dismiss tab overview vetoed by delegate", v16, 2u);
         }
       }
 
       else
       {
         tabSwitcher = self->_tabSwitcher;
-        v12 = [(TabSwitcherViewController *)self _itemForTab:v6];
-        [(SFTabSwitcher *)tabSwitcher dismissToItem:v12];
+        v14 = [(TabSwitcherViewController *)self _itemForTab:v6];
+        [(SFTabSwitcher *)tabSwitcher dismissToItem:v14];
       }
     }
   }
@@ -2103,11 +2105,11 @@ LABEL_9:
   }
 }
 
-uint64_t __62__TabSwitcherViewController__updateShareConfigurationForPage___block_invoke(uint64_t result, uint64_t a2)
+id *__62__TabSwitcherViewController__updateShareConfigurationForPage___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setNeedsApplyContentAnimated:0];
+    return [result[4] setNeedsApplyContentAnimated:0];
   }
 
   return result;

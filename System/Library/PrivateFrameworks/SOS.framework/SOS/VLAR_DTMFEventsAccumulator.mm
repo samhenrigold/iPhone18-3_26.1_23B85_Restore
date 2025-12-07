@@ -30,34 +30,32 @@
 
 - (id)analyticsDataDict
 {
-  v10[16] = *MEMORY[0x277D85DE8];
-  v10[0] = @"1";
-  v10[1] = @"2";
-  v10[2] = @"3";
-  v10[3] = @"4";
-  v10[4] = @"5";
-  v10[5] = @"6";
-  v10[6] = @"7";
-  v10[7] = @"8";
-  v10[8] = @"9";
-  v10[9] = @"0";
-  v10[10] = @"Star";
-  v10[11] = @"Pound";
-  v10[12] = @"A";
-  v10[13] = @"B";
-  v10[14] = @"C";
-  v10[15] = @"D";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:16];
-  v8[0] = @"AllEventsKey";
-  v8[1] = @"KnownEventsKey";
-  v9[0] = @"nDTMFEvents_Total";
-  v9[1] = @"nDTMFEvents_Known";
-  v8[2] = @"UnknownEventsKey";
-  v9[2] = @"nDTMFEvents_Unknown";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v9[16] = *MEMORY[0x277D85DE8];
+  v9[0] = @"1";
+  v9[1] = @"2";
+  v9[2] = @"3";
+  v9[3] = @"4";
+  v9[4] = @"5";
+  v9[5] = @"6";
+  v9[6] = @"7";
+  v9[7] = @"8";
+  v9[8] = @"9";
+  v9[9] = @"0";
+  v9[10] = @"Star";
+  v9[11] = @"Pound";
+  v9[12] = @"A";
+  v9[13] = @"B";
+  v9[14] = @"C";
+  v9[15] = @"D";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:16];
+  v7[0] = @"AllEventsKey";
+  v7[1] = @"KnownEventsKey";
+  v8[0] = @"nDTMFEvents_Total";
+  v8[1] = @"nDTMFEvents_Known";
+  v7[2] = @"UnknownEventsKey";
+  v8[2] = @"nDTMFEvents_Unknown";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   v5 = [(SOSAnalyticsEventAccumulator *)self->_eventsAccumulator analyticsDataDictForAccumulatedKeys:v3 outputKeyPrefix:@"nDTMFEvent_" summaryKeysDict:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

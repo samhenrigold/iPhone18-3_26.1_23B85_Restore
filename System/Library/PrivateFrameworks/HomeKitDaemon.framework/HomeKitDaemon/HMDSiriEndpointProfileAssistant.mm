@@ -165,14 +165,14 @@ LABEL_27:
 
 - (BOOL)containsCharacteristic:(id)characteristic
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   v5 = characteristicCopy;
   if (characteristicCopy)
   {
     service = [characteristicCopy service];
-    serviceType = [service serviceType];
-    if ([serviceType isEqualToString:@"0000026A-0000-1000-8000-0026BB765291"])
+    v7 = objc_msgSend_serviceType(service);
+    if ([v7 isEqualToString:@"0000026A-0000-1000-8000-0026BB765291"])
     {
       instanceID = [service instanceID];
       service2 = [(HMDSiriEndpointProfileAssistant *)self service];
@@ -181,28 +181,28 @@ LABEL_27:
 
       if (v11)
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         service3 = [(HMDSiriEndpointProfileAssistant *)self service];
         characteristics = [service3 characteristics];
 
-        v14 = [characteristics countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [characteristics countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v26;
+          v16 = *v25;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v26 != v16)
+              if (*v25 != v16)
               {
                 objc_enumerationMutation(characteristics);
               }
 
-              v18 = *(*(&v25 + 1) + 8 * i);
+              v18 = *(*(&v24 + 1) + 8 * i);
               instanceID3 = [v5 instanceID];
               instanceID4 = [v18 instanceID];
               v21 = [instanceID3 isEqual:instanceID4];
@@ -215,7 +215,7 @@ LABEL_27:
               }
             }
 
-            v15 = [characteristics countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v15 = [characteristics countByEnumeratingWithState:&v24 objects:v28 count:16];
             if (v15)
             {
               continue;
@@ -240,7 +240,6 @@ LABEL_16:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -267,7 +266,7 @@ LABEL_16:
     [v3 addObject:_activeCharacteristic];
   }
 
-  v7 = [v3 copy];
+  v7 = objc_msgSend_copy(v3);
 
   return v7;
 }
@@ -281,7 +280,7 @@ LABEL_16:
     [v3 addObject:_activeCharacteristic];
   }
 
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
 
   return v5;
 }
@@ -290,7 +289,7 @@ LABEL_16:
 {
   activeCopy = active;
   os_unfair_lock_lock_with_options();
-  v4 = [activeCopy copy];
+  v4 = objc_msgSend_copy(activeCopy);
   active = self->_active;
   self->_active = v4;
 
@@ -310,7 +309,7 @@ LABEL_16:
 {
   nameCopy = name;
   os_unfair_lock_lock_with_options();
-  v4 = [nameCopy copy];
+  v4 = objc_msgSend_copy(nameCopy);
   name = self->_name;
   self->_name = v4;
 
@@ -330,7 +329,7 @@ LABEL_16:
 {
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
-  v4 = [identifierCopy copy];
+  v4 = objc_msgSend_copy(identifierCopy);
   identifier = self->_identifier;
   self->_identifier = v4;
 

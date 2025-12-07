@@ -5,9 +5,9 @@ void sub_100001154(id a1)
   _objc_release_x1();
 }
 
-void sub_10000127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -36,7 +36,7 @@ Class sub_100001294(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -56,7 +56,6 @@ LABEL_4:
 
 uint64_t sub_1000013D8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100016E80 = result;
   return result;
@@ -314,53 +313,52 @@ uint64_t sub_100002AA0(uint64_t a1)
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = NNSetupCompanionSyncLog();
+  v4 = NNSetupCompanionSyncLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = +[NSBundle mainBundle];
     v6 = [v5 bundleIdentifier];
-    v16 = 138412290;
-    v17 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "NanoNews Daemon - Bundle identifier %@…", &v16, 0xCu);
+    v19 = 138412290;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "NanoNews Daemon - Bundle identifier %@…", &v19, 0xCu);
   }
 
   xpc_set_event_stream_handler("com.apple.notifyd.matching", &_dispatch_main_q, &stru_100010470);
-  v7 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = NNSetupCompanionSyncLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Starting CompanionSync service…", &v16, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Starting CompanionSync service…", &v19, 2u);
   }
 
-  v8 = +[NNCompanionSyncService sharedCompanionSyncService];
-  [v8 resumeSync];
+  v9 = +[NNCompanionSyncService sharedCompanionSyncService];
+  [v9 resumeSync];
 
-  v9 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = NNSetupCompanionSyncLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Starting XPC listener…", &v16, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Starting XPC listener…", &v19, 2u);
   }
 
-  v10 = objc_opt_new();
-  v11 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.nanonews.service.companion"];
-  [v11 setDelegate:v10];
-  [v11 resume];
-  v12 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-  {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Running the run loop…", &v16, 2u);
-  }
-
-  v13 = +[NSRunLoop currentRunLoop];
-  [v13 run];
-
-  v14 = NNSetupCompanionSyncLog();
+  v12 = objc_opt_new();
+  v13 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.nanonews.service.companion"];
+  [v13 setDelegate:v12];
+  v14 = NNSetupCompanionSyncLog([v13 resume]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Passing out!", &v16, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Running the run loop…", &v19, 2u);
+  }
+
+  v15 = +[NSRunLoop currentRunLoop];
+  [v15 run];
+
+  v17 = NNSetupCompanionSyncLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    LOWORD(v19) = 0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Passing out!", &v19, 2u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -374,40 +372,41 @@ void sub_100003568(uint64_t a1)
   if (v3)
   {
     v4 = [v3 writeToURL:v2 atomically:1];
-    v5 = NNSetupCompanionSyncLog();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-    if (v4)
+    v5 = v4;
+    v6 = NNSetupCompanionSyncLog(v4);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        v7 = [v2 absoluteString];
-        v9 = 138412290;
-        v10 = v7;
-        v8 = "Wrote headlines to %@";
+        v8 = [v2 absoluteString];
+        v10 = 138412290;
+        v11 = v8;
+        v9 = "Wrote headlines to %@";
 LABEL_9:
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, v8, &v9, 0xCu);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, v9, &v10, 0xCu);
       }
     }
 
-    else if (v6)
+    else if (v7)
     {
-      v7 = [v2 absoluteString];
-      v9 = 138412290;
-      v10 = v7;
-      v8 = "Couldn't write to %@";
+      v8 = [v2 absoluteString];
+      v10 = 138412290;
+      v11 = v8;
+      v9 = "Couldn't write to %@";
       goto LABEL_9;
     }
   }
 
   else
   {
-    v5 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = NNSetupCompanionSyncLog(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = [v2 absoluteString];
-      v9 = 138412290;
-      v10 = v7;
-      v8 = "No headlines given to companion sync service for %@";
+      v8 = [v2 absoluteString];
+      v10 = 138412290;
+      v11 = v8;
+      v9 = "No headlines given to companion sync service for %@";
       goto LABEL_9;
     }
   }
@@ -416,34 +415,35 @@ LABEL_9:
 void sub_100003E90(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v7 = 0;
-  v3 = [v2 resume:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [v2 resume:&v8];
+  v4 = v8;
+  v5 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = NNSetupCompanionSyncLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [*(a1 + 40) UUIDString];
+      v7 = [*(a1 + 40) UUIDString];
       *buf = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Couldn't resume SYService with pairingID: %@ error: %@", buf, 0x16u);
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Couldn't resume SYService with pairingID: %@ error: %@", buf, 0x16u);
     }
   }
 }
 
-char *NNSystemDirectoryDirectoryPath()
+char *NNSystemDirectoryDirectoryPath(uint64_t a1, uint64_t a2)
 {
-  v0 = malloc_type_malloc(0x400uLL, 0x362579F0uLL);
-  if (v0)
+  v2 = malloc_type_malloc(0x400uLL, 0x362579F0uLL);
+  if (v2)
   {
     started = sysdir_start_search_path_enumeration_private();
-    sysdir_get_next_search_path_enumeration(started, v0);
+    sysdir_get_next_search_path_enumeration(started, v2);
   }
 
-  return v0;
+  return v2;
 }
 
 id NNURLForSystemDirectoriesPath(id a1)
@@ -461,7 +461,7 @@ id NNURLForSystemDirectoriesPath(id a1)
 
 id NNURLForFeldsparUserAccountHomeDirectory()
 {
-  v0 = NNSystemDirectoryDirectoryPath();
+  v0 = NNSystemDirectoryDirectoryPath(5, 16);
   v1 = NNURLForSystemDirectoriesPath(v0);
   v2 = [v1 URLByAppendingPathComponent:@"News" isDirectory:1];
 
@@ -503,9 +503,9 @@ uint64_t sub_10000526C(uint64_t a1)
   return result;
 }
 
-void sub_1000053D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000053D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -541,16 +541,16 @@ void sub_1000054AC(uint64_t a1)
   *(v1 + 40) = 0;
 }
 
-void sub_1000057D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000057D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -581,18 +581,18 @@ void sub_100005920(uint64_t a1)
   {
     v2 = objc_autoreleasePoolPush();
     v3 = NNCompanionSyncableResultFromDaemonResults(*(a1 + 32), *(a1 + 40), 1);
-    v19 = 0;
-    v4 = [NSPropertyListSerialization dataWithPropertyList:v3 format:200 options:0 error:&v19];
-    v5 = v19;
+    v20 = 0;
+    v4 = [NSPropertyListSerialization dataWithPropertyList:v3 format:200 options:0 error:&v20];
+    v5 = v20;
     v6 = [*(a1 + 40) allValues];
     NTDeleteOnDiskAssets();
 
     if (!v4)
     {
-      v7 = NNSetupCompanionSyncLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = NNSetupCompanionSyncLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100009080(v5, v7);
+        sub_100009080(v5, v8);
       }
     }
 
@@ -604,42 +604,42 @@ void sub_100005920(uint64_t a1)
     v4 = 0;
   }
 
-  v8 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = NNSetupCompanionSyncLog(a1);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
     *buf = 138412290;
-    v21 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Preparing headlines (%@) for gizmo.", buf, 0xCu);
+    v22 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Preparing headlines (%@) for gizmo.", buf, 0xCu);
   }
 
-  v10 = [*(a1 + 48) serviceManager];
-  [v10 enqueueHeadlineSyncWithData:v4];
+  v11 = [*(a1 + 48) serviceManager];
+  [v11 enqueueHeadlineSyncWithData:v4];
 
-  v11 = [*(a1 + 48) service];
-  v12 = [v11 currentSession];
-  v13 = v12 == 0;
+  v12 = [*(a1 + 48) service];
+  v13 = [v12 currentSession];
+  v14 = v13 == 0;
 
-  if (v13)
+  if (v14)
   {
     [*(a1 + 48) resumeSync];
   }
 
-  v14 = *(*(a1 + 56) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = 0;
+  v15 = *(*(a1 + 56) + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = 0;
 
-  v16 = *(*(a1 + 64) + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = 0;
+  v17 = *(*(a1 + 64) + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = 0;
 
-  v18 = *(a1 + 48);
-  objc_sync_enter(v18);
+  v19 = *(a1 + 48);
+  objc_sync_enter(v19);
   [*(a1 + 48) setUpdatingHeadlines:0];
-  objc_sync_exit(v18);
+  objc_sync_exit(v19);
 }
 
-id NNCompanionSyncableResultFromDaemonResults(void *a1, void *a2, int a3)
+id NNCompanionSyncableResultFromDaemonResults(void *a1, void *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -672,16 +672,16 @@ void sub_100006728(id a1)
   _objc_release_x1();
 }
 
-id NNSetupCompanionSyncLog()
+id NNSetupCompanionSyncLog(uint64_t a1)
 {
   if (qword_100016ED0 != -1)
   {
     sub_100009120();
   }
 
-  v1 = qword_100016EC8;
+  v2 = qword_100016EC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007818(id a1)
@@ -691,7 +691,7 @@ void sub_100007818(id a1)
   _objc_release_x1();
 }
 
-id NNHeadlineSyncableResultFromResult(void *a1, int a2)
+id NNHeadlineSyncableResultFromResult(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = +[NSMutableDictionary dictionary];
@@ -768,8 +768,9 @@ LABEL_14:
   return v18;
 }
 
-id NNHeadlineSyncableSectionFromSection(void *a1, int a2)
+id NNHeadlineSyncableSectionFromSection(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v4 = +[NSMutableDictionary dictionary];
   v5 = [v3 sync_identifier];
@@ -785,92 +786,94 @@ id NNHeadlineSyncableSectionFromSection(void *a1, int a2)
   v8 = [v7 copy];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    [v4 setObject:v8 forKeyedSubscript:@"sync_name"];
+    isKindOfClass = [v4 setObject:v8 forKeyedSubscript:@"sync_name"];
   }
 
-  v9 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = NNSetupCompanionSyncLog(isKindOfClass);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v35 = v8;
-    v36 = 2112;
-    v37 = v6;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Creating Syncable Section with name=%@ and ID = %@…", buf, 0x16u);
+    v37 = v8;
+    v38 = 2112;
+    v39 = v6;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Creating Syncable Section with name=%@ and ID = %@…", buf, 0x16u);
   }
 
-  v10 = [v3 sync_type];
-  if (v10 > 5)
+  v11 = [v3 sync_type];
+  v12 = v11;
+  if (v11 > 5)
   {
-    v11 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = NNSetupCompanionSyncLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v35 = v3;
-      v36 = 2048;
-      v37 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Didn't know what this section type was: %@ %lu", buf, 0x16u);
+      v37 = v3;
+      v38 = 2048;
+      v39 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Didn't know what this section type was: %@ %lu", buf, 0x16u);
     }
   }
 
   else
   {
-    v11 = [NSNumber numberWithUnsignedInteger:v10];
-    [v4 setObject:v11 forKeyedSubscript:@"sync_type"];
+    v13 = [NSNumber numberWithUnsignedInteger:v11];
+    [v4 setObject:v13 forKeyedSubscript:@"sync_type"];
   }
 
-  v12 = [v3 sync_colorHexString];
-  v13 = [v12 copy];
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    [v4 setObject:v13 forKeyedSubscript:@"sync_colorHexString"];
-  }
-
-  v14 = [v3 sync_headlines];
+  v14 = [v3 sync_colorHexString];
   v15 = [v14 copy];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = v13;
-    v27 = v8;
-    v28 = v6;
-    v16 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v15 count]);
-    v29 = 0u;
-    v30 = 0u;
+    [v4 setObject:v15 forKeyedSubscript:@"sync_colorHexString"];
+  }
+
+  v16 = [v3 sync_headlines];
+  v17 = [v16 copy];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v28 = v15;
+    v29 = v8;
+    v30 = v6;
+    v18 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v17 count]);
     v31 = 0u;
     v32 = 0u;
-    v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v18)
+    v33 = 0u;
+    v34 = 0u;
+    v19 = v17;
+    v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v20)
     {
-      v19 = v18;
-      v20 = *v30;
+      v21 = v20;
+      v22 = *v32;
 LABEL_16:
-      v21 = 0;
+      v23 = 0;
       while (1)
       {
-        if (*v30 != v20)
+        if (*v32 != v22)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v19);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * v21);
-        if (![v22 conformsToProtocol:&OBJC_PROTOCOL___NNSyncableHeadline])
+        v24 = *(*(&v31 + 1) + 8 * v23);
+        if (![v24 conformsToProtocol:&OBJC_PROTOCOL___NNSyncableHeadline])
         {
           break;
         }
 
-        v23 = NNHeadlineSyncableResultFromHeadline(v22, a2);
-        [v16 addObject:v23];
+        v25 = NNHeadlineSyncableResultFromHeadline(v24, v2);
+        [v18 addObject:v25];
 
-        if (v19 == ++v21)
+        if (v21 == ++v23)
         {
-          v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
-          if (v19)
+          v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          if (v21)
           {
             goto LABEL_16;
           }
@@ -884,18 +887,18 @@ LABEL_16:
     {
 LABEL_22:
 
-      v17 = [v16 copy];
-      [v4 setObject:v17 forKeyedSubscript:@"sync_headlines"];
+      v19 = [v18 copy];
+      [v4 setObject:v19 forKeyedSubscript:@"sync_headlines"];
     }
 
-    v8 = v27;
-    v6 = v28;
-    v13 = v26;
+    v8 = v29;
+    v6 = v30;
+    v15 = v28;
   }
 
-  v24 = [v4 copy];
+  v26 = [v4 copy];
 
-  return v24;
+  return v26;
 }
 
 id NNHeadlineSyncableResultFromHeadline(void *a1, int a2)

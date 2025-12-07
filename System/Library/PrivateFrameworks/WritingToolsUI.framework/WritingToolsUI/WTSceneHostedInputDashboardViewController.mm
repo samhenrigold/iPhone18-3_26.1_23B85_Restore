@@ -58,7 +58,7 @@
   v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -90,7 +90,7 @@
   v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -115,7 +115,7 @@
 {
   v20 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -141,7 +141,7 @@
   acceptedCopy = accepted;
   v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -181,7 +181,7 @@
   sessionCopy = session;
   textCopy = text;
   contextCopy = context;
-  v16 = _WTVCLog();
+  v16 = _WTVCLog(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     uuid = [sessionCopy uuid];
@@ -241,7 +241,7 @@
 {
   v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -370,7 +370,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 - (void)endWritingTools
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136315394;
@@ -386,7 +386,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 - (void)undo
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -403,7 +403,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 - (void)redo
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -421,7 +421,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 {
   v13 = *MEMORY[0x1E69E9840];
   textCopy = text;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -441,7 +441,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 {
   v13 = *MEMORY[0x1E69E9840];
   textCopy = text;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(textCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 136315650;
@@ -460,7 +460,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
 - (void)beginTextPlaceholder
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -479,7 +479,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
   textCopy = text;
   v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = "no";
@@ -507,7 +507,7 @@ void __97__WTSceneHostedInputDashboardViewController_showAlertWithTitle_message_
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(WTSceneHostedInputDashboardViewController *)self showSmartReplyQuestionnaireWithRect:v8, x, y, width, height];

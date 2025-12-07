@@ -6,7 +6,10 @@
 - (void)discoveredAccessoryGrid:(id)grid didSelectDiscoveredAccessory:(id)accessory;
 - (void)discoveredAccessoryGrid:(id)grid didUpdateNumberOfDiscoveredAccessories:(unint64_t)accessories;
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSDiscoveredAccessoryPickerViewController
@@ -108,6 +111,29 @@ LABEL_3:
   [gridViewController8 didMoveToParentViewController:self];
 
   [(HSDiscoveredAccessoryPickerViewController *)self _setupConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HSDiscoveredAccessoryPickerViewController;
+  [(HSDiscoveredAccessoryPickerViewController *)&v3 viewWillAppear:appear];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HSDiscoveredAccessoryPickerViewController;
+  [(HSDiscoveredAccessoryPickerViewController *)&v5 viewDidAppear:appear];
+  networkInterfaceManager = [(HSDiscoveredAccessoryPickerViewController *)self networkInterfaceManager];
+  [networkInterfaceManager checkNetworkStatusAndShowAlertIfNeededForBluetooth:1 Wifi:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = HSDiscoveredAccessoryPickerViewController;
+  [(HSDiscoveredAccessoryPickerViewController *)&v3 viewDidDisappear:disappear];
 }
 
 - (void)_setupConstraints

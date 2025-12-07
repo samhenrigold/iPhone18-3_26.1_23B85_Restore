@@ -60,7 +60,7 @@ void __20__ULEventLog_shared__block_invoke(uint64_t a1)
   dispatch_sync(queue, v6);
 }
 
-uint64_t __32__ULEventLog_connectToDatabase___block_invoke(uint64_t a1)
+void *__32__ULEventLog_connectToDatabase___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbStore];
   if (!result)
@@ -103,7 +103,7 @@ uint64_t __32__ULEventLog_connectToDatabase___block_invoke(uint64_t a1)
 
 void __18__ULEventLog_log___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) dbStore])
   {
     v2 = [*(a1 + 40) UTF8String];
@@ -119,7 +119,7 @@ void __18__ULEventLog_log___block_invoke(uint64_t a1)
       operator new();
     }
 
-    v10 = v3;
+    v9 = v3;
     if (v3)
     {
       memmove(&__dst, v2, v3);
@@ -127,7 +127,7 @@ void __18__ULEventLog_log___block_invoke(uint64_t a1)
 
     *(&__dst + v4) = 0;
     ULEventLogDO::ULEventLogDO(&__p, &__dst, *(a1 + 48));
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__dst);
     }
@@ -136,23 +136,23 @@ void __18__ULEventLog_log___block_invoke(uint64_t a1)
     v6 = (*(*v5 + 56))(v5);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v14, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v13, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v14 = __p;
+      v13 = __p;
     }
 
-    v15 = v12;
-    memset(v8, 0, sizeof(v8));
-    std::vector<ULEventLogDO>::__init_with_size[abi:ne200100]<ULEventLogDO const*,ULEventLogDO const*>(v8, &v14, v16, 1uLL);
-    [v6 insertDataObjects:v8];
-    v13 = v8;
-    std::vector<ULEventLogDO>::__destroy_vector::operator()[abi:ne200100](&v13);
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+    v14 = v11;
+    memset(v7, 0, sizeof(v7));
+    std::vector<ULEventLogDO>::__init_with_size[abi:ne200100]<ULEventLogDO const*,ULEventLogDO const*>(v7, &v13, v15, 1uLL);
+    [v6 insertDataObjects:v7];
+    v12 = v7;
+    std::vector<ULEventLogDO>::__destroy_vector::operator()[abi:ne200100](&v12);
+    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v14.__r_.__value_.__l.__data_);
+      operator delete(v13.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -160,8 +160,6 @@ void __18__ULEventLog_log___block_invoke(uint64_t a1)
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)printLogEventsSince:(double)since
@@ -184,7 +182,7 @@ void __18__ULEventLog_log___block_invoke(uint64_t a1)
 
 void __34__ULEventLog_printLogEventsSince___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) dbStore])
   {
     v2 = [*(a1 + 32) dbStore];
@@ -192,25 +190,25 @@ void __34__ULEventLog_printLogEventsSince___block_invoke(uint64_t a1)
     v4 = v3;
     if (v3)
     {
-      [v3 fetchLoggedEventsFromTime:*(a1 + 48) toTime:1 limit:{*(a1 + 56), 1, 0}];
+      objc_msgSend_fetchLoggedEventsFromTime_toTime_limit_(v3);
     }
 
     else
     {
+      v13 = 0;
       v14 = 0;
       v15 = 0;
-      v16 = 0;
     }
 
-    v6 = v14;
-    if (v14 != v15)
+    v6 = v13;
+    if (v13 != v14)
     {
       *&v5 = 138412546;
-      v13 = v5;
+      v12 = v5;
       do
       {
         v7 = *(a1 + 40);
-        v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{v6[3], v13}];
+        v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{v6[3], v12}];
         v9 = [v7 stringFromDate:v8];
 
         if (onceToken_MicroLocation_Default != -1)
@@ -227,24 +225,22 @@ void __34__ULEventLog_printLogEventsSince___block_invoke(uint64_t a1)
             v11 = *v6;
           }
 
-          *buf = v13;
+          *buf = v12;
           *&buf[4] = v9;
-          v18 = 2080;
-          v19 = v11;
+          v17 = 2080;
+          v18 = v11;
           _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Event Time: %@, Event: %s", buf, 0x16u);
         }
 
         v6 += 4;
       }
 
-      while (v6 != v15);
+      while (v6 != v14);
     }
 
-    *buf = &v14;
+    *buf = &v13;
     std::vector<ULEventLogDO>::__destroy_vector::operator()[abi:ne200100](buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

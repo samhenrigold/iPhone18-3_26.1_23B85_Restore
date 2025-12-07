@@ -1,7 +1,6 @@
 @interface NSMutableURLRequest(AppleAccount)
 - (id)aa_setXMLBodyWithParameters:()AppleAccount;
 - (uint64_t)aa_addAuthTokenOrBasicAuthHeaderWithAccount:()AppleAccount preferUsingPassword:;
-- (uint64_t)aa_addDeviceInternalDevHeaderIfEnabled;
 - (uint64_t)aa_addDeviceProvisioningInfoHeadersWithDSIDFromReponse:()AppleAccount;
 - (uint64_t)aa_addGrandSlamAuthorizationHeaderWithAccount:()AppleAccount grandslamToken:;
 - (uint64_t)aa_addGrandslamAuthorizationHeaderWithAltDSID:()AppleAccount grandslamToken:;
@@ -14,6 +13,7 @@
 - (void)aa_addClientInfoHeaders;
 - (void)aa_addContentTypeHeaders:()AppleAccount;
 - (void)aa_addDeviceIDHeader;
+- (void)aa_addDeviceInternalDevHeaderIfEnabled;
 - (void)aa_addDeviceProvisioningInfoHeadersWithAccount:()AppleAccount;
 - (void)aa_addDeviceProvisioningInfoHeadersWithDSID:()AppleAccount sendEmptyValues:;
 - (void)aa_addLoggedInAppleIDHeaderWithAccount:()AppleAccount;
@@ -42,7 +42,7 @@
   v10 = [v9 base64EncodedStringWithOptions:0];
 
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"X-MobileMe-AuthToken %@", v10];
-  v12 = _AALogSystem();
+  v12 = _AALogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -65,7 +65,7 @@
   v10 = [v9 base64EncodedStringWithOptions:0];
 
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v10];
-  v12 = _AALogSystem();
+  v12 = _AALogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -95,7 +95,7 @@
 
 - (void)aa_addBasicAuthorizationHeaderWithAccount:()AppleAccount preferUsingPassword:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = v6;
   if (v6)
@@ -115,27 +115,28 @@
           aa_password2 = [v7 aa_password];
           v14 = [v11 stringWithFormat:@"%@:%@", username2, aa_password2];
 
-          v15 = _AALogSystem();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = _AALogSystem(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
+            _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
           }
 
-          if (![MEMORY[0x1E6985E20] isInternalBuild])
+          isInternalBuild = [MEMORY[0x1E6985E20] isInternalBuild];
+          if (!isInternalBuild)
           {
             goto LABEL_27;
           }
 
-          v16 = _AALogSystem();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _AALogSystem(isInternalBuild);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_25:
             aa_password3 = [v7 aa_password];
-            v37 = [aa_password3 unredactedSuffixOfLength:4];
+            v43 = [aa_password3 unredactedSuffixOfLength:4];
             *buf = 138412290;
-            v45 = v37;
-            _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Using PET: %@", buf, 0xCu);
+            v52 = v43;
+            _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Using PET: %@", buf, 0xCu);
           }
 
 LABEL_26:
@@ -143,30 +144,31 @@ LABEL_26:
 LABEL_27:
           if (v14)
           {
-            v38 = [v14 dataUsingEncoding:4];
-            v39 = [v38 base64EncodedStringWithOptions:0];
+            v44 = [v14 dataUsingEncoding:4];
+            v45 = [v44 base64EncodedStringWithOptions:0];
 
-            v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v39];
-            if ([MEMORY[0x1E6985E20] isInternalBuild])
+            v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v45];
+            isInternalBuild2 = [MEMORY[0x1E6985E20] isInternalBuild];
+            if (isInternalBuild2)
             {
-              v41 = _AALogSystem();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v48 = _AALogSystem(isInternalBuild2);
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v45 = v14;
-                _os_log_impl(&dword_1B6F6A000, v41, OS_LOG_TYPE_DEFAULT, "Authentication Header before Base64: %@", buf, 0xCu);
+                v52 = v14;
+                _os_log_impl(&dword_1B6F6A000, v48, OS_LOG_TYPE_DEFAULT, "Authentication Header before Base64: %@", buf, 0xCu);
               }
 
-              v42 = _AALogSystem();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v50 = _AALogSystem(v49);
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v45 = v40;
-                _os_log_impl(&dword_1B6F6A000, v42, OS_LOG_TYPE_DEFAULT, "Authentication Header after Base64: %@", buf, 0xCu);
+                v52 = v46;
+                _os_log_impl(&dword_1B6F6A000, v50, OS_LOG_TYPE_DEFAULT, "Authentication Header after Base64: %@", buf, 0xCu);
               }
             }
 
-            [self setValue:v40 forHTTPHeaderField:@"Authorization"];
+            [self setValue:v46 forHTTPHeaderField:@"Authorization"];
           }
 
           goto LABEL_35;
@@ -176,18 +178,18 @@ LABEL_27:
       aa_personID = [v7 aa_personID];
       if (aa_personID)
       {
-        v24 = aa_personID;
+        v27 = aa_personID;
         aa_authToken = [v7 aa_authToken];
 
         if (aa_authToken)
         {
-          v26 = MEMORY[0x1E696AEC0];
+          v29 = MEMORY[0x1E696AEC0];
           aa_personID2 = [v7 aa_personID];
           aa_authToken2 = [v7 aa_authToken];
-          v14 = [v26 stringWithFormat:@"%@:%@", aa_personID2, aa_authToken2];
+          v14 = [v29 stringWithFormat:@"%@:%@", aa_personID2, aa_authToken2];
 
-          v16 = _AALogSystem();
-          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _AALogSystem(v32);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_26;
           }
@@ -203,25 +205,25 @@ LABEL_27:
       aa_personID3 = [v6 aa_personID];
       if (aa_personID3)
       {
-        v18 = aa_personID3;
+        v20 = aa_personID3;
         aa_authToken3 = [v7 aa_authToken];
 
         if (aa_authToken3)
         {
-          v20 = MEMORY[0x1E696AEC0];
+          v22 = MEMORY[0x1E696AEC0];
           aa_personID4 = [v7 aa_personID];
           aa_authToken4 = [v7 aa_authToken];
-          v14 = [v20 stringWithFormat:@"%@:%@", aa_personID4, aa_authToken4];
+          v14 = [v22 stringWithFormat:@"%@:%@", aa_personID4, aa_authToken4];
 
-          v16 = _AALogSystem();
-          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _AALogSystem(v25);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_26;
           }
 
           *buf = 0;
 LABEL_18:
-          _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Using token auth (basic)", buf, 2u);
+          _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Using token auth (basic)", buf, 2u);
           goto LABEL_26;
         }
       }
@@ -229,30 +231,31 @@ LABEL_18:
       username3 = [v7 username];
       if (username3)
       {
-        v30 = username3;
+        v34 = username3;
         aa_password4 = [v7 aa_password];
 
         if (aa_password4)
         {
-          v32 = MEMORY[0x1E696AEC0];
+          v36 = MEMORY[0x1E696AEC0];
           username4 = [v7 username];
           aa_password5 = [v7 aa_password];
-          v14 = [v32 stringWithFormat:@"%@:%@", username4, aa_password5];
+          v14 = [v36 stringWithFormat:@"%@:%@", username4, aa_password5];
 
-          v35 = _AALogSystem();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v40 = _AALogSystem(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B6F6A000, v35, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
+            _os_log_impl(&dword_1B6F6A000, v40, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
           }
 
-          if (![MEMORY[0x1E6985E20] isInternalBuild])
+          isInternalBuild3 = [MEMORY[0x1E6985E20] isInternalBuild];
+          if (!isInternalBuild3)
           {
             goto LABEL_27;
           }
 
-          v16 = _AALogSystem();
-          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _AALogSystem(isInternalBuild3);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_26;
           }
@@ -265,8 +268,6 @@ LABEL_18:
 LABEL_35:
     [self aa_addAltDSIDAndRepairStateWithAccount:v7];
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)aa_addBasicAuthorizationHeaderWithAccount:()AppleAccount authToken:
@@ -276,7 +277,7 @@ LABEL_35:
   v8 = v7;
   if (v6 && v7)
   {
-    v9 = _AALogSystem();
+    v9 = _AALogSystem(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -313,7 +314,7 @@ LABEL_35:
       aa_personID = [v7 aa_personID];
       if (!aa_personID || (v12 = aa_personID, [v7 aa_authToken], v13 = objc_claimAutoreleasedReturnValue(), v13, v12, !v13))
       {
-        v14 = _AALogSystem();
+        v14 = _AALogSystem(aa_personID);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v25 = 0;
@@ -340,7 +341,7 @@ LABEL_13:
     username2 = [v7 username];
     if (!username2 || (v20 = username2, [v7 aa_password], v21 = objc_claimAutoreleasedReturnValue(), v21, v20, !v21))
     {
-      v14 = _AALogSystem();
+      v14 = _AALogSystem(username2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v24 = 0;
@@ -373,6 +374,7 @@ LABEL_19:
   v8 = 0;
   v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:a3 format:100 options:0 error:&v8];
   v5 = v8;
+  v6 = v5;
   if (v4)
   {
     [self setHTTPBody:v4];
@@ -380,16 +382,14 @@ LABEL_19:
 
   else
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Error adding body %@", buf, 0xCu);
+      v10 = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Error adding body %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)aa_setXMLBodyWithParameters:()AppleAccount
@@ -398,6 +398,7 @@ LABEL_19:
   v9 = 0;
   v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:a3 format:100 options:0 error:&v9];
   v5 = v9;
+  v6 = v5;
   if (v4)
   {
     [self setHTTPBody:v4];
@@ -406,16 +407,14 @@ LABEL_19:
 
   else
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Error adding body %@", buf, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Error adding body %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -427,12 +426,13 @@ LABEL_19:
   v9[0] = 0;
   v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:v9];
   v6 = v9[0];
+  v7 = v6;
   if (v6)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(NSMutableURLRequest(AppleAccount) *)v6 aa_setJSONBodyWithParameters:v7];
+      [(NSMutableURLRequest(AppleAccount) *)v7 aa_setJSONBodyWithParameters:v8];
     }
   }
 
@@ -441,25 +441,20 @@ LABEL_19:
     [self setHTTPBody:v5];
     [self setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)aa_signBodyData:()AppleAccount withSigningSession:
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = [a4 signatureForData:?];
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = [a4 signatureForData:a3];
   v6 = [v5 base64EncodedStringWithOptions:0];
-  [self setValue:v6 forHTTPHeaderField:@"X-Mme-Nas-Qualify"];
-  v7 = _AALogSystem();
+  v7 = _AALogSystem([self setValue:v6 forHTTPHeaderField:@"X-Mme-Nas-Qualify"]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "X-Mme-Nas-Qualify: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "X-Mme-Nas-Qualify: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)aa_setXMLBodyWithParameters:()AppleAccount signingSession:
@@ -557,7 +552,7 @@ LABEL_19:
 
 - (void)aa_addDeviceProvisioningInfoHeadersWithDSID:()AppleAccount sendEmptyValues:
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -567,20 +562,18 @@ LABEL_19:
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v11 = 138412290;
-      v12 = callStackSymbols;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "BADNESS!!! No DSID passed to aa_addDeviceProvisioningInfoHeadersWithDSID: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = callStackSymbols;
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "BADNESS!!! No DSID passed to aa_addDeviceProvisioningInfoHeadersWithDSID: %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)aa_addDeviceInternalDevHeaderIfEnabled
+- (void)aa_addDeviceInternalDevHeaderIfEnabled
 {
   keyExistsAndHasValidFormat = 1;
   result = CFPreferencesGetAppBooleanValue(@"AAUISendInternalDevHeader", @"com.apple.appleaccount", &keyExistsAndHasValidFormat);
@@ -609,16 +602,17 @@ LABEL_19:
 - (void)aa_addDeviceIDHeader
 {
   v2 = objc_alloc_init(AADeviceInfo);
+  v3 = v2;
   if (v2)
   {
-    v3 = _AALogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _AALogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Adding device udid to the request header", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Adding device udid to the request header", v6, 2u);
     }
 
-    udid = [(AADeviceInfo *)v2 udid];
+    udid = [(AADeviceInfo *)v3 udid];
     [self setValue:udid forHTTPHeaderField:@"X-Mme-Device-Id"];
   }
 }
@@ -633,7 +627,7 @@ LABEL_19:
   if (aa_addMultiUserDeviceHeaderIfEnabled_isMultiUserDevice == 1)
   {
 
-    [self setValue:@"true" forHTTPHeaderField:@"X-MMe-Multi-User"];
+    [result setValue:@"true" forHTTPHeaderField:@"X-MMe-Multi-User"];
   }
 }
 
@@ -666,7 +660,7 @@ LABEL_19:
 
     v13 = 0;
 LABEL_18:
-    v27 = 0;
+    v28 = 0;
     goto LABEL_19;
   }
 
@@ -717,35 +711,34 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v22 = _AALogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = _AALogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "Server is asking for device provisioning information", buf, 2u);
+    _os_log_impl(&dword_1B6F6A000, v23, OS_LOG_TYPE_DEFAULT, "Server is asking for device provisioning information", buf, 2u);
   }
 
   allHTTPHeaderFields = [selfCopy allHTTPHeaderFields];
-  v24 = [allHTTPHeaderFields count];
+  v25 = [allHTTPHeaderFields count];
 
   [selfCopy aa_addDeviceProvisioningInfoHeadersWithDSID:v13];
   allHTTPHeaderFields2 = [selfCopy allHTTPHeaderFields];
-  v26 = [allHTTPHeaderFields2 count];
+  v27 = [allHTTPHeaderFields2 count];
 
-  if (v26 <= v24)
+  if (v27 <= v25)
   {
     goto LABEL_18;
   }
 
-  v27 = 1;
+  v28 = 1;
 LABEL_19:
 
-  v28 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v28;
 }
 
 - (void)aa_addClientInfoHeaders
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = +[AADeviceInfo userAgentHeader];
   [self setValue:v2 forHTTPHeaderField:@"User-Agent"];
 
@@ -774,13 +767,12 @@ LABEL_19:
 
   v11 = MEMORY[0x1E695DF58];
   _deviceLanguage = [MEMORY[0x1E695DF58] _deviceLanguage];
-  v17[0] = _deviceLanguage;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = _deviceLanguage;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v14 = [v11 minimizedLanguagesFromLanguages:v13];
   v15 = [v14 componentsJoinedByString:{@", "}];
 
   [self setValue:v15 forHTTPHeaderField:@"Accept-Language"];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)aa_addContentTypeHeaders:()AppleAccount
@@ -818,8 +810,7 @@ LABEL_19:
   v10 = [v9 base64EncodedStringWithOptions:0];
 
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v10];
-  [self setValue:v11 forHTTPHeaderField:@"Authorization-Proxied"];
-  v12 = _AALogSystem();
+  v12 = _AALogSystem([self setValue:v11 forHTTPHeaderField:@"Authorization-Proxied"]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -835,11 +826,10 @@ LABEL_19:
 
 - (void)aa_setJSONBodyWithParameters:()AppleAccount .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize request parameters! Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize request parameters! Error: %@", &v2, 0xCu);
 }
 
 - (void)aa_setJSONBodyWithParameters:()AppleAccount .cold.2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)

@@ -72,9 +72,9 @@ LABEL_8:
 
   if (v6 && v7)
   {
-    v9 = [(UIColor *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -107,7 +107,7 @@ LABEL_10:
       v10 = v9;
       if (v8 == v9)
       {
-        v12 = 1;
+        isEqual = 1;
       }
 
       else
@@ -124,28 +124,28 @@ LABEL_10:
 
         if (v11)
         {
-          v12 = 0;
+          isEqual = 0;
         }
 
         else
         {
-          v12 = [(UIColor *)v8 isEqual:v9];
+          isEqual = objc_msgSend_isEqual_(v8);
         }
       }
     }
 
     else
     {
-      v12 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -8,28 +8,26 @@
 
 - (id)orderedProperties
 {
-  v9[15] = *MEMORY[0x277D85DE8];
-  v9[0] = @"diagnostic_test_coding_collection";
-  v9[1] = @"value";
-  v9[2] = @"reference_ranges";
-  v9[3] = @"effective_start_date";
-  v9[4] = @"category";
-  v9[5] = @"categories_coding_collections";
-  v9[6] = @"issue_date";
-  v9[7] = @"effective_end_date";
-  v9[8] = @"status_coding";
-  v9[9] = @"interpretation_coding_collections";
-  v9[10] = @"comments";
-  v9[11] = @"body_site_coding_collection";
-  v9[12] = @"method_coding_collection";
-  v9[13] = @"performers";
-  v9[14] = @"reference_range_status";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:15];
+  v8[15] = *MEMORY[0x277D85DE8];
+  v8[0] = @"diagnostic_test_coding_collection";
+  v8[1] = @"value";
+  v8[2] = @"reference_ranges";
+  v8[3] = @"effective_start_date";
+  v8[4] = @"category";
+  v8[5] = @"categories_coding_collections";
+  v8[6] = @"issue_date";
+  v8[7] = @"effective_end_date";
+  v8[8] = @"status_coding";
+  v8[9] = @"interpretation_coding_collections";
+  v8[10] = @"comments";
+  v8[11] = @"body_site_coding_collection";
+  v8[12] = @"method_coding_collection";
+  v8[13] = @"performers";
+  v8[14] = @"reference_range_status";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:15];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

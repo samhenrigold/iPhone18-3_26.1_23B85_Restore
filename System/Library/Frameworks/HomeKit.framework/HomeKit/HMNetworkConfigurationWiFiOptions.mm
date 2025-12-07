@@ -10,11 +10,10 @@
   v3 = MEMORY[0x1E696AEC0];
   shortDescription = [objc_opt_class() shortDescription];
   v5 = HMAccessoryWiFiCredentialTypeAsString(self->_credentialType);
-  rotate = self->_rotate;
-  v7 = HMFBooleanToString();
-  v8 = [v3 stringWithFormat:@"<%@ CredentialType = %@, Rotate = %@>", shortDescription, v5, v7];
+  v6 = HMFBooleanToString();
+  v7 = [v3 stringWithFormat:@"<%@ CredentialType = %@, Rotate = %@>", shortDescription, v5, v6];
 
-  return v8;
+  return v7;
 }
 
 - (HMNetworkConfigurationWiFiOptions)initWithCredentialType:(int64_t)type

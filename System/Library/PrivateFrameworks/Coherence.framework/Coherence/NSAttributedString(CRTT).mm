@@ -76,7 +76,7 @@ LABEL_3:
       {
         v18 = [self length];
         v19 = v18 - v14 + v22 + v23;
-        v20 = a5 - v14 + v18;
+        v20 = &a5[v18 - v14];
         v21 = v18 == v14;
         if (v18 == v14)
         {
@@ -94,7 +94,7 @@ LABEL_3:
           a5 = v20;
         }
 
-        if (v15 >= a5 + a4)
+        if (v15 >= &a5[a4])
         {
           break;
         }

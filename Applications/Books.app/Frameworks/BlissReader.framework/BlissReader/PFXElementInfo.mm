@@ -9,7 +9,7 @@
 
 + (void)elementInfos
 {
-  if ((atomic_load_explicit(&qword_5679D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_5679D8, memory_order_acquire) & 1) == 0)
   {
     sub_1EF0FC();
   }
@@ -24,7 +24,7 @@
   listCopy = list;
   textCopy = text;
   levelCopy = level;
-  v17[0] = name;
+  nameCopy = name;
   v16 = objc_alloc_init(PFXElementInfo);
   [(PFXElementInfo *)v16 setIsBlockLevel:levelCopy];
   [(PFXElementInfo *)v16 setIgnoreContainedText:textCopy];
@@ -33,8 +33,8 @@
   [(PFXElementInfo *)v16 setIsItsOwnParagraph:paragraphCopy];
   [(PFXElementInfo *)v16 setIsTableRelated:related];
   [(PFXElementInfo *)v16 setHasTextAlign:align];
-  v17[2] = v17;
-  *(sub_1E8244([self elementInfos], v17) + 40) = v16;
+  v18 = &nameCopy;
+  sub_1E8244([self elementInfos], &nameCopy, &std::piecewise_construct, &v18)[5] = v16;
 }
 
 + (void)initialize

@@ -1,4 +1,4 @@
-void std::__inplace_merge<std::_ClassicAlgPolicy,std::less<void> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>>(int *a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,std::less<void> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>>(int *a1, int *a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a5)
   {
@@ -14,14 +14,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::less<void> &,std::__wrap_i
         return;
       }
 
-      if ((CRTextRecognition::CRCTLD::CTLDRegion::operator<(a2, v14) & 1) == 0)
+      if (!CRTextRecognition::CRCTLD::CTLDRegion::operator<(a2, v14))
       {
         v12 = v14;
         v13 = v14;
         while (--a4)
         {
           v13 += 32;
-          v12 += 128;
+          v12 += 32;
           v14 = v13;
           if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(a2, v13))
           {
@@ -45,7 +45,7 @@ LABEL_10:
         }
 
         v19 = a4 / 2;
-        v17 = (v12 + ((a4 / 2) << 7));
+        v17 = &v12[32 * (a4 / 2)];
         if (a3 == a2)
         {
           v16 = a3;
@@ -58,7 +58,7 @@ LABEL_10:
           do
           {
             v21 = &v16[32 * (v20 >> 1)];
-            v22 = CRTextRecognition::CRCTLD::CTLDRegion::operator<(v21, v12 + ((a4 / 2) << 7));
+            v22 = CRTextRecognition::CRCTLD::CTLDRegion::operator<(v21, &v12[32 * (a4 / 2)]);
             if (v22)
             {
               v20 += ~(v20 >> 1);
@@ -86,21 +86,21 @@ LABEL_10:
       else
       {
         v15 = v8 / 2;
-        v16 = (a2 + ((v8 / 2) << 7));
+        v16 = &a2[32 * (v8 / 2)];
         v17 = a2;
         if (a2 != v14)
         {
           v18 = (a2 - v14) >> 7;
           do
           {
-            if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(v16, v14 + (v18 >> 1 << 7)))
+            if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(v16, &v14[32 * (v18 >> 1)]))
             {
               v18 >>= 1;
             }
 
             else
             {
-              v14 += (v18 >> 1 << 7) + 128;
+              v14 += 32 * (v18 >> 1) + 32;
               v18 += ~(v18 >> 1);
             }
           }
@@ -168,29 +168,29 @@ LABEL_10:
         do
         {
           *v47 = *v48;
-          v49 = *(v48 + 8);
-          *(v48 + 8) = 0;
+          v49 = *(v48 + 1);
+          *(v48 + 1) = 0;
           *(v47 + 8) = v49;
-          v50 = *(v48 + 32);
-          *(v47 + 16) = *(v48 + 16);
+          v50 = *(v48 + 2);
+          *(v47 + 16) = *(v48 + 1);
           *(v47 + 32) = v50;
-          v51 = *(v48 + 48);
-          v52 = *(v48 + 64);
-          v53 = *(v48 + 80);
-          *(v47 + 96) = *(v48 + 96);
+          v51 = *(v48 + 3);
+          v52 = *(v48 + 4);
+          v53 = *(v48 + 5);
+          *(v47 + 96) = v48[24];
           *(v47 + 64) = v52;
           *(v47 + 80) = v53;
           *(v47 + 48) = v51;
           *(v47 + 112) = 0;
           *(v47 + 120) = 0;
           *(v47 + 104) = 0;
-          *(v47 + 104) = *(v48 + 104);
-          *(v47 + 120) = *(v48 + 120);
-          *(v48 + 104) = 0;
-          *(v48 + 112) = 0;
-          *(v48 + 120) = 0;
+          *(v47 + 104) = *(v48 + 26);
+          *(v47 + 120) = *(v48 + 15);
+          *(v48 + 13) = 0;
+          *(v48 + 14) = 0;
+          *(v48 + 15) = 0;
           ++v46;
-          v48 += 128;
+          v48 += 32;
           v47 += 128;
         }
 
@@ -201,28 +201,28 @@ LABEL_10:
           if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(a2, v24))
           {
             *v14 = *a2;
-            v54 = *(a2 + 8);
-            *(a2 + 8) = 0;
-            v55 = *(v14 + 8);
-            *(v14 + 8) = v54;
+            v54 = *(a2 + 1);
+            *(a2 + 1) = 0;
+            v55 = *(v14 + 1);
+            *(v14 + 1) = v54;
 
-            v56 = *(a2 + 32);
-            *(v14 + 16) = *(a2 + 16);
-            *(v14 + 32) = v56;
-            v57 = *(a2 + 48);
-            v58 = *(a2 + 64);
-            v59 = *(a2 + 80);
-            *(v14 + 96) = *(a2 + 96);
-            *(v14 + 64) = v58;
-            *(v14 + 80) = v59;
-            *(v14 + 48) = v57;
-            std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate((v14 + 104));
-            *(v14 + 104) = *(a2 + 104);
-            *(v14 + 120) = *(a2 + 120);
-            *(a2 + 104) = 0;
-            *(a2 + 112) = 0;
-            *(a2 + 120) = 0;
-            a2 += 128;
+            v56 = *(a2 + 2);
+            *(v14 + 1) = *(a2 + 1);
+            *(v14 + 2) = v56;
+            v57 = *(a2 + 3);
+            v58 = *(a2 + 4);
+            v59 = *(a2 + 5);
+            v14[24] = a2[24];
+            *(v14 + 4) = v58;
+            *(v14 + 5) = v59;
+            *(v14 + 3) = v57;
+            std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate(v14 + 13);
+            *(v14 + 26) = *(a2 + 26);
+            *(v14 + 15) = *(a2 + 15);
+            *(a2 + 13) = 0;
+            *(a2 + 14) = 0;
+            *(a2 + 15) = 0;
+            a2 += 32;
           }
 
           else
@@ -230,29 +230,29 @@ LABEL_10:
             *v14 = *v24;
             v60 = *(v24 + 8);
             *(v24 + 8) = 0;
-            v61 = *(v14 + 8);
-            *(v14 + 8) = v60;
+            v61 = *(v14 + 1);
+            *(v14 + 1) = v60;
 
             v62 = *(v24 + 32);
-            *(v14 + 16) = *(v24 + 16);
-            *(v14 + 32) = v62;
+            *(v14 + 1) = *(v24 + 16);
+            *(v14 + 2) = v62;
             v63 = *(v24 + 48);
             v64 = *(v24 + 64);
             v65 = *(v24 + 80);
-            *(v14 + 96) = *(v24 + 96);
-            *(v14 + 64) = v64;
-            *(v14 + 80) = v65;
-            *(v14 + 48) = v63;
-            std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate((v14 + 104));
-            *(v14 + 104) = *(v24 + 104);
-            *(v14 + 120) = *(v24 + 120);
+            v14[24] = *(v24 + 96);
+            *(v14 + 4) = v64;
+            *(v14 + 5) = v65;
+            *(v14 + 3) = v63;
+            std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate(v14 + 13);
+            *(v14 + 26) = *(v24 + 104);
+            *(v14 + 15) = *(v24 + 120);
             *(v24 + 104) = 0;
             *(v24 + 112) = 0;
             *(v24 + 120) = 0;
             v24 += 128;
           }
 
-          v14 += 128;
+          v14 += 32;
           if (v47 == v24)
           {
             goto LABEL_68;
@@ -269,42 +269,42 @@ LABEL_10:
       v26 = 0;
       do
       {
-        v27 = a6 + v25;
-        v28 = (a2 + v25);
-        *v27 = *(a2 + v25);
-        v29 = *(a2 + v25 + 8);
-        v28[1] = 0;
+        v27 = a6 + v25 * 4;
+        v28 = &a2[v25];
+        *v27 = a2[v25];
+        v29 = *&a2[v25 + 2];
+        *(v28 + 1) = 0;
         *(v27 + 8) = v29;
-        v30 = *(a2 + v25 + 32);
-        *(v27 + 16) = *(a2 + v25 + 16);
+        v30 = *&a2[v25 + 8];
+        *(v27 + 16) = *&a2[v25 + 4];
         *(v27 + 32) = v30;
-        v31 = *(a2 + v25 + 48);
-        v32 = *(a2 + v25 + 64);
-        v33 = *(a2 + v25 + 80);
-        *(v27 + 96) = *(a2 + v25 + 96);
+        v31 = *&a2[v25 + 12];
+        v32 = *&a2[v25 + 16];
+        v33 = *&a2[v25 + 20];
+        *(v27 + 96) = a2[v25 + 24];
         *(v27 + 64) = v32;
         *(v27 + 80) = v33;
         *(v27 + 48) = v31;
         *(v27 + 112) = 0;
         *(v27 + 120) = 0;
         *(v27 + 104) = 0;
-        *(v27 + 104) = *(a2 + v25 + 104);
-        *(v27 + 120) = *(a2 + v25 + 120);
-        v28[13] = 0;
-        v28[14] = 0;
-        v28[15] = 0;
+        *(v27 + 104) = *&a2[v25 + 26];
+        *(v27 + 120) = *&a2[v25 + 30];
+        *(v28 + 13) = 0;
+        *(v28 + 14) = 0;
+        *(v28 + 15) = 0;
         ++v26;
-        v25 += 128;
+        v25 += 32;
       }
 
-      while (v28 + 16 != a3);
+      while (v28 + 32 != a3);
       v34 = 0;
       v72 = v26;
-      v35 = a6 + v25;
-      v69 = a6 + v25;
+      v35 = a6 + v25 * 4;
+      v69 = a6 + v25 * 4;
       while (a2 != v14)
       {
-        v36 = CRTextRecognition::CRCTLD::CTLDRegion::operator<(v35 - 128, a2 - 128);
+        v36 = CRTextRecognition::CRCTLD::CTLDRegion::operator<(v35 - 128, (a2 - 32));
         v37 = &a3[v34];
         if (v36)
         {
@@ -318,7 +318,7 @@ LABEL_10:
 
         if (v36)
         {
-          a2 -= 128;
+          a2 -= 32;
         }
 
         else
@@ -364,21 +364,21 @@ LABEL_68:
   }
 }
 
-int *std::__stable_partition_impl<std::_ClassicAlgPolicy,void CRTextRecognition::CRCTLD::order::kwiksort<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::less<void>>(std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::less<void>,int)::{lambda(std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> const&)#2} &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,long,std::pair<CRTextRecognition::CRCTLD::CTLDRegion *,long>>(uint64_t a1, int *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+int *std::__stable_partition_impl<std::_ClassicAlgPolicy,void CRTextRecognition::CRCTLD::order::kwiksort<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::less<void>>(std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,std::less<void>,int)::{lambda(std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> const&)#2} &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *>,long,std::pair<CRTextRecognition::CRCTLD::CTLDRegion *,long>>(int *a1, int *a2, uint64_t *a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
   v8 = a1;
   if (a4 == 3)
   {
-    v10 = (a1 + 128);
-    if (!CRTextRecognition::CRCTLD::CTLDRegion::operator<(a1 + 128, *a3))
+    v10 = a1 + 32;
+    if (!CRTextRecognition::CRCTLD::CTLDRegion::operator<((a1 + 32), *a3))
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>((v8 + 128), a2);
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>(v8, (v8 + 128));
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>(v8 + 32, a2);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>(v8, v8 + 32);
       return v10;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>(v8, (v8 + 128));
-    a1 = v8 + 128;
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &,std::__wrap_iter<CRTextRecognition::CRCTLD::CTLDRegion *> &>(v8, v8 + 32);
+    a1 = v8 + 32;
     goto LABEL_6;
   }
 
@@ -395,31 +395,31 @@ LABEL_6:
     v58[0] = a5;
     v58[1] = &v59;
     *a5 = *a1;
-    v21 = *(a1 + 8);
-    *(a1 + 8) = 0;
+    v21 = *(a1 + 1);
+    *(a1 + 1) = 0;
     *(a5 + 8) = v21;
-    v22 = *(a1 + 32);
-    *(a5 + 16) = *(a1 + 16);
+    v22 = *(a1 + 2);
+    *(a5 + 16) = *(a1 + 1);
     *(a5 + 32) = v22;
-    v23 = *(a1 + 48);
-    v24 = *(a1 + 64);
-    v25 = *(a1 + 80);
-    *(a5 + 96) = *(a1 + 96);
+    v23 = *(a1 + 3);
+    v24 = *(a1 + 4);
+    v25 = *(a1 + 5);
+    *(a5 + 96) = a1[24];
     *(a5 + 64) = v24;
     *(a5 + 80) = v25;
     *(a5 + 48) = v23;
     *(a5 + 112) = 0;
     *(a5 + 120) = 0;
     *(a5 + 104) = 0;
-    *(a5 + 104) = *(a1 + 104);
-    *(a5 + 120) = *(a1 + 120);
-    *(a1 + 104) = 0;
-    *(a1 + 112) = 0;
-    *(a1 + 120) = 0;
+    *(a5 + 104) = *(a1 + 26);
+    *(a5 + 120) = *(a1 + 15);
+    *(a1 + 13) = 0;
+    *(a1 + 14) = 0;
+    *(a1 + 15) = 0;
     v59 = 1;
     v26 = a5 + 128;
-    v27 = a1 + 128;
-    if ((a1 + 128) == a2)
+    v27 = (a1 + 32);
+    if (a1 + 32 == a2)
     {
       v41 = a1;
     }
@@ -435,26 +435,26 @@ LABEL_6:
           *v8 = v29;
           v30 = *(v27 + 8);
           *(v27 + 8) = 0;
-          v31 = *(v8 + 8);
-          *(v8 + 8) = v30;
+          v31 = *(v8 + 1);
+          *(v8 + 1) = v30;
 
           v32 = *(v27 + 32);
-          *(v8 + 16) = *(v27 + 16);
-          *(v8 + 32) = v32;
+          *(v8 + 1) = *(v27 + 16);
+          *(v8 + 2) = v32;
           v33 = *(v27 + 48);
           v34 = *(v27 + 64);
           v35 = *(v27 + 80);
-          *(v8 + 96) = *(v27 + 96);
-          *(v8 + 64) = v34;
-          *(v8 + 80) = v35;
-          *(v8 + 48) = v33;
-          std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate((v8 + 104));
-          *(v8 + 104) = *(v27 + 104);
-          *(v8 + 120) = *(v27 + 120);
+          v8[24] = *(v27 + 96);
+          *(v8 + 4) = v34;
+          *(v8 + 5) = v35;
+          *(v8 + 3) = v33;
+          std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate(v8 + 13);
+          *(v8 + 26) = *(v27 + 104);
+          *(v8 + 15) = *(v27 + 120);
           *(v27 + 104) = 0;
           *(v27 + 112) = 0;
           *(v27 + 120) = 0;
-          v8 += 128;
+          v8 += 32;
         }
 
         else
@@ -495,55 +495,55 @@ LABEL_6:
     *v8 = *v27;
     v42 = *(v41 + 136);
     *(v41 + 136) = 0;
-    v43 = *(v8 + 8);
-    *(v8 + 8) = v42;
+    v43 = *(v8 + 1);
+    *(v8 + 1) = v42;
 
     v44 = *(v41 + 160);
-    *(v8 + 16) = *(v41 + 144);
-    *(v8 + 32) = v44;
+    *(v8 + 1) = *(v41 + 144);
+    *(v8 + 2) = v44;
     v45 = *(v41 + 176);
     v46 = *(v41 + 192);
     v47 = *(v41 + 208);
-    *(v8 + 96) = *(v41 + 224);
-    *(v8 + 64) = v46;
-    *(v8 + 80) = v47;
-    *(v8 + 48) = v45;
-    std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate((v8 + 104));
-    *(v8 + 104) = *(v41 + 232);
-    *(v8 + 120) = *(v41 + 248);
+    v8[24] = *(v41 + 224);
+    *(v8 + 4) = v46;
+    *(v8 + 5) = v47;
+    *(v8 + 3) = v45;
+    std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate(v8 + 13);
+    *(v8 + 26) = *(v41 + 232);
+    *(v8 + 15) = *(v41 + 248);
     *(v41 + 232) = 0;
     *(v41 + 240) = 0;
     *(v41 + 248) = 0;
-    v10 = (v8 + 128);
+    v10 = v8 + 32;
     if (v26 > v12)
     {
-      v48 = v8 + 128;
+      v48 = v8 + 32;
       do
       {
         *v48 = *v12;
         v49 = *(v12 + 8);
         *(v12 + 8) = 0;
-        v50 = *(v48 + 8);
-        *(v48 + 8) = v49;
+        v50 = *(v48 + 1);
+        *(v48 + 1) = v49;
 
         v51 = *(v12 + 32);
-        *(v48 + 16) = *(v12 + 16);
-        *(v48 + 32) = v51;
+        *(v48 + 1) = *(v12 + 16);
+        *(v48 + 2) = v51;
         v52 = *(v12 + 48);
         v53 = *(v12 + 64);
         v54 = *(v12 + 80);
-        *(v48 + 96) = *(v12 + 96);
-        *(v48 + 64) = v53;
-        *(v48 + 80) = v54;
-        *(v48 + 48) = v52;
-        std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate((v48 + 104));
-        *(v48 + 104) = *(v12 + 104);
-        *(v48 + 120) = *(v12 + 120);
+        v48[24] = *(v12 + 96);
+        *(v48 + 4) = v53;
+        *(v48 + 5) = v54;
+        *(v48 + 3) = v52;
+        std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__vdeallocate(v48 + 13);
+        *(v48 + 26) = *(v12 + 104);
+        *(v48 + 15) = *(v12 + 120);
         *(v12 + 104) = 0;
         *(v12 + 112) = 0;
         *(v12 + 120) = 0;
         v12 += 128;
-        v48 += 128;
+        v48 += 32;
       }
 
       while (v12 < v26);
@@ -556,8 +556,8 @@ LABEL_6:
   {
     v13 = a4 / 2;
     v14 = *a3;
-    v57 = (a1 + ((a4 / 2) << 7));
-    v15 = (v57 - 32);
+    v57 = &a1[32 * (a4 / 2)];
+    v15 = v57 - 32;
     v56 = a4 / 2;
     if (CRTextRecognition::CRCTLD::CTLDRegion::operator<((v57 - 32), *a3))
     {
@@ -572,7 +572,7 @@ LABEL_12:
       while (v16)
       {
         --v13;
-        v15 -= 128;
+        v15 -= 32;
         v16 += 128;
         if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(v15, v14))
         {
@@ -586,14 +586,14 @@ LABEL_12:
     if (CRTextRecognition::CRCTLD::CTLDRegion::operator<(v57, v14))
     {
       v10 = a2 + 32;
-      v19 = (v57 + 32);
+      v19 = v57 + 32;
       while (v19 != a2)
       {
         --v18;
         v20 = CRTextRecognition::CRCTLD::CTLDRegion::operator<(v19, v14);
-        v17 += 32;
-        v19 += 128;
-        if ((v20 & 1) == 0)
+        v17 += 128;
+        v19 += 32;
+        if (!v20)
         {
           goto LABEL_17;
         }
@@ -741,51 +741,51 @@ LABEL_7:
   return a1;
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14 = a4;
-  v13 = a4;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
+  v16 = a4;
+  v15 = a4;
+  v13[0] = a1;
+  v13[1] = &v15;
+  v13[2] = &v16;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      *a4 = *v4;
-      v5 = *(v4 + 8);
-      *(v4 + 8) = 0;
-      *(a4 + 8) = v5;
-      v6 = *(v4 + 32);
-      *(a4 + 16) = *(v4 + 16);
-      *(a4 + 32) = v6;
-      v7 = *(v4 + 48);
-      v8 = *(v4 + 64);
-      v9 = *(v4 + 80);
-      *(a4 + 96) = *(v4 + 96);
-      *(a4 + 64) = v8;
-      *(a4 + 80) = v9;
-      *(a4 + 48) = v7;
+      *a4 = *v6;
+      v7 = *(v6 + 8);
+      *(v6 + 8) = 0;
+      *(a4 + 8) = v7;
+      v8 = *(v6 + 32);
+      *(a4 + 16) = *(v6 + 16);
+      *(a4 + 32) = v8;
+      v9 = *(v6 + 48);
+      v10 = *(v6 + 64);
+      v11 = *(v6 + 80);
+      *(a4 + 96) = *(v6 + 96);
+      *(a4 + 64) = v10;
+      *(a4 + 80) = v11;
+      *(a4 + 48) = v9;
       *(a4 + 112) = 0;
       *(a4 + 120) = 0;
       *(a4 + 104) = 0;
-      *(a4 + 104) = *(v4 + 104);
-      *(a4 + 120) = *(v4 + 120);
-      *(v4 + 104) = 0;
-      *(v4 + 112) = 0;
-      *(v4 + 120) = 0;
-      v4 += 128;
+      *(a4 + 104) = *(v6 + 104);
+      *(a4 + 120) = *(v6 + 120);
+      *(v6 + 104) = 0;
+      *(v6 + 112) = 0;
+      *(v6 + 120) = 0;
+      v6 += 128;
       a4 += 128;
     }
 
-    while (v4 != a3);
-    v14 = a4;
+    while (v6 != a3);
+    v16 = a4;
   }
 
-  v12 = 1;
+  v14 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>>::~__exception_guard_exceptions[abi:ne200100](v11);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>>::~__exception_guard_exceptions[abi:ne200100](v13);
 }
 
 void std::__allocator_destroy[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -845,83 +845,83 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<CRTextRecognition::CRCTLD::CTLDRegion>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<CRTextRecognition::CRCTLD::CTLDRegion>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = (a1[1] - *a1) >> 7;
-  v3 = v2 + 1;
-  if ((v2 + 1) >> 57)
+  v6 = (a1[1] - *a1) >> 7;
+  v7 = v6 + 1;
+  if ((v6 + 1) >> 57)
   {
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = a1[2] - *a1;
-  if (v6 >> 6 > v3)
+  v10 = a1[2] - *a1;
+  if (v10 >> 6 > v7)
   {
-    v3 = v6 >> 6;
+    v7 = v10 >> 6;
   }
 
-  if (v6 >= 0x7FFFFFFFFFFFFF80)
+  if (v10 >= 0x7FFFFFFFFFFFFF80)
   {
-    v7 = 0x1FFFFFFFFFFFFFFLL;
+    v11 = 0x1FFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v7 = v3;
+    v11 = v7;
   }
 
-  v23 = a1;
-  if (v7)
+  v27 = a1;
+  if (v11)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v7);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v11);
   }
 
-  v8 = v2 << 7;
-  v20 = 0;
-  v21 = v8;
-  *(&v22 + 1) = 0;
-  *v8 = *a2;
-  v9 = *(a2 + 8);
+  v12 = v6 << 7;
+  v24 = 0;
+  v25 = v12;
+  *(&v26 + 1) = 0;
+  *v12 = *a2;
+  v13 = *(a2 + 8);
   *(a2 + 8) = 0;
-  *(v8 + 8) = v9;
-  v10 = *(a2 + 32);
-  *(v8 + 16) = *(a2 + 16);
-  *(v8 + 32) = v10;
-  v11 = *(a2 + 48);
-  v12 = *(a2 + 64);
-  v13 = *(a2 + 80);
-  *(v8 + 96) = *(a2 + 96);
-  *(v8 + 64) = v12;
-  *(v8 + 80) = v13;
-  *(v8 + 48) = v11;
-  *(v8 + 112) = 0;
-  *(v8 + 120) = 0;
-  *(v8 + 104) = 0;
-  *(v8 + 104) = *(a2 + 104);
-  *(v8 + 120) = *(a2 + 120);
+  *(v12 + 8) = v13;
+  v14 = *(a2 + 32);
+  *(v12 + 16) = *(a2 + 16);
+  *(v12 + 32) = v14;
+  v15 = *(a2 + 48);
+  v16 = *(a2 + 64);
+  v17 = *(a2 + 80);
+  *(v12 + 96) = *(a2 + 96);
+  *(v12 + 64) = v16;
+  *(v12 + 80) = v17;
+  *(v12 + 48) = v15;
+  *(v12 + 112) = 0;
+  *(v12 + 120) = 0;
+  *(v12 + 104) = 0;
+  *(v12 + 104) = *(a2 + 104);
+  *(v12 + 120) = *(a2 + 120);
   *(a2 + 104) = 0;
   *(a2 + 112) = 0;
   *(a2 + 120) = 0;
-  *&v22 = (v2 << 7) + 128;
-  v14 = a1[1];
-  v15 = (v2 << 7) + *a1 - v14;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v14, v15);
-  v16 = *a1;
-  *a1 = v15;
-  v17 = a1[2];
-  v19 = v22;
-  *(a1 + 1) = v22;
-  *&v22 = v16;
-  *(&v22 + 1) = v17;
-  v20 = v16;
-  v21 = v16;
-  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v20);
-  return v19;
+  *&v26 = (v6 << 7) + 128;
+  v18 = a1[1];
+  v19 = (v6 << 7) + *a1 - v18;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v18, v19, a5, a6);
+  v20 = *a1;
+  *a1 = v19;
+  v21 = a1[2];
+  v23 = v26;
+  *(a1 + 1) = v26;
+  *&v26 = v20;
+  *(&v26 + 1) = v21;
+  v24 = v20;
+  v25 = v20;
+  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v24);
+  return v23;
 }
 
-void sub_1B41BFC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B41BFC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1030,40 +1030,40 @@ uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow
     v7 = v3;
   }
 
-  v17 = a1;
+  v19 = a1;
   if (v7)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v7);
   }
 
-  v14 = 0;
-  v15 = v2 << 7;
+  v16 = 0;
+  v17 = v2 << 7;
   std::allocator_traits<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>::construct[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion,CRTextRecognition::CRCTLD::CTLDRegion const&,0>(v2 << 7, a2);
-  v16 = ((v2 << 7) + 128);
+  v18 = ((v2 << 7) + 128);
   v8 = a1[1];
   v9 = (v2 << 7) + *a1 - v8;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v8, v9);
-  v10 = *a1;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v8, v9, v10, v11);
+  v12 = *a1;
   *a1 = v9;
-  v11 = a1[2];
-  v13 = v16;
-  *(a1 + 1) = v16;
-  *&v16 = v10;
-  *(&v16 + 1) = v11;
-  v14 = v10;
-  v15 = v10;
-  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v14);
-  return v13;
+  v13 = a1[2];
+  v15 = v18;
+  *(a1 + 1) = v18;
+  *&v18 = v12;
+  *(&v18 + 1) = v13;
+  v16 = v12;
+  v17 = v12;
+  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v16);
+  return v15;
 }
 
-void sub_1B41BFEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B41BFEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::allocator_traits<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>::construct[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion,CRTextRecognition::CRCTLD::CTLDRegion const&,0>(uint64_t a1, uint64_t a2)
+double std::allocator_traits<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>::construct[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion,CRTextRecognition::CRCTLD::CTLDRegion const&,0>(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
   *(a1 + 8) = *(a2 + 8);
@@ -1082,10 +1082,11 @@ uint64_t std::allocator_traits<std::allocator<CRTextRecognition::CRCTLD::CTLDReg
   *(a1 + 48) = v4;
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
-  return std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__init_with_size[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>(a1 + 104, *(a2 + 104), *(a2 + 112), (*(a2 + 112) - *(a2 + 104)) >> 7);
+  std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__init_with_size[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>((a1 + 104), *(a2 + 104), *(a2 + 112), (*(a2 + 112) - *(a2 + 104)) >> 7);
+  return result;
 }
 
-uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__init_with_size[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__init_with_size[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion*,CRTextRecognition::CRCTLD::CTLDRegion*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1127,35 +1128,35 @@ uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow
     v7 = v3;
   }
 
-  v17 = a1;
+  v19 = a1;
   if (v7)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v7);
   }
 
-  v14 = 0;
-  v15 = v2 << 7;
+  v16 = 0;
+  v17 = v2 << 7;
   std::allocator_traits<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>::construct[abi:ne200100]<CRTextRecognition::CRCTLD::CTLDRegion,CRTextRecognition::CRCTLD::CTLDRegion&,0>(v2 << 7, a2);
-  v16 = ((v2 << 7) + 128);
+  v18 = ((v2 << 7) + 128);
   v8 = a1[1];
   v9 = (v2 << 7) + *a1 - v8;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v8, v9);
-  v10 = *a1;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, *a1, v8, v9, v10, v11);
+  v12 = *a1;
   *a1 = v9;
-  v11 = a1[2];
-  v13 = v16;
-  *(a1 + 1) = v16;
-  *&v16 = v10;
-  *(&v16 + 1) = v11;
-  v14 = v10;
-  v15 = v10;
-  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v14);
-  return v13;
+  v13 = a1[2];
+  v15 = v18;
+  *(a1 + 1) = v18;
+  *&v18 = v12;
+  *(&v18 + 1) = v13;
+  v16 = v12;
+  v17 = v12;
+  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v16);
+  return v15;
 }
 
-void sub_1B41C00D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B41C00D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1329,6 +1330,20 @@ uint64_t std::__split_buffer<std::vector<BOOL>>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, void *a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = a2[1];
+  if (v2)
+  {
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, v2);
+  }
+
+  return a1;
+}
+
 void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(void *a1, void *a2, unsigned int a3, void *a4, int a5, uint64_t a6)
 {
   v8 = a1[1];
@@ -1422,92 +1437,92 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a6 + 24) = v8;
 }
 
-uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<float const&,float const&,float const&,float const&>(void *a1, float *a2, float *a3, float *a4, float *a5)
+uint64_t std::vector<CRTextRecognition::CRCTLD::CTLDRegion>::__emplace_back_slow_path<float const&,float const&,float const&,float const&>(void *a1, float *a2, float *a3, float *a4, float *a5, uint64_t a6)
 {
-  v5 = (a1[1] - *a1) >> 7;
-  v6 = v5 + 1;
-  if ((v5 + 1) >> 57)
+  v6 = (a1[1] - *a1) >> 7;
+  v7 = v6 + 1;
+  if ((v6 + 1) >> 57)
   {
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = a1[2] - *a1;
-  if (v9 >> 6 > v6)
+  v10 = a1[2] - *a1;
+  if (v10 >> 6 > v7)
   {
-    v6 = v9 >> 6;
+    v7 = v10 >> 6;
   }
 
-  if (v9 >= 0x7FFFFFFFFFFFFF80)
+  if (v10 >= 0x7FFFFFFFFFFFFF80)
   {
-    v10 = 0x1FFFFFFFFFFFFFFLL;
+    v11 = 0x1FFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v10 = v6;
+    v11 = v7;
   }
 
-  v29 = a1;
-  if (v10)
+  v30 = a1;
+  if (v11)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v10);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>>(a1, v11);
   }
 
-  v11 = v5 << 7;
-  v26 = 0;
-  v27 = v11;
-  *(&v28 + 1) = 0;
-  v12 = *a2;
-  v13 = *a3;
-  v14 = *a4;
-  v15 = *a5;
-  *v11 = -1;
-  *(v11 + 8) = 0;
-  *(v11 + 16) = v14;
-  *(v11 + 20) = v15;
-  *(v11 + 24) = v12;
-  *(v11 + 28) = v13;
-  *(v11 + 112) = 0;
-  *(v11 + 120) = 0;
-  *(v11 + 104) = 0;
-  v16 = v12;
-  v17 = v14;
-  *(v11 + 32) = v16;
-  *(v11 + 40) = v17;
-  v18 = v13;
-  *(v11 + 48) = v18;
-  *(v11 + 56) = v17;
-  *(v11 + 64) = v16;
-  *(v11 + 72) = v15;
-  *(v11 + 80) = v18;
-  *(v11 + 88) = v15;
-  *(v11 + 96) = 0;
-  v19 = *a1;
-  v20 = a1[1];
-  v21 = (v5 << 7) + *a1 - v20;
-  *&v28 = (v5 << 7) + 128;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, v19, v20, v21);
-  v22 = *a1;
-  *a1 = v21;
-  v23 = a1[2];
-  v25 = v28;
-  *(a1 + 1) = v28;
-  *&v28 = v22;
-  *(&v28 + 1) = v23;
-  v26 = v22;
-  v27 = v22;
-  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v26);
-  return v25;
+  v12 = v6 << 7;
+  v27 = 0;
+  v28 = v12;
+  *(&v29 + 1) = 0;
+  v13 = *a2;
+  v14 = *a3;
+  v15 = *a4;
+  v16 = *a5;
+  *v12 = -1;
+  *(v12 + 8) = 0;
+  *(v12 + 16) = v15;
+  *(v12 + 20) = v16;
+  *(v12 + 24) = v13;
+  *(v12 + 28) = v14;
+  *(v12 + 112) = 0;
+  *(v12 + 120) = 0;
+  *(v12 + 104) = 0;
+  v17 = v13;
+  v18 = v15;
+  *(v12 + 32) = v17;
+  *(v12 + 40) = v18;
+  v19 = v14;
+  *(v12 + 48) = v19;
+  *(v12 + 56) = v18;
+  *(v12 + 64) = v17;
+  *(v12 + 72) = v16;
+  *(v12 + 80) = v19;
+  *(v12 + 88) = v16;
+  *(v12 + 96) = 0;
+  v20 = *a1;
+  v21 = a1[1];
+  v22 = (v6 << 7) + *a1 - v21;
+  *&v29 = (v6 << 7) + 128;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CRTextRecognition::CRCTLD::CTLDRegion>,CRTextRecognition::CRCTLD::CTLDRegion*>(a1, v20, v21, v22, a5, a6);
+  v23 = *a1;
+  *a1 = v22;
+  v24 = a1[2];
+  v26 = v29;
+  *(a1 + 1) = v29;
+  *&v29 = v23;
+  *(&v29 + 1) = v24;
+  v27 = v23;
+  v28 = v23;
+  std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(&v27);
+  return v26;
 }
 
-void sub_1B41C0788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B41C0788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CRTextRecognition::CRCTLD::CTLDRegion>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -1541,9 +1556,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 LABEL_9:
   v22 = v4;
   v23 = v5;
-  v11 = *(a2 + 8);
+  v11 = *(a2 + 2);
   v12 = *a3;
-  v13 = *(a3 + 8);
+  v13 = *(a3 + 2);
   v14 = *a1 + 8 * (v6 >> 6);
   v20 = *a2;
   v21 = v11;
@@ -1551,7 +1566,7 @@ LABEL_9:
   v19 = v13;
   v16 = v14;
   v17 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v20, &v18, &v16, &v15);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v20, &v18, &v16, v15);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -1636,11 +1651,10 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a4 + 24) = v6;
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t a1, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
   if (v4 == v5 << 6)
   {
     if ((v4 + 1) < 0)
@@ -1664,26 +1678,25 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(a1, v7);
+    v4 = *(a1 + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(a1 + 8) = v4 + 1;
+  v8 = *a1;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 void sub_1B41C0EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -1752,37 +1765,37 @@ void sub_1B41C3390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t a1)
+uint64_t std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t a1, uint64_t a2)
 {
-  std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*(a1 + 16));
-  v2 = *(a1 + 8);
-  if (v2)
+  std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*(a1 + 16), a2);
+  v4 = *(a1 + 8);
+  if (v4)
   {
-    v3 = *(v2 + 16);
-    if (v3)
+    v5 = *(v4 + 16);
+    if (v5)
     {
       do
       {
-        v2 = v3;
-        v3 = *(v3 + 16);
+        v4 = v5;
+        v5 = *(v5 + 16);
       }
 
-      while (v3);
-      *(a1 + 8) = v2;
+      while (v5);
+      *(a1 + 8) = v4;
     }
 
-    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(v2);
+    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(v4, v3);
   }
 
   return a1;
 }
 
-void std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(char *a1)
+void std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(char *a1, uint64_t a2)
 {
   if (a1)
   {
-    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*a1);
-    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*(a1 + 1));
+    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*a1, a2);
+    std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(*(a1 + 1), v3);
     if (a1[55] < 0)
     {
       operator delete(*(a1 + 4));
@@ -3902,14 +3915,14 @@ void sub_1B41C84B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B41C8EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B41C8EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
 
@@ -3940,7 +3953,7 @@ void ___ZL16isValidLabelTextP8NSString_block_invoke()
   qword_1ED95FFD8 = v2;
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(uint64_t *a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, __n128 a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(uint64_t a1, double *a2, unint64_t a3, uint64_t a4, int64_t a5, __n128 a6)
 {
   if (a3 < 2)
   {
@@ -3949,9 +3962,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
 
   if (a3 == 2)
   {
-    v8 = a2 - 3;
+    v8 = (a2 - 3);
     v9 = *(a2 - 3);
-    if (v9 < *a1 || *a1 >= v9 && ((v16 = *(a2 - 2), v17 = a1[1], v16 < v17) || v17 >= v16 && *(a2 - 1) < a1[2]))
+    if (v9 < *a1 || *a1 >= v9 && ((v16 = *(a2 - 2), v17 = *(a1 + 8), v16 < v17) || v17 >= v16 && *(a2 - 1) < *(a1 + 16)))
     {
 
       std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul>,double,CRFormFieldLabelPosition,CROutputRegion * {__strong}>::swap[abi:ne200100](a1, v8);
@@ -3967,8 +3980,8 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
       return;
     }
 
-    v18 = (a1 + 3);
-    if (a1 + 3 == a2)
+    v18 = (a1 + 24);
+    if ((a1 + 24) == a2)
     {
       return;
     }
@@ -3988,9 +4001,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
           goto LABEL_35;
         }
 
-        v24 = v21[4];
-        v25 = v21[1];
-        if (v24 >= v25 && (v25 < v24 || v21[5] >= v21[2]))
+        v24 = *(v21 + 32);
+        v25 = *(v21 + 8);
+        if (v24 >= v25 && (v25 < v24 || *(v21 + 40) >= *(v21 + 16)))
         {
           goto LABEL_35;
         }
@@ -3998,18 +4011,18 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
 
       else
       {
-        v24 = v21[4];
-        v25 = v21[1];
+        v24 = *(v21 + 32);
+        v25 = *(v21 + 8);
       }
 
-      v26 = v21[5];
-      v21[5] = 0;
+      v26 = *(v21 + 40);
+      *(v21 + 40) = 0;
       *v20 = v23;
-      *(v20 + 1) = v25;
-      v27 = v21[2];
-      v21[2] = 0;
-      v28 = *(v20 + 2);
-      *(v20 + 2) = v27;
+      *(v20 + 8) = v25;
+      v27 = *(v21 + 16);
+      *(v21 + 16) = 0;
+      v28 = *(v20 + 16);
+      *(v20 + 16) = v27;
 
       if (v21 == a1)
       {
@@ -4029,14 +4042,14 @@ LABEL_32:
 
         v31 = *(a1 + v29 - 16);
 LABEL_31:
-        v21 -= 3;
+        v21 -= 24;
         v32 = a1 + v29;
         *v32 = v30;
         v33 = *(a1 + v29 - 8);
-        *(v32 - 1) = 0;
+        *(v32 - 8) = 0;
         v34 = *(a1 + v29 + 16);
-        *(v32 + 1) = v31;
-        *(v32 + 2) = v33;
+        *(v32 + 8) = v31;
+        *(v32 + 16) = v33;
 
         v29 -= 24;
         if (!v29)
@@ -4066,17 +4079,17 @@ LABEL_31:
         goto LABEL_31;
       }
 
-      v21 = (a1 + v29);
+      v21 = a1 + v29;
 LABEL_33:
       *v21 = v22;
-      v35 = v21[2];
-      v21[1] = v24;
-      v21[2] = v26;
+      v35 = *(v21 + 16);
+      *(v21 + 8) = v24;
+      *(v21 + 16) = v26;
 
 LABEL_35:
       v18 = (v20 + 24);
       v19 += 24;
-      if (v20 + 24 == a2)
+      if ((v20 + 24) == a2)
       {
         return;
       }
@@ -4084,10 +4097,10 @@ LABEL_35:
   }
 
   v13 = a3 >> 1;
-  v14 = &a1[3 * (a3 >> 1)];
+  v14 = (a1 + 24 * (a3 >> 1));
   if (a3 > a5)
   {
-    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1, &a1[3 * (a3 >> 1)], a3 >> 1, a4, a5);
+    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1, (a1 + 24 * (a3 >> 1)), a3 >> 1, a4, a5);
     v15 = a3 - v13;
     std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(v14, a2, v15, a4, a5);
 
@@ -4095,13 +4108,13 @@ LABEL_35:
     return;
   }
 
-  v36 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1, &a1[3 * (a3 >> 1)], a3 >> 1, a4, a6);
+  v36 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1, (a1 + 24 * (a3 >> 1)), a3 >> 1, a4, a6);
   v37 = a3 - v13;
   v38 = a4 + 24 * v13;
-  std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(&a1[3 * (a3 >> 1)], a2, v37, v38, v36);
+  std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1 + 24 * (a3 >> 1), a2, v37, v38, v36);
   v64 = a3;
   v39 = a4 + 24 * a3;
-  v40 = (a1 + 2);
+  v40 = (a1 + 16);
   v41 = v38;
   v42 = a4;
   while (v41 != v39)
@@ -4211,14 +4224,14 @@ LABEL_63:
   }
 }
 
-void sub_1B41CC3F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B41CC3F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}>,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(uint64_t a1, unint64_t *a2, unint64_t a3, uint64_t a4, __n128 result)
+__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(uint64_t a1, double *a2, unint64_t a3, uint64_t a4, __n128 result)
 {
   if (!a3)
   {
@@ -4237,7 +4250,7 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,s
 LABEL_7:
       *a4 = v11;
       v14 = *(a2 - 1);
-      *(a2 - 1) = 0;
+      *(a2 - 1) = 0.0;
       *(a4 + 8) = v13;
       *(a4 + 16) = v14;
       v9 = (a1 + 16);
@@ -4282,7 +4295,7 @@ LABEL_7:
     v10 = (a4 + 16);
 LABEL_37:
     v39 = *v9;
-    *v9 = 0;
+    *v9 = 0.0;
     *v10 = v39;
     return result;
   }
@@ -4291,8 +4304,8 @@ LABEL_37:
   {
     v40 = (a1 + 24 * (a3 >> 1));
     std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(a1, v40, a3 >> 1, a4, a3 >> 1);
-    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(&v8[3 * (a3 >> 1)], a2, a3 - (a3 >> 1), &v5[3 * (a3 >> 1)], a3 - (a3 >> 1));
-    v41 = &v8[3 * (a3 >> 1)];
+    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::tuple<double,CRFormFieldLabelPosition,CROutputRegion * {__strong}> *>>(v8 + 24 * (a3 >> 1), a2, a3 - (a3 >> 1), v5 + 24 * (a3 >> 1), a3 - (a3 >> 1));
+    v41 = v8 + 24 * (a3 >> 1);
     while (1)
     {
       if (v41 == a2)
@@ -4302,17 +4315,17 @@ LABEL_37:
           v47 = 0;
           do
           {
-            v48 = &v5[v47];
-            v49 = &v8[v47];
-            result = *&v8[v47];
+            v48 = (v5 + v47);
+            v49 = v8 + v47;
+            result = *(v8 + v47);
             *v48 = result;
-            v50 = *&v8[v47 + 2];
-            v49[2] = 0.0;
+            v50 = *(v8 + v47 + 16);
+            *(v49 + 16) = 0;
             v48[1].n128_u64[0] = v50;
-            v47 += 3;
+            v47 += 24;
           }
 
-          while (v49 + 3 != v40);
+          while ((v49 + 24) != v40);
         }
 
         return result;
@@ -4324,20 +4337,20 @@ LABEL_37:
       {
         if (v42 < result.n128_f64[0])
         {
-          v45 = *(v8 + 1);
+          v45 = *(v8 + 8);
 LABEL_46:
           *v5 = v42;
-          v46 = *(v8 + 2);
-          v8[2] = 0.0;
-          *(v5 + 1) = v45;
-          *(v5 + 2) = v46;
-          v8 += 3;
+          v46 = *(v8 + 16);
+          *(v8 + 16) = 0;
+          *(v5 + 8) = v45;
+          *(v5 + 16) = v46;
+          v8 += 24;
           goto LABEL_47;
         }
 
-        v43 = v41[1];
-        v45 = *(v8 + 1);
-        if (v43 >= v45 && (v45 < v43 || v41[2] >= *(v8 + 2)))
+        v43 = *(v41 + 8);
+        v45 = *(v8 + 8);
+        if (v43 >= v45 && (v45 < v43 || *(v41 + 16) >= *(v8 + 16)))
         {
           goto LABEL_46;
         }
@@ -4345,17 +4358,17 @@ LABEL_46:
 
       else
       {
-        v43 = v41[1];
+        v43 = *(v41 + 8);
       }
 
-      *v5 = result.n128_f64[0];
-      v44 = v41[2];
-      v41[2] = 0;
-      *(v5 + 1) = v43;
-      *(v5 + 2) = v44;
-      v41 += 3;
+      *v5 = result.n128_u64[0];
+      v44 = *(v41 + 16);
+      *(v41 + 16) = 0;
+      *(v5 + 8) = v43;
+      *(v5 + 16) = v44;
+      v41 += 24;
 LABEL_47:
-      v5 += 3;
+      v5 += 24;
       if (v8 == v40)
       {
         if (v41 != a2)
@@ -4363,17 +4376,17 @@ LABEL_47:
           v51 = 0;
           do
           {
-            v52 = &v41[v51];
-            v53 = &v5[v51];
-            result = *&v41[v51];
+            v52 = v41 + v51;
+            v53 = (v5 + v51);
+            result = *(v41 + v51);
             *v53 = result;
-            v54 = v41[v51 + 2];
-            v52[2] = 0;
+            v54 = *(v41 + v51 + 16);
+            *(v52 + 16) = 0;
             v53[1].n128_u64[0] = v54;
-            v51 += 3;
+            v51 += 24;
           }
 
-          while (v52 + 3 != a2);
+          while ((v52 + 24) != a2);
         }
 
         return result;
@@ -4409,28 +4422,28 @@ LABEL_47:
     v22 = *v16;
     if (*v16 >= v21)
     {
-      v33 = *(v8 + 4);
-      if (result.n128_f64[0] < v22 || (v23 = *(v18 + 1), v33 >= v23) && (v23 < v33 || *(v8 + 5) >= *(v18 + 2)))
+      v33 = *(v8 + 32);
+      if (result.n128_f64[0] < v22 || (v23 = *(v18 + 8), v33 >= v23) && (v23 < v33 || *(v8 + 40) >= *(v18 + 16)))
       {
-        v18[3] = v22;
-        v34 = *(v8 + 5);
-        v8[5] = 0.0;
-        *(v18 + 4) = v33;
-        *(v18 + 5) = v34;
+        *(v18 + 24) = v22;
+        v34 = *(v8 + 40);
+        *(v8 + 40) = 0;
+        *(v18 + 32) = v33;
+        *(v18 + 40) = v34;
         goto LABEL_32;
       }
     }
 
     else
     {
-      v23 = *(v18 + 1);
+      v23 = *(v18 + 8);
     }
 
-    v18[3] = result.n128_f64[0];
-    v24 = *(v18 + 2);
-    v18[2] = 0.0;
-    *(v18 + 4) = v23;
-    *(v18 + 5) = v24;
+    *(v18 + 24) = result.n128_u64[0];
+    v24 = *(v18 + 16);
+    *(v18 + 16) = 0;
+    *(v18 + 32) = v23;
+    *(v18 + 40) = v24;
     v25 = v5;
     if (v18 == v5)
     {
@@ -4452,7 +4465,7 @@ LABEL_47:
         goto LABEL_30;
       }
 
-      v29 = *(v8 + 4);
+      v29 = *(v8 + 32);
       v28 = *(v5 + v26 - 16);
       if (v29 >= v28)
       {
@@ -4460,14 +4473,14 @@ LABEL_47:
       }
 
 LABEL_22:
-      v18 -= 3;
+      v18 -= 24;
       v30 = v5 + v26;
       *v30 = v27;
       v31 = *(v5 + v26 - 8);
-      *(v30 - 1) = 0;
+      *(v30 - 8) = 0;
       v32 = *(v5 + v26 + 16);
-      *(v30 + 1) = v28;
-      *(v30 + 2) = v31;
+      *(v30 + 8) = v28;
+      *(v30 + 16) = v31;
 
       v26 -= 24;
       if (!v26)
@@ -4480,7 +4493,7 @@ LABEL_22:
     if (v28 >= v29)
     {
       v25 = (v5 + v26);
-      if (*(v8 + 5) >= *(v5 + v26 - 8))
+      if (*(v8 + 40) >= *(v5 + v26 - 8))
       {
         goto LABEL_31;
       }
@@ -4492,11 +4505,11 @@ LABEL_30:
     v25 = v18;
 LABEL_31:
     *v25 = *v20;
-    v25[1] = v8[4];
-    v35 = *(v8 + 5);
-    v8[5] = 0.0;
-    v36 = *(v25 + 2);
-    *(v25 + 2) = v35;
+    v25[1] = *(v8 + 32);
+    v35 = *(v8 + 40);
+    *(v8 + 40) = 0;
+    v36 = v25[2];
+    v25[2] = v35;
 
 LABEL_32:
     v16 = v20 + 3;
@@ -4553,7 +4566,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       }
     }
 
-    v18 = (v11 + a1);
+    v18 = v11 + a1;
     if (-v13 >= v7)
     {
       if (v13 == -1)
@@ -4576,10 +4589,10 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
         do
         {
           v43 = v39 >> 1;
-          v44 = &v20[3 * (v39 >> 1)];
-          if (*v44 < v38 || v38 >= *v44 && ((v45 = v44[1], v45 < v41) || v41 >= v45 && v44[2] < v42))
+          v44 = v20 + 24 * (v39 >> 1);
+          if (*v44 < v38 || v38 >= *v44 && ((v45 = *(v44 + 8), v45 < v41) || v41 >= v45 && *(v44 + 16) < v42))
           {
-            v20 = v44 + 3;
+            v20 = v44 + 24;
             v43 = v39 + ~v43;
           }
 
@@ -4589,7 +4602,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
         while (v43);
       }
 
-      v19 = 0xAAAAAAAAAAAAAAABLL * (v20 - a2);
+      v19 = 0xAAAAAAAAAAAAAAABLL * ((v20 - a2) >> 3);
       v21 = (&a1[3 * v22] + v11);
     }
 
@@ -4602,7 +4615,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       {
         v25 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1 - v11) >> 3);
         v26 = *v20;
-        v27 = v20[1];
+        v27 = *(v20 + 8);
         v21 = (v11 + a1);
         do
         {
@@ -4610,7 +4623,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
           v29 = &v21[3 * (v25 >> 1)];
           if (v26 >= *v29)
           {
-            if (*v29 < v26 || (v30 = v29[1], v27 >= v30) && (v30 < v27 || v20[2] >= v29[2]))
+            if (*v29 < v26 || (v30 = v29[1], v27 >= v30) && (v30 < v27 || *(v20 + 16) >= v29[2]))
             {
               v21 = v29 + 3;
               v28 = v25 + ~v28;
@@ -4679,14 +4692,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
         a3 = v89;
         a7 = v90;
         v22 = v88;
-        v18 = (v11 + a1);
+        v18 = v11 + a1;
         v19 = v87;
       }
     }
 
     a4 = -(v22 + v13);
     v33 = v7 - v19;
-    if (v22 + v19 >= v7 - (v22 + v19) - v13)
+    if ((v22 + v19) >= (v7 - (v22 + v19) - v13))
     {
       v36 = v22;
       v37 = v19;
@@ -4750,13 +4763,13 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
           v76 = 0;
           do
           {
-            v77 = &v52[v76];
-            *(v77 - 3) = v53[v76 - 3];
-            *(v77 - 2) = v53[v76 - 2];
+            v77 = v52 + v76 * 8;
+            *(v77 - 24) = v53[v76 - 3];
+            *(v77 - 16) = v53[v76 - 2];
             v78 = v53[v76 - 1];
             v53[v76 - 1] = 0;
-            v79 = v52[v76 - 1];
-            *(v77 - 1) = v78;
+            v79 = *(v52 + v76 * 8 - 8);
+            *(v77 - 8) = v78;
 
             v76 -= 3;
           }
@@ -4790,14 +4803,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       v57 = a2;
       a2 -= 3;
 LABEL_73:
-      *(v52 - 3) = v55;
-      v59 = v52 - 3;
-      v59[1] = v56;
+      *(v52 - 24) = v55;
+      v59 = v52 - 24;
+      *(v59 + 8) = v56;
       v60 = *(v57 - 1);
       *(v57 - 1) = 0;
-      v61 = *(v52 - 1);
-      v52 -= 3;
-      v59[2] = v60;
+      v61 = *(v52 - 8);
+      v52 -= 24;
+      *(v59 + 16) = v60;
 
       if (v53 == a6)
       {
@@ -4818,11 +4831,11 @@ LABEL_73:
   do
   {
     *v62 = *v63;
-    v64 = v63[2];
-    v63[2] = 0;
+    v64 = *(v63 + 16);
+    *(v63 + 16) = 0;
     *(v62 + 16) = v64;
     ++v47;
-    v63 += 3;
+    v63 += 24;
     v62 += 24;
   }
 
@@ -4979,6 +4992,19 @@ void sub_1B41CD8D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_1B41CDC08(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -4991,17 +5017,17 @@ void sub_1B41CDC08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B41CDCE0(_Unwind_Exception *exception_object)
@@ -5033,17 +5059,17 @@ os_log_t __CRSignpostLog_block_invoke()
   return result;
 }
 
-void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGPoint>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<_NSRange>::__vallocate[abi:ne200100](result, a2);
+    std::vector<_NSRange>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B41CE8FC(_Unwind_Exception *exception_object)
@@ -5058,7 +5084,7 @@ void sub_1B41CE8FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B41CEAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1B41CEAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5970,7 +5996,7 @@ void Segmenter::presegmentFeatures(id *this)
   }
 }
 
-void Segmenter::addSegmentationLayer(id *this, int a2, int a3)
+void Segmenter::addSegmentationLayer(id *this, int a2, uint64_t a3)
 {
   if (a2 == 1)
   {
@@ -6111,20 +6137,20 @@ void Segmenter::~Segmenter(Segmenter *this)
   std::vector<std::vector<std::vector<BreakPoint>>>::__destroy_vector::operator()[abi:ne200100](&v4);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -6753,29 +6779,29 @@ LABEL_25:
         v9 = *this;
 LABEL_27:
         ++v11;
-        v10 = v9[3 * i];
+        v10 = *(v9 + 24 * i);
       }
 
-      while (v11 < 0xAAAAAAAAAAAAAAABLL * ((v9[3 * i + 1] - v10) >> 3));
+      while (v11 < 0xAAAAAAAAAAAAAAABLL * ((*(v9 + 24 * i + 8) - v10) >> 3));
 LABEL_28:
     }
   }
 }
 
-void std::vector<BreakPoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
+void std::vector<BreakPoint>::push_back[abi:ne200100](id **a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
   if (v4 >= v5)
   {
-    v9 = 0xCCCCCCCCCCCCCCCDLL * ((v4 - *a1) >> 3);
+    v9 = 0xCCCCCCCCCCCCCCCDLL * (v4 - *a1);
     v10 = v9 + 1;
     if (v9 + 1 > 0x666666666666666)
     {
       std::vector<std::vector<std::vector<BreakPoint>>>::__throw_length_error[abi:ne200100]();
     }
 
-    v11 = 0xCCCCCCCCCCCCCCCDLL * ((v5 - *a1) >> 3);
+    v11 = 0xCCCCCCCCCCCCCCCDLL * (v5 - *a1);
     if (2 * v11 > v10)
     {
       v10 = 2 * v11;
@@ -6810,7 +6836,7 @@ void std::vector<BreakPoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2
     v24[0] = a1;
     v24[1] = &v26;
     v24[2] = &v27;
-    v18 = 40 * v9 + v17 - v16;
+    v18 = (40 * v9 + v17 - v16);
     v26 = v18;
     v27 = v18;
     if (v17 == v16)
@@ -6848,11 +6874,11 @@ void std::vector<BreakPoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2
       while (v17 != v16);
     }
 
-    v8 = v13 + 40;
+    v8 = (v13 + 40);
     std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<BreakPoint>,BreakPoint*>>::~__exception_guard_exceptions[abi:ne200100](v24);
     v23 = *a1;
     *a1 = v18;
-    a1[1] = v13 + 40;
+    a1[1] = (v13 + 40);
     a1[2] = 0;
     if (v23)
     {
@@ -6863,14 +6889,14 @@ void std::vector<BreakPoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2
   else
   {
     v6 = *a2;
-    *(v4 + 8) = *(a2 + 2);
+    *(v4 + 2) = *(a2 + 2);
     *v4 = v6;
     v7 = *(a2 + 1);
     a2[2] = 0;
     a2[3] = 0;
-    *(v4 + 16) = v7;
-    *(v4 + 32) = a2[4];
-    v8 = v4 + 40;
+    *(v4 + 1) = v7;
+    v4[4] = a2[4];
+    v8 = v4 + 5;
   }
 
   a1[1] = v8;
@@ -7301,7 +7327,7 @@ LABEL_1:
   while (1)
   {
     v8 = a2 - v7;
-    v9 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - v7) >> 3);
+    v9 = 0xCCCCCCCCCCCCCCCDLL * (a2 - v7);
     v10 = v9 - 2;
     if (v9 > 2)
     {
@@ -7321,7 +7347,7 @@ LABEL_1:
       v94 = v92 < *v7;
       if (v93)
       {
-        v94 = v91[4] < *(v7 + 32);
+        v94 = v91[4] < v7[4];
       }
 
       if (v94)
@@ -7339,7 +7365,7 @@ LABEL_98:
 LABEL_9:
     if (v8 <= 959)
     {
-      v95 = (v7 + 40);
+      v95 = v7 + 5;
       v97 = v7 == a2 || v95 == a2;
       if (a4)
       {
@@ -7350,49 +7376,49 @@ LABEL_9:
           do
           {
             v100 = v95;
-            v101 = *(v99 + 40);
-            v102 = *(v99 + 72);
+            v101 = *(v99 + 10);
+            v102 = v99[9];
             v103 = v101 < *v99;
             if (v101 == *v99)
             {
-              v103 = v102 < *(v99 + 32);
+              v103 = v102 < v99[4];
             }
 
             if (v103)
             {
               v104 = *(v99 + 44);
-              v106 = *(v99 + 56);
-              v105 = *(v99 + 64);
+              v106 = *(v99 + 7);
+              v105 = *(v99 + 8);
               v107 = v98;
-              *(v99 + 56) = 0;
-              *(v99 + 64) = 0;
+              v99[7] = 0.0;
+              v99[8] = 0.0;
               while (1)
               {
-                v108 = v7 + v107;
-                *(v108 + 40) = *(v7 + v107);
-                *(v108 + 48) = *(v7 + v107 + 8);
+                v108 = (v7 + v107);
+                v108[5] = *(v7 + v107);
+                *(v108 + 12) = *(v7 + v107 + 8);
                 v109 = *(v7 + v107 + 16);
-                *(v108 + 16) = 0;
+                v108[2] = 0.0;
                 v110 = *(v7 + v107 + 56);
-                *(v108 + 56) = v109;
+                *(v108 + 7) = v109;
 
                 v111 = *(v7 + v107 + 24);
-                *(v108 + 24) = 0;
+                v108[3] = 0.0;
                 v112 = *(v7 + v107 + 64);
-                *(v108 + 64) = v111;
+                *(v108 + 8) = v111;
 
-                *(v108 + 72) = *(v108 + 32);
+                v108[9] = v108[4];
                 if (!v107)
                 {
                   break;
                 }
 
-                v113 = *(v108 - 40);
+                v113 = *(v108 - 10);
                 v93 = v101 == v113;
                 v114 = v101 < v113;
                 if (v93)
                 {
-                  v114 = v102 < *(v108 - 8);
+                  v114 = v102 < *(v108 - 1);
                 }
 
                 v107 -= 40;
@@ -7427,26 +7453,26 @@ LABEL_123:
 
       else if (!v97)
       {
-        v184 = (v7 + 72);
+        v184 = v7 + 9;
         do
         {
           v185 = v95;
-          v186 = *(v7 + 40);
-          v187 = *(v7 + 72);
+          v186 = *(v7 + 10);
+          v187 = v7[9];
           v188 = v186 < *v7;
           if (v186 == *v7)
           {
-            v188 = v187 < *(v7 + 32);
+            v188 = v187 < v7[4];
           }
 
           if (v188)
           {
             v189 = *(v7 + 44);
-            v191 = *(v7 + 56);
-            v190 = *(v7 + 64);
+            v191 = *(v7 + 7);
+            v190 = *(v7 + 8);
             v192 = v184;
-            *(v7 + 56) = 0;
-            *(v7 + 64) = 0;
+            v7[7] = 0.0;
+            v7[8] = 0.0;
             do
             {
               v193 = v192;
@@ -7512,7 +7538,7 @@ LABEL_123:
         if (v118 >= v119)
         {
           v121 = (2 * v119) | 1;
-          v122 = v7 + 40 * v121;
+          v122 = &v7[5 * v121];
           if (2 * v120 + 2 >= v9)
           {
             v123 = *v122;
@@ -7520,8 +7546,8 @@ LABEL_123:
 
           else
           {
-            v123 = *(v122 + 40);
-            v124 = *(v122 + 32) < *(v122 + 72);
+            v123 = *(v122 + 10);
+            v124 = v122[4] < v122[9];
             if (*v122 != v123)
             {
               v124 = *v122 < v123;
@@ -7529,7 +7555,7 @@ LABEL_123:
 
             if (v124)
             {
-              v122 += 40;
+              v122 += 5;
               v121 = 2 * v120 + 2;
             }
 
@@ -7539,47 +7565,47 @@ LABEL_123:
             }
           }
 
-          v125 = v7 + 40 * v120;
+          v125 = &v7[5 * v120];
           v126 = *v125;
-          v127 = *(v125 + 32);
+          v127 = v125[4];
           v93 = v123 == *v125;
           v128 = v123 < *v125;
           if (v93)
           {
-            v128 = *(v122 + 32) < v127;
+            v128 = v122[4] < v127;
           }
 
           if (!v128)
           {
-            v203 = *(v125 + 16);
+            v203 = *(v125 + 2);
             v205 = *(v125 + 4);
-            v207 = *(v125 + 24);
-            *(v125 + 16) = 0;
-            *(v125 + 24) = 0;
+            v207 = *(v125 + 3);
+            v125[2] = 0.0;
+            v125[3] = 0.0;
             do
             {
               v129 = v125;
               v125 = v122;
               v130 = *v122;
-              *(v129 + 8) = *(v125 + 8);
+              *(v129 + 2) = *(v125 + 2);
               *v129 = v130;
-              v131 = *(v125 + 16);
-              *(v125 + 16) = 0;
-              v132 = *(v129 + 16);
-              *(v129 + 16) = v131;
+              v131 = *(v125 + 2);
+              v125[2] = 0.0;
+              v132 = *(v129 + 2);
+              *(v129 + 2) = v131;
 
-              v133 = *(v125 + 24);
-              *(v125 + 24) = 0;
-              v134 = *(v129 + 24);
-              *(v129 + 24) = v133;
+              v133 = *(v125 + 3);
+              v125[3] = 0.0;
+              v134 = *(v129 + 3);
+              *(v129 + 3) = v133;
 
-              *(v129 + 32) = *(v125 + 32);
+              v129[4] = v125[4];
               if (v118 < v121)
               {
                 break;
               }
 
-              v122 = v7 + 40 * ((2 * v121) | 1);
+              v122 = &v7[5 * ((2 * v121) | 1)];
               if (2 * v121 + 2 >= v9)
               {
                 v135 = *v122;
@@ -7588,8 +7614,8 @@ LABEL_123:
 
               else
               {
-                v135 = *(v122 + 40);
-                v136 = *(v122 + 32) < *(v122 + 72);
+                v135 = *(v122 + 10);
+                v136 = v122[4] < v122[9];
                 if (*v122 != v135)
                 {
                   v136 = *v122 < v135;
@@ -7597,7 +7623,7 @@ LABEL_123:
 
                 if (v136)
                 {
-                  v122 += 40;
+                  v122 += 5;
                   v121 = 2 * v121 + 2;
                 }
 
@@ -7608,7 +7634,7 @@ LABEL_123:
                 }
               }
 
-              v137 = *(v122 + 32) < v127;
+              v137 = v122[4] < v127;
               v93 = v135 == v126;
               v138 = v135 < v126;
               if (!v93)
@@ -7620,13 +7646,13 @@ LABEL_123:
             while (!v137);
             *v125 = v126;
             *(v125 + 4) = v205;
-            v139 = *(v125 + 16);
-            *(v125 + 16) = v203;
+            v139 = *(v125 + 2);
+            *(v125 + 2) = v203;
 
-            v140 = *(v125 + 24);
-            *(v125 + 24) = v207;
+            v140 = *(v125 + 3);
+            *(v125 + 3) = v207;
 
-            *(v125 + 32) = v127;
+            v125[4] = v127;
           }
         }
 
@@ -7640,18 +7666,18 @@ LABEL_123:
         if (v141 >= 2)
         {
           v142 = 0;
-          v212 = *(v7 + 8);
+          v212 = *(v7 + 2);
           v210 = *v7;
-          v144 = *(v7 + 16);
-          v143 = *(v7 + 24);
-          *(v7 + 16) = 0;
-          *(v7 + 24) = 0;
-          v145 = *(v7 + 32);
+          v144 = *(v7 + 2);
+          v143 = *(v7 + 3);
+          v7[2] = 0.0;
+          v7[3] = 0.0;
+          v145 = v7[4];
           v146 = v7;
           do
           {
-            v147 = v146 + 40 * v142;
-            v148 = (v147 + 40);
+            v147 = &v146[5 * v142];
+            v148 = v147 + 5;
             if (2 * v142 + 2 >= v141)
             {
               v142 = (2 * v142) | 1;
@@ -7659,8 +7685,8 @@ LABEL_123:
 
             else
             {
-              v150 = *(v147 + 80);
-              v149 = (v147 + 80);
+              v150 = *(v147 + 20);
+              v149 = v147 + 10;
               v151 = *(v149 - 10);
               v152 = v151 < v150;
               if (v151 == v150)
@@ -7681,19 +7707,19 @@ LABEL_123:
             }
 
             v153 = *v148;
-            *(v146 + 8) = *(v148 + 2);
+            *(v146 + 2) = *(v148 + 2);
             *v146 = v153;
             v154 = *(v148 + 2);
             v148[2] = 0.0;
-            v155 = *(v146 + 16);
-            *(v146 + 16) = v154;
+            v155 = *(v146 + 2);
+            *(v146 + 2) = v154;
 
             v156 = *(v148 + 3);
             v148[3] = 0.0;
-            v157 = *(v146 + 24);
-            *(v146 + 24) = v156;
+            v157 = *(v146 + 3);
+            *(v146 + 3) = v156;
 
-            *(v146 + 32) = v148[4];
+            v146[4] = v148[4];
             v146 = v148;
           }
 
@@ -7738,13 +7764,13 @@ LABEL_123:
           if (v166 >= 41)
           {
             v167 = (-2 - 0x3333333333333333 * (v166 >> 3)) >> 1;
-            v168 = v7 + 40 * v167;
+            v168 = &v7[5 * v167];
             v169 = *v148;
             v145 = v148[4];
             v170 = *v168 < *v148;
             if (*v168 == *v148)
             {
-              v170 = *(v168 + 32) < v145;
+              v170 = v168[4] < v145;
             }
 
             if (v170)
@@ -7778,11 +7804,11 @@ LABEL_123:
                 }
 
                 v167 = (v167 - 1) >> 1;
-                v168 = v7 + 40 * v167;
+                v168 = &v7[5 * v167];
                 v179 = *v168 < v169;
                 if (*v168 == v169)
                 {
-                  v179 = *(v168 + 32) < v145;
+                  v179 = v168[4] < v145;
                 }
               }
 
@@ -7812,7 +7838,7 @@ LABEL_176:
     }
 
     v11 = v9 >> 1;
-    v12 = v7 + 40 * (v9 >> 1);
+    v12 = &v7[5 * (v9 >> 1)];
     v13 = (a2 - 5);
     if (v8 < 0x1401)
     {
@@ -7822,40 +7848,40 @@ LABEL_176:
     else
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, v12, v13);
-      v14 = v7 + 40 * v11;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>((v7 + 40), (v14 - 40), (a2 - 10));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>((v7 + 80), (v14 + 40), (a2 - 15));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>((v14 - 40), v12, v14 + 40);
-      v211 = *(v7 + 8);
+      v14 = &v7[5 * v11];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7 + 5, v14 - 5, (a2 - 10));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7 + 10, v14 + 5, (a2 - 15));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v14 - 5, v12, (v14 + 5));
+      v211 = *(v7 + 2);
       v209 = *v7;
-      v15 = *(v7 + 16);
-      v16 = *(v7 + 24);
-      *(v7 + 16) = 0;
-      *(v7 + 24) = 0;
-      v17 = *(v7 + 32);
-      v18 = *(v12 + 8);
+      v15 = *(v7 + 2);
+      v16 = *(v7 + 3);
+      v7[2] = 0.0;
+      v7[3] = 0.0;
+      v17 = *(v7 + 4);
+      v18 = *(v12 + 2);
       *v7 = *v12;
-      *(v7 + 8) = v18;
-      v19 = *(v12 + 16);
-      *(v12 + 16) = 0;
-      v20 = *(v7 + 16);
-      *(v7 + 16) = v19;
+      *(v7 + 2) = v18;
+      v19 = *(v12 + 2);
+      v12[2] = 0.0;
+      v20 = *(v7 + 2);
+      *(v7 + 2) = v19;
 
-      v21 = *(v12 + 24);
-      *(v12 + 24) = 0;
-      v22 = *(v7 + 24);
-      *(v7 + 24) = v21;
+      v21 = *(v12 + 3);
+      v12[3] = 0.0;
+      v22 = *(v7 + 3);
+      *(v7 + 3) = v21;
 
-      *(v7 + 32) = *(v12 + 32);
-      *(v12 + 8) = v211;
+      v7[4] = v12[4];
+      *(v12 + 2) = v211;
       *v12 = v209;
-      v23 = *(v12 + 16);
-      *(v12 + 16) = v15;
+      v23 = *(v12 + 2);
+      *(v12 + 2) = v15;
 
-      v24 = *(v12 + 24);
-      *(v12 + 24) = v16;
+      v24 = *(v12 + 3);
+      *(v12 + 3) = v16;
 
-      *(v12 + 32) = v17;
+      *(v12 + 4) = v17;
     }
 
     --a3;
@@ -7863,27 +7889,27 @@ LABEL_176:
     v206 = a3;
     if (a4)
     {
-      v26 = *(v7 + 32);
+      v26 = v7[4];
     }
 
     else
     {
-      v27 = *(v7 - 40);
-      v26 = *(v7 + 32);
+      v27 = *(v7 - 10);
+      v26 = v7[4];
       v93 = v27 == v25;
       v28 = v27 < v25;
       if (v93)
       {
-        v28 = *(v7 - 8) < v26;
+        v28 = *(v7 - 1) < v26;
       }
 
       if (!v28)
       {
         v55 = *(v7 + 4);
-        v57 = *(v7 + 16);
-        v56 = *(v7 + 24);
-        *(v7 + 16) = 0;
-        *(v7 + 24) = 0;
+        v57 = *(v7 + 2);
+        v56 = *(v7 + 3);
+        v7[2] = 0.0;
+        v7[3] = 0.0;
         v58 = *(a2 - 10);
         v93 = v25 == v58;
         v59 = v25 < v58;
@@ -7911,7 +7937,7 @@ LABEL_176:
 
         else
         {
-          v62 = (v7 + 40);
+          v62 = v7 + 5;
           do
           {
             a1 = v62;
@@ -7941,12 +7967,12 @@ LABEL_176:
           v66 = a2;
           do
           {
-            v67 = *(v66 - 10);
-            v66 -= 5;
+            v67 = *(v66 - 40);
+            v66 -= 40;
             v68 = v25 < v67;
             if (v25 == v67)
             {
-              v68 = v26 < v66[4];
+              v68 = v26 < *(v66 + 32);
             }
           }
 
@@ -7970,12 +7996,12 @@ LABEL_176:
           while (!v70);
           do
           {
-            v71 = *(v66 - 10);
-            v66 -= 5;
+            v71 = *(v66 - 40);
+            v66 -= 40;
             v72 = v25 < v71;
             if (v25 == v71)
             {
-              v72 = v26 < v66[4];
+              v72 = v26 < *(v66 + 32);
             }
           }
 
@@ -7985,19 +8011,19 @@ LABEL_176:
         if (a1 - 5 != v7)
         {
           v73 = *(a1 - 5);
-          *(v7 + 8) = *(a1 - 8);
+          *(v7 + 2) = *(a1 - 8);
           *v7 = v73;
           v74 = *(a1 - 3);
           *(a1 - 3) = 0.0;
-          v75 = *(v7 + 16);
-          *(v7 + 16) = v74;
+          v75 = *(v7 + 2);
+          *(v7 + 2) = v74;
 
           v76 = *(a1 - 2);
           *(a1 - 2) = 0.0;
-          v77 = *(v7 + 24);
-          *(v7 + 24) = v76;
+          v77 = *(v7 + 3);
+          *(v7 + 3) = v76;
 
-          *(v7 + 32) = *(a1 - 1);
+          v7[4] = *(a1 - 1);
         }
 
         *(a1 - 10) = v25;
@@ -8016,14 +8042,14 @@ LABEL_176:
 
     v29 = 0;
     v30 = *(v7 + 4);
-    v32 = *(v7 + 16);
-    v31 = *(v7 + 24);
-    *(v7 + 16) = 0;
-    *(v7 + 24) = 0;
+    v32 = *(v7 + 2);
+    v31 = *(v7 + 3);
+    v7[2] = 0.0;
+    v7[3] = 0.0;
     do
     {
-      v33 = *(v7 + v29 + 40);
-      v34 = *(v7 + v29 + 72) < v26;
+      v33 = LODWORD(v7[v29 + 5]);
+      v34 = v7[v29 + 9] < v26;
       v93 = v33 == v25;
       v35 = v33 < v25;
       if (!v93)
@@ -8031,13 +8057,13 @@ LABEL_176:
         v34 = v35;
       }
 
-      v29 += 40;
+      v29 += 5;
     }
 
     while (v34);
-    v36 = (v7 + v29);
+    v36 = &v7[v29];
     v37 = a2;
-    if (v29 == 40)
+    if (v29 == 5)
     {
       v37 = a2;
       do
@@ -8096,12 +8122,12 @@ LABEL_176:
         while (v44);
         do
         {
-          v45 = *(v42 - 10);
-          v42 -= 5;
+          v45 = *(v42 - 40);
+          v42 -= 40;
           v46 = v45 < v25;
           if (v45 == v25)
           {
-            v46 = v42[4] < v26;
+            v46 = *(v42 + 32) < v26;
           }
         }
 
@@ -8114,19 +8140,19 @@ LABEL_176:
     if (a1 - 5 != v7)
     {
       v47 = *(a1 - 5);
-      *(v7 + 8) = *(a1 - 8);
+      *(v7 + 2) = *(a1 - 8);
       *v7 = v47;
       v48 = *(a1 - 3);
       *(a1 - 3) = 0.0;
-      v49 = *(v7 + 16);
-      *(v7 + 16) = v48;
+      v49 = *(v7 + 2);
+      *(v7 + 2) = v48;
 
       v50 = *(a1 - 2);
       *(a1 - 2) = 0.0;
-      v51 = *(v7 + 24);
-      *(v7 + 24) = v50;
+      v51 = *(v7 + 3);
+      *(v7 + 3) = v50;
 
-      *(v7 + 32) = *(a1 - 1);
+      v7[4] = *(a1 - 1);
     }
 
     *(a1 - 10) = v25;
@@ -8150,7 +8176,7 @@ LABEL_176:
       if (!v54)
       {
 LABEL_50:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,false>(v7, a1 - 5, v206, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,false>(v7, (a1 - 5), v206, a4 & 1);
         a4 = 0;
       }
 
@@ -8167,7 +8193,7 @@ LABEL_50:
   if (v9 == 3)
   {
 
-    std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, (v7 + 40), (a2 - 5));
+    std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, v7 + 5, (a2 - 5));
     return;
   }
 
@@ -8176,49 +8202,49 @@ LABEL_50:
     if (v9 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, (v7 + 40), v7 + 80, v7 + 120, (a2 - 5));
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, v7 + 5, (v7 + 10), (v7 + 15), (a2 - 5));
       return;
     }
 
     goto LABEL_9;
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, (v7 + 40), v7 + 80);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,BreakPoint *,0>(v7, v7 + 5, (v7 + 10));
   v81 = *(a2 - 10);
   v80 = a2 - 5;
-  v82 = *(v7 + 80);
+  v82 = *(v7 + 20);
   v83 = v81 < v82;
   if (v81 == v82)
   {
-    v83 = v80[4] < *(v7 + 112);
+    v83 = v80[4] < v7[14];
   }
 
   if (v83)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<BreakPoint *&,BreakPoint *&>((v7 + 80), v80);
-    v84 = *(v7 + 80);
-    v85 = *(v7 + 40);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<BreakPoint *&,BreakPoint *&>(v7 + 10, v80);
+    v84 = *(v7 + 20);
+    v85 = *(v7 + 10);
     v93 = v84 == v85;
     v86 = v84 < v85;
     if (v93)
     {
-      v86 = *(v7 + 112) < *(v7 + 72);
+      v86 = v7[14] < v7[9];
     }
 
     if (v86)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<BreakPoint *&,BreakPoint *&>((v7 + 40), (v7 + 80));
-      v87 = *(v7 + 40);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<BreakPoint *&,BreakPoint *&>(v7 + 5, v7 + 10);
+      v87 = *(v7 + 10);
       v93 = v87 == *v7;
       v88 = v87 < *v7;
       if (v93)
       {
-        v88 = *(v7 + 72) < *(v7 + 32);
+        v88 = v7[9] < v7[4];
       }
 
       if (v88)
       {
-        v89 = (v7 + 40);
+        v89 = (v7 + 5);
         v90 = v7;
         goto LABEL_98;
       }
@@ -8840,7 +8866,7 @@ const void **applesauce::CF::ObjectRef<CGPath const*>::~ObjectRef(const void **a
   return a1;
 }
 
-void sub_1B41DA7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_1B41DA7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   _Block_object_dispose(&a14, 8);
   if (__p)
@@ -8854,14 +8880,12 @@ void sub_1B41DA7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__7(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -8876,17 +8900,17 @@ void __Block_byref_object_dispose__7(uint64_t a1)
   }
 }
 
-void sub_1B41DAA98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B41DAA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CGPath const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1B41DB09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_1B41DB09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  applesauce::CF::ObjectRef<CGPath *>::~ObjectRef((v9 + 40));
+  va_start(va, a15);
+  applesauce::CF::ObjectRef<CGPath *>::~ObjectRef((v16 + 40));
 
   applesauce::CF::ObjectRef<CGPath *>::~ObjectRef(va);
   _Unwind_Resume(a1);
@@ -8935,15 +8959,15 @@ const void **applesauce::CF::ObjectRef<CGPath *>::~ObjectRef(const void **a1)
   return a1;
 }
 
-void sub_1B41DB564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B41DB564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B41DB708(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_1B41DB708(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   _Block_object_dispose(&a14, 8);
   if (__p)
@@ -8965,31 +8989,31 @@ void sub_1B41DB9A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B41DBC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B41DBC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B41DBE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B41DBE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 112), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9077,16 +9101,16 @@ void sub_1B41DCB7C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B41DCF18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B41DCF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CGPath const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1B41DCFC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B41DCFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CGPath const*>::~ObjectRef(va);
 
   _Unwind_Resume(a1);
@@ -9128,7 +9152,7 @@ void __assign_helper_atomic_property__128(const void **a1, const void **a2)
   }
 }
 
-uint64_t std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9150,7 +9174,7 @@ void sub_1B41DD6BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B41DF75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1B41DF75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -9251,9 +9275,9 @@ void sub_1B41E59D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CRDetectorPolygonExtractor::generatePivotCenters@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t CRDetectorPolygonExtractor::generatePivotCenters@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v4 = *(*(a2 + 8) - 8) - **a2;
+  v4 = *(a2[1] - 8) - **a2;
   v5 = *(result + 32);
   v6 = fmax(v5, ((v4 + 1) / *(result + 36)));
   a3[1] = 0;
@@ -9266,7 +9290,10 @@ uint64_t CRDetectorPolygonExtractor::generatePivotCenters@<X0>(uint64_t result@<
 
   if (v4 >= v5)
   {
-    CRDetectorPolygonExtractor::generateDensePolygonBar();
+    v8[0] = 0;
+    v8[1] = 0;
+    v7 = v8;
+    CRDetectorPolygonExtractor::generateDensePolygonBar(result, a2, &v7);
   }
 
   *(result + 24) = 0;
@@ -9416,7 +9443,7 @@ void CRDetectorPolygonExtractor::generateEdgePoints(uint64_t a1, uint64_t a2, do
   v9 = *(a1 + 44);
   v10 = tanf(v9);
   v11 = *(v5 + 40);
-  v12 = v7[1] + v8 * v10;
+  v12 = *(v7 + 8) + v8 * v10;
   v13 = v12 - v11 * 0.45;
   v14 = __sincosf_stret(v9 * -0.0);
   v29[0] = (v6 - v6) * v14.__cosval - (v13 - v12) * v14.__sinval + v6;
@@ -9445,14 +9472,14 @@ void CRDetectorPolygonExtractor::generateEdgePoints(uint64_t a1, uint64_t a2, do
   std::vector<CGPoint>::push_back[abi:ne200100](v5, &v26);
 }
 
-void std::vector<CGPoint>::insert(void *a1, char *__src, char *a3)
+void std::vector<CGPoint>::insert(char **a1, char *__src, char *a3)
 {
   v6 = a1[1];
   v7 = a1[2];
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = (&v6[-*a1] >> 4) + 1;
+    v11 = ((v6 - *a1) >> 4) + 1;
     if (v11 >> 60)
     {
       std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
@@ -9537,7 +9564,7 @@ void std::vector<CGPoint>::insert(void *a1, char *__src, char *a3)
 
     else
     {
-      v9 = v6 + 16;
+      v9 = (v6 + 16);
       *v6 = *(v6 - 1);
     }
 

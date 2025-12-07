@@ -188,8 +188,8 @@ LABEL_14:
     v45 = v44 + 4;
     for (j = v44[5]; j != v45; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v48 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v48 = EmitViewerSPI::emitNode(a2, v47);
       if (v48)
       {
         [v33 addObject:v48];
@@ -2027,8 +2027,8 @@ LABEL_21:
     v51 = v50 + 4;
     for (j = v50[5]; j != v51; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v54 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v54 = EmitViewerSPI::emitNode(a2, v53);
       if (v54)
       {
         [v39 addObject:v54];
@@ -2578,8 +2578,8 @@ LABEL_25:
     v56 = v55 + 4;
     for (j = v55[5]; j != v56; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v59 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v59 = EmitViewerSPI::emitNode(a2, v58);
       if (v59)
       {
         [v44 addObject:v59];
@@ -2936,8 +2936,8 @@ LABEL_20:
     v39 = v38 + 4;
     for (j = v38[5]; j != v39; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v42 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v42 = EmitViewerSPI::emitNode(a2, v41);
       if (v42)
       {
         [v36 addObject:v42];
@@ -3076,7 +3076,7 @@ LABEL_64:
     v67 = v66 + 4;
     for (m = v66[5]; m != v67; m = m[1])
     {
-      v69 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(m);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
       v70 = EmitViewerSPI::emitNode(a2, v69);
       if (v70)
       {
@@ -3258,7 +3258,7 @@ EmitterViewerSPI::COREMLImportOpHandler *EmitterViewerSPI::COREMLImportOpHandler
     [v11 addObject:v14];
   }
 
-  Path = mlir::ODIE::Compiler::CoreML::ImportOp::getPath(&v33, v29);
+  Path = mlir::ODIE::Compiler::CoreML::ImportOp::getPath(v29, &v33);
   if (v30 == 1)
   {
     v16 = EmitViewerSPI::emitStringProperty(Path, @"path", v29[0], v29[1]);
@@ -3663,8 +3663,8 @@ LABEL_23:
     v55 = v54 + 4;
     for (j = v54[5]; j != v55; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v58 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v58 = EmitViewerSPI::emitNode(a2, v57);
       if (v58)
       {
         [v43 addObject:v58];
@@ -4196,7 +4196,7 @@ EmitterViewerSPI::COREMLMemberOpHandler *EmitterViewerSPI::COREMLMemberOpHandler
   }
 
   mlir::ODIE::Compiler::CoreML::MemberOp::getType(&v28);
-  mlir::ODIE::Compiler::CoreML::MemberOp::getValue(&v28, v25);
+  mlir::ODIE::Compiler::CoreML::MemberOp::getValue(v25, &v28);
 
   v15 = [MEMORY[0x277CBEB18] array];
   v16 = [MLViewerNodeSPI alloc];
@@ -4504,8 +4504,8 @@ LABEL_14:
     v45 = v44 + 4;
     for (j = v44[5]; j != v45; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v48 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v48 = EmitViewerSPI::emitNode(a2, v47);
       if (v48)
       {
         [v33 addObject:v48];
@@ -8492,8 +8492,8 @@ LABEL_21:
     v42 = v41 + 4;
     for (j = v41[5]; j != v42; j = j[1])
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-      v45 = EmitViewerSPI::emitNode(a2, ValuePtr);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v45 = EmitViewerSPI::emitNode(a2, v44);
       if (v45)
       {
         [v39 addObject:v45];
@@ -8632,7 +8632,7 @@ LABEL_65:
     v70 = v69 + 4;
     for (m = v69[5]; m != v70; m = m[1])
     {
-      v72 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(m);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
       v73 = EmitViewerSPI::emitNode(a2, v72);
       if (v73)
       {

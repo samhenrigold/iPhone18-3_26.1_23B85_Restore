@@ -215,7 +215,6 @@ LABEL_9:
     }
   }
 
-  v6 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_actionCount != *(equalCopy + 2))
@@ -227,7 +226,7 @@ LABEL_9:
   else if (*(equalCopy + 68))
   {
 LABEL_39:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_40;
   }
 
@@ -307,7 +306,7 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v10 = (*(equalCopy + 68) & 0x20) == 0;
+  v9 = (*(equalCopy + 68) & 0x20) == 0;
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 68) & 0x20) == 0 || self->_startingActionCount != *(equalCopy + 16))
@@ -315,12 +314,12 @@ LABEL_39:
       goto LABEL_39;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_40:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -515,44 +514,42 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    actionCount = self->_actionCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_addToSiriBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_galleryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_shortcutSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    numberOfShownSuggestions = self->_numberOfShownSuggestions;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -571,9 +568,8 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  numberOfEngagedSuggestions = self->_numberOfEngagedSuggestions;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -587,9 +583,8 @@ LABEL_14:
   }
 
 LABEL_22:
-  numberOfRejectedSuggestions = self->_numberOfRejectedSuggestions;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -603,15 +598,13 @@ LABEL_15:
   }
 
 LABEL_23:
-  numberOfManuallyAddedActions = self->_numberOfManuallyAddedActions;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_16:
-    startingActionCount = self->_startingActionCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_17:

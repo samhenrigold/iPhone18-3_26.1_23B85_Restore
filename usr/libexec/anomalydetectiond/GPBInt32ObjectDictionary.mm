@@ -5,12 +5,15 @@
 - (GPBInt32ObjectDictionary)initWithObjects:(const void *)objects forKeys:(const int *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)deepCopyWithZone:(_NSZone *)zone;
+- (id)objectForKey:(int)key;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndObjectsUsingBlock:(id)block;
+- (void)removeObjectForKey:(int)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
+- (void)setObject:(id)object forKey:(int)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -276,6 +279,14 @@ LABEL_9:
   [(GPBInt32ObjectDictionary *)self enumerateKeysAndObjectsUsingBlock:v3];
 }
 
+- (id)objectForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  return [(NSMutableDictionary *)dictionary objectForKey:v4];
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -288,6 +299,31 @@ LABEL_9:
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
   }
+}
+
+- (void)setObject:(id)object forKey:(int)key
+{
+  v4 = *&key;
+  if (!object)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil object to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:object forKey:[NSNumber numberWithInt:v4]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
+- (void)removeObjectForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

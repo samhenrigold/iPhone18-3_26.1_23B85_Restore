@@ -6,6 +6,7 @@
 - (void)handleClearConfigurationResult:(BOOL)result;
 - (void)handleEstablishIPC;
 - (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error;
+- (void)handlePlugin:(id)plugin statusDidChangeToDisconnectedWithReason:(int)reason;
 - (void)handleSetConfigurationResult:(BOOL)result;
 - (void)handleTimeout;
 @end
@@ -72,6 +73,64 @@
   }
 
   [Property setState:8];
+}
+
+- (void)handlePlugin:(id)plugin statusDidChangeToDisconnectedWithReason:(int)reason
+{
+  v4 = *&reason;
+  v19.receiver = self;
+  v19.super_class = NESMVPNSessionStateStopping;
+  [(NESMVPNSessionState *)&v19 handlePlugin:plugin statusDidChangeToDisconnectedWithReason:?];
+  if (self)
+  {
+    Property = objc_getProperty(self, v6, 16, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [Property setLastStopReason:v4];
+  v8 = ne_log_obj();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    if (self)
+    {
+      v10 = objc_getProperty(self, v9, 16, 1);
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    *buf = 138412546;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ in state %@: plugin set status to disconnected", buf, 0x16u);
+  }
+
+  if (self && self->_isUninstalled)
+  {
+    v13 = ne_log_obj();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = objc_getProperty(self, v14, 16, 1);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      *buf = 138412546;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@ in state %@: disposing all plugins", buf, 0x16u);
+    }
+
+    [objc_getProperty(self v18];
+  }
 }
 
 - (void)handleClearConfigurationResult:(BOOL)result

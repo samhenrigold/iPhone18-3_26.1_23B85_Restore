@@ -207,12 +207,11 @@
 
 - (NSData)uuidData
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
-  [(NSUUID *)self->_uuid getUUIDBytes:v5];
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:16];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
+  [(NSUUID *)self->_uuid getUUIDBytes:v4];
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:16];
 
   return v2;
 }

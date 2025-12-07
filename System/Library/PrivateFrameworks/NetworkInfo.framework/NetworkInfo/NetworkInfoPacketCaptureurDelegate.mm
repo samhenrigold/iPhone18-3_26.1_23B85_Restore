@@ -6,7 +6,7 @@
 
 - (void)packetCaptureurTaskStatusChangedFor:(id)for toStatus:(int)status
 {
-  (MEMORY[0x277D82BE0])();
+  MEMORY[0x277D82BE0](for);
   MEMORY[0x277D82BE0](self);
   v5 = sub_25B946F78();
   sub_25B89BFE4(v5, v6, status);

@@ -1,5 +1,6 @@
 @interface TKTonePickerTableViewCellLayoutManager
 - (CGRect)_adjustedTextFrameWithOriginalTextFrame:(CGRect)frame forCell:(id)cell;
+- (CGRect)textRectForCell:(id)cell rowWidth:(double)width forSizing:(BOOL)sizing;
 @end
 
 @implementation TKTonePickerTableViewCellLayoutManager
@@ -77,6 +78,30 @@
   result.size.width = v33;
   result.origin.y = v34;
   result.origin.x = v32;
+  return result;
+}
+
+- (CGRect)textRectForCell:(id)cell rowWidth:(double)width forSizing:(BOOL)sizing
+{
+  sizingCopy = sizing;
+  v21.receiver = self;
+  v21.super_class = TKTonePickerTableViewCellLayoutManager;
+  cellCopy = cell;
+  [(UITableViewCellLayoutManager *)&v21 textRectForCell:cellCopy rowWidth:sizingCopy forSizing:width];
+  [(TKTonePickerTableViewCellLayoutManager *)self _adjustedTextFrameWithOriginalTextFrame:cellCopy forCell:v21.receiver, v21.super_class];
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+
+  v17 = v10;
+  v18 = v12;
+  v19 = v14;
+  v20 = v16;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 

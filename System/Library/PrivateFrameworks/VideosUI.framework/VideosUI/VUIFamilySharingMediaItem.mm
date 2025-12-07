@@ -42,17 +42,17 @@
   type = [entityCopy type];
   v12 = [(VUIFamilySharingMediaEntityIdentifier *)v9 initWithEntityIdentifier:identifier mediaEntityType:type];
 
-  v13 = VUIFamilySharingMediaItemKind();
-  v16.receiver = self;
-  v16.super_class = VUIFamilySharingMediaItem;
-  v14 = [(VUIMediaEntity *)&v16 initWithMediaLibrary:0 identifier:v12 requestedProperties:propertiesCopy kind:v13];
+  v14 = VUIFamilySharingMediaItemKind(v13);
+  v17.receiver = self;
+  v17.super_class = VUIFamilySharingMediaItem;
+  v15 = [(VUIMediaEntity *)&v17 initWithMediaLibrary:0 identifier:v12 requestedProperties:propertiesCopy kind:v14];
 
-  if (v14)
+  if (v15)
   {
-    objc_storeStrong(&v14->_entity, entity);
+    objc_storeStrong(&v15->_entity, entity);
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)storeID
@@ -214,7 +214,7 @@
   _bestRedownloadOffer = [(VUIFamilySharingMediaItem *)self _bestRedownloadOffer];
   if (!_bestRedownloadOffer)
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

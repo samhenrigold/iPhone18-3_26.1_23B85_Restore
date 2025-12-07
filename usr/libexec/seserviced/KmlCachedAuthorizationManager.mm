@@ -5,6 +5,7 @@
 - (id)getCachedAuthorizationsWithError:(id *)error;
 - (id)rebuildAuthorizationCacheWithError:(id *)error;
 - (void)markCacheDirty;
+- (void)setIsCacheDirty:(BOOL)dirty;
 @end
 
 @implementation KmlCachedAuthorizationManager
@@ -215,6 +216,13 @@ LABEL_39:
   [(KmlCachedAuthorizationManager *)self setIsCacheDirty:1];
 
   os_unfair_lock_unlock(&self->_cacheLock);
+}
+
+- (void)setIsCacheDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.seserviced"];
+  [v4 setBool:dirtyCopy forKey:@"kmlCachedAuthorizationIsCacheDirty"];
 }
 
 - (BOOL)isCacheDirty

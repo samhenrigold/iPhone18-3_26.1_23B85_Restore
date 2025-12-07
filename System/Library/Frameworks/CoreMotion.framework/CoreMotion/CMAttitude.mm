@@ -146,16 +146,15 @@
 
 - (CMRotationMatrix)rotationMatrix
 {
-  v10 = *MEMORY[0x1E69E9840];
-  sub_19B688A88(v8, self->_internal + 8);
-  v5 = vcvtq_f64_f32(v8[1]);
-  *&retstr->m11 = vcvtq_f64_f32(v8[0]);
+  v9 = *MEMORY[0x1E69E9840];
+  sub_19B688A88(v7, self->_internal + 8);
+  v5 = vcvtq_f64_f32(v7[1]);
+  *&retstr->m11 = vcvtq_f64_f32(v7[0]);
   *&retstr->m13 = v5;
-  v6 = vcvtq_f64_f32(v8[3]);
-  *&retstr->m22 = vcvtq_f64_f32(v8[2]);
+  v6 = vcvtq_f64_f32(v7[3]);
+  *&retstr->m22 = vcvtq_f64_f32(v7[2]);
   *&retstr->m31 = v6;
-  retstr->m33 = v9;
-  v7 = *MEMORY[0x1E69E9840];
+  retstr->m33 = v8;
   return result;
 }
 

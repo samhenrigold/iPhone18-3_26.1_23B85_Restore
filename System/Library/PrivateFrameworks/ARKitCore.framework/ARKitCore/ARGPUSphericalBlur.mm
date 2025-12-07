@@ -7,10 +7,10 @@
 
 - (ARGPUSphericalBlur)init
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = ARGPUSphericalBlur;
-  v2 = [(ARGPUSphericalBlur *)&v28 init];
+  v37 = *MEMORY[0x1E69E9840];
+  v30.receiver = self;
+  v30.super_class = ARGPUSphericalBlur;
+  v2 = [(ARGPUSphericalBlur *)&v30 init];
   v3 = +[ARSharedGPUDevice sharedInstance];
   device = [v3 device];
   device = v2->_device;
@@ -21,28 +21,29 @@
   v2->_commandQueue = newCommandQueue;
 
   [(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.gpusphericalblur.queue"];
-  v2->_gpuFamilyAtleast4 = [(MTLDevice *)v2->_device supportsFamily:1004];
-  v8 = ARKitCoreBundle();
-  v9 = [v8 URLForResource:@"default" withExtension:@"metallib"];
-  v10 = [(MTLDevice *)v2->_device newLibraryWithURL:v9 error:0];
-  [v10 setLabel:@"com.apple.arkit.gpusphericalblur.library"];
+  v8 = [(MTLDevice *)v2->_device supportsFamily:1004];
+  v2->_gpuFamilyAtleast4 = v8;
+  v9 = ARKitCoreBundle(v8);
+  v10 = [v9 URLForResource:@"default" withExtension:@"metallib"];
+  v11 = [(MTLDevice *)v2->_device newLibraryWithURL:v10 error:0];
+  [v11 setLabel:@"com.apple.arkit.gpusphericalblur.library"];
   if (v2->_gpuFamilyAtleast4)
   {
-    v11 = @"blur_cubemap";
+    v12 = @"blur_cubemap";
   }
 
   else
   {
-    v11 = @"blur_cubemap_views";
+    v12 = @"blur_cubemap_views";
   }
 
-  v12 = [v10 newFunctionWithName:v11];
-  v13 = v2->_device;
-  v27 = 0;
-  v14 = [(MTLDevice *)v13 newComputePipelineStateWithFunction:v12 error:&v27];
-  v15 = v27;
+  v13 = [v11 newFunctionWithName:v12];
+  v14 = v2->_device;
+  v29 = 0;
+  v15 = [(MTLDevice *)v14 newComputePipelineStateWithFunction:v13 error:&v29];
+  v16 = v29;
   cubemapBlurPipelineState = v2->_cubemapBlurPipelineState;
-  v2->_cubemapBlurPipelineState = v14;
+  v2->_cubemapBlurPipelineState = v15;
 
   if (!v2->_cubemapBlurPipelineState)
   {
@@ -51,42 +52,42 @@
       [ARGPUSphericalBlur init];
     }
 
-    v17 = ARShouldUseLogTypeError_internalOSVersion_42;
-    v18 = _ARLogGeneral_34();
-    v19 = v18;
-    if (v17 == 1)
+    v19 = ARShouldUseLogTypeError_internalOSVersion_42;
+    v20 = _ARLogGeneral_34(v18);
+    v21 = v20;
+    if (v19 == 1)
     {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138543874;
-        v30 = v21;
-        v31 = 2048;
-        v32 = v2;
-        v33 = 2112;
-        v34 = v15;
-        v22 = "%{public}@ <%p>: Failed to create cubemap blur pipeline state, error %@";
-        v23 = v19;
-        v24 = OS_LOG_TYPE_ERROR;
+        v32 = v23;
+        v33 = 2048;
+        v34 = v2;
+        v35 = 2112;
+        v36 = v16;
+        v24 = "%{public}@ <%p>: Failed to create cubemap blur pipeline state, error %@";
+        v25 = v21;
+        v26 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-        _os_log_impl(&dword_1C241C000, v23, v24, v22, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v25, v26, v24, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v25 = objc_opt_class();
-      v21 = NSStringFromClass(v25);
+      v27 = objc_opt_class();
+      v23 = NSStringFromClass(v27);
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2048;
-      v32 = v2;
-      v33 = 2112;
-      v34 = v15;
-      v22 = "Error: %{public}@ <%p>: Failed to create cubemap blur pipeline state, error %@";
-      v23 = v19;
-      v24 = OS_LOG_TYPE_INFO;
+      v32 = v23;
+      v33 = 2048;
+      v34 = v2;
+      v35 = 2112;
+      v36 = v16;
+      v24 = "Error: %{public}@ <%p>: Failed to create cubemap blur pipeline state, error %@";
+      v25 = v21;
+      v26 = OS_LOG_TYPE_INFO;
       goto LABEL_12;
     }
   }

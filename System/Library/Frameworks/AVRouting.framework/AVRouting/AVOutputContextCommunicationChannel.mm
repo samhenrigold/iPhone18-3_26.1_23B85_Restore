@@ -35,7 +35,7 @@
 
 - (void)sendData:(id)data completionHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -43,8 +43,7 @@
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputContextCommunicationChannelImpl *)[(AVOutputContextCommunicationChannel *)self impl:v9] sendData:data completionHandler:handler];
-  v8 = *MEMORY[0x1E69E9840];
+  [(AVOutputContextCommunicationChannelImpl *)[(AVOutputContextCommunicationChannel *)self impl] sendData:data completionHandler:handler];
 }
 
 - (AVOutputContextCommunicationChannel)initWithOutputContextCommunicationChannelImpl:(id)impl

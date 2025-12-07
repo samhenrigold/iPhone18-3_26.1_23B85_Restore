@@ -356,7 +356,7 @@ void *__40__PKEditGroupViewController_viewDidLoad__block_invoke(void *result, do
   }
 }
 
-uint64_t __57__PKEditGroupViewController_group_didRemovePass_atIndex___block_invoke(uint64_t a1)
+void *__57__PKEditGroupViewController_group_didRemovePass_atIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) performanceTest];
   if (result == 3)

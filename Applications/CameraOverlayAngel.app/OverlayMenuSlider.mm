@@ -33,11 +33,10 @@
 
 - (NSArray)imageNames
 {
-  v2 = *(self + OBJC_IVAR____TtC18CameraOverlayAngel17OverlayMenuSlider_imageNames);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setImageNames:(id)names
@@ -53,28 +52,26 @@
 {
   v3 = type metadata accessor for IndexSet();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC18CameraOverlayAngel17OverlayMenuSlider_disabledMenuItemsIndices;
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC18CameraOverlayAngel17OverlayMenuSlider_disabledMenuItemsIndices;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
-  IndexSet._bridgeToObjectiveC()(v9);
-  v11 = v10;
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
+  IndexSet._bridgeToObjectiveC()(v8);
+  v10 = v9;
+  (*(v4 + 8))(v6, v3);
 
-  return v11;
+  return v10;
 }
 
 - (void)setDisabledMenuItemsIndices:(id)indices
 {
   v4 = type metadata accessor for IndexSet();
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexSet._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10001DFB4(v7);
+  sub_10001DFB4(v6, v8);
 }
 
 - (void)discreteSliderDidChangeValue:(id)value
@@ -122,14 +119,13 @@
 {
   v5 = type metadata accessor for IndexSet();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = OBJC_IVAR____TtC18CameraOverlayAngel17OverlayMenuSlider_disabledMenuItemsIndices;
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = OBJC_IVAR____TtC18CameraOverlayAngel17OverlayMenuSlider_disabledMenuItemsIndices;
   swift_beginAccess();
-  (*(v6 + 16))(v9, self + v10, v5);
+  (*(v6 + 16))(v8, self + v9, v5);
   LOBYTE(index) = IndexSet.contains(_:)(index);
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
   return index & 1;
 }
 

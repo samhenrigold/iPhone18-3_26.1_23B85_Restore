@@ -73,7 +73,7 @@
   return selfCopy;
 }
 
-uint64_t __26__SUBaseAlertItem_present__block_invoke(uint64_t a1)
+void *__26__SUBaseAlertItem_present__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createNotification];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -101,7 +101,7 @@ uint64_t __26__SUBaseAlertItem_present__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __25__SUBaseAlertItem_update__block_invoke(uint64_t a1)
+void *__25__SUBaseAlertItem_update__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateNotification];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -123,19 +123,19 @@ uint64_t __25__SUBaseAlertItem_update__block_invoke(uint64_t a1)
 - (void)willPresentAlert
 {
   dispatch_assert_queue_V2(self->_stateQ);
-  v10 = SULogAlerts();
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  SULogInfoForSubsystem(v10, @"[%@] willPresentAlert", v4, v5, v6, v7, v8, v9, v3);
+  v11 = SULogAlerts(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  SULogInfoForSubsystem(v11, @"[%@] willPresentAlert", v5, v6, v7, v8, v9, v10, v4);
 }
 
 - (void)alertWasDismissed:(unint64_t)dismissed
 {
   dispatch_assert_queue_V2(self->_stateQ);
-  v11 = SULogAlerts();
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  SULogInfoForSubsystem(v11, @"[%@] was dismissed for %ld", v5, v6, v7, v8, v9, v10, v4);
+  v12 = SULogAlerts(v3);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  SULogInfoForSubsystem(v12, @"[%@] was dismissed for %ld", v6, v7, v8, v9, v10, v11, v5);
 }
 
 - (BOOL)_createNotification
@@ -143,8 +143,8 @@ uint64_t __25__SUBaseAlertItem_update__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_stateQ);
   if (self->_notification)
   {
-    v3 = SULogAlerts();
-    SULogErrorForSubsystem(v3, @"%@ is being presented for %@. Dismiss it first", v4, v5, v6, v7, v8, v9, self->_notification);
+    v4 = SULogAlerts(v3);
+    SULogErrorForSubsystem(v4, @"%@ is being presented for %@. Dismiss it first", v5, v6, v7, v8, v9, v10, self->_notification);
 
     return 0;
   }
@@ -156,49 +156,49 @@ uint64_t __25__SUBaseAlertItem_update__block_invoke(uint64_t a1)
     _notificationOptions = [(SUBaseAlertItem *)self _notificationOptions];
     _notificationButtonActions = [(SUBaseAlertItem *)self _notificationButtonActions];
     error = -1;
-    v14 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, _notificationFlags, &error, _notificationOptions);
-    v15 = SULogAlerts();
+    v15 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, _notificationFlags, &error, _notificationOptions);
+    v16 = SULogAlerts(v15);
     objc_opt_class();
-    SULogDebugForSubsystem(v15, @"created %@ for %@ with error %ld", v16, v17, v18, v19, v20, v21, v14);
+    SULogDebugForSubsystem(v16, @"created %@ for %@ with error %ld", v17, v18, v19, v20, v21, v22, v15);
 
-    if (v14)
+    if (v15)
     {
-      v22 = error == 0;
+      v24 = error == 0;
     }
 
     else
     {
-      v22 = 0;
+      v24 = 0;
     }
 
-    v10 = v22;
-    if (v22)
+    v11 = v24;
+    if (v24)
     {
-      self->_notification = v14;
-      v23 = dispatch_get_global_queue(33, 0);
+      self->_notification = v15;
+      v25 = dispatch_get_global_queue(33, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __38__SUBaseAlertItem__createNotification__block_invoke;
       block[3] = &unk_279CAA8A8;
-      v34 = v14;
+      v36 = v15;
       block[4] = self;
-      v33 = _notificationButtonActions;
-      dispatch_async(v23, block);
+      v35 = _notificationButtonActions;
+      dispatch_async(v25, block);
     }
 
     else
     {
-      v24 = SULogAlerts();
-      SULogInfoForSubsystem(v24, @"failed to display notification: %ld", v25, v26, v27, v28, v29, v30, error);
+      v26 = SULogAlerts(v23);
+      SULogInfoForSubsystem(v26, @"failed to display notification: %ld", v27, v28, v29, v30, v31, v32, error);
 
-      if (v14)
+      if (v15)
       {
-        CFRelease(v14);
+        CFRelease(v15);
       }
     }
   }
 
-  return v10;
+  return v11;
 }
 
 void __38__SUBaseAlertItem__createNotification__block_invoke(uint64_t a1)
@@ -208,7 +208,7 @@ void __38__SUBaseAlertItem__createNotification__block_invoke(uint64_t a1)
   if (v2)
   {
     v3 = v2;
-    v4 = SULogAlerts();
+    v4 = SULogAlerts(v2);
     SULogInfoForSubsystem(v4, @"failed to get response from CFUserNotification: %ld", v5, v6, v7, v8, v9, v10, v3);
 
     v11 = *(a1 + 32);
@@ -218,11 +218,11 @@ void __38__SUBaseAlertItem__createNotification__block_invoke(uint64_t a1)
     block[2] = __38__SUBaseAlertItem__createNotification__block_invoke_2;
     block[3] = &unk_279CAAD28;
     v13 = *(a1 + 48);
-    v98 = 0;
-    v99 = v13;
+    v99 = 0;
+    v100 = v13;
     block[4] = v11;
     dispatch_async(v12, block);
-    v14 = v98;
+    v14 = v99;
   }
 
   else if ((~responseFlags & 3) != 0)
@@ -233,7 +233,7 @@ void __38__SUBaseAlertItem__createNotification__block_invoke(uint64_t a1)
     if (v26)
     {
       v27 = [v26 objectForKeyedSubscript:*MEMORY[0x277D67218]];
-      v28 = SULogAlerts();
+      v28 = SULogAlerts(v27);
       v35 = v28;
       if (v27)
       {
@@ -241,106 +241,107 @@ void __38__SUBaseAlertItem__createNotification__block_invoke(uint64_t a1)
         SULogInfoForSubsystem(v35, @"User clicked button index %ld", v37, v38, v39, v40, v41, v42, v36);
 
         v43 = [v27 unsignedIntegerValue];
-        if (v43 >= [*(a1 + 40) count])
+        v44 = [*(a1 + 40) count];
+        if (v43 >= v44)
         {
-          v70 = SULogAlerts();
-          SULogInfoForSubsystem(v70, @"index does not match any button", v71, v72, v73, v74, v75, v76, v81);
+          v71 = SULogAlerts(v44);
+          SULogInfoForSubsystem(v71, @"index does not match any button", v72, v73, v74, v75, v76, v77, v82);
 
-          v77 = *(a1 + 32);
-          v78 = *(v77 + 16);
-          v85[0] = MEMORY[0x277D85DD0];
-          v85[1] = 3221225472;
-          v85[2] = __38__SUBaseAlertItem__createNotification__block_invoke_6;
-          v85[3] = &unk_279CAAD28;
-          v79 = *(a1 + 48);
-          v86 = 0;
-          v87 = v79;
-          v85[4] = v77;
-          dispatch_async(v78, v85);
-          v56 = v86;
+          v78 = *(a1 + 32);
+          v79 = *(v78 + 16);
+          v86[0] = MEMORY[0x277D85DD0];
+          v86[1] = 3221225472;
+          v86[2] = __38__SUBaseAlertItem__createNotification__block_invoke_6;
+          v86[3] = &unk_279CAAD28;
+          v80 = *(a1 + 48);
+          v87 = 0;
+          v88 = v80;
+          v86[4] = v78;
+          dispatch_async(v79, v86);
+          v57 = v87;
         }
 
         else
         {
-          v44 = [*(a1 + 40) objectAtIndex:{objc_msgSend(v27, "integerValue")}];
-          if (!v44)
+          v45 = [*(a1 + 40) objectAtIndex:{objc_msgSend(v27, "integerValue")}];
+          if (!v45)
           {
-            v45 = SULogAlerts();
-            v46 = [v27 unsignedIntegerValue];
-            SULogInfoForSubsystem(v45, @"No action registered for button %ld", v47, v48, v49, v50, v51, v52, v46);
+            v46 = SULogAlerts(0);
+            v47 = [v27 unsignedIntegerValue];
+            SULogInfoForSubsystem(v46, @"No action registered for button %ld", v48, v49, v50, v51, v52, v53, v47);
           }
 
-          v53 = *(a1 + 32);
-          v54 = *(v53 + 16);
-          v82[0] = MEMORY[0x277D85DD0];
-          v82[1] = 3221225472;
-          v82[2] = __38__SUBaseAlertItem__createNotification__block_invoke_7;
-          v82[3] = &unk_279CAAD28;
-          v55 = *(a1 + 48);
-          v83 = v44;
-          v84 = v55;
-          v82[4] = v53;
-          v56 = v44;
-          dispatch_async(v54, v82);
+          v54 = *(a1 + 32);
+          v55 = *(v54 + 16);
+          v83[0] = MEMORY[0x277D85DD0];
+          v83[1] = 3221225472;
+          v83[2] = __38__SUBaseAlertItem__createNotification__block_invoke_7;
+          v83[3] = &unk_279CAAD28;
+          v56 = *(a1 + 48);
+          v84 = v45;
+          v85 = v56;
+          v83[4] = v54;
+          v57 = v45;
+          dispatch_async(v55, v83);
         }
       }
 
       else
       {
-        SULogInfoForSubsystem(v28, @"failed to get button index from response dictionary", v29, v30, v31, v32, v33, v34, v80);
+        SULogInfoForSubsystem(v28, @"failed to get button index from response dictionary", v29, v30, v31, v32, v33, v34, v81);
 
-        v67 = *(a1 + 32);
-        v68 = *(v67 + 16);
-        v88[0] = MEMORY[0x277D85DD0];
-        v88[1] = 3221225472;
-        v88[2] = __38__SUBaseAlertItem__createNotification__block_invoke_5;
-        v88[3] = &unk_279CAAD28;
-        v69 = *(a1 + 48);
-        v89 = 0;
-        v90 = v69;
-        v88[4] = v67;
-        dispatch_async(v68, v88);
-        v56 = v89;
+        v68 = *(a1 + 32);
+        v69 = *(v68 + 16);
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __38__SUBaseAlertItem__createNotification__block_invoke_5;
+        v89[3] = &unk_279CAAD28;
+        v70 = *(a1 + 48);
+        v90 = 0;
+        v91 = v70;
+        v89[4] = v68;
+        dispatch_async(v69, v89);
+        v57 = v90;
       }
     }
 
     else
     {
-      v57 = SULogAlerts();
-      SULogInfoForSubsystem(v57, @"failed to get response dictionary from CFUserNotification: %ld", v58, v59, v60, v61, v62, v63, 0);
+      v58 = SULogAlerts(0);
+      SULogInfoForSubsystem(v58, @"failed to get response dictionary from CFUserNotification: %ld", v59, v60, v61, v62, v63, v64, 0);
 
-      v64 = *(a1 + 32);
-      v65 = *(v64 + 16);
-      v91[0] = MEMORY[0x277D85DD0];
-      v91[1] = 3221225472;
-      v91[2] = __38__SUBaseAlertItem__createNotification__block_invoke_4;
-      v91[3] = &unk_279CAAD28;
-      v66 = *(a1 + 48);
-      v92 = 0;
-      v93 = v66;
-      v91[4] = v64;
-      dispatch_async(v65, v91);
-      v27 = v92;
+      v65 = *(a1 + 32);
+      v66 = *(v65 + 16);
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __38__SUBaseAlertItem__createNotification__block_invoke_4;
+      v92[3] = &unk_279CAAD28;
+      v67 = *(a1 + 48);
+      v93 = 0;
+      v94 = v67;
+      v92[4] = v65;
+      dispatch_async(v66, v92);
+      v27 = v93;
     }
   }
 
   else
   {
-    v15 = SULogAlerts();
+    v15 = SULogAlerts(v2);
     SULogInfoForSubsystem(v15, @"notification was canceled (alert = %@)", v16, v17, v18, v19, v20, v21, *(a1 + 32));
 
     v22 = *(a1 + 32);
     v23 = *(v22 + 16);
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = __38__SUBaseAlertItem__createNotification__block_invoke_3;
-    v94[3] = &unk_279CAAD28;
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __38__SUBaseAlertItem__createNotification__block_invoke_3;
+    v95[3] = &unk_279CAAD28;
     v24 = *(a1 + 48);
-    v95 = 0;
-    v96 = v24;
-    v94[4] = v22;
-    dispatch_async(v23, v94);
-    v14 = v95;
+    v96 = 0;
+    v97 = v24;
+    v95[4] = v22;
+    dispatch_async(v23, v95);
+    v14 = v96;
   }
 }
 
@@ -469,25 +470,25 @@ uint64_t __38__SUBaseAlertItem__createNotification__block_invoke_7(void *a1)
   dispatch_assert_queue_V2(self->_stateQ);
   if (!self->_notification)
   {
-    _notificationOptions = SULogAlerts();
-    SULogErrorForSubsystem(_notificationOptions, @"No notification for %@", v14, v15, v16, v17, v18, v19, self);
+    _notificationOptions = SULogAlerts(v3);
+    SULogErrorForSubsystem(_notificationOptions, @"No notification for %@", v15, v16, v17, v18, v19, v20, self);
     goto LABEL_5;
   }
 
   _notificationFlags = [(SUBaseAlertItem *)self _notificationFlags];
   _notificationOptions = [(SUBaseAlertItem *)self _notificationOptions];
-  v5 = CFUserNotificationUpdate(self->_notification, 0.0, _notificationFlags, _notificationOptions);
-  v6 = v5 == 0;
-  if (v5)
+  v6 = CFUserNotificationUpdate(self->_notification, 0.0, _notificationFlags, _notificationOptions);
+  v7 = v6 == 0;
+  if (v6)
   {
-    v7 = SULogAlerts();
-    SULogErrorForSubsystem(v7, @"Failed to update %@ for %@", v8, v9, v10, v11, v12, v13, self->_notification);
+    v8 = SULogAlerts(v6);
+    SULogErrorForSubsystem(v8, @"Failed to update %@ for %@", v9, v10, v11, v12, v13, v14, self->_notification);
 
 LABEL_5:
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_cancelNotification
@@ -504,8 +505,8 @@ LABEL_5:
 - (void)_notificationWasDismissed:(unint64_t)dismissed
 {
   dispatch_assert_queue_V2(self->_stateQ);
-  v5 = SULogAlerts();
-  SULogInfoForSubsystem(v5, @"notification was dismissed for %ld", v6, v7, v8, v9, v10, v11, dismissed);
+  v6 = SULogAlerts(v5);
+  SULogInfoForSubsystem(v6, @"notification was dismissed for %ld", v7, v8, v9, v10, v11, v12, dismissed);
 
   [(SUBaseAlertItem *)self alertWasDismissed:dismissed];
   WeakRetained = objc_loadWeakRetained(&self->_manager);
@@ -620,10 +621,8 @@ LABEL_10:
     [dictionary setObject:allowedApps2 forKeyedSubscript:*MEMORY[0x277D672A8]];
   }
 
-  v30 = SULogAlerts();
-  SULogInfoForSubsystem(v30, @"notificationOptions %@", v31, v32, v33, v34, v35, v36, dictionary);
-
-  v37 = *MEMORY[0x277D85DE8];
+  v31 = SULogAlerts(v29);
+  SULogInfoForSubsystem(v31, @"notificationOptions %@", v32, v33, v34, v35, v36, v37, dictionary);
 
   return dictionary;
 }
@@ -643,29 +642,29 @@ LABEL_10:
 
 - (id)_notificationButtons
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   [(SUBaseAlertItem *)self buildAlertItemDefinition];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v17 = v21 = 0u;
-  buttons = [v17 buttons];
-  v5 = [buttons countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v16 = v20 = 0u;
+  buttons = [v16 buttons];
+  v5 = [buttons countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277D66B50]);
         label = [v9 label];
         v12 = [v10 initWithTitle:label];
@@ -676,54 +675,52 @@ LABEL_10:
         [array addObject:build];
       }
 
-      v6 = [buttons countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [buttons countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   v14 = [array copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)_notificationButtonActions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   buildAlertItemDefinition = [(SUBaseAlertItem *)self buildAlertItemDefinition];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   buttons = [buildAlertItemDefinition buttons];
-  v6 = [buttons countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [buttons countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(buttons);
         }
 
-        handler = [*(*(&v14 + 1) + 8 * i) handler];
+        handler = [*(*(&v13 + 1) + 8 * i) handler];
         [array addObject:handler];
       }
 
-      v7 = [buttons countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [buttons countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

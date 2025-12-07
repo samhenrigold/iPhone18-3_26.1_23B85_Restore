@@ -351,7 +351,7 @@ LABEL_7:
   importDataSource2 = [(PUImportOneUpViewController *)self importDataSource];
   if (importDataSource)
   {
-    [importDataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(importDataSource);
   }
 
   else
@@ -365,7 +365,7 @@ LABEL_7:
   importDataSource3 = [(PUImportOneUpViewController *)self importDataSource];
   if (importDataSource)
   {
-    [importDataSource lastItemIndexPath];
+    objc_msgSend_lastItemIndexPath(importDataSource);
   }
 
   else
@@ -697,10 +697,10 @@ uint64_t __81__PUImportOneUpViewController_importOneUpCell_requestedBadgeUpdateF
         }
 
         v23 = *(*(&v30 + 1) + 8 * v22);
-        indexPath = [v23 indexPath];
+        v24 = objc_msgSend_indexPath(v23, v30);
         if (![v23 representedElementCategory])
         {
-          if (([(PUImportOneUpViewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:indexPath], v26 = v25, x == 0.0) || x > 0.0 && v25 > offset->x || x < 0.0 && v25 < offset->x)
+          if (([(PUImportOneUpViewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:v24], v26 = v25, x == 0.0) || x > 0.0 && v25 > offset->x || x < 0.0 && v25 < offset->x)
           {
             [v23 center];
             v28 = vabdd_f64(v27, MidX);
@@ -822,7 +822,7 @@ uint64_t __81__PUImportOneUpViewController_importOneUpCell_requestedBadgeUpdateF
 
 - (void)importControllerProgressDidChange:(id)change
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69C4068]];
@@ -845,9 +845,9 @@ uint64_t __81__PUImportOneUpViewController_importOneUpCell_requestedBadgeUpdateF
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[PUImportOneUpViewController importControllerProgressDidChange:]";
-    v26 = 2048;
-    v27 = v12;
+    v31 = "[PUImportOneUpViewController importControllerProgressDidChange:]";
+    v32 = 2048;
+    v33 = v12;
     _os_log_impl(&dword_1B36F3000, v13, OS_LOG_TYPE_INFO, "%s: setting progress to %f ", buf, 0x16u);
   }
 
@@ -862,17 +862,17 @@ uint64_t __81__PUImportOneUpViewController_importOneUpCell_requestedBadgeUpdateF
 
   v16 = PLLocalizedFrameworkString();
   v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "integerValue")}];
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "integerValue")}];
-  v18 = PUStringWithValidatedFormat();
+  v29 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "integerValue")}];
+  v24 = PUStringWithValidatedFormat(v16, @"%@ %@", v18, v19, v20, v21, v22, v23, v17);
 
-  v19 = [(PUImportOneUpViewController *)self roundProgressView:v17];
-  [v19 setProgress:v12];
+  roundProgressView2 = [(PUImportOneUpViewController *)self roundProgressView];
+  [roundProgressView2 setProgress:v12];
 
-  [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v18];
+  [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v24];
   if (v12 >= 1.0)
   {
-    v20 = PLLocalizedFrameworkString();
-    [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v20];
+    v26 = PLLocalizedFrameworkString();
+    [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v26];
   }
 
   mEMORY[0x1E69C3620] = [MEMORY[0x1E69C3620] sharedInstance];
@@ -1271,7 +1271,7 @@ uint64_t __70__PUImportOneUpViewController_badgeViewAtIndexPath_forCollectionVie
   v8 = importDataSource;
   if (importDataSource)
   {
-    [importDataSource itemIndexPathForItem:pathCopy];
+    objc_msgSend_itemIndexPathForItem_(importDataSource);
   }
 
   else
@@ -1683,8 +1683,8 @@ LABEL_8:
   v7 = importDataSource;
   if (importDataSource)
   {
-    [importDataSource firstItemIndexPath];
-    [v7 lastItemIndexPath];
+    objc_msgSend_firstItemIndexPath(importDataSource);
+    objc_msgSend_lastItemIndexPath(v7);
     v8 = PXIndexPathFromSimpleIndexPath();
     v9 = PXIndexPathFromSimpleIndexPath();
     if (!path)
@@ -2018,49 +2018,47 @@ LABEL_4:
       if ([(__CFString *)v20 length])
       {
         v22 = PULocalizedString(@"PUPHOTOBROWSER_TITLE_LONG_DATE_FORMAT");
-        v34 = v18;
-        v35 = v20;
-        v21 = PUStringWithValidatedFormat();
+        v21 = PUStringWithValidatedFormat(v22, @"%@ %@", v23, v24, v25, v26, v27, v28, v18);
 
 LABEL_16:
         goto LABEL_17;
       }
 
-      v23 = v18;
+      v29 = v18;
     }
 
     else
     {
-      v23 = v20;
+      v29 = v20;
     }
 
-    v21 = v23;
+    v21 = v29;
     goto LABEL_16;
   }
 
   v21 = 0;
 LABEL_17:
-  v24 = [(PUImportOneUpViewController *)self navigationTitleView:v34];
+  navigationTitleView = [(PUImportOneUpViewController *)self navigationTitleView];
   px_extendedTraitCollection = [(PUImportOneUpViewController *)self px_extendedTraitCollection];
-  v26 = [(PUImportOneUpViewController *)self _titleViewVerticalSizeClassForExtendedTraitCollection:px_extendedTraitCollection];
-  v27 = [MEMORY[0x1E69DB878] defaultFontForTextStyle:*MEMORY[0x1E69DDD10]];
-  v28 = MEMORY[0x1E69DB878];
-  [v27 pointSize];
-  v29 = [v28 monospacedDigitSystemFontOfSize:? weight:?];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __56__PUImportOneUpViewController_updateNavigationItemTitle__block_invoke;
-  v36[3] = &unk_1E7B77908;
-  v37 = v24;
+  v32 = [(PUImportOneUpViewController *)self _titleViewVerticalSizeClassForExtendedTraitCollection:px_extendedTraitCollection];
+  v33 = [MEMORY[0x1E69DB878] defaultFontForTextStyle:*MEMORY[0x1E69DDD10]];
+  v34 = MEMORY[0x1E69DB878];
+  [v33 pointSize];
+  v35 = [v34 monospacedDigitSystemFontOfSize:? weight:?];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __56__PUImportOneUpViewController_updateNavigationItemTitle__block_invoke;
+  v40[3] = &unk_1E7B77908;
+  v41 = navigationTitleView;
+  v42 = v14;
+  v44 = v35;
+  v45 = v32;
+  v43 = v21;
+  v36 = v35;
+  v37 = v21;
   v38 = v14;
-  v40 = v29;
-  v41 = v26;
-  v39 = v21;
-  v30 = v29;
-  v31 = v21;
-  v32 = v14;
-  v33 = v24;
-  [v33 performChanges:v36];
+  v39 = navigationTitleView;
+  [v39 performChanges:v40];
 }
 
 uint64_t __56__PUImportOneUpViewController_updateNavigationItemTitle__block_invoke(uint64_t a1)
@@ -2341,7 +2339,7 @@ void __82__PUImportOneUpViewController_viewWillTransitionToSize_withTransitionCo
     asset = [startingAssetReference asset];
     if (importDataSource)
     {
-      [importDataSource itemIndexPathForItem:asset];
+      objc_msgSend_itemIndexPathForItem_(importDataSource);
     }
 
     else

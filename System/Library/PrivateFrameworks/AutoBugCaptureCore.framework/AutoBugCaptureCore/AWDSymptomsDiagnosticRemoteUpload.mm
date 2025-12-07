@@ -1,8 +1,13 @@
 @interface AWDSymptomsDiagnosticRemoteUpload
 - (BOOL)isEqual:(id)equal;
+- (id)consentStatusAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)preflightStatusAsString:(int)string;
+- (id)primaryNetworkObservedOnCompletionsAsString:(int)string;
+- (id)requestStatusAsString:(int)string;
+- (id)taskStatusAsString:(int)string;
 - (int)StringAsConsentStatus:(id)status;
 - (int)StringAsPreflightStatus:(id)status;
 - (int)StringAsPrimaryNetworkObservedOnCompletions:(id)completions;
@@ -152,6 +157,21 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)preflightStatusAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF21F0[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPreflightStatus:(id)status
 {
   statusCopy = status;
@@ -216,6 +236,21 @@
   *&self->_has = *&self->_has & 0xFFEF | v3;
 }
 
+- (id)consentStatusAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF2218[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsConsentStatus:(id)status
 {
   statusCopy = status;
@@ -273,6 +308,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)requestStatusAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF2238[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestStatus:(id)status
@@ -346,6 +396,21 @@
   }
 
   return p_taskStatus->list[index];
+}
+
+- (id)taskStatusAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF2250[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTaskStatus:(id)status
@@ -454,6 +519,49 @@
   }
 
   return p_primaryNetworkObservedOnCompletions->list[index];
+}
+
+- (id)primaryNetworkObservedOnCompletionsAsString:(int)string
+{
+  if (string > 2)
+  {
+    if (string == 3)
+    {
+      v4 = @"PrimaryNetworkWiredEthernet";
+    }
+
+    else
+    {
+      if (string != 128)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"PrimaryNetworkNone";
+    }
+  }
+
+  else
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"PrimaryNetworkCellular";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"PrimaryNetworkWiFi";
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrimaryNetworkObservedOnCompletions:(id)completions
@@ -777,12 +885,11 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -802,12 +909,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  requestedTimestamp = self->_requestedTimestamp;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    scheduledTimestamp = self->_scheduledTimestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -817,16 +922,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x80) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) != 0)
   {
-    radarIdentifier = self->_radarIdentifier;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((v7 & 1) == 0)
+    v6 = self->_has;
+    if ((v6 & 1) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x200) == 0)
+      if ((v6 & 0x200) == 0)
       {
         goto LABEL_10;
       }
@@ -835,18 +939,17 @@ LABEL_9:
     }
   }
 
-  else if ((v7 & 1) == 0)
+  else if ((v6 & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  apnsMsgIdentifier = self->_apnsMsgIdentifier;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if ((v7 & 0x200) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) == 0)
   {
 LABEL_10:
-    if ((v7 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_11;
     }
@@ -855,13 +958,12 @@ LABEL_10:
   }
 
 LABEL_46:
-  urgency = self->_urgency;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 0x40) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) == 0)
   {
 LABEL_11:
-    if ((v7 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_12;
     }
@@ -870,13 +972,12 @@ LABEL_11:
   }
 
 LABEL_47:
-  preflightStatus = self->_preflightStatus;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_12:
-    if ((v7 & 0x100) == 0)
+    if ((v6 & 0x100) == 0)
     {
       goto LABEL_13;
     }
@@ -885,13 +986,12 @@ LABEL_12:
   }
 
 LABEL_48:
-  consentStatus = self->_consentStatus;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((v7 & 0x100) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x100) == 0)
   {
 LABEL_13:
-    if ((v7 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_15;
     }
@@ -900,125 +1000,114 @@ LABEL_13:
   }
 
 LABEL_49:
-  requestStatus = self->_requestStatus;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_14:
-    expectedFileCount = self->_expectedFileCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_15:
   if (self->_taskFileSizes.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_taskFileSizes.list[v9];
       PBDataWriterWriteInt64Field();
-      ++v9;
+      ++v7;
     }
 
-    while (v9 < self->_taskFileSizes.count);
+    while (v7 < self->_taskFileSizes.count);
   }
 
   if (self->_taskStatus.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_taskStatus.list[v11];
       PBDataWriterWriteInt32Field();
-      ++v11;
+      ++v8;
     }
 
-    while (v11 < self->_taskStatus.count);
+    while (v8 < self->_taskStatus.count);
   }
 
   if (self->_taskRetryCounts.count)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      v14 = self->_taskRetryCounts.list[v13];
       PBDataWriterWriteInt32Field();
-      ++v13;
+      ++v9;
     }
 
-    while (v13 < self->_taskRetryCounts.count);
+    while (v9 < self->_taskRetryCounts.count);
   }
 
   if (self->_taskHttpStatusCodes.count)
   {
-    v15 = 0;
+    v10 = 0;
     do
     {
-      v16 = self->_taskHttpStatusCodes.list[v15];
       PBDataWriterWriteInt32Field();
-      ++v15;
+      ++v10;
     }
 
-    while (v15 < self->_taskHttpStatusCodes.count);
+    while (v10 < self->_taskHttpStatusCodes.count);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v17 = self->_taskErrorDomains;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v18)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = self->_taskErrorDomains;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v12)
   {
-    v19 = v18;
-    v20 = *v38;
+    v13 = v12;
+    v14 = *v20;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v20)
+        if (*v20 != v14)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v11);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v19);
+    while (v13);
   }
 
   if (self->_taskErrorCodes.count)
   {
-    v23 = 0;
+    v16 = 0;
     do
     {
-      v24 = self->_taskErrorCodes.list[v23];
       PBDataWriterWriteInt64Field();
-      ++v23;
+      ++v16;
     }
 
-    while (v23 < self->_taskErrorCodes.count);
+    while (v16 < self->_taskErrorCodes.count);
   }
 
   p_primaryNetworkObservedOnCompletions = &self->_primaryNetworkObservedOnCompletions;
   if (p_primaryNetworkObservedOnCompletions->count)
   {
-    v26 = 0;
+    v18 = 0;
     do
     {
-      v27 = p_primaryNetworkObservedOnCompletions->list[v26];
       PBDataWriterWriteInt32Field();
-      ++v26;
+      ++v18;
     }
 
-    while (v26 < p_primaryNetworkObservedOnCompletions->count);
+    while (v18 < p_primaryNetworkObservedOnCompletions->count);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1259,7 +1348,7 @@ LABEL_15:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1396,30 +1485,30 @@ LABEL_13:
   PBRepeatedInt32Copy();
   PBRepeatedInt32Copy();
   PBRepeatedInt32Copy();
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = self->_taskErrorDomains;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
+        v16 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
         [v6 addTaskErrorDomain:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
@@ -1427,7 +1516,6 @@ LABEL_13:
 
   PBRepeatedInt64Copy();
   PBRepeatedInt32Copy();
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1769,7 +1857,7 @@ LABEL_23:
 
 - (void)mergeFrom:(id)from
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 114);
@@ -1943,29 +2031,29 @@ LABEL_15:
     }
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v20 = v5[27];
-  v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v33;
+    v23 = *v32;
     do
     {
       for (n = 0; n != v22; ++n)
       {
-        if (*v33 != v23)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(AWDSymptomsDiagnosticRemoteUpload *)self addTaskErrorDomain:*(*(&v32 + 1) + 8 * n), v32];
+        [(AWDSymptomsDiagnosticRemoteUpload *)self addTaskErrorDomain:*(*(&v31 + 1) + 8 * n), v31];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v22);
@@ -1977,7 +2065,7 @@ LABEL_15:
     v26 = taskErrorCodesCount;
     for (ii = 0; ii != v26; ++ii)
     {
-      -[AWDSymptomsDiagnosticRemoteUpload addTaskErrorCode:](self, "addTaskErrorCode:", [v5 taskErrorCodeAtIndex:{ii, v32}]);
+      -[AWDSymptomsDiagnosticRemoteUpload addTaskErrorCode:](self, "addTaskErrorCode:", [v5 taskErrorCodeAtIndex:{ii, v31}]);
     }
   }
 
@@ -1990,8 +2078,6 @@ LABEL_15:
       -[AWDSymptomsDiagnosticRemoteUpload addPrimaryNetworkObservedOnCompletion:](self, "addPrimaryNetworkObservedOnCompletion:", [v5 primaryNetworkObservedOnCompletionAtIndex:jj]);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

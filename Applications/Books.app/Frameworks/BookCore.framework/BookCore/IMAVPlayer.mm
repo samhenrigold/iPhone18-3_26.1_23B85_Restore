@@ -186,9 +186,9 @@
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  [(IMAVPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   v6 = v5;
-  [(IMAVPlayer *)self duration];
+  objc_msgSend_duration(self);
   v8 = v7;
   v9 = [(IMAVPlayer *)self _stringFromState:[(IMAVPlayer *)self state]];
   v10 = [NSString stringWithFormat:@"<%@=%p t=%.1lf/%.1lf state=%@>", v4, self, v6, v8, v9];
@@ -199,23 +199,24 @@
 - (void)setAsset:(id)asset
 {
   assetCopy = asset;
-  if (([(AVAsset *)self->_asset isEqual:assetCopy]& 1) == 0)
+  v6 = [(AVAsset *)self->_asset isEqual:assetCopy];
+  if ((v6 & 1) == 0)
   {
-    v6 = BCAVPlayerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BCAVPlayerLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = 138477827;
-      v9 = assetCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "setAssetURL: asset=%{private}@", &v8, 0xCu);
+      v10 = 138477827;
+      v11 = assetCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "setAssetURL: asset=%{private}@", &v10, 0xCu);
     }
 
     objc_storeStrong(&self->_asset, asset);
-    v7 = BCAVPlayerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = BCAVPlayerLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = assetCopy;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "setAsset %@", &v8, 0xCu);
+      v10 = 138412290;
+      v11 = assetCopy;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "setAsset %@", &v10, 0xCu);
     }
 
     [(IMAVPlayer *)self updatePlayer];
@@ -230,18 +231,18 @@
 
   if ((v6 & 1) == 0)
   {
-    v7 = BCAVPlayerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = BCAVPlayerLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = 138477827;
-      v10 = lCopy;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "setAssetURL: assetURL=%{private}@", &v9, 0xCu);
+      v10 = 138477827;
+      v11 = lCopy;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "setAssetURL: assetURL=%{private}@", &v10, 0xCu);
     }
 
     if (lCopy)
     {
-      v8 = [AVURLAsset URLAssetWithURL:lCopy options:0];
-      [(IMAVPlayer *)self setAsset:v8];
+      v9 = [AVURLAsset URLAssetWithURL:lCopy options:0];
+      [(IMAVPlayer *)self setAsset:v9];
     }
 
     else
@@ -254,7 +255,7 @@
 - (void)setAssetURL:(id)l withStartTime:(double)time
 {
   lCopy = l;
-  v7 = BCAVPlayerLog();
+  v7 = BCAVPlayerLog(lCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v10 = 138478083;
@@ -295,7 +296,7 @@
 
 - (void)_playWithRate:(float)rate fadeInTime:(double)time
 {
-  v7 = BCAVPlayerLog();
+  v7 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
@@ -344,7 +345,7 @@
 
 - (void)play
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -357,7 +358,7 @@
 
 - (void)playFrom:(double)from
 {
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.value) = 134217984;
@@ -399,7 +400,7 @@ LABEL_6:
 
 - (void)pause
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -413,28 +414,29 @@ LABEL_6:
 
 - (void)stop
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12.value) = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "stop", &v12, 2u);
+    LOWORD(v13.value) = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "stop", &v13, 2u);
   }
 
   if (self->_player)
   {
-    if ([(IMAVPlayer *)self state]!= 1)
+    state = [(IMAVPlayer *)self state];
+    if (state != 1)
     {
-      v4 = BCAVPlayerLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = BCAVPlayerLog(state);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v12.value) = 0;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "stop", &v12, 2u);
+        LOWORD(v13.value) = 0;
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "stop", &v13, 2u);
       }
 
-      state = [(IMAVPlayer *)self state];
+      state2 = [(IMAVPlayer *)self state];
       [(IMAVPlayer *)self setState:1];
       [(IMAVPlayer *)self setLoadState:0];
-      if (state == 3)
+      if (state2 == 3)
       {
         [(IMAVPlayer *)self sendItemStoppedNotification];
       }
@@ -444,8 +446,8 @@ LABEL_6:
         [(AVPlayer *)self->_player setRate:0.0];
         [(IMAVPlayer *)self sendItemStoppedNotification];
         player = self->_player;
-        CMTimeMakeWithSeconds(&v12, 0.0, 1);
-        [(AVPlayer *)player seekToTime:&v12];
+        CMTimeMakeWithSeconds(&v13, 0.0, 1);
+        [(AVPlayer *)player seekToTime:&v13];
       }
 
       [(IMAVPlayer *)self setAsset:0];
@@ -460,7 +462,7 @@ LABEL_6:
 
 - (void)togglePlayPause
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -488,7 +490,7 @@ LABEL_6:
 - (void)startSeek:(BOOL)seek
 {
   seekCopy = seek;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v9[0] = 67109120;
@@ -518,7 +520,7 @@ LABEL_6:
 
 - (void)endSeek
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -540,7 +542,7 @@ LABEL_6:
 - (void)singleSkip:(BOOL)skip
 {
   skipCopy = skip;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6[0] = 67109120;
@@ -558,29 +560,29 @@ LABEL_6:
   ++self->_skipStepCount;
   if (self->_seekForward)
   {
-    [(IMAVPlayer *)self duration];
+    objc_msgSend_duration(self, a2, timer);
     v5 = v4;
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     if (v5 >= v6 + self->_seekStep)
     {
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       v7 = v11 + self->_seekStep;
     }
 
     else
     {
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
     }
   }
 
   else
   {
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self, a2, timer);
     v9 = v8;
     v7 = 0.0;
     if (v9 >= self->_seekStep)
     {
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self, 0.0);
       v7 = v10 - self->_seekStep;
     }
   }
@@ -590,7 +592,7 @@ LABEL_6:
 
 - (void)setPlaybackRate:(float)rate
 {
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 134217984;
@@ -613,7 +615,7 @@ LABEL_6:
   {
     v3 = *&state;
     self->_state = state;
-    v5 = BCAVPlayerLog();
+    v5 = BCAVPlayerLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [(IMAVPlayer *)self _stringFromState:v3];
@@ -640,7 +642,7 @@ LABEL_6:
   if (self->_loadState != state)
   {
     self->_loadState = state;
-    v5 = BCAVPlayerLog();
+    v5 = BCAVPlayerLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7[0] = 67109120;
@@ -658,7 +660,7 @@ LABEL_6:
 
 - (void)setVolume:(float)volume
 {
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 134217984;
@@ -741,24 +743,24 @@ LABEL_6:
     preloadingTime = self->_preloadingTime;
     if (preloadingTime > 0.0)
     {
-      v12 = BCAVPlayerLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = BCAVPlayerLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v13 = self->_preloadingTime;
+        v14 = self->_preloadingTime;
         *buf = 134217984;
-        *&buf[4] = v13;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "preloading asset to time: %f", buf, 0xCu);
+        *&buf[4] = v14;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "preloading asset to time: %f", buf, 0xCu);
       }
 
       memset(buf, 0, sizeof(buf));
-      v28 = 0;
-      [(IMAVPlayer *)self _contextDependentTolerance];
-      CMTimeMakeWithSeconds(&v26, self->_preloadingTime, 1000000000);
-      v24 = *buf;
-      v25 = v28;
-      v22 = *buf;
-      v23 = v28;
-      [v10 seekToTime:&v26 toleranceBefore:&v24 toleranceAfter:&v22 completionHandler:&stru_2CCC50];
+      v29 = 0;
+      objc_msgSend__contextDependentTolerance(self);
+      CMTimeMakeWithSeconds(&v27, self->_preloadingTime, 1000000000);
+      v25 = *buf;
+      v26 = v29;
+      v23 = *buf;
+      v24 = v29;
+      [v10 seekToTime:&v27 toleranceBefore:&v25 toleranceAfter:&v23 completionHandler:&stru_2CCC50];
       self->_preloadingTime = 0.0;
     }
 
@@ -775,8 +777,8 @@ LABEL_6:
 
     else
     {
-      v16 = [AVPlayer playerWithPlayerItem:v10];
-      [(IMAVPlayer *)self setPlayer:v16];
+      v17 = [AVPlayer playerWithPlayerItem:v10];
+      [(IMAVPlayer *)self setPlayer:v17];
 
       player3 = [(IMAVPlayer *)self player];
       [player3 setActionAtItemEnd:1];
@@ -880,7 +882,7 @@ LABEL_15:
 
 - (void)clearExternalDisplay
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -901,31 +903,32 @@ LABEL_15:
 - (void)createExternalDisplayOnScreen:(id)screen
 {
   screenCopy = screen;
+  v5 = screenCopy;
   if (*&self->_externalVideoView == 0)
   {
-    v5 = BCAVPlayerLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = BCAVPlayerLog(screenCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = screenCopy;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "createExternalDisplayOnScreen %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v5;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "createExternalDisplayOnScreen %@", &v14, 0xCu);
     }
 
-    v6 = [UIWindow alloc];
-    [screenCopy bounds];
-    v7 = [v6 initWithFrame:?];
+    v7 = [UIWindow alloc];
+    [v5 bounds];
+    v8 = [v7 initWithFrame:?];
     externalVideoWindow = self->_externalVideoWindow;
-    self->_externalVideoWindow = v7;
+    self->_externalVideoWindow = v8;
 
-    [(UIWindow *)self->_externalVideoWindow setScreen:screenCopy];
-    v9 = [IMExternalVideoView alloc];
-    [screenCopy bounds];
-    v10 = [(IMExternalVideoView *)v9 initWithFrame:?];
+    [(UIWindow *)self->_externalVideoWindow setScreen:v5];
+    v10 = [IMExternalVideoView alloc];
+    [v5 bounds];
+    v11 = [(IMExternalVideoView *)v10 initWithFrame:?];
     externalVideoView = self->_externalVideoView;
-    self->_externalVideoView = v10;
+    self->_externalVideoView = v11;
 
-    v12 = +[UIColor blackColor];
-    [(IMExternalVideoView *)self->_externalVideoView setBackgroundColor:v12];
+    v13 = +[UIColor blackColor];
+    [(IMExternalVideoView *)self->_externalVideoView setBackgroundColor:v13];
 
     [(UIWindow *)self->_externalVideoWindow addSubview:self->_externalVideoView];
     [(UIWindow *)self->_externalVideoWindow makeKeyAndVisible];
@@ -1049,13 +1052,13 @@ LABEL_15:
   if (off_33EA30 == context)
   {
     objc_initWeak(buf, self);
-    v55[0] = _NSConcreteStackBlock;
-    v55[1] = 3221225472;
-    v55[2] = sub_D27D8;
-    v55[3] = &unk_2CCC78;
-    v56 = changeCopy;
-    objc_copyWeak(&v57, buf);
-    v24 = objc_retainBlock(v55);
+    v60[0] = _NSConcreteStackBlock;
+    v60[1] = 3221225472;
+    v60[2] = sub_D27D8;
+    v60[3] = &unk_2CCC78;
+    v61 = changeCopy;
+    objc_copyWeak(&v62, buf);
+    v24 = objc_retainBlock(v60);
     v25 = objc_retainBlock(v24);
     if (v25)
     {
@@ -1070,24 +1073,24 @@ LABEL_15:
         block[1] = 3221225472;
         block[2] = sub_D2894;
         block[3] = &unk_2C8398;
-        v54 = v25;
+        v59 = v25;
         dispatch_async(&_dispatch_main_q, block);
       }
     }
 
-    objc_destroyWeak(&v57);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(buf);
   }
 
   else if ([pathCopy isEqualToString:@"currentItem"])
   {
     delegate = [(IMAVPlayer *)self delegate];
-    v14 = BCAVPlayerLog();
+    v14 = BCAVPlayerLog(delegate);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       currentItem = [(AVPlayer *)self->_player currentItem];
       *buf = 138477827;
-      v59[0] = *&currentItem;
+      *&v64[0] = currentItem;
       _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "currentItem changed: %{private}@", buf, 0xCu);
     }
 
@@ -1125,210 +1128,225 @@ LABEL_15:
       currentItem6 = [(AVPlayer *)self->_player currentItem];
       asset = [currentItem6 asset];
       v23 = [NSArray arrayWithObjects:@"tracks", @"duration", 0];
-      v51[0] = _NSConcreteStackBlock;
-      v51[1] = 3221225472;
-      v51[2] = sub_D28A4;
-      v51[3] = &unk_2C7BE8;
-      v51[4] = self;
-      v52 = delegate;
-      [asset loadValuesAsynchronouslyForKeys:v23 completionHandler:v51];
-    }
-  }
-
-  else if ([pathCopy isEqualToString:@"rate"])
-  {
-    v26 = BCAVPlayerLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
-    {
-      [(AVPlayer *)self->_player rate];
-      *buf = 134217984;
-      v59[0] = v27;
-      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "rate changed: %f", buf, 0xCu);
-    }
-
-    [(AVPlayer *)self->_player rate];
-    if (v28 == 0.0)
-    {
-      if ([(IMAVPlayer *)self state]!= 1 && [(IMAVPlayer *)self state])
-      {
-        [(IMAVPlayer *)self setState:3];
-      }
-    }
-
-    else
-    {
-      [(IMAVPlayer *)self setState:2];
-      [(IMAVPlayer *)self setLoadState:1];
-      self->_wasPlaying = 1;
-    }
-  }
-
-  else if ([pathCopy isEqualToString:@"status"])
-  {
-    currentItem7 = [(AVPlayer *)self->_player currentItem];
-
-    if (currentItem7)
-    {
-      delegate2 = [(IMAVPlayer *)self delegate];
-      v31 = BCAVPlayerLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
-      {
-        currentItem8 = [(AVPlayer *)self->_player currentItem];
-        *buf = 134217984;
-        v59[0] = COERCE_DOUBLE([currentItem8 status]);
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "item status changed: %ld", buf, 0xCu);
-      }
-
-      currentItem9 = [(AVPlayer *)self->_player currentItem];
-      status = [currentItem9 status];
-
-      if (status == &dword_0 + 2)
-      {
-        currentItem10 = [(AVPlayer *)self->_player currentItem];
-        error = [currentItem10 error];
-
-        [(IMAVPlayer *)self playbackFailedWithError:error];
-        v49 = BCAVPlayerLog();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
-        {
-          sub_1E97FC(error, v49);
-        }
-
-        [(IMAVPlayer *)self stop];
-        [(IMAVPlayer *)self setPlayer:0];
-        if ((*&self->_delegateFlags & 2) != 0)
-        {
-          [delegate2 playerErrorDidOccur:self error:error];
-        }
-      }
-
-      else if (status == &dword_0 + 1)
-      {
-        [(IMAVPlayer *)self setLoadState:1];
-        lastSeekingTime = self->_lastSeekingTime;
-        if (self->_playbackPending)
-        {
-          if (lastSeekingTime >= 0.0)
-          {
-            [(IMAVPlayer *)self playFrom:?];
-          }
-
-          else
-          {
-            [(IMAVPlayer *)self play];
-          }
-        }
-
-        else if (lastSeekingTime != self->_lastSeekedTime)
-        {
-          [(IMAVPlayer *)self updateSeekTime:?];
-        }
-      }
-
-      else if (!status)
-      {
-        [(IMAVPlayer *)self setLoadState:0];
-      }
-    }
-  }
-
-  else if ([pathCopy isEqualToString:@"airPlayVideoActive"])
-  {
-    v35 = BCAVPlayerLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-    {
-      *buf = 67109120;
-      LODWORD(v59[0]) = [(IMAVPlayer *)self airplayVideoActive];
-      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "airPlayVideoActive new value = %d", buf, 8u);
-    }
-
-    [(IMAVPlayer *)self willChangeValueForKey:@"airplayVideoActive"];
-    [(IMVideoView *)self->_videoView setAirplayActive:[(IMAVPlayer *)self airplayVideoActive]];
-    window = [(IMVideoView *)self->_videoView window];
-
-    if (window)
-    {
-      [(IMAVPlayer *)self updateVideoLayer];
-    }
-
-    [(IMAVPlayer *)self didChangeValueForKey:@"airplayVideoActive"];
-  }
-
-  else if ([pathCopy isEqualToString:@"playbackBufferEmpty"])
-  {
-    v37 = BCAVPlayerLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
-    {
-      currentItem11 = [(AVPlayer *)self->_player currentItem];
-      *buf = 67109120;
-      LODWORD(v59[0]) = [currentItem11 isPlaybackBufferEmpty];
-      _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "playbackBufferEmpty new value = %d", buf, 8u);
-    }
-
-    currentItem12 = [(AVPlayer *)self->_player currentItem];
-    isPlaybackBufferEmpty = [currentItem12 isPlaybackBufferEmpty];
-
-    if (isPlaybackBufferEmpty)
-    {
-      v41 = BCAVPlayerLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "playbackBufferEmpty", buf, 2u);
-      }
-
-      if (![(IMAVPlayer *)self isPlaying])
-      {
-        [(IMAVPlayer *)self setLoadState:2];
-      }
-    }
-  }
-
-  else if ([pathCopy isEqualToString:@"playbackLikelyToKeepUp"])
-  {
-    v42 = BCAVPlayerLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
-    {
-      currentItem13 = [(AVPlayer *)self->_player currentItem];
-      *buf = 67109120;
-      LODWORD(v59[0]) = [currentItem13 isPlaybackLikelyToKeepUp];
-      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "playbackLikelyToKeepUp new value = %d", buf, 8u);
-    }
-
-    currentItem14 = [(AVPlayer *)self->_player currentItem];
-    isPlaybackLikelyToKeepUp = [currentItem14 isPlaybackLikelyToKeepUp];
-
-    if (isPlaybackLikelyToKeepUp)
-    {
-      if ([(IMAVPlayer *)self loadState]== 2 && self->_wasPlaying && ![(IMAVPlayer *)self isPlaying])
-      {
-        [(IMAVPlayer *)self play];
-      }
-
-      [(IMAVPlayer *)self setLoadState:1];
-    }
-  }
-
-  else if ([pathCopy isEqualToString:@"timeControlStatus"])
-  {
-    if ([(AVPlayer *)self->_player timeControlStatus]== &dword_0 + 2)
-    {
-      [(IMAVPlayer *)self updateNowPlayingInfo];
+      v56[0] = _NSConcreteStackBlock;
+      v56[1] = 3221225472;
+      v56[2] = sub_D28A4;
+      v56[3] = &unk_2C7BE8;
+      v56[4] = self;
+      v57 = delegate;
+      [asset loadValuesAsynchronouslyForKeys:v23 completionHandler:v56];
     }
   }
 
   else
   {
-    v50.receiver = self;
-    v50.super_class = IMAVPlayer;
-    [(IMAVPlayer *)&v50 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v26 = [pathCopy isEqualToString:@"rate"];
+    if (v26)
+    {
+      v27 = BCAVPlayerLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      {
+        [(AVPlayer *)self->_player rate];
+        *buf = 134217984;
+        v64[0] = v28;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "rate changed: %f", buf, 0xCu);
+      }
+
+      [(AVPlayer *)self->_player rate];
+      if (v29 == 0.0)
+      {
+        if ([(IMAVPlayer *)self state]!= 1 && [(IMAVPlayer *)self state])
+        {
+          [(IMAVPlayer *)self setState:3];
+        }
+      }
+
+      else
+      {
+        [(IMAVPlayer *)self setState:2];
+        [(IMAVPlayer *)self setLoadState:1];
+        self->_wasPlaying = 1;
+      }
+    }
+
+    else if ([pathCopy isEqualToString:@"status"])
+    {
+      currentItem7 = [(AVPlayer *)self->_player currentItem];
+
+      if (currentItem7)
+      {
+        delegate2 = [(IMAVPlayer *)self delegate];
+        v32 = BCAVPlayerLog(delegate2);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        {
+          currentItem8 = [(AVPlayer *)self->_player currentItem];
+          *buf = 134217984;
+          *&v64[0] = [currentItem8 status];
+          _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "item status changed: %ld", buf, 0xCu);
+        }
+
+        currentItem9 = [(AVPlayer *)self->_player currentItem];
+        status = [currentItem9 status];
+
+        if (status == &dword_0 + 2)
+        {
+          currentItem10 = [(AVPlayer *)self->_player currentItem];
+          error = [currentItem10 error];
+
+          v54 = BCAVPlayerLog([(IMAVPlayer *)self playbackFailedWithError:error]);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          {
+            sub_1E97FC(error, v54);
+          }
+
+          [(IMAVPlayer *)self stop];
+          [(IMAVPlayer *)self setPlayer:0];
+          if ((*&self->_delegateFlags & 2) != 0)
+          {
+            [delegate2 playerErrorDidOccur:self error:error];
+          }
+        }
+
+        else if (status == &dword_0 + 1)
+        {
+          [(IMAVPlayer *)self setLoadState:1];
+          lastSeekingTime = self->_lastSeekingTime;
+          if (self->_playbackPending)
+          {
+            if (lastSeekingTime >= 0.0)
+            {
+              [(IMAVPlayer *)self playFrom:?];
+            }
+
+            else
+            {
+              [(IMAVPlayer *)self play];
+            }
+          }
+
+          else if (lastSeekingTime != self->_lastSeekedTime)
+          {
+            [(IMAVPlayer *)self updateSeekTime:?];
+          }
+        }
+
+        else if (!status)
+        {
+          [(IMAVPlayer *)self setLoadState:0];
+        }
+      }
+    }
+
+    else
+    {
+      v36 = [pathCopy isEqualToString:@"airPlayVideoActive"];
+      if (v36)
+      {
+        v37 = BCAVPlayerLog(v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        {
+          *buf = 67109120;
+          LODWORD(v64[0]) = [(IMAVPlayer *)self airplayVideoActive];
+          _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "airPlayVideoActive new value = %d", buf, 8u);
+        }
+
+        [(IMAVPlayer *)self willChangeValueForKey:@"airplayVideoActive"];
+        [(IMVideoView *)self->_videoView setAirplayActive:[(IMAVPlayer *)self airplayVideoActive]];
+        window = [(IMVideoView *)self->_videoView window];
+
+        if (window)
+        {
+          [(IMAVPlayer *)self updateVideoLayer];
+        }
+
+        [(IMAVPlayer *)self didChangeValueForKey:@"airplayVideoActive"];
+      }
+
+      else
+      {
+        v39 = [pathCopy isEqualToString:@"playbackBufferEmpty"];
+        if (v39)
+        {
+          v40 = BCAVPlayerLog(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+          {
+            currentItem11 = [(AVPlayer *)self->_player currentItem];
+            *buf = 67109120;
+            LODWORD(v64[0]) = [currentItem11 isPlaybackBufferEmpty];
+            _os_log_impl(&dword_0, v40, OS_LOG_TYPE_INFO, "playbackBufferEmpty new value = %d", buf, 8u);
+          }
+
+          currentItem12 = [(AVPlayer *)self->_player currentItem];
+          isPlaybackBufferEmpty = [currentItem12 isPlaybackBufferEmpty];
+
+          if (isPlaybackBufferEmpty)
+          {
+            v45 = BCAVPlayerLog(v44);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "playbackBufferEmpty", buf, 2u);
+            }
+
+            if (![(IMAVPlayer *)self isPlaying])
+            {
+              [(IMAVPlayer *)self setLoadState:2];
+            }
+          }
+        }
+
+        else
+        {
+          v46 = [pathCopy isEqualToString:@"playbackLikelyToKeepUp"];
+          if (v46)
+          {
+            v47 = BCAVPlayerLog(v46);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+            {
+              currentItem13 = [(AVPlayer *)self->_player currentItem];
+              *buf = 67109120;
+              LODWORD(v64[0]) = [currentItem13 isPlaybackLikelyToKeepUp];
+              _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "playbackLikelyToKeepUp new value = %d", buf, 8u);
+            }
+
+            currentItem14 = [(AVPlayer *)self->_player currentItem];
+            isPlaybackLikelyToKeepUp = [currentItem14 isPlaybackLikelyToKeepUp];
+
+            if (isPlaybackLikelyToKeepUp)
+            {
+              if ([(IMAVPlayer *)self loadState]== 2 && self->_wasPlaying && ![(IMAVPlayer *)self isPlaying])
+              {
+                [(IMAVPlayer *)self play];
+              }
+
+              [(IMAVPlayer *)self setLoadState:1];
+            }
+          }
+
+          else if ([pathCopy isEqualToString:@"timeControlStatus"])
+          {
+            if ([(AVPlayer *)self->_player timeControlStatus]== &dword_0 + 2)
+            {
+              [(IMAVPlayer *)self updateNowPlayingInfo];
+            }
+          }
+
+          else
+          {
+            v55.receiver = self;
+            v55.super_class = IMAVPlayer;
+            [(IMAVPlayer *)&v55 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+          }
+        }
+      }
+    }
   }
 }
 
 - (void)playerItemDidReachEnd:(id)end
 {
   endCopy = end;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(endCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v14 = 138477827;
@@ -1355,9 +1373,9 @@ LABEL_15:
 
     else
     {
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       v12 = v11;
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
       if (vabdd_f64(v12, v13) < 2.0)
       {
         [(IMAVPlayer *)self stop];
@@ -1370,7 +1388,7 @@ LABEL_15:
 - (void)setScrubbing:(BOOL)scrubbing
 {
   scrubbingCopy = scrubbing;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8[0] = 67109120;
@@ -1398,7 +1416,7 @@ LABEL_15:
 
 - (void)sendItemStoppedNotification
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -1417,7 +1435,7 @@ LABEL_15:
 
 - (void)sendItemEndedNotification
 {
-  v3 = BCAVPlayerLog();
+  v3 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;
@@ -1427,9 +1445,9 @@ LABEL_15:
   delegate = [(IMAVPlayer *)self delegate];
   if (delegate && (*&self->_delegateFlags & 0x40) != 0)
   {
-    [(IMAVPlayer *)self duration];
+    objc_msgSend_duration(self);
     v6 = v5;
-    [(IMAVPlayer *)self duration];
+    objc_msgSend_duration(self);
     [delegate playerPeriodicUpdate:self elapsed:1 duration:v6 isFinished:v7];
   }
 
@@ -1441,7 +1459,7 @@ LABEL_15:
 
 - (void)setCurrentTime:(double)time
 {
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8 = 134217984;
@@ -1490,7 +1508,7 @@ LABEL_15:
 {
   if (time >= 0.0)
   {
-    v5 = BCAVPlayerLog();
+    v5 = BCAVPlayerLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
@@ -1500,7 +1518,7 @@ LABEL_15:
 
     memset(buf, 0, sizeof(buf));
     v14 = 0;
-    [(IMAVPlayer *)self _contextDependentTolerance];
+    objc_msgSend__contextDependentTolerance(self);
     player = self->_player;
     CMTimeMakeWithSeconds(&v12, time, 1000000000);
     v11[0] = _NSConcreteStackBlock;
@@ -1542,7 +1560,7 @@ LABEL_15:
   player = self->_player;
   if (player)
   {
-    [(AVPlayer *)player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -1564,7 +1582,7 @@ LABEL_15:
     v6 = asset2;
     if (asset2)
     {
-      [asset2 duration];
+      objc_msgSend_duration(asset2);
     }
 
     else
@@ -1620,7 +1638,7 @@ LABEL_15:
         v11 = *(*(&v16 + 1) + 8 * i);
         if (v11)
         {
-          [v11 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v11);
         }
 
         else
@@ -1825,7 +1843,7 @@ LABEL_15:
     }
 
     self->_timeObserverNeedsUpdate = 0;
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     [(IMAVPlayer *)self forceTriggerTimeObserverAt:?];
   }
 }
@@ -1833,7 +1851,7 @@ LABEL_15:
 - (void)setupTimeObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1876,31 +1894,31 @@ LABEL_15:
   if (v3 > 0.0)
   {
     [(IMAVPlayer *)self endTime];
-    CMTimeMakeWithSeconds(&v16, v4, 1000000000);
-    v5 = [NSValue valueWithCMTime:&v16];
-    objc_initWeak(&location, self);
-    v6 = BCAVPlayerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    CMTimeMakeWithSeconds(&v17, v4, 1000000000);
+    v5 = [NSValue valueWithCMTime:&v17];
+    inited = objc_initWeak(&location, self);
+    v7 = BCAVPlayerLog(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v16.value) = 138412290;
-      *(&v16.value + 4) = v5;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "End TimeObserver timeValue %@", &v16, 0xCu);
+      LODWORD(v17.value) = 138412290;
+      *(&v17.value + 4) = v5;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "End TimeObserver timeValue %@", &v17, 0xCu);
     }
 
     player = self->_player;
-    v8 = [NSArray arrayWithObject:v5];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_D3ECC;
-    v12[3] = &unk_2C8188;
-    objc_copyWeak(&v14, &location);
-    v9 = v5;
-    v13 = v9;
-    v10 = [(AVPlayer *)player addBoundaryTimeObserverForTimes:v8 queue:0 usingBlock:v12];
+    v9 = [NSArray arrayWithObject:v5];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_D3ECC;
+    v13[3] = &unk_2C8188;
+    objc_copyWeak(&v15, &location);
+    v10 = v5;
+    v14 = v10;
+    v11 = [(AVPlayer *)player addBoundaryTimeObserverForTimes:v9 queue:0 usingBlock:v13];
     endTimeObserver = self->_endTimeObserver;
-    self->_endTimeObserver = v10;
+    self->_endTimeObserver = v11;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }
@@ -1913,21 +1931,21 @@ LABEL_15:
   {
     if (atCopy)
     {
-      [atCopy CMTimeValue];
+      objc_msgSend_CMTimeValue(atCopy);
     }
 
     else
     {
-      memset(&v9, 0, sizeof(v9));
+      memset(&v10, 0, sizeof(v10));
     }
 
-    Seconds = CMTimeGetSeconds(&v9);
-    v7 = BCAVPlayerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    Seconds = CMTimeGetSeconds(&v10);
+    v8 = BCAVPlayerLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v9.value) = 134217984;
-      *(&v9.value + 4) = Seconds;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "triggerTimeObserver %f", &v9, 0xCu);
+      LODWORD(v10.value) = 134217984;
+      *(&v10.value + 4) = Seconds;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "triggerTimeObserver %f", &v10, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1963,7 +1981,7 @@ LABEL_15:
         v12 = *(*(&v15 + 1) + 8 * v10);
         if (v12)
         {
-          [*(*(&v15 + 1) + 8 * v10) CMTimeValue];
+          objc_msgSend_CMTimeValue(*(*(&v15 + 1) + 8 * v10));
         }
 
         else
@@ -2201,21 +2219,21 @@ LABEL_18:
         [v19 size];
         v22 = v21;
         v24 = v23;
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_D490C;
-        v33[3] = &unk_2CCCC8;
-        v34 = v19;
-        v25 = [v20 initWithBoundsSize:v33 requestHandler:{v22, v24}];
+        v34[0] = _NSConcreteStackBlock;
+        v34[1] = 3221225472;
+        v34[2] = sub_D490C;
+        v34[3] = &unk_2CCCC8;
+        v35 = v19;
+        v25 = [v20 initWithBoundsSize:v34 requestHandler:{v22, v24}];
         [v4 setObject:v25 forKey:MPMediaItemPropertyArtwork];
       }
     }
 
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     v26 = [NSNumber numberWithDouble:?];
     [v4 setObject:v26 forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
 
-    [(IMAVPlayer *)self duration];
+    objc_msgSend_duration(self);
     v27 = [NSNumber numberWithDouble:?];
     [v4 setObject:v27 forKey:MPMediaItemPropertyPlaybackDuration];
 
@@ -2230,12 +2248,12 @@ LABEL_18:
     v31 = [NSNumber numberWithDouble:v29];
     [v4 setObject:v31 forKey:MPNowPlayingInfoPropertyPlaybackRate];
 
-    v32 = BCAVPlayerLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v33 = BCAVPlayerLog(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v36 = v4;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "Setting nowPlayingInfo=%{private}@", buf, 0xCu);
+      v37 = v4;
+      _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Setting nowPlayingInfo=%{private}@", buf, 0xCu);
     }
 
     [v3 setNowPlayingInfo:v4];
@@ -2257,44 +2275,45 @@ LABEL_18:
   }
 
   [v10 setMaximumSize:{width * scale, height * scale}];
-  v21 = kCMTimePositiveInfinity;
-  v19 = *&v21.value;
-  epoch = v21.epoch;
-  [v10 setRequestedTimeToleranceBefore:&v21];
-  *&v21.value = v19;
-  v21.epoch = epoch;
-  [v10 setRequestedTimeToleranceAfter:&v21];
-  CMTimeMakeWithSeconds(&v21, at, 1000000000);
-  v20 = 0;
-  v14 = [v10 copyCGImageAtTime:&v21 actualTime:0 error:&v20];
-  v15 = v20;
+  v22 = kCMTimePositiveInfinity;
+  v20 = *&v22.value;
+  epoch = v22.epoch;
+  [v10 setRequestedTimeToleranceBefore:&v22];
+  *&v22.value = v20;
+  v22.epoch = epoch;
+  [v10 setRequestedTimeToleranceAfter:&v22];
+  CMTimeMakeWithSeconds(&v22, at, 1000000000);
+  v21 = 0;
+  v14 = [v10 copyCGImageAtTime:&v22 actualTime:0 error:&v21];
+  v15 = v21;
+  v16 = v15;
   if (v15)
   {
-    v16 = BCAVPlayerLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = BCAVPlayerLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1E9874(v15, v16);
+      sub_1E9874(v16, v17);
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v16 = +[UIScreen mainScreen];
-    [v16 scale];
-    v17 = [UIImage imageWithCGImage:v14 scale:0 orientation:?];
+    v17 = +[UIScreen mainScreen];
+    [v17 scale];
+    v18 = [UIImage imageWithCGImage:v14 scale:0 orientation:?];
   }
 
   CGImageRelease(v14);
 
-  return v17;
+  return v18;
 }
 
 - (void)onScreenConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     object = [connectionCopy object];
@@ -2314,7 +2333,7 @@ LABEL_18:
 - (void)onScreenDisconnection:(id)disconnection
 {
   disconnectionCopy = disconnection;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(disconnectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     object = [disconnectionCopy object];
@@ -2344,12 +2363,12 @@ LABEL_18:
 - (void)onInterruption:(id)interruption
 {
   interruptionCopy = interruption;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(interruptionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412290;
-    *v18 = interruptionCopy;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "onInterruption: notification=%@", &v17, 0xCu);
+    v19 = 138412290;
+    *v20 = interruptionCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "onInterruption: notification=%@", &v19, 0xCu);
   }
 
   userInfo = [interruptionCopy userInfo];
@@ -2360,52 +2379,53 @@ LABEL_18:
   {
     if (unsignedIntegerValue == &dword_0 + 1)
     {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+      v9 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+      if (v9)
       {
         sub_1E9990(self);
       }
 
-      v9 = BCAVPlayerLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = BCAVPlayerLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         wasPlaying = self->_wasPlaying;
-        v17 = 67109120;
-        *v18 = wasPlaying;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "begin interruption, wasPlaying: %d", &v17, 8u);
+        v19 = 67109120;
+        *v20 = wasPlaying;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "begin interruption, wasPlaying: %d", &v19, 8u);
       }
     }
   }
 
   else
   {
-    v11 = [userInfo objectForKeyedSubscript:AVAudioSessionInterruptionOptionKey];
-    unsignedIntegerValue2 = [v11 unsignedIntegerValue];
+    v12 = [userInfo objectForKeyedSubscript:AVAudioSessionInterruptionOptionKey];
+    unsignedIntegerValue2 = [v12 unsignedIntegerValue];
 
-    v13 = BCAVPlayerLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = BCAVPlayerLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v14 = self->_wasPlaying;
-      v17 = 134218240;
-      *v18 = unsignedIntegerValue2;
-      *&v18[8] = 1024;
-      v19 = v14;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "end interruption AVAudioSessionInterruptionOptionKey: %lu wasPlaying: %d", &v17, 0x12u);
+      v16 = self->_wasPlaying;
+      v19 = 134218240;
+      *v20 = unsignedIntegerValue2;
+      *&v20[8] = 1024;
+      v21 = v16;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "end interruption AVAudioSessionInterruptionOptionKey: %lu wasPlaying: %d", &v19, 0x12u);
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
-      v15 = self->_wasPlaying;
-      v17 = 67109376;
-      *v18 = unsignedIntegerValue2 & 1;
-      *&v18[4] = 1024;
-      *&v18[6] = v15;
-      _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "AVAudioSession: Interruption has ended. Should resume: %d. Was playing: %d.", &v17, 0xEu);
+      v17 = self->_wasPlaying;
+      v19 = 67109376;
+      *v20 = unsignedIntegerValue2 & 1;
+      *&v20[4] = 1024;
+      *&v20[6] = v17;
+      _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "AVAudioSession: Interruption has ended. Should resume: %d. Was playing: %d.", &v19, 0xEu);
     }
 
     if (unsignedIntegerValue2)
     {
-      v16 = +[AVAudioSession sharedInstance];
-      [v16 setActive:1 error:0];
+      v18 = +[AVAudioSession sharedInstance];
+      [v18 setActive:1 error:0];
 
       if (self->_wasPlaying)
       {
@@ -2419,11 +2439,11 @@ LABEL_18:
 - (void)onRouteChange:(id)change
 {
   changeCopy = change;
-  v5 = BCAVPlayerLog();
+  v5 = BCAVPlayerLog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v31 = changeCopy;
+    v32 = changeCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "onRouteChange: notification=%@", buf, 0xCu);
   }
 
@@ -2436,29 +2456,29 @@ LABEL_18:
   if ([v9 integerValue] == &dword_0 + 2)
   {
     selfCopy = self;
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
+    v27 = 0u;
     obj = [v7 outputs];
-    v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
-      v21 = v7;
-      v22 = changeCopy;
-      v20 = v9;
+      v12 = *v27;
+      v22 = v7;
+      v23 = changeCopy;
+      v21 = v9;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v26 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           portType = [v14 portType];
           if ([portType isEqualToString:AVAudioSessionPortHeadphones])
           {
@@ -2471,17 +2491,17 @@ LABEL_18:
 
 LABEL_16:
 LABEL_17:
-            v19 = BCAVPlayerLog();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            v20 = BCAVPlayerLog(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "route change interruption.  Setting _wasPlaying=NO", buf, 2u);
+              _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "route change interruption.  Setting _wasPlaying=NO", buf, 2u);
             }
 
-            changeCopy = v22;
+            changeCopy = v23;
             selfCopy->_wasPlaying = 0;
-            v9 = v20;
-            v7 = v21;
+            v9 = v21;
+            v7 = v22;
             goto LABEL_20;
           }
 
@@ -2494,10 +2514,10 @@ LABEL_17:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-        v7 = v21;
-        changeCopy = v22;
-        v9 = v20;
+        v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v7 = v22;
+        changeCopy = v23;
+        v9 = v21;
         if (v11)
         {
           continue;

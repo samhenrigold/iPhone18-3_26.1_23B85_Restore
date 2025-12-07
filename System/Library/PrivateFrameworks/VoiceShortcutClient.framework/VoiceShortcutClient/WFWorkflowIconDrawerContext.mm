@@ -57,7 +57,7 @@
 
 - (CGFont)glyphFont
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   result = self->_glyphFont;
   if (!result)
   {
@@ -77,7 +77,7 @@
       self->_glyphFont = CGFontCreateWithDataProvider(v7);
       v8[2](v8);
 
-      result = self->_glyphFont;
+      return self->_glyphFont;
     }
 
     else
@@ -86,15 +86,14 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v13 = "[WFWorkflowIconDrawerContext glyphFont]";
+        v12 = "[WFWorkflowIconDrawerContext glyphFont]";
         _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_FAULT, "%s Couldn't load workflow glyph font data.", buf, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 

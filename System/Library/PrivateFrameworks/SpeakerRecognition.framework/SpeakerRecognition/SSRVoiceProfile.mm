@@ -40,7 +40,7 @@
 
 - (id)_getEnrollmentUtterancesForType:(unint64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   profileBasePath = [(SSRVoiceProfile *)self profileBasePath];
   v5 = [SSRUtils stringForCSSpIdType:type];
   v6 = objc_alloc(MEMORY[0x277CBEBC0]);
@@ -53,30 +53,30 @@
 
   if (v11)
   {
-    v27 = v5;
-    v28 = profileBasePath;
+    v26 = v5;
+    v27 = profileBasePath;
     array = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v26 = v11;
+    v25 = v11;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           path = [v18 path];
           v20 = [path hasSuffix:@".wav"];
 
@@ -91,15 +91,15 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
     }
 
-    v5 = v27;
-    profileBasePath = v28;
-    v11 = v26;
+    v5 = v26;
+    profileBasePath = v27;
+    v11 = v25;
   }
 
   else
@@ -108,57 +108,54 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v35 = "[SSRVoiceProfile _getEnrollmentUtterancesForType:]";
+      v34 = "[SSRVoiceProfile _getEnrollmentUtterancesForType:]";
       _os_log_error_impl(&dword_225E12000, v23, OS_LOG_TYPE_ERROR, "%s Enumator being nil for TDTI enrollment folder", buf, 0xCu);
     }
 
     array = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 uint64_t __51__SSRVoiceProfile__getEnrollmentUtterancesForType___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315650;
-    v10 = "[SSRVoiceProfile _getEnrollmentUtterancesForType:]_block_invoke";
-    v11 = 2112;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s Enumrating URL: %@ with error: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[SSRVoiceProfile _getEnrollmentUtterancesForType:]_block_invoke";
+    v10 = 2112;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s Enumrating URL: %@ with error: %@", &v8, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)updatePruningCookie:(id)cookie
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   cookieCopy = cookie;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   _getProfileVersionFilePath = [(SSRVoiceProfile *)self _getProfileVersionFilePath];
   v7 = [SSRUtils readJsonFileAtPath:_getProfileVersionFilePath];
   v8 = v7;
-  v27 = 0;
+  v26 = 0;
   if (v7)
   {
     v9 = [v7 mutableCopy];
     [v9 setObject:cookieCopy forKeyedSubscript:@"VoiceProfilePruningCookie"];
     v10 = MEMORY[0x277CCAAA0];
     v11 = [v9 copy];
-    v26 = 0;
-    v12 = [v10 dataWithJSONObject:v11 options:1 error:&v26];
-    v13 = v26;
+    v25 = 0;
+    v12 = [v10 dataWithJSONObject:v11 options:1 error:&v25];
+    v13 = v25;
 
     if (v12)
     {
@@ -176,11 +173,11 @@ uint64_t __51__SSRVoiceProfile__getEnrollmentUtterancesForType___block_invoke(ui
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v29 = "[SSRVoiceProfile updatePruningCookie:]";
-        v30 = 2112;
-        v31 = v8;
-        v32 = 2112;
-        v33 = v13;
+        v28 = "[SSRVoiceProfile updatePruningCookie:]";
+        v29 = 2112;
+        v30 = v8;
+        v31 = 2112;
+        v32 = v13;
         v16 = "%s ERR: error updating updatedVoiceProfileJsonData from: %@, err: %@";
 LABEL_21:
         _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0x20u);
@@ -190,22 +187,22 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    if ([defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v27])
+    if ([defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v26])
     {
-      v25 = 0;
-      v19 = [defaultManager removeItemAtPath:_getProfileVersionFilePath error:&v25];
-      v13 = v25;
+      v24 = 0;
+      v19 = [defaultManager removeItemAtPath:_getProfileVersionFilePath error:&v24];
+      v13 = v24;
       if ((v19 & 1) == 0)
       {
         v15 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v29 = "[SSRVoiceProfile updatePruningCookie:]";
-          v30 = 2112;
-          v31 = _getProfileVersionFilePath;
-          v32 = 2112;
-          v33 = v13;
+          v28 = "[SSRVoiceProfile updatePruningCookie:]";
+          v29 = 2112;
+          v30 = _getProfileVersionFilePath;
+          v31 = 2112;
+          v32 = v13;
           v16 = "%s ERR: error removing voice profile version file at: %@, err: %@";
           goto LABEL_21;
         }
@@ -222,9 +219,9 @@ LABEL_22:
     }
 
     v20 = v13;
-    v24 = v13;
-    v21 = [v12 writeToFile:_getProfileVersionFilePath options:0 error:&v24];
-    v13 = v24;
+    v23 = v13;
+    v21 = [v12 writeToFile:_getProfileVersionFilePath options:0 error:&v23];
+    v13 = v23;
 
     if (v21 && !v13)
     {
@@ -238,11 +235,11 @@ LABEL_23:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v29 = "[SSRVoiceProfile updatePruningCookie:]";
-      v30 = 2112;
-      v31 = _getProfileVersionFilePath;
-      v32 = 2112;
-      v33 = v13;
+      v28 = "[SSRVoiceProfile updatePruningCookie:]";
+      v29 = 2112;
+      v30 = _getProfileVersionFilePath;
+      v31 = 2112;
+      v32 = v13;
       v16 = "%s ERR: Error writing voice profile version file at: %@, err:%@";
       goto LABEL_21;
     }
@@ -254,7 +251,7 @@ LABEL_23:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v29 = "[SSRVoiceProfile updatePruningCookie:]";
+    v28 = "[SSRVoiceProfile updatePruningCookie:]";
     _os_log_error_impl(&dword_225E12000, v17, OS_LOG_TYPE_ERROR, "%s ERR: Profile dict is nil - Bailing out", buf, 0xCu);
   }
 
@@ -263,7 +260,6 @@ LABEL_23:
   v18 = 0;
 LABEL_24:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -284,10 +280,10 @@ LABEL_24:
 
 - (void)_updateVoiceProfileVersionFile
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   _getProfileVersionFilePath = [(SSRVoiceProfile *)self _getProfileVersionFilePath];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v37 = 0;
+  v36 = 0;
   deviceProductType = [MEMORY[0x277D018F8] deviceProductType];
   if (!deviceProductType || (v5 = [SSRUtils deviceCategoryForDeviceProductType:deviceProductType]) == 0)
   {
@@ -295,39 +291,39 @@ LABEL_24:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-      v42 = 2114;
-      v43 = deviceProductType;
+      v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+      v41 = 2114;
+      v42 = deviceProductType;
       _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s ERR: Unknown device-category for device: %{public}@", buf, 0x16u);
     }
 
     v5 = 0;
   }
 
-  if (![defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v37] || (v37 & 1) != 0)
+  if (![defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v36] || (v36 & 1) != 0)
   {
-    v38[0] = @"VoiceProfileCompatabiltyVersion";
+    v37[0] = @"VoiceProfileCompatabiltyVersion";
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", 1];
-    v39[0] = v7;
-    v38[1] = @"VoiceProfileProductType";
+    v38[0] = v7;
+    v37[1] = @"VoiceProfileProductType";
     deviceProductType2 = [MEMORY[0x277D018F8] deviceProductType];
-    v39[1] = deviceProductType2;
-    v38[2] = @"VoiceProfileSWVersion";
+    v38[1] = deviceProductType2;
+    v37[2] = @"VoiceProfileSWVersion";
     deviceBuildVersion = [MEMORY[0x277D018F8] deviceBuildVersion];
-    v39[2] = deviceBuildVersion;
-    v38[3] = @"VoiceProfileCategoryType";
+    v38[2] = deviceBuildVersion;
+    v37[3] = @"VoiceProfileCategoryType";
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v5];
-    v39[3] = v10;
-    v38[4] = @"VoiceProfileIdentifier";
+    v38[3] = v10;
+    v37[4] = @"VoiceProfileIdentifier";
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v39[4] = uUIDString;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
+    v38[4] = uUIDString;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
 
 LABEL_9:
-    v35 = 0;
-    v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:1 error:&v35];
-    v15 = v35;
+    v34 = 0;
+    v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:1 error:&v34];
+    v15 = v34;
     v16 = v15;
     if (!v14 || v15)
     {
@@ -335,11 +331,11 @@ LABEL_9:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-        v42 = 2112;
-        v43 = v13;
-        v44 = 2112;
-        v45 = v16;
+        v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+        v41 = 2112;
+        v42 = v13;
+        v43 = 2112;
+        v44 = v16;
         v20 = "%s ERR: error creating updatedVoiceProfileJsonData from: %@, err: %@";
         goto LABEL_35;
       }
@@ -347,22 +343,22 @@ LABEL_9:
       goto LABEL_19;
     }
 
-    if ([defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v37] && (v37 & 1) == 0)
+    if ([defaultManager fileExistsAtPath:_getProfileVersionFilePath isDirectory:&v36] && (v36 & 1) == 0)
     {
-      v34 = 0;
-      v30 = [defaultManager removeItemAtPath:_getProfileVersionFilePath error:&v34];
-      v16 = v34;
-      if ((v30 & 1) == 0)
+      v33 = 0;
+      v29 = [defaultManager removeItemAtPath:_getProfileVersionFilePath error:&v33];
+      v16 = v33;
+      if ((v29 & 1) == 0)
       {
         v19 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-          v42 = 2112;
-          v43 = _getProfileVersionFilePath;
-          v44 = 2112;
-          v45 = v16;
+          v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+          v41 = 2112;
+          v42 = _getProfileVersionFilePath;
+          v43 = 2112;
+          v44 = v16;
           v20 = "%s ERR: error removing voice profile version file at: %@, err: %@";
           goto LABEL_35;
         }
@@ -380,9 +376,9 @@ LABEL_20:
     }
 
     v17 = v16;
-    v33 = v16;
-    v18 = [v14 writeToFile:_getProfileVersionFilePath options:0 error:&v33];
-    v16 = v33;
+    v32 = v16;
+    v18 = [v14 writeToFile:_getProfileVersionFilePath options:0 error:&v32];
+    v16 = v32;
 
     if (v18 && !v16)
     {
@@ -393,11 +389,11 @@ LABEL_20:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-      v42 = 2112;
-      v43 = _getProfileVersionFilePath;
-      v44 = 2112;
-      v45 = v16;
+      v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+      v41 = 2112;
+      v42 = _getProfileVersionFilePath;
+      v43 = 2112;
+      v44 = v16;
       v20 = "%s ERR: Error writing voice profile version file at: %@, err:%@";
 LABEL_35:
       _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0x20u);
@@ -407,20 +403,20 @@ LABEL_35:
     goto LABEL_19;
   }
 
-  v22 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:_getProfileVersionFilePath];
-  if (v22)
+  v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:_getProfileVersionFilePath];
+  if (v21)
   {
-    v23 = v22;
-    v36 = 0;
-    deviceProductType2 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v22 options:0 error:&v36];
-    v24 = v36;
-    v25 = v24;
-    if (deviceProductType2 && !v24)
+    v22 = v21;
+    v35 = 0;
+    deviceProductType2 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v21 options:0 error:&v35];
+    v23 = v35;
+    v24 = v23;
+    if (deviceProductType2 && !v23)
     {
 
       v7 = [deviceProductType2 mutableCopy];
-      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", 1];
-      [v7 setValue:v26 forKey:@"VoiceProfileCompatabiltyVersion"];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", 1];
+      [v7 setValue:v25 forKey:@"VoiceProfileCompatabiltyVersion"];
 
       deviceProductType3 = [MEMORY[0x277D018F8] deviceProductType];
       [v7 setValue:deviceProductType3 forKey:@"VoiceProfileProductType"];
@@ -428,47 +424,45 @@ LABEL_35:
       deviceBuildVersion2 = [MEMORY[0x277D018F8] deviceBuildVersion];
       [v7 setValue:deviceBuildVersion2 forKey:@"VoiceProfileSWVersion"];
 
-      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v5];
-      [v7 setValue:v29 forKey:@"VoiceProfileCategoryType"];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v5];
+      [v7 setValue:v28 forKey:@"VoiceProfileCategoryType"];
 
       v13 = [v7 copy];
       goto LABEL_9;
     }
 
-    v32 = *MEMORY[0x277D01970];
+    v31 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-      v42 = 2112;
-      v43 = _getProfileVersionFilePath;
-      v44 = 2112;
-      v45 = v25;
-      _os_log_error_impl(&dword_225E12000, v32, OS_LOG_TYPE_ERROR, "%s Could not read existing %@ file: err: %@", buf, 0x20u);
+      v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+      v41 = 2112;
+      v42 = _getProfileVersionFilePath;
+      v43 = 2112;
+      v44 = v24;
+      _os_log_error_impl(&dword_225E12000, v31, OS_LOG_TYPE_ERROR, "%s Could not read existing %@ file: err: %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v31 = *MEMORY[0x277D01970];
+    v30 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
-      v42 = 2112;
-      v43 = _getProfileVersionFilePath;
-      _os_log_error_impl(&dword_225E12000, v31, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
+      v40 = "[SSRVoiceProfile _updateVoiceProfileVersionFile]";
+      v41 = 2112;
+      v42 = _getProfileVersionFilePath;
+      _os_log_error_impl(&dword_225E12000, v30, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
     }
   }
 
 LABEL_21:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_markSATEnrollmentWithMarker:(id)marker
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   markerCopy = marker;
   if (markerCopy)
   {
@@ -483,13 +477,13 @@ LABEL_21:
       {
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136315650;
-          v15 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
-          v16 = 2114;
-          v17 = markerCopy;
-          v18 = 2114;
-          v19 = v7;
-          _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Marked SAT enrollment %{public}@ at path %{public}@", &v14, 0x20u);
+          v13 = 136315650;
+          v14 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
+          v15 = 2114;
+          v16 = markerCopy;
+          v17 = 2114;
+          v18 = v7;
+          _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Marked SAT enrollment %{public}@ at path %{public}@", &v13, 0x20u);
         }
 
         v10 = 1;
@@ -498,13 +492,13 @@ LABEL_21:
 
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v14 = 136315650;
-        v15 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
-        v16 = 2114;
-        v17 = markerCopy;
-        v18 = 2114;
-        v19 = v7;
-        _os_log_error_impl(&dword_225E12000, v9, OS_LOG_TYPE_ERROR, "%s Coudn't mark SAT enrollment %{public}@ at path %{public}@", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
+        v15 = 2114;
+        v16 = markerCopy;
+        v17 = 2114;
+        v18 = v7;
+        _os_log_error_impl(&dword_225E12000, v9, OS_LOG_TYPE_ERROR, "%s Coudn't mark SAT enrollment %{public}@ at path %{public}@", &v13, 0x20u);
       }
     }
 
@@ -513,11 +507,11 @@ LABEL_21:
       v11 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v14 = 136315394;
-        v15 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
-        v16 = 2114;
-        v17 = markerCopy;
-        _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s We can't mark SAT %{public}@ when there is no audio directory", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[SSRVoiceProfile _markSATEnrollmentWithMarker:]";
+        v15 = 2114;
+        v16 = markerCopy;
+        _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s We can't mark SAT %{public}@ when there is no audio directory", &v13, 0x16u);
       }
     }
 
@@ -530,7 +524,6 @@ LABEL_14:
   v10 = 0;
 LABEL_15:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -544,7 +537,7 @@ LABEL_15:
 
 - (BOOL)_isSATMarkedWithMarker:(id)marker
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   markerCopy = marker;
   v5 = self->_profileBasePath;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -580,9 +573,9 @@ LABEL_15:
           v18 = *MEMORY[0x277D01970];
           if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
           {
-            v22 = 136315138;
-            v23 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
-            _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s Notification sent to trigger TD voice profile migration", &v22, 0xCu);
+            v21 = 136315138;
+            v22 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
+            _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s Notification sent to trigger TD voice profile migration", &v21, 0xCu);
           }
 
           goto LABEL_16;
@@ -600,15 +593,15 @@ LABEL_16:
       v19 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v22 = 136315906;
-        v23 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
-        v24 = 2114;
-        v25 = markerCopy;
-        v26 = 1026;
-        v27 = 0;
-        v28 = 2114;
-        v29 = v13;
-        _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, "%s ERR: Removing %{public}@ as explicit utterances %{public}d from audio dir - %{public}@", &v22, 0x26u);
+        v21 = 136315906;
+        v22 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
+        v23 = 2114;
+        v24 = markerCopy;
+        v25 = 1026;
+        v26 = 0;
+        v27 = 2114;
+        v28 = v13;
+        _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, "%s ERR: Removing %{public}@ as explicit utterances %{public}d from audio dir - %{public}@", &v21, 0x26u);
       }
 
       [defaultManager removeItemAtPath:v7 error:0];
@@ -623,17 +616,16 @@ LABEL_21:
   v11 = 0;
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315394;
-    v23 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s SAT path doesnt exist - %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[SSRVoiceProfile _isSATMarkedWithMarker:]";
+    v23 = 2112;
+    v24 = v5;
+    _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s SAT path doesnt exist - %@", &v21, 0x16u);
     goto LABEL_21;
   }
 
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -678,7 +670,7 @@ LABEL_22:
 
 - (BOOL)deleteModelForSpidType:(unint64_t)type recognizerType:(unint64_t)recognizerType
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = [(SSRVoiceProfile *)self voiceProfileModelDirForSpidType:type recognizerType:recognizerType];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = [defaultManager fileExistsAtPath:v4 isDirectory:0];
@@ -686,58 +678,58 @@ LABEL_22:
   if (v6)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v33 = 0;
-    v8 = [defaultManager2 contentsOfDirectoryAtPath:v4 error:&v33];
-    v9 = v33;
+    v32 = 0;
+    v8 = [defaultManager2 contentsOfDirectoryAtPath:v4 error:&v32];
+    v9 = v32;
 
     if (v9 || !v8)
     {
       v22 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v25 = v22;
+        v24 = v22;
         localizedDescription = [v9 localizedDescription];
         *buf = 136315650;
-        v35 = "[SSRVoiceProfile deleteModelForSpidType:recognizerType:]";
-        v36 = 2114;
-        v37 = v4;
-        v38 = 2114;
-        v39 = localizedDescription;
-        _os_log_error_impl(&dword_225E12000, v25, OS_LOG_TYPE_ERROR, "%s Couldn't delete invalidated speaker model at path %{public}@ %{public}@", buf, 0x20u);
+        v34 = "[SSRVoiceProfile deleteModelForSpidType:recognizerType:]";
+        v35 = 2114;
+        v36 = v4;
+        v37 = 2114;
+        v38 = localizedDescription;
+        _os_log_error_impl(&dword_225E12000, v24, OS_LOG_TYPE_ERROR, "%s Couldn't delete invalidated speaker model at path %{public}@ %{public}@", buf, 0x20u);
       }
     }
 
     else
     {
-      v27 = v8;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v26 = v8;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v30;
+        v13 = *v29;
         v14 = MEMORY[0x277D01970];
         do
         {
           v15 = 0;
           do
           {
-            if (*v30 != v13)
+            if (*v29 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            if (*(*(&v29 + 1) + 8 * v15))
+            if (*(*(&v28 + 1) + 8 * v15))
             {
               v16 = [v4 stringByAppendingPathComponent:?];
               defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-              v28 = 0;
-              [defaultManager3 removeItemAtPath:v16 error:&v28];
-              v18 = v28;
+              v27 = 0;
+              [defaultManager3 removeItemAtPath:v16 error:&v27];
+              v18 = v27;
 
               if (v18)
               {
@@ -747,11 +739,11 @@ LABEL_22:
                   v20 = v19;
                   localizedDescription2 = [v18 localizedDescription];
                   *buf = 136315650;
-                  v35 = "[SSRVoiceProfile deleteModelForSpidType:recognizerType:]";
-                  v36 = 2114;
-                  v37 = v16;
-                  v38 = 2114;
-                  v39 = localizedDescription2;
+                  v34 = "[SSRVoiceProfile deleteModelForSpidType:recognizerType:]";
+                  v35 = 2114;
+                  v36 = v16;
+                  v37 = 2114;
+                  v38 = localizedDescription2;
                   _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s Couldn't delete invalidated speaker model at path %{public}@ %{public}@", buf, 0x20u);
 
                   v14 = MEMORY[0x277D01970];
@@ -763,18 +755,17 @@ LABEL_22:
           }
 
           while (v12 != v15);
-          v12 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
         }
 
         while (v12);
       }
 
       v9 = 0;
-      v8 = v27;
+      v8 = v26;
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -875,7 +866,7 @@ LABEL_7:
 
 - (id)getImplicitEnrollmentUtterancesPriorTo:(id)to forType:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (toCopy)
   {
@@ -884,12 +875,12 @@ LABEL_7:
     v9 = [SSRUtils getImplicitEnrollmentUtterancesFromDirectory:v8];
 
     v10 = MEMORY[0x277CCAC30];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __66__SSRVoiceProfile_getImplicitEnrollmentUtterancesPriorTo_forType___block_invoke;
-    v16[3] = &unk_278578638;
-    v17 = toCopy;
-    v11 = [v10 predicateWithBlock:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __66__SSRVoiceProfile_getImplicitEnrollmentUtterancesPriorTo_forType___block_invoke;
+    v15[3] = &unk_278578638;
+    v16 = toCopy;
+    v11 = [v10 predicateWithBlock:v15];
     v12 = [v9 filteredArrayUsingPredicate:v11];
   }
 
@@ -899,21 +890,19 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[SSRVoiceProfile getImplicitEnrollmentUtterancesPriorTo:forType:]";
+      v18 = "[SSRVoiceProfile getImplicitEnrollmentUtterancesPriorTo:forType:]";
       _os_log_error_impl(&dword_225E12000, v13, OS_LOG_TYPE_ERROR, "%s ERR: date is nil - Bailing out", buf, 0xCu);
     }
 
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 uint64_t __66__SSRVoiceProfile_getImplicitEnrollmentUtterancesPriorTo_forType___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 pathExtension];
   v5 = [v4 isEqualToString:@"wav"];
@@ -938,19 +927,18 @@ LABEL_9:
   v10 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[SSRVoiceProfile getImplicitEnrollmentUtterancesPriorTo:forType:]_block_invoke";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Filtered %@ with enrolled date %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SSRVoiceProfile getImplicitEnrollmentUtterancesPriorTo:forType:]_block_invoke";
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Filtered %@ with enrolled date %@", &v13, 0x20u);
   }
 
   v11 = 1;
 LABEL_10:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1001,7 +989,7 @@ LABEL_7:
 
 - (id)addUtterances:(id)utterances spIdType:(unint64_t)type
 {
-  v76[1] = *MEMORY[0x277D85DE8];
+  v75[1] = *MEMORY[0x277D85DE8];
   utterancesCopy = utterances;
   v7 = utterancesCopy;
   if (utterancesCopy && [utterancesCopy count])
@@ -1009,34 +997,34 @@ LABEL_7:
     selfCopy = self;
     v8 = [(SSRVoiceProfile *)self voiceProfileAudioDirPathForSpidType:type];
     v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:v8];
-    v52 = v8;
+    v51 = v8;
     v10 = [SSRUtils createDirectoryIfDoesNotExist:v8];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v53 = v7;
+    v52 = v7;
     v12 = v7;
-    v13 = [v12 countByEnumeratingWithState:&v60 objects:v74 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v59 objects:v73 count:16];
     if (v13)
     {
       v14 = v13;
-      v55 = 0;
+      v54 = 0;
       v15 = 0;
-      v57 = *v61;
-      v54 = defaultManager;
+      v56 = *v60;
+      v53 = defaultManager;
       obj = v12;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v61 != v57)
+          if (*v60 != v56)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v60 + 1) + 8 * i);
+          v17 = *(*(&v59 + 1) + 8 * i);
           lastPathComponent = [v17 lastPathComponent];
           v19 = [v9 URLByAppendingPathComponent:lastPathComponent];
 
@@ -1046,9 +1034,9 @@ LABEL_7:
           lastPathComponent2 = [v21 lastPathComponent];
           v23 = [v9 URLByAppendingPathComponent:lastPathComponent2];
 
-          v59 = v15;
-          [defaultManager copyItemAtURL:v17 toURL:v19 error:&v59];
-          v24 = v59;
+          v58 = v15;
+          [defaultManager copyItemAtURL:v17 toURL:v19 error:&v58];
+          v24 = v58;
 
           v25 = *MEMORY[0x277D01970];
           v26 = *MEMORY[0x277D01970];
@@ -1059,16 +1047,16 @@ LABEL_7:
               v33 = v25;
               localizedDescription = [v24 localizedDescription];
               *buf = 136315906;
-              v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-              v68 = 2114;
-              v69 = v17;
-              v70 = 2114;
-              v71 = v19;
-              v72 = 2114;
-              v73 = localizedDescription;
+              v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+              v67 = 2114;
+              v68 = v17;
+              v69 = 2114;
+              v70 = v19;
+              v71 = 2114;
+              v72 = localizedDescription;
               _os_log_error_impl(&dword_225E12000, v33, OS_LOG_TYPE_ERROR, "%s Error to copy utterance from %{public}@ to %{public}@, error: %{public}@", buf, 0x2Au);
 
-              defaultManager = v54;
+              defaultManager = v53;
             }
 
             v15 = v24;
@@ -1079,18 +1067,18 @@ LABEL_7:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-              v68 = 2114;
-              v69 = v17;
-              v70 = 2114;
-              v71 = v19;
+              v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+              v67 = 2114;
+              v68 = v17;
+              v69 = 2114;
+              v70 = v19;
               _os_log_impl(&dword_225E12000, v25, OS_LOG_TYPE_DEFAULT, "%s Copied Utterance from %{public}@ to %{public}@", buf, 0x20u);
             }
 
             path = [v21 path];
             v28 = [defaultManager fileExistsAtPath:path];
 
-            if (v28 && (v58 = 0, [defaultManager copyItemAtURL:v21 toURL:v23 error:&v58], (v29 = v58) != 0))
+            if (v28 && (v57 = 0, [defaultManager copyItemAtURL:v21 toURL:v23 error:&v57], (v29 = v57) != 0))
             {
               v15 = v29;
               v30 = *MEMORY[0x277D01970];
@@ -1099,32 +1087,32 @@ LABEL_7:
                 v35 = v30;
                 localizedDescription2 = [v15 localizedDescription];
                 *buf = 136315906;
-                v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-                v68 = 2114;
-                v69 = v21;
-                v70 = 2114;
-                v71 = v23;
-                v72 = 2114;
-                v73 = localizedDescription2;
+                v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+                v67 = 2114;
+                v68 = v21;
+                v69 = 2114;
+                v70 = v23;
+                v71 = 2114;
+                v72 = localizedDescription2;
                 _os_log_error_impl(&dword_225E12000, v35, OS_LOG_TYPE_ERROR, "%s Error to copy jsonFile from %{public}@ to %{public}@, error: %{public}@", buf, 0x2Au);
               }
 
               path2 = [v19 path];
               v32 = [SSRUtils removeItemAtPath:path2];
 
-              defaultManager = v54;
+              defaultManager = v53;
             }
 
             else
             {
               v15 = 0;
-              ++v55;
+              ++v54;
             }
           }
         }
 
         v12 = obj;
-        v14 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+        v14 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
       }
 
       while (v14);
@@ -1132,7 +1120,7 @@ LABEL_7:
 
     else
     {
-      v55 = 0;
+      v54 = 0;
       v15 = 0;
     }
 
@@ -1143,18 +1131,18 @@ LABEL_7:
       v43 = [v12 count];
       profileID = selfCopy->_profileID;
       *buf = 136315906;
-      v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-      v68 = 2050;
-      v69 = v55;
-      v70 = 2050;
-      v71 = v43;
-      v72 = 2114;
-      v73 = profileID;
+      v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+      v67 = 2050;
+      v68 = v54;
+      v69 = 2050;
+      v70 = v43;
+      v71 = 2114;
+      v72 = profileID;
       _os_log_impl(&dword_225E12000, v42, OS_LOG_TYPE_DEFAULT, "%s Successfully copied %{public}lu(%{public}lu) utterances to profile %{public}@", buf, 0x2Au);
     }
 
-    v7 = v53;
-    if (v55)
+    v7 = v52;
+    if (v54)
     {
       v40 = 0;
     }
@@ -1166,20 +1154,20 @@ LABEL_7:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-        v68 = 2114;
-        v69 = v45;
+        v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+        v67 = 2114;
+        v68 = v45;
         _os_log_error_impl(&dword_225E12000, v46, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
       }
 
       v47 = MEMORY[0x277CCA9B8];
-      v64 = @"reason";
-      v65 = v45;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      v63 = @"reason";
+      v64 = v45;
+      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
       v40 = [v47 errorWithDomain:@"com.apple.speakerrecognition" code:721 userInfo:v48];
     }
 
-    v37 = v52;
+    v37 = v51;
   }
 
   else
@@ -1189,57 +1177,55 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v67 = "[SSRVoiceProfile addUtterances:spIdType:]";
-      v68 = 2114;
-      v69 = v37;
+      v66 = "[SSRVoiceProfile addUtterances:spIdType:]";
+      v67 = 2114;
+      v68 = v37;
       _os_log_error_impl(&dword_225E12000, v38, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
     }
 
     v39 = MEMORY[0x277CCA9B8];
-    v75 = @"reason";
-    v76[0] = v37;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
+    v74 = @"reason";
+    v75[0] = v37;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:&v74 count:1];
     v40 = [v39 errorWithDomain:@"com.apple.speakerrecognition" code:727 userInfo:v9];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
 
 - (id)importVoiceProfileAtPath:(id)path
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v43 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_profileBasePath];
-  path = [v43 path];
+  v42 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_profileBasePath];
+  path = [v42 path];
   v6 = [SSRUtils createDirectoryIfDoesNotExist:path];
 
-  v39 = pathCopy;
+  v38 = pathCopy;
   [SSRUtils getContentsOfDirectory:pathCopy];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v7 = v48 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v45 objects:v59 count:16];
+  v7 = v47 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v58 count:16];
   if (v8)
   {
     v9 = v8;
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
-    v10 = *v46;
-    v40 = v7;
+    v10 = *v45;
+    v39 = v7;
     do
     {
       v11 = 0;
       do
       {
-        if (*v46 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * v11);
+        v12 = *(*(&v44 + 1) + 8 * v11);
         lastPathComponent = [v12 lastPathComponent];
         v14 = [SSRUtils stringForCSSpIdType:2];
         v15 = [lastPathComponent isEqualToString:v14];
@@ -1253,7 +1239,7 @@ LABEL_7:
           {
             if ((CSIsCommunalDevice() & 1) == 0)
             {
-              v41 = [(SSRVoiceProfile *)self _copyExplicitAudio:v12 withSpIdType:1];
+              v40 = [(SSRVoiceProfile *)self _copyExplicitAudio:v12 withSpIdType:1];
             }
           }
 
@@ -1264,31 +1250,31 @@ LABEL_7:
 
             if (v19)
             {
-              v42 = [(SSRVoiceProfile *)self _copyExplicitAudio:v12 withSpIdType:3];
+              v41 = [(SSRVoiceProfile *)self _copyExplicitAudio:v12 withSpIdType:3];
             }
 
             else
             {
               selfCopy = self;
               lastPathComponent2 = [v12 lastPathComponent];
-              v22 = [v43 URLByAppendingPathComponent:lastPathComponent2];
+              v22 = [v42 URLByAppendingPathComponent:lastPathComponent2];
 
               defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-              v44 = 0;
-              [defaultManager copyItemAtURL:v12 toURL:v22 error:&v44];
-              v24 = v44;
+              v43 = 0;
+              [defaultManager copyItemAtURL:v12 toURL:v22 error:&v43];
+              v24 = v43;
 
               v25 = *MEMORY[0x277D01970];
               if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v52 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
-                v53 = 2114;
-                v54 = v12;
-                v55 = 2114;
-                v56 = v22;
-                v57 = 2114;
-                v58 = v24;
+                v51 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
+                v52 = 2114;
+                v53 = v12;
+                v54 = 2114;
+                v55 = v22;
+                v56 = 2114;
+                v57 = v24;
                 _os_log_impl(&dword_225E12000, v25, OS_LOG_TYPE_DEFAULT, "%s Copied %{public}@ to %{public}@ with error %{public}@", buf, 0x2Au);
               }
 
@@ -1296,14 +1282,14 @@ LABEL_7:
               {
                 v27 = [SSRUtils removeItemAtPath:selfCopy->_profileBasePath];
 
-                v7 = v40;
-                v28 = v40;
-                v29 = v39;
+                v7 = v39;
+                v28 = v39;
+                v29 = v38;
                 goto LABEL_21;
               }
 
               self = selfCopy;
-              v7 = v40;
+              v7 = v39;
             }
           }
         }
@@ -1312,7 +1298,7 @@ LABEL_7:
       }
 
       while (v9 != v11);
-      v26 = [v7 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v26 = [v7 countByEnumeratingWithState:&v44 objects:v58 count:16];
       v9 = v26;
     }
 
@@ -1321,58 +1307,58 @@ LABEL_7:
 
   else
   {
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
   }
 
   v24 = 0;
   if (CSIsCommunalDevice())
   {
-    v29 = v39;
-    if (v42 <= 4)
+    v29 = v38;
+    if (v41 <= 4)
     {
-      v32 = [SSRUtils stringForCSSpIdType:1];
-      v33 = [v39 URLByAppendingPathComponent:v32];
+      v31 = [SSRUtils stringForCSSpIdType:1];
+      v32 = [v38 URLByAppendingPathComponent:v31];
 
-      v34 = [(SSRVoiceProfile *)self _copyExplicitAudio:v33 withSpIdType:3];
-      v35 = MEMORY[0x277D01970];
-      v36 = *MEMORY[0x277D01970];
+      v33 = [(SSRVoiceProfile *)self _copyExplicitAudio:v32 withSpIdType:3];
+      v34 = MEMORY[0x277D01970];
+      v35 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v52 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
-        v53 = 2050;
-        v54 = v41;
-        v55 = 2050;
-        v56 = v34;
-        v57 = 2050;
-        v58 = v42;
-        _os_log_impl(&dword_225E12000, v36, OS_LOG_TYPE_DEFAULT, "%s Copied TD audio files %{public}lu to TDTI which now has %{public}lu(%{public}lu) utterances", buf, 0x2Au);
+        v51 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
+        v52 = 2050;
+        v53 = v40;
+        v54 = 2050;
+        v55 = v33;
+        v56 = 2050;
+        v57 = v41;
+        _os_log_impl(&dword_225E12000, v35, OS_LOG_TYPE_DEFAULT, "%s Copied TD audio files %{public}lu to TDTI which now has %{public}lu(%{public}lu) utterances", buf, 0x2Au);
       }
 
-      if (v34 > 2)
+      if (v33 > 2)
       {
         v24 = 0;
       }
 
       else
       {
-        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: Too less audio files (%ld) for onboarding", v34];
-        v37 = *v35;
-        if (os_log_type_enabled(*v35, OS_LOG_TYPE_ERROR))
+        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: Too less audio files (%ld) for onboarding", v33];
+        v36 = *v34;
+        if (os_log_type_enabled(*v34, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v52 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
-          v53 = 2114;
-          v54 = v28;
-          _os_log_error_impl(&dword_225E12000, v37, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
+          v51 = "[SSRVoiceProfile importVoiceProfileAtPath:]";
+          v52 = 2114;
+          v53 = v28;
+          _os_log_error_impl(&dword_225E12000, v36, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
         }
 
-        v38 = MEMORY[0x277CCA9B8];
-        v49 = @"reason";
-        v50 = v28;
-        lastPathComponent = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-        v24 = [v38 errorWithDomain:@"com.apple.speakerrecognition" code:733 userInfo:lastPathComponent];
+        v37 = MEMORY[0x277CCA9B8];
+        v48 = @"reason";
+        v49 = v28;
+        lastPathComponent = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v24 = [v37 errorWithDomain:@"com.apple.speakerrecognition" code:733 userInfo:lastPathComponent];
 LABEL_21:
       }
     }
@@ -1380,17 +1366,15 @@ LABEL_21:
 
   else
   {
-    v29 = v39;
+    v29 = v38;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (unint64_t)_copyExplicitAudio:(id)audio withSpIdType:(unint64_t)type
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   v7 = [audioCopy URLByAppendingPathComponent:@"audio"];
   v8 = [SSRUtils getExplicitEnrollmentUtterancesFromDirectory:v7];
@@ -1402,15 +1386,15 @@ LABEL_21:
     profileID = self->_profileID;
     v13 = v11;
     path = [audioCopy path];
-    v28 = 136315906;
-    v29 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
-    v30 = 2114;
-    v31 = v9;
-    v32 = 2114;
-    v33 = profileID;
-    v34 = 2114;
-    v35 = path;
-    _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Importing %{public}@ of %{public}@ from import Dir %{public}@", &v28, 0x2Au);
+    v27 = 136315906;
+    v28 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
+    v29 = 2114;
+    v30 = v9;
+    v31 = 2114;
+    v32 = profileID;
+    v33 = 2114;
+    v34 = path;
+    _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Importing %{public}@ of %{public}@ from import Dir %{public}@", &v27, 0x2Au);
   }
 
   v15 = [(SSRVoiceProfile *)self addUtterances:v8 spIdType:type];
@@ -1422,15 +1406,15 @@ LABEL_21:
       v17 = self->_profileID;
       v18 = v16;
       path2 = [audioCopy path];
-      v28 = 136315906;
-      v29 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
-      v30 = 2114;
-      v31 = v9;
-      v32 = 2114;
-      v33 = v17;
-      v34 = 2114;
-      v35 = path2;
-      _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s Failed in importing %{public}@ of %{public}@ from import Dir %{public}@", &v28, 0x2Au);
+      v27 = 136315906;
+      v28 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
+      v29 = 2114;
+      v30 = v9;
+      v31 = 2114;
+      v32 = v17;
+      v33 = 2114;
+      v34 = path2;
+      _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s Failed in importing %{public}@ of %{public}@ from import Dir %{public}@", &v27, 0x2Au);
     }
 
     v20 = 0;
@@ -1447,27 +1431,26 @@ LABEL_21:
       v23 = v22;
       v24 = [v8 count];
       v25 = self->_profileID;
-      v28 = 136316162;
-      v29 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
-      v30 = 2112;
-      v31 = v9;
-      v32 = 2050;
-      v33 = v20;
-      v34 = 2050;
-      v35 = v24;
-      v36 = 2114;
-      v37 = v25;
-      _os_log_impl(&dword_225E12000, v23, OS_LOG_TYPE_DEFAULT, "%s Successfully imported %{publice}@ %{public}lu(%{public}lu) utterances to profile %{public}@", &v28, 0x34u);
+      v27 = 136316162;
+      v28 = "[SSRVoiceProfile _copyExplicitAudio:withSpIdType:]";
+      v29 = 2112;
+      v30 = v9;
+      v31 = 2050;
+      v32 = v20;
+      v33 = 2050;
+      v34 = v24;
+      v35 = 2114;
+      v36 = v25;
+      _os_log_impl(&dword_225E12000, v23, OS_LOG_TYPE_DEFAULT, "%s Successfully imported %{publice}@ %{public}lu(%{public}lu) utterances to profile %{public}@", &v27, 0x34u);
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (unint64_t)copyTDAudioToTDTI
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBC0];
   v4 = [(SSRVoiceProfile *)self _voiceProfilePathForSpidType:1];
   v5 = [v3 URLWithString:v4];
@@ -1476,11 +1459,11 @@ LABEL_21:
   v7 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[SSRVoiceProfile copyTDAudioToTDTI]";
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Copying TD audio files: %@ to TDTI", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[SSRVoiceProfile copyTDAudioToTDTI]";
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Copying TD audio files: %@ to TDTI", &v13, 0x16u);
   }
 
   v8 = [(SSRVoiceProfile *)self getEnrollmentUtterancesForModelType:3];
@@ -1490,9 +1473,9 @@ LABEL_21:
     v10 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[SSRVoiceProfile copyTDAudioToTDTI]";
-      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s TDTI audio files exist. Aborting copy", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[SSRVoiceProfile copyTDAudioToTDTI]";
+      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s TDTI audio files exist. Aborting copy", &v13, 0xCu);
     }
 
     v11 = 0;
@@ -1503,7 +1486,6 @@ LABEL_21:
     v11 = [(SSRVoiceProfile *)self _copyExplicitAudio:v5 withSpIdType:3];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1742,12 +1724,12 @@ LABEL_16:
 
 - (id)initNewVoiceProfileWithLocale:(id)locale withAppDomain:(id)domain
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   domainCopy = domain;
-  v30.receiver = self;
-  v30.super_class = SSRVoiceProfile;
-  v9 = [(SSRVoiceProfile *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = SSRVoiceProfile;
+  v9 = [(SSRVoiceProfile *)&v29 init];
   if (!v9)
   {
     goto LABEL_5;
@@ -1795,14 +1777,13 @@ LABEL_5:
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[SSRVoiceProfile initNewVoiceProfileWithLocale:withAppDomain:]";
+    v31 = "[SSRVoiceProfile initNewVoiceProfileWithLocale:withAppDomain:]";
     _os_log_impl(&dword_225E12000, v27, OS_LOG_TYPE_DEFAULT, "%s ERR: missing arguments to create voice profile - Bailing out", buf, 0xCu);
   }
 
   v26 = 0;
 LABEL_9:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

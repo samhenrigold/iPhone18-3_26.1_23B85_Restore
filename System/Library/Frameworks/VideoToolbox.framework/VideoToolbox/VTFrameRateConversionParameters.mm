@@ -7,32 +7,33 @@
 
 - (VTFrameRateConversionParameters)initWithSourceFrame:(id)frame nextFrame:(id)nextFrame opticalFlow:(id)flow interpolationPhase:(id)phase submissionMode:(int64_t)mode destinationFrames:(id)frames
 {
+  selfCopy = self;
   v28 = *MEMORY[0x1E69E9840];
-  if (!loadVEFrameworkOnce())
+  if (!loadVEFrameworkOnce(self, a2))
   {
     NSLog(&cfstr_ProcessorUnsup.isa);
 LABEL_15:
-    [(VTFrameRateConversionParameters *)self dealloc];
+    [(VTFrameRateConversionParameters *)selfCopy dealloc];
     return 0;
   }
 
-  v26.receiver = self;
+  v26.receiver = selfCopy;
   v26.super_class = VTFrameRateConversionParameters;
-  self = [(VTFrameRateConversionParameters *)&v26 init];
-  if (!self)
+  selfCopy = [(VTFrameRateConversionParameters *)&v26 init];
+  if (!selfCopy)
   {
     NSLog(&cfstr_FailToInitiali.isa);
     goto LABEL_15;
   }
 
   v15 = NSClassFromString(&cfstr_Veframeratecon_0.isa);
-  self->_sourceFrame = frame;
-  self->_nextFrame = nextFrame;
-  self->_destinationFrames = frames;
-  self->_opticalFlow = flow;
-  self->_interpolationPhase = phase;
-  self->_submissionMode = mode;
-  self->_veDestinationFrames = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_destinationFrames, "count")}];
+  selfCopy->_sourceFrame = frame;
+  selfCopy->_nextFrame = nextFrame;
+  selfCopy->_destinationFrames = frames;
+  selfCopy->_opticalFlow = flow;
+  selfCopy->_interpolationPhase = phase;
+  selfCopy->_submissionMode = mode;
+  selfCopy->_veDestinationFrames = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](selfCopy->_destinationFrames, "count")}];
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
@@ -51,7 +52,7 @@ LABEL_15:
           objc_enumerationMutation(frames);
         }
 
-        -[NSMutableArray addObject:](self->_veDestinationFrames, "addObject:", [*(*(&v22 + 1) + 8 * i) veFrame]);
+        -[NSMutableArray addObject:](selfCopy->_veDestinationFrames, "addObject:", [*(*(&v22 + 1) + 8 * i) veFrame]);
       }
 
       v17 = [frames countByEnumeratingWithState:&v22 objects:v27 count:16];
@@ -60,15 +61,15 @@ LABEL_15:
     while (v17);
   }
 
-  v20 = [[v15 alloc] initWithSourceFrame:-[VTFrameProcessorFrame veFrame](self->_sourceFrame nextFrame:"veFrame") opticalFlow:-[VTFrameProcessorFrame veFrame](self->_nextFrame interpolationPhase:"veFrame") submissionMode:-[VTFrameProcessorOpticalFlow veFrameOpticalFlow](self->_opticalFlow destinationFrames:{"veFrameOpticalFlow"), self->_interpolationPhase, self->_submissionMode, self->_veDestinationFrames}];
-  self->_veParameters = v20;
+  v20 = [[v15 alloc] initWithSourceFrame:-[VTFrameProcessorFrame veFrame](selfCopy->_sourceFrame nextFrame:"veFrame") opticalFlow:-[VTFrameProcessorFrame veFrame](selfCopy->_nextFrame interpolationPhase:"veFrame") submissionMode:-[VTFrameProcessorOpticalFlow veFrameOpticalFlow](selfCopy->_opticalFlow destinationFrames:{"veFrameOpticalFlow"), selfCopy->_interpolationPhase, selfCopy->_submissionMode, selfCopy->_veDestinationFrames}];
+  selfCopy->_veParameters = v20;
   if (!v20)
   {
     NSLog(&cfstr_FailToCreateEf.isa);
     goto LABEL_15;
   }
 
-  return self;
+  return selfCopy;
 }
 
 - (void)dealloc

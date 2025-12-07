@@ -7,17 +7,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___NDFeedItemPoolFetchOptions_name);
-  v5 = *&self->name[OBJC_IVAR___NDFeedItemPoolFetchOptions_name];
   coderCopy = coder;
   selfCopy = self;
-  v8 = sub_25BE4BA3C();
-  v9 = sub_25BE4BA3C();
-  [coderCopy encodeObject:v8 forKey:v9];
+  v6 = sub_25BE4BA3C();
+  v7 = sub_25BE4BA3C();
+  [coderCopy encodeObject:v6 forKey:v7];
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR___NDFeedItemPoolFetchOptions_maxAge);
-  v11 = sub_25BE4BA3C();
-  [coderCopy encodeDouble:v11 forKey:v10];
+  v8 = *(&selfCopy->super.isa + OBJC_IVAR___NDFeedItemPoolFetchOptions_maxAge);
+  v9 = sub_25BE4BA3C();
+  [coderCopy encodeDouble:v9 forKey:v8];
 }
 
 - (NDFeedItemPoolFetchOptions)init

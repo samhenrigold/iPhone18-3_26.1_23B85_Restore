@@ -7,6 +7,7 @@
 + (void)fetchIsAssetID:(id)d inWantToReadCollectionWithCompletion:(id)completion;
 + (void)removeAssetFromWantToRead:(id)read tracker:(id)tracker;
 + (void)removeAssetID:(id)d fromCollectionID:(id)iD completion:(id)completion;
++ (void)setFinishedState:(BOOL)state storeID:(id)d tracker:(id)tracker;
 @end
 
 @implementation PPXBookDataStoreServices
@@ -65,6 +66,26 @@
   v9 = completionCopy;
   v7 = completionCopy;
   [BDSServiceCenter fetchIsAssetID:d inCollectionID:v6 completion:v8];
+}
+
++ (void)setFinishedState:(BOOL)state storeID:(id)d tracker:(id)tracker
+{
+  stateCopy = state;
+  dCopy = d;
+  trackerCopy = tracker;
+  v18 = dCopy;
+  v10 = [NSArray arrayWithObjects:&v18 count:1];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100004330;
+  v13[3] = &unk_1000315F0;
+  v17 = stateCopy;
+  v15 = trackerCopy;
+  selfCopy = self;
+  v14 = dCopy;
+  v11 = trackerCopy;
+  v12 = dCopy;
+  [BDSServiceCenter setFinishedState:stateCopy assetIDs:v10 completion:v13];
 }
 
 + (void)fetchIsAssetID:(id)d inFinishedCollectionWithCompletion:(id)completion

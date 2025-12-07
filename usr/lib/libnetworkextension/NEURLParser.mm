@@ -6,7 +6,7 @@
 
 + (id)matchingStringsForURL:(const char *)l
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   if (l)
   {
     v4 = objc_alloc(MEMORY[0x1E695DFF8]);
@@ -32,8 +32,8 @@
 
       v13 = host2;
       objc_opt_self();
-      v68 = v13;
-      v69 = v6;
+      v67 = v13;
+      v68 = v6;
       if (v13)
       {
         v14 = [v13 componentsSeparatedByString:@"."];
@@ -70,9 +70,9 @@
           v21 = 0;
         }
 
-        v6 = v69;
+        v6 = v68;
 
-        v13 = v68;
+        v13 = v67;
       }
 
       else
@@ -93,20 +93,20 @@
           [v9 addObject:v24];
         }
 
-        v65 = v23;
-        v66 = v21;
+        v64 = v23;
+        v65 = v21;
         v25 = v23;
         v26 = v13;
+        v70 = 0u;
         v71 = 0u;
         v72 = 0u;
         v73 = 0u;
-        v74 = 0u;
         obj = [v6 pathComponents];
-        v27 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+        v27 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v72;
+          v29 = *v71;
           do
           {
             v30 = 0;
@@ -114,12 +114,12 @@
             v32 = v25;
             do
             {
-              if (*v72 != v29)
+              if (*v71 != v29)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v33 = *(*(&v71 + 1) + 8 * v30);
+              v33 = *(*(&v70 + 1) + 8 * v30);
               v25 = [v32 stringByAppendingPathComponent:v33];
 
               v26 = [v31 stringByAppendingPathComponent:v33];
@@ -148,19 +148,19 @@
             }
 
             while (v28 != v30);
-            v28 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+            v28 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
           }
 
           while (v28);
         }
 
-        v6 = v69;
-        query = [v69 query];
+        v6 = v68;
+        query = [v68 query];
 
         if (query)
         {
           v39 = MEMORY[0x1E696AEC0];
-          query2 = [v69 query];
+          query2 = [v68 query];
           v41 = [v39 stringWithFormat:@"?%@", query2];
 
           v42 = [v25 stringByAppendingString:v41];
@@ -194,12 +194,12 @@
           v47 = lCopy;
         }
 
-        fragment = [v69 fragment];
+        fragment = [v68 fragment];
 
         if (fragment)
         {
           v50 = MEMORY[0x1E696AEC0];
-          fragment2 = [v69 fragment];
+          fragment2 = [v68 fragment];
           v52 = [v50 stringWithFormat:@"#%@", fragment2];
 
           v53 = [v42 stringByAppendingString:v52];
@@ -218,8 +218,8 @@
             [v9 addObject:v57];
           }
 
-          v13 = v68;
-          v21 = v66;
+          v13 = v67;
+          v21 = v65;
           if (([v54 hasSuffix:@"/"] & 1) == 0)
           {
             v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@%@", v54, @"/"];
@@ -231,8 +231,8 @@
         {
           v54 = v43;
           v53 = v42;
-          v13 = v68;
-          v21 = v66;
+          v13 = v67;
+          v21 = v65;
         }
 
         v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v47];
@@ -253,7 +253,7 @@
           host = 0;
         }
 
-        v23 = v65;
+        v23 = v64;
       }
 
       else
@@ -267,8 +267,6 @@
   {
     host = 0;
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 
   return host;
 }

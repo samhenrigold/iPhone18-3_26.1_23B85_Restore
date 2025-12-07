@@ -149,14 +149,14 @@ void __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke
 
 void __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke_5(id *a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v1 = sLogObject_3;
   if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
   {
     v2 = a1[4];
     v3 = v1;
     *buf = 134217984;
-    v69 = [v2 count];
+    v68 = [v2 count];
     _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to rebuild %lu downloading media item(s)", buf, 0xCu);
   }
 
@@ -167,74 +167,74 @@ void __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke
     v6 = v4;
     v7 = [v5 count];
     *buf = 134217984;
-    v69 = v7;
+    v68 = v7;
     _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Found %lu existing download task(s)", buf, 0xCu);
   }
 
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v49 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:a1[5]];
+  v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v48 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:a1[5]];
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   v9 = a1[5];
-  v10 = [v9 countByEnumeratingWithState:&v63 objects:v73 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v62 objects:v72 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v64;
+    v12 = *v63;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v64 != v12)
+        if (*v63 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v63 + 1) + 8 * i);
+        v14 = *(*(&v62 + 1) + 8 * i);
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "taskIdentifier")}];
         [v8 setObject:v14 forKey:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v63 objects:v73 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v62 objects:v72 count:16];
     }
 
     while (v11);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = a1[4];
-  v16 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
+  v16 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
   if (v16)
   {
     v18 = v16;
-    v19 = *v60;
+    v19 = *v59;
     *&v17 = 138412290;
-    v48 = v17;
+    v47 = v17;
     do
     {
       v20 = 0;
       do
       {
-        if (*v60 != v19)
+        if (*v59 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v59 + 1) + 8 * v20);
-        v22 = [v21 mediaItemMetadataForProperty:{@"TVPMediaItemMetadataDownloadTaskIdentifier", v48}];
+        v21 = *(*(&v58 + 1) + 8 * v20);
+        v22 = [v21 mediaItemMetadataForProperty:{@"TVPMediaItemMetadataDownloadTaskIdentifier", v47}];
         if (!v22)
         {
           v28 = sLogObject_3;
           if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_ERROR))
           {
-            *buf = v48;
-            v69 = v21;
+            *buf = v47;
+            v68 = v21;
             v29 = v28;
             v30 = "No saved download task identifier exists for media item %@";
             goto LABEL_39;
@@ -251,8 +251,8 @@ LABEL_28:
         {
           if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_ERROR))
           {
-            *buf = v48;
-            v69 = v21;
+            *buf = v47;
+            v68 = v21;
             v29 = v24;
             v30 = "No download task exists for media item %@";
 LABEL_39:
@@ -266,9 +266,9 @@ LABEL_39:
         if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v69 = v21;
-          v70 = 2112;
-          v71 = v25;
+          v68 = v21;
+          v69 = 2112;
+          v70 = v25;
           _os_log_impl(&dword_26CEDD000, v24, OS_LOG_TYPE_DEFAULT, "For previously downloading media item %@, found existing download task %@", buf, 0x16u);
         }
 
@@ -279,8 +279,8 @@ LABEL_39:
           v27 = sLogObject_3;
           if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v48;
-            v69 = v26;
+            *buf = v47;
+            v68 = v26;
             _os_log_impl(&dword_26CEDD000, v27, OS_LOG_TYPE_DEFAULT, "Download task's AVAsset is %@", buf, 0xCu);
           }
         }
@@ -295,16 +295,16 @@ LABEL_39:
           }
         }
 
-        [v49 removeObject:v25];
+        [v48 removeObject:v25];
 LABEL_32:
         v32 = [[TVPDownload alloc] initWithMediaItem:v21 downloadSession:a1[6] existingDownloadTask:v25];
-        [v51 addObject:v32];
+        [v50 addObject:v32];
         if (!v25)
         {
           v33 = sLogObject_3;
           if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_ERROR))
           {
-            __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke_5_cold_1(&v57, v58, v33);
+            __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke_5_cold_1(&v56, v57, v33);
           }
 
           v34 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TVPlaybackErrorDomain" code:829 userInfo:0];
@@ -315,7 +315,7 @@ LABEL_32:
       }
 
       while (v18 != v20);
-      v35 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
+      v35 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
       v18 = v35;
     }
 
@@ -326,53 +326,51 @@ LABEL_32:
   if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
   {
     v37 = v36;
-    v38 = [v49 count];
+    v38 = [v48 count];
     *buf = 134217984;
-    v69 = v38;
+    v68 = v38;
     _os_log_impl(&dword_26CEDD000, v37, OS_LOG_TYPE_DEFAULT, "Found %lu task(s) that don't belong to any media items", buf, 0xCu);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  v39 = v49;
-  v40 = [v39 countByEnumeratingWithState:&v53 objects:v67 count:16];
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v39 = v48;
+  v40 = [v39 countByEnumeratingWithState:&v52 objects:v66 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v54;
+    v42 = *v53;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v54 != v42)
+        if (*v53 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = *(*(&v53 + 1) + 8 * j);
+        v44 = *(*(&v52 + 1) + 8 * j);
         v45 = sLogObject_3;
         if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v69 = v44;
+          v68 = v44;
           _os_log_impl(&dword_26CEDD000, v45, OS_LOG_TYPE_DEFAULT, "Cancelling leftover task %@", buf, 0xCu);
         }
 
         [v44 cancel];
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v53 objects:v67 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
     while (v41);
   }
 
   v46 = [a1[6] delegate];
-  [v46 downloadSession:a1[6] didAddRestoredDownloads:v51];
-
-  v47 = *MEMORY[0x277D85DE8];
+  [v46 downloadSession:a1[6] didAddRestoredDownloads:v50];
 }
 
 - (id)downloadForMediaItem:(id)item
@@ -520,7 +518,7 @@ void __56__TVPDownloadSession_unregisterDownloadTaskForDownload___block_invoke(u
 
 void __69__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadToURL___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained taskIDsToDownloads];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "taskIdentifier")}];
@@ -528,31 +526,25 @@ void __69__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadToURL___b
 
   if (v5)
   {
-    if ([v5 conformsToProtocol:&unk_287E5F050])
+    if ([v5 conformsToProtocol:&unk_287E5F050] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v6 = *(a1 + 64);
-      if (objc_opt_respondsToSelector())
-      {
-        [v5 URLSession:*(a1 + 40) assetDownloadTask:*(a1 + 32) willDownloadToURL:*(a1 + 48)];
-      }
+      [v5 URLSession:*(a1 + 40) assetDownloadTask:*(a1 + 32) willDownloadToURL:*(a1 + 48)];
     }
   }
 
   else
   {
-    v7 = sLogObject_3;
+    v6 = sLogObject_3;
     if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 64);
-      v9 = v7;
-      v10 = NSStringFromSelector(v8);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v12, 0xCu);
+      v7 = *(a1 + 64);
+      v8 = v6;
+      v9 = NSStringFromSelector(v7);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_26CEDD000, v8, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v10, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task willDownloadVariants:(id)variants
@@ -581,7 +573,7 @@ void __69__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadToURL___b
 
 void __72__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadVariants___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained taskIDsToDownloads];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "taskIdentifier")}];
@@ -589,31 +581,25 @@ void __72__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadVariants_
 
   if (v5)
   {
-    if ([v5 conformsToProtocol:&unk_287E5EFE0])
+    if ([v5 conformsToProtocol:&unk_287E5EFE0] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v6 = *(a1 + 64);
-      if (objc_opt_respondsToSelector())
-      {
-        [v5 URLSession:*(a1 + 40) assetDownloadTask:*(a1 + 32) willDownloadVariants:*(a1 + 48)];
-      }
+      [v5 URLSession:*(a1 + 40) assetDownloadTask:*(a1 + 32) willDownloadVariants:*(a1 + 48)];
     }
   }
 
   else
   {
-    v7 = sLogObject_3;
+    v6 = sLogObject_3;
     if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 64);
-      v9 = v7;
-      v10 = NSStringFromSelector(v8);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v12, 0xCu);
+      v7 = *(a1 + 64);
+      v8 = v6;
+      v9 = NSStringFromSelector(v7);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_26CEDD000, v8, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v10, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task didLoadTimeRange:(id *)range totalTimeRangesLoaded:(id)loaded timeRangeExpectedToLoad:(id *)load
@@ -650,7 +636,7 @@ void __72__TVPDownloadSession_URLSession_assetDownloadTask_willDownloadVariants_
 
 void __114__TVPDownloadSession_URLSession_assetDownloadTask_didLoadTimeRange_totalTimeRangesLoaded_timeRangeExpectedToLoad___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained taskIDsToDownloads];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "taskIdentifier")}];
@@ -658,54 +644,48 @@ void __114__TVPDownloadSession_URLSession_assetDownloadTask_didLoadTimeRange_tot
 
   if (v5)
   {
-    if ([v5 conformsToProtocol:&unk_287E5EFE0])
+    if ([v5 conformsToProtocol:&unk_287E5EFE0] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v6 = *(a1 + 64);
-      if (objc_opt_respondsToSelector())
-      {
-        v8 = *(a1 + 32);
-        v7 = *(a1 + 40);
-        v9 = *(a1 + 48);
-        v10 = *(a1 + 88);
-        *buf = *(a1 + 72);
-        v19 = v10;
-        v20 = *(a1 + 104);
-        v11 = *(a1 + 136);
-        v17[0] = *(a1 + 120);
-        v17[1] = v11;
-        v17[2] = *(a1 + 152);
-        [v5 URLSession:v7 assetDownloadTask:v8 didLoadTimeRange:buf totalTimeRangesLoaded:v9 timeRangeExpectedToLoad:v17];
-      }
+      v7 = *(a1 + 32);
+      v6 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9 = *(a1 + 88);
+      *buf = *(a1 + 72);
+      v17 = v9;
+      v18 = *(a1 + 104);
+      v10 = *(a1 + 136);
+      v15[0] = *(a1 + 120);
+      v15[1] = v10;
+      v15[2] = *(a1 + 152);
+      [v5 URLSession:v6 assetDownloadTask:v7 didLoadTimeRange:buf totalTimeRangesLoaded:v8 timeRangeExpectedToLoad:v15];
     }
   }
 
   else
   {
-    v12 = sLogObject_3;
+    v11 = sLogObject_3;
     if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 64);
-      v14 = v12;
-      v15 = NSStringFromSelector(v13);
+      v12 = *(a1 + 64);
+      v13 = v11;
+      v14 = NSStringFromSelector(v12);
       *buf = 138412290;
-      *&buf[4] = v15;
-      _os_log_impl(&dword_26CEDD000, v14, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", buf, 0xCu);
+      *&buf[4] = v14;
+      _os_log_impl(&dword_26CEDD000, v13, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(id)session
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = sLogObject_3;
   if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v11 = v7;
+    v10 = v7;
     _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Received %@", buf, 0xCu);
   }
 
@@ -715,7 +695,6 @@ void __114__TVPDownloadSession_URLSession_assetDownloadTask_didLoadTimeRange_tot
   block[3] = &unk_279D7BDC8;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __71__TVPDownloadSession_URLSessionDidFinishEventsForBackgroundURLSession___block_invoke(uint64_t a1)
@@ -750,7 +729,7 @@ void __71__TVPDownloadSession_URLSessionDidFinishEventsForBackgroundURLSession__
 
 void __59__TVPDownloadSession_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained taskIDsToDownloads];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "taskIdentifier")}];
@@ -758,31 +737,25 @@ void __59__TVPDownloadSession_URLSession_task_didCompleteWithError___block_invok
 
   if (v5)
   {
-    if ([v5 conformsToProtocol:&unk_287E5EFE0])
+    if ([v5 conformsToProtocol:&unk_287E5EFE0] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v6 = *(a1 + 64);
-      if (objc_opt_respondsToSelector())
-      {
-        [v5 URLSession:*(a1 + 40) task:*(a1 + 32) didCompleteWithError:*(a1 + 48)];
-      }
+      [v5 URLSession:*(a1 + 40) task:*(a1 + 32) didCompleteWithError:*(a1 + 48)];
     }
   }
 
   else
   {
-    v7 = sLogObject_3;
+    v6 = sLogObject_3;
     if (os_log_type_enabled(sLogObject_3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 64);
-      v9 = v7;
-      v10 = NSStringFromSelector(v8);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v12, 0xCu);
+      v7 = *(a1 + 64);
+      v8 = v6;
+      v9 = NSStringFromSelector(v7);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_26CEDD000, v8, OS_LOG_TYPE_DEFAULT, "Unable to find download for task in %@", &v10, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__TVPDownloadSession_initializeWithDownloadingMediaItems___block_invoke_5_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)

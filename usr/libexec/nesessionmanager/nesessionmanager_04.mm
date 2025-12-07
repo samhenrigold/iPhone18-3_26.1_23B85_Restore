@@ -3812,11 +3812,11 @@ id sub_100067ED0(uint64_t a1, const char *a2)
   return result;
 }
 
-void sub_100068750(void *a1, const char *a2)
+void sub_100068750(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    if ([objc_getProperty(a1 a2])
+    if ([objc_getProperty(result a2])
     {
       v4 = ne_log_obj();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3824,16 +3824,16 @@ void sub_100068750(void *a1, const char *a2)
         v5 = objc_opt_class();
         v6 = NSStringFromClass(v5);
         v17 = 138412546;
-        v18 = a1;
+        v18 = result;
         v19 = 2112;
         v20 = v6;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ in state %@: restarting", &v17, 0x16u);
       }
 
-      [objc_getProperty(a1 v7];
-      Property = objc_getProperty(a1, v8, 16, 1);
+      [objc_getProperty(result v7];
+      Property = objc_getProperty(result, v8, 16, 1);
       v11 = sub_100083C64(Property, v10);
-      v13 = objc_getProperty(a1, v12, 16, 1);
+      v13 = objc_getProperty(result, v12, 16, 1);
       if (v11)
       {
         v14 = 2;
@@ -3842,7 +3842,7 @@ void sub_100068750(void *a1, const char *a2)
       else
       {
         [v13 setLastStopReason:6];
-        v13 = objc_getProperty(a1, v16, 16, 1);
+        v13 = objc_getProperty(result, v16, 16, 1);
         v14 = 1;
       }
 
@@ -3851,7 +3851,7 @@ void sub_100068750(void *a1, const char *a2)
 
     else
     {
-      v15 = objc_getProperty(a1, v3, 16, 1);
+      v15 = objc_getProperty(result, v3, 16, 1);
 
       sub_100082FD8(v15, 1);
     }
@@ -3975,11 +3975,11 @@ id sub_10006A818(uint64_t a1, const char *a2)
   return result;
 }
 
-void sub_10006AC30(void *a1, const char *a2)
+void sub_10006AC30(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    if ([objc_getProperty(a1 a2])
+    if ([objc_getProperty(result a2])
     {
       v4 = ne_log_obj();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3987,16 +3987,16 @@ void sub_10006AC30(void *a1, const char *a2)
         v5 = objc_opt_class();
         v6 = NSStringFromClass(v5);
         v17 = 138412546;
-        v18 = a1;
+        v18 = result;
         v19 = 2112;
         v20 = v6;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ in state %@: restarting", &v17, 0x16u);
       }
 
-      [objc_getProperty(a1 v7];
-      Property = objc_getProperty(a1, v8, 16, 1);
+      [objc_getProperty(result v7];
+      Property = objc_getProperty(result, v8, 16, 1);
       v11 = sub_10006E94C(Property, v10);
-      v13 = objc_getProperty(a1, v12, 16, 1);
+      v13 = objc_getProperty(result, v12, 16, 1);
       if (v11)
       {
         v14 = 2;
@@ -4005,7 +4005,7 @@ void sub_10006AC30(void *a1, const char *a2)
       else
       {
         [v13 setLastStopReason:6];
-        v13 = objc_getProperty(a1, v16, 16, 1);
+        v13 = objc_getProperty(result, v16, 16, 1);
         v14 = 1;
       }
 
@@ -4014,7 +4014,7 @@ void sub_10006AC30(void *a1, const char *a2)
 
     else
     {
-      v15 = objc_getProperty(a1, v3, 16, 1);
+      v15 = objc_getProperty(result, v3, 16, 1);
 
       sub_10006DE84(v15, 1);
     }
@@ -4840,7 +4840,7 @@ LABEL_10:
   }
 
   v6[2] = *off_1000EA608;
-  v6[3] = *&off_1000EA618;
+  v6[3] = *off_1000EA618;
   v6[4] = *off_1000EA628;
   v6[5] = *off_1000EA638;
   v6[0] = *&off_1000EA5E8;
@@ -4876,7 +4876,7 @@ void sub_10006F1AC(uint64_t a1)
         Property = objc_getProperty(Property, v5, 360, 1);
       }
 
-      v8 = [Property type];
+      v8 = objc_msgSend_type(Property);
       v9 = *(a1 + 32);
       if (v8 == 1)
       {
@@ -4888,7 +4888,7 @@ void sub_10006F1AC(uint64_t a1)
         v9 = objc_getProperty(v9, v7, 360, 1);
       }
 
-      if ([v9 type] == 2)
+      if (objc_msgSend_type(v9) == 2)
       {
         v9 = *(a1 + 32);
 LABEL_13:
@@ -5062,28 +5062,29 @@ id sub_10006F80C(void *a1, const void *a2)
     if (!CFEqual(a2, kSCPropNetIPSecSharedSecret))
     {
 LABEL_19:
-      v12 = 0;
+      v13 = 0;
       goto LABEL_20;
     }
 
     if (v3)
     {
       Property = objc_getProperty(v3, v7, 360, 1);
+      v9 = objc_msgSend_type(Property);
     }
 
     else
     {
-      Property = 0;
+      v9 = objc_msgSend_type(0);
     }
 
-    if ([Property type] == 1)
+    if (v9 == 1)
     {
       if (v3)
       {
 LABEL_10:
-        v10 = objc_getProperty(v3, v9, 360, 1);
+        v11 = objc_getProperty(v3, v10, 360, 1);
 LABEL_11:
-        v6 = [v10 sharedSecretKeychainItem];
+        v6 = [v11 sharedSecretKeychainItem];
         goto LABEL_12;
       }
     }
@@ -5092,15 +5093,16 @@ LABEL_11:
     {
       if (v3)
       {
-        v13 = objc_getProperty(v3, v9, 360, 1);
+        v14 = objc_getProperty(v3, v10, 360, 1);
+        v15 = objc_msgSend_type(v14);
       }
 
       else
       {
-        v13 = 0;
+        v15 = objc_msgSend_type(0);
       }
 
-      if ([v13 type] != 2)
+      if (v15 != 2)
       {
         goto LABEL_19;
       }
@@ -5111,7 +5113,7 @@ LABEL_11:
       }
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
@@ -5127,16 +5129,16 @@ LABEL_11:
 
   v6 = [v5 passwordKeychainItem];
 LABEL_12:
-  v11 = v6;
+  v12 = v6;
   if (!v6)
   {
     goto LABEL_19;
   }
 
-  v12 = [v6 copyPassword];
+  v13 = [v6 copyPassword];
 
 LABEL_20:
-  return v12;
+  return v13;
 }
 
 void sub_10006F944(void *a1, const __CFArray *a2, __CFArray *a3)
@@ -5145,79 +5147,80 @@ void sub_10006F944(void *a1, const __CFArray *a2, __CFArray *a3)
   v7 = v5;
   if (v5)
   {
-    v8 = [objc_getProperty(v5 v6];
-    v65 = v7[88] == 2;
+    Property = objc_getProperty(v5, v6, 360, 1);
+    v9 = objc_msgSend_type(Property);
+    v66 = v7[88] == 2;
   }
 
   else
   {
-    v8 = [0 type];
-    v65 = 0;
+    v9 = objc_msgSend_type(0);
+    v66 = 0;
   }
 
-  v67 = v7;
+  v68 = v7;
   theArray = a3;
   Count = CFArrayGetCount(a2);
   if (Count < 1)
   {
-    v70 = -1;
     v71 = -1;
+    v72 = -1;
     idx = -1;
-    v13 = -1;
+    v14 = -1;
   }
 
   else
   {
-    v11 = Count;
-    v12 = 0;
-    v13 = -1;
-    v71 = -1;
+    v12 = Count;
+    v13 = 0;
+    v14 = -1;
+    v72 = -1;
     idx = -1;
-    v70 = -1;
+    v71 = -1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(a2, v12);
+      ValueAtIndex = CFArrayGetValueAtIndex(a2, v13);
       if (CFEqual(ValueAtIndex, kSCEntNetDNS))
       {
-        v13 = v12;
+        v14 = v13;
       }
 
       else if (CFEqual(ValueAtIndex, kSCEntNetProxies))
       {
-        idx = v12;
+        idx = v13;
       }
 
       else if (CFEqual(ValueAtIndex, kSCEntNetIPv4))
       {
-        v70 = v12;
+        v71 = v13;
       }
 
       else
       {
-        v15 = CFEqual(ValueAtIndex, kSCEntNetIPv6);
-        v16 = v71;
-        if (v15)
+        v16 = CFEqual(ValueAtIndex, kSCEntNetIPv6);
+        v17 = v72;
+        if (v16)
         {
-          v16 = v12;
+          v17 = v13;
         }
 
-        v71 = v16;
+        v72 = v17;
       }
 
-      ++v12;
+      ++v13;
     }
 
-    while (v11 != v12);
+    while (v12 != v13);
   }
 
-  if (v8 == 2)
+  if (v9 == 2)
   {
-    v18 = v7;
-    v17 = theArray;
-    v19 = v71;
-    v20 = idx;
-    v21 = v70;
-    if (v67)
+    v19 = v7;
+    v18 = theArray;
+    v20 = v72;
+    v21 = idx;
+    v22 = v71;
+    if (v68)
     {
       goto LABEL_20;
     }
@@ -5225,47 +5228,47 @@ void sub_10006F944(void *a1, const __CFArray *a2, __CFArray *a3)
     goto LABEL_23;
   }
 
-  v18 = v7;
-  v17 = theArray;
-  v19 = v71;
-  v20 = idx;
-  v21 = v70;
-  if (v8 == 1)
+  v19 = v7;
+  v18 = theArray;
+  v20 = v72;
+  v21 = idx;
+  v22 = v71;
+  if (v9 == 1)
   {
-    if (v67)
+    if (v68)
     {
 LABEL_20:
-      Property = objc_getProperty(v18, v10, 360, 1);
+      v23 = objc_getProperty(v19, v11, 360, 1);
 LABEL_21:
-      v23 = Property;
-      v24 = [v23 DNSSettings];
-      v69 = [v23 proxySettings];
+      v24 = v23;
+      v25 = [v24 DNSSettings];
+      v70 = [v24 proxySettings];
 
       goto LABEL_25;
     }
 
 LABEL_23:
-    Property = 0;
+    v23 = 0;
     goto LABEL_21;
   }
 
-  v69 = 0;
-  v24 = 0;
+  v70 = 0;
+  v25 = 0;
 LABEL_25:
-  v66 = v24;
-  if (v21 < 0)
+  v67 = v25;
+  if (v22 < 0)
   {
-    v26 = 0;
-    v27 = v69;
-    if (v24)
+    v27 = 0;
+    v28 = v70;
+    if (v25)
     {
       goto LABEL_44;
     }
 
 LABEL_29:
-    v28 = 0;
-    v29 = theArray;
-    if (!v27)
+    v29 = 0;
+    v30 = theArray;
+    if (!v28)
     {
       goto LABEL_65;
     }
@@ -5273,104 +5276,104 @@ LABEL_29:
     goto LABEL_57;
   }
 
-  v63 = CFArrayGetValueAtIndex(v17, v21);
-  v25 = [v63 objectForKeyedSubscript:kSCPropNetOverridePrimary];
+  v64 = CFArrayGetValueAtIndex(v18, v22);
+  v26 = [v64 objectForKeyedSubscript:kSCPropNetOverridePrimary];
   if (isa_nsnumber())
   {
-    v64 = [v25 intValue] != 0;
+    v65 = [v26 intValue] != 0;
   }
 
   else
   {
-    v64 = 0;
+    v65 = 0;
   }
 
-  v30 = CFArrayGetValueAtIndex(v17, v21);
-  v31 = [v18 configuration];
-  v32 = [v31 identifier];
-  v27 = v69;
-  if (v30)
+  v31 = CFArrayGetValueAtIndex(v18, v22);
+  v32 = [v19 configuration];
+  v33 = [v32 identifier];
+  v28 = v70;
+  if (v31)
   {
-    v33 = xpc_dictionary_create(0, 0, 0);
+    v34 = xpc_dictionary_create(0, 0, 0);
     if (NEGetIntFromDictionary())
     {
-      v34 = xpc_dictionary_create(0, 0, 0);
+      v35 = xpc_dictionary_create(0, 0, 0);
       if ([NESMSession copyDefaultRouteCacheIsIPv6:0])
       {
-        v35 = _CFXPCCreateXPCObjectFromCFObject();
-        xpc_dictionary_set_value(v34, "ipv4-subnets", v35);
+        v36 = _CFXPCCreateXPCObjectFromCFObject();
+        xpc_dictionary_set_value(v35, "ipv4-subnets", v36);
 
-        v27 = v69;
+        v28 = v70;
       }
 
       myCFRelease();
-      xpc_dictionary_set_value(v33, "included-routes", v34);
+      xpc_dictionary_set_value(v34, "included-routes", v35);
     }
 
     else
     {
-      Value = CFDictionaryGetValue(v30, kSCPropNetIPv4AdditionalRoutes);
-      v37 = CFDictionaryGetValue(v30, kSCPropNetIPv4ExcludedRoutes);
+      Value = CFDictionaryGetValue(v31, kSCPropNetIPv4AdditionalRoutes);
+      v38 = CFDictionaryGetValue(v31, kSCPropNetIPv4ExcludedRoutes);
       *out = [NESMSession copyRouteCacheFromRoutes:Value isIPv6:0];
-      v38 = [NESMSession copyRouteCacheFromRoutes:v37 isIPv6:0];
-      *uu = v38;
+      v39 = [NESMSession copyRouteCacheFromRoutes:v38 isIPv6:0];
+      *uu = v39;
       if (*out)
       {
-        v39 = xpc_dictionary_create(0, 0, 0);
-        v40 = _CFXPCCreateXPCObjectFromCFObject();
-        xpc_dictionary_set_value(v39, "ipv4-subnets", v40);
+        v40 = xpc_dictionary_create(0, 0, 0);
+        v41 = _CFXPCCreateXPCObjectFromCFObject();
+        xpc_dictionary_set_value(v40, "ipv4-subnets", v41);
 
-        xpc_dictionary_set_value(v33, "included-routes", v39);
+        xpc_dictionary_set_value(v34, "included-routes", v40);
       }
 
-      if (v38)
+      if (v39)
       {
-        v41 = xpc_dictionary_create(0, 0, 0);
-        v42 = _CFXPCCreateXPCObjectFromCFObject();
-        xpc_dictionary_set_value(v41, "ipv4-subnets", v42);
+        v42 = xpc_dictionary_create(0, 0, 0);
+        v43 = _CFXPCCreateXPCObjectFromCFObject();
+        xpc_dictionary_set_value(v42, "ipv4-subnets", v43);
 
-        xpc_dictionary_set_value(v33, "excluded-routes", v41);
+        xpc_dictionary_set_value(v34, "excluded-routes", v42);
       }
 
       myCFRelease();
       myCFRelease();
-      v27 = v69;
+      v28 = v70;
     }
 
     *uu = 0;
-    v79 = 0;
-    [v32 getUUIDBytes:uu];
+    v80 = 0;
+    [v33 getUUIDBytes:uu];
     memset(out, 0, sizeof(out));
     uuid_unparse(uu, out);
     NEHelperCacheSetRoutes();
   }
 
-  v18 = v67;
-  v19 = v71;
-  v20 = idx;
-  v26 = v64;
-  if (!v24)
+  v19 = v68;
+  v20 = v72;
+  v21 = idx;
+  v27 = v65;
+  if (!v25)
   {
     goto LABEL_29;
   }
 
 LABEL_44:
-  v43 = [v24 copyLegacyDictionary];
-  v29 = theArray;
-  if (![v43 count])
+  v44 = [v25 copyLegacyDictionary];
+  v30 = theArray;
+  if (![v44 count])
   {
 LABEL_47:
-    v28 = 0;
-    v24 = 0;
+    v29 = 0;
+    v25 = 0;
     goto LABEL_56;
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
     CFArrayAppendValue(a2, kSCEntNetDNS);
-    CFArrayAppendValue(theArray, v43);
-    v13 = CFArrayGetCount(theArray) - 1;
-    if (v26)
+    CFArrayAppendValue(theArray, v44);
+    v14 = CFArrayGetCount(theArray) - 1;
+    if (v27)
     {
       goto LABEL_47;
     }
@@ -5378,150 +5381,150 @@ LABEL_47:
 
   else
   {
-    v44 = CFArrayGetValueAtIndex(theArray, v13);
-    [v43 addEntriesFromDictionary:v44];
-    CFArraySetValueAtIndex(theArray, v13, v43);
+    v45 = CFArrayGetValueAtIndex(theArray, v14);
+    [v44 addEntriesFromDictionary:v45];
+    CFArraySetValueAtIndex(theArray, v14, v44);
 
-    v19 = v71;
-    if (v26)
+    v20 = v72;
+    if (v27)
     {
       goto LABEL_47;
     }
   }
 
-  v45 = [v43 objectForKeyedSubscript:kSCPropNetDNSSupplementalMatchDomains];
-  v28 = [v43 objectForKeyedSubscript:kSCPropNetDNSSupplementalMatchOrders];
+  v46 = [v44 objectForKeyedSubscript:kSCPropNetDNSSupplementalMatchDomains];
+  v29 = [v44 objectForKeyedSubscript:kSCPropNetDNSSupplementalMatchOrders];
   if (isa_nsarray())
   {
-    v24 = v45;
+    v25 = v46;
   }
 
   else
   {
-    v24 = [v43 objectForKeyedSubscript:kSCPropNetDNSSearchDomains];
+    v25 = [v44 objectForKeyedSubscript:kSCPropNetDNSSearchDomains];
 
     if (isa_nsarray())
     {
-      [v43 setObject:v24 forKeyedSubscript:kSCPropNetDNSSupplementalMatchDomains];
+      [v44 setObject:v25 forKeyedSubscript:kSCPropNetDNSSupplementalMatchDomains];
     }
   }
 
-  v20 = idx;
+  v21 = idx;
   if (isa_nsarray())
   {
     *uu = 0;
-    v79 = 0;
-    v46 = [v18 configuration];
-    v47 = [v46 identifier];
-    [v47 getUUIDBytes:uu];
+    v80 = 0;
+    v47 = [v19 configuration];
+    v48 = [v47 identifier];
+    [v48 getUUIDBytes:uu];
 
-    v27 = v69;
+    v28 = v70;
     memset(out, 0, sizeof(out));
     uuid_unparse(uu, out);
-    v48 = _CFXPCCreateXPCObjectFromCFObject();
+    v49 = _CFXPCCreateXPCObjectFromCFObject();
     NEHelperCacheSetMatchDomains();
   }
 
-  v19 = v71;
+  v20 = v72;
 LABEL_56:
 
-  if (!v27)
+  if (!v28)
   {
     goto LABEL_65;
   }
 
 LABEL_57:
-  v49 = [v27 copyLegacyDictionary];
-  v50 = kSCPropNetProxiesSupplementalMatchDomains;
-  v51 = [v49 objectForKeyedSubscript:kSCPropNetProxiesSupplementalMatchDomains];
+  v50 = [v28 copyLegacyDictionary];
+  v51 = kSCPropNetProxiesSupplementalMatchDomains;
+  v52 = [v50 objectForKeyedSubscript:kSCPropNetProxiesSupplementalMatchDomains];
   if ((isa_nsarray() & 1) == 0)
   {
     if (isa_nsarray())
     {
-      [v49 setObject:v24 forKeyedSubscript:v50];
+      [v50 setObject:v25 forKeyedSubscript:v51];
       if (isa_nsarray())
       {
-        [v49 setObject:v28 forKeyedSubscript:kSCPropNetProxiesSupplementalMatchOrders];
+        [v50 setObject:v29 forKeyedSubscript:kSCPropNetProxiesSupplementalMatchOrders];
       }
     }
   }
 
-  if (v20 < 0)
+  if (v21 < 0)
   {
     CFArrayAppendValue(a2, kSCEntNetProxies);
-    CFArrayAppendValue(v29, v49);
-    v20 = CFArrayGetCount(v29) - 1;
+    CFArrayAppendValue(v30, v50);
+    v21 = CFArrayGetCount(v30) - 1;
   }
 
   else
   {
-    v52 = CFArrayGetValueAtIndex(v29, v20);
-    [v49 addEntriesFromDictionary:v52];
-    CFArraySetValueAtIndex(v29, v20, v49);
+    v53 = CFArrayGetValueAtIndex(v30, v21);
+    [v50 addEntriesFromDictionary:v53];
+    CFArraySetValueAtIndex(v30, v21, v50);
   }
 
-  idx = v20;
+  idx = v21;
 
-  v19 = v71;
+  v20 = v72;
 LABEL_65:
-  if (v65)
+  if (v66)
   {
-    if ((v70 & 0x8000000000000000) == 0)
+    if ((v71 & 0x8000000000000000) == 0)
     {
-      v53 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v29, v70)}];
-      [v53 setObject:&off_1000EE378 forKeyedSubscript:kSCPropNetOverridePrimary];
-      v76 = kSCPropNetIPv4AdditionalRoutes;
-      v54 = [NSArray arrayWithObjects:&v76 count:1];
-      [v53 removeObjectsForKeys:v54];
+      v54 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v30, v71)}];
+      [v54 setObject:&off_1000EE378 forKeyedSubscript:kSCPropNetOverridePrimary];
+      v77 = kSCPropNetIPv4AdditionalRoutes;
+      v55 = [NSArray arrayWithObjects:&v77 count:1];
+      [v54 removeObjectsForKeys:v55];
 
-      v19 = v71;
-      CFArraySetValueAtIndex(v29, v70, v53);
+      v20 = v72;
+      CFArraySetValueAtIndex(v30, v71, v54);
     }
 
-    if ((v19 & 0x8000000000000000) == 0)
+    if ((v20 & 0x8000000000000000) == 0)
     {
-      v55 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v29, v19)}];
-      [v55 setObject:&off_1000EE378 forKeyedSubscript:kSCPropNetOverridePrimary];
-      v75 = kSCPropNetIPv6AdditionalRoutes;
-      [NSArray arrayWithObjects:&v75 count:1];
-      v57 = v56 = v19;
-      [v55 removeObjectsForKeys:v57];
+      v56 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v30, v20)}];
+      [v56 setObject:&off_1000EE378 forKeyedSubscript:kSCPropNetOverridePrimary];
+      v76 = kSCPropNetIPv6AdditionalRoutes;
+      [NSArray arrayWithObjects:&v76 count:1];
+      v58 = v57 = v20;
+      [v56 removeObjectsForKeys:v58];
 
-      CFArraySetValueAtIndex(v29, v56, v55);
+      CFArraySetValueAtIndex(v30, v57, v56);
     }
 
-    if ((v13 & 0x8000000000000000) == 0)
+    if ((v14 & 0x8000000000000000) == 0)
     {
-      v58 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v29, v13)}];
-      v74[0] = kSCPropNetDNSSupplementalMatchDomains;
-      v74[1] = kSCPropNetDNSSupplementalMatchDomainsNoSearch;
-      v59 = [NSArray arrayWithObjects:v74 count:2];
-      [v58 removeObjectsForKeys:v59];
+      v59 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v30, v14)}];
+      v75[0] = kSCPropNetDNSSupplementalMatchDomains;
+      v75[1] = kSCPropNetDNSSupplementalMatchDomainsNoSearch;
+      v60 = [NSArray arrayWithObjects:v75 count:2];
+      [v59 removeObjectsForKeys:v60];
 
-      CFArraySetValueAtIndex(v29, v13, v58);
+      CFArraySetValueAtIndex(v30, v14, v59);
     }
 
     if ((idx & 0x8000000000000000) == 0)
     {
-      v60 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v29, idx)}];
-      v73 = kSCPropNetProxiesSupplementalMatchDomains;
-      v61 = [NSArray arrayWithObjects:&v73 count:1];
-      [v60 removeObjectsForKeys:v61];
+      v61 = [[NSMutableDictionary alloc] initWithDictionary:{CFArrayGetValueAtIndex(v30, idx)}];
+      v74 = kSCPropNetProxiesSupplementalMatchDomains;
+      v62 = [NSArray arrayWithObjects:&v74 count:1];
+      [v61 removeObjectsForKeys:v62];
 
-      CFArraySetValueAtIndex(v29, idx, v60);
+      CFArraySetValueAtIndex(v30, idx, v61);
     }
   }
 
   if (nelog_is_extra_vpn_logging_enabled())
   {
-    v62 = ne_log_large_obj();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    v63 = ne_log_large_obj();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
     {
       *out = 138412546;
       *&out[4] = a2;
       *&out[12] = 2112;
-      *&out[14] = v29;
-      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "names %@, dictionaries %@", out, 0x16u);
+      *&out[14] = v30;
+      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "names %@, dictionaries %@", out, 0x16u);
     }
   }
 }
@@ -5536,9 +5539,9 @@ void sub_1000703E4(void *a1, int a2)
 {
   v3 = a1;
   v5 = v3;
-  if (a2 || (!v3 ? (Property = 0) : (Property = objc_getProperty(v3, v4, 360, 1)), [Property type] != 1))
+  if (a2 || (!v3 ? (v7 = objc_msgSend_type(0)) : (Property = objc_getProperty(v3, v4, 360, 1), v7 = objc_msgSend_type(Property)), v7 != 1))
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
@@ -5550,48 +5553,48 @@ void sub_1000703E4(void *a1, int a2)
 
     if (v5)
     {
-      v7 = v5[46];
+      v8 = v5[46];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = (*(qword_1000FD548 + 96))(v7);
+    v9 = (*(qword_1000FD548 + 96))(v8);
     if (isa_nsdictionary())
     {
-      v9 = [v8 objectForKeyedSubscript:kSCEntNetIPSec];
-      v10 = [v9 objectForKeyedSubscript:@"LastCause"];
+      v10 = [v9 objectForKeyedSubscript:kSCEntNetIPSec];
+      v11 = [v10 objectForKeyedSubscript:@"LastCause"];
 
       if (isa_nsnumber())
       {
-        v11 = +[NEVPNConnection createDisconnectErrorWithDomain:code:](NEVPNConnection, "createDisconnectErrorWithDomain:code:", @"NEVPNConnectionErrorDomainIPSec", [v10 unsignedIntValue]);
+        v12 = +[NEVPNConnection createDisconnectErrorWithDomain:code:](NEVPNConnection, "createDisconnectErrorWithDomain:code:", @"NEVPNConnectionErrorDomainIPSec", [v11 unsignedIntValue]);
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
-  v12 = [v5 queue];
+  v13 = [v5 queue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000705CC;
   block[3] = &unk_1000EB360;
-  v16 = v5;
-  v17 = v11;
-  v18 = a2;
-  v13 = v11;
-  v14 = v5;
-  dispatch_async(v12, block);
+  v17 = v5;
+  v18 = v12;
+  v19 = a2;
+  v14 = v12;
+  v15 = v5;
+  dispatch_async(v13, block);
 }
 
 id sub_1000705CC(uint64_t a1)
@@ -5620,9 +5623,9 @@ id sub_10007062C(void *a1)
 
   v5 = Property;
   v6 = [v5 copyLegacyDictionary];
-  if ([v5 type] != 2)
+  if (objc_msgSend_type(v5) != 2)
   {
-    if ([v5 type] != 1)
+    if (objc_msgSend_type(v5) != 1)
     {
       goto LABEL_32;
     }
@@ -5742,7 +5745,7 @@ LABEL_29:
     [v8 setObject:v22 forKeyedSubscript:kSCEntNetProxies];
   }
 
-  if ([v7 type] == 2)
+  if (objc_msgSend_type(v7) == 2)
   {
     v23 = [v7 copyLegacyIPSecDictionary];
     [v8 setObject:v23 forKeyedSubscript:kSCEntNetIPSec];
@@ -5775,7 +5778,7 @@ LABEL_34:
   return v8;
 }
 
-uint64_t sub_100070B78(int a1)
+uint64_t sub_100070B78(unsigned int a1)
 {
   if (a1 < 6)
   {
@@ -5795,7 +5798,7 @@ uint64_t sub_100070B78(int a1)
   return nelog_is_debug_logging_enabled();
 }
 
-void sub_100070BA4(int a1, CFStringRef format, va_list arguments)
+void sub_100070BA4(unsigned int a1, CFStringRef format, va_list arguments)
 {
   v4 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, format, arguments);
   Length = CFStringGetLength(v4);
@@ -5874,51 +5877,50 @@ LABEL_17:
   CFRelease(v4);
 }
 
-void sub_100070E40(uint64_t a1)
+void sub_100070E40(uint64_t a1, const char *a2)
 {
-  if ([*(a1 + 32) type] == 2)
+  if (objc_msgSend_type(*(a1 + 32), a2) == 2)
   {
-    v21 = [*(a1 + 32) configuration];
-    v2 = [v21 appVPN];
-    v3 = [v2 appRules];
-    if ([v3 count])
+    v22 = [*(a1 + 32) configuration];
+    v3 = [v22 appVPN];
+    v4 = [v3 appRules];
+    if ([v4 count])
     {
-      v4 = [*(a1 + 32) isActive];
+      v5 = [*(a1 + 32) isActive];
 
-      if (v4)
+      if (v5)
       {
-        v5 = sub_100071110(*(a1 + 32));
+        v6 = sub_100071110(*(a1 + 32));
         if (isa_nsstring())
         {
-          v6 = ne_log_obj();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+          v7 = ne_log_obj();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
-            v7 = *(a1 + 32);
+            v8 = *(a1 + 32);
             *buf = 138412546;
-            v23 = v7;
-            v24 = 2112;
-            v25 = v5;
-            _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Re-setting policies because the installed apps changed for tunnel %@", buf, 0x16u);
+            v24 = v8;
+            v25 = 2112;
+            v26 = v6;
+            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: Re-setting policies because the installed apps changed for tunnel %@", buf, 0x16u);
           }
 
-          v8 = [*(a1 + 32) policySession];
-          v9 = [*(a1 + 32) configuration];
-          v10 = [v9 appVPN];
-          v11 = [v10 appRules];
-          v12 = [*(a1 + 32) uid];
-          [v12 intValue];
-          sub_100040988(v8, v11);
+          v9 = [*(a1 + 32) policySession];
+          v10 = [*(a1 + 32) configuration];
+          v11 = [v10 appVPN];
+          v12 = [v11 appRules];
+          v13 = [*(a1 + 32) uid];
+          sub_100040988(v9, v12, [v13 intValue]);
 
-          v13 = [*(a1 + 32) policySession];
-          v14 = [*(a1 + 32) configuration];
-          v15 = [v14 appVPN];
-          v16 = [v15 appRules];
-          LOBYTE(v12) = sub_1000713F8(*(a1 + 32));
-          v17 = sub_1000714C4(*(a1 + 32));
-          v18 = [*(a1 + 32) configuration];
-          v19 = [v18 appVPN];
-          v20 = [v19 excludedDomains];
-          sub_100041F28(v13, v16, v5, 0, v12, v17, 0, 0, v20);
+          v14 = [*(a1 + 32) policySession];
+          v15 = [*(a1 + 32) configuration];
+          v16 = [v15 appVPN];
+          v17 = [v16 appRules];
+          LOBYTE(v13) = sub_1000713F8(*(a1 + 32));
+          v18 = sub_1000714C4(*(a1 + 32));
+          v19 = [*(a1 + 32) configuration];
+          v20 = [v19 appVPN];
+          v21 = [v20 excludedDomains];
+          sub_100041F28(v14, v17, v6, 0, v13, v18, 0, 0, v21);
         }
       }
     }
@@ -5979,21 +5981,13 @@ LABEL_8:
   v8 = [v7 identifier];
   v9 = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, [v8 UUIDString], kSCEntNetIPv6);
 
-  if (!v9)
-  {
-    goto LABEL_15;
-  }
-
-  v10 = SCDynamicStoreCopyValue(0, v9);
-  *buf = v10;
-  if (v10 && (Value = CFDictionaryGetValue(v10, kSCPropInterfaceName), v12 = CFStringGetTypeID(), Value) && CFGetTypeID(Value) == v12)
+  if (v9 && (v10 = SCDynamicStoreCopyValue(0, v9), (*buf = v10) != 0) && (Value = CFDictionaryGetValue(v10, kSCPropInterfaceName), v12 = CFStringGetTypeID(), Value) && CFGetTypeID(Value) == v12)
   {
     CFRetain(Value);
   }
 
   else
   {
-LABEL_15:
     Value = NetworkServiceEntity;
   }
 
@@ -6310,47 +6304,49 @@ id sub_100071FF4(void *a1)
   if (!v2)
   {
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_15;
   }
 
-  v2(a1[46], v16);
-  if ([objc_getProperty(a1 v3] == 2)
+  v2(a1[46], v18);
+  Property = objc_getProperty(a1, v3, 360, 1);
+  if (objc_msgSend_type(Property) == 2)
   {
-    v5 = [NSNumber numberWithInt:v16[0]];
-    v15[0] = v5;
-    v6 = [NSNumber numberWithInt:v16[1]];
-    v15[1] = v6;
-    v7 = [NSArray arrayWithObjects:v15 count:2];
+    v6 = [NSNumber numberWithInt:v18[0]];
+    v17[0] = v6;
+    v7 = [NSNumber numberWithInt:v18[1]];
+    v17[1] = v7;
+    v8 = [NSArray arrayWithObjects:v17 count:2];
   }
 
   else
   {
-    if ([objc_getProperty(a1 v4] != 1)
+    v9 = objc_getProperty(a1, v5, 360, 1);
+    if (objc_msgSend_type(v9) != 1)
     {
-      v7 = 0;
+      v8 = 0;
       goto LABEL_12;
     }
 
-    v5 = [NSNumber numberWithInt:v16[0]];
-    v14 = v5;
-    v7 = [NSArray arrayWithObjects:&v14 count:1];
+    v6 = [NSNumber numberWithInt:v18[0]];
+    v16 = v6;
+    v8 = [NSArray arrayWithObjects:&v16 count:1];
   }
 
 LABEL_12:
-  v8 = ne_log_obj();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v10 = ne_log_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = a1;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@: bridge_functions->get_agent_pids() returned PIDs %@", &v10, 0x16u);
+    v12 = 138412546;
+    v13 = a1;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%@: bridge_functions->get_agent_pids() returned PIDs %@", &v12, 0x16u);
   }
 
 LABEL_15:
 
-  return v7;
+  return v8;
 }
 
 void sub_1000721F0(uint64_t a1, const char *a2)
@@ -6493,8 +6489,7 @@ void sub_1000721F0(uint64_t a1, const char *a2)
         v28 = [v27 appVPN];
         v29 = [v28 appRules];
         v30 = [*(a1 + 32) uid];
-        [v30 intValue];
-        sub_100040988(v26, v29);
+        sub_100040988(v26, v29, [v30 intValue]);
 
         v31 = [*(a1 + 32) policySession];
         v59 = [*(a1 + 32) configuration];
@@ -6510,7 +6505,7 @@ void sub_1000721F0(uint64_t a1, const char *a2)
     }
   }
 
-  if ([*(a1 + 32) type] == 1)
+  if (objc_msgSend_type(*(a1 + 32)) == 1)
   {
     v47 = [*(a1 + 32) configuration];
     v48 = [v47 VPN];
@@ -6533,38 +6528,39 @@ void sub_1000721F0(uint64_t a1, const char *a2)
 
 void sub_100072858(void *a1, void *a2)
 {
-  v70 = a2;
+  v72 = a2;
   if (!a1)
   {
     goto LABEL_98;
   }
 
-  if ([objc_getProperty(a1 v3] == 2)
+  Property = objc_getProperty(a1, v3, 360, 1);
+  if (objc_msgSend_type(Property) == 2)
   {
-    v5 = [v70 UTF8String];
-    v6 = if_nametoindex(v5);
-    v7 = ne_log_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = [v72 UTF8String];
+    v7 = if_nametoindex(v6);
+    v8 = ne_log_obj();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
       *&buf[4] = a1;
       *&buf[12] = 2080;
-      *&buf[14] = v5;
+      *&buf[14] = v6;
       *&buf[22] = 1024;
-      *&buf[24] = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: Getting routes for interface %s[%u]", buf, 0x1Cu);
+      *&buf[24] = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@: Getting routes for interface %s[%u]", buf, 0x1Cu);
     }
 
-    v69 = v6;
-    __s2 = v5;
+    v71 = v7;
+    __s2 = v6;
 
-    *v72 = xmmword_1000C2D30;
-    v73 = 7;
-    v8 = 3;
+    *v74 = xmmword_1000C2D30;
+    v75 = 7;
+    v9 = 3;
     while (1)
     {
-      v71 = 0;
-      if (sysctl(v72, 6u, 0, &v71, 0, 0) < 0)
+      v73 = 0;
+      if (sysctl(v74, 6u, 0, &v73, 0, 0) < 0)
       {
         __errnuma = *__error();
         if (strerror_r(__errnuma, buf, 0x80uLL))
@@ -6578,20 +6574,20 @@ void sub_100072858(void *a1, void *a2)
           goto LABEL_27;
         }
 
-        *v90 = 67109378;
-        *&v90[4] = __errnuma;
-        *&v90[8] = 2080;
-        *&v90[10] = buf;
-        v11 = v90;
-        v12 = loga;
-        v13 = "Unable to get size estimate for routing table: [%d] %s";
+        *v85 = 67109378;
+        *&v85[4] = __errnuma;
+        *&v85[8] = 2080;
+        *&v85[10] = buf;
+        v12 = v85;
+        v13 = loga;
+        v14 = "Unable to get size estimate for routing table: [%d] %s";
         goto LABEL_25;
       }
 
-      v9 = 5 * v71 >= 4 ? ((((5 * v71) >> 2) - 1) | 3) + 1 : 4;
-      v71 = v9;
-      v10 = malloc_type_malloc(v9, 0x100004077774924uLL);
-      if (v10)
+      v10 = 5 * v73 >= 4 ? ((((5 * v73) >> 2) - 1) | 3) + 1 : 4;
+      v73 = v10;
+      v11 = malloc_type_malloc(v10, 0x100004077774924uLL);
+      if (v11)
       {
         break;
       }
@@ -6600,180 +6596,173 @@ void sub_100072858(void *a1, void *a2)
       if (os_log_type_enabled(loga, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v71;
-        v11 = buf;
-        v12 = loga;
-        v13 = "malloc(%zu) failed";
-        v14 = 12;
+        *&buf[4] = v73;
+        v12 = buf;
+        v13 = loga;
+        v14 = "malloc(%zu) failed";
+        v15 = 12;
         goto LABEL_26;
       }
 
 LABEL_27:
 
-      if (!--v8)
+      if (!--v9)
       {
         goto LABEL_98;
       }
     }
 
-    log = v10;
-    if ((sysctl(v72, 6u, v10, &v71, 0, 0) & 0x80000000) == 0)
+    log = v11;
+    if ((sysctl(v74, 6u, v11, &v73, 0, 0) & 0x80000000) == 0)
     {
-      v19 = objc_alloc_init(NSMutableArray);
-      v26 = v6;
-      if (v71 < 1)
+      v21 = objc_alloc_init(NSMutableArray);
+      v28 = v7;
+      if (v73 < 1)
       {
         goto LABEL_96;
       }
 
-      v27 = log;
-      v28 = log + v71;
+      v29 = log;
+      v30 = log + v73;
       while (1)
       {
-        v29 = (v27 + 46);
-        if ((v27 + 46) > v28)
+        v31 = (v29 + 46);
+        if ((v29 + 46) > v30)
         {
           break;
         }
 
-        v30 = *v27;
-        if (v27 + v30 > v28)
+        v32 = *v29;
+        if (v29 + v32 > v30)
         {
-          v52 = ne_log_obj();
-          if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v54 = ne_log_obj();
+          if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_95;
           }
 
           *buf = 0;
-          v53 = "Not enough data to read routing table message";
+          v55 = "Not enough data to read routing table message";
           goto LABEL_110;
         }
 
-        if (v26 != v27[2] || (*(v27 + 2) & 0x1800801) != 0x801 || (~*(v27 + 3) & 7) != 0)
+        if (v28 != v29[2] || (*(v29 + 2) & 0x1800801) != 0x801 || (~*(v29 + 3) & 7) != 0)
         {
           goto LABEL_65;
         }
 
         objc_opt_self();
-        v31 = ne_log_obj();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v33 = ne_log_obj();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Attempting to parse route", buf, 2u);
+          _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "Attempting to parse route", buf, 2u);
         }
 
-        v32 = 0;
-        v88 = 0u;
-        v89 = 0u;
-        v86 = 0u;
-        v87 = 0u;
-        v84 = 0u;
-        v85 = 0u;
+        v34 = 0;
+        memset(v84, 0, sizeof(v84));
+        memset(v83, 0, sizeof(v83));
+        v81 = 0u;
         v82 = 0u;
-        v83 = 0u;
-        memset(v81, 0, sizeof(v81));
         v79 = 0u;
         v80 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
         memset(buf, 0, sizeof(buf));
         do
         {
-          v33 = *v29;
-          if (v33 >= 0x81)
+          v35 = *v31;
+          if (v35 >= 0x81)
           {
-            v37 = ne_log_obj();
-            if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v39 = ne_log_obj();
+            if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_63;
             }
 
-            v41 = *v29;
-            *v90 = 67109120;
-            *&v90[4] = v41;
-            v42 = v37;
-            v43 = "sockaddr size %u is too large!";
+            v43 = *v31;
+            *v85 = 67109120;
+            *&v85[4] = v43;
+            v44 = v39;
+            v45 = "sockaddr size %u is too large!";
 LABEL_61:
-            _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, v43, v90, 8u);
+            _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, v45, v85, 8u);
             goto LABEL_63;
           }
 
-          memcpy(&buf[v32], v29, *v29);
-          v34 = ((v33 - 1) & 0xFFFFFFFC) + 4;
-          if (!v33)
+          memcpy(&buf[v34], v31, *v31);
+          v36 = ((v35 - 1) & 0xFFFFFFFC) + 4;
+          if (!v35)
           {
-            v34 = 4;
+            v36 = 4;
           }
 
-          v29 += v34;
-          v32 += 128;
+          v31 += v36;
+          v34 += 128;
         }
 
-        while (v32 != 384);
-        if (v81[1] != 18)
+        while (v34 != 384);
+        if (v83[1] != 18)
         {
-          v37 = ne_log_obj();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v39 = ne_log_obj();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
-            *v90 = 67109120;
-            *&v90[4] = v81[1];
-            v38 = v37;
-            v39 = "Gateway family %u is wrong!";
-            v40 = 8;
+            *v85 = 67109120;
+            *&v85[4] = v83[1];
+            v40 = v39;
+            v41 = "Gateway family %u is wrong!";
+            v42 = 8;
 LABEL_85:
-            _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, v39, v90, v40);
+            _os_log_debug_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, v41, v85, v42);
           }
 
 LABEL_63:
 
-          v44 = 0;
+          v46 = 0;
           goto LABEL_64;
         }
 
-        v35 = link_ntoa(v81);
-        v36 = ne_log_obj();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v37 = link_ntoa(v83);
+        v38 = ne_log_obj();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
-          v50 = "NULL";
-          if (v35)
+          v52 = "NULL";
+          if (v37)
           {
-            v50 = v35;
+            v52 = v37;
           }
 
-          *v90 = 67110914;
-          *&v90[4] = v81[0];
-          *&v90[8] = 1024;
-          *&v90[10] = v81[1];
-          *&v90[14] = 1024;
-          *&v90[16] = *&v81[2];
-          *&v90[20] = 1024;
-          *&v90[22] = v81[4];
-          *&v90[26] = 1024;
-          *&v90[28] = v81[5];
-          *&v90[32] = 1024;
-          *&v90[34] = v81[6];
-          *&v90[38] = 1024;
-          *&v90[40] = v81[7];
-          *&v90[44] = 2080;
-          *&v90[46] = v50;
-          _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Gateway: length %u, family %u, index %u, type %u, name length %u, address length %u, selector length %u, string %s", v90, 0x36u);
+          *v85 = 67110914;
+          *&v85[4] = v83[0];
+          *&v85[8] = 1024;
+          *&v85[10] = v83[1];
+          *&v85[14] = 1024;
+          *&v85[16] = *&v83[2];
+          *&v85[20] = 1024;
+          *&v85[22] = v83[4];
+          *&v85[26] = 1024;
+          *&v85[28] = v83[5];
+          *&v85[32] = 1024;
+          *&v85[34] = v83[6];
+          *&v85[38] = 1024;
+          *&v85[40] = v83[7];
+          *&v85[44] = 2080;
+          *&v85[46] = v52;
+          _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Gateway: length %u, family %u, index %u, type %u, name length %u, address length %u, selector length %u, string %s", v85, 0x36u);
         }
 
-        if (strcmp(v35, __s2))
+        if (strcmp(v37, __s2))
         {
-          v37 = ne_log_obj();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v39 = ne_log_obj();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
-            *v90 = 136315394;
-            *&v90[4] = v35;
-            *&v90[12] = 2080;
-            *&v90[14] = __s2;
-            v38 = v37;
-            v39 = "Gateway interface string %s doesn't match %s";
-            v40 = 22;
+            *v85 = 136315394;
+            *&v85[4] = v37;
+            *&v85[12] = 2080;
+            *&v85[14] = __s2;
+            v40 = v39;
+            v41 = "Gateway interface string %s doesn't match %s";
+            v42 = 22;
             goto LABEL_85;
           }
 
@@ -6782,96 +6771,96 @@ LABEL_63:
 
         if (buf[1] != 2)
         {
-          v37 = ne_log_obj();
-          if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v39 = ne_log_obj();
+          if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_63;
           }
 
-          *v90 = 67109120;
-          *&v90[4] = buf[1];
-          v42 = v37;
-          v43 = "Destination address family %u is wrong!";
+          *v85 = 67109120;
+          *&v85[4] = buf[1];
+          v44 = v39;
+          v45 = "Destination address family %u is wrong!";
           goto LABEL_61;
         }
 
-        v45 = NECreateAddressString();
-        v46 = ne_log_obj();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        v47 = NECreateAddressString();
+        v48 = ne_log_obj();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
-          *v90 = 67109634;
-          *&v90[4] = buf[0];
-          *&v90[8] = 1024;
-          *&v90[10] = buf[1];
-          *&v90[14] = 2112;
-          *&v90[16] = v45;
-          _os_log_debug_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Destination: length %u, family %u, string %@", v90, 0x18u);
+          *v85 = 67109634;
+          *&v85[4] = buf[0];
+          *&v85[8] = 1024;
+          *&v85[10] = buf[1];
+          *&v85[14] = 2112;
+          *&v85[16] = v47;
+          _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Destination: length %u, family %u, string %@", v85, 0x18u);
         }
 
-        v47 = ne_log_obj();
-        v48 = v47;
-        if (v45)
+        v49 = ne_log_obj();
+        v50 = v49;
+        if (v47)
         {
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
-          {
-            *v90 = 67109376;
-            *&v90[4] = v82;
-            *&v90[8] = 1024;
-            *&v90[10] = BYTE1(v82);
-            _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Netmask: length %u, family %u", v90, 0xEu);
-          }
-
-          LOWORD(v82) = 528;
-          v48 = NECreateAddressString();
-          v49 = ne_log_obj();
           if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
           {
-            *v90 = 138412290;
-            *&v90[4] = v48;
-            _os_log_debug_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "Netmask: string %@", v90, 0xCu);
+            *v85 = 67109376;
+            *&v85[4] = v84[0];
+            *&v85[8] = 1024;
+            *&v85[10] = v84[1];
+            _os_log_debug_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Netmask: length %u, family %u", v85, 0xEu);
           }
 
-          if (v48)
+          *v84 = 528;
+          v50 = NECreateAddressString();
+          v51 = ne_log_obj();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
           {
-            v44 = [[NEIPv4Route alloc] initWithDestinationAddress:v45 subnetMask:v48];
+            *v85 = 138412290;
+            *&v85[4] = v50;
+            _os_log_debug_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEBUG, "Netmask: string %@", v85, 0xCu);
+          }
+
+          if (v50)
+          {
+            v46 = [[NEIPv4Route alloc] initWithDestinationAddress:v47 subnetMask:v50];
             goto LABEL_90;
           }
 
-          v51 = ne_log_obj();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v53 = ne_log_obj();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            *v90 = 0;
-            _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Netmask address string is nil!", v90, 2u);
+            *v85 = 0;
+            _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Netmask address string is nil!", v85, 2u);
           }
 
-          v48 = 0;
+          v50 = 0;
         }
 
-        else if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          *v90 = 0;
-          _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Destination address string is nil!", v90, 2u);
+          *v85 = 0;
+          _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Destination address string is nil!", v85, 2u);
         }
 
-        v44 = 0;
+        v46 = 0;
 LABEL_90:
 
-        if (v44)
+        if (v46)
         {
-          [v19 addObject:v44];
+          [v21 addObject:v46];
         }
 
 LABEL_64:
-        v26 = v69;
+        v28 = v71;
 
-        v30 = *v27;
+        v32 = *v29;
 LABEL_65:
-        v27 = (v27 + v30);
-        if (v27 >= v28)
+        v29 = (v29 + v32);
+        if (v29 >= v30)
         {
 LABEL_96:
           free(log);
-          if (v19)
+          if (v21)
           {
             goto LABEL_97;
           }
@@ -6880,8 +6869,8 @@ LABEL_96:
         }
       }
 
-      v52 = ne_log_obj();
-      if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v54 = ne_log_obj();
+      if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
 LABEL_95:
 
@@ -6889,9 +6878,9 @@ LABEL_95:
       }
 
       *buf = 0;
-      v53 = "Not enough data to read rtm";
+      v55 = "Not enough data to read rtm";
 LABEL_110:
-      _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, v53, buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, v55, buf, 2u);
       goto LABEL_95;
     }
 
@@ -6920,96 +6909,97 @@ LABEL_110:
       goto LABEL_27;
     }
 
-    *v90 = 67109378;
-    *&v90[4] = __errnum;
-    *&v90[8] = 2080;
-    *&v90[10] = buf;
-    v11 = v90;
-    v12 = loga;
-    v13 = "Unable to get routing table: [%d] %s";
+    *v85 = 67109378;
+    *&v85[4] = __errnum;
+    *&v85[8] = 2080;
+    *&v85[10] = buf;
+    v12 = v85;
+    v13 = loga;
+    v14 = "Unable to get routing table: [%d] %s";
 LABEL_25:
-    v14 = 18;
+    v15 = 18;
 LABEL_26:
-    _os_log_fault_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, v13, v11, v14);
+    _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, v14, v12, v15);
     goto LABEL_27;
   }
 
-  if ([objc_getProperty(a1 v4] != 1)
+  v16 = objc_getProperty(a1, v5, 360, 1);
+  if (objc_msgSend_type(v16) != 1)
   {
     goto LABEL_98;
   }
 
-  v15 = sub_100073554(a1);
-  v16 = v15;
-  if (!v15)
+  v17 = sub_100073554(a1);
+  v18 = v17;
+  if (!v17)
   {
-    v20 = ne_log_obj();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = ne_log_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Unable to get IPv4 dictionary from dynamic store", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Unable to get IPv4 dictionary from dynamic store", buf, 2u);
     }
 
     goto LABEL_106;
   }
 
-  v17 = [(__CFString *)v15 objectForKeyedSubscript:kSCPropNetIPv4AdditionalRoutes];
-  if (!v17)
+  v19 = [(__CFString *)v17 objectForKeyedSubscript:kSCPropNetIPv4AdditionalRoutes];
+  if (!v19)
   {
-    v63 = ne_log_obj();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v65 = ne_log_obj();
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to get included routes dictionary", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "Failed to get included routes dictionary", buf, 2u);
     }
 
-    v20 = 0;
+    v22 = 0;
 LABEL_106:
-    v19 = 0;
+    v21 = 0;
     goto LABEL_107;
   }
 
-  v18 = v17;
-  v19 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v17, "count")}];
-  memset(v90, 0, 64);
-  v20 = v18;
-  v21 = [v20 countByEnumeratingWithState:v90 objects:buf count:16];
-  if (v21)
+  v20 = v19;
+  v21 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v19, "count")}];
+  memset(v85, 0, 64);
+  v22 = v20;
+  v23 = [v22 countByEnumeratingWithState:v85 objects:buf count:16];
+  if (v23)
   {
-    v22 = v21;
-    v23 = **&v90[16];
+    v24 = v23;
+    v25 = **&v85[16];
     do
     {
-      for (i = 0; i != v22; i = i + 1)
+      for (i = 0; i != v24; i = i + 1)
       {
-        if (**&v90[16] != v23)
+        if (**&v85[16] != v25)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v22);
         }
 
-        v25 = [[NEIPv4Route alloc] initFromLegacyDictionary:*(*&v90[8] + 8 * i)];
-        [v19 addObject:v25];
+        v27 = [[NEIPv4Route alloc] initFromLegacyDictionary:*(*&v85[8] + 8 * i)];
+        [v21 addObject:v27];
       }
 
-      v22 = [v20 countByEnumeratingWithState:v90 objects:buf count:16];
+      v24 = [v22 countByEnumeratingWithState:v85 objects:buf count:16];
     }
 
-    while (v22);
+    while (v24);
   }
 
 LABEL_107:
-  if (v19)
+  if (v21)
   {
 LABEL_97:
-    v54 = [a1 policySession];
-    v55 = [a1 server];
-    v56 = [v55 primaryPhysicalInterface];
-    v57 = [v56 interfaceName];
-    v59 = objc_getProperty(a1, v58, 376, 1);
-    v60 = [a1 configuration];
-    v61 = [v60 VPN];
-    v62 = [v61 protocol];
-    sub_10003CECC(v54, v70, v57, v59, v19, 0, 0, 0, [v62 excludeLocalNetworks]);
+    v56 = [a1 policySession];
+    v57 = [a1 server];
+    v58 = [v57 primaryPhysicalInterface];
+    v59 = [v58 interfaceName];
+    v61 = objc_getProperty(a1, v60, 376, 1);
+    v62 = [a1 configuration];
+    v63 = [v62 VPN];
+    v64 = [v63 protocol];
+    sub_10003CECC(v56, v72, v59, v61, v21, 0, 0, 0, [v64 excludeLocalNetworks]);
   }
 
 LABEL_98:
@@ -7093,44 +7083,44 @@ void sub_10007369C(uint64_t a1)
     v12 = v11;
     if (*(a1 + 48) == 2 && v11)
     {
-      if ((sub_10008AA94(*(a1 + 40)) & 1) != 0 || sub_10008AB9C(*(a1 + 40)))
+      if ((sub_10008AA94(*(a1 + 40)) & 1) != 0 || sub_10008AB9C(*(a1 + 40), v13))
       {
-        v13 = [*(a1 + 40) matchedRule];
+        v14 = [*(a1 + 40) matchedRule];
 
-        if (v13)
+        if (v14)
         {
-          v14 = xpc_dictionary_get_dictionary(v12, "VPN");
-          v15 = v14;
-          if (v14 && xpc_get_type(v14) == &_xpc_type_dictionary || (v16 = xpc_dictionary_create(0, 0, 0), v15, xpc_dictionary_set_value(v12, "VPN", v16), (v15 = v16) != 0))
+          v15 = xpc_dictionary_get_dictionary(v12, "VPN");
+          v16 = v15;
+          if (v15 && xpc_get_type(v15) == &_xpc_type_dictionary || (v17 = xpc_dictionary_create(0, 0, 0), v16, xpc_dictionary_set_value(v12, "VPN", v17), (v16 = v17) != 0))
           {
-            if (xpc_get_type(v15) == &_xpc_type_dictionary)
+            if (xpc_get_type(v16) == &_xpc_type_dictionary)
             {
-              v17 = [*(a1 + 40) matchedRule];
-              xpc_dictionary_set_int64(v15, "OnDemandAction", [v17 action]);
+              v18 = [*(a1 + 40) matchedRule];
+              xpc_dictionary_set_int64(v16, "OnDemandAction", [v18 action]);
             }
           }
         }
       }
 
-      v18 = [*(a1 + 40) lastDisconnectError];
-      if (v18)
+      v19 = [*(a1 + 40) lastDisconnectError];
+      if (v19)
       {
-        v23 = 0;
-        v19 = [NSKeyedArchiver archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v23];
-        v20 = v23;
-        if (v19)
+        v24 = 0;
+        v20 = [NSKeyedArchiver archivedDataWithRootObject:v19 requiringSecureCoding:1 error:&v24];
+        v21 = v24;
+        if (v20)
         {
-          xpc_dictionary_set_data(v12, "LastDisconnectError", [v19 bytes], objc_msgSend(v19, "length"));
+          xpc_dictionary_set_data(v12, "LastDisconnectError", [v20 bytes], objc_msgSend(v20, "length"));
         }
 
         else
         {
-          v21 = ne_log_obj();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = ne_log_obj();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v25 = v20;
-            _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to serialize the last disconnect error: %@", buf, 0xCu);
+            v26 = v21;
+            _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to serialize the last disconnect error: %@", buf, 0xCu);
           }
         }
       }
@@ -7140,8 +7130,8 @@ void sub_10007369C(uint64_t a1)
   }
 
 LABEL_35:
-  v22 = xpc_dictionary_get_remote_connection(*(a1 + 32));
-  xpc_connection_send_message(v22, reply);
+  v23 = xpc_dictionary_get_remote_connection(*(a1 + 32));
+  xpc_connection_send_message(v23, reply);
 }
 
 void sub_100073A60(uint64_t a1)
@@ -7222,7 +7212,7 @@ void sub_100073D58(uint64_t a1, const char *a2)
     v3 = *(a1 + 32);
   }
 
-  if ([v3 type] == 1)
+  if (objc_msgSend_type(v3, a2) == 1)
   {
     v4 = [*(a1 + 32) configuration];
     v5 = [v4 VPN];
@@ -7503,9 +7493,9 @@ void *sub_1000750F4(void *a1, void *a2, void *a3, void *a4, int a5)
     goto LABEL_25;
   }
 
-  v27.receiver = a1;
-  v27.super_class = NESMLegacySession;
-  v12 = objc_msgSendSuper2(&v27, "initWithConfiguration:andServer:", v9, v10);
+  v28.receiver = a1;
+  v28.super_class = NESMLegacySession;
+  v12 = objc_msgSendSuper2(&v28, "initWithConfiguration:andServer:", v9, v10);
   a1 = v12;
   if (!v12)
   {
@@ -7523,12 +7513,12 @@ void *sub_1000750F4(void *a1, void *a2, void *a3, void *a4, int a5)
     }
 
     *buf = 138412290;
-    v29 = a1;
+    v30 = a1;
     v16 = "%@: Failed to create a legacy session because the given configuration is not a VPN configuration";
     goto LABEL_21;
   }
 
-  v13 = [v11 type];
+  v13 = objc_msgSend_type(v11);
   if (v13 != 1)
   {
     if (v13 == 2)
@@ -7544,13 +7534,13 @@ void *sub_1000750F4(void *a1, void *a2, void *a3, void *a4, int a5)
     }
 
     *buf = 138412290;
-    v29 = a1;
+    v30 = a1;
     v16 = "%@: Failed to create a legacy session because the given configuration is not a IKEv1 or L2TP configuration";
 LABEL_21:
-    v24 = v15;
-    v25 = 12;
+    v25 = v15;
+    v26 = 12;
 LABEL_22:
-    _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v16, buf, v25);
+    _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v16, buf, v26);
     goto LABEL_24;
   }
 
@@ -7567,7 +7557,7 @@ LABEL_10:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = a1;
+      v30 = a1;
       v16 = "%@: Failed to get the legacy bridge functions";
       goto LABEL_21;
     }
@@ -7591,12 +7581,12 @@ LABEL_24:
     }
 
     *buf = 138412546;
-    v29 = a1;
-    v30 = 1024;
-    v31 = v14;
+    v30 = a1;
+    v31 = 1024;
+    v32 = v14;
     v16 = "%@: Failed to create a legacy bridge with type %d for configuration";
-    v24 = v15;
-    v25 = 18;
+    v25 = v15;
+    v26 = 18;
     goto LABEL_22;
   }
 
@@ -7616,7 +7606,7 @@ LABEL_24:
 
   [a1 setPolicySession:v23];
 
-  sub_10008E79C(a1);
+  sub_10008E79C(a1, v24);
 LABEL_25:
 
   return a1;
@@ -7752,7 +7742,7 @@ uint64_t start()
   }
 
   context = objc_autoreleasePoolPush();
-  v0 = sub_10005750C();
+  v0 = sub_10005750C(NESMServer);
   v1 = v0;
   if (v0)
   {
@@ -9005,4 +8995,62 @@ void sub_1000818F8(uint64_t a1)
     xpc_dictionary_set_int64(message, "error", 3);
     xpc_connection_send_message(*(a1 + 40), message);
   }
+}
+
+void sub_100081AF8(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  reply = xpc_dictionary_create_reply(*(a1 + 32));
+  v8 = xpc_dictionary_get_remote_connection(*(a1 + 32));
+  if (reply)
+  {
+    v9 = xpc_get_type(reply) != &_xpc_type_dictionary || v8 == 0;
+    if (!v9 && xpc_get_type(v8) == &_xpc_type_connection)
+    {
+      if (v5 && ([v5 _endpoint], (v11 = objc_claimAutoreleasedReturnValue()) != 0) && (v12 = v11, type = xpc_get_type(v11), v12, type == &_xpc_type_endpoint))
+      {
+        v15 = [v5 _endpoint];
+        xpc_dictionary_set_value(reply, "new-connection", v15);
+
+        if (!v6)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      else
+      {
+        v14 = ne_log_obj();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(v16) = 0;
+          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to get a valid XPC endpoint from the filter plugin", &v16, 2u);
+        }
+
+        xpc_dictionary_set_int64(reply, "error", 3);
+        if (!v6)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      xpc_dictionary_set_data(reply, "crypto-key", [v6 bytes], objc_msgSend(v6, "length"));
+LABEL_18:
+      xpc_connection_send_message(v8, reply);
+      goto LABEL_10;
+    }
+  }
+
+  v10 = ne_log_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v16 = 134218240;
+    v17 = reply;
+    v18 = 2048;
+    v19 = v8;
+    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create a reply (%p) or a connection to send it over (%p) when sending the filter connection to the client", &v16, 0x16u);
+  }
+
+LABEL_10:
 }

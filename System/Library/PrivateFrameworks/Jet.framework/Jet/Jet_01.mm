@@ -1,15 +1,3 @@
-void jet_buffer::jet_buffer(jet_buffer *this)
-{
-  *this = &unk_286782800;
-  *(this + 8) = 0;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 3) = 0;
-  *(this + 4) = 0;
-  *(this + 2) = 0;
-  *(this + 22) = 1065353216;
-}
-
 uint64_t jet_buffer::is_finished(jet_buffer *this)
 {
   if (*(this + 8))
@@ -93,11 +81,11 @@ void jet_buffer::~jet_buffer(dispatch_semaphore_t *this)
     }
   }
 
-  for (i = this[9]; i; i = *i)
+  for (i = this[9]; i; i = i->isa)
   {
-    v3 = i[2];
+    isa = i[2].isa;
     v5 = this;
-    std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__erase_unique<std::unordered_set<jet_buffer *> *>(v3, &v5);
+    std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__erase_unique<std::unordered_set<jet_buffer *> *>(isa, &v5);
   }
 
   std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::~__hash_table((this + 7));
@@ -270,7 +258,7 @@ uint64_t xglProgram::getUniformLocation(xglProgram *this, char *a2)
     UniformLocation = glGetUniformLocation(*(this + 4), a2);
     std::string::basic_string[abi:ne200100]<0>(__p, a2);
     v11 = __p;
-    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 24, __p) + 56) = UniformLocation;
+    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 3, __p, &std::piecewise_construct, &v11) + 56) = UniformLocation;
     if (v8 < 0)
     {
       operator delete(__p[0]);
@@ -564,15 +552,15 @@ BOOL std::less<std::string>::operator()[abi:ne200100](uint64_t a1, const void **
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)

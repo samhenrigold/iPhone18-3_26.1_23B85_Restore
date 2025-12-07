@@ -145,7 +145,6 @@ void __45__AKCarouselAlertClientConnection_connection__block_invoke(id *a1)
   }
 
   objc_storeStrong(v10, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__AKCarouselAlertClientConnection_connection__block_invoke_53(uint64_t a1)
@@ -186,7 +185,6 @@ void __45__AKCarouselAlertClientConnection_connection__block_invoke_2(id *a1)
   }
 
   objc_storeStrong(v10, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)presentAlertWithDictionary:(id)dictionary completion:(id)completion
@@ -262,7 +260,6 @@ void __73__AKCarouselAlertClientConnection_presentAlertWithDictionary_completion
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKCarouselAlertClientConnection_presentAlertWithDictionary_completion___block_invoke_56(void *a1, void *a2, void *a3)
@@ -328,7 +325,6 @@ void __48__AKCarouselAlertClientConnection_dismissAlert___block_invoke_2(NSObjec
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

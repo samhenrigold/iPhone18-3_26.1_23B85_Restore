@@ -9,11 +9,11 @@
 
 - (void)performCallback
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_state(self, a2, v2) != 3)
   {
-    v40 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v40, v41, a2, self, @"CKDRecordFetchAggregator.m", 126, @"Fetch info isn't in the needs callback state: %@", self);
+    v39 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v39, v40, a2, self, @"CKDRecordFetchAggregator.m", 126, @"Fetch info isn't in the needs callback state: %@", self);
   }
 
   v9 = objc_msgSend_record(self, v5, v6);
@@ -27,8 +27,8 @@
   if (!v12)
   {
     v9 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11);
-    v38 = objc_msgSend_recordID(self, v36, v37);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v39, a2, self, @"CKDRecordFetchAggregator.m", 127, @"Calling back for record %@ without a fetched record or an error: %@", v38, self);
+    v37 = objc_msgSend_recordID(self, v35, v36);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v38, a2, self, @"CKDRecordFetchAggregator.m", 127, @"Calling back for record %@ without a fetched record or an error: %@", v37, self);
 
 LABEL_4:
   }
@@ -75,13 +75,12 @@ LABEL_4:
       v29 = v27;
       v32 = objc_msgSend_recordID(self, v30, v31);
       *buf = 138412290;
-      v43 = v32;
+      v42 = v32;
       _os_log_impl(&dword_22506F000, v29, OS_LOG_TYPE_INFO, "Warn: No completion block was set for the fetch of record %@", buf, 0xCu);
     }
   }
 
   objc_msgSend_setState_(self, v28, 4);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)CKPropertiesDescription

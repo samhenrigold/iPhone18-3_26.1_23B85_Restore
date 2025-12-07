@@ -33,9 +33,7 @@
 
   if ([(FeatureExtractor *)self revision]!= 1)
   {
-    v4 = [(NSString *)self->super._espresso_file stringByAppendingFormat:@"_rev%ld", [(FeatureExtractor *)self revision]];
-    v5 = self->super._espresso_file;
-    self->super._espresso_file = v4;
+    self->super._espresso_file = [(NSString *)self->super._espresso_file stringByAppendingFormat:@"_rev%ld", [(FeatureExtractor *)self revision]];
 
     MEMORY[0x2821F96F8]();
   }
@@ -44,40 +42,31 @@
 - (BOOL)extractFeaturesFromImage:(__CVBuffer *)image toFeatures:(id *)features callback:(id)callback
 {
   callbackCopy = callback;
-  inputBlob = self->super._inputBlob;
-  plan = self->super.super._net.plan;
-  v10 = *&self->super.super._net.network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_Flowadaptation_0.isa);
 LABEL_5:
-    v15 = 0;
+    v7 = 0;
     goto LABEL_6;
   }
 
-  v11 = *self->super._outputBlobs;
-  var3 = features->var3;
-  v13 = self->super.super._net.plan;
-  v14 = *&self->super.super._net.network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_Flowadaptation_1.isa);
     goto LABEL_5;
   }
 
-  v17 = self->super.super._plan;
-  callbackQueue = self->super.super._callbackQueue;
-  v20 = MEMORY[0x277D85DD0];
-  v21 = callbackCopy;
-  v19 = espresso_plan_submit();
-  v15 = v19 == 0;
-  if (v19)
+  v10 = MEMORY[0x277D85DD0];
+  v11 = callbackCopy;
+  v9 = espresso_plan_submit();
+  v7 = v9 == 0;
+  if (v9)
   {
-    NSLog(&cfstr_Flowadaptation_2.isa, [(EspressoModel *)self usage], v20, 3221225472, __79__FlowAdaptationFeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke, &unk_278FEA538, v21);
+    NSLog(&cfstr_Flowadaptation_2.isa, [(EspressoModel *)self usage], v10, 3221225472, __79__FlowAdaptationFeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke, &unk_278FEA538, v11);
   }
 
 LABEL_6:
-  return v15;
+  return v7;
 }
 
 uint64_t __79__FlowAdaptationFeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke(uint64_t a1)

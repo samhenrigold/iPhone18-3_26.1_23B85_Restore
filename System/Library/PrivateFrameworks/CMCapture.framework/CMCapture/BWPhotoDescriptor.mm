@@ -98,8 +98,8 @@
     return v8;
   }
 
-  v15 = v3;
-  v16 = v4;
+  v16 = v3;
+  v17 = v4;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -124,21 +124,21 @@ LABEL_13:
     return v8;
   }
 
-  time = [(BWPhotoDescriptor *)self time];
-  if (time == [equal time] || (v8 = -[NSDate isEqual:](-[BWPhotoDescriptor time](self, "time"), "isEqual:", objc_msgSend(equal, "time"))) != 0)
+  v10 = objc_msgSend_time(self);
+  if (v10 == objc_msgSend_time(equal) || (v11 = objc_msgSend_time(self), (v8 = [v11 isEqual:objc_msgSend_time(equal)]) != 0))
   {
     timeZone = [(BWPhotoDescriptor *)self timeZone];
     if (timeZone == [equal timeZone] || (v8 = -[NSTimeZone isEqual:](-[BWPhotoDescriptor timeZone](self, "timeZone"), "isEqual:", objc_msgSend(equal, "timeZone"))) != 0)
     {
       if (self)
       {
-        [(BWPhotoDescriptor *)self presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(self);
         if (equal)
         {
 LABEL_12:
-          [equal presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(equal);
 LABEL_18:
-          LOBYTE(v8) = CMTimeCompare(&time1, &v13) == 0;
+          LOBYTE(v8) = CMTimeCompare(&time1, &v14) == 0;
           return v8;
         }
       }
@@ -152,7 +152,7 @@ LABEL_18:
         }
       }
 
-      memset(&v13, 0, sizeof(v13));
+      memset(&v14, 0, sizeof(v14));
       goto LABEL_18;
     }
   }

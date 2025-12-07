@@ -19,6 +19,7 @@
 + (id)_predicateForMessagesInMailboxWithType:(id)type;
 + (id)_predicateForMessagesInMailboxWithURL:(id)l;
 + (id)_predicateForModelHighImpactMessages;
++ (id)_predicateForReadLaterMessagesFired:(BOOL)fired;
 + (id)_predicateStrippingSpotlightOnlyTerms:(id)terms;
 + (id)mailboxScopeForPredicate:(id)predicate withMailboxTypeResolver:(id)resolver;
 + (id)mailboxURLsForPredicate:(id)predicate;
@@ -38,6 +39,7 @@
 + (id)predicateForIncludesMeMessages;
 + (id)predicateForIndexedMessages;
 + (id)predicateForIsUrgentMessages;
++ (id)predicateForIsVIP:(BOOL)p;
 + (id)predicateForMessagesCced:(id)cced;
 + (id)predicateForMessagesForBusinessID:(int64_t)d;
 + (id)predicateForMessagesForBusinessID:(int64_t)d forAccount:(id)account;
@@ -85,6 +87,7 @@
 + (id)predicateFromPredicate:(id)predicate ignoringKeyPaths:(id)paths;
 + (id)predicateFromPredicate:(id)predicate ignoringPredicates:(id)predicates;
 + (id)predicateStrippingSpotlightOnlyTerms:(id)terms;
++ (id)sortDescriptorForKeyPath:(id)path ascending:(BOOL)ascending;
 + (id)threadScopeForPredicate:(id)predicate withMailboxTypeResolver:(id)resolver;
 + (id)transformPredicateWithMailboxes:(id)mailboxes mailboxTypeResolver:(id)resolver shouldIncludeFollowUps:(BOOL)ups shouldIncludeReadLater:(BOOL)later limitToSender:(id)sender;
 + (int64_t)dateSortOrderFromSortDescriptors:(id)descriptors;
@@ -94,16 +97,14 @@
 
 + (id)predicateForPrimaryMessages
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = [EMMessageListItemPredicates predicateForMessagesWithCategoryType:0];
   v3 = +[EMMessageListItemPredicates _predicateForModelHighImpactMessages];
   v4 = MEMORY[0x1E696AB28];
-  v9[0] = v2;
-  v9[1] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = v2;
+  v8[1] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v4 orPredicateWithSubpredicates:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -140,17 +141,15 @@
 
 + (id)predicateForUnfiredReadLaterMessages
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AB28];
   predicateForReadLaterMessages = [self predicateForReadLaterMessages];
-  v11[0] = predicateForReadLaterMessages;
+  v10[0] = predicateForReadLaterMessages;
   v5 = [self _predicateForReadLaterMessagesFired:0];
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v3 andPredicateWithSubpredicates:v6];
   ef_simplifiedPredicate = [v7 ef_simplifiedPredicate];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return ef_simplifiedPredicate;
 }
@@ -167,7 +166,7 @@
 
 + (id)predicateForUrgentMessages
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v3 = [EMInternalPreferences preferenceEnabled:45];
   v4 = [EMInternalPreferences preferenceEnabled:46];
   if (_os_feature_enabled_impl() && !(v3 | !EMIsGreymatterAvailable("CatchUpHighlightsV2") | v4))
@@ -201,14 +200,12 @@
     v8 = [self predicateForMessagesNewerThanDate:v7];
 
     v9 = MEMORY[0x1E696AE18];
-    v14[0] = predicateForUnreadMessages;
-    v14[1] = v6;
-    v14[2] = v8;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+    v13[0] = predicateForUnreadMessages;
+    v13[1] = v6;
+    v13[2] = v8;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
     predicateForIsUrgentMessages = [v9 ef_andCompoundPredicateWithSubpredicates:v10];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return predicateForIsUrgentMessages;
 }
@@ -477,7 +474,7 @@ id __85__EMMessageListItemPredicates_predicateForExcludingMessagesInMailboxesWit
 
 + (id)predicateForMessagesWithMailboxScope:(id)scope
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   if (!scopeCopy)
   {
@@ -535,17 +532,17 @@ LABEL_20:
     v20 = MEMORY[0x1E696AB28];
     if (excludeMailboxes)
     {
-      v29[0] = v17;
-      v29[1] = v18;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+      v28[0] = v17;
+      v28[1] = v18;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
       v22 = [v20 andPredicateWithSubpredicates:v21];
     }
 
     else
     {
-      v28[0] = v17;
-      v28[1] = v18;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+      v27[0] = v17;
+      v27[1] = v18;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
       v22 = [v20 orPredicateWithSubpredicates:v21];
     }
 
@@ -593,14 +590,13 @@ LABEL_16:
 LABEL_25:
 
 LABEL_26:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)predicateForMessagesWithThreadScope:(id)scope
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   if (!scopeCopy)
   {
@@ -642,17 +638,15 @@ LABEL_11:
   if (filterPredicate)
   {
     v12 = MEMORY[0x1E696AB28];
-    v19[0] = v10;
-    v19[1] = filterPredicate;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = v10;
+    v18[1] = filterPredicate;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v14 = [v12 andPredicateWithSubpredicates:v13];
 
     v11 = v14;
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -685,38 +679,34 @@ LABEL_12:
 
 + (id)predicateForMessagesForBusinessID:(int64_t)d forAccount:(id)account
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v6 = [EMMessageListItemPredicates predicateForAccount:accountCopy];
   v7 = [EMMessageListItemPredicates predicateForMessagesForBusinessID:d];
   v8 = MEMORY[0x1E696AB28];
-  v13[0] = v6;
-  v13[1] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = v6;
+  v12[1] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v10 = [v8 andPredicateWithSubpredicates:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)predicateForMessagesWithSender:(id)sender forAccount:(id)account
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   senderCopy = sender;
   accountCopy = account;
   v7 = [EMMessageListItemPredicates predicateForAccount:accountCopy];
-  v16[0] = senderCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = senderCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v9 = [EMMessageListItemPredicates predicateForMessagesWithSenders:v8];
 
   v10 = MEMORY[0x1E696AB28];
-  v15[0] = v7;
-  v15[1] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v7;
+  v14[1] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -887,24 +877,22 @@ id __67__EMMessageListItemPredicates_predicateForMessagesWithCcAddresses___block
 
 + (id)predicateForMessagesWithRecipient:(id)recipient
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   v5 = [self predicateForMessagesTo:recipientCopy];
   v6 = [self predicateForMessagesCced:recipientCopy];
   v7 = MEMORY[0x1E696AB28];
-  v12[0] = v5;
-  v12[1] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v9 = [v7 orPredicateWithSubpredicates:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)predicateForMessagesWithRecipients:(id)recipients
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
   v4 = [recipientsCopy ef_map:&__block_literal_global_106_0];
   v5 = MEMORY[0x1E696AB18];
@@ -918,12 +906,10 @@ id __67__EMMessageListItemPredicates_predicateForMessagesWithCcAddresses___block
   v12 = [v9 predicateWithLeftExpression:v10 rightExpression:v11 modifier:2 type:10 options:1];
 
   v13 = MEMORY[0x1E696AB28];
-  v18[0] = v8;
-  v18[1] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = v8;
+  v17[1] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v15 = [v13 orPredicateWithSubpredicates:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -949,20 +935,26 @@ id __66__EMMessageListItemPredicates_predicateForMessagesWithRecipients___block_
   return v7;
 }
 
++ (id)predicateForIsVIP:(BOOL)p
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:p];
+  v5 = [self _predicateForKeyPath:@"isVIP" value:v4];
+
+  return v5;
+}
+
 + (id)predicateForFlagColor:(unint64_t)color
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:color];
   v5 = [self _predicateForKeyPath:@"flags.flagColor" value:v4];
 
   v6 = MEMORY[0x1E696AB28];
   predicateForFlaggedMessages = [self predicateForFlaggedMessages];
-  v12[0] = predicateForFlaggedMessages;
-  v12[1] = v5;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = predicateForFlaggedMessages;
+  v11[1] = v5;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v9 = [v6 andPredicateWithSubpredicates:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1006,17 +998,15 @@ id __66__EMMessageListItemPredicates_predicateForMessagesWithRecipients___block_
 
 + (id)predicateForNonPrimaryMessages
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AB28];
   v3 = [EMMessageListItemPredicates predicateForMessagesWithCategoryType:2];
   v4 = [EMMessageListItemPredicates predicateForMessagesWithCategoryType:1, v3];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [EMMessageListItemPredicates predicateForMessagesWithCategoryType:3];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v2 orPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1061,19 +1051,30 @@ id __66__EMMessageListItemPredicates_predicateForMessagesWithRecipients___block_
   return v5;
 }
 
++ (id)_predicateForReadLaterMessagesFired:(BOOL)fired
+{
+  firedCopy = fired;
+  v4 = MEMORY[0x1E696AB18];
+  v5 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"readLater.isActive"];
+  v6 = MEMORY[0x1E696ABC8];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:firedCopy];
+  v8 = [v6 expressionForConstantValue:v7];
+  v9 = [v4 predicateWithLeftExpression:v5 rightExpression:v8 modifier:0 type:4 options:0];
+
+  return v9;
+}
+
 + (id)predicateForUnfiredReadLaterMessagesInInbox
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AB28];
   predicateForUnfiredReadLaterMessages = [self predicateForUnfiredReadLaterMessages];
-  v11[0] = predicateForUnfiredReadLaterMessages;
+  v10[0] = predicateForUnfiredReadLaterMessages;
   v5 = [self predicateForMessagesInMailboxWithType:7];
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v3 andPredicateWithSubpredicates:v6];
   ef_simplifiedPredicate = [v7 ef_simplifiedPredicate];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return ef_simplifiedPredicate;
 }
@@ -1113,7 +1114,7 @@ id __66__EMMessageListItemPredicates_predicateForMessagesWithRecipients___block_
 
 id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTypeResolver_shouldIncludeFollowUps_shouldIncludeReadLater_limitToSender___block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) insertObject:v3 atIndex:0];
   v4 = [MEMORY[0x1E696AE18] ef_orCompoundPredicateWithSubpredicates:*(a1 + 32)];
@@ -1121,16 +1122,14 @@ id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTyp
   if (*(a1 + 40))
   {
     v5 = MEMORY[0x1E696AB28];
-    v11[0] = v4;
+    v10[0] = v4;
     v6 = [EMMessageListItemPredicates predicateForMessagesWithSender:?];
-    v11[1] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+    v10[1] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
     v8 = [v5 andPredicateWithSubpredicates:v7];
 
     v4 = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1147,7 +1146,7 @@ id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTyp
 
 + (id)predicateForMessagesWithActiveFollowUpInAccountsOfMailboxes:(id)mailboxes mailboxTypeResolver:(id)resolver
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   mailboxesCopy = mailboxes;
   resolverCopy = resolver;
   if ([mailboxesCopy ef_any:&__block_literal_global_128])
@@ -1163,20 +1162,20 @@ id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTyp
       v11 = [resolverCopy mailboxObjectIDsForMailboxType:4];
       allObjects = [v11 allObjects];
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __111__EMMessageListItemPredicates_predicateForMessagesWithActiveFollowUpInAccountsOfMailboxes_mailboxTypeResolver___block_invoke_132;
-      v23[3] = &unk_1E826E410;
-      v24 = v10;
-      v13 = [allObjects ef_filter:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __111__EMMessageListItemPredicates_predicateForMessagesWithActiveFollowUpInAccountsOfMailboxes_mailboxTypeResolver___block_invoke_132;
+      v22[3] = &unk_1E826E410;
+      v23 = v10;
+      v13 = [allObjects ef_filter:v22];
       if ([v13 count])
       {
         v14 = [EMMessageListItemPredicates predicateForMessagesInMailboxesWithObjectIDs:v13];
         v15 = MEMORY[0x1E696AB28];
-        v25[0] = v14;
+        v24[0] = v14;
         predicateForMessagesWithActiveFollowUp = [self predicateForMessagesWithActiveFollowUp];
-        v25[1] = predicateForMessagesWithActiveFollowUp;
-        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+        v24[1] = predicateForMessagesWithActiveFollowUp;
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
         v18 = [v15 andPredicateWithSubpredicates:v17];
         predicateForMessagesWithActiveFollowUpInSent = [v18 ef_simplifiedPredicate];
       }
@@ -1188,7 +1187,7 @@ id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTyp
         {
           v20 = NSStringFromSelector(a2);
           *buf = 138543362;
-          v27 = v20;
+          v26 = v20;
           _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ - empty mailboxesToSearch", buf, 0xCu);
         }
 
@@ -1203,15 +1202,13 @@ id __143__EMMessageListItemPredicates_transformPredicateWithMailboxes_mailboxTyp
       {
         v19 = NSStringFromSelector(a2);
         *buf = 138543362;
-        v27 = v19;
+        v26 = v19;
         _os_log_impl(&dword_1C6655000, allObjects, OS_LOG_TYPE_DEFAULT, "%{public}@ - empty accountIdentifiers", buf, 0xCu);
       }
 
       predicateForMessagesWithActiveFollowUpInSent = 0;
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return predicateForMessagesWithActiveFollowUpInSent;
 }
@@ -1301,23 +1298,21 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
 
 + (id)predicateForMessagesWithActiveFollowUpInSent
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = [self predicateForMessagesInMailboxWithType:4];
   v4 = MEMORY[0x1E696AB28];
   predicateForMessagesWithActiveFollowUp = [self predicateForMessagesWithActiveFollowUp];
-  v10[0] = predicateForMessagesWithActiveFollowUp;
-  v10[1] = v3;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = predicateForMessagesWithActiveFollowUp;
+  v9[1] = v3;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v4 andPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)predicateForMessagesWithUnfiredFollowUp
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AB18];
   v4 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"displayDate"];
   v5 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"followUp.startDate"];
@@ -1326,18 +1321,16 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
   v7 = MEMORY[0x1E696AB28];
   _predicateForFollowUpMessages = [self _predicateForFollowUpMessages];
   v9 = [self predicateForMessagesInMailboxWithType:{4, _predicateForFollowUpMessages, v6}];
-  v14[2] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v11 = [v7 andPredicateWithSubpredicates:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)_predicateForActiveFollowUpMessagesIncludeExpired:(BOOL)expired
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AB18];
   v6 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"displayDate"];
   v7 = [MEMORY[0x1E696ABC8] expressionForKeyPath:@"followUp.startDate"];
@@ -1348,9 +1341,9 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
   if (expired)
   {
     v11 = MEMORY[0x1E696AB28];
-    v21[0] = v8;
-    v21[1] = v9;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v20[0] = v8;
+    v20[1] = v9;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
   }
 
@@ -1362,14 +1355,12 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
     v12 = [v14 predicateWithLeftExpression:v15 rightExpression:v16 modifier:0 type:0 options:0];
 
     v17 = MEMORY[0x1E696AB28];
-    v22[0] = v8;
-    v22[1] = v12;
-    v22[2] = v10;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
+    v21[0] = v8;
+    v21[1] = v12;
+    v21[2] = v10;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
     v13 = [v17 andPredicateWithSubpredicates:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1386,16 +1377,14 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
 
 + (id)predicateForIncludesMeMessages
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AB28];
   predicateForToMeMessages = [self predicateForToMeMessages];
-  v10[0] = predicateForToMeMessages;
+  v9[0] = predicateForToMeMessages;
   predicateForCCMeMessages = [self predicateForCCMeMessages];
-  v10[1] = predicateForCCMeMessages;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[1] = predicateForCCMeMessages;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v3 orPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1500,7 +1489,7 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
 
 + (id)_dateRangePredicateForListItemKeyPath:(id)path startDate:(id)date endDate:(id)endDate
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dateCopy = date;
   endDateCopy = endDate;
@@ -1519,9 +1508,9 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
     v18 = [v15 predicateWithLeftExpression:v16 rightExpression:v17 modifier:0 type:0 options:0];
 
     v19 = MEMORY[0x1E696AB28];
-    v24[0] = v14;
-    v24[1] = v18;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = v14;
+    v23[1] = v18;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v21 = [v19 andPredicateWithSubpredicates:v20];
   }
 
@@ -1529,8 +1518,6 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
   {
     v21 = v14;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1552,16 +1539,23 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
   return v8;
 }
 
++ (id)sortDescriptorForKeyPath:(id)path ascending:(BOOL)ascending
+{
+  v4 = [MEMORY[0x1E699B980] sortDescriptorWithKey:path ascending:ascending];
+
+  return v4;
+}
+
 + (int64_t)dateSortOrderFromSortDescriptors:(id)descriptors
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   if ([descriptorsCopy count])
   {
     firstObject = [descriptorsCopy firstObject];
-    v11[0] = @"date";
-    v11[1] = @"displayDate";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+    v10[0] = @"date";
+    v10[1] = @"displayDate";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
     v6 = [firstObject key];
     v7 = [v5 containsObject:v6];
 
@@ -1589,13 +1583,12 @@ id __121__EMMessageListItemPredicates_predicateForMessagesForFiredReadLaterDateI
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (BOOL)isPredicateForMessagesInConversations:(id)conversations conversationIDs:(id *)ds
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   conversationsCopy = conversations;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1634,8 +1627,8 @@ LABEL_9:
 
     if (constantValue)
     {
-      v19[0] = constantValue;
-      constantValue2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+      v18[0] = constantValue;
+      constantValue2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     }
 
     else
@@ -1659,7 +1652,7 @@ LABEL_9:
   {
     if (ds)
     {
-      v18 = constantValue2;
+      v17 = constantValue2;
       *ds = constantValue2;
     }
 
@@ -1676,7 +1669,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1738,34 +1730,34 @@ LABEL_13:
 
 + (BOOL)_isPredicateForMessagesInMailboxObjectIDs:(id)ds mailboxObjectIDs:(id *)iDs
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [dsCopy compoundPredicateType] == 2)
   {
     [dsCopy subpredicates];
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v7 = v24 = 0u;
+    v22 = 0u;
+    v7 = v23 = 0u;
     v8 = 0;
-    v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
-      v10 = *v24;
+      v10 = *v23;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
-          v22 = 0;
-          v13 = [self isPredicateForMessagesInMailboxObjectID:v12 mailboxObjectID:&v22];
-          v14 = v22;
+          v12 = *(*(&v22 + 1) + 8 * i);
+          v21 = 0;
+          v13 = [self isPredicateForMessagesInMailboxObjectID:v12 mailboxObjectID:&v21];
+          v14 = v21;
           v15 = v14;
           if (!v13)
           {
@@ -1786,7 +1778,7 @@ LABEL_13:
           [v8 addObject:v15];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v9)
         {
           continue;
@@ -1808,9 +1800,9 @@ LABEL_25:
 
   else
   {
-    v21 = 0;
-    v17 = [self isPredicateForMessagesInMailboxObjectID:dsCopy mailboxObjectID:&v21];
-    v8 = v21;
+    v20 = 0;
+    v17 = [self isPredicateForMessagesInMailboxObjectID:dsCopy mailboxObjectID:&v20];
+    v8 = v20;
     if (v17)
     {
       v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v8, 0}];
@@ -1827,7 +1819,6 @@ LABEL_25:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1886,7 +1877,7 @@ LABEL_13:
 
 + (BOOL)isPredicateForMessagesWithActiveFollowUp:(id)up mailboxTypeResolver:(id)resolver inSent:(BOOL *)sent sentMailboxObjectIDs:(id *)ds
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   upCopy = up;
   resolverCopy = resolver;
   if ([self _isPredicateForMessagesWithActiveFollowUp:upCopy])
@@ -1908,38 +1899,38 @@ LABEL_13:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [upCopy compoundPredicateType] == 1)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v24 = resolverCopy;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v23 = resolverCopy;
     subpredicates = [upCopy subpredicates];
     obj = subpredicates;
-    v14 = [subpredicates countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v14 = [subpredicates countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v14)
     {
       v15 = 0;
-      v25 = 0;
-      v16 = *v32;
+      v24 = 0;
+      v16 = *v31;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
-          v30 = -500;
+          v18 = *(*(&v30 + 1) + 8 * i);
+          v29 = -500;
           if ([self _isPredicateForMessagesWithActiveFollowUp:v18])
           {
-            v25 = 1;
+            v24 = 1;
           }
 
-          else if ([self isPredicateForMessagesInMailboxWithType:v18 mailboxType:&v30])
+          else if ([self isPredicateForMessagesInMailboxWithType:v18 mailboxType:&v29])
           {
-            if (v30 != 4)
+            if (v29 != 4)
             {
               goto LABEL_35;
             }
@@ -1947,7 +1938,7 @@ LABEL_13:
 
           else
           {
-            if (v15 || (v29 = 0, v19 = [self _isPredicateForMessagesInMailboxObjectIDs:v18 mailboxObjectIDs:&v29], v15 = v29, !v19))
+            if (v15 || (v28 = 0, v19 = [self _isPredicateForMessagesInMailboxObjectIDs:v18 mailboxObjectIDs:&v28], v15 = v28, !v19))
             {
 LABEL_35:
               if (sent)
@@ -1966,12 +1957,12 @@ LABEL_49:
               goto LABEL_50;
             }
 
-            v27[0] = MEMORY[0x1E69E9820];
-            v27[1] = 3221225472;
-            v27[2] = __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp_mailboxTypeResolver_inSent_sentMailboxObjectIDs___block_invoke;
-            v27[3] = &unk_1E826E4D0;
-            v28 = v24;
-            if ([v15 ef_any:v27])
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp_mailboxTypeResolver_inSent_sentMailboxObjectIDs___block_invoke;
+            v26[3] = &unk_1E826E4D0;
+            v27 = v23;
+            if ([v15 ef_any:v26])
             {
               if (sent)
               {
@@ -1989,7 +1980,7 @@ LABEL_49:
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v14)
         {
           continue;
@@ -1998,7 +1989,7 @@ LABEL_49:
         break;
       }
 
-      if (v25)
+      if (v24)
       {
         if (sent)
         {
@@ -2014,7 +2005,7 @@ LABEL_49:
         v12 = 1;
 LABEL_51:
 
-        resolverCopy = v24;
+        resolverCopy = v23;
         goto LABEL_52;
       }
     }
@@ -2058,7 +2049,6 @@ LABEL_50:
 
 LABEL_52:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2082,7 +2072,7 @@ BOOL __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp
 
 + (BOOL)isPredicateForMessagesWithFiredReadLaterDate:(id)date accountObjectIDs:(id *)ds
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v5 = +[EMMessageListItemPredicates predicateForFiredReadLaterMessages];
   v6 = [dateCopy isEqual:v5];
@@ -2110,27 +2100,27 @@ BOOL __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp
       subpredicates = 0;
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = subpredicates;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = 0;
       v12 = 0;
-      v13 = *v26;
+      v13 = *v25;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           predicateForFiredReadLaterMessages = [self predicateForFiredReadLaterMessages];
           v17 = [v15 isEqual:predicateForFiredReadLaterMessages];
 
@@ -2139,7 +2129,7 @@ BOOL __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp
             v11 = 1;
           }
 
-          else if (v12 || (v24 = 0, v18 = [self _isPredicateForMessagesInAccountObjectIDs:v15 accountObjectIDs:&v24], v12 = v24, (v18 & 1) == 0))
+          else if (v12 || (v23 = 0, v18 = [self _isPredicateForMessagesInAccountObjectIDs:v15 accountObjectIDs:&v23], v12 = v23, (v18 & 1) == 0))
           {
             if (ds)
             {
@@ -2150,7 +2140,7 @@ BOOL __120__EMMessageListItemPredicates_isPredicateForMessagesWithActiveFollowUp
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           continue;
@@ -2193,7 +2183,6 @@ LABEL_26:
 LABEL_30:
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -2254,34 +2243,34 @@ LABEL_13:
 
 + (BOOL)_isPredicateForMessagesInAccountObjectIDs:(id)ds accountObjectIDs:(id *)iDs
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [dsCopy compoundPredicateType] == 2)
   {
     [dsCopy subpredicates];
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v7 = v24 = 0u;
+    v22 = 0u;
+    v7 = v23 = 0u;
     v8 = 0;
-    v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
-      v10 = *v24;
+      v10 = *v23;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
-          v22 = 0;
-          v13 = [self isPredicateForMessagesInAccountObjectID:v12 accountObjectID:&v22];
-          v14 = v22;
+          v12 = *(*(&v22 + 1) + 8 * i);
+          v21 = 0;
+          v13 = [self isPredicateForMessagesInAccountObjectID:v12 accountObjectID:&v21];
+          v14 = v21;
           v15 = v14;
           if (!v13)
           {
@@ -2302,7 +2291,7 @@ LABEL_13:
           [v8 addObject:v15];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v9)
         {
           continue;
@@ -2324,9 +2313,9 @@ LABEL_25:
 
   else
   {
-    v21 = 0;
-    v17 = [self isPredicateForMessagesInAccountObjectID:dsCopy accountObjectID:&v21];
-    v8 = v21;
+    v20 = 0;
+    v17 = [self isPredicateForMessagesInAccountObjectID:dsCopy accountObjectID:&v20];
+    v8 = v20;
     if (v17)
     {
       v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v8, 0}];
@@ -2343,7 +2332,6 @@ LABEL_25:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -2356,7 +2344,7 @@ LABEL_25:
 
 + (id)threadScopeForPredicate:(id)predicate withMailboxTypeResolver:(id)resolver
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   resolverCopy = resolver;
   ef_simplifiedPredicate = [predicateCopy ef_simplifiedPredicate];
@@ -2393,13 +2381,13 @@ LABEL_30:
     goto LABEL_44;
   }
 
-  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   subpredicates = [v9 subpredicates];
-  v11 = [subpredicates countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [subpredicates countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v11)
   {
 LABEL_41:
@@ -2409,17 +2397,17 @@ LABEL_41:
   }
 
   v12 = 0;
-  v13 = *v30;
+  v13 = *v29;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v30 != v13)
+      if (*v29 != v13)
       {
         objc_enumerationMutation(subpredicates);
       }
 
-      v15 = *(*(&v29 + 1) + 8 * i);
+      v15 = *(*(&v28 + 1) + 8 * i);
       v16 = mailboxScopeForThreadWithPredicate(v15, resolverCopy);
       v17 = v16;
       if (v16)
@@ -2460,11 +2448,11 @@ LABEL_40:
           goto LABEL_40;
         }
 
-        [v28 addObject:v15];
+        [v27 addObject:v15];
       }
     }
 
-    v11 = [subpredicates countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [subpredicates countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       continue;
@@ -2475,17 +2463,17 @@ LABEL_40:
 
   if (v12)
   {
-    v20 = [v28 count];
+    v20 = [v27 count];
     if (v20)
     {
       if (v20 == 1)
       {
-        [v28 firstObject];
+        [v27 firstObject];
       }
 
       else
       {
-        [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v28];
+        [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v27];
       }
       v22 = ;
     }
@@ -2517,8 +2505,6 @@ LABEL_31:
   if (!v12)
   {
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -2557,7 +2543,7 @@ uint64_t __79__EMMessageListItemPredicates_threadScopeForPredicate_withMailboxTy
 
 + (id)mailboxURLsForPredicate:(id)predicate
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   objc_opt_class();
@@ -2586,36 +2572,35 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   subpredicates = [predicateCopy subpredicates];
-  v7 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        v10 = [self mailboxURLsForPredicate:*(*(&v19 + 1) + 8 * i)];
+        v10 = [self mailboxURLsForPredicate:*(*(&v18 + 1) + 8 * i)];
         [v5 addObjectsFromArray:v10];
       }
 
-      v7 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
 LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -2640,7 +2625,7 @@ LABEL_15:
 
 + (id)_predicateStrippingSpotlightOnlyTerms:(id)terms
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   termsCopy = terms;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -2649,12 +2634,12 @@ LABEL_15:
   if (isKindOfClass)
   {
     subpredicates = [v6 subpredicates];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __69__EMMessageListItemPredicates__predicateStrippingSpotlightOnlyTerms___block_invoke;
-    v24[3] = &__block_descriptor_40_e34___NSPredicate_16__0__NSPredicate_8l;
-    v24[4] = self;
-    v9 = [subpredicates ef_compactMap:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __69__EMMessageListItemPredicates__predicateStrippingSpotlightOnlyTerms___block_invoke;
+    v23[3] = &__block_descriptor_40_e34___NSPredicate_16__0__NSPredicate_8l;
+    v23[4] = self;
+    v9 = [subpredicates ef_compactMap:v23];
 
     if ([v9 count])
     {
@@ -2695,9 +2680,9 @@ LABEL_10:
 
       leftExpression4 = [v7 leftExpression];
       keyPath3 = [leftExpression4 keyPath];
-      v21 = [keyPath3 isEqualToString:@"SpotlightQuery"];
+      v20 = [keyPath3 isEqualToString:@"SpotlightQuery"];
 
-      if (v21)
+      if (v20)
       {
         goto LABEL_10;
       }
@@ -2713,22 +2698,20 @@ LABEL_10:
     v16 = +[EMMessageListItemPredicates log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
+      v21 = objc_opt_class();
       ef_publicDescription = [v7 ef_publicDescription];
       *buf = 138412802;
-      v26 = v22;
-      v27 = 2048;
+      v25 = v21;
+      v26 = 2048;
       selfCopy = self;
-      v29 = 2114;
-      v30 = ef_publicDescription;
+      v28 = 2114;
+      v29 = ef_publicDescription;
       _os_log_error_impl(&dword_1C6655000, v16, OS_LOG_TYPE_ERROR, "<%@: %p> Spotlight predicate does not respond to leftExpression: %{public}@", buf, 0x20u);
     }
   }
 
   v10 = v7;
 LABEL_18:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

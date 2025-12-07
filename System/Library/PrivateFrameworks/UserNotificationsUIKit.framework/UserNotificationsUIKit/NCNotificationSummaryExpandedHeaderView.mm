@@ -269,19 +269,20 @@
 {
   if (self->_onboarding)
   {
-    if (self->_onboardingAcceptButton || (NCUserNotificationsUIKitFrameworkBundle(), v3 = objc_claimAutoreleasedReturnValue(), [v3 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_BUTTON_TITLE_ACCEPT" value:&stru_282FE84F8 table:0], v4 = objc_claimAutoreleasedReturnValue(), v5 = -[NCNotificationSummaryExpandedHeaderView _newOnboardingButtonWithTitle:](self, "_newOnboardingButtonWithTitle:", v4), onboardingAcceptButton = self->_onboardingAcceptButton, self->_onboardingAcceptButton = v5, onboardingAcceptButton, v4, v3, -[UIButton addTarget:action:forControlEvents:](self->_onboardingAcceptButton, "addTarget:action:forControlEvents:", self, sel__summaryOnboardingAccepted_, 64), self->_onboarding))
+    selfCopy = self;
+    if (self->_onboardingAcceptButton || (NCUserNotificationsUIKitFrameworkBundle(self), v3 = objc_claimAutoreleasedReturnValue(), [v3 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_BUTTON_TITLE_ACCEPT" value:&stru_282FE84F8 table:0], v4 = objc_claimAutoreleasedReturnValue(), v5 = -[NCNotificationSummaryExpandedHeaderView _newOnboardingButtonWithTitle:](selfCopy, "_newOnboardingButtonWithTitle:", v4), onboardingAcceptButton = selfCopy->_onboardingAcceptButton, selfCopy->_onboardingAcceptButton = v5, onboardingAcceptButton, v4, v3, self = -[UIButton addTarget:action:forControlEvents:](selfCopy->_onboardingAcceptButton, "addTarget:action:forControlEvents:", selfCopy, sel__summaryOnboardingAccepted_, 64), selfCopy->_onboarding))
     {
-      if (!self->_onboardingRejectButton)
+      if (!selfCopy->_onboardingRejectButton)
       {
-        v7 = NCUserNotificationsUIKitFrameworkBundle();
+        v7 = NCUserNotificationsUIKitFrameworkBundle(self);
         v8 = [v7 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_BUTTON_TITLE_REJECT" value:&stru_282FE84F8 table:0];
-        v9 = [(NCNotificationSummaryExpandedHeaderView *)self _newOnboardingButtonWithTitle:v8];
-        onboardingRejectButton = self->_onboardingRejectButton;
-        self->_onboardingRejectButton = v9;
+        v9 = [(NCNotificationSummaryExpandedHeaderView *)selfCopy _newOnboardingButtonWithTitle:v8];
+        onboardingRejectButton = selfCopy->_onboardingRejectButton;
+        selfCopy->_onboardingRejectButton = v9;
 
-        v11 = self->_onboardingRejectButton;
+        v11 = selfCopy->_onboardingRejectButton;
 
-        [(UIButton *)v11 addTarget:self action:sel__summaryOnboardingRejected_ forControlEvents:64];
+        [(UIButton *)v11 addTarget:selfCopy action:sel__summaryOnboardingRejected_ forControlEvents:64];
       }
     }
   }
@@ -327,8 +328,8 @@ void __76__NCNotificationSummaryExpandedHeaderView__configureControlsViewIfNeces
   *(v4 + 504) = v3;
 
   [*(a1 + 32) addSubview:*(*(a1 + 32) + 504)];
-  v20 = [*(a1 + 32) delegate];
-  v6 = [v20 materialGroupNameBaseForNotificationSummaryExpandedHeaderView:*(a1 + 32)];
+  v21 = [*(a1 + 32) delegate];
+  v6 = [v21 materialGroupNameBaseForNotificationSummaryExpandedHeaderView:*(a1 + 32)];
   v7 = MEMORY[0x277D755D0];
   v8 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76A28]];
   v9 = [v7 configurationWithFont:v8 scale:2];
@@ -345,20 +346,20 @@ void __76__NCNotificationSummaryExpandedHeaderView__configureControlsViewIfNeces
   *(v12 + 488) = v11;
   v14 = v11;
 
-  v15 = NCUserNotificationsUIKitFrameworkBundle();
-  v16 = [v15 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
-  v17 = [NCToggleControl dismissControlWithMaterialRecipe:1 clearAllText:v16];
+  v16 = NCUserNotificationsUIKitFrameworkBundle(v15);
+  v17 = [v16 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
+  v18 = [NCToggleControl dismissControlWithMaterialRecipe:1 clearAllText:v17];
 
-  [v17 setDelegate:*(a1 + 32)];
-  [v17 setMaterialGroupNameBase:v6];
-  [v17 setAdjustsFontForContentSizeCategory:1];
-  [v17 addTarget:*(a1 + 32) action:sel__handleClearControlTouchUpInside_ forControlEvents:64];
-  [v17 addTarget:*(a1 + 32) action:sel__handleClearControlPrimaryAction_ forControlEvents:0x2000];
-  [v17 addTarget:*(a1 + 32) forPreviewInteractionPresentedContentWithAction:sel__handleClearAll_];
-  [*(*(a1 + 32) + 504) addSubview:v17];
-  v18 = *(a1 + 32);
-  v19 = *(v18 + 496);
-  *(v18 + 496) = v17;
+  [v18 setDelegate:*(a1 + 32)];
+  [v18 setMaterialGroupNameBase:v6];
+  [v18 setAdjustsFontForContentSizeCategory:1];
+  [v18 addTarget:*(a1 + 32) action:sel__handleClearControlTouchUpInside_ forControlEvents:64];
+  [v18 addTarget:*(a1 + 32) action:sel__handleClearControlPrimaryAction_ forControlEvents:0x2000];
+  [v18 addTarget:*(a1 + 32) forPreviewInteractionPresentedContentWithAction:sel__handleClearAll_];
+  [*(*(a1 + 32) + 504) addSubview:v18];
+  v19 = *(a1 + 32);
+  v20 = *(v19 + 496);
+  *(v19 + 496) = v18;
 }
 
 - (void)_handleClearControlTouchUpInside:(id)inside

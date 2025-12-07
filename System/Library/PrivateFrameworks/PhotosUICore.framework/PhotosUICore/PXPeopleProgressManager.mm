@@ -154,14 +154,15 @@ void __41__PXPeopleProgressManager__logFaceCounts__block_invoke(uint64_t a1)
   [*(a1 + 32) shouldUseProgressFooterWithCompletion:&__block_literal_global_26];
 }
 
-void __41__PXPeopleProgressManager__logFaceCounts__block_invoke_23(uint64_t a1, int a2)
+void __41__PXPeopleProgressManager__logFaceCounts__block_invoke_23(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x1E69E9840];
   v3 = PLUIGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = @"NO";
-    if (a2)
+    if (v2)
     {
       v4 = @"YES";
     }

@@ -39,7 +39,7 @@
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   swift_beginAccess();
   selfCopy = self;
-  sub_10002849C(&qword_1009813A0);
+  sub_10002849C(&qword_1009813A0, &unk_1007C8DD0);
   ReusePool.drain()();
   swift_endAccess();
 

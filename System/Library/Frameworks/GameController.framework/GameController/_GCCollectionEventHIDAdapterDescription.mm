@@ -29,23 +29,23 @@
 - (_GCCollectionEventHIDAdapterDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _GCCollectionEventHIDAdapterDescription;
-  v5 = [(_GCCollectionEventHIDAdapterDescription *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = _GCCollectionEventHIDAdapterDescription;
+  v5 = [(_GCCollectionEventHIDAdapterDescription *)&v15 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"parser"];
     parser = v5->_parser;
     v5->_parser = v6;
 
-    v8 = _GCHIDEventSourceDescription_Classes();
-    v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"source"];
+    v9 = _GCHIDEventSourceDescription_Classes(v8);
+    v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"source"];
     sourceDescription = v5->_sourceDescription;
-    v5->_sourceDescription = v9;
+    v5->_sourceDescription = v10;
 
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"service"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"service"];
     serviceDescription = v5->_serviceDescription;
-    v5->_serviceDescription = v11;
+    v5->_serviceDescription = v12;
   }
 
   return v5;

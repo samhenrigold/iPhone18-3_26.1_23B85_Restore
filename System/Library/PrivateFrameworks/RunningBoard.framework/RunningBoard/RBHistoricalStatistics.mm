@@ -91,7 +91,7 @@ void __51__RBHistoricalStatistics_logStatisticsPeriodically__block_invoke(uint64
 
 - (void)logStatisticsWithLabel:(void *)label
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (label)
   {
@@ -106,29 +106,27 @@ void __51__RBHistoricalStatistics_logStatisticsPeriodically__block_invoke(uint64
       v10 = label[7];
       v11 = label[8];
       v12 = label[9];
-      v14 = 138414338;
-      v15 = v3;
-      v16 = 2048;
-      v17 = v5;
-      v18 = 2048;
-      v19 = v6;
-      v20 = 2048;
-      v21 = v7;
-      v22 = 2048;
-      v23 = v8;
-      v24 = 2048;
-      v25 = v9;
-      v26 = 2048;
-      v27 = v10;
-      v28 = 2048;
-      v29 = v11;
-      v30 = 2048;
-      v31 = v12;
-      _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "%@C %lu(%lu) P %lu(%lu) A %lu(%lu) M %lu(%lu)", &v14, 0x5Cu);
+      v13 = 138414338;
+      v14 = v3;
+      v15 = 2048;
+      v16 = v5;
+      v17 = 2048;
+      v18 = v6;
+      v19 = 2048;
+      v20 = v7;
+      v21 = 2048;
+      v22 = v8;
+      v23 = 2048;
+      v24 = v9;
+      v25 = 2048;
+      v26 = v10;
+      v27 = 2048;
+      v28 = v11;
+      v29 = 2048;
+      v30 = v12;
+      _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "%@C %lu(%lu) P %lu(%lu) A %lu(%lu) M %lu(%lu)", &v13, 0x5Cu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logStatisticsPeriodically

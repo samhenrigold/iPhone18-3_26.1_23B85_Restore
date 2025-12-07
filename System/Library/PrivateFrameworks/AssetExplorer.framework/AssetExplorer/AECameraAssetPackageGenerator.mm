@@ -32,7 +32,7 @@ void __86__AECameraAssetPackageGenerator_generatePackageFromReviewAsset_withComp
 
 - (void)_populatePackage:(id)package fromReviewAsset:(id)asset withCompletionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   assetCopy = asset;
   handlerCopy = handler;
@@ -72,12 +72,12 @@ LABEL_26:
     {
       if (!providedFullsizeImageURL)
       {
-        v28 = PLAssetExplorerGetLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v27 = PLAssetExplorerGetLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v30 = 138543362;
-          v31 = 0;
-          _os_log_impl(&dword_2411DE000, v28, OS_LOG_TYPE_ERROR, "<Camera> Failed to store live photo image URL %{public}@ into live photo asset package!", &v30, 0xCu);
+          v29 = 138543362;
+          v30 = 0;
+          _os_log_impl(&dword_2411DE000, v27, OS_LOG_TYPE_ERROR, "<Camera> Failed to store live photo image URL %{public}@ into live photo asset package!", &v29, 0xCu);
         }
 
         packageCopy = 0;
@@ -96,12 +96,12 @@ LABEL_19:
         {
           if (!identifier)
           {
-            v29 = PLAssetExplorerGetLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v28 = PLAssetExplorerGetLog();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              v30 = 138543362;
-              v31 = 0;
-              _os_log_impl(&dword_2411DE000, v29, OS_LOG_TYPE_ERROR, "<Camera> Failed to store live photo video URL %{public}@ into live photo asset package!", &v30, 0xCu);
+              v29 = 138543362;
+              v30 = 0;
+              _os_log_impl(&dword_2411DE000, v28, OS_LOG_TYPE_ERROR, "<Camera> Failed to store live photo video URL %{public}@ into live photo asset package!", &v29, 0xCu);
             }
 
             identifier3 = packageCopy;
@@ -163,11 +163,11 @@ LABEL_27:
     goto LABEL_32;
   }
 
-  v27 = PLAssetExplorerGetLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v26 = PLAssetExplorerGetLog();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v30) = 0;
-    _os_log_impl(&dword_2411DE000, v27, OS_LOG_TYPE_ERROR, "<Camera> Failed to generate an asset package – no suitable data is available", &v30, 2u);
+    LOWORD(v29) = 0;
+    _os_log_impl(&dword_2411DE000, v26, OS_LOG_TYPE_ERROR, "<Camera> Failed to generate an asset package – no suitable data is available", &v29, 2u);
   }
 
   v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AECameraAssetPackageGeneratorErrorDomain" code:-47201 userInfo:0];
@@ -178,8 +178,6 @@ LABEL_32:
   {
     handlerCopy[2](handlerCopy, packageCopy, v25);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (AECameraAssetPackageGenerator)init

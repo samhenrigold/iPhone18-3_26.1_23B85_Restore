@@ -196,7 +196,6 @@ LABEL_10:
     goto LABEL_40;
   }
 
-  v5 = *(equalCopy + 104);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 104) & 2) == 0 || self->_secureBackupMetadataTimestamp != *(equalCopy + 2))
@@ -208,7 +207,7 @@ LABEL_10:
   else if ((*(equalCopy + 104) & 2) != 0)
   {
 LABEL_40:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_41;
   }
 
@@ -311,7 +310,7 @@ LABEL_40:
     }
   }
 
-  v13 = (*(equalCopy + 104) & 1) == 0;
+  v12 = (*(equalCopy + 104) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 104) & 1) == 0 || self->_devicePlatform != *(equalCopy + 1))
@@ -319,12 +318,12 @@ LABEL_40:
       goto LABEL_40;
     }
 
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_41:
 
-  return v13;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -523,7 +522,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    secureBackupMetadataTimestamp = self->_secureBackupMetadataTimestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -543,7 +541,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  secureBackupNumericPassphraseLength = self->_secureBackupNumericPassphraseLength;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -558,12 +555,10 @@ LABEL_4:
   }
 
 LABEL_27:
-  secureBackupUsesComplexPassphrase = self->_secureBackupUsesComplexPassphrase;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_5:
-    secureBackupUsesNumericPassphrase = self->_secureBackupUsesNumericPassphrase;
     PBDataWriterWriteUint64Field();
   }
 
@@ -605,7 +600,6 @@ LABEL_6:
 
   if (*&self->_has)
   {
-    devicePlatform = self->_devicePlatform;
     PBDataWriterWriteUint64Field();
   }
 }

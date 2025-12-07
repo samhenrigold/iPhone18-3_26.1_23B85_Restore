@@ -152,7 +152,7 @@
   return v2;
 }
 
-uint64_t __63__SFUnifiedBarItemArrangement_allowsCenteringInlineContentView__block_invoke(uint64_t a1, void *a2)
+void *__63__SFUnifiedBarItemArrangement_allowsCenteringInlineContentView__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 spacingOptions];
   if ((result & 8) != 0)

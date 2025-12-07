@@ -19,9 +19,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_4D2D68();
+  v4 = sub_4D2D68(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 @end

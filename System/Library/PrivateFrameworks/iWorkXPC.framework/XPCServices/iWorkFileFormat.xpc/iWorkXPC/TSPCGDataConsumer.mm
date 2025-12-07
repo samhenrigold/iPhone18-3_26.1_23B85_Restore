@@ -147,21 +147,20 @@
     v3 = TSUDefaultCat_log_t;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      error = self->_error;
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v4 = objc_opt_class();
+      v5 = NSStringFromClass(v4);
       domain = [(NSError *)self->_error domain];
       code = [(NSError *)self->_error code];
-      v9 = self->_error;
-      v10 = 138544130;
-      v11 = v6;
-      v12 = 2114;
-      v13 = domain;
-      v14 = 2048;
-      v15 = code;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to write bytes. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", &v10, 0x2Au);
+      error = self->_error;
+      v9 = 138544130;
+      v10 = v5;
+      v11 = 2114;
+      v12 = domain;
+      v13 = 2048;
+      v14 = code;
+      v15 = 2112;
+      v16 = error;
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to write bytes. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", &v9, 0x2Au);
     }
   }
 }

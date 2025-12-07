@@ -9,7 +9,7 @@
 
 - (id)handlerForIntent:(id)intent
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   identifier = [intentCopy identifier];
 
@@ -52,16 +52,14 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v20 = "[WFBundledIntentHandlerProvider handlerForIntent:]";
-      v21 = 2114;
-      v22 = intentCopy;
+      v19 = "[WFBundledIntentHandlerProvider handlerForIntent:]";
+      v20 = 2114;
+      v21 = intentCopy;
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Unable to get handler for intent: %{public}@", buf, 0x16u);
     }
 
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

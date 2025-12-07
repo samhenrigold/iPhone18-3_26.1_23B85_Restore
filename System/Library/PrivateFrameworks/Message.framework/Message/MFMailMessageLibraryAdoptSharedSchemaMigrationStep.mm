@@ -66,7 +66,7 @@
 
 - (EFSQLSchema)schema
 {
-  v25[13] = *MEMORY[0x1E69E9840];
+  v24[13] = *MEMORY[0x1E69E9840];
   _messagesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _messagesTableSchema];
   _recipientsTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _recipientsTableSchema];
   _messageReferencesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _messageReferencesTableSchema];
@@ -86,99 +86,97 @@
   [v6 setAsForeignKeyForTable:_messagesTableSchema onDelete:2 onUpdate:0];
 
   v7 = objc_alloc(MEMORY[0x1E699B940]);
-  v25[0] = _messagesTableSchema;
+  v24[0] = _messagesTableSchema;
   _mailboxesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _mailboxesTableSchema];
-  v25[1] = _mailboxesTableSchema;
-  v25[2] = _recipientsTableSchema;
-  v25[3] = _messageReferencesTableSchema;
-  v25[4] = _conversationsTableSchema;
-  v25[5] = _conversationIDMessageIDTableSchema;
+  v24[1] = _mailboxesTableSchema;
+  v24[2] = _recipientsTableSchema;
+  v24[3] = _messageReferencesTableSchema;
+  v24[4] = _conversationsTableSchema;
+  v24[5] = _conversationIDMessageIDTableSchema;
   _propertiesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _propertiesTableSchema];
-  v25[6] = _propertiesTableSchema;
+  v24[6] = _propertiesTableSchema;
   _messageDataTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _messageDataTableSchema];
-  v25[7] = _messageDataTableSchema;
+  v24[7] = _messageDataTableSchema;
   _messageDataDeletedTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _messageDataDeletedTableSchema];
-  v25[8] = _messageDataDeletedTableSchema;
+  v24[8] = _messageDataDeletedTableSchema;
   _popUIDsTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _popUIDsTableSchema];
-  v25[9] = _popUIDsTableSchema;
+  v24[9] = _popUIDsTableSchema;
   _accountsTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _accountsTableSchema];
-  v25[10] = _accountsTableSchema;
+  v24[10] = _accountsTableSchema;
   _spotlightTombstonesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _spotlightTombstonesTableSchema];
-  v25[11] = _spotlightTombstonesTableSchema;
-  v25[12] = _spotlightMessageReindexTableSchema;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:13];
+  v24[11] = _spotlightTombstonesTableSchema;
+  v24[12] = _spotlightMessageReindexTableSchema;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:13];
   v16 = [v7 initWithTables:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)_messagesTableSchema
 {
-  v62[30] = *MEMORY[0x1E69E9840];
+  v61[30] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
-  v61 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[0] = v61;
-  v60 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"remote_id" nullable:1];
-  v62[1] = v60;
-  v59 = [MEMORY[0x1E699B8D0] textColumnWithName:@"document_id" collation:1 nullable:1];
-  v62[2] = v59;
-  v58 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"sender" nullable:1];
-  v62[3] = v58;
-  v57 = [MEMORY[0x1E699B8D0] textColumnWithName:@"subject_prefix" collation:1 nullable:1];
-  v62[4] = v57;
-  v56 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"subject" nullable:0];
-  v62[5] = v56;
-  v55 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"summary" nullable:1];
-  v62[6] = v55;
-  v54 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_sent" nullable:1];
-  v62[7] = v54;
-  v53 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_received" nullable:1];
-  v62[8] = v53;
-  v52 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:0];
-  v62[9] = v52;
-  v51 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"remote_mailbox" nullable:1];
-  v62[10] = v51;
-  v50 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[11] = v50;
-  v49 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[12] = v49;
-  v48 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flagged" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[13] = v48;
-  v47 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"deleted" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[14] = v47;
-  v46 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"size" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[15] = v46;
-  v45 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation_id" nullable:0 defaultValue:&unk_1F27759E8];
-  v62[16] = v45;
-  v44 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_last_viewed" nullable:1];
-  v62[17] = v44;
-  v43 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"original_mailbox" nullable:1];
-  v62[18] = v43;
-  v42 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"visible" nullable:1];
-  v62[19] = v42;
-  v41 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"sender_vip" nullable:1];
-  v62[20] = v41;
-  v40 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"encoding" nullable:1];
-  v62[21] = v40;
+  v60 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[0] = v60;
+  v59 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"remote_id" nullable:1];
+  v61[1] = v59;
+  v58 = [MEMORY[0x1E699B8D0] textColumnWithName:@"document_id" collation:1 nullable:1];
+  v61[2] = v58;
+  v57 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"sender" nullable:1];
+  v61[3] = v57;
+  v56 = [MEMORY[0x1E699B8D0] textColumnWithName:@"subject_prefix" collation:1 nullable:1];
+  v61[4] = v56;
+  v55 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"subject" nullable:0];
+  v61[5] = v55;
+  v54 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"summary" nullable:1];
+  v61[6] = v54;
+  v53 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_sent" nullable:1];
+  v61[7] = v53;
+  v52 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_received" nullable:1];
+  v61[8] = v52;
+  v51 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:0];
+  v61[9] = v51;
+  v50 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"remote_mailbox" nullable:1];
+  v61[10] = v50;
+  v49 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[11] = v49;
+  v48 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[12] = v48;
+  v47 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flagged" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[13] = v47;
+  v46 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"deleted" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[14] = v46;
+  v45 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"size" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[15] = v45;
+  v44 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation_id" nullable:0 defaultValue:&unk_1F27759E8];
+  v61[16] = v44;
+  v43 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_last_viewed" nullable:1];
+  v61[17] = v43;
+  v42 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"original_mailbox" nullable:1];
+  v61[18] = v42;
+  v41 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"visible" nullable:1];
+  v61[19] = v41;
+  v40 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"sender_vip" nullable:1];
+  v61[20] = v40;
+  v39 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"encoding" nullable:1];
+  v61[21] = v39;
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"content_type" nullable:1];
-  v62[22] = v3;
+  v61[22] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"sequence_identifier" nullable:1 defaultValue:&unk_1F27759E8];
-  v62[23] = v4;
+  v61[23] = v4;
   v5 = [MEMORY[0x1E699B8D0] textColumnWithName:@"external_id" collation:1 nullable:1];
-  v62[24] = v5;
+  v61[24] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"unique_id" nullable:1];
-  v62[25] = v6;
+  v61[25] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"content_index_transaction_id" nullable:1];
-  v62[26] = v7;
+  v61[26] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"list_id_hash" nullable:1];
-  v62[27] = v8;
+  v61[27] = v8;
   v9 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"journaled" nullable:1];
-  v62[28] = v9;
+  v61[28] = v9;
   v10 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flag_color" nullable:1];
-  v62[29] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:30];
+  v61[29] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:30];
   v12 = [v2 initWithName:@"messages" rowIDType:2 columns:v11];
 
   [v12 addIndexForColumns:&unk_1F2774E00];
@@ -245,7 +243,6 @@
   [v12 addIndex:v37];
 
   [v12 addIndexForColumns:&unk_1F2774FF8];
-  v38 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -268,152 +265,144 @@ id __74__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__messagesTableSchema
 
 - (id)_mailboxesTableSchema
 {
-  v19[12] = *MEMORY[0x1E69E9840];
+  v18[12] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
-  v18 = [MEMORY[0x1E699B8D0] textColumnWithName:@"url" collation:1 nullable:0];
-  v19[0] = v18;
-  v17 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"total_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[1] = v17;
-  v16 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"unread_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[2] = v16;
-  v15 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"deleted_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[3] = v15;
+  v17 = [MEMORY[0x1E699B8D0] textColumnWithName:@"url" collation:1 nullable:0];
+  v18[0] = v17;
+  v16 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"total_count" nullable:0 defaultValue:&unk_1F27759E8];
+  v18[1] = v16;
+  v15 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"unread_count" nullable:0 defaultValue:&unk_1F27759E8];
+  v18[2] = v15;
+  v14 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"deleted_count" nullable:0 defaultValue:&unk_1F27759E8];
+  v18[3] = v14;
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"sequence_identifier" collation:1 nullable:1];
-  v19[4] = v3;
+  v18[4] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flagged_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[5] = v4;
+  v18[5] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"attachment_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[6] = v5;
+  v18[6] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"to_cc_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[7] = v6;
+  v18[7] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"server_unread_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[8] = v7;
+  v18[8] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"last_sync_status_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[9] = v8;
+  v18[9] = v8;
   v9 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"most_recent_status_count" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[10] = v9;
+  v18[10] = v9;
   v10 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"reconcile" nullable:0 defaultValue:&unk_1F27759E8];
-  v19[11] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:12];
+  v18[11] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:12];
   v12 = [v2 initWithName:@"mailboxes" rowIDType:2 columns:v11];
 
   [v12 addUniquenessConstraintForColumns:&unk_1F2775010 conflictResolution:1];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)_recipientsTableSchema
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message" nullable:0];
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"address" nullable:0];
-  v11[1] = v4;
+  v10[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"type" nullable:1];
-  v11[2] = v5;
+  v10[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"position" nullable:1];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
   v8 = [v2 initWithName:@"recipients" rowIDType:1 columns:v7];
 
   [v8 addUniquenessConstraintForColumns:&unk_1F2775028 conflictResolution:1];
   [v8 addIndexForColumns:&unk_1F2775040];
   [v8 addIndexForColumns:&unk_1F2775058];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)_messageReferencesTableSchema
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message" nullable:0];
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"reference" nullable:0 defaultValue:{&unk_1F27759E8, v3}];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"is_originator" nullable:0 defaultValue:&unk_1F27759E8];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v2 initWithName:@"message_references" rowIDType:1 columns:v6];
 
   [v7 addIndexForColumns:&unk_1F2775070];
   [v7 addIndexForColumns:&unk_1F2775088];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_conversationsTableSchema
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:0 defaultValue:&unk_1F27759E8];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"sync_key" collation:1 nullable:1];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 initWithName:@"conversations" rowIDType:2 rowIDAlias:@"conversation_id" columns:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)_conversationIDMessageIDTableSchema
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation_id" nullable:0];
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:0 defaultValue:{&unk_1F27759E8, v3}];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_sent" nullable:0 defaultValue:&unk_1F27759E8];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v2 initWithName:@"conversation_id_message_id" columns:v6 primaryKeyColumns:&unk_1F27750A0];
 
   [v7 addIndexForColumns:&unk_1F27750B8];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_propertiesTableSchema
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"key" collation:1 nullable:0];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] blobColumnWithName:@"value" nullable:0];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 initWithName:@"properties" rowIDType:1 columns:v5];
 
   [v6 addUniquenessConstraintForColumns:&unk_1F27750D0 conflictResolution:1];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)_messageDataTableSchema
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:1];
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"part" collation:1 nullable:{1, v3}];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"partial" nullable:1];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"complete" nullable:1];
-  v12[3] = v6;
+  v11[3] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"length" nullable:1];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:5];
   v9 = [v2 initWithName:@"message_data" rowIDType:2 columns:v8];
 
   [v9 addUniquenessConstraintForColumns:&unk_1F27750E8 conflictResolution:1];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -428,156 +417,145 @@ id __74__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__messagesTableSchema
 
 - (id)_popUIDsTableSchema
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:1];
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"uid" collation:1 nullable:{1, v3}];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_added" nullable:1];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:1];
-  v12[3] = v6;
+  v11[3] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"del" nullable:1];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:5];
   v9 = [v2 initWithName:@"pop_uids" rowIDType:1 columns:v8];
 
   [v9 addUniquenessConstraintForColumns:&unk_1F2775100 conflictResolution:1];
   [v9 addIndexForColumns:&unk_1F2775118];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_accountsTableSchema
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"text_id" collation:1 nullable:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 initWithName:@"accounts" rowIDType:2 columns:v4];
 
   [v5 addUniquenessConstraintForColumns:&unk_1F2775130 conflictResolution:1];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_spotlightTombstonesTableSchema
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"type" nullable:1];
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"identifier" collation:1 nullable:{1, v3}];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:1];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v2 initWithName:@"spotlight_tombstones" rowIDType:2 columns:v6];
 
   [v7 addUniquenessConstraintForColumns:&unk_1F2775148 conflictResolution:1];
   [v7 addIndexForColumns:&unk_1F2775160];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_spotlightMessageReindexTableSchema
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:1];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"type" nullable:1];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 initWithName:@"spotlight_message_reindex" rowIDType:1 columns:v5];
 
   [v6 addUniquenessConstraintForColumns:&unk_1F2775178 conflictResolution:1];
   [v6 addIndexForColumns:&unk_1F2775190];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (EFSQLSchema)protectedSchema
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E699B940]);
   _addressesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _addressesTableSchema];
-  v12[0] = _addressesTableSchema;
+  v11[0] = _addressesTableSchema;
   _subjectsTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _subjectsTableSchema];
-  v12[1] = _subjectsTableSchema;
+  v11[1] = _subjectsTableSchema;
   _summariesTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _summariesTableSchema];
-  v12[2] = _summariesTableSchema;
+  v11[2] = _summariesTableSchema;
   _protectedMessageDataTableSchema = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self _protectedMessageDataTableSchema];
-  v12[3] = _protectedMessageDataTableSchema;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:4];
+  v11[3] = _protectedMessageDataTableSchema;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
   v9 = [v3 initWithTables:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_addressesTableSchema
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"address" collation:2 nullable:0];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"comment" collation:1 nullable:0];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 initWithName:@"addresses" rowIDType:2 columns:v5];
 
   [v6 addUniquenessConstraintForColumns:&unk_1F27751A8 conflictResolution:1];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)_subjectsTableSchema
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"subject" collation:3 nullable:0];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 initWithName:@"subjects" rowIDType:2 columns:v4];
 
   [v5 addUniquenessConstraintForColumns:&unk_1F27751C0 conflictResolution:1];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_summariesTableSchema
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"summary" collation:3 nullable:0];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 initWithName:@"summaries" rowIDType:2 columns:v4];
 
   [v5 addUniquenessConstraintForColumns:&unk_1F27751D8 conflictResolution:1];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_protectedMessageDataTableSchema
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"data" collation:1 nullable:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 initWithName:@"protected_message_data" rowIDType:1 columns:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -930,21 +908,21 @@ BOOL __82__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateSendersAnd
   v11 = 0;
   do
   {
-    v12 = &v11[v10];
-    if (&v11[v10] >= a4)
+    v12 = v10 + v11;
+    if (v10 + v11 >= a4)
     {
       break;
     }
 
     v10 = v12 ? v12 + 3 : 0;
     v13 = memmem((a3 + v10), a4 - v10, "\r\r\n", 3uLL);
-    v14 = &v13[-a3];
+    v14 = v13 - a3;
     if (!v13)
     {
       v14 = a4;
     }
 
-    v11 = &v14[-v10];
+    v11 = v14 - v10;
     v15 = objc_autoreleasePoolPush();
     v16 = v20(v8, v9, (a3 + v10), v11);
     objc_autoreleasePoolPop(v15);
@@ -1010,15 +988,15 @@ uint64_t __82__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateSender
 
 - (BOOL)_migrateMessages
 {
-  v20[31] = *MEMORY[0x1E69E9840];
+  v19[31] = *MEMORY[0x1E69E9840];
   connection = [(MFMailMessageLibraryAdoptSharedSchemaMigrationStep *)self connection];
   v3 = [connection executeStatementString:@"DELETE FROM protected.messages WHERE ROWID IN (SELECT message_id FROM messages_deleted)" errorMessage:@"Deleting rows from protected.messages"];
-  v19[0] = @"ROWID";
-  v19[1] = @"message_id";
-  v20[0] = @"messages_old.ROWID";
-  v20[1] = @"ifnull(messages_old.message_id, 0)";
-  v19[2] = @"remote_id";
-  v19[3] = @"document_id";
+  v18[0] = @"ROWID";
+  v18[1] = @"message_id";
+  v19[0] = @"messages_old.ROWID";
+  v19[1] = @"ifnull(messages_old.message_id, 0)";
+  v18[2] = @"remote_id";
+  v18[3] = @"document_id";
   if ([connection columnExists:@"document_id" inTable:@"messages_old" type:0])
   {
     v4 = @"document_id";
@@ -1029,74 +1007,74 @@ uint64_t __82__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateSender
     v4 = @"null";
   }
 
-  v20[2] = @"remote_id";
-  v20[3] = v4;
-  v19[4] = @"sender";
-  v19[5] = @"subject_prefix";
-  v20[4] = @"protected.addresses.ROWID";
-  v20[5] = @"ssms_mem.parsed_subjects.prefix";
-  v19[6] = @"subject";
-  v19[7] = @"summary";
-  v20[6] = @"protected.subjects.ROWID";
-  v20[7] = @"ssms_mem.summary_id_by_message.summary_id";
+  v19[2] = @"remote_id";
+  v19[3] = v4;
+  v18[4] = @"sender";
+  v18[5] = @"subject_prefix";
+  v19[4] = @"protected.addresses.ROWID";
+  v19[5] = @"ssms_mem.parsed_subjects.prefix";
+  v18[6] = @"subject";
+  v18[7] = @"summary";
+  v19[6] = @"protected.subjects.ROWID";
+  v19[7] = @"ssms_mem.summary_id_by_message.summary_id";
+  v18[8] = @"date_sent";
+  v18[9] = @"date_received";
   v19[8] = @"date_sent";
   v19[9] = @"date_received";
-  v20[8] = @"date_sent";
-  v20[9] = @"date_received";
+  v18[10] = @"mailbox";
+  v18[11] = @"remote_mailbox";
   v19[10] = @"mailbox";
   v19[11] = @"remote_mailbox";
-  v20[10] = @"mailbox";
-  v20[11] = @"remote_mailbox";
-  v19[12] = @"flags";
-  v19[13] = @"read";
-  v20[12] = @"ifnull(flags, 0)";
-  v20[13] = @"ifnull(read, 0)";
-  v19[14] = @"flagged";
-  v19[15] = @"deleted";
-  v20[14] = @"ifnull(flagged, 0)";
-  v20[15] = @"ifnull(deleted, 0)";
-  v19[16] = @"size";
-  v19[17] = @"conversation_id";
-  v20[16] = @"ifnull(size, 0)";
-  v20[17] = @"ifnull(conversation_id, 0)";
-  v19[18] = @"date_last_viewed";
+  v18[12] = @"flags";
+  v18[13] = @"read";
+  v19[12] = @"ifnull(flags, 0)";
+  v19[13] = @"ifnull(read, 0)";
+  v18[14] = @"flagged";
+  v18[15] = @"deleted";
+  v19[14] = @"ifnull(flagged, 0)";
+  v19[15] = @"ifnull(deleted, 0)";
+  v18[16] = @"size";
+  v18[17] = @"conversation_id";
+  v19[16] = @"ifnull(size, 0)";
+  v19[17] = @"ifnull(conversation_id, 0)";
+  v18[18] = @"date_last_viewed";
+  v18[19] = @"original_mailbox";
+  v19[18] = @"null";
   v19[19] = @"original_mailbox";
-  v20[18] = @"null";
-  v20[19] = @"original_mailbox";
+  v18[20] = @"visible";
+  v18[21] = @"sender_vip";
   v19[20] = @"visible";
   v19[21] = @"sender_vip";
-  v20[20] = @"visible";
-  v20[21] = @"sender_vip";
+  v18[22] = @"encoding";
+  v18[23] = @"content_type";
   v19[22] = @"encoding";
   v19[23] = @"content_type";
-  v20[22] = @"encoding";
-  v20[23] = @"content_type";
-  v19[24] = @"sequence_identifier";
+  v18[24] = @"sequence_identifier";
+  v18[25] = @"external_id";
+  v19[24] = @"0";
   v19[25] = @"external_id";
-  v20[24] = @"0";
-  v20[25] = @"external_id";
+  v18[26] = @"unique_id";
+  v18[27] = @"content_index_transaction_id";
   v19[26] = @"unique_id";
   v19[27] = @"content_index_transaction_id";
-  v20[26] = @"unique_id";
-  v20[27] = @"content_index_transaction_id";
+  v18[28] = @"list_id_hash";
+  v18[29] = @"journaled";
   v19[28] = @"list_id_hash";
   v19[29] = @"journaled";
-  v20[28] = @"list_id_hash";
-  v20[29] = @"journaled";
-  v19[30] = @"flag_color";
-  v20[30] = @"CASE WHEN messages_old.flags & 16 THEN ((messages_old.flags & (7 << 41)) >> 41) ELSE NULL END";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:31];
+  v18[30] = @"flag_color";
+  v19[30] = @"CASE WHEN messages_old.flags & 16 THEN ((messages_old.flags & (7 << 41)) >> 41) ELSE NULL END";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:31];
   v6 = objc_opt_new();
   v7 = objc_opt_new();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __70__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateMessages__block_invoke;
-  v16[3] = &unk_1E7AA2848;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __70__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateMessages__block_invoke;
+  v15[3] = &unk_1E7AA2848;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = v7;
-  v18 = v9;
-  [v5 enumerateKeysAndObjectsUsingBlock:v16];
+  v17 = v9;
+  [v5 enumerateKeysAndObjectsUsingBlock:v15];
   v10 = MEMORY[0x1E696AEC0];
   v11 = [v8 componentsJoinedByString:{@", "}];
   v12 = [v9 componentsJoinedByString:{@", "}];
@@ -1107,7 +1085,6 @@ uint64_t __82__MFMailMessageLibraryAdoptSharedSchemaMigrationStep__migrateSender
     LOBYTE(v3) = [connection executeStatementString:v13 errorMessage:@"Populating messages"];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

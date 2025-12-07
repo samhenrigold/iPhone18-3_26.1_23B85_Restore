@@ -99,7 +99,7 @@ LABEL_22:
 
 - (void)dump
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -108,19 +108,18 @@ LABEL_22:
     propertyType = [(HAPMetadataProperty *)self propertyType];
     propertyDescription = [(HAPMetadataProperty *)self propertyDescription];
     bitPosition = [(HAPMetadataProperty *)self bitPosition];
-    v10 = 138544130;
-    v11 = v5;
-    v12 = 2112;
-    v13 = propertyType;
-    v14 = 2112;
-    v15 = propertyDescription;
-    v16 = 2112;
-    v17 = bitPosition;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataProperty %@:  description: %@  bitPosition: %@", &v10, 0x2Au);
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2112;
+    v12 = propertyType;
+    v13 = 2112;
+    v14 = propertyDescription;
+    v15 = 2112;
+    v16 = bitPosition;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataProperty %@:  description: %@  bitPosition: %@", &v9, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

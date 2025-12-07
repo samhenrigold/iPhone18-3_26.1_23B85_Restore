@@ -26,20 +26,20 @@
   if (objc_opt_isKindOfClass())
   {
     sub_1AF2BEDCC();
-    v22 = 3221225472;
-    v23 = sub_1AF2BEC88;
-    v24 = &unk_1E7A79810;
-    v25 = v4;
-    objc_msgSend_enumerateHierarchyUsingBlock_(objects, v5, v21, v6);
+    v17 = 3221225472;
+    v18 = sub_1AF2BEC88;
+    v19 = &unk_1E7A79810;
+    v20 = v4;
+    objc_msgSend_enumerateHierarchyUsingBlock_(objects, v5, v16);
   }
 
   else if (objc_opt_respondsToSelector())
   {
-    v10 = objc_msgSend_behaviorGraph(objects, v7, v8, v9);
-    v14 = objc_msgSend_coreEntityHandle(v10, v11, v12, v13);
-    v18 = objc_msgSend_entityObject(v14, v15, v16, v17);
+    v8 = objc_msgSend_behaviorGraph(objects, v6, v7);
+    v11 = objc_msgSend_coreEntityHandle(v8, v9, v10);
+    v14 = objc_msgSend_entityObject(v11, v12, v13);
 
-    objc_msgSend_updateVFXObjectReferences_(v18, v19, v4, v20);
+    objc_msgSend_updateVFXObjectReferences_(v14, v15, v4);
   }
 }
 

@@ -7,6 +7,7 @@
 - (id)_axGetResetRefreshTimer;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_setUpFloatingSidebarButton;
+- (void)setShowingSidebar:(BOOL)sidebar completion:(id)completion;
 - (void)sidebarDimmingViewDismiss:(id)dismiss;
 @end
 
@@ -29,6 +30,30 @@
   [validationsCopy validateClass:@"TabSwitcherViewController" hasInstanceMethod:@"tabOverviewIsVisible" withFullSignature:{"B", 0}];
   [validationsCopy validateClass:@"CapsuleNavigationBarViewController" hasInstanceMethod:@"capsuleCollectionView" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"SFCapsuleCollectionView" hasInstanceMethod:@"setSelectedItemState:animated:" withFullSignature:{"v", "q", "B", 0}];
+}
+
+- (void)setShowingSidebar:(BOOL)sidebar completion:(id)completion
+{
+  sidebarCopy = sidebar;
+  v11.receiver = self;
+  v11.super_class = BrowserRootViewControllerAccessibility;
+  [(BrowserRootViewControllerAccessibility *)&v11 setShowingSidebar:sidebar completion:completion];
+  v6 = [(BrowserRootViewControllerAccessibility *)self safeValueForKey:@"bottomToolbar"];
+  v7 = [v6 safeValueForKey:@"_barRegistration"];
+  v8 = [v7 safeValueForKey:@"_bookmarksItem"];
+
+  if (sidebarCopy)
+  {
+    v9 = @"hide.bookmarks";
+  }
+
+  else
+  {
+    v9 = @"buttonbar.show.bookmarks.text";
+  }
+
+  v10 = accessibilityLocalizedString(v9);
+  [v8 setAccessibilityLabel:v10];
 }
 
 - (void)_setUpFloatingSidebarButton

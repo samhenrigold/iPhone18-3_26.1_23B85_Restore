@@ -6,7 +6,7 @@
 
 + (void)log:(id)log withType:(unint64_t)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   logCopy = log;
   if (log_withType__onceToken != -1)
   {
@@ -53,12 +53,12 @@
     {
       if (os_log_type_enabled(osLogHandle, OS_LOG_TYPE_INFO))
       {
-        v10 = 138543362;
-        v11 = logCopy;
+        v9 = 138543362;
+        v10 = logCopy;
         v7 = v6;
         v8 = OS_LOG_TYPE_INFO;
 LABEL_14:
-        _os_log_impl(&dword_24A2D8000, v7, v8, "%{public}@", &v10, 0xCu);
+        _os_log_impl(&dword_24A2D8000, v7, v8, "%{public}@", &v9, 0xCu);
         goto LABEL_19;
       }
 
@@ -68,16 +68,14 @@ LABEL_14:
 
   if (os_log_type_enabled(osLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = logCopy;
+    v9 = 138543362;
+    v10 = logCopy;
     v7 = v6;
     v8 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_14;
   }
 
 LABEL_19:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __26__ERLogging_log_withType___block_invoke()
@@ -89,29 +87,26 @@ uint64_t __26__ERLogging_log_withType___block_invoke()
 
 + (void)log:(uint64_t)a1 withType:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_FAULT, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_FAULT, "%{public}@", &v2, 0xCu);
 }
 
 + (void)log:(uint64_t)a1 withType:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v2, 0xCu);
 }
 
 + (void)log:(uint64_t)a1 withType:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A2D8000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 @end

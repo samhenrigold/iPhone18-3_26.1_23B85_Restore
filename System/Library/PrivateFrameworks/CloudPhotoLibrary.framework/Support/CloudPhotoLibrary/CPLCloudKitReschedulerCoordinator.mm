@@ -113,7 +113,7 @@
   selfCopy = self;
   v2 = v3;
   os_unfair_lock_lock(&stru_1002C4FD4);
-  v4(v2);
+  (v4)(v2);
   os_unfair_lock_unlock(&stru_1002C4FD4);
 }
 

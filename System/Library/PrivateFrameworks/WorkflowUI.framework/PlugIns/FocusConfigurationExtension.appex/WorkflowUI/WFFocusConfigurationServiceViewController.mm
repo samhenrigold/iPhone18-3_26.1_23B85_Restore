@@ -38,8 +38,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1000176EC(disappear);
+  sub_1000176EC(disappearCopy);
 }
 
 - (void)startConfigurationWithRequest:(WFFocusConfigurationRequest *)request completion:(id)completion

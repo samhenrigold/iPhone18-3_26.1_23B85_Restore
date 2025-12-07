@@ -165,9 +165,7 @@ LABEL_25:
   snowNode = self->_snowNode;
   self->_snowNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.57 highPrecisionOperatingPoint:0.57 highRecallOperatingPoint:0.57];
-  sunsetSunriseNode = self->_sunsetSunriseNode;
-  self->_sunsetSunriseNode = v21;
+  self->_sunsetSunriseNode = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.57 highPrecisionOperatingPoint:0.57 highRecallOperatingPoint:0.57];
 
   MEMORY[0x2821F96F8]();
 }
@@ -211,9 +209,7 @@ LABEL_25:
   snowNode = self->_snowNode;
   self->_snowNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.62 highPrecisionOperatingPoint:0.62 highRecallOperatingPoint:0.62];
-  sunsetSunriseNode = self->_sunsetSunriseNode;
-  self->_sunsetSunriseNode = v21;
+  self->_sunsetSunriseNode = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.62 highPrecisionOperatingPoint:0.62 highRecallOperatingPoint:0.62];
 
   MEMORY[0x2821F96F8]();
 }
@@ -257,19 +253,17 @@ LABEL_25:
   snowNode = self->_snowNode;
   self->_snowNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.63 highPrecisionOperatingPoint:0.63 highRecallOperatingPoint:0.63];
-  sunsetSunriseNode = self->_sunsetSunriseNode;
-  self->_sunsetSunriseNode = v21;
+  self->_sunsetSunriseNode = [[CLSSignalNode alloc] initWithIdentifier:1765 name:@"Trend - SunsetSunrise" operatingPoint:0.63 highPrecisionOperatingPoint:0.63 highRecallOperatingPoint:0.63];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSTrendsSceneModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSTrendsSceneModel;
-  v4 = [(CLSTrendsSceneModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSTrendsSceneModel;
+  v4 = [(CLSTrendsSceneModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -284,12 +278,12 @@ LABEL_25:
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
 
         else
@@ -310,7 +304,6 @@ LABEL_25:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

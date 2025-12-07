@@ -9,7 +9,7 @@
 
 - (id)footerAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   tileSubtitle = [self tileSubtitle];
   v6 = v4;
@@ -18,13 +18,13 @@
     v7 = objc_alloc(MEMORY[0x1E696AAB0]);
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
     v9 = *MEMORY[0x1E69DB650];
-    v16[0] = *MEMORY[0x1E69DB648];
-    v16[1] = v9;
-    v17[0] = v6;
-    v17[1] = systemGrayColor;
+    v15[0] = *MEMORY[0x1E69DB648];
+    v15[1] = v9;
+    v16[0] = v6;
+    v16[1] = systemGrayColor;
     v10 = MEMORY[0x1E695DF20];
     v11 = v6;
-    v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v13 = [v7 initWithString:tileSubtitle attributes:v12];
   }
@@ -33,8 +33,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

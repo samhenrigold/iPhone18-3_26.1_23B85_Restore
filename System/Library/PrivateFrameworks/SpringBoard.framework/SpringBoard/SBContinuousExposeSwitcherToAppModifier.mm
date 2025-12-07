@@ -63,13 +63,13 @@
     firstObject = [appLayouts firstObject];
     v7 = [(SBScrollToAppLayoutSwitcherEventResponse *)v4 initWithAppLayout:firstObject alignment:0 animated:0];
 
-    v8 = SBAppendSwitcherModifierResponse(v7, transitionWillBegin);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v9 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v10 = SBAppendSwitcherModifierResponse(v9, v8);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v11 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:0];
-    transitionWillBegin = SBAppendSwitcherModifierResponse(v11, v10);
+    transitionWillBegin = SBAppendSwitcherModifierResponse();
   }
 
   return transitionWillBegin;
@@ -81,7 +81,7 @@
   v6.super_class = SBContinuousExposeSwitcherToAppModifier;
   transitionWillUpdate = [(SBTransitionSwitcherModifier *)&v6 transitionWillUpdate];
   v3 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillUpdate);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -201,7 +201,7 @@ void __75__SBContinuousExposeSwitcherToAppModifier_adjustedAppLayoutsForAppLayou
     v37.super_class = SBContinuousExposeSwitcherToAppModifier;
     continuousExposeIdentifiersInStrip = [(SBContinuousExposeSwitcherToAppModifier *)&v37 continuousExposeIdentifiersInStrip];
     continuousExposeIdentifier = [v8 continuousExposeIdentifier];
-    v11 = [continuousExposeIdentifiersInStrip containsObject:continuousExposeIdentifier];
+    v11 = objc_msgSend_containsObject_(continuousExposeIdentifiersInStrip);
 
     appLayoutOnStage = [(SBContinuousExposeSwitcherToAppModifier *)self appLayoutOnStage];
     v13 = [v8 isOrContainsAppLayout:appLayoutOnStage];
@@ -265,7 +265,7 @@ void __75__SBContinuousExposeSwitcherToAppModifier_adjustedAppLayoutsForAppLayou
   return result;
 }
 
-uint64_t __57__SBContinuousExposeSwitcherToAppModifier_frameForIndex___block_invoke(void *a1)
+void *__57__SBContinuousExposeSwitcherToAppModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -365,7 +365,7 @@ void __60__SBContinuousExposeSwitcherToAppModifier_visibleAppLayouts__block_invo
   return result;
 }
 
-uint64_t __75__SBContinuousExposeSwitcherToAppModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
+void *__75__SBContinuousExposeSwitcherToAppModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) contentOffsetForIndex:*(a1 + 48) alignment:*(a1 + 56)];
   v3 = *(*(a1 + 40) + 8);

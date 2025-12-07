@@ -47,21 +47,19 @@ uint64_t __51__SBINFocusAppIntent_appendDescriptionToFormatter___block_invoke(ui
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v11.receiver = self;
-  v11.super_class = SBINFocusAppIntent;
-  if ([(SBINAppIntent *)&v11 isEqual:equalCopy]&& (objc_opt_self(), v5 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v5, (isKindOfClass & 1) != 0))
+  v9.receiver = self;
+  v9.super_class = SBINFocusAppIntent;
+  if ([(SBINAppIntent *)&v9 isEqual:equalCopy]&& (objc_opt_self(), v5 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v5, (isKindOfClass & 1) != 0))
   {
-    modeIdentifier = self->_modeIdentifier;
-    v8 = equalCopy[3];
-    v9 = BSEqualStrings();
+    v7 = BSEqualStrings();
   }
 
   else
   {
-    v9 = 0;
+    v7 = 0;
   }
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

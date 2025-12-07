@@ -1,1097 +1,3 @@
-uint64_t *specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *result, uint64_t a2)
-{
-  v3 = result;
-  v29 = *MEMORY[0x277D85DE8];
-  v5 = *result;
-  v4 = result[1];
-  v6 = v4 >> 62;
-  if ((v4 >> 62) > 1)
-  {
-    if (v6 != 2)
-    {
-      goto LABEL_17;
-    }
-
-    v8 = v4 & 0x3FFFFFFFFFFFFFFFLL;
-    v9 = *result;
-    v10 = v4;
-
-    outlined consume of Data._Representation(v5, v10);
-    *v3 = xmmword_22E0F1110;
-    outlined consume of Data._Representation(0, 0xC000000000000000);
-    Data.LargeSlice.ensureUniqueReference()();
-    v11 = v5;
-    v12 = *(v5 + 16);
-    result = __DataStorage._bytes.getter();
-    if (!result)
-    {
-      __break(1u);
-      goto LABEL_24;
-    }
-
-    v13 = result;
-    v14 = __DataStorage._offset.getter();
-    if (!__OFSUB__(v12, v14))
-    {
-      v15 = (v13 + v12 - v14);
-      result = MEMORY[0x2318E24F0]();
-      v16 = *(a2 + 96);
-      *v15 = *(a2 + 80);
-      v15[1] = v16;
-      v15[2] = *(a2 + 112);
-      *v3 = v11;
-      v3[1] = v8 | 0x8000000000000000;
-      goto LABEL_17;
-    }
-
-    __break(1u);
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    __break(1u);
-    goto LABEL_21;
-  }
-
-  if (!v6)
-  {
-    result = outlined consume of Data._Representation(*result, v4);
-    v7 = *(a2 + 88) | (*(a2 + 92) << 32) | (*(a2 + 93) << 40) | (*(a2 + 94) << 48);
-    *v3 = *(a2 + 80);
-    v3[1] = v7;
-LABEL_17:
-    v28 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v17 = v4 & 0x3FFFFFFFFFFFFFFFLL;
-  v18 = result[1];
-
-  outlined consume of Data._Representation(v5, v18);
-  *v3 = xmmword_22E0F1110;
-  outlined consume of Data._Representation(0, 0xC000000000000000);
-  v19 = v5 >> 32;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    if (v19 < v5)
-    {
-LABEL_21:
-      __break(1u);
-      goto LABEL_22;
-    }
-
-    if (__DataStorage._bytes.getter() && __OFSUB__(v5, __DataStorage._offset.getter()))
-    {
-LABEL_22:
-      __break(1u);
-    }
-
-    v20 = type metadata accessor for __DataStorage();
-    v21 = *(v20 + 48);
-    v22 = *(v20 + 52);
-    swift_allocObject();
-    v23 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
-
-    v17 = v23;
-  }
-
-  if (v19 < v5)
-  {
-    goto LABEL_19;
-  }
-
-  result = __DataStorage._bytes.getter();
-  if (result)
-  {
-    v24 = result;
-    v25 = __DataStorage._offset.getter();
-    if (!__OFSUB__(v5, v25))
-    {
-      v26 = (v24 + v5 - v25);
-      MEMORY[0x2318E24F0]();
-      v27 = *(a2 + 96);
-      *v26 = *(a2 + 80);
-      v26[1] = v27;
-      v26[2] = *(a2 + 112);
-
-      *v3 = v5;
-      v3[1] = v17 | 0x4000000000000000;
-      goto LABEL_17;
-    }
-
-    goto LABEL_20;
-  }
-
-LABEL_24:
-  __break(1u);
-  return result;
-}
-
-void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(int *a1, char a2, uint64_t a3)
-{
-  Data.InlineSlice.ensureUniqueReference()();
-  v6 = *a1;
-  v7 = a1[1];
-  if (v7 < v6)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  v8 = *(a1 + 1);
-
-  v9 = __DataStorage._bytes.getter();
-  if (!v9)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v10 = v9;
-  v11 = __DataStorage._offset.getter();
-  v12 = v6 - v11;
-  if (__OFSUB__(v6, v11))
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  v13 = v7 - v6;
-  v14 = MEMORY[0x2318E24F0]();
-  if (v14 >= v13)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = v14;
-  }
-
-  closure #1 in CMFormatDescriptionRef.Extensions.Value.ContentColorVolume.rawValue.getter(v10 + v12, v10 + v12 + v15, a2, a3);
-}
-
-void specialized _NativeDictionary.index(after:)(uint64_t a1, int a2, char a3, uint64_t a4)
-{
-  if (a3)
-  {
-    if (__CocoaDictionary.Index.age.getter() == *(a4 + 36))
-    {
-      __CocoaDictionary.Index.key.getter();
-      type metadata accessor for CFStringRef(0);
-      swift_dynamicCast();
-      specialized __RawDictionaryStorage.find<A>(_:)(v8);
-      v6 = v5;
-
-      if (v6)
-      {
-        __CocoaDictionary.Index.dictionary.getter();
-        __CocoaDictionary.index(after:)();
-        swift_unknownObjectRelease();
-        return;
-      }
-
-      goto LABEL_14;
-    }
-
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  if (a1 < 0 || -(-1 << *(a4 + 32)) <= a1)
-  {
-LABEL_12:
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  if (((*(a4 + 64 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> a1) & 1) == 0)
-  {
-LABEL_13:
-    __break(1u);
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  if (*(a4 + 36) != a2)
-  {
-LABEL_15:
-    __break(1u);
-    return;
-  }
-
-  _HashTable.occupiedBucket(after:)();
-  v7 = *(a4 + 36);
-}
-
-char *specialized UnsafeBufferPointer._copyContents(initializing:)(void *a1, uint64_t a2, char *__src, uint64_t a4)
-{
-  v4 = __src;
-  if (a4 && a2)
-  {
-    if (a4 >= a2)
-    {
-      v5 = a2;
-    }
-
-    else
-    {
-      v5 = a4;
-    }
-
-    memcpy(a1, __src, 72 * v5);
-    v4 += 72 * v5;
-  }
-
-  return v4;
-}
-
-{
-  v4 = __src;
-  if (a4 && a2)
-  {
-    if (a4 >= a2)
-    {
-      v5 = a2;
-    }
-
-    else
-    {
-      v5 = a4;
-    }
-
-    memcpy(a1, __src, 16 * v5);
-    v4 += 16 * v5;
-  }
-
-  return v4;
-}
-
-uint64_t specialized Data.init(count:)(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    if (result <= 14)
-    {
-      return specialized Data.InlineData.init(count:)(result);
-    }
-
-    else
-    {
-      v2 = type metadata accessor for __DataStorage();
-      v3 = *(v2 + 48);
-      v4 = *(v2 + 52);
-      swift_allocObject();
-      __DataStorage.init(length:)();
-      if (v1 >= 0x7FFFFFFF)
-      {
-        type metadata accessor for Data.RangeReference();
-        result = swift_allocObject();
-        *(result + 16) = 0;
-        *(result + 24) = v1;
-      }
-
-      else
-      {
-        return v1 << 32;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD4VySfG_SaySfGTt1g5Tf4g_n(uint64_t result)
-{
-  v1 = *(result + 16);
-  if (!v1)
-  {
-    goto LABEL_10;
-  }
-
-  if ((v1 - 1) > 3)
-  {
-    __break(1u);
-LABEL_10:
-    __break(1u);
-    return result;
-  }
-
-  v2 = *(result + 32);
-  if (v1 != 1)
-  {
-    v3 = *(result + 36);
-    if (v1 != 2)
-    {
-      v4 = *(result + 40);
-      if (v1 != 3)
-      {
-        v5 = *(result + 44);
-      }
-    }
-  }
-
-  if (v1 != 4)
-  {
-    goto LABEL_10;
-  }
-
-  return result;
-}
-
-uint64_t _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD3VySfG_SaySfGTt1g5Tf4g_n(uint64_t result)
-{
-  v1 = *(result + 16);
-  if (!v1)
-  {
-    goto LABEL_9;
-  }
-
-  if ((v1 - 1) > 2)
-  {
-    __break(1u);
-LABEL_9:
-    __break(1u);
-    return result;
-  }
-
-  v2 = *(result + 32);
-  if (v1 != 1)
-  {
-    v3 = *(result + 36);
-    if (v1 != 2)
-    {
-      v4 = *(result + 40);
-    }
-  }
-
-  if (v1 != 3)
-  {
-    goto LABEL_9;
-  }
-
-  return result;
-}
-
-uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  result = *a1;
-  v8 = *(a1 + 8);
-  if (*(a1 + 16))
-  {
-    if (v6)
-    {
-      result = MEMORY[0x2318E2B50](result, v8, v4, v5);
-      if ((result & 1) == 0)
-      {
-        goto LABEL_4;
-      }
-
-LABEL_11:
-      __break(1u);
-      goto LABEL_12;
-    }
-
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (v6)
-  {
-    goto LABEL_18;
-  }
-
-  if (v8 != v5)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  if (result < v4)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_4:
-  v4 = *(a1 + 24);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  result = *(a2 + 24);
-  v8 = *(a2 + 32);
-  if (*(a2 + 40))
-  {
-    if (*(a1 + 40))
-    {
-      result = MEMORY[0x2318E2B50](result, v8, v4, v5);
-      if ((result & 1) == 0)
-      {
-        return result;
-      }
-
-LABEL_15:
-      __break(1u);
-      goto LABEL_16;
-    }
-
-LABEL_19:
-    __break(1u);
-    return result;
-  }
-
-LABEL_12:
-  if (v6)
-  {
-    goto LABEL_19;
-  }
-
-  if (v8 != v5)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  if (result < v4)
-  {
-    goto LABEL_15;
-  }
-
-  return result;
-}
-
-uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t result, uint64_t a2, char a3, uint64_t a4)
-{
-  v6 = *a4;
-  v7 = *(a4 + 8);
-  v8 = *(a4 + 16);
-  if (a3)
-  {
-    if (*(a4 + 16))
-    {
-      v9 = result;
-      result = MEMORY[0x2318E2B50](result, a2, v6, v7);
-      if (result)
-      {
-LABEL_14:
-        __break(1u);
-        goto LABEL_15;
-      }
-
-      if (*(a4 + 40))
-      {
-        result = MEMORY[0x2318E2B50](v9, a2, *(a4 + 24), *(a4 + 32));
-        if (result)
-        {
-          return result;
-        }
-
-LABEL_13:
-        __break(1u);
-        goto LABEL_14;
-      }
-
-LABEL_19:
-      __break(1u);
-      return result;
-    }
-
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*(a4 + 16))
-  {
-    goto LABEL_18;
-  }
-
-  if (a2 != v7)
-  {
-LABEL_15:
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (v6 > result)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  if (*(a4 + 40))
-  {
-    goto LABEL_19;
-  }
-
-  if (*(a4 + 32) != a2)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  if (*(a4 + 24) <= result)
-  {
-    goto LABEL_13;
-  }
-
-  return result;
-}
-
-{
-  v7 = result;
-  v8 = *a4;
-  v9 = *(a4 + 8);
-  v10 = *(a4 + 16);
-  if (a3)
-  {
-    if (*(a4 + 16))
-    {
-      result = MEMORY[0x2318E2B50](result, a2, v8, v9);
-      if ((result & 1) == 0)
-      {
-        if (*(a4 + 40))
-        {
-          result = MEMORY[0x2318E2B50](*(a4 + 24), *(a4 + 32), v7, a2);
-          if ((result & 1) == 0)
-          {
-            return result;
-          }
-
-LABEL_13:
-          __break(1u);
-          goto LABEL_14;
-        }
-
-LABEL_18:
-        __break(1u);
-        return result;
-      }
-
-LABEL_14:
-      __break(1u);
-      goto LABEL_15;
-    }
-
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  if (*(a4 + 16))
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 != v9)
-  {
-LABEL_15:
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (v8 > result)
-  {
-    goto LABEL_14;
-  }
-
-  if (*(a4 + 40))
-  {
-    goto LABEL_18;
-  }
-
-  if (*(a4 + 32) != a2)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  if (*(a4 + 24) < result)
-  {
-    goto LABEL_13;
-  }
-
-  return result;
-}
-
-uint64_t _sSo11CFStringRefaABSHSCWlTm_0(unint64_t *a1)
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for CFStringRef(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
-{
-  if (a2 >> 62 != 1)
-  {
-    if (a2 >> 62 != 2)
-    {
-      return result;
-    }
-  }
-}
-
-double _sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionO0I0VSgWOi0_(uint64_t a1)
-{
-  *a1 = 0x300000000;
-  result = 0.0;
-  *(a1 + 8) = 0u;
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0u;
-  *(a1 + 136) = 0u;
-  *(a1 + 152) = 0u;
-  *(a1 + 168) = 0;
-  return result;
-}
-
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
-{
-  if (a2 >> 60 != 15)
-  {
-    return outlined consume of Data._Representation(a1, a2);
-  }
-
-  return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.ExtrinsicOriginSource);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.LensDomain);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind and conformance CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.AlgorithmKind);
-  }
-
-  return result;
-}
-
-double _sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgWOi0_(_OWORD *a1)
-{
-  result = NAN;
-  *a1 = xmmword_22E0F1120;
-  a1[1] = 0u;
-  a1[2] = 0u;
-  a1[3] = 0u;
-  a1[4] = 0u;
-  a1[5] = 0u;
-  a1[6] = 0u;
-  a1[7] = 0u;
-  a1[8] = 0u;
-  a1[9] = 0u;
-  a1[10] = 0u;
-  a1[11] = 0u;
-  a1[12] = 0u;
-  a1[13] = 0u;
-  a1[14] = 0u;
-  a1[15] = 0u;
-  a1[16] = 0u;
-  a1[17] = 0u;
-  a1[18] = 0u;
-  a1[19] = 0u;
-  a1[20] = 0u;
-  a1[21] = 0u;
-  return result;
-}
-
-uint64_t _sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionO0I0VSgWOg(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 >= 3)
-  {
-    return v1 - 2;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t _sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOWOi0_Tm(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 64);
-  v3 = *(result + 128);
-  v4 = *(result + 240);
-  v5 = *(result + 304);
-  v6 = *(result + 176) & 0x3FFFFFFFFLL;
-  *result &= 0x3FFFFFFFFuLL;
-  *(result + 8) = 0;
-  *(result + 64) = v2;
-  *(result + 72) = 0;
-  *(result + 128) = v3;
-  *(result + 152) = 0;
-  *(result + 176) = v6;
-  *(result + 184) = 0;
-  *(result + 240) = v4;
-  *(result + 248) = 0;
-  *(result + 304) = v5;
-  *(result + 328) = a2;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Index and conformance CMFormatDescriptionRef.Extensions.Index);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions and conformance CMFormatDescriptionRef.Extensions);
-  }
-
-  return result;
-}
-
-uint64_t specialized Collection.index(_:offsetBy:limitedBy:)(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (a2 < 0)
-  {
-LABEL_21:
-    __break(1u);
-    return result;
-  }
-
-  if (a2)
-  {
-    v3 = a3 - result;
-    if (a3 - result >= (a2 - 1))
-    {
-      v3 = a2 - 1;
-    }
-
-    if (v3 >= (result ^ 0x7FFFFFFFFFFFFFFFuLL))
-    {
-      v3 = result ^ 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v4 = v3 + 1;
-    if (v4 >= 5)
-    {
-      v7 = v4 & 3;
-      if ((v4 & 3) == 0)
-      {
-        v7 = 4;
-      }
-
-      v5 = v4 - v7;
-      v8 = 0uLL;
-      v9 = result;
-      v10 = vdupq_n_s64(1uLL);
-      v11 = v5;
-      do
-      {
-        v8 = vaddq_s64(v8, v10);
-        v9 = vaddq_s64(v9, v10);
-        v11 -= 4;
-      }
-
-      while (v11);
-      v6 = vaddvq_s64(vpaddq_s64(v9, v8));
-    }
-
-    else
-    {
-      v5 = 0;
-      v6 = result;
-    }
-
-    v12 = v5 + result - 0x7FFFFFFFFFFFFFFFLL;
-    v13 = v5 + result - a3;
-    v14 = a2 - v5;
-    result = v6;
-    while (1)
-    {
-      if (!v13)
-      {
-        return 0;
-      }
-
-      if (!v12)
-      {
-        break;
-      }
-
-      ++result;
-      ++v12;
-      ++v13;
-      if (!--v14)
-      {
-        return result;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_21;
-  }
-
-  return result;
-}
-
-uint64_t specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6)
-{
-  result = __DataStorage._bytes.getter();
-  v11 = result;
-  if (result)
-  {
-    result = __DataStorage._offset.getter();
-    if (__OFSUB__(a1, result))
-    {
-LABEL_13:
-      __break(1u);
-      return result;
-    }
-
-    v11 += a1 - result;
-  }
-
-  v12 = __OFSUB__(a2, a1);
-  v13 = a2 - a1;
-  if (v12)
-  {
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  v14 = MEMORY[0x2318E24F0]();
-  if (v14 >= v13)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = v14;
-  }
-
-  if (v11)
-  {
-    v16 = v15;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  return a4(a6, v16, v11);
-}
-
-uint64_t specialized Data.init(bytes:count:)(_BYTE *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 <= 14)
-  {
-    return specialized Data.InlineData.init(_:)(a1, &a1[a2]);
-  }
-
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  __DataStorage.init(bytes:length:)();
-  if (a2 < 0x7FFFFFFF)
-  {
-    return a2 << 32;
-  }
-
-  type metadata accessor for Data.RangeReference();
-  result = swift_allocObject();
-  *(result + 16) = 0;
-  *(result + 24) = a2;
-  return result;
-}
-
-uint64_t block_copy_helper_3(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key()
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key;
-  if (!lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Key and conformance CMFormatDescriptionRef.Extensions.Key);
-  }
-
-  return result;
-}
-
 unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.Extensions.Value.FieldDetail and conformance CMFormatDescriptionRef.Extensions.Value.FieldDetail()
 {
   result = lazy protocol witness table cache variable for type CMFormatDescriptionRef.Extensions.Value.FieldDetail and conformance CMFormatDescriptionRef.Extensions.Value.FieldDetail;
@@ -1938,9 +844,9 @@ unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.M
   return result;
 }
 
-uint64_t instantiation function for generic protocol witness table for CMFormatDescriptionRef.Extensions.Value.MPEG2VideoProfile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t instantiation function for generic protocol witness table for CMFormatDescriptionRef.Extensions.Value.MPEG2VideoProfile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
 {
-  *(a1 + 8) = a4();
+  *(a1 + 8) = a4(a1, a2, a3);
   result = a5();
   *(a1 + 16) = result;
   return result;
@@ -2015,7 +921,7 @@ unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.M
 
 uint64_t instantiation function for generic protocol witness table for CMFormatDescriptionRef.Extensions.Key(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   result = a6();
   a1[3] = result;
@@ -2112,7 +1018,7 @@ unint64_t lazy protocol witness table accessor for type CMFormatDescriptionRef.P
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<CMFormatDescriptionRef.ParameterSetCollection> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<CMFormatDescriptionRef.ParameterSetCollection> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2834,14 +1740,14 @@ uint64_t storeEnumTagSinglePayload for CMFormatDescriptionRef.Extensions.Index(u
   return result;
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined copy of Data._Representation(a1, a2);
+    return outlined copy of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 void CMSampleBufferRef.SampleAttachments.init(_:)()
@@ -2852,7 +1758,7 @@ void CMSampleBufferRef.SampleAttachments.init(_:)()
   objc_opt_self();
   swift_dynamicCastObjCClassUnconditional();
   type metadata accessor for CFStringRef(0);
-  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
   isa;
   static Dictionary._forceBridgeFromObjectiveC(_:result:)();
   __break(1u);
@@ -2897,9 +1803,8 @@ void specialized TypedCFDictionary.subscript.setter(__int128 *a1, void *a2)
 
 uint64_t CMSampleBufferRef.SampleAttachments.dictionaryRepresentation.getter()
 {
-  v1 = *v0;
   type metadata accessor for CFStringRef(0);
-  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
   Dictionary._bridgeToObjectiveC()();
   objc_opt_self();
   swift_dynamicCastObjCClassUnconditional();
@@ -3041,21 +1946,20 @@ void (*CMSampleBufferRef.SampleAttachments.subscript.modify(uint64_t **a1, uint6
 void CMSampleBufferRef.SampleAttachments.subscript.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v4 = *(*a1 + 72);
-  v3 = *(*a1 + 80);
-  v5 = *(*a1 + 64);
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 64);
   if (a2)
   {
     outlined init with copy of CMAttachmentBearerAttachments.Value?(*a1, v2 + 32, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
 
-    CMSampleBufferRef.SampleAttachments.subscript.setter(v2 + 32, v5, v4);
+    CMSampleBufferRef.SampleAttachments.subscript.setter(v2 + 32, v4, v3);
     outlined destroy of CMAttachmentBearerAttachments.Value?(v2, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
   }
 
   else
   {
 
-    CMSampleBufferRef.SampleAttachments.subscript.setter(v2, v5, v4);
+    CMSampleBufferRef.SampleAttachments.subscript.setter(v2, v4, v3);
   }
 
   free(v2);
@@ -3185,25 +2089,24 @@ uint64_t (*CMSampleBufferRef.SampleAttachments.earlierDisplayTimesAllowed.modify
   return CMSampleBufferRef.SampleAttachments.isDependedOnByOthers.modify;
 }
 
-void CMSampleBufferRef.SampleAttachments.hasRedundantCoding.modify(uint64_t *a1)
+void CMSampleBufferRef.SampleAttachments.hasRedundantCoding.modify(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1 == 2)
   {
     v2 = 0;
-    memset(v5, 0, 24);
+    memset(v4, 0, 24);
   }
 
   else
   {
-    LOBYTE(v5[0]) = v1 & 1;
+    LOBYTE(v4[0]) = v1 & 1;
     v2 = MEMORY[0x277D839B0];
   }
 
-  v4 = *a1;
-  v3 = a1[1];
-  v5[3] = v2;
-  specialized Dictionary.subscript.setter(v5, v3);
+  v3 = *(a1 + 8);
+  v4[3] = v2;
+  specialized Dictionary.subscript.setter(v4, v3);
 }
 
 uint64_t (*CMSampleBufferRef.SampleAttachments.displayImmediately.modify(uint64_t a1))()
@@ -3315,39 +2218,38 @@ void (*CMSampleBufferRef.SampleAttachments.hevcTemporalInfo.modify(uint64_t *a1)
 void CMSampleBufferRef.SampleAttachments.hevcTemporalInfo.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v4 = *(*a1 + 360);
   v3 = *(*a1 + 368);
   if (a2)
   {
-    v5 = *(v2 + 192);
+    v4 = *(v2 + 192);
     *(v2 + 32) = *(v2 + 176);
-    *(v2 + 48) = v5;
+    *(v2 + 48) = v4;
     *(v2 + 64) = *(v2 + 208);
-    v6 = *(v2 + 160);
+    v5 = *(v2 + 160);
     *v2 = *(v2 + 144);
-    *(v2 + 16) = v6;
-    v7 = v3;
+    *(v2 + 16) = v5;
+    v6 = v3;
     outlined init with copy of CMAttachmentBearerAttachments.Value?(v2, v2 + 288, &_sSo17CMSampleBufferRefa9CoreMediaE16HEVCTemporalInfoVSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE16HEVCTemporalInfoVSgMR);
-    specialized TypedCFDictionary.subscript.setter(v2, v7);
-    v8 = *(v2 + 144);
+    specialized TypedCFDictionary.subscript.setter(v2, v6);
+    v7 = *(v2 + 144);
     *(v2 + 232) = *(v2 + 160);
-    v9 = *(v2 + 192);
+    v8 = *(v2 + 192);
     *(v2 + 248) = *(v2 + 176);
-    *(v2 + 264) = v9;
+    *(v2 + 264) = v8;
     *(v2 + 280) = *(v2 + 208);
-    *(v2 + 216) = v8;
+    *(v2 + 216) = v7;
     outlined destroy of CMAttachmentBearerAttachments.Value?(v2 + 216, &_sSo17CMSampleBufferRefa9CoreMediaE16HEVCTemporalInfoVSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE16HEVCTemporalInfoVSgMR);
   }
 
   else
   {
-    v10 = *(v2 + 144);
+    v9 = *(v2 + 144);
     *(v2 + 88) = *(v2 + 160);
-    v11 = *(v2 + 192);
+    v10 = *(v2 + 192);
     *(v2 + 104) = *(v2 + 176);
-    *(v2 + 120) = v11;
+    *(v2 + 120) = v10;
     *(v2 + 136) = *(v2 + 208);
-    *(v2 + 72) = v10;
+    *(v2 + 72) = v9;
     specialized TypedCFDictionary.subscript.setter((v2 + 72), v3);
   }
 
@@ -3429,24 +2331,23 @@ uint64_t (*CMSampleBufferRef.SampleAttachments.hevcStepwiseTemporalSubLayerAcces
   return CMSampleBufferRef.SampleAttachments.isNotSync.modify;
 }
 
-void CMSampleBufferRef.SampleAttachments.isNotSync.modify(uint64_t *a1)
+void CMSampleBufferRef.SampleAttachments.isNotSync.modify(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    LOBYTE(v4[0]) = 1;
+    LOBYTE(v3[0]) = 1;
     v1 = MEMORY[0x277D839B0];
   }
 
   else
   {
     v1 = 0;
-    memset(v4, 0, 24);
+    memset(v3, 0, 24);
   }
 
-  v3 = *a1;
-  v2 = a1[1];
-  v4[3] = v1;
-  specialized Dictionary.subscript.setter(v4, v2);
+  v2 = *(a1 + 8);
+  v3[3] = v1;
+  specialized Dictionary.subscript.setter(v3, v2);
 }
 
 uint64_t (*CMSampleBufferRef.SampleAttachments.hevcSyncSampleNALUnitType.modify(uint64_t a1))()
@@ -3545,8 +2446,8 @@ void CMSampleBufferRef.SampleAttachments.hevcSyncSampleNALUnitType.modify(uint64
   {
     v1 = 0;
     v2 = 0;
-    v5[1] = 0;
-    v5[2] = 0;
+    v4[1] = 0;
+    v4[2] = 0;
   }
 
   else
@@ -3554,17 +2455,15 @@ void CMSampleBufferRef.SampleAttachments.hevcSyncSampleNALUnitType.modify(uint64
     v2 = MEMORY[0x277D83B88];
   }
 
-  v4 = a1[2];
   v3 = a1[3];
-  v5[0] = v1;
-  v5[3] = v2;
-  specialized Dictionary.subscript.setter(v5, v3);
+  v4[0] = v1;
+  v4[3] = v2;
+  specialized Dictionary.subscript.setter(v4, v3);
 }
 
-void (*CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
-  v5 = *v1;
   *a1 = CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.getter();
   a1[1] = v3;
   return CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify;
@@ -3645,10 +2544,9 @@ void CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.setter(ui
   specialized Dictionary.subscript.setter(v5, v3);
 }
 
-void (*CMSampleBufferRef.SampleAttachments.hdr10PlusPerFrameData.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*CMSampleBufferRef.SampleAttachments.hdr10PlusPerFrameData.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
-  v5 = *v1;
   *a1 = CMSampleBufferRef.SampleAttachments.hdr10PlusPerFrameData.getter();
   a1[1] = v3;
   return CMSampleBufferRef.SampleAttachments.hdr10PlusPerFrameData.modify;
@@ -3666,7 +2564,7 @@ void CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify(ui
       v7 = 0;
       v8 = 0;
       v6 = 0;
-      v15 = 0;
+      v13 = 0;
     }
 
     else
@@ -3676,13 +2574,12 @@ void CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify(ui
       v8 = a1[1];
     }
 
-    v9 = a1[2];
-    v13 = v7;
-    v14 = v8;
-    v16 = v6;
-    v10 = v5;
+    v11 = v7;
+    v12 = v8;
+    v14 = v6;
+    v9 = v5;
     outlined copy of Data?(v3, v4);
-    specialized Dictionary.subscript.setter(&v13, v10);
+    specialized Dictionary.subscript.setter(&v11, v9);
 
     outlined consume of Data?(v3, v4);
   }
@@ -3693,20 +2590,19 @@ void CMSampleBufferRef.SampleAttachments.cryptorSubsampleAuxiliaryData.modify(ui
     {
       v3 = 0;
       v4 = 0;
-      v11 = 0;
-      v15 = 0;
+      v10 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v11 = MEMORY[0x277CC9318];
+      v10 = MEMORY[0x277CC9318];
     }
 
-    v12 = a1[2];
-    v13 = v3;
-    v14 = v4;
-    v16 = v11;
-    specialized Dictionary.subscript.setter(&v13, v5);
+    v11 = v3;
+    v12 = v4;
+    v14 = v10;
+    specialized Dictionary.subscript.setter(&v11, v5);
   }
 }
 
@@ -3873,8 +2769,8 @@ uint64_t CMSampleBufferRef.HEVCTemporalInfo.rawCFValue.getter()
   v2 = v0[1];
   v3 = v0[2];
   v4 = v0[4];
-  v34 = v0[3];
-  *(&v35 + 1) = v0[5];
+  v33 = v0[3];
+  *(&v34 + 1) = v0[5];
   v5 = v0[6];
   v6 = v0[7];
   v7 = v0[8];
@@ -3897,7 +2793,7 @@ uint64_t CMSampleBufferRef.HEVCTemporalInfo.rawCFValue.getter()
   *(inited + 104) = v10;
   *(inited + 112) = v14;
   v16 = *v15;
-  *(inited + 160) = v34;
+  *(inited + 160) = v33;
   v17 = MEMORY[0x277CC0550];
   *(inited + 144) = v10;
   *(inited + 152) = v16;
@@ -3907,9 +2803,9 @@ uint64_t CMSampleBufferRef.HEVCTemporalInfo.rawCFValue.getter()
   *(inited + 224) = v10;
   *(inited + 200) = v7;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo11CFStringRefaypGMd, &_ss18_DictionaryStorageCySo11CFStringRefaypGMR);
-  *&v37 = static _DictionaryStorage.allocate(capacity:)();
-  *&v35 = v4;
-  outlined copy of Data?(v4, *(&v35 + 1));
+  *&v36 = static _DictionaryStorage.allocate(capacity:)();
+  *&v34 = v4;
+  outlined copy of Data?(v4, *(&v34 + 1));
   outlined copy of Data?(v5, v6);
   v19 = v9;
   v20 = v12;
@@ -3917,55 +2813,54 @@ uint64_t CMSampleBufferRef.HEVCTemporalInfo.rawCFValue.getter()
   v22 = v16;
   v23 = v18;
 
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v24, 1, &v37);
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v24, 1, &v36);
   swift_setDeallocating();
-  v25 = *(inited + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CFStringRefa_yptMd, &_sSo11CFStringRefa_yptMR);
   swift_arrayDestroy();
-  v26 = v37;
-  v39 = v37;
-  v27 = *MEMORY[0x277CC0558];
-  v28 = MEMORY[0x277CC9318];
-  if (*(&v35 + 1) >> 60 == 15)
+  v25 = v36;
+  v38 = v36;
+  v26 = *MEMORY[0x277CC0558];
+  v27 = MEMORY[0x277CC9318];
+  if (*(&v34 + 1) >> 60 == 15)
   {
-    specialized Dictionary._Variant.removeValue(forKey:)(v27, &v37);
-    outlined destroy of CMAttachmentBearerAttachments.Value?(&v37, &_sypSgMd, "lR");
+    specialized Dictionary._Variant.removeValue(forKey:)(v26, &v36);
+    outlined destroy of CMAttachmentBearerAttachments.Value?(&v36, &_sypSgMd, "lR");
   }
 
   else
   {
-    v38 = MEMORY[0x277CC9318];
-    v37 = v35;
-    outlined init with take of Any(&v37, v36);
+    v37 = MEMORY[0x277CC9318];
+    v36 = v34;
+    outlined init with take of Any(&v36, v35);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v36, v27, isUniquelyReferenced_nonNull_native);
-    v39 = v26;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v35, v26, isUniquelyReferenced_nonNull_native);
+    v38 = v25;
   }
 
-  v30 = *MEMORY[0x277CC0548];
+  v29 = *MEMORY[0x277CC0548];
   if (v6 >> 60 == 15)
   {
-    specialized Dictionary._Variant.removeValue(forKey:)(*MEMORY[0x277CC0548], &v37);
-    outlined destroy of CMAttachmentBearerAttachments.Value?(&v37, &_sypSgMd, "lR");
-    return v39;
+    specialized Dictionary._Variant.removeValue(forKey:)(*MEMORY[0x277CC0548], &v36);
+    outlined destroy of CMAttachmentBearerAttachments.Value?(&v36, &_sypSgMd, "lR");
+    return v38;
   }
 
   else
   {
-    v38 = v28;
-    *&v37 = v5;
-    *(&v37 + 1) = v6;
-    outlined init with take of Any(&v37, v36);
-    v32 = v39;
-    v33 = swift_isUniquelyReferenced_nonNull_native();
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v36, v30, v33);
-    return v32;
+    v37 = v27;
+    *&v36 = v5;
+    *(&v36 + 1) = v6;
+    outlined init with take of Any(&v36, v35);
+    v31 = v38;
+    v32 = swift_isUniquelyReferenced_nonNull_native();
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v35, v29, v32);
+    return v31;
   }
 }
 
 uint64_t closure #1 in static Data.== infix(_:_:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, BOOL *a4@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3 >> 62;
   if ((a3 >> 62) > 1)
   {
@@ -4052,18 +2947,17 @@ LABEL_32:
   if (!v5)
   {
     __s2 = a2;
-    v21 = a3;
-    v22 = BYTE2(a3);
-    v23 = BYTE3(a3);
-    v24 = BYTE4(a3);
-    v25 = BYTE5(a3);
+    v20 = a3;
+    v21 = BYTE2(a3);
+    v22 = BYTE3(a3);
+    v23 = BYTE4(a3);
+    v24 = BYTE5(a3);
     if (result)
     {
       result = memcmp(result, &__s2, BYTE6(a3));
       v6 = result == 0;
 LABEL_30:
       *a4 = v6;
-      v19 = *MEMORY[0x277D85DE8];
       return result;
     }
 
@@ -4129,18 +3023,18 @@ LABEL_40:
 
 uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v7 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
     if (!v7)
     {
-      v14[0] = a1;
-      LOWORD(v14[1]) = a2;
-      BYTE2(v14[1]) = BYTE2(a2);
-      BYTE3(v14[1]) = BYTE3(a2);
-      BYTE4(v14[1]) = BYTE4(a2);
-      BYTE5(v14[1]) = BYTE5(a2);
+      v13[0] = a1;
+      LOWORD(v13[1]) = a2;
+      BYTE2(v13[1]) = BYTE2(a2);
+      BYTE3(v13[1]) = BYTE3(a2);
+      BYTE4(v13[1]) = BYTE4(a2);
+      BYTE5(v13[1]) = BYTE5(a2);
       goto LABEL_9;
     }
 
@@ -4154,7 +3048,7 @@ uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint
 LABEL_7:
     v10 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v8, v9, a2 & 0x3FFFFFFFFFFFFFFFLL, a3, a4);
     outlined consume of Data._Representation(a3, a4);
-    goto LABEL_11;
+    return v10 & 1;
   }
 
   if (v7 == 2)
@@ -4164,18 +3058,16 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  memset(v14, 0, 14);
+  memset(v13, 0, 14);
 LABEL_9:
-  closure #1 in static Data.== infix(_:_:)(v14, a3, a4, &v13);
+  closure #1 in static Data.== infix(_:_:)(v13, a3, a4, &v12);
   v10 = v4;
   outlined consume of Data._Representation(a3, a4);
   if (!v4)
   {
-    v10 = v13;
+    v10 = v12;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -4212,7 +3104,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t specialized static Data.== infix(_:_:)(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL specialized static Data.== infix(_:_:)(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -4333,46 +3225,45 @@ BOOL specialized static CMSampleBufferRef.HEVCTemporalInfo.== infix(_:_:)(int64x
   v3 = a1[2].u64[1];
   v6 = a1[3].i64[0];
   v5 = a1[3].u64[1];
-  v7 = a1[4].i64[0];
-  v9 = a2[2].i64[0];
-  v8 = a2[2].u64[1];
-  v11 = a2[3].i64[0];
-  v10 = a2[3].u64[1];
-  v12 = a2[4].i64[0];
+  v8 = a2[2].i64[0];
+  v7 = a2[2].u64[1];
+  v10 = a2[3].i64[0];
+  v9 = a2[3].u64[1];
+  v11 = a2[4].i64[0];
   if (v3 >> 60 == 15)
   {
-    if (v8 >> 60 == 15)
+    if (v7 >> 60 == 15)
     {
-      v17 = a1[4].i64[0];
+      v16 = a1[4].i64[0];
       outlined copy of Data?(v4, v3);
-      outlined copy of Data?(v9, v8);
+      outlined copy of Data?(v8, v7);
       outlined consume of Data?(v4, v3);
       goto LABEL_9;
     }
 
 LABEL_7:
     outlined copy of Data?(a1[2].i64[0], v3);
-    outlined copy of Data?(v9, v8);
+    outlined copy of Data?(v8, v7);
     outlined consume of Data?(v4, v3);
-    v13 = v9;
-    v14 = v8;
+    v12 = v8;
+    v13 = v7;
 LABEL_14:
-    outlined consume of Data?(v13, v14);
+    outlined consume of Data?(v12, v13);
     return 0;
   }
 
-  if (v8 >> 60 == 15)
+  if (v7 >> 60 == 15)
   {
     goto LABEL_7;
   }
 
-  v17 = a1[4].i64[0];
+  v16 = a1[4].i64[0];
   outlined copy of Data?(v4, v3);
-  outlined copy of Data?(v9, v8);
-  v15 = specialized static Data.== infix(_:_:)(v4, v3, v9, v8);
-  outlined consume of Data?(v9, v8);
+  outlined copy of Data?(v8, v7);
+  v14 = specialized static Data.== infix(_:_:)(v4, v3, v8, v7);
+  outlined consume of Data?(v8, v7);
   outlined consume of Data?(v4, v3);
-  if ((v15 & 1) == 0)
+  if (!v14)
   {
     return 0;
   }
@@ -4380,57 +3271,61 @@ LABEL_14:
 LABEL_9:
   if (v5 >> 60 != 15)
   {
-    if (v10 >> 60 == 15)
+    if (v9 >> 60 == 15)
     {
       goto LABEL_13;
     }
 
     outlined copy of Data?(v6, v5);
-    outlined copy of Data?(v11, v10);
-    v16 = specialized static Data.== infix(_:_:)(v6, v5, v11, v10);
-    outlined consume of Data?(v11, v10);
+    outlined copy of Data?(v10, v9);
+    v15 = specialized static Data.== infix(_:_:)(v6, v5, v10, v9);
+    outlined consume of Data?(v10, v9);
     outlined consume of Data?(v6, v5);
-    if (v16)
+    if (v15)
     {
-      return v17 == v12;
+      return v16 == v11;
     }
 
     return 0;
   }
 
-  if (v10 >> 60 != 15)
+  if (v9 >> 60 != 15)
   {
 LABEL_13:
     outlined copy of Data?(v6, v5);
-    outlined copy of Data?(v11, v10);
+    outlined copy of Data?(v10, v9);
     outlined consume of Data?(v6, v5);
-    v13 = v11;
-    v14 = v10;
+    v12 = v10;
+    v13 = v9;
     goto LABEL_14;
   }
 
   outlined copy of Data?(v6, v5);
-  outlined copy of Data?(v11, v10);
+  outlined copy of Data?(v10, v9);
   outlined consume of Data?(v6, v5);
-  return v17 == v12;
+  return v16 == v11;
 }
 
 BOOL specialized static CMSampleBufferRef.SampleAttachments.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  if ((*(*a1 + 16) == 0) == (*(*a2 + 16) != 0))
+  result = 0;
+  if ((*(*a1 + 16) == 0) != (*(*a2 + 16) != 0))
   {
-    return 0;
+    type metadata accessor for CFDictionaryRef(0);
+    type metadata accessor for CFStringRef(0);
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+    isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v3 = Dictionary._bridgeToObjectiveC()().super.isa;
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    v4 = static _CFObject.== infix(_:_:)();
+
+    if (v4)
+    {
+      return 1;
+    }
   }
 
-  type metadata accessor for CFDictionaryRef(0);
-  type metadata accessor for CFStringRef(0);
-  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
-  isa = Dictionary._bridgeToObjectiveC()().super.isa;
-  v3 = Dictionary._bridgeToObjectiveC()().super.isa;
-  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-  v4 = static _CFObject.== infix(_:_:)();
-
-  return (v4 & 1) != 0;
+  return result;
 }
 
 uint64_t keypath_get_38Tm@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X3>, uint64_t a3@<X8>)
@@ -4441,12 +3336,11 @@ uint64_t keypath_get_38Tm@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X3>, uint64_t a3
   return result;
 }
 
-uint64_t keypath_get_42Tm@<X0>(uint64_t *a1@<X0>, uint64_t (*a2)(void)@<X3>, uint64_t *a3@<X8>)
+uint64_t keypath_get_42Tm@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X8>)
 {
-  v6 = *a1;
-  result = a2();
-  *a3 = result;
-  a3[1] = v5;
+  result = a1();
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
@@ -4849,7 +3743,8 @@ void specialized Sequence.allSatisfy(_:)(uint64_t *a1)
             }
 
             *time = *(v3 + 32);
-            *&time[8] = __PAIR64__(v12, v71);
+            *&time[8] = v71;
+            *&time[12] = v12;
             *&time[16] = v13;
             CMTimeMultiply(rhs, time, v92);
             *time = v14;
@@ -4934,7 +3829,7 @@ void specialized Sequence.allSatisfy(_:)(uint64_t *a1)
           swift_dynamicCastObjCClassUnconditional();
           *time = 0;
           type metadata accessor for CFStringRef(0);
-          lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+          lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
           static Dictionary._forceBridgeFromObjectiveC(_:result:)();
           v22 = *time;
           if (!*time)
@@ -5007,7 +3902,8 @@ void specialized Sequence.allSatisfy(_:)(uint64_t *a1)
             }
 
             *time = *(v70 + 32);
-            *&time[8] = __PAIR64__(v31, v72);
+            *&time[8] = v72;
+            *&time[12] = v31;
             *&time[16] = v33;
             CMTimeMultiply(v77, time, v92);
             *time = value;
@@ -5092,7 +3988,7 @@ void specialized Sequence.allSatisfy(_:)(uint64_t *a1)
           swift_dynamicCastObjCClassUnconditional();
           *time = 0;
           type metadata accessor for CFStringRef(0);
-          lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+          lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
           static Dictionary._forceBridgeFromObjectiveC(_:result:)();
           v41 = *time;
           if (!*time)
@@ -5174,10 +4070,10 @@ LABEL_56:
         outlined init with copy of CMSampleBufferRef.SampleProperties(rhs, &time1);
         outlined init with copy of CMSampleBufferRef.SampleProperties(v77, &time1);
         type metadata accessor for CFStringRef(0);
-        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
         isa = Dictionary._bridgeToObjectiveC()().super.isa;
         v44 = Dictionary._bridgeToObjectiveC()().super.isa;
-        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         v45 = static _CFObject.== infix(_:_:)();
 
         outlined destroy of CMSampleBufferRef.SampleProperties(v77);
@@ -5231,13 +4127,6 @@ LABEL_57:
   }
 }
 
-uint64_t CMSampleBufferRef.SampleProperties.size.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
 uint64_t CMSampleBufferRef.SampleProperties.size.setter(uint64_t result, char a2)
 {
   *v2 = result;
@@ -5273,7 +4162,6 @@ __n128 CMSampleBufferRef.SampleProperties.timing.setter(__int128 *a1)
 uint64_t CMSampleBufferRef.SampleProperties.attachments.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *(v1 + 88);
 
   *(v1 + 88) = v2;
   return result;
@@ -5502,7 +4390,6 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.sizes.setter(uint64_t resu
     outlined consume of CMSampleBufferRef.SizePerSample?(v3, v2);
     v3 = v4;
 LABEL_6:
-    v5 = *(v1 + 8);
 
     *(v1 + 8) = v3;
     *(v1 + 40) = 1;
@@ -5518,7 +4405,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t (*CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t a1))(uint64_t *a1, char a2)
 {
   v3 = *(v1 + 8);
   *(a1 + 16) = v1;
@@ -5547,7 +4434,7 @@ uint64_t (*CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t a1
   return CMSampleBufferRef.SamplePropertiesCollection.sizes.modify;
 }
 
-uint64_t CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t a1, char a2)
+uint64_t CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t *a1, char a2)
 {
   v3 = *a1;
   v4 = *(a1 + 8);
@@ -5562,18 +4449,17 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.sizes.modify(uint64_t a1, 
     {
       if ((v4 & 1) == 0)
       {
-        v11 = *(a1 + 16);
-        v14 = *(a1 + 24);
-        v15 = *(v3 + 16);
+        v9 = a1[2];
+        v11 = *(v3 + 16);
 
-        if (v15 != *v11)
+        if (v11 != *v9)
         {
           goto LABEL_20;
         }
 
 LABEL_18:
-        *(v11 + 8) = v3;
-        *(v11 + 40) = 1;
+        *(v9 + 8) = v3;
+        *(v9 + 40) = 1;
         return result;
       }
 
@@ -5585,9 +4471,7 @@ LABEL_18:
       v3 = v6;
     }
 
-    v9 = *(a1 + 24);
-
-    v11 = *(a1 + 16);
+    v9 = a1[2];
     goto LABEL_18;
   }
 
@@ -5599,12 +4483,11 @@ LABEL_18:
 
   if ((v4 & 1) == 0)
   {
-    v8 = *(a1 + 16);
-    v12 = *(a1 + 24);
-    v13 = *(v3 + 16);
+    v7 = a1[2];
+    v10 = *(v3 + 16);
     outlined copy of CMSampleBufferRef.SizePerSample(*a1, 0);
 
-    if (v13 == *v8)
+    if (v10 == *v7)
     {
       v5 = v3;
       goto LABEL_14;
@@ -5622,29 +4505,28 @@ LABEL_20:
   *(v5 + 32) = v3;
   outlined consume of CMSampleBufferRef.SizePerSample?(v3, v4);
 LABEL_9:
-  v7 = *(a1 + 24);
 
-  v8 = *(a1 + 16);
+  v7 = a1[2];
 LABEL_14:
-  *(v8 + 8) = v5;
-  *(v8 + 40) = 1;
+  *(v7 + 8) = v5;
+  *(v7 + 40) = 1;
 
   return outlined consume of CMSampleBufferRef.SizePerSample?(v3, v4);
 }
 
-uint64_t CMSampleBufferRef.SamplePropertiesCollection.timings.getter@<X0>(int64x2_t *a1@<X8>)
+int64x2_t *CMSampleBufferRef.SamplePropertiesCollection.timings.getter@<X0>(int64x2_t *a1@<X8>)
 {
   result = *(v1 + 16);
-  v3 = *(result + 16);
+  v3 = result[1].i64[0];
   if (v3)
   {
     if (v3 == 1)
     {
-      v4 = *(result + 32);
-      v5 = *(result + 48);
-      v6 = *(result + 64);
-      v7 = *(result + 80);
-      v3 = *(result + 96);
+      v4 = result[2];
+      v5 = result[3];
+      v6 = result[4];
+      v7 = result[5];
+      v3 = result[6].i64[0];
       v8 = 1;
     }
 
@@ -5678,23 +4560,22 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.timings.getter@<X0>(int64x
 
 _OWORD *CMSampleBufferRef.SamplePropertiesCollection.timings.setter(_OWORD *result)
 {
-  *&v11[9] = *(result + 57);
+  *&v8[9] = *(result + 57);
   v2 = result[1];
-  v10[0] = *result;
-  v10[1] = v2;
+  v7[0] = *result;
+  v7[1] = v2;
   v3 = result[3];
-  v10[2] = result[2];
-  *v11 = v3;
-  if (v11[24] == 255)
+  v7[2] = result[2];
+  *v8 = v3;
+  if (v8[24] == 255)
   {
-    v8 = *(v1 + 16);
 
     *(v1 + 16) = MEMORY[0x277D84F90];
     goto LABEL_7;
   }
 
-  v4 = *&v10[0];
-  if (v11[24])
+  v4 = *&v7[0];
+  if (v8[24])
   {
     v5 = result;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMd, &_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMR);
@@ -5705,8 +4586,7 @@ _OWORD *CMSampleBufferRef.SamplePropertiesCollection.timings.setter(_OWORD *resu
     *(v6 + 56) = *(v5 + 24);
     *(v6 + 72) = *(v5 + 40);
     *(v6 + 88) = *(v5 + 56);
-    outlined destroy of CMAttachmentBearerAttachments.Value?(v10, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
-    v7 = *(v1 + 16);
+    outlined destroy of CMAttachmentBearerAttachments.Value?(v7, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
 
     *(v1 + 16) = v6;
 LABEL_7:
@@ -5714,11 +4594,10 @@ LABEL_7:
     return result;
   }
 
-  if (*(*&v10[0] + 16) == *v1)
+  if (*(*&v7[0] + 16) == *v1)
   {
-    v9 = *(v1 + 16);
 
-    *(v1 + 16) = *&v10[0];
+    *(v1 + 16) = *&v7[0];
     goto LABEL_7;
   }
 
@@ -5726,7 +4605,7 @@ LABEL_7:
   return result;
 }
 
-void (*CMSampleBufferRef.SamplePropertiesCollection.timings.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*CMSampleBufferRef.SamplePropertiesCollection.timings.modify(int64x2_t **a1))(uint64_t a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5740,9 +4619,9 @@ void (*CMSampleBufferRef.SamplePropertiesCollection.timings.modify(uint64_t *a1)
 
   v4 = v3;
   *a1 = v3;
-  *(v3 + 320) = v1;
+  v3[20].i64[0] = v1;
   v5 = *(v1 + 16);
-  *(v4 + 328) = v5;
+  v4[20].i64[1] = v5;
   v6 = v5[1].i64[0];
   if (v6 == 1)
   {
@@ -5771,11 +4650,11 @@ void (*CMSampleBufferRef.SamplePropertiesCollection.timings.modify(uint64_t *a1)
   }
 
   *v4 = v7;
-  *(v4 + 16) = v9;
-  *(v4 + 32) = v10;
-  *(v4 + 48) = v11;
-  *(v4 + 64) = v6;
-  *(v4 + 72) = v8;
+  v4[1] = v9;
+  v4[2] = v10;
+  v4[3] = v11;
+  v4[4].i64[0] = v6;
+  v4[4].i8[8] = v8;
   return CMSampleBufferRef.SamplePropertiesCollection.timings.modify;
 }
 
@@ -5795,40 +4674,37 @@ void CMSampleBufferRef.SamplePropertiesCollection.timings.modify(uint64_t a1, ch
   {
     if (v6 == 255)
     {
-      v22 = *(v2 + 40);
-      v21 = *(v2 + 41);
+      v18 = *(v2 + 40);
 
-      *(v22 + 16) = MEMORY[0x277D84F90];
+      *(v18 + 16) = MEMORY[0x277D84F90];
     }
 
     else
     {
-      v14 = *(v2 + 40);
-      v13 = *(v2 + 41);
+      v12 = *(v2 + 40);
       if (v6)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMd, &_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMR);
-        v15 = swift_allocObject();
-        *(v15 + 16) = xmmword_22E0EF920;
-        *(v15 + 32) = v5;
-        v16 = *(v2 + 24);
-        v17 = *(v2 + 40);
-        v18 = *(v2 + 56);
-        *(v15 + 40) = *(v2 + 8);
-        *(v15 + 88) = v18;
-        *(v15 + 72) = v17;
-        *(v15 + 56) = v16;
+        v13 = swift_allocObject();
+        *(v13 + 16) = xmmword_22E0EF920;
+        *(v13 + 32) = v5;
+        v14 = *(v2 + 24);
+        v15 = *(v2 + 40);
+        v16 = *(v2 + 56);
+        *(v13 + 40) = *(v2 + 8);
+        *(v13 + 88) = v16;
+        *(v13 + 72) = v15;
+        *(v13 + 56) = v14;
         outlined destroy of CMAttachmentBearerAttachments.Value?((v2 + 5), &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
 
-        v14[2] = v15;
+        v12[2] = v13;
       }
 
       else
       {
-        v28 = *(v5 + 16);
-        v29 = *(v2 + 41);
+        v24 = *(v5 + 16);
 
-        if (v28 != *v14)
+        if (v24 != *v12)
         {
           goto LABEL_20;
         }
@@ -5843,28 +4719,26 @@ void CMSampleBufferRef.SamplePropertiesCollection.timings.modify(uint64_t a1, ch
 
   if (v6 == 255)
   {
-    v20 = *(v2 + 40);
-    v19 = *(v2 + 41);
+    v17 = *(v2 + 40);
 
-    *(v20 + 16) = MEMORY[0x277D84F90];
+    *(v17 + 16) = MEMORY[0x277D84F90];
     goto LABEL_12;
   }
 
-  v8 = *(v2 + 40);
-  v7 = *(v2 + 41);
+  v7 = *(v2 + 40);
   if ((v6 & 1) == 0)
   {
-    v23 = *(v5 + 16);
-    v24 = v2[3];
+    v19 = *(v5 + 16);
+    v20 = v2[3];
     v2[12] = v2[2];
-    v2[13] = v24;
+    v2[13] = v20;
     *(v2 + 217) = *(v2 + 57);
-    v25 = v2[1];
+    v21 = v2[1];
     v2[10] = *v2;
-    v2[11] = v25;
+    v2[11] = v21;
     outlined init with copy of CMSampleBufferRef.TimingPerSample((v2 + 10), (v2 + 15));
 
-    if (v23 == *v8)
+    if (v19 == *v7)
     {
       *(*(v2 + 40) + 16) = v5;
       goto LABEL_12;
@@ -5877,40 +4751,39 @@ LABEL_20:
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMd, &_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMR);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_22E0EF920;
-  *(v9 + 32) = v5;
-  v10 = *(v2 + 24);
-  v11 = *(v2 + 40);
-  v12 = *(v2 + 56);
-  *(v9 + 40) = *(v2 + 8);
-  *(v9 + 88) = v12;
-  *(v9 + 72) = v11;
-  *(v9 + 56) = v10;
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_22E0EF920;
+  *(v8 + 32) = v5;
+  v9 = *(v2 + 24);
+  v10 = *(v2 + 40);
+  v11 = *(v2 + 56);
+  *(v8 + 40) = *(v2 + 8);
+  *(v8 + 88) = v11;
+  *(v8 + 72) = v10;
+  *(v8 + 56) = v9;
   outlined destroy of CMAttachmentBearerAttachments.Value?((v2 + 5), &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
 
-  v8[2] = v9;
+  v7[2] = v8;
 LABEL_12:
   *(*(v2 + 40) + 40) = 1;
-  v26 = v2[3];
+  v22 = v2[3];
   v2[12] = v2[2];
-  v2[13] = v26;
+  v2[13] = v22;
   *(v2 + 217) = *(v2 + 57);
-  v27 = v2[1];
+  v23 = v2[1];
   v2[10] = *v2;
-  v2[11] = v27;
+  v2[11] = v23;
   outlined destroy of CMAttachmentBearerAttachments.Value?((v2 + 10), &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
 LABEL_16:
 
   free(v2);
 }
 
-uint64_t *key path setter for CMSampleBufferRef.SamplePropertiesCollection.attachments : CMSampleBufferRef.SamplePropertiesCollection(uint64_t *result, uint64_t a2)
+void *key path setter for CMSampleBufferRef.SamplePropertiesCollection.attachments : CMSampleBufferRef.SamplePropertiesCollection(void *result, uint64_t a2)
 {
   v3 = *result;
   if (!*result)
   {
-    v6 = *(a2 + 24);
 
     *(a2 + 24) = MEMORY[0x277D84F90];
     goto LABEL_5;
@@ -5918,8 +4791,6 @@ uint64_t *key path setter for CMSampleBufferRef.SamplePropertiesCollection.attac
 
   if (*(v3 + 16) == *a2)
   {
-    v4 = *(a2 + 24);
-    v5 = *result;
 
     *(a2 + 24) = v3;
 LABEL_5:
@@ -5946,14 +4817,12 @@ LABEL_4:
     v2 = MEMORY[0x277D84F90];
   }
 
-  v3 = *(v1 + 24);
-
   *(v1 + 24) = v2;
   *(v1 + 40) = 1;
   return result;
 }
 
-uint64_t (*CMSampleBufferRef.SamplePropertiesCollection.attachments.modify(uint64_t *a1))(void *a1, char a2)
+uint64_t (*CMSampleBufferRef.SamplePropertiesCollection.attachments.modify(uint64_t *a1))()
 {
   v3 = *(v1 + 24);
   a1[1] = v1;
@@ -5975,15 +4844,14 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.attachments.modify(void *a
 {
   v2 = a1;
   v3 = *a1;
-  v4 = a1[2];
   if ((a2 & 1) == 0)
   {
     if (v3)
     {
-      v2 = v2[1];
-      v9 = *(v3 + 16);
+      v2 = a1[1];
+      v8 = *(v3 + 16);
 
-      if (v9 != *v2)
+      if (v8 != *v2)
       {
         __break(1u);
         goto LABEL_8;
@@ -6006,27 +4874,27 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.attachments.modify(void *a
   {
 LABEL_8:
 
-    v5 = v2[1];
-    v8 = MEMORY[0x277D84F90];
+    v4 = v2[1];
+    v7 = MEMORY[0x277D84F90];
     goto LABEL_9;
   }
 
-  v5 = v2[1];
-  v6 = *(v3 + 16);
+  v4 = a1[1];
+  v5 = *(v3 + 16);
 
-  if (v6 != *v5)
+  if (v5 != *v4)
   {
     __break(1u);
     return result;
   }
 
-  v8 = v3;
+  v7 = v3;
 LABEL_9:
-  *(v5 + 24) = v8;
-  *(v5 + 40) = 1;
+  *(v4 + 24) = v7;
+  *(v4 + 40) = 1;
 }
 
-void CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(unint64_t a1@<X0>, uint64_t a2@<X8>)
+void CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(unint64_t result@<X0>, uint64_t a2@<X8>)
 {
   v3 = *v2;
   if ((*v2 & 0x8000000000000000) != 0)
@@ -6035,14 +4903,14 @@ void CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(unint64_t a1@
     goto LABEL_12;
   }
 
-  if ((a1 & 0x8000000000000000) != 0)
+  if ((result & 0x8000000000000000) != 0)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  if (v3 <= a1)
+  if (v3 <= result)
   {
 LABEL_13:
     __break(1u);
@@ -6064,14 +4932,14 @@ LABEL_10:
     v20 = v7;
     v21 = v8;
     v22 = v9;
-    CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(a1, v23);
+    CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(v23, result);
     v15[1] = v3;
     v15[2] = v5;
     v15[3] = v6;
     v15[4] = v7;
     v15[5] = v8;
     v16 = v9;
-    CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(a1, v15);
+    CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(result, v15);
     v13 = v15[0];
     *&v14[3] = v23[0];
     *&v14[19] = v23[1];
@@ -6097,9 +4965,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (v10 > a1)
+  if (v10 > result)
   {
-    v11 = (v5 + 8 * a1 + 32);
+    v11 = (v5 + 8 * result + 32);
     goto LABEL_9;
   }
 
@@ -6107,24 +4975,19 @@ LABEL_14:
   __break(1u);
 }
 
-double key path getter for CMSampleBufferRef.SamplePropertiesCollection.subscript(_:) : CMSampleBufferRef.SamplePropertiesCollection@<D0>(uint64_t *a1@<X0>, unint64_t *a2@<X1>, _OWORD *a3@<X8>)
+double key path getter for CMSampleBufferRef.SamplePropertiesCollection.subscript(_:) : CMSampleBufferRef.SamplePropertiesCollection@<D0>(unint64_t *a1@<X1>, _OWORD *a2@<X8>)
 {
-  v8 = *a1;
-  v9 = *(a1 + 1);
-  v10 = a1[3];
-  v11 = a1[4];
-  v12 = *(a1 + 40);
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(*a2, v13);
-  v4 = v13[3];
-  a3[2] = v13[2];
-  a3[3] = v4;
-  v5 = v13[5];
-  a3[4] = v13[4];
-  a3[5] = v5;
-  result = *v13;
-  v7 = v13[1];
-  *a3 = v13[0];
-  a3[1] = v7;
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(*a1, v7);
+  v3 = v7[3];
+  a2[2] = v7[2];
+  a2[3] = v3;
+  v4 = v7[5];
+  a2[4] = v7[4];
+  a2[5] = v4;
+  result = *v7;
+  v6 = v7[1];
+  *a2 = v7[0];
+  a2[1] = v6;
   return result;
 }
 
@@ -6182,13 +5045,13 @@ LABEL_10:
   v6 = *(v5 + 16);
   if (v6 == 1)
   {
-    v10 = *(v5 + 32);
-    if (v10 == result)
+    v9 = *(v5 + 32);
+    if (v9 == result)
     {
       return result;
     }
 
-    v11 = *v2;
+    v10 = *v2;
     if ((*v2 & 0x8000000000000000) != 0)
     {
 LABEL_32:
@@ -6196,30 +5059,29 @@ LABEL_32:
       return result;
     }
 
-    if (v11)
+    if (v10)
     {
-      v12 = *v2;
-      v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      v9 = v13;
-      *(v13 + 16) = v11;
-      v14 = (v13 + 32);
-      if (v11 > 3)
+      v11 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      v8 = v11;
+      *(v11 + 16) = v10;
+      v12 = (v11 + 32);
+      if (v10 > 3)
       {
-        v15 = v11 & 0x7FFFFFFFFFFFFFFCLL;
-        v14 += v11 & 0x7FFFFFFFFFFFFFFCLL;
-        v16 = vdupq_n_s64(v10);
-        v17 = (v13 + 48);
-        v18 = v11 & 0x7FFFFFFFFFFFFFFCLL;
+        v13 = v10 & 0x7FFFFFFFFFFFFFFCLL;
+        v12 += v10 & 0x7FFFFFFFFFFFFFFCLL;
+        v14 = vdupq_n_s64(v9);
+        v15 = (v11 + 48);
+        v16 = v10 & 0x7FFFFFFFFFFFFFFCLL;
         do
         {
-          v17[-1] = v16;
-          *v17 = v16;
-          v17 += 2;
-          v18 -= 4;
+          v15[-1] = v14;
+          *v15 = v14;
+          v15 += 2;
+          v16 -= 4;
         }
 
-        while (v18);
-        if (v11 == v15)
+        while (v16);
+        if (v10 == v13)
         {
           goto LABEL_21;
         }
@@ -6227,25 +5089,25 @@ LABEL_32:
 
       else
       {
-        v15 = 0;
+        v13 = 0;
       }
 
-      v19 = v11 - v15;
+      v17 = v10 - v13;
       do
       {
-        *v14++ = v10;
-        --v19;
+        *v12++ = v9;
+        --v17;
       }
 
-      while (v19);
+      while (v17);
 LABEL_21:
 
-      v5 = v9;
+      v5 = v8;
       goto LABEL_22;
     }
 
 LABEL_15:
-    v9 = MEMORY[0x277D84F90];
+    v8 = MEMORY[0x277D84F90];
     goto LABEL_21;
   }
 
@@ -6264,10 +5126,9 @@ LABEL_15:
 
     if (v7)
     {
-      v8 = *v2;
-      v9 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      *(v9 + 16) = v7;
-      bzero((v9 + 32), 8 * v7);
+      v8 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v8 + 16) = v7;
+      bzero((v8 + 32), 8 * v7);
       goto LABEL_21;
     }
 
@@ -6323,7 +5184,7 @@ LABEL_29:
   return result;
 }
 
-unint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.getter@<X0>(unint64_t multiplier@<X0>, uint64_t a2@<X8>)
+CMTime *CMSampleBufferRef.SamplePropertiesCollection.subscript.getter@<X0>(uint64_t *__return_ptr a1@<X8>, CMTime *multiplier@<X0>)
 {
   v3 = *(v2 + 16);
   v4 = v3[2];
@@ -6344,7 +5205,7 @@ unint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.getter@<X0>(uni
       goto LABEL_10;
     }
 
-    v15 = a2;
+    v15 = a1;
     if (!(multiplier >> 31))
     {
       time.value = v3[4];
@@ -6362,7 +5223,7 @@ unint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.getter@<X0>(uni
       v10 = (MEMORY[0x277CC0898] + 16);
       v11 = (MEMORY[0x277CC0898] + 12);
       v12 = (MEMORY[0x277CC0898] + 8);
-      a2 = v15;
+      a1 = v15;
       goto LABEL_10;
     }
   }
@@ -6386,16 +5247,16 @@ LABEL_10:
       v18 = *v11;
       v19 = *v12;
       v20 = *v13;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-      *(a2 + 16) = v7;
-      *(a2 + 24) = value;
-      *(a2 + 32) = v9;
-      *(a2 + 40) = epoch;
-      *(a2 + 48) = v20;
-      *(a2 + 56) = v19;
-      *(a2 + 60) = v18;
-      *(a2 + 64) = v17;
+      *a1 = v5;
+      a1[1] = v6;
+      a1[2] = v7;
+      a1[3] = value;
+      a1[4] = v9;
+      a1[5] = epoch;
+      a1[6] = v20;
+      *(a1 + 14) = v19;
+      *(a1 + 15) = v18;
+      a1[8] = v17;
       return multiplier;
     }
 
@@ -6448,7 +5309,7 @@ void CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(unint64_t a1@
     objc_opt_self();
     swift_dynamicCastObjCClassUnconditional();
     type metadata accessor for CFStringRef(0);
-    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
     isa;
     static Dictionary._forceBridgeFromObjectiveC(_:result:)();
   }
@@ -6456,48 +5317,20 @@ void CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(unint64_t a1@
   __break(1u);
 }
 
-uint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(unint64_t a1, unint64_t multiplier)
+uint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(uint64_t a1, CMTime *multiplier)
 {
   v10 = multiplier;
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(multiplier, v55);
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(v54, multiplier);
   v12 = *a1;
   v13 = *(a1 + 16);
-  time2.epoch = v55[2];
+  time2.epoch = v54[2];
   time1.value = v12;
   *&time1.timescale = *(a1 + 8);
   time1.epoch = v13;
-  time2.value = v55[0];
-  *&time2.timescale = v55[1];
-  if (CMTimeCompare(&time1, &time2))
+  time2.value = v54[0];
+  *&time2.timescale = v54[1];
+  if (CMTimeCompare(&time1, &time2) || (v14 = *(a1 + 48), v15 = *(a1 + 64), time2.epoch = v54[8], time1.value = v14, *&time1.timescale = *(a1 + 56), time1.epoch = v15, time2.value = v54[6], *&time2.timescale = v54[7], CMTimeCompare(&time1, &time2)) || (v16 = *(a1 + 24), v17 = *(a1 + 40), time2.epoch = v54[5], time1.value = v16, *&time1.timescale = *(a1 + 32), time1.epoch = v17, time2.value = v54[3], *&time2.timescale = v54[4], result = CMTimeCompare(&time1, &time2), result))
   {
-    goto LABEL_4;
-  }
-
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 64);
-  time2.epoch = v55[8];
-  time1.value = v14;
-  *&time1.timescale = *(a1 + 56);
-  time1.epoch = v15;
-  time2.value = v55[6];
-  *&time2.timescale = v55[7];
-  if (CMTimeCompare(&time1, &time2))
-  {
-    goto LABEL_4;
-  }
-
-  v16 = *(a1 + 24);
-  v17 = *(a1 + 40);
-  time2.epoch = v55[5];
-  time1.value = v16;
-  *&time1.timescale = *(a1 + 32);
-  time1.epoch = v17;
-  time2.value = v55[3];
-  *&time2.timescale = v55[4];
-  result = CMTimeCompare(&time1, &time2);
-  if (result)
-  {
-LABEL_4:
     v19 = *(v3 + 16);
     v20 = *(v19 + 16);
     if (v20 != 1)
@@ -6556,30 +5389,29 @@ LABEL_4:
 
     if (!v6)
     {
-      v30 = *(v3 + 16);
 
       v19 = MEMORY[0x277D84F90];
       goto LABEL_19;
     }
 
-    v40 = v10;
-    v41 = a1;
-    v42 = v3;
-    v43 = *(v19 + 32);
+    v39 = v10;
+    v40 = a1;
+    v41 = v3;
+    v42 = *(v19 + 32);
     v10 = *(v19 + 40);
     LODWORD(v2) = *(v19 + 44);
     v7 = *(v19 + 48);
     v8 = *(v19 + 56);
     a1 = *(v19 + 64);
-    v50 = *(v19 + 68);
-    v44 = *(v19 + 72);
+    v49 = *(v19 + 68);
+    v43 = *(v19 + 72);
     v9 = *(v19 + 88);
     v19 = *(v19 + 96);
-    v52 = MEMORY[0x277D84F90];
+    v51 = MEMORY[0x277D84F90];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
-    v3 = v52;
-    epoch = *(v52 + 16);
-    v20 = *(v52 + 24);
+    v3 = v51;
+    epoch = *(v51 + 16);
+    v20 = *(v51 + 24);
     v5 = epoch + 1;
     if (epoch >= v20 >> 1)
     {
@@ -6590,15 +5422,15 @@ LABEL_4:
     {
       *(v3 + 16) = v5;
       v29 = v3 + 72 * epoch;
-      *(v29 + 32) = v43;
+      *(v29 + 32) = v42;
       *(v29 + 40) = v10;
       *(v29 + 44) = v2;
       *(v29 + 48) = v7;
       *(v29 + 56) = v8;
-      v49 = v8;
+      v48 = v8;
       *(v29 + 64) = a1;
-      *(v29 + 68) = v50;
-      *(v29 + 72) = v44;
+      *(v29 + 68) = v49;
+      *(v29 + 72) = v43;
       *(v29 + 88) = v9;
       *(v29 + 96) = v19;
       if (v6 == 1)
@@ -6606,9 +5438,9 @@ LABEL_4:
 LABEL_15:
 
         v19 = v3;
-        a1 = v41;
-        v3 = v42;
-        v10 = v40;
+        a1 = v40;
+        v3 = v41;
+        v10 = v39;
 LABEL_19:
         result = swift_isUniquelyReferenced_nonNull_native();
         if (result)
@@ -6624,55 +5456,55 @@ LABEL_19:
 
       else
       {
-        v8 = v43;
-        v19 = v50;
+        v8 = v42;
+        v19 = v49;
         v9 = *(MEMORY[0x277CC0898] + 8);
-        v45 = *(MEMORY[0x277CC0898] + 16);
-        v46 = *MEMORY[0x277CC0898];
+        v44 = *(MEMORY[0x277CC0898] + 16);
+        v45 = *MEMORY[0x277CC0898];
         v5 = 1;
-        v48 = v6;
-        v47 = a1;
+        v47 = v6;
+        v46 = a1;
         while (!(v5 >> 31))
         {
-          time1.value = v43;
+          time1.value = v42;
           time1.timescale = v10;
           time1.flags = v2;
           time1.epoch = v7;
           CMTimeMultiply(&time2, &time1, v5);
-          time1.value = v49;
+          time1.value = v48;
           time1.timescale = a1;
           time1.flags = v19;
-          time1.epoch = v44;
-          CMTimeAdd(&v51, &time1, &time2);
-          value = v51.value;
-          v36 = *&v51.timescale;
-          epoch = v51.epoch;
-          v52 = v3;
-          v38 = *(v3 + 16);
-          v37 = *(v3 + 24);
-          if (v38 >= v37 >> 1)
+          time1.epoch = v43;
+          CMTimeAdd(&v50, &time1, &time2);
+          value = v50.value;
+          v35 = *&v50.timescale;
+          epoch = v50.epoch;
+          v51 = v3;
+          v37 = *(v3 + 16);
+          v36 = *(v3 + 24);
+          if (v37 >= v36 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v37 > 1), v38 + 1, 1);
-            v3 = v52;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v36 > 1), v37 + 1, 1);
+            v3 = v51;
           }
 
-          *(v3 + 16) = v38 + 1;
-          v39 = v3 + 72 * v38;
-          *(v39 + 32) = v43;
+          *(v3 + 16) = v37 + 1;
+          v38 = v3 + 72 * v37;
+          *(v38 + 32) = v42;
           ++v5;
-          *(v39 + 40) = v10;
-          *(v39 + 44) = v2;
-          *(v39 + 48) = v7;
-          *(v39 + 56) = value;
-          *(v39 + 64) = v36;
-          *(v39 + 72) = epoch;
-          *(v39 + 80) = v46;
-          *(v39 + 88) = v9;
-          *(v39 + 96) = v45;
-          v6 = v48;
-          a1 = v47;
-          v19 = v50;
-          if (v48 == v5)
+          *(v38 + 40) = v10;
+          *(v38 + 44) = v2;
+          *(v38 + 48) = v7;
+          *(v38 + 56) = value;
+          *(v38 + 64) = v35;
+          *(v38 + 72) = epoch;
+          *(v38 + 80) = v45;
+          *(v38 + 88) = v9;
+          *(v38 + 96) = v44;
+          v6 = v47;
+          a1 = v46;
+          v19 = v49;
+          if (v47 == v5)
           {
             goto LABEL_15;
           }
@@ -6694,15 +5526,15 @@ LABEL_21:
       v20 = *(v19 + 16);
       if (v20 > v10)
       {
-        v31 = v19 + 72 * v10;
-        *(v31 + 32) = *a1;
-        v32 = *(a1 + 16);
-        v33 = *(a1 + 32);
-        v34 = *(a1 + 48);
-        *(v31 + 96) = *(a1 + 64);
-        *(v31 + 64) = v33;
-        *(v31 + 80) = v34;
-        *(v31 + 48) = v32;
+        v30 = v19 + 72 * v10;
+        *(v30 + 32) = *a1;
+        v31 = *(a1 + 16);
+        v32 = *(a1 + 32);
+        v33 = *(a1 + 48);
+        *(v30 + 96) = *(a1 + 64);
+        *(v30 + 64) = v32;
+        *(v30 + 80) = v33;
+        *(v30 + 48) = v31;
         *(v3 + 16) = v19;
         *(v3 + 40) = 1;
         return result;
@@ -6716,7 +5548,7 @@ LABEL_35:
       __break(1u);
 LABEL_36:
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v5, 1);
-      v3 = v52;
+      v3 = v51;
     }
   }
 
@@ -6747,9 +5579,7 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(uint64_t 
 LABEL_6:
         if (*(v5 + 16) > a2)
         {
-          v8 = v5 + 8 * a2;
-          v9 = *(v8 + 32);
-          *(v8 + 32) = v4;
+          *(v5 + 8 * a2 + 32) = v4;
 
           *(v2 + 24) = v5;
           *(v2 + 40) = 1;
@@ -6775,15 +5605,13 @@ LABEL_13:
     objc_opt_self();
     swift_dynamicCastObjCClassUnconditional();
     type metadata accessor for CFStringRef(0);
-    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
     isa;
     result = static Dictionary._forceBridgeFromObjectiveC(_:result:)();
 LABEL_14:
     __break(1u);
     return result;
   }
-
-  v10 = *a1;
 }
 
 void (*CMSampleBufferRef.SamplePropertiesCollection.subscript.modify(void *a1, unint64_t a2))(unsigned __int8 **a1, char a2)
@@ -6802,10 +5630,6 @@ void (*CMSampleBufferRef.SamplePropertiesCollection.subscript.modify(void *a1, u
   v5[48] = a2;
   v5[49] = v2;
   v5[50] = *v2;
-  v7 = *(v2 + 8);
-  v8 = *(v2 + 24);
-  v9 = *(v2 + 32);
-  v10 = *(v2 + 40);
   CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(a2, v5);
   return CMSampleBufferRef.SamplePropertiesCollection.subscript.modify;
 }
@@ -6816,38 +5640,37 @@ void CMSampleBufferRef.SamplePropertiesCollection.subscript.modify(unsigned __in
   v3 = *(*a1 + 50);
   if ((a2 & 1) == 0)
   {
-    v16 = *v2;
-    v17 = v2[8];
-    v18 = *(v2 + 28);
-    v19 = *(v2 + 60);
+    v14 = *v2;
+    v15 = *(v2 + 8);
+    v16 = *(v2 + 28);
+    v17 = *(v2 + 60);
     *(v2 + 32) = *(v2 + 44);
-    *(v2 + 33) = v19;
-    *(v2 + 68) = *(v2 + 76);
+    *(v2 + 33) = v17;
+    v2[68] = *(v2 + 76);
     *(v2 + 30) = *(v2 + 12);
-    *(v2 + 31) = v18;
+    *(v2 + 31) = v16;
     if ((v3 & 0x8000000000000000) == 0)
     {
-      v20 = *(v2 + 48);
-      if ((v20 & 0x8000000000000000) == 0)
+      v18 = v2[48];
+      if ((v18 & 0x8000000000000000) == 0)
       {
-        if (v3 > v20)
+        if (v3 > v18)
         {
-          v21 = *(v2 + 11);
-          v22 = *(v2 + 49);
-          if (v17)
+          v19 = v2[11];
+          if (v15)
           {
-            v23 = 0;
+            v20 = 0;
           }
 
           else
           {
-            v23 = v16;
+            v20 = v14;
           }
 
-          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v23, *(v2 + 48));
-          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter((v2 + 480), v20);
-          v24 = v21;
-          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v24, v20);
+          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v20, v2[48]);
+          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter((v2 + 60), v18);
+          v21 = v19;
+          CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v21, v18);
           goto LABEL_16;
         }
 
@@ -6879,7 +5702,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v7 = *(v2 + 48);
+  v7 = v2[48];
   if ((v7 & 0x8000000000000000) != 0)
   {
 LABEL_21:
@@ -6896,40 +5719,38 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v8 = *(v2 + 49);
-  v9 = *(v2 + 12);
-  if (v2[104])
+  if (*(v2 + 104))
   {
-    v10 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v10 = *(v2 + 12);
+    v8 = v2[12];
   }
 
-  outlined init with copy of CMSampleBufferRef.SampleProperties((v2 + 96), (v2 + 288));
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v10, v7);
-  v11 = *(v2 + 124);
-  v12 = *(v2 + 156);
-  *(v2 + 440) = *(v2 + 140);
-  *(v2 + 456) = v12;
-  *(v2 + 59) = *(v2 + 172);
-  *(v2 + 408) = *(v2 + 108);
-  *(v2 + 424) = v11;
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter((v2 + 408), v7);
-  v24 = *(v2 + 23);
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v24, v7);
-  v13 = *(v2 + 3);
+  outlined init with copy of CMSampleBufferRef.SampleProperties((v2 + 12), (v2 + 36));
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v8, v7);
+  v9 = *(v2 + 124);
+  v10 = *(v2 + 156);
+  *(v2 + 55) = *(v2 + 140);
+  *(v2 + 57) = v10;
+  v2[59] = *(v2 + 172);
+  *(v2 + 51) = *(v2 + 108);
+  *(v2 + 53) = v9;
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter((v2 + 51), v7);
+  v21 = v2[23];
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v21, v7);
+  v11 = *(v2 + 3);
   *(v2 + 14) = *(v2 + 2);
-  *(v2 + 15) = v13;
-  v14 = *(v2 + 5);
+  *(v2 + 15) = v11;
+  v12 = *(v2 + 5);
   *(v2 + 16) = *(v2 + 4);
-  *(v2 + 17) = v14;
-  v15 = *(v2 + 1);
+  *(v2 + 17) = v12;
+  v13 = *(v2 + 1);
   *(v2 + 12) = *v2;
-  *(v2 + 13) = v15;
-  outlined destroy of CMSampleBufferRef.SampleProperties((v2 + 192));
+  *(v2 + 13) = v13;
+  outlined destroy of CMSampleBufferRef.SampleProperties((v2 + 24));
 LABEL_16:
 
   free(v2);
@@ -6990,7 +5811,7 @@ void protocol witness for MutableCollection.subscript.modify in conformance CMSa
   free(v1);
 }
 
-void (*specialized MutableCollection<>.subscript.modify(void (**a1)(uint64_t *a1, char a2), uint64_t a2, uint64_t a3))(uint64_t *a1, char a2)
+uint64_t (*specialized MutableCollection<>.subscript.modify(uint64_t (**a1)(), uint64_t a2, uint64_t a3))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7008,7 +5829,7 @@ void (*specialized MutableCollection<>.subscript.modify(void (**a1)(uint64_t *a1
   *(result + 42) = v3;
   *(result + 40) = a2;
   v9 = *v3;
-  if (*v3 < 0)
+  if ((*v3 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_9;
@@ -7023,10 +5844,10 @@ LABEL_9:
 
   if (v9 >= a3)
   {
-    v10 = v3[1];
-    v11 = v3[2];
-    v13 = v3[3];
-    v12 = v3[4];
+    v10 = *(v3 + 8);
+    v11 = *(v3 + 16);
+    v13 = *(v3 + 24);
+    v12 = *(v3 + 32);
     v14 = *(v3 + 40);
     *(v8 + 18) = v9;
     *(v8 + 19) = v10;
@@ -7045,7 +5866,7 @@ LABEL_10:
   return result;
 }
 
-void MutableCollection<>.subscript.modifyspecialized (uint64_t *a1, char a2)
+void MutableCollection<>.subscript.modifyspecialized (void **a1, char a2)
 {
   v2 = *a1;
   if (a2)
@@ -7086,23 +5907,23 @@ void MutableCollection<>.subscript.modifyspecialized (uint64_t *a1, char a2)
   free(v2);
 }
 
-void protocol witness for MutableCollection.partition(by:) in conformance CMSampleBufferRef.SamplePropertiesCollection(uint64_t (*a1)(_BYTE *)@<X0>, void *a2@<X8>)
+void protocol witness for MutableCollection.partition(by:) in conformance CMSampleBufferRef.SamplePropertiesCollection(uint64_t *a1@<X8>, uint64_t (*a2)(_BYTE *)@<X0>)
 {
-  specialized MutableCollection<>._partitionImpl(by:)(a1);
+  specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 }
 
-void specialized MutableCollection.swapAt(_:_:)(unint64_t a1, unint64_t a2)
+void specialized MutableCollection.swapAt(_:_:)(unint64_t result, unint64_t a2)
 {
-  if (a1 == a2)
+  if (result == a2)
   {
     return;
   }
 
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(a1, &v12);
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.getter(result, &v12);
   v5 = v12;
   v6 = v13;
   v20[2] = v16;
@@ -7123,14 +5944,14 @@ void specialized MutableCollection.swapAt(_:_:)(unint64_t a1, unint64_t a2)
     goto LABEL_17;
   }
 
-  if ((a1 & 0x8000000000000000) != 0)
+  if ((result & 0x8000000000000000) != 0)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  if (*v2 <= a1)
+  if (*v2 <= result)
   {
 LABEL_18:
     __break(1u);
@@ -7150,10 +5971,10 @@ LABEL_19:
     v9 = v12;
   }
 
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v9, a1);
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v22, a1);
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v9, result);
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(v22, result);
   v11 = v8;
-  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v11, a1);
+  CMSampleBufferRef.SamplePropertiesCollection.subscript.setter(&v11, result);
   if ((*v2 & 0x8000000000000000) != 0)
   {
     goto LABEL_19;
@@ -7262,7 +6083,7 @@ void protocol witness for Collection.subscript.read in conformance CMSampleBuffe
 uint64_t *protocol witness for Collection.subscript.getter in conformance CMSampleBufferRef.SamplePropertiesCollection@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v3 = *v2;
-  if (*v2 < 0)
+  if ((*v2 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_8;
@@ -7284,10 +6105,10 @@ LABEL_9:
     return result;
   }
 
-  v6 = v2[1];
-  v7 = v2[2];
-  v9 = v2[3];
-  v8 = v2[4];
+  v6 = *(v2 + 8);
+  v7 = *(v2 + 16);
+  v9 = *(v2 + 24);
+  v8 = *(v2 + 32);
   v10 = *(v2 + 40);
   *(a2 + 16) = v3;
   *(a2 + 24) = v6;
@@ -7334,12 +6155,9 @@ void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conforma
 
 uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance CMSampleBufferRef.SamplePropertiesCollection@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v8 = *v4;
-  *v9 = v4[1];
-  *&v9[9] = *(v4 + 25);
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
-  *(a4 + 8) = v7 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
@@ -7419,7 +6237,7 @@ void *protocol witness for Sequence._copyToContiguousArray() in conformance CMSa
   }
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo08CMSampleC3Refa9CoreMediaE16SamplePropertiesV_Tt1g5(v8, 0);
-  specialized Sequence._copySequenceContents(initializing:)(v7, (v3 + 4), v8);
+  specialized Sequence._copySequenceContents(initializing:)(&v7, (v3 + 4), v8);
   v5 = v4;
 
   if (v5 != v2)
@@ -7431,14 +6249,6 @@ LABEL_4:
   }
 
   return v3;
-}
-
-void protocol witness for Sequence._copyContents(initializing:) in conformance CMSampleBufferRef.SamplePropertiesCollection(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = *v3;
-  *v5 = v3[1];
-  *&v5[9] = *(v3 + 25);
-  specialized Sequence._copySequenceContents(initializing:)(a1, a2, a3);
 }
 
 uint64_t CMSampleBufferRef.SizePerSample.init(arrayLiteral:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -7543,7 +6353,7 @@ CMTimeEpoch _sSo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVyAEx
 {
   v2 = *(result + 16);
   value = MEMORY[0x277D84F90];
-  v111 = result;
+  v109 = result;
   if (v2)
   {
     v4 = result;
@@ -7592,7 +6402,7 @@ CMTimeEpoch _sSo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVyAEx
       v17 = MEMORY[0x277D84F90];
 
       value = 0;
-      v94 = 1;
+      v92 = 1;
       v16 = -1;
       goto LABEL_27;
     }
@@ -7604,7 +6414,7 @@ CMTimeEpoch _sSo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVyAEx
     v12 = v10 == v11;
     if (v10 == v11)
     {
-      v94 = 1;
+      v92 = 1;
 
       value = 0;
       v16 = -1;
@@ -7615,7 +6425,7 @@ CMTimeEpoch _sSo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVyAEx
   }
 
   while (!v13[4]);
-  v94 = v12;
+  v92 = v12;
   if (v10 == 1)
   {
 LABEL_18:
@@ -7635,10 +6445,10 @@ LABEL_18:
       }
     }
 
-    v92 = value[4];
+    v90 = value[4];
 
     v16 = 1;
-    value = v92;
+    value = v90;
   }
 
 LABEL_20:
@@ -7650,7 +6460,7 @@ LABEL_20:
     v17 = *time2;
     v18 = *(*time2 + 16);
     v19 = 72 * v18 + 32;
-    v20 = v111 + 44;
+    v20 = v109 + 44;
     v21 = v2;
     do
     {
@@ -7691,34 +6501,33 @@ LABEL_20:
 
 LABEL_27:
   v30 = *(v17 + 16);
-  v96 = v16;
+  v94 = v16;
   if (v30)
   {
-    v98 = v2;
+    v96 = v2;
     v31 = *(MEMORY[0x277CC0918] + 8);
-    v107 = *(MEMORY[0x277CC0918] + 16);
-    v109 = *MEMORY[0x277CC0918];
+    v105 = *(MEMORY[0x277CC0918] + 16);
+    v107 = *MEMORY[0x277CC0918];
     v32 = *(MEMORY[0x277CC0918] + 32);
-    v99 = *(MEMORY[0x277CC0918] + 40);
-    v101 = *(MEMORY[0x277CC0918] + 24);
+    v97 = *(MEMORY[0x277CC0918] + 40);
+    v99 = *(MEMORY[0x277CC0918] + 24);
     v33 = *(MEMORY[0x277CC0918] + 56);
-    v34 = *(MEMORY[0x277CC0918] + 64);
-    v103 = v34;
-    v105 = *(MEMORY[0x277CC0918] + 48);
-    v35 = (v17 + 48);
-    v36 = -v30;
-    v37 = -1;
+    v101 = *(MEMORY[0x277CC0918] + 64);
+    v103 = *(MEMORY[0x277CC0918] + 48);
+    v34 = (v17 + 48);
+    v35 = -v30;
+    v36 = -1;
     do
     {
-      if (v36 + v37 == -1)
+      if (v35 + v36 == -1)
       {
 
         memset(time1, 0, sizeof(time1));
-        v117 = -1;
+        v115 = -1;
         goto LABEL_54;
       }
 
-      if (++v37 >= *(v17 + 16))
+      if (++v36 >= *(v17 + 16))
       {
         __break(1u);
 LABEL_89:
@@ -7728,170 +6537,158 @@ LABEL_90:
         goto LABEL_91;
       }
 
-      v38 = v35[2];
-      v39 = v35[3];
-      v40 = v35[4];
-      v41 = v35[5];
-      v42 = v35[6];
-      v43 = *v35;
-      v44 = v35[1];
-      v45 = *(v35 - 1);
-      time1[0].value = *(v35 - 2);
-      *&time1[0].timescale = v45;
-      time1[0].epoch = v43;
-      *time2 = v109;
-      *&time2[8] = v31;
-      *&time2[16] = v107;
-      if (CMTimeCompare(time1, time2))
-      {
-        break;
-      }
-
-      time1[0].value = v40;
-      *&time1[0].timescale = v41;
+      v37 = v34[2];
+      v38 = v34[3];
+      v39 = v34[4];
+      v40 = v34[5];
+      v41 = v34[6];
+      v42 = *v34;
+      v43 = v34[1];
+      v44 = *(v34 - 1);
+      time1[0].value = *(v34 - 2);
+      *&time1[0].timescale = v44;
       time1[0].epoch = v42;
-      *time2 = v105;
-      *&time2[8] = v33;
-      *&time2[16] = v103;
+      *time2 = v107;
+      *&time2[8] = v31;
+      *&time2[16] = v105;
       if (CMTimeCompare(time1, time2))
       {
         break;
       }
 
-      v35 += 9;
-      time1[0].value = v44;
-      *&time1[0].timescale = v38;
-      time1[0].epoch = v39;
-      *time2 = v101;
+      time1[0].value = v39;
+      *&time1[0].timescale = v40;
+      time1[0].epoch = v41;
+      *time2 = v103;
+      *&time2[8] = v33;
+      *&time2[16] = v101;
+      if (CMTimeCompare(time1, time2))
+      {
+        break;
+      }
+
+      v34 += 9;
+      time1[0].value = v43;
+      *&time1[0].timescale = v37;
+      time1[0].epoch = v38;
+      *time2 = v99;
       *&time2[8] = v32;
-      *&time2[16] = v99;
+      *&time2[16] = v97;
       result = CMTimeCompare(time1, time2);
     }
 
     while (!result);
-    v95 = *(v17 + 16);
-    if (v95 >= 2)
+    v93 = *(v17 + 16);
+    if (v93 >= 2)
     {
 
-      v46 = 0;
-      v47 = (v17 + 48);
-      while (v46 < *(v17 + 16))
+      v45 = 0;
+      v46 = (v17 + 48);
+      while (v45 < *(v17 + 16))
       {
-        v48 = *(v47 - 2);
-        v49 = *(v47 - 1);
-        v50 = *v47;
-        v51 = v47[2];
-        v52 = v47[3];
-        v53 = v47[5];
-        v54 = *(v17 + 32);
-        v56 = *(v17 + 40);
-        v55 = *(v17 + 44);
+        v47 = *(v46 - 2);
+        v48 = *(v46 - 1);
+        v49 = *v46;
+        v50 = v46[2];
+        v51 = v46[5];
+        v52 = *(v17 + 32);
+        v54 = *(v17 + 40);
+        v53 = *(v17 + 44);
         result = *(v17 + 48);
-        v57 = *(v17 + 56);
-        v58 = *(v17 + 64);
+        v55 = *(v17 + 56);
+        v56 = *(v17 + 64);
         epoch = *(v17 + 72);
-        v104 = v52;
-        v106 = v47[1];
-        v108 = v47[6];
-        v110 = v47[4];
-        if (v46)
+        v102 = v46[3];
+        v104 = v46[1];
+        v106 = v46[6];
+        v108 = v46[4];
+        if (v45)
         {
-          if (v46 >> 31)
+          if (v45 >> 31)
           {
             goto LABEL_90;
           }
 
           time1[0].value = *(v17 + 32);
-          time1[0].timescale = v56;
-          time1[0].flags = v55;
+          time1[0].timescale = v54;
+          time1[0].flags = v53;
           time1[0].epoch = result;
-          v97 = result;
-          v100 = v48;
-          v60 = v50;
-          v61 = v54;
-          v62 = v55;
-          CMTimeMultiply(time2, time1, v46);
-          time1[0].value = v57;
-          *&time1[0].timescale = v58;
+          v95 = result;
+          v98 = v47;
+          v58 = v49;
+          v59 = v52;
+          v60 = v53;
+          CMTimeMultiply(time2, time1, v45);
+          time1[0].value = v55;
+          *&time1[0].timescale = v56;
           time1[0].epoch = epoch;
-          CMTimeAdd(&v112, time1, time2);
-          result = v97;
-          v55 = v62;
-          v54 = v61;
-          v50 = v60;
-          v48 = v100;
-          v102 = v112.value;
-          v58 = *&v112.timescale;
-          v63 = MEMORY[0x277CC0898];
-          v64 = (MEMORY[0x277CC0898] + 16);
-          v65 = (MEMORY[0x277CC0898] + 12);
-          v66 = (MEMORY[0x277CC0898] + 8);
-          epoch = v112.epoch;
+          CMTimeAdd(&v110, time1, time2);
+          result = v95;
+          v53 = v60;
+          v52 = v59;
+          v49 = v58;
+          v47 = v98;
+          v100 = v110.value;
+          v56 = *&v110.timescale;
+          v61 = MEMORY[0x277CC0898];
+          v62 = (MEMORY[0x277CC0898] + 16);
+          v63 = (MEMORY[0x277CC0898] + 12);
+          v64 = (MEMORY[0x277CC0898] + 8);
+          epoch = v110.epoch;
         }
 
         else
         {
-          v102 = *(v17 + 56);
-          v63 = (v17 + 80);
-          v66 = (v17 + 88);
-          v65 = (v17 + 92);
-          v64 = (v17 + 96);
+          v100 = *(v17 + 56);
+          v61 = (v17 + 80);
+          v64 = (v17 + 88);
+          v63 = (v17 + 92);
+          v62 = (v17 + 96);
         }
 
+        v65 = *v62;
+        v66 = *v63;
         v67 = *v64;
-        v68 = *v65;
-        v69 = *v66;
-        v70 = *v63;
-        time1[0].value = v48;
-        *&time1[0].timescale = v49;
-        time1[0].epoch = v50;
-        *time2 = v54;
-        *&time2[8] = __PAIR64__(v55, v56);
+        v68 = *v61;
+        time1[0].value = v47;
+        *&time1[0].timescale = v48;
+        time1[0].epoch = v49;
+        *time2 = v52;
+        *&time2[8] = v54;
+        *&time2[12] = v53;
         *&time2[16] = result;
-        if (CMTimeCompare(time1, time2))
+        if (CMTimeCompare(time1, time2) || (time1[0].value = v108, *&time1[0].timescale = v51, time1[0].epoch = v106, *time2 = v68, *&time2[8] = v67, *&time2[12] = v66, *&time2[16] = v65, CMTimeCompare(time1, time2)) || (time1[0].value = v104, *&time1[0].timescale = v50, time1[0].epoch = v102, *time2 = v100, *&time2[8] = v56, *&time2[16] = epoch, result = CMTimeCompare(time1, time2), result))
         {
-          goto LABEL_51;
-        }
-
-        time1[0].value = v110;
-        *&time1[0].timescale = v53;
-        time1[0].epoch = v108;
-        *time2 = v70;
-        *&time2[8] = __PAIR64__(v68, v69);
-        *&time2[16] = v67;
-        if (CMTimeCompare(time1, time2) || (time1[0].value = v106, *&time1[0].timescale = v51, time1[0].epoch = v104, *time2 = v102, *&time2[8] = v58, *&time2[16] = epoch, result = CMTimeCompare(time1, time2), result))
-        {
-LABEL_51:
 
           goto LABEL_52;
         }
 
-        ++v46;
-        v47 += 9;
-        v2 = v98;
-        if (v95 == v46)
+        ++v45;
+        v46 += 9;
+        v2 = v96;
+        if (v93 == v45)
         {
 
-          v16 = v96;
+          v16 = v94;
           if (!*(v17 + 16))
           {
             goto LABEL_94;
           }
 
-          v71 = *(v17 + 48);
-          v72 = *(v17 + 80);
-          v114 = *(v17 + 64);
-          *&v115.value = v72;
-          v115.epoch = *(v17 + 96);
+          v69 = *(v17 + 48);
+          v70 = *(v17 + 80);
+          v112 = *(v17 + 64);
+          *&v113.value = v70;
+          v113.epoch = *(v17 + 96);
           *time2 = *(v17 + 32);
-          *&time2[16] = v71;
+          *&time2[16] = v69;
 
-          *&time1[1].timescale = v114;
-          time1[2] = v115;
+          *&time1[1].timescale = v112;
+          time1[2] = v113;
           *&time1[0].value = *time2;
           *&time1[0].epoch = *&time2[16];
-          v73 = 1;
-          LOBYTE(v112.value) = 1;
+          v71 = 1;
+          LOBYTE(v110.value) = 1;
           goto LABEL_48;
         }
       }
@@ -7902,11 +6699,11 @@ LABEL_51:
 LABEL_52:
     time2[0] = 0;
     time1[0].value = v17;
-    v117 = 0;
+    v115 = 0;
 LABEL_54:
-    v2 = v98;
-    v16 = v96;
-    if (!v98)
+    v2 = v96;
+    v16 = v94;
+    if (!v96)
     {
       goto LABEL_49;
     }
@@ -7914,33 +6711,33 @@ LABEL_54:
 LABEL_55:
     *time2 = MEMORY[0x277D84F90];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
-    v76 = 120;
-    v74 = *time2;
-    v77 = v2;
+    v74 = 120;
+    v72 = *time2;
+    v75 = v2;
     do
     {
-      v78 = *(v111 + v76);
-      *time2 = v74;
-      v79 = *(v74 + 16);
-      v80 = *(v74 + 24);
+      v76 = *(v109 + v74);
+      *time2 = v72;
+      v77 = *(v72 + 16);
+      v78 = *(v72 + 24);
 
-      if (v79 >= v80 >> 1)
+      if (v77 >= v78 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v80 > 1), v79 + 1, 1);
-        v74 = *time2;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v77 + 1, 1);
+        v72 = *time2;
       }
 
-      *(v74 + 16) = v79 + 1;
-      *(v74 + 8 * v79 + 32) = v78;
-      v76 += 96;
-      --v77;
+      *(v72 + 16) = v77 + 1;
+      *(v72 + 8 * v77 + 32) = v76;
+      v74 += 96;
+      --v75;
     }
 
-    while (v77);
+    while (v75);
 
-    v16 = v96;
-    v75 = *(v74 + 16);
-    if (!v75)
+    v16 = v94;
+    v73 = *(v72 + 16);
+    if (!v73)
     {
       goto LABEL_65;
     }
@@ -7949,9 +6746,9 @@ LABEL_55:
   }
 
   memset(time1, 0, sizeof(time1));
-  v73 = -1;
+  v71 = -1;
 LABEL_48:
-  v117 = v73;
+  v115 = v71;
   if (v2)
   {
     goto LABEL_55;
@@ -7959,24 +6756,24 @@ LABEL_48:
 
 LABEL_49:
 
-  v74 = MEMORY[0x277D84F90];
-  v75 = *(MEMORY[0x277D84F90] + 16);
-  if (!v75)
+  v72 = MEMORY[0x277D84F90];
+  v73 = *(MEMORY[0x277D84F90] + 16);
+  if (!v73)
   {
     goto LABEL_65;
   }
 
 LABEL_60:
-  v81 = 32;
-  while (v75)
+  v79 = 32;
+  while (v73)
   {
-    v82 = *(*(v74 + v81) + 16);
-    v81 += 8;
-    --v75;
-    if (v82)
+    v80 = *(*(v72 + v79) + 16);
+    v79 += 8;
+    --v73;
+    if (v80)
     {
-      v83 = v94;
-      if ((v94 & 1) == 0)
+      v81 = v92;
+      if ((v92 & 1) == 0)
       {
         goto LABEL_66;
       }
@@ -7987,9 +6784,9 @@ LABEL_60:
 
 LABEL_65:
 
-  v74 = 0;
-  v83 = v94;
-  if ((v94 & 1) == 0)
+  v72 = 0;
+  v81 = v92;
+  if ((v92 & 1) == 0)
   {
 LABEL_66:
     if ((v16 & 1) == 0 && value[2] != v2)
@@ -8006,7 +6803,7 @@ LABEL_68:
   if (!v2)
   {
 LABEL_75:
-    if (v83)
+    if (v81)
     {
       value = MEMORY[0x277D84F90];
     }
@@ -8014,70 +6811,70 @@ LABEL_75:
     else if (v16)
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-      v85 = swift_allocObject();
-      *(v85 + 16) = xmmword_22E0EF920;
-      *(v85 + 32) = value;
+      v83 = swift_allocObject();
+      *(v83 + 16) = xmmword_22E0EF920;
+      *(v83 + 32) = value;
       result = outlined consume of CMSampleBufferRef.SizePerSample?(value, v16);
-      value = v85;
+      value = v83;
     }
 
-    v86 = MEMORY[0x277D84F90];
-    if (v117 == 255)
+    v84 = MEMORY[0x277D84F90];
+    if (v115 == 255)
     {
-      v87 = MEMORY[0x277D84F90];
+      v85 = MEMORY[0x277D84F90];
     }
 
     else
     {
-      v87 = time1[0].value;
-      if (v117)
+      v85 = time1[0].value;
+      if (v115)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMd, &_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMR);
-        v88 = swift_allocObject();
-        *(v88 + 16) = xmmword_22E0EF920;
-        *(v88 + 32) = v87;
-        v89 = *&time1[1].value;
-        *(v88 + 40) = *&time1[0].timescale;
-        *(v88 + 56) = v89;
-        v90 = *&time1[2].timescale;
-        *(v88 + 72) = *&time1[1].epoch;
-        *(v88 + 88) = v90;
+        v86 = swift_allocObject();
+        *(v86 + 16) = xmmword_22E0EF920;
+        *(v86 + 32) = v85;
+        v87 = *&time1[1].value;
+        *(v86 + 40) = *&time1[0].timescale;
+        *(v86 + 56) = v87;
+        v88 = *&time1[2].timescale;
+        *(v86 + 72) = *&time1[1].epoch;
+        *(v86 + 88) = v88;
         result = outlined destroy of CMAttachmentBearerAttachments.Value?(time1, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
-        v87 = v88;
+        v85 = v86;
       }
     }
 
-    if (v74)
+    if (v72)
     {
-      v91 = v74;
+      v89 = v72;
     }
 
     else
     {
-      v91 = v86;
+      v89 = v84;
     }
 
     *a2 = v2;
     *(a2 + 8) = value;
-    *(a2 + 16) = v87;
-    *(a2 + 24) = v91;
+    *(a2 + 16) = v85;
+    *(a2 + 24) = v89;
     *(a2 + 32) = 0;
     *(a2 + 40) = 0;
     return result;
   }
 
-  if (v117 != 255 && (v117 & 1) == 0 && *(time1[0].value + 16) != v2)
+  if (v115 != 255 && (v115 & 1) == 0 && *(time1[0].value + 16) != v2)
   {
     goto LABEL_92;
   }
 
-  if (!v74)
+  if (!v72)
   {
     goto LABEL_75;
   }
 
-  v84 = *(v74 + 16);
-  if (!v84 || v84 == v2)
+  v82 = *(v72 + 16);
+  if (!v82 || v82 == v2)
   {
     goto LABEL_75;
   }
@@ -8105,7 +6902,7 @@ uint64_t CMSampleBufferRef.SamplePropertiesCollection.init<A>(_:)@<X0>(uint64_t 
         if (v10 == 1)
         {
 LABEL_9:
-          v85 = 0;
+          v83 = 0;
           v15 = 0;
         }
 
@@ -8123,10 +6920,10 @@ LABEL_9:
             }
           }
 
-          v83 = *(v8 + 32);
+          v81 = *(v8 + 32);
 
-          v85 = 0;
-          v9 = v83;
+          v83 = 0;
+          v9 = v81;
           v15 = 1;
         }
 
@@ -8137,196 +6934,183 @@ LABEL_9:
 
   v9 = 0;
   v15 = -1;
-  v85 = 1;
+  v83 = 1;
 LABEL_11:
-  v86 = v15;
+  v84 = v15;
   type metadata accessor for CMSampleTimingInfo(0);
-  v89 = a1;
-  v90 = a2;
-  v87 = a3;
+  v87 = a1;
+  v88 = a2;
+  v85 = a3;
   result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(specialized implicit closure #2 in CMSampleBufferRef.SamplePropertiesCollection.init<A>(_:), 0, a2, v16, MEMORY[0x277D84A98], a3, MEMORY[0x277D84AC0], v17);
   v19 = result;
   v20 = *(result + 16);
-  v92 = v9;
+  v90 = v9;
   if (v20)
   {
     v21 = *(MEMORY[0x277CC0918] + 8);
-    v97 = *(MEMORY[0x277CC0918] + 16);
-    v99 = *MEMORY[0x277CC0918];
+    v95 = *(MEMORY[0x277CC0918] + 16);
+    v97 = *MEMORY[0x277CC0918];
     v22 = *(MEMORY[0x277CC0918] + 32);
-    v23 = *(MEMORY[0x277CC0918] + 40);
-    v24 = *(MEMORY[0x277CC0918] + 48);
-    v93 = v23;
-    v95 = *(MEMORY[0x277CC0918] + 24);
-    v25 = *(MEMORY[0x277CC0918] + 56);
-    v26 = *(MEMORY[0x277CC0918] + 64);
-    v27 = (result + 48);
-    v28 = -v20;
-    v29 = -1;
+    v23 = *(MEMORY[0x277CC0918] + 48);
+    v91 = *(MEMORY[0x277CC0918] + 40);
+    v93 = *(MEMORY[0x277CC0918] + 24);
+    v24 = *(MEMORY[0x277CC0918] + 56);
+    v25 = *(MEMORY[0x277CC0918] + 64);
+    v26 = (result + 48);
+    v27 = -v20;
+    v28 = -1;
     do
     {
-      if (v28 + v29 == -1)
+      if (v27 + v28 == -1)
       {
 
         memset(time1, 0, sizeof(time1));
-        v67 = 255;
-        v106 = -1;
+        v65 = 255;
+        v104 = -1;
         goto LABEL_35;
       }
 
-      if (++v29 >= *(v19 + 16))
+      if (++v28 >= *(v19 + 16))
       {
         __break(1u);
         goto LABEL_65;
       }
 
-      v30 = v27[2];
-      v31 = v27[3];
-      v32 = v27[4];
-      v33 = v27[5];
-      v34 = v27[6];
-      v35 = *v27;
-      v36 = v27[1];
-      v37 = *(v27 - 1);
-      time1[0].value = *(v27 - 2);
-      *&time1[0].timescale = v37;
-      time1[0].epoch = v35;
-      *time2 = v99;
-      *&time2[8] = v21;
-      *&time2[16] = v97;
-      if (CMTimeCompare(time1, time2))
-      {
-        break;
-      }
-
-      time1[0].value = v32;
-      *&time1[0].timescale = v33;
+      v29 = v26[2];
+      v30 = v26[3];
+      v31 = v26[4];
+      v32 = v26[5];
+      v33 = v26[6];
+      v34 = *v26;
+      v35 = v26[1];
+      v36 = *(v26 - 1);
+      time1[0].value = *(v26 - 2);
+      *&time1[0].timescale = v36;
       time1[0].epoch = v34;
-      *time2 = v24;
-      *&time2[8] = v25;
-      *&time2[16] = v26;
+      *time2 = v97;
+      *&time2[8] = v21;
+      *&time2[16] = v95;
       if (CMTimeCompare(time1, time2))
       {
         break;
       }
 
-      v27 += 9;
-      time1[0].value = v36;
-      *&time1[0].timescale = v30;
-      time1[0].epoch = v31;
-      *time2 = v95;
+      time1[0].value = v31;
+      *&time1[0].timescale = v32;
+      time1[0].epoch = v33;
+      *time2 = v23;
+      *&time2[8] = v24;
+      *&time2[16] = v25;
+      if (CMTimeCompare(time1, time2))
+      {
+        break;
+      }
+
+      v26 += 9;
+      time1[0].value = v35;
+      *&time1[0].timescale = v29;
+      time1[0].epoch = v30;
+      *time2 = v93;
       *&time2[8] = v22;
-      *&time2[16] = v93;
+      *&time2[16] = v91;
       result = CMTimeCompare(time1, time2);
     }
 
     while (!result);
-    v88 = *(v19 + 16);
-    if (v88 < 2)
+    v86 = *(v19 + 16);
+    if (v86 < 2)
     {
 LABEL_33:
-      v67 = 0;
+      v65 = 0;
       time2[0] = 0;
       time1[0].value = v19;
-      v106 = 0;
+      v104 = 0;
       goto LABEL_35;
     }
 
-    v39 = 0;
-    v40 = (v19 + 48);
-    while (v39 < *(v19 + 16))
+    v38 = 0;
+    v39 = (v19 + 48);
+    while (v38 < *(v19 + 16))
     {
-      v41 = *(v40 - 2);
-      v42 = *(v40 - 1);
-      v43 = *v40;
-      v44 = v40[2];
-      v45 = v40[3];
-      v46 = v40[5];
-      v47 = *(v19 + 32);
-      v48 = *(v19 + 40);
+      v40 = *(v39 - 2);
+      v41 = *(v39 - 1);
+      v42 = *v39;
+      v43 = v39[2];
+      v44 = v39[5];
+      v45 = *(v19 + 32);
+      v46 = *(v19 + 40);
       result = *(v19 + 44);
-      v50 = *(v19 + 48);
+      v48 = *(v19 + 48);
       value = *(v19 + 56);
-      v51 = *(v19 + 64);
+      v49 = *(v19 + 64);
       epoch = *(v19 + 72);
-      v94 = v45;
-      v96 = v40[1];
-      v98 = v40[6];
-      v100 = v40[4];
-      if (v39)
+      v92 = v39[3];
+      v94 = v39[1];
+      v96 = v39[6];
+      v98 = v39[4];
+      if (v38)
       {
-        if (v39 >> 31)
+        if (v38 >> 31)
         {
           goto LABEL_66;
         }
 
         time1[0].value = *(v19 + 32);
-        time1[0].timescale = v48;
+        time1[0].timescale = v46;
         time1[0].flags = result;
-        time1[0].epoch = v50;
-        v91 = result;
-        v53 = v41;
-        v54 = v43;
-        v55 = v47;
-        v56 = v48;
-        CMTimeMultiply(time2, time1, v39);
+        time1[0].epoch = v48;
+        v89 = result;
+        v51 = v40;
+        v52 = v42;
+        v53 = v45;
+        v54 = v46;
+        CMTimeMultiply(time2, time1, v38);
         time1[0].value = value;
-        *&time1[0].timescale = v51;
+        *&time1[0].timescale = v49;
         time1[0].epoch = epoch;
-        CMTimeAdd(&v101, time1, time2);
-        LODWORD(result) = v91;
-        v48 = v56;
-        v47 = v55;
-        v43 = v54;
-        v41 = v53;
-        value = v101.value;
-        v51 = *&v101.timescale;
-        v57 = MEMORY[0x277CC0898];
-        v58 = (MEMORY[0x277CC0898] + 16);
-        v59 = (MEMORY[0x277CC0898] + 12);
-        v60 = (MEMORY[0x277CC0898] + 8);
-        epoch = v101.epoch;
+        CMTimeAdd(&v99, time1, time2);
+        LODWORD(result) = v89;
+        v46 = v54;
+        v45 = v53;
+        v42 = v52;
+        v40 = v51;
+        value = v99.value;
+        v49 = *&v99.timescale;
+        v55 = MEMORY[0x277CC0898];
+        v56 = (MEMORY[0x277CC0898] + 16);
+        v57 = (MEMORY[0x277CC0898] + 12);
+        v58 = (MEMORY[0x277CC0898] + 8);
+        epoch = v99.epoch;
       }
 
       else
       {
-        v57 = (v19 + 80);
-        v60 = (v19 + 88);
-        v59 = (v19 + 92);
-        v58 = (v19 + 96);
+        v55 = (v19 + 80);
+        v58 = (v19 + 88);
+        v57 = (v19 + 92);
+        v56 = (v19 + 96);
       }
 
+      v59 = *v56;
+      v60 = *v57;
       v61 = *v58;
-      v62 = *v59;
-      v63 = *v60;
-      v64 = *v57;
-      time1[0].value = v41;
-      *&time1[0].timescale = v42;
-      time1[0].epoch = v43;
-      *time2 = v47;
-      *&time2[8] = __PAIR64__(result, v48);
-      *&time2[16] = v50;
-      if (CMTimeCompare(time1, time2))
+      v62 = *v55;
+      time1[0].value = v40;
+      *&time1[0].timescale = v41;
+      time1[0].epoch = v42;
+      *time2 = v45;
+      *&time2[8] = v46;
+      *&time2[12] = result;
+      *&time2[16] = v48;
+      if (CMTimeCompare(time1, time2) || (time1[0].value = v98, *&time1[0].timescale = v44, time1[0].epoch = v96, *time2 = v62, *&time2[8] = v61, *&time2[12] = v60, *&time2[16] = v59, CMTimeCompare(time1, time2)) || (time1[0].value = v94, *&time1[0].timescale = v43, time1[0].epoch = v92, *time2 = value, *&time2[8] = v49, *&time2[16] = epoch, result = CMTimeCompare(time1, time2), result))
       {
-        goto LABEL_32;
-      }
-
-      time1[0].value = v100;
-      *&time1[0].timescale = v46;
-      time1[0].epoch = v98;
-      *time2 = v64;
-      *&time2[8] = __PAIR64__(v62, v63);
-      *&time2[16] = v61;
-      if (CMTimeCompare(time1, time2) || (time1[0].value = v96, *&time1[0].timescale = v44, time1[0].epoch = v94, *time2 = value, *&time2[8] = v51, *&time2[16] = epoch, result = CMTimeCompare(time1, time2), result))
-      {
-LABEL_32:
 
         goto LABEL_33;
       }
 
-      ++v39;
-      v40 += 9;
-      if (v88 == v39)
+      ++v38;
+      v39 += 9;
+      if (v86 == v38)
       {
 
         if (!*(v19 + 16))
@@ -8334,21 +7118,21 @@ LABEL_32:
           goto LABEL_71;
         }
 
-        v65 = *(v19 + 48);
-        v66 = *(v19 + 80);
-        v103 = *(v19 + 64);
-        *&v104.value = v66;
-        v104.epoch = *(v19 + 96);
+        v63 = *(v19 + 48);
+        v64 = *(v19 + 80);
+        v101 = *(v19 + 64);
+        *&v102.value = v64;
+        v102.epoch = *(v19 + 96);
         *time2 = *(v19 + 32);
-        *&time2[16] = v65;
+        *&time2[16] = v63;
 
-        v67 = 1;
-        LOBYTE(v101.value) = 1;
-        *&time1[1].timescale = v103;
-        time1[2] = v104;
+        v65 = 1;
+        LOBYTE(v99.value) = 1;
+        *&time1[1].timescale = v101;
+        time1[2] = v102;
         *&time1[0].value = *time2;
         *&time1[0].epoch = *&time2[16];
-        v106 = 1;
+        v104 = 1;
         goto LABEL_35;
       }
     }
@@ -8361,30 +7145,30 @@ LABEL_66:
   }
 
   memset(time1, 0, sizeof(time1));
-  v67 = 255;
-  v106 = -1;
+  v65 = 255;
+  v104 = -1;
 LABEL_35:
-  v68 = v89;
-  v69 = v90;
-  v70 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(specialized implicit closure #4 in CMSampleBufferRef.SamplePropertiesCollection.init<A>(_:), 0, v90, &type metadata for CMSampleBufferRef.SampleAttachments, MEMORY[0x277D84A98], v87, MEMORY[0x277D84AC0], v38);
-  v71 = v70;
-  v72 = *(v70 + 16);
-  if (v72)
+  v66 = v87;
+  v67 = v88;
+  v68 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(specialized implicit closure #4 in CMSampleBufferRef.SamplePropertiesCollection.init<A>(_:), 0, v88, &type metadata for CMSampleBufferRef.SampleAttachments, MEMORY[0x277D84A98], v85, MEMORY[0x277D84AC0], v37);
+  v69 = v68;
+  v70 = *(v68 + 16);
+  if (v70)
   {
-    v73 = 32;
-    while (v72)
+    v71 = 32;
+    while (v70)
     {
-      v74 = *(*(v70 + v73) + 16);
-      v73 += 8;
-      --v72;
-      if (v74)
+      v72 = *(*(v68 + v71) + 16);
+      v71 += 8;
+      --v70;
+      if (v72)
       {
         goto LABEL_41;
       }
     }
   }
 
-  v71 = 0;
+  v69 = 0;
 LABEL_41:
   result = dispatch thunk of Collection.count.getter();
   if (result < 0)
@@ -8398,8 +7182,8 @@ LABEL_69:
     goto LABEL_70;
   }
 
-  v75 = result;
-  if ((v85 & 1) == 0 && (v86 & 1) == 0 && *(v92 + 16) != result)
+  v73 = result;
+  if ((v83 & 1) == 0 && (v84 & 1) == 0 && *(v90 + 16) != result)
   {
     goto LABEL_68;
   }
@@ -8409,67 +7193,67 @@ LABEL_69:
     goto LABEL_52;
   }
 
-  if (v67 != 255 && (v67 & 1) == 0 && *(time1[0].value + 16) != result)
+  if (v65 != 255 && (v65 & 1) == 0 && *(time1[0].value + 16) != result)
   {
     goto LABEL_69;
   }
 
-  if (!v71 || (v76 = *(v71 + 16)) == 0 || v76 == result)
+  if (!v69 || (v74 = *(v69 + 16)) == 0 || v74 == result)
   {
 LABEL_52:
-    if (v85)
+    if (v83)
     {
-      v92 = MEMORY[0x277D84F90];
+      v90 = MEMORY[0x277D84F90];
     }
 
-    else if (v86)
+    else if (v84)
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-      v77 = swift_allocObject();
-      *(v77 + 16) = xmmword_22E0EF920;
-      *(v77 + 32) = v92;
-      outlined consume of CMSampleBufferRef.SizePerSample?(v92, v86);
-      v92 = v77;
-      v68 = v89;
-      v69 = v90;
+      v75 = swift_allocObject();
+      *(v75 + 16) = xmmword_22E0EF920;
+      *(v75 + 32) = v90;
+      outlined consume of CMSampleBufferRef.SizePerSample?(v90, v84);
+      v90 = v75;
+      v66 = v87;
+      v67 = v88;
     }
 
-    v78 = MEMORY[0x277D84F90];
-    if (v67 == 255)
+    v76 = MEMORY[0x277D84F90];
+    if (v65 == 255)
     {
-      v79 = MEMORY[0x277D84F90];
+      v77 = MEMORY[0x277D84F90];
     }
 
     else
     {
-      v79 = time1[0].value;
-      if (v67)
+      v77 = time1[0].value;
+      if (v65)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMd, &_ss23_ContiguousArrayStorageCySo18CMSampleTimingInfoaGMR);
-        v80 = swift_allocObject();
-        *(v80 + 16) = xmmword_22E0EF920;
-        *(v80 + 32) = v79;
-        v81 = *&time1[1].value;
-        *(v80 + 40) = *&time1[0].timescale;
-        *(v80 + 56) = v81;
-        v82 = *&time1[2].timescale;
-        *(v80 + 72) = *&time1[1].epoch;
-        *(v80 + 88) = v82;
+        v78 = swift_allocObject();
+        *(v78 + 16) = xmmword_22E0EF920;
+        *(v78 + 32) = v77;
+        v79 = *&time1[1].value;
+        *(v78 + 40) = *&time1[0].timescale;
+        *(v78 + 56) = v79;
+        v80 = *&time1[2].timescale;
+        *(v78 + 72) = *&time1[1].epoch;
+        *(v78 + 88) = v80;
         outlined destroy of CMAttachmentBearerAttachments.Value?(time1, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMd, &_sSo17CMSampleBufferRefa9CoreMediaE15TimingPerSampleOSgMR);
-        v79 = v80;
+        v77 = v78;
       }
     }
 
-    if (v71)
+    if (v69)
     {
-      v78 = v71;
+      v76 = v69;
     }
 
-    result = (*(*(v69 - 8) + 8))(v68, v69);
-    *a5 = v75;
-    *(a5 + 8) = v92;
-    *(a5 + 16) = v79;
-    *(a5 + 24) = v78;
+    result = (*(*(v67 - 8) + 8))(v66, v67);
+    *a5 = v73;
+    *(a5 + 8) = v90;
+    *(a5 + 16) = v77;
+    *(a5 + 24) = v76;
     *(a5 + 32) = 0;
     *(a5 + 40) = 0;
     return result;
@@ -8593,7 +7377,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CMS
   return v15 & 1;
 }
 
-unint64_t *specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(unint64_t *result, unint64_t a2, int64_t a3, __int128 *a4)
+unint64_t *specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(unint64_t *result, unint64_t a2, CMTime *a3, __int128 *a4)
 {
   v4 = *result;
   if ((*result & 0x8000000000000000) != 0)
@@ -8625,7 +7409,7 @@ LABEL_26:
   if (a2 != a3 && v7 != v8)
   {
     v11 = result;
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v12 = v8 - 1;
     v13 = *a4;
     while (1)
@@ -8694,7 +7478,7 @@ LABEL_26:
       v10 = v17 == v5;
       if (v17 != v5)
       {
-        ++v5;
+        v5 = (v5 + 1);
         if (v12 != v13++)
         {
           continue;
@@ -8803,7 +7587,7 @@ LABEL_23:
 
 uint64_t specialized Sequence._copySequenceContents(initializing:)(OpaqueCMBlockBuffer **a1, uint64_t a2, uint64_t a3, OpaqueCMBlockBuffer *a4)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v8 = FigBlockBufferImpliedIndicesForSwiftOverlay();
   if (__OFADD__(v8, v9))
   {
@@ -8839,7 +7623,7 @@ LABEL_54:
     while (1)
     {
       v12 = FigBlockBufferImpliedIndicesForSwiftOverlay();
-      v14 = v12 + v13;
+      v14 = (v12 + v13);
       if (__OFADD__(v12, v13))
       {
         break;
@@ -8851,9 +7635,9 @@ LABEL_54:
       }
 
       v15 = v10 + v11;
-      if (v10 + v11 == v14)
+      if ((v10 + v11) == v14)
       {
-        v10 += v11;
+        v10 = (v10 + v11);
         a3 = v11;
         goto LABEL_33;
       }
@@ -8896,19 +7680,19 @@ LABEL_54:
         goto LABEL_42;
       }
 
-      v31[0] = 0;
-      DataPointer = CMBlockBufferGetDataPointer(a4, v15 - v19, 0, 0, v31);
+      v30[0] = 0;
+      DataPointer = CMBlockBufferGetDataPointer(a4, &v15[-v19], 0, 0, v30);
       if (DataPointer != noErr.getter())
       {
         goto LABEL_43;
       }
 
-      if (!v31[0])
+      if (!v30[0])
       {
         goto LABEL_54;
       }
 
-      v22 = *v31[0];
+      v22 = *v30[0];
       if (v22 < 0)
       {
         goto LABEL_44;
@@ -8951,7 +7735,7 @@ LABEL_54:
       *(a2 + v11) = v22;
       if (a3 - 1 == v11)
       {
-        v10 += v11 + 1;
+        v10 = (v10 + v11 + 1);
         goto LABEL_33;
       }
 
@@ -9003,11 +7787,10 @@ LABEL_50:
 LABEL_33:
   *a1 = a4;
   a1[1] = v10;
-  v29 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
-unint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t specialized Sequence._copySequenceContents(initializing:)(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   if (!a2)
   {
@@ -9035,17 +7818,17 @@ LABEL_22:
       }
     }
 
-    if (a4 < 0)
+    if ((a4 & 0x8000000000000000) != 0)
     {
-      v15 = a4;
+      v14 = a4;
     }
 
     else
     {
-      v15 = v5;
+      v14 = v5;
     }
 
-    v9 = MEMORY[0x2318E2C00](v15);
+    v9 = MEMORY[0x2318E2C00](v14);
 LABEL_6:
     v10 = 0;
     while (1)
@@ -9068,7 +7851,7 @@ LABEL_21:
 
       if ((a4 & 0xC000000000000001) != 0)
       {
-        v13 = MEMORY[0x2318E2A60](v10, a4);
+        v12 = MEMORY[0x2318E2A60](v10, a4);
       }
 
       else
@@ -9078,11 +7861,10 @@ LABEL_21:
           goto LABEL_20;
         }
 
-        v12 = *(a4 + 8 * v10 + 32);
-        v13 = swift_unknownObjectRetain();
+        v12 = swift_unknownObjectRetain();
       }
 
-      *(v4 + 8 * v10) = v13;
+      *(v4 + 8 * v10) = v12;
       if (v11 == v8)
       {
         goto LABEL_18;
@@ -9131,7 +7913,7 @@ LABEL_22:
       }
     }
 
-    if (a4 < 0)
+    if ((a4 & 0x8000000000000000) != 0)
     {
       v14 = a4;
     }
@@ -9271,13 +8053,13 @@ LABEL_18:
   return result;
 }
 
-void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void specialized Sequence._copySequenceContents(initializing:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = v3[1];
+  v4 = *(v3 + 8);
   v55 = *v3;
-  v5 = v3[2];
-  v49 = v3[3];
-  v6 = v3[4];
+  v5 = *(v3 + 16);
+  v49 = *(v3 + 24);
+  v6 = *(v3 + 32);
   v7 = *(v3 + 40);
   v59 = v7;
   if (!a2)
@@ -9285,15 +8067,15 @@ void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint
 LABEL_30:
     a3 = 0;
     *a1 = v55;
-    *(a1 + 8) = v4;
+    a1[1] = v4;
 LABEL_35:
-    *(a1 + 16) = v5;
-    *(a1 + 24) = v49;
-    *(a1 + 32) = v6;
+    a1[2] = v5;
+    a1[3] = v49;
+    a1[4] = v6;
     v33 = v7 & 1;
 LABEL_36:
     *(a1 + 40) = v33;
-    *(a1 + 48) = a3;
+    a1[6] = a3;
     return;
   }
 
@@ -9303,7 +8085,7 @@ LABEL_36:
     v8 = v4;
 LABEL_34:
     *a1 = v55;
-    *(a1 + 8) = v8;
+    a1[1] = v8;
     goto LABEL_35;
   }
 
@@ -9473,7 +8255,7 @@ LABEL_34:
         swift_dynamicCastObjCClassUnconditional();
         time.value = 0;
         type metadata accessor for CFStringRef(0);
-        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
         static Dictionary._forceBridgeFromObjectiveC(_:result:)();
         v31 = time.value;
         if (!time.value)
@@ -9671,8 +8453,8 @@ LABEL_28:
 uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
-  v36 = (a4 & 0xC000000000000001) != 0;
-  v35 = a4 & 0xC000000000000001;
+  v35 = (a4 & 0xC000000000000001) != 0;
+  v34 = a4 & 0xC000000000000001;
   if ((a4 & 0xC000000000000001) != 0)
   {
     result = __CocoaDictionary.startIndex.getter();
@@ -9689,12 +8471,11 @@ LABEL_25:
     *a1 = v4;
     *(a1 + 8) = v9;
     *(a1 + 16) = v11;
-    *(a1 + 24) = v36;
+    *(a1 + 24) = v35;
     return v12;
   }
 
 LABEL_18:
-  v32 = -1 << *(v4 + 32);
 
   v9 = _HashTable.startBucket.getter();
   v11 = *(v4 + 36);
@@ -9713,18 +8494,18 @@ LABEL_3:
 
   if ((a3 & 0x8000000000000000) == 0)
   {
-    v33 = a1;
-    v34 = a3;
+    v32 = a1;
+    v33 = a3;
     v12 = 0;
     v13 = 1;
     while (1)
     {
       v14 = v4;
       v15 = v13;
-      if (v35)
+      if (v34)
       {
         result = __CocoaDictionary.endIndex.getter();
-        if (!v36)
+        if (!v35)
         {
           goto LABEL_28;
         }
@@ -9735,19 +8516,19 @@ LABEL_3:
         outlined consume of [CFStringRef : Swift.AnyObject].Index._Variant(v17, v18, 1);
         if (v19)
         {
-          v36 = 1;
-          a1 = v33;
+          v35 = 1;
+          a1 = v32;
           v4 = v14;
           goto LABEL_25;
         }
 
         v4 = v14;
-        specialized Dictionary.subscript.getter(&v37, v9, v11, v36, v14);
+        specialized Dictionary.subscript.getter(&v36, v9, v11, v35, v14);
         v21 = v20;
-        a1 = v37;
+        a1 = v36;
         v22 = __CocoaDictionary.index(after:)();
         v24 = v23;
-        v36 = 1;
+        v35 = 1;
         result = outlined consume of [CFStringRef : Swift.AnyObject].Index._Variant(v9, v11, 1);
         v9 = v22;
         v11 = v24;
@@ -9755,7 +8536,7 @@ LABEL_3:
 
       else
       {
-        if (v36)
+        if (v35)
         {
           goto LABEL_28;
         }
@@ -9768,33 +8549,33 @@ LABEL_3:
 
         if (v9 == 1 << *(v4 + 32))
         {
-          v36 = 0;
+          v35 = 0;
           v12 = v13 - 1;
           goto LABEL_24;
         }
 
-        specialized Dictionary.subscript.getter(&v37, v9, v11, 0, v4);
+        specialized Dictionary.subscript.getter(&v36, v9, v11, 0, v4);
         v21 = v25;
-        a1 = v37;
+        a1 = v36;
         specialized _NativeDictionary.index(after:)(v9, v11, 0, v4);
         v27 = v26;
         v29 = v28;
         v31 = v30;
-        result = outlined consume of [CFStringRef : Swift.AnyObject].Index._Variant(v9, v11, v36);
+        result = outlined consume of [CFStringRef : Swift.AnyObject].Index._Variant(v9, v11, v35);
         v9 = v27;
         v11 = v29;
-        v36 = v31;
+        v35 = v31;
         v4 = v14;
       }
 
       *a2 = v21;
       a2[1] = a1;
-      a3 = v34;
-      if (v34 == v15)
+      a3 = v33;
+      if (v33 == v15)
       {
-        v12 = v34;
+        v12 = v33;
 LABEL_24:
-        a1 = v33;
+        a1 = v32;
         goto LABEL_25;
       }
 
@@ -9879,7 +8660,7 @@ LABEL_12:
   return result;
 }
 
-const OpaqueCMTagCollection *specialized Sequence._copySequenceContents(initializing:)(const OpaqueCMTagCollection *result, uint64_t a2, uint64_t a3)
+CMSampleBufferRef specialized Sequence._copySequenceContents(initializing:)(CMSampleBufferRef result, uint64_t a2, uint64_t a3)
 {
   v4 = result;
   if (!a2)
@@ -9894,7 +8675,7 @@ LABEL_16:
   {
 LABEL_18:
     *v4 = v3;
-    v4[1] = v5;
+    *(v4 + 1) = v5;
     return v5;
   }
 
@@ -9966,5 +8747,1148 @@ LABEL_21:
   __break(1u);
 LABEL_22:
   __break(1u);
+  return result;
+}
+
+char *specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+void specialized MutableCollection<>._partitionImpl(by:)(uint64_t (*result)(_BYTE *))
+{
+  v2 = *v1;
+  if (*v1 < 1)
+  {
+    return;
+  }
+
+  v3 = 0;
+  v71 = *MEMORY[0x277CC0918];
+  v69 = *(MEMORY[0x277CC0918] + 12);
+  v70 = *(MEMORY[0x277CC0918] + 8);
+  v67 = *(MEMORY[0x277CC0918] + 24);
+  v68 = *(MEMORY[0x277CC0918] + 16);
+  v4 = *(MEMORY[0x277CC0918] + 32);
+  v66 = *(MEMORY[0x277CC0918] + 40);
+  v5 = *v1;
+  v65 = v1;
+LABEL_3:
+  if ((v3 & 0x8000000000000000) != 0)
+  {
+LABEL_73:
+    __break(1u);
+LABEL_74:
+    __break(1u);
+LABEL_75:
+    __break(1u);
+    goto LABEL_76;
+  }
+
+  if (v3 >= v2)
+  {
+    goto LABEL_74;
+  }
+
+  v6 = v1[2];
+  v79 = v1[3];
+  v77 = v1[1];
+  v7 = *(v77 + 16);
+  if (v7)
+  {
+    if (v7 == 1)
+    {
+      v8 = v1[1];
+    }
+
+    else
+    {
+      if (v3 >= v7)
+      {
+        goto LABEL_78;
+      }
+
+      v8 = v77 + 8 * v3;
+    }
+
+    v7 = *(v8 + 32);
+  }
+
+  v9 = *(v6 + 16);
+  v73 = v1[2];
+  if (v9 == 1)
+  {
+    v88 = *(v6 + 32);
+    v14 = *(v6 + 44);
+    v90 = *(v6 + 40);
+    v15 = *(v6 + 48);
+    v92 = *(v6 + 56);
+    v17 = *(v6 + 64);
+    v16 = *(v6 + 72);
+    if (v3)
+    {
+      if (v3 >> 31)
+      {
+        goto LABEL_80;
+      }
+
+      *time = *(v6 + 32);
+      *&time[8] = v90;
+      *&time[12] = v14;
+      *&time[16] = v15;
+      v85 = v14;
+      v18 = v5;
+      CMTimeMultiply(rhs, time, v3);
+      *time = v92;
+      *&time[8] = v17;
+      *&time[16] = v16;
+      CMTimeAdd(lhs, time, rhs);
+      v5 = v18;
+      v14 = v85;
+      v92 = *lhs;
+      v17 = *&lhs[8];
+      v13 = MEMORY[0x277CC0898];
+      v10 = (MEMORY[0x277CC0898] + 16);
+      v11 = (MEMORY[0x277CC0898] + 12);
+      v12 = (MEMORY[0x277CC0898] + 8);
+      v16 = *&lhs[16];
+    }
+
+    else
+    {
+      v10 = (v6 + 96);
+      v13 = (v6 + 80);
+      v20 = v6;
+      v11 = (v6 + 92);
+      v12 = (v20 + 88);
+    }
+  }
+
+  else if (v9)
+  {
+    if (v3 >= v9)
+    {
+      goto LABEL_79;
+    }
+
+    v19 = v6 + 72 * v3;
+    v88 = *(v19 + 32);
+    v14 = *(v19 + 44);
+    v90 = *(v19 + 40);
+    v15 = *(v19 + 48);
+    v92 = *(v19 + 56);
+    v17 = *(v19 + 64);
+    v16 = *(v19 + 72);
+    v13 = (v19 + 80);
+    v12 = (v19 + 88);
+    v11 = (v19 + 92);
+    v10 = (v19 + 96);
+  }
+
+  else
+  {
+    v10 = (MEMORY[0x277CC0918] + 64);
+    v11 = (MEMORY[0x277CC0918] + 60);
+    v12 = (MEMORY[0x277CC0918] + 56);
+    v13 = (MEMORY[0x277CC0918] + 48);
+    v88 = v71;
+    v14 = v69;
+    v90 = v70;
+    v15 = v68;
+    v92 = v67;
+    v16 = v66;
+    v17 = v4;
+  }
+
+  v21 = *v10;
+  v22 = *v11;
+  v23 = *v12;
+  v24 = *v13;
+  v25 = *(v79 + 16);
+  v80 = v3;
+  v82 = v2;
+  v94 = v5;
+  if (v25)
+  {
+    if (v3 >= v25)
+    {
+      goto LABEL_75;
+    }
+
+    v26 = *(v79 + 8 * v3 + 32);
+  }
+
+  else
+  {
+    v86 = v14;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
+    v27.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    objc_opt_self();
+    swift_dynamicCastObjCClassUnconditional();
+    *time = 0;
+    type metadata accessor for CFStringRef(0);
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+    static Dictionary._forceBridgeFromObjectiveC(_:result:)();
+    v26 = *time;
+    if (!*time)
+    {
+      goto LABEL_83;
+    }
+
+    v14 = v86;
+  }
+
+  v109 = v7 == 0;
+  *time = v7;
+  time[8] = v7 == 0;
+  *&time[12] = v88;
+  *&time[20] = v90;
+  *&time[24] = v14;
+  *&time[28] = v15;
+  *&time[36] = v92;
+  *&time[44] = v17;
+  *&time[52] = v16;
+  *&time[60] = v24;
+  *&time[68] = v23;
+  *&time[72] = v22;
+  *&time[76] = v21;
+  *&time[88] = v26;
+  v28 = v110;
+  v29 = result(time);
+  v110 = v28;
+  if (v28)
+  {
+    v104 = *&time[32];
+    v105 = *&time[48];
+    v106 = *&time[64];
+    v107 = *&time[80];
+    *rhs = *time;
+    *&rhs[16] = *&time[16];
+    v64 = rhs;
+LABEL_63:
+    outlined destroy of CMSampleBufferRef.SampleProperties(v64);
+    return;
+  }
+
+  v30 = v29;
+  v104 = *&time[32];
+  v105 = *&time[48];
+  v106 = *&time[64];
+  v107 = *&time[80];
+  *rhs = *time;
+  *&rhs[16] = *&time[16];
+  outlined destroy of CMSampleBufferRef.SampleProperties(rhs);
+  if (v30)
+  {
+    v31 = v94;
+    if (v94 > v82)
+    {
+      goto LABEL_77;
+    }
+
+    if (v3 >= v94 - 1)
+    {
+      return;
+    }
+
+    v32 = *(v77 + 16);
+    v33 = *(v73 + 16);
+    v78 = *(v79 + 16);
+    v75 = v32;
+    v76 = v94 - 2;
+    v34 = v73 + 72 * v94 + 24;
+    v35 = v77 + 8 * v94 + 24;
+    v74 = v33;
+    while (1)
+    {
+      v36 = v31 - 1;
+      v84 = v35;
+      if (v32 == 1)
+      {
+        v46 = (v77 + 32);
+        if (!*(v77 + 16))
+        {
+          goto LABEL_69;
+        }
+      }
+
+      else
+      {
+        if (!v32)
+        {
+          v37 = 0;
+          if (!v33)
+          {
+            goto LABEL_33;
+          }
+
+          goto LABEL_38;
+        }
+
+        v46 = v35;
+        if (v36 >= *(v77 + 16))
+        {
+          goto LABEL_68;
+        }
+      }
+
+      v37 = *v46;
+      if (!v33)
+      {
+LABEL_33:
+        v38 = (MEMORY[0x277CC0918] + 64);
+        v39 = (MEMORY[0x277CC0918] + 60);
+        v40 = (MEMORY[0x277CC0918] + 56);
+        v41 = (MEMORY[0x277CC0918] + 48);
+        v42 = v69;
+        v93 = v70;
+        v89 = v71;
+        v91 = v68;
+        epoch = v66;
+        value = v67;
+        v45 = v4;
+        goto LABEL_44;
+      }
+
+LABEL_38:
+      if (v33 == 1)
+      {
+        if (!*(v73 + 16))
+        {
+          goto LABEL_70;
+        }
+
+        if (v36 > 0x7FFFFFFF)
+        {
+          goto LABEL_72;
+        }
+
+        v47 = *(v73 + 72);
+        v48 = *(v73 + 56);
+        v49 = *(v73 + 44);
+        v93 = *(v73 + 40);
+        v89 = *(v73 + 32);
+        v91 = *(v73 + 48);
+        *lhs = v89;
+        *&lhs[8] = v93;
+        *&lhs[12] = v49;
+        *&lhs[16] = v91;
+        v50 = *(v73 + 64);
+        v51 = v31;
+        v52 = v31 - 1;
+        CMTimeMultiply(v97, lhs, v31 - 1);
+        *lhs = v48;
+        *&lhs[8] = v50;
+        *&lhs[16] = v47;
+        CMTimeAdd(&v96, lhs, v97);
+        v36 = v52;
+        v42 = v49;
+        v31 = v51;
+        value = v96.value;
+        v45 = *&v96.timescale;
+        v41 = MEMORY[0x277CC0898];
+        v38 = (MEMORY[0x277CC0898] + 16);
+        v39 = (MEMORY[0x277CC0898] + 12);
+        v40 = (MEMORY[0x277CC0898] + 8);
+        epoch = v96.epoch;
+      }
+
+      else
+      {
+        if (v36 >= *(v73 + 16))
+        {
+          goto LABEL_71;
+        }
+
+        v42 = *(v34 - 52);
+        v93 = *(v34 - 56);
+        value = *(v34 - 40);
+        v89 = *(v34 - 64);
+        v91 = *(v34 - 48);
+        v41 = (v34 - 16);
+        v45 = *(v34 - 32);
+        v40 = (v34 - 8);
+        v39 = (v34 - 4);
+        v38 = v34;
+        epoch = *(v34 - 24);
+      }
+
+LABEL_44:
+      v53 = *v38;
+      v54 = *v39;
+      v55 = *v40;
+      v56 = *v41;
+      v87 = v36;
+      v95 = v31;
+      v83 = v34;
+      if (v78)
+      {
+        if (v36 >= *(v79 + 16))
+        {
+          goto LABEL_67;
+        }
+
+        v57 = value;
+        v58 = *(v79 + 24 + 8 * v31);
+      }
+
+      else
+      {
+        v57 = value;
+        v72 = v42;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
+        v59.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+        objc_opt_self();
+        swift_dynamicCastObjCClassUnconditional();
+        *lhs = 0;
+        type metadata accessor for CFStringRef(0);
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+        static Dictionary._forceBridgeFromObjectiveC(_:result:)();
+        v58 = *lhs;
+        if (!*lhs)
+        {
+          goto LABEL_82;
+        }
+
+        v42 = v72;
+      }
+
+      LOBYTE(v96.value) = v37 == 0;
+      *lhs = v37;
+      lhs[8] = v37 == 0;
+      *&lhs[12] = v89;
+      *&lhs[20] = v93;
+      *&lhs[24] = v42;
+      *&lhs[28] = v91;
+      *&lhs[36] = v57;
+      *&lhs[44] = v45;
+      *&lhs[52] = epoch;
+      *&lhs[60] = v56;
+      *&lhs[68] = v55;
+      *&lhs[72] = v54;
+      *&lhs[76] = v53;
+      *&lhs[88] = v58;
+      v60 = v110;
+      v61 = result(lhs);
+      v110 = v60;
+      if (v60)
+      {
+        v98 = *&lhs[32];
+        v99 = *&lhs[48];
+        v100 = *&lhs[64];
+        v101 = *&lhs[80];
+        *v97 = *lhs;
+        *&v97[16] = *&lhs[16];
+        v64 = v97;
+        goto LABEL_63;
+      }
+
+      v62 = v61;
+      v98 = *&lhs[32];
+      v99 = *&lhs[48];
+      v100 = *&lhs[64];
+      v101 = *&lhs[80];
+      *v97 = *lhs;
+      *&v97[16] = *&lhs[16];
+      outlined destroy of CMSampleBufferRef.SampleProperties(v97);
+      if ((v62 & 1) == 0)
+      {
+        v1 = v65;
+        specialized MutableCollection.swapAt(_:_:)(v80, v87);
+        v2 = *v65;
+        if (v80 >= *v65)
+        {
+          goto LABEL_81;
+        }
+
+        v3 = v80 + 1;
+        v5 = v87;
+        if (v80 + 1 >= v87)
+        {
+          return;
+        }
+
+LABEL_59:
+        if ((v2 & 0x8000000000000000) != 0)
+        {
+          __break(1u);
+          return;
+        }
+
+        goto LABEL_3;
+      }
+
+      if (v76 >= v82)
+      {
+        __break(1u);
+LABEL_67:
+        __break(1u);
+LABEL_68:
+        __break(1u);
+LABEL_69:
+        __break(1u);
+LABEL_70:
+        __break(1u);
+LABEL_71:
+        __break(1u);
+LABEL_72:
+        __break(1u);
+        goto LABEL_73;
+      }
+
+      v34 = v83 - 72;
+      v35 = v84 - 8;
+      v31 = v87;
+      v33 = v74;
+      v32 = v75;
+      if (v80 >= v95 - 2)
+      {
+        return;
+      }
+    }
+  }
+
+  v63 = __OFADD__(v3++, 1);
+  v2 = v82;
+  v5 = v94;
+  if (v63)
+  {
+LABEL_76:
+    __break(1u);
+LABEL_77:
+    __break(1u);
+LABEL_78:
+    __break(1u);
+LABEL_79:
+    __break(1u);
+LABEL_80:
+    __break(1u);
+LABEL_81:
+    __break(1u);
+LABEL_82:
+    __break(1u);
+LABEL_83:
+    __break(1u);
+    return;
+  }
+
+  v1 = v65;
+  if (v3 < v94)
+  {
+    goto LABEL_59;
+  }
+}
+
+uint64_t specialized static CMSampleBufferRef.SizePerSample.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  result = *a1;
+  v4 = *a2;
+  v5 = *(a2 + 8);
+  if (*(a1 + 8))
+  {
+    if (*(a2 + 8))
+    {
+      return result == v4;
+    }
+
+    v7 = *a2;
+LABEL_7:
+    v8 = *(v7 + 16);
+    v9 = 32;
+    do
+    {
+      v6 = v8 == 0;
+      if (!v8)
+      {
+        break;
+      }
+
+      v10 = *(v7 + v9);
+      v9 += 8;
+      --v8;
+    }
+
+    while (v10 == result);
+    outlined copy of CMSampleBufferRef.SizePerSample(v4, v5);
+
+    return v6;
+  }
+
+  if (*(a2 + 8))
+  {
+
+    result = v4;
+    goto LABEL_7;
+  }
+
+  v11 = *(result + 16);
+  if (v11 != *(v4 + 16))
+  {
+    return 0;
+  }
+
+  if (!v11 || result == v4)
+  {
+    return 1;
+  }
+
+  v12 = (result + 32);
+  v13 = (v4 + 32);
+  while (v11)
+  {
+    v15 = *v12++;
+    v14 = v15;
+    v16 = *v13++;
+    v6 = v14 == v16;
+    if (v14 != v16 || v11-- == 1)
+    {
+      return v6;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized static CMSampleBufferRef.TimingPerSample.== infix(_:_:)(__int128 *a1, __int128 *a2)
+{
+  v2 = a1[3];
+  v52 = a1[2];
+  *v53 = v2;
+  *&v53[9] = *(a1 + 57);
+  v3 = a1[1];
+  v50 = *a1;
+  v51 = v3;
+  v4 = a2[3];
+  v56 = a2[2];
+  *v57 = v4;
+  *&v57[9] = *(a2 + 57);
+  v5 = a2[1];
+  v54 = *a2;
+  v55 = v5;
+  v46 = v50;
+  if (v53[24])
+  {
+    v6 = HIDWORD(v50);
+    v41.value = *(&v51 + 1);
+    v7 = v51;
+    *&v41.timescale = v52;
+    v8 = *&v53[8];
+    v38 = *v53;
+    v39 = *&v53[16];
+    v9 = v54;
+    if (v57[24])
+    {
+      v10 = v56;
+      v11 = *v57;
+      v12 = *&v57[16];
+      v13 = *(&v55 + 1);
+      time2.epoch = v55;
+      *&time1.value = v50;
+      time1.epoch = v51;
+      *&time2.value = v54;
+      if (CMTimeCompare(&time1, &time2) || (time2.epoch = v12, time1.value = v38, *&time1.timescale = v8, time1.epoch = v39, *&time2.value = v11, CMTimeCompare(&time1, &time2)))
+      {
+LABEL_21:
+        v14 = 0;
+      }
+
+      else
+      {
+        time1 = v41;
+        time2.value = v13;
+        *&time2.timescale = v10;
+        v14 = CMTimeCompare(&time1, &time2) == 0;
+      }
+
+      return v14 & 1;
+    }
+
+    v40 = DWORD2(v50);
+  }
+
+  else
+  {
+    v15 = v54;
+    if ((v57[24] & 1) == 0)
+    {
+      outlined init with copy of CMSampleBufferRef.TimingPerSample(&v54, &time1);
+      outlined init with copy of CMSampleBufferRef.TimingPerSample(&v50, &time1);
+      v14 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSo18CMSampleTimingInfoa_Tt1g5(v46, v15);
+      outlined destroy of CMSampleBufferRef.TimingPerSample(&v54);
+      outlined destroy of CMSampleBufferRef.TimingPerSample(&v50);
+      return v14 & 1;
+    }
+
+    v9 = v50;
+    v8 = *&v57[8];
+    v38 = *v57;
+    v39 = *&v57[16];
+    *&v41.timescale = v56;
+    v41.value = *(&v55 + 1);
+    v7 = v55;
+    v6 = HIDWORD(v54);
+    v40 = DWORD2(v54);
+
+    v46 = v54;
+  }
+
+  v37 = *(v9 + 16);
+  result = outlined init with copy of CMSampleBufferRef.TimingPerSample(&v54, &time1);
+  v17 = 0;
+  v18 = *(MEMORY[0x277CC0898] + 8);
+  v34 = *(MEMORY[0x277CC0898] + 16);
+  v35 = *MEMORY[0x277CC0898];
+  v19 = (v9 + 48);
+  v36 = v9;
+  while (1)
+  {
+    if (v37 == v17)
+    {
+
+      v14 = 1;
+      return v14 & 1;
+    }
+
+    if (v17 >= *(v9 + 16))
+    {
+      break;
+    }
+
+    v20 = *(v19 - 2);
+    v21 = *(v19 - 1);
+    v22 = *v19;
+    v23 = v19[2];
+    v24 = v38;
+    v25 = v39;
+    epoch = v41.epoch;
+    v42 = v19[3];
+    v43 = v19[1];
+    timescale = v41.timescale;
+    flags = v41.flags;
+    v29 = v19[5];
+    value = v41.value;
+    v31 = v8;
+    v44 = v19[6];
+    v45 = v19[4];
+    if (v17)
+    {
+      if (v17 >> 31)
+      {
+        goto LABEL_25;
+      }
+
+      time1.value = v46;
+      time1.timescale = v40;
+      time1.flags = v6;
+      time1.epoch = v7;
+      v32 = v20;
+      v33 = v22;
+      CMTimeMultiply(&time2, &time1, v17);
+      time1 = v41;
+      CMTimeAdd(&v47, &time1, &time2);
+      v22 = v33;
+      v20 = v32;
+      value = v47.value;
+      timescale = v47.timescale;
+      flags = v47.flags;
+      v25 = v34;
+      v24 = v35;
+      v31 = v18;
+      epoch = v47.epoch;
+    }
+
+    time2.epoch = v7;
+    time1.value = v20;
+    *&time1.timescale = v21;
+    time1.epoch = v22;
+    time2.value = v46;
+    time2.timescale = v40;
+    time2.flags = v6;
+    if (!CMTimeCompare(&time1, &time2))
+    {
+      time2.epoch = v25;
+      time1.value = v45;
+      *&time1.timescale = v29;
+      time1.epoch = v44;
+      time2.value = v24;
+      *&time2.timescale = v31;
+      if (!CMTimeCompare(&time1, &time2))
+      {
+        time2.epoch = epoch;
+        time1.value = v43;
+        *&time1.timescale = v23;
+        time1.epoch = v42;
+        time2.value = value;
+        time2.timescale = timescale;
+        time2.flags = flags;
+        result = CMTimeCompare(&time1, &time2);
+        v19 += 9;
+        ++v17;
+        v9 = v36;
+        if (!result)
+        {
+          continue;
+        }
+      }
+    }
+
+    goto LABEL_21;
+  }
+
+  __break(1u);
+LABEL_25:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized static CMSampleBufferRef.SampleProperties.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 12);
+  v3 = *(a1 + 20);
+  v4 = *(a1 + 28);
+  v5 = *(a1 + 36);
+  v6 = *(a1 + 44);
+  v7 = *(a1 + 52);
+  v8 = *(a1 + 60);
+  v9 = *(a1 + 68);
+  v10 = *(a1 + 76);
+  v11 = *(a1 + 88);
+  v12 = *(a2 + 8);
+  v13 = *(a2 + 12);
+  v14 = *(a2 + 20);
+  v15 = *(a2 + 36);
+  v16 = *(a2 + 44);
+  v17 = *(a2 + 52);
+  v18 = *(a2 + 60);
+  v19 = *(a2 + 68);
+  v20 = *(a2 + 76);
+  v21 = *(a2 + 88);
+  if (*(a1 + 8))
+  {
+    if (!*(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (*a1 != *a2)
+    {
+      v12 = 1;
+    }
+
+    if (v12)
+    {
+      return 0;
+    }
+  }
+
+  v26.epoch = *(a2 + 28);
+  time1.value = v2;
+  *&time1.timescale = v3;
+  time1.epoch = v4;
+  v26.value = v13;
+  *&v26.timescale = v14;
+  if (!CMTimeCompare(&time1, &v26))
+  {
+    v26.epoch = v20;
+    time1.value = v8;
+    *&time1.timescale = v9;
+    time1.epoch = v10;
+    v26.value = v18;
+    *&v26.timescale = v19;
+    if (!CMTimeCompare(&time1, &v26))
+    {
+      v26.epoch = v17;
+      time1.value = v5;
+      *&time1.timescale = v6;
+      time1.epoch = v7;
+      v26.value = v15;
+      *&v26.timescale = v16;
+      if (!CMTimeCompare(&time1, &v26) && (*(v11 + 16) == 0) != (*(v21 + 16) != 0))
+      {
+        type metadata accessor for CFDictionaryRef(0);
+        type metadata accessor for CFStringRef(0);
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+
+        isa = Dictionary._bridgeToObjectiveC()().super.isa;
+        v23 = Dictionary._bridgeToObjectiveC()().super.isa;
+        lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+        v24 = static _CFObject.== infix(_:_:)();
+
+        if (v24)
+        {
+          return 1;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t outlined consume of CMSampleBufferRef.SizePerSample?(uint64_t result, char a2)
+{
+  if (a2 != -1)
+  {
+    return outlined consume of CMSampleBufferRef.SizePerSample(result, a2 & 1);
+  }
+
+  return result;
+}
+
+uint64_t outlined consume of CMSampleBufferRef.SizePerSample(uint64_t result, char a2)
+{
+  if ((a2 & 1) == 0)
+  {
+  }
+
+  return v2;
+}
+
+uint64_t outlined copy of CMSampleBufferRef.SizePerSample(uint64_t result, char a2)
+{
+  if ((a2 & 1) == 0)
+  {
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection()
+{
+  result = lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection;
+  if (!lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection;
+  if (!lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection;
+  if (!lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection;
+  if (!lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection;
+  if (!lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CMSampleBufferRef.SamplePropertiesCollection and conformance CMSampleBufferRef.SamplePropertiesCollection);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type Slice<CMSampleBufferRef.SamplePropertiesCollection> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVGMd, &_ss5SliceVySo17CMSampleBufferRefa9CoreMediaE26SamplePropertiesCollectionVGMR);
+    a2();
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy96_8(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v2;
+  result = *(a2 + 32);
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v5;
+  *(a1 + 32) = result;
+  *(a1 + 48) = v4;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for CMSampleBufferRef.SampleProperties(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 96))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 88);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for CMSampleBufferRef.SampleProperties(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 88) = 0;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 96) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 88) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 96) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy73_8(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  result = *(a2 + 16);
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 48);
+  *(a1 + 57) = *(a2 + 57);
+  *(a1 + 32) = v3;
+  *(a1 + 48) = v4;
+  *(a1 + 16) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for CMSampleBufferRef.TimingPerSample(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFF && *(a1 + 73))
+  {
+    return (*a1 + 255);
+  }
+
+  v3 = *(a1 + 72);
+  if (v3 <= 1)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = v3 ^ 0xFF;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for CMSampleBufferRef.TimingPerSample(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 72) = 0;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
+    {
+      *(result + 73) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 73) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 72) = -a2;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy41_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  *(a1 + 25) = *(a2 + 25);
+  *a1 = result;
+  *(a1 + 16) = v3;
   return result;
 }

@@ -15,7 +15,7 @@
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = sub_1A7BDBA1C();
+  v5 = sub_1A7BDBA1C(domain);
   if ([domain isEqualToString:v5])
   {
     v6 = [errorCopy code] == 11;

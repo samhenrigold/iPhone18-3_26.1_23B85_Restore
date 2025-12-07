@@ -6,7 +6,7 @@
 void ___UIApplicationIsJournal_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_1266 = [v0 isEqualToString:@"com.apple.journal"];
+  _MergedGlobals_1266 = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

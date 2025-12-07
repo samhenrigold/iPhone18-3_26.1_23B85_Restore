@@ -73,13 +73,13 @@
   {
     if (!buffer && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x1D2, @"commandBuffer may not be nil.", matrices, matrix, vector, offsetVector);
     }
 
     objc_msgSend_count(matrices, a2, buffer, encoder, matrices, matrix, vector, offsetVector);
     if (objc_msgSend_count(matrices, v15, v16, v17, v18, v19, v20, v21) <= 1 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x1D5, @"Requires at least two matrices to compute a sum.", v25, v26, v27, v28);
     }
 
     if (objc_msgSend_dataType(matrix, v22, v23, v24, v25, v26, v27, v28) != 268435472)
@@ -89,7 +89,7 @@
 
     if (objc_msgSend_dataType(matrix, v29, v30, v31, v32, v33, v34, v35) != 268435472 && objc_msgSend_dataType(matrix, a2, v36, encoder, matrices, matrix, vector, offsetVector) != 268435488 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x1DB, @"Only matrix value types of MPSDataTypeFloat16 and MPSDataTypeFloat32 are supported.", matrices, matrix, vector, offsetVector);
     }
 
     if (offsetVector)
@@ -99,7 +99,7 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x1E1, @"Offset vector must be of type MPSDataTypeUInt32.", matrices, matrix, vector, offsetVector);
         }
       }
     }
@@ -367,11 +367,11 @@
     parameterA = v9;
     parameterB = v8;
     parameterC = v7;
-    v12 = v11;
+    v16 = v11;
     self = selfCopy;
-    if (v12)
+    if (v16)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x207, @"PReLU not supported.", v12, v13, v14, v15);
       neuronType = v10;
       parameterA = v9;
       self = selfCopy;
@@ -388,9 +388,9 @@
 
 - (MPSMatrixSum)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v81.receiver = self;
-  v81.super_class = MPSMatrixSum;
-  v5 = [(MPSKernel *)&v81 initWithCoder:aDecoder device:device];
+  v85.receiver = self;
+  v85.super_class = MPSMatrixSum;
+  v5 = [(MPSKernel *)&v85 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (v5)
   {
@@ -421,7 +421,7 @@
       {
         v79 = objc_opt_class();
         NSStringFromClass(v79);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixSum.mm", 0x225, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v80, v81, v82, v83);
       }
 
       return 0;

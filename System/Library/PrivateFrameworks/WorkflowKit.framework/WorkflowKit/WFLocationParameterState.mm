@@ -112,16 +112,15 @@ void __82__WFLocationParameterState_getContentItemFromValue_withContext_completi
 {
   if (a2)
   {
-    v5 = [MEMORY[0x1E6996D58] itemWithObject:a2];
+    v4 = [MEMORY[0x1E6996D58] itemWithObject:a2];
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -151,15 +150,15 @@ void __82__WFLocationParameterState_getContentItemFromValue_withContext_completi
 
 void __78__WFLocationParameterState_getContentCollectionWithContext_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = MEMORY[0x1E6996D40];
-    v10 = a2;
+    v9 = a2;
     v5 = MEMORY[0x1E695DEC8];
     v6 = a2;
-    v7 = [v5 arrayWithObjects:&v10 count:1];
-    v8 = [v4 collectionWithItems:{v7, v10, v11}];
+    v7 = [v5 arrayWithObjects:&v9 count:1];
+    v8 = [v4 collectionWithItems:{v7, v9, v10}];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -169,8 +168,6 @@ void __78__WFLocationParameterState_getContentCollectionWithContext_completionHa
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, a3);
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processWithContext:(id)context userInputRequiredHandler:(id)handler valueHandler:(id)valueHandler
@@ -202,7 +199,7 @@ void __78__WFLocationParameterState_getContentCollectionWithContext_completionHa
 
 void __85__WFLocationParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -210,31 +207,29 @@ void __85__WFLocationParameterState_processWithContext_userInputRequiredHandler_
     v5 = objc_opt_class();
     v6 = WFEnforceClass_1501(v4, v5);
 
-    v13[0] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     if ([v6 allowsTextOnlyLocations])
     {
-      v12[0] = objc_opt_class();
-      v12[1] = objc_opt_class();
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+      v11[0] = objc_opt_class();
+      v11[1] = objc_opt_class();
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
       v7 = v8;
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __85__WFLocationParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-    v10[3] = &unk_1E837DBF8;
-    v11 = *(a1 + 40);
-    [v3 generateCollectionByCoercingToItemClasses:v7 completionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __85__WFLocationParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+    v9[3] = &unk_1E837DBF8;
+    v10 = *(a1 + 40);
+    [v3 generateCollectionByCoercingToItemClasses:v7 completionHandler:v9];
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (WFLocationParameterState)initWithValue:(id)value

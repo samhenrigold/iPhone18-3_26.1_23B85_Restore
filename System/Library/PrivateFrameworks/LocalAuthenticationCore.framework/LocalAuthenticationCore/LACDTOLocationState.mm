@@ -3,11 +3,21 @@
 + (id)strictLocationState;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid:(id)valid;
+- (LACDTOLocationState)initWithRawValue:(int64_t)value confirmed:(BOOL)confirmed;
 - (LACDTOLocationState)initWithRawValue:(int64_t)value confirmed:(BOOL)confirmed createdAt:(id)at;
 - (id)description;
 @end
 
 @implementation LACDTOLocationState
+
+- (LACDTOLocationState)initWithRawValue:(int64_t)value confirmed:(BOOL)confirmed
+{
+  confirmedCopy = confirmed;
+  v7 = [MEMORY[0x1E695DF00] now];
+  v8 = [(LACDTOLocationState *)self initWithRawValue:value confirmed:confirmedCopy createdAt:v7];
+
+  return v8;
+}
 
 - (LACDTOLocationState)initWithRawValue:(int64_t)value confirmed:(BOOL)confirmed createdAt:(id)at
 {
@@ -63,46 +73,45 @@
   v26 = MEMORY[0x1E696AEC0];
   v25 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
-  v28 = NSStringFromLACDTOLocationStateRawValue([(LACDTOLocationState *)self rawValue]);
+  v4 = objc_msgSend_rawValue(self);
+  v28 = NSStringFromLACDTOLocationStateRawValue(v4);
   v27 = [v3 stringWithFormat:@"DSLMode: %@", v28];
   v29[0] = v27;
-  v4 = MEMORY[0x1E696AEC0];
+  v5 = MEMORY[0x1E696AEC0];
   confirmed = [(LACDTOLocationState *)self confirmed];
-  v6 = @"NO";
+  v7 = @"NO";
   if (confirmed)
   {
-    v6 = @"YES";
+    v7 = @"YES";
   }
 
-  v7 = [v4 stringWithFormat:@"confirmed: %@", v6];
-  v29[1] = v7;
-  v8 = MEMORY[0x1E696AEC0];
+  v8 = [v5 stringWithFormat:@"confirmed: %@", v7];
+  v29[1] = v8;
+  v9 = MEMORY[0x1E696AEC0];
   createdAt = [(LACDTOLocationState *)self createdAt];
-  v10 = [v8 stringWithFormat:@"createdAt: %@", createdAt];
-  v29[2] = v10;
-  v11 = MEMORY[0x1E696AEC0];
+  v11 = [v9 stringWithFormat:@"createdAt: %@", createdAt];
+  v29[2] = v11;
+  v12 = MEMORY[0x1E696AEC0];
   createdAt2 = [(LACDTOLocationState *)self createdAt];
   [createdAt2 timeIntervalSince1970];
-  v14 = [v11 stringWithFormat:@"createdAtTimestamp: %.2f", v13];
-  v29[3] = v14;
-  v15 = MEMORY[0x1E696AEC0];
-  v16 = [MEMORY[0x1E695DF00] now];
-  v17 = [(LACDTOLocationState *)self isValid:v16];
-  v18 = @"NO";
-  if (v17)
+  v15 = [v12 stringWithFormat:@"createdAtTimestamp: %.2f", v14];
+  v29[3] = v15;
+  v16 = MEMORY[0x1E696AEC0];
+  v17 = [MEMORY[0x1E695DF00] now];
+  v18 = [(LACDTOLocationState *)self isValid:v17];
+  v19 = @"NO";
+  if (v18)
   {
-    v18 = @"YES";
+    v19 = @"YES";
   }
 
-  v19 = [v15 stringWithFormat:@"isValid: %@", v18];
-  v29[4] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:5];
-  v21 = [v20 componentsJoinedByString:@" "];;
-  v22 = [v26 stringWithFormat:@"<%@ %p %@>", v25, self, v21];;
+  v20 = [v16 stringWithFormat:@"isValid: %@", v19];
+  v29[4] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:5];
+  v22 = [v21 componentsJoinedByString:@" "];;
+  v23 = [v26 stringWithFormat:@"<%@ %p %@>", v25, self, v22];;
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v23;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -112,8 +121,8 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    rawValue = [(LACDTOLocationState *)self rawValue];
-    if (rawValue == [v5 rawValue] && (v7 = -[LACDTOLocationState confirmed](self, "confirmed"), v7 == objc_msgSend(v5, "confirmed")))
+    v6 = objc_msgSend_rawValue(self);
+    if (v6 == objc_msgSend_rawValue(v5) && (v7 = -[LACDTOLocationState confirmed](self, "confirmed"), v7 == [v5 confirmed]))
     {
       createdAt = [(LACDTOLocationState *)self createdAt];
       createdAt2 = [v5 createdAt];

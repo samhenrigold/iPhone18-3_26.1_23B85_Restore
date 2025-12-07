@@ -10,13 +10,13 @@
 
 - (NUActivityIndicatorLoadingView)initWithActivityIndicatorStyle:(int64_t)style
 {
-  v22.receiver = self;
-  v22.super_class = NUActivityIndicatorLoadingView;
+  v23.receiver = self;
+  v23.super_class = NUActivityIndicatorLoadingView;
   v4 = *MEMORY[0x277CBF3A0];
   v5 = *(MEMORY[0x277CBF3A0] + 8);
   v6 = *(MEMORY[0x277CBF3A0] + 16);
   v7 = *(MEMORY[0x277CBF3A0] + 24);
-  v8 = [(NUActivityIndicatorLoadingView *)&v22 initWithFrame:*MEMORY[0x277CBF3A0], v5, v6, v7];
+  v8 = [(NUActivityIndicatorLoadingView *)&v23 initWithFrame:*MEMORY[0x277CBF3A0], v5, v6, v7];
   if (v8)
   {
     systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
@@ -43,9 +43,9 @@
     v18 = [MEMORY[0x277D74300] systemFontOfSize:11.0 weight:*MEMORY[0x277D74418]];
     [(UILabel *)v8->_label setFont:v18];
 
-    v19 = NUBundle();
-    v20 = [v19 localizedStringForKey:@"LOADING" value:&stru_286E03B58 table:0];
-    [(UILabel *)v8->_label setText:v20];
+    v20 = NUBundle(v19);
+    v21 = [v20 localizedStringForKey:@"LOADING" value:&stru_286E03B58 table:0];
+    [(UILabel *)v8->_label setText:v21];
 
     [(UILabel *)v8->_label setTextColor:v15];
     [(UILabel *)v8->_label setAlpha:0.0];

@@ -28,26 +28,25 @@
 
 - (_PSCoreMLScoringModel)init
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5.receiver = self;
-  v5.super_class = _PSCoreMLScoringModel;
-  v2 = [(_PSCoreMLScoringModel *)&v5 init];
+  v6 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = _PSCoreMLScoringModel;
+  v2 = [(_PSCoreMLScoringModel *)&v4 init];
   if (v2)
   {
-    v6.__sig = 0;
-    *v6.__opaque = 0;
-    pthread_mutexattr_init(&v6);
-    pthread_mutexattr_settype(&v6, 2);
-    pthread_mutex_init(&v2->_lock, &v6);
+    v5.__sig = 0;
+    *v5.__opaque = 0;
+    pthread_mutexattr_init(&v5);
+    pthread_mutexattr_settype(&v5, 2);
+    pthread_mutex_init(&v2->_lock, &v5);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)loadModel
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -58,47 +57,47 @@
   pthread_mutex_lock(&self->_lock);
   peopleDirectory = [MEMORY[0x1E6997910] peopleDirectory];
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:peopleDirectory];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2050000000;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2050000000;
   v5 = getLCFModelStoreClass_softClass;
-  v35 = getLCFModelStoreClass_softClass;
+  v34 = getLCFModelStoreClass_softClass;
   if (!getLCFModelStoreClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v37 = __getLCFModelStoreClass_block_invoke;
-    v38 = &unk_1E7C23BF0;
-    v39 = &v32;
+    v36 = __getLCFModelStoreClass_block_invoke;
+    v37 = &unk_1E7C23BF0;
+    v38 = &v31;
     __getLCFModelStoreClass_block_invoke(&buf);
-    v5 = v33[3];
+    v5 = v32[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
   v7 = [[v5 alloc] init:@"com.apple.proactive.shareheet.peoplesuggester" modelStoreRootURL:v4];
   modelStore = self->_modelStore;
   self->_modelStore = v7;
 
   [(LCFModelStore *)self->_modelStore clear];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2050000000;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2050000000;
   v9 = getTRIClientClass_softClass_2;
-  v35 = getTRIClientClass_softClass_2;
+  v34 = getTRIClientClass_softClass_2;
   if (!getTRIClientClass_softClass_2)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v37 = __getTRIClientClass_block_invoke_2;
-    v38 = &unk_1E7C23BF0;
-    v39 = &v32;
+    v36 = __getTRIClientClass_block_invoke_2;
+    v37 = &unk_1E7C23BF0;
+    v38 = &v31;
     __getTRIClientClass_block_invoke_2(&buf);
-    v9 = v33[3];
+    v9 = v32[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
   v11 = [v9 clientWithIdentifier:210];
   v12 = [v11 levelForFactor:@"compiledOnDeviceShareSheetCoreMLModel" withNamespaceName:@"COREML_SYSTEMS_PEOPLE_SUGGESTER"];
   v13 = v12;
@@ -153,8 +152,6 @@ LABEL_17:
     *(&buf + 4) = v24;
     _os_log_impl(&dword_1B5ED1000, v29, OS_LOG_TYPE_INFO, "ML Model successfully loaded by _PSCoreMLScoringModel, model name: %@", &buf, 0xCu);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unloadModel
@@ -202,7 +199,7 @@ LABEL_17:
 
 - (id)loadCoreMLModel:(id)model config:(id)config
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   configCopy = config;
   v7 = [configCopy copy];
@@ -214,55 +211,55 @@ LABEL_17:
 
   else
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v10 = getMLModelConfigurationClass_softClass_0;
-    v25 = getMLModelConfigurationClass_softClass_0;
+    v24 = getMLModelConfigurationClass_softClass_0;
     if (!getMLModelConfigurationClass_softClass_0)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v27 = __getMLModelConfigurationClass_block_invoke_0;
-      v28 = &unk_1E7C23BF0;
-      v29 = &v22;
+      v26 = __getMLModelConfigurationClass_block_invoke_0;
+      v27 = &unk_1E7C23BF0;
+      v28 = &v21;
       CoreMLLibraryCore_3();
       Class = objc_getClass("MLModelConfiguration");
-      *(v29[1] + 24) = Class;
-      getMLModelConfigurationClass_softClass_0 = *(v29[1] + 24);
-      v10 = v23[3];
+      *(v28[1] + 24) = Class;
+      getMLModelConfigurationClass_softClass_0 = *(v28[1] + 24);
+      v10 = v22[3];
     }
 
     v12 = v10;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     v9 = objc_opt_new();
   }
 
   [v9 setComputeUnits:0];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2050000000;
   v13 = getMLModelClass_softClass_3;
-  v25 = getMLModelClass_softClass_3;
+  v24 = getMLModelClass_softClass_3;
   if (!getMLModelClass_softClass_3)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v27 = __getMLModelClass_block_invoke_3;
-    v28 = &unk_1E7C23BF0;
-    v29 = &v22;
+    v26 = __getMLModelClass_block_invoke_3;
+    v27 = &unk_1E7C23BF0;
+    v28 = &v21;
     CoreMLLibraryCore_3();
     v14 = objc_getClass("MLModel");
-    *(v29[1] + 24) = v14;
-    getMLModelClass_softClass_3 = *(v29[1] + 24);
-    v13 = v23[3];
+    *(v28[1] + 24) = v14;
+    getMLModelClass_softClass_3 = *(v28[1] + 24);
+    v13 = v22[3];
   }
 
   v15 = v13;
-  _Block_object_dispose(&v22, 8);
-  v21 = 0;
-  v16 = [v13 modelWithContentsOfURL:modelCopy configuration:v9 error:&v21];
-  v17 = v21;
+  _Block_object_dispose(&v21, 8);
+  v20 = 0;
+  v16 = [v13 modelWithContentsOfURL:modelCopy configuration:v9 error:&v20];
+  v17 = v20;
   if (v17)
   {
     v18 = +[_PSLogging generalChannel];
@@ -273,8 +270,6 @@ LABEL_17:
       _os_log_impl(&dword_1B5ED1000, v18, OS_LOG_TYPE_INFO, "Couldn't load ML model, error: %@", &buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -465,61 +460,55 @@ LABEL_17:
 
   if (unsignedLongValue == v16)
   {
-    v17 = objc_alloc(getMLMultiArrayClass_0());
+    v18 = objc_alloc(getMLMultiArrayClass_0(v17));
     inputShape2 = [(_PSCoreMLScoringModel *)self inputShape];
-    v19 = [v17 initWithShape:inputShape2 dataType:65568 error:error];
+    v20 = [v18 initWithShape:inputShape2 dataType:65568 error:error];
 
-    v20 = +[_PSLogging generalChannel];
-    v21 = v20;
-    if (v19)
+    v21 = +[_PSLogging generalChannel];
+    v22 = v21;
+    if (v20)
     {
-      v22 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+      v23 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
 
-      v23 = v48;
-      if (v22)
+      v24 = v48;
+      if (v23)
       {
-        v24 = objc_opt_new();
         v25 = objc_opt_new();
+        v26 = objc_opt_new();
       }
 
       else
       {
+        v26 = 0;
         v25 = 0;
-        v24 = 0;
       }
 
-      v35 = +[_PSLogging generalChannel];
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v36 = +[_PSLogging generalChannel];
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B5ED1000, v35, OS_LOG_TYPE_DEFAULT, "Copying feature vectors into feature tensor", buf, 2u);
+        _os_log_impl(&dword_1B5ED1000, v36, OS_LOG_TYPE_DEFAULT, "Copying feature vectors into feature tensor", buf, 2u);
       }
 
-      v36 = isSetModel;
-      v37 = +[_PSCandidate selfCandidate];
-      v38 = [v48 objectForKeyedSubscript:v37];
+      v37 = isSetModel;
+      v38 = +[_PSCandidate selfCandidate];
+      v39 = [v48 objectForKeyedSubscript:v38];
 
       v49[0] = MEMORY[0x1E69E9820];
       v49[1] = 3221225472;
       v49[2] = __90___PSCoreMLScoringModel_reformatCandidateDictionaryIntoFeatureTensor_candidateList_error___block_invoke;
       v49[3] = &unk_1E7C270D0;
-      v56 = v36;
+      v56 = v37;
       v50 = listCopy;
       v51 = v48;
       v52 = featureOrderFromMetadata;
-      v39 = v38;
-      v53 = v39;
-      v40 = v25;
-      v54 = v40;
-      v21 = v24;
-      v55 = v21;
-      [v19 getMutableBytesWithHandler:v49];
-      v41 = +[_PSLogging generalChannel];
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-      {
-        [_PSCoreMLScoringModel reformatCandidateDictionaryIntoFeatureTensor:candidateList:error:];
-      }
-
+      v40 = v39;
+      v53 = v40;
+      v41 = v26;
+      v54 = v41;
+      v22 = v25;
+      v55 = v22;
+      [v20 getMutableBytesWithHandler:v49];
       v42 = +[_PSLogging generalChannel];
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
@@ -527,50 +516,55 @@ LABEL_17:
       }
 
       v43 = +[_PSLogging generalChannel];
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        *buf = 0;
-        _os_log_impl(&dword_1B5ED1000, v43, OS_LOG_TYPE_INFO, "Finished reformatting candidate dictionary into feature tensor", buf, 2u);
+        [_PSCoreMLScoringModel reformatCandidateDictionaryIntoFeatureTensor:candidateList:error:];
       }
 
-      v44 = v19;
+      v44 = +[_PSLogging generalChannel];
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1B5ED1000, v44, OS_LOG_TYPE_INFO, "Finished reformatting candidate dictionary into feature tensor", buf, 2u);
+      }
+
+      v45 = v20;
     }
 
     else
     {
-      v23 = v48;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = v48;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(_PSCoreMLScoringModel *)error reformatCandidateDictionaryIntoFeatureTensor:v21 candidateList:v29 error:v30, v31, v32, v33, v34];
+        [(_PSCoreMLScoringModel *)error reformatCandidateDictionaryIntoFeatureTensor:v22 candidateList:v30 error:v31, v32, v33, v34, v35];
       }
     }
 
-    v28 = v19;
+    v29 = v20;
   }
 
   else
   {
     if (!error)
     {
-      v28 = 0;
-      v23 = v48;
+      v29 = 0;
+      v24 = v48;
       goto LABEL_27;
     }
 
-    v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v27 = objc_alloc(MEMORY[0x1E696ABC0]);
     v58 = *MEMORY[0x1E696A578];
     v59[0] = @"feature list length doesn't match shape";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
-    v27 = [v26 initWithDomain:@"com.apple.PeopleSuggester" code:1 userInfo:v19];
-    v28 = 0;
-    *error = v27;
-    v23 = v48;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v28 = [v27 initWithDomain:@"com.apple.PeopleSuggester" code:1 userInfo:v20];
+    v29 = 0;
+    *error = v28;
+    v24 = v48;
   }
 
 LABEL_27:
-  v45 = *MEMORY[0x1E69E9840];
 
-  return v28;
+  return v29;
 }
 
 - (id)predictWithFeatureProvider:(id)provider
@@ -623,7 +617,7 @@ LABEL_27:
 
 - (id)scoreCandidatesWithGBDTModel:(id)model
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   v5 = +[_PSLogging suggestionSignpost];
   if (os_signpost_enabled(v5))
@@ -653,31 +647,31 @@ LABEL_27:
   if (v10 == [modelCopy count])
   {
     v11 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v12 = modelCopy;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         v17 = 0;
         v18 = v15;
         do
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v23 + 1) + 8 * v17);
+          v19 = *(*(&v22 + 1) + 8 * v17);
           v15 = v18 + 1;
-          v20 = [v7 objectAtIndexedSubscript:{v18, v23}];
+          v20 = [v7 objectAtIndexedSubscript:{v18, v22}];
           [v11 setObject:v20 forKeyedSubscript:v19];
 
           ++v17;
@@ -685,7 +679,7 @@ LABEL_27:
         }
 
         while (v14 != v17);
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v14);
@@ -696,8 +690,6 @@ LABEL_27:
   {
     v11 = MEMORY[0x1E695E0F8];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -745,10 +737,10 @@ LABEL_27:
       }
 
       v35 = v11;
-      v16 = [objc_alloc(getMLMultiArrayClass_0()) initWithShape:&unk_1F2D8C660 dataType:65600 error:&v35];
-      v17 = v35;
+      v17 = [objc_alloc(getMLMultiArrayClass_0(v16)) initWithShape:&unk_1F2D8C660 dataType:65600 error:&v35];
+      v18 = v35;
 
-      if (v17)
+      if (v18)
       {
         squeeze = +[_PSLogging generalChannel];
         if (os_log_type_enabled(squeeze, OS_LOG_TYPE_ERROR))
@@ -757,25 +749,25 @@ LABEL_27:
         }
 
 LABEL_19:
-        v19 = MEMORY[0x1E695E0F8];
+        v20 = MEMORY[0x1E695E0F8];
 LABEL_31:
 
-        v11 = v17;
+        v11 = v18;
         goto LABEL_32;
       }
 
-      [v16 setObject:v12 atIndexedSubscript:0];
+      [v17 setObject:v12 atIndexedSubscript:0];
       numCandidatesFeatureName = [(_PSCoreMLScoringModel *)self numCandidatesFeatureName];
-      [v13 setObject:v16 forKeyedSubscript:numCandidatesFeatureName];
+      [v13 setObject:v17 forKeyedSubscript:numCandidatesFeatureName];
 
       v11 = 0;
     }
 
     v34 = v11;
-    v16 = [objc_alloc(getMLDictionaryFeatureProviderClass_1()) initWithDictionary:v13 error:&v34];
-    v17 = v34;
+    v17 = [objc_alloc(getMLDictionaryFeatureProviderClass_1()) initWithDictionary:v13 error:&v34];
+    v18 = v34;
 
-    if (v17)
+    if (v18)
     {
       squeeze = +[_PSLogging generalChannel];
       if (os_log_type_enabled(squeeze, OS_LOG_TYPE_ERROR))
@@ -786,55 +778,55 @@ LABEL_31:
       goto LABEL_19;
     }
 
-    v21 = [(_PSCoreMLScoringModel *)self predictWithFeatureProvider:v16];
-    squeeze = [v21 squeeze];
+    v22 = [(_PSCoreMLScoringModel *)self predictWithFeatureProvider:v17];
+    squeeze = [v22 squeeze];
 
-    v22 = +[_PSLogging suggestionSignpost];
-    if (os_signpost_enabled(v22))
+    v23 = +[_PSLogging suggestionSignpost];
+    if (os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v22, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSCandidateScoringCoreMLModel-Inference", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSCandidateScoringCoreMLModel-Inference", " enableTelemetry=YES ", buf, 2u);
     }
 
     shape = [squeeze shape];
     if ([shape count] == 1)
     {
-      v23 = [squeeze count];
-      if (v23 >= [v12 intValue])
+      v24 = [squeeze count];
+      if (v24 >= [v12 intValue])
       {
-        v25 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSObject intValue](v12, "intValue")}];
+        v26 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSObject intValue](v12, "intValue")}];
         v31[0] = MEMORY[0x1E69E9820];
         v31[1] = 3221225472;
         v31[2] = __56___PSCoreMLScoringModel_scoreCandidatesWithCoreMLModel___block_invoke_160;
         v31[3] = &unk_1E7C27118;
-        v26 = v25;
-        v32 = v26;
+        v27 = v26;
+        v32 = v27;
         v33 = squeeze;
         [v6 enumerateObjectsUsingBlock:v31];
-        v27 = v33;
-        v24 = v26;
+        v28 = v33;
+        v25 = v27;
 
-        v19 = v24;
+        v20 = v25;
         goto LABEL_30;
       }
 
-      v24 = +[_PSLogging generalChannel];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = +[_PSLogging generalChannel];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(_PSCoreMLScoringModel *)squeeze scoreCandidatesWithCoreMLModel:v12, v24];
+        [(_PSCoreMLScoringModel *)squeeze scoreCandidatesWithCoreMLModel:v12, v25];
       }
     }
 
     else
     {
-      v24 = +[_PSLogging generalChannel];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = +[_PSLogging generalChannel];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [_PSCoreMLScoringModel scoreCandidatesWithCoreMLModel:];
       }
     }
 
-    v19 = MEMORY[0x1E695E0F8];
+    v20 = MEMORY[0x1E695E0F8];
 LABEL_30:
 
     goto LABEL_31;
@@ -846,12 +838,10 @@ LABEL_30:
     [_PSCoreMLScoringModel scoreCandidatesWithCoreMLModel:];
   }
 
-  v19 = MEMORY[0x1E695E0F8];
+  v20 = MEMORY[0x1E695E0F8];
 LABEL_32:
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v20;
 }
 
 - (id)scoreCandidates:(id)candidates predictionContext:(id)context
@@ -944,41 +934,41 @@ LABEL_24:
 
 - (id)batchPredictWithFeatureDictArray:(id)array
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   selfCopy = self;
   featureOrderFromMetadata = [(_PSCoreMLScoringModel *)self featureOrderFromMetadata];
   if (featureOrderFromMetadata)
   {
-    v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
     array = [MEMORY[0x1E695DF70] array];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = arrayCopy;
-    v4 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
+    v4 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
     if (v4)
     {
-      v5 = *v47;
+      v5 = *v46;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v47 != v5)
+          if (*v46 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v46 + 1) + 8 * i);
+          v7 = *(*(&v45 + 1) + 8 * i);
           v8 = [MEMORY[0x1E695E0F8] mutableCopy];
-          v9 = objc_alloc(getMLMultiArrayClass_0());
+          v9 = objc_alloc(getMLMultiArrayClass_0(v8));
           v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(featureOrderFromMetadata, "count")}];
-          v59 = v10;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-          v45 = 0;
-          v12 = [v9 initWithShape:v11 dataType:65600 error:&v45];
-          v13 = v45;
+          v58 = v10;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+          v44 = 0;
+          v12 = [v9 initWithShape:v11 dataType:65600 error:&v44];
+          v13 = v44;
 
           if (v13)
           {
@@ -991,27 +981,27 @@ LABEL_24:
             goto LABEL_28;
           }
 
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __58___PSCoreMLScoringModel_batchPredictWithFeatureDictArray___block_invoke;
-          v43[3] = &unk_1E7C248D0;
-          v43[4] = v7;
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __58___PSCoreMLScoringModel_batchPredictWithFeatureDictArray___block_invoke;
+          v42[3] = &unk_1E7C248D0;
+          v42[4] = v7;
           v14 = v12;
-          v44 = v14;
-          [featureOrderFromMetadata enumerateObjectsUsingBlock:v43];
+          v43 = v14;
+          [featureOrderFromMetadata enumerateObjectsUsingBlock:v42];
           inputFeatureName = [(_PSCoreMLScoringModel *)selfCopy inputFeatureName];
           [v8 setObject:v14 forKeyedSubscript:inputFeatureName];
 
           v16 = objc_alloc(getMLDictionaryFeatureProviderClass_1());
-          v42 = 0;
-          v17 = [v16 initWithDictionary:v8 error:&v42];
-          v13 = v42;
+          v41 = 0;
+          v17 = [v16 initWithDictionary:v8 error:&v41];
+          v13 = v41;
           if (v13)
           {
             v18 = +[_PSLogging generalChannel];
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              [(_PSCoreMLScoringModel *)&buf batchPredictWithFeatureDictArray:v41, v18];
+              [(_PSCoreMLScoringModel *)&buf batchPredictWithFeatureDictArray:v40, v18];
             }
           }
 
@@ -1027,7 +1017,7 @@ LABEL_24:
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v46 objects:v60 count:16];
+        v4 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
         if (v4)
         {
           continue;
@@ -1037,32 +1027,32 @@ LABEL_24:
       }
     }
 
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2050000000;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2050000000;
     v19 = getMLArrayBatchProviderClass_softClass_0;
-    v58 = getMLArrayBatchProviderClass_softClass_0;
+    v57 = getMLArrayBatchProviderClass_softClass_0;
     if (!getMLArrayBatchProviderClass_softClass_0)
     {
-      v50 = MEMORY[0x1E69E9820];
-      v51 = 3221225472;
-      v52 = __getMLArrayBatchProviderClass_block_invoke_0;
-      v53 = &unk_1E7C23BF0;
-      v54 = &v55;
+      v49 = MEMORY[0x1E69E9820];
+      v50 = 3221225472;
+      v51 = __getMLArrayBatchProviderClass_block_invoke_0;
+      v52 = &unk_1E7C23BF0;
+      v53 = &v54;
       CoreMLLibraryCore_3();
       Class = objc_getClass("MLArrayBatchProvider");
-      *(v54[1] + 24) = Class;
-      getMLArrayBatchProviderClass_softClass_0 = *(v54[1] + 24);
-      v19 = v56[3];
+      *(v53[1] + 24) = Class;
+      getMLArrayBatchProviderClass_softClass_0 = *(v53[1] + 24);
+      v19 = v55[3];
     }
 
     v21 = v19;
-    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v54, 8);
     obj = [[v19 alloc] initWithFeatureProviderArray:array];
     mlModel = selfCopy->_mlModel;
-    v39 = 0;
-    v8 = [(MLModel *)mlModel predictionsFromBatch:obj error:&v39];
-    v13 = v39;
+    v38 = 0;
+    v8 = [(MLModel *)mlModel predictionsFromBatch:obj error:&v38];
+    v13 = v38;
     if (v13)
     {
       v23 = +[_PSLogging generalChannel];
@@ -1089,7 +1079,7 @@ LABEL_28:
           if ([dictionaryValue count] == 2)
           {
             v30 = [dictionaryValue objectForKeyedSubscript:&unk_1F2D8BE50];
-            [v33 addObject:v30];
+            [v32 addObject:v30];
           }
 
           ++v26;
@@ -1098,7 +1088,7 @@ LABEL_28:
         while (v26 < [v8 count]);
       }
 
-      v24 = [v33 copy];
+      v24 = [v32 copy];
     }
 
 LABEL_37:
@@ -1115,17 +1105,15 @@ LABEL_37:
     v24 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (id)getSuggestionProxiesForCandidateToFeatureVectorDictGetter:(id)getter predictionContext:(id)context messageInteractionCache:(id)cache shareInteractionCache:(id)interactionCache
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   getterCopy = getter;
   contextCopy = context;
-  v35 = objc_opt_new();
+  v34 = objc_opt_new();
   v10 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
@@ -1133,40 +1121,40 @@ LABEL_37:
     _os_log_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_INFO, "_PSCoreMLScoringModel ranking", buf, 2u);
   }
 
-  v32 = contextCopy;
-  v33 = getterCopy;
-  v36 = [(_PSCoreMLScoringModel *)self scoreCandidates:getterCopy predictionContext:contextCopy];
-  v11 = [v36 keysSortedByValueUsingComparator:&__block_literal_global_169];
+  v31 = contextCopy;
+  v32 = getterCopy;
+  v35 = [(_PSCoreMLScoringModel *)self scoreCandidates:getterCopy predictionContext:contextCopy];
+  v11 = [v35 keysSortedByValueUsingComparator:&__block_literal_global_169];
   v12 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v43 = v11;
+    v42 = v11;
     _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_INFO, "_PSCoreMLScoringModel sorted score array: %{private}@", buf, 0xCu);
   }
 
   getModelPath = [(_PSCoreMLScoringModel *)self getModelPath];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = v11;
-  v14 = [(_PSSuggestionProxy *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v14 = [(_PSSuggestionProxy *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v38;
+    v16 = *v37;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v38 != v16)
+        if (*v37 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * i);
-        v19 = [v36 objectForKeyedSubscript:v18];
+        v18 = *(*(&v36 + 1) + 8 * i);
+        v19 = [v35 objectForKeyedSubscript:v18];
         candidateIdentifier = [v18 candidateIdentifier];
         bundleId = [v18 bundleId];
         v22 = +[_PSConstants sharePlayBundleId];
@@ -1186,26 +1174,24 @@ LABEL_37:
 
         if (v28)
         {
-          [v35 addObject:v28];
+          [v34 addObject:v28];
           v29 = +[_PSLogging generalChannel];
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v43 = v28;
+            v42 = v28;
             _os_log_impl(&dword_1B5ED1000, v29, OS_LOG_TYPE_DEFAULT, "suggestionProxy: %@", buf, 0xCu);
           }
         }
       }
 
-      v15 = [(_PSSuggestionProxy *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v15 = [(_PSSuggestionProxy *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v15);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (_opaque_pthread_mutex_t)lock
@@ -1230,130 +1216,51 @@ LABEL_37:
   *&self->_lock.__sig = v3;
 }
 
-- (void)loadProductionModel:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Failed to load ML Model with URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)featureOrderFromMetadata
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, self, a3, "%@ not in metadata", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"feature_order";
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, self, a3, "%@ not in metadata", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getModelTypeWithModelMetadata:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_FAULT, "Metadata %@ resulted in unknown model type", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_FAULT, "Metadata %@ resulted in unknown model type", v1, 0xCu);
 }
 
 - (void)reformatCandidateDictionaryIntoFeatureTensor:(void *)a1 candidateList:(NSObject *)a2 error:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 inputShape];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Reformatting candidate dictionary into feature tensor, with input shape: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)reformatCandidateDictionaryIntoFeatureTensor:candidateList:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, v0, v1, "Missing features per candidate %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)reformatCandidateDictionaryIntoFeatureTensor:candidateList:error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, v0, v1, "Missing candidates per feature %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Reformatting candidate dictionary into feature tensor, with input shape: %@", v4, 0xCu);
 }
 
 - (void)reformatCandidateDictionaryIntoFeatureTensor:(uint64_t)a3 candidateList:(uint64_t)a4 error:(uint64_t)a5 .cold.4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "_PSCandidateScoringCoreMLModel: error creating MLMultiArray: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)predictWithFeatureProvider:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Predictions returned error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "_PSCandidateScoringCoreMLModel: error creating MLMultiArray: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)predictWithFeatureProvider:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(a1, "type")}];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Model output type was %@ instead of MLFeatureTypeMultiArray", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreCandidatesWithCoreMLModel:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, v0, v1, "Setting number of candidates to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreCandidatesWithCoreMLModel:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "numCandidatesTensor returned an error during creation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreCandidatesWithCoreMLModel:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Model returned error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreCandidatesWithCoreMLModel:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Unexpected output shape %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Model output type was %@ instead of MLFeatureTypeMultiArray", v4, 0xCu);
 }
 
 - (void)scoreCandidatesWithCoreMLModel:(NSObject *)a3 .cold.5(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "prediction count (%ld) < candidate count (%@)", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreCandidatesWithCoreMLModel:.cold.6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Error creating tensor: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "prediction count (%ld) < candidate count (%@)", v5, 0x16u);
 }
 
 - (void)batchPredictWithFeatureDictArray:.cold.1()

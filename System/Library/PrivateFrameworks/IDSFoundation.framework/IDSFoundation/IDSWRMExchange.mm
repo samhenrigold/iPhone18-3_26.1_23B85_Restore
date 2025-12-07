@@ -300,21 +300,21 @@ LABEL_35:
       return;
     }
 
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v18 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "Failed to create a XPC connection to WirelessRadioManagerd", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "Failed to create a XPC connection to WirelessRadioManagerd", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Failed to create a XPC connection to WirelessRadioManagerd");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Failed to create a XPC connection to WirelessRadioManagerd", v19, v20, v21, v22, v23, v24);
+        if (_IDSShouldLog(0))
         {
-          v8 = @"Failed to create a XPC connection to WirelessRadioManagerd";
+          v17 = @"Failed to create a XPC connection to WirelessRadioManagerd";
           goto LABEL_16;
         }
       }
@@ -334,12 +334,12 @@ LABEL_35:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Failed to start XPC connection due to nil _queue");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Failed to start XPC connection due to nil _queue", v8, v9, v10, v11, v12, v24);
+        if (_IDSShouldLog(0))
         {
-          v8 = @"Failed to start XPC connection due to nil _queue";
+          v17 = @"Failed to start XPC connection due to nil _queue";
 LABEL_16:
-          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", v8);
+          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", v17, v13, v14, v15, v16, v25);
         }
       }
     }
@@ -372,7 +372,7 @@ LABEL_16:
 
 - (void)_processXPCEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = MEMORY[0x1AC5658A0]();
   v6 = MEMORY[0x1E69E9E80];
@@ -380,32 +380,38 @@ LABEL_16:
   {
     if (![(IDSWRMExchange *)self _processXPCMessage:eventCopy])
     {
-      v10 = MEMORY[0x1AC5657E0](eventCopy);
-      v11 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v15 = MEMORY[0x1AC5657E0](eventCopy);
+      v16 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = "<unknown";
-        if (v10)
+        v17 = "<unknown";
+        if (v15)
         {
-          v12 = v10;
+          v17 = v15;
         }
 
         *buf = 136315138;
-        v24 = v12;
-        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "Failed to process this event: %s", buf, 0xCu);
+        v80 = v17;
+        _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "Failed to process this event: %s", buf, 0xCu);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Failed to process this event: %s");
+        v22 = "<unknown";
+        if (v15)
+        {
+          v22 = v15;
+        }
+
+        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Failed to process this event: %s", v18, v19, v20, v21, v22);
       }
 
-      free(v10);
+      free(v15);
     }
 
     if (v6 != MEMORY[0x1E69E9E98])
     {
-      goto LABEL_21;
+      goto LABEL_25;
     }
   }
 
@@ -424,65 +430,69 @@ LABEL_16:
         }
 
         *buf = 136315138;
-        v24 = v9;
+        v80 = v9;
         _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "Received an unexpected message from WRM: %s", buf, 0xCu);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received an unexpected message from WRM: %s");
+        v14 = "<unknown>";
+        if (v7)
+        {
+          v14 = v7;
+        }
+
+        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received an unexpected message from WRM: %s", v10, v11, v12, v13, v14);
       }
 
       free(v7);
-LABEL_21:
+LABEL_25:
       self->_connectCount = 0;
-      goto LABEL_64;
+      goto LABEL_68;
     }
 
     string = xpc_dictionary_get_string(eventCopy, *MEMORY[0x1E69E9E28]);
-    v14 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v24 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = "<unknown>";
+      v25 = "<unknown>";
       if (string)
       {
-        v15 = string;
+        v25 = string;
       }
 
       *buf = 136315138;
-      v24 = v15;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "Received error message from WRM: %s", buf, 0xCu);
+      v80 = v25;
+      _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "Received error message from WRM: %s", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      v16 = string ? string : "<unknown>";
-      v22 = v16;
-      _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Received error message from WRM: %s");
-      if (_IDSShouldLog())
+      v31 = string ? string : "<unknown>";
+      _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Received error message from WRM: %s", v26, v27, v28, v29, v30, v31);
+      if (_IDSShouldLog(0))
       {
-        v22 = v16;
-        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received error message from WRM: %s");
+        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received error message from WRM: %s", v32, v33, v34, v35, v31);
       }
     }
 
     if (eventCopy == MEMORY[0x1E69E9E20])
     {
-      v19 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v47 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "WirelessRadioManagerd is not running", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "WirelessRadioManagerd is not running", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"WirelessRadioManagerd is not running");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"WirelessRadioManagerd is not running", v48, v49, v50, v51, v52, v77);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"WirelessRadioManagerd is not running");
+            _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"WirelessRadioManagerd is not running", v53, v54, v55, v56, v77);
           }
         }
       }
@@ -490,21 +500,21 @@ LABEL_21:
 
     else if (eventCopy == MEMORY[0x1E69E9E18])
     {
-      v20 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v57 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "WirelessRadioManagerd daemon has crashed", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v57, OS_LOG_TYPE_DEFAULT, "WirelessRadioManagerd daemon has crashed", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"WirelessRadioManagerd daemon has crashed");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"WirelessRadioManagerd daemon has crashed", v58, v59, v60, v61, v62, v77);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"WirelessRadioManagerd daemon has crashed");
+            _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"WirelessRadioManagerd daemon has crashed", v63, v64, v65, v66, v77);
           }
         }
       }
@@ -512,18 +522,18 @@ LABEL_21:
 
     else
     {
-      v17 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v36 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = "<unknown>";
+        v37 = "<unknown>";
         if (string)
         {
-          v18 = string;
+          v37 = string;
         }
 
         *buf = 136315138;
-        v24 = v18;
-        _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "Received unknown error message from WirelessRadioManagerd: %s", buf, 0xCu);
+        v80 = v37;
+        _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "Received unknown error message from WirelessRadioManagerd: %s", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
@@ -533,31 +543,29 @@ LABEL_21:
           string = "<unknown>";
         }
 
-        v22 = string;
-        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Received unknown error message from WirelessRadioManagerd: %s");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Received unknown error message from WirelessRadioManagerd: %s", v38, v39, v40, v41, v42, string);
+        if (_IDSShouldLog(0))
         {
-          v22 = string;
-          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received unknown error message from WirelessRadioManagerd: %s");
+          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Received unknown error message from WirelessRadioManagerd: %s", v43, v44, v45, v46, string);
         }
       }
     }
 
-    v21 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v67 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "Trying to reconnect to WirelessRadioManagerd daemon", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v67, OS_LOG_TYPE_DEFAULT, "Trying to reconnect to WirelessRadioManagerd daemon", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Trying to reconnect to WirelessRadioManagerd daemon");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSWRMExchange", @"IDS", @"Trying to reconnect to WirelessRadioManagerd daemon", v68, v69, v70, v71, v72, v77);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Trying to reconnect to WirelessRadioManagerd daemon");
+          _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Trying to reconnect to WirelessRadioManagerd daemon", v73, v74, v75, v76, v78);
         }
       }
     }
@@ -565,7 +573,7 @@ LABEL_21:
     [(IDSWRMExchange *)self _reconnectUntilTimeout];
   }
 
-LABEL_64:
+LABEL_68:
 }
 
 - (void)_reconnectUntilTimeout
@@ -814,7 +822,7 @@ LABEL_23:
 
 - (void)_restartSubscriptionIfNeeded
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_subscribed && (self->_activeLinkType == 1 || self->_recommendedLinkType != 3))
   {
     v3 = OSLogHandleForIDSCategory();
@@ -822,16 +830,15 @@ LABEL_23:
     {
       activeRecommendationType = self->_activeRecommendationType;
       *buf = 67109120;
-      v8 = activeRecommendationType;
+      v11 = activeRecommendationType;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "Re-subscribe to WRM for link recommendations of type: %d", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        v6 = self->_activeRecommendationType;
-        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Re-subscribe to WRM for link recommendations of type: %d");
+        _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Re-subscribe to WRM for link recommendations of type: %d", v5, v6, v7, v8, self->_activeRecommendationType);
       }
     }
 
@@ -852,7 +859,7 @@ LABEL_23:
 
 - (BOOL)_processXPCMessage:(id)message
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if ([(IDSWRMExchange *)self _isXPCDictionary:messageCopy])
   {
@@ -861,36 +868,36 @@ LABEL_23:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = v5;
+      v16 = v5;
       _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Got an event = %s", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Got an event = %s");
+      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Got an event = %s", v7, v8, v9, v10, v5);
     }
 
     free(v5);
     uint64 = xpc_dictionary_get_uint64(messageCopy, "kMessageId");
     if (uint64 == 1103)
     {
-      v8 = [(IDSWRMExchange *)self _processMetricsConfigEvent:messageCopy];
+      v12 = [(IDSWRMExchange *)self _processMetricsConfigEvent:messageCopy];
       goto LABEL_12;
     }
 
     if (uint64 == 1301)
     {
-      v8 = [(IDSWRMExchange *)self _processLinkPreferenceNotificationEvent:messageCopy];
+      v12 = [(IDSWRMExchange *)self _processLinkPreferenceNotificationEvent:messageCopy];
 LABEL_12:
-      v9 = v8;
+      v13 = v12;
       goto LABEL_13;
     }
   }
 
-  v9 = 0;
+  v13 = 0;
 LABEL_13:
 
-  return v9;
+  return v13;
 }
 
 - (BOOL)_processLinkPreferenceNotificationEvent:(id)event
@@ -944,7 +951,7 @@ LABEL_13:
 
 - (BOOL)_setRecommendedLinkType:(unint64_t)type
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   recommendedLinkType = self->_recommendedLinkType;
   if (recommendedLinkType != type)
   {
@@ -970,13 +977,30 @@ LABEL_13:
       }
 
       *buf = 136315138;
-      v12 = v9;
+      v19 = v9;
       _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Recommended link changed to '%s'", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Recommended link changed to '%s'");
+      v14 = self->_recommendedLinkType;
+      v15 = "Unknown";
+      if (v14 == 3)
+      {
+        v15 = "BT";
+      }
+
+      if (v14 == 1)
+      {
+        v16 = "WiFi";
+      }
+
+      else
+      {
+        v16 = v15;
+      }
+
+      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Recommended link changed to '%s'", v10, v11, v12, v13, v16);
     }
   }
 
@@ -1117,7 +1141,7 @@ LABEL_13:
 
 - (void)handleActiveLinkChange:(unint64_t)change
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (change == 2 || self->_activeLinkType != change)
   {
     v5 = OSLogHandleForIDSCategory();
@@ -1156,61 +1180,48 @@ LABEL_13:
       }
 
       *buf = 136315394;
-      v21 = v9;
-      v22 = 2080;
-      v23 = v6;
+      v22 = v9;
+      v23 = 2080;
+      v24 = v6;
       _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "Active link changed from '%s' to '%s'", buf, 0x16u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      v10 = self->_activeLinkType;
-      v11 = "Unknown";
-      if (v10 == 3)
+      v14 = self->_activeLinkType;
+      if (v14 == 3)
       {
-        v12 = "BT";
+        v15 = "BT";
       }
 
       else
       {
-        v12 = "Unknown";
+        v15 = "Unknown";
       }
 
-      if (v10 == 1)
+      if (v14 == 1)
       {
-        v13 = "WiFi";
+        v16 = "WiFi";
       }
 
       else
       {
-        v13 = v12;
+        v16 = v15;
       }
 
-      if (change == 3)
-      {
-        v11 = "BT";
-      }
-
-      if (change == 1)
-      {
-        v11 = "WiFi";
-      }
-
-      v16 = v13;
-      v17 = v11;
-      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Active link changed from '%s' to '%s'");
+      _IDSLogV(0, @"IDSFoundation", @"IDSWRMExchange", @"Active link changed from '%s' to '%s'", v10, v11, v12, v13, v16);
     }
 
     self->_activeLinkType = change;
-    v14 = [(IDSWRMExchange *)self _newSubscribeStatusUpdateMessage:v16];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_1A7C6B030;
-    v18[3] = &unk_1E77E0C88;
-    v18[4] = self;
-    v19 = v14;
-    v15 = v14;
-    [(IDSWRMExchange *)self _submitBlockAsync:v18];
+    _newSubscribeStatusUpdateMessage = [(IDSWRMExchange *)self _newSubscribeStatusUpdateMessage];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_1A7C6B030;
+    v19[3] = &unk_1E77E0C88;
+    v19[4] = self;
+    v20 = _newSubscribeStatusUpdateMessage;
+    v18 = _newSubscribeStatusUpdateMessage;
+    [(IDSWRMExchange *)self _submitBlockAsync:v19];
   }
 }
 

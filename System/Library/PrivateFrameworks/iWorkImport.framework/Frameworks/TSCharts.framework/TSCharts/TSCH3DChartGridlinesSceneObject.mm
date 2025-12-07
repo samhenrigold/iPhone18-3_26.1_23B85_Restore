@@ -87,36 +87,36 @@
 
   if (v13)
   {
-    objc_msgSend_unitTransform(v13, v14, v15, v16, v17);
-    objc_msgSend_gridlinesOffset(v13, v18, v19, v20, v21);
-    v27.i64[0] = __PAIR64__(v32[5], v32[0]);
-    v26.i64[0] = __PAIR64__(v32[1], v32[4]);
-    v23 = v33;
-    v22 = v34;
-    v24.i64[0] = v30;
-    v25 = v31;
-    v26.i32[2] = v32[6];
-    v26.i32[3] = *(v32 | 0xC);
-    v27.i64[1] = __PAIR64__(v32[7], v32[2]);
+    objc_msgSend_unitTransform(v13, v14, v15, v16);
+    objc_msgSend_gridlinesOffset(v13, v17, v18, v19);
+    v25.i64[0] = __PAIR64__(v30[5], v30[0]);
+    v24.i64[0] = __PAIR64__(v30[1], v30[4]);
+    v21 = v31;
+    v20 = v32;
+    v22.i64[0] = v28;
+    v23 = v29;
+    v24.i32[2] = v30[6];
+    v24.i32[3] = *(v30 | 0xC);
+    v25.i64[1] = __PAIR64__(v30[7], v30[2]);
   }
 
   else
   {
-    v24.i64[0] = 0;
-    v22 = 0uLL;
-    v25 = 0.0;
-    v26 = 0uLL;
-    v27 = 0uLL;
-    v23 = 0uLL;
+    v22.i64[0] = 0;
+    v20 = 0uLL;
+    v23 = 0.0;
+    v24 = 0uLL;
+    v25 = 0uLL;
+    v21 = 0uLL;
   }
 
-  v28.i64[0] = v24.i64[0];
-  v28.i64[1] = v24.i64[0];
-  retstr->value[0] = vtrn2q_s32(vrev64q_s32(v27), v26);
-  retstr->value[1] = vtrn2q_s32(vrev64q_s32(v26), v27);
-  v24.i64[1] = v24.i64[0];
-  retstr->value[2] = v23;
-  retstr->value[3] = vaddq_f32(v22, vaddq_f32(vaddq_f32(vmulq_f32(v26, vrev64q_s32(v28)), vmulq_f32(v27, v24)), vmulq_n_f32(v23, v25)));
+  v26.i64[0] = v22.i64[0];
+  v26.i64[1] = v22.i64[0];
+  retstr->value[0] = vtrn2q_s32(vrev64q_s32(v25), v24);
+  retstr->value[1] = vtrn2q_s32(vrev64q_s32(v24), v25);
+  v22.i64[1] = v22.i64[0];
+  retstr->value[2] = v21;
+  retstr->value[3] = vaddq_f32(v20, vaddq_f32(vaddq_f32(vmulq_f32(v24, vrev64q_s32(v26)), vmulq_f32(v25, v22)), vmulq_n_f32(v21, v23)));
 
   return result;
 }
@@ -135,22 +135,22 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
   }
 
-  v45 = 0;
   v44 = 0;
-  v43 = 1065353216;
-  v46 = 1065353216;
+  v43 = 0;
+  v42 = 1065353216;
+  v45 = 1065353216;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v51 = 0;
   v50 = 0;
-  v49 = 1065353216;
-  v52 = 1065353216;
-  objc_msgSend_copyTransformInto_(v10, v9, v11, v12, v13, &v43);
-  objc_msgSend_p_gridlineTransformForPipeline_(self, v29, v30, v31, v32, pipelineCopy);
-  sub_2761558A0(&v43, v42, &v35);
-  v33 = ((((v38 * 0.0) + (v35.f32[2] * 0.0)) + v41) + (((((v37 * 0.0) + (v35.f32[1] * 0.0)) + v40) * 0.0) + ((((v36 * 0.0) + (v35.f32[0] * 0.0)) + v39) * 0.0))) < 0.0;
+  v49 = 0;
+  v48 = 1065353216;
+  v51 = 1065353216;
+  objc_msgSend_copyTransformInto_(v10, v9, v11, v12, v13, &v42);
+  objc_msgSend_p_gridlineTransformForPipeline_(self, v29, v30, v31);
+  sub_2761558A0(&v42, v41, &v34);
+  v32 = ((((v37 * 0.0) + (v34.f32[2] * 0.0)) + v40) + (((((v36 * 0.0) + (v34.f32[1] * 0.0)) + v39) * 0.0) + ((((v35 * 0.0) + (v34.f32[0] * 0.0)) + v38) * 0.0))) < 0.0;
 
-  return v33;
+  return v32;
 }
 
 - (void)p_render:(id)p_render

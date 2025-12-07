@@ -51,9 +51,11 @@
 
 - (NSString)description
 {
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "RPStatusProvider");
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)provideStatusUpdate:(id)update statusInfo:(id)info completion:(id)completion
@@ -93,7 +95,7 @@ void __62__RPStatusProvider_provideStatusUpdate_statusInfo_completion___block_in
   {
     if (gLogCategory_StatusProvider != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      __62__RPStatusProvider_provideStatusUpdate_statusInfo_completion___block_invoke_cold_1();
+      __62__RPStatusProvider_provideStatusUpdate_statusInfo_completion___block_invoke_cold_1(v3);
       v3 = v7;
     }
   }
@@ -141,7 +143,7 @@ void __50__RPStatusProvider_cancelStatusUpdate_completion___block_invoke(uint64_
   {
     if (gLogCategory_StatusProvider != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      __50__RPStatusProvider_cancelStatusUpdate_completion___block_invoke_cold_1();
+      __50__RPStatusProvider_cancelStatusUpdate_completion___block_invoke_cold_1(v3);
       v3 = v7;
     }
   }
@@ -182,14 +184,16 @@ LABEL_8:
   {
     if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
     {
-LABEL_16:
-      [RPStatusProvider _activateWithCompletion:? reactivate:?];
+      v7 = "Re-activate %s\n";
+LABEL_17:
+      [RPStatusProvider _activateWithCompletion:v7 reactivate:?];
     }
   }
 
   else if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_16;
+    v7 = "Activate %s\n";
+    goto LABEL_17;
   }
 
   _ensureXPCStarted = [(RPStatusProvider *)self _ensureXPCStarted];
@@ -204,27 +208,27 @@ LABEL_16:
   else
   {
     xpcCnx = self->_xpcCnx;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke;
-    v15[3] = &unk_1E7C92F88;
-    v17 = reactivateCopy;
-    v9 = completionCopy;
-    v16 = v9;
-    v10 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v15];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2;
-    v12[3] = &unk_1E7C93528;
-    v14 = reactivateCopy;
-    v12[4] = self;
-    v11 = v9;
-    v13 = v11;
-    [v10 xpcStatusProviderActivate:self completion:v12];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke;
+    v16[3] = &unk_1E7C92F88;
+    v18 = reactivateCopy;
+    v10 = completionCopy;
+    v17 = v10;
+    v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v16];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2;
+    v13[3] = &unk_1E7C93528;
+    v15 = reactivateCopy;
+    v13[4] = self;
+    v12 = v10;
+    v14 = v12;
+    [v11 xpcStatusProviderActivate:self completion:v13];
 
-    if (v11)
+    if (v12)
     {
-      v11[2](v11, 0);
+      v12[2](v12, 0);
     }
   }
 }
@@ -232,40 +236,35 @@ LABEL_16:
 void __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v8 = v3;
   if (*(a1 + 40) == 1)
   {
     if (gLogCategory_StatusProvider <= 60)
     {
-      if (gLogCategory_StatusProvider != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_StatusProvider != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
       {
-LABEL_14:
-        __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_cold_1();
-        v3 = v7;
+        v5 = "### Re-activate XPC error: %{error}\n";
+LABEL_15:
+        __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_cold_1(v5, v8);
+        v3 = v8;
       }
     }
   }
 
   else if (gLogCategory_StatusProvider <= 60)
   {
-    if (gLogCategory_StatusProvider != -1)
+    if (gLogCategory_StatusProvider != -1 || (v6 = _LogCategory_Initialize(), v3 = v8, v6))
     {
-      goto LABEL_14;
-    }
-
-    v5 = _LogCategory_Initialize();
-    v3 = v7;
-    if (v5)
-    {
-      goto LABEL_14;
+      v5 = "### Activate XPC error: %{error}\n";
+      goto LABEL_15;
     }
   }
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v7);
-    v3 = v7;
+    (*(v7 + 16))(v7, v8);
+    v3 = v8;
   }
 }
 
@@ -280,16 +279,16 @@ void __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2(
     {
       if (gLogCategory_StatusProvider <= 60 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
       {
-        __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+        __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_2(v6);
       }
     }
 
     else if (gLogCategory_StatusProvider <= 60 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
     {
-      __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+      __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_1(v6);
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   v7 = *(a1 + 32);
@@ -326,38 +325,38 @@ void __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2(
   {
     if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
     {
-LABEL_22:
-      __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_3((a1 + 32));
+      v12 = "Re-activated: %@\n";
+LABEL_23:
+      __55__RPStatusProvider__activateWithCompletion_reactivate___block_invoke_2_cold_3((a1 + 32), v12);
     }
   }
 
   else if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_22;
+    v12 = "Activated: %@\n";
+    goto LABEL_23;
   }
 
-  v12 = *(a1 + 40);
-  if (v12)
+  v13 = *(a1 + 40);
+  if (v13)
   {
-    (*(v12 + 16))(v12, 0);
+    (*(v13 + 16))(v13, 0);
   }
 
-LABEL_32:
-
-  v13 = *MEMORY[0x1E69E9840];
+LABEL_33:
 }
 
 - (id)_ensureXPCStarted
 {
   if (self->_xpcCnx)
   {
-    v2 = 0;
+    v8 = 0;
     goto LABEL_16;
   }
 
   if (self->_invalidateCalled)
   {
-    v2 = RPErrorF();
+    v8 = RPErrorF(4294896148, "RPStatusProvider has already been invalidated", v2, v3, v4, v5, v6, v7, v23[0]);
     goto LABEL_16;
   }
 
@@ -366,47 +365,52 @@ LABEL_32:
   aBlock[2] = __37__RPStatusProvider__ensureXPCStarted__block_invoke;
   aBlock[3] = &unk_1E7C92CE8;
   aBlock[4] = self;
-  v4 = _Block_copy(aBlock);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __37__RPStatusProvider__ensureXPCStarted__block_invoke_2;
-  v9[3] = &unk_1E7C92CE8;
-  v9[4] = self;
-  v5 = _Block_copy(v9);
+  v10 = _Block_copy(aBlock);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __37__RPStatusProvider__ensureXPCStarted__block_invoke_2;
+  v23[3] = &unk_1E7C92CE8;
+  v23[4] = self;
+  v11 = _Block_copy(v23);
   if ([(RPSignedInUserProvider *)self->_userProvider supportsMultipleUsers]&& self->_targetUserSession)
   {
-    if (![(RPSignedInUserProvider *)self->_userProvider signedInUserID])
+    signedInUserID = [(RPSignedInUserProvider *)self->_userProvider signedInUserID];
+    if (!signedInUserID)
     {
       if (gLogCategory_StatusProvider <= 50 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
       {
         [RPStatusProvider _ensureXPCStarted];
       }
 
-      v2 = RPErrorF();
+      v8 = RPErrorF(4294960590, "No user logged in", v13, v14, v15, v16, v17, v18, v23[0]);
       goto LABEL_15;
     }
 
-    if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_StatusProvider <= 30)
     {
-      [RPStatusProvider _ensureXPCStarted];
+      v19 = signedInUserID;
+      if (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize())
+      {
+        [(RPStatusProvider *)v19 _ensureXPCStarted];
+      }
     }
   }
 
-  v6 = [(RPStatusProvider *)self _connectionWithClient:self queue:self->_dispatchQueue userProvider:self->_userProvider interruptionHandler:v4 invalidationHandler:v5];
+  v20 = [(RPStatusProvider *)self _connectionWithClient:self queue:self->_dispatchQueue userProvider:self->_userProvider interruptionHandler:v10 invalidationHandler:v11];
   xpcCnx = self->_xpcCnx;
-  self->_xpcCnx = v6;
+  self->_xpcCnx = v20;
 
   if (gLogCategory_StatusProvider <= 10 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
   {
     [RPStatusProvider _ensureXPCStarted];
   }
 
-  v2 = 0;
+  v8 = 0;
 LABEL_15:
 
 LABEL_16:
 
-  return v2;
+  return v8;
 }
 
 uint64_t __37__RPStatusProvider__ensureXPCStarted__block_invoke_2(uint64_t a1)
@@ -501,23 +505,26 @@ uint64_t __37__RPStatusProvider__ensureXPCStarted__block_invoke_2(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__RPStatusProvider_invalidate__block_invoke(uint64_t result)
+void *__30__RPStatusProvider_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 9) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 9) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 9) = 1;
-    if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 9) = 1;
+    if (gLogCategory_StatusProvider <= 30)
     {
-      __30__RPStatusProvider_invalidate__block_invoke_cold_1();
+      if (gLogCategory_StatusProvider != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __30__RPStatusProvider_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(*(v6 + 32) + 24) invalidate];
-    v7 = *(v6 + 32);
+    [*(v8[4] + 24) invalidate];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -543,11 +550,29 @@ uint64_t __30__RPStatusProvider_invalidate__block_invoke(uint64_t result)
     self->_currentlyProviding = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_StatusProvider <= 30 && (gLogCategory_StatusProvider != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_StatusProvider <= 30)
     {
-      [RPStatusProvider _invalidated];
+      if (gLogCategory_StatusProvider != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        [(RPStatusProvider *)v7 _invalidated];
+      }
     }
   }
+}
+
+- (uint64_t)_activateWithCompletion:(uint64_t)a1 reactivate:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
+{
+  if (*(a1 + 32))
+  {
+    v2 = "(TargetUserSession)";
+  }
+
+  else
+  {
+    v2 = "";
+  }
+
+  return LogPrintF(&gLogCategory_StatusProvider, "[RPStatusProvider _activateWithCompletion:reactivate:]", 30, a2, v2);
 }
 
 @end

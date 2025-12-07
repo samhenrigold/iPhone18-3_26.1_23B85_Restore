@@ -8,6 +8,8 @@
 - (int)_modeForIndex:(int64_t)index;
 - (int)getListeningModeFromIndex:(int64_t)index;
 - (int64_t)_indexForMode:(int)mode;
+- (int64_t)getIndexFromListeningMode:(int)mode;
+- (void)_handleListeningModeSetFailure:(int)failure index:(int64_t)index;
 - (void)_updateLabelLayoutForBounds;
 - (void)addModeLabels;
 - (void)addModeOptions;
@@ -108,7 +110,7 @@
 
 - (void)addModeOptions
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   if (!self->_segmentedControl)
   {
     v3 = objc_alloc_init(MEMORY[0x277D75A08]);
@@ -128,10 +130,10 @@
       v8 = [MEMORY[0x277D755B8] _systemImageNamed:@"person.closed.fill"];
       v9 = MEMORY[0x277D755D0];
       systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-      v25[0] = systemGrayColor;
+      v24[0] = systemGrayColor;
       labelColor = [MEMORY[0x277D75348] labelColor];
-      v25[1] = labelColor;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+      v24[1] = labelColor;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
       v13 = [v9 configurationWithPaletteColors:v12];
       v14 = [v8 imageByApplyingSymbolConfiguration:v13];
       v15 = [v14 imageByApplyingSymbolConfiguration:v6];
@@ -170,8 +172,6 @@
     [(UISegmentedControl *)self->_segmentedControl insertSegmentWithImage:v23 atIndex:v19 animated:0];
     NSLog(&cfstr_ListeningModeA_1.isa);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addModeLabels
@@ -283,34 +283,34 @@
 
 - (void)setupConstraints
 {
-  v111[4] = *MEMORY[0x277D85DE8];
+  v110[4] = *MEMORY[0x277D85DE8];
   modeControlLabelXPositionConstraints = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
   v4 = [modeControlLabelXPositionConstraints count];
 
   if (!v4)
   {
     NSLog(&cfstr_ListeningModeS.isa);
-    v84 = MEMORY[0x277CCAAD0];
+    v83 = MEMORY[0x277CCAAD0];
     topAnchor = [(UISegmentedControl *)self->_segmentedControl topAnchor];
     contentView = [(HPSListeningModeControl *)self contentView];
     topAnchor2 = [contentView topAnchor];
-    v87 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v111[0] = v87;
+    v86 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v110[0] = v86;
     heightAnchor = [(UISegmentedControl *)self->_segmentedControl heightAnchor];
-    v85 = [heightAnchor constraintEqualToConstant:50.0];
-    v111[1] = v85;
+    v84 = [heightAnchor constraintEqualToConstant:50.0];
+    v110[1] = v84;
     leadingAnchor = [(UISegmentedControl *)self->_segmentedControl leadingAnchor];
     contentView2 = [(HPSListeningModeControl *)self contentView];
     leadingAnchor2 = [contentView2 leadingAnchor];
     v8 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v111[2] = v8;
+    v110[2] = v8;
     trailingAnchor = [(UISegmentedControl *)self->_segmentedControl trailingAnchor];
     contentView3 = [(HPSListeningModeControl *)self contentView];
     trailingAnchor2 = [contentView3 trailingAnchor];
     v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v111[3] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:4];
-    [v84 activateConstraints:v13];
+    v110[3] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:4];
+    [v83 activateConstraints:v13];
 
     contentView4 = [(HPSListeningModeControl *)self contentView];
     [contentView4 frame];
@@ -321,21 +321,21 @@
     v19 = v18 * 0.5;
     if (self->_modeOffSupported)
     {
-      v91 = MEMORY[0x277CCAAD0];
+      v90 = MEMORY[0x277CCAAD0];
       topAnchor3 = [(UILabel *)self->_labelOff topAnchor];
       bottomAnchor = [(UISegmentedControl *)self->_segmentedControl bottomAnchor];
       v20 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:5.0];
-      v110[0] = v20;
+      v109[0] = v20;
       widthAnchor = [(UILabel *)self->_labelOff widthAnchor];
       v22 = [widthAnchor constraintEqualToConstant:v18];
-      v110[1] = v22;
+      v109[1] = v22;
       bottomAnchor2 = [(UILabel *)self->_labelOff bottomAnchor];
       contentView5 = [(HPSListeningModeControl *)self contentView];
       bottomAnchor3 = [contentView5 bottomAnchor];
       v26 = [bottomAnchor2 constraintLessThanOrEqualToAnchor:bottomAnchor3];
-      v110[2] = v26;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:3];
-      [v91 activateConstraints:v27];
+      v109[2] = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:3];
+      [v90 activateConstraints:v27];
 
       modeControlLabelXPositionConstraints2 = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
       centerXAnchor = [(UILabel *)self->_labelOff centerXAnchor];
@@ -347,21 +347,21 @@
       v19 = v18 + v19;
     }
 
-    v92 = MEMORY[0x277CCAAD0];
+    v91 = MEMORY[0x277CCAAD0];
     topAnchor4 = [(UILabel *)self->_labelTransparency topAnchor];
     bottomAnchor4 = [(UISegmentedControl *)self->_segmentedControl bottomAnchor];
     v33 = [topAnchor4 constraintEqualToAnchor:bottomAnchor4 constant:5.0];
-    v109[0] = v33;
+    v108[0] = v33;
     widthAnchor2 = [(UILabel *)self->_labelTransparency widthAnchor];
     v35 = [widthAnchor2 constraintEqualToConstant:v18];
-    v109[1] = v35;
+    v108[1] = v35;
     bottomAnchor5 = [(UILabel *)self->_labelTransparency bottomAnchor];
     contentView7 = [(HPSListeningModeControl *)self contentView];
     bottomAnchor6 = [contentView7 bottomAnchor];
     v39 = [bottomAnchor5 constraintLessThanOrEqualToAnchor:bottomAnchor6];
-    v109[2] = v39;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:3];
-    [v92 activateConstraints:v40];
+    v108[2] = v39;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:3];
+    [v91 activateConstraints:v40];
 
     modeControlLabelXPositionConstraints3 = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
     centerXAnchor2 = [(UILabel *)self->_labelTransparency centerXAnchor];
@@ -373,21 +373,21 @@
     v46 = v18 + v19;
     if (self->_autoANCSupported)
     {
-      v93 = MEMORY[0x277CCAAD0];
+      v92 = MEMORY[0x277CCAAD0];
       topAnchor5 = [(UILabel *)self->_labelAutoANC topAnchor];
       bottomAnchor7 = [(UISegmentedControl *)self->_segmentedControl bottomAnchor];
       v47 = [topAnchor5 constraintEqualToAnchor:bottomAnchor7 constant:5.0];
-      v108[0] = v47;
+      v107[0] = v47;
       widthAnchor3 = [(UILabel *)self->_labelAutoANC widthAnchor];
       v49 = [widthAnchor3 constraintEqualToConstant:v18];
-      v108[1] = v49;
+      v107[1] = v49;
       bottomAnchor8 = [(UILabel *)self->_labelAutoANC bottomAnchor];
       contentView9 = [(HPSListeningModeControl *)self contentView];
       bottomAnchor9 = [contentView9 bottomAnchor];
       v53 = [bottomAnchor8 constraintLessThanOrEqualToAnchor:bottomAnchor9];
-      v108[2] = v53;
-      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:3];
-      [v93 activateConstraints:v54];
+      v107[2] = v53;
+      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v107 count:3];
+      [v92 activateConstraints:v54];
 
       modeControlLabelXPositionConstraints4 = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
       centerXAnchor3 = [(UILabel *)self->_labelAutoANC centerXAnchor];
@@ -399,37 +399,37 @@
       v46 = v18 + v46;
     }
 
-    v88 = MEMORY[0x277CCAAD0];
+    v87 = MEMORY[0x277CCAAD0];
     topAnchor6 = [(UILabel *)self->_labelNoiseCancellation topAnchor];
     bottomAnchor10 = [(UISegmentedControl *)self->_segmentedControl bottomAnchor];
     v60 = [topAnchor6 constraintEqualToAnchor:bottomAnchor10 constant:5.0];
-    v107[0] = v60;
+    v106[0] = v60;
     widthAnchor4 = [(UILabel *)self->_labelNoiseCancellation widthAnchor];
     v62 = [widthAnchor4 constraintEqualToConstant:v18];
-    v107[1] = v62;
+    v106[1] = v62;
     bottomAnchor11 = [(UILabel *)self->_labelNoiseCancellation bottomAnchor];
     contentView11 = [(HPSListeningModeControl *)self contentView];
     bottomAnchor12 = [contentView11 bottomAnchor];
     v66 = [bottomAnchor11 constraintLessThanOrEqualToAnchor:bottomAnchor12];
-    v107[2] = v66;
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v107 count:3];
-    [v88 activateConstraints:v67];
+    v106[2] = v66;
+    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:3];
+    [v87 activateConstraints:v67];
 
-    v89 = MEMORY[0x277CCAAD0];
+    v88 = MEMORY[0x277CCAAD0];
     topAnchor7 = [(UILabel *)self->_labelUnableToSetListeningMode topAnchor];
     bottomAnchor13 = [(UISegmentedControl *)self->_segmentedControl bottomAnchor];
     v68 = [topAnchor7 constraintEqualToAnchor:bottomAnchor13 constant:5.0];
-    v106[0] = v68;
+    v105[0] = v68;
     leadingAnchor6 = [(UILabel *)self->_labelUnableToSetListeningMode leadingAnchor];
     leadingAnchor7 = [(UISegmentedControl *)self->_segmentedControl leadingAnchor];
     v71 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-    v106[1] = v71;
+    v105[1] = v71;
     trailingAnchor3 = [(UILabel *)self->_labelUnableToSetListeningMode trailingAnchor];
     trailingAnchor4 = [(UISegmentedControl *)self->_segmentedControl trailingAnchor];
     v74 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v106[2] = v74;
-    v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:3];
-    [v89 activateConstraints:v75];
+    v105[2] = v74;
+    v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:3];
+    [v88 activateConstraints:v75];
 
     modeControlLabelXPositionConstraints5 = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
     centerXAnchor4 = [(UILabel *)self->_labelNoiseCancellation centerXAnchor];
@@ -442,8 +442,6 @@
     modeControlLabelXPositionConstraints6 = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
     [v81 activateConstraints:modeControlLabelXPositionConstraints6];
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (int)getListeningModeFromIndex:(int64_t)index
@@ -454,6 +452,16 @@
   NSLog(&cfstr_ListeningModeG.isa, index, v7);
 
   return v6;
+}
+
+- (int64_t)getIndexFromListeningMode:(int)mode
+{
+  v3 = *&mode;
+  v5 = [(HPSListeningModeControl *)self _indexForMode:?];
+  v6 = [(HPSListeningModeControl *)self getListeningModeString:v3];
+  NSLog(&cfstr_ListeningModeG_0.isa, v6, v5);
+
+  return v5;
 }
 
 - (id)getListeningModeString:(int)string
@@ -584,48 +592,95 @@
 
 - (void)_updateLabelLayoutForBounds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contentView = [(HPSListeningModeControl *)self contentView];
   [contentView bounds];
   v5 = v4;
   [(HPSListeningModeControl *)self _validSegmentCount];
   v7 = v6;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   modeControlLabelXPositionConstraints = [(HPSListeningModeControl *)self modeControlLabelXPositionConstraints];
-  v9 = [modeControlLabelXPositionConstraints countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [modeControlLabelXPositionConstraints countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = v5 / v7;
     v12 = v11 * 0.5;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(modeControlLabelXPositionConstraints);
         }
 
-        [*(*(&v16 + 1) + 8 * v14) setConstant:v12];
+        [*(*(&v15 + 1) + 8 * v14) setConstant:v12];
         v12 = v11 + v12;
         ++v14;
       }
 
       while (v10 != v14);
-      v10 = [modeControlLabelXPositionConstraints countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [modeControlLabelXPositionConstraints countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)_handleListeningModeSetFailure:(int)failure index:(int64_t)index
+{
+  v5 = *&failure;
+  [(HPSListeningModeControl *)self setUserInteractionEnabled:0];
+  listeningMode = [(BluetoothDeviceProtocol *)self->_device listeningMode];
+  v8 = [(HPSListeningModeControl *)self _locKeyForFailedToSelectIndex:index];
+  productId = [(BluetoothDeviceProtocol *)self->_device productId];
+  if (productId == 8224 || productId == 8219)
+  {
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v12 = v11;
+    v13 = @"DeviceConfig-B768";
+  }
+
+  else
+  {
+    if (productId != 8206)
+    {
+      v14 = [HPSProductUtils getProductSpecificString:productId descriptionKey:v8];
+      goto LABEL_11;
+    }
+
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v12 = v11;
+    v13 = @"DeviceConfig";
+  }
+
+  v14 = [v11 localizedStringForKey:v8 value:&stru_286339F58 table:v13];
+
+LABEL_11:
+  [(UILabel *)self->_labelUnableToSetListeningMode setText:v14];
+  [(UISegmentedControl *)self->_segmentedControl setSelectedSegmentIndex:[(HPSListeningModeControl *)self getIndexFromListeningMode:listeningMode]];
+  v15 = [(HPSListeningModeControl *)self getListeningModeString:v5];
+  v16 = [(HPSListeningModeControl *)self getListeningModeString:listeningMode];
+  NSLog(&cfstr_ListeningModeN.isa, v15, v16, [(UISegmentedControl *)self->_segmentedControl selectedSegmentIndex]);
+
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __64__HPSListeningModeControl__handleListeningModeSetFailure_index___block_invoke;
+  v18[3] = &unk_2796AD618;
+  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__HPSListeningModeControl__handleListeningModeSetFailure_index___block_invoke_2;
+  v17[3] = &unk_2796ADC50;
+  v17[4] = self;
+  [MEMORY[0x277D75D18] animateWithDuration:v18 animations:v17 completion:1.0];
 }
 
 uint64_t __64__HPSListeningModeControl__handleListeningModeSetFailure_index___block_invoke(uint64_t a1)

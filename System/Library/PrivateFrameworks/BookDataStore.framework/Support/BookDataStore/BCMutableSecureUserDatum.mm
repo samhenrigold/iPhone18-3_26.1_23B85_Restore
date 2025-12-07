@@ -15,7 +15,7 @@
   keyCopy = key;
   if (!keyCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C2D74();
@@ -64,7 +64,7 @@ LABEL_7:
 
     else
     {
-      value = sub_100002660();
+      value = sub_100002660(0);
       if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
       {
         sub_1001C2BF8();
@@ -83,7 +83,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    value = sub_100002660();
+    value = sub_100002660(0);
     if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
     {
       sub_1001C2DA8();

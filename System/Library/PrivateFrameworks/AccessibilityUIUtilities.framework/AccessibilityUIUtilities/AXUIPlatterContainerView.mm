@@ -265,16 +265,16 @@ LABEL_26:
 
 - (void)layoutSubviews
 {
-  v8.receiver = self;
-  v8.super_class = AXUIPlatterContainerView;
-  [(AXUIPlatterContainerView *)&v8 layoutSubviews];
+  v9.receiver = self;
+  v9.super_class = AXUIPlatterContainerView;
+  [(AXUIPlatterContainerView *)&v9 layoutSubviews];
   if (_UISolariumEnabled())
   {
-    [(AXUIPlatterContainerView *)self frame];
-    v5 = AXCornerRadiusForBackgroundWithSize(v3, v4);
+    frame = [(AXUIPlatterContainerView *)self frame];
+    v6 = AXCornerRadiusForBackgroundWithSize(frame, v4, v5);
     platterView = [(AXUIPlatterContainerView *)self platterView];
     layer = [platterView layer];
-    [layer setCornerRadius:v5];
+    [layer setCornerRadius:v6];
   }
 }
 

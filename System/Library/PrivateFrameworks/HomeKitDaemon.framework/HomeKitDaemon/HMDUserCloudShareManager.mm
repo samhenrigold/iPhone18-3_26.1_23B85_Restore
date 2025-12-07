@@ -58,7 +58,7 @@
 
 void __59__HMDUserCloudShareManager_handleXPCConnectionInvalidated___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"connection"];
 
@@ -90,17 +90,15 @@ void __59__HMDUserCloudShareManager_handleXPCConnectionInvalidated___block_invok
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Received connection invalidated notification, but no connection object was found: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Received connection invalidated notification, but no connection object was found: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeregisterRequest:(id)request
@@ -156,7 +154,7 @@ void __59__HMDUserCloudShareManager_handleXPCConnectionInvalidated___block_invok
 
 void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairRequest___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uuidForKey:*MEMORY[0x277CD1478]];
   v3 = [*(a1 + 40) homeManager];
   v4 = [v3 _homeWithUUID:v2];
@@ -172,23 +170,23 @@ void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairReques
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
       *buf = 138543618;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v10;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Handling share repair message %@.", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     v11 = [*(a1 + 40) userCloudShareController];
     v12 = [*(a1 + 32) messagePayload];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairRequest___block_invoke_80;
-    v17[3] = &unk_27868A250;
-    v18 = *(a1 + 32);
-    [v11 handleShareRepairForRemoteClientRequest:v12 home:v4 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairRequest___block_invoke_80;
+    v16[3] = &unk_27868A250;
+    v17 = *(a1 + 32);
+    [v11 handleShareRepairForRemoteClientRequest:v12 home:v4 completion:v16];
 
-    v13 = v18;
+    v13 = v17;
   }
 
   else
@@ -197,7 +195,7 @@ void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairReques
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v14;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Could not find home for share repair request on remote.", buf, 0xCu);
     }
 
@@ -206,8 +204,6 @@ void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairReques
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2 description:@"Home in share repair request not found in remote." reason:@"Home is needed for share repair" suggestion:0];
     [v15 respondWithError:v13];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairRequest___block_invoke_80(uint64_t a1, void *a2)
@@ -238,7 +234,7 @@ void __74__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRepairReques
 
 void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uuidForKey:*MEMORY[0x277CD1478]];
   v3 = [*(a1 + 40) homeManager];
   v4 = [v3 _homeWithUUID:v2];
@@ -247,17 +243,17 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
   {
     v5 = [*(a1 + 40) userCloudShareController];
     v6 = [*(a1 + 32) messagePayload];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___block_invoke_2;
-    v17[3] = &unk_278683F48;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___block_invoke_2;
+    v16[3] = &unk_278683F48;
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v18 = v7;
-    v19 = v8;
-    [v5 handleShareForRemoteClientRequest:v6 home:v4 completionHandler:v17];
+    v17 = v7;
+    v18 = v8;
+    [v5 handleShareForRemoteClientRequest:v6 home:v4 completionHandler:v16];
 
-    v9 = v18;
+    v9 = v17;
 LABEL_7:
 
     goto LABEL_8;
@@ -270,7 +266,7 @@ LABEL_7:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v13;
+    v20 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not find home for share request on remote.", buf, 0xCu);
   }
 
@@ -287,13 +283,11 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) responseHandler];
@@ -309,14 +303,14 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Forwarding received client info.", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
-      v15 = *MEMORY[0x277CD1458];
-      v16 = v5;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CD1458];
+      v15 = v5;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     }
 
     else
@@ -327,13 +321,11 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
     v13 = [*(a1 + 32) responseHandler];
     (v13)[2](v13, v6, v12);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRegisterRequest:(id)request
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   transport = [requestCopy transport];
 
@@ -362,9 +354,9 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v13;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Found xpc connection in message", &v30, 0xCu);
+        v29 = 138543362;
+        v30 = v13;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Found xpc connection in message", &v29, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -386,11 +378,11 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
         {
           v25 = HMFGetLogIdentifier();
           applicationBundleIdentifier = [v8 applicationBundleIdentifier];
-          v30 = 138543618;
-          v31 = v25;
-          v32 = 2112;
-          v33 = applicationBundleIdentifier;
-          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Missing container IDs while trying to register from process %@", &v30, 0x16u);
+          v29 = 138543618;
+          v30 = v25;
+          v31 = 2112;
+          v32 = applicationBundleIdentifier;
+          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Missing container IDs while trying to register from process %@", &v29, 0x16u);
         }
 
         objc_autoreleasePoolPop(v22);
@@ -403,9 +395,9 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v21;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Transport is not XPC connection.", &v30, 0xCu);
+        v29 = 138543362;
+        v30 = v21;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Transport is not XPC connection.", &v29, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -421,9 +413,9 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@No transport on message.", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@No transport on message.", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -437,8 +429,6 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
     responseHandler2 = [requestCopy responseHandler];
     (responseHandler2)[2](responseHandler2, v16, 0);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLocalHomeDataRemovedNotification:(id *)notification
@@ -454,22 +444,20 @@ void __68__HMDUserCloudShareManager_handleRemoteUserClientCloudShareRequest___bl
 
 uint64_t __68__HMDUserCloudShareManager__handleLocalHomeDataRemovedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Local home data removed, notifying clients", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Local home data removed, notifying clients", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _postMultiUserStatusChangedNotification];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _postMultiUserStatusChangedNotification];
 }
 
 - (void)_handleUserSettingsUpdatedNotification:(id)notification
@@ -485,22 +473,20 @@ uint64_t __68__HMDUserCloudShareManager__handleLocalHomeDataRemovedNotification_
 
 uint64_t __67__HMDUserCloudShareManager__handleUserSettingsUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User settings updated, notifying clients.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User settings updated, notifying clients.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _postMultiUserStatusChangedNotification];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _postMultiUserStatusChangedNotification];
 }
 
 - (void)_handleEnableMultiUserChangedNotification:(id)notification
@@ -516,22 +502,20 @@ uint64_t __67__HMDUserCloudShareManager__handleUserSettingsUpdatedNotification__
 
 uint64_t __70__HMDUserCloudShareManager__handleEnableMultiUserChangedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Enable Multi-User changed, notifying clients.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Enable Multi-User changed, notifying clients.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _postMultiUserStatusChangedNotification];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _postMultiUserStatusChangedNotification];
 }
 
 - (void)_handleAccessoryAdded:(id)added
@@ -550,7 +534,7 @@ uint64_t __70__HMDUserCloudShareManager__handleEnableMultiUserChangedNotificatio
 
 void __50__HMDUserCloudShareManager__handleAccessoryAdded___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:@"HMDNotificationAddedAccessoryKey"];
 
@@ -575,18 +559,16 @@ void __50__HMDUserCloudShareManager__handleAccessoryAdded___block_invoke(uint64_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on adding accessory %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on adding accessory %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     [*(a1 + 40) _postMultiUserStatusChangedNotification];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUsersChangedNotification:(id)notification
@@ -602,22 +584,20 @@ void __50__HMDUserCloudShareManager__handleAccessoryAdded___block_invoke(uint64_
 
 uint64_t __59__HMDUserCloudShareManager_handleUsersChangedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on users changed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on users changed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _postMultiUserStatusChangedNotification];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _postMultiUserStatusChangedNotification];
 }
 
 - (void)handleHomeChangedNotification:(id)notification
@@ -633,22 +613,20 @@ uint64_t __59__HMDUserCloudShareManager_handleUsersChangedNotification___block_i
 
 uint64_t __58__HMDUserCloudShareManager_handleHomeChangedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on home change", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client on home change", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _postMultiUserStatusChangedNotification];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _postMultiUserStatusChangedNotification];
 }
 
 - (id)userCloudShareController:(id)controller timerWithInterval:(double)interval
@@ -660,7 +638,7 @@ uint64_t __58__HMDUserCloudShareManager_handleHomeChangedNotification___block_in
 
 - (void)userCloudShareController:(id)controller wakeClientForRepairWithContainerID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", *MEMORY[0x277CD1340], dCopy];
@@ -671,21 +649,19 @@ uint64_t __58__HMDUserCloudShareManager_handleHomeChangedNotification___block_in
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v12;
-    v16 = 2112;
-    v17 = dCopy;
+    v14 = v12;
+    v15 = 2112;
+    v16 = dCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client to repair share %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   notify_post([dCopy UTF8String]);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userCloudShareController:(id)controller wakeClientWithContainerID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", *MEMORY[0x277CD1350], dCopy];
@@ -696,36 +672,34 @@ uint64_t __58__HMDUserCloudShareManager_handleHomeChangedNotification___block_in
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v12;
-    v16 = 2112;
-    v17 = dCopy;
+    v14 = v12;
+    v15 = 2112;
+    v16 = dCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Posting notification to wake client %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   notify_post([dCopy UTF8String]);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userCloudShareController:(id)controller sendRepairInfo:(id)info toConnection:(id)connection home:(id)home containerID:(id)d
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   v11 = *MEMORY[0x277CD1468];
-  v27[0] = d;
+  v26[0] = d;
   v12 = *MEMORY[0x277CD1498];
-  v26[0] = v11;
-  v26[1] = v12;
+  v25[0] = v11;
+  v25[1] = v12;
   dCopy = d;
   homeCopy = home;
   connectionCopy = connection;
   v16 = encodeRootObjectForIncomingXPCMessage(info, 0);
-  v27[1] = v16;
-  v26[2] = *MEMORY[0x277CD1480];
+  v26[1] = v16;
+  v25[2] = *MEMORY[0x277CD1480];
   uuid = [homeCopy uuid];
 
-  v27[2] = uuid;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v26[2] = uuid;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
 
   v19 = objc_alloc(MEMORY[0x277D0F820]);
   v20 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -733,19 +707,17 @@ uint64_t __58__HMDUserCloudShareManager_handleHomeChangedNotification___block_in
   v22 = [v19 initWithTarget:v21];
 
   v23 = [MEMORY[0x277D0F818] messageWithName:*MEMORY[0x277CD1328] destination:v22 payload:v18];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __98__HMDUserCloudShareManager_userCloudShareController_sendRepairInfo_toConnection_home_containerID___block_invoke;
-  v25[3] = &unk_27868A250;
-  v25[4] = self;
-  [connectionCopy sendMessage:v23 completionHandler:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __98__HMDUserCloudShareManager_userCloudShareController_sendRepairInfo_toConnection_home_containerID___block_invoke;
+  v24[3] = &unk_27868A250;
+  v24[4] = self;
+  [connectionCopy sendMessage:v23 completionHandler:v24];
 }
 
 void __98__HMDUserCloudShareManager_userCloudShareController_sendRepairInfo_toConnection_home_containerID___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -755,110 +727,105 @@ void __98__HMDUserCloudShareManager_userCloudShareController_sendRepairInfo_toCo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message to client.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message to client.", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userCloudShareController:(id)controller sendShareRequestMessageWithConnection:(id)connection fromUser:(id)user toUser:(id)toUser home:(id)home shareURL:(id)l shareToken:(id)token containerID:(id)self0 completion:(id)self1
 {
-  v52[6] = *MEMORY[0x277D85DE8];
+  v50[6] = *MEMORY[0x277D85DE8];
   lCopy = l;
   tokenCopy = token;
   dCopy = d;
   completionCopy = completion;
-  v19 = *MEMORY[0x277CD14A8];
   if (tokenCopy)
   {
-    v51[0] = *MEMORY[0x277CD14A8];
+    v49[0] = *MEMORY[0x277CD14A8];
     homeCopy = home;
     userCopy = user;
     connectionCopy = connection;
-    v23 = encodeRootObjectForIncomingXPCMessage(toUser, 0);
-    v52[0] = v23;
-    v51[1] = *MEMORY[0x277CD1470];
-    v24 = encodeRootObjectForIncomingXPCMessage(userCopy, 0);
+    v22 = encodeRootObjectForIncomingXPCMessage(toUser, 0);
+    v50[0] = v22;
+    v49[1] = *MEMORY[0x277CD1470];
+    v23 = encodeRootObjectForIncomingXPCMessage(userCopy, 0);
 
-    v52[1] = v24;
-    v51[2] = *MEMORY[0x277CD1478];
-    v25 = encodeRootObjectForIncomingXPCMessage(homeCopy, 0);
+    v50[1] = v23;
+    v49[2] = *MEMORY[0x277CD1478];
+    v24 = encodeRootObjectForIncomingXPCMessage(homeCopy, 0);
 
-    v26 = *MEMORY[0x277CD14B8];
-    v52[2] = v25;
-    v52[3] = lCopy;
-    v27 = *MEMORY[0x277CD14B0];
-    v51[3] = v26;
-    v51[4] = v27;
-    v51[5] = *MEMORY[0x277CD1468];
-    v52[4] = tokenCopy;
-    v52[5] = dCopy;
-    v28 = MEMORY[0x277CBEAC0];
-    v29 = v52;
-    v30 = v51;
-    v31 = 6;
+    v25 = *MEMORY[0x277CD14B8];
+    v50[2] = v24;
+    v50[3] = lCopy;
+    v26 = *MEMORY[0x277CD14B0];
+    v49[3] = v25;
+    v49[4] = v26;
+    v49[5] = *MEMORY[0x277CD1468];
+    v50[4] = tokenCopy;
+    v50[5] = dCopy;
+    v27 = MEMORY[0x277CBEAC0];
+    v28 = v50;
+    v29 = v49;
+    v30 = 6;
   }
 
   else
   {
-    v49[0] = *MEMORY[0x277CD14A8];
+    v47[0] = *MEMORY[0x277CD14A8];
     homeCopy2 = home;
     userCopy2 = user;
     connectionCopy2 = connection;
-    v23 = encodeRootObjectForIncomingXPCMessage(toUser, 0);
-    v50[0] = v23;
-    v49[1] = *MEMORY[0x277CD1470];
-    v24 = encodeRootObjectForIncomingXPCMessage(userCopy2, 0);
+    v22 = encodeRootObjectForIncomingXPCMessage(toUser, 0);
+    v48[0] = v22;
+    v47[1] = *MEMORY[0x277CD1470];
+    v23 = encodeRootObjectForIncomingXPCMessage(userCopy2, 0);
 
-    v50[1] = v24;
-    v49[2] = *MEMORY[0x277CD1478];
-    v25 = encodeRootObjectForIncomingXPCMessage(homeCopy2, 0);
+    v48[1] = v23;
+    v47[2] = *MEMORY[0x277CD1478];
+    v24 = encodeRootObjectForIncomingXPCMessage(homeCopy2, 0);
 
-    v35 = *MEMORY[0x277CD14B8];
-    v50[2] = v25;
-    v50[3] = lCopy;
-    v36 = *MEMORY[0x277CD1468];
-    v49[3] = v35;
-    v49[4] = v36;
-    v50[4] = dCopy;
-    v28 = MEMORY[0x277CBEAC0];
-    v29 = v50;
-    v30 = v49;
-    v31 = 5;
+    v34 = *MEMORY[0x277CD14B8];
+    v48[2] = v24;
+    v48[3] = lCopy;
+    v35 = *MEMORY[0x277CD1468];
+    v47[3] = v34;
+    v47[4] = v35;
+    v48[4] = dCopy;
+    v27 = MEMORY[0x277CBEAC0];
+    v28 = v48;
+    v29 = v47;
+    v30 = 5;
   }
 
-  v37 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:v31];
+  v36 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:v30];
 
-  v38 = MEMORY[0x277D0F818];
-  v39 = *MEMORY[0x277CD1330];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke;
-  v47[3] = &unk_278685AF8;
-  v47[4] = self;
-  v40 = completionCopy;
-  v48 = v40;
-  v41 = [v38 messageWithName:v39 messagePayload:v37 responseHandler:v47];
+  v37 = MEMORY[0x277D0F818];
+  v38 = *MEMORY[0x277CD1330];
   v45[0] = MEMORY[0x277D85DD0];
   v45[1] = 3221225472;
-  v45[2] = __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke_47;
-  v45[3] = &unk_278689A68;
+  v45[2] = __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke;
+  v45[3] = &unk_278685AF8;
   v45[4] = self;
-  v46 = v40;
-  v42 = v40;
-  [connection sendMessage:v41 completionHandler:v45];
-
-  v43 = *MEMORY[0x277D85DE8];
+  v39 = completionCopy;
+  v46 = v39;
+  v40 = [v37 messageWithName:v38 messagePayload:v36 responseHandler:v45];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke_47;
+  v43[3] = &unk_278689A68;
+  v43[4] = self;
+  v44 = v39;
+  v41 = v39;
+  [connection sendMessage:v40 completionHandler:v43];
 }
 
 void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -870,11 +837,11 @@ void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMe
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Got error from client %@.", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Got error from client %@.", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -894,9 +861,9 @@ LABEL_10:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@No error but client did not accept share, treating as error.", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@No error but client did not accept share, treating as error.", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -908,13 +875,11 @@ LABEL_10:
   v5 = 0;
 LABEL_11:
   (*(*(a1 + 40) + 16))();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMessageWithConnection_fromUser_toUser_home_shareURL_shareToken_containerID_completion___block_invoke_47(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -924,21 +889,19 @@ void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMe
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message to client.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message to client.", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserCloudShareManager *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -949,7 +912,7 @@ void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMe
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Registering for user share messages.", buf, 0xCu);
   }
 
@@ -957,11 +920,9 @@ void __155__HMDUserCloudShareManager_userCloudShareController_sendShareRequestMe
   messageDispatcher = [(HMDUserCloudShareManager *)selfCopy messageDispatcher];
   v9 = *MEMORY[0x277CD1338];
   v10 = [HMDXPCMessagePolicy policyWithEntitlements:517];
-  v13 = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   [messageDispatcher registerForMessage:v9 receiver:selfCopy policies:v11 selector:sel__handleRegisterRequest_];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher
@@ -1061,10 +1022,9 @@ void __59__HMDUserCloudShareManager_configureWithMessageDispatcher___block_invok
 
 void __39__HMDUserCloudShareManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v27;
-  logCategory__hmf_once_v27 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27;
+  logCategory__hmf_once_v27 = v0;
 }
 
 @end

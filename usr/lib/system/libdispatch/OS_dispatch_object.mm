@@ -14,7 +14,7 @@
 
 - (id)debugDescription
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = objc_lookUpClass("NSString");
   if (result)
   {
@@ -22,8 +22,7 @@
     v5 = *(self->super.super.isa + 7);
     if (v5)
     {
-      v6 = *(self->super.super.isa + 7);
-      v5(self, v8, 2048);
+      v5(self, v6, 2048);
     }
 
     else
@@ -35,11 +34,10 @@
     result = [v4 stringWithUTF8String:"<%s: %s>"];
     if (result)
     {
-      result = [v4 stringWithFormat:result, object_getClassName(self), v8];
+      return [v4 stringWithFormat:result, object_getClassName(self), v6];
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

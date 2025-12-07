@@ -102,17 +102,17 @@
     v5 = self->_label;
     self->_label = v4;
 
-    v6 = AEBundle();
-    v7 = [v6 localizedStringForKey:@"A problem repeatedly occurred with this book’s content." value:&stru_1E7188 table:0];
-    [(UILabel *)self->_label setText:v7];
+    v7 = AEBundle(v6);
+    v8 = [v7 localizedStringForKey:@"A problem repeatedly occurred with this book’s content." value:&stru_1E7188 table:0];
+    [(UILabel *)self->_label setText:v8];
 
-    v8 = [UIFont boldSystemFontOfSize:14.0];
-    [(UILabel *)self->_label setFont:v8];
+    v9 = [UIFont boldSystemFontOfSize:14.0];
+    [(UILabel *)self->_label setFont:v9];
 
     [(UILabel *)self->_label setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UILabel *)self->_label setTextAlignment:1];
-    v9 = +[UIColor clearColor];
-    [(UILabel *)self->_label setBackgroundColor:v9];
+    v10 = +[UIColor clearColor];
+    [(UILabel *)self->_label setBackgroundColor:v10];
 
     [(UILabel *)self->_label setNumberOfLines:0];
     [(UILabel *)self->_label setOpaque:0];
@@ -130,7 +130,7 @@
   {
     theme = [(BKContentReloadView *)self theme];
     v5 = +[UIButtonConfiguration filledButtonConfiguration];
-    v6 = AEBundle();
+    v6 = AEBundle(v5);
     v7 = [v6 localizedStringForKey:@"Reload Book" value:&stru_1E7188 table:0];
     [v5 setTitle:v7];
 

@@ -216,9 +216,7 @@
 {
   if (self)
   {
-    v1 = self[6];
-    v2 = self[7];
-    v3 = self[8];
+    v1 = *(self + 96);
   }
 
   else
@@ -245,10 +243,7 @@
 {
   if (self)
   {
-    v1 = self[9];
-    v2 = self[10];
-    v3 = self[11];
-    v4 = self[12];
+    v1 = *(self + 144);
   }
 
   else

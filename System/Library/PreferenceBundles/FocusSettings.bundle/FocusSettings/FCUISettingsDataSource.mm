@@ -8,7 +8,9 @@
 - (id)placeholderModeForSemanticType:(int64_t)type;
 - (unint64_t)_cloudSyncState;
 - (void)_modeSetUp:(id)up;
+- (void)_setCloudSyncPreferenceEnabled:(BOOL)enabled;
 - (void)_setCloudSyncingEnabled:(id)enabled specifier:(id)specifier;
+- (void)createDefaultModeConfigurationForMode:(id)mode animate:(BOOL)animate;
 - (void)dealloc;
 - (void)didUpdateActiveModesForActivationManager:(id)manager assertion:(id)assertion;
 - (void)globalConfigurationService:(id)service didEditCloudSyncPreference:(BOOL)preference;
@@ -20,10 +22,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    FCUISettingsRegisterLogging();
+    FCUISettingsRegisterLogging(v3, v4);
   }
 }
 
@@ -94,6 +97,61 @@
   v4 = [(NSSet *)allReservedModes bs_firstObjectPassingTest:v6];
 
   return v4;
+}
+
+- (void)createDefaultModeConfigurationForMode:(id)mode animate:(BOOL)animate
+{
+  animateCopy = animate;
+  modeCopy = mode;
+  semanticType = [modeCopy semanticType];
+  modeConfigurationService = self->_modeConfigurationService;
+  if (semanticType == -1)
+  {
+    v16 = 0;
+    v10 = [(DNDModeConfigurationService *)modeConfigurationService createEmptyModeConfigurationForMode:modeCopy error:&v16];
+
+    v11 = v16;
+    if (v11)
+    {
+LABEL_3:
+      if (os_log_type_enabled(FCUILogSettings, OS_LOG_TYPE_ERROR))
+      {
+        sub_131DC();
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    modeIdentifier = [modeCopy modeIdentifier];
+
+    v17 = 0;
+    v10 = [(DNDModeConfigurationService *)modeConfigurationService createModeConfigurationUsingTemplateForModeIdentifier:modeIdentifier error:&v17];
+    v11 = v17;
+
+    if (v11)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  mode = [v10 mode];
+  v13 = FCUILogSettings;
+  if (os_log_type_enabled(FCUILogSettings, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v19 = mode;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Created mode:\n %@", buf, 0xCu);
+  }
+
+  [(FCUISettingsDataSource *)self reloadSpecifiers];
+  _listController = [(FCUISettingsDataSource *)self _listController];
+  modeIdentifier2 = [mode modeIdentifier];
+  [_listController showConfigurationForModeIdentifier:modeIdentifier2 animate:animateCopy];
+
+LABEL_9:
 }
 
 - (void)loadSpecifiers
@@ -384,6 +442,23 @@ LABEL_38:
   -[FCUISettingsDataSource _setCloudSyncPreferenceEnabled:](self, "_setCloudSyncPreferenceEnabled:", [enabled BOOLValue]);
 
   [(FCUISettingsDataSource *)self reloadSpecifiers];
+}
+
+- (void)_setCloudSyncPreferenceEnabled:(BOOL)enabled
+{
+  globalConfigurationService = self->_globalConfigurationService;
+  v6 = 0;
+  [(DNDGlobalConfigurationService *)globalConfigurationService setCloudSyncPreferenceEnabled:enabled error:&v6];
+  v5 = v6;
+  if (v5)
+  {
+    if (os_log_type_enabled(FCUILogSettings, OS_LOG_TYPE_ERROR))
+    {
+      sub_13314();
+    }
+
+    [(FCUISettingsDataSource *)self reloadSpecifiers];
+  }
 }
 
 - (id)_modeLabel:(id)label

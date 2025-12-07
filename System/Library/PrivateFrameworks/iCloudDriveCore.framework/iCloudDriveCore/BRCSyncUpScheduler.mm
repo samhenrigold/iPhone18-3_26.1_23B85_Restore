@@ -14,6 +14,7 @@
 - (void)prepareItemForSyncUp:(id)up inFlightDiffs:(unint64_t)diffs inZone:(id)zone;
 - (void)recoverAndReportMissingJobsWithCompletion:(id)completion recoveryTask:(id)task;
 - (void)schedule;
+- (void)setState:(int)state forItem:(id)item zone:(id)zone;
 @end
 
 @implementation BRCSyncUpScheduler
@@ -48,7 +49,7 @@ void __49__BRCSyncUpScheduler_descriptionForItem_context___block_invoke(uint64_t
   [v10 appendFormat:@"zone:%@", v8];
   if (v7)
   {
-    v9 = BRCItemFieldsPrettyPrint();
+    v9 = BRCItemFieldsPrettyPrint(v7);
     [v10 appendFormat:@" in-flight{%@}", v9];
   }
 }
@@ -131,7 +132,7 @@ void __49__BRCSyncUpScheduler_descriptionForItem_context___block_invoke(uint64_t
 - (unint64_t)finishSyncUpForItem:(id)item inZone:(id)zone success:(BOOL)success
 {
   successCopy = success;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   zoneCopy = zone;
   if (successCopy)
@@ -152,23 +153,23 @@ void __49__BRCSyncUpScheduler_descriptionForItem_context___block_invoke(uint64_t
     [BRCSyncUpScheduler finishSyncUpForItem:inZone:success:];
   }
 
-  memset(v29, 0, sizeof(v29));
-  __brc_create_section(0, "[BRCSyncUpScheduler finishSyncUpForItem:inZone:success:]", 140, 0, v29);
+  memset(v28, 0, sizeof(v28));
+  __brc_create_section(0, "[BRCSyncUpScheduler finishSyncUpForItem:inZone:success:]", 140, 0, v28);
   v12 = brc_bread_crumbs();
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v29[0];
+    v25 = v28[0];
     name = [(BRCFSSchedulerBase *)self name];
     jobsDescription = [itemCopy jobsDescription];
     *buf = 134218754;
-    v31 = v26;
-    v32 = 2112;
-    v33 = name;
-    v34 = 2112;
-    v35 = jobsDescription;
-    v36 = 2112;
-    v37 = v12;
+    v30 = v25;
+    v31 = 2112;
+    v32 = name;
+    v33 = 2112;
+    v34 = jobsDescription;
+    v35 = 2112;
+    v36 = v12;
     _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@[%@]: finishing sync up%@", buf, 0x2Au);
   }
 
@@ -209,8 +210,7 @@ LABEL_19:
     }
   }
 
-  __brc_leave_section(v29);
-  v24 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v28);
   return v14;
 }
 
@@ -239,6 +239,21 @@ LABEL_19:
   v10 = [(BRCFSSchedulerBase *)&v12 timeToRetryFor:v9];
 
   return v10;
+}
+
+- (void)setState:(int)state forItem:(id)item zone:(id)zone
+{
+  v6 = *&state;
+  itemCopy = item;
+  zoneCopy = zone;
+  if ([itemCopy dbRowID] || (objc_msgSend(itemCopy, "isZoneRoot") & 1) == 0)
+  {
+    dbRowID = [itemCopy dbRowID];
+    v10 = zoneCopy;
+    v11 = [[BRCItemDBRowIDAndZoneJobIdentifier alloc] initWithItemDBRowID:dbRowID zoneRowID:v10];
+
+    [(BRCFSSchedulerBase *)self setState:v6 forJobID:v11];
+  }
 }
 
 - (void)_scheduleSyncUpJobForZoneWithRowID:(id)d
@@ -277,43 +292,43 @@ LABEL_19:
 
 - (void)recoverAndReportMissingJobsWithCompletion:(id)completion recoveryTask:(id)task
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   taskCopy = task;
   clientDB = [(BRCAccountSession *)self->super._session clientDB];
   v9 = [clientDB fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci WHERE ci.item_localsyncupstate = 4 AND ci.item_localsyncupstate != 0 AND NOT EXISTS (SELECT 1 FROM client_sync_up AS su WHERE ci.rowid = su.throttle_id AND su.throttle_state != 0)"}];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __77__BRCSyncUpScheduler_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke;
-  v35[3] = &unk_2784FF910;
-  v35[4] = self;
-  v10 = [v9 enumerateObjects:v35];
-  v11 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __77__BRCSyncUpScheduler_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke;
+  v34[3] = &unk_2784FF910;
+  v34[4] = self;
+  v10 = [v9 enumerateObjects:v34];
+  v11 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v30 = v9;
-    v31 = 8;
-    v32 = taskCopy;
-    v33 = completionCopy;
+    v29 = v9;
+    v30 = 8;
+    v31 = taskCopy;
+    v32 = completionCopy;
     LODWORD(v13) = 0;
-    v14 = *v37;
+    v14 = *v36;
     do
     {
-      v34 = v13;
+      v33 = v13;
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * i);
+        v16 = *(*(&v35 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         clientZone = [v16 clientZone];
         dbRowID = [clientZone dbRowID];
@@ -334,8 +349,8 @@ LABEL_19:
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = (v34 + v12);
-      v12 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v13 = (v33 + v12);
+      v12 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v12);
@@ -348,9 +363,9 @@ LABEL_19:
     }
 
     [(BRCSyncUpScheduler *)self schedule];
-    taskCopy = v32;
-    completionCopy = v33;
-    v9 = v30;
+    taskCopy = v31;
+    completionCopy = v32;
+    v9 = v29;
   }
 
   else
@@ -359,7 +374,7 @@ LABEL_19:
     v13 = 0;
   }
 
-  v24 = [(BRCAccountSession *)self->super._session clientDB:v30];
+  v24 = [(BRCAccountSession *)self->super._session clientDB:v29];
   v25 = [v24 fetch:@"SELECT DISTINCT su.zone_rowid FROM client_sync_up AS su  INNER JOIN client_items AS li ON su.throttle_id = li.rowid  WHERE su.throttle_state = 50       AND su.throttle_state != 0       AND li.item_localsyncupstate = 4       AND li.item_min_supported_os_rowid IS NULL       AND NOT item_id_is_documents(li.item_id)"];
 
   if ([v25 next])
@@ -378,7 +393,6 @@ LABEL_19:
   [analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v27];
 
   completionCopy[2](completionCopy, v13);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 id __77__BRCSyncUpScheduler_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -459,59 +473,54 @@ void __30__BRCSyncUpScheduler_schedule__block_invoke(uint64_t a1, void *a2, uint
 
 - (void)createSyncUpJobForItem:(uint64_t)a1 inZone:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Clearing app sync blocked bit because we created an item that needs sync%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Clearing app sync blocked bit because we created an item that needs sync%@", &v2, 0xCu);
 }
 
 - (void)finishSyncUpForItem:inZone:success:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _session.clientDB.isBatchSuspended%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _session.clientDB.isBatchSuspended%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishSyncUpForItem:inZone:success:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: zoneRowID%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: zoneRowID%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleSyncUpJob:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync-Up[%@]: Scheduling a sync-up job%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync-Up[%@]: Scheduling a sync-up job%@", &v3, 0x16u);
 }
 
 - (void)recoverAndReportMissingJobsWithCompletion:(os_log_t)log recoveryTask:.cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync-Up: Recovered from %u missing sync up jobs%@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync-Up: Recovered from %u missing sync up jobs%@", v3, 0x12u);
 }
 
 @end

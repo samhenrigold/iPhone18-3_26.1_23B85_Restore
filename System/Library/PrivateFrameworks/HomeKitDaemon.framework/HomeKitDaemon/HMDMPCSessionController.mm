@@ -7,12 +7,12 @@
 
 - (void)executeSessionWithSessionData:(id)data completion:(id)completion
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   obj = completion;
-  v88 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"HMDMPCSessionCreation"];
+  v87 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"HMDMPCSessionCreation"];
   selfCopy = self;
-  v84 = dataCopy;
+  v83 = dataCopy;
   if (self)
   {
     v7 = dataCopy;
@@ -38,9 +38,9 @@
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v119 = v19;
-    v120 = 2112;
-    v121 = uUID;
+    v118 = v19;
+    v119 = 2112;
+    v120 = uUID;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Running MPC media session with sessionUUID: %@", buf, 0x16u);
   }
 
@@ -49,38 +49,38 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __68__HMDMPCSessionController_executeSessionWithSessionData_completion___block_invoke;
   aBlock[3] = &unk_27868A528;
-  v81 = v88;
-  v105 = v81;
-  v106 = val;
+  v80 = v87;
+  v104 = v80;
+  v105 = val;
   selfCopy2 = self;
-  v107 = selfCopy2;
-  v79 = obj;
-  v108 = v79;
-  v83 = _Block_copy(aBlock);
-  mediaProfiles2 = [v84 mediaProfiles];
-  v85 = mediaProfiles2;
+  v106 = selfCopy2;
+  v78 = obj;
+  v107 = v78;
+  v82 = _Block_copy(aBlock);
+  mediaProfiles2 = [v83 mediaProfiles];
+  v84 = mediaProfiles2;
   if (selfCopy)
   {
-    v87 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(mediaProfiles2, "count")}];
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
+    v86 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(mediaProfiles2, "count")}];
     v110 = 0u;
-    obja = v85;
-    v21 = [obja countByEnumeratingWithState:&v109 objects:buf count:16];
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    obja = v84;
+    v21 = [obja countByEnumeratingWithState:&v108 objects:buf count:16];
     if (v21)
     {
-      v22 = *v110;
+      v22 = *v109;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v110 != v22)
+          if (*v109 != v22)
           {
             objc_enumerationMutation(obja);
           }
 
-          v24 = *(*(&v109 + 1) + 8 * i);
+          v24 = *(*(&v108 + 1) + 8 * i);
           accessory = [v24 accessory];
           v26 = accessory;
           if (accessory && [accessory providesHashRouteID])
@@ -88,7 +88,7 @@
             hashRouteID = [v26 hashRouteID];
             if (hashRouteID)
             {
-              [v87 addObject:hashRouteID];
+              [v86 addObject:hashRouteID];
             }
 
             else
@@ -99,11 +99,11 @@
               if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 v35 = HMFGetLogIdentifier();
-                *v114 = 138543618;
-                v115 = v35;
-                v116 = 2112;
-                v117 = v24;
-                _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Nil hashed route id for media profile: %@", v114, 0x16u);
+                *v113 = 138543618;
+                v114 = v35;
+                v115 = 2112;
+                v116 = v24;
+                _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Nil hashed route id for media profile: %@", v113, 0x16u);
               }
 
               objc_autoreleasePoolPop(v32);
@@ -118,24 +118,24 @@
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               v31 = HMFGetLogIdentifier();
-              *v114 = 138543618;
-              v115 = v31;
-              v116 = 2112;
-              v117 = v24;
-              _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@No hashed route id for media profile: %@", v114, 0x16u);
+              *v113 = 138543618;
+              v114 = v31;
+              v115 = 2112;
+              v116 = v24;
+              _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@No hashed route id for media profile: %@", v113, 0x16u);
             }
 
             objc_autoreleasePoolPop(v28);
           }
         }
 
-        v21 = [obja countByEnumeratingWithState:&v109 objects:buf count:16];
+        v21 = [obja countByEnumeratingWithState:&v108 objects:buf count:16];
       }
 
       while (v21);
     }
 
-    v36 = [v87 copy];
+    v36 = objc_msgSend_copy(v86);
   }
 
   else
@@ -144,7 +144,7 @@
   }
 
   v37 = v36;
-  v38 = v84;
+  v38 = v83;
   if (!selfCopy)
   {
     goto LABEL_43;
@@ -233,24 +233,24 @@ LABEL_46:
 
   if (v54)
   {
-    v83[2](v83, v54);
+    v82[2](v82, v54);
     goto LABEL_65;
   }
 
-  [v81 markWithReason:@"Find Destination"];
+  [v80 markWithReason:@"Find Destination"];
   objc_initWeak(buf, val);
-  v97[0] = MEMORY[0x277D85DD0];
-  v97[1] = 3221225472;
-  v97[2] = __68__HMDMPCSessionController_executeSessionWithSessionData_completion___block_invoke_2;
-  v97[3] = &unk_27868A550;
-  objc_copyWeak(&v103, buf);
-  v98 = uUID;
-  v102 = v83;
-  v99 = v81;
+  v96[0] = MEMORY[0x277D85DD0];
+  v96[1] = 3221225472;
+  v96[2] = __68__HMDMPCSessionController_executeSessionWithSessionData_completion___block_invoke_2;
+  v96[3] = &unk_27868A550;
+  objc_copyWeak(&v102, buf);
+  v97 = uUID;
+  v101 = v82;
+  v98 = v80;
   v55 = v38;
-  v100 = v55;
-  v101 = selfCopy2;
-  objb = _Block_copy(v97);
+  v99 = v55;
+  v100 = selfCopy2;
+  objb = _Block_copy(v96);
   v56 = @"com.apple.Music";
   playbackArchive2 = [v55 playbackArchive];
   if (playbackArchive2)
@@ -298,30 +298,30 @@ LABEL_57:
   bundleIdentifier3 = [playbackArchive6 bundleIdentifier];
   v71 = [(HMDMPCResolveDestinationOperation *)v68 initWithHashedRouteIDs:v37 mediaApplicationDestination:v65 mediaApplicationIdentifier:bundleIdentifier3 forceSingleGroup:v58 completion:objb];
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   speakerGroupCommandOperationQueue = [(HMDMPCSessionController *)val speakerGroupCommandOperationQueue];
   operations = [speakerGroupCommandOperationQueue operations];
 
-  v74 = [operations countByEnumeratingWithState:&v93 objects:v113 count:16];
+  v74 = [operations countByEnumeratingWithState:&v92 objects:v112 count:16];
   if (v74)
   {
-    v75 = *v94;
+    v75 = *v93;
     do
     {
       for (j = 0; j != v74; ++j)
       {
-        if (*v94 != v75)
+        if (*v93 != v75)
         {
           objc_enumerationMutation(operations);
         }
 
-        [(HMDMPCResolveDestinationOperation *)v71 addDependency:*(*(&v93 + 1) + 8 * j)];
+        [(HMDMPCResolveDestinationOperation *)v71 addDependency:*(*(&v92 + 1) + 8 * j)];
       }
 
-      v74 = [operations countByEnumeratingWithState:&v93 objects:v113 count:16];
+      v74 = [operations countByEnumeratingWithState:&v92 objects:v112 count:16];
     }
 
     while (v74);
@@ -330,11 +330,9 @@ LABEL_57:
   speakerGroupCommandOperationQueue2 = [(HMDMPCSessionController *)val speakerGroupCommandOperationQueue];
   [speakerGroupCommandOperationQueue2 addOperation:v71];
 
-  objc_destroyWeak(&v103);
+  objc_destroyWeak(&v102);
   objc_destroyWeak(buf);
 LABEL_65:
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__HMDMPCSessionController_executeSessionWithSessionData_completion___block_invoke(uint64_t a1, void *a2)
@@ -353,19 +351,19 @@ uint64_t __68__HMDMPCSessionController_executeSessionWithSessionData_completion_
 
 void __68__HMDMPCSessionController_executeSessionWithSessionData_completion___block_invoke_2(id *a1, void *a2)
 {
-  v79[2] = *MEMORY[0x277D85DE8];
-  v61 = a2;
+  v78[2] = *MEMORY[0x277D85DE8];
+  v60 = a2;
   val = objc_loadWeakRetained(a1 + 9);
-  if (v61)
+  if (v60)
   {
     [a1[5] markWithReason:@"Generate MR Command Operations"];
-    v60 = a1;
+    v59 = a1;
     v3 = a1 + 6;
     v4 = [a1[6] playbackArchive];
     v5 = [a1[6] playbackVolumeNumber];
     v6 = [*v3 playbackStateNumber];
-    v7 = v60[4];
-    v59 = v61;
+    v7 = v59[4];
+    v58 = v60;
     v8 = v4;
     v9 = v5;
     v10 = v6;
@@ -381,28 +379,28 @@ void __68__HMDMPCSessionController_executeSessionWithSessionData_completion___bl
     *aBlock = MEMORY[0x277D85DD0];
     *&aBlock[8] = 3221225472;
     *&aBlock[16] = __138__HMDMPCSessionController_generateMRCommandOperationsForDestination_playbackArchive_playbackVolumeNumber_playbackStateNumber_sessionUUID___block_invoke;
-    v66 = &unk_27868A5C0;
+    v65 = &unk_27868A5C0;
     v14 = v13;
-    v67 = v14;
+    v66 = v14;
     v15 = _Block_copy(aBlock);
     location[0] = *MEMORY[0x277D27CF0];
     v16 = [v12 UUIDString];
 
     location[1] = *MEMORY[0x277D27CD8];
-    *&v68 = v16;
-    *(&v68 + 1) = MEMORY[0x277CBEC38];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:location count:2];
+    *&v67 = v16;
+    *(&v67 + 1) = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:location count:2];
 
     if (v8)
     {
-      v18 = [[HMDMPCSendMRCommandOperation alloc] initWithPlaybackArchive:v8 options:v17 destination:v59];
+      v18 = [[HMDMPCSendMRCommandOperation alloc] initWithPlaybackArchive:v8 options:v17 destination:v58];
       v15[2](v15, v18);
     }
 
     if (v9)
     {
       v19 = [HMDMRSetEndpointVolumeOperation alloc];
-      v20 = [v59 outputDeviceUIDs];
+      v20 = [v58 outputDeviceUIDs];
       v21 = [(HMDMRSetEndpointVolumeOperation *)v19 initWithRouteIDs:v20 volume:v9];
 
       v15[2](v15, v21);
@@ -411,12 +409,12 @@ void __68__HMDMPCSessionController_executeSessionWithSessionData_completion___bl
     if (!v10)
     {
 LABEL_19:
-      v39 = [v14 copy];
+      v39 = objc_msgSend_copy(v14, context);
 
 LABEL_20:
-      v40 = v60[5];
-      v41 = v60[7];
-      v42 = v60[8];
+      v40 = v59[5];
+      v41 = v59[7];
+      v42 = v59[8];
       v43 = v39;
       v44 = v41;
       v45 = v40;
@@ -429,39 +427,39 @@ LABEL_20:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOperations_executionEvent_activity_completion___block_invoke;
-        v73 = &unk_27868A578;
-        objc_copyWeak(&v78, &from);
-        objc_copyWeak(v79, location);
-        v74 = v45;
+        v72 = &unk_27868A578;
+        objc_copyWeak(&v77, &from);
+        objc_copyWeak(v78, location);
+        v73 = v45;
         v48 = v43;
-        v75 = v48;
-        v77 = v46;
-        v76 = v44;
+        v74 = v48;
+        v76 = v46;
+        v75 = v44;
         [v47 addExecutionBlock:buf];
         v49 = v45;
         v50 = v44;
-        v70 = 0u;
-        v71 = 0u;
-        v68 = 0u;
         v69 = 0u;
+        v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
         v51 = v48;
-        v52 = [v51 countByEnumeratingWithState:&v68 objects:aBlock count:16];
+        v52 = [v51 countByEnumeratingWithState:&v67 objects:aBlock count:16];
         if (v52)
         {
-          v53 = *v69;
+          v53 = *v68;
           do
           {
             for (i = 0; i != v52; ++i)
             {
-              if (*v69 != v53)
+              if (*v68 != v53)
               {
                 objc_enumerationMutation(v51);
               }
 
-              [v47 addDependency:*(*(&v68 + 1) + 8 * i)];
+              [v47 addDependency:*(*(&v67 + 1) + 8 * i)];
             }
 
-            v52 = [v51 countByEnumeratingWithState:&v68 objects:aBlock count:16];
+            v52 = [v51 countByEnumeratingWithState:&v67 objects:aBlock count:16];
           }
 
           while (v52);
@@ -470,8 +468,8 @@ LABEL_20:
         v44 = v50;
         v45 = v49;
 
-        objc_destroyWeak(v79);
-        objc_destroyWeak(&v78);
+        objc_destroyWeak(v78);
+        objc_destroyWeak(&v77);
         objc_destroyWeak(&from);
         objc_destroyWeak(location);
       }
@@ -481,7 +479,7 @@ LABEL_20:
         v47 = 0;
       }
 
-      [v60[5] markWithReason:@"Execute MR Commands"];
+      [v59[5] markWithReason:@"Execute MR Commands"];
       v55 = [val speakerGroupCommandOperationQueue];
       [v55 addOperations:v43 waitUntilFinished:0];
 
@@ -533,7 +531,7 @@ LABEL_18:
       }
     }
 
-    v25 = v59;
+    v25 = v58;
     goto LABEL_18;
   }
 
@@ -557,37 +555,36 @@ LABEL_18:
   (*(v26[8] + 2))();
 
 LABEL_30:
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOperations_executionEvent_activity_completion___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = objc_loadWeakRetained((a1 + 72));
   [*(a1 + 32) markWithReason:@"Pre-Completion"];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
-    v35 = v3;
+    v7 = *v36;
+    v34 = v3;
     while (2)
     {
       v8 = WeakRetained;
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v7)
+        if (*v36 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
+        v10 = *(*(&v35 + 1) + 8 * i);
         v11 = [v10 error];
 
         if (v11)
@@ -601,11 +598,11 @@ void __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOpera
             v23 = HMFGetLogIdentifier();
             v24 = [v10 error];
             *buf = 138543874;
-            v41 = v23;
-            v42 = 2112;
-            v43 = v10;
-            v44 = 2112;
-            v45 = v24;
+            v40 = v23;
+            v41 = 2112;
+            v42 = v10;
+            v43 = 2112;
+            v44 = v24;
             _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@MPC Session Creation Failed at Command (%@) : %@", buf, 0x20u);
           }
 
@@ -614,8 +611,8 @@ void __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOpera
           v26 = [v10 error];
           (*(v25 + 16))(v25, v26);
 
-          v3 = v35;
-          [v35 finish];
+          v3 = v34;
+          [v34 finish];
           goto LABEL_23;
         }
 
@@ -648,11 +645,11 @@ void __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOpera
               v30 = HMFGetLogIdentifier();
               v31 = [v14 partialExecutionError];
               *buf = 138543874;
-              v41 = v30;
-              v42 = 2112;
-              v43 = v14;
-              v44 = 2112;
-              v45 = v31;
+              v40 = v30;
+              v41 = 2112;
+              v42 = v14;
+              v43 = 2112;
+              v44 = v31;
               _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@MPC Session Creation Failed at Command (%@) : partial success %@", buf, 0x20u);
             }
 
@@ -662,8 +659,8 @@ void __112__HMDMPCSessionController_createCompletionOperationForMediaRemoteOpera
             v33 = [v14 partialExecutionError];
             (*(v32 + 16))(v32, v33);
 
-            v3 = v35;
-            [v35 finish];
+            v3 = v34;
+            [v34 finish];
 
 LABEL_23:
             goto LABEL_24;
@@ -671,9 +668,9 @@ LABEL_23:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v35 objects:v45 count:16];
       WeakRetained = v8;
-      v3 = v35;
+      v3 = v34;
       if (v6)
       {
         continue;
@@ -690,7 +687,7 @@ LABEL_23:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v19;
+    v40 = v19;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@MPC Session Created Successfully", buf, 0xCu);
   }
 
@@ -698,8 +695,6 @@ LABEL_23:
   (*(*(a1 + 56) + 16))();
   [v3 finish];
 LABEL_24:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __138__HMDMPCSessionController_generateMRCommandOperationsForDestination_playbackArchive_playbackVolumeNumber_playbackStateNumber_sessionUUID___block_invoke(uint64_t a1, void *a2)

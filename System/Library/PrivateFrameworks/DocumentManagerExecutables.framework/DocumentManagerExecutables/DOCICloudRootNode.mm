@@ -27,7 +27,7 @@
 
 - (NSURL)fileURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v15 - v5;
   selfCopy = self;
@@ -234,7 +234,7 @@
 
 - (NSPersonNameComponents)ownerNameComponents
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v14 - v5;
   selfCopy = self;
@@ -264,7 +264,7 @@
     if (itemDecorations)
     {
       v5 = itemDecorations;
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemDecoration);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemDecoration, 0x277CC63F8);
       static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       selfCopy2 = v5;
@@ -276,7 +276,7 @@
     selfCopy2 = self;
   }
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemDecoration);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemDecoration, 0x277CC63F8);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -292,7 +292,7 @@
     if (tags)
     {
       v5 = tags;
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPTag);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPTag, 0x277CC6468);
       static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       isa = Array._bridgeToObjectiveC()().super.isa;

@@ -45,7 +45,7 @@
 
   sub_1003FAF44(state);
 
-  sub_100024F64(v10, &unk_101908380);
+  sub_100024F64(v10, &unk_101908380, &unk_1011E6860);
 }
 
 - (BOOL)chromeDidSelectMarkerForMapItem:(id)item
@@ -132,7 +132,7 @@
   resultCopy = result;
   selfCopy = self;
   sub_1003FC028(infoCopy, results, result, animated, v12, v13);
-  sub_1000588AC(v12);
+  sub_1000588AC(v12, v13);
 }
 
 - (void)selectSearchResult:(id)result animated:(BOOL)animated

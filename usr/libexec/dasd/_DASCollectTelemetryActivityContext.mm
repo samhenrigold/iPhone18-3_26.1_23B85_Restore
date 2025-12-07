@@ -51,18 +51,17 @@
 - (id)description
 {
   v3 = objc_opt_class();
-  launchDataCollectionStartDate = self->_launchDataCollectionStartDate;
   if (self->_wasDeferred)
   {
-    v5 = @"YES";
+    v4 = @"YES";
   }
 
   else
   {
-    v5 = @"NO";
+    v4 = @"NO";
   }
 
-  return [NSString stringWithFormat:@"<%@: %@, %@, %@, deferred: %@>", v3, *&self->_task, self->_launchDataCollectionStartDate, v5];
+  return [NSString stringWithFormat:@"<%@: %@, %@, %@, deferred: %@>", v3, *&self->_task, self->_launchDataCollectionStartDate, v4];
 }
 
 @end

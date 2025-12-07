@@ -125,12 +125,12 @@
 
 - (void)dataDidChange
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v3 = _PUILoggingFacility();
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = _PUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[PUIReportDomainDetailController dataDidChange]";
+    v23 = "[PUIReportDomainDetailController dataDidChange]";
     _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "%s: Starting page load", buf, 0xCu);
   }
 
@@ -154,36 +154,34 @@
   v12 = *MEMORY[0x277D6B650];
   [v9 setObject:domain forKeyedSubscript:*MEMORY[0x277D6B650]];
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __48__PUIReportDomainDetailController_dataDidChange__block_invoke;
-  v21[3] = &unk_279BA1FB8;
-  v21[4] = self;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __48__PUIReportDomainDetailController_dataDidChange__block_invoke;
+  v20[3] = &unk_279BA1FB8;
+  v20[4] = self;
   v13 = v8;
-  v22 = v13;
-  [PUITrackingReportManager queryWithOptions:v9 reply:v21];
+  v21 = v13;
+  [PUITrackingReportManager queryWithOptions:v9 reply:v20];
   dispatch_group_enter(v13);
   v14 = objc_opt_new();
   [v14 setObject:&unk_28772B450 forKeyedSubscript:v10];
   domain2 = [(PUIReportDomainDetailController *)self domain];
   [v14 setObject:domain2 forKeyedSubscript:v12];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __48__PUIReportDomainDetailController_dataDidChange__block_invoke_92;
-  v19[3] = &unk_279BA1FB8;
-  v19[4] = self;
-  v20 = v13;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __48__PUIReportDomainDetailController_dataDidChange__block_invoke_92;
+  v18[3] = &unk_279BA1FB8;
+  v18[4] = self;
+  v19 = v13;
   v16 = v13;
-  [PUITrackingReportManager queryWithOptions:v14 reply:v19];
+  [PUITrackingReportManager queryWithOptions:v14 reply:v18];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __48__PUIReportDomainDetailController_dataDidChange__block_invoke_3;
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = v5;
   dispatch_group_notify(v16, MEMORY[0x277D85CD0], block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PUIReportDomainDetailController_dataDidChange__block_invoke(uint64_t a1, void *a2)
@@ -252,26 +250,24 @@ void __48__PUIReportDomainDetailController_dataDidChange__block_invoke_3(uint64_
     _os_signpost_emit_with_name_impl(&dword_2657FE000, v3, OS_SIGNPOST_INTERVAL_END, v4, "PUIReportDomainDetailController.load", "", &v7, 2u);
   }
 
-  v5 = _PUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _PUILoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
     v8 = "[PUIReportDomainDetailController dataDidChange]_block_invoke";
-    _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%s: Finished page load", &v7, 0xCu);
+    _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "%s: Finished page load", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadAsyncSpecifiers
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [(PUIReportDomainDetailController *)self specifierForID:@"DOMAIN"];
   appRows = [(PUIReportDomainDetailController *)self appRows];
   appRowsAwaitingDisplay = [(PUIReportDomainDetailController *)self appRowsAwaitingDisplay];
   appHeader = [(PUIReportDomainDetailController *)self appHeader];
-  v18[0] = appHeader;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = appHeader;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v8 = [(PSListController *)self pui_replaceRows:appRows withRows:appRowsAwaitingDisplay header:v7 insertPoint:v3];
 
   appRowsAwaitingDisplay2 = [(PUIReportDomainDetailController *)self appRowsAwaitingDisplay];
@@ -280,51 +276,49 @@ void __48__PUIReportDomainDetailController_dataDidChange__block_invoke_3(uint64_
   websiteRows = [(PUIReportDomainDetailController *)self websiteRows];
   websiteRowsAwaitingDisplay = [(PUIReportDomainDetailController *)self websiteRowsAwaitingDisplay];
   websiteHeader = [(PUIReportDomainDetailController *)self websiteHeader];
-  v17 = websiteHeader;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v16 = websiteHeader;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v14 = [(PSListController *)self pui_replaceRows:websiteRows withRows:websiteRowsAwaitingDisplay header:v13 insertPoint:v8];
 
   websiteRowsAwaitingDisplay2 = [(PUIReportDomainDetailController *)self websiteRowsAwaitingDisplay];
   [(PUIReportDomainDetailController *)self setWebsiteRows:websiteRowsAwaitingDisplay2];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)appSpecifiersFromResults:(id)results
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v25 = objc_opt_new();
+  v24 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = resultsCopy;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v24 = *v27;
-    v23 = *MEMORY[0x277D40008];
+    v23 = *v26;
+    v22 = *MEMORY[0x277D40008];
     v7 = *MEMORY[0x277D40020];
     v8 = *MEMORY[0x277D401A8];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v24)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"bundleName"];
         v12 = MEMORY[0x277D3FAD8];
         v13 = [(PUIReportDomainDetailController *)self nameForAppID:v11];
         v14 = [v12 preferenceSpecifierNamed:v13 target:self set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
         [v14 setIdentifier:v11];
-        [v14 setObject:v11 forKeyedSubscript:v23];
+        [v14 setObject:v11 forKeyedSubscript:v22];
         [v14 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v7];
         v15 = MEMORY[0x277CBEAA8];
         v16 = [v10 objectForKeyedSubscript:@"maxTimeStamp"];
@@ -333,48 +327,47 @@ void __48__PUIReportDomainDetailController_dataDidChange__block_invoke_3(uint64_
         v18 = [(PUIReportDomainDetailController *)self timeStringForDate:v17];
         [v14 setObject:v18 forKeyedSubscript:v8];
 
-        [v25 addObject:v14];
+        [v24 addObject:v14];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v6);
   }
 
-  v19 = [v25 copy];
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [v24 copy];
 
   return v19;
 }
 
 - (id)websiteSpecifiersFromResults:(id)results
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = resultsCopy;
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v22 = *v25;
+    v21 = *v24;
     v7 = *MEMORY[0x277D401A8];
     v8 = *MEMORY[0x277D3FFC0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v22)
+        if (*v24 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"context"];
         v12 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v11 target:self set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
         [v12 setIdentifier:v11];
@@ -388,17 +381,16 @@ void __48__PUIReportDomainDetailController_dataDidChange__block_invoke_3(uint64_
         v17 = [(PUIReportDomainDetailController *)self iconForContext:v11];
         [v12 setObject:v17 forKeyedSubscript:v8];
 
-        [v23 addObject:v12];
+        [v22 addObject:v12];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v18 = [v23 copy];
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = [v22 copy];
 
   return v18;
 }
@@ -468,15 +460,15 @@ void __50__PUIReportDomainDetailController_didTapLearnMore__block_invoke(uint64_
 - (id)iconForContext:(id)context
 {
   contextCopy = context;
-  v4 = PUIWebsiteIconView();
-  v5 = [contextCopy substringWithRange:{0, 1}];
+  v5 = PUIWebsiteIconView(contextCopy, v4);
+  v6 = [contextCopy substringWithRange:{0, 1}];
 
-  localizedUppercaseString = [v5 localizedUppercaseString];
-  [v4 setText:localizedUppercaseString];
+  localizedUppercaseString = [v6 localizedUppercaseString];
+  [v5 setText:localizedUppercaseString];
 
-  v7 = PUIImageFromLabel(v4);
+  v8 = PUIImageFromLabel(v5);
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -277,7 +277,7 @@ LABEL_8:
   return v17;
 }
 
-uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 doubleValue];
   if (v7 < 0.0)
@@ -304,50 +304,50 @@ uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, v
 
 - (id)description
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
-  v51.receiver = self;
-  v51.super_class = USBudget;
-  v4 = [(USBudget *)&v51 description];
+  v50.receiver = self;
+  v50.super_class = USBudget;
+  v4 = [(USBudget *)&v50 description];
   identifier = [(USBudget *)self identifier];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, identifier];
 
   objc_msgSend(v6, "appendString:", @" Categories: (");
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 1;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 1;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   categoryIdentifiers = [(USBudget *)self categoryIdentifiers];
-  v8 = [categoryIdentifiers countByEnumeratingWithState:&v43 objects:v55 count:16];
+  v8 = [categoryIdentifiers countByEnumeratingWithState:&v42 objects:v54 count:16];
   if (v8)
   {
-    v9 = *v44;
+    v9 = *v43;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v9)
+        if (*v43 != v9)
         {
           objc_enumerationMutation(categoryIdentifiers);
         }
 
-        if (*(v48 + 24) == 1)
+        if (*(v47 + 24) == 1)
         {
-          [v6 appendString:*(*(&v43 + 1) + 8 * i)];
-          *(v48 + 24) = 0;
+          [v6 appendString:*(*(&v42 + 1) + 8 * i)];
+          *(v47 + 24) = 0;
         }
 
         else
         {
-          [v6 appendFormat:@", %@", *(*(&v43 + 1) + 8 * i)];
+          [v6 appendFormat:@", %@", *(*(&v42 + 1) + 8 * i)];
         }
       }
 
-      v8 = [categoryIdentifiers countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v8 = [categoryIdentifiers countByEnumeratingWithState:&v42 objects:v54 count:16];
     }
 
     while (v8);
@@ -355,38 +355,38 @@ uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, v
 
   [v6 appendString:@""]);
   objc_msgSend(v6, "appendString:", @" Applications: (");
-  *(v48 + 24) = 1;
+  *(v47 + 24) = 1;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   bundleIdentifiers = [(USBudget *)self bundleIdentifiers];
-  v12 = [bundleIdentifiers countByEnumeratingWithState:&v39 objects:v54 count:16];
+  v12 = [bundleIdentifiers countByEnumeratingWithState:&v38 objects:v53 count:16];
   if (v12)
   {
-    v13 = *v40;
+    v13 = *v39;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v40 != v13)
+        if (*v39 != v13)
         {
           objc_enumerationMutation(bundleIdentifiers);
         }
 
-        if (*(v48 + 24) == 1)
+        if (*(v47 + 24) == 1)
         {
-          [v6 appendString:*(*(&v39 + 1) + 8 * j)];
-          *(v48 + 24) = 0;
+          [v6 appendString:*(*(&v38 + 1) + 8 * j)];
+          *(v47 + 24) = 0;
         }
 
         else
         {
-          [v6 appendFormat:@", %@", *(*(&v39 + 1) + 8 * j)];
+          [v6 appendFormat:@", %@", *(*(&v38 + 1) + 8 * j)];
         }
       }
 
-      v12 = [bundleIdentifiers countByEnumeratingWithState:&v39 objects:v54 count:16];
+      v12 = [bundleIdentifiers countByEnumeratingWithState:&v38 objects:v53 count:16];
     }
 
     while (v12);
@@ -396,38 +396,38 @@ uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, v
   if ([(NSSet *)self->_exemptBundleIdentifiers count])
   {
     objc_msgSend(v6, "appendString:", @" Exempt Applications: (");
-    *(v48 + 24) = 1;
+    *(v47 + 24) = 1;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     exemptBundleIdentifiers = [(USBudget *)self exemptBundleIdentifiers];
-    v16 = [exemptBundleIdentifiers countByEnumeratingWithState:&v35 objects:v53 count:16];
+    v16 = [exemptBundleIdentifiers countByEnumeratingWithState:&v34 objects:v52 count:16];
     if (v16)
     {
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (k = 0; k != v16; ++k)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(exemptBundleIdentifiers);
           }
 
-          if (*(v48 + 24) == 1)
+          if (*(v47 + 24) == 1)
           {
-            [v6 appendString:*(*(&v35 + 1) + 8 * k)];
-            *(v48 + 24) = 0;
+            [v6 appendString:*(*(&v34 + 1) + 8 * k)];
+            *(v47 + 24) = 0;
           }
 
           else
           {
-            [v6 appendFormat:@", %@", *(*(&v35 + 1) + 8 * k)];
+            [v6 appendFormat:@", %@", *(*(&v34 + 1) + 8 * k)];
           }
         }
 
-        v16 = [exemptBundleIdentifiers countByEnumeratingWithState:&v35 objects:v53 count:16];
+        v16 = [exemptBundleIdentifiers countByEnumeratingWithState:&v34 objects:v52 count:16];
       }
 
       while (v16);
@@ -437,38 +437,38 @@ uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, v
   }
 
   objc_msgSend(v6, "appendString:", @" WebDomains: (");
-  *(v48 + 24) = 1;
+  *(v47 + 24) = 1;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   webDomains = [(USBudget *)self webDomains];
-  v20 = [webDomains countByEnumeratingWithState:&v31 objects:v52 count:16];
+  v20 = [webDomains countByEnumeratingWithState:&v30 objects:v51 count:16];
   if (v20)
   {
-    v21 = *v32;
+    v21 = *v31;
     do
     {
       for (m = 0; m != v20; ++m)
       {
-        if (*v32 != v21)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(webDomains);
         }
 
-        if (*(v48 + 24) == 1)
+        if (*(v47 + 24) == 1)
         {
-          [v6 appendString:*(*(&v31 + 1) + 8 * m)];
-          *(v48 + 24) = 0;
+          [v6 appendString:*(*(&v30 + 1) + 8 * m)];
+          *(v47 + 24) = 0;
         }
 
         else
         {
-          [v6 appendFormat:@", %@", *(*(&v31 + 1) + 8 * m)];
+          [v6 appendFormat:@", %@", *(*(&v30 + 1) + 8 * m)];
         }
       }
 
-      v20 = [webDomains countByEnumeratingWithState:&v31 objects:v52 count:16];
+      v20 = [webDomains countByEnumeratingWithState:&v30 objects:v51 count:16];
     }
 
     while (v20);
@@ -478,25 +478,24 @@ uint64_t __26__USBudget_initWithCoder___block_invoke(uint64_t a1, uint64_t a2, v
   calendarIdentifier = [(USBudget *)self calendarIdentifier];
   [v6 appendFormat:@" %@:{", calendarIdentifier];
 
-  *(v48 + 24) = 1;
+  *(v47 + 24) = 1;
   schedule = [(USBudget *)self schedule];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __23__USBudget_description__block_invoke;
-  v28[3] = &unk_279E099E0;
-  v30 = &v47;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __23__USBudget_description__block_invoke;
+  v27[3] = &unk_279E099E0;
+  v29 = &v46;
   v25 = v6;
-  v29 = v25;
-  [schedule enumerateKeysAndObjectsUsingBlock:v28];
+  v28 = v25;
+  [schedule enumerateKeysAndObjectsUsingBlock:v27];
 
   [v25 appendString:@"}"];
-  _Block_object_dispose(&v47, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 
   return v25;
 }
 
-uint64_t __23__USBudget_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__23__USBudget_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);

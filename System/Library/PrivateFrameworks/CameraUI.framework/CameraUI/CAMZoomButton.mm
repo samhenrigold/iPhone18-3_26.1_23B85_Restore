@@ -796,10 +796,11 @@ LABEL_4:
   v60.size.width = v8;
   v60.size.height = v10;
   MidY = CGRectGetMidY(v60);
+  [(CAMZoomButton *)self isHighlighted];
   v56 = 0u;
   v57 = 0u;
   v55 = 0u;
-  [(CAMZoomButton *)self _highlightingTransformForHighlighted:[(CAMZoomButton *)self isHighlighted]];
+  objc_msgSend__highlightingTransformForHighlighted_(self);
   [_contentContainerView setBounds:{0.0, 0.0, v8, v10}];
   [_contentContainerView setCenter:{MidX, MidY}];
   v52 = v55;
@@ -824,7 +825,9 @@ LABEL_4:
   v53 = 0u;
   v54 = 0u;
   v52 = 0u;
-  [(CAMZoomButton *)self _transformForEnlargeText:[(CAMZoomButton *)self enlargeText] orientation:[(CAMZoomButton *)self orientation]];
+  [(CAMZoomButton *)self enlargeText];
+  [(CAMZoomButton *)self orientation];
+  objc_msgSend__transformForEnlargeText_orientation_(self);
   [CAMView convertRect:&v50 toCeiledBounds:&v49 andRoundedCenter:self toViewScale:0.0, 0.0, v8, v10];
   [_zoomFactorLabel setBounds:{v50, v51}];
   [_zoomFactorLabel setCenter:v49];
@@ -936,7 +939,9 @@ LABEL_4:
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  [(CAMZoomButton *)self _transformForEnlargeText:[(CAMZoomButton *)self enlargeText] orientation:[(CAMZoomButton *)self orientation]];
+  [(CAMZoomButton *)self enlargeText];
+  [(CAMZoomButton *)self orientation];
+  objc_msgSend__transformForEnlargeText_orientation_(self);
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -959,7 +964,7 @@ LABEL_4:
   [(CAMZoomButton *)&v7 setHighlighted:highlightedCopy];
   if (isHighlighted != highlightedCopy)
   {
-    [(CAMZoomButton *)self _highlightingTransformForHighlighted:highlightedCopy];
+    objc_msgSend__highlightingTransformForHighlighted_(self);
     v6[0] = v6[3];
     v6[1] = v6[4];
     v6[2] = v6[5];
@@ -1066,7 +1071,7 @@ LABEL_4:
   [v8 setFromValue:v16];
 
   memset(&v25, 0, sizeof(v25));
-  [(CAMZoomButton *)self _highlightingTransformForHighlighted:isHighlighted];
+  objc_msgSend__highlightingTransformForHighlighted_(self);
   memset(&v24, 0, sizeof(v24));
   v18 = v25;
   CATransform3DMakeAffineTransform(&v24, &v18);

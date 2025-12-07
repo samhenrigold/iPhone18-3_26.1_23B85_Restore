@@ -2,6 +2,7 @@
 + (BOOL)supportsDualiBoot;
 + (id)_updaterClasses;
 + (id)updater;
++ (id)updaterWithIOService:(unsigned int)service;
 + (id)updaterWithTimeout:(double)timeout;
 - (BOOL)generateFirmwareImagesWithCallback:(ramrod_update_callbacks *)callback context:(firmware_update_context *)context;
 - (MSUBootFirmwareUpdater)init;
@@ -100,6 +101,61 @@ LABEL_14:
         return result;
       }
     }
+  }
+
+  return result;
+}
+
++ (id)updaterWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  if (objc_opt_class() == self)
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    _updaterClasses = [self _updaterClasses];
+    result = [_updaterClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (result)
+    {
+      v8 = result;
+      v9 = *v12;
+LABEL_7:
+      v10 = 0;
+      while (1)
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(_updaterClasses);
+        }
+
+        result = [*(*(&v11 + 1) + 8 * v10) updaterWithIOService:v3];
+        if (result)
+        {
+          break;
+        }
+
+        if (v8 == ++v10)
+        {
+          result = [_updaterClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v8 = result;
+          if (result)
+          {
+            goto LABEL_7;
+          }
+
+          return result;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v5 = [[self alloc] initWithIOService:v3];
+
+    return v5;
   }
 
   return result;

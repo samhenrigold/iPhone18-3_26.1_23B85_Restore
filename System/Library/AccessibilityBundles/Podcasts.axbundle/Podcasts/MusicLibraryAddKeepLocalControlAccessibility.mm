@@ -10,6 +10,7 @@
 - (unint64_t)accessibilityTraits;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_updateControlStatusProperties;
+- (void)setControlStatus:(MusicLibraryAddKeepLocalControlStatus)status animated:(BOOL)animated;
 - (void)setTitle:(id)title forControlStatusType:(int64_t)type;
 @end
 
@@ -46,7 +47,7 @@
   return v5;
 }
 
-uint64_t __85__MusicLibraryAddKeepLocalControlAccessibility__accessibilityisStatusStructValidated__block_invoke(uint64_t a1)
+void *__85__MusicLibraryAddKeepLocalControlAccessibility__accessibilityisStatusStructValidated__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) validateClass:@"MusicLibraryAddKeepLocalControl" hasInstanceMethod:@"controlStatus" withFullSignature:{"{MusicLibraryAddKeepLocalControlStatus=qd}", 0}];
   _accessibilityisStatusStructValidated_validated = result;
@@ -222,6 +223,19 @@ LABEL_5:
   v3.super_class = MusicLibraryAddKeepLocalControlAccessibility;
   [(MusicLibraryAddKeepLocalControlAccessibility *)&v3 _updateControlStatusProperties];
   [(MusicLibraryAddKeepLocalControlAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setControlStatus:(MusicLibraryAddKeepLocalControlStatus)status animated:(BOOL)animated
+{
+  var0 = status.var0;
+  v7.receiver = self;
+  v7.super_class = MusicLibraryAddKeepLocalControlAccessibility;
+  [(MusicLibraryAddKeepLocalControlAccessibility *)&v7 setControlStatus:status.var0 animated:*&status.var1, animated];
+  if ([(MusicLibraryAddKeepLocalControlAccessibility *)self _accessibilityisStatusStructValidated])
+  {
+    v6 = [(MusicLibraryAddKeepLocalControlAccessibility *)self _accessibilityCustomActionLabelForControlStatus:var0];
+    [(MusicLibraryAddKeepLocalControlAccessibility *)self _accessibilitySetCustomActionLabel:v6];
+  }
 }
 
 - (void)setTitle:(id)title forControlStatusType:(int64_t)type

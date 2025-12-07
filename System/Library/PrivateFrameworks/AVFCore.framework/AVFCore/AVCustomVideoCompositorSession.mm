@@ -301,7 +301,7 @@ LABEL_13:
   v8 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (!v8)
   {
-    v9 = -12782;
+    v9 = 4294954514;
 LABEL_10:
     v10 = AVLocalizedErrorWithUnderlyingOSStatus(v9, 0);
     goto LABEL_22;
@@ -328,7 +328,7 @@ LABEL_10:
 
   else
   {
-    v9 = -12782;
+    v9 = 4294954514;
   }
 
   if (UInt32)
@@ -471,16 +471,16 @@ void *__86__AVCustomVideoCompositorSession_commitCustomVideoCompositorProperties
   dispatch_sync(videoCompositionQ, v4);
 }
 
-uint64_t __54__AVCustomVideoCompositorSession_setVideoComposition___block_invoke(uint64_t result)
+void *__54__AVCustomVideoCompositorSession_setVideoComposition___block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 56);
-  if (*(result + 32) != v1)
+  v1 = *(result[5] + 56);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 32) copy];
-    *(*(v2 + 40) + 56) = result;
-    *(*(v2 + 40) + 64) = 1;
+    result = [v2[4] copy];
+    *(v2[5] + 56) = result;
+    *(v2[5] + 64) = 1;
   }
 
   return result;
@@ -790,7 +790,7 @@ id __63__AVCustomVideoCompositorSession_supportsWideColorSourceFrames__block_inv
   return v18;
 }
 
-uint64_t __188__AVCustomVideoCompositorSession_AVCustomVideoCompositorSession_FigCallbackHandling___compositionFrame_atTime_requiresRenderUsingSources_requiresSampleBuffersUsingSources_withInstruction___block_invoke(void *a1)
+void *__188__AVCustomVideoCompositorSession_AVCustomVideoCompositorSession_FigCallbackHandling___compositionFrame_atTime_requiresRenderUsingSources_requiresSampleBuffersUsingSources_withInstruction___block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 40) = [*(a1[4] + 56) instructionForFigInstruction:a1[9]];
   *(*(a1[6] + 8) + 40) = *(a1[4] + 56);

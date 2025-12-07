@@ -133,7 +133,7 @@
   device = v16->_device;
   v16->_device = v19;
 
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315272);
   v21 = [ImageSR getMobileAssetStatusWithPercentCompleted:0];
   if (v21 == 1)
   {
@@ -206,7 +206,7 @@
   srnet = v16->_srnet;
   v16->_srnet = v38;
 
-  if (!v16->_srnet || (OUTLINED_FUNCTION_0_0(), v40 = objc_alloc_init(OFNormalization), normalization = v16->_normalization, v16->_normalization = v40, normalization, !v16->_normalization) || (v42 = objc_alloc_init(Upsampler), upsampler = v16->_upsampler, v16->_upsampler = v42, upsampler, !v16->_upsampler) || (v44 = objc_alloc_init(VEScaler), scaler = v16->_scaler, v16->_scaler = v44, scaler, !v16->_scaler) || [(ImageSR *)v16 allocateTemporalBuffers])
+  if (!v16->_srnet || (OUTLINED_FUNCTION_0_0(732315276), v40 = objc_alloc_init(OFNormalization), normalization = v16->_normalization, v16->_normalization = v40, normalization, !v16->_normalization) || (v42 = objc_alloc_init(Upsampler), upsampler = v16->_upsampler, v16->_upsampler = v42, upsampler, !v16->_upsampler) || (v44 = objc_alloc_init(VEScaler), scaler = v16->_scaler, v16->_scaler = v44, scaler, !v16->_scaler) || [(ImageSR *)v16 allocateTemporalBuffers])
   {
 LABEL_23:
     v48 = 0;
@@ -277,7 +277,7 @@ LABEL_24:
 
 - (BOOL)upscaleFrame:(__CVBuffer *)frame destinationHiResFrame:(__CVBuffer *)resFrame
 {
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315672);
   self->_attachmentDictOfInput = CMCopyDictionaryOfAttachments(0, frame, 1u);
   self->_inputPixelFormat = CVPixelBufferGetPixelFormatType(frame);
   self->_outputPixelFormat = CVPixelBufferGetPixelFormatType(frame);
@@ -288,18 +288,18 @@ LABEL_24:
   }
 
   CMSetAttachments(self->_outputSR, self->_attachmentDictOfInput, 1u);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315676);
+  OUTLINED_FUNCTION_0_0(732315720);
   if (![(ISRNet *)self->_srnet processSuperResolutionInputBuffer:self->_normalizedRGB outputBuffer:self->_srNetHROutput])
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315724);
+  OUTLINED_FUNCTION_0_0(732315736);
   v7 = 1;
   [(VEScaler *)self->_scaler upScaleAndCropFrameSource:self->_srNetHROutput destination:resFrame upscale:0 rotate:self->_inputIsPortrait waitForCompletion:1];
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315740);
   CFRelease(self->_attachmentDictOfInput);
   return v7;
 }

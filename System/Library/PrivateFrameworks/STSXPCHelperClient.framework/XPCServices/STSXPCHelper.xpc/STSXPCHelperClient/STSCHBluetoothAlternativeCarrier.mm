@@ -101,9 +101,9 @@ LABEL_14:
 - (STSCHBluetoothAlternativeCarrier)initWithNdefRecordBundle:(id)bundle
 {
   bundleCopy = bundle;
-  v24.receiver = self;
-  v24.super_class = STSCHBluetoothAlternativeCarrier;
-  v5 = [(STSCHAlternativeCarrier *)&v24 initWithNdefRecordBundle:bundleCopy];
+  v23.receiver = self;
+  v23.super_class = STSCHBluetoothAlternativeCarrier;
+  v5 = [(STSCHAlternativeCarrier *)&v23 initWithNdefRecordBundle:bundleCopy];
   if (v5)
   {
     configurationRecord = [bundleCopy configurationRecord];
@@ -125,7 +125,6 @@ LABEL_14:
         v11 = v11 - 2 - v16;
         if (v11 < 0 != v17)
         {
-          v23 = *bytes - 1;
           sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSCHBluetoothAlternativeCarrier initWithNdefRecordBundle:]", 87, v5, @"Not enough room for TLV: %ld expected %d", v12, v13, v15);
           goto LABEL_20;
         }
@@ -195,9 +194,9 @@ LABEL_20:
 {
   bundleCopy = bundle;
   configurationRecord = [bundleCopy configurationRecord];
-  isBluetoothLEConfigurationRecord = [configurationRecord isBluetoothLEConfigurationRecord];
+  v6 = objc_msgSend_isBluetoothLEConfigurationRecord(configurationRecord);
 
-  if (isBluetoothLEConfigurationRecord)
+  if (v6)
   {
     v7 = [[self alloc] initWithNdefRecordBundle:bundleCopy];
   }

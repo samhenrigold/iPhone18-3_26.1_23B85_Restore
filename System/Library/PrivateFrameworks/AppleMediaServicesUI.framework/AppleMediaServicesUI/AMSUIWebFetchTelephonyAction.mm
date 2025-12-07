@@ -31,10 +31,10 @@
 
 - (id)runAction
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v48.receiver = self;
-  v48.super_class = AMSUIWebFetchTelephonyAction;
-  runAction = [(AMSUIWebAction *)&v48 runAction];
+  v56 = *MEMORY[0x1E69E9840];
+  v47.receiver = self;
+  v47.super_class = AMSUIWebFetchTelephonyAction;
+  runAction = [(AMSUIWebAction *)&v47 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -47,9 +47,9 @@
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543618;
-    v52 = v6;
-    v53 = 2114;
-    v54 = v7;
+    v51 = v6;
+    v52 = 2114;
+    v53 = v7;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching telephony...", buf, 0x16u);
   }
 
@@ -71,9 +71,9 @@
       v13 = objc_opt_class();
       v14 = AMSLogKey();
       *buf = 138543618;
-      v52 = v13;
-      v53 = 2114;
-      v54 = v14;
+      v51 = v13;
+      v52 = 2114;
+      v53 = v14;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully fetched telephony", buf, 0x16u);
     }
 
@@ -91,9 +91,9 @@
         v17 = objc_opt_class();
         v18 = AMSLogKey();
         *buf = 138543618;
-        v52 = v17;
-        v53 = 2114;
-        v54 = v18;
+        v51 = v17;
+        v52 = 2114;
+        v53 = v18;
         _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Suppressing phone number", buf, 0x16u);
       }
 
@@ -118,9 +118,9 @@ LABEL_24:
           v28 = &stru_1F3921360;
         }
 
-        v50[0] = v28;
-        v49[0] = @"formattedPhoneNumber";
-        v49[1] = @"mobileCountryCode";
+        v49[0] = v28;
+        v48[0] = @"formattedPhoneNumber";
+        v48[1] = @"mobileCountryCode";
         countryCode = [telephony countryCode];
         v30 = countryCode;
         if (countryCode)
@@ -133,8 +133,8 @@ LABEL_24:
           v31 = &stru_1F3921360;
         }
 
-        v50[1] = v31;
-        v49[2] = @"mobileNetworkCode";
+        v49[1] = v31;
+        v48[2] = @"mobileNetworkCode";
         networkCode = [telephony networkCode];
         v33 = networkCode;
         if (networkCode)
@@ -157,10 +157,10 @@ LABEL_24:
           v35 = &stru_1F3921360;
         }
 
-        v50[2] = v34;
-        v50[3] = v35;
-        v49[3] = @"phoneNumber";
-        v49[4] = @"providerName";
+        v49[2] = v34;
+        v49[3] = v35;
+        v48[3] = @"phoneNumber";
+        v48[4] = @"providerName";
         providerName = [telephony providerName];
         v37 = providerName;
         if (providerName)
@@ -173,8 +173,8 @@ LABEL_24:
           v38 = &stru_1F3921360;
         }
 
-        v50[4] = v38;
-        v49[5] = @"radioTechnology";
+        v49[4] = v38;
+        v48[5] = @"radioTechnology";
         radioTechnology = [telephony radioTechnology];
         v40 = radioTechnology;
         if (radioTechnology)
@@ -187,8 +187,8 @@ LABEL_24:
           v41 = &stru_1F3921360;
         }
 
-        v50[5] = v41;
-        v49[6] = @"radioType";
+        v49[5] = v41;
+        v48[6] = @"radioType";
         radioType = [telephony radioType];
         v43 = radioType;
         if (radioType)
@@ -201,8 +201,8 @@ LABEL_24:
           v44 = &stru_1F3921360;
         }
 
-        v50[6] = v44;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:7];
+        v49[6] = v44;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:7];
         v25 = [v27 promiseWithResult:v45];
 
         goto LABEL_46;
@@ -227,18 +227,16 @@ LABEL_24:
     v23 = AMSLogKey();
     v24 = AMSLogableError();
     *buf = 138543874;
-    v52 = v22;
-    v53 = 2114;
-    v54 = v23;
-    v55 = 2114;
-    v56 = v24;
+    v51 = v22;
+    v52 = 2114;
+    v53 = v23;
+    v54 = 2114;
+    v55 = v24;
     _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch telephony: %{public}@", buf, 0x20u);
   }
 
   v25 = [MEMORY[0x1E698CAD0] promiseWithError:phoneNumber];
 LABEL_46:
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v25;
 }

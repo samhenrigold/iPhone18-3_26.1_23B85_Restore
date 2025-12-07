@@ -14,6 +14,7 @@
 - (void)remoteUIController:(id)controller didRemoveObjectModel:(id)model;
 - (void)remoteUIController:(id)controller shouldLoadRequest:(id)request redirectResponse:(id)response withCompletionHandler:(id)handler;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSBuddyMLViewController
@@ -122,20 +123,28 @@ void __38__TSBuddyMLViewController_viewDidLoad__block_invoke(uint64_t a1)
 void __38__TSBuddyMLViewController_viewDidLoad__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __38__TSBuddyMLViewController_viewDidLoad__block_invoke_2_cold_1();
     }
 
     [*(a1 + 32) setBuddyMLURL:0];
-    v6 = [*(a1 + 32) delegate];
-    [v6 viewControllerDidComplete:*(a1 + 32)];
+    v7 = [*(a1 + 32) delegate];
+    [v7 viewControllerDidComplete:*(a1 + 32)];
   }
 
   *(*(a1 + 32) + 1049) = 0;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  remoteUIController = self->_remoteUIController;
+  navigationController = [(TSBuddyMLViewController *)self navigationController];
+  [(RemoteUIController *)remoteUIController setHostViewController:navigationController];
 }
 
 - (void)prepare:(id)prepare
@@ -180,7 +189,7 @@ void __35__TSBuddyMLViewController_prepare___block_invoke(uint64_t a1, void *a2,
 
   else
   {
-    v11 = _TSLogDomain();
+    v11 = _TSLogDomain(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __35__TSBuddyMLViewController_prepare___block_invoke_cold_1();
@@ -194,19 +203,19 @@ void __35__TSBuddyMLViewController_prepare___block_invoke(uint64_t a1, void *a2,
 
 - (void)remoteUIController:(id)controller didRemoveObjectModel:(id)model
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = [(NSMutableArray *)self->_objectModels indexOfObject:modelCopy];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = _TSLogDomain();
+    v7 = _TSLogDomain(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = modelCopy;
-      v11 = 2080;
-      v12 = "[TSBuddyMLViewController remoteUIController:didRemoveObjectModel:]";
-      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "RemoteUI removed an object model that is not on stack: %@ @%s", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = modelCopy;
+      v10 = 2080;
+      v11 = "[TSBuddyMLViewController remoteUIController:didRemoveObjectModel:]";
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "RemoteUI removed an object model that is not on stack: %@ @%s", &v8, 0x16u);
     }
   }
 
@@ -214,65 +223,64 @@ void __35__TSBuddyMLViewController_prepare___block_invoke(uint64_t a1, void *a2,
   {
     [(NSMutableArray *)self->_objectModels removeObjectAtIndex:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modelCopy = model;
+  v9 = modelCopy;
   if (signal)
   {
-    v9 = *signal;
+    v10 = *signal;
     if (*signal == 1)
     {
-      v10 = _TSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _TSLogDomain(modelCopy);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v63 = "[TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:]";
-        _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "ActionSignalDismiss!!! @%s", buf, 0xCu);
+        v64 = "[TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:]";
+        _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "ActionSignalDismiss!!! @%s", buf, 0xCu);
       }
 
-      clientInfo = [modelCopy clientInfo];
-      v12 = [(TSBuddyMLViewController *)self _isActionDismissToCancelFlow:clientInfo];
+      clientInfo = [v9 clientInfo];
+      v13 = [(TSBuddyMLViewController *)self _isActionDismissToCancelFlow:clientInfo];
 
-      if (v12)
+      if (v13)
       {
         delegate = [(TSBuddyMLViewController *)self delegate];
         [delegate userDidTapCancel];
       }
 
-      v9 = *signal;
+      v10 = *signal;
     }
 
-    if (v9 == 2)
+    if (v10 == 2)
     {
-      v14 = _TSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _TSLogDomain(modelCopy);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v63 = "[TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:]";
-        _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "ActionSignalPush!!! @%s", buf, 0xCu);
+        v64 = "[TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:]";
+        _os_log_impl(&dword_262AA8000, v15, OS_LOG_TYPE_DEFAULT, "ActionSignalPush!!! @%s", buf, 0xCu);
       }
     }
 
     displayedPages = [(RemoteUIController *)self->_remoteUIController displayedPages];
-    v16 = [displayedPages count];
+    v17 = [displayedPages count];
 
-    if (!v16)
+    if (!v17)
     {
       if (*signal == 4)
       {
-        v17 = _TSLogDomain();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = _TSLogDomain(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:];
         }
 
-        v18 = 0;
+        v20 = 0;
       }
 
       else
@@ -282,126 +290,124 @@ void __35__TSBuddyMLViewController_prepare___block_invoke(uint64_t a1, void *a2,
           goto LABEL_22;
         }
 
-        v17 = _TSLogDomain();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = _TSLogDomain(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [TSBuddyMLViewController remoteUIController:didReceiveObjectModel:actionSignal:];
         }
 
-        v18 = 2;
+        v20 = 2;
       }
 
-      *signal = v18;
+      *signal = v20;
     }
   }
 
 LABEL_22:
-  v57 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  obj = [modelCopy allPages];
-  v40 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
-  if (v40)
+  v57 = 0u;
+  obj = [v9 allPages];
+  v41 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+  if (v41)
   {
-    v39 = *v56;
+    v40 = *v57;
     do
     {
-      v19 = 0;
+      v21 = 0;
       do
       {
-        if (*v56 != v39)
+        if (*v57 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = v19;
-        tableViewOM = [*(*(&v55 + 1) + 8 * v19) tableViewOM];
-        v51 = 0u;
+        v43 = v21;
+        tableViewOM = [*(*(&v56 + 1) + 8 * v21) tableViewOM];
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v41 = tableViewOM;
+        v55 = 0u;
+        v42 = tableViewOM;
         sections = [tableViewOM sections];
-        v45 = [sections countByEnumeratingWithState:&v51 objects:v60 count:16];
-        if (v45)
+        v46 = [sections countByEnumeratingWithState:&v52 objects:v61 count:16];
+        if (v46)
         {
-          v44 = *v52;
+          v45 = *v53;
           do
           {
-            v21 = 0;
+            v23 = 0;
             do
             {
-              if (*v52 != v44)
+              if (*v53 != v45)
               {
                 objc_enumerationMutation(sections);
               }
 
-              v46 = v21;
-              v22 = *(*(&v51 + 1) + 8 * v21);
-              v47 = 0u;
+              v47 = v23;
+              v24 = *(*(&v52 + 1) + 8 * v23);
               v48 = 0u;
               v49 = 0u;
               v50 = 0u;
-              rows = [v22 rows];
-              v24 = [rows countByEnumeratingWithState:&v47 objects:v59 count:16];
-              if (v24)
+              v51 = 0u;
+              rows = [v24 rows];
+              v26 = [rows countByEnumeratingWithState:&v48 objects:v60 count:16];
+              if (v26)
               {
-                v25 = v24;
-                v26 = *v48;
+                v27 = v26;
+                v28 = *v49;
                 do
                 {
-                  for (i = 0; i != v25; ++i)
+                  for (i = 0; i != v27; ++i)
                   {
-                    if (*v48 != v26)
+                    if (*v49 != v28)
                     {
                       objc_enumerationMutation(rows);
                     }
 
-                    v28 = *(*(&v47 + 1) + 8 * i);
-                    attributes = [v28 attributes];
-                    v30 = [attributes objectForKeyedSubscript:@"secure"];
-                    bOOLValue = [v30 BOOLValue];
+                    v30 = *(*(&v48 + 1) + 8 * i);
+                    attributes = [v30 attributes];
+                    v32 = [attributes objectForKeyedSubscript:@"secure"];
+                    bOOLValue = [v32 BOOLValue];
 
                     if (bOOLValue)
                     {
-                      attributes2 = [v28 attributes];
-                      v33 = [attributes2 objectForKey:@"id"];
+                      attributes2 = [v30 attributes];
+                      v35 = [attributes2 objectForKey:@"id"];
                       idNeedsEncryption = self->_idNeedsEncryption;
-                      self->_idNeedsEncryption = v33;
+                      self->_idNeedsEncryption = v35;
                     }
                   }
 
-                  v25 = [rows countByEnumeratingWithState:&v47 objects:v59 count:16];
+                  v27 = [rows countByEnumeratingWithState:&v48 objects:v60 count:16];
                 }
 
-                while (v25);
+                while (v27);
               }
 
-              v21 = v46 + 1;
+              v23 = v47 + 1;
             }
 
-            while (v46 + 1 != v45);
-            v45 = [sections countByEnumeratingWithState:&v51 objects:v60 count:16];
+            while (v47 + 1 != v46);
+            v46 = [sections countByEnumeratingWithState:&v52 objects:v61 count:16];
           }
 
-          while (v45);
+          while (v46);
         }
 
-        v19 = v42 + 1;
+        v21 = v43 + 1;
       }
 
-      while (v42 + 1 != v40);
-      v40 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      while (v43 + 1 != v41);
+      v41 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
-    while (v40);
+    while (v41);
   }
 
-  clientInfo2 = [modelCopy clientInfo];
+  clientInfo2 = [v9 clientInfo];
   [(TSBuddyMLViewController *)self _handlePlanAddition:clientInfo2];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller shouldLoadRequest:(id)request redirectResponse:(id)response withCompletionHandler:(id)handler
@@ -415,15 +421,15 @@ LABEL_22:
   v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [lastObject populatePostbackDictionary:v15];
   v16 = [v15 objectForKey:self->_idNeedsEncryption];
-  [requestCopy setValue:@"iOS Device Activation" forHTTPHeaderField:@"User-Agent"];
+  v17 = [requestCopy setValue:@"iOS Device Activation" forHTTPHeaderField:@"User-Agent"];
   if (self->_initialRequest)
   {
-    v17 = _TSLogDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = _TSLogDomain(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v26 = "[TSBuddyMLViewController remoteUIController:shouldLoadRequest:redirectResponse:withCompletionHandler:]";
-      _os_log_impl(&dword_262AA8000, v17, OS_LOG_TYPE_DEFAULT, "Set type as json for initial request @%s", buf, 0xCu);
+      _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "Set type as json for initial request @%s", buf, 0xCu);
     }
 
     [requestCopy setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -449,28 +455,27 @@ LABEL_22:
 
   else
   {
-    v18 = _TSLogDomain();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _TSLogDomain(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v26 = "[TSBuddyMLViewController remoteUIController:shouldLoadRequest:redirectResponse:withCompletionHandler:]";
-      _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "No encryption needed @%s", buf, 0xCu);
+      _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "No encryption needed @%s", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 1, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke_cold_2();
     }
@@ -480,8 +485,8 @@ void __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirec
 
   if (!v3)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke_cold_1();
     }
@@ -492,9 +497,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  [*(a1 + 32) setObject:v3 forKey:WeakRetained[125]];
-  v5 = [MEMORY[0x277CCAC58] dataWithPropertyList:*(a1 + 32) format:100 options:0 error:0];
-  [*(a1 + 40) setHTTPBody:v5];
+  [*(a1 + 32) setObject:v3 forKey:*(WeakRetained + 125)];
+  v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:*(a1 + 32) format:100 options:0 error:0];
+  [*(a1 + 40) setHTTPBody:v6];
   [*(a1 + 40) setTimeoutInterval:180.0];
   (*(*(a1 + 48) + 16))();
 
@@ -507,65 +512,62 @@ LABEL_10:
   controllerCopy = controller;
   errorCopy = error;
   requestCopy = request;
+  v11 = requestCopy;
   if (errorCopy)
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _TSLogDomain(requestCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       v25 = errorCopy;
       v26 = 2080;
       v27 = "[TSBuddyMLViewController remoteUIController:didFinishLoadWithError:forRequest:]";
-      _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "RemoteUI didFinishLoadWithError: %{public}@ @%s", buf, 0x16u);
+      _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "RemoteUI didFinishLoadWithError: %{public}@ @%s", buf, 0x16u);
     }
 
     if ([errorCopy code] == -1001)
     {
-      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = [v12 localizedStringForKey:@"ERROR_TRANSFER_ITEM_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-
       v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v14 = [v13 localizedStringForKey:@"CARRRIER_SETUP_TIMEOUT_MESSAGE" value:&stru_28753DF48 table:@"Localizable"];
+      v21 = [v13 localizedStringForKey:@"ERROR_TRANSFER_ITEM_TITLE" value:&stru_28753DF48 table:@"Localizable"];
 
-      v15 = [MEMORY[0x277D75110] alertControllerWithTitle:v21 message:v14 preferredStyle:1];
+      v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v15 = [v14 localizedStringForKey:@"CARRRIER_SETUP_TIMEOUT_MESSAGE" value:&stru_28753DF48 table:@"Localizable"];
+
+      v16 = [MEMORY[0x277D75110] alertControllerWithTitle:v21 message:v15 preferredStyle:1];
       objc_initWeak(buf, self);
-      v16 = MEMORY[0x277D750F8];
-      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v18 = [v17 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
+      v17 = MEMORY[0x277D750F8];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v19 = [v18 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
       v22[0] = MEMORY[0x277D85DD0];
       v22[1] = 3221225472;
       v22[2] = __80__TSBuddyMLViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke;
       v22[3] = &unk_279B44550;
       objc_copyWeak(&v23, buf);
-      v19 = [v16 actionWithTitle:v18 style:1 handler:v22];
-      [v15 addAction:v19];
+      v20 = [v17 actionWithTitle:v19 style:1 handler:v22];
+      [v16 addAction:v20];
 
-      [(TSBuddyMLViewController *)self presentViewController:v15 animated:1 completion:0];
+      [(TSBuddyMLViewController *)self presentViewController:v16 animated:1 completion:0];
       objc_destroyWeak(&v23);
       objc_destroyWeak(buf);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void __80__TSBuddyMLViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke(uint64_t a1)
+void __80__TSBuddyMLViewController_remoteUIController_didFinishLoadWithError_forRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = _TSLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
     v8 = "[TSBuddyMLViewController remoteUIController:didFinishLoadWithError:forRequest:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "Complete viewController to allow user continue flow @%s", &v7, 0xCu);
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Complete viewController to allow user continue flow @%s", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = [WeakRetained delegate];
-  v5 = objc_loadWeakRetained((a1 + 32));
-  [v4 viewControllerDidComplete:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [WeakRetained delegate];
+  v6 = objc_loadWeakRetained((a1 + 32));
+  [v5 viewControllerDidComplete:v6];
 }
 
 - (void)_configureRUIController
@@ -597,31 +599,29 @@ void __80__TSBuddyMLViewController_remoteUIController_didFinishLoadWithError_for
   }
 }
 
-void __50__TSBuddyMLViewController__configureRUIController__block_invoke(uint64_t a1)
+void __50__TSBuddyMLViewController__configureRUIController__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _TSLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
     v7 = "[TSBuddyMLViewController _configureRUIController]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "User canceled flow @%s", &v6, 0xCu);
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "User canceled flow @%s", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = [WeakRetained delegate];
-  [v4 userDidTapCancel];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = [WeakRetained delegate];
+  [v5 userDidTapCancel];
 }
 
 - (void)_handlePlanAddition:(id)addition
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   additionCopy = addition;
   v5 = [additionCopy objectForKeyedSubscript:@"eid"];
-  v34 = [additionCopy objectForKeyedSubscript:@"iccid"];
-  v33 = [additionCopy objectForKeyedSubscript:@"phoneNumber"];
+  v35 = [additionCopy objectForKeyedSubscript:@"iccid"];
+  v34 = [additionCopy objectForKeyedSubscript:@"phoneNumber"];
   v6 = [additionCopy objectForKeyedSubscript:@"mcc"];
   mcc = self->_mcc;
   self->_mcc = v6;
@@ -638,37 +638,37 @@ void __50__TSBuddyMLViewController__configureRUIController__block_invoke(uint64_
   gid2 = self->_gid2;
   self->_gid2 = v12;
 
-  v32 = v5;
-  if (v5 && v34 && v33)
+  v33 = v5;
+  if (v5 && v35 && v34)
   {
-    v28 = objc_alloc(MEMORY[0x277CC3640]);
-    v30 = [additionCopy objectForKeyedSubscript:@"sourceIccid"];
-    v29 = [additionCopy objectForKeyedSubscript:@"UnusableIccid"];
-    v27 = [additionCopy objectForKeyedSubscript:@"mcc"];
-    v31 = [additionCopy objectForKeyedSubscript:@"mnc"];
-    v14 = [additionCopy objectForKeyedSubscript:@"gid1"];
-    v26 = [additionCopy objectForKeyedSubscript:@"gid2"];
-    v25 = [additionCopy objectForKeyedSubscript:@"smdpAddress"];
-    v15 = [additionCopy objectForKeyedSubscript:@"useDS"];
-    bOOLValue = [v15 BOOLValue];
-    v17 = [additionCopy objectForKeyedSubscript:@"isESim"];
-    bOOLValue2 = [v17 BOOLValue];
-    v19 = [additionCopy objectForKeyedSubscript:@"flowType"];
-    BYTE1(v24) = bOOLValue2;
-    LOBYTE(v24) = bOOLValue;
-    v20 = [v28 initWithDetails:v5 installIccid:v34 sourceIccid:v30 unusableIccid:v29 phoneNumber:v33 mcc:v27 mnc:v31 gid1:v14 gid2:v26 smdp:v25 useDS:v24 esim:v19 flowType:?];
+    v29 = objc_alloc(MEMORY[0x277CC3640]);
+    v31 = [additionCopy objectForKeyedSubscript:@"sourceIccid"];
+    v30 = [additionCopy objectForKeyedSubscript:@"UnusableIccid"];
+    v28 = [additionCopy objectForKeyedSubscript:@"mcc"];
+    v32 = [additionCopy objectForKeyedSubscript:@"mnc"];
+    v15 = [additionCopy objectForKeyedSubscript:@"gid1"];
+    v27 = [additionCopy objectForKeyedSubscript:@"gid2"];
+    v26 = [additionCopy objectForKeyedSubscript:@"smdpAddress"];
+    v16 = [additionCopy objectForKeyedSubscript:@"useDS"];
+    bOOLValue = [v16 BOOLValue];
+    v18 = [additionCopy objectForKeyedSubscript:@"isESim"];
+    bOOLValue2 = [v18 BOOLValue];
+    v20 = [additionCopy objectForKeyedSubscript:@"flowType"];
+    BYTE1(v25) = bOOLValue2;
+    LOBYTE(v25) = bOOLValue;
+    v21 = [v29 initWithDetails:v5 installIccid:v35 sourceIccid:v31 unusableIccid:v30 phoneNumber:v34 mcc:v28 mnc:v32 gid1:v15 gid2:v27 smdp:v26 useDS:v25 esim:v20 flowType:?];
 
-    if (v20)
+    if (v21)
     {
-      v21 = _TSLogDomain();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = _TSLogDomain(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v36 = "[TSBuddyMLViewController _handlePlanAddition:]";
-        _os_log_impl(&dword_262AA8000, v21, OS_LOG_TYPE_DEFAULT, "Adding cellular plan... @%s", buf, 0xCu);
+        v37 = "[TSBuddyMLViewController _handlePlanAddition:]";
+        _os_log_impl(&dword_262AA8000, v23, OS_LOG_TYPE_DEFAULT, "Adding cellular plan... @%s", buf, 0xCu);
       }
 
-      [(CoreTelephonyClient *)self->_coreTelephonyClient addPlanWith:v20 completionHandler:&__block_literal_global_22];
+      [(CoreTelephonyClient *)self->_coreTelephonyClient addPlanWith:v21 completionHandler:&__block_literal_global_22];
       delegate = [(TSBuddyMLViewController *)self delegate];
       [delegate viewControllerDidComplete:self];
     }
@@ -676,23 +676,22 @@ void __50__TSBuddyMLViewController__configureRUIController__block_invoke(uint64_
 
   else
   {
-    v20 = _TSLogDomain();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _TSLogDomain(v14);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [TSBuddyMLViewController _handlePlanAddition:];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TSBuddyMLViewController__handlePlanAddition___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (a2 != 2)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __47__TSBuddyMLViewController__handlePlanAddition___block_invoke_cold_1();
     }
@@ -703,7 +702,7 @@ void __47__TSBuddyMLViewController__handlePlanAddition___block_invoke(uint64_t a
 {
   textCopy = text;
   completionCopy = completion;
-  v8 = _TSLogDomain();
+  v8 = _TSLogDomain(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [TSBuddyMLViewController _requestCipherText:v8 completion:?];
@@ -733,26 +732,27 @@ void __57__TSBuddyMLViewController__requestCipherText_completion___block_invoke(
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TSLogDomain(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __57__TSBuddyMLViewController__requestCipherText_completion___block_invoke_cold_1();
       }
     }
 
-    v9 = *(*(a1 + 32) + 16);
+    v10 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v9 = *(*(a1 + 32) + 16);
+    v10 = *(*(a1 + 32) + 16);
   }
 
-  v9();
+  v10();
 }
 
 - (BOOL)_isActionDismissToCancelFlow:(id)flow
@@ -782,92 +782,37 @@ void __57__TSBuddyMLViewController__requestCipherText_completion___block_invoke(
 
 void __38__TSBuddyMLViewController_viewDidLoad__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __35__TSBuddyMLViewController_prepare___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)remoteUIController:didReceiveObjectModel:actionSignal:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)remoteUIController:didReceiveObjectModel:actionSignal:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __103__TSBuddyMLViewController_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handlePlanAddition:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TSBuddyMLViewController__handlePlanAddition___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestCipherText:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 1016);
   v3 = *(a1 + 1024);
-  v5 = 138412802;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2080;
-  v10 = "[TSBuddyMLViewController _requestCipherText:completion:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] IMSI %@/%@ @%s", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412802;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2080;
+  v9 = "[TSBuddyMLViewController _requestCipherText:completion:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] IMSI %@/%@ @%s", &v4, 0x20u);
 }
 
 void __57__TSBuddyMLViewController__requestCipherText_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

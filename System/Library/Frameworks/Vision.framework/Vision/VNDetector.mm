@@ -70,7 +70,7 @@
   width = interest.size.width;
   y = interest.origin.y;
   x = interest.origin.x;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB1F30E0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB1F30E0, &qword_1A6001C30);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v22 - v13;
   v15 = _Block_copy(handler);
@@ -426,11 +426,11 @@ LABEL_10:
   return error;
 }
 
-uint64_t __40__VNDetector_validateImageBuffer_error___block_invoke()
+uint64_t __40__VNDetector_validateImageBuffer_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 detectorName];
+  return [v2 detectorName];
 }
 
 - (id)internalProcessUsingQualityOfServiceClass:(unsigned int)class options:(id)options regionOfInterest:(CGRect)interest warningRecorder:(id)recorder error:(id *)error progressHandler:(id)handler

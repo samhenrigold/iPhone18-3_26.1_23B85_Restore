@@ -19,6 +19,8 @@
 - (id)_removeWrapperForTransfer:(id)transfer;
 - (id)_retrieveLocalFileURLForFileTransferWithGUID:(id)d options:(int64_t)options outTransfer:(id *)transfer outError:(id *)error;
 - (id)createNewOutgoingTransferWithLocalFileURL:(id)l;
+- (id)guidForNewIncomingTransferWithFilename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags;
+- (id)guidForNewOutgoingTransferWithFilename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags;
 - (id)guidsForStoredAttachmentBlastDoorPayloadData:(id)data messageGUID:(id)d;
 - (id)guidsForStoredAttachmentPayloadData:(id)data messageGUID:(id)d;
 - (id)guidsForStoredAttachmentPayloadDataURLs:(id)ls messageGUID:(id)d;
@@ -56,10 +58,13 @@
 - (void)assignTransfer:(id)transfer toAccount:(id)account otherPerson:(id)person;
 - (void)broadcastTransfersWithGUIDs:(id)ds atLocalPaths:(id)paths;
 - (void)deleteTransferForGUID:(id)d;
+- (void)endTransfer:(id)transfer endState:(int64_t)state updateByteCounts:(BOOL)counts;
 - (void)failTransfer:(id)transfer error:(id)error;
 - (void)failTransfer:(id)transfer reason:(int64_t)reason;
 - (void)failTransferPreviewGeneration:(id)generation;
 - (void)generatePreviewForTransfer:(id)transfer messageItem:(id)item senderContext:(id)context;
+- (void)makeNewIncomingTransferWithGUID:(id)d filename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags;
+- (void)makeNewOutgoingTransferWithGUID:(id)d filename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags;
 - (void)markTransferAsNotSuccessfullyDownloadedFromCloud:(id)cloud;
 - (void)markTransferAsNotSyncedSuccessfully:(id)successfully;
 - (void)postHubbleDownloadFailedIfNeededForTransfer:(id)transfer error:(id)error;
@@ -72,6 +77,7 @@
 - (void)resetTransfer:(id)transfer andPostReason:(int64_t)reason;
 - (void)retrieveLocalFileURLForFileTransferWithGUIDs:(id)ds options:(int64_t)options completion:(id)completion;
 - (void)setRecoverableErrorForTransfer:(id)transfer error:(int64_t)error;
+- (void)setUpdatedStickerUserInfo:(id)info forTransfer:(id)transfer repositioningFromLocalChange:(BOOL)change;
 - (void)startFinalizingTransfer:(id)transfer updateByteCounts:(BOOL)counts;
 - (void)startTransfer:(id)transfer;
 - (void)successfullyGeneratedPreviewForTransfer:(id)transfer;
@@ -292,75 +298,69 @@
 
 + (id)fileTransferErrorWithReason:(int64_t)reason description:(id)description
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277D19E58];
-  v17[0] = *MEMORY[0x277CCA450];
+  v16[0] = *MEMORY[0x277CCA450];
   v7 = MEMORY[0x277CCA8D8];
   descriptionCopy = description;
   mainBundle = [v7 mainBundle];
   v10 = [mainBundle localizedStringForKey:@"File transfer operation was unsuccessful." value:&stru_283F23018 table:0];
-  v18[0] = v10;
-  v17[1] = *MEMORY[0x277CCA470];
+  v17[0] = v10;
+  v16[1] = *MEMORY[0x277CCA470];
   mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
   v12 = [mainBundle2 localizedStringForKey:descriptionCopy value:&stru_283F23018 table:0];
 
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [v5 errorWithDomain:v6 code:reason userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (id)localFileURLRetrievalErrorWithReason:(int64_t)reason description:(id)description
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277D19E60];
-  v17[0] = *MEMORY[0x277CCA450];
+  v16[0] = *MEMORY[0x277CCA450];
   v7 = MEMORY[0x277CCA8D8];
   descriptionCopy = description;
   mainBundle = [v7 mainBundle];
   v10 = [mainBundle localizedStringForKey:@"File transfer local file URL retrieval operation was unsuccessful." value:&stru_283F23018 table:0];
-  v18[0] = v10;
-  v17[1] = *MEMORY[0x277CCA470];
+  v17[0] = v10;
+  v16[1] = *MEMORY[0x277CCA470];
   mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
   v12 = [mainBundle2 localizedStringForKey:descriptionCopy value:&stru_283F23018 table:0];
 
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [v5 errorWithDomain:v6 code:reason userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (id)localFileURLRetrievalErrorWithReason:(int64_t)reason underlyingReason:(int64_t)underlyingReason description:(id)description
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCA9B8];
   v9 = *MEMORY[0x277D19E60];
-  v21[0] = *MEMORY[0x277CCA450];
+  v20[0] = *MEMORY[0x277CCA450];
   v10 = MEMORY[0x277CCA8D8];
   descriptionCopy = description;
   mainBundle = [v10 mainBundle];
   v13 = [mainBundle localizedStringForKey:@"File transfer local file URL retrieval operation was unsuccessful." value:&stru_283F23018 table:0];
-  v22[0] = v13;
-  v21[1] = *MEMORY[0x277CCA470];
+  v21[0] = v13;
+  v20[1] = *MEMORY[0x277CCA470];
   mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
   v15 = [mainBundle2 localizedStringForKey:descriptionCopy value:&stru_283F23018 table:0];
 
-  v22[1] = v15;
-  v21[2] = *MEMORY[0x277CCA7E8];
+  v21[1] = v15;
+  v20[2] = *MEMORY[0x277CCA7E8];
   v16 = [self fileTransferErrorWithReason:underlyingReason description:@"See error code and compare against IMFileTransferErrorReason."];
-  v22[2] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v21[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
   v18 = [v8 errorWithDomain:v9 code:reason userInfo:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -386,47 +386,45 @@
 
 - (void)_addGatekeeperProperties:(id)properties toDirectory:(id)directory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   directoryCopy = directory;
   [(IMDFileTransferCenter *)self _addGatekeeperProperties:propertiesCopy toFileAtPath:directoryCopy];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v9 = [defaultManager enumeratorAtPath:directoryCopy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [directoryCopy stringByAppendingPathComponent:{*(*(&v17 + 1) + 8 * v14), v17}];
+        v15 = [directoryCopy stringByAppendingPathComponent:{*(*(&v16 + 1) + 8 * v14), v16}];
         [(IMDFileTransferCenter *)self _addGatekeeperProperties:propertiesCopy toFileAtPath:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createWrapperForTransfer:(id)transfer
@@ -572,31 +570,31 @@
 
 - (void)_transferTimerTick:(id)tick
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   transferringTransfers = [(IMDFileTransferCenter *)self transferringTransfers];
   _copyForEnumerating = [transferringTransfers _copyForEnumerating];
 
-  v6 = [_copyForEnumerating countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [_copyForEnumerating countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
-    v27 = _copyForEnumerating;
+    v8 = *v28;
+    v26 = _copyForEnumerating;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(_copyForEnumerating);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
+        v10 = *(*(&v27 + 1) + 8 * v9);
         guid = [v10 guid];
         v12 = [(IMDFileTransferCenter *)self transferForGUID:guid];
         v13 = v12;
@@ -635,20 +633,36 @@ LABEL_9:
         guid2 = [v10 guid];
         [broadcasterForFileTransferListeners fileTransfer:guid2 updatedWithCurrentBytes:currentBytes totalBytes:objc_msgSend(v10 averageTransferRate:{"totalBytes"), averageTransferRate}];
 
-        _copyForEnumerating = v27;
+        _copyForEnumerating = v26;
 LABEL_10:
         ++v9;
       }
 
       while (v7 != v9);
-      v25 = [_copyForEnumerating countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v25 = [_copyForEnumerating countByEnumeratingWithState:&v27 objects:v31 count:16];
       v7 = v25;
     }
 
     while (v25);
   }
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)makeNewIncomingTransferWithGUID:(id)d filename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags
+{
+  directoryCopy = directory;
+  dCopy = d;
+  filenameCopy = filename;
+  if ([dCopy length])
+  {
+    v16 = objc_alloc(MEMORY[0x277D1A9C0]);
+    lastPathComponent = [filenameCopy lastPathComponent];
+    BYTE2(v20) = 1;
+    LOWORD(v20) = flags;
+    v18 = [v16 _initWithGUID:dCopy filename:lastPathComponent isDirectory:directoryCopy localURL:0 account:0 otherPerson:0 totalBytes:bytes hfsType:__PAIR64__(creator hfsCreator:type) hfsFlags:v20 isIncoming:?];
+
+    guidToTransferMap = [(IMDFileTransferCenter *)self guidToTransferMap];
+    [guidToTransferMap setObject:v18 forKeyedSubscript:dCopy];
+  }
 }
 
 - (id)createNewOutgoingTransferWithLocalFileURL:(id)l
@@ -686,6 +700,51 @@ LABEL_10:
   v8 = +[IMDBroadcastController sharedProvider];
   broadcasterForFileTransferListeners = [v8 broadcasterForFileTransferListeners];
   [broadcasterForFileTransferListeners fileTransfers:dsCopy createdWithLocalPaths:pathsCopy];
+}
+
+- (void)makeNewOutgoingTransferWithGUID:(id)d filename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags
+{
+  directoryCopy = directory;
+  dCopy = d;
+  filenameCopy = filename;
+  if ([dCopy length])
+  {
+    BYTE2(v18) = 0;
+    LOWORD(v18) = flags;
+    v16 = [objc_alloc(MEMORY[0x277D1A9C0]) _initWithGUID:dCopy filename:filenameCopy isDirectory:directoryCopy localURL:0 account:0 otherPerson:0 totalBytes:bytes hfsType:__PAIR64__(creator hfsCreator:type) hfsFlags:v18 isIncoming:?];
+    guidToTransferMap = [(IMDFileTransferCenter *)self guidToTransferMap];
+    [guidToTransferMap setObject:v16 forKeyedSubscript:dCopy];
+  }
+}
+
+- (id)guidForNewIncomingTransferWithFilename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags
+{
+  v9 = *&creator;
+  v10 = *&type;
+  directoryCopy = directory;
+  v14 = MEMORY[0x277CCACA8];
+  filenameCopy = filename;
+  stringGUID = [v14 stringGUID];
+  lastPathComponent = [filenameCopy lastPathComponent];
+
+  LOWORD(v19) = flags;
+  [(IMDFileTransferCenter *)self makeNewIncomingTransferWithGUID:stringGUID filename:lastPathComponent isDirectory:directoryCopy totalBytes:bytes hfsType:v10 hfsCreator:v9 hfsFlags:v19];
+
+  return stringGUID;
+}
+
+- (id)guidForNewOutgoingTransferWithFilename:(id)filename isDirectory:(BOOL)directory totalBytes:(unint64_t)bytes hfsType:(unsigned int)type hfsCreator:(unsigned int)creator hfsFlags:(unsigned __int16)flags
+{
+  v9 = *&creator;
+  v10 = *&type;
+  directoryCopy = directory;
+  v14 = MEMORY[0x277CCACA8];
+  filenameCopy = filename;
+  stringGUID = [v14 stringGUID];
+  LOWORD(v18) = flags;
+  [(IMDFileTransferCenter *)self makeNewOutgoingTransferWithGUID:stringGUID filename:filenameCopy isDirectory:directoryCopy totalBytes:bytes hfsType:v10 hfsCreator:v9 hfsFlags:v18];
+
+  return stringGUID;
 }
 
 - (BOOL)registerGUID:(id)d forNewOutgoingTransferWithLocalURL:(id)l
@@ -847,7 +906,7 @@ LABEL_10:
 
 - (void)_updateTransferGUID:(id)d toGUID:(id)iD
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   guidToTransferMap = [(IMDFileTransferCenter *)self guidToTransferMap];
@@ -858,11 +917,11 @@ LABEL_10:
     v10 = IMLogHandleForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = dCopy;
-      v17 = 2112;
-      v18 = iDCopy;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_DEFAULT, "FileTransferCenter updating guid for transfer in cache map:%@ to %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = dCopy;
+      v16 = 2112;
+      v17 = iDCopy;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_DEFAULT, "FileTransferCenter updating guid for transfer in cache map:%@ to %@", &v14, 0x16u);
     }
 
     v11 = [iDCopy copy];
@@ -875,8 +934,6 @@ LABEL_10:
 
     iDCopy = v11;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTransfer:(id)transfer
@@ -1056,6 +1113,40 @@ LABEL_10:
   }
 }
 
+- (void)endTransfer:(id)transfer endState:(int64_t)state updateByteCounts:(BOOL)counts
+{
+  countsCopy = counts;
+  transferCopy = transfer;
+  if ([transferCopy length])
+  {
+    [(IMDFileTransferCenter *)self startFinalizingTransfer:transferCopy updateByteCounts:countsCopy];
+    v8 = [(IMDFileTransferCenter *)self transferForGUID:transferCopy];
+    if ([v8 thumbnailMode])
+    {
+      [v8 setThumbnailMode:{objc_msgSend(v8, "thumbnailModeAfterDownloadSuccess:", 1)}];
+    }
+
+    if (([v8 isFinished] & 1) == 0)
+    {
+      [v8 setCloudKitSyncState:0];
+      [v8 _setTransferState:state];
+      [(IMDFileTransferCenter *)self _postUpdated:v8];
+      if ((IMIsRunningInUnitTesting() & 1) == 0)
+      {
+        v9 = +[IMDAttachmentStore sharedInstance];
+        [v9 storeAttachment:v8 associateWithMessageWithGUID:0];
+      }
+
+      localPath = [v8 localPath];
+      [(IMDFileTransferCenter *)self _addSpotlightPropertiesFromFileTransfer:v8 toDirectory:localPath];
+    }
+
+    [(IMDFileTransferCenter *)self _updateContextStamp];
+    [(IMDFileTransferCenter *)self _completeProgressForTransferGUID:transferCopy];
+    [(IMDFileTransferCenter *)self postHubbleDownloadFinishedIfNeededForTransfer:v8];
+  }
+}
+
 - (void)failTransfer:(id)transfer reason:(int64_t)reason
 {
   transferCopy = transfer;
@@ -1172,7 +1263,7 @@ LABEL_10:
 
 - (void)_reindexTransferIfNeededForPreviewGenerationStateChange:(id)change originalPreviewGenerationState:(int64_t)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   type = [changeCopy type];
   [changeCopy previewGenerationState];
@@ -1195,11 +1286,11 @@ LABEL_10:
       {
         guid3 = [changeCopy guid];
         guid4 = [v10 guid];
-        v20 = 138412546;
-        v21 = guid3;
-        v22 = 2112;
-        v23 = guid4;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEFAULT, "Transfer GUID %@ from message %@ should be re-indexed due to preview generation state change", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = guid3;
+        v21 = 2112;
+        v22 = guid4;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEFAULT, "Transfer GUID %@ from message %@ should be re-indexed due to preview generation state change", &v19, 0x16u);
       }
 
       messagesToReindexForPreviewGeneration = [(IMDFileTransferCenter *)self messagesToReindexForPreviewGeneration];
@@ -1215,19 +1306,17 @@ LABEL_10:
       if (v13)
       {
         guid6 = [changeCopy guid];
-        v20 = 138412290;
-        v21 = guid6;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEFAULT, "Transfer GUID %@ should be re-indexed due to preview generation state change, but has not been persisted to the database yet. It will be indexed once the message is stored.", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = guid6;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEFAULT, "Transfer GUID %@ should be re-indexed due to preview generation state change, but has not been persisted to the database yet. It will be indexed once the message is stored.", &v19, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_flushMessagesToReindexForPreviewGeneration
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messagesToReindexForPreviewGeneration = [(IMDFileTransferCenter *)self messagesToReindexForPreviewGeneration];
   v4 = [messagesToReindexForPreviewGeneration count];
 
@@ -1243,53 +1332,49 @@ LABEL_10:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = [allObjects count];
+      v12 = [allObjects count];
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEFAULT, "Re-indexing %ld messages due to preview generation state change", buf, 0xCu);
     }
 
-    v11 = allObjects;
+    v10 = allObjects;
     v9 = allObjects;
     IMDCoreSpotlightReindexMessagesWhileBlocking();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failTransferPreviewGeneration:(id)generation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   generationCopy = generation;
   v5 = IMLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = generationCopy;
-    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Marking transfer %@ as failing preview generation", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = generationCopy;
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Marking transfer %@ as failing preview generation", &v6, 0xCu);
   }
 
   [(IMDFileTransferCenter *)self _updateTransferPreviewGenerationState:generationCopy newState:2];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)successfullyGeneratedPreviewForTransfer:(id)transfer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   v5 = IMLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = transferCopy;
-    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Marking transfer %@ as succeeding preview generation", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = transferCopy;
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Marking transfer %@ as succeeding preview generation", &v6, 0xCu);
   }
 
   [(IMDFileTransferCenter *)self _updateTransferPreviewGenerationState:transferCopy newState:1];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_previewGenerationSucceededNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   if ([MEMORY[0x277D1A978] ignorePreviewGenerationNotifications])
@@ -1297,9 +1382,9 @@ LABEL_10:
     v6 = IMAttachmentsLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v13) = 138412290;
-      *(&v13 + 4) = object;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Preview generation succeeded for transfer %@, but ignoring due to override", &v13, 0xCu);
+      LODWORD(v12) = 138412290;
+      *(&v12 + 4) = object;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Preview generation succeeded for transfer %@, but ignoring due to override", &v12, 0xCu);
     }
   }
 
@@ -1308,12 +1393,12 @@ LABEL_10:
     userInfo = [notificationCopy userInfo];
     v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D1ADC0]];
     v9 = v8;
-    v13 = 0uLL;
+    v12 = 0uLL;
     if (v8)
     {
-      [v8 getValue:&v13 size:16];
-      v10 = *(&v13 + 1);
-      v11 = *&v13;
+      [v8 getValue:&v12 size:16];
+      v10 = *(&v12 + 1);
+      v11 = *&v12;
     }
 
     else
@@ -1324,22 +1409,20 @@ LABEL_10:
 
     [(IMDFileTransferCenter *)self successfullyGeneratedPreviewForTransfer:object withPreviewSize:v11, v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_previewGenerationFailedNotification:(id)notification
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   object = [notification object];
   if ([MEMORY[0x277D1A978] ignorePreviewGenerationNotifications])
   {
     v5 = IMAttachmentsLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = object;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Preview generation failed for transfer %@, but ignoring due to override", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = object;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Preview generation failed for transfer %@, but ignoring due to override", &v6, 0xCu);
     }
   }
 
@@ -1347,8 +1430,6 @@ LABEL_10:
   {
     [(IMDFileTransferCenter *)self failTransferPreviewGeneration:object];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rejectTransfer:(id)transfer
@@ -1380,17 +1461,17 @@ LABEL_10:
 {
   height = size.height;
   width = size.width;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   v8 = IMLogHandleForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = IMStringFromCGSize();
-    v20 = 138412546;
-    v21 = transferCopy;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEFAULT, "Updating transfer %@ with size %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = transferCopy;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEFAULT, "Updating transfer %@ with size %@", &v19, 0x16u);
   }
 
   v10 = [(IMDFileTransferCenter *)self transferForGUID:transferCopy];
@@ -1408,9 +1489,9 @@ LABEL_10:
       v16 = IMLogHandleForCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
-        v21 = v15;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_DEFAULT, "New attribution info is %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v15;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_DEFAULT, "New attribution info is %@", &v19, 0xCu);
       }
 
       [v11 setAttributionInfo:v15];
@@ -1431,8 +1512,6 @@ LABEL_10:
       sub_22B7D2978(transferCopy, v18);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generatePreviewForTransfer:(id)transfer messageItem:(id)item senderContext:(id)context
@@ -1450,7 +1529,7 @@ LABEL_10:
 
 - (void)setRecoverableErrorForTransfer:(id)transfer error:(int64_t)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   if ([transferCopy length])
   {
@@ -1461,11 +1540,11 @@ LABEL_10:
       v9 = IMLogHandleForCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 134218242;
+        v11 = 134218242;
         errorCopy = error;
-        v14 = 2112;
-        v15 = transferCopy;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEFAULT, "IMDFileTransfer posting recoverable error state (%zd) for IMFileTransfer %@", &v12, 0x16u);
+        v13 = 2112;
+        v14 = transferCopy;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEFAULT, "IMDFileTransfer posting recoverable error state (%zd) for IMFileTransfer %@", &v11, 0x16u);
       }
 
       [v8 _setTransferState:7];
@@ -1475,8 +1554,6 @@ LABEL_10:
       [v10 storeAttachment:v8 associateWithMessageWithGUID:0];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failTransfer:(id)transfer error:(id)error
@@ -1512,7 +1589,7 @@ LABEL_10:
 
 - (void)_handleFileTransfer:(id)transfer createdWithProperties:(id)properties withAuditToken:(id *)token
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   propertiesCopy = properties;
   if ([transferCopy length])
@@ -1593,8 +1670,8 @@ LABEL_22:
     uTF8String = [v12 UTF8String];
     v18 = *&token->var0[4];
     *buf = *token->var0;
-    v36 = v18;
-    v34 = uTF8String;
+    v35 = v18;
+    v33 = uTF8String;
     v19 = sandbox_check_by_audit_token();
     if (v19)
     {
@@ -1602,19 +1679,19 @@ LABEL_22:
       v21 = IMLogHandleForCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v33 = *__error();
+        v32 = *__error();
         *buf = 67109890;
         *&buf[4] = v20;
         *&buf[8] = 1024;
-        *&buf[10] = v33;
+        *&buf[10] = v32;
         *&buf[14] = 1024;
-        LODWORD(v36) = token;
-        WORD2(v36) = 2112;
-        *(&v36 + 6) = v12;
+        LODWORD(v35) = token;
+        WORD2(v35) = 2112;
+        *(&v35 + 6) = v12;
         _os_log_error_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_ERROR, "Denying transfer, (check %d, errno %d) client with audit token:%u not allowed to access request path:%@", buf, 0x1Eu);
       }
 
-      [v10 _setError:{30, v34}];
+      [v10 _setError:{30, v33}];
       v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Denying transfer, (check %d, errno %d) client with audit token:%u not allowed to access request path:%@", v20, *__error(), token, v12];
       [v10 _setErrorDescription:v22];
 
@@ -1633,8 +1710,6 @@ LABEL_22:
   }
 
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndPostCachedTransfer:(id)transfer
@@ -1724,24 +1799,23 @@ LABEL_24:
 
 - (void)_handleFileTransfer:(id)transfer rejectedWithProperties:(id)properties
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   v6 = IMLogHandleForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = transferCopy;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "File transfer rejected for guid: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = transferCopy;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "File transfer rejected for guid: %@", &v7, 0xCu);
   }
 
   [(IMDFileTransferCenter *)self _handleFileTransferRemoved:transferCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFileTransfer:(id)transfer acceptedWithPath:(id)path autoRename:(BOOL)rename overwrite:(BOOL)overwrite options:(int64_t)options postNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   pathCopy = path;
   if ([transferCopy length])
@@ -1753,7 +1827,7 @@ LABEL_24:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = transferCopy;
+      v37 = transferCopy;
       _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_DEFAULT, "_handleFileTransfer accepted %@", buf, 0xCu);
     }
 
@@ -1779,16 +1853,16 @@ LABEL_24:
             lastPathComponent = [filename lastPathComponent];
 
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            v34 = [defaultManager im_randomTemporaryFileURLWithFileName:lastPathComponent];
-            pathCopy = [v34 path];
+            v33 = [defaultManager im_randomTemporaryFileURLWithFileName:lastPathComponent];
+            pathCopy = [v33 path];
           }
 
           [v15 _setTransferState:1];
           [v15 _setFetchOptions:options];
           if (pathCopy)
           {
-            v35 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-            [v15 _setLocalURL:v35];
+            v34 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
+            [v15 _setLocalURL:v34];
           }
 
           if (notificationCopy)
@@ -1834,39 +1908,37 @@ LABEL_24:
       [(IMDFileTransferCenter *)self postHubbleDownloadFailedIfNeededForTransfer:v15 error:v29];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFileTransfers:(id)transfers autoRename:(BOOL)rename overwrite:(BOOL)overwrite options:(int64_t)options postNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   transfersCopy = transfers;
+  v41 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v9 = transfersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v49 objects:v56 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v48 objects:v55 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v50;
-    v41 = v9;
+    v12 = *v49;
+    v40 = v9;
     do
     {
       v13 = 0;
       do
       {
-        if (*v50 != v12)
+        if (*v49 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v49 + 1) + 8 * v13);
+        v14 = *(*(&v48 + 1) + 8 * v13);
         if ([v14 length])
         {
           v15 = [(NSMutableDictionary *)self->_guidToTransferMap objectForKey:v14];
@@ -1874,7 +1946,7 @@ LABEL_24:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v55 = v14;
+            v54 = v14;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_DEFAULT, "_handleFileTransfers accepted %@", buf, 0xCu);
           }
 
@@ -1920,7 +1992,7 @@ LABEL_24:
               v28 = [defaultManager im_randomTemporaryFileURLWithFileName:lastPathComponent];
               localPath = [v28 path];
 
-              v9 = v41;
+              v9 = v40;
             }
 
             [v15 _setTransferState:1];
@@ -1933,8 +2005,8 @@ LABEL_24:
 
             if (v15)
             {
-              [v43 setObject:v15 forKeyedSubscript:v14];
-              [v42 setObject:localPath forKeyedSubscript:v14];
+              [v42 setObject:v15 forKeyedSubscript:v14];
+              [v41 setObject:localPath forKeyedSubscript:v14];
             }
 
 LABEL_13:
@@ -1945,57 +2017,55 @@ LABEL_13:
       }
 
       while (v11 != v13);
-      v30 = [v9 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v30 = [v9 countByEnumeratingWithState:&v48 objects:v55 count:16];
       v11 = v30;
     }
 
     while (v30);
   }
 
-  if ([v43 count])
+  if ([v42 count])
   {
     if (notificationCopy)
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      allValues = [v43 allValues];
+      allValues = [v42 allValues];
       [defaultCenter __mainThreadPostNotificationName:@"__kIMDFileTransferBatchAcceptedNotification" object:allValues];
     }
 
     [(IMDFileTransferCenter *)self _updateContextStamp];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v33 = v43;
-    v34 = [v33 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v33 = v42;
+    v34 = [v33 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v46;
+      v36 = *v45;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v46 != v36)
+          if (*v45 != v36)
           {
             objc_enumerationMutation(v33);
           }
 
-          v38 = [v33 objectForKeyedSubscript:*(*(&v45 + 1) + 8 * i)];
+          v38 = [v33 objectForKeyedSubscript:*(*(&v44 + 1) + 8 * i)];
           if (v38)
           {
             [(IMDFileTransferCenter *)self _postUpdated:v38];
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v35);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFileTransferStopped:(id)stopped
@@ -2099,37 +2169,37 @@ LABEL_13:
 
 - (id)guidsForStoredAttachmentBlastDoorPayloadData:(id)data messageGUID:(id)d
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contents = [data contents];
   if ([contents count])
   {
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v42 = contents;
+    v41 = contents;
     obj = contents;
-    v49 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
-    if (v49)
+    v48 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+    if (v48)
     {
-      v46 = *v56;
-      v45 = *MEMORY[0x277D19E88];
-      v43 = *MEMORY[0x277D1A4D0];
+      v45 = *v55;
+      v44 = *MEMORY[0x277D19E88];
+      v42 = *MEMORY[0x277D1A4D0];
       do
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v56 != v46)
+          if (*v55 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v55 + 1) + 8 * i);
+          v9 = *(*(&v54 + 1) + 8 * i);
           stringGUID = [MEMORY[0x277CCACA8] stringGUID];
-          v11 = [stringGUID stringByAppendingPathExtension:v45];
+          v11 = [stringGUID stringByAppendingPathExtension:v44];
 
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
           v13 = [defaultManager im_randomTemporaryFileURLWithFileName:v11];
@@ -2142,23 +2212,23 @@ LABEL_13:
             v27 = IMLogHandleForCategory();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
-              sub_22B7D2AC0(&v51, v52, v27);
+              sub_22B7D2AC0(&v50, v51, v27);
             }
 
             content2 = [v9 content];
             other = [content2 other];
             data = [other data];
 
-            v50 = 0;
-            LOBYTE(content2) = [data writeToURL:v13 options:1 error:&v50];
-            v25 = v50;
+            v49 = 0;
+            LOBYTE(content2) = [data writeToURL:v13 options:1 error:&v49];
+            v25 = v49;
             if ((content2 & 1) == 0)
             {
               v31 = IMLogHandleForCategory();
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v60 = v25;
+                v59 = v25;
                 _os_log_error_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_ERROR, "MessageService Failed writing attachment to disk on incoming:%@", buf, 0xCu);
               }
             }
@@ -2174,7 +2244,7 @@ LABEL_13:
             v16 = IMLogHandleForCategory();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              sub_22B7D2B00(&v53, v54, v16);
+              sub_22B7D2B00(&v52, v53, v16);
             }
 
             content3 = [v9 content];
@@ -2193,12 +2263,12 @@ LABEL_13:
               v25 = 0;
               if (!CGImageDestinationFinalize(v24))
               {
-                v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:v43 code:9 userInfo:0];
+                v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:v42 code:9 userInfo:0];
                 v26 = IMLogHandleForCategory();
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v60 = v25;
+                  v59 = v25;
                   _os_log_error_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_ERROR, "MessageService Failed writing astc encoded image attachment to disk on incoming:%@", buf, 0xCu);
                 }
               }
@@ -2208,12 +2278,12 @@ LABEL_13:
 
             else
             {
-              v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:v43 code:9 userInfo:0];
+              v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:v42 code:9 userInfo:0];
               v32 = IMLogHandleForCategory();
               if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v60 = v13;
+                v59 = v13;
                 _os_log_error_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_ERROR, "MessageService Failed to create CGImageDestination for %@", buf, 0xCu);
               }
             }
@@ -2241,14 +2311,14 @@ LABEL_13:
           [array2 addObject:v39];
         }
 
-        v49 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v48 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
     [(IMDFileTransferCenter *)self broadcastTransfersWithGUIDs:array atLocalPaths:array2];
-    contents = v42;
+    contents = v41;
   }
 
   else
@@ -2256,43 +2326,41 @@ LABEL_13:
     array = MEMORY[0x277CBEBF8];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)guidsForStoredAttachmentPayloadData:(id)data messageGUID:(id)d
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   if ([dataCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v27 = dataCopy;
+    v26 = dataCopy;
     obj = dataCopy;
-    v34 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v33)
     {
-      v30 = *v37;
-      v29 = *MEMORY[0x277D19E88];
+      v29 = *v36;
+      v28 = *MEMORY[0x277D19E88];
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v37 != v30)
+          if (*v36 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v36 + 1) + 8 * i);
+          v8 = *(*(&v35 + 1) + 8 * i);
           stringGUID = [MEMORY[0x277CCACA8] stringGUID];
-          v10 = [stringGUID stringByAppendingPathExtension:v29];
+          v10 = [stringGUID stringByAppendingPathExtension:v28];
 
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
           v12 = [defaultManager im_randomTemporaryFileURLWithFileName:v10];
@@ -2300,16 +2368,16 @@ LABEL_13:
 
           stringByResolvingAndStandardizingPath = [path stringByResolvingAndStandardizingPath];
 
-          v35 = 0;
-          LOBYTE(v8) = [v8 writeToFile:stringByResolvingAndStandardizingPath options:1 error:&v35];
-          v15 = v35;
+          v34 = 0;
+          LOBYTE(v8) = [v8 writeToFile:stringByResolvingAndStandardizingPath options:1 error:&v34];
+          v15 = v34;
           if ((v8 & 1) == 0)
           {
             v16 = IMLogHandleForCategory();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v41 = v15;
+              v40 = v15;
               _os_log_error_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_ERROR, "MessageService Failed writing attachment to disk on incoming:%@", buf, 0xCu);
             }
           }
@@ -2337,14 +2405,14 @@ LABEL_13:
           [array2 addObject:v24];
         }
 
-        v34 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v33 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
     [(IMDFileTransferCenter *)self broadcastTransfersWithGUIDs:array atLocalPaths:array2];
-    dataCopy = v27;
+    dataCopy = v26;
   }
 
   else
@@ -2352,41 +2420,39 @@ LABEL_13:
     array = MEMORY[0x277CBEBF8];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)guidsForStoredAttachmentPayloadDataURLs:(id)ls messageGUID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   dCopy = d;
   if ([lsCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v22 = lsCopy;
+    v21 = lsCopy;
     obj = lsCopy;
-    v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = [(IMDFileTransferCenter *)self createNewOutgoingTransferWithLocalFileURL:*(*(&v25 + 1) + 8 * i)];
+          v13 = [(IMDFileTransferCenter *)self createNewOutgoingTransferWithLocalFileURL:*(*(&v24 + 1) + 8 * i)];
           v14 = [(IMDFileTransferCenter *)self _getNewFileTransferForStoredAttachmentPayloadDataWithTransferGUID:v13 messageGUID:dCopy];
           v15 = +[IMDAttachmentStore sharedInstance];
           [v15 storeAttachment:v14 associateWithMessageWithGUID:dCopy];
@@ -2408,14 +2474,14 @@ LABEL_13:
           [array2 addObject:v19];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v10);
     }
 
     [(IMDFileTransferCenter *)self broadcastTransfersWithGUIDs:array atLocalPaths:array2];
-    lsCopy = v22;
+    lsCopy = v21;
   }
 
   else
@@ -2423,17 +2489,15 @@ LABEL_13:
     array = MEMORY[0x277CBEBF8];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (void)retrieveLocalFileURLForFileTransferWithGUIDs:(id)ds options:(int64_t)options completion:(id)completion
 {
-  v96[2] = *MEMORY[0x277D85DE8];
+  v95[2] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
-  v70 = completionCopy;
+  v69 = completionCopy;
   if (![dsCopy count])
   {
     v55 = IMLogHandleForCategory();
@@ -2446,18 +2510,18 @@ LABEL_13:
     {
       v56 = MEMORY[0x277CCA9B8];
       v57 = *MEMORY[0x277D19E60];
-      v95[0] = *MEMORY[0x277CCA450];
+      v94[0] = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v59 = [mainBundle localizedStringForKey:@"File transfer local file urls retrieval operation was unsuccessful." value:&stru_283F23018 table:0];
-      v96[0] = v59;
-      v95[1] = *MEMORY[0x277CCA470];
+      v95[0] = v59;
+      v94[1] = *MEMORY[0x277CCA470];
       mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
       v61 = [mainBundle2 localizedStringForKey:@"The given GUIDs was empty." value:&stru_283F23018 table:0];
-      v96[1] = v61;
-      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:2];
+      v95[1] = v61;
+      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:2];
       v63 = [v56 errorWithDomain:v57 code:24 userInfo:v62];
 
-      completionCopy = v70;
+      completionCopy = v69;
       (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0, 0, v63);
     }
 
@@ -2465,37 +2529,37 @@ LABEL_13:
   }
 
   obj = objc_opt_new();
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
-  v65 = dsCopy;
+  v64 = dsCopy;
   v9 = dsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v81 objects:v94 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v80 objects:v93 count:16];
   if (!v10)
   {
     goto LABEL_31;
   }
 
   v11 = v10;
-  v74 = *v82;
-  v68 = *MEMORY[0x277D19E60];
-  v67 = *MEMORY[0x277CCA450];
-  v66 = *MEMORY[0x277CCA470];
+  v73 = *v81;
+  v67 = *MEMORY[0x277D19E60];
+  v66 = *MEMORY[0x277CCA450];
+  v65 = *MEMORY[0x277CCA470];
   selfCopy = self;
   do
   {
     v12 = 0;
-    v71 = v11;
+    v70 = v11;
     do
     {
-      if (*v82 != v74)
+      if (*v81 != v73)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v81 + 1) + 8 * v12);
-      v14 = [(IMDFileTransferCenter *)self transferForGUID:v13, v65];
+      v13 = *(*(&v80 + 1) + 8 * v12);
+      v14 = [(IMDFileTransferCenter *)self transferForGUID:v13, v64];
       if ([v14 existsAtLocalPath])
       {
         v15 = IMLogHandleForCategory();
@@ -2503,11 +2567,11 @@ LABEL_13:
         {
           localPath = [v14 localPath];
           *buf = 136446722;
-          v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-          v90 = 2112;
-          v91 = v13;
-          v92 = 2112;
-          v93 = localPath;
+          v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+          v89 = 2112;
+          v90 = v13;
+          v91 = 2112;
+          v92 = localPath;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s File transfer %@ exists at local path %@, no need to move further", buf, 0x20u);
         }
 
@@ -2527,32 +2591,32 @@ LABEL_28:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-          v90 = 2112;
-          v91 = v13;
+          v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+          v89 = 2112;
+          v90 = v13;
           _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s File transfer %@ is in thumbnail state, not retrieving", buf, 0x16u);
         }
 
         if (completionCopy)
         {
           v20 = MEMORY[0x277CCA9B8];
-          v86[0] = v67;
+          v85[0] = v66;
           mainBundle3 = [MEMORY[0x277CCA8D8] mainBundle];
           v22 = [mainBundle3 localizedStringForKey:@"File transfer local file url retrieval operation was unsuccessful." value:&stru_283F23018 table:0];
-          v86[1] = v66;
-          v87[0] = v22;
+          v85[1] = v65;
+          v86[0] = v22;
           [MEMORY[0x277CCA8D8] mainBundle];
           v24 = v23 = v9;
           v25 = [v24 localizedStringForKey:@"The given GUID references an attachment which is in thumbnail state. You don't want to analyze this value:Skip and retry later table:{user did not tap to downloaded.", &stru_283F23018, 0}];
-          v87[1] = v25;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:2];
-          localPath2 = [v20 errorWithDomain:v68 code:24 userInfo:v26];
+          v86[1] = v25;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:2];
+          localPath2 = [v20 errorWithDomain:v67 code:24 userInfo:v26];
 
-          v11 = v71;
+          v11 = v70;
           v9 = v23;
           self = selfCopy;
 
-          completionCopy = v70;
+          completionCopy = v69;
           (*(completionCopy + 2))(completionCopy, 0, v13, 0, 0, 0, localPath2);
           goto LABEL_28;
         }
@@ -2568,23 +2632,23 @@ LABEL_28:
           {
             localPath3 = [v14 localPath];
             *buf = 136446722;
-            v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-            v90 = 2112;
-            v91 = v13;
-            v92 = 2112;
-            v93 = localPath3;
+            v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+            v89 = 2112;
+            v90 = v13;
+            v91 = 2112;
+            v92 = localPath3;
             _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}s File transfer %@ does not exist at local path (%@) and is not in thumbnail state, retrieving", buf, 0x20u);
 
-            v11 = v71;
+            v11 = v70;
           }
         }
 
         else if (v28)
         {
           *buf = 136446466;
-          v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-          v90 = 2112;
-          v91 = v13;
+          v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+          v89 = 2112;
+          v90 = v13;
           _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}s File transfer guid %@ does not exist or is not cached, retrieving", buf, 0x16u);
         }
 
@@ -2613,7 +2677,7 @@ LABEL_28:
           v35 = _Block_copy(completionCopy);
           [localPath2 addObject:v35];
 
-          v11 = v71;
+          v11 = v70;
           goto LABEL_28;
         }
       }
@@ -2622,7 +2686,7 @@ LABEL_28:
     }
 
     while (v11 != v12);
-    v11 = [v9 countByEnumeratingWithState:&v81 objects:v94 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v80 objects:v93 count:16];
   }
 
   while (v11);
@@ -2635,41 +2699,41 @@ LABEL_31:
     {
       v37 = [obj count];
       *buf = 136446722;
-      v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-      v90 = 2048;
-      v91 = v37;
-      v92 = 2112;
-      v93 = obj;
+      v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+      v89 = 2048;
+      v90 = v37;
+      v91 = 2112;
+      v92 = obj;
       _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_DEFAULT, "%{public}s Retrieving %llu file transfers (%@)", buf, 0x20u);
     }
 
     v38 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(obj, "count")}];
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     obj = obj;
-    v39 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+    v39 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v78;
+      v41 = *v77;
       do
       {
         v42 = 0;
         do
         {
-          if (*v78 != v41)
+          if (*v77 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = *(*(&v77 + 1) + 8 * v42);
+          v43 = *(*(&v76 + 1) + 8 * v42);
+          v74 = 0;
           v75 = 0;
-          v76 = 0;
-          v44 = [(IMDFileTransferCenter *)self _retrieveLocalFileURLForFileTransferWithGUID:v43 options:options outTransfer:&v76 outError:&v75, v65];
-          v45 = v76;
-          v46 = v75;
+          v44 = [(IMDFileTransferCenter *)self _retrieveLocalFileURLForFileTransferWithGUID:v43 options:options outTransfer:&v75 outError:&v74, v64];
+          v45 = v75;
+          v46 = v74;
           if (v46)
           {
             selfCopy3 = self;
@@ -2703,15 +2767,15 @@ LABEL_44:
         }
 
         while (v40 != v42);
-        v52 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+        v52 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
         v40 = v52;
       }
 
       while (v52);
     }
 
-    dsCopy = v65;
-    completionCopy = v70;
+    dsCopy = v64;
+    completionCopy = v69;
     if ([v38 count])
     {
       [(IMDFileTransferCenter *)self _handleFileTransfers:v38 autoRename:1 overwrite:0 options:options postNotification:1];
@@ -2720,9 +2784,9 @@ LABEL_44:
       {
         allKeys = [v38 allKeys];
         *buf = 136446466;
-        v89 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
-        v90 = 2112;
-        v91 = allKeys;
+        v88 = "[IMDFileTransferCenter retrieveLocalFileURLForFileTransferWithGUIDs:options:completion:]";
+        v89 = 2112;
+        v90 = allKeys;
         _os_log_impl(&dword_22B4CC000, v53, OS_LOG_TYPE_DEFAULT, "%{public}s Successfully started explicit download for local file url retrieval of transfer with GUIDs %@", buf, 0x16u);
       }
     }
@@ -2730,21 +2794,20 @@ LABEL_44:
 
   else
   {
-    dsCopy = v65;
+    dsCopy = v64;
   }
 
 LABEL_60:
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hubbleTransferCompleted:(id)completed withGUID:(id)d error:(id)error suggestedRetryGUID:(id)iD
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   dCopy = d;
   errorCopy = error;
   iDCopy = iD;
-  v39 = errorCopy;
+  v38 = errorCopy;
   v13 = IMLogHandleForCategory();
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (errorCopy)
@@ -2752,11 +2815,11 @@ LABEL_60:
     if (v14)
     {
       *buf = 136446722;
-      v55 = "[IMDFileTransferCenter _hubbleTransferCompleted:withGUID:error:suggestedRetryGUID:]";
-      v56 = 2112;
-      v57 = dCopy;
-      v58 = 2112;
-      v59 = errorCopy;
+      v54 = "[IMDFileTransferCenter _hubbleTransferCompleted:withGUID:error:suggestedRetryGUID:]";
+      v55 = 2112;
+      v56 = dCopy;
+      v57 = 2112;
+      v58 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s Failed to retrieve local file URL for %@: %@", buf, 0x20u);
     }
   }
@@ -2765,37 +2828,37 @@ LABEL_60:
   {
     localPath = [completedCopy localPath];
     *buf = 136446722;
-    v55 = "[IMDFileTransferCenter _hubbleTransferCompleted:withGUID:error:suggestedRetryGUID:]";
-    v56 = 2112;
-    v57 = dCopy;
-    v58 = 2112;
-    v59 = localPath;
+    v54 = "[IMDFileTransferCenter _hubbleTransferCompleted:withGUID:error:suggestedRetryGUID:]";
+    v55 = 2112;
+    v56 = dCopy;
+    v57 = 2112;
+    v58 = localPath;
     _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s Successfully retrieved local file URL for %@ at path %@", buf, 0x20u);
   }
 
   v16 = [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers objectForKeyedSubscript:dCopy];
   [(NSMutableDictionary *)self->_localFileURLRetrievalWithGuidCompletionHandlers removeObjectForKey:dCopy];
   existsAtLocalPath = [completedCopy existsAtLocalPath];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = v16;
-  v18 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v18 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v18)
   {
     v19 = (errorCopy == 0) & existsAtLocalPath;
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v41 + 1) + 8 * i);
+        v22 = *(*(&v40 + 1) + 8 * i);
         if (v19)
         {
           localPath2 = [completedCopy localPath];
@@ -2805,11 +2868,11 @@ LABEL_60:
 
         else
         {
-          (*(v22 + 16))(*(*(&v41 + 1) + 8 * i), 0, dCopy, iDCopy, 0, 0, v39);
+          (*(v22 + 16))(*(*(&v40 + 1) + 8 * i), 0, dCopy, iDCopy, 0, 0, v38);
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v18 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v18);
@@ -2818,31 +2881,31 @@ LABEL_60:
   existsAtLocalPath2 = [completedCopy existsAtLocalPath];
   v26 = IMLogHandleForCategory();
   v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-  if (((v39 == 0) & existsAtLocalPath2) == 0)
+  if (((v38 == 0) & existsAtLocalPath2) == 0)
   {
     if (v27)
     {
       *buf = 138412290;
-      v55 = dCopy;
+      v54 = dCopy;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, "Sending completion notification for explicit download of transfer with guid %@", buf, 0xCu);
     }
 
-    v47 = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
+    v46 = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
     v34 = MEMORY[0x277CBEC28];
-    v48 = MEMORY[0x277CBEC28];
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+    v47 = MEMORY[0x277CBEC28];
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
     localURL2 = v35;
-    if (!v39)
+    if (!v38)
     {
       v30 = v35;
       goto LABEL_27;
     }
 
-    v45[0] = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
-    v45[1] = @"__kIMDFileTransferExplicitDownloadCompletedErrorKey";
-    v46[0] = v34;
-    v46[1] = v39;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+    v44[0] = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
+    v44[1] = @"__kIMDFileTransferExplicitDownloadCompletedErrorKey";
+    v45[0] = v34;
+    v45[1] = v38;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
     goto LABEL_25;
   }
 
@@ -2850,24 +2913,24 @@ LABEL_60:
   {
     guid = [completedCopy guid];
     *buf = 138412290;
-    v55 = guid;
+    v54 = guid;
     _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, "Sending completion notification for explicit download of transfer: %@", buf, 0xCu);
   }
 
-  v51 = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
+  v50 = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
   v29 = MEMORY[0x277CBEC38];
-  v52 = MEMORY[0x277CBEC38];
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v51 = MEMORY[0x277CBEC38];
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
   localURL = [completedCopy localURL];
 
   if (localURL)
   {
-    v49[0] = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
-    v49[1] = @"__kIMDFileTransferExplicitDownloadCompletedFileURLKey";
-    v50[0] = v29;
+    v48[0] = @"__kIMDFileTransferExplicitDownloadCompletedSuccessKey";
+    v48[1] = @"__kIMDFileTransferExplicitDownloadCompletedFileURLKey";
+    v49[0] = v29;
     localURL2 = [completedCopy localURL];
-    v50[1] = localURL2;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v49[1] = localURL2;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
 
     v30 = v33;
 LABEL_25:
@@ -2876,13 +2939,11 @@ LABEL_25:
 LABEL_27:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"__kIMDFileTransferExplicitDownloadCompletedNotification" object:completedCopy userInfo:v30];
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_messageForFileTransferWithGUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = IMMessageGuidFromIMFileTransferGuid();
   v5 = [v4 length];
@@ -2892,13 +2953,13 @@ LABEL_27:
   {
     if (v7)
     {
-      v11 = 136446722;
-      v12 = "[IMDFileTransferCenter _messageForFileTransferWithGUID:]";
-      v13 = 2112;
-      v14 = dCopy;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s Decomposed attachment guid %@ to messageGUID: %@", &v11, 0x20u);
+      v10 = 136446722;
+      v11 = "[IMDFileTransferCenter _messageForFileTransferWithGUID:]";
+      v12 = 2112;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s Decomposed attachment guid %@ to messageGUID: %@", &v10, 0x20u);
     }
 
     v6 = +[IMDMessageStore sharedInstance];
@@ -2909,17 +2970,15 @@ LABEL_27:
   {
     if (v7)
     {
-      v11 = 136446466;
-      v12 = "[IMDFileTransferCenter _messageForFileTransferWithGUID:]";
-      v13 = 2112;
-      v14 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s Failed to decompose attachment GUID %@, to get message GUID", &v11, 0x16u);
+      v10 = 136446466;
+      v11 = "[IMDFileTransferCenter _messageForFileTransferWithGUID:]";
+      v12 = 2112;
+      v13 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s Failed to decompose attachment GUID %@, to get message GUID", &v10, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2971,7 +3030,7 @@ LABEL_27:
 - (id)_retrieveLocalFileURLForFileTransferWithGUID:(id)d options:(int64_t)options outTransfer:(id *)transfer outError:(id *)error
 {
   optionsCopy = options;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy length])
   {
@@ -2991,11 +3050,11 @@ LABEL_5:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446722;
-            v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
-            v42 = 2112;
-            v43 = v13;
-            v44 = 2112;
-            v45 = localPath;
+            v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+            v41 = 2112;
+            v42 = v13;
+            v43 = 2112;
+            v44 = localPath;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s Transfer with guid %@ already exists on disk at path %@", buf, 0x20u);
           }
 
@@ -3011,9 +3070,9 @@ LABEL_32:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446466;
-            v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
-            v42 = 2112;
-            v43 = v13;
+            v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+            v41 = 2112;
+            v42 = v13;
             _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s Transfer with guid %@ is in thumbnail state, skipping retrieve", buf, 0x16u);
           }
 
@@ -3040,11 +3099,11 @@ LABEL_29:
           if (v27)
           {
             *buf = 136446722;
-            v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
-            v42 = 2112;
-            v43 = v13;
-            v44 = 2112;
-            v45 = @"NO";
+            v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+            v41 = 2112;
+            v42 = v13;
+            v43 = 2112;
+            v44 = @"NO";
             _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s File transfer associated with GUID %@ needs downloading but allowDownload was %@, failing local file url retrieval", buf, 0x20u);
           }
 
@@ -3057,9 +3116,9 @@ LABEL_29:
         {
           guid = [v12 guid];
           *buf = 136446466;
-          v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
-          v42 = 2112;
-          v43 = guid;
+          v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+          v41 = 2112;
+          v42 = guid;
           _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s Transfer %@ does not already exist on disk. Starting explicit download for local file url retrieval.", buf, 0x16u);
         }
 
@@ -3097,9 +3156,9 @@ LABEL_4:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v41 = v13;
-            v42 = 2112;
-            v43 = dCopy;
+            v40 = v13;
+            v41 = 2112;
+            v42 = dCopy;
             _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_DEFAULT, "Found a file transfer %@ that matches donated guid %@", buf, 0x16u);
           }
 
@@ -3117,9 +3176,9 @@ LABEL_4:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
-      v42 = 2112;
-      v43 = dCopy;
+      v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+      v41 = 2112;
+      v42 = dCopy;
       _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_DEFAULT, "%{public}s No file transfer associated with GUID %@, failing local file url retrieval", buf, 0x16u);
     }
 
@@ -3143,7 +3202,7 @@ LABEL_44:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v41 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
+    v40 = "[IMDFileTransferCenter _retrieveLocalFileURLForFileTransferWithGUID:options:outTransfer:outError:]";
     _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s Empty guid passed, failing local file url retrieval", buf, 0xCu);
   }
 
@@ -3162,8 +3221,6 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -3185,6 +3242,27 @@ LABEL_45:
   [guidToTransferMap2 removeObjectsForKeys:v6];
 }
 
+- (void)setUpdatedStickerUserInfo:(id)info forTransfer:(id)transfer repositioningFromLocalChange:(BOOL)change
+{
+  changeCopy = change;
+  v15 = *MEMORY[0x277D85DE8];
+  transferCopy = transfer;
+  infoCopy = info;
+  v10 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 138412290;
+    v14 = transferCopy;
+    _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_DEFAULT, "Updating sticker user info for transfer %@", &v13, 0xCu);
+  }
+
+  v11 = [(IMDFileTransferCenter *)self transferForGUID:transferCopy];
+  [v11 setStickerUserInfo:infoCopy];
+
+  _dictionaryRepresentation = [v11 _dictionaryRepresentation];
+  [(IMDFileTransferCenter *)self _handleFileTransferForStickerRepositionWithGUID:transferCopy updatedWithProperties:_dictionaryRepresentation fromLocalChange:changeCopy];
+}
+
 - (BOOL)_shouldDownloadAssetForTransfer:(id)transfer forMessageItem:(id)item
 {
   transferCopy = transfer;
@@ -3204,12 +3282,12 @@ LABEL_45:
 - (id)updateTransfersWithCKRecord:(id)record recordWasFetched:(BOOL)fetched downloadAsset:(BOOL *)asset
 {
   fetchedCopy = fetched;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
     assetCopy = asset;
-    v58 = [MEMORY[0x277D1A9C0] transferGUIDOfRecord:recordCopy];
+    v57 = [MEMORY[0x277D1A9C0] transferGUIDOfRecord:recordCopy];
     v9 = IMMessageGuidFromIMFileTransferGuid();
     v10 = [MEMORY[0x277D1A9C0] attachmentRecordHasAsset:recordCopy];
     if (IMOSLoggingEnabled())
@@ -3219,16 +3297,16 @@ LABEL_45:
       {
         v12 = @"NO";
         *buf = 138412802;
-        v60 = v9;
-        v61 = 2112;
+        v59 = v9;
+        v60 = 2112;
         if (v10)
         {
           v12 = @"YES";
         }
 
-        v62 = v58;
-        v63 = 2112;
-        v64 = v12;
+        v61 = v57;
+        v62 = 2112;
+        v63 = v12;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Found message GUId %@ from IMFileTransferGUID %@ so that we can upadte the transfer. Record hasAsset %@", buf, 0x20u);
       }
     }
@@ -3237,12 +3315,12 @@ LABEL_45:
     v14 = [_messageStoreSharedInstance messageWithGUID:v9];
 
     _messageStoreSharedInstance2 = [(IMDFileTransferCenter *)self _messageStoreSharedInstance];
-    v57 = [_messageStoreSharedInstance2 itemWithGUID:v9];
+    v56 = [_messageStoreSharedInstance2 itemWithGUID:v9];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v57 actionIsGroupPhoto])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && [v56 actionIsGroupPhoto])
     {
-      v16 = v57;
+      v16 = v56;
     }
 
     else
@@ -3250,13 +3328,13 @@ LABEL_45:
       v16 = 0;
     }
 
-    v56 = v16;
+    v55 = v16;
     v17 = (v14 | v16) != 0;
     _attachmentStoreSharedInstance = [(IMDFileTransferCenter *)self _attachmentStoreSharedInstance];
     [_attachmentStoreSharedInstance updateTemporaryTransferGUIDsOnMessageIfNeeded:v14];
 
     _attachmentStoreSharedInstance2 = [(IMDFileTransferCenter *)self _attachmentStoreSharedInstance];
-    v20 = [_attachmentStoreSharedInstance2 attachmentWithGUID:v58];
+    v20 = [_attachmentStoreSharedInstance2 attachmentWithGUID:v57];
 
     if (!v20)
     {
@@ -3266,7 +3344,7 @@ LABEL_45:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v60 = v58;
+          v59 = v57;
           _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "IMDFileTransferCenter - Update from CKRecord found no existing attachment for %@, but was on the write path", buf, 0xCu);
         }
       }
@@ -3292,16 +3370,16 @@ LABEL_45:
         {
           v29 = @"NO";
           *buf = 138412802;
-          v60 = copyEncodedSystemFields;
-          v61 = 2112;
+          v59 = copyEncodedSystemFields;
+          v60 = 2112;
           if (v10)
           {
             v29 = @"YES";
           }
 
-          v62 = v9;
-          v63 = 2112;
-          v64 = v29;
+          v61 = v9;
+          v62 = 2112;
+          v63 = v29;
           _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Fetched from CK. Created new transfer %@ from CKRecord. Associating with message guid %@ hasAsset: %@", buf, 0x20u);
         }
       }
@@ -3312,7 +3390,7 @@ LABEL_45:
         [_attachmentStoreSharedInstance3 storeAttachment:copyEncodedSystemFields associateWithMessageWithGUID:v9];
 
         [(IMDFileTransferCenter *)self _updateAndPostCachedTransfer:copyEncodedSystemFields];
-        v31 = [(IMDFileTransferCenter *)self _shouldDownloadAssetForTransfer:copyEncodedSystemFields forMessageItem:v14]|| v56 != 0;
+        v31 = [(IMDFileTransferCenter *)self _shouldDownloadAssetForTransfer:copyEncodedSystemFields forMessageItem:v14]|| v55 != 0;
         if (IMOSLoggingEnabled())
         {
           v32 = OSLogHandleForIMFoundationCategory();
@@ -3340,16 +3418,16 @@ LABEL_45:
             }
 
             *buf = 138412802;
-            v60 = v34;
-            v61 = 2112;
-            v62 = v35;
+            v59 = v34;
+            v60 = 2112;
+            v61 = v35;
             if (!v10)
             {
               v33 = @"NO";
             }
 
-            v63 = 2112;
-            v64 = v33;
+            v62 = 2112;
+            v63 = v33;
             _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Do we want to download the transfer later? downloadAsset: %@, shouldDownloadAssetForTransfer: %@, hasAsset: %@", buf, 0x20u);
           }
         }
@@ -3365,13 +3443,13 @@ LABEL_45:
             if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 138413058;
-              v60 = copyEncodedSystemFields;
-              v61 = 2112;
-              v62 = v37;
-              v63 = 2112;
-              v64 = v14;
-              v65 = 2112;
-              v66 = v56;
+              v59 = copyEncodedSystemFields;
+              v60 = 2112;
+              v61 = v37;
+              v62 = 2112;
+              v63 = v14;
+              v64 = 2112;
+              v65 = v55;
               _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Going to auto downloading asset at the end of batch fetch for transfer: %@ addedTransfer %@ for messageItem: %@ groupPhotoUpdate: %@", buf, 0x2Au);
             }
           }
@@ -3393,9 +3471,9 @@ LABEL_45:
           if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v60 = v58;
-            v61 = 2112;
-            v62 = v9;
+            v59 = v57;
+            v60 = 2112;
+            v61 = v9;
             _os_log_impl(&dword_22B4CC000, v51, OS_LOG_TYPE_INFO, "Storing attachment %@ with no associate-able message %@", buf, 0x16u);
           }
         }
@@ -3422,7 +3500,7 @@ LABEL_45:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v60 = v58;
+              v59 = v57;
               _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Taking asset from CKRecord for %@", buf, 0xCu);
             }
           }
@@ -3443,7 +3521,7 @@ LABEL_45:
               if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v60 = v58;
+                v59 = v57;
                 _os_log_impl(&dword_22B4CC000, v49, OS_LOG_TYPE_INFO, "Setting local record to upload asset for %@", buf, 0xCu);
               }
             }
@@ -3458,7 +3536,7 @@ LABEL_45:
             if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v60 = v58;
+              v59 = v57;
               _os_log_impl(&dword_22B4CC000, v50, OS_LOG_TYPE_INFO, "Keeping local asset and sync state for %@", buf, 0xCu);
             }
           }
@@ -3498,11 +3576,11 @@ LABEL_64:
           v44 = @"YES";
         }
 
-        v60 = v44;
-        v61 = 2112;
-        v62 = v20;
-        v63 = 2112;
-        v64 = v9;
+        v59 = v44;
+        v60 = 2112;
+        v61 = v20;
+        v62 = 2112;
+        v63 = v9;
         _os_log_impl(&dword_22B4CC000, v43, OS_LOG_TYPE_INFO, "Fetched from CK %@. Updating existing transfer %@ for message GUID %@", buf, 0x20u);
       }
     }
@@ -3531,23 +3609,21 @@ LABEL_87:
   v23 = 0;
 LABEL_88:
 
-  v53 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (void)markTransferAsNotSyncedSuccessfully:(id)successfully
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   successfullyCopy = successfully;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = successfullyCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "markTransferAsNotSyncedSuccessfullyUsingCKRecord transferGUID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = successfullyCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "markTransferAsNotSyncedSuccessfullyUsingCKRecord transferGUID %@", &v10, 0xCu);
     }
   }
 
@@ -3566,18 +3642,16 @@ LABEL_88:
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = successfullyCopy;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not find transferGUID %@ to mark as not synced successfully", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = successfullyCopy;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not find transferGUID %@ to mark as not synced successfully", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markTransferAsNotSuccessfullyDownloadedFromCloud:(id)cloud
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   cloudCopy = cloud;
   if (cloudCopy)
   {
@@ -3587,9 +3661,9 @@ LABEL_88:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         guid = [cloudCopy guid];
-        v9 = 138412290;
-        v10 = guid;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "markTransferAsNotSyncSuccessfullyDownloadedFromCloud transfer %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = guid;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "markTransferAsNotSyncSuccessfullyDownloadedFromCloud transfer %@", &v8, 0xCu);
       }
     }
 
@@ -3597,13 +3671,11 @@ LABEL_88:
     _attachmentStoreSharedInstance = [(IMDFileTransferCenter *)self _attachmentStoreSharedInstance];
     [_attachmentStoreSharedInstance updateAttachment:cloudCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSyncStateForRecord:(id)record toState:(int64_t)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v7 = [MEMORY[0x277D1A9C0] transferGUIDOfRecord:recordCopy];
   if (IMOSLoggingEnabled())
@@ -3611,11 +3683,11 @@ LABEL_88:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
-      v15 = v7;
-      v16 = 2048;
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2048;
       stateCopy = state;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "resetSyncStateForRecord transfer %@ toNewState:%ld", &v14, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "resetSyncStateForRecord transfer %@ toNewState:%ld", &v13, 0x16u);
     }
   }
 
@@ -3636,20 +3708,18 @@ LABEL_88:
     v12 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
-      v15 = v7;
-      v16 = 2112;
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2112;
       stateCopy = recordCopy;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Tried to clear the sync state for a transfer we don't have on disk transfer: %@ record: %@", &v14, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Tried to clear the sync state for a transfer we don't have on disk transfer: %@ record: %@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)populateLocalURLsForTransfer:(id)transfer fromCKRecord:(id)record
 {
-  v70[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   recordCopy = record;
   v7 = [recordCopy _assetForKey:@"lqa"];
@@ -3657,7 +3727,7 @@ LABEL_88:
   if (v7)
   {
     fileURL = [v7 fileURL];
-    v55 = fileURL != 0;
+    v54 = fileURL != 0;
     if (fileURL)
     {
       [transferCopy _setLocalURL:fileURL];
@@ -3665,13 +3735,13 @@ LABEL_88:
       [transferCopy _setLocalPath:path];
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v69 = *MEMORY[0x277CCA1B0];
-      v70[0] = *MEMORY[0x277CCA1A0];
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
+      v68 = *MEMORY[0x277CCA1B0];
+      v69[0] = *MEMORY[0x277CCA1A0];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
       path2 = [fileURL path];
-      v58 = 0;
-      v14 = [defaultManager setAttributes:v12 ofItemAtPath:path2 error:&v58];
-      v15 = v58;
+      v57 = 0;
+      v14 = [defaultManager setAttributes:v12 ofItemAtPath:path2 error:&v57];
+      v15 = v57;
 
       if ((v14 & 1) == 0 && IMOSLoggingEnabled())
       {
@@ -3680,9 +3750,9 @@ LABEL_88:
         {
           path3 = [fileURL path];
           *buf = 138412546;
-          v62 = path3;
-          v63 = 2112;
-          v64 = v15;
+          v61 = path3;
+          v62 = 2112;
+          v63 = v15;
           _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Failed making file class C: %@ with error %@", buf, 0x16u);
         }
       }
@@ -3695,7 +3765,7 @@ LABEL_88:
       {
         v19 = [recordCopy _stringForKey:@"aguid"];
         *buf = 138412290;
-        v62 = v19;
+        v61 = v19;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Couldn't get local asset URL from CKRecord: %@", buf, 0xCu);
       }
     }
@@ -3703,13 +3773,13 @@ LABEL_88:
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
   v20 = [recordCopy _assetForKey:@"avid"];
   if (v20)
   {
-    v51 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:recordCopy];
+    v50 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:recordCopy];
     v21 = JWDecodeDictionary();
     v22 = [v21 objectForKeyedSubscript:@"pathc"];
     im_lastPathComponent = [v22 im_lastPathComponent];
@@ -3731,15 +3801,15 @@ LABEL_88:
         if ([path4 length])
         {
           stringByDeletingLastPathComponent = [v24 stringByDeletingLastPathComponent];
-          v48 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:im_lastPathComponent2];
+          v47 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:im_lastPathComponent2];
 
-          stringByDeletingLastPathComponent2 = [v48 stringByDeletingLastPathComponent];
+          stringByDeletingLastPathComponent2 = [v47 stringByDeletingLastPathComponent];
           IMSharedHelperEnsureDirectoryExistsAtPath();
 
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-          v57 = 0;
-          v30 = [defaultManager2 moveItemAtPath:path4 toPath:v48 error:&v57];
-          v47 = v57;
+          v56 = 0;
+          v30 = [defaultManager2 moveItemAtPath:path4 toPath:v47 error:&v56];
+          v46 = v56;
 
           v31 = IMOSLoggingEnabled();
           if (v30)
@@ -3750,20 +3820,20 @@ LABEL_88:
               if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v62 = guid;
-                v63 = 2112;
-                v64 = v48;
+                v61 = guid;
+                v62 = 2112;
+                v63 = v47;
                 _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Stored aux video for transfer %@, finalAssetPath %@", buf, 0x16u);
               }
             }
 
             defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-            v59 = *MEMORY[0x277CCA1B0];
-            v60 = *MEMORY[0x277CCA1A0];
-            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-            v56 = 0;
-            v35 = [defaultManager3 setAttributes:v34 ofItemAtPath:v48 error:&v56];
-            v45 = v56;
+            v58 = *MEMORY[0x277CCA1B0];
+            v59 = *MEMORY[0x277CCA1A0];
+            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+            v55 = 0;
+            v35 = [defaultManager3 setAttributes:v34 ofItemAtPath:v47 error:&v55];
+            v44 = v55;
 
             if ((v35 & 1) == 0 && IMOSLoggingEnabled())
             {
@@ -3771,9 +3841,9 @@ LABEL_88:
               if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v62 = v48;
-                v63 = 2112;
-                v64 = v45;
+                v61 = v47;
+                v62 = 2112;
+                v63 = v44;
                 _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Failed making file class C: %@ with error %@", buf, 0x16u);
               }
             }
@@ -3789,12 +3859,12 @@ LABEL_88:
                 fileURL3 = [v20 fileURL];
                 path5 = [fileURL3 path];
                 *buf = 138412802;
-                v46 = path5;
-                v62 = path5;
-                v63 = 2112;
-                v64 = v48;
-                v65 = 2112;
-                v66 = v47;
+                v45 = path5;
+                v61 = path5;
+                v62 = 2112;
+                v63 = v47;
+                v64 = 2112;
+                v65 = v46;
                 _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Failed to move file from %@ to %@ error %@", buf, 0x20u);
               }
             }
@@ -3811,9 +3881,9 @@ LABEL_88:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v62 = im_lastPathComponent;
-              v63 = 2112;
-              v64 = im_lastPathComponent2;
+              v61 = im_lastPathComponent;
+              v62 = 2112;
+              v63 = im_lastPathComponent2;
               _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Failed to get aux video asset fileURL for aux video copy dest, bad transfer/data (assetPath %@ auxAssetPath %@)", buf, 0x16u);
             }
           }
@@ -3830,7 +3900,7 @@ LABEL_88:
           if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v62 = im_lastPathComponent2;
+            v61 = im_lastPathComponent2;
             _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Failed to get valid attachment aux filename for aux video copy dest, bad transfer/data (auxAssetPath %@)", buf, 0xCu);
           }
         }
@@ -3847,13 +3917,13 @@ LABEL_88:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
           *buf = 138413058;
-          v62 = im_lastPathComponent;
-          v63 = 2112;
-          v64 = mimeType;
-          v65 = 2112;
-          v66 = type;
-          v67 = 2112;
-          v68 = guid;
+          v61 = im_lastPathComponent;
+          v62 = 2112;
+          v63 = mimeType;
+          v64 = 2112;
+          v65 = type;
+          v66 = 2112;
+          v67 = guid;
           _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Failed to create attachment persistent path for aux video source, bad transfer/data (assetPath %@ mimeType %@ utiType %@ guid %@)", buf, 0x2Au);
         }
       }
@@ -3862,8 +3932,7 @@ LABEL_88:
     }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v55;
+  return v54;
 }
 
 @end

@@ -8,6 +8,7 @@
 - (void)dataUpdate:(id)update blePairingUUID:(id)d pairType:(int)type pairData:(id)data;
 - (void)dealloc;
 - (void)stateUpdate:(id)update blePairingUUID:(id)d pairType:(int)type pairInfoList:(id)list;
+- (void)stateUpdate:(id)update blePairingUUID:(id)d validMask:(unsigned int)mask btRadioOn:(BOOL)on pairingState:(int)state pairingModeOn:(BOOL)modeOn;
 @end
 
 @implementation ACCBLEPairingShim
@@ -54,7 +55,7 @@
 
 - (void)accessoryAttached:(id)attached blePairingUUID:(id)d accInfoDict:(id)dict supportedPairTypes:(id)types
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   attachedCopy = attached;
   dCopy = d;
   dictCopy = dict;
@@ -88,20 +89,20 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v40 = attachedCopy;
-    v41 = 2112;
-    v42 = dCopy;
-    v43 = 2112;
-    v44 = dictCopy;
-    v45 = 2112;
-    v46 = typesCopy;
+    v39 = attachedCopy;
+    v40 = 2112;
+    v41 = dCopy;
+    v42 = 2112;
+    v43 = dictCopy;
+    v44 = 2112;
+    v45 = typesCopy;
     _os_log_impl(&dword_2335AD000, v15, OS_LOG_TYPE_INFO, "accessoryAttached: %@, blePairingUUID=%@, accInfoDict=%@ supportedPairTypes=%@", buf, 0x2Au);
   }
 
   if (attachedCopy && dCopy && typesCopy)
   {
-    v35 = dictCopy;
-    v36 = dCopy;
+    v34 = dictCopy;
+    v35 = dCopy;
     [MEMORY[0x277CE84E8] postNotifydNotificationType:*MEMORY[0x277CE80C0]];
     iap2ShimAccessory = [attachedCopy iap2ShimAccessory];
     accessoryInfoDict = [iap2ShimAccessory accessoryInfoDict];
@@ -114,7 +115,7 @@
     iap2ShimAccessory2 = [attachedCopy iap2ShimAccessory];
     v22 = [v20 numberWithUnsignedInteger:{objc_msgSend(iap2ShimAccessory2, "connectionID")}];
 
-    v37[0] = *MEMORY[0x277CE8068];
+    v36[0] = *MEMORY[0x277CE8068];
     iap2ShimAccessory3 = [attachedCopy iap2ShimAccessory];
     manufacturer = [iap2ShimAccessory3 manufacturer];
     null = manufacturer;
@@ -123,8 +124,8 @@
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v38[0] = null;
-    v37[1] = *MEMORY[0x277CE8070];
+    v37[0] = null;
+    v36[1] = *MEMORY[0x277CE8070];
     iap2ShimAccessory4 = [attachedCopy iap2ShimAccessory];
     model = [iap2ShimAccessory4 model];
     null2 = model;
@@ -134,16 +135,16 @@
     }
 
     v29 = *MEMORY[0x277CE8088];
-    v38[1] = null2;
-    v38[2] = v22;
-    v34 = v22;
+    v37[1] = null2;
+    v37[2] = v22;
+    v33 = v22;
     v30 = *MEMORY[0x277CE80F8];
-    v37[2] = v29;
-    v37[3] = v30;
-    v37[4] = *MEMORY[0x277CE80F0];
-    v38[3] = v36;
-    v38[4] = typesCopy;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
+    v36[2] = v29;
+    v36[3] = v30;
+    v36[4] = *MEMORY[0x277CE80F0];
+    v37[3] = v35;
+    v37[4] = typesCopy;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:5];
     if (!model)
     {
     }
@@ -153,8 +154,8 @@
     }
 
     [MEMORY[0x277CE84E8] notifyInterestedClientsOfACCBLEAccessoryEvent:*MEMORY[0x277CE8090] withPayload:v31];
-    dictCopy = v35;
-    dCopy = v36;
+    dictCopy = v34;
+    dCopy = v35;
   }
 
   else
@@ -178,21 +179,19 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v40 = attachedCopy;
-      v41 = 2112;
-      v42 = dCopy;
-      v43 = 2112;
-      v44 = typesCopy;
+      v39 = attachedCopy;
+      v40 = 2112;
+      v41 = dCopy;
+      v42 = 2112;
+      v43 = typesCopy;
       _os_log_impl(&dword_2335AD000, v18, OS_LOG_TYPE_DEFAULT, "Invalid bleAccessory(%@) or blePairingUUID(%@) or supportedPairTypes(%@)", buf, 0x20u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDetached:(id)detached blePairingUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   dCopy = d;
   if (gLogObjects)
@@ -224,9 +223,9 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v20 = detachedCopy;
-    v21 = 2112;
-    v22 = dCopy;
+    v19 = detachedCopy;
+    v20 = 2112;
+    v21 = dCopy;
     _os_log_impl(&dword_2335AD000, v9, OS_LOG_TYPE_INFO, "accessoryDetached: %@, blePairingUUID=%@", buf, 0x16u);
   }
 
@@ -237,11 +236,11 @@
     v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(iap2ShimAccessory, "connectionID")}];
 
     v13 = *MEMORY[0x277CE80F8];
-    v17[0] = *MEMORY[0x277CE8088];
-    v17[1] = v13;
-    v18[0] = v12;
-    v18[1] = dCopy;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[0] = *MEMORY[0x277CE8088];
+    v16[1] = v13;
+    v17[0] = v12;
+    v17[1] = dCopy;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     [MEMORY[0x277CE84E8] notifyInterestedClientsOfACCBLEAccessoryEvent:*MEMORY[0x277CE8098] withPayload:v14];
   }
 
@@ -266,19 +265,152 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = detachedCopy;
-      v21 = 2112;
-      v22 = dCopy;
+      v19 = detachedCopy;
+      v20 = 2112;
+      v21 = dCopy;
       _os_log_impl(&dword_2335AD000, v12, OS_LOG_TYPE_DEFAULT, "Invalid bleAccessory(%@) or blePairingUUID(%@)", buf, 0x16u);
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)stateUpdate:(id)update blePairingUUID:(id)d validMask:(unsigned int)mask btRadioOn:(BOOL)on pairingState:(int)state pairingModeOn:(BOOL)modeOn
+{
+  modeOnCopy = modeOn;
+  onCopy = on;
+  v42 = *MEMORY[0x277D85DE8];
+  updateCopy = update;
+  dCopy = d;
+  if (gLogObjects)
+  {
+    v15 = gNumLogObjects < 1;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v17 = MEMORY[0x277D86220];
+    v16 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v17 = *gLogObjects;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138413570;
+    v31 = updateCopy;
+    v32 = 2112;
+    v33 = dCopy;
+    v34 = 1024;
+    maskCopy2 = mask;
+    v36 = 1024;
+    v37 = onCopy;
+    v38 = 1024;
+    stateCopy = state;
+    v40 = 1024;
+    v41 = modeOnCopy;
+    _os_log_impl(&dword_2335AD000, v17, OS_LOG_TYPE_INFO, "stateUpdate: %@ blePairingUUID:%@ validMask:%xh btRadioOn:%d pairingState:%d pairingModeOn:%d", buf, 0x2Eu);
+  }
+
+  if (updateCopy && dCopy && mask)
+  {
+    v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v19 = MEMORY[0x277CCABB0];
+    iap2ShimAccessory = [updateCopy iap2ShimAccessory];
+    v21 = [v19 numberWithUnsignedInteger:{objc_msgSend(iap2ShimAccessory, "connectionID")}];
+
+    v22 = *MEMORY[0x277CE80F8];
+    v28[0] = *MEMORY[0x277CE8088];
+    v28[1] = v22;
+    v29[0] = v21;
+    v29[1] = dCopy;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    [v18 addEntriesFromDictionary:v23];
+
+    if (mask)
+    {
+      v26 = [MEMORY[0x277CCABB0] numberWithBool:onCopy];
+      [v18 setObject:v26 forKey:*MEMORY[0x277CE80E8]];
+
+      if ((mask & 2) == 0)
+      {
+LABEL_16:
+        if ((mask & 4) == 0)
+        {
+LABEL_18:
+          [MEMORY[0x277CE84E8] notifyInterestedClientsOfACCBLEAccessoryEvent:*MEMORY[0x277CE80B0] withPayload:v18];
+
+          goto LABEL_27;
+        }
+
+LABEL_17:
+        v24 = [MEMORY[0x277CCABB0] numberWithBool:modeOnCopy];
+        [v18 setObject:v24 forKey:*MEMORY[0x277CE80D8]];
+
+        goto LABEL_18;
+      }
+    }
+
+    else if ((mask & 2) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    v27 = [MEMORY[0x277CCABB0] numberWithChar:state];
+    [v18 setObject:v27 forKey:*MEMORY[0x277CE80E0]];
+
+    if ((mask & 4) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (gLogObjects && gNumLogObjects >= 1)
+  {
+    v18 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v18 = MEMORY[0x277D86220];
+    v25 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412802;
+    v31 = updateCopy;
+    v32 = 2112;
+    v33 = dCopy;
+    v34 = 1024;
+    maskCopy2 = mask;
+    _os_log_impl(&dword_2335AD000, v18, OS_LOG_TYPE_DEFAULT, "Invalid bleAccessory(%@) or blePairingUUID(%@) or validMask(%x)", buf, 0x1Cu);
+  }
+
+LABEL_27:
 }
 
 - (void)stateUpdate:(id)update blePairingUUID:(id)d pairType:(int)type pairInfoList:(id)list
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dCopy = d;
   listCopy = list;
@@ -311,13 +443,13 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v24 = updateCopy;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 1024;
+    v23 = updateCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 1024;
     typeCopy = type;
-    v29 = 2112;
-    v30 = listCopy;
+    v28 = 2112;
+    v29 = listCopy;
     _os_log_impl(&dword_2335AD000, v14, OS_LOG_TYPE_INFO, "stateUpdate: %@ blePairingUUID:%@ pairType:%d pairInfoList:%@", buf, 0x26u);
   }
 
@@ -328,22 +460,20 @@
     v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(iap2ShimAccessory, "connectionID")}];
 
     v18 = *MEMORY[0x277CE80F8];
-    v21[0] = *MEMORY[0x277CE8088];
-    v21[1] = v18;
-    v22[0] = v17;
-    v22[1] = dCopy;
-    v21[2] = *MEMORY[0x277CE80D0];
-    v22[2] = listCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v20[0] = *MEMORY[0x277CE8088];
+    v20[1] = v18;
+    v21[0] = v17;
+    v21[1] = dCopy;
+    v20[2] = *MEMORY[0x277CE80D0];
+    v21[2] = listCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
     [MEMORY[0x277CE84E8] notifyInterestedClientsOfACCBLEAccessoryEvent:*MEMORY[0x277CE80A8] withPayload:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataUpdate:(id)update blePairingUUID:(id)d pairType:(int)type pairData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dCopy = d;
   dataCopy = data;
@@ -376,13 +506,13 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v24 = updateCopy;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 1024;
+    v23 = updateCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 1024;
     typeCopy = type;
-    v29 = 2112;
-    v30 = dataCopy;
+    v28 = 2112;
+    v29 = dataCopy;
     _os_log_impl(&dword_2335AD000, v14, OS_LOG_TYPE_INFO, "dataUpdate: %@ blePairingUUID:%@ pairType:%d pairData:%@", buf, 0x26u);
   }
 
@@ -393,17 +523,15 @@
     v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(iap2ShimAccessory, "connectionID")}];
 
     v18 = *MEMORY[0x277CE80F8];
-    v21[0] = *MEMORY[0x277CE8088];
-    v21[1] = v18;
-    v22[0] = v17;
-    v22[1] = dCopy;
-    v21[2] = *MEMORY[0x277CE80C8];
-    v22[2] = dataCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v20[0] = *MEMORY[0x277CE8088];
+    v20[1] = v18;
+    v21[0] = v17;
+    v21[1] = dCopy;
+    v20[2] = *MEMORY[0x277CE80C8];
+    v21[2] = dataCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
     [MEMORY[0x277CE84E8] notifyInterestedClientsOfACCBLEAccessoryEvent:*MEMORY[0x277CE80A0] withPayload:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)tryProcessXPCMessage:(id)message connection:(id)connection server:(id)server
@@ -823,11 +951,10 @@ LABEL_103:
 
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(NSObject *)a2 server:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2335AD000, a2, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2335AD000, a2, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s", &v2, 0xCu);
 }
 
 - (void)tryProcessXPCMessage:connection:server:.cold.4()
@@ -874,13 +1001,12 @@ LABEL_103:
 
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(char)a2 server:(os_log_t)log .cold.16(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_2335AD000, log, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s processed=%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_2335AD000, log, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s processed=%d", &v3, 0x12u);
 }
 
 @end

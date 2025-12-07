@@ -637,7 +637,7 @@ LABEL_33:
           v17 = v16;
           if (v16)
           {
-            [v16 buffer];
+            objc_msgSend_buffer(v16);
             v18 = *buf;
           }
 
@@ -661,7 +661,7 @@ LABEL_33:
           v20 = v19;
           if (v19)
           {
-            [v19 buffer];
+            objc_msgSend_buffer(v19);
             v21 = v30;
           }
 
@@ -688,7 +688,7 @@ LABEL_33:
           v24 = v23;
           if (v23)
           {
-            [v23 buffer];
+            objc_msgSend_buffer(v23);
             v25 = *buf;
           }
 
@@ -712,7 +712,7 @@ LABEL_33:
           v27 = v26;
           if (v26)
           {
-            [v26 buffer];
+            objc_msgSend_buffer(v26);
             v28 = v31;
           }
 
@@ -777,7 +777,7 @@ LABEL_33:
     v5 = v4;
     if (v4)
     {
-      [v4 buffer];
+      objc_msgSend_buffer(v4);
       v6 = v25;
     }
 
@@ -808,7 +808,7 @@ LABEL_33:
     v9 = v8;
     if (v8)
     {
-      [v8 buffer];
+      objc_msgSend_buffer(v8);
       v10 = v25;
     }
 
@@ -839,7 +839,7 @@ LABEL_33:
     v13 = v12;
     if (v12)
     {
-      [v12 buffer];
+      objc_msgSend_buffer(v12);
       v14 = v25;
     }
 
@@ -870,7 +870,7 @@ LABEL_33:
     v17 = v16;
     if (v16)
     {
-      [v16 buffer];
+      objc_msgSend_buffer(v16);
       v18 = v25;
     }
 
@@ -1077,191 +1077,194 @@ LABEL_24:
 - (id)resultForPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int)orientation Error:(id *)error
 {
   v6 = *&orientation;
-  v60[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   v9 = mach_absolute_time();
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(v9);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPCNNVisionCoreDetectorDownscale", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPCNNVisionCoreDetectorDownscale", "", buf, 2u);
   }
 
   *buf = 0;
-  if ([(VCPCNNVisionCoreDetector *)self downscaleBuffer:buffer scaledImage:buf])
+  v15 = [(VCPCNNVisionCoreDetector *)self downscaleBuffer:buffer scaledImage:buf];
+  if (v15)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v51 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - downscaling pixelBuffer failed", v51, 2u);
+      *v60 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - downscaling pixelBuffer failed", v60, 2u);
     }
 
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v59 = *MEMORY[0x1E696A578];
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - downscaling buffer failed"];
-      v60[0] = v15;
-      postProcessingOutputDescriptors = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
-      v17 = [v14 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:postProcessingOutputDescriptors];
+      v16 = MEMORY[0x1E696ABC0];
+      v68 = *MEMORY[0x1E696A578];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - downscaling buffer failed"];
+      v69[0] = v17;
+      postProcessingOutputDescriptors = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+      v19 = [v16 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:postProcessingOutputDescriptors];
 LABEL_21:
-      v21 = 0;
-      *error = v17;
+      v24 = 0;
+      *error = v19;
       goto LABEL_22;
     }
   }
 
   else
   {
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v20 = VCPSignPostLog(v15);
+    v21 = v20;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
-      *v51 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v11, "VCPCNNVisionCoreDetectorDownscale", "", v51, 2u);
+      *v60 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v11, "VCPCNNVisionCoreDetectorDownscale", "", v60, 2u);
     }
 
     if (v9)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v22 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPCNNVisionCoreDetectorDownscale", v22 - v9);
     }
 
     if (![(VCPCNNVisionCoreDetector *)self UpdateInputBuffersAndBindPixelBuffer:*buf])
     {
-      v23 = mach_absolute_time();
-      v24 = VCPSignPostLog();
-      v25 = os_signpost_id_generate(v24);
+      v26 = mach_absolute_time();
+      v27 = VCPSignPostLog(v26);
+      v28 = os_signpost_id_generate(v27);
 
-      v26 = VCPSignPostLog();
-      v27 = v26;
-      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+      v30 = VCPSignPostLog(v29);
+      v31 = v30;
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
       {
-        *v51 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VCPCNNVisionCoreDetectorExecution", "", v51, 2u);
+        *v60 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v28, "VCPCNNVisionCoreDetectorExecution", "", v60, 2u);
       }
 
       __p = 0;
-      v49 = 0;
-      v50 = 0;
+      v58 = 0;
+      v59 = 0;
       std::vector<espresso_buffer_t>::__init_with_size[abi:ne200100]<espresso_buffer_t*,espresso_buffer_t*>(&__p, self->_outputEspressoBuffers.__begin_, self->_outputEspressoBuffers.__end_, 0xCF3CF3CF3CF3CF3DLL * ((self->_outputEspressoBuffers.__end_ - self->_outputEspressoBuffers.__begin_) >> 3));
-      v15 = [(VCPCNNVisionCoreDetector *)self planExecutionandOutput:&__p descriptor:self->_descriptor];
+      v17 = [(VCPCNNVisionCoreDetector *)self planExecutionandOutput:&__p descriptor:self->_descriptor];
+      v32 = __p;
       if (__p)
       {
-        v49 = __p;
+        v58 = __p;
         operator delete(__p);
       }
 
-      v28 = VCPSignPostLog();
-      v29 = v28;
-      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
-      {
-        *v51 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v25, "VCPCNNVisionCoreDetectorExecution", "", v51, 2u);
-      }
-
-      if (v23)
-      {
-        mach_absolute_time();
-        VCPPerformance_LogMeasurement();
-      }
-
-      v30 = mach_absolute_time();
-      v31 = VCPSignPostLog();
-      v32 = os_signpost_id_generate(v31);
-
-      v33 = VCPSignPostLog();
+      v33 = VCPSignPostLog(v32);
       v34 = v33;
-      if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
       {
-        *v51 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v32, "VCPCNNVisionCoreDetectorPostProcessing", "", v51, 2u);
+        *v60 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, v28, "VCPCNNVisionCoreDetectorExecution", "", v60, 2u);
+      }
+
+      if (v26)
+      {
+        v35 = mach_absolute_time();
+        VCPPerformance_LogMeasurement("VCPCNNVisionCoreDetectorExecution", v35 - v26);
+      }
+
+      v36 = mach_absolute_time();
+      v37 = VCPSignPostLog(v36);
+      v38 = os_signpost_id_generate(v37);
+
+      v40 = VCPSignPostLog(v39);
+      v41 = v40;
+      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+      {
+        *v60 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v38, "VCPCNNVisionCoreDetectorPostProcessing", "", v60, 2u);
       }
 
       postProcessingOutputDescriptors = [(VisionCoreISPInferenceNetworkDescriptor *)self->_descriptor postProcessingOutputDescriptors];
       requiresPostProcessing = [(VisionCoreISPInferenceNetworkDescriptor *)self->_descriptor requiresPostProcessing];
       if (postProcessingOutputDescriptors)
       {
-        v36 = 0;
+        v43 = 0;
       }
 
       else
       {
-        v36 = requiresPostProcessing;
+        v43 = requiresPostProcessing;
       }
 
-      if (v36 == 1)
+      if (v43 == 1)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          *v51 = 0;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - Descriptor requires post processing - but no postProcessingDescriptors returned", v51, 2u);
+          *v60 = 0;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - Descriptor requires post processing - but no postProcessingDescriptors returned", v60, 2u);
         }
 
         if (!error)
         {
-          v21 = 0;
+          v24 = 0;
           goto LABEL_22;
         }
 
-        v37 = MEMORY[0x1E696ABC0];
-        v55 = *MEMORY[0x1E696A578];
-        v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - Descriptor requires post processing - but no postProcessingDescriptors returned"];
-        v56 = v38;
-        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-        [v37 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v39];
-        *error = v21 = 0;
+        v44 = MEMORY[0x1E696ABC0];
+        v64 = *MEMORY[0x1E696A578];
+        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - Descriptor requires post processing - but no postProcessingDescriptors returned"];
+        v65 = v45;
+        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        [v44 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v46];
+        *error = v24 = 0;
       }
 
       else
       {
-        v40 = objc_alloc(MEMORY[0x1E69DF920]);
-        v38 = [v40 initWithInputImageBuffer:*buf inputImageOrientation:v6 inferenceOutputNamedObjects:v15];
-        LODWORD(v47) = v6;
-        LODWORD(v46) = v6;
-        v39 = [objc_alloc(MEMORY[0x1E69DF928]) initWithPostProcessedPersonImageBuffer:self->_personBuffer personImageOrientation:v6 salientPersonImageBuffer:self->_salientBuffer salientPersonImageBufferOrientation:v6 skinImageBuffer:self->_skinBuffer skinImageBufferOrientation:v6 hairImageBuffer:self->_hairBuffer hairImageBufferOrientation:v46 skyImageBuffer:self->_skyBuffer skyImageBufferOrientation:v47];
-        if (([(VisionCoreISPInferenceNetworkDescriptor *)self->_descriptor performPostProcessingForInput:v38 postProcessingOutput:v39 error:error]& 1) != 0)
+        v47 = objc_alloc(MEMORY[0x1E69DF920]);
+        v45 = [v47 initWithInputImageBuffer:*buf inputImageOrientation:v6 inferenceOutputNamedObjects:v17];
+        LODWORD(v56) = v6;
+        LODWORD(v55) = v6;
+        v46 = [objc_alloc(MEMORY[0x1E69DF928]) initWithPostProcessedPersonImageBuffer:self->_personBuffer personImageOrientation:v6 salientPersonImageBuffer:self->_salientBuffer salientPersonImageBufferOrientation:v6 skinImageBuffer:self->_skinBuffer skinImageBufferOrientation:v6 hairImageBuffer:self->_hairBuffer hairImageBufferOrientation:v55 skyImageBuffer:self->_skyBuffer skyImageBufferOrientation:v56];
+        v48 = [(VisionCoreISPInferenceNetworkDescriptor *)self->_descriptor performPostProcessingForInput:v45 postProcessingOutput:v46 error:error];
+        if (v48)
         {
-          v41 = VCPSignPostLog();
-          v42 = v41;
-          if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+          v49 = VCPSignPostLog(v48);
+          v50 = v49;
+          if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
           {
-            *v51 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v32, "VCPCNNVisionCoreDetectorPostProcessing", "", v51, 2u);
+            *v60 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_END, v38, "VCPCNNVisionCoreDetectorPostProcessing", "", v60, 2u);
           }
 
-          if (v30)
+          if (v36)
           {
-            mach_absolute_time();
-            VCPPerformance_LogMeasurement();
+            v51 = mach_absolute_time();
+            VCPPerformance_LogMeasurement("VCPCNNVisionCoreDetectorPostProcessing", v51 - v36);
           }
 
-          v39 = v39;
-          v21 = v39;
+          v46 = v46;
+          v24 = v46;
         }
 
         else
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            *v51 = 0;
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - ISP post processing failure", v51, 2u);
+            *v60 = 0;
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - ISP post processing failure", v60, 2u);
           }
 
           if (error)
           {
-            v43 = MEMORY[0x1E696ABC0];
-            v53 = *MEMORY[0x1E696A578];
-            v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - ISP post processing failure"];
-            v54 = v44;
-            v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-            *error = [v43 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v45];
+            v52 = MEMORY[0x1E696ABC0];
+            v62 = *MEMORY[0x1E696A578];
+            v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - ISP post processing failure"];
+            v63 = v53;
+            v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+            *error = [v52 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v54];
           }
 
-          v21 = 0;
+          v24 = 0;
         }
       }
 
@@ -1271,27 +1274,27 @@ LABEL_22:
 
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v51 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - update input buffers and binding buffer failed", v51, 2u);
+      *v60 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPCNNVisionCoreDetector - update input buffers and binding buffer failed", v60, 2u);
     }
 
     if (error)
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v57 = *MEMORY[0x1E696A578];
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - update input buffers and binding buffer failed"];
-      v58 = v15;
-      postProcessingOutputDescriptors = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-      v17 = [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:postProcessingOutputDescriptors];
+      v23 = MEMORY[0x1E696ABC0];
+      v66 = *MEMORY[0x1E696A578];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPCNNVisionCoreDetector - update input buffers and binding buffer failed"];
+      v67 = v17;
+      postProcessingOutputDescriptors = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v19 = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:postProcessingOutputDescriptors];
       goto LABEL_21;
     }
   }
 
-  v21 = 0;
+  v24 = 0;
 LABEL_24:
   CF<__CVBuffer *>::~CF(buf);
 
-  return v21;
+  return v24;
 }
 
 - (int)getHandsRegions:(id)regions fromVisionCorePostProcessingOutput:(id)output imageWidth:(int)width imageHeight:(int)height extendRatio:(float)ratio portrait_mode:(BOOL)portrait_mode

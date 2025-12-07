@@ -33,30 +33,30 @@
 
 - (id)sanitizedAttributes:(id)attributes forElement:(id)element
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   elementCopy = element;
   v8 = [(ENXMLDTD *)self xmlElementNamed:elementCopy];
   if (v8)
   {
     v9 = v8;
-    v21 = attributesCopy;
-    v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v20 = attributesCopy;
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
     allKeys = [attributesCopy allKeys];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v11 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
@@ -64,7 +64,7 @@
           attributes = v9->attributes;
           if (attributes)
           {
-            v16 = *(*(&v23 + 1) + 8 * i);
+            v16 = *(*(&v22 + 1) + 8 * i);
             while (1)
             {
               name = attributes->name;
@@ -88,32 +88,30 @@
               }
             }
 
-            v18 = [v21 objectForKey:v16];
-            [v22 setObject:v18 forKey:v16];
+            v18 = [v20 objectForKey:v16];
+            [v21 setObject:v18 forKey:v16];
           }
 
 LABEL_15:
           ;
         }
 
-        v12 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v12);
     }
 
-    attributesCopy = v21;
+    attributesCopy = v20;
   }
 
   else
   {
     NSLog(&cfstr_ErrorRetrievin.isa, elementCopy, self);
-    v22 = 0;
+    v21 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (_xmlElement)xmlElementNamed:(id)named

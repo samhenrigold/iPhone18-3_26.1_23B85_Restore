@@ -71,36 +71,36 @@
 
 - (id)cacheFuture
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   identity = [(PFServerPosterPath *)self->_path identity];
   v5 = NSStringFromSelector(a2);
   os_unfair_lock_lock(&self->_lock);
   lock_cacheFuture = self->_lock_cacheFuture;
   if (lock_cacheFuture)
   {
-    v7 = lock_cacheFuture;
+    v8 = lock_cacheFuture;
     if (([(PFTFuture *)self->_lock_cacheFuture isFinished]& 1) != 0)
     {
-      v8 = self->_lock_cacheFuture;
-      v50 = 0;
-      v9 = [(PFTFuture *)v8 resultWithTimeout:&v50 error:0.5];
-      v10 = v50;
-      v11 = PBFLogSnapshotter();
-      v12 = v11;
-      if (v10)
+      v9 = self->_lock_cacheFuture;
+      v53 = 0;
+      v10 = [(PFTFuture *)v9 resultWithTimeout:&v53 error:0.5];
+      v11 = v53;
+      v12 = PBFLogSnapshotter(v11);
+      v13 = v12;
+      if (v11)
       {
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v52 = identity;
-          v53 = 2114;
-          v54 = v5;
-          v55 = 2114;
-          v56 = v10;
-          _os_log_error_impl(&dword_21B526000, v12, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> cache future failed with error '%{public}@' - clearing state and trying again", buf, 0x20u);
+          v55 = identity;
+          v56 = 2114;
+          v57 = v5;
+          v58 = 2114;
+          v59 = v11;
+          _os_log_error_impl(&dword_21B526000, v13, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> cache future failed with error '%{public}@' - clearing state and trying again", buf, 0x20u);
         }
 
-        v13 = self->_lock_cacheFuture;
+        v14 = self->_lock_cacheFuture;
         self->_lock_cacheFuture = 0;
 
         self->_lock_cachedHasCleanedUp = 0;
@@ -111,7 +111,7 @@
         goto LABEL_7;
       }
 
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [PBFPosterSnapshotCoordinator cacheFuture];
       }
@@ -122,118 +122,118 @@
   }
 
 LABEL_7:
-  v15 = PBFLogSnapshotter();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = PBFLogSnapshotter(v6);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v52 = identity;
-    v53 = 2114;
-    v54 = v5;
-    _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "<SnapshotCoordinator-%{public}@-%{public}@> Cache instance does not exist, creating a new one.", buf, 0x16u);
+    v55 = identity;
+    v56 = 2114;
+    v57 = v5;
+    _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_INFO, "<SnapshotCoordinator-%{public}@-%{public}@> Cache instance does not exist, creating a new one.", buf, 0x16u);
   }
 
   path = self->_path;
-  v49 = 0;
-  v17 = [(PFServerPosterPath *)path ensureScratchURLIsReachableAndReturnError:&v49];
-  v18 = v49;
-  if (v17)
+  v52 = 0;
+  v18 = [(PFServerPosterPath *)path ensureScratchURLIsReachableAndReturnError:&v52];
+  v19 = v52;
+  if (v18)
   {
-    v19 = [MEMORY[0x277D46DB8] pf_finishTaskInterruptableWithExplanation:@"open sqlite database" invalidationHandler:0];
-    [v19 acquireWithInvalidationHandler:0];
+    v20 = [MEMORY[0x277D46DB8] pf_finishTaskInterruptableWithExplanation:@"open sqlite database" invalidationHandler:0];
+    [v20 acquireWithInvalidationHandler:0];
     snapshotCacheURL = [(PFServerPosterPath *)self->_path snapshotCacheURL];
-    v21 = self->_fileManager;
-    v48 = 0;
-    v22 = [objc_alloc(MEMORY[0x277D3EFB8]) initWithURL:snapshotCacheURL fileManager:v21 options:0 error:&v48];
-    v23 = v48;
-    if (v23)
+    v22 = self->_fileManager;
+    v51 = 0;
+    v23 = [objc_alloc(MEMORY[0x277D3EFB8]) initWithURL:snapshotCacheURL fileManager:v22 options:0 error:&v51];
+    v24 = v51;
+    if (v24)
     {
-      v24 = self->_lock_cacheFuture;
+      v25 = self->_lock_cacheFuture;
       self->_lock_cacheFuture = 0;
 
       [(PUIPosterSnapshotSQLiteCache *)self->_lock_cache invalidate];
-      v25 = self->_lock_cache;
+      v26 = self->_lock_cache;
       self->_lock_cache = 0;
 
-      [v19 invalidate];
+      [v20 invalidate];
       os_unfair_lock_unlock(&self->_lock);
-      v26 = PBFLogSnapshotter();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = PBFLogSnapshotter(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v52 = identity;
-        v53 = 2114;
-        v54 = v5;
-        v55 = 2114;
-        v56 = v23;
-        _os_log_error_impl(&dword_21B526000, v26, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> Failed to open SQLite cache: %{public}@", buf, 0x20u);
+        v55 = identity;
+        v56 = 2114;
+        v57 = v5;
+        v58 = 2114;
+        v59 = v24;
+        _os_log_error_impl(&dword_21B526000, v28, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> Failed to open SQLite cache: %{public}@", buf, 0x20u);
       }
 
-      v7 = [MEMORY[0x277D3EC50] futureWithError:v23];
-      v27 = 0;
+      v8 = [MEMORY[0x277D3EC50] futureWithError:v24];
+      v29 = 0;
     }
 
     else
     {
-      objc_storeStrong(&self->_lock_cache, v22);
-      v40 = !self->_lock_cachedHasCleanedUp;
+      objc_storeStrong(&self->_lock_cache, v23);
+      v43 = !self->_lock_cachedHasCleanedUp;
       self->_lock_cachedHasCleanedUp = 1;
-      reachableCacheFuture = [v22 reachableCacheFuture];
-      v30 = self->_lock_cacheFuture;
+      reachableCacheFuture = [v23 reachableCacheFuture];
+      v33 = self->_lock_cacheFuture;
       self->_lock_cacheFuture = reachableCacheFuture;
-      v41 = reachableCacheFuture;
+      v44 = reachableCacheFuture;
 
-      v42 = identity;
-      v31 = self->_lock_cacheFuture;
+      v45 = identity;
+      v34 = self->_lock_cacheFuture;
       os_unfair_lock_unlock(&self->_lock);
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __43__PBFPosterSnapshotCoordinator_cacheFuture__block_invoke;
-      v43[3] = &unk_2782C8738;
-      v44 = v42;
-      v45 = v5;
-      v27 = v19;
-      v46 = v27;
-      v47 = v40;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __43__PBFPosterSnapshotCoordinator_cacheFuture__block_invoke;
+      v46[3] = &unk_2782C8738;
+      v47 = v45;
+      v48 = v5;
+      v29 = v20;
+      v49 = v29;
+      v50 = v43;
       offMainThreadScheduler = [MEMORY[0x277D3EC60] offMainThreadScheduler];
-      [(PFTFuture *)v31 addCompletionBlock:v43 scheduler:offMainThreadScheduler];
+      [(PFTFuture *)v34 addCompletionBlock:v46 scheduler:offMainThreadScheduler];
 
-      v33 = v18;
-      v34 = v22;
-      v35 = v21;
-      v36 = snapshotCacheURL;
-      v37 = v46;
-      v38 = v31;
-      identity = v42;
-      v7 = v38;
+      v36 = v19;
+      v37 = v23;
+      v38 = v22;
+      v39 = snapshotCacheURL;
+      v40 = v49;
+      v41 = v34;
+      identity = v45;
+      v8 = v41;
 
-      snapshotCacheURL = v36;
-      v21 = v35;
-      v22 = v34;
-      v18 = v33;
+      snapshotCacheURL = v39;
+      v22 = v38;
+      v23 = v37;
+      v19 = v36;
     }
   }
 
   else
   {
     os_unfair_lock_unlock(&self->_lock);
-    v28 = PBFLogSnapshotter();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = PBFLogSnapshotter(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v52 = identity;
-      v53 = 2114;
-      v54 = v5;
-      v55 = 2114;
-      v56 = v18;
-      _os_log_error_impl(&dword_21B526000, v28, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> Failed to ensure scratch URL is reachable: %{public}@", buf, 0x20u);
+      v55 = identity;
+      v56 = 2114;
+      v57 = v5;
+      v58 = 2114;
+      v59 = v19;
+      _os_log_error_impl(&dword_21B526000, v31, OS_LOG_TYPE_ERROR, "<SnapshotCoordinator-%{public}@-%{public}@> Failed to ensure scratch URL is reachable: %{public}@", buf, 0x20u);
     }
 
-    v7 = [MEMORY[0x277D3EC50] futureWithError:v18];
+    v8 = [MEMORY[0x277D3EC50] futureWithError:v19];
   }
 
 LABEL_24:
 
-  return v7;
+  return v8;
 }
 
 void __43__PBFPosterSnapshotCoordinator_cacheFuture__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -241,7 +241,7 @@ void __43__PBFPosterSnapshotCoordinator_cacheFuture__block_invoke(uint64_t a1, v
   v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = PBFLogSnapshotter();
+  v7 = PBFLogSnapshotter(v6);
   v8 = v7;
   if (!v5 || v6)
   {
@@ -291,7 +291,7 @@ LABEL_11:
     coordinatorCopy = coordinator;
     identity = [(PFServerPosterPath *)path identity];
     v9 = NSStringFromSelector(a2);
-    v10 = PBFLogSnapshotter();
+    v10 = PBFLogSnapshotter(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [PBFPosterSnapshotCoordinator ingestSnapshotsFromCoordinator:];
@@ -300,23 +300,23 @@ LABEL_11:
     cacheFuture = [(PBFPosterSnapshotCoordinator *)self cacheFuture];
     cacheFuture2 = [coordinatorCopy cacheFuture];
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke;
-    v19[3] = &unk_2782C87D8;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke;
+    v20[3] = &unk_2782C87D8;
     v13 = cacheFuture2;
-    v20 = v13;
+    v21 = v13;
     v14 = identity;
-    v21 = v14;
+    v22 = v14;
     v15 = v9;
-    v22 = v15;
-    v16 = [cacheFuture flatMap:v19];
+    v23 = v15;
+    v16 = [cacheFuture flatMap:v20];
     v17 = [v16 result:0];
 
-    v18 = PBFLogSnapshotter();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = PBFLogSnapshotter(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      [(PBFPosterSnapshotCoordinator *)p_path ingestSnapshotsFromCoordinator:a2, v18];
+      [(PBFPosterSnapshotCoordinator *)p_path ingestSnapshotsFromCoordinator:a2, v19];
     }
   }
 }
@@ -397,7 +397,7 @@ id __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_inv
 
 void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke_4(uint64_t a1)
 {
-  v2 = PBFLogSnapshotter();
+  v2 = PBFLogSnapshotter(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke_4_cold_1(a1, v2);
@@ -407,7 +407,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke_16(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = PBFLogSnapshotter();
+  v3 = PBFLogSnapshotter(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_invoke_16_cold_1();
@@ -1058,7 +1058,7 @@ id __50__PBFPosterSnapshotCoordinator_removeAllSnapshots__block_invoke(uint64_t 
         v20 = 0;
         v15 = [v14 setResourceValues:v5 error:&v20];
         v16 = v20;
-        v17 = PBFLogSnapshotter();
+        v17 = PBFLogSnapshotter(v16);
         v18 = v17;
         if (v15)
         {
@@ -1268,7 +1268,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotReservationForContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1276,7 +1276,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1287,7 +1287,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotReservationForContext:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1295,7 +1295,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1306,7 +1306,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotReservationForContext:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1314,7 +1314,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1325,7 +1325,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotReservationForContext:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1333,7 +1333,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1344,7 +1344,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotBundleForContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1352,7 +1352,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1362,7 +1362,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotBundleForContext:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1370,7 +1370,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1380,7 +1380,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotBundleForContext:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1388,7 +1388,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1398,7 +1398,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotBundleForContext:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1406,7 +1406,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1416,7 +1416,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotExistsForContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1424,7 +1424,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1435,7 +1435,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotExistsForContext:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1443,7 +1443,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFDisplayContext)]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1454,7 +1454,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotExistsForContext:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1462,7 +1462,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1473,7 +1473,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
 
 - (void)snapshotExistsForContext:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1481,7 +1481,7 @@ void __63__PBFPosterSnapshotCoordinator_ingestSnapshotsFromCoordinator___block_i
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;

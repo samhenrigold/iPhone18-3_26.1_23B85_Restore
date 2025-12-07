@@ -14,7 +14,7 @@
 {
   v50 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(messageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -124,41 +124,39 @@
   negativeActions = [messageCopy negativeActions];
   [self _hashAndSaltActionKeyMetadataIfNeededInList:negativeActions withSalt:readDeviceSpecificSalt];
 
-  v37 = __atxlog_handle_default();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v38 = __atxlog_handle_default(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "Anchor Model Data Collection: finished anonymization procedure for log entry message.", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "Anchor Model Data Collection: finished anonymization procedure for log entry message.", buf, 2u);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_hashAndSaltActionKeyMetadataIfNeededInList:(id)list withSalt:(id)salt
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   listCopy = list;
   saltCopy = salt;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = listCopy;
-  v7 = [listCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [listCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         appLaunchMetadata = [v11 appLaunchMetadata];
         bundleId = [appLaunchMetadata bundleId];
 
@@ -180,13 +178,11 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isFirstPartyApp:(id)app
@@ -259,25 +255,25 @@
 
   else
   {
-    v9 = [MEMORY[0x277CBEA90] dataWithData:v7];
+    v10 = [MEMORY[0x277CBEA90] dataWithData:v7];
 
-    if (v9)
+    if (v10)
     {
-      [defaultsCopy setObject:v9 forKey:schemeCopy];
+      [defaultsCopy setObject:v10 forKey:schemeCopy];
       goto LABEL_8;
     }
   }
 
-  v8 = __atxlog_handle_default();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v9 = __atxlog_handle_default(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    [ATXAnchorModelDataAnonymizer setSaltToUserDefaults:v8 scheme:?];
+    [ATXAnchorModelDataAnonymizer setSaltToUserDefaults:v9 scheme:?];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_8:
 
-  return v9;
+  return v10;
 }
 
 + (id)readDeviceSpecificSalt
@@ -288,7 +284,7 @@ LABEL_8:
   if (!v4)
   {
     v4 = [objc_opt_class() setSaltToUserDefaults:v3 scheme:@"ATXAnchorModelOfflineDataHarvesterDeviceSpecificSalt"];
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;

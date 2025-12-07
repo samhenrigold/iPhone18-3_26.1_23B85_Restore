@@ -24,14 +24,14 @@
 
 - (EARAudioResultsGenerator)initWithConfigFile:(id)file configRoot:(id)root sampleRate:(unint64_t)rate delegate:(id)delegate queue:(id)queue
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   rootCopy = root;
   delegateCopy = delegate;
   queueCopy = queue;
-  v33.receiver = self;
-  v33.super_class = EARAudioResultsGenerator;
-  v16 = [(EARAudioResultsGenerator *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = EARAudioResultsGenerator;
+  v16 = [(EARAudioResultsGenerator *)&v34 init];
   v17 = v16;
   if (!v16)
   {
@@ -43,9 +43,9 @@
   objc_storeWeak(&v17->_delegate, delegateCopy);
   objc_storeStrong(&v17->_queue, queue);
   v17->_isAudioSessionLive = 0;
-  data = [MEMORY[0x1E695DF88] data];
+  v18 = objc_msgSend_data(MEMORY[0x1E695DF88]);
   entireResultMatrix = v17->_entireResultMatrix;
-  v17->_entireResultMatrix = data;
+  v17->_entireResultMatrix = v18;
 
   v17->_sessionFrameCount = 0;
   *&v17->_globalNumVectors = 0u;
@@ -56,43 +56,44 @@
   {
     if (fileCopy)
     {
-      [fileCopy ear_toString];
+      objc_msgSend_ear_toString(fileCopy);
     }
 
     else
     {
       __p = 0uLL;
-      v36 = 0;
+      v37 = 0;
     }
 
-    memset(v32, 0, sizeof(v32));
-    memset(v30, 0, sizeof(v30));
-    v31 = 1065353216;
-    JsonFile = quasar::SystemConfig::readJsonFile(&v17->_sysConfig, &__p, v32, v30, 0, 0);
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v30);
-    v34 = v32;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v34);
-    if (SHIBYTE(v36) < 0)
+    memset(v33, 0, sizeof(v33));
+    memset(v31, 0, sizeof(v31));
+    v32 = 1065353216;
+    quasar::SystemConfig::readJsonFile(&v17->_sysConfig, &__p, v33, v31, 0, 0);
+    v27 = v26;
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v31);
+    v35 = v33;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
+    if (SHIBYTE(v37) < 0)
     {
       operator delete(__p);
     }
 
-    HIBYTE(v36) = 3;
+    HIBYTE(v37) = 3;
     LODWORD(__p) = 7500656;
     quasar::SystemConfig::enforceMinVersion(&v17->_sysConfig, 62, 0, &__p);
-    if (SHIBYTE(v36) < 0)
+    if (SHIBYTE(v37) < 0)
     {
       operator delete(__p);
     }
 
-    if (JsonFile == 2)
+    if (v27 == 2)
     {
-      v27 = earARGLog;
+      v28 = earARGLog;
       if (os_log_type_enabled(earARGLog, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(__p) = 0;
         v23 = "ARG: ERR: AudioProcessorPipeline created with incorrect version";
-        v24 = v27;
+        v24 = v28;
         v25 = 2;
         goto LABEL_15;
       }
@@ -101,7 +102,7 @@
     }
 
 LABEL_17:
-    v28 = v17;
+    v29 = v17;
     goto LABEL_18;
   }
 
@@ -118,10 +119,10 @@ LABEL_15:
   }
 
 LABEL_16:
-  v28 = 0;
+  v29 = 0;
 LABEL_18:
 
-  return v28;
+  return v29;
 }
 
 - (void)resetForNewRequest
@@ -151,7 +152,7 @@ void __46__EARAudioResultsGenerator_resetForNewRequest__block_invoke(uint64_t a1
     v5 = *(v3 + 1640);
     if (v5)
     {
-      [v5 ear_toString];
+      objc_msgSend_ear_toString(v5);
     }
 
     else

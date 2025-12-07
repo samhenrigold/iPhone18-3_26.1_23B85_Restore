@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
+- (id)triggerCauseAsString:(int)string;
 - (int)StringAsFr:(id)fr;
 - (int)StringAsTriggerCause:(id)cause;
 - (int)fr;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)triggerCauseAsString:(int)string
+{
+  if (string >= 0x20)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782633F8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTriggerCause:(id)cause
@@ -260,6 +277,49 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)frAsString:(int)string
+{
+  if (string > 2)
+  {
+    if (string == 3)
+    {
+      v4 = @"POWERLOG_SUB6_MMWAVE";
+    }
+
+    else
+    {
+      if (string != 255)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"POWERLOG_INVALID";
+    }
+  }
+
+  else
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"POWERLOG_MMWAVE";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"POWERLOG_SUB6";
+  }
+
+  return v4;
+}
+
 - (int)StringAsFr:(id)fr
 {
   frCopy = fr;
@@ -411,7 +471,6 @@ LABEL_23:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -431,7 +490,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  triggerCause = self->_triggerCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -446,12 +504,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    fr = self->_fr;
     PBDataWriterWriteInt32Field();
   }
 

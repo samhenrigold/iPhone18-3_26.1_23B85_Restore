@@ -6,9 +6,14 @@
 Class __get_DKSystemEventStreamsClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!CoreDuetLibraryCore())
+  if (!CoreDuetLibraryCore(&v3))
   {
     __get_DKSystemEventStreamsClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("_DKSystemEventStreams");

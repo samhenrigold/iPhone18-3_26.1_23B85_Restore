@@ -48,7 +48,7 @@ LABEL_6:
   imageCopy = image;
   selfCopy = self;
   CarHostingViewController.updateHeader(title:primaryAccessory:secondaryAccessory:leadingImage:handler:)(v14, title, accessoryCopy, secondaryAccessory, image, v13, v16);
-  sub_1000588AC(v13);
+  sub_1000588AC(v13, v16);
 }
 
 - (NSArray)preferredFocusEnvironments
@@ -56,14 +56,14 @@ LABEL_6:
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC4Maps24CarHostingViewController_hostingController);
   if (v2)
   {
-    sub_1000CE6B8(&qword_101908400);
+    sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_1011E47B0;
     *(v3 + 32) = v2;
   }
 
   v4 = v2;
-  sub_1000CE6B8(&unk_10190DFB0);
+  sub_1000CE6B8(&unk_10190DFB0, &unk_101206C50);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

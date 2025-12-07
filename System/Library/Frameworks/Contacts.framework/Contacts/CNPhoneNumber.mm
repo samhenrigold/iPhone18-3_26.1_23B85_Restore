@@ -465,18 +465,18 @@ void __40__CNPhoneNumber_unsupportedCountryCodes__block_invoke()
   return v2;
 }
 
-void __57__CNPhoneNumber__countryCodesForNorthAmericanDialingPlan__block_invoke()
+void __57__CNPhoneNumber__countryCodesForNorthAmericanDialingPlan__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DFA8];
-  v1 = [objc_opt_class() _countryCodeForNorthAmericanDialingPlanAreaCodesExcludingUS];
-  v2 = [v1 allValues];
-  v3 = [v0 setWithArray:v2];
+  v1 = MEMORY[0x1E695DFA8];
+  v2 = [objc_opt_class() _countryCodeForNorthAmericanDialingPlanAreaCodesExcludingUS];
+  v3 = [v2 allValues];
+  v4 = [v1 setWithArray:v3];
 
-  [v3 addObject:@"us"];
-  v4 = [v3 copy];
+  [v4 addObject:@"us"];
+  v5 = [v4 copy];
 
-  v5 = _countryCodesForNorthAmericanDialingPlan_cn_once_object_4;
-  _countryCodesForNorthAmericanDialingPlan_cn_once_object_4 = v4;
+  v6 = _countryCodesForNorthAmericanDialingPlan_cn_once_object_4;
+  _countryCodesForNorthAmericanDialingPlan_cn_once_object_4 = v5;
 }
 
 + (id)_countryCodeForNorthAmericanDialingPlanAreaCodesExcludingUS

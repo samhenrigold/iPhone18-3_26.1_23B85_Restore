@@ -97,14 +97,14 @@ LABEL_10:
   scoresCopy = scores;
   v4 = [scoresCopy keysSortedByValueUsingComparator:&stru_1001B5748];
   v5 = +[NSMutableDictionary dictionary];
-  if ([scoresCopy count] > 9)
+  if (objc_msgSend_count(scoresCopy) > 9)
   {
     v6 = 10;
   }
 
   else
   {
-    v6 = [scoresCopy count];
+    v6 = objc_msgSend_count(scoresCopy);
     if (v6 < 1)
     {
       goto LABEL_7;

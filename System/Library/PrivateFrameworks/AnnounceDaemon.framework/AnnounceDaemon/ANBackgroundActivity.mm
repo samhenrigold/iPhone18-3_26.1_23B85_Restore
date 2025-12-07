@@ -27,7 +27,7 @@
 
 void __28__ANBackgroundActivity_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if (ANLogHandleBackgroundActivity_once != -1)
   {
     __28__ANBackgroundActivity_init__block_invoke_cold_1();
@@ -36,12 +36,10 @@ void __28__ANBackgroundActivity_init__block_invoke()
   v0 = ANLogHandleBackgroundActivity_logger;
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v0, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily checked in.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v0, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily checked in.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleWithBlock:(id)block

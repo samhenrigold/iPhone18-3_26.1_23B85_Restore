@@ -34,6 +34,7 @@
 - (void)removePathFromiCloudBackup:(id)backup;
 - (void)sendDeviceIDToCloudKitWithCompletion:(id)completion;
 - (void)setFirstSyncDateToNow;
+- (void)setUserDefaultBool:(BOOL)bool forKey:(id)key;
 - (void)toggleiCloudBackupsIfNeeded:(id)needed;
 @end
 
@@ -58,13 +59,13 @@
 
 - (BOOL)iCloudBackupsDisabled
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _disabledDirectoryPath = [(IMDCKBackupController *)self _disabledDirectoryPath];
-  v15 = 0;
-  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v14 = 0;
-  v4 = [defaultManager __im_getiCloudBackupAttributeForItemAtPath:_disabledDirectoryPath attributeValue:&v15 error:&v14];
-  v5 = v14;
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v13 = 0;
+  v4 = [defaultManager __im_getiCloudBackupAttributeForItemAtPath:_disabledDirectoryPath attributeValue:&v14 error:&v13];
+  v5 = v13;
 
   v6 = IMOSLoggingEnabled();
   if (v4)
@@ -75,20 +76,20 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = @"ENABLED";
-        if (v15)
+        if (v14)
         {
           v8 = @"DISABLED";
         }
 
         *buf = 138412546;
-        v17 = v8;
-        v18 = 2112;
-        v19 = _disabledDirectoryPath;
+        v16 = v8;
+        v17 = 2112;
+        v18 = _disabledDirectoryPath;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "iCloud backups are %@ (at path '%@')", buf, 0x16u);
       }
     }
 
-    v9 = v15;
+    v9 = v14;
   }
 
   else
@@ -100,9 +101,9 @@
       {
         localizedDescription = [v5 localizedDescription];
         *buf = 138412546;
-        v17 = _disabledDirectoryPath;
-        v18 = 2112;
-        v19 = localizedDescription;
+        v16 = _disabledDirectoryPath;
+        v17 = 2112;
+        v18 = localizedDescription;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Failed to get iCloud backup attribute for path '%@', error: %@", buf, 0x16u);
       }
     }
@@ -110,7 +111,6 @@
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -146,6 +146,15 @@
     IMSetDomainBoolForKey();
     [(IMDCKBackupController *)self _setICloudBackupsDisabled:0];
   }
+}
+
+- (void)setUserDefaultBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(IMDCKBackupController *)self writeUserDefault:v8 forKey:keyCopy];
 }
 
 - (BOOL)readUserDefaultBoolForKey:(id)key
@@ -338,7 +347,7 @@
 
 - (int64_t)_disableiCloudBackupIfSyncPercentageIsHighEnough:(int64_t)enough totalCount:(int64_t)count
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (count < 1)
   {
     v7 = 1.0;
@@ -354,13 +363,13 @@
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v15 = 134218496;
-      v16 = v7;
-      v17 = 2048;
+      v14 = 134218496;
+      v15 = v7;
+      v16 = 2048;
       enoughCopy = enough;
-      v19 = 2048;
+      v18 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Calculated percent synced (%f) from (%lld synced of %lld total records) ok ", &v15, 0x20u);
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Calculated percent synced (%f) from (%lld synced of %lld total records) ok ", &v14, 0x20u);
     }
   }
 
@@ -373,16 +382,16 @@
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v15 = 134218240;
-        v16 = v7;
-        v17 = 2048;
+        v14 = 134218240;
+        v15 = v7;
+        v16 = 2048;
         *&enoughCopy = *a33s;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Disabling iCloud backup since percentage of synced cloudkit records is high enough: %f >= %f ", &v15, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Disabling iCloud backup since percentage of synced cloudkit records is high enough: %f >= %f ", &v14, 0x16u);
       }
     }
 
     [(IMDCKBackupController *)self setICloudBackupsDisabled:1];
-    result = 1;
+    return 1;
   }
 
   else
@@ -392,24 +401,21 @@
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = 134218240;
-        v16 = v7;
-        v17 = 2048;
+        v14 = 134218240;
+        v15 = v7;
+        v16 = 2048;
         *&enoughCopy = *a33s;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "NOT disabling iCloud backup since percentage of synced cloudkit records is NOT high enough: %f < %f. We will check again later.", &v15, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "NOT disabling iCloud backup since percentage of synced cloudkit records is NOT high enough: %f < %f. We will check again later.", &v14, 0x16u);
       }
     }
 
-    result = 5;
+    return 5;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_fetchCountOfSyncedCloudKitRecords:(int64_t *)records totalCount:(int64_t *)count
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = IMDMessageRecordCalculateLocalCloudKitStatistics();
   v7 = IMOSLoggingEnabled();
   if (v6)
@@ -422,9 +428,9 @@
         v9 = [v6 description];
         v10 = [v9 description];
         v11 = [v10 stringByReplacingOccurrencesOfString:@"\n" withString:&stru_283F23018];
-        v19 = 138412290;
-        v20 = v11;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Loaded cloud kit stats: %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = v11;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Loaded cloud kit stats: %@", &v18, 0xCu);
       }
     }
 
@@ -441,11 +447,11 @@
       {
         v15 = *count;
         v16 = *records;
-        v19 = 134218240;
-        v20 = v15;
-        v21 = 2048;
-        v22 = v16;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Total record count: %lld, total syncedCount: %lld", &v19, 0x16u);
+        v18 = 134218240;
+        v19 = v15;
+        v20 = 2048;
+        v21 = v16;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Total record count: %lld, total syncedCount: %lld", &v18, 0x16u);
       }
     }
   }
@@ -455,12 +461,10 @@
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateLocalCloudKitStatistics returned NULL stats", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateLocalCloudKitStatistics returned NULL stats", &v18, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_currentDeviceStateIsRestore:(id)restore
@@ -623,14 +627,14 @@
 - (void)_setICloudBackupsDisabled:(BOOL)disabled
 {
   disabledCopy = disabled;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!disabled)
   {
     _disabledDirectoryPath = [(IMDCKBackupController *)self _disabledDirectoryPath];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v22 = 0;
-    v9 = [defaultManager __im_setiCloudBackupAttribute:0 onDirectoryAndChildrenAtPath:_disabledDirectoryPath error:&v22];
-    v10 = v22;
+    v21 = 0;
+    v9 = [defaultManager __im_setiCloudBackupAttribute:0 onDirectoryAndChildrenAtPath:_disabledDirectoryPath error:&v21];
+    v10 = v21;
 
     goto LABEL_5;
   }
@@ -642,9 +646,9 @@
   {
     _disabledDirectoryPath = [(IMDCKBackupController *)self _disabledDirectoryPath];
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v23 = 0;
-    v9 = [defaultManager2 __im_setiCloudBackupAttribute:1 onItemAtPath:_disabledDirectoryPath error:&v23];
-    v10 = v23;
+    v22 = 0;
+    v9 = [defaultManager2 __im_setiCloudBackupAttribute:1 onItemAtPath:_disabledDirectoryPath error:&v22];
+    v10 = v22;
 
 LABEL_5:
     if (v9)
@@ -663,9 +667,9 @@ LABEL_5:
           }
 
           *buf = 138412546;
-          v25 = v15;
-          v26 = 2112;
-          v27 = _disabledDirectoryPath2;
+          v24 = v15;
+          v25 = 2112;
+          v26 = _disabledDirectoryPath2;
           _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "set iCloud backups to %@ (at path '%@')", buf, 0x16u);
         }
       }
@@ -685,30 +689,27 @@ LABEL_5:
           v19 = @"YES";
         }
 
-        v25 = v19;
-        v26 = 2112;
-        v27 = _disabledDirectoryPath;
-        v28 = 2112;
-        v29 = localizedDescription;
+        v24 = v19;
+        v25 = 2112;
+        v26 = _disabledDirectoryPath;
+        v27 = 2112;
+        v28 = localizedDescription;
         _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Failed to set iCloud backup file attribute to %@ on path: '%@'. Error: %@", buf, 0x20u);
       }
     }
 
-    goto LABEL_19;
+    return;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v21 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "We are not allowed to remove backups from iCloud and we got called to disable the back up -- early returning", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "We are not allowed to remove backups from iCloud and we got called to disable the back up -- early returning", buf, 2u);
     }
   }
-
-LABEL_19:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setiCloudBackupAttribute:(BOOL)attribute onItemAtPath:(id)path error:(id *)error
@@ -723,7 +724,7 @@ LABEL_19:
 
 - (void)removePathFromiCloudBackup:(id)backup
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   ckUtilities = [(IMDCKBackupController *)self ckUtilities];
   removeFromBackUpAllowed = [ckUtilities removeFromBackUpAllowed];
@@ -739,7 +740,7 @@ LABEL_19:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = backupCopy;
+      v15 = backupCopy;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "We are not allowed to remove this device from backup -- not removing path (%@) from backup", buf, 0xCu);
     }
 
@@ -748,9 +749,9 @@ LABEL_19:
 
   if (![(IMDCKBackupController *)self iCloudBackupsDisabled])
   {
-    v14 = 0;
-    v8 = [(IMDCKBackupController *)self _setiCloudBackupAttribute:1 onItemAtPath:backupCopy error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [(IMDCKBackupController *)self _setiCloudBackupAttribute:1 onItemAtPath:backupCopy error:&v13];
+    v9 = v13;
     v10 = IMOSLoggingEnabled();
     if (v8)
     {
@@ -760,7 +761,7 @@ LABEL_19:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v16 = backupCopy;
+          v15 = backupCopy;
           _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "removed path from iCloud backup: '%@'", buf, 0xCu);
         }
 
@@ -775,9 +776,9 @@ LABEL_19:
       {
         localizedDescription = [v9 localizedDescription];
         *buf = 138412546;
-        v16 = backupCopy;
-        v17 = 2112;
-        v18 = localizedDescription;
+        v15 = backupCopy;
+        v16 = 2112;
+        v17 = localizedDescription;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Failed to set iCloud backup file attribute to YES on path: '%@'. Error: %@", buf, 0x16u);
       }
 
@@ -793,7 +794,7 @@ LABEL_19:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = backupCopy;
+      v15 = backupCopy;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "All iCloud backups disabled so path is already not backing up: %@", buf, 0xCu);
     }
 
@@ -801,13 +802,11 @@ LABEL_6:
   }
 
 LABEL_21:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)pathRemovedFromBackup:(id)backup
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   if ([(IMDCKBackupController *)self iCloudBackupsDisabled])
   {
@@ -816,11 +815,11 @@ LABEL_21:
 
   else
   {
-    v17 = 0;
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v16 = 0;
-    v7 = [defaultManager __im_getiCloudBackupAttributeForItemAtPath:backupCopy attributeValue:&v17 error:&v16];
-    v8 = v16;
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v15 = 0;
+    v7 = [defaultManager __im_getiCloudBackupAttributeForItemAtPath:backupCopy attributeValue:&v16 error:&v15];
+    v8 = v15;
 
     v9 = IMOSLoggingEnabled();
     if (v7)
@@ -831,20 +830,20 @@ LABEL_21:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = @"ENABLED";
-          if (v17)
+          if (v16)
           {
             v11 = @"DISABLED";
           }
 
           *buf = 138412546;
-          v19 = v11;
-          v20 = 2112;
-          v21 = backupCopy;
+          v18 = v11;
+          v19 = 2112;
+          v20 = backupCopy;
           _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "iCloud backups are %@ for path '%@')", buf, 0x16u);
         }
       }
 
-      v5 = v17;
+      v5 = v16;
     }
 
     else
@@ -856,9 +855,9 @@ LABEL_21:
         {
           localizedDescription = [v8 localizedDescription];
           *buf = 138412546;
-          v19 = backupCopy;
-          v20 = 2112;
-          v21 = localizedDescription;
+          v18 = backupCopy;
+          v19 = 2112;
+          v20 = localizedDescription;
           _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Failed to get iCloud backup attribute for path '%@', error: %@", buf, 0x16u);
         }
       }
@@ -867,13 +866,11 @@ LABEL_21:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
 - (id)createBackupManager
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (qword_27D8CFFC0 != -1)
   {
     sub_22B7D8344();
@@ -884,8 +881,6 @@ LABEL_21:
   {
     v2 = objc_alloc_init(qword_27D8CFFB8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -925,7 +920,7 @@ LABEL_21:
 
 - (void)_deviceIDFromMobileBackupManager:(id *)manager legacyDeviceID:(id *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   createBackupManager = [(IMDCKBackupController *)self createBackupManager];
   v7 = createBackupManager;
   if (createBackupManager)
@@ -945,11 +940,11 @@ LABEL_21:
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
-      v15 = backupDeviceUUID;
-      v16 = 2112;
-      v17 = backupDeviceUDID;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Device ID from MobileBackup deviceID (deviceUUID) = %@, legacyDevice (deviceUDID) = %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = backupDeviceUUID;
+      v15 = 2112;
+      v16 = backupDeviceUDID;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Device ID from MobileBackup deviceID (deviceUUID) = %@, legacyDevice (deviceUDID) = %@", &v13, 0x16u);
     }
   }
 
@@ -964,35 +959,31 @@ LABEL_21:
     v12 = backupDeviceUDID;
     *d = backupDeviceUDID;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueOperation:(id)operation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = operationCopy;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Starting operation: '%@'", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = operationCopy;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Starting operation: '%@'", &v7, 0xCu);
     }
   }
 
   v5 = +[IMDCKDatabaseManager sharedInstance];
   truthDatabase = [v5 truthDatabase];
   [truthDatabase addOperation:operationCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDeviceIDToCloudKitWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   ckUtilities = [(IMDCKBackupController *)self ckUtilities];
   cloudKitSyncingEnabled = [ckUtilities cloudKitSyncingEnabled];
@@ -1022,11 +1013,11 @@ LABEL_21:
       goto LABEL_37;
     }
 
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
-    [(IMDCKBackupController *)self _deviceIDFromMobileBackupManager:&v31 legacyDeviceID:&v30];
-    v12 = v31;
-    v13 = v30;
+    [(IMDCKBackupController *)self _deviceIDFromMobileBackupManager:&v30 legacyDeviceID:&v29];
+    v12 = v30;
+    v13 = v29;
     v14 = IMOSLoggingEnabled();
     if (v12 | v13)
     {
@@ -1036,9 +1027,9 @@ LABEL_21:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v33 = v12;
-          v34 = 2112;
-          v35 = v13;
+          v32 = v12;
+          v33 = 2112;
+          v34 = v13;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "deviceID (deviceUUID) = %@, legacyDevice (deviceUDID) = %@", buf, 0x16u);
         }
       }
@@ -1051,7 +1042,7 @@ LABEL_21:
         {
           predicateFormat = [v16 predicateFormat];
           *buf = 138412290;
-          v33 = predicateFormat;
+          v32 = predicateFormat;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Writing grace quota with device IDs: '%@'", buf, 0xCu);
         }
       }
@@ -1063,7 +1054,7 @@ LABEL_21:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v33 = v19;
+          v32 = v19;
           _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "created query ok: %@", buf, 0xCu);
         }
       }
@@ -1073,15 +1064,15 @@ LABEL_21:
       [v21 setQualityOfService:17];
       v22 = [objc_alloc(MEMORY[0x277CBC590]) initWithQuery:v19];
       [v22 setConfiguration:v21];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = sub_22B65D038;
-      v26[3] = &unk_278707200;
-      v27 = v16;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = sub_22B65D038;
+      v25[3] = &unk_278707200;
+      v26 = v16;
       selfCopy = self;
-      v29 = completionCopy;
+      v28 = completionCopy;
       v23 = v16;
-      [v22 setQueryCompletionBlock:v26];
+      [v22 setQueryCompletionBlock:v25];
       [(IMDCKBackupController *)self _enqueOperation:v22];
     }
 
@@ -1127,13 +1118,11 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dateOfLastBackUp
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   createBackupManager = [(IMDCKBackupController *)self createBackupManager];
   v3 = createBackupManager;
   if (createBackupManager)
@@ -1148,8 +1137,8 @@ LABEL_37:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "BackupManager is nil, no date for last backup", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "BackupManager is nil, no date for last backup", &v8, 2u);
       }
     }
 
@@ -1161,24 +1150,22 @@ LABEL_37:
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = dateOfLastBackup;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Date of last backup %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = dateOfLastBackup;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Date of last backup %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return dateOfLastBackup;
 }
 
 - (BOOL)checkDatabaseWasRestored
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  [(IMDCKBackupController *)self _fetchCountOfSyncedCloudKitRecords:&v8 totalCount:&v7];
-  v2 = v7;
+  [(IMDCKBackupController *)self _fetchCountOfSyncedCloudKitRecords:&v7 totalCount:&v6];
+  v2 = v6;
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -1191,18 +1178,16 @@ LABEL_37:
         v4 = @"YES";
       }
 
-      v10 = v4;
-      v11 = 2048;
-      v12 = v7;
-      v13 = 1024;
-      v14 = 10;
+      v9 = v4;
+      v10 = 2048;
+      v11 = v6;
+      v12 = 1024;
+      v13 = 10;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Database is in acceptable restore state: %@ (%lld records found, at least %d expected before we can disable iCloud backups if device is in restore state)", buf, 0x1Cu);
     }
   }
 
-  result = v2 > 9;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 > 9;
 }
 
 - (id)_debuggingRestoreStateDescription
@@ -1237,14 +1222,14 @@ LABEL_37:
 
 - (BOOL)_canDisableiCloudBackupsAfterRestore
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "checking to see if device is restoring…", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "checking to see if device is restoring…", &v18, 2u);
     }
   }
 
@@ -1259,8 +1244,8 @@ LABEL_37:
         v15 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "BackupManager is nil, can't disable iCloud backups", &v19, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "BackupManager is nil, can't disable iCloud backups", &v18, 2u);
         }
       }
 
@@ -1279,11 +1264,11 @@ LABEL_37:
         {
           v10 = sub_22B65D58C([restoreState state]);
           v11 = [restoreState description];
-          v19 = 138412546;
-          v20 = v10;
-          v21 = 2112;
-          v22 = v11;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Got valid restore state (%@) from MBManager: %@", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = v10;
+          v20 = 2112;
+          v21 = v11;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Got valid restore state (%@) from MBManager: %@", &v18, 0x16u);
         }
       }
 
@@ -1301,9 +1286,9 @@ LABEL_37:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             v14 = sub_22B65D58C([restoreState state]);
-            v19 = 138412290;
-            v20 = v14;
-            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Can't disable iCloud backups because restore state is: %@. Will try again later.", &v19, 0xCu);
+            v18 = 138412290;
+            v19 = v14;
+            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Can't disable iCloud backups because restore state is: %@. Will try again later.", &v18, 0xCu);
           }
         }
 
@@ -1312,7 +1297,7 @@ LABEL_19:
 LABEL_30:
 
 LABEL_31:
-        goto LABEL_32;
+        return checkDatabaseWasRestored;
       }
     }
 
@@ -1321,8 +1306,8 @@ LABEL_31:
       v16 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "BackupManager restore state is nil, checking database directly...", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "BackupManager restore state is nil, checking database directly...", &v18, 2u);
       }
     }
 
@@ -1330,10 +1315,7 @@ LABEL_31:
     goto LABEL_30;
   }
 
-  checkDatabaseWasRestored = 0;
-LABEL_32:
-  v17 = *MEMORY[0x277D85DE8];
-  return checkDatabaseWasRestored;
+  return 0;
 }
 
 - (id)syncStateDebuggingInfo:(id)info
@@ -1427,7 +1409,7 @@ LABEL_32:
 
 - (void)eventStreamHandler:(id)handler didReceiveEventWithName:(id)name userInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   nameCopy = name;
   infoCopy = info;
@@ -1438,18 +1420,16 @@ LABEL_32:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412546;
-        v14 = nameCopy;
-        v15 = 2112;
-        v16 = infoCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Handling event with name %@ userInfo %@", &v13, 0x16u);
+        v12 = 138412546;
+        v13 = nameCopy;
+        v14 = 2112;
+        v15 = infoCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Handling event with name %@ userInfo %@", &v12, 0x16u);
       }
     }
 
     [(IMDCKBackupController *)self setICloudBackupsDisabled:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

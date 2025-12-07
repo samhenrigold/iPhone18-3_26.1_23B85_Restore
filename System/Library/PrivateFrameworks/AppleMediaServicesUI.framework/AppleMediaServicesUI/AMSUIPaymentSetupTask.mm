@@ -63,7 +63,7 @@
 
 void __32__AMSUIPaymentSetupTask_present__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -78,35 +78,34 @@ void __32__AMSUIPaymentSetupTask_present__block_invoke(uint64_t a1, void *a2, vo
     if (v5)
     {
       v9 = [v8 dispatchQueue];
-      v15 = MEMORY[0x1E69E9820];
-      v16 = 3221225472;
-      v17 = __32__AMSUIPaymentSetupTask_present__block_invoke_2;
-      v18 = &unk_1E7F243C0;
-      v19 = *(a1 + 32);
+      v14 = MEMORY[0x1E69E9820];
+      v15 = 3221225472;
+      v16 = __32__AMSUIPaymentSetupTask_present__block_invoke_2;
+      v17 = &unk_1E7F243C0;
+      v18 = *(a1 + 32);
       v10 = v5;
-      v20 = v10;
-      dispatch_sync(v9, &v15);
+      v19 = v10;
+      dispatch_sync(v9, &v14);
 
       v11 = *(a1 + 32);
-      v21[0] = v10;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:{1, v15, v16, v17, v18, v19}];
+      v20[0] = v10;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:{1, v14, v15, v16, v17, v18}];
       [v11 _presentPaymentSetupControllerWithPaymentSetupFeatures:v12];
 
       goto LABEL_6;
     }
 
     v7 = [v8 resultPromise];
-    v14 = AMSError();
-    [v7 finishWithError:v14];
+    v13 = AMSError();
+    [v7 finishWithError:v13];
   }
 
 LABEL_6:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v2)
   {
@@ -116,23 +115,20 @@ uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_2(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = v5;
-    v7 = AMSLogKey();
-    v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "state")}];
-    v11 = 138543874;
-    v12 = v5;
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = AMSLogKey();
+    v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "state")}];
+    v9 = 138543874;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v6;
     v13 = 2114;
     v14 = v7;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Initial payment setup feature state: %{public}@", &v11, 0x20u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Initial payment setup feature state: %{public}@", &v9, 0x20u);
   }
 
-  result = [*(a1 + 32) setPaymentSetupFeatureState:{objc_msgSend(*(a1 + 40), "state")}];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setPaymentSetupFeatureState:{objc_msgSend(*(a1 + 40), "state")}];
 }
 
 void __32__AMSUIPaymentSetupTask_present__block_invoke_10(uint64_t a1)
@@ -176,7 +172,7 @@ void __32__AMSUIPaymentSetupTask_present__block_invoke_2_11(uint64_t a1, void *a
 
 uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v2)
   {
@@ -186,23 +182,20 @@ uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_3(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = v5;
-    v7 = AMSLogKey();
-    v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "state")}];
-    v11 = 138543874;
-    v12 = v5;
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = AMSLogKey();
+    v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "state")}];
+    v9 = 138543874;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v6;
     v13 = 2114;
     v14 = v7;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Final payment setup feature state: %{public}@", &v11, 0x20u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Final payment setup feature state: %{public}@", &v9, 0x20u);
   }
 
-  result = [*(a1 + 32) setPaymentSetupFeatureState:{objc_msgSend(*(a1 + 40), "state")}];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setPaymentSetupFeatureState:{objc_msgSend(*(a1 + 40), "state")}];
 }
 
 - (id)_fetchPaymentSetupFeature
@@ -218,14 +211,14 @@ uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_3(uint64_t a1)
 
 - (void)_presentPaymentSetupControllerWithPaymentSetupFeatures:(id)features
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = getPKPaymentSetupConfigurationClass[0];
   featuresCopy = features;
   v6 = objc_alloc_init(v4());
   referrerIdentifier = [(AMSUIPaymentSetupTask *)self referrerIdentifier];
   [v6 setReferrerIdentifier:referrerIdentifier];
 
-  v8 = objc_alloc_init(getPKPaymentSetupRequestClass[0]());
+  v8 = objc_alloc_init(getPKPaymentSetupRequestClass());
   [v8 setConfiguration:v6];
   [v8 setPaymentSetupFeatures:featuresCopy];
 
@@ -243,20 +236,20 @@ uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_3(uint64_t a1)
       v11 = objc_opt_class();
       v12 = AMSLogKey();
       *buf = 138543618;
-      v24 = v11;
-      v25 = 2114;
-      v26 = v12;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v12;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Preparing to display upsell view controller", buf, 0x16u);
     }
 
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupFeatures___block_invoke;
-    v20 = &unk_1E7F243C0;
-    v21 = v8;
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupFeatures___block_invoke;
+    v19 = &unk_1E7F243C0;
+    v20 = v8;
     selfCopy = self;
-    dispatch_async(MEMORY[0x1E69E96A0], &v17);
-    v13 = [(AMSUIPaymentSetupTask *)self setupControllerPromise:v17];
+    dispatch_async(MEMORY[0x1E69E96A0], &v16);
+    v13 = [(AMSUIPaymentSetupTask *)self setupControllerPromise:v16];
     [v13 addFinishBlock:&__block_literal_global_13];
   }
 
@@ -266,8 +259,6 @@ uint64_t __32__AMSUIPaymentSetupTask_present__block_invoke_3(uint64_t a1)
     v15 = AMSError();
     [resultPromise finishWithError:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupFeatures___block_invoke(uint64_t a1)
@@ -285,32 +276,29 @@ void __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupF
 
 void __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupFeatures___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v2)
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v1)
   {
-    v2 = [MEMORY[0x1E698C968] sharedConfig];
+    v1 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v3 = [v2 OSLogObject];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 OSLogObject];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@]: Did present upsell view controller", &v8, 0x16u);
+    v3 = objc_opt_class();
+    v4 = AMSLogKey();
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1BB036000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@]: Did present upsell view controller", &v5, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupFeatures___block_invoke_18()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v0)
   {
@@ -321,12 +309,10 @@ void __80__AMSUIPaymentSetupTask__presentPaymentSetupControllerWithPaymentSetupF
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = AMSLogKey();
-    v4 = 138543362;
-    v5 = v2;
-    _os_log_impl(&dword_1BB036000, v1, OS_LOG_TYPE_DEFAULT, "AMSUIPaymentSetupTask: [%{public}@] Finishing upsell view controller operation", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_impl(&dword_1BB036000, v1, OS_LOG_TYPE_DEFAULT, "AMSUIPaymentSetupTask: [%{public}@] Finishing upsell view controller operation", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)paymentSetupViewControllerDidDismiss

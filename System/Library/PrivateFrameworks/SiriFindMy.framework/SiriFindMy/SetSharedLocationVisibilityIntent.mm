@@ -25,14 +25,14 @@
 
 - (SetSharedLocationVisibilityIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_266DAA70C();
+  v6 = sub_266DAA70C();
   sub_266DAA70C();
   if (name)
   {
     sub_266DAA6AC();
   }
 
-  return SetSharedLocationVisibilityIntent.init(domain:verb:parametersByName:)();
+  return SetSharedLocationVisibilityIntent.init(domain:verb:parametersByName:)(v6);
 }
 
 @end

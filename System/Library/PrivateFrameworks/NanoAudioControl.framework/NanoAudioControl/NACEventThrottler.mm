@@ -39,9 +39,7 @@
 
 - (void)setEventBlock:(id)block
 {
-  v4 = [block copy];
-  eventBlock = self->_eventBlock;
-  self->_eventBlock = v4;
+  self->_eventBlock = [block copy];
 
   MEMORY[0x2821F96F8]();
 }

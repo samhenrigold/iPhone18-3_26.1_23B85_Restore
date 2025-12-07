@@ -9,10 +9,12 @@
 - (EMQueryingCollection)initWithCoder:(id)coder;
 - (EMQueryingCollection)initWithObjectID:(id)d query:(id)query;
 - (EMQueryingCollection)initWithQuery:(id)query repository:(id)repository;
+- (id)_firstExistingItemIDForItemID:(id)d inReverse:(BOOL)reverse;
 - (id)_itemIDsForObjectIDs:(id)ds;
 - (id)_iterateItemIDsStartingAtItemID:(id)d inReverse:(BOOL)reverse includeStartingItem:(BOOL)item withBlock:(id)block;
 - (id)firstExistingItemIDAfterItemID:(id)d;
 - (id)firstExistingItemIDBeforeItemID:(id)d;
+- (id)iterateItemIDsStartingAtItemID:(id)d inReverse:(BOOL)reverse withBlock:(id)block;
 - (id)objectIDForItemID:(id)d;
 - (id)removeItemIDs:(id)ds;
 - (unint64_t)signpostID;
@@ -159,15 +161,15 @@ void __35__EMQueryingCollection_signpostLog__block_invoke(uint64_t a1)
 
 - (void)queryDidFinishInitialLoad
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v2 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(EMObject *)self ef_publicDescription];
     *buf = 134218242;
     selfCopy3 = self;
-    v58 = 2114;
-    v59 = ef_publicDescription;
+    v57 = 2114;
+    v58 = ef_publicDescription;
     _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "<%p> Finished initial load\n%{public}@", buf, 0x16u);
   }
 
@@ -181,28 +183,28 @@ void __35__EMQueryingCollection_signpostLog__block_invoke(uint64_t a1)
   recoveringItemIDs = self->_recoveringItemIDs;
   if (!recoveringItemIDs)
   {
-    v41 = 0;
+    v40 = 0;
     v15 = 0;
     goto LABEL_24;
   }
 
   v5 = [(NSMutableOrderedSet *)self->_itemIDs differenceFromOrderedSet:?];
   array = [MEMORY[0x1E695DF70] array];
-  v40 = v5;
+  v39 = v5;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke;
   aBlock[3] = &unk_1E826F410;
   aBlock[4] = self;
-  v41 = array;
-  v55 = v41;
+  v40 = array;
+  v54 = v40;
   v7 = _Block_copy(aBlock);
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   insertions = [v5 insertions];
-  v9 = [insertions countByEnumeratingWithState:&v50 objects:v68 count:16];
+  v9 = [insertions countByEnumeratingWithState:&v49 objects:v67 count:16];
   v10 = 0;
   if (!v9)
   {
@@ -210,27 +212,27 @@ void __35__EMQueryingCollection_signpostLog__block_invoke(uint64_t a1)
     goto LABEL_21;
   }
 
-  v11 = *v51;
+  v11 = *v50;
   index = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v51 != v11)
+      if (*v50 != v11)
       {
         objc_enumerationMutation(insertions);
       }
 
-      v14 = *(*(&v50 + 1) + 8 * i);
+      v14 = *(*(&v49 + 1) + 8 * i);
       if (index == 0x7FFFFFFFFFFFFFFFLL)
       {
-        index = [*(*(&v50 + 1) + 8 * i) index];
+        index = [*(*(&v49 + 1) + 8 * i) index];
 LABEL_14:
         ++v10;
         continue;
       }
 
-      if ([*(*(&v50 + 1) + 8 * i) index] == index + v10)
+      if ([*(*(&v49 + 1) + 8 * i) index] == index + v10)
       {
         goto LABEL_14;
       }
@@ -240,7 +242,7 @@ LABEL_14:
       v10 = 1;
     }
 
-    v9 = [insertions countByEnumeratingWithState:&v50 objects:v68 count:16];
+    v9 = [insertions countByEnumeratingWithState:&v49 objects:v67 count:16];
   }
 
   while (v9);
@@ -252,20 +254,20 @@ LABEL_21:
   {
     v17 = [(NSOrderedSet *)self->_recoveringItemIDs count];
     v18 = [(NSMutableOrderedSet *)self->_itemIDs count];
-    removals = [v40 removals];
+    removals = [v39 removals];
     v20 = [removals count];
-    v21 = [v41 count];
+    v21 = [v40 count];
     *buf = 134219266;
     selfCopy3 = self;
-    v58 = 2048;
-    v59 = v17;
-    v60 = 2048;
-    v61 = v18;
-    v62 = 2048;
-    v63 = v20;
-    v64 = 2048;
-    v65 = v21;
-    v66 = 2114;
+    v57 = 2048;
+    v58 = v17;
+    v59 = 2048;
+    v60 = v18;
+    v61 = 2048;
+    v62 = v20;
+    v63 = 2048;
+    v64 = v21;
+    v65 = 2114;
     selfCopy4 = self;
     _os_log_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEFAULT, "<%p> Finishing recovery, number of items went from %lu to %lu (%lu removals, %lu grouped insertions)\n%{public}@", buf, 0x3Eu);
   }
@@ -273,7 +275,7 @@ LABEL_21:
   v22 = self->_recoveringItemIDs;
   self->_recoveringItemIDs = 0;
 
-  v15 = v40;
+  v15 = v39;
   selfCopy5 = self;
 LABEL_24:
   v23 = [(NSMutableOrderedSet *)selfCopy5->_itemIDs count];
@@ -316,19 +318,19 @@ LABEL_24:
     goto LABEL_33;
   }
 
-  v32 = [v41 count] == 0;
+  v32 = [v40 count] == 0;
 
   if (v32)
   {
     if (!v23)
     {
       observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_34;
-      v45[3] = &unk_1E826C098;
-      v45[4] = self;
-      [observerScheduler performSyncBlock:v45];
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_34;
+      v44[3] = &unk_1E826C098;
+      v44[4] = self;
+      [observerScheduler performSyncBlock:v44];
     }
   }
 
@@ -336,42 +338,40 @@ LABEL_24:
   {
 LABEL_33:
     observerScheduler2 = [(EMQueryingCollection *)self observerScheduler];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_31;
-    v46[3] = &unk_1E826C230;
-    v47 = v15;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_31;
+    v45[3] = &unk_1E826C230;
+    v46 = v15;
     selfCopy6 = self;
-    v49 = v41;
-    [observerScheduler2 performSyncBlock:v46];
+    v48 = v40;
+    [observerScheduler2 performSyncBlock:v45];
   }
 
   selfCopy8 = self;
   if (recoveringItemIDs)
   {
     observerScheduler3 = [(EMQueryingCollection *)self observerScheduler];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_2_35;
-    v44[3] = &unk_1E826C098;
-    v44[4] = self;
-    [observerScheduler3 performSyncBlock:v44];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_2_35;
+    v43[3] = &unk_1E826C098;
+    v43[4] = self;
+    [observerScheduler3 performSyncBlock:v43];
 
     selfCopy8 = self;
   }
 
   observerScheduler4 = [(EMQueryingCollection *)selfCopy8 observerScheduler];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_4;
-  v43[3] = &unk_1E826C098;
-  v43[4] = selfCopy8;
-  [observerScheduler4 performSyncBlock:v43];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_4;
+  v42[3] = &unk_1E826C098;
+  v42[4] = selfCopy8;
+  [observerScheduler4 performSyncBlock:v42];
 
   [(EMQueryingCollection *)self _cancelQueryIfNeeded];
   [(EFPromise *)v24 finishWithResult:v30];
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_4(uint64_t a1)
@@ -549,29 +549,29 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
 
 - (id)removeItemIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   os_unfair_lock_lock(&self->_itemIDsLock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([(NSMutableSet *)self->_itemIDsAnticipatingDelete containsObject:v10])
         {
           [(NSMutableSet *)self->_itemIDsAnticipatingDelete removeObject:v10];
@@ -583,7 +583,7 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -591,8 +591,6 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
 
   [(NSMutableOrderedSet *)self->_itemIDs removeObjectsInArray:v6];
   os_unfair_lock_unlock(&self->_itemIDsLock);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -625,6 +623,25 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
   v3 = [(EMQueryingCollection *)self _firstExistingItemIDForItemID:d inReverse:1];
 
   return v3;
+}
+
+- (id)_firstExistingItemIDForItemID:(id)d inReverse:(BOOL)reverse
+{
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __64__EMQueryingCollection__firstExistingItemIDForItemID_inReverse___block_invoke;
+  v6[3] = &unk_1E826DD80;
+  v6[4] = self;
+  v4 = [(EMQueryingCollection *)self _iterateItemIDsStartingAtItemID:d inReverse:reverse includeStartingItem:1 withBlock:v6];
+
+  return v4;
+}
+
+- (id)iterateItemIDsStartingAtItemID:(id)d inReverse:(BOOL)reverse withBlock:(id)block
+{
+  v5 = [(EMQueryingCollection *)self _iterateItemIDsStartingAtItemID:d inReverse:reverse includeStartingItem:0 withBlock:block];
+
+  return v5;
 }
 
 - (id)_iterateItemIDsStartingAtItemID:(id)d inReverse:(BOOL)reverse includeStartingItem:(BOOL)item withBlock:(id)block
@@ -677,7 +694,7 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
 
 - (void)notifyChangeObserversAboutAddedItemIDs:(id)ds before:(id)before extraInfo:(id)info
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   beforeCopy = before;
   v9 = [(EMQueryingCollection *)self firstExistingItemIDAfterItemID:beforeCopy];
@@ -685,31 +702,29 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v18 = [dsCopy count];
-    v19 = 2114;
-    v20 = v9;
-    v21 = 2114;
-    v22 = beforeCopy;
+    v17 = [dsCopy count];
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2114;
+    v21 = beforeCopy;
     _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "Notifying observer %lu itemIDs were added before undeletedItemID %{public}@ (derived from existingItemID: %{public}@)", buf, 0x20u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __80__EMQueryingCollection_notifyChangeObserversAboutAddedItemIDs_before_extraInfo___block_invoke;
-  v14[3] = &unk_1E826DFD8;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __80__EMQueryingCollection_notifyChangeObserversAboutAddedItemIDs_before_extraInfo___block_invoke;
+  v13[3] = &unk_1E826DFD8;
+  v13[4] = self;
   v11 = dsCopy;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [(EMQueryingCollection *)self enumerateObserversWithBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = v12;
+  [(EMQueryingCollection *)self enumerateObserversWithBlock:v13];
 }
 
 - (void)notifyChangeObserversAboutAddedItemIDs:(id)ds after:(id)after extraInfo:(id)info
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   afterCopy = after;
   v9 = [(EMQueryingCollection *)self firstExistingItemIDBeforeItemID:afterCopy];
@@ -717,26 +732,24 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v18 = [dsCopy count];
-    v19 = 2114;
-    v20 = v9;
-    v21 = 2114;
-    v22 = afterCopy;
+    v17 = [dsCopy count];
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2114;
+    v21 = afterCopy;
     _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "Notifying observer %lu itemIDs were added after undeletedItemID %{public}@ (derived from existingItemID: %{public}@)", buf, 0x20u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __79__EMQueryingCollection_notifyChangeObserversAboutAddedItemIDs_after_extraInfo___block_invoke;
-  v14[3] = &unk_1E826DFD8;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __79__EMQueryingCollection_notifyChangeObserversAboutAddedItemIDs_after_extraInfo___block_invoke;
+  v13[3] = &unk_1E826DFD8;
+  v13[4] = self;
   v11 = dsCopy;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [(EMQueryingCollection *)self enumerateObserversWithBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = v12;
+  [(EMQueryingCollection *)self enumerateObserversWithBlock:v13];
 }
 
 - (void)notifyChangeObserversAboutChangedItemIDs:(id)ds extraInfo:(id)info
@@ -844,15 +857,15 @@ LABEL_12:
 
 - (void)beginObserving:(id)observing
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   observingCopy = observing;
   v5 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v26 = 2114;
-    v27 = observingCopy;
+    v25 = 2114;
+    v26 = observingCopy;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer added: %{public}@", buf, 0x16u);
   }
 
@@ -876,10 +889,10 @@ LABEL_12:
       v13 = objc_opt_class();
       *buf = 138543874;
       selfCopy = v11;
-      v26 = 2114;
-      v27 = label;
-      v28 = 2114;
-      v29 = v13;
+      v25 = 2114;
+      v26 = label;
+      v27 = 2114;
+      v28 = v13;
       _os_signpost_emit_with_name_impl(&dword_1C6655000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "EMCollectionTotal", "resultClass=%{signpost.description:attribute,public}@ label=%{signpost.description:attribute,public}@ observer=%{signpost.description:attribute,public}@ enableTelemetry=YES ", buf, 0x20u);
     }
 
@@ -891,25 +904,23 @@ LABEL_12:
       v17 = objc_opt_class();
       *buf = 138543874;
       selfCopy = v15;
-      v26 = 2114;
-      v27 = label2;
-      v28 = 2114;
-      v29 = v17;
+      v25 = 2114;
+      v26 = label2;
+      v27 = 2114;
+      v28 = v17;
       _os_signpost_emit_with_name_impl(&dword_1C6655000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v7, "EMCollectionFirstBatch", "resultClass=%{signpost.description:attribute,public}@ label=%{signpost.description:attribute,public}@ observer=%{signpost.description:attribute,public}@ enableTelemetry=YES ", buf, 0x20u);
     }
   }
 
   queryScheduler = [(EMQueryingCollection *)self queryScheduler];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __39__EMQueryingCollection_beginObserving___block_invoke;
-  v22[3] = &unk_1E826C148;
-  v22[4] = self;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __39__EMQueryingCollection_beginObserving___block_invoke;
+  v21[3] = &unk_1E826C148;
+  v21[4] = self;
   v20 = observingCopy;
-  v23 = v20;
-  [queryScheduler performBlock:v22];
-
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = v20;
+  [queryScheduler performBlock:v21];
 }
 
 void __39__EMQueryingCollection_beginObserving___block_invoke(uint64_t a1)
@@ -947,7 +958,7 @@ void __39__EMQueryingCollection_beginObserving___block_invoke(uint64_t a1)
 
 void __39__EMQueryingCollection_beginObserving___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 anyObject];
 
@@ -958,13 +969,13 @@ void __39__EMQueryingCollection_beginObserving___block_invoke_2(uint64_t a1, voi
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v9 = 134218498;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer already started: %{public}@ to: %{public}@", &v9, 0x20u);
+      v8 = 134218498;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer already started: %{public}@ to: %{public}@", &v8, 0x20u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -976,8 +987,6 @@ void __39__EMQueryingCollection_beginObserving___block_invoke_2(uint64_t a1, voi
     [v3 addObject:*(a1 + 40)];
     [*(a1 + 32) _performQuery];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EMQueryingCollection_beginObserving___block_invoke_23(uint64_t a1)
@@ -1003,28 +1012,26 @@ void __39__EMQueryingCollection_beginObserving___block_invoke_2_24(uint64_t a1, 
 
 - (void)stopObserving:(id)observing
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   observingCopy = observing;
   v5 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v11 = 2114;
-    v12 = observingCopy;
+    v10 = 2114;
+    v11 = observingCopy;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Observer removed: %{public}@", buf, 0x16u);
   }
 
   queryScheduler = [(EMQueryingCollection *)self queryScheduler];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __38__EMQueryingCollection_stopObserving___block_invoke;
-  v8[3] = &unk_1E826F350;
-  v8[4] = self;
-  v8[5] = observingCopy;
-  [queryScheduler performBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __38__EMQueryingCollection_stopObserving___block_invoke;
+  v7[3] = &unk_1E826F350;
+  v7[4] = self;
+  v7[5] = observingCopy;
+  [queryScheduler performBlock:v7];
 }
 
 void __38__EMQueryingCollection_stopObserving___block_invoke(uint64_t a1)
@@ -1053,27 +1060,27 @@ void __38__EMQueryingCollection_stopObserving___block_invoke(uint64_t a1)
 
 void __38__EMQueryingCollection_stopObserving___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(*(&v9 + 1) + 8 * i) == *(a1 + 40))
+        if (*(*(&v8 + 1) + 8 * i) == *(a1 + 40))
         {
           v5 = 1;
         }
@@ -1084,22 +1091,20 @@ void __38__EMQueryingCollection_stopObserving___block_invoke_2(uint64_t a1, void
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
 
     if (v5)
     {
-      [v3 removeObject:{*(a1 + 40), v9}];
+      [v3 removeObject:{*(a1 + 40), v8}];
     }
   }
 
   else
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refresh
@@ -1180,18 +1185,16 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke_2(uint64_t a1
 
 - (void)finishRecovery
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134218242;
+    v4 = 134218242;
     selfCopy = self;
-    v7 = 2114;
+    v6 = 2114;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "<%p> Finish Recovery\n%{public}@", &v5, 0x16u);
+    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "<%p> Finish Recovery\n%{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateObserversWithBlock:(id)block
@@ -1209,55 +1212,52 @@ void __44__EMQueryingCollection__cancelQueryIfNeeded__block_invoke_2(uint64_t a1
 
 void __52__EMQueryingCollection_enumerateObserversWithBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryDidStartRecovery
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_itemIDsLock);
   if (self->_recoveringItemIDs)
   {
     v3 = +[EMQueryingCollection log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy3 = self;
-      v11 = 2114;
+      v10 = 2114;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "<%p> Restarting recovery\n%{public}@", &v9, 0x16u);
+      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "<%p> Restarting recovery\n%{public}@", &v8, 0x16u);
     }
   }
 
@@ -1267,13 +1267,13 @@ void __52__EMQueryingCollection_enumerateObserversWithBlock___block_invoke(uint6
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [(NSMutableOrderedSet *)self->_itemIDs count];
-      v9 = 134218498;
+      v8 = 134218498;
       selfCopy3 = self;
-      v11 = 2048;
+      v10 = 2048;
       selfCopy2 = v5;
-      v13 = 2114;
+      v12 = 2114;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "<%p> Starting recovery (%lu existing items)\n%{public}@", &v9, 0x20u);
+      _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "<%p> Starting recovery (%lu existing items)\n%{public}@", &v8, 0x20u);
     }
 
     v6 = [(NSMutableOrderedSet *)self->_itemIDs copy];
@@ -1285,12 +1285,11 @@ void __52__EMQueryingCollection_enumerateObserversWithBlock___block_invoke(uint6
   self->_foundAllItemIDs = 0;
   self->_foundFirstBatch = 0;
   os_unfair_lock_unlock(&self->_itemIDsLock);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryMatchedAddedObjectIDs:(id)ds before:(id)before extraInfo:(id)info
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   beforeCopy = before;
   infoCopy = info;
@@ -1301,27 +1300,25 @@ void __52__EMQueryingCollection_enumerateObserversWithBlock___block_invoke(uint6
     ef_publicDescription = [(EMObject *)self ef_publicDescription];
     *buf = 134218754;
     selfCopy = self;
-    v22 = 2048;
-    v23 = v12;
-    v24 = 2114;
-    v25 = beforeCopy;
-    v26 = 2114;
-    v27 = ef_publicDescription;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 2114;
+    v24 = beforeCopy;
+    v25 = 2114;
+    v26 = ef_publicDescription;
     _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "<%p> Added %lu objectIDs before %{public}@\n%{public}@", buf, 0x2Au);
   }
 
   isRecovering = [(EMQueryingCollection *)self isRecovering];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __68__EMQueryingCollection_queryMatchedAddedObjectIDs_before_extraInfo___block_invoke;
-  v17[3] = &unk_1E826F3C0;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __68__EMQueryingCollection_queryMatchedAddedObjectIDs_before_extraInfo___block_invoke;
+  v16[3] = &unk_1E826F3C0;
+  v16[4] = self;
   v15 = infoCopy;
-  v18 = v15;
-  v19 = isRecovering;
-  [(EMQueryingCollection *)self _filterAndTransformObjectIDs:dsCopy before:1 existingObjectID:beforeCopy batchBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = v15;
+  v18 = isRecovering;
+  [(EMQueryingCollection *)self _filterAndTransformObjectIDs:dsCopy before:1 existingObjectID:beforeCopy batchBlock:v16];
 }
 
 void __68__EMQueryingCollection_queryMatchedAddedObjectIDs_before_extraInfo___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1369,7 +1366,7 @@ void __68__EMQueryingCollection_queryMatchedAddedObjectIDs_before_extraInfo___bl
 
 - (void)queryMatchedAddedObjectIDs:(id)ds after:(id)after extraInfo:(id)info
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   afterCopy = after;
   infoCopy = info;
@@ -1380,27 +1377,25 @@ void __68__EMQueryingCollection_queryMatchedAddedObjectIDs_before_extraInfo___bl
     ef_publicDescription = [(EMObject *)self ef_publicDescription];
     *buf = 134218754;
     selfCopy = self;
-    v22 = 2048;
-    v23 = v12;
-    v24 = 2114;
-    v25 = afterCopy;
-    v26 = 2114;
-    v27 = ef_publicDescription;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 2114;
+    v24 = afterCopy;
+    v25 = 2114;
+    v26 = ef_publicDescription;
     _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "<%p> Added %lu objectIDs after %{public}@\n%{public}@", buf, 0x2Au);
   }
 
   isRecovering = [(EMQueryingCollection *)self isRecovering];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___block_invoke;
-  v17[3] = &unk_1E826F3C0;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___block_invoke;
+  v16[3] = &unk_1E826F3C0;
+  v16[4] = self;
   v15 = infoCopy;
-  v18 = v15;
-  v19 = isRecovering;
-  [(EMQueryingCollection *)self _filterAndTransformObjectIDs:dsCopy before:0 existingObjectID:afterCopy batchBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = v15;
+  v18 = isRecovering;
+  [(EMQueryingCollection *)self _filterAndTransformObjectIDs:dsCopy before:0 existingObjectID:afterCopy batchBlock:v16];
 }
 
 void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1425,7 +1420,7 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
 
 - (void)queryMatchedMovedObjectIDs:(id)ds before:(id)before extraInfo:(id)info
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   beforeCopy = before;
   infoCopy = info;
@@ -1436,12 +1431,12 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
     ef_publicDescription = [(EMObject *)self ef_publicDescription];
     *buf = 134218754;
     selfCopy = self;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 2114;
-    v27 = beforeCopy;
-    v28 = 2114;
-    v29 = ef_publicDescription;
+    v23 = 2048;
+    v24 = v12;
+    v25 = 2114;
+    v26 = beforeCopy;
+    v27 = 2114;
+    v28 = ef_publicDescription;
     _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "<%p> Moved %lu objectIDs before %{public}@\n%{public}@", buf, 0x2Au);
   }
 
@@ -1451,23 +1446,21 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   if (![(EMQueryingCollection *)self isRecovering])
   {
     observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __68__EMQueryingCollection_queryMatchedMovedObjectIDs_before_extraInfo___block_invoke;
-    v18[3] = &unk_1E826D498;
-    v18[4] = self;
-    v19 = v14;
-    v20 = v15;
-    v21 = infoCopy;
-    [observerScheduler performSyncBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __68__EMQueryingCollection_queryMatchedMovedObjectIDs_before_extraInfo___block_invoke;
+    v17[3] = &unk_1E826D498;
+    v17[4] = self;
+    v18 = v14;
+    v19 = v15;
+    v20 = infoCopy;
+    [observerScheduler performSyncBlock:v17];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryMatchedMovedObjectIDs:(id)ds after:(id)after extraInfo:(id)info
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   afterCopy = after;
   infoCopy = info;
@@ -1481,9 +1474,9 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
     *&buf[12] = 2048;
     *&buf[14] = v12;
     *&buf[22] = 2114;
-    v22 = afterCopy;
-    LOWORD(v23) = 2114;
-    *(&v23 + 2) = ef_publicDescription;
+    v21 = afterCopy;
+    LOWORD(v22) = 2114;
+    *(&v22 + 2) = ef_publicDescription;
     _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "<%p> Moved %lu objectIDs after %{public}@\n%{public}@", buf, 0x2Au);
   }
 
@@ -1491,32 +1484,30 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v22 = __Block_byref_object_copy__11;
-  *&v23 = __Block_byref_object_dispose__11;
-  *(&v23 + 1) = [(EMQueryingCollection *)self itemIDForObjectID:afterCopy];
+  v21 = __Block_byref_object_copy__11;
+  *&v22 = __Block_byref_object_dispose__11;
+  *(&v22 + 1) = [(EMQueryingCollection *)self itemIDForObjectID:afterCopy];
   [(EMQueryingCollection *)self insertItemIDs:v14 after:*(*&buf[8] + 40) extraInfo:infoCopy];
   if (![(EMQueryingCollection *)self isRecovering])
   {
     observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __67__EMQueryingCollection_queryMatchedMovedObjectIDs_after_extraInfo___block_invoke;
-    v17[3] = &unk_1E826F3E8;
-    v17[4] = self;
-    v18 = v14;
-    v20 = buf;
-    v19 = infoCopy;
-    [observerScheduler performSyncBlock:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __67__EMQueryingCollection_queryMatchedMovedObjectIDs_after_extraInfo___block_invoke;
+    v16[3] = &unk_1E826F3E8;
+    v16[4] = self;
+    v17 = v14;
+    v19 = buf;
+    v18 = infoCopy;
+    [observerScheduler performSyncBlock:v16];
   }
 
   _Block_object_dispose(buf, 8);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryMatchedChangedObjectIDs:(id)ds extraInfo:(id)info
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   infoCopy = info;
   v8 = +[EMQueryingCollection log];
@@ -1524,9 +1515,9 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v23 = 2048;
-    v24 = [(EMQueryingCollection *)dsCopy count];
-    v25 = 2114;
+    v22 = 2048;
+    v23 = [(EMQueryingCollection *)dsCopy count];
+    v24 = 2114;
     selfCopy3 = dsCopy;
     _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Changed %lu objectIDs: %{public}@", buf, 0x20u);
   }
@@ -1536,12 +1527,12 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   recoveringItemIDs = self->_recoveringItemIDs;
   if (recoveringItemIDs)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __63__EMQueryingCollection_queryMatchedChangedObjectIDs_extraInfo___block_invoke;
-    v20[3] = &unk_1E826DD80;
-    v20[4] = self;
-    v11 = [v9 ef_filter:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __63__EMQueryingCollection_queryMatchedChangedObjectIDs_extraInfo___block_invoke;
+    v19[3] = &unk_1E826DD80;
+    v19[4] = self;
+    v11 = [v9 ef_filter:v19];
 
     v9 = v11;
   }
@@ -1558,9 +1549,9 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
         v14 = [v9 count];
         *buf = 134218498;
         selfCopy2 = self;
-        v23 = 2048;
-        v24 = v14;
-        v25 = 2114;
+        v22 = 2048;
+        v23 = v14;
+        v24 = 2114;
         selfCopy3 = self;
         _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "<%p> %lu changed itemIDs while recovering\n%{public}@", buf, 0x20u);
       }
@@ -1579,31 +1570,29 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   if ([v9 count])
   {
     observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __63__EMQueryingCollection_queryMatchedChangedObjectIDs_extraInfo___block_invoke_28;
-    v17[3] = &unk_1E826C230;
-    v17[4] = self;
-    v18 = v9;
-    v19 = infoCopy;
-    [observerScheduler performSyncBlock:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __63__EMQueryingCollection_queryMatchedChangedObjectIDs_extraInfo___block_invoke_28;
+    v16[3] = &unk_1E826C230;
+    v16[4] = self;
+    v17 = v9;
+    v18 = infoCopy;
+    [observerScheduler performSyncBlock:v16];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryAnticipatesDeletedObjectIDs:(id)ds
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     selfCopy = self;
-    v13 = 2048;
-    v14 = [dsCopy count];
-    v15 = 2114;
+    v12 = 2048;
+    v13 = [dsCopy count];
+    v14 = 2114;
     selfCopy2 = self;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Anticipating delete of %lu objectIDs\n%{public}@", buf, 0x20u);
   }
@@ -1615,16 +1604,14 @@ void __67__EMQueryingCollection_queryMatchedAddedObjectIDs_after_extraInfo___blo
   if (![(EMQueryingCollection *)self isRecovering])
   {
     observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __57__EMQueryingCollection_queryAnticipatesDeletedObjectIDs___block_invoke;
-    v9[3] = &unk_1E826C148;
-    v9[4] = self;
-    v10 = v6;
-    [observerScheduler performSyncBlock:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __57__EMQueryingCollection_queryAnticipatesDeletedObjectIDs___block_invoke;
+    v8[3] = &unk_1E826C148;
+    v8[4] = self;
+    v9 = v6;
+    [observerScheduler performSyncBlock:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__EMQueryingCollection_queryAnticipatesDeletedObjectIDs___block_invoke(uint64_t a1)
@@ -1641,16 +1628,16 @@ void __57__EMQueryingCollection_queryAnticipatesDeletedObjectIDs___block_invoke(
 
 - (void)queryMatchedDeletedObjectIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = +[EMQueryingCollection log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     selfCopy = self;
-    v14 = 2048;
-    v15 = [dsCopy count];
-    v16 = 2114;
+    v13 = 2048;
+    v14 = [dsCopy count];
+    v15 = 2114;
     selfCopy2 = self;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Deleted %lu objectIDs\n%{public}@", buf, 0x20u);
   }
@@ -1660,16 +1647,14 @@ void __57__EMQueryingCollection_queryAnticipatesDeletedObjectIDs___block_invoke(
   if (!-[EMQueryingCollection isRecovering](self, "isRecovering") && [v7 count])
   {
     observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __53__EMQueryingCollection_queryMatchedDeletedObjectIDs___block_invoke;
-    v10[3] = &unk_1E826C148;
-    v10[4] = self;
-    v11 = v7;
-    [observerScheduler performSyncBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __53__EMQueryingCollection_queryMatchedDeletedObjectIDs___block_invoke;
+    v9[3] = &unk_1E826C148;
+    v9[4] = self;
+    v10 = v7;
+    [observerScheduler performSyncBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__EMQueryingCollection_queryMatchedDeletedObjectIDs___block_invoke(uint64_t a1)
@@ -1707,20 +1692,20 @@ void __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke(uint64_t
 
 void __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_31(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) removals];
   v3 = [v2 count];
 
   if (v3)
   {
     v4 = *(a1 + 40);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_2;
-    v21[3] = &unk_1E826DDD0;
-    v21[4] = v4;
-    v22 = *(a1 + 32);
-    [v4 enumerateObserversWithBlock:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_2;
+    v20[3] = &unk_1E826DDD0;
+    v20[4] = v4;
+    v21 = *(a1 + 32);
+    [v4 enumerateObserversWithBlock:v20];
   }
 
   v5 = +[EMQueryingCollection log];
@@ -1729,44 +1714,42 @@ void __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_31(uint6
     v6 = [*(a1 + 48) count];
     v7 = *(a1 + 40);
     *buf = 134218242;
-    v25 = v6;
-    v26 = 2114;
-    v27 = v7;
+    v24 = v6;
+    v25 = 2114;
+    v26 = v7;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Start to notify observer of %lu grouped insertions\n%{public}@", buf, 0x16u);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = *(a1 + 48);
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = *(a1 + 40);
         v14 = [v12 second];
         v15 = [v12 first];
         [v13 notifyChangeObserversAboutAddedItemIDs:v14 after:v15 extraInfo:0];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __49__EMQueryingCollection_queryDidFinishInitialLoad__block_invoke_2(uint64_t a1, void *a2)
@@ -1839,29 +1822,29 @@ id __45__EMQueryingCollection__itemIDsForObjectIDs___block_invoke(uint64_t a1, u
 - (void)_filterAndTransformObjectIDs:(id)ds before:(BOOL)before existingObjectID:(id)d batchBlock:(id)block
 {
   beforeCopy = before;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   blockCopy = block;
   v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
   os_unfair_lock_lock(&self->_itemIDsLock);
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = __Block_byref_object_copy__11;
-  v43[4] = __Block_byref_object_dispose__11;
-  v44 = [(EMQueryingCollection *)self itemIDForObjectID:dCopy, v12];
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__11;
+  v42[4] = __Block_byref_object_dispose__11;
+  v43 = [(EMQueryingCollection *)self itemIDForObjectID:dCopy, v12];
   v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObjectID_batchBlock___block_invoke;
   aBlock[3] = &unk_1E826F460;
   v14 = v13;
-  v39 = v14;
-  v41 = v43;
-  v42 = beforeCopy;
+  v38 = v14;
+  v40 = v42;
+  v41 = beforeCopy;
   v15 = v12;
-  v40 = v15;
+  v39 = v15;
   v16 = _Block_copy(aBlock);
   if (beforeCopy)
   {
@@ -1873,56 +1856,54 @@ id __45__EMQueryingCollection__itemIDsForObjectIDs___block_invoke(uint64_t a1, u
     v17 = 0;
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObjectID_batchBlock___block_invoke_2;
-  v33[3] = &unk_1E826F488;
-  v33[4] = self;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObjectID_batchBlock___block_invoke_2;
+  v32[3] = &unk_1E826F488;
+  v32[4] = self;
   v18 = v14;
-  v34 = v18;
+  v33 = v18;
   v19 = v16;
-  v35 = v19;
-  v36 = v43;
-  v37 = beforeCopy;
-  [dsCopy enumerateObjectsWithOptions:v17 usingBlock:v33];
+  v34 = v19;
+  v35 = v42;
+  v36 = beforeCopy;
+  [dsCopy enumerateObjectsWithOptions:v17 usingBlock:v32];
   if ([v18 count])
   {
     v19[2](v19);
   }
 
-  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v42, 8);
   os_unfair_lock_unlock(&self->_itemIDsLock);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v20 = v15;
-  v21 = [v20 countByEnumeratingWithState:&v29 objects:v45 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v44 count:16];
   if (v21)
   {
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(v20);
         }
 
-        v24 = *(*(&v29 + 1) + 8 * i);
+        v24 = *(*(&v28 + 1) + 8 * i);
         first = [v24 first];
         second = [v24 second];
         blockCopy[2](blockCopy, first, second);
       }
 
-      v21 = [v20 countByEnumeratingWithState:&v29 objects:v45 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v28 objects:v44 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObjectID_batchBlock___block_invoke(uint64_t a1)
@@ -1947,7 +1928,7 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
 
 void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObjectID_batchBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) itemIDForObjectID:v3];
   if ([*(*(a1 + 32) + 24) containsObject:v4])
@@ -1956,13 +1937,13 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v9 = 134218498;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v4;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Found duplicate: %{public}@\n%{public}@", &v9, 0x20u);
+      v8 = 134218498;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v4;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "<%p> Found duplicate: %{public}@\n%{public}@", &v8, 0x20u);
     }
 
     if ([*(a1 + 40) count])
@@ -1986,8 +1967,6 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
       [v7 addObject:v4];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)observerContainsObjectID:(id)d
@@ -2009,7 +1988,7 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
 
 - (void)queryReplacedObjectID:(id)d withNewObjectID:(id)iD
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   if ([(EMQueryingCollection *)self objectIDBelongsToCollection:dCopy])
@@ -2019,11 +1998,11 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
     {
       *buf = 134218754;
       selfCopy3 = self;
-      v20 = 2114;
-      v21 = dCopy;
-      v22 = 2114;
-      v23 = iDCopy;
-      v24 = 2114;
+      v19 = 2114;
+      v20 = dCopy;
+      v21 = 2114;
+      v22 = iDCopy;
+      v23 = 2114;
       selfCopy2 = self;
       _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "<%p> Replace objectID %{public}@ with %{public}@\n%{public}@", buf, 0x2Au);
     }
@@ -2041,15 +2020,15 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
 
       os_unfair_lock_unlock(&self->_itemIDsLock);
       observerScheduler = [(EMQueryingCollection *)self observerScheduler];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_invoke;
-      v15[3] = &unk_1E826C230;
-      v15[4] = self;
-      v16 = v9;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_invoke;
+      v14[3] = &unk_1E826C230;
+      v14[4] = self;
+      v15 = v9;
       v13 = v10;
-      v17 = v13;
-      [observerScheduler performSyncBlock:v15];
+      v16 = v13;
+      [observerScheduler performSyncBlock:v14];
     }
 
     else
@@ -2059,14 +2038,12 @@ void __88__EMQueryingCollection__filterAndTransformObjectIDs_before_existingObje
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v20 = 2114;
-        v21 = dCopy;
+        v19 = 2114;
+        v20 = dCopy;
         _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "<%p> Replace objectID %{public}@ but itemIDForObjectID is nil", buf, 0x16u);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_invoke(uint64_t a1)
@@ -2098,7 +2075,7 @@ void __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_in
 
 - (void)_notifyNewChangeObserverAboutExistingState:(id)state
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = +[EMQueryingCollection signpostLog];
   v6 = os_signpost_id_make_with_pointer(v5, stateCopy);
@@ -2108,13 +2085,13 @@ void __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [(NSMutableOrderedSet *)self->_itemIDs count];
-      v15 = 134218498;
+      v14 = 134218498;
       selfCopy = self;
-      v17 = 2048;
-      v18 = v8;
-      v19 = 2114;
+      v16 = 2048;
+      v17 = v8;
+      v18 = 2114;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "<%p> Added stocked %lu objectIDs\n%{public}@", &v15, 0x20u);
+      _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "<%p> Added stocked %lu objectIDs\n%{public}@", &v14, 0x20u);
     }
 
     array = [(NSMutableOrderedSet *)self->_itemIDs array];
@@ -2124,8 +2101,8 @@ void __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_in
     v11 = v10;
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      LOWORD(v15) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C6655000, v11, OS_SIGNPOST_INTERVAL_END, v6, "EMCollectionFirstBatch", " enableTelemetry=YES ", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C6655000, v11, OS_SIGNPOST_INTERVAL_END, v6, "EMCollectionFirstBatch", " enableTelemetry=YES ", &v14, 2u);
     }
   }
 
@@ -2136,12 +2113,10 @@ void __62__EMQueryingCollection_queryReplacedObjectID_withNewObjectID___block_in
     v13 = v12;
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
-      LOWORD(v15) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C6655000, v13, OS_SIGNPOST_INTERVAL_END, v6, "EMCollectionTotal", " enableTelemetry=YES ", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C6655000, v13, OS_SIGNPOST_INTERVAL_END, v6, "EMCollectionTotal", " enableTelemetry=YES ", &v14, 2u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryMatchedChangedObjectIDs:(uint64_t)a3 extraInfo:(os_log_t)log .cold.1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)

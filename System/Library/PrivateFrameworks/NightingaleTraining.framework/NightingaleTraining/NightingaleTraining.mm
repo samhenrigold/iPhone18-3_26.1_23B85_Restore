@@ -8,7 +8,7 @@ uint64_t sub_25C4D9E10()
 {
   if (*(v0 + 40))
   {
-    __swift_destroy_boxed_opaque_existential_1(v2 + 16);
+    __swift_destroy_boxed_opaque_existential_1((v2 + 16));
   }
 
   return swift_deallocObject();
@@ -54,14 +54,14 @@ uint64_t sub_25C4DA348()
 
 uint64_t sub_25C4DA390()
 {
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDys6UInt32VSfG9daySHR10s_AC05nightC0SDyABSiG0B9SHRCountsAF0dE0ts5Error_pGMd) - 8);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDys6UInt32VSfG9daySHR10s_AC05nightC0SDyABSiG0B9SHRCountsAF0dE0ts5Error_pGMd, &_sScCySDys6UInt32VSfG9daySHR10s_AC05nightC0SDyABSiG0B9SHRCountsAF0dE0ts5Error_pGMR) - 8);
   (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
 uint64_t sub_25C4DA478()
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGs5Error_pGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGs5Error_pGMd, &_sScCySDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGs5Error_pGMR);
   v2 = *(v4 - 8);
   v3 = (*(v2 + 80) + 32) & ~*(v2 + 80);
 
@@ -71,7 +71,7 @@ uint64_t sub_25C4DA478()
 
 uint64_t sub_25C4DA574()
 {
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay19NightingaleTraining9Pregnancy_pSgGs5Error_pGMd) - 8);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay19NightingaleTraining9Pregnancy_pSgGs5Error_pGMd, &_sScCySay19NightingaleTraining9Pregnancy_pSgGs5Error_pGMR) - 8);
   (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
@@ -86,7 +86,7 @@ uint64_t sub_25C4DAF28()
 {
   if (*(v0 + 40))
   {
-    __swift_destroy_boxed_opaque_existential_1(v2 + 16);
+    __swift_destroy_boxed_opaque_existential_1((v2 + 16));
   }
 
   return swift_deallocObject();
@@ -96,7 +96,7 @@ uint64_t sub_25C4DB464()
 {
   if (*(v0 + 40))
   {
-    __swift_destroy_boxed_opaque_existential_1(v2 + 16);
+    __swift_destroy_boxed_opaque_existential_1((v2 + 16));
   }
 
   return swift_deallocObject();
@@ -151,12 +151,12 @@ uint64_t sub_25C4DB96C()
   return swift_deallocObject();
 }
 
-uint64_t Array<A>.sum.getter()
+uint64_t Array<A>.sum.getter(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGMd, &_sSaySbGMR);
   lazy protocol witness table accessor for type [Bool] and conformance [A]();
   Sequence.reduce<A>(_:_:)();
-  return v1;
+  return v2;
 }
 
 BOOL closure #1 in Array<A>.sum.getter@<W0>(uint64_t *a1@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
@@ -176,9 +176,9 @@ BOOL closure #1 in Array<A>.sum.getter@<W0>(uint64_t *a1@<X0>, _BYTE *a2@<X1>, v
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
@@ -186,7 +186,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
     return TypeByMangledNameInContext2;
   }
 
-  return v4;
+  return v5;
 }
 
 unint64_t lazy protocol witness table accessor for type [Bool] and conformance [A]()
@@ -194,7 +194,7 @@ unint64_t lazy protocol witness table accessor for type [Bool] and conformance [
   v2 = lazy protocol witness table cache variable for type [Bool] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Bool] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySbGMd, &_sSaySbGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Bool] and conformance [A]);
     return WitnessTable;
@@ -203,9 +203,9 @@ unint64_t lazy protocol witness table accessor for type [Bool] and conformance [
   return v2;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
     TypeByMangledNameInContextInMetadataState2 = swift_getTypeByMangledNameInContextInMetadataState2();
@@ -213,108 +213,108 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
     return TypeByMangledNameInContextInMetadataState2;
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t Comparable.clamp(to:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v18 = a4;
-  v15 = a1;
-  v22 = a2;
-  v19 = a3;
+  v19 = a4;
+  v16 = a1;
+  v23 = a2;
+  v20 = a3;
+  v27 = 0;
   v26 = 0;
-  v25 = 0;
-  v27 = a2;
-  v13 = *(a2 - 8);
-  v14 = a2 - 8;
-  v11 = v13[8];
-  v10 = (v11 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a3);
-  v20 = &v9 - v10;
-  v12 = v10;
-  v5 = MEMORY[0x28223BE20](&v9 - v10);
-  v21 = &v9 - v12;
-  v26 = v6;
-  v25 = v4;
-  v17 = v13[2];
-  v16 = v13 + 2;
-  v17(v5);
+  v28 = a2;
+  v14 = *(a2 - 8);
+  v15 = a2 - 8;
+  v12 = v14[8];
+  v11 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a3, a1);
+  v21 = &v10 - v11;
+  v13 = v11;
+  v6 = MEMORY[0x28223BE20](&v10 - v11, v5);
+  v22 = &v10 - v13;
+  v27 = v7;
+  v26 = v4;
+  v18 = v14[2];
+  v17 = v14 + 2;
+  v18(v6);
   max<A>(_:_:)();
-  v24 = v13[1];
-  v23 = v13 + 1;
-  v24(v20, v22);
-  v7 = type metadata accessor for ClosedRange();
-  (v17)(v20, v15 + *(v7 + 36), v22);
+  v25 = v14[1];
+  v24 = v14 + 1;
+  v25(v21, v23);
+  v8 = type metadata accessor for ClosedRange();
+  (v18)(v21, v16 + *(v8 + 36), v23);
   min<A>(_:_:)();
-  v24(v20, v22);
-  return (v24)(v21, v22);
+  v25(v21, v23);
+  return (v25)(v22, v23);
 }
 
 uint64_t BinaryFloatingPoint.clamp(to:nonFiniteValue:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v20 = a1;
-  v22 = a2;
-  v23 = a3;
-  v21 = a4;
-  v45 = 0;
-  v44 = 0;
-  v43 = 0;
-  v46 = a3;
-  v24 = type metadata accessor for FloatingPointRoundingRule();
-  v25 = *(v24 - 8);
-  v26 = v24 - 8;
-  v27 = (*(v25 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v23);
-  v28 = &v14 - v27;
-  v29 = *(v5 - 8);
-  v30 = v5 - 8;
-  v36 = v29[8];
-  v31 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v5);
-  v32 = &v14 - v31;
-  v33 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7 = MEMORY[0x28223BE20](v6);
-  v34 = &v14 - v33;
-  v35 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x28223BE20](v7);
-  v37 = &v14 - v35;
-  v38 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v8);
-  v39 = &v14 - v38;
-  v45 = v9;
-  v44 = v10;
-  v43 = v4;
-  v40 = *(v11 + 16);
+  v24 = a1;
+  v26 = a2;
+  v27 = a3;
+  v25 = a4;
+  v49 = 0;
+  v48 = 0;
+  v47 = 0;
+  v50 = a3;
+  v28 = type metadata accessor for FloatingPointRoundingRule();
+  v29 = *(v28 - 8);
+  v30 = v28 - 8;
+  v31 = (*(v29 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v27, v26);
+  v32 = &v18 - v31;
+  v33 = *(v5 - 8);
+  v34 = v5 - 8;
+  v40 = v33[8];
+  v35 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v36 = &v18 - v35;
+  v37 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v38 = &v18 - v37;
+  v39 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v9, v10);
+  v41 = &v18 - v39;
+  v42 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v12);
+  v43 = &v18 - v42;
+  v49 = v13;
+  v48 = v14;
+  v47 = v4;
+  v44 = *(v15 + 16);
   if (dispatch thunk of FloatingPoint.isFinite.getter())
   {
-    (*(v25 + 104))(v28, *MEMORY[0x277D84678], v24);
+    (*(v29 + 104))(v32, *MEMORY[0x277D84678], v28);
     dispatch thunk of FloatingPoint.rounded(_:)();
-    (*(v25 + 8))(v28, v24);
-    v15 = v29[2];
-    v14 = v29 + 2;
-    v15(v32, v20, v23);
-    v16 = *(*(v40 + 24) + 8);
+    (*(v29 + 8))(v32, v28);
+    v19 = v33[2];
+    v18 = v33 + 2;
+    v19(v36, v24, v27);
+    v20 = *(*(v44 + 24) + 8);
     max<A>(_:_:)();
-    v18 = v29[1];
-    v17 = v29 + 1;
-    v18(v32, v23);
-    v18(v34, v23);
-    v12 = type metadata accessor for ClosedRange();
-    v15(v34, v20 + *(v12 + 36), v23);
+    v22 = v33[1];
+    v21 = v33 + 1;
+    v22(v36, v27);
+    v22(v38, v27);
+    v16 = type metadata accessor for ClosedRange();
+    v19(v38, v24 + *(v16 + 36), v27);
     min<A>(_:_:)();
-    v18(v34, v23);
-    v18(v37, v23);
+    v22(v38, v27);
+    v22(v41, v27);
     lazy protocol witness table accessor for type Int and conformance Int();
     FixedWidthInteger.init<A>(_:)();
-    return v41;
+    return v45;
   }
 
   else
   {
-    (v29[2])(v39, v22, v23);
+    (v33[2])(v43, v26, v27);
     lazy protocol witness table accessor for type Int and conformance Int();
     FixedWidthInteger.init<A>(_:)();
-    return v42;
+    return v46;
   }
 }
 
@@ -357,137 +357,138 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
 
 uint64_t static HIDPFLUtils.getDayAndHourInGMT(date:)(uint64_t a1)
 {
-  v38 = a1;
-  v62 = 0;
+  v42 = a1;
+  v66 = 0;
+  v65 = 0;
+  v63 = 0;
+  v64 = 0;
   v61 = 0;
-  v59 = 0;
-  v60 = 0;
-  v57 = 0;
-  v58 = 0;
-  v18 = 0;
-  v41 = type metadata accessor for Calendar.Component();
-  v28 = *(v41 - 8);
-  v29 = v41 - 8;
-  v15 = (v28[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = MEMORY[0x28223BE20](0);
-  v39 = v11 - v15;
-  v16 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v1);
-  v40 = v11 - v16;
-  v17 = (*(*(type metadata accessor for TimeZone() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v18);
-  v27 = v11 - v17;
-  v26 = type metadata accessor for Calendar.Identifier();
-  v23 = *(v26 - 8);
-  v24 = v26 - 8;
-  v19 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v18);
-  v25 = v11 - v19;
-  v45 = type metadata accessor for Calendar();
-  v30 = *(v45 - 8);
-  v31 = v45 - 8;
-  v21 = v30[8];
-  v20 = (v21 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v25);
-  v44 = v11 - v20;
-  v22 = (v21 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v3);
-  v32 = v11 - v22;
-  v62 = v11 - v22;
-  v61 = v38;
-  (*(v23 + 104))(v4, *MEMORY[0x277CC9830]);
+  v62 = 0;
+  v22 = 0;
+  v45 = type metadata accessor for Calendar.Component();
+  v32 = *(v45 - 8);
+  v33 = v45 - 8;
+  v19 = (v32[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2 = MEMORY[0x28223BE20](0, v1);
+  v43 = v15 - v19;
+  v20 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v2, v15 - v19);
+  v44 = v15 - v20;
+  v21 = (*(*(type metadata accessor for TimeZone() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v22, v4);
+  v31 = v15 - v21;
+  v30 = type metadata accessor for Calendar.Identifier();
+  v27 = *(v30 - 8);
+  v28 = v30 - 8;
+  v23 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v22, v5);
+  v29 = v15 - v23;
+  v49 = type metadata accessor for Calendar();
+  v34 = *(v49 - 8);
+  v35 = v49 - 8;
+  v25 = v34[8];
+  v24 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v29, v6);
+  v48 = v15 - v24;
+  v26 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x28223BE20](v7, v15 - v24);
+  v36 = v15 - v26;
+  v66 = v15 - v26;
+  v65 = v42;
+  (*(v27 + 104))(v8, *MEMORY[0x277CC9830]);
   Calendar.init(identifier:)();
-  (*(v23 + 8))(v25, v26);
-  static TimeZone.gmt.getter(v27);
+  (*(v27 + 8))(v29, v30);
+  static TimeZone.gmt.getter(v31);
   Calendar.timeZone.setter();
-  v34 = v30[2];
-  v33 = v30 + 2;
-  v34(v44, v32, v45);
-  v35 = MEMORY[0x277CC9968];
-  v5 = *MEMORY[0x277CC9968];
-  v37 = v28[13];
-  v36 = v28 + 13;
-  v37(v40, v5, v41);
-  v37(v39, *MEMORY[0x277CC9988], v41);
-  v6 = Calendar.ordinality(of:in:for:)();
-  v7 = v44;
-  v50 = v6;
-  v51 = v8;
-  v43 = v28[1];
-  v42 = v28 + 1;
-  v43(v39, v41);
-  v43(v40, v41);
-  v47 = v30[1];
-  v46 = v30 + 1;
-  v47(v7, v45);
-  v59 = v50;
-  v52 = 1;
-  v60 = v51 & 1;
-  v34(v7, v32, v45);
-  v37(v40, *MEMORY[0x277CC9980], v41);
-  v37(v39, *v35, v41);
-  v48 = Calendar.ordinality(of:in:for:)();
-  v49 = v9;
-  v43(v39, v41);
-  v43(v40, v41);
+  v38 = v34[2];
+  v37 = v34 + 2;
+  v38(v48, v36, v49);
+  v39 = MEMORY[0x277CC9968];
+  v9 = *MEMORY[0x277CC9968];
+  v41 = v32[13];
+  v40 = v32 + 13;
+  v41(v44, v9, v45);
+  v41(v43, *MEMORY[0x277CC9988], v45);
+  v10 = Calendar.ordinality(of:in:for:)();
+  v11 = v48;
+  v54 = v10;
+  v55 = v12;
+  v47 = v32[1];
+  v46 = v32 + 1;
+  v47(v43, v45);
   v47(v44, v45);
-  v57 = v48;
-  v58 = v49 & 1 & v52;
-  v55 = v50;
-  if (v51 & 1 & v52)
+  v51 = v34[1];
+  v50 = v34 + 1;
+  v51(v11, v49);
+  v63 = v54;
+  v56 = 1;
+  v64 = v55 & 1;
+  v38(v11, v36, v49);
+  v41(v44, *MEMORY[0x277CC9980], v45);
+  v41(v43, *v39, v45);
+  v52 = Calendar.ordinality(of:in:for:)();
+  v53 = v13;
+  v47(v43, v45);
+  v47(v44, v45);
+  v51(v48, v49);
+  v61 = v52;
+  v62 = v53 & 1 & v56;
+  v59 = v54;
+  if (v55 & 1 & v56)
   {
-    v14 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v14 = v55;
+    v18 = v59;
   }
 
-  v13 = v14;
-  v53 = v48;
-  v54 = v49 & 1;
-  if (v49)
+  v17 = v18;
+  v57 = v52;
+  v58 = v53 & 1;
+  if (v53)
   {
-    v12 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v12 = v53;
+    v16 = v57;
   }
 
-  v11[1] = v12;
-  v47(v32, v45);
-  return v13;
+  v15[1] = v16;
+  v51(v36, v49);
+  return v17;
 }
 
 uint64_t static TimeZone.gmt.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = a1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v2 - v4;
-  v5 = 0;
+  v5 = a1;
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
+  v6 = (*(*(v1 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v1, v2);
+  v8 = &v4 - v6;
+  v7 = 0;
   TimeZone.init(secondsFromGMT:)();
-  v7 = type metadata accessor for TimeZone();
-  v8 = *(v7 - 8);
-  v9 = v7 - 8;
-  result = (*(v8 + 48))(v6, 1);
+  v9 = type metadata accessor for TimeZone();
+  v10 = *(v9 - 8);
+  v11 = v9 - 8;
+  result = (*(v10 + 48))(v8, 1);
   if (result != 1)
   {
-    return (*(v8 + 32))(v3, v6, v7);
+    return (*(v10 + 32))(v5, v8, v9);
   }
 
   __break(1u);
   return result;
 }
 
-void static HIDPFLUtils.checkMetrics(_:)()
+void static HIDPFLUtils.checkMetrics(_:)(uint64_t a1)
 {
   lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-  v1 = swift_allocError();
-  *v0 = 29;
+  v2 = swift_allocError();
+  *v1 = 29;
 
   static PFLUtils.throwIfFalse(error:for:)();
 }
@@ -529,15 +530,15 @@ unint64_t lazy protocol witness table accessor for type HIDPFLError and conforma
   return v2;
 }
 
-uint64_t closure #1 in static HIDPFLUtils.checkMetrics(_:)()
+uint64_t closure #1 in static HIDPFLUtils.checkMetrics(_:)(uint64_t a1)
 {
-  v1 = objc_opt_self();
+  v2 = objc_opt_self();
 
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v3 = [v1 isValidJSONObject_];
+  v4 = [v2 isValidJSONObject_];
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 uint64_t static HIDPFLUtils.computeEffectiveTrainingSize(_:_:)(uint64_t result, uint64_t a2)
@@ -563,11 +564,11 @@ uint64_t static HIDPFLUtils.computeEffectiveTrainingSize(_:_:)(uint64_t result, 
   return result;
 }
 
-uint64_t static HIDPFLUtils.inplaceSub(_:_:)(uint64_t *a1)
+uint64_t static HIDPFLUtils.inplaceSub(_:_:)(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
+  v3 = *a1;
 
-  MEMORY[0x25F8895B0](v2, MEMORY[0x277D83A90]);
+  MEMORY[0x25F8895B0](v3, MEMORY[0x277D83A90]);
 
   lazy protocol witness table accessor for type Int and conformance Int();
   lazy protocol witness table accessor for type Int32 and conformance Int32();
@@ -575,7 +576,7 @@ uint64_t static HIDPFLUtils.inplaceSub(_:_:)(uint64_t *a1)
   numericCast<A, B>(_:)();
   numericCast<A, B>(_:)();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   Array.reserveCapacity(_:)(0);
 
   cblas_saxpy_NEWLAPACK();
@@ -596,178 +597,175 @@ unint64_t lazy protocol witness table accessor for type Int32 and conformance In
   return v2;
 }
 
-uint64_t static HIDPFLUtils.findClosest<A>(_:target:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void static HIDPFLUtils.findClosest<A>(_:target:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v17 = a6;
-  v33 = a1;
-  v32 = a2;
-  v29 = a3;
-  v30 = a4;
-  v31 = a5;
+  v18 = a6;
+  v34 = a1;
+  v33 = a2;
+  v30 = a3;
+  v31 = a4;
+  v32 = a5;
+  v45 = 0;
   v44 = 0;
   v43 = 0;
-  v42 = 0;
-  v45 = a3;
-  v18 = *(a5 + 16);
-  v28 = 0;
+  v46 = a3;
+  v19 = *(a5 + 16);
+  v29 = 0;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v20 = (*(*(AssociatedTypeWitness - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v21 = v15 - v20;
-  v22 = *(v6 - 8);
-  v23 = v6 - 8;
-  v24 = (*(v22 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v15 - v20);
-  v25 = v15 - v24;
-  v26 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v15 - v24);
-  v27 = v15 - v26;
+  v21 = (*(*(AssociatedTypeWitness - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](AssociatedTypeWitness, v30);
+  v22 = v16 - v21;
+  v23 = *(v6 - 8);
+  v24 = v6 - 8;
+  v25 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v16 - v21, v6);
+  v26 = v16 - v25;
+  v27 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v16 - v25, v8);
+  v28 = v16 - v27;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v34 = type metadata accessor for Optional();
-  v35 = (*(*(v34 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x28223BE20](v33);
-  v40 = v15 - v35;
-  v38 = *(TupleTypeMetadata2 - 8);
-  v39 = TupleTypeMetadata2 - 8;
-  v36 = (*(v38 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = MEMORY[0x28223BE20](v8);
-  v37 = v15 - v36;
-  v44 = v15 - v36;
-  v43 = v9;
-  v42 = v10;
-  static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(v9, v10, v11, v12, v13);
-  if ((*(v38 + 48))(v40, 1, TupleTypeMetadata2) == 1)
+  v35 = type metadata accessor for Optional();
+  v36 = (*(*(v35 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v34, v33);
+  v41 = v16 - v36;
+  v39 = *(TupleTypeMetadata2 - 8);
+  v40 = TupleTypeMetadata2 - 8;
+  v37 = (*(v39 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v9, v10);
+  v38 = v16 - v37;
+  v45 = v16 - v37;
+  v44 = v11;
+  v43 = v12;
+  static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(v11, v12, v13, v14, v15);
+  if ((*(v39 + 48))(v41, 1, TupleTypeMetadata2) == 1)
   {
-    outlined destroy of (value: A, index: Int)?(v40, v29, TupleTypeMetadata2);
+    outlined destroy of (value: A, index: Int)?(v41, v30, TupleTypeMetadata2);
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
     dispatch thunk of static AdditiveArithmetic.+ infix(_:_:)();
-    v16 = *(v22 + 8);
-    v15[1] = v22 + 8;
-    v16(v25, v29);
-    static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v33, v27, v29, v30, v17);
-    return (v16)(v27, v29);
+    v17 = *(v23 + 8);
+    v16[1] = v23 + 8;
+    v17(v26, v30);
+    static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v34, v28, v30, v31, v18);
+    v17(v28, v30);
   }
 
   else
   {
-    outlined init with take of (value: A, index: Int)(v40, v37, v29, TupleTypeMetadata2);
-    outlined init with copy of (value: A, index: Int)(v37, v17, v29, TupleTypeMetadata2);
-    (*(v38 + 56))(v17, 0, 1, TupleTypeMetadata2);
-    result = v37;
-    outlined destroy of (value: A, index: Int)(v37, v29);
+    outlined init with take of (value: A, index: Int)(v41, v38, v30, TupleTypeMetadata2);
+    outlined init with copy of (value: A, index: Int)(v38, v18, v30, TupleTypeMetadata2);
+    (*(v39 + 56))(v18, 0, 1, TupleTypeMetadata2);
+    outlined destroy of (value: A, index: Int)(v38, v30);
   }
-
-  return result;
 }
 
 uint64_t static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v50 = a5;
-  v60 = a1;
-  v69 = a2;
-  v61 = a3;
-  v51 = a4;
-  v71 = MEMORY[0x277D83988];
-  v52 = "Fatal error";
-  v53 = "Unexpectedly found nil while unwrapping an Optional value";
-  v54 = "NightingaleTraining/HIDPFLUtils.swift";
-  v55 = MEMORY[0x277D83958];
-  v82 = 0;
-  v81 = 0;
+  v52 = a5;
+  v62 = a1;
+  v71 = a2;
+  v63 = a3;
+  v53 = a4;
+  v73 = MEMORY[0x277D83988];
+  v54 = "Fatal error";
+  v55 = "Unexpectedly found nil while unwrapping an Optional value";
+  v56 = "NightingaleTraining/HIDPFLUtils.swift";
+  v57 = MEMORY[0x277D83958];
+  v84 = 0;
+  v83 = 0;
+  v79 = 0;
+  v78 = 0;
   v77 = 0;
-  v76 = 0;
-  v75 = 0;
-  v83 = a3;
-  v56 = *(a3 - 8);
-  v57 = a3 - 8;
-  v58 = (*(v56 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v59 = &v19 - v58;
-  v62 = 0;
-  v66 = *(*(type metadata accessor for Optional() - 8) + 64);
-  v63 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v62);
-  v64 = &v19 - v63;
-  v65 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v5);
-  v67 = &v19 - v65;
-  v68 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v6);
-  v70 = &v19 - v68;
-  v82 = v7;
-  v81 = v69;
-  v80 = v7;
-  v72 = type metadata accessor for Array();
+  v85 = a3;
+  v58 = *(a3 - 8);
+  v59 = a3 - 8;
+  v60 = (*(v58 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a3);
+  v61 = &v21 - v60;
+  v64 = 0;
+  v68 = *(*(type metadata accessor for Optional() - 8) + 64);
+  v65 = (v68 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v64, v63);
+  v66 = &v21 - v65;
+  v67 = (v68 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v69 = &v21 - v67;
+  v70 = (v68 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v7, v8);
+  v72 = &v21 - v70;
+  v84 = v9;
+  v83 = v71;
+  v82 = v9;
+  v74 = type metadata accessor for Array();
   WitnessTable = swift_getWitnessTable();
   if (Collection.isEmpty.getter())
   {
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    return (*(*(TupleTypeMetadata2 - 8) + 56))(v50, 1);
+    return (*(*(TupleTypeMetadata2 - 8) + 56))(v52, 1);
   }
 
   else
   {
-    v79 = v60;
+    v81 = v62;
     Collection.first.getter();
-    v48 = *(v56 + 48);
-    v49 = v56 + 48;
-    if (v48(v70, 1, v61) == 1)
+    v50 = *(v58 + 48);
+    v51 = v58 + 48;
+    if (v50(v72, 1, v63) == 1)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)(v54, 11, 2, v55, 57, 2, v56, 37, 2, 149, 0);
       __break(1u);
     }
 
-    v47 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v45 = *(v56 + 8);
-    v46 = v56 + 8;
-    v45(v70, v61);
-    if (v47)
+    v49 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v47 = *(v58 + 8);
+    v48 = v58 + 8;
+    v47(v72, v63);
+    if (v49)
     {
-      v8 = swift_getTupleTypeMetadata2();
-      return (*(*(v8 - 8) + 56))(v50, 1);
+      v10 = swift_getTupleTypeMetadata2();
+      return (*(*(v10 - 8) + 56))(v52, 1);
     }
 
-    v78 = v60;
-    v44 = swift_getWitnessTable();
+    v80 = v62;
+    v46 = swift_getWitnessTable();
     BidirectionalCollection.last.getter();
-    if (v48(v67, 1, v61) == 1)
+    if (v50(v69, 1, v63) == 1)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)(v54, 11, 2, v55, 57, 2, v56, 37, 2, 153, 0);
       __break(1u);
     }
 
-    v43 = dispatch thunk of static Comparable.>= infix(_:_:)();
-    v45(v67, v61);
-    if (v43)
+    v45 = dispatch thunk of static Comparable.>= infix(_:_:)();
+    v47(v69, v63);
+    if (v45)
     {
-      v41 = swift_getTupleTypeMetadata2();
-      v42 = *(v41 + 48);
-      v74 = v60;
+      v43 = swift_getTupleTypeMetadata2();
+      v44 = *(v43 + 48);
+      v76 = v62;
       BidirectionalCollection.last.getter();
-      if (v48(v64, 1, v61) == 1)
+      if (v50(v66, 1, v63) == 1)
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)(v54, 11, 2, v55, 57, 2, v56, 37, 2, 154, 0);
         __break(1u);
       }
 
-      (*(v56 + 32))(v50, v64, v61);
-      result = MEMORY[0x25F8895B0](v60, v61);
-      v40 = result - 1;
+      (*(v58 + 32))(v52, v66, v63);
+      result = MEMORY[0x25F8895B0](v62, v63);
+      v42 = result - 1;
       if (!__OFSUB__(result, 1))
       {
-        v11 = v41;
-        *(v50 + v42) = v40;
-        return (*(*(v11 - 8) + 56))();
+        v13 = v43;
+        *(v52 + v44) = v42;
+        return (*(*(v13 - 8) + 56))();
       }
 
       goto LABEL_47;
     }
 
-    v77 = 0;
-    result = MEMORY[0x25F8895B0](v60, v61);
-    v39 = result - 1;
+    v79 = 0;
+    result = MEMORY[0x25F8895B0](v62, v63);
+    v41 = result - 1;
     if (__OFSUB__(result, 1))
     {
       __break(1u);
@@ -782,81 +780,81 @@ LABEL_47:
       return result;
     }
 
-    v76 = v39;
-    v37 = v39;
-    for (i = 0; ; i = v24)
+    v78 = v41;
+    v39 = v41;
+    for (i = 0; ; i = v26)
     {
-      v34 = i;
-      v35 = v37;
-      v36 = v37;
-      if (v37 < i)
+      v36 = i;
+      v37 = v39;
+      v38 = v39;
+      if (v39 < i)
       {
         break;
       }
 
-      v33 = v34 + v35;
-      if (__OFADD__(v34, v35))
+      v35 = v36 + v37;
+      if (__OFADD__(v36, v37))
       {
         goto LABEL_44;
       }
 
-      v30 = v33 / 2;
-      v75 = v33 / 2;
+      v32 = v35 / 2;
+      v77 = v35 / 2;
       Array.subscript.getter();
-      v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v45(v59, v61);
-      v32 = v30;
-      if (v31)
+      v33 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v47(v61, v63);
+      v34 = v32;
+      if (v33)
       {
-        v28 = v32;
-        v29 = swift_getTupleTypeMetadata2();
-        v27 = *(v29 + 48);
-        (*(v56 + 16))(v50, v69, v61);
-        v14 = v29;
-        *(v50 + v27) = v28;
-        return (*(*(v14 - 8) + 56))();
+        v30 = v34;
+        v31 = swift_getTupleTypeMetadata2();
+        v29 = *(v31 + 48);
+        (*(v58 + 16))(v52, v71, v63);
+        v16 = v31;
+        *(v52 + v29) = v30;
+        return (*(*(v16 - 8) + 56))();
       }
 
       Array.subscript.getter();
-      v26 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v45(v59, v61);
-      result = v26;
-      if (v26)
+      v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v47(v61, v63);
+      result = v28;
+      if (v28)
       {
-        v25 = v30 + 1;
-        if (__OFADD__(v30, 1))
+        v27 = v32 + 1;
+        if (__OFADD__(v32, 1))
         {
           goto LABEL_46;
         }
 
-        v77 = v25;
-        v23 = v35;
-        v24 = v25;
+        v79 = v27;
+        v25 = v37;
+        v26 = v27;
       }
 
       else
       {
-        v22 = v30 - 1;
-        if (__OFSUB__(v30, 1))
+        v24 = v32 - 1;
+        if (__OFSUB__(v32, 1))
         {
           goto LABEL_45;
         }
 
-        v76 = v22;
-        v23 = v22;
-        v24 = v34;
+        v78 = v24;
+        v25 = v24;
+        v26 = v36;
       }
 
-      v37 = v23;
+      v39 = v25;
     }
 
-    v20 = v36;
-    v21 = swift_getTupleTypeMetadata2();
-    v19 = *(v21 + 48);
+    v22 = v38;
+    v23 = swift_getTupleTypeMetadata2();
+    v21 = *(v23 + 48);
     Array.subscript.getter();
-    v17 = v21;
-    *(v50 + v19) = v20;
-    return (*(*(v17 - 8) + 56))();
+    v19 = v23;
+    *(v52 + v21) = v22;
+    return (*(*(v19 - 8) + 56))();
   }
 }
 
@@ -872,107 +870,107 @@ uint64_t outlined destroy of (value: A, index: Int)?(uint64_t a1, uint64_t a2, u
 
 uint64_t static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v47 = a5;
-  v57 = a1;
-  v66 = a2;
-  v58 = a3;
-  v48 = a4;
-  v68 = MEMORY[0x277D83988];
-  v49 = MEMORY[0x277D83958];
-  v50 = "Fatal error";
-  v51 = "Unexpectedly found nil while unwrapping an Optional value";
-  v52 = "NightingaleTraining/HIDPFLUtils.swift";
-  v79 = 0;
-  v78 = 0;
+  v49 = a5;
+  v59 = a1;
+  v68 = a2;
+  v60 = a3;
+  v50 = a4;
+  v70 = MEMORY[0x277D83988];
+  v51 = MEMORY[0x277D83958];
+  v52 = "Fatal error";
+  v53 = "Unexpectedly found nil while unwrapping an Optional value";
+  v54 = "NightingaleTraining/HIDPFLUtils.swift";
+  v81 = 0;
+  v80 = 0;
+  v76 = 0;
+  v75 = 0;
   v74 = 0;
-  v73 = 0;
-  v72 = 0;
-  v80 = a3;
-  v53 = *(a3 - 8);
-  v54 = a3 - 8;
-  v55 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v56 = &v18 - v55;
-  v59 = 0;
-  v63 = *(*(type metadata accessor for Optional() - 8) + 64);
-  v60 = (v63 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v59);
-  v61 = &v18 - v60;
-  v62 = (v63 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v5);
-  v64 = &v18 - v62;
-  v65 = (v63 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v6);
-  v67 = &v18 - v65;
-  v79 = v7;
-  v78 = v66;
-  v77 = v7;
-  v69 = type metadata accessor for Array();
+  v82 = a3;
+  v55 = *(a3 - 8);
+  v56 = a3 - 8;
+  v57 = (*(v55 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a3);
+  v58 = &v20 - v57;
+  v61 = 0;
+  v65 = *(*(type metadata accessor for Optional() - 8) + 64);
+  v62 = (v65 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v61, v60);
+  v63 = &v20 - v62;
+  v64 = (v65 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v66 = &v20 - v64;
+  v67 = (v65 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v7, v8);
+  v69 = &v20 - v67;
+  v81 = v9;
+  v80 = v68;
+  v79 = v9;
+  v71 = type metadata accessor for Array();
   WitnessTable = swift_getWitnessTable();
   if (Collection.isEmpty.getter())
   {
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    return (*(*(TupleTypeMetadata2 - 8) + 56))(v47, 1);
+    return (*(*(TupleTypeMetadata2 - 8) + 56))(v49, 1);
   }
 
   else
   {
-    v76 = v57;
+    v78 = v59;
     swift_getWitnessTable();
     BidirectionalCollection.last.getter();
-    v45 = *(v53 + 48);
-    v46 = v53 + 48;
-    if (v45(v67, 1, v58) == 1)
+    v47 = *(v55 + 48);
+    v48 = v55 + 48;
+    if (v47(v69, 1, v60) == 1)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)(v52, 11, 2, v53, 57, 2, v54, 37, 2, 113, 0);
       __break(1u);
     }
 
-    v44 = dispatch thunk of static Comparable.> infix(_:_:)();
-    v42 = *(v53 + 8);
-    v43 = v53 + 8;
-    v42(v67, v58);
-    if (v44)
+    v46 = dispatch thunk of static Comparable.> infix(_:_:)();
+    v44 = *(v55 + 8);
+    v45 = v55 + 8;
+    v44(v69, v60);
+    if (v46)
     {
-      v8 = swift_getTupleTypeMetadata2();
-      return (*(*(v8 - 8) + 56))(v47, 1);
+      v10 = swift_getTupleTypeMetadata2();
+      return (*(*(v10 - 8) + 56))(v49, 1);
     }
 
     else
     {
-      v75 = v57;
+      v77 = v59;
       Collection.first.getter();
-      if (v45(v64, 1, v58) == 1)
+      if (v47(v66, 1, v60) == 1)
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)(v52, 11, 2, v53, 57, 2, v54, 37, 2, 117, 0);
         __break(1u);
       }
 
-      v41 = dispatch thunk of static Comparable.<= infix(_:_:)();
-      v42(v64, v58);
-      if (v41)
+      v43 = dispatch thunk of static Comparable.<= infix(_:_:)();
+      v44(v66, v60);
+      if (v43)
       {
-        v39 = swift_getTupleTypeMetadata2();
-        v40 = *(v39 + 48);
-        v71 = v57;
+        v41 = swift_getTupleTypeMetadata2();
+        v42 = *(v41 + 48);
+        v73 = v59;
         Collection.first.getter();
-        if (v45(v61, 1, v58) == 1)
+        if (v47(v63, 1, v60) == 1)
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v52, 11, 2, v53, 57, 2, v54, 37, 2, 118, 0);
           __break(1u);
         }
 
-        (*(v53 + 32))(v47, v61, v58);
-        v10 = v39;
-        *(v47 + v40) = 0;
-        return (*(*(v10 - 8) + 56))();
+        (*(v55 + 32))(v49, v63, v60);
+        v12 = v41;
+        *(v49 + v42) = 0;
+        return (*(*(v12 - 8) + 56))();
       }
 
       else
       {
-        v74 = 0;
-        result = MEMORY[0x25F8895B0](v57, v58);
-        v38 = result - 1;
+        v76 = 0;
+        result = MEMORY[0x25F8895B0](v59, v60);
+        v40 = result - 1;
         if (__OFSUB__(result, 1))
         {
           __break(1u);
@@ -986,81 +984,81 @@ LABEL_42:
 
         else
         {
-          v73 = v38;
-          v36 = v38;
-          for (i = 0; ; i = v23)
+          v75 = v40;
+          v38 = v40;
+          for (i = 0; ; i = v25)
           {
-            v33 = i;
-            v34 = v36;
             v35 = i;
-            if (v36 < i)
+            v36 = v38;
+            v37 = i;
+            if (v38 < i)
             {
               break;
             }
 
-            v32 = v33 + v34;
-            if (__OFADD__(v33, v34))
+            v34 = v35 + v36;
+            if (__OFADD__(v35, v36))
             {
               goto LABEL_40;
             }
 
-            v29 = v32 / 2;
-            v72 = v32 / 2;
+            v31 = v34 / 2;
+            v74 = v34 / 2;
             Array.subscript.getter();
-            v30 = dispatch thunk of static Equatable.== infix(_:_:)();
-            v42(v56, v58);
-            v31 = v29;
-            if (v30)
+            v32 = dispatch thunk of static Equatable.== infix(_:_:)();
+            v44(v58, v60);
+            v33 = v31;
+            if (v32)
             {
-              v27 = v31;
-              v28 = swift_getTupleTypeMetadata2();
-              v26 = *(v28 + 48);
-              (*(v53 + 16))(v47, v66, v58);
-              v13 = v28;
-              *(v47 + v26) = v27;
-              return (*(*(v13 - 8) + 56))();
+              v29 = v33;
+              v30 = swift_getTupleTypeMetadata2();
+              v28 = *(v30 + 48);
+              (*(v55 + 16))(v49, v68, v60);
+              v15 = v30;
+              *(v49 + v28) = v29;
+              return (*(*(v15 - 8) + 56))();
             }
 
             Array.subscript.getter();
-            v25 = dispatch thunk of static Comparable.< infix(_:_:)();
-            v42(v56, v58);
-            result = v25;
-            if (v25)
+            v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+            v44(v58, v60);
+            result = v27;
+            if (v27)
             {
-              v24 = v29 + 1;
-              if (__OFADD__(v29, 1))
+              v26 = v31 + 1;
+              if (__OFADD__(v31, 1))
               {
                 goto LABEL_42;
               }
 
-              v74 = v24;
-              v22 = v34;
-              v23 = v24;
+              v76 = v26;
+              v24 = v36;
+              v25 = v26;
             }
 
             else
             {
-              v21 = v29 - 1;
-              if (__OFSUB__(v29, 1))
+              v23 = v31 - 1;
+              if (__OFSUB__(v31, 1))
               {
                 goto LABEL_41;
               }
 
-              v73 = v21;
-              v22 = v21;
-              v23 = v33;
+              v75 = v23;
+              v24 = v23;
+              v25 = v35;
             }
 
-            v36 = v22;
+            v38 = v24;
           }
 
-          v19 = v35;
-          v20 = swift_getTupleTypeMetadata2();
-          v18 = *(v20 + 48);
+          v21 = v37;
+          v22 = swift_getTupleTypeMetadata2();
+          v20 = *(v22 + 48);
           Array.subscript.getter();
-          v16 = v20;
-          *(v47 + v18) = v19;
-          return (*(*(v16 - 8) + 56))();
+          v18 = v22;
+          *(v49 + v20) = v21;
+          return (*(*(v18 - 8) + 56))();
         }
       }
     }
@@ -1085,82 +1083,82 @@ uint64_t outlined init with copy of (value: A, index: Int)(uint64_t a1, uint64_t
   return result;
 }
 
-uint64_t type metadata accessor for _HKPrivatePregnancyStartDateSource()
+unint64_t type metadata accessor for _HKPrivatePregnancyStartDateSource(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for _HKPrivatePregnancyStartDateSource;
+  v5 = lazy cache variable for type metadata for _HKPrivatePregnancyStartDateSource;
   if (!lazy cache variable for type metadata for _HKPrivatePregnancyStartDateSource)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    v4 = ForeignTypeMetadata;
-    if (!v0)
+    v5 = ForeignTypeMetadata;
+    if (!v1)
     {
-      v1 = ForeignTypeMetadata;
+      v2 = ForeignTypeMetadata;
       atomic_store(ForeignTypeMetadata, &lazy cache variable for type metadata for _HKPrivatePregnancyStartDateSource);
-      return v1;
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t type metadata accessor for HKCategoryValueSleepAnalysis()
+unint64_t type metadata accessor for HKCategoryValueSleepAnalysis(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for HKCategoryValueSleepAnalysis;
+  v5 = lazy cache variable for type metadata for HKCategoryValueSleepAnalysis;
   if (!lazy cache variable for type metadata for HKCategoryValueSleepAnalysis)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    v4 = ForeignTypeMetadata;
-    if (!v0)
+    v5 = ForeignTypeMetadata;
+    if (!v1)
     {
-      v1 = ForeignTypeMetadata;
+      v2 = ForeignTypeMetadata;
       atomic_store(ForeignTypeMetadata, &lazy cache variable for type metadata for HKCategoryValueSleepAnalysis);
-      return v1;
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t type metadata accessor for HKQueryOptions()
+unint64_t type metadata accessor for HKQueryOptions(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for HKQueryOptions;
+  v5 = lazy cache variable for type metadata for HKQueryOptions;
   if (!lazy cache variable for type metadata for HKQueryOptions)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    v4 = ForeignTypeMetadata;
-    if (!v0)
+    v5 = ForeignTypeMetadata;
+    if (!v1)
     {
-      v1 = ForeignTypeMetadata;
+      v2 = ForeignTypeMetadata;
       atomic_store(ForeignTypeMetadata, &lazy cache variable for type metadata for HKQueryOptions);
-      return v1;
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t protocol witness for SetAlgebra.init() in conformance HKQueryOptions()
+uint64_t protocol witness for SetAlgebra.init() in conformance HKQueryOptions(uint64_t a1)
 {
   lazy protocol witness table accessor for type HKQueryOptions and conformance HKQueryOptions();
   lazy protocol witness table accessor for type UInt and conformance UInt();
   return OptionSet<>.init()();
 }
 
-uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance HKQueryOptions()
+uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance HKQueryOptions(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type HKQueryOptions and conformance HKQueryOptions();
   lazy protocol witness table accessor for type UInt and conformance UInt();
   return OptionSet<>.formUnion(_:)();
 }
 
-uint64_t protocol witness for SetAlgebra.formIntersection(_:) in conformance HKQueryOptions()
+uint64_t protocol witness for SetAlgebra.formIntersection(_:) in conformance HKQueryOptions(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type HKQueryOptions and conformance HKQueryOptions();
   lazy protocol witness table accessor for type UInt and conformance UInt();
   return OptionSet<>.formIntersection(_:)();
 }
 
-uint64_t protocol witness for SetAlgebra.formSymmetricDifference(_:) in conformance HKQueryOptions()
+uint64_t protocol witness for SetAlgebra.formSymmetricDifference(_:) in conformance HKQueryOptions(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type HKQueryOptions and conformance HKQueryOptions();
   lazy protocol witness table accessor for type UInt and conformance UInt();
@@ -1201,7 +1199,7 @@ unint64_t lazy protocol witness table accessor for type HKQueryOptions and confo
   v2 = lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions;
   if (!lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions)
   {
-    type metadata accessor for HKQueryOptions();
+    type metadata accessor for HKQueryOptions(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions);
     return WitnessTable;
@@ -1214,7 +1212,7 @@ unint64_t lazy protocol witness table accessor for type HKQueryOptions and confo
   v2 = lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions;
   if (!lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions)
   {
-    type metadata accessor for HKQueryOptions();
+    type metadata accessor for HKQueryOptions(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions);
     return WitnessTable;
@@ -1227,7 +1225,7 @@ unint64_t lazy protocol witness table accessor for type HKQueryOptions and confo
   v2 = lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions;
   if (!lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions)
   {
-    type metadata accessor for HKQueryOptions();
+    type metadata accessor for HKQueryOptions(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions);
     return WitnessTable;
@@ -1240,7 +1238,7 @@ unint64_t lazy protocol witness table accessor for type HKQueryOptions and confo
   v2 = lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions;
   if (!lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions)
   {
-    type metadata accessor for HKQueryOptions();
+    type metadata accessor for HKQueryOptions(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions);
     return WitnessTable;
@@ -1253,7 +1251,7 @@ unint64_t lazy protocol witness table accessor for type HKQueryOptions and confo
   v2 = lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions;
   if (!lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions)
   {
-    type metadata accessor for HKQueryOptions();
+    type metadata accessor for HKQueryOptions(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKQueryOptions and conformance HKQueryOptions);
     return WitnessTable;
@@ -1267,7 +1265,7 @@ unint64_t lazy protocol witness table accessor for type HKCategoryValueSleepAnal
   v2 = lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis;
   if (!lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis)
   {
-    type metadata accessor for HKCategoryValueSleepAnalysis();
+    type metadata accessor for HKCategoryValueSleepAnalysis(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis);
     return WitnessTable;
@@ -1280,7 +1278,7 @@ unint64_t lazy protocol witness table accessor for type HKCategoryValueSleepAnal
   v2 = lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis;
   if (!lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis)
   {
-    type metadata accessor for HKCategoryValueSleepAnalysis();
+    type metadata accessor for HKCategoryValueSleepAnalysis(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis);
     return WitnessTable;
@@ -1293,7 +1291,7 @@ unint64_t lazy protocol witness table accessor for type HKCategoryValueSleepAnal
   v2 = lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis;
   if (!lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis)
   {
-    type metadata accessor for HKCategoryValueSleepAnalysis();
+    type metadata accessor for HKCategoryValueSleepAnalysis(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis);
     return WitnessTable;
@@ -1306,7 +1304,7 @@ unint64_t lazy protocol witness table accessor for type HKCategoryValueSleepAnal
   v2 = lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis;
   if (!lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis)
   {
-    type metadata accessor for HKCategoryValueSleepAnalysis();
+    type metadata accessor for HKCategoryValueSleepAnalysis(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HKCategoryValueSleepAnalysis and conformance HKCategoryValueSleepAnalysis);
     return WitnessTable;
@@ -1345,7 +1343,7 @@ unint64_t lazy protocol witness table accessor for type _HKPrivatePregnancyStart
   v2 = lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource;
   if (!lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource)
   {
-    type metadata accessor for _HKPrivatePregnancyStartDateSource();
+    type metadata accessor for _HKPrivatePregnancyStartDateSource(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource);
     return WitnessTable;
@@ -1358,7 +1356,7 @@ unint64_t lazy protocol witness table accessor for type _HKPrivatePregnancyStart
   v2 = lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource;
   if (!lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource)
   {
-    type metadata accessor for _HKPrivatePregnancyStartDateSource();
+    type metadata accessor for _HKPrivatePregnancyStartDateSource(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource);
     return WitnessTable;
@@ -1369,83 +1367,82 @@ unint64_t lazy protocol witness table accessor for type _HKPrivatePregnancyStart
 
 Swift::UInt32_optional __swiftcall Date.toJulianDay()()
 {
-  v52 = "Fatal error";
-  v53 = "Negative value is not representable";
-  v54 = "Swift/Integers.swift";
-  v55 = "Not enough bits to represent the passed value";
+  v54 = "Fatal error";
+  v55 = "Negative value is not representable";
+  v56 = "Swift/Integers.swift";
+  v57 = "Not enough bits to represent the passed value";
+  v88 = 0;
+  v87 = 0;
   v86 = 0;
-  v85 = 0;
   v84 = 0;
+  v83 = 0;
   v82 = 0;
   v81 = 0;
   v80 = 0;
-  v79 = 0;
-  v78 = 0;
-  v65 = 0;
-  v56 = type metadata accessor for DateComponents();
-  v57 = *(v56 - 8);
-  v58 = v56 - 8;
-  v59 = (*(v57 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](0);
-  v75 = &v21[-v59];
-  v86 = &v21[-v59];
-  v60 = type metadata accessor for Calendar();
-  v61 = *(v60 - 8);
-  v62 = v60 - 8;
-  v63 = (*(v61 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v60);
-  v64 = &v21[-v63];
-  v85 = &v21[-v63];
-  v84 = v0;
+  v67 = 0;
+  v58 = type metadata accessor for DateComponents();
+  v59 = *(v58 - 8);
+  v60 = v58 - 8;
+  v61 = (*(v59 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v0);
+  v77 = &v23[-v61];
+  v88 = &v23[-v61];
+  v62 = type metadata accessor for Calendar();
+  v63 = *(v62 - 8);
+  v64 = v62 - 8;
+  v65 = (*(v63 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v62, v1);
+  v66 = &v23[-v65];
+  v87 = &v23[-v65];
+  v86 = v2;
   static Calendar.current.getter();
-  v73 = type metadata accessor for Calendar.Component();
-  v72 = _allocateUninitializedArray<A>(_:)();
-  v69 = v1;
-  v66 = *(v73 - 8);
-  v67 = v73 - 8;
-  v71 = *(v66 + 104);
-  v70 = v66 + 104;
-  v71();
-  v68 = *(v66 + 72);
-  (v71)(v69 + v68, *MEMORY[0x277CC9998], v73);
-  (v71)(v69 + 2 * v68, *MEMORY[0x277CC9968], v73);
-  v2 = v72;
+  v75 = type metadata accessor for Calendar.Component();
+  v74 = _allocateUninitializedArray<A>(_:)();
+  v71 = v3;
+  v68 = *(v75 - 8);
+  v69 = v75 - 8;
+  v73 = *(v68 + 104);
+  v72 = v68 + 104;
+  v73();
+  v70 = *(v68 + 72);
+  (v73)(v71 + v70, *MEMORY[0x277CC9998], v75);
+  (v73)(v71 + 2 * v70, *MEMORY[0x277CC9968], v75);
   _finalizeUninitializedArray<A>(_:)();
-  v74 = v2;
+  v76 = v4;
   lazy protocol witness table accessor for type Calendar.Component and conformance Calendar.Component();
-  v76 = Set.init(arrayLiteral:)();
+  v78 = Set.init(arrayLiteral:)();
   Calendar.dateComponents(_:from:)();
 
-  v77 = DateComponents.day.getter();
-  if (v3)
+  v79 = DateComponents.day.getter();
+  if (v5)
   {
     goto LABEL_76;
   }
 
-  v51 = v77;
-  v49 = v77;
-  v82 = v77;
-  v50 = DateComponents.month.getter();
-  if (v4)
-  {
-    goto LABEL_76;
-  }
-
-  v48 = v50;
-  v46 = v50;
-  v81 = v50;
-  v5 = DateComponents.year.getter();
-  v47 = v5;
+  v53 = v79;
+  v51 = v79;
+  v84 = v79;
+  v52 = DateComponents.month.getter();
   if (v6)
   {
     goto LABEL_76;
   }
 
+  v50 = v52;
+  v48 = v52;
+  v83 = v52;
+  v7 = DateComponents.year.getter();
+  v49 = v7;
+  if (v8)
+  {
+    goto LABEL_76;
+  }
+
+  v47 = v49;
   v45 = v47;
-  v43 = v45;
-  v80 = v45;
-  v44 = v45 + 4800;
-  if (__OFADD__(v45, 4800))
+  v82 = v47;
+  v46 = v47 + 4800;
+  if (__OFADD__(v47, 4800))
   {
     __break(1u);
 LABEL_79:
@@ -1455,20 +1452,20 @@ LABEL_80:
     goto LABEL_81;
   }
 
-  v42 = v46 - 14;
-  if (__OFSUB__(v46, 14))
+  v44 = v48 - 14;
+  if (__OFSUB__(v48, 14))
   {
     goto LABEL_79;
   }
 
-  v41 = v44 + v42 / 12;
-  if (__OFADD__(v44, v42 / 12))
+  v43 = v46 + v44 / 12;
+  if (__OFADD__(v46, v44 / 12))
   {
     goto LABEL_80;
   }
 
-  v40 = 1461 * v41;
-  if ((1461 * v41) >> 64 != (1461 * v41) >> 63)
+  v42 = 1461 * v43;
+  if ((1461 * v43) >> 64 != (1461 * v43) >> 63)
   {
 LABEL_81:
     __break(1u);
@@ -1479,21 +1476,21 @@ LABEL_83:
     goto LABEL_84;
   }
 
-  v38 = v40 / 4;
-  v39 = v46 - 2;
-  if (__OFSUB__(v46, 2))
+  v40 = v42 / 4;
+  v41 = v48 - 2;
+  if (__OFSUB__(v48, 2))
   {
     goto LABEL_82;
   }
 
-  v37 = v46 - 14;
-  if (__OFSUB__(v46, 14))
+  v39 = v48 - 14;
+  if (__OFSUB__(v48, 14))
   {
     goto LABEL_83;
   }
 
-  v36 = 12 * (v37 / 12);
-  if ((12 * (v37 / 12)) >> 64 != v36 >> 63)
+  v38 = 12 * (v39 / 12);
+  if ((12 * (v39 / 12)) >> 64 != v38 >> 63)
   {
 LABEL_84:
     __break(1u);
@@ -1502,14 +1499,14 @@ LABEL_85:
     goto LABEL_86;
   }
 
-  v35 = v39 - v36;
-  if (__OFSUB__(v39, v36))
+  v37 = v41 - v38;
+  if (__OFSUB__(v41, v38))
   {
     goto LABEL_85;
   }
 
-  v34 = 367 * v35;
-  if ((367 * v35) >> 64 != (367 * v35) >> 63)
+  v36 = 367 * v37;
+  if ((367 * v37) >> 64 != (367 * v37) >> 63)
   {
 LABEL_86:
     __break(1u);
@@ -1524,32 +1521,32 @@ LABEL_90:
     goto LABEL_91;
   }
 
-  v33 = v38 + v34 / 12;
-  if (__OFADD__(v38, v34 / 12))
+  v35 = v40 + v36 / 12;
+  if (__OFADD__(v40, v36 / 12))
   {
     goto LABEL_87;
   }
 
-  v32 = v43 + 4900;
-  if (__OFADD__(v43, 4900))
+  v34 = v45 + 4900;
+  if (__OFADD__(v45, 4900))
   {
     goto LABEL_88;
   }
 
-  v31 = v46 - 14;
-  if (__OFSUB__(v46, 14))
+  v33 = v48 - 14;
+  if (__OFSUB__(v48, 14))
   {
     goto LABEL_89;
   }
 
-  v30 = v32 + v31 / 12;
-  if (__OFADD__(v32, v31 / 12))
+  v32 = v34 + v33 / 12;
+  if (__OFADD__(v34, v33 / 12))
   {
     goto LABEL_90;
   }
 
-  v29 = 3 * (v30 / 100);
-  if ((3 * (v30 / 100)) >> 64 != v29 >> 63)
+  v31 = 3 * (v32 / 100);
+  if ((3 * (v32 / 100)) >> 64 != v31 >> 63)
   {
 LABEL_91:
     __break(1u);
@@ -1562,66 +1559,66 @@ LABEL_94:
     goto LABEL_95;
   }
 
-  v28 = v33 - v29 / 4;
-  if (__OFSUB__(v33, v29 / 4))
+  v30 = v35 - v31 / 4;
+  if (__OFSUB__(v35, v31 / 4))
   {
     goto LABEL_92;
   }
 
-  v27 = v28 + v49;
-  if (__OFADD__(v28, v49))
+  v29 = v30 + v51;
+  if (__OFADD__(v30, v51))
   {
     goto LABEL_93;
   }
 
-  v26 = v27 - 32075;
-  if (__OFSUB__(v27, 32075))
+  v28 = v29 - 32075;
+  if (__OFSUB__(v29, 32075))
   {
     goto LABEL_94;
   }
 
-  v79 = v26;
-  if (v26 < 2400001)
+  v81 = v28;
+  if (v28 < 2400001)
   {
 LABEL_76:
-    (*(v57 + 8))(v75, v56);
-    (*(v61 + 8))(v64, v60);
-    v23 = 0;
-    v24 = 1;
+    (*(v59 + 8))(v77, v58);
+    (*(v63 + 8))(v66, v62);
+    v25 = 0;
+    v26 = 1;
     goto LABEL_77;
   }
 
-  v25 = v26 - 2400001;
-  if (__OFSUB__(v26, 2400001))
+  v27 = v28 - 2400001;
+  if (__OFSUB__(v28, 2400001))
   {
 LABEL_95:
     __break(1u);
-    return v5;
+    return v7;
   }
 
-  if (v25 < 0)
+  if (v27 < 0)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)(v54, 11, 2, v55, 35, 2, v56, 20, 2, 3049, 0);
     __break(1u);
   }
 
-  if (v25 > 0xFFFFFFFFLL)
+  if (v27 > 0xFFFFFFFFLL)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)(v54, 11, 2, v57, 45, 2, v56, 20, 2, 3053, 0);
     __break(1u);
     goto LABEL_76;
   }
 
-  v22 = v25;
-  v78 = v25;
-  (*(v57 + 8))(v75, v56);
-  (*(v61 + 8))(v64, v60);
-  v23 = v22;
-  v24 = 0;
+  v24 = v27;
+  v80 = v27;
+  (*(v59 + 8))(v77, v58);
+  (*(v63 + 8))(v66, v62);
+  v25 = v24;
+  v26 = 0;
 LABEL_77:
-  LODWORD(v83) = v23;
-  BYTE4(v83) = v24 & 1;
-  return v83;
+  LODWORD(v85) = v25;
+  BYTE4(v85) = v26 & 1;
+  return v85;
 }
 
 unint64_t lazy protocol witness table accessor for type Calendar.Component and conformance Calendar.Component()
@@ -1640,8 +1637,11 @@ unint64_t lazy protocol witness table accessor for type Calendar.Component and c
 
 uint64_t UInt32.getDateComponents()@<X0>(unsigned int a1@<W0>, uint64_t a2@<X8>)
 {
-  v41 = a2;
-  v46 = a1;
+  v44 = a2;
+  v49 = a1;
+  v65 = 0;
+  v64 = 0;
+  v63 = 0;
   v62 = 0;
   v61 = 0;
   v60 = 0;
@@ -1649,26 +1649,23 @@ uint64_t UInt32.getDateComponents()@<X0>(unsigned int a1@<W0>, uint64_t a2@<X8>)
   v58 = 0;
   v57 = 0;
   v56 = 0;
-  v55 = 0;
-  v54 = 0;
-  v53 = 0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd);
-  v42 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v2);
-  v43 = &v20 - v42;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd);
-  v44 = (*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v3);
-  v45 = &v20 - v44;
-  v47 = type metadata accessor for DateComponents();
-  v48 = *(v47 - 8);
-  v49 = v47 - 8;
-  v50 = (*(v48 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  result = MEMORY[0x28223BE20](v46);
-  v51 = &v20 - v50;
-  v62 = &v20 - v50;
-  v61 = result;
-  v52 = result + 2400001;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
+  v45 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v2, v3);
+  v46 = &v23 - v45;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
+  v47 = (*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v4, v5);
+  v48 = &v23 - v47;
+  v50 = type metadata accessor for DateComponents();
+  v51 = *(v50 - 8);
+  v52 = v50 - 8;
+  v53 = (*(v51 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  result = MEMORY[0x28223BE20](v49, v6);
+  v54 = &v23 - v53;
+  v65 = &v23 - v53;
+  v64 = result;
+  v55 = result + 2400001;
   if (__OFADD__(result, 2400001))
   {
     __break(1u);
@@ -1677,15 +1674,15 @@ LABEL_59:
     goto LABEL_60;
   }
 
-  v60 = v52;
-  v40 = v52 + 1401;
-  if (__OFADD__(v52, 1401))
+  v63 = v55;
+  v43 = v55 + 1401;
+  if (__OFADD__(v55, 1401))
   {
     goto LABEL_59;
   }
 
-  v39 = 4 * v52;
-  if ((4 * v52) >> 64 != (4 * v52) >> 63)
+  v42 = 4 * v55;
+  if ((4 * v55) >> 64 != (4 * v55) >> 63)
   {
 LABEL_60:
     __break(1u);
@@ -1694,14 +1691,14 @@ LABEL_61:
     goto LABEL_62;
   }
 
-  v38 = v39 + 274277;
-  if (__OFADD__(v39, 274277))
+  v41 = v42 + 274277;
+  if (__OFADD__(v42, 274277))
   {
     goto LABEL_61;
   }
 
-  v37 = 3 * (v38 / 146097);
-  if ((v38 / 146097 * 3) >> 64 != v37 >> 63)
+  v40 = 3 * (v41 / 146097);
+  if ((v41 / 146097 * 3) >> 64 != v40 >> 63)
   {
 LABEL_62:
     __break(1u);
@@ -1712,21 +1709,21 @@ LABEL_64:
     goto LABEL_65;
   }
 
-  v36 = v40 + v37 / 4;
-  if (__OFADD__(v40, v37 / 4))
+  v39 = v43 + v40 / 4;
+  if (__OFADD__(v43, v40 / 4))
   {
     goto LABEL_63;
   }
 
-  v35 = v36 - 38;
-  if (__OFSUB__(v36, 38))
+  v38 = v39 - 38;
+  if (__OFSUB__(v39, 38))
   {
     goto LABEL_64;
   }
 
-  v59 = v35;
-  v34 = 4 * v35;
-  if ((4 * v35) >> 64 != (4 * v35) >> 63)
+  v62 = v38;
+  v37 = 4 * v38;
+  if ((4 * v38) >> 64 != (4 * v38) >> 63)
   {
 LABEL_65:
     __break(1u);
@@ -1735,17 +1732,17 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  v33 = v34 + 3;
-  if (__OFADD__(v34, 3))
+  v36 = v37 + 3;
+  if (__OFADD__(v37, 3))
   {
     goto LABEL_66;
   }
 
-  v58 = v33;
-  v32 = v33 % 1461;
-  v57 = v33 % 1461 / 4;
-  v31 = 5 * v57;
-  if ((5 * v57) >> 64 != (5 * v57) >> 63)
+  v61 = v36;
+  v35 = v36 % 1461;
+  v60 = v36 % 1461 / 4;
+  v34 = 5 * v60;
+  if ((5 * v60) >> 64 != (5 * v60) >> 63)
   {
 LABEL_67:
     __break(1u);
@@ -1764,62 +1761,62 @@ LABEL_73:
     goto LABEL_74;
   }
 
-  v30 = v31 + 2;
-  if (__OFADD__(v31, 2))
+  v33 = v34 + 2;
+  if (__OFADD__(v34, 2))
   {
     goto LABEL_68;
   }
 
-  v56 = v30;
-  v29 = v30 % 153;
-  v28 = v30 % 153 / 5 + 1;
-  if (__OFADD__(v30 % 153 / 5, 1))
+  v59 = v33;
+  v32 = v33 % 153;
+  v31 = v33 % 153 / 5 + 1;
+  if (__OFADD__(v33 % 153 / 5, 1))
   {
     goto LABEL_69;
   }
 
-  v55 = v28;
-  v27 = v30 / 153 + 2;
-  if (__OFADD__(v30 / 153, 2))
+  v58 = v31;
+  v30 = v33 / 153 + 2;
+  if (__OFADD__(v33 / 153, 2))
   {
     goto LABEL_70;
   }
 
-  v26 = v27 % 12 + 1;
-  if (__OFADD__(v27 % 12, 1))
+  v29 = v30 % 12 + 1;
+  if (__OFADD__(v30 % 12, 1))
   {
     goto LABEL_71;
   }
 
-  v54 = v26;
-  v25 = v33 / 1461 - 4716;
-  if (__OFSUB__(v33 / 1461, 4716))
+  v57 = v29;
+  v28 = v36 / 1461 - 4716;
+  if (__OFSUB__(v36 / 1461, 4716))
   {
     goto LABEL_72;
   }
 
-  v24 = 14 - v26;
-  if (__OFSUB__(14, v26))
+  v27 = 14 - v29;
+  if (__OFSUB__(14, v29))
   {
     goto LABEL_73;
   }
 
-  v23 = v25 + v24 / 12;
-  if (!__OFADD__(v25, v24 / 12))
+  v26 = v28 + v27 / 12;
+  if (!__OFADD__(v28, v27 / 12))
   {
-    v53 = v23;
-    v20 = 0;
-    v18 = *(*(type metadata accessor for Calendar() - 8) + 56);
-    v21 = 1;
-    v18(v45, 1);
-    v19 = type metadata accessor for TimeZone();
-    (*(*(v19 - 8) + 56))(v43, v21);
+    v56 = v26;
+    v23 = 0;
+    v21 = *(*(type metadata accessor for Calendar() - 8) + 56);
+    v24 = 1;
+    v21(v48, 1);
+    v22 = type metadata accessor for TimeZone();
+    (*(*(v22 - 8) + 56))(v46, v24);
     DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-    v22 = 0;
+    v25 = 0;
     DateComponents.day.setter();
     DateComponents.month.setter();
     DateComponents.year.setter();
-    return (*(v48 + 32))(v41, v51, v47);
+    return (*(v51 + 32))(v44, v54, v50);
   }
 
 LABEL_74:
@@ -1829,182 +1826,182 @@ LABEL_74:
 
 uint64_t UInt32.toDate(calendar:)@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  v8 = a3;
-  v6 = a2;
+  v9 = a3;
+  v7 = a2;
+  v15 = 0;
   v14 = 0;
-  v13 = 0;
-  v12 = type metadata accessor for DateComponents();
-  v9 = *(v12 - 8);
-  v10 = v12 - 8;
-  v7 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v11 = &v5[-v7];
-  v14 = a1;
-  v13 = MEMORY[0x28223BE20](v6);
-  UInt32.getDateComponents()(v13, &v5[-v7]);
+  v13 = type metadata accessor for DateComponents();
+  v10 = *(v13 - 8);
+  v11 = v13 - 8;
+  v8 = (*(v10 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = &v6[-v8];
+  v15 = a1;
+  v14 = MEMORY[0x28223BE20](v7, v4);
+  UInt32.getDateComponents()(v14, &v6[-v8]);
   Calendar.date(from:)();
-  return (*(v9 + 8))(v11, v12);
+  return (*(v10 + 8))(v12, v13);
 }
 
 uint64_t UInt32.toDate(atHour:calendar:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
-  v17 = a4;
-  v14 = a1;
-  v16 = a2;
-  v10 = a3;
+  v18 = a4;
+  v15 = a1;
+  v17 = a2;
+  v11 = a3;
+  v29 = 0;
   v28 = 0;
   v27 = 0;
+  v16 = 0;
   v26 = 0;
-  v15 = 0;
-  v25 = 0;
-  v22 = type metadata accessor for DateComponents();
-  v18 = *(v22 - 8);
-  v19 = v22 - 8;
-  v12 = *(v18 + 64);
-  v11 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v10);
-  v20 = &v9[-v11];
-  v13 = v11;
-  v5 = MEMORY[0x28223BE20](v4);
-  v21 = &v9[-v13];
-  v28 = &v9[-v13];
-  v27 = v6;
-  v26 = v7;
-  v25 = v5;
-  UInt32.getDateComponents()(v5, &v9[-v13]);
+  v23 = type metadata accessor for DateComponents();
+  v19 = *(v23 - 8);
+  v20 = v23 - 8;
+  v13 = *(v19 + 64);
+  v12 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x28223BE20](v11, v17);
+  v21 = &v10[-v12];
+  v14 = v12;
+  v6 = MEMORY[0x28223BE20](v4, v5);
+  v22 = &v10[-v14];
+  v29 = &v10[-v14];
+  v28 = v7;
+  v27 = v8;
+  v26 = v6;
+  UInt32.getDateComponents()(v6, &v10[-v14]);
   DateComponents.hour.setter();
-  (*(v18 + 16))(v20, v21, v22);
+  (*(v19 + 16))(v21, v22, v23);
   Calendar.date(from:)();
-  v24 = *(v18 + 8);
-  v23 = v18 + 8;
-  v24(v20, v22);
-  return (v24)(v21, v22);
+  v25 = *(v19 + 8);
+  v24 = v19 + 8;
+  v25(v21, v23);
+  return (v25)(v22, v23);
 }
 
 uint64_t static UInt32.modifiedJulianStartDate()@<X0>(uint64_t a1@<X8>)
 {
-  v19 = a1;
-  v32 = 0;
-  v31 = 0;
-  v17 = 0;
-  v26 = type metadata accessor for Calendar();
-  v23 = *(v26 - 8);
-  v24 = v26 - 8;
-  v8 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v26);
-  v25 = &v7 - v8;
-  v32 = &v7 - v8;
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd);
-  v9 = (*(*(v1 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v1);
-  v15 = &v7 - v9;
-  v10 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v17);
-  v14 = &v7 - v10;
-  v28 = type metadata accessor for DateComponents();
-  v20 = *(v28 - 8);
-  v21 = v28 - 8;
-  v12 = *(v20 + 64);
-  v11 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v14);
-  v22 = &v7 - v11;
-  v13 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v2);
-  v27 = &v7 - v13;
-  v31 = &v7 - v13;
-  v4 = *(v23 + 56);
-  v16 = 1;
-  v4(v3, 1);
-  v5 = type metadata accessor for TimeZone();
-  (*(*(v5 - 8) + 56))(v15, v16);
+  v23 = a1;
+  v36 = 0;
+  v35 = 0;
+  v21 = 0;
+  v30 = type metadata accessor for Calendar();
+  v27 = *(v30 - 8);
+  v28 = v30 - 8;
+  v12 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v30, v1);
+  v29 = &v11 - v12;
+  v36 = &v11 - v12;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
+  v13 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v2, v3);
+  v19 = &v11 - v13;
+  v14 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v21, v4);
+  v18 = &v11 - v14;
+  v32 = type metadata accessor for DateComponents();
+  v24 = *(v32 - 8);
+  v25 = v32 - 8;
+  v16 = *(v24 + 64);
+  v15 = (v16 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v18, v5);
+  v26 = &v11 - v15;
+  v17 = (v16 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v6, &v11 - v15);
+  v31 = &v11 - v17;
+  v35 = &v11 - v17;
+  v8 = *(v27 + 56);
+  v20 = 1;
+  v8(v7, 1);
+  v9 = type metadata accessor for TimeZone();
+  (*(*(v9 - 8) + 56))(v19, v20);
   DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-  v18 = 0;
+  v22 = 0;
   DateComponents.day.setter();
   DateComponents.month.setter();
   DateComponents.year.setter();
   DateComponents.hour.setter();
   DateComponents.minute.setter();
   static Calendar.current.getter();
-  (*(v20 + 16))(v22, v27, v28);
+  (*(v24 + 16))(v26, v31, v32);
   Calendar.date(from:)();
-  v30 = *(v20 + 8);
-  v29 = v20 + 8;
-  v30(v22, v28);
-  (*(v23 + 8))(v25, v26);
-  return (v30)(v27, v28);
+  v34 = *(v24 + 8);
+  v33 = v24 + 8;
+  v34(v26, v32);
+  (*(v27 + 8))(v29, v30);
+  return (v34)(v31, v32);
 }
 
 uint64_t sleepDayInterval(morningIndex:calendar:)@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v21 = a3;
-  v26 = a1;
-  v25 = a2;
-  v45 = 0;
-  v44 = 0;
-  v43 = 0;
-  v42 = 0;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  v22 = (*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v3);
-  v23 = &v14 - v22;
-  v24 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](&v14 - v22);
-  v38 = &v14 - v24;
-  v39 = type metadata accessor for Date();
-  v36 = *(v39 - 8);
-  v37 = v39 - 8;
-  v32 = v36[8];
-  v27 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v26);
-  v28 = &v14 - v27;
-  v29 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v5);
-  v30 = &v14 - v29;
-  v31 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7 = MEMORY[0x28223BE20](v6);
-  v33 = &v14 - v31;
-  v45 = &v14 - v31;
-  v34 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x28223BE20](v7);
-  v35 = &v14 - v34;
-  v44 = &v14 - v34;
-  v43 = v8;
-  v42 = v9;
-  sleepDayStartForMorningIndex(morningIndex:calendar:)(v8, v9, v10);
-  v40 = v36[6];
-  v41 = v36 + 6;
-  if (v40(v38, 1, v39) == 1)
+  v26 = a3;
+  v31 = a1;
+  v30 = a2;
+  v50 = 0;
+  v49 = 0;
+  v48 = 0;
+  v47 = 0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v27 = (*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v3, v4);
+  v28 = &v19 - v27;
+  v29 = (v5 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v19 - v27, v6);
+  v43 = &v19 - v29;
+  v44 = type metadata accessor for Date();
+  v41 = *(v44 - 8);
+  v42 = v44 - 8;
+  v37 = v41[8];
+  v32 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v31, v30);
+  v33 = &v19 - v32;
+  v34 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v35 = &v19 - v34;
+  v36 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v9, v10);
+  v38 = &v19 - v36;
+  v50 = &v19 - v36;
+  v39 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v13 = MEMORY[0x28223BE20](v11, v12);
+  v40 = &v19 - v39;
+  v49 = &v19 - v39;
+  v48 = v13;
+  v47 = v14;
+  sleepDayStartForMorningIndex(morningIndex:calendar:)(v13, v14, v15);
+  v45 = v41[6];
+  v46 = v41 + 6;
+  if (v45(v43, 1, v44) == 1)
   {
-    outlined destroy of Date?(v38);
+    outlined destroy of Date?(v43);
 LABEL_7:
-    v13 = type metadata accessor for DateInterval();
-    return (*(*(v13 - 8) + 56))(v21, 1);
+    v18 = type metadata accessor for DateInterval();
+    return (*(*(v18 - 8) + 56))(v26, 1);
   }
 
-  v18 = v36[4];
-  v19 = v36 + 4;
-  result = v18(v35, v38, v39);
-  v20 = v26 + 1;
-  if (v26 != -1)
+  v23 = v41[4];
+  v24 = v41 + 4;
+  result = v23(v40, v43, v44);
+  v25 = v31 + 1;
+  if (v31 != -1)
   {
-    sleepDayStartForMorningIndex(morningIndex:calendar:)(v20, v25, v23);
-    if (v40(v23, 1, v39) != 1)
+    sleepDayStartForMorningIndex(morningIndex:calendar:)(v25, v30, v28);
+    if (v45(v28, 1, v44) != 1)
     {
-      v18(v33, v23, v39);
-      v15 = v36[2];
-      v14 = v36 + 2;
-      v15(v30, v35, v39);
-      v15(v28, v33, v39);
+      v23(v38, v28, v44);
+      v20 = v41[2];
+      v19 = v41 + 2;
+      v20(v35, v40, v44);
+      v20(v33, v38, v44);
       DateInterval.init(start:end:)();
-      v12 = type metadata accessor for DateInterval();
-      (*(*(v12 - 8) + 56))(v21, 0, 1);
-      v17 = v36[1];
-      v16 = v36 + 1;
-      v17(v33, v39);
-      return (v17)(v35, v39);
+      v17 = type metadata accessor for DateInterval();
+      (*(*(v17 - 8) + 56))(v26, 0, 1);
+      v22 = v41[1];
+      v21 = v41 + 1;
+      v22(v38, v44);
+      return (v22)(v40, v44);
     }
 
-    outlined destroy of Date?(v23);
-    (v36[1])(v35, v39);
+    outlined destroy of Date?(v28);
+    (v41[1])(v40, v44);
     goto LABEL_7;
   }
 
@@ -3115,7 +3112,7 @@ unint64_t type metadata accessor for HKHealthStore()
   return v2;
 }
 
-uint64_t NightingaleDPFLRunner.init(useCase:query:)(char *a1, uint64_t a2)
+uint64_t NightingaleDPFLRunner.init(useCase:query:)(char *a1, void *a2)
 {
   v10 = 0;
   v9 = 0;
@@ -3134,9 +3131,9 @@ uint64_t NightingaleDPFLRunner.init(useCase:query:)(char *a1, uint64_t a2)
   return v6;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v2 = *(a1 + 24);
+  v2 = a1[3];
   if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
   }
@@ -3275,7 +3272,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)(uint64_t a1, uint64_t 
   *(v5 + 3552) = *(v6 - 8);
   *(v5 + 3560) = swift_task_alloc();
   *(v5 + 3568) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24PrivateFederatedLearning8PFLErrorOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24PrivateFederatedLearning8PFLErrorOSgMd, &_s24PrivateFederatedLearning8PFLErrorOSgMR);
   *(v5 + 3576) = swift_task_alloc();
   v7 = type metadata accessor for PFLError();
   *(v5 + 3584) = v7;
@@ -3286,7 +3283,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)(uint64_t a1, uint64_t 
   *(v5 + 3616) = v8;
   *(v5 + 3624) = *(v8 - 8);
   *(v5 + 3632) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
   *(v5 + 3640) = swift_task_alloc();
   v9 = type metadata accessor for PFLStats.StdMethod();
   *(v5 + 3648) = v9;
@@ -3336,7 +3333,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   v35[2] = v32;
   v35[3] = v33;
   v35[4] = v34;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo46NgtMenstrualAlgorithmsDayStreamProcessorConfigC_S2dSo0abc7MLModelG0CtMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo46NgtMenstrualAlgorithmsDayStreamProcessorConfigC_S2dSo0abc7MLModelG0CtMd, &_sSo46NgtMenstrualAlgorithmsDayStreamProcessorConfigC_S2dSo0abc7MLModelG0CtMR);
   NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(2, 1, v35, v6, v0 + 1952);
 
   v27 = *(v31 + 1952);
@@ -3361,7 +3358,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   v10 = HyperParams.pflTaskType.getter();
   *(v31 + 4359) = v10;
   *(v31 + 4352) = v10;
-  v30 = PFLTask.trainingModelPath(taskType:hyperParams:)();
+  v30 = PFLTask.trainingModelPath(taskType:hyperParams:)(v10, v33);
   *(v31 + 3752) = v30;
   *(v31 + 3760) = v11;
   v24 = *(v31 + 3688);
@@ -3395,32 +3392,32 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   else
   {
     v18 = *(v31 + 3536);
-    *(v31 + 3768) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_s5UInt8VtMd);
+    *(v31 + 3768) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_s5UInt8VtMd, &_ss6UInt32V_s5UInt8VtMR);
     _allocateUninitializedArray<A>(_:)();
     *(v31 + 2720) = Dictionary.init(dictionaryLiteral:)();
     _allocateUninitializedArray<A>(_:)();
     *(v31 + 2728) = Dictionary.init(dictionaryLiteral:)();
-    *(v31 + 3776) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_SbtMd);
+    *(v31 + 3776) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_SbtMd, &_ss6UInt32V_SbtMR);
     _allocateUninitializedArray<A>(_:)();
     *(v31 + 2736) = Dictionary.init(dictionaryLiteral:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8V_Says6UInt32V5start_AD3endtGtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8V_Says6UInt32V5start_AD3endtGtMd, &_ss5UInt8V_Says6UInt32V5start_AD3endtGtMR);
     _allocateUninitializedArray<A>(_:)();
-    *(v31 + 3784) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd);
+    *(v31 + 3784) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd, &_sSays6UInt32V5start_AB3endtGMR);
     *(v31 + 2744) = Dictionary.init(dictionaryLiteral:)();
-    *(v31 + 3792) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_Sf_SSttMd);
+    *(v31 + 3792) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_Sf_SSttMd, &_ss6UInt32V_Sf_SSttMR);
     _allocateUninitializedArray<A>(_:)();
-    *(v31 + 3800) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf_SStMd);
+    *(v31 + 3800) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf_SStMd, &_sSf_SStMR);
     *(v31 + 2752) = Dictionary.init(dictionaryLiteral:)();
     *(v31 + 2760) = Dictionary.init()();
     *(v31 + 2768) = Dictionary.init()();
     *(v31 + 2776) = Dictionary.init()();
     *(v31 + 2784) = Dictionary.init()();
     *(v31 + 2792) = Dictionary.init()();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_Sf15periodStartMean_Sf0bC3StdttMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_Sf15periodStartMean_Sf0bC3StdttMd, &_ss6UInt32V_Sf15periodStartMean_Sf0bC3StdttMR);
     _allocateUninitializedArray<A>(_:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf15periodStartMean_Sf0aB3StdtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf15periodStartMean_Sf0aB3StdtMd, &_sSf15periodStartMean_Sf0aB3StdtMR);
     *(v31 + 2800) = Dictionary.init(dictionaryLiteral:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endtMd, &_ss6UInt32V5start_AB3endtMR);
     *(v31 + 2808) = _allocateUninitializedArray<A>(_:)();
     NightingaleDPFLRunner.performanceMeasure.getter();
     String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryPregnancies", 0x10uLL, 1);
@@ -3436,7 +3433,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
     *(v20 + 24) = v19;
     v13 = swift_task_alloc();
     *(v31 + 3824) = v13;
-    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_SiSay19NightingaleTraining9Pregnancy_pGs6UInt32VtMd);
+    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_SiSay19NightingaleTraining9Pregnancy_pGs6UInt32VtMd, &_sSi_SiSay19NightingaleTraining9Pregnancy_pGs6UInt32VtMR);
     *v13 = *(v31 + 2632);
     v13[1] = NightingaleDPFLRunner.run(task:useCase:context:);
 
@@ -3510,7 +3507,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   *(v19 + 24) = v14;
   *(v19 + 32) = v15;
   *(v19 + 36) = v16;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGMd, &_sSDy19NightingaleTraining23HealthDataRawSampleTypeOAA0cD11QueryResult_pGMR);
   *(v0 + 3888) = v20;
   v18 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
   v5 = swift_task_alloc();
@@ -3564,7 +3561,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   v47 = *(v0 + 3336);
   *(v0 + 3352) = v47;
   *(v0 + 4349) = 7;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21HealthDataQueryResult_pMd);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21HealthDataQueryResult_pMd, &_s19NightingaleTraining21HealthDataQueryResult_pMR);
   v1 = lazy protocol witness table accessor for type HealthDataRawSampleType and conformance HealthDataRawSampleType();
   MEMORY[0x25F8891D0](v0 + 4349, v47, &type metadata for HealthDataRawSampleType, v48, v1);
   if (*(v0 + 1736))
@@ -3576,12 +3573,12 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
     *(v46 + 2200) = swift_getAssociatedTypeWitness();
     __swift_allocate_boxed_opaque_existential_0((v46 + 2176));
     v44(v45, v43);
-    __swift_destroy_boxed_opaque_existential_1(v46 + 1712);
+    __swift_destroy_boxed_opaque_existential_1((v46 + 1712));
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v46 + 1712);
+    outlined destroy of Pregnancy?((v46 + 1712));
     *(v46 + 2176) = 0;
     *(v46 + 2184) = 0;
     *(v46 + 2192) = 0;
@@ -3590,7 +3587,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
 
   if (*(v46 + 2200))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd, &_sSDys6UInt32VSf_SStGMR);
     if (swift_dynamicCast())
     {
       v42 = *(v46 + 3376);
@@ -3606,7 +3603,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
 
   else
   {
-    outlined destroy of Pregnancy?(v46 + 2176);
+    outlined destroy of Pregnancy?((v46 + 2176));
     v41 = 0;
   }
 
@@ -3622,7 +3619,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   }
 
   v2 = *(v46 + 4080);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd, &_sSDys6UInt32VSf_SStGMR);
   result = Dictionary.merge(_:uniquingKeysWith:)();
   if (!v2)
   {
@@ -3669,7 +3666,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
       lazy protocol witness table accessor for type UInt32 and conformance UInt32();
       Float.init<A>(_:)();
       v27 = (v38 / v6) * 100.0;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
       _allocateUninitializedArray<A>(_:)();
       v24 = v7;
       v8 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
@@ -4083,7 +4080,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
   *(v39 + 104) = v44 + 343;
   *(v39 + 112) = v42;
   *(v39 + 120) = v43;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
   NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v331, v45, (v424 + 2));
   v332 = v36;
   if (v36)
@@ -4152,7 +4149,7 @@ uint64_t NightingaleDPFLRunner.run(task:useCase:context:)()
 
   v318 = v424 + 392;
   v424[392] = v267;
-  v292 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  v292 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   v293 = _allocateUninitializedArray<A>(_:)();
   v290 = v47;
   v48 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
@@ -4488,7 +4485,7 @@ LABEL_35:
       *(v110 + 88) = v114;
       v116 = swift_task_alloc();
       v424[528] = v116;
-      v117 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
+      v117 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
       v118 = v424;
       v10 = v427;
       v11 = v170;
@@ -4542,7 +4539,7 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v207 = PFLTask.evalModelNames(taskType:hyperParams:)();
+  v207 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v424 + 4359), v424[462]);
   v208 = v324;
   if (v324)
   {
@@ -4923,7 +4920,7 @@ LABEL_28:
   *(v29 + 104) = v34 + 2744;
   *(v29 + 112) = v32;
   *(v29 + 120) = v33;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
   NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v321, v35, v379 + 16);
   v322 = v26;
   if (v26)
@@ -4992,7 +4989,7 @@ LABEL_28:
 
   v308 = v379 + 3136;
   *(v379 + 3136) = v257;
-  v282 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  v282 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   v283 = _allocateUninitializedArray<A>(_:)();
   v280 = v37;
   v38 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
@@ -5328,7 +5325,7 @@ LABEL_31:
       *(v100 + 88) = v104;
       v106 = swift_task_alloc();
       *(v379 + 4224) = v106;
-      v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
+      v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
       v108 = v379;
       v12 = v382;
       v13 = v160;
@@ -5382,7 +5379,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v197 = PFLTask.evalModelNames(taskType:hyperParams:)();
+  v197 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v379 + 4359), *(v379 + 3696));
   v198 = v314;
   if (v314)
   {
@@ -5684,7 +5681,7 @@ LABEL_24:
   *(v10 + 104) = v15 + 343;
   *(v10 + 112) = v13;
   *(v10 + 120) = v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
   NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v305, v16, (v325 + 2));
   v306 = v7;
   if (v7)
@@ -5753,7 +5750,7 @@ LABEL_24:
 
   v292 = v325 + 392;
   v325[392] = v241;
-  v266 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  v266 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   v267 = _allocateUninitializedArray<A>(_:)();
   v264 = v18;
   v19 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
@@ -6046,7 +6043,7 @@ LABEL_24:
   *(v79 + 4324) = 1;
   if (== infix<A>(_:_:)())
   {
-    v181 = PFLTask.evalModelNames(taskType:hyperParams:)();
+    v181 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v325 + 4359), v325[462]);
     v182 = v298;
     if (!v298)
     {
@@ -6251,7 +6248,7 @@ LABEL_27:
   *(v81 + 88) = v85;
   v87 = swift_task_alloc();
   v325[528] = v87;
-  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
+  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
   v89 = v325;
   v90 = v315;
   v91 = v144;
@@ -6289,13 +6286,13 @@ LABEL_27:
   *(v0 + 3152) = Array.init()();
   outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v0 + 184), (v0 + 520));
   *(v0 + 3160) = *(v0 + 328);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd, &_sSays6UInt32VGMR);
   lazy protocol witness table accessor for type [UInt32] and conformance [A]();
   Collection<>.makeIterator()();
 
   for (i = *(v0 + 4232); ; i = 0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySays6UInt32VGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySays6UInt32VGGMd, &_ss16IndexingIteratorVySays6UInt32VGGMR);
     IndexingIterator.next()();
     v37 = *(v38 + 2460);
     if (*(v38 + 2464))
@@ -6323,13 +6320,13 @@ LABEL_21:
 
     if (v37 < v35)
     {
-      return _assertionFailure(_:_:file:line:flags:)();
+      return _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/ClosedRange.swift", 23, 2, 409, 0);
     }
 
     *(v38 + 2444) = v35;
     *(v38 + 2448) = v37;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShys6UInt32VGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNys6UInt32VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShys6UInt32VGMd, &_sShys6UInt32VGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNys6UInt32VGMd, &_sSNys6UInt32VGMR);
     lazy protocol witness table accessor for type ClosedRange<UInt32> and conformance <> ClosedRange<A>();
     Set.formUnion<A>(_:)();
     v30 = *(v38 + 2752);
@@ -6337,7 +6334,7 @@ LABEL_21:
     *(v38 + 3176) = v30;
     v31 = swift_task_alloc();
     *(v31 + 16) = v38 + 3168;
-    v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd);
+    v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd, &_sSDys6UInt32VSf_SStGMR);
     v2 = lazy protocol witness table accessor for type [UInt32 : (Float, String)] and conformance [A : B]();
     result = _sSTsE5count5whereSiSb7ElementQzqd__YKXE_tqd__YKs5ErrorRd__lF(partial apply for closure #39 in NightingaleDPFLRunner.run(task:useCase:context:), v31, v32, MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v33);
     v34 = result;
@@ -6348,7 +6345,7 @@ LABEL_21:
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
     *(v38 + 2468) = v34;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
     Array.append(_:)();
     outlined destroy of [(start: UInt32, end: UInt32)]();
   }
@@ -6530,7 +6527,7 @@ LABEL_21:
   Array.init(repeating:count:)();
   v29 = static Array.+ infix(_:_:)();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   _allocateUninitializedArray<A>(_:)();
   v24 = v2;
   v3 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
@@ -6718,631 +6715,628 @@ LABEL_21:
   return v1();
 }
 
-uint64_t NightingaleDPFLRunner.run(task:useCase:context:)(uint64_t a1)
+uint64_t NightingaleDPFLRunner.run(task:useCase:context:)(uint64_t a1, uint64_t a2)
 {
-  v721 = v1;
-  MEMORY[0x28223BE20](a1);
-  v690 = v1;
-  v691 = closure #4 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v692 = closure #4 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v693 = closure #6 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v694 = closure #7 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v695 = closure #19 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v696 = "Fatal error";
-  v697 = "Range requires lowerBound <= upperBound";
-  v698 = "Swift/Range.swift";
-  v699 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v700 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v701 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v702 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v703 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v704 = "Swift/ClosedRange.swift";
-  v705 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v706 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v707 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v708 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v709 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v710 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
-  *(v1 + 2632) = v1;
-  v711 = *(v1 + 3200);
-  v715 = v1 + 3216;
-  *(v1 + 3216) = v711;
-  v713 = v1 + 4335;
-  *(v1 + 4335) = 0;
-  v712 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21HealthDataQueryResult_pMd);
-  v714 = lazy protocol witness table accessor for type HealthDataRawSampleType and conformance HealthDataRawSampleType();
-  MEMORY[0x25F8891D0](v713, v711, &type metadata for HealthDataRawSampleType, v712);
-  if (*(v1 + 1416))
+  v708 = v2;
+  MEMORY[0x28223BE20](a1, a2);
+  v677 = v2;
+  v678 = closure #4 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v679 = closure #4 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v680 = closure #6 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v681 = closure #7 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v682 = closure #19 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v683 = "Fatal error";
+  v684 = "Range requires lowerBound <= upperBound";
+  v685 = "Swift/Range.swift";
+  v686 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v687 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v688 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v689 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v690 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v691 = "Swift/ClosedRange.swift";
+  v692 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v693 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v694 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v695 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v696 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v697 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
+  *(v2 + 2632) = v2;
+  v698 = *(v2 + 3200);
+  v702 = v2 + 3216;
+  *(v2 + 3216) = v698;
+  v700 = v2 + 4335;
+  *(v2 + 4335) = 0;
+  v699 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21HealthDataQueryResult_pMd, &_s19NightingaleTraining21HealthDataQueryResult_pMR);
+  v701 = lazy protocol witness table accessor for type HealthDataRawSampleType and conformance HealthDataRawSampleType();
+  MEMORY[0x25F8891D0](v700, v698, &type metadata for HealthDataRawSampleType, v699);
+  if (*(v2 + 1416))
   {
-    v688 = *(v690 + 1416);
-    v685 = *(v690 + 1424);
-    v689 = v690 + 1392;
-    __swift_project_boxed_opaque_existential_1((v690 + 1392), v688);
-    v687 = *(v685 + 16);
-    v686 = v685 + 16;
+    v675 = *(v677 + 1416);
+    v672 = *(v677 + 1424);
+    v676 = (v677 + 1392);
+    __swift_project_boxed_opaque_existential_1((v677 + 1392), v675);
+    v674 = *(v672 + 16);
+    v673 = v672 + 16;
     AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    v3 = v690;
-    *(v690 + 2008) = AssociatedTypeWitness;
-    __swift_allocate_boxed_opaque_existential_0((v3 + 1984));
-    v687(v688, v685);
-    __swift_destroy_boxed_opaque_existential_1(v689);
+    v4 = v677;
+    *(v677 + 2008) = AssociatedTypeWitness;
+    __swift_allocate_boxed_opaque_existential_0((v4 + 1984));
+    v674(v675, v672);
+    __swift_destroy_boxed_opaque_existential_1(v676);
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v690 + 1392);
-    v34 = v690;
-    *(v690 + 1984) = 0;
-    v34[249] = 0;
-    v34[250] = 0;
-    v34[251] = 0;
+    outlined destroy of Pregnancy?((v677 + 1392));
+    v35 = v677;
+    *(v677 + 1984) = 0;
+    v35[249] = 0;
+    v35[250] = 0;
+    v35[251] = 0;
   }
 
-  if (*(v690 + 2008))
+  if (*(v677 + 2008))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32Vs5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32Vs5UInt8VGMd, &_sSDys6UInt32Vs5UInt8VGMR);
     if (swift_dynamicCast())
     {
-      v684 = *(v690 + 3312);
+      v671 = *(v677 + 3312);
     }
 
     else
     {
-      v684 = 0;
+      v671 = 0;
     }
 
-    v683 = v684;
+    v670 = v671;
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v690 + 1984);
-    v683 = 0;
+    outlined destroy of Pregnancy?((v677 + 1984));
+    v670 = 0;
   }
 
-  v4 = v690;
-  *(v690 + 3224) = v683;
-  if (*(v4 + 3224))
+  v5 = v677;
+  *(v677 + 3224) = v670;
+  if (*(v5 + 3224))
   {
-    v716 = *(v690 + 3224);
+    v703 = *(v677 + 3224);
   }
 
   else
   {
     _allocateUninitializedArray<A>(_:)();
-    v716 = Dictionary.init(dictionaryLiteral:)();
-    if (*(v690 + 3224))
+    v703 = Dictionary.init(dictionaryLiteral:)();
+    if (*(v677 + 3224))
     {
       outlined destroy of [(start: UInt32, end: UInt32)]();
     }
   }
 
-  v5 = *(v690 + 4104);
-  v680 = v716;
-  v681 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32Vs5UInt8VGMd);
+  v6 = *(v677 + 4104);
+  v667 = v703;
+  v668 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32Vs5UInt8VGMd, &_sSDys6UInt32Vs5UInt8VGMR);
   result = Dictionary.merge(_:uniquingKeysWith:)();
-  v682 = v5;
-  if (!v5)
+  v669 = v6;
+  if (!v6)
   {
-    *(v690 + 4340) = 2;
+    *(v677 + 4340) = 2;
     MEMORY[0x25F8891D0]();
-    if (*(v690 + 1456))
+    if (*(v677 + 1456))
     {
-      v678 = *(v690 + 1456);
-      v675 = *(v690 + 1464);
-      v679 = v690 + 1432;
-      __swift_project_boxed_opaque_existential_1((v690 + 1432), v678);
-      v677 = *(v675 + 16);
-      v676 = v675 + 16;
-      v7 = swift_getAssociatedTypeWitness();
-      v8 = v690;
-      *(v690 + 2040) = v7;
-      __swift_allocate_boxed_opaque_existential_0((v8 + 2016));
-      v677(v678, v675);
-      __swift_destroy_boxed_opaque_existential_1(v679);
+      v665 = *(v677 + 1456);
+      v662 = *(v677 + 1464);
+      v666 = (v677 + 1432);
+      __swift_project_boxed_opaque_existential_1((v677 + 1432), v665);
+      v664 = *(v662 + 16);
+      v663 = v662 + 16;
+      v8 = swift_getAssociatedTypeWitness();
+      v9 = v677;
+      *(v677 + 2040) = v8;
+      __swift_allocate_boxed_opaque_existential_0((v9 + 2016));
+      v664(v665, v662);
+      __swift_destroy_boxed_opaque_existential_1(v666);
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v690 + 1432);
-      v33 = v690;
-      *(v690 + 2016) = 0;
-      v33[253] = 0;
-      v33[254] = 0;
-      v33[255] = 0;
+      outlined destroy of Pregnancy?((v677 + 1432));
+      v34 = v677;
+      *(v677 + 2016) = 0;
+      v34[253] = 0;
+      v34[254] = 0;
+      v34[255] = 0;
     }
 
-    if (*(v690 + 2040))
+    if (*(v677 + 2040))
     {
-      v674 = (swift_dynamicCast() & 1) != 0 ? *(v690 + 3304) : 0;
-      v673 = v674;
+      v661 = (swift_dynamicCast() & 1) != 0 ? *(v677 + 3304) : 0;
+      v660 = v661;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v690 + 2016);
-      v673 = 0;
+      outlined destroy of Pregnancy?((v677 + 2016));
+      v660 = 0;
     }
 
-    v9 = v690;
-    *(v690 + 3232) = v673;
-    if (*(v9 + 3232))
+    v10 = v677;
+    *(v677 + 3232) = v660;
+    if (*(v10 + 3232))
     {
-      v717 = *(v690 + 3232);
+      v704 = *(v677 + 3232);
     }
 
     else
     {
       _allocateUninitializedArray<A>(_:)();
-      v717 = Dictionary.init(dictionaryLiteral:)();
-      if (*(v690 + 3232))
+      v704 = Dictionary.init(dictionaryLiteral:)();
+      if (*(v677 + 3232))
       {
         outlined destroy of [(start: UInt32, end: UInt32)]();
       }
     }
 
     result = Dictionary.merge(_:uniquingKeysWith:)();
-    v672 = v682;
-    if (!v682)
+    v659 = v669;
+    if (!v669)
     {
-      *(v690 + 4341) = 1;
+      *(v677 + 4341) = 1;
       MEMORY[0x25F8891D0]();
-      if (*(v690 + 1496))
+      if (*(v677 + 1496))
       {
-        v670 = *(v690 + 1496);
-        v667 = *(v690 + 1504);
-        v671 = v690 + 1472;
-        __swift_project_boxed_opaque_existential_1((v690 + 1472), v670);
-        v669 = *(v667 + 16);
-        v668 = v667 + 16;
-        v10 = swift_getAssociatedTypeWitness();
-        v11 = v690;
-        *(v690 + 2072) = v10;
-        __swift_allocate_boxed_opaque_existential_0((v11 + 2048));
-        v669(v670, v667);
-        __swift_destroy_boxed_opaque_existential_1(v671);
+        v657 = *(v677 + 1496);
+        v654 = *(v677 + 1504);
+        v658 = (v677 + 1472);
+        __swift_project_boxed_opaque_existential_1((v677 + 1472), v657);
+        v656 = *(v654 + 16);
+        v655 = v654 + 16;
+        v11 = swift_getAssociatedTypeWitness();
+        v12 = v677;
+        *(v677 + 2072) = v11;
+        __swift_allocate_boxed_opaque_existential_0((v12 + 2048));
+        v656(v657, v654);
+        __swift_destroy_boxed_opaque_existential_1(v658);
       }
 
       else
       {
-        outlined destroy of Pregnancy?(v690 + 1472);
-        v32 = v690;
-        *(v690 + 2048) = 0;
-        v32[257] = 0;
-        v32[258] = 0;
-        v32[259] = 0;
+        outlined destroy of Pregnancy?((v677 + 1472));
+        v33 = v677;
+        *(v677 + 2048) = 0;
+        v33[257] = 0;
+        v33[258] = 0;
+        v33[259] = 0;
       }
 
-      if (*(v690 + 2072))
+      if (*(v677 + 2072))
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSbGMd);
-        v666 = (swift_dynamicCast() & 1) != 0 ? *(v690 + 3296) : 0;
-        v665 = v666;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSbGMd, &_sSDys6UInt32VSbGMR);
+        v653 = (swift_dynamicCast() & 1) != 0 ? *(v677 + 3296) : 0;
+        v652 = v653;
       }
 
       else
       {
-        outlined destroy of Pregnancy?(v690 + 2048);
-        v665 = 0;
+        outlined destroy of Pregnancy?((v677 + 2048));
+        v652 = 0;
       }
 
-      v12 = v690;
-      *(v690 + 3240) = v665;
-      if (*(v12 + 3240))
+      v13 = v677;
+      *(v677 + 3240) = v652;
+      if (*(v13 + 3240))
       {
-        v718 = *(v690 + 3240);
+        v705 = *(v677 + 3240);
       }
 
       else
       {
         _allocateUninitializedArray<A>(_:)();
-        v718 = Dictionary.init(dictionaryLiteral:)();
-        if (*(v690 + 3240))
+        v705 = Dictionary.init(dictionaryLiteral:)();
+        if (*(v677 + 3240))
         {
           outlined destroy of [(start: UInt32, end: UInt32)]();
         }
       }
 
-      v663 = v718;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSbGMd);
+      v650 = v705;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSbGMd, &_sSDys6UInt32VSbGMR);
       result = Dictionary.merge(_:uniquingKeysWith:)();
-      v664 = v672;
-      if (!v672)
+      v651 = v659;
+      if (!v659)
       {
-        *(v690 + 4342) = 3;
+        *(v677 + 4342) = 3;
         MEMORY[0x25F8891D0]();
-        if (*(v690 + 1536))
+        if (*(v677 + 1536))
         {
-          v661 = *(v690 + 1536);
-          v658 = *(v690 + 1544);
-          v662 = v690 + 1512;
-          __swift_project_boxed_opaque_existential_1((v690 + 1512), v661);
-          v660 = *(v658 + 16);
-          v659 = v658 + 16;
-          v13 = swift_getAssociatedTypeWitness();
-          v14 = v690;
-          *(v690 + 2104) = v13;
-          __swift_allocate_boxed_opaque_existential_0((v14 + 2080));
-          v660(v661, v658);
-          __swift_destroy_boxed_opaque_existential_1(v662);
+          v648 = *(v677 + 1536);
+          v645 = *(v677 + 1544);
+          v649 = (v677 + 1512);
+          __swift_project_boxed_opaque_existential_1((v677 + 1512), v648);
+          v647 = *(v645 + 16);
+          v646 = v645 + 16;
+          v14 = swift_getAssociatedTypeWitness();
+          v15 = v677;
+          *(v677 + 2104) = v14;
+          __swift_allocate_boxed_opaque_existential_0((v15 + 2080));
+          v647(v648, v645);
+          __swift_destroy_boxed_opaque_existential_1(v649);
         }
 
         else
         {
-          outlined destroy of Pregnancy?(v690 + 1512);
-          v31 = v690;
-          *(v690 + 2080) = 0;
-          v31[261] = 0;
-          v31[262] = 0;
-          v31[263] = 0;
+          outlined destroy of Pregnancy?((v677 + 1512));
+          v32 = v677;
+          *(v677 + 2080) = 0;
+          v32[261] = 0;
+          v32[262] = 0;
+          v32[263] = 0;
         }
 
-        if (*(v690 + 2104))
+        if (*(v677 + 2104))
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys5UInt8VSays6UInt32V_ADtGGMd);
-          v657 = (swift_dynamicCast() & 1) != 0 ? *(v690 + 3288) : 0;
-          v656 = v657;
-        }
-
-        else
-        {
-          outlined destroy of Pregnancy?(v690 + 2080);
-          v656 = 0;
-        }
-
-        v15 = v690;
-        *(v690 + 3248) = v656;
-        if (*(v15 + 3248))
-        {
-          v719 = *(v690 + 3248);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys5UInt8VSays6UInt32V_ADtGGMd, &_sSDys5UInt8VSays6UInt32V_ADtGGMR);
+          v644 = (swift_dynamicCast() & 1) != 0 ? *(v677 + 3288) : 0;
+          v643 = v644;
         }
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8V_Says6UInt32V_ADtGtMd);
-          v655 = _allocateUninitializedArray<A>(_:)();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V_ABtGMd);
-          v719 = Dictionary.init(dictionaryLiteral:)();
-          if (*(v690 + 3248))
+          outlined destroy of Pregnancy?((v677 + 2080));
+          v643 = 0;
+        }
+
+        v16 = v677;
+        *(v677 + 3248) = v643;
+        if (*(v16 + 3248))
+        {
+          v706 = *(v677 + 3248);
+        }
+
+        else
+        {
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8V_Says6UInt32V_ADtGtMd, &_ss5UInt8V_Says6UInt32V_ADtGtMR);
+          v642 = _allocateUninitializedArray<A>(_:)();
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V_ABtGMd, &_sSays6UInt32V_ABtGMR);
+          v706 = Dictionary.init(dictionaryLiteral:)();
+          if (*(v677 + 3248))
           {
             outlined destroy of [(start: UInt32, end: UInt32)]();
           }
         }
 
-        v651 = *(v690 + 3784);
-        v652 = v719;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V_ABtGMd);
-        v653 = _dictionaryUpCast<A, B, C, D>(_:)();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys5UInt8VSays6UInt32V5start_AD3endtGGMd);
+        v638 = *(v677 + 3784);
+        v639 = v706;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V_ABtGMd, &_sSays6UInt32V_ABtGMR);
+        v640 = _dictionaryUpCast<A, B, C, D>(_:)();
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys5UInt8VSays6UInt32V5start_AD3endtGGMd, &_sSDys5UInt8VSays6UInt32V5start_AD3endtGGMR);
         result = Dictionary.merge(_:uniquingKeysWith:)();
-        v654 = v664;
-        if (!v664)
+        v641 = v651;
+        if (!v651)
         {
 
-          *(v690 + 4343) = 7;
+          *(v677 + 4343) = 7;
           MEMORY[0x25F8891D0]();
-          if (*(v690 + 1576))
+          if (*(v677 + 1576))
           {
-            v649 = *(v690 + 1576);
-            v646 = *(v690 + 1584);
-            v650 = v690 + 1552;
-            __swift_project_boxed_opaque_existential_1((v690 + 1552), v649);
-            v648 = *(v646 + 16);
-            v647 = v646 + 16;
-            v16 = swift_getAssociatedTypeWitness();
-            v17 = v690;
-            *(v690 + 2136) = v16;
-            __swift_allocate_boxed_opaque_existential_0((v17 + 2112));
-            v648(v649, v646);
-            __swift_destroy_boxed_opaque_existential_1(v650);
+            v636 = *(v677 + 1576);
+            v633 = *(v677 + 1584);
+            v637 = (v677 + 1552);
+            __swift_project_boxed_opaque_existential_1((v677 + 1552), v636);
+            v635 = *(v633 + 16);
+            v634 = v633 + 16;
+            v17 = swift_getAssociatedTypeWitness();
+            v18 = v677;
+            *(v677 + 2136) = v17;
+            __swift_allocate_boxed_opaque_existential_0((v18 + 2112));
+            v635(v636, v633);
+            __swift_destroy_boxed_opaque_existential_1(v637);
           }
 
           else
           {
-            outlined destroy of Pregnancy?(v690 + 1552);
-            v30 = v690;
-            *(v690 + 2112) = 0;
-            v30[265] = 0;
-            v30[266] = 0;
-            v30[267] = 0;
+            outlined destroy of Pregnancy?((v677 + 1552));
+            v31 = v677;
+            *(v677 + 2112) = 0;
+            v31[265] = 0;
+            v31[266] = 0;
+            v31[267] = 0;
           }
 
-          if (*(v690 + 2136))
+          if (*(v677 + 2136))
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd);
-            v645 = (swift_dynamicCast() & 1) != 0 ? *(v690 + 3280) : 0;
-            v644 = v645;
-          }
-
-          else
-          {
-            outlined destroy of Pregnancy?(v690 + 2112);
-            v644 = 0;
-          }
-
-          v18 = v690;
-          *(v690 + 3256) = v644;
-          if (*(v18 + 3256))
-          {
-            v720 = *(v690 + 3256);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd, &_sSDys6UInt32VSf_SStGMR);
+            v632 = (swift_dynamicCast() & 1) != 0 ? *(v677 + 3280) : 0;
+            v631 = v632;
           }
 
           else
           {
-            v643 = *(v690 + 3800);
+            outlined destroy of Pregnancy?((v677 + 2112));
+            v631 = 0;
+          }
+
+          v19 = v677;
+          *(v677 + 3256) = v631;
+          if (*(v19 + 3256))
+          {
+            v707 = *(v677 + 3256);
+          }
+
+          else
+          {
+            v630 = *(v677 + 3800);
             _allocateUninitializedArray<A>(_:)();
-            v720 = Dictionary.init(dictionaryLiteral:)();
-            if (*(v690 + 3256))
+            v707 = Dictionary.init(dictionaryLiteral:)();
+            if (*(v677 + 3256))
             {
               outlined destroy of [(start: UInt32, end: UInt32)]();
             }
           }
 
-          v641 = v720;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd);
+          v628 = v707;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys6UInt32VSf_SStGMd, &_sSDys6UInt32VSf_SStGMR);
           result = Dictionary.merge(_:uniquingKeysWith:)();
-          v642 = v654;
-          if (!v654)
+          v629 = v641;
+          if (!v641)
           {
-            v638 = *(v690 + 3920);
-            v639 = *(v690 + 2928);
+            v625 = *(v677 + 3920);
+            v626 = *(v677 + 2928);
 
-            v640 = MEMORY[0x25F8895B0](v639, v638);
+            v627 = MEMORY[0x25F8895B0](v626, v625);
 
-            if (v640 < 0)
+            if (v627 < 0)
             {
-              LOBYTE(v179) = 2;
-              v180 = 760;
-              LODWORD(v181) = 0;
-              return _assertionFailure(_:_:file:line:flags:)();
+              return _assertionFailure(_:_:file:line:flags:)(v683, 11, 2, v684, 39, 2, v685, 17, 2, 760, 0);
             }
 
-            v19 = v690;
-            v20 = v640;
-            *(v690 + 2584) = 0;
-            *(v19 + 2592) = v20;
+            v20 = v677;
+            v21 = v627;
+            *(v677 + 2584) = 0;
+            *(v20 + 2592) = v21;
             Collection<>.makeIterator()();
-            for (i = v642; ; i = 0)
+            for (i = v629; ; i = 0)
             {
-              v634 = i;
-              v635 = v690 + 2616;
+              v621 = i;
+              v622 = v677 + 2616;
               IndexingIterator.next()();
-              v636 = *(v690 + 2616);
-              if (*(v690 + 2624))
+              v623 = *(v677 + 2616);
+              if (*(v677 + 2624))
               {
                 break;
               }
 
-              v21 = v634;
-              v22 = v690;
-              v624 = *(v690 + 3920);
-              v625 = v690 + 3264;
-              *(v690 + 3264) = v636;
-              v626 = *(v22 + 2720);
+              v22 = v621;
+              v23 = v677;
+              v611 = *(v677 + 3920);
+              v612 = v677 + 3264;
+              *(v677 + 3264) = v623;
+              v613 = *(v23 + 2720);
 
-              v627 = *(v690 + 2728);
+              v614 = *(v677 + 2728);
 
-              v628 = *(v690 + 2736);
+              v615 = *(v677 + 2736);
 
-              v629 = *(v690 + 2744);
+              v616 = *(v677 + 2744);
 
-              v630 = *(v690 + 2752);
+              v617 = *(v677 + 2752);
 
-              v631 = v690 + 1592;
+              v618 = v677 + 1592;
               Array.subscript.getter();
-              v23._rawValue = v626;
-              v24._rawValue = v627;
-              v25._rawValue = v628;
-              v26._rawValue = v629;
-              v27._rawValue = v630;
-              v632 = CalendarPeriodPrediction.predictOvu(flow:otr:spotting:cycleFactors:swt:pregnancy:)(v23, v24, v25, v26, v27, (v690 + 1592));
-              v633 = v21;
-              if (v21)
+              v24._rawValue = v613;
+              v25._rawValue = v614;
+              v26._rawValue = v615;
+              v27._rawValue = v616;
+              v28._rawValue = v617;
+              v619 = CalendarPeriodPrediction.predictOvu(flow:otr:spotting:cycleFactors:swt:pregnancy:)(v24, v25, v26, v27, v28, (v677 + 1592));
+              v620 = v22;
+              if (v22)
               {
-                v220 = *(v690 + 3696);
-                __swift_destroy_boxed_opaque_existential_1(v690 + 1592);
+                v207 = *(v677 + 3696);
+                __swift_destroy_boxed_opaque_existential_1((v677 + 1592));
 
-                v178 = v633;
-                v219 = v690 + 3272;
-                *(v690 + 3272) = v633;
+                v179 = v620;
+                v206 = v677 + 3272;
+                *(v677 + 3272) = v620;
 
                 static PFLUtils.throwIfFalse(error:for:)();
-                v221 = 0;
+                v208 = 0;
               }
 
               else
               {
-                v617 = *(v690 + 3968);
-                __swift_destroy_boxed_opaque_existential_1(v690 + 1592);
+                v604 = *(v677 + 3968);
+                __swift_destroy_boxed_opaque_existential_1((v677 + 1592));
 
-                v28 = v690;
-                v622 = v690 + 4328;
-                *(v690 + 4328) = v632;
-                v620 = v28 + 2144;
-                v621 = Array.subscript.modify();
-                v618 = *(v29 + 24);
-                v619 = *(v29 + 32);
-                __swift_mutable_project_boxed_opaque_existential_1(v29, v618);
-                (*(v619 + 120))(v632, 1, v618);
-                v621();
+                v29 = v677;
+                v609 = v677 + 4328;
+                *(v677 + 4328) = v619;
+                v607 = v29 + 2144;
+                v608 = Array.subscript.modify();
+                v605 = *(v30 + 24);
+                v606 = *(v30 + 32);
+                __swift_mutable_project_boxed_opaque_existential_1(v30, v605);
+                (*(v606 + 120))(v619, 1, v605);
+                v608();
               }
 
-              v623 = 0;
+              v610 = 0;
             }
 
-            v616 = v634;
-            v35 = v634;
-            v606 = v690 + 2640;
-            v607 = v690 + 2520;
-            v608 = v690 + 2648;
-            v609 = v690 + 2656;
-            v610 = v690 + 2664;
-            v611 = v690 + 2672;
-            v612 = v690 + 2680;
-            v613 = v690 + 2688;
-            v587 = v690 + 2696;
-            v614 = v690 + 2704;
-            v604 = v690 + 2712;
-            v589 = v690 + 4256;
-            v590 = v690 + 2840;
-            v591 = v690 + 2856;
-            v592 = v690 + 2888;
-            v593 = v690 + 2912;
-            v594 = v690 + 2952;
-            v595 = v690 + 2968;
-            v596 = v690 + 2984;
-            v597 = v690 + 3000;
-            v598 = v690 + 3016;
-            v599 = v690 + 3032;
-            v600 = v690 + 3048;
-            v601 = v690 + 3056;
-            v603 = *(v690 + 3976);
-            v602 = *(v690 + 3968);
-            v583 = *(v690 + 3536);
-            v581 = NightingaleDPFLRunner.performanceMeasure.getter();
-            v584 = 1;
+            v603 = v621;
+            v36 = v621;
+            v593 = v677 + 2640;
+            v594 = v677 + 2520;
+            v595 = v677 + 2648;
+            v596 = v677 + 2656;
+            v597 = v677 + 2664;
+            v598 = v677 + 2672;
+            v599 = v677 + 2680;
+            v600 = v677 + 2688;
+            v574 = v677 + 2696;
+            v601 = v677 + 2704;
+            v591 = v677 + 2712;
+            v576 = v677 + 4256;
+            v577 = v677 + 2840;
+            v578 = v677 + 2856;
+            v579 = v677 + 2888;
+            v580 = v677 + 2912;
+            v581 = v677 + 2952;
+            v582 = v677 + 2968;
+            v583 = v677 + 2984;
+            v584 = v677 + 3000;
+            v585 = v677 + 3016;
+            v586 = v677 + 3032;
+            v587 = v677 + 3048;
+            v588 = v677 + 3056;
+            v590 = *(v677 + 3976);
+            v589 = *(v677 + 3968);
+            v570 = *(v677 + 3536);
+            v568 = NightingaleDPFLRunner.performanceMeasure.getter();
+            v571 = 1;
             object = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
             dispatch thunk of PerformanceMeasure.finish(_:)();
-            v582 = v36;
-            *(v690 + 4112) = v36;
+            v569 = v37;
+            *(v677 + 4112) = v37;
 
-            v605 = v690 + 3064;
-            *(v690 + 3064) = v582;
-            v37 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-            NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v37);
-            v586 = NightingaleDPFLRunner.performanceMeasure.getter();
-            v585 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v584 & 1)._object;
+            v592 = v677 + 3064;
+            *(v677 + 3064) = v569;
+            v38 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+            NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v38);
+            v573 = NightingaleDPFLRunner.performanceMeasure.getter();
+            v572 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v571 & 1)._object;
             dispatch thunk of PerformanceMeasure.start(_:)();
 
-            v588 = *(v690 + 2928);
+            v575 = *(v677 + 2928);
 
-            *(v690 + 3072) = v588;
+            *(v677 + 3072) = v575;
             result = Sequence.min(by:)();
-            v615 = v35;
-            if (!v35)
+            v602 = v36;
+            if (!v36)
             {
               outlined destroy of [(start: UInt32, end: UInt32)]();
-              if (*(v690 + 1216))
+              if (*(v677 + 1216))
               {
-                v575 = *(v690 + 1216);
-                v574 = *(v690 + 1224);
-                v576 = v690 + 1192;
-                __swift_project_boxed_opaque_existential_1((v690 + 1192), v575);
-                v577 = (*(v574 + 64))(v575);
-                __swift_destroy_boxed_opaque_existential_1(v690 + 1192);
-                v578 = v577;
-                v579 = 0;
+                v562 = *(v677 + 1216);
+                v561 = *(v677 + 1224);
+                v563 = v677 + 1192;
+                __swift_project_boxed_opaque_existential_1((v677 + 1192), v562);
+                v564 = (*(v561 + 64))(v562);
+                __swift_destroy_boxed_opaque_existential_1((v677 + 1192));
+                v565 = v564;
+                v566 = 0;
               }
 
               else
               {
-                outlined destroy of Pregnancy?(v690 + 1192);
-                v578 = 0;
-                v579 = 1;
+                outlined destroy of Pregnancy?((v677 + 1192));
+                v565 = 0;
+                v566 = 1;
               }
 
-              v38 = v579;
-              v573 = v578;
-              *(v690 + 4284) = v578;
-              if (v38)
+              v39 = v566;
+              v560 = v565;
+              *(v677 + 4284) = v565;
+              if (v39)
               {
                 goto LABEL_146;
               }
 
-              v39 = v690;
-              v40 = v615;
-              v571 = *(v690 + 3976);
-              v570 = *(v690 + 3968);
-              v569 = v690 + 4264;
-              *(v690 + 4264) = v573;
-              v568 = *(v39 + 2928);
+              v40 = v677;
+              v41 = v602;
+              v558 = *(v677 + 3976);
+              v557 = *(v677 + 3968);
+              v556 = v677 + 4264;
+              *(v677 + 4264) = v560;
+              v555 = *(v40 + 2928);
 
-              *(v690 + 3080) = v568;
+              *(v677 + 3080) = v555;
               result = Sequence.max(by:)();
-              v572 = v40;
-              if (v40)
-              {
-                return result;
-              }
-
-              outlined destroy of [(start: UInt32, end: UInt32)]();
-              if (*(v690 + 1256))
-              {
-                v563 = *(v690 + 1256);
-                v562 = *(v690 + 1264);
-                v564 = v690 + 1232;
-                __swift_project_boxed_opaque_existential_1((v690 + 1232), v563);
-                v565 = (*(v562 + 64))(v563);
-                __swift_destroy_boxed_opaque_existential_1(v690 + 1232);
-                v566 = v565;
-                v567 = 0;
-              }
-
-              else
-              {
-                outlined destroy of Pregnancy?(v690 + 1232);
-                v566 = 0;
-                v567 = 1;
-              }
-
-              v41 = v567;
-              v561 = v566;
-              *(v690 + 4292) = v566;
+              v559 = v41;
               if (v41)
               {
+                return result;
+              }
+
+              outlined destroy of [(start: UInt32, end: UInt32)]();
+              if (*(v677 + 1256))
+              {
+                v550 = *(v677 + 1256);
+                v549 = *(v677 + 1264);
+                v551 = v677 + 1232;
+                __swift_project_boxed_opaque_existential_1((v677 + 1232), v550);
+                v552 = (*(v549 + 64))(v550);
+                __swift_destroy_boxed_opaque_existential_1((v677 + 1232));
+                v553 = v552;
+                v554 = 0;
+              }
+
+              else
+              {
+                outlined destroy of Pregnancy?((v677 + 1232));
+                v553 = 0;
+                v554 = 1;
+              }
+
+              v42 = v554;
+              v548 = v553;
+              *(v677 + 4292) = v553;
+              if (v42)
+              {
                 goto LABEL_146;
               }
 
-              v42 = v690;
-              v43 = v572;
-              v559 = *(v690 + 3976);
-              v558 = *(v690 + 3968);
-              v557 = v690 + 4272;
-              *(v690 + 4272) = v561;
-              v556 = *(v42 + 2928);
+              v43 = v677;
+              v44 = v559;
+              v546 = *(v677 + 3976);
+              v545 = *(v677 + 3968);
+              v544 = v677 + 4272;
+              *(v677 + 4272) = v548;
+              v543 = *(v43 + 2928);
 
-              *(v690 + 3088) = v556;
+              *(v677 + 3088) = v543;
               result = Sequence.min(by:)();
-              v560 = v43;
-              if (v43)
+              v547 = v44;
+              if (v44)
               {
                 return result;
               }
 
               outlined destroy of [(start: UInt32, end: UInt32)]();
-              if (*(v690 + 1296))
+              if (*(v677 + 1296))
               {
-                v551 = *(v690 + 1296);
-                v550 = *(v690 + 1304);
-                v552 = v690 + 1272;
-                __swift_project_boxed_opaque_existential_1((v690 + 1272), v551);
-                v553 = (*(v550 + 8))(v551);
-                __swift_destroy_boxed_opaque_existential_1(v690 + 1272);
-                v554 = v553;
-                v555 = 0;
+                v538 = *(v677 + 1296);
+                v537 = *(v677 + 1304);
+                v539 = v677 + 1272;
+                __swift_project_boxed_opaque_existential_1((v677 + 1272), v538);
+                v540 = (*(v537 + 8))(v538);
+                __swift_destroy_boxed_opaque_existential_1((v677 + 1272));
+                v541 = v540;
+                v542 = 0;
               }
 
               else
               {
-                outlined destroy of Pregnancy?(v690 + 1272);
-                v554 = 0;
-                v555 = 1;
+                outlined destroy of Pregnancy?((v677 + 1272));
+                v541 = 0;
+                v542 = 1;
               }
 
-              v549 = v554;
-              if (v555)
+              v536 = v541;
+              if (v542)
               {
 LABEL_146:
-                v231 = *(v690 + 3952);
-                v232 = *(v690 + 3872);
-                v233 = *(v690 + 3856);
-                v234 = *(v690 + 3760);
-                v235 = *(v690 + 3736);
-                v236 = *(v690 + 3712);
-                v237 = *(v690 + 3696);
+                v218 = *(v677 + 3952);
+                v219 = *(v677 + 3872);
+                v220 = *(v677 + 3856);
+                v221 = *(v677 + 3760);
+                v222 = *(v677 + 3736);
+                v223 = *(v677 + 3712);
+                v224 = *(v677 + 3696);
                 lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-                v238 = swift_allocError();
-                *v175 = 106;
+                v225 = swift_allocError();
+                *v176 = 106;
                 swift_willThrow();
                 outlined destroy of [(start: UInt32, end: UInt32)]();
                 outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -7362,345 +7356,342 @@ LABEL_146:
                 outlined destroy of [(start: UInt32, end: UInt32)]();
                 outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                MEMORY[0x277D82BD8](v235);
-                MEMORY[0x277D82BD8](v236);
+                MEMORY[0x277D82BD8](v222);
+                MEMORY[0x277D82BD8](v223);
 
-                v247 = v238;
+                v234 = v225;
                 goto LABEL_163;
               }
 
-              *(v690 + 4280) = v549;
+              *(v677 + 4280) = v536;
               result = HyperParams.featureLookbackDays.getter();
-              v548 = v549 - result;
-              v44 = v549 < result;
-              *(v690 + 4300) = v549 - result;
-              if (!v44)
+              v535 = v536 - result;
+              v45 = v536 < result;
+              *(v677 + 4300) = v536 - result;
+              if (!v45)
               {
-                if (*(v690 + 4260) < v548)
+                if (*(v677 + 4260) < v535)
                 {
-                  LOBYTE(v179) = 2;
-                  v180 = 409;
-                  LODWORD(v181) = 0;
-                  return _assertionFailure(_:_:file:line:flags:)();
+                  return _assertionFailure(_:_:file:line:flags:)(v683, 11, 2, v684, 39, 2, v691, 23, 2, 409, 0);
                 }
 
-                v45 = v690;
-                v46 = *(v690 + 4260);
-                v547 = v690 + 2428;
-                *(v690 + 2428) = v548;
-                *(v45 + 2432) = v46;
-                *(v690 + 3096) = _allocateUninitializedArray<A>(_:)();
+                v46 = v677;
+                v47 = *(v677 + 4260);
+                v534 = v677 + 2428;
+                *(v677 + 2428) = v535;
+                *(v46 + 2432) = v47;
+                *(v677 + 3096) = _allocateUninitializedArray<A>(_:)();
                 if (HyperParams.isHRVRequired()())
                 {
-                  v546 = v690 + 4334;
-                  *(v690 + 4334) = 8;
-                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+                  v533 = v677 + 4334;
+                  *(v677 + 4334) = 8;
+                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
                   Array.append(_:)();
                 }
 
                 if (HyperParams.isSpO2Required()())
                 {
-                  v545 = v690 + 4333;
-                  *(v690 + 4333) = 10;
-                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+                  v532 = v677 + 4333;
+                  *(v677 + 4333) = 10;
+                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
                   Array.append(_:)();
                 }
 
                 if (HyperParams.isRespiratoryRateRequired()())
                 {
-                  v544 = v690 + 4332;
-                  *(v690 + 4332) = 9;
-                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+                  v531 = v677 + 4332;
+                  *(v677 + 4332) = 9;
+                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
                   Array.append(_:)();
                 }
 
                 if (HyperParams.isSWTRequired()())
                 {
-                  v543 = v690 + 4327;
-                  *(v690 + 4327) = 7;
-                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+                  v530 = v677 + 4327;
+                  *(v677 + 4327) = 7;
+                  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
                   Array.append(_:)();
                 }
 
-                v541 = *(v690 + 3096);
+                v528 = *(v677 + 3096);
 
-                *(v690 + 3104) = v541;
-                v540 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+                *(v677 + 3104) = v528;
+                v527 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
                 lazy protocol witness table accessor for type [HealthDataRawSampleType] and conformance [A]();
-                v542 = Collection.isEmpty.getter();
+                v529 = Collection.isEmpty.getter();
 
-                if ((v542 & 1) == 0)
+                if ((v529 & 1) == 0)
                 {
-                  v535 = *(v690 + 4260);
-                  v533 = *(v690 + 3696);
-                  v534 = *(v690 + 3536);
+                  v522 = *(v677 + 4260);
+                  v520 = *(v677 + 3696);
+                  v521 = *(v677 + 3536);
 
-                  v47 = swift_task_alloc();
-                  v48 = v533;
-                  v49 = v534;
-                  v50 = v548;
+                  v48 = swift_task_alloc();
+                  v49 = v520;
+                  v50 = v521;
                   v51 = v535;
-                  v52 = v690;
-                  v537 = v47;
-                  *(v690 + 4120) = v47;
-                  *(v47 + 16) = v48;
-                  *(v47 + 24) = v52 + 3096;
-                  *(v47 + 32) = v49;
-                  *(v47 + 40) = v50;
-                  *(v47 + 44) = v51;
-                  *(v47 + 48) = v52 + 2760;
-                  *(v47 + 56) = v52 + 2768;
-                  *(v47 + 64) = v52 + 2776;
-                  *(v47 + 72) = v52 + 2752;
-                  v538 = MEMORY[0x277D84F78] + 8;
-                  v536 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-                  v53 = swift_task_alloc();
-                  v54 = v690;
-                  v55 = v536;
-                  v56 = v710;
-                  v57 = v537;
-                  v58 = v538;
-                  v59 = v53;
-                  v60 = v539;
-                  *(v690 + 4128) = v59;
-                  *v59 = *(v54 + 2632);
-                  v59[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-                  v61 = 8;
-                  v62 = v55 & 1;
+                  v52 = v522;
+                  v53 = v677;
+                  v524 = v48;
+                  *(v677 + 4120) = v48;
+                  *(v48 + 16) = v49;
+                  *(v48 + 24) = v53 + 3096;
+                  *(v48 + 32) = v50;
+                  *(v48 + 40) = v51;
+                  *(v48 + 44) = v52;
+                  *(v48 + 48) = v53 + 2760;
+                  *(v48 + 56) = v53 + 2768;
+                  *(v48 + 64) = v53 + 2776;
+                  *(v48 + 72) = v53 + 2752;
+                  v525 = MEMORY[0x277D84F78] + 8;
+                  v523 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+                  v54 = swift_task_alloc();
+                  v55 = v677;
+                  v56 = v523;
+                  v57 = v697;
+                  v58 = v524;
+                  v59 = v525;
+                  v60 = v54;
+                  v61 = v526;
+                  *(v677 + 4128) = v60;
+                  *v60 = *(v55 + 2632);
+                  v60[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+                  v62 = 8;
+                  v63 = v56 & 1;
 
-                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v60, v61, v62, v56, v57, v58);
+                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v61, v62, v63, v57, v58, v59);
                 }
 
-                v506 = v690 + 2640;
-                v524 = v690 + 2520;
-                v525 = v690 + 2648;
-                v526 = v690 + 2656;
-                v527 = v690 + 2664;
-                v528 = v690 + 2672;
-                v529 = v690 + 2680;
-                v530 = v690 + 2688;
-                v531 = v690 + 2696;
-                v523 = v690 + 2704;
-                v507 = v690 + 4256;
-                v508 = v690 + 2840;
-                v509 = v690 + 2856;
-                v510 = v690 + 2888;
-                v511 = v690 + 2912;
-                v512 = v690 + 2920;
-                v513 = v690 + 2952;
-                v505 = v690 + 2984;
-                v514 = v690 + 3000;
-                v515 = v690 + 3016;
-                v516 = v690 + 3032;
-                v517 = v690 + 3048;
-                v518 = v690 + 3056;
-                v519 = v690 + 3064;
-                v520 = v690 + 4264;
-                v521 = v690 + 4272;
-                v522 = v690 + 4280;
-                v532 = v690 + 2428;
-                *(v690 + 3112) = 0;
+                v493 = v677 + 2640;
+                v511 = v677 + 2520;
+                v512 = v677 + 2648;
+                v513 = v677 + 2656;
+                v514 = v677 + 2664;
+                v515 = v677 + 2672;
+                v516 = v677 + 2680;
+                v517 = v677 + 2688;
+                v518 = v677 + 2696;
+                v510 = v677 + 2704;
+                v494 = v677 + 4256;
+                v495 = v677 + 2840;
+                v496 = v677 + 2856;
+                v497 = v677 + 2888;
+                v498 = v677 + 2912;
+                v499 = v677 + 2920;
+                v500 = v677 + 2952;
+                v492 = v677 + 2984;
+                v501 = v677 + 3000;
+                v502 = v677 + 3016;
+                v503 = v677 + 3032;
+                v504 = v677 + 3048;
+                v505 = v677 + 3056;
+                v506 = v677 + 3064;
+                v507 = v677 + 4264;
+                v508 = v677 + 4272;
+                v509 = v677 + 4280;
+                v519 = v677 + 2428;
+                *(v677 + 3112) = 0;
                 if (HyperParams.isSHRRequired()())
                 {
-                  v500 = *(v690 + 4300);
-                  v501 = *(v690 + 4260);
-                  v499 = *(v690 + 3696);
-                  v498 = *(v690 + 3536);
+                  v487 = *(v677 + 4300);
+                  v488 = *(v677 + 4260);
+                  v486 = *(v677 + 3696);
+                  v485 = *(v677 + 3536);
 
-                  v63 = swift_task_alloc();
-                  v64 = v498;
-                  v65 = v499;
-                  v66 = v500;
-                  v67 = v501;
-                  v68 = v690;
-                  v503 = v63;
-                  *(v690 + 4144) = v63;
-                  *(v63 + 16) = v64;
-                  *(v63 + 24) = v65;
-                  *(v63 + 32) = v66;
-                  *(v63 + 36) = v67;
-                  *(v63 + 40) = v68 + 2784;
-                  *(v63 + 48) = v68 + 2792;
-                  *(v63 + 56) = v68 + 3112;
-                  v504 = MEMORY[0x277D84F78] + 8;
-                  v502 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-                  v69 = swift_task_alloc();
-                  v70 = v690;
-                  v71 = v502;
-                  v56 = v709;
-                  v57 = v503;
-                  v58 = v504;
-                  v72 = v69;
-                  v60 = v539;
-                  *(v690 + 4152) = v72;
-                  *v72 = *(v70 + 2632);
-                  v72[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-                  v61 = 8;
-                  v62 = v71 & 1;
+                  v64 = swift_task_alloc();
+                  v65 = v485;
+                  v66 = v486;
+                  v67 = v487;
+                  v68 = v488;
+                  v69 = v677;
+                  v490 = v64;
+                  *(v677 + 4144) = v64;
+                  *(v64 + 16) = v65;
+                  *(v64 + 24) = v66;
+                  *(v64 + 32) = v67;
+                  *(v64 + 36) = v68;
+                  *(v64 + 40) = v69 + 2784;
+                  *(v64 + 48) = v69 + 2792;
+                  *(v64 + 56) = v69 + 3112;
+                  v491 = MEMORY[0x277D84F78] + 8;
+                  v489 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+                  v70 = swift_task_alloc();
+                  v71 = v677;
+                  v72 = v489;
+                  v57 = v696;
+                  v58 = v490;
+                  v59 = v491;
+                  v73 = v70;
+                  v61 = v526;
+                  *(v677 + 4152) = v73;
+                  *v73 = *(v71 + 2632);
+                  v73[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+                  v62 = 8;
+                  v63 = v72 & 1;
 
-                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v60, v61, v62, v56, v57, v58);
+                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v61, v62, v63, v57, v58, v59);
                 }
 
-                v471 = v690 + 2640;
-                v489 = v690 + 2520;
-                v490 = v690 + 2648;
-                v491 = v690 + 2656;
-                v492 = v690 + 2664;
-                v493 = v690 + 2672;
-                v494 = v690 + 2680;
-                v495 = v690 + 2688;
-                v496 = v690 + 2696;
-                v488 = v690 + 2704;
-                v472 = v690 + 4256;
-                v473 = v690 + 2840;
-                v474 = v690 + 2856;
-                v475 = v690 + 2888;
-                v476 = v690 + 2912;
-                v477 = v690 + 2920;
-                v478 = v690 + 2952;
-                v470 = v690 + 2984;
-                v479 = v690 + 3000;
-                v480 = v690 + 3016;
-                v481 = v690 + 3032;
-                v482 = v690 + 3048;
-                v483 = v690 + 3056;
-                v484 = v690 + 3064;
-                v485 = v690 + 4264;
-                v486 = v690 + 4272;
-                v487 = v690 + 4280;
-                v497 = v690 + 2428;
+                v458 = v677 + 2640;
+                v476 = v677 + 2520;
+                v477 = v677 + 2648;
+                v478 = v677 + 2656;
+                v479 = v677 + 2664;
+                v480 = v677 + 2672;
+                v481 = v677 + 2680;
+                v482 = v677 + 2688;
+                v483 = v677 + 2696;
+                v475 = v677 + 2704;
+                v459 = v677 + 4256;
+                v460 = v677 + 2840;
+                v461 = v677 + 2856;
+                v462 = v677 + 2888;
+                v463 = v677 + 2912;
+                v464 = v677 + 2920;
+                v465 = v677 + 2952;
+                v457 = v677 + 2984;
+                v466 = v677 + 3000;
+                v467 = v677 + 3016;
+                v468 = v677 + 3032;
+                v469 = v677 + 3048;
+                v470 = v677 + 3056;
+                v471 = v677 + 3064;
+                v472 = v677 + 4264;
+                v473 = v677 + 4272;
+                v474 = v677 + 4280;
+                v484 = v677 + 2428;
                 if (HyperParams.isCalendarAlgorithmRequired()())
                 {
-                  v463 = *(v690 + 4292);
-                  v461 = *(v690 + 4284);
-                  v466 = *(v690 + 3872);
-                  v464 = *(v690 + 4260);
-                  v462 = *(v690 + 3696);
-                  v465 = *(v690 + 3536);
+                  v450 = *(v677 + 4292);
+                  v448 = *(v677 + 4284);
+                  v453 = *(v677 + 3872);
+                  v451 = *(v677 + 4260);
+                  v449 = *(v677 + 3696);
+                  v452 = *(v677 + 3536);
 
-                  v73 = swift_task_alloc();
-                  v74 = v461;
-                  v75 = v462;
-                  v76 = v463;
-                  v77 = v464;
-                  v78 = v465;
-                  v79 = v466;
-                  v80 = v690;
-                  v468 = v73;
-                  *(v690 + 4168) = v73;
-                  *(v73 + 16) = v74;
-                  *(v73 + 24) = v75;
-                  *(v73 + 32) = v76;
-                  *(v73 + 36) = v77;
-                  *(v73 + 40) = v78;
-                  *(v73 + 48) = v80 + 2720;
-                  *(v73 + 56) = v80 + 2728;
-                  *(v73 + 64) = v80 + 2736;
-                  *(v73 + 72) = v80 + 2744;
-                  *(v73 + 80) = v79;
-                  *(v73 + 88) = v80 + 2800;
-                  *(v73 + 96) = v80 + 2808;
-                  v469 = MEMORY[0x277D84F78] + 8;
-                  v467 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-                  v81 = swift_task_alloc();
-                  v82 = v690;
-                  v83 = v467;
-                  v56 = v708;
-                  v57 = v468;
-                  v58 = v469;
-                  v84 = v81;
-                  v60 = v539;
-                  *(v690 + 4176) = v84;
-                  *v84 = *(v82 + 2632);
-                  v84[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-                  v61 = 8;
-                  v62 = v83 & 1;
+                  v74 = swift_task_alloc();
+                  v75 = v448;
+                  v76 = v449;
+                  v77 = v450;
+                  v78 = v451;
+                  v79 = v452;
+                  v80 = v453;
+                  v81 = v677;
+                  v455 = v74;
+                  *(v677 + 4168) = v74;
+                  *(v74 + 16) = v75;
+                  *(v74 + 24) = v76;
+                  *(v74 + 32) = v77;
+                  *(v74 + 36) = v78;
+                  *(v74 + 40) = v79;
+                  *(v74 + 48) = v81 + 2720;
+                  *(v74 + 56) = v81 + 2728;
+                  *(v74 + 64) = v81 + 2736;
+                  *(v74 + 72) = v81 + 2744;
+                  *(v74 + 80) = v80;
+                  *(v74 + 88) = v81 + 2800;
+                  *(v74 + 96) = v81 + 2808;
+                  v456 = MEMORY[0x277D84F78] + 8;
+                  v454 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+                  v82 = swift_task_alloc();
+                  v83 = v677;
+                  v84 = v454;
+                  v57 = v695;
+                  v58 = v455;
+                  v59 = v456;
+                  v85 = v82;
+                  v61 = v526;
+                  *(v677 + 4176) = v85;
+                  *v85 = *(v83 + 2632);
+                  v85[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+                  v62 = 8;
+                  v63 = v84 & 1;
 
-                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v60, v61, v62, v56, v57, v58);
+                  return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v61, v62, v63, v57, v58, v59);
                 }
 
-                v433 = v690 + 2640;
-                v451 = v690 + 2520;
-                v452 = v690 + 2648;
-                v453 = v690 + 2656;
-                v454 = v690 + 2664;
-                v455 = v690 + 2672;
-                v456 = v690 + 2680;
-                v457 = v690 + 2688;
-                v458 = v690 + 2696;
-                v459 = v690 + 2704;
-                v450 = v690 + 2712;
-                v434 = v690 + 2840;
-                v435 = v690 + 2856;
-                v436 = v690 + 2888;
-                v437 = v690 + 2912;
-                v438 = v690 + 2920;
-                v439 = v690 + 2952;
-                v440 = v690 + 2968;
-                v426 = v690 + 3000;
-                v441 = v690 + 3016;
-                v442 = v690 + 3032;
-                v443 = v690 + 3048;
-                v444 = v690 + 3056;
-                v445 = v690 + 3064;
-                v446 = v690 + 4264;
-                v447 = v690 + 4272;
-                v448 = v690 + 4280;
-                v449 = v690 + 2428;
-                v431 = *(v690 + 3696);
-                v423 = *(v690 + 3536);
-                v421 = NightingaleDPFLRunner.performanceMeasure.getter();
-                v427 = 1;
-                v420 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
+                v420 = v677 + 2640;
+                v438 = v677 + 2520;
+                v439 = v677 + 2648;
+                v440 = v677 + 2656;
+                v441 = v677 + 2664;
+                v442 = v677 + 2672;
+                v443 = v677 + 2680;
+                v444 = v677 + 2688;
+                v445 = v677 + 2696;
+                v446 = v677 + 2704;
+                v437 = v677 + 2712;
+                v421 = v677 + 2840;
+                v422 = v677 + 2856;
+                v423 = v677 + 2888;
+                v424 = v677 + 2912;
+                v425 = v677 + 2920;
+                v426 = v677 + 2952;
+                v427 = v677 + 2968;
+                v413 = v677 + 3000;
+                v428 = v677 + 3016;
+                v429 = v677 + 3032;
+                v430 = v677 + 3048;
+                v431 = v677 + 3056;
+                v432 = v677 + 3064;
+                v433 = v677 + 4264;
+                v434 = v677 + 4272;
+                v435 = v677 + 4280;
+                v436 = v677 + 2428;
+                v418 = *(v677 + 3696);
+                v410 = *(v677 + 3536);
+                v408 = NightingaleDPFLRunner.performanceMeasure.getter();
+                v414 = 1;
+                v407 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
                 dispatch thunk of PerformanceMeasure.finish(_:)();
-                v422 = v85;
+                v409 = v86;
 
-                v460 = v690 + 3120;
-                *(v690 + 3120) = v422;
-                v86 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-                NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v86);
-                v425 = NightingaleDPFLRunner.performanceMeasure.getter();
-                v424 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v427 & 1)._object;
+                v447 = v677 + 3120;
+                *(v677 + 3120) = v409;
+                v87 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+                NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v87);
+                v412 = NightingaleDPFLRunner.performanceMeasure.getter();
+                v411 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v414 & 1)._object;
                 dispatch thunk of PerformanceMeasure.start(_:)();
 
-                v87 = HyperParams.metricsProcessEngine.getter();
-                v88 = v690;
-                v429 = v690 + 4309;
-                *(v690 + 4309) = v87 & v427;
-                v428 = v88 + 4310;
-                *(v88 + 4310) = 1;
-                v430 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
-                v432 = == infix<A>(_:_:)();
+                v88 = HyperParams.metricsProcessEngine.getter();
+                v89 = v677;
+                v416 = v677 + 4309;
+                *(v677 + 4309) = v88 & v414;
+                v415 = v89 + 4310;
+                *(v89 + 4310) = 1;
+                v417 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
+                v419 = == infix<A>(_:_:)();
 
-                if (v432)
+                if (v419)
                 {
-                  v419 = 1;
+                  v406 = 1;
                 }
 
                 else
                 {
-                  v89 = HyperParams.featurizerEngine.getter();
-                  v90 = v690;
-                  *(v690 + 4311) = v89 & 1;
-                  *(v90 + 4316) = 1;
-                  v419 = == infix<A>(_:_:)();
+                  v90 = HyperParams.featurizerEngine.getter();
+                  v91 = v677;
+                  *(v677 + 4311) = v90 & 1;
+                  *(v91 + 4316) = 1;
+                  v406 = == infix<A>(_:_:)();
                 }
 
-                v418 = v419;
+                v405 = v406;
 
-                if (v419)
+                if (v406)
                 {
                   static HIDMorpheusExtensions.extendMorpheus()();
-                  v417 = v560;
-                  if (v560)
+                  v404 = v547;
+                  if (v547)
                   {
-                    v212 = *(v690 + 3952);
-                    v213 = *(v690 + 3872);
-                    v214 = *(v690 + 3856);
-                    v215 = *(v690 + 3760);
-                    v216 = *(v690 + 3736);
-                    v217 = *(v690 + 3712);
-                    v218 = *(v690 + 3696);
+                    v199 = *(v677 + 3952);
+                    v200 = *(v677 + 3872);
+                    v201 = *(v677 + 3856);
+                    v202 = *(v677 + 3760);
+                    v203 = *(v677 + 3736);
+                    v204 = *(v677 + 3712);
+                    v205 = *(v677 + 3696);
                     outlined destroy of [(start: UInt32, end: UInt32)]();
                     outlined destroy of [(start: UInt32, end: UInt32)]();
                     outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -7720,71 +7711,71 @@ LABEL_146:
                     outlined destroy of [(start: UInt32, end: UInt32)]();
                     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                    MEMORY[0x277D82BD8](v216);
-                    MEMORY[0x277D82BD8](v217);
+                    MEMORY[0x277D82BD8](v203);
+                    MEMORY[0x277D82BD8](v204);
 
-                    v247 = v417;
+                    v234 = v404;
                     goto LABEL_163;
                   }
 
                   static Math.extendMorpheus()();
-                  v416 = 0;
-                  v415 = 0;
+                  v403 = 0;
+                  v402 = 0;
                 }
 
                 else
                 {
-                  v415 = v560;
+                  v402 = v547;
                 }
 
-                v91 = v415;
-                v411 = *(v690 + 4260);
-                v410 = *(v690 + 3696);
-                v407 = *(v690 + 3536);
-                v409 = *(v690 + 3528);
+                v92 = v402;
+                v398 = *(v677 + 4260);
+                v397 = *(v677 + 3696);
+                v394 = *(v677 + 3536);
+                v396 = *(v677 + 3528);
                 type metadata accessor for Featurizer();
-                v92 = Featurizer.__allocating_init()();
-                v93 = v690;
-                v408 = v92;
-                *(v690 + 4192) = v92;
-                v412 = v93 + 3128;
-                *(v93 + 3128) = v92;
+                v93 = Featurizer.__allocating_init()();
+                v94 = v677;
+                v395 = v93;
+                *(v677 + 4192) = v93;
+                v399 = v94 + 3128;
+                *(v94 + 3128) = v93;
 
-                v94 = swift_task_alloc();
-                v95 = v408;
-                v96 = v409;
-                v97 = v410;
-                v98 = v411;
-                v99 = v690;
-                v413 = v94;
-                *(v690 + 4200) = v94;
-                *(v94 + 16) = v95;
-                *(v94 + 24) = v96;
-                *(v94 + 32) = v99 + 2928;
-                *(v94 + 40) = v99 + 2752;
-                *(v94 + 48) = v99 + 2760;
-                *(v94 + 56) = v99 + 2776;
-                *(v94 + 64) = v99 + 2768;
-                *(v94 + 72) = v99 + 2784;
-                *(v94 + 80) = v99 + 2792;
-                *(v94 + 88) = v99 + 2800;
-                *(v94 + 96) = v99 + 2808;
-                *(v94 + 104) = v99 + 2744;
-                *(v94 + 112) = v97;
-                *(v94 + 120) = v98;
-                v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
-                NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v413, v100, v690 + 16);
-                v414 = v91;
-                if (v91)
+                v95 = swift_task_alloc();
+                v96 = v395;
+                v97 = v396;
+                v98 = v397;
+                v99 = v398;
+                v100 = v677;
+                v400 = v95;
+                *(v677 + 4200) = v95;
+                *(v95 + 16) = v96;
+                *(v95 + 24) = v97;
+                *(v95 + 32) = v100 + 2928;
+                *(v95 + 40) = v100 + 2752;
+                *(v95 + 48) = v100 + 2760;
+                *(v95 + 56) = v100 + 2776;
+                *(v95 + 64) = v100 + 2768;
+                *(v95 + 72) = v100 + 2784;
+                *(v95 + 80) = v100 + 2792;
+                *(v95 + 88) = v100 + 2800;
+                *(v95 + 96) = v100 + 2808;
+                *(v95 + 104) = v100 + 2744;
+                *(v95 + 112) = v98;
+                *(v95 + 120) = v99;
+                v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
+                NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v400, v101, v677 + 16);
+                v401 = v92;
+                if (v92)
                 {
-                  v205 = *(v690 + 3952);
-                  v206 = *(v690 + 3872);
-                  v207 = *(v690 + 3856);
-                  v208 = *(v690 + 3760);
-                  v209 = *(v690 + 3736);
-                  v210 = *(v690 + 3712);
-                  v211 = *(v690 + 3696);
-                  v204 = *(v690 + 3528);
+                  v192 = *(v677 + 3952);
+                  v193 = *(v677 + 3872);
+                  v194 = *(v677 + 3856);
+                  v195 = *(v677 + 3760);
+                  v196 = *(v677 + 3736);
+                  v197 = *(v677 + 3712);
+                  v198 = *(v677 + 3696);
+                  v191 = *(v677 + 3528);
 
                   outlined destroy of [(start: UInt32, end: UInt32)]();
                   outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -7805,266 +7796,266 @@ LABEL_146:
                   outlined destroy of [(start: UInt32, end: UInt32)]();
                   outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                  MEMORY[0x277D82BD8](v209);
-                  MEMORY[0x277D82BD8](v210);
+                  MEMORY[0x277D82BD8](v196);
+                  MEMORY[0x277D82BD8](v197);
 
-                  v247 = v414;
+                  v234 = v401;
                 }
 
                 else
                 {
-                  v345 = *(v690 + 4112);
-                  v343 = *(v690 + 4040);
-                  v373 = *(v690 + 4032);
-                  v370 = *(v690 + 4024);
-                  v368 = *(v690 + 4016);
-                  v366 = *(v690 + 4008);
-                  v364 = *(v690 + 4000);
-                  v362 = *(v690 + 3992);
-                  v360 = *(v690 + 3984);
-                  v358 = *(v690 + 3960);
-                  v341 = *(v690 + 3912);
-                  v339 = *(v690 + 3864);
-                  v356 = *(v690 + 3848);
-                  v354 = *(v690 + 3840);
-                  v337 = *(v690 + 3744);
-                  v352 = *(v690 + 3704);
-                  v334 = *(v690 + 3696);
-                  v333 = *(v690 + 3528);
+                  v332 = *(v677 + 4112);
+                  v330 = *(v677 + 4040);
+                  v360 = *(v677 + 4032);
+                  v357 = *(v677 + 4024);
+                  v355 = *(v677 + 4016);
+                  v353 = *(v677 + 4008);
+                  v351 = *(v677 + 4000);
+                  v349 = *(v677 + 3992);
+                  v347 = *(v677 + 3984);
+                  v345 = *(v677 + 3960);
+                  v328 = *(v677 + 3912);
+                  v326 = *(v677 + 3864);
+                  v343 = *(v677 + 3848);
+                  v341 = *(v677 + 3840);
+                  v324 = *(v677 + 3744);
+                  v339 = *(v677 + 3704);
+                  v321 = *(v677 + 3696);
+                  v320 = *(v677 + 3528);
 
-                  v376 = (v690 + 184);
-                  v399 = v690 + 16;
-                  memcpy((v690 + 184), (v690 + 16), 0xA8uLL);
-                  v336 = NightingaleDPFLRunner.performanceMeasure.getter();
-                  v335 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
+                  v363 = (v677 + 184);
+                  v386 = v677 + 16;
+                  memcpy((v677 + 184), (v677 + 16), 0xA8uLL);
+                  v323 = NightingaleDPFLRunner.performanceMeasure.getter();
+                  v322 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
                   dispatch thunk of PerformanceMeasure.finish(_:)();
-                  v349 = v101;
+                  v336 = v102;
 
-                  v400 = v690 + 3136;
-                  *(v690 + 3136) = v349;
-                  v374 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-                  v375 = _allocateUninitializedArray<A>(_:)();
-                  v372 = v102;
-                  v103 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v103, v372);
-                  v104 = v337;
-                  v105 = v372;
-                  v351 = MEMORY[0x277D839F8];
-                  v372[5] = MEMORY[0x277D839F8];
-                  v105[2] = v104;
-                  v338 = v105 + 6;
+                  v387 = v677 + 3136;
+                  *(v677 + 3136) = v336;
+                  v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+                  v362 = _allocateUninitializedArray<A>(_:)();
+                  v359 = v103;
+                  v104 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v104, v359);
+                  v105 = v324;
+                  v106 = v359;
+                  v338 = MEMORY[0x277D839F8];
+                  v359[5] = MEMORY[0x277D839F8];
+                  v106[2] = v105;
+                  v325 = v106 + 6;
                   Duration = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(Duration, v338);
-                  v107 = v339;
-                  v108 = v372;
-                  v372[11] = v351;
-                  v108[8] = v107;
-                  v340 = v108 + 12;
-                  v109 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v109, v340);
-                  v110 = v341;
-                  v111 = v372;
-                  v372[17] = v351;
-                  v111[14] = v110;
-                  v342 = v111 + 18;
+                  outlined init with copy of String(Duration, v325);
+                  v108 = v326;
+                  v109 = v359;
+                  v359[11] = v338;
+                  v109[8] = v108;
+                  v327 = v109 + 12;
+                  v110 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v110, v327);
+                  v111 = v328;
+                  v112 = v359;
+                  v359[17] = v338;
+                  v112[14] = v111;
+                  v329 = v112 + 18;
                   updated = NightingaleDPFLRunner.keyMetricsUpdatePregnanciesDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(updated, v342);
-                  v113 = v343;
-                  v114 = v372;
-                  v372[23] = v351;
-                  v114[20] = v113;
-                  v344 = v114 + 24;
-                  v115 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v115, v344);
-                  v116 = v345;
-                  v117 = v372;
-                  v372[29] = v351;
-                  v117[26] = v116;
-                  v346 = v117 + 30;
-                  v118 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v118, v346);
-                  v119 = v372;
-                  v120 = *(v690 + 3112);
-                  v372[35] = v351;
-                  v119[32] = v120;
-                  v347 = v119 + 36;
-                  v121 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v121, v347);
-                  v122 = v422;
-                  v123 = v372;
-                  v372[41] = v351;
-                  v123[38] = v122;
-                  v348 = v123 + 42;
-                  v124 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
-                  outlined init with copy of String(v124, v348);
-                  v125 = v349;
-                  v126 = v372;
-                  v372[47] = v351;
-                  v126[44] = v125;
-                  v350 = v126 + 48;
-                  v127 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
-                  outlined init with copy of String(v127, v350);
-                  v128 = v352;
-                  v129 = v372;
-                  v372[53] = v351;
-                  v129[50] = v128;
-                  v353 = v129 + 54;
-                  v130 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
-                  outlined init with copy of String(v130, v353);
-                  v131 = v354;
-                  v132 = v372;
-                  v377 = MEMORY[0x277D83B88];
-                  v372[59] = MEMORY[0x277D83B88];
-                  v132[56] = v131;
-                  v355 = v132 + 60;
-                  v133 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
-                  outlined init with copy of String(v133, v355);
-                  v134 = v356;
-                  v135 = v372;
-                  v372[65] = v377;
-                  v135[62] = v134;
-                  v357 = v135 + 66;
-                  v136 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v136, v357);
-                  v137 = v358;
-                  v138 = v372;
-                  v372[71] = v377;
-                  v138[68] = v137;
-                  v359 = v138 + 72;
-                  v139 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
-                  outlined init with copy of String(v139, v359);
-                  v140 = v360;
-                  v141 = v372;
-                  v372[77] = v377;
-                  v141[74] = v140;
-                  v361 = v141 + 78;
-                  v142 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v142, v361);
-                  v143 = v362;
-                  v144 = v372;
-                  v372[83] = v377;
-                  v144[80] = v143;
-                  v363 = v144 + 84;
-                  v145 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v145, v363);
-                  v146 = v364;
-                  v147 = v372;
-                  v372[89] = v377;
-                  v147[86] = v146;
-                  v365 = v147 + 90;
-                  v148 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v148, v365);
-                  v149 = v366;
-                  v150 = v372;
-                  v372[95] = v377;
-                  v150[92] = v149;
-                  v367 = v150 + 96;
-                  v151 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v151, v367);
-                  v152 = v368;
-                  v153 = v372;
-                  v372[101] = v377;
-                  v153[98] = v152;
-                  v369 = v153 + 102;
-                  v154 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(v154, v369);
-                  v155 = v370;
-                  v156 = v372;
-                  v372[107] = v377;
-                  v156[104] = v155;
-                  v371 = v156 + 108;
+                  outlined init with copy of String(updated, v329);
+                  v114 = v330;
+                  v115 = v359;
+                  v359[23] = v338;
+                  v115[20] = v114;
+                  v331 = v115 + 24;
+                  v116 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v116, v331);
+                  v117 = v332;
+                  v118 = v359;
+                  v359[29] = v338;
+                  v118[26] = v117;
+                  v333 = v118 + 30;
+                  v119 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v119, v333);
+                  v120 = v359;
+                  v121 = *(v677 + 3112);
+                  v359[35] = v338;
+                  v120[32] = v121;
+                  v334 = v120 + 36;
+                  v122 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v122, v334);
+                  v123 = v409;
+                  v124 = v359;
+                  v359[41] = v338;
+                  v124[38] = v123;
+                  v335 = v124 + 42;
+                  v125 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
+                  outlined init with copy of String(v125, v335);
+                  v126 = v336;
+                  v127 = v359;
+                  v359[47] = v338;
+                  v127[44] = v126;
+                  v337 = v127 + 48;
+                  v128 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
+                  outlined init with copy of String(v128, v337);
+                  v129 = v339;
+                  v130 = v359;
+                  v359[53] = v338;
+                  v130[50] = v129;
+                  v340 = v130 + 54;
+                  v131 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
+                  outlined init with copy of String(v131, v340);
+                  v132 = v341;
+                  v133 = v359;
+                  v364 = MEMORY[0x277D83B88];
+                  v359[59] = MEMORY[0x277D83B88];
+                  v133[56] = v132;
+                  v342 = v133 + 60;
+                  v134 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
+                  outlined init with copy of String(v134, v342);
+                  v135 = v343;
+                  v136 = v359;
+                  v359[65] = v364;
+                  v136[62] = v135;
+                  v344 = v136 + 66;
+                  v137 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v137, v344);
+                  v138 = v345;
+                  v139 = v359;
+                  v359[71] = v364;
+                  v139[68] = v138;
+                  v346 = v139 + 72;
+                  v140 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
+                  outlined init with copy of String(v140, v346);
+                  v141 = v347;
+                  v142 = v359;
+                  v359[77] = v364;
+                  v142[74] = v141;
+                  v348 = v142 + 78;
+                  v143 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v143, v348);
+                  v144 = v349;
+                  v145 = v359;
+                  v359[83] = v364;
+                  v145[80] = v144;
+                  v350 = v145 + 84;
+                  v146 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v146, v350);
+                  v147 = v351;
+                  v148 = v359;
+                  v359[89] = v364;
+                  v148[86] = v147;
+                  v352 = v148 + 90;
+                  v149 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v149, v352);
+                  v150 = v353;
+                  v151 = v359;
+                  v359[95] = v364;
+                  v151[92] = v150;
+                  v354 = v151 + 96;
+                  v152 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v152, v354);
+                  v153 = v355;
+                  v154 = v359;
+                  v359[101] = v364;
+                  v154[98] = v153;
+                  v356 = v154 + 102;
+                  v155 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
+                  outlined init with copy of String(v155, v356);
+                  v156 = v357;
+                  v157 = v359;
+                  v359[107] = v364;
+                  v157[104] = v156;
+                  v358 = v157 + 108;
                   started = NightingaleDPFLRunner.keyMetricsInvalidStartSourcePregnanciesCount.unsafeMutableAddressor();
-                  outlined init with copy of String(started, v371);
-                  v158 = v372;
-                  v159 = v373;
-                  v372[113] = v377;
-                  v158[110] = v159;
+                  outlined init with copy of String(started, v358);
+                  v159 = v359;
+                  v160 = v360;
+                  v359[113] = v364;
+                  v159[110] = v160;
                   _finalizeUninitializedArray<A>(_:)();
-                  v402 = MEMORY[0x277D837D0];
-                  v403 = MEMORY[0x277D84F70] + 8;
-                  v404 = MEMORY[0x277D837E0];
-                  v401 = Dictionary.init(dictionaryLiteral:)();
-                  outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v376, (v690 + 352));
-                  v378 = *(v690 + 184);
-                  v379 = *(v690 + 192);
-                  v380 = *(v690 + 200);
-                  v381 = *(v690 + 208);
-                  v382 = *(v690 + 216);
-                  v383 = *(v690 + 224);
-                  v384 = *(v690 + 232);
-                  v385 = *(v690 + 240);
-                  v386 = *(v690 + 248);
-                  v387 = *(v690 + 256);
-                  v388 = *(v690 + 264);
-                  v389 = *(v690 + 272);
-                  v390 = *(v690 + 280);
-                  v391 = *(v690 + 288);
-                  v392 = *(v690 + 296);
-                  v393 = *(v690 + 304);
-                  v394 = *(v690 + 312);
-                  v395 = *(v690 + 320);
-                  v396 = *(v690 + 328);
-                  v397 = *(v690 + 336);
-                  v398 = *(v690 + 344);
+                  v389 = MEMORY[0x277D837D0];
+                  v390 = MEMORY[0x277D84F70] + 8;
+                  v391 = MEMORY[0x277D837E0];
+                  v388 = Dictionary.init(dictionaryLiteral:)();
+                  outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v363, (v677 + 352));
+                  v365 = *(v677 + 184);
+                  v366 = *(v677 + 192);
+                  v367 = *(v677 + 200);
+                  v368 = *(v677 + 208);
+                  v369 = *(v677 + 216);
+                  v370 = *(v677 + 224);
+                  v371 = *(v677 + 232);
+                  v372 = *(v677 + 240);
+                  v373 = *(v677 + 248);
+                  v374 = *(v677 + 256);
+                  v375 = *(v677 + 264);
+                  v376 = *(v677 + 272);
+                  v377 = *(v677 + 280);
+                  v378 = *(v677 + 288);
+                  v379 = *(v677 + 296);
+                  v380 = *(v677 + 304);
+                  v381 = *(v677 + 312);
+                  v382 = *(v677 + 320);
+                  v383 = *(v677 + 328);
+                  v384 = *(v677 + 336);
+                  v385 = *(v677 + 344);
                   _dictionaryUpCast<A, B, C, D>(_:)();
-                  v405 = Dictionary.merging(_:uniquingKeysWith:)();
-                  *(v690 + 4208) = v405;
-                  v406 = 0;
-                  v331 = *(v690 + 4048);
-                  v330 = *(v690 + 4359);
+                  v392 = Dictionary.merging(_:uniquingKeysWith:)();
+                  *(v677 + 4208) = v392;
+                  v393 = 0;
+                  v318 = *(v677 + 4048);
+                  v317 = *(v677 + 4359);
 
-                  v160 = v330;
-                  v161 = v690;
-                  v332 = v690 + 3144;
-                  *(v690 + 3144) = v405;
-                  *(v161 + 4317) = v160;
-                  *(v161 + 4318) = 0;
+                  v161 = v317;
+                  v162 = v677;
+                  v319 = v677 + 3144;
+                  *(v677 + 3144) = v392;
+                  *(v162 + 4317) = v161;
+                  *(v162 + 4318) = 0;
                   if (== infix<A>(_:_:)())
                   {
-                    v162 = v406;
-                    v304 = *(v690 + 4260);
-                    v300 = *(v690 + 3760);
-                    v299 = *(v690 + 3752);
-                    v301 = *(v690 + 3696);
-                    v305 = *(v690 + 3528);
-                    v302 = *(v690 + 2808);
+                    v163 = v393;
+                    v291 = *(v677 + 4260);
+                    v287 = *(v677 + 3760);
+                    v286 = *(v677 + 3752);
+                    v288 = *(v677 + 3696);
+                    v292 = *(v677 + 3528);
+                    v289 = *(v677 + 2808);
 
-                    v303 = *(v690 + 2848);
+                    v290 = *(v677 + 2848);
 
-                    outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v690 + 184), (v690 + 1024));
-                    v306 = *(v690 + 184);
-                    v324 = *(v690 + 192);
-                    v326 = *(v690 + 200);
-                    v327 = *(v690 + 208);
-                    v307 = *(v690 + 216);
-                    v308 = *(v690 + 224);
-                    v309 = *(v690 + 232);
-                    v310 = *(v690 + 240);
-                    v311 = *(v690 + 248);
-                    v312 = *(v690 + 256);
-                    v313 = *(v690 + 264);
-                    v314 = *(v690 + 272);
-                    v315 = *(v690 + 280);
-                    v316 = *(v690 + 288);
-                    v317 = *(v690 + 296);
-                    v318 = *(v690 + 304);
-                    v319 = *(v690 + 312);
-                    v320 = *(v690 + 320);
-                    v321 = *(v690 + 328);
-                    v322 = *(v690 + 336);
-                    v323 = *(v690 + 344);
-                    v325 = &v179;
-                    v328 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v305, v299, v300, v301, v302, v303, v304, v306, v324, v326, v327, v307, v308, v309, v310, v311, v312, v313, v314, v315, v316, v317, v318, v319, v320, v321, v322, v323, v405);
-                    v329 = v162;
-                    if (!v162)
+                    outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v677 + 184), (v677 + 1024));
+                    v293 = *(v677 + 184);
+                    v311 = *(v677 + 192);
+                    v313 = *(v677 + 200);
+                    v314 = *(v677 + 208);
+                    v294 = *(v677 + 216);
+                    v295 = *(v677 + 224);
+                    v296 = *(v677 + 232);
+                    v297 = *(v677 + 240);
+                    v298 = *(v677 + 248);
+                    v299 = *(v677 + 256);
+                    v300 = *(v677 + 264);
+                    v301 = *(v677 + 272);
+                    v302 = *(v677 + 280);
+                    v303 = *(v677 + 288);
+                    v304 = *(v677 + 296);
+                    v305 = *(v677 + 304);
+                    v306 = *(v677 + 312);
+                    v307 = *(v677 + 320);
+                    v308 = *(v677 + 328);
+                    v309 = *(v677 + 336);
+                    v310 = *(v677 + 344);
+                    v312 = v180;
+                    v315 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v292, v286, v287, v288, v289, v290, v291, v293, v311, v313, v314, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v309, v310, v392);
+                    v316 = v163;
+                    if (!v163)
                     {
-                      v291 = *(v690 + 3952);
-                      v292 = *(v690 + 3872);
-                      v293 = *(v690 + 3856);
-                      v294 = *(v690 + 3760);
-                      v295 = *(v690 + 3736);
-                      v296 = *(v690 + 3712);
-                      v297 = *(v690 + 3696);
+                      v278 = *(v677 + 3952);
+                      v279 = *(v677 + 3872);
+                      v280 = *(v677 + 3856);
+                      v281 = *(v677 + 3760);
+                      v282 = *(v677 + 3736);
+                      v283 = *(v677 + 3712);
+                      v284 = *(v677 + 3696);
 
                       outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -8087,20 +8078,20 @@ LABEL_146:
                       outlined destroy of [(start: UInt32, end: UInt32)]();
                       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                      MEMORY[0x277D82BD8](v295);
-                      MEMORY[0x277D82BD8](v296);
+                      MEMORY[0x277D82BD8](v282);
+                      MEMORY[0x277D82BD8](v283);
 
-                      v298 = v328;
+                      v285 = v315;
                       goto LABEL_147;
                     }
 
-                    v197 = *(v690 + 3952);
-                    v198 = *(v690 + 3872);
-                    v199 = *(v690 + 3856);
-                    v200 = *(v690 + 3760);
-                    v201 = *(v690 + 3736);
-                    v202 = *(v690 + 3712);
-                    v203 = *(v690 + 3696);
+                    v184 = *(v677 + 3952);
+                    v185 = *(v677 + 3872);
+                    v186 = *(v677 + 3856);
+                    v187 = *(v677 + 3760);
+                    v188 = *(v677 + 3736);
+                    v189 = *(v677 + 3712);
+                    v190 = *(v677 + 3696);
 
                     outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -8123,62 +8114,62 @@ LABEL_146:
                     outlined destroy of [(start: UInt32, end: UInt32)]();
                     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                    MEMORY[0x277D82BD8](v201);
-                    MEMORY[0x277D82BD8](v202);
+                    MEMORY[0x277D82BD8](v188);
+                    MEMORY[0x277D82BD8](v189);
 
-                    v247 = v329;
+                    v234 = v316;
                   }
 
                   else
                   {
-                    v163 = v690;
-                    *(v690 + 4319) = *(v690 + 4359);
-                    *(v163 + 4324) = 1;
+                    v164 = v677;
+                    *(v677 + 4319) = *(v677 + 4359);
+                    *(v164 + 4324) = 1;
                     if (== infix<A>(_:_:)())
                     {
-                      v289 = PFLTask.evalModelNames(taskType:hyperParams:)();
-                      v290 = v406;
-                      if (!v406)
+                      v276 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v677 + 4359), *(v677 + 3696));
+                      v277 = v393;
+                      if (!v393)
                       {
-                        v264 = *(v690 + 4260);
-                        v261 = *(v690 + 3696);
-                        v260 = *(v690 + 3528);
-                        v262 = *(v690 + 2808);
+                        v251 = *(v677 + 4260);
+                        v248 = *(v677 + 3696);
+                        v247 = *(v677 + 3528);
+                        v249 = *(v677 + 2808);
 
-                        v263 = *(v690 + 2848);
+                        v250 = *(v677 + 2848);
 
-                        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v690 + 184), (v690 + 856));
-                        v265 = *(v690 + 184);
-                        v266 = *(v690 + 192);
-                        v284 = *(v690 + 200);
-                        v286 = *(v690 + 208);
-                        v267 = *(v690 + 216);
-                        v268 = *(v690 + 224);
-                        v269 = *(v690 + 232);
-                        v270 = *(v690 + 240);
-                        v271 = *(v690 + 248);
-                        v272 = *(v690 + 256);
-                        v273 = *(v690 + 264);
-                        v274 = *(v690 + 272);
-                        v275 = *(v690 + 280);
-                        v276 = *(v690 + 288);
-                        v277 = *(v690 + 296);
-                        v278 = *(v690 + 304);
-                        v279 = *(v690 + 312);
-                        v280 = *(v690 + 320);
-                        v281 = *(v690 + 328);
-                        v282 = *(v690 + 336);
-                        v283 = *(v690 + 344);
-                        v285 = &v179;
-                        v287 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v289, v260, v261, v262, v263, v264, v265, v266, v284, v286, v267, v268, v269, v270, v271, v272, v273, v274, v275, v276, v277, v278, v279, v280, v281, v282, v283, v405);
-                        v288 = 0;
-                        v253 = *(v690 + 3952);
-                        v254 = *(v690 + 3872);
-                        v255 = *(v690 + 3856);
-                        v256 = *(v690 + 3760);
-                        v257 = *(v690 + 3736);
-                        v258 = *(v690 + 3712);
-                        v259 = *(v690 + 3696);
+                        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v677 + 184), (v677 + 856));
+                        v252 = *(v677 + 184);
+                        v253 = *(v677 + 192);
+                        v271 = *(v677 + 200);
+                        v273 = *(v677 + 208);
+                        v254 = *(v677 + 216);
+                        v255 = *(v677 + 224);
+                        v256 = *(v677 + 232);
+                        v257 = *(v677 + 240);
+                        v258 = *(v677 + 248);
+                        v259 = *(v677 + 256);
+                        v260 = *(v677 + 264);
+                        v261 = *(v677 + 272);
+                        v262 = *(v677 + 280);
+                        v263 = *(v677 + 288);
+                        v264 = *(v677 + 296);
+                        v265 = *(v677 + 304);
+                        v266 = *(v677 + 312);
+                        v267 = *(v677 + 320);
+                        v268 = *(v677 + 328);
+                        v269 = *(v677 + 336);
+                        v270 = *(v677 + 344);
+                        v272 = v180;
+                        v274 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v276, v247, v248, v249, v250, v251, v252, v253, v271, v273, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268, v269, v270, v392);
+                        v275 = 0;
+                        v240 = *(v677 + 3952);
+                        v241 = *(v677 + 3872);
+                        v242 = *(v677 + 3856);
+                        v243 = *(v677 + 3760);
+                        v244 = *(v677 + 3736);
+                        v245 = *(v677 + 3712);
+                        v246 = *(v677 + 3696);
 
                         outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -8201,34 +8192,34 @@ LABEL_146:
                         outlined destroy of [(start: UInt32, end: UInt32)]();
                         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                        MEMORY[0x277D82BD8](v257);
-                        MEMORY[0x277D82BD8](v258);
+                        MEMORY[0x277D82BD8](v244);
+                        MEMORY[0x277D82BD8](v245);
 
-                        v298 = v287;
+                        v285 = v274;
 LABEL_147:
-                        v230 = v298;
-                        v222 = *(v690 + 3664);
-                        v223 = *(v690 + 3640);
-                        v224 = *(v690 + 3632);
-                        v225 = *(v690 + 3608);
-                        v226 = *(v690 + 3600);
-                        v227 = *(v690 + 3576);
-                        v228 = *(v690 + 3568);
-                        v229 = *(v690 + 3560);
+                        v217 = v285;
+                        v209 = *(v677 + 3664);
+                        v210 = *(v677 + 3640);
+                        v211 = *(v677 + 3632);
+                        v212 = *(v677 + 3608);
+                        v213 = *(v677 + 3600);
+                        v214 = *(v677 + 3576);
+                        v215 = *(v677 + 3568);
+                        v216 = *(v677 + 3560);
 
-                        v176 = v230;
-                        v177 = *(*(v690 + 2632) + 8);
+                        v177 = v217;
+                        v178 = *(*(v677 + 2632) + 8);
 
-                        return v177(v176);
+                        return v178(v177);
                       }
 
-                      v190 = *(v690 + 3952);
-                      v191 = *(v690 + 3872);
-                      v192 = *(v690 + 3856);
-                      v193 = *(v690 + 3760);
-                      v194 = *(v690 + 3736);
-                      v195 = *(v690 + 3712);
-                      v196 = *(v690 + 3696);
+                      v180[37] = *(v677 + 3952);
+                      v180[38] = *(v677 + 3872);
+                      v180[39] = *(v677 + 3856);
+                      v180[40] = *(v677 + 3760);
+                      v181 = *(v677 + 3736);
+                      v182 = *(v677 + 3712);
+                      v183 = *(v677 + 3696);
 
                       outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -8251,68 +8242,68 @@ LABEL_147:
                       outlined destroy of [(start: UInt32, end: UInt32)]();
                       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                      MEMORY[0x277D82BD8](v194);
-                      MEMORY[0x277D82BD8](v195);
+                      MEMORY[0x277D82BD8](v181);
+                      MEMORY[0x277D82BD8](v182);
 
-                      v247 = v290;
+                      v234 = v277;
                     }
 
                     else
                     {
-                      v164 = v690;
-                      *(v690 + 4325) = *(v690 + 4359);
-                      *(v164 + 4326) = 2;
+                      v165 = v677;
+                      *(v677 + 4325) = *(v677 + 4359);
+                      *(v165 + 4326) = 2;
                       if (== infix<A>(_:_:)())
                       {
-                        v251 = *(v690 + 3872);
-                        v250 = *(v690 + 4268);
-                        v248 = *(v690 + 3696);
-                        v249 = *(v690 + 3536);
+                        v238 = *(v677 + 3872);
+                        v237 = *(v677 + 4268);
+                        v235 = *(v677 + 3696);
+                        v236 = *(v677 + 3536);
 
-                        v165 = swift_task_alloc();
-                        v166 = v248;
-                        v167 = v249;
-                        v168 = v250;
-                        v169 = v251;
-                        v170 = v690;
-                        v252 = v165;
-                        *(v690 + 4216) = v165;
-                        *(v165 + 16) = v166;
-                        *(v165 + 24) = v170 + 2848;
-                        *(v165 + 32) = v167;
-                        *(v165 + 40) = v168;
-                        *(v165 + 48) = v170 + 2720;
-                        *(v165 + 56) = v170 + 2728;
-                        *(v165 + 64) = v170 + 2736;
-                        *(v165 + 72) = v170 + 2744;
-                        *(v165 + 80) = v170 + 2808;
-                        *(v165 + 88) = v169;
-                        v171 = swift_task_alloc();
-                        *(v690 + 4224) = v171;
-                        v172 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
-                        v173 = v690;
-                        v56 = v707;
-                        v57 = v252;
-                        v58 = v172;
-                        *v171 = *(v690 + 2632);
-                        v171[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-                        v60 = v173 + 2436;
-                        v61 = 9;
-                        v62 = 1;
+                        v166 = swift_task_alloc();
+                        v167 = v235;
+                        v168 = v236;
+                        v169 = v237;
+                        v170 = v238;
+                        v171 = v677;
+                        v239 = v166;
+                        *(v677 + 4216) = v166;
+                        *(v166 + 16) = v167;
+                        *(v166 + 24) = v171 + 2848;
+                        *(v166 + 32) = v168;
+                        *(v166 + 40) = v169;
+                        *(v166 + 48) = v171 + 2720;
+                        *(v166 + 56) = v171 + 2728;
+                        *(v166 + 64) = v171 + 2736;
+                        *(v166 + 72) = v171 + 2744;
+                        *(v166 + 80) = v171 + 2808;
+                        *(v166 + 88) = v170;
+                        v172 = swift_task_alloc();
+                        *(v677 + 4224) = v172;
+                        v173 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
+                        v174 = v677;
+                        v57 = v694;
+                        v58 = v239;
+                        v59 = v173;
+                        *v172 = *(v677 + 2632);
+                        v172[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+                        v61 = v174 + 2436;
+                        v62 = 9;
+                        v63 = 1;
 
-                        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v60, v61, v62, v56, v57, v58);
+                        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v61, v62, v63, v57, v58, v59);
                       }
 
-                      v239 = *(v690 + 3952);
-                      v240 = *(v690 + 3872);
-                      v241 = *(v690 + 3856);
-                      v242 = *(v690 + 3760);
-                      v243 = *(v690 + 3736);
-                      v244 = *(v690 + 3712);
-                      v245 = *(v690 + 3696);
+                      v226 = *(v677 + 3952);
+                      v227 = *(v677 + 3872);
+                      v228 = *(v677 + 3856);
+                      v229 = *(v677 + 3760);
+                      v230 = *(v677 + 3736);
+                      v231 = *(v677 + 3712);
+                      v232 = *(v677 + 3696);
                       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-                      v246 = swift_allocError();
-                      *v174 = 69;
+                      v233 = swift_allocError();
+                      *v175 = 69;
                       swift_willThrow();
 
                       outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
@@ -8336,28 +8327,28 @@ LABEL_147:
                       outlined destroy of [(start: UInt32, end: UInt32)]();
                       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-                      MEMORY[0x277D82BD8](v243);
-                      MEMORY[0x277D82BD8](v244);
+                      MEMORY[0x277D82BD8](v230);
+                      MEMORY[0x277D82BD8](v231);
 
-                      v247 = v246;
+                      v234 = v233;
                     }
                   }
                 }
 
 LABEL_163:
-                v182 = *(v690 + 3664);
-                v183 = *(v690 + 3640);
-                v184 = *(v690 + 3632);
-                v185 = *(v690 + 3608);
-                v186 = *(v690 + 3600);
-                v187 = *(v690 + 3576);
-                v188 = *(v690 + 3568);
-                v189 = *(v690 + 3560);
+                v180[22] = *(v677 + 3664);
+                v180[23] = *(v677 + 3640);
+                v180[24] = *(v677 + 3632);
+                v180[25] = *(v677 + 3608);
+                v180[26] = *(v677 + 3600);
+                v180[27] = *(v677 + 3576);
+                v180[28] = *(v677 + 3568);
+                v180[29] = *(v677 + 3560);
 
-                v176 = v539;
-                v177 = *(*(v690 + 2632) + 8);
+                v177 = v526;
+                v178 = *(*(v677 + 2632) + 8);
 
-                return v177(v176);
+                return v178(v177);
               }
 
               __break(1u);
@@ -8372,129 +8363,129 @@ LABEL_163:
 }
 
 {
-  v1109 = v1;
-  MEMORY[0x28223BE20](a1);
-  v1064 = v1;
-  v1065 = partial apply for closure #1 in osLogInternal(_:log:type:);
-  v1066 = partial apply for closure #8 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1067 = partial apply for closure #1 in osLogInternal(_:log:type:);
-  v1068 = "Fatal error";
-  v1069 = "Range requires lowerBound <= upperBound";
-  v1070 = "Swift/Range.swift";
-  v1071 = partial apply for closure #9 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1072 = closure #10 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1073 = closure #11 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1074 = closure #12 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1075 = closure #13 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1076 = closure #14 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1077 = closure #15 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1096 = v2;
+  MEMORY[0x28223BE20](a1, a2);
+  v1051 = v2;
+  v1052 = partial apply for closure #1 in osLogInternal(_:log:type:);
+  v1053 = partial apply for closure #8 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1054 = partial apply for closure #1 in osLogInternal(_:log:type:);
+  v1055 = "Fatal error";
+  v1056 = "Range requires lowerBound <= upperBound";
+  v1057 = "Swift/Range.swift";
+  v1058 = partial apply for closure #9 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1059 = closure #10 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1060 = closure #11 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1061 = closure #12 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1062 = closure #13 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1063 = closure #14 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1064 = closure #15 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1065 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1066 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1067 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1068 = "Swift/ClosedRange.swift";
+  v1069 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1070 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1071 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1072 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1073 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1074 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1075 = closure #20 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1076 = closure #20 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1077 = &async function pointer to partial apply for closure #22 in NightingaleDPFLRunner.run(task:useCase:context:);
   v1078 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
   v1079 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1080 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1081 = "Swift/ClosedRange.swift";
-  v1082 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1083 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1084 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1085 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1086 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1087 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1088 = closure #20 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1089 = closure #20 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1090 = &async function pointer to partial apply for closure #22 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1091 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1092 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1093 = "Negative value is not representable";
-  v1094 = "Swift/Integers.swift";
-  v1095 = &async function pointer to partial apply for closure #18 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v1096 = "Not enough bits to represent the passed value";
-  v1099 = *(v1 + 3904);
-  v1100 = *(v1 + 4359);
-  v1097 = *(v1 + 3696);
-  v1098 = *(v1 + 3536);
-  *(v1 + 2632) = v1;
+  v1080 = "Negative value is not representable";
+  v1081 = "Swift/Integers.swift";
+  v1082 = &async function pointer to partial apply for closure #18 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v1083 = "Not enough bits to represent the passed value";
+  v1086 = *(v2 + 3904);
+  v1087 = *(v2 + 4359);
+  v1084 = *(v2 + 3696);
+  v1085 = *(v2 + 3536);
+  *(v2 + 2632) = v2;
 
-  v2 = v1099;
-  v3 = v1100;
-  v1103 = v1 + 2872;
-  *(v1 + 2872) = v1099;
-  v1102 = v1 + 2465;
-  *(v1 + 2465) = v3;
-  v1101 = v1 + 2466;
-  *(v1 + 2466) = 4;
+  v3 = v1086;
+  v4 = v1087;
+  v1090 = v2 + 2872;
+  *(v2 + 2872) = v1086;
+  v1089 = v2 + 2465;
+  *(v2 + 2465) = v4;
+  v1088 = v2 + 2466;
+  *(v2 + 2466) = 4;
   lazy protocol witness table accessor for type NightingalePFLTaskType and conformance NightingalePFLTaskType();
   if (== infix<A>(_:_:)())
   {
-    v441 = *(v1064 + 3864);
-    v450 = *(v1064 + 3848);
-    v446 = *(v1064 + 3840);
-    v454 = *(v1064 + 3760);
-    v453 = *(v1064 + 3752);
-    v439 = *(v1064 + 3744);
-    v444 = *(v1064 + 3704);
-    v457 = *(v1064 + 3696);
-    v434 = *(v1064 + 2848);
+    v428 = *(v1051 + 3864);
+    v437 = *(v1051 + 3848);
+    v433 = *(v1051 + 3840);
+    v441 = *(v1051 + 3760);
+    v440 = *(v1051 + 3752);
+    v426 = *(v1051 + 3744);
+    v431 = *(v1051 + 3704);
+    v444 = *(v1051 + 3696);
+    v421 = *(v1051 + 2848);
 
-    v435 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd);
-    v455 = MEMORY[0x25F8895B0](v434);
+    v422 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd, &_s19NightingaleTraining9Pregnancy_pMR);
+    v442 = MEMORY[0x25F8895B0](v421);
 
-    v252 = v1064;
-    v437 = v1064 + 4354;
-    *(v1064 + 4354) = 7;
-    v436 = *(v252 + 2848);
+    v253 = v1051;
+    v424 = v1051 + 4354;
+    *(v1051 + 4354) = 7;
+    v423 = *(v253 + 2848);
 
-    v438 = MEMORY[0x25F8895B0](v436, v435);
+    v425 = MEMORY[0x25F8895B0](v423, v422);
 
-    v456 = Array.init(repeating:count:)();
-    v451 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-    v452 = _allocateUninitializedArray<A>(_:)();
-    v449 = v253;
-    v254 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
-    outlined init with copy of String(v254, v449);
-    v255 = v439;
-    v256 = v449;
-    v443 = MEMORY[0x277D839F8];
-    v449[5] = MEMORY[0x277D839F8];
-    v256[2] = v255;
-    v440 = v256 + 6;
+    v443 = Array.init(repeating:count:)();
+    v438 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+    v439 = _allocateUninitializedArray<A>(_:)();
+    v436 = v254;
+    v255 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
+    outlined init with copy of String(v255, v436);
+    v256 = v426;
+    v257 = v436;
+    v430 = MEMORY[0x277D839F8];
+    v436[5] = MEMORY[0x277D839F8];
+    v257[2] = v256;
+    v427 = v257 + 6;
     Duration = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
-    outlined init with copy of String(Duration, v440);
-    v258 = v441;
-    v259 = v449;
-    v449[11] = v443;
-    v259[8] = v258;
-    v442 = v259 + 12;
-    v260 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
-    outlined init with copy of String(v260, v442);
-    v261 = v444;
-    v262 = v449;
-    v449[17] = v443;
-    v262[14] = v261;
-    v445 = v262 + 18;
-    v263 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
-    outlined init with copy of String(v263, v445);
-    v264 = v446;
-    v265 = v449;
-    v448 = MEMORY[0x277D83B88];
-    v449[23] = MEMORY[0x277D83B88];
-    v265[20] = v264;
-    v447 = v265 + 24;
-    v266 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
-    outlined init with copy of String(v266, v447);
-    v267 = v449;
-    v268 = v450;
-    v449[29] = v448;
-    v267[26] = v268;
+    outlined init with copy of String(Duration, v427);
+    v259 = v428;
+    v260 = v436;
+    v436[11] = v430;
+    v260[8] = v259;
+    v429 = v260 + 12;
+    v261 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
+    outlined init with copy of String(v261, v429);
+    v262 = v431;
+    v263 = v436;
+    v436[17] = v430;
+    v263[14] = v262;
+    v432 = v263 + 18;
+    v264 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
+    outlined init with copy of String(v264, v432);
+    v265 = v433;
+    v266 = v436;
+    v435 = MEMORY[0x277D83B88];
+    v436[23] = MEMORY[0x277D83B88];
+    v266[20] = v265;
+    v434 = v266 + 24;
+    v267 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
+    outlined init with copy of String(v267, v434);
+    v268 = v436;
+    v269 = v437;
+    v436[29] = v435;
+    v268[26] = v269;
     _finalizeUninitializedArray<A>(_:)();
-    v458 = Dictionary.init(dictionaryLiteral:)();
-    v459 = NightingaleDPFLRunner.runPregnanciesDistribution(hyperParams:modelPath:numberOfRawPregnancies:invalidReasons:swtAvailability:existingMetrics:)(v457, v453, v454, v455, v456, v458, -1.0);
-    v460 = 0;
-    v427 = *(v1064 + 3904);
-    v428 = *(v1064 + 3872);
-    v429 = *(v1064 + 3856);
-    v430 = *(v1064 + 3760);
-    v431 = *(v1064 + 3736);
-    v432 = *(v1064 + 3712);
-    v433 = *(v1064 + 3696);
+    v445 = Dictionary.init(dictionaryLiteral:)();
+    v446 = NightingaleDPFLRunner.runPregnanciesDistribution(hyperParams:modelPath:numberOfRawPregnancies:invalidReasons:swtAvailability:existingMetrics:)(v444, v440, v441, v442, v443, v445, -1.0);
+    v447 = 0;
+    v414 = *(v1051 + 3904);
+    v415 = *(v1051 + 3872);
+    v416 = *(v1051 + 3856);
+    v417 = *(v1051 + 3760);
+    v418 = *(v1051 + 3736);
+    v419 = *(v1051 + 3712);
+    v420 = *(v1051 + 3696);
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -8511,83 +8502,83 @@ LABEL_163:
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    MEMORY[0x277D82BD8](v431);
-    MEMORY[0x277D82BD8](v432);
+    MEMORY[0x277D82BD8](v418);
+    MEMORY[0x277D82BD8](v419);
 
-    v576 = v459;
+    v563 = v446;
     goto LABEL_136;
   }
 
-  v425 = *(v1064 + 3696);
+  v412 = *(v1051 + 3696);
   started = HyperParams.useFactorStartDateAsLMP.getter();
 
   if (started)
   {
-    v424 = 1;
+    v411 = 1;
   }
 
   else
   {
-    v424 = HyperParams.useTestDateAsLMP.getter();
+    v411 = HyperParams.useTestDateAsLMP.getter();
   }
 
-  v423 = v424;
+  v410 = v411;
 
-  if ((v424 & 1) == 0)
+  if ((v411 & 1) == 0)
   {
-    v419 = *(v1064 + 3904);
-    v421 = *(v1064 + 3584);
-    v422 = *(v1064 + 3576);
-    v269 = v419;
-    v420 = v1064 + 2880;
-    *(v1064 + 2880) = v419;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    v406 = *(v1051 + 3904);
+    v408 = *(v1051 + 3584);
+    v409 = *(v1051 + 3576);
+    v270 = v406;
+    v407 = v1051 + 2880;
+    *(v1051 + 2880) = v406;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     if (swift_dynamicCast())
     {
-      (*(*(v1064 + 3592) + 56))(*(v1064 + 3576), 0, 1, *(v1064 + 3584));
+      (*(*(v1051 + 3592) + 56))(*(v1051 + 3576), 0, 1, *(v1051 + 3584));
     }
 
     else
     {
-      (*(*(v1064 + 3592) + 56))(*(v1064 + 3576), 1, 1, *(v1064 + 3584));
+      (*(*(v1051 + 3592) + 56))(*(v1051 + 3576), 1, 1, *(v1051 + 3584));
     }
 
-    if ((*(*(v1064 + 3592) + 48))(*(v1064 + 3576), 1, *(v1064 + 3584)) == 1)
+    if ((*(*(v1051 + 3592) + 48))(*(v1051 + 3576), 1, *(v1051 + 3584)) == 1)
     {
-      outlined destroy of PFLError?(*(v1064 + 3576));
+      outlined destroy of PFLError?(*(v1051 + 3576));
     }
 
     else
     {
-      v415 = *(v1064 + 3608);
-      v418 = *(v1064 + 3600);
-      v270 = *(v1064 + 3592);
-      v417 = *(v1064 + 3584);
-      v414 = v270;
-      v416 = v270;
-      (*(v270 + 32))();
-      (*(v414 + 16))(v418, v415, v417);
-      if ((*(v416 + 88))(v418, v417) == *MEMORY[0x277D413F0])
+      v402 = *(v1051 + 3608);
+      v405 = *(v1051 + 3600);
+      v271 = *(v1051 + 3592);
+      v404 = *(v1051 + 3584);
+      v401 = v271;
+      v403 = v271;
+      (*(v271 + 32))();
+      (*(v401 + 16))(v405, v402, v404);
+      if ((*(v403 + 88))(v405, v404) == *MEMORY[0x277D413F0])
       {
-        v402 = *(v1064 + 3904);
-        v403 = *(v1064 + 3872);
-        v404 = *(v1064 + 3856);
-        v405 = *(v1064 + 3760);
-        v406 = *(v1064 + 3736);
-        v407 = *(v1064 + 3712);
-        v408 = *(v1064 + 3696);
-        v398 = *(v1064 + 3608);
-        v273 = *(v1064 + 3600);
-        v274 = *(v1064 + 3592);
-        v399 = *(v1064 + 3584);
-        v401 = *(v274 + 8);
-        v400 = v274 + 8;
-        v401(v273);
+        v389 = *(v1051 + 3904);
+        v390 = *(v1051 + 3872);
+        v391 = *(v1051 + 3856);
+        v392 = *(v1051 + 3760);
+        v393 = *(v1051 + 3736);
+        v394 = *(v1051 + 3712);
+        v395 = *(v1051 + 3696);
+        v385 = *(v1051 + 3608);
+        v274 = *(v1051 + 3600);
+        v275 = *(v1051 + 3592);
+        v386 = *(v1051 + 3584);
+        v388 = *(v275 + 8);
+        v387 = v275 + 8;
+        v388(v274);
         lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-        v409 = swift_allocError();
-        *v275 = 5;
+        v396 = swift_allocError();
+        *v276 = 5;
         swift_willThrow();
-        (v401)(v398, v399);
+        (v388)(v385, v386);
 
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -8604,30 +8595,30 @@ LABEL_163:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v406);
-        MEMORY[0x277D82BD8](v407);
+        MEMORY[0x277D82BD8](v393);
+        MEMORY[0x277D82BD8](v394);
 
-        v935 = v409;
+        v922 = v396;
         goto LABEL_168;
       }
 
-      v410 = *(v1064 + 3608);
-      v271 = *(v1064 + 3600);
-      v272 = *(v1064 + 3592);
-      v411 = *(v1064 + 3584);
-      v413 = *(v272 + 8);
-      v412 = v272 + 8;
-      v413(v271);
-      (v413)(v410, v411);
+      v397 = *(v1051 + 3608);
+      v272 = *(v1051 + 3600);
+      v273 = *(v1051 + 3592);
+      v398 = *(v1051 + 3584);
+      v400 = *(v273 + 8);
+      v399 = v273 + 8;
+      v400(v272);
+      (v400)(v397, v398);
     }
 
-    v391 = *(v1064 + 3904);
-    v392 = *(v1064 + 3872);
-    v393 = *(v1064 + 3856);
-    v394 = *(v1064 + 3760);
-    v395 = *(v1064 + 3736);
-    v396 = *(v1064 + 3712);
-    v397 = *(v1064 + 3696);
+    v378 = *(v1051 + 3904);
+    v379 = *(v1051 + 3872);
+    v380 = *(v1051 + 3856);
+    v381 = *(v1051 + 3760);
+    v382 = *(v1051 + 3736);
+    v383 = *(v1051 + 3712);
+    v384 = *(v1051 + 3696);
     swift_willThrow();
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -8645,251 +8636,248 @@ LABEL_163:
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    MEMORY[0x277D82BD8](v395);
-    MEMORY[0x277D82BD8](v396);
+    MEMORY[0x277D82BD8](v382);
+    MEMORY[0x277D82BD8](v383);
 
-    v935 = *(v1064 + 3904);
+    v922 = *(v1051 + 3904);
 LABEL_168:
-    v295 = *(v1064 + 3664);
-    v296 = *(v1064 + 3640);
-    v297 = *(v1064 + 3632);
-    v298 = *(v1064 + 3608);
-    v299 = *(v1064 + 3600);
-    v300 = *(v1064 + 3576);
-    v301 = *(v1064 + 3568);
-    v302 = *(v1064 + 3560);
+    v293[22] = *(v1051 + 3664);
+    v293[23] = *(v1051 + 3640);
+    v293[24] = *(v1051 + 3632);
+    v293[25] = *(v1051 + 3608);
+    v293[26] = *(v1051 + 3600);
+    v293[27] = *(v1051 + 3576);
+    v293[28] = *(v1051 + 3568);
+    v293[29] = *(v1051 + 3560);
 
-    v250 = v1016;
-    v251 = *(*(v1064 + 2632) + 8);
+    v251 = v1003;
+    v252 = *(*(v1051 + 2632) + 8);
 
-    return v251(v250);
+    return v252(v251);
   }
 
-  v276 = *(v1064 + 3568);
-  v277 = *(v1064 + 3552);
-  v387 = *(v1064 + 3544);
-  v386 = v277;
-  v278 = Logging.default.unsafeMutableAddressor();
-  (*(v386 + 16))(v276, v278, v387);
+  v277 = *(v1051 + 3568);
+  v278 = *(v1051 + 3552);
+  v374 = *(v1051 + 3544);
+  v373 = v278;
+  v279 = Logging.default.unsafeMutableAddressor();
+  (*(v373 + 16))(v277, v279, v374);
   oslog = Logger.logObject.getter();
-  v388 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd);
-  v390 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(oslog, v388))
+  v375 = static os_log_type_t.debug.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v377 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(oslog, v375))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v374 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
-    v375 = 0;
-    v377 = createStorage<A>(capacity:type:)(0);
-    v279 = createStorage<A>(capacity:type:)(0);
-    v280 = v377;
-    v281 = v1064;
-    v378 = v279;
-    v282 = (v1064 + 3424);
-    v380 = (v1064 + 3424);
-    *(v1064 + 3424) = buf;
-    v381 = v281 + 3432;
-    *(v281 + 3432) = v280;
-    v382 = v281 + 3440;
-    *(v281 + 3440) = v279;
-    v379 = 0;
-    serialize(_:at:)(0, v282);
-    serialize(_:at:)(0, v380);
-    *(v1064 + 3448) = v390;
-    v283 = swift_task_alloc();
-    v284 = v381;
-    v285 = v382;
-    v383 = v283;
-    v283[2] = v380;
-    v283[3] = v284;
-    v283[4] = v285;
-    v384 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd);
+    v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v362 = 0;
+    v364 = createStorage<A>(capacity:type:)(0, v361, v361);
+    v280 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v281 = v364;
+    v282 = v1051;
+    v365 = v280;
+    v283 = (v1051 + 3424);
+    v367 = (v1051 + 3424);
+    *(v1051 + 3424) = buf;
+    v368 = v282 + 3432;
+    *(v282 + 3432) = v281;
+    v369 = v282 + 3440;
+    *(v282 + 3440) = v280;
+    v366 = 0;
+    serialize(_:at:)(0, v283);
+    serialize(_:at:)(0, v367);
+    *(v1051 + 3448) = v377;
+    v284 = swift_task_alloc();
+    v285 = v368;
+    v286 = v369;
+    v370 = v284;
+    v284[2] = v367;
+    v284[3] = v285;
+    v284[4] = v286;
+    v371 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
     Sequence.forEach(_:)();
-    v385 = 0;
-
-    _os_log_impl(&dword_25C4D8000, oslog, v388, "Ignore failed to query updating features.", buf, 2u);
     v372 = 0;
-    destroyStorage<A>(_:count:)(v377, 0, v374);
-    destroyStorage<A>(_:count:)(v378, 0, MEMORY[0x277D84F70] + 8);
+
+    _os_log_impl(&dword_25C4D8000, oslog, v375, "Ignore failed to query updating features.", buf, 2u);
+    v359 = 0;
+    destroyStorage<A>(_:count:)(v364, 0, v361);
+    destroyStorage<A>(_:count:)(v365, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x25F8899D0](buf, MEMORY[0x277D84B78]);
   }
 
-  v373 = 0;
-  v348 = *(v1064 + 3904);
-  v346 = *(v1064 + 3568);
-  v286 = *(v1064 + 3552);
-  v347 = *(v1064 + 3544);
-  v345 = v286;
+  v360 = 0;
+  v335 = *(v1051 + 3904);
+  v333 = *(v1051 + 3568);
+  v287 = *(v1051 + 3552);
+  v334 = *(v1051 + 3544);
+  v332 = v287;
   MEMORY[0x277D82BD8](oslog);
-  (*(v345 + 8))(v346, v347);
+  (*(v332 + 8))(v333, v334);
 
-  v370 = v1064 + 2640;
-  v357 = v1064 + 2696;
-  v358 = v1064 + 2704;
-  v359 = v1064 + 2712;
-  v360 = v1064 + 4352;
-  v371 = v1064 + 2536;
-  v361 = v1064 + 4248;
-  v362 = v1064 + 2816;
-  v363 = v1064 + 2824;
-  v364 = v1064 + 2832;
-  v365 = v1064 + 4256;
-  v366 = v1064 + 2840;
-  v367 = v1064 + 2856;
-  v356 = *(v1064 + 3872);
-  v369 = *(v1064 + 3784);
-  v353 = *(v1064 + 3536);
-  v350 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v352 = 1;
+  v357 = v1051 + 2640;
+  v344 = v1051 + 2696;
+  v345 = v1051 + 2704;
+  v346 = v1051 + 2712;
+  v347 = v1051 + 4352;
+  v358 = v1051 + 2536;
+  v348 = v1051 + 4248;
+  v349 = v1051 + 2816;
+  v350 = v1051 + 2824;
+  v351 = v1051 + 2832;
+  v352 = v1051 + 4256;
+  v353 = v1051 + 2840;
+  v354 = v1051 + 2856;
+  v343 = *(v1051 + 3872);
+  v356 = *(v1051 + 3784);
+  v340 = *(v1051 + 3536);
+  v337 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v339 = 1;
   object = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryUpdatingFeatures", 0x15uLL, 1)._object;
   dispatch thunk of PerformanceMeasure.finish(_:)();
-  v351 = v287;
-  *(v1064 + 3912) = v287;
+  v338 = v288;
+  *(v1051 + 3912) = v288;
 
-  v368 = v1064 + 2888;
-  *(v1064 + 2888) = v351;
-  v288 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryUpdatingFeaturesCompleted, v288);
-  v355 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v354 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdatePregnancies", 0x11uLL, v352 & 1)._object;
+  v355 = v1051 + 2888;
+  *(v1051 + 2888) = v338;
+  v289 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryUpdatingFeaturesCompleted, v289);
+  v342 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v341 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdatePregnancies", 0x11uLL, v339 & 1)._object;
   dispatch thunk of PerformanceMeasure.start(_:)();
 
-  v289 = swift_task_alloc();
-  v290 = v1064;
-  v1058 = v289;
-  v289[2] = v356;
-  v289[3] = v290 + 2720;
-  v289[4] = v290 + 2728;
-  v289[5] = v290 + 2736;
-  v289[6] = v290 + 2744;
-  v291 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-  NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(5, v291 & 1, v1058, v369, v1064 + 2896);
-  v1059 = 0;
-  v1061 = 0;
-  v1060 = *(v1064 + 3872);
+  v290 = swift_task_alloc();
+  v291 = v1051;
+  v1045 = v290;
+  v290[2] = v343;
+  v290[3] = v291 + 2720;
+  v290[4] = v291 + 2728;
+  v290[5] = v291 + 2736;
+  v290[6] = v291 + 2744;
+  v292 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+  NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(5, v292 & 1, v1045, v356, v1051 + 2896);
+  v1046 = 0;
+  v1048 = 0;
+  v1047 = *(v1051 + 3872);
 
-  *(v1064 + 2808) = *(v1064 + 2896);
+  *(v1051 + 2808) = *(v1051 + 2896);
 
-  v1062 = v1061;
-  v1063 = 0;
-  v1053 = v1063;
-  v1054 = v1062;
-  v1104 = 0;
-  v1056 = *(v1064 + 2848);
+  v1049 = v1048;
+  v1050 = 0;
+  v1040 = v1050;
+  v1041 = v1049;
+  v1091 = 0;
+  v1043 = *(v1051 + 2848);
 
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd);
-  v5 = v1056;
-  v1055 = v4;
-  *(v1064 + 3920) = v4;
-  v1057 = MEMORY[0x25F8895B0](v5);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd, &_s19NightingaleTraining9Pregnancy_pMR);
+  v6 = v1043;
+  v1042 = v5;
+  *(v1051 + 3920) = v5;
+  v1044 = MEMORY[0x25F8895B0](v6);
 
-  v1105 = v1057;
-  if (v1057 < v1104)
+  v1092 = v1044;
+  if (v1044 < v1091)
   {
-    LOBYTE(v292) = 2;
-    v293 = 760;
-    LODWORD(v294) = 0;
-    return _assertionFailure(_:_:file:line:flags:)();
+    return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1056, 39, 2, v1057, 17, 2, 760, 0);
   }
 
-  v7 = v1064;
-  v1106 = v1104;
-  v1107 = v1105;
-  v8 = v1105;
-  *(v1064 + 2552) = v1104;
-  *(v7 + 2560) = v8;
-  v1051 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
-  *(v1064 + 3928) = v1051;
-  *(v1064 + 3936) = lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
+  v8 = v1051;
+  v1093 = v1091;
+  v1094 = v1092;
+  v9 = v1092;
+  *(v1051 + 2552) = v1091;
+  *(v8 + 2560) = v9;
+  v1038 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
+  *(v1051 + 3928) = v1038;
+  *(v1051 + 3936) = lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   Collection<>.makeIterator()();
-  for (i = v1053; ; i = v1048)
+  for (i = v1040; ; i = v1035)
   {
-    v1048 = i;
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd);
-    v10 = v1064;
-    *(v1064 + 3944) = v9;
-    v1049 = v10 + 2600;
+    v1035 = i;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd, &_ss16IndexingIteratorVySnySiGGMR);
+    v11 = v1051;
+    *(v1051 + 3944) = v10;
+    v1036 = v11 + 2600;
     IndexingIterator.next()();
-    v1050 = *(v1064 + 2600);
-    if (*(v1049 + 8))
+    v1037 = *(v1051 + 2600);
+    if (*(v1036 + 8))
     {
       break;
     }
 
-    v11 = v1064;
-    v1046 = v1064 + 3384;
-    *(v1064 + 3384) = v1050;
-    v1045 = (v11 + 1752);
+    v12 = v1051;
+    v1033 = v1051 + 3384;
+    *(v1051 + 3384) = v1037;
+    v1032 = (v12 + 1752);
     Array.subscript.getter();
-    v1040 = *(v1064 + 1776);
-    v1037 = *(v1064 + 1784);
-    v1036 = __swift_project_boxed_opaque_existential_1(v1045, v1040);
-    v1038 = *(v1040 - 8);
-    v1039 = v1040 - 8;
-    v1044 = swift_task_alloc();
-    (*(v1038 + 16))(v1044, v1036, v1040);
-    v1041 = (*(v1037 + 48))(v1040);
-    (*(v1038 + 8))(v1044, v1040);
-    v12 = v1064;
-    v1043 = v1064 + 4350;
-    *(v1064 + 4350) = v1041;
-    v1042 = v12 + 4351;
-    *(v12 + 4351) = 2;
+    v1027 = *(v1051 + 1776);
+    v1024 = *(v1051 + 1784);
+    v1023 = __swift_project_boxed_opaque_existential_1(v1032, v1027);
+    v1025 = *(v1027 - 8);
+    v1026 = v1027 - 8;
+    v1031 = swift_task_alloc();
+    (*(v1025 + 16))(v1031, v1023, v1027);
+    v1028 = (*(v1024 + 48))(v1027);
+    (*(v1025 + 8))(v1031, v1027);
+    v13 = v1051;
+    v1030 = v1051 + 4350;
+    *(v1051 + 4350) = v1028;
+    v1029 = v13 + 4351;
+    *(v13 + 4351) = 2;
     lazy protocol witness table accessor for type PregnancySource and conformance PregnancySource();
-    v1047 = == infix<A>(_:_:)();
+    v1034 = == infix<A>(_:_:)();
 
-    __swift_destroy_boxed_opaque_existential_1(v1045);
-    if (v1047)
+    __swift_destroy_boxed_opaque_existential_1(v1032);
+    if (v1034)
     {
-      v1028 = *(v1064 + 3696);
-      v1035 = *(v1064 + 2808);
+      v1015 = *(v1051 + 3696);
+      v1022 = *(v1051 + 2808);
 
-      v1029 = HyperParams.useSeahorseInferredStartdate.getter();
-      v1030 = HyperParams.useTestDateAsLMP.getter();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-      v1033 = v1064 + 2240;
-      v1034 = Array.subscript.modify();
-      v1031 = *(v13 + 24);
-      v1032 = *(v13 + 32);
-      __swift_mutable_project_boxed_opaque_existential_1(v13, v1031);
-      (*(v1032 + 112))(v1035, v1029 & 1, v1030 & 1, v1031);
-      v1034();
+      v1016 = HyperParams.useSeahorseInferredStartdate.getter();
+      v1017 = HyperParams.useTestDateAsLMP.getter();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+      v1020 = v1051 + 2240;
+      v1021 = Array.subscript.modify();
+      v1018 = *(v14 + 24);
+      v1019 = *(v14 + 32);
+      __swift_mutable_project_boxed_opaque_existential_1(v14, v1018);
+      (*(v1019 + 112))(v1022, v1016 & 1, v1017 & 1, v1018);
+      v1021();
     }
 
     else
     {
-      v1020 = *(v1064 + 3696);
-      v1027 = *(v1064 + 2808);
+      v1007 = *(v1051 + 3696);
+      v1014 = *(v1051 + 2808);
 
-      v1021 = HyperParams.useSeahorseInferredStartdate.getter();
-      v1022 = HyperParams.useFactorStartDateAsLMP.getter();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-      v1025 = v1064 + 2208;
-      v1026 = Array.subscript.modify();
-      v1023 = *(v14 + 24);
-      v1024 = *(v14 + 32);
-      __swift_mutable_project_boxed_opaque_existential_1(v14, v1023);
-      (*(v1024 + 112))(v1027, v1021 & 1, v1022 & 1, v1023);
-      v1026();
+      v1008 = HyperParams.useSeahorseInferredStartdate.getter();
+      v1009 = HyperParams.useFactorStartDateAsLMP.getter();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+      v1012 = v1051 + 2208;
+      v1013 = Array.subscript.modify();
+      v1010 = *(v15 + 24);
+      v1011 = *(v15 + 32);
+      __swift_mutable_project_boxed_opaque_existential_1(v15, v1010);
+      (*(v1011 + 112))(v1014, v1008 & 1, v1009 & 1, v1010);
+      v1013();
     }
   }
 
-  v15 = v1054;
-  v1017 = *(v1064 + 2848);
+  v16 = v1041;
+  v1004 = *(v1051 + 2848);
 
-  v16 = HyperParams.overlapPregnanciesStrategy.getter();
-  v1018 = mergePregnancies(pregnancies:strategy:)(v1017, v16 & 1);
-  *(v1064 + 3952) = v1018;
-  v1019 = v15;
-  if (v15)
+  v17 = HyperParams.overlapPregnanciesStrategy.getter();
+  v1005 = mergePregnancies(pregnancies:strategy:)(v1004, v17 & 1);
+  *(v1051 + 3952) = v1005;
+  v1006 = v16;
+  if (v16)
   {
-    v339 = *(v1064 + 3872);
-    v340 = *(v1064 + 3856);
-    v341 = *(v1064 + 3760);
-    v342 = *(v1064 + 3736);
-    v343 = *(v1064 + 3712);
-    v344 = *(v1064 + 3696);
+    v326 = *(v1051 + 3872);
+    v327 = *(v1051 + 3856);
+    v328 = *(v1051 + 3760);
+    v329 = *(v1051 + 3736);
+    v330 = *(v1051 + 3712);
+    v331 = *(v1051 + 3696);
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -8906,21 +8894,21 @@ LABEL_168:
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    MEMORY[0x277D82BD8](v342);
-    MEMORY[0x277D82BD8](v343);
+    MEMORY[0x277D82BD8](v329);
+    MEMORY[0x277D82BD8](v330);
 
-    v935 = v1019;
+    v922 = v1006;
     goto LABEL_168;
   }
 
-  v1013 = *(v1064 + 3848);
-  v1014 = *(v1064 + 3840);
+  v1000 = *(v1051 + 3848);
+  v1001 = *(v1051 + 3840);
 
-  v22 = v1013;
-  v23 = v1014;
-  *(v1064 + 2912) = v1018;
-  v1015 = v23 - v22;
-  if (__OFSUB__(v23, v22))
+  v23 = v1000;
+  v24 = v1001;
+  *(v1051 + 2912) = v1005;
+  v1002 = v24 - v23;
+  if (__OFSUB__(v24, v23))
   {
     __break(1u);
 LABEL_172:
@@ -8928,152 +8916,152 @@ LABEL_172:
     goto LABEL_173;
   }
 
-  v17 = MEMORY[0x25F8895B0](v1018, v1055);
-  v1012 = v1015 - v17;
-  v25 = __OFSUB__(v1015, v17);
-  *(v1064 + 3960) = v1015 - v17;
-  if (v25)
+  v18 = MEMORY[0x25F8895B0](v1005, v1042);
+  v999 = v1002 - v18;
+  v26 = __OFSUB__(v1002, v18);
+  *(v1051 + 3960) = v1002 - v18;
+  if (v26)
   {
     goto LABEL_172;
   }
 
-  v26 = v1019;
-  v1004 = *(v1064 + 3696);
-  v1007 = v1064 + 2920;
-  *(v1064 + 2920) = v1012;
-  v1003 = 0;
-  v1005 = v1064 + 2928;
-  *(v1064 + 2928) = _allocateUninitializedArray<A>(_:)();
-  v27 = _allocateUninitializedArray<A>(_:)();
-  v28 = v1018;
-  v29 = v1064;
-  v1006 = v1064 + 2936;
-  *(v1064 + 2936) = v27;
-  *(v29 + 2944) = v28;
+  v27 = v1006;
+  v991 = *(v1051 + 3696);
+  v994 = v1051 + 2920;
+  *(v1051 + 2920) = v999;
+  v990 = 0;
+  v992 = v1051 + 2928;
+  *(v1051 + 2928) = _allocateUninitializedArray<A>(_:)();
+  v28 = _allocateUninitializedArray<A>(_:)();
+  v29 = v1005;
+  v30 = v1051;
+  v993 = v1051 + 2936;
+  *(v1051 + 2936) = v28;
+  *(v30 + 2944) = v29;
 
-  v30 = swift_task_alloc();
-  v31 = v1005;
-  v32 = v1006;
-  v33 = v1064;
-  v1008 = v30;
-  v30[2] = v1004;
-  v30[3] = v33 + 2720;
-  v30[4] = v31;
-  v30[5] = v32;
-  v1009 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-  *(v1064 + 3968) = v1009;
-  v1010 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
-  *(v1064 + 3976) = v1010;
+  v31 = swift_task_alloc();
+  v32 = v992;
+  v33 = v993;
+  v34 = v1051;
+  v995 = v31;
+  v31[2] = v991;
+  v31[3] = v34 + 2720;
+  v31[4] = v32;
+  v31[5] = v33;
+  v996 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+  *(v1051 + 3968) = v996;
+  v997 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
+  *(v1051 + 3976) = v997;
   Sequence.forEach(_:)();
-  v1011 = v26;
-  if (v26)
+  v998 = v27;
+  if (v27)
   {
-    v338 = *(v1064 + 3696);
+    v325 = *(v1051 + 3696);
   }
 
-  v994 = *(v1064 + 3696);
+  v981 = *(v1051 + 3696);
 
-  v995 = *(v1064 + 2928);
+  v982 = *(v1051 + 2928);
 
-  v34 = MEMORY[0x25F8895B0](v995, v1055);
-  v35 = v1064;
-  v996 = v34;
-  *(v1064 + 3984) = v34;
-  v998 = v35 + 2952;
-  *(v35 + 2952) = v34;
+  v35 = MEMORY[0x25F8895B0](v982, v1042);
+  v36 = v1051;
+  v983 = v35;
+  *(v1051 + 3984) = v35;
+  v985 = v36 + 2952;
+  *(v36 + 2952) = v35;
 
-  v997 = *(v1064 + 2936);
+  v984 = *(v1051 + 2936);
 
-  *(v1064 + 2960) = v997;
-  v999 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining22PregnancyInvalidReasonOGMd);
-  v1000 = lazy protocol witness table accessor for type [PregnancyInvalidReason] and conformance [A]();
-  v1001 = _ArrayProtocol.filter(_:)();
-  v1002 = 0;
-  v36 = MEMORY[0x25F8895B0](v1001, &type metadata for PregnancyInvalidReason);
-  v37 = v1064;
-  *(v1064 + 3992) = v36;
-  v991 = v37 + 2968;
-  *(v37 + 2968) = v36;
+  *(v1051 + 2960) = v984;
+  v986 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining22PregnancyInvalidReasonOGMd, &_sSay19NightingaleTraining22PregnancyInvalidReasonOGMR);
+  v987 = lazy protocol witness table accessor for type [PregnancyInvalidReason] and conformance [A]();
+  v988 = _ArrayProtocol.filter(_:)();
+  v989 = 0;
+  v37 = MEMORY[0x25F8895B0](v988, &type metadata for PregnancyInvalidReason);
+  v38 = v1051;
+  *(v1051 + 3992) = v37;
+  v978 = v38 + 2968;
+  *(v38 + 2968) = v37;
 
-  *(v1064 + 2976) = v997;
-  v992 = _ArrayProtocol.filter(_:)();
-  v993 = 0;
-  v38 = MEMORY[0x25F8895B0](v992, &type metadata for PregnancyInvalidReason);
-  v39 = v1064;
-  *(v1064 + 4000) = v38;
-  v988 = v39 + 2984;
-  *(v39 + 2984) = v38;
+  *(v1051 + 2976) = v984;
+  v979 = _ArrayProtocol.filter(_:)();
+  v980 = 0;
+  v39 = MEMORY[0x25F8895B0](v979, &type metadata for PregnancyInvalidReason);
+  v40 = v1051;
+  *(v1051 + 4000) = v39;
+  v975 = v40 + 2984;
+  *(v40 + 2984) = v39;
 
-  *(v1064 + 2992) = v997;
-  v989 = _ArrayProtocol.filter(_:)();
-  v990 = 0;
-  v40 = MEMORY[0x25F8895B0](v989, &type metadata for PregnancyInvalidReason);
-  v41 = v1064;
-  *(v1064 + 4008) = v40;
-  v985 = v41 + 3000;
-  *(v41 + 3000) = v40;
+  *(v1051 + 2992) = v984;
+  v976 = _ArrayProtocol.filter(_:)();
+  v977 = 0;
+  v41 = MEMORY[0x25F8895B0](v976, &type metadata for PregnancyInvalidReason);
+  v42 = v1051;
+  *(v1051 + 4008) = v41;
+  v972 = v42 + 3000;
+  *(v42 + 3000) = v41;
 
-  *(v1064 + 3008) = v997;
-  v986 = _ArrayProtocol.filter(_:)();
-  v987 = 0;
-  v42 = MEMORY[0x25F8895B0](v986, &type metadata for PregnancyInvalidReason);
-  v43 = v1064;
-  *(v1064 + 4016) = v42;
-  v982 = v43 + 3016;
-  *(v43 + 3016) = v42;
+  *(v1051 + 3008) = v984;
+  v973 = _ArrayProtocol.filter(_:)();
+  v974 = 0;
+  v43 = MEMORY[0x25F8895B0](v973, &type metadata for PregnancyInvalidReason);
+  v44 = v1051;
+  *(v1051 + 4016) = v43;
+  v969 = v44 + 3016;
+  *(v44 + 3016) = v43;
 
-  *(v1064 + 3024) = v997;
-  v983 = _ArrayProtocol.filter(_:)();
-  v984 = 0;
-  v44 = MEMORY[0x25F8895B0](v983, &type metadata for PregnancyInvalidReason);
-  v45 = v1064;
-  *(v1064 + 4024) = v44;
-  v979 = v45 + 3032;
-  *(v45 + 3032) = v44;
+  *(v1051 + 3024) = v984;
+  v970 = _ArrayProtocol.filter(_:)();
+  v971 = 0;
+  v45 = MEMORY[0x25F8895B0](v970, &type metadata for PregnancyInvalidReason);
+  v46 = v1051;
+  *(v1051 + 4024) = v45;
+  v966 = v46 + 3032;
+  *(v46 + 3032) = v45;
 
-  *(v1064 + 3040) = v997;
-  v980 = _ArrayProtocol.filter(_:)();
-  v981 = 0;
-  v973 = *(v1064 + 3536);
-  v46 = MEMORY[0x25F8895B0](v980, &type metadata for PregnancyInvalidReason);
-  v47 = v1064;
-  *(v1064 + 4032) = v46;
-  v977 = v47 + 3048;
-  *(v47 + 3048) = v46;
+  *(v1051 + 3040) = v984;
+  v967 = _ArrayProtocol.filter(_:)();
+  v968 = 0;
+  v960 = *(v1051 + 3536);
+  v47 = MEMORY[0x25F8895B0](v967, &type metadata for PregnancyInvalidReason);
+  v48 = v1051;
+  *(v1051 + 4032) = v47;
+  v964 = v48 + 3048;
+  *(v48 + 3048) = v47;
 
-  v975 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v974 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdatePregnancies", 0x11uLL, 1)._object;
+  v962 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v961 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdatePregnancies", 0x11uLL, 1)._object;
   dispatch thunk of PerformanceMeasure.finish(_:)();
-  v976 = v48;
-  *(v1064 + 4040) = v48;
+  v963 = v49;
+  *(v1051 + 4040) = v49;
 
-  v978 = v1064 + 3056;
-  *(v1064 + 3056) = v976;
-  v49 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updatePregnanciesCompleted, v49);
-  if (v996 <= 0)
+  v965 = v1051 + 3056;
+  *(v1051 + 3056) = v963;
+  v50 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updatePregnanciesCompleted, v50);
+  if (v983 <= 0)
   {
-    v226 = v1064;
-    v227 = *(v1064 + 4359);
-    v509 = v1064 + 2610;
-    *(v1064 + 2610) = v227;
-    v508 = v226 + 2611;
-    *(v226 + 2611) = 4;
+    v227 = v1051;
+    v228 = *(v1051 + 4359);
+    v496 = v1051 + 2610;
+    *(v1051 + 2610) = v228;
+    v495 = v227 + 2611;
+    *(v227 + 2611) = 4;
     lazy protocol witness table accessor for type NightingalePFLTaskType and conformance NightingalePFLTaskType();
     if ((== infix<A>(_:_:)() & 1) == 0)
     {
-      v471 = *(v1064 + 3872);
-      v472 = *(v1064 + 3856);
-      v473 = *(v1064 + 3760);
-      v474 = *(v1064 + 3736);
-      v475 = *(v1064 + 3712);
-      v476 = *(v1064 + 3696);
-      v470 = 58;
-      v248 = HIDPFLError.rawValue.getter(58);
-      NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_checkValidPregnanciesCompleted, v248);
+      v458 = *(v1051 + 3872);
+      v459 = *(v1051 + 3856);
+      v460 = *(v1051 + 3760);
+      v461 = *(v1051 + 3736);
+      v462 = *(v1051 + 3712);
+      v463 = *(v1051 + 3696);
+      v457 = 58;
+      v249 = HIDPFLError.rawValue.getter(58);
+      NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_checkValidPregnanciesCompleted, v249);
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v477 = swift_allocError();
-      *v249 = 58;
+      v464 = swift_allocError();
+      *v250 = 58;
       swift_willThrow();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9093,86 +9081,86 @@ LABEL_172:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v474);
-      MEMORY[0x277D82BD8](v475);
+      MEMORY[0x277D82BD8](v461);
+      MEMORY[0x277D82BD8](v462);
 
-      v935 = v477;
+      v922 = v464;
       goto LABEL_168;
     }
 
-    v228 = v981;
-    v487 = *(v1064 + 3864);
-    v494 = *(v1064 + 3848);
-    v491 = *(v1064 + 3840);
-    v501 = *(v1064 + 3760);
-    v500 = *(v1064 + 3752);
-    v485 = *(v1064 + 3744);
-    v489 = *(v1064 + 3704);
-    v504 = *(v1064 + 3696);
-    v484 = *(v1064 + 2848);
+    v229 = v968;
+    v474 = *(v1051 + 3864);
+    v481 = *(v1051 + 3848);
+    v478 = *(v1051 + 3840);
+    v488 = *(v1051 + 3760);
+    v487 = *(v1051 + 3752);
+    v472 = *(v1051 + 3744);
+    v476 = *(v1051 + 3704);
+    v491 = *(v1051 + 3696);
+    v471 = *(v1051 + 2848);
 
-    v502 = MEMORY[0x25F8895B0](v484, v1055);
+    v489 = MEMORY[0x25F8895B0](v471, v1042);
 
-    v503 = *(v1064 + 2936);
+    v490 = *(v1051 + 2936);
 
-    v498 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-    v499 = _allocateUninitializedArray<A>(_:)();
-    v497 = v229;
-    v230 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
-    outlined init with copy of String(v230, v497);
-    v231 = v485;
-    v232 = v497;
-    v496 = MEMORY[0x277D839F8];
-    v497[5] = MEMORY[0x277D839F8];
-    v232[2] = v231;
-    v486 = v232 + 6;
-    v233 = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
-    outlined init with copy of String(v233, v486);
-    v234 = v487;
-    v235 = v497;
-    v497[11] = v496;
-    v235[8] = v234;
-    v488 = v235 + 12;
-    v236 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
-    outlined init with copy of String(v236, v488);
-    v237 = v489;
-    v238 = v497;
-    v497[17] = v496;
-    v238[14] = v237;
-    v490 = v238 + 18;
-    v239 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
-    outlined init with copy of String(v239, v490);
-    v240 = v491;
-    v241 = v497;
-    v493 = MEMORY[0x277D83B88];
-    v497[23] = MEMORY[0x277D83B88];
-    v241[20] = v240;
-    v492 = v241 + 24;
-    v242 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
-    outlined init with copy of String(v242, v492);
-    v243 = v494;
-    v244 = v497;
-    v497[29] = v493;
-    v244[26] = v243;
-    v495 = v244 + 30;
+    v485 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+    v486 = _allocateUninitializedArray<A>(_:)();
+    v484 = v230;
+    v231 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
+    outlined init with copy of String(v231, v484);
+    v232 = v472;
+    v233 = v484;
+    v483 = MEMORY[0x277D839F8];
+    v484[5] = MEMORY[0x277D839F8];
+    v233[2] = v232;
+    v473 = v233 + 6;
+    v234 = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
+    outlined init with copy of String(v234, v473);
+    v235 = v474;
+    v236 = v484;
+    v484[11] = v483;
+    v236[8] = v235;
+    v475 = v236 + 12;
+    v237 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
+    outlined init with copy of String(v237, v475);
+    v238 = v476;
+    v239 = v484;
+    v484[17] = v483;
+    v239[14] = v238;
+    v477 = v239 + 18;
+    v240 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
+    outlined init with copy of String(v240, v477);
+    v241 = v478;
+    v242 = v484;
+    v480 = MEMORY[0x277D83B88];
+    v484[23] = MEMORY[0x277D83B88];
+    v242[20] = v241;
+    v479 = v242 + 24;
+    v243 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
+    outlined init with copy of String(v243, v479);
+    v244 = v481;
+    v245 = v484;
+    v484[29] = v480;
+    v245[26] = v244;
+    v482 = v245 + 30;
     updated = NightingaleDPFLRunner.keyMetricsUpdatePregnanciesDurationS.unsafeMutableAddressor();
-    outlined init with copy of String(updated, v495);
-    v246 = v497;
-    v247 = v976;
-    v497[35] = v496;
-    v246[32] = v247;
+    outlined init with copy of String(updated, v482);
+    v247 = v484;
+    v248 = v963;
+    v484[35] = v483;
+    v247[32] = v248;
     _finalizeUninitializedArray<A>(_:)();
-    v505 = Dictionary.init(dictionaryLiteral:)();
-    v506 = NightingaleDPFLRunner.runPregnanciesDistribution(hyperParams:modelPath:numberOfRawPregnancies:invalidReasons:swtAvailability:existingMetrics:)(v504, v500, v501, v502, v503, v505, -1.0);
-    v507 = v228;
-    if (v228)
+    v492 = Dictionary.init(dictionaryLiteral:)();
+    v493 = NightingaleDPFLRunner.runPregnanciesDistribution(hyperParams:modelPath:numberOfRawPregnancies:invalidReasons:swtAvailability:existingMetrics:)(v491, v487, v488, v489, v490, v492, -1.0);
+    v494 = v229;
+    if (v229)
     {
-      v332 = *(v1064 + 3872);
-      v333 = *(v1064 + 3856);
-      v334 = *(v1064 + 3760);
-      v335 = *(v1064 + 3736);
-      v336 = *(v1064 + 3712);
-      v337 = *(v1064 + 3696);
+      v319 = *(v1051 + 3872);
+      v320 = *(v1051 + 3856);
+      v321 = *(v1051 + 3760);
+      v322 = *(v1051 + 3736);
+      v323 = *(v1051 + 3712);
+      v324 = *(v1051 + 3696);
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9192,19 +9180,19 @@ LABEL_172:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v335);
-      MEMORY[0x277D82BD8](v336);
+      MEMORY[0x277D82BD8](v322);
+      MEMORY[0x277D82BD8](v323);
 
-      v935 = v507;
+      v922 = v494;
       goto LABEL_168;
     }
 
-    v478 = *(v1064 + 3872);
-    v479 = *(v1064 + 3856);
-    v480 = *(v1064 + 3760);
-    v481 = *(v1064 + 3736);
-    v482 = *(v1064 + 3712);
-    v483 = *(v1064 + 3696);
+    v465 = *(v1051 + 3872);
+    v466 = *(v1051 + 3856);
+    v467 = *(v1051 + 3760);
+    v468 = *(v1051 + 3736);
+    v469 = *(v1051 + 3712);
+    v470 = *(v1051 + 3696);
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9224,79 +9212,79 @@ LABEL_172:
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    MEMORY[0x277D82BD8](v481);
-    MEMORY[0x277D82BD8](v482);
+    MEMORY[0x277D82BD8](v468);
+    MEMORY[0x277D82BD8](v469);
 
-    v576 = v506;
+    v563 = v493;
     goto LABEL_136;
   }
 
-  v970 = *(v1064 + 4359);
-  v50 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_checkValidPregnanciesCompleted, v50);
-  v51 = v1064;
-  v972 = v1064 + 2625;
-  *(v1064 + 2625) = v970;
-  v971 = v51 + 2626;
-  *(v51 + 2626) = 4;
-  *(v1064 + 4048) = lazy protocol witness table accessor for type NightingalePFLTaskType and conformance NightingalePFLTaskType();
+  v957 = *(v1051 + 4359);
+  v51 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_checkValidPregnanciesCompleted, v51);
+  v52 = v1051;
+  v959 = v1051 + 2625;
+  *(v1051 + 2625) = v957;
+  v958 = v52 + 2626;
+  *(v52 + 2626) = 4;
+  *(v1051 + 4048) = lazy protocol witness table accessor for type NightingalePFLTaskType and conformance NightingalePFLTaskType();
   if ((== infix<A>(_:_:)() & 1) == 0)
   {
-    v922 = *(v1064 + 3696);
-    v924 = NightingaleDPFLRunner.performanceMeasure.getter();
-    v925 = 1;
-    v923 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
+    v909 = *(v1051 + 3696);
+    v911 = NightingaleDPFLRunner.performanceMeasure.getter();
+    v912 = 1;
+    v910 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
     dispatch thunk of PerformanceMeasure.start(_:)();
 
-    v80 = HyperParams.sliceDeltaAnchor.getter();
-    v81 = v1064;
-    v927 = v1064 + 2627;
-    *(v1064 + 2627) = v80 & 1;
-    v926 = v81 + 4308;
-    *(v81 + 4308) = 1;
+    v81 = HyperParams.sliceDeltaAnchor.getter();
+    v82 = v1051;
+    v914 = v1051 + 2627;
+    *(v1051 + 2627) = v81 & 1;
+    v913 = v82 + 4308;
+    *(v82 + 4308) = 1;
     lazy protocol witness table accessor for type SliceDeltaAnchor and conformance SliceDeltaAnchor();
     if (== infix<A>(_:_:)())
     {
-      v82 = v981;
-      v920 = *(v1064 + 2928);
+      v83 = v968;
+      v907 = *(v1051 + 2928);
 
-      *(v1064 + 3184) = v920;
+      *(v1051 + 3184) = v907;
       result = Sequence.min(by:)();
-      v921 = v82;
-      if (!v82)
+      v908 = v83;
+      if (!v83)
       {
         outlined destroy of [(start: UInt32, end: UInt32)]();
-        if (*(v1064 + 1336))
+        if (*(v1051 + 1336))
         {
-          v915 = *(v1064 + 1336);
-          v914 = *(v1064 + 1344);
-          v916 = v1064 + 1312;
-          __swift_project_boxed_opaque_existential_1((v1064 + 1312), v915);
-          v917 = (*(v914 + 16))(v915);
-          __swift_destroy_boxed_opaque_existential_1(v1064 + 1312);
-          v918 = v917;
-          v919 = 0;
+          v902 = *(v1051 + 1336);
+          v901 = *(v1051 + 1344);
+          v903 = v1051 + 1312;
+          __swift_project_boxed_opaque_existential_1((v1051 + 1312), v902);
+          v904 = (*(v901 + 16))(v902);
+          __swift_destroy_boxed_opaque_existential_1((v1051 + 1312));
+          v905 = v904;
+          v906 = 0;
         }
 
         else
         {
-          outlined destroy of Pregnancy?(v1064 + 1312);
-          v918 = 0;
-          v919 = 1;
+          outlined destroy of Pregnancy?((v1051 + 1312));
+          v905 = 0;
+          v906 = 1;
         }
 
-        v913 = v918;
-        if (v919 & 1) != 0 || ((v83 = v1064, v912 = v1064 + 4312, *(v1064 + 4312) = v913, v911 = *(v83 + 2928), , *(v1064 + 3192) = v911, Sequence.max(by:)(), outlined destroy of [(start: UInt32, end: UInt32)](), !*(v1064 + 1376)) ? (outlined destroy of Pregnancy?(v1064 + 1352), v909 = 0, v910 = 1) : (v906 = *(v1064 + 1376), v905 = *(v1064 + 1384), v907 = v1064 + 1352, __swift_project_boxed_opaque_existential_1((v1064 + 1352), v906), v908 = (*(v905 + 16))(v906), __swift_destroy_boxed_opaque_existential_1(v1064 + 1352), v909 = v908, v910 = 0), v904 = v909, (v910))
+        v900 = v905;
+        if (v906 & 1) != 0 || ((v84 = v1051, v899 = v1051 + 4312, *(v1051 + 4312) = v900, v898 = *(v84 + 2928), , *(v1051 + 3192) = v898, Sequence.max(by:)(), outlined destroy of [(start: UInt32, end: UInt32)](), !*(v1051 + 1376)) ? (outlined destroy of Pregnancy?((v1051 + 1352)), v896 = 0, v897 = 1) : (v893 = *(v1051 + 1376), v892 = *(v1051 + 1384), v894 = v1051 + 1352, __swift_project_boxed_opaque_existential_1((v1051 + 1352), v893), v895 = (*(v892 + 16))(v893), __swift_destroy_boxed_opaque_existential_1((v1051 + 1352)), v896 = v895, v897 = 0), v891 = v896, (v897))
         {
-          v892 = *(v1064 + 3872);
-          v893 = *(v1064 + 3856);
-          v894 = *(v1064 + 3760);
-          v895 = *(v1064 + 3736);
-          v896 = *(v1064 + 3712);
-          v897 = *(v1064 + 3696);
+          v879 = *(v1051 + 3872);
+          v880 = *(v1051 + 3856);
+          v881 = *(v1051 + 3760);
+          v882 = *(v1051 + 3736);
+          v883 = *(v1051 + 3712);
+          v884 = *(v1051 + 3696);
           lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-          v898 = swift_allocError();
-          *v91 = 105;
+          v885 = swift_allocError();
+          *v92 = 105;
           swift_willThrow();
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9316,220 +9304,220 @@ LABEL_172:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v895);
-          MEMORY[0x277D82BD8](v896);
+          MEMORY[0x277D82BD8](v882);
+          MEMORY[0x277D82BD8](v883);
 
-          v935 = v898;
+          v922 = v885;
           goto LABEL_168;
         }
 
-        v900 = *(v1064 + 3696);
-        v899 = *(v1064 + 3536);
-        v901 = v1064 + 4320;
-        *(v1064 + 4320) = v904;
-        v902 = HyperParams.rawSampleTimeout.getter();
+        v887 = *(v1051 + 3696);
+        v886 = *(v1051 + 3536);
+        v888 = v1051 + 4320;
+        *(v1051 + 4320) = v891;
+        v889 = HyperParams.rawSampleTimeout.getter();
 
-        v84 = swift_allocObject();
-        v85 = v899;
-        v86 = v913;
+        v85 = swift_allocObject();
+        v86 = v886;
         v87 = v900;
-        v88 = v904;
-        v903 = v84;
-        *(v1064 + 4088) = v84;
-        *(v84 + 16) = v85;
-        *(v84 + 24) = v86;
-        *(v84 + 32) = v87;
-        *(v84 + 40) = v88;
-        v89 = swift_task_alloc();
-        v90 = v1064;
-        v21.n128_f64[0] = v902;
-        v18 = v1090;
-        v19 = v903;
-        *(v1064 + 4096) = v89;
-        *v89 = *(v90 + 2632);
-        v89[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-        v20 = *(v90 + 3888);
-        v17 = v90 + 3200;
+        v88 = v887;
+        v89 = v891;
+        v890 = v85;
+        *(v1051 + 4088) = v85;
+        *(v85 + 16) = v86;
+        *(v85 + 24) = v87;
+        *(v85 + 32) = v88;
+        *(v85 + 40) = v89;
+        v90 = swift_task_alloc();
+        v91 = v1051;
+        v22.n128_f64[0] = v889;
+        v19 = v1077;
+        v20 = v890;
+        *(v1051 + 4096) = v90;
+        *v90 = *(v91 + 2632);
+        v90[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+        v21 = *(v91 + 3888);
+        v18 = v91 + 3200;
 
-        return MEMORY[0x2821A2088](v17, v18, v19, v20, v21);
+        return MEMORY[0x2821A2088](v18, v19, v20, v21, v22);
       }
 
       return result;
     }
 
-    v883 = v1064 + 2640;
-    v884 = v1064 + 2520;
-    v885 = v1064 + 2648;
-    v886 = v1064 + 2656;
-    v887 = v1064 + 2664;
-    v888 = v1064 + 2672;
-    v889 = v1064 + 2680;
-    v864 = v1064 + 2696;
-    v890 = v1064 + 2704;
-    v881 = v1064 + 2712;
-    v866 = v1064 + 4256;
-    v867 = v1064 + 2840;
-    v868 = v1064 + 2856;
-    v869 = v1064 + 2888;
-    v870 = v1064 + 2912;
-    v871 = v1064 + 2952;
-    v872 = v1064 + 2968;
-    v873 = v1064 + 2984;
-    v874 = v1064 + 3000;
-    v875 = v1064 + 3016;
-    v876 = v1064 + 3032;
-    v877 = v1064 + 3048;
-    v878 = v1064 + 3056;
-    v880 = *(v1064 + 3976);
-    v879 = *(v1064 + 3968);
-    v860 = *(v1064 + 3536);
-    v858 = NightingaleDPFLRunner.performanceMeasure.getter();
-    v861 = 1;
-    v857 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
+    v870 = v1051 + 2640;
+    v871 = v1051 + 2520;
+    v872 = v1051 + 2648;
+    v873 = v1051 + 2656;
+    v874 = v1051 + 2664;
+    v875 = v1051 + 2672;
+    v876 = v1051 + 2680;
+    v851 = v1051 + 2696;
+    v877 = v1051 + 2704;
+    v868 = v1051 + 2712;
+    v853 = v1051 + 4256;
+    v854 = v1051 + 2840;
+    v855 = v1051 + 2856;
+    v856 = v1051 + 2888;
+    v857 = v1051 + 2912;
+    v858 = v1051 + 2952;
+    v859 = v1051 + 2968;
+    v860 = v1051 + 2984;
+    v861 = v1051 + 3000;
+    v862 = v1051 + 3016;
+    v863 = v1051 + 3032;
+    v864 = v1051 + 3048;
+    v865 = v1051 + 3056;
+    v867 = *(v1051 + 3976);
+    v866 = *(v1051 + 3968);
+    v847 = *(v1051 + 3536);
+    v845 = NightingaleDPFLRunner.performanceMeasure.getter();
+    v848 = 1;
+    v844 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
     dispatch thunk of PerformanceMeasure.finish(_:)();
-    v859 = v92;
-    *(v1064 + 4112) = v92;
+    v846 = v93;
+    *(v1051 + 4112) = v93;
 
-    v882 = v1064 + 3064;
-    *(v1064 + 3064) = v859;
-    v93 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-    NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v93);
-    v863 = NightingaleDPFLRunner.performanceMeasure.getter();
-    v862 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v861 & 1)._object;
+    v869 = v1051 + 3064;
+    *(v1051 + 3064) = v846;
+    v94 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+    NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v94);
+    v850 = NightingaleDPFLRunner.performanceMeasure.getter();
+    v849 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v848 & 1)._object;
     dispatch thunk of PerformanceMeasure.start(_:)();
 
-    v865 = *(v1064 + 2928);
+    v852 = *(v1051 + 2928);
 
-    *(v1064 + 3072) = v865;
+    *(v1051 + 3072) = v852;
     result = Sequence.min(by:)();
-    v891 = v981;
-    if (v981)
+    v878 = v968;
+    if (v968)
     {
       return result;
     }
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v1064 + 1216))
+    if (*(v1051 + 1216))
     {
-      v852 = *(v1064 + 1216);
-      v851 = *(v1064 + 1224);
-      v853 = v1064 + 1192;
-      __swift_project_boxed_opaque_existential_1((v1064 + 1192), v852);
-      v854 = (*(v851 + 64))(v852);
-      __swift_destroy_boxed_opaque_existential_1(v1064 + 1192);
-      v855 = v854;
-      v856 = 0;
+      v839 = *(v1051 + 1216);
+      v838 = *(v1051 + 1224);
+      v840 = v1051 + 1192;
+      __swift_project_boxed_opaque_existential_1((v1051 + 1192), v839);
+      v841 = (*(v838 + 64))(v839);
+      __swift_destroy_boxed_opaque_existential_1((v1051 + 1192));
+      v842 = v841;
+      v843 = 0;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v1064 + 1192);
-      v855 = 0;
-      v856 = 1;
+      outlined destroy of Pregnancy?((v1051 + 1192));
+      v842 = 0;
+      v843 = 1;
     }
 
-    v94 = v856;
-    v850 = v855;
-    *(v1064 + 4284) = v855;
-    if (v94)
+    v95 = v843;
+    v837 = v842;
+    *(v1051 + 4284) = v842;
+    if (v95)
     {
       goto LABEL_131;
     }
 
-    v95 = v1064;
-    v96 = v891;
-    v848 = *(v1064 + 3976);
-    v847 = *(v1064 + 3968);
-    v846 = v1064 + 4264;
-    *(v1064 + 4264) = v850;
-    v845 = *(v95 + 2928);
+    v96 = v1051;
+    v97 = v878;
+    v835 = *(v1051 + 3976);
+    v834 = *(v1051 + 3968);
+    v833 = v1051 + 4264;
+    *(v1051 + 4264) = v837;
+    v832 = *(v96 + 2928);
 
-    *(v1064 + 3080) = v845;
+    *(v1051 + 3080) = v832;
     result = Sequence.max(by:)();
-    v849 = v96;
-    if (v96)
-    {
-      return result;
-    }
-
-    outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v1064 + 1256))
-    {
-      v840 = *(v1064 + 1256);
-      v839 = *(v1064 + 1264);
-      v841 = v1064 + 1232;
-      __swift_project_boxed_opaque_existential_1((v1064 + 1232), v840);
-      v842 = (*(v839 + 64))(v840);
-      __swift_destroy_boxed_opaque_existential_1(v1064 + 1232);
-      v843 = v842;
-      v844 = 0;
-    }
-
-    else
-    {
-      outlined destroy of Pregnancy?(v1064 + 1232);
-      v843 = 0;
-      v844 = 1;
-    }
-
-    v97 = v844;
-    v838 = v843;
-    *(v1064 + 4292) = v843;
+    v836 = v97;
     if (v97)
     {
+      return result;
+    }
+
+    outlined destroy of [(start: UInt32, end: UInt32)]();
+    if (*(v1051 + 1256))
+    {
+      v827 = *(v1051 + 1256);
+      v826 = *(v1051 + 1264);
+      v828 = v1051 + 1232;
+      __swift_project_boxed_opaque_existential_1((v1051 + 1232), v827);
+      v829 = (*(v826 + 64))(v827);
+      __swift_destroy_boxed_opaque_existential_1((v1051 + 1232));
+      v830 = v829;
+      v831 = 0;
+    }
+
+    else
+    {
+      outlined destroy of Pregnancy?((v1051 + 1232));
+      v830 = 0;
+      v831 = 1;
+    }
+
+    v98 = v831;
+    v825 = v830;
+    *(v1051 + 4292) = v830;
+    if (v98)
+    {
       goto LABEL_131;
     }
 
-    v98 = v1064;
-    v99 = v849;
-    v836 = *(v1064 + 3976);
-    v835 = *(v1064 + 3968);
-    v834 = v1064 + 4272;
-    *(v1064 + 4272) = v838;
-    v833 = *(v98 + 2928);
+    v99 = v1051;
+    v100 = v836;
+    v823 = *(v1051 + 3976);
+    v822 = *(v1051 + 3968);
+    v821 = v1051 + 4272;
+    *(v1051 + 4272) = v825;
+    v820 = *(v99 + 2928);
 
-    *(v1064 + 3088) = v833;
+    *(v1051 + 3088) = v820;
     result = Sequence.min(by:)();
-    v837 = v99;
-    if (v99)
+    v824 = v100;
+    if (v100)
     {
       return result;
     }
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v1064 + 1296))
+    if (*(v1051 + 1296))
     {
-      v828 = *(v1064 + 1296);
-      v827 = *(v1064 + 1304);
-      v829 = v1064 + 1272;
-      __swift_project_boxed_opaque_existential_1((v1064 + 1272), v828);
-      v830 = (*(v827 + 8))(v828);
-      __swift_destroy_boxed_opaque_existential_1(v1064 + 1272);
-      v831 = v830;
-      v832 = 0;
+      v815 = *(v1051 + 1296);
+      v814 = *(v1051 + 1304);
+      v816 = v1051 + 1272;
+      __swift_project_boxed_opaque_existential_1((v1051 + 1272), v815);
+      v817 = (*(v814 + 8))(v815);
+      __swift_destroy_boxed_opaque_existential_1((v1051 + 1272));
+      v818 = v817;
+      v819 = 0;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v1064 + 1272);
-      v831 = 0;
-      v832 = 1;
+      outlined destroy of Pregnancy?((v1051 + 1272));
+      v818 = 0;
+      v819 = 1;
     }
 
-    v826 = v831;
-    if (v832)
+    v813 = v818;
+    if (v819)
     {
 LABEL_131:
-      v510 = *(v1064 + 3952);
-      v511 = *(v1064 + 3872);
-      v512 = *(v1064 + 3856);
-      v513 = *(v1064 + 3760);
-      v514 = *(v1064 + 3736);
-      v515 = *(v1064 + 3712);
-      v516 = *(v1064 + 3696);
+      v497 = *(v1051 + 3952);
+      v498 = *(v1051 + 3872);
+      v499 = *(v1051 + 3856);
+      v500 = *(v1051 + 3760);
+      v501 = *(v1051 + 3736);
+      v502 = *(v1051 + 3712);
+      v503 = *(v1051 + 3696);
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v517 = swift_allocError();
-      *v225 = 106;
+      v504 = swift_allocError();
+      *v226 = 106;
       swift_willThrow();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9549,342 +9537,342 @@ LABEL_131:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v514);
-      MEMORY[0x277D82BD8](v515);
+      MEMORY[0x277D82BD8](v501);
+      MEMORY[0x277D82BD8](v502);
 
-      v935 = v517;
+      v922 = v504;
       goto LABEL_168;
     }
 
-    *(v1064 + 4280) = v826;
-    v17 = HyperParams.featureLookbackDays.getter();
-    v825 = v826 - v17;
-    v100 = v826 < v17;
-    *(v1064 + 4300) = v826 - v17;
-    if (!v100)
+    *(v1051 + 4280) = v813;
+    v18 = HyperParams.featureLookbackDays.getter();
+    v812 = v813 - v18;
+    v101 = v813 < v18;
+    *(v1051 + 4300) = v813 - v18;
+    if (!v101)
     {
-      if (*(v1064 + 4260) < v825)
+      if (*(v1051 + 4260) < v812)
       {
-        goto LABEL_53;
+        return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1056, 39, 2, v1068, 23, 2, 409, 0);
       }
 
-      v101 = v1064;
-      v102 = *(v1064 + 4260);
-      v824 = v1064 + 2428;
-      *(v1064 + 2428) = v825;
-      *(v101 + 2432) = v102;
-      *(v1064 + 3096) = _allocateUninitializedArray<A>(_:)();
+      v102 = v1051;
+      v103 = *(v1051 + 4260);
+      v811 = v1051 + 2428;
+      *(v1051 + 2428) = v812;
+      *(v102 + 2432) = v103;
+      *(v1051 + 3096) = _allocateUninitializedArray<A>(_:)();
       if (HyperParams.isHRVRequired()())
       {
-        v823 = v1064 + 4334;
-        *(v1064 + 4334) = 8;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+        v810 = v1051 + 4334;
+        *(v1051 + 4334) = 8;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
         Array.append(_:)();
       }
 
       if (HyperParams.isSpO2Required()())
       {
-        v822 = v1064 + 4333;
-        *(v1064 + 4333) = 10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+        v809 = v1051 + 4333;
+        *(v1051 + 4333) = 10;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
         Array.append(_:)();
       }
 
       if (HyperParams.isRespiratoryRateRequired()())
       {
-        v821 = v1064 + 4332;
-        *(v1064 + 4332) = 9;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+        v808 = v1051 + 4332;
+        *(v1051 + 4332) = 9;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
         Array.append(_:)();
       }
 
       if (HyperParams.isSWTRequired()())
       {
-        v820 = v1064 + 4327;
-        *(v1064 + 4327) = 7;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+        v807 = v1051 + 4327;
+        *(v1051 + 4327) = 7;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
         Array.append(_:)();
       }
 
-      v818 = *(v1064 + 3096);
+      v805 = *(v1051 + 3096);
 
-      *(v1064 + 3104) = v818;
-      v817 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+      *(v1051 + 3104) = v805;
+      v804 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
       lazy protocol witness table accessor for type [HealthDataRawSampleType] and conformance [A]();
-      v819 = Collection.isEmpty.getter();
+      v806 = Collection.isEmpty.getter();
 
-      if ((v819 & 1) == 0)
+      if ((v806 & 1) == 0)
       {
-        v813 = *(v1064 + 4260);
-        v811 = *(v1064 + 3696);
-        v812 = *(v1064 + 3536);
+        v800 = *(v1051 + 4260);
+        v798 = *(v1051 + 3696);
+        v799 = *(v1051 + 3536);
 
-        v103 = swift_task_alloc();
-        v104 = v811;
-        v105 = v812;
-        v106 = v825;
-        v107 = v813;
-        v108 = v1064;
-        v815 = v103;
-        *(v1064 + 4120) = v103;
-        *(v103 + 16) = v104;
-        *(v103 + 24) = v108 + 3096;
-        *(v103 + 32) = v105;
-        *(v103 + 40) = v106;
-        *(v103 + 44) = v107;
-        *(v103 + 48) = v108 + 2760;
-        *(v103 + 56) = v108 + 2768;
-        *(v103 + 64) = v108 + 2776;
-        *(v103 + 72) = v108 + 2752;
-        v816 = MEMORY[0x277D84F78] + 8;
-        v814 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-        v109 = swift_task_alloc();
-        v110 = v1064;
-        v111 = v814;
-        v73 = v1087;
-        v74 = v815;
-        v75 = v816;
-        v112 = v109;
-        v76 = v1016;
-        *(v1064 + 4128) = v112;
-        *v112 = *(v110 + 2632);
-        v112[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-        v77 = 8;
-        v78 = v111 & 1;
+        v104 = swift_task_alloc();
+        v105 = v798;
+        v106 = v799;
+        v107 = v812;
+        v108 = v800;
+        v109 = v1051;
+        v802 = v104;
+        *(v1051 + 4120) = v104;
+        *(v104 + 16) = v105;
+        *(v104 + 24) = v109 + 3096;
+        *(v104 + 32) = v106;
+        *(v104 + 40) = v107;
+        *(v104 + 44) = v108;
+        *(v104 + 48) = v109 + 2760;
+        *(v104 + 56) = v109 + 2768;
+        *(v104 + 64) = v109 + 2776;
+        *(v104 + 72) = v109 + 2752;
+        v803 = MEMORY[0x277D84F78] + 8;
+        v801 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+        v110 = swift_task_alloc();
+        v111 = v1051;
+        v112 = v801;
+        v74 = v1074;
+        v75 = v802;
+        v76 = v803;
+        v113 = v110;
+        v77 = v1003;
+        *(v1051 + 4128) = v113;
+        *v113 = *(v111 + 2632);
+        v113[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+        v78 = 8;
+        v79 = v112 & 1;
 
-        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v76, v77, v78, v73, v74, v75);
+        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v77, v78, v79, v74, v75, v76);
       }
 
-      v784 = v1064 + 2640;
-      v802 = v1064 + 2520;
-      v803 = v1064 + 2648;
-      v804 = v1064 + 2656;
-      v805 = v1064 + 2664;
-      v806 = v1064 + 2672;
-      v807 = v1064 + 2680;
-      v808 = v1064 + 2688;
-      v809 = v1064 + 2696;
-      v801 = v1064 + 2704;
-      v785 = v1064 + 4256;
-      v786 = v1064 + 2840;
-      v787 = v1064 + 2856;
-      v788 = v1064 + 2888;
-      v789 = v1064 + 2912;
-      v790 = v1064 + 2920;
-      v791 = v1064 + 2952;
-      v783 = v1064 + 2984;
-      v792 = v1064 + 3000;
-      v793 = v1064 + 3016;
-      v794 = v1064 + 3032;
-      v795 = v1064 + 3048;
-      v796 = v1064 + 3056;
-      v797 = v1064 + 3064;
-      v798 = v1064 + 4264;
-      v799 = v1064 + 4272;
-      v800 = v1064 + 4280;
-      v810 = v1064 + 2428;
-      *(v1064 + 3112) = 0;
+      v771 = v1051 + 2640;
+      v789 = v1051 + 2520;
+      v790 = v1051 + 2648;
+      v791 = v1051 + 2656;
+      v792 = v1051 + 2664;
+      v793 = v1051 + 2672;
+      v794 = v1051 + 2680;
+      v795 = v1051 + 2688;
+      v796 = v1051 + 2696;
+      v788 = v1051 + 2704;
+      v772 = v1051 + 4256;
+      v773 = v1051 + 2840;
+      v774 = v1051 + 2856;
+      v775 = v1051 + 2888;
+      v776 = v1051 + 2912;
+      v777 = v1051 + 2920;
+      v778 = v1051 + 2952;
+      v770 = v1051 + 2984;
+      v779 = v1051 + 3000;
+      v780 = v1051 + 3016;
+      v781 = v1051 + 3032;
+      v782 = v1051 + 3048;
+      v783 = v1051 + 3056;
+      v784 = v1051 + 3064;
+      v785 = v1051 + 4264;
+      v786 = v1051 + 4272;
+      v787 = v1051 + 4280;
+      v797 = v1051 + 2428;
+      *(v1051 + 3112) = 0;
       if (HyperParams.isSHRRequired()())
       {
-        v778 = *(v1064 + 4300);
-        v779 = *(v1064 + 4260);
-        v777 = *(v1064 + 3696);
-        v776 = *(v1064 + 3536);
+        v765 = *(v1051 + 4300);
+        v766 = *(v1051 + 4260);
+        v764 = *(v1051 + 3696);
+        v763 = *(v1051 + 3536);
 
-        v113 = swift_task_alloc();
-        v114 = v776;
-        v115 = v777;
-        v116 = v778;
-        v117 = v779;
-        v118 = v1064;
-        v781 = v113;
-        *(v1064 + 4144) = v113;
-        *(v113 + 16) = v114;
-        *(v113 + 24) = v115;
-        *(v113 + 32) = v116;
-        *(v113 + 36) = v117;
-        *(v113 + 40) = v118 + 2784;
-        *(v113 + 48) = v118 + 2792;
-        *(v113 + 56) = v118 + 3112;
-        v782 = MEMORY[0x277D84F78] + 8;
-        v780 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-        v119 = swift_task_alloc();
-        v120 = v1064;
-        v121 = v780;
-        v73 = v1086;
-        v74 = v781;
-        v75 = v782;
-        v122 = v119;
-        v76 = v1016;
-        *(v1064 + 4152) = v122;
-        *v122 = *(v120 + 2632);
-        v122[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-        v77 = 8;
-        v78 = v121 & 1;
+        v114 = swift_task_alloc();
+        v115 = v763;
+        v116 = v764;
+        v117 = v765;
+        v118 = v766;
+        v119 = v1051;
+        v768 = v114;
+        *(v1051 + 4144) = v114;
+        *(v114 + 16) = v115;
+        *(v114 + 24) = v116;
+        *(v114 + 32) = v117;
+        *(v114 + 36) = v118;
+        *(v114 + 40) = v119 + 2784;
+        *(v114 + 48) = v119 + 2792;
+        *(v114 + 56) = v119 + 3112;
+        v769 = MEMORY[0x277D84F78] + 8;
+        v767 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+        v120 = swift_task_alloc();
+        v121 = v1051;
+        v122 = v767;
+        v74 = v1073;
+        v75 = v768;
+        v76 = v769;
+        v123 = v120;
+        v77 = v1003;
+        *(v1051 + 4152) = v123;
+        *v123 = *(v121 + 2632);
+        v123[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+        v78 = 8;
+        v79 = v122 & 1;
 
-        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v76, v77, v78, v73, v74, v75);
+        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v77, v78, v79, v74, v75, v76);
       }
 
-      v749 = v1064 + 2640;
-      v767 = v1064 + 2520;
-      v768 = v1064 + 2648;
-      v769 = v1064 + 2656;
-      v770 = v1064 + 2664;
-      v771 = v1064 + 2672;
-      v772 = v1064 + 2680;
-      v773 = v1064 + 2688;
-      v774 = v1064 + 2696;
-      v766 = v1064 + 2704;
-      v750 = v1064 + 4256;
-      v751 = v1064 + 2840;
-      v752 = v1064 + 2856;
-      v753 = v1064 + 2888;
-      v754 = v1064 + 2912;
-      v755 = v1064 + 2920;
-      v756 = v1064 + 2952;
-      v748 = v1064 + 2984;
-      v757 = v1064 + 3000;
-      v758 = v1064 + 3016;
-      v759 = v1064 + 3032;
-      v760 = v1064 + 3048;
-      v761 = v1064 + 3056;
-      v762 = v1064 + 3064;
-      v763 = v1064 + 4264;
-      v764 = v1064 + 4272;
-      v765 = v1064 + 4280;
-      v775 = v1064 + 2428;
+      v736 = v1051 + 2640;
+      v754 = v1051 + 2520;
+      v755 = v1051 + 2648;
+      v756 = v1051 + 2656;
+      v757 = v1051 + 2664;
+      v758 = v1051 + 2672;
+      v759 = v1051 + 2680;
+      v760 = v1051 + 2688;
+      v761 = v1051 + 2696;
+      v753 = v1051 + 2704;
+      v737 = v1051 + 4256;
+      v738 = v1051 + 2840;
+      v739 = v1051 + 2856;
+      v740 = v1051 + 2888;
+      v741 = v1051 + 2912;
+      v742 = v1051 + 2920;
+      v743 = v1051 + 2952;
+      v735 = v1051 + 2984;
+      v744 = v1051 + 3000;
+      v745 = v1051 + 3016;
+      v746 = v1051 + 3032;
+      v747 = v1051 + 3048;
+      v748 = v1051 + 3056;
+      v749 = v1051 + 3064;
+      v750 = v1051 + 4264;
+      v751 = v1051 + 4272;
+      v752 = v1051 + 4280;
+      v762 = v1051 + 2428;
       if (HyperParams.isCalendarAlgorithmRequired()())
       {
-        v741 = *(v1064 + 4292);
-        v739 = *(v1064 + 4284);
-        v744 = *(v1064 + 3872);
-        v742 = *(v1064 + 4260);
-        v740 = *(v1064 + 3696);
-        v743 = *(v1064 + 3536);
+        v728 = *(v1051 + 4292);
+        v726 = *(v1051 + 4284);
+        v731 = *(v1051 + 3872);
+        v729 = *(v1051 + 4260);
+        v727 = *(v1051 + 3696);
+        v730 = *(v1051 + 3536);
 
-        v123 = swift_task_alloc();
-        v124 = v739;
-        v125 = v740;
-        v126 = v741;
-        v127 = v742;
-        v128 = v743;
-        v129 = v744;
-        v130 = v1064;
-        v746 = v123;
-        *(v1064 + 4168) = v123;
-        *(v123 + 16) = v124;
-        *(v123 + 24) = v125;
-        *(v123 + 32) = v126;
-        *(v123 + 36) = v127;
-        *(v123 + 40) = v128;
-        *(v123 + 48) = v130 + 2720;
-        *(v123 + 56) = v130 + 2728;
-        *(v123 + 64) = v130 + 2736;
-        *(v123 + 72) = v130 + 2744;
-        *(v123 + 80) = v129;
-        *(v123 + 88) = v130 + 2800;
-        *(v123 + 96) = v130 + 2808;
-        v747 = MEMORY[0x277D84F78] + 8;
-        v745 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-        v131 = swift_task_alloc();
-        v132 = v1064;
-        v133 = v745;
-        v73 = v1085;
-        v74 = v746;
-        v75 = v747;
-        v134 = v131;
-        v76 = v1016;
-        *(v1064 + 4176) = v134;
-        *v134 = *(v132 + 2632);
-        v134[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-        v77 = 8;
-        v78 = v133 & 1;
+        v124 = swift_task_alloc();
+        v125 = v726;
+        v126 = v727;
+        v127 = v728;
+        v128 = v729;
+        v129 = v730;
+        v130 = v731;
+        v131 = v1051;
+        v733 = v124;
+        *(v1051 + 4168) = v124;
+        *(v124 + 16) = v125;
+        *(v124 + 24) = v126;
+        *(v124 + 32) = v127;
+        *(v124 + 36) = v128;
+        *(v124 + 40) = v129;
+        *(v124 + 48) = v131 + 2720;
+        *(v124 + 56) = v131 + 2728;
+        *(v124 + 64) = v131 + 2736;
+        *(v124 + 72) = v131 + 2744;
+        *(v124 + 80) = v130;
+        *(v124 + 88) = v131 + 2800;
+        *(v124 + 96) = v131 + 2808;
+        v734 = MEMORY[0x277D84F78] + 8;
+        v732 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+        v132 = swift_task_alloc();
+        v133 = v1051;
+        v134 = v732;
+        v74 = v1072;
+        v75 = v733;
+        v76 = v734;
+        v135 = v132;
+        v77 = v1003;
+        *(v1051 + 4176) = v135;
+        *v135 = *(v133 + 2632);
+        v135[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+        v78 = 8;
+        v79 = v134 & 1;
 
-        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v76, v77, v78, v73, v74, v75);
+        return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v77, v78, v79, v74, v75, v76);
       }
 
-      v711 = v1064 + 2640;
-      v729 = v1064 + 2520;
-      v730 = v1064 + 2648;
-      v731 = v1064 + 2656;
-      v732 = v1064 + 2664;
-      v733 = v1064 + 2672;
-      v734 = v1064 + 2680;
-      v735 = v1064 + 2688;
-      v736 = v1064 + 2696;
-      v737 = v1064 + 2704;
-      v728 = v1064 + 2712;
-      v712 = v1064 + 2840;
-      v713 = v1064 + 2856;
-      v714 = v1064 + 2888;
-      v715 = v1064 + 2912;
-      v716 = v1064 + 2920;
-      v717 = v1064 + 2952;
-      v718 = v1064 + 2968;
-      v704 = v1064 + 3000;
-      v719 = v1064 + 3016;
-      v720 = v1064 + 3032;
-      v721 = v1064 + 3048;
-      v722 = v1064 + 3056;
-      v723 = v1064 + 3064;
-      v724 = v1064 + 4264;
-      v725 = v1064 + 4272;
-      v726 = v1064 + 4280;
-      v727 = v1064 + 2428;
-      v709 = *(v1064 + 3696);
-      v701 = *(v1064 + 3536);
-      v699 = NightingaleDPFLRunner.performanceMeasure.getter();
-      v705 = 1;
-      v698 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
+      v698 = v1051 + 2640;
+      v716 = v1051 + 2520;
+      v717 = v1051 + 2648;
+      v718 = v1051 + 2656;
+      v719 = v1051 + 2664;
+      v720 = v1051 + 2672;
+      v721 = v1051 + 2680;
+      v722 = v1051 + 2688;
+      v723 = v1051 + 2696;
+      v724 = v1051 + 2704;
+      v715 = v1051 + 2712;
+      v699 = v1051 + 2840;
+      v700 = v1051 + 2856;
+      v701 = v1051 + 2888;
+      v702 = v1051 + 2912;
+      v703 = v1051 + 2920;
+      v704 = v1051 + 2952;
+      v705 = v1051 + 2968;
+      v691 = v1051 + 3000;
+      v706 = v1051 + 3016;
+      v707 = v1051 + 3032;
+      v708 = v1051 + 3048;
+      v709 = v1051 + 3056;
+      v710 = v1051 + 3064;
+      v711 = v1051 + 4264;
+      v712 = v1051 + 4272;
+      v713 = v1051 + 4280;
+      v714 = v1051 + 2428;
+      v696 = *(v1051 + 3696);
+      v688 = *(v1051 + 3536);
+      v686 = NightingaleDPFLRunner.performanceMeasure.getter();
+      v692 = 1;
+      v685 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
       dispatch thunk of PerformanceMeasure.finish(_:)();
-      v700 = v135;
+      v687 = v136;
 
-      v738 = v1064 + 3120;
-      *(v1064 + 3120) = v700;
-      v136 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-      NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v136);
-      v703 = NightingaleDPFLRunner.performanceMeasure.getter();
-      v702 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v705 & 1)._object;
+      v725 = v1051 + 3120;
+      *(v1051 + 3120) = v687;
+      v137 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+      NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v137);
+      v690 = NightingaleDPFLRunner.performanceMeasure.getter();
+      v689 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v692 & 1)._object;
       dispatch thunk of PerformanceMeasure.start(_:)();
 
-      v137 = HyperParams.metricsProcessEngine.getter();
-      v138 = v1064;
-      v707 = v1064 + 4309;
-      *(v1064 + 4309) = v137 & v705;
-      v706 = v138 + 4310;
-      *(v138 + 4310) = 1;
-      v708 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
-      v710 = == infix<A>(_:_:)();
+      v138 = HyperParams.metricsProcessEngine.getter();
+      v139 = v1051;
+      v694 = v1051 + 4309;
+      *(v1051 + 4309) = v138 & v692;
+      v693 = v139 + 4310;
+      *(v139 + 4310) = 1;
+      v695 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
+      v697 = == infix<A>(_:_:)();
 
-      if (v710)
+      if (v697)
       {
-        v697 = 1;
+        v684 = 1;
       }
 
       else
       {
-        v139 = HyperParams.featurizerEngine.getter();
-        v140 = v1064;
-        *(v1064 + 4311) = v139 & 1;
-        *(v140 + 4316) = 1;
-        v697 = == infix<A>(_:_:)();
+        v140 = HyperParams.featurizerEngine.getter();
+        v141 = v1051;
+        *(v1051 + 4311) = v140 & 1;
+        *(v141 + 4316) = 1;
+        v684 = == infix<A>(_:_:)();
       }
 
-      v696 = v697;
+      v683 = v684;
 
-      if (v697)
+      if (v684)
       {
         static HIDMorpheusExtensions.extendMorpheus()();
-        v695 = v837;
-        if (v837)
+        v682 = v824;
+        if (v824)
         {
-          v325 = *(v1064 + 3952);
-          v326 = *(v1064 + 3872);
-          v327 = *(v1064 + 3856);
-          v328 = *(v1064 + 3760);
-          v329 = *(v1064 + 3736);
-          v330 = *(v1064 + 3712);
-          v331 = *(v1064 + 3696);
+          v312 = *(v1051 + 3952);
+          v313 = *(v1051 + 3872);
+          v314 = *(v1051 + 3856);
+          v315 = *(v1051 + 3760);
+          v316 = *(v1051 + 3736);
+          v317 = *(v1051 + 3712);
+          v318 = *(v1051 + 3696);
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9904,71 +9892,71 @@ LABEL_131:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v329);
-          MEMORY[0x277D82BD8](v330);
+          MEMORY[0x277D82BD8](v316);
+          MEMORY[0x277D82BD8](v317);
 
-          v935 = v695;
+          v922 = v682;
           goto LABEL_168;
         }
 
         static Math.extendMorpheus()();
-        v694 = 0;
-        v693 = 0;
+        v681 = 0;
+        v680 = 0;
       }
 
       else
       {
-        v693 = v837;
+        v680 = v824;
       }
 
-      v141 = v693;
-      v689 = *(v1064 + 4260);
-      v688 = *(v1064 + 3696);
-      v685 = *(v1064 + 3536);
-      v687 = *(v1064 + 3528);
+      v142 = v680;
+      v676 = *(v1051 + 4260);
+      v675 = *(v1051 + 3696);
+      v672 = *(v1051 + 3536);
+      v674 = *(v1051 + 3528);
       type metadata accessor for Featurizer();
-      v142 = Featurizer.__allocating_init()();
-      v143 = v1064;
-      v686 = v142;
-      *(v1064 + 4192) = v142;
-      v690 = v143 + 3128;
-      *(v143 + 3128) = v142;
+      v143 = Featurizer.__allocating_init()();
+      v144 = v1051;
+      v673 = v143;
+      *(v1051 + 4192) = v143;
+      v677 = v144 + 3128;
+      *(v144 + 3128) = v143;
 
-      v144 = swift_task_alloc();
-      v145 = v686;
-      v146 = v687;
-      v147 = v688;
-      v148 = v689;
-      v149 = v1064;
-      v691 = v144;
-      *(v1064 + 4200) = v144;
-      *(v144 + 16) = v145;
-      *(v144 + 24) = v146;
-      *(v144 + 32) = v149 + 2928;
-      *(v144 + 40) = v149 + 2752;
-      *(v144 + 48) = v149 + 2760;
-      *(v144 + 56) = v149 + 2776;
-      *(v144 + 64) = v149 + 2768;
-      *(v144 + 72) = v149 + 2784;
-      *(v144 + 80) = v149 + 2792;
-      *(v144 + 88) = v149 + 2800;
-      *(v144 + 96) = v149 + 2808;
-      *(v144 + 104) = v149 + 2744;
-      *(v144 + 112) = v147;
-      *(v144 + 120) = v148;
-      v150 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
-      NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v691, v150, v1064 + 16);
-      v692 = v141;
-      if (v141)
+      v145 = swift_task_alloc();
+      v146 = v673;
+      v147 = v674;
+      v148 = v675;
+      v149 = v676;
+      v150 = v1051;
+      v678 = v145;
+      *(v1051 + 4200) = v145;
+      *(v145 + 16) = v146;
+      *(v145 + 24) = v147;
+      *(v145 + 32) = v150 + 2928;
+      *(v145 + 40) = v150 + 2752;
+      *(v145 + 48) = v150 + 2760;
+      *(v145 + 56) = v150 + 2776;
+      *(v145 + 64) = v150 + 2768;
+      *(v145 + 72) = v150 + 2784;
+      *(v145 + 80) = v150 + 2792;
+      *(v145 + 88) = v150 + 2800;
+      *(v145 + 96) = v150 + 2808;
+      *(v145 + 104) = v150 + 2744;
+      *(v145 + 112) = v148;
+      *(v145 + 120) = v149;
+      v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
+      NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v678, v151, v1051 + 16);
+      v679 = v142;
+      if (v142)
       {
-        v318 = *(v1064 + 3952);
-        v319 = *(v1064 + 3872);
-        v320 = *(v1064 + 3856);
-        v321 = *(v1064 + 3760);
-        v322 = *(v1064 + 3736);
-        v323 = *(v1064 + 3712);
-        v324 = *(v1064 + 3696);
-        v317 = *(v1064 + 3528);
+        v305 = *(v1051 + 3952);
+        v306 = *(v1051 + 3872);
+        v307 = *(v1051 + 3856);
+        v308 = *(v1051 + 3760);
+        v309 = *(v1051 + 3736);
+        v310 = *(v1051 + 3712);
+        v311 = *(v1051 + 3696);
+        v304 = *(v1051 + 3528);
 
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -9989,265 +9977,265 @@ LABEL_131:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v322);
-        MEMORY[0x277D82BD8](v323);
+        MEMORY[0x277D82BD8](v309);
+        MEMORY[0x277D82BD8](v310);
 
-        v935 = v692;
+        v922 = v679;
         goto LABEL_168;
       }
 
-      v623 = *(v1064 + 4112);
-      v621 = *(v1064 + 4040);
-      v651 = *(v1064 + 4032);
-      v648 = *(v1064 + 4024);
-      v646 = *(v1064 + 4016);
-      v644 = *(v1064 + 4008);
-      v642 = *(v1064 + 4000);
-      v640 = *(v1064 + 3992);
-      v638 = *(v1064 + 3984);
-      v636 = *(v1064 + 3960);
-      v619 = *(v1064 + 3912);
-      v617 = *(v1064 + 3864);
-      v634 = *(v1064 + 3848);
-      v632 = *(v1064 + 3840);
-      v615 = *(v1064 + 3744);
-      v630 = *(v1064 + 3704);
-      v612 = *(v1064 + 3696);
-      v611 = *(v1064 + 3528);
+      v610 = *(v1051 + 4112);
+      v608 = *(v1051 + 4040);
+      v638 = *(v1051 + 4032);
+      v635 = *(v1051 + 4024);
+      v633 = *(v1051 + 4016);
+      v631 = *(v1051 + 4008);
+      v629 = *(v1051 + 4000);
+      v627 = *(v1051 + 3992);
+      v625 = *(v1051 + 3984);
+      v623 = *(v1051 + 3960);
+      v606 = *(v1051 + 3912);
+      v604 = *(v1051 + 3864);
+      v621 = *(v1051 + 3848);
+      v619 = *(v1051 + 3840);
+      v602 = *(v1051 + 3744);
+      v617 = *(v1051 + 3704);
+      v599 = *(v1051 + 3696);
+      v598 = *(v1051 + 3528);
 
-      v654 = (v1064 + 184);
-      v677 = v1064 + 16;
-      memcpy((v1064 + 184), (v1064 + 16), 0xA8uLL);
-      v614 = NightingaleDPFLRunner.performanceMeasure.getter();
-      v613 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
+      v641 = (v1051 + 184);
+      v664 = v1051 + 16;
+      memcpy((v1051 + 184), (v1051 + 16), 0xA8uLL);
+      v601 = NightingaleDPFLRunner.performanceMeasure.getter();
+      v600 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
       dispatch thunk of PerformanceMeasure.finish(_:)();
-      v627 = v151;
+      v614 = v152;
 
-      v678 = v1064 + 3136;
-      *(v1064 + 3136) = v627;
-      v652 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-      v653 = _allocateUninitializedArray<A>(_:)();
-      v650 = v152;
-      v153 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v153, v650);
-      v154 = v615;
-      v155 = v650;
-      v629 = MEMORY[0x277D839F8];
-      v650[5] = MEMORY[0x277D839F8];
-      v155[2] = v154;
-      v616 = v155 + 6;
-      v156 = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v156, v616);
-      v157 = v617;
-      v158 = v650;
-      v650[11] = v629;
-      v158[8] = v157;
-      v618 = v158 + 12;
-      v159 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v159, v618);
-      v160 = v619;
-      v161 = v650;
-      v650[17] = v629;
-      v161[14] = v160;
-      v620 = v161 + 18;
-      v162 = NightingaleDPFLRunner.keyMetricsUpdatePregnanciesDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v162, v620);
-      v163 = v621;
-      v164 = v650;
-      v650[23] = v629;
-      v164[20] = v163;
-      v622 = v164 + 24;
-      v165 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v165, v622);
-      v166 = v623;
-      v167 = v650;
-      v650[29] = v629;
-      v167[26] = v166;
-      v624 = v167 + 30;
-      v168 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v168, v624);
-      v169 = v650;
-      v170 = *(v1064 + 3112);
-      v650[35] = v629;
-      v169[32] = v170;
-      v625 = v169 + 36;
-      v171 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v171, v625);
-      v172 = v700;
-      v173 = v650;
-      v650[41] = v629;
-      v173[38] = v172;
-      v626 = v173 + 42;
-      v174 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v174, v626);
-      v175 = v627;
-      v176 = v650;
-      v650[47] = v629;
-      v176[44] = v175;
-      v628 = v176 + 48;
-      v177 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
-      outlined init with copy of String(v177, v628);
-      v178 = v630;
-      v179 = v650;
-      v650[53] = v629;
-      v179[50] = v178;
-      v631 = v179 + 54;
-      v180 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
-      outlined init with copy of String(v180, v631);
-      v181 = v632;
-      v182 = v650;
-      v655 = MEMORY[0x277D83B88];
-      v650[59] = MEMORY[0x277D83B88];
-      v182[56] = v181;
-      v633 = v182 + 60;
-      v183 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
-      outlined init with copy of String(v183, v633);
-      v184 = v634;
-      v185 = v650;
-      v650[65] = v655;
-      v185[62] = v184;
-      v635 = v185 + 66;
-      v186 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v186, v635);
-      v187 = v636;
-      v188 = v650;
-      v650[71] = v655;
-      v188[68] = v187;
-      v637 = v188 + 72;
-      v189 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
-      outlined init with copy of String(v189, v637);
-      v190 = v638;
-      v191 = v650;
-      v650[77] = v655;
-      v191[74] = v190;
-      v639 = v191 + 78;
-      v192 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v192, v639);
-      v193 = v640;
-      v194 = v650;
-      v650[83] = v655;
-      v194[80] = v193;
-      v641 = v194 + 84;
-      v195 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v195, v641);
-      v196 = v642;
-      v197 = v650;
-      v650[89] = v655;
-      v197[86] = v196;
-      v643 = v197 + 90;
-      v198 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v198, v643);
-      v199 = v644;
-      v200 = v650;
-      v650[95] = v655;
-      v200[92] = v199;
-      v645 = v200 + 96;
-      v201 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v201, v645);
-      v202 = v646;
-      v203 = v650;
-      v650[101] = v655;
-      v203[98] = v202;
-      v647 = v203 + 102;
-      v204 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v204, v647);
-      v205 = v648;
-      v206 = v650;
-      v650[107] = v655;
-      v206[104] = v205;
-      v649 = v206 + 108;
-      v207 = NightingaleDPFLRunner.keyMetricsInvalidStartSourcePregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v207, v649);
-      v208 = v650;
-      v209 = v651;
-      v650[113] = v655;
-      v208[110] = v209;
+      v665 = v1051 + 3136;
+      *(v1051 + 3136) = v614;
+      v639 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+      v640 = _allocateUninitializedArray<A>(_:)();
+      v637 = v153;
+      v154 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v154, v637);
+      v155 = v602;
+      v156 = v637;
+      v616 = MEMORY[0x277D839F8];
+      v637[5] = MEMORY[0x277D839F8];
+      v156[2] = v155;
+      v603 = v156 + 6;
+      v157 = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v157, v603);
+      v158 = v604;
+      v159 = v637;
+      v637[11] = v616;
+      v159[8] = v158;
+      v605 = v159 + 12;
+      v160 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v160, v605);
+      v161 = v606;
+      v162 = v637;
+      v637[17] = v616;
+      v162[14] = v161;
+      v607 = v162 + 18;
+      v163 = NightingaleDPFLRunner.keyMetricsUpdatePregnanciesDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v163, v607);
+      v164 = v608;
+      v165 = v637;
+      v637[23] = v616;
+      v165[20] = v164;
+      v609 = v165 + 24;
+      v166 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v166, v609);
+      v167 = v610;
+      v168 = v637;
+      v637[29] = v616;
+      v168[26] = v167;
+      v611 = v168 + 30;
+      v169 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v169, v611);
+      v170 = v637;
+      v171 = *(v1051 + 3112);
+      v637[35] = v616;
+      v170[32] = v171;
+      v612 = v170 + 36;
+      v172 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v172, v612);
+      v173 = v687;
+      v174 = v637;
+      v637[41] = v616;
+      v174[38] = v173;
+      v613 = v174 + 42;
+      v175 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v175, v613);
+      v176 = v614;
+      v177 = v637;
+      v637[47] = v616;
+      v177[44] = v176;
+      v615 = v177 + 48;
+      v178 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
+      outlined init with copy of String(v178, v615);
+      v179 = v617;
+      v180 = v637;
+      v637[53] = v616;
+      v180[50] = v179;
+      v618 = v180 + 54;
+      v181 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
+      outlined init with copy of String(v181, v618);
+      v182 = v619;
+      v183 = v637;
+      v642 = MEMORY[0x277D83B88];
+      v637[59] = MEMORY[0x277D83B88];
+      v183[56] = v182;
+      v620 = v183 + 60;
+      v184 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
+      outlined init with copy of String(v184, v620);
+      v185 = v621;
+      v186 = v637;
+      v637[65] = v642;
+      v186[62] = v185;
+      v622 = v186 + 66;
+      v187 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v187, v622);
+      v188 = v623;
+      v189 = v637;
+      v637[71] = v642;
+      v189[68] = v188;
+      v624 = v189 + 72;
+      v190 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
+      outlined init with copy of String(v190, v624);
+      v191 = v625;
+      v192 = v637;
+      v637[77] = v642;
+      v192[74] = v191;
+      v626 = v192 + 78;
+      v193 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v193, v626);
+      v194 = v627;
+      v195 = v637;
+      v637[83] = v642;
+      v195[80] = v194;
+      v628 = v195 + 84;
+      v196 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v196, v628);
+      v197 = v629;
+      v198 = v637;
+      v637[89] = v642;
+      v198[86] = v197;
+      v630 = v198 + 90;
+      v199 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v199, v630);
+      v200 = v631;
+      v201 = v637;
+      v637[95] = v642;
+      v201[92] = v200;
+      v632 = v201 + 96;
+      v202 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v202, v632);
+      v203 = v633;
+      v204 = v637;
+      v637[101] = v642;
+      v204[98] = v203;
+      v634 = v204 + 102;
+      v205 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v205, v634);
+      v206 = v635;
+      v207 = v637;
+      v637[107] = v642;
+      v207[104] = v206;
+      v636 = v207 + 108;
+      v208 = NightingaleDPFLRunner.keyMetricsInvalidStartSourcePregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v208, v636);
+      v209 = v637;
+      v210 = v638;
+      v637[113] = v642;
+      v209[110] = v210;
       _finalizeUninitializedArray<A>(_:)();
-      v680 = MEMORY[0x277D837D0];
-      v681 = MEMORY[0x277D84F70] + 8;
-      v682 = MEMORY[0x277D837E0];
-      v679 = Dictionary.init(dictionaryLiteral:)();
-      outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v654, (v1064 + 352));
-      v656 = *(v1064 + 184);
-      v657 = *(v1064 + 192);
-      v658 = *(v1064 + 200);
-      v659 = *(v1064 + 208);
-      v660 = *(v1064 + 216);
-      v661 = *(v1064 + 224);
-      v662 = *(v1064 + 232);
-      v663 = *(v1064 + 240);
-      v664 = *(v1064 + 248);
-      v665 = *(v1064 + 256);
-      v666 = *(v1064 + 264);
-      v667 = *(v1064 + 272);
-      v668 = *(v1064 + 280);
-      v669 = *(v1064 + 288);
-      v670 = *(v1064 + 296);
-      v671 = *(v1064 + 304);
-      v672 = *(v1064 + 312);
-      v673 = *(v1064 + 320);
-      v674 = *(v1064 + 328);
-      v675 = *(v1064 + 336);
-      v676 = *(v1064 + 344);
+      v667 = MEMORY[0x277D837D0];
+      v668 = MEMORY[0x277D84F70] + 8;
+      v669 = MEMORY[0x277D837E0];
+      v666 = Dictionary.init(dictionaryLiteral:)();
+      outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v641, (v1051 + 352));
+      v643 = *(v1051 + 184);
+      v644 = *(v1051 + 192);
+      v645 = *(v1051 + 200);
+      v646 = *(v1051 + 208);
+      v647 = *(v1051 + 216);
+      v648 = *(v1051 + 224);
+      v649 = *(v1051 + 232);
+      v650 = *(v1051 + 240);
+      v651 = *(v1051 + 248);
+      v652 = *(v1051 + 256);
+      v653 = *(v1051 + 264);
+      v654 = *(v1051 + 272);
+      v655 = *(v1051 + 280);
+      v656 = *(v1051 + 288);
+      v657 = *(v1051 + 296);
+      v658 = *(v1051 + 304);
+      v659 = *(v1051 + 312);
+      v660 = *(v1051 + 320);
+      v661 = *(v1051 + 328);
+      v662 = *(v1051 + 336);
+      v663 = *(v1051 + 344);
       _dictionaryUpCast<A, B, C, D>(_:)();
-      v683 = Dictionary.merging(_:uniquingKeysWith:)();
-      *(v1064 + 4208) = v683;
-      v684 = 0;
-      v609 = *(v1064 + 4048);
-      v608 = *(v1064 + 4359);
+      v670 = Dictionary.merging(_:uniquingKeysWith:)();
+      *(v1051 + 4208) = v670;
+      v671 = 0;
+      v596 = *(v1051 + 4048);
+      v595 = *(v1051 + 4359);
 
-      v210 = v608;
-      v211 = v1064;
-      v610 = v1064 + 3144;
-      *(v1064 + 3144) = v683;
-      *(v211 + 4317) = v210;
-      *(v211 + 4318) = 0;
+      v211 = v595;
+      v212 = v1051;
+      v597 = v1051 + 3144;
+      *(v1051 + 3144) = v670;
+      *(v212 + 4317) = v211;
+      *(v212 + 4318) = 0;
       if (== infix<A>(_:_:)())
       {
-        v212 = v684;
-        v582 = *(v1064 + 4260);
-        v578 = *(v1064 + 3760);
-        v577 = *(v1064 + 3752);
-        v579 = *(v1064 + 3696);
-        v583 = *(v1064 + 3528);
-        v580 = *(v1064 + 2808);
+        v213 = v671;
+        v569 = *(v1051 + 4260);
+        v565 = *(v1051 + 3760);
+        v564 = *(v1051 + 3752);
+        v566 = *(v1051 + 3696);
+        v570 = *(v1051 + 3528);
+        v567 = *(v1051 + 2808);
 
-        v581 = *(v1064 + 2848);
+        v568 = *(v1051 + 2848);
 
-        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v1064 + 184), (v1064 + 1024));
-        v584 = *(v1064 + 184);
-        v602 = *(v1064 + 192);
-        v604 = *(v1064 + 200);
-        v605 = *(v1064 + 208);
-        v585 = *(v1064 + 216);
-        v586 = *(v1064 + 224);
-        v587 = *(v1064 + 232);
-        v588 = *(v1064 + 240);
-        v589 = *(v1064 + 248);
-        v590 = *(v1064 + 256);
-        v591 = *(v1064 + 264);
-        v592 = *(v1064 + 272);
-        v593 = *(v1064 + 280);
-        v594 = *(v1064 + 288);
-        v595 = *(v1064 + 296);
-        v596 = *(v1064 + 304);
-        v597 = *(v1064 + 312);
-        v598 = *(v1064 + 320);
-        v599 = *(v1064 + 328);
-        v600 = *(v1064 + 336);
-        v601 = *(v1064 + 344);
-        v603 = &v292;
-        v606 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v583, v577, v578, v579, v580, v581, v582, v584, v602, v604, v605, v585, v586, v587, v588, v589, v590, v591, v592, v593, v594, v595, v596, v597, v598, v599, v600, v601, v683);
-        v607 = v212;
-        if (v212)
+        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v1051 + 184), (v1051 + 1024));
+        v571 = *(v1051 + 184);
+        v589 = *(v1051 + 192);
+        v591 = *(v1051 + 200);
+        v592 = *(v1051 + 208);
+        v572 = *(v1051 + 216);
+        v573 = *(v1051 + 224);
+        v574 = *(v1051 + 232);
+        v575 = *(v1051 + 240);
+        v576 = *(v1051 + 248);
+        v577 = *(v1051 + 256);
+        v578 = *(v1051 + 264);
+        v579 = *(v1051 + 272);
+        v580 = *(v1051 + 280);
+        v581 = *(v1051 + 288);
+        v582 = *(v1051 + 296);
+        v583 = *(v1051 + 304);
+        v584 = *(v1051 + 312);
+        v585 = *(v1051 + 320);
+        v586 = *(v1051 + 328);
+        v587 = *(v1051 + 336);
+        v588 = *(v1051 + 344);
+        v590 = v293;
+        v593 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v570, v564, v565, v566, v567, v568, v569, v571, v589, v591, v592, v572, v573, v574, v575, v576, v577, v578, v579, v580, v581, v582, v583, v584, v585, v586, v587, v588, v670);
+        v594 = v213;
+        if (v213)
         {
-          v310 = *(v1064 + 3952);
-          v311 = *(v1064 + 3872);
-          v312 = *(v1064 + 3856);
-          v313 = *(v1064 + 3760);
-          v314 = *(v1064 + 3736);
-          v315 = *(v1064 + 3712);
-          v316 = *(v1064 + 3696);
+          v297 = *(v1051 + 3952);
+          v298 = *(v1051 + 3872);
+          v299 = *(v1051 + 3856);
+          v300 = *(v1051 + 3760);
+          v301 = *(v1051 + 3736);
+          v302 = *(v1051 + 3712);
+          v303 = *(v1051 + 3696);
 
           outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -10270,20 +10258,20 @@ LABEL_131:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v314);
-          MEMORY[0x277D82BD8](v315);
+          MEMORY[0x277D82BD8](v301);
+          MEMORY[0x277D82BD8](v302);
 
-          v935 = v607;
+          v922 = v594;
           goto LABEL_168;
         }
 
-        v569 = *(v1064 + 3952);
-        v570 = *(v1064 + 3872);
-        v571 = *(v1064 + 3856);
-        v572 = *(v1064 + 3760);
-        v573 = *(v1064 + 3736);
-        v574 = *(v1064 + 3712);
-        v575 = *(v1064 + 3696);
+        v556 = *(v1051 + 3952);
+        v557 = *(v1051 + 3872);
+        v558 = *(v1051 + 3856);
+        v559 = *(v1051 + 3760);
+        v560 = *(v1051 + 3736);
+        v561 = *(v1051 + 3712);
+        v562 = *(v1051 + 3696);
 
         outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -10306,34 +10294,34 @@ LABEL_131:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v573);
-        MEMORY[0x277D82BD8](v574);
+        MEMORY[0x277D82BD8](v560);
+        MEMORY[0x277D82BD8](v561);
 
-        v576 = v606;
+        v563 = v593;
       }
 
       else
       {
-        v213 = v1064;
-        *(v1064 + 4319) = *(v1064 + 4359);
-        *(v213 + 4324) = 1;
+        v214 = v1051;
+        *(v1051 + 4319) = *(v1051 + 4359);
+        *(v214 + 4324) = 1;
         if ((== infix<A>(_:_:)() & 1) == 0)
         {
-          v214 = v1064;
-          *(v1064 + 4325) = *(v1064 + 4359);
-          *(v214 + 4326) = 2;
+          v215 = v1051;
+          *(v1051 + 4325) = *(v1051 + 4359);
+          *(v215 + 4326) = 2;
           if ((== infix<A>(_:_:)() & 1) == 0)
           {
-            v518 = *(v1064 + 3952);
-            v519 = *(v1064 + 3872);
-            v520 = *(v1064 + 3856);
-            v521 = *(v1064 + 3760);
-            v522 = *(v1064 + 3736);
-            v523 = *(v1064 + 3712);
-            v524 = *(v1064 + 3696);
+            v505 = *(v1051 + 3952);
+            v506 = *(v1051 + 3872);
+            v507 = *(v1051 + 3856);
+            v508 = *(v1051 + 3760);
+            v509 = *(v1051 + 3736);
+            v510 = *(v1051 + 3712);
+            v511 = *(v1051 + 3696);
             lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-            v525 = swift_allocError();
-            *v224 = 69;
+            v512 = swift_allocError();
+            *v225 = 69;
             swift_willThrow();
 
             outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
@@ -10357,63 +10345,63 @@ LABEL_131:
             outlined destroy of [(start: UInt32, end: UInt32)]();
             outlined destroy of [(start: UInt32, end: UInt32)]();
 
-            MEMORY[0x277D82BD8](v522);
-            MEMORY[0x277D82BD8](v523);
+            MEMORY[0x277D82BD8](v509);
+            MEMORY[0x277D82BD8](v510);
 
-            v935 = v525;
+            v922 = v512;
             goto LABEL_168;
           }
 
-          v529 = *(v1064 + 3872);
-          v528 = *(v1064 + 4268);
-          v526 = *(v1064 + 3696);
-          v527 = *(v1064 + 3536);
+          v516 = *(v1051 + 3872);
+          v515 = *(v1051 + 4268);
+          v513 = *(v1051 + 3696);
+          v514 = *(v1051 + 3536);
 
-          v215 = swift_task_alloc();
-          v216 = v526;
-          v217 = v527;
-          v218 = v528;
-          v219 = v529;
-          v220 = v1064;
-          v530 = v215;
-          *(v1064 + 4216) = v215;
-          *(v215 + 16) = v216;
-          *(v215 + 24) = v220 + 2848;
-          *(v215 + 32) = v217;
-          *(v215 + 40) = v218;
-          *(v215 + 48) = v220 + 2720;
-          *(v215 + 56) = v220 + 2728;
-          *(v215 + 64) = v220 + 2736;
-          *(v215 + 72) = v220 + 2744;
-          *(v215 + 80) = v220 + 2808;
-          *(v215 + 88) = v219;
-          v221 = swift_task_alloc();
-          *(v1064 + 4224) = v221;
-          v222 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
-          v223 = v1064;
-          v73 = v1084;
-          v74 = v530;
-          v75 = v222;
-          *v221 = *(v1064 + 2632);
-          v221[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-          v76 = v223 + 2436;
-          v77 = 9;
-          v78 = 1;
+          v216 = swift_task_alloc();
+          v217 = v513;
+          v218 = v514;
+          v219 = v515;
+          v220 = v516;
+          v221 = v1051;
+          v517 = v216;
+          *(v1051 + 4216) = v216;
+          *(v216 + 16) = v217;
+          *(v216 + 24) = v221 + 2848;
+          *(v216 + 32) = v218;
+          *(v216 + 40) = v219;
+          *(v216 + 48) = v221 + 2720;
+          *(v216 + 56) = v221 + 2728;
+          *(v216 + 64) = v221 + 2736;
+          *(v216 + 72) = v221 + 2744;
+          *(v216 + 80) = v221 + 2808;
+          *(v216 + 88) = v220;
+          v222 = swift_task_alloc();
+          *(v1051 + 4224) = v222;
+          v223 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
+          v224 = v1051;
+          v74 = v1071;
+          v75 = v517;
+          v76 = v223;
+          *v222 = *(v1051 + 2632);
+          v222[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+          v77 = v224 + 2436;
+          v78 = 9;
+          v79 = 1;
 
-          return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v76, v77, v78, v73, v74, v75);
+          return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v77, v78, v79, v74, v75, v76);
         }
 
-        v567 = PFLTask.evalModelNames(taskType:hyperParams:)();
-        v568 = v684;
-        if (v684)
+        v554 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v1051 + 4359), *(v1051 + 3696));
+        v555 = v671;
+        if (v671)
         {
-          v303 = *(v1064 + 3952);
-          v304 = *(v1064 + 3872);
-          v305 = *(v1064 + 3856);
-          v306 = *(v1064 + 3760);
-          v307 = *(v1064 + 3736);
-          v308 = *(v1064 + 3712);
-          v309 = *(v1064 + 3696);
+          v293[37] = *(v1051 + 3952);
+          v293[38] = *(v1051 + 3872);
+          v293[39] = *(v1051 + 3856);
+          v293[40] = *(v1051 + 3760);
+          v294 = *(v1051 + 3736);
+          v295 = *(v1051 + 3712);
+          v296 = *(v1051 + 3696);
 
           outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -10436,52 +10424,52 @@ LABEL_131:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v307);
-          MEMORY[0x277D82BD8](v308);
+          MEMORY[0x277D82BD8](v294);
+          MEMORY[0x277D82BD8](v295);
 
-          v935 = v568;
+          v922 = v555;
           goto LABEL_168;
         }
 
-        v542 = *(v1064 + 4260);
-        v539 = *(v1064 + 3696);
-        v538 = *(v1064 + 3528);
-        v540 = *(v1064 + 2808);
+        v529 = *(v1051 + 4260);
+        v526 = *(v1051 + 3696);
+        v525 = *(v1051 + 3528);
+        v527 = *(v1051 + 2808);
 
-        v541 = *(v1064 + 2848);
+        v528 = *(v1051 + 2848);
 
-        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v1064 + 184), (v1064 + 856));
-        v543 = *(v1064 + 184);
-        v544 = *(v1064 + 192);
-        v562 = *(v1064 + 200);
-        v564 = *(v1064 + 208);
-        v545 = *(v1064 + 216);
-        v546 = *(v1064 + 224);
-        v547 = *(v1064 + 232);
-        v548 = *(v1064 + 240);
-        v549 = *(v1064 + 248);
-        v550 = *(v1064 + 256);
-        v551 = *(v1064 + 264);
-        v552 = *(v1064 + 272);
-        v553 = *(v1064 + 280);
-        v554 = *(v1064 + 288);
-        v555 = *(v1064 + 296);
-        v556 = *(v1064 + 304);
-        v557 = *(v1064 + 312);
-        v558 = *(v1064 + 320);
-        v559 = *(v1064 + 328);
-        v560 = *(v1064 + 336);
-        v561 = *(v1064 + 344);
-        v563 = &v292;
-        v565 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v567, v538, v539, v540, v541, v542, v543, v544, v562, v564, v545, v546, v547, v548, v549, v550, v551, v552, v553, v554, v555, v556, v557, v558, v559, v560, v561, v683);
-        v566 = 0;
-        v531 = *(v1064 + 3952);
-        v532 = *(v1064 + 3872);
-        v533 = *(v1064 + 3856);
-        v534 = *(v1064 + 3760);
-        v535 = *(v1064 + 3736);
-        v536 = *(v1064 + 3712);
-        v537 = *(v1064 + 3696);
+        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v1051 + 184), (v1051 + 856));
+        v530 = *(v1051 + 184);
+        v531 = *(v1051 + 192);
+        v549 = *(v1051 + 200);
+        v551 = *(v1051 + 208);
+        v532 = *(v1051 + 216);
+        v533 = *(v1051 + 224);
+        v534 = *(v1051 + 232);
+        v535 = *(v1051 + 240);
+        v536 = *(v1051 + 248);
+        v537 = *(v1051 + 256);
+        v538 = *(v1051 + 264);
+        v539 = *(v1051 + 272);
+        v540 = *(v1051 + 280);
+        v541 = *(v1051 + 288);
+        v542 = *(v1051 + 296);
+        v543 = *(v1051 + 304);
+        v544 = *(v1051 + 312);
+        v545 = *(v1051 + 320);
+        v546 = *(v1051 + 328);
+        v547 = *(v1051 + 336);
+        v548 = *(v1051 + 344);
+        v550 = v293;
+        v552 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v554, v525, v526, v527, v528, v529, v530, v531, v549, v551, v532, v533, v534, v535, v536, v537, v538, v539, v540, v541, v542, v543, v544, v545, v546, v547, v548, v670);
+        v553 = 0;
+        v518 = *(v1051 + 3952);
+        v519 = *(v1051 + 3872);
+        v520 = *(v1051 + 3856);
+        v521 = *(v1051 + 3760);
+        v522 = *(v1051 + 3736);
+        v523 = *(v1051 + 3712);
+        v524 = *(v1051 + 3696);
 
         outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -10504,27 +10492,27 @@ LABEL_131:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v535);
-        MEMORY[0x277D82BD8](v536);
+        MEMORY[0x277D82BD8](v522);
+        MEMORY[0x277D82BD8](v523);
 
-        v576 = v565;
+        v563 = v552;
       }
 
 LABEL_136:
-      v469 = v576;
-      v461 = *(v1064 + 3664);
-      v462 = *(v1064 + 3640);
-      v463 = *(v1064 + 3632);
-      v464 = *(v1064 + 3608);
-      v465 = *(v1064 + 3600);
-      v466 = *(v1064 + 3576);
-      v467 = *(v1064 + 3568);
-      v468 = *(v1064 + 3560);
+      v456 = v563;
+      v448 = *(v1051 + 3664);
+      v449 = *(v1051 + 3640);
+      v450 = *(v1051 + 3632);
+      v451 = *(v1051 + 3608);
+      v452 = *(v1051 + 3600);
+      v453 = *(v1051 + 3576);
+      v454 = *(v1051 + 3568);
+      v455 = *(v1051 + 3560);
 
-      v250 = v469;
-      v251 = *(*(v1064 + 2632) + 8);
+      v251 = v456;
+      v252 = *(*(v1051 + 2632) + 8);
 
-      return v251(v250);
+      return v252(v251);
     }
 
 LABEL_173:
@@ -10532,50 +10520,50 @@ LABEL_173:
     goto LABEL_174;
   }
 
-  v52 = v981;
-  v967 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v966 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
+  v53 = v968;
+  v954 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v953 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
   dispatch thunk of PerformanceMeasure.start(_:)();
 
-  v968 = *(v1064 + 2928);
+  v955 = *(v1051 + 2928);
 
-  *(v1064 + 3320) = v968;
+  *(v1051 + 3320) = v955;
   result = Sequence.min(by:)();
-  v969 = v52;
-  if (!v52)
+  v956 = v53;
+  if (!v53)
   {
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v1064 + 1656))
+    if (*(v1051 + 1656))
     {
-      v961 = *(v1064 + 1656);
-      v960 = *(v1064 + 1664);
-      v962 = v1064 + 1632;
-      __swift_project_boxed_opaque_existential_1((v1064 + 1632), v961);
-      v963 = (*(v960 + 64))(v961);
-      __swift_destroy_boxed_opaque_existential_1(v1064 + 1632);
-      v964 = v963;
-      v965 = 0;
+      v948 = *(v1051 + 1656);
+      v947 = *(v1051 + 1664);
+      v949 = v1051 + 1632;
+      __swift_project_boxed_opaque_existential_1((v1051 + 1632), v948);
+      v950 = (*(v947 + 64))(v948);
+      __swift_destroy_boxed_opaque_existential_1((v1051 + 1632));
+      v951 = v950;
+      v952 = 0;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v1064 + 1632);
-      v964 = 0;
-      v965 = 1;
+      outlined destroy of Pregnancy?((v1051 + 1632));
+      v951 = 0;
+      v952 = 1;
     }
 
-    v959 = v964;
-    if (v965 & 1) != 0 || ((v53 = v1064, v958 = v1064 + 4336, *(v1064 + 4336) = v959, v957 = *(v53 + 2928), , *(v1064 + 3328) = v957, Sequence.max(by:)(), outlined destroy of [(start: UInt32, end: UInt32)](), !*(v1064 + 1696)) ? (outlined destroy of Pregnancy?(v1064 + 1672), v955 = 0, v956 = 1) : (v952 = *(v1064 + 1696), v951 = *(v1064 + 1704), v953 = v1064 + 1672, __swift_project_boxed_opaque_existential_1((v1064 + 1672), v952), v954 = (*(v951 + 64))(v952), __swift_destroy_boxed_opaque_existential_1(v1064 + 1672), v955 = v954, v956 = 0), v950 = v955, (v956))
+    v946 = v951;
+    if (v952 & 1) != 0 || ((v54 = v1051, v945 = v1051 + 4336, *(v1051 + 4336) = v946, v944 = *(v54 + 2928), , *(v1051 + 3328) = v944, Sequence.max(by:)(), outlined destroy of [(start: UInt32, end: UInt32)](), !*(v1051 + 1696)) ? (outlined destroy of Pregnancy?((v1051 + 1672)), v942 = 0, v943 = 1) : (v939 = *(v1051 + 1696), v938 = *(v1051 + 1704), v940 = v1051 + 1672, __swift_project_boxed_opaque_existential_1((v1051 + 1672), v939), v941 = (*(v938 + 64))(v939), __swift_destroy_boxed_opaque_existential_1((v1051 + 1672)), v942 = v941, v943 = 0), v937 = v942, (v943))
     {
-      v928 = *(v1064 + 3872);
-      v929 = *(v1064 + 3856);
-      v930 = *(v1064 + 3760);
-      v931 = *(v1064 + 3736);
-      v932 = *(v1064 + 3712);
-      v933 = *(v1064 + 3696);
+      v915 = *(v1051 + 3872);
+      v916 = *(v1051 + 3856);
+      v917 = *(v1051 + 3760);
+      v918 = *(v1051 + 3736);
+      v919 = *(v1051 + 3712);
+      v920 = *(v1051 + 3696);
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v934 = swift_allocError();
-      *v79 = 55;
+      v921 = swift_allocError();
+      *v80 = 55;
       swift_willThrow();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -10595,117 +10583,105 @@ LABEL_173:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v931);
-      MEMORY[0x277D82BD8](v932);
+      MEMORY[0x277D82BD8](v918);
+      MEMORY[0x277D82BD8](v919);
 
-      v935 = v934;
+      v922 = v921;
       goto LABEL_168;
     }
 
-    v54 = v959;
-    *(v1064 + 4344) = v950;
-    v1108 = v54;
-    v948 = v54;
-    v17 = HyperParams.minSliceAnchorDelta.getter();
-    v949 = v948 + v17;
-    if (!__OFADD__(v948, v17))
+    v55 = v946;
+    *(v1051 + 4344) = v937;
+    v1095 = v55;
+    v935 = v55;
+    v18 = HyperParams.minSliceAnchorDelta.getter();
+    v936 = v935 + v18;
+    if (!__OFADD__(v935, v18))
     {
-      v17 = HyperParams.sliceSize.getter();
-      v947 = v949 - v17;
-      if (!__OFSUB__(v949, v17))
+      v18 = HyperParams.sliceSize.getter();
+      v934 = v936 - v18;
+      if (!__OFSUB__(v936, v18))
       {
-        v946 = v947 + 1;
-        v57 = __OFADD__(v947, 1);
-        *(v1064 + 4056) = v947 + 1;
-        if (!v57)
+        v933 = v934 + 1;
+        v58 = __OFADD__(v934, 1);
+        *(v1051 + 4056) = v934 + 1;
+        if (!v58)
         {
-          if (v946 < 0)
+          if (v933 < 0)
           {
-LABEL_43:
-            LOBYTE(v292) = 2;
-            v293 = 3049;
-            LODWORD(v294) = 0;
-            return _assertionFailure(_:_:file:line:flags:)();
+            return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1080, 35, 2, v1081, 20, 2, 3049, 0);
           }
 
-          if (v946 > 0xFFFFFFFFLL)
+          if (v933 > 0xFFFFFFFFLL)
           {
-LABEL_45:
-            LOBYTE(v292) = 2;
-            v293 = 3053;
-            LODWORD(v294) = 0;
-            return _assertionFailure(_:_:file:line:flags:)();
+            return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1083, 45, 2, v1081, 20, 2, 3053, 0);
           }
 
-          v943 = v946;
-          v944 = v950;
-          v17 = HyperParams.maxSliceAnchorDelta.getter();
-          v945 = v950 + v17;
-          if (!__OFADD__(v950, v17))
+          v930 = v933;
+          v931 = v937;
+          v18 = HyperParams.maxSliceAnchorDelta.getter();
+          v932 = v937 + v18;
+          if (!__OFADD__(v937, v18))
           {
-            if (v945 < 0)
+            if (v932 < 0)
             {
-              goto LABEL_43;
+              return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1080, 35, 2, v1081, 20, 2, 3049, 0);
             }
 
-            if (v945 > 0xFFFFFFFFLL)
+            if (v932 > 0xFFFFFFFFLL)
             {
-              goto LABEL_45;
+              return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1083, 45, 2, v1081, 20, 2, 3053, 0);
             }
 
-            v59 = v1064;
-            v60 = *(v1064 + 4260);
-            *(v1064 + 2628) = v945;
-            *(v59 + 4244) = v60;
+            v60 = v1051;
+            v61 = *(v1051 + 4260);
+            *(v1051 + 2628) = v932;
+            *(v60 + 4244) = v61;
             min<A>(_:_:)();
-            v61 = v943;
-            v62 = *(v1064 + 2612);
-            v942 = v62;
-            *(v1064 + 4276) = v62;
-            if (v62 < v61)
+            v62 = v930;
+            v63 = *(v1051 + 2612);
+            v929 = v63;
+            *(v1051 + 4276) = v63;
+            if (v63 < v62)
             {
-LABEL_53:
-              LOBYTE(v292) = 2;
-              v293 = 409;
-              LODWORD(v294) = 0;
-              return _assertionFailure(_:_:file:line:flags:)();
+              return _assertionFailure(_:_:file:line:flags:)(v1055, 11, 2, v1056, 39, 2, v1068, 23, 2, 409, 0);
             }
 
-            v63 = v1064;
-            v64 = v942;
-            v938 = *(v1064 + 3888);
-            v936 = *(v1064 + 3696);
-            v937 = *(v1064 + 3536);
-            v939 = v1064 + 2452;
-            *(v1064 + 2452) = v946;
-            *(v63 + 2456) = v64;
+            v64 = v1051;
+            v65 = v929;
+            v925 = *(v1051 + 3888);
+            v923 = *(v1051 + 3696);
+            v924 = *(v1051 + 3536);
+            v926 = v1051 + 2452;
+            *(v1051 + 2452) = v933;
+            *(v64 + 2456) = v65;
 
-            v65 = swift_task_alloc();
-            v66 = v936;
-            v67 = v937;
-            v68 = v946;
-            v69 = v942;
-            v941 = v65;
-            *(v1064 + 4064) = v65;
-            *(v65 + 16) = v66;
-            *(v65 + 24) = v67;
-            *(v65 + 32) = v68;
-            *(v65 + 36) = v69;
-            v940 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-            v70 = swift_task_alloc();
-            v71 = v1064;
-            v72 = v940;
-            v73 = v1095;
-            v74 = v941;
-            *(v1064 + 4072) = v70;
-            *v70 = *(v71 + 2632);
-            v70[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-            v75 = *(v71 + 3888);
-            v76 = v71 + 3336;
-            v77 = 8;
-            v78 = v72 & 1;
+            v66 = swift_task_alloc();
+            v67 = v923;
+            v68 = v924;
+            v69 = v933;
+            v70 = v929;
+            v928 = v66;
+            *(v1051 + 4064) = v66;
+            *(v66 + 16) = v67;
+            *(v66 + 24) = v68;
+            *(v66 + 32) = v69;
+            *(v66 + 36) = v70;
+            v927 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+            v71 = swift_task_alloc();
+            v72 = v1051;
+            v73 = v927;
+            v74 = v1082;
+            v75 = v928;
+            *(v1051 + 4072) = v71;
+            *v71 = *(v72 + 2632);
+            v71[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+            v76 = *(v72 + 3888);
+            v77 = v72 + 3336;
+            v78 = 8;
+            v79 = v73 & 1;
 
-            return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v76, v77, v78, v73, v74, v75);
+            return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v77, v78, v79, v74, v75, v76);
           }
 
           goto LABEL_177;
@@ -10715,7 +10691,7 @@ LABEL_176:
         __break(1u);
 LABEL_177:
         __break(1u);
-        return MEMORY[0x2821A2088](v17, v18, v19, v20, v21);
+        return MEMORY[0x2821A2088](v18, v19, v20, v21, v22);
       }
 
 LABEL_175:
@@ -10732,228 +10708,228 @@ LABEL_174:
 }
 
 {
-  v621 = v1;
-  MEMORY[0x28223BE20](a1);
-  v589 = v1;
-  v606 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v577 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v578 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v579 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v580 = "Fatal error";
-  v581 = "Range requires lowerBound <= upperBound";
-  v582 = "Swift/ClosedRange.swift";
-  v583 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v584 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v585 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v586 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v587 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
-  v588 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
-  *(v1 + 2632) = v1;
+  v609 = v2;
+  MEMORY[0x28223BE20](a1, a2);
+  v577 = v2;
+  v594 = partial apply for closure #29 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v565 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v566 = closure #16 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v567 = closure #32 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v568 = "Fatal error";
+  v569 = "Range requires lowerBound <= upperBound";
+  v570 = "Swift/ClosedRange.swift";
+  v571 = partial apply for closure #36 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v572 = closure #37 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v573 = &async function pointer to partial apply for closure #38 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v574 = &async function pointer to partial apply for closure #35 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v575 = &async function pointer to partial apply for closure #34 in NightingaleDPFLRunner.run(task:useCase:context:);
+  v576 = &async function pointer to partial apply for closure #33 in NightingaleDPFLRunner.run(task:useCase:context:);
+  *(v2 + 2632) = v2;
 
-  v591 = v589 + 2640;
-  v609 = v589 + 2520;
-  v610 = v589 + 2648;
-  v611 = v589 + 2656;
-  v612 = v589 + 2664;
-  v613 = v589 + 2672;
-  v614 = v589 + 2680;
-  v615 = v589 + 2688;
-  v616 = v589 + 2696;
-  v590 = v589 + 2704;
-  v608 = v589 + 4352;
-  v592 = v589 + 2840;
-  v593 = v589 + 2856;
-  v594 = v589 + 2888;
-  v595 = v589 + 2912;
-  v596 = v589 + 2920;
-  v597 = v589 + 2968;
-  v598 = v589 + 2984;
-  v599 = v589 + 3000;
-  v600 = v589 + 3016;
-  v601 = v589 + 3032;
-  v602 = v589 + 3048;
-  v603 = v589 + 3056;
-  v604 = v589 + 4312;
-  v605 = v589 + 4320;
-  v618 = *(v589 + 4104);
-  v607 = *(v589 + 3696);
-  v2 = v618;
-  v617 = v589 + 3208;
-  *(v589 + 3208) = v618;
+  v579 = v577 + 2640;
+  v597 = v577 + 2520;
+  v598 = v577 + 2648;
+  v599 = v577 + 2656;
+  v600 = v577 + 2664;
+  v601 = v577 + 2672;
+  v602 = v577 + 2680;
+  v603 = v577 + 2688;
+  v604 = v577 + 2696;
+  v578 = v577 + 2704;
+  v596 = v577 + 4352;
+  v580 = v577 + 2840;
+  v581 = v577 + 2856;
+  v582 = v577 + 2888;
+  v583 = v577 + 2912;
+  v584 = v577 + 2920;
+  v585 = v577 + 2968;
+  v586 = v577 + 2984;
+  v587 = v577 + 3000;
+  v588 = v577 + 3016;
+  v589 = v577 + 3032;
+  v590 = v577 + 3048;
+  v591 = v577 + 3056;
+  v592 = v577 + 4312;
+  v593 = v577 + 4320;
+  v606 = *(v577 + 4104);
+  v595 = *(v577 + 3696);
+  v3 = v606;
+  v605 = v577 + 3208;
+  *(v577 + 3208) = v606;
 
   static PFLUtils.throwIfFalse(error:for:)();
-  v620 = 0;
+  v608 = 0;
 
-  v211 = v589 + 2640;
-  v212 = v589 + 2520;
-  v213 = v589 + 2648;
-  v214 = v589 + 2656;
-  v215 = v589 + 2664;
-  v216 = v589 + 2672;
-  v217 = v589 + 2680;
-  v192 = v589 + 2696;
-  v218 = v589 + 2704;
-  v209 = v589 + 2712;
-  v194 = v589 + 4256;
-  v195 = v589 + 2840;
-  v196 = v589 + 2856;
-  v197 = v589 + 2888;
-  v198 = v589 + 2912;
-  v199 = v589 + 2952;
-  v200 = v589 + 2968;
-  v201 = v589 + 2984;
-  v202 = v589 + 3000;
-  v203 = v589 + 3016;
-  v204 = v589 + 3032;
-  v205 = v589 + 3048;
-  v206 = v589 + 3056;
-  v208 = *(v589 + 3976);
-  v207 = *(v589 + 3968);
-  v188 = *(v589 + 3536);
-  v186 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v189 = 1;
+  v199 = v577 + 2640;
+  v200 = v577 + 2520;
+  v201 = v577 + 2648;
+  v202 = v577 + 2656;
+  v203 = v577 + 2664;
+  v204 = v577 + 2672;
+  v205 = v577 + 2680;
+  v180 = v577 + 2696;
+  v206 = v577 + 2704;
+  v197 = v577 + 2712;
+  v182 = v577 + 4256;
+  v183 = v577 + 2840;
+  v184 = v577 + 2856;
+  v185 = v577 + 2888;
+  v186 = v577 + 2912;
+  v187 = v577 + 2952;
+  v188 = v577 + 2968;
+  v189 = v577 + 2984;
+  v190 = v577 + 3000;
+  v191 = v577 + 3016;
+  v192 = v577 + 3032;
+  v193 = v577 + 3048;
+  v194 = v577 + 3056;
+  v196 = *(v577 + 3976);
+  v195 = *(v577 + 3968);
+  v176 = *(v577 + 3536);
+  v174 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v177 = 1;
   object = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("UpdateSliceDeltaAnchor", 0x16uLL, 1)._object;
   dispatch thunk of PerformanceMeasure.finish(_:)();
-  v187 = v143;
-  *(v589 + 4112) = v143;
+  v175 = v144;
+  *(v577 + 4112) = v144;
 
-  v210 = v589 + 3064;
-  *(v589 + 3064) = v187;
-  v144 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v144);
-  v191 = NightingaleDPFLRunner.performanceMeasure.getter();
-  v190 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v189 & 1)._object;
+  v198 = v577 + 3064;
+  *(v577 + 3064) = v175;
+  v145 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+  NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_updateSliceDeltaAnchorCompleted, v145);
+  v179 = NightingaleDPFLRunner.performanceMeasure.getter();
+  v178 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, v177 & 1)._object;
   dispatch thunk of PerformanceMeasure.start(_:)();
 
-  v193 = *(v589 + 2928);
+  v181 = *(v577 + 2928);
 
-  *(v589 + 3072) = v193;
+  *(v577 + 3072) = v181;
   result = Sequence.min(by:)();
-  v564 = v620;
-  if (!v620)
+  v552 = v608;
+  if (!v608)
   {
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v589 + 1216))
+    if (*(v577 + 1216))
     {
-      v572 = *(v589 + 1216);
-      v571 = *(v589 + 1224);
-      v573 = v589 + 1192;
-      __swift_project_boxed_opaque_existential_1((v589 + 1192), v572);
-      v574 = (*(v571 + 64))(v572);
-      __swift_destroy_boxed_opaque_existential_1(v589 + 1192);
-      v575 = v574;
-      v576 = 0;
+      v560 = *(v577 + 1216);
+      v559 = *(v577 + 1224);
+      v561 = v577 + 1192;
+      __swift_project_boxed_opaque_existential_1((v577 + 1192), v560);
+      v562 = (*(v559 + 64))(v560);
+      __swift_destroy_boxed_opaque_existential_1((v577 + 1192));
+      v563 = v562;
+      v564 = 0;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v589 + 1192);
-      v575 = 0;
-      v576 = 1;
+      outlined destroy of Pregnancy?((v577 + 1192));
+      v563 = 0;
+      v564 = 1;
     }
 
-    v3 = v576;
-    v570 = v575;
-    *(v589 + 4284) = v575;
-    if (v3)
+    v4 = v564;
+    v558 = v563;
+    *(v577 + 4284) = v563;
+    if (v4)
     {
       goto LABEL_58;
     }
 
-    v4 = v589;
-    v5 = v564;
-    v568 = *(v589 + 3976);
-    v567 = *(v589 + 3968);
-    v566 = v589 + 4264;
-    *(v589 + 4264) = v570;
-    v565 = *(v4 + 2928);
+    v5 = v577;
+    v6 = v552;
+    v556 = *(v577 + 3976);
+    v555 = *(v577 + 3968);
+    v554 = v577 + 4264;
+    *(v577 + 4264) = v558;
+    v553 = *(v5 + 2928);
 
-    *(v589 + 3080) = v565;
+    *(v577 + 3080) = v553;
     result = Sequence.max(by:)();
-    v569 = v5;
-    if (v5)
-    {
-      return result;
-    }
-
-    outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v589 + 1256))
-    {
-      v559 = *(v589 + 1256);
-      v558 = *(v589 + 1264);
-      v560 = v589 + 1232;
-      __swift_project_boxed_opaque_existential_1((v589 + 1232), v559);
-      v561 = (*(v558 + 64))(v559);
-      __swift_destroy_boxed_opaque_existential_1(v589 + 1232);
-      v562 = v561;
-      v563 = 0;
-    }
-
-    else
-    {
-      outlined destroy of Pregnancy?(v589 + 1232);
-      v562 = 0;
-      v563 = 1;
-    }
-
-    v6 = v563;
-    v557 = v562;
-    *(v589 + 4292) = v562;
+    v557 = v6;
     if (v6)
     {
-      goto LABEL_58;
-    }
-
-    v7 = v589;
-    v8 = v569;
-    v555 = *(v589 + 3976);
-    v554 = *(v589 + 3968);
-    v553 = v589 + 4272;
-    *(v589 + 4272) = v557;
-    v552 = *(v7 + 2928);
-
-    *(v589 + 3088) = v552;
-    result = Sequence.min(by:)();
-    v556 = v8;
-    if (v8)
-    {
       return result;
     }
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    if (*(v589 + 1296))
+    if (*(v577 + 1256))
     {
-      v547 = *(v589 + 1296);
-      v546 = *(v589 + 1304);
-      v548 = v589 + 1272;
-      __swift_project_boxed_opaque_existential_1((v589 + 1272), v547);
-      v549 = (*(v546 + 8))(v547);
-      __swift_destroy_boxed_opaque_existential_1(v589 + 1272);
+      v547 = *(v577 + 1256);
+      v546 = *(v577 + 1264);
+      v548 = v577 + 1232;
+      __swift_project_boxed_opaque_existential_1((v577 + 1232), v547);
+      v549 = (*(v546 + 64))(v547);
+      __swift_destroy_boxed_opaque_existential_1((v577 + 1232));
       v550 = v549;
       v551 = 0;
     }
 
     else
     {
-      outlined destroy of Pregnancy?(v589 + 1272);
+      outlined destroy of Pregnancy?((v577 + 1232));
       v550 = 0;
       v551 = 1;
     }
 
+    v7 = v551;
     v545 = v550;
-    if (v551)
+    *(v577 + 4292) = v550;
+    if (v7)
+    {
+      goto LABEL_58;
+    }
+
+    v8 = v577;
+    v9 = v557;
+    v543 = *(v577 + 3976);
+    v542 = *(v577 + 3968);
+    v541 = v577 + 4272;
+    *(v577 + 4272) = v545;
+    v540 = *(v8 + 2928);
+
+    *(v577 + 3088) = v540;
+    result = Sequence.min(by:)();
+    v544 = v9;
+    if (v9)
+    {
+      return result;
+    }
+
+    outlined destroy of [(start: UInt32, end: UInt32)]();
+    if (*(v577 + 1296))
+    {
+      v535 = *(v577 + 1296);
+      v534 = *(v577 + 1304);
+      v536 = v577 + 1272;
+      __swift_project_boxed_opaque_existential_1((v577 + 1272), v535);
+      v537 = (*(v534 + 8))(v535);
+      __swift_destroy_boxed_opaque_existential_1((v577 + 1272));
+      v538 = v537;
+      v539 = 0;
+    }
+
+    else
+    {
+      outlined destroy of Pregnancy?((v577 + 1272));
+      v538 = 0;
+      v539 = 1;
+    }
+
+    v533 = v538;
+    if (v539)
     {
 LABEL_58:
-      v228 = *(v589 + 3952);
-      v229 = *(v589 + 3872);
-      v230 = *(v589 + 3856);
-      v231 = *(v589 + 3760);
-      v232 = *(v589 + 3736);
-      v233 = *(v589 + 3712);
-      v234 = *(v589 + 3696);
+      v216 = *(v577 + 3952);
+      v217 = *(v577 + 3872);
+      v218 = *(v577 + 3856);
+      v219 = *(v577 + 3760);
+      v220 = *(v577 + 3736);
+      v221 = *(v577 + 3712);
+      v222 = *(v577 + 3696);
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v235 = swift_allocError();
-      *v140 = 106;
+      v223 = swift_allocError();
+      *v141 = 106;
       swift_willThrow();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -10973,349 +10949,346 @@ LABEL_58:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v232);
-      MEMORY[0x277D82BD8](v233);
+      MEMORY[0x277D82BD8](v220);
+      MEMORY[0x277D82BD8](v221);
 
-      v244 = v235;
+      v232 = v223;
       goto LABEL_70;
     }
 
-    *(v589 + 4280) = v545;
+    *(v577 + 4280) = v533;
     result = HyperParams.featureLookbackDays.getter();
-    v544 = v545 - result;
-    v9 = v545 < result;
-    *(v589 + 4300) = v545 - result;
-    if (v9)
+    v532 = v533 - result;
+    v10 = v533 < result;
+    *(v577 + 4300) = v533 - result;
+    if (v10)
     {
       __break(1u);
       return result;
     }
 
-    if (*(v589 + 4260) < v544)
+    if (*(v577 + 4260) < v532)
     {
-      LOBYTE(v146[0]) = 2;
-      v146[1] = 409;
-      LODWORD(v147) = 0;
-      return _assertionFailure(_:_:file:line:flags:)();
+      return _assertionFailure(_:_:file:line:flags:)(v568, 11, 2, v569, 39, 2, v570, 23, 2, 409, 0);
     }
 
-    v10 = v589;
-    v11 = *(v589 + 4260);
-    v543 = v589 + 2428;
-    *(v589 + 2428) = v544;
-    *(v10 + 2432) = v11;
-    *(v589 + 3096) = _allocateUninitializedArray<A>(_:)();
+    v11 = v577;
+    v12 = *(v577 + 4260);
+    v531 = v577 + 2428;
+    *(v577 + 2428) = v532;
+    *(v11 + 2432) = v12;
+    *(v577 + 3096) = _allocateUninitializedArray<A>(_:)();
     if (HyperParams.isHRVRequired()())
     {
-      v542 = v589 + 4334;
-      *(v589 + 4334) = 8;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+      v530 = v577 + 4334;
+      *(v577 + 4334) = 8;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
       Array.append(_:)();
     }
 
     if (HyperParams.isSpO2Required()())
     {
-      v541 = v589 + 4333;
-      *(v589 + 4333) = 10;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+      v529 = v577 + 4333;
+      *(v577 + 4333) = 10;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
       Array.append(_:)();
     }
 
     if (HyperParams.isRespiratoryRateRequired()())
     {
-      v540 = v589 + 4332;
-      *(v589 + 4332) = 9;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+      v528 = v577 + 4332;
+      *(v577 + 4332) = 9;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
       Array.append(_:)();
     }
 
     if (HyperParams.isSWTRequired()())
     {
-      v539 = v589 + 4327;
-      *(v589 + 4327) = 7;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+      v527 = v577 + 4327;
+      *(v577 + 4327) = 7;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
       Array.append(_:)();
     }
 
-    v537 = *(v589 + 3096);
+    v525 = *(v577 + 3096);
 
-    *(v589 + 3104) = v537;
-    v536 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd);
+    *(v577 + 3104) = v525;
+    v524 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMd, &_sSay19NightingaleTraining23HealthDataRawSampleTypeOGMR);
     lazy protocol witness table accessor for type [HealthDataRawSampleType] and conformance [A]();
-    v538 = Collection.isEmpty.getter();
+    v526 = Collection.isEmpty.getter();
 
-    if ((v538 & 1) == 0)
+    if ((v526 & 1) == 0)
     {
-      v532 = *(v589 + 4260);
-      v530 = *(v589 + 3696);
-      v531 = *(v589 + 3536);
+      v520 = *(v577 + 4260);
+      v518 = *(v577 + 3696);
+      v519 = *(v577 + 3536);
 
-      v12 = swift_task_alloc();
-      v13 = v530;
-      v14 = v531;
-      v15 = v544;
+      v13 = swift_task_alloc();
+      v14 = v518;
+      v15 = v519;
       v16 = v532;
-      v17 = v589;
-      v534 = v12;
-      *(v589 + 4120) = v12;
-      *(v12 + 16) = v13;
-      *(v12 + 24) = v17 + 3096;
-      *(v12 + 32) = v14;
-      *(v12 + 40) = v15;
-      *(v12 + 44) = v16;
-      *(v12 + 48) = v17 + 2760;
-      *(v12 + 56) = v17 + 2768;
-      *(v12 + 64) = v17 + 2776;
-      *(v12 + 72) = v17 + 2752;
-      v535 = MEMORY[0x277D84F78] + 8;
-      v533 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-      v18 = swift_task_alloc();
-      v19 = v589;
-      v20 = v533;
-      v21 = v588;
-      v22 = v534;
-      v23 = v535;
-      v24 = v18;
-      v25 = v619;
-      *(v589 + 4128) = v24;
-      *v24 = *(v19 + 2632);
-      v24[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-      v26 = 8;
-      v27 = v20 & 1;
+      v17 = v520;
+      v18 = v577;
+      v522 = v13;
+      *(v577 + 4120) = v13;
+      *(v13 + 16) = v14;
+      *(v13 + 24) = v18 + 3096;
+      *(v13 + 32) = v15;
+      *(v13 + 40) = v16;
+      *(v13 + 44) = v17;
+      *(v13 + 48) = v18 + 2760;
+      *(v13 + 56) = v18 + 2768;
+      *(v13 + 64) = v18 + 2776;
+      *(v13 + 72) = v18 + 2752;
+      v523 = MEMORY[0x277D84F78] + 8;
+      v521 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+      v19 = swift_task_alloc();
+      v20 = v577;
+      v21 = v521;
+      v22 = v576;
+      v23 = v522;
+      v24 = v523;
+      v25 = v19;
+      v26 = v607;
+      *(v577 + 4128) = v25;
+      *v25 = *(v20 + 2632);
+      v25[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+      v27 = 8;
+      v28 = v21 & 1;
 
-      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v25, v26, v27, v21, v22, v23);
+      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v26, v27, v28, v22, v23, v24);
     }
 
-    v503 = v589 + 2640;
-    v521 = v589 + 2520;
-    v522 = v589 + 2648;
-    v523 = v589 + 2656;
-    v524 = v589 + 2664;
-    v525 = v589 + 2672;
-    v526 = v589 + 2680;
-    v527 = v589 + 2688;
-    v528 = v589 + 2696;
-    v520 = v589 + 2704;
-    v504 = v589 + 4256;
-    v505 = v589 + 2840;
-    v506 = v589 + 2856;
-    v507 = v589 + 2888;
-    v508 = v589 + 2912;
-    v509 = v589 + 2920;
-    v510 = v589 + 2952;
-    v502 = v589 + 2984;
-    v511 = v589 + 3000;
-    v512 = v589 + 3016;
-    v513 = v589 + 3032;
-    v514 = v589 + 3048;
-    v515 = v589 + 3056;
-    v516 = v589 + 3064;
-    v517 = v589 + 4264;
-    v518 = v589 + 4272;
-    v519 = v589 + 4280;
-    v529 = v589 + 2428;
-    *(v589 + 3112) = 0;
+    v491 = v577 + 2640;
+    v509 = v577 + 2520;
+    v510 = v577 + 2648;
+    v511 = v577 + 2656;
+    v512 = v577 + 2664;
+    v513 = v577 + 2672;
+    v514 = v577 + 2680;
+    v515 = v577 + 2688;
+    v516 = v577 + 2696;
+    v508 = v577 + 2704;
+    v492 = v577 + 4256;
+    v493 = v577 + 2840;
+    v494 = v577 + 2856;
+    v495 = v577 + 2888;
+    v496 = v577 + 2912;
+    v497 = v577 + 2920;
+    v498 = v577 + 2952;
+    v490 = v577 + 2984;
+    v499 = v577 + 3000;
+    v500 = v577 + 3016;
+    v501 = v577 + 3032;
+    v502 = v577 + 3048;
+    v503 = v577 + 3056;
+    v504 = v577 + 3064;
+    v505 = v577 + 4264;
+    v506 = v577 + 4272;
+    v507 = v577 + 4280;
+    v517 = v577 + 2428;
+    *(v577 + 3112) = 0;
     if (HyperParams.isSHRRequired()())
     {
-      v497 = *(v589 + 4300);
-      v498 = *(v589 + 4260);
-      v496 = *(v589 + 3696);
-      v495 = *(v589 + 3536);
+      v485 = *(v577 + 4300);
+      v486 = *(v577 + 4260);
+      v484 = *(v577 + 3696);
+      v483 = *(v577 + 3536);
 
-      v28 = swift_task_alloc();
-      v29 = v495;
-      v30 = v496;
-      v31 = v497;
-      v32 = v498;
-      v33 = v589;
-      v500 = v28;
-      *(v589 + 4144) = v28;
-      *(v28 + 16) = v29;
-      *(v28 + 24) = v30;
-      *(v28 + 32) = v31;
-      *(v28 + 36) = v32;
-      *(v28 + 40) = v33 + 2784;
-      *(v28 + 48) = v33 + 2792;
-      *(v28 + 56) = v33 + 3112;
-      v501 = MEMORY[0x277D84F78] + 8;
-      v499 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-      v34 = swift_task_alloc();
-      v35 = v589;
-      v36 = v499;
-      v21 = v587;
-      v22 = v500;
-      v23 = v501;
-      v37 = v34;
-      v25 = v619;
-      *(v589 + 4152) = v37;
-      *v37 = *(v35 + 2632);
-      v37[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-      v26 = 8;
-      v27 = v36 & 1;
+      v29 = swift_task_alloc();
+      v30 = v483;
+      v31 = v484;
+      v32 = v485;
+      v33 = v486;
+      v34 = v577;
+      v488 = v29;
+      *(v577 + 4144) = v29;
+      *(v29 + 16) = v30;
+      *(v29 + 24) = v31;
+      *(v29 + 32) = v32;
+      *(v29 + 36) = v33;
+      *(v29 + 40) = v34 + 2784;
+      *(v29 + 48) = v34 + 2792;
+      *(v29 + 56) = v34 + 3112;
+      v489 = MEMORY[0x277D84F78] + 8;
+      v487 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+      v35 = swift_task_alloc();
+      v36 = v577;
+      v37 = v487;
+      v22 = v575;
+      v23 = v488;
+      v24 = v489;
+      v38 = v35;
+      v26 = v607;
+      *(v577 + 4152) = v38;
+      *v38 = *(v36 + 2632);
+      v38[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+      v27 = 8;
+      v28 = v37 & 1;
 
-      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v25, v26, v27, v21, v22, v23);
+      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v26, v27, v28, v22, v23, v24);
     }
 
-    v468 = v589 + 2640;
-    v486 = v589 + 2520;
-    v487 = v589 + 2648;
-    v488 = v589 + 2656;
-    v489 = v589 + 2664;
-    v490 = v589 + 2672;
-    v491 = v589 + 2680;
-    v492 = v589 + 2688;
-    v493 = v589 + 2696;
-    v485 = v589 + 2704;
-    v469 = v589 + 4256;
-    v470 = v589 + 2840;
-    v471 = v589 + 2856;
-    v472 = v589 + 2888;
-    v473 = v589 + 2912;
-    v474 = v589 + 2920;
-    v475 = v589 + 2952;
-    v467 = v589 + 2984;
-    v476 = v589 + 3000;
-    v477 = v589 + 3016;
-    v478 = v589 + 3032;
-    v479 = v589 + 3048;
-    v480 = v589 + 3056;
-    v481 = v589 + 3064;
-    v482 = v589 + 4264;
-    v483 = v589 + 4272;
-    v484 = v589 + 4280;
-    v494 = v589 + 2428;
+    v456 = v577 + 2640;
+    v474 = v577 + 2520;
+    v475 = v577 + 2648;
+    v476 = v577 + 2656;
+    v477 = v577 + 2664;
+    v478 = v577 + 2672;
+    v479 = v577 + 2680;
+    v480 = v577 + 2688;
+    v481 = v577 + 2696;
+    v473 = v577 + 2704;
+    v457 = v577 + 4256;
+    v458 = v577 + 2840;
+    v459 = v577 + 2856;
+    v460 = v577 + 2888;
+    v461 = v577 + 2912;
+    v462 = v577 + 2920;
+    v463 = v577 + 2952;
+    v455 = v577 + 2984;
+    v464 = v577 + 3000;
+    v465 = v577 + 3016;
+    v466 = v577 + 3032;
+    v467 = v577 + 3048;
+    v468 = v577 + 3056;
+    v469 = v577 + 3064;
+    v470 = v577 + 4264;
+    v471 = v577 + 4272;
+    v472 = v577 + 4280;
+    v482 = v577 + 2428;
     if (HyperParams.isCalendarAlgorithmRequired()())
     {
-      v460 = *(v589 + 4292);
-      v458 = *(v589 + 4284);
-      v463 = *(v589 + 3872);
-      v461 = *(v589 + 4260);
-      v459 = *(v589 + 3696);
-      v462 = *(v589 + 3536);
+      v448 = *(v577 + 4292);
+      v446 = *(v577 + 4284);
+      v451 = *(v577 + 3872);
+      v449 = *(v577 + 4260);
+      v447 = *(v577 + 3696);
+      v450 = *(v577 + 3536);
 
-      v38 = swift_task_alloc();
-      v39 = v458;
-      v40 = v459;
-      v41 = v460;
-      v42 = v461;
-      v43 = v462;
-      v44 = v463;
-      v45 = v589;
-      v465 = v38;
-      *(v589 + 4168) = v38;
-      *(v38 + 16) = v39;
-      *(v38 + 24) = v40;
-      *(v38 + 32) = v41;
-      *(v38 + 36) = v42;
-      *(v38 + 40) = v43;
-      *(v38 + 48) = v45 + 2720;
-      *(v38 + 56) = v45 + 2728;
-      *(v38 + 64) = v45 + 2736;
-      *(v38 + 72) = v45 + 2744;
-      *(v38 + 80) = v44;
-      *(v38 + 88) = v45 + 2800;
-      *(v38 + 96) = v45 + 2808;
-      v466 = MEMORY[0x277D84F78] + 8;
-      v464 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
-      v46 = swift_task_alloc();
-      v47 = v589;
-      v48 = v464;
-      v21 = v586;
-      v22 = v465;
-      v23 = v466;
-      v49 = v46;
-      v25 = v619;
-      *(v589 + 4176) = v49;
-      *v49 = *(v47 + 2632);
-      v49[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-      v26 = 8;
-      v27 = v48 & 1;
+      v39 = swift_task_alloc();
+      v40 = v446;
+      v41 = v447;
+      v42 = v448;
+      v43 = v449;
+      v44 = v450;
+      v45 = v451;
+      v46 = v577;
+      v453 = v39;
+      *(v577 + 4168) = v39;
+      *(v39 + 16) = v40;
+      *(v39 + 24) = v41;
+      *(v39 + 32) = v42;
+      *(v39 + 36) = v43;
+      *(v39 + 40) = v44;
+      *(v39 + 48) = v46 + 2720;
+      *(v39 + 56) = v46 + 2728;
+      *(v39 + 64) = v46 + 2736;
+      *(v39 + 72) = v46 + 2744;
+      *(v39 + 80) = v45;
+      *(v39 + 88) = v46 + 2800;
+      *(v39 + 96) = v46 + 2808;
+      v454 = MEMORY[0x277D84F78] + 8;
+      v452 = default argument 1 of NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)();
+      v47 = swift_task_alloc();
+      v48 = v577;
+      v49 = v452;
+      v22 = v574;
+      v23 = v453;
+      v24 = v454;
+      v50 = v47;
+      v26 = v607;
+      *(v577 + 4176) = v50;
+      *v50 = *(v48 + 2632);
+      v50[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+      v27 = 8;
+      v28 = v49 & 1;
 
-      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v25, v26, v27, v21, v22, v23);
+      return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v26, v27, v28, v22, v23, v24);
     }
 
-    v430 = v589 + 2640;
-    v448 = v589 + 2520;
-    v449 = v589 + 2648;
-    v450 = v589 + 2656;
-    v451 = v589 + 2664;
-    v452 = v589 + 2672;
-    v453 = v589 + 2680;
-    v454 = v589 + 2688;
-    v455 = v589 + 2696;
-    v456 = v589 + 2704;
-    v447 = v589 + 2712;
-    v431 = v589 + 2840;
-    v432 = v589 + 2856;
-    v433 = v589 + 2888;
-    v434 = v589 + 2912;
-    v435 = v589 + 2920;
-    v436 = v589 + 2952;
-    v437 = v589 + 2968;
-    v423 = v589 + 3000;
-    v438 = v589 + 3016;
-    v439 = v589 + 3032;
-    v440 = v589 + 3048;
-    v441 = v589 + 3056;
-    v442 = v589 + 3064;
-    v443 = v589 + 4264;
-    v444 = v589 + 4272;
-    v445 = v589 + 4280;
-    v446 = v589 + 2428;
-    v428 = *(v589 + 3696);
-    v420 = *(v589 + 3536);
-    v418 = NightingaleDPFLRunner.performanceMeasure.getter();
-    v424 = 1;
-    v417 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
+    v418 = v577 + 2640;
+    v436 = v577 + 2520;
+    v437 = v577 + 2648;
+    v438 = v577 + 2656;
+    v439 = v577 + 2664;
+    v440 = v577 + 2672;
+    v441 = v577 + 2680;
+    v442 = v577 + 2688;
+    v443 = v577 + 2696;
+    v444 = v577 + 2704;
+    v435 = v577 + 2712;
+    v419 = v577 + 2840;
+    v420 = v577 + 2856;
+    v421 = v577 + 2888;
+    v422 = v577 + 2912;
+    v423 = v577 + 2920;
+    v424 = v577 + 2952;
+    v425 = v577 + 2968;
+    v411 = v577 + 3000;
+    v426 = v577 + 3016;
+    v427 = v577 + 3032;
+    v428 = v577 + 3048;
+    v429 = v577 + 3056;
+    v430 = v577 + 3064;
+    v431 = v577 + 4264;
+    v432 = v577 + 4272;
+    v433 = v577 + 4280;
+    v434 = v577 + 2428;
+    v416 = *(v577 + 3696);
+    v408 = *(v577 + 3536);
+    v406 = NightingaleDPFLRunner.performanceMeasure.getter();
+    v412 = 1;
+    v405 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("QueryRequiredFeatures", 0x15uLL, 1)._object;
     dispatch thunk of PerformanceMeasure.finish(_:)();
-    v419 = v50;
+    v407 = v51;
 
-    v457 = v589 + 3120;
-    *(v589 + 3120) = v419;
-    v51 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
-    NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v51);
-    v422 = NightingaleDPFLRunner.performanceMeasure.getter();
-    v421 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v424 & 1)._object;
+    v445 = v577 + 3120;
+    *(v577 + 3120) = v407;
+    v52 = default argument 1 of NightingaleDPFLRunner.sendLocation(_:_:)();
+    NightingaleDPFLRunner.sendLocation(_:_:)(NightingaleTraining_NightingaleDReachLocation_queryRequiredFeaturesCompleted, v52);
+    v410 = NightingaleDPFLRunner.performanceMeasure.getter();
+    v409 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, v412 & 1)._object;
     dispatch thunk of PerformanceMeasure.start(_:)();
 
-    v52 = HyperParams.metricsProcessEngine.getter();
-    v53 = v589;
-    v426 = v589 + 4309;
-    *(v589 + 4309) = v52 & v424;
-    v425 = v53 + 4310;
-    *(v53 + 4310) = 1;
-    v427 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
-    v429 = == infix<A>(_:_:)();
+    v53 = HyperParams.metricsProcessEngine.getter();
+    v54 = v577;
+    v414 = v577 + 4309;
+    *(v577 + 4309) = v53 & v412;
+    v413 = v54 + 4310;
+    *(v54 + 4310) = 1;
+    v415 = lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
+    v417 = == infix<A>(_:_:)();
 
-    if (v429)
+    if (v417)
     {
-      v416 = 1;
+      v404 = 1;
     }
 
     else
     {
-      v54 = HyperParams.featurizerEngine.getter();
-      v55 = v589;
-      *(v589 + 4311) = v54 & 1;
-      *(v55 + 4316) = 1;
-      v416 = == infix<A>(_:_:)();
+      v55 = HyperParams.featurizerEngine.getter();
+      v56 = v577;
+      *(v577 + 4311) = v55 & 1;
+      *(v56 + 4316) = 1;
+      v404 = == infix<A>(_:_:)();
     }
 
-    v415 = v416;
+    v403 = v404;
 
-    if (v416)
+    if (v404)
     {
       static HIDMorpheusExtensions.extendMorpheus()();
-      v414 = v556;
-      if (v556)
+      v402 = v544;
+      if (v544)
       {
-        v178 = *(v589 + 3952);
-        v179 = *(v589 + 3872);
-        v180 = *(v589 + 3856);
-        v181 = *(v589 + 3760);
-        v182 = *(v589 + 3736);
-        v183 = *(v589 + 3712);
-        v184 = *(v589 + 3696);
+        v166 = *(v577 + 3952);
+        v167 = *(v577 + 3872);
+        v168 = *(v577 + 3856);
+        v169 = *(v577 + 3760);
+        v170 = *(v577 + 3736);
+        v171 = *(v577 + 3712);
+        v172 = *(v577 + 3696);
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -11335,71 +11308,71 @@ LABEL_58:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v182);
-        MEMORY[0x277D82BD8](v183);
+        MEMORY[0x277D82BD8](v170);
+        MEMORY[0x277D82BD8](v171);
 
-        v244 = v414;
+        v232 = v402;
         goto LABEL_70;
       }
 
       static Math.extendMorpheus()();
-      v413 = 0;
-      v412 = 0;
+      v401 = 0;
+      v400 = 0;
     }
 
     else
     {
-      v412 = v556;
+      v400 = v544;
     }
 
-    v56 = v412;
-    v408 = *(v589 + 4260);
-    v407 = *(v589 + 3696);
-    v404 = *(v589 + 3536);
-    v406 = *(v589 + 3528);
+    v57 = v400;
+    v396 = *(v577 + 4260);
+    v395 = *(v577 + 3696);
+    v392 = *(v577 + 3536);
+    v394 = *(v577 + 3528);
     type metadata accessor for Featurizer();
-    v57 = Featurizer.__allocating_init()();
-    v58 = v589;
-    v405 = v57;
-    *(v589 + 4192) = v57;
-    v409 = v58 + 3128;
-    *(v58 + 3128) = v57;
+    v58 = Featurizer.__allocating_init()();
+    v59 = v577;
+    v393 = v58;
+    *(v577 + 4192) = v58;
+    v397 = v59 + 3128;
+    *(v59 + 3128) = v58;
 
-    v59 = swift_task_alloc();
-    v60 = v405;
-    v61 = v406;
-    v62 = v407;
-    v63 = v408;
-    v64 = v589;
-    v410 = v59;
-    *(v589 + 4200) = v59;
-    *(v59 + 16) = v60;
-    *(v59 + 24) = v61;
-    *(v59 + 32) = v64 + 2928;
-    *(v59 + 40) = v64 + 2752;
-    *(v59 + 48) = v64 + 2760;
-    *(v59 + 56) = v64 + 2776;
-    *(v59 + 64) = v64 + 2768;
-    *(v59 + 72) = v64 + 2784;
-    *(v59 + 80) = v64 + 2792;
-    *(v59 + 88) = v64 + 2800;
-    *(v59 + 96) = v64 + 2808;
-    *(v59 + 104) = v64 + 2744;
-    *(v59 + 112) = v62;
-    *(v59 + 120) = v63;
-    v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd);
-    NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v410, v65, v589 + 16);
-    v411 = v56;
-    if (v56)
+    v60 = swift_task_alloc();
+    v61 = v393;
+    v62 = v394;
+    v63 = v395;
+    v64 = v396;
+    v65 = v577;
+    v398 = v60;
+    *(v577 + 4200) = v60;
+    *(v60 + 16) = v61;
+    *(v60 + 24) = v62;
+    *(v60 + 32) = v65 + 2928;
+    *(v60 + 40) = v65 + 2752;
+    *(v60 + 48) = v65 + 2760;
+    *(v60 + 56) = v65 + 2776;
+    *(v60 + 64) = v65 + 2768;
+    *(v60 + 72) = v65 + 2784;
+    *(v60 + 80) = v65 + 2792;
+    *(v60 + 88) = v65 + 2800;
+    *(v60 + 96) = v65 + 2808;
+    *(v60 + 104) = v65 + 2744;
+    *(v60 + 112) = v63;
+    *(v60 + 120) = v64;
+    v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMd, &_sSaySfG8daySHR10_AA0aB5StatsAA05nightB0AA0dbC0AA15periodStartMeanAA0efgC0AA0eF3StdAA0efhC0AA019daysSinceLastPeriodF0AA0ijklfC0AA3swtAA0mC0AA3hrvAA0nC0AA15respiratoryRateAA0opC0AA4spo2AA0qC0Says6UInt32VG12sliceEndDaysAA6labelsSDySSSiG7metricstMR);
+    NightingaleDPFLRunner.sendLocation<A>(location:force:work:)(10, 1, v398, v66, v577 + 16);
+    v399 = v57;
+    if (v57)
     {
-      v171 = *(v589 + 3952);
-      v172 = *(v589 + 3872);
-      v173 = *(v589 + 3856);
-      v174 = *(v589 + 3760);
-      v175 = *(v589 + 3736);
-      v176 = *(v589 + 3712);
-      v177 = *(v589 + 3696);
-      v170 = *(v589 + 3528);
+      v159 = *(v577 + 3952);
+      v160 = *(v577 + 3872);
+      v161 = *(v577 + 3856);
+      v162 = *(v577 + 3760);
+      v163 = *(v577 + 3736);
+      v164 = *(v577 + 3712);
+      v165 = *(v577 + 3696);
+      v158 = *(v577 + 3528);
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -11420,266 +11393,266 @@ LABEL_58:
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      MEMORY[0x277D82BD8](v175);
-      MEMORY[0x277D82BD8](v176);
+      MEMORY[0x277D82BD8](v163);
+      MEMORY[0x277D82BD8](v164);
 
-      v244 = v411;
+      v232 = v399;
     }
 
     else
     {
-      v342 = *(v589 + 4112);
-      v340 = *(v589 + 4040);
-      v370 = *(v589 + 4032);
-      v367 = *(v589 + 4024);
-      v365 = *(v589 + 4016);
-      v363 = *(v589 + 4008);
-      v361 = *(v589 + 4000);
-      v359 = *(v589 + 3992);
-      v357 = *(v589 + 3984);
-      v355 = *(v589 + 3960);
-      v338 = *(v589 + 3912);
-      v336 = *(v589 + 3864);
-      v353 = *(v589 + 3848);
-      v351 = *(v589 + 3840);
-      v334 = *(v589 + 3744);
-      v349 = *(v589 + 3704);
-      v331 = *(v589 + 3696);
-      v330 = *(v589 + 3528);
+      v330 = *(v577 + 4112);
+      v328 = *(v577 + 4040);
+      v358 = *(v577 + 4032);
+      v355 = *(v577 + 4024);
+      v353 = *(v577 + 4016);
+      v351 = *(v577 + 4008);
+      v349 = *(v577 + 4000);
+      v347 = *(v577 + 3992);
+      v345 = *(v577 + 3984);
+      v343 = *(v577 + 3960);
+      v326 = *(v577 + 3912);
+      v324 = *(v577 + 3864);
+      v341 = *(v577 + 3848);
+      v339 = *(v577 + 3840);
+      v322 = *(v577 + 3744);
+      v337 = *(v577 + 3704);
+      v319 = *(v577 + 3696);
+      v318 = *(v577 + 3528);
 
-      v373 = (v589 + 184);
-      v396 = v589 + 16;
-      memcpy((v589 + 184), (v589 + 16), 0xA8uLL);
-      v333 = NightingaleDPFLRunner.performanceMeasure.getter();
-      v332 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
+      v361 = (v577 + 184);
+      v384 = v577 + 16;
+      memcpy((v577 + 184), (v577 + 16), 0xA8uLL);
+      v321 = NightingaleDPFLRunner.performanceMeasure.getter();
+      v320 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Featurization", 0xDuLL, 1)._object;
       dispatch thunk of PerformanceMeasure.finish(_:)();
-      v346 = v66;
+      v334 = v67;
 
-      v397 = v589 + 3136;
-      *(v589 + 3136) = v346;
-      v371 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-      v372 = _allocateUninitializedArray<A>(_:)();
-      v369 = v67;
-      v68 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v68, v369);
-      v69 = v334;
-      v70 = v369;
-      v348 = MEMORY[0x277D839F8];
-      v369[5] = MEMORY[0x277D839F8];
-      v70[2] = v69;
-      v335 = v70 + 6;
+      v385 = v577 + 3136;
+      *(v577 + 3136) = v334;
+      v359 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+      v360 = _allocateUninitializedArray<A>(_:)();
+      v357 = v68;
+      v69 = NightingaleDPFLRunner.keyMetricsCycleTrackingCheckDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v69, v357);
+      v70 = v322;
+      v71 = v357;
+      v336 = MEMORY[0x277D839F8];
+      v357[5] = MEMORY[0x277D839F8];
+      v71[2] = v70;
+      v323 = v71 + 6;
       Duration = NightingaleDPFLRunner.keyMetricsPregnanciesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(Duration, v335);
-      v72 = v336;
-      v73 = v369;
-      v369[11] = v348;
-      v73[8] = v72;
-      v337 = v73 + 12;
-      v74 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v74, v337);
-      v75 = v338;
-      v76 = v369;
-      v369[17] = v348;
-      v76[14] = v75;
-      v339 = v76 + 18;
+      outlined init with copy of String(Duration, v323);
+      v73 = v324;
+      v74 = v357;
+      v357[11] = v336;
+      v74[8] = v73;
+      v325 = v74 + 12;
+      v75 = NightingaleDPFLRunner.keyMetricsUpdatingFeaturesQueryDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v75, v325);
+      v76 = v326;
+      v77 = v357;
+      v357[17] = v336;
+      v77[14] = v76;
+      v327 = v77 + 18;
       updated = NightingaleDPFLRunner.keyMetricsUpdatePregnanciesDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(updated, v339);
-      v78 = v340;
-      v79 = v369;
-      v369[23] = v348;
-      v79[20] = v78;
-      v341 = v79 + 24;
-      v80 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v80, v341);
-      v81 = v342;
-      v82 = v369;
-      v369[29] = v348;
-      v82[26] = v81;
-      v343 = v82 + 30;
-      v83 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v83, v343);
-      v84 = v369;
-      v85 = *(v589 + 3112);
-      v369[35] = v348;
-      v84[32] = v85;
-      v344 = v84 + 36;
-      v86 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v86, v344);
-      v87 = v419;
-      v88 = v369;
-      v369[41] = v348;
-      v88[38] = v87;
-      v345 = v88 + 42;
-      v89 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
-      outlined init with copy of String(v89, v345);
-      v90 = v346;
-      v91 = v369;
-      v369[47] = v348;
-      v91[44] = v90;
-      v347 = v91 + 48;
-      v92 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
-      outlined init with copy of String(v92, v347);
-      v93 = v349;
-      v94 = v369;
-      v369[53] = v348;
-      v94[50] = v93;
-      v350 = v94 + 54;
-      v95 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
-      outlined init with copy of String(v95, v350);
-      v96 = v351;
-      v97 = v369;
-      v374 = MEMORY[0x277D83B88];
-      v369[59] = MEMORY[0x277D83B88];
-      v97[56] = v96;
-      v352 = v97 + 60;
-      v98 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
-      outlined init with copy of String(v98, v352);
-      v99 = v353;
-      v100 = v369;
-      v369[65] = v374;
-      v100[62] = v99;
-      v354 = v100 + 66;
-      v101 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v101, v354);
-      v102 = v355;
-      v103 = v369;
-      v369[71] = v374;
-      v103[68] = v102;
-      v356 = v103 + 72;
-      v104 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
-      outlined init with copy of String(v104, v356);
-      v105 = v357;
-      v106 = v369;
-      v369[77] = v374;
-      v106[74] = v105;
-      v358 = v106 + 78;
-      v107 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v107, v358);
-      v108 = v359;
-      v109 = v369;
-      v369[83] = v374;
-      v109[80] = v108;
-      v360 = v109 + 84;
-      v110 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v110, v360);
-      v111 = v361;
-      v112 = v369;
-      v369[89] = v374;
-      v112[86] = v111;
-      v362 = v112 + 90;
-      v113 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v113, v362);
-      v114 = v363;
-      v115 = v369;
-      v369[95] = v374;
-      v115[92] = v114;
-      v364 = v115 + 96;
-      v116 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v116, v364);
-      v117 = v365;
-      v118 = v369;
-      v369[101] = v374;
-      v118[98] = v117;
-      v366 = v118 + 102;
-      v119 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(v119, v366);
-      v120 = v367;
-      v121 = v369;
-      v369[107] = v374;
-      v121[104] = v120;
-      v368 = v121 + 108;
+      outlined init with copy of String(updated, v327);
+      v79 = v328;
+      v80 = v357;
+      v357[23] = v336;
+      v80[20] = v79;
+      v329 = v80 + 24;
+      v81 = NightingaleDPFLRunner.keyMetricsUpdateSliceDeltaAnchorDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v81, v329);
+      v82 = v330;
+      v83 = v357;
+      v357[29] = v336;
+      v83[26] = v82;
+      v331 = v83 + 30;
+      v84 = NightingaleDPFLRunner.keyMetricsSHRDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v84, v331);
+      v85 = v357;
+      v86 = *(v577 + 3112);
+      v357[35] = v336;
+      v85[32] = v86;
+      v332 = v85 + 36;
+      v87 = NightingaleDPFLRunner.keyMetricsRequiredFeaturesQueryDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v87, v332);
+      v88 = v407;
+      v89 = v357;
+      v357[41] = v336;
+      v89[38] = v88;
+      v333 = v89 + 42;
+      v90 = NightingaleDPFLRunner.keyMetricsFeaturizationDurationS.unsafeMutableAddressor();
+      outlined init with copy of String(v90, v333);
+      v91 = v334;
+      v92 = v357;
+      v357[47] = v336;
+      v92[44] = v91;
+      v335 = v92 + 48;
+      v93 = NightingaleDPFLRunner.keyMetricsIterationElapsedTime.unsafeMutableAddressor();
+      outlined init with copy of String(v93, v335);
+      v94 = v337;
+      v95 = v357;
+      v357[53] = v336;
+      v95[50] = v94;
+      v338 = v95 + 54;
+      v96 = NightingaleDPFLRunner.keyMetricsNumberOfAllPregnancies.unsafeMutableAddressor();
+      outlined init with copy of String(v96, v338);
+      v97 = v339;
+      v98 = v357;
+      v362 = MEMORY[0x277D83B88];
+      v357[59] = MEMORY[0x277D83B88];
+      v98[56] = v97;
+      v340 = v98 + 60;
+      v99 = NightingaleDPFLRunner.keyMetricsNumberOfPregnancyInitializerFailed.unsafeMutableAddressor();
+      outlined init with copy of String(v99, v340);
+      v100 = v341;
+      v101 = v357;
+      v357[65] = v362;
+      v101[62] = v100;
+      v342 = v101 + 66;
+      v102 = NightingaleDPFLRunner.keyMetricsOverlappingPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v102, v342);
+      v103 = v343;
+      v104 = v357;
+      v357[71] = v362;
+      v104[68] = v103;
+      v344 = v104 + 72;
+      v105 = NightingaleDPFLRunner.keyMetricsNumberOfValidPregnancies.unsafeMutableAddressor();
+      outlined init with copy of String(v105, v344);
+      v106 = v345;
+      v107 = v357;
+      v357[77] = v362;
+      v107[74] = v106;
+      v346 = v107 + 78;
+      v108 = NightingaleDPFLRunner.keyMetricsInvalidDurationPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v108, v346);
+      v109 = v347;
+      v110 = v357;
+      v357[83] = v362;
+      v110[80] = v109;
+      v348 = v110 + 84;
+      v111 = NightingaleDPFLRunner.keyMetricsInvalidLMPDeltaPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v111, v348);
+      v112 = v349;
+      v113 = v357;
+      v357[89] = v362;
+      v113[86] = v112;
+      v350 = v113 + 90;
+      v114 = NightingaleDPFLRunner.keyMetricsContainsFlowPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v114, v350);
+      v115 = v351;
+      v116 = v357;
+      v357[95] = v362;
+      v116[92] = v115;
+      v352 = v116 + 96;
+      v117 = NightingaleDPFLRunner.keyMetricsInvalidLMPPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v117, v352);
+      v118 = v353;
+      v119 = v357;
+      v357[101] = v362;
+      v119[98] = v118;
+      v354 = v119 + 102;
+      v120 = NightingaleDPFLRunner.keyMetricsInvalidEndPregnanciesCount.unsafeMutableAddressor();
+      outlined init with copy of String(v120, v354);
+      v121 = v355;
+      v122 = v357;
+      v357[107] = v362;
+      v122[104] = v121;
+      v356 = v122 + 108;
       started = NightingaleDPFLRunner.keyMetricsInvalidStartSourcePregnanciesCount.unsafeMutableAddressor();
-      outlined init with copy of String(started, v368);
-      v123 = v369;
-      v124 = v370;
-      v369[113] = v374;
-      v123[110] = v124;
+      outlined init with copy of String(started, v356);
+      v124 = v357;
+      v125 = v358;
+      v357[113] = v362;
+      v124[110] = v125;
       _finalizeUninitializedArray<A>(_:)();
-      v399 = MEMORY[0x277D837D0];
-      v400 = MEMORY[0x277D84F70] + 8;
-      v401 = MEMORY[0x277D837E0];
-      v398 = Dictionary.init(dictionaryLiteral:)();
-      outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v373, (v589 + 352));
-      v375 = *(v589 + 184);
-      v376 = *(v589 + 192);
-      v377 = *(v589 + 200);
-      v378 = *(v589 + 208);
-      v379 = *(v589 + 216);
-      v380 = *(v589 + 224);
-      v381 = *(v589 + 232);
-      v382 = *(v589 + 240);
-      v383 = *(v589 + 248);
-      v384 = *(v589 + 256);
-      v385 = *(v589 + 264);
-      v386 = *(v589 + 272);
-      v387 = *(v589 + 280);
-      v388 = *(v589 + 288);
-      v389 = *(v589 + 296);
-      v390 = *(v589 + 304);
-      v391 = *(v589 + 312);
-      v392 = *(v589 + 320);
-      v393 = *(v589 + 328);
-      v394 = *(v589 + 336);
-      v395 = *(v589 + 344);
+      v387 = MEMORY[0x277D837D0];
+      v388 = MEMORY[0x277D84F70] + 8;
+      v389 = MEMORY[0x277D837E0];
+      v386 = Dictionary.init(dictionaryLiteral:)();
+      outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])(v361, (v577 + 352));
+      v363 = *(v577 + 184);
+      v364 = *(v577 + 192);
+      v365 = *(v577 + 200);
+      v366 = *(v577 + 208);
+      v367 = *(v577 + 216);
+      v368 = *(v577 + 224);
+      v369 = *(v577 + 232);
+      v370 = *(v577 + 240);
+      v371 = *(v577 + 248);
+      v372 = *(v577 + 256);
+      v373 = *(v577 + 264);
+      v374 = *(v577 + 272);
+      v375 = *(v577 + 280);
+      v376 = *(v577 + 288);
+      v377 = *(v577 + 296);
+      v378 = *(v577 + 304);
+      v379 = *(v577 + 312);
+      v380 = *(v577 + 320);
+      v381 = *(v577 + 328);
+      v382 = *(v577 + 336);
+      v383 = *(v577 + 344);
       _dictionaryUpCast<A, B, C, D>(_:)();
-      v402 = Dictionary.merging(_:uniquingKeysWith:)();
-      *(v589 + 4208) = v402;
-      v403 = 0;
-      v328 = *(v589 + 4048);
-      v327 = *(v589 + 4359);
+      v390 = Dictionary.merging(_:uniquingKeysWith:)();
+      *(v577 + 4208) = v390;
+      v391 = 0;
+      v316 = *(v577 + 4048);
+      v315 = *(v577 + 4359);
 
-      v125 = v327;
-      v126 = v589;
-      v329 = v589 + 3144;
-      *(v589 + 3144) = v402;
-      *(v126 + 4317) = v125;
-      *(v126 + 4318) = 0;
+      v126 = v315;
+      v127 = v577;
+      v317 = v577 + 3144;
+      *(v577 + 3144) = v390;
+      *(v127 + 4317) = v126;
+      *(v127 + 4318) = 0;
       if (== infix<A>(_:_:)())
       {
-        v127 = v403;
-        v301 = *(v589 + 4260);
-        v297 = *(v589 + 3760);
-        v296 = *(v589 + 3752);
-        v298 = *(v589 + 3696);
-        v302 = *(v589 + 3528);
-        v299 = *(v589 + 2808);
+        v128 = v391;
+        v289 = *(v577 + 4260);
+        v285 = *(v577 + 3760);
+        v284 = *(v577 + 3752);
+        v286 = *(v577 + 3696);
+        v290 = *(v577 + 3528);
+        v287 = *(v577 + 2808);
 
-        v300 = *(v589 + 2848);
+        v288 = *(v577 + 2848);
 
-        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v589 + 184), (v589 + 1024));
-        v303 = *(v589 + 184);
-        v321 = *(v589 + 192);
-        v323 = *(v589 + 200);
-        v324 = *(v589 + 208);
-        v304 = *(v589 + 216);
-        v305 = *(v589 + 224);
-        v306 = *(v589 + 232);
-        v307 = *(v589 + 240);
-        v308 = *(v589 + 248);
-        v309 = *(v589 + 256);
-        v310 = *(v589 + 264);
-        v311 = *(v589 + 272);
-        v312 = *(v589 + 280);
-        v313 = *(v589 + 288);
-        v314 = *(v589 + 296);
-        v315 = *(v589 + 304);
-        v316 = *(v589 + 312);
-        v317 = *(v589 + 320);
-        v318 = *(v589 + 328);
-        v319 = *(v589 + 336);
-        v320 = *(v589 + 344);
-        v322 = v146;
-        v325 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v302, v296, v297, v298, v299, v300, v301, v303, v321, v323, v324, v304, v305, v306, v307, v308, v309, v310, v311, v312, v313, v314, v315, v316, v317, v318, v319, v320, v402);
-        v326 = v127;
-        if (!v127)
+        outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v577 + 184), (v577 + 1024));
+        v291 = *(v577 + 184);
+        v309 = *(v577 + 192);
+        v311 = *(v577 + 200);
+        v312 = *(v577 + 208);
+        v292 = *(v577 + 216);
+        v293 = *(v577 + 224);
+        v294 = *(v577 + 232);
+        v295 = *(v577 + 240);
+        v296 = *(v577 + 248);
+        v297 = *(v577 + 256);
+        v298 = *(v577 + 264);
+        v299 = *(v577 + 272);
+        v300 = *(v577 + 280);
+        v301 = *(v577 + 288);
+        v302 = *(v577 + 296);
+        v303 = *(v577 + 304);
+        v304 = *(v577 + 312);
+        v305 = *(v577 + 320);
+        v306 = *(v577 + 328);
+        v307 = *(v577 + 336);
+        v308 = *(v577 + 344);
+        v310 = v147;
+        v313 = NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v290, v284, v285, v286, v287, v288, v289, v291, v309, v311, v312, v292, v293, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v390);
+        v314 = v128;
+        if (!v128)
         {
-          v288 = *(v589 + 3952);
-          v289 = *(v589 + 3872);
-          v290 = *(v589 + 3856);
-          v291 = *(v589 + 3760);
-          v292 = *(v589 + 3736);
-          v293 = *(v589 + 3712);
-          v294 = *(v589 + 3696);
+          v276 = *(v577 + 3952);
+          v277 = *(v577 + 3872);
+          v278 = *(v577 + 3856);
+          v279 = *(v577 + 3760);
+          v280 = *(v577 + 3736);
+          v281 = *(v577 + 3712);
+          v282 = *(v577 + 3696);
 
           outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -11702,20 +11675,20 @@ LABEL_58:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v292);
-          MEMORY[0x277D82BD8](v293);
+          MEMORY[0x277D82BD8](v280);
+          MEMORY[0x277D82BD8](v281);
 
-          v295 = v325;
+          v283 = v313;
           goto LABEL_59;
         }
 
-        v163 = *(v589 + 3952);
-        v164 = *(v589 + 3872);
-        v165 = *(v589 + 3856);
-        v166 = *(v589 + 3760);
-        v167 = *(v589 + 3736);
-        v168 = *(v589 + 3712);
-        v169 = *(v589 + 3696);
+        v151 = *(v577 + 3952);
+        v152 = *(v577 + 3872);
+        v153 = *(v577 + 3856);
+        v154 = *(v577 + 3760);
+        v155 = *(v577 + 3736);
+        v156 = *(v577 + 3712);
+        v157 = *(v577 + 3696);
 
         outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -11738,62 +11711,62 @@ LABEL_58:
         outlined destroy of [(start: UInt32, end: UInt32)]();
         outlined destroy of [(start: UInt32, end: UInt32)]();
 
-        MEMORY[0x277D82BD8](v167);
-        MEMORY[0x277D82BD8](v168);
+        MEMORY[0x277D82BD8](v155);
+        MEMORY[0x277D82BD8](v156);
 
-        v244 = v326;
+        v232 = v314;
       }
 
       else
       {
-        v128 = v589;
-        *(v589 + 4319) = *(v589 + 4359);
-        *(v128 + 4324) = 1;
+        v129 = v577;
+        *(v577 + 4319) = *(v577 + 4359);
+        *(v129 + 4324) = 1;
         if (== infix<A>(_:_:)())
         {
-          v286 = PFLTask.evalModelNames(taskType:hyperParams:)();
-          v287 = v403;
-          if (!v403)
+          v274 = PFLTask.evalModelNames(taskType:hyperParams:)(*(v577 + 4359), *(v577 + 3696));
+          v275 = v391;
+          if (!v391)
           {
-            v261 = *(v589 + 4260);
-            v258 = *(v589 + 3696);
-            v257 = *(v589 + 3528);
-            v259 = *(v589 + 2808);
+            v249 = *(v577 + 4260);
+            v246 = *(v577 + 3696);
+            v245 = *(v577 + 3528);
+            v247 = *(v577 + 2808);
 
-            v260 = *(v589 + 2848);
+            v248 = *(v577 + 2848);
 
-            outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v589 + 184), (v589 + 856));
-            v262 = *(v589 + 184);
-            v263 = *(v589 + 192);
-            v281 = *(v589 + 200);
-            v283 = *(v589 + 208);
-            v264 = *(v589 + 216);
-            v265 = *(v589 + 224);
-            v266 = *(v589 + 232);
-            v267 = *(v589 + 240);
-            v268 = *(v589 + 248);
-            v269 = *(v589 + 256);
-            v270 = *(v589 + 264);
-            v271 = *(v589 + 272);
-            v272 = *(v589 + 280);
-            v273 = *(v589 + 288);
-            v274 = *(v589 + 296);
-            v275 = *(v589 + 304);
-            v276 = *(v589 + 312);
-            v277 = *(v589 + 320);
-            v278 = *(v589 + 328);
-            v279 = *(v589 + 336);
-            v280 = *(v589 + 344);
-            v282 = v146;
-            v284 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v286, v257, v258, v259, v260, v261, v262, v263, v281, v283, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274, v275, v276, v277, v278, v279, v280, v402);
-            v285 = 0;
-            v250 = *(v589 + 3952);
-            v251 = *(v589 + 3872);
-            v252 = *(v589 + 3856);
-            v253 = *(v589 + 3760);
-            v254 = *(v589 + 3736);
-            v255 = *(v589 + 3712);
-            v256 = *(v589 + 3696);
+            outlined init with copy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])((v577 + 184), (v577 + 856));
+            v250 = *(v577 + 184);
+            v251 = *(v577 + 192);
+            v269 = *(v577 + 200);
+            v271 = *(v577 + 208);
+            v252 = *(v577 + 216);
+            v253 = *(v577 + 224);
+            v254 = *(v577 + 232);
+            v255 = *(v577 + 240);
+            v256 = *(v577 + 248);
+            v257 = *(v577 + 256);
+            v258 = *(v577 + 264);
+            v259 = *(v577 + 272);
+            v260 = *(v577 + 280);
+            v261 = *(v577 + 288);
+            v262 = *(v577 + 296);
+            v263 = *(v577 + 304);
+            v264 = *(v577 + 312);
+            v265 = *(v577 + 320);
+            v266 = *(v577 + 328);
+            v267 = *(v577 + 336);
+            v268 = *(v577 + 344);
+            v270 = v147;
+            v272 = NightingaleDPFLRunner.runEvals(evalModels:task:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:)(v274, v245, v246, v247, v248, v249, v250, v251, v269, v271, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268, v390);
+            v273 = 0;
+            v238 = *(v577 + 3952);
+            v239 = *(v577 + 3872);
+            v240 = *(v577 + 3856);
+            v241 = *(v577 + 3760);
+            v242 = *(v577 + 3736);
+            v243 = *(v577 + 3712);
+            v244 = *(v577 + 3696);
 
             outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -11816,34 +11789,34 @@ LABEL_58:
             outlined destroy of [(start: UInt32, end: UInt32)]();
             outlined destroy of [(start: UInt32, end: UInt32)]();
 
-            MEMORY[0x277D82BD8](v254);
-            MEMORY[0x277D82BD8](v255);
+            MEMORY[0x277D82BD8](v242);
+            MEMORY[0x277D82BD8](v243);
 
-            v295 = v284;
+            v283 = v272;
 LABEL_59:
-            v227 = v295;
-            v219 = *(v589 + 3664);
-            v220 = *(v589 + 3640);
-            v221 = *(v589 + 3632);
-            v222 = *(v589 + 3608);
-            v223 = *(v589 + 3600);
-            v224 = *(v589 + 3576);
-            v225 = *(v589 + 3568);
-            v226 = *(v589 + 3560);
+            v215 = v283;
+            v207 = *(v577 + 3664);
+            v208 = *(v577 + 3640);
+            v209 = *(v577 + 3632);
+            v210 = *(v577 + 3608);
+            v211 = *(v577 + 3600);
+            v212 = *(v577 + 3576);
+            v213 = *(v577 + 3568);
+            v214 = *(v577 + 3560);
 
-            v141 = v227;
-            v142 = *(*(v589 + 2632) + 8);
+            v142 = v215;
+            v143 = *(*(v577 + 2632) + 8);
 
-            return v142(v141);
+            return v143(v142);
           }
 
-          v156 = *(v589 + 3952);
-          v157 = *(v589 + 3872);
-          v158 = *(v589 + 3856);
-          v159 = *(v589 + 3760);
-          v160 = *(v589 + 3736);
-          v161 = *(v589 + 3712);
-          v162 = *(v589 + 3696);
+          v147[37] = *(v577 + 3952);
+          v147[38] = *(v577 + 3872);
+          v147[39] = *(v577 + 3856);
+          v147[40] = *(v577 + 3760);
+          v148 = *(v577 + 3736);
+          v149 = *(v577 + 3712);
+          v150 = *(v577 + 3696);
 
           outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
 
@@ -11866,68 +11839,68 @@ LABEL_59:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v160);
-          MEMORY[0x277D82BD8](v161);
+          MEMORY[0x277D82BD8](v148);
+          MEMORY[0x277D82BD8](v149);
 
-          v244 = v287;
+          v232 = v275;
         }
 
         else
         {
-          v129 = v589;
-          *(v589 + 4325) = *(v589 + 4359);
-          *(v129 + 4326) = 2;
+          v130 = v577;
+          *(v577 + 4325) = *(v577 + 4359);
+          *(v130 + 4326) = 2;
           if (== infix<A>(_:_:)())
           {
-            v248 = *(v589 + 3872);
-            v247 = *(v589 + 4268);
-            v245 = *(v589 + 3696);
-            v246 = *(v589 + 3536);
+            v236 = *(v577 + 3872);
+            v235 = *(v577 + 4268);
+            v233 = *(v577 + 3696);
+            v234 = *(v577 + 3536);
 
-            v130 = swift_task_alloc();
-            v131 = v245;
-            v132 = v246;
-            v133 = v247;
-            v134 = v248;
-            v135 = v589;
-            v249 = v130;
-            *(v589 + 4216) = v130;
-            *(v130 + 16) = v131;
-            *(v130 + 24) = v135 + 2848;
-            *(v130 + 32) = v132;
-            *(v130 + 40) = v133;
-            *(v130 + 48) = v135 + 2720;
-            *(v130 + 56) = v135 + 2728;
-            *(v130 + 64) = v135 + 2736;
-            *(v130 + 72) = v135 + 2744;
-            *(v130 + 80) = v135 + 2808;
-            *(v130 + 88) = v134;
-            v136 = swift_task_alloc();
-            *(v589 + 4224) = v136;
-            v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd);
-            v138 = v589;
-            v21 = v585;
-            v22 = v249;
-            v23 = v137;
-            *v136 = *(v589 + 2632);
-            v136[1] = NightingaleDPFLRunner.run(task:useCase:context:);
-            v25 = v138 + 2436;
-            v26 = 9;
-            v27 = 1;
+            v131 = swift_task_alloc();
+            v132 = v233;
+            v133 = v234;
+            v134 = v235;
+            v135 = v236;
+            v136 = v577;
+            v237 = v131;
+            *(v577 + 4216) = v131;
+            *(v131 + 16) = v132;
+            *(v131 + 24) = v136 + 2848;
+            *(v131 + 32) = v133;
+            *(v131 + 40) = v134;
+            *(v131 + 48) = v136 + 2720;
+            *(v131 + 56) = v136 + 2728;
+            *(v131 + 64) = v136 + 2736;
+            *(v131 + 72) = v136 + 2744;
+            *(v131 + 80) = v136 + 2808;
+            *(v131 + 88) = v135;
+            v137 = swift_task_alloc();
+            *(v577 + 4224) = v137;
+            v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V_ABtMd, &_ss6UInt32V_ABtMR);
+            v139 = v577;
+            v22 = v573;
+            v23 = v237;
+            v24 = v138;
+            *v137 = *(v577 + 2632);
+            v137[1] = NightingaleDPFLRunner.run(task:useCase:context:);
+            v26 = v139 + 2436;
+            v27 = 9;
+            v28 = 1;
 
-            return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v25, v26, v27, v21, v22, v23);
+            return NightingaleDPFLRunner.sendLocationAsync<A>(location:force:work:)(v26, v27, v28, v22, v23, v24);
           }
 
-          v236 = *(v589 + 3952);
-          v237 = *(v589 + 3872);
-          v238 = *(v589 + 3856);
-          v239 = *(v589 + 3760);
-          v240 = *(v589 + 3736);
-          v241 = *(v589 + 3712);
-          v242 = *(v589 + 3696);
+          v224 = *(v577 + 3952);
+          v225 = *(v577 + 3872);
+          v226 = *(v577 + 3856);
+          v227 = *(v577 + 3760);
+          v228 = *(v577 + 3736);
+          v229 = *(v577 + 3712);
+          v230 = *(v577 + 3696);
           lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-          v243 = swift_allocError();
-          *v139 = 69;
+          v231 = swift_allocError();
+          *v140 = 69;
           swift_willThrow();
 
           outlined destroy of (daySHR10: [Float], daySHR10Stats: [Float], nightSHR10: [Float], nightSHR10Stats: [Float], periodStartMean: [Float], periodStartMeanStats: [Float], periodStartStd: [Float], periodStartStdStats: [Float], daysSinceLastPeriodStart: [Float], daysSinceLastPeriodStartStats: [Float], swt: [Float], swtStats: [Float], hrv: [Float], hrvStats: [Float], respiratoryRate: [Float], respiratoryRateStats: [Float], spo2: [Float], spo2Stats: [Float], sliceEndDays: [UInt32], labels: [Float], metrics: [String : Int])();
@@ -11951,28 +11924,28 @@ LABEL_59:
           outlined destroy of [(start: UInt32, end: UInt32)]();
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          MEMORY[0x277D82BD8](v240);
-          MEMORY[0x277D82BD8](v241);
+          MEMORY[0x277D82BD8](v228);
+          MEMORY[0x277D82BD8](v229);
 
-          v244 = v243;
+          v232 = v231;
         }
       }
     }
 
 LABEL_70:
-    v148 = *(v589 + 3664);
-    v149 = *(v589 + 3640);
-    v150 = *(v589 + 3632);
-    v151 = *(v589 + 3608);
-    v152 = *(v589 + 3600);
-    v153 = *(v589 + 3576);
-    v154 = *(v589 + 3568);
-    v155 = *(v589 + 3560);
+    v147[22] = *(v577 + 3664);
+    v147[23] = *(v577 + 3640);
+    v147[24] = *(v577 + 3632);
+    v147[25] = *(v577 + 3608);
+    v147[26] = *(v577 + 3600);
+    v147[27] = *(v577 + 3576);
+    v147[28] = *(v577 + 3568);
+    v147[29] = *(v577 + 3560);
 
-    v141 = v619;
-    v142 = *(*(v589 + 2632) + 8);
+    v142 = v607;
+    v143 = *(*(v577 + 2632) + 8);
 
-    return v142(v141);
+    return v143(v142);
   }
 
   return result;

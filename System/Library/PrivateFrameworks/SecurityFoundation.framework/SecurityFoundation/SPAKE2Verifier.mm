@@ -42,36 +42,13 @@
   v19.receiver = self;
   v19.super_class = SPAKE2Verifier;
   v10 = [(SPAKE2Verifier *)&v19 init];
-  if (!v10)
+  if (!v10 || (v11 = [SPAKE2Common alloc], v12 = ccrng(), v13 = -[SPAKE2Common initWithSalt:code:rng:cp:](v11, "initWithSalt:code:rng:cp:", saltCopy, codeCopy, v12, ccspake_cp_256()), -[SPAKE2Verifier setCommon:](v10, "setCommon:", v13), v13, -[SPAKE2Verifier common](v10, "common"), v14 = objc_claimAutoreleasedReturnValue(), LODWORD(v12) = [v14 generateStateWithError:error], v14, v12) && (-[SPAKE2Verifier common](v10, "common"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "setupVerifier:", error), v15, v16))
   {
-    goto LABEL_4;
-  }
-
-  v11 = [SPAKE2Common alloc];
-  v12 = ccrng();
-  v13 = [(SPAKE2Common *)v11 initWithSalt:saltCopy code:codeCopy rng:v12 cp:ccspake_cp_256()];
-  [(SPAKE2Verifier *)v10 setCommon:v13];
-
-  common = [(SPAKE2Verifier *)v10 common];
-  LODWORD(v12) = [common generateStateWithError:error];
-
-  if (!v12)
-  {
-    goto LABEL_5;
-  }
-
-  common2 = [(SPAKE2Verifier *)v10 common];
-  v16 = [common2 setupVerifier:error];
-
-  if (v16)
-  {
-LABEL_4:
     v17 = v10;
   }
 
   else
   {
-LABEL_5:
     v17 = 0;
   }
 

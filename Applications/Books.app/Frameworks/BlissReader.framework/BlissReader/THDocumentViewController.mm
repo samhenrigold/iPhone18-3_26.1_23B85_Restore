@@ -366,7 +366,7 @@
 
 - (THDocumentViewController)initWithDefaultView
 {
-  v2 = [(THDocumentViewController *)self initWithNibName:@"THDocumentViewController" bundle:THBundle()];
+  v2 = [(THDocumentViewController *)self initWithNibName:@"THDocumentViewController" bundle:THBundle(self, a2)];
   v3 = v2;
   if (v2)
   {
@@ -1219,15 +1219,16 @@
     {
       v6 = [objc_msgSend(-[THDocumentViewController documentRoot](self "documentRoot")];
       [objc_msgSend(-[THDocumentViewController documentRoot](self "documentRoot")];
-      v8 = [[NSString alloc] initWithFormat:objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Page %@", &stru_471858, 0), +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", number, 0)];
+      v7 = [NSString alloc];
+      v10 = [v7 initWithFormat:objc_msgSend(THBundle(v7, v8), "localizedStringForKey:value:table:", @"Page %@", &stru_471858, 0), +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", number, 0)];
       if (v6)
       {
-        v7 = v6;
+        v9 = v6;
       }
 
       else
       {
-        v7 = &stru_471858;
+        v9 = &stru_471858;
       }
 
       [-[BKScrubberCalloutView title](-[THDocumentViewController scrubberCallout](self "scrubberCallout")];
@@ -1904,10 +1905,10 @@ LABEL_11:
 
 - (UIEdgeInsets)contentInsetsForPresentationType:(id)type
 {
-  v5 = TSDEdgeInsetsZero[0];
-  v4 = TSDEdgeInsetsZero[1];
-  v6 = TSDEdgeInsetsZero[2];
-  v7 = TSDEdgeInsetsZero[3];
+  v5 = TSDEdgeInsetsZero[0].f64[0];
+  v4 = TSDEdgeInsetsZero[0].f64[1];
+  v6 = TSDEdgeInsetsZero[1].f64[0];
+  v7 = TSDEdgeInsetsZero[1].f64[1];
   if ([(THDocumentViewController *)self isEpub])
   {
     configuration = [(THDocumentViewController *)self configuration];
@@ -2986,9 +2987,9 @@ LABEL_6:
 
 - (void)validateCommand:(id)command
 {
-  v9.receiver = self;
-  v9.super_class = THDocumentViewController;
-  [(THDocumentViewController *)&v9 validateCommand:?];
+  v15.receiver = self;
+  v15.super_class = THDocumentViewController;
+  [(THDocumentViewController *)&v15 validateCommand:?];
   action = [command action];
   if (sel_isEqual(action, "books_toggleContinuousScroll:"))
   {
@@ -3006,29 +3007,34 @@ LABEL_5:
 
   if (sel_isEqual(action, "books_enableContinuousScroll:"))
   {
-    [command setState:{-[THDocumentReflowableLayoutConfiguration isScroll](-[THDocumentViewController configuration](self, "configuration"), "isScroll")}];
-    v7 = THBundle();
-    v8 = @"Vertical Scrolling";
-  }
-
-  else if (sel_isEqual(action, "books_chapterLeft:"))
-  {
-    v7 = THBundle();
-    v8 = @"Previous Chapter";
+    v7 = [command setState:{-[THDocumentReflowableLayoutConfiguration isScroll](-[THDocumentViewController configuration](self, "configuration"), "isScroll")}];
+    v9 = THBundle(v7, v8);
+    v10 = @"Vertical Scrolling";
   }
 
   else
   {
-    if (!sel_isEqual(action, "books_chapterRight:"))
+    isEqual = sel_isEqual(action, "books_chapterLeft:");
+    if (isEqual)
     {
-      return;
+      v9 = THBundle(isEqual, v12);
+      v10 = @"Previous Chapter";
     }
 
-    v7 = THBundle();
-    v8 = @"Next Chapter";
+    else
+    {
+      v13 = sel_isEqual(action, "books_chapterRight:");
+      if (!v13)
+      {
+        return;
+      }
+
+      v9 = THBundle(v13, v14);
+      v10 = @"Next Chapter";
+    }
   }
 
-  [command setTitle:{objc_msgSend(v7, "localizedStringForKey:value:table:", v8, &stru_471858, 0)}];
+  [command setTitle:{objc_msgSend(v9, "localizedStringForKey:value:table:", v10, &stru_471858, 0)}];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -5518,60 +5524,60 @@ LABEL_38:
   sectionIdentifier = [v9 sectionIdentifier];
   TSUScreenScale();
   v12 = v11;
-  v30.width = width;
-  v30.height = height;
-  UIGraphicsBeginImageContextWithOptions(v30, 0, v12);
+  v32.width = width;
+  v32.height = height;
+  UIGraphicsBeginImageContextWithOptions(v32, 0, v12);
   Mutable = CFAttributedStringCreateMutable(0, 0);
   CFAttributedStringBeginEditing(Mutable);
-  if (sectionIdentifier && [sectionIdentifier length])
+  if (sectionIdentifier && (v14 = [sectionIdentifier length]) != 0)
   {
-    v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Chapter %@" value:&stru_471858 table:0], sectionIdentifier);
-    frontTitleText = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@ %@", v14, [tile frontTitleText]);
+    v16 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v14 v15)], sectionIdentifier);
+    frontTitleText = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@ %@", v16, [tile frontTitleText]);
   }
 
   else
   {
     frontTitleText = [tile frontTitleText];
-    v14 = 0;
+    v16 = 0;
   }
 
-  v26.location = 0;
-  v26.length = 0;
-  CFAttributedStringReplaceString(Mutable, v26, frontTitleText);
-  UIFontForLanguage = CTFontCreateUIFontForLanguage(kCTFontUIFontEmphasizedSystem, 20.0, 0);
-  v27.length = [(__CFString *)frontTitleText length];
-  v27.location = 0;
-  CFAttributedStringSetAttribute(Mutable, v27, kCTFontAttributeName, UIFontForLanguage);
-  v17 = [(__CFString *)frontTitleText length];
-  v18 = [+[UIColor colorWithWhite:alpha:](UIColor CGColor:0.666666687];
   v28.location = 0;
-  v28.length = v17;
-  CFAttributedStringSetAttribute(Mutable, v28, kCTForegroundColorAttributeName, v18);
-  if (v14)
+  v28.length = 0;
+  CFAttributedStringReplaceString(Mutable, v28, frontTitleText);
+  UIFontForLanguage = CTFontCreateUIFontForLanguage(kCTFontUIFontEmphasizedSystem, 20.0, 0);
+  v29.length = [(__CFString *)frontTitleText length];
+  v29.location = 0;
+  CFAttributedStringSetAttribute(Mutable, v29, kCTFontAttributeName, UIFontForLanguage);
+  v19 = [(__CFString *)frontTitleText length];
+  v20 = [+[UIColor colorWithWhite:alpha:](UIColor CGColor:0.666666687];
+  v30.location = 0;
+  v30.length = v19;
+  CFAttributedStringSetAttribute(Mutable, v30, kCTForegroundColorAttributeName, v20);
+  if (v16)
   {
-    v19 = [(NSString *)v14 length];
-    v20 = [+[UIColor colorWithWhite:alpha:](UIColor CGColor:0.376470596];
-    v29.location = 0;
-    v29.length = v19;
-    CFAttributedStringSetAttribute(Mutable, v29, kCTForegroundColorAttributeName, v20);
+    v21 = [(NSString *)v16 length];
+    v22 = [+[UIColor colorWithWhite:alpha:](UIColor CGColor:0.376470596];
+    v31.location = 0;
+    v31.length = v21;
+    CFAttributedStringSetAttribute(Mutable, v31, kCTForegroundColorAttributeName, v22);
   }
 
   CFRelease(UIFontForLanguage);
   CFAttributedStringEndEditing(Mutable);
   CurrentContext = UIGraphicsGetCurrentContext();
   CGContextSaveGState(CurrentContext);
-  v22 = *&CGAffineTransformIdentity.c;
-  *&v25.a = *&CGAffineTransformIdentity.a;
-  *&v25.c = v22;
-  *&v25.tx = *&CGAffineTransformIdentity.tx;
-  CGContextSetTextMatrix(CurrentContext, &v25);
+  v24 = *&CGAffineTransformIdentity.c;
+  *&v27.a = *&CGAffineTransformIdentity.a;
+  *&v27.c = v24;
+  *&v27.tx = *&CGAffineTransformIdentity.tx;
+  CGContextSetTextMatrix(CurrentContext, &v27);
   CGContextTranslateCTM(CurrentContext, 0.0, height);
   CGContextScaleCTM(CurrentContext, 1.0, -1.0);
-  v23 = CTLineCreateWithAttributedString(Mutable);
-  ImageBounds = CTLineGetImageBounds(v23, CurrentContext);
+  v25 = CTLineCreateWithAttributedString(Mutable);
+  ImageBounds = CTLineGetImageBounds(v25, CurrentContext);
   CGContextSetTextPosition(CurrentContext, (width - ImageBounds.size.width) * 0.5, floor((height - ImageBounds.size.height) * 0.5));
-  CTLineDraw(v23, CurrentContext);
-  CFRelease(v23);
+  CTLineDraw(v25, CurrentContext);
+  CFRelease(v25);
   CFRelease(Mutable);
   [v8 setImage:UIGraphicsGetImageFromCurrentImageContext()];
   UIGraphicsEndImageContext();
@@ -8098,18 +8104,18 @@ LABEL_38:
 
 - (void)corruptBookAlert
 {
-  [-[THDocumentViewController documentRoot](self "documentRoot")];
+  v3 = [-[THDocumentViewController documentRoot](self "documentRoot")];
   if (!self->mHaveDisplayedCorruptBookAlert)
   {
-    v3 = [THBundle() localizedStringForKey:@"This book is either missing content or contains invalid content." value:&stru_471858 table:0];
-    v4 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v3, [THBundle() localizedStringForKey:@"Try downloading the book again" value:&stru_471858 table:0], 1);
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1CE68;
-    v5[3] = &unk_45B358;
-    v5[4] = self;
-    -[UIAlertController addAction:](v4, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0], 1, v5));
-    [(THDocumentViewController *)self presentViewController:v4 animated:1 completion:0];
+    v5 = [THBundle(v3 v4)];
+    v7 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v5, [THBundle(v5 v6)], 1);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1CE68;
+    v9[3] = &unk_45B358;
+    v9[4] = self;
+    -[UIAlertController addAction:](v7, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v7 v8)], 1, v9));
+    [(THDocumentViewController *)self presentViewController:v7 animated:1 completion:0];
     self->mHaveDisplayedCorruptBookAlert = 1;
   }
 }
@@ -8406,7 +8412,7 @@ LABEL_38:
   if (!-[THDocumentViewController isEpub](self, "isEpub") && [coordinator isAnimated])
   {
     [(THDocumentViewController *)self setIsTransitioning:1];
-    if (coordinator && ([coordinator targetTransform], !CGAffineTransformIsIdentity(&v16)))
+    if (coordinator && (objc_msgSend_targetTransform(coordinator), !CGAffineTransformIsIdentity(&v16)))
     {
       [coordinator transitionDuration];
       [(THDocumentViewController *)self bookViewWillRotateTransitionToSize:width duration:height, v10];

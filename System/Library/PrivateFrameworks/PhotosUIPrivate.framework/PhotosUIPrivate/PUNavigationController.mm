@@ -570,7 +570,7 @@ LABEL_17:
 LABEL_18:
 }
 
-uint64_t __68__PUNavigationController__setCurrentToolbarViewController_animated___block_invoke(uint64_t a1, void *a2)
+void *__68__PUNavigationController__setCurrentToolbarViewController_animated___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -605,7 +605,7 @@ void __68__PUNavigationController__setCurrentToolbarViewController_animated___bl
   [v7 animateAlongsideTransitionInView:v8 animation:v13 completion:v11];
 }
 
-uint64_t __68__PUNavigationController__setCurrentToolbarViewController_animated___block_invoke_5(uint64_t a1, void *a2)
+void *__68__PUNavigationController__setCurrentToolbarViewController_animated___block_invoke_5(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

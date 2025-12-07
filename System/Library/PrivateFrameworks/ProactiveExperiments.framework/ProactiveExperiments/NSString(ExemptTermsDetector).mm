@@ -23,42 +23,40 @@
 
 - (id)removeApostrophes
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = [self copy];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [&unk_287341BF8 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [&unk_287341BF8 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       v6 = v1;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(&unk_287341BF8);
         }
 
-        v1 = [v6 stringByReplacingOccurrencesOfString:*(*(&v9 + 1) + 8 * v5) withString:&stru_28733D8C0];
+        v1 = [v6 stringByReplacingOccurrencesOfString:*(*(&v8 + 1) + 8 * v5) withString:&stru_28733D8C0];
 
         ++v5;
         v6 = v1;
       }
 
       while (v3 != v5);
-      v3 = [&unk_287341BF8 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [&unk_287341BF8 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v1;
 }

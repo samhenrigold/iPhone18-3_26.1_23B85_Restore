@@ -17,40 +17,40 @@
 
 - (NRDevicePairingManagerMux)init
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = NRDevicePairingManagerMux;
-  v2 = [(NRDevicePairingManagerMux *)&v27 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = NRDevicePairingManagerMux;
+  v2 = [(NRDevicePairingManagerMux *)&v25 init];
   if (!v2)
   {
-    v12 = nrCopyLogObj_1710();
+    v11 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v13 = v12;
-      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_9;
       }
     }
 
-    v15 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v16, v17, v18, v19, v20, "");
+    v14 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingManagerMux init]"", 225);
 
 LABEL_9:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v21 = *__error();
-    v22 = _os_log_pack_fill();
-    *v22 = 136446210;
-    *(v22 + 4) = "[NRDevicePairingManagerMux init]";
-    v23 = nrCopyLogObj_1710();
-    _NRLogAbortWithPack(v23);
+    v15 = _os_log_pack_size();
+    v17 = &handler[-1] - ((MEMORY[0x28223BE20](v15, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = __error();
+    v19 = _os_log_pack_fill(v17, v15, *v18, &dword_25B98C000, "%{public}s [super init] failed");
+    *v19 = 136446210;
+    *(v19 + 4) = "[NRDevicePairingManagerMux init]";
+    v20 = nrCopyLogObj_1710();
+    _NRLogAbortWithPack(v20, v17);
   }
 
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -74,27 +74,26 @@ LABEL_9:
   handler[1] = 3221225472;
   handler[2] = __33__NRDevicePairingManagerMux_init__block_invoke;
   handler[3] = &unk_27996B2D8;
-  objc_copyWeak(&v25, &location);
+  objc_copyWeak(&v23, &location);
   xpc_connection_set_event_handler(v8, handler);
 
   v9 = v2->_connection;
   xpc_connection_activate(v9);
 
   [(NRDevicePairingManagerMux *)&v2->super.isa checkInWithRetryCount:?];
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __33__NRDevicePairingManagerMux_init__block_invoke(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v18 = a2;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v12 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = MEMORY[0x25F8746E0](v18);
+    v4 = MEMORY[0x25F8746E0](v12);
     if (v4 != MEMORY[0x277D86468])
     {
       if (v4 == MEMORY[0x277D86480])
@@ -104,15 +103,11 @@ void __33__NRDevicePairingManagerMux_init__block_invoke(uint64_t a1, void *a2)
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_24;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Received XPC error: %@, invalidating", ", "[NRDevicePairingManagerMux init]_block_invoke"", 243, v12);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v17 = "";
-        v11 = "%s%.30s:%-4d Received XPC error: %@, invalidating";
-        v12 = 16;
         goto LABEL_23;
       }
 
@@ -121,39 +116,37 @@ void __33__NRDevicePairingManagerMux_init__block_invoke(uint64_t a1, void *a2)
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Received unexpected XPC object: %@, invalidating", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Received unexpected XPC object: %@, invalidating", ", "[NRDevicePairingManagerMux init]_block_invoke"", 246, v12), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_24:
-            objc_opt_self();
-            v13 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v19 = *MEMORY[0x277CCA450];
-            v20[0] = @"An XPC connection error occurred";
-            v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-            v15 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v14];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v15];
-            goto LABEL_25;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_23:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v17);
-      goto LABEL_24;
+        objc_opt_self();
+        v5 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v13 = *MEMORY[0x277CCA450];
+        v14[0] = @"An XPC connection error occurred";
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+        v7 = [v5 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v6];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v7];
+        goto LABEL_24;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Received unexpected XPC object", v8, v9, v10, v11);
+      goto LABEL_23;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -163,15 +156,13 @@ LABEL_23:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Received XPC dict: %@", ", "[NRDevicePairingManagerMux init]_block_invoke"", 240, v12);
     }
 
-    [(NRDevicePairingManagerMux *)WeakRetained handleUnsolicitedMessage:v18];
+    [(NRDevicePairingManagerMux *)WeakRetained handleUnsolicitedMessage:v12];
   }
 
-LABEL_25:
-
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_24:
 }
 
 - (void)checkInWithRetryCount:(id *)count
@@ -179,27 +170,25 @@ LABEL_25:
   location[1] = *MEMORY[0x277D85DE8];
   if (a2 >= 6)
   {
-    v19 = nrCopyLogObj_1710();
+    v13 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v22 = v19;
-      v23 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+      v16 = v13;
+      v17 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
 
-      if (!v23)
+      if (!v17)
       {
         goto LABEL_24;
       }
     }
 
-    v24 = nrCopyLogObj_1710();
-    v30 = v24;
-    v31 = "Failed to checkin NRDeviceMonitor after retries";
+    v18 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v18, 17, "Failed to checkin NRDeviceMonitor after retries");
 LABEL_23:
-    _NRLogWithArgs(v24, 17, v31, v25, v26, v27, v28, v29, v46);
 
     goto LABEL_24;
   }
@@ -218,10 +207,10 @@ LABEL_23:
       handler[1] = 3221225472;
       handler[2] = __51__NRDevicePairingManagerMux_checkInWithRetryCount___block_invoke;
       handler[3] = &unk_27996B300;
-      objc_copyWeak(&v50, location);
+      objc_copyWeak(&v33, location);
       v8 = v5;
-      v49 = v8;
-      v51 = a2;
+      v32 = v8;
+      v34 = a2;
       xpc_connection_send_message_with_reply(v6, v8, v7, handler);
 
       if (nrCopyLogObj_onceToken_1721 != -1)
@@ -243,10 +232,9 @@ LABEL_23:
         {
 LABEL_12:
 
-          objc_destroyWeak(&v50);
+          objc_destroyWeak(&v33);
           objc_destroyWeak(location);
 
-          v18 = *MEMORY[0x277D85DE8];
           return;
         }
       }
@@ -257,68 +245,66 @@ LABEL_12:
       }
 
       v12 = nrCopyLogObj_sNRLogObj_1723;
-      _NRLogWithArgs(v12, 1, "%s%.30s:%-4d Sent check-in message: %@", v13, v14, v15, v16, v17, "");
+      _NRLogWithArgs(v12, 1, "%s%.30s:%-4d Sent check-in message: %@", ", "[NRDevicePairingManagerMux checkInWithRetryCount:]"", 312, v8);
 
       goto LABEL_12;
     }
 
-    v21 = nrCopyLogObj_1710();
+    v15 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v35 = v21;
-      v36 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+      v21 = v15;
+      v22 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
 
-      if (!v36)
+      if (!v22)
       {
         goto LABEL_29;
       }
     }
 
-    v37 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v38, v39, v40, v41, v42, "");
+    v23 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v23, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_29:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v43 = *__error();
-    v44 = _os_log_pack_fill();
-    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v44, "nr_xpc_dictionary_create");
-    v45 = nrCopyLogObj_1710();
-    _NRLogAbortWithPack(v45);
+    v24 = _os_log_pack_size();
+    v26 = &handler[-1] - ((MEMORY[0x28223BE20](v24, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = __error();
+    v28 = _os_log_pack_fill(v26, v24, *v27, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v28, "nr_xpc_dictionary_create");
+    v29 = nrCopyLogObj_1710();
+    _NRLogAbortWithPack(v29, v26);
   }
 
-  v20 = nrCopyLogObj_1710();
+  v14 = nrCopyLogObj_1710();
   if (sNRCopyLogToStdErr == 1)
   {
 
 LABEL_22:
-    v24 = nrCopyLogObj_1710();
-    v30 = v24;
-    v31 = "Could not check in with server as no connection found";
+    v18 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v18, 17, "Could not check in with server as no connection found");
     goto LABEL_23;
   }
 
-  v32 = v20;
-  v33 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
+  v19 = v14;
+  v20 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
 
-  if (v33)
+  if (v20)
   {
     goto LABEL_22;
   }
 
 LABEL_24:
-  v47 = +[NRDevicePairingManager copyXPCError];
-  [(NRDevicePairingManagerMux *)count invalidateManagersWithError:v47];
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = +[NRDevicePairingManager copyXPCError];
+  [(NRDevicePairingManagerMux *)count invalidateManagersWithError:v30];
 }
 
 - (void)invalidateManagersWithError:(uint64_t)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(error + 24);
   if (v4)
@@ -328,26 +314,26 @@ LABEL_24:
     *(error + 24) = 0;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = *(error + 16);
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v28 = *v34;
+    v27 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v28)
+        if (*v33 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(error + 16) objectForKeyedSubscript:*(*(&v33 + 1) + 8 * i)];
+        v9 = [*(error + 16) objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
         v10 = v9;
         if (v9)
         {
@@ -365,28 +351,28 @@ LABEL_24:
             objc_setProperty_nonatomic_copy(v10, v14, 0, 32);
           }
 
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v15 = *(v10 + 40);
         }
 
         else
         {
           v15 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
         }
 
         v16 = v15;
-        v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v30;
+          v19 = *v29;
           if (v10)
           {
             errorCopy = error;
@@ -394,16 +380,16 @@ LABEL_24:
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v30 != v19)
+                if (*v29 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v22 = [*(v10 + 40) objectForKeyedSubscript:*(*(&v29 + 1) + 8 * j)];
+                v22 = [*(v10 + 40) objectForKeyedSubscript:*(*(&v28 + 1) + 8 * j)];
                 (v22)[2](v22, v3);
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v18);
@@ -419,16 +405,16 @@ LABEL_30:
           {
             for (k = 0; k != v18; ++k)
             {
-              if (*v30 != v19)
+              if (*v29 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v24 = [0 objectForKeyedSubscript:*(*(&v29 + 1) + 8 * k)];
+              v24 = [0 objectForKeyedSubscript:*(*(&v28 + 1) + 8 * k)];
               (v24)[2](v24, v3);
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v18);
@@ -445,19 +431,18 @@ LABEL_31:
         [(NRDevicePairingManager *)v25 invalidateWithError:v3];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v7);
   }
 
   [*(error + 16) removeAllObjects];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NRDevicePairingManagerMux_checkInWithRetryCount___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
@@ -475,16 +460,16 @@ void __51__NRDevicePairingManagerMux_checkInWithRetryCount___block_invoke(uint64
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Checkin received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Checkin received XPC dict: %@", ", "[NRDevicePairingManagerMux checkInWithRetryCount:]_block_invoke"", 283, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v12 = v13;
-    if (v13)
+    v8 = xpc_dictionary_get_value(xdict, "Result");
+    v7 = v8;
+    if (v8)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v8) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v12);
+        value = xpc_int64_get_value(v7);
         if (!value)
         {
           *(WeakRetained + 8) = 1;
@@ -509,100 +494,100 @@ LABEL_23:
             }
           }
 
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Checked in with terminusd", v15, v16, v17, v18, v19, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Checked in with terminusd", ", "[NRDevicePairingManagerMux handleCheckIn]"", 318);
 LABEL_25:
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
-          v48 = 0u;
-          v20 = *(WeakRetained + 2);
-          v21 = [v20 countByEnumeratingWithState:&v47 objects:v46 count:16];
-          if (v21)
+          v31 = 0u;
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v10 = *(WeakRetained + 2);
+          v11 = [v10 countByEnumeratingWithState:&v29 objects:v28 count:16];
+          if (v11)
           {
-            v22 = v21;
-            v23 = *v48;
+            v12 = v11;
+            v13 = *v30;
             do
             {
-              for (i = 0; i != v22; ++i)
+              for (i = 0; i != v12; ++i)
               {
-                if (*v48 != v23)
+                if (*v30 != v13)
                 {
-                  objc_enumerationMutation(v20);
+                  objc_enumerationMutation(v10);
                 }
 
-                v25 = [*(WeakRetained + 2) objectForKeyedSubscript:*(*(&v47 + 1) + 8 * i)];
-                v26 = v25;
-                if (v25 && *(v25 + 24))
+                v15 = [*(WeakRetained + 2) objectForKeyedSubscript:*(*(&v29 + 1) + 8 * i)];
+                v16 = v15;
+                if (v15 && *(v15 + 24))
                 {
-                  v27 = *(v25 + 8);
-                  [(NRDevicePairingManagerMux *)WeakRetained registerPairingManager:v27 withCompletion:v26[3]];
+                  v17 = *(v15 + 8);
+                  [(NRDevicePairingManagerMux *)WeakRetained registerPairingManager:v17 withCompletion:v16[3]];
 
-                  objc_setProperty_nonatomic_copy(v26, v28, 0, 24);
+                  objc_setProperty_nonatomic_copy(v16, v18, 0, 24);
                 }
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v47 objects:v46 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v29 objects:v28 count:16];
             }
 
-            while (v22);
+            while (v12);
           }
 
           goto LABEL_58;
         }
 
-        v31 = [NRDevicePairingManager copyErrorForCode:?];
+        v21 = [NRDevicePairingManager copyErrorForCode:?];
 LABEL_57:
-        v20 = v31;
-        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v31];
+        v10 = v21;
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v21];
 LABEL_58:
 
         goto LABEL_59;
       }
 
-      v29 = nrCopyLogObj_1710();
+      v19 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v30 = "received invalid result type";
+        v20 = "received invalid result type";
         goto LABEL_45;
       }
 
-      v34 = v29;
-      v35 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+      v24 = v19;
+      v25 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
 
-      if (v35)
+      if (v25)
       {
-        v30 = "received invalid result type";
+        v20 = "received invalid result type";
         goto LABEL_55;
       }
     }
 
     else
     {
-      v29 = nrCopyLogObj_1710();
+      v19 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v30 = "received response without result code";
+        v20 = "received response without result code";
 LABEL_45:
 
 LABEL_55:
-        v36 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v36, 17, v30, v37, v38, v39, v40, v41, v43);
+        v26 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v26, 17, v20);
 
         goto LABEL_56;
       }
 
-      v32 = v29;
-      v33 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+      v22 = v19;
+      v23 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
 
-      if (v33)
+      if (v23)
       {
-        v30 = "received response without result code";
+        v20 = "received response without result code";
         goto LABEL_55;
       }
     }
 
 LABEL_56:
-    v31 = +[NRDevicePairingManager copyXPCError];
+    v21 = +[NRDevicePairingManager copyXPCError];
     goto LABEL_57;
   }
 
@@ -613,7 +598,7 @@ LABEL_56:
       dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
     }
 
-    if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Checkin received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+    if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Checkin received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux checkInWithRetryCount:]_block_invoke"", 307, xdict), nrCopyLogObj_onceToken_1721 != -1))
     {
       dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       if (sNRCopyLogToStdErr)
@@ -631,20 +616,20 @@ LABEL_56:
     {
 LABEL_12:
       objc_opt_self();
-      v10 = objc_alloc(MEMORY[0x277CCA9B8]);
-      *&v47 = *MEMORY[0x277CCA450];
-      v46[0] = @"An XPC connection error occurred";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v47 count:1];
-      v12 = [v10 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v11];
+      v5 = objc_alloc(MEMORY[0x277CCA9B8]);
+      *&v29 = *MEMORY[0x277CCA450];
+      v28[0] = @"An XPC connection error occurred";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v29 count:1];
+      v7 = [v5 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v6];
 
-      [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v12];
+      [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v7];
 LABEL_59:
 
       goto LABEL_60;
     }
 
 LABEL_11:
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Checkin received unexpected XPC object", v5, v6, v7, v8, v9, v43);
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Checkin received unexpected XPC object");
     goto LABEL_12;
   }
 
@@ -655,14 +640,11 @@ LABEL_11:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
   {
-    v44 = *(a1 + 32);
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Checkin could not deliver message %@, error %@, retrying", v5, v6, v7, v8, v9, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Checkin could not deliver message %@, error %@, retrying", ", "[NRDevicePairingManagerMux checkInWithRetryCount:]_block_invoke"", 304, *(a1 + 32), xdict);
   }
 
   [(NRDevicePairingManagerMux *)WeakRetained checkInWithRetryCount:?];
 LABEL_60:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPairingManager:(void *)manager withCompletion:
@@ -742,31 +724,32 @@ LABEL_24:
             handler[1] = 3221225472;
             handler[2] = __67__NRDevicePairingManagerMux_registerPairingManager_withCompletion___block_invoke;
             handler[3] = &unk_27996B328;
-            objc_copyWeak(&v86, location);
-            v85 = managerCopy;
-            v84 = v15;
-            xpc_connection_send_message_with_reply(v20, v84, v21, handler);
+            objc_copyWeak(&v59, location);
+            v58 = managerCopy;
+            v22 = v15;
+            v57 = v22;
+            xpc_connection_send_message_with_reply(v20, v22, v21, handler);
 
             if (nrCopyLogObj_onceToken_1721 != -1)
             {
               dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
             }
 
-            v22 = nrCopyLogObj_sNRLogObj_1723;
+            v23 = nrCopyLogObj_sNRLogObj_1723;
             if (sNRCopyLogToStdErr == 1)
             {
             }
 
             else
             {
-              v23 = v22;
-              v24 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+              v24 = v23;
+              v25 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
 
-              if (!v24)
+              if (!v25)
               {
 LABEL_21:
 
-                objc_destroyWeak(&v86);
+                objc_destroyWeak(&v59);
                 objc_destroyWeak(location);
 LABEL_22:
 
@@ -779,71 +762,71 @@ LABEL_22:
               dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
             }
 
-            v25 = nrCopyLogObj_sNRLogObj_1723;
-            _NRLogWithArgs(v25, 1, "%s%.30s:%-4d Sent registration message: %@", v26, v27, v28, v29, v30, "");
+            v26 = nrCopyLogObj_sNRLogObj_1723;
+            _NRLogWithArgs(v26, 1, "%s%.30s:%-4d Sent registration message: %@", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]"", 445, v22);
 
             goto LABEL_21;
           }
 
-          v35 = nrCopyLogObj_1710();
+          v30 = nrCopyLogObj_1710();
           if (sNRCopyLogToStdErr == 1)
           {
           }
 
           else
           {
-            v64 = v35;
-            v65 = os_log_type_enabled(v35, OS_LOG_TYPE_FAULT);
+            v47 = v30;
+            v48 = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
 
-            if (!v65)
+            if (!v48)
             {
 LABEL_47:
 
 LABEL_48:
-              v72 = nrCopyLogObj_1710();
+              v50 = nrCopyLogObj_1710();
               if (sNRCopyLogToStdErr == 1)
               {
               }
 
               else
               {
-                v73 = v72;
-                v74 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+                v51 = v50;
+                v52 = os_log_type_enabled(v50, OS_LOG_TYPE_ERROR);
 
-                if (!v74)
+                if (!v52)
                 {
 LABEL_52:
-                  v81 = +[NRDevicePairingManager copyXPCError];
-                  (*(managerCopy + 2))(managerCopy, v81);
+                  v54 = +[NRDevicePairingManager copyXPCError];
+                  (*(managerCopy + 2))(managerCopy, v54);
 
                   goto LABEL_22;
                 }
               }
 
-              v75 = nrCopyLogObj_1710();
-              _NRLogWithArgs(v75, 16, "%s%.30s:%-4d Register pairing manager request failed to serialize pairing manager info", v76, v77, v78, v79, v80, "");
+              v53 = nrCopyLogObj_1710();
+              _NRLogWithArgs(v53, 16, "%s%.30s:%-4d Register pairing manager request failed to serialize pairing manager info", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]"", 399);
 
               goto LABEL_52;
             }
           }
 
-          v66 = nrCopyLogObj_1710();
-          _NRLogWithArgs(v66, 17, "Failed to archive %@: %@", v67, v68, v69, v70, v71, v17);
+          v49 = nrCopyLogObj_1710();
+          _NRLogWithArgs(v49, 17, "Failed to archive %@: %@", v17, v19);
 
           goto LABEL_47;
         }
 
-        v34 = nrCopyLogObj_1710();
+        v29 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v56 = v34;
-          v57 = os_log_type_enabled(v34, OS_LOG_TYPE_FAULT);
+          v44 = v29;
+          v45 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
 
-          if (!v57)
+          if (!v45)
           {
 LABEL_44:
 
@@ -851,75 +834,73 @@ LABEL_44:
           }
         }
 
-        v58 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v58, 17, "%s called with null object", v59, v60, v61, v62, v63, "nr_xpc_dictionary_set_nsobject");
+        v46 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v46, 17, "%s called with null object", "nr_xpc_dictionary_set_nsobject");
 
         goto LABEL_44;
       }
 
-      v33 = nrCopyLogObj_1710();
+      v28 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v45 = v33;
-        v46 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+        v35 = v28;
+        v36 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-        if (!v46)
+        if (!v36)
         {
           goto LABEL_41;
         }
       }
 
-      v47 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v47, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v48, v49, v50, v51, v52, "");
+      v37 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_41:
-      _os_log_pack_size();
-      MEMORY[0x28223BE20]();
-      v53 = *__error();
-      v54 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v54, "nr_xpc_dictionary_create");
-      v55 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v55);
+      v38 = _os_log_pack_size();
+      v40 = &handler[-1] - ((MEMORY[0x28223BE20](v38, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v41 = __error();
+      v42 = _os_log_pack_fill(v40, v38, *v41, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v42, "nr_xpc_dictionary_create");
+      v43 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v43, v40);
     }
 
-    v32 = nrCopyLogObj_1710();
+    v27 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v36 = v32;
-      v37 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
+      v31 = v27;
+      v32 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
 
-      if (!v37)
+      if (!v32)
       {
 LABEL_38:
-        v44 = +[NRDevicePairingManager copyXPCError];
-        (*(managerCopy + 2))(managerCopy, v44);
+        v34 = +[NRDevicePairingManager copyXPCError];
+        (*(managerCopy + 2))(managerCopy, v34);
 
         goto LABEL_25;
       }
     }
 
-    v38 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v38, 16, "%s%.30s:%-4d Register pairing manager request with no XPC connection", v39, v40, v41, v42, v43, "");
+    v33 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d Register pairing manager request with no XPC connection", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]"", 379);
 
     goto LABEL_38;
   }
 
 LABEL_25:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __67__NRDevicePairingManagerMux_registerPairingManager_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -934,16 +915,11 @@ void __67__NRDevicePairingManagerMux_registerPairingManager_withCompletion___blo
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_27;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Register could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]_block_invoke"", 435, *(a1 + 32), xdict);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v41 = *(a1 + 32);
-        v40 = "";
-        v11 = "%s%.30s:%-4d Register could not deliver message %@, error %@";
-        v12 = 16;
         goto LABEL_26;
       }
 
@@ -952,51 +928,49 @@ void __67__NRDevicePairingManagerMux_registerPairingManager_withCompletion___blo
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Register received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Register received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]_block_invoke"", 439, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_27:
-            v16 = *(a1 + 40);
-            objc_opt_self();
-            v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v43 = *MEMORY[0x277CCA450];
-            v18 = v43;
-            v44[0] = @"An XPC connection error occurred";
-            v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-            v20 = [v17 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v19];
-
-            (*(v16 + 16))(v16, v20);
-            objc_opt_self();
-            v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v43 = v18;
-            v44[0] = @"An XPC connection error occurred";
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-            v14 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v22];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v14];
-LABEL_28:
-
-            goto LABEL_29;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Register received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_26:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v40);
-      goto LABEL_27;
+        v8 = *(a1 + 40);
+        objc_opt_self();
+        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v31 = *MEMORY[0x277CCA450];
+        v10 = v31;
+        v32[0] = @"An XPC connection error occurred";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v12 = [v9 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v11];
+
+        (*(v8 + 16))(v8, v12);
+        objc_opt_self();
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v31 = v10;
+        v32[0] = @"An XPC connection error occurred";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v6 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v14];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v6];
+LABEL_27:
+
+        goto LABEL_28;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Register received unexpected XPC object", v26, v27, v28, v29);
+      goto LABEL_26;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -1006,19 +980,19 @@ LABEL_26:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Register received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Register received XPC dict: %@", ", "[NRDevicePairingManagerMux registerPairingManager:withCompletion:]_block_invoke"", 412, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v14 = v13;
-    if (v13)
+    v5 = xpc_dictionary_get_value(xdict, "Result");
+    v6 = v5;
+    if (v5)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v5) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v14);
+        value = xpc_int64_get_value(v6);
         if (value)
         {
-          v26 = [NRDevicePairingManager copyErrorForCode:?];
+          v17 = [NRDevicePairingManager copyErrorForCode:?];
           (*(*(a1 + 40) + 16))();
         }
 
@@ -1027,65 +1001,63 @@ LABEL_26:
           (*(*(a1 + 40) + 16))();
         }
 
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Register received invalid result type";
-        goto LABEL_36;
+        v16 = "Register received invalid result type";
+        goto LABEL_35;
       }
 
-      v29 = v24;
-      v30 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v20 = v15;
+      v21 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v30)
+      if (v21)
       {
-        v25 = "Register received invalid result type";
-        goto LABEL_44;
+        v16 = "Register received invalid result type";
+        goto LABEL_43;
       }
     }
 
     else
     {
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Register received response without result code";
-LABEL_36:
+        v16 = "Register received response without result code";
+LABEL_35:
 
-LABEL_44:
-        v31 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v31, 17, v25, v32, v33, v34, v35, v36, v40);
+LABEL_43:
+        v22 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v22, 17, v16);
 
-        goto LABEL_45;
+        goto LABEL_44;
       }
 
-      v27 = v24;
-      v28 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v18 = v15;
+      v19 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v28)
+      if (v19)
       {
-        v25 = "Register received response without result code";
-        goto LABEL_44;
+        v16 = "Register received response without result code";
+        goto LABEL_43;
       }
     }
 
-LABEL_45:
-    v37 = *(a1 + 40);
-    v38 = +[NRDevicePairingManager copyXPCError];
-    (*(v37 + 16))(v37, v38);
+LABEL_44:
+    v23 = *(a1 + 40);
+    v24 = +[NRDevicePairingManager copyXPCError];
+    (*(v23 + 16))(v23, v24);
 
-    v39 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v39];
+    v25 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v25];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 - (void)handleUnsolicitedMessage:(uint64_t)message
@@ -1093,1466 +1065,1454 @@ LABEL_29:
   v3 = a2;
   if (*(message + 24))
   {
-    v475 = v3;
+    v267 = v3;
     v4 = xpc_dictionary_get_value(v3, "PairingManagerOperation");
     v5 = v4;
     if (v4)
     {
       if (MEMORY[0x25F8746E0](v4) == MEMORY[0x277D864C8])
       {
-        v6 = v475;
+        v6 = v267;
         v7 = v6;
         if (v6)
         {
           uuid = xpc_dictionary_get_uuid(v6, "PairingManager");
-          if (!uuid)
+          if (uuid)
           {
-            v129 = nrCopyLogObj_1710();
-            if (sNRCopyLogToStdErr == 1)
+            v9 = uuid;
+            if (!uuid_is_null(uuid))
             {
-            }
+              v10 = 0x277CCA000uLL;
+              v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v9];
 
-            else
-            {
-              v152 = v129;
-              v153 = os_log_type_enabled(v129, OS_LOG_TYPE_ERROR);
-
-              if (!v153)
+              if (v11)
               {
-                goto LABEL_156;
-              }
-            }
-
-            v154 = nrCopyLogObj_1710();
-            v146 = v154;
-            v160 = "%s%.30s:%-4d Failed to get UUID for key %s";
-LABEL_154:
-            _NRLogWithArgs(v154, 16, v160, v155, v156, v157, v158, v159, "");
-            goto LABEL_155;
-          }
-
-          v9 = uuid;
-          if (!uuid_is_null(uuid))
-          {
-            v10 = 0x277CCA000uLL;
-            v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v9];
-
-            if (v11)
-            {
-              v12 = [*(message + 16) objectForKeyedSubscript:v11];
-              if (!v12)
-              {
-                v131 = nrCopyLogObj_1710();
-                if (sNRCopyLogToStdErr == 1)
+                v12 = [*(message + 16) objectForKeyedSubscript:v11];
+                if (!v12)
                 {
-                }
-
-                else
-                {
-                  v171 = v131;
-                  v172 = os_log_type_enabled(v131, OS_LOG_TYPE_FAULT);
-
-                  if (!v172)
-                  {
-                    goto LABEL_124;
-                  }
-                }
-
-                v24 = nrCopyLogObj_1710();
-                _NRLogWithArgs(v24, 17, "Pairing manager %@ is not registered", v173, v174, v175, v176, v177, v11);
-                goto LABEL_123;
-              }
-
-              value = xpc_uint64_get_value(v5);
-              if (value <= 7)
-              {
-                if (value != 5)
-                {
-                  if (value == 7)
-                  {
-                    v24 = v7;
-                    if (nrCopyLogObj_onceToken_1721 != -1)
-                    {
-                      dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                    }
-
-                    if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-                    {
-                      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received auth method request from peer", v19, v20, v21, v22, v23, "");
-                    }
-
-                    uint64 = xpc_dictionary_get_uint64(v24, "AuthRequestType");
-                    if (uint64)
-                    {
-                      v26 = uint64;
-                      v27 = xpc_dictionary_get_value(v24, "AuthData");
-                      v28 = v27;
-                      if (v27 && MEMORY[0x25F8746E0](v27) == MEMORY[0x277D86458])
-                      {
-                        v29 = MEMORY[0x277CBEA90];
-                        bytes_ptr = xpc_data_get_bytes_ptr(v28);
-                        v31 = [v29 _newZeroingDataWithBytes:bytes_ptr length:xpc_data_get_length(v28)];
-                        v32 = v12[1];
-                        v33 = v31;
-                        if (v32)
-                        {
-                          authRequestHandler = [v32 authRequestHandler];
-
-                          if (authRequestHandler)
-                          {
-                            v35 = v32[7];
-                            block = MEMORY[0x277D85DD0];
-                            v478 = 3221225472;
-                            v479 = __64__NRDevicePairingManager_receivedRequestForAuthMethod_authData___block_invoke;
-                            v480 = &unk_27996B270;
-                            v481 = v32;
-                            v483 = v26;
-                            v482 = v33;
-                            dispatch_async(v35, &block);
-                          }
-                        }
-                      }
-
-                      else
-                      {
-                        v178 = nrCopyLogObj_1710();
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-                        }
-
-                        else
-                        {
-                          v185 = v178;
-                          v186 = os_log_type_enabled(v178, OS_LOG_TYPE_FAULT);
-
-                          if (!v186)
-                          {
-                            goto LABEL_122;
-                          }
-                        }
-
-                        v33 = nrCopyLogObj_1710();
-                        _NRLogWithArgs(v33, 17, "Received request for auth method with no auth data", v187, v188, v189, v190, v191, v465);
-                      }
-
-LABEL_122:
-                      goto LABEL_123;
-                    }
-
-                    v180 = nrCopyLogObj_1710();
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v233 = v180;
-                      v234 = os_log_type_enabled(v180, OS_LOG_TYPE_FAULT);
-
-                      if (!v234)
-                      {
-                        goto LABEL_123;
-                      }
-                    }
-
-                    v235 = nrCopyLogObj_1710();
-                    v28 = v235;
-                    v241 = "Received request for invalid auth method";
-LABEL_294:
-                    _NRLogWithArgs(v235, 17, v241, v236, v237, v238, v239, v240, v465);
-                    goto LABEL_122;
-                  }
-
-LABEL_57:
-                  if (nrCopyLogObj_onceToken_1721 != -1)
-                  {
-                    v179 = value;
-                    dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                    value = v179;
-                  }
-
-                  if ((sNRCopyLogToStdErr & 1) != 0 || (v72 = value, v73 = os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT), value = v72, v73))
-                  {
-                    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Received unexpected operation code %llu", v14, v15, v16, v17, v18, value);
-                  }
-
-                  goto LABEL_124;
-                }
-
-                v24 = v7;
-                v74 = xpc_dictionary_get_value(v24, "DiscoveredPairingCandidate");
-
-                if (!v74)
-                {
-LABEL_101:
-                  v111 = xpc_dictionary_get_value(v24, "LostPairingCandidate");
-
-                  if (v111)
-                  {
-                    v112 = v24;
-                    v113 = xpc_dictionary_get_uuid(v112, "LostPairingCandidate");
-                    if (v113)
-                    {
-                      v114 = v113;
-                      if (!uuid_is_null(v113))
-                      {
-                        v28 = [objc_alloc(*(v10 + 3448)) initWithUUIDBytes:v114];
-
-                        if (v28)
-                        {
-                          v64 = [v12[2] objectForKeyedSubscript:v28];
-                          if (v64)
-                          {
-                            if (nrCopyLogObj_onceToken_1721 != -1)
-                            {
-                              dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                            }
-
-                            if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-                            {
-                              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Lost candidate %@", v115, v116, v117, v118, v119, "");
-                            }
-
-                            v120 = v12[1];
-                            v121 = v64;
-                            if (v120)
-                            {
-                              v122 = v120;
-                              objc_sync_enter(v122);
-                              v123 = v122[1];
-                              objc_sync_exit(v122);
-
-                              if (v123 == 5)
-                              {
-                                candidateLostHandler = [v122 candidateLostHandler];
-
-                                if (candidateLostHandler)
-                                {
-                                  v125 = v122[7];
-                                  block = MEMORY[0x277D85DD0];
-                                  v478 = 3221225472;
-                                  v479 = __40__NRDevicePairingManager_lostCandidate___block_invoke;
-                                  v480 = &unk_27996B248;
-                                  v481 = v122;
-                                  v482 = v121;
-                                  dispatch_async(v125, &block);
-                                }
-                              }
-                            }
-
-                            [v12[2] setObject:0 forKeyedSubscript:v28];
-                          }
-
-                          else
-                          {
-                            if (nrCopyLogObj_onceToken_1721 != -1)
-                            {
-                              dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                            }
-
-                            if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-                            {
-                              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Lost missing candidate %@", v115, v116, v117, v118, v119, "");
-                            }
-                          }
-
-                          goto LABEL_121;
-                        }
-
-LABEL_290:
-                        v378 = nrCopyLogObj_1710();
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-                        }
-
-                        else
-                        {
-                          v379 = v378;
-                          v380 = os_log_type_enabled(v378, OS_LOG_TYPE_FAULT);
-
-                          if (!v380)
-                          {
-                            goto LABEL_123;
-                          }
-                        }
-
-                        v235 = nrCopyLogObj_1710();
-                        v28 = v235;
-                        v241 = "Failed to get lost pairing candidate from message";
-                        goto LABEL_294;
-                      }
-
-                      v230 = nrCopyLogObj_1710();
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-
-LABEL_287:
-                        v356 = nrCopyLogObj_1710();
-                        _NRLogWithArgs(v356, 16, "%s%.30s:%-4d UUID is null for key %s", v373, v374, v375, v376, v377, "");
-                        goto LABEL_288;
-                      }
-
-                      v371 = v230;
-                      v372 = os_log_type_enabled(v230, OS_LOG_TYPE_ERROR);
-
-                      if (v372)
-                      {
-                        goto LABEL_287;
-                      }
-
-LABEL_289:
-
-                      goto LABEL_290;
-                    }
-
-                    v228 = nrCopyLogObj_1710();
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v354 = v228;
-                      v355 = os_log_type_enabled(v228, OS_LOG_TYPE_ERROR);
-
-                      if (!v355)
-                      {
-                        goto LABEL_289;
-                      }
-                    }
-
-                    v356 = nrCopyLogObj_1710();
-                    _NRLogWithArgs(v356, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v357, v358, v359, v360, v361, "");
-LABEL_288:
-
-                    goto LABEL_289;
-                  }
-
-LABEL_123:
-
-LABEL_124:
-                  goto LABEL_125;
-                }
-
-                v75 = objc_opt_class();
-                v76 = v24;
-                v77 = v76;
-                if (v75)
-                {
-                  block = 0;
-                  data = xpc_dictionary_get_data(v76, "DiscoveredPairingCandidate", &block);
-                  if (!data)
-                  {
-                    v229 = nrCopyLogObj_1710();
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v362 = v229;
-                      v363 = os_log_type_enabled(v229, OS_LOG_TYPE_ERROR);
-
-                      if (!v363)
-                      {
-                        goto LABEL_299;
-                      }
-                    }
-
-                    v364 = nrCopyLogObj_1710();
-                    v348 = v364;
-                    v370 = "%s%.30s:%-4d Failed to get XPC data for key %s";
-LABEL_297:
-                    _NRLogWithArgs(v364, 16, v370, v365, v366, v367, v368, v369, "");
-                    goto LABEL_298;
-                  }
-
-                  if (block)
-                  {
-                    v79 = data;
-                    v80 = objc_alloc(MEMORY[0x277CBEA90]);
-                    v81 = [v80 initWithBytesNoCopy:v79 length:block freeWhenDone:0];
-                    v476 = 0;
-                    v82 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v75 fromData:v81 error:&v476];
-                    v83 = v476;
-                    if (!v83 && v82)
-                    {
-                      v84 = v82;
-                      goto LABEL_69;
-                    }
-
-                    v232 = nrCopyLogObj_1710();
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v392 = v232;
-                      v474 = os_log_type_enabled(v232, OS_LOG_TYPE_FAULT);
-
-                      if (!v474)
-                      {
-LABEL_307:
-                        v84 = 0;
-                        v10 = 0x277CCA000;
-LABEL_69:
-
-                        if (v84)
-                        {
-                          v85 = v12[2];
-                          uuid = [v84 uuid];
-                          v87 = [v85 objectForKeyedSubscript:uuid];
-
-                          if (v87)
-                          {
-                            if (nrCopyLogObj_onceToken_1721 != -1)
-                            {
-                              dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                            }
-
-                            if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-                            {
-                              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received duplicate candidate %@", v88, v89, v90, v91, v92, "");
-                            }
-                          }
-
-                          else
-                          {
-                            if (nrCopyLogObj_onceToken_1721 != -1)
-                            {
-                              dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-                            }
-
-                            if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-                            {
-                              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received new candidate %@", v88, v89, v90, v91, v92, "");
-                            }
-
-                            v104 = v12[2];
-                            uuid2 = [v84 uuid];
-                            [v104 setObject:v84 forKeyedSubscript:uuid2];
-
-                            v106 = v12[1];
-                            v84 = v84;
-                            if (v106)
-                            {
-                              v107 = v106;
-                              objc_sync_enter(v107);
-                              v108 = v107[1];
-                              objc_sync_exit(v107);
-
-                              if (v108 == 5)
-                              {
-                                candidateDiscoveredHandler = [v107 candidateDiscoveredHandler];
-
-                                if (candidateDiscoveredHandler)
-                                {
-                                  v110 = v107[7];
-                                  block = MEMORY[0x277D85DD0];
-                                  v478 = 3221225472;
-                                  v479 = __46__NRDevicePairingManager_discoveredCandidate___block_invoke;
-                                  v480 = &unk_27996B248;
-                                  v481 = v107;
-                                  v482 = v84;
-                                  dispatch_async(v110, &block);
-                                }
-                              }
-                            }
-                          }
-
-                          goto LABEL_100;
-                        }
-
-LABEL_300:
-                        v383 = nrCopyLogObj_1710();
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-                        }
-
-                        else
-                        {
-                          v384 = v383;
-                          v385 = os_log_type_enabled(v383, OS_LOG_TYPE_FAULT);
-
-                          if (!v385)
-                          {
-LABEL_304:
-                            v84 = 0;
-LABEL_100:
-
-                            goto LABEL_101;
-                          }
-                        }
-
-                        v386 = nrCopyLogObj_1710();
-                        _NRLogWithArgs(v386, 17, "Failed to get new pairing candidate from message", v387, v388, v389, v390, v391, v465);
-
-                        goto LABEL_304;
-                      }
-                    }
-
-                    v393 = nrCopyLogObj_1710();
-                    _NRLogWithArgs(v393, 17, "Failed to unarchive object of type %@: %@", v394, v395, v396, v397, v398, v75);
-
-                    goto LABEL_307;
-                  }
-
-                  v231 = nrCopyLogObj_1710();
-                  if (sNRCopyLogToStdErr == 1)
-                  {
-
-LABEL_296:
-                    v364 = nrCopyLogObj_1710();
-                    v348 = v364;
-                    v370 = "%s%.30s:%-4d XPC data for key %s is empty";
-                    goto LABEL_297;
-                  }
-
-                  v381 = v231;
-                  v382 = os_log_type_enabled(v231, OS_LOG_TYPE_ERROR);
-
-                  if (v382)
-                  {
-                    goto LABEL_296;
-                  }
-
-LABEL_299:
-
-                  goto LABEL_300;
-                }
-
-                v227 = nrCopyLogObj_1710();
-                if (sNRCopyLogToStdErr == 1)
-                {
-                }
-
-                else
-                {
-                  v346 = v227;
-                  v347 = os_log_type_enabled(v227, OS_LOG_TYPE_FAULT);
-
-                  if (!v347)
-                  {
-                    goto LABEL_299;
-                  }
-                }
-
-                v348 = nrCopyLogObj_1710();
-                _NRLogWithArgs(v348, 17, "%s called with null cls", v349, v350, v351, v352, v353, "nr_xpc_dictionary_get_nsobject");
-LABEL_298:
-
-                goto LABEL_299;
-              }
-
-              if (value != 8)
-              {
-                if (value != 12)
-                {
-                  goto LABEL_57;
-                }
-
-                v24 = v7;
-                v36 = xpc_dictionary_get_value(v24, "Result");
-                v28 = v36;
-                if (v36)
-                {
-                  if (MEMORY[0x25F8746E0](v36) == MEMORY[0x277D86498])
-                  {
-                    v37 = xpc_int64_get_value(v28);
-                    v473 = v28;
-                    if (!v37)
-                    {
-                      v38 = objc_opt_class();
-                      v39 = v24;
-                      v40 = v39;
-                      if (v38)
-                      {
-                        block = 0;
-                        v41 = xpc_dictionary_get_data(v39, "PairedDevice", &block);
-                        if (!v41)
-                        {
-                          v220 = nrCopyLogObj_1710();
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-                          }
-
-                          else
-                          {
-                            v297 = v220;
-                            v298 = os_log_type_enabled(v220, OS_LOG_TYPE_ERROR);
-
-                            if (!v298)
-                            {
-                              goto LABEL_267;
-                            }
-                          }
-
-                          v299 = nrCopyLogObj_1710();
-                          v282 = v299;
-                          v305 = "%s%.30s:%-4d Failed to get XPC data for key %s";
-LABEL_265:
-                          _NRLogWithArgs(v299, 16, v305, v300, v301, v302, v303, v304, "");
-                          goto LABEL_266;
-                        }
-
-                        if (block)
-                        {
-                          v42 = v41;
-                          v43 = objc_alloc(MEMORY[0x277CBEA90]);
-                          v44 = [v43 initWithBytesNoCopy:v42 length:block freeWhenDone:0];
-                          v476 = 0;
-                          v45 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v38 fromData:v44 error:&v476];
-                          v46 = v476;
-                          if (!v46 && v45)
-                          {
-                            v47 = v45;
-                            goto LABEL_36;
-                          }
-
-                          v225 = nrCopyLogObj_1710();
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-                          }
-
-                          else
-                          {
-                            v471 = v225;
-                            v469 = os_log_type_enabled(v225, OS_LOG_TYPE_FAULT);
-
-                            if (!v469)
-                            {
-                              v47 = 0;
-LABEL_36:
-
-                              if (v47)
-                              {
-                                v48 = v40;
-                                v49 = xpc_dictionary_get_uuid(v48, "BluetoothUUID");
-                                if (v49)
-                                {
-                                  v50 = v49;
-                                  if (uuid_is_null(v49))
-                                  {
-                                    v226 = nrCopyLogObj_1710();
-                                    if (sNRCopyLogToStdErr == 1)
-                                    {
-                                    }
-
-                                    else
-                                    {
-                                      v339 = v226;
-                                      v340 = os_log_type_enabled(v226, OS_LOG_TYPE_ERROR);
-
-                                      if (!v340)
-                                      {
-                                        goto LABEL_52;
-                                      }
-                                    }
-
-                                    nrDeviceIdentifier = nrCopyLogObj_1710();
-                                    _NRLogWithArgs(nrDeviceIdentifier, 16, "%s%.30s:%-4d UUID is null for key %s", v341, v342, v343, v344, v345, "");
-                                  }
-
-                                  else
-                                  {
-                                    v51 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v50];
-
-                                    if (!v51)
-                                    {
-                                      goto LABEL_53;
-                                    }
-
-                                    nrDeviceIdentifier = [v47 nrDeviceIdentifier];
-                                    v48 = v51;
-                                    if (nrDeviceIdentifier)
-                                    {
-                                      os_unfair_lock_lock(&sBluetoothUUIDToNRUUIDMappingLock);
-                                      v53 = sBluetoothUUIDToNRUUIDMapping;
-                                      if (!sBluetoothUUIDToNRUUIDMapping)
-                                      {
-                                        v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                                        v55 = sBluetoothUUIDToNRUUIDMapping;
-                                        sBluetoothUUIDToNRUUIDMapping = v54;
-
-                                        v53 = sBluetoothUUIDToNRUUIDMapping;
-                                      }
-
-                                      if ([v53 count] <= 0xF)
-                                      {
-                                        v52NrDeviceIdentifier = [nrDeviceIdentifier nrDeviceIdentifier];
-                                        [sBluetoothUUIDToNRUUIDMapping setObject:v52NrDeviceIdentifier forKeyedSubscript:v48];
-
-                                        if (nrCopyLogObj_onceToken_809 != -1)
-                                        {
-                                          dispatch_once(&nrCopyLogObj_onceToken_809, &__block_literal_global_810);
-                                        }
-
-                                        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_811, OS_LOG_TYPE_INFO))
-                                        {
-                                          v57 = nrCopyLogObj_sNRLogObj_811;
-                                          v52NrDeviceIdentifier2 = [nrDeviceIdentifier nrDeviceIdentifier];
-                                          _NRLogWithArgs(v57, 1, "%s%.30s:%-4d Adding BluetoothUUID %@ to cache for nrUUID %@", v58, v59, v60, v61, v62, "");
-                                        }
-                                      }
-
-                                      os_unfair_lock_unlock(&sBluetoothUUIDToNRUUIDMappingLock);
-                                    }
-                                  }
-                                }
-
-                                else
-                                {
-                                  v224 = nrCopyLogObj_1710();
-                                  if (sNRCopyLogToStdErr == 1)
-                                  {
-                                  }
-
-                                  else
-                                  {
-                                    v326 = v224;
-                                    v327 = os_log_type_enabled(v224, OS_LOG_TYPE_ERROR);
-
-                                    if (!v327)
-                                    {
-                                      goto LABEL_52;
-                                    }
-                                  }
-
-                                  nrDeviceIdentifier = nrCopyLogObj_1710();
-                                  _NRLogWithArgs(nrDeviceIdentifier, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v328, v329, v330, v331, v332, "");
-                                }
-
-LABEL_52:
-LABEL_53:
-                                v63 = v12[1];
-                                v64 = v47;
-                                if (v63)
-                                {
-                                  v65 = v63;
-                                  objc_sync_enter(v65);
-                                  v66 = v65[1];
-                                  objc_sync_exit(v65);
-
-                                  if (v66 == 8)
-                                  {
-                                    v68 = objc_getProperty(v65, v67, 80, 1);
-                                    objc_setProperty_atomic_copy(v65, v69, 0, 80);
-                                    [(NRDevicePairingManager *)v65 setInternalManagerState:?];
-                                    v70 = v65[7];
-                                    block = MEMORY[0x277D85DD0];
-                                    v478 = 3221225472;
-                                    v479 = __59__NRDevicePairingManager_pairingSucceededWithPairedDevice___block_invoke;
-                                    v480 = &unk_27996B298;
-                                    v481 = v65;
-                                    v483 = v68;
-                                    v482 = v64;
-                                    v71 = v68;
-                                    dispatch_async(v70, &block);
-                                  }
-                                }
-
-                                goto LABEL_121;
-                              }
-
-LABEL_268:
-                              v316 = nrCopyLogObj_1710();
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-                              }
-
-                              else
-                              {
-                                v317 = v316;
-                                v318 = os_log_type_enabled(v316, OS_LOG_TYPE_FAULT);
-
-                                if (!v318)
-                                {
-LABEL_272:
-                                  v325 = v12[1];
-                                  v64 = +[NRDevicePairingManager copyXPCError];
-                                  [(NRDevicePairingManager *)v325 pairingFailedWithError:v64];
-
-                                  goto LABEL_121;
-                                }
-                              }
-
-                              v319 = nrCopyLogObj_1710();
-                              _NRLogWithArgs(v319, 17, "Failed to get paired device from message", v320, v321, v322, v323, v324, v465);
-
-                              goto LABEL_272;
-                            }
-                          }
-
-                          v466 = v38;
-                          v333 = nrCopyLogObj_1710();
-                          _NRLogWithArgs(v333, 17, "Failed to unarchive object of type %@: %@", v334, v335, v336, v337, v338, v466);
-
-                          v47 = 0;
-                          goto LABEL_36;
-                        }
-
-                        v222 = nrCopyLogObj_1710();
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-
-LABEL_264:
-                          v299 = nrCopyLogObj_1710();
-                          v282 = v299;
-                          v305 = "%s%.30s:%-4d XPC data for key %s is empty";
-                          goto LABEL_265;
-                        }
-
-                        v314 = v222;
-                        v315 = os_log_type_enabled(v222, OS_LOG_TYPE_ERROR);
-
-                        if (v315)
-                        {
-                          goto LABEL_264;
-                        }
-
-LABEL_267:
-
-                        goto LABEL_268;
-                      }
-
-                      v218 = nrCopyLogObj_1710();
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-                      }
-
-                      else
-                      {
-                        v280 = v218;
-                        v281 = os_log_type_enabled(v218, OS_LOG_TYPE_FAULT);
-
-                        if (!v281)
-                        {
-                          goto LABEL_267;
-                        }
-                      }
-
-                      v282 = nrCopyLogObj_1710();
-                      _NRLogWithArgs(v282, 17, "%s called with null cls", v283, v284, v285, v286, v287, "nr_xpc_dictionary_get_nsobject");
-LABEL_266:
-
-                      goto LABEL_267;
-                    }
-
-                    if (v37 != -3006)
-                    {
-                      v216 = [NRDevicePairingManager copyErrorForCode:v37];
-                      goto LABEL_251;
-                    }
-
-                    v192 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                    v193 = xpc_dictionary_get_value(v24, "BluetoothUUID");
-
-                    if (!v193)
-                    {
-LABEL_183:
-                      v199 = xpc_dictionary_get_value(v24, "NRUUID");
-
-                      if (!v199)
-                      {
-                        goto LABEL_188;
-                      }
-
-                      v200 = v24;
-                      v201 = xpc_dictionary_get_uuid(v200, "NRUUID");
-                      if (v201)
-                      {
-                        v202 = v201;
-                        if (!uuid_is_null(v201))
-                        {
-                          v203 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v202];
-LABEL_187:
-
-                          [v192 setObject:v203 forKeyedSubscript:@"NRDevicePairingErrorOriginalNRUUIDKey"];
-LABEL_188:
-                          v204 = xpc_dictionary_get_value(v24, "UnderlyingError");
-
-                          if (!v204)
-                          {
-LABEL_198:
-                            v216 = [NRDevicePairingManager copyErrorForCode:v192 userInfo:?];
-
-LABEL_251:
-                            [(NRDevicePairingManager *)v12[1] pairingFailedWithError:v216];
-
-                            v28 = v473;
-                            goto LABEL_122;
-                          }
-
-                          v205 = objc_opt_class();
-                          v206 = v24;
-                          v207 = v24;
-                          v208 = v207;
-                          if (v205)
-                          {
-                            block = 0;
-                            v209 = xpc_dictionary_get_data(v207, "UnderlyingError", &block);
-                            if (!v209)
-                            {
-                              v409 = nrCopyLogObj_1710();
-                              v410 = v409;
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-                              }
-
-                              else
-                              {
-                                v447 = os_log_type_enabled(v409, OS_LOG_TYPE_ERROR);
-
-                                if (!v447)
-                                {
-                                  goto LABEL_344;
-                                }
-                              }
-
-                              v212 = nrCopyLogObj_1710();
-                              _NRLogWithArgs(v212, 16, "%s%.30s:%-4d Failed to get XPC data for key %s", v448, v449, v450, v451, v452, "");
-LABEL_343:
-                              v215 = 0;
-                              goto LABEL_196;
-                            }
-
-                            if (block)
-                            {
-                              v210 = v209;
-                              v211 = objc_alloc(MEMORY[0x277CBEA90]);
-                              v212 = [v211 initWithBytesNoCopy:v210 length:block freeWhenDone:0];
-                              v476 = 0;
-                              v213 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v205 fromData:v212 error:&v476];
-                              v214 = v476;
-                              if (v214 || !v213)
-                              {
-                                v413 = nrCopyLogObj_1710();
-                                if (sNRCopyLogToStdErr == 1)
-                                {
-                                }
-
-                                else
-                                {
-                                  v472 = v413;
-                                  v470 = os_log_type_enabled(v413, OS_LOG_TYPE_FAULT);
-
-                                  if (!v470)
-                                  {
-                                    v215 = 0;
-                                    goto LABEL_195;
-                                  }
-                                }
-
-                                v467 = v205;
-                                v459 = nrCopyLogObj_1710();
-                                _NRLogWithArgs(v459, 17, "Failed to unarchive object of type %@: %@", v460, v461, v462, v463, v464, v467);
-
-                                v215 = 0;
-                              }
-
-                              else
-                              {
-                                v215 = v213;
-                              }
-
-LABEL_195:
-
-LABEL_196:
-LABEL_197:
-
-                              [v192 setObject:v215 forKeyedSubscript:@"NRDevicePairingErrorTransportErrorKey"];
-                              v24 = v206;
-                              goto LABEL_198;
-                            }
-
-                            v411 = nrCopyLogObj_1710();
-                            v412 = v411;
-                            if (sNRCopyLogToStdErr == 1)
-                            {
-
-LABEL_342:
-                              v212 = nrCopyLogObj_1710();
-                              _NRLogWithArgs(v212, 16, "%s%.30s:%-4d XPC data for key %s is empty", v454, v455, v456, v457, v458, "");
-                              goto LABEL_343;
-                            }
-
-                            v453 = os_log_type_enabled(v411, OS_LOG_TYPE_ERROR);
-
-                            if (v453)
-                            {
-                              goto LABEL_342;
-                            }
-
-LABEL_344:
-                            v215 = 0;
-                            goto LABEL_197;
-                          }
-
-                          v403 = nrCopyLogObj_1710();
-                          v404 = v403;
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-                          }
-
-                          else
-                          {
-                            v428 = os_log_type_enabled(v403, OS_LOG_TYPE_FAULT);
-
-                            if (!v428)
-                            {
-                              goto LABEL_344;
-                            }
-                          }
-
-                          v429 = nrCopyLogObj_1710();
-                          _NRLogWithArgs(v429, 17, "%s called with null cls", v430, v431, v432, v433, v434, "nr_xpc_dictionary_get_nsobject");
-
-                          v215 = 0;
-                          goto LABEL_197;
-                        }
-
-                        v407 = nrCopyLogObj_1710();
-                        v408 = v407;
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-
-LABEL_336:
-                          v422 = nrCopyLogObj_1710();
-                          _NRLogWithArgs(v422, 16, "%s%.30s:%-4d UUID is null for key %s", v442, v443, v444, v445, v446, "");
-                          goto LABEL_337;
-                        }
-
-                        v441 = os_log_type_enabled(v407, OS_LOG_TYPE_ERROR);
-
-                        if (v441)
-                        {
-                          goto LABEL_336;
-                        }
-
-LABEL_338:
-                        v203 = 0;
-                        goto LABEL_187;
-                      }
-
-                      v401 = nrCopyLogObj_1710();
-                      v402 = v401;
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-                      }
-
-                      else
-                      {
-                        v421 = os_log_type_enabled(v401, OS_LOG_TYPE_ERROR);
-
-                        if (!v421)
-                        {
-                          goto LABEL_338;
-                        }
-                      }
-
-                      v422 = nrCopyLogObj_1710();
-                      _NRLogWithArgs(v422, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v423, v424, v425, v426, v427, "");
-LABEL_337:
-
-                      v203 = 0;
-                      goto LABEL_187;
-                    }
-
-                    v194 = v24;
-                    v195 = v24;
-                    v196 = xpc_dictionary_get_uuid(v195, "BluetoothUUID");
-                    if (v196)
-                    {
-                      v197 = v196;
-                      if (!uuid_is_null(v196))
-                      {
-                        v198 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v197];
-LABEL_182:
-
-                        [v192 setObject:v198 forKeyedSubscript:@"NRDevicePairingErrorOriginalCBUUIDKey"];
-                        v24 = v194;
-                        goto LABEL_183;
-                      }
-
-                      v405 = nrCopyLogObj_1710();
-                      v406 = v405;
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-
-LABEL_332:
-                        v415 = nrCopyLogObj_1710();
-                        _NRLogWithArgs(v415, 16, "%s%.30s:%-4d UUID is null for key %s", v436, v437, v438, v439, v440, "");
-                        goto LABEL_333;
-                      }
-
-                      v435 = os_log_type_enabled(v405, OS_LOG_TYPE_ERROR);
-
-                      if (v435)
-                      {
-                        goto LABEL_332;
-                      }
-
-LABEL_334:
-                      v198 = 0;
-                      goto LABEL_182;
-                    }
-
-                    v399 = nrCopyLogObj_1710();
-                    v400 = v399;
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v414 = os_log_type_enabled(v399, OS_LOG_TYPE_ERROR);
-
-                      if (!v414)
-                      {
-                        goto LABEL_334;
-                      }
-                    }
-
-                    v415 = nrCopyLogObj_1710();
-                    _NRLogWithArgs(v415, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v416, v417, v418, v419, v420, "");
-LABEL_333:
-
-                    v198 = 0;
-                    goto LABEL_182;
-                  }
-
-                  v183 = nrCopyLogObj_1710();
-                  if (sNRCopyLogToStdErr == 1)
-                  {
-
-LABEL_237:
-                    v244 = nrCopyLogObj_1710();
-                    v250 = v244;
-                    v251 = "Start Pairing received invalid result type";
-                    goto LABEL_238;
-                  }
-
-                  v260 = v183;
-                  v261 = os_log_type_enabled(v183, OS_LOG_TYPE_FAULT);
-
-                  if (v261)
-                  {
-                    goto LABEL_237;
-                  }
-
-LABEL_239:
-                  v262 = v12[1];
-                  v64 = +[NRDevicePairingManager copyXPCError];
-                  [(NRDevicePairingManager *)v262 pairingFailedWithError:v64];
-
-                  goto LABEL_121;
-                }
-
-                v181 = nrCopyLogObj_1710();
-                if (sNRCopyLogToStdErr == 1)
-                {
-                }
-
-                else
-                {
-                  v242 = v181;
-                  v243 = os_log_type_enabled(v181, OS_LOG_TYPE_FAULT);
-
-                  if (!v243)
-                  {
-                    goto LABEL_239;
-                  }
-                }
-
-                v244 = nrCopyLogObj_1710();
-                v250 = v244;
-                v251 = "Start Pairing request received response without result code";
-LABEL_238:
-                _NRLogWithArgs(v244, 17, v251, v245, v246, v247, v248, v249, v465);
-
-                goto LABEL_239;
-              }
-
-              v98 = v7;
-              if (nrCopyLogObj_onceToken_1721 != -1)
-              {
-                dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-              }
-
-              if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
-              {
-                _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received auth method request update", v93, v94, v95, v96, v97, "");
-              }
-
-              v24 = v98;
-              v99 = xpc_dictionary_get_uuid(v24, "TargetPairingCandidate");
-              if (v99)
-              {
-                v100 = v99;
-                if (!uuid_is_null(v99))
-                {
-                  v28 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v100];
-
-                  if (v28)
-                  {
-                    v64 = [v12[5] objectForKeyedSubscript:v28];
-                    if (!v64)
-                    {
-                      v217 = nrCopyLogObj_1710();
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-                      }
-
-                      else
-                      {
-                        v273 = v217;
-                        v274 = os_log_type_enabled(v217, OS_LOG_TYPE_ERROR);
-
-                        if (!v274)
-                        {
-                          goto LABEL_121;
-                        }
-                      }
-
-                      v102 = nrCopyLogObj_1710();
-                      _NRLogWithArgs(v102, 16, "%s%.30s:%-4d Pairing target %@ in auth method request result has no outstanding request", v275, v276, v277, v278, v279, "");
-                      goto LABEL_89;
-                    }
-
-                    [v12[5] setObject:0 forKeyedSubscript:v28];
-                    v101 = xpc_dictionary_get_value(v24, "Result");
-                    if (v101)
-                    {
-                      v102 = v101;
-                      if (MEMORY[0x25F8746E0]() == MEMORY[0x277D86498])
-                      {
-                        v103 = xpc_int64_get_value(v102);
-                        if (!v103)
-                        {
-                          v64[2](v64);
-LABEL_89:
-
-LABEL_121:
-                          goto LABEL_122;
-                        }
-
-                        v223 = [NRDevicePairingManager copyErrorForCode:v103];
-                        (v64[2])(v64, v223);
-LABEL_262:
-
-                        goto LABEL_89;
-                      }
-
-                      v221 = nrCopyLogObj_1710();
-                      if (sNRCopyLogToStdErr == 1)
-                      {
-                      }
-
-                      else
-                      {
-                        v306 = v221;
-                        v307 = os_log_type_enabled(v221, OS_LOG_TYPE_FAULT);
-
-                        if (!v307)
-                        {
-LABEL_261:
-                          v223 = +[NRDevicePairingManager copyXPCError];
-                          (v64[2])(v64, v223);
-                          goto LABEL_262;
-                        }
-                      }
-
-                      v308 = nrCopyLogObj_1710();
-                      _NRLogWithArgs(v308, 17, "Register received invalid result type", v309, v310, v311, v312, v313, v465);
-
-                      goto LABEL_261;
-                    }
-
-                    v219 = nrCopyLogObj_1710();
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-                    }
-
-                    else
-                    {
-                      v288 = v219;
-                      v289 = os_log_type_enabled(v219, OS_LOG_TYPE_FAULT);
-
-                      if (!v289)
-                      {
-LABEL_256:
-                        v296 = +[NRDevicePairingManager copyXPCError];
-                        (v64[2])(v64, v296);
-
-                        v102 = 0;
-                        goto LABEL_89;
-                      }
-                    }
-
-                    v290 = nrCopyLogObj_1710();
-                    _NRLogWithArgs(v290, 17, "Auth method request received response without result code", v291, v292, v293, v294, v295, v465);
-
-                    goto LABEL_256;
-                  }
-
-LABEL_244:
-                  v270 = nrCopyLogObj_1710();
+                  v102 = nrCopyLogObj_1710();
                   if (sNRCopyLogToStdErr == 1)
                   {
                   }
 
                   else
                   {
-                    v271 = v270;
-                    v272 = os_log_type_enabled(v270, OS_LOG_TYPE_FAULT);
+                    v118 = v102;
+                    v119 = os_log_type_enabled(v102, OS_LOG_TYPE_FAULT);
 
-                    if (!v272)
+                    if (!v119)
                     {
-                      goto LABEL_123;
+                      goto LABEL_124;
                     }
                   }
 
-                  v235 = nrCopyLogObj_1710();
-                  v28 = v235;
-                  v241 = "Auth method request result missing pairing target UUID";
-                  goto LABEL_294;
+                  v14 = nrCopyLogObj_1710();
+                  _NRLogWithArgs(v14, 17, "Pairing manager %@ is not registered", v11);
+                  goto LABEL_123;
                 }
 
-                v184 = nrCopyLogObj_1710();
-                if (sNRCopyLogToStdErr == 1)
+                value = xpc_uint64_get_value(v5);
+                if (value <= 7)
                 {
+                  if (value != 5)
+                  {
+                    if (value == 7)
+                    {
+                      v14 = v7;
+                      if (nrCopyLogObj_onceToken_1721 != -1)
+                      {
+                        dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                      }
 
-LABEL_241:
-                  v254 = nrCopyLogObj_1710();
-                  _NRLogWithArgs(v254, 16, "%s%.30s:%-4d UUID is null for key %s", v265, v266, v267, v268, v269, "");
-                  goto LABEL_242;
+                      if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                      {
+                        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received auth method request from peer", ", "[NRDevicePairingManagerMuxEntry handleincomingAuthMethodRequest:]"", 171);
+                      }
+
+                      uint64 = xpc_dictionary_get_uint64(v14, "AuthRequestType");
+                      if (!uint64)
+                      {
+                        v122 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v170 = v122;
+                          v171 = os_log_type_enabled(v122, OS_LOG_TYPE_FAULT);
+
+                          if (!v171)
+                          {
+                            goto LABEL_123;
+                          }
+                        }
+
+                        v18 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v18, 17, "Received request for invalid auth method");
+                        goto LABEL_122;
+                      }
+
+                      v16 = uint64;
+                      v17 = xpc_dictionary_get_value(v14, "AuthData");
+                      v18 = v17;
+                      if (v17 && MEMORY[0x25F8746E0](v17) == MEMORY[0x277D86458])
+                      {
+                        v19 = MEMORY[0x277CBEA90];
+                        bytes_ptr = xpc_data_get_bytes_ptr(v18);
+                        v21 = [v19 _newZeroingDataWithBytes:bytes_ptr length:xpc_data_get_length(v18)];
+                        v22 = v12[1];
+                        v23 = v21;
+                        if (v22)
+                        {
+                          authRequestHandler = [v22 authRequestHandler];
+
+                          if (authRequestHandler)
+                          {
+                            v25 = v22[7];
+                            block = MEMORY[0x277D85DD0];
+                            v270 = 3221225472;
+                            v271 = __64__NRDevicePairingManager_receivedRequestForAuthMethod_authData___block_invoke;
+                            v272 = &unk_27996B270;
+                            v273 = v22;
+                            v275 = v16;
+                            v274 = v23;
+                            dispatch_async(v25, &block);
+                          }
+                        }
+                      }
+
+                      else
+                      {
+                        v120 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v127 = v120;
+                          v128 = os_log_type_enabled(v120, OS_LOG_TYPE_FAULT);
+
+                          if (!v128)
+                          {
+                            goto LABEL_122;
+                          }
+                        }
+
+                        v23 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v23, 17, "Received request for auth method with no auth data");
+                      }
+
+LABEL_122:
+                      goto LABEL_123;
+                    }
+
+LABEL_57:
+                    if (nrCopyLogObj_onceToken_1721 != -1)
+                    {
+                      v121 = value;
+                      dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                      value = v121;
+                    }
+
+                    if ((sNRCopyLogToStdErr & 1) != 0 || (v58 = value, v59 = os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT), value = v58, v59))
+                    {
+                      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Received unexpected operation code %llu", value);
+                    }
+
+                    goto LABEL_124;
+                  }
+
+                  v14 = v7;
+                  v60 = xpc_dictionary_get_value(v14, "DiscoveredPairingCandidate");
+
+                  if (!v60)
+                  {
+LABEL_101:
+                    v87 = xpc_dictionary_get_value(v14, "LostPairingCandidate");
+
+                    if (v87)
+                    {
+                      v88 = v14;
+                      v89 = xpc_dictionary_get_uuid(v88, "LostPairingCandidate");
+                      if (v89)
+                      {
+                        v90 = v89;
+                        if (!uuid_is_null(v89))
+                        {
+                          v18 = [objc_alloc(*(v10 + 3448)) initWithUUIDBytes:v90];
+
+                          if (v18)
+                          {
+                            v50 = [v12[2] objectForKeyedSubscript:v18];
+                            if (v50)
+                            {
+                              if (nrCopyLogObj_onceToken_1721 != -1)
+                              {
+                                dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                              }
+
+                              if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                              {
+                                _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Lost candidate %@", ", "[NRDevicePairingManagerMuxEntry handleDiscoveryUpdate:]"", 125, v50);
+                              }
+
+                              v91 = v12[1];
+                              v92 = v50;
+                              if (v91)
+                              {
+                                v93 = v91;
+                                objc_sync_enter(v93);
+                                v94 = v93[1];
+                                objc_sync_exit(v93);
+
+                                if (v94 == 5)
+                                {
+                                  candidateLostHandler = [v93 candidateLostHandler];
+
+                                  if (candidateLostHandler)
+                                  {
+                                    v96 = v93[7];
+                                    block = MEMORY[0x277D85DD0];
+                                    v270 = 3221225472;
+                                    v271 = __40__NRDevicePairingManager_lostCandidate___block_invoke;
+                                    v272 = &unk_27996B248;
+                                    v273 = v93;
+                                    v274 = v92;
+                                    dispatch_async(v96, &block);
+                                  }
+                                }
+                              }
+
+                              [v12[2] setObject:0 forKeyedSubscript:v18];
+                            }
+
+                            else
+                            {
+                              if (nrCopyLogObj_onceToken_1721 != -1)
+                              {
+                                dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                              }
+
+                              if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                              {
+                                _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Lost missing candidate %@", ", "[NRDevicePairingManagerMuxEntry handleDiscoveryUpdate:]"", 129, v18);
+                              }
+                            }
+
+                            goto LABEL_121;
+                          }
+
+LABEL_288:
+                          v222 = nrCopyLogObj_1710();
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+                          }
+
+                          else
+                          {
+                            v223 = v222;
+                            v224 = os_log_type_enabled(v222, OS_LOG_TYPE_FAULT);
+
+                            if (!v224)
+                            {
+                              goto LABEL_123;
+                            }
+                          }
+
+                          v18 = nrCopyLogObj_1710();
+                          _NRLogWithArgs(v18, 17, "Failed to get lost pairing candidate from message");
+                          goto LABEL_122;
+                        }
+
+                        v167 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+
+LABEL_285:
+                          v217 = nrCopyLogObj_1710();
+                          _NRLogWithArgs(v217, 16, "%s%.30s:%-4d UUID is null for key %s");
+                          goto LABEL_286;
+                        }
+
+                        v220 = v167;
+                        v221 = os_log_type_enabled(v167, OS_LOG_TYPE_ERROR);
+
+                        if (v221)
+                        {
+                          goto LABEL_285;
+                        }
+
+LABEL_287:
+
+                        goto LABEL_288;
+                      }
+
+                      v165 = nrCopyLogObj_1710();
+                      if (sNRCopyLogToStdErr == 1)
+                      {
+                      }
+
+                      else
+                      {
+                        v215 = v165;
+                        v216 = os_log_type_enabled(v165, OS_LOG_TYPE_ERROR);
+
+                        if (!v216)
+                        {
+                          goto LABEL_287;
+                        }
+                      }
+
+                      v217 = nrCopyLogObj_1710();
+                      _NRLogWithArgs(v217, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_286:
+
+                      goto LABEL_287;
+                    }
+
+LABEL_123:
+
+LABEL_124:
+                    goto LABEL_125;
+                  }
+
+                  v61 = objc_opt_class();
+                  v62 = v14;
+                  v63 = v62;
+                  if (v61)
+                  {
+                    block = 0;
+                    data = xpc_dictionary_get_data(v62, "DiscoveredPairingCandidate", &block);
+                    if (data)
+                    {
+                      if (block)
+                      {
+                        v65 = data;
+                        v66 = objc_alloc(MEMORY[0x277CBEA90]);
+                        v67 = [v66 initWithBytesNoCopy:v65 length:block freeWhenDone:0];
+                        v268 = 0;
+                        v68 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v61 fromData:v67 error:&v268];
+                        v69 = v268;
+                        if (!v69 && v68)
+                        {
+                          v70 = v68;
+                          goto LABEL_69;
+                        }
+
+                        v169 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v231 = v169;
+                          v266 = os_log_type_enabled(v169, OS_LOG_TYPE_FAULT);
+
+                          if (!v266)
+                          {
+LABEL_303:
+                            v70 = 0;
+                            v10 = 0x277CCA000;
+LABEL_69:
+
+                            if (v70)
+                            {
+                              v71 = v12[2];
+                              uuid = [v70 uuid];
+                              v73 = [v71 objectForKeyedSubscript:uuid];
+
+                              if (v73)
+                              {
+                                if (nrCopyLogObj_onceToken_1721 != -1)
+                                {
+                                  dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                                }
+
+                                if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                                {
+                                  _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received duplicate candidate %@", ", "[NRDevicePairingManagerMuxEntry handleDiscoveryUpdate:]"", 112, v70);
+                                }
+                              }
+
+                              else
+                              {
+                                if (nrCopyLogObj_onceToken_1721 != -1)
+                                {
+                                  dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                                }
+
+                                if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                                {
+                                  _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received new candidate %@", ", "[NRDevicePairingManagerMuxEntry handleDiscoveryUpdate:]"", 108, v70);
+                                }
+
+                                v80 = v12[2];
+                                uuid2 = [v70 uuid];
+                                [v80 setObject:v70 forKeyedSubscript:uuid2];
+
+                                v82 = v12[1];
+                                v70 = v70;
+                                if (v82)
+                                {
+                                  v83 = v82;
+                                  objc_sync_enter(v83);
+                                  v84 = v83[1];
+                                  objc_sync_exit(v83);
+
+                                  if (v84 == 5)
+                                  {
+                                    candidateDiscoveredHandler = [v83 candidateDiscoveredHandler];
+
+                                    if (candidateDiscoveredHandler)
+                                    {
+                                      v86 = v83[7];
+                                      block = MEMORY[0x277D85DD0];
+                                      v270 = 3221225472;
+                                      v271 = __46__NRDevicePairingManager_discoveredCandidate___block_invoke;
+                                      v272 = &unk_27996B248;
+                                      v273 = v83;
+                                      v274 = v70;
+                                      dispatch_async(v86, &block);
+                                    }
+                                  }
+                                }
+                              }
+
+                              goto LABEL_100;
+                            }
+
+LABEL_296:
+                            v227 = nrCopyLogObj_1710();
+                            if (sNRCopyLogToStdErr == 1)
+                            {
+                            }
+
+                            else
+                            {
+                              v228 = v227;
+                              v229 = os_log_type_enabled(v227, OS_LOG_TYPE_FAULT);
+
+                              if (!v229)
+                              {
+LABEL_300:
+                                v70 = 0;
+LABEL_100:
+
+                                goto LABEL_101;
+                              }
+                            }
+
+                            v230 = nrCopyLogObj_1710();
+                            _NRLogWithArgs(v230, 17, "Failed to get new pairing candidate from message");
+
+                            goto LABEL_300;
+                          }
+                        }
+
+                        v232 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v232, 17, "Failed to unarchive object of type %@: %@", v61, v69);
+
+                        goto LABEL_303;
+                      }
+
+                      v168 = nrCopyLogObj_1710();
+                      if (sNRCopyLogToStdErr == 1)
+                      {
+
+LABEL_293:
+                        v214 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v214, 16, "%s%.30s:%-4d XPC data for key %s is empty");
+                        goto LABEL_294;
+                      }
+
+                      v225 = v168;
+                      v226 = os_log_type_enabled(v168, OS_LOG_TYPE_ERROR);
+
+                      if (v226)
+                      {
+                        goto LABEL_293;
+                      }
+
+LABEL_295:
+
+                      goto LABEL_296;
+                    }
+
+                    v166 = nrCopyLogObj_1710();
+                    if (sNRCopyLogToStdErr == 1)
+                    {
+                    }
+
+                    else
+                    {
+                      v218 = v166;
+                      v219 = os_log_type_enabled(v166, OS_LOG_TYPE_ERROR);
+
+                      if (!v219)
+                      {
+                        goto LABEL_295;
+                      }
+                    }
+
+                    v214 = nrCopyLogObj_1710();
+                    _NRLogWithArgs(v214, 16, "%s%.30s:%-4d Failed to get XPC data for key %s");
+                  }
+
+                  else
+                  {
+                    v164 = nrCopyLogObj_1710();
+                    if (sNRCopyLogToStdErr == 1)
+                    {
+                    }
+
+                    else
+                    {
+                      v212 = v164;
+                      v213 = os_log_type_enabled(v164, OS_LOG_TYPE_FAULT);
+
+                      if (!v213)
+                      {
+                        goto LABEL_295;
+                      }
+                    }
+
+                    v214 = nrCopyLogObj_1710();
+                    _NRLogWithArgs(v214, 17, "%s called with null cls");
+                  }
+
+LABEL_294:
+
+                  goto LABEL_295;
                 }
 
-                v263 = v184;
-                v264 = os_log_type_enabled(v184, OS_LOG_TYPE_ERROR);
-
-                if (v264)
+                if (value != 8)
                 {
-                  goto LABEL_241;
+                  if (value != 12)
+                  {
+                    goto LABEL_57;
+                  }
+
+                  v14 = v7;
+                  v26 = xpc_dictionary_get_value(v14, "Result");
+                  v18 = v26;
+                  if (v26)
+                  {
+                    if (MEMORY[0x25F8746E0](v26) == MEMORY[0x277D86498])
+                    {
+                      v27 = xpc_int64_get_value(v18);
+                      v265 = v18;
+                      if (!v27)
+                      {
+                        v28 = objc_opt_class();
+                        v29 = v14;
+                        v30 = v29;
+                        if (v28)
+                        {
+                          block = 0;
+                          v31 = xpc_dictionary_get_data(v29, "PairedDevice", &block);
+                          if (v31)
+                          {
+                            if (block)
+                            {
+                              v32 = v31;
+                              v33 = objc_alloc(MEMORY[0x277CBEA90]);
+                              v34 = [v33 initWithBytesNoCopy:v32 length:block freeWhenDone:0];
+                              v268 = 0;
+                              v35 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v28 fromData:v34 error:&v268];
+                              v36 = v268;
+                              if (!v36 && v35)
+                              {
+                                v37 = v35;
+                                goto LABEL_36;
+                              }
+
+                              v162 = nrCopyLogObj_1710();
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+                              }
+
+                              else
+                              {
+                                v263 = v162;
+                                v261 = os_log_type_enabled(v162, OS_LOG_TYPE_FAULT);
+
+                                if (!v261)
+                                {
+                                  v37 = 0;
+LABEL_36:
+
+                                  if (v37)
+                                  {
+                                    v38 = v30;
+                                    v39 = xpc_dictionary_get_uuid(v38, "BluetoothUUID");
+                                    if (v39)
+                                    {
+                                      v40 = v39;
+                                      if (uuid_is_null(v39))
+                                      {
+                                        v163 = nrCopyLogObj_1710();
+                                        if (sNRCopyLogToStdErr == 1)
+                                        {
+                                        }
+
+                                        else
+                                        {
+                                          v210 = v163;
+                                          v211 = os_log_type_enabled(v163, OS_LOG_TYPE_ERROR);
+
+                                          if (!v211)
+                                          {
+                                            goto LABEL_52;
+                                          }
+                                        }
+
+                                        nrDeviceIdentifier = nrCopyLogObj_1710();
+                                        _NRLogWithArgs(nrDeviceIdentifier, 16, "%s%.30s:%-4d UUID is null for key %s");
+                                      }
+
+                                      else
+                                      {
+                                        v41 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v40];
+
+                                        if (!v41)
+                                        {
+                                          goto LABEL_53;
+                                        }
+
+                                        nrDeviceIdentifier = [v37 nrDeviceIdentifier];
+                                        v38 = v41;
+                                        if (nrDeviceIdentifier)
+                                        {
+                                          os_unfair_lock_lock(&sBluetoothUUIDToNRUUIDMappingLock);
+                                          v43 = sBluetoothUUIDToNRUUIDMapping;
+                                          if (!sBluetoothUUIDToNRUUIDMapping)
+                                          {
+                                            v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                                            v45 = sBluetoothUUIDToNRUUIDMapping;
+                                            sBluetoothUUIDToNRUUIDMapping = v44;
+
+                                            v43 = sBluetoothUUIDToNRUUIDMapping;
+                                          }
+
+                                          if ([v43 count] <= 0xF)
+                                          {
+                                            v42NrDeviceIdentifier = [nrDeviceIdentifier nrDeviceIdentifier];
+                                            [sBluetoothUUIDToNRUUIDMapping setObject:v42NrDeviceIdentifier forKeyedSubscript:v38];
+
+                                            if (nrCopyLogObj_onceToken_809 != -1)
+                                            {
+                                              dispatch_once(&nrCopyLogObj_onceToken_809, &__block_literal_global_810);
+                                            }
+
+                                            if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_811, OS_LOG_TYPE_INFO))
+                                            {
+                                              v47 = nrCopyLogObj_sNRLogObj_811;
+                                              v42NrDeviceIdentifier2 = [nrDeviceIdentifier nrDeviceIdentifier];
+                                              _NRLogWithArgs(v47, 1, "%s%.30s:%-4d Adding BluetoothUUID %@ to cache for nrUUID %@", ", "[NRDeviceIdentifier(InternalDirect) addToCacheForBluetoothUUID:]"", 250, v38, v42NrDeviceIdentifier2);
+                                            }
+                                          }
+
+                                          os_unfair_lock_unlock(&sBluetoothUUIDToNRUUIDMappingLock);
+                                        }
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      v161 = nrCopyLogObj_1710();
+                                      if (sNRCopyLogToStdErr == 1)
+                                      {
+                                      }
+
+                                      else
+                                      {
+                                        v207 = v161;
+                                        v208 = os_log_type_enabled(v161, OS_LOG_TYPE_ERROR);
+
+                                        if (!v208)
+                                        {
+                                          goto LABEL_52;
+                                        }
+                                      }
+
+                                      nrDeviceIdentifier = nrCopyLogObj_1710();
+                                      _NRLogWithArgs(nrDeviceIdentifier, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+                                    }
+
+LABEL_52:
+LABEL_53:
+                                    v49 = v12[1];
+                                    v50 = v37;
+                                    if (v49)
+                                    {
+                                      v51 = v49;
+                                      objc_sync_enter(v51);
+                                      v52 = v51[1];
+                                      objc_sync_exit(v51);
+
+                                      if (v52 == 8)
+                                      {
+                                        v54 = objc_getProperty(v51, v53, 80, 1);
+                                        objc_setProperty_atomic_copy(v51, v55, 0, 80);
+                                        [(NRDevicePairingManager *)v51 setInternalManagerState:?];
+                                        v56 = v51[7];
+                                        block = MEMORY[0x277D85DD0];
+                                        v270 = 3221225472;
+                                        v271 = __59__NRDevicePairingManager_pairingSucceededWithPairedDevice___block_invoke;
+                                        v272 = &unk_27996B298;
+                                        v273 = v51;
+                                        v275 = v54;
+                                        v274 = v50;
+                                        v57 = v54;
+                                        dispatch_async(v56, &block);
+                                      }
+                                    }
+
+                                    goto LABEL_121;
+                                  }
+
+LABEL_266:
+                                  v202 = nrCopyLogObj_1710();
+                                  if (sNRCopyLogToStdErr == 1)
+                                  {
+                                  }
+
+                                  else
+                                  {
+                                    v203 = v202;
+                                    v204 = os_log_type_enabled(v202, OS_LOG_TYPE_FAULT);
+
+                                    if (!v204)
+                                    {
+LABEL_270:
+                                      v206 = v12[1];
+                                      v50 = +[NRDevicePairingManager copyXPCError];
+                                      [(NRDevicePairingManager *)v206 pairingFailedWithError:v50];
+
+                                      goto LABEL_121;
+                                    }
+                                  }
+
+                                  v205 = nrCopyLogObj_1710();
+                                  _NRLogWithArgs(v205, 17, "Failed to get paired device from message");
+
+                                  goto LABEL_270;
+                                }
+                              }
+
+                              v259 = v28;
+                              v209 = nrCopyLogObj_1710();
+                              _NRLogWithArgs(v209, 17, "Failed to unarchive object of type %@: %@", v259, v36);
+
+                              v37 = 0;
+                              goto LABEL_36;
+                            }
+
+                            v159 = nrCopyLogObj_1710();
+                            if (sNRCopyLogToStdErr == 1)
+                            {
+
+LABEL_263:
+                              v190 = nrCopyLogObj_1710();
+                              _NRLogWithArgs(v190, 16, "%s%.30s:%-4d XPC data for key %s is empty");
+                              goto LABEL_264;
+                            }
+
+                            v200 = v159;
+                            v201 = os_log_type_enabled(v159, OS_LOG_TYPE_ERROR);
+
+                            if (v201)
+                            {
+                              goto LABEL_263;
+                            }
+
+LABEL_265:
+
+                            goto LABEL_266;
+                          }
+
+                          v157 = nrCopyLogObj_1710();
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+                          }
+
+                          else
+                          {
+                            v195 = v157;
+                            v196 = os_log_type_enabled(v157, OS_LOG_TYPE_ERROR);
+
+                            if (!v196)
+                            {
+                              goto LABEL_265;
+                            }
+                          }
+
+                          v190 = nrCopyLogObj_1710();
+                          _NRLogWithArgs(v190, 16, "%s%.30s:%-4d Failed to get XPC data for key %s");
+                        }
+
+                        else
+                        {
+                          v155 = nrCopyLogObj_1710();
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+                          }
+
+                          else
+                          {
+                            v188 = v155;
+                            v189 = os_log_type_enabled(v155, OS_LOG_TYPE_FAULT);
+
+                            if (!v189)
+                            {
+                              goto LABEL_265;
+                            }
+                          }
+
+                          v190 = nrCopyLogObj_1710();
+                          _NRLogWithArgs(v190, 17, "%s called with null cls");
+                        }
+
+LABEL_264:
+
+                        goto LABEL_265;
+                      }
+
+                      if (v27 != -3006)
+                      {
+                        v153 = [NRDevicePairingManager copyErrorForCode:v27];
+                        goto LABEL_250;
+                      }
+
+                      v129 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                      v130 = xpc_dictionary_get_value(v14, "BluetoothUUID");
+
+                      if (!v130)
+                      {
+LABEL_182:
+                        v136 = xpc_dictionary_get_value(v14, "NRUUID");
+
+                        if (!v136)
+                        {
+                          goto LABEL_187;
+                        }
+
+                        v137 = v14;
+                        v138 = xpc_dictionary_get_uuid(v137, "NRUUID");
+                        if (v138)
+                        {
+                          v139 = v138;
+                          if (!uuid_is_null(v138))
+                          {
+                            v140 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v139];
+LABEL_186:
+
+                            [v129 setObject:v140 forKeyedSubscript:@"NRDevicePairingErrorOriginalNRUUIDKey"];
+LABEL_187:
+                            v141 = xpc_dictionary_get_value(v14, "UnderlyingError");
+
+                            if (!v141)
+                            {
+LABEL_197:
+                              v153 = [NRDevicePairingManager copyErrorForCode:v129 userInfo:?];
+
+LABEL_250:
+                              [(NRDevicePairingManager *)v12[1] pairingFailedWithError:v153];
+
+                              v18 = v265;
+                              goto LABEL_122;
+                            }
+
+                            v142 = objc_opt_class();
+                            v143 = v14;
+                            v144 = v14;
+                            v145 = v144;
+                            if (v142)
+                            {
+                              block = 0;
+                              v146 = xpc_dictionary_get_data(v144, "UnderlyingError", &block);
+                              if (!v146)
+                              {
+                                v243 = nrCopyLogObj_1710();
+                                v244 = v243;
+                                if (sNRCopyLogToStdErr == 1)
+                                {
+                                }
+
+                                else
+                                {
+                                  v256 = os_log_type_enabled(v243, OS_LOG_TYPE_ERROR);
+
+                                  if (!v256)
+                                  {
+                                    goto LABEL_340;
+                                  }
+                                }
+
+                                v149 = nrCopyLogObj_1710();
+                                _NRLogWithArgs(v149, 16, "%s%.30s:%-4d Failed to get XPC data for key %s");
+LABEL_339:
+                                v152 = 0;
+                                goto LABEL_195;
+                              }
+
+                              if (block)
+                              {
+                                v147 = v146;
+                                v148 = objc_alloc(MEMORY[0x277CBEA90]);
+                                v149 = [v148 initWithBytesNoCopy:v147 length:block freeWhenDone:0];
+                                v268 = 0;
+                                v150 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v142 fromData:v149 error:&v268];
+                                v151 = v268;
+                                if (v151 || !v150)
+                                {
+                                  v247 = nrCopyLogObj_1710();
+                                  if (sNRCopyLogToStdErr == 1)
+                                  {
+                                  }
+
+                                  else
+                                  {
+                                    v264 = v247;
+                                    v262 = os_log_type_enabled(v247, OS_LOG_TYPE_FAULT);
+
+                                    if (!v262)
+                                    {
+                                      v152 = 0;
+                                      goto LABEL_194;
+                                    }
+                                  }
+
+                                  v260 = v142;
+                                  v258 = nrCopyLogObj_1710();
+                                  _NRLogWithArgs(v258, 17, "Failed to unarchive object of type %@: %@", v260, v151);
+
+                                  v152 = 0;
+                                }
+
+                                else
+                                {
+                                  v152 = v150;
+                                }
+
+LABEL_194:
+
+LABEL_195:
+LABEL_196:
+
+                                [v129 setObject:v152 forKeyedSubscript:@"NRDevicePairingErrorTransportErrorKey"];
+                                v14 = v143;
+                                goto LABEL_197;
+                              }
+
+                              v245 = nrCopyLogObj_1710();
+                              v246 = v245;
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+
+LABEL_338:
+                                v149 = nrCopyLogObj_1710();
+                                _NRLogWithArgs(v149, 16, "%s%.30s:%-4d XPC data for key %s is empty");
+                                goto LABEL_339;
+                              }
+
+                              v257 = os_log_type_enabled(v245, OS_LOG_TYPE_ERROR);
+
+                              if (v257)
+                              {
+                                goto LABEL_338;
+                              }
+
+LABEL_340:
+                              v152 = 0;
+                              goto LABEL_196;
+                            }
+
+                            v237 = nrCopyLogObj_1710();
+                            v238 = v237;
+                            if (sNRCopyLogToStdErr == 1)
+                            {
+                            }
+
+                            else
+                            {
+                              v252 = os_log_type_enabled(v237, OS_LOG_TYPE_FAULT);
+
+                              if (!v252)
+                              {
+                                goto LABEL_340;
+                              }
+                            }
+
+                            v253 = nrCopyLogObj_1710();
+                            _NRLogWithArgs(v253, 17, "%s called with null cls", "nr_xpc_dictionary_get_nsobject");
+
+                            v152 = 0;
+                            goto LABEL_196;
+                          }
+
+                          v241 = nrCopyLogObj_1710();
+                          v242 = v241;
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+
+LABEL_332:
+                            v251 = nrCopyLogObj_1710();
+                            _NRLogWithArgs(v251, 16, "%s%.30s:%-4d UUID is null for key %s");
+                            goto LABEL_333;
+                          }
+
+                          v255 = os_log_type_enabled(v241, OS_LOG_TYPE_ERROR);
+
+                          if (v255)
+                          {
+                            goto LABEL_332;
+                          }
+
+LABEL_334:
+                          v140 = 0;
+                          goto LABEL_186;
+                        }
+
+                        v235 = nrCopyLogObj_1710();
+                        v236 = v235;
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v250 = os_log_type_enabled(v235, OS_LOG_TYPE_ERROR);
+
+                          if (!v250)
+                          {
+                            goto LABEL_334;
+                          }
+                        }
+
+                        v251 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v251, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_333:
+
+                        v140 = 0;
+                        goto LABEL_186;
+                      }
+
+                      v131 = v14;
+                      v132 = v14;
+                      v133 = xpc_dictionary_get_uuid(v132, "BluetoothUUID");
+                      if (v133)
+                      {
+                        v134 = v133;
+                        if (!uuid_is_null(v133))
+                        {
+                          v135 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v134];
+LABEL_181:
+
+                          [v129 setObject:v135 forKeyedSubscript:@"NRDevicePairingErrorOriginalCBUUIDKey"];
+                          v14 = v131;
+                          goto LABEL_182;
+                        }
+
+                        v239 = nrCopyLogObj_1710();
+                        v240 = v239;
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+
+LABEL_328:
+                          v249 = nrCopyLogObj_1710();
+                          _NRLogWithArgs(v249, 16, "%s%.30s:%-4d UUID is null for key %s");
+                          goto LABEL_329;
+                        }
+
+                        v254 = os_log_type_enabled(v239, OS_LOG_TYPE_ERROR);
+
+                        if (v254)
+                        {
+                          goto LABEL_328;
+                        }
+
+LABEL_330:
+                        v135 = 0;
+                        goto LABEL_181;
+                      }
+
+                      v233 = nrCopyLogObj_1710();
+                      v234 = v233;
+                      if (sNRCopyLogToStdErr == 1)
+                      {
+                      }
+
+                      else
+                      {
+                        v248 = os_log_type_enabled(v233, OS_LOG_TYPE_ERROR);
+
+                        if (!v248)
+                        {
+                          goto LABEL_330;
+                        }
+                      }
+
+                      v249 = nrCopyLogObj_1710();
+                      _NRLogWithArgs(v249, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_329:
+
+                      v135 = 0;
+                      goto LABEL_181;
+                    }
+
+                    v125 = nrCopyLogObj_1710();
+                    if (sNRCopyLogToStdErr == 1)
+                    {
+
+LABEL_236:
+                      v174 = nrCopyLogObj_1710();
+                      _NRLogWithArgs(v174, 17, "Start Pairing received invalid result type");
+                      goto LABEL_237;
+                    }
+
+                    v178 = v125;
+                    v179 = os_log_type_enabled(v125, OS_LOG_TYPE_FAULT);
+
+                    if (v179)
+                    {
+                      goto LABEL_236;
+                    }
+
+LABEL_238:
+                    v180 = v12[1];
+                    v50 = +[NRDevicePairingManager copyXPCError];
+                    [(NRDevicePairingManager *)v180 pairingFailedWithError:v50];
+
+                    goto LABEL_121;
+                  }
+
+                  v123 = nrCopyLogObj_1710();
+                  if (sNRCopyLogToStdErr == 1)
+                  {
+                  }
+
+                  else
+                  {
+                    v172 = v123;
+                    v173 = os_log_type_enabled(v123, OS_LOG_TYPE_FAULT);
+
+                    if (!v173)
+                    {
+                      goto LABEL_238;
+                    }
+                  }
+
+                  v174 = nrCopyLogObj_1710();
+                  _NRLogWithArgs(v174, 17, "Start Pairing request received response without result code");
+LABEL_237:
+
+                  goto LABEL_238;
                 }
+
+                v74 = v7;
+                if (nrCopyLogObj_onceToken_1721 != -1)
+                {
+                  dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
+                }
+
+                if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
+                {
+                  _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d Received auth method request update", ", "[NRDevicePairingManagerMuxEntry handleAuthMethodRequestUpdate:]"", 136);
+                }
+
+                v14 = v74;
+                v75 = xpc_dictionary_get_uuid(v14, "TargetPairingCandidate");
+                if (v75)
+                {
+                  v76 = v75;
+                  if (!uuid_is_null(v75))
+                  {
+                    v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v76];
+
+                    if (v18)
+                    {
+                      v50 = [v12[5] objectForKeyedSubscript:v18];
+                      if (!v50)
+                      {
+                        v154 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v186 = v154;
+                          v187 = os_log_type_enabled(v154, OS_LOG_TYPE_ERROR);
+
+                          if (!v187)
+                          {
+                            goto LABEL_121;
+                          }
+                        }
+
+                        v78 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v78, 16, "%s%.30s:%-4d Pairing target %@ in auth method request result has no outstanding request", ", "[NRDevicePairingManagerMuxEntry handleAuthMethodRequestUpdate:]"", 144, v18);
+                        goto LABEL_89;
+                      }
+
+                      [v12[5] setObject:0 forKeyedSubscript:v18];
+                      v77 = xpc_dictionary_get_value(v14, "Result");
+                      if (v77)
+                      {
+                        v78 = v77;
+                        if (MEMORY[0x25F8746E0]() == MEMORY[0x277D86498])
+                        {
+                          v79 = xpc_int64_get_value(v78);
+                          if (!v79)
+                          {
+                            v50[2](v50);
+LABEL_89:
+
+LABEL_121:
+                            goto LABEL_122;
+                          }
+
+                          v160 = [NRDevicePairingManager copyErrorForCode:v79];
+                          (v50[2])(v50, v160);
+LABEL_261:
+
+                          goto LABEL_89;
+                        }
+
+                        v158 = nrCopyLogObj_1710();
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v197 = v158;
+                          v198 = os_log_type_enabled(v158, OS_LOG_TYPE_FAULT);
+
+                          if (!v198)
+                          {
+LABEL_260:
+                            v160 = +[NRDevicePairingManager copyXPCError];
+                            (v50[2])(v50, v160);
+                            goto LABEL_261;
+                          }
+                        }
+
+                        v199 = nrCopyLogObj_1710();
+                        _NRLogWithArgs(v199, 17, "Register received invalid result type");
+
+                        goto LABEL_260;
+                      }
+
+                      v156 = nrCopyLogObj_1710();
+                      if (sNRCopyLogToStdErr == 1)
+                      {
+                      }
+
+                      else
+                      {
+                        v191 = v156;
+                        v192 = os_log_type_enabled(v156, OS_LOG_TYPE_FAULT);
+
+                        if (!v192)
+                        {
+LABEL_255:
+                          v194 = +[NRDevicePairingManager copyXPCError];
+                          (v50[2])(v50, v194);
+
+                          v78 = 0;
+                          goto LABEL_89;
+                        }
+                      }
+
+                      v193 = nrCopyLogObj_1710();
+                      _NRLogWithArgs(v193, 17, "Auth method request received response without result code");
+
+                      goto LABEL_255;
+                    }
 
 LABEL_243:
+                    v183 = nrCopyLogObj_1710();
+                    if (sNRCopyLogToStdErr == 1)
+                    {
+                    }
 
-                goto LABEL_244;
+                    else
+                    {
+                      v184 = v183;
+                      v185 = os_log_type_enabled(v183, OS_LOG_TYPE_FAULT);
+
+                      if (!v185)
+                      {
+                        goto LABEL_123;
+                      }
+                    }
+
+                    v18 = nrCopyLogObj_1710();
+                    _NRLogWithArgs(v18, 17, "Auth method request result missing pairing target UUID");
+                    goto LABEL_122;
+                  }
+
+                  v126 = nrCopyLogObj_1710();
+                  if (sNRCopyLogToStdErr == 1)
+                  {
+
+LABEL_240:
+                    v177 = nrCopyLogObj_1710();
+                    _NRLogWithArgs(v177, 16, "%s%.30s:%-4d UUID is null for key %s");
+                    goto LABEL_241;
+                  }
+
+                  v181 = v126;
+                  v182 = os_log_type_enabled(v126, OS_LOG_TYPE_ERROR);
+
+                  if (v182)
+                  {
+                    goto LABEL_240;
+                  }
+
+LABEL_242:
+
+                  goto LABEL_243;
+                }
+
+                v124 = nrCopyLogObj_1710();
+                if (sNRCopyLogToStdErr == 1)
+                {
+                }
+
+                else
+                {
+                  v175 = v124;
+                  v176 = os_log_type_enabled(v124, OS_LOG_TYPE_ERROR);
+
+                  if (!v176)
+                  {
+                    goto LABEL_242;
+                  }
+                }
+
+                v177 = nrCopyLogObj_1710();
+                _NRLogWithArgs(v177, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_241:
+
+                goto LABEL_242;
               }
 
-              v182 = nrCopyLogObj_1710();
+LABEL_156:
+              v115 = nrCopyLogObj_1710();
               if (sNRCopyLogToStdErr == 1)
               {
               }
 
               else
               {
-                v252 = v182;
-                v253 = os_log_type_enabled(v182, OS_LOG_TYPE_ERROR);
+                v116 = v115;
+                v117 = os_log_type_enabled(v115, OS_LOG_TYPE_FAULT);
 
-                if (!v253)
+                if (!v117)
                 {
-                  goto LABEL_243;
+                  goto LABEL_126;
                 }
               }
 
-              v254 = nrCopyLogObj_1710();
-              _NRLogWithArgs(v254, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v255, v256, v257, v258, v259, "");
-LABEL_242:
-
-              goto LABEL_243;
-            }
-
-LABEL_157:
-            v163 = nrCopyLogObj_1710();
-            if (sNRCopyLogToStdErr == 1)
-            {
-            }
-
-            else
-            {
-              v164 = v163;
-              v165 = os_log_type_enabled(v163, OS_LOG_TYPE_FAULT);
-
-              if (!v165)
-              {
-                goto LABEL_126;
-              }
-            }
-
-            v11 = nrCopyLogObj_1710();
-            _NRLogWithArgs(v11, 17, "Pairing manager UUID missing", v166, v167, v168, v169, v170, v465);
+              v11 = nrCopyLogObj_1710();
+              _NRLogWithArgs(v11, 17, "Pairing manager UUID missing");
 LABEL_125:
 
 LABEL_126:
-            v3 = v475;
-            goto LABEL_127;
-          }
+              v3 = v267;
+              goto LABEL_127;
+            }
 
-          v130 = nrCopyLogObj_1710();
-          if (sNRCopyLogToStdErr == 1)
-          {
+            v101 = nrCopyLogObj_1710();
+            if (sNRCopyLogToStdErr == 1)
+            {
 
 LABEL_153:
-            v154 = nrCopyLogObj_1710();
-            v146 = v154;
-            v160 = "%s%.30s:%-4d UUID is null for key %s";
-            goto LABEL_154;
+              v110 = nrCopyLogObj_1710();
+              _NRLogWithArgs(v110, 16, "%s%.30s:%-4d UUID is null for key %s");
+              goto LABEL_154;
+            }
+
+            v113 = v101;
+            v114 = os_log_type_enabled(v101, OS_LOG_TYPE_ERROR);
+
+            if (v114)
+            {
+              goto LABEL_153;
+            }
+
+LABEL_155:
+
+            goto LABEL_156;
           }
 
-          v161 = v130;
-          v162 = os_log_type_enabled(v130, OS_LOG_TYPE_ERROR);
-
-          if (v162)
+          v100 = nrCopyLogObj_1710();
+          if (sNRCopyLogToStdErr == 1)
           {
-            goto LABEL_153;
           }
 
-LABEL_156:
+          else
+          {
+            v111 = v100;
+            v112 = os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
 
-          goto LABEL_157;
-        }
+            if (!v112)
+            {
+              goto LABEL_155;
+            }
+          }
 
-        v128 = nrCopyLogObj_1710();
-        if (sNRCopyLogToStdErr == 1)
-        {
+          v110 = nrCopyLogObj_1710();
+          _NRLogWithArgs(v110, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
         }
 
         else
         {
-          v144 = v128;
-          v145 = os_log_type_enabled(v128, OS_LOG_TYPE_FAULT);
-
-          if (!v145)
+          v99 = nrCopyLogObj_1710();
+          if (sNRCopyLogToStdErr == 1)
           {
-            goto LABEL_156;
           }
+
+          else
+          {
+            v108 = v99;
+            v109 = os_log_type_enabled(v99, OS_LOG_TYPE_FAULT);
+
+            if (!v109)
+            {
+              goto LABEL_155;
+            }
+          }
+
+          v110 = nrCopyLogObj_1710();
+          _NRLogWithArgs(v110, 17, "%s called with null dict");
         }
 
-        v146 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v146, 17, "%s called with null dict", v147, v148, v149, v150, v151, "nr_xpc_dictionary_get_nsuuid");
-LABEL_155:
+LABEL_154:
 
-        goto LABEL_156;
+        goto LABEL_155;
       }
 
-      v127 = nrCopyLogObj_1710();
+      v98 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
 
 LABEL_145:
-        v134 = nrCopyLogObj_1710();
-        v140 = v134;
-        v141 = "Received invalid operation code type";
+        v105 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v105, 17, "Received invalid operation code type");
         goto LABEL_146;
       }
 
-      v142 = v127;
-      v143 = os_log_type_enabled(v127, OS_LOG_TYPE_FAULT);
+      v106 = v98;
+      v107 = os_log_type_enabled(v98, OS_LOG_TYPE_FAULT);
 
-      if (v143)
+      if (v107)
       {
         goto LABEL_145;
       }
@@ -2563,27 +2523,25 @@ LABEL_147:
       goto LABEL_125;
     }
 
-    v126 = nrCopyLogObj_1710();
+    v97 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v132 = v126;
-      v133 = os_log_type_enabled(v126, OS_LOG_TYPE_FAULT);
+      v103 = v97;
+      v104 = os_log_type_enabled(v97, OS_LOG_TYPE_FAULT);
 
-      if (!v133)
+      if (!v104)
       {
         goto LABEL_147;
       }
     }
 
-    v134 = nrCopyLogObj_1710();
-    v140 = v134;
-    v141 = "Received unsolicited message without operation code";
+    v105 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v105, 17, "Received unsolicited message without operation code");
 LABEL_146:
-    _NRLogWithArgs(v134, 17, v141, v135, v136, v137, v138, v139, v465);
 
     goto LABEL_147;
   }
@@ -2600,7 +2558,7 @@ LABEL_127:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 0, "%s%.30s:%-4d Dealloc %@", v2, v3, v4, v5, v6, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 0, "%s%.30s:%-4d Dealloc %@", ", "[NRDevicePairingManagerMux dealloc]"", 216, self);
   }
 
   if (self)
@@ -2609,14 +2567,14 @@ LABEL_127:
     if (connection)
     {
       xpc_connection_cancel(connection);
-      v9 = self->_connection;
+      v4 = self->_connection;
       self->_connection = 0;
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = NRDevicePairingManagerMux;
-  [(NRDevicePairingManagerMux *)&v10 dealloc];
+  v5.receiver = self;
+  v5.super_class = NRDevicePairingManagerMux;
+  [(NRDevicePairingManagerMux *)&v5 dealloc];
 }
 
 - (void)unregisterPairingManager:(void *)manager withCompletion:
@@ -2672,7 +2630,7 @@ LABEL_20:
         v18 = v17;
         xpc_dictionary_set_uint64(v17, "PairingManagerOperation", 2uLL);
         *uuid = 0;
-        v79 = 0;
+        v61 = 0;
         [uuid getUUIDBytes:uuid];
         v19 = xpc_array_create(0, 0);
         v20 = v19;
@@ -2687,11 +2645,11 @@ LABEL_20:
           handler[1] = 3221225472;
           handler[2] = __69__NRDevicePairingManagerMux_unregisterPairingManager_withCompletion___block_invoke;
           handler[3] = &unk_27996B350;
-          objc_copyWeak(&v77, location);
-          v74 = uuid;
-          v76 = managerCopy;
+          objc_copyWeak(&v59, location);
+          v56 = uuid;
+          v58 = managerCopy;
           v23 = v18;
-          v75 = v23;
+          v57 = v23;
           xpc_connection_send_message_with_reply(v21, v23, v22, handler);
 
           if (nrCopyLogObj_onceToken_1721 != -1)
@@ -2713,7 +2671,7 @@ LABEL_20:
             {
 LABEL_19:
 
-              objc_destroyWeak(&v77);
+              objc_destroyWeak(&v59);
               objc_destroyWeak(location);
 
               goto LABEL_20;
@@ -2726,103 +2684,101 @@ LABEL_19:
           }
 
           v27 = nrCopyLogObj_sNRLogObj_1723;
-          _NRLogWithArgs(v27, 1, "%s%.30s:%-4d Sent unregistration message: %@", v28, v29, v30, v31, v32, "");
+          _NRLogWithArgs(v27, 1, "%s%.30s:%-4d Sent unregistration message: %@", ", "[NRDevicePairingManagerMux unregisterPairingManager:withCompletion:]"", 518, v23);
 
           goto LABEL_19;
         }
 
-        v36 = nrCopyLogObj_1710();
+        v30 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v59 = v36;
-          v60 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+          v44 = v30;
+          v45 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-          if (!v60)
+          if (!v45)
           {
             goto LABEL_36;
           }
         }
 
-        v61 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v61, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", v62, v63, v64, v65, v66, "");
+        v46 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", ", "nr_xpc_array_create"", 56, 0, 0);
 
 LABEL_36:
-        v67 = _os_log_pack_size();
-        MEMORY[0x28223BE20](v67, v68);
-        v69 = *__error();
-        v70 = _os_log_pack_fill();
-        __os_log_helper_1_2_3_8_34_8_0_4_0(v70, "nr_xpc_array_create");
-        v71 = nrCopyLogObj_1710();
-        _NRLogAbortWithPack(v71);
+        v47 = _os_log_pack_size();
+        v49 = &v53 - ((MEMORY[0x28223BE20](v47, v48) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v50 = __error();
+        v51 = _os_log_pack_fill(v49, v47, *v50, &dword_25B98C000, "%{public}s xpc_array_create(%p, %u) failed");
+        __os_log_helper_1_2_3_8_34_8_0_4_0(v51, "nr_xpc_array_create");
+        v52 = nrCopyLogObj_1710();
+        _NRLogAbortWithPack(v52, v49);
       }
 
-      v35 = nrCopyLogObj_1710();
+      v29 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v46 = v35;
-        v47 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+        v35 = v29;
+        v36 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
 
-        if (!v47)
+        if (!v36)
         {
           goto LABEL_33;
         }
       }
 
-      v48 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v48, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v49, v50, v51, v52, v53, "");
+      v37 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_33:
-      v54 = _os_log_pack_size();
-      MEMORY[0x28223BE20](v54, v55);
-      v56 = *__error();
-      v57 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v57, "nr_xpc_dictionary_create");
-      v58 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v58);
+      v38 = _os_log_pack_size();
+      v40 = &v53 - ((MEMORY[0x28223BE20](v38, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v41 = __error();
+      v42 = _os_log_pack_fill(v40, v38, *v41, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v42, "nr_xpc_dictionary_create");
+      v43 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v43, v40);
     }
 
-    v34 = nrCopyLogObj_1710();
+    v28 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v37 = v34;
-      v38 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+      v31 = v28;
+      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-      if (!v38)
+      if (!v32)
       {
 LABEL_30:
-        v45 = +[NRDevicePairingManager copyXPCError];
-        (managerCopy)[2](managerCopy, v45);
+        v34 = +[NRDevicePairingManager copyXPCError];
+        (managerCopy)[2](managerCopy, v34);
 
         goto LABEL_21;
       }
     }
 
-    v39 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v39, 16, "%s%.30s:%-4d Unregister pairing manager request with no XPC connection", v40, v41, v42, v43, v44, "");
+    v33 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d Unregister pairing manager request with no XPC connection", ", "[NRDevicePairingManagerMux unregisterPairingManager:withCompletion:]"", 452);
 
     goto LABEL_30;
   }
 
 LABEL_21:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __69__NRDevicePairingManagerMux_unregisterPairingManager_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v4 = WeakRetained;
@@ -2839,16 +2795,11 @@ void __69__NRDevicePairingManagerMux_unregisterPairingManager_withCompletion___b
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_27;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Unregister could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux unregisterPairingManager:withCompletion:]_block_invoke"", 508, *(a1 + 40), xdict);
         }
 
-        v11 = nrCopyLogObj_sNRLogObj_1723;
-        v42 = *(a1 + 40);
-        v41 = "";
-        v12 = "%s%.30s:%-4d Unregister could not deliver message %@, error %@";
-        v13 = 16;
         goto LABEL_26;
       }
 
@@ -2857,51 +2808,49 @@ void __69__NRDevicePairingManagerMux_unregisterPairingManager_withCompletion___b
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Unregister received unexpected XPC object: %@", v6, v7, v8, v9, v10, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Unregister received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux unregisterPairingManager:withCompletion:]_block_invoke"", 512, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_27:
-            v17 = *(a1 + 48);
-            objc_opt_self();
-            v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v44 = *MEMORY[0x277CCA450];
-            v19 = v44;
-            v45[0] = @"An XPC connection error occurred";
-            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-            v21 = [v18 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v20];
-
-            (*(v17 + 16))(v17, v21);
-            objc_opt_self();
-            v22 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v44 = v19;
-            v45[0] = @"An XPC connection error occurred";
-            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-            v15 = [v22 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v23];
-
-            [(NRDevicePairingManagerMux *)v4 invalidateManagersWithError:v15];
-LABEL_28:
-
-            goto LABEL_29;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v11 = nrCopyLogObj_sNRLogObj_1723;
-      v12 = "Unregister received unexpected XPC object";
-      v13 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_26:
-      _NRLogWithArgs(v11, v13, v12, v6, v7, v8, v9, v10, v41);
-      goto LABEL_27;
+        v9 = *(a1 + 48);
+        objc_opt_self();
+        v10 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v32 = *MEMORY[0x277CCA450];
+        v11 = v32;
+        v33[0] = @"An XPC connection error occurred";
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v13 = [v10 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v12];
+
+        (*(v9 + 16))(v9, v13);
+        objc_opt_self();
+        v14 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v32 = v11;
+        v33[0] = @"An XPC connection error occurred";
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v7 = [v14 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v15];
+
+        [(NRDevicePairingManagerMux *)v4 invalidateManagersWithError:v7];
+LABEL_27:
+
+        goto LABEL_28;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Unregister received unexpected XPC object", v27, v28, v29, v30);
+      goto LABEL_26;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -2911,19 +2860,19 @@ LABEL_26:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Unregister received XPC dict: %@", v6, v7, v8, v9, v10, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Unregister received XPC dict: %@", ", "[NRDevicePairingManagerMux unregisterPairingManager:withCompletion:]_block_invoke"", 485, xdict);
     }
 
-    v14 = xpc_dictionary_get_value(xdict, "Result");
-    v15 = v14;
-    if (v14)
+    v6 = xpc_dictionary_get_value(xdict, "Result");
+    v7 = v6;
+    if (v6)
     {
-      if (MEMORY[0x25F8746E0](v14) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v6) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v15);
+        value = xpc_int64_get_value(v7);
         if (value)
         {
-          v27 = [NRDevicePairingManager copyErrorForCode:?];
+          v18 = [NRDevicePairingManager copyErrorForCode:?];
           (*(*(a1 + 48) + 16))();
         }
 
@@ -2932,70 +2881,68 @@ LABEL_26:
           (*(*(a1 + 48) + 16))();
         }
 
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
-      v25 = nrCopyLogObj_1710();
+      v16 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v26 = "Unregister received invalid result type";
-        goto LABEL_36;
+        v17 = "Unregister received invalid result type";
+        goto LABEL_35;
       }
 
-      v30 = v25;
-      v31 = os_log_type_enabled(v25, OS_LOG_TYPE_FAULT);
+      v21 = v16;
+      v22 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-      if (v31)
+      if (v22)
       {
-        v26 = "Unregister received invalid result type";
-        goto LABEL_44;
+        v17 = "Unregister received invalid result type";
+        goto LABEL_43;
       }
     }
 
     else
     {
-      v25 = nrCopyLogObj_1710();
+      v16 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v26 = "received response without result code";
-LABEL_36:
+        v17 = "received response without result code";
+LABEL_35:
 
-LABEL_44:
-        v32 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v32, 17, v26, v33, v34, v35, v36, v37, v41);
+LABEL_43:
+        v23 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v23, 17, v17);
 
-        goto LABEL_45;
+        goto LABEL_44;
       }
 
-      v28 = v25;
-      v29 = os_log_type_enabled(v25, OS_LOG_TYPE_FAULT);
+      v19 = v16;
+      v20 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-      if (v29)
+      if (v20)
       {
-        v26 = "received response without result code";
-        goto LABEL_44;
+        v17 = "received response without result code";
+        goto LABEL_43;
       }
     }
 
-LABEL_45:
-    v38 = *(a1 + 48);
-    v39 = +[NRDevicePairingManager copyXPCError];
-    (*(v38 + 16))(v38, v39);
+LABEL_44:
+    v24 = *(a1 + 48);
+    v25 = +[NRDevicePairingManager copyXPCError];
+    (*(v24 + 16))(v24, v25);
 
-    v40 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)v4 invalidateManagersWithError:v40];
+    v26 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)v4 invalidateManagersWithError:v26];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_29:
-
-  v24 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 - (void)startDiscoveryForPairingManager:(void *)manager withCompletion:
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   managerCopy = manager;
   if (self)
@@ -3024,30 +2971,30 @@ LABEL_29:
         if (v12)
         {
           *uuid = 0;
-          v67 = 0;
+          v48 = 0;
           [v12 getUUIDBytes:uuid];
           xpc_dictionary_set_uuid(v11, "PairingManager", uuid);
           goto LABEL_8;
         }
 
-        v30 = nrCopyLogObj_1710();
+        v24 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v53 = v30;
-          v54 = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
+          v38 = v24;
+          v39 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
 
-          if (!v54)
+          if (!v39)
           {
             goto LABEL_8;
           }
         }
 
-        v55 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v55, 17, "%s called with null uuid", v56, v57, v58, v59, v60, "nr_xpc_dictionary_set_nsuuid");
+        v40 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v40, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_8:
         xpc_dictionary_set_uint64(v11, "PairingManagerOperation", 3uLL);
@@ -3058,12 +3005,12 @@ LABEL_8:
         handler[1] = 3221225472;
         handler[2] = __76__NRDevicePairingManagerMux_startDiscoveryForPairingManager_withCompletion___block_invoke;
         handler[3] = &unk_27996B350;
-        objc_copyWeak(&v65, uuid);
-        v64 = managerCopy;
+        objc_copyWeak(&v46, uuid);
+        v45 = managerCopy;
         v16 = v13;
-        v62 = v16;
+        v43 = v16;
         v17 = v11;
-        v63 = v17;
+        v44 = v17;
         xpc_connection_send_message_with_reply(v14, v17, v15, handler);
 
         if (nrCopyLogObj_onceToken_1721 != -1)
@@ -3085,7 +3032,7 @@ LABEL_8:
           {
 LABEL_16:
 
-            objc_destroyWeak(&v65);
+            objc_destroyWeak(&v46);
             objc_destroyWeak(uuid);
 
             goto LABEL_17;
@@ -3098,74 +3045,72 @@ LABEL_16:
         }
 
         v21 = nrCopyLogObj_sNRLogObj_1723;
-        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent discovery start message: %@", v22, v23, v24, v25, v26, "");
+        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent discovery start message: %@", ", "[NRDevicePairingManagerMux startDiscoveryForPairingManager:withCompletion:]"", 577, v17);
 
         goto LABEL_16;
       }
 
-      v29 = nrCopyLogObj_1710();
+      v23 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v40 = v29;
-        v41 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+        v29 = v23;
+        v30 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
 
-        if (!v41)
+        if (!v30)
         {
           goto LABEL_29;
         }
       }
 
-      v42 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v42, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v43, v44, v45, v46, v47, "");
+      v31 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_29:
-      v48 = _os_log_pack_size();
-      MEMORY[0x28223BE20](v48, v49);
-      v50 = *__error();
-      v51 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v51, "nr_xpc_dictionary_create");
-      v52 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v52);
+      v32 = _os_log_pack_size();
+      v34 = &handler[-1] - ((MEMORY[0x28223BE20](v32, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = __error();
+      v36 = _os_log_pack_fill(v34, v32, *v35, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v36, "nr_xpc_dictionary_create");
+      v37 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v37, v34);
     }
 
-    v28 = nrCopyLogObj_1710();
+    v22 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v31 = v28;
-      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+      v25 = v22;
+      v26 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
 
-      if (!v32)
+      if (!v26)
       {
 LABEL_26:
-        v39 = +[NRDevicePairingManager copyXPCError];
-        (*(managerCopy + 2))(managerCopy, v39);
+        v28 = +[NRDevicePairingManager copyXPCError];
+        (*(managerCopy + 2))(managerCopy, v28);
 
         goto LABEL_17;
       }
     }
 
-    v33 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d Start discovery request with no XPC connection", v34, v35, v36, v37, v38, "");
+    v27 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v27, 16, "%s%.30s:%-4d Start discovery request with no XPC connection", ", "[NRDevicePairingManagerMux startDiscoveryForPairingManager:withCompletion:]"", 525);
 
     goto LABEL_26;
   }
 
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __76__NRDevicePairingManagerMux_startDiscoveryForPairingManager_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -3180,16 +3125,11 @@ void __76__NRDevicePairingManagerMux_startDiscoveryForPairingManager_withComplet
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_29;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start discovery could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux startDiscoveryForPairingManager:withCompletion:]_block_invoke"", 567, *(a1 + 40), xdict);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v45 = *(a1 + 40);
-        v44 = "";
-        v11 = "%s%.30s:%-4d Start discovery could not deliver message %@, error %@";
-        v12 = 16;
         goto LABEL_28;
       }
 
@@ -3198,51 +3138,49 @@ void __76__NRDevicePairingManagerMux_startDiscoveryForPairingManager_withComplet
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start discovery received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start discovery received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux startDiscoveryForPairingManager:withCompletion:]_block_invoke"", 571, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_29:
-            v20 = *(a1 + 48);
-            objc_opt_self();
-            v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v47 = *MEMORY[0x277CCA450];
-            v22 = v47;
-            v48[0] = @"An XPC connection error occurred";
-            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-            v24 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v23];
-
-            (*(v20 + 16))(v20, v24);
-            objc_opt_self();
-            v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v47 = v22;
-            v48[0] = @"An XPC connection error occurred";
-            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-            v14 = [v25 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v26];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v14];
-LABEL_30:
-
-            goto LABEL_31;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Start discovery received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_28:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v44);
-      goto LABEL_29;
+        v12 = *(a1 + 48);
+        objc_opt_self();
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v35 = *MEMORY[0x277CCA450];
+        v14 = v35;
+        v36[0] = @"An XPC connection error occurred";
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+        v16 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v15];
+
+        (*(v12 + 16))(v12, v16);
+        objc_opt_self();
+        v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v35 = v14;
+        v36[0] = @"An XPC connection error occurred";
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+        v6 = [v17 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v18];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v6];
+LABEL_29:
+
+        goto LABEL_30;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Start discovery received unexpected XPC object", v30, v31, v32, v33);
+      goto LABEL_28;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -3252,102 +3190,100 @@ LABEL_28:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Start discovery received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Start discovery received XPC dict: %@", ", "[NRDevicePairingManagerMux startDiscoveryForPairingManager:withCompletion:]_block_invoke"", 543, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v14 = v13;
-    if (v13)
+    v5 = xpc_dictionary_get_value(xdict, "Result");
+    v6 = v5;
+    if (v5)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v5) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v14);
+        value = xpc_int64_get_value(v6);
         if (value)
         {
-          v30 = [NRDevicePairingManager copyErrorForCode:?];
+          v21 = [NRDevicePairingManager copyErrorForCode:?];
           (*(*(a1 + 48) + 16))();
         }
 
         else
         {
-          v16 = *(a1 + 32);
-          v17 = WeakRetained[2];
-          v18 = [v17 objectForKeyedSubscript:v16];
-          v19 = v18;
-          if (v18)
+          v8 = *(a1 + 32);
+          v9 = WeakRetained[2];
+          v10 = [v9 objectForKeyedSubscript:v8];
+          v11 = v10;
+          if (v10)
           {
-            v18 = v18[2];
+            v10 = v10[2];
           }
 
-          [v18 removeAllObjects];
+          [v10 removeAllObjects];
 
           (*(*(a1 + 48) + 16))();
         }
 
-        goto LABEL_30;
+        goto LABEL_29;
       }
 
-      v28 = nrCopyLogObj_1710();
+      v19 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v29 = "Start discovery received invalid result type";
-        goto LABEL_38;
+        v20 = "Start discovery received invalid result type";
+        goto LABEL_37;
       }
 
-      v33 = v28;
-      v34 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
+      v24 = v19;
+      v25 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
 
-      if (v34)
+      if (v25)
       {
-        v29 = "Start discovery received invalid result type";
-        goto LABEL_46;
+        v20 = "Start discovery received invalid result type";
+        goto LABEL_45;
       }
     }
 
     else
     {
-      v28 = nrCopyLogObj_1710();
+      v19 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v29 = "Start discovery received response without result code";
-LABEL_38:
+        v20 = "Start discovery received response without result code";
+LABEL_37:
 
-LABEL_46:
-        v35 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v35, 17, v29, v36, v37, v38, v39, v40, v44);
+LABEL_45:
+        v26 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v26, 17, v20);
 
-        goto LABEL_47;
+        goto LABEL_46;
       }
 
-      v31 = v28;
-      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
+      v22 = v19;
+      v23 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
 
-      if (v32)
+      if (v23)
       {
-        v29 = "Start discovery received response without result code";
-        goto LABEL_46;
+        v20 = "Start discovery received response without result code";
+        goto LABEL_45;
       }
     }
 
-LABEL_47:
-    v41 = *(a1 + 48);
-    v42 = +[NRDevicePairingManager copyXPCError];
-    (*(v41 + 16))(v41, v42);
+LABEL_46:
+    v27 = *(a1 + 48);
+    v28 = +[NRDevicePairingManager copyXPCError];
+    (*(v27 + 16))(v27, v28);
 
-    v43 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v43];
+    v29 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v29];
 
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
-LABEL_31:
-
-  v27 = *MEMORY[0x277D85DE8];
+LABEL_30:
 }
 
 - (void)stopDiscoveryForPairingManager:(void *)manager withCompletion:
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a2;
   managerCopy = manager;
   if (self)
@@ -3376,45 +3312,45 @@ LABEL_31:
         if (v13)
         {
           *uuid = 0;
-          v66 = 0;
+          v49 = 0;
           [v13 getUUIDBytes:uuid];
           xpc_dictionary_set_uuid(v12, "PairingManager", uuid);
           goto LABEL_8;
         }
 
-        v30 = nrCopyLogObj_1710();
+        v24 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v53 = v30;
-          v54 = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
+          v38 = v24;
+          v39 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
 
-          if (!v54)
+          if (!v39)
           {
             goto LABEL_8;
           }
         }
 
-        v55 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v55, 17, "%s called with null uuid", v56, v57, v58, v59, v60, "nr_xpc_dictionary_set_nsuuid");
+        v40 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v40, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_8:
         xpc_dictionary_set_uint64(v12, "PairingManagerOperation", 4uLL);
         objc_initWeak(uuid, self);
         v15 = self[3];
         v16 = self[4];
-        handler[0] = MEMORY[0x277D85DD0];
-        handler[1] = 3221225472;
-        handler[2] = __75__NRDevicePairingManagerMux_stopDiscoveryForPairingManager_withCompletion___block_invoke;
-        handler[3] = &unk_27996B328;
-        objc_copyWeak(&v64, uuid);
-        v63 = managerCopy;
+        handler = MEMORY[0x277D85DD0];
+        v42 = 3221225472;
+        v43 = __75__NRDevicePairingManagerMux_stopDiscoveryForPairingManager_withCompletion___block_invoke;
+        v44 = &unk_27996B328;
+        objc_copyWeak(&v47, uuid);
+        v46 = managerCopy;
         v17 = v12;
-        v62 = v17;
-        xpc_connection_send_message_with_reply(v15, v17, v16, handler);
+        v45 = v17;
+        xpc_connection_send_message_with_reply(v15, v17, v16, &handler);
 
         if (nrCopyLogObj_onceToken_1721 != -1)
         {
@@ -3435,7 +3371,7 @@ LABEL_8:
           {
 LABEL_16:
 
-            objc_destroyWeak(&v64);
+            objc_destroyWeak(&v47);
             objc_destroyWeak(uuid);
 
             goto LABEL_17;
@@ -3448,74 +3384,72 @@ LABEL_16:
         }
 
         v21 = nrCopyLogObj_sNRLogObj_1723;
-        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent discovery stop message: %@", v22, v23, v24, v25, v26, "");
+        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent discovery stop message: %@", ", "[NRDevicePairingManagerMux stopDiscoveryForPairingManager:withCompletion:]"", 634, v17, handler, v42, v43, v44);
 
         goto LABEL_16;
       }
 
-      v29 = nrCopyLogObj_1710();
+      v23 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v40 = v29;
-        v41 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+        v29 = v23;
+        v30 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
 
-        if (!v41)
+        if (!v30)
         {
           goto LABEL_29;
         }
       }
 
-      v42 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v42, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v43, v44, v45, v46, v47, "");
+      v31 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_29:
-      v48 = _os_log_pack_size();
-      MEMORY[0x28223BE20](v48, v49);
-      v50 = *__error();
-      v51 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v51, "nr_xpc_dictionary_create");
-      v52 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v52);
+      v32 = _os_log_pack_size();
+      v34 = &handler - ((MEMORY[0x28223BE20](v32, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = __error();
+      v36 = _os_log_pack_fill(v34, v32, *v35, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v36, "nr_xpc_dictionary_create");
+      v37 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v37, v34);
     }
 
-    v28 = nrCopyLogObj_1710();
+    v22 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v31 = v28;
-      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+      v25 = v22;
+      v26 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
 
-      if (!v32)
+      if (!v26)
       {
 LABEL_26:
-        v39 = +[NRDevicePairingManager copyXPCError];
-        (*(managerCopy + 2))(managerCopy, v39);
+        v28 = +[NRDevicePairingManager copyXPCError];
+        (*(managerCopy + 2))(managerCopy, v28);
 
         goto LABEL_17;
       }
     }
 
-    v33 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d Stop discovery request with no XPC connection", v34, v35, v36, v37, v38, "");
+    v27 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v27, 16, "%s%.30s:%-4d Stop discovery request with no XPC connection", ", "[NRDevicePairingManagerMux stopDiscoveryForPairingManager:withCompletion:]"", 584);
 
     goto LABEL_26;
   }
 
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NRDevicePairingManagerMux_stopDiscoveryForPairingManager_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -3530,16 +3464,11 @@ void __75__NRDevicePairingManagerMux_stopDiscoveryForPairingManager_withCompleti
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_27;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop discovery could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux stopDiscoveryForPairingManager:withCompletion:]_block_invoke"", 624, *(a1 + 32), xdict);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v41 = *(a1 + 32);
-        v40 = "";
-        v11 = "%s%.30s:%-4d Stop discovery could not deliver message %@, error %@";
-        v12 = 16;
         goto LABEL_26;
       }
 
@@ -3548,51 +3477,49 @@ void __75__NRDevicePairingManagerMux_stopDiscoveryForPairingManager_withCompleti
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop discovery received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop discovery received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux stopDiscoveryForPairingManager:withCompletion:]_block_invoke"", 628, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_27:
-            v16 = *(a1 + 40);
-            objc_opt_self();
-            v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v43 = *MEMORY[0x277CCA450];
-            v18 = v43;
-            v44[0] = @"An XPC connection error occurred";
-            v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-            v20 = [v17 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v19];
-
-            (*(v16 + 16))(v16, v20);
-            objc_opt_self();
-            v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v43 = v18;
-            v44[0] = @"An XPC connection error occurred";
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-            v14 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v22];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v14];
-LABEL_28:
-
-            goto LABEL_29;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Stop discovery received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_26:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v40);
-      goto LABEL_27;
+        v8 = *(a1 + 40);
+        objc_opt_self();
+        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v31 = *MEMORY[0x277CCA450];
+        v10 = v31;
+        v32[0] = @"An XPC connection error occurred";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v12 = [v9 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v11];
+
+        (*(v8 + 16))(v8, v12);
+        objc_opt_self();
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v31 = v10;
+        v32[0] = @"An XPC connection error occurred";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v6 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v14];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v6];
+LABEL_27:
+
+        goto LABEL_28;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Stop discovery received unexpected XPC object", v26, v27, v28, v29);
+      goto LABEL_26;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -3602,19 +3529,19 @@ LABEL_26:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Stop discovery received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Stop discovery received XPC dict: %@", ", "[NRDevicePairingManagerMux stopDiscoveryForPairingManager:withCompletion:]_block_invoke"", 601, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v14 = v13;
-    if (v13)
+    v5 = xpc_dictionary_get_value(xdict, "Result");
+    v6 = v5;
+    if (v5)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v5) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v14);
+        value = xpc_int64_get_value(v6);
         if (value)
         {
-          v26 = [NRDevicePairingManager copyErrorForCode:?];
+          v17 = [NRDevicePairingManager copyErrorForCode:?];
           (*(*(a1 + 40) + 16))();
         }
 
@@ -3623,70 +3550,68 @@ LABEL_26:
           (*(*(a1 + 40) + 16))();
         }
 
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Stop discovery received invalid result type";
-        goto LABEL_36;
+        v16 = "Stop discovery received invalid result type";
+        goto LABEL_35;
       }
 
-      v29 = v24;
-      v30 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v20 = v15;
+      v21 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v30)
+      if (v21)
       {
-        v25 = "Stop discovery received invalid result type";
-        goto LABEL_44;
+        v16 = "Stop discovery received invalid result type";
+        goto LABEL_43;
       }
     }
 
     else
     {
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Stop discovery received response without result code";
-LABEL_36:
+        v16 = "Stop discovery received response without result code";
+LABEL_35:
 
-LABEL_44:
-        v31 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v31, 17, v25, v32, v33, v34, v35, v36, v40);
+LABEL_43:
+        v22 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v22, 17, v16);
 
-        goto LABEL_45;
+        goto LABEL_44;
       }
 
-      v27 = v24;
-      v28 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v18 = v15;
+      v19 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v28)
+      if (v19)
       {
-        v25 = "Stop discovery received response without result code";
-        goto LABEL_44;
+        v16 = "Stop discovery received response without result code";
+        goto LABEL_43;
       }
     }
 
-LABEL_45:
-    v37 = *(a1 + 40);
-    v38 = +[NRDevicePairingManager copyXPCError];
-    (*(v37 + 16))(v37, v38);
+LABEL_44:
+    v23 = *(a1 + 40);
+    v24 = +[NRDevicePairingManager copyXPCError];
+    (*(v23 + 16))(v23, v24);
 
-    v39 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v39];
+    v25 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v25];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 - (void)sendAuthMethodRequestForDevice:(uint64_t)device authMethod:(void *)method pairingManager:(void *)manager withCompletion:
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v9 = a2;
   methodCopy = method;
   managerCopy = manager;
@@ -3723,60 +3648,60 @@ LABEL_29:
 
           if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_INFO))
           {
-            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d %@ Sending auth method request for %@", v19, v20, v21, v22, v23, "");
+            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 1, "%s%.30s:%-4d %@ Sending auth method request for %@", ", "[NRDevicePairingManagerMux sendAuthMethodRequestForDevice:authMethod:pairingManager:withCompletion:]"", 660, self, v9);
           }
 
-          v24 = xpc_dictionary_create(0, 0, 0);
-          if (v24)
+          v19 = xpc_dictionary_create(0, 0, 0);
+          if (v19)
           {
-            v25 = v24;
-            v26 = uuid;
-            v27 = v26;
-            if (v26)
+            v20 = v19;
+            v21 = uuid;
+            v22 = v21;
+            if (v21)
             {
               *uuid = 0;
-              v86 = 0;
-              [v26 getUUIDBytes:uuid];
-              xpc_dictionary_set_uuid(v25, "PairingManager", uuid);
+              v53 = 0;
+              [v21 getUUIDBytes:uuid];
+              xpc_dictionary_set_uuid(v20, "PairingManager", uuid);
               goto LABEL_15;
             }
 
-            v37 = nrCopyLogObj_1710();
+            v31 = nrCopyLogObj_1710();
             if (sNRCopyLogToStdErr == 1)
             {
             }
 
             else
             {
-              v81 = v37;
-              v79 = os_log_type_enabled(v37, OS_LOG_TYPE_FAULT);
+              v51 = v31;
+              v50 = os_log_type_enabled(v31, OS_LOG_TYPE_FAULT);
 
-              if (!v79)
+              if (!v50)
               {
                 goto LABEL_15;
               }
             }
 
-            v82 = nrCopyLogObj_1710();
-            _NRLogWithArgs(v82, 17, "%s called with null uuid", v69, v70, v71, v72, v73, "nr_xpc_dictionary_set_nsuuid");
+            v51 = nrCopyLogObj_1710();
+            _NRLogWithArgs(v51, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_15:
-            v28 = v25;
-            v29 = uuid2;
-            v30 = v29;
-            if (v29)
+            v23 = v20;
+            v24 = uuid2;
+            v25 = v24;
+            if (v24)
             {
               *uuid = 0;
-              v86 = 0;
-              [v29 getUUIDBytes:uuid];
-              xpc_dictionary_set_uuid(v28, "TargetPairingCandidate", uuid);
+              v53 = 0;
+              [v24 getUUIDBytes:uuid];
+              xpc_dictionary_set_uuid(v23, "TargetPairingCandidate", uuid);
 LABEL_17:
 
-              xpc_dictionary_set_uint64(v28, "AuthRequestType", device);
-              xpc_dictionary_set_uint64(v28, "PairingManagerOperation", 6uLL);
-              xpc_connection_send_message(*(self + 24), v28);
-              v31 = MEMORY[0x25F8740C0](managerCopy);
-              [v17[5] setObject:v31 forKeyedSubscript:v30];
+              xpc_dictionary_set_uint64(v23, "AuthRequestType", device);
+              xpc_dictionary_set_uint64(v23, "PairingManagerOperation", 6uLL);
+              xpc_connection_send_message(*(self + 24), v23);
+              v26 = MEMORY[0x25F8740C0](managerCopy);
+              [v17[5] setObject:v26 forKeyedSubscript:v25];
 
 LABEL_18:
 LABEL_19:
@@ -3784,100 +3709,100 @@ LABEL_19:
               goto LABEL_20;
             }
 
-            v38 = nrCopyLogObj_1710();
+            v32 = nrCopyLogObj_1710();
             if (sNRCopyLogToStdErr == 1)
             {
             }
 
             else
             {
-              v83 = v38;
-              v80 = os_log_type_enabled(v38, OS_LOG_TYPE_FAULT);
+              v51 = v32;
+              v50 = os_log_type_enabled(v32, OS_LOG_TYPE_FAULT);
 
-              if (!v80)
+              if (!v50)
               {
                 goto LABEL_17;
               }
             }
 
-            v84 = nrCopyLogObj_1710();
-            _NRLogWithArgs(v84, 17, "%s called with null uuid", v74, v75, v76, v77, v78, "nr_xpc_dictionary_set_nsuuid");
+            v51 = nrCopyLogObj_1710();
+            _NRLogWithArgs(v51, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
             goto LABEL_17;
           }
 
-          v36 = nrCopyLogObj_1710();
+          v30 = nrCopyLogObj_1710();
           if (sNRCopyLogToStdErr == 1)
           {
           }
 
           else
           {
-            v56 = v36;
-            v57 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+            v40 = v30;
+            v41 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-            if (!v57)
+            if (!v41)
             {
               goto LABEL_41;
             }
           }
 
-          v58 = nrCopyLogObj_1710();
-          _NRLogWithArgs(v58, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v59, v60, v61, v62, v63, "");
+          v42 = nrCopyLogObj_1710();
+          _NRLogWithArgs(v42, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_41:
-          v64 = _os_log_pack_size();
-          MEMORY[0x28223BE20](v64, v65);
-          v66 = *__error();
-          v67 = _os_log_pack_fill();
-          __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v67, "nr_xpc_dictionary_create");
-          v68 = nrCopyLogObj_1710();
-          _NRLogAbortWithPack(v68);
+          v43 = _os_log_pack_size();
+          v45 = &v49 - ((MEMORY[0x28223BE20](v43, v44) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v46 = __error();
+          v47 = _os_log_pack_fill(v45, v43, *v46, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+          __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v47, "nr_xpc_dictionary_create");
+          v48 = nrCopyLogObj_1710();
+          _NRLogAbortWithPack(v48, v45);
         }
 
-        v35 = [NRDevicePairingManager copyErrorForCode:?];
+        v29 = [NRDevicePairingManager copyErrorForCode:?];
 LABEL_38:
-        v55 = v35;
-        managerCopy[2](managerCopy, v35);
+        v39 = v29;
+        managerCopy[2](managerCopy, v29);
 
         goto LABEL_18;
       }
 
-      v34 = nrCopyLogObj_1710();
+      v28 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v47 = v34;
-        v48 = os_log_type_enabled(v34, OS_LOG_TYPE_FAULT);
+        v36 = v28;
+        v37 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
 
-        if (!v48)
+        if (!v37)
         {
 LABEL_37:
-          v35 = +[NRDevicePairingManager copyXPCError];
+          v29 = +[NRDevicePairingManager copyXPCError];
           goto LABEL_38;
         }
       }
 
-      v49 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v49, 17, "Pairing manager %@ is not registered", v50, v51, v52, v53, v54, uuid);
+      v38 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v38, 17, "Pairing manager %@ is not registered", uuid);
 
       goto LABEL_37;
     }
 
-    v33 = nrCopyLogObj_1710();
+    v27 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v39 = v33;
-      v40 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+      v33 = v27;
+      v34 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
 
-      if (!v40)
+      if (!v34)
       {
 LABEL_34:
         uuid = +[NRDevicePairingManager copyXPCError];
@@ -3886,20 +3811,18 @@ LABEL_34:
       }
     }
 
-    v41 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v41, 16, "%s%.30s:%-4d Auth method request with no XPC connection", v42, v43, v44, v45, v46, "");
+    v35 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v35, 16, "%s%.30s:%-4d Auth method request with no XPC connection", ", "[NRDevicePairingManagerMux sendAuthMethodRequestForDevice:authMethod:pairingManager:withCompletion:]"", 643);
 
     goto LABEL_34;
   }
 
 LABEL_20:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPairingForPairingManager:(void *)manager pairingTarget:(void *)target withCompletion:
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v7 = a2;
   managerCopy = manager;
   targetCopy = target;
@@ -3929,30 +3852,30 @@ LABEL_20:
         if (v16)
         {
           *uuid = 0;
-          v91 = 0;
+          v65 = 0;
           [v16 getUUIDBytes:uuid];
           xpc_dictionary_set_uuid(v15, "PairingManager", uuid);
           goto LABEL_8;
         }
 
-        v36 = nrCopyLogObj_1710();
+        v31 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v60 = v36;
-          v61 = os_log_type_enabled(v36, OS_LOG_TYPE_FAULT);
+          v46 = v31;
+          v47 = os_log_type_enabled(v31, OS_LOG_TYPE_FAULT);
 
-          if (!v61)
+          if (!v47)
           {
             goto LABEL_8;
           }
         }
 
-        v62 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v62, 17, "%s called with null uuid", v63, v64, v65, v66, v67, "nr_xpc_dictionary_set_nsuuid");
+        v48 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v48, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_8:
         xpc_dictionary_set_uint64(v15, "PairingManagerOperation", 0xAuLL);
@@ -3974,35 +3897,36 @@ LABEL_12:
           objc_initWeak(uuid, self);
           v22 = self[3];
           v23 = self[4];
-          handler[0] = MEMORY[0x277D85DD0];
-          handler[1] = 3221225472;
-          handler[2] = __88__NRDevicePairingManagerMux_startPairingForPairingManager_pairingTarget_withCompletion___block_invoke;
-          handler[3] = &unk_27996B328;
-          objc_copyWeak(&v89, uuid);
-          v88 = targetCopy;
-          v87 = v15;
-          xpc_connection_send_message_with_reply(v22, v87, v23, handler);
+          handler = MEMORY[0x277D85DD0];
+          v58 = 3221225472;
+          v59 = __88__NRDevicePairingManagerMux_startPairingForPairingManager_pairingTarget_withCompletion___block_invoke;
+          v60 = &unk_27996B328;
+          objc_copyWeak(&v63, uuid);
+          v62 = targetCopy;
+          v24 = v15;
+          v61 = v24;
+          xpc_connection_send_message_with_reply(v22, v24, v23, &handler);
 
           if (nrCopyLogObj_onceToken_1721 != -1)
           {
             dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
           }
 
-          v24 = nrCopyLogObj_sNRLogObj_1723;
+          v25 = nrCopyLogObj_sNRLogObj_1723;
           if (sNRCopyLogToStdErr == 1)
           {
           }
 
           else
           {
-            v25 = v24;
-            v26 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+            v26 = v25;
+            v27 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
 
-            if (!v26)
+            if (!v27)
             {
 LABEL_20:
 
-              objc_destroyWeak(&v89);
+              objc_destroyWeak(&v63);
               objc_destroyWeak(uuid);
 LABEL_21:
 
@@ -4015,121 +3939,119 @@ LABEL_21:
             dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
           }
 
-          v27 = nrCopyLogObj_sNRLogObj_1723;
-          _NRLogWithArgs(v27, 1, "%s%.30s:%-4d Sent pairing start message: %@", v28, v29, v30, v31, v32, "");
+          v28 = nrCopyLogObj_sNRLogObj_1723;
+          _NRLogWithArgs(v28, 1, "%s%.30s:%-4d Sent pairing start message: %@", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]"", 815, v24, handler, v58, v59, v60);
 
           goto LABEL_20;
         }
 
-        v37 = nrCopyLogObj_1710();
+        v32 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v68 = v37;
-          v69 = os_log_type_enabled(v37, OS_LOG_TYPE_FAULT);
+          v49 = v32;
+          v50 = os_log_type_enabled(v32, OS_LOG_TYPE_FAULT);
 
-          if (!v69)
+          if (!v50)
           {
             goto LABEL_41;
           }
         }
 
-        v70 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v70, 17, "Failed to archive %@: %@", v71, v72, v73, v74, v75, v19);
+        v51 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v51, 17, "Failed to archive %@: %@", v19, v21);
 
 LABEL_41:
-        v76 = nrCopyLogObj_1710();
+        v52 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v77 = v76;
-          v78 = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+          v53 = v52;
+          v54 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
 
-          if (!v78)
+          if (!v54)
           {
 LABEL_45:
-            v85 = +[NRDevicePairingManager copyXPCError];
-            (*(targetCopy + 2))(targetCopy, v85, 1);
+            v56 = +[NRDevicePairingManager copyXPCError];
+            (*(targetCopy + 2))(targetCopy, v56, 1);
 
             goto LABEL_21;
           }
         }
 
-        v79 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v79, 16, "%s%.30s:%-4d Start pairing request failed to serialize pairing target", v80, v81, v82, v83, v84, "");
+        v55 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v55, 16, "%s%.30s:%-4d Start pairing request failed to serialize pairing target", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]"", 758);
 
         goto LABEL_45;
       }
 
-      v35 = nrCopyLogObj_1710();
+      v30 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v47 = v35;
-        v48 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+        v37 = v30;
+        v38 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-        if (!v48)
+        if (!v38)
         {
           goto LABEL_36;
         }
       }
 
-      v49 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v49, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v50, v51, v52, v53, v54, "");
+      v39 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v39, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_36:
-      v55 = _os_log_pack_size();
-      MEMORY[0x28223BE20](v55, v56);
-      v57 = *__error();
-      v58 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v58, "nr_xpc_dictionary_create");
-      v59 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v59);
+      v40 = _os_log_pack_size();
+      v42 = &handler - ((MEMORY[0x28223BE20](v40, v41) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v43 = __error();
+      v44 = _os_log_pack_fill(v42, v40, *v43, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v44, "nr_xpc_dictionary_create");
+      v45 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v45, v42);
     }
 
-    v34 = nrCopyLogObj_1710();
+    v29 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v38 = v34;
-      v39 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+      v33 = v29;
+      v34 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
 
-      if (!v39)
+      if (!v34)
       {
 LABEL_33:
-        v46 = +[NRDevicePairingManager copyXPCError];
-        (*(targetCopy + 2))(targetCopy, v46, 1);
+        v36 = +[NRDevicePairingManager copyXPCError];
+        (*(targetCopy + 2))(targetCopy, v36, 1);
 
         goto LABEL_22;
       }
     }
 
-    v40 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v40, 16, "%s%.30s:%-4d Start pairing request with no XPC connection", v41, v42, v43, v44, v45, "");
+    v35 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v35, 16, "%s%.30s:%-4d Start pairing request with no XPC connection", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]"", 747);
 
     goto LABEL_33;
   }
 
 LABEL_22:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NRDevicePairingManagerMux_startPairingForPairingManager_pairingTarget_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v108[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -4144,16 +4066,11 @@ void __88__NRDevicePairingManagerMux_startPairingForPairingManager_pairingTarget
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_27;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start pairing could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]_block_invoke"", 805, *(a1 + 32), xdict);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v105 = *(a1 + 32);
-        v104 = "";
-        v11 = "%s%.30s:%-4d Start pairing could not deliver message %@, error %@";
-        v12 = 16;
         goto LABEL_26;
       }
 
@@ -4162,49 +4079,47 @@ void __88__NRDevicePairingManagerMux_startPairingForPairingManager_pairingTarget
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start pairing received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Start pairing received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]_block_invoke"", 809, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_27:
-            v16 = *(a1 + 40);
-            objc_opt_self();
-            v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v107 = *MEMORY[0x277CCA450];
-            v18 = v107;
-            v108[0] = @"An XPC connection error occurred";
-            v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:&v107 count:1];
-            v20 = [v17 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v19];
-
-            (*(v16 + 16))(v16, v20, 1);
-            objc_opt_self();
-            v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v107 = v18;
-            v108[0] = @"An XPC connection error occurred";
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:&v107 count:1];
-            v14 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v22];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v14];
-            goto LABEL_28;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Start pairing received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_26:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v104);
-      goto LABEL_27;
+        v8 = *(a1 + 40);
+        objc_opt_self();
+        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v65 = *MEMORY[0x277CCA450];
+        v10 = v65;
+        v66[0] = @"An XPC connection error occurred";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+        v12 = [v9 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v11];
+
+        (*(v8 + 16))(v8, v12, 1);
+        objc_opt_self();
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v65 = v10;
+        v66[0] = @"An XPC connection error occurred";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+        v6 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v14];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v6];
+        goto LABEL_27;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Start pairing received unexpected XPC object", v60, v61, v62, v63);
+      goto LABEL_26;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -4214,268 +4129,266 @@ LABEL_26:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Start pairing received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Start pairing received XPC dict: %@", ", "[NRDevicePairingManagerMux startPairingForPairingManager:pairingTarget:withCompletion:]_block_invoke"", 772, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v14 = v13;
-    if (v13)
+    v5 = xpc_dictionary_get_value(xdict, "Result");
+    v6 = v5;
+    if (v5)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v5) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v14);
+        value = xpc_int64_get_value(v6);
         if (!value)
         {
           (*(*(a1 + 40) + 16))();
-LABEL_28:
-
-          goto LABEL_29;
-        }
-
-        if (value != -3007)
-        {
-          v51 = [NRDevicePairingManager copyErrorForCode:?];
-          (*(*(a1 + 40) + 16))();
+LABEL_27:
 
           goto LABEL_28;
         }
 
-        v26 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
-        v27 = xdict;
-        v28 = v27;
-        if (v27)
+        if (value != -3007)
         {
-          uuid = xpc_dictionary_get_uuid(v27, "NRUUID");
+          v37 = [NRDevicePairingManager copyErrorForCode:?];
+          (*(*(a1 + 40) + 16))();
+
+          goto LABEL_27;
+        }
+
+        v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
+        v18 = xdict;
+        v19 = v18;
+        if (v18)
+        {
+          uuid = xpc_dictionary_get_uuid(v18, "NRUUID");
           if (!uuid)
           {
-            v56 = nrCopyLogObj_1710();
-            v57 = v56;
+            v42 = nrCopyLogObj_1710();
+            v43 = v42;
             if (sNRCopyLogToStdErr == 1)
             {
             }
 
             else
             {
-              v78 = os_log_type_enabled(v56, OS_LOG_TYPE_ERROR);
+              v54 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
 
-              if (!v78)
+              if (!v54)
               {
-                goto LABEL_79;
+                goto LABEL_78;
               }
             }
 
-            v79 = nrCopyLogObj_1710();
-            _NRLogWithArgs(v79, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v80, v81, v82, v83, v84, "");
-LABEL_78:
+            v55 = nrCopyLogObj_1710();
+            _NRLogWithArgs(v55, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_77:
 
-            v31 = 0;
-            goto LABEL_42;
+            v22 = 0;
+            goto LABEL_41;
           }
 
-          v30 = uuid;
+          v21 = uuid;
           if (!uuid_is_null(uuid))
           {
-            v31 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v30];
-            goto LABEL_42;
+            v22 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v21];
+            goto LABEL_41;
           }
 
-          v60 = nrCopyLogObj_1710();
-          v61 = v60;
+          v46 = nrCopyLogObj_1710();
+          v47 = v46;
           if (sNRCopyLogToStdErr == 1)
           {
 
-LABEL_77:
-            v79 = nrCopyLogObj_1710();
-            _NRLogWithArgs(v79, 16, "%s%.30s:%-4d UUID is null for key %s", v93, v94, v95, v96, v97, "");
-            goto LABEL_78;
-          }
-
-          v92 = os_log_type_enabled(v60, OS_LOG_TYPE_ERROR);
-
-          if (v92)
-          {
+LABEL_76:
+            v55 = nrCopyLogObj_1710();
+            _NRLogWithArgs(v55, 16, "%s%.30s:%-4d UUID is null for key %s");
             goto LABEL_77;
           }
 
-LABEL_79:
-          v31 = 0;
-LABEL_42:
+          v58 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
 
-          [v26 setObject:v31 forKeyedSubscript:@"NRDevicePairingErrorOriginalNRUUIDKey"];
-          v32 = v28;
-          v33 = v32;
-          if (v28)
+          if (v58)
           {
-            v34 = xpc_dictionary_get_uuid(v32, "BluetoothUUID");
-            if (!v34)
+            goto LABEL_76;
+          }
+
+LABEL_78:
+          v22 = 0;
+LABEL_41:
+
+          [v17 setObject:v22 forKeyedSubscript:@"NRDevicePairingErrorOriginalNRUUIDKey"];
+          v23 = v19;
+          v24 = v23;
+          if (v19)
+          {
+            v25 = xpc_dictionary_get_uuid(v23, "BluetoothUUID");
+            if (!v25)
             {
-              v58 = nrCopyLogObj_1710();
-              v59 = v58;
+              v44 = nrCopyLogObj_1710();
+              v45 = v44;
               if (sNRCopyLogToStdErr == 1)
               {
               }
 
               else
               {
-                v85 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+                v56 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
 
-                if (!v85)
+                if (!v56)
                 {
-                  goto LABEL_83;
+                  goto LABEL_82;
                 }
               }
 
-              v86 = nrCopyLogObj_1710();
-              _NRLogWithArgs(v86, 16, "%s%.30s:%-4d Failed to get UUID for key %s", v87, v88, v89, v90, v91, "");
-LABEL_82:
+              v57 = nrCopyLogObj_1710();
+              _NRLogWithArgs(v57, 16, "%s%.30s:%-4d Failed to get UUID for key %s");
+LABEL_81:
 
-              v36 = 0;
-              goto LABEL_46;
+              v27 = 0;
+              goto LABEL_45;
             }
 
-            v35 = v34;
-            if (!uuid_is_null(v34))
+            v26 = v25;
+            if (!uuid_is_null(v25))
             {
-              v36 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v35];
-LABEL_46:
+              v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v26];
+LABEL_45:
 
-              [v26 setObject:v36 forKeyedSubscript:@"NRDevicePairingErrorOriginalCBUUIDKey"];
-              v37 = [NRDevicePairingManager copyErrorForCode:v26 userInfo:?];
+              [v17 setObject:v27 forKeyedSubscript:@"NRDevicePairingErrorOriginalCBUUIDKey"];
+              v28 = [NRDevicePairingManager copyErrorForCode:v17 userInfo:?];
               (*(*(a1 + 40) + 16))();
 
-              goto LABEL_28;
+              goto LABEL_27;
             }
 
-            v62 = nrCopyLogObj_1710();
-            v63 = v62;
+            v48 = nrCopyLogObj_1710();
+            v49 = v48;
             if (sNRCopyLogToStdErr == 1)
             {
 
-LABEL_81:
-              v86 = nrCopyLogObj_1710();
-              _NRLogWithArgs(v86, 16, "%s%.30s:%-4d UUID is null for key %s", v99, v100, v101, v102, v103, "");
-              goto LABEL_82;
-            }
-
-            v98 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
-
-            if (v98)
-            {
+LABEL_80:
+              v57 = nrCopyLogObj_1710();
+              _NRLogWithArgs(v57, 16, "%s%.30s:%-4d UUID is null for key %s");
               goto LABEL_81;
             }
 
-LABEL_83:
-            v36 = 0;
-            goto LABEL_46;
+            v59 = os_log_type_enabled(v48, OS_LOG_TYPE_ERROR);
+
+            if (v59)
+            {
+              goto LABEL_80;
+            }
+
+LABEL_82:
+            v27 = 0;
+            goto LABEL_45;
           }
 
-          v54 = nrCopyLogObj_1710();
-          v55 = v54;
+          v40 = nrCopyLogObj_1710();
+          v41 = v40;
           if (sNRCopyLogToStdErr == 1)
           {
           }
 
           else
           {
-            v71 = os_log_type_enabled(v54, OS_LOG_TYPE_FAULT);
+            v52 = os_log_type_enabled(v40, OS_LOG_TYPE_FAULT);
 
-            if (!v71)
+            if (!v52)
             {
-              goto LABEL_83;
+              goto LABEL_82;
             }
           }
 
-          v72 = nrCopyLogObj_1710();
-          _NRLogWithArgs(v72, 17, "%s called with null dict", v73, v74, v75, v76, v77, "nr_xpc_dictionary_get_nsuuid");
+          v53 = nrCopyLogObj_1710();
+          _NRLogWithArgs(v53, 17, "%s called with null dict", "nr_xpc_dictionary_get_nsuuid");
 
-          v36 = 0;
-          goto LABEL_46;
+          v27 = 0;
+          goto LABEL_45;
         }
 
-        v52 = nrCopyLogObj_1710();
-        v53 = v52;
+        v38 = nrCopyLogObj_1710();
+        v39 = v38;
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v64 = os_log_type_enabled(v52, OS_LOG_TYPE_FAULT);
+          v50 = os_log_type_enabled(v38, OS_LOG_TYPE_FAULT);
 
-          if (!v64)
+          if (!v50)
           {
-            goto LABEL_79;
+            goto LABEL_78;
           }
         }
 
-        v65 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v65, 17, "%s called with null dict", v66, v67, v68, v69, v70, "nr_xpc_dictionary_get_nsuuid");
+        v51 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v51, 17, "%s called with null dict", "nr_xpc_dictionary_get_nsuuid");
 
-        v31 = 0;
-        goto LABEL_42;
+        v22 = 0;
+        goto LABEL_41;
       }
 
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Start pairing received invalid result type";
-        goto LABEL_36;
+        v16 = "Start pairing received invalid result type";
+        goto LABEL_35;
       }
 
-      v40 = v24;
-      v41 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v31 = v15;
+      v32 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v41)
+      if (v32)
       {
-        v25 = "Start pairing received invalid result type";
-        goto LABEL_53;
+        v16 = "Start pairing received invalid result type";
+        goto LABEL_52;
       }
     }
 
     else
     {
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Start pairing received response without result code";
-LABEL_36:
+        v16 = "Start pairing received response without result code";
+LABEL_35:
 
-LABEL_53:
-        v42 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v42, 17, v25, v43, v44, v45, v46, v47, v104);
+LABEL_52:
+        v33 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v33, 17, v16);
 
-        goto LABEL_54;
+        goto LABEL_53;
       }
 
-      v38 = v24;
-      v39 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v29 = v15;
+      v30 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v39)
+      if (v30)
       {
-        v25 = "Start pairing received response without result code";
-        goto LABEL_53;
+        v16 = "Start pairing received response without result code";
+        goto LABEL_52;
       }
     }
 
-LABEL_54:
-    v48 = *(a1 + 40);
-    v49 = +[NRDevicePairingManager copyXPCError];
-    (*(v48 + 16))(v48, v49, 1);
+LABEL_53:
+    v34 = *(a1 + 40);
+    v35 = +[NRDevicePairingManager copyXPCError];
+    (*(v34 + 16))(v34, v35, 1);
 
-    v50 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v50];
+    v36 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v36];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 - (void)stopPairingForPairingManager:(void *)manager withCompletion:
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a2;
   managerCopy = manager;
   if (self)
@@ -4504,45 +4417,45 @@ LABEL_29:
         if (v13)
         {
           *uuid = 0;
-          v66 = 0;
+          v49 = 0;
           [v13 getUUIDBytes:uuid];
           xpc_dictionary_set_uuid(v12, "PairingManager", uuid);
           goto LABEL_8;
         }
 
-        v30 = nrCopyLogObj_1710();
+        v24 = nrCopyLogObj_1710();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v53 = v30;
-          v54 = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
+          v38 = v24;
+          v39 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
 
-          if (!v54)
+          if (!v39)
           {
             goto LABEL_8;
           }
         }
 
-        v55 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v55, 17, "%s called with null uuid", v56, v57, v58, v59, v60, "nr_xpc_dictionary_set_nsuuid");
+        v40 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v40, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_8:
         xpc_dictionary_set_uint64(v12, "PairingManagerOperation", 0xBuLL);
         objc_initWeak(uuid, self);
         v15 = self[3];
         v16 = self[4];
-        handler[0] = MEMORY[0x277D85DD0];
-        handler[1] = 3221225472;
-        handler[2] = __73__NRDevicePairingManagerMux_stopPairingForPairingManager_withCompletion___block_invoke;
-        handler[3] = &unk_27996B328;
-        objc_copyWeak(&v64, uuid);
-        v63 = managerCopy;
+        handler = MEMORY[0x277D85DD0];
+        v42 = 3221225472;
+        v43 = __73__NRDevicePairingManagerMux_stopPairingForPairingManager_withCompletion___block_invoke;
+        v44 = &unk_27996B328;
+        objc_copyWeak(&v47, uuid);
+        v46 = managerCopy;
         v17 = v12;
-        v62 = v17;
-        xpc_connection_send_message_with_reply(v15, v17, v16, handler);
+        v45 = v17;
+        xpc_connection_send_message_with_reply(v15, v17, v16, &handler);
 
         if (nrCopyLogObj_onceToken_1721 != -1)
         {
@@ -4563,7 +4476,7 @@ LABEL_8:
           {
 LABEL_16:
 
-            objc_destroyWeak(&v64);
+            objc_destroyWeak(&v47);
             objc_destroyWeak(uuid);
 
             goto LABEL_17;
@@ -4576,74 +4489,72 @@ LABEL_16:
         }
 
         v21 = nrCopyLogObj_sNRLogObj_1723;
-        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent pairing stop message: %@", v22, v23, v24, v25, v26, "");
+        _NRLogWithArgs(v21, 1, "%s%.30s:%-4d Sent pairing stop message: %@", ", "[NRDevicePairingManagerMux stopPairingForPairingManager:withCompletion:]"", 871, v17, handler, v42, v43, v44);
 
         goto LABEL_16;
       }
 
-      v29 = nrCopyLogObj_1710();
+      v23 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v40 = v29;
-        v41 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+        v29 = v23;
+        v30 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
 
-        if (!v41)
+        if (!v30)
         {
           goto LABEL_29;
         }
       }
 
-      v42 = nrCopyLogObj_1710();
-      _NRLogWithArgs(v42, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v43, v44, v45, v46, v47, "");
+      v31 = nrCopyLogObj_1710();
+      _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_29:
-      v48 = _os_log_pack_size();
-      MEMORY[0x28223BE20](v48, v49);
-      v50 = *__error();
-      v51 = _os_log_pack_fill();
-      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v51, "nr_xpc_dictionary_create");
-      v52 = nrCopyLogObj_1710();
-      _NRLogAbortWithPack(v52);
+      v32 = _os_log_pack_size();
+      v34 = &handler - ((MEMORY[0x28223BE20](v32, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = __error();
+      v36 = _os_log_pack_fill(v34, v32, *v35, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+      __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v36, "nr_xpc_dictionary_create");
+      v37 = nrCopyLogObj_1710();
+      _NRLogAbortWithPack(v37, v34);
     }
 
-    v28 = nrCopyLogObj_1710();
+    v22 = nrCopyLogObj_1710();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v31 = v28;
-      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+      v25 = v22;
+      v26 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
 
-      if (!v32)
+      if (!v26)
       {
 LABEL_26:
-        v39 = +[NRDevicePairingManager copyXPCError];
-        (*(managerCopy + 2))(managerCopy, v39);
+        v28 = +[NRDevicePairingManager copyXPCError];
+        (*(managerCopy + 2))(managerCopy, v28);
 
         goto LABEL_17;
       }
     }
 
-    v33 = nrCopyLogObj_1710();
-    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d Stop pairing request no XPC connection", v34, v35, v36, v37, v38, "");
+    v27 = nrCopyLogObj_1710();
+    _NRLogWithArgs(v27, 16, "%s%.30s:%-4d Stop pairing request no XPC connection", ", "[NRDevicePairingManagerMux stopPairingForPairingManager:withCompletion:]"", 822);
 
     goto LABEL_26;
   }
 
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __73__NRDevicePairingManagerMux_stopPairingForPairingManager_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   xdict = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -4658,16 +4569,11 @@ void __73__NRDevicePairingManagerMux_stopPairingForPairingManager_withCompletion
           dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
         }
 
-        if ((sNRCopyLogToStdErr & 1) == 0 && !os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
+        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_27;
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop pairing could not deliver message %@, error %@", ", "[NRDevicePairingManagerMux stopPairingForPairingManager:withCompletion:]_block_invoke"", 861, *(a1 + 32), xdict);
         }
 
-        v10 = nrCopyLogObj_sNRLogObj_1723;
-        v42 = *(a1 + 32);
-        v41 = "";
-        v11 = "%s%.30s:%-4d Stop pairing could not deliver message %@, error %@";
-        v12 = 16;
         goto LABEL_26;
       }
 
@@ -4676,51 +4582,49 @@ void __73__NRDevicePairingManagerMux_stopPairingForPairingManager_withCompletion
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
       }
 
-      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop pairing received unexpected XPC object: %@", v5, v6, v7, v8, v9, ""), nrCopyLogObj_onceToken_1721 != -1))
+      if (((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_ERROR)) && (_NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 16, "%s%.30s:%-4d Stop pairing received unexpected XPC object: %@", ", "[NRDevicePairingManagerMux stopPairingForPairingManager:withCompletion:]_block_invoke"", 865, xdict), nrCopyLogObj_onceToken_1721 != -1))
       {
         dispatch_once(&nrCopyLogObj_onceToken_1721, &__block_literal_global_1722);
-        if ((sNRCopyLogToStdErr & 1) == 0)
+        if (sNRCopyLogToStdErr)
         {
-LABEL_10:
-          if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
-          {
-LABEL_27:
-            v16 = *(a1 + 40);
-            objc_opt_self();
-            v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v44 = *MEMORY[0x277CCA450];
-            v18 = v44;
-            v45[0] = @"An XPC connection error occurred";
-            v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-            v20 = [v17 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v19];
-
-            (*(v16 + 16))(v16, v20);
-            objc_opt_self();
-            v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v44 = v18;
-            v45[0] = @"An XPC connection error occurred";
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-            v14 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v22];
-
-            [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v14];
-LABEL_28:
-
-            goto LABEL_29;
-          }
+          goto LABEL_11;
         }
       }
 
-      else if ((sNRCopyLogToStdErr & 1) == 0)
+      else if (sNRCopyLogToStdErr)
       {
-        goto LABEL_10;
+        goto LABEL_11;
       }
 
-      v10 = nrCopyLogObj_sNRLogObj_1723;
-      v11 = "Stop pairing received unexpected XPC object";
-      v12 = 17;
+      if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_FAULT))
+      {
 LABEL_26:
-      _NRLogWithArgs(v10, v12, v11, v5, v6, v7, v8, v9, v41);
-      goto LABEL_27;
+        v8 = *(a1 + 40);
+        objc_opt_self();
+        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v32 = *MEMORY[0x277CCA450];
+        v10 = v32;
+        v33[0] = @"An XPC connection error occurred";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v12 = [v9 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v11];
+
+        (*(v8 + 16))(v8, v12);
+        objc_opt_self();
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v32 = v10;
+        v33[0] = @"An XPC connection error occurred";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v6 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v14];
+
+        [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v6];
+LABEL_27:
+
+        goto LABEL_28;
+      }
+
+LABEL_11:
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 17, "Stop pairing received unexpected XPC object", v27, v28, v29, v30);
+      goto LABEL_26;
     }
 
     if (nrCopyLogObj_onceToken_1721 != -1)
@@ -4730,21 +4634,21 @@ LABEL_26:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1723, OS_LOG_TYPE_DEBUG))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Stop pairing received XPC dict: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1723, 2, "%s%.30s:%-4d Stop pairing received XPC dict: %@", ", "[NRDevicePairingManagerMux stopPairingForPairingManager:withCompletion:]_block_invoke"", 839, xdict);
     }
 
-    v13 = xpc_dictionary_get_value(xdict, "Result");
-    v14 = v13;
-    if (v13)
+    v5 = xpc_dictionary_get_value(xdict, "Result");
+    v6 = v5;
+    if (v5)
     {
-      if (MEMORY[0x25F8746E0](v13) == MEMORY[0x277D86498])
+      if (MEMORY[0x25F8746E0](v5) == MEMORY[0x277D86498])
       {
-        value = xpc_int64_get_value(v14);
+        value = xpc_int64_get_value(v6);
         if (value)
         {
-          v26 = *(a1 + 40);
-          v27 = [NRDevicePairingManager copyErrorForCode:?];
-          (*(v26 + 16))(v26, v27);
+          v17 = *(a1 + 40);
+          v18 = [NRDevicePairingManager copyErrorForCode:?];
+          (*(v17 + 16))(v17, v18);
         }
 
         else
@@ -4752,65 +4656,63 @@ LABEL_26:
           (*(*(a1 + 40) + 16))();
         }
 
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Stop pairing received invalid result type";
-        goto LABEL_36;
+        v16 = "Stop pairing received invalid result type";
+        goto LABEL_35;
       }
 
-      v30 = v24;
-      v31 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v21 = v15;
+      v22 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v31)
+      if (v22)
       {
-        v25 = "Stop pairing received invalid result type";
-        goto LABEL_44;
+        v16 = "Stop pairing received invalid result type";
+        goto LABEL_43;
       }
     }
 
     else
     {
-      v24 = nrCopyLogObj_1710();
+      v15 = nrCopyLogObj_1710();
       if (sNRCopyLogToStdErr)
       {
-        v25 = "Stop pairing received response without result code";
-LABEL_36:
+        v16 = "Stop pairing received response without result code";
+LABEL_35:
 
-LABEL_44:
-        v32 = nrCopyLogObj_1710();
-        _NRLogWithArgs(v32, 17, v25, v33, v34, v35, v36, v37, v41);
+LABEL_43:
+        v23 = nrCopyLogObj_1710();
+        _NRLogWithArgs(v23, 17, v16);
 
-        goto LABEL_45;
+        goto LABEL_44;
       }
 
-      v28 = v24;
-      v29 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
+      v19 = v15;
+      v20 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-      if (v29)
+      if (v20)
       {
-        v25 = "Stop pairing received response without result code";
-        goto LABEL_44;
+        v16 = "Stop pairing received response without result code";
+        goto LABEL_43;
       }
     }
 
-LABEL_45:
-    v38 = *(a1 + 40);
-    v39 = +[NRDevicePairingManager copyXPCError];
-    (*(v38 + 16))(v38, v39);
+LABEL_44:
+    v24 = *(a1 + 40);
+    v25 = +[NRDevicePairingManager copyXPCError];
+    (*(v24 + 16))(v24, v25);
 
-    v40 = +[NRDevicePairingManager copyXPCError];
-    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v40];
+    v26 = +[NRDevicePairingManager copyXPCError];
+    [(NRDevicePairingManagerMux *)WeakRetained invalidateManagersWithError:v26];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 @end

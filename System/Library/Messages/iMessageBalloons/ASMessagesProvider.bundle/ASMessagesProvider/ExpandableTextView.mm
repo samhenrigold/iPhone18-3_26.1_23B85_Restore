@@ -92,7 +92,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A561C();
+  sub_1A561C(selfCopy, v2);
 }
 
 - (void)tintColorDidChange
@@ -133,11 +133,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider18ExpandableTextView_moreTapHandler);
   if (v3)
   {
+    v4 = *&self->textLabel[OBJC_IVAR____TtC18ASMessagesProvider18ExpandableTextView_moreTapHandler];
     selfCopy = self;
-    v5 = sub_F714(v3);
-    v3(v5);
+    v6 = sub_F714(v3, v4);
+    v3(v6);
 
-    sub_F704(v3);
+    sub_F704(v3, v4);
   }
 }
 

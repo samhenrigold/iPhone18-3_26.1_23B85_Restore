@@ -46,14 +46,12 @@
   [(_CPEngagementShareRatio *)self shareOfEngagements];
   if (v4 != 0.0)
   {
-    shareOfEngagements = self->_shareOfEngagements;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPEngagementShareRatio *)self shareOfInternetEngagements];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    shareOfInternetEngagements = self->_shareOfInternetEngagements;
     PBDataWriterWriteFloatField();
   }
 }

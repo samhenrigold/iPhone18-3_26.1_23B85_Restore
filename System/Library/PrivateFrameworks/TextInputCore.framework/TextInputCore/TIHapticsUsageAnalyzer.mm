@@ -11,19 +11,19 @@
 
 - (void)registerEventSpec
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D6F300];
   v3 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"keyClicksEnabled"];
-  v24[0] = v3;
+  v23[0] = v3;
   v4 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"ringerSwitchOn"];
-  v24[1] = v4;
+  v23[1] = v4;
   v5 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"visceralEnabled"];
-  v24[2] = v5;
+  v23[2] = v5;
   v6 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"activeTime"];
-  v24[3] = v6;
+  v23[3] = v6;
   v7 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"visibleTime"];
-  v24[4] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
+  v23[4] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
   v9 = [v2 eventSpecWithName:@"SoundAndHaptic.Session" inputModeRequired:0 fieldSpecs:v8];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
@@ -34,42 +34,39 @@
   idleTimeBuckets = [objc_opt_class() idleTimeBuckets];
   v14 = [v12 stringFieldSpecWithName:@"idleBucket" allowedValues:idleTimeBuckets];
   v15 = MEMORY[0x277D6F308];
-  v22[0] = @"first";
-  v22[1] = @"intermediate";
-  v22[2] = @"last";
-  v23[0] = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[0] = @"first";
+  v21[1] = @"intermediate";
+  v21[2] = @"last";
+  v22[0] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   v17 = [v15 stringFieldSpecWithName:@"idleType" allowedValues:v16];
-  v23[1] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[1] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v19 = [v11 eventSpecWithName:@"SoundAndHaptic.IdlePeriods" inputModeRequired:0 fieldSpecs:v18];
 
   mEMORY[0x277D6F318]2 = [MEMORY[0x277D6F318] sharedInstance];
   [mEMORY[0x277D6F318]2 registerEventSpec:v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchIdleEventType:(id)type idleTime:(double)time session:(id)session
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"idleType";
-  v11[1] = @"idleBucket";
-  v12[0] = type;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"idleType";
+  v10[1] = @"idleBucket";
+  v11[0] = type;
   typeCopy = type;
   v7 = [objc_opt_class() bucketForTime:time];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
 
   [mEMORY[0x277D6F318] dispatchEventWithName:@"SoundAndHaptic.IdlePeriods" payload:v8 testingParameters:0 allowSparsePayload:1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchSessionEventWithActiveTime:(double)time visibleTime:(double)visibleTime session:(id)session
 {
-  v26[5] = *MEMORY[0x277D85DE8];
+  v25[5] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
   v8 = [mEMORY[0x277D6F470] BOOLForPreferenceKey:*MEMORY[0x277D6F9E0]];
   keyExistsAndHasValidFormat = 0;
@@ -96,33 +93,31 @@
   state64 = 0;
   notify_get_state(v11, &state64);
   v14 = state64 != 0;
-  v25[0] = @"activeTime";
+  v24[0] = @"activeTime";
   v15 = [MEMORY[0x277CCABB0] numberWithLong:llround(time)];
-  v26[0] = v15;
-  v25[1] = @"visibleTime";
+  v25[0] = v15;
+  v24[1] = @"visibleTime";
   v16 = [MEMORY[0x277CCABB0] numberWithLong:llround(visibleTime)];
-  v26[1] = v16;
-  v25[2] = @"keyClicksEnabled";
+  v25[1] = v16;
+  v24[2] = @"keyClicksEnabled";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-  v26[2] = v17;
-  v25[3] = @"ringerSwitchOn";
+  v25[2] = v17;
+  v24[3] = @"ringerSwitchOn";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:v14];
-  v26[3] = v18;
-  v25[4] = @"visceralEnabled";
+  v25[3] = v18;
+  v24[4] = @"visceralEnabled";
   v19 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-  v26[4] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
+  v25[4] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
   [mEMORY[0x277D6F318] dispatchEventWithName:@"SoundAndHaptic.Session" payload:v20 testingParameters:0 allowSparsePayload:1];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)analyzeSession:(id)session alignedSession:(id)alignedSession withConfidence:(unint64_t)confidence
 {
   selfCopy = self;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
@@ -141,51 +136,51 @@
   v17 = v11 + v16 - v8;
 
   v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v46 = sessionCopy;
+  v45 = sessionCopy;
   obj = [sessionCopy userActionHistory];
-  v19 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v19 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v54;
-    v47 = *v54;
+    v21 = *v53;
+    v46 = *v53;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v54 != v21)
+        if (*v53 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v53 + 1) + 8 * i);
+        v23 = *(*(&v52 + 1) + 8 * i);
         if (![v23 actionType])
         {
           v24 = v23;
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
           allTouches = [v24 allTouches];
-          v26 = [allTouches countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v26 = [allTouches countByEnumeratingWithState:&v48 objects:v56 count:16];
           if (v26)
           {
             v27 = v26;
-            v28 = *v50;
+            v28 = *v49;
             do
             {
               for (j = 0; j != v27; ++j)
               {
-                if (*v50 != v28)
+                if (*v49 != v28)
                 {
                   objc_enumerationMutation(allTouches);
                 }
 
-                [*(*(&v49 + 1) + 8 * j) timestamp];
+                [*(*(&v48 + 1) + 8 * j) timestamp];
                 if (v30 >= v14 && v30 <= v17)
                 {
                   v32 = [MEMORY[0x277CCABB0] numberWithDouble:?];
@@ -193,17 +188,17 @@
                 }
               }
 
-              v27 = [allTouches countByEnumeratingWithState:&v49 objects:v57 count:16];
+              v27 = [allTouches countByEnumeratingWithState:&v48 objects:v56 count:16];
             }
 
             while (v27);
           }
 
-          v21 = v47;
+          v21 = v46;
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v20 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
     }
 
     while (v20);
@@ -255,16 +250,15 @@
     if (v42 >= 0.5)
     {
       v35 = v35 + v42;
-      [(TIHapticsUsageAnalyzer *)selfCopy dispatchIdleEventType:v40 idleTime:v46 session:?];
+      [(TIHapticsUsageAnalyzer *)selfCopy dispatchIdleEventType:v40 idleTime:v45 session:?];
     }
 
     ++v34;
   }
 
   while (v34 <= v33);
-  [(TIHapticsUsageAnalyzer *)selfCopy dispatchSessionEventWithActiveTime:v46 visibleTime:v17 - v14 - v35 session:?];
+  [(TIHapticsUsageAnalyzer *)selfCopy dispatchSessionEventWithActiveTime:v45 visibleTime:v17 - v14 - v35 session:?];
 
-  v43 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

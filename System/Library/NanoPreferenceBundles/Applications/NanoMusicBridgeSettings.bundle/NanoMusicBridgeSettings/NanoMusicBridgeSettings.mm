@@ -277,11 +277,11 @@ void sub_6CB0(uint64_t a1)
   [WeakRetained _presentDownloadWaitingAlertIfNeededWithModelObject:*(a1 + 32)];
 }
 
-void sub_772C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_772C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 176), 8);
+  _Block_object_dispose((v23 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -375,10 +375,11 @@ uint64_t sub_99A8(uint64_t a1)
   return result;
 }
 
-void sub_9ACC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_9ACC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_9AEC(uint64_t a1)
@@ -459,13 +460,17 @@ void sub_9B40(id a1)
 void sub_9D1C(void *a1)
 {
   v1 = [a1 userInfo];
-  sub_9ACC(&dword_0, v2, v3, "[NMBridgeSyncedMusicController] Requesting playlists failed with error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_9ACC(&dword_0, v2, v3, "[NMBridgeSyncedMusicController] Requesting playlists failed with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_9DA4(void *a1)
 {
   v1 = [a1 userInfo];
-  sub_9ACC(&dword_0, v2, v3, "[NMBridgeSyncedMusicController] Requesting albums failed with error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_9ACC(&dword_0, v2, v3, "[NMBridgeSyncedMusicController] Requesting albums failed with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_9E2C(uint64_t *a1, NSObject *a2)

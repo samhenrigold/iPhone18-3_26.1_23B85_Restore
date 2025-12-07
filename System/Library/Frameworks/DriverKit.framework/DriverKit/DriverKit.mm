@@ -4,10 +4,10 @@ uint64_t OSUnserializeXMLparse(void *a1)
   v2 = 0;
   v3 = 0;
   v4 = 0;
-  v79[4] = *MEMORY[0x277D85DE8];
-  v5 = v74;
-  memset(v74, 0, 512);
-  v75[0] = 0;
+  v78[4] = *MEMORY[0x277D85DE8];
+  v5 = v73;
+  memset(v73, 0, 512);
+  v74[0] = 0;
   v6 = -2;
   while (1)
   {
@@ -19,7 +19,7 @@ uint64_t OSUnserializeXMLparse(void *a1)
         goto LABEL_34;
       }
 
-      v73 = 0;
+      v72 = 0;
       while (1)
       {
         do
@@ -66,7 +66,7 @@ uint64_t OSUnserializeXMLparse(void *a1)
             goto LABEL_34;
           }
 
-          Tag = getTag(v1, v79, &v73 + 1, aKey, __str);
+          Tag = getTag(v1, v78, &v72 + 1, aKey, __str);
         }
 
         while (Tag == 4);
@@ -77,29 +77,29 @@ uint64_t OSUnserializeXMLparse(void *a1)
           goto LABEL_34;
         }
 
-        v70 = newObject(v1);
-        *(v70 + 20) = -1;
-        v69 = HIDWORD(v73);
-        if (SHIDWORD(v73) >= 1)
+        v69 = newObject(v1);
+        *(v69 + 20) = -1;
+        v68 = HIDWORD(v72);
+        if (SHIDWORD(v72) >= 1)
         {
           break;
         }
 
 LABEL_25:
-        if (LOBYTE(v79[0]) != 112)
+        if (LOBYTE(v78[0]) != 112)
         {
           v6 = 267;
-          if (LOBYTE(v79[0]) <= 0x68u)
+          if (LOBYTE(v78[0]) <= 0x68u)
           {
-            if (LOBYTE(v79[0]) == 97)
+            if (LOBYTE(v78[0]) == 97)
             {
-              v58 = LODWORD(v79[0]) == 1634890337 && WORD2(v79[0]) == 121;
-              v4 = v70;
+              v58 = LODWORD(v78[0]) == 1634890337 && WORD2(v78[0]) == 121;
+              v4 = v69;
               if (v58)
               {
                 if (v13 == 3)
                 {
-                  v70[2] = 0;
+                  v69[2] = 0;
                   v6 = 0x102u;
                 }
 
@@ -117,14 +117,14 @@ LABEL_25:
               goto LABEL_34;
             }
 
-            v4 = v70;
-            if (LOBYTE(v79[0]) == 100)
+            v4 = v69;
+            if (LOBYTE(v78[0]) == 100)
             {
-              if (!(LODWORD(v79[0]) ^ 0x74636964 | BYTE4(v79[0])))
+              if (!(LODWORD(v78[0]) ^ 0x74636964 | BYTE4(v78[0])))
               {
                 if (v13 == 3)
                 {
-                  v70[2] = 0;
+                  v69[2] = 0;
                   v6 = 0x105u;
                 }
 
@@ -141,24 +141,24 @@ LABEL_25:
                 goto LABEL_34;
               }
 
-              if (LODWORD(v79[0]) ^ 0x61746164 | BYTE4(v79[0]))
+              if (LODWORD(v78[0]) ^ 0x61746164 | BYTE4(v78[0]))
               {
                 goto LABEL_34;
               }
 
-              v72 = 0;
+              v71 = 0;
               if (v13 == 3)
               {
-                v70[6] = 0;
-                *(v70 + 10) = 0;
+                v69[6] = 0;
+                *(v69 + 10) = 0;
                 v6 = 0x104u;
                 goto LABEL_34;
               }
 
-              if (v69 < 1)
+              if (v68 < 1)
               {
 LABEL_198:
-                CFEncodedData = getCFEncodedData(v1, &v72);
+                CFEncodedData = getCFEncodedData(v1, &v71);
               }
 
               else
@@ -169,20 +169,20 @@ LABEL_198:
                 {
                   v61 += 32;
                   v62 += 32;
-                  if (!--v69)
+                  if (!--v68)
                   {
                     goto LABEL_198;
                   }
                 }
 
-                CFEncodedData = getHexData(v1, &v72);
+                CFEncodedData = getHexData(v1, &v71);
               }
 
-              v70[6] = CFEncodedData;
-              *(v70 + 10) = v72;
-              if (getTag(v1, v79, &v73 + 1, aKey, __str) == 2)
+              v69[6] = CFEncodedData;
+              *(v69 + 10) = v71;
+              if (getTag(v1, v78, &v72 + 1, aKey, __str) == 2)
               {
-                if (LODWORD(v79[0]) ^ 0x61746164 | BYTE4(v79[0]))
+                if (LODWORD(v78[0]) ^ 0x61746164 | BYTE4(v78[0]))
                 {
                   v6 = 267;
                 }
@@ -198,29 +198,29 @@ LABEL_198:
               goto LABEL_203;
             }
 
-            if (LOBYTE(v79[0]) != 102)
+            if (LOBYTE(v78[0]) != 102)
             {
               goto LABEL_34;
             }
 
-            v54 = LODWORD(v79[0]) == 1936482662 && WORD2(v79[0]) == 101;
+            v54 = LODWORD(v78[0]) == 1936482662 && WORD2(v78[0]) == 101;
             v55 = !v54;
             if (v13 != 3 || v55)
             {
               goto LABEL_34;
             }
 
-            v70[9] = 0;
+            v69[9] = 0;
           }
 
           else
           {
-            if (LOBYTE(v79[0]) <= 0x72u)
+            if (LOBYTE(v78[0]) <= 0x72u)
             {
-              v4 = v70;
-              if (LOBYTE(v79[0]) != 105)
+              v4 = v69;
+              if (LOBYTE(v78[0]) != 105)
               {
-                if (LOBYTE(v79[0]) != 107)
+                if (LOBYTE(v78[0]) != 107)
                 {
                   goto LABEL_34;
                 }
@@ -230,50 +230,50 @@ LABEL_198:
                   goto LABEL_34;
                 }
 
-                if (LODWORD(v79[0]) != 7955819)
+                if (LODWORD(v78[0]) != 7955819)
                 {
                   goto LABEL_34;
                 }
 
-                String = getString(v1, &v73);
-                v70[7] = String;
+                String = getString(v1, &v72);
+                v69[7] = String;
                 if (!String)
                 {
                   goto LABEL_34;
                 }
 
-                *(v70 + 16) = v73;
-                if (getTag(v1, v79, &v73 + 1, aKey, __str) != 2)
+                *(v69 + 16) = v72;
+                if (getTag(v1, v78, &v72 + 1, aKey, __str) != 2)
                 {
                   goto LABEL_34;
                 }
 
-                v52 = LODWORD(v79[0]) == 7955819;
+                v52 = LODWORD(v78[0]) == 7955819;
                 v53 = 263;
                 goto LABEL_179;
               }
 
-              if (v79[0] != 0x72656765746E69)
+              if (v78[0] != 0x72656765746E69)
               {
                 goto LABEL_34;
               }
 
-              *(v70 + 10) = 64;
-              if (v69 >= 1)
+              *(v69 + 10) = 64;
+              if (v68 >= 1)
               {
-                v68 = __str;
+                v67 = __str;
                 v56 = aKey;
                 do
                 {
                   if (!strcmp(v56, "size"))
                   {
-                    *(v70 + 10) = strtoul(v68, 0, 0);
+                    *(v69 + 10) = strtoul(v67, 0, 0);
                   }
 
                   v56 += 32;
-                  v9 = v69 == 1;
-                  v68 += 32;
-                  --v69;
+                  v9 = v68 == 1;
+                  v67 += 32;
+                  --v68;
                 }
 
                 while (!v9);
@@ -281,15 +281,15 @@ LABEL_198:
 
               if (v13 == 3)
               {
-                v70[9] = 0;
+                v69[9] = 0;
                 v6 = 0x108u;
                 goto LABEL_34;
               }
 
-              v70[9] = getNumber(v1);
-              if (getTag(v1, v79, &v73 + 1, aKey, __str) == 2)
+              v69[9] = getNumber(v1);
+              if (getTag(v1, v78, &v72 + 1, aKey, __str) == 2)
               {
-                v52 = v79[0] == 0x72656765746E69;
+                v52 = v78[0] == 0x72656765746E69;
                 v53 = 264;
 LABEL_179:
                 if (v52)
@@ -310,30 +310,30 @@ LABEL_203:
               goto LABEL_34;
             }
 
-            v4 = v70;
-            if (LOBYTE(v79[0]) == 115)
+            v4 = v69;
+            if (LOBYTE(v78[0]) == 115)
             {
-              if (LODWORD(v79[0]) == 1769108595 && *(v79 + 3) == 6778473)
+              if (LODWORD(v78[0]) == 1769108595 && *(v78 + 3) == 6778473)
               {
                 if (v13 == 3)
                 {
                   v59 = malloc_type_calloc(1uLL, 1uLL, 0xB8616DuLL);
-                  v70[7] = v59;
-                  *(v70 + 16) = 1;
+                  v69[7] = v59;
+                  *(v69 + 16) = 1;
                   *v59 = 0;
                   v6 = 0x10Au;
                 }
 
                 else
                 {
-                  v60 = getString(v1, &v73);
-                  v70[7] = v60;
+                  v60 = getString(v1, &v72);
+                  v69[7] = v60;
                   if (v60)
                   {
-                    *(v70 + 16) = v73;
-                    if (getTag(v1, v79, &v73 + 1, aKey, __str) == 2)
+                    *(v69 + 16) = v72;
+                    if (getTag(v1, v78, &v72 + 1, aKey, __str) == 2)
                     {
-                      if (LODWORD(v79[0]) ^ 0x69727473 | *(v79 + 3) ^ 0x676E69)
+                      if (LODWORD(v78[0]) ^ 0x69727473 | *(v78 + 3) ^ 0x676E69)
                       {
                         v6 = 267;
                       }
@@ -347,7 +347,7 @@ LABEL_203:
                 }
               }
 
-              else if (LODWORD(v79[0]) == 7628147)
+              else if (LODWORD(v78[0]) == 7628147)
               {
                 if (v13 == 1)
                 {
@@ -356,7 +356,7 @@ LABEL_203:
 
                 else if (v13 == 3)
                 {
-                  v70[2] = 0;
+                  v69[2] = 0;
                   v6 = 0x109u;
                 }
 
@@ -369,33 +369,33 @@ LABEL_203:
               goto LABEL_34;
             }
 
-            if (LOBYTE(v79[0]) != 116 || v13 != 3 || LODWORD(v79[0]) ^ 0x65757274 | BYTE4(v79[0]))
+            if (LOBYTE(v78[0]) != 116 || v13 != 3 || LODWORD(v78[0]) ^ 0x65757274 | BYTE4(v78[0]))
             {
               goto LABEL_34;
             }
 
-            v70[9] = 1;
+            v69[9] = 1;
           }
 
           v6 = 0x103u;
           goto LABEL_34;
         }
 
-        if (LODWORD(v79[0]) != 1936288880 || WORD2(v79[0]) != 116)
+        if (LODWORD(v78[0]) != 1936288880 || WORD2(v78[0]) != 116)
         {
           v6 = 267;
-          v4 = v70;
+          v4 = v69;
           goto LABEL_34;
         }
 
-        v4 = v70;
-        *v70 = *(v1 + 24);
-        *(v1 + 24) = v70;
+        v4 = v69;
+        *v69 = *(v1 + 24);
+        *(v1 + 24) = v69;
       }
 
       v14 = __str;
-      v15 = HIDWORD(v73);
-      v16 = v78;
+      v15 = HIDWORD(v72);
+      v16 = v77;
       while (1)
       {
         if (*(v16 - 2) != 73 || *(v16 - 1) != 68)
@@ -408,7 +408,7 @@ LABEL_203:
           break;
         }
 
-        *(v70 + 20) = strtol(v14, 0, 0);
+        *(v69 + 20) = strtol(v14, 0, 0);
 LABEL_24:
         v14 += 32;
         v16 += 32;
@@ -425,8 +425,8 @@ LABEL_24:
           v6 = 267;
           if (v13 == 3 && !v16[3])
           {
-            v4 = v70;
-            *(v70 + 20) = strtol(v14, 0, 0);
+            v4 = v69;
+            *(v69 + 20) = strtol(v14, 0, 0);
             v6 = 0x106u;
             goto LABEL_34;
           }
@@ -437,13 +437,13 @@ LABEL_24:
           v6 = 267;
         }
 
-        v4 = v70;
+        v4 = v69;
       }
 
       else
       {
         v6 = 267;
-        v4 = v70;
+        v4 = v69;
       }
 
 LABEL_34:
@@ -475,20 +475,20 @@ LABEL_34:
     v23 = v5[1 - v22];
     switch(v21)
     {
-      case 2u:
-        v67 = "unexpected end of buffer";
+      case 2:
+        v66 = "unexpected end of buffer";
         goto LABEL_209;
-      case 3u:
+      case 3:
         result = 0;
         *(v1 + 48) = *(*v5 + 24);
         *(*v5 + 24) = 0;
-        v66 = *v5;
-        *v66 = *(v1 + 24);
-        *(v1 + 24) = v66;
-        goto LABEL_210;
-      case 4u:
+        v65 = *v5;
+        *v65 = *(v1 + 24);
+        *(v1 + 24) = v65;
+        return result;
+      case 4:
         goto LABEL_207;
-      case 5u:
+      case 5:
         v23 = *v5;
         v26 = *(*v5 + 16);
         if (v26)
@@ -513,7 +513,7 @@ LABEL_34:
           v27 = 0;
         }
 
-        v71 = v4;
+        v70 = v4;
         *(v23 + 16) = v29;
         v42 = OSDictionary::withCapacity(v27);
         if ((*(v23 + 80) & 0x80000000) == 0)
@@ -544,16 +544,16 @@ LABEL_34:
         *(v23 + 24) = v42;
         if (!v42)
         {
-          v67 = "buildDictionary";
+          v66 = "buildDictionary";
           goto LABEL_209;
         }
 
         v45 = *(v1 + 56);
         *(v1 + 56) = v45 + 1;
         v34 = v45 < 0x1FFFF;
-        v4 = v71;
+        v4 = v70;
         goto LABEL_100;
-      case 6u:
+      case 6:
         v23 = *v5;
         buildArray(v1, *v5);
         if (*(v23 + 24))
@@ -561,9 +561,9 @@ LABEL_34:
           goto LABEL_72;
         }
 
-        v67 = "buildArray";
+        v66 = "buildArray";
         goto LABEL_209;
-      case 7u:
+      case 7:
         v23 = *v5;
         buildArray(v1, *v5);
         if (*(v23 + 24))
@@ -571,9 +571,9 @@ LABEL_34:
           goto LABEL_72;
         }
 
-        v67 = "buildSet";
+        v66 = "buildSet";
         goto LABEL_209;
-      case 8u:
+      case 8:
         v23 = *v5;
         v25 = OSString::withCString(*(*v5 + 56));
         if ((*(v23 + 80) & 0x80000000) == 0)
@@ -590,9 +590,9 @@ LABEL_34:
           goto LABEL_99;
         }
 
-        v67 = "buildString";
+        v66 = "buildString";
         goto LABEL_209;
-      case 9u:
+      case 9:
         v23 = *v5;
         v36 = *(*v5 + 40);
         if (v36)
@@ -624,9 +624,9 @@ LABEL_34:
           goto LABEL_99;
         }
 
-        v67 = "buildData";
+        v66 = "buildData";
         goto LABEL_209;
-      case 0xAu:
+      case 10:
         v23 = *v5;
         v35 = OSNumber::withNumber(*(*v5 + 72), *(*v5 + 40));
         if ((*(v23 + 80) & 0x80000000) == 0)
@@ -641,9 +641,9 @@ LABEL_34:
           goto LABEL_99;
         }
 
-        v67 = "buildNumber";
+        v66 = "buildNumber";
         goto LABEL_209;
-      case 0xBu:
+      case 11:
         v23 = *v5;
         v31 = &kOSBooleanFalse;
         if (*(*v5 + 72))
@@ -656,11 +656,10 @@ LABEL_34:
         (v32->retain)(v32);
         if (!*(v23 + 24))
         {
-          v67 = "buildBoolean";
+          v66 = "buildBoolean";
 LABEL_209:
-          OSUnserializeerror(v1, v67);
-          result = 1;
-          goto LABEL_210;
+          OSUnserializeerror(v1, v66);
+          return 1;
         }
 
 LABEL_72:
@@ -670,7 +669,7 @@ LABEL_72:
 LABEL_100:
         if (!v34)
         {
-          v67 = "maximum object count";
+          v66 = "maximum object count";
           goto LABEL_209;
         }
 
@@ -680,8 +679,8 @@ LABEL_102:
         v48[1] = v23;
         v5 = v48 + 1;
         v49 = yyr1[v21] - 19;
-        v50 = v75[v2 / 2] + yypgoto[v49];
-        if (v50 <= 0x6C && v75[v2 / 2] == yycheck[v50])
+        v50 = v74[v2 / 2] + yypgoto[v49];
+        if (v50 <= 0x6C && v74[v2 / 2] == yycheck[v50])
         {
           v3 = yytable[v50];
         }
@@ -692,23 +691,22 @@ LABEL_102:
         }
 
 LABEL_106:
-        v75[v2 / 2 + 1] = v3;
+        v74[v2 / 2 + 1] = v3;
         v34 = v2 <= 395;
         v2 += 2;
         if (!v34)
         {
           OSUnserializeerror(v1, "memory exhausted");
-          result = 2;
-          goto LABEL_210;
+          return 2;
         }
 
         break;
-      case 0xCu:
+      case 12:
         snprintf(aKey, 0x10uLL, "%u", *(*v5 + 80));
         Object = OSDictionary::getObject(*(v1 + 32), aKey);
         if (!Object)
         {
-          v67 = "forward reference detected";
+          v66 = "forward reference detected";
           goto LABEL_209;
         }
 
@@ -719,7 +717,7 @@ LABEL_106:
         (v39->retain)(v39);
         if (*(v1 + 60) >= 0x10000)
         {
-          v67 = "maximum object reference count";
+          v66 = "maximum object reference count";
           goto LABEL_209;
         }
 
@@ -731,19 +729,19 @@ LABEL_99:
         *(v1 + 56) = v47 + 1;
         v34 = v47 < 0x1FFFF;
         goto LABEL_100;
-      case 0xDu:
-      case 0x14u:
-      case 0x17u:
+      case 13:
+      case 20:
+      case 23:
         v23 = *(v5 - 1);
         *(v23 + 16) = 0;
         goto LABEL_102;
-      case 0xEu:
-      case 0x15u:
-      case 0x18u:
+      case 14:
+      case 21:
+      case 24:
         v23 = *(v5 - 2);
         *(v23 + 16) = *(v5 - 1);
         goto LABEL_102;
-      case 0x11u:
+      case 17:
         v24 = *(v5 - 1);
         v23 = *v5;
         **v5 = v24;
@@ -761,9 +759,9 @@ LABEL_99:
           }
         }
 
-        v67 = "duplicate dictionary key";
+        v66 = "duplicate dictionary key";
         goto LABEL_209;
-      case 0x12u:
+      case 18:
         v23 = *(v5 - 1);
         *(v23 + 32) = *(v23 + 24);
         *(v23 + 24) = *(*v5 + 24);
@@ -773,7 +771,7 @@ LABEL_99:
         *v30 = *(v1 + 24);
         *(v1 + 24) = v30;
         goto LABEL_102;
-      case 0x13u:
+      case 19:
         v23 = *v5;
         v41 = OSString::withCString(*(*v5 + 56));
         if ((*(v23 + 80) & 0x80000000) == 0)
@@ -786,11 +784,11 @@ LABEL_99:
         *(v23 + 56) = 0;
         *(v23 + 24) = v41;
         goto LABEL_102;
-      case 0x1Au:
+      case 26:
         v23 = *v5;
         **v5 = 0;
         goto LABEL_102;
-      case 0x1Bu:
+      case 27:
         v23 = *v5;
         **v5 = *(v5 - 1);
         goto LABEL_102;
@@ -803,7 +801,7 @@ LABEL_99:
   if (!yytable[v20])
   {
 LABEL_207:
-    v67 = "syntax error";
+    v66 = "syntax error";
     goto LABEL_209;
   }
 
@@ -824,15 +822,12 @@ LABEL_207:
     goto LABEL_106;
   }
 
-  result = 0;
-LABEL_210:
-  v65 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 OSStringPtr OSUnserializeerror(OSStringPtr result, const char *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (result->ivars)
   {
     v2 = result;
@@ -841,13 +836,12 @@ OSStringPtr OSUnserializeerror(OSStringPtr result, const char *a2)
     *v2->ivars = result;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t buildArray(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   if (v4)
   {
@@ -897,7 +891,6 @@ uint64_t buildArray(uint64_t a1, uint64_t a2)
   }
 
   *(a2 + 24) = v8;
-  v11 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -985,9 +978,28 @@ uint64_t OSUnserializeXML(const char *a1, uint64_t a2, OSString **a3)
   }
 }
 
+uLong crc32(uLong crc, const Bytef *buf, uInt len)
+{
+  if (*&len)
+  {
+    v3 = ~crc;
+    do
+    {
+      v4 = *buf++;
+      v3 = crc32_tab[(v4 ^ v3)] ^ (v3 >> 8);
+      --*&len;
+    }
+
+    while (*&len);
+    return ~v3;
+  }
+
+  return crc;
+}
+
 void IOLogBuffer(const char *title, const void *buffer, size_t size)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   IOLog("%s(0x%lx):\n", title, size);
   IOLog("              0     1     2     3     4     5     6     7     8     9     A     B     C     D     E     F\n");
   if (size >= 0x10000)
@@ -1000,7 +1012,7 @@ void IOLogBuffer(const char *title, const void *buffer, size_t size)
     v5 = size;
   }
 
-  v13[16] = 0;
+  v12[16] = 0;
   if (size)
   {
     v6 = 0;
@@ -1008,7 +1020,7 @@ void IOLogBuffer(const char *title, const void *buffer, size_t size)
     do
     {
       v8 = *(buffer + v7);
-      snprintf(&v14[6 * (v7 & 0xF)], 7uLL, "0x%02x, ", *(buffer + v7));
+      snprintf(&v13[6 * (v7 & 0xF)], 7uLL, "0x%02x, ", *(buffer + v7));
       if (v8 <= 32)
       {
         v9 = 32;
@@ -1019,17 +1031,17 @@ void IOLogBuffer(const char *title, const void *buffer, size_t size)
         v9 = v8;
       }
 
-      v13[v7 & 0xF] = v9;
+      v12[v7 & 0xF] = v9;
       v10 = v7 + 1;
       v11 = (v7 + 1) & 0xF;
       if (v5 - 1 == v7 || !v11)
       {
         if (v11)
         {
-          v13[v11] = 0;
+          v12[v11] = 0;
         }
 
-        IOLog("/* %04lx: */ %-96s /* |%-16s| */\n", v6, v14, v13);
+        IOLog("/* %04lx: */ %-96s /* |%-16s| */\n", v6, v13, v12);
         v6 += 16;
       }
 
@@ -1038,13 +1050,11 @@ void IOLogBuffer(const char *title, const void *buffer, size_t size)
 
     while (v5 != v10);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 int IOLogv(const char *format, va_list ap)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = vsnprintf(__str, 0x400uLL, format, ap);
   if (qword_27DEF6860 != -1)
   {
@@ -1057,25 +1067,24 @@ int IOLogv(const char *format, va_list ap)
   {
     if (v4)
     {
-      v9 = 136446210;
-      v10 = __str;
+      v8 = 136446210;
+      v9 = __str;
       v5 = MEMORY[0x277D86220];
       v6 = "%{public}s";
 LABEL_8:
-      _os_log_impl(&dword_2381D4000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_2381D4000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
     }
   }
 
   else if (v4)
   {
-    v9 = 136315138;
-    v10 = __str;
+    v8 = 136315138;
+    v9 = __str;
     v5 = MEMORY[0x277D86220];
     v6 = "%s";
     goto LABEL_8;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1102,7 +1111,7 @@ uint64_t IOLibInit()
   return IOLog("debug=0x%qx\n", gIODKDebug);
 }
 
-uint64_t PE_parse_boot_argn_internal(const char *__s2, unsigned __int8 *a2, int a3, int a4)
+uint64_t PE_parse_boot_argn_internal(const char *__s2, char *a2, signed int a3, int a4)
 {
   v4 = 0;
   if (a3 == -1)
@@ -1516,33 +1525,33 @@ LABEL_101:
 void OSReportWithBacktrace(const char *str, ...)
 {
   va_start(va, str);
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v6 = 0;
-  pthread_threadid_np(0, &v6);
-  v8 = 32;
-  if (sysctlbyname("kern.backtrace.user", v10, &v8, 0, 0))
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v5 = 0;
+  pthread_threadid_np(0, &v5);
+  v7 = 32;
+  if (sysctlbyname("kern.backtrace.user", v9, &v7, 0, 0))
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  else if (v8 >= 0x21)
+  else if (v7 >= 0x21)
   {
-    v8 = 32;
+    v7 = 32;
   }
 
-  va_copy(v9, va);
+  va_copy(v8, va);
   vsnprintf(__str, 0x80uLL, str, va);
   IOLog("%sbacktrace:\n", __str);
-  if (v8 >= 3)
+  if (v7 >= 3)
   {
-    for (i = 2; i < v8; ++i)
+    for (i = 2; i < v7; ++i)
     {
-      v3 = dladdr(v10[i], &v7);
-      dli_sname = v7.dli_sname;
-      if (!v7.dli_sname)
+      v3 = dladdr(v9[i], &v6);
+      dli_sname = v6.dli_sname;
+      if (!v6.dli_sname)
       {
-        dli_sname = v7.dli_fname;
+        dli_sname = v6.dli_fname;
       }
 
       if (!v3)
@@ -1555,11 +1564,9 @@ void OSReportWithBacktrace(const char *str, ...)
         dli_sname = "???";
       }
 
-      IOLog("[%#qx] 0x%016qx: %s\n", v6, v10[i], dli_sname);
+      IOLog("[%#qx] 0x%016qx: %s\n", v5, v9[i], dli_sname);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t nanoseconds_to_absolutetime(unint64_t a1, unint64_t *a2)
@@ -2689,11 +2696,11 @@ uint64_t OSStringArrayIndex(unsigned int *a1, char *__s)
   {
     v9 = v5;
     v10 = 0;
-    v11 = &v7[v4];
+    v11 = (v7 + v4);
     do
     {
       v12 = v7 + 1;
-      v7 += v6 + 1;
+      v7 = (v7 + v6 + 1);
       if (v7 >= v11)
       {
         break;
@@ -2716,10 +2723,10 @@ uint64_t OSStringArrayIndex(unsigned int *a1, char *__s)
 
 uint64_t OSRegisterClass(uint64_t a1, void ***a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = 2;
+  v21 = *MEMORY[0x277D85DE8];
   v17 = 0;
+  v18 = 2;
+  v16 = 0;
   v2 = **a2[3];
   v3 = *v2;
   if (v2[49] + v2[50] > *v2)
@@ -2732,13 +2739,13 @@ uint64_t OSRegisterClass(uint64_t a1, void ***a2)
     OSRegisterClass();
   }
 
-  if (io_connect_method(*(a1 + 16), 4096, 0, 0, v2, v3, 0, 0, 0, &v18, &v20, &v19, 0, &v17))
+  if (io_connect_method(*(a1 + 16), 4096, 0, 0, v2, v3, 0, 0, 0, &v17, &v19, &v18, 0, &v16))
   {
     OSRegisterClass();
   }
 
-  v5 = v20;
-  v6 = v21;
+  v5 = v19;
+  v6 = v20;
   if (*(a2 - 1))
   {
     v7 = a2 - 11;
@@ -2749,7 +2756,7 @@ uint64_t OSRegisterClass(uint64_t a1, void ***a2)
     v7 = 0;
   }
 
-  v7[3] = v20;
+  v7[3] = v19;
   *(a2 - 3) = v6;
   if ((gIODKDebug & 2) != 0)
   {
@@ -2776,7 +2783,6 @@ uint64_t OSRegisterClass(uint64_t a1, void ***a2)
   v14[4] = v13;
   memmove(v13, v2 + v2[50], 8 * (2 * *(v14 + 7)));
   a2[3][2] = OSCopyInStringArray(v2 + v2[54], v2[53]);
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3424,7 +3430,7 @@ uint64_t OSMetaClassBase::QueueForObject(OSMetaClassBase *this, unint64_t a2)
   return v4;
 }
 
-uint64_t CompactArray<IODispatchQueue *>::operator[](uint64_t result, unint64_t a2)
+unint64_t CompactArray<IODispatchQueue *>::operator[](unint64_t result, unint64_t a2)
 {
   v2 = *(result + 8);
   if (!v2)
@@ -3520,29 +3526,28 @@ kern_return_t OSMetaClassBase::Dispatch(OSMetaClassBase *this, IORPC *invoke)
   v7 = v4;
   if ((gIODKDebug & 4) != 0)
   {
-    reply = invoke->reply;
-    IOLog("OSMetaClassBase::InvokeRemote(0x%x) 0x%qx 0x%qx %p %p\n", this[-1].reserved, v4->flags, v4->msgid, reply, this->meta);
+    IOLog("OSMetaClassBase::InvokeRemote(0x%x) 0x%qx 0x%qx %p %p\n", this[-1].reserved, v4->flags, v4->msgid, invoke->reply, this->meta);
   }
 
   if ((this[-1].reserved & 2) != 0 && (v7->flags & 0x80) != 0 && (objectRefs = v7->objectRefs, objectRefs <= 2) && (sendSize = invoke->sendSize, replySize = invoke->replySize, (replySize + sendSize) <= 0x7FF) && objectRefs == invoke->message->msgh_body.msgh_descriptor_count)
   {
-    v12 = *&this[-3].refcount;
-    if (!v12)
+    v11 = *&this[-3].refcount;
+    if (!v11)
     {
       OSMetaClassBase::Dispatch();
     }
 
     if (objectRefs == 2 && (flags = v7[1].flags) != 0)
     {
-      v14 = *(flags - 8);
-      v15 = flags - 88;
-      if ((v14 & 1) == 0)
+      v13 = *(flags - 8);
+      v14 = flags - 88;
+      if ((v13 & 1) == 0)
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      v16 = *(v15 + 24);
-      if (!*(v15 + 24))
+      v15 = *(v14 + 24);
+      if (!*(v14 + 24))
       {
         OSMetaClassBase::Dispatch();
       }
@@ -3550,117 +3555,117 @@ kern_return_t OSMetaClassBase::Dispatch(OSMetaClassBase *this, IORPC *invoke)
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    if (v12 == 0xFFFFFFFFLL)
+    if (v11 == 0xFFFFFFFFLL)
     {
       OSMetaClassBase::Dispatch();
     }
 
-    v33 = invoke->reply;
-    result = iokit_user_client_trap((v12 & 0xFFFFFFFFFFFFFFFCLL), 0, v7, invoke->message + sendSize - v7, &v33->msgh.msgh_id, (replySize - 20), v16, 0);
+    reply = invoke->reply;
+    result = iokit_user_client_trap((v11 & 0xFFFFFFFFFFFFFFFCLL), 0, v7, invoke->message + sendSize - v7, &reply->msgh.msgh_id, (replySize - 20), v15, 0);
     if (!result)
     {
-      v34 = invoke->reply;
-      v34->msgh.msgh_size = v33->msgh.msgh_id + 20;
-      *&v34->msgh.msgh_id = 1302509197;
+      v33 = invoke->reply;
+      v33->msgh.msgh_size = reply->msgh.msgh_id + 20;
+      *&v33->msgh.msgh_id = 1302509197;
     }
   }
 
   else
   {
-    v17 = *&this[-4].refcount;
-    v18 = *&this[-2].refcount;
-    if (v18)
+    v16 = *&this[-4].refcount;
+    v17 = *&this[-2].refcount;
+    if (v17)
     {
-      v19 = *v18;
-      v20 = this[-2].__vftable;
-      if (v20)
+      v18 = *v17;
+      v19 = this[-2].__vftable;
+      if (v19)
       {
-        v21 = 0;
+        v20 = 0;
         msgid = v7->msgid;
-        v23 = this[-2].meta;
-        v24 = this[-2].__vftable;
+        v22 = this[-2].meta;
+        v23 = this[-2].__vftable;
         while (1)
         {
-          v25 = v21 + (v24 >> 1);
-          v26 = *(&v23->__vftable + v25);
-          v27 = v26 >= msgid;
-          if (v26 == msgid)
+          v24 = v20 + (v23 >> 1);
+          v25 = *(&v22->__vftable + v24);
+          v26 = v25 >= msgid;
+          if (v25 == msgid)
           {
             break;
           }
 
-          v28 = v26 < msgid;
-          if (v27)
+          v27 = v25 < msgid;
+          if (v26)
           {
-            v29 = 0;
+            v28 = 0;
           }
 
           else
           {
-            v29 = (v24 >> 1) + 1;
+            v28 = (v23 >> 1) + 1;
           }
 
-          v21 += v29;
-          v30 = v24 - v28;
-          v24 = (v24 - v28) >> 1;
-          if (v30 <= 1)
+          v20 += v28;
+          v29 = v23 - v27;
+          v23 = (v23 - v27) >> 1;
+          if (v29 <= 1)
           {
             goto LABEL_31;
           }
         }
 
-        v31 = *(&v23->__vftable + 8 * v25 + 8 * v20) + 1;
-        if (v31 < p_refcount[9])
+        v30 = *(&v22->__vftable + 8 * v24 + 8 * v19) + 1;
+        if (v30 < p_refcount[9])
         {
-          v19 = v18[v31];
+          v18 = v17[v30];
         }
       }
     }
 
     else
     {
-      v19 = *(v17 + 24);
+      v18 = *(v16 + 24);
     }
 
 LABEL_31:
-    v35 = *&invoke->message;
-    v36 = *&invoke->sendSize;
-    return InvokeRemote(v17, v19, &v35);
+    v34 = *&invoke->message;
+    v35 = *&invoke->sendSize;
+    return InvokeRemote(v16, v18, &v34);
   }
 
   return result;
 }
 
-uint64_t InvokeRemote(uint64_t a1, mach_port_t a2, uint64_t a3)
+uint64_t InvokeRemote(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v6 = *(a1 + 24);
-  pthread_threadid_np(0, &v27);
-  v7 = *(a3 + 16);
-  if (v7 <= 0x33)
+  v4 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v22 = 0;
+  pthread_threadid_np(0, &v22);
+  v6 = *(a3 + 16);
+  if (v6 <= 0x33)
   {
     InvokeRemote();
   }
 
-  v8 = *a3;
-  v9 = *(a3 + 20);
-  v10 = IORPCMessageFromMach(*a3, 0);
-  flags = v10->flags;
-  if ((flags & 8) == 0 && v9 <= 0x33)
+  v7 = *a3;
+  v8 = *(a3 + 20);
+  v9 = IORPCMessageFromMach(*a3, 0);
+  flags = v9->flags;
+  if ((flags & 8) == 0 && v8 <= 0x33)
   {
     InvokeRemote();
   }
 
-  if (OSCopyOutObjects(v8, v10))
+  if (OSCopyOutObjects(v7, v9))
   {
     InvokeRemote();
   }
 
-  v8->msgh.msgh_remote_port = a2;
+  v7->msgh.msgh_remote_port = v4;
   if ((flags & 8) != 0)
   {
     reply_port = 0;
@@ -3671,59 +3676,52 @@ uint64_t InvokeRemote(uint64_t a1, mach_port_t a2, uint64_t a3)
     reply_port = mig_get_reply_port();
   }
 
-  v8->msgh.msgh_local_port = reply_port;
-  v8->msgh.msgh_bits = -2147478253;
-  *&v8->msgh.msgh_voucher_port = 0x4DA2B68C00000000;
+  v7->msgh.msgh_local_port = reply_port;
+  v7->msgh.msgh_bits = -2147478253;
+  *&v7->msgh.msgh_voucher_port = 0x4DA2B68C00000000;
   if ((gIODKDebug & 0x10) != 0)
   {
-    snprintf(__str, 0x40uLL, "[%#qx] INVOKE MSG:", v27);
-    IOLogBuffer(__str, v8, v7);
+    snprintf(__str, 0x40uLL, "[%#qx] INVOKE MSG:", v22);
+    IOLogBuffer(__str, v7, v6);
   }
 
   if ((flags & 8) != 0 || *(a3 + 8) == *a3)
   {
-    v14 = 1;
+    v13 = 1;
   }
 
   else
   {
-    if (v9 <= v7)
+    if (v8 <= v6)
     {
-      v13 = v7;
+      v12 = v6;
     }
 
     else
     {
-      v13 = v9;
+      v12 = v8;
     }
 
-    v8 = malloc_type_malloc(v13, 0x100004027586B93uLL);
-    memmove(v8, *a3, v7);
-    v14 = 0;
+    v7 = malloc_type_malloc(v12, 0x100004027586B93uLL);
+    memmove(v7, *a3, v6);
+    v13 = 0;
   }
 
-  v15 = *&v8->msgh.msgh_remote_port & 0xFFFFFFFF00000000;
-  if ((v8->msgh.msgh_bits & 0x80000000) != 0)
-  {
-    msgh_descriptor_count = v8->msgh_body.msgh_descriptor_count;
-  }
-
-  v17 = v8->msgh.msgh_voucher_port | (v8->msgh.msgh_id << 32);
   msgid_low = mach_msg2_internal();
   if ((flags & 8) == 0)
   {
-    msgh_size = v8->msgh.msgh_size;
+    msgh_size = v7->msgh.msgh_size;
     if ((gIODKDebug & 0x10) != 0)
     {
-      snprintf(__str, 0x40uLL, "[%#qx] INVOKE REPLY:", v27);
-      IOLogBuffer(__str, v8, msgh_size);
+      snprintf(__str, 0x40uLL, "[%#qx] INVOKE REPLY:", v22);
+      IOLogBuffer(__str, v7, msgh_size);
     }
 
     if (msgid_low)
     {
-      if ((v14 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        free(v8);
+        free(v7);
       }
 
       mach_error("mach_msg: ", msgid_low);
@@ -3731,40 +3729,40 @@ uint64_t InvokeRemote(uint64_t a1, mach_port_t a2, uint64_t a3)
 
     else
     {
-      msgh_id = v8->msgh.msgh_id;
+      msgh_id = v7->msgh.msgh_id;
       if (msgh_id == 1302509197)
       {
         if (msgh_size > 0x33)
         {
-          if ((v8->msgh.msgh_bits & 0x80000000) == 0)
+          if ((v7->msgh.msgh_bits & 0x80000000) == 0)
           {
-            v8->msgh_body.msgh_descriptor_count = 0;
+            v7->msgh_body.msgh_descriptor_count = 0;
           }
 
-          v21 = IORPCMessageFromMach(v8, 1);
-          v22 = v21->flags;
-          v23 = OSCopyInObjects(a1, v8, v21);
-          if ((v22 & 0x40) != 0)
+          v17 = IORPCMessageFromMach(v7, 1);
+          v18 = v17->flags;
+          v19 = OSCopyInObjects(a1, &v7->msgh.msgh_bits, v17);
+          if ((v18 & 0x40) != 0)
           {
-            msgid_low = LODWORD(v21[1].msgid);
+            msgid_low = LODWORD(v17[1].msgid);
           }
 
           else
           {
-            msgid_low = v23;
+            msgid_low = v19;
           }
 
           if (!msgid_low)
           {
-            v24 = *(a3 + 8);
-            if (v24 != *a3)
+            v20 = *(a3 + 8);
+            if (v20 != *a3)
             {
               if (msgh_size > *(a3 + 20))
               {
                 InvokeRemote();
               }
 
-              memmove(v24, v8, msgh_size);
+              memmove(v20, v7, msgh_size);
             }
 
             msgid_low = 0;
@@ -3786,8 +3784,8 @@ uint64_t InvokeRemote(uint64_t a1, mach_port_t a2, uint64_t a3)
       {
         if ((gIODKDebug & 4) != 0)
         {
-          IOLog("BAD REPLY ID 0x%x\n", v8->msgh.msgh_id);
-          msgh_id = v8->msgh.msgh_id;
+          IOLog("BAD REPLY ID 0x%x\n", v7->msgh.msgh_id);
+          msgh_id = v7->msgh.msgh_id;
         }
 
         if (msgh_id == 71)
@@ -3801,14 +3799,13 @@ uint64_t InvokeRemote(uint64_t a1, mach_port_t a2, uint64_t a3)
         }
       }
 
-      if ((v14 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        free(v8);
+        free(v7);
       }
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return msgid_low;
 }
 
@@ -4587,39 +4584,37 @@ kern_return_t IOThreadLocalStorageSet(uint64_t key, const void *value)
 
 pthread_t ThreadStart(void *(__cdecl *a1)(void *), void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  if (pthread_attr_init(&v8))
+  v8 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  if (pthread_attr_init(&v7))
   {
     ThreadStart();
   }
 
-  pthread_attr_setschedpolicy(&v8, 2);
-  if (pthread_attr_getschedparam(&v8, &v6))
+  pthread_attr_setschedpolicy(&v7, 2);
+  if (pthread_attr_getschedparam(&v7, &v5))
   {
     ThreadStart();
   }
 
-  v6.sched_priority = 63;
-  if (pthread_attr_setschedparam(&v8, &v6))
+  v5.sched_priority = 63;
+  if (pthread_attr_setschedparam(&v7, &v5))
   {
     ThreadStart();
   }
 
-  if (pthread_attr_setdetachstate(&v8, 2))
+  if (pthread_attr_setdetachstate(&v7, 2))
   {
     ThreadStart();
   }
 
-  if (pthread_create(&v7, &v8, a1, a2))
+  if (pthread_create(&v6, &v7, a1, a2))
   {
     ThreadStart();
   }
 
-  pthread_attr_destroy(&v8);
-  result = v7;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  pthread_attr_destroy(&v7);
+  return v6;
 }
 
 uint64_t OSCopyOutObjects(uint64_t a1, uint64_t a2)
@@ -4730,17 +4725,17 @@ uint64_t OSCopyInObjects(uint64_t a1, unsigned int *a2, uint64_t a3)
 
   v6 = 0;
   v7 = 0;
-  v8 = (a2 + 7);
+  v8 = a2 + 7;
   while (1)
   {
     v19 = 0;
-    v9 = HIBYTE(*(v8 + 2));
+    v9 = HIBYTE(v8[2]);
     if (v9 != 1)
     {
       break;
     }
 
-    v13 = *(v8 + 3);
+    v13 = v8[3];
     if (v13 && *v8)
     {
       v14 = OSSerialization::createFromBytes(*v8, v13, &__block_literal_global_0);
@@ -4750,7 +4745,7 @@ uint64_t OSCopyInObjects(uint64_t a1, unsigned int *a2, uint64_t a3)
       }
 
       v15 = v14;
-      *(v8 + 3) = 0;
+      v8[3] = 0;
       *v8 = 0;
       v12 = OSSerialization::copyObject(v14);
       v19 = v12;
@@ -4965,12 +4960,12 @@ uint64_t IOUserServerMain(char *__s2, char *a2, const char *a3, unsigned int a4,
   }
 
   v11 = HIWORD(program_sdk_version) > 0x14u || strncmp("com.motu.driver", __s2, 0xFuLL) != 0;
-  v60 = 0;
+  v61 = 0;
   *io_main = 0;
-  v58 = 0;
   v59 = 0;
-  v57 = 0;
-  v54 = 0;
+  v60 = 0;
+  v58 = 0;
+  v55 = 0;
   init_port_set = 0;
   *init_port_setCnt = 0;
   gIOTimerInterruptDispatchLeakFix = v11;
@@ -4988,23 +4983,24 @@ uint64_t IOUserServerMain(char *__s2, char *a2, const char *a3, unsigned int a4,
 
   v14 = MEMORY[0x277D85F48];
   mach_port_deallocate(*MEMORY[0x277D85F48], v13);
-  if (io_registry_entry_from_path(io_main[1], "IOService:/"))
+  if (io_registry_entry_from_path(io_main[1], "IOService:/", io_main))
   {
     IOUserServerMain_cold_2();
   }
 
   mach_port_deallocate(*v14, io_main[1]);
-  if (io_service_open_extended(io_main[0], *v14, -1728053245, *MEMORY[0x277D85EF8], 0, 0))
+  if (io_service_open_extended(io_main[0], *v14, -1728053245, *MEMORY[0x277D85EF8], 0, 0, &v59, &v61 + 1))
   {
     IOUserServerMain_cold_3();
   }
 
+  v15 = v59;
   mach_port_deallocate(*v14, io_main[0]);
-  if (v58)
+  if (v15)
   {
-    v40 = *MEMORY[0x277D85DF8];
-    v41 = mach_error_string(v58);
-    fprintf(v40, "open(kIOKitUserServerClientType) %s (0x%x)\n", v41, v58);
+    v41 = *MEMORY[0x277D85DF8];
+    v42 = mach_error_string(v15);
+    fprintf(v41, "open(kIOKitUserServerClientType) %s (0x%x)\n", v42, v15);
     exit(1);
   }
 
@@ -5014,117 +5010,117 @@ uint64_t IOUserServerMain(char *__s2, char *a2, const char *a3, unsigned int a4,
     IOUserServerMain_cold_4();
   }
 
-  v54 = *init_port_set;
-  v15 = gServer;
+  v55 = *init_port_set;
+  v16 = gServer;
   *(gServer + 8) = __s2;
-  *(v15 + 16) = HIDWORD(v60);
+  *(v16 + 16) = HIDWORD(v61);
   init_port_setCnt[0] = 1024;
-  if (_NSGetExecutablePath((v15 + 4180), init_port_setCnt))
+  if (_NSGetExecutablePath((v16 + 4180), init_port_setCnt))
   {
     IOUserServerMain_cold_5();
   }
 
   __str = a2;
-  v43 = __s2;
-  v59 = 0;
-  HIDWORD(v58) = 0;
-  LODWORD(v60) = 1;
-  if (io_connect_method(SHIDWORD(v60), 4097, &v54, 1, 0, 0, 0, 0, 0, &v58 + 1, &v57, &v60, 0, &v59))
+  v44 = __s2;
+  v60 = 0;
+  HIDWORD(v59) = 0;
+  LODWORD(v61) = 1;
+  if (io_connect_method(HIDWORD(v61), 4097, &v55, 1, 0, 0, 0, 0, 0, &v59 + 1, &v58, &v61, 0, &v60))
   {
     IOLog("%s: kIOUserServerMethodStart failed, exiting\n", "IOUserServerMain");
     exit(0);
   }
 
-  v16 = gServer;
-  *(gServer + 24) = v57;
-  OSScanLibraries(v16, "/DriverKit");
-  OSCollectionsInitialize();
   v17 = gServer;
+  *(gServer + 24) = v58;
+  OSScanLibraries(v17, "/DriverKit");
+  OSCollectionsInitialize();
+  v18 = gServer;
   if (_dyld_image_count())
   {
-    v18 = 0;
+    v19 = 0;
     do
     {
-      image_name = _dyld_get_image_name(v18);
+      image_name = _dyld_get_image_name(v19);
       if ((gIODKDebug & 2) != 0)
       {
         IOLog("OSCollectionsRunInitializers(%s)\n", image_name);
       }
 
-      image_header = _dyld_get_image_header(v18);
+      image_header = _dyld_get_image_header(v19);
       size = 0;
-      v21 = getsectiondata(image_header, "__DATA", "__osstringinfo", &size);
-      if (v21)
+      v22 = getsectiondata(image_header, "__DATA", "__osstringinfo", &size);
+      if (v22)
       {
-        v22 = v21;
+        v23 = v22;
         size >>= 4;
-        os_unfair_lock_lock(v17);
+        os_unfair_lock_lock(v18);
         if (size)
         {
-          v23 = 0;
-          v24 = (v22 + 8);
+          v24 = 0;
+          v25 = (v23 + 8);
           do
           {
-            v25 = OSString::withCStringNoCopy(*(v24 - 1));
-            if (!v25)
+            v26 = OSString::withCStringNoCopy(*(v25 - 1));
+            if (!v26)
             {
               IOUserServerMain_cold_6();
             }
 
-            *v24 = v25;
-            v24 += 2;
-            ++v23;
+            *v25 = v26;
+            v25 += 2;
+            ++v24;
           }
 
-          while (v23 < size);
+          while (v24 < size);
         }
 
-        os_unfair_lock_unlock(v17);
+        os_unfair_lock_unlock(v18);
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v18 < _dyld_image_count());
+    while (v19 < _dyld_image_count());
   }
 
   if (a4)
   {
-    v26 = a4;
+    v27 = a4;
     do
     {
-      v27 = *a5++;
-      OSLoadBundleByPath(gServer, v27);
-      --v26;
+      v28 = *a5++;
+      OSLoadBundleByPath(gServer, v28);
+      --v27;
     }
 
-    while (v26);
+    while (v27);
   }
 
   __endptr = 0;
   OSScanLibraries(gServer, 0);
-  v28 = strtoll(__str, &__endptr, 0);
+  v29 = strtoll(__str, &__endptr, 0);
   if (*__endptr)
   {
     IOUserServerMain_cold_7();
   }
 
-  v29 = v28;
-  v30 = OSString::withCString(a3);
-  v32 = IOUserServer::Create(v43, v29, 0, v30, (gServer + 40), v31);
-  if (v30)
+  v30 = v29;
+  v31 = OSString::withCString(a3);
+  v33 = IOUserServer::Create(v44, v30, 0, v31, (gServer + 40), v32);
+  if (v31)
   {
-    (v30->release)(v30);
+    (v31->release)(v31);
   }
 
-  if (v32)
+  if (v33)
   {
     IOUserServerMain_cold_8();
   }
 
-  v33 = gServer;
+  v34 = gServer;
   *(*(gServer + 40) + 48) = gServer;
-  IODispatchQueue::Create("Root", 0, 0, (v33 + 32));
+  IODispatchQueue::Create("Root", 0, 0, (v34 + 32));
   if (IOService::RegisterService(*(gServer + 40), 0))
   {
     IOUserServerMain_cold_9();
@@ -5132,64 +5128,64 @@ uint64_t IOUserServerMain(char *__s2, char *a2, const char *a3, unsigned int a4,
 
   if ((gIODKDebug & 2) != 0)
   {
-    IOLog("Registered: %s\n", v43);
+    IOLog("Registered: %s\n", v44);
   }
 
   size = 0;
   p_size = &size;
-  v51 = 0x2000000000;
-  v52 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2000000000;
-  v48 = 0;
-  IODispatchQueue::Create("q1", 0, 0, &v52);
-  IODispatchQueue::Create("q2", 0, 0, v46 + 3);
-  v34 = p_size[3];
+  v52 = 0x2000000000;
+  v53 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2000000000;
+  v49 = 0;
+  IODispatchQueue::Create("q1", 0, 0, &v53);
+  IODispatchQueue::Create("q2", 0, 0, v47 + 3);
+  v35 = p_size[3];
   context[0] = MEMORY[0x277D85DD0];
   context[1] = 1107296256;
   context[2] = __IOUserServerMain_block_invoke;
   context[3] = &__block_descriptor_tmp_77;
-  context[4] = &v45;
+  context[4] = &v46;
   context[5] = &size;
   if (__IOUserServerMain_block_invoke)
   {
-    v35 = __IOUserServerMain_block_invoke;
+    v36 = __IOUserServerMain_block_invoke;
   }
 
   else
   {
-    v35 = 0;
+    v36 = 0;
   }
 
-  v36 = MEMORY[0x277D85F48];
-  IODispatchQueue::DispatchSync_f(v34, context, v35);
+  v37 = MEMORY[0x277D85F48];
+  IODispatchQueue::DispatchSync_f(v35, context, v36);
   (*(*p_size[3] + 16))(p_size[3]);
-  (v46[3]->release)(v46[3]);
+  (v47[3]->release)(v47[3]);
   if (init_port_setCnt[1])
   {
-    v37 = 0;
+    v38 = 0;
     do
     {
-      if (mach_port_deallocate(*v36, init_port_set[v37]))
+      if (mach_port_deallocate(*v37, init_port_set[v38]))
       {
         IOUserServerMain_cold_10();
       }
 
-      ++v37;
+      ++v38;
     }
 
-    while (v37 < init_port_setCnt[1]);
-    v38 = 4 * init_port_setCnt[1];
+    while (v38 < init_port_setCnt[1]);
+    v39 = 4 * init_port_setCnt[1];
   }
 
   else
   {
-    v38 = 0;
+    v39 = 0;
   }
 
-  mig_deallocate(init_port_set, v38);
-  _Block_object_dispose(&v45, 8);
+  mig_deallocate(init_port_set, v39);
+  _Block_object_dispose(&v46, 8);
   _Block_object_dispose(&size, 8);
   return 0;
 }
@@ -5565,7 +5561,6 @@ kern_return_t IODispatchQueue::Create(const char *name, uint64_t options, uint64
   }
 
   dispatch_queue_set_specific(v11, &gIODispatchQueueKey, queuea, 0);
-  v15 = *ivars;
   f = dispatch_mach_create_f();
   *(ivars + 2) = f;
   if (!f)
@@ -5802,7 +5797,7 @@ LABEL_19:
   OSObjectFree(this);
 }
 
-void uiomachchannel(OSMetaClassBase *a1, uint64_t a2)
+void uiomachchannel(OSMetaClassBase *a1, uint64_t a2, uint64_t a3)
 {
   meta = a1[1].meta;
   switch(a2)
@@ -5815,10 +5810,10 @@ void uiomachchannel(OSMetaClassBase *a1, uint64_t a2)
         meta->__vftable = 0;
       }
 
-      v12 = a1[1].meta;
-      if (v12)
+      v13 = a1[1].meta;
+      if (v13)
       {
-        IOFree(v12, 0x48uLL);
+        IOFree(v13, 0x48uLL);
         a1[1].meta = 0;
       }
 
@@ -5831,15 +5826,15 @@ void uiomachchannel(OSMetaClassBase *a1, uint64_t a2)
         uiomachchannel();
       }
 
-      v11 = *(msg + 12);
-      if (v11 + 1 >= 2)
+      v12 = *(msg + 12);
+      if (v12 + 1 >= 2)
       {
-        if (LODWORD(meta->metaClassPrivate) != v11)
+        if (LODWORD(meta->metaClassPrivate) != v12)
         {
           uiomachchannel();
         }
 
-        if (mach_port_mod_refs(*MEMORY[0x277D85F48], v11, 1u, -1))
+        if (mach_port_mod_refs(*MEMORY[0x277D85F48], v12, 1u, -1))
         {
           uiomachchannel();
         }
@@ -5847,31 +5842,31 @@ void uiomachchannel(OSMetaClassBase *a1, uint64_t a2)
 
       break;
     case 2:
-      v4 = dispatch_mach_msg_get_msg();
-      v5 = v4;
+      v5 = dispatch_mach_msg_get_msg();
+      v6 = v5;
       if (meta[1].meta)
       {
-        v6 = malloc_type_malloc(*(v4 + 4) + 16, 0x20040A4A59CD2uLL);
-        if (!v6)
+        v7 = malloc_type_malloc(*(v5 + 4) + 16, 0x20040A4A59CD2uLL);
+        if (!v7)
         {
           uiomachchannel();
         }
 
-        v7 = v6;
-        v8 = (v6 + 2);
-        *v7 = a1;
-        v7[1] = v8;
-        memcpy(v8, v5, v5[1]);
-        v9 = meta->__vftable;
+        v8 = v7;
+        v9 = v7 + 2;
+        *v8 = a1;
+        v8[1] = v9;
+        memcpy(v9, v6, v6[1]);
+        v10 = meta->__vftable;
 
-        dispatch_async_f(v9, v7, uiomessage);
+        dispatch_async_f(v10, v8, uiomessage);
       }
 
       else
       {
-        v13[0] = a1;
-        v13[1] = v4;
-        uiomessage(v13);
+        v14[0] = a1;
+        v14[1] = v5;
+        uiomessage(v14);
       }
 
       break;
@@ -7424,27 +7419,27 @@ kern_return_t IODataQueueDispatchSource::CanEnqueueData(IODataQueueDispatchSourc
 
 kern_return_t IOTimerDispatchSource::Create_Impl(IODispatchQueue *queue, IOTimerDispatchSource **source)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  if (OSObjectAllocate(gIOTimerDispatchSourceMetaClass, 0, &v12))
+  v20 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  if (OSObjectAllocate(gIOTimerDispatchSourceMetaClass, 0, &v11))
   {
     IOTimerDispatchSource::Create_Impl();
   }
 
-  v4 = v12;
-  (v12->init)(v12);
+  v4 = v11;
+  (v11->init)(v11);
   *(v4->ivars + 1) = queue;
   ivars = queue->ivars;
   if (*(ivars + 6))
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    *__str = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    *__str = 0u;
+    v13 = 0u;
     label = dispatch_queue_get_label(*ivars);
     snprintf(__str, 0x80uLL, "IOTimerDispatchSourceQueue-%s-%p", label, v4);
     v7 = dispatch_queue_create_with_target_V2(__str, 0, **(*(v4->ivars + 1) + 40));
@@ -7471,7 +7466,6 @@ kern_return_t IOTimerDispatchSource::Create_Impl(IODispatchQueue *queue, IOTimer
   dispatch_source_set_event_handler(v8, handler);
   dispatch_resume(*(v4->ivars + 3));
   *source = v4;
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -8297,23 +8291,23 @@ void IOUserClient::free(IOUserClient *this)
 
 kern_return_t IOService::CreateDefaultDispatchQueue_Impl(IOService *this, IODispatchQueue **queue)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  *__str = 0u;
+  v10 = 0u;
   v7 = 0u;
+  v8 = 0u;
+  *__str = 0u;
+  v6 = 0u;
   snprintf(__str, 0x100uLL, "%s-Default", (**this->meta->metaClassPrivate + 4));
   IODispatchQueue::Create(__str, 0, 0, queue);
   if ((gIODKDebug & 2) != 0)
@@ -8321,7 +8315,6 @@ kern_return_t IOService::CreateDefaultDispatchQueue_Impl(IOService *this, IODisp
     IOLog("IODispatchQueue::Create(Default) %p\n", *(this->ivars + 1));
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -8823,61 +8816,55 @@ kern_return_t IOUserClient::_ExternalMethod_Impl(IOUserClient *this, uint64_t se
 
 OSBundle *OSBundle::mainBundle(void)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = *(*&gOSBundleMetaClass[-3].refcount + 48);
-  if (v0)
+  if (!v0)
   {
-    while ((*(v0 + 24) & 1) == 0)
-    {
-      v0 = *(v0 + 16);
-      if (!v0)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    v2 = *v0;
-    for (i = strnlen(*v0, 0x400uLL) - 1; ; --i)
-    {
-      if (v2[i] == 47)
-      {
-        bzero(__dst, 0x400uLL);
-        if (strlcat(__dst, v2, i + 1) >= 0x400)
-        {
-          OSBundle::mainBundle();
-        }
-
-        if (strlcat(__dst, "/Info.plist", 0x400uLL) >= 0x400)
-        {
-          OSBundle::mainBundle();
-        }
-
-        if (!stat(__dst, &v9))
-        {
-          break;
-        }
-      }
-    }
-
-    v4 = OSString::withCString(v2, i);
-    if (!v4)
-    {
-      OSBundle::mainBundle();
-    }
-
-    v5 = v4;
-    CStringNoCopy = OSString::getCStringNoCopy(v4);
-    v1 = OSBundle::createFromPath(CStringNoCopy);
-    (v5->release)(v5);
+    return 0;
   }
 
-  else
+  while ((*(v0 + 24) & 1) == 0)
   {
-LABEL_4:
-    v1 = 0;
+    v0 = *(v0 + 16);
+    if (!v0)
+    {
+      return 0;
+    }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v2 = *v0;
+  for (i = strnlen(*v0, 0x400uLL) - 1; ; --i)
+  {
+    if (v2[i] == 47)
+    {
+      bzero(__dst, 0x400uLL);
+      if (strlcat(__dst, v2, i + 1) >= 0x400)
+      {
+        OSBundle::mainBundle();
+      }
+
+      if (strlcat(__dst, "/Info.plist", 0x400uLL) >= 0x400)
+      {
+        OSBundle::mainBundle();
+      }
+
+      if (!stat(__dst, &v8))
+      {
+        break;
+      }
+    }
+  }
+
+  v4 = OSString::withCString(v2, i);
+  if (!v4)
+  {
+    OSBundle::mainBundle();
+  }
+
+  v5 = v4;
+  CStringNoCopy = OSString::getCStringNoCopy(v4);
+  v1 = OSBundle::createFromPath(CStringNoCopy);
+  (v5->release)(v5);
   return v1;
 }
 
@@ -8919,36 +8906,32 @@ void OSBundle::free(OSBundle *this)
 
 kern_return_t OSBundle::loadResource(OSBundle *this, const char *name, uint64_t options, size_t minGuardSize, OSMappedFile **outputMap)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  if (name)
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  if (!name)
   {
-    bzero(__dst, 0x400uLL);
-    CStringNoCopy = OSString::getCStringNoCopy(*this->ivars);
-    strlcat(__dst, CStringNoCopy, 0x400uLL);
-    strlcat(__dst, "/", 0x400uLL);
-    strlcat(__dst, name, 0x400uLL);
-    v11 = OSMappedFile::createFromPath(__dst, v10, minGuardSize, &v14);
-    if (v11)
-    {
-      if (v14)
-      {
-        (v14->release)();
-      }
-    }
+    return -536870212;
+  }
 
-    else
+  bzero(__dst, 0x400uLL);
+  CStringNoCopy = OSString::getCStringNoCopy(*this->ivars);
+  strlcat(__dst, CStringNoCopy, 0x400uLL);
+  strlcat(__dst, "/", 0x400uLL);
+  strlcat(__dst, name, 0x400uLL);
+  v11 = OSMappedFile::createFromPath(__dst, v10, minGuardSize, &v13);
+  if (v11)
+  {
+    if (v13)
     {
-      *outputMap = v14;
+      (v13->release)();
     }
   }
 
   else
   {
-    v11 = -536870212;
+    *outputMap = v13;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -9457,27 +9440,27 @@ void IOThread::free(OSMetaClassBase *this)
 
 uint64_t IOThread::Create(IOThread *this, void (__cdecl *a2)(const OSObject *__hidden this), void (__cdecl *a3)(const OSObject *__hidden this), OSObject **a4, IOThread **a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   v5 = 3758097090;
   if (a2 && a4)
   {
-    v17 = 0;
-    v9 = OSObjectAllocate(gIOThreadMetaClass, 0, &v18);
-    v10 = v18;
+    v16 = 0;
+    v9 = OSObjectAllocate(gIOThreadMetaClass, 0, &v17);
+    v10 = v17;
     if (v9)
     {
       v5 = v9;
-      if (!v18)
+      if (!v17)
       {
-        goto LABEL_15;
+        return v5;
       }
     }
 
     else
     {
       v5 = 3758097084;
-      if ((v18->init)(v18))
+      if ((v17->init)(v17))
       {
         v11 = v10[1].OSMetaClassBase::__vftable;
         v11->isEqualTo = 850045863;
@@ -9492,11 +9475,11 @@ uint64_t IOThread::Create(IOThread *this, void (__cdecl *a2)(const OSObject *__h
         v12[2].release = 0;
         v10[1].retain = a2;
         v10[1].release = a3;
-        v5 = pthread_attr_init(&v19);
+        v5 = pthread_attr_init(&v18);
         if (!v5)
         {
-          v13 = pthread_attr_setschedpolicy(&v19, 2);
-          if (v13 || (v13 = pthread_attr_getschedparam(&v19, &v16), v13) || (v16.sched_priority = 63, v13 = pthread_attr_setschedparam(&v19, &v16), v13) || (v13 = pthread_attr_setdetachstate(&v19, 1), v13))
+          v13 = pthread_attr_setschedpolicy(&v18, 2);
+          if (v13 || (v13 = pthread_attr_getschedparam(&v18, &v15), v13) || (v15.sched_priority = 63, v13 = pthread_attr_setschedparam(&v18, &v15), v13) || (v13 = pthread_attr_setdetachstate(&v18, 1), v13))
           {
             v5 = v13;
           }
@@ -9504,22 +9487,22 @@ uint64_t IOThread::Create(IOThread *this, void (__cdecl *a2)(const OSObject *__h
           else
           {
             (v10->retain)(v10);
-            v5 = pthread_create(&v17, &v19, IOThreadStart, v10);
+            v5 = pthread_create(&v16, &v18, IOThreadStart, v10);
             if (!v5)
             {
               pthread_mutex_lock(&v10[1].isEqualTo);
-              v10[1].getMetaClass = v17;
+              v10[1].getMetaClass = v16;
               pthread_cond_signal(&v10[1].OSMetaClassBase::__vftable[1].Dispatch);
               pthread_mutex_unlock(&v10[1].isEqualTo);
-              pthread_attr_destroy(&v19);
+              pthread_attr_destroy(&v18);
               *a4 = v10;
-              goto LABEL_15;
+              return v5;
             }
 
             (v10->release)(v10);
           }
 
-          pthread_attr_destroy(&v19);
+          pthread_attr_destroy(&v18);
         }
       }
     }
@@ -9527,8 +9510,6 @@ uint64_t IOThread::Create(IOThread *this, void (__cdecl *a2)(const OSObject *__h
     (v10->release)(v10);
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -9809,4 +9790,23 @@ LABEL_3:
   }
 
   return v7;
+}
+
+uint64_t IOWorkGroup::Invalidate(OSMetaClassBase *this)
+{
+  v1 = *&this[1].meta->refcount;
+  if (!v1)
+  {
+    return 3758097112;
+  }
+
+  v3 = IOWorkGroup::InvalidateKernel(this, v1, 0);
+  v4 = *&this[1].meta->refcount;
+  if (v4)
+  {
+    (*(*v4 + 16))(v4);
+    *&this[1].meta->refcount = 0;
+  }
+
+  return v3;
 }

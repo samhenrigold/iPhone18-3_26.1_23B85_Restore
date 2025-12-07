@@ -79,111 +79,110 @@
 
 - (void)updateConstraints
 {
-  v61[3] = *MEMORY[0x277D85DE8];
+  v60[3] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v58 = a2;
+  v57 = a2;
   [MEMORY[0x277CCAAD0] deactivateConstraints:self->_activeConstraints];
-  v38 = 0;
+  v37 = 0;
   if (selfCopy->_messageText)
   {
-    v38 = [(NSString *)selfCopy->_messageText length]!= 0;
+    v37 = [(NSString *)selfCopy->_messageText length]!= 0;
   }
 
-  v57 = v38;
+  v56 = v37;
   array = [MEMORY[0x277CBEB18] array];
-  v53 = 0;
-  v51 = 0;
-  if (v38)
+  v52 = 0;
+  v50 = 0;
+  if (v37)
   {
-    v54 = _NSDictionaryOfVariableBindings(&cfstr_TitlelabelMess.isa, selfCopy->_titleLabel, selfCopy->_messageLabel, 0);
-    v53 = 1;
-    v37 = v54;
+    v53 = _NSDictionaryOfVariableBindings(&cfstr_TitlelabelMess.isa, selfCopy->_titleLabel, selfCopy->_messageLabel, 0);
+    v52 = 1;
+    v36 = v53;
   }
 
   else
   {
-    v52 = _NSDictionaryOfVariableBindings(&cfstr_Titlelabel.isa, selfCopy->_titleLabel, 0);
-    v51 = 1;
-    v37 = v52;
+    v51 = _NSDictionaryOfVariableBindings(&cfstr_Titlelabel.isa, selfCopy->_titleLabel, 0);
+    v50 = 1;
+    v36 = v51;
   }
 
-  v55 = MEMORY[0x277D82BE0](v37);
-  if (v51)
+  v54 = MEMORY[0x277D82BE0](v36);
+  if (v50)
   {
-    MEMORY[0x277D82BD8](v52);
+    MEMORY[0x277D82BD8](v51);
   }
 
-  if (v53)
+  if (v52)
   {
-    MEMORY[0x277D82BD8](v54);
+    MEMORY[0x277D82BD8](v53);
   }
 
-  v50 = MEMORY[0x277D82BE0](&unk_2835AAFC8);
-  v49 = [MEMORY[0x277D75520] metricsForTextStyle:*MEMORY[0x277D76918]];
+  v49 = MEMORY[0x277D82BE0](&unk_2835AAFC8);
+  v48 = [MEMORY[0x277D75520] metricsForTextStyle:*MEMORY[0x277D76918]];
   if (selfCopy->_bannerView)
   {
-    v48 = [MEMORY[0x277CCAAD0] constraintWithItem:selfCopy->_bannerView attribute:3 relatedBy:? toItem:? attribute:? multiplier:? constant:?];
-    v31 = MEMORY[0x277CCAAD0];
+    v47 = [MEMORY[0x277CCAAD0] constraintWithItem:selfCopy->_bannerView attribute:3 relatedBy:? toItem:? attribute:? multiplier:? constant:?];
+    v30 = MEMORY[0x277CCAAD0];
     bannerView = selfCopy->_bannerView;
     titleLabel = selfCopy->_titleLabel;
-    [v49 scaledValueForValue:-36.0];
+    [v48 scaledValueForValue:-36.0];
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     UIRoundToScreenScale();
-    v47 = [v31 constraintWithItem:bannerView attribute:11 relatedBy:0 toItem:titleLabel attribute:12 multiplier:1.0 constant:v2];
+    v46 = [v30 constraintWithItem:bannerView attribute:11 relatedBy:0 toItem:titleLabel attribute:12 multiplier:1.0 constant:v2];
     MEMORY[0x277D82BD8](mainScreen);
-    v46 = [MEMORY[0x277CCAAD0] constraintWithItem:selfCopy->_bannerView attribute:9 relatedBy:0 toItem:selfCopy attribute:1.0 multiplier:0.0 constant:?];
-    v35 = array;
-    v61[0] = v46;
-    v61[1] = v48;
-    v61[2] = v47;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
-    [v35 addObjectsFromArray:?];
-    MEMORY[0x277D82BD8](v36);
+    v45 = [MEMORY[0x277CCAAD0] constraintWithItem:selfCopy->_bannerView attribute:9 relatedBy:0 toItem:selfCopy attribute:1.0 multiplier:0.0 constant:?];
+    v34 = array;
+    v60[0] = v45;
+    v60[1] = v47;
+    v60[2] = v46;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
+    [v34 addObjectsFromArray:?];
+    MEMORY[0x277D82BD8](v35);
+    objc_storeStrong(&v45, 0);
     objc_storeStrong(&v46, 0);
     objc_storeStrong(&v47, 0);
-    objc_storeStrong(&v48, 0);
   }
 
   else
   {
-    v27 = MEMORY[0x277CCAAD0];
-    v28 = selfCopy->_titleLabel;
-    v29 = selfCopy;
-    [v49 scaledValueForValue:36.0];
+    v26 = MEMORY[0x277CCAAD0];
+    v27 = selfCopy->_titleLabel;
+    v28 = selfCopy;
+    [v48 scaledValueForValue:36.0];
     mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
     UIRoundToScreenScale();
-    v45 = [v27 constraintWithItem:v28 attribute:12 relatedBy:0 toItem:v29 attribute:3 multiplier:1.0 constant:v3];
+    v44 = [v26 constraintWithItem:v27 attribute:12 relatedBy:0 toItem:v28 attribute:3 multiplier:1.0 constant:v3];
     *&v4 = MEMORY[0x277D82BD8](mainScreen2).n128_u64[0];
-    [array addObject:{v45, v4}];
-    objc_storeStrong(&v45, 0);
+    [array addObject:{v44, v4}];
+    objc_storeStrong(&v44, 0);
   }
 
-  if (v57)
+  if (v56)
   {
     v17 = MEMORY[0x277CCAAD0];
     v18 = selfCopy->_titleLabel;
-    messageLabel = selfCopy->_messageLabel;
-    [v49 scaledValueForValue:-20.0];
+    [v48 scaledValueForValue:-20.0];
     mainScreen3 = [MEMORY[0x277D759A0] mainScreen];
     UIRoundToScreenScale();
-    v44 = [v17 constraintWithItem:v18 attribute:? relatedBy:? toItem:? attribute:? multiplier:? constant:?];
+    v43 = [v17 constraintWithItem:v18 attribute:? relatedBy:? toItem:? attribute:? multiplier:? constant:?];
     MEMORY[0x277D82BD8](mainScreen3);
-    v21 = MEMORY[0x277CCAAD0];
-    v22 = selfCopy->_messageLabel;
-    v23 = selfCopy;
-    [v49 scaledValueForValue:-24.0];
+    v20 = MEMORY[0x277CCAAD0];
+    messageLabel = selfCopy->_messageLabel;
+    v22 = selfCopy;
+    [v48 scaledValueForValue:-24.0];
     mainScreen4 = [MEMORY[0x277D759A0] mainScreen];
     UIRoundToScreenScale();
-    v43 = [v21 constraintWithItem:v22 attribute:11 relatedBy:0 toItem:v23 attribute:4 multiplier:1.0 constant:v5];
+    v42 = [v20 constraintWithItem:messageLabel attribute:11 relatedBy:0 toItem:v22 attribute:4 multiplier:1.0 constant:v5];
     *&v6 = MEMORY[0x277D82BD8](mainScreen4).n128_u64[0];
-    v25 = array;
-    v60[0] = v44;
-    v60[1] = v43;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:{2, v6}];
-    [v25 addObjectsFromArray:?];
-    MEMORY[0x277D82BD8](v26);
+    v24 = array;
+    v59[0] = v43;
+    v59[1] = v42;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:{2, v6}];
+    [v24 addObjectsFromArray:?];
+    MEMORY[0x277D82BD8](v25);
+    objc_storeStrong(&v42, 0);
     objc_storeStrong(&v43, 0);
-    objc_storeStrong(&v44, 0);
   }
 
   else
@@ -191,25 +190,25 @@
     v13 = MEMORY[0x277CCAAD0];
     v14 = selfCopy->_titleLabel;
     v15 = selfCopy;
-    [v49 scaledValueForValue:-24.0];
+    [v48 scaledValueForValue:-24.0];
     mainScreen5 = [MEMORY[0x277D759A0] mainScreen];
     UIRoundToScreenScale();
-    v42 = [v13 constraintWithItem:v14 attribute:11 relatedBy:0 toItem:v15 attribute:4 multiplier:1.0 constant:v7];
+    v41 = [v13 constraintWithItem:v14 attribute:11 relatedBy:0 toItem:v15 attribute:4 multiplier:1.0 constant:v7];
     *&v8 = MEMORY[0x277D82BD8](mainScreen5).n128_u64[0];
-    [array addObject:{v42, v8}];
-    objc_storeStrong(&v42, 0);
+    [array addObject:{v41, v8}];
+    objc_storeStrong(&v41, 0);
   }
 
-  v41 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(H_MARGIN)-[_titleLabel]-(H_MARGIN)-|" options:0 metrics:v50 views:v55];
-  [array addObjectsFromArray:v41];
-  if (v57)
+  v40 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(H_MARGIN)-[_titleLabel]-(H_MARGIN)-|" options:0 metrics:v49 views:v54];
+  [array addObjectsFromArray:v40];
+  if (v56)
   {
-    v40 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(H_MARGIN)-[_messageLabel]-(H_MARGIN)-|" options:0 metrics:v50 views:v55];
-    [array addObjectsFromArray:v40];
-    objc_storeStrong(&v40, 0);
+    v39 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(H_MARGIN)-[_messageLabel]-(H_MARGIN)-|" options:0 metrics:v49 views:v54];
+    [array addObjectsFromArray:v39];
+    objc_storeStrong(&v39, 0);
   }
 
-  [array addObjectsFromArray:v41];
+  [array addObjectsFromArray:v40];
   [MEMORY[0x277CCAAD0] activateConstraints:array];
   [(AKBasicLoginContentViewControllerContainerView *)selfCopy setContentCompressionResistancePriority:1 forAxis:?];
   LODWORD(v9) = 1144750080;
@@ -218,15 +217,14 @@
   activeConstraints = selfCopy->_activeConstraints;
   selfCopy->_activeConstraints = v10;
   *&v12 = MEMORY[0x277D82BD8](activeConstraints).n128_u64[0];
-  v39.receiver = selfCopy;
-  v39.super_class = AKBasicLoginContentViewControllerContainerView;
-  [(AKBasicLoginContentViewControllerContainerView *)&v39 updateConstraints];
-  objc_storeStrong(&v41, 0);
+  v38.receiver = selfCopy;
+  v38.super_class = AKBasicLoginContentViewControllerContainerView;
+  [(AKBasicLoginContentViewControllerContainerView *)&v38 updateConstraints];
+  objc_storeStrong(&v40, 0);
+  objc_storeStrong(&v48, 0);
   objc_storeStrong(&v49, 0);
-  objc_storeStrong(&v50, 0);
-  objc_storeStrong(&v55, 0);
+  objc_storeStrong(&v54, 0);
   objc_storeStrong(&array, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureBannerImage

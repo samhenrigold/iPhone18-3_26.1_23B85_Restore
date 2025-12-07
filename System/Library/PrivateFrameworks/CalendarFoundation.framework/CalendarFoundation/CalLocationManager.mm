@@ -338,7 +338,7 @@ void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_i
   v7 = +[CalFoundationLogSubsystem locations];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(v5, a1);
+    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(v5);
   }
 
   if ([v5 count])
@@ -347,7 +347,7 @@ void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_i
     v9 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_2(v8, a1);
+      __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_2();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -366,7 +366,7 @@ uint64_t __63__CalLocationManager_placemarkForLocation_withCompletionBlock___blo
   v2 = +[CalFoundationLogSubsystem locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_52_cold_1(a1);
+    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_52_cold_1();
   }
 
   return [*(a1 + 40) cancelGeocode];
@@ -422,7 +422,7 @@ void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_in
   v7 = +[CalFoundationLogSubsystem locations];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(v5, a1);
+    __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(v5);
   }
 
   if ([v5 count])
@@ -431,7 +431,7 @@ void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_in
     v9 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_2(v8, a1);
+      __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_2();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -442,7 +442,7 @@ void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_in
     v10 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_cold_3(a1);
+      __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_cold_3();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -456,7 +456,7 @@ uint64_t __62__CalLocationManager_placemarkForAddress_withCompletionBlock___bloc
   v2 = +[CalFoundationLogSubsystem locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_53_cold_1(a1);
+    __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_53_cold_1();
   }
 
   return [*(a1 + 40) cancelGeocode];
@@ -559,7 +559,7 @@ uint64_t __62__CalLocationManager_strictGeocodeString_withCompletionBlock___bloc
   v2 = +[CalFoundationLogSubsystem locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __62__CalLocationManager_strictGeocodeString_withCompletionBlock___block_invoke_61_cold_1(a1);
+    __62__CalLocationManager_strictGeocodeString_withCompletionBlock___block_invoke_61_cold_1();
   }
 
   return [*(a1 + 40) cancel];
@@ -581,19 +581,9 @@ uint64_t __62__CalLocationManager_strictGeocodeString_withCompletionBlock___bloc
 
 + (void)currentLocationWithCompletionBlock:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)currentLocationWithCompletionBlock:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)currentLocationWithCompletionBlock:.cold.5()
@@ -654,11 +644,9 @@ void __57__CalLocationManager_currentLocationWithCompletionBlock___block_invoke_
 
 + (void)placemarkForLocation:withCompletionBlock:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)placemarkForLocation:withCompletionBlock:.cold.2()
@@ -668,61 +656,43 @@ void __57__CalLocationManager_currentLocationWithCompletionBlock___block_invoke_
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(void *a1, uint64_t a2)
+void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
-  v4 = *(a2 + 32);
+  v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_cold_2(uint64_t a1, uint64_t a2)
+void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_52_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_7(&dword_1B990D000, v3, v4, "Choosing this placemark [%@] for this location [%@]");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __63__CalLocationManager_placemarkForLocation_withCompletionBlock___block_invoke_52_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 + (void)placemarkForAddress:withCompletionBlock:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_cold_3(uint64_t a1)
+void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_53_cold_1(uint64_t a1)
+void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_invoke_53_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 + (void)strictGeocodeString:withCompletionBlock:.cold.1()
@@ -741,24 +711,20 @@ void __62__CalLocationManager_placemarkForAddress_withCompletionBlock___block_in
 
 void __62__CalLocationManager_strictGeocodeString_withCompletionBlock___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AD98];
   v3 = [a1 mapItems];
   v4 = [v2 numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
-  v11 = [a1 mapItems];
+  v10 = [a1 mapItems];
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void __62__CalLocationManager_strictGeocodeString_withCompletionBlock___block_invoke_61_cold_1(uint64_t a1)
+void __62__CalLocationManager_strictGeocodeString_withCompletionBlock___block_invoke_61_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

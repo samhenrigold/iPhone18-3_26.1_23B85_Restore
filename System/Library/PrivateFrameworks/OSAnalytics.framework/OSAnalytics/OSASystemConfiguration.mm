@@ -34,6 +34,7 @@
 - (NSString)pathDiagnostics;
 - (NSString)pathPreferences;
 - (NSString)pathRoot;
+- (id)assembleMetadataAt:(double)at withOptions:(unsigned int)options;
 - (id)automatedContextURL;
 - (id)awdReporterKey;
 - (id)buildVersion;
@@ -286,14 +287,12 @@ LABEL_5:
 
 - (id)pathSubmissionDataVault
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   pathContainerRoot = [(OSASystemConfiguration *)self pathContainerRoot];
-  v7 = kPathOptionNoBackup;
-  v8[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = kPathOptionNoBackup;
+  v7[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [OSASystemConfiguration ensureUsablePath:pathContainerRoot component:@"DiagnosticReports" options:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -468,6 +467,31 @@ LABEL_5:
   [v4 setAutomatedDeviceGroup:groupCopy];
 }
 
+- (id)assembleMetadataAt:(double)at withOptions:(unsigned int)options
+{
+  v10.receiver = self;
+  v10.super_class = OSASystemConfiguration;
+  v5 = [(OSAProxyConfiguration *)&v10 assembleMetadataAt:*&options withOptions:at];
+  pairedWatchOS = [(OSASystemConfiguration *)self pairedWatchOS];
+  [v5 setValue:pairedWatchOS forKey:@"pairedWatchOS"];
+
+  if ([(OSASystemConfiguration *)self multiUserMode])
+  {
+    v7 = MEMORY[0x1E695E118];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  [v5 setValue:v7 forKey:@"multi_user_mode"];
+  submissionMetadata = [(OSASystemConfiguration *)self submissionMetadata];
+  [v5 addEntriesFromDictionary:submissionMetadata];
+
+  return v5;
+}
+
 uint64_t __40__OSASystemConfiguration_sharedInstance__block_invoke()
 {
   sharedInstance__sharedInstance = objc_alloc_init(OSASystemConfiguration);
@@ -492,10 +516,7 @@ uint64_t __40__OSASystemConfiguration_sharedInstance__block_invoke()
 
 uint64_t __44__OSASystemConfiguration_submissionMetadata__block_invoke(uint64_t a1)
 {
-  v2 = objc_opt_new();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 232);
-  *(v3 + 232) = v2;
+  *(*(a1 + 32) + 232) = objc_opt_new();
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -943,10 +964,7 @@ void __38__OSASystemConfiguration_serialNumber__block_invoke(uint64_t a1)
 
 uint64_t __40__OSASystemConfiguration_awdReporterKey__block_invoke(uint64_t a1)
 {
-  v2 = MGCopyAnswer();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 136);
-  *(v3 + 136) = v2;
+  *(*(a1 + 32) + 136) = MGCopyAnswer();
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -993,7 +1011,7 @@ void __44__OSASystemConfiguration_recoveryModeReason__block_invoke(uint64_t a1)
 - (BOOL)setPrefsKey:(id)key value:(id)value forDomain:(id)domain withSync:(BOOL)sync
 {
   syncCopy = sync;
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   valueCopy = value;
   keyCopy = key;
@@ -1017,9 +1035,9 @@ LABEL_11:
 
     unlink([v14 fileSystemRepresentation]);
     pathPreferences2 = [(OSASystemConfiguration *)self pathPreferences];
-    v38 = kPathOptionNoBackup;
-    v39[0] = MEMORY[0x1E695E118];
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = kPathOptionNoBackup;
+    v38[0] = MEMORY[0x1E695E118];
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v20 = [OSASystemConfiguration ensureUsablePath:pathPreferences2 component:@"/Library/Preferences" options:v19];
 
     if (v20)
@@ -1033,13 +1051,13 @@ LABEL_11:
           v23 = __error();
           v24 = strerror(*v23);
           *buf = 138413058;
-          v31 = v14;
-          v32 = 1024;
-          v33 = v21;
-          v34 = 1024;
-          v35 = v22;
-          v36 = 2080;
-          v37 = v24;
+          v30 = v14;
+          v31 = 1024;
+          v32 = v21;
+          v33 = 1024;
+          v34 = v22;
+          v35 = 2080;
+          v36 = v24;
           _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "setPrefs: not created '%@' returned %d: %d %s", buf, 0x22u);
         }
       }
@@ -1093,7 +1111,6 @@ LABEL_19:
     v27 = 1;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -1333,10 +1350,7 @@ void __45__OSASystemConfiguration_automatedContextURL__block_invoke(uint64_t a1)
 
 uint64_t __37__OSASystemConfiguration_releaseType__block_invoke(uint64_t a1)
 {
-  v2 = MGCopyAnswer();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 152);
-  *(v3 + 152) = v2;
+  *(*(a1 + 32) + 152) = MGCopyAnswer();
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1358,10 +1372,7 @@ uint64_t __37__OSASystemConfiguration_releaseType__block_invoke(uint64_t a1)
 
 uint64_t __35__OSASystemConfiguration_seedGroup__block_invoke(uint64_t a1)
 {
-  v2 = CFPreferencesCopyAppValue(@"SeedGroup", @".GlobalPreferences");
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 160);
-  *(v3 + 160) = v2;
+  *(*(a1 + 32) + 160) = CFPreferencesCopyAppValue(@"SeedGroup", @".GlobalPreferences");
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1392,7 +1403,7 @@ void __37__OSASystemConfiguration_internalKey__block_invoke(uint64_t a1)
     v33 = __Block_byref_object_copy__2;
     v34 = __Block_byref_object_dispose__2;
     v35 = 0;
-    if (AccountsLibraryCore())
+    if (AccountsLibraryCore(0))
     {
       v2 = dispatch_semaphore_create(0);
       v41 = 0;
@@ -1436,8 +1447,8 @@ void __37__OSASystemConfiguration_internalKey__block_invoke(uint64_t a1)
       _Block_object_dispose(&v41, 8);
       if (!v6)
       {
-        dlerror();
-        abort_report_np();
+        v23 = dlerror();
+        abort_report_np("%s", v23);
         __break(1u);
       }
 
@@ -1487,46 +1498,34 @@ void __37__OSASystemConfiguration_internalKey__block_invoke(uint64_t a1)
 
     _Block_object_dispose(&v30, 8);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __37__OSASystemConfiguration_internalKey__block_invoke_370(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v25 = a3;
+  v24 = a3;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = v5;
-  v28 = [obj countByEnumeratingWithState:&v33 objects:v51 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v32 objects:v50 count:16];
+  if (v27)
   {
     v6 = MEMORY[0x1E69E9C10];
-    v27 = *v34;
+    v26 = *v33;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v34 != v27)
+      if (*v33 != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v33 + 1) + 8 * v7);
-      if (!DataAccessLibraryCore())
-      {
-        goto LABEL_48;
-      }
-
-      v9 = [v8 accountType];
-      v10 = [v9 identifier];
-      v11 = getACAccountTypeIdentifierExchange();
-      v12 = [v10 isEqualToString:v11];
-
-      if (v12)
+      v8 = *(*(&v32 + 1) + 8 * v7);
+      if (DataAccessLibraryCore(0) && ([v8 accountType], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), getACAccountTypeIdentifierExchange(), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v9, v12))
       {
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
@@ -1534,23 +1533,23 @@ LABEL_3:
           _os_log_impl(&dword_1AE4F7000, v6, OS_LOG_TYPE_DEFAULT, "Using kDAAccountEmailAddress to fetch Exchange email addresses.", buf, 2u);
         }
 
-        v42 = 0;
-        v43 = &v42;
-        v44 = 0x2020000000;
+        v41 = 0;
+        v42 = &v41;
+        v43 = 0x2020000000;
         v13 = getkDAAccountEmailAddressSymbolLoc_ptr;
-        v45 = getkDAAccountEmailAddressSymbolLoc_ptr;
+        v44 = getkDAAccountEmailAddressSymbolLoc_ptr;
         if (!getkDAAccountEmailAddressSymbolLoc_ptr)
         {
           *buf = MEMORY[0x1E69E9820];
-          v38 = 3221225472;
-          v39 = __getkDAAccountEmailAddressSymbolLoc_block_invoke;
-          v40 = &unk_1E7A271B0;
-          v41 = &v42;
+          v37 = 3221225472;
+          v38 = __getkDAAccountEmailAddressSymbolLoc_block_invoke;
+          v39 = &unk_1E7A271B0;
+          v40 = &v41;
           __getkDAAccountEmailAddressSymbolLoc_block_invoke(buf);
-          v13 = v43[3];
+          v13 = v42[3];
         }
 
-        _Block_object_dispose(&v42, 8);
+        _Block_object_dispose(&v41, 8);
         if (!v13)
         {
           goto LABEL_45;
@@ -1559,33 +1558,32 @@ LABEL_3:
 
       else
       {
-LABEL_48:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
           _os_log_impl(&dword_1AE4F7000, v6, OS_LOG_TYPE_DEFAULT, "Using ACAccountPropertyIdentityEmailAddress to fetch email addresses.", buf, 2u);
         }
 
-        v42 = 0;
-        v43 = &v42;
-        v44 = 0x2020000000;
+        v41 = 0;
+        v42 = &v41;
+        v43 = 0x2020000000;
         v13 = getACEmailAliasKeyEmailAddressesSymbolLoc_ptr;
-        v45 = getACEmailAliasKeyEmailAddressesSymbolLoc_ptr;
+        v44 = getACEmailAliasKeyEmailAddressesSymbolLoc_ptr;
         if (!getACEmailAliasKeyEmailAddressesSymbolLoc_ptr)
         {
           *buf = MEMORY[0x1E69E9820];
-          v38 = 3221225472;
-          v39 = __getACEmailAliasKeyEmailAddressesSymbolLoc_block_invoke;
-          v40 = &unk_1E7A271B0;
-          v41 = &v42;
+          v37 = 3221225472;
+          v38 = __getACEmailAliasKeyEmailAddressesSymbolLoc_block_invoke;
+          v39 = &unk_1E7A271B0;
+          v40 = &v41;
           v14 = AccountsLibrary();
           v15 = dlsym(v14, "ACEmailAliasKeyEmailAddresses");
-          *(v41[1] + 24) = v15;
-          getACEmailAliasKeyEmailAddressesSymbolLoc_ptr = *(v41[1] + 24);
-          v13 = v43[3];
+          *(v40[1] + 24) = v15;
+          getACEmailAliasKeyEmailAddressesSymbolLoc_ptr = *(v40[1] + 24);
+          v13 = v42[3];
         }
 
-        _Block_object_dispose(&v42, 8);
+        _Block_object_dispose(&v41, 8);
         if (!v13)
         {
 LABEL_45:
@@ -1597,7 +1595,7 @@ LABEL_45:
       v16 = [v8 objectForKeyedSubscript:*v13];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_2(v49, v16, &v50);
+        __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_2(v48, v16, &v49);
       }
 
       if (!v16)
@@ -1605,7 +1603,7 @@ LABEL_45:
         v16 = [v8 username];
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_3(v47, v16, &v48);
+          __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_3(v46, v16, &v47);
         }
       }
 
@@ -1638,25 +1636,25 @@ LABEL_45:
         }
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v46 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v28 objects:v45 count:16];
       if (v19)
       {
-        v20 = *v30;
+        v20 = *v29;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v30 != v20)
+            if (*v29 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v29 + 1) + 8 * i);
+            v22 = *(*(&v28 + 1) + 8 * i);
             if ([v22 hasSuffix:@"@apple.com"])
             {
               objc_storeStrong((*(*(a1 + 40) + 8) + 40), v22);
@@ -1664,7 +1662,7 @@ LABEL_45:
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v29 objects:v46 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v28 objects:v45 count:16];
           if (v19)
           {
             continue;
@@ -1682,10 +1680,10 @@ LABEL_41:
         break;
       }
 
-      if (++v7 == v28)
+      if (++v7 == v27)
       {
-        v28 = [obj countByEnumeratingWithState:&v33 objects:v51 count:16];
-        if (v28)
+        v27 = [obj countByEnumeratingWithState:&v32 objects:v50 count:16];
+        if (v27)
         {
           goto LABEL_3;
         }
@@ -1696,7 +1694,6 @@ LABEL_41:
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__OSASystemConfiguration_isComputeController__block_invoke(uint64_t a1)
@@ -1755,87 +1752,86 @@ uint64_t __55__OSASystemConfiguration_isInDeviceRecoveryEnvironment__block_invok
 
 void __36__OSASystemConfiguration_onceConfig__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v4 = [v3 pathForResource:@"submissionConfig" ofType:@"plist"];
+  v28 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v2 pathForResource:@"submissionConfig" ofType:@"plist"];
 
-  if (v4)
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
   }
 
   else
   {
-    v5 = @"/System/Library/PrivateFrameworks/OSAnalytics.framework/submissionConfig.plist";
+    v4 = @"/System/Library/PrivateFrameworks/OSAnalytics.framework/submissionConfig.plist";
   }
 
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v5];
-  v7 = v6;
-  if (v6)
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v4];
+  v6 = v5;
+  if (v5)
   {
-    v8 = [v6 objectForKeyedSubscript:@"log_types"];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 256);
-    *(v9 + 256) = v8;
+    v7 = [v5 objectForKeyedSubscript:@"log_types"];
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 256);
+    *(v8 + 256) = v7;
 
-    if ([*(a1 + 32) multiUserMode] && (getpid(), v11 = *MEMORY[0x1E69E9BD0], v28 = "/private/var/mobile/Library/OSAnalytics/Preferences", sandbox_check()))
+    if ([*(a1 + 32) multiUserMode] && (getpid(), v25 = "/private/var/mobile/Library/OSAnalytics/Preferences", sandbox_check()))
     {
-      v12 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v13 = +[OSASystemConfiguration sharedInstance];
-      v12 = [v13 getTaskingKey:@"disabledLogs"];
+      v11 = +[OSASystemConfiguration sharedInstance];
+      v10 = [v11 getTaskingKey:@"disabledLogs"];
 
-      if (v12)
+      if (v10)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            v14 = [v12 componentsJoinedByString:{@", "}];
+            v12 = [v10 componentsJoinedByString:{@", "}];
             *buf = 138412290;
-            v30 = v14;
-            v15 = MEMORY[0x1E69E9C10];
-            v16 = "tasked blacklist: %@";
-            v17 = OS_LOG_TYPE_DEFAULT;
+            v27 = v12;
+            v13 = MEMORY[0x1E69E9C10];
+            v14 = "tasked blacklist: %@";
+            v15 = OS_LOG_TYPE_DEFAULT;
 LABEL_14:
-            _os_log_impl(&dword_1AE4F7000, v15, v17, v16, buf, 0xCu);
+            _os_log_impl(&dword_1AE4F7000, v13, v15, v14, buf, 0xCu);
           }
 
 LABEL_15:
-          v18 = [v12 copy];
-          v19 = *(a1 + 32);
-          v20 = *(v19 + 264);
-          *(v19 + 264) = v18;
+          v16 = [v10 copy];
+          v17 = *(a1 + 32);
+          v18 = *(v17 + 264);
+          *(v17 + 264) = v16;
 
-          v21 = [v7 objectForKeyedSubscript:@"submission_params"];
-          v22 = *(a1 + 32);
-          v23 = *(v22 + 272);
-          *(v22 + 272) = v21;
+          v19 = [v6 objectForKeyedSubscript:@"submission_params"];
+          v20 = *(a1 + 32);
+          v21 = *(v20 + 272);
+          *(v20 + 272) = v19;
 
-          v24 = [v7 objectForKeyedSubscript:@"whitelisted_domains"];
-          v25 = *(a1 + 32);
-          v26 = *(v25 + 280);
-          *(v25 + 280) = v24;
+          v22 = [v6 objectForKeyedSubscript:@"whitelisted_domains"];
+          v23 = *(a1 + 32);
+          v24 = *(v23 + 280);
+          *(v23 + 280) = v22;
 
           goto LABEL_18;
         }
       }
     }
 
-    v12 = &unk_1F241F1B8;
+    v10 = &unk_1F241F1B8;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v14 = [&unk_1F241F1B8 componentsJoinedByString:{@", "}];
+      v12 = [&unk_1F241F1B8 componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v30 = v14;
-      v15 = MEMORY[0x1E69E9C10];
-      v16 = "no blacklist tasking: applying default: %@";
-      v17 = OS_LOG_TYPE_INFO;
+      v27 = v12;
+      v13 = MEMORY[0x1E69E9C10];
+      v14 = "no blacklist tasking: applying default: %@";
+      v15 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
@@ -1845,13 +1841,11 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v5;
+    v27 = v4;
     _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unable to load %@", buf, 0xCu);
   }
 
 LABEL_18:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getLogBlacklist
@@ -1900,7 +1894,7 @@ LABEL_18:
 
 + (id)ensureUsablePath:(id)path component:(id)component options:(id)options
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   componentCopy = component;
   optionsCopy = options;
@@ -1921,9 +1915,9 @@ LABEL_18:
     pathSubmission = [v15 pathSubmission];
     v17 = [pathSubmission stringByAppendingPathComponent:@"ProxiedDevice-"];
 
-    if (realpath_DARWIN_EXTSN([v12 UTF8String], v55) || *__error() == 2)
+    if (realpath_DARWIN_EXTSN([v12 UTF8String], v54) || *__error() == 2)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v55];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v54];
       if ([v12 containsString:@".."] & 1) == 0 && v18 && (objc_msgSend(v18, "hasPrefix:", v17))
       {
 LABEL_14:
@@ -1944,15 +1938,15 @@ LABEL_14:
       v20 = __error();
       v21 = strerror(*v20);
       *buf = 138544386;
-      v46 = v12;
-      v47 = 2114;
-      v48 = v18;
-      v49 = 2114;
-      v50 = v17;
-      v51 = 1024;
-      v52 = v19;
-      v53 = 2080;
-      v54 = v21;
+      v45 = v12;
+      v46 = 2114;
+      v47 = v18;
+      v48 = 2114;
+      v49 = v17;
+      v50 = 1024;
+      v51 = v19;
+      v52 = 2080;
+      v53 = v21;
       _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "FAILED untrusted path validation '%{public}@' -> '%{public}@' [%{public}@]. Error: %d %s", buf, 0x30u);
     }
 
@@ -1967,14 +1961,14 @@ LABEL_15:
     if ([defaultManager fileExistsAtPath:v12])
     {
       fileSystemRepresentation = [v12 fileSystemRepresentation];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke;
-      v42[3] = &unk_1E7A27450;
-      v43 = optionsCopy;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke;
+      v41[3] = &unk_1E7A27450;
+      v42 = optionsCopy;
       v12 = v12;
-      v44 = v12;
-      if ((OSASafeOpenReadOnly(fileSystemRepresentation, v42) & 1) == 0)
+      v43 = v12;
+      if ((OSASafeOpenReadOnly(fileSystemRepresentation, v41) & 1) == 0)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
@@ -1985,7 +1979,7 @@ LABEL_15:
       }
 
       v24 = 0;
-      v25 = v43;
+      v25 = v42;
     }
 
     else
@@ -1998,18 +1992,18 @@ LABEL_15:
       [(OSASafeCreateDirectoryOptions *)v25 setGroupID:&unk_1F241E878];
       [(OSASafeCreateDirectoryOptions *)v25 setFileProtectionNone:1];
       v27 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12];
-      v41 = 0;
-      v28 = OSASafeCreateDirectory(v27, 504, v25, &v41);
-      v24 = v41;
+      v40 = 0;
+      v28 = OSASafeCreateDirectory(v27, 504, v25, &v40);
+      v24 = v40;
 
       v29 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
       if (v28)
       {
         if (v29)
         {
-          *v55 = 138543362;
-          v56 = v12;
-          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "created directory '%{public}@'", v55, 0xCu);
+          *v54 = 138543362;
+          v55 = v12;
+          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "created directory '%{public}@'", v54, 0xCu);
         }
       }
 
@@ -2017,11 +2011,11 @@ LABEL_15:
       {
         if (v29)
         {
-          *v55 = 138543618;
-          v56 = v12;
-          v57 = 2114;
-          v58 = v24;
-          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to create directory '%{public}@': %{public}@", v55, 0x16u);
+          *v54 = 138543618;
+          v55 = v12;
+          v56 = 2114;
+          v57 = v24;
+          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to create directory '%{public}@': %{public}@", v54, 0x16u);
         }
 
         v12 = 0;
@@ -2038,10 +2032,10 @@ LABEL_15:
         if (bOOLValue2)
         {
           v32 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12];
-          v40 = 0;
+          v39 = 0;
           v33 = *MEMORY[0x1E695DB80];
-          [v32 getResourceValue:&v40 forKey:*MEMORY[0x1E695DB80] error:0];
-          v34 = v40;
+          [v32 getResourceValue:&v39 forKey:*MEMORY[0x1E695DB80] error:0];
+          v34 = v39;
           if ([v34 BOOLValue])
           {
             v35 = v24;
@@ -2049,17 +2043,17 @@ LABEL_15:
 
           else
           {
-            v39 = v24;
-            v36 = [v32 setResourceValue:MEMORY[0x1E695E118] forKey:v33 error:&v39];
-            v35 = v39;
+            v38 = v24;
+            v36 = [v32 setResourceValue:MEMORY[0x1E695E118] forKey:v33 error:&v38];
+            v35 = v38;
 
             if ((v36 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
-              *v55 = 138543618;
-              v56 = v12;
-              v57 = 2114;
-              v58 = v35;
-              _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to set NSURLIsExcludedFromBackupKey '%{public}@': %{public}@", v55, 0x16u);
+              *v54 = 138543618;
+              v55 = v12;
+              v56 = 2114;
+              v57 = v35;
+              _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to set NSURLIsExcludedFromBackupKey '%{public}@': %{public}@", v54, 0x16u);
             }
           }
 
@@ -2069,32 +2063,30 @@ LABEL_15:
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke(uint64_t a1, int a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E696ADA0]);
   [v4 setUsesSignificantDigits:1];
   [v4 setMaximumSignificantDigits:2];
-  memset(&v35, 0, sizeof(v35));
-  if (!fstat(a2, &v35) && (v35.st_mode & 0xF000) == 0x4000)
+  memset(&v34, 0, sizeof(v34));
+  if (!fstat(a2, &v34) && (v34.st_mode & 0xF000) == 0x4000)
   {
     v5 = [*(a1 + 32) objectForKeyedSubscript:@"file-owner-uid"];
-    buf = v35;
+    buf = v34;
     v6 = OSASetOwnership(a2, &buf, v5, &unk_1F241E878);
 
     if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_2(a1);
+      __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_2();
     }
 
-    if (v35.st_gid == 250)
+    if (v34.st_gid == 250)
     {
-      if ((v35.st_mode & 0x1FF) == 0x1F8)
+      if ((v34.st_mode & 0x1FF) == 0x1F8)
       {
         goto LABEL_12;
       }
@@ -2107,7 +2099,7 @@ void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_inv
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 40);
-        st_gid = v35.st_gid;
+        st_gid = v34.st_gid;
         if (v6)
         {
           v11 = "";
@@ -2115,8 +2107,8 @@ void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_inv
 
         else
         {
-          v13 = __error();
-          v11 = strerror(*v13);
+          v12 = __error();
+          v11 = strerror(*v12);
         }
 
         buf.st_dev = 138544386;
@@ -2132,84 +2124,84 @@ void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_inv
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "=== Attempted change gid on existing path: %{public}@ from %d to _analyticsusers (%u) with result %d %{public}s", &buf, 0x28u);
       }
 
-      if ((v35.st_mode & 0x1FF) == 0x1F8)
+      if ((v34.st_mode & 0x1FF) == 0x1F8)
       {
         goto LABEL_27;
       }
     }
 
-    v14 = fchmod(a2, 0x1F8u);
-    if (v14 == -1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v13 = fchmod(a2, 0x1F8u);
+    if (v13 == -1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_3(a1);
+      __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_3();
     }
 
+    v14 = MEMORY[0x1E69E9C10];
     v15 = MEMORY[0x1E69E9C10];
-    v16 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 40);
-      st_mode = v35.st_mode;
-      if (v14)
+      v16 = *(a1 + 40);
+      st_mode = v34.st_mode;
+      if (v13)
       {
-        v19 = __error();
-        v20 = strerror(*v19);
+        v18 = __error();
+        v19 = strerror(*v18);
       }
 
       else
       {
-        v20 = "";
+        v19 = "";
       }
 
       buf.st_dev = 138544386;
-      *&buf.st_mode = v17;
+      *&buf.st_mode = v16;
       WORD2(buf.st_ino) = 1024;
       *(&buf.st_ino + 6) = st_mode;
       HIWORD(buf.st_uid) = 1024;
       buf.st_gid = 504;
       LOWORD(buf.st_rdev) = 1024;
-      *(&buf.st_rdev + 2) = v14 == 0;
+      *(&buf.st_rdev + 2) = v13 == 0;
       *(&buf.st_rdev + 3) = 2082;
-      buf.st_atimespec.tv_sec = v20;
+      buf.st_atimespec.tv_sec = v19;
       _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "=== Attempted change perms on existing path: %{public}@ from 0x%X to 0x%X with result %d %{public}s", &buf, 0x28u);
     }
 
 LABEL_27:
     getprogname();
-    v21 = OSAGetBootTime();
-    if (v21)
+    v20 = OSAGetBootTime();
+    if (v20)
     {
-      v22 = MEMORY[0x1E696AD98];
-      v23 = [MEMORY[0x1E695DF00] date];
-      [v23 timeIntervalSinceDate:v21];
-      v24 = [v22 numberWithDouble:?];
-      v25 = [v4 stringForObjectValue:v24];
+      v21 = MEMORY[0x1E696AD98];
+      v22 = [MEMORY[0x1E695DF00] date];
+      [v22 timeIntervalSinceDate:v20];
+      v23 = [v21 numberWithDouble:?];
+      v24 = [v4 stringForObjectValue:v23];
     }
 
     else
     {
-      v25 = @"-1";
+      v24 = @"-1";
     }
 
-    v26 = OSAGetProcessUptime();
-    if (v26)
+    v25 = OSAGetProcessUptime();
+    if (v25)
     {
-      v27 = MEMORY[0x1E696AD98];
-      v28 = [MEMORY[0x1E695DF00] date];
-      [v28 timeIntervalSinceDate:v26];
-      v29 = [v27 numberWithDouble:?];
-      v30 = [v4 stringForObjectValue:v29];
+      v26 = MEMORY[0x1E696AD98];
+      v27 = [MEMORY[0x1E695DF00] date];
+      [v27 timeIntervalSinceDate:v25];
+      v28 = [v26 numberWithDouble:?];
+      v29 = [v4 stringForObjectValue:v28];
     }
 
     else
     {
-      v30 = @"-1";
+      v29 = @"-1";
     }
 
-    v34 = *(a1 + 40);
-    v31 = v30;
-    v32 = v25;
-    v33 = v34;
+    v33 = *(a1 + 40);
+    v30 = v29;
+    v31 = v24;
+    v32 = v33;
     AnalyticsSendEventLazy();
 
     goto LABEL_12;
@@ -2217,18 +2209,16 @@ LABEL_27:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_1(a1);
+    __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_1();
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_454(uint64_t a1)
 {
-  v16[14] = *MEMORY[0x1E69E9840];
-  v15[0] = @"progname";
+  v15[14] = *MEMORY[0x1E69E9840];
+  v14[0] = @"progname";
   v2 = *(a1 + 56);
   if (v2)
   {
@@ -2240,53 +2230,51 @@ id __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invok
     v3 = @"<unknown>";
   }
 
-  v16[0] = v3;
-  v16[1] = MEMORY[0x1E695E110];
-  v15[1] = @"create_dir";
-  v15[2] = @"path";
+  v15[0] = v3;
+  v15[1] = MEMORY[0x1E695E110];
+  v14[1] = @"create_dir";
+  v14[2] = @"path";
   v4 = *(a1 + 32);
   if (!v4)
   {
     v4 = @"path sanitize failed";
   }
 
-  v16[2] = v4;
-  v15[3] = @"original_perms";
+  v15[2] = v4;
+  v14[3] = @"original_perms";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(a1 + 68)];
-  v16[3] = v5;
-  v15[4] = @"modify_perms";
+  v15[3] = v5;
+  v14[4] = @"modify_perms";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 208)];
-  v16[4] = v6;
-  v15[5] = @"modify_perms_success";
+  v15[4] = v6;
+  v14[5] = @"modify_perms_success";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 209)];
-  v16[5] = v7;
-  v16[6] = &unk_1F241E890;
-  v15[6] = @"modify_perms_value";
-  v15[7] = @"original_gid";
+  v15[5] = v7;
+  v15[6] = &unk_1F241E890;
+  v14[6] = @"modify_perms_value";
+  v14[7] = @"original_gid";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(a1 + 84)];
-  v16[7] = v8;
-  v15[8] = @"modify_gid";
+  v15[7] = v8;
+  v14[8] = @"modify_gid";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 210)];
-  v16[8] = v9;
-  v15[9] = @"modify_gid_success";
+  v15[8] = v9;
+  v14[9] = @"modify_gid_success";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 211)];
-  v16[9] = v10;
-  v16[10] = &unk_1F241E878;
-  v15[10] = @"modify_gid_value";
-  v15[11] = @"boot_time_appx";
+  v15[9] = v10;
+  v15[10] = &unk_1F241E878;
+  v14[10] = @"modify_gid_value";
+  v14[11] = @"boot_time_appx";
   v11 = *(a1 + 48);
-  v16[11] = *(a1 + 40);
-  v16[12] = v11;
-  v15[12] = @"proc_uptime_appx";
-  v15[13] = @"framework";
-  v16[13] = @"OSAnalytics";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:14];
+  v15[11] = *(a1 + 40);
+  v15[12] = v11;
+  v14[12] = @"proc_uptime_appx";
+  v14[13] = @"framework";
+  v15[13] = @"OSAnalytics";
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:14];
 
   if (v2)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -2298,7 +2286,7 @@ id __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invok
   fstat(file, &v14);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    [OSASystemConfiguration ensureConformanceOfFile:? options:?];
+    +[OSASystemConfiguration ensureConformanceOfFile:options:];
   }
 
   v6 = [optionsCopy objectForKeyedSubscript:{@"file-owner-uid", *&v14.st_dev}];
@@ -2387,41 +2375,34 @@ id __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invok
 
 void __38__OSASystemConfiguration_setPathRoot___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) appleInternal])
+  v10 = *MEMORY[0x1E69E9840];
+  if (![*(a1 + 32) appleInternal] || (v2 = *(a1 + 32), v2[36]))
   {
-    v2 = *(a1 + 32);
-    if (!v2[36])
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v2 pathRoot];
-      objc_storeStrong((*(a1 + 32) + 288), *(a1 + 40));
-      if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_6;
-      }
-
-      v8 = *(*(a1 + 32) + 288);
-      v9 = 138412290;
-      v10 = v8;
-      v4 = MEMORY[0x1E69E9C10];
-      v5 = "overriding default log root location to %@";
-      goto LABEL_5;
+      return;
     }
-  }
 
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-  {
     v3 = *(*(a1 + 32) + 288);
-    v9 = 138412290;
-    v10 = v3;
+    v8 = 138412290;
+    v9 = v3;
     v4 = MEMORY[0x1E69E9C10];
     v5 = "unable to override default log root location because already set as %@";
-LABEL_5:
-    _os_log_impl(&dword_1AE4F7000, v4, OS_LOG_TYPE_DEFAULT, v5, &v9, 0xCu);
+    goto LABEL_5;
   }
 
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = [v2 pathRoot];
+  objc_storeStrong((*(a1 + 32) + 288), *(a1 + 40));
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = *(*(a1 + 32) + 288);
+    v8 = 138412290;
+    v9 = v7;
+    v4 = MEMORY[0x1E69E9C10];
+    v5 = "overriding default log root location to %@";
+LABEL_5:
+    _os_log_impl(&dword_1AE4F7000, v4, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
+  }
 }
 
 - (BOOL)overrideMountPath
@@ -2441,7 +2422,7 @@ LABEL_6:
 
 void __43__OSASystemConfiguration_overrideMountPath__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   overrideMountPath_success = 0;
   if ([*(a1 + 32) isInDeviceRecoveryEnvironment])
   {
@@ -2495,18 +2476,18 @@ void __43__OSASystemConfiguration_overrideMountPath__block_invoke(uint64_t a1)
           v10 = *(a1 + 32);
           v11 = *(v10 + 288);
           v12 = *(v10 + 296);
-          v14 = 138412546;
-          v15 = v11;
-          v16 = 2112;
-          v17 = v12;
-          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Successfully overrode mount path. New root path: %@. New container root path: %@", &v14, 0x16u);
+          v13 = 138412546;
+          v14 = v11;
+          v15 = 2112;
+          v16 = v12;
+          _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Successfully overrode mount path. New root path: %@. New container root path: %@", &v13, 0x16u);
         }
 
         overrideMountPath_success = 1;
 LABEL_24:
 
 LABEL_25:
-        goto LABEL_26;
+        return;
       }
     }
 
@@ -2528,9 +2509,6 @@ LABEL_25:
   {
     __43__OSASystemConfiguration_overrideMountPath__block_invoke_cold_1();
   }
-
-LABEL_26:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__OSASystemConfiguration_overrideMountPath__block_invoke_2(uint64_t a1, void *a2)
@@ -2580,7 +2558,6 @@ uint64_t __34__OSASystemConfiguration_pathRoot__block_invoke(uint64_t a1)
     v4 = @"/private/var/mobile/Library";
   }
 
-  v5 = v3[36];
   v3[36] = v4;
 
   return MEMORY[0x1EEE66BB8]();
@@ -2588,7 +2565,7 @@ uint64_t __34__OSASystemConfiguration_pathRoot__block_invoke(uint64_t a1)
 
 void __43__OSASystemConfiguration_pathContainerRoot__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = container_system_group_path_for_identifier();
   if (v2)
   {
@@ -2605,7 +2582,7 @@ void __43__OSASystemConfiguration_pathContainerRoot__block_invoke(uint64_t a1)
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v12 = 1;
+    v11 = 1;
     _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Error getting system group container: %llu", buf, 0xCu);
   }
 
@@ -2619,11 +2596,9 @@ void __43__OSASystemConfiguration_pathContainerRoot__block_invoke(uint64_t a1)
   {
     v9 = *(*(a1 + 32) + 296);
     *buf = 138543362;
-    v12 = v9;
+    v11 = v9;
     _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Using system group container: '%{public}@'", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pathSubmissionWithHomeDirectory:(id)directory
@@ -2655,7 +2630,7 @@ void __43__OSASystemConfiguration_pathContainerRoot__block_invoke(uint64_t a1)
 
 + (id)uidForUser:(id)user
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   userCopy = user;
   v4 = getpwnam([userCopy UTF8String]);
   if (v4)
@@ -2667,22 +2642,20 @@ void __43__OSASystemConfiguration_pathContainerRoot__block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = userCopy;
-      _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to fetch UID from unknown user '%@'", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = userCopy;
+      _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to fetch UID from unknown user '%@'", &v7, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 void __41__OSASystemConfiguration_pathPreferences__block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pathRoot];
   if ([*(a1 + 32) multiUserMode])
   {
@@ -2694,15 +2667,13 @@ void __41__OSASystemConfiguration_pathPreferences__block_invoke(uint64_t a1)
     v3 = @"OSAnalytics/Preferences";
   }
 
-  v9 = kPathOptionNoBackup;
-  v10[0] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = kPathOptionNoBackup;
+  v9[0] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [OSASystemConfiguration ensureUsablePath:v2 component:v3 options:v4];
   v6 = *(a1 + 32);
   v7 = *(v6 + 304);
   *(v6 + 304) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)pathDiagnostics
@@ -2722,7 +2693,7 @@ void __41__OSASystemConfiguration_pathPreferences__block_invoke(uint64_t a1)
 
 void __41__OSASystemConfiguration_pathDiagnostics__block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pathRoot];
   if ([*(a1 + 32) multiUserMode])
   {
@@ -2734,15 +2705,13 @@ void __41__OSASystemConfiguration_pathDiagnostics__block_invoke(uint64_t a1)
     v3 = @"OSAnalytics/Diagnostics";
   }
 
-  v9 = kPathOptionNoBackup;
-  v10[0] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = kPathOptionNoBackup;
+  v9[0] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [OSASystemConfiguration ensureUsablePath:v2 component:v3 options:v4];
   v6 = *(a1 + 32);
   v7 = *(v6 + 312);
   *(v6 + 312) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)pathCATasking
@@ -2762,17 +2731,15 @@ void __41__OSASystemConfiguration_pathDiagnostics__block_invoke(uint64_t a1)
 
 void __39__OSASystemConfiguration_pathCATasking__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pathContainerRoot];
-  v8 = kPathOptionNoBackup;
-  v9[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = kPathOptionNoBackup;
+  v8[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [OSASystemConfiguration ensureUsablePath:v2 component:@"/Library/CoreAnalytics" options:v3];
   v5 = *(a1 + 32);
   v6 = *(v5 + 320);
   *(v5 + 320) = v4;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)pathAWDTasking
@@ -2792,17 +2759,15 @@ void __39__OSASystemConfiguration_pathCATasking__block_invoke(uint64_t a1)
 
 void __40__OSASystemConfiguration_pathAWDTasking__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pathRoot];
-  v8 = kPathOptionNoBackup;
-  v9[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = kPathOptionNoBackup;
+  v8[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [OSASystemConfiguration ensureUsablePath:v2 component:@"/Library/AWD" options:v3];
   v5 = *(a1 + 32);
   v6 = *(v5 + 328);
   *(v5 + 328) = v4;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)submissionParam:(id)param
@@ -2910,7 +2875,7 @@ void __40__OSASystemConfiguration_pathAWDTasking__block_invoke(uint64_t a1)
 
 - (id)logExt:(id)ext
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   extCopy = ext;
   [(OSASystemConfiguration *)self onceConfig];
   v5 = [(OSASystemConfiguration *)self getPropsForLogType:extCopy];
@@ -2928,9 +2893,9 @@ void __40__OSASystemConfiguration_pathAWDTasking__block_invoke(uint64_t a1)
   {
     if (v8 && v10)
     {
-      v16[0] = v10;
-      v16[1] = v8;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+      v15[0] = v10;
+      v15[1] = v8;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
       v13 = [v12 componentsJoinedByString:@"."];
 
       goto LABEL_8;
@@ -2945,8 +2910,6 @@ void __40__OSASystemConfiguration_pathAWDTasking__block_invoke(uint64_t a1)
 
   v13 = v11;
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -3088,10 +3051,7 @@ LABEL_28:
 
 uint64_t __35__OSASystemConfiguration_logDomain__block_invoke(uint64_t a1)
 {
-  v2 = os_log_create("com.apple.osanalytics.daFlow", "reports");
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 336);
-  *(v3 + 336) = v2;
+  *(*(a1 + 32) + 336) = os_log_create("com.apple.osanalytics.daFlow", "reports");
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -3110,7 +3070,7 @@ uint64_t __35__OSASystemConfiguration_logDomain__block_invoke(uint64_t a1)
 
 void __58__OSASystemConfiguration_optIn__sharedMCProfileConnection__block_invoke()
 {
-  if (ManagedConfigurationLibraryCore())
+  if (ManagedConfigurationLibraryCore(0))
   {
     v4 = 0;
     v5 = &v4;
@@ -3119,7 +3079,7 @@ void __58__OSASystemConfiguration_optIn__sharedMCProfileConnection__block_invoke
     v7 = getMCProfileConnectionClass_softClass;
     if (!getMCProfileConnectionClass_softClass)
     {
-      ManagedConfigurationLibraryCore();
+      ManagedConfigurationLibraryCore(0);
       v5[3] = objc_getClass("MCProfileConnection");
       getMCProfileConnectionClass_softClass = v5[3];
       v0 = v5[3];
@@ -3219,27 +3179,28 @@ void __58__OSASystemConfiguration_optIn__sharedMCProfileConnection__block_invoke
 
 void __43__OSASystemConfiguration_optIn__optInApple__block_invoke()
 {
-  if (ManagedConfigurationLibraryCore())
+  if (ManagedConfigurationLibraryCore(0))
   {
-    v3 = 0;
-    v4 = &v3;
-    v5 = 0x2020000000;
+    v4 = 0;
+    v5 = &v4;
+    v6 = 0x2020000000;
     v0 = getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr;
-    v6 = getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr;
+    v7 = getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr;
     if (!getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr)
     {
       v1 = ManagedConfigurationLibrary();
-      v4[3] = dlsym(v1, "MCFeatureDiagnosticsSubmissionAllowed");
-      getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr = v4[3];
-      v0 = v4[3];
+      v5[3] = dlsym(v1, "MCFeatureDiagnosticsSubmissionAllowed");
+      getMCFeatureDiagnosticsSubmissionAllowedSymbolLoc_ptr = v5[3];
+      v0 = v5[3];
     }
 
-    _Block_object_dispose(&v3, 8);
+    _Block_object_dispose(&v4, 8);
     if (!v0)
     {
-      ACAccountTypeIdentifierExchange_cold_1 = getACAccountTypeIdentifierExchange_cold_1();
-      _Block_object_dispose(&v3, 8);
-      _Unwind_Resume(ACAccountTypeIdentifierExchange_cold_1);
+      getACAccountTypeIdentifierExchange_cold_1();
+      v3 = v2;
+      _Block_object_dispose(&v4, 8);
+      _Unwind_Resume(v3);
     }
 
     objc_storeStrong(&optInApple__featureDiagnosticsSubmissionAllowed, *v0);
@@ -3248,44 +3209,45 @@ void __43__OSASystemConfiguration_optIn__optInApple__block_invoke()
 
 - (BOOL)optInDRE
 {
-  if ([(OSASystemConfiguration *)self isInDeviceRecoveryEnvironment])
+  isInDeviceRecoveryEnvironment = [(OSASystemConfiguration *)self isInDeviceRecoveryEnvironment];
+  if (isInDeviceRecoveryEnvironment)
   {
-    v2 = OSAnalyticsHelperServiceConnection();
-    if (!v2)
+    v3 = OSAnalyticsHelperServiceConnection(isInDeviceRecoveryEnvironment);
+    if (!v3)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [OSASystemConfiguration(optIn) optInDRE];
       }
 
-      v7 = 0;
+      v8 = 0;
       goto LABEL_21;
     }
 
     empty = xpc_dictionary_create_empty();
     xpc_dictionary_set_uint64(empty, "operation", 0xBuLL);
     xpc_dictionary_set_uint64(empty, "dre_optIn_operation", 0);
-    v4 = xpc_connection_send_message_with_reply_sync(v2, empty);
-    v5 = v4;
-    if (v4)
+    v5 = xpc_connection_send_message_with_reply_sync(v3, empty);
+    v6 = v5;
+    if (v5)
     {
-      v6 = MEMORY[0x1B2703B90](v4);
-      if (v6 == MEMORY[0x1E69E9E98])
+      v7 = MEMORY[0x1B2703B90](v5);
+      if (v7 == MEMORY[0x1E69E9E98])
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [(OSASystemConfiguration(optIn) *)v5 optInDRE];
+          [(OSASystemConfiguration(optIn) *)v6 optInDRE];
         }
       }
 
-      else if (v6 == MEMORY[0x1E69E9E80])
+      else if (v7 == MEMORY[0x1E69E9E80])
       {
-        if (xpc_dictionary_get_BOOL(v5, "result"))
+        if (xpc_dictionary_get_BOOL(v6, "result"))
         {
-          v7 = xpc_dictionary_get_BOOL(v5, "dre_optInValue");
+          v8 = xpc_dictionary_get_BOOL(v6, "dre_optInValue");
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
-            [(OSASystemConfiguration(optIn) *)v7 optInDRE];
+            [(OSASystemConfiguration(optIn) *)v8 optInDRE];
           }
 
           goto LABEL_20;
@@ -3303,11 +3265,11 @@ void __43__OSASystemConfiguration_optIn__optInApple__block_invoke()
       [OSASystemConfiguration(optIn) optInDRE];
     }
 
-    v7 = 0;
+    v8 = 0;
 LABEL_20:
 
 LABEL_21:
-    return v7;
+    return v8;
   }
 
   return 0;
@@ -3317,31 +3279,32 @@ LABEL_21:
 {
   inCopy = in;
   v11 = *MEMORY[0x1E69E9840];
-  if ([(OSASystemConfiguration *)self isInDeviceRecoveryEnvironment])
+  isInDeviceRecoveryEnvironment = [(OSASystemConfiguration *)self isInDeviceRecoveryEnvironment];
+  if (isInDeviceRecoveryEnvironment)
   {
-    v4 = OSAnalyticsHelperServiceConnection();
-    if (v4)
+    v5 = OSAnalyticsHelperServiceConnection(isInDeviceRecoveryEnvironment);
+    if (v5)
     {
       empty = xpc_dictionary_create_empty();
       xpc_dictionary_set_uint64(empty, "operation", 0xBuLL);
       xpc_dictionary_set_uint64(empty, "dre_optIn_operation", 1uLL);
       xpc_dictionary_set_BOOL(empty, "dre_optInValue", inCopy);
-      v6 = xpc_connection_send_message_with_reply_sync(v4, empty);
-      v7 = v6;
-      if (v6)
+      v7 = xpc_connection_send_message_with_reply_sync(v5, empty);
+      v8 = v7;
+      if (v7)
       {
-        v8 = MEMORY[0x1B2703B90](v6);
-        if (v8 == MEMORY[0x1E69E9E98])
+        v9 = MEMORY[0x1B2703B90](v7);
+        if (v9 == MEMORY[0x1E69E9E98])
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            [(OSASystemConfiguration(optIn) *)v7 optInDRE];
+            [(OSASystemConfiguration(optIn) *)v8 optInDRE];
           }
         }
 
-        else if (v8 == MEMORY[0x1E69E9E80])
+        else if (v9 == MEMORY[0x1E69E9E80])
         {
-          if (xpc_dictionary_get_BOOL(v7, "result"))
+          if (xpc_dictionary_get_BOOL(v8, "result"))
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
@@ -3374,33 +3337,32 @@ LABEL_21:
   {
     [OSASystemConfiguration(optIn) setDREOptIn:];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __46__OSASystemConfiguration_optIn__optIn3rdParty__block_invoke()
 {
-  if (ManagedConfigurationLibraryCore())
+  if (ManagedConfigurationLibraryCore(0))
   {
-    v3 = 0;
-    v4 = &v3;
-    v5 = 0x2020000000;
+    v4 = 0;
+    v5 = &v4;
+    v6 = 0x2020000000;
     v0 = getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr;
-    v6 = getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr;
+    v7 = getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr;
     if (!getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr)
     {
       v1 = ManagedConfigurationLibrary();
-      v4[3] = dlsym(v1, "MCFeatureAppAnalyticsAllowed");
-      getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr = v4[3];
-      v0 = v4[3];
+      v5[3] = dlsym(v1, "MCFeatureAppAnalyticsAllowed");
+      getMCFeatureAppAnalyticsAllowedSymbolLoc_ptr = v5[3];
+      v0 = v5[3];
     }
 
-    _Block_object_dispose(&v3, 8);
+    _Block_object_dispose(&v4, 8);
     if (!v0)
     {
-      ACAccountTypeIdentifierExchange_cold_1 = getACAccountTypeIdentifierExchange_cold_1();
-      _Block_object_dispose(&v3, 8);
-      _Unwind_Resume(ACAccountTypeIdentifierExchange_cold_1);
+      getACAccountTypeIdentifierExchange_cold_1();
+      v3 = v2;
+      _Block_object_dispose(&v4, 8);
+      _Unwind_Resume(v3);
     }
 
     objc_storeStrong(&optIn3rdParty__featureAppAnalyticsAllowed, *v0);
@@ -3409,94 +3371,74 @@ void __46__OSASystemConfiguration_optIn__optIn3rdParty__block_invoke()
 
 - (void)setPrefsKey:value:forDomain:withSync:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)setPrefsKey:value:forDomain:withSync:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x22u);
 }
 
 - (void)setPrefsKey:value:forDomain:withSync:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPrefsKey:(void *)a1 forDomain:withOptions:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 pathPreferences];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)getPrefsKey:(uint64_t)a1 forDomain:(int *)a2 withOptions:.cold.2(uint64_t a1, int *a2)
+- (void)getPrefsKey:(uint64_t)a1 forDomain:(unsigned int *)a2 withOptions:.cold.2(uint64_t a1, unsigned int *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *a2;
   xpc_strerror();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPrefsKey:forDomain:withOptions:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPrefsKey:forDomain:withOptions:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPrefsKey:forDomain:withOptions:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fastLane
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
-  v6 = 2114;
+  v5 = 2114;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unexpected tasking value type for key 'fastLane' (type: %{public}@, value: %{public}@) encountered", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unexpected tasking value type for key 'fastLane' (type: %{public}@, value: %{public}@) encountered", v4, 0x16u);
 }
 
 void __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_2(uint8_t *a1, void *a2, void *a3)
@@ -3517,79 +3459,27 @@ void __37__OSASystemConfiguration_internalKey__block_invoke_370_cold_3(uint8_t *
 
 + (void)ensureUsablePath:component:options:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_1(uint64_t a1)
+void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_2(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_3(uint64_t a1)
+void __61__OSASystemConfiguration_ensureUsablePath_component_options___block_invoke_cold_3()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)ensureConformanceOfFile:(uint64_t)a1 options:.cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 20);
-  v9 = *(a1 + 4);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)ensureConformanceOfFile:options:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)ensureConformanceOfFile:options:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)ensureConformanceOfFile:options:.cold.6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

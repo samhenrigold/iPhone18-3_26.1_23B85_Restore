@@ -64,48 +64,42 @@
 - (void)_sendHIDHoldHomeButton
 {
   SASHIDGetCurrentTime();
-  v9 = xmmword_21FF0E260;
-  __rqtp = xmmword_21FF0E250;
-  v8 = xmmword_21FF0E270;
-  v3 = *MEMORY[0x277CBECE8];
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   IOHIDEventSetIntegerValue();
   IOHIDEventSetPhase();
   [(SASHIDGenerator *)self _sendHIDEvent:KeyboardEvent, xmmword_21FF0E270, 0, 58393417, 0, 334856333];
   CFRelease(KeyboardEvent);
   nanosleep(&__rqtp, 0);
-  v5 = IOHIDEventCreateKeyboardEvent();
+  v4 = IOHIDEventCreateKeyboardEvent();
   IOHIDEventSetIntegerValue();
   IOHIDEventSetPhase();
+  [(SASHIDGenerator *)self _sendHIDEvent:v4];
+  CFRelease(v4);
+  nanosleep(&v8, 0);
+  v5 = IOHIDEventCreateKeyboardEvent();
+  IOHIDEventSetIntegerValue();
+  IOHIDEventSetIntegerValue();
   [(SASHIDGenerator *)self _sendHIDEvent:v5];
   CFRelease(v5);
-  nanosleep(&v9, 0);
+  nanosleep(&v7, 0);
   v6 = IOHIDEventCreateKeyboardEvent();
-  IOHIDEventSetIntegerValue();
   IOHIDEventSetIntegerValue();
   [(SASHIDGenerator *)self _sendHIDEvent:v6];
   CFRelease(v6);
-  nanosleep(&v8, 0);
-  v7 = IOHIDEventCreateKeyboardEvent();
-  IOHIDEventSetIntegerValue();
-  [(SASHIDGenerator *)self _sendHIDEvent:v7];
-  CFRelease(v7);
 }
 
 - (void)_sendHIDHoldLockButton
 {
   SASHIDGetCurrentTime();
-  v6 = xmmword_21FF0E280;
-  v3 = *MEMORY[0x277CBECE8];
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   IOHIDEventSetIntegerValue();
   [(SASHIDGenerator *)self _sendHIDEvent:KeyboardEvent, xmmword_21FF0E280];
   CFRelease(KeyboardEvent);
-  nanosleep(&v6, 0);
-  v5 = IOHIDEventCreateKeyboardEvent();
+  nanosleep(&v5, 0);
+  v4 = IOHIDEventCreateKeyboardEvent();
   IOHIDEventSetIntegerValue();
-  [(SASHIDGenerator *)self _sendHIDEvent:v5];
-  CFRelease(v5);
+  [(SASHIDGenerator *)self _sendHIDEvent:v4];
+  CFRelease(v4);
 }
 
 - (void)_sendHIDEvent:(__IOHIDEvent *)event
@@ -114,7 +108,6 @@
   {
     if (!self->_ioSystemClient)
     {
-      v4 = *MEMORY[0x277CBECE8];
       self->_ioSystemClient = IOHIDEventSystemClientCreate();
     }
 

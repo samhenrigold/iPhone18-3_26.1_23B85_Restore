@@ -121,32 +121,32 @@ uint64_t __33__HMFMemoryMonitor_memoryMonitor__block_invoke()
 
 void __25__HMFMemoryMonitor_start__block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v35 = WeakRetained;
+    v36 = WeakRetained;
     v2 = [WeakRetained memoryPressureSource];
     data = dispatch_source_get_data(v2);
 
     if (data)
     {
-      v8 = 1;
+      v9 = 1;
     }
 
     else if ((data & 2) != 0)
     {
-      v8 = 2;
+      v9 = 2;
     }
 
     else if ((data & 4) != 0)
     {
-      v8 = 3;
+      v9 = 3;
     }
 
     else if ((data & 0x10) != 0)
     {
-      v8 = 4;
+      v9 = 4;
     }
 
     else
@@ -154,129 +154,128 @@ void __25__HMFMemoryMonitor_start__block_invoke(uint64_t a1)
       if ((data & 0x20) == 0)
       {
         v4 = objc_autoreleasePoolPush();
-        v5 = v35;
-        v6 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v5 = v36;
+        v7 = HMFGetOSLogHandle(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = HMFGetLogIdentifier(v5);
+          v8 = HMFGetLogIdentifier(v5);
           *buf = 138543618;
-          v49 = v7;
-          v50 = 2048;
-          v51 = data;
-          _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring unknown memory pressure source event: %lu", buf, 0x16u);
+          v50 = v8;
+          v51 = 2048;
+          v52 = data;
+          _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring unknown memory pressure source event: %lu", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v4);
 LABEL_35:
-        WeakRetained = v35;
+        WeakRetained = v36;
         goto LABEL_36;
       }
 
-      v8 = 5;
+      v9 = 5;
     }
 
-    v38 = v8;
-    v9 = objc_autoreleasePoolPush();
-    v10 = v35;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v39 = v9;
+    v10 = objc_autoreleasePoolPush();
+    v11 = v36;
+    v13 = HMFGetOSLogHandle(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier(v10);
-      v13 = HMFStringFromMemoryEvent(v38);
+      v14 = HMFGetLogIdentifier(v11);
+      v15 = HMFStringFromMemoryEvent(v39);
       *buf = 138543618;
-      v49 = v12;
-      v50 = 2112;
-      v51 = v13;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Received memory event: %@", buf, 0x16u);
+      v50 = v14;
+      v51 = 2112;
+      v52 = v15;
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Received memory event: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v9);
-    v36 = [MEMORY[0x277CBEB18] array];
+    objc_autoreleasePoolPop(v10);
+    v37 = [MEMORY[0x277CBEB18] array];
     os_unfair_lock_lock_with_options();
-    v14 = [MEMORY[0x277CBEAA8] now];
-    v45 = 0u;
+    v16 = [MEMORY[0x277CBEAA8] now];
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    v15 = [(os_unfair_lock_s *)v10 memoryObservancesByObserver];
-    v16 = [v15 countByEnumeratingWithState:&v43 objects:buf count:16];
-    if (v16)
+    v45 = 0u;
+    v17 = [(os_unfair_lock_s *)v11 memoryObservancesByObserver];
+    v18 = [v17 countByEnumeratingWithState:&v44 objects:buf count:16];
+    if (v18)
     {
-      v17 = *v44;
-      obj = v15;
+      v19 = *v45;
+      obj = v17;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v44 != v17)
+          if (*v45 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v43 + 1) + 8 * i);
-          v20 = [(os_unfair_lock_s *)v10 memoryObservancesByObserver];
-          v21 = [v20 objectForKey:v19];
+          v21 = *(*(&v44 + 1) + 8 * i);
+          v22 = [(os_unfair_lock_s *)v11 memoryObservancesByObserver];
+          v23 = [v22 objectForKey:v21];
 
-          v22 = [v21 lastUpdateDate];
-          [v14 timeIntervalSinceDate:v22];
-          v24 = v23;
-          [v21 debounceInterval];
-          v26 = v24 < v25;
+          v24 = [v23 lastUpdateDate];
+          [v16 timeIntervalSinceDate:v24];
+          v26 = v25;
+          [v23 debounceInterval];
+          v28 = v26 < v27;
 
-          if (!v26)
+          if (!v28)
           {
-            v27 = [v21 events];
-            v28 = [MEMORY[0x277CCABB0] numberWithInteger:v38];
-            v29 = [v27 containsObject:v28];
+            v29 = [v23 events];
+            v30 = [MEMORY[0x277CCABB0] numberWithInteger:v39];
+            v31 = [v29 containsObject:v30];
 
-            if (v29)
+            if (v31)
             {
-              [v21 setLastUpdateDate:v14];
-              [v36 addObject:v19];
+              [v23 setLastUpdateDate:v16];
+              [v37 addObject:v21];
             }
           }
         }
 
-        v15 = obj;
-        v16 = [obj countByEnumeratingWithState:&v43 objects:buf count:16];
+        v17 = obj;
+        v18 = [obj countByEnumeratingWithState:&v44 objects:buf count:16];
       }
 
-      while (v16);
+      while (v18);
     }
 
-    os_unfair_lock_unlock(v10 + 2);
-    v41 = 0u;
+    os_unfair_lock_unlock(v11 + 2);
     v42 = 0u;
-    v39 = 0u;
+    v43 = 0u;
     v40 = 0u;
-    v30 = v36;
-    v31 = [v30 countByEnumeratingWithState:&v39 objects:v47 count:16];
-    if (v31)
+    v41 = 0u;
+    v32 = v37;
+    v33 = [v32 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    if (v33)
     {
-      v32 = *v40;
+      v34 = *v41;
       do
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v33; ++j)
         {
-          if (*v40 != v32)
+          if (*v41 != v34)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v32);
           }
 
-          [*(*(&v39 + 1) + 8 * j) memoryMonitor:v10 didReceiveMemoryEvent:v38];
+          [*(*(&v40 + 1) + 8 * j) memoryMonitor:v11 didReceiveMemoryEvent:v39];
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
-      while (v31);
+      while (v33);
     }
 
     goto LABEL_35;
   }
 
 LABEL_36:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

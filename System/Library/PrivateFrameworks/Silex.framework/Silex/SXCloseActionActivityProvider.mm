@@ -9,7 +9,7 @@
 {
   v4 = [[SXActionActivityGroup alloc] initWithTitle:0];
   v5 = [SXBlockActionActivity alloc];
-  v6 = SXBundle();
+  v6 = SXBundle(v5);
   v7 = [v6 localizedStringForKey:@"Close" value:&stru_1F532F6C0 table:0];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;

@@ -3,7 +3,7 @@
 
 @implementation AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription
 
-uint64_t ___AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription_block_invoke()
+void *___AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

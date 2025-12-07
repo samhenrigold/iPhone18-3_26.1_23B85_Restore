@@ -1,3 +1,13 @@
+void WebGPU::reportErrorInCreatePipelineLayout(WebGPU *this, NSString *a2, WebGPU::Device *a3, WebGPU::Device *a4)
+{
+  v5 = a2;
+  v6 = this;
+  if ((v5 & 1) == 0)
+  {
+    WebGPU::Device::generateAValidationError(a3, v6);
+  }
+}
+
 uint64_t std::optional<WTF::Vector<WTF::Ref<WebGPU::BindGroupLayout,WTF::RawPtrTraits<WebGPU::BindGroupLayout>,WTF::DefaultRefDerefTraits<WebGPU::BindGroupLayout>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::operator=[abi:sn200100]<WTF::Vector<WTF::Ref<WebGPU::BindGroupLayout,WTF::RawPtrTraits<WebGPU::BindGroupLayout>,WTF::DefaultRefDerefTraits<WebGPU::BindGroupLayout>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,void>(uint64_t result, WTF::StringImpl *a2)
 {
   v3 = result;
@@ -601,7 +611,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t WebGPU::PipelineLayout::offsetVectorForBindGroup(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t *a4, int a5, void *__dst, unint64_t a7)
+uint64_t WebGPU::PipelineLayout::offsetVectorForBindGroup(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, int a5, void *__dst, unint64_t a7)
 {
   if (*(a1 + 32) != 1)
   {
@@ -783,7 +793,7 @@ LABEL_42:
   return v38;
 }
 
-uint64_t WebGPU::PipelineLayout::updateVertexOffsets(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t a4, unint64_t a5)
+uint64_t WebGPU::PipelineLayout::updateVertexOffsets(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, unint64_t a5)
 {
   v5 = *(a1 + 40);
   if (!v5)
@@ -843,7 +853,7 @@ LABEL_8:
   return WebGPU::PipelineLayout::offsetVectorForBindGroup(a1, a2, *(a1 + 64), a3, 1, (a4 + 4 * v13), a5 - v13) & 1;
 }
 
-uint64_t WebGPU::PipelineLayout::updateFragmentOffsets(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t a4, unint64_t a5)
+uint64_t WebGPU::PipelineLayout::updateFragmentOffsets(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, unint64_t a5)
 {
   v5 = *(a1 + 48);
   if (!v5)
@@ -903,7 +913,7 @@ LABEL_8:
   return WebGPU::PipelineLayout::offsetVectorForBindGroup(a1, a2, *(a1 + 72), a3, 2, (a4 + 4 * v13), a5 - v13) & 1;
 }
 
-uint64_t WebGPU::PipelineLayout::updateComputeOffsets(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t a4, unint64_t a5)
+uint64_t WebGPU::PipelineLayout::updateComputeOffsets(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, unint64_t a5)
 {
   v5 = *(a1 + 56);
   if (!v5)
@@ -963,7 +973,7 @@ LABEL_8:
   return WebGPU::PipelineLayout::offsetVectorForBindGroup(a1, a2, *(a1 + 80), a3, 4, (a4 + 4 * v13), a5 - v13) & 1;
 }
 
-id WebGPU::PipelineLayout::errorValidatingBindGroupCompatibility(uint64_t a1, WTF::StringImpl *a2, const WTF::StringImpl *a3)
+id WebGPU::PipelineLayout::errorValidatingBindGroupCompatibility(uint64_t a1, int **a2, const WTF::StringImpl *a3)
 {
   if (*(a1 + 32) != 1)
   {
@@ -1228,7 +1238,7 @@ WebGPU::PipelineLayout *wgpuPipelineLayoutRelease(WebGPU::PipelineLayout *result
   return result;
 }
 
-WTF::StringImpl *wgpuPipelineLayoutSetLabel(WebGPU::PipelineLayout *a1, char *__s)
+WTF::StringImpl *wgpuPipelineLayoutSetLabel(WTF::StringImpl *a1, char *__s)
 {
   ++*(a1 + 2);
   if (__s)
@@ -1321,7 +1331,7 @@ _OWORD *WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned i
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned long long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned long long>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned long long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned long long>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -1387,7 +1397,7 @@ _OWORD *WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned i
 LABEL_17:
     if (v21)
     {
-      v22 = v21 << (6 * v19 >= (2 * v21));
+      v22 = (v21 << (6 * v19 >= (2 * v21)));
     }
 
     else
@@ -1437,7 +1447,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -1447,7 +1457,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
   v11 = 9 * ((v4 + ~(v4 << 15)) ^ ((v4 + ~(v4 << 15)) >> 10));
   v12 = (v11 ^ (v11 >> 6)) + ~((v11 ^ (v11 >> 6)) << 11);
   v13 = (v12 ^ HIWORD(v12)) & v10;
-  v14 = (v8 + 12 * v13);
+  v14 = v8 + 12 * v13;
   v15 = *v14;
   if (*v14 != -1)
   {
@@ -1459,7 +1469,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
       {
         v23 = v8 + 12 * *(v8 - 4);
         *v7 = v14;
-        *(v7 + 1) = v23;
+        *(v7 + 8) = v23;
         *(v7 + 16) = 0;
         return result;
       }
@@ -1470,7 +1480,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
       }
 
       v13 = (v13 + v17) & v10;
-      v14 = (v8 + 12 * v13);
+      v14 = v8 + 12 * v13;
       v15 = *v14;
       ++v17;
     }
@@ -1490,7 +1500,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
   v19 = 1;
   *(v14 + 8) = 1;
   *v14 = v4;
-  v14[1] = v18;
+  *(v14 + 4) = v18;
   v20 = *a2;
   if (*a2)
   {
@@ -1514,7 +1524,7 @@ _DWORD *WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<u
   {
     if (!v22)
     {
-      result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8u, v14);
+      result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8uLL, v14);
       v14 = result;
       v20 = *a2;
       if (!*a2)
@@ -1530,7 +1540,7 @@ LABEL_22:
     }
 
 LABEL_21:
-    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, v22 << (6 * v19 >= (2 * v22)), v14);
+    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, (v22 << (6 * v19 >= (2 * v22))), v14);
     v14 = result;
     v20 = *a2;
     if (!*a2)
@@ -1543,21 +1553,22 @@ LABEL_21:
 
 LABEL_23:
   *v7 = v14;
-  *(v7 + 1) = v20 + 12 * v22;
+  *(v7 + 8) = v20 + 12 * v22;
   *(v7 + 16) = 1;
   return result;
 }
 
-_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, _DWORD *a3)
+_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::optional<unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::optional<unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::optional<unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, _DWORD *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((12 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
@@ -1568,14 +1579,14 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((12 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 
-  v12 = a2;
+  v12 = v4;
   v13 = v9 + 5;
   do
   {
@@ -1588,8 +1599,8 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::optional
   while (v12);
 LABEL_7:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -1653,8 +1664,9 @@ LABEL_7:
   return v15;
 }
 
-_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<unsigned int,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<unsigned int,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<unsigned int,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<unsigned int,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<unsigned int,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<unsigned int,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<unsigned int,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<unsigned int,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1662,7 +1674,7 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<uns
     v6 = *(v4 - 12);
     result = WTF::fastMalloc((12 * a2 + 16));
     v9 = result + 4;
-    if (!a2)
+    if (!v2)
     {
       goto LABEL_7;
     }
@@ -1674,13 +1686,13 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<uns
     v6 = 0;
     result = WTF::fastMalloc((12 * a2 + 16));
     v9 = result + 4;
-    if (!a2)
+    if (!v2)
     {
       goto LABEL_7;
     }
   }
 
-  v10 = a2;
+  v10 = v2;
   v11 = result + 5;
   do
   {
@@ -1693,8 +1705,8 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<uns
   while (v10);
 LABEL_7:
   *a1 = v9;
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1743,7 +1755,7 @@ LABEL_7:
   return WTF::fastFree((v4 - 16), v8);
 }
 
-_DWORD *WebGPU::PresentationContext::create@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t *a3@<X8>)
+_DWORD *WebGPU::PresentationContext::create@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X1>, uint64_t *a3@<X8>)
 {
   v4 = *a1;
   if (!*a1 || *v4)
@@ -2028,7 +2040,7 @@ void WebGPU::PresentationContextCoreAnimation::~PresentationContextCoreAnimation
   }
 }
 
-uint64_t WebGPU::PresentationContextCoreAnimation::configure(uint64_t a1, WTF::StringImpl *a2, uint64_t a3)
+void *WebGPU::PresentationContextCoreAnimation::configure(uint64_t a1, WTF::StringImpl *a2, uint64_t a3)
 {
   result = std::optional<WebGPU::PresentationContextCoreAnimation::Configuration>::operator=[abi:sn200100](a1 + 24, a2);
   if (*a3)
@@ -2159,7 +2171,7 @@ LABEL_30:
   return [*(a1 + 16) setDevice:*(a2 + 1)];
 }
 
-void sub_2256B0204(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, WTF::StringImpl *a17)
+void sub_2256B0204(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, WTF::StringImpl *a17)
 {
   v18 = a17;
   a17 = 0;
@@ -2421,7 +2433,7 @@ LABEL_19:
 LABEL_22:
 }
 
-void sub_2256B05D4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_2256B05D4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, WebGPU::Texture *a17)
 {
   bmalloc::api::tzoneFree(v21, a2);
 
@@ -3079,7 +3091,7 @@ void sub_2256B1040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (a13[2] == 1)
     {
-      (*(*a13 + 8))(a13);
+      (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3090,7 +3102,7 @@ void sub_2256B1040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (v18[2] == 1)
   {
-    (*(*v18 + 8))(v18);
+    (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -3436,17 +3448,17 @@ LABEL_27:
   bmalloc::api::tzoneFree(v1, v2);
 }
 
-_DWORD *WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear(_DWORD *result, void *a2)
+WTF *WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear(WTF *result, void *a2)
 {
-  if (result[2])
+  if (*(result + 2))
   {
     v2 = result;
-    v3 = result[3];
+    v3 = *(result + 3);
     result = *result;
     if (v3)
     {
       v4 = 16 * v3;
-      v5 = (result + 2);
+      v5 = (result + 8);
       while (1)
       {
         v8 = *v5;
@@ -3485,7 +3497,7 @@ LABEL_5:
         v4 -= 16;
         if (!v4)
         {
-          v2[3] = 0;
+          *(v2 + 3) = 0;
           result = *v2;
           goto LABEL_15;
         }
@@ -3507,7 +3519,7 @@ LABEL_15:
     if (result)
     {
       *v2 = 0;
-      v2[2] = 0;
+      *(v2 + 2) = 0;
 
       return WTF::fastFree(result, a2);
     }
@@ -3714,7 +3726,7 @@ LABEL_14:
   v44 = v31;
   v45 = v26;
   v32 = v24 * v29;
-  WTF::tryFastMalloc((v24 * v29));
+  WTF::tryFastMalloc(v47, (v24 * v29));
   v33 = v47[0];
   if (v47[0])
   {
@@ -3798,10 +3810,10 @@ void sub_2256B1C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void WebGPU::PresentationContextIOSurface::configure(uint64_t a1, float *a2, uint32x2_t *a3)
+void WebGPU::PresentationContextIOSurface::configure(uint32x2_t *a1, id *a2, uint32x2_t *a3)
 {
-  v154 = *MEMORY[0x277D85DE8];
-  WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear((a1 + 24), a2);
+  v155 = *MEMORY[0x277D85DE8];
+  WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear(&a1[3], a2);
   if (WebGPU::Texture::s_heapRef)
   {
     NonCompact = bmalloc::api::tzoneAllocateNonCompact(WebGPU::Texture::s_heapRef, v6);
@@ -3814,9 +3826,9 @@ void WebGPU::PresentationContextIOSurface::configure(uint64_t a1, float *a2, uin
 
   v8 = NonCompact;
   v10.n128_f64[0] = WebGPU::Texture::Texture(NonCompact, a2);
-  v11 = *(a1 + 48);
-  *(a1 + 48) = v8;
-  if (!v11)
+  v11 = a1[6];
+  a1[6] = v8;
+  if (!*&v11)
   {
 LABEL_6:
     if (*a3)
@@ -3827,13 +3839,13 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  if (*(v11 + 8) != 1)
+  if (*(*&v11 + 8) != 1)
   {
-    --*(v11 + 8);
+    --*(*&v11 + 8);
     goto LABEL_6;
   }
 
-  WebGPU::Texture::~Texture(v11);
+  WebGPU::Texture::~Texture(*&v11);
   bmalloc::api::tzoneFree(v12, v13);
   if (*a3)
   {
@@ -3841,7 +3853,7 @@ LABEL_6:
   }
 
 LABEL_9:
-  v120 = a3[8].i32[1];
+  v121 = a3[8].i32[1];
   while (1)
   {
     v14 = *a2;
@@ -3851,7 +3863,7 @@ LABEL_9:
     }
 
     v15 = *a2;
-    atomic_compare_exchange_strong_explicit(a2, &v15, (v14 + 2), memory_order_relaxed, memory_order_relaxed);
+    atomic_compare_exchange_strong_explicit(a2, &v15, v14 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v15 == v14)
     {
       goto LABEL_15;
@@ -3870,8 +3882,8 @@ LABEL_9:
     if (v18 == 1)
     {
 LABEL_15:
-      v19 = *(a1 + 40);
-      *(a1 + 40) = a2;
+      v19 = a1[5];
+      a1[5] = a2;
       if (v19)
       {
         goto LABEL_16;
@@ -3892,8 +3904,8 @@ LABEL_15:
   }
 
   WTF::Lock::unlockSlow(v17);
-  v19 = *(a1 + 40);
-  *(a1 + 40) = a2;
+  v19 = a1[5];
+  a1[5] = a2;
   if (v19)
   {
     do
@@ -3919,12 +3931,12 @@ LABEL_16:
   }
 
 LABEL_21:
-  v150[0] = MEMORY[0x277D85DD0];
-  v150[1] = 3221225472;
-  v150[2] = ___ZN6WebGPU28PresentationContextIOSurface9configureERNS_6DeviceERK23WGPUSwapChainDescriptor_block_invoke_2;
-  v150[3] = &unk_278566408;
-  v151 = &__block_literal_global_1;
-  v115 = MEMORY[0x22AA68A80](v150);
+  v151[0] = MEMORY[0x277D85DD0];
+  v151[1] = 3221225472;
+  v151[2] = ___ZN6WebGPU28PresentationContextIOSurface9configureERNS_6DeviceERK23WGPUSwapChainDescriptor_block_invoke_2;
+  v151[3] = &unk_278566408;
+  v152 = &__block_literal_global_1;
+  v116 = MEMORY[0x22AA68A80](v151);
   v24 = a2 + 21;
   v25 = vld1_dup_f32(v24);
   v26 = vmin_u32(a3[3], v25);
@@ -3950,16 +3962,16 @@ LABEL_21:
     v30 = 23;
   }
 
-  v149 = v30;
+  v150 = v30;
   v31 = a3[1];
-  v140[0] = 0;
-  v140[1] = v31;
-  v141 = v28;
-  v142 = 1;
-  v143 = v26;
-  v144 = 1;
-  v145 = v30;
-  v146 = 0x100000001;
+  v141[0] = 0;
+  v141[1] = v31;
+  v142 = v28;
+  v143 = 1;
+  v144 = v26;
+  v145 = 1;
+  v146 = v30;
+  v147 = 0x100000001;
   v32 = a3[6].u32[1];
   if (v32 <= 1)
   {
@@ -3972,46 +3984,46 @@ LABEL_21:
   }
 
   v34 = v32 == 0;
-  v35 = &v149;
+  v35 = &v150;
   if (!v34)
   {
     v35 = a3[5];
   }
 
-  v147 = v33;
-  v148 = v35;
-  *(a1 + 80) = a3[7];
-  *(a1 + 88) = a3[8].i32[0];
+  v148 = v33;
+  v149 = v35;
+  a1[10] = a3[7];
+  a1[11].i32[0] = a3[8].i32[0];
   v36 = v26.u32[0];
   v37 = v26.u32[1];
-  v122 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:WebGPU::Texture::pixelFormat(v30) width:v26.u32[0] height:v26.u32[1] mipmapped:0];
+  v123 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:WebGPU::Texture::pixelFormat(v30) width:v26.u32[0] height:v26.u32[1] mipmapped:0];
   v38 = (a3[2].u32[0] >> 2) & 7;
-  if ((v149 - 38) < 6 || (WebGPU::Texture::compressedFormatType(v149) & 0x100000000) != 0)
+  if ((v150 - 38) < 6 || (WebGPU::Texture::compressedFormatType(v150) & 0x100000000) != 0)
   {
     v38 |= 0x10uLL;
   }
 
-  [(MTLTextureDescriptor *)v122 setUsage:v38];
-  [(MTLTextureDescriptor *)v122 setStorageMode:0];
-  v138 = 0u;
+  [(MTLTextureDescriptor *)v123 setUsage:v38];
+  [(MTLTextureDescriptor *)v123 setStorageMode:0];
   v139 = 0u;
-  v136 = 0u;
+  v140 = 0u;
   v137 = 0u;
-  v39 = *(a1 + 16);
-  v40 = [v39 countByEnumeratingWithState:&v136 objects:v153 count:16];
+  v138 = 0u;
+  v39 = *&a1[2];
+  v40 = [v39 countByEnumeratingWithState:&v137 objects:v154 count:16];
   if (v40)
   {
-    v41 = *v137;
+    v41 = *v138;
 LABEL_37:
     v42 = 0;
     while (1)
     {
-      if (*v137 != v41)
+      if (*v138 != v41)
       {
         objc_enumerationMutation(v39);
       }
 
-      v43 = *(*(&v136 + 1) + 8 * v42);
+      v43 = *(*(&v137 + 1) + 8 * v42);
       if ([v43 height] != v37 || objc_msgSend(v43, "width") != v36)
       {
         break;
@@ -4019,7 +4031,7 @@ LABEL_37:
 
       if (v40 == ++v42)
       {
-        v40 = [v39 countByEnumeratingWithState:&v136 objects:v153 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v137 objects:v154 count:16];
         if (!v40)
         {
           goto LABEL_44;
@@ -4030,7 +4042,7 @@ LABEL_37:
     }
 
     v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid surface size. Backing surface has size (%d, %d) but attempting to configure a size of (%u, %u)", objc_msgSend(v43, "width"), objc_msgSend(v43, "height"), v36, v37];
-    if (v120)
+    if (v121)
     {
       WebGPU::Device::generateAValidationError(a2, v52);
     }
@@ -4044,7 +4056,7 @@ LABEL_44:
   if (v44 > 0x22 || ((1 << v44) & 0x400840000) == 0)
   {
     v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Requested texture format %s is not a valid context format", WebGPU::Texture::formatToString()];
-    if (v120)
+    if (v121)
     {
       WebGPU::Device::generateAValidationError(a2, v53);
     }
@@ -4054,7 +4066,7 @@ LABEL_44:
 
   if (!v36 || !v37)
   {
-    if (v120)
+    if (v121)
     {
       WebGPU::Device::generateAValidationError(a2, &cfstr_WidthOrHeightI.isa);
     }
@@ -4065,7 +4077,7 @@ LABEL_44:
   v45 = *(a2 + 21);
   if (a3[3].i32[0] > v45 || a3[3].i32[1] > v45)
   {
-    if (v120)
+    if (v121)
     {
       WebGPU::Device::generateAValidationError(a2, &cfstr_RequestedCanva.isa);
     }
@@ -4078,7 +4090,7 @@ LABEL_44:
   {
     v47 = a3[5];
     v48 = 4 * v46;
-    while ((v115[2](v115, *v47) & 1) != 0)
+    while ((v116[2](v116, *v47) & 1) != 0)
     {
       ++v47;
       v48 -= 4;
@@ -4088,7 +4100,7 @@ LABEL_44:
       }
     }
 
-    if (v120)
+    if (v121)
     {
       WebGPU::Device::generateAValidationError(a2, &cfstr_RequestedTextu_0.isa);
     }
@@ -4097,11 +4109,11 @@ LABEL_44:
   }
 
 LABEL_54:
-  WTF::Vector<WGPUTextureFormat,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WGPUTextureFormat const,18446744073709551615ul>(&v134, v148, v147);
-  v49 = WebGPU::Device::errorValidatingTextureCreation(a2, v140, &v134);
+  WTF::Vector<WGPUTextureFormat,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WGPUTextureFormat const,18446744073709551615ul>(&v135, v149, v148);
+  v49 = WebGPU::Device::errorValidatingTextureCreation(a2, v141, &v135);
   if (v49)
   {
-    WebGPU::generateAValidationError(a2, v49, (v120 != 0));
+    WebGPU::generateAValidationError(a2, v49, (v121 != 0));
 LABEL_56:
 
     goto LABEL_57;
@@ -4109,61 +4121,61 @@ LABEL_56:
 
   if (a3[2].i32[1] == 23 && (a3[2].i8[0] & 8) != 0)
   {
-    v107 = *(a2 + 63);
-    if (!v107)
+    v108 = *(a2 + 63);
+    if (!v108)
     {
 LABEL_150:
-      WebGPU::generateAValidationError(a2, @"Requested storage format but BGRA8UnormStorage is not enabled", (v120 != 0));
+      WebGPU::generateAValidationError(a2, @"Requested storage format but BGRA8UnormStorage is not enabled", (v121 != 0));
       goto LABEL_57;
     }
 
-    v108 = *(a2 + 30);
+    v109 = a2[30];
     while (1)
     {
-      v109 = *v108++;
-      if (v109 == 12)
+      v110 = *v109++;
+      if (v110 == 12)
       {
         break;
       }
 
-      if (!--v107)
+      if (!--v108)
       {
         goto LABEL_150;
       }
     }
   }
 
-  [(MTLTextureDescriptor *)v122 setUsage:[(MTLTextureDescriptor *)v122 usage]| 4];
-  v119 = [(MTLTextureDescriptor *)v122 pixelFormat]== MTLPixelFormatRGBA16Float && *(a1 + 84) == 0;
-  v118 = [(MTLTextureDescriptor *)v122 usage];
-  v132 = 0u;
+  [(MTLTextureDescriptor *)v123 setUsage:[(MTLTextureDescriptor *)v123 usage]| 4];
+  v120 = [(MTLTextureDescriptor *)v123 pixelFormat]== MTLPixelFormatRGBA16Float && a1[10].i32[1] == 0;
+  v119 = [(MTLTextureDescriptor *)v123 usage];
   v133 = 0u;
-  v130 = 0u;
+  v134 = 0u;
   v131 = 0u;
-  obj = *(a1 + 16);
-  v54 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
+  v132 = 0u;
+  obj = *&a1[2];
+  v54 = [obj countByEnumeratingWithState:&v131 objects:v153 count:16];
   if (v54)
   {
-    v117 = *v131;
+    v118 = *v132;
     do
     {
-      v121 = v54;
-      for (i = 0; i != v121; ++i)
+      v122 = v54;
+      for (i = 0; i != v122; ++i)
       {
-        if (*v131 != v117)
+        if (*v132 != v118)
         {
           objc_enumerationMutation(obj);
         }
 
-        v58 = *(*(&v130 + 1) + 8 * i);
-        if (v119)
+        v58 = *(*(&v131 + 1) + 8 * i);
+        if (v120)
         {
-          [(MTLTextureDescriptor *)v122 setPixelFormat:115];
-          v145 = 34;
-          [(MTLTextureDescriptor *)v122 setUsage:v118];
-          [(MTLTextureDescriptor *)v122 setUsage:[(MTLTextureDescriptor *)v122 usage]| 1];
-          v59 = v122;
-          v60 = [*(a2 + 1) newTextureWithDescriptor:v59];
+          [(MTLTextureDescriptor *)v123 setPixelFormat:115];
+          v146 = 34;
+          [(MTLTextureDescriptor *)v123 setUsage:v119];
+          [(MTLTextureDescriptor *)v123 setUsage:[(MTLTextureDescriptor *)v123 usage]| 1];
+          v59 = v123;
+          v60 = [a2[1] newTextureWithDescriptor:v59];
           WebGPU::Device::setOwnerWithIdentity(a2, v60);
 
           if (a3[1])
@@ -4172,11 +4184,11 @@ LABEL_150:
           }
 
           WTF::String::fromUTF8();
-          v62 = v125;
-          if (v125)
+          v62 = v126;
+          if (v126)
           {
-            atomic_fetch_add_explicit(v125, 2u, memory_order_relaxed);
-            MEMORY[0x22AA68130](&v127, v62);
+            atomic_fetch_add_explicit(v126, 2u, memory_order_relaxed);
+            MEMORY[0x22AA68130](&v128, v62);
             if (atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v62, v63);
@@ -4185,26 +4197,26 @@ LABEL_150:
 
           else
           {
-            v127 = &stru_2838D6D18;
+            v128 = &stru_2838D6D18;
           }
 
-          v64 = v127;
+          v64 = v128;
           [v60 setLabel:v64];
 
-          v65 = v127;
-          v127 = 0;
+          v65 = v128;
+          v128 = 0;
 
-          v67 = v125;
-          v125 = 0;
+          v67 = v126;
+          v126 = 0;
           if (v67 && atomic_fetch_add_explicit(v67, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
             WTF::StringImpl::destroy(v67, v66);
           }
 
           v68 = a3[6].u32[1];
-          v127 = 0;
           v128 = 0;
-          v129 = v68;
+          v129 = 0;
+          v130 = v68;
           if (v68)
           {
             if (v68 >> 30)
@@ -4213,8 +4225,8 @@ LABEL_150:
             }
 
             v69 = WTF::fastMalloc((4 * v68));
-            v128 = v68;
-            v127 = v69;
+            v129 = v68;
+            v128 = v69;
             memcpy(v69, *&a3[5], 4 * a3[6].u32[1]);
           }
 
@@ -4230,15 +4242,15 @@ LABEL_150:
           }
 
           v61 = v72;
-          WebGPU::Texture::Texture(v72, v71, v140, &v127, a2);
+          WebGPU::Texture::Texture(v72, v71, v141, &v128, a2);
 
           *(v61 + 105) = 1;
           [(MTLTextureDescriptor *)v59 setPixelFormat:80];
-          v145 = 23;
-          [(MTLTextureDescriptor *)v59 setUsage:v118 | 2];
-          if (v127)
+          v146 = 23;
+          [(MTLTextureDescriptor *)v59 setUsage:v119 | 2];
+          if (v128)
           {
-            WTF::fastFree(v127, v73);
+            WTF::fastFree(v128, v73);
           }
         }
 
@@ -4247,18 +4259,18 @@ LABEL_150:
           v61 = 0;
         }
 
-        v74 = WebGPU::Device::newTextureWithDescriptor(a2, v122, v58, 0);
+        v74 = WebGPU::Device::newTextureWithDescriptor(a2, v123, v58, 0);
         if (a3[1])
         {
           strlen(*&a3[1]);
         }
 
         WTF::String::fromUTF8();
-        v75 = v125;
-        if (v125)
+        v75 = v126;
+        if (v126)
         {
-          atomic_fetch_add_explicit(v125, 2u, memory_order_relaxed);
-          MEMORY[0x22AA68130](&v127, v75);
+          atomic_fetch_add_explicit(v126, 2u, memory_order_relaxed);
+          MEMORY[0x22AA68130](&v128, v75);
           if (atomic_fetch_add_explicit(v75, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
             WTF::StringImpl::destroy(v75, v76);
@@ -4267,26 +4279,26 @@ LABEL_150:
 
         else
         {
-          v127 = &stru_2838D6D18;
+          v128 = &stru_2838D6D18;
         }
 
-        v77 = v127;
+        v77 = v128;
         [v74 setLabel:v77];
 
-        v78 = v127;
-        v127 = 0;
+        v78 = v128;
+        v128 = 0;
 
-        v80 = v125;
-        v125 = 0;
+        v80 = v126;
+        v126 = 0;
         if (v80 && atomic_fetch_add_explicit(v80, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v80, v79);
         }
 
         v81 = a3[6].u32[1];
-        v127 = 0;
         v128 = 0;
-        v129 = v81;
+        v129 = 0;
+        v130 = v81;
         if (v81)
         {
           if (v81 >> 30)
@@ -4297,8 +4309,8 @@ LABEL_157:
           }
 
           v82 = WTF::fastMalloc((4 * v81));
-          v128 = v81;
-          v127 = v82;
+          v129 = v81;
+          v128 = v82;
           memcpy(v82, *&a3[5], 4 * a3[6].u32[1]);
         }
 
@@ -4314,24 +4326,24 @@ LABEL_157:
         }
 
         v86 = v85;
-        WebGPU::Texture::Texture(v85, v84, v140, &v127, a2);
-        v126[1] = v86;
+        WebGPU::Texture::Texture(v85, v84, v141, &v128, a2);
+        v127[1] = v86;
 
         *(v86 + 105) = 1;
         ++*(v86 + 8);
-        v125 = v86;
+        v126 = v86;
         if (v61)
         {
           ++*(v61 + 8);
         }
 
-        v126[0] = v61;
-        v88 = *(a1 + 36);
-        if (v88 == *(a1 + 32))
+        v127[0] = v61;
+        v88 = a1[4].u32[1];
+        if (v88 == a1[4].i32[0])
         {
-          v89 = WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1 + 24, v88 + 1, &v125);
-          v88 = *(a1 + 36);
-          v90 = (*(a1 + 24) + 16 * v88);
+          v89 = WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&a1[3], v88 + 1, &v126);
+          v88 = a1[4].u32[1];
+          v90 = (*&a1[3] + 16 * v88);
           v91 = *v89;
           *v89 = 0;
           v92 = (v89 + 1);
@@ -4340,18 +4352,18 @@ LABEL_157:
 
         else
         {
-          v90 = (*(a1 + 24) + 16 * v88);
-          v125 = 0;
+          v90 = (*&a1[3] + 16 * v88);
+          v126 = 0;
           *v90 = v86;
-          v92 = v126;
+          v92 = v127;
         }
 
         v93 = *v92;
         *v92 = 0;
         v90[1] = v93;
-        *(a1 + 36) = v88 + 1;
-        v94 = v126[0];
-        v126[0] = 0;
+        a1[4].i32[1] = v88 + 1;
+        v94 = v127[0];
+        v127[0] = 0;
         if (!v94)
         {
           goto LABEL_124;
@@ -4361,8 +4373,8 @@ LABEL_157:
         {
           --*(v94 + 2);
 LABEL_124:
-          v95 = v125;
-          v125 = 0;
+          v95 = v126;
+          v126 = 0;
           if (!v95)
           {
             goto LABEL_125;
@@ -4373,8 +4385,8 @@ LABEL_124:
 
         WebGPU::Texture::~Texture(v94);
         bmalloc::api::tzoneFree(v98, v99);
-        v95 = v125;
-        v125 = 0;
+        v95 = v126;
+        v126 = 0;
         if (!v95)
         {
 LABEL_125:
@@ -4397,8 +4409,8 @@ LABEL_132:
           {
 LABEL_126:
             *(v86 + 8) = v96;
-            v97 = v127;
-            if (!v127)
+            v97 = v128;
+            if (!v128)
             {
               goto LABEL_128;
             }
@@ -4422,8 +4434,8 @@ LABEL_127:
 LABEL_134:
         WebGPU::Texture::~Texture(v86);
         bmalloc::api::tzoneFree(v100, v101);
-        v97 = v127;
-        if (v127)
+        v97 = v128;
+        if (v128)
         {
           goto LABEL_127;
         }
@@ -4445,48 +4457,49 @@ LABEL_128:
         }
       }
 
-      v54 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
+      v54 = [obj countByEnumeratingWithState:&v131 objects:v153 count:16];
     }
 
     while (v54);
   }
 
-  if (v119)
+  if (v120)
   {
     v104 = objc_opt_new();
     [v104 setFastMathEnabled:1];
-    v105 = *(*(a1 + 40) + 8);
-    v124 = 0;
-    v106 = [v105 newLibraryWithSource:@"\n    using namespace metal;\n    constant float3x3 rgbToYCbCr = float3x3(\n        float3(0.2126 options:0.7152 error:{0.0722), \n        float3(-0.1146, -0.3854, 0.5), \n        float3(0.5, -0.4542, -0.0458));\n    constant float3x3 yCbCrToRGB = float3x3(\n        float3(1, 0, 1.5748), \n        float3(1, -0.1873, -0.4681), \n        float3(1, 1.8556, 0));\n    kernel void luminanceClamp(texture2d<float, access::read>  inTexture  [[texture(0)]], \n        texture2d<float, access::write> outTexture [[texture(1)]], \n        uint2 gid [[thread_position_in_grid]])\n    {\n        if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height())\n            return;\n\n        float4 inColor  = inTexture.read(gid);\n        float3 yCbCr = rgbToYCbCr * inColor.rgb;\n        yCbCr.x = clamp(yCbCr.x, 0., 1.);\n        float3 outColor = yCbCrToRGB * yCbCr;\n        outTexture.write(float4(outColor, 1), gid);\n    }", v104, &v124}];
-    v49 = v124;
-    if (v49)
+    v105 = *(*&a1[5] + 8);
+    v125 = 0;
+    v106 = [v105 newLibraryWithSource:@"\n    using namespace metal;\n    constant float3x3 rgbToYCbCr = float3x3(\n        float3(0.2126 options:0.7152 error:{0.0722), \n        float3(-0.1146, -0.3854, 0.5), \n        float3(0.5, -0.4542, -0.0458));\n    constant float3x3 yCbCrToRGB = float3x3(\n        float3(1, 0, 1.5748), \n        float3(1, -0.1873, -0.4681), \n        float3(1, 1.8556, 0));\n    kernel void luminanceClamp(texture2d<float, access::read>  inTexture  [[texture(0)]], \n        texture2d<float, access::write> outTexture [[texture(1)]], \n        uint2 gid [[thread_position_in_grid]])\n    {\n        if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height())\n            return;\n\n        float4 inColor  = inTexture.read(gid);\n        float3 yCbCr = rgbToYCbCr * inColor.rgb;\n        yCbCr.x = clamp(yCbCr.x, 0., 1.);\n        float3 outColor = yCbCrToRGB * yCbCr;\n        outTexture.write(float4(outColor, 1), gid);\n    }", v104, &v125}];
+    v107 = v125;
+    v49 = v107;
+    if (v107)
     {
-      WTFLogAlways();
+      WTFLogAlways("%@", v107);
     }
 
     else
     {
-      v110 = [v106 newFunctionWithName:@"luminanceClamp"];
-      v111 = *(a1 + 56);
-      *(a1 + 56) = v110;
+      v111 = [v106 newFunctionWithName:@"luminanceClamp"];
+      v112 = a1[7];
+      a1[7] = v111;
 
-      v112 = *(a1 + 56);
-      v123 = 0;
-      v113 = [v105 newComputePipelineStateWithFunction:v112 error:&v123];
-      v49 = v123;
-      v114 = *(a1 + 64);
-      *(a1 + 64) = v113;
+      v113 = a1[7];
+      v124 = 0;
+      v114 = [v105 newComputePipelineStateWithFunction:*&v113 error:&v124];
+      v49 = v124;
+      v115 = a1[8];
+      a1[8] = v114;
     }
 
     goto LABEL_56;
   }
 
 LABEL_57:
-  v51 = v134;
-  if (v134)
+  v51 = v135;
+  if (v135)
   {
-    v134 = 0;
     v135 = 0;
+    v136 = 0;
     WTF::fastFree(v51, v50);
   }
 
@@ -4527,7 +4540,7 @@ atomic_ullong *WebGPU::PresentationContextIOSurface::unconfigure(WebGPU::Present
   v2 = *(this + 2);
   *(this + 2) = 0;
 
-  WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear(this + 6, v3);
+  WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::clear((this + 24), v3);
   result = *(this + 5);
   *(this + 5) = 0;
   if (result)
@@ -4731,17 +4744,17 @@ LABEL_12:
   }
 }
 
-void sub_2256B3054(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2256B3054(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
 
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::Texture>::deref(v11);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::Texture>::deref(v18);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Device,(WTF::DestructionThread)0>::deref(v10, v17);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Device,(WTF::DestructionThread)0>::deref(v17, v24);
   _Unwind_Resume(a1);
 }
 
-id WebGPU::PresentationContextIOSurface::getCurrentTexture(id *this, unsigned int a2)
+WebGPU::Texture *WebGPU::PresentationContextIOSurface::getCurrentTexture(id *this, unsigned int a2)
 {
   v4 = [this[2] count];
   v5 = *(this + 9);
@@ -4966,9 +4979,9 @@ LABEL_7:
   }
 }
 
-uint64_t WTF::RefCountedAndCanMakeWeakPtr<WebGPU::Texture>::deref(uint64_t result)
+id *WTF::RefCountedAndCanMakeWeakPtr<WebGPU::Texture>::deref(id *result)
 {
-  if (*(result + 8) == 1)
+  if (*(result + 2) == 1)
   {
     WebGPU::Texture::~Texture(result);
 
@@ -4977,7 +4990,7 @@ uint64_t WTF::RefCountedAndCanMakeWeakPtr<WebGPU::Texture>::deref(uint64_t resul
 
   else
   {
-    --*(result + 8);
+    --*(result + 2);
   }
 
   return result;
@@ -5057,7 +5070,7 @@ LABEL_14:
   return a1;
 }
 
-uint64_t WTF::Vector<WGPUTextureFormat,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WGPUTextureFormat const,18446744073709551615ul>(uint64_t result, uint64_t a2, unint64_t a3)
+uint64_t WTF::Vector<WGPUTextureFormat,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WGPUTextureFormat const,18446744073709551615ul>(uint64_t result, unint64_t a2, unint64_t a3)
 {
   *result = 0;
   *(result + 8) = 0;
@@ -5125,10 +5138,10 @@ LABEL_13:
   return result;
 }
 
-unint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(id *a1, unint64_t a2, unint64_t a3)
 {
   v4 = *a1;
-  if (*a1 > a3 || v4 + 16 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v4 + 16 * *(a1 + 3) <= a3)
   {
     WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, a2);
     return a3;
@@ -5142,9 +5155,9 @@ unint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF
   }
 }
 
-uint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t result, unint64_t a2)
+id *WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(id *result, unint64_t a2)
 {
-  v2 = *(result + 8);
+  v2 = *(result + 2);
   if (v2 + (v2 >> 1) <= v2 + 1)
   {
     v3 = v2 + 1;
@@ -5179,9 +5192,9 @@ uint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF:
       v6 = v3;
     }
 
-    v7 = *(result + 12);
+    v7 = *(result + 3);
     result = WTF::fastMalloc((16 * v6));
-    *(v4 + 8) = v6;
+    *(v4 + 2) = v6;
     *v4 = result;
     if (v7)
     {
@@ -5203,7 +5216,7 @@ uint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF:
           goto LABEL_17;
         }
 
-        if (*(v16 + 8) != 1)
+        if (*(v16 + 2) != 1)
         {
           break;
         }
@@ -5215,7 +5228,7 @@ uint64_t WTF::Vector<WebGPU::PresentationContextIOSurface::RenderBuffer,0ul,WTF:
         if (result)
         {
 LABEL_20:
-          if (*(result + 8) == 1)
+          if (*(result + 2) == 1)
           {
             WebGPU::Texture::~Texture(result);
             result = bmalloc::api::tzoneFree(v12, v13);
@@ -5223,7 +5236,7 @@ LABEL_20:
 
           else
           {
-            --*(result + 8);
+            --*(result + 2);
           }
         }
 
@@ -5236,7 +5249,7 @@ LABEL_13:
         }
       }
 
-      --*(v16 + 8);
+      --*(v16 + 2);
 LABEL_17:
       result = *v11;
       *v11 = 0;
@@ -5254,7 +5267,7 @@ LABEL_22:
       if (*v4 == v5)
       {
         *v4 = 0;
-        *(v4 + 8) = 0;
+        *(v4 + 2) = 0;
       }
 
       return WTF::fastFree(v5, v8);
@@ -5264,16 +5277,16 @@ LABEL_22:
   return result;
 }
 
-void WebGPU::Device::createQuerySet(WebGPU::Device *a1@<X0>, uint64_t a2@<X1>, WebGPU::QuerySet *a3@<X8>)
+void WebGPU::Device::createQuerySet(WebGPU::QuerySet *__return_ptr a1@<X8>, WebGPU::Device *a2@<X0>, uint64_t a3@<X1>)
 {
-  if (*a2 || (v5 = *(a2 + 20), v5 > 0x1000) || (v6 = *(a1 + 1)) == 0)
+  if (*a3 || (v5 = *(a3 + 20), v5 > 0x1000) || (v6 = *(a2 + 1)) == 0)
   {
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    if ((*(a1 + 548) & 1) == 0)
+    if ((*(a2 + 548) & 1) == 0)
     {
-      v10 = *(a1 + 4) + 32 * *(a1 + 11);
+      v10 = *(a2 + 4) + 32 * *(a2 + 11);
       v11 = (v10 + 16);
-      v12 = -32 * *(a1 + 11);
+      v12 = -32 * *(a2 + 11);
       while (v12)
       {
         v13 = *(v10 - 8);
@@ -5295,12 +5308,12 @@ void WebGPU::Device::createQuerySet(WebGPU::Device *a1@<X0>, uint64_t a2@<X1>, W
         }
       }
 
-      v15 = *(a1 + 3);
+      v15 = *(a2 + 3);
       if (v15)
       {
         (*(*v15 + 16))(v15, 1, &v52);
-        v16 = *(a1 + 3);
-        *(a1 + 3) = 0;
+        v16 = *(a2 + 3);
+        *(a2 + 3) = 0;
         if (v16)
         {
           (*(*v16 + 8))(v16);
@@ -5316,18 +5329,18 @@ LABEL_10:
       WTF::StringImpl::destroy(v9, v8);
     }
 
-    WebGPU::QuerySet::createInvalid(a3, a1);
+    WebGPU::QuerySet::createInvalid(a1, a2);
   }
 
   else
   {
-    v7 = *(a2 + 16);
+    v7 = *(a3 + 16);
     if (v7)
     {
       if (v7 == 0x7FFFFFFF)
       {
 
-        WebGPU::QuerySet::createInvalid(a3, a1);
+        WebGPU::QuerySet::createInvalid(a1, a2);
       }
 
       else
@@ -5335,14 +5348,14 @@ LABEL_10:
         v20 = objc_opt_new();
         [v20 setSampleCount:v5];
         [v20 setStorageMode:0];
-        [v20 setCounterSet:*(a1 + 33)];
-        v21 = *(a1 + 1);
+        [v20 setCounterSet:*(a2 + 33)];
+        v21 = *(a2 + 1);
         v51 = 0;
         v22 = [v21 newCounterSampleBufferWithDescriptor:v20 error:&v51];
         v23 = v51;
         if (v23)
         {
-          WebGPU::QuerySet::createInvalid(a3, a1);
+          WebGPU::QuerySet::createInvalid(a1, a2);
         }
 
         else
@@ -5363,14 +5376,14 @@ LABEL_10:
           *v41 = 1;
           while (1)
           {
-            v43 = *a1;
-            if ((*a1 & 1) == 0)
+            v43 = *a2;
+            if ((*a2 & 1) == 0)
             {
               break;
             }
 
-            v44 = *a1;
-            atomic_compare_exchange_strong_explicit(a1, &v44, v43 + 2, memory_order_relaxed, memory_order_relaxed);
+            v44 = *a2;
+            atomic_compare_exchange_strong_explicit(a2, &v44, v43 + 2, memory_order_relaxed, memory_order_relaxed);
             if (v44 == v43)
             {
               goto LABEL_56;
@@ -5378,9 +5391,9 @@ LABEL_10:
           }
 
           v45 = 0;
-          v46 = *a1;
+          v46 = *a2;
           v47 = 1;
-          atomic_compare_exchange_strong_explicit(*a1, &v45, 1u, memory_order_acquire, memory_order_acquire);
+          atomic_compare_exchange_strong_explicit(*a2, &v45, 1u, memory_order_acquire, memory_order_acquire);
           if (v45)
           {
             v49 = v46;
@@ -5396,7 +5409,7 @@ LABEL_10:
           }
 
 LABEL_56:
-          *(v41 + 8) = a1;
+          *(v41 + 8) = a2;
           *(v41 + 16) = 0;
           v48 = v42;
           *(v41 + 24) = v48;
@@ -5406,14 +5419,14 @@ LABEL_56:
           *(v41 + 48) = 0;
           *(v41 + 56) = 0;
 
-          *a3 = v41;
+          *a1 = v41;
         }
       }
     }
 
     else
     {
-      v17 = *(a2 + 8);
+      v17 = *(a3 + 8);
       if ((8 * v5) <= 1)
       {
         v18 = 1;
@@ -5425,7 +5438,7 @@ LABEL_56:
       }
 
       v19 = [v6 newBufferWithLength:v18 options:32];
-      WebGPU::Device::setOwnerWithIdentity(a1, v19);
+      WebGPU::Device::setOwnerWithIdentity(a2, v19);
       if (v17)
       {
         strlen(v17);
@@ -5472,14 +5485,14 @@ LABEL_56:
       *v30 = 1;
       while (1)
       {
-        v32 = *a1;
-        if ((*a1 & 1) == 0)
+        v32 = *a2;
+        if ((*a2 & 1) == 0)
         {
           break;
         }
 
-        v33 = *a1;
-        atomic_compare_exchange_strong_explicit(a1, &v33, v32 + 2, memory_order_relaxed, memory_order_relaxed);
+        v33 = *a2;
+        atomic_compare_exchange_strong_explicit(a2, &v33, v32 + 2, memory_order_relaxed, memory_order_relaxed);
         if (v33 == v32)
         {
           goto LABEL_45;
@@ -5487,9 +5500,9 @@ LABEL_56:
       }
 
       v34 = 0;
-      v35 = *a1;
+      v35 = *a2;
       v36 = 1;
-      atomic_compare_exchange_strong_explicit(*a1, &v34, 1u, memory_order_acquire, memory_order_acquire);
+      atomic_compare_exchange_strong_explicit(*a2, &v34, 1u, memory_order_acquire, memory_order_acquire);
       if (v34)
       {
         MEMORY[0x22AA683C0](v35);
@@ -5503,7 +5516,7 @@ LABEL_56:
       }
 
 LABEL_45:
-      *(v30 + 8) = a1;
+      *(v30 + 8) = a2;
       v37 = v31;
       *(v30 + 16) = v37;
       *(v30 + 24) = 0;
@@ -5512,7 +5525,7 @@ LABEL_45:
       *(v30 + 36) = 0;
       *(v30 + 49) = 0;
 
-      *a3 = v30;
+      *a1 = v30;
     }
   }
 }
@@ -5790,11 +5803,11 @@ void sub_2256B43F0(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_2256B4404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256B4404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WTF::RefCounted<WebGPU::CommandEncoder>::deref(v2);
-  WTF::Ref<WebGPU::QuerySet,WTF::RawPtrTraits<WebGPU::QuerySet>,WTF::DefaultRefDerefTraits<WebGPU::QuerySet>>::~Ref(va, v4);
+  va_start(va, a3);
+  WTF::RefCounted<WebGPU::CommandEncoder>::deref(v3);
+  WTF::Ref<WebGPU::QuerySet,WTF::RawPtrTraits<WebGPU::QuerySet>,WTF::DefaultRefDerefTraits<WebGPU::QuerySet>>::~Ref(va, v5);
   _Unwind_Resume(a1);
 }
 
@@ -5867,10 +5880,10 @@ void sub_2256B4528(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-uint64_t wgpuQuerySetGetCount(unsigned int *a1, void *a2)
+uint64_t wgpuQuerySetGetCount(WebGPU::QuerySet *a1, void *a2)
 {
   v2 = (*a1)++;
-  v3 = a1[8];
+  v3 = *(a1 + 8);
   if (v2)
   {
     *a1 = v2;
@@ -5885,10 +5898,10 @@ uint64_t wgpuQuerySetGetCount(unsigned int *a1, void *a2)
   return v3;
 }
 
-uint64_t wgpuQuerySetGetType(unsigned int *a1, void *a2)
+uint64_t wgpuQuerySetGetType(WebGPU::QuerySet *a1, void *a2)
 {
   v2 = (*a1)++;
-  v3 = a1[9];
+  v3 = *(a1 + 9);
   if (v2)
   {
     *a1 = v2;
@@ -6045,7 +6058,7 @@ void *WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueu
               *v8 = 0;
               if (v10)
               {
-                (*(*v10 + 8))(v10);
+                (*(*v10 + 8))(v10, a2);
               }
 
               v8 = (v8 + 8);
@@ -6098,7 +6111,7 @@ void *WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0
               *v8 = 0;
               if (v10)
               {
-                (*(*v10 + 8))(v10);
+                (*(*v10 + 8))(v10, a2);
               }
 
               v8 = (v8 + 8);
@@ -7277,7 +7290,7 @@ void *WebGPU::Queue::onSubmittedWorkDone(uint64_t a1, uint64_t *a2, __n128 a3)
   atomic_compare_exchange_strong_explicit(v4, &v7, 1u, memory_order_acquire, memory_order_acquire);
   if (v7)
   {
-    MEMORY[0x22AA683C0](v4);
+    MEMORY[0x22AA683C0](v4, a3);
     if (*(v4 + 24))
     {
 LABEL_4:
@@ -7313,7 +7326,7 @@ LABEL_80:
 LABEL_10:
     v10 = *a2;
     *a2 = 0;
-    (*(*v10 + 16))(v10, 3);
+    (*(*v10 + 16))(v10, 3, a3);
     result = (*(*v10 + 8))(v10);
     if ((v5 & 1) == 0)
     {
@@ -7365,7 +7378,7 @@ LABEL_6:
     v22 = *(a1 + 80);
     if (!v22)
     {
-      WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash((a1 + 80), 8u, 0);
+      WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash((a1 + 80), 8uLL, 0);
       v22 = *(a1 + 80);
       v21 = *(a1 + 48);
     }
@@ -7480,7 +7493,7 @@ LABEL_53:
           }
 
 LABEL_52:
-          v42 = v41 << (6 * v39 >= (2 * v41));
+          v42 = (v41 << (6 * v39 >= (2 * v41)));
           goto LABEL_53;
         }
 
@@ -7642,7 +7655,7 @@ void sub_2256B65C4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Device,(WTF::DestructionThread)0>::deref(v11, a2);
@@ -7752,7 +7765,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::Cr
       *v4 = 0;
       if (v6)
       {
-        (*(*v6 + 8))(v6);
+        (*(*v6 + 8))(v6, a2);
       }
 
       v4 = (v4 + 8);
@@ -7773,7 +7786,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(WGPUQueueWorkDoneStatus)>,0ul,WTF::Cr
   return a1;
 }
 
-void WebGPU::Queue::onSubmittedWorkScheduled(uint64_t a1, unint64_t a2, __n128 a3)
+void WebGPU::Queue::onSubmittedWorkScheduled(uint64_t a1, uint64_t *a2, __n128 a3)
 {
   v4 = *(a1 + 40);
   v5 = 1;
@@ -7788,7 +7801,7 @@ void WebGPU::Queue::onSubmittedWorkScheduled(uint64_t a1, unint64_t a2, __n128 a
   atomic_compare_exchange_strong_explicit(v4, &v7, 1u, memory_order_acquire, memory_order_acquire);
   if (v7)
   {
-    MEMORY[0x22AA683C0](v4);
+    MEMORY[0x22AA683C0](v4, a3);
     if (*(v4 + 24))
     {
 LABEL_4:
@@ -7822,7 +7835,7 @@ LABEL_61:
     }
 
 LABEL_10:
-    (*(**a2 + 16))();
+    (*(**a2 + 16))(a3);
     if ((v5 & 1) == 0)
     {
       goto LABEL_11;
@@ -7868,7 +7881,7 @@ LABEL_6:
     v21 = *(a1 + 72);
     if (!v21)
     {
-      WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash((a1 + 72), 8u, 0);
+      WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash((a1 + 72), 8uLL, 0);
       v21 = *(a1 + 72);
       v18 = *(a1 + 48);
     }
@@ -7983,7 +7996,7 @@ LABEL_54:
           }
 
 LABEL_53:
-          v41 = v40 << (6 * v38 >= (2 * v40));
+          v41 = (v40 << (6 * v38 >= (2 * v40)));
           goto LABEL_54;
         }
 
@@ -8083,7 +8096,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
       *v4 = 0;
       if (v6)
       {
-        (*(*v6 + 8))(v6);
+        (*(*v6 + 8))(v6, a2);
       }
 
       v4 = (v4 + 8);
@@ -8104,7 +8117,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
   return a1;
 }
 
-uint64_t WebGPU::Queue::waitForAllCommitedWorkToComplete(id *this)
+void *WebGPU::Queue::waitForAllCommitedWorkToComplete(id *this)
 {
   v2 = 0;
   v3 = (this + 14);
@@ -8165,11 +8178,11 @@ void ___ZN6WebGPU5Queue22commitMTLCommandBufferEPU27objcproto16MTLCommandBuffer1
   }
 }
 
-void sub_2256B7010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10, atomic_uint *a11, uint64_t a12)
+void sub_2256B7010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10, atomic_uint *a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(&a11);
@@ -8207,9 +8220,9 @@ atomic_uint *__destroy_helper_block_ea8_32c94_ZTSKZN6WebGPU5Queue22commitMTLComm
 
 void ___ZN6WebGPU5Queue22commitMTLCommandBufferEPU27objcproto16MTLCommandBuffer11objc_object_block_invoke_32(uint64_t a1, void *a2)
 {
-  v17 = a2;
-  v3 = [v17 status];
-  v4 = [v17 error];
+  v15 = a2;
+  v3 = [v15 status];
+  v4 = [v15 error];
   v5 = v4;
   if (v3 == 4 || v4 && [v4 code] == 7)
   {
@@ -8255,9 +8268,7 @@ void ___ZN6WebGPU5Queue22commitMTLCommandBufferEPU27objcproto16MTLCommandBuffer1
         }
       }
 
-      v15 = v5;
-      v16 = v8;
-      WTFLogAlways();
+      WTFLogAlways("Encountered non-fatal command buffer error %@, underlying error %@", v5, v8);
       v6 = 1;
     }
   }
@@ -8270,7 +8281,7 @@ void ___ZN6WebGPU5Queue22commitMTLCommandBufferEPU27objcproto16MTLCommandBuffer1
     MEMORY[0x22AA683C0](v11);
   }
 
-  [*(*(a1 + 32) + 104) removeObject:{v17, v15, v16}];
+  [*(*(a1 + 32) + 104) removeObject:v15];
   v12 = 1;
   atomic_compare_exchange_strong_explicit(v11, &v12, 0, memory_order_release, memory_order_relaxed);
   if (v12 != 1)
@@ -8283,12 +8294,12 @@ void ___ZN6WebGPU5Queue22commitMTLCommandBufferEPU27objcproto16MTLCommandBuffer1
   v14 = WTF::fastMalloc(0x18);
   *v14 = &unk_2838D3148;
   *(v14 + 8) = v6;
-  v18 = v14;
+  v16 = v14;
   *(v14 + 16) = v13;
-  WebGPU::Queue::scheduleWork(v13, &v18);
-  if (v18)
+  WebGPU::Queue::scheduleWork(v13, &v16);
+  if (v16)
   {
-    (*(*v18 + 8))(v18);
+    (*(*v16 + 8))(v16);
   }
 }
 
@@ -8364,7 +8375,7 @@ uint64_t WebGPU::Queue::retainCounterSampleBuffer(WebGPU::Queue *this, WebGPU::C
   return v2;
 }
 
-void *WebGPU::Queue::releaseCounterSampleBuffer(atomic_uint *this, uint64_t a2)
+void *WebGPU::Queue::releaseCounterSampleBuffer(atomic_uint *this, unint64_t a2)
 {
   atomic_fetch_add(this, 1u);
   v4 = WTF::fastMalloc(0x18);
@@ -8388,7 +8399,7 @@ void sub_2256B76FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
     WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(&a10);
     _Unwind_Resume(a1);
   }
@@ -8420,13 +8431,13 @@ void WebGPU::Queue::retainTimestampsForOneUpdate(atomic_uint *a1, void *a2)
   }
 }
 
-void sub_2256B7814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256B7814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  v6 = *(v4 - 24);
-  if (v6)
+  va_start(va, a5);
+  v8 = *(v6 - 24);
+  if (v8)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v8 + 8))(v8, a2, a3);
     WebGPU::Queue::retainTimestampsForOneUpdate(NSMutableSet<objc_object  {objcproto22MTLCounterSampleBuffer}*> *)::$_0::~$_0(va);
 
     _Unwind_Resume(a1);
@@ -8462,16 +8473,16 @@ id WebGPU::Queue::trimICB(id *a1, void *a2, void *a3, uint64_t a4)
   return v7;
 }
 
-void WebGPU::Queue::writeBuffer(WebGPU::Queue *a1, uint64_t a2, unint64_t a3, _OWORD *a4, unint64_t a5)
+void WebGPU::Queue::writeBuffer(WebGPU::Queue *result, uint64_t a2, unint64_t a3, _OWORD *a4, size_t a5)
 {
-  v5 = *(a1 + 5);
+  v5 = *(result + 5);
   if (!v5)
   {
     return;
   }
 
   v11 = 0;
-  v12 = *(a1 + 4);
+  v12 = *(result + 4);
   atomic_compare_exchange_strong_explicit(v5, &v11, 1u, memory_order_acquire, memory_order_acquire);
   if (v11)
   {
@@ -8521,12 +8532,12 @@ LABEL_6:
   if (*(a2 + 44) == 4 || *(a2 + 8))
   {
     v14 = *(a2 + 280);
-    if (*(v14 + 8) && v14 == WebGPU::Queue::device(a1, a2) && *(a2 + 44) == 3 && ((a5 | a3) & 3) == 0 && (*(a2 + 40) & 8) != 0 && !__CFADD__(a3, a5) && a3 + a5 <= [*(a2 + 8) length] && (*(a2 + 44) == 4 || *(a2 + 8)))
+    if (*(v14 + 8) && v14 == WebGPU::Queue::device(result, a2) && *(a2 + 44) == 3 && ((a5 | a3) & 3) == 0 && (*(a2 + 40) & 8) != 0 && !__CFADD__(a3, a5) && a3 + a5 <= [*(a2 + 8) length] && (*(a2 + 44) == 4 || *(a2 + 8)))
     {
       v16 = *(a2 + 280);
       if (*(v16 + 8))
       {
-        if (v16 == WebGPU::Queue::device(a1, v15))
+        if (v16 == WebGPU::Queue::device(result, v15))
         {
           if (!a5)
           {
@@ -8553,7 +8564,7 @@ LABEL_6:
             if (*(a2 + 224) <= WORD2(v30))
             {
 LABEL_53:
-              if (*(a1 + 6) != *(a1 + 7) || *(a1 + 3))
+              if (*(result + 6) != *(result + 7) || *(result + 3))
               {
                 goto LABEL_55;
               }
@@ -8567,7 +8578,7 @@ LABEL_53:
                 }
 
 LABEL_55:
-                WebGPU::Queue::writeBuffer(a1, *(a2 + 8), a3, a4, a5);
+                WebGPU::Queue::writeBuffer(result, *(a2 + 8), a3, a4, a5);
                 goto LABEL_32;
               }
 
@@ -8709,7 +8720,7 @@ unint64_t WebGPU::maxIndexValue(_OWORD *a1, unint64_t __x)
     if (v32 > 0x1B)
     {
       v34 = (v32 >> 2) + 1;
-      v33 = a1 + (v34 & 0x7FFFFFFFFFFFFFF8);
+      v33 = (a1 + 4 * (v34 & 0x7FFFFFFFFFFFFFF8));
       v35 = (a1 + 1);
       v36 = 0uLL;
       v37 = v34 & 0x7FFFFFFFFFFFFFF8;
@@ -8738,7 +8749,8 @@ unint64_t WebGPU::maxIndexValue(_OWORD *a1, unint64_t __x)
 
     do
     {
-      v40 = *v33++;
+      v40 = *v33;
+      v33 = (v33 + 4);
       v39 = v40;
       if (v25 <= v40)
       {
@@ -8790,7 +8802,7 @@ LABEL_22:
 
       if ((v44 & 0xC) == 0)
       {
-        v43 = a1 + v45;
+        v43 = a1 + 2 * v45;
         goto LABEL_60;
       }
     }
@@ -8801,7 +8813,7 @@ LABEL_22:
       v45 = 0;
     }
 
-    v43 = a1 + (v44 & 0xFFFFFFFFFFFFFFFCLL);
+    v43 = a1 + 2 * (v44 & 0xFFFFFFFFFFFFFFFCLL);
     v52 = vdup_n_s16(v26);
     v53 = (a1 + 2 * v45);
     v54 = v45 - (v44 & 0xFFFFFFFFFFFFFFFCLL);
@@ -8820,10 +8832,11 @@ LABEL_22:
     }
 
 LABEL_60:
-    v78 = (a1 + v41);
+    v78 = a1 + v41;
     do
     {
-      v80 = *v43++;
+      v80 = *v43;
+      v43 += 2;
       v79 = v80;
       if (v26 <= v80)
       {
@@ -8933,12 +8946,13 @@ LABEL_75:
   else
   {
     v31 = 0;
-    v46 = (a1 + v27);
+    v46 = a1 + v27;
   }
 
   do
   {
-    v62 = *v46++;
+    v62 = *v46;
+    v46 += 4;
     v61 = v62;
     if (v31 <= v62)
     {
@@ -8955,7 +8969,7 @@ LABEL_45:
     if (v63 - 2 < 6)
     {
       LOWORD(v65) = 0;
-      v66 = (a1 + v27);
+      v66 = a1 + v27;
       goto LABEL_66;
     }
 
@@ -9019,7 +9033,8 @@ LABEL_66:
     v81 = &v29[v63];
     do
     {
-      v83 = *v66++;
+      v83 = *v66;
+      v66 += 2;
       v82 = v83;
       if (v65 <= v83)
       {
@@ -9325,7 +9340,7 @@ uint64_t WebGPU::Queue::device(WebGPU::Queue *this, WTF::StringImpl *a2)
   atomic_compare_exchange_strong_explicit(v2, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    MEMORY[0x22AA683C0](v2);
+    MEMORY[0x22AA683C0](v2, a2);
     if (*(v2 + 24))
     {
 LABEL_4:
@@ -9563,7 +9578,7 @@ LABEL_19:
   }
 }
 
-void sub_2256B8A40(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, __int16 a12, char a13, char a14)
+void sub_2256B8A40(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WebGPU::Texture *a11, __int16 a12, char a13, char a14)
 {
   if (a10)
   {
@@ -9581,9 +9596,9 @@ void sub_2256B8A40(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-id *WebGPU::Queue::writeTexture(id *result, WTF::StringImpl *a2, char *a3, unint64_t a4, uint64_t a5, unsigned int *a6)
+WebGPU::Texture *WebGPU::Queue::writeTexture(WebGPU::Texture *result, WTF::StringImpl *a2, char *a3, unint64_t a4, uint64_t a5, unsigned int *a6)
 {
-  v6 = result[5];
+  v6 = *(result + 5);
   if (!v6)
   {
     return result;
@@ -9592,15 +9607,15 @@ id *WebGPU::Queue::writeTexture(id *result, WTF::StringImpl *a2, char *a3, unint
   v11 = a2;
   v12 = result;
   v13 = 0;
-  v14 = result[4];
+  v14 = *(result + 4);
   atomic_compare_exchange_strong_explicit(v6, &v13, 1u, memory_order_acquire, memory_order_acquire);
   if (v13)
   {
     result = MEMORY[0x22AA683C0](v6);
-    if (*(v6 + 3))
+    if (*(v6 + 24))
     {
 LABEL_4:
-      ++*(v6 + 1);
+      ++*(v6 + 8);
       v15 = 1;
       atomic_compare_exchange_strong_explicit(v6, &v15, 0, memory_order_release, memory_order_relaxed);
       if (v15 == 1)
@@ -9619,7 +9634,7 @@ LABEL_135:
     }
   }
 
-  else if (*(v6 + 3))
+  else if (*(v6 + 24))
   {
     goto LABEL_4;
   }
@@ -9644,7 +9659,7 @@ LABEL_6:
     return result;
   }
 
-  v16 = *(v11 + 8);
+  v16 = *(v11 + 1);
   ++v16[1].i32[0];
   v230 = v16;
   if (v16[13].i8[0] == 1)
@@ -9708,7 +9723,7 @@ LABEL_24:
     goto LABEL_30;
   }
 
-  v23 = *(v11 + 32);
+  v23 = *(v11 + 8);
   if (v23 == 0x7FFFFFFF)
   {
     goto LABEL_47;
@@ -9764,7 +9779,7 @@ LABEL_51:
       }
 
       v53 = v16[6].u32[0];
-      v54 = *(v11 + 32);
+      v54 = *(v11 + 8);
       if (WebGPU::Texture::refersToSingleAspect(v16[6].u32[0], v54))
       {
         if ((v53 - 38) > 5)
@@ -9823,8 +9838,8 @@ LABEL_52:
 
     WebGPU::Texture::texelBlockSize(v218, v226);
     v36 = *v226;
-    v37 = WebGPU::Texture::logicalMiplevelSpecificTextureExtent(v16, *(v11 + 16));
-    LODWORD(v38) = *(v11 + 20);
+    v37 = WebGPU::Texture::logicalMiplevelSpecificTextureExtent(v16, *(v11 + 4));
+    LODWORD(v38) = *(v11 + 5);
     v211 = v37;
     v65 = v37 >= v38;
     LODWORD(v38) = v37 - v38;
@@ -9906,7 +9921,7 @@ LABEL_79:
       goto LABEL_36;
     }
 
-    v49 = *(v11 + 32);
+    v49 = *(v11 + 8);
     if (v49 == 0x7FFFFFFF)
     {
       goto LABEL_36;
@@ -9951,7 +9966,7 @@ LABEL_99:
           v190 = v194 & v57.i32[1];
           while (1)
           {
-            v58 = *(v11 + 28);
+            v58 = *(v11 + 7);
             v65 = __CFADD__(v58, v56);
             v59 = v58 + v56;
             if (v65)
@@ -9969,7 +9984,7 @@ LABEL_99:
               v60 = v59;
             }
 
-            if (WebGPU::Texture::previouslyCleared(v16, *(v11 + 16), v60))
+            if (WebGPU::Texture::previouslyCleared(v16, *(v11 + 4), v60))
             {
               goto LABEL_104;
             }
@@ -9998,7 +10013,7 @@ LABEL_118:
               goto LABEL_104;
             }
 
-            WebGPU::Texture::setPreviouslyCleared(v16, *(v11 + 16), v60, 1);
+            WebGPU::Texture::setPreviouslyCleared(v16, *(v11 + 4), v60, 1);
 LABEL_104:
             if (v208 == ++v56)
             {
@@ -10076,11 +10091,11 @@ LABEL_120:
               v216 = v68;
               while (1)
               {
-                v100 = *(v11 + 16);
+                v100 = *(v11 + 1);
                 *v226 = *v11;
                 *&v226[16] = v100;
-                v227.i64[0] = *(v11 + 32);
-                v101 = *(v11 + 28);
+                v227.i64[0] = *(v11 + 4);
+                v101 = *(v11 + 7);
                 v65 = __CFADD__(v101, v99);
                 v102 = v101 + v99;
                 if (v65)
@@ -10094,7 +10109,7 @@ LABEL_120:
                 {
                   if (v198.i32[0])
                   {
-                    *&v226[24] = *(v11 + 24);
+                    *&v226[24] = *(v11 + 6);
                     if (!__CFADD__(*&v226[24], v204))
                     {
                       goto LABEL_121;
@@ -10111,7 +10126,7 @@ LABEL_354:
                   v103 = 0;
                   while (v103 < v198.i32[0])
                   {
-                    v104 = *(v11 + 24);
+                    v104 = *(v11 + 6);
                     v65 = __CFADD__(v104, v103);
                     v105 = v104 + v103;
                     if (v65)
@@ -10148,7 +10163,7 @@ LABEL_354:
                         v114 = 0;
                         do
                         {
-                          v115 = *(v11 + 20);
+                          v115 = *(v11 + 5);
                           v65 = __CFADD__(v115, v114);
                           v116 = v115 + v114;
                           if (v65)
@@ -10482,7 +10497,7 @@ LABEL_121:
           v183 = 0;
           v189 = v180;
           a3 = v196;
-          if (v12[6] != v12[7])
+          if (*(v12 + 6) != *(v12 + 7))
           {
 LABEL_188:
             v84 = WebGPU::Queue::ensureBlitCommandEncoder(v12);
@@ -10513,7 +10528,7 @@ LABEL_188:
                   }
 
                   v126 = *(v11 + 20);
-                  v127 = *(v11 + 28);
+                  v127 = *(v11 + 7);
                   if (__n)
                   {
                     if (__n < WebGPU::Texture::bytesPerRow(v218, v207, v16[5].u32[0]))
@@ -10525,12 +10540,12 @@ LABEL_188:
                   *&v128 = v126;
                   *(&v128 + 1) = HIDWORD(v126);
                   v129 = v128;
-                  v130 = v12[3];
+                  v130 = *(v12 + 3);
                   *v226 = v207;
                   *&v128 = v198.u32[0];
                   *(&v128 + 1) = v198.u32[1];
                   *&v226[8] = v128;
-                  v131 = *(v11 + 16);
+                  v131 = *(v11 + 4);
                   v228 = v129;
                   v229 = v127;
                   [v130 copyFromBuffer:v86 sourceOffset:v87 sourceBytesPerRow:__n sourceBytesPerImage:v189 sourceSize:v226 toTexture:v197 destinationSlice:0 destinationLevel:v131 destinationOrigin:&v228 options:v187];
@@ -10551,18 +10566,18 @@ LABEL_188:
                   {
                     v120 = 0;
                     v121 = 0;
-                    v221 = *(v11 + 20);
+                    v221 = *(v11 + 5);
                     v122 = v207 * v199;
                     v217 = vdupq_n_s64(1uLL);
                     while (!__CFADD__(v120, v122))
                     {
                       if (v120 + v122 <= v85 && !(v120 % v199))
                       {
-                        v123 = v121 + *(v11 + 28);
-                        v124 = v12[3];
+                        v123 = v121 + *(v11 + 7);
+                        v124 = *(v12 + 3);
                         *v226 = v207;
                         *&v226[8] = v217;
-                        v125 = *(v11 + 16);
+                        v125 = *(v11 + 4);
                         v228 = v221;
                         v229 = 0;
                         [v124 copyFromBuffer:v86 sourceOffset:v87 + v120 sourceBytesPerRow:__n sourceBytesPerImage:0 sourceSize:v226 toTexture:v197 destinationSlice:v123 destinationLevel:v125 destinationOrigin:&v228 options:v187];
@@ -10600,12 +10615,12 @@ LABEL_188:
                       {
                         if (!(v90 % v199))
                         {
-                          v96 = v91 + *(v11 + 28);
-                          v97 = v12[3];
+                          v96 = v91 + *(v11 + 7);
+                          v97 = *(v12 + 3);
                           *v226 = v207;
                           *&v226[8] = v182;
                           *&v226[16] = 1;
-                          v98 = *(v11 + 16);
+                          v98 = *(v11 + 4);
                           v228 = v219;
                           v229 = 0;
                           [v97 copyFromBuffer:v86 sourceOffset:v87 + v90 sourceBytesPerRow:__n sourceBytesPerImage:0 sourceSize:v226 toTexture:v197 destinationSlice:v96 destinationLevel:v98 destinationOrigin:&v228 options:v187];
@@ -10648,13 +10663,13 @@ LABEL_353:
         {
           v210 = a4;
           __n = v61;
-          if (v12[6] != v12[7])
+          if (*(v12 + 6) != *(v12 + 7))
           {
             goto LABEL_188;
           }
         }
 
-        if (v12[3])
+        if (*(v12 + 3))
         {
           v82 = 1;
         }
@@ -10711,7 +10726,7 @@ LABEL_353:
 
                   if (!(v175 % v199))
                   {
-                    v176 = *(v11 + 28);
+                    v176 = *(v11 + 7);
                     *v226 = v223;
                     *&v226[16] = 0;
                     *&v226[24] = v207;
@@ -10722,7 +10737,7 @@ LABEL_353:
                       goto LABEL_353;
                     }
 
-                    [v197 replaceRegion:v226 mipmapLevel:*(v11 + 16) slice:v171 + v176 withBytes:&a3[v175] bytesPerRow:__n bytesPerImage:0];
+                    [v197 replaceRegion:v226 mipmapLevel:*(v11 + 4) slice:v171 + v176 withBytes:&a3[v175] bytesPerRow:__n bytesPerImage:0];
                     v170 = a6[2];
                   }
 
@@ -10737,7 +10752,7 @@ LABEL_353:
 
           else if (!v215)
           {
-            v164 = *(v11 + 20);
+            v164 = *(v11 + 5);
             v228 = 0uLL;
             v165 = a6[2];
             if (v165)
@@ -10763,7 +10778,7 @@ LABEL_353:
 
                   if (v168 == (v168 / v199) * v199)
                   {
-                    v169 = *(v11 + 28);
+                    v169 = *(v11 + 7);
                     *&v226[8] = v228;
                     *v226 = v164;
                     *&v226[24] = v207;
@@ -10773,7 +10788,7 @@ LABEL_353:
                       goto LABEL_353;
                     }
 
-                    [v197 replaceRegion:v226 mipmapLevel:*(v11 + 16) slice:v166 + v169 withBytes:&a3[v168] bytesPerRow:0 bytesPerImage:0];
+                    [v197 replaceRegion:v226 mipmapLevel:*(v11 + 4) slice:v166 + v169 withBytes:&a3[v168] bytesPerRow:0 bytesPerImage:0];
                     v165 = a6[2];
                   }
 
@@ -10790,7 +10805,7 @@ LABEL_353:
 
         if (v182 && v198.i32[1] && !(v183 % v199))
         {
-          v177 = *(v11 + 28);
+          v177 = *(v11 + 7);
           v178 = *(v11 + 20);
           v179.i64[0] = v178;
           v179.i64[1] = HIDWORD(v178);
@@ -10805,7 +10820,7 @@ LABEL_353:
             goto LABEL_353;
           }
 
-          [v197 replaceRegion:v226 mipmapLevel:*(v11 + 16) slice:0 withBytes:&a3[v183] bytesPerRow:__n bytesPerImage:v189];
+          [v197 replaceRegion:v226 mipmapLevel:*(v11 + 4) slice:0 withBytes:&a3[v183] bytesPerRow:__n bytesPerImage:v189];
         }
 
 LABEL_264:
@@ -10847,7 +10862,7 @@ LABEL_36:
   result = v230;
   if (v230)
   {
-    if (v230[1].i32[0] == 1)
+    if (*(v230 + 2) == 1)
     {
       WebGPU::Texture::~Texture(v230);
       result = bmalloc::api::tzoneFree(v29, v30);
@@ -10855,7 +10870,7 @@ LABEL_36:
 
     else
     {
-      --v230[1].i32[0];
+      --*(v230 + 2);
     }
   }
 

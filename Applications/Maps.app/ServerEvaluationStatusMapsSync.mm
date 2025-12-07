@@ -30,7 +30,7 @@
 
 - (void)setARPStatusWithIsBlocked:(BOOL)blocked isTrusted:(BOOL)trusted completion:(id)completion
 {
-  v9 = sub_1000CE6B8(&unk_10190BA50);
+  v9 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v9 - 8);
   v11 = &v17 - v10;
   v12 = _Block_copy(completion);
@@ -62,7 +62,7 @@
 
 - (void)fetchARPStatusWithCompletion:(id)completion
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);
@@ -92,7 +92,7 @@
 
 - (void)setRAPStatusWithIsBlocked:(BOOL)blocked isTrusted:(BOOL)trusted completion:(id)completion
 {
-  v9 = sub_1000CE6B8(&unk_10190BA50);
+  v9 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v9 - 8);
   v11 = &v17 - v10;
   v12 = _Block_copy(completion);
@@ -124,7 +124,7 @@
 
 - (void)fetchRAPStatusWithCompletion:(id)completion
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);

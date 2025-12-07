@@ -11,7 +11,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ProgramBrickItemCell();
+  v3.super_class = type metadata accessor for ProgramBrickItemCell(0);
   v2 = v3.receiver;
   [(ProgramBrickItemCell *)&v3 didMoveToWindow];
   sub_20BBC6C14();
@@ -25,15 +25,15 @@
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550, &unk_20C1505A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for ProgramBrickItemCell();
+  v6 = type metadata accessor for ProgramBrickItemCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(ProgramBrickItemCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for ShelfCellItemInfo();
+  v8 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC9SeymourUI20ProgramBrickItemCell_itemInfo;
   swift_beginAccess();

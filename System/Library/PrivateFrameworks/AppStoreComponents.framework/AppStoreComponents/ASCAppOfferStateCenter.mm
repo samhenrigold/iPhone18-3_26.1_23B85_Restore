@@ -150,45 +150,45 @@ void __42__ASCAppOfferStateCenter_connectToService__block_invoke_20(uint64_t a1,
 
 - (void)useOfferStateMachineFallback
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   service = [(ASCAppOfferStateCenter *)self service];
 
   if (!service)
   {
-    v5 = ASCLocalizedString(@"OFFER_BUTTON_TITLE_VIEW", v4);
-    v6 = [ASCOfferMetadata textMetadataWithTitle:v5 subtitle:0];
+    v4 = ASCLocalizedString(@"OFFER_BUTTON_TITLE_VIEW");
+    v5 = [ASCOfferMetadata textMetadataWithTitle:v4 subtitle:0];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     stateMachines = [(ASCAppOfferStateCenter *)self stateMachines];
     objectEnumerator = [stateMachines objectEnumerator];
 
-    v9 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v9)
+    v8 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v14;
+      v9 = v8;
+      v10 = *v13;
       do
       {
-        v12 = 0;
+        v11 = 0;
         do
         {
-          if (*v14 != v11)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          [*(*(&v13 + 1) + 8 * v12++) offerStateDidChange:@"unknown" withMetadata:v6 flags:2];
+          [*(*(&v12 + 1) + 8 * v11++) offerStateDidChange:@"unknown" withMetadata:v5 flags:2];
         }
 
-        while (v10 != v12);
-        v10 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v9 != v11);
+        v9 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
   }
 }
@@ -264,7 +264,7 @@ void __38__ASCAppOfferStateCenter_tryReconnect__block_invoke_2(uint64_t a1, void
   v4 = +[ASCAppOfferStateCenter log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __38__ASCAppOfferStateCenter_tryReconnect__block_invoke_2_cold_1();
+    __38__ASCAppOfferStateCenter_tryReconnect__block_invoke_2_cold_1(v3);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -533,7 +533,7 @@ void __83__ASCAppOfferStateCenter_performActionOfOffer_withActivity_inContext_us
   v4 = +[ASCAppOfferStateCenter log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __83__ASCAppOfferStateCenter_performActionOfOffer_withActivity_inContext_usingService___block_invoke_35_cold_1();
+    __83__ASCAppOfferStateCenter_performActionOfOffer_withActivity_inContext_usingService___block_invoke_35_cold_1(v3);
   }
 
   [*(a1 + 32) finishWithError:v3];
@@ -610,7 +610,7 @@ void __57__ASCAppOfferStateCenter_viewAppForAppDistributionOffer___block_invoke_
   v3 = +[ASCAppOfferStateCenter log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __57__ASCAppOfferStateCenter_viewAppForAppDistributionOffer___block_invoke_2_cold_1();
+    __57__ASCAppOfferStateCenter_viewAppForAppDistributionOffer___block_invoke_2_cold_1(v2);
   }
 }
 
@@ -681,7 +681,7 @@ void __65__ASCAppOfferStateCenter_decorateBuyParamsForOffer_withActivity___block
   v4 = +[ASCAppOfferStateCenter log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __65__ASCAppOfferStateCenter_decorateBuyParamsForOffer_withActivity___block_invoke_2_cold_1();
+    __65__ASCAppOfferStateCenter_decorateBuyParamsForOffer_withActivity___block_invoke_2_cold_1(v3);
   }
 
   [*(a1 + 32) finishWithError:v3];
@@ -893,12 +893,12 @@ void __42__ASCAppOfferStateCenter_connectToService__block_invoke_20_cold_1(uint6
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __38__ASCAppOfferStateCenter_tryReconnect__block_invoke_2_cold_1()
+void __38__ASCAppOfferStateCenter_tryReconnect__block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = AMSLogableError();
+  v1 = AMSLogableError();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __47__ASCAppOfferStateCenter_stateMachineForOffer___block_invoke_32_cold_1(uint64_t a1)
@@ -917,28 +917,28 @@ void __53__ASCAppOfferStateCenter_stopObservingStateForOffer___block_invoke_33_c
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __83__ASCAppOfferStateCenter_performActionOfOffer_withActivity_inContext_usingService___block_invoke_35_cold_1()
+void __83__ASCAppOfferStateCenter_performActionOfOffer_withActivity_inContext_usingService___block_invoke_35_cold_1(uint64_t a1)
 {
-  v0 = AMSLogableError();
+  v1 = AMSLogableError();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __57__ASCAppOfferStateCenter_viewAppForAppDistributionOffer___block_invoke_2_cold_1()
+void __57__ASCAppOfferStateCenter_viewAppForAppDistributionOffer___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = AMSLogableError();
+  v1 = AMSLogableError();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __65__ASCAppOfferStateCenter_decorateBuyParamsForOffer_withActivity___block_invoke_2_cold_1()
+void __65__ASCAppOfferStateCenter_decorateBuyParamsForOffer_withActivity___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = AMSLogableError();
+  v1 = AMSLogableError();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

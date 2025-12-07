@@ -10,8 +10,7 @@
   typeCopy = type;
   v14 = type metadata accessor for UUID();
   v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
+  MEMORY[0x28223BE20](v14, v16);
   v18 = &v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   v19 = objc_allocWithZone(NLSessionActivity);

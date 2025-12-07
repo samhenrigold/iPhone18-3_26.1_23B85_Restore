@@ -106,8 +106,8 @@
     objc_storeStrong(v5 + 1, a2);
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v42 = _BSSearchPathForDirectoryInDomain(NSLibraryDirectory, 8uLL);
-    infoDictionary = [v49[1] infoDictionary];
-    v43 = [infoDictionary bs_safeStringForKey:@"BSPluginDirectoryName"];
+    v6 = objc_msgSend_infoDictionary(v49[1]);
+    v43 = [v6 bs_safeStringForKey:@"BSPluginDirectoryName"];
 
     if (v43)
     {

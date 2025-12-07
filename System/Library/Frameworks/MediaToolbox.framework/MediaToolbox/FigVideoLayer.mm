@@ -58,7 +58,7 @@
     goto LABEL_7;
   }
 
-  if ([FigVideoLayer initWithDeferredTransaction:])
+  if (([FigVideoLayer initWithDeferredTransaction:]& 1) != 0)
   {
 LABEL_7:
     if (cf)
@@ -301,7 +301,7 @@ LABEL_14:
 
 - (void)setContentsSlotID:(unsigned int)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   self->_contentsSlotID = d;
   v4 = [MEMORY[0x1E6979320] objectForSlot:?];
   if (dword_1ED4CBEF0)
@@ -311,7 +311,7 @@ LABEL_14:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(FigVideoLayer *)self setContents:v4, v6, v7];
+  [(FigVideoLayer *)self setContents:v4];
 }
 
 @end

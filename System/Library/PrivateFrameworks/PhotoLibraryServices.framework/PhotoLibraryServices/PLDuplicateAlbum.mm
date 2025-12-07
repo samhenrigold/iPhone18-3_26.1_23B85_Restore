@@ -97,7 +97,7 @@
 {
   v26 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     v20 = [(PLDuplicateAlbum *)self hasDuplicateAssetVisibilityStateVisibleAssets:assetsCopy];
     assets = [(PLDuplicateAlbum *)self assets];
@@ -216,7 +216,7 @@ LABEL_11:
 {
   v17 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  if (![assetsCopy count])
+  if (!objc_msgSend_count(assetsCopy))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLDuplicateAlbum.m" lineNumber:212 description:{@"Invalid parameter not satisfying: %@", @"duplicateAssets.count > 0"}];
@@ -266,18 +266,18 @@ LABEL_13:
 {
   v15 = *MEMORY[0x1E69E9840];
   assets = [(PLDuplicateAlbum *)self assets];
-  v4 = [assets count];
+  v4 = objc_msgSend_count(assets);
 
   if (v4 >= 2)
   {
     duplicateAssetsFromCollection = [(PLDuplicateAlbum *)self duplicateAssetsFromCollection];
-    if ([duplicateAssetsFromCollection count] < 2)
+    if (objc_msgSend_count(duplicateAssetsFromCollection) < 2)
     {
       v12 = PLBackendGetLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = 134217984;
-        v14 = [duplicateAssetsFromCollection count];
+        v14 = objc_msgSend_count(duplicateAssetsFromCollection);
         _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_ERROR, "Duplicate asset count unexpected. Asset count: %td", &v13, 0xCu);
       }
     }
@@ -316,7 +316,7 @@ LABEL_13:
   v9 = [managedObjectContext2 executeFetchRequest:albumAssetsFetchRequestForDuplicateSort error:&v28];
   v10 = v28;
 
-  v11 = [v7 stopRecordingDescriptionWithFetchCount:{objc_msgSend(v9, "count")}];
+  v11 = [v7 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(v9)];
   if (v11)
   {
     v12 = PLDuplicateDetectionGetLog();
@@ -336,7 +336,7 @@ LABEL_13:
 
   if (v9)
   {
-    v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v9)];
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
@@ -388,24 +388,24 @@ LABEL_13:
 - (void)updateAlbumType
 {
   metadataMatchingAssets = [(PLDuplicateAlbum *)self metadataMatchingAssets];
-  v4 = [metadataMatchingAssets count];
+  v4 = objc_msgSend_count(metadataMatchingAssets);
 
   perceptualMatchingAssets = [(PLDuplicateAlbum *)self perceptualMatchingAssets];
-  v6 = [perceptualMatchingAssets count];
+  v6 = objc_msgSend_count(perceptualMatchingAssets);
 
   if (v4)
   {
     if (v6)
     {
       assets = [(PLDuplicateAlbum *)self assets];
-      v8 = [assets count];
+      v8 = objc_msgSend_count(assets);
 
       assets2 = [(PLDuplicateAlbum *)self assets];
       v10 = MEMORY[0x1E696AE18];
       metadataMatchingAssets2 = [(PLDuplicateAlbum *)self metadataMatchingAssets];
       v12 = [v10 predicateWithFormat:@"self in %@", metadataMatchingAssets2];
       v13 = [assets2 filteredOrderedSetUsingPredicate:v12];
-      v14 = [v13 count];
+      v14 = objc_msgSend_count(v13);
 
       if (v8 == v14)
       {
@@ -445,7 +445,7 @@ LABEL_13:
 {
   v21 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:assetsCopy];
     mutableMetadataMatchingAssets = [(PLDuplicateAlbum *)self mutableMetadataMatchingAssets];
@@ -497,7 +497,7 @@ LABEL_13:
 {
   typeCopy = type;
   assetsCopy = assets;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     mutableAssets = [(PLManagedAlbum *)self mutableAssets];
     [mutableAssets addObjectsFromArray:assetsCopy];
@@ -519,9 +519,9 @@ LABEL_20:
         goto LABEL_12;
       }
 
-      v7 = [assetsCopy count];
+      v7 = objc_msgSend_count(assetsCopy);
       assets = [(PLDuplicateAlbum *)self assets];
-      v9 = [assets count];
+      v9 = objc_msgSend_count(assets);
 
       if (v7 == v9)
       {
@@ -532,9 +532,9 @@ LABEL_11:
 
 LABEL_12:
         metadataMatchingAssets = [(PLDuplicateAlbum *)self metadataMatchingAssets];
-        v13 = [metadataMatchingAssets count];
+        v13 = objc_msgSend_count(metadataMatchingAssets);
         assets2 = [(PLDuplicateAlbum *)self assets];
-        v15 = [assets2 count];
+        v15 = objc_msgSend_count(assets2);
 
         if (v13 == v15)
         {

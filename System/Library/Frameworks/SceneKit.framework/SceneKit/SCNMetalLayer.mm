@@ -215,10 +215,10 @@
   {
     if (![culling scene])
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = scn_default_log(0, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [SCNMetalLayer setPointOfCulling:v5];
+        [SCNMetalLayer setPointOfCulling:v6];
       }
     }
 

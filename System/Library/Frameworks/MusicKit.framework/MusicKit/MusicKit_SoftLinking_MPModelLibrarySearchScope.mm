@@ -35,30 +35,30 @@
 
 + (id)scopeForTopResultsWithSpecificModelObjectTypeScopes:(id)scopes
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   scopesCopy = scopes;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v7 = scopesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v42 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v41 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
-        v12 = [self _topResultsRelationshipKeyForSpecificModelObjectType:{objc_msgSend(v11, "_modelObjectType", v29)}];
+        v11 = *(*(&v28 + 1) + 8 * i);
+        v12 = [self _topResultsRelationshipKeyForSpecificModelObjectType:{objc_msgSend(v11, "_modelObjectType", v28)}];
         if (v12)
         {
           _underlyingSearchScope = [v11 _underlyingSearchScope];
@@ -70,59 +70,57 @@
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v42 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v28 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2050000000;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2050000000;
   v16 = getMPModelGenericObjectClass_softClass;
-  v41 = getMPModelGenericObjectClass_softClass;
+  v40 = getMPModelGenericObjectClass_softClass;
   if (!getMPModelGenericObjectClass_softClass)
   {
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = __getMPModelGenericObjectClass_block_invoke;
-    v36 = &unk_278229610;
-    v37 = &v38;
-    __getMPModelGenericObjectClass_block_invoke(&v33);
-    v16 = v39[3];
+    v32 = MEMORY[0x277D85DD0];
+    v33 = 3221225472;
+    v34 = __getMPModelGenericObjectClass_block_invoke;
+    v35 = &unk_278229610;
+    v36 = &v37;
+    __getMPModelGenericObjectClass_block_invoke(&v32);
+    v16 = v38[3];
   }
 
   v17 = v16;
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v37, 8);
   v18 = [v5 copy];
   v19 = [v16 kindWithRelationshipKinds:v18];
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2050000000;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2050000000;
   v20 = getMPPropertySetClass_softClass;
-  v41 = getMPPropertySetClass_softClass;
+  v40 = getMPPropertySetClass_softClass;
   if (!getMPPropertySetClass_softClass)
   {
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = __getMPPropertySetClass_block_invoke;
-    v36 = &unk_278229610;
-    v37 = &v38;
-    __getMPPropertySetClass_block_invoke(&v33);
-    v20 = v39[3];
+    v32 = MEMORY[0x277D85DD0];
+    v33 = 3221225472;
+    v34 = __getMPPropertySetClass_block_invoke;
+    v35 = &unk_278229610;
+    v36 = &v37;
+    __getMPPropertySetClass_block_invoke(&v32);
+    v20 = v38[3];
   }
 
   v21 = v20;
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v37, 8);
   v22 = [v20 alloc];
   v23 = [v6 copy];
   v24 = [v22 initWithProperties:MEMORY[0x277CBEBF8] relationships:v23];
 
   v25 = [objc_alloc(getMPModelLibrarySearchScopeClass()) initWithItemKind:v19 name:0 properties:v24];
   v26 = [[self alloc] _initWithUnderlyingSearchScope:v25 modelObjectType:11];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -273,9 +271,9 @@ LABEL_31:
 
 + (uint64_t)_topResultsRelationshipKeyForSpecificModelObjectType:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getMPModelLibrarySearchScopeClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getMPModelLibrarySearchScopeClass_block_invoke_cold_1();
 }
 
 @end

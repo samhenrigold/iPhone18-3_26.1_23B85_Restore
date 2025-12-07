@@ -4,9 +4,61 @@
 - (BOOL)_cacheContainerInfo;
 - (BOOL)_cacheInfo;
 - (BOOL)cleanupWithError:(id *)error;
+- (SKAPFSStoreDisk)initWithDADisk:(id)disk isLiveFSContainer:(BOOL)container;
 @end
 
 @implementation SKAPFSStoreDisk
+
+- (SKAPFSStoreDisk)initWithDADisk:(id)disk isLiveFSContainer:(BOOL)container
+{
+  containerCopy = container;
+  diskCopy = disk;
+  v7 = [(SKAPFSStoreDisk *)self init];
+  v8 = v7;
+  if (v7)
+  {
+    if (!diskCopy)
+    {
+      goto LABEL_10;
+    }
+
+    [(SKAPFSStoreDisk *)v7 setDaDisk:diskCopy];
+    privateCache = [(SKAPFSStoreDisk *)v8 privateCache];
+    [privateCache setIsLiveFSContainer:containerCopy];
+
+    v10 = sub_10000BFD0();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = @"kernel";
+      v14 = 136315650;
+      v15 = "[SKAPFSStoreDisk(Daemon) initWithDADisk:isLiveFSContainer:]";
+      v16 = 2112;
+      if (containerCopy)
+      {
+        v11 = @"liveFS";
+      }
+
+      v17 = v11;
+      v18 = 2112;
+      v19 = diskCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: Initializing %@ APFS physical store %@", &v14, 0x20u);
+    }
+
+    if (![(SKAPFSStoreDisk *)v8 _cacheInfo])
+    {
+LABEL_10:
+      v12 = 0;
+      goto LABEL_11;
+    }
+
+    [(SKAPFSStoreDisk *)v8 setIsValid:1];
+  }
+
+  v12 = v8;
+LABEL_11:
+
+  return v12;
+}
 
 - (BOOL)_cacheInfo
 {

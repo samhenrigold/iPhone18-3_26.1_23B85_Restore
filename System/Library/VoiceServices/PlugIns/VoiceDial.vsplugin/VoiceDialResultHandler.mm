@@ -25,24 +25,23 @@
 
 - (void)_addressBook
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_295FD5000, a2, OS_LOG_TYPE_ERROR, "Could not create address book: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_295FD5000, a2, OS_LOG_TYPE_ERROR, "Could not create address book: %@", &v3, 0xCu);
 }
 
 - (id)_phoneticNames:(id)names fromDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   namesCopy = names;
   dictionaryCopy = dictionary;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v7 = [namesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [namesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v7)
   {
     v11 = 0;
@@ -57,17 +56,17 @@ LABEL_16:
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v18;
+  v12 = *v17;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v18 != v12)
+      if (*v17 != v12)
       {
         objc_enumerationMutation(namesCopy);
       }
 
-      v14 = [dictionaryCopy objectForKey:*(*(&v17 + 1) + 8 * i)];
+      v14 = [dictionaryCopy objectForKey:*(*(&v16 + 1) + 8 * i)];
 
       if (v14)
       {
@@ -88,7 +87,7 @@ LABEL_16:
       [v11 addObject:v9];
     }
 
-    v8 = [namesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [namesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v8);
@@ -99,51 +98,49 @@ LABEL_16:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x29EDCA608];
-
   return v11;
 }
 
 - (id)actionForRecognitionResults:(id)results
 {
-  v336 = *MEMORY[0x29EDCA608];
+  v335 = *MEMORY[0x29EDCA608];
   resultsCopy = results;
   v5 = [resultsCopy objectAtIndex:0];
   recognitionAction = [v5 recognitionAction];
   v7 = objc_alloc_init(VoiceDialResultHandlerContext);
   VoiceDialConfigureSpokenLocalizedLabel(1);
   v8 = VoiceDialCopyErrorActionForResult(v5);
-  v255 = resultsCopy;
-  v268 = v5;
-  v265 = recognitionAction;
-  v289 = v7;
+  v254 = resultsCopy;
+  v267 = v5;
+  v264 = recognitionAction;
+  v288 = v7;
   if (v8 || ([v5 valueOfFirstElementWithClassIdentifier:@"voicemail"], v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && (v8 = objc_alloc_init(VoiceDialVoicemailRecognitionAction)) != 0)
   {
     v9 = v8;
+    v300 = 0;
     v301 = 0;
-    v302 = 0;
-    v261 = 0;
-    v263 = 0;
-    v270 = 0;
-    v272 = 0;
-    allObjects4 = 0;
-    v252 = 0;
-    v254 = 0;
-    v258 = 0;
     v260 = 0;
-    v292 = 0;
+    v262 = 0;
+    v269 = 0;
+    v271 = 0;
+    allObjects4 = 0;
+    v251 = 0;
+    v253 = 0;
+    v257 = 0;
+    v259 = 0;
+    v291 = 0;
     obj = 0;
     v135 = 0;
-    v267 = 0;
-    v245 = 0;
-    v247 = 0;
-    v281 = 0;
-    v285 = 0;
-    v250 = 0;
+    v266 = 0;
+    v244 = 0;
+    v246 = 0;
+    v280 = 0;
+    v284 = 0;
+    v249 = 0;
     v10 = 0;
-    v274 = 0;
-    v277 = 0;
-    v269 = 0;
+    v273 = 0;
+    v276 = 0;
+    v268 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
@@ -152,35 +149,35 @@ LABEL_17:
     v16 = 0;
     v17 = 0;
     v18 = 0;
-    v257 = 0;
+    v256 = 0;
     goto LABEL_239;
   }
 
-  v317 = 0;
   v316 = 0;
   v315 = 0;
-  VoiceDialCopyNamesLabelAndTypeFromRecognitionResults(resultsCopy, &v317, &v316, &v315);
-  v20 = v317;
-  v21 = v316;
-  v22 = v315;
+  v314 = 0;
+  VoiceDialCopyNamesLabelAndTypeFromRecognitionResults(resultsCopy, &v316, &v315, &v314);
+  v20 = v316;
+  v21 = v315;
+  v22 = v314;
   v23 = [v5 valueOfFirstElementWithClassIdentifier:?];
   if (v23)
   {
     v24 = @"labeltype-phone";
 
-    v251 = 1;
+    v250 = 1;
     v22 = v24;
   }
 
   else
   {
-    v251 = v22 == 0;
+    v250 = v22 == 0;
   }
 
-  v301 = v22;
-  v302 = v21;
-  v269 = v20;
-  v244 = v23;
+  v300 = v22;
+  v301 = v21;
+  v268 = v20;
+  v243 = v23;
   selfCopy = self;
   if (v20 && (v25 = [(VoiceDialResultHandler *)self _addressBook]) != 0)
   {
@@ -191,50 +188,50 @@ LABEL_17:
     v29 = isKindOfClass;
     if (isKindOfClass)
     {
-      v286 = isKindOfClass;
-      v293 = [recognitionAction knownValueForClassIdentifier:@"nickname"];
-      if (v293)
+      v285 = isKindOfClass;
+      v292 = [recognitionAction knownValueForClassIdentifier:@"nickname"];
+      if (v292)
       {
-        v313 = 0u;
-        v314 = 0u;
-        v311 = 0u;
         v312 = 0u;
+        v313 = 0u;
+        v310 = 0u;
+        v311 = 0u;
         obja = v20;
-        v30 = [obja countByEnumeratingWithState:&v311 objects:v332 count:16];
-        v31 = v289;
+        v30 = [obja countByEnumeratingWithState:&v310 objects:v331 count:16];
+        v31 = v288;
         if (v30)
         {
           v32 = v30;
           v33 = 0;
-          v34 = *v312;
+          v34 = *v311;
           do
           {
             v35 = 0;
             v36 = v33;
             do
             {
-              if (*v312 != v34)
+              if (*v311 != v34)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v33 = *(*(&v311 + 1) + 8 * v35);
+              v33 = *(*(&v310 + 1) + 8 * v35);
 
-              [(VoiceDialResultHandlerContext *)v289 setNameToMatch:v33];
-              VoiceDialSendNameAndExtendedLabelMatches(v26, _nameSource, 0, 1, v293, v302, v22, _ResultHandlerAddressBookCallback, v289);
+              [(VoiceDialResultHandlerContext *)v288 setNameToMatch:v33];
+              VoiceDialSendNameAndExtendedLabelMatches(v26, _nameSource, 0, 1, v292, v301, v22, _ResultHandlerAddressBookCallback, v288);
               ++v35;
               v36 = v33;
             }
 
             while (v32 != v35);
-            v32 = [obja countByEnumeratingWithState:&v311 objects:v332 count:16];
+            v32 = [obja countByEnumeratingWithState:&v310 objects:v331 count:16];
           }
 
           while (v32);
 
-          v5 = v268;
-          v20 = v269;
-          v31 = v289;
+          v5 = v267;
+          v20 = v268;
+          v31 = v288;
         }
 
         compositeNames = [(VoiceDialResultHandlerContext *)v31 compositeNames];
@@ -244,44 +241,44 @@ LABEL_17:
         {
           v39 = objc_alloc_init(VoiceDialResultHandlerContext);
 
-          v289 = v39;
+          v288 = v39;
         }
 
-        recognitionAction = v265;
+        recognitionAction = v264;
       }
 
-      if (!-[VoiceDialResultHandlerContext resultStatus](v289, "resultStatus") && (([recognitionAction knownValuesForClassIdentifier:@"firstname"], (v43 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(recognitionAction, "knownValuesForClassIdentifier:", @"lastname"), (v43 = objc_claimAutoreleasedReturnValue()) != 0)))
+      if (!-[VoiceDialResultHandlerContext resultStatus](v288, "resultStatus") && (([recognitionAction knownValuesForClassIdentifier:@"firstname"], (v43 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(recognitionAction, "knownValuesForClassIdentifier:", @"lastname"), (v43 = objc_claimAutoreleasedReturnValue()) != 0)))
       {
-        v285 = v43;
-        v309 = 0u;
-        v310 = 0u;
-        v307 = 0u;
+        v284 = v43;
         v308 = 0u;
+        v309 = 0u;
+        v306 = 0u;
+        v307 = 0u;
         v44 = v20;
-        v45 = [v44 countByEnumeratingWithState:&v307 objects:v331 count:16];
+        v45 = [v44 countByEnumeratingWithState:&v306 objects:v330 count:16];
         if (v45)
         {
           v46 = v45;
           v47 = 0;
-          v48 = *v308;
+          v48 = *v307;
           do
           {
             v49 = 0;
             v50 = v47;
             do
             {
-              if (*v308 != v48)
+              if (*v307 != v48)
               {
                 objc_enumerationMutation(v44);
               }
 
-              v47 = *(*(&v307 + 1) + 8 * v49);
+              v47 = *(*(&v306 + 1) + 8 * v49);
 
-              if ([v285 containsObject:v47])
+              if ([v284 containsObject:v47])
               {
-                [(VoiceDialResultHandlerContext *)v289 setRequiredNameMatchType:2];
-                VoiceDialSendNameAndExtendedLabelMatches(v26, _nameSource, 0, 0, v47, v302, v22, _ResultHandlerAddressBookCallback, v289);
-                [(VoiceDialResultHandlerContext *)v289 setRequiredNameMatchType:0xFFFFFFFFLL];
+                [(VoiceDialResultHandlerContext *)v288 setRequiredNameMatchType:2];
+                VoiceDialSendNameAndExtendedLabelMatches(v26, _nameSource, 0, 0, v47, v301, v22, _ResultHandlerAddressBookCallback, v288);
+                [(VoiceDialResultHandlerContext *)v288 setRequiredNameMatchType:0xFFFFFFFFLL];
               }
 
               ++v49;
@@ -289,16 +286,16 @@ LABEL_17:
             }
 
             while (v46 != v49);
-            v46 = [v44 countByEnumeratingWithState:&v307 objects:v331 count:16];
+            v46 = [v44 countByEnumeratingWithState:&v306 objects:v330 count:16];
           }
 
           while (v46);
 
-          v5 = v268;
+          v5 = v267;
         }
 
-        v41 = v289;
-        compositeNames2 = [(VoiceDialResultHandlerContext *)v289 compositeNames];
+        v41 = v288;
+        compositeNames2 = [(VoiceDialResultHandlerContext *)v288 compositeNames];
         v52 = [compositeNames2 count];
 
         if (!v52)
@@ -308,24 +305,24 @@ LABEL_17:
           v41 = v53;
         }
 
-        v40 = v293;
+        v40 = v292;
       }
 
       else
       {
-        v285 = 0;
-        v41 = v289;
-        v40 = v293;
+        v284 = 0;
+        v41 = v288;
+        v40 = v292;
       }
 
-      v29 = v286;
+      v29 = v285;
     }
 
     else
     {
       v40 = 0;
-      v285 = 0;
-      v41 = v289;
+      v284 = 0;
+      v41 = v288;
     }
 
     objb = v29 ^ 1;
@@ -337,56 +334,56 @@ LABEL_17:
 
     else
     {
-      v305 = 0u;
-      v306 = 0u;
-      v303 = 0u;
       v304 = 0u;
-      v290 = v269;
-      v55 = [v290 countByEnumeratingWithState:&v303 objects:v330 count:16];
+      v305 = 0u;
+      v302 = 0u;
+      v303 = 0u;
+      v289 = v268;
+      v55 = [v289 countByEnumeratingWithState:&v302 objects:v329 count:16];
       if (v55)
       {
         v56 = v55;
-        v294 = v40;
+        v293 = v40;
         v57 = v41;
         v58 = _nameSource;
         v59 = v57;
         v60 = 0;
-        v287 = 0;
-        v61 = *v304;
+        v286 = 0;
+        v61 = *v303;
         do
         {
           for (i = 0; i != v56; ++i)
           {
             v63 = v60;
-            if (*v304 != v61)
+            if (*v303 != v61)
             {
-              objc_enumerationMutation(v290);
+              objc_enumerationMutation(v289);
             }
 
-            v60 = *(*(&v303 + 1) + 8 * i);
+            v60 = *(*(&v302 + 1) + 8 * i);
 
             nicknameMatchCount = [(VoiceDialResultHandlerContext *)v59 nicknameMatchCount];
-            VoiceDialSendNameAndExtendedLabelMatches(v26, v58, 0, objb & 1, v60, v302, v22, _ResultHandlerAddressBookCallback, v59);
+            VoiceDialSendNameAndExtendedLabelMatches(v26, v58, 0, objb & 1, v60, v301, v22, _ResultHandlerAddressBookCallback, v59);
             if ((v54 & 1) == 0 && [(VoiceDialResultHandlerContext *)v59 nicknameMatchCount]> nicknameMatchCount)
             {
               v65 = v60;
 
-              v287 = v65;
+              v286 = v65;
             }
           }
 
-          v56 = [v290 countByEnumeratingWithState:&v303 objects:v330 count:16];
+          v56 = [v289 countByEnumeratingWithState:&v302 objects:v329 count:16];
         }
 
         while (v56);
 
-        v5 = v268;
+        v5 = v267;
         v66 = v59;
         _nameSource = v58;
         v41 = v66;
-        v40 = v294;
-        v23 = v244;
-        v42 = v287;
+        v40 = v293;
+        v23 = v243;
+        v42 = v286;
       }
 
       else
@@ -399,18 +396,18 @@ LABEL_17:
   else
   {
     v40 = 0;
-    v285 = 0;
+    v284 = 0;
     v42 = 0;
     _nameSource = 0;
     objb = 1;
-    v41 = v289;
+    v41 = v288;
   }
 
-  v288 = v42;
-  v257 = _nameSource;
+  v287 = v42;
+  v256 = _nameSource;
   if (v23)
   {
-    v243 = 0;
+    v242 = 0;
   }
 
   else
@@ -426,7 +423,7 @@ LABEL_17:
     [localizedPhoneLabels2 minusSet:v69];
 
     localizedEmailLabels2 = [(VoiceDialResultHandlerContext *)v41 localizedEmailLabels];
-    v243 = v69;
+    v242 = v69;
     [localizedEmailLabels2 minusSet:v69];
   }
 
@@ -439,44 +436,44 @@ LABEL_17:
   localizedEmailLabels3 = [(VoiceDialResultHandlerContext *)v41 localizedEmailLabels];
   v78 = [localizedEmailLabels3 count];
 
-  v79 = [v243 count];
-  v292 = v40;
+  v79 = [v242 count];
+  v291 = v40;
   if ([(VoiceDialResultHandlerContext *)v41 resultStatus]!= 1)
   {
+    v259 = 0;
     v260 = 0;
-    v261 = 0;
     v80 = 0;
     allObjects4 = 0;
-    v252 = 0;
-    v254 = 0;
-    v258 = 0;
+    v251 = 0;
+    v253 = 0;
+    v257 = 0;
     v135 = 0;
-    v267 = 0;
+    v266 = 0;
     v177 = 0;
     objc = 0;
-    v282 = 0;
+    v281 = 0;
+    v235 = 0;
     v236 = 0;
-    v237 = 0;
     v82 = 0;
     v83 = 0;
+    v237 = 0;
     v238 = 0;
-    v239 = 0;
     v84 = 0;
     goto LABEL_87;
   }
 
-  v275 = v78;
+  v274 = v78;
   if (v74 == 1)
   {
     if (v78 + v76 > 1 || v79)
     {
-      if (!v244)
+      if (!v243)
       {
         v103 = objc_alloc_init(VoiceDialResultHandlerContext);
         _addressBook = [(VoiceDialResultHandler *)selfCopy _addressBook];
         compositeNames4 = [(VoiceDialResultHandlerContext *)v41 compositeNames];
         anyObject = [compositeNames4 anyObject];
-        VoiceDialSendNameAndExtendedLabelMatches(_addressBook, v257, 0, objb & 1, anyObject, v302, v301, _ResultHandlerAddressBookCallback, v103);
+        VoiceDialSendNameAndExtendedLabelMatches(_addressBook, v256, 0, objb & 1, anyObject, v301, v300, _ResultHandlerAddressBookCallback, v103);
 
         if ([(VoiceDialResultHandlerContext *)v103 resultStatus])
         {
@@ -486,7 +483,7 @@ LABEL_17:
         }
 
         v84 = 0;
-        v5 = v268;
+        v5 = v267;
         goto LABEL_71;
       }
     }
@@ -512,7 +509,7 @@ LABEL_17:
         v138 = v137;
         v139 = v84;
         resultPerson = [(VoiceDialResultHandlerContext *)v41 resultPerson];
-        if (v244)
+        if (v243)
         {
           MostLikelyFacetimeContactWithPersonAndLabel = VoiceDialCopyMostLikelyNumberWithPersonAndLabel(resultPerson, v138);
         }
@@ -547,7 +544,7 @@ LABEL_71:
   {
     v85 = [objc_alloc(MEMORY[0x29EDC82E0]) initWithModelIdentifier:@"com.apple.voicedial"];
     v86 = v85;
-    if (v244)
+    if (v243)
     {
       v87 = @"namelabel";
     }
@@ -557,7 +554,7 @@ LABEL_71:
       v87 = @"namelonglabel";
     }
 
-    if (v244)
+    if (v243)
     {
       v88 = @"command";
     }
@@ -568,13 +565,13 @@ LABEL_71:
     }
 
     [v85 setSequenceTag:v87];
-    v241 = v88;
-    [v5 valueOfFirstElementWithClassIdentifier:v241];
-    v267 = v271 = v86;
+    v240 = v88;
+    [v5 valueOfFirstElementWithClassIdentifier:v240];
+    v266 = v270 = v86;
     [v86 setKnownValue:? phoneticValue:? forClassIdentifier:?];
-    v291 = v41;
-    v248 = v84;
-    v264 = v79;
+    v290 = v41;
+    v247 = v84;
+    v263 = v79;
     if (v74 == 1)
     {
       compositeNames5 = [(VoiceDialResultHandlerContext *)v41 compositeNames];
@@ -595,7 +592,7 @@ LABEL_84:
           lastNamesByFirstNames = [(VoiceDialResultHandlerContext *)v41 lastNamesByFirstNames];
           v96 = [lastNamesByFirstNames count];
 
-          v260 = anyObject3;
+          v259 = anyObject3;
           if (v96)
           {
             lastNamesByFirstNames2 = [(VoiceDialResultHandlerContext *)v41 lastNamesByFirstNames];
@@ -610,8 +607,8 @@ LABEL_84:
             if (!v109)
             {
 LABEL_99:
+              v237 = 0;
               v238 = 0;
-              v239 = 0;
               v135 = 0;
               allObjects4 = 0;
               goto LABEL_100;
@@ -634,10 +631,10 @@ LABEL_99:
 
     if (v74 < 2)
     {
+      v237 = 0;
       v238 = 0;
-      v239 = 0;
       v135 = 0;
-      v260 = 0;
+      v259 = 0;
       anyObject2 = 0;
       allObjects4 = 0;
 LABEL_100:
@@ -657,9 +654,9 @@ LABEL_91:
 
     if ([(VoiceDialResultHandlerContext *)v41 allNamesMatchedType]&& ![(VoiceDialResultHandlerContext *)v41 lastNameMatchType])
     {
-      v234 = [v269 count];
+      v233 = [v268 count];
 
-      if (v234 > 1)
+      if (v233 > 1)
       {
         goto LABEL_91;
       }
@@ -678,15 +675,15 @@ LABEL_116:
       v102 = kVoiceDialLastNameClassIdentifier;
 LABEL_117:
       v125 = *v102;
-      v239 = v125;
+      v238 = v125;
       if (lastNamesByFirstNames4)
       {
         v126 = v125;
         allKeys2 = [lastNamesByFirstNames4 allKeys];
-        v238 = lastNamesByFirstNames4;
+        v237 = lastNamesByFirstNames4;
         mergeSetValuesIntoArray = [lastNamesByFirstNames4 mergeSetValuesIntoArray];
         objd = allKeys2;
-        [v271 setKnownValues:allKeys2 phoneticValues:0 forClassIdentifier:v126];
+        [v270 setKnownValues:allKeys2 phoneticValues:0 forClassIdentifier:v126];
         compositeNames6 = [(VoiceDialResultHandlerContext *)v41 compositeNames];
         allObjects = [compositeNames6 allObjects];
 
@@ -711,7 +708,7 @@ LABEL_117:
           v135 = [v131 initWithFormat:v133, lastObject];
 
           allObjects = v132;
-          v41 = v291;
+          v41 = v290;
           allObjects3 = mergeSetValuesIntoArray;
         }
 
@@ -727,39 +724,39 @@ LABEL_139:
 
       spokenCompositeNames4 = [(VoiceDialResultHandlerContext *)v41 spokenCompositeNames];
       allObjects4 = [spokenCompositeNames4 allObjects];
-      v238 = 0;
+      v237 = 0;
       v135 = 0;
 LABEL_140:
 
-      if ([(VoiceDialResultHandlerContext *)v41 nicknameMatchCount]>= 1 && [(VoiceDialResultHandlerContext *)v41 nicknameMatchCount]< v74 && v288)
+      if ([(VoiceDialResultHandlerContext *)v41 nicknameMatchCount]>= 1 && [(VoiceDialResultHandlerContext *)v41 nicknameMatchCount]< v74 && v287)
       {
-        [v271 setKnownValue:v288 phoneticValue:0 forClassIdentifier:@"nickname"];
+        [v270 setKnownValue:v287 phoneticValue:0 forClassIdentifier:@"nickname"];
       }
 
       if (allObjects3)
       {
-        v273 = allObjects;
+        v272 = allObjects;
         phoneticNamesByName = [(VoiceDialResultHandlerContext *)v41 phoneticNamesByName];
         v147 = [(VoiceDialResultHandler *)selfCopy _phoneticNames:allObjects3 fromDictionary:phoneticNamesByName];
-        v261 = allObjects3;
-        [v271 setAmbiguousValues:allObjects3 phoneticValues:v147 forClassIdentifier:@"name"];
+        v260 = allObjects3;
+        [v270 setAmbiguousValues:allObjects3 phoneticValues:v147 forClassIdentifier:@"name"];
 
-        v246 = 0;
-        v237 = 0;
-        v254 = 0;
+        v245 = 0;
+        v236 = 0;
+        v253 = 0;
         anyObject2 = 0;
-        v260 = 0;
-        v279 = 0;
+        v259 = 0;
+        v278 = 0;
         v115 = 0x29EDB8000uLL;
         goto LABEL_146;
       }
 
-      v260 = 0;
+      v259 = 0;
       anyObject2 = 0;
 LABEL_101:
-      v112 = v275 + v76;
-      v273 = allObjects;
-      if (v275 + v76 == 1 && !v264)
+      v112 = v274 + v76;
+      v272 = allObjects;
+      if (v274 + v76 == 1 && !v263)
       {
         localizedPhoneLabels4 = [(VoiceDialResultHandlerContext *)v41 localizedPhoneLabels];
         anyObject4 = [localizedPhoneLabels4 anyObject];
@@ -771,25 +768,25 @@ LABEL_101:
           anyObject4 = [localizedEmailLabels4 anyObject];
         }
 
-        v237 = anyObject4;
-        [v271 setKnownValue:anyObject4 phoneticValue:0 forClassIdentifier:@"label"];
-        v246 = 0;
+        v236 = anyObject4;
+        [v270 setKnownValue:anyObject4 phoneticValue:0 forClassIdentifier:@"label"];
+        v245 = 0;
         goto LABEL_110;
       }
 
       v115 = 0x29EDB8000uLL;
-      if (v264 + v112 < 1)
+      if (v263 + v112 < 1)
       {
-        v246 = 0;
-        v237 = 0;
+        v245 = 0;
+        v236 = 0;
 LABEL_110:
-        v254 = 0;
-        v261 = 0;
-        v279 = 1;
+        v253 = 0;
+        v260 = 0;
+        v278 = 1;
         goto LABEL_146;
       }
 
-      v283 = anyObject2;
+      v282 = anyObject2;
       v117 = MEMORY[0x29EDB8DE8];
       localizedPhoneLabels5 = [(VoiceDialResultHandlerContext *)v41 localizedPhoneLabels];
       allObjects5 = [localizedPhoneLabels5 allObjects];
@@ -799,116 +796,116 @@ LABEL_110:
       allObjects6 = [localizedEmailLabels5 allObjects];
       [v120 addObjectsFromArray:allObjects6];
 
-      allObjects7 = [v243 allObjects];
+      allObjects7 = [v242 allObjects];
       [v120 addObjectsFromArray:allObjects7];
 
       if (v120)
       {
-        v254 = v120;
-        [v271 setAmbiguousValues:v120 phoneticValues:0 forClassIdentifier:@"label"];
-        v237 = 0;
-        v261 = 0;
-        v246 = 1;
+        v253 = v120;
+        [v270 setAmbiguousValues:v120 phoneticValues:0 forClassIdentifier:@"label"];
+        v236 = 0;
+        v260 = 0;
+        v245 = 1;
       }
 
       else
       {
-        v246 = 0;
-        v237 = 0;
-        v254 = 0;
-        v261 = 0;
+        v245 = 0;
+        v236 = 0;
+        v253 = 0;
+        v260 = 0;
       }
 
-      v279 = 1;
-      anyObject2 = v283;
+      v278 = 1;
+      anyObject2 = v282;
 LABEL_146:
-      v276 = objc_alloc_init(*(v115 + 3560));
+      v275 = objc_alloc_init(*(v115 + 3560));
       localizedPhoneLabels6 = [(VoiceDialResultHandlerContext *)v41 localizedPhoneLabels];
       localizedEmailLabels6 = [(VoiceDialResultHandlerContext *)v41 localizedEmailLabels];
       v150 = localizedPhoneLabels6;
       v151 = localizedEmailLabels6;
-      v152 = v243;
+      v152 = v242;
       v153 = [MEMORY[0x29EDB8E20] set];
+      v325 = 0u;
       v326 = 0u;
       v327 = 0u;
       v328 = 0u;
-      v329 = 0u;
       v154 = v150;
-      v155 = [v154 countByEnumeratingWithState:&v326 objects:v335 count:16];
+      v155 = [v154 countByEnumeratingWithState:&v325 objects:v334 count:16];
       if (v155)
       {
         v156 = v155;
-        v157 = *v327;
+        v157 = *v326;
         do
         {
           for (j = 0; j != v156; ++j)
           {
-            if (*v327 != v157)
+            if (*v326 != v157)
             {
               objc_enumerationMutation(v154);
             }
 
-            [v153 addObject:*(*(&v326 + 1) + 8 * j)];
+            [v153 addObject:*(*(&v325 + 1) + 8 * j)];
           }
 
-          v156 = [v154 countByEnumeratingWithState:&v326 objects:v335 count:16];
+          v156 = [v154 countByEnumeratingWithState:&v325 objects:v334 count:16];
         }
 
         while (v156);
       }
 
-      v324 = 0u;
-      v325 = 0u;
-      v322 = 0u;
       v323 = 0u;
+      v324 = 0u;
+      v321 = 0u;
+      v322 = 0u;
       v159 = v151;
-      v160 = [v159 countByEnumeratingWithState:&v322 objects:v334 count:16];
+      v160 = [v159 countByEnumeratingWithState:&v321 objects:v333 count:16];
       if (v160)
       {
         v161 = v160;
-        v162 = *v323;
+        v162 = *v322;
         do
         {
           for (k = 0; k != v161; ++k)
           {
-            if (*v323 != v162)
+            if (*v322 != v162)
             {
               objc_enumerationMutation(v159);
             }
 
-            [v153 addObject:*(*(&v322 + 1) + 8 * k)];
+            [v153 addObject:*(*(&v321 + 1) + 8 * k)];
           }
 
-          v161 = [v159 countByEnumeratingWithState:&v322 objects:v334 count:16];
+          v161 = [v159 countByEnumeratingWithState:&v321 objects:v333 count:16];
         }
 
         while (v161);
       }
 
-      v259 = v154;
-      v282 = anyObject2;
-      v253 = v159;
+      v258 = v154;
+      v281 = anyObject2;
+      v252 = v159;
 
-      v320 = 0u;
-      v321 = 0u;
-      v318 = 0u;
       v319 = 0u;
+      v320 = 0u;
+      v317 = 0u;
+      v318 = 0u;
       obje = v152;
-      v164 = [obje countByEnumeratingWithState:&v318 objects:v333 count:16];
+      v164 = [obje countByEnumeratingWithState:&v317 objects:v332 count:16];
       if (v164)
       {
         v165 = v164;
-        v166 = *v319;
+        v166 = *v318;
         do
         {
           for (m = 0; m != v165; ++m)
           {
-            if (*v319 != v166)
+            if (*v318 != v166)
             {
               objc_enumerationMutation(obje);
             }
 
-            v168 = *(*(&v318 + 1) + 8 * m);
+            v168 = *(*(&v317 + 1) + 8 * m);
             v169 = MEMORY[0x29EDBA0F8];
             v170 = VoiceDialSpokenLocalizedString(@"SPOKEN_LABEL_WITH_PHONE");
             v168 = [v169 stringWithFormat:v170, v168];
@@ -920,7 +917,7 @@ LABEL_146:
             [v153 addObject:v1682];
           }
 
-          v165 = [obje countByEnumeratingWithState:&v318 objects:v333 count:16];
+          v165 = [obje countByEnumeratingWithState:&v317 objects:v332 count:16];
         }
 
         while (v165);
@@ -928,56 +925,56 @@ LABEL_146:
 
       allObjects8 = [v153 allObjects];
 
-      v82 = v276;
-      if (v267)
+      v82 = v275;
+      if (v266)
       {
-        [v276 addObject:?];
+        [v275 addObject:?];
       }
 
-      v83 = v241;
-      v80 = v273;
-      v84 = v248;
-      if (v273)
+      v83 = v240;
+      v80 = v272;
+      v84 = v247;
+      if (v272)
       {
-        [v276 addObjectsFromArray:v273];
+        [v275 addObjectsFromArray:v272];
       }
 
-      if ([v273 count] <= 1 && allObjects8)
+      if ([v272 count] <= 1 && allObjects8)
       {
-        [v276 addObjectsFromArray:allObjects8];
+        [v275 addObjectsFromArray:allObjects8];
       }
 
-      v258 = allObjects8;
-      [v271 setKeywords:v276];
-      v99 = v271;
-      v41 = v291;
-      if (v279)
+      v257 = allObjects8;
+      [v270 setKeywords:v275];
+      v99 = v270;
+      v41 = v290;
+      if (v278)
       {
-        v176 = v246;
-        if (v264 > 0)
+        v176 = v245;
+        if (v263 > 0)
         {
           v176 = 1;
         }
 
         if (v176 == 1)
         {
-          v177 = _CommaSeparatedStringFromArray(v258);
+          v177 = _CommaSeparatedStringFromArray(v257);
           objc = VoiceDialSpokenLocalizedString(@"AMBIGUOUS_LABEL_STATUS_STRING");
           v178 = objc_alloc(MEMORY[0x29EDBA0F8]);
           VoiceDialSpokenLocalizedString(@"AMBIGUOUS_LABELS_SPOKEN_FORMAT");
-          v179 = v280 = v99;
-          v180 = v260;
-          if (!v260)
+          v179 = v279 = v99;
+          v180 = v259;
+          if (!v259)
           {
-            v180 = v282;
+            v180 = v281;
           }
 
-          v252 = v177;
+          v251 = v177;
           v181 = v178;
-          v82 = v276;
+          v82 = v275;
           v177 = [v181 initWithFormat:v179, v180, v177];
 
-          v99 = v280;
+          v99 = v279;
           goto LABEL_185;
         }
 
@@ -992,45 +989,45 @@ LABEL_146:
         {
           if (allObjects4)
           {
-            v227 = allObjects4;
+            v226 = allObjects4;
           }
 
           else
           {
-            v227 = v273;
+            v226 = v272;
           }
 
-          v228 = _CommaSeparatedStringFromArray(v227);
-          v229 = v99;
-          v230 = objc_alloc(MEMORY[0x29EDBA0F8]);
-          v231 = VoiceDialSpokenLocalizedString(@"AMBIGUOUS_NAMES_SPOKEN_FORMAT_QUESTION_%@");
-          v232 = v230;
-          v99 = v229;
-          v177 = [v232 initWithFormat:v231, v228];
+          v227 = _CommaSeparatedStringFromArray(v226);
+          v228 = v99;
+          v229 = objc_alloc(MEMORY[0x29EDBA0F8]);
+          v230 = VoiceDialSpokenLocalizedString(@"AMBIGUOUS_NAMES_SPOKEN_FORMAT_QUESTION_%@");
+          v231 = v229;
+          v99 = v228;
+          v177 = [v231 initWithFormat:v230, v227];
 
-          v84 = v248;
-          v233 = v228;
-          v82 = v276;
-          v182 = v233;
-          v252 = 0;
+          v84 = v247;
+          v232 = v227;
+          v82 = v275;
+          v182 = v232;
+          v251 = 0;
           goto LABEL_186;
         }
 
         v177 = v135;
       }
 
-      v252 = 0;
+      v251 = 0;
 LABEL_185:
       v182 = 0;
 LABEL_186:
-      v236 = v182;
+      v235 = v182;
       [(VoiceDialVoicemailRecognitionAction *)v99 setRepeatedSpokenFeedbackString:v182];
       goto LABEL_187;
     }
 
     if ([(VoiceDialResultHandlerContext *)v41 allNamesMatchedType]&& [(VoiceDialResultHandlerContext *)v41 lastNameMatchType]== 1)
     {
-      v143 = [v269 count];
+      v143 = [v268 count];
 
       if (v143 > 1)
       {
@@ -1042,39 +1039,39 @@ LABEL_186:
     {
     }
 
-    v239 = 0;
+    v238 = 0;
     goto LABEL_139;
   }
 
+  v259 = 0;
   v260 = 0;
-  v261 = 0;
   v80 = 0;
   allObjects4 = 0;
-  v252 = 0;
-  v254 = 0;
-  v258 = 0;
+  v251 = 0;
+  v253 = 0;
+  v257 = 0;
   v135 = 0;
-  v267 = 0;
+  v266 = 0;
   v177 = 0;
   objc = 0;
-  v282 = 0;
+  v281 = 0;
+  v235 = 0;
   v236 = 0;
-  v237 = 0;
   v82 = 0;
   v83 = 0;
+  v237 = 0;
   v238 = 0;
-  v239 = 0;
 LABEL_87:
   v99 = 0;
 LABEL_187:
-  v274 = v82;
-  v277 = v99;
-  v289 = v41;
-  v242 = v83;
-  v272 = v80;
+  v273 = v82;
+  v276 = v99;
+  v288 = v41;
+  v241 = v83;
+  v271 = v80;
   if ([(VoiceDialResultHandlerContext *)v41 resultStatus]== 2)
   {
-    if (v244)
+    if (v243)
     {
       v183 = [VoiceDialRecognitionAction alloc];
       contactInfo = [(VoiceDialResultHandlerContext *)v41 contactInfo];
@@ -1113,13 +1110,13 @@ LABEL_187:
     if ([(VoiceDialResultHandlerContext *)v41 resultPerson])
     {
       v192 = ABRecordCopyCompositeName([(VoiceDialResultHandlerContext *)v41 resultPerson]);
-      v270 = VoiceDialPersonCopyCompositeName([(VoiceDialResultHandlerContext *)v41 resultPerson], 3);
+      v269 = VoiceDialPersonCopyCompositeName([(VoiceDialResultHandlerContext *)v41 resultPerson], 3);
     }
 
     else
     {
       v192 = 0;
-      v270 = 0;
+      v269 = 0;
     }
 
     if ([(VoiceDialResultHandlerContext *)v41 matchedLabelType]== 1)
@@ -1131,7 +1128,7 @@ LABEL_187:
     {
       [(VoiceDialResultHandlerContext *)v41 localizedEmailLabels];
     }
-    v240 = ;
+    v239 = ;
 
     if ([(VoiceDialResultHandlerContext *)v41 matchedLabelType]== 1)
     {
@@ -1144,10 +1141,10 @@ LABEL_187:
     }
     v193 = ;
 
-    v235 = v193;
-    if (v240)
+    v234 = v193;
+    if (v239)
     {
-      anyObject5 = [v240 anyObject];
+      anyObject5 = [v239 anyObject];
       anyObject6 = [v193 anyObject];
       v196 = ABAddressBookCopyLocalizedLabel(anyObject6);
 
@@ -1160,14 +1157,14 @@ LABEL_187:
       v197 = 0;
     }
 
-    v263 = v197;
+    v262 = v197;
     if ([(__CFString *)v192 length])
     {
-      v249 = v192;
+      v248 = v192;
 
       if ([anyObject5 length] && -[__CFString length](v197, "length"))
       {
-        if (v244)
+        if (v243)
         {
           v198 = @"CONFIRMED_SPOKEN_NAME_LABEL_FORMAT_CALLING_%@_%@";
         }
@@ -1177,7 +1174,7 @@ LABEL_187:
           v198 = @"CONFIRMED_FACETIME_SPOKEN_NAME_LABEL_FORMAT_STARTING_FACETIME_WITH_%@_%@";
         }
 
-        if (v244)
+        if (v243)
         {
           v199 = @"CONFIRMED_DISPLAY_NAME_LABEL_FORMAT_CALLING_%@";
         }
@@ -1187,7 +1184,7 @@ LABEL_187:
           v199 = @"CONFIRMED_FACETIME_DISPLAY_NAME_LABEL_FORMAT_FACETIME_%@";
         }
 
-        if (!v251)
+        if (!v250)
         {
           matchedLabelType = [(VoiceDialResultHandlerContext *)v41 matchedLabelType];
           v201 = MEMORY[0x29EDBA0F8];
@@ -1212,14 +1209,14 @@ LABEL_187:
         v205 = objc_alloc(MEMORY[0x29EDBA0F8]);
         v206 = VoiceDialBundle();
         v207 = [v206 localizedStringForKey:v199 value:&stru_2A1D19580 table:@"Feedback"];
-        v263 = [v205 initWithFormat:v207, v263];
+        v262 = [v205 initWithFormat:v207, v262];
 
         v209 = objc_alloc(MEMORY[0x29EDBA0F8]);
         v210 = VoiceDialSpokenLocalizedString(v198);
-        v1942 = [v209 initWithFormat:v210, v270, anyObject5];
+        v1942 = [v209 initWithFormat:v210, v269, anyObject5];
 
         v177 = v210;
-        v187 = v263;
+        v187 = v262;
       }
 
       else
@@ -1228,37 +1225,37 @@ LABEL_187:
         v213 = objc_alloc(MEMORY[0x29EDBA0F8]);
         v214 = VoiceDialBundle();
         v215 = v214;
-        if (v244)
+        if (v243)
         {
           v216 = [v214 localizedStringForKey:@"CONFIRMED_DISPLAY_STRING" value:&stru_2A1D19580 table:@"Feedback"];
-          v284 = [v213 initWithString:v216];
+          v283 = [v213 initWithString:v216];
           v217 = @"CONFIRMED_SPOKEN_NAME_FORMAT";
         }
 
         else
         {
           v216 = [v214 localizedStringForKey:@"CONFIRMED_FACETIME_DISPLAY_STRING" value:&stru_2A1D19580 table:@"Feedback"];
-          v284 = [v213 initWithFormat:v216];
+          v283 = [v213 initWithFormat:v216];
           v217 = @"CONFIRMED_FACETIME_SPOKEN_NAME_FORMAT_STARTING_FACETIME_WITH_%@";
         }
 
         v222 = objc_alloc(MEMORY[0x29EDBA0F8]);
         v223 = VoiceDialSpokenLocalizedString(v217);
-        v1942 = [v222 initWithFormat:v223, v270];
+        v1942 = [v222 initWithFormat:v223, v269];
 
         v177 = v223;
-        v187 = v284;
+        v187 = v283;
         anyObject5 = v212;
       }
 
-      v186 = v249;
+      v186 = v248;
     }
 
     else
     {
       v218 = VoiceDialBundle();
       v219 = v218;
-      if (v244)
+      if (v243)
       {
         v220 = @"CONFIRMED_DISPLAY_STRING";
       }
@@ -1268,7 +1265,7 @@ LABEL_187:
         v220 = @"CONFIRMED_FACETIME_DISPLAY_STRING";
       }
 
-      if (v244)
+      if (v243)
       {
         v221 = @"CONFIRMED_SPOKEN_STRING";
       }
@@ -1281,49 +1278,48 @@ LABEL_187:
       v187 = [v218 localizedStringForKey:v220 value:&stru_2A1D19580 table:@"Feedback"];
 
       v1942 = VoiceDialSpokenLocalizedString(v221);
-      v186 = v282;
+      v186 = v281;
     }
 
-    v247 = anyObject5;
-    v250 = v192;
+    v246 = anyObject5;
+    v249 = v192;
 
     v177 = v1942;
   }
 
   else
   {
-    v247 = 0;
-    v250 = 0;
-    v270 = 0;
-    v263 = 0;
-    v240 = 0;
-    v235 = v84;
-    v186 = v282;
+    v246 = 0;
+    v249 = 0;
+    v269 = 0;
+    v262 = 0;
+    v239 = 0;
+    v234 = v84;
+    v186 = v281;
     v187 = objc;
   }
 
-  v281 = v186;
+  v280 = v186;
   obj = v187;
-  v245 = v177;
+  v244 = v177;
   [(VSRecognitionAction *)v99 setStatusDisplayString:v187];
   [(VSRecognitionAction *)v99 setSpokenFeedbackString:v177];
   v9 = v99;
   [(VSRecognitionAction *)v99 setResultDisplayString:v186];
 
-  v12 = v244;
-  v11 = v288;
-  v17 = v240;
-  v13 = v242;
-  v14 = v238;
-  v15 = v239;
-  v10 = v236;
-  v16 = v237;
-  v18 = v235;
+  v12 = v243;
+  v11 = v287;
+  v17 = v239;
+  v13 = v241;
+  v14 = v237;
+  v15 = v238;
+  v10 = v235;
+  v16 = v236;
+  v18 = v234;
 LABEL_239:
   VoiceDialConfigureSpokenLocalizedLabel(0);
   v224 = v9;
 
-  v225 = *MEMORY[0x29EDCA608];
   return v9;
 }
 

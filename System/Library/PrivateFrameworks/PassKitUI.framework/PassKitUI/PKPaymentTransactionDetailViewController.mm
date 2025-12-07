@@ -1817,7 +1817,7 @@ void __92__PKPaymentTransactionDetailViewController__updatePeerPaymentPendingReq
     v11[4] = WeakRetained;
     v13 = v7;
     v12 = v6;
-    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(v10, v11);
+    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(v10, v11, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8));
   }
 
   else
@@ -4713,26 +4713,28 @@ LABEL_13:
   }
 }
 
-void __105__PKPaymentTransactionDetailViewController__handlePeerPaymentDisplayableError_withPeerPaymentController___block_invoke(uint64_t a1, int a2)
+void __105__PKPaymentTransactionDetailViewController__handlePeerPaymentDisplayableError_withPeerPaymentController___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a2;
+    v4[1] = v2;
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Terms acceptance flow appeared with success: %d", v4, 8u);
   }
 }
 
-void __105__PKPaymentTransactionDetailViewController__handlePeerPaymentDisplayableError_withPeerPaymentController___block_invoke_680(uint64_t a1, int a2)
+void __105__PKPaymentTransactionDetailViewController__handlePeerPaymentDisplayableError_withPeerPaymentController___block_invoke_680(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a2;
+    v4[1] = v2;
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Identity verification flow appeared with success: %d", v4, 8u);
   }
 }
@@ -4843,16 +4845,16 @@ LABEL_6:
 {
   paymentHash = [(PKPaymentTransaction *)self->_transaction paymentHash];
   objc_initWeak(&location, self);
-  v6 = MEMORY[0x1E69E9820];
-  v7 = 3221225472;
-  v8 = __79__PKPaymentTransactionDetailViewController__fetchAllApplePayOrderRowViewModels__block_invoke;
-  v9 = &unk_1E80274C0;
-  objc_copyWeak(&v10, &location);
-  v4 = _Block_copy(&v6);
-  v5 = objc_alloc_init(getFKApplePayOrderFetchControllerClass());
-  [v5 fetchAllRowViewModelsForTransactionWithIdentifier:paymentHash completionHandler:{v4, v6, v7, v8, v9}];
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __79__PKPaymentTransactionDetailViewController__fetchAllApplePayOrderRowViewModels__block_invoke;
+  v12 = &unk_1E80274C0;
+  objc_copyWeak(&v13, &location);
+  v4 = _Block_copy(&v9);
+  v8 = objc_alloc_init(getFKApplePayOrderFetchControllerClass(v4, v5, v6, v7));
+  [v8 fetchAllRowViewModelsForTransactionWithIdentifier:paymentHash completionHandler:{v4, v9, v10, v11, v12}];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 
@@ -5207,7 +5209,7 @@ uint64_t __65__PKPaymentTransactionDetailViewController__presentContactIssuer__b
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __80__PKPaymentTransactionDetailViewController_contactsDidChangeForContactResolver___block_invoke(uint64_t a1)
+void *__80__PKPaymentTransactionDetailViewController_contactsDidChangeForContactResolver___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isViewLoaded];
   if (result)
@@ -7221,38 +7223,39 @@ void __67__PKPaymentTransactionDetailViewController__cancelPaymentWithCell___blo
 
 - (void)_presentReportIssue
 {
-  if (!PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (!v3)
   {
-    v3 = [PKReportIssueViewController canSelectIssueTypeForTransaction:self->_transaction];
-    v4 = +[PKBusinessChatController deviceSupportsBusinessChat];
-    v5 = self->_paymentPass;
-    if ([(PKPaymentPass *)v5 isAppleCardPass])
+    v6 = [PKReportIssueViewController canSelectIssueTypeForTransaction:self->_transaction];
+    v7 = +[PKBusinessChatController deviceSupportsBusinessChat];
+    v8 = self->_paymentPass;
+    if ([(PKPaymentPass *)v8 isAppleCardPass])
     {
-      v6 = !v4;
+      v9 = !v7;
     }
 
     else
     {
-      v6 = 1;
+      v9 = 1;
     }
 
-    if (v6)
+    if (v9)
     {
-      if (v3)
+      if (v6)
       {
-        v7 = [[PKReportIssueViewController alloc] initWithTransaction:self->_transaction transactionSourceCollection:self->_transactionSourceCollection paymentPass:v5 familyCollection:self->_familyCollection account:self->_account accountUserCollection:self->_accountUserCollection bankConnectInstitution:self->_bankConnectInstitution physicalCards:self->_physicalCards detailViewStyle:self->_detailViewStyle context:0];
-        v8 = [[PKNavigationController alloc] initWithRootViewController:v7];
-        [(PKPaymentTransactionDetailViewController *)self presentViewController:v8 animated:1 completion:0];
+        v10 = [[PKReportIssueViewController alloc] initWithTransaction:self->_transaction transactionSourceCollection:self->_transactionSourceCollection paymentPass:v8 familyCollection:self->_familyCollection account:self->_account accountUserCollection:self->_accountUserCollection bankConnectInstitution:self->_bankConnectInstitution physicalCards:self->_physicalCards detailViewStyle:self->_detailViewStyle context:0];
+        v11 = [[PKNavigationController alloc] initWithRootViewController:v10];
+        [(PKPaymentTransactionDetailViewController *)self presentViewController:v11 animated:1 completion:0];
 LABEL_28:
 
 LABEL_30:
         goto LABEL_31;
       }
 
-      businessChatIdentifier = [(PKPaymentPass *)v5 businessChatIdentifier];
-      v14 = businessChatIdentifier != 0 && v4;
+      businessChatIdentifier = [(PKPaymentPass *)v8 businessChatIdentifier];
+      v17 = businessChatIdentifier != 0 && v7;
 
-      if (v14 != 1)
+      if (v17 != 1)
       {
 LABEL_31:
 
@@ -7261,51 +7264,51 @@ LABEL_31:
 
       if ([(PKPaymentTransaction *)self->_transaction transactionType]== 10)
       {
-        v15 = 9;
+        v18 = 9;
       }
 
       else
       {
-        v15 = 5;
+        v18 = 5;
       }
 
-      v7 = [(PKAccountUserCollection *)self->_accountUserCollection accountUserForTransaction:self->_transaction];
+      v10 = [(PKAccountUserCollection *)self->_accountUserCollection accountUserForTransaction:self->_transaction];
       familyCollection = self->_familyCollection;
-      altDSID = [(PKReportIssueViewController *)v7 altDSID];
-      v8 = [(PKFamilyMemberCollection *)familyCollection familyMemberForAltDSID:altDSID];
+      altDSID = [(PKReportIssueViewController *)v10 altDSID];
+      v11 = [(PKFamilyMemberCollection *)familyCollection familyMemberForAltDSID:altDSID];
 
-      v18 = [[PKBusinessChatTransactionDisputeContext alloc] initWithPaymentPass:v5 transaction:self->_transaction account:self->_account accountUser:v7 familyMember:v8 physicalCards:self->_physicalCards intent:v15];
-      [(PKPaymentTransactionDetailViewController *)self _openBusinessChatControllerForContext:v18];
+      v21 = [[PKBusinessChatTransactionDisputeContext alloc] initWithPaymentPass:v8 transaction:self->_transaction account:self->_account accountUser:v10 familyMember:v11 physicalCards:self->_physicalCards intent:v18];
+      [(PKPaymentTransactionDetailViewController *)self _openBusinessChatControllerForContext:v21];
 LABEL_27:
 
       goto LABEL_28;
     }
 
-    associatedAccountServiceAccountIdentifier = [(PKPaymentPass *)v5 associatedAccountServiceAccountIdentifier];
+    associatedAccountServiceAccountIdentifier = [(PKPaymentPass *)v8 associatedAccountServiceAccountIdentifier];
     accountIdentifier = [(PKAccount *)self->_account accountIdentifier];
-    v11 = associatedAccountServiceAccountIdentifier;
-    v7 = v11;
-    if (accountIdentifier != v11)
+    v14 = associatedAccountServiceAccountIdentifier;
+    v10 = v14;
+    if (accountIdentifier != v14)
     {
-      if (v11)
+      if (v14)
       {
-        v12 = accountIdentifier == 0;
+        v15 = accountIdentifier == 0;
       }
 
       else
       {
-        v12 = 1;
+        v15 = 1;
       }
 
-      if (v12)
+      if (v15)
       {
       }
 
       else
       {
-        v19 = [(PKReportIssueViewController *)accountIdentifier isEqualToString:v11];
+        v22 = [(PKReportIssueViewController *)accountIdentifier isEqualToString:v14];
 
-        if (v19)
+        if (v22)
         {
           goto LABEL_26;
         }
@@ -7313,26 +7316,26 @@ LABEL_27:
 
       objc_initWeak(&location, self);
       accountService = self->_accountService;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __63__PKPaymentTransactionDetailViewController__presentReportIssue__block_invoke;
-      v22[3] = &unk_1E80159B0;
-      objc_copyWeak(&v23, &location);
-      [(PKAccountService *)accountService accountWithIdentifier:v7 completion:v22];
-      objc_destroyWeak(&v23);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __63__PKPaymentTransactionDetailViewController__presentReportIssue__block_invoke;
+      v25[3] = &unk_1E80159B0;
+      objc_copyWeak(&v26, &location);
+      [(PKAccountService *)accountService accountWithIdentifier:v10 completion:v25];
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
       goto LABEL_30;
     }
 
 LABEL_26:
-    v8 = [[PKTransactionSupportTopicsViewController alloc] initWithAccount:self->_account transaction:self->_transaction transactionSourceCollection:self->_transactionSourceCollection familyCollection:self->_familyCollection accountUserCollection:self->_accountUserCollection physicalCards:self->_physicalCards];
-    v18 = [[PKNavigationController alloc] initWithRootViewController:v8];
-    [(PKPaymentTransactionDetailViewController *)self presentViewController:v18 animated:1 completion:0];
+    v11 = [[PKTransactionSupportTopicsViewController alloc] initWithAccount:self->_account transaction:self->_transaction transactionSourceCollection:self->_transactionSourceCollection familyCollection:self->_familyCollection accountUserCollection:self->_accountUserCollection physicalCards:self->_physicalCards];
+    v21 = [[PKNavigationController alloc] initWithRootViewController:v11];
+    [(PKPaymentTransactionDetailViewController *)self presentViewController:v21 animated:1 completion:0];
     goto LABEL_27;
   }
 
-  v21 = PKUIStoreDemoGatewayViewController();
-  [(PKPaymentTransactionDetailViewController *)self presentViewController:v21 animated:1 completion:0];
+  v24 = PKUIStoreDemoGatewayViewController(v3, v4, v5);
+  [(PKPaymentTransactionDetailViewController *)self presentViewController:v24 animated:1 completion:0];
 }
 
 void __63__PKPaymentTransactionDetailViewController__presentReportIssue__block_invoke(uint64_t a1, void *a2)
@@ -8021,7 +8024,7 @@ void __90__PKPaymentTransactionDetailViewController__tableView_didSelectMechantA
   }
 }
 
-void __90__PKPaymentTransactionDetailViewController__tableView_didSelectMechantAddressAtIndexPath___block_invoke_3(uint64_t a1, char a2)
+void __90__PKPaymentTransactionDetailViewController__tableView_didSelectMechantAddressAtIndexPath___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
@@ -8053,7 +8056,7 @@ void __90__PKPaymentTransactionDetailViewController__tableView_didSelectMechantA
   }
 }
 
-uint64_t __85__PKPaymentTransactionDetailViewController__handleCoarseLocationChangedNotification___block_invoke(uint64_t a1)
+void *__85__PKPaymentTransactionDetailViewController__handleCoarseLocationChangedNotification___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSectionMapped:7];
   if (result)

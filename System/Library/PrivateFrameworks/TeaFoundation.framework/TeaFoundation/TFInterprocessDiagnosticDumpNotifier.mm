@@ -8,8 +8,7 @@
 - (TFInterprocessDiagnosticDumpNotifier)initWithNotificationName:(id)name diagnosticTempDir:(id)dir log:(id)log
 {
   v6 = sub_1BF17923C();
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
+  MEMORY[0x1EEE9AC00](v6 - 8, v7);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = sub_1BF17A0AC();
   v12 = v11;

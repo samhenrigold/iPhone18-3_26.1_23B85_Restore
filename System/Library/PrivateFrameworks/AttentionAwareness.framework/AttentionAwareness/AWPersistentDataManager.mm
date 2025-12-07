@@ -4,8 +4,10 @@
 + (BOOL)validateAWPersistentDataHeader:(id *)header;
 + (id)sharedManager;
 + (void)initAWPersistentDataHeader:(id *)header;
+- ($F484E3E6FD0A2BE9213BA906CF92CD29)clientStateWithConnection:(id)connection index:(int)index error:(id *)error;
 - (AWPersistentDataManager)init;
 - (BOOL)checkPreconditions:(id *)preconditions;
+- (BOOL)closeWithConnection:(id)connection index:(int)index error:(id *)error;
 - (BOOL)isValidIndexForConnection:(id)connection index:(int)index error:(id *)error;
 - (int)nextFreeIndex;
 - (int)openWithConnection:(id)connection error:(id *)error;
@@ -60,9 +62,135 @@ LABEL_5:
   return v4;
 }
 
+- ($F484E3E6FD0A2BE9213BA906CF92CD29)clientStateWithConnection:(id)connection index:(int)index error:(id *)error
+{
+  v6 = *&index;
+  connectionCopy = connection;
+  if ([(AWPersistentDataManager *)self checkPreconditions:error]&& [(AWPersistentDataManager *)self isValidIndexForConnection:connectionCopy index:v6 error:error])
+  {
+    v9 = self->_shm_obj + 88 * v6;
+    v10 = (v9 + 32);
+    *(v9 + 13) = absTimeNS();
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+- (BOOL)closeWithConnection:(id)connection index:(int)index error:(id *)error
+{
+  v6 = *&index;
+  v34 = *MEMORY[0x1E69E9840];
+  connectionCopy = connection;
+  if ([(AWPersistentDataManager *)self checkPreconditions:error]&& [(AWPersistentDataManager *)self isValidIndexForConnection:connectionCopy index:v6 error:error])
+  {
+    v9 = self->_shm_obj + 88 * v6;
+    if (currentLogLevel == 5)
+    {
+      v10 = _AALog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = absTimeNS();
+        if (v11 == -1)
+        {
+          v12 = INFINITY;
+        }
+
+        else
+        {
+          v12 = v11 / 1000000000.0;
+        }
+
+        v18 = *(v9 + 28);
+        v24 = 134218496;
+        v25 = v12;
+        v26 = 1024;
+        v27 = v6;
+        v28 = 1024;
+        LODWORD(v29) = v18;
+        v19 = "%13.5f: AW SHARED MEM: closing index %d for client with pid %d";
+        v20 = v10;
+        v21 = 24;
+LABEL_22:
+        _os_log_impl(&dword_1BB2EF000, v20, OS_LOG_TYPE_DEFAULT, v19, &v24, v21);
+      }
+    }
+
+    else
+    {
+      if (currentLogLevel < 6)
+      {
+LABEL_24:
+        *(v9 + 14) = 0;
+        *(v9 + 5) = 0u;
+        *(v9 + 6) = 0u;
+        *(v9 + 3) = 0u;
+        *(v9 + 4) = 0u;
+        *(v9 + 2) = 0u;
+        v13 = 1;
+        goto LABEL_25;
+      }
+
+      v10 = _AALog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/PersistentDataManager.m";
+        for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/PersistentDataManager.m"; ; ++i)
+        {
+          if (*(i - 1) == 47)
+          {
+            v14 = i;
+          }
+
+          else if (!*(i - 1))
+          {
+            v16 = absTimeNS();
+            if (v16 == -1)
+            {
+              v17 = INFINITY;
+            }
+
+            else
+            {
+              v17 = v16 / 1000000000.0;
+            }
+
+            v22 = *(v9 + 28);
+            v24 = 136316162;
+            v25 = *&v14;
+            v26 = 1024;
+            v27 = 469;
+            v28 = 2048;
+            v29 = v17;
+            v30 = 1024;
+            v31 = v6;
+            v32 = 1024;
+            v33 = v22;
+            v19 = "%30s:%-4d: %13.5f: AW SHARED MEM: closing index %d for client with pid %d";
+            v20 = v10;
+            v21 = 40;
+            goto LABEL_22;
+          }
+        }
+      }
+    }
+
+    goto LABEL_24;
+  }
+
+  v13 = 0;
+LABEL_25:
+
+  return v13;
+}
+
 - (int)openWithConnection:(id)connection error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   if (![(AWPersistentDataManager *)self checkPreconditions:error])
   {
@@ -95,15 +223,15 @@ LABEL_7:
   *(v10 + 20) = [connectionCopy processIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
   {
-    memset(v25, 0, 32);
+    memset(v24, 0, 32);
   }
 
-  *(v10 + 21) = audit_token_to_pidversion(v25);
+  *(v10 + 21) = audit_token_to_pidversion(v24);
   if (currentLogLevel == 5)
   {
     v11 = _AALog();
@@ -121,17 +249,17 @@ LABEL_7:
       }
 
       v18 = *(v10 + 20);
-      *v25 = 134218496;
-      *&v25[4] = v13;
-      *&v25[12] = 1024;
-      *&v25[14] = v8;
-      *&v25[18] = 1024;
-      *&v25[20] = v18;
+      *v24 = 134218496;
+      *&v24[4] = v13;
+      *&v24[12] = 1024;
+      *&v24[14] = v8;
+      *&v24[18] = 1024;
+      *&v24[20] = v18;
       v19 = "%13.5f: AW SHARED MEM: opening index %d for client with pid %d";
       v20 = v11;
       v21 = 24;
 LABEL_27:
-      _os_log_impl(&dword_1BB2EF000, v20, OS_LOG_TYPE_DEFAULT, v19, v25, v21);
+      _os_log_impl(&dword_1BB2EF000, v20, OS_LOG_TYPE_DEFAULT, v19, v24, v21);
     }
 
 LABEL_28:
@@ -166,16 +294,16 @@ LABEL_28:
           }
 
           v22 = *(v10 + 20);
-          *v25 = 136316162;
-          *&v25[4] = v14;
-          *&v25[12] = 1024;
-          *&v25[14] = 438;
-          *&v25[18] = 2048;
-          *&v25[20] = v17;
-          *&v25[28] = 1024;
-          *&v25[30] = v8;
-          v26 = 1024;
-          v27 = v22;
+          *v24 = 136316162;
+          *&v24[4] = v14;
+          *&v24[12] = 1024;
+          *&v24[14] = 438;
+          *&v24[18] = 2048;
+          *&v24[20] = v17;
+          *&v24[28] = 1024;
+          *&v24[30] = v8;
+          v25 = 1024;
+          v26 = v22;
           v19 = "%30s:%-4d: %13.5f: AW SHARED MEM: opening index %d for client with pid %d";
           v20 = v11;
           v21 = 40;
@@ -189,7 +317,6 @@ LABEL_28:
 
 LABEL_29:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -218,7 +345,7 @@ LABEL_29:
         v12 = *(v10 + 29);
         if (v9)
         {
-          [v9 auditToken];
+          objc_msgSend_auditToken(v9);
         }
 
         else
@@ -274,9 +401,9 @@ LABEL_18:
 
 - (void)loadPersistentData
 {
-  v71 = *MEMORY[0x1E69E9840];
-  v64 = -1;
-  v3 = [objc_opt_class() AWPersistentDataExists:&v64];
+  v70 = *MEMORY[0x1E69E9840];
+  v63 = -1;
+  v3 = [objc_opt_class() AWPersistentDataExists:&v63];
   if (currentLogLevel == 5)
   {
     v4 = _AALog();
@@ -295,16 +422,16 @@ LABEL_18:
 
       v11 = "false";
       *buf = 134218498;
-      v66 = v6;
-      v67 = 2080;
-      *v68 = "com.apple.AttentionAwareness";
+      v65 = v6;
+      v66 = 2080;
+      *v67 = "com.apple.AttentionAwareness";
       if (v3)
       {
         v11 = "true";
       }
 
-      *&v68[8] = 2080;
-      *&v68[10] = v11;
+      *&v67[8] = 2080;
+      *&v67[10] = v11;
       v12 = "%13.5f: AW SHARED MEM: found %s shm object: %s";
       v13 = v4;
       v14 = 32;
@@ -345,20 +472,20 @@ LABEL_18:
 
         v15 = "false";
         *buf = 136316162;
-        v66 = *&v7;
-        v67 = 1024;
+        v65 = *&v7;
+        v66 = 1024;
         if (v3)
         {
           v15 = "true";
         }
 
-        *v68 = 239;
-        *&v68[4] = 2048;
-        *&v68[6] = v10;
-        *&v68[14] = 2080;
-        *&v68[16] = "com.apple.AttentionAwareness";
-        *&v68[24] = 2080;
-        *&v68[26] = v15;
+        *v67 = 239;
+        *&v67[4] = 2048;
+        *&v67[6] = v10;
+        *&v67[14] = 2080;
+        *&v67[16] = "com.apple.AttentionAwareness";
+        *&v67[24] = 2080;
+        *&v67[26] = v15;
         v12 = "%30s:%-4d: %13.5f: AW SHARED MEM: found %s shm object: %s";
         v13 = v4;
         v14 = 48;
@@ -371,16 +498,16 @@ LABEL_24:
     }
   }
 
-  v16 = v64;
+  v16 = v63;
   if (v3)
   {
-    if (v64 != -1)
+    if (v63 != -1)
     {
       __assert_rtn("[AWPersistentDataManager loadPersistentData]", "PersistentDataManager.m", 242, "fd == -1");
     }
 
     v16 = shm_open("com.apple.AttentionAwareness", 514, 384);
-    v64 = v16;
+    v63 = v16;
   }
 
   if (v16 == -1)
@@ -405,14 +532,14 @@ LABEL_24:
         v49 = v48 / 1000000000.0;
       }
 
-      v55 = __error();
-      v56 = strerror(*v55);
+      v54 = __error();
+      v55 = strerror(*v54);
       *buf = 134218498;
-      v66 = v49;
-      v67 = 2080;
-      *v68 = "com.apple.AttentionAwareness";
-      *&v68[8] = 2080;
-      *&v68[10] = v56;
+      v65 = v49;
+      v66 = 2080;
+      *v67 = "com.apple.AttentionAwareness";
+      *&v67[8] = 2080;
+      *&v67[10] = v55;
       _os_log_error_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_ERROR, "%13.5f: AW SHARED MEM: failed to open %s shm object: %s", buf, 0x20u);
     }
 
@@ -420,9 +547,9 @@ LABEL_24:
     goto LABEL_73;
   }
 
-  v63 = 0;
-  v17 = [objc_opt_class() truncateAWPersistentData:&v64 error:&v63];
-  v18 = v63;
+  v62 = 0;
+  v17 = [objc_opt_class() truncateAWPersistentData:&v63 error:&v62];
+  v18 = v62;
   if ((v17 & 1) == 0)
   {
     if (currentLogLevel < 3)
@@ -448,17 +575,17 @@ LABEL_24:
     }
 
     *buf = 134218498;
-    v66 = v28;
-    v67 = 2080;
-    *v68 = "com.apple.AttentionAwareness";
-    *&v68[8] = 2112;
-    *&v68[10] = v18;
-    v57 = "%13.5f: AW SHARED MEM: failed to truncate %s shm object: %@";
+    v65 = v28;
+    v66 = 2080;
+    *v67 = "com.apple.AttentionAwareness";
+    *&v67[8] = 2112;
+    *&v67[10] = v18;
+    v56 = "%13.5f: AW SHARED MEM: failed to truncate %s shm object: %@";
     goto LABEL_83;
   }
 
   v19 = MEMORY[0x1E69E9AC8];
-  v20 = mmap(0, *MEMORY[0x1E69E9AC8], 3, 1, v64, 0);
+  v20 = mmap(0, *MEMORY[0x1E69E9AC8], 3, 1, v63, 0);
   self->_shm_obj = v20;
   if (v20 == -1)
   {
@@ -484,17 +611,17 @@ LABEL_24:
       v30 = v29 / 1000000000.0;
     }
 
-    v58 = __error();
-    v59 = strerror(*v58);
+    v57 = __error();
+    v58 = strerror(*v57);
     *buf = 134218498;
-    v66 = v30;
-    v67 = 2080;
-    *v68 = "com.apple.AttentionAwareness";
-    *&v68[8] = 2080;
-    *&v68[10] = v59;
-    v57 = "%13.5f: AW SHARED MEM: failed to map %s shm object: %s";
+    v65 = v30;
+    v66 = 2080;
+    *v67 = "com.apple.AttentionAwareness";
+    *&v67[8] = 2080;
+    *&v67[10] = v58;
+    v56 = "%13.5f: AW SHARED MEM: failed to map %s shm object: %s";
 LABEL_83:
-    _os_log_error_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_ERROR, v57, buf, 0x20u);
+    _os_log_error_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_ERROR, v56, buf, 0x20u);
     goto LABEL_73;
   }
 
@@ -526,21 +653,21 @@ LABEL_83:
       v31 = _AALog();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v60 = absTimeNS();
-        if (v60 == -1)
+        v59 = absTimeNS();
+        if (v59 == -1)
         {
-          v61 = INFINITY;
+          v60 = INFINITY;
         }
 
         else
         {
-          v61 = v60 / 1000000000.0;
+          v60 = v59 / 1000000000.0;
         }
 
         *buf = 134218242;
-        v66 = v61;
-        v67 = 2080;
-        *v68 = "com.apple.AttentionAwareness";
+        v65 = v60;
+        v66 = 2080;
+        *v67 = "com.apple.AttentionAwareness";
         _os_log_error_impl(&dword_1BB2EF000, v31, OS_LOG_TYPE_ERROR, "%13.5f: AW SHARED MEM: failed to validate %s shm object", buf, 0x16u);
       }
     }
@@ -590,17 +717,17 @@ LABEL_52:
       v43 = v21[1];
       v44 = (*v19 - 32) / 0x58uLL;
       *buf = 134219266;
-      v66 = v35;
-      v67 = 2112;
-      *v68 = v41;
-      *&v68[8] = 2080;
-      *&v68[10] = "com.apple.AttentionAwareness";
-      *&v68[18] = 2048;
-      *&v68[20] = v42;
-      *&v68[28] = 2048;
-      *&v68[30] = v43;
-      *&v68[38] = 2048;
-      *&v68[40] = v44;
+      v65 = v35;
+      v66 = 2112;
+      *v67 = v41;
+      *&v67[8] = 2080;
+      *&v67[10] = "com.apple.AttentionAwareness";
+      *&v67[18] = 2048;
+      *&v67[20] = v42;
+      *&v67[28] = 2048;
+      *&v67[30] = v43;
+      *&v67[38] = 2048;
+      *&v67[40] = v44;
       v45 = "%13.5f: AW SHARED MEM: %@ created successfully with %s shm object: shm version %llu, shm size %llu, shm max clients %lu";
       v46 = v26;
       v47 = 62;
@@ -646,21 +773,21 @@ LABEL_72:
           v52 = v21[1];
           v53 = (*v19 - 32) / 0x58uLL;
           *buf = 136316930;
-          v66 = *&v36;
-          v67 = 1024;
-          *v68 = 329;
-          *&v68[4] = 2048;
-          *&v68[6] = v39;
-          *&v68[14] = 2112;
-          *&v68[16] = v41;
-          *&v68[24] = 2080;
-          *&v68[26] = "com.apple.AttentionAwareness";
-          *&v68[34] = 2048;
-          *&v68[36] = v51;
-          *&v68[44] = 2048;
-          *&v68[46] = v52;
-          v69 = 2048;
-          v70 = v53;
+          v65 = *&v36;
+          v66 = 1024;
+          *v67 = 329;
+          *&v67[4] = 2048;
+          *&v67[6] = v39;
+          *&v67[14] = 2112;
+          *&v67[16] = v41;
+          *&v67[24] = 2080;
+          *&v67[26] = "com.apple.AttentionAwareness";
+          *&v67[34] = 2048;
+          *&v67[36] = v51;
+          *&v67[44] = 2048;
+          *&v67[46] = v52;
+          v68 = 2048;
+          v69 = v53;
           v45 = "%30s:%-4d: %13.5f: AW SHARED MEM: %@ created successfully with %s shm object: shm version %llu, shm size %llu, shm max clients %lu";
           v46 = v26;
           v47 = 78;
@@ -673,17 +800,15 @@ LABEL_72:
 LABEL_73:
 
 LABEL_74:
-  if (v64 != -1)
+  if (v63 != -1)
   {
-    close(v64);
+    close(v63);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void __45__AWPersistentDataManager_loadPersistentData__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E69E9AC8];
   v2 = *MEMORY[0x1E69E9AC8];
   v3 = 0x1EDC16000uLL;
@@ -717,11 +842,11 @@ void __45__AWPersistentDataManager_loadPersistentData__block_invoke(uint64_t a1)
 
             v20 = *(v8 + 112);
             *buf = 134218496;
-            v35 = v13;
-            v36 = 1024;
-            v37 = v6;
-            v38 = 1024;
-            LODWORD(v39) = v20;
+            v34 = v13;
+            v35 = 1024;
+            v36 = v6;
+            v37 = 1024;
+            LODWORD(v38) = v20;
             _os_log_impl(v7, v11, OS_LOG_TYPE_DEFAULT, "%13.5f: AW SHARED MEM: reclaiming index %d from client with pid %d", buf, 0x18u);
           }
 
@@ -761,15 +886,15 @@ LABEL_24:
 
               v21 = *(v8 + 112);
               *buf = 136316162;
-              v35 = *&v16;
-              v36 = 1024;
-              v37 = 291;
-              v38 = 2048;
-              v39 = *&v19;
-              v40 = 1024;
-              v41 = v6;
-              v42 = 1024;
-              LODWORD(v43) = v21;
+              v34 = *&v16;
+              v35 = 1024;
+              v36 = 291;
+              v37 = 2048;
+              v38 = *&v19;
+              v39 = 1024;
+              v40 = v6;
+              v41 = 1024;
+              LODWORD(v42) = v21;
               v7 = v15;
               _os_log_impl(v15, v11, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: AW SHARED MEM: reclaiming index %d from client with pid %d", buf, 0x28u);
               v3 = v14;
@@ -818,25 +943,26 @@ LABEL_24:
       }
 
       *buf = 134218496;
-      v35 = v25;
-      v36 = 1024;
-      v37 = v4;
-      v38 = 2048;
-      v39 = 10;
+      v34 = v25;
+      v35 = 1024;
+      v36 = v4;
+      v37 = 2048;
+      v38 = 10;
       v30 = "%13.5f: AW SHARED MEM: reclaimed %d client entries %llu sec after AW service relaunch";
       v31 = v23;
       v32 = 28;
 LABEL_45:
       _os_log_impl(&dword_1BB2EF000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
     }
-
-LABEL_46:
-
-    goto LABEL_47;
   }
 
-  if (v22 >= 6)
+  else
   {
+    if (v22 < 6)
+    {
+      return;
+    }
+
     v23 = _AALog();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
@@ -862,15 +988,15 @@ LABEL_46:
           }
 
           *buf = 136316162;
-          v35 = *&v26;
-          v36 = 1024;
-          v37 = 297;
-          v38 = 2048;
-          v39 = *&v29;
-          v40 = 1024;
-          v41 = v4;
-          v42 = 2048;
-          v43 = 10;
+          v34 = *&v26;
+          v35 = 1024;
+          v36 = 297;
+          v37 = 2048;
+          v38 = *&v29;
+          v39 = 1024;
+          v40 = v4;
+          v41 = 2048;
+          v42 = 10;
           v30 = "%30s:%-4d: %13.5f: AW SHARED MEM: reclaimed %d client entries %llu sec after AW service relaunch";
           v31 = v23;
           v32 = 44;
@@ -878,12 +1004,7 @@ LABEL_46:
         }
       }
     }
-
-    goto LABEL_46;
   }
-
-LABEL_47:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (AWPersistentDataManager)init
@@ -903,7 +1024,7 @@ LABEL_47:
 
 + (BOOL)truncateAWPersistentData:(int *)data error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (!data)
   {
     __assert_rtn("+[AWPersistentDataManager truncateAWPersistentData:error:]", "PersistentDataManager.m", 134, "fildes");
@@ -915,8 +1036,8 @@ LABEL_47:
     __assert_rtn("+[AWPersistentDataManager truncateAWPersistentData:error:]", "PersistentDataManager.m", 135, "*fildes != -1");
   }
 
-  memset(&v41, 0, sizeof(v41));
-  if (fstat(v5, &v41) == -1)
+  memset(&v40, 0, sizeof(v40));
+  if (fstat(v5, &v40) == -1)
   {
     if (currentLogLevel < 3)
     {
@@ -929,32 +1050,32 @@ LABEL_47:
       goto LABEL_12;
     }
 
-    v22 = absTimeNS();
-    if (v22 == -1)
+    v21 = absTimeNS();
+    if (v21 == -1)
     {
-      v23 = INFINITY;
+      v22 = INFINITY;
     }
 
     else
     {
-      v23 = v22 / 1000000000.0;
+      v22 = v21 / 1000000000.0;
     }
 
-    v24 = __error();
-    v25 = strerror(*v24);
+    v23 = __error();
+    v24 = strerror(*v23);
     *buf = 134218498;
-    v43 = v23;
-    v44 = 2080;
-    v45 = "com.apple.AttentionAwareness";
-    v46 = 2080;
-    v47 = v25;
-    v26 = "%13.5f: AW SHARED MEM: failed to fstat %s shm object: %s";
-    goto LABEL_40;
+    v42 = v22;
+    v43 = 2080;
+    v44 = "com.apple.AttentionAwareness";
+    v45 = 2080;
+    v46 = v24;
+    v25 = "%13.5f: AW SHARED MEM: failed to fstat %s shm object: %s";
+    goto LABEL_39;
   }
 
   v7 = MEMORY[0x1E69E9AC8];
   v8 = *MEMORY[0x1E69E9AC8];
-  if (v41.st_size && v41.st_size != v8)
+  if (v40.st_size && v40.st_size != v8)
   {
     if (shm_unlink("com.apple.AttentionAwareness") == -1)
     {
@@ -980,15 +1101,15 @@ LABEL_47:
         v14 = v13 / 1000000000.0;
       }
 
-      v31 = __error();
-      v32 = strerror(*v31);
+      v30 = __error();
+      v31 = strerror(*v30);
       *buf = 134218498;
-      v43 = v14;
-      v44 = 2080;
-      v45 = "com.apple.AttentionAwareness";
-      v46 = 2080;
-      v47 = v32;
-      v33 = "%13.5f: AW SHARED MEM: failed to unlink %s shm object: %s";
+      v42 = v14;
+      v43 = 2080;
+      v44 = "com.apple.AttentionAwareness";
+      v45 = 2080;
+      v46 = v31;
+      v32 = "%13.5f: AW SHARED MEM: failed to unlink %s shm object: %s";
     }
 
     else
@@ -1025,20 +1146,20 @@ LABEL_47:
           v18 = v17 / 1000000000.0;
         }
 
-        v39 = __error();
-        v40 = strerror(*v39);
+        v38 = __error();
+        v39 = strerror(*v38);
         *buf = 134218498;
-        v43 = v18;
-        v44 = 2080;
-        v45 = "com.apple.AttentionAwareness";
-        v46 = 2080;
-        v47 = v40;
-        v26 = "%13.5f: AW SHARED MEM: failed to reopen %s shm object: %s";
+        v42 = v18;
+        v43 = 2080;
+        v44 = "com.apple.AttentionAwareness";
+        v45 = 2080;
+        v46 = v39;
+        v25 = "%13.5f: AW SHARED MEM: failed to reopen %s shm object: %s";
+LABEL_39:
+        v26 = v10;
+        v27 = 32;
 LABEL_40:
-        v27 = v10;
-        v28 = 32;
-LABEL_41:
-        _os_log_error_impl(&dword_1BB2EF000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+        _os_log_error_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_ERROR, v25, buf, v27);
         goto LABEL_12;
       }
 
@@ -1055,44 +1176,42 @@ LABEL_23:
         goto LABEL_32;
       }
 
-      v29 = absTimeNS();
-      if (v29 == -1)
+      v28 = absTimeNS();
+      if (v28 == -1)
       {
-        v30 = INFINITY;
+        v29 = INFINITY;
       }
 
       else
       {
-        v30 = v29 / 1000000000.0;
+        v29 = v28 / 1000000000.0;
       }
 
-      v34 = __error();
-      v35 = strerror(*v34);
+      v33 = __error();
+      v34 = strerror(*v33);
       *buf = 134218498;
-      v43 = v30;
-      v44 = 2080;
-      v45 = "com.apple.AttentionAwareness";
-      v46 = 2080;
-      v47 = v35;
-      v33 = "%13.5f: AW SHARED MEM: failed to close open fildes for %s shm object: %s";
+      v42 = v29;
+      v43 = 2080;
+      v44 = "com.apple.AttentionAwareness";
+      v45 = 2080;
+      v46 = v34;
+      v32 = "%13.5f: AW SHARED MEM: failed to close open fildes for %s shm object: %s";
     }
 
-    _os_log_error_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_ERROR, v33, buf, 0x20u);
+    _os_log_error_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_ERROR, v32, buf, 0x20u);
     goto LABEL_23;
   }
 
-  if (v41.st_size)
+  if (v40.st_size)
   {
-LABEL_16:
-    result = 1;
-    goto LABEL_35;
+    return 1;
   }
 
   v9 = *data;
 LABEL_15:
   if (ftruncate(v9, v8) != -1)
   {
-    goto LABEL_16;
+    return 1;
   }
 
   if (currentLogLevel >= 3)
@@ -1111,91 +1230,125 @@ LABEL_15:
         v16 = v15 / 1000000000.0;
       }
 
-      v36 = *v7;
-      v37 = __error();
-      v38 = strerror(*v37);
+      v35 = *v7;
+      v36 = __error();
+      v37 = strerror(*v36);
       *buf = 134218754;
-      v43 = v16;
-      v44 = 2080;
-      v45 = "com.apple.AttentionAwareness";
-      v46 = 2048;
-      v47 = v36;
-      v48 = 2080;
-      v49 = v38;
-      v26 = "%13.5f: AW SHARED MEM: failed to truncate %s shm object to %lu: %s";
-      v27 = v10;
-      v28 = 42;
-      goto LABEL_41;
+      v42 = v16;
+      v43 = 2080;
+      v44 = "com.apple.AttentionAwareness";
+      v45 = 2048;
+      v46 = v35;
+      v47 = 2080;
+      v48 = v37;
+      v25 = "%13.5f: AW SHARED MEM: failed to truncate %s shm object to %lu: %s";
+      v26 = v10;
+      v27 = 42;
+      goto LABEL_40;
     }
 
 LABEL_12:
   }
 
 LABEL_32:
-  if (error)
+  if (!error)
   {
-    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:0];
-    v20 = v19;
-    result = 0;
-    *error = v19;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-LABEL_35:
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:0];
+  v20 = v19;
+  result = 0;
+  *error = v19;
   return result;
 }
 
 + (BOOL)validateAWPersistentDataHeader:(id *)header
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!header)
   {
     __assert_rtn("+[AWPersistentDataManager validateAWPersistentDataHeader:]", "PersistentDataManager.m", 99, "hdr");
   }
 
-  if (header->var0 != 1)
+  if (header->var0 == 1)
   {
-    if (currentLogLevel >= 3)
+    if (header->var1 == 32)
     {
-      v6 = _AALog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = MEMORY[0x1E69E9AC8];
+      if (header->var2 == *MEMORY[0x1E69E9AC8])
       {
-        v7 = absTimeNS();
-        if (v7 == -1)
+        if (header->var3 == 88)
         {
-          v8 = INFINITY;
+          return 1;
         }
 
-        else
+        if (currentLogLevel >= 3)
         {
-          v8 = v7 / 1000000000.0;
-        }
+          v6 = _AALog();
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          {
+            v13 = absTimeNS();
+            if (v13 == -1)
+            {
+              v14 = INFINITY;
+            }
 
-        var0 = header->var0;
-        v22 = 134218496;
-        v23 = v8;
-        v24 = 2048;
-        v25 = var0;
-        v26 = 2048;
-        v27 = 1;
-        v16 = "%13.5f: AW SHARED MEM: unexpected header version %llu, expected %llu";
-        goto LABEL_31;
+            else
+            {
+              v14 = v13 / 1000000000.0;
+            }
+
+            var3 = header->var3;
+            v21 = 134218496;
+            v22 = v14;
+            v23 = 2048;
+            v24 = var3;
+            v25 = 2048;
+            v26 = 88;
+            v16 = "%13.5f: AW SHARED MEM: unexpected client size %llu, expected %llu";
+LABEL_31:
+            _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, v16, &v21, 0x20u);
+            goto LABEL_32;
+          }
+
+          goto LABEL_32;
+        }
       }
 
-      goto LABEL_32;
+      else if (currentLogLevel >= 3)
+      {
+        v6 = _AALog();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        {
+          v11 = absTimeNS();
+          if (v11 == -1)
+          {
+            v12 = INFINITY;
+          }
+
+          else
+          {
+            v12 = v11 / 1000000000.0;
+          }
+
+          var2 = header->var2;
+          v19 = *v4;
+          v21 = 134218496;
+          v22 = v12;
+          v23 = 2048;
+          v24 = var2;
+          v25 = 2048;
+          v26 = v19;
+          v16 = "%13.5f: AW SHARED MEM: unexpected shared memory size %llu, expected %llu";
+          goto LABEL_31;
+        }
+
+LABEL_32:
+      }
     }
 
-    goto LABEL_33;
-  }
-
-  if (header->var1 != 32)
-  {
-    if (currentLogLevel >= 3)
+    else if (currentLogLevel >= 3)
     {
       v6 = _AALog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -1212,102 +1365,51 @@ LABEL_35:
         }
 
         var1 = header->var1;
-        v22 = 134218496;
-        v23 = v10;
-        v24 = 2048;
-        v25 = var1;
-        v26 = 2048;
-        v27 = 32;
+        v21 = 134218496;
+        v22 = v10;
+        v23 = 2048;
+        v24 = var1;
+        v25 = 2048;
+        v26 = 32;
         v16 = "%13.5f: AW SHARED MEM: unexpected header size %llu, expected %llu";
         goto LABEL_31;
       }
 
       goto LABEL_32;
     }
-
-    goto LABEL_33;
   }
 
-  v4 = MEMORY[0x1E69E9AC8];
-  if (header->var2 != *MEMORY[0x1E69E9AC8])
+  else if (currentLogLevel >= 3)
   {
-    if (currentLogLevel >= 3)
+    v6 = _AALog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = _AALog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = absTimeNS();
+      if (v7 == -1)
       {
-        v11 = absTimeNS();
-        if (v11 == -1)
-        {
-          v12 = INFINITY;
-        }
-
-        else
-        {
-          v12 = v11 / 1000000000.0;
-        }
-
-        var2 = header->var2;
-        v19 = *v4;
-        v22 = 134218496;
-        v23 = v12;
-        v24 = 2048;
-        v25 = var2;
-        v26 = 2048;
-        v27 = v19;
-        v16 = "%13.5f: AW SHARED MEM: unexpected shared memory size %llu, expected %llu";
-        goto LABEL_31;
+        v8 = INFINITY;
       }
 
-LABEL_32:
-    }
-
-LABEL_33:
-    result = 0;
-    goto LABEL_34;
-  }
-
-  if (header->var3 != 88)
-  {
-    if (currentLogLevel >= 3)
-    {
-      v6 = _AALog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      else
       {
-        v13 = absTimeNS();
-        if (v13 == -1)
-        {
-          v14 = INFINITY;
-        }
-
-        else
-        {
-          v14 = v13 / 1000000000.0;
-        }
-
-        var3 = header->var3;
-        v22 = 134218496;
-        v23 = v14;
-        v24 = 2048;
-        v25 = var3;
-        v26 = 2048;
-        v27 = 88;
-        v16 = "%13.5f: AW SHARED MEM: unexpected client size %llu, expected %llu";
-LABEL_31:
-        _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, v16, &v22, 0x20u);
-        goto LABEL_32;
+        v8 = v7 / 1000000000.0;
       }
 
-      goto LABEL_32;
+      var0 = header->var0;
+      v21 = 134218496;
+      v22 = v8;
+      v23 = 2048;
+      v24 = var0;
+      v25 = 2048;
+      v26 = 1;
+      v16 = "%13.5f: AW SHARED MEM: unexpected header version %llu, expected %llu";
+      goto LABEL_31;
     }
 
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
-  result = 1;
-LABEL_34:
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (void)initAWPersistentDataHeader:(id *)header
@@ -1336,9 +1438,11 @@ LABEL_34:
 
 uint64_t __40__AWPersistentDataManager_sharedManager__block_invoke()
 {
-  sharedManager_manager = objc_alloc_init(AWPersistentDataManager);
+  v0 = objc_alloc_init(AWPersistentDataManager);
+  v1 = sharedManager_manager;
+  sharedManager_manager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

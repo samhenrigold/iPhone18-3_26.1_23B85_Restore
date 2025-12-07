@@ -16,7 +16,7 @@
   *v3 = 0;
   v3[8] = 1;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FMFindingWatchMetrics();
+  v5.super_class = type metadata accessor for FMFindingWatchMetrics(0);
   return [(FMFindingWatchMetrics *)&v5 init];
 }
 

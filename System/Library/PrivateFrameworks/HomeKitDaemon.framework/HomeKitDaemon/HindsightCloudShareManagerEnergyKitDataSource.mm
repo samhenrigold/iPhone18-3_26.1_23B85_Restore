@@ -27,23 +27,22 @@
 {
   v4 = sub_22A4DB7DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v17 - v10;
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = &v16 - v9;
   sub_22A4DBDAC();
   homeCopy = home;
   spiClientIdentifier = [homeCopy spiClientIdentifier];
   sub_22A4DB79C();
 
   sub_22A4DBD9C();
-  v14 = *(v5 + 8);
-  v14(v9, v4);
-  v15 = sub_22A4DB77C();
-  v14(v11, v4);
+  v13 = *(v5 + 8);
+  v13(v8, v4);
+  v14 = sub_22A4DB77C();
+  v13(v10, v4);
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)shouldCreateZoneForHome:(id)home

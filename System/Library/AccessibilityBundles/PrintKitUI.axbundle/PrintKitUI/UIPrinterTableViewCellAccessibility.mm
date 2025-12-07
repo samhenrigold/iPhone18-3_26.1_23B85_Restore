@@ -15,19 +15,17 @@
 
 - (id)accessibilityValue
 {
-  v2 = [(UIPrinterTableViewCellAccessibility *)self safeIntForKey:@"printerState"]- 1;
-  if (v2 > 3)
+  if ([(UIPrinterTableViewCellAccessibility *)self safeIntForKey:@"printerState"]- 1 > 3)
   {
-    v4 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v3 = off_29F2EE1D8[v2];
-    v4 = UIKitAccessibilityLocalizedString();
+    v2 = UIKitAccessibilityLocalizedString();
   }
 
-  return v4;
+  return v2;
 }
 
 - (unint64_t)accessibilityTraits

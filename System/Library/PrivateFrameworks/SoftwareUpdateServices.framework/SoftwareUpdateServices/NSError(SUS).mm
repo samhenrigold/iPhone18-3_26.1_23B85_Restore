@@ -1,7 +1,7 @@
 @interface NSError(SUS)
 - (BOOL)isCatalogNotFound;
 - (BOOL)isUpToDate;
-- (uint64_t)noMatchingUpdateFound;
+- (BOOL)noMatchingUpdateFound;
 @end
 
 @implementation NSError(SUS)
@@ -99,7 +99,7 @@ LABEL_11:
   return v12;
 }
 
-- (uint64_t)noMatchingUpdateFound
+- (BOOL)noMatchingUpdateFound
 {
   if ([self shouldFallbackToCustomerScan])
   {

@@ -397,7 +397,7 @@ LABEL_22:
     {
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary Screen rules: Could not retrieve main screen width", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary Screen rules: Could not retrieve main screen width", v2, v3, v4, v5);
     }
   }
 
@@ -414,7 +414,7 @@ LABEL_22:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary Screen rules: Could not retrieve main screen width", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Secondary Screen rules: Could not retrieve main screen width", v2, v3, v4, v5);
     }
   }
 

@@ -39,7 +39,7 @@
 
 - (id)_dictionaryRepresentation
 {
-  v32[5] = *MEMORY[0x1E69E9840];
+  v31[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
@@ -77,7 +77,7 @@
     free(v6);
   }
 
-  v31[0] = @"identifier";
+  v30[0] = @"identifier";
   identifier = self->_identifier;
   null2 = identifier;
   if (!identifier)
@@ -85,9 +85,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null2;
-  v32[0] = null2;
-  v31[1] = @"displayString";
+  v28 = null2;
+  v31[0] = null2;
+  v30[1] = @"displayString";
   displayString = self->_displayString;
   null3 = displayString;
   if (!displayString)
@@ -96,9 +96,9 @@
   }
 
   v17 = v3;
-  v27 = null3;
-  v32[1] = null3;
-  v31[2] = @"pronunciationHint";
+  v26 = null3;
+  v31[1] = null3;
+  v30[2] = @"pronunciationHint";
   pronunciationHint = self->_pronunciationHint;
   null4 = pronunciationHint;
   if (!pronunciationHint)
@@ -106,8 +106,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[2] = null4;
-  v31[3] = @"alternativeSpeakableMatches";
+  v31[2] = null4;
+  v30[3] = @"alternativeSpeakableMatches";
   alternativeSpeakableMatches = self->_alternativeSpeakableMatches;
   null5 = alternativeSpeakableMatches;
   if (!alternativeSpeakableMatches)
@@ -115,8 +115,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[3] = null5;
-  v31[4] = @"subtitleString";
+  v31[3] = null5;
+  v30[4] = @"subtitleString";
   subtitleString = self->_subtitleString;
   null6 = subtitleString;
   if (!subtitleString)
@@ -124,8 +124,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[4] = null6;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:{5, v27}];
+  v31[4] = null6;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:{5, v26}];
   [v17 addEntriesFromDictionary:v24];
 
   if (subtitleString)
@@ -185,7 +185,6 @@ LABEL_29:
 LABEL_37:
 
 LABEL_30:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -244,7 +243,7 @@ LABEL_30:
 
 - (id)_intents_encodeWithJSONEncoder:(id)encoder codableDescription:(id)description
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   encoderCopy = encoder;
   descriptionCopy = description;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -272,30 +271,30 @@ LABEL_30:
   v18 = dictionary;
   [dictionary if_setObjectIfNonNil:v17 forKey:@"displayImage"];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v33 = descriptionCopy;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = descriptionCopy;
   attributes = [descriptionCopy attributes];
   allValues = [attributes allValues];
 
   obj = allValues;
-  v21 = [allValues countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v21 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v35;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v35 + 1) + 8 * i);
+        v25 = *(*(&v34 + 1) + 8 * i);
         propertyName = [v25 propertyName];
         v27 = [(INObject *)selfCopy valueForUndefinedKey:propertyName];
         v28 = [v16 encodeObject:v27 withCodableAttribute:v25];
@@ -303,23 +302,21 @@ LABEL_30:
         [v18 if_setObjectIfNonNil:v28 forKey:propertyName2];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v22 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v22);
   }
 
-  semanticRoot = [v33 semanticRoot];
+  semanticRoot = [v32 semanticRoot];
   [v18 if_setObjectIfNonNil:semanticRoot forKey:@"_type"];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (void)_intents_decodeWithJSONDecoder:(id)decoder codableDescription:(id)description from:(id)from
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   decoderCopy = decoder;
   fromCopy = from;
   objc_opt_class();
@@ -366,30 +363,30 @@ LABEL_30:
 
     v24 = v23;
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v25 = v24;
-    v26 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v44;
+      v28 = *v43;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v44 != v28)
+          if (*v43 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = [decoderCopy decodeObjectOfClass:objc_opt_class() from:{*(*(&v43 + 1) + 8 * i), v43}];
+          v30 = [decoderCopy decodeObjectOfClass:objc_opt_class() from:{*(*(&v42 + 1) + 8 * i), v42}];
           [v21 if_addObjectIfNonNil:v30];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
       while (v27);
@@ -407,7 +404,7 @@ LABEL_30:
       v35 = [fromCopy objectForKeyedSubscript:@"descriptionString"];
     }
 
-    v36 = [decoderCopy decodeObjectOfClass:v33 from:{v35, v43}];
+    v36 = [decoderCopy decodeObjectOfClass:v33 from:{v35, v42}];
     subtitleString = self->_subtitleString;
     self->_subtitleString = v36;
 
@@ -421,8 +418,6 @@ LABEL_30:
     displayImage = self->_displayImage;
     self->_displayImage = v40;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setValue:(id)value forProperty:(id)property
@@ -487,7 +482,7 @@ LABEL_30:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_identifier forKey:@"identifier"];
   [coderCopy encodeObject:self->_displayString forKey:@"displayString"];
@@ -499,29 +494,29 @@ LABEL_30:
   v6 = [INSchema _defaultSchemaForBundle:v5];
 
   v7 = [v6 _objectDescriptionForTypeOfClass:objc_opt_class()];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   attributes = [v7 attributes];
   allValues = [attributes allValues];
 
-  v10 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        propertyName = [*(*(&v17 + 1) + 8 * v13) propertyName];
+        propertyName = [*(*(&v16 + 1) + 8 * v13) propertyName];
         v15 = [(INObject *)self valueForProperty:propertyName];
         if (v15)
         {
@@ -532,18 +527,16 @@ LABEL_30:
       }
 
       while (v11 != v13);
-      v11 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (INObject)initWithCoder:(id)coder
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v6 = MEMORY[0x1E695DFD8];
@@ -565,9 +558,9 @@ LABEL_30:
   v19 = v18;
   if (v18)
   {
-    v43 = v13;
-    v44 = v9;
-    v45 = v5;
+    v42 = v13;
+    v43 = v9;
+    v44 = v5;
     objc_storeStrong(&v18->_alternativeSpeakableMatches, v17);
     v20 = MEMORY[0x1E695DFD8];
     v21 = objc_opt_class();
@@ -583,30 +576,30 @@ LABEL_30:
     v27 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     v28 = [INSchema _defaultSchemaForBundle:v27];
 
-    v42 = v28;
+    v41 = v28;
     [v28 _objectDescriptionForTypeOfClass:objc_opt_class()];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v41 = v49 = 0u;
-    attributes = [v41 attributes];
+    v40 = v48 = 0u;
+    attributes = [v40 attributes];
     allValues = [attributes allValues];
 
-    v31 = [allValues countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v31 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v47;
+      v33 = *v46;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v47 != v33)
+          if (*v46 != v33)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v35 = *(*(&v46 + 1) + 8 * i);
+          v35 = *(*(&v45 + 1) + 8 * i);
           propertyName = [v35 propertyName];
           v37 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), objc_msgSend(v35, "_unsafeObjectClass"), 0}];
           v38 = [coderCopy decodeObjectOfClasses:v37 forKey:propertyName];
@@ -614,18 +607,17 @@ LABEL_30:
           [(INObject *)v19 setValue:v38 forProperty:propertyName];
         }
 
-        v32 = [allValues countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v32 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v32);
     }
 
-    v9 = v44;
-    v5 = v45;
-    v13 = v43;
+    v9 = v43;
+    v5 = v44;
+    v13 = v42;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -685,32 +677,32 @@ LABEL_30:
 
 - (void)setAlternativeSpeakableMatches:(NSArray *)alternativeSpeakableMatches
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = alternativeSpeakableMatches;
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v22 = v4;
+    v21 = v4;
     v6 = v4;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           spokenPhrase = [v11 spokenPhrase];
 
           if (spokenPhrase)
@@ -725,7 +717,7 @@ LABEL_30:
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v8);
@@ -735,7 +727,7 @@ LABEL_30:
     v19 = self->_alternativeSpeakableMatches;
     self->_alternativeSpeakableMatches = v18;
 
-    v4 = v22;
+    v4 = v21;
   }
 
   else
@@ -743,8 +735,6 @@ LABEL_30:
     v20 = self->_alternativeSpeakableMatches;
     self->_alternativeSpeakableMatches = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (INObject)initWithIdentifier:(NSString *)identifier displayString:(NSString *)displayString pronunciationHint:(NSString *)pronunciationHint subtitleString:(NSString *)subtitleString displayImage:(INImage *)displayImage

@@ -13,6 +13,7 @@
 - (void)createPlatformSSOAdminGroupWithCompletion:(id)completion;
 - (void)createTempUserHomeDirectory:(id)directory;
 - (void)createTemporaryUser:(id)user passwordContext:(id)context completion:(id)completion;
+- (void)createUser:(id)user passwordContext:(id)context name:(id)name loginUserName:(id)userName idpIdentifier:(id)identifier isAdmin:(BOOL)admin groupMembership:(id)membership completion:(id)self0;
 - (void)dealloc;
 - (void)deviceConfigurationForIdentifier:(id)identifier completion:(id)completion;
 - (void)disablePlatformSSORulesAndDefaults:(id)defaults;
@@ -21,6 +22,7 @@
 - (void)getAllUsersWithCompletion:(id)completion;
 - (void)init;
 - (void)loginConfigurationForIdentifier:(id)identifier completion:(id)completion;
+- (void)migrateConfiguration:(BOOL)configuration completion:(id)completion;
 - (void)removeDeviceConfigurationForIdentifier:(id)identifier completion:(id)completion;
 - (void)removeLocalUser:(id)user fromLocalGroup:(id)group completion:(id)completion;
 - (void)removeLoginConfigurationForIdentifier:(id)identifier completion:(id)completion;
@@ -43,6 +45,8 @@
 - (void)savePlatformSSOUniqueIdentifier:(id)identifier forUser:(id)user completion:(id)completion;
 - (void)saveStashedDecryptionContext:(id)context identifier:(id)identifier completion:(id)completion;
 - (void)saveStashedSSOTokens:(id)tokens identifier:(id)identifier completion:(id)completion;
+- (void)saveUserConfiguration:(id)configuration forIdentifier:(id)identifier syncToPreboot:(BOOL)preboot completion:(id)completion;
+- (void)saveUserConfigurationData:(id)data forIdentifier:(id)identifier syncToPreboot:(BOOL)preboot completion:(id)completion;
 - (void)setGroups:(id)groups forLocalUser:(id)user completion:(id)completion;
 - (void)setGroups:(id)groups forPlatformSSOUser:(id)user completion:(id)completion;
 - (void)unbindTokenForAllUsersWithCompletion:(id)completion;
@@ -79,7 +83,7 @@ uint64_t __30__PODaemonConnection_xpcQueue__block_invoke()
 
 - (PODaemonConnection)init
 {
-  v3 = PO_LOG_PODaemonConnection();
+  v3 = PO_LOG_PODaemonConnection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PODaemonConnection init];
@@ -99,11 +103,9 @@ uint64_t __30__PODaemonConnection_xpcQueue__block_invoke()
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceConfigurationForIdentifier:(id)identifier completion:(id)completion
@@ -133,7 +135,7 @@ uint64_t __30__PODaemonConnection_xpcQueue__block_invoke()
 void __66__PODaemonConnection_deviceConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -173,7 +175,7 @@ void __66__PODaemonConnection_deviceConfigurationForIdentifier_completion___bloc
 void __65__PODaemonConnection_loginConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -213,7 +215,7 @@ void __65__PODaemonConnection_loginConfigurationForIdentifier_completion___block
 void __72__PODaemonConnection_removeDeviceConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -253,7 +255,7 @@ void __72__PODaemonConnection_removeDeviceConfigurationForIdentifier_completion_
 void __71__PODaemonConnection_removeLoginConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -293,7 +295,7 @@ void __71__PODaemonConnection_removeLoginConfigurationForIdentifier_completion__
 void __70__PODaemonConnection_removeUserConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -334,7 +336,7 @@ void __70__PODaemonConnection_removeUserConfigurationForIdentifier_completion___
 void __68__PODaemonConnection_saveDeviceConfiguration_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -375,7 +377,7 @@ void __68__PODaemonConnection_saveDeviceConfiguration_identifier_completion___bl
 void __90__PODaemonConnection_saveDeviceConfigurationSyncAllConfigToPreboot_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -416,7 +418,7 @@ void __90__PODaemonConnection_saveDeviceConfigurationSyncAllConfigToPreboot_iden
 void __67__PODaemonConnection_saveLoginConfiguration_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -426,13 +428,39 @@ void __67__PODaemonConnection_saveLoginConfiguration_identifier_completion___blo
   if (v5)
   {
     (*(v5 + 16))(v5, 0, v3);
+  }
+}
+
+- (void)saveUserConfiguration:(id)configuration forIdentifier:(id)identifier syncToPreboot:(BOOL)preboot completion:(id)completion
+{
+  prebootCopy = preboot;
+  configurationCopy = configuration;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  if ([(PODaemonConnection *)self _connectToService])
+  {
+    xpcConnection = [(PODaemonConnection *)self xpcConnection];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __83__PODaemonConnection_saveUserConfiguration_forIdentifier_syncToPreboot_completion___block_invoke;
+    v17[3] = &unk_279A3A270;
+    v14 = completionCopy;
+    v18 = v14;
+    v15 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    [v15 saveUserConfiguration:configurationCopy forIdentifier:identifierCopy syncToPreboot:prebootCopy completion:v14];
+  }
+
+  else if (completionCopy)
+  {
+    v16 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"Failed to connect to PSSO daemon"];
+    (*(completionCopy + 2))(completionCopy, 0, v16);
   }
 }
 
 void __83__PODaemonConnection_saveUserConfiguration_forIdentifier_syncToPreboot_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -445,10 +473,36 @@ void __83__PODaemonConnection_saveUserConfiguration_forIdentifier_syncToPreboot_
   }
 }
 
+- (void)saveUserConfigurationData:(id)data forIdentifier:(id)identifier syncToPreboot:(BOOL)preboot completion:(id)completion
+{
+  prebootCopy = preboot;
+  dataCopy = data;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  if ([(PODaemonConnection *)self _connectToService])
+  {
+    xpcConnection = [(PODaemonConnection *)self xpcConnection];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __87__PODaemonConnection_saveUserConfigurationData_forIdentifier_syncToPreboot_completion___block_invoke;
+    v17[3] = &unk_279A3A270;
+    v14 = completionCopy;
+    v18 = v14;
+    v15 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    [v15 saveUserConfigurationData:dataCopy forIdentifier:identifierCopy syncToPreboot:prebootCopy completion:v14];
+  }
+
+  else if (completionCopy)
+  {
+    v16 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"Failed to connect to PSSO daemon"];
+    (*(completionCopy + 2))(completionCopy, 0, v16);
+  }
+}
+
 void __87__PODaemonConnection_saveUserConfigurationData_forIdentifier_syncToPreboot_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -488,7 +542,7 @@ void __87__PODaemonConnection_saveUserConfigurationData_forIdentifier_syncToPreb
 void __64__PODaemonConnection_userConfigurationForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -528,7 +582,7 @@ void __64__PODaemonConnection_userConfigurationForIdentifier_completion___block_
 void __61__PODaemonConnection_userLoginStateForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -571,7 +625,7 @@ void __61__PODaemonConnection_userLoginStateForIdentifier_completion___block_inv
 void __89__PODaemonConnection_updateLoginStateForIdentifier_state_loginDate_loginType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -612,7 +666,7 @@ void __89__PODaemonConnection_updateLoginStateForIdentifier_state_loginDate_logi
 void __65__PODaemonConnection_savePendingSSOTokens_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -652,7 +706,7 @@ void __65__PODaemonConnection_savePendingSSOTokens_identifier_completion___block
 void __70__PODaemonConnection_retrievePendingSSOTokenForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -693,7 +747,7 @@ void __70__PODaemonConnection_retrievePendingSSOTokenForIdentifier_completion___
 void __65__PODaemonConnection_saveStashedSSOTokens_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -733,7 +787,7 @@ void __65__PODaemonConnection_saveStashedSSOTokens_identifier_completion___block
 void __70__PODaemonConnection_retrieveStashedSSOTokenForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -773,7 +827,7 @@ void __70__PODaemonConnection_retrieveStashedSSOTokenForIdentifier_completion___
 void __79__PODaemonConnection_retrieveStashedDecryptionContextForIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -813,7 +867,7 @@ void __79__PODaemonConnection_retrieveStashedDecryptionContextForIdentifier_comp
 void __43__PODaemonConnection_useVolume_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -852,7 +906,7 @@ void __43__PODaemonConnection_useVolume_completion___block_invoke(uint64_t a1, v
 void __61__PODaemonConnection_saveCachedContextsToDiskWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -891,7 +945,7 @@ void __61__PODaemonConnection_saveCachedContextsToDiskWithCompletion___block_inv
 void __61__PODaemonConnection_resetStoredConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -930,7 +984,7 @@ void __61__PODaemonConnection_resetStoredConfigurationWithCompletion___block_inv
 void __57__PODaemonConnection_disablePlatformSSORulesAndDefaults___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -969,7 +1023,7 @@ void __57__PODaemonConnection_disablePlatformSSORulesAndDefaults___block_invoke(
 void __56__PODaemonConnection_enablePlatformSSORulesAndDefaults___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -982,10 +1036,34 @@ void __56__PODaemonConnection_enablePlatformSSORulesAndDefaults___block_invoke(u
   }
 }
 
+- (void)migrateConfiguration:(BOOL)configuration completion:(id)completion
+{
+  configurationCopy = configuration;
+  completionCopy = completion;
+  if ([(PODaemonConnection *)self _connectToService])
+  {
+    xpcConnection = [(PODaemonConnection *)self xpcConnection];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __54__PODaemonConnection_migrateConfiguration_completion___block_invoke;
+    v11[3] = &unk_279A3A270;
+    v8 = completionCopy;
+    v12 = v8;
+    v9 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v11];
+    [v9 migrateConfiguration:configurationCopy completion:v8];
+  }
+
+  else if (completionCopy)
+  {
+    v10 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"Failed to connect to PSSO daemon"];
+    (*(completionCopy + 2))(completionCopy, 0, v10);
+  }
+}
+
 void __54__PODaemonConnection_migrateConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1026,7 +1104,7 @@ void __54__PODaemonConnection_migrateConfiguration_completion___block_invoke(uin
 void __73__PODaemonConnection_savePlatformSSOUniqueIdentifier_forUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1066,7 +1144,7 @@ void __73__PODaemonConnection_savePlatformSSOUniqueIdentifier_forUser_completion
 void __50__PODaemonConnection_updateGroupNames_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1107,7 +1185,7 @@ void __50__PODaemonConnection_updateGroupNames_completion___block_invoke(uint64_
 void __66__PODaemonConnection_updateProfilePicture_forUsername_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1151,7 +1229,7 @@ void __66__PODaemonConnection_updateProfilePicture_forUsername_completion___bloc
 void __87__PODaemonConnection_bindTokenForUsername_hash_wrapHash_tokenId_pinContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1192,7 +1270,7 @@ void __87__PODaemonConnection_bindTokenForUsername_hash_wrapHash_tokenId_pinCont
 void __61__PODaemonConnection_unbindTokenForUsername_hash_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1231,7 +1309,7 @@ void __61__PODaemonConnection_unbindTokenForUsername_hash_completion___block_inv
 void __59__PODaemonConnection_unbindTokenForAllUsersWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1244,10 +1322,41 @@ void __59__PODaemonConnection_unbindTokenForAllUsersWithCompletion___block_invok
   }
 }
 
+- (void)createUser:(id)user passwordContext:(id)context name:(id)name loginUserName:(id)userName idpIdentifier:(id)identifier isAdmin:(BOOL)admin groupMembership:(id)membership completion:(id)self0
+{
+  adminCopy = admin;
+  userCopy = user;
+  contextCopy = context;
+  nameCopy = name;
+  userNameCopy = userName;
+  identifierCopy = identifier;
+  membershipCopy = membership;
+  completionCopy = completion;
+  if ([(PODaemonConnection *)self _connectToService])
+  {
+    xpcConnection = [(PODaemonConnection *)self xpcConnection];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __117__PODaemonConnection_createUser_passwordContext_name_loginUserName_idpIdentifier_isAdmin_groupMembership_completion___block_invoke;
+    v28[3] = &unk_279A3A270;
+    v23 = adminCopy;
+    v24 = completionCopy;
+    v29 = v24;
+    v25 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v28];
+    [v25 createUser:userCopy passwordContext:contextCopy name:nameCopy loginUserName:userNameCopy idpIdentifier:identifierCopy isAdmin:v23 groupMembership:membershipCopy completion:v24];
+  }
+
+  else if (completionCopy)
+  {
+    v26 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"Failed to connect to PSSO daemon"];
+    (*(completionCopy + 2))(completionCopy, 0, 0, v26);
+  }
+}
+
 void __117__PODaemonConnection_createUser_passwordContext_name_loginUserName_idpIdentifier_isAdmin_groupMembership_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1290,7 +1399,7 @@ void __117__PODaemonConnection_createUser_passwordContext_name_loginUserName_idp
 void __110__PODaemonConnection_changePasswordForUser_passwordContext_secureToken_secureTokenPasswordContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1331,7 +1440,7 @@ void __110__PODaemonConnection_changePasswordForUser_passwordContext_secureToken
 void __90__PODaemonConnection_changePasswordUsingBootstrapTokenForUser_passwordContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1372,7 +1481,7 @@ void __90__PODaemonConnection_changePasswordUsingBootstrapTokenForUser_passwordC
 void __69__PODaemonConnection_createTemporaryUser_passwordContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1411,7 +1520,7 @@ void __69__PODaemonConnection_createTemporaryUser_passwordContext_completion___b
 void __44__PODaemonConnection_resetTemporaryAccount___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1450,7 +1559,7 @@ void __44__PODaemonConnection_resetTemporaryAccount___block_invoke(uint64_t a1, 
 void __50__PODaemonConnection_createTempUserHomeDirectory___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1491,7 +1600,7 @@ void __50__PODaemonConnection_createTempUserHomeDirectory___block_invoke(uint64_
 void __80__PODaemonConnection_updateTemporaryAccountName_altSecurityIdentity_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1530,7 +1639,7 @@ void __80__PODaemonConnection_updateTemporaryAccountName_altSecurityIdentity_com
 void __64__PODaemonConnection_createPlatformSSOAdminGroupWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1569,7 +1678,7 @@ void __64__PODaemonConnection_createPlatformSSOAdminGroupWithCompletion___block_
 void __64__PODaemonConnection_removePlatformSSOAdminGroupWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1608,7 +1717,7 @@ void __64__PODaemonConnection_removePlatformSSOAdminGroupWithCompletion___block_
 void __65__PODaemonConnection_addPlatformSSOToSearchPolicyWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1647,7 +1756,7 @@ void __65__PODaemonConnection_addPlatformSSOToSearchPolicyWithCompletion___block
 void __70__PODaemonConnection_removePlatformSSOFromSearchPolicyWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1690,7 +1799,7 @@ void __70__PODaemonConnection_removePlatformSSOFromSearchPolicyWithCompletion___
 void __119__PODaemonConnection_createOrUpdateAdminGroups_authorizationGroups_previousAuthorizationGroups_otherGroups_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1730,7 +1839,7 @@ void __119__PODaemonConnection_createOrUpdateAdminGroups_authorizationGroups_pre
 void __55__PODaemonConnection_removePlatformSSOUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1771,7 +1880,7 @@ void __55__PODaemonConnection_removePlatformSSOUser_completion___block_invoke(ui
 void __56__PODaemonConnection_setGroups_forLocalUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1812,7 +1921,7 @@ void __56__PODaemonConnection_setGroups_forLocalUser_completion___block_invoke(u
 void __62__PODaemonConnection_setGroups_forPlatformSSOUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1851,7 +1960,7 @@ void __62__PODaemonConnection_setGroups_forPlatformSSOUser_completion___block_in
 void __48__PODaemonConnection_getAllUsersWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1891,7 +2000,7 @@ void __48__PODaemonConnection_getAllUsersWithCompletion___block_invoke(uint64_t 
 void __50__PODaemonConnection_findUserWithName_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1931,7 +2040,7 @@ void __50__PODaemonConnection_findUserWithName_completion___block_invoke(uint64_
 void __52__PODaemonConnection_createOrUpdateUser_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1971,7 +2080,7 @@ void __52__PODaemonConnection_createOrUpdateUser_completion___block_invoke(uint6
 void __52__PODaemonConnection_removeUserWithName_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2012,7 +2121,7 @@ void __52__PODaemonConnection_removeUserWithName_completion___block_invoke(uint6
 void __59__PODaemonConnection_addLocalUser_toLocalGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2053,7 +2162,7 @@ void __59__PODaemonConnection_addLocalUser_toLocalGroup_completion___block_invok
 void __64__PODaemonConnection_removeLocalUser_fromLocalGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2093,7 +2202,7 @@ void __64__PODaemonConnection_removeLocalUser_fromLocalGroup_completion___block_
 void __57__PODaemonConnection_saveAppSSOConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2134,7 +2243,7 @@ void __57__PODaemonConnection_saveAppSSOConfiguration_completion___block_invoke(
 void __73__PODaemonConnection_saveStashedDecryptionContext_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2173,7 +2282,7 @@ void __73__PODaemonConnection_saveStashedDecryptionContext_identifier_completion
 void __58__PODaemonConnection_createAppSSOCachePathWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_PODaemonConnection();
+  v4 = PO_LOG_PODaemonConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -2189,70 +2298,69 @@ void __58__PODaemonConnection_createAppSSOCachePathWithCompletion___block_invoke
 - (BOOL)_connectToService
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_xpcConnection)
   {
-    v3 = PO_LOG_PODaemonConnection();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = PO_LOG_PODaemonConnection(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
     }
 
 LABEL_9:
-    v10 = 1;
+    v12 = 1;
     goto LABEL_10;
   }
 
-  v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.PlatformSSO.daemon-xpc" options:4096];
+  v5 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.PlatformSSO.daemon-xpc" options:4096];
   xpcConnection = selfCopy->_xpcConnection;
-  selfCopy->_xpcConnection = v4;
+  selfCopy->_xpcConnection = v5;
 
   if (selfCopy->_xpcConnection)
   {
-    v6 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_287094D68];
-    [(NSXPCConnection *)selfCopy->_xpcConnection setRemoteObjectInterface:v6];
+    v8 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_287094D68];
+    [(NSXPCConnection *)selfCopy->_xpcConnection setRemoteObjectInterface:v8];
 
     objc_initWeak(&location, selfCopy);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __39__PODaemonConnection__connectToService__block_invoke;
+    v17[3] = &unk_279A3A298;
+    objc_copyWeak(&v18, &location);
+    [(NSXPCConnection *)selfCopy->_xpcConnection setInvalidationHandler:v17];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __39__PODaemonConnection__connectToService__block_invoke;
+    v15[2] = __39__PODaemonConnection__connectToService__block_invoke_98;
     v15[3] = &unk_279A3A298;
     objc_copyWeak(&v16, &location);
-    [(NSXPCConnection *)selfCopy->_xpcConnection setInvalidationHandler:v15];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __39__PODaemonConnection__connectToService__block_invoke_98;
-    v13[3] = &unk_279A3A298;
-    objc_copyWeak(&v14, &location);
-    [(NSXPCConnection *)selfCopy->_xpcConnection setInterruptionHandler:v13];
-    v7 = selfCopy->_xpcConnection;
-    v8 = +[PODaemonConnection xpcQueue];
-    [(NSXPCConnection *)v7 _setQueue:v8];
+    [(NSXPCConnection *)selfCopy->_xpcConnection setInterruptionHandler:v15];
+    v9 = selfCopy->_xpcConnection;
+    v10 = +[PODaemonConnection xpcQueue];
+    [(NSXPCConnection *)v9 _setQueue:v10];
 
-    [(NSXPCConnection *)selfCopy->_xpcConnection resume];
-    v9 = PO_LOG_PODaemonConnection();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = PO_LOG_PODaemonConnection([(NSXPCConnection *)selfCopy->_xpcConnection resume]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
     }
 
-    objc_destroyWeak(&v14);
     objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     goto LABEL_9;
   }
 
-  v12 = PO_LOG_PODaemonConnection();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = PO_LOG_PODaemonConnection(v7);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [POServiceConnection _connectToService];
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_10:
   objc_sync_exit(selfCopy);
 
-  return v10;
+  return v12;
 }
 
 void __39__PODaemonConnection__connectToService__block_invoke(uint64_t a1)
@@ -2261,8 +2369,7 @@ void __39__PODaemonConnection__connectToService__block_invoke(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setXpcConnection:0];
-    v3 = PO_LOG_PODaemonConnection();
+    v3 = PO_LOG_PODaemonConnection([WeakRetained setXpcConnection:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __52__POServiceLoginManagerConnection__connectToService__block_invoke_cold_1();
@@ -2273,10 +2380,11 @@ void __39__PODaemonConnection__connectToService__block_invoke(uint64_t a1)
 void __39__PODaemonConnection__connectToService__block_invoke_98(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = PO_LOG_PODaemonConnection();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PO_LOG_PODaemonConnection(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __40__POServiceConnection__connectToService__block_invoke_83_cold_1();
     }
@@ -2285,11 +2393,9 @@ void __39__PODaemonConnection__connectToService__block_invoke_98(uint64_t a1)
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

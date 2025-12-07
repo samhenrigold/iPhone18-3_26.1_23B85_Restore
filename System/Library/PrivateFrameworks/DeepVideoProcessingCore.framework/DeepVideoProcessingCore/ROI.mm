@@ -18,10 +18,10 @@
 - (float)getLocationMatchCostWith:(id)with
 {
   withCopy = with;
-  [(ROI *)self descriptor];
+  objc_msgSend_descriptor(self);
   if (withCopy)
   {
-    [withCopy descriptor];
+    objc_msgSend_descriptor(withCopy);
     v5 = v8;
   }
 
@@ -38,7 +38,7 @@
 {
   v38 = *MEMORY[0x277D85DE8];
   withCopy = with;
-  [(ROI *)self descriptor];
+  objc_msgSend_descriptor(self);
   if (!withCopy)
   {
     v35 = 0u;
@@ -58,7 +58,7 @@ LABEL_12:
     goto LABEL_9;
   }
 
-  [withCopy descriptor];
+  objc_msgSend_descriptor(withCopy);
   v5 = v35;
   if (v37 < v35)
   {
@@ -70,9 +70,9 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  [withCopy descriptor];
+  objc_msgSend_descriptor(withCopy);
   v6 = vaddvq_s16(vaddq_s16(vaddq_s16(v23, v25), vaddq_s16(v24, v26)));
-  [(ROI *)self descriptor];
+  objc_msgSend_descriptor(self);
   v7 = vaddvq_s16(vaddq_s16(vaddq_s16(v19, v21), vaddq_s16(v20, v22)));
   if (v6 > v7)
   {
@@ -85,8 +85,8 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [withCopy descriptor];
-  [(ROI *)self descriptor];
+  objc_msgSend_descriptor(withCopy);
+  objc_msgSend_descriptor(self);
   v8 = vaddvq_s16(vaddq_s16(vaddq_s16(vabsq_s16(vsubq_s16(v17, v13)), vabsq_s16(vsubq_s16(v15, v11))), vaddq_s16(vabsq_s16(vsubq_s16(v18, v14)), vabsq_s16(vsubq_s16(v16, v12))))) / 8160.0;
 LABEL_9:
 
@@ -113,9 +113,9 @@ LABEL_9:
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  [(ROI *)self descriptor];
-  [(ROI *)self descriptor];
-  *&v11 = vadd_f32(vsub_f32(v3, v10), v3);
+  objc_msgSend_descriptor(self);
+  objc_msgSend_descriptor(self);
+  *&v11 = vadd_f32(vsub_f32(v3, v10[0]), v3);
   v9[6] = v17;
   v9[7] = v18;
   v9[8] = v19;

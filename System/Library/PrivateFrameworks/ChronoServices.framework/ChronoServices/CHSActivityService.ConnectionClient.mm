@@ -17,10 +17,10 @@
     v12 = v8;
     v13 = *&self->activityPayloadUpdateHandler[OBJC_IVAR____TtCE14ChronoServicesCSo18CHSActivityService16ConnectionClient_activityPayloadUpdateHandler];
     selfCopy = self;
-    sub_195ECF998(v11);
+    sub_195ECF998(v11, v13);
     v11(v5, v7, v12, v10);
 
-    sub_195EB6E70(v11);
+    sub_195EB6E70(v11, v13);
   }
 
   else

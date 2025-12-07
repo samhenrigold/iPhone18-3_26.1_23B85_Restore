@@ -249,7 +249,7 @@ void __58__PUPickerUnavailableViewController_updateUnavailableView__block_invoke
 
 - (void)updateReason:(unint64_t)reason error:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   self->_reason = reason;
   objc_storeStrong(&self->_error, error);
   [(PUPickerUnavailableViewController *)self updateUnavailableView];
@@ -260,8 +260,8 @@ void __58__PUPickerUnavailableViewController_updateUnavailableView__block_invoke
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_DEBUG, "Showing picker loading UI (updated).", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_DEBUG, "Showing picker loading UI (updated).", &v10, 2u);
     }
   }
 
@@ -269,14 +269,12 @@ void __58__PUPickerUnavailableViewController_updateUnavailableView__block_invoke
   {
     reasonDebugDescription = [(PUPickerUnavailableViewController *)self reasonDebugDescription];
     error = [(PUPickerUnavailableViewController *)self error];
-    v11 = 138412546;
-    v12 = reasonDebugDescription;
-    v13 = 2112;
-    v14 = error;
-    _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_ERROR, "Showing picker unavailable UI (updated) (reason: %@) with error: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = reasonDebugDescription;
+    v12 = 2112;
+    v13 = error;
+    _os_log_impl(&dword_1D2128000, v7, OS_LOG_TYPE_ERROR, "Showing picker unavailable UI (updated) (reason: %@) with error: %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -288,10 +286,10 @@ void __58__PUPickerUnavailableViewController_updateUnavailableView__block_invoke
 
 - (void)viewDidLoad
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = PUPickerUnavailableViewController;
-  [(PUPickerUnavailableViewController *)&v13 viewDidLoad];
+  v17 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = PUPickerUnavailableViewController;
+  [(PUPickerUnavailableViewController *)&v12 viewDidLoad];
   [(PUPickerUnavailableViewController *)self updateUnavailableView];
   view = [(PUPickerUnavailableViewController *)self view];
   configuration = [(PUPickerUnavailableViewController *)self configuration];
@@ -326,13 +324,11 @@ void __58__PUPickerUnavailableViewController_updateUnavailableView__block_invoke
     reasonDebugDescription = [(PUPickerUnavailableViewController *)self reasonDebugDescription];
     error = [(PUPickerUnavailableViewController *)self error];
     *buf = 138412546;
-    v15 = reasonDebugDescription;
-    v16 = 2112;
-    v17 = error;
+    v14 = reasonDebugDescription;
+    v15 = 2112;
+    v16 = error;
     _os_log_impl(&dword_1D2128000, v9, OS_LOG_TYPE_ERROR, "Showing picker unavailable UI (reason: %@) with error: %@", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (PUPickerUnavailableViewController)initWithCoder:(id)coder

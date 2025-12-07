@@ -82,13 +82,13 @@
   objc_destroyWeak(&location);
 }
 
-uint64_t __79__CCUIHeaderPocketViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
+uint64_t __79__CCUIHeaderPocketViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = __UIAccessibilityCastAsClass();
+  v4 = __UIAccessibilityCastAsClass();
 
-  [v3 performPrimaryAction];
+  [v4 performPrimaryAction];
   return 1;
 }
 

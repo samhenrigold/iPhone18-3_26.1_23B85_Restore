@@ -25,7 +25,7 @@
   v4 = sub_1A7E21A10();
   v6 = v5;
 
-  v7 = _s13IDSFoundation29_IDSLinksQualityMeasurerDeltaC6create4jsonACSg10Foundation4DataV_tFZ_0();
+  v7 = _s13IDSFoundation29_IDSLinksQualityMeasurerDeltaC6create4jsonACSg10Foundation4DataV_tFZ_0(v4, v6);
   if (v7)
   {
     v8 = v7;

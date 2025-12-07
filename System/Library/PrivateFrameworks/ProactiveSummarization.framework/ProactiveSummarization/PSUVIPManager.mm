@@ -26,7 +26,7 @@
 
 void __49__PSUVIPManager_emailVIPAddressesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -51,15 +51,14 @@ void __49__PSUVIPManager_emailVIPAddressesWithCompletion___block_invoke(uint64_t
 
   if (!v6)
   {
-    v13 = MEMORY[0x277CCA9B8];
-    v14 = *(a1 + 32);
-    v15 = objc_opt_class();
-    v9 = NSStringFromClass(v15);
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Error getting Mail VIPs";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    v17 = [v13 errorWithDomain:v9 code:0 userInfo:v16];
-    (*(v8 + 16))(v8, 0, v17);
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = objc_opt_class();
+    v9 = NSStringFromClass(v13);
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"Error getting Mail VIPs";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = [v12 errorWithDomain:v9 code:0 userInfo:v14];
+    (*(v8 + 16))(v8, 0, v15);
 
 LABEL_8:
     goto LABEL_9;
@@ -67,8 +66,6 @@ LABEL_8:
 
   (*(v8 + 16))(*(a1 + 48), 0, v6);
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

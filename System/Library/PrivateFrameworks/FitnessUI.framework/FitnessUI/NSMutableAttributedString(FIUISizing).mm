@@ -2,7 +2,7 @@
 - (double)scaleFontAndKerningToFitSize:()FIUISizing minimumFontSize:minimumKerning:stillDidntFit:;
 - (double)scaleFontSizeByAmount:()FIUISizing minimumFontSize:;
 - (double)scaleNumericAttribute:()FIUISizing byAmount:;
-- (uint64_t)scaleToFitWidth:()FIUISizing;
+- (void)scaleToFitWidth:()FIUISizing;
 @end
 
 @implementation NSMutableAttributedString(FIUISizing)
@@ -57,7 +57,7 @@
   return v9;
 }
 
-- (uint64_t)scaleToFitWidth:()FIUISizing
+- (void)scaleToFitWidth:()FIUISizing
 {
   result = [self size];
   if (v5 > a2)

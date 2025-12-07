@@ -113,7 +113,7 @@
     }
 
     [(NTKInterpolatedColorPalette *)self transitionFraction];
-    v28 = NTKInterpolateBetweenColors();
+    v29 = NTKInterpolateBetweenColors(v28);
   }
 
   else
@@ -142,13 +142,13 @@
     {
       [(NTKInterpolatedColorPalette *)self transitionFraction];
       CLKInterpolateBetweenFloatsClipped();
-      v27 = v29;
+      v27 = v30;
     }
 
-    v28 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
+    v29 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
   }
 
-  v16 = v28;
+  v16 = v29;
 LABEL_19:
 
   if (v16)

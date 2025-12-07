@@ -126,7 +126,7 @@ LABEL_5:
 
 - (void)sendResponse:(int64_t)response withBOOLResult:(BOOL)result
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!self->_hasSentResponse)
   {
     resultCopy = result;
@@ -136,33 +136,33 @@ LABEL_5:
     {
       if (self->_telephonyClient)
       {
-        v10 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v10 = @"NO";
+        v9 = @"NO";
       }
 
-      v11 = logger;
-      v12 = [(_STKSIMToolkitResponseProvider *)self _responseFromResponseType:response];
+      v10 = logger;
+      v11 = [(_STKSIMToolkitResponseProvider *)self _responseFromResponseType:response];
       *buf = 138412802;
       if (resultCopy)
       {
-        v13 = @"YES";
+        v12 = @"YES";
       }
 
       else
       {
-        v13 = @"NO";
+        v12 = @"NO";
       }
 
-      v17 = v10;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_debug_impl(&dword_262BB4000, v11, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitBooleanResponse - hasClient: %@, response: %@, result: %@", buf, 0x20u);
+      v16 = v9;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_debug_impl(&dword_262BB4000, v10, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitBooleanResponse - hasClient: %@, response: %@, result: %@", buf, 0x20u);
     }
 
     queue = self->_queue;
@@ -172,16 +172,14 @@ LABEL_5:
     block[3] = &unk_279B4C820;
     block[4] = self;
     block[5] = response;
-    v15 = resultCopy;
+    v14 = resultCopy;
     dispatch_async(queue, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendResponse:(int64_t)response withStringResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   if (!self->_hasSentResponse)
   {
@@ -191,22 +189,22 @@ LABEL_5:
     {
       if (self->_telephonyClient)
       {
-        v10 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v10 = @"NO";
+        v9 = @"NO";
       }
 
-      v11 = logger;
+      v10 = logger;
       *buf = 138412802;
-      v16 = v10;
-      v17 = 2112;
-      v18 = [(_STKSIMToolkitResponseProvider *)self _responseFromResponseType:response];
-      v19 = 2112;
-      v20 = resultCopy;
-      _os_log_debug_impl(&dword_262BB4000, v11, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitStringResponse - hasClient: %@, response: %@, result: %@", buf, 0x20u);
+      v15 = v9;
+      v16 = 2112;
+      v17 = [(_STKSIMToolkitResponseProvider *)self _responseFromResponseType:response];
+      v18 = 2112;
+      v19 = resultCopy;
+      _os_log_debug_impl(&dword_262BB4000, v10, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitStringResponse - hasClient: %@, response: %@, result: %@", buf, 0x20u);
     }
 
     queue = self->_queue;
@@ -216,11 +214,9 @@ LABEL_5:
     block[3] = &unk_279B4C3B8;
     block[4] = self;
     responseCopy = response;
-    v13 = resultCopy;
+    v12 = resultCopy;
     dispatch_async(queue, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSuccessWithSelectedIndex:(unint64_t)index
@@ -335,20 +331,17 @@ LABEL_5:
 
 - (void)sendResponse:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  a1[2];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [a1 _responseFromResponseType:a3];
   OUTLINED_FUNCTION_1_1();
-  v9 = v6;
-  _os_log_debug_impl(&dword_262BB4000, v5, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitResponse - hasClient: %@, response: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v6;
+  _os_log_debug_impl(&dword_262BB4000, v5, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitResponse - hasClient: %@, response: %@", v7, 0x16u);
 }
 
 - (void)sendResponse:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (*(a1 + 16))
   {
     v2 = @"YES";
@@ -359,26 +352,22 @@ LABEL_5:
     v2 = @"NO";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_262BB4000, a2, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitUserActivity - hasClient: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_262BB4000, a2, OS_LOG_TYPE_DEBUG, "Really sending response to CT: sendSIMToolkitUserActivity - hasClient: %@", &v3, 0xCu);
 }
 
 - (void)sendSuccessWithSelectedIndex:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  a1[2];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a1 _responseFromResponseType:0];
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
   OUTLINED_FUNCTION_1_1();
-  v12 = v6;
-  v13 = v8;
-  v14 = v9;
-  _os_log_debug_impl(&dword_262BB4000, v5, OS_LOG_TYPE_DEBUG, "Really sending response to CT: selectSIMToolkitListItem - hasClient: %@, response: %@, result: %@", v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = v6;
+  v12 = v8;
+  v13 = v9;
+  _os_log_debug_impl(&dword_262BB4000, v5, OS_LOG_TYPE_DEBUG, "Really sending response to CT: selectSIMToolkitListItem - hasClient: %@, response: %@, result: %@", v10, 0x20u);
 }
 
 @end

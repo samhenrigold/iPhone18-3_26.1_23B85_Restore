@@ -18,31 +18,31 @@
 
 - (void)viewDidLoad
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = SRResearchDaysViewController;
-  [(SRResearchDaysViewController *)&v18 viewDidLoad];
+  v19 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = SRResearchDaysViewController;
+  [(SRResearchDaysViewController *)&v17 viewDidLoad];
   -[SRResearchDaysViewController setDeletedDays:](self, "setDeletedDays:", [MEMORY[0x277CBEB58] set]);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   tombstones = [(SRResearchDaysViewController *)self tombstones];
-  v4 = [(NSArray *)tombstones countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v4 = [(NSArray *)tombstones countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(tombstones);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         if (![v8 reason])
         {
           deletedDays = [(SRResearchDaysViewController *)self deletedDays];
@@ -53,13 +53,11 @@
         }
       }
 
-      v5 = [(NSArray *)tombstones countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v5 = [(NSArray *)tombstones countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

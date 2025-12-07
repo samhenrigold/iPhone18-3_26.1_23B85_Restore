@@ -40,21 +40,21 @@
 
 - (void)run
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0;
   if ([(SUSetupMescalSessionOperation *)self _isMescalEnabled])
   {
     v3 = objc_alloc_init(SUMescalSession);
-    v4 = [(SUSetupMescalSessionOperation *)self _setupSAPCertificate:&v24];
+    v4 = [(SUSetupMescalSessionOperation *)self _setupSAPCertificate:&v26];
     if (!v4)
     {
       goto LABEL_8;
     }
 
-    v5 = [(SUMescalSession *)v3 exchangeData:v4 error:&v24];
+    v5 = [(SUMescalSession *)v3 exchangeData:v4 error:&v26];
     if (v5)
     {
-      [(SUMescalSession *)v3 exchangeData:[(SUSetupMescalSessionOperation *)self _setupSAPWithData:v5 error:&v24] error:&v24];
+      [(SUMescalSession *)v3 exchangeData:[(SUSetupMescalSessionOperation *)self _setupSAPWithData:v5 error:&v26] error:&v26];
     }
 
     else
@@ -63,35 +63,39 @@
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v17 = shouldLog | 2;
+        LODWORD(v18) = shouldLog | 2;
       }
 
       else
       {
-        v17 = shouldLog;
+        LODWORD(v18) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v18 = objc_opt_class();
-        v25 = 138412546;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v24;
-        LODWORD(v23) = 22;
-        v22 = &v25;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v20 = objc_opt_class();
+        v27 = 138412546;
+        v28 = v20;
+        v29 = 2112;
+        v30 = v26;
+        v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not exchange cert data: %@", &v27, 22);
+        if (v21)
         {
-          v20 = v19;
-          v21 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v25, v23}];
-          free(v20);
           v22 = v21;
+          v23 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+          free(v22);
+          v24 = v23;
           SSFileLog();
         }
       }
@@ -113,35 +117,40 @@ LABEL_8:
       shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
       if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
       {
-        v10 = shouldLog2 | 2;
+        LODWORD(v10) = shouldLog2 | 2;
       }
 
       else
       {
-        v10 = shouldLog2;
+        LODWORD(v10) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
 
       if (v10)
       {
-        v11 = objc_opt_class();
-        v25 = 138412546;
-        v26 = v11;
-        v27 = 2112;
-        v28 = v24;
-        LODWORD(v23) = 22;
-        v22 = &v25;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        v12 = objc_opt_class();
+        v27 = 138412546;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v26;
+        LODWORD(v25) = 22;
+        v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Could not setup mescal session: %@", &v27, v25);
+        if (v13)
         {
-          v13 = v12;
-          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v25, v23}];
-          free(v13);
-          v22 = v14;
+          v14 = v13;
+          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+          free(v14);
+          v24 = v15;
           SSFileLog();
         }
       }
@@ -149,7 +158,7 @@ LABEL_8:
       v6 = 0;
     }
 
-    v7 = v24;
+    v7 = v26;
   }
 
   else
@@ -158,13 +167,13 @@ LABEL_8:
     v6 = 0;
   }
 
-  [(SUSetupMescalSessionOperation *)self setError:v7, v22];
+  [(SUSetupMescalSessionOperation *)self setError:v7, v24];
   [(SUSetupMescalSessionOperation *)self setSuccess:v6];
 }
 
 - (BOOL)_isMescalEnabled
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69D49F8] contextWithBagType:{-[SSURLRequestProperties URLBagType](self->_requestProperties, "URLBagType")}];
   if (!self->_requestProperties)
   {
@@ -225,34 +234,39 @@ LABEL_9:
         shouldLog = [mEMORY[0x1E69D4938] shouldLog];
         if ([mEMORY[0x1E69D4938] shouldLogToDisk])
         {
-          v23 = shouldLog | 2;
+          LODWORD(v24) = shouldLog | 2;
         }
 
         else
         {
-          v23 = shouldLog;
+          LODWORD(v24) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+        oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
         {
-          v23 &= 2u;
+          v24 = v24;
         }
 
-        if (v23)
+        else
         {
-          v26 = 138412546;
-          v27 = objc_opt_class();
-          v28 = 2112;
-          v29 = v6;
-          LODWORD(v25) = 22;
-          v18 = _os_log_send_and_compose_impl();
-          v19 = 1;
-          if (!v18)
+          v24 &= 2u;
+        }
+
+        if (v24)
+        {
+          v27 = 138412546;
+          v28 = objc_opt_class();
+          v29 = 2112;
+          v30 = v6;
+          v19 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Mescal enabled for URL: %@", &v27, 22);
+          v20 = 1;
+          if (!v19)
           {
-            return v19;
+            return v20;
           }
 
-          goto LABEL_19;
+          goto LABEL_20;
         }
 
         return 1;
@@ -264,15 +278,21 @@ LABEL_9:
   shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
   if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v17) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v17) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
@@ -282,29 +302,28 @@ LABEL_9:
     return 0;
   }
 
-  v26 = 138412546;
-  v27 = objc_opt_class();
-  v28 = 2112;
-  v29 = v6;
-  LODWORD(v25) = 22;
-  v18 = _os_log_send_and_compose_impl();
-  v19 = 0;
-  if (v18)
+  v27 = 138412546;
+  v28 = objc_opt_class();
+  v29 = 2112;
+  v30 = v6;
+  v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Mescal not enabled for URL: %@", &v27, 22);
+  v20 = 0;
+  if (v19)
   {
-LABEL_19:
-    v20 = v18;
-    [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v26, v25}];
-    free(v20);
+LABEL_20:
+    v21 = v19;
+    [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+    free(v21);
     SSFileLog();
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)_setupSAPCertificate:(id *)certificate
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v23 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = 0;
   v5 = objc_alloc_init(MEMORY[0x1E69E47E0]);
   [v5 setDataProvider:{objc_msgSend(MEMORY[0x1E69E47B8], "provider")}];
   v6 = objc_alloc_init(MEMORY[0x1E69D4970]);
@@ -316,96 +335,106 @@ LABEL_19:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v24 = 138412290;
-    v25 = objc_opt_class();
-    LODWORD(v22) = 12;
-    v21 = &v24;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v26 = 138412290;
+    v27 = objc_opt_class();
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Performing SAP cert setup", &v26, 12);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v24, v22}];
-      free(v11);
-      v21 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v23 = v13;
       SSFileLog();
     }
   }
 
-  if ([(SUSetupMescalSessionOperation *)self runSubOperation:v5 returningError:&v23, v21])
+  if ([(SUSetupMescalSessionOperation *)self runSubOperation:v5 returningError:&v25, v23])
   {
-    v13 = [objc_msgSend(objc_msgSend(v5 "dataProvider")];
-    if (!v13)
+    v14 = [objc_msgSend(objc_msgSend(v5 "dataProvider")];
+    if (!v14)
     {
       mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
       if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
       {
-        v16 = shouldLog2 | 2;
+        LODWORD(v17) = shouldLog2 | 2;
       }
 
       else
       {
-        v16 = shouldLog2;
+        LODWORD(v17) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v16 &= 2u;
+        v17 = v17;
       }
 
-      if (v16)
+      else
       {
-        v17 = objc_opt_class();
-        v24 = 138412290;
-        v25 = v17;
-        LODWORD(v22) = 12;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v17 &= 2u;
+      }
+
+      if (v17)
+      {
+        v19 = objc_opt_class();
+        v26 = 138412290;
+        v27 = v19;
+        LODWORD(v24) = 12;
+        v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: No SAP cert data in response", &v26, v24);
+        if (v20)
         {
-          v19 = v18;
-          [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v24, v22}];
-          free(v19);
+          v21 = v20;
+          [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
+          free(v21);
           SSFileLog();
         }
       }
 
-      v13 = 0;
-      v23 = SSError();
+      v14 = 0;
+      v25 = SSError();
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  if (certificate && !v13)
+  if (certificate && !v14)
   {
-    *certificate = v23;
+    *certificate = v25;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_setupSAPWithData:(id)data error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v25 = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v27 = 0;
   v7 = objc_alloc_init(MEMORY[0x1E69E47E0]);
   [v7 setDataProvider:{objc_msgSend(MEMORY[0x1E69E47B8], "provider")}];
   v8 = objc_alloc_init(MEMORY[0x1E69D4970]);
@@ -419,90 +448,100 @@ LABEL_19:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (v11)
   {
-    v26 = 138412290;
-    v27 = objc_opt_class();
-    LODWORD(v24) = 12;
-    v23 = &v26;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v28 = 138412290;
+    v29 = objc_opt_class();
+    v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Performing SAP setup", &v28, 12);
+    if (v13)
     {
-      v13 = v12;
-      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v26, v24}];
-      free(v13);
-      v23 = v14;
+      v14 = v13;
+      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v14);
+      v25 = v15;
       SSFileLog();
     }
   }
 
-  if ([(SUSetupMescalSessionOperation *)self runSubOperation:v7 returningError:&v25, v23])
+  if ([(SUSetupMescalSessionOperation *)self runSubOperation:v7 returningError:&v27, v25])
   {
-    v15 = [objc_msgSend(objc_msgSend(v7 "dataProvider")];
-    if (!v15)
+    v16 = [objc_msgSend(objc_msgSend(v7 "dataProvider")];
+    if (!v16)
     {
       mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
       if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
       {
-        v18 = shouldLog2 | 2;
+        LODWORD(v19) = shouldLog2 | 2;
       }
 
       else
       {
-        v18 = shouldLog2;
+        LODWORD(v19) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v18 &= 2u;
+        v19 = v19;
       }
 
-      if (v18)
+      else
       {
-        v19 = objc_opt_class();
-        v26 = 138412290;
-        v27 = v19;
-        LODWORD(v24) = 12;
-        v20 = _os_log_send_and_compose_impl();
-        if (v20)
+        v19 &= 2u;
+      }
+
+      if (v19)
+      {
+        v21 = objc_opt_class();
+        v28 = 138412290;
+        v29 = v21;
+        LODWORD(v26) = 12;
+        v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: No SAP setup data in response", &v28, v26);
+        if (v22)
         {
-          v21 = v20;
-          [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v26, v24}];
-          free(v21);
+          v23 = v22;
+          [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+          free(v23);
           SSFileLog();
         }
       }
 
-      v15 = 0;
-      v25 = SSError();
+      v16 = 0;
+      v27 = SSError();
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  if (error && !v15)
+  if (error && !v16)
   {
-    *error = v25;
+    *error = v27;
   }
 
-  return v15;
+  return v16;
 }
 
 @end

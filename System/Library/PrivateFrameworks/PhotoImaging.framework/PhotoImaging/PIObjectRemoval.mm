@@ -98,7 +98,7 @@ LABEL_35:
   memset(v58, 0, sizeof(v58));
   if (v14)
   {
-    [v14 extent];
+    objc_msgSend_extent(v14);
     v18 = (*&v58[24] * *&v58[16]);
   }
 
@@ -280,7 +280,7 @@ LABEL_25:
         memset(buf, 0, 32);
         if (v20)
         {
-          [v20 extent];
+          objc_msgSend_extent(v20);
         }
 
         else
@@ -407,7 +407,7 @@ LABEL_28:
   facesCopy = faces;
   if (faceCopy)
   {
-    [faceCopy extent];
+    objc_msgSend_extent(faceCopy);
   }
 
   else
@@ -525,7 +525,7 @@ LABEL_75:
     __break(1u);
   }
 
-  [faceCopy extent];
+  objc_msgSend_extent(faceCopy);
   if (CGRectIsEmpty(v142))
   {
     v83 = NUAssertLogger_13001();
@@ -568,7 +568,7 @@ LABEL_75:
     goto LABEL_75;
   }
 
-  [faceCopy extent];
+  objc_msgSend_extent(faceCopy);
   if (v17 == 0.0 || v18 == 0.0 || (v18 == *(MEMORY[0x1E69BDDB0] + 8) ? (v19 = v17 == *MEMORY[0x1E69BDDB0]) : (v19 = 0), v19))
   {
     v20 = 0.0;
@@ -743,7 +743,7 @@ LABEL_47:
           v55 = [v113 objectForKeyedSubscript:@"leftEye"];
           v56 = [v113 objectForKeyedSubscript:@"rightEye"];
           v57 = v56;
-          if (v55 && v56 && ([v55 nu_CGRect], v103 = v59, v104 = v58, v101 = v61, v102 = v60, objc_msgSend(v57, "nu_CGRect"), r2 = v62, v64 = v63, v66 = v65, v68 = v67, v145.origin.x = v104, v145.origin.y = v103, v145.size.width = v102, v145.size.height = v101, v69 = CGRectGetMidX(v145), v146.origin.x = v104, v146.origin.y = v103, v146.size.width = v102, v146.size.height = v101, v70 = CGRectGetMidY(v146), v147.origin.x = v64, v147.origin.y = v66, v147.size.width = r2, v147.size.height = v68, v71 = CGRectGetMidX(v147), v148.origin.x = v64, v148.origin.y = v66, v148.size.width = r2, v148.size.height = v68, v72 = CGRectGetMidY(v148), objc_msgSend(v105, "extent"), v140.x = v69, v140.y = v70, v73 = CGRectContainsPoint(v149, v140), objc_msgSend(v105, "extent"), v141.x = v71, v141.y = v72, (v73 & CGRectContainsPoint(v150, v141)) == 1) && (v151.origin.y = v103, v151.origin.x = v104, v151.size.height = v101, v151.size.width = v102, v153.origin.x = v64, v153.origin.y = v66, v153.size.width = r2, v153.size.height = v68, v152 = CGRectUnion(v151, v153), ((v21[2])(v21, v114, 0, v152.origin, *&v152.origin.y, v152.size, *&v152.size.height) & 1) != 0))
+          if (v55 && v56 && ([v55 nu_CGRect], v103 = v59, v104 = v58, v101 = v61, v102 = v60, objc_msgSend(v57, "nu_CGRect"), r2 = v62, v64 = v63, v66 = v65, v68 = v67, v145.origin.x = v104, v145.origin.y = v103, v145.size.width = v102, v145.size.height = v101, v69 = CGRectGetMidX(v145), v146.origin.x = v104, v146.origin.y = v103, v146.size.width = v102, v146.size.height = v101, v70 = CGRectGetMidY(v146), v147.origin.x = v64, v147.origin.y = v66, v147.size.width = r2, v147.size.height = v68, v71 = CGRectGetMidX(v147), v148.origin.x = v64, v148.origin.y = v66, v148.size.width = r2, v148.size.height = v68, v72 = CGRectGetMidY(v148), objc_msgSend_extent(v105), v140.x = v69, v140.y = v70, v73 = CGRectContainsPoint(v149, v140), objc_msgSend_extent(v105), v141.x = v71, v141.y = v72, (v73 & CGRectContainsPoint(v150, v141)) == 1) && (v151.origin.y = v103, v151.origin.x = v104, v151.size.height = v101, v151.size.width = v102, v153.origin.x = v64, v153.origin.y = v66, v153.size.width = r2, v153.size.height = v68, v152 = CGRectUnion(v151, v153), ((v21[2])(v21, v114, 0, v152.origin, *&v152.origin.y, v152.size, *&v152.size.height) & 1) != 0))
           {
             v74 = 1;
             v54 = 1;
@@ -782,7 +782,7 @@ LABEL_59:
   return v75;
 }
 
-BOOL __141__PIObjectRemoval_maskIsMostlyWithinFace_imageSize_imageOrientation_intAreaOverMaskAreaThreshold_intAreaOverFaceAreaThreshold_detectedFaces___block_invoke(uint64_t a1, uint64_t a2, int a3, CGFloat a4, CGFloat a5, double a6, double a7)
+BOOL __141__PIObjectRemoval_maskIsMostlyWithinFace_imageSize_imageOrientation_intAreaOverMaskAreaThreshold_intAreaOverFaceAreaThreshold_detectedFaces___block_invoke(uint64_t a1, const char *a2, int a3, CGFloat a4, CGFloat a5, double a6, double a7)
 {
   v8 = a7;
   v9 = a6;
@@ -798,7 +798,7 @@ BOOL __141__PIObjectRemoval_maskIsMostlyWithinFace_imageSize_imageOrientation_in
     v8 = v16;
   }
 
-  [*(a1 + 32) extent];
+  objc_msgSend_extent(*(a1 + 32));
   v55.origin.x = v17;
   v55.origin.y = v18;
   v55.size.width = v19;
@@ -936,7 +936,7 @@ BOOL __141__PIObjectRemoval_maskIsMostlyWithinFace_imageSize_imageOrientation_in
   {
     if (maskCopy)
     {
-      [maskCopy extent];
+      objc_msgSend_extent(maskCopy);
     }
 
     else
@@ -980,7 +980,7 @@ LABEL_26:
   NUPixelRectFromCGRect();
   if (maskCopy)
   {
-    [maskCopy extent];
+    objc_msgSend_extent(maskCopy);
   }
 
   else
@@ -1156,7 +1156,7 @@ LABEL_25:
 
     if (maskCopy)
     {
-      [maskCopy extent];
+      objc_msgSend_extent(maskCopy, v34);
     }
 
     else
@@ -1235,7 +1235,7 @@ LABEL_32:
   NUPixelPointFromCGPoint();
   if (maskCopy)
   {
-    [maskCopy extent];
+    objc_msgSend_extent(maskCopy);
   }
 
   else
@@ -1744,43 +1744,42 @@ LABEL_16:
 
 + (id)removeInstancesOccludedByOperations:(id)operations fromInstances:(id)instances composition:(id)composition maskContext:(id)context
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   operationsCopy = operations;
   instancesCopy = instances;
   compositionCopy = composition;
   contextCopy = context;
-  v26 = instancesCopy;
-  v25 = [instancesCopy mutableCopy];
+  v25 = instancesCopy;
+  v24 = [instancesCopy mutableCopy];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v13 = operationsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v14)
   {
     v16 = v14;
-    v17 = *v36;
+    v17 = *v35;
     *&v15 = 138543362;
-    v23 = v15;
+    v22 = v15;
     do
     {
       v18 = 0;
       do
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * v18);
+        v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v32 = 0;
-        [self _tightImageSpaceBoundsForOperation:v19 composition:compositionCopy error:{&v32, v23}];
-        v20 = v32;
-        buf[0] = v33;
-        buf[1] = v34;
+        v31 = 0;
+        objc_msgSend__tightImageSpaceBoundsForOperation_composition_error_(self, v22);
+        v19 = v31;
+        buf[0] = v32;
+        buf[1] = v33;
         if (NUPixelRectIsEmpty())
         {
           if (*MEMORY[0x1E69B3D78] != -1)
@@ -1788,39 +1787,39 @@ LABEL_16:
             dispatch_once(MEMORY[0x1E69B3D78], &__block_literal_global_309_13016);
           }
 
-          v21 = *MEMORY[0x1E69B3D80];
+          v20 = *MEMORY[0x1E69B3D80];
           if (os_log_type_enabled(*MEMORY[0x1E69B3D80], OS_LOG_TYPE_ERROR))
           {
-            LODWORD(buf[0]) = v23;
-            *(buf + 4) = v20;
-            _os_log_error_impl(&dword_1C7694000, v21, OS_LOG_TYPE_ERROR, "Error computing tight bounds for operation: %{public}@", buf, 0xCu);
+            LODWORD(buf[0]) = v22;
+            *(buf + 4) = v19;
+            _os_log_error_impl(&dword_1C7694000, v20, OS_LOG_TYPE_ERROR, "Error computing tight bounds for operation: %{public}@", buf, 0xCu);
           }
         }
 
         else
         {
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __93__PIObjectRemoval_removeInstancesOccludedByOperations_fromInstances_composition_maskContext___block_invoke;
-          v27[3] = &unk_1E82AAFE0;
-          v28 = contextCopy;
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __93__PIObjectRemoval_removeInstancesOccludedByOperations_fromInstances_composition_maskContext___block_invoke;
+          v26[3] = &unk_1E82AAFE0;
+          v27 = contextCopy;
+          v29 = v32;
           v30 = v33;
-          v31 = v34;
-          v29 = v25;
-          [v26 enumerateIndexesUsingBlock:v27];
+          v28 = v24;
+          [v25 enumerateIndexesUsingBlock:v26];
         }
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v16);
   }
 
-  return v25;
+  return v24;
 }
 
 void __93__PIObjectRemoval_removeInstancesOccludedByOperations_fromInstances_composition_maskContext___block_invoke(uint64_t a1, uint64_t a2)
@@ -1830,20 +1829,20 @@ void __93__PIObjectRemoval_removeInstancesOccludedByOperations_fromInstances_com
   v6 = v5;
   if (v5)
   {
-    [v5 tightBoundsForInstances:v4];
+    objc_msgSend_tightBoundsForInstances_(v5);
   }
 
   v7 = [*(a1 + 32) segmentationResult];
   v8 = v7;
   if (v7)
   {
-    [v7 fullExtentForInstances:v4];
+    objc_msgSend_fullExtentForInstances_(v7);
   }
 
   v9 = *(a1 + 32);
   if (v9)
   {
-    [v9 fullImageExtent];
+    objc_msgSend_fullImageExtent(v9);
   }
 
   NUScaleMake();
@@ -1958,12 +1957,12 @@ void __93__PIObjectRemoval_removeInstancesOccludedByOperations_fromInstances_com
   v24 = **&MEMORY[0x1E6960C70];
   if (livePhotoKeyFrameAdjustmentController)
   {
-    [livePhotoKeyFrameAdjustmentController keyFrameTime];
+    objc_msgSend_keyFrameTime(livePhotoKeyFrameAdjustmentController);
   }
 
   if (contextCopy)
   {
-    [contextCopy livePhotoKeyFrameTime];
+    objc_msgSend_livePhotoKeyFrameTime(contextCopy);
   }
 
   else
@@ -2254,7 +2253,7 @@ void __88__PIObjectRemoval_createMaskContextForComposition_requestID_completionQ
     v14 = v13;
     if (v13)
     {
-      [v13 extent];
+      objc_msgSend_extent(v13);
     }
 
     else
@@ -2321,7 +2320,7 @@ void __88__PIObjectRemoval_createMaskContextForComposition_requestID_completionQ
     v45 = *(MEMORY[0x1E6960C70] + 16);
     if (v34)
     {
-      [v34 keyFrameTime];
+      objc_msgSend_keyFrameTime(v34);
     }
 
     v36 = [PIInpaintMaskContext alloc];
@@ -2364,7 +2363,7 @@ void __88__PIObjectRemoval_createMaskContextForComposition_requestID_completionQ
     v13 = v12;
     if (v12)
     {
-      [v12 extent];
+      objc_msgSend_extent(v12);
     }
 
     else
@@ -2413,7 +2412,7 @@ void __88__PIObjectRemoval_createMaskContextForComposition_requestID_completionQ
           v20 = v19;
           v32 = 0;
           v33 = 0;
-          [v19 extent];
+          objc_msgSend_extent(v19);
           [v20 scale];
           NUPixelRectScaleRational();
           v32 = v26;
@@ -2545,7 +2544,7 @@ LABEL_19:
     v14 = segmentationResult2;
     if (segmentationResult2)
     {
-      [segmentationResult2 tightBoundsForInstance:instance];
+      objc_msgSend_tightBoundsForInstance_(segmentationResult2);
     }
 
     else
@@ -2556,7 +2555,7 @@ LABEL_19:
 
     if (contextCopy)
     {
-      [contextCopy fullImageExtent];
+      objc_msgSend_fullImageExtent(contextCopy);
     }
 
     else
@@ -2597,7 +2596,7 @@ LABEL_19:
     v15 = segmentationResult2;
     if (segmentationResult2)
     {
-      [segmentationResult2 tightBoundsForInstances:instancesCopy];
+      objc_msgSend_tightBoundsForInstances_(segmentationResult2);
     }
 
     else
@@ -2608,7 +2607,7 @@ LABEL_19:
 
     if (contextCopy)
     {
-      [contextCopy fullImageExtent];
+      objc_msgSend_fullImageExtent(contextCopy);
     }
 
     else

@@ -10,7 +10,7 @@
 {
   sub_19B334();
   sub_19B0C4();
-  sub_153894(&qword_2B81E0, &type metadata accessor for NameRecognitionSettingsView);
+  sub_153894(&qword_2B81E0, &type metadata accessor for NameRecognitionSettingsView, &protocol conformance descriptor for NameRecognitionSettingsView);
   v2 = sub_19B344();
 
   return v2;

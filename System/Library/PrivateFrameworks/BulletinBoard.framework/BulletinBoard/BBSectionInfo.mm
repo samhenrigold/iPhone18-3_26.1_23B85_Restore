@@ -55,6 +55,7 @@
 - (void)_deliverQuietly:(BOOL)quietly;
 - (void)_dissociateDataProviderSectionInfo:(id)info;
 - (void)_replaceSubsection:(id)subsection;
+- (void)deliverQuietly:(BOOL)quietly changeAuthorizationStatus:(BOOL)status;
 - (void)encodeWithCoder:(id)coder;
 - (void)makeAuthorizationPermanent;
 - (void)muteSectionUntilDate:(id)date;
@@ -62,6 +63,7 @@
 - (void)queryAndUseManagedSettings;
 - (void)queryAndUseManagedSettingsForSectionID:(id)d;
 - (void)setAlertType:(unint64_t)type;
+- (void)setAllowsNotifications:(BOOL)notifications;
 - (void)setAnnounceSetting:(int64_t)setting;
 - (void)setAuthorizationExpirationDate:(id)date;
 - (void)setAuthorizationStatus:(int64_t)status;
@@ -80,9 +82,16 @@
 - (void)setPushSettings:(unint64_t)settings;
 - (void)setRemoteNotificationsSetting:(int64_t)setting;
 - (void)setScheduledDeliverySetting:(int64_t)setting;
+- (void)setShowsCustomSettingsLink:(BOOL)link;
+- (void)setShowsInLockScreen:(BOOL)screen;
+- (void)setShowsInNotificationCenter:(BOOL)center;
+- (void)setShowsMessagePreview:(BOOL)preview;
+- (void)setShowsOnExternalDevices:(BOOL)devices;
 - (void)setSpokenNotificationSetting:(int64_t)setting;
 - (void)setSummarizationSetting:(int64_t)setting;
 - (void)setTimeSensitiveSetting:(int64_t)setting;
+- (void)setUserConfiguredDirectMessagesSetting:(BOOL)setting;
+- (void)setUserConfiguredTimeSensitiveSetting:(BOOL)setting;
 - (void)unmuteSection;
 - (void)unmuteThreadIdentifier:(id)identifier;
 - (void)updateWithDefaultSectionInfo:(id)info;
@@ -395,7 +404,7 @@ LABEL_3:
 
 - (void)_replaceSubsection:(id)subsection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   subsectionCopy = subsection;
   selfCopy = self;
   subsections = [(BBSectionInfo *)self subsections];
@@ -403,27 +412,27 @@ LABEL_3:
   if ([subsections count] && subsectionID)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v17 = subsections;
+    v16 = subsections;
     v8 = subsections;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           subsectionID2 = [v13 subsectionID];
           v15 = [subsectionID2 isEqualToString:subsectionID];
 
@@ -437,42 +446,40 @@ LABEL_3:
           [array addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
     }
 
     [(BBSectionInfo *)selfCopy setSubsections:array];
-    subsections = v17;
+    subsections = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_subsectionForID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   subsections = [(BBSectionInfo *)self subsections];
-  v6 = [subsections countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [subsections countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         subsectionID = [v9 subsectionID];
         v11 = [subsectionID isEqualToString:dCopy];
 
@@ -483,7 +490,7 @@ LABEL_3:
         }
       }
 
-      v6 = [subsections countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [subsections countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -494,8 +501,6 @@ LABEL_3:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -592,33 +597,30 @@ LABEL_11:
     return 0;
   }
 
-  if ([(BBSectionInfo *)self carPlaySetting]!= 2)
+  if ([(BBSectionInfo *)self carPlaySetting]== 2)
   {
-    goto LABEL_13;
+    v10 = objc_alloc_init(getCRPairedVehicleManagerClass());
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__3;
+    v18 = __Block_byref_object_dispose__3;
+    v19 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __36__BBSectionInfo__isDeliveredQuietly__block_invoke;
+    v13[3] = &unk_278D2B0F0;
+    v13[4] = &v14;
+    [v10 syncFetchAllVehiclesWithCompletion:v13];
+    v11 = [v15[5] count];
+    _Block_object_dispose(&v14, 8);
+
+    if (v11)
+    {
+      return 0;
+    }
   }
 
-  v10 = objc_alloc_init(getCRPairedVehicleManagerClass());
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__3;
-  v18 = __Block_byref_object_dispose__3;
-  v19 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __36__BBSectionInfo__isDeliveredQuietly__block_invoke;
-  v13[3] = &unk_278D2B0F0;
-  v13[4] = &v14;
-  [v10 syncFetchAllVehiclesWithCompletion:v13];
-  v11 = [v15[5] count];
-  _Block_object_dispose(&v14, 8);
-
-  if (v11)
-  {
-    return 0;
-  }
-
-LABEL_13:
   [(BBSectionInfo *)self remoteNotificationsSetting];
   if ([(BBSectionInfo *)self announceSetting]!= 2 && [(BBSectionInfo *)self announceSetting]!= 3)
   {
@@ -633,7 +635,7 @@ LABEL_13:
 
 - (BOOL)isDeliveredQuietly
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   subsections = [(BBSectionInfo *)self subsections];
   v4 = [subsections count];
 
@@ -642,34 +644,34 @@ LABEL_13:
     allowsNotifications = [(BBSectionInfo *)self allowsNotifications];
     if (allowsNotifications)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       subsections2 = [(BBSectionInfo *)self subsections];
-      v7 = [subsections2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [subsections2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (!v7)
       {
 LABEL_18:
 
 LABEL_19:
         LOBYTE(allowsNotifications) = 0;
-        goto LABEL_20;
+        return allowsNotifications;
       }
 
       v8 = v7;
       v9 = 0;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(subsections2);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([v12 allowsNotifications] && objc_msgSend(v12, "notificationCenterSetting") == 2)
           {
             if (![v12 _isDeliveredQuietly])
@@ -681,7 +683,7 @@ LABEL_19:
           }
         }
 
-        v8 = [subsections2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [subsections2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -705,8 +707,6 @@ LABEL_17:
     }
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
   return allowsNotifications;
 }
 
@@ -774,6 +774,82 @@ LABEL_20:
 LABEL_20:
 
       [(BBSectionInfo *)self setAnnounceSetting:v6];
+    }
+  }
+}
+
+- (void)deliverQuietly:(BOOL)quietly changeAuthorizationStatus:(BOOL)status
+{
+  statusCopy = status;
+  quietlyCopy = quietly;
+  v23 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277D71F50];
+  sectionID = [(BBSectionInfo *)self sectionID];
+  v9 = [v7 bb_toneLibraryAlertTypeForSectionID:sectionID];
+
+  if (v9)
+  {
+    [MEMORY[0x277D71F50] _setCurrentOverridePolicy:quietlyCopy forType:v9];
+  }
+
+  subsections = [(BBSectionInfo *)self subsections];
+  v11 = [subsections count];
+
+  if (v11)
+  {
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    subsections2 = [(BBSectionInfo *)self subsections];
+    v13 = [subsections2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v19;
+      do
+      {
+        v16 = 0;
+        do
+        {
+          if (*v19 != v15)
+          {
+            objc_enumerationMutation(subsections2);
+          }
+
+          [*(*(&v18 + 1) + 8 * v16++) _deliverQuietly:quietlyCopy];
+        }
+
+        while (v14 != v16);
+        v14 = [subsections2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      }
+
+      while (v14);
+    }
+
+    if (statusCopy)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    [(BBSectionInfo *)self _deliverQuietly:quietlyCopy];
+    if (statusCopy)
+    {
+LABEL_12:
+      [(BBSectionInfo *)self makeAuthorizationPermanent];
+    }
+  }
+
+  if (quietlyCopy)
+  {
+    muteAssertion = [(BBSectionInfo *)self muteAssertion];
+
+    if (muteAssertion)
+    {
+      [(BBSectionInfo *)self setMuteAssertion:0];
     }
   }
 }
@@ -1060,7 +1136,7 @@ LABEL_39:
 
 - (NSDictionary)stateCapture
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   stateCapture = [(BBSectionInfoSettings *)self->_sectionInfoSettings stateCapture];
   [v3 setValue:stateCapture forKey:@"SectionInfoSettings"];
@@ -1132,32 +1208,32 @@ LABEL_39:
   if ([subsections count])
   {
     parentSection3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v22 = subsections;
-    v23 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
+          v27 = *(*(&v38 + 1) + 8 * i);
           stateCapture3 = [v27 stateCapture];
           subsectionID3 = [v27 subsectionID];
           [parentSection3 setValue:stateCapture3 forKey:subsectionID3];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v24);
@@ -1170,13 +1246,13 @@ LABEL_39:
   parentSection = [(BBSectionInfo *)self parentSection];
   if (parentSection)
   {
-    v33 = parentSection;
+    v32 = parentSection;
     parentSection2 = [(BBSectionInfo *)self parentSection];
     sectionID = [parentSection2 sectionID];
     sectionID2 = [(BBSectionInfo *)self sectionID];
-    v37 = [sectionID isEqualToString:sectionID2];
+    v36 = [sectionID isEqualToString:sectionID2];
 
-    if ((v37 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
       parentSection3 = [(BBSectionInfo *)self parentSection];
       sectionID3 = [parentSection3 sectionID];
@@ -1185,8 +1261,6 @@ LABEL_39:
 LABEL_25:
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1569,7 +1643,7 @@ LABEL_25:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   parentSection = [(BBSectionInfo *)self parentSection];
   [v5 setParentSection:parentSection];
@@ -1610,34 +1684,34 @@ LABEL_25:
   customSettingsDetailControllerClass = [(BBSectionInfo *)self customSettingsDetailControllerClass];
   [v5 setCustomSettingsDetailControllerClass:customSettingsDetailControllerClass];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   subsections = [(BBSectionInfo *)self subsections];
-  v18 = [subsections countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v18 = [subsections countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v27;
     do
     {
       v21 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v22 = [*(*(&v27 + 1) + 8 * v21) copyWithZone:zone];
+        v22 = [*(*(&v26 + 1) + 8 * v21) copyWithZone:zone];
         [v5 _addSubsection:v22];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [subsections countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v19 = [subsections countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v19);
@@ -1654,17 +1728,16 @@ LABEL_25:
 
   [v5 setVersion:{-[BBSectionInfo version](self, "version")}];
   [v5 setIsRestricted:{-[BBSectionInfo isRestricted](self, "isRestricted")}];
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BBSectionInfo)initWithCoder:(id)coder
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v41.receiver = self;
-  v41.super_class = BBSectionInfo;
-  v5 = [(BBSectionInfo *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = BBSectionInfo;
+  v5 = [(BBSectionInfo *)&v40 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sectionID"];
@@ -1692,38 +1765,38 @@ LABEL_25:
     [(BBSectionInfo *)v5 setIcon:v11];
 
     v12 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"subsections"];
 
     [(BBSectionInfo *)v5 setSubsections:v15];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         v20 = 0;
         do
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v37 + 1) + 8 * v20++) setParentSection:{v5, v37}];
+          [*(*(&v36 + 1) + 8 * v20++) setParentSection:{v5, v36}];
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v18);
@@ -1736,9 +1809,9 @@ LABEL_25:
     [(BBSectionInfo *)v5 setFactorySectionID:v21];
 
     v22 = MEMORY[0x277CBEB98];
-    v42[0] = objc_opt_class();
-    v42[1] = objc_opt_class();
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
     v24 = [v22 setWithArray:v23];
     v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"dataProviderIDs"];
     [(BBSectionInfo *)v5 setDataProviderIDs:v25];
@@ -1774,7 +1847,7 @@ LABEL_25:
         v33 = 1;
       }
 
-      [(BBSectionInfoSettings *)v5->_sectionInfoSettings setAllowsNotifications:v33, v37];
+      [(BBSectionInfoSettings *)v5->_sectionInfoSettings setAllowsNotifications:v33, v36];
       -[BBSectionInfoSettings setShowsInNotificationCenter:](v5->_sectionInfoSettings, "setShowsInNotificationCenter:", [coderCopy decodeBoolForKey:@"showsInNotificationCenter"]);
       -[BBSectionInfoSettings setShowsInLockScreen:](v5->_sectionInfoSettings, "setShowsInLockScreen:", [coderCopy decodeBoolForKey:@"showsInLockScreen"]);
       -[BBSectionInfoSettings setShowsCustomSettingsLink:](v5->_sectionInfoSettings, "setShowsCustomSettingsLink:", [coderCopy decodeBoolForKey:@"showsCustomSettingsLink"]);
@@ -1791,7 +1864,7 @@ LABEL_25:
       }
     }
 
-    if ([coderCopy containsValueForKey:{@"bulletinGroupingSetting", v37}])
+    if ([coderCopy containsValueForKey:{@"bulletinGroupingSetting", v36}])
     {
       -[BBSectionInfo setBulletinGroupingSetting:](v5, "setBulletinGroupingSetting:", [coderCopy decodeIntegerForKey:@"bulletinGroupingSetting"]);
     }
@@ -1803,7 +1876,6 @@ LABEL_25:
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1862,7 +1934,7 @@ LABEL_25:
 {
   playCopy = play;
   selfCopy = self;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   parentSection = [(BBSectionInfo *)self parentSection];
   if (!parentSection)
   {
@@ -1876,35 +1948,35 @@ LABEL_25:
 
     copyFromManagedSettings = [(BBSectionInfo *)selfCopy copyFromManagedSettings];
     v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v55 = selfCopy;
+    v54 = selfCopy;
     subsections2 = [(BBSectionInfo *)selfCopy subsections];
-    v22 = [subsections2 countByEnumeratingWithState:&v75 objects:v80 count:16];
+    v22 = [subsections2 countByEnumeratingWithState:&v74 objects:v79 count:16];
     announceSettingCopy = announceSetting;
     if (v22)
     {
       v24 = v22;
-      v25 = *v76;
+      v25 = *v75;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v76 != v25)
+          if (*v75 != v25)
           {
             objc_enumerationMutation(subsections2);
           }
 
-          LOBYTE(v51) = notifications;
-          v27 = [*(*(&v75 + 1) + 8 * i) effectiveSectionInfoWithDefaultContentPreviewSetting:setting globalAnnounceSetting:announceSetting globalScheduledDeliverySetting:deliverySetting globalSummarizationSetting:summarizationSetting globalPrioritizationSetting:prioritizationSetting hasPairedVehiclesForCarPlay:playCopy hasDestinationForRemoteNotifications:v51];
+          LOBYTE(v50) = notifications;
+          v27 = [*(*(&v74 + 1) + 8 * i) effectiveSectionInfoWithDefaultContentPreviewSetting:setting globalAnnounceSetting:announceSetting globalScheduledDeliverySetting:deliverySetting globalSummarizationSetting:summarizationSetting globalPrioritizationSetting:prioritizationSetting hasPairedVehiclesForCarPlay:playCopy hasDestinationForRemoteNotifications:v50];
           [v20 addObject:v27];
 
           announceSetting = announceSettingCopy;
         }
 
-        v24 = [subsections2 countByEnumeratingWithState:&v75 objects:v80 count:16];
+        v24 = [subsections2 countByEnumeratingWithState:&v74 objects:v79 count:16];
       }
 
       while (v24);
@@ -2105,12 +2177,12 @@ LABEL_84:
         }
 
         [(BBSectionInfo *)copyFromManagedSettings setSubsections:0];
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
         v72 = 0u;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
         v34 = v20;
-        v35 = [v34 countByEnumeratingWithState:&v71 objects:v79 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v70 objects:v78 count:16];
         if (!v35)
         {
 LABEL_141:
@@ -2132,7 +2204,7 @@ LABEL_141:
           [(BBSectionInfo *)copyFromManagedSettings setSummarizationSetting:summarizationSetting];
           [(BBSectionInfo *)copyFromManagedSettings setPrioritizationSetting:prioritizationSetting];
 
-          selfCopy = v55;
+          selfCopy = v54;
           parentSection = 0;
           prioritizationSetting = prioritizationSettingCopy;
           setting = settingCopy;
@@ -2141,17 +2213,17 @@ LABEL_141:
         }
 
         v36 = v35;
-        v37 = *v72;
+        v37 = *v71;
 LABEL_89:
         v38 = 0;
         while (1)
         {
-          if (*v72 != v37)
+          if (*v71 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = *(*(&v71 + 1) + 8 * v38);
+          v39 = *(*(&v70 + 1) + 8 * v38);
           [(BBSectionInfo *)copyFromManagedSettings _addSubsection:v39];
           if ([v39 sectionType] != 2)
           {
@@ -2258,7 +2330,7 @@ LABEL_101:
 LABEL_139:
           if (v36 == ++v38)
           {
-            v36 = [v34 countByEnumeratingWithState:&v71 objects:v79 count:16];
+            v36 = [v34 countByEnumeratingWithState:&v70 objects:v78 count:16];
             if (!v36)
             {
               goto LABEL_141;
@@ -2728,7 +2800,6 @@ LABEL_178:
 
   v48 = v47;
 
-  v49 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -2855,7 +2926,7 @@ LABEL_9:
 
 - (void)updateWithDefaultSectionInfo:(id)info
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   alertType = [(BBSectionInfo *)self alertType];
   pushSettings = [(BBSectionInfo *)self pushSettings];
@@ -2921,33 +2992,33 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   subsections2 = [(BBSectionInfo *)self subsections];
-  v18 = [subsections2 countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v18 = [subsections2 countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v64;
+    v20 = *v63;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v64 != v20)
+        if (*v63 != v20)
         {
           objc_enumerationMutation(subsections2);
         }
 
-        if (([*(*(&v63 + 1) + 8 * i) pushSettings] & 8) != 0)
+        if (([*(*(&v62 + 1) + 8 * i) pushSettings] & 8) != 0)
         {
           v11 |= 9uLL;
           goto LABEL_87;
         }
       }
 
-      v19 = [subsections2 countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v19 = [subsections2 countByEnumeratingWithState:&v62 objects:v66 count:16];
       if (v19)
       {
         continue;
@@ -3174,8 +3245,6 @@ LABEL_29:
 
   customSettingsDetailControllerClass = [infoCopy customSettingsDetailControllerClass];
   [(BBSectionInfo *)self setCustomSettingsDetailControllerClass:customSettingsDetailControllerClass];
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryAndUseManagedSettings
@@ -3186,7 +3255,7 @@ LABEL_29:
 
 - (void)queryAndUseManagedSettingsForSectionID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [BBSectionInfoSettings sectionInfoSettingsForManagedBundleID:dCopy];
   if (v5)
@@ -3194,9 +3263,9 @@ LABEL_29:
     v6 = BBLogSettings;
     if (os_log_type_enabled(BBLogSettings, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = dCopy;
-      _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "Managed settings found for section %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = dCopy;
+      _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "Managed settings found for section %{public}@", &v10, 0xCu);
     }
   }
 
@@ -3209,56 +3278,59 @@ LABEL_29:
     v9 = BBLogSettings;
     if (os_log_type_enabled(BBLogSettings, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = dCopy;
-      _os_log_impl(&dword_241EFF000, v9, OS_LOG_TYPE_DEFAULT, "Modification not allowed for section %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = dCopy;
+      _os_log_impl(&dword_241EFF000, v9, OS_LOG_TYPE_DEFAULT, "Modification not allowed for section %{public}@", &v10, 0xCu);
     }
   }
 
   [(BBSectionInfo *)self setIsModificationAllowed:v8 ^ 1u];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setManagedSectionInfoSettings:(id)settings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = [settingsCopy copy];
   managedSectionInfoSettings = self->_managedSectionInfoSettings;
   self->_managedSectionInfoSettings = v5;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = self->_subsections;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) setManagedSectionInfoSettings:{settingsCopy, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) setManagedSectionInfoSettings:{settingsCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)setAllowsNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  writableSettings = [(BBSectionInfo *)self writableSettings];
+  [writableSettings setAllowsNotifications:notificationsCopy];
 }
 
 - (NSDate)authorizationExpirationDate
@@ -3318,6 +3390,13 @@ LABEL_29:
   return showsInNotificationCenter;
 }
 
+- (void)setShowsInNotificationCenter:(BOOL)center
+{
+  centerCopy = center;
+  writableSettings = [(BBSectionInfo *)self writableSettings];
+  [writableSettings setShowsInNotificationCenter:centerCopy];
+}
+
 - (void)setLockScreenSetting:(int64_t)setting
 {
   writableSettings = [(BBSectionInfo *)self writableSettings];
@@ -3330,6 +3409,13 @@ LABEL_29:
   showsInLockScreen = [readableSettings showsInLockScreen];
 
   return showsInLockScreen;
+}
+
+- (void)setShowsInLockScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  writableSettings = [(BBSectionInfo *)self writableSettings];
+  [writableSettings setShowsInLockScreen:screenCopy];
 }
 
 - (void)setAlertType:(unint64_t)type
@@ -3382,6 +3468,13 @@ LABEL_29:
   return hasUserConfiguredTimeSensitiveSetting;
 }
 
+- (void)setUserConfiguredTimeSensitiveSetting:(BOOL)setting
+{
+  settingCopy = setting;
+  writableSettings = [(BBSectionInfo *)self writableSettings];
+  [writableSettings setUserConfiguredTimeSensitiveSetting:settingCopy];
+}
+
 - (void)setBulletinGroupingSetting:(int64_t)setting
 {
   writableSettings = [(BBSectionInfo *)self writableSettings];
@@ -3414,6 +3507,13 @@ LABEL_29:
   return hasUserConfiguredDirectMessagesSetting;
 }
 
+- (void)setUserConfiguredDirectMessagesSetting:(BOOL)setting
+{
+  settingCopy = setting;
+  writableSettings = [(BBSectionInfo *)self writableSettings];
+  [writableSettings setUserConfiguredDirectMessagesSetting:settingCopy];
+}
+
 - (void)setContentPreviewSetting:(int64_t)setting
 {
   writableSettings = [(BBSectionInfo *)self writableSettings];
@@ -3432,12 +3532,33 @@ LABEL_29:
   [writableSettings setPrioritizationSetting:setting];
 }
 
+- (void)setShowsOnExternalDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  sectionInfoSettings = [(BBSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsOnExternalDevices:devicesCopy];
+}
+
 - (BOOL)showsMessagePreview
 {
   sectionInfoSettings = [(BBSectionInfo *)self sectionInfoSettings];
   showsMessagePreview = [sectionInfoSettings showsMessagePreview];
 
   return showsMessagePreview;
+}
+
+- (void)setShowsMessagePreview:(BOOL)preview
+{
+  previewCopy = preview;
+  sectionInfoSettings = [(BBSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsMessagePreview:previewCopy];
+}
+
+- (void)setShowsCustomSettingsLink:(BOOL)link
+{
+  linkCopy = link;
+  sectionInfoSettings = [(BBSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsCustomSettingsLink:linkCopy];
 }
 
 - (void)_addSubsection:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

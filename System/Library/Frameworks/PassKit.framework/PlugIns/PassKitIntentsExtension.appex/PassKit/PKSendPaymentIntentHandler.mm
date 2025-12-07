@@ -479,32 +479,8 @@ LABEL_23:
 {
   errorCopy = error;
   v4 = errorCopy;
-  if (!errorCopy)
+  if (!errorCopy || ([errorCopy domain], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", PKDisplayableErrorDomain), v5, v6) && (objc_msgSend(v4, "userInfo"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", NSUnderlyingErrorKey), v8 = objc_claimAutoreleasedReturnValue(), v4, v7, (v4 = v8) == 0) || (objc_msgSend(v4, "domain"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", PKPeerPaymentWebServiceErrorDomain), v9, !v10))
   {
-    goto LABEL_12;
-  }
-
-  domain = [errorCopy domain];
-  v6 = [domain isEqualToString:PKDisplayableErrorDomain];
-
-  if (v6)
-  {
-    userInfo = [v4 userInfo];
-    v8 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
-
-    v4 = v8;
-    if (!v8)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  domain2 = [v4 domain];
-  v10 = [domain2 isEqualToString:PKPeerPaymentWebServiceErrorDomain];
-
-  if (!v10)
-  {
-LABEL_12:
     v12 = 4;
     goto LABEL_13;
   }

@@ -33,7 +33,7 @@
     [titleLabel2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
     titleLabel3 = [(CKSingleContactDetailsCell *)v5 titleLabel];
-    v17 = CKFrameworkBundle();
+    v17 = CKFrameworkBundle(titleLabel3);
     v18 = [v17 localizedStringForKey:@"CONTACT_DETAILS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     [titleLabel3 setText:v18];
 
@@ -62,7 +62,7 @@
     [subTitleLabel3 setTranslatesAutoresizingMaskIntoConstraints:0];
 
     subTitleLabel4 = [(CKSingleContactDetailsCell *)v5 subTitleLabel];
-    v30 = CKFrameworkBundle();
+    v30 = CKFrameworkBundle(subTitleLabel4);
     v31 = [v30 localizedStringForKey:@"CONTACT_DETAILS_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     [subTitleLabel4 setText:v31];
 

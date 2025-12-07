@@ -1,5 +1,4 @@
 @interface VGHRTFFaceFrameData
-- (__n128)depthIntrinsics;
 - (__n128)setDepthIntrinsics:(__n128)intrinsics;
 - (id)initEmpty;
 @end
@@ -18,14 +17,6 @@
   }
 
   return v3;
-}
-
-- (__n128)depthIntrinsics
-{
-  result = *(self + 32);
-  v2 = *(self + 48);
-  v3 = *(self + 64);
-  return result;
 }
 
 - (__n128)setDepthIntrinsics:(__n128)intrinsics

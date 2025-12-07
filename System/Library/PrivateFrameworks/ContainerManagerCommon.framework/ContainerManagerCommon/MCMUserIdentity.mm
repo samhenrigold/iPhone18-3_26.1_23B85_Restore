@@ -1,140 +1,77 @@
 @interface MCMUserIdentity
 + (BOOL)isUserIdentityRequiredForContainerClass:(unint64_t)class;
 + (MCMUserIdentity)userIdentityWithPlist:(id)plist cache:(id)cache error:(unint64_t *)error;
++ (id)_identifierForPOSIXUID:(unsigned int)d personaUniqueString:(id)string personaType:(int)type;
 - (BOOL)homeDirectoryExists;
-- (BOOL)isDataSeparated;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToUserIdentity:(id)identity;
-- (BOOL)isNoSpecificPersona;
 - (BOOL)isStrictlyEqualToUserIdentity:(id)identity;
-- (MCMPOSIXUser)posixUser;
 - (MCMUserIdentity)init;
+- (MCMUserIdentity)initWithPOSIXUser:(id)user homeDirectoryURL:(id)l personaUniqueString:(id)string personaType:(int)type kernelPersonaID:(unsigned int)d;
 - (MCMUserIdentity)initWithPlist:(id)plist cache:(id)cache error:(unint64_t *)error;
 - (MCMUserIdentity)initWithVersion1PlistDictionary:(id)dictionary cache:(id)cache error:(unint64_t *)error;
 - (MCMUserIdentity)initWithVersion2PlistDictionary:(id)dictionary cache:(id)cache error:(unint64_t *)error;
 - (MCMUserIdentity)userIdentityWithPOSIXUser:(id)user;
-- (NSString)identifier;
-- (NSString)personaUniqueString;
 - (NSString)shortDescription;
-- (NSURL)homeDirectoryURL;
 - (id)_descriptionForPersonaType:(int)type;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)plist;
 - (int)kernelPersonaType;
-- (int)personaType;
-- (int64_t)extensionHandle;
 - (unint64_t)hash;
-- (unsigned)kernelPersonaID;
 - (void)dealloc;
-- (void)setExtensionHandle:(int64_t)handle;
 @end
 
 @implementation MCMUserIdentity
 
-- (MCMPOSIXUser)posixUser
-{
-  result = self->_posixUser;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)isNoSpecificPersona
-{
-  v4 = *MEMORY[0x1E69E9840];
-  result = [(MCMUserIdentity *)self personaType]== 2;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (int)personaType
-{
-  result = self->_personaType;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unint64_t)hash
 {
-  v5 = *MEMORY[0x1E69E9840];
   identifier = self->_identifier;
-  v3 = *MEMORY[0x1E69E9840];
 
   return [(NSString *)identifier hash];
 }
 
-- (NSString)identifier
-{
-  result = self->_identifier;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMUserIdentity)init
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = containermanager_copy_global_configuration();
   defaultUser = [v3 defaultUser];
 
   homeDirectoryURL = [defaultUser homeDirectoryURL];
   v6 = -[MCMUserIdentity initWithPOSIXUser:homeDirectoryURL:personaUniqueString:personaType:kernelPersonaID:](self, "initWithPOSIXUser:homeDirectoryURL:personaUniqueString:personaType:kernelPersonaID:", defaultUser, homeDirectoryURL, 0, 2, [defaultUser UID]);
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if ((self->_extensionHandle & 0x8000000000000000) == 0)
   {
     sandbox_extension_release();
     self->_extensionHandle = -1;
   }
 
-  v4.receiver = self;
-  v4.super_class = MCMUserIdentity;
-  [(MCMUserIdentity *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (NSString)personaUniqueString
-{
-  result = self->_personaUniqueString;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)isDataSeparated
-{
-  v4 = *MEMORY[0x1E69E9840];
-  result = [(MCMUserIdentity *)self personaType]== 1;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3.receiver = self;
+  v3.super_class = MCMUserIdentity;
+  [(MCMUserIdentity *)&v3 dealloc];
 }
 
 - (NSString)shortDescription
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __35__MCMUserIdentity_shortDescription__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __35__MCMUserIdentity_shortDescription__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
 id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [*(a1 + 32) posixUser];
   v6 = [v5 UID];
@@ -155,45 +92,11 @@ id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
   {
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
-}
-
-- (unsigned)kernelPersonaID
-{
-  result = self->_kernelPersonaID;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)homeDirectoryURL
-{
-  result = self->_homeDirectoryURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setExtensionHandle:(int64_t)handle
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_extensionHandle = handle;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (int64_t)extensionHandle
-{
-  result = self->_extensionHandle;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v16 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   if (v5)
   {
@@ -217,13 +120,11 @@ id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
     *(v5 + 20) = self->_kernelPersonaID;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isStrictlyEqualToUserIdentity:(id)identity
 {
-  v8 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   if ([(MCMUserIdentity *)self isEqualToUserIdentity:identityCopy])
   {
@@ -235,13 +136,11 @@ id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v9 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (self == equalCopy)
@@ -254,16 +153,13 @@ id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
     v6 = equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [(MCMUserIdentity *)self isEqualToUserIdentity:v5];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isEqualToUserIdentity:(id)identity
 {
-  v7 = *MEMORY[0x1E69E9840];
   identifier = self->_identifier;
   v4 = *(identity + 6);
-  v5 = *MEMORY[0x1E69E9840];
 
   return [(NSString *)identifier isEqual:v4];
 }
@@ -272,37 +168,31 @@ id __35__MCMUserIdentity_shortDescription__block_invoke(uint64_t a1, char a2)
 {
   if (type > 2)
   {
-    result = @"unknown";
+    return @"unknown";
   }
 
   else
   {
-    result = off_1E86B0530[type];
+    return off_1E86B0530[type];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)description
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __30__MCMUserIdentity_description__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __30__MCMUserIdentity_description__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
 id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) homeDirectoryURL];
   v5 = [v4 path];
 
@@ -310,7 +200,7 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
   v7 = [v6 homeDirectoryURL];
   v8 = [v7 path];
 
-  v28 = v8;
+  v26 = v8;
   v9 = [(__CFString *)v5 isEqualToString:v8];
   if ((v9 & 1) != 0 || a2)
   {
@@ -327,73 +217,68 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
     v5 = v10;
   }
 
-  v25 = MEMORY[0x1E696AEC0];
-  v11 = *(a1 + 32);
-  v12 = objc_opt_class();
-  v27 = NSStringFromClass(v12);
-  v13 = *(a1 + 32);
-  v14 = [v13 posixUser];
-  v26 = v14;
+  v23 = MEMORY[0x1E696AEC0];
+  v11 = objc_opt_class();
+  v25 = NSStringFromClass(v11);
+  v12 = *(a1 + 32);
+  v13 = [v12 posixUser];
+  v24 = v13;
   if (a2)
   {
-    [v14 redactedDescription];
+    [v13 redactedDescription];
   }
 
   else
   {
-    [v14 description];
+    [v13 description];
   }
-  v15 = ;
-  v16 = [*(a1 + 32) identifier];
+  v14 = ;
+  v15 = [*(a1 + 32) identifier];
   if (v5)
   {
-    v17 = ", homeDirectoryURL = [";
+    v16 = ", homeDirectoryURL = [";
   }
 
   else
   {
-    v17 = "";
-  }
-
-  if (v5)
-  {
-    v18 = v5;
-  }
-
-  else
-  {
-    v18 = &stru_1F5A5B2B8;
+    v16 = "";
   }
 
   if (v5)
   {
-    v19 = "]";
+    v17 = v5;
   }
 
   else
   {
-    v19 = "";
+    v17 = &stru_1F5A5B2B8;
   }
 
-  v20 = [*(a1 + 32) _descriptionForPersonaType:{objc_msgSend(*(a1 + 32), "personaType")}];
-  v21 = [*(a1 + 32) personaUniqueString];
-  v22 = [v25 stringWithFormat:@"<%@: %p posixUser = %@, identifier = %@%s%@%s, personaType = %@, personaUniqueString = %@, kernelPersonaID = %d>", v27, v13, v15, v16, v17, v18, v19, v20, v21, objc_msgSend(*(a1 + 32), "kernelPersonaID")];;
+  if (v5)
+  {
+    v18 = "]";
+  }
 
-  v23 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v18 = "";
+  }
 
-  return v22;
+  v19 = [*(a1 + 32) _descriptionForPersonaType:{objc_msgSend(*(a1 + 32), "personaType")}];
+  v20 = [*(a1 + 32) personaUniqueString];
+  v21 = [v23 stringWithFormat:@"<%@: %p posixUser = %@, identifier = %@%s%@%s, personaType = %@, personaUniqueString = %@, kernelPersonaID = %d>", v25, v12, v14, v15, v16, v17, v18, v19, v20, objc_msgSend(*(a1 + 32), "kernelPersonaID")];;
+
+  return v21;
 }
 
 - (int)kernelPersonaType
 {
-  v6 = *MEMORY[0x1E69E9840];
   result = self->_kernelPersonaType;
   if (!result)
   {
-    kernelPersonaID = self->_kernelPersonaID;
     if (kpersona_info())
     {
-      result = self->_kernelPersonaType;
+      return self->_kernelPersonaType;
     }
 
     else
@@ -403,13 +288,11 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (MCMUserIdentity)userIdentityWithPOSIXUser:(id)user
 {
-  v11 = *MEMORY[0x1E69E9840];
   userCopy = user;
   personaUniqueString = [(MCMUserIdentity *)self personaUniqueString];
   homeDirectoryURL = [(MCMUserIdentity *)self homeDirectoryURL];
@@ -422,41 +305,37 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
 
   v8 = [[MCMUserIdentity alloc] initWithPOSIXUser:userCopy homeDirectoryURL:homeDirectoryURL personaUniqueString:personaUniqueString personaType:[(MCMUserIdentity *)self personaType] kernelPersonaID:[(MCMUserIdentity *)self kernelPersonaID]];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (BOOL)homeDirectoryExists
 {
-  v7 = *MEMORY[0x1E69E9840];
   v3 = +[MCMFileManager defaultManager];
   homeDirectoryURL = [(MCMUserIdentity *)self homeDirectoryURL];
   LOBYTE(self) = [v3 itemExistsAtURL:homeDirectoryURL];
 
-  v5 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)plist
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v17[0] = @"posixUID";
+  v17[4] = *MEMORY[0x1E69E9840];
+  v16[0] = @"posixUID";
   v3 = MEMORY[0x1E696AD98];
   posixUser = [(MCMUserIdentity *)self posixUser];
   v5 = [v3 numberWithUnsignedInt:{objc_msgSend(posixUser, "UID")}];
-  v18[0] = v5;
-  v17[1] = @"posixGID";
+  v17[0] = v5;
+  v16[1] = @"posixGID";
   v6 = MEMORY[0x1E696AD98];
   posixUser2 = [(MCMUserIdentity *)self posixUser];
   v8 = [v6 numberWithUnsignedInt:{objc_msgSend(posixUser2, "primaryGID")}];
-  v18[1] = v8;
-  v17[2] = @"type";
+  v17[1] = v8;
+  v16[2] = @"type";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[MCMUserIdentity personaType](self, "personaType")}];
-  v17[3] = @"version";
-  v18[2] = v9;
-  v18[3] = @"2";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v16[3] = @"version";
+  v17[2] = v9;
+  v17[3] = @"2";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   v11 = [v10 mutableCopy];
 
   personaUniqueString = [(MCMUserIdentity *)self personaUniqueString];
@@ -469,19 +348,17 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
 
   v14 = [v11 copy];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (MCMUserIdentity)initWithVersion2PlistDictionary:(id)dictionary cache:(id)cache error:(unint64_t *)error
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   cacheCopy = cache;
   v9 = [dictionaryCopy objectForKeyedSubscript:@"posixUID"];
   v10 = [dictionaryCopy objectForKeyedSubscript:@"posixGID"];
-  v33 = [dictionaryCopy objectForKeyedSubscript:@"type"];
+  v32 = [dictionaryCopy objectForKeyedSubscript:@"type"];
   v11 = [dictionaryCopy objectForKeyedSubscript:@"personaUniqueString"];
   if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -489,12 +366,12 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *v35 = @"posixUID";
+      *v34 = @"posixUID";
+      *&v34[8] = 2112;
+      *v35 = objc_opt_class();
       *&v35[8] = 2112;
-      *v36 = objc_opt_class();
-      *&v36[8] = 2112;
-      v37[0] = dictionaryCopy;
-      v28 = *v36;
+      v36[0] = dictionaryCopy;
+      v27 = *v35;
       _os_log_error_impl(&dword_1DF2C3000, v23, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", buf, 0x20u);
     }
 
@@ -508,12 +385,12 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *v35 = @"posixGID";
+      *v34 = @"posixGID";
+      *&v34[8] = 2112;
+      *v35 = objc_opt_class();
       *&v35[8] = 2112;
-      *v36 = objc_opt_class();
-      *&v36[8] = 2112;
-      v37[0] = dictionaryCopy;
-      v29 = *v36;
+      v36[0] = dictionaryCopy;
+      v28 = *v35;
       _os_log_error_impl(&dword_1DF2C3000, v24, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", buf, 0x20u);
     }
 
@@ -528,15 +405,15 @@ id __30__MCMUserIdentity_description__block_invoke(uint64_t a1, int a2)
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109890;
-      *v35 = unsignedIntegerValue2;
-      *&v35[4] = 1024;
-      *&v35[6] = v13;
-      strcpy(v36, "@\b");
-      v36[3] = 0;
-      *&v36[4] = 0;
-      *&v36[6] = 0;
-      LOWORD(v37[0]) = 2112;
-      *(v37 + 2) = dictionaryCopy;
+      *v34 = unsignedIntegerValue2;
+      *&v34[4] = 1024;
+      *&v34[6] = v13;
+      strcpy(v35, "@\b");
+      v35[3] = 0;
+      *&v35[4] = 0;
+      *&v35[6] = 0;
+      LOWORD(v36[0]) = 2112;
+      *(v36 + 2) = dictionaryCopy;
       _os_log_error_impl(&dword_1DF2C3000, v23, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Could not get matching uid passwd data. gid: %u, uid: %u, User: %@, Data: %@", buf, 0x22u);
     }
 
@@ -547,7 +424,7 @@ LABEL_27:
 LABEL_28:
     v18 = 0;
     v19 = 75;
-    v16 = v33;
+    v16 = v32;
 LABEL_29:
     if (!error)
     {
@@ -558,38 +435,38 @@ LABEL_29:
   }
 
   v15 = v14;
-  v16 = v33;
-  if (!v33 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v16 = v32;
+  if (!v32 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v27 = container_log_handle_for_category();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = container_log_handle_for_category();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *v35 = @"type";
+      *v34 = @"type";
+      *&v34[8] = 2112;
+      *v35 = objc_opt_class();
       *&v35[8] = 2112;
-      *v36 = objc_opt_class();
-      *&v36[8] = 2112;
-      v37[0] = dictionaryCopy;
-      v30 = *v36;
-      _os_log_error_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", buf, 0x20u);
+      v36[0] = dictionaryCopy;
+      v29 = *v35;
+      _os_log_error_impl(&dword_1DF2C3000, v26, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", buf, 0x20u);
     }
 
     goto LABEL_35;
   }
 
-  unsignedIntegerValue3 = [v33 unsignedIntegerValue];
+  unsignedIntegerValue3 = [v32 unsignedIntegerValue];
   if (unsignedIntegerValue3 >= 4)
   {
-    v27 = container_log_handle_for_category();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = container_log_handle_for_category();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *v35 = @"type";
+      *v34 = @"type";
+      *&v34[8] = 2112;
+      *v35 = v32;
       *&v35[8] = 2112;
-      *v36 = v33;
-      *&v36[8] = 2112;
-      v37[0] = dictionaryCopy;
-      _os_log_error_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected persona type for %@, got %@. Data: %@", buf, 0x20u);
+      v36[0] = dictionaryCopy;
+      _os_log_error_impl(&dword_1DF2C3000, v26, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected persona type for %@, got %@. Data: %@", buf, 0x20u);
     }
 
 LABEL_35:
@@ -619,16 +496,16 @@ LABEL_35:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            *v35 = v11;
+            *v34 = v11;
+            *&v34[8] = 2112;
+            *v35 = v18;
             *&v35[8] = 2112;
-            *v36 = v18;
-            *&v36[8] = 2112;
-            v37[0] = dictionaryCopy;
+            v36[0] = dictionaryCopy;
             _os_log_error_impl(&dword_1DF2C3000, v22, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected %@ to be data separated, but it was not: %@; Data: %@", buf, 0x20u);
           }
         }
 
-        v16 = v33;
+        v16 = v32;
       }
 
       goto LABEL_32;
@@ -652,13 +529,12 @@ LABEL_30:
 
 LABEL_32:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (MCMUserIdentity)initWithVersion1PlistDictionary:(id)dictionary cache:(id)cache error:(unint64_t *)error
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   cacheCopy = cache;
   v10 = [dictionaryCopy objectForKeyedSubscript:@"posixUID"];
@@ -669,14 +545,14 @@ LABEL_32:
     v20 = container_log_handle_for_category();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v28 = 138412802;
-      *v29 = @"posixUID";
+      v27 = 138412802;
+      *v28 = @"posixUID";
+      *&v28[8] = 2112;
+      *v29 = objc_opt_class();
       *&v29[8] = 2112;
-      *v30 = objc_opt_class();
-      *&v30[8] = 2112;
-      v31[0] = dictionaryCopy;
-      v25 = *v30;
-      _os_log_error_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", &v28, 0x20u);
+      v30[0] = dictionaryCopy;
+      v24 = *v29;
+      _os_log_error_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", &v27, 0x20u);
     }
 
 LABEL_15:
@@ -697,14 +573,14 @@ LABEL_15:
     v21 = container_log_handle_for_category();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v28 = 138412802;
-      *v29 = @"posixGID";
+      v27 = 138412802;
+      *v28 = @"posixGID";
+      *&v28[8] = 2112;
+      *v29 = objc_opt_class();
       *&v29[8] = 2112;
-      *v30 = objc_opt_class();
-      *&v30[8] = 2112;
-      v31[0] = dictionaryCopy;
-      v27 = *v30;
-      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", &v28, 0x20u);
+      v30[0] = dictionaryCopy;
+      v26 = *v29;
+      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Expected number for %@, got %@. Data: %@", &v27, 0x20u);
     }
 
     goto LABEL_14;
@@ -714,21 +590,21 @@ LABEL_15:
   v16 = [MCMPOSIXUser posixUserWithUID:v14];
   if (!v16)
   {
-    v26 = v14;
+    v25 = v14;
     v21 = container_log_handle_for_category();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v28 = 67109890;
-      *v29 = unsignedIntegerValue2;
-      *&v29[4] = 1024;
-      *&v29[6] = v26;
-      strcpy(v30, "@\b");
-      v30[3] = 0;
-      *&v30[4] = 0;
-      *&v30[6] = 0;
-      LOWORD(v31[0]) = 2112;
-      *(v31 + 2) = dictionaryCopy;
-      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Could not get matching uid passwd data. gid: %u, uid: %u, User: %@, Data: %@", &v28, 0x22u);
+      v27 = 67109890;
+      *v28 = unsignedIntegerValue2;
+      *&v28[4] = 1024;
+      *&v28[6] = v25;
+      strcpy(v29, "@\b");
+      v29[3] = 0;
+      *&v29[4] = 0;
+      *&v29[6] = 0;
+      LOWORD(v30[0]) = 2112;
+      *(v30 + 2) = dictionaryCopy;
+      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Invalid user identity plist data. Could not get matching uid passwd data. gid: %u, uid: %u, User: %@, Data: %@", &v27, 0x22u);
     }
 
 LABEL_14:
@@ -762,13 +638,11 @@ LABEL_16:
 
 LABEL_18:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (MCMUserIdentity)initWithPlist:(id)plist cache:(id)cache error:(unint64_t *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   cacheCopy = cache;
   if (plistCopy)
@@ -807,41 +681,126 @@ LABEL_8:
 
 LABEL_9:
 
-  v16 = *MEMORY[0x1E69E9840];
   return self;
+}
+
+- (MCMUserIdentity)initWithPOSIXUser:(id)user homeDirectoryURL:(id)l personaUniqueString:(id)string personaType:(int)type kernelPersonaID:(unsigned int)d
+{
+  v8 = *&type;
+  v27 = *MEMORY[0x1E69E9840];
+  userCopy = user;
+  lCopy = l;
+  stringCopy = string;
+  if (userCopy)
+  {
+    if (lCopy)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_7;
+  }
+
+  v16 = container_log_handle_for_category();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 0;
+    _os_log_fault_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_FAULT, "POSIX user cannot be nil", buf, 2u);
+  }
+
+  if (!lCopy)
+  {
+LABEL_7:
+    v17 = container_log_handle_for_category();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 138412290;
+      v26 = userCopy;
+      _os_log_fault_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_FAULT, "Home directory cannot be nil, user '%@'", buf, 0xCu);
+    }
+  }
+
+LABEL_10:
+  v18 = [objc_opt_class() _identifierForPOSIXUID:objc_msgSend(userCopy personaUniqueString:"UID") personaType:{stringCopy, v8}];
+  if (v18)
+  {
+    v24.receiver = self;
+    v24.super_class = MCMUserIdentity;
+    v19 = [(MCMUserIdentity *)&v24 init];
+    v20 = v19;
+    if (v19)
+    {
+      objc_storeStrong(&v19->_posixUser, user);
+      objc_storeStrong(&v20->_personaUniqueString, string);
+      v20->_personaType = v8;
+      objc_storeStrong(&v20->_identifier, v18);
+      objc_storeStrong(&v20->_homeDirectoryURL, l);
+      v20->_extensionHandle = -1;
+      v20->_kernelPersonaType = 0;
+      v20->_kernelPersonaID = d;
+    }
+
+    self = v20;
+    selfCopy = self;
+  }
+
+  else
+  {
+    v22 = container_log_handle_for_category();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 138412290;
+      v26 = userCopy;
+      _os_log_fault_impl(&dword_1DF2C3000, v22, OS_LOG_TYPE_FAULT, "Computed nil identifier, user '%@'", buf, 0xCu);
+    }
+
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
++ (id)_identifierForPOSIXUID:(unsigned int)d personaUniqueString:(id)string personaType:(int)type
+{
+  v6 = *&d;
+  stringCopy = string;
+  v8 = stringCopy;
+  if (stringCopy && type == 1)
+  {
+    v9 = stringCopy;
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", v6];
+  }
+
+  v10 = v9;
+
+  return v10;
 }
 
 + (BOOL)isUserIdentityRequiredForContainerClass:(unint64_t)class
 {
-  v10 = *MEMORY[0x1E69E9840];
   v4 = containermanager_copy_global_configuration();
   v5 = [v4 isGlobalBundleContainerWithContainerClass:class];
 
   if (v5)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    v7 = containermanager_copy_global_configuration();
-    v8 = [v7 isGlobalSystemContainerWithContainerClass:class];
+  v7 = containermanager_copy_global_configuration();
+  v8 = [v7 isGlobalSystemContainerWithContainerClass:class];
 
-    result = v8 ^ 1;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v8 ^ 1;
 }
 
 + (MCMUserIdentity)userIdentityWithPlist:(id)plist cache:(id)cache error:(unint64_t *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   plistCopy = plist;
   v10 = [[self alloc] initWithPlist:plistCopy cache:cacheCopy error:error];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

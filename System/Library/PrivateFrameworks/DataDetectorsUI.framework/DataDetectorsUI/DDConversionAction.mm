@@ -29,14 +29,13 @@
     isAvailable = [self isAvailable];
     if (isAvailable)
     {
-      v6 = *MEMORY[0x277D04140];
       if (DDResultHasType())
       {
         mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
         bundleIdentifier = [mainBundle bundleIdentifier];
-        v9 = [bundleIdentifier isEqualToString:@"com.apple.quicklook.extension.previewUI"];
+        v8 = [bundleIdentifier isEqualToString:@"com.apple.quicklook.extension.previewUI"];
 
-        if (v9)
+        if (v8)
         {
           LOBYTE(isAvailable) = 0;
         }
@@ -50,10 +49,10 @@
 
       else
       {
-        v10 = [self allActionsForResult:result context:0 onlyTest:1 forceSubMenu:0];
-        v11 = [(DDActionGroup *)v10 count]!= 0;
+        v9 = [self allActionsForResult:result context:0 onlyTest:1 forceSubMenu:0];
+        v10 = [(DDActionGroup *)v9 count]!= 0;
 
-        LOBYTE(isAvailable) = v11;
+        LOBYTE(isAvailable) = v10;
       }
     }
   }
@@ -77,34 +76,27 @@
 + (id)allActionsForResult:(__DDResult *)result context:(id)context onlyTest:(BOOL)test forceSubMenu:(BOOL)menu
 {
   testCopy = test;
-  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  if (result)
+  if (result && ((DDResultHasType() & 1) != 0 || DDResultHasType()))
   {
-    v8 = *MEMORY[0x277D04168];
-    if ((DDResultHasType() & 1) != 0 || (v9 = *MEMORY[0x277D04140], DDResultHasType()))
+    v12 = +[DDActionGroup emptyGroup];
+    v8 = [contextCopy objectForKeyedSubscript:@"kDDContextNoRoomForSubtitlesKey"];
+    [v8 BOOLValue];
+
+    v9 = specialCaseResultForResult(result);
+    if (v9)
     {
-      v15 = +[DDActionGroup emptyGroup];
-      v10 = [contextCopy objectForKeyedSubscript:@"kDDContextNoRoomForSubtitlesKey"];
-      [v10 BOOLValue];
-
-      v11 = specialCaseResultForResult(result);
-      if (v11)
-      {
-        v12 = [DDConversionAction allActionsForResult:v11 context:contextCopy onlyTest:testCopy forceSubMenu:1];
-        [(DDActionGroup *)v12 setInlinedGroup:?];
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      DDResultPhysicalUnitsExtraction();
+      v10 = [DDConversionAction allActionsForResult:v9 context:contextCopy onlyTest:testCopy forceSubMenu:1];
+      [(DDActionGroup *)v10 setInlinedGroup:?];
     }
-  }
 
-  v13 = *MEMORY[0x277D85DE8];
+    else
+    {
+      v10 = 0;
+    }
+
+    DDResultPhysicalUnitsExtraction();
+  }
 
   return 0;
 }
@@ -161,19 +153,14 @@
 - (id)commonInitWithURL:(id)l result:(__DDResult *)result context:(id)context targetUnit:(id)unit
 {
   unitCopy = unit;
-  v8 = *MEMORY[0x277D04168];
   if (DDResultHasType())
   {
     DDResultPhysicalUnitsExtraction();
   }
 
-  else
+  else if (DDResultHasType())
   {
-    v9 = *MEMORY[0x277D04140];
-    if (DDResultHasType())
-    {
-      DDResultCurrencyExtraction();
-    }
+    DDResultCurrencyExtraction();
   }
 
   return self;
@@ -204,7 +191,7 @@
 
 - (unint64_t)menuItemattributes
 {
-  if (([(DDAction *)self calloutFlavor]& 1) != 0)
+  if (([(DDAction *)&self->super.super.isa calloutFlavor]& 1) != 0)
   {
     return 1;
   }
@@ -217,7 +204,7 @@
 
 - (id)localizedName
 {
-  if ([(DDAction *)self calloutFlavor]|| self->_extractedCurrency)
+  if ([(DDAction *)&self->super.super.isa calloutFlavor]|| self->_extractedCurrency)
   {
     _titleWithValue = [(DDConversionAction *)self _titleWithValue];
   }
@@ -284,7 +271,7 @@
 
 - (id)subtitle
 {
-  if (([(DDAction *)self calloutFlavor]& 1) != 0)
+  if (([(DDAction *)&self->super.super.isa calloutFlavor]& 1) != 0)
   {
     _titleWithValue = 0;
   }
@@ -311,21 +298,20 @@
 {
   if (self->_calculateString || self->_ambiguousDetection)
   {
-    v2 = self->super._result;
-    v3 = DDResultGetMatchedString();
+    v2 = DDResultGetMatchedString();
   }
 
   else
   {
-    v3 = [(DDUIPhysicalUnit *)self->_extractedUnit localizedConvertedValueFrom:self->_extractedValue unit:?];
+    v2 = [(DDUIPhysicalUnit *)self->_extractedUnit localizedConvertedValueFrom:self->_extractedValue unit:?];
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)calculateResult
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   calculateString = self->_calculateString;
   if (!calculateString || self->_calculateDidRun)
   {
@@ -333,9 +319,9 @@
   }
 
   v4 = MEMORY[0x277CF70F0];
-  v17 = *MEMORY[0x277CF70E0];
-  v18[0] = &unk_282C2BCC8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = *MEMORY[0x277CF70E0];
+  v17[0] = &unk_282C2BCC8;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v6 = [v4 evaluate:calculateString options:v5];
 
   bestConversion = [v6 bestConversion];
@@ -375,7 +361,6 @@ LABEL_6:
 
 LABEL_9:
   v14 = self->_calculateResult;
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -409,16 +394,16 @@ LABEL_9:
 
 void __38__DDConversionAction_performFromView___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) length])
   {
     v2 = [*MEMORY[0x277CE1EB0] identifier];
     v3 = *(a1 + 32);
-    v8 = v2;
-    v9 = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    v10[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v7 = v2;
+    v8 = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+    v9[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
@@ -428,8 +413,6 @@ void __38__DDConversionAction_performFromView___block_invoke(uint64_t a1)
 
   v6 = [MEMORY[0x277D75810] generalPasteboard];
   [v6 setItems:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)conversionFailed

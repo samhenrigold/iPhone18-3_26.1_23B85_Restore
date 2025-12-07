@@ -7,7 +7,7 @@
 
 - (BOOL)_shouldExcludeForRestrictedGuestObject:(id)object context:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   contextCopy = context;
   v8 = objectCopy;
@@ -62,11 +62,11 @@ LABEL_16:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v20;
-        v25 = 2112;
-        v26 = v11;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil codingContext after cast: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v20;
+        v24 = 2112;
+        v25 = v11;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil codingContext after cast: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -79,7 +79,6 @@ LABEL_16:
   LOBYTE(v16) = 0;
 LABEL_17:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

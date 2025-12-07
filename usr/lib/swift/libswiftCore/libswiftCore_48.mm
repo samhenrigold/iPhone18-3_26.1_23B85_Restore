@@ -47,9 +47,9 @@ Swift::UInt16 __swiftcall __SharedStringStorage.character(at:)(Swift::Int at)
   }
 }
 
-void __SharedStringStorage.getCharacters(_:range:)(unint64_t a1, Swift::Int a2, uint64_t a3)
+void __SharedStringStorage.getCharacters(_:range:)(unint64_t a1, Swift::UInt64 a2, uint64_t a3)
 {
-  if (a2 < 0 || a3 < 0)
+  if ((a2 & 0x8000000000000000) != 0 || a3 < 0)
   {
 LABEL_10:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -81,9 +81,10 @@ LABEL_14:
   }
 
   v3;
-  v8._rawBits = 15;
-  v9 = String.UTF16View._indexRange(for:from:)(a2, v5, v8, v6, v3);
-  String.UTF16View._nativeCopy(into:alignedRange:)(a1, v5 - a2, v9, v10, v6, v3);
+  v8._rawBits = a2;
+  v9._rawBits = 15;
+  v10._rawBits = String.UTF16View._indexRange(for:from:)(v8, v5, v9, v6, v3)._rawBits;
+  String.UTF16View._nativeCopy(into:alignedRange:)(a1, v5 - a2, v10._rawBits, v11, v6, v3);
 
   v3;
 }
@@ -124,7 +125,7 @@ LABEL_3:
   return CStringTrampoline;
 }
 
-uint64_t __SharedStringStorage.isEqualToString(to:)(uint64_t result, double a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, void *))
+uint64_t __SharedStringStorage.isEqualToString(to:)(uint64_t result, uint64_t a2, void (*a3)(uint64_t *__return_ptr, void *), double a4)
 {
   if (!result)
   {
@@ -140,21 +141,21 @@ uint64_t __SharedStringStorage.isEqualToString(to:)(uint64_t result, double a2, 
   if (result < 0)
   {
 LABEL_10:
-    result = _swift_stdlib_isNSString(a2);
+    result = _swift_stdlib_isNSString(a4);
     if (result)
     {
       v9 = [v5 length];
-      v11 = MEMORY[0x1EEE9AC00](v9);
-      MEMORY[0x1EEE9AC00](v11);
-      v10 = specialized _withCocoaASCIIPointer<A>(_:requireStableAddress:work:)(v5, a4);
-      if (v10 == 2)
+      v13 = MEMORY[0x1EEE9AC00](v9, v10);
+      MEMORY[0x1EEE9AC00](v13, v11);
+      v12 = specialized _withCocoaASCIIPointer<A>(_:requireStableAddress:work:)(v5, a3);
+      if (v12 == 2)
       {
-        return String.UTF16View.count.getter(v4[4], v4) == v9 && [v4 compare:v5 options:2 range:0 locale:{objc_msgSend(v4, sel_length), 0}] == 0;
+        return String.UTF16View.count.getter() == v9 && [v4 compare:v5 options:2 range:0 locale:{objc_msgSend(v4, sel_length), 0}] == 0;
       }
 
       else
       {
-        return v10 & 1;
+        return v12 & 1;
       }
     }
 
@@ -717,11 +718,11 @@ void _StringGuts._classify()(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<
     {
       if ((a1 & 0x2000000000000000) == 0)
       {
-        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "Swift/StringTesting.swift", 0x19uLL, 2, 0x73uLL);
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "Swift/StringTesting.swift", 0x19uLL, 2, 0x73uLL, 0);
       }
 
       v11 = a2 & 0xFFFFFFFFFFFFFFFLL;
-      (a2 & 0xFFFFFFFFFFFFFFFLL);
+      a2 & 0xFFFFFFFFFFFFFFFLL;
       outlined consume of _StringRepresentation._Form(0, 3u);
       v12 = 1;
     }
@@ -1307,14 +1308,14 @@ Swift::String::Index _sSS17UnicodeScalarViewVSlsSl5index_8offsetBy5IndexQzAF_Sit
   return result;
 }
 
-Swift::String::Index _sSS17UnicodeScalarViewVSlsSl8distance4from2toSi5IndexQz_AGtFTW_0(Swift::UInt64 *a1, Swift::UInt64 *a2)
+Swift::UInt64 _sSS17UnicodeScalarViewVSlsSl8distance4from2toSi5IndexQz_AGtFTW_0(Swift::UInt64 *a1, Swift::UInt64 *a2)
 {
   v3._rawBits = *a1;
   v4._rawBits = *a2;
-  return specialized Collection.count.getter(v3, v4, *v2, *(v2 + 8));
+  return specialized Collection.count.getter(v3, v4, *v2, *(v2 + 8))._rawBits;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance String.UnicodeScalarView(uint64_t *a1, Swift::String::Index *a2))()
+void (*protocol witness for Collection.subscript.read in conformance String.UnicodeScalarView(uint64_t *a1, Swift::String::Index *a2))()
 {
   v5 = *v2;
   v4 = v2[1];
@@ -1354,22 +1355,23 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance String.
   return _swift_displayCrashMessage;
 }
 
-unint64_t protocol witness for Collection.subscript.getter in conformance String.UnicodeScalarView@<X0>(Swift::UInt64 *a1@<X0>, Swift::UInt64 *a2@<X8>)
+unint64_t protocol witness for Collection.subscript.getter in conformance String.UnicodeScalarView@<X0>(Swift::UInt64 *a1@<X0>, Swift::String::Index *a2@<X8>)
 {
   v4._rawBits = a1[1];
-  *a2 = specialized String.UnicodeScalarView.subscript.getter(*a1, v4, *v2, v2[1]);
-  a2[1] = v5;
-  a2[2] = v7;
-  a2[3] = v6;
+  v5._rawBits = *a1;
+  a2->_rawBits = specialized String.UnicodeScalarView.subscript.getter(v5, v4, *v2, v2[1])._rawBits;
+  a2[1]._rawBits = v6;
+  a2[2]._rawBits = v8;
+  a2[3]._rawBits = v7._rawBits;
 
-  return v6;
+  return v7._rawBits;
 }
 
-Swift::UInt64 String.UnicodeScalarView.subscript.getter(Swift::UInt64 a1, Swift::String::Index a2, unint64_t a3, unint64_t a4)
+Swift::UInt64 String.UnicodeScalarView.subscript.getter(Swift::String::Index a1, Swift::String::Index a2, unint64_t a3, unint64_t a4)
 {
-  v4 = specialized String.UnicodeScalarView.subscript.getter(a1, a2, a3, a4);
+  rawBits = specialized String.UnicodeScalarView.subscript.getter(a1, a2, a3, a4)._rawBits;
   v5;
-  return v4;
+  return rawBits;
 }
 
 unint64_t protocol witness for Collection.indices.getter in conformance String@<X0>(void *a1@<X8>)
@@ -1569,13 +1571,13 @@ uint64_t protocol witness for IteratorProtocol.next() in conformance String.Unic
   return result;
 }
 
-void String.UnicodeScalarView.debugDescription.getter(uint64_t a1, unint64_t x1_0)
+void String.UnicodeScalarView.debugDescription.getter(uint64_t a1, unint64_t a2)
 {
   v3 = _StringGuts.init(_initialCapacity:)(27);
   v5 = v3;
   v6 = v4;
-  v255 = v3;
-  v256 = v4;
+  v256 = v3;
+  v257 = v4;
   v7 = HIBYTE(v4) & 0xF;
   v8 = v3 & 0xFFFFFFFFFFFFLL;
   if ((v4 & 0x2000000000000000) != 0)
@@ -1588,12 +1590,12 @@ void String.UnicodeScalarView.debugDescription.getter(uint64_t a1, unint64_t x1_
     v9 = v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  v242 = x1_0;
+  v243 = a2;
   if (!v9 && (v3 & ~v4 & 0x2000000000000000) == 0)
   {
     v4;
-    v255 = 0xD000000000000018;
-    v256 = 0x800000018066E220 | 0x8000000000000000;
+    v256 = 0xD000000000000018;
+    v257 = 0x800000018066E220 | 0x8000000000000000;
 LABEL_84:
     v35 = a1;
     goto LABEL_85;
@@ -1612,7 +1614,7 @@ LABEL_84:
         v32 = 0;
         v33 = 8 * v7;
         v34 = v4;
-        x1_0 = v242;
+        a2 = v243;
         v35 = a1;
         do
         {
@@ -1646,7 +1648,7 @@ LABEL_84:
       else
       {
         v34 = v4;
-        x1_0 = v242;
+        a2 = v243;
         v35 = a1;
       }
 
@@ -1683,9 +1685,9 @@ LABEL_84:
     }
 
 LABEL_290:
-    v236 = String.UTF8View._foreignCount()();
-    v17 = v236 + v15;
-    if (!__OFADD__(v236, v15))
+    v237 = String.UTF8View._foreignCount()();
+    v17 = v237 + v15;
+    if (!__OFADD__(v237, v15))
     {
       goto LABEL_14;
     }
@@ -1697,15 +1699,15 @@ LABEL_293:
   }
 
   swift_bridgeObjectRetain_n(0x800000018066E220 | 0x8000000000000000, 2);
-  v232._rawBits = 1;
-  v233._rawBits = (v13 << 16) | 1;
-  v234._rawBits = _StringGuts.validateScalarRange(_:)(v232, v233, 0xD000000000000018, 0x800000018066E220 | 0x8000000000000000)._rawBits;
-  if (v234._rawBits < 0x10000)
+  v233._rawBits = 1;
+  v234._rawBits = (v13 << 16) | 1;
+  v235._rawBits = _StringGuts.validateScalarRange(_:)(v233, v234, 0xD000000000000018, 0x800000018066E220 | 0x8000000000000000)._rawBits;
+  if (v235._rawBits < 0x10000)
   {
-    v234._rawBits |= 3;
+    v235._rawBits |= 3;
   }
 
-  v15 = String.UTF8View.distance(from:to:)(v234, v235);
+  v15 = String.UTF8View.distance(from:to:)(v235, v236);
   0x800000018066E220 | 0x8000000000000000;
   if ((v6 & 0x1000000000000000) != 0)
   {
@@ -1781,9 +1783,9 @@ LABEL_34:
         if (v10)
         {
           v28 = (0x800000018066E220 >> 62) & 1;
-          v253 = 0xD000000000000018;
-          v254 = 0x800000018066E220 & 0xFFFFFFFFFFFFF0;
-          v29 = &v253;
+          v254 = 0xD000000000000018;
+          v255 = 0x800000018066E220 & 0xFFFFFFFFFFFFF0;
+          v29 = &v254;
           v30 = (0x800000018066E220 >> 56) & 0xF;
         }
 
@@ -1793,18 +1795,18 @@ LABEL_34:
           LOBYTE(v28) = 1;
         }
 
-        closure #1 in _StringGuts.append(_:)(v29, v30, &v255, v28);
+        closure #1 in _StringGuts.append(_:)(v29, v30, &v256, v28);
       }
 
       swift_bridgeObjectRelease_n(0x800000018066E220 | 0x8000000000000000, 2);
-      x1_0 = v242;
+      a2 = v243;
       goto LABEL_84;
     }
 
 LABEL_47:
     v22 = v6;
 LABEL_48:
-    x1_0 = v242;
+    a2 = v243;
     goto LABEL_49;
   }
 
@@ -1822,11 +1824,11 @@ LABEL_20:
   if ((v6 & 0x1000000000000000) != 0)
   {
     v5 = _StringGuts._foreignConvertedToSmall()(*&v5, v6);
-    v22 = v231;
+    v22 = v232;
     goto LABEL_48;
   }
 
-  x1_0 = v242;
+  a2 = v243;
   if ((*&v5 & 0x1000000000000000) != 0)
   {
     v21 = ((v6 & 0xFFFFFFFFFFFFFFFLL) + 32);
@@ -1835,12 +1837,12 @@ LABEL_20:
   else
   {
     v21 = _StringObject.sharedUTF8.getter(*&v5, v6);
-    v8 = v239;
+    v8 = v240;
   }
 
-  closure #1 in _StringGuts._convertedToSmall()(v21, v8, &v253, v14);
-  v5 = v253;
-  v22 = v254;
+  closure #1 in _StringGuts._convertedToSmall()(v21, v8, &v254, v14);
+  v5 = v254;
+  v22 = v255;
 LABEL_49:
   v39 = 0xD000000000000018;
   0x800000018066E220 | 0x8000000000000000;
@@ -1854,7 +1856,7 @@ LABEL_49:
 
   if (v42._rawBits >> 16 || v43._rawBits >> 16 != v13)
   {
-    v39 = specialized static String._copying(_:)(v42._rawBits, v43._rawBits, 0xD000000000000018, 0x800000018066E220 | 0x8000000000000000);
+    v39 = specialized static String._copying(_:)(v42._rawBits, v43, 0xD000000000000018, 0x800000018066E220 | 0x8000000000000000);
     v45 = v47;
     0x800000018066E220 | 0x8000000000000000;
   }
@@ -1872,28 +1874,28 @@ LABEL_49:
   else if ((v45 & 0x1000000000000000) != 0)
   {
     v39 = _StringGuts._foreignConvertedToSmall()(*&v39, v45);
-    v241 = v240;
+    v242 = v241;
     v45;
-    v45 = v241;
+    v45 = v242;
   }
 
   else
   {
     if ((*&v39 & 0x1000000000000000) != 0)
     {
-      v237 = ((v45 & 0xFFFFFFFFFFFFFFFLL) + 32);
-      v238 = *&v39 & 0xFFFFFFFFFFFFLL;
+      v238 = ((v45 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v239 = *&v39 & 0xFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v237 = _StringObject.sharedUTF8.getter(*&v39, v45);
+      v238 = _StringObject.sharedUTF8.getter(*&v39, v45);
     }
 
-    closure #1 in _StringGuts._convertedToSmall()(v237, v238, &v253, v44);
+    closure #1 in _StringGuts._convertedToSmall()(v238, v239, &v254, v44);
     v45;
-    v39 = v253;
-    v45 = v254;
+    v39 = v254;
+    v45 = v255;
   }
 
   v48 = HIBYTE(v22) & 0xF;
@@ -1957,15 +1959,15 @@ LABEL_299:
 
   v59 = v58 & 0xFF00000000000000 | (v50 << 56) | v22 & 0xFFFFFFFFFFFFFFLL;
 LABEL_77:
-  v255 = v5;
-  v256 = v59;
+  v256 = v5;
+  v257 = v59;
 LABEL_85:
   v61 = 34;
-  v253 = 34;
-  v254 = 0xE100000000000000;
-  if ((x1_0 & 0x2000000000000000) != 0)
+  v254 = 34;
+  v255 = 0xE100000000000000;
+  if ((a2 & 0x2000000000000000) != 0)
   {
-    v62 = HIBYTE(x1_0) & 0xF;
+    v62 = HIBYTE(a2) & 0xF;
   }
 
   else
@@ -1977,8 +1979,8 @@ LABEL_85:
   {
     v67 = 0xE100000000000000;
 LABEL_209:
-    v251 = 34;
-    v252 = 0xE100000000000000;
+    v252 = 34;
+    v253 = 0xE100000000000000;
     v160 = HIBYTE(v67) & 0xF;
     if ((v67 & 0x2000000000000000) == 0)
     {
@@ -1988,18 +1990,18 @@ LABEL_209:
     if (!v160)
     {
 LABEL_262:
-      v252;
-      v104 = v255;
-      v98 = v256;
-      v207 = HIBYTE(v256) & 0xF;
-      if ((v256 & 0x2000000000000000) == 0)
+      v253;
+      v104 = v256;
+      v98 = v257;
+      v208 = HIBYTE(v257) & 0xF;
+      if ((v257 & 0x2000000000000000) == 0)
       {
-        v207 = v255 & 0xFFFFFFFFFFFFLL;
+        v208 = v256 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v207 || (v255 & ~v256 & 0x2000000000000000) != 0)
+      if (v208 || (v256 & ~v257 & 0x2000000000000000) != 0)
       {
-        if ((v256 & 0x2000000000000000) != 0)
+        if ((v257 & 0x2000000000000000) != 0)
         {
           if ((v67 & 0x2000000000000000) != 0)
           {
@@ -2012,20 +2014,20 @@ LABEL_262:
           goto LABEL_273;
         }
 
-        v208 = v61 & 0xFFFFFFFFFFFFLL;
+        v209 = v61 & 0xFFFFFFFFFFFFLL;
 LABEL_274:
         v67;
-        _StringGuts.append(_:)(v61, v67, 0, v208, v212, v213, v214, v215, v216, v217, v218, v219);
+        _StringGuts.append(_:)(v61, v67, 0, v209, v213, v214, v215, v216, v217, v218, v219, v220);
         swift_bridgeObjectRelease_n(v67, 2);
-        v61 = v255;
-        v67 = v256;
+        v61 = v256;
+        v67 = v257;
       }
 
       else
       {
-        v256;
-        v255 = v61;
-        v256 = v67;
+        v257;
+        v256 = v61;
+        v257 = v67;
       }
 
       goto LABEL_275;
@@ -2033,213 +2035,214 @@ LABEL_274:
 
     while (1)
     {
-      v165 = v251;
       v166 = v252;
-      v167 = specialized Collection.first.getter(v251, v252);
-      if ((v167 & 0x100000000) != 0)
+      v167 = v253;
+      v168 = specialized Collection.first.getter(v252, v253);
+      if ((v168 & 0x100000000) != 0)
       {
         goto LABEL_293;
       }
 
-      v249 = v61;
-      v250 = v67;
-      v253 = 0;
-      v254 = 0xE000000000000000;
-      v168 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v167);
-      v170 = v169;
-      _StringGuts.append(_:)(v168, v169, v171, v172, v173, v174, v175, v176, v177, v178);
-      v170;
-      v179 = v249;
+      v250 = v61;
+      v251 = v67;
+      v254 = 0;
+      v255 = 0xE000000000000000;
+      v169 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v168);
+      v171 = v170;
+      _StringGuts.append(_:)(v169, v170, v172, v173, v174, v175, v176, v177, v178, v179);
+      v171;
       v180 = v250;
-      v250;
+      v181 = v251;
+      v251;
       0xE000000000000000;
-      v253 = v179;
       v254 = v180;
-      v181 = HIBYTE(v180) & 0xF;
-      if ((v180 & 0x2000000000000000) == 0)
+      v255 = v181;
+      v182 = HIBYTE(v181) & 0xF;
+      if ((v181 & 0x2000000000000000) == 0)
       {
-        v181 = v179;
+        v182 = v180;
       }
 
-      v182 = 7;
-      if (((v180 >> 60) & ((v179 & 0x800000000000000) == 0)) != 0)
+      v183 = 7;
+      if (((v181 >> 60) & ((v180 & 0x800000000000000) == 0)) != 0)
       {
-        v182 = 11;
+        v183 = 11;
       }
 
-      v183._rawBits = v182 | (v181 << 16);
-      v184._rawBits = _StringGuts.validateInclusiveCharacterIndex_5_7(_:)(v183)._rawBits;
-      rawBits = v184._rawBits;
-      if (!(v184._rawBits >> 14))
+      v184._rawBits = v183 | (v182 << 16);
+      v185._rawBits = _StringGuts.validateInclusiveCharacterIndex_5_7(_:)(v184)._rawBits;
+      rawBits = v185._rawBits;
+      if (!(v185._rawBits >> 14))
       {
         break;
       }
 
-      v186 = v184._rawBits >> 16;
-      if (v184._rawBits >= 0x20000)
+      v187 = v185._rawBits >> 16;
+      if (v185._rawBits >= 0x20000)
       {
-        if ((v180 & 0x1000000000000000) == 0)
+        if ((v181 & 0x1000000000000000) == 0)
         {
-          if ((v180 & 0x2000000000000000) != 0)
+          if ((v181 & 0x2000000000000000) != 0)
           {
-            v249 = v179;
-            v250 = v180 & 0xFFFFFFFFFFFFFFLL;
-            v188 = *&v248[v186];
+            v250 = v180;
+            v251 = v181 & 0xFFFFFFFFFFFFFFLL;
+            v189 = *&v249[v187];
           }
 
           else
           {
-            if ((v179 & 0x1000000000000000) != 0)
+            if ((v180 & 0x1000000000000000) != 0)
             {
-              v187 = ((v180 & 0xFFFFFFFFFFFFFFFLL) + 32);
+              v188 = ((v181 & 0xFFFFFFFFFFFFFFFLL) + 32);
             }
 
             else
             {
-              v187 = _StringObject.sharedUTF8.getter(v179, v180);
-              if (!v187)
+              v188 = _StringObject.sharedUTF8.getter(v180, v181);
+              if (!v188)
               {
                 _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
               }
             }
 
-            v188 = *&v187[v186 - 2];
+            v189 = *&v188[v187 - 2];
           }
 
-          if (v188 != 2573 && (v188 & 0x8080) == 0)
+          if (v189 != 2573 && (v189 & 0x8080) == 0)
           {
-            v186 = 1;
+            v187 = 1;
 LABEL_236:
-            v190 = v186 << 8;
+            v191 = v187 << 8;
             goto LABEL_243;
           }
         }
 
-        v186 = _StringGuts._opaqueComplexCharacterStride(endingAt:)(rawBits >> 16);
+        v187 = _StringGuts._opaqueComplexCharacterStride(endingAt:)(rawBits >> 16);
       }
 
-      if (v186 >= 64)
+      if (v187 >= 64)
       {
-        v190 = 63;
+        v191 = 63;
       }
 
       else
       {
-        v190 = v186 << 8;
+        v191 = v187 << 8;
       }
 
 LABEL_243:
-      v180;
-      v191._rawBits = _StringGuts.validateInclusiveScalarIndex(_:)(v183)._rawBits;
-      if (!(v191._rawBits >> 14))
+      v181;
+      v192._rawBits = _StringGuts.validateInclusiveScalarIndex(_:)(v184)._rawBits;
+      if (!(v192._rawBits >> 14))
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v192 = v191._rawBits;
-      v180;
-      if ((v180 & 0x1000000000000000) != 0)
+      v193 = v192._rawBits;
+      v181;
+      if ((v181 & 0x1000000000000000) != 0)
       {
-        v197 = String.UnicodeScalarView._foreignIndex(before:)(v192)._rawBits;
-        v180;
+        v198 = String.UnicodeScalarView._foreignIndex(before:)(v193)._rawBits;
+        v181;
       }
 
       else
       {
-        if ((v180 & 0x2000000000000000) != 0)
+        if ((v181 & 0x2000000000000000) != 0)
         {
-          v194 = 0;
-          v249 = v179;
-          v250 = v180 & 0xFFFFFFFFFFFFFFLL;
+          v195 = 0;
+          v250 = v180;
+          v251 = v181 & 0xFFFFFFFFFFFFFFLL;
           do
           {
-            v196 = v248[(v192 >> 16) + 1 + v194--] & 0xC0;
+            v197 = v249[(v193 >> 16) + 1 + v195--] & 0xC0;
+          }
+
+          while (v197 == 128);
+        }
+
+        else
+        {
+          if ((v180 & 0x1000000000000000) != 0)
+          {
+            v194 = ((v181 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          }
+
+          else
+          {
+            v194 = _StringObject.sharedUTF8.getter(v180, v181);
+          }
+
+          v195 = 0;
+          do
+          {
+            v196 = v194[(v193 >> 16) - 1 + v195--] & 0xC0;
           }
 
           while (v196 == 128);
         }
 
-        else
-        {
-          if ((v179 & 0x1000000000000000) != 0)
-          {
-            v193 = ((v180 & 0xFFFFFFFFFFFFFFFLL) + 32);
-          }
-
-          else
-          {
-            v193 = _StringObject.sharedUTF8.getter(v179, v180);
-          }
-
-          v194 = 0;
-          do
-          {
-            v195 = v193[(v192 >> 16) - 1 + v194--] & 0xC0;
-          }
-
-          while (v195 == 128);
-        }
-
-        v180;
-        v197 = (v192 - -65536 * v194) & 0xFFFFFFFFFFFF0000;
+        v181;
+        v198 = (v193 - -65536 * v195) & 0xFFFFFFFFFFFF0000;
       }
 
-      if (((rawBits - (v186 << 16)) & 0xFFFFFFFFFFFF0000 | v190) >> 14 >= v197 >> 14)
+      if (((rawBits - (v187 << 16)) & 0xFFFFFFFFFFFF0000 | v191) >> 14 >= v198 >> 14)
       {
-        v166;
-        v203._rawBits = specialized Collection.dropFirst(_:)(1, v165, v166)._rawBits;
-        v205 = v204;
-        v249 = v179;
+        v167;
+        v204._rawBits = specialized Collection.dropFirst(_:)(1, v166, v167)._rawBits;
+        v206 = v205;
         v250 = v180;
-        v253 = 0;
-        v254 = 0xE000000000000000;
-        specialized String.UnicodeScalarView.append<A>(contentsOf:)(v203, v257, v206, v204);
+        v251 = v181;
+        v254 = 0;
+        v255 = 0xE000000000000000;
+        specialized String.UnicodeScalarView.append<A>(contentsOf:)(v204, v258, v207, v205);
         0xE000000000000000;
-        v205;
-        v61 = v249;
-        v67 = v250;
+        v206;
+        v61 = v250;
+        v67 = v251;
         goto LABEL_262;
       }
 
-      v249 = v179;
       v250 = v180;
+      v251 = v181;
       specialized RangeReplaceableCollection<>.removeLast()();
-      v199 = v249;
-      v198 = v250;
-      v250;
+      v200 = v250;
+      v199 = v251;
+      v251;
       0xE000000000000000;
-      v249 = v199;
-      v250 = v198;
-      v198;
-      v200 = specialized RangeReplaceableCollection<>.removeLast()();
+      v250 = v200;
+      v251 = v199;
+      v199;
+      v201 = specialized RangeReplaceableCollection<>.removeLast()();
       0xE000000000000000;
-      v253 = v249;
       v254 = v250;
-      v201 = Unicode.Scalar._escaped(asASCII:)(1);
-      object = v201.value._object;
-      if (v201.value._object)
+      v255 = v251;
+      v202 = Unicode.Scalar._escaped(asASCII:)(1);
+      object = v202.value._object;
+      if (v202.value._object)
       {
-        countAndFlagsBits = v201.value._countAndFlagsBits;
+        countAndFlagsBits = v202.value._countAndFlagsBits;
       }
 
       else
       {
-        countAndFlagsBits = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v200);
+        countAndFlagsBits = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v201);
       }
 
-      v202 = object;
+      v203 = object;
       v163._rawBits = 15;
-      specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(0xFuLL, v163, countAndFlagsBits, v202);
-      v202;
-      v61 = v253;
-      v67 = v254;
-      v164 = HIBYTE(v254) & 0xF;
-      if ((v254 & 0x2000000000000000) == 0)
+      v164._rawBits = 15;
+      specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(v163, v164, countAndFlagsBits, v203);
+      v203;
+      v61 = v254;
+      v67 = v255;
+      v165 = HIBYTE(v255) & 0xF;
+      if ((v255 & 0x2000000000000000) == 0)
       {
-        v164 = *&v253 & 0xFFFFFFFFFFFFLL;
+        v165 = *&v254 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v164)
+      if (!v165)
       {
         goto LABEL_262;
       }
@@ -2250,20 +2253,20 @@ LABEL_243:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v186 = 0;
+    v187 = 0;
     goto LABEL_236;
   }
 
   v63 = 0;
-  v247 = v62;
-  v243 = (x1_0 & 0xFFFFFFFFFFFFFFFLL) + 32;
-  v244 = x1_0 & 0xFFFFFFFFFFFFFFLL;
+  v248 = v62;
+  v244 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
+  v245 = a2 & 0xFFFFFFFFFFFFFFLL;
   v64 = 1;
   while (1)
   {
     while (1)
     {
-      if ((x1_0 & 0x1000000000000000) != 0)
+      if ((a2 & 0x1000000000000000) != 0)
       {
         v71 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)((v63 << 16));
         scalarLength = v71.scalarLength;
@@ -2272,19 +2275,19 @@ LABEL_243:
 
       else
       {
-        if ((x1_0 & 0x2000000000000000) != 0)
+        if ((a2 & 0x2000000000000000) != 0)
         {
-          v251 = v35;
-          v252 = v244;
-          v68 = &v251;
+          v252 = v35;
+          v253 = v245;
+          v68 = &v252;
         }
 
         else
         {
-          v68 = v243;
+          v68 = v244;
           if ((v35 & 0x1000000000000000) == 0)
           {
-            v68 = _StringObject.sharedUTF8.getter(v35, x1_0);
+            v68 = _StringObject.sharedUTF8.getter(v35, a2);
           }
         }
 
@@ -2300,32 +2303,32 @@ LABEL_243:
       }
 
       v74 = v73.value._object;
-      v75 = v254;
-      v76 = HIBYTE(v254) & 0xF;
-      if ((v254 & 0x2000000000000000) == 0)
+      v75 = v255;
+      v76 = HIBYTE(v255) & 0xF;
+      if ((v255 & 0x2000000000000000) == 0)
       {
-        v76 = *&v253 & 0xFFFFFFFFFFFFLL;
+        v76 = *&v254 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v76 && (*&v253 & ~v254 & 0x2000000000000000) == 0)
+      if (!v76 && (*&v254 & ~v255 & 0x2000000000000000) == 0)
       {
-        v254;
-        v253 = v73.value._countAndFlagsBits;
-        v254 = v73.value._object;
+        v255;
+        v254 = v73.value._countAndFlagsBits;
+        v255 = v73.value._object;
         goto LABEL_122;
       }
 
-      if ((v73.value._object & 0x2000000000000000 & v254) != 0)
+      if ((v73.value._object & 0x2000000000000000 & v255) != 0)
       {
-        v77 = specialized _SmallString.init(_:appending:)(*&v253, v254, v73.value._countAndFlagsBits, v73.value._object);
+        v77 = specialized _SmallString.init(_:appending:)(*&v254, v255, v73.value._countAndFlagsBits, v73.value._object);
         if ((v79 & 1) == 0)
         {
           v101 = v77;
           v102 = v78;
           v75;
           v73.value._object;
-          v253 = v101;
-          v254 = v102;
+          v254 = v101;
+          v255 = v102;
           goto LABEL_122;
         }
       }
@@ -2351,18 +2354,18 @@ LABEL_122:
       v64 = 1;
       if (v63 >= v62)
       {
-        v61 = v253;
-        v67 = v254;
+        v61 = v254;
+        v67 = v255;
         goto LABEL_209;
       }
     }
 
-    v92 = v253;
-    v61 = v254;
+    v92 = v254;
+    v61 = v255;
     if (v64)
     {
-      LODWORD(v251) = 0;
-      v93 = specialized BidirectionalCollection.last.getter(*&v253, v254);
+      LODWORD(v252) = 0;
+      v93 = specialized BidirectionalCollection.last.getter(*&v254, v255);
       if ((v93 & 0x100000000) != 0)
       {
         goto LABEL_293;
@@ -2392,9 +2395,9 @@ LABEL_122:
         if (!v147 && (v92 & ~v61 & 0x2000000000000000) == 0)
         {
           v61;
-          v253 = v120;
-          v254 = v74;
-          v62 = v247;
+          v254 = v120;
+          v255 = v74;
+          v62 = v248;
           goto LABEL_122;
         }
 
@@ -2409,9 +2412,9 @@ LABEL_122:
               v154 = v151;
               v61;
               v74;
-              v253 = v153;
-              v254 = v154;
-              v62 = v247;
+              v254 = v153;
+              v255 = v154;
+              v62 = v248;
               goto LABEL_122;
             }
 
@@ -2428,7 +2431,7 @@ LABEL_198:
 
         v148 = v120 & 0xFFFFFFFFFFFFLL;
 LABEL_199:
-        v62 = v247;
+        v62 = v248;
         v74;
         v89 = v120;
         v90 = v74;
@@ -2437,10 +2440,10 @@ LABEL_199:
       }
     }
 
-    v251 = v92;
-    v252 = v61;
-    v253 = 0;
-    v254 = 0xE000000000000000;
+    v252 = v92;
+    v253 = v61;
+    v254 = 0;
+    v255 = 0xE000000000000000;
     v95 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v72);
     v67 = v94;
     v96 = (v94 & 0x2000000000000000) == 0;
@@ -2453,7 +2456,7 @@ LABEL_199:
       if ((v94 & 0x2000000000000000) != 0)
       {
 LABEL_127:
-        v246 = v96;
+        v247 = v96;
         if ((v94 & 0x1000000000000000) != 0)
         {
           goto LABEL_166;
@@ -2530,16 +2533,16 @@ LABEL_126:
       v66 = 0xA000000000000000;
     }
 
-    v251 = v92;
-    v252 = v66 & 0xFF00000000000000 | (v129 << 56) | v65 & 0xFFFFFFFFFFFFFFLL;
+    v252 = v92;
+    v253 = v66 & 0xFF00000000000000 | (v129 << 56) | v65 & 0xFFFFFFFFFFFFFFLL;
 LABEL_94:
-    v62 = v247;
+    v62 = v248;
 LABEL_95:
     v64 = 0;
-    v61 = v251;
-    v67 = v252;
-    v253 = v251;
+    v61 = v252;
+    v67 = v253;
     v254 = v252;
+    v255 = v253;
     v35 = a1;
     if (v63 >= v62)
     {
@@ -2549,7 +2552,7 @@ LABEL_95:
 
   v99 = v95 & 0xFFFFFFFFFFFFLL;
   v100 = HIBYTE(v94) & 0xF;
-  v246 = 0;
+  v247 = 0;
   if ((v94 & 0x1000000000000000) == 0)
   {
 LABEL_128:
@@ -2622,15 +2625,15 @@ LABEL_145:
           _StringGuts._foreignAppendInPlace(_:)(v95, v67, 0, v100);
           0xE000000000000000;
           v67;
-          x1_0 = v242;
-          v62 = v247;
+          a2 = v243;
+          v62 = v248;
         }
 
         else
         {
-          x1_0 = v242;
-          v62 = v247;
-          if (v246)
+          a2 = v243;
+          v62 = v248;
+          if (v247)
           {
             if ((v95 & 0x1000000000000000) != 0)
             {
@@ -2653,9 +2656,9 @@ LABEL_145:
 
             v67;
             v115 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(0, v114, v113, v99);
-            v116 = v252 & 0xFFFFFFFFFFFFFFFLL;
+            v116 = v253 & 0xFFFFFFFFFFFFFFFLL;
             __StringStorage.appendInPlace(_:isASCII:)(v115, v117, v95 < 0);
-            v251 = *(v116 + 24);
+            v252 = *(v116 + 24);
             0xE000000000000000;
             v67;
           }
@@ -2663,12 +2666,12 @@ LABEL_145:
           else
           {
             v67;
-            v249 = v95;
-            v250 = v67 & 0xFFFFFFFFFFFFFFLL;
+            v250 = v95;
+            v251 = v67 & 0xFFFFFFFFFFFFFFLL;
             v67;
-            v149 = v252 & 0xFFFFFFFFFFFFFFFLL;
-            __StringStorage.appendInPlace(_:isASCII:)(&v249, v98, (v67 & 0x4000000000000000) != 0);
-            v251 = *(v149 + 24);
+            v149 = v253 & 0xFFFFFFFFFFFFFFFLL;
+            __StringStorage.appendInPlace(_:isASCII:)(&v250, v98, (v67 & 0x4000000000000000) != 0);
+            v252 = *(v149 + 24);
             0xE000000000000000;
           }
         }
@@ -2690,7 +2693,7 @@ LABEL_145:
       v67;
 LABEL_154:
       v111 = v61;
-      x1_0 = v242;
+      a2 = v243;
     }
 
     else
@@ -2707,7 +2710,7 @@ LABEL_154:
       }
 
 LABEL_140:
-      x1_0 = v242;
+      a2 = v243;
       if ((v61 & 0x1000000000000000) != 0)
       {
         v92 = _StringGuts._foreignConvertedToSmall()(v92, v61);
@@ -2727,9 +2730,9 @@ LABEL_140:
           v109 = _StringObject.sharedUTF8.getter(v92, v61);
         }
 
-        closure #1 in _StringGuts._convertedToSmall()(v109, v110, &v249, v108);
-        v92 = v249;
-        v111 = v250;
+        closure #1 in _StringGuts._convertedToSmall()(v109, v110, &v250, v108);
+        v92 = v250;
+        v111 = v251;
       }
     }
 
@@ -2744,7 +2747,7 @@ LABEL_140:
 
     if (v123._rawBits >> 16 || v124._rawBits >> 16 != v100)
     {
-      v95 = specialized static String._copying(_:)(v123._rawBits, v124._rawBits, v95, v67);
+      v95 = specialized static String._copying(_:)(v123._rawBits, v124, v95, v67);
       v126 = v134;
       v67;
       if ((v126 & 0x2000000000000000) == 0)
@@ -2780,10 +2783,10 @@ LABEL_160:
             v127 = _StringObject.sharedUTF8.getter(v95, v126);
           }
 
-          closure #1 in _StringGuts._convertedToSmall()(v127, v128, &v249, v125);
+          closure #1 in _StringGuts._convertedToSmall()(v127, v128, &v250, v125);
           v126;
-          v95 = v249;
-          v126 = v250;
+          v95 = v250;
+          v126 = v251;
         }
 
         goto LABEL_175;
@@ -2803,40 +2806,40 @@ LABEL_175:
     0xE000000000000000;
     v61;
     v67;
-    v251 = v138;
-    v252 = v139;
+    v252 = v138;
+    v253 = v139;
     goto LABEL_94;
   }
 
 LABEL_271:
   __break(1u);
 LABEL_272:
-  v209 = specialized _SmallString.init(_:appending:)(v104, v98, v61, v67);
-  if (v211)
+  v210 = specialized _SmallString.init(_:appending:)(v104, v98, v61, v67);
+  if (v212)
   {
 LABEL_273:
-    v208 = HIBYTE(v67) & 0xF;
+    v209 = HIBYTE(v67) & 0xF;
     goto LABEL_274;
   }
 
-  v229 = v209;
   v230 = v210;
+  v231 = v211;
   v98;
   v67;
-  v255 = v229;
   v256 = v230;
-  v67 = v230;
-  v61 = v229;
+  v257 = v231;
+  v67 = v231;
+  v61 = v230;
 LABEL_275:
-  v228 = HIBYTE(v67) & 0xF;
+  v229 = HIBYTE(v67) & 0xF;
   if ((v67 & 0x2000000000000000) == 0)
   {
-    v228 = v61 & 0xFFFFFFFFFFFFLL;
+    v229 = v61 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v228 || (v61 & ~v67 & 0x2000000000000000) != 0)
+  if (v229 || (v61 & ~v67 & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(0x29uLL, 0xE100000000000000, v220, v221, v222, v223, v224, v225, v226, v227);
+    _StringGuts.append(_:)(0x29uLL, 0xE100000000000000, v221, v222, v223, v224, v225, v226, v227, v228);
     0xE100000000000000;
   }
 
@@ -2856,7 +2859,7 @@ unint64_t key path setter for String.unicodeScalars : String(void *a1, void *a2)
   return v4;
 }
 
-uint64_t specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift::UInt64 a1, Swift::String::Index a2, uint64_t a3, unint64_t a4)
+unint64_t specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift::String::Index a1, Swift::String::Index a2, unint64_t a3, unint64_t a4)
 {
   v6 = *v4;
   v5 = v4[1];
@@ -2866,10 +2869,10 @@ uint64_t specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift:
     LOBYTE(v7) = 1;
   }
 
-  v8 = a1 & 0xC;
+  v8 = a1._rawBits & 0xC;
   v9 = 4 << v7;
   v10 = a2._rawBits & 0xC;
-  if ((a1 & 1) != 0 && v8 != v9 && (a2._rawBits & 1) != 0 && v10 != v9)
+  if ((a1._rawBits & 1) != 0 && v8 != v9 && (a2._rawBits & 1) != 0 && v10 != v9)
   {
     v11 = HIBYTE(v5) & 0xF;
     if ((v5 & 0x2000000000000000) == 0)
@@ -2879,16 +2882,16 @@ uint64_t specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift:
 
     if (v11 < a2._rawBits >> 16)
     {
-      v12 = a1;
+      rawBits = a1._rawBits;
       v13 = a4;
       v14 = a3;
-      rawBits = a2._rawBits;
+      v15 = a2._rawBits;
       isExecutableLinkedOnOrAfter = _swift_stdlib_isExecutableLinkedOnOrAfter(0x50700u);
-      a2._rawBits = rawBits;
+      a2._rawBits = v15;
       a3 = v14;
       a4 = v13;
       v17 = isExecutableLinkedOnOrAfter;
-      a1 = v12;
+      a1._rawBits = rawBits;
       if (v17)
       {
         goto LABEL_20;
@@ -2900,14 +2903,14 @@ uint64_t specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift:
 
   if (v10 == v9)
   {
-    v21 = a1;
+    v21 = a1._rawBits;
     v22 = a3;
     v23 = a4;
     v24._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(a2)._rawBits;
     a3 = v22;
     a4 = v23;
     a2._rawBits = v24._rawBits;
-    a1 = v21;
+    a1._rawBits = v21;
     if (v8 != v9)
     {
       goto LABEL_14;
@@ -2917,7 +2920,7 @@ LABEL_27:
     v25 = a2._rawBits;
     v26 = a3;
     v27 = a4;
-    a1 = _StringGuts._slowEnsureMatchingEncoding(_:)(a1)._rawBits;
+    a1._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(a1)._rawBits;
     a2._rawBits = v25;
     a3 = v26;
     a4 = v27;
@@ -2936,13 +2939,13 @@ LABEL_14:
     v18 = v6 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (a2._rawBits >> 14 > 4 * v18 || a2._rawBits >> 14 < a1 >> 14)
+  if (a2._rawBits >> 14 > 4 * v18 || a2._rawBits >> 14 < a1._rawBits >> 14)
   {
 LABEL_20:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (a1)
+  if (a1._rawBits)
   {
     if (a2._rawBits)
     {
@@ -2952,7 +2955,7 @@ LABEL_20:
 
   else
   {
-    v28 = a1;
+    v28 = a1._rawBits;
     v29 = a2._rawBits;
     v30 = a3;
     v31 = a4;
@@ -2960,14 +2963,14 @@ LABEL_20:
     a2._rawBits = v29;
     a3 = v30;
     a4 = v31;
-    a1 = v28 & 0xC | v32._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
+    a1._rawBits = v28 & 0xC | v32._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
     if (v29)
     {
       goto LABEL_23;
     }
   }
 
-  v33 = a1;
+  v33 = a1._rawBits;
   v34 = a2._rawBits;
   v35 = a3;
   v36 = a4;
@@ -2975,43 +2978,43 @@ LABEL_20:
   a3 = v35;
   a4 = v36;
   v38 = v37._rawBits;
-  a1 = v33;
+  a1._rawBits = v33;
   a2._rawBits = v34 & 0xC | v38 & 0xFFFFFFFFFFFFFFF3 | 1;
 LABEL_23:
 
-  return specialized _StringGuts.replaceSubrange<A>(_:with:)(a1, a2._rawBits, a3, a4);
+  return specialized _StringGuts.replaceSubrange<A>(_:with:)(a1._rawBits, a2._rawBits, a3, a4);
 }
 
 uint64_t String.UnicodeScalarView.replaceSubrange<A>(_:with:)(Swift::String::Index a1, Swift::String::Index a2, uint64_t a3, Class *a4, uint64_t a5)
 {
-  v9._rawBits = _StringGuts.validateScalarRange_5_7(_:)(a1, a2, *v5, v5[1])._rawBits;
+  v9 = _StringGuts.validateScalarRange_5_7(_:)(a1._rawBits, a2, *v5, v5[1]);
 
-  return _StringGuts.replaceSubrange<A>(_:with:)(v9._rawBits, v10._rawBits, a3, a4, a5);
+  return _StringGuts.replaceSubrange<A>(_:with:)(v9, v10, a3, a4, a5);
 }
 
 uint64_t protocol witness for RangeReplaceableCollection.replaceSubrange<A>(_:with:) in conformance String(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void (*a7)(void, void, uint64_t, uint64_t, uint64_t))
 {
-  a7(*a1, a1[1], a2, a3, a4);
+  (a7)(*a1, a1[1], a2, a3, a4, a6);
   v9 = *(*(a3 - 8) + 8);
 
   return v9(a2, a3);
 }
 
-unint64_t protocol witness for RangeReplaceableCollection.init(repeating:count:) in conformance String.UnicodeScalarView@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+unint64_t protocol witness for RangeReplaceableCollection.init(repeating:count:) in conformance String.UnicodeScalarView@<X0>(unsigned int *a1@<X0>, unint64_t *a2@<X8>, uint64_t a3@<X1>)
 {
-  result = specialized RangeReplaceableCollection.init(repeating:count:)(*a1, a2);
-  *a3 = result;
-  a3[1] = v5;
+  result = specialized RangeReplaceableCollection.init(repeating:count:)(*a1, a3);
+  *a2 = result;
+  a2[1] = v5;
   return result;
 }
 
-uint64_t protocol witness for RangeReplaceableCollection.init<A>(_:) in conformance String.UnicodeScalarView@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
+uint64_t protocol witness for RangeReplaceableCollection.init<A>(_:) in conformance String.UnicodeScalarView@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, unint64_t *a3@<X8>, uint64_t a4@<X2>)
 {
-  v7 = specialized RangeReplaceableCollection.init<A>(_:)(a1, a2, a3);
+  v7 = specialized RangeReplaceableCollection.init<A>(_:)(a1, a2, a4);
   v9 = v8;
-  result = (*(*(a2 - 1) + 8))(a1, a2);
-  *a4 = v7;
-  a4[1] = v9;
+  result = (*(*(a2 - 1) + 1))(a1, a2);
+  *a3 = v7;
+  a3[1] = v9;
   return result;
 }
 
@@ -3024,9 +3027,9 @@ void protocol witness for RangeReplaceableCollection.append(_:) in conformance S
   v3;
 }
 
-uint64_t protocol witness for RangeReplaceableCollection.append<A>(contentsOf:) in conformance String(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(void))
+uint64_t protocol witness for RangeReplaceableCollection.append<A>(contentsOf:) in conformance String(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  a6();
+  a6(a1, a2, a3, a4, a5);
   v8 = *(*(a2 - 8) + 8);
 
   return v8(a1, a2);
@@ -3035,16 +3038,15 @@ uint64_t protocol witness for RangeReplaceableCollection.append<A>(contentsOf:) 
 unint64_t protocol witness for RangeReplaceableCollection.insert(_:at:) in conformance String.UnicodeScalarView(int *a1, Swift::UInt64 *a2)
 {
   v3 = *a1;
-  v5._rawBits = *a2;
-  v4._rawBits = v5._rawBits;
-  v6._rawBits = _StringGuts.validateScalarRange_5_7(_:)(v4, v5, *v2, v2[1])._rawBits;
+  v4._rawBits = *a2;
+  v5 = _StringGuts.validateScalarRange_5_7(_:)(v4._rawBits, v4, *v2, v2[1]);
 
-  return specialized _StringGuts.replaceSubrange<A>(_:with:)(v6._rawBits, v7._rawBits, v3);
+  return specialized _StringGuts.replaceSubrange<A>(_:with:)(v5, v6, v3);
 }
 
 uint64_t protocol witness for RangeReplaceableCollection.insert<A>(contentsOf:at:) in conformance String(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void (*a7)(uint64_t, void))
 {
-  a7(a1, *a2);
+  (a7)(a1, *a2, a3, a4, a5, a6);
   v9 = *(*(a3 - 8) + 8);
 
   return v9(a1, a3);
@@ -3052,9 +3054,17 @@ uint64_t protocol witness for RangeReplaceableCollection.insert<A>(contentsOf:at
 
 uint64_t protocol witness for RangeReplaceableCollection.remove(at:) in conformance String.UnicodeScalarView@<X0>(Swift::UInt64 *a1@<X0>, _DWORD *a2@<X8>)
 {
-  result = specialized RangeReplaceableCollection.remove(at:)(*a1);
+  v3._rawBits = *a1;
+  result = specialized RangeReplaceableCollection.remove(at:)(v3);
   *a2 = result;
   return result;
+}
+
+unint64_t protocol witness for RangeReplaceableCollection.removeSubrange(_:) in conformance String.UnicodeScalarView(Swift::UInt64 *a1)
+{
+  v1._rawBits = a1[1];
+  v2._rawBits = *a1;
+  return specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(v2, v1);
 }
 
 unint64_t protocol witness for RangeReplaceableCollection.removeFirst() in conformance String.UnicodeScalarView@<X0>(_DWORD *a1@<X8>)
@@ -4536,7 +4546,7 @@ Swift::Unicode::Scalar __swiftcall _StringGuts.fastUTF8Scalar(startingAt:)(Swift
 
 Swift::String::Index *protocol witness for BidirectionalCollection.index(before:) in conformance String.UTF16View@<X0>(Swift::String::Index *result@<X0>, unint64_t *a2@<X8>)
 {
-  v3._rawBits = result->_rawBits;
+  rawBits = result->_rawBits;
   v4 = *v2;
   v5 = v2[1];
   v6 = (*v2 >> 59) & 1;
@@ -4554,14 +4564,14 @@ Swift::String::Index *protocol witness for BidirectionalCollection.index(before:
     v5 = v12;
     v4 = v11;
     a2 = v13;
-    v3._rawBits = result;
+    rawBits = result;
     if (result < 0x4000)
     {
       goto LABEL_23;
     }
   }
 
-  else if (v3._rawBits < 0x4000)
+  else if (rawBits < 0x4000)
   {
     goto LABEL_23;
   }
@@ -4572,7 +4582,7 @@ Swift::String::Index *protocol witness for BidirectionalCollection.index(before:
     v7 = v4 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (4 * v7 < v3._rawBits >> 14)
+  if (4 * v7 < rawBits >> 14)
   {
 LABEL_23:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -4580,9 +4590,9 @@ LABEL_23:
 
   if ((v5 & 0x1000000000000000) != 0)
   {
-    rawBits = v3._rawBits;
+    v14 = rawBits;
     v15 = a2;
-    result = specialized String.UTF16View._foreignIndex(before:)(rawBits);
+    result = specialized String.UTF16View._foreignIndex(before:)(v14);
     a2 = v15;
     v9 = result;
     goto LABEL_21;
@@ -4596,28 +4606,28 @@ LABEL_23:
 
   if (v8)
   {
-    v9 = (v3._rawBits & 0xFFFFFFFFFFFF0000) - 65523;
+    v9 = ((rawBits & 0xFFFFFFFFFFFF0000) - 65523);
 LABEL_21:
     *a2 = v9;
     return result;
   }
 
-  if ((v3._rawBits & 0xC000) != 0)
+  if ((rawBits & 0xC000) != 0)
   {
-    v9 = v3._rawBits & 0xFFFFFFFFFFFF0000 | 5;
+    v9 = (rawBits & 0xFFFFFFFFFFFF0000 | 5);
     goto LABEL_21;
   }
 
   v10 = a2;
-  if ((v3._rawBits & 1) == 0)
+  if ((rawBits & 1) == 0)
   {
-    v3._rawBits = _StringGuts.scalarAlignSlow(_:)(v3)._rawBits;
+    rawBits = _StringGuts.scalarAlignSlow(_:)(rawBits)._rawBits;
   }
 
-  result = _StringGuts.fastUTF8ScalarLength(endingAt:)(v3._rawBits >> 16);
+  result = _StringGuts.fastUTF8ScalarLength(endingAt:)(rawBits >> 16);
   if (result == 4)
   {
-    v9 = (v3._rawBits & 0xFFFFFFFFFFFF0000) - 245756;
+    v9 = ((rawBits & 0xFFFFFFFFFFFF0000) - 245756);
     a2 = v10;
     goto LABEL_21;
   }
@@ -4625,7 +4635,7 @@ LABEL_21:
   if (!__OFSUB__(0, result))
   {
     a2 = v10;
-    v9 = (((v3._rawBits >> 16) - result) << 16) | 5;
+    v9 = ((((rawBits >> 16) - result) << 16) | 5);
     goto LABEL_21;
   }
 
@@ -4819,7 +4829,7 @@ Swift::String::Index _sSS9UTF16ViewVSlsSl5index_8offsetBy5IndexQzAF_SitFTW_0@<X0
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance String.UTF16View(_WORD *a1, Swift::UInt64 *a2))()
+void (*protocol witness for Collection.subscript.read in conformance String.UTF16View(_WORD *a1, Swift::UInt64 *a2))()
 {
   rawBits = *a2;
   v5 = *v2;
@@ -4872,22 +4882,23 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance String.
   return _swift_displayCrashMessage;
 }
 
-unint64_t protocol witness for Collection.subscript.getter in conformance String.UTF8View@<X0>(Swift::UInt64 *a1@<X0>, Swift::UInt64 *a2@<X8>)
+unint64_t protocol witness for Collection.subscript.getter in conformance String.UTF8View@<X0>(Swift::UInt64 *a1@<X0>, Swift::String::Index *a2@<X8>)
 {
   v4._rawBits = a1[1];
-  *a2 = specialized String.UTF8View.subscript.getter(*a1, v4, *v2, v2[1]);
-  a2[1] = v5;
-  a2[2] = v7;
-  a2[3] = v6;
+  v5._rawBits = *a1;
+  a2->_rawBits = specialized String.UTF8View.subscript.getter(v5, v4, *v2, v2[1])._rawBits;
+  a2[1]._rawBits = v6;
+  a2[2]._rawBits = v8;
+  a2[3]._rawBits = v7._rawBits;
 
-  return v6;
+  return v7._rawBits;
 }
 
-Swift::UInt64 String.UTF8View.subscript.getter(Swift::UInt64 a1, Swift::String::Index a2, unint64_t a3, unint64_t a4)
+Swift::UInt64 String.UTF8View.subscript.getter(Swift::String::Index a1, Swift::String::Index a2, unint64_t a3, unint64_t a4)
 {
-  v4 = specialized String.UTF8View.subscript.getter(a1, a2, a3, a4);
+  rawBits = specialized String.UTF8View.subscript.getter(a1, a2, a3, a4)._rawBits;
   v5;
-  return v4;
+  return rawBits;
 }
 
 uint64_t protocol witness for BidirectionalCollection.index(_:offsetBy:limitedBy:) in conformance String@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t (*a4)(void, uint64_t, void, void, void)@<X5>, uint64_t a5@<X8>)
@@ -5021,7 +5032,7 @@ LABEL_29:
   return result;
 }
 
-unint64_t protocol witness for Collection.formIndex(after:) in conformance String.UTF16View(Swift::UInt64 *a1)
+unint64_t protocol witness for Collection.formIndex(after:) in conformance String.UTF16View(unint64_t *a1)
 {
   v4 = *v1;
   v3 = v1[1];
@@ -5308,12 +5319,12 @@ uint64_t (*String.utf16.modify(void *a1))()
 
 uint64_t String.UnicodeScalarView.customMirror.getter@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, Class *a3@<X2>, uint64_t *a4@<X3>, unsigned __int8 *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  v30[0] = a1;
-  v30[1] = a2;
-  v28[0] = 0;
-  v28[1] = 0;
+  v34[0] = a1;
+  v34[1] = a2;
+  v32[0] = 0;
+  v32[1] = 0;
   swift_bridgeObjectRetain_n(a2, 2);
-  v14 = static Mirror._superclassIterator<A>(_:_:)(v30, v28, a3);
+  v14 = static Mirror._superclassIterator<A>(_:_:)(v34, v32, a3);
   v16 = v15;
   v17 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
   v18 = swift_allocObject(v17, 0x50, 7uLL);
@@ -5343,14 +5354,14 @@ uint64_t String.UnicodeScalarView.customMirror.getter@<X0>(unint64_t a1@<X0>, un
   v18[3] = &protocol witness table for _IndexBox<A>;
   v18[4] = v24;
   v18[5] = &protocol witness table for _IndexBox<A>;
-  v29[0] = a1;
-  v29[1] = a2;
+  v33[0] = a1;
+  v33[1] = a2;
   v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss21CustomLeafReflectable_pMd, _ss21CustomLeafReflectable_pMR);
-  result = swift_dynamicCast(v28, v29, a3, v25, 6uLL);
-  v27 = result;
+  result = swift_dynamicCast(v32, v33, a3, v25, 6uLL, v26, v27, v28, v31);
+  v30 = result;
   if (result)
   {
-    result = __swift_destroy_boxed_opaque_existential_1Tm(v28);
+    result = __swift_destroy_boxed_opaque_existential_1Tm(v32);
   }
 
   *a7 = a3;
@@ -5358,7 +5369,7 @@ uint64_t String.UnicodeScalarView.customMirror.getter@<X0>(unint64_t a1@<X0>, un
   *(a7 + 16) = 9;
   *(a7 + 24) = v14;
   *(a7 + 32) = v16;
-  *(a7 + 40) = v27;
+  *(a7 + 40) = v30;
   return result;
 }
 
@@ -5373,7 +5384,7 @@ uint64_t _sSS9UTF16ViewV12_utf16Length7readPtr03endF016unsignedSIMDType06signedI
   v3 = 0;
   do
   {
-    v4 = v2 + 2;
+    v4 = &v2[2];
     v5 = vand_s8(vcgt_s8(0xC0C0C0C0C0C0C0C0, *v2), 0x8040201008040201);
     v5.i8[0] = vaddv_s8(v5);
     v6 = vand_s8(vcgt_u8(*v2, 0xEFEFEFEFEFEFEFEFLL), 0x8040201008040201);
@@ -5403,160 +5414,160 @@ uint64_t static Int8.+ infix(_:_:)(char a1, char a2)
   return result;
 }
 
-uint64_t static SIMD<>..< infix(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t static SIMD<>..< infix(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v83 = a1;
-  v91 = a6;
+  v90 = a1;
+  v98 = a6;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v11 = v10;
-  v87 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  swift_getAssociatedTypeWitness(255, v87, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v94 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  swift_getAssociatedTypeWitness(255, v94, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v88 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v88, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v74 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v69 - v15;
-  v78 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v78);
-  v73 = v69 - v16;
-  v17 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v17, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v82 = v69 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = v69 - v23;
-  v25 = MEMORY[0x1EEE9AC00](v22);
-  v27 = v69 - v26;
-  v84 = *(a3 - 1);
-  v28 = MEMORY[0x1EEE9AC00](v25);
-  v30 = (v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v28);
-  v90 = v69 - v31;
-  v92 = v19;
-  v85 = *(v19 + 16);
-  v86 = v32;
-  (v85)(v27, a2);
-  (*(v17 + 48))(a3, v17);
-  v33 = (*(v17 + 40))(a3, v17);
-  if (v33 < 0)
+  v95 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v95, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v81 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v82 = v76 - v16;
+  v85 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v85, v17);
+  v80 = v76 - v18;
+  v19 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v19, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v89 = v76 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v28 = v76 - v27;
+  v30 = MEMORY[0x1EEE9AC00](v26, v29);
+  v32 = v76 - v31;
+  v91 = *(a3 - 1);
+  v34 = MEMORY[0x1EEE9AC00](v30, v33);
+  v36 = (v76 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v34, v37);
+  v97 = v76 - v38;
+  v99 = v21;
+  v92 = *(v21 + 16);
+  v93 = v39;
+  (v92)(v32, a2);
+  (*(v19 + 48))(a3, v19);
+  v40 = (*(v19 + 40))(a3, v19);
+  if (v40 < 0)
   {
     goto LABEL_16;
   }
 
-  v79 = v11;
-  v89 = a5;
-  v93 = v30;
-  v94 = a3;
-  v35 = v85;
-  v34 = v86;
-  if (v33)
+  v86 = v11;
+  v96 = a5;
+  v100 = v36;
+  v101 = a3;
+  v42 = v92;
+  v41 = v93;
+  if (v40)
   {
-    v36 = 0;
+    v43 = 0;
     do
     {
-      v37 = v33;
-      v38 = v34;
-      v35(v24, v27, v34);
-      (*(v17 + 64))(v24, v36, v94, v17);
-      v33 = v37;
-      v34 = v38;
-      ++v36;
+      v44 = v40;
+      v45 = v41;
+      v42(v28, v32, v41);
+      (*(v19 + 64))(v28, v43, v101, v19);
+      v40 = v44;
+      v41 = v45;
+      ++v43;
     }
 
-    while (v37 != v36);
+    while (v44 != v43);
   }
 
-  v85 = v17;
-  v39 = *(v92 + 8);
-  v92 += 8;
-  v80 = v39;
-  v81 = v24;
-  v40 = v34;
-  v39(v27, v34);
-  (*(v84 + 32))(v90, v93, v94);
-  v41 = swift_checkMetadataState(0, v79);
-  v42 = v87;
-  (v87[6])(v41, v87);
-  v43 = v41;
-  v44 = v42;
-  v93 = v42[5];
-  v79 = v42 + 5;
-  v45 = (v93)(v41, v42);
-  if (v45 < 0)
+  v92 = v19;
+  v46 = *(v99 + 8);
+  v99 += 8;
+  v87 = v46;
+  v88 = v28;
+  v47 = v41;
+  v46(v32, v41);
+  (*(v91 + 32))(v97, v100, v101);
+  v48 = swift_checkMetadataState(0, v86);
+  v49 = v94;
+  (v94[6])(v48, v94);
+  v50 = v48;
+  v51 = v49;
+  v100 = v49[5];
+  v86 = (v49 + 5);
+  v52 = (v100)(v48, v49);
+  if (v52 < 0)
   {
     goto LABEL_16;
   }
 
-  v46 = v40;
-  v47 = v85;
-  if (v45)
+  v53 = v47;
+  v54 = v92;
+  if (v52)
   {
-    v48 = 0;
-    v49 = *(v85 + 56);
-    v69[1] = v88 + 3;
-    v69[0] = v44 + 8;
-    v72 = v45;
-    v71 = v85 + 56;
-    v77 = v43;
-    v70 = v49;
-    v76 = v89 + 16;
-    v50 = v81;
+    v55 = 0;
+    v56 = *(v92 + 56);
+    v76[1] = v95 + 3;
+    v76[0] = v51 + 8;
+    v79 = v52;
+    v78 = v92 + 56;
+    v84 = v50;
+    v77 = v56;
+    v83 = v96 + 16;
+    v57 = v88;
     while (1)
     {
-      v51 = v94;
-      v52 = v49;
-      v49(v48, v94, v47);
-      v53 = v82;
-      v54 = v51;
-      v55 = v89;
-      v52(v48, v54, v47);
-      v56 = v44;
-      v57 = (*(v55 + 16))(v50, v53, v46, v55);
-      v58 = v53;
-      v59 = v80;
-      v80(v58, v46);
-      v59(v50, v46);
-      v60 = v77;
-      v61 = (v93)(v77, v56);
-      if (v61 < 0)
+      v58 = v101;
+      v59 = v56;
+      v56(v55, v101, v54);
+      v60 = v89;
+      v61 = v58;
+      v62 = v96;
+      v59(v55, v61, v54);
+      v63 = v51;
+      v64 = (*(v62 + 16))(v57, v60, v53, v62);
+      v65 = v60;
+      v66 = v87;
+      v87(v65, v53);
+      v66(v57, v53);
+      v67 = v84;
+      v68 = (v100)(v84, v63);
+      if (v68 < 0)
       {
         break;
       }
 
-      if (v48 >= v61)
+      if (v55 >= v68)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v62 = v74;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v88, v78, v74, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      if (v57)
+      v69 = v81;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v95, v85, v81, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      if (v64)
       {
-        v64 = v75;
-        v65 = &unk_18071E0B0;
-        v66 = 257;
+        v71 = v82;
+        v72 = &unk_18071E0B0;
+        v73 = 257;
       }
 
       else
       {
-        v64 = v75;
-        v65 = &qword_18071E0A8;
-        v66 = 256;
+        v71 = v82;
+        v72 = &qword_18071E0A8;
+        v73 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v65, v66, v62, AssociatedConformanceWitness);
-      v67 = v73;
-      (v88[3])(v64);
-      v44 = v87;
-      (v87[8])(v67, v48++, v60, v87);
-      v47 = v85;
-      v46 = v86;
-      v49 = v70;
-      if (v72 == v48)
+      (*(AssociatedConformanceWitness + 8))(v72, v73, v69, AssociatedConformanceWitness);
+      v74 = v80;
+      (v95[3])(v71);
+      v51 = v94;
+      (v94[8])(v74, v55++, v67, v94);
+      v54 = v92;
+      v53 = v93;
+      v56 = v77;
+      if (v79 == v55)
       {
-        return (*(v84 + 8))(v90, v94);
+        return (*(v91 + 8))(v97, v101);
       }
     }
 
@@ -5564,117 +5575,117 @@ LABEL_16:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(v84 + 8))(v90, v94);
+  return (*(v91 + 8))(v97, v101);
 }
 
 {
-  v70 = a5;
-  v64 = a1;
-  v65 = a2;
+  v74 = a5;
+  v68 = a1;
+  v69 = a2;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v10 = v9;
   v11 = *(swift_getAssociatedConformanceWitness(a4, a3, v9, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
   swift_getAssociatedTypeWitness(255, v11, v10, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v68 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v68, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v56 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = v51 - v15;
-  v59 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v59);
-  v55 = v51 - v17;
-  v69 = *(a4 + 48);
-  v66 = a3;
-  swift_getAssociatedTypeWitness(0, v69, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v60 = v18;
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v22 = v51 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v62 = v51 - v23;
-  v24 = swift_checkMetadataState(0, v10);
-  (*(v11 + 48))(v24, v11);
-  v25 = *(v11 + 40);
-  v67 = a6;
-  v63 = v25;
-  v61 = v11 + 40;
-  result = v25(v24, v11);
+  v72 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v72, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v60 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v17 = v55 - v16;
+  v63 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v63, v18);
+  v59 = v55 - v19;
+  v73 = *(a4 + 48);
+  v70 = a3;
+  swift_getAssociatedTypeWitness(0, v73, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v64 = v20;
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v25 = v55 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23, v26);
+  v66 = v55 - v27;
+  v28 = swift_checkMetadataState(0, v10);
+  (*(v11 + 48))(v28, v11);
+  v29 = *(v11 + 40);
+  v71 = a6;
+  v67 = v29;
+  v65 = v11 + 40;
+  result = v29(v28, v11);
   if (result < 0)
   {
     goto LABEL_12;
   }
 
-  v54 = v16;
+  v58 = v17;
   if (result)
   {
-    v27 = 0;
-    v28 = v69[7];
-    v29 = v70 + 16;
-    v30 = (v19 + 8);
-    v51[2] = v68 + 3;
-    v51[1] = v11 + 64;
-    v52 = v28;
-    v53 = result;
-    v51[3] = v69 + 7;
-    v57 = v11;
-    v58 = v24;
+    v31 = 0;
+    v32 = v73[7];
+    v33 = v74 + 16;
+    v34 = (v21 + 8);
+    v55[2] = v72 + 3;
+    v55[1] = v11 + 64;
+    v56 = v32;
+    v57 = result;
+    v55[3] = v73 + 7;
+    v61 = v11;
+    v62 = v28;
     while (1)
     {
-      v31 = v62;
-      v32 = v66;
-      v33 = v30;
-      v34 = v69;
-      v35 = v29;
-      v36 = v28;
-      (v28)(v27, v66, v69);
+      v35 = v66;
+      v36 = v70;
       v37 = v34;
-      v30 = v33;
-      (v36)(v27, v32, v37);
-      v29 = v35;
-      v38 = v60;
-      v39 = (*(v70 + 16))(v31, v22, v60);
-      v40 = *v33;
-      (*v33)(v22, v38);
-      v41 = v31;
-      v42 = v57;
-      v43 = v58;
-      v40(v41, v38);
-      v44 = v63(v43, v42);
-      if (v44 < 0)
+      v38 = v73;
+      v39 = v33;
+      v40 = v32;
+      (v32)(v31, v70, v73);
+      v41 = v38;
+      v34 = v37;
+      (v40)(v31, v36, v41);
+      v33 = v39;
+      v42 = v64;
+      v43 = (*(v74 + 16))(v35, v25, v64);
+      v44 = *v37;
+      (*v37)(v25, v42);
+      v45 = v35;
+      v46 = v61;
+      v47 = v62;
+      v44(v45, v42);
+      v48 = v67(v47, v46);
+      if (v48 < 0)
       {
         break;
       }
 
-      if (v27 >= v44)
+      if (v31 >= v48)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v51[0] = v22;
-      v45 = v56;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v68, v59, v56, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v54;
-      if (v39)
+      v55[0] = v25;
+      v49 = v60;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v72, v63, v60, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v51 = v58;
+      if (v43)
       {
-        v48 = &unk_18071E0B0;
-        v49 = 257;
+        v52 = &unk_18071E0B0;
+        v53 = 257;
       }
 
       else
       {
-        v48 = &qword_18071E0A8;
-        v49 = 256;
+        v52 = &qword_18071E0A8;
+        v53 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v48, v49, v45, AssociatedConformanceWitness);
-      v50 = v55;
-      (v68[3])(v47);
-      (*(v42 + 64))(v50, v27++, v43, v42);
-      v28 = v52;
-      result = v53;
-      v22 = v51[0];
-      if (v53 == v27)
+      (*(AssociatedConformanceWitness + 8))(v52, v53, v49, AssociatedConformanceWitness);
+      v54 = v59;
+      (v72[3])(v51);
+      (*(v46 + 64))(v54, v31++, v47, v46);
+      v32 = v56;
+      result = v57;
+      v25 = v55[0];
+      if (v57 == v31)
       {
         return result;
       }
@@ -5688,158 +5699,158 @@ LABEL_12:
 }
 
 {
-  v83 = a2;
-  v91 = a6;
+  v90 = a2;
+  v98 = a6;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v11 = v10;
-  v87 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  swift_getAssociatedTypeWitness(255, v87, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v94 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  swift_getAssociatedTypeWitness(255, v94, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v88 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v88, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v74 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v69 - v15;
-  v78 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v78);
-  v73 = v69 - v16;
-  v17 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v17, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v82 = v69 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = v69 - v23;
-  v25 = MEMORY[0x1EEE9AC00](v22);
-  v27 = v69 - v26;
-  v84 = *(a3 - 1);
-  v28 = MEMORY[0x1EEE9AC00](v25);
-  v30 = (v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v28);
-  v90 = v69 - v31;
-  v92 = v19;
-  v85 = *(v19 + 16);
-  v86 = v32;
-  (v85)(v27, a1);
-  (*(v17 + 48))(a3, v17);
-  v33 = (*(v17 + 40))(a3, v17);
-  if (v33 < 0)
+  v95 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v95, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v81 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v82 = v76 - v16;
+  v85 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v85, v17);
+  v80 = v76 - v18;
+  v19 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v19, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v89 = v76 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v28 = v76 - v27;
+  v30 = MEMORY[0x1EEE9AC00](v26, v29);
+  v32 = v76 - v31;
+  v91 = *(a3 - 1);
+  v34 = MEMORY[0x1EEE9AC00](v30, v33);
+  v36 = (v76 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v34, v37);
+  v97 = v76 - v38;
+  v99 = v21;
+  v92 = *(v21 + 16);
+  v93 = v39;
+  (v92)(v32, a1);
+  (*(v19 + 48))(a3, v19);
+  v40 = (*(v19 + 40))(a3, v19);
+  if (v40 < 0)
   {
     goto LABEL_16;
   }
 
-  v79 = v11;
-  v89 = a5;
-  v93 = v30;
-  v94 = a3;
-  v35 = v85;
-  v34 = v86;
-  if (v33)
+  v86 = v11;
+  v96 = a5;
+  v100 = v36;
+  v101 = a3;
+  v42 = v92;
+  v41 = v93;
+  if (v40)
   {
-    v36 = 0;
+    v43 = 0;
     do
     {
-      v37 = v33;
-      v38 = v34;
-      v35(v24, v27, v34);
-      (*(v17 + 64))(v24, v36, v94, v17);
-      v33 = v37;
-      v34 = v38;
-      ++v36;
+      v44 = v40;
+      v45 = v41;
+      v42(v28, v32, v41);
+      (*(v19 + 64))(v28, v43, v101, v19);
+      v40 = v44;
+      v41 = v45;
+      ++v43;
     }
 
-    while (v37 != v36);
+    while (v44 != v43);
   }
 
-  v85 = v17;
-  v39 = *(v92 + 8);
-  v92 += 8;
-  v80 = v39;
-  v81 = v24;
-  v40 = v34;
-  v39(v27, v34);
-  (*(v84 + 32))(v90, v93, v94);
-  v41 = swift_checkMetadataState(0, v79);
-  v42 = v87;
-  (v87[6])(v41, v87);
-  v43 = v41;
-  v44 = v42;
-  v93 = v42[5];
-  v79 = v42 + 5;
-  v45 = (v93)(v41, v42);
-  if (v45 < 0)
+  v92 = v19;
+  v46 = *(v99 + 8);
+  v99 += 8;
+  v87 = v46;
+  v88 = v28;
+  v47 = v41;
+  v46(v32, v41);
+  (*(v91 + 32))(v97, v100, v101);
+  v48 = swift_checkMetadataState(0, v86);
+  v49 = v94;
+  (v94[6])(v48, v94);
+  v50 = v48;
+  v51 = v49;
+  v100 = v49[5];
+  v86 = (v49 + 5);
+  v52 = (v100)(v48, v49);
+  if (v52 < 0)
   {
     goto LABEL_16;
   }
 
-  v46 = v40;
-  v47 = v85;
-  if (v45)
+  v53 = v47;
+  v54 = v92;
+  if (v52)
   {
-    v48 = 0;
-    v49 = *(v85 + 56);
-    v69[1] = v88 + 3;
-    v69[0] = v44 + 8;
-    v72 = v45;
-    v71 = v85 + 56;
-    v77 = v43;
-    v70 = v49;
-    v76 = v89 + 16;
-    v50 = v81;
+    v55 = 0;
+    v56 = *(v92 + 56);
+    v76[1] = v95 + 3;
+    v76[0] = v51 + 8;
+    v79 = v52;
+    v78 = v92 + 56;
+    v84 = v50;
+    v77 = v56;
+    v83 = v96 + 16;
+    v57 = v88;
     while (1)
     {
-      v51 = v94;
-      v52 = v49;
-      v49(v48, v94, v47);
-      v53 = v82;
-      v54 = v51;
-      v55 = v89;
-      v52(v48, v54, v47);
-      v56 = v44;
-      v57 = (*(v55 + 16))(v50, v53, v46, v55);
-      v58 = v53;
-      v59 = v80;
-      v80(v58, v46);
-      v59(v50, v46);
-      v60 = v77;
-      v61 = (v93)(v77, v56);
-      if (v61 < 0)
+      v58 = v101;
+      v59 = v56;
+      v56(v55, v101, v54);
+      v60 = v89;
+      v61 = v58;
+      v62 = v96;
+      v59(v55, v61, v54);
+      v63 = v51;
+      v64 = (*(v62 + 16))(v57, v60, v53, v62);
+      v65 = v60;
+      v66 = v87;
+      v87(v65, v53);
+      v66(v57, v53);
+      v67 = v84;
+      v68 = (v100)(v84, v63);
+      if (v68 < 0)
       {
         break;
       }
 
-      if (v48 >= v61)
+      if (v55 >= v68)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v62 = v74;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v88, v78, v74, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      if (v57)
+      v69 = v81;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v95, v85, v81, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      if (v64)
       {
-        v64 = v75;
-        v65 = &unk_18071E0B0;
-        v66 = 257;
+        v71 = v82;
+        v72 = &unk_18071E0B0;
+        v73 = 257;
       }
 
       else
       {
-        v64 = v75;
-        v65 = &qword_18071E0A8;
-        v66 = 256;
+        v71 = v82;
+        v72 = &qword_18071E0A8;
+        v73 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v65, v66, v62, AssociatedConformanceWitness);
-      v67 = v73;
-      (v88[3])(v64);
-      v44 = v87;
-      (v87[8])(v67, v48++, v60, v87);
-      v47 = v85;
-      v46 = v86;
-      v49 = v70;
-      if (v72 == v48)
+      (*(AssociatedConformanceWitness + 8))(v72, v73, v69, AssociatedConformanceWitness);
+      v74 = v80;
+      (v95[3])(v71);
+      v51 = v94;
+      (v94[8])(v74, v55++, v67, v94);
+      v54 = v92;
+      v53 = v93;
+      v56 = v77;
+      if (v79 == v55)
       {
-        return (*(v84 + 8))(v90, v94);
+        return (*(v91 + 8))(v97, v101);
       }
     }
 
@@ -5847,161 +5858,161 @@ LABEL_16:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(v84 + 8))(v90, v94);
+  return (*(v91 + 8))(v97, v101);
 }
 
-uint64_t SIMD.replacing(with:where:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t SIMD.replacing(with:where:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v77 = a2;
-  v71 = a1;
+  v81 = a2;
+  v75 = a1;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v10 = v9;
-  v78 = *(swift_getAssociatedConformanceWitness(a4, a3, v9, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  v76 = v10;
-  swift_getAssociatedTypeWitness(255, v78, v10, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v82 = *(swift_getAssociatedConformanceWitness(a4, a3, v9, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  v80 = v10;
+  swift_getAssociatedTypeWitness(255, v82, v10, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v12 = v11;
   v13 = *(swift_getAssociatedConformanceWitness(a4, a3, v11, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8);
-  v74 = *(*(v13 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v74, v12, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v60 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v59 = v58 - v15;
-  v16 = swift_checkMetadataState(0, v12);
-  v17 = *(v16 - 1);
-  v18 = MEMORY[0x1EEE9AC00](v16);
-  v70 = v58 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v75 = v58 - v20;
-  v21 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v21, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  MEMORY[0x1EEE9AC00](v22 - 8);
-  v73 = v58 - v23;
-  (*(*(a3 - 1) + 16))(a5, v5, a3);
-  result = (*(v21 + 40))(a3, v21);
+  v78 = *(*(v13 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v78, v12, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v64 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v63 = v62 - v16;
+  v17 = swift_checkMetadataState(0, v12);
+  v18 = *(v17 - 1);
+  v20 = MEMORY[0x1EEE9AC00](v17, v19);
+  v74 = v62 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20, v22);
+  v79 = v62 - v23;
+  v24 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v24, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  MEMORY[0x1EEE9AC00](v25 - 8, v26);
+  v77 = v62 - v27;
+  (*(*(a3 - 1) + 2))(a5, v5, a3);
+  result = (*(v24 + 40))(a3, v24);
   if (result < 0)
   {
 LABEL_23:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v72 = a5;
+  v76 = a5;
   if (result)
   {
-    v25 = 0;
-    v27 = v78 + 5;
-    v26 = v78[5];
-    v67 = v13 + 64;
-    v68 = v78 + 7;
-    v65 = (v17 + 8);
-    v66 = v13 + 128;
-    v58[3] = v13 + 120;
-    v58[1] = v74 + 3;
-    v58[2] = v13 + 96;
-    v63 = v21 + 64;
-    v64 = v21 + 56;
-    v69 = result;
+    v29 = 0;
+    v31 = v82 + 5;
+    v30 = v82[5];
+    v71 = v13 + 64;
+    v72 = v82 + 7;
+    v69 = (v18 + 8);
+    v70 = v13 + 128;
+    v62[3] = v13 + 120;
+    v62[1] = v78 + 3;
+    v62[2] = v13 + 96;
+    v67 = v24 + 64;
+    v68 = v24 + 56;
+    v73 = result;
     while (1)
     {
-      v28 = v76;
-      v29 = swift_checkMetadataState(0, v76);
-      v30 = (v26)(v29, v78);
-      if (v30 < 0)
+      v32 = v80;
+      v33 = swift_checkMetadataState(0, v80);
+      v34 = (v30)(v33, v82);
+      if (v34 < 0)
       {
         goto LABEL_23;
       }
 
-      if (v25 >= v30)
+      if (v29 >= v34)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v61 = v26;
-      v62 = v27;
-      v31 = v78;
-      v32 = v78[7];
-      v33 = swift_checkMetadataState(0, v28);
-      v34 = v75;
-      (v32)(v25, v33, v31);
-      v35 = *(v13 + 64);
-      if ((v35(v16, v13) & 1) == 0)
+      v65 = v30;
+      v66 = v31;
+      v35 = v82;
+      v36 = v82[7];
+      v37 = swift_checkMetadataState(0, v32);
+      v38 = v79;
+      (v36)(v29, v37, v35);
+      v39 = *(v13 + 64);
+      if ((v39(v17, v13) & 1) == 0)
       {
         break;
       }
 
-      v36 = (*(v13 + 128))(v16, v13);
-      if (v36 >= 64)
+      v40 = (*(v13 + 128))(v17, v13);
+      if (v40 >= 64)
       {
-        v79[0] = 0;
-        v46 = *(v13 + 96);
-        v47 = lazy protocol witness table accessor for type Int and conformance Int(v36, v37, v38);
-        v45 = v70;
-        v46(v79, &type metadata for Int, v47, v16, v13);
-        (*(*(*(v13 + 32) + 8) + 16))(v34, v45, v16);
+        v83[0] = 0;
+        v50 = *(v13 + 96);
+        v51 = lazy protocol witness table accessor for type Int and conformance Int(v40, v41, v42);
+        v49 = v74;
+        v50(v83, &type metadata for Int, v51, v17, v13);
+        (*(*(*(v13 + 32) + 8) + 16))(v38, v49, v17);
 LABEL_13:
-        v48 = *v65;
-        (*v65)(v45, v16);
-        v48(v34, v16);
+        v52 = *v69;
+        (*v69)(v49, v17);
+        v52(v38, v17);
         goto LABEL_20;
       }
 
-      (*(v13 + 120))(v16, v13);
-      (*v65)(v34, v16);
+      (*(v13 + 120))(v17, v13);
+      (*v69)(v38, v17);
 LABEL_20:
-      v57 = v73;
-      (*(v21 + 56))(v25, a3, v21);
-      (*(v21 + 64))(v57, v25++, a3, v21);
-      result = v69;
-      v26 = v61;
-      v27 = v62;
-      if (v69 == v25)
+      v61 = v77;
+      (*(v24 + 56))(v29, a3, v24);
+      (*(v24 + 64))(v61, v29++, a3, v24);
+      result = v73;
+      v30 = v65;
+      v31 = v66;
+      if (v73 == v29)
       {
         return result;
       }
     }
 
-    v39 = v35(v16, v13);
-    v40 = (*(v13 + 128))(v16, v13);
-    if ((v39 & 1) == 0)
+    v43 = v39(v17, v13);
+    v44 = (*(v13 + 128))(v17, v13);
+    if ((v43 & 1) == 0)
     {
-      v49 = v65;
-      if (v40 < 64)
+      v53 = v69;
+      if (v44 < 64)
       {
-        (*(v13 + 120))(v16, v13);
+        (*(v13 + 120))(v17, v13);
       }
 
-      (*v49)(v34, v16);
+      (*v53)(v38, v17);
       goto LABEL_20;
     }
 
-    if (v40 <= 64)
+    if (v44 <= 64)
     {
-      v50 = v74;
-      v51 = v60;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v74, v16, v60, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v53 = v59;
-      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v51, AssociatedConformanceWitness);
-      v54 = v70;
-      (v50[3])(v53, v16, v50);
-      v55 = v75;
-      LOBYTE(v51) = (*(*(*(v13 + 32) + 8) + 16))(v75, v54, v16);
-      v56 = *v65;
-      (*v65)(v54, v16);
-      if ((v51 & 1) == 0)
+      v54 = v78;
+      v55 = v64;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v78, v17, v64, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v57 = v63;
+      (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v55, AssociatedConformanceWitness);
+      v58 = v74;
+      (v54[3])(v57, v17, v54);
+      v59 = v79;
+      LOBYTE(v55) = (*(*(*(v13 + 32) + 8) + 16))(v79, v58, v17);
+      v60 = *v69;
+      (*v69)(v58, v17);
+      if ((v55 & 1) == 0)
       {
-        (*(v13 + 120))(v16, v13);
+        (*(v13 + 120))(v17, v13);
       }
 
-      v56(v55, v16);
+      v60(v59, v17);
       goto LABEL_20;
     }
 
-    v79[0] = 0;
-    v43 = *(v13 + 96);
-    v44 = lazy protocol witness table accessor for type Int and conformance Int(v40, v41, v42);
-    v45 = v70;
-    v43(v79, &type metadata for Int, v44, v16, v13);
-    v34 = v75;
-    (*(*(*(v13 + 32) + 8) + 16))(v75, v45, v16);
+    v83[0] = 0;
+    v47 = *(v13 + 96);
+    v48 = lazy protocol witness table accessor for type Int and conformance Int(v44, v45, v46);
+    v49 = v74;
+    v47(v83, &type metadata for Int, v48, v17, v13);
+    v38 = v79;
+    (*(*(*(v13 + 32) + 8) + 16))(v79, v49, v17);
     goto LABEL_13;
   }
 
@@ -6009,146 +6020,146 @@ LABEL_20:
 }
 
 {
-  v116 = a2;
-  v117 = a5;
+  v124 = a2;
+  v125 = a5;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v9 = v8;
-  v120 = *(swift_getAssociatedConformanceWitness(a4, a3, v8, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  v112 = v9;
-  swift_getAssociatedTypeWitness(255, v120, v9, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v128 = *(swift_getAssociatedConformanceWitness(a4, a3, v8, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  v120 = v9;
+  swift_getAssociatedTypeWitness(255, v128, v9, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v11 = v10;
-  v115 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8);
-  v104 = *(*(v115 + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v104, v11, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v100 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v99 = v98 - v13;
-  v105 = swift_checkMetadataState(0, v11);
-  v103 = *(v105 - 1);
-  v14 = MEMORY[0x1EEE9AC00](v105);
-  v101 = v98 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = v98 - v16;
-  v18 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v18, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v20 = v19;
-  v21 = *(v19 - 8);
-  v22 = MEMORY[0x1EEE9AC00](v19);
-  v102 = v98 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v26 = v98 - v25;
-  MEMORY[0x1EEE9AC00](v24);
-  v113 = *(a3 - 1);
-  v28 = MEMORY[0x1EEE9AC00](v98 - v27);
-  v30 = (v98 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v31 = MEMORY[0x1EEE9AC00](v28);
-  v119 = v98 - v32;
-  v33 = v31;
-  v107 = *(v21 + 16);
-  v108 = (v21 + 16);
-  (v107)(v31, a1, v20);
-  (*(v18 + 48))(a3, v18);
-  v34 = *(v18 + 40);
-  v118 = v18;
-  v109 = v34;
-  v110 = v18 + 40;
-  v35 = v34(a3, v18);
-  if (v35 < 0)
+  v123 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8);
+  v112 = *(*(v123 + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v112, v11, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v108 = v12;
+  MEMORY[0x1EEE9AC00](v12, v13);
+  v107 = v106 - v14;
+  v113 = swift_checkMetadataState(0, v11);
+  v111 = *(v113 - 1);
+  v16 = MEMORY[0x1EEE9AC00](v113, v15);
+  v109 = v106 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16, v18);
+  v20 = v106 - v19;
+  v21 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v21, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v23 = v22;
+  v24 = *(v22 - 8);
+  v26 = MEMORY[0x1EEE9AC00](v22, v25);
+  v110 = v106 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = MEMORY[0x1EEE9AC00](v26, v28);
+  v31 = v106 - v30;
+  MEMORY[0x1EEE9AC00](v29, v32);
+  v121 = *(a3 - 1);
+  v35 = MEMORY[0x1EEE9AC00](v106 - v33, v34);
+  v37 = (v106 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = MEMORY[0x1EEE9AC00](v35, v38);
+  v127 = v106 - v40;
+  v41 = v39;
+  v115 = *(v24 + 16);
+  v116 = (v24 + 16);
+  (v115)(v39, a1, v23);
+  (*(v21 + 48))(a3, v21);
+  v42 = *(v21 + 40);
+  v126 = v21;
+  v117 = v42;
+  v118 = v21 + 40;
+  v43 = v42(a3, v21);
+  if (v43 < 0)
   {
     goto LABEL_32;
   }
 
-  v36 = v35;
-  v106 = v21;
-  v114 = v17;
-  v121 = v30;
-  v122 = a3;
-  v37 = v20;
-  v38 = v118;
-  v39 = v107;
-  if (v35)
+  v44 = v43;
+  v114 = v24;
+  v122 = v20;
+  v129 = v37;
+  v130 = a3;
+  v45 = v23;
+  v46 = v126;
+  v47 = v115;
+  if (v43)
   {
-    v40 = 0;
+    v48 = 0;
     do
     {
-      v39(v26, v33, v37);
-      (*(v38 + 64))(v26, v40++, v122, v38);
+      v47(v31, v41, v45);
+      (*(v46 + 64))(v31, v48++, v130, v46);
     }
 
-    while (v36 != v40);
+    while (v44 != v48);
   }
 
-  (*(v106 + 1))(v33, v37);
-  v41 = v113;
-  v42 = v122;
-  (*(v113 + 32))(v119, v121, v122);
-  (*(v41 + 16))(v117, v111, v42);
-  v43 = v109(v42, v38);
-  if (v43 < 0)
+  (*(v114 + 1))(v41, v45);
+  v49 = v121;
+  v50 = v130;
+  (*(v121 + 32))(v127, v129, v130);
+  (*(v49 + 16))(v125, v119, v50);
+  v51 = v117(v50, v46);
+  if (v51 < 0)
   {
 LABEL_32:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v44 = v43;
-  v45 = v112;
-  v46 = v114;
-  if (v43)
+  v52 = v51;
+  v53 = v120;
+  v54 = v122;
+  if (v51)
   {
-    v47 = 0;
-    v48 = v120[5];
-    v121 = v120 + 7;
-    v110 = v115 + 128;
-    v111 = v115 + 64;
-    v108 = (v103 + 8);
-    v98[3] = v115 + 120;
-    v98[1] = v104 + 3;
-    v98[2] = v115 + 96;
-    v109 = (v38 + 56);
-    v49 = v38 + 64;
+    v55 = 0;
+    v56 = v128[5];
+    v129 = v128 + 7;
+    v118 = v123 + 128;
+    v119 = v123 + 64;
+    v116 = (v111 + 8);
+    v106[3] = v123 + 120;
+    v106[1] = v112 + 3;
+    v106[2] = v123 + 96;
+    v117 = (v46 + 56);
+    v57 = v46 + 64;
     do
     {
-      v50 = swift_checkMetadataState(0, v45);
-      v51 = (v48)(v50, v120);
-      if (v51 < 0)
+      v58 = swift_checkMetadataState(0, v53);
+      v59 = (v56)(v58, v128);
+      if (v59 < 0)
       {
         goto LABEL_32;
       }
 
-      if (v47 >= v51)
+      if (v55 >= v59)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v103 = v49;
-      v106 = v48;
-      v52 = v120;
-      v53 = v120[7];
-      v54 = swift_checkMetadataState(0, v45);
-      v55 = v52;
-      v56 = v115;
-      (v53)(v47, v54, v55);
-      v57 = *(v56 + 64);
-      v58 = v105;
-      v59 = v57(v105, v56);
-      v107 = v44;
-      if (v59)
+      v111 = v57;
+      v114 = v56;
+      v60 = v128;
+      v61 = v128[7];
+      v62 = swift_checkMetadataState(0, v53);
+      v63 = v60;
+      v64 = v123;
+      (v61)(v55, v62, v63);
+      v65 = *(v64 + 64);
+      v66 = v113;
+      v67 = v65(v113, v64);
+      v115 = v52;
+      if (v67)
       {
-        v60 = (*(v56 + 128))(v58, v56);
-        if (v60 >= 64)
+        v68 = (*(v64 + 128))(v66, v64);
+        if (v68 >= 64)
         {
-          v123[0] = 0;
-          v74 = *(v56 + 96);
-          v75 = lazy protocol witness table accessor for type Int and conformance Int(v60, v61, v62);
-          v76 = v101;
-          v74(v123, &type metadata for Int, v75, v58, v56);
-          v77 = (*(*(*(v56 + 32) + 8) + 16))(v114, v76, v58);
-          v78 = *v108;
-          v79 = v76;
-          v46 = v114;
-          (*v108)(v79, v58);
-          v78(v46, v58);
-          if (v77)
+          v131[0] = 0;
+          v82 = *(v64 + 96);
+          v83 = lazy protocol witness table accessor for type Int and conformance Int(v68, v69, v70);
+          v84 = v109;
+          v82(v131, &type metadata for Int, v83, v66, v64);
+          v85 = (*(*(*(v64 + 32) + 8) + 16))(v122, v84, v66);
+          v86 = *v116;
+          v87 = v84;
+          v54 = v122;
+          (*v116)(v87, v66);
+          v86(v54, v66);
+          if (v85)
           {
             goto LABEL_28;
           }
@@ -6156,9 +6167,9 @@ LABEL_32:
 
         else
         {
-          v63 = (*(v56 + 120))(v58, v56);
-          (*v108)(v46, v58);
-          if (v63 < 0)
+          v71 = (*(v64 + 120))(v66, v64);
+          (*v116)(v54, v66);
+          if (v71 < 0)
           {
             goto LABEL_28;
           }
@@ -6167,42 +6178,42 @@ LABEL_32:
 
       else
       {
-        v64 = v57(v58, v56);
-        v65 = (*(v56 + 128))(v58, v56);
-        if (v64)
+        v72 = v65(v66, v64);
+        v73 = (*(v64 + 128))(v66, v64);
+        if (v72)
         {
-          if (v65 <= 64)
+          if (v73 <= 64)
           {
-            v82 = v104;
-            v81 = v105;
-            v83 = v100;
-            AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v104, v105, v100, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-            v85 = v99;
-            (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v83, AssociatedConformanceWitness);
-            v86 = v101;
-            (v82[3])(v85, v81, v82);
-            LOBYTE(v83) = (*(*(*(v56 + 32) + 8) + 16))(v114, v86, v81);
-            v87 = *v108;
-            (*v108)(v86, v81);
-            v45 = v112;
-            if (v83)
+            v90 = v112;
+            v89 = v113;
+            v91 = v108;
+            AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v112, v113, v108, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+            v93 = v107;
+            (*(AssociatedConformanceWitness + 8))(&qword_18071E0A8, 256, v91, AssociatedConformanceWitness);
+            v94 = v109;
+            (v90[3])(v93, v89, v90);
+            LOBYTE(v91) = (*(*(*(v64 + 32) + 8) + 16))(v122, v94, v89);
+            v95 = *v116;
+            (*v116)(v94, v89);
+            v53 = v120;
+            if (v91)
             {
-              v88 = v114;
-              v87(v114, v81);
-              v46 = v88;
+              v96 = v122;
+              v95(v122, v89);
+              v54 = v96;
 LABEL_28:
-              v91 = v118;
-              v92 = *(v118 + 56);
-              v93 = v102;
-              v94 = v47;
+              v99 = v126;
+              v100 = *(v126 + 56);
+              v101 = v110;
+              v102 = v55;
               goto LABEL_29;
             }
 
-            v89 = v114;
-            v90 = (*(v56 + 120))(v81, v56);
-            v87(v89, v81);
-            v46 = v89;
-            if (v90 < 0)
+            v97 = v122;
+            v98 = (*(v64 + 120))(v89, v64);
+            v95(v97, v89);
+            v54 = v97;
+            if (v98 < 0)
             {
               goto LABEL_28;
             }
@@ -6210,30 +6221,30 @@ LABEL_28:
 
           else
           {
-            v123[0] = 0;
-            v68 = *(v56 + 96);
-            v69 = lazy protocol witness table accessor for type Int and conformance Int(v65, v66, v67);
-            v70 = v101;
-            v71 = v105;
-            v68(v123, &type metadata for Int, v69, v105, v56);
-            v72 = (*(*(*(v56 + 32) + 8) + 16))(v46, v70, v71);
-            v73 = *v108;
-            (*v108)(v70, v71);
-            v73(v46, v71);
-            v45 = v112;
-            if (v72)
+            v131[0] = 0;
+            v76 = *(v64 + 96);
+            v77 = lazy protocol witness table accessor for type Int and conformance Int(v73, v74, v75);
+            v78 = v109;
+            v79 = v113;
+            v76(v131, &type metadata for Int, v77, v113, v64);
+            v80 = (*(*(*(v64 + 32) + 8) + 16))(v54, v78, v79);
+            v81 = *v116;
+            (*v116)(v78, v79);
+            v81(v54, v79);
+            v53 = v120;
+            if (v80)
             {
               goto LABEL_28;
             }
           }
         }
 
-        else if (v65 < 64)
+        else if (v73 < 64)
         {
-          v80 = (*(v56 + 120))(v58, v56);
-          (*v108)(v46, v58);
-          v45 = v112;
-          if (v80 < 0)
+          v88 = (*(v64 + 120))(v66, v64);
+          (*v116)(v54, v66);
+          v53 = v120;
+          if (v88 < 0)
           {
             goto LABEL_28;
           }
@@ -6241,186 +6252,186 @@ LABEL_28:
 
         else
         {
-          (*v108)(v46, v58);
-          v45 = v112;
+          (*v116)(v54, v66);
+          v53 = v120;
         }
       }
 
-      v91 = v118;
-      v92 = *(v118 + 56);
-      v93 = v102;
-      v94 = v47;
+      v99 = v126;
+      v100 = *(v126 + 56);
+      v101 = v110;
+      v102 = v55;
 LABEL_29:
-      v42 = v122;
-      v92(v94, v122, v91);
-      v95 = *(v91 + 64);
-      v96 = v91;
-      v49 = v103;
-      v95(v93, v47++, v42, v96);
-      v44 = v107;
-      v48 = v106;
+      v50 = v130;
+      v100(v102, v130, v99);
+      v103 = *(v99 + 64);
+      v104 = v99;
+      v57 = v111;
+      v103(v101, v55++, v50, v104);
+      v52 = v115;
+      v56 = v114;
     }
 
-    while (v107 != v47);
+    while (v115 != v55);
   }
 
-  return (*(v113 + 8))(v119, v42);
+  return (*(v121 + 8))(v127, v50);
 }
 
-uint64_t static SIMD<>..>= infix(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t static SIMD<>..>= infix(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v83 = a1;
-  v91 = a6;
+  v90 = a1;
+  v98 = a6;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v11 = v10;
-  v87 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  swift_getAssociatedTypeWitness(255, v87, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v94 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  swift_getAssociatedTypeWitness(255, v94, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v88 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v88, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v74 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v69 - v15;
-  v78 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v78);
-  v73 = v69 - v16;
-  v17 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v17, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v82 = v69 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = v69 - v23;
-  v25 = MEMORY[0x1EEE9AC00](v22);
-  v27 = v69 - v26;
-  v84 = *(a3 - 1);
-  v28 = MEMORY[0x1EEE9AC00](v25);
-  v30 = (v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v28);
-  v90 = v69 - v31;
-  v92 = v19;
-  v85 = *(v19 + 16);
-  v86 = v32;
-  (v85)(v27, a2);
-  (*(v17 + 48))(a3, v17);
-  v33 = (*(v17 + 40))(a3, v17);
-  if (v33 < 0)
+  v95 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v95, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v81 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v82 = v76 - v16;
+  v85 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v85, v17);
+  v80 = v76 - v18;
+  v19 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v19, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v89 = v76 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v28 = v76 - v27;
+  v30 = MEMORY[0x1EEE9AC00](v26, v29);
+  v32 = v76 - v31;
+  v91 = *(a3 - 1);
+  v34 = MEMORY[0x1EEE9AC00](v30, v33);
+  v36 = (v76 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v34, v37);
+  v97 = v76 - v38;
+  v99 = v21;
+  v92 = *(v21 + 16);
+  v93 = v39;
+  (v92)(v32, a2);
+  (*(v19 + 48))(a3, v19);
+  v40 = (*(v19 + 40))(a3, v19);
+  if (v40 < 0)
   {
     goto LABEL_16;
   }
 
-  v79 = v11;
-  v89 = a5;
-  v93 = v30;
-  v94 = a3;
-  v35 = v85;
-  v34 = v86;
-  if (v33)
+  v86 = v11;
+  v96 = a5;
+  v100 = v36;
+  v101 = a3;
+  v42 = v92;
+  v41 = v93;
+  if (v40)
   {
-    v36 = 0;
+    v43 = 0;
     do
     {
-      v37 = v33;
-      v38 = v34;
-      v35(v24, v27, v34);
-      (*(v17 + 64))(v24, v36, v94, v17);
-      v33 = v37;
-      v34 = v38;
-      ++v36;
+      v44 = v40;
+      v45 = v41;
+      v42(v28, v32, v41);
+      (*(v19 + 64))(v28, v43, v101, v19);
+      v40 = v44;
+      v41 = v45;
+      ++v43;
     }
 
-    while (v37 != v36);
+    while (v44 != v43);
   }
 
-  v85 = v17;
-  v39 = *(v92 + 8);
-  v92 += 8;
-  v80 = v39;
-  v81 = v24;
-  v40 = v34;
-  v39(v27, v34);
-  (*(v84 + 32))(v90, v93, v94);
-  v41 = swift_checkMetadataState(0, v79);
-  v42 = v87;
-  (v87[6])(v41, v87);
-  v43 = v41;
-  v44 = v42;
-  v93 = v42[5];
-  v79 = v42 + 5;
-  v45 = (v93)(v41, v42);
-  if (v45 < 0)
+  v92 = v19;
+  v46 = *(v99 + 8);
+  v99 += 8;
+  v87 = v46;
+  v88 = v28;
+  v47 = v41;
+  v46(v32, v41);
+  (*(v91 + 32))(v97, v100, v101);
+  v48 = swift_checkMetadataState(0, v86);
+  v49 = v94;
+  (v94[6])(v48, v94);
+  v50 = v48;
+  v51 = v49;
+  v100 = v49[5];
+  v86 = (v49 + 5);
+  v52 = (v100)(v48, v49);
+  if (v52 < 0)
   {
     goto LABEL_16;
   }
 
-  v46 = v40;
-  v47 = v85;
-  if (v45)
+  v53 = v47;
+  v54 = v92;
+  if (v52)
   {
-    v48 = 0;
-    v49 = *(v85 + 56);
-    v69[1] = v88 + 3;
-    v69[0] = v44 + 8;
-    v72 = v45;
-    v71 = v85 + 56;
-    v77 = v43;
-    v70 = v49;
-    v76 = v89 + 24;
-    v50 = v81;
+    v55 = 0;
+    v56 = *(v92 + 56);
+    v76[1] = v95 + 3;
+    v76[0] = v51 + 8;
+    v79 = v52;
+    v78 = v92 + 56;
+    v84 = v50;
+    v77 = v56;
+    v83 = v96 + 24;
+    v57 = v88;
     while (1)
     {
-      v51 = v94;
-      v52 = v49;
-      v49(v48, v94, v47);
-      v53 = v82;
-      v54 = v51;
-      v55 = v89;
-      v52(v48, v54, v47);
-      v56 = v44;
-      v57 = (*(v55 + 24))(v50, v53, v46, v55);
-      v58 = v53;
-      v59 = v80;
-      v80(v58, v46);
-      v59(v50, v46);
-      v60 = v77;
-      v61 = (v93)(v77, v56);
-      if (v61 < 0)
+      v58 = v101;
+      v59 = v56;
+      v56(v55, v101, v54);
+      v60 = v89;
+      v61 = v58;
+      v62 = v96;
+      v59(v55, v61, v54);
+      v63 = v51;
+      v64 = (*(v62 + 24))(v57, v60, v53, v62);
+      v65 = v60;
+      v66 = v87;
+      v87(v65, v53);
+      v66(v57, v53);
+      v67 = v84;
+      v68 = (v100)(v84, v63);
+      if (v68 < 0)
       {
         break;
       }
 
-      if (v48 >= v61)
+      if (v55 >= v68)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v62 = v74;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v88, v78, v74, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      if (v57)
+      v69 = v81;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v95, v85, v81, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      if (v64)
       {
-        v64 = v75;
-        v65 = &unk_18071E0B0;
-        v66 = 257;
+        v71 = v82;
+        v72 = &unk_18071E0B0;
+        v73 = 257;
       }
 
       else
       {
-        v64 = v75;
-        v65 = &qword_18071E0A8;
-        v66 = 256;
+        v71 = v82;
+        v72 = &qword_18071E0A8;
+        v73 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v65, v66, v62, AssociatedConformanceWitness);
-      v67 = v73;
-      (v88[3])(v64);
-      v44 = v87;
-      (v87[8])(v67, v48++, v60, v87);
-      v47 = v85;
-      v46 = v86;
-      v49 = v70;
-      if (v72 == v48)
+      (*(AssociatedConformanceWitness + 8))(v72, v73, v69, AssociatedConformanceWitness);
+      v74 = v80;
+      (v95[3])(v71);
+      v51 = v94;
+      (v94[8])(v74, v55++, v67, v94);
+      v54 = v92;
+      v53 = v93;
+      v56 = v77;
+      if (v79 == v55)
       {
-        return (*(v84 + 8))(v90, v94);
+        return (*(v91 + 8))(v97, v101);
       }
     }
 
@@ -6428,117 +6439,117 @@ LABEL_16:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(v84 + 8))(v90, v94);
+  return (*(v91 + 8))(v97, v101);
 }
 
 {
-  v70 = a5;
-  v64 = a1;
-  v65 = a2;
+  v74 = a5;
+  v68 = a1;
+  v69 = a2;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v10 = v9;
   v11 = *(swift_getAssociatedConformanceWitness(a4, a3, v9, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
   swift_getAssociatedTypeWitness(255, v11, v10, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v68 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v68, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v56 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = v51 - v15;
-  v59 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v59);
-  v55 = v51 - v17;
-  v69 = *(a4 + 48);
-  v66 = a3;
-  swift_getAssociatedTypeWitness(0, v69, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v60 = v18;
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v22 = v51 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v62 = v51 - v23;
-  v24 = swift_checkMetadataState(0, v10);
-  (*(v11 + 48))(v24, v11);
-  v25 = *(v11 + 40);
-  v67 = a6;
-  v63 = v25;
-  v61 = v11 + 40;
-  result = v25(v24, v11);
+  v72 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v72, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v60 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v17 = v55 - v16;
+  v63 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v63, v18);
+  v59 = v55 - v19;
+  v73 = *(a4 + 48);
+  v70 = a3;
+  swift_getAssociatedTypeWitness(0, v73, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v64 = v20;
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v25 = v55 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23, v26);
+  v66 = v55 - v27;
+  v28 = swift_checkMetadataState(0, v10);
+  (*(v11 + 48))(v28, v11);
+  v29 = *(v11 + 40);
+  v71 = a6;
+  v67 = v29;
+  v65 = v11 + 40;
+  result = v29(v28, v11);
   if (result < 0)
   {
     goto LABEL_12;
   }
 
-  v54 = v16;
+  v58 = v17;
   if (result)
   {
-    v27 = 0;
-    v28 = v69[7];
-    v29 = v70 + 24;
-    v30 = (v19 + 8);
-    v51[2] = v68 + 3;
-    v51[1] = v11 + 64;
-    v52 = v28;
-    v53 = result;
-    v51[3] = v69 + 7;
-    v57 = v11;
-    v58 = v24;
+    v31 = 0;
+    v32 = v73[7];
+    v33 = v74 + 24;
+    v34 = (v21 + 8);
+    v55[2] = v72 + 3;
+    v55[1] = v11 + 64;
+    v56 = v32;
+    v57 = result;
+    v55[3] = v73 + 7;
+    v61 = v11;
+    v62 = v28;
     while (1)
     {
-      v31 = v62;
-      v32 = v66;
-      v33 = v30;
-      v34 = v69;
-      v35 = v29;
-      v36 = v28;
-      (v28)(v27, v66, v69);
+      v35 = v66;
+      v36 = v70;
       v37 = v34;
-      v30 = v33;
-      (v36)(v27, v32, v37);
-      v29 = v35;
-      v38 = v60;
-      v39 = (*(v70 + 24))(v31, v22, v60);
-      v40 = *v33;
-      (*v33)(v22, v38);
-      v41 = v31;
-      v42 = v57;
-      v43 = v58;
-      v40(v41, v38);
-      v44 = v63(v43, v42);
-      if (v44 < 0)
+      v38 = v73;
+      v39 = v33;
+      v40 = v32;
+      (v32)(v31, v70, v73);
+      v41 = v38;
+      v34 = v37;
+      (v40)(v31, v36, v41);
+      v33 = v39;
+      v42 = v64;
+      v43 = (*(v74 + 24))(v35, v25, v64);
+      v44 = *v37;
+      (*v37)(v25, v42);
+      v45 = v35;
+      v46 = v61;
+      v47 = v62;
+      v44(v45, v42);
+      v48 = v67(v47, v46);
+      if (v48 < 0)
       {
         break;
       }
 
-      if (v27 >= v44)
+      if (v31 >= v48)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v51[0] = v22;
-      v45 = v56;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v68, v59, v56, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      v47 = v54;
-      if (v39)
+      v55[0] = v25;
+      v49 = v60;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v72, v63, v60, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      v51 = v58;
+      if (v43)
       {
-        v48 = &unk_18071E0B0;
-        v49 = 257;
+        v52 = &unk_18071E0B0;
+        v53 = 257;
       }
 
       else
       {
-        v48 = &qword_18071E0A8;
-        v49 = 256;
+        v52 = &qword_18071E0A8;
+        v53 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v48, v49, v45, AssociatedConformanceWitness);
-      v50 = v55;
-      (v68[3])(v47);
-      (*(v42 + 64))(v50, v27++, v43, v42);
-      v28 = v52;
-      result = v53;
-      v22 = v51[0];
-      if (v53 == v27)
+      (*(AssociatedConformanceWitness + 8))(v52, v53, v49, AssociatedConformanceWitness);
+      v54 = v59;
+      (v72[3])(v51);
+      (*(v46 + 64))(v54, v31++, v47, v46);
+      v32 = v56;
+      result = v57;
+      v25 = v55[0];
+      if (v57 == v31)
       {
         return result;
       }
@@ -6552,158 +6563,158 @@ LABEL_12:
 }
 
 {
-  v83 = a2;
-  v91 = a6;
+  v90 = a2;
+  v98 = a6;
   swift_getAssociatedTypeWitness(255, a4, a3, &protocol requirements base descriptor for SIMD, associated type descriptor for SIMD.MaskStorage);
   v11 = v10;
-  v87 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
-  swift_getAssociatedTypeWitness(255, v87, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v94 = *(swift_getAssociatedConformanceWitness(a4, a3, v10, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage: SIMD) + 48);
+  swift_getAssociatedTypeWitness(255, v94, v11, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v13 = v12;
-  v88 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
-  swift_getAssociatedTypeWitness(0, v88, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
-  v74 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v69 - v15;
-  v78 = swift_checkMetadataState(0, v13);
-  MEMORY[0x1EEE9AC00](v78);
-  v73 = v69 - v16;
-  v17 = *(a4 + 48);
-  swift_getAssociatedTypeWitness(0, v17, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
-  v19 = *(v18 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v82 = v69 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = v69 - v23;
-  v25 = MEMORY[0x1EEE9AC00](v22);
-  v27 = v69 - v26;
-  v84 = *(a3 - 1);
-  v28 = MEMORY[0x1EEE9AC00](v25);
-  v30 = (v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v28);
-  v90 = v69 - v31;
-  v92 = v19;
-  v85 = *(v19 + 16);
-  v86 = v32;
-  (v85)(v27, a1);
-  (*(v17 + 48))(a3, v17);
-  v33 = (*(v17 + 40))(a3, v17);
-  if (v33 < 0)
+  v95 = *(*(*(swift_getAssociatedConformanceWitness(a4, a3, v12, &protocol requirements base descriptor for SIMD, associated conformance descriptor for SIMD.SIMD.MaskStorage.SIMDStorage.Scalar: FixedWidthInteger) + 8) + 24) + 16);
+  swift_getAssociatedTypeWitness(0, v95, v13, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated type descriptor for ExpressibleByIntegerLiteral.IntegerLiteralType);
+  v81 = v14;
+  MEMORY[0x1EEE9AC00](v14, v15);
+  v82 = v76 - v16;
+  v85 = swift_checkMetadataState(0, v13);
+  MEMORY[0x1EEE9AC00](v85, v17);
+  v80 = v76 - v18;
+  v19 = *(a4 + 48);
+  swift_getAssociatedTypeWitness(0, v19, a3, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v89 = v76 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v28 = v76 - v27;
+  v30 = MEMORY[0x1EEE9AC00](v26, v29);
+  v32 = v76 - v31;
+  v91 = *(a3 - 1);
+  v34 = MEMORY[0x1EEE9AC00](v30, v33);
+  v36 = (v76 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v34, v37);
+  v97 = v76 - v38;
+  v99 = v21;
+  v92 = *(v21 + 16);
+  v93 = v39;
+  (v92)(v32, a1);
+  (*(v19 + 48))(a3, v19);
+  v40 = (*(v19 + 40))(a3, v19);
+  if (v40 < 0)
   {
     goto LABEL_16;
   }
 
-  v79 = v11;
-  v89 = a5;
-  v93 = v30;
-  v94 = a3;
-  v35 = v85;
-  v34 = v86;
-  if (v33)
+  v86 = v11;
+  v96 = a5;
+  v100 = v36;
+  v101 = a3;
+  v42 = v92;
+  v41 = v93;
+  if (v40)
   {
-    v36 = 0;
+    v43 = 0;
     do
     {
-      v37 = v33;
-      v38 = v34;
-      v35(v24, v27, v34);
-      (*(v17 + 64))(v24, v36, v94, v17);
-      v33 = v37;
-      v34 = v38;
-      ++v36;
+      v44 = v40;
+      v45 = v41;
+      v42(v28, v32, v41);
+      (*(v19 + 64))(v28, v43, v101, v19);
+      v40 = v44;
+      v41 = v45;
+      ++v43;
     }
 
-    while (v37 != v36);
+    while (v44 != v43);
   }
 
-  v85 = v17;
-  v39 = *(v92 + 8);
-  v92 += 8;
-  v80 = v39;
-  v81 = v24;
-  v40 = v34;
-  v39(v27, v34);
-  (*(v84 + 32))(v90, v93, v94);
-  v41 = swift_checkMetadataState(0, v79);
-  v42 = v87;
-  (v87[6])(v41, v87);
-  v43 = v41;
-  v44 = v42;
-  v93 = v42[5];
-  v79 = v42 + 5;
-  v45 = (v93)(v41, v42);
-  if (v45 < 0)
+  v92 = v19;
+  v46 = *(v99 + 8);
+  v99 += 8;
+  v87 = v46;
+  v88 = v28;
+  v47 = v41;
+  v46(v32, v41);
+  (*(v91 + 32))(v97, v100, v101);
+  v48 = swift_checkMetadataState(0, v86);
+  v49 = v94;
+  (v94[6])(v48, v94);
+  v50 = v48;
+  v51 = v49;
+  v100 = v49[5];
+  v86 = (v49 + 5);
+  v52 = (v100)(v48, v49);
+  if (v52 < 0)
   {
     goto LABEL_16;
   }
 
-  v46 = v40;
-  v47 = v85;
-  if (v45)
+  v53 = v47;
+  v54 = v92;
+  if (v52)
   {
-    v48 = 0;
-    v49 = *(v85 + 56);
-    v69[1] = v88 + 3;
-    v69[0] = v44 + 8;
-    v72 = v45;
-    v71 = v85 + 56;
-    v77 = v43;
-    v70 = v49;
-    v76 = v89 + 24;
-    v50 = v81;
+    v55 = 0;
+    v56 = *(v92 + 56);
+    v76[1] = v95 + 3;
+    v76[0] = v51 + 8;
+    v79 = v52;
+    v78 = v92 + 56;
+    v84 = v50;
+    v77 = v56;
+    v83 = v96 + 24;
+    v57 = v88;
     while (1)
     {
-      v51 = v94;
-      v52 = v49;
-      v49(v48, v94, v47);
-      v53 = v82;
-      v54 = v51;
-      v55 = v89;
-      v52(v48, v54, v47);
-      v56 = v44;
-      v57 = (*(v55 + 24))(v50, v53, v46, v55);
-      v58 = v53;
-      v59 = v80;
-      v80(v58, v46);
-      v59(v50, v46);
-      v60 = v77;
-      v61 = (v93)(v77, v56);
-      if (v61 < 0)
+      v58 = v101;
+      v59 = v56;
+      v56(v55, v101, v54);
+      v60 = v89;
+      v61 = v58;
+      v62 = v96;
+      v59(v55, v61, v54);
+      v63 = v51;
+      v64 = (*(v62 + 24))(v57, v60, v53, v62);
+      v65 = v60;
+      v66 = v87;
+      v87(v65, v53);
+      v66(v57, v53);
+      v67 = v84;
+      v68 = (v100)(v84, v63);
+      if (v68 < 0)
       {
         break;
       }
 
-      if (v48 >= v61)
+      if (v55 >= v68)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v62 = v74;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v88, v78, v74, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
-      if (v57)
+      v69 = v81;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v95, v85, v81, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
+      if (v64)
       {
-        v64 = v75;
-        v65 = &unk_18071E0B0;
-        v66 = 257;
+        v71 = v82;
+        v72 = &unk_18071E0B0;
+        v73 = 257;
       }
 
       else
       {
-        v64 = v75;
-        v65 = &qword_18071E0A8;
-        v66 = 256;
+        v71 = v82;
+        v72 = &qword_18071E0A8;
+        v73 = 256;
       }
 
-      (*(AssociatedConformanceWitness + 8))(v65, v66, v62, AssociatedConformanceWitness);
-      v67 = v73;
-      (v88[3])(v64);
-      v44 = v87;
-      (v87[8])(v67, v48++, v60, v87);
-      v47 = v85;
-      v46 = v86;
-      v49 = v70;
-      if (v72 == v48)
+      (*(AssociatedConformanceWitness + 8))(v72, v73, v69, AssociatedConformanceWitness);
+      v74 = v80;
+      (v95[3])(v71);
+      v51 = v94;
+      (v94[8])(v74, v55++, v67, v94);
+      v54 = v92;
+      v53 = v93;
+      v56 = v77;
+      if (v79 == v55)
       {
-        return (*(v84 + 8))(v90, v94);
+        return (*(v91 + 8))(v97, v101);
       }
     }
 
@@ -6711,22 +6722,22 @@ LABEL_16:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(v84 + 8))(v90, v94);
+  return (*(v91 + 8))(v97, v101);
 }
 
-uint64_t static SIMD<>.&- infix(_:_:)@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+uint64_t static SIMD<>.&- infix(_:_:)@<X0>(uint64_t a1@<X1>, Class *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
-  v40 = a1;
+  v43 = a1;
   v8 = *(a3 + 48);
   swift_getAssociatedTypeWitness(0, v8, a2, &protocol requirements base descriptor for SIMDStorage, associated type descriptor for SIMDStorage.Scalar);
   v10 = v9;
-  v42 = *(v9 - 8);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v31 - v15;
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v31 - v17;
+  v45 = *(v9 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v12, v15);
+  v18 = &v34 - v17;
+  MEMORY[0x1EEE9AC00](v16, v19);
+  v21 = &v34 - v20;
   (*(v8 + 48))(a2, v8);
   result = (*(v8 + 40))(a2, v8);
   if (result < 0)
@@ -6734,44 +6745,44 @@ uint64_t static SIMD<>.&- infix(_:_:)@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, 
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v41 = a4;
-  v38 = v18;
-  v39 = a5;
-  v37 = v10;
+  v44 = a4;
+  v41 = v21;
+  v42 = a5;
+  v40 = v10;
   if (result)
   {
-    v20 = a2;
-    v21 = v16;
-    v22 = v13;
-    v23 = 0;
-    v24 = *(v8 + 56);
-    v33 = v41 + 88;
-    v34 = v24;
-    v35 = v8 + 56;
-    v36 = result;
-    v31 = v8 + 64;
-    v32 = (v42 + 8);
+    v23 = a2;
+    v24 = v18;
+    v25 = v14;
+    v26 = 0;
+    v27 = *(v8 + 56);
+    v36 = v44 + 88;
+    v37 = v27;
+    v38 = v8 + 56;
+    v39 = result;
+    v34 = v8 + 64;
+    v35 = (v45 + 8);
     do
     {
-      v42 = v23 + 1;
-      v25 = v34;
-      v34(v23, v20, v8);
-      v25(v23, v20, v8);
-      v26 = v20;
-      v27 = v37;
-      v28 = v38;
-      (*(v41 + 88))(v38, v22, v37);
-      v29 = *v32;
-      (*v32)(v22, v27);
-      v29(v21, v27);
-      v30 = v28;
-      v20 = v26;
-      (*(v8 + 64))(v30, v23, v26, v8);
-      result = v36;
-      v23 = v42;
+      v45 = v26 + 1;
+      v28 = v37;
+      v37(v26, v23, v8);
+      v28(v26, v23, v8);
+      v29 = v23;
+      v30 = v40;
+      v31 = v41;
+      (*(v44 + 88))(v41, v25, v40);
+      v32 = *v35;
+      (*v35)(v25, v30);
+      v32(v24, v30);
+      v33 = v31;
+      v23 = v29;
+      (*(v8 + 64))(v33, v26, v29, v8);
+      result = v39;
+      v26 = v45;
     }
 
-    while (v36 != v42);
+    while (v39 != v45);
   }
 
   return result;
@@ -6791,7 +6802,7 @@ Swift::Int __swiftcall _utf8ScalarLength(_:)(Swift::UInt8 a1)
   }
 }
 
-uint64_t String.endIndex.getter(uint64_t a1, unint64_t a2)
+unint64_t String.endIndex.getter(unint64_t a1, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
@@ -7436,7 +7447,7 @@ void protocol witness for Collection.endIndex.getter in conformance String(uint6
   *a1 = v4 | (v3 << 16);
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance String.UTF8View(Swift::UInt8 *a1, Swift::UInt64 *a2))()
+void (*protocol witness for Collection.subscript.read in conformance String.UTF8View(Swift::UInt8 *a1, Swift::UInt64 *a2))()
 {
   rawBits = *a2;
   v6 = *v2;
@@ -7790,12 +7801,12 @@ uint64_t String.UTF8View.withContiguousStorageIfAvailable<A>(_:)@<X0>(uint64_t (
   return result;
 }
 
-uint64_t String.UTF16View.debugDescription.getter(uint64_t a1, unint64_t x1_0, Swift::Int a3, void *a4, Builtin::Word a5)
+uint64_t String.UTF16View.debugDescription.getter(uint64_t a1, unint64_t a2, Swift::Int a3, void *a4, Builtin::Word a5)
 {
   v9 = _StringGuts.init(_initialCapacity:)(a3);
   v11 = v10;
-  v266._countAndFlagsBits = v9;
-  v266._object = v10;
+  v267._countAndFlagsBits = v9;
+  v267._object = v10;
   v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(a4, a5, 1);
   countAndFlagsBits = v12._countAndFlagsBits;
   v14 = HIBYTE(v11) & 0xF;
@@ -7810,8 +7821,8 @@ uint64_t String.UTF16View.debugDescription.getter(uint64_t a1, unint64_t x1_0, S
     v16 = *&v9 & 0xFFFFFFFFFFFFLL;
   }
 
-  v251 = x1_0;
-  v254 = a1;
+  v252 = a2;
+  v255 = a1;
   if (v16 || (*&v9 & ~v11 & 0x2000000000000000) != 0)
   {
     v17 = (v12._object >> 56) & 0xF;
@@ -7874,9 +7885,9 @@ uint64_t String.UTF16View.debugDescription.getter(uint64_t a1, unint64_t x1_0, S
           goto LABEL_96;
         }
 
-        v258 = 0;
+        v259 = 0;
         v19 = (v12._object >> 56) & 0xF;
-        v256 = v12._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        v257 = v12._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
         if ((v12._object & 0x1000000000000000) == 0)
         {
 LABEL_13:
@@ -7931,7 +7942,7 @@ LABEL_15:
 LABEL_21:
                   if ((v11 & 0x1000000000000000) == 0)
                   {
-                    x1_0 = v251;
+                    a2 = v252;
                     if ((*&v9 & 0x1000000000000000) != 0)
                     {
                       v28 = ((v11 & 0xFFFFFFFFFFFFFFFLL) + 32);
@@ -7940,12 +7951,12 @@ LABEL_21:
                     else
                     {
                       v28 = _StringObject.sharedUTF8.getter(*&v9, v11);
-                      v15 = v248;
+                      v15 = v249;
                     }
 
-                    closure #1 in _StringGuts._convertedToSmall()(v28, v15, &v264, v21);
-                    v9 = v264;
-                    v29 = v265;
+                    closure #1 in _StringGuts._convertedToSmall()(v28, v15, &v265, v21);
+                    v9 = v265;
+                    v29 = v266;
 LABEL_42:
                     v12._object;
                     v39._rawBits = 1;
@@ -7958,7 +7969,7 @@ LABEL_42:
 
                     if (v41._rawBits >> 16 || v42._rawBits >> 16 != v19)
                     {
-                      countAndFlagsBits = specialized static String._copying(_:)(v41._rawBits, v42._rawBits, v12._countAndFlagsBits, v12._object);
+                      countAndFlagsBits = specialized static String._copying(_:)(v41._rawBits, v42, v12._countAndFlagsBits, v12._object);
                       object = v50;
                       v12._object;
                     }
@@ -7976,28 +7987,28 @@ LABEL_42:
                     else if ((object & 0x1000000000000000) != 0)
                     {
                       countAndFlagsBits = _StringGuts._foreignConvertedToSmall()(*&countAndFlagsBits, object);
-                      v250 = v249;
+                      v251 = v250;
                       object;
-                      object = v250;
+                      object = v251;
                     }
 
                     else
                     {
                       if ((*&countAndFlagsBits & 0x1000000000000000) != 0)
                       {
-                        v244 = ((object & 0xFFFFFFFFFFFFFFFLL) + 32);
-                        v245 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+                        v245 = ((object & 0xFFFFFFFFFFFFFFFLL) + 32);
+                        v246 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
                       }
 
                       else
                       {
-                        v244 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, object);
+                        v245 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, object);
                       }
 
-                      closure #1 in _StringGuts._convertedToSmall()(v244, v245, &v264, v43);
+                      closure #1 in _StringGuts._convertedToSmall()(v245, v246, &v265, v43);
                       object;
-                      countAndFlagsBits = v264;
-                      object = v265;
+                      countAndFlagsBits = v265;
+                      object = v266;
                     }
 
                     v51 = HIBYTE(v29) & 0xF;
@@ -8012,7 +8023,7 @@ LABEL_42:
                         v55 = 0;
                         v56 = 8 * v51;
                         v57 = 8 * v52;
-                        a1 = v254;
+                        a1 = v255;
                         do
                         {
                           v58 = object >> (v54 & 0x38);
@@ -8044,7 +8055,7 @@ LABEL_42:
 
                       else
                       {
-                        a1 = v254;
+                        a1 = v255;
                       }
 
                       v11;
@@ -8057,8 +8068,8 @@ LABEL_42:
 
                       v63 = (v62 & 0xFF00000000000000 | (v53 << 56) | v29 & 0xFFFFFFFFFFFFFFLL);
 LABEL_96:
-                      v266._countAndFlagsBits = v9;
-                      v266._object = v63;
+                      v267._countAndFlagsBits = v9;
+                      v267._object = v63;
                       goto LABEL_97;
                     }
 
@@ -8067,9 +8078,9 @@ LABEL_303:
                   }
 
                   v9 = _StringGuts._foreignConvertedToSmall()(*&v9, v11);
-                  v29 = v243;
+                  v29 = v244;
 LABEL_41:
-                  x1_0 = v251;
+                  a2 = v252;
                   goto LABEL_42;
                 }
 
@@ -8078,8 +8089,8 @@ LABEL_26:
                 v20 = _StringGuts.nativeUnusedCapacity.getter(*&v9, v11);
                 if (v30)
                 {
-                  x1_0 = v251;
-                  a1 = v254;
+                  a2 = v252;
+                  a1 = v255;
                   if (v15)
                   {
 LABEL_28:
@@ -8108,29 +8119,29 @@ LABEL_34:
 
                   else
                   {
-                    if (v258)
+                    if (v259)
                     {
                       if ((v12._countAndFlagsBits & 0x1000000000000000) != 0)
                       {
                         v33 = (v12._object & 0xFFFFFFFFFFFFFFFLL) + 32;
-                        v34 = v256;
-                        v35 = v256;
+                        v34 = v257;
+                        v35 = v257;
                       }
 
                       else
                       {
-                        v246 = _StringObject.sharedUTF8.getter(v12._countAndFlagsBits, v12._object);
-                        if (v247 < v256)
+                        v247 = _StringObject.sharedUTF8.getter(v12._countAndFlagsBits, v12._object);
+                        if (v248 < v257)
                         {
 LABEL_305:
                           _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
                         }
 
-                        v33 = v246;
-                        v35 = v247;
-                        x1_0 = v251;
-                        a1 = v254;
-                        v34 = v256;
+                        v33 = v247;
+                        v35 = v248;
+                        a2 = v252;
+                        a1 = v255;
+                        v34 = v257;
                       }
 
                       v36 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(0, v34, v33, v35);
@@ -8140,13 +8151,13 @@ LABEL_305:
                     else
                     {
                       v38 = (v12._object >> 62) & 1;
-                      v264 = v12._countAndFlagsBits;
-                      v265 = v12._object & 0xFFFFFFFFFFFFFFLL;
-                      v36 = &v264;
+                      v265 = v12._countAndFlagsBits;
+                      v266 = v12._object & 0xFFFFFFFFFFFFFFLL;
+                      v36 = &v265;
                       v37 = (v12._object >> 56) & 0xF;
                     }
 
-                    closure #1 in _StringGuts.append(_:)(v36, v37, &v266, v38);
+                    closure #1 in _StringGuts.append(_:)(v36, v37, &v267, v38);
                   }
 
                   swift_bridgeObjectRelease_n(v12._object, 2);
@@ -8154,10 +8165,10 @@ LABEL_305:
                 }
 
 LABEL_55:
-                a1 = v254;
+                a1 = v255;
                 if (v20 >= v22)
                 {
-                  x1_0 = v251;
+                  a2 = v252;
                   if (v15 && swift_isUniquelyReferenced_nonNull_native(v11 & 0xFFFFFFFFFFFFFFFLL))
                   {
                     goto LABEL_34;
@@ -8166,7 +8177,7 @@ LABEL_55:
                   goto LABEL_33;
                 }
 
-                x1_0 = v251;
+                a2 = v252;
                 if (v15)
                 {
                   goto LABEL_28;
@@ -8210,18 +8221,18 @@ LABEL_52:
       }
 
       v18 = v12._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-      v258 = 1;
+      v259 = 1;
     }
 
     else
     {
-      v258 = (v12._object & 0x2000000000000000) == 0;
+      v259 = (v12._object & 0x2000000000000000) == 0;
       v18 = v12._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
       v19 = (v12._object >> 56) & 0xF;
       if ((v12._object & 0x2000000000000000) != 0)
       {
 LABEL_12:
-        v256 = v18;
+        v257 = v18;
         if ((v12._object & 0x1000000000000000) == 0)
         {
           goto LABEL_13;
@@ -8236,14 +8247,14 @@ LABEL_12:
   }
 
   v11;
-  v266 = v12;
+  v267 = v12;
 LABEL_97:
   v72 = 34;
-  v264 = 34;
-  v265 = 0xE100000000000000;
-  if ((x1_0 & 0x2000000000000000) != 0)
+  v265 = 34;
+  v266 = 0xE100000000000000;
+  if ((a2 & 0x2000000000000000) != 0)
   {
-    v73 = HIBYTE(x1_0) & 0xF;
+    v73 = HIBYTE(a2) & 0xF;
   }
 
   else
@@ -8255,8 +8266,8 @@ LABEL_97:
   {
     v78 = 0xE100000000000000;
 LABEL_221:
-    v262 = 34;
-    v263 = 0xE100000000000000;
+    v263 = 34;
+    v264 = 0xE100000000000000;
     v171 = HIBYTE(v78) & 0xF;
     if ((v78 & 0x2000000000000000) == 0)
     {
@@ -8266,18 +8277,18 @@ LABEL_221:
     if (!v171)
     {
 LABEL_274:
-      v263;
-      v115 = v266._countAndFlagsBits;
-      v109 = v266._object;
-      v218 = (v266._object >> 56) & 0xF;
-      if ((v266._object & 0x2000000000000000) == 0)
+      v264;
+      v115 = v267._countAndFlagsBits;
+      v109 = v267._object;
+      v219 = (v267._object >> 56) & 0xF;
+      if ((v267._object & 0x2000000000000000) == 0)
       {
-        v218 = v266._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        v219 = v267._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v218 || (v266._countAndFlagsBits & ~v266._object & 0x2000000000000000) != 0)
+      if (v219 || (v267._countAndFlagsBits & ~v267._object & 0x2000000000000000) != 0)
       {
-        if ((v266._object & 0x2000000000000000) != 0)
+        if ((v267._object & 0x2000000000000000) != 0)
         {
           if ((v78 & 0x2000000000000000) != 0)
           {
@@ -8290,20 +8301,20 @@ LABEL_274:
           goto LABEL_285;
         }
 
-        v219 = v72 & 0xFFFFFFFFFFFFLL;
+        v220 = v72 & 0xFFFFFFFFFFFFLL;
 LABEL_286:
         v78;
-        _StringGuts.append(_:)(v72, v78, 0, v219, v223, v224, v225, v226, v227, v228, v229, v230);
+        _StringGuts.append(_:)(v72, v78, 0, v220, v224, v225, v226, v227, v228, v229, v230, v231);
         swift_bridgeObjectRelease_n(v78, 2);
-        v72 = v266._countAndFlagsBits;
-        v78 = v266._object;
+        v72 = v267._countAndFlagsBits;
+        v78 = v267._object;
       }
 
       else
       {
-        v266._object;
-        v266._countAndFlagsBits = v72;
-        v266._object = v78;
+        v267._object;
+        v267._countAndFlagsBits = v72;
+        v267._object = v78;
       }
 
       goto LABEL_287;
@@ -8311,213 +8322,214 @@ LABEL_286:
 
     while (1)
     {
-      v176 = v262;
       v177 = v263;
-      v178 = specialized Collection.first.getter(v262, v263);
-      if ((v178 & 0x100000000) != 0)
+      v178 = v264;
+      v179 = specialized Collection.first.getter(v263, v264);
+      if ((v179 & 0x100000000) != 0)
       {
         goto LABEL_298;
       }
 
-      v260 = v72;
-      v261 = v78;
-      v264 = 0;
-      v265 = 0xE000000000000000;
-      v179 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v178);
-      v181 = v180;
-      _StringGuts.append(_:)(v179, v180, v182, v183, v184, v185, v186, v187, v188, v189);
-      v181;
-      v190 = v260;
+      v261 = v72;
+      v262 = v78;
+      v265 = 0;
+      v266 = 0xE000000000000000;
+      v180 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v179);
+      v182 = v181;
+      _StringGuts.append(_:)(v180, v181, v183, v184, v185, v186, v187, v188, v189, v190);
+      v182;
       v191 = v261;
-      v261;
+      v192 = v262;
+      v262;
       0xE000000000000000;
-      v264 = v190;
       v265 = v191;
-      v192 = HIBYTE(v191) & 0xF;
-      if ((v191 & 0x2000000000000000) == 0)
+      v266 = v192;
+      v193 = HIBYTE(v192) & 0xF;
+      if ((v192 & 0x2000000000000000) == 0)
       {
-        v192 = v190;
+        v193 = v191;
       }
 
-      v193 = 7;
-      if (((v191 >> 60) & ((v190 & 0x800000000000000) == 0)) != 0)
+      v194 = 7;
+      if (((v192 >> 60) & ((v191 & 0x800000000000000) == 0)) != 0)
       {
-        v193 = 11;
+        v194 = 11;
       }
 
-      v194._rawBits = v193 | (v192 << 16);
-      v195._rawBits = _StringGuts.validateInclusiveCharacterIndex_5_7(_:)(v194)._rawBits;
-      rawBits = v195._rawBits;
-      if (!(v195._rawBits >> 14))
+      v195._rawBits = v194 | (v193 << 16);
+      v196._rawBits = _StringGuts.validateInclusiveCharacterIndex_5_7(_:)(v195)._rawBits;
+      rawBits = v196._rawBits;
+      if (!(v196._rawBits >> 14))
       {
         break;
       }
 
-      v197 = v195._rawBits >> 16;
-      if (v195._rawBits >= 0x20000)
+      v198 = v196._rawBits >> 16;
+      if (v196._rawBits >= 0x20000)
       {
-        if ((v191 & 0x1000000000000000) == 0)
+        if ((v192 & 0x1000000000000000) == 0)
         {
-          if ((v191 & 0x2000000000000000) != 0)
+          if ((v192 & 0x2000000000000000) != 0)
           {
-            v260 = v190;
-            v261 = v191 & 0xFFFFFFFFFFFFFFLL;
-            v199 = *&v259[v197];
+            v261 = v191;
+            v262 = v192 & 0xFFFFFFFFFFFFFFLL;
+            v200 = *&v260[v198];
           }
 
           else
           {
-            if ((v190 & 0x1000000000000000) != 0)
+            if ((v191 & 0x1000000000000000) != 0)
             {
-              v198 = ((v191 & 0xFFFFFFFFFFFFFFFLL) + 32);
+              v199 = ((v192 & 0xFFFFFFFFFFFFFFFLL) + 32);
             }
 
             else
             {
-              v198 = _StringObject.sharedUTF8.getter(v190, v191);
-              if (!v198)
+              v199 = _StringObject.sharedUTF8.getter(v191, v192);
+              if (!v199)
               {
                 _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
               }
             }
 
-            v199 = *&v198[v197 - 2];
+            v200 = *&v199[v198 - 2];
           }
 
-          if (v199 != 2573 && (v199 & 0x8080) == 0)
+          if (v200 != 2573 && (v200 & 0x8080) == 0)
           {
-            v197 = 1;
+            v198 = 1;
 LABEL_248:
-            v201 = v197 << 8;
+            v202 = v198 << 8;
             goto LABEL_255;
           }
         }
 
-        v197 = _StringGuts._opaqueComplexCharacterStride(endingAt:)(rawBits >> 16);
+        v198 = _StringGuts._opaqueComplexCharacterStride(endingAt:)(rawBits >> 16);
       }
 
-      if (v197 >= 64)
+      if (v198 >= 64)
       {
-        v201 = 63;
+        v202 = 63;
       }
 
       else
       {
-        v201 = v197 << 8;
+        v202 = v198 << 8;
       }
 
 LABEL_255:
-      v191;
-      v202._rawBits = _StringGuts.validateInclusiveScalarIndex(_:)(v194)._rawBits;
-      if (!(v202._rawBits >> 14))
+      v192;
+      v203._rawBits = _StringGuts.validateInclusiveScalarIndex(_:)(v195)._rawBits;
+      if (!(v203._rawBits >> 14))
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v203 = v202._rawBits;
-      v191;
-      if ((v191 & 0x1000000000000000) != 0)
+      v204 = v203._rawBits;
+      v192;
+      if ((v192 & 0x1000000000000000) != 0)
       {
-        v208 = String.UnicodeScalarView._foreignIndex(before:)(v203)._rawBits;
-        v191;
+        v209 = String.UnicodeScalarView._foreignIndex(before:)(v204)._rawBits;
+        v192;
       }
 
       else
       {
-        if ((v191 & 0x2000000000000000) != 0)
+        if ((v192 & 0x2000000000000000) != 0)
         {
-          v205 = 0;
-          v260 = v190;
-          v261 = v191 & 0xFFFFFFFFFFFFFFLL;
+          v206 = 0;
+          v261 = v191;
+          v262 = v192 & 0xFFFFFFFFFFFFFFLL;
           do
           {
-            v207 = v259[(v203 >> 16) + 1 + v205--] & 0xC0;
+            v208 = v260[(v204 >> 16) + 1 + v206--] & 0xC0;
+          }
+
+          while (v208 == 128);
+        }
+
+        else
+        {
+          if ((v191 & 0x1000000000000000) != 0)
+          {
+            v205 = ((v192 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          }
+
+          else
+          {
+            v205 = _StringObject.sharedUTF8.getter(v191, v192);
+          }
+
+          v206 = 0;
+          do
+          {
+            v207 = v205[(v204 >> 16) - 1 + v206--] & 0xC0;
           }
 
           while (v207 == 128);
         }
 
-        else
-        {
-          if ((v190 & 0x1000000000000000) != 0)
-          {
-            v204 = ((v191 & 0xFFFFFFFFFFFFFFFLL) + 32);
-          }
-
-          else
-          {
-            v204 = _StringObject.sharedUTF8.getter(v190, v191);
-          }
-
-          v205 = 0;
-          do
-          {
-            v206 = v204[(v203 >> 16) - 1 + v205--] & 0xC0;
-          }
-
-          while (v206 == 128);
-        }
-
-        v191;
-        v208 = (v203 - -65536 * v205) & 0xFFFFFFFFFFFF0000;
+        v192;
+        v209 = (v204 - -65536 * v206) & 0xFFFFFFFFFFFF0000;
       }
 
-      if (((rawBits - (v197 << 16)) & 0xFFFFFFFFFFFF0000 | v201) >> 14 >= v208 >> 14)
+      if (((rawBits - (v198 << 16)) & 0xFFFFFFFFFFFF0000 | v202) >> 14 >= v209 >> 14)
       {
-        v177;
-        v214._rawBits = specialized Collection.dropFirst(_:)(1, v176, v177)._rawBits;
-        v216 = v215;
-        v260 = v190;
+        v178;
+        v215._rawBits = specialized Collection.dropFirst(_:)(1, v177, v178)._rawBits;
+        v217 = v216;
         v261 = v191;
-        v264 = 0;
-        v265 = 0xE000000000000000;
-        specialized String.UnicodeScalarView.append<A>(contentsOf:)(v214, v267, v217, v215);
+        v262 = v192;
+        v265 = 0;
+        v266 = 0xE000000000000000;
+        specialized String.UnicodeScalarView.append<A>(contentsOf:)(v215, v268, v218, v216);
         0xE000000000000000;
-        v216;
-        v72 = v260;
-        v78 = v261;
+        v217;
+        v72 = v261;
+        v78 = v262;
         goto LABEL_274;
       }
 
-      v260 = v190;
       v261 = v191;
+      v262 = v192;
       specialized RangeReplaceableCollection<>.removeLast()();
-      v210 = v260;
-      v209 = v261;
-      v261;
+      v211 = v261;
+      v210 = v262;
+      v262;
       0xE000000000000000;
-      v260 = v210;
-      v261 = v209;
-      v209;
-      v211 = specialized RangeReplaceableCollection<>.removeLast()();
+      v261 = v211;
+      v262 = v210;
+      v210;
+      v212 = specialized RangeReplaceableCollection<>.removeLast()();
       0xE000000000000000;
-      v264 = v260;
       v265 = v261;
-      v212 = Unicode.Scalar._escaped(asASCII:)(1);
-      v172 = v212.value._object;
-      if (v212.value._object)
+      v266 = v262;
+      v213 = Unicode.Scalar._escaped(asASCII:)(1);
+      v172 = v213.value._object;
+      if (v213.value._object)
       {
-        v173 = v212.value._countAndFlagsBits;
+        v173 = v213.value._countAndFlagsBits;
       }
 
       else
       {
-        v173 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v211);
+        v173 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v212);
       }
 
-      v213 = v172;
+      v214 = v172;
       v174._rawBits = 15;
-      specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(0xFuLL, v174, v173, v213);
-      v213;
-      v72 = v264;
-      v78 = v265;
-      v175 = HIBYTE(v265) & 0xF;
-      if ((v265 & 0x2000000000000000) == 0)
+      v175._rawBits = 15;
+      specialized String.UnicodeScalarView.replaceSubrange<A>(_:with:)(v174, v175, v173, v214);
+      v214;
+      v72 = v265;
+      v78 = v266;
+      v176 = HIBYTE(v266) & 0xF;
+      if ((v266 & 0x2000000000000000) == 0)
       {
-        v175 = *&v264 & 0xFFFFFFFFFFFFLL;
+        v176 = *&v265 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v175)
+      if (!v176)
       {
         goto LABEL_274;
       }
@@ -8528,20 +8540,20 @@ LABEL_255:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v197 = 0;
+    v198 = 0;
     goto LABEL_248;
   }
 
   v74 = 0;
-  v257 = v73;
-  v252 = (x1_0 & 0xFFFFFFFFFFFFFFFLL) + 32;
-  v253 = x1_0 & 0xFFFFFFFFFFFFFFLL;
+  v258 = v73;
+  v253 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
+  v254 = a2 & 0xFFFFFFFFFFFFFFLL;
   v75 = 1;
   while (1)
   {
     while (1)
     {
-      if ((x1_0 & 0x1000000000000000) != 0)
+      if ((a2 & 0x1000000000000000) != 0)
       {
         v82 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)((v74 << 16));
         scalarLength = v82.scalarLength;
@@ -8550,19 +8562,19 @@ LABEL_255:
 
       else
       {
-        if ((x1_0 & 0x2000000000000000) != 0)
+        if ((a2 & 0x2000000000000000) != 0)
         {
-          v262 = a1;
-          v263 = v253;
-          v79 = &v262;
+          v263 = a1;
+          v264 = v254;
+          v79 = &v263;
         }
 
         else
         {
-          v79 = v252;
+          v79 = v253;
           if ((a1 & 0x1000000000000000) == 0)
           {
-            v79 = _StringObject.sharedUTF8.getter(a1, x1_0);
+            v79 = _StringObject.sharedUTF8.getter(a1, a2);
           }
         }
 
@@ -8578,32 +8590,32 @@ LABEL_255:
       }
 
       v85 = v84.value._object;
-      v86 = v265;
-      v87 = HIBYTE(v265) & 0xF;
-      if ((v265 & 0x2000000000000000) == 0)
+      v86 = v266;
+      v87 = HIBYTE(v266) & 0xF;
+      if ((v266 & 0x2000000000000000) == 0)
       {
-        v87 = *&v264 & 0xFFFFFFFFFFFFLL;
+        v87 = *&v265 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v87 && (*&v264 & ~v265 & 0x2000000000000000) == 0)
+      if (!v87 && (*&v265 & ~v266 & 0x2000000000000000) == 0)
       {
-        v265;
-        v264 = v84.value._countAndFlagsBits;
-        v265 = v84.value._object;
+        v266;
+        v265 = v84.value._countAndFlagsBits;
+        v266 = v84.value._object;
         goto LABEL_134;
       }
 
-      if ((v84.value._object & 0x2000000000000000 & v265) != 0)
+      if ((v84.value._object & 0x2000000000000000 & v266) != 0)
       {
-        v88 = specialized _SmallString.init(_:appending:)(*&v264, v265, v84.value._countAndFlagsBits, v84.value._object);
+        v88 = specialized _SmallString.init(_:appending:)(*&v265, v266, v84.value._countAndFlagsBits, v84.value._object);
         if ((v90 & 1) == 0)
         {
           v112 = v88;
           v113 = v89;
           v86;
           v84.value._object;
-          v264 = v112;
-          v265 = v113;
+          v265 = v112;
+          v266 = v113;
           goto LABEL_134;
         }
       }
@@ -8629,18 +8641,18 @@ LABEL_134:
       v75 = 1;
       if (v74 >= v73)
       {
-        v72 = v264;
-        v78 = v265;
+        v72 = v265;
+        v78 = v266;
         goto LABEL_221;
       }
     }
 
-    v103 = v264;
-    v72 = v265;
+    v103 = v265;
+    v72 = v266;
     if (v75)
     {
-      LODWORD(v262) = 0;
-      v104 = specialized BidirectionalCollection.last.getter(*&v264, v265);
+      LODWORD(v263) = 0;
+      v104 = specialized BidirectionalCollection.last.getter(*&v265, v266);
       if ((v104 & 0x100000000) != 0)
       {
 LABEL_298:
@@ -8671,9 +8683,9 @@ LABEL_298:
         if (!v158 && (v103 & ~v72 & 0x2000000000000000) == 0)
         {
           v72;
-          v264 = v131;
-          v265 = v85;
-          v73 = v257;
+          v265 = v131;
+          v266 = v85;
+          v73 = v258;
           goto LABEL_134;
         }
 
@@ -8688,9 +8700,9 @@ LABEL_298:
               v165 = v162;
               v72;
               v85;
-              v264 = v164;
-              v265 = v165;
-              v73 = v257;
+              v265 = v164;
+              v266 = v165;
+              v73 = v258;
               goto LABEL_134;
             }
 
@@ -8707,7 +8719,7 @@ LABEL_210:
 
         v159 = v131 & 0xFFFFFFFFFFFFLL;
 LABEL_211:
-        v73 = v257;
+        v73 = v258;
         v85;
         v100 = v131;
         v101 = v85;
@@ -8716,10 +8728,10 @@ LABEL_211:
       }
     }
 
-    v262 = v103;
-    v263 = v72;
-    v264 = 0;
-    v265 = 0xE000000000000000;
+    v263 = v103;
+    v264 = v72;
+    v265 = 0;
+    v266 = 0xE000000000000000;
     v106 = specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(v83);
     v78 = v105;
     v107 = (v105 & 0x2000000000000000) == 0;
@@ -8738,7 +8750,7 @@ LABEL_211:
     }
 
 LABEL_139:
-    v255 = v107;
+    v256 = v107;
     if ((v105 & 0x1000000000000000) != 0)
     {
       goto LABEL_178;
@@ -8772,7 +8784,7 @@ LABEL_145:
       if ((v72 & 0x2000000000000000) == 0)
       {
 LABEL_152:
-        x1_0 = v251;
+        a2 = v252;
         if ((v72 & 0x1000000000000000) != 0)
         {
           v103 = _StringGuts._foreignConvertedToSmall()(v103, v72);
@@ -8792,9 +8804,9 @@ LABEL_152:
             v120 = _StringObject.sharedUTF8.getter(v103, v72);
           }
 
-          closure #1 in _StringGuts._convertedToSmall()(v120, v121, &v260, v119);
-          v103 = v260;
-          v122 = v261;
+          closure #1 in _StringGuts._convertedToSmall()(v120, v121, &v261, v119);
+          v103 = v261;
+          v122 = v262;
         }
 
 LABEL_167:
@@ -8809,7 +8821,7 @@ LABEL_167:
 
         if (v134._rawBits >> 16 || v135._rawBits >> 16 != v111)
         {
-          v106 = specialized static String._copying(_:)(v134._rawBits, v135._rawBits, v106, v78);
+          v106 = specialized static String._copying(_:)(v134._rawBits, v135, v106, v78);
           v137 = v145;
           v78;
           if ((v137 & 0x2000000000000000) == 0)
@@ -8836,10 +8848,10 @@ LABEL_172:
                 v138 = _StringObject.sharedUTF8.getter(v106, v137);
               }
 
-              closure #1 in _StringGuts._convertedToSmall()(v138, v139, &v260, v136);
+              closure #1 in _StringGuts._convertedToSmall()(v138, v139, &v261, v136);
               v137;
-              v106 = v260;
-              v137 = v261;
+              v106 = v261;
+              v137 = v262;
             }
 
             goto LABEL_187;
@@ -8868,14 +8880,14 @@ LABEL_187:
         0xE000000000000000;
         v72;
         v78;
-        v262 = v149;
-        v263 = v150;
+        v263 = v149;
+        v264 = v150;
         goto LABEL_106;
       }
 
 LABEL_166:
       v122 = v72;
-      x1_0 = v251;
+      a2 = v252;
       goto LABEL_167;
     }
 
@@ -8911,15 +8923,15 @@ LABEL_157:
       _StringGuts._foreignAppendInPlace(_:)(v106, v78, 0, v111);
       0xE000000000000000;
       v78;
-      x1_0 = v251;
-      v73 = v257;
+      a2 = v252;
+      v73 = v258;
     }
 
     else
     {
-      x1_0 = v251;
-      v73 = v257;
-      if (v255)
+      a2 = v252;
+      v73 = v258;
+      if (v256)
       {
         if ((v106 & 0x1000000000000000) != 0)
         {
@@ -8942,9 +8954,9 @@ LABEL_157:
 
         v78;
         v126 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(0, v125, v124, v110);
-        v127 = v263 & 0xFFFFFFFFFFFFFFFLL;
+        v127 = v264 & 0xFFFFFFFFFFFFFFFLL;
         __StringStorage.appendInPlace(_:isASCII:)(v126, v128, v106 < 0);
-        v262 = *(v127 + 24);
+        v263 = *(v127 + 24);
         0xE000000000000000;
         v78;
       }
@@ -8952,23 +8964,23 @@ LABEL_157:
       else
       {
         v78;
-        v260 = v106;
-        v261 = v78 & 0xFFFFFFFFFFFFFFLL;
+        v261 = v106;
+        v262 = v78 & 0xFFFFFFFFFFFFFFLL;
         v78;
-        v160 = v263 & 0xFFFFFFFFFFFFFFFLL;
-        __StringStorage.appendInPlace(_:isASCII:)(&v260, v109, (v78 & 0x4000000000000000) != 0);
-        v262 = *(v160 + 24);
+        v160 = v264 & 0xFFFFFFFFFFFFFFFLL;
+        __StringStorage.appendInPlace(_:isASCII:)(&v261, v109, (v78 & 0x4000000000000000) != 0);
+        v263 = *(v160 + 24);
         0xE000000000000000;
       }
     }
 
 LABEL_107:
     v75 = 0;
-    v72 = v262;
-    v78 = v263;
-    v264 = v262;
+    v72 = v263;
+    v78 = v264;
     v265 = v263;
-    a1 = v254;
+    v266 = v264;
+    a1 = v255;
     if (v74 >= v73)
     {
       goto LABEL_221;
@@ -9037,16 +9049,16 @@ LABEL_138:
       v77 = 0xA000000000000000;
     }
 
-    v262 = v103;
-    v263 = v77 & 0xFF00000000000000 | (v140 << 56) | v76 & 0xFFFFFFFFFFFFFFLL;
+    v263 = v103;
+    v264 = v77 & 0xFF00000000000000 | (v140 << 56) | v76 & 0xFFFFFFFFFFFFFFLL;
 LABEL_106:
-    v73 = v257;
+    v73 = v258;
     goto LABEL_107;
   }
 
   v110 = v106 & 0xFFFFFFFFFFFFLL;
   v111 = HIBYTE(v105) & 0xF;
-  v255 = 0;
+  v256 = 0;
   if ((v105 & 0x1000000000000000) == 0)
   {
     goto LABEL_140;
@@ -9089,34 +9101,34 @@ LABEL_141:
 LABEL_283:
   __break(1u);
 LABEL_284:
-  v220 = specialized _SmallString.init(_:appending:)(v115, v109, v72, v78);
-  if (v222)
+  v221 = specialized _SmallString.init(_:appending:)(v115, v109, v72, v78);
+  if (v223)
   {
 LABEL_285:
-    v219 = HIBYTE(v78) & 0xF;
+    v220 = HIBYTE(v78) & 0xF;
     goto LABEL_286;
   }
 
-  v241 = v220;
   v242 = v221;
+  v243 = v222;
   v109;
   v78;
-  v266._countAndFlagsBits = v241;
-  v266._object = v242;
-  v78 = v242;
-  v72 = v241;
+  v267._countAndFlagsBits = v242;
+  v267._object = v243;
+  v78 = v243;
+  v72 = v242;
 LABEL_287:
-  v239 = HIBYTE(v78) & 0xF;
+  v240 = HIBYTE(v78) & 0xF;
   if ((v78 & 0x2000000000000000) == 0)
   {
-    v239 = v72 & 0xFFFFFFFFFFFFLL;
+    v240 = v72 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v239 || (v72 & ~v78 & 0x2000000000000000) != 0)
+  if (v240 || (v72 & ~v78 & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(0x29uLL, 0xE100000000000000, v231, v232, v233, v234, v235, v236, v237, v238);
+    _StringGuts.append(_:)(0x29uLL, 0xE100000000000000, v232, v233, v234, v235, v236, v237, v238, v239);
     0xE100000000000000;
-    return v266._countAndFlagsBits;
+    return v267._countAndFlagsBits;
   }
 
   else
@@ -9303,7 +9315,7 @@ uint64_t *String.UTF8View._underlyingSpan()()
     {
       Associated = _StringGuts._getOrAllocateAssociatedStorage()(*v0, v2);
       Associated;
-      return Associated + 4;
+      return (Associated + 32);
     }
 
     else if ((v2 & 0x2000000000000000) == 0)

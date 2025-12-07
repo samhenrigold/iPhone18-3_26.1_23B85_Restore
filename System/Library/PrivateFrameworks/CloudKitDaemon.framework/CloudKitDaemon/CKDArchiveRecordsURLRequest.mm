@@ -13,38 +13,38 @@
 
 - (CKDArchiveRecordsURLRequest)initWithOperation:(id)operation recordIDsToArchive:(id)archive
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
-  v33.receiver = self;
-  v33.super_class = CKDArchiveRecordsURLRequest;
-  v7 = [(CKDURLRequest *)&v33 initWithOperation:operation];
+  v32.receiver = self;
+  v32.super_class = CKDArchiveRecordsURLRequest;
+  v7 = [(CKDURLRequest *)&v32 initWithOperation:operation];
   if (v7)
   {
     v8 = objc_opt_new();
     zoneIDToRecordIDs = v7->_zoneIDToRecordIDs;
     v7->_zoneIDToRecordIDs = v8;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v28 = archiveCopy;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v27 = archiveCopy;
     v10 = archiveCopy;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v29, v34, 16);
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v28, v33, 16);
     if (v12)
     {
       v15 = v12;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v10);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           v19 = objc_msgSend_zoneID(v18, v13, v14);
           v22 = objc_msgSend_objectForKeyedSubscript_(v7->_zoneIDToRecordIDs, v20, v19);
           if (!v22)
@@ -56,7 +56,7 @@
           objc_msgSend_addObject_(v22, v21, v18);
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v29, v34, 16);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v28, v33, 16);
       }
 
       while (v15);
@@ -66,10 +66,9 @@
     recordZoneIDByRequestID = v7->_recordZoneIDByRequestID;
     v7->_recordZoneIDByRequestID = v24;
 
-    archiveCopy = v28;
+    archiveCopy = v27;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -109,10 +108,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -133,65 +131,10 @@
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_recordZoneIDByRequestID(self, v5, v6);
   v10 = objc_msgSend_response(objectCopy, v8, v9);
-  v13 = objc_msgSend_operationUUID(v10, v11, v12);
-  v15 = objc_msgSend_objectForKeyedSubscript_(v7, v14, v13);
-
-  v18 = objc_msgSend_recordArchivedBlock(self, v16, v17);
-
-  if (v18)
-  {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v21 = objc_msgSend_zoneIDToRecordIDs(self, v19, v20, 0);
-    v23 = objc_msgSend_objectForKeyedSubscript_(v21, v22, v15);
-
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v38, v42, 16);
-    if (v25)
-    {
-      v28 = v25;
-      v29 = *v39;
-      do
-      {
-        v30 = 0;
-        do
-        {
-          if (*v39 != v29)
-          {
-            objc_enumerationMutation(v23);
-          }
-
-          v31 = *(*(&v38 + 1) + 8 * v30);
-          v32 = objc_msgSend_recordArchivedBlock(self, v26, v27);
-          v35 = objc_msgSend_result(objectCopy, v33, v34);
-          (v32)[2](v32, v31, v35);
-
-          ++v30;
-        }
-
-        while (v28 != v30);
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v38, v42, 16);
-      }
-
-      while (v28);
-    }
-  }
-
-  v36 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-- (void)requestDidParseNodeFailure:(id)failure
-{
-  v42 = *MEMORY[0x277D85DE8];
-  failureCopy = failure;
-  v7 = objc_msgSend_recordZoneIDByRequestID(self, v5, v6);
-  v10 = objc_msgSend_response(failureCopy, v8, v9);
   v13 = objc_msgSend_operationUUID(v10, v11, v12);
   v15 = objc_msgSend_objectForKeyedSubscript_(v7, v14, v13);
 
@@ -223,7 +166,7 @@
 
           v31 = *(*(&v37 + 1) + 8 * v30);
           v32 = objc_msgSend_recordArchivedBlock(self, v26, v27);
-          v35 = objc_msgSend_result(failureCopy, v33, v34);
+          v35 = objc_msgSend_result(objectCopy, v33, v34);
           (v32)[2](v32, v31, v35);
 
           ++v30;
@@ -237,7 +180,59 @@
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
+  return 0;
+}
+
+- (void)requestDidParseNodeFailure:(id)failure
+{
+  v41 = *MEMORY[0x277D85DE8];
+  failureCopy = failure;
+  v7 = objc_msgSend_recordZoneIDByRequestID(self, v5, v6);
+  v10 = objc_msgSend_response(failureCopy, v8, v9);
+  v13 = objc_msgSend_operationUUID(v10, v11, v12);
+  v15 = objc_msgSend_objectForKeyedSubscript_(v7, v14, v13);
+
+  v18 = objc_msgSend_recordArchivedBlock(self, v16, v17);
+
+  if (v18)
+  {
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v21 = objc_msgSend_zoneIDToRecordIDs(self, v19, v20, 0);
+    v23 = objc_msgSend_objectForKeyedSubscript_(v21, v22, v15);
+
+    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v36, v40, 16);
+    if (v25)
+    {
+      v28 = v25;
+      v29 = *v37;
+      do
+      {
+        v30 = 0;
+        do
+        {
+          if (*v37 != v29)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          v31 = *(*(&v36 + 1) + 8 * v30);
+          v32 = objc_msgSend_recordArchivedBlock(self, v26, v27);
+          v35 = objc_msgSend_result(failureCopy, v33, v34);
+          (v32)[2](v32, v31, v35);
+
+          ++v30;
+        }
+
+        while (v28 != v30);
+        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v36, v40, 16);
+      }
+
+      while (v28);
+    }
+  }
 }
 
 @end

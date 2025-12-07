@@ -18,12 +18,12 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)encodeToDictionary;
 - (uint64_t)extrinsicMatrixToDeviceType:(void *)type;
-- (uint64_t)initWithPixelBuffer:(__n128)buffer captureFramePerSecond:(__n128)second captureDevice:(uint64_t)device captureSession:(__CVBuffer *)session timestamp:(uint64_t)timestamp intrinsics:(void *)intrinsics exif:(void *)exif tiff:(CMTime *)self0 captureLens:(void *)self1;
-- (uint64_t)initWithPixelBuffer:(void *)buffer captureFramePerSecond:(uint64_t)second captureDevice:(uint64_t)device captureSession:(uint64_t)session timestamp:(uint64_t)timestamp intrinsics:(uint64_t)intrinsics exif:(__int128 *)exif;
 - (void)addExtrinsicMatrix4x4:(double)matrix4x4 toDeviceType:(double)type;
 - (void)addExtrinsicMatrix:(void *)matrix toDeviceType:;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
+- (void)initWithPixelBuffer:(__n128)buffer captureFramePerSecond:(__n128)second captureDevice:(uint64_t)device captureSession:(__CVBuffer *)session timestamp:(uint64_t)timestamp intrinsics:(void *)intrinsics exif:(void *)exif tiff:(CMTime *)self0 captureLens:(void *)self1;
+- (void)initWithPixelBuffer:(void *)buffer captureFramePerSecond:(uint64_t)second captureDevice:(uint64_t)device captureSession:(uint64_t)session timestamp:(uint64_t)timestamp intrinsics:(uint64_t)intrinsics exif:(__int128 *)exif;
 - (void)setPixelBuffer:(__CVBuffer *)buffer;
 - (void)setRadialDistortion:(ARImageData *)self;
 - (void)setVisionData:(__CVBuffer *)data;
@@ -64,7 +64,7 @@
     anon_120 = v5->_anon_120;
     -[ARImageData setPixelBuffer:](v5, "setPixelBuffer:", [dataCopy pixelBuffer]);
     -[ARImageData setVisionData:](v6, "setVisionData:", [dataCopy visionData]);
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     v6->_timestamp = v8;
     [dataCopy currentCaptureTimestamp];
     v6->_currentCaptureTimestamp = v9;
@@ -82,7 +82,7 @@
     v6->_mirrored = [dataCopy isMirrored];
     if (dataCopy)
     {
-      [dataCopy radialDistortion];
+      objc_msgSend_radialDistortion(dataCopy);
       v18 = v48;
       v19 = v49;
     }
@@ -97,7 +97,7 @@
     *&v6->_radialDistortion[16] = v19;
     [dataCopy tangentialDistortion];
     *v6->_tangentialDistortion = v20;
-    [dataCopy exposureDuration];
+    objc_msgSend_exposureDuration(dataCopy);
     v6->_exposureDuration = v21;
     [dataCopy exposureTargetOffset];
     v6->_exposureTargetOffset = v22;
@@ -163,30 +163,30 @@
 
 - (ARImageData)initWithSampleBuffer:(opaqueCMSampleBuffer *)buffer captureFramePerSecond:(int64_t)second captureDevice:(id)device captureSession:(id)session
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   sessionCopy = session;
   if (buffer && (ImageBuffer = CMSampleBufferGetImageBuffer(buffer)) != 0)
   {
     v13 = ImageBuffer;
     v14 = CMGetAttachment(buffer, *MEMORY[0x1E6960470], 0);
-    memset(&v45, 0, sizeof(v45));
-    CMSampleBufferGetPresentationTimeStamp(&v45, buffer);
+    memset(&v46, 0, sizeof(v46));
+    CMSampleBufferGetPresentationTimeStamp(&v46, buffer);
     v15 = CMGetAttachment(buffer, *MEMORY[0x1E696D9B0], 0);
     v16 = CMGetAttachment(buffer, *MEMORY[0x1E696DF28], 0);
     v17 = v16;
     if (v14)
     {
       v18 = ARMatrix3x3FromNSData(v14);
-      v42 = v19;
-      v43 = v18;
-      v41 = v20;
+      v43 = v19;
+      v44 = v18;
+      v42 = v20;
     }
 
     else
     {
-      v39 = v16;
-      v40 = v15;
+      v40 = v16;
+      v41 = v15;
       activeFormat = [deviceCopy activeFormat];
       v23 = initWithSampleBuffer_captureFramePerSecond_captureDevice_captureSession__format;
 
@@ -203,34 +203,34 @@
         qword_1EBF428E0 = v29;
         DWORD2(xmmword_1EBF428F0) = v30;
         *&xmmword_1EBF428F0 = v31;
-        v32 = _ARLogGeneral_21();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v33 = _ARLogGeneral_21(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v33 = objc_opt_class();
-          v44 = NSStringFromClass(v33);
-          v34 = ARMatrix3x3Description(initWithSampleBuffer_captureFramePerSecond_captureDevice_captureSession__fallbackIntrinsics, *&qword_1EBF428E0, xmmword_1EBF428F0);
+          v34 = objc_opt_class();
+          v45 = NSStringFromClass(v34);
+          v35 = ARMatrix3x3Description(initWithSampleBuffer_captureFramePerSecond_captureDevice_captureSession__fallbackIntrinsics, *&qword_1EBF428E0, xmmword_1EBF428F0);
           LODWORD(buf.value) = 138543874;
-          *(&buf.value + 4) = v44;
+          *(&buf.value + 4) = v45;
           LOWORD(buf.flags) = 2048;
           *(&buf.flags + 2) = self;
           HIWORD(buf.epoch) = 2112;
-          v47 = v34;
-          v35 = v34;
-          _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using fallback intrinsics %@", &buf, 0x20u);
+          v48 = v35;
+          v36 = v35;
+          _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using fallback intrinsics %@", &buf, 0x20u);
         }
       }
 
-      v42 = *&qword_1EBF428E0;
-      v43 = *&initWithSampleBuffer_captureFramePerSecond_captureDevice_captureSession__fallbackIntrinsics;
-      v41 = *&xmmword_1EBF428F0;
-      v17 = v39;
-      v15 = v40;
+      v43 = *&qword_1EBF428E0;
+      v44 = *&initWithSampleBuffer_captureFramePerSecond_captureDevice_captureSession__fallbackIntrinsics;
+      v42 = *&xmmword_1EBF428F0;
+      v17 = v40;
+      v15 = v41;
     }
 
-    v36 = CMGetAttachment(buffer, *MEMORY[0x1E696DE30], 0);
-    v37 = ARCaptureLensFromMakerNotesDictionary(v36);
-    buf = v45;
-    self = [(ARImageData *)self initWithPixelBuffer:v13 captureFramePerSecond:second captureDevice:deviceCopy captureSession:sessionCopy timestamp:&buf intrinsics:v15 exif:v43 tiff:v42 captureLens:v41, v17, v37];
+    v37 = CMGetAttachment(buffer, *MEMORY[0x1E696DE30], 0);
+    v38 = ARCaptureLensFromMakerNotesDictionary(v37);
+    buf = v46;
+    self = [(ARImageData *)self initWithPixelBuffer:v13 captureFramePerSecond:second captureDevice:deviceCopy captureSession:sessionCopy timestamp:&buf intrinsics:v15 exif:v44 tiff:v43 captureLens:v42, v17, v38];
 
     selfCopy = self;
   }
@@ -243,14 +243,14 @@
   return selfCopy;
 }
 
-- (uint64_t)initWithPixelBuffer:(void *)buffer captureFramePerSecond:(uint64_t)second captureDevice:(uint64_t)device captureSession:(uint64_t)session timestamp:(uint64_t)timestamp intrinsics:(uint64_t)intrinsics exif:(__int128 *)exif
+- (void)initWithPixelBuffer:(void *)buffer captureFramePerSecond:(uint64_t)second captureDevice:(uint64_t)device captureSession:(uint64_t)session timestamp:(uint64_t)timestamp intrinsics:(uint64_t)intrinsics exif:(__int128 *)exif
 {
   v8 = *exif;
   v9 = *(exif + 2);
   return [buffer initWithPixelBuffer:device captureFramePerSecond:session captureDevice:timestamp captureSession:intrinsics timestamp:&v8 intrinsics:0 exif:0 tiff:? captureLens:?];
 }
 
-- (uint64_t)initWithPixelBuffer:(__n128)buffer captureFramePerSecond:(__n128)second captureDevice:(uint64_t)device captureSession:(__CVBuffer *)session timestamp:(uint64_t)timestamp intrinsics:(void *)intrinsics exif:(void *)exif tiff:(CMTime *)self0 captureLens:(void *)self1
+- (void)initWithPixelBuffer:(__n128)buffer captureFramePerSecond:(__n128)second captureDevice:(uint64_t)device captureSession:(__CVBuffer *)session timestamp:(uint64_t)timestamp intrinsics:(void *)intrinsics exif:(void *)exif tiff:(CMTime *)self0 captureLens:(void *)self1
 {
   intrinsicsCopy = intrinsics;
   exifCopy = exif;
@@ -286,7 +286,7 @@
     *(v24 + 16) = v29;
     [intrinsicsCopy exposureTargetOffset];
     *(v24 + 12) = v30;
-    *(v24 + 128) = [intrinsicsCopy position];
+    *(v24 + 128) = objc_msgSend_position(intrinsicsCopy);
     deviceType = [intrinsicsCopy deviceType];
     v32 = *(v24 + 136);
     *(v24 + 136) = deviceType;
@@ -504,7 +504,7 @@ void __129__ARImageData_initWithPixelBuffer_captureFramePerSecond_captureDevice_
   }
 
   [(ARImageData *)v5 setTimestamp:v8];
-  [(ARImageData *)v5 timestamp];
+  objc_msgSend_timestamp(v5);
   [(ARImageData *)v5 setCurrentCaptureTimestamp:?];
   [coderCopy decodeDoubleForKey:@"exposureDuration"];
   [(ARImageData *)v5 setExposureDuration:?];
@@ -521,19 +521,19 @@ void __129__ARImageData_initWithPixelBuffer_captureFramePerSecond_captureDevice_
   {
     [v10 focalLength];
     *&v11 = v11;
-    v57 = LODWORD(v11);
+    v58 = LODWORD(v11);
     [v10 focalLength];
     v13 = v12;
-    v56 = v13;
+    v57 = v13;
     [v10 principalPoint];
     *&v14 = v14;
-    v55 = LODWORD(v14);
+    v56 = LODWORD(v14);
     [v10 principalPoint];
     *&v16 = v15;
-    *&v17 = v57;
+    *&v17 = v58;
     LODWORD(v18) = 0;
-    *(&v18 + 1) = v56;
-    v19 = COERCE_DOUBLE(__PAIR64__(v16, v55));
+    *(&v18 + 1) = v57;
+    v19 = COERCE_DOUBLE(__PAIR64__(v16, v56));
   }
 
   else
@@ -560,21 +560,21 @@ LABEL_9:
   v22 = v21;
   if (v21)
   {
-    v59 = 0u;
     v60 = 0u;
-    [v21 getBytes:&v59 length:32];
-    v58[0] = v59;
-    v58[1] = v60;
-    [(ARImageData *)v5 setRadialDistortion:v58];
+    v61 = 0u;
+    [v21 getBytes:&v60 length:32];
+    v59[0] = v60;
+    v59[1] = v61;
+    [(ARImageData *)v5 setRadialDistortion:v59];
   }
 
   v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"tangentialDistortion"];
 
   if (v23)
   {
-    v59 = 0uLL;
-    [v23 getBytes:&v59 length:16];
-    [(ARImageData *)v5 setTangentialDistortion:*&v59];
+    v60 = 0uLL;
+    [v23 getBytes:&v60 length:16];
+    [(ARImageData *)v5 setTangentialDistortion:*&v60];
   }
 
   -[ARImageData setCaptureFramesPerSecond:](v5, "setCaptureFramesPerSecond:", [coderCopy decodeIntegerForKey:@"targetFramesPerSecond"]);
@@ -593,32 +593,33 @@ LABEL_9:
   [(ARImageData *)v5 setFaceData:v26];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v27 = coderCopy;
-    v5->_pixelBuffer = [v27 ar_decodePixelBufferForKey:@"pixelBuffer"];
-    v28 = [v27 ar_decodePixelBufferForKey:@"visionData"];
+    v28 = coderCopy;
+    v5->_pixelBuffer = [v28 ar_decodePixelBufferForKey:@"pixelBuffer"];
+    v29 = [v28 ar_decodePixelBufferForKey:@"visionData"];
 
-    v5->_visionData = v28;
+    v5->_visionData = v29;
   }
 
-  v29 = ARDepthRepresentationDictionaryClassList();
-  v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"AVDepthData"];
+  v30 = ARDepthRepresentationDictionaryClassList(isKindOfClass);
+  v31 = [coderCopy decodeObjectOfClasses:v30 forKey:@"AVDepthData"];
 
-  if (v30)
+  if (v31)
   {
-    v31 = [objc_alloc(MEMORY[0x1E6987198]) initWithPixelBuffer:0 depthMetadataDictionary:v30];
-    [(ARImageData *)v5 setDepthData:v31];
+    v32 = [objc_alloc(MEMORY[0x1E6987198]) initWithPixelBuffer:0 depthMetadataDictionary:v31];
+    [(ARImageData *)v5 setDepthData:v32];
 
     [coderCopy decodeDoubleForKey:@"depthDataTimeStamp"];
-    v33 = v32;
-    v34 = 0.0;
-    if (v33 >= 0.0)
+    v34 = v33;
+    v35 = 0.0;
+    if (v34 >= 0.0)
     {
       [coderCopy decodeDoubleForKey:{@"depthDataTimeStamp", 0.0}];
     }
 
-    [(ARImageData *)v5 setDepthDataTimestamp:v34];
+    [(ARImageData *)v5 setDepthDataTimestamp:v35];
   }
 
   -[ARImageData setDeviceOrientation:](v5, "setDeviceOrientation:", [coderCopy decodeIntegerForKey:@"deviceOrientation"]);
@@ -630,55 +631,55 @@ LABEL_9:
 
   else
   {
-    v35 = *MEMORY[0x1E69E9B18];
-    v36 = *(MEMORY[0x1E69E9B18] + 16);
-    v37 = *(MEMORY[0x1E69E9B18] + 32);
-    v38 = *(MEMORY[0x1E69E9B18] + 48);
+    v36 = *MEMORY[0x1E69E9B18];
+    v37 = *(MEMORY[0x1E69E9B18] + 16);
+    v38 = *(MEMORY[0x1E69E9B18] + 32);
+    v39 = *(MEMORY[0x1E69E9B18] + 48);
   }
 
-  [(ARImageData *)v5 setVisionTransform:*&v35, *&v36, *&v37, *&v38];
+  [(ARImageData *)v5 setVisionTransform:*&v36, *&v37, *&v38, *&v39];
   v5->_highResolution = [coderCopy decodeBoolForKey:@"highResolution"];
   [(ARImageData *)v5 setLatestUltraWideImage:0];
   [coderCopy decodeDoubleForKey:@"timestampOfSynchronizedWideImageData"];
   [(ARImageData *)v5 setTimestampOfSynchronizedWideImageData:?];
-  v39 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pointCloud"];
-  [(ARImageData *)v5 setPointCloud:v39];
+  v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pointCloud"];
+  [(ARImageData *)v5 setPointCloud:v40];
 
-  v40 = MEMORY[0x1E695DFD8];
-  v41 = objc_opt_class();
+  v41 = MEMORY[0x1E695DFD8];
   v42 = objc_opt_class();
   v43 = objc_opt_class();
-  v44 = [v40 setWithObjects:{v41, v42, v43, objc_opt_class(), 0}];
-  v45 = [coderCopy decodeObjectOfClasses:v44 forKey:@"extrinsicsMap"];
+  v44 = objc_opt_class();
+  v45 = [v41 setWithObjects:{v42, v43, v44, objc_opt_class(), 0}];
+  v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"extrinsicsMap"];
 
-  if (v45)
+  if (v46)
   {
-    objc_storeStrong(&v5->_extrinsicsMap, v45);
+    objc_storeStrong(&v5->_extrinsicsMap, v46);
   }
 
-  v46 = MEMORY[0x1E695DFD8];
-  v47 = objc_opt_class();
+  v47 = MEMORY[0x1E695DFD8];
   v48 = objc_opt_class();
   v49 = objc_opt_class();
-  v50 = [v46 setWithObjects:{v47, v48, v49, objc_opt_class(), 0}];
-  v51 = [coderCopy decodeObjectOfClasses:v50 forKey:@"exifData"];
+  v50 = objc_opt_class();
+  v51 = [v47 setWithObjects:{v48, v49, v50, objc_opt_class(), 0}];
+  v52 = [coderCopy decodeObjectOfClasses:v51 forKey:@"exifData"];
 
-  if (v51)
+  if (v52)
   {
-    objc_storeStrong(&v5->_exifData, v51);
+    objc_storeStrong(&v5->_exifData, v52);
   }
 
   if ([coderCopy containsValueForKey:@"captureLens"])
   {
-    v52 = [coderCopy decodeIntegerForKey:@"captureLens"];
+    v53 = [coderCopy decodeIntegerForKey:@"captureLens"];
   }
 
   else
   {
-    v52 = 0;
+    v53 = 0;
   }
 
-  v5->_captureLens = v52;
+  v5->_captureLens = v53;
   v5->_visionDataWasDelivered = [coderCopy decodeBoolForKey:@"visionDataWasDelivered"];
 
 LABEL_32:
@@ -754,7 +755,7 @@ LABEL_32:
 
 - (ARImageData)initWithDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [(ARImageData *)self init];
   if (v5)
@@ -777,10 +778,10 @@ LABEL_32:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      memset(&v23, 0, sizeof(v23));
-      CMTimeMakeFromDictionary(&v23, v7);
-      v22 = v23;
-      Seconds = CMTimeGetSeconds(&v22);
+      memset(&v24, 0, sizeof(v24));
+      CMTimeMakeFromDictionary(&v24, v7);
+      v23 = v24;
+      Seconds = CMTimeGetSeconds(&v23);
       v5->_timestamp = Seconds;
       v5->_currentCaptureTimestamp = Seconds;
     }
@@ -794,27 +795,29 @@ LABEL_7:
 
     else
     {
-      v10 = [dictionaryCopy objectForKeyedSubscript:@"IntrinsicsMatrix"];
-      if (!v10)
+      isKindOfClass = [dictionaryCopy objectForKeyedSubscript:@"IntrinsicsMatrix"];
+      v10 = isKindOfClass;
+      if (!isKindOfClass)
       {
         goto LABEL_12;
       }
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v11 = ARMatrix3x3FromColumnMajorFlatArray(v10);
-      *&v5->_anon_120[8] = v11.n128_u32[2];
-      *&v5->_anon_120[24] = v12;
-      *v5->_anon_120 = v11.n128_u64[0];
-      *&v5->_anon_120[16] = v13;
-      *&v5->_anon_120[40] = v14;
-      *&v5->_anon_120[32] = v15;
+      v12 = ARMatrix3x3FromColumnMajorFlatArray(v10);
+      *&v5->_anon_120[8] = v12.n128_u32[2];
+      *&v5->_anon_120[24] = v13;
+      *v5->_anon_120 = v12.n128_u64[0];
+      *&v5->_anon_120[16] = v14;
+      *&v5->_anon_120[40] = v15;
+      *&v5->_anon_120[32] = v16;
 LABEL_15:
-      v19 = [dictionaryCopy objectForKeyedSubscript:@"ExposureTime"];
-      [v19 doubleValue];
-      v5->_exposureDuration = v20;
+      v20 = [dictionaryCopy objectForKeyedSubscript:@"ExposureTime"];
+      [v20 doubleValue];
+      v5->_exposureDuration = v21;
 
       v5->_deviceOrientation = 0;
       *&v5->_secondary = 0;
@@ -823,16 +826,16 @@ LABEL_15:
     }
 
 LABEL_12:
-    v16 = _ARLogGeneral_21();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = _ARLogGeneral_21(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      LODWORD(v23.value) = 138543618;
-      *(&v23.value + 4) = v18;
-      LOWORD(v23.flags) = 2048;
-      *(&v23.flags + 2) = v5;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating imageData without cameraIntrinsics", &v23, 0x16u);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      LODWORD(v24.value) = 138543618;
+      *(&v24.value + 4) = v19;
+      LOWORD(v24.flags) = 2048;
+      *(&v24.flags + 2) = v5;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating imageData without cameraIntrinsics", &v24, 0x16u);
     }
 
     goto LABEL_15;
@@ -847,7 +850,7 @@ LABEL_16:
 {
   v17[3] = *MEMORY[0x1E69E9840];
   memset(&v15, 0, sizeof(v15));
-  [(ARImageData *)self timestamp];
+  objc_msgSend_timestamp(self, a2);
   CMTimeMakeWithSeconds(&v15, v3, 1000000);
   v4 = *MEMORY[0x1E695E480];
   v14 = v15;
@@ -860,7 +863,7 @@ LABEL_16:
   v17[1] = v9;
   v16[2] = @"ExposureTime";
   v10 = MEMORY[0x1E696AD98];
-  [(ARImageData *)self exposureDuration];
+  objc_msgSend_exposureDuration(self);
   v11 = [v10 numberWithDouble:?];
   v17[2] = v11;
   v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
@@ -897,7 +900,8 @@ LABEL_16:
 {
   [type extrinsicMatrix4x4ToDeviceType:?];
 
-  return ARMatrix4x3FromMatrix4x4(v1, v2, v3, v4);
+  ARMatrix4x3FromMatrix4x4();
+  return result;
 }
 
 - (void)addExtrinsicMatrix:(void *)matrix toDeviceType:

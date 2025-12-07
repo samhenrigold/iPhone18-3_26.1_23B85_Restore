@@ -3,6 +3,8 @@
 - (BOOL)preferWiFiP2PRequestUpdated;
 - (BOOL)preferWiFiRequestAvailable;
 - (BOOL)preferWiFiRequestUnavailable;
+- (void)apsIsConnected:(BOOL)connected;
+- (void)deviceHasPhoneCallRelayRequest:(BOOL)request;
 - (void)directToCloudRequestAvailable;
 - (void)directToCloudRequestUnavailable;
 - (void)linkDidReceiveData:(id)data data:(id)a4;
@@ -10,7 +12,10 @@
 - (void)linkIsReady:(id)ready;
 - (void)linkIsSuspended:(id)suspended;
 - (void)linkIsUnavailable:(id)unavailable;
+- (void)linkPeerIsAsleep:(id)asleep isAsleep:(BOOL)isAsleep;
 - (void)localAWDLEndpointChanged:(id)changed;
+- (void)peerDidUnpairBluetooth:(BOOL)bluetooth nrUUID:(id)d;
+- (void)pipeDidConnectForNRUUID:(BOOL)d nrUUID:(id)iD;
 @end
 
 @implementation NRLinkDirector
@@ -518,6 +523,374 @@
   return v9;
 }
 
+- (void)apsIsConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  v5 = sub_100003490();
+  dispatch_assert_queue_V2(v5);
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  if (self)
+  {
+    conductors = self->_conductors;
+  }
+
+  else
+  {
+    conductors = 0;
+  }
+
+  v7 = conductors;
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    if (self)
+    {
+      do
+      {
+        v11 = 0;
+        do
+        {
+          if (*v16 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v12 = [(NSMutableDictionary *)self->_conductors objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v11), v15];
+          [v12 apsIsConnected:connectedCopy];
+
+          v11 = v11 + 1;
+        }
+
+        while (v9 != v11);
+        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v9);
+    }
+
+    else
+    {
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v14 = [0 objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * v13), v15}];
+          [v14 apsIsConnected:connectedCopy];
+
+          v13 = v13 + 1;
+        }
+
+        while (v9 != v13);
+        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v9);
+    }
+  }
+}
+
+- (void)deviceHasPhoneCallRelayRequest:(BOOL)request
+{
+  requestCopy = request;
+  v5 = sub_100003490();
+  dispatch_assert_queue_V2(v5);
+
+  if (requestCopy)
+  {
+    if (self)
+    {
+      bluetoothManager = self->_bluetoothManager;
+      if (bluetoothManager)
+      {
+        v7 = bluetoothManager->super._queue;
+        dispatch_assert_queue_V2(v7);
+
+        if (bluetoothManager->_pipeManager)
+        {
+          if (bluetoothManager->_hasEnabledDevicesUsingClientServer)
+          {
+            v8 = sub_100037B38(bluetoothManager, 3, 0);
+            if (v8)
+            {
+              v8->_flags |= 4u;
+            }
+          }
+
+          if (bluetoothManager->_hasEnabledDevicesUsingP2P)
+          {
+            v9 = sub_100037B38(bluetoothManager, 3, 1);
+            if (v9)
+            {
+              v9->_flags |= 4u;
+            }
+          }
+
+          sub_100036770(bluetoothManager, 3, 0);
+          sub_100036770(bluetoothManager, 3, 1);
+        }
+      }
+
+LABEL_22:
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      conductors = self->_conductors;
+      goto LABEL_23;
+    }
+  }
+
+  else if (self)
+  {
+    v10 = self->_bluetoothManager;
+    if (v10)
+    {
+      v11 = v10->super._queue;
+      dispatch_assert_queue_V2(v11);
+
+      if (v10->_pipeManager)
+      {
+        v12 = v10->_pipeRegistrations;
+        v13 = [(NSMutableDictionary *)v12 objectForKeyedSubscript:&off_100209AD0];
+        if (v13)
+        {
+          v13[9] &= ~4u;
+        }
+
+        v14 = v10->_p2pPipeRegistrations;
+        v15 = [(NSMutableDictionary *)v14 objectForKeyedSubscript:&off_100209AD0];
+        if (v15)
+        {
+          v15[9] &= ~4u;
+        }
+
+        sub_10002F840(v10, 3, 0);
+        sub_10002F840(v10, 3, 1);
+      }
+    }
+
+    goto LABEL_22;
+  }
+
+  conductors = 0;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+LABEL_23:
+  v17 = conductors;
+  v18 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v26;
+    if (self)
+    {
+      do
+      {
+        v21 = 0;
+        do
+        {
+          if (*v26 != v20)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v22 = [(NSMutableDictionary *)self->_conductors objectForKeyedSubscript:*(*(&v25 + 1) + 8 * v21), v25];
+          [v22 deviceHasPhoneCallRelayRequest:requestCopy];
+
+          v21 = v21 + 1;
+        }
+
+        while (v19 != v21);
+        v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      }
+
+      while (v19);
+    }
+
+    else
+    {
+      do
+      {
+        v23 = 0;
+        do
+        {
+          if (*v26 != v20)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v24 = [0 objectForKeyedSubscript:{*(*(&v25 + 1) + 8 * v23), v25}];
+          [v24 deviceHasPhoneCallRelayRequest:requestCopy];
+
+          v23 = v23 + 1;
+        }
+
+        while (v19 != v23);
+        v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      }
+
+      while (v19);
+    }
+  }
+}
+
+- (void)peerDidUnpairBluetooth:(BOOL)bluetooth nrUUID:(id)d
+{
+  bluetoothCopy = bluetooth;
+  dCopy = d;
+  v6 = sub_100003490();
+  dispatch_assert_queue_V2(v6);
+
+  if (self)
+  {
+    conductors = self->_conductors;
+  }
+
+  else
+  {
+    conductors = 0;
+  }
+
+  v8 = [(NSMutableDictionary *)conductors objectForKeyedSubscript:dCopy];
+  v9 = v8;
+  if (v8)
+  {
+    [v8 peerDidUnpairBluetooth:bluetoothCopy nrUUID:dCopy];
+  }
+
+  else
+  {
+    if (bluetoothCopy)
+    {
+      v10 = "";
+    }
+
+    else
+    {
+      v10 = "not ";
+    }
+
+    uUIDString = [dCopy UUIDString];
+    sub_1000B926C(self, 1014, @"peer did%s unregister %@", v11, v12, v13, v14, v15, v10);
+  }
+}
+
+- (void)pipeDidConnectForNRUUID:(BOOL)d nrUUID:(id)iD
+{
+  dCopy = d;
+  iDCopy = iD;
+  v6 = sub_100003490();
+  dispatch_assert_queue_V2(v6);
+
+  if (self)
+  {
+    conductors = self->_conductors;
+  }
+
+  else
+  {
+    conductors = 0;
+  }
+
+  v8 = [(NSMutableDictionary *)conductors objectForKeyedSubscript:iDCopy];
+  v9 = v8;
+  if (v8)
+  {
+    [v8 pipeDidConnectForNRUUID:dCopy nrUUID:iDCopy];
+  }
+
+  else
+  {
+    if (dCopy)
+    {
+      v10 = "";
+    }
+
+    else
+    {
+      v10 = " not";
+    }
+
+    uUIDString = [iDCopy UUIDString];
+    sub_1000B926C(self, 1014, @"peer%s nearby %@", v11, v12, v13, v14, v15, v10);
+  }
+}
+
+- (void)linkPeerIsAsleep:(id)asleep isAsleep:(BOOL)isAsleep
+{
+  isAsleepCopy = isAsleep;
+  asleepCopy = asleep;
+  v6 = sub_100003490();
+  dispatch_assert_queue_V2(v6);
+
+  if (asleepCopy)
+  {
+    if (self)
+    {
+      conductors = self->_conductors;
+    }
+
+    else
+    {
+      conductors = 0;
+    }
+
+    v8 = conductors;
+    nrUUID = [asleepCopy nrUUID];
+    v10 = [(NSMutableDictionary *)v8 objectForKeyedSubscript:nrUUID];
+
+    if (v10)
+    {
+      [v10 linkPeerIsAsleep:asleepCopy isAsleep:isAsleepCopy];
+    }
+
+    else
+    {
+      if (isAsleepCopy)
+      {
+        v11 = "";
+      }
+
+      else
+      {
+        v11 = " not";
+      }
+
+      nrUUID2 = [asleepCopy nrUUID];
+      uUIDString = [nrUUID2 UUIDString];
+      sub_1000B926C(self, 1014, @"peer%s asleep %@ %@", v13, v14, v15, v16, v17, v11);
+
+      v10 = 0;
+    }
+
+    goto LABEL_10;
+  }
+
+  v18 = sub_1000B9544();
+  IsLevelEnabled = _NRLogIsLevelEnabled();
+
+  if (IsLevelEnabled)
+  {
+    v10 = sub_1000B9544();
+    _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkDirector linkPeerIsAsleep:isAsleep:]");
+LABEL_10:
+  }
+}
+
 - (void)linkDidReceiveData:(id)data data:(id)a4
 {
   dataCopy = data;
@@ -565,10 +938,9 @@
 
     if (IsLevelEnabled)
     {
-LABEL_15:
       v11 = sub_1000B9544();
-      _NRLogWithArgs();
-LABEL_8:
+      _NRLogWithArgs(v11, 17, "%s called with null data");
+      goto LABEL_8;
     }
   }
 
@@ -579,7 +951,9 @@ LABEL_8:
 
     if (v19)
     {
-      goto LABEL_15;
+      v11 = sub_1000B9544();
+      _NRLogWithArgs(v11, 17, "%s called with null link");
+LABEL_8:
     }
   }
 }
@@ -630,7 +1004,7 @@ LABEL_8:
   if (IsLevelEnabled)
   {
     v8 = sub_1000B9544();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 17, "%s called with null link", "[NRLinkDirector linkIsUnavailable:]");
 LABEL_7:
   }
 }
@@ -681,7 +1055,7 @@ LABEL_7:
   if (IsLevelEnabled)
   {
     v8 = sub_1000B9544();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 17, "%s called with null link", "[NRLinkDirector linkIsSuspended:]");
 LABEL_7:
   }
 }
@@ -732,7 +1106,7 @@ LABEL_7:
   if (IsLevelEnabled)
   {
     v8 = sub_1000B9544();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 17, "%s called with null link", "[NRLinkDirector linkIsReady:]");
 LABEL_7:
   }
 }
@@ -782,7 +1156,7 @@ LABEL_7:
   if (IsLevelEnabled)
   {
     v8 = sub_1000B9544();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 17, "%s called with null link", "[NRLinkDirector linkIsAvailable:]");
 LABEL_7:
   }
 }

@@ -4,6 +4,7 @@
 - (id)timestamp;
 - (void)assignTimestampFromProxy:(id)proxy;
 - (void)copyFromReadProxy:(id)proxy;
+- (void)setAtomBehavior:(unsigned __int8)behavior;
 - (void)setAtomType:(unint64_t)type;
 - (void)setValue:(id)value;
 - (void)setValueBytes:(void *)bytes length:(unint64_t)length;
@@ -164,6 +165,21 @@
   }
 
   return v27;
+}
+
+- (void)setAtomBehavior:(unsigned __int8)behavior
+{
+  behaviorCopy = behavior;
+  v8 = objc_msgSend_backingStore(self, a2, behavior, v3, v4, v5, v6);
+  v14 = v8;
+  if (v8)
+  {
+    v15 = objc_msgSend_writerForProxy_(v8, v9, self, v10, v11, v12, v13);
+    v22 = objc_msgSend_binding(v14, v16, v17, v18, v19, v20, v21);
+    v23 = v22[27];
+    objc_msgSend_structInstance(self, v24, v25, v26, v27, v28, v29);
+    objc_msgSend_setData_withEncoding_forField_inStruct_(v15, v30, &behaviorCopy, "C", v23, &v32, v31);
+  }
 }
 
 - (void)setAtomType:(unint64_t)type

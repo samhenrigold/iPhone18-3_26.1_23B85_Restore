@@ -90,7 +90,7 @@
 
 - (double)relativeTime
 {
-  [(MPDocument *)[(MRMarimbaLayer *)self document] duration];
+  objc_msgSend_duration([(MRMarimbaLayer *)self document]);
   v4 = v3;
   result = 0.0;
   if (v4 > 0.0)
@@ -106,14 +106,14 @@
 
 - (double)relativeTimeForBackgroundAudio
 {
-  [-[MPDocument audioPlaylist](-[MRMarimbaLayer document](self "document")];
+  objc_msgSend_duration([(MPDocument *)[(MRMarimbaLayer *)self document] audioPlaylist]);
   v4 = v3;
   result = 0.0;
   if (v4 > 0.0)
   {
     [(MRMarimbaLayer *)self time];
     v7 = v6;
-    [-[MPDocument audioPlaylist](-[MRMarimbaLayer document](self "document")];
+    objc_msgSend_duration([(MPDocument *)[(MRMarimbaLayer *)self document] audioPlaylist]);
     return fmod(v7, v8);
   }
 
@@ -128,7 +128,7 @@
     v6 = v5;
     [layer timeIn];
     v8 = v7;
-    [layer duration];
+    objc_msgSend_duration(layer);
 
     return fmod(v6, v8 + v9);
   }
@@ -472,7 +472,7 @@ LABEL_18:
       if (_currentEffectContainer)
       {
         v5 = _currentEffectContainer;
-        [_currentEffectContainer duration];
+        objc_msgSend_duration(_currentEffectContainer);
         if (v6 == 0.0)
         {
           LOBYTE(_currentEffectContainer) = 0;
@@ -486,7 +486,7 @@ LABEL_18:
           v10 = v8 - v9;
           [objc_msgSend(v4 "parentLayer")];
           v12 = v10 - v11;
-          [v5 duration];
+          objc_msgSend_duration(v5);
           LOBYTE(_currentEffectContainer) = v12 < v13;
         }
       }
@@ -500,13 +500,13 @@ LABEL_18:
 {
   [(MRMarimbaLayer *)self setBailTimeWatcher:1];
   _currentEffectContainer = [(MRMarimbaLayer *)self _currentEffectContainer];
-  if ([_currentEffectContainer countOfEffects] && (v8 = objc_msgSend(_currentEffectContainer, "transition")) != 0 && (v9 = v8, objc_msgSend(v8, "duration"), v10 != 0.0) && (-[MRMarimbaLayer time](self, "time"), v12 = v11, objc_msgSend(_currentEffectContainer, "startTime"), v14 = v12 - v13, objc_msgSend(objc_msgSend(_currentEffectContainer, "parentLayer"), "timeIn"), v16 = v14 - v15, objc_msgSend(v9, "duration"), v16 <= v17) && v16 >= 0.0)
+  if ([_currentEffectContainer countOfEffects] && (v8 = objc_msgSend(_currentEffectContainer, "transition")) != 0 && (v9 = v8, objc_msgSend_duration(v8), v10 != 0.0) && (-[MRMarimbaLayer time](self, "time"), v12 = v11, objc_msgSend(_currentEffectContainer, "startTime"), v14 = v12 - v13, objc_msgSend(objc_msgSend(_currentEffectContainer, "parentLayer"), "timeIn"), v16 = v14 - v15, objc_msgSend_duration(v9), v16 <= v17) && v16 >= 0.0)
   {
     [objc_msgSend(_currentEffectContainer "parentLayer")];
     v19 = v18;
     [_currentEffectContainer startTime];
     v21 = v19 + v20;
-    [v9 duration];
+    objc_msgSend_duration(v9);
     v23 = v21 + v22;
     [(MRMarimbaLayer *)self setBailTimeWatcher:0];
     v24 = [NSArray arrayWithObjects:[NSNumber numberWithDouble:v23], target, NSStringFromSelector(action), 0];
@@ -1040,7 +1040,7 @@ LABEL_15:
       v11 = v10;
       if (v9 >= v10)
       {
-        [v7 duration];
+        objc_msgSend_duration(v7);
         if (v9 <= v12)
         {
           v11 = v9;
@@ -1584,7 +1584,7 @@ LABEL_57:
         v10 = v9;
         if (v8 >= v9)
         {
-          [v6 duration];
+          objc_msgSend_duration(v6);
           if (v8 <= v11)
           {
             v10 = v8;
@@ -2297,7 +2297,7 @@ LABEL_13:
 {
   width = self->_frameBufferSize.width;
   height = self->_frameBufferSize.height;
-  [(MRMarimbaLayer *)self affineTransform];
+  objc_msgSend_affineTransform(self, a2);
   if (1.0 == 0.0)
   {
     v6 = 4;
@@ -2637,7 +2637,7 @@ LABEL_13:
 
 - (double)timeRemaining
 {
-  [(MPDocument *)self->_document duration];
+  objc_msgSend_duration(self->_document, a2);
   v4 = v3;
   [(MRRenderer *)self->_renderer time];
   return v4 - v5;
@@ -2830,12 +2830,12 @@ LABEL_10:
             return 0;
           }
 
-          [v6 duration];
+          objc_msgSend_duration(v6);
           v18 = v17;
           [v6 outroTransitionDuration];
           if (v14 > v18 - v19 + -0.3)
           {
-            [v6 duration];
+            objc_msgSend_duration(v6);
             goto LABEL_10;
           }
         }
@@ -2896,12 +2896,12 @@ LABEL_9:
           return 0;
         }
 
-        [v8 duration];
+        objc_msgSend_duration(v8);
         v20 = v19;
         [v8 outroTransitionDuration];
         if (v16 > v20 - v21 + -0.3)
         {
-          [v8 duration];
+          objc_msgSend_duration(v8);
           goto LABEL_9;
         }
       }

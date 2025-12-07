@@ -20,33 +20,26 @@
 {
   configurationCopy = configuration;
   lCopy = l;
-  v20.receiver = self;
-  v20.super_class = NLDataProvider;
-  v8 = [(NLDataProvider *)&v20 init];
+  v17.receiver = self;
+  v17.super_class = NLDataProvider;
+  v8 = [(NLDataProvider *)&v17 init];
   if (v8)
   {
-    type = [configurationCopy type];
-    v10 = off_1E76288F0;
-    if (type != 1)
-    {
-      v10 = off_1E7628810;
-    }
-
-    v11 = *v10;
-    v12 = objc_opt_class();
-    v13 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:lCopy encoding:4 error:0];
-    v21.location = 0;
-    v21.length = 0;
-    v14 = CFStringTokenizerCreate(0, &stru_1F10C6540, v21, 0, 0);
-    v15 = [configurationCopy copy];
+    [configurationCopy type];
+    v9 = objc_opt_class();
+    v10 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:lCopy encoding:4 error:0];
+    v18.location = 0;
+    v18.length = 0;
+    v11 = CFStringTokenizerCreate(0, &stru_1F10C6540, v18, 0, 0);
+    v12 = [configurationCopy copy];
     configuration = v8->_configuration;
-    v8->_configuration = v15;
+    v8->_configuration = v12;
 
-    v17 = [v12 readInstancesFromString:v13 tokenizer:v14];
+    v14 = [v9 readInstancesFromString:v10 tokenizer:v11];
     instances = v8->_instances;
-    v8->_instances = v17;
+    v8->_instances = v14;
 
-    v8->_tokenizer = v14;
+    v8->_tokenizer = v11;
   }
 
   return v8;
@@ -67,7 +60,7 @@
 
 - (void)_generateMapsWithModelTrainer:(id)trainer
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   trainerCopy = trainer;
   numberOfInstances = [(NLDataProvider *)self numberOfInstances];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -76,78 +69,78 @@
   dictionary4 = [MEMORY[0x1E695DF90] dictionary];
   dictionary5 = [MEMORY[0x1E695DF90] dictionary];
   dictionary6 = [MEMORY[0x1E695DF90] dictionary];
-  v59 = numberOfInstances;
+  v58 = numberOfInstances;
   if (numberOfInstances)
   {
     v5 = 0;
-    v67 = 0;
-    v70 = 1;
+    v66 = 0;
+    v69 = 1;
     do
     {
-      v66 = v5;
+      v65 = v5;
       v6 = [(NLDataProvider *)self instanceAtIndex:v5];
       tokens = [v6 tokens];
-      v65 = v6;
+      v64 = v6;
       labels = [v6 labels];
       v9 = [MEMORY[0x1E695DFA8] set];
-      v64 = [tokens count];
+      v63 = [tokens count];
+      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
       v88 = 0u;
-      v89 = 0u;
       obj = labels;
-      v10 = [obj countByEnumeratingWithState:&v86 objects:v93 count:16];
+      v10 = [obj countByEnumeratingWithState:&v85 objects:v92 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v87;
+        v12 = *v86;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v87 != v12)
+            if (*v86 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v86 + 1) + 8 * i);
+            v14 = *(*(&v85 + 1) + 8 * i);
             v15 = [(NSDictionary *)dictionary objectForKey:v14];
 
             if (!v15)
             {
-              v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v70];
+              v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v69];
               [(NSDictionary *)dictionary setObject:v16 forKey:v14];
               [(NSDictionary *)dictionary2 setObject:v14 forKey:v16];
-              ++v70;
+              ++v69;
             }
           }
 
-          v11 = [obj countByEnumeratingWithState:&v86 objects:v93 count:16];
+          v11 = [obj countByEnumeratingWithState:&v85 objects:v92 count:16];
         }
 
         while (v11);
       }
 
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
       v83 = 0u;
+      v84 = 0u;
+      v81 = 0u;
+      v82 = 0u;
       v17 = tokens;
-      v18 = [v17 countByEnumeratingWithState:&v82 objects:v92 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v81 objects:v91 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v83;
+        v20 = *v82;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v83 != v20)
+            if (*v82 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v82 + 1) + 8 * j);
+            v22 = *(*(&v81 + 1) + 8 * j);
             v23 = [dictionary3 objectForKey:v22];
             unsignedIntegerValue = [v23 unsignedIntegerValue];
 
@@ -157,32 +150,32 @@
             [v9 addObject:v22];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v82 objects:v92 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v81 objects:v91 count:16];
         }
 
         while (v19);
       }
 
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
       v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v26 = v9;
-      v27 = [v26 countByEnumeratingWithState:&v78 objects:v91 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v77 objects:v90 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v79;
+        v29 = *v78;
         do
         {
           for (k = 0; k != v28; ++k)
           {
-            if (*v79 != v29)
+            if (*v78 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v78 + 1) + 8 * k);
+            v31 = *(*(&v77 + 1) + 8 * k);
             v32 = [dictionary4 objectForKey:v31];
             unsignedIntegerValue2 = [v32 unsignedIntegerValue];
 
@@ -190,59 +183,59 @@
             [dictionary4 setObject:v34 forKey:v31];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v78 objects:v91 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v77 objects:v90 count:16];
         }
 
         while (v28);
       }
 
-      v67 += v64;
+      v66 += v63;
 
-      reportInstanceCompletionToTrainer(trainerCopy, v66, v59, 0);
-      v5 = v66 + 1;
+      reportInstanceCompletionToTrainer(trainerCopy, v65, v58, 0);
+      v5 = v65 + 1;
     }
 
-    while (v66 + 1 != v59);
+    while (v65 + 1 != v58);
   }
 
   else
   {
-    v67 = 0;
-    v70 = 1;
+    v66 = 0;
+    v69 = 1;
   }
 
   allKeys = [dictionary3 allKeys];
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke;
-  v76[3] = &unk_1E7628EA8;
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke;
+  v75[3] = &unk_1E7628EA8;
   v36 = dictionary3;
-  v77 = v36;
-  v37 = [allKeys sortedArrayUsingComparator:v76];
+  v76 = v36;
+  v37 = [allKeys sortedArrayUsingComparator:v75];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v38 = v37;
   v39 = 16;
-  v40 = [v38 countByEnumeratingWithState:&v72 objects:v90 count:16];
+  v40 = [v38 countByEnumeratingWithState:&v71 objects:v89 count:16];
   v41 = dictionary5;
   if (v40)
   {
     v42 = v40;
-    v43 = *v73;
+    v43 = *v72;
     v39 = 16;
     do
     {
       for (m = 0; m != v42; ++m)
       {
-        if (*v73 != v43)
+        if (*v72 != v43)
         {
           objc_enumerationMutation(v38);
         }
 
-        v45 = *(*(&v72 + 1) + 8 * m);
+        v45 = *(*(&v71 + 1) + 8 * m);
         if (tokenIDFromTokenAndVocabularyMap(v45, v41) == 3)
         {
           v46 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v39];
@@ -255,7 +248,7 @@
         }
       }
 
-      v42 = [v38 countByEnumeratingWithState:&v72 objects:v90 count:16];
+      v42 = [v38 countByEnumeratingWithState:&v71 objects:v89 count:16];
     }
 
     while (v42);
@@ -278,12 +271,10 @@
   self->_documentFrequencyMap = dictionary6;
   v56 = dictionary6;
 
-  self->_numberOfLabels = v70;
+  self->_numberOfLabels = v69;
   self->_numberOfVocabularyEntries = v39;
-  self->_numberOfTokens = v67;
+  self->_numberOfTokens = v66;
   self->_generatedMaps = 1;
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -309,7 +300,7 @@ uint64_t __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke(uint6
 
 - (void)_performLanguageRecognition
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   numberOfInstances = [(NLDataProvider *)self numberOfInstances];
   v3 = objc_alloc_init(NLLanguageRecognizer);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -347,30 +338,30 @@ uint64_t __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke(uint6
     dominantLanguage = 0;
   }
 
-  v27 = dominantLanguage;
-  v28 = v3;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v26 = dominantLanguage;
+  v27 = v3;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   allKeys = [dictionary allKeys];
-  v14 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
     v17 = 0;
-    v18 = *v31;
+    v18 = *v30;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v18)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v20 = *(*(&v30 + 1) + 8 * i);
+        v20 = *(*(&v29 + 1) + 8 * i);
         v21 = [dictionary objectForKey:v20];
         unsignedIntegerValue2 = [v21 unsignedIntegerValue];
 
@@ -383,7 +374,7 @@ uint64_t __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke(uint6
         }
       }
 
-      v15 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
@@ -399,7 +390,6 @@ uint64_t __48__NLDataProvider__generateMapsWithModelTrainer___block_invoke(uint6
   v25 = v17;
 
   self->_performedLanguageRecognition = 1;
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateMapsWithModelTrainer:(id)trainer

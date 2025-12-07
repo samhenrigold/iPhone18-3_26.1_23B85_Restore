@@ -85,7 +85,7 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke(uint64_t a1)
 
 void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -94,18 +94,17 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Reactivated trigger after timer fired", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Reactivated trigger after timer fired", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerFiredNotification:(id)notification
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_stringForKey:@"HMD.BGTM.NK"];
@@ -122,13 +121,13 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
     {
       v12 = HMFGetLogIdentifier();
       v13 = HMDEventTriggerActivationTypeAsString([(HMDEvent *)selfCopy activationType]);
-      v26 = 138543874;
-      v27 = v12;
-      v28 = 2112;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Timer has fired %@, current activation state: %@", &v26, 0x20u);
+      v25 = 138543874;
+      v26 = v12;
+      v27 = 2112;
+      v28 = v6;
+      v29 = 2112;
+      v30 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Timer has fired %@, current activation state: %@", &v25, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -152,9 +151,9 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
           if (v22)
           {
             v23 = HMFGetLogIdentifier();
-            v26 = 138543362;
-            v27 = v23;
-            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Reactivating the event as it does have some recurrences", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = v23;
+            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Reactivating the event as it does have some recurrences", &v25, 0xCu);
           }
 
           objc_autoreleasePoolPop(v19);
@@ -166,9 +165,9 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
           if (v22)
           {
             v24 = HMFGetLogIdentifier();
-            v26 = 138543362;
-            v27 = v24;
-            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Not-Reactivating the event as it does not have recurrences", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = v24;
+            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Not-Reactivating the event as it does not have recurrences", &v25, 0xCu);
           }
 
           objc_autoreleasePoolPop(v19);
@@ -176,17 +175,15 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_activate:(unint64_t)_activate completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v38.receiver = self;
-  v38.super_class = HMDTimeEvent;
-  v7 = [(HMDEvent *)&v38 _activate:_activate completionHandler:0];
+  v37.receiver = self;
+  v37.super_class = HMDTimeEvent;
+  v7 = [(HMDEvent *)&v37 _activate:_activate completionHandler:0];
   if ([(HMDTimeEvent *)self isActive])
   {
     _nextTimerDate = [(HMDTimeEvent *)self _nextTimerDate];
@@ -201,19 +198,19 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
         v13 = HMFGetLogIdentifier();
         hmf_localTimeDescription = [_nextTimerDate hmf_localTimeDescription];
         *buf = 138543874;
-        v40 = v13;
-        v41 = 2112;
-        v42 = timerID;
-        v43 = 2112;
-        v44 = hmf_localTimeDescription;
+        v39 = v13;
+        v40 = 2112;
+        v41 = timerID;
+        v42 = 2112;
+        v43 = hmf_localTimeDescription;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting the next timer (%@) set to [%@]", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
       backgroundTaskManager = [(HMDTimeEvent *)selfCopy backgroundTaskManager];
-      v37 = 0;
-      v16 = [backgroundTaskManager scheduleTaskWithIdentifier:timerID fireDate:_nextTimerDate onObserver:selfCopy selector:sel_handleTimerFiredNotification_ error:&v37];
-      v17 = v37;
+      v36 = 0;
+      v16 = [backgroundTaskManager scheduleTaskWithIdentifier:timerID fireDate:_nextTimerDate onObserver:selfCopy selector:sel_handleTimerFiredNotification_ error:&v36];
+      v17 = v36;
 
       if ((v16 & 1) == 0)
       {
@@ -224,11 +221,11 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v40 = v21;
-          v41 = 2112;
-          v42 = timerID;
-          v43 = 2112;
-          v44 = v17;
+          v39 = v21;
+          v40 = 2112;
+          v41 = timerID;
+          v42 = 2112;
+          v43 = v17;
           _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to activate time trigger %@ with error %@", buf, 0x20u);
         }
 
@@ -252,7 +249,7 @@ void __44__HMDTimeEvent__reactivateTriggerAfterDelay__block_invoke_2(uint64_t a1
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v34;
+        v39 = v34;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to get next time date", buf, 0xCu);
       }
 
@@ -289,16 +286,15 @@ LABEL_22:
   {
     v30 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v30;
-    v41 = 2112;
-    v42 = _nextTimerDate;
+    v39 = v30;
+    v40 = 2112;
+    v41 = _nextTimerDate;
     _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Stopping the already scheduled timer with ID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v27);
 LABEL_23:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -368,17 +364,16 @@ LABEL_4:
 
 uint64_t __27__HMDTimeEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_128235;
-  logCategory__hmf_once_v15_128235 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_128235;
+  logCategory__hmf_once_v15_128235 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)isValidOffsetDateComponents:(id)components
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   if (componentsCopy)
   {
@@ -412,11 +407,11 @@ uint64_t __27__HMDTimeEvent_logCategory__block_invoke()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v10;
-        v15 = 2112;
-        v16 = componentsCopy;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Given date component contains non supported fields set: %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2112;
+        v15 = componentsCopy;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Given date component contains non supported fields set: %@", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -428,13 +423,12 @@ uint64_t __27__HMDTimeEvent_logCategory__block_invoke()
     v6 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)isValidAbsoluteDateComponents:(id)components
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   v5 = componentsCopy;
   if (componentsCopy)
@@ -451,15 +445,15 @@ uint64_t __27__HMDTimeEvent_logCategory__block_invoke()
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v5;
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v5;
       v10 = "%{public}@Minute and hour fields are not set in %@";
       v11 = v8;
       v12 = 22;
 LABEL_8:
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, v10, &v16, v12);
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, v10, &v15, v12);
     }
   }
 
@@ -471,8 +465,8 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v9;
+      v15 = 138543362;
+      v16 = v9;
       v10 = "%{public}@Given date components is nil";
       v11 = v8;
       v12 = 12;
@@ -484,7 +478,6 @@ LABEL_8:
   v13 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -10,12 +10,10 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC19HomeKitDaemonLegacy36TemperatureHumidityReadWriteLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC19HomeKitDaemonLegacy36TemperatureHumidityReadWriteLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_253CD0938();
+  v2 = sub_253CD0938();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary

@@ -46,7 +46,7 @@ uint64_t __50__MCDMediaRemoteSerialQueueManager_sharedInstance__block_invoke()
 
 - (void)cancelAllOperations
 {
-  v3 = MCDGeneralLogging();
+  v3 = MCDGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -86,11 +86,11 @@ void __69__MCDMediaRemoteSerialQueueManager_addOperation_cancelAllOperations___b
 
   if (v3)
   {
-    v4 = MCDGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MCDGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Operation is cancelled, not executing", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25AD8E000, v5, OS_LOG_TYPE_DEFAULT, "Operation is cancelled, not executing", v7, 2u);
     }
   }
 
@@ -101,9 +101,9 @@ void __69__MCDMediaRemoteSerialQueueManager_addOperation_cancelAllOperations___b
       [*(a1 + 32) cancelAllOperations];
     }
 
-    v5 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v5();
+    v6();
   }
 }
 

@@ -117,30 +117,30 @@ void __94__SBApplicationShortcutService__authenticateClient_forBundleIdentifier_
 - (id)_sanitizeApplicationShortcutItems:(id)items withEntitlements:(unint64_t)entitlements
 {
   entitlementsCopy = entitlements;
-  v26 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   array = [MEMORY[0x277CBEB18] array];
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v7 = itemsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v21 + 1) + 8 * v11) copy];
+        v12 = [*(*(&v22 + 1) + 8 * v11) copy];
         v13 = v12;
         if ((entitlementsCopy & 2) == 0)
         {
@@ -151,7 +151,7 @@ void __94__SBApplicationShortcutService__authenticateClient_forBundleIdentifier_
             v15 = SBLogCommon();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              [SBApplicationShortcutService _sanitizeApplicationShortcutItems:withEntitlements:];
+              [SBApplicationShortcutService _sanitizeApplicationShortcutItems:v28 withEntitlements:self];
             }
 
             [v13 setBundleIdentifierToLaunch:0];
@@ -167,7 +167,7 @@ void __94__SBApplicationShortcutService__authenticateClient_forBundleIdentifier_
             v17 = SBLogCommon();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              [SBApplicationShortcutService _sanitizeApplicationShortcutItems:withEntitlements:];
+              [SBApplicationShortcutService _sanitizeApplicationShortcutItems:v27 withEntitlements:self];
             }
 
             [v13 setIcon:0];
@@ -183,7 +183,7 @@ void __94__SBApplicationShortcutService__authenticateClient_forBundleIdentifier_
               v19 = SBLogCommon();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
-                [SBApplicationShortcutService _sanitizeApplicationShortcutItems:withEntitlements:];
+                [SBApplicationShortcutService _sanitizeApplicationShortcutItems:v26 withEntitlements:self];
               }
 
               [v13 setIcon:0];
@@ -200,7 +200,7 @@ void __94__SBApplicationShortcutService__authenticateClient_forBundleIdentifier_
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
     }
 
     while (v9);
@@ -613,31 +613,31 @@ void __112__SBApplicationShortcutService_applicationServer_client_setDynamicAppl
   }
 }
 
-- (void)_sanitizeApplicationShortcutItems:withEntitlements:.cold.1()
+- (void)_sanitizeApplicationShortcutItems:(uint64_t)a1 withEntitlements:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v2 = OUTLINED_FUNCTION_1_12();
-  v3 = NSStringFromClass(v2);
-  *v1 = 138543362;
-  *v0 = v3;
-  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v4, v5, "[%{public}@] Client is not entitled to set bundleIdentifierToLaunch. Ignoring.");
+  v4 = OUTLINED_FUNCTION_1_12(a1, a2);
+  v5 = NSStringFromClass(v4);
+  *v3 = 138543362;
+  *v2 = v5;
+  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v6, v7, "[%{public}@] Client is not entitled to set bundleIdentifierToLaunch. Ignoring.");
 }
 
-- (void)_sanitizeApplicationShortcutItems:withEntitlements:.cold.2()
+- (void)_sanitizeApplicationShortcutItems:(uint64_t)a1 withEntitlements:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v2 = OUTLINED_FUNCTION_1_12();
-  v3 = NSStringFromClass(v2);
-  *v1 = 138543362;
-  *v0 = v3;
-  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v4, v5, "[%{public}@] Client is not entitled to set an icon using a custom (dynamic, non-masked) image. Ignoring.");
+  v4 = OUTLINED_FUNCTION_1_12(a1, a2);
+  v5 = NSStringFromClass(v4);
+  *v3 = 138543362;
+  *v2 = v5;
+  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v6, v7, "[%{public}@] Client is not entitled to set an icon using a custom (dynamic, non-masked) image. Ignoring.");
 }
 
-- (void)_sanitizeApplicationShortcutItems:withEntitlements:.cold.3()
+- (void)_sanitizeApplicationShortcutItems:(uint64_t)a1 withEntitlements:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
-  v2 = OUTLINED_FUNCTION_1_12();
-  v3 = NSStringFromClass(v2);
-  *v1 = 138543362;
-  *v0 = v3;
-  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v4, v5, "[%{public}@] Client is not entitled to set a contact icon with custom image data. Ignoring.");
+  v4 = OUTLINED_FUNCTION_1_12(a1, a2);
+  v5 = NSStringFromClass(v4);
+  *v3 = 138543362;
+  *v2 = v5;
+  OUTLINED_FUNCTION_0_22(&dword_21ED4E000, v6, v7, "[%{public}@] Client is not entitled to set a contact icon with custom image data. Ignoring.");
 }
 
 void __129__SBApplicationShortcutService_applicationServer_client_fetchApplicationShortcutItemsOfTypes_forBundleIdentifier_withCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)

@@ -1258,7 +1258,7 @@ LABEL_32:
 
 uint64_t __70__SBElasticValueViewController_transitionToState_animated_completion___block_invoke(uint64_t a1)
 {
-  v2 = SBLogTelemetrySignposts();
+  v2 = SBLogTelemetrySignposts(a1);
   if (os_signpost_enabled(v2))
   {
     *v5 = 0;
@@ -1274,7 +1274,7 @@ uint64_t __70__SBElasticValueViewController_transitionToState_animated_completio
 
 uint64_t __70__SBElasticValueViewController_transitionToState_animated_completion___block_invoke_91(uint64_t a1)
 {
-  v2 = SBLogTelemetrySignposts();
+  v2 = SBLogTelemetrySignposts(a1);
   if (os_signpost_enabled(v2))
   {
     *v5 = 0;
@@ -1290,7 +1290,7 @@ uint64_t __70__SBElasticValueViewController_transitionToState_animated_completio
 
 void __70__SBElasticValueViewController_transitionToState_animated_completion___block_invoke_92(uint64_t a1)
 {
-  v2 = SBLogTelemetrySignposts();
+  v2 = SBLogTelemetrySignposts(a1);
   if (os_signpost_enabled(v2))
   {
     *v4 = 0;
@@ -1304,7 +1304,7 @@ void __70__SBElasticValueViewController_transitionToState_animated_completion___
 
 void __70__SBElasticValueViewController_transitionToState_animated_completion___block_invoke_93(uint64_t a1)
 {
-  v2 = SBLogTelemetrySignposts();
+  v2 = SBLogTelemetrySignposts(a1);
   if (os_signpost_enabled(v2))
   {
     *v4 = 0;
@@ -1724,7 +1724,7 @@ LABEL_11:
   objc_destroyWeak(location);
 }
 
-void __148__SBElasticValueViewController__animateFromState_toState_primaryAnimations_primaryCompletion_positionAnimations_positionCompletion_finalCompletion___block_invoke(uint64_t a1, void (**a2)(id, __CFString *))
+void __148__SBElasticValueViewController__animateFromState_toState_primaryAnimations_primaryCompletion_positionAnimations_positionCompletion_finalCompletion___block_invoke(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v4 = a2 + 2;
   v3 = a2[2];
@@ -3989,7 +3989,7 @@ void __112__SBElasticValueViewController__sliderViewMetricsUpdatersForState_boun
   [(SBElasticSliderView *)self->_sliderView center];
   [(SBElasticValueViewController *)self maximumSizeForSlider];
   [(SBElasticValueViewController *)self axis];
-  [(SBElasticSliderView *)self->_sliderView frame];
+  objc_msgSend_frame(self->_sliderView);
   v4 = v3;
   v27 = v5;
   v28 = v6;

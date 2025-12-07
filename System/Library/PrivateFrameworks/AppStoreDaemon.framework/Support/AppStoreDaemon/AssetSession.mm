@@ -326,8 +326,7 @@
             _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "[%@] Canceling task: %{public}@ after receiving invalid status code: %ld", buf, 0x20u);
           }
 
-          v73 = [NSError errorWithDomain:@"AssetErrorDomain" code:v12 + 1000 userInfo:0];
-          v74 = objc_claimAutoreleasedReturnValue();
+          v74 = v73 = [NSError errorWithDomain:@"AssetErrorDomain" code:v12 + 1000 userInfo:0];
           v75 = ASDErrorWithUnderlyingErrorAndDescription();
           objc_setProperty_atomic(v13, v76, v75, 40);
 
@@ -584,7 +583,7 @@ LABEL_24:
         v30 = v28;
         if (self)
         {
-          v31 = sub_1003BBF50();
+          v31 = sub_1003BBF50(Device);
           isHRNMode = [v31 isHRNMode];
 
           if ((isHRNMode & 1) == 0)
@@ -799,7 +798,7 @@ LABEL_24:
             v50 = v139;
             if (os_variant_has_internal_content())
             {
-              v92 = sub_100200A94();
+              v92 = sub_100200A94(DiagnosticPublisher);
 
               if (v92)
               {
@@ -883,7 +882,7 @@ LABEL_24:
                 }
 
                 [v93 setObject:v118 forKeyedSubscript:@"result"];
-                v119 = sub_100200A94();
+                v119 = sub_100200A94(DiagnosticPublisher);
                 v144[0] = _NSConcreteStackBlock;
                 v144[1] = 3221225472;
                 v144[2] = sub_10037956C;

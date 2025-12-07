@@ -88,13 +88,12 @@
 
 - (NSString)detailedDescription
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   selfCopy = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v3;
 }
 
 - (void)setMeCard:(id)card
@@ -107,48 +106,45 @@
 - (id)contactForCombinedHash:(id)hash
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   selfCopy = self;
   sub_10028088C(&qword_1009832E8, &unk_100809A60);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v7;
+  return v6;
 }
 
 - (id)contactsForCombinedHash:(id)hash
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   selfCopy = self;
   sub_10028088C(&qword_1009832E0, &qword_100809A58);
   OS_dispatch_queue.sync<A>(execute:)();
 
   sub_1000276B4(0, &qword_100975088, CNContact_ptr);
   sub_1002D7FB0();
-  v6.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v6.super.isa;
+  return v4.super.isa;
 }
 
 - (id)emailOrPhoneForCombinedHash:(id)hash
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   selfCopy = self;
   sub_10028088C(&qword_100975100, &qword_1007FBA10);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  if (v8)
+  if (v7)
   {
-    v6 = String._bridgeToObjectiveC()();
+    v4 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (id)contactIdentifierForMediumHashes:(id)hashes
@@ -158,22 +154,21 @@
   v6 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;
 
-  v9 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   sub_10028088C(&qword_100975100, &qword_1007FBA10);
   OS_dispatch_queue.sync<A>(execute:)();
   sub_100026AC0(v6, v8);
 
-  if (v12)
+  if (v11)
   {
-    v10 = String._bridgeToObjectiveC()();
+    v9 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)contactHandlesForShortHashes:(id)hashes
@@ -183,14 +178,13 @@
   v6 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;
 
-  v9 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   sub_10028088C(&unk_1009832D0, &unk_100809A48);
   OS_dispatch_queue.sync<A>(execute:)();
   sub_100026AC0(v6, v8);
 
-  v10.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v9.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v10.super.isa;
+  return v9.super.isa;
 }
 
 - (BOOL)contactsContainsShortHashes:(id)hashes
@@ -200,29 +194,26 @@
   v6 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;
 
-  v9 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   OS_dispatch_queue.sync<A>(execute:)();
   sub_100026AC0(v6, v8);
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)dumpDBAtFileURL:(id)l
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v11[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC16DaemoniOSLibrary27SDAirDropContactHashManager_hashManagerQ);
   selfCopy = self;
-  v14 = v8;
+  v13 = v7;
   selfCopy2 = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  LOBYTE(v9) = v15;
-  (*(v5 + 8))(v8, v4);
+  v9 = v14;
+  (*(v5 + 8))(v7, v4);
   return v9;
 }
 

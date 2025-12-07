@@ -5,6 +5,7 @@
 - (id)imageForImage:(id)image;
 - (id)imagePlaceholderForColor:(id)color;
 - (id)objectForData:(id)data response:(id)response error:(id *)error;
+- (void)isImagePlaceholderAvailable;
 @end
 
 @implementation SKUIImageDataConsumer
@@ -114,11 +115,35 @@
   return v10;
 }
 
+- (void)imageForColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageDataConsumer imageForColor:]";
+}
+
+- (void)imageForColor:(uint64_t)a3 size:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageDataConsumer imageForColor:size:]";
+}
+
 - (void)imageForImage:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUIImageDataConsumer imageForImage:]";
+}
+
+- (void)imagePlaceholderForColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageDataConsumer imagePlaceholderForColor:]";
+}
+
+- (void)isImagePlaceholderAvailable
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageDataConsumer isImagePlaceholderAvailable]";
 }
 
 - (void)objectForData:response:error:.cold.1()

@@ -19,9 +19,9 @@
   {
     v4 = *v2;
     v3 = v2[1];
-    sub_223B772AC();
+    sub_223B772AC(*v2, v3);
     v5 = sub_223BF453C();
-    sub_223B772B4();
+    sub_223B772B4(v4, v3);
 
     return v5;
   }
@@ -36,9 +36,9 @@
   {
     v4 = *v2;
     v3 = v2[1];
-    sub_223B772AC();
+    sub_223B772AC(*v2, v3);
     v5 = sub_223BF453C();
-    sub_223B772B4();
+    sub_223B772B4(v4, v3);
 
     return v5;
   }

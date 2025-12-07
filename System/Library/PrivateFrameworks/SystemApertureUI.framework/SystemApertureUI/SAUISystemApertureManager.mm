@@ -315,10 +315,11 @@ id __56__SAUISystemApertureManager__reevaluatePromotedElements__block_invoke(uin
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    SAUIRegisterSystemApertureLogging();
+    SAUIRegisterSystemApertureLogging(v3, v4);
   }
 }
 

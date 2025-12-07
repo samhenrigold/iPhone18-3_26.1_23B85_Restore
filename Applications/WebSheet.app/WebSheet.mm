@@ -296,11 +296,11 @@ Swift::Int sub_100002854()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_1000028C8()
+Swift::Int sub_1000028C8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 

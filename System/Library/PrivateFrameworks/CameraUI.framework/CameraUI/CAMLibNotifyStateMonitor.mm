@@ -77,7 +77,7 @@
   return selfCopy;
 }
 
-uint64_t __42__CAMLibNotifyStateMonitor_monitoredValue__block_invoke(uint64_t a1)
+void *__42__CAMLibNotifyStateMonitor_monitoredValue__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _startMonitoringIfNeeded];
   result = [*(a1 + 32) _monitoredValue];
@@ -96,7 +96,7 @@ uint64_t __42__CAMLibNotifyStateMonitor_monitoredValue__block_invoke(uint64_t a1
   dispatch_async(_notifyQueue, block);
 }
 
-uint64_t __42__CAMLibNotifyStateMonitor_setNeedsUpdate__block_invoke(uint64_t a1)
+void *__42__CAMLibNotifyStateMonitor_setNeedsUpdate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _notifyRegistered];
   if (result)

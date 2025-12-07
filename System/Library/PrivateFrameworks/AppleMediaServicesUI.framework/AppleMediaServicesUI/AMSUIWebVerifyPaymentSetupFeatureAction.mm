@@ -36,10 +36,10 @@
 
 - (id)runAction
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = AMSUIWebVerifyPaymentSetupFeatureAction;
-  runAction = [(AMSUIWebAction *)&v20 runAction];
+  v25 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = AMSUIWebVerifyPaymentSetupFeatureAction;
+  runAction = [(AMSUIWebAction *)&v19 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -52,42 +52,40 @@
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543618;
-    v23 = v6;
-    v24 = 2114;
-    v25 = v7;
+    v22 = v6;
+    v23 = 2114;
+    v24 = v7;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Verifying payment setup.", buf, 0x16u);
   }
 
   v8 = MEMORY[0x1E698C7F0];
   _checkUpsellCardEnrollment = [(AMSUIWebVerifyPaymentSetupFeatureAction *)self _checkUpsellCardEnrollment];
-  v21[0] = _checkUpsellCardEnrollment;
+  v20[0] = _checkUpsellCardEnrollment;
   _checkCombinedAccount = [(AMSUIWebVerifyPaymentSetupFeatureAction *)self _checkCombinedAccount];
-  v21[1] = _checkCombinedAccount;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[1] = _checkCombinedAccount;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v12 = [v8 promiseWithAll:v11];
 
   promiseAdapter = [v12 promiseAdapter];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke;
-  v19[3] = &unk_1E7F24CD8;
-  v19[4] = self;
-  v14 = [promiseAdapter thenWithBlock:v19];
-
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_3;
-  v18[3] = &unk_1E7F261F0;
+  v18[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke;
+  v18[3] = &unk_1E7F24CD8;
   v18[4] = self;
-  [v14 addSuccessBlock:v18];
+  v14 = [promiseAdapter thenWithBlock:v18];
+
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_16;
-  v17[3] = &unk_1E7F24410;
+  v17[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_3;
+  v17[3] = &unk_1E7F261F0;
   v17[4] = self;
-  [v14 addErrorBlock:v17];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [v14 addSuccessBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_16;
+  v16[3] = &unk_1E7F24410;
+  v16[4] = self;
+  [v14 addErrorBlock:v16];
 
   return v14;
 }
@@ -106,74 +104,66 @@ id __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke(uint64_
 
 id __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E698CAD0];
-  v8 = @"supported";
+  v7 = @"supported";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(a2, "state") == 1}];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 promiseWithResult:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 void __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Verified payment setup: %{public}@", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Verified payment setup: %{public}@", &v7, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __52__AMSUIWebVerifyPaymentSetupFeatureAction_runAction__block_invoke_16(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v4)
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSLogableError();
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to verify payment setup: %{public}@", &v11, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSLogableError();
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to verify payment setup: %{public}@", &v8, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_checkCombinedAccount

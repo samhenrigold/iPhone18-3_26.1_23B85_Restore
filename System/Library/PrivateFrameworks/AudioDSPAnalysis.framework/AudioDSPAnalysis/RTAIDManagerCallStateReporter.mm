@@ -8,32 +8,32 @@
 
 - (void)callObserver:(id)observer callChanged:(id)changed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   calls = [observerCopy calls];
   v7 = [calls count];
 
   if (v7)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     calls2 = [observerCopy calls];
-    v9 = [calls2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [calls2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(calls2);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * i);
+          v12 = *(*(&v13 + 1) + 8 * i);
           if ([v12 hasConnected] && (objc_msgSend(v12, "isOnHold") & 1) == 0)
           {
             atomic_store(1u, &self->_callConnected);
@@ -42,7 +42,7 @@
           }
         }
 
-        v9 = [calls2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [calls2 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v9)
         {
           continue;
@@ -55,8 +55,6 @@
 
   atomic_store(0, &self->_callConnected);
 LABEL_14:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postInit
@@ -69,10 +67,10 @@ LABEL_14:
 
 - (RTAIDManagerCallStateReporter)init
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = RTAIDManagerCallStateReporter;
-  v2 = [(RTAIDManagerCallStateReporter *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = RTAIDManagerCallStateReporter;
+  v2 = [(RTAIDManagerCallStateReporter *)&v8 init];
   if (v2)
   {
     v3 = dispatch_time(0, 10000000000);
@@ -80,7 +78,7 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __37__RTAIDManagerCallStateReporter_init__block_invoke;
     block[3] = &unk_278CE0D58;
-    v8 = v2;
+    v7 = v2;
     dispatch_after(v3, MEMORY[0x277D85CD0], block);
     {
       rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
@@ -90,14 +88,13 @@ LABEL_14:
     if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "ManagerCallState.mm";
-      v12 = 1024;
-      v13 = 39;
+      v10 = "ManagerCallState.mm";
+      v11 = 1024;
+      v12 = 39;
       _os_log_impl(&dword_241557000, v4, OS_LOG_TYPE_DEFAULT, "%s:%-5d initWithCallReporterBlock setup", buf, 0x12u);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

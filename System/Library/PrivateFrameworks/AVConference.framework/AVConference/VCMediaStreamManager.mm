@@ -209,7 +209,7 @@ uint64_t __37__VCMediaStreamManager_pauseStreams___block_invoke_2(uint64_t a1, u
   dispatch_async(xpcQueue, block);
 }
 
-uint64_t __50__VCMediaStreamManager_vcMediaStreamServerDidDie___block_invoke(uint64_t a1)
+void *__50__VCMediaStreamManager_vcMediaStreamServerDidDie___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -233,6 +233,7 @@ uint64_t __50__VCMediaStreamManager_vcMediaStreamServerDidDie___block_invoke(uin
         }
 
         [+[AVConferenceXPCServer AVConferenceXPCServerSingleton](AVConferenceXPCServer "AVConferenceXPCServerSingleton")];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -2484,7 +2485,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to create a mutable copy of the media stream protocol dictionary", v12, v13, v14, v15, v16);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to create a mutable copy of the media stream protocol dictionary", v12, v13, v14, v15);
     }
   }
 
@@ -2586,7 +2587,7 @@ LABEL_19:
         OUTLINED_FUNCTION_1_0();
         OUTLINED_FUNCTION_0();
         v30 = 399;
-        OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d New AVCEndPoint alloc failed", v12, v13, v14, v15, v27);
+        OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d New AVCEndPoint alloc failed", v12, v13, v14, v15);
       }
     }
 
@@ -2669,7 +2670,7 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream didUpdateVideoConfiguration configDict is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream didUpdateVideoConfiguration configDict is nil", v2, v3, v4, v5);
 }
 
 - (void)cleanupStreamSyncSourceForVideoStream:andAudioStream:.cold.1()
@@ -2688,14 +2689,14 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed configure stream synchronization", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed configure stream synchronization", v2, v3, v4, v5);
 }
 
 - (void)addSyncSourceToVideoStreamConfig:sourceStreamToken:error:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed configure stream synchronization", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed configure stream synchronization", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_231_cold_1()
@@ -2745,49 +2746,49 @@ void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_248_cold_
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream config", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream config", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_248_cold_4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream config", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream config", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_290_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_290_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_298_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_298_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode the remote endpoint", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_3_311_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set volume nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set volume nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_3_328_cold_1()
@@ -2810,77 +2811,77 @@ void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_334_cold_
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set PAUSE state, nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set PAUSE state, nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_2_353_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set stream direction nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set stream direction nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_360_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set stream jitter buffer mode nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set stream jitter buffer mode nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_367_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpEnabled nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpEnabled nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_374_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtpTimeOutEnabled nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtpTimeOutEnabled nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_381_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpTimeOutEnabled nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpTimeOutEnabled nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_388_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtpTimeOutInterval nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtpTimeOutInterval nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_395_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpTimeOutInterval nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpTimeOutInterval nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_402_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpSendInterval nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set rtcpSendInterval nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_2_416_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set 'input frequency meter enabled' nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set 'input frequency meter enabled' nil xpcDict", v2, v3, v4, v5);
 }
 
 void __48__VCMediaStreamManager_registerBlocksForService__block_invoke_2_427_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set 'output frequency meter enabled' nil xpcDict", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCMediaStream failed to set 'output frequency meter enabled' nil xpcDict", v2, v3, v4, v5);
 }
 
 @end

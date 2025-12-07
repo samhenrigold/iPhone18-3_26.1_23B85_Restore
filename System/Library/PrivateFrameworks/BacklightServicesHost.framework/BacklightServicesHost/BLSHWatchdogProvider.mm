@@ -38,9 +38,8 @@
   }
 }
 
-uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_invoke(uint64_t a1)
+uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
 
   return [v2 checkForWatchdogDidFire:0];
@@ -115,7 +114,7 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
 
 - (void)fireWatchdogWithTimer:(id)timer delegate:(id)delegate timeout:(double)timeout elapsedTime:(double)time
 {
-  *&v32[11] = *MEMORY[0x277D85DE8];
+  *&v31[11] = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   delegateCopy = delegate;
   v12 = [delegateCopy abortContextForTimer:timerCopy];
@@ -140,16 +139,16 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
     {
       *buf = 134218754;
       timeoutCopy2 = timeout;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2048;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2048;
       timeCopy2 = time;
-      v31 = 2114;
-      *v32 = v12;
+      v30 = 2114;
+      *v31 = v12;
       _os_log_error_impl(&dword_21FD11000, v20, OS_LOG_TYPE_ERROR, "%.2lfs watchdog first fired:%{public}@ elapsedTime:%.2lfs abortContext:%{public}@", buf, 0x2Au);
     }
 
-    v24 = 0;
+    v23 = 0;
     DRTailspinRequest();
     v21 = 0;
     if (v21)
@@ -161,7 +160,7 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
       }
     }
 
-    [(BLSHWatchdogProvider *)self _fireWatchdogWithTimer:timerCopy delegate:delegateCopy timeout:v12 elapsedTime:v16 abortContext:3 explanation:timeout remainingRetries:time, &v24];
+    [(BLSHWatchdogProvider *)self _fireWatchdogWithTimer:timerCopy delegate:delegateCopy timeout:v12 elapsedTime:v16 abortContext:3 explanation:timeout remainingRetries:time, &v23];
   }
 
   else
@@ -171,24 +170,22 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
     {
       *buf = 134219010;
       timeoutCopy2 = timeout;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2048;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2048;
       timeCopy2 = time;
-      v31 = 1024;
-      *v32 = isWatchdogEnabled;
-      v32[2] = 1024;
-      *&v32[3] = v19;
+      v30 = 1024;
+      *v31 = isWatchdogEnabled;
+      v31[2] = 1024;
+      *&v31[3] = v19;
       _os_log_impl(&dword_21FD11000, v21, OS_LOG_TYPE_DEFAULT, "%.2lfs watchdog fired:%{public}@ after elapsed time:%.2lfs watchdogEnabled:%{BOOL}u isBeingDebugged:%{BOOL}u", buf, 0x2Cu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fireWatchdogWithTimer:(id)timer delegate:(id)delegate timeout:(double)timeout elapsedTime:(double)time abortContext:(id)context explanation:(id)explanation remainingRetries:(unint64_t)retries
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   delegateCopy = delegate;
   contextCopy = context;
@@ -217,23 +214,23 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *location = 134219266;
-      v42 = @"tries";
+      v41 = @"tries";
       *&location[4] = timeout;
       if (retries == 2)
       {
-        v42 = @"try";
+        v41 = @"try";
       }
 
-      v57 = 2048;
-      v58 = time - timeout;
-      v59 = 2048;
+      v56 = 2048;
+      v57 = time - timeout;
+      v58 = 2048;
       timeCopy = timeout;
-      v61 = 2048;
-      *v62 = retries - 1;
-      *&v62[8] = 2112;
-      *&v62[10] = v42;
-      v63 = 2114;
-      v64 = v19;
+      v60 = 2048;
+      *v61 = retries - 1;
+      *&v61[8] = 2112;
+      *&v61[10] = v41;
+      v62 = 2114;
+      v63 = v19;
       _os_log_error_impl(&dword_21FD11000, v24, OS_LOG_TYPE_ERROR, "%.2lfs watchdog is potential hang. extra time:%.2lfs trying again in %.2lfs %lu %@ left after that %{public}@", location, 0x3Eu);
     }
 
@@ -249,22 +246,22 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
 
     v31 = self->_lock_fireRetryTimer;
     v32 = MEMORY[0x277D85CD0];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke;
-    v50[3] = &unk_27841FD10;
-    objc_copyWeak(v55, location);
-    v51 = timerCopy;
-    v52 = delegateCopy;
-    v55[1] = *&timeout;
-    v55[2] = v26;
-    v53 = contextCopy;
-    v54 = *&v19;
-    v55[3] = retries;
-    [(BSAbsoluteMachTimer *)v31 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v50 queue:timeout handler:1.0];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke;
+    v49[3] = &unk_27841FD10;
+    objc_copyWeak(v54, location);
+    v50 = timerCopy;
+    v51 = delegateCopy;
+    v54[1] = *&timeout;
+    v54[2] = v26;
+    v52 = contextCopy;
+    v53 = *&v19;
+    v54[3] = retries;
+    [(BSAbsoluteMachTimer *)v31 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v49 queue:timeout handler:1.0];
 
     os_unfair_lock_unlock(&self->_lock);
-    objc_destroyWeak(v55);
+    objc_destroyWeak(v54);
     objc_destroyWeak(location);
   }
 
@@ -295,14 +292,14 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
     {
       *location = 134219010;
       *&location[4] = timeout;
-      v57 = 2114;
-      v58 = v19;
-      v59 = 2048;
+      v56 = 2114;
+      v57 = v19;
+      v58 = 2048;
       timeCopy = time;
-      v61 = 1024;
-      *v62 = v21 > 2.0;
-      *&v62[4] = 2114;
-      *&v62[6] = contextCopy;
+      v60 = 1024;
+      *v61 = v21 > 2.0;
+      *&v61[4] = 2114;
+      *&v61[6] = contextCopy;
       _os_log_impl(&dword_21FD11000, v24, v34, "%.2lfs watchdog fired:%{public}@ elapsedTime:%.2lfs isPotentialHang:%{BOOL}u abortContext:%{public}@", location, 0x30u);
     }
 
@@ -338,16 +335,14 @@ uint64_t __59__BLSHWatchdogProvider_didDetectSignificantUserInteraction__block_i
     block[2] = __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137;
     block[3] = &unk_27841FD38;
     block[4] = self;
-    v44 = *&v19;
-    v45 = timerCopy;
-    v48 = v38;
-    v46 = delegateCopy;
-    v47 = contextCopy;
-    v49 = time - timeout > 2.0;
+    v43 = *&v19;
+    v44 = timerCopy;
+    v47 = v38;
+    v45 = delegateCopy;
+    v46 = contextCopy;
+    v48 = time - timeout > 2.0;
     dispatch_after(v40, MEMORY[0x277D85CD0], block);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke(uint64_t a1)
@@ -384,48 +379,47 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
     v5 = [v4 systemSleepMonitor];
 
     v6 = [v5 aggregateState];
-    v7 = (a1 + 40);
-    v8 = -[BLSHWatchdogAbortParameters initWithDelegate:abortContext:isPotentialHang:sleepMonitorAggregateState:sleepImminentSinceScheduled:explanation:]([BLSHWatchdogAbortParameters alloc], "initWithDelegate:abortContext:isPotentialHang:sleepMonitorAggregateState:sleepImminentSinceScheduled:explanation:", *(a1 + 56), *(a1 + 64), *(a1 + 73), v6, [*(a1 + 48) hasSleepBeenImminentSinceScheduled], *(a1 + 40));
+    v7 = -[BLSHWatchdogAbortParameters initWithDelegate:abortContext:isPotentialHang:sleepMonitorAggregateState:sleepImminentSinceScheduled:explanation:]([BLSHWatchdogAbortParameters alloc], "initWithDelegate:abortContext:isPotentialHang:sleepMonitorAggregateState:sleepImminentSinceScheduled:explanation:", *(a1 + 56), *(a1 + 64), *(a1 + 73), v6, [*(a1 + 48) hasSleepBeenImminentSinceScheduled], *(a1 + 40));
     if (*(a1 + 72) == 1)
     {
       if (v3)
       {
-        v9 = [*(a1 + 48) invalidationReason] != 2;
+        v8 = [*(a1 + 48) invalidationReason] != 2;
       }
 
       else
       {
-        v9 = 1;
+        v8 = 1;
       }
 
-      v11 = bls_diagnostics_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = bls_diagnostics_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_2(v9, (a1 + 40), v11);
+        __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_2(v8, (a1 + 40), v10);
       }
 
-      [*(a1 + 32) setWaitingwaitingPastFireForCompletionAndTailspin:v8 waitForWatchdogCompletion:v9];
+      [*(a1 + 32) setWaitingwaitingPastFireForCompletionAndTailspin:v7 waitForWatchdogCompletion:v8];
     }
 
     else if (+[BLSHWatchdogProvider ignoreWatchdogAborts])
     {
-      v10 = bls_diagnostics_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = bls_diagnostics_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_1(v7);
+        __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_1();
       }
     }
 
     else
     {
-      [*(a1 + 32) _abortForWatchdogFire:v8];
+      [*(a1 + 32) _abortForWatchdogFire:v7];
     }
   }
 }
 
 - (void)_abortForWatchdogFire:(id)fire
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   abortContext = [fireCopy abortContext];
   isPotentialHang = [fireCopy isPotentialHang];
@@ -504,43 +498,43 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
   v18 = bls_diagnostics_log();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    v33 = @"abort";
+    v32 = @"abort";
     if (v17)
     {
-      v33 = @"panic";
+      v32 = @"panic";
     }
 
-    v43 = v33;
-    v34 = [sleepMonitorAggregateState descriptionForTimestamp:{objc_msgSend(fireCopy, "abortTimestamp")}];
-    v44 = objc_opt_respondsToSelector();
-    if (v44)
+    v42 = v32;
+    v33 = [sleepMonitorAggregateState descriptionForTimestamp:{objc_msgSend(fireCopy, "abortTimestamp")}];
+    v43 = objc_opt_respondsToSelector();
+    if (v43)
     {
-      v42 = v34;
-      v35 = sleepImminentSinceScheduled;
-      v36 = MEMORY[0x277CCACA8];
+      v41 = v33;
+      v34 = sleepImminentSinceScheduled;
+      v35 = MEMORY[0x277CCACA8];
       hasEnsureFlipbookCurrent = [abortContext hasEnsureFlipbookCurrent];
-      v37 = v36;
-      sleepImminentSinceScheduled = v35;
-      v34 = v42;
-      v38 = [v37 stringWithFormat:@" ensFlipCur:%u", hasEnsureFlipbookCurrent];
+      v36 = v35;
+      sleepImminentSinceScheduled = v34;
+      v33 = v41;
+      v37 = [v36 stringWithFormat:@" ensFlipCur:%u", hasEnsureFlipbookCurrent];
     }
 
     else
     {
-      v38 = &stru_283373E60;
+      v37 = &stru_283373E60;
     }
 
     *buf = 138544130;
-    v57 = v43;
-    v58 = 2114;
-    *v59 = v34;
-    *&v59[8] = 1024;
-    *v60 = sleepImminentSinceScheduled;
-    *&v60[4] = 2114;
-    v40 = v38;
-    *&v60[6] = v38;
+    v56 = v42;
+    v57 = 2114;
+    *v58 = v33;
+    *&v58[8] = 1024;
+    *v59 = sleepImminentSinceScheduled;
+    *&v59[4] = 2114;
+    v39 = v37;
+    *&v59[6] = v37;
     _os_log_error_impl(&dword_21FD11000, v18, OS_LOG_TYPE_ERROR, "watchdog pre-%{public}@: %{public}@ slImmSinceSched:%{BOOL}u%{public}@", buf, 0x26u);
-    if (v44)
+    if (v43)
     {
     }
   }
@@ -551,20 +545,20 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
   v21 = bls_diagnostics_log();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v39 = @"aborting";
+    v38 = @"aborting";
     *buf = 138544130;
     if (v17)
     {
-      v39 = @"panicking";
+      v38 = @"panicking";
     }
 
-    v57 = v39;
-    v58 = 1024;
-    *v59 = v20;
-    *&v59[4] = 1024;
-    *&v59[6] = isPotentialHang;
-    *v60 = 2114;
-    *&v60[2] = explanation;
+    v56 = v38;
+    v57 = 1024;
+    *v58 = v20;
+    *&v58[4] = 1024;
+    *&v58[6] = isPotentialHang;
+    *v59 = 2114;
+    *&v59[2] = explanation;
     _os_log_error_impl(&dword_21FD11000, v21, OS_LOG_TYPE_ERROR, "%{public}@ for watchdog. BLS backlight debug logging enabled:%{BOOL}u isPotentialHang:%{BOOL}u %{public}@", buf, 0x22u);
   }
 
@@ -573,19 +567,19 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
   self->_lock_forceOverdueAbortTimer = 0;
 
   WeakRetained = objc_loadWeakRetained(&self->_providerDelegate);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke;
-  v50[3] = &unk_27841FD60;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke;
+  v49[3] = &unk_27841FD60;
   v24 = WeakRetained;
-  v51 = v24;
+  v50 = v24;
   v25 = abortContext;
-  v52 = v25;
-  v54 = payload;
-  v55 = payloadSize;
+  v51 = v25;
+  v53 = payload;
+  v54 = payloadSize;
   v26 = explanation;
-  v53 = v26;
-  v27 = MEMORY[0x223D70730](v50);
+  v52 = v26;
+  v27 = MEMORY[0x223D70730](v49);
   v28 = v27;
   if (v17)
   {
@@ -594,20 +588,18 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
     abortReasonString2 = [v25 abortReasonString];
     v31 = [v29 stringWithFormat:@"panicking for BLS %@ watchdog. BLS backlight debug logging enabled:%u %@ abortContext:%@", abortReasonString2, v20, v26, v25];
 
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke_2;
-    v48[3] = &unk_27841F8C0;
-    v49 = v28;
-    [v24 panicForWatchdog:v31 withDelay:v48 completion:v10];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke_2;
+    v47[3] = &unk_27841F8C0;
+    v48 = v28;
+    [v24 panicForWatchdog:v31 withDelay:v47 completion:v10];
   }
 
   else
   {
     (*(v27 + 16))(v27, 0);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke(uint64_t a1, char a2)
@@ -623,7 +615,7 @@ uint64_t __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke(uint64_
 
 - (void)_checkForReadyToAbortAfterWaitingPastFire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = self->_lock_waitingAbortParams;
   lock_waitingForWatchdogCompletion = self->_lock_waitingForWatchdogCompletion;
@@ -634,15 +626,15 @@ uint64_t __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke(uint64_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     explanation = [(BLSHWatchdogAbortParameters *)v3 explanation];
-    v10[0] = 67109890;
-    v10[1] = v6;
-    v11 = 1024;
-    v12 = lock_waitingForTailspin;
-    v13 = 1024;
-    v14 = lock_waitingForWatchdogCompletion;
-    v15 = 2114;
-    v16 = explanation;
-    _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "_checkForReadyToAbortAfterWaitingPastFire: shouldStartTailspin:%{BOOL}u waitingForTailspin:%{BOOL}u waitingForWatchdogCompletion:%{BOOL}u watchdog:%{public}@", v10, 0x1Eu);
+    v9[0] = 67109890;
+    v9[1] = v6;
+    v10 = 1024;
+    v11 = lock_waitingForTailspin;
+    v12 = 1024;
+    v13 = lock_waitingForWatchdogCompletion;
+    v14 = 2114;
+    v15 = explanation;
+    _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "_checkForReadyToAbortAfterWaitingPastFire: shouldStartTailspin:%{BOOL}u waitingForTailspin:%{BOOL}u waitingForWatchdogCompletion:%{BOOL}u watchdog:%{public}@", v9, 0x1Eu);
   }
 
   if (v6)
@@ -654,8 +646,6 @@ uint64_t __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke(uint64_
   {
     [(BLSHWatchdogProvider *)self _abortForWatchdogFire:v3];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_giveUpWaitingForWatchdogCompletionAbortWhileWaitingPastFire:(id)fire
@@ -686,7 +676,7 @@ uint64_t __46__BLSHWatchdogProvider__abortForWatchdogFire___block_invoke(uint64_
 
 - (void)clearWatchdogWithExplanation:(id)explanation reason:(unint64_t)reason timeout:(double)timeout elapsedTime:(double)time
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   explanationCopy = explanation;
   isWatchdogEnabled = [(BLSHWatchdogProvider *)self isWatchdogEnabled];
   v12 = BSIsBeingDebugged();
@@ -728,26 +718,26 @@ LABEL_6:
       }
 
       v18 = v17;
-      v25 = 134219522;
+      v24 = 134219522;
       timeoutCopy = timeout;
-      v27 = 2114;
-      v28 = explanationCopy;
-      v29 = 2048;
+      v26 = 2114;
+      v27 = explanationCopy;
+      v28 = 2048;
       timeCopy = time;
-      v31 = 1024;
-      v32 = isWaitingwaitingPastFireForCompletionAndTailspin;
-      v33 = 2114;
-      v34 = v18;
-      v35 = 1024;
-      v36 = isWatchdogEnabled;
-      v37 = 1024;
-      v38 = v12;
+      v30 = 1024;
+      v31 = isWaitingwaitingPastFireForCompletionAndTailspin;
+      v32 = 2114;
+      v33 = v18;
+      v34 = 1024;
+      v35 = isWatchdogEnabled;
+      v36 = 1024;
+      v37 = v12;
       v19 = "%.2lfs watchdog invalidated:%{public}@ elapsedTime:%.2lfs waitingPastFire:%{BOOL}u, clearReason:%{public}@ watchdogEnabled:%{BOOL}u isBeingDebugged:%{BOOL}u";
       v20 = v16;
       v21 = v15;
       v22 = 60;
 LABEL_17:
-      _os_log_impl(&dword_21FD11000, v20, v21, v19, &v25, v22);
+      _os_log_impl(&dword_21FD11000, v20, v21, v19, &v24, v22);
 
       goto LABEL_18;
     }
@@ -765,7 +755,7 @@ LABEL_17:
     }
 
     v18 = v23;
-    v25 = 138543362;
+    v24 = 138543362;
     timeoutCopy = *&v18;
     v19 = "Ignoring %{public}@ because isWaitingwaitingPastFireForCompletionAndTailspin:YES";
     v20 = v16;
@@ -775,8 +765,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearIsWaitingForWatchdogCompletion
@@ -845,16 +833,16 @@ LABEL_18:
 
 void __45__BLSHWatchdogProvider__startWritingTailspin__block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = bls_diagnostics_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109378;
-    v10[1] = a3;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEFAULT, "tailspin completed: succeeded:%{BOOL}u %{public}@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = a3;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEFAULT, "tailspin completed: succeeded:%{BOOL}u %{public}@", v9, 0x12u);
   }
 
   v7 = *(a1 + 32);
@@ -866,8 +854,6 @@ void __45__BLSHWatchdogProvider__startWritingTailspin__block_invoke(uint64_t a1,
     os_unfair_lock_unlock(v7 + 10);
     [(os_unfair_lock_s *)v8 _checkForReadyToAbortAfterWaitingPastFire];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isTesting
@@ -903,24 +889,24 @@ void __33__BLSHWatchdogProvider_isTesting__block_invoke(uint64_t a1)
 
 + (void)markWatchdogDidFire:(id)fire abortReason:(id)reason
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v16[0] = @"BLSHWatchdogDidFireDate";
+  v16[5] = *MEMORY[0x277D85DE8];
+  v15[0] = @"BLSHWatchdogDidFireDate";
   v5 = MEMORY[0x277CBEAA8];
   reasonCopy = reason;
   fireCopy = fire;
   date = [v5 date];
-  v17[0] = date;
-  v16[1] = @"BLSHWatchdogDidFireBuildVersion";
+  v16[0] = date;
+  v15[1] = @"BLSHWatchdogDidFireBuildVersion";
   v9 = MGCopyAnswer();
-  v17[1] = v9;
-  v16[2] = @"BLSHWatchdogDidFireDeviceType";
+  v16[1] = v9;
+  v15[2] = @"BLSHWatchdogDidFireDeviceType";
   v10 = MGCopyAnswer();
-  v17[2] = v10;
-  v17[3] = fireCopy;
-  v16[3] = @"BLSHWatchdogDidFireExplanation";
-  v16[4] = @"BLSHWatchdogDidFireAbortReason";
-  v17[4] = reasonCopy;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v16[2] = v10;
+  v16[3] = fireCopy;
+  v15[3] = @"BLSHWatchdogDidFireExplanation";
+  v15[4] = @"BLSHWatchdogDidFireAbortReason";
+  v16[4] = reasonCopy;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
 
   v12 = objc_alloc(MEMORY[0x277CBEBD0]);
   v13 = [v12 initWithSuiteName:@"com.apple.BacklightServices"];
@@ -934,8 +920,6 @@ void __33__BLSHWatchdogProvider_isTesting__block_invoke(uint64_t a1)
       +[BLSHWatchdogProvider markWatchdogDidFire:abortReason:];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)checkForWatchdogDidFire:(BOOL)fire
@@ -1122,35 +1106,17 @@ void __49__BLSHWatchdogProvider_showWatchdogDidFireAlert___block_invoke(uint64_t
 
 - (void)scheduleWatchdogWithDelegate:(uint64_t)a1 explanation:(NSObject *)a2 timeout:(double)a3 .cold.1(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a3;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "scheduling %.1fs watchdog %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fireWatchdogWithTimer:delegate:timeout:elapsedTime:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a3;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "scheduling %.1fs watchdog %{public}@", &v3, 0x16u);
 }
 
 void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_2(char a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = &stru_283373E60;
   v4 = *a2;
   if (a1)
@@ -1158,63 +1124,35 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
     v3 = @" and overdue operation finish";
   }
 
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_21FD11000, log, OS_LOG_TYPE_ERROR, "will wait for watchdog abort until tailspin%{public}@: %{public}@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_21FD11000, log, OS_LOG_TYPE_ERROR, "will wait for watchdog abort until tailspin%{public}@: %{public}@", &v5, 0x16u);
 }
 
 void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsedTime_abortContext_explanation_remainingRetries___block_invoke_137_cold_3(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_21FD11000, a2, OS_LOG_TYPE_FAULT, "watchdog invalidated after firing while waiting for state dump. Carousel's main thread probably hung for a significant amount of time:%{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_giveUpWaitingForWatchdogCompletionAbortWhileWaitingPastFire:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearWatchdogWithExplanation:reason:timeout:elapsedTime:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)markWatchdogDidFire:abortReason:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_21FD11000, a2, OS_LOG_TYPE_FAULT, "watchdog invalidated after firing while waiting for state dump. Carousel's main thread probably hung for a significant amount of time:%{public}@", &v3, 0xCu);
 }
 
 + (void)checkForWatchdogDidFire:(NSObject *)a3 .cold.1(void *a1, char a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [a1 date];
   v7 = [v6 bls_loggingString];
   v8 = [a1 buildVersion];
-  v10 = 138543874;
-  v11 = v7;
-  v12 = 2114;
-  v13 = v8;
-  v14 = 1024;
-  v15 = a2 & 1;
-  _os_log_error_impl(&dword_21FD11000, a3, OS_LOG_TYPE_ERROR, "watchdog did fire at %{public}@ on build %{public}@, reset:%{BOOL}u", &v10, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543874;
+  v10 = v7;
+  v11 = 2114;
+  v12 = v8;
+  v13 = 1024;
+  v14 = a2 & 1;
+  _os_log_error_impl(&dword_21FD11000, a3, OS_LOG_TYPE_ERROR, "watchdog did fire at %{public}@ on build %{public}@, reset:%{BOOL}u", &v9, 0x1Cu);
 }
 
 + (void)checkForWatchdogDidFire:.cold.2()
@@ -1226,14 +1164,12 @@ void __118__BLSHWatchdogProvider__fireWatchdogWithTimer_delegate_timeout_elapsed
 
 + (void)checkForWatchdogDidFire:(void *)a1 .cold.3(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 date];
   v4 = [v3 bls_loggingString];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "not prompting to file radar for BLS watchdog from %{public}@ because it's too old", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "not prompting to file radar for BLS watchdog from %{public}@ because it's too old", &v5, 0xCu);
 }
 
 + (void)checkForWatchdogDidFire:.cold.4()

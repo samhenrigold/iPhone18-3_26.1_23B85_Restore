@@ -1,4 +1,4 @@
-uint64_t google::protobuf::EncodedDescriptorDatabase::FindAllExtensionNumbers(uint64_t a1, void *a2, uint64_t a3)
+uint64_t google::protobuf::EncodedDescriptorDatabase::FindAllExtensionNumbers(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v4 = *(a1 + 8);
   v5 = a2[1];
@@ -181,8 +181,8 @@ LABEL_47:
 
 uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(void *a1, unsigned __int8 *__src, size_t __len)
 {
-  v188 = *MEMORY[0x277D85DE8];
-  v177 = -858993459 * ((a1[1] - *a1) >> 3) - 1;
+  v186 = *MEMORY[0x277D85DE8];
+  v175 = -858993459 * ((a1[1] - *a1) >> 3) - 1;
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
@@ -195,14 +195,14 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol
     operator new();
   }
 
-  v179 = __len;
+  v177 = __len;
   if (__len)
   {
-    memmove(v178, __src, __len);
+    memmove(v176, __src, __len);
   }
 
-  *(v178 + v3) = 0;
-  v6 = *a1 + 40 * v177;
+  *(v176 + v3) = 0;
+  v6 = *a1 + 40 * v175;
   v9 = *(v6 + 16);
   v7 = v6 + 16;
   v8 = v9;
@@ -218,8 +218,8 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol
     v11 = v10;
   }
 
-  v186 = v7;
-  v187 = v11;
+  v184 = v7;
+  v185 = v11;
   v12 = v11 != 0;
   if (v11)
   {
@@ -231,56 +231,66 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol
     v13 = &byte_23CE7F131;
   }
 
-  v184 = v13;
-  v185 = v12;
-  v14 = v179;
-  if ((v179 & 0x80u) == 0)
+  v182 = v13;
+  v183 = v12;
+  v14 = v177;
+  if ((v177 & 0x80u) == 0)
   {
-    v15 = v178;
+    v15 = v176;
   }
 
   else
   {
-    v15 = v178[0];
+    v15 = v176[0];
   }
 
-  if ((v179 & 0x80u) != 0)
+  if ((v177 & 0x80u) != 0)
   {
-    v14 = v178[1];
+    v14 = v176[1];
   }
 
-  v182 = v15;
-  v183 = v14;
-  absl::lts_20240722::StrCat(&v186, &v184, &v182, &__p);
-  for (; v3; --v3)
+  v180 = v15;
+  v181 = v14;
+  absl::lts_20240722::StrCat(&v184, &v182, &v180, &__p);
+  if (v3)
   {
-    v21 = *v4;
-    if (v21 != 46 && v21 != 95)
+    while (1)
     {
-      v22 = v21 - 58;
-      v23 = (v21 & 0xFFFFFFDF) - 91;
-      if (v22 <= 0xFFFFFFF5 && v23 < 0xFFFFFFE6)
+      v21 = *v4;
+      if (v21 != 46 && v21 != 95)
       {
-        v25 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v186, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 695);
-        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v25, "Invalid symbol name: ", 0x15uLL);
-        absl::lts_20240722::log_internal::LogMessage::operator<<(&v186, &__p);
-        absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v186);
-        v26 = 0;
-        if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v22 = v21 - 58;
+        v23 = (v21 & 0xFFFFFFDF) - 91;
+        if (v22 <= 0xFFFFFFF5 && v23 < 0xFFFFFFE6)
         {
-          goto LABEL_237;
+          break;
         }
+      }
 
-        goto LABEL_241;
+      ++v4;
+      if (!--v3)
+      {
+        goto LABEL_19;
       }
     }
 
-    ++v4;
+    v25 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v184, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 695);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v25, "Invalid symbol name: ", 0x15uLL);
+    absl::lts_20240722::log_internal::LogMessage::operator<<(&v184, &__p);
+    absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v184);
+    v26 = 0;
+    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_237;
+    }
+
+    goto LABEL_240;
   }
 
+LABEL_19:
   v16 = (a1 + 10);
   i = a1[10];
-  v186 = a1[11];
+  v184 = a1[11];
   v18 = i[10];
   if (i[10])
   {
@@ -290,7 +300,7 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol
   while (!i[11])
   {
     i = *&i[8 * v18 + 240];
-    v186 = a1[11];
+    v184 = a1[11];
     v18 = i[10];
     if (i[10])
     {
@@ -299,7 +309,7 @@ LABEL_22:
       do
       {
         v20 = (v18 + v19) >> 1;
-        if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(&v186, &v177, &i[32 * v20 + 16]))
+        if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(&v184, &v175, &i[32 * v20 + 16]))
         {
           v18 = (v18 + v19) >> 1;
         }
@@ -319,7 +329,7 @@ LABEL_22:
     if (v18 != i[10])
     {
       v27 = i == **v16 && v18 == 0;
-      v169 = (a1 + 10);
+      v167 = a1 + 10;
       if (!v27)
       {
         goto LABEL_44;
@@ -338,7 +348,7 @@ LABEL_55:
   i = a1[12];
   LODWORD(v18) = i[10];
   v32 = i == **v16 && v18 == 0;
-  v169 = (a1 + 10);
+  v167 = a1 + 10;
   if (v32)
   {
     goto LABEL_55;
@@ -398,7 +408,7 @@ LABEL_59:
 LABEL_117:
     v75 = a1[14];
     v76 = a1[15];
-    v186 = a1[11];
+    v184 = a1[11];
     v77 = v76 - v75;
     if (v76 == v75)
     {
@@ -412,7 +422,7 @@ LABEL_118:
     v79 = v75;
     do
     {
-      if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(&v186, &v177, &v79[8 * (v78 >> 1)]))
+      if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(&v184, &v175, &v79[8 * (v78 >> 1)]))
       {
         v78 >>= 1;
       }
@@ -448,10 +458,10 @@ LABEL_159:
     __na = v117;
     if (v116 == v76)
     {
-      goto LABEL_240;
+      goto LABEL_239;
     }
 
-    v171 = v33;
+    v169 = v33;
     v119 = *a1 + 40 * *v116;
     v122 = *(v119 + 16);
     v120 = v119 + 16;
@@ -468,8 +478,8 @@ LABEL_159:
       v124 = v123;
     }
 
-    v186 = v120;
-    v187 = v124;
+    v184 = v120;
+    v185 = v124;
     v125 = v124 != 0;
     if (v124)
     {
@@ -481,8 +491,8 @@ LABEL_159:
       v126 = &byte_23CE7F131;
     }
 
-    v184 = v126;
-    v185 = v125;
+    v182 = v126;
+    v183 = v125;
     v127 = *(v116 + 1);
     v128 = *(v116 + 31);
     if ((v128 & 0x80u) != 0)
@@ -495,29 +505,29 @@ LABEL_159:
       v127 = v116 + 2;
     }
 
-    v182 = v127;
-    v183 = v128;
-    absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-    v129 = SHIBYTE(v181.__r_.__value_.__r.__words[2]);
-    v130 = v181.__r_.__value_.__r.__words[0];
-    if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v180 = v127;
+    v181 = v128;
+    absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+    v129 = SHIBYTE(v179.__r_.__value_.__r.__words[2]);
+    v130 = v179.__r_.__value_.__r.__words[0];
+    if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v131 = &v181;
+      v131 = &v179;
     }
 
     else
     {
-      v131 = v181.__r_.__value_.__r.__words[0];
+      v131 = v179.__r_.__value_.__r.__words[0];
     }
 
-    if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v132 = HIBYTE(v181.__r_.__value_.__r.__words[2]);
+      v132 = HIBYTE(v179.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v132 = v181.__r_.__value_.__l.__size_;
+      v132 = v179.__r_.__value_.__l.__size_;
     }
 
     if (v132 == __na && !memcmp(v131, __s1a, __na))
@@ -544,9 +554,9 @@ LABEL_199:
         if (v133)
         {
 LABEL_186:
-          absl::lts_20240722::log_internal::LogMessage::LogMessage(v180, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 660);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v180, "Symbol name ", 0xDuLL);
-          v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v180, __s1a, __na);
+          absl::lts_20240722::log_internal::LogMessage::LogMessage(v178, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 660);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v178, "Symbol name ", 0xDuLL);
+          v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v178, __s1a, __na);
           absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v58, " conflicts with the existing symbol ", 0x26uLL);
           v134 = *a1 + 40 * *v116;
           v137 = *(v134 + 16);
@@ -564,8 +574,8 @@ LABEL_186:
             v139 = v138;
           }
 
-          v186 = v135;
-          v187 = v139;
+          v184 = v135;
+          v185 = v139;
           v140 = v139 != 0;
           if (v139)
           {
@@ -577,8 +587,8 @@ LABEL_186:
             v141 = &byte_23CE7F131;
           }
 
-          v184 = v141;
-          v185 = v140;
+          v182 = v141;
+          v183 = v140;
           v67 = *(v116 + 31);
           if ((v67 & 0x80u) == 0)
           {
@@ -599,10 +609,10 @@ LABEL_186:
         }
 
 LABEL_200:
-        v33 = v171;
+        v33 = v169;
         if (v116 + 8 == v76)
         {
-          goto LABEL_240;
+          goto LABEL_239;
         }
 
         v142 = *a1 + 40 * v116[8];
@@ -621,8 +631,8 @@ LABEL_200:
           v147 = v146;
         }
 
-        v186 = v143;
-        v187 = v147;
+        v184 = v143;
+        v185 = v147;
         v148 = v147 != 0;
         if (v147)
         {
@@ -634,8 +644,8 @@ LABEL_200:
           v149 = &byte_23CE7F131;
         }
 
-        v184 = v149;
-        v185 = v148;
+        v182 = v149;
+        v183 = v148;
         v150 = *(v116 + 5);
         v151 = *(v116 + 63);
         if ((v151 & 0x80u) != 0)
@@ -648,35 +658,35 @@ LABEL_200:
           v150 = v116 + 10;
         }
 
-        v182 = v150;
-        v183 = v151;
-        absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-        v152 = SHIBYTE(v181.__r_.__value_.__r.__words[2]);
-        v153 = v181.__r_.__value_.__r.__words[0];
-        if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v180 = v150;
+        v181 = v151;
+        absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+        v152 = SHIBYTE(v179.__r_.__value_.__r.__words[2]);
+        v153 = v179.__r_.__value_.__r.__words[0];
+        if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v154 = &v181;
+          v154 = &v179;
         }
 
         else
         {
-          v154 = v181.__r_.__value_.__r.__words[0];
+          v154 = v179.__r_.__value_.__r.__words[0];
         }
 
-        if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v155 = HIBYTE(v181.__r_.__value_.__r.__words[2]);
+          v155 = HIBYTE(v179.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v155 = v181.__r_.__value_.__l.__size_;
+          v155 = v179.__r_.__value_.__l.__size_;
         }
 
         if (__na == v155 && !memcmp(__s1a, v154, __na))
         {
           v156 = 1;
-          v33 = v171;
+          v33 = v169;
           if (v152 < 0)
           {
             goto LABEL_222;
@@ -688,7 +698,7 @@ LABEL_200:
           if (__na && (v155 < __na || memcmp(v154, __s1a, __na)))
           {
             v156 = 0;
-            v33 = v171;
+            v33 = v169;
             if ((v152 & 0x80000000) == 0)
             {
               goto LABEL_223;
@@ -698,7 +708,7 @@ LABEL_200:
           }
 
           v156 = v154->__r_.__value_.__s.__data_[__na] == 46;
-          v33 = v171;
+          v33 = v169;
           if (v152 < 0)
           {
 LABEL_222:
@@ -709,9 +719,9 @@ LABEL_222:
 LABEL_223:
         if (v156)
         {
-          absl::lts_20240722::log_internal::LogMessage::LogMessage(v180, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 674);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v180, "Symbol name ", 0xDuLL);
-          v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v180, __s1a, __na);
+          absl::lts_20240722::log_internal::LogMessage::LogMessage(v178, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 674);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v178, "Symbol name ", 0xDuLL);
+          v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v178, __s1a, __na);
           absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v58, " conflicts with the existing symbol ", 0x26uLL);
           v157 = *a1 + 40 * v116[8];
           v160 = *(v157 + 16);
@@ -729,8 +739,8 @@ LABEL_223:
             v162 = v161;
           }
 
-          v186 = v158;
-          v187 = v162;
+          v184 = v158;
+          v185 = v162;
           v163 = v162 != 0;
           if (v162)
           {
@@ -742,8 +752,8 @@ LABEL_223:
             v164 = &byte_23CE7F131;
           }
 
-          v184 = v164;
-          v185 = v163;
+          v182 = v164;
+          v183 = v163;
           v67 = *(v116 + 63);
           if ((v67 & 0x80u) == 0)
           {
@@ -763,15 +773,24 @@ LABEL_223:
           goto LABEL_235;
         }
 
-LABEL_240:
-        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_hint_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>(v169, i, v33, &v177, &v177, &v186);
+LABEL_239:
+        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_hint_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>(v167, i, v33, &v175, &v175, &v184);
         v26 = 1;
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_237;
         }
 
-        goto LABEL_241;
+LABEL_240:
+        operator delete(__p.__r_.__value_.__l.__data_);
+        if ((v177 & 0x80000000) == 0)
+        {
+          return v26;
+        }
+
+LABEL_241:
+        operator delete(v176[0]);
+        return v26;
       }
 
       v133 = __s1a->__r_.__value_.__s.__data_[v132] == 46;
@@ -790,7 +809,7 @@ LABEL_185:
     goto LABEL_200;
   }
 
-  v170 = v28;
+  v168 = v28;
   v39 = &i[32 * v28];
   v40 = (v39 + 16);
   v41 = *a1 + 40 * *(v39 + 4);
@@ -809,8 +828,8 @@ LABEL_185:
     v46 = v45;
   }
 
-  v186 = v42;
-  v187 = v46;
+  v184 = v42;
+  v185 = v46;
   v47 = v46 != 0;
   if (v46)
   {
@@ -822,8 +841,8 @@ LABEL_185:
     v48 = &byte_23CE7F131;
   }
 
-  v184 = v48;
-  v185 = v47;
+  v182 = v48;
+  v183 = v47;
   v51 = *(v39 + 3);
   v50 = v39 + 24;
   v49 = v51;
@@ -838,29 +857,29 @@ LABEL_185:
     v49 = v50;
   }
 
-  v182 = v49;
-  v183 = v52;
-  absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-  v53 = SHIBYTE(v181.__r_.__value_.__r.__words[2]);
-  v54 = v181.__r_.__value_.__r.__words[0];
-  if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v180 = v49;
+  v181 = v52;
+  absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+  v53 = SHIBYTE(v179.__r_.__value_.__r.__words[2]);
+  v54 = v179.__r_.__value_.__r.__words[0];
+  if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v55 = &v181;
+    v55 = &v179;
   }
 
   else
   {
-    v55 = v181.__r_.__value_.__r.__words[0];
+    v55 = v179.__r_.__value_.__r.__words[0];
   }
 
-  if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v56 = HIBYTE(v181.__r_.__value_.__r.__words[2]);
+    v56 = HIBYTE(v179.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v56 = v181.__r_.__value_.__l.__size_;
+    v56 = v179.__r_.__value_.__l.__size_;
   }
 
   if (v56 == __n && !memcmp(v55, __s1, __n))
@@ -902,9 +921,9 @@ LABEL_100:
   if (v57)
   {
 LABEL_87:
-    absl::lts_20240722::log_internal::LogMessage::LogMessage(v180, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 660);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v180, "Symbol name ", 0xDuLL);
-    v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v180, __s1, __n);
+    absl::lts_20240722::log_internal::LogMessage::LogMessage(v178, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 660);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v178, "Symbol name ", 0xDuLL);
+    v58 = absl::lts_20240722::log_internal::LogMessage::operator<<(v178, __s1, __n);
     absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v58, " conflicts with the existing symbol ", 0x26uLL);
     v59 = *a1 + 40 * *v40;
     v62 = *(v59 + 16);
@@ -922,8 +941,8 @@ LABEL_87:
       v64 = v63;
     }
 
-    v186 = v60;
-    v187 = v64;
+    v184 = v60;
+    v185 = v64;
     v65 = v64 != 0;
     if (v64)
     {
@@ -935,8 +954,8 @@ LABEL_87:
       v66 = &byte_23CE7F131;
     }
 
-    v184 = v66;
-    v185 = v65;
+    v182 = v66;
+    v183 = v65;
     v67 = *(v40 + 31);
     if ((v67 & 0x80u) == 0)
     {
@@ -954,19 +973,19 @@ LABEL_87:
     }
 
 LABEL_235:
-    v182 = v68;
-    v183 = v67;
-    absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-    v165 = absl::lts_20240722::log_internal::LogMessage::operator<<(v58, &v181);
+    v180 = v68;
+    v181 = v67;
+    absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+    v165 = absl::lts_20240722::log_internal::LogMessage::operator<<(v58, &v179);
     absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v165, ".", 2uLL);
-    operations_research::sat::ConvertCpModelProtoToMPModelProto(&v181);
+    operations_research::sat::ConvertCpModelProtoToMPModelProto();
     goto LABEL_236;
   }
 
 LABEL_101:
   if (!i[11])
   {
-    v73 = &i[8 * (v170 + 1) + 240];
+    v73 = &i[8 * (v168 + 1) + 240];
     do
     {
       v71 = *v73;
@@ -985,7 +1004,7 @@ LABEL_101:
     goto LABEL_115;
   }
 
-  v33 = v170 + 1;
+  v33 = v168 + 1;
   v69 = v33;
   if (v33 == i[10])
   {
@@ -1045,8 +1064,8 @@ LABEL_124:
     v86 = v85;
   }
 
-  v186 = v82;
-  v187 = v86;
+  v184 = v82;
+  v185 = v86;
   v87 = v86 != 0;
   if (v86)
   {
@@ -1058,8 +1077,8 @@ LABEL_124:
     v88 = &byte_23CE7F131;
   }
 
-  v184 = v88;
-  v185 = v87;
+  v182 = v88;
+  v183 = v87;
   v91 = *(v80 + 1);
   v89 = (v80 + 8);
   v90 = v91;
@@ -1075,29 +1094,29 @@ LABEL_124:
     v93 = v92;
   }
 
-  v182 = v89;
-  v183 = v93;
-  absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-  v94 = SHIBYTE(v181.__r_.__value_.__r.__words[2]);
-  v95 = v181.__r_.__value_.__r.__words[0];
-  if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v180 = v89;
+  v181 = v93;
+  absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+  v94 = SHIBYTE(v179.__r_.__value_.__r.__words[2]);
+  v95 = v179.__r_.__value_.__r.__words[0];
+  if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v96 = &v181;
+    v96 = &v179;
   }
 
   else
   {
-    v96 = v181.__r_.__value_.__r.__words[0];
+    v96 = v179.__r_.__value_.__r.__words[0];
   }
 
-  if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v97 = HIBYTE(v181.__r_.__value_.__r.__words[2]);
+    v97 = HIBYTE(v179.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v97 = v181.__r_.__value_.__l.__size_;
+    v97 = v179.__r_.__value_.__l.__size_;
   }
 
   if (__n == v97 && !memcmp(__s1, v96, __n))
@@ -1136,7 +1155,7 @@ LABEL_146:
     i = v71;
     v75 = a1[14];
     v76 = a1[15];
-    v186 = a1[11];
+    v184 = a1[11];
     v77 = v76 - v75;
     if (v76 == v75)
     {
@@ -1146,9 +1165,9 @@ LABEL_146:
     goto LABEL_118;
   }
 
-  absl::lts_20240722::log_internal::LogMessage::LogMessage(v180, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 674);
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v180, "Symbol name ", 0xDuLL);
-  v99 = absl::lts_20240722::log_internal::LogMessage::operator<<(v180, __s1, __n);
+  absl::lts_20240722::log_internal::LogMessage::LogMessage(v178, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 674);
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v178, "Symbol name ", 0xDuLL);
+  v99 = absl::lts_20240722::log_internal::LogMessage::operator<<(v178, __s1, __n);
   absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v99, " conflicts with the existing symbol ", 0x26uLL);
   v100 = &v71[32 * v33 + 16];
   v101 = *a1 + 40 * *v100;
@@ -1167,8 +1186,8 @@ LABEL_146:
     v106 = v105;
   }
 
-  v186 = v102;
-  v187 = v106;
+  v184 = v102;
+  v185 = v106;
   v107 = v106 != 0;
   if (v106)
   {
@@ -1180,8 +1199,8 @@ LABEL_146:
     v108 = &byte_23CE7F131;
   }
 
-  v184 = v108;
-  v185 = v107;
+  v182 = v108;
+  v183 = v107;
   v111 = *(v100 + 1);
   v109 = (v100 + 8);
   v110 = v111;
@@ -1197,41 +1216,29 @@ LABEL_146:
     v113 = v112;
   }
 
-  v182 = v109;
-  v183 = v113;
-  absl::lts_20240722::StrCat(&v186, &v184, &v182, &v181);
-  v114 = absl::lts_20240722::log_internal::LogMessage::operator<<(v99, &v181);
+  v180 = v109;
+  v181 = v113;
+  absl::lts_20240722::StrCat(&v184, &v182, &v180, &v179);
+  v114 = absl::lts_20240722::log_internal::LogMessage::operator<<(v99, &v179);
   absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v114, ".", 2uLL);
-  operations_research::sat::ConvertCpModelProtoToMPModelProto(&v181);
+  operations_research::sat::ConvertCpModelProtoToMPModelProto();
 LABEL_236:
   v26 = 0;
-  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
+    goto LABEL_240;
+  }
+
 LABEL_237:
-    if ((v179 & 0x80000000) == 0)
-    {
-      goto LABEL_238;
-    }
-
-LABEL_242:
-    operator delete(v178[0]);
-    v168 = *MEMORY[0x277D85DE8];
-    return v26;
-  }
-
-LABEL_241:
-  operator delete(__p.__r_.__value_.__l.__data_);
-  if (v179 < 0)
+  if (v177 < 0)
   {
-    goto LABEL_242;
+    goto LABEL_241;
   }
 
-LABEL_238:
-  v166 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
-void sub_23CDBE524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+void sub_23CDBE524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
 {
   absl::lts_20240722::log_internal::LogMessage::~LogMessage(&a26);
   if (a18 < 0)
@@ -1567,45 +1574,45 @@ LABEL_45:
   }
 }
 
-void sub_23CDBEB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23CDBEB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__exception_guard_exceptions<std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CDBEB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23CDBEB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__exception_guard_exceptions<std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CDBEB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23CDBEB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__exception_guard_exceptions<std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindSymbolOnlyFlat(uint64_t a1, const void *a2, std::string::size_type a3)
 {
-  v37[6] = *MEMORY[0x277D85DE8];
-  v33 = a2;
-  v34 = a3;
+  v34[6] = *MEMORY[0x277D85DE8];
+  v30 = a2;
+  v31 = a3;
   v4 = *(a1 + 112);
   v5 = *(a1 + 120);
-  v37[0] = *(a1 + 88);
+  v34[0] = *(a1 + 88);
   if (v5 == v4)
   {
-    goto LABEL_34;
+    return 0;
   }
 
   v6 = (v5 - v4) >> 5;
   v7 = v4;
   do
   {
-    if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<std::string_view,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(v37, &v33, (v7 + 32 * (v6 >> 1))))
+    if (google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<std::string_view,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(v34, &v30, (v7 + 32 * (v6 >> 1))))
     {
       v6 >>= 1;
     }
@@ -1627,9 +1634,7 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindSymbo
   v9 = (v7 + v8);
   if (v7 + v8 == *(a1 + 120))
   {
-LABEL_34:
-    result = 0;
-    goto LABEL_35;
+    return 0;
   }
 
   v10 = *a1 + 40 * *v9;
@@ -1648,8 +1653,8 @@ LABEL_34:
     v15 = v14;
   }
 
-  v37[0] = v11;
-  v37[1] = v15;
+  v34[0] = v11;
+  v34[1] = v15;
   v16 = v15 == 0;
   v17 = v15 != 0;
   v18 = &byte_23CE7F131;
@@ -1658,8 +1663,8 @@ LABEL_34:
     v18 = ".";
   }
 
-  v36[0] = v18;
-  v36[1] = v17;
+  v33[0] = v18;
+  v33[1] = v17;
   v19 = v9 + 2;
   if (*(v9 + 31) >= 0)
   {
@@ -1672,62 +1677,57 @@ LABEL_34:
     v20 = *(v9 + 2);
   }
 
-  v35[0] = v19;
-  v35[1] = v20;
-  absl::lts_20240722::StrCat(v37, v36, v35, &v32);
-  v21 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
-  v22 = v32.__r_.__value_.__r.__words[0];
-  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v32[0] = v19;
+  v32[1] = v20;
+  absl::lts_20240722::StrCat(v34, v33, v32, &v29);
+  v21 = SHIBYTE(v29.__r_.__value_.__r.__words[2]);
+  v22 = v29.__r_.__value_.__r.__words[0];
+  if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v23 = &v32;
+    v23 = &v29;
   }
 
   else
   {
-    v23 = v32.__r_.__value_.__r.__words[0];
+    v23 = v29.__r_.__value_.__r.__words[0];
   }
 
-  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v32.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v29.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v32.__r_.__value_.__l.__size_;
+    size = v29.__r_.__value_.__l.__size_;
   }
 
-  v25 = v33;
-  v26 = v34;
-  if (size == v34 && !memcmp(v23, v33, size) || (!size || v26 >= size && !memcmp(v25, v23, size)) && *(v25 + size) == 46)
+  v25 = v30;
+  v26 = v31;
+  if (size == v31 && !memcmp(v23, v30, size) || (!size || v26 >= size && !memcmp(v25, v23, size)) && *(v25 + size) == 46)
   {
-    v27 = *a1 + 40 * *v9;
-    result = *v27;
-    v29 = *(v27 + 8);
-    if (v21 < 0)
+    result = *(*a1 + 40 * *v9);
+    if ((v21 & 0x80000000) == 0)
     {
-      goto LABEL_33;
+      return result;
     }
   }
 
   else
   {
     result = 0;
-    if (v21 < 0)
+    if ((v21 & 0x80000000) == 0)
     {
-LABEL_33:
-      v30 = result;
-      operator delete(v22);
-      result = v30;
+      return result;
     }
   }
 
-LABEL_35:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  v28 = result;
+  operator delete(v22);
+  return v28;
 }
 
-void std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>::shrink_to_fit(uint64_t *a1)
+void std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>::shrink_to_fit(char **a1)
 {
   v1 = a1[1];
   v2 = *a1;
@@ -1739,7 +1739,6 @@ void std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::E
     {
       if (0xCCCCCCCCCCCCCCCDLL * (v4 >> 3) < 0x666666666666667)
       {
-        v6 = v1 - *a1;
         operator new();
       }
 
@@ -1748,46 +1747,46 @@ void std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::E
 
     if (v4 < v3)
     {
-      v7 = 8 * (v4 >> 3);
-      v8 = a1[1];
-      v9 = v7 + v2 - v8;
-      if (v2 != v8)
+      v6 = (8 * (v4 >> 3));
+      v7 = a1[1];
+      v8 = &v6[v2 - v7];
+      if (v2 != v7)
       {
-        v10 = *a1;
-        v11 = v7 + v2 - v8;
+        v9 = *a1;
+        v10 = &v6[v2 - v7];
         do
         {
-          v12 = *v10;
-          *(v11 + 8) = *(v10 + 2);
-          *v11 = v12;
-          v13 = *(v10 + 1);
-          *(v11 + 32) = v10[4];
-          *(v11 + 16) = v13;
-          v10[3] = 0;
-          v10[4] = 0;
-          v10[2] = 0;
-          v10 += 5;
-          v11 += 40;
+          v11 = *v9;
+          *(v10 + 2) = *(v9 + 2);
+          *v10 = v11;
+          v12 = *(v9 + 1);
+          *(v10 + 4) = *(v9 + 4);
+          *(v10 + 1) = v12;
+          *(v9 + 3) = 0;
+          *(v9 + 4) = 0;
+          *(v9 + 2) = 0;
+          v9 += 40;
+          v10 += 40;
         }
 
-        while (v10 != v8);
+        while (v9 != v7);
         do
         {
-          if (*(v2 + 39) < 0)
+          if (v2[39] < 0)
           {
-            operator delete(*(v2 + 16));
+            operator delete(*(v2 + 2));
           }
 
           v2 += 40;
         }
 
-        while (v2 != v8);
+        while (v2 != v7);
         v2 = *a1;
       }
 
-      *a1 = v9;
-      a1[1] = v7;
-      a1[2] = v7;
+      *a1 = v8;
+      a1[1] = v6;
+      a1[2] = v6;
       if (v2)
       {
 
@@ -2108,7 +2107,7 @@ void google::protobuf::EncodedDescriptorDatabase::~EncodedDescriptorDatabase(goo
   JUMPOUT(0x23EED9460);
 }
 
-void **std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>::~vector[abi:ne200100](void **a1)
+void ***std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>::~vector[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   if (*a1)
@@ -2368,7 +2367,7 @@ LABEL_4:
   a1[2] = 0;
 }
 
-uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddNestedExtensions<google::protobuf::DescriptorProto>(void *a1, const void *a2, unint64_t a3, uint64_t a4)
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddNestedExtensions<google::protobuf::DescriptorProto>(void *a1, const void *a2, size_t a3, uint64_t a4)
 {
   v8 = *(a4 + 48);
   if (v8)
@@ -2447,7 +2446,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddExtension<google::protobuf::FieldDescriptorProto>(void *a1, const void *a2, unint64_t a3, uint64_t a4)
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddExtension<google::protobuf::FieldDescriptorProto>(void *a1, const void *a2, size_t a3, uint64_t a4)
 {
   v8 = (*(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL);
   v9 = v8[23];
@@ -2459,16 +2458,12 @@ uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddExtens
     }
   }
 
-  else
+  else if (!v8[23] || *v8 != 46)
   {
-    v10 = *(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL;
-    if (!v8[23] || *v8 != 46)
-    {
-      return 1;
-    }
+    return 1;
   }
 
-  v34 = -858993459 * ((a1[1] - *a1) >> 3) - 1;
+  v32 = -858993459 * ((a1[1] - *a1) >> 3) - 1;
   if ((v9 & 0x80000000) == 0)
   {
     if (v9 < 0x17)
@@ -2493,12 +2488,12 @@ LABEL_14:
   }
 
 LABEL_9:
-  v36 = v9;
+  v34 = v9;
   if (v9)
   {
-    memmove(&v35, v8, v9);
-    *(&v35 + v9) = 0;
-    v37 = *(a4 + 72);
+    memmove(&v33, v8, v9);
+    *(&v33 + v9) = 0;
+    v35 = *(a4 + 72);
     if (!a1[20])
     {
       goto LABEL_16;
@@ -2507,8 +2502,8 @@ LABEL_9:
 
   else
   {
-    LOBYTE(v35) = 0;
-    v37 = *(a4 + 72);
+    LOBYTE(v33) = 0;
+    v35 = *(a4 + 72);
     if (!a1[20])
     {
 LABEL_16:
@@ -2516,24 +2511,24 @@ LABEL_16:
     }
   }
 
-  v11 = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_locate<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>(a1 + 17, &v34);
-  v13 = v12;
-  v14 = v12;
-  v15 = v11;
-  while (v14 == v15[10])
+  v10 = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_locate<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>(a1 + 17, &v32);
+  v12 = v11;
+  v13 = v11;
+  v14 = v10;
+  while (v13 == v14[10])
   {
-    v14 = v15[8];
-    v15 = *v15;
-    if (v15[11])
+    v13 = v14[8];
+    v14 = *v14;
+    if (v14[11])
     {
       goto LABEL_22;
     }
   }
 
-  if (!google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare::operator()((a1 + 18), &v34, &v15[40 * v14 + 16]))
+  if (!google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare::operator()((a1 + 18), &v32, &v14[40 * v13 + 16]))
   {
-    v23 = 1;
-    if (v36 < 0)
+    v21 = 1;
+    if (v34 < 0)
     {
       goto LABEL_38;
     }
@@ -2542,19 +2537,19 @@ LABEL_16:
   }
 
 LABEL_22:
-  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>((a1 + 17), v11, v13, &v34);
-  v16 = a1[21];
-  v17 = a1[22];
-  v18 = *(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL;
-  v19 = *(v18 + 23);
-  if (v19 < 0)
+  absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>(a1 + 17, v10, v12, &v32);
+  v15 = a1[21];
+  v16 = a1[22];
+  v17 = *(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL;
+  v18 = *(v17 + 23);
+  if (v18 < 0)
   {
-    v25 = *(v18 + 8);
-    if (v25)
+    v23 = *(v17 + 8);
+    if (v23)
     {
-      v18 = *v18;
-      v20 = v25 - 1;
-      if ((v25 - 1) <= 0x7FFFFFFFFFFFFFF7)
+      v17 = *v17;
+      v19 = v23 - 1;
+      if ((v23 - 1) <= 0x7FFFFFFFFFFFFFF7)
       {
         goto LABEL_25;
       }
@@ -2567,46 +2562,45 @@ LABEL_42:
     std::string::__throw_out_of_range[abi:ne200100]();
   }
 
-  if (!*(v18 + 23))
+  if (!*(v17 + 23))
   {
     goto LABEL_42;
   }
 
-  v20 = v19 - 1;
-  if ((v19 - 1) > 0x7FFFFFFFFFFFFFF7)
+  v19 = v18 - 1;
+  if ((v18 - 1) > 0x7FFFFFFFFFFFFFF7)
   {
     goto LABEL_36;
   }
 
 LABEL_25:
-  if (v20 >= 0x17)
+  if (v19 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v30) = v20;
-  if (v20)
+  HIBYTE(v28) = v19;
+  if (v19)
   {
-    memmove(&__dst, (v18 + 1), v20);
+    memmove(&__dst, (v17 + 1), v19);
   }
 
-  *(&__dst + v20) = 0;
-  v21 = *(a4 + 72);
+  *(&__dst + v19) = 0;
+  v20 = *(a4 + 72);
   *__p = __dst;
-  v32 = v30;
-  v33 = v21;
-  v22 = a1[18];
-  v23 = std::binary_search[abi:ne200100]<std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(v16, v17, __p);
-  if ((SHIBYTE(v32) & 0x80000000) == 0)
+  v30 = v28;
+  v31 = v20;
+  v21 = std::binary_search[abi:ne200100]<std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(v15, v16, __p, a1[18]);
+  if ((SHIBYTE(v30) & 0x80000000) == 0)
   {
-    if ((v36 & 0x80000000) == 0)
+    if ((v34 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
 LABEL_38:
-    operator delete(v35);
-    if (!v23)
+    operator delete(v33);
+    if (!v21)
     {
       return 1;
     }
@@ -2615,29 +2609,29 @@ LABEL_38:
   }
 
   operator delete(__p[0]);
-  if (v36 < 0)
+  if (v34 < 0)
   {
     goto LABEL_38;
   }
 
 LABEL_32:
-  if (!v23)
+  if (!v21)
   {
     return 1;
   }
 
 LABEL_39:
-  absl::lts_20240722::log_internal::LogMessage::LogMessage(&v34, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 748);
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(&v34, "Extension conflicts with extension already in database: extend ", 0x3FuLL);
-  v26 = absl::lts_20240722::log_internal::LogMessage::operator<<(&v34, (*(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL));
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v26, " { ", 3uLL);
-  v27 = absl::lts_20240722::log_internal::LogMessage::operator<<(v26, (*(a4 + 24) & 0xFFFFFFFFFFFFFFFCLL));
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v27, " = ", 3uLL);
+  absl::lts_20240722::log_internal::LogMessage::LogMessage(&v32, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor_database.cc", 748);
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(&v32, "Extension conflicts with extension already in database: extend ", 0x3FuLL);
+  v24 = absl::lts_20240722::log_internal::LogMessage::operator<<(&v32, (*(a4 + 32) & 0xFFFFFFFFFFFFFFFCLL));
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v24, " { ", 3uLL);
+  v25 = absl::lts_20240722::log_internal::LogMessage::operator<<(v24, (*(a4 + 24) & 0xFFFFFFFFFFFFFFFCLL));
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v25, " = ", 3uLL);
   LODWORD(__p[0]) = *(a4 + 72);
-  v28 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v27, __p);
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v28, " } from:", 8uLL);
-  absl::lts_20240722::log_internal::LogMessage::operator<<(v28, a2, a3);
-  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v34);
+  v26 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v25, __p);
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v26, " } from:", 8uLL);
+  absl::lts_20240722::log_internal::LogMessage::operator<<(v26, a2, a3);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v32);
   return 0;
 }
 
@@ -2657,21 +2651,21 @@ void sub_23CDBFCE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>::__emplace_back_slow_path<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>::__emplace_back_slow_path<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EncodedEntry>(uint64_t **a1, uint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * (a1[1] - *a1);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * (a1[2] - *a1) > v3)
   {
-    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
+    v3 = 0x999999999999999ALL * (a1[2] - *a1);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * (a1[2] - *a1) >= 0x333333333333333)
   {
     v5 = 0x666666666666666;
   }
@@ -2691,7 +2685,7 @@ uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorInde
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v6 = 8 * ((a1[1] - *a1) >> 3);
+  v6 = 8 * (a1[1] - *a1);
   *v6 = *a2;
   *(v6 + 8) = *(a2 + 8);
   *(v6 + 16) = *(a2 + 16);
@@ -2702,11 +2696,11 @@ uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorInde
   v7 = 40 * v2 + 40;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = &(*a1)[v6 / 8] - v9;
   if (*a1 != v9)
   {
     v11 = *a1;
-    v12 = v6 + *a1 - v9;
+    v12 = &(*a1)[v6 / 8] - v9;
     do
     {
       v13 = *v11;
@@ -2727,10 +2721,10 @@ uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorInde
     {
       if (*(v8 + 39) < 0)
       {
-        operator delete(*(v8 + 16));
+        operator delete(v8[2]);
       }
 
-      v8 += 40;
+      v8 += 5;
     }
 
     while (v8 != v9);
@@ -2748,7 +2742,7 @@ uint64_t std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorInde
   return v7;
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::insert_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>@<X0>(unsigned __int8 **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::insert_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (!a1[3])
   {
@@ -2777,15 +2771,15 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
   }
 
   v8 = *a1;
-  v9 = (*a1)[10];
-  if ((*a1)[10])
+  v9 = *(*a1 + 10);
+  if (*(*a1 + 10))
   {
 LABEL_10:
     v10 = 0;
     do
     {
       v11 = (v9 + v10) >> 1;
-      v12 = &v8[32 * v11 + 16];
+      v12 = v8 + 16 + 32 * v11;
       v15 = *(v12 + 8);
       v13 = v12 + 8;
       v14 = v15;
@@ -2855,11 +2849,11 @@ LABEL_10:
     while (v10 != v9);
   }
 
-  while (!v8[11])
+  while (!*(v8 + 11))
   {
-    v8 = *&v8[8 * v9 + 240];
-    v9 = v8[10];
-    if (v8[10])
+    v8 = *(v8 + 8 * v9 + 240);
+    v9 = *(v8 + 10);
+    if (*(v8 + 10))
     {
       goto LABEL_10;
     }
@@ -2867,21 +2861,21 @@ LABEL_10:
 
   v22 = v9;
   v23 = v8;
-  while (v9 == v23[10])
+  while (v9 == *(v23 + 10))
   {
-    LODWORD(v9) = v23[8];
+    LODWORD(v9) = *(v23 + 8);
     v23 = *v23;
-    if (v23[11])
+    if (*(v23 + 11))
     {
       goto LABEL_49;
     }
   }
 
-  v24 = &v23[32 * v9];
-  v27 = *(v24 + 3);
+  v24 = v23 + 32 * v9;
+  v27 = *(v24 + 24);
   v25 = v24 + 24;
   v26 = v27;
-  v28 = v25[23];
+  v28 = *(v25 + 23);
   if (v28 >= 0)
   {
     v29 = v25;
@@ -2894,12 +2888,12 @@ LABEL_10:
 
   if (v28 >= 0)
   {
-    v30 = v25[23];
+    v30 = *(v25 + 23);
   }
 
   else
   {
-    v30 = *(v25 + 1);
+    v30 = *(v25 + 8);
   }
 
   if (v30 >= v7)
@@ -2939,14 +2933,14 @@ LABEL_52:
   return result;
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   i = a2;
   v23 = a3;
-  v6 = a2[11];
-  if (a2[11])
+  v6 = *(a2 + 11);
+  if (*(a2 + 11))
   {
-    if (a2[10] == v6)
+    if (*(a2 + 10) == v6)
     {
       goto LABEL_3;
     }
@@ -2954,7 +2948,7 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
 LABEL_10:
     v7 = a2;
     v8 = v23;
-    v9 = a2[10];
+    v9 = *(a2 + 10);
     v10 = v23;
     if (v9 <= v23)
     {
@@ -2964,20 +2958,20 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  a2 = *&a2[8 * a3 + 240];
-  for (i = a2; !a2[11]; i = a2)
+  a2 = *(a2 + 8 * a3 + 240);
+  for (i = a2; !*(a2 + 11); i = a2)
   {
-    a2 = *&a2[8 * a2[10] + 240];
+    a2 = *(a2 + 8 * *(a2 + 10) + 240);
   }
 
-  LODWORD(v23) = a2[10];
-  v6 = a2[11];
-  if (!a2[11])
+  LODWORD(v23) = *(a2 + 10);
+  v6 = *(a2 + 11);
+  if (!*(a2 + 11))
   {
     v6 = 7;
   }
 
-  if (a2[10] != v6)
+  if (*(a2 + 10) != v6)
   {
     goto LABEL_10;
   }
@@ -2991,7 +2985,7 @@ LABEL_3:
   absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(a1, &i);
   v7 = i;
   v8 = v23;
-  v9 = i[10];
+  v9 = *(i + 10);
   v10 = v23;
   if (v9 > v23)
   {
@@ -3000,7 +2994,7 @@ LABEL_13:
     if (((v9 - v8) & 0x7FFFFFFFFFFFFFFLL) != 0)
     {
       v11 = 32 * v9;
-      v12 = &v7[v11 + 24];
+      v12 = v11 + v7 + 24;
       v13 = 32 * v8 - v11;
       do
       {
@@ -3019,16 +3013,16 @@ LABEL_13:
   }
 
 LABEL_16:
-  v14 = &v7[32 * v10];
-  *(v14 + 4) = *a4;
+  v14 = v7 + 32 * v10;
+  *(v14 + 16) = *a4;
   v15 = *(a4 + 8);
-  *(v14 + 5) = *(a4 + 24);
+  *(v14 + 40) = *(a4 + 24);
   *(v14 + 24) = v15;
   *(a4 + 16) = 0;
   *(a4 + 24) = 0;
   *(a4 + 8) = 0;
-  v16 = ++v7[10];
-  if (!v7[11])
+  v16 = (*(v7 + 10))++ + 1;
+  if (!*(v7 + 11))
   {
     v17 = v8 + 1;
     if (v17 < v16)
@@ -3036,8 +3030,8 @@ LABEL_16:
       v18 = v7 + 240;
       do
       {
-        v19 = *&v18[8 * (v16 - 1)];
-        *&v18[8 * v16] = v19;
+        v19 = *(v18 + 8 * (v16 - 1));
+        *(v18 + 8 * v16) = v19;
         *(v19 + 8) = v16;
       }
 
@@ -3045,11 +3039,11 @@ LABEL_16:
     }
   }
 
-  ++*(a1 + 24);
+  ++a1[3];
   return i;
 }
 
-uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(unsigned __int8 **a1, unsigned __int8 **a2)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = **a2;
@@ -3062,7 +3056,7 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
   if (v3[8])
   {
     v6 = *(v4 + 8 * (v5 - 1) + 240);
-    v7 = v6[10];
+    v7 = *(v6 + 10);
     if (v7 <= 6)
     {
       v8 = *(a2 + 8);
@@ -3078,9 +3072,9 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
           return result;
         }
 
-        v24 = v13 + v6[10] + 1;
+        v22 = v13 + *(v6 + 10) + 1;
 LABEL_30:
-        *(a2 + 2) = v24;
+        *(a2 + 2) = v22;
         *a2 = v6;
         return result;
       }
@@ -3088,18 +3082,16 @@ LABEL_30:
   }
 
   v14 = *(v4 + 10);
-  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 240), v15 = v6[10], v15 > 6) || ((v16 = *(a2 + 2), (7 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (7 - v15) >> (v16 > 0)), (v18 = (v17 + v15), (v3[10] - v17) < v16) ? (v19 = v18 > 6) : (v19 = 0), v19))
+  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 240), v15 = *(v6 + 10), v15 > 6) || ((v16 = *(a2 + 2), (7 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (7 - v15) >> (v16 > 0)), (v18 = (v17 + v15), (v3[10] - v17) < v16) ? (v19 = v18 > 6) : (v19 = 0), v19))
   {
     if (v14 == 7)
     {
-      v25 = v4;
-      v26 = v5;
-      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(a1, &v25);
+      v23 = v4;
+      v24 = v5;
+      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(a1, &v23);
       v3 = *a2;
-      v22 = **a2;
     }
 
-    v23 = v3[8] + 1;
     if (v3[11])
     {
       operator new();
@@ -3110,10 +3102,10 @@ LABEL_30:
 
   result = absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_left_to_right(v3, v17, *(v4 + 8 * (v5 + 1) + 240));
   v20 = *(a2 + 2);
-  v21 = (*a2)[10];
+  v21 = *(*a2 + 10);
   if (v20 > v21)
   {
-    v24 = v20 + ~v21;
+    v22 = v20 + ~v21;
     goto LABEL_30;
   }
 
@@ -3467,100 +3459,100 @@ void absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::cont
   }
 }
 
-BOOL std::binary_search[abi:ne200100]<std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL std::binary_search[abi:ne200100]<std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  v5 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,std::__identity,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(a1, a3, 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 3));
-  if (v5 == a2)
+  v6 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry *>,std::pair<std::string,int>,std::__identity,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare>(a1, a3, 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 3));
+  if (v6 == a2)
   {
     return 0;
   }
 
-  v6 = *(a3 + 23);
-  if (v6 >= 0)
+  v7 = *(a3 + 23);
+  if (v7 >= 0)
   {
-    v7 = a3;
+    v8 = a3;
   }
 
   else
   {
-    v7 = *a3;
+    v8 = *a3;
   }
 
-  if (v6 >= 0)
+  if (v7 >= 0)
   {
-    v8 = *(a3 + 23);
+    v9 = *(a3 + 23);
   }
 
   else
   {
-    v8 = *(a3 + 8);
+    v9 = a3[1];
   }
 
-  v9 = *(v5 + 31);
-  v10 = v9;
-  if ((v9 & 0x80u) != 0)
+  v10 = *(v6 + 31);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
   {
-    v9 = *(v5 + 16);
+    v10 = *(v6 + 16);
   }
 
-  if (!v9)
+  if (!v10)
   {
     std::__throw_out_of_range[abi:ne200100]("string_view::substr");
   }
 
-  v11 = *(a3 + 24);
-  v14 = *(v5 + 8);
-  v12 = v5 + 8;
-  v13 = v14;
-  if (v10 >= 0)
+  v12 = *(a3 + 6);
+  v15 = *(v6 + 8);
+  v13 = v6 + 8;
+  v14 = v15;
+  if (v11 >= 0)
   {
-    v15 = v12;
+    v16 = v13;
   }
 
   else
   {
-    v15 = v13;
+    v16 = v14;
   }
 
-  v16 = v9 - 1;
-  v17 = *(v12 + 24);
-  if (v9 - 1 >= v8)
+  v17 = v10 - 1;
+  v18 = *(v13 + 24);
+  if (v10 - 1 >= v9)
   {
-    v18 = v8;
+    v19 = v9;
   }
 
   else
   {
-    v18 = v9 - 1;
+    v19 = v10 - 1;
   }
 
-  v19 = memcmp(v7, (v15 + 1), v18);
-  if (!v19)
+  v20 = memcmp(v8, (v16 + 1), v19);
+  if (!v20)
   {
-    if (v8 < v16)
+    if (v9 < v17)
     {
       return 0;
     }
 
 LABEL_22:
-    v21 = memcmp((v15 + 1), v7, v18);
-    if (v21)
+    v22 = memcmp((v16 + 1), v8, v19);
+    if (v22)
     {
-      if (v21 < 0)
+      if (v22 < 0)
       {
         return 1;
       }
     }
 
-    else if (v16 < v8)
+    else if (v17 < v9)
     {
       return 1;
     }
 
-    return v11 >= v17;
+    return v12 >= v18;
   }
 
-  if ((v19 & 0x80000000) == 0)
+  if ((v20 & 0x80000000) == 0)
   {
     goto LABEL_22;
   }
@@ -3587,29 +3579,23 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
 
   if (!v5)
   {
-    result = *a1;
-    for (i = *(result + 10); !*(result + 10); i = *(result + 10))
+    for (result = *a1; !*(result + 10); result = *(result + 256))
     {
       if (*(result + 11))
       {
         return result;
       }
-
-      result = *(result + 256);
     }
 
-    v28 = result + 40 * (i >> 1);
-    v29 = *(v28 + 47);
-    v30 = *(v28 + 32);
-LABEL_37:
+LABEL_36:
     std::__throw_out_of_range[abi:ne200100]("string_view::substr");
   }
 
   v7 = v5 - 1;
-  v32 = *(v2 + 24);
+  v28 = *(v2 + 24);
   v8 = *a1;
   v9 = *(*a1 + 10);
-  v31 = *a1;
+  v27 = *a1;
   if (!*(*a1 + 10))
   {
     goto LABEL_28;
@@ -3631,7 +3617,7 @@ LABEL_6:
 
     if (!v14)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
     v18 = *(v13 + 8);
@@ -3687,7 +3673,7 @@ LABEL_6:
       goto LABEL_8;
     }
 
-    if (v21 < v32)
+    if (v21 < v28)
     {
 LABEL_7:
       v10 = v12 + 1;
@@ -3701,16 +3687,16 @@ LABEL_8:
   while (v10 != v12);
   while (1)
   {
-    result = v31;
-    if (*(v31 + 11))
+    result = v27;
+    if (*(v27 + 11))
     {
       return result;
     }
 
-    v26 = v31 + 8 * v12 + 256;
+    v26 = v27 + 8 * v12 + 256;
     v8 = *v26;
     v9 = *(*v26 + 10);
-    v31 = *v26;
+    v27 = *v26;
     if (*(*v26 + 10))
     {
       goto LABEL_6;
@@ -3721,7 +3707,7 @@ LABEL_28:
   }
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   v5 = a2;
   i = a2;
@@ -3826,7 +3812,7 @@ LABEL_17:
     while (v9 + 1 < --v17);
   }
 
-  ++*(a1 + 24);
+  ++a1[3];
   return i;
 }
 
@@ -3928,7 +3914,7 @@ LABEL_25:
   return v12 < v18;
 }
 
-void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::rebalance_or_split(unsigned __int8 **a1, unsigned __int8 **a2)
+void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::rebalance_or_split(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = **a2;
@@ -3941,7 +3927,7 @@ void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container
   if (v3[8])
   {
     v6 = *(v4 + 8 * (v5 - 1) + 256);
-    v7 = v6[10];
+    v7 = *(v6 + 10);
     if (v7 <= 5)
     {
       v8 = *(a2 + 2);
@@ -3957,9 +3943,9 @@ void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container
           return;
         }
 
-        v23 = v12 + v6[10] + 1;
+        v21 = v12 + *(v6 + 10) + 1;
 LABEL_30:
-        *(a2 + 2) = v23;
+        *(a2 + 2) = v21;
         *a2 = v6;
         return;
       }
@@ -3967,18 +3953,16 @@ LABEL_30:
   }
 
   v13 = *(v4 + 10);
-  if (v5 >= v13 || (v6 = *(v4 + 8 * (v5 + 1) + 256), v14 = v6[10], v14 > 5) || ((v15 = *(a2 + 2), (6 - v14) >> (v15 > 0) <= 1u) ? (v16 = 1) : (v16 = (6 - v14) >> (v15 > 0)), (v17 = (v16 + v14), (v3[10] - v16) < v15) ? (v18 = v17 > 5) : (v18 = 0), v18))
+  if (v5 >= v13 || (v6 = *(v4 + 8 * (v5 + 1) + 256), v14 = *(v6 + 10), v14 > 5) || ((v15 = *(a2 + 2), (6 - v14) >> (v15 > 0) <= 1u) ? (v16 = 1) : (v16 = (6 - v14) >> (v15 > 0)), (v17 = (v16 + v14), (v3[10] - v16) < v15) ? (v18 = v17 > 5) : (v18 = 0), v18))
   {
     if (v13 == 6)
     {
-      v24 = v4;
-      v25 = v5;
-      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::rebalance_or_split(a1, &v24);
+      v22 = v4;
+      v23 = v5;
+      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::rebalance_or_split(a1, &v22);
       v3 = *a2;
-      v21 = **a2;
     }
 
-    v22 = v3[8] + 1;
     if (v3[11])
     {
       operator new();
@@ -3989,10 +3973,10 @@ LABEL_30:
 
   absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>,256,false>>::rebalance_left_to_right(v3, v16, *(v4 + 8 * (v5 + 1) + 256));
   v19 = *(a2 + 2);
-  v20 = (*a2)[10];
+  v20 = *(*a2 + 10);
   if (v19 > v20)
   {
-    v23 = v19 + ~v20;
+    v21 = v19 + ~v20;
     goto LABEL_30;
   }
 }
@@ -4463,15 +4447,15 @@ void absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::cont
     v10 = &a1[40 * v6 + 24];
     do
     {
-      *v8 = *(v10 - 8);
+      *v8 = *(v10 - 2);
       v11 = *v10;
-      *(v8 + 24) = *(v10 + 16);
+      *(v8 + 24) = *(v10 + 2);
       *(v8 + 8) = v11;
-      *(v10 + 8) = 0;
-      *(v10 + 16) = 0;
+      *(v10 + 1) = 0;
+      *(v10 + 2) = 0;
       *v10 = 0;
-      *(v8 + 32) = *(v10 + 24);
-      if (*(v10 + 23) < 0)
+      *(v8 + 32) = *(v10 + 6);
+      if (v10[23] < 0)
       {
         operator delete(*v10);
       }
@@ -4673,7 +4657,7 @@ LABEL_10:
 
 BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(uint64_t **a1, int *a2, int *a3)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v5 = **a1;
   v6 = v5 + 40 * *a2;
   v7 = (v6 + 16);
@@ -4705,14 +4689,14 @@ BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare
     v13 = a2 + 2;
     v14 = *(a2 + 31);
     v15 = v14;
-    v72 = *(a2 + 2);
-    v73 = *(a2 + 1);
+    v68 = *(a2 + 2);
+    v69 = *(a2 + 1);
     if (v14 < 0)
     {
       v13 = *(a2 + 1);
     }
 
-    v70 = v13;
+    v66 = v13;
     if (v14 >= 0)
     {
       v16 = *(a2 + 31);
@@ -4723,18 +4707,18 @@ BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare
       v16 = *(a2 + 2);
     }
 
-    v71 = v16;
+    v67 = v16;
     v17 = v11;
   }
 
   else
   {
-    v70 = 0;
-    v71 = 0;
+    v66 = 0;
+    v67 = 0;
     v18 = *(a2 + 31);
     v15 = v18;
-    v72 = *(a2 + 2);
-    v73 = *(a2 + 1);
+    v68 = *(a2 + 2);
+    v69 = *(a2 + 1);
     if (v18 >= 0)
     {
       v12 = a2 + 2;
@@ -4817,10 +4801,7 @@ BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare
     v30 = memcmp(v12, v25, v29);
     if (v30)
     {
-LABEL_37:
-      result = v30 >> 31;
-      v32 = *MEMORY[0x277D85DE8];
-      return result;
+      return v30 >> 31;
     }
   }
 
@@ -4828,18 +4809,18 @@ LABEL_37:
   {
     v28 = 0;
     v27 = 0;
-    v33 = *(a3 + 31);
-    if (v33 >= 0)
+    v32 = *(a3 + 31);
+    if (v32 >= 0)
     {
-      v34 = a3 + 2;
+      v33 = a3 + 2;
     }
 
     else
     {
-      v34 = *(a3 + 1);
+      v33 = *(a3 + 1);
     }
 
-    if (v33 >= 0)
+    if (v32 >= 0)
     {
       v21 = *(a3 + 31);
     }
@@ -4851,105 +4832,105 @@ LABEL_37:
 
     if (v17 >= v21)
     {
-      v35 = v21;
+      v34 = v21;
     }
 
     else
     {
-      v35 = v17;
+      v34 = v17;
     }
 
-    v30 = memcmp(v12, v34, v35);
+    v30 = memcmp(v12, v33, v34);
     if (v30)
     {
-      goto LABEL_37;
+      return v30 >> 31;
     }
   }
 
   if (v17 != v21)
   {
-    v40 = *v7;
+    v38 = *v7;
     if (v9 >= 0)
     {
-      v40 = v7;
+      v38 = v7;
     }
 
-    v80 = v40;
-    v81 = v11;
+    v76 = v38;
+    v77 = v11;
     if (v11)
     {
-      v41 = ".";
+      v39 = ".";
     }
 
     else
     {
-      v41 = &byte_23CE7F131;
+      v39 = &byte_23CE7F131;
     }
 
-    v78 = v41;
-    v79 = v11 != 0;
-    v42 = a2 + 2;
-    v43 = v15;
+    v74 = v39;
+    v75 = v11 != 0;
+    v40 = a2 + 2;
+    v41 = v15;
     if (v15 < 0)
     {
-      v42 = v73;
-      v43 = v72;
+      v40 = v69;
+      v41 = v68;
     }
 
-    v76 = v42;
-    v77 = v43;
-    absl::lts_20240722::StrCat(&v80, &v78, &v76, &__p);
-    v44 = **a1 + 40 * *a3;
-    v47 = *(v44 + 16);
-    v45 = v44 + 16;
-    v46 = v47;
-    v48 = *(v45 + 8);
-    if (*(v45 + 23) >= 0)
+    v72 = v40;
+    v73 = v41;
+    absl::lts_20240722::StrCat(&v76, &v74, &v72, &__p);
+    v42 = **a1 + 40 * *a3;
+    v45 = *(v42 + 16);
+    v43 = v42 + 16;
+    v44 = v45;
+    v46 = *(v43 + 8);
+    if (*(v43 + 23) >= 0)
     {
-      v49 = *(v45 + 23);
+      v47 = *(v43 + 23);
     }
 
     else
     {
-      v45 = v46;
-      v49 = v48;
+      v43 = v44;
+      v47 = v46;
     }
 
-    v80 = v45;
-    v81 = v49;
-    v50 = v49 != 0;
-    if (v49)
+    v76 = v43;
+    v77 = v47;
+    v48 = v47 != 0;
+    if (v47)
     {
-      v51 = ".";
+      v49 = ".";
     }
 
     else
     {
-      v51 = &byte_23CE7F131;
+      v49 = &byte_23CE7F131;
     }
 
-    v78 = v51;
-    v79 = v50;
-    v54 = *(a3 + 1);
-    v53 = a3 + 2;
-    v52 = v54;
-    v55 = *(v53 + 23);
-    if ((v55 & 0x80u) != 0)
+    v74 = v49;
+    v75 = v48;
+    v52 = *(a3 + 1);
+    v51 = a3 + 2;
+    v50 = v52;
+    v53 = *(v51 + 23);
+    if ((v53 & 0x80u) != 0)
     {
-      v55 = *(v53 + 1);
+      v53 = *(v51 + 1);
     }
 
     else
     {
-      v52 = v53;
+      v50 = v51;
     }
 
-    v76 = v52;
-    v77 = v55;
-    absl::lts_20240722::StrCat(&v80, &v78, &v76, &v74);
-    v56 = SHIBYTE(v74.__r_.__value_.__r.__words[2]);
-    v57 = v74.__r_.__value_.__r.__words[0];
-    v58 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v72 = v50;
+    v73 = v53;
+    absl::lts_20240722::StrCat(&v76, &v74, &v72, &v70);
+    v54 = SHIBYTE(v70.__r_.__value_.__r.__words[2]);
+    v55 = v70.__r_.__value_.__r.__words[0];
+    v56 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -4970,106 +4951,100 @@ LABEL_37:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v61 = SHIBYTE(v74.__r_.__value_.__r.__words[2]);
+      v59 = SHIBYTE(v70.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v61 = v74.__r_.__value_.__l.__size_;
+      v59 = v70.__r_.__value_.__l.__size_;
     }
 
-    if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v62 = &v74;
-    }
-
-    else
-    {
-      v62 = v74.__r_.__value_.__r.__words[0];
-    }
-
-    if (v61 >= size)
-    {
-      v63 = size;
+      v60 = &v70;
     }
 
     else
     {
-      v63 = v61;
+      v60 = v70.__r_.__value_.__r.__words[0];
     }
 
-    v64 = memcmp(p_p, v62, v63);
-    if (v64)
+    if (v59 >= size)
     {
-      result = v64 < 0;
+      v61 = size;
     }
 
     else
     {
-      result = size < v61;
+      v61 = v59;
     }
 
-    if (v56 < 0)
+    v62 = memcmp(p_p, v60, v61);
+    if (v62)
     {
-      v66 = result;
-      operator delete(v57);
-      result = v66;
+      result = v62 < 0;
+    }
+
+    else
+    {
+      result = size < v59;
+    }
+
+    if (v54 < 0)
+    {
+      v63 = result;
+      operator delete(v55);
+      result = v63;
       if ((*(&__p.__r_.__value_.__s + 23) & 0x80) == 0)
       {
-        goto LABEL_96;
+        return result;
       }
     }
 
-    else if ((v58 & 0x80) == 0)
+    else if ((v56 & 0x80) == 0)
     {
-LABEL_96:
-      v65 = *MEMORY[0x277D85DE8];
       return result;
     }
 
-    v67 = result;
+    v64 = result;
     operator delete(__p.__r_.__value_.__l.__data_);
-    result = v67;
-    v68 = *MEMORY[0x277D85DE8];
-    return result;
+    return v64;
   }
 
-  if (v28 >= v71)
+  if (v28 >= v67)
   {
-    v36 = v71;
+    v35 = v67;
   }
 
   else
   {
-    v36 = v28;
+    v35 = v28;
   }
 
-  v37 = memcmp(v70, v27, v36);
-  if (v71 < v28)
+  v36 = memcmp(v66, v27, v35);
+  if (v67 < v28)
   {
-    v38 = -1;
+    v37 = -1;
   }
 
   else
   {
-    v38 = 1;
+    v37 = 1;
   }
 
-  if (v71 == v28)
+  if (v67 == v28)
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  if (v37)
+  if (v36)
   {
-    v38 = v37;
+    v37 = v36;
   }
 
-  result = v38 >> 31;
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
+  return v37 >> 31;
 }
 
 void sub_23CDC2300(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -5083,7 +5058,7 @@ void sub_23CDC2300(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_hint_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>@<X0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, unint64_t a3@<X2>, int *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_hint_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>@<X0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, unint64_t a3@<X2>, int *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   if (!*(a1 + 24))
   {
@@ -5163,7 +5138,7 @@ LABEL_40:
         {
           v22 = *v29;
           v30 = *(*v29 + 11);
-          v29 = *v29 + 240;
+          v29 = (*v29 + 240);
         }
 
         while (!v30);
@@ -5248,14 +5223,14 @@ LABEL_45:
   return absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>(a1, a4, a5, a6);
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::internal_emplace<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   i = a2;
   v22 = a3;
-  v6 = a2[11];
-  if (a2[11])
+  v6 = *(a2 + 11);
+  if (*(a2 + 11))
   {
-    if (a2[10] == v6)
+    if (*(a2 + 10) == v6)
     {
       goto LABEL_3;
     }
@@ -5263,7 +5238,7 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
 LABEL_10:
     v7 = a2;
     v8 = v22;
-    v9 = a2[10];
+    v9 = *(a2 + 10);
     v10 = v22;
     if (v9 <= v22)
     {
@@ -5273,20 +5248,20 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  a2 = *&a2[8 * a3 + 240];
-  for (i = a2; !a2[11]; i = a2)
+  a2 = *(a2 + 8 * a3 + 240);
+  for (i = a2; !*(a2 + 11); i = a2)
   {
-    a2 = *&a2[8 * a2[10] + 240];
+    a2 = *(a2 + 8 * *(a2 + 10) + 240);
   }
 
-  LODWORD(v22) = a2[10];
-  v6 = a2[11];
-  if (!a2[11])
+  LODWORD(v22) = *(a2 + 10);
+  v6 = *(a2 + 11);
+  if (!*(a2 + 11))
   {
     v6 = 7;
   }
 
-  if (a2[10] != v6)
+  if (*(a2 + 10) != v6)
   {
     goto LABEL_10;
   }
@@ -5300,7 +5275,7 @@ LABEL_3:
   absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FileEntry>,256,false>>::rebalance_or_split(a1, &i);
   v7 = i;
   v8 = v22;
-  v9 = i[10];
+  v9 = *(i + 10);
   v10 = v22;
   if (v9 > v22)
   {
@@ -5309,7 +5284,7 @@ LABEL_13:
     if (((v9 - v8) & 0x7FFFFFFFFFFFFFFLL) != 0)
     {
       v11 = 32 * v9;
-      v12 = &v7[v11 + 24];
+      v12 = v11 + v7 + 24;
       v13 = 32 * v8 - v11;
       do
       {
@@ -5328,13 +5303,13 @@ LABEL_13:
   }
 
 LABEL_16:
-  v14 = &v7[32 * v10];
-  *(v14 + 4) = *a4;
+  v14 = v7 + 32 * v10;
+  *(v14 + 16) = *a4;
   if (*(a4 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(v14 + 1, *(a4 + 8), *(a4 + 16));
-    v16 = ++v7[10];
-    if (v7[11])
+    std::string::__init_copy_ctor_external((v14 + 24), *(a4 + 8), *(a4 + 16));
+    v16 = (*(v7 + 10))++ + 1;
+    if (*(v7 + 11))
     {
       goto LABEL_24;
     }
@@ -5343,10 +5318,10 @@ LABEL_16:
   else
   {
     v15 = *(a4 + 8);
-    *(v14 + 5) = *(a4 + 24);
+    *(v14 + 40) = *(a4 + 24);
     *(v14 + 24) = v15;
-    v16 = ++v7[10];
-    if (v7[11])
+    v16 = (*(v7 + 10))++ + 1;
+    if (*(v7 + 11))
     {
       goto LABEL_24;
     }
@@ -5357,8 +5332,8 @@ LABEL_16:
     v17 = v7 + 240;
     do
     {
-      v18 = *&v17[8 * (v16 - 1)];
-      *&v17[8 * v16] = v18;
+      v18 = *(v17 + 8 * (v16 - 1));
+      *(v17 + 8 * v16) = v18;
       *(v18 + 8) = v16;
     }
 
@@ -5366,11 +5341,11 @@ LABEL_16:
   }
 
 LABEL_24:
-  ++*(a1 + 24);
+  ++a1[3];
   return i;
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>@<X0>(uint64_t **a1@<X0>, int *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare,std::allocator<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>,256,false>>::insert_unique<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry const&>@<X0>(uint64_t **a1@<X0>, int *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (!a1[3])
   {
@@ -5413,17 +5388,17 @@ LABEL_4:
   v12 = v9;
   v13 = v9;
   v14 = v8;
-  while (v13 == v14[10])
+  while (v13 == *(v14 + 10))
   {
-    v13 = v14[8];
+    v13 = *(v14 + 8);
     v14 = *v14;
-    if (v14[11])
+    if (*(v14 + 11))
     {
       goto LABEL_17;
     }
   }
 
-  result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(a1 + 1, a2, &v14[32 * v13 + 16]);
+  result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(a1 + 1, a2, (v14 + 32 * v13 + 16));
   if (result)
   {
 LABEL_17:
@@ -5444,7 +5419,7 @@ LABEL_19:
 
 BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare::operator()<std::string_view,google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolEntry>(void **a1, uint64_t a2, int *a3)
 {
-  v40[6] = *MEMORY[0x277D85DE8];
+  v39[6] = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(a2 + 8);
   v6 = **a1 + 40 * *a3;
@@ -5497,7 +5472,7 @@ BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare
     v19 = memcmp(v4, v13, v18);
     if (v19)
     {
-      goto LABEL_14;
+      return v19 >> 31;
     }
   }
 
@@ -5538,15 +5513,13 @@ BOOL google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::SymbolCompare
     v19 = memcmp(v4, v20, v21);
     if (v19)
     {
-LABEL_14:
-      v16 = v19 >> 31;
-      goto LABEL_47;
+      return v19 >> 31;
     }
   }
 
   if (v5 == v17)
   {
-    goto LABEL_47;
+    return v16;
   }
 
   v22 = *v7;
@@ -5555,16 +5528,16 @@ LABEL_14:
     v22 = v7;
   }
 
-  v40[0] = v22;
-  v40[1] = v11;
+  v39[0] = v22;
+  v39[1] = v11;
   v23 = &byte_23CE7F131;
   if (v11)
   {
     v23 = ".";
   }
 
-  v39[0] = v23;
-  v39[1] = v11 != 0;
+  v38[0] = v23;
+  v38[1] = v11 != 0;
   v26 = *(a3 + 1);
   v25 = a3 + 2;
   v24 = v26;
@@ -5579,29 +5552,29 @@ LABEL_14:
     v24 = v25;
   }
 
-  v38[0] = v24;
-  v38[1] = v27;
-  absl::lts_20240722::StrCat(v40, v39, v38, &v37);
-  v28 = SHIBYTE(v37.__r_.__value_.__r.__words[2]);
-  v29 = v37.__r_.__value_.__r.__words[0];
-  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v37[0] = v24;
+  v37[1] = v27;
+  absl::lts_20240722::StrCat(v39, v38, v37, &v36);
+  v28 = SHIBYTE(v36.__r_.__value_.__r.__words[2]);
+  v29 = v36.__r_.__value_.__r.__words[0];
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v30 = &v37;
+    v30 = &v36;
   }
 
   else
   {
-    v30 = v37.__r_.__value_.__r.__words[0];
+    v30 = v36.__r_.__value_.__r.__words[0];
   }
 
-  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v37.__r_.__value_.__l.__size_;
+    size = v36.__r_.__value_.__l.__size_;
   }
 
   if (size >= v5)
@@ -5627,32 +5600,30 @@ LABEL_45:
     v16 = v33 >> 31;
     if ((v28 & 0x80000000) == 0)
     {
-      goto LABEL_47;
+      return v16;
     }
 
 LABEL_46:
     operator delete(v29);
-    goto LABEL_47;
+    return v16;
   }
 
   if (v5 < size)
   {
-    v36 = -1;
+    v35 = -1;
   }
 
   else
   {
-    v36 = 1;
+    v35 = 1;
   }
 
-  v16 = v36 >> 31;
+  v16 = v35 >> 31;
   if (v28 < 0)
   {
     goto LABEL_46;
   }
 
-LABEL_47:
-  v34 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -6089,7 +6060,7 @@ LABEL_25:
   return a7;
 }
 
-void **std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>::~vector[abi:ne200100](void **a1)
+void ***std::vector<google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::ExtensionEntry>::~vector[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   if (*a1)
@@ -6411,7 +6382,7 @@ void google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::~DescriptorIn
   }
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::rebalance_or_split(unsigned __int8 **a1, unsigned __int8 **a2)
+unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::rebalance_or_split(uint64_t *a1, uint64_t **a2)
 {
   result = *a2;
   v5 = **a2;
@@ -6421,21 +6392,19 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
   }
 
   v6 = result[8];
-  if (!result[8] || (v7 = *(v5 + 8 * (v6 - 1) + 256), v8 = v7[10], v8 > 0x3C) || ((v9 = *(a2 + 8), LODWORD(v10) = (61 - v8) >> (v9 < 0x3D), v10 <= 1) ? (v10 = 1) : (v10 = v10), v9 < v10 && (v10 + v8) > 0x3Cu))
+  if (!result[8] || (v7 = *(v5 + 8 * (v6 - 1) + 256), v8 = *(v7 + 10), v8 > 0x3C) || ((v9 = *(a2 + 8), LODWORD(v10) = (61 - v8) >> (v9 < 0x3D), v10 <= 1) ? (v10 = 1) : (v10 = v10), v9 < v10 && (v10 + v8) > 0x3Cu))
   {
     v11 = *(v5 + 10);
-    if (v6 >= v11 || (v7 = *(v5 + 8 * (v6 + 1) + 256), v12 = v7[10], v12 > 0x3C) || ((v13 = *(a2 + 2), (61 - v12) >> (v13 > 0) <= 1u) ? (v14 = 1) : (v14 = (61 - v12) >> (v13 > 0)), (result[10] - v14) < v13 && (v14 + v12) > 0x3Cu))
+    if (v6 >= v11 || (v7 = *(v5 + 8 * (v6 + 1) + 256), v12 = *(v7 + 10), v12 > 0x3C) || ((v13 = *(a2 + 2), (61 - v12) >> (v13 > 0) <= 1u) ? (v14 = 1) : (v14 = (61 - v12) >> (v13 > 0)), (result[10] - v14) < v13 && (v14 + v12) > 0x3Cu))
     {
       if (v11 == 61)
       {
-        v58 = v5;
-        v59 = v6;
-        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::rebalance_or_split(a1, &v58);
+        v56 = v5;
+        v57 = v6;
+        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::rebalance_or_split(a1, &v56);
         result = *a2;
-        v15 = **a2;
       }
 
-      v16 = result[8] + 1;
       if (result[11])
       {
         operator new();
@@ -6445,56 +6414,56 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
     }
 
     result = absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::set_params<int,std::less<int>,std::allocator<int>,256,false>>::rebalance_left_to_right(result, v14, *(v5 + 8 * (v6 + 1) + 256));
-    v27 = *(a2 + 2);
-    v28 = (*a2)[10];
-    if (v27 <= v28)
+    v25 = *(a2 + 2);
+    v26 = *(*a2 + 10);
+    if (v25 <= v26)
     {
       return result;
     }
 
-    v17 = v27 + ~v28;
+    v15 = v25 + ~v26;
 LABEL_23:
-    *(a2 + 2) = v17;
+    *(a2 + 2) = v15;
     *a2 = v7;
     return result;
   }
 
-  v18 = v7[8];
-  v19 = *v7;
-  v20 = &v7[4 * v8];
-  *(v20 + 3) = *(*v7 + 4 * v18 + 12);
-  v21 = v20 + 12;
-  v22 = result + 12;
-  v23 = (v10 - 1);
-  v24 = &result[4 * v23 + 12];
+  v16 = *(v7 + 8);
+  v17 = *v7;
+  v18 = v7 + 4 * v8;
+  *(v18 + 12) = *(*v7 + 4 * v16 + 12);
+  v19 = v18 + 12;
+  v20 = result + 12;
+  v21 = (v10 - 1);
+  v22 = &result[4 * v21 + 12];
   if (v10 != 1)
   {
-    v25 = (v23 - 1) & 0x3FFFFFFFFFFFFFFFLL;
-    if (v25 >= 0xB)
+    v23 = (v21 - 1) & 0x3FFFFFFFFFFFFFFFLL;
+    if (v23 >= 0xB)
     {
-      v29 = &v7[4 * v8];
-      v26 = result + 12;
-      if ((v29 - result + 4) >= 0x20)
+      v27 = 4 * v8 + v7;
+      v24 = result + 12;
+      if (v27 - result + 4 >= 0x20)
       {
-        v30 = v25 + 1;
-        v31 = v30 & 0x7FFFFFFFFFFFFFF8;
-        v21 += v31 * 4;
-        v26 = &v22[v31];
-        v32 = (result + 28);
-        v33 = v29 + 32;
-        v34 = v30 & 0x7FFFFFFFFFFFFFF8;
+        v28 = v23 + 1;
+        v29 = 4 * (v28 & 0x7FFFFFFFFFFFFFF8);
+        v19 += v29;
+        v24 = &v20[v29];
+        v30 = result + 28;
+        v31 = (v27 + 32);
+        v32 = v28 & 0x7FFFFFFFFFFFFFF8;
         do
         {
-          v35 = *v32;
-          *(v33 - 1) = *(v32 - 1);
-          *v33 = v35;
-          v32 += 2;
-          v33 += 2;
-          v34 -= 8;
+          v33 = *v30;
+          *(v31 - 1) = *(v30 - 1);
+          *v31 = v33;
+          v30 += 32;
+          v31 += 2;
+          v32 -= 8;
         }
 
-        while (v34);
-        if (v30 == (v30 & 0x7FFFFFFFFFFFFFF8))
+        while (v32);
+        if (v28 == (v28 & 0x7FFFFFFFFFFFFFF8))
         {
           goto LABEL_36;
         }
@@ -6503,106 +6472,108 @@ LABEL_23:
 
     else
     {
-      v26 = result + 12;
+      v24 = result + 12;
     }
 
-    v36 = v21 + 4;
+    v34 = (v19 + 4);
     do
     {
-      v37 = *v26;
-      v26 += 4;
-      *v36++ = v37;
+      v35 = *v24;
+      v24 += 4;
+      *v34++ = v35;
     }
 
-    while (v26 != v24);
+    while (v24 != v22);
 LABEL_36:
-    v19 = *v7;
-    v18 = v7[8];
+    v17 = *v7;
+    v16 = *(v7 + 8);
   }
 
-  *(v19 + 4 * v18 + 12) = *v24;
-  v38 = result[10];
-  v39 = v38 - v10;
-  if (v38 != v10)
+  *(v17 + 4 * v16 + 12) = *v22;
+  v36 = result[10];
+  v37 = v36 - v10;
+  if (v36 != v10)
   {
-    v40 = &v22[v10];
-    v41 = 4 * v38 - 4 * v10 - 4;
-    v42 = v40;
-    if (v41 < 0x1C)
+    v38 = &v20[4 * v10];
+    v39 = 4 * v36 - 4 * v10 - 4;
+    v40 = v38;
+    if (v39 < 0x1C)
     {
       goto LABEL_42;
     }
 
-    v43 = (v41 >> 2) + 1;
-    v44 = v43 & 0x7FFFFFFFFFFFFFF8;
-    v22 = (v22 + v44 * 4);
-    v42 = &v40[v44];
-    v45 = result + 28;
-    v46 = &result[4 * v10 + 28];
-    v47 = v43 & 0x7FFFFFFFFFFFFFF8;
+    v41 = (v39 >> 2) + 1;
+    v42 = 4 * (v41 & 0x7FFFFFFFFFFFFFF8);
+    v20 += v42;
+    v40 = &v38[v42];
+    v43 = result + 28;
+    v44 = &result[4 * v10 + 28];
+    v45 = v41 & 0x7FFFFFFFFFFFFFF8;
     do
     {
-      v48 = *v46;
-      *(v45 - 1) = *(v46 - 1);
-      *v45 = v48;
-      v46 += 32;
-      v45 += 2;
-      v47 -= 8;
+      v46 = *v44;
+      *(v43 - 1) = *(v44 - 1);
+      *v43 = v46;
+      v44 += 32;
+      v43 += 32;
+      v45 -= 8;
     }
 
-    while (v47);
-    if (v43 != (v43 & 0x7FFFFFFFFFFFFFF8))
+    while (v45);
+    if (v41 != (v41 & 0x7FFFFFFFFFFFFFF8))
     {
 LABEL_42:
-      v49 = &v40[v39];
+      v47 = &v38[4 * v37];
       do
       {
-        v50 = *v42++;
-        *v22++ = v50;
+        v48 = *v40;
+        v40 += 4;
+        *v20 = v48;
+        v20 += 4;
       }
 
-      while (v42 != v49);
+      while (v40 != v47);
     }
   }
 
-  if (!v7[11])
+  if (!*(v7 + 11))
   {
-    v51 = result + 256;
-    v52 = 32;
+    v49 = result + 256;
+    v50 = 32;
     do
     {
-      v53 = v52 + v7[10] - 31;
-      v54 = *&result[8 * v52];
-      *&v7[8 * v53 + 256] = v54;
-      *(v54 + 8) = v53;
-      *v54 = v7;
-      ++v52;
+      v51 = v50 + *(v7 + 10) - 31;
+      v52 = *&result[8 * v50];
+      *(v7 + 256 + 8 * v51) = v52;
+      *(v52 + 8) = v51;
+      *v52 = v7;
+      ++v50;
     }
 
-    while (v52 - v10 != 32);
+    while (v50 - v10 != 32);
     if (result[10] >= v10)
     {
-      v55 = 0;
+      v53 = 0;
       do
       {
-        v56 = *&v51[8 * (v55 + v10)];
-        *&v51[8 * v55] = v56;
-        *(v56 + 8) = v55;
-        *v56 = result;
-        ++v55;
+        v54 = *&v49[8 * (v53 + v10)];
+        *&v49[8 * v53] = v54;
+        *(v54 + 8) = v53;
+        *v54 = result;
+        ++v53;
       }
 
-      while (result[10] - v10 >= v55);
+      while (result[10] - v10 >= v53);
     }
   }
 
-  v7[10] += v10;
+  *(v7 + 10) += v10;
   result[10] -= v10;
-  v57 = *(a2 + 8) - v10;
-  *(a2 + 2) = v57;
-  if (v57 < 0)
+  v55 = *(a2 + 8) - v10;
+  *(a2 + 2) = v55;
+  if (v55 < 0)
   {
-    v17 = v57 + v7[10] + 1;
+    v15 = v55 + *(v7 + 10) + 1;
     goto LABEL_23;
   }
 
@@ -7005,7 +6976,7 @@ LABEL_10:
   }
 }
 
-uint64_t google::protobuf::DynamicMessageFactory::GetPrototypeNoLock(google::protobuf::DynamicMessageFactory *this, const google::protobuf::Descriptor *a2)
+void *google::protobuf::DynamicMessageFactory::GetPrototypeNoLock(google::protobuf::DynamicMessageFactory *this, const google::protobuf::Descriptor *a2)
 {
   v13 = a2;
   if (*(this + 16) != 1 || (v4 = *(*(a2 + 2) + 24), v4 != google::protobuf::DescriptorPool::generated_pool(this)) || (GeneratedPrototype = google::protobuf::MessageFactory::TryGetGeneratedPrototype(a2, v5)) == 0)
@@ -7246,9 +7217,9 @@ LABEL_8:
   operator delete(v1);
 }
 
-uint64_t google::protobuf::DynamicMessage::CrossLinkPrototypes(uint64_t this)
+google::protobuf::FieldDescriptor *google::protobuf::DynamicMessage::CrossLinkPrototypes(google::protobuf::FieldDescriptor *this)
 {
-  v1 = *(this + 16);
+  v1 = *(this + 2);
   v2 = v1[8];
   if (v2 != this && v2 != 0)
   {
@@ -7265,12 +7236,12 @@ uint64_t google::protobuf::DynamicMessage::CrossLinkPrototypes(uint64_t this)
     do
     {
       v11 = *(v4 + 56);
-      this = v11 + v6;
+      this = (v11 + v6);
       v12 = *(v11 + v6 + 24);
       if (v12 && (v17[0] = google::protobuf::FieldDescriptor::TypeOnceInit, v18 = v11 + v6, atomic_load_explicit(v12, memory_order_acquire) != 221))
       {
         absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v12, 1, v17, &v18);
-        this = v11 + v6;
+        this = (v11 + v6);
         if (google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v11 + v6 + 2)] != 10)
         {
           goto LABEL_9;
@@ -7304,7 +7275,7 @@ uint64_t google::protobuf::DynamicMessage::CrossLinkPrototypes(uint64_t this)
           goto LABEL_9;
         }
 
-        v9 = *(*(*(v5 + 16) + 40) + 4 * v7);
+        v9 = *(*(*(v5 + 2) + 40) + 4 * v7);
         v10 = google::protobuf::FieldDescriptor::message_type(this);
         this = google::protobuf::DynamicMessageFactory::GetPrototypeNoLock(v8, v10);
         *(v5 + v9) = this;
@@ -7347,14 +7318,6 @@ void *google::protobuf::DynamicMessage::New(google::protobuf::DynamicMessage *th
   return v5;
 }
 
-uint64_t google::protobuf::DynamicMessage::GetMetadata(google::protobuf::DynamicMessage *this)
-{
-  v1 = *(this + 2);
-  result = *(v1 + 32);
-  v3 = *(v1 + 56);
-  return result;
-}
-
 double google::protobuf::DynamicMessageFactory::DynamicMessageFactory(google::protobuf::DynamicMessageFactory *this)
 {
   *this = &unk_284F46A48;
@@ -7366,11 +7329,11 @@ double google::protobuf::DynamicMessageFactory::DynamicMessageFactory(google::pr
   return result;
 }
 
-uint64_t google::protobuf::DynamicMessageFactory::GetPrototype(atomic_ullong *this, const google::protobuf::Descriptor *a2)
+void *google::protobuf::DynamicMessageFactory::GetPrototype(atomic_ullong *this, const google::protobuf::Descriptor *a2)
 {
-  absl::lts_20240722::Mutex::Lock(this + 7);
+  absl::lts_20240722::Mutex::Lock(this + 7, a2);
   PrototypeNoLock = google::protobuf::DynamicMessageFactory::GetPrototypeNoLock(this, a2);
-  absl::lts_20240722::Mutex::Unlock((this + 7));
+  absl::lts_20240722::Mutex::Unlock(this + 7);
   return PrototypeNoLock;
 }
 
@@ -7426,7 +7389,7 @@ void google::protobuf::DynamicMessageFactory::TypeInfo::~TypeInfo(google::protob
   }
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::find_or_prepare_insert<google::protobuf::Descriptor const*>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::find_or_prepare_insert<google::protobuf::Descriptor const*>@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   if (*result > 1)
@@ -7498,7 +7461,7 @@ LABEL_8:
       v4 = result + 2;
       if (result[2] != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -7519,37 +7482,49 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DynamicMessageFactory::TypeInfo const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DynamicMessageFactory::TypeInfo const*>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v5 = *a1 < 2 && v3 > 1;
-  v6 = a1[2];
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  v7 = a1[3];
-  v8[0] = v6;
-  v8[1] = v7;
-  v8[2] = v2;
+  v4 = *a1 < 2 && v3 > 1;
+  v5 = v4;
+  v7 = a1[2];
+  if (v4)
+  {
+    v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7))) + v7;
+    v8 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v6)) & 0x7F;
+  }
+
+  else
+  {
+    v8 = 0x80;
+  }
+
+  v11 = v3 & 1;
+  v12 = v2 < 2;
+  v13 = v5;
+  v9 = a1[3];
+  v10[0] = v7;
+  v10[1] = v9;
+  v10[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v8, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v10, a1, v8);
 }
 
-double google::protobuf::internal::ExtensionSet::AppendToList(uint64_t a1, const google::protobuf::Descriptor *a2, absl::lts_20240722::base_internal **a3, uint64_t a4)
+void google::protobuf::internal::ExtensionSet::AppendToList(uint64_t a1, const google::protobuf::Descriptor *a2, atomic_ullong **a3, uint64_t a4)
 {
-  v17 = a4;
+  v16 = a4;
   v6 = *(a1 + 10);
   v7 = *(a1 + 16);
   if (v6 < 0)
   {
-    v13 = *(v7 + 8);
-    v14 = **v7;
-    v15 = v13[10];
-    v18[0] = a2;
-    v18[1] = a3;
-    v18[2] = &v17;
-    *&result = google::protobuf::internal::ExtensionSet::ForEach<absl::lts_20240722::container_internal::btree_iterator<absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<int,google::protobuf::internal::ExtensionSet::Extension,std::less<int>,std::allocator<std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>>,256,false>>,std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>&,std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>*>,google::protobuf::internal::ExtensionSet::AppendToList(google::protobuf::Descriptor const*,google::protobuf::DescriptorPool const*,std::vector<google::protobuf::FieldDescriptor const*> *)::$_0>(v16, v14, 0, v13, v15, v18).n128_u64[0];
+    v12 = *(v7 + 8);
+    v13 = **v7;
+    v14 = v12[10];
+    v17[0] = a2;
+    v17[1] = a3;
+    v17[2] = &v16;
+    google::protobuf::internal::ExtensionSet::ForEach<absl::lts_20240722::container_internal::btree_iterator<absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<int,google::protobuf::internal::ExtensionSet::Extension,std::less<int>,std::allocator<std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>>,256,false>>,std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>&,std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>*>,google::protobuf::internal::ExtensionSet::AppendToList(google::protobuf::Descriptor const*,google::protobuf::DescriptorPool const*,std::vector<google::protobuf::FieldDescriptor const*> *)::$_0>(v15, v13, 0, v12, v14, v17);
   }
 
   else if (*(a1 + 10))
@@ -7558,8 +7533,8 @@ double google::protobuf::internal::ExtensionSet::AppendToList(uint64_t a1, const
     v9 = (v7 + 24);
     do
     {
-      v12 = v9 - 3;
-      v11 = *(v9 - 6);
+      v11 = v9 - 3;
+      v10 = *(v9 - 6);
       if (*(v9 - 7) == 1)
       {
         if (google::protobuf::internal::ExtensionSet::Extension::GetSize((v9 - 2)) > 0)
@@ -7573,23 +7548,21 @@ double google::protobuf::internal::ExtensionSet::AppendToList(uint64_t a1, const
 LABEL_10:
         if (*v9)
         {
-          std::vector<google::protobuf::Symbol>::push_back[abi:ne200100](v17, v9);
+          std::vector<google::protobuf::Symbol>::push_back[abi:ne200100](v16, v9);
         }
 
         else
         {
-          v18[0] = google::protobuf::DescriptorPool::FindExtensionByNumber(a3, a2, v11);
-          std::vector<google::protobuf::Symbol>::push_back[abi:ne200100](v17, v18);
+          v17[0] = google::protobuf::DescriptorPool::FindExtensionByNumber(a3, a2, v10);
+          std::vector<google::protobuf::Symbol>::push_back[abi:ne200100](v16, v17);
         }
       }
 
       v9 += 4;
     }
 
-    while (v12 + 4 != v8);
+    while (v11 + 4 != v8);
   }
-
-  return result;
 }
 
 uint64_t google::protobuf::internal::ExtensionSet::GetMessage(google::protobuf::internal::ExtensionSet *a1, int a2, uint64_t a3, uint64_t a4)
@@ -7668,9 +7641,9 @@ uint64_t google::protobuf::internal::ExtensionSet::MutableMessage(google::protob
   return result;
 }
 
-uint64_t google::protobuf::internal::ExtensionSet::UnsafeArenaReleaseMessage(google::protobuf::internal::ExtensionSet *a1, int *a2, uint64_t a3)
+uint64_t google::protobuf::internal::ExtensionSet::UnsafeArenaReleaseMessage(google::protobuf::internal::ExtensionSet *a1, google::protobuf::FieldDescriptor *a2, uint64_t a3)
 {
-  v6 = google::protobuf::internal::ExtensionSet::FindOrNull(a1, a2[1]);
+  v6 = google::protobuf::internal::ExtensionSet::FindOrNull(a1, *(a2 + 1));
   if (!v6)
   {
     return 0;
@@ -7692,7 +7665,7 @@ uint64_t google::protobuf::internal::ExtensionSet::UnsafeArenaReleaseMessage(goo
     }
   }
 
-  google::protobuf::internal::ExtensionSet::Erase(a1, a2[1]);
+  google::protobuf::internal::ExtensionSet::Erase(a1, *(a2 + 1));
   return v7;
 }
 
@@ -7868,7 +7841,7 @@ LABEL_27:
   return v13;
 }
 
-BOOL google::protobuf::internal::DescriptorPoolExtensionFinder::Find(uint64_t a1, int a2, uint64_t a3)
+BOOL google::protobuf::internal::DescriptorPoolExtensionFinder::Find(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   ExtensionByNumber = google::protobuf::DescriptorPool::FindExtensionByNumber(*a1, *(a1 + 16), a2);
   v6 = ExtensionByNumber;
@@ -7963,7 +7936,7 @@ LABEL_8:
   return v6 != 0;
 }
 
-google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField(google::protobuf::internal::ExtensionSet *a1, google::protobuf::internal *a2, google::protobuf::internal *a3, uint64_t a4, google::protobuf::Arena **a5, int32x2_t *a6)
+google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField(google::protobuf::internal::ExtensionSet *a1, google::protobuf::internal *a2, google::protobuf::internal *a3, uint64_t a4, void *a5, int32x2_t *a6)
 {
   v11 = a2 >> 3;
   memset(v21, 0, sizeof(v21));
@@ -8025,7 +7998,7 @@ LABEL_15:
   return google::protobuf::internal::UnknownFieldParse(a2, v20, a3, a6, v16);
 }
 
-google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseFieldWithExtensionInfo<google::protobuf::UnknownFieldSet>(google::protobuf::internal::ExtensionSet *this, int a2, int a3, uint64_t a4, google::protobuf::Arena **a5, google::protobuf::internal *a6, int32x2_t *a7)
+google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseFieldWithExtensionInfo<google::protobuf::UnknownFieldSet>(google::protobuf::internal::ExtensionSet *this, int a2, int a3, unint64_t a4, void *a5, google::protobuf::internal *a6, int32x2_t *a7)
 {
   v8 = a6;
   if (a3)
@@ -8037,69 +8010,69 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         return google::protobuf::internal::PackedDoubleParser(v9, v8, a7, v10);
       case 2:
-        v34 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 2, *(a4 + 14), *(a4 + 32));
+        v35 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 2, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedFloatParser(v34, v8, a7, v35);
+        return google::protobuf::internal::PackedFloatParser(v35, v8, a7, v36);
       case 3:
-        v28 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 3, *(a4 + 14), *(a4 + 32));
-        v30 = v8;
-        v31 = a7;
+        v29 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 3, *(a4 + 14), *(a4 + 32));
+        v31 = v8;
+        v32 = a7;
 
-        return google::protobuf::internal::PackedInt64Parser(v28, v30, v31, v29);
+        return google::protobuf::internal::PackedInt64Parser(v29, v31, v32, v30);
       case 4:
-        v28 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 4, *(a4 + 14), *(a4 + 32));
-        v30 = v8;
-        v31 = a7;
+        v29 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 4, *(a4 + 14), *(a4 + 32));
+        v31 = v8;
+        v32 = a7;
 
-        return google::protobuf::internal::PackedInt64Parser(v28, v30, v31, v29);
+        return google::protobuf::internal::PackedInt64Parser(v29, v31, v32, v30);
       case 5:
-        v22 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 5, *(a4 + 14), *(a4 + 32));
+        v23 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 5, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedInt32Parser(v22, v8, a7, v23);
+        return google::protobuf::internal::PackedInt32Parser(v23, v8, a7, v24);
       case 6:
-        v36 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 6, *(a4 + 14), *(a4 + 32));
+        v37 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 6, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedFixed64Parser(v36, v8, a7, v37);
+        return google::protobuf::internal::PackedFixed64Parser(v37, v8, a7, v38);
       case 7:
-        v40 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 7, *(a4 + 14), *(a4 + 32));
+        v41 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 7, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedFixed32Parser(v40, v8, a7, v41);
+        return google::protobuf::internal::PackedFixed32Parser(v41, v8, a7, v42);
       case 8:
-        v32 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 8, *(a4 + 14), *(a4 + 32));
+        v33 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 8, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedBoolParser(v32, v8, a7, v33);
+        return google::protobuf::internal::PackedBoolParser(v33, v8, a7, v34);
       case 9:
       case 0xA:
       case 0xB:
       case 0xC:
-        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v117, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/extension_set_inl.h", 56);
-        absl::lts_20240722::log_internal::LogMessage::operator<<<20>(v117, "Non-primitive types can't be packed.");
-        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v117);
+        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v118, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/extension_set_inl.h", 56);
+        absl::lts_20240722::log_internal::LogMessage::operator<<<20>(v118, "Non-primitive types can't be packed.");
+        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v118);
       case 0xD:
-        v26 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 13, *(a4 + 14), *(a4 + 32));
+        v27 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 13, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedUInt32Parser(v26, v8, a7, v27);
+        return google::protobuf::internal::PackedUInt32Parser(v27, v8, a7, v28);
       case 0xE:
         v18 = a2;
         v19 = a4;
-        *v117 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 14, *(a4 + 14), *(a4 + 32));
-        v118 = *(v19 + 16);
-        v119 = a5;
-        v120 = v18;
-        google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1},char const* google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(char const*,char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1})::{lambda(int)#1}>(a7, v8, v117);
-        return v21;
+        *v118 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 14, *(a4 + 14), *(a4 + 32));
+        v119 = *(v19 + 16);
+        v120 = a5;
+        v121 = v18;
+        google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1},char const* google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(char const*,char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1})::{lambda(int)#1}>(a7, v8, v118, v21);
+        return v22;
       case 0xF:
-        v24 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 15, *(a4 + 14), *(a4 + 32));
+        v25 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 15, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedSFixed32Parser(v24, v8, a7, v25);
+        return google::protobuf::internal::PackedSFixed32Parser(v25, v8, a7, v26);
       case 0x10:
         v16 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 16, *(a4 + 14), *(a4 + 32));
 
         return google::protobuf::internal::PackedSFixed64Parser(v16, v8, a7, v17);
       case 0x11:
-        v38 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 17, *(a4 + 14), *(a4 + 32));
+        v39 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 17, *(a4 + 14), *(a4 + 32));
 
-        return google::protobuf::internal::PackedSInt32Parser(v38, v8, a7, v39);
+        return google::protobuf::internal::PackedSInt32Parser(v39, v8, a7, v40);
       case 0x12:
         v14 = google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(this, a2, 18, *(a4 + 14), *(a4 + 32));
 
@@ -8112,47 +8085,47 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
   switch(*(a4 + 12))
   {
     case 1:
-      v8 = a6 + 8;
-      v64 = *a6;
+      v8 = (a6 + 8);
+      v65 = *a6;
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddDouble(this, a2, 1, *(a4 + 14), v64, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddDouble(this, a2, 1, *(a4 + 14), v65, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetDouble(this, a2, 1, v64, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetDouble(this, a2, 1, v65, *(a4 + 32));
       }
 
       return v8;
     case 2:
-      v8 = a6 + 4;
-      v65 = *a6;
+      v8 = (a6 + 4);
+      v66 = *a6;
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddFloat(this, a2, 2, *(a4 + 14), v65, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddFloat(this, a2, 2, *(a4 + 14), v66, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetFloat(this, a2, 2, v65, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetFloat(this, a2, 2, v66, *(a4 + 32));
       }
 
       return v8;
     case 3:
-      *v117 = 0;
-      v57 = *a6;
+      *v118 = 0;
+      v58 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v100 = a4;
-        v101 = this;
-        v102 = a2;
-        if ((v57 & 0x8000) != 0)
+        v101 = a4;
+        v102 = this;
+        v103 = a2;
+        if ((v58 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v57);
-          a2 = v102;
-          this = v101;
-          a4 = v100;
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v58);
+          a2 = v103;
+          this = v102;
+          a4 = v101;
           if (!v8)
           {
             return v8;
@@ -8161,42 +8134,42 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          *v117 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          *v118 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
       }
 
       else
       {
-        *v117 = *a6 & 0x7FLL;
-        v8 = a6 + 1;
+        *v118 = *a6 & 0x7FLL;
+        v8 = (a6 + 1);
       }
 
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 3, *(a4 + 14), *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 3, *(a4 + 14), *v118, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 3, *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 3, *v118, *(a4 + 32));
       }
 
       return v8;
     case 4:
-      *v117 = 0;
-      v62 = *a6;
+      *v118 = 0;
+      v63 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v103 = a4;
-        v104 = this;
-        v105 = a2;
-        if ((v62 & 0x8000) != 0)
+        v104 = a4;
+        v105 = this;
+        v106 = a2;
+        if ((v63 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v62);
-          a2 = v105;
-          this = v104;
-          a4 = v103;
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v63);
+          a2 = v106;
+          this = v105;
+          a4 = v104;
           if (!v8)
           {
             return v8;
@@ -8205,42 +8178,42 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          *v117 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          *v118 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
       }
 
       else
       {
-        *v117 = *a6 & 0x7FLL;
-        v8 = a6 + 1;
+        *v118 = *a6 & 0x7FLL;
+        v8 = (a6 + 1);
       }
 
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 4, *(a4 + 14), *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 4, *(a4 + 14), *v118, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 4, *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 4, *v118, *(a4 + 32));
       }
 
       return v8;
     case 5:
-      *v117 = 0;
-      v52 = *a6;
+      *v118 = 0;
+      v53 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v97 = a4;
-        v98 = this;
-        v99 = a2;
-        if ((v52 & 0x8000) != 0)
+        v98 = a4;
+        v99 = this;
+        v100 = a2;
+        if ((v53 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v52);
-          a2 = v99;
-          this = v98;
-          a4 = v97;
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v53);
+          a2 = v100;
+          this = v99;
+          a4 = v98;
           if (!v8)
           {
             return v8;
@@ -8249,70 +8222,70 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          *v117 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          *v118 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
       }
 
       else
       {
-        *v117 = *a6 & 0x7FLL;
-        v8 = a6 + 1;
+        *v118 = *a6 & 0x7FLL;
+        v8 = (a6 + 1);
       }
 
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 5, *(a4 + 14), *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 5, *(a4 + 14), *v118, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 5, *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 5, *v118, *(a4 + 32));
       }
 
       return v8;
     case 6:
-      v8 = a6 + 8;
-      v73 = *a6;
+      v8 = (a6 + 8);
+      v74 = *a6;
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 6, *(a4 + 14), v73, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt64(this, a2, 6, *(a4 + 14), v74, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 6, v73, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt64(this, a2, 6, v74, *(a4 + 32));
       }
 
       return v8;
     case 7:
-      v8 = a6 + 4;
-      v79 = *a6;
+      v8 = (a6 + 4);
+      v80 = *a6;
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 7, *(a4 + 14), v79, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 7, *(a4 + 14), v80, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 7, v79, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 7, v80, *(a4 + 32));
       }
 
       return v8;
     case 8:
-      *v117 = 0;
-      v63 = *a6;
+      *v118 = 0;
+      v64 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v106 = a4;
-        v107 = this;
-        v108 = a2;
-        if ((v63 & 0x8000) != 0)
+        v107 = a4;
+        v108 = this;
+        v109 = a2;
+        if ((v64 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v63);
-          a2 = v108;
-          this = v107;
-          a4 = v106;
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v64);
+          a2 = v109;
+          this = v108;
+          a4 = v107;
           if (!v8)
           {
             return v8;
@@ -8321,25 +8294,25 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          *v117 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          *v118 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
       }
 
       else
       {
-        *v117 = *a6 & 0x7FLL;
-        v8 = a6 + 1;
+        *v118 = *a6 & 0x7FLL;
+        v8 = (a6 + 1);
       }
 
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddBool(this, a2, 8, *(a4 + 14), *v117 != 0, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddBool(this, a2, 8, *(a4 + 14), *v118 != 0, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetBool(this, a2, 8, *v117 != 0, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetBool(this, a2, 8, *v118 != 0, *(a4 + 32));
       }
 
       return v8;
@@ -8349,65 +8322,65 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
       v13 = *(a4 + 32);
       if (v12 == 1)
       {
-        v53 = google::protobuf::internal::ExtensionSet::AddString(this, a2, 9, v13);
+        v54 = google::protobuf::internal::ExtensionSet::AddString(this, a2, 9, v13);
       }
 
       else
       {
-        v53 = google::protobuf::internal::ExtensionSet::MutableString(this, a2, 9, v13);
+        v54 = google::protobuf::internal::ExtensionSet::MutableString(this, a2, 9, v13);
       }
 
-      v54 = v53;
-      v55 = *v8;
+      v55 = v54;
+      v56 = *v8;
       if (*v8 < 0)
       {
         google::protobuf::internal::ReadSizeFallback(v8, *v8);
-        if (!v80)
+        if (!v81)
         {
           return 0;
         }
 
-        v55 = v81;
-        v56 = v80;
+        v56 = v82;
+        v57 = v81;
       }
 
       else
       {
-        v56 = v8 + 1;
+        v57 = v8 + 1;
       }
 
-      return google::protobuf::internal::EpsCopyInputStream::ReadString(a7, v56, v55, v54);
+      return google::protobuf::internal::EpsCopyInputStream::ReadString(a7, v57, v56, v55);
     case 0xA:
-      v74 = *(a4 + 13);
-      v75 = *(a4 + 32);
-      v76 = a2;
-      v77 = *(a4 + 16);
-      if (v74 == 1)
+      v75 = *(a4 + 13);
+      v76 = *(a4 + 32);
+      v77 = a2;
+      v78 = *(a4 + 16);
+      if (v75 == 1)
       {
-        v78 = google::protobuf::internal::ExtensionSet::AddMessage(this, a2, 10, v77, v75);
+        v79 = google::protobuf::internal::ExtensionSet::AddMessage(this, a2, 10, v78, v76);
       }
 
       else
       {
-        v78 = google::protobuf::internal::ExtensionSet::MutableMessage(this, a2, 10, v77, v75);
+        v79 = google::protobuf::internal::ExtensionSet::MutableMessage(this, a2, 10, v78, v76);
       }
 
-      v86 = a7[11].i32[0];
-      v87 = __OFSUB__(v86--, 1);
-      a7[11].i32[0] = v86;
-      if (v86 < 0 != v87)
+      v87 = a7[11].i32[0];
+      v88 = __OFSUB__(v87--, 1);
+      a7[11].i32[0] = v87;
+      if (v87 < 0 != v88)
       {
         return 0;
       }
 
       ++a7[11].i32[1];
-      v88 = (*(*v78 + 56))(v78, v8, a7);
+      v89 = (*(*v79 + 56))(v79, v8, a7);
       a7[11] = vadd_s32(a7[11], 0xFFFFFFFF00000001);
-      v89 = a7[10].i32[0];
+      v90 = a7[10].i32[0];
       a7[10].i32[0] = 0;
-      if (v89 == ((8 * v76) | 3))
+      if (v90 == ((8 * v77) | 3))
       {
-        return v88;
+        return v89;
       }
 
       else
@@ -8416,34 +8389,34 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
       }
 
     case 0xB:
-      v47 = *(a4 + 13);
-      v48 = *(a4 + 32);
-      v49 = *(a4 + 16);
-      if (v47 == 1)
+      v48 = *(a4 + 13);
+      v49 = *(a4 + 32);
+      v50 = *(a4 + 16);
+      if (v48 == 1)
       {
-        v50 = google::protobuf::internal::ExtensionSet::AddMessage(this, a2, 11, v49, v48);
+        v51 = google::protobuf::internal::ExtensionSet::AddMessage(this, a2, 11, v50, v49);
       }
 
       else
       {
-        v50 = google::protobuf::internal::ExtensionSet::MutableMessage(this, a2, 11, v49, v48);
+        v51 = google::protobuf::internal::ExtensionSet::MutableMessage(this, a2, 11, v50, v49);
       }
 
-      return google::protobuf::internal::ParseContext::ParseMessage(a7, v50, v8);
+      return google::protobuf::internal::ParseContext::ParseMessage(a7, v51, v8);
     case 0xD:
-      *v117 = 0;
-      v51 = *a6;
+      *v118 = 0;
+      v52 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v94 = a4;
-        v95 = this;
-        v96 = a2;
-        if ((v51 & 0x8000) != 0)
+        v95 = a4;
+        v96 = this;
+        v97 = a2;
+        if ((v52 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v51);
-          a2 = v96;
-          this = v95;
-          a4 = v94;
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v52);
+          a2 = v97;
+          this = v96;
+          a4 = v95;
           if (!v8)
           {
             return v8;
@@ -8452,48 +8425,48 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          *v117 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          *v118 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
       }
 
       else
       {
-        *v117 = *a6 & 0x7FLL;
-        v8 = a6 + 1;
+        *v118 = *a6 & 0x7FLL;
+        v8 = (a6 + 1);
       }
 
       if (*(a4 + 13) == 1)
       {
-        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 13, *(a4 + 14), *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::AddInt32(this, a2, 13, *(a4 + 14), *v118, *(a4 + 32));
       }
 
       else
       {
-        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 13, *v117, *(a4 + 32));
+        google::protobuf::internal::ExtensionSet::SetInt32(this, a2, 13, *v118, *(a4 + 32));
       }
 
       return v8;
     case 0xE:
-      *v117 = 0;
-      v67 = *a6;
+      *v118 = 0;
+      v68 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v68 = a5;
-        v116 = a4;
-        v69 = this;
-        v70 = a2;
-        if ((v67 & 0x8000) != 0)
+        v69 = a5;
+        v117 = a4;
+        v70 = this;
+        v71 = a2;
+        if ((v68 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v67);
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v68);
           if (!v8)
           {
             return v8;
           }
 
-          LODWORD(v71) = *v117;
-          v72 = v116;
-          if ((*(v116 + 16))(*(v116 + 24), *v117))
+          LODWORD(v72) = *v118;
+          v73 = v117;
+          if ((*(v117 + 16))(*(v117 + 24), *v118))
           {
             goto LABEL_89;
           }
@@ -8501,20 +8474,20 @@ google::protobuf::internal *google::protobuf::internal::ExtensionSet::ParseField
 
         else
         {
-          v71 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
-          v72 = a4;
-          if ((*(a4 + 16))(*(a4 + 24), v71))
+          v72 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
+          v73 = a4;
+          if ((*(a4 + 16))(*(a4 + 24), v72))
           {
 LABEL_89:
-            if (*(v72 + 13) == 1)
+            if (*(v73 + 13) == 1)
             {
-              google::protobuf::internal::ExtensionSet::AddInt32(v69, v70, 14, *(v72 + 14), v71, *(v72 + 32));
+              google::protobuf::internal::ExtensionSet::AddInt32(v70, v71, 14, *(v73 + 14), v72, *(v73 + 32));
             }
 
             else
             {
-              google::protobuf::internal::ExtensionSet::SetInt32(v69, v70, 14, v71, *(v72 + 32));
+              google::protobuf::internal::ExtensionSet::SetInt32(v70, v71, 14, v72, *(v73 + 32));
             }
 
             return v8;
@@ -8524,92 +8497,92 @@ LABEL_89:
 
       else
       {
-        v68 = a5;
-        v69 = this;
-        v70 = a2;
-        LODWORD(v71) = v67 & 0x7F;
-        v8 = a6 + 1;
-        v72 = a4;
+        v69 = a5;
+        v70 = this;
+        v71 = a2;
+        LODWORD(v72) = v68 & 0x7F;
+        v8 = (a6 + 1);
+        v73 = a4;
         if ((*(a4 + 16))(*(a4 + 24), *a6 & 0x7FLL))
         {
           goto LABEL_89;
         }
       }
 
-      v113 = v71;
-      v114 = v70;
-      if (*v68)
+      v114 = v72;
+      v115 = v71;
+      if (*v69)
       {
-        v115 = ((*v68 & 0xFFFFFFFFFFFFFFFELL) + 8);
+        v116 = ((*v69 & 0xFFFFFFFFFFFFFFFELL) + 8);
       }
 
       else
       {
-        v115 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<google::protobuf::UnknownFieldSet>(v68);
-        v113 = v71;
-        v114 = v70;
+        v116 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<google::protobuf::UnknownFieldSet>(v69);
+        v114 = v72;
+        v115 = v71;
       }
 
-      google::protobuf::UnknownFieldSet::AddVarint(v115, v114, v113);
+      google::protobuf::UnknownFieldSet::AddVarint(v116, v115, v114);
       return v8;
     case 0xF:
-      v8 = a6 + 4;
-      v43 = *a6;
+      v8 = (a6 + 4);
+      v44 = *a6;
       if (*(a4 + 13) == 1)
       {
-        v44 = *(a4 + 14);
-        v45 = *(a4 + 32);
-        v46 = 15;
+        v45 = *(a4 + 14);
+        v46 = *(a4 + 32);
+        v47 = 15;
         goto LABEL_52;
       }
 
-      v82 = *(a4 + 32);
-      v83 = 15;
+      v83 = *(a4 + 32);
+      v84 = 15;
       goto LABEL_129;
     case 0x10:
-      v8 = a6 + 8;
-      v58 = *a6;
+      v8 = (a6 + 8);
+      v59 = *a6;
       if (*(a4 + 13) == 1)
       {
-        v59 = *(a4 + 14);
-        v60 = *(a4 + 32);
-        v61 = 16;
+        v60 = *(a4 + 14);
+        v61 = *(a4 + 32);
+        v62 = 16;
         goto LABEL_86;
       }
 
-      v84 = *(a4 + 32);
-      v85 = 16;
+      v85 = *(a4 + 32);
+      v86 = 16;
       goto LABEL_144;
     case 0x11:
-      *v117 = 0;
-      v42 = *a6;
+      *v118 = 0;
+      v43 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v90 = a4;
-        v91 = this;
-        v92 = a2;
-        if ((v42 & 0x8000) != 0)
+        v91 = a4;
+        v92 = this;
+        v93 = a2;
+        if ((v43 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v42);
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v43);
           if (!v8)
           {
             return v8;
           }
 
-          LODWORD(v93) = *v117;
+          LODWORD(v94) = *v118;
         }
 
         else
         {
-          v93 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          v94 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
 
-        a2 = v92;
-        this = v91;
-        a4 = v90;
-        v43 = -(v93 & 1) ^ (v93 >> 1);
-        if (*(v90 + 13) == 1)
+        a2 = v93;
+        this = v92;
+        a4 = v91;
+        v44 = -(v94 & 1) ^ (v94 >> 1);
+        if (*(v91 + 13) == 1)
         {
           goto LABEL_49;
         }
@@ -8617,55 +8590,55 @@ LABEL_89:
 
       else
       {
-        v8 = a6 + 1;
-        v43 = -(v42 & 1) ^ ((v42 & 0x7F) >> 1);
+        v8 = (a6 + 1);
+        v44 = -(v43 & 1) ^ ((v43 & 0x7F) >> 1);
         if (*(a4 + 13) == 1)
         {
 LABEL_49:
-          v44 = *(a4 + 14);
-          v45 = *(a4 + 32);
-          v46 = 17;
+          v45 = *(a4 + 14);
+          v46 = *(a4 + 32);
+          v47 = 17;
 LABEL_52:
-          google::protobuf::internal::ExtensionSet::AddInt32(this, a2, v46, v44, v43, v45);
+          google::protobuf::internal::ExtensionSet::AddInt32(this, a2, v47, v45, v44, v46);
           return v8;
         }
       }
 
-      v82 = *(a4 + 32);
-      v83 = 17;
+      v83 = *(a4 + 32);
+      v84 = 17;
 LABEL_129:
-      google::protobuf::internal::ExtensionSet::SetInt32(this, a2, v83, v43, v82);
+      google::protobuf::internal::ExtensionSet::SetInt32(this, a2, v84, v44, v83);
       return v8;
     case 0x12:
-      *v117 = 0;
-      v66 = *a6;
+      *v118 = 0;
+      v67 = *a6;
       if ((*a6 & 0x80) != 0)
       {
-        v109 = a4;
-        v110 = this;
-        v111 = a2;
-        if ((v66 & 0x8000) != 0)
+        v110 = a4;
+        v111 = this;
+        v112 = a2;
+        if ((v67 & 0x8000) != 0)
         {
-          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v117, v66);
+          v8 = google::protobuf::internal::VarintParseSlowArm(a6, v118, v67);
           if (!v8)
           {
             return v8;
           }
 
-          v112 = *v117;
+          v113 = *v118;
         }
 
         else
         {
-          v112 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
-          v8 = a6 + 2;
+          v113 = *a6 & 0x7FLL | (((*a6 >> 8) & 0x7FLL) << 7);
+          v8 = (a6 + 2);
         }
 
-        a2 = v111;
-        this = v110;
-        a4 = v109;
-        v58 = -(v112 & 1) ^ (v112 >> 1);
-        if (*(v109 + 13) == 1)
+        a2 = v112;
+        this = v111;
+        a4 = v110;
+        v59 = -(v113 & 1) ^ (v113 >> 1);
+        if (*(v110 + 13) == 1)
         {
           goto LABEL_85;
         }
@@ -8673,24 +8646,24 @@ LABEL_129:
 
       else
       {
-        v8 = a6 + 1;
-        v58 = -(*a6 & 1) ^ ((*a6 & 0x7FuLL) >> 1);
+        v8 = (a6 + 1);
+        v59 = -(*a6 & 1) ^ ((*a6 & 0x7FuLL) >> 1);
         if (*(a4 + 13) == 1)
         {
 LABEL_85:
-          v59 = *(a4 + 14);
-          v60 = *(a4 + 32);
-          v61 = 18;
+          v60 = *(a4 + 14);
+          v61 = *(a4 + 32);
+          v62 = 18;
 LABEL_86:
-          google::protobuf::internal::ExtensionSet::AddInt64(this, a2, v61, v59, v58, v60);
+          google::protobuf::internal::ExtensionSet::AddInt64(this, a2, v62, v60, v59, v61);
           return v8;
         }
       }
 
-      v84 = *(a4 + 32);
-      v85 = 18;
+      v85 = *(a4 + 32);
+      v86 = 18;
 LABEL_144:
-      google::protobuf::internal::ExtensionSet::SetInt64(this, a2, v85, v58, v84);
+      google::protobuf::internal::ExtensionSet::SetInt64(this, a2, v86, v59, v85);
       return v8;
     default:
       return v8;
@@ -9012,143 +8985,136 @@ LABEL_2:
   return result;
 }
 
-void google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1},char const* google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(char const*,char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1})::{lambda(int)#1}>(uint64_t a1, google::protobuf::internal *this, __int128 *a3)
+void google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1},char const* google::protobuf::internal::EpsCopyInputStream::ReadPackedVarint<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(char const*,char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1})::{lambda(int)#1}>(uint64_t a1, google::protobuf::internal *this, __int128 *a3, unint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v5 = *this;
+  v25 = *MEMORY[0x277D85DE8];
+  v6 = *this;
   if ((*this & 0x80000000) == 0)
   {
-    v6 = (this + 1);
-    v7 = *(a1 + 8);
-    v8 = v7 - v6;
-    if (v5 > v7 - v6)
+    v7 = (this + 1);
+    v8 = *(a1 + 8);
+    v9 = v8 - v7;
+    if (v6 > v8 - v7)
     {
       goto LABEL_6;
     }
 
-    goto LABEL_11;
+LABEL_11:
+    v17 = a3[1];
+    v19 = *a3;
+    v20 = v17;
+    v21 = *(a3 + 4);
+    google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(v7, v7 + v6, &v19, a4);
+    return;
   }
 
   google::protobuf::internal::ReadSizeFallback(this, *this);
-  if (v6)
+  if (!v7)
   {
-    v5 = v9;
-    v7 = *(a1 + 8);
-    v8 = v7 - v6;
-    if (v5 <= v7 - v6)
-    {
-LABEL_11:
-      v16 = a3[1];
-      v21 = *a3;
-      v22 = v16;
-      v23 = *(a3 + 4);
-      google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(v6, v6 + v5, &v21);
-      goto LABEL_12;
-    }
-
-LABEL_6:
-    while (1)
-    {
-      v10 = a3[1];
-      v21 = *a3;
-      v22 = v10;
-      v23 = *(a3 + 4);
-      v11 = google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(v6, v7, &v21);
-      if (!v11)
-      {
-        break;
-      }
-
-      v12 = *(a1 + 8);
-      v13 = v11 - v12;
-      v14 = v5 - v8;
-      if (v5 - v8 <= 16)
-      {
-        v26 = 0;
-        v25 = 0;
-        v24 = *v12;
-        v18 = v14;
-        v19 = a3[1];
-        v21 = *a3;
-        v22 = v19;
-        v23 = *(a3 + 4);
-        if (google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>((&v24 + v13), &v24 + v14, &v21) == (&v24 + v14))
-        {
-          v20 = *(a1 + 8) + v18;
-        }
-
-        break;
-      }
-
-      if (*(a1 + 28) < 17)
-      {
-        break;
-      }
-
-      v15 = google::protobuf::internal::EpsCopyInputStream::Next(a1);
-      if (!v15)
-      {
-        break;
-      }
-
-      v5 = v5 - v8 - v13;
-      v6 = (v15 + v13);
-      v7 = *(a1 + 8);
-      v8 = v7 - v6;
-      if (v5 <= v7 - v6)
-      {
-        goto LABEL_11;
-      }
-    }
+    return;
   }
 
-LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
+  v6 = v10;
+  v8 = *(a1 + 8);
+  v9 = v8 - v7;
+  if (v6 <= v8 - v7)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_6:
+  while (1)
+  {
+    v11 = a3[1];
+    v19 = *a3;
+    v20 = v11;
+    v21 = *(a3 + 4);
+    v12 = google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(v7, v8, &v19, a4);
+    if (!v12)
+    {
+      break;
+    }
+
+    v14 = *(a1 + 8);
+    v15 = v12 - v14;
+    if (v6 - v9 <= 16)
+    {
+      v24 = 0;
+      v23 = 0;
+      v22 = *v14;
+      v18 = a3[1];
+      v19 = *a3;
+      v20 = v18;
+      v21 = *(a3 + 4);
+      google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>((&v22 + v15), &v22 + v6 - v9, &v19, v13);
+      return;
+    }
+
+    if (*(a1 + 28) < 17)
+    {
+      return;
+    }
+
+    v16 = google::protobuf::internal::EpsCopyInputStream::Next(a1);
+    if (!v16)
+    {
+      return;
+    }
+
+    v6 = v6 - v9 - v15;
+    v7 = (v16 + v15);
+    v8 = *(a1 + 8);
+    v9 = v8 - v7;
+    if (v6 <= v8 - v7)
+    {
+      goto LABEL_11;
+    }
+  }
 }
 
-google::protobuf::internal *google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(google::protobuf::internal *this, unint64_t a2, uint64_t **a3)
+google::protobuf::internal *google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::PackedEnumParserArg<google::protobuf::UnknownFieldSet>(void *,char const*,google::protobuf::internal::ParseContext *,BOOL (*)(void const*,int),void const*,google::protobuf::internal::InternalMetadata *,int)::{lambda(int)#1}>(google::protobuf::internal *this, unint64_t a2, uint64_t **a3, unint64_t a4)
 {
-  for (i = this; i < a2; *(v9 + 4 * v8) = v11)
+  for (i = this; i < a2; *(v10 + 4 * v9) = v12)
   {
     while (1)
     {
-      *v16 = 0;
-      v10 = *i;
+      *v17 = 0;
+      v11 = *i;
       if ((*i & 0x80) != 0)
       {
-        if ((v10 & 0x8000) != 0)
+        if ((v11 & 0x8000) != 0)
         {
-          i = google::protobuf::internal::VarintParseSlowArm(i, v16, v10);
+          i = google::protobuf::internal::VarintParseSlowArm(i, v17, v11);
           if (!i)
           {
             return i;
           }
 
-          v11 = *v16;
+          v12 = *v17;
         }
 
         else
         {
-          v11 = *i & 0x7FLL | (((*i >> 8) & 0x7FLL) << 7);
+          v12 = *i & 0x7FLL | (((*i >> 8) & 0x7FLL) << 7);
           i = (i + 2);
         }
       }
 
       else
       {
-        v11 = *i & 0x7FLL;
+        v12 = *i & 0x7FLL;
         i = (i + 1);
       }
 
-      if ((a3[1])(a3[2], v11))
+      if ((a3[1])(a3[2], v12))
       {
         break;
       }
 
-      v12 = a3[3];
-      if (*v12)
+      v13 = a3[3];
+      if (*v13)
       {
-        google::protobuf::UnknownFieldSet::AddVarint(((*v12 & 0xFFFFFFFFFFFFFFFELL) + 8), *(a3 + 8), v11);
+        google::protobuf::UnknownFieldSet::AddVarint(((*v13 & 0xFFFFFFFFFFFFFFFELL) + 8), *(a3 + 8), v12);
         if (i >= a2)
         {
           return i;
@@ -9157,9 +9123,9 @@ google::protobuf::internal *google::protobuf::internal::ReadPackedVarintArray<ch
 
       else
       {
-        v13 = *(a3 + 8);
-        v14 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<google::protobuf::UnknownFieldSet>(v12);
-        google::protobuf::UnknownFieldSet::AddVarint(v14, v13, v11);
+        v14 = *(a3 + 8);
+        v15 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<google::protobuf::UnknownFieldSet>(v13);
+        google::protobuf::UnknownFieldSet::AddVarint(v15, v14, v12);
         if (i >= a2)
         {
           return i;
@@ -9167,17 +9133,17 @@ google::protobuf::internal *google::protobuf::internal::ReadPackedVarintArray<ch
       }
     }
 
-    v6 = *a3;
-    v7 = **a3;
-    v8 = v7;
-    if (v7 == HIDWORD(v7))
+    v7 = *a3;
+    v8 = **a3;
+    v9 = v8;
+    if (v8 == HIDWORD(v8))
     {
-      google::protobuf::RepeatedField<int>::Grow(*a3, HIDWORD(v7), (HIDWORD(v7) + 1));
-      v8 = *v6;
+      google::protobuf::RepeatedField<int>::Grow(*a3, HIDWORD(v8), (HIDWORD(v8) + 1));
+      v9 = *v7;
     }
 
-    v9 = v6[1];
-    *v6 = v8 + 1;
+    v10 = v7[1];
+    *v7 = v9 + 1;
   }
 
   return i;
@@ -9300,9 +9266,9 @@ LABEL_11:
   return v2;
 }
 
-void google::protobuf::anonymous namespace::Error<char const*,google::protobuf::Edition,char const*,google::protobuf::Edition>(uint64_t *a1, char *__s, google::protobuf *a3, const char *a4, google::protobuf *a5)
+void google::protobuf::anonymous namespace::Error<char const*,google::protobuf::Edition,char const*,google::protobuf::Edition>(uint64_t *a1, char *__s, google::protobuf *a3, char *a4, google::protobuf *a5)
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   if (__s)
   {
     v10 = strlen(__s);
@@ -9313,34 +9279,34 @@ void google::protobuf::anonymous namespace::Error<char const*,google::protobuf::
     v10 = 0;
   }
 
-  v35[0] = __s;
-  v35[1] = v10;
+  v33[0] = __s;
+  v33[1] = v10;
+  v23 = 0;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  v30 = google::protobuf::internal::ShortEditionName(a3);
-  v31 = v11;
-  v32 = &v30;
-  v33 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-  absl::lts_20240722::str_format_internal::FormatUntyped(&v25, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v32, 1uLL);
-  v12 = HIBYTE(v27);
-  if (v27 >= 0)
+  v28 = google::protobuf::internal::ShortEditionName(a3);
+  v29 = v11;
+  v30 = &v28;
+  v31 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+  absl::lts_20240722::str_format_internal::FormatUntyped(&v23, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v30, 1uLL);
+  v12 = HIBYTE(v25);
+  if (v25 >= 0)
   {
-    v13 = &v25;
+    v13 = &v23;
   }
 
   else
   {
-    v13 = v25;
+    v13 = v23;
   }
 
-  if (v27 < 0)
+  if (v25 < 0)
   {
-    v12 = v26;
+    v12 = v24;
   }
 
-  v34[0] = v13;
-  v34[1] = v12;
+  v32[0] = v13;
+  v32[1] = v12;
   if (a4)
   {
     v14 = strlen(a4);
@@ -9351,35 +9317,35 @@ void google::protobuf::anonymous namespace::Error<char const*,google::protobuf::
     v14 = 0;
   }
 
-  v32 = a4;
-  v33 = v14;
+  v30 = a4;
+  v31 = v14;
+  v20 = 0;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  v29[0] = google::protobuf::internal::ShortEditionName(a5);
-  v29[1] = v15;
-  v36[0] = v29;
-  v36[1] = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-  absl::lts_20240722::str_format_internal::FormatUntyped(&v22, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, v36, 1uLL);
-  v16 = HIBYTE(v24);
-  if (v24 >= 0)
+  v27[0] = google::protobuf::internal::ShortEditionName(a5);
+  v27[1] = v15;
+  v34[0] = v27;
+  v34[1] = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+  absl::lts_20240722::str_format_internal::FormatUntyped(&v20, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, v34, 1uLL);
+  v16 = HIBYTE(v22);
+  if (v22 >= 0)
   {
-    v17 = &v22;
+    v17 = &v20;
   }
 
   else
   {
-    v17 = v22;
+    v17 = v20;
   }
 
-  if (v24 < 0)
+  if (v22 < 0)
   {
-    v16 = v23;
+    v16 = v21;
   }
 
-  v30 = v17;
-  v31 = v16;
-  absl::lts_20240722::StrCat(v35, v34, &v32, &v30, &__p);
+  v28 = v17;
+  v29 = v16;
+  absl::lts_20240722::StrCat(v33, v32, &v30, &v28, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -9401,40 +9367,33 @@ void google::protobuf::anonymous namespace::Error<char const*,google::protobuf::
   }
 
   absl::lts_20240722::FailedPreconditionError(p_p, size, a1);
-  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    if ((SHIBYTE(v24) & 0x80000000) == 0)
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v22) & 0x80000000) == 0)
     {
-      goto LABEL_25;
-    }
+LABEL_25:
+      if ((SHIBYTE(v25) & 0x80000000) == 0)
+      {
+        return;
+      }
 
 LABEL_29:
-    operator delete(v22);
-    if ((SHIBYTE(v27) & 0x80000000) == 0)
-    {
-      goto LABEL_26;
+      operator delete(v23);
+      return;
     }
-
-LABEL_30:
-    operator delete(v25);
-    v21 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  operator delete(__p.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v24) < 0)
+  else if ((SHIBYTE(v22) & 0x80000000) == 0)
+  {
+    goto LABEL_25;
+  }
+
+  operator delete(v20);
+  if (SHIBYTE(v25) < 0)
   {
     goto LABEL_29;
   }
-
-LABEL_25:
-  if (SHIBYTE(v27) < 0)
-  {
-    goto LABEL_30;
-  }
-
-LABEL_26:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CDC7928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -9549,69 +9508,316 @@ void sub_23CDC7AEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void google::protobuf::FeatureResolver::Create(google::protobuf *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 48);
-  if (v5 > a1)
+  if (v5 <= a1)
   {
-    v6 = v76;
-    *a3 = v76;
-    v76 = 55;
-    if (v6 != 1)
+    v10 = *(a2 + 52);
+    if (v10 < a1)
     {
-      goto LABEL_116;
+      v11 = p_p;
+      *a3 = p_p;
+      p_p = 55;
+      if (v11 == 1)
+      {
+        absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
+        v8 = p_p;
+        if ((p_p & 1) == 0)
+        {
+          goto LABEL_4;
+        }
+      }
+
+      return;
     }
 
-    absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
-    v8 = v76;
-    if (v76)
+    v12 = *(a2 + 24);
+    if (v12)
     {
-      goto LABEL_116;
+      v13 = (v12 + 7);
     }
 
-    goto LABEL_4;
-  }
-
-  v10 = *(a2 + 52);
-  if (v10 < a1)
-  {
-    v11 = v76;
-    *a3 = v76;
-    v76 = 55;
-    if (v11 != 1)
+    else
     {
-      goto LABEL_116;
+      v13 = (a2 + 24);
     }
 
-    absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
-    v8 = v76;
-    if (v76)
+    v14 = *(a2 + 32);
+    if (v14)
     {
-      goto LABEL_116;
+      v15 = 0;
+      v16 = 8 * v14;
+      while (1)
+      {
+        v17 = *v13;
+        v18 = *(*v13 + 32);
+        if (!v18)
+        {
+          break;
+        }
+
+        if (v15 && v18 <= v15)
+        {
+          v71 = 0;
+          v72 = 0;
+          v73 = 0;
+          __p.__r_.__value_.__r.__words[0] = google::protobuf::internal::ShortEditionName(v15);
+          __p.__r_.__value_.__l.__size_ = v44;
+          p_p = &__p;
+          v76 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+          v45 = &v71;
+          absl::lts_20240722::str_format_internal::FormatUntyped(&v71, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &p_p, 1uLL);
+          if (v73 >= 0)
+          {
+            v46 = HIBYTE(v73);
+          }
+
+          else
+          {
+            v45 = v71;
+            v46 = v72;
+          }
+
+          memset(&__p, 0, sizeof(__p));
+          v66 = google::protobuf::internal::ShortEditionName(v18);
+          v67 = v47;
+          p_p = &v66;
+          v76 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+          absl::lts_20240722::str_format_internal::FormatUntyped(&__p, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &p_p, 1uLL);
+          size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v49 = &__p;
+          }
+
+          else
+          {
+            v49 = __p.__r_.__value_.__r.__words[0];
+          }
+
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            size = __p.__r_.__value_.__l.__size_;
+          }
+
+          p_p = "Feature set defaults are not strictly increasing.  Edition ";
+          v76 = 59;
+          v77 = v45;
+          v78 = v46;
+          v79 = " is greater than or equal to edition ";
+          v80 = 37;
+          v81 = v49;
+          v82 = size;
+          v83 = ".";
+          v84 = 1;
+          absl::lts_20240722::strings_internal::CatPieces(&p_p, 5, v85);
+          if ((v85[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v50 = v85;
+          }
+
+          else
+          {
+            v50 = v85[0].__r_.__value_.__r.__words[0];
+          }
+
+          if ((v85[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v51 = HIBYTE(v85[0].__r_.__value_.__r.__words[2]);
+          }
+
+          else
+          {
+            v51 = v85[0].__r_.__value_.__l.__size_;
+          }
+
+          absl::lts_20240722::FailedPreconditionError(v50, v51, &v86);
+          if (SHIBYTE(v85[0].__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v85[0].__r_.__value_.__l.__data_);
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+            {
+              goto LABEL_98;
+            }
+
+LABEL_86:
+            if ((SHIBYTE(v73) & 0x80000000) == 0)
+            {
+              goto LABEL_87;
+            }
+
+LABEL_99:
+            operator delete(v71);
+            v58 = v86;
+            *a3 = v86;
+            v86 = 55;
+            if (v58 != 1)
+            {
+              return;
+            }
+          }
+
+          else
+          {
+            if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            {
+              goto LABEL_86;
+            }
+
+LABEL_98:
+            operator delete(__p.__r_.__value_.__l.__data_);
+            if (SHIBYTE(v73) < 0)
+            {
+              goto LABEL_99;
+            }
+
+LABEL_87:
+            v52 = v86;
+            *a3 = v86;
+            v86 = 55;
+            if (v52 != 1)
+            {
+              return;
+            }
+          }
+
+          absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
+          v57 = v86;
+          if (v86)
+          {
+            return;
+          }
+
+LABEL_96:
+          absl::lts_20240722::status_internal::StatusRep::Unref(v57, v56);
+          return;
+        }
+
+        if (*(v17 + 24))
+        {
+          v19 = *(v17 + 24);
+        }
+
+        else
+        {
+          v19 = &google::protobuf::_FeatureSet_default_instance_;
+        }
+
+        if (p_p != 1)
+        {
+          absl::lts_20240722::StatusOr<google::protobuf::FeatureResolver>::StatusOr<absl::lts_20240722::Status const,0>(a3, &p_p);
+          absl::lts_20240722::Status::~Status(&p_p, v59);
+          return;
+        }
+
+        v15 = *(v17 + 32);
+        ++v13;
+        v16 -= 8;
+        if (!v16)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      p_p = "Invalid edition ";
+      v76 = 16;
+      v66 = 0;
+      v67 = 0;
+      v68 = 0;
+      v86 = google::protobuf::internal::ShortEditionName(0);
+      v87 = v38;
+      v71 = &v86;
+      v72 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+      absl::lts_20240722::str_format_internal::FormatUntyped(&v66, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v71, 1uLL);
+      v39 = HIBYTE(v68);
+      if (v68 >= 0)
+      {
+        v40 = &v66;
+      }
+
+      else
+      {
+        v40 = v66;
+      }
+
+      if (v68 < 0)
+      {
+        v39 = v67;
+      }
+
+      v85[0].__r_.__value_.__r.__words[0] = v40;
+      v85[0].__r_.__value_.__l.__size_ = v39;
+      v71 = " specified.";
+      v72 = 11;
+      absl::lts_20240722::StrCat(&p_p, v85, &v71, &__p);
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v41 = &__p;
+      }
+
+      else
+      {
+        v41 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v42 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v42 = __p.__r_.__value_.__l.__size_;
+      }
+
+      absl::lts_20240722::FailedPreconditionError(v41, v42, v70);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v68) & 0x80000000) == 0)
+        {
+LABEL_68:
+          v43 = v70[0];
+          *a3 = v70[0];
+          v70[0] = 55;
+          if (v43 != 1)
+          {
+            return;
+          }
+
+          goto LABEL_95;
+        }
+      }
+
+      else if ((SHIBYTE(v68) & 0x80000000) == 0)
+      {
+        goto LABEL_68;
+      }
+
+      operator delete(v66);
+      v55 = v70[0];
+      *a3 = v70[0];
+      v70[0] = 55;
+      if (v55 != 1)
+      {
+        return;
+      }
+
+LABEL_95:
+      absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
+      v57 = v70[0];
+      if (v70[0])
+      {
+        return;
+      }
+
+      goto LABEL_96;
     }
 
-LABEL_4:
-    absl::lts_20240722::status_internal::StatusRep::Unref(v8, v7);
-    goto LABEL_116;
-  }
-
-  v12 = *(a2 + 24);
-  if (v12)
-  {
-    v13 = (v12 + 7);
-  }
-
-  else
-  {
-    v13 = (a2 + 24);
-  }
-
-  v14 = *(a2 + 32);
-  if (!v14)
-  {
 LABEL_22:
-    google::protobuf::FeatureSetDefaults_FeatureSetEditionDefault::FeatureSetDefaults_FeatureSetEditionDefault(&v72, 0);
-    v75 = a1;
-    LODWORD(v74) = v74 | 2;
+    google::protobuf::FeatureSetDefaults_FeatureSetEditionDefault::FeatureSetDefaults_FeatureSetEditionDefault(&v71, 0);
+    v74 = a1;
+    LODWORD(v73) = v73 | 2;
     v21 = *(a2 + 24);
     if (v21)
     {
@@ -9659,33 +9865,33 @@ LABEL_32:
           v29 = &google::protobuf::_FeatureSet_default_instance_;
         }
 
-        google::protobuf::FeatureSet::FeatureSet(v64, 0, v29, v20);
-        google::protobuf::FeatureSet::FeatureSet(&v76, 0);
-        v30 = v77;
-        if (v77)
+        google::protobuf::FeatureSet::FeatureSet(v63, 0, v29, v20);
+        google::protobuf::FeatureSet::FeatureSet(&p_p, 0);
+        v30 = v76;
+        if (v76)
         {
-          v30 = *(v77 & 0xFFFFFFFFFFFFFFFELL);
-          v31 = v65;
-          if ((v65 & 1) == 0)
+          v30 = *(v76 & 0xFFFFFFFFFFFFFFFELL);
+          v31 = v64;
+          if ((v64 & 1) == 0)
           {
 LABEL_37:
             if (v30 != v31)
             {
 LABEL_38:
-              google::protobuf::FeatureSet::CopyFrom(&v76, v64);
+              google::protobuf::FeatureSet::CopyFrom(&p_p, v63);
               goto LABEL_106;
             }
 
 LABEL_105:
-            google::protobuf::FeatureSet::InternalSwap(&v76, v64);
+            google::protobuf::FeatureSet::InternalSwap(&p_p, v63);
 LABEL_106:
             google::protobuf::FeatureSet::FeatureSet(a3 + 8, 0);
-            if (v60 == &v76)
+            if (v60 == &p_p)
             {
 LABEL_114:
               *a3 = 1;
-              google::protobuf::FeatureSet::~FeatureSet(&v76);
-              google::protobuf::FeatureSet::~FeatureSet(v64);
+              google::protobuf::FeatureSet::~FeatureSet(&p_p);
+              google::protobuf::FeatureSet::~FeatureSet(v63);
               goto LABEL_115;
             }
 
@@ -9693,27 +9899,27 @@ LABEL_114:
             if (v61)
             {
               v61 = *(v61 & 0xFFFFFFFFFFFFFFFELL);
-              v62 = v77;
-              if ((v77 & 1) == 0)
+              v62 = v76;
+              if ((v76 & 1) == 0)
               {
 LABEL_109:
                 if (v61 != v62)
                 {
 LABEL_110:
-                  google::protobuf::FeatureSet::CopyFrom(v60, &v76);
+                  google::protobuf::FeatureSet::CopyFrom(v60, &p_p);
                   goto LABEL_114;
                 }
 
 LABEL_113:
-                google::protobuf::FeatureSet::InternalSwap(v60, &v76);
+                google::protobuf::FeatureSet::InternalSwap(v60, &p_p);
                 goto LABEL_114;
               }
             }
 
             else
             {
-              v62 = v77;
-              if ((v77 & 1) == 0)
+              v62 = v76;
+              if ((v76 & 1) == 0)
               {
                 goto LABEL_109;
               }
@@ -9730,8 +9936,8 @@ LABEL_113:
 
         else
         {
-          v31 = v65;
-          if ((v65 & 1) == 0)
+          v31 = v64;
+          if ((v64 & 1) == 0)
           {
             goto LABEL_37;
           }
@@ -9755,90 +9961,90 @@ LABEL_113:
       }
     }
 
-    v76 = "No valid default found for edition ";
-    v77 = 35;
+    p_p = "No valid default found for edition ";
+    v76 = 35;
+    v66 = 0;
     v67 = 0;
     v68 = 0;
-    v69 = 0;
-    v71[0] = google::protobuf::internal::ShortEditionName(a1);
-    v71[1] = v32;
-    v87 = v71;
-    v88 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-    absl::lts_20240722::str_format_internal::FormatUntyped(&v67, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v87, 1uLL);
-    v33 = HIBYTE(v69);
-    if (v69 >= 0)
+    v70[0] = google::protobuf::internal::ShortEditionName(a1);
+    v70[1] = v32;
+    v86 = v70;
+    v87 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
+    absl::lts_20240722::str_format_internal::FormatUntyped(&v66, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v86, 1uLL);
+    v33 = HIBYTE(v68);
+    if (v68 >= 0)
     {
-      v34 = &v67;
+      v34 = &v66;
     }
 
     else
     {
-      v34 = v67;
+      v34 = v66;
     }
 
-    if (v69 < 0)
+    if (v68 < 0)
     {
-      v33 = v68;
+      v33 = v67;
     }
 
-    v86[0].__r_.__value_.__r.__words[0] = v34;
-    v86[0].__r_.__value_.__l.__size_ = v33;
-    absl::lts_20240722::StrCat(&v76, v86, &__p);
+    v85[0].__r_.__value_.__r.__words[0] = v34;
+    v85[0].__r_.__value_.__l.__size_ = v33;
+    absl::lts_20240722::StrCat(&p_p, v85, &__p);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      p_p = &__p;
+      v35 = &__p;
     }
 
     else
     {
-      p_p = __p.__r_.__value_.__r.__words[0];
+      v35 = __p.__r_.__value_.__r.__words[0];
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v36 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = __p.__r_.__value_.__l.__size_;
+      v36 = __p.__r_.__value_.__l.__size_;
     }
 
-    absl::lts_20240722::FailedPreconditionError(p_p, size, &v66);
+    absl::lts_20240722::FailedPreconditionError(v35, v36, &v65);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v69) & 0x80000000) == 0)
+      if ((SHIBYTE(v68) & 0x80000000) == 0)
       {
 LABEL_53:
-        v37 = v66;
-        *a3 = v66;
-        v66 = 55;
+        v37 = v65;
+        *a3 = v65;
+        v65 = 55;
         if (v37 == 1)
         {
 LABEL_91:
           absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
-          if ((v66 & 1) == 0)
+          if ((v65 & 1) == 0)
           {
-            absl::lts_20240722::status_internal::StatusRep::Unref(v66, v54);
+            absl::lts_20240722::status_internal::StatusRep::Unref(v65, v54);
           }
         }
 
 LABEL_115:
-        google::protobuf::FeatureSetDefaults_FeatureSetEditionDefault::~FeatureSetDefaults_FeatureSetEditionDefault(&v72);
-        goto LABEL_116;
+        google::protobuf::FeatureSetDefaults_FeatureSetEditionDefault::~FeatureSetDefaults_FeatureSetEditionDefault(&v71);
+        return;
       }
     }
 
-    else if ((SHIBYTE(v69) & 0x80000000) == 0)
+    else if ((SHIBYTE(v68) & 0x80000000) == 0)
     {
       goto LABEL_53;
     }
 
-    operator delete(v67);
-    v53 = v66;
-    *a3 = v66;
-    v66 = 55;
+    operator delete(v66);
+    v53 = v65;
+    *a3 = v65;
+    v65 = 55;
     if (v53 == 1)
     {
       goto LABEL_91;
@@ -9847,269 +10053,17 @@ LABEL_115:
     goto LABEL_115;
   }
 
-  v15 = 0;
-  v16 = 8 * v14;
-  while (1)
+  v6 = p_p;
+  *a3 = p_p;
+  p_p = 55;
+  if (v6 == 1)
   {
-    v17 = *v13;
-    v18 = *(*v13 + 32);
-    if (!v18)
-    {
-      v76 = "Invalid edition ";
-      v77 = 16;
-      v67 = 0;
-      v68 = 0;
-      v69 = 0;
-      v87 = google::protobuf::internal::ShortEditionName(0);
-      v88 = v38;
-      v72 = &v87;
-      v73 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-      absl::lts_20240722::str_format_internal::FormatUntyped(&v67, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v72, 1uLL);
-      v39 = HIBYTE(v69);
-      if (v69 >= 0)
-      {
-        v40 = &v67;
-      }
-
-      else
-      {
-        v40 = v67;
-      }
-
-      if (v69 < 0)
-      {
-        v39 = v68;
-      }
-
-      v86[0].__r_.__value_.__r.__words[0] = v40;
-      v86[0].__r_.__value_.__l.__size_ = v39;
-      v72 = " specified.";
-      v73 = 11;
-      absl::lts_20240722::StrCat(&v76, v86, &v72, &__p);
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v41 = &__p;
-      }
-
-      else
-      {
-        v41 = __p.__r_.__value_.__r.__words[0];
-      }
-
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v42 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v42 = __p.__r_.__value_.__l.__size_;
-      }
-
-      absl::lts_20240722::FailedPreconditionError(v41, v42, v71);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v69) & 0x80000000) == 0)
-        {
-LABEL_68:
-          v43 = v71[0];
-          *a3 = v71[0];
-          v71[0] = 55;
-          if (v43 != 1)
-          {
-            goto LABEL_116;
-          }
-
-          goto LABEL_95;
-        }
-      }
-
-      else if ((SHIBYTE(v69) & 0x80000000) == 0)
-      {
-        goto LABEL_68;
-      }
-
-      operator delete(v67);
-      v55 = v71[0];
-      *a3 = v71[0];
-      v71[0] = 55;
-      if (v55 != 1)
-      {
-        goto LABEL_116;
-      }
-
-LABEL_95:
-      absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
-      v57 = v71[0];
-      if (v71[0])
-      {
-        goto LABEL_116;
-      }
-
-      goto LABEL_96;
-    }
-
-    if (v15 && v18 <= v15)
-    {
-      break;
-    }
-
-    if (*(v17 + 24))
-    {
-      v19 = *(v17 + 24);
-    }
-
-    else
-    {
-      v19 = &google::protobuf::_FeatureSet_default_instance_;
-    }
-
-    if (v76 != 1)
-    {
-      absl::lts_20240722::StatusOr<google::protobuf::FeatureResolver>::StatusOr<absl::lts_20240722::Status const,0>(a3, &v76);
-      absl::lts_20240722::Status::~Status(&v76, v59);
-      goto LABEL_116;
-    }
-
-    v15 = *(v17 + 32);
-    ++v13;
-    v16 -= 8;
-    if (!v16)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  v72 = 0;
-  v73 = 0;
-  v74 = 0;
-  __p.__r_.__value_.__r.__words[0] = google::protobuf::internal::ShortEditionName(v15);
-  __p.__r_.__value_.__l.__size_ = v44;
-  v76 = &__p;
-  v77 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-  v45 = &v72;
-  absl::lts_20240722::str_format_internal::FormatUntyped(&v72, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v76, 1uLL);
-  if (v74 >= 0)
-  {
-    v46 = HIBYTE(v74);
-  }
-
-  else
-  {
-    v45 = v72;
-    v46 = v73;
-  }
-
-  memset(&__p, 0, sizeof(__p));
-  v67 = google::protobuf::internal::ShortEditionName(v18);
-  v68 = v47;
-  v76 = &v67;
-  v77 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string_view>;
-  absl::lts_20240722::str_format_internal::FormatUntyped(&__p, absl::lts_20240722::str_format_internal::FormatRawSinkImpl::Flush<absl::lts_20240722::strings_internal::StringifySink>, "%v", 2, &v76, 1uLL);
-  v48 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v49 = &__p;
-  }
-
-  else
-  {
-    v49 = __p.__r_.__value_.__r.__words[0];
-  }
-
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v48 = __p.__r_.__value_.__l.__size_;
-  }
-
-  v76 = "Feature set defaults are not strictly increasing.  Edition ";
-  v77 = 59;
-  v78 = v45;
-  v79 = v46;
-  v80 = " is greater than or equal to edition ";
-  v81 = 37;
-  v82 = v49;
-  v83 = v48;
-  v84 = ".";
-  v85 = 1;
-  absl::lts_20240722::strings_internal::CatPieces(&v76, 5, v86);
-  if ((v86[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v50 = v86;
-  }
-
-  else
-  {
-    v50 = v86[0].__r_.__value_.__r.__words[0];
-  }
-
-  if ((v86[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v51 = HIBYTE(v86[0].__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    v51 = v86[0].__r_.__value_.__l.__size_;
-  }
-
-  absl::lts_20240722::FailedPreconditionError(v50, v51, &v87);
-  if ((SHIBYTE(v86[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_86;
-    }
-
-LABEL_98:
-    operator delete(__p.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v74) < 0)
-    {
-      goto LABEL_99;
-    }
-
-LABEL_87:
-    v52 = v87;
-    *a3 = v87;
-    v87 = 55;
-    if (v52 != 1)
-    {
-      goto LABEL_116;
-    }
-
-    goto LABEL_100;
-  }
-
-  operator delete(v86[0].__r_.__value_.__l.__data_);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    goto LABEL_98;
-  }
-
-LABEL_86:
-  if ((SHIBYTE(v74) & 0x80000000) == 0)
-  {
-    goto LABEL_87;
-  }
-
-LABEL_99:
-  operator delete(v72);
-  v58 = v87;
-  *a3 = v87;
-  v87 = 55;
-  if (v58 == 1)
-  {
-LABEL_100:
     absl::lts_20240722::internal_statusor::Helper::HandleInvalidStatusCtorArg(a3);
-    v57 = v87;
-    if ((v87 & 1) == 0)
+    v8 = p_p;
+    if ((p_p & 1) == 0)
     {
-LABEL_96:
-      absl::lts_20240722::status_internal::StatusRep::Unref(v57, v56);
+LABEL_4:
+      absl::lts_20240722::status_internal::StatusRep::Unref(v8, v7);
     }
   }
-
-LABEL_116:
-  v63 = *MEMORY[0x277D85DE8];
 }

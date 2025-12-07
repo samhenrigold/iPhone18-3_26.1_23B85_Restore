@@ -1,6 +1,7 @@
 @interface MCSTransfer
 - (BOOL)commitToMessages:(id)messages failures:(id)failures newMessages:(id)newMessages;
 - (MCSTransfer)initWithDestination:(id)destination markAsRead:(BOOL)read;
+- (MCSTransfer)initWithSpecialDestination:(int64_t)destination markAsRead:(BOOL)read deleteIfSame:(BOOL)same;
 - (id)_storeToMessagesMappingWithMessages:(id)messages;
 - (id)applyPendingChangeToObjects:(id)objects;
 - (id)description;
@@ -42,6 +43,29 @@
   }
 
   return v9;
+}
+
+- (MCSTransfer)initWithSpecialDestination:(int64_t)destination markAsRead:(BOOL)read deleteIfSame:(BOOL)same
+{
+  sameCopy = same;
+  result = [(MCSTransfer *)self initWithDestination:0 markAsRead:read];
+  if (result)
+  {
+    result->_specialType = destination;
+    if (sameCopy)
+    {
+      v8 = 2;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    *(result + 40) = *(result + 40) & 0xFD | v8;
+  }
+
+  return result;
 }
 
 - (id)applyPendingChangeToObjects:(id)objects

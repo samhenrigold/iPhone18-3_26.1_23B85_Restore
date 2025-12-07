@@ -42,10 +42,10 @@
 
 - (void)start
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = LNPerformActionConnectionOperation;
-  [(LNConnectionOperation *)&v19 start];
+  v25 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = LNPerformActionConnectionOperation;
+  [(LNConnectionOperation *)&v18 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -55,35 +55,33 @@
     action2 = [(LNPerformActionConnectionOperation *)self action];
     parameters = [action2 parameters];
     *buf = 138543874;
-    v21 = identifier;
-    v22 = 2114;
-    v23 = identifier2;
-    v24 = 2112;
-    v25 = parameters;
+    v20 = identifier;
+    v21 = 2114;
+    v22 = identifier2;
+    v23 = 2112;
+    v24 = parameters;
   }
 
   action3 = [(LNPerformActionConnectionOperation *)self action];
   fileValueType = [MEMORY[0x1E69AC880] fileValueType];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __43__LNPerformActionConnectionOperation_start__block_invoke;
-  v18[3] = &unk_1E74B1E70;
-  v18[4] = self;
-  [action3 enumerateParameterValuesOfValueType:fileValueType block:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __43__LNPerformActionConnectionOperation_start__block_invoke;
+  v17[3] = &unk_1E74B1E70;
+  v17[4] = self;
+  [action3 enumerateParameterValuesOfValueType:fileValueType block:v17];
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   action4 = [(LNPerformActionConnectionOperation *)self action];
   executor = [(LNPerformActionConnectionOperation *)self executor];
   options = [executor options];
   executor2 = [(LNPerformActionConnectionOperation *)self executor];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __43__LNPerformActionConnectionOperation_start__block_invoke_2;
-  v17[3] = &unk_1E74B1E98;
-  v17[4] = self;
-  [connectionInterface performAction:action4 options:options executor:executor2 completionHandler:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __43__LNPerformActionConnectionOperation_start__block_invoke_2;
+  v16[3] = &unk_1E74B1E98;
+  v16[4] = self;
+  [connectionInterface performAction:action4 options:options executor:executor2 completionHandler:v16];
 }
 
 void __43__LNPerformActionConnectionOperation_start__block_invoke(uint64_t a1, void *a2)
@@ -120,7 +118,7 @@ void __43__LNPerformActionConnectionOperation_start__block_invoke(uint64_t a1, v
     v10 = v9;
     if (v9)
     {
-      [v9 auditToken];
+      objc_msgSend_auditToken(v9);
     }
 
     v11 = [v5 fileURL];

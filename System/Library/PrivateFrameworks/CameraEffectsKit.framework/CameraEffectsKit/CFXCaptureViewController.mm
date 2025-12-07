@@ -173,9 +173,9 @@
 
 - (void)viewDidLoad
 {
-  v114.receiver = self;
-  v114.super_class = CFXCaptureViewController;
-  [(CFXCaptureViewController *)&v114 viewDidLoad];
+  v115.receiver = self;
+  v115.super_class = CFXCaptureViewController;
+  [(CFXCaptureViewController *)&v115 viewDidLoad];
   v3 = *MEMORY[0x277CBF3A0];
   v4 = *(MEMORY[0x277CBF3A0] + 8);
   v5 = *(MEMORY[0x277CBF3A0] + 16);
@@ -208,7 +208,7 @@
     }
   }
 
-  IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported();
+  IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported(v15);
   [(CFXCaptureViewController *)self setIsShowingAnimojiReticle:0];
   view = [(CFXCaptureViewController *)self view];
   [view setDelegate:self];
@@ -217,8 +217,8 @@
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
   cam_initialLayoutStyle = [currentDevice3 cam_initialLayoutStyle];
 
-  v19 = [objc_alloc(MEMORY[0x277CF7EA0]) initWithLayoutStyle:cam_initialLayoutStyle];
-  [(CFXCaptureViewController *)self setFlashButton:v19];
+  v20 = [objc_alloc(MEMORY[0x277CF7EA0]) initWithLayoutStyle:cam_initialLayoutStyle];
+  [(CFXCaptureViewController *)self setFlashButton:v20];
 
   flashButton = [(CFXCaptureViewController *)self flashButton];
   [flashButton setAllowsAutomaticFlash:1];
@@ -237,8 +237,8 @@
 
   if (IsCTMSupported)
   {
-    v25 = objc_alloc_init(MEMORY[0x277CF7E98]);
-    [(CFXCaptureViewController *)self setElapsedTimeView:v25];
+    v26 = objc_alloc_init(MEMORY[0x277CF7E98]);
+    [(CFXCaptureViewController *)self setElapsedTimeView:v26];
 
     elapsedTimeView = [(CFXCaptureViewController *)self elapsedTimeView];
     [elapsedTimeView setBackgroundStyle:3 animated:0];
@@ -252,8 +252,8 @@
 
   else
   {
-    v29 = [objc_alloc(MEMORY[0x277CF7E98]) initWithLayoutStyle:cam_initialLayoutStyle];
-    [(CFXCaptureViewController *)self setElapsedTimeView:v29];
+    v30 = [objc_alloc(MEMORY[0x277CF7E98]) initWithLayoutStyle:cam_initialLayoutStyle];
+    [(CFXCaptureViewController *)self setElapsedTimeView:v30];
 
     doneButton3 = [MEMORY[0x277D3D078] doneButton];
     [(CFXCaptureViewController *)self setDoneButton:doneButton3];
@@ -279,11 +279,11 @@
 
     elapsedTimeView2 = [(CFXCaptureViewController *)self elapsedTimeView];
     [elapsedTimeView2 intrinsicContentSize];
-    v37 = v36;
-    v39 = v38;
+    v38 = v37;
+    v40 = v39;
 
     elapsedTimeView3 = [(CFXCaptureViewController *)self elapsedTimeView];
-    [elapsedTimeView3 setFrame:{0.0, 23.0, v37, v39}];
+    [elapsedTimeView3 setFrame:{0.0, 23.0, v38, v40}];
 
     view2 = [(CFXCaptureViewController *)self view];
     elapsedTimeView4 = [(CFXCaptureViewController *)self elapsedTimeView];
@@ -311,28 +311,28 @@
   }
 
 LABEL_18:
-  v45 = +[JFXOrientationMonitor keyWindow];
-  [v45 bounds];
-  v47 = v46;
-  v49 = v48;
-  v51 = v50;
-  v53 = v52;
+  v46 = +[JFXOrientationMonitor keyWindow];
+  [v46 bounds];
+  v48 = v47;
+  v50 = v49;
+  v52 = v51;
+  v54 = v53;
 
-  [MEMORY[0x277D3D080] cameraTopBarFrameForReferenceBounds:{v47, v49, v51, v53}];
-  v55 = v54;
-  v57 = v54 + v56;
+  [MEMORY[0x277D3D080] cameraTopBarFrameForReferenceBounds:{v48, v50, v52, v54}];
+  v56 = v55;
+  v58 = v55 + v57;
   topBarContaineHeightConstraint = [(CFXCaptureViewController *)self topBarContaineHeightConstraint];
-  [topBarContaineHeightConstraint setConstant:v57];
+  [topBarContaineHeightConstraint setConstant:v58];
 
   if (v10)
   {
     topBarTopConstraint = [(CFXCaptureViewController *)self topBarTopConstraint];
-    [topBarTopConstraint setConstant:v55];
+    [topBarTopConstraint setConstant:v56];
   }
 
   [(CFXCaptureViewController *)self setAppliedDirectOverlayEditingGestures:0];
-  v60 = dispatch_group_create();
-  [(CFXCaptureViewController *)self setEditingOverlayWithGestureGroup:v60];
+  v61 = dispatch_group_create();
+  [(CFXCaptureViewController *)self setEditingOverlayWithGestureGroup:v61];
 
   topBar3 = [(CFXCaptureViewController *)self topBar];
   [topBar3 setOrientation:1];
@@ -345,8 +345,8 @@ LABEL_18:
     capabilities = [MEMORY[0x277CF7E78] capabilities];
     if ([capabilities zoomControlSupported])
     {
-      v64 = [objc_alloc(MEMORY[0x277CF7ED0]) initWithLayoutStyle:cam_initialLayoutStyle];
-      [(CFXCaptureViewController *)self setZoomControl:v64];
+      v65 = [objc_alloc(MEMORY[0x277CF7ED0]) initWithLayoutStyle:cam_initialLayoutStyle];
+      [(CFXCaptureViewController *)self setZoomControl:v65];
 
       zoomControl = [(CFXCaptureViewController *)self zoomControl];
       [zoomControl setDelegate:self];
@@ -357,8 +357,8 @@ LABEL_18:
 
     else
     {
-      v67 = [objc_alloc(MEMORY[0x277CF7EE0]) initWithLayoutStyle:cam_initialLayoutStyle];
-      [(CFXCaptureViewController *)self setZoomSlider:v67];
+      v68 = [objc_alloc(MEMORY[0x277CF7EE0]) initWithLayoutStyle:cam_initialLayoutStyle];
+      [(CFXCaptureViewController *)self setZoomSlider:v68];
 
       zoomSlider = [(CFXCaptureViewController *)self zoomSlider];
       [zoomSlider setDelegate:self];
@@ -370,8 +370,8 @@ LABEL_18:
       [zoomSlider3 setMinimumValue:0.0];
 
       zoomSlider4 = [(CFXCaptureViewController *)self zoomSlider];
-      LODWORD(v72) = 1.0;
-      [zoomSlider4 setMaximumValue:v72];
+      LODWORD(v73) = 1.0;
+      [zoomSlider4 setMaximumValue:v73];
 
       zoomSlider5 = [(CFXCaptureViewController *)self zoomSlider];
       [zoomSlider5 addTarget:self action:sel_zoomSliderValueDidChange_forEvent_ forControlEvents:4096];
@@ -382,8 +382,8 @@ LABEL_18:
       view3 = [(CFXCaptureViewController *)self view];
       [(CFXCaptureViewController *)self zoomSlider];
     }
-    v75 = ;
-    [view3 addSubview:v75];
+    v76 = ;
+    [view3 addSubview:v76];
 
     [(CFXCaptureViewController *)self updateZoomUIVisibility];
   }
@@ -417,26 +417,26 @@ LABEL_30:
   [(CFXCaptureViewController *)self setSwitchedToVideoMode:0];
   if (IsCTMSupported)
   {
-    v81 = MTLCreateSystemDefaultDevice();
-    v82 = objc_alloc(MEMORY[0x277CF7E90]);
-    newCommandQueue = [v81 newCommandQueue];
-    v84 = [v82 initWithMetalDevice:v81 commandQueue:newCommandQueue];
-    [(CFXCaptureViewController *)self setDynamicShutterControl:v84];
+    v82 = MTLCreateSystemDefaultDevice();
+    v83 = objc_alloc(MEMORY[0x277CF7E90]);
+    newCommandQueue = [v82 newCommandQueue];
+    v85 = [v83 initWithMetalDevice:v82 commandQueue:newCommandQueue];
+    [(CFXCaptureViewController *)self setDynamicShutterControl:v85];
 
     dynamicShutterControl = [(CFXCaptureViewController *)self dynamicShutterControl];
     [dynamicShutterControl setDelegate:self];
 
-    v86 = *(MEMORY[0x277CF7E60] + 16);
-    v110[0] = *MEMORY[0x277CF7E60];
-    v110[1] = v86;
-    v110[2] = *(MEMORY[0x277CF7E60] + 32);
-    v87 = *(MEMORY[0x277CF7E60] + 64);
-    v111 = *(MEMORY[0x277CF7E60] + 48);
-    v112 = 1;
-    v113 = v87;
-    [(CFXCaptureViewController *)self setDynamicShutterSettings:v110];
-    v88 = objc_alloc_init(JFXPassThroughContainerView);
-    [(CFXCaptureViewController *)self setBottomControlsContainer:v88];
+    v87 = *(MEMORY[0x277CF7E60] + 16);
+    v111[0] = *MEMORY[0x277CF7E60];
+    v111[1] = v87;
+    v111[2] = *(MEMORY[0x277CF7E60] + 32);
+    v88 = *(MEMORY[0x277CF7E60] + 64);
+    v112 = *(MEMORY[0x277CF7E60] + 48);
+    v113 = 1;
+    v114 = v88;
+    [(CFXCaptureViewController *)self setDynamicShutterSettings:v111];
+    v89 = objc_alloc_init(JFXPassThroughContainerView);
+    [(CFXCaptureViewController *)self setBottomControlsContainer:v89];
 
     view4 = [(CFXCaptureViewController *)self view];
     bottomControlsContainer = [(CFXCaptureViewController *)self bottomControlsContainer];
@@ -445,8 +445,8 @@ LABEL_30:
     topBar5 = [(CFXCaptureViewController *)self topBar];
     [topBar5 setHidden:1];
 
-    v92 = objc_alloc_init(MEMORY[0x277CF7E80]);
-    [(CFXCaptureViewController *)self setControlStatusBar:v92];
+    v93 = objc_alloc_init(MEMORY[0x277CF7E80]);
+    [(CFXCaptureViewController *)self setControlStatusBar:v93];
 
     controlStatusBar = [(CFXCaptureViewController *)self controlStatusBar];
     [controlStatusBar setDelegate:self];
@@ -458,12 +458,12 @@ LABEL_30:
     flashIndicator = [controlStatusBar3 flashIndicator];
     [flashIndicator addTarget:self action:sel_flashModeDidChange forControlEvents:4096];
 
-    v97 = *MEMORY[0x277D768C8];
-    v98 = *(MEMORY[0x277D768C8] + 8);
-    v99 = *(MEMORY[0x277D768C8] + 16);
-    v100 = *(MEMORY[0x277D768C8] + 24);
+    v98 = *MEMORY[0x277D768C8];
+    v99 = *(MEMORY[0x277D768C8] + 8);
+    v100 = *(MEMORY[0x277D768C8] + 16);
+    v101 = *(MEMORY[0x277D768C8] + 24);
     doneButton6 = [(CFXCaptureViewController *)self doneButton];
-    [doneButton6 setTappableEdgeInsets:{v97, v98, v99, v100}];
+    [doneButton6 setTappableEdgeInsets:{v98, v99, v100, v101}];
 
     doneButton7 = [(CFXCaptureViewController *)self doneButton];
     controlStatusBar4 = [(CFXCaptureViewController *)self controlStatusBar];
@@ -474,16 +474,16 @@ LABEL_30:
     [view5 addSubview:controlStatusBar5];
 
     [(CFXCaptureViewController *)self configureCTMUIForCaptureMode];
-    v106 = [objc_alloc(MEMORY[0x277CF7EC8]) initWithFrame:{v3, v4, v5, v6}];
-    [(CFXCaptureViewController *)self setReticleView:v106];
+    v107 = [objc_alloc(MEMORY[0x277CF7EC8]) initWithFrame:{v3, v4, v5, v6}];
+    [(CFXCaptureViewController *)self setReticleView:v107];
 
     view6 = [(CFXCaptureViewController *)self view];
     reticleView = [(CFXCaptureViewController *)self reticleView];
     [view6 insertSubview:reticleView atIndex:0];
   }
 
-  v109 = objc_opt_new();
-  [(CFXCaptureViewController *)self setRunOnceAnimatedOverlays:v109];
+  v110 = objc_opt_new();
+  [(CFXCaptureViewController *)self setRunOnceAnimatedOverlays:v110];
 
   [(CFXCaptureViewController *)self setIsExternalCaptureSessionAnExternalCamera:0];
 }
@@ -538,8 +538,7 @@ LABEL_30:
     Height = CGRectGetHeight(v28);
     v22 = Width >= Height ? Height : Width;
     v23 = Width >= Height ? Width : Height;
-    [(CFXCaptureViewController *)self configureUIForWindowOrientation:1 bounds:0.0, 0.0, v22, v23];
-    if (CFXCaptureCapabilitiesIsCTMSupported())
+    if (CFXCaptureCapabilitiesIsCTMSupported([(CFXCaptureViewController *)self configureUIForWindowOrientation:1 bounds:0.0, 0.0, v22, v23]))
     {
       if ([(CFXCaptureViewController *)self needsBlackBackgroundForCTMControls])
       {
@@ -1031,7 +1030,7 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
           {
             if (jtEffect2)
             {
-              [jtEffect2 topLevelTransform];
+              objc_msgSend_topLevelTransform(jtEffect2);
             }
 
             else
@@ -1236,7 +1235,8 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
 
 - (void)updateTopBar
 {
-  if (isStreamingMode([(CFXCaptureViewController *)self captureMode]))
+  v3 = isStreamingMode([(CFXCaptureViewController *)self captureMode]);
+  if (v3)
   {
     topBar = [(CFXCaptureViewController *)self topBar];
     [topBar setHidden:1];
@@ -1244,7 +1244,7 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
 
   else
   {
-    if (CFXCaptureCapabilitiesIsCTMSupported())
+    if (CFXCaptureCapabilitiesIsCTMSupported(v3))
     {
       return;
     }
@@ -1270,15 +1270,15 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
   {
     v7 = +[JFXOrientationMonitor deviceInterfaceOrientation];
     delegate = [(CFXCaptureViewController *)self delegate];
-    v17 = [delegate cameraControlsViewControllerForCaptureViewController:self];
+    v18 = [delegate cameraControlsViewControllerForCaptureViewController:self];
 
-    effectButton = [v17 effectButton];
+    effectButton = [v18 effectButton];
     [effectButton setOrientation:v7 animated:animationCopy];
 
-    flipButton = [v17 flipButton];
+    flipButton = [v18 flipButton];
     [flipButton setOrientation:v7 animated:animationCopy];
 
-    if (CFXCaptureCapabilitiesIsCTMSupported())
+    if (CFXCaptureCapabilitiesIsCTMSupported(v11))
     {
       controlStatusBar = [(CFXCaptureViewController *)self controlStatusBar];
       flashIndicator = [controlStatusBar flashIndicator];
@@ -1292,15 +1292,15 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
       controlStatusBar = flashButton;
       if (captureMode == 2)
       {
-        v15 = 1;
+        v16 = 1;
       }
 
       else
       {
-        v15 = v7;
+        v16 = v7;
       }
 
-      [flashButton setOrientation:v15 animated:animationCopy];
+      [flashButton setOrientation:v16 animated:animationCopy];
     }
 
     zoomControl = [(CFXCaptureViewController *)self zoomControl];
@@ -1331,21 +1331,21 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported();
+  IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported(v13);
   [MEMORY[0x277D3D080] cameraBottomBarFrameForReferenceBounds:{x, y, width, height}];
-  v341 = v14;
-  v342 = v15;
-  v339 = v17;
-  v340 = v16;
+  v341 = v15;
+  v342 = v16;
+  v339 = v18;
+  v340 = v17;
   [MEMORY[0x277D3D080] reviewScreenControlBarFrameForReferenceBounds:{x, y, width, height}];
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
   delegate = [(CFXCaptureViewController *)self delegate];
-  v27 = [delegate cameraControlsViewControllerForCaptureViewController:self];
+  v28 = [delegate cameraControlsViewControllerForCaptureViewController:self];
 
-  bottomBar = [v27 bottomBar];
+  bottomBar = [v28 bottomBar];
   captureMode = [(CFXCaptureViewController *)self captureMode];
   v349 = orientation - 5;
   v352 = x;
@@ -1354,102 +1354,99 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
   {
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen bounds];
-    v30 = v374.origin.x;
-    v31 = v374.origin.y;
-    v32 = v374.size.width;
-    v33 = v374.size.height;
-    v34 = CGRectGetWidth(v374);
-    v375.origin.x = v30;
-    v375.origin.y = v31;
-    v375.size.width = v32;
-    v375.size.height = v33;
-    v35 = v34 / CGRectGetHeight(v375);
-    v36 = v352;
+    v31 = v374.origin.x;
+    v32 = v374.origin.y;
+    v33 = v374.size.width;
+    v34 = v374.size.height;
+    v35 = CGRectGetWidth(v374);
+    v375.origin.x = v31;
+    v375.origin.y = v32;
+    v375.size.width = v33;
+    v375.size.height = v34;
+    v36 = v35 / CGRectGetHeight(v375);
+    v37 = v352;
 
-    [MEMORY[0x277D3D080] cameraContentFrameForContentAspectRatio:v35 referenceBounds:{v352, y, width, height}];
-    v38 = v37;
-    v40 = v39;
-    v42 = v41;
-    v44 = v43;
+    [MEMORY[0x277D3D080] cameraContentFrameForContentAspectRatio:v36 referenceBounds:{v352, y, width, height}];
+    v39 = v38;
+    v41 = v40;
+    v43 = v42;
+    v45 = v44;
     captureControlsContainerTopConstraint = [(CFXCaptureViewController *)self captureControlsContainerTopConstraint];
-    LODWORD(v46) = 1144750080;
-    [captureControlsContainerTopConstraint setPriority:v46];
+    LODWORD(v47) = 1144750080;
+    [captureControlsContainerTopConstraint setPriority:v47];
 
     captureControlsContainerHeightConstraint = [(CFXCaptureViewController *)self captureControlsContainerHeightConstraint];
-    LODWORD(v48) = 1132068864;
-    [captureControlsContainerHeightConstraint setPriority:v48];
+    LODWORD(v49) = 1132068864;
+    [captureControlsContainerHeightConstraint setPriority:v49];
 
     if ([(CFXCaptureViewController *)self captureMode]== 2)
     {
       view = [(CFXCaptureViewController *)self view];
       [view frame];
-      v343 = v40;
-      v346 = v38;
-      v50 = CGRectGetWidth(v376) * 0.5;
+      v343 = v41;
+      v346 = v39;
+      v51 = CGRectGetWidth(v376) * 0.5;
 
       elapsedTimeView = [(CFXCaptureViewController *)self elapsedTimeView];
       [elapsedTimeView frame];
-      v52 = v50 - CGRectGetWidth(v377) * 0.5;
+      v53 = v51 - CGRectGetWidth(v377) * 0.5;
 
       elapsedTimeView2 = [(CFXCaptureViewController *)self elapsedTimeView];
       [elapsedTimeView2 frame];
-      v336 = v54;
+      v336 = v55;
       elapsedTimeView3 = [(CFXCaptureViewController *)self elapsedTimeView];
       [elapsedTimeView3 frame];
-      v56 = v42;
-      v57 = CGRectGetWidth(v378);
+      v57 = v43;
+      v58 = CGRectGetWidth(v378);
       elapsedTimeView4 = [(CFXCaptureViewController *)self elapsedTimeView];
       [elapsedTimeView4 frame];
-      v59 = width;
-      v60 = v44;
-      v61 = CGRectGetHeight(v379);
+      v60 = width;
+      v61 = v45;
+      v62 = CGRectGetHeight(v379);
 
       v10 = 0x277D75000uLL;
       elapsedTimeView5 = [(CFXCaptureViewController *)self elapsedTimeView];
-      v63 = v52;
-      v40 = v343;
-      v64 = v57;
-      v42 = v56;
-      v36 = v352;
+      v64 = v53;
+      v41 = v343;
+      v65 = v58;
+      v43 = v57;
+      v37 = v352;
       height = v350;
-      v65 = v61;
-      v44 = v60;
-      width = v59;
-      v38 = v346;
-      [elapsedTimeView5 setFrame:{v63, v336, v64, v65}];
+      v66 = v62;
+      v45 = v61;
+      width = v60;
+      v39 = v346;
+      [elapsedTimeView5 setFrame:{v64, v336, v65, v66}];
     }
 
-    v66 = bottomBar;
+    v67 = bottomBar;
     goto LABEL_57;
   }
 
-  v337 = v19;
-  v330 = v21;
-  v331 = v23;
-  rect = v25;
-  v67 = 0.5625;
+  v337 = v20;
+  v330 = v22;
+  v331 = v24;
+  rect = v26;
+  v68 = 0.5625;
   if (!captureMode)
   {
-    v67 = 0.75;
+    v68 = 0.75;
   }
 
-  [MEMORY[0x277D3D080] cameraContentFrameForContentAspectRatio:v67 referenceBounds:{x, y, width, height}];
-  v344 = v69;
-  v347 = v68;
-  v71 = v70;
-  v73 = v72;
-  orientationCopy2 = orientation;
+  [MEMORY[0x277D3D080] cameraContentFrameForContentAspectRatio:v68 referenceBounds:{x, y, width, height}];
+  v344 = v70;
+  v347 = v69;
+  v72 = v71;
+  v74 = v73;
   v75 = height;
   v76 = width;
   if ((orientation - 5) >= 0xFFFFFFFFFFFFFFFELL)
   {
     captureMode2 = [(CFXCaptureViewController *)self captureMode];
-    orientationCopy2 = orientation;
     v75 = height;
     v76 = width;
     if (!captureMode2)
     {
-      orientationCopy2 = 1;
       v75 = width;
       v76 = height;
     }
@@ -1461,9 +1458,9 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
   v371 = 0u;
   v368 = 0u;
   v369 = 0u;
-  v333 = v73;
-  v334 = v71;
-  [MEMORY[0x277D3D080] cameraTopBarGeometryForReferenceBounds:orientationCopy2 forContentSize:x withOrientation:{y, v76, v75, v71, v73}];
+  v333 = v74;
+  v334 = v72;
+  objc_msgSend_cameraTopBarGeometryForReferenceBounds_forContentSize_withOrientation_(MEMORY[0x277D3D080], x, y, v76, v75, v72, v74);
   topBar = [(CFXCaptureViewController *)self topBar];
   [topBar setCenter:{0.0, 0.0}];
 
@@ -1533,7 +1530,7 @@ void __94__CFXCaptureViewController_applyAutoRotationCorrectionToEditorViewsWith
         }
       }
 
-      v380.origin.x = v19;
+      v380.origin.x = v20;
       v380.origin.y = v330;
       v380.size.width = v331;
       v380.size.height = rect;
@@ -1611,9 +1608,9 @@ LABEL_28:
     if ([currentDevice4 userInterfaceIdiom])
     {
 
-      v36 = v352;
-      v38 = v347;
-      v44 = v333;
+      v37 = v352;
+      v39 = v347;
+      v45 = v333;
 LABEL_50:
       captureControlsContainerWidthConstraint2 = [(CFXCaptureViewController *)self captureControlsContainerWidthConstraint];
       [captureControlsContainerWidthConstraint2 setConstant:v118];
@@ -1637,15 +1634,15 @@ LABEL_50:
 
       [captureControlsContainerLeadingConstraint setPriority:v136];
 
-      v66 = bottomBar;
+      v67 = bottomBar;
       goto LABEL_56;
     }
 
     mainScreen6 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen6 bounds];
-    v36 = v352;
-    v38 = v347;
-    v44 = v333;
+    v37 = v352;
+    v39 = v347;
+    v45 = v333;
     if (v123 == 568)
     {
     }
@@ -1676,7 +1673,7 @@ LABEL_50:
   v108 = CGRectGetHeight(v382) - v342;
 
   currentDevice5 = [*(v10 + 1048) currentDevice];
-  v44 = v333;
+  v45 = v333;
   if (![currentDevice5 userInterfaceIdiom])
   {
     mainScreen7 = [MEMORY[0x277D759A0] mainScreen];
@@ -1684,7 +1681,7 @@ LABEL_50:
     if (v121 == 568)
     {
 
-      v66 = bottomBar;
+      v67 = bottomBar;
     }
 
     else
@@ -1695,14 +1692,14 @@ LABEL_50:
       v328 = v126;
 
       v10 = v124;
-      v66 = bottomBar;
+      v67 = bottomBar;
       if (v328 != 568)
       {
         goto LABEL_45;
       }
     }
 
-    v384.origin.x = v19;
+    v384.origin.x = v20;
     v384.origin.y = v330;
     v384.size.width = v331;
     v384.size.height = rect;
@@ -1710,7 +1707,7 @@ LABEL_50:
     goto LABEL_45;
   }
 
-  v66 = bottomBar;
+  v67 = bottomBar;
 LABEL_45:
   if ([(CFXCaptureViewController *)self dockIsMagnified])
   {
@@ -1718,7 +1715,7 @@ LABEL_45:
     v108 = v108 + v127;
   }
 
-  v36 = x;
+  v37 = x;
   captureControlsContainerHeightConstraint3 = [(CFXCaptureViewController *)self captureControlsContainerHeightConstraint];
   [captureControlsContainerHeightConstraint3 setConstant:v108];
 
@@ -1726,14 +1723,14 @@ LABEL_45:
   LODWORD(v130) = 1144750080;
   [captureControlsContainerLeadingConstraint2 setPriority:v130];
 
-  v38 = v347;
+  v39 = v347;
 LABEL_56:
   captureControlsContainerTrailingConstraint = [(CFXCaptureViewController *)self captureControlsContainerTrailingConstraint];
   *&v139 = v99;
   [captureControlsContainerTrailingConstraint setPriority:v139];
 
-  v40 = v344;
-  v42 = v334;
+  v41 = v344;
+  v43 = v334;
 LABEL_57:
   view3 = [(CFXCaptureViewController *)self view];
   [view3 layoutIfNeeded];
@@ -1746,7 +1743,7 @@ LABEL_57:
   v369 = 0u;
   v345 = y;
   v348 = width;
-  [MEMORY[0x277D3D080] orientedGeometryForFrame:orientation inBounds:v38 orientation:{v40, v42, v44, v36, y, width, height}];
+  objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(MEMORY[0x277D3D080], v39, v41, v43, v45, v37, y, width, height);
   v141 = *(&v371 + 1);
   v338 = *&v371;
   v142 = v372;
@@ -1783,16 +1780,16 @@ LABEL_57:
     v362 = 0u;
     v359 = 0u;
     v360 = 0u;
-    [MEMORY[0x277D3D080] orientedGeometryForFrame:orientation inBounds:v341 orientation:{v342, v340, v339, v352, v345, width, v350}];
+    objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(MEMORY[0x277D3D080], v341, v342, v340, v339, v352, v345, width, v350);
     currentDevice6 = [*(v10 + 1048) currentDevice];
     if ([currentDevice6 userInterfaceIdiom])
     {
-      [v27 view];
+      [v28 view];
     }
 
     else
     {
-      [v27 backgroundView];
+      [v28 backgroundView];
     }
     v162 = ;
 
@@ -1804,7 +1801,7 @@ LABEL_57:
     v356 = v362;
     v357 = v363;
     v358 = v364;
-    [v66 setTransform:&v356];
+    [v67 setTransform:&v356];
     if (IsCTMSupported)
     {
       [(CFXCaptureViewController *)self bottomBarCTMControlsFrameForWindowOrientation:orientation bounds:v352, v345, width, v350];
@@ -1817,10 +1814,10 @@ LABEL_57:
       v387.origin.y = v169;
       v387.size.width = v170;
       v387.size.height = v171;
-      [v66 setCenter:{MidX, CGRectGetMidY(v387)}];
+      [v67 setCenter:{MidX, CGRectGetMidY(v387)}];
       v173 = v169;
       width = v348;
-      [v66 setBounds:{v168, v173, v170, v171}];
+      [v67 setBounds:{v168, v173, v170, v171}];
     }
 
     else
@@ -1835,9 +1832,9 @@ LABEL_57:
         v177 = v167;
       }
 
-      [v66 setCenter:{v176, v177}];
+      [v67 setCenter:{v176, v177}];
 
-      [v66 setBounds:{v359, v360}];
+      [v67 setBounds:{v359, v360}];
       [(CFXCaptureViewController *)self layoutZoomUI];
     }
   }
@@ -2006,7 +2003,7 @@ LABEL_57:
       dynamicShutterControl4 = [(CFXCaptureViewController *)self dynamicShutterControl];
       [bottomControlsContainer3 insertSubview:dynamicShutterControl4 atIndex:0];
 
-      effectButton = [v27 effectButton];
+      effectButton = [v28 effectButton];
       [v186 frameForBottomLeftControl:effectButton];
       v236 = v235;
       v238 = v237;
@@ -2021,14 +2018,14 @@ LABEL_57:
       v250 = v249;
       v252 = v251;
 
-      effectButton2 = [v27 effectButton];
+      effectButton2 = [v28 effectButton];
       [effectButton2 setFrame:{v246, v248, v250, v252}];
 
       bottomControlsContainer5 = [(CFXCaptureViewController *)self bottomControlsContainer];
-      effectButton3 = [v27 effectButton];
+      effectButton3 = [v28 effectButton];
       [bottomControlsContainer5 addSubview:effectButton3];
 
-      flipButton = [v27 flipButton];
+      flipButton = [v28 flipButton];
       [v186 frameForBottomRightControl:flipButton];
       v258 = v257;
       v260 = v259;
@@ -2043,11 +2040,11 @@ LABEL_57:
       v272 = v271;
       v274 = v273;
 
-      flipButton2 = [v27 flipButton];
+      flipButton2 = [v28 flipButton];
       [flipButton2 setFrame:{v268, v270, v272, v274}];
 
       bottomControlsContainer7 = [(CFXCaptureViewController *)self bottomControlsContainer];
-      flipButton3 = [v27 flipButton];
+      flipButton3 = [v28 flipButton];
       [bottomControlsContainer7 addSubview:flipButton3];
 
       [v186 frameForControlStatusBar];
@@ -2067,7 +2064,7 @@ LABEL_57:
 
       [(CFXCaptureViewController *)self layoutZoomUI];
       v10 = v208;
-      v66 = bottomBar;
+      v67 = bottomBar;
     }
 
     [v186 viewportFrameForAspectRatio:v187 usingAppDrawer:1 accessoryAreaExpanded:0];
@@ -2084,7 +2081,7 @@ LABEL_57:
     elapsedTimeView6 = [(CFXCaptureViewController *)self elapsedTimeView];
     if (v186)
     {
-      [v186 geometryForElapsedTimeView:elapsedTimeView6 viewportFrame:orientation orientation:{v289, v291, v293, v295}];
+      objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_(v186, v289, v291, v293, v295);
     }
 
     else
@@ -2291,8 +2288,7 @@ LABEL_57:
 - (void)setCaptureMode:(int64_t)mode
 {
   self->_captureMode = mode;
-  [(CFXCaptureViewController *)self loadViewIfNeeded];
-  if ((CFXCaptureCapabilitiesIsCTMSupported() & 1) == 0)
+  if ((CFXCaptureCapabilitiesIsCTMSupported([(CFXCaptureViewController *)self loadViewIfNeeded]) & 1) == 0)
   {
     v4 = isStreamingMode([(CFXCaptureViewController *)self captureMode]);
     topBar = [(CFXCaptureViewController *)self topBar];
@@ -2365,8 +2361,7 @@ LABEL_57:
 
 - (int64_t)flashMode
 {
-  [(CFXCaptureViewController *)self loadViewIfNeeded];
-  if (CFXCaptureCapabilitiesIsCTMSupported())
+  if (CFXCaptureCapabilitiesIsCTMSupported([(CFXCaptureViewController *)self loadViewIfNeeded]))
   {
     controlStatusBar = [(CFXCaptureViewController *)self controlStatusBar];
     flashIndicator = [controlStatusBar flashIndicator];
@@ -2439,7 +2434,7 @@ LABEL_7:
 {
   if ([(CFXCaptureViewController *)self captureMode]== 2)
   {
-    if (CFXCaptureCapabilitiesIsCTMSupported())
+    if (CFXCaptureCapabilitiesIsCTMSupported(2))
     {
       controlStatusBar = [(CFXCaptureViewController *)self controlStatusBar];
       flashIndicator = [controlStatusBar flashIndicator];
@@ -2471,8 +2466,7 @@ LABEL_7:
   [(CFXCaptureViewController *)self configureCaptureControlsForOrientationWithAnimation:1];
   if ([(CFXCaptureViewController *)self captureMode]!= 1)
   {
-    [(CFXCaptureViewController *)self CFX_setFrameAndRenderSizes];
-    if (CFXCaptureCapabilitiesIsCTMSupported())
+    if (CFXCaptureCapabilitiesIsCTMSupported([(CFXCaptureViewController *)self CFX_setFrameAndRenderSizes]))
     {
       dynamicShutterControl = [(CFXCaptureViewController *)self dynamicShutterControl];
       [dynamicShutterControl setEnabled:1];
@@ -2762,7 +2756,7 @@ uint64_t __64__CFXCaptureViewController_addEffect_allowImmediateTextEditing___bl
   v16 = *(a1 + 48);
   if (v16)
   {
-    [v16 overlayTransformForLocalViewfinder];
+    objc_msgSend_overlayTransformForLocalViewfinder(v16);
   }
 
   else
@@ -2851,34 +2845,34 @@ uint64_t __64__CFXCaptureViewController_addEffect_allowImmediateTextEditing___bl
   [v24 loadRenderEffectInBackgroundWithCompletionOnMainQueue:v25];
 }
 
-uint64_t __88__CFXCaptureViewController_addOverlayEffect_atNormalizedPlanePoint_scale_rotationAngle___block_invoke(uint64_t a1)
+uint64_t __88__CFXCaptureViewController_addOverlayEffect_atNormalizedPlanePoint_scale_rotationAngle___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 80);
-  v3 = *(a1 + 88);
-  v4 = *(a1 + 96);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  if (v7)
+  v3 = *(a1 + 80);
+  v4 = *(a1 + 88);
+  v5 = *(a1 + 96);
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    [v7 overlayTransformForLocalViewfinder];
+    objc_msgSend_overlayTransformForLocalViewfinder(v8, a2);
   }
 
   else
   {
-    memset(v19, 0, sizeof(v19));
+    memset(v20, 0, sizeof(v20));
   }
 
-  v8 = +[JFXOrientationMonitor interfaceOrientation];
-  v9 = +[CFXMediaSettings sharedInstance];
-  [v9 frameSize];
-  v12 = aspectRatioForSize(v10, v11);
-  v13 = *(a1 + 64);
-  v14 = *(a1 + 72);
-  v17 = *MEMORY[0x277CC08F0];
-  v18 = *(MEMORY[0x277CC08F0] + 16);
-  LODWORD(v16) = 1;
-  [JFXEffectEditingUtilities configureOverlayForInsertion:v5 atNormalizedPoint:&v17 atTime:0 isPositionRelativeToCenterSquare:0 isPositionRelativeToFace:v4 scaleRelativeToCenterSquare:0 rotationAngle:v13 applyTracking:v14 autoDetectTrackingType:v2 withARMetadata:v3 previewViewCorrectionTransform:v6 transformAnimation:v19 playableMediaContentMode:0 playableInterfaceOrientation:v16 playableAspectRatio:v8 playableAspectRatioPreservationMode:v12, 0];
+  v9 = +[JFXOrientationMonitor interfaceOrientation];
+  v10 = +[CFXMediaSettings sharedInstance];
+  [v10 frameSize];
+  v13 = aspectRatioForSize(v11, v12);
+  v14 = *(a1 + 64);
+  v15 = *(a1 + 72);
+  v18 = *MEMORY[0x277CC08F0];
+  v19 = *(MEMORY[0x277CC08F0] + 16);
+  LODWORD(v17) = 1;
+  [JFXEffectEditingUtilities configureOverlayForInsertion:v6 atNormalizedPoint:&v18 atTime:0 isPositionRelativeToCenterSquare:0 isPositionRelativeToFace:v5 scaleRelativeToCenterSquare:0 rotationAngle:v14 applyTracking:v15 autoDetectTrackingType:v3 withARMetadata:v4 previewViewCorrectionTransform:v7 transformAnimation:v20 playableMediaContentMode:0 playableInterfaceOrientation:v17 playableAspectRatio:v9 playableAspectRatioPreservationMode:v13, 0];
 
   return [*(a1 + 48) CFX_addEffect:*(a1 + 56) allowImmediateTextEditing:1];
 }
@@ -2981,35 +2975,35 @@ uint64_t __88__CFXCaptureViewController_addOverlayEffect_atNormalizedPlanePoint_
   }
 }
 
-uint64_t __89__CFXCaptureViewController_addOverlayEffect_atScreenLocation_atScreenSize_rotationAngle___block_invoke(uint64_t a1)
+uint64_t __89__CFXCaptureViewController_addOverlayEffect_atScreenLocation_atScreenSize_rotationAngle___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 96);
-  v3 = *(a1 + 104);
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  if (v6)
+  v3 = *(a1 + 96);
+  v4 = *(a1 + 104);
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  if (v7)
   {
-    [v6 overlayTransformForLocalViewfinder];
+    objc_msgSend_overlayTransformForLocalViewfinder(v7, a2);
   }
 
   else
   {
-    memset(v20, 0, sizeof(v20));
+    memset(v21, 0, sizeof(v21));
   }
 
-  v7 = +[JFXOrientationMonitor interfaceOrientation];
-  v8 = +[CFXMediaSettings sharedInstance];
-  [v8 frameSize];
-  v11 = aspectRatioForSize(v9, v10);
-  v12 = *(a1 + 64);
-  v13 = *(a1 + 72);
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v18 = *MEMORY[0x277CC08F0];
-  v19 = *(MEMORY[0x277CC08F0] + 16);
-  LODWORD(v17) = 1;
-  [JFXEffectEditingUtilities configureOverlayForInsertion:v5 inRect:&v18 atTime:v3 rotationAngle:1 applyTracking:v4 autoDetectTrackingType:v20 withARMetadata:v12 previewViewCorrectionTransform:v13 transformAnimation:v14 playableMediaContentMode:v15 playableInterfaceOrientation:v2 playableAspectRatio:0 playableAspectRatioPreservationMode:v17, v7, v11, 0];
+  v8 = +[JFXOrientationMonitor interfaceOrientation];
+  v9 = +[CFXMediaSettings sharedInstance];
+  [v9 frameSize];
+  v12 = aspectRatioForSize(v10, v11);
+  v13 = *(a1 + 64);
+  v14 = *(a1 + 72);
+  v15 = *(a1 + 80);
+  v16 = *(a1 + 88);
+  v19 = *MEMORY[0x277CC08F0];
+  v20 = *(MEMORY[0x277CC08F0] + 16);
+  LODWORD(v18) = 1;
+  [JFXEffectEditingUtilities configureOverlayForInsertion:v6 inRect:&v19 atTime:v4 rotationAngle:1 applyTracking:v5 autoDetectTrackingType:v21 withARMetadata:v13 previewViewCorrectionTransform:v14 transformAnimation:v15 playableMediaContentMode:v16 playableInterfaceOrientation:v3 playableAspectRatio:0 playableAspectRatioPreservationMode:v18, v8, v12, 0];
 
   return [*(a1 + 48) CFX_addEffect:*(a1 + 56) allowImmediateTextEditing:1];
 }
@@ -3774,9 +3768,9 @@ void __110__CFXCaptureViewController_CFX_getCAMCaptureForPosition_type_captureDe
 - (void)layoutZoomSliderRelativeToBottomBarAndPreview
 {
   delegate = [(CFXCaptureViewController *)self delegate];
-  v98 = [delegate cameraControlsViewControllerForCaptureViewController:self];
+  v99 = [delegate cameraControlsViewControllerForCaptureViewController:self];
 
-  bottomBar = [v98 bottomBar];
+  bottomBar = [v99 bottomBar];
   zoomSlider = [(CFXCaptureViewController *)self zoomSlider];
   superview = [zoomSlider superview];
 
@@ -3796,7 +3790,7 @@ void __110__CFXCaptureViewController_CFX_getCAMCaptureForPosition_type_captureDe
   v23 = v22;
   v25 = v24;
 
-  if (CFXCaptureCapabilitiesIsCTMSupported())
+  if (CFXCaptureCapabilitiesIsCTMSupported(v26))
   {
     capabilities = [MEMORY[0x277CF7E78] capabilities];
     zoomControlSupported = [capabilities zoomControlSupported];
@@ -3808,29 +3802,29 @@ void __110__CFXCaptureViewController_CFX_getCAMCaptureForPosition_type_captureDe
       dynamicShutterControl2 = [(CFXCaptureViewController *)self dynamicShutterControl];
       [dynamicShutterControl2 frame];
       [superview3 convertRect:superview toView:?];
-      v19 = v31;
-      v21 = v32;
-      v23 = v33;
-      v25 = v34;
+      v19 = v32;
+      v21 = v33;
+      v23 = v34;
+      v25 = v35;
     }
   }
 
-  v93 = v23;
+  v94 = v23;
   [bottomBar bounds];
   [bottomBar convertRect:superview toView:?];
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
+  v37 = v36;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
   currentDevice = [MEMORY[0x277D75418] currentDevice];
-  v92 = v25;
-  v44 = v21;
+  v93 = v25;
+  v45 = v21;
   if (![currentDevice userInterfaceIdiom])
   {
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen bounds];
-    v45 = v19;
-    if (v47 == 568)
+    v46 = v19;
+    if (v48 == 568)
     {
     }
 
@@ -3838,113 +3832,113 @@ void __110__CFXCaptureViewController_CFX_getCAMCaptureForPosition_type_captureDe
     {
       mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen2 bounds];
-      v50 = v49;
+      v51 = v50;
 
-      if (v50 != 568)
+      if (v51 != 568)
       {
         goto LABEL_10;
       }
     }
 
-    v36 = 0.0;
-    *&v42 = 141.0;
-    *&v40 = 320.0;
-    *&v38 = 427.0;
+    v37 = 0.0;
+    *&v43 = 141.0;
+    *&v41 = 320.0;
+    *&v39 = 427.0;
     goto LABEL_10;
   }
 
-  v45 = v19;
+  v46 = v19;
 
 LABEL_10:
-  v94 = *&v38;
-  v95 = *&v40;
-  v96 = *&v42;
-  v97 = v36;
+  v95 = *&v39;
+  v96 = *&v41;
+  v97 = *&v43;
+  v98 = v37;
   liveCaptureContainer = [(CFXCaptureViewController *)self liveCaptureContainer];
   liveCaptureContainer2 = [(CFXCaptureViewController *)self liveCaptureContainer];
   [liveCaptureContainer2 bounds];
   [liveCaptureContainer convertRect:superview toView:?];
-  v90 = v54;
-  v91 = v53;
-  v89 = v55;
-  v57 = v56;
+  v91 = v55;
+  v92 = v54;
+  v90 = v56;
+  v58 = v57;
 
   view = [(CFXCaptureViewController *)self view];
   [view bounds];
-  v60 = v59;
-  v62 = v61;
-  v64 = v63;
-  v66 = v65;
+  v61 = v60;
+  v63 = v62;
+  v65 = v64;
+  v67 = v66;
 
-  v100.origin.x = v60;
-  v100.origin.y = v62;
-  v100.size.width = v64;
-  v100.size.height = v66;
-  Width = CGRectGetWidth(v100);
-  v101.origin.x = v60;
-  v101.origin.y = v62;
-  v101.size.width = v64;
-  v101.size.height = v66;
-  if (Width > CGRectGetHeight(v101))
+  v101.origin.x = v61;
+  v101.origin.y = v63;
+  v101.size.width = v65;
+  v101.size.height = v67;
+  Width = CGRectGetWidth(v101);
+  v102.origin.x = v61;
+  v102.origin.y = v63;
+  v102.size.width = v65;
+  v102.size.height = v67;
+  if (Width > CGRectGetHeight(v102))
   {
     currentDevice2 = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice2 userInterfaceIdiom];
 
     if (!userInterfaceIdiom)
     {
-      v102.origin.x = v60;
-      v102.origin.y = v62;
-      v102.size.width = v64;
-      v102.size.height = v66;
-      Height = CGRectGetHeight(v102);
-      v103.origin.x = v60;
-      v103.origin.y = v62;
-      v103.size.width = v64;
-      v103.size.height = v66;
-      v66 = CGRectGetWidth(v103);
-      v64 = Height;
+      v103.origin.x = v61;
+      v103.origin.y = v63;
+      v103.size.width = v65;
+      v103.size.height = v67;
+      Height = CGRectGetHeight(v103);
+      v104.origin.x = v61;
+      v104.origin.y = v63;
+      v104.size.width = v65;
+      v104.size.height = v67;
+      v67 = CGRectGetWidth(v104);
+      v65 = Height;
     }
   }
 
   [superview frame];
-  v71 = CGRectGetWidth(v104);
+  v72 = CGRectGetWidth(v105);
   [superview frame];
-  if (v71 <= CGRectGetHeight(v105))
+  if (v72 <= CGRectGetHeight(v106))
   {
-    v73 = v45;
+    v74 = v46;
     goto LABEL_17;
   }
 
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
-  v73 = v45;
+  v74 = v46;
   if ([currentDevice3 userInterfaceIdiom])
   {
 
 LABEL_17:
-    v74 = v44;
-    v75 = v93;
+    v75 = v45;
+    v76 = v94;
     goto LABEL_18;
   }
 
   currentDevice4 = [MEMORY[0x277D75418] currentDevice];
-  v74 = v44;
+  v75 = v45;
   if ([currentDevice4 userInterfaceIdiom])
   {
 
-    v75 = v93;
+    v76 = v94;
 LABEL_23:
     [bottomBar frame];
-    v96 = v81;
-    v97 = v80;
-    v94 = v82;
+    v97 = v82;
+    v98 = v81;
     v95 = v83;
+    v96 = v84;
     goto LABEL_18;
   }
 
   mainScreen3 = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen3 bounds];
-  v75 = v93;
-  if (v85 == 568)
+  v76 = v94;
+  if (v86 == 568)
   {
   }
 
@@ -3952,19 +3946,19 @@ LABEL_23:
   {
     mainScreen4 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen4 bounds];
-    v88 = v87;
+    v89 = v88;
 
-    if (v88 != 568)
+    if (v89 != 568)
     {
       goto LABEL_23;
     }
   }
 
 LABEL_18:
-  v76 = MEMORY[0x277CF7EE8];
+  v77 = MEMORY[0x277CF7EE8];
   zoomSlider2 = [(CFXCaptureViewController *)self zoomSlider];
   currentDevice5 = [MEMORY[0x277D75418] currentDevice];
-  [v76 layoutZoomSlider:zoomSlider2 forLayoutStyle:objc_msgSend(currentDevice5 bottomBarAlignmentRect:"cam_initialLayoutStyle") bottomBarTransparent:backgroundStyle == 1 shutterButtonAlignmentRect:v97 previewViewAlignmentRect:v94 viewfinderViewAlignmentRect:{v95, v96, v73, v74, v75, v92, v91, v90, v89, v57, *&v60, *&v62, *&v64, *&v66}];
+  [v77 layoutZoomSlider:zoomSlider2 forLayoutStyle:objc_msgSend(currentDevice5 bottomBarAlignmentRect:"cam_initialLayoutStyle") bottomBarTransparent:backgroundStyle == 1 shutterButtonAlignmentRect:v98 previewViewAlignmentRect:v95 viewfinderViewAlignmentRect:{v96, v97, v74, v75, v76, v93, v92, v91, v90, v58, *&v61, *&v63, *&v65, *&v67}];
 }
 
 - (void)layoutZoomControlForCTM
@@ -4020,8 +4014,7 @@ LABEL_18:
     v14 = +[JFXOrientationMonitor keyWindow];
     [v14 bounds];
 
-    +[JFXOrientationMonitor interfaceOrientation];
-    IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported();
+    IsCTMSupported = CFXCaptureCapabilitiesIsCTMSupported(+[JFXOrientationMonitor interfaceOrientation]);
     if ((isBackDualSupported | IsCTMSupported))
     {
       v16 = IsCTMSupported;
@@ -4065,7 +4058,7 @@ LABEL_18:
       v52 = 0u;
       v26 = MEMORY[0x277D3D080];
       [(CFXCaptureViewController *)self zoomControlFrame];
-      [v26 orientedGeometryForFrame:1 inBounds:? orientation:?];
+      objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(v26);
       v48 = v54;
       v49 = v55;
       v50 = v56;
@@ -4113,7 +4106,7 @@ LABEL_19:
       v52 = 0u;
       v36 = MEMORY[0x277D3D080];
       [(CFXCaptureViewController *)self zoomSliderFrame];
-      [v36 orientedGeometryForFrame:1 inBounds:? orientation:?];
+      objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(v36);
       v42 = v54;
       v43 = v55;
       v44 = v56;
@@ -4658,7 +4651,7 @@ void __69__CFXCaptureViewController_liveCaptureViewController_didRenderFrame___b
   v5 = v4;
   if (v4)
   {
-    [v4 effectRange];
+    objc_msgSend_effectRange(v4);
   }
 
   else
@@ -4680,14 +4673,14 @@ void __69__CFXCaptureViewController_liveCaptureViewController_didRenderFrame___b
     v6 = *(a1 + 32);
     if (v6)
     {
-      [v6 requestTime];
+      objc_msgSend_requestTime(v6);
     }
 
     v7 = [v3 renderEffect];
     v8 = v7;
     if (v7)
     {
-      [v7 effectRange];
+      objc_msgSend_effectRange(v7);
     }
 
     else
@@ -6177,20 +6170,20 @@ LABEL_8:
   view = [cameraControls view];
   isHidden = [view isHidden];
 
-  if ((CFXCaptureCapabilitiesIsCTMSupported() & 1) == 0)
+  if ((CFXCaptureCapabilitiesIsCTMSupported(v6) & 1) == 0)
   {
     if (isHidden)
     {
-      v6 = isStreamingMode([(CFXCaptureViewController *)self captureMode]);
+      v7 = isStreamingMode([(CFXCaptureViewController *)self captureMode]);
     }
 
     else
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     topBar = [(CFXCaptureViewController *)self topBar];
-    [topBar setHidden:v6];
+    [topBar setHidden:v7];
   }
 
   cameraControls2 = [(CFXCaptureViewController *)self cameraControls];
@@ -6434,14 +6427,14 @@ void __68__CFXCaptureViewController_completedVideoRecordWithURL_metadataURL___bl
   v4 = +[JFXVideoCameraController sharedInstance];
   v5 = [v4 cameraMode];
 
-  v8 = [[CFXMediaItem alloc] initWithCameraMode:v5 clip:*(a1 + 32) assetMediaURL:*(a1 + 40) assetMetadataURL:*(a1 + 48) cameraPosition:v3];
+  v9 = [[CFXMediaItem alloc] initWithCameraMode:v5 clip:*(a1 + 32) assetMediaURL:*(a1 + 40) assetMetadataURL:*(a1 + 48) cameraPosition:v3];
   v6 = [*(a1 + 56) cameraViewController];
   [v6 stopRenderingCameraFrames];
 
   v7 = [*(a1 + 56) delegate];
-  [v7 captureViewController:*(a1 + 56) didCaptureMediaItem:v8];
+  [v7 captureViewController:*(a1 + 56) didCaptureMediaItem:v9];
 
-  if (CFXCaptureCapabilitiesIsCTMSupported() && [*(a1 + 56) switchedToVideoMode])
+  if (CFXCaptureCapabilitiesIsCTMSupported(v8) && [*(a1 + 56) switchedToVideoMode])
   {
     [*(a1 + 56) setCaptureMode:0];
     [*(a1 + 56) setSwitchedToVideoMode:0];
@@ -6547,8 +6540,7 @@ void __68__CFXCaptureViewController_completedVideoRecordWithURL_metadataURL___bl
     [delegate2 captureViewControllerDidStartVideoRecording:self];
   }
 
-  [(CFXCaptureViewController *)self CFX_hideAppStripUpperBackgroundView:1];
-  if (CFXCaptureCapabilitiesIsCTMSupported())
+  if (CFXCaptureCapabilitiesIsCTMSupported([(CFXCaptureViewController *)self CFX_hideAppStripUpperBackgroundView:1]))
   {
     elapsedTimeView = [(CFXCaptureViewController *)self elapsedTimeView];
     [elapsedTimeView setHidden:0];
@@ -6581,19 +6573,19 @@ void __68__CFXCaptureViewController_completedVideoRecordWithURL_metadataURL___bl
 {
   recordingCopy = recording;
   cameraViewController = [(CFXCaptureViewController *)self cameraViewController];
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __47__CFXCaptureViewController_stopVideoRecording___block_invoke;
-  v12 = &unk_278D7A1B8;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __47__CFXCaptureViewController_stopVideoRecording___block_invoke;
+  v13 = &unk_278D7A1B8;
   selfCopy = self;
-  v14 = recordingCopy;
+  v15 = recordingCopy;
   v6 = recordingCopy;
-  [cameraViewController stopVideoRecording:&v9];
+  [cameraViewController stopVideoRecording:&v10];
 
-  if (CFXCaptureCapabilitiesIsCTMSupported())
+  if (CFXCaptureCapabilitiesIsCTMSupported(v7))
   {
-    v7 = [(CFXCaptureViewController *)self elapsedTimeView:v9];
-    [v7 setBackgroundStyle:3 animated:1];
+    v8 = [(CFXCaptureViewController *)self elapsedTimeView:v10];
+    [v8 setBackgroundStyle:3 animated:1];
 
     zoomControl = [(CFXCaptureViewController *)self zoomControl];
     [zoomControl setEnabled:1];
@@ -6908,7 +6900,7 @@ uint64_t __53__CFXCaptureViewController_CFX_respondToShutterPress__block_invoke_
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  [(CFXCaptureViewController *)self dynamicShutterSettings];
+  objc_msgSend_dynamicShutterSettings(self);
   elapsedTimeView = [(CFXCaptureViewController *)self elapsedTimeView];
   [elapsedTimeView setHidden:v5];
 
@@ -6922,7 +6914,7 @@ uint64_t __53__CFXCaptureViewController_CFX_respondToShutterPress__block_invoke_
   v9[1] = v12;
   [(CFXCaptureViewController *)self setDynamicShutterSettings:v9];
   dynamicShutterControl = [(CFXCaptureViewController *)self dynamicShutterControl];
-  [(CFXCaptureViewController *)self dynamicShutterSettings];
+  objc_msgSend_dynamicShutterSettings(self);
   [dynamicShutterControl setSettings:v9 animated:0];
 
   dynamicShutterControl2 = [(CFXCaptureViewController *)self dynamicShutterControl];
@@ -6931,7 +6923,7 @@ uint64_t __53__CFXCaptureViewController_CFX_respondToShutterPress__block_invoke_
 
 - (void)returnCTMUIToPhotoMode
 {
-  if (CFXCaptureCapabilitiesIsCTMSupported() && [(CFXCaptureViewController *)self switchedToVideoMode])
+  if (CFXCaptureCapabilitiesIsCTMSupported(self) && [(CFXCaptureViewController *)self switchedToVideoMode])
   {
     [(CFXCaptureViewController *)self setCaptureMode:0];
     [(CFXCaptureViewController *)self setSwitchedToVideoMode:0];
@@ -7484,7 +7476,7 @@ void __98__CFXCaptureViewController_EffectEditingAdditions__effectEditorView_did
   v13 = +[JFXOrientationMonitor interfaceOrientation];
   if ([(CFXCaptureViewController *)self captureMode]== 1)
   {
-    [(CFXCaptureViewController *)self overlayTransformForLocalViewfinder];
+    objc_msgSend_overlayTransformForLocalViewfinder(self);
   }
 
   if (v12 != v13)
@@ -7716,7 +7708,7 @@ void __98__CFXCaptureViewController_EffectEditingAdditions__effectEditorView_did
 - (BOOL)fullScreenTextEditViewController:(id)controller shouldDisableEditingAnimationForEffect:(id)effect
 {
   memset(&v5[1], 0, sizeof(CGAffineTransform));
-  [(CFXCaptureViewController *)self overlayTransformForLocalViewfinder:controller];
+  objc_msgSend_overlayTransformForLocalViewfinder(self, a2, controller, effect);
   v5[0] = v5[1];
   return !CGAffineTransformIsIdentity(v5);
 }

@@ -67,7 +67,6 @@
 
 uint64_t __43__MOEngagementHistoryWriter_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_shared = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -101,7 +100,7 @@ void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_inv
   v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_cold_1(a1);
+    __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 32);
@@ -111,11 +110,11 @@ void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_inv
 
 void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_5(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_5_cold_1(v3, a1);
+    __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_5_cold_1(v2);
   }
 }
 
@@ -147,7 +146,7 @@ void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_inv
   v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_cold_1(a1);
+    __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 32);
@@ -157,11 +156,11 @@ void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_inv
 
 void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_7(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_7_cold_1(v3, a1);
+    __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_7_cold_1(v2);
   }
 }
 
@@ -193,7 +192,7 @@ void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke(ui
   v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_cold_1(a1);
+    __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 32);
@@ -203,11 +202,11 @@ void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke(ui
 
 void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_8(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _mo_log_facility_get_os_log(MOLogFacilityEngagement);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_8_cold_1(v3, a1);
+    __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_8_cold_1(v2);
   }
 }
 
@@ -355,73 +354,46 @@ void __132__MOEngagementHistoryWriter_logSuggestionEngagementEvent_clientIdentif
   return v3;
 }
 
-void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_cold_1(uint64_t a1)
+void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_5_cold_1(void *a1, uint64_t a2)
+void __61__MOEngagementHistoryWriter__logEngagementEvent_withContext___block_invoke_5_cold_1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = [a1 localizedDescription];
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 40);
+  v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v6, v7, "Error: %@, engagement event: %@, context: %{private}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v2, v3, "Error: %@, engagement event: %@, context: %{private}@", v4, v5, v6, v7);
 }
 
-void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_cold_1(uint64_t a1)
+void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_7_cold_1(void *a1, uint64_t a2)
+void __61__MOEngagementHistoryWriter_logPerformanceEvent_withContext___block_invoke_7_cold_1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = [a1 localizedDescription];
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 40);
+  v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v6, v7, "Error: %@, performance event: %@, context: %{private}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v2, v3, "Error: %@, performance event: %@, context: %{private}@", v4, v5, v6, v7);
 }
 
-void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_cold_1(uint64_t a1)
+void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_8_cold_1(void *a1, uint64_t a2)
+void __55__MOEngagementHistoryWriter_logUsageEvent_withContext___block_invoke_8_cold_1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = [a1 localizedDescription];
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 40);
+  v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v6, v7, "Error: %@, Usage event: %@, context: %{private}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_22D8C5000, v2, v3, "Error: %@, Usage event: %@, context: %{private}@", v4, v5, v6, v7);
 }
 
 @end

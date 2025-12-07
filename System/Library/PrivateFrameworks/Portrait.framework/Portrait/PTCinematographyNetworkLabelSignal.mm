@@ -117,20 +117,21 @@
 {
   payloadCopy = payload;
   streamCopy = stream;
-  if ([(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy])
+  v8 = [(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy];
+  if (v8)
   {
     detection = [payloadCopy detection];
-    v9 = [(PTCinematographyNetworkLabelSignal *)self _networkLabelForDetection:detection];
+    v10 = [(PTCinematographyNetworkLabelSignal *)self _networkLabelForDetection:detection];
 
-    [streamCopy writeOneHot:v9 count:{-[PTCinematographyNetworkSignal count](self, "count")}];
+    [streamCopy writeOneHot:v10 count:{-[PTCinematographyNetworkSignal count](self, "count")}];
   }
 
   else
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PTCinematographyNetworkNamedSignal writePayload:v10 toStream:?];
+      [PTCinematographyNetworkNamedSignal writePayload:v11 toStream:?];
     }
   }
 }

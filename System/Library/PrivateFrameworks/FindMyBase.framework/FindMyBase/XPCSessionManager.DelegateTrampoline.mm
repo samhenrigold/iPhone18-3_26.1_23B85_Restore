@@ -7,7 +7,6 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v7 = *(&self->super.isa + OBJC_IVAR____TtCC10FindMyBase17XPCSessionManagerP33_A03603F91824D587CF1B3EB0B5E03C5F18DelegateTrampoline_sessionManager);
   swift_unownedRetainStrong();
   listenerCopy = listener;
   connectionCopy = connection;

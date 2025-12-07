@@ -76,15 +76,15 @@
 {
   wrappedViewController = [(PHPIPWrapperViewController *)self wrappedViewController];
 
-  v4 = sub_10000B2A0();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v6 = sub_10000B2A0(v4, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (wrappedViewController)
   {
-    if (v5)
+    if (v7)
     {
-      v22 = 138543362;
+      v24 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Moving content into the wrapping PIP controller", &v22, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Moving content into the wrapping PIP controller", &v24, 0xCu);
     }
 
     wrappedViewController2 = [(PHPIPWrapperViewController *)self wrappedViewController];
@@ -100,26 +100,26 @@
 
     view3 = [(PHPIPWrapperViewController *)self view];
     [view3 bounds];
-    v13 = v12;
     v15 = v14;
     v17 = v16;
     v19 = v18;
+    v21 = v20;
     wrappedViewController5 = [(PHPIPWrapperViewController *)self wrappedViewController];
     view4 = [wrappedViewController5 view];
-    [view4 setFrame:{v13, v15, v17, v19}];
+    [view4 setFrame:{v15, v17, v19, v21}];
   }
 
-  else if (v5)
+  else if (v7)
   {
-    v22 = 138543362;
+    v24 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Warning: Not moving content into wrapped PIP controller because wrappedViewController is nil", &v22, 0xCu);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Warning: Not moving content into wrapped PIP controller because wrappedViewController is nil", &v24, 0xCu);
   }
 }
 
 - (void)willAnimatePictureInPictureStop
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -137,12 +137,12 @@
 
 - (void)didAnimatePictureInPictureStop
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v16 = 138543362;
     selfCopy3 = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP Animation to fullscreen did complete", &v12, 0xCu);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP Animation to fullscreen did complete", &v16, 0xCu);
   }
 
   didAnimatePictureInPictureStopCompletionBlock = [(PHPIPWrapperViewController *)self didAnimatePictureInPictureStopCompletionBlock];
@@ -150,42 +150,43 @@
   if (didAnimatePictureInPictureStopCompletionBlock)
   {
     delegate = [(PHPIPWrapperViewController *)self delegate];
-    v6 = [delegate wrapperViewControllerShouldReturnRestoreWrappedViewControllerHierarchy:self];
+    v8 = [delegate wrapperViewControllerShouldReturnRestoreWrappedViewControllerHierarchy:self];
 
-    if (v6)
+    if (v8)
     {
       wrappedViewController = [(PHPIPWrapperViewController *)self wrappedViewController];
+      v11 = wrappedViewController;
     }
 
     else
     {
-      wrappedViewController = 0;
+      v11 = 0;
     }
 
-    v9 = sub_10000B2A0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000B2A0(wrappedViewController, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
+      v16 = 138543618;
       selfCopy3 = self;
-      v14 = 2112;
-      v15 = wrappedViewController;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling didAnimatePictureInPictureStopCompletionBlock with viewControllerToSteal: %@", &v12, 0x16u);
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling didAnimatePictureInPictureStopCompletionBlock with viewControllerToSteal: %@", &v16, 0x16u);
     }
 
     didAnimatePictureInPictureStopCompletionBlock2 = [(PHPIPWrapperViewController *)self didAnimatePictureInPictureStopCompletionBlock];
-    (didAnimatePictureInPictureStopCompletionBlock2)[2](didAnimatePictureInPictureStopCompletionBlock2, 1, wrappedViewController);
+    (didAnimatePictureInPictureStopCompletionBlock2)[2](didAnimatePictureInPictureStopCompletionBlock2, 1, v11);
 
     [(PHPIPWrapperViewController *)self setDidAnimatePictureInPictureStopCompletionBlock:0];
   }
 
   else
   {
-    v8 = sub_10000B2A0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10000B2A0(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
+      v16 = 138543362;
       selfCopy3 = self;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Block didAnimatePictureInPictureStopCompletionBlock isn't set, won't restore view controller", &v12, 0xCu);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Block didAnimatePictureInPictureStopCompletionBlock isn't set, won't restore view controller", &v16, 0xCu);
     }
   }
 
@@ -195,12 +196,12 @@
 
 - (CGSize)preferredContentSize
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138543362;
+    v24 = 138543362;
     selfCopy3 = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating preferredContentSize to use for the PIP wrapper view controller", &v20, 0xCu);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating preferredContentSize to use for the PIP wrapper view controller", &v24, 0xCu);
   }
 
   delegate = [(PHPIPWrapperViewController *)self delegate];
@@ -213,27 +214,27 @@
     v8 = v7;
     v10 = v9;
 
-    v11 = sub_10000B2A0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000B2A0(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543874;
+      v24 = 138543874;
       selfCopy3 = self;
-      v22 = 2048;
-      v23 = v8;
-      v24 = 2048;
-      v25 = v10;
-      v12 = "%{public}@: Found delegate with preferred size width=%f, height=%f";
+      v26 = 2048;
+      v27 = v8;
+      v28 = 2048;
+      v29 = v10;
+      v14 = "%{public}@: Found delegate with preferred size width=%f, height=%f";
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, &v20, 0x20u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, &v24, 0x20u);
     }
   }
 
   else
   {
     wrappedViewController = [(PHPIPWrapperViewController *)self wrappedViewController];
-    v14 = [wrappedViewController conformsToProtocol:&OBJC_PROTOCOL___PHInCallRootViewControllerProtocol];
+    v16 = [wrappedViewController conformsToProtocol:&OBJC_PROTOCOL___PHInCallRootViewControllerProtocol];
 
-    if (!v14)
+    if (!v16)
     {
       v10 = 0x4059000000000000;
       v8 = 0x4059000000000000;
@@ -242,34 +243,34 @@ LABEL_9:
 
     wrappedViewController2 = [(PHPIPWrapperViewController *)self wrappedViewController];
     [wrappedViewController2 preferredPIPContentAspectRatio];
-    v8 = v16;
-    v10 = v17;
+    v8 = v18;
+    v10 = v19;
 
-    v11 = sub_10000B2A0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000B2A0(v20, v21);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543874;
+      v24 = 138543874;
       selfCopy3 = self;
-      v22 = 2048;
-      v23 = v8;
-      v24 = 2048;
-      v25 = v10;
-      v12 = "%{public}@: Found child view controller with preferred size width=%f, height=%f";
+      v26 = 2048;
+      v27 = v8;
+      v28 = 2048;
+      v29 = v10;
+      v14 = "%{public}@: Found child view controller with preferred size width=%f, height=%f";
       goto LABEL_9;
     }
   }
 
 LABEL_11:
-  v18 = *&v8;
-  v19 = *&v10;
-  result.height = v19;
-  result.width = v18;
+  v22 = *&v8;
+  v23 = *&v10;
+  result.height = v23;
+  result.width = v22;
   return result;
 }
 
 - (void)actionButtonTapped
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
@@ -300,17 +301,17 @@ LABEL_11:
 
 - (void)viewDidResize
 {
-  [(PHPIPWrapperViewController *)self setPipIsBeingResized:0];
-  v3 = sub_10000B2A0();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [(PHPIPWrapperViewController *)self setPipIsBeingResized:0];
+  v5 = sub_10000B2A0(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP view did resize", &v5, 0xCu);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP view did resize", &v7, 0xCu);
   }
 
-  v4 = +[NSNotificationCenter defaultCenter];
-  [v4 postNotificationName:@"PHPIPControllerDidFinishResizingNotification" object:self];
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 postNotificationName:@"PHPIPControllerDidFinishResizingNotification" object:self];
 }
 
 - (void)_layoutWrappedSubview

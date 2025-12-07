@@ -614,7 +614,7 @@ void __41__SBHSearchTextField_updateVisualStyling__block_invoke(uint64_t a1)
 - (id)pointerInteraction:(id)interaction regionForRequest:(id)request defaultRegion:(id)region
 {
   regionCopy = region;
-  [(SBHSearchTextField *)self bounds];
+  objc_msgSend_bounds(self);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -899,7 +899,7 @@ void __41__SBHSearchTextField_updateVisualStyling__block_invoke(uint64_t a1)
   traitCollection = [(SBHSearchTextField *)self traitCollection];
   [traitCollection displayScale];
 
-  [(SBHSearchTextField *)self bounds];
+  objc_msgSend_bounds(self);
   [(SBHSearchTextField *)self _padding];
   font = [(SBHSearchTextField *)self font];
   [font lineHeight];

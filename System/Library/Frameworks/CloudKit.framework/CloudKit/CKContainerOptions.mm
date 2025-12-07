@@ -8,6 +8,7 @@
 - (NSDictionary)fakeEntitlements;
 - (NSString)personaIdentifier;
 - (NSString)personaUniqueString;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)sqliteRepresentation;
 - (unint64_t)hash;
@@ -81,7 +82,7 @@
 
 - (id)sqliteRepresentation
 {
-  v272 = *MEMORY[0x1E69E9840];
+  v271 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = MEMORY[0x1E696AD98];
   v7 = objc_msgSend_captureResponseHTTPHeaders(self, v5, v6);
@@ -278,9 +279,9 @@
   v258 = NSStringFromSelector(sel_ckSessionAcquiredInfo);
   objc_msgSend_setObject_forKeyedSubscript_(v3, v259, v257, v258);
 
-  v269 = 0;
-  v261 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v260, v3, 0, &v269);
-  v262 = v269;
+  v268 = 0;
+  v261 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v260, v3, 0, &v268);
+  v262 = v268;
   if (v262)
   {
     if (ck_log_initialization_predicate != -1)
@@ -292,15 +293,13 @@
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v271 = v262;
+      v270 = v262;
       _os_log_error_impl(&dword_1883EA000, v263, OS_LOG_TYPE_ERROR, "Error converting CKContainerOptions to JSON: %@", buf, 0xCu);
     }
   }
 
   v264 = objc_alloc(MEMORY[0x1E696AEC0]);
   v266 = objc_msgSend_initWithData_encoding_(v264, v265, v261, 4);
-
-  v267 = *MEMORY[0x1E69E9840];
 
   return v266;
 }
@@ -402,7 +401,7 @@
   v123 = NSStringFromSelector(sel_encryptMergeableValueMetadata);
   objc_msgSend_encodeBool_forKey_(coderCopy, v124, v122, v123);
 
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v127 = objc_msgSend_testDeviceReferenceProtocol(self, v125, v126);
     v128 = NSStringFromSelector(sel_testDeviceReferenceProtocol);
@@ -454,11 +453,11 @@
 
 - (CKContainerOptions)initWithCoder:(id)coder
 {
-  v134[5] = *MEMORY[0x1E69E9840];
+  v133[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v133.receiver = self;
-  v133.super_class = CKContainerOptions;
-  v7 = [(CKContainerOptions *)&v133 init];
+  v132.receiver = self;
+  v132.super_class = CKContainerOptions;
+  v7 = [(CKContainerOptions *)&v132 init];
   if (v7)
   {
     v8 = NSStringFromSelector(sel_captureResponseHTTPHeaders);
@@ -554,12 +553,12 @@
     v7->_applicationBundleIdentifierOverrideForTCC = v74;
 
     v76 = MEMORY[0x1E695DFD8];
-    v134[0] = objc_opt_class();
-    v134[1] = objc_opt_class();
-    v134[2] = objc_opt_class();
-    v134[3] = objc_opt_class();
-    v134[4] = objc_opt_class();
-    v78 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v77, v134, 5);
+    v133[0] = objc_opt_class();
+    v133[1] = objc_opt_class();
+    v133[2] = objc_opt_class();
+    v133[3] = objc_opt_class();
+    v133[4] = objc_opt_class();
+    v78 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v77, v133, 5);
     v80 = objc_msgSend_setWithArray_(v76, v79, v78);
     v81 = NSStringFromSelector(sel_fakeEntitlements);
     v83 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v82, v80, v81);
@@ -572,7 +571,7 @@
     v87 = NSStringFromSelector(sel_encryptMergeableValueMetadata);
     v7->_encryptMergeableValueMetadata = objc_msgSend_decodeBoolForKey_(coderCopy, v88, v87);
 
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v89 = sub_188518A68();
       v90 = NSStringFromSelector(sel_testDeviceReferenceProtocol);
@@ -630,7 +629,6 @@
 
   objc_msgSend_swizzleClass(v7, v5, v6);
 
-  v131 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -689,17 +687,17 @@
 
 - (BOOL)getPersona:(id *)persona error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_accountOverrideInfo(self, a2, persona);
   v10 = objc_msgSend_copy(v7, v8, v9);
 
   if (v10)
   {
+    v47 = 0;
     v48 = 0;
-    v49 = 0;
-    Persona_error = objc_msgSend_getPersona_error_(v10, v11, &v49, &v48);
-    v14 = v49;
-    v15 = v48;
+    Persona_error = objc_msgSend_getPersona_error_(v10, v11, &v48, &v47);
+    v14 = v48;
+    v15 = v47;
   }
 
   else
@@ -760,26 +758,26 @@ LABEL_12:
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
   }
 
-  v32 = ck_log_facility_ck;
+  v31 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
-    v41 = v32;
-    v44 = objc_msgSend_ckShortDescription(v19, v42, v43);
-    v47 = objc_msgSend_ckShortDescription(v14, v45, v46);
+    v40 = v31;
+    v43 = objc_msgSend_ckShortDescription(v19, v41, v42);
+    v46 = objc_msgSend_ckShortDescription(v14, v44, v45);
     *buf = 138412546;
-    v51 = v44;
-    v52 = 2112;
-    v53 = v47;
-    _os_log_error_impl(&dword_1883EA000, v41, OS_LOG_TYPE_ERROR, "The explicit persona, %@, is different than the account's persona: %@", buf, 0x16u);
+    v50 = v43;
+    v51 = 2112;
+    v52 = v46;
+    _os_log_error_impl(&dword_1883EA000, v40, OS_LOG_TYPE_ERROR, "The explicit persona, %@, is different than the account's persona: %@", buf, 0x16u);
   }
 
-  v35 = objc_msgSend_ckShortDescription(v19, v33, v34);
-  v38 = objc_msgSend_ckShortDescription(v14, v36, v37);
-  v40 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v39, @"CKInternalErrorDomain", 1000, @"The explicit persona, %@, is different than the account's persona: %@", v35, v38);
+  v34 = objc_msgSend_ckShortDescription(v19, v32, v33);
+  v37 = objc_msgSend_ckShortDescription(v14, v35, v36);
+  v39 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v38, @"CKInternalErrorDomain", 1000, @"The explicit persona, %@, is different than the account's persona: %@", v34, v37);
 
   v14 = 0;
   Persona_error = 0;
-  v15 = v40;
+  v15 = v39;
   if (persona)
   {
     goto LABEL_13;
@@ -792,7 +790,6 @@ LABEL_14:
     *error = v15;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return Persona_error;
 }
 
@@ -827,13 +824,13 @@ LABEL_14:
 
 - (void)setPersonaIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v13 = 0;
-    v6 = objc_msgSend_personaWithIdentifier_error_(CKPersona, v4, identifierCopy, &v13);
-    v8 = v13;
+    v12 = 0;
+    v6 = objc_msgSend_personaWithIdentifier_error_(CKPersona, v4, identifierCopy, &v12);
+    v8 = v12;
     if (!v6)
     {
       if (ck_log_initialization_predicate != -1)
@@ -845,9 +842,9 @@ LABEL_14:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v15 = identifierCopy;
-        v16 = 2112;
-        v17 = v8;
+        v14 = identifierCopy;
+        v15 = 2112;
+        v16 = v8;
         _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "Unable to resolve persona with identifier '%@' with error: %@", buf, 0x16u);
       }
 
@@ -862,8 +859,16 @@ LABEL_14:
   {
     objc_msgSend_setPersona_(self, v4, 0);
   }
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_CKDescriptionClassName(self, a2, redact);
+  v8 = objc_msgSend_hash(self, v6, v7);
+  v10 = objc_msgSend_stringWithFormat_(v4, v9, @"%@:(%tu)", v5, v8);
+
+  return v10;
 }
 
 - (void)CKDescribePropertiesUsing:(id)using
@@ -1084,232 +1089,38 @@ LABEL_14:
     {
       v5 = equalCopy;
       v8 = objc_msgSend_captureResponseHTTPHeaders(v5, v6, v7);
-      if (v8 != objc_msgSend_captureResponseHTTPHeaders(self, v9, v10))
-      {
-        goto LABEL_38;
-      }
-
-      v13 = objc_msgSend_useZoneWidePCS(v5, v11, v12);
-      if (v13 != objc_msgSend_useZoneWidePCS(self, v14, v15))
-      {
-        goto LABEL_38;
-      }
-
-      v18 = objc_msgSend_holdAllOperations(v5, v16, v17);
-      if (v18 != objc_msgSend_holdAllOperations(self, v19, v20))
-      {
-        goto LABEL_38;
-      }
-
-      v23 = objc_msgSend_accountOverrideInfo(v5, v21, v22);
-      v26 = objc_msgSend_accountOverrideInfo(self, v24, v25);
-      v27 = CKObjectsAreBothNilOrEqual(v23, v26);
-
-      if (!v27)
-      {
-        goto LABEL_38;
-      }
-
-      v30 = objc_msgSend_qualityOfService(v5, v28, v29);
-      if (v30 != objc_msgSend_qualityOfService(self, v31, v32))
-      {
-        goto LABEL_38;
-      }
-
-      v35 = objc_msgSend_returnPCSMetadata(v5, v33, v34);
-      if (v35 != objc_msgSend_returnPCSMetadata(self, v36, v37))
-      {
-        goto LABEL_38;
-      }
-
-      v40 = objc_msgSend_mmcsEncryptionSupport(v5, v38, v39);
-      if (v40 != objc_msgSend_mmcsEncryptionSupport(self, v41, v42))
-      {
-        goto LABEL_38;
-      }
-
-      v45 = objc_msgSend_encryptionServiceName(v5, v43, v44);
-      v48 = objc_msgSend_encryptionServiceName(self, v46, v47);
-      v49 = CKObjectsAreBothNilOrEqual(v45, v48);
-
-      if (!v49)
-      {
-        goto LABEL_38;
-      }
-
-      isServiceManatee = objc_msgSend_isServiceManatee(v5, v50, v51);
-      if (isServiceManatee != objc_msgSend_isServiceManatee(self, v53, v54))
-      {
-        goto LABEL_38;
-      }
-
-      v57 = objc_msgSend_bypassPCSEncryption(v5, v55, v56);
-      if (v57 != objc_msgSend_bypassPCSEncryption(self, v58, v59))
-      {
-        goto LABEL_38;
-      }
-
-      v62 = objc_msgSend_enforceNamedOperationGroups(v5, v60, v61);
-      if (v62 != objc_msgSend_enforceNamedOperationGroups(self, v63, v64))
-      {
-        goto LABEL_38;
-      }
-
-      OnlyManatee = objc_msgSend_forceEnableReadOnlyManatee(v5, v65, v66);
-      if (OnlyManatee != objc_msgSend_forceEnableReadOnlyManatee(self, v68, v69))
-      {
-        goto LABEL_38;
-      }
-
-      v72 = objc_msgSend_uploadRequestConfiguration(v5, v70, v71);
-      v75 = objc_msgSend_uploadRequestConfiguration(self, v73, v74);
-      v76 = CKObjectsAreBothNilOrEqual(v72, v75);
-
-      if (!v76)
-      {
-        goto LABEL_38;
-      }
-
-      v79 = objc_msgSend_persona(v5, v77, v78);
-      v82 = objc_msgSend_persona(self, v80, v81);
-      v83 = CKObjectsAreBothNilOrEqual(v79, v82);
-
-      if (!v83)
-      {
-        goto LABEL_38;
-      }
-
-      v86 = objc_msgSend_useClearAssetEncryption(v5, v84, v85);
-      if (v86 != objc_msgSend_useClearAssetEncryption(self, v87, v88))
-      {
-        goto LABEL_38;
-      }
-
-      v91 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v5, v89, v90);
-      v94 = objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(self, v92, v93);
-      v95 = CKObjectsAreBothNilOrEqual(v91, v94);
-
-      if (!v95)
-      {
-        goto LABEL_38;
-      }
-
-      v98 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v5, v96, v97);
-      v101 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(self, v99, v100);
-      v102 = CKObjectsAreBothNilOrEqual(v98, v101);
-
-      if (!v102)
-      {
-        goto LABEL_38;
-      }
-
-      v105 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v5, v103, v104);
-      v108 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(self, v106, v107);
-      v109 = CKObjectsAreBothNilOrEqual(v105, v108);
-
-      if (!v109)
-      {
-        goto LABEL_38;
-      }
-
-      v112 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(v5, v110, v111);
-      v115 = objc_msgSend_applicationBundleIdentifierOverrideForTCC(self, v113, v114);
-      v116 = CKObjectsAreBothNilOrEqual(v112, v115);
-
-      if (!v116)
-      {
-        goto LABEL_38;
-      }
-
-      v119 = objc_msgSend_fakeEntitlements(v5, v117, v118);
-      v122 = objc_msgSend_fakeEntitlements(self, v120, v121);
-      v123 = CKObjectsAreBothNilOrEqual(v119, v122);
-
-      if (!v123)
-      {
-        goto LABEL_38;
-      }
-
-      v126 = objc_msgSend_useAnonymousToServerShareParticipants(v5, v124, v125);
-      if (v126 != objc_msgSend_useAnonymousToServerShareParticipants(self, v127, v128))
-      {
-        goto LABEL_38;
-      }
-
-      v131 = objc_msgSend_encryptMergeableValueMetadata(v5, v129, v130);
-      if (v131 != objc_msgSend_encryptMergeableValueMetadata(self, v132, v133))
-      {
-        goto LABEL_38;
-      }
-
-      v136 = objc_msgSend_testDeviceReferenceProtocol(v5, v134, v135);
-      v139 = objc_msgSend_testDeviceReferenceProtocol(self, v137, v138);
-      v140 = CKObjectsAreBothNilOrEqual(v136, v139);
-
-      if (!v140)
-      {
-        goto LABEL_38;
-      }
-
-      v143 = objc_msgSend_returnRequestOperationProto(v5, v141, v142);
-      if (v143 != objc_msgSend_returnRequestOperationProto(self, v144, v145))
-      {
-        goto LABEL_38;
-      }
-
-      v148 = objc_msgSend_maintainRecordUploadOrder(v5, v146, v147);
-      if (v148 != objc_msgSend_maintainRecordUploadOrder(self, v149, v150))
-      {
-        goto LABEL_38;
-      }
-
-      v153 = objc_msgSend_addDatabaseScopeToZoneIDs(v5, v151, v152);
-      if (v153 != objc_msgSend_addDatabaseScopeToZoneIDs(self, v154, v155))
-      {
-        goto LABEL_38;
-      }
-
-      ChangesForMergeableValues = objc_msgSend_fetchChangesForMergeableValues(v5, v156, v157);
-      if (ChangesForMergeableValues != objc_msgSend_fetchChangesForMergeableValues(self, v159, v160))
-      {
-        goto LABEL_38;
-      }
-
-      v163 = objc_msgSend_prefersHiddenAllowedSharingOptionsUI(v5, v161, v162);
-      if (v163 != objc_msgSend_prefersHiddenAllowedSharingOptionsUI(self, v164, v165))
-      {
-        goto LABEL_38;
-      }
-
-      v168 = objc_msgSend_acceptServerSignedRecords(v5, v166, v167);
-      if (v168 != objc_msgSend_acceptServerSignedRecords(self, v169, v170))
-      {
-        goto LABEL_38;
-      }
-
-      v173 = objc_msgSend_supportedDeviceCapabilities(v5, v171, v172);
-      v176 = objc_msgSend_supportedDeviceCapabilities(self, v174, v175);
-      v177 = CKObjectsAreBothNilOrEqual(v173, v176);
-
-      if (!v177)
-      {
-        goto LABEL_38;
-      }
-
-      v180 = objc_msgSend_immediateUseDatabaseScopeForTesting(v5, v178, v179);
-      v183 = objc_msgSend_immediateUseDatabaseScopeForTesting(self, v181, v182);
-      v184 = CKObjectsAreBothNilOrEqual(v180, v183);
-
-      if (!v184)
-      {
-        goto LABEL_38;
-      }
-
-      v187 = objc_msgSend_ckSessionConfiguration(v5, v185, v186);
-      v190 = objc_msgSend_ckSessionConfiguration(self, v188, v189);
-      v191 = CKObjectsAreBothNilOrEqual(v187, v190);
-
-      if (v191)
+      if (v8 == objc_msgSend_captureResponseHTTPHeaders(self, v9, v10)
+        && (v13 = objc_msgSend_useZoneWidePCS(v5, v11, v12), v13 == objc_msgSend_useZoneWidePCS(self, v14, v15))
+        && (v18 = objc_msgSend_holdAllOperations(v5, v16, v17), v18 == objc_msgSend_holdAllOperations(self, v19, v20))
+        && (objc_msgSend_accountOverrideInfo(v5, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend_accountOverrideInfo(self, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), v27 = CKObjectsAreBothNilOrEqual(v23, v26), v26, v23, v27)
+        && (v30 = objc_msgSend_qualityOfService(v5, v28, v29), v30 == objc_msgSend_qualityOfService(self, v31, v32))
+        && (v35 = objc_msgSend_returnPCSMetadata(v5, v33, v34), v35 == objc_msgSend_returnPCSMetadata(self, v36, v37))
+        && (v40 = objc_msgSend_mmcsEncryptionSupport(v5, v38, v39), v40 == objc_msgSend_mmcsEncryptionSupport(self, v41, v42))
+        && (objc_msgSend_encryptionServiceName(v5, v43, v44), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend_encryptionServiceName(self, v46, v47), v48 = objc_claimAutoreleasedReturnValue(), v49 = CKObjectsAreBothNilOrEqual(v45, v48), v48, v45, v49)
+        && (isServiceManatee = objc_msgSend_isServiceManatee(v5, v50, v51), isServiceManatee == objc_msgSend_isServiceManatee(self, v53, v54))
+        && (v57 = objc_msgSend_bypassPCSEncryption(v5, v55, v56), v57 == objc_msgSend_bypassPCSEncryption(self, v58, v59))
+        && (v62 = objc_msgSend_enforceNamedOperationGroups(v5, v60, v61), v62 == objc_msgSend_enforceNamedOperationGroups(self, v63, v64))
+        && (OnlyManatee = objc_msgSend_forceEnableReadOnlyManatee(v5, v65, v66), OnlyManatee == objc_msgSend_forceEnableReadOnlyManatee(self, v68, v69))
+        && (objc_msgSend_uploadRequestConfiguration(v5, v70, v71), v72 = objc_claimAutoreleasedReturnValue(), objc_msgSend_uploadRequestConfiguration(self, v73, v74), v75 = objc_claimAutoreleasedReturnValue(), v76 = CKObjectsAreBothNilOrEqual(v72, v75), v75, v72, v76)
+        && (objc_msgSend_persona(v5, v77, v78), v79 = objc_claimAutoreleasedReturnValue(), objc_msgSend_persona(self, v80, v81), v82 = objc_claimAutoreleasedReturnValue(), v83 = CKObjectsAreBothNilOrEqual(v79, v82), v82, v79, v83)
+        && (v86 = objc_msgSend_useClearAssetEncryption(v5, v84, v85), v86 == objc_msgSend_useClearAssetEncryption(self, v87, v88))
+        && (objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(v5, v89, v90), v91 = objc_claimAutoreleasedReturnValue(), objc_msgSend_applicationBundleIdentifierOverrideForContainerAccess(self, v92, v93), v94 = objc_claimAutoreleasedReturnValue(), v95 = CKObjectsAreBothNilOrEqual(v91, v94), v94, v91, v95)
+        && (objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v5, v96, v97), v98 = objc_claimAutoreleasedReturnValue(), objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(self, v99, v100), v101 = objc_claimAutoreleasedReturnValue(), v102 = CKObjectsAreBothNilOrEqual(v98, v101), v101, v98, v102)
+        && (objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v5, v103, v104), v105 = objc_claimAutoreleasedReturnValue(), objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(self, v106, v107), v108 = objc_claimAutoreleasedReturnValue(), v109 = CKObjectsAreBothNilOrEqual(v105, v108), v108, v105, v109)
+        && (objc_msgSend_applicationBundleIdentifierOverrideForTCC(v5, v110, v111), v112 = objc_claimAutoreleasedReturnValue(), objc_msgSend_applicationBundleIdentifierOverrideForTCC(self, v113, v114), v115 = objc_claimAutoreleasedReturnValue(), v116 = CKObjectsAreBothNilOrEqual(v112, v115), v115, v112, v116)
+        && (objc_msgSend_fakeEntitlements(v5, v117, v118), v119 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fakeEntitlements(self, v120, v121), v122 = objc_claimAutoreleasedReturnValue(), v123 = CKObjectsAreBothNilOrEqual(v119, v122), v122, v119, v123)
+        && (v126 = objc_msgSend_useAnonymousToServerShareParticipants(v5, v124, v125), v126 == objc_msgSend_useAnonymousToServerShareParticipants(self, v127, v128))
+        && (v131 = objc_msgSend_encryptMergeableValueMetadata(v5, v129, v130), v131 == objc_msgSend_encryptMergeableValueMetadata(self, v132, v133))
+        && (objc_msgSend_testDeviceReferenceProtocol(v5, v134, v135), v136 = objc_claimAutoreleasedReturnValue(), objc_msgSend_testDeviceReferenceProtocol(self, v137, v138), v139 = objc_claimAutoreleasedReturnValue(), v140 = CKObjectsAreBothNilOrEqual(v136, v139), v139, v136, v140)
+        && (v143 = objc_msgSend_returnRequestOperationProto(v5, v141, v142), v143 == objc_msgSend_returnRequestOperationProto(self, v144, v145))
+        && (v148 = objc_msgSend_maintainRecordUploadOrder(v5, v146, v147), v148 == objc_msgSend_maintainRecordUploadOrder(self, v149, v150))
+        && (v153 = objc_msgSend_addDatabaseScopeToZoneIDs(v5, v151, v152), v153 == objc_msgSend_addDatabaseScopeToZoneIDs(self, v154, v155))
+        && (ChangesForMergeableValues = objc_msgSend_fetchChangesForMergeableValues(v5, v156, v157), ChangesForMergeableValues == objc_msgSend_fetchChangesForMergeableValues(self, v159, v160))
+        && (v163 = objc_msgSend_prefersHiddenAllowedSharingOptionsUI(v5, v161, v162), v163 == objc_msgSend_prefersHiddenAllowedSharingOptionsUI(self, v164, v165))
+        && (v168 = objc_msgSend_acceptServerSignedRecords(v5, v166, v167), v168 == objc_msgSend_acceptServerSignedRecords(self, v169, v170))
+        && (objc_msgSend_supportedDeviceCapabilities(v5, v171, v172), v173 = objc_claimAutoreleasedReturnValue(), objc_msgSend_supportedDeviceCapabilities(self, v174, v175), v176 = objc_claimAutoreleasedReturnValue(), v177 = CKObjectsAreBothNilOrEqual(v173, v176), v176, v173, v177)
+        && (objc_msgSend_immediateUseDatabaseScopeForTesting(v5, v178, v179), v180 = objc_claimAutoreleasedReturnValue(), objc_msgSend_immediateUseDatabaseScopeForTesting(self, v181, v182), v183 = objc_claimAutoreleasedReturnValue(), v184 = CKObjectsAreBothNilOrEqual(v180, v183), v183, v180, v184)
+        && (objc_msgSend_ckSessionConfiguration(v5, v185, v186), v187 = objc_claimAutoreleasedReturnValue(), objc_msgSend_ckSessionConfiguration(self, v188, v189), v190 = objc_claimAutoreleasedReturnValue(), v191 = CKObjectsAreBothNilOrEqual(v187, v190), v190, v187, v191))
       {
         v194 = objc_msgSend_ckSessionAcquiredInfo(v5, v192, v193);
         v197 = objc_msgSend_ckSessionAcquiredInfo(self, v195, v196);
@@ -1318,7 +1129,6 @@ LABEL_14:
 
       else
       {
-LABEL_38:
         v198 = 0;
       }
     }
@@ -1334,14 +1144,14 @@ LABEL_38:
 
 - (CKContainerOptions)initWithSqliteRepresentation:(id)representation
 {
-  v206 = *MEMORY[0x1E69E9840];
+  v205 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   if (objc_msgSend_length(representationCopy, v5, v6))
   {
     v8 = objc_msgSend_dataUsingEncoding_(representationCopy, v7, 4);
-    v203 = 0;
-    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v203);
-    v11 = v203;
+    v202 = 0;
+    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v202);
+    v11 = v202;
     if (v11 || !v10)
     {
       if (ck_log_initialization_predicate != -1)
@@ -1353,7 +1163,7 @@ LABEL_38:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v205 = v11;
+        v204 = v11;
         _os_log_error_impl(&dword_1883EA000, v101, OS_LOG_TYPE_ERROR, "Error converting JSON data to CKContainerOptions: %@", buf, 0xCu);
       }
 
@@ -1362,9 +1172,9 @@ LABEL_38:
 
     else
     {
-      v202.receiver = self;
-      v202.super_class = CKContainerOptions;
-      v14 = [(CKContainerOptions *)&v202 init];
+      v201.receiver = self;
+      v201.super_class = CKContainerOptions;
+      v14 = [(CKContainerOptions *)&v201 init];
       if (v14)
       {
         v15 = NSStringFromSelector(sel_captureResponseHTTPHeaders);
@@ -1485,7 +1295,7 @@ LABEL_38:
         v135 = objc_msgSend_objectForKeyedSubscript_(v10, v134, v133);
         v14->_encryptMergeableValueMetadata = objc_msgSend_BOOLValue(v135, v136, v137);
 
-        if (__sTestOverridesAvailable[0] == 1)
+        if (__sTestOverridesAvailable == 1)
         {
           v138 = objc_alloc(sub_188518A68());
           v139 = NSStringFromSelector(sel_testDeviceReferenceProtocol);
@@ -1566,64 +1376,63 @@ LABEL_38:
     selfCopy = 0;
   }
 
-  v200 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)setSupportedDeviceCapabilities:(id)capabilities
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   if (capabilitiesCopy)
   {
     selfCopy = self;
     v5 = objc_opt_new();
-    v45 = objc_opt_new();
+    v44 = objc_opt_new();
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v43 = capabilitiesCopy;
+    v42 = capabilitiesCopy;
     obj = capabilitiesCopy;
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v52, v57, 16);
-    if (v47)
+    v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v51, v56, 16);
+    if (v46)
     {
-      v46 = *v53;
+      v45 = *v52;
       do
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v46; ++i)
         {
-          if (*v53 != v46)
+          if (*v52 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v52 + 1) + 8 * i);
+          v10 = *(*(&v51 + 1) + 8 * i);
           v11 = objc_msgSend_name(v10, v7, v8, selfCopy);
           v13 = objc_msgSend_objectForKey_(v5, v12, v11);
 
           if (v13)
           {
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
             v49 = 0u;
+            v50 = 0u;
+            v47 = 0u;
+            v48 = 0u;
             v16 = v13;
-            v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v48, v56, 16);
+            v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v47, v55, 16);
             if (v18)
             {
               v21 = v18;
-              v22 = *v49;
+              v22 = *v48;
               while (2)
               {
                 for (j = 0; j != v21; ++j)
                 {
-                  if (*v49 != v22)
+                  if (*v48 != v22)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  v24 = *(*(&v48 + 1) + 8 * j);
+                  v24 = *(*(&v47 + 1) + 8 * j);
                   v25 = objc_msgSend_value(v10, v19, v20);
                   LOBYTE(v24) = objc_msgSend_isEqualToString_(v24, v26, v25);
 
@@ -1634,7 +1443,7 @@ LABEL_38:
                   }
                 }
 
-                v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v48, v56, 16);
+                v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v47, v55, 16);
                 if (v21)
                 {
                   continue;
@@ -1657,20 +1466,20 @@ LABEL_38:
             objc_msgSend_setObject_forKey_(v5, v37, v33, v36);
           }
 
-          objc_msgSend_addObject_(v45, v38, v10);
+          objc_msgSend_addObject_(v44, v38, v10);
 LABEL_20:
         }
 
-        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v52, v57, 16);
+        v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v51, v56, 16);
       }
 
-      while (v47);
+      while (v46);
     }
 
     supportedDeviceCapabilities = selfCopy->_supportedDeviceCapabilities;
-    selfCopy->_supportedDeviceCapabilities = v45;
+    selfCopy->_supportedDeviceCapabilities = v44;
 
-    capabilitiesCopy = v43;
+    capabilitiesCopy = v42;
   }
 
   else
@@ -1678,8 +1487,6 @@ LABEL_20:
     v40 = self->_supportedDeviceCapabilities;
     self->_supportedDeviceCapabilities = 0;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ck_bindInStatement:(id)statement atIndex:(unint64_t)index

@@ -87,9 +87,11 @@ LABEL_8:
     v6 = *(&self->super.super.super.super.isa + OBJC_IVAR___PKAddAutoFillCardViewController_fieldsModel);
     selfCopy = self;
     v7 = v6;
-    sub_1BD9F46CC(v5, v7);
+    v9 = sub_1BD9F46CC(v5, v7, v8);
+    v9, v10, v11, v12, v13, v14, v15, v16;
 
-    sub_1BD88AA80();
+    sub_1BD88AA80(v17, v18);
+    v5, v19, v20, v21, v22, v23, v24, v25;
   }
 
   else
@@ -101,7 +103,7 @@ LABEL_8:
 - (void)cameraCaptureViewControllerDidSelectManualEntry:(id)entry
 {
   selfCopy = self;
-  sub_1BD88AA80();
+  sub_1BD88AA80(selfCopy, v3);
 }
 
 - (void)reset

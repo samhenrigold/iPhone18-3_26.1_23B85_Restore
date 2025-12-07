@@ -521,10 +521,10 @@ LABEL_14:
 
       if (v13 == 0.0)
       {
-        v14 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = VUIDefaultLogObject(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [(VUILabel *)self numberOfLinesRequiredForTextWidth:v14];
+          [(VUILabel *)self numberOfLinesRequiredForTextWidth:v15];
         }
 
         return 1;
@@ -532,14 +532,14 @@ LABEL_14:
 
       else
       {
-        v15 = floor(v10 / v13);
-        v16 = ceil(v10 / v13);
-        if (v10 / v13 - v15 <= 0.9)
+        v16 = floor(v10 / v13);
+        v17 = ceil(v10 / v13);
+        if (v10 / v13 - v16 <= 0.9)
         {
-          return v15;
+          return v16;
         }
 
-        return v16;
+        return v17;
       }
     }
 

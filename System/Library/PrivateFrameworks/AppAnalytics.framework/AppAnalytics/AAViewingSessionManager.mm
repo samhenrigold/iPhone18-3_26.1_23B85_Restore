@@ -26,8 +26,6 @@
     selfCopy = self;
 
     sub_1B6AB6C50();
-
-    v5 = *(&self->super.isa + v3);
   }
 
   else
@@ -58,7 +56,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   v13 = ViewingSessionManager.viewingSession(for:object:onEnd:)(v8, v10, object, v7, v11);
-  sub_1B69A3100(v7);
+  sub_1B69A3100(v7, v11);
   swift_unknownObjectRelease();
 
   return v13;
@@ -87,11 +85,6 @@
   v10 = *(&self->super.isa + v7);
   if (v10 >> 62)
   {
-    if (v10 < 0)
-    {
-      v12 = *(&self->super.isa + v7);
-    }
-
     v11 = sub_1B6AB9E60();
     if (v11 >= v9)
     {

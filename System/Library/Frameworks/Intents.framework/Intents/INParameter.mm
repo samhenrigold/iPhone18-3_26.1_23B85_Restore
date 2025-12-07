@@ -61,7 +61,7 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass([(INParameter *)self parameterClass]);
   v4 = v3;
   v5 = @"(nil)";
@@ -70,15 +70,13 @@
     v5 = v3;
   }
 
-  v11[0] = @"parameterKeyPath (subscripted)";
+  v10[0] = @"parameterKeyPath (subscripted)";
   v6 = v5;
   _subscriptedKeyPath = [(INParameter *)self _subscriptedKeyPath];
-  v11[1] = @"parameterClass";
-  v12[0] = _subscriptedKeyPath;
-  v12[1] = v6;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[1] = @"parameterClass";
+  v11[0] = _subscriptedKeyPath;
+  v11[1] = v6;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -186,35 +184,35 @@
 
 - (void)_setIndexesForKeyPathWithSubscripts:(id)subscripts
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   subscriptsCopy = subscripts;
   array = [MEMORY[0x1E695DF70] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v27 = subscriptsCopy;
+  v26 = subscriptsCopy;
   obj = [subscriptsCopy componentsSeparatedByString:@"."];
-  v5 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
+    v7 = *v33;
     v8 = 0x1E696A000uLL;
-    v28 = array;
-    v29 = *v34;
+    v27 = array;
+    v28 = *v33;
     do
     {
       v9 = 0;
-      v31 = v6;
+      v30 = v6;
       do
       {
-        if (*v34 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
+        v10 = *(*(&v32 + 1) + 8 * v9);
         v11 = [*(v8 + 2824) characterSetWithCharactersInString:@"[]"];
         v12 = [v10 componentsSeparatedByCharactersInSet:v11];
 
@@ -232,63 +230,61 @@
 
           if (v20 != 0x7FFFFFFFFFFFFFFFLL || integerValue < 0)
           {
-            v22 = MEMORY[0x1E695DF30];
-            v23 = *MEMORY[0x1E695D930];
-            v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid index <%@> for key path <%@>", v14, v15];
-            v25 = [v22 exceptionWithName:v23 reason:v24 userInfo:0];
-            v26 = v25;
+            v21 = MEMORY[0x1E695DF30];
+            v22 = *MEMORY[0x1E695D930];
+            v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid index <%@> for key path <%@>", v14, v15];
+            v24 = [v21 exceptionWithName:v22 reason:v23 userInfo:0];
+            v25 = v24;
 
-            objc_exception_throw(v25);
+            objc_exception_throw(v24);
           }
 
           [(INParameter *)self setIndex:integerValue forSubKeyPath:v15];
 
-          array = v28;
-          v7 = v29;
+          array = v27;
+          v7 = v28;
           v8 = v17;
-          v6 = v31;
+          v6 = v30;
         }
 
         ++v9;
       }
 
       while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v6);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)_subscriptedKeyPath
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:self->_parameterKeyPath];
   allKeys = [(NSMutableDictionary *)self->_indexesForSubKeyPaths allKeys];
   v5 = [allKeys sortedArrayUsingComparator:&__block_literal_global_53416];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = MEMORY[0x1E696AEC0];
         v12 = MEMORY[0x1E696AD98];
         v13 = [(NSMutableDictionary *)self->_indexesForSubKeyPaths objectForKey:v10];
@@ -297,14 +293,13 @@
         [v3 replaceOccurrencesOfString:v10 withString:v15 options:8 range:{0, objc_msgSend(v3, "length")}];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v3 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -372,7 +367,6 @@ void __62__INParameter__sanitizedKeyPathForKeyPath_removingSubscripts___block_in
 
 - (id)_valueOfObject:(id)object forRemainingKeyPath:(id)path inFullyQualifiedKeyPath:(id)keyPath
 {
-  v27 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   pathCopy = path;
   keyPathCopy = keyPath;
@@ -423,8 +417,6 @@ void __62__INParameter__sanitizedKeyPathForKeyPath_removingSubscripts___block_in
 
     v21 = v23;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

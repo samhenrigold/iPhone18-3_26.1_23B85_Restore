@@ -36,7 +36,6 @@
 unint64_t __85__FCKeyValueStoreSavePolicyAppBackground_initWithActivityMonitor_backgroundTaskable___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) addObserver:*(a1 + 40)];
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {

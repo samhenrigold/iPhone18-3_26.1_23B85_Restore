@@ -15,7 +15,7 @@
 
 + (id)formattedAlternateNamesForBundleId:(id)id withAlternateNames:(id)names
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   idCopy = id;
   namesCopy = names;
   if (formattedAlternateNamesForBundleId_withAlternateNames__onceToken != -1)
@@ -27,26 +27,26 @@
   if (!v7)
   {
     v7 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v8 = namesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           if ([v13 length])
           {
             localizedLowercaseString = [v13 localizedLowercaseString];
@@ -67,7 +67,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -75,8 +75,6 @@
 
     [formattedAlternateNamesForBundleId_withAlternateNames__cache setObject:v7 forKey:idCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -139,11 +137,11 @@ uint64_t __84__SSApplicationResultBuilder_formattedAlternateNamesForBundleId_wit
 
 - (id)buildResult
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   queryContext = [(SSResultBuilder *)self queryContext];
   searchString = [queryContext searchString];
 
-  v30 = searchString;
+  v29 = searchString;
   if ([searchString length])
   {
     name = [(SSApplicationResultBuilder *)self name];
@@ -154,32 +152,32 @@ uint64_t __84__SSApplicationResultBuilder_formattedAlternateNamesForBundleId_wit
       queryContext2 = [(SSResultBuilder *)self queryContext];
       evaluator = [queryContext2 evaluator];
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       obj = [(SSApplicationResultBuilder *)self alternateNames];
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v32;
+        v11 = *v31;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v32 != v11)
+            if (*v31 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v31 + 1) + 8 * i);
-            v14 = [v13 localizedStandardContainsString:v30];
+            v13 = *(*(&v30 + 1) + 8 * i);
+            v14 = [v13 localizedStandardContainsString:v29];
             name2 = [(SSApplicationResultBuilder *)self name];
             v16 = getHighlightedRichText(v13, evaluator, name2, 0);
 
             formattedTextPieces = [v16 formattedTextPieces];
-            v18 = [formattedTextPieces count];
+            v18 = objc_msgSend_count(formattedTextPieces);
 
             matchedAlternateName = [(SSApplicationResultBuilder *)self matchedAlternateName];
 
@@ -198,7 +196,7 @@ uint64_t __84__SSApplicationResultBuilder_formattedAlternateNamesForBundleId_wit
             }
           }
 
-          v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v10 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v10)
           {
             continue;
@@ -229,8 +227,6 @@ LABEL_19:
   }
 
   result3 = [(SSResultBuilder *)self result];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return result3;
 }

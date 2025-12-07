@@ -284,18 +284,14 @@ LABEL_18:
 
 - (void)setFileProviderIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  fileProviderIdentifier = self->_fileProviderIdentifier;
-  self->_fileProviderIdentifier = v4;
+  self->_fileProviderIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCoreSpotlightIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  coreSpotlightIdentifier = self->_coreSpotlightIdentifier;
-  self->_coreSpotlightIdentifier = v4;
+  self->_coreSpotlightIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

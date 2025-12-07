@@ -64,7 +64,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   listenerQueue = [(_STXPCServer *)self listenerQueue];
   dispatch_assert_queue_V2(listenerQueue);
@@ -94,29 +94,28 @@
 
   if (bOOLValue)
   {
-    v11 = +[_STXPCServerInterface interface];
-    [connectionCopy setExportedInterface:v11];
+    v13 = +[_STXPCServerInterface interface];
+    [connectionCopy setExportedInterface:v13];
     [connectionCopy setExportedObject:self];
-    [connectionCopy activate];
-    v12 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    activate = [connectionCopy activate];
+    v16 = _LTOSLogSTMultiprocess(activate, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = connectionCopy;
-      _os_log_impl(&dword_26B5BC000, v12, OS_LOG_TYPE_DEFAULT, "Accepting new connection: %{public}@", &v16, 0xCu);
+      v19 = 138543362;
+      v20 = connectionCopy;
+      _os_log_impl(&dword_26B5BC000, v16, OS_LOG_TYPE_DEFAULT, "Accepting new connection: %{public}@", &v19, 0xCu);
     }
   }
 
   else
   {
-    v13 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = _LTOSLogSTMultiprocess(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [_STXPCServer listener:connectionCopy shouldAcceptNewConnection:v13];
+      [_STXPCServer listener:connectionCopy shouldAcceptNewConnection:v17];
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -140,11 +139,10 @@
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Denying connection: %{public}@ due to insufficient privilege", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Denying connection: %{public}@ due to insufficient privilege", &v2, 0xCu);
 }
 
 @end

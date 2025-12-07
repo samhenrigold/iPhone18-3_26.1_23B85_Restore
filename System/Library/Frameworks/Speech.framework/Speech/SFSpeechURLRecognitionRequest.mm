@@ -10,7 +10,7 @@
 
 - (id)_startedLocalConnectionWithLanguageCode:(id)code delegate:(id)delegate taskHint:(int64_t)hint requestIdentifier:(id)identifier taskIdentifier:(id)taskIdentifier
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   taskIdentifierCopy = taskIdentifier;
   identifierCopy = identifier;
@@ -18,9 +18,9 @@
   v16 = [[SFLocalSpeechRecognitionClient alloc] initWithDelegate:delegateCopy];
   v17 = MEMORY[0x1E6988168];
   URL = self->_URL;
-  v38 = *MEMORY[0x1E6987378];
-  v39[0] = MEMORY[0x1E695E118];
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v37 = *MEMORY[0x1E6987378];
+  v38[0] = MEMORY[0x1E695E118];
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v20 = [v17 URLAssetWithURL:URL options:v19];
 
   v21 = [v20 tracksWithMediaType:*MEMORY[0x1E69875A0]];
@@ -31,29 +31,28 @@
   [(SFLocalSpeechRecognitionClient *)v16 initializeWithSandboxExtensions:v24];
   [(SFLocalSpeechRecognitionClient *)v16 startRecordedAudioDictationWithParameters:v23];
   LOBYTE(identifierCopy) = [v23 narrowband];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke;
-  v36[3] = &unk_1E797CA90;
-  v37 = v16;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke_2;
-  v34[3] = &unk_1E797CAB8;
-  v35 = v37;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke_3;
-  v31[3] = &unk_1E797CAE0;
-  v25 = v35;
-  v32 = v25;
-  v33 = delegateCopy;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke;
+  v35[3] = &unk_1E797CA90;
+  v36 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke_2;
+  v33[3] = &unk_1E797CAB8;
+  v34 = v36;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCode_delegate_taskHint_requestIdentifier_taskIdentifier___block_invoke_3;
+  v30[3] = &unk_1E797CAE0;
+  v25 = v34;
+  v31 = v25;
+  v32 = delegateCopy;
   v26 = delegateCopy;
-  [(SFSpeechURLRecognitionRequest *)self _handlePreRecordedAudioWithAsset:v20 audioTracks:v21 narrowband:identifierCopy addSpeechDataBlock:v36 stopSpeechBlock:v34 cancelSpeechWithErrorBlock:v31];
-  v27 = v33;
+  [(SFSpeechURLRecognitionRequest *)self _handlePreRecordedAudioWithAsset:v20 audioTracks:v21 narrowband:identifierCopy addSpeechDataBlock:v35 stopSpeechBlock:v33 cancelSpeechWithErrorBlock:v30];
+  v27 = v32;
   v28 = v25;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -92,47 +91,46 @@ void __124__SFSpeechURLRecognitionRequest__startedLocalConnectionWithLanguageCod
 
 void __151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke(uint64_t a1)
 {
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3032000000;
+  v12[3] = __Block_byref_object_copy__2448;
+  v12[4] = __Block_byref_object_dispose__2449;
   v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__2448;
-  v17 = __Block_byref_object_dispose__2449;
-  v18 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke_135;
-  v8[3] = &unk_1E797CA10;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke_135;
+  v7[3] = &unk_1E797CA10;
   v2 = *(a1 + 32);
-  v11 = &v13;
-  v12 = *(a1 + 80);
+  v10 = v12;
+  v11 = *(a1 + 80);
   v3 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v4 = *(&v7 + 1);
+  v6 = *(a1 + 48);
+  v4 = *(&v6 + 1);
   *&v5 = v2;
   *(&v5 + 1) = v3;
-  v9 = v5;
-  v10 = v7;
-  if (__151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke_135(v8))
+  v8 = v5;
+  v9 = v6;
+  if (__151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke_135(v7))
   {
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v6 = v14[5];
     (*(*(a1 + 72) + 16))();
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(v12, 8);
 }
 
 uint64_t __151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_audioTracks_narrowband_addSpeechDataBlock_stopSpeechBlock_cancelSpeechWithErrorBlock___block_invoke_135(uint64_t a1)
 {
-  v31[6] = *MEMORY[0x1E69E9840];
+  v30[6] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v27 = 0;
-  v3 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v2 error:&v27];
-  v4 = v27;
+  v26 = 0;
+  v3 = [MEMORY[0x1E6987E78] assetReaderWithAsset:v2 error:&v26];
+  v4 = v26;
   v5 = v4;
   if (v3)
   {
@@ -146,25 +144,25 @@ uint64_t __151__SFSpeechURLRecognitionRequest__handlePreRecordedAudioWithAsset_a
       v6 = 16000;
     }
 
-    v31[0] = &unk_1F214A1A0;
+    v30[0] = &unk_1F214A1A0;
     v7 = *MEMORY[0x1E6958348];
-    v30[0] = *MEMORY[0x1E69582B0];
-    v30[1] = v7;
+    v29[0] = *MEMORY[0x1E69582B0];
+    v29[1] = v7;
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
     v9 = *MEMORY[0x1E6958300];
-    v31[1] = v8;
-    v31[2] = &unk_1F214A1B8;
+    v30[1] = v8;
+    v30[2] = &unk_1F214A1B8;
     v10 = *MEMORY[0x1E69582C8];
-    v30[2] = v9;
-    v30[3] = v10;
+    v29[2] = v9;
+    v29[3] = v10;
     v11 = *MEMORY[0x1E69582D0];
-    v31[3] = &unk_1F214A1D0;
-    v31[4] = MEMORY[0x1E695E110];
+    v30[3] = &unk_1F214A1D0;
+    v30[4] = MEMORY[0x1E695E110];
     v12 = *MEMORY[0x1E69582E8];
-    v30[4] = v11;
-    v30[5] = v12;
-    v31[5] = MEMORY[0x1E695E110];
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:6];
+    v29[4] = v11;
+    v29[5] = v12;
+    v30[5] = MEMORY[0x1E695E110];
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:6];
 
     v14 = [MEMORY[0x1E6987E80] assetReaderAudioMixOutputWithAudioTracks:*(a1 + 40) audioSettings:v13];
     if (v14)
@@ -244,19 +242,18 @@ LABEL_24:
   *(v23 + 40) = v24;
 LABEL_25:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (id)_startedConnectionWithLanguageCode:(id)code delegate:(id)delegate taskHint:(int64_t)hint requestIdentifier:(id)identifier
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   codeCopy = code;
   delegateCopy = delegate;
   v12 = MEMORY[0x1E698D118];
   identifierCopy = identifier;
   v14 = objc_alloc_init(v12);
-  v40 = delegateCopy;
+  v39 = delegateCopy;
   [v14 setDelegate:delegateCopy];
   v15 = [(SFSpeechRecognitionRequest *)self _dictationOptionsWithTaskHint:hint requestIdentifier:identifierCopy];
 
@@ -276,9 +273,9 @@ LABEL_25:
 
   v17 = MEMORY[0x1E6988168];
   URL = self->_URL;
-  v50 = *MEMORY[0x1E6987378];
-  v51[0] = MEMORY[0x1E695E118];
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+  v49 = *MEMORY[0x1E6987378];
+  v50[0] = MEMORY[0x1E695E118];
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
   v20 = [v17 URLAssetWithURL:URL options:v19];
 
   v21 = [v20 tracksWithMediaType:*MEMORY[0x1E69875A0]];
@@ -295,9 +292,9 @@ LABEL_25:
       v23 = @"none";
     }
 
-    v49[0] = v23;
-    v48[0] = @"language";
-    v48[1] = @"task";
+    v48[0] = v23;
+    v47[0] = @"language";
+    v47[1] = @"task";
     v24 = [SFUtilities taskNameFromTaskHint:hint];
     v25 = v24;
     if (v24)
@@ -310,13 +307,13 @@ LABEL_25:
       v26 = @"none";
     }
 
-    v49[1] = v26;
-    v48[2] = @"narrowband";
+    v48[1] = v26;
+    v47[2] = @"narrowband";
     [MEMORY[0x1E696AD98] numberWithBool:v22];
-    v39 = v20;
+    v38 = v20;
     v28 = v27 = self;
-    v49[2] = v28;
-    v48[3] = @"appname";
+    v48[2] = v28;
+    v47[3] = @"appname";
     applicationName = [v15 applicationName];
     v30 = applicationName;
     if (applicationName)
@@ -329,42 +326,41 @@ LABEL_25:
       v31 = @"none";
     }
 
-    v48[4] = @"ondevice";
-    v49[3] = v31;
-    v49[4] = MEMORY[0x1E695E110];
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:5];
+    v47[4] = @"ondevice";
+    v48[3] = v31;
+    v48[4] = MEMORY[0x1E695E110];
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:5];
 
     self = v27;
-    v20 = v39;
+    v20 = v38;
 
     [SFLocalSpeechRecognitionClient logCoreAnalyticsEvent:@"com.apple.speechapi.RequestStarted" withAnalytics:v32];
     objc_storeStrong(&self->super._afDictationRequestParams, v32);
   }
 
   [v14 startRecordedAudioDictationWithOptions:v15 forLanguage:codeCopy narrowband:v22];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke;
-  v46[3] = &unk_1E797CA90;
-  v47 = v14;
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke_2;
-  v44[3] = &unk_1E797CAB8;
-  v45 = v47;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke_3;
-  v41[3] = &unk_1E797CAE0;
-  v33 = v45;
-  v42 = v33;
-  v43 = v40;
-  v34 = v40;
-  [(SFSpeechURLRecognitionRequest *)self _handlePreRecordedAudioWithAsset:v20 audioTracks:v21 narrowband:v22 addSpeechDataBlock:v46 stopSpeechBlock:v44 cancelSpeechWithErrorBlock:v41];
-  v35 = v43;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke;
+  v45[3] = &unk_1E797CA90;
+  v46 = v14;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke_2;
+  v43[3] = &unk_1E797CAB8;
+  v44 = v46;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __104__SFSpeechURLRecognitionRequest__startedConnectionWithLanguageCode_delegate_taskHint_requestIdentifier___block_invoke_3;
+  v40[3] = &unk_1E797CAE0;
+  v33 = v44;
+  v41 = v33;
+  v42 = v39;
+  v34 = v39;
+  [(SFSpeechURLRecognitionRequest *)self _handlePreRecordedAudioWithAsset:v20 audioTracks:v21 narrowband:v22 addSpeechDataBlock:v45 stopSpeechBlock:v43 cancelSpeechWithErrorBlock:v40];
+  v35 = v42;
   v36 = v33;
 
-  v37 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

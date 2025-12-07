@@ -18,7 +18,7 @@
 
 - (void)configure
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([(HMDPredictionSubscriber *)self predictionsChangedNotificationToken]== -1)
   {
     v3 = [(HMDPredictionSubscriber *)self notificationNameForBackend:[(HMDPredictionSubscriber *)self notificationBackend]];
@@ -32,9 +32,9 @@
       {
         v8 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v20 = v8;
-        v21 = 2112;
-        v22 = v3;
+        v19 = v8;
+        v20 = 2112;
+        v21 = v3;
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering for prediction change notifications: %@", buf, 0x16u);
       }
 
@@ -44,15 +44,15 @@
       v10 = v3;
       uTF8String = [v3 UTF8String];
       workQueue = [(HMDPredictionSubscriber *)selfCopy workQueue];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __36__HMDPredictionSubscriber_configure__block_invoke;
-      v16[3] = &unk_27867AC80;
-      objc_copyWeak(&v18, buf);
-      v17 = v3;
-      [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&selfCopy->_predictionsChangedNotificationToken queue:workQueue handler:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __36__HMDPredictionSubscriber_configure__block_invoke;
+      v15[3] = &unk_27867AC80;
+      objc_copyWeak(&v17, buf);
+      v16 = v3;
+      [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&selfCopy->_predictionsChangedNotificationToken queue:workQueue handler:v15];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(buf);
     }
 
@@ -63,22 +63,20 @@
         v13 = HMFGetLogIdentifier();
         v14 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDPredictionSubscriber notificationBackend](selfCopy, "notificationBackend")}];
         *buf = 138543618;
-        v20 = v13;
-        v21 = 2112;
-        v22 = v14;
+        v19 = v13;
+        v20 = 2112;
+        v21 = v14;
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Invalid prediction notification type: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v4);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __36__HMDPredictionSubscriber_configure__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained dataSource];
   if (v3)
@@ -90,11 +88,11 @@ void __36__HMDPredictionSubscriber_configure__block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification predictions changed: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification predictions changed: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -107,8 +105,6 @@ void __36__HMDPredictionSubscriber_configure__block_invoke(uint64_t a1)
     v13 = [v5 messageDispatcher];
     [v13 sendMessage:v12];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationNameForBackend:(int64_t)backend

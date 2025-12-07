@@ -4,6 +4,7 @@
 - (NSArray)stateHistory;
 - (WFStateMachine)init;
 - (id)lock_printedStateHistory;
+- (void)lock_addTransitionEventToHistoryWithState:(id)state reason:(id)reason valid:(BOOL)valid;
 - (void)lock_cancelPendingTimers;
 @end
 
@@ -65,6 +66,18 @@
   return v4;
 }
 
+- (void)lock_addTransitionEventToHistoryWithState:(id)state reason:(id)reason valid:(BOOL)valid
+{
+  validCopy = valid;
+  reasonCopy = reason;
+  stateCopy = state;
+  os_unfair_lock_assert_owner(&self->_transitionLock);
+  v11 = [WFStateMachineTransitionEvent transitionEventWithState:stateCopy reason:reasonCopy valid:validCopy];
+
+  mutableStateHistory = [(WFStateMachine *)self mutableStateHistory];
+  [mutableStateHistory addObject:v11];
+}
+
 - (BOOL)lock_prepareForInvalidation
 {
   os_unfair_lock_assert_owner(&self->_transitionLock);
@@ -102,7 +115,7 @@
 
 - (BOOL)transitionToState:(id)state withReason:(id)reason
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   reasonCopy = reason;
   os_unfair_lock_assert_not_owner(&self->_transitionLock);
@@ -146,13 +159,13 @@ LABEL_3:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v39 = "[WFStateMachine transitionToState:withReason:]";
-      v40 = 2112;
-      v41 = *&v10;
-      v42 = 2112;
-      v43 = stateCopy;
-      v44 = 2112;
-      v45 = reasonCopy;
+      v38 = "[WFStateMachine transitionToState:withReason:]";
+      v39 = 2112;
+      v40 = *&v10;
+      v41 = 2112;
+      v42 = stateCopy;
+      v43 = 2112;
+      v44 = reasonCopy;
       _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_DEFAULT, "%s Transitioning from %@ to %@, reason: %@", buf, 0x2Au);
     }
 
@@ -183,26 +196,26 @@ LABEL_19:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v39 = "[WFStateMachine transitionToState:withReason:]";
-          v40 = 2048;
-          v41 = v17;
+          v38 = "[WFStateMachine transitionToState:withReason:]";
+          v39 = 2048;
+          v40 = v17;
           _os_log_impl(&dword_1B1DE3000, v18, OS_LOG_TYPE_DEFAULT, "%s This is a timed state - setting timer with a timeout of %f seconds", buf, 0x16u);
         }
 
         v19 = [WFDispatchSourceTimer alloc];
         timerQueue = [(WFStateMachine *)self timerQueue];
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __47__WFStateMachine_transitionToState_withReason___block_invoke;
-        v35[3] = &unk_1E7B02158;
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __47__WFStateMachine_transitionToState_withReason___block_invoke;
+        v34[3] = &unk_1E7B02158;
         v15 = v14;
-        v36 = v15;
-        v21 = [(WFDispatchSourceTimer *)v19 initWithInterval:timerQueue queue:v35 handler:v17];
+        v35 = v15;
+        v21 = [(WFDispatchSourceTimer *)v19 initWithInterval:timerQueue queue:v34 handler:v17];
         timer = self->_timer;
         self->_timer = v21;
 
         [(WFDispatchSourceTimer *)self->_timer start];
-        v23 = v36;
+        v23 = v35;
       }
 
       else
@@ -235,13 +248,13 @@ LABEL_19:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v39 = "[WFStateMachine transitionToState:withReason:]";
-      v40 = 2112;
-      v41 = *&v10;
-      v42 = 2112;
-      v43 = stateCopy;
-      v44 = 2112;
-      v45 = reasonCopy;
+      v38 = "[WFStateMachine transitionToState:withReason:]";
+      v39 = 2112;
+      v40 = *&v10;
+      v41 = 2112;
+      v42 = stateCopy;
+      v43 = 2112;
+      v44 = reasonCopy;
       _os_log_impl(&dword_1B1DE3000, v27, OS_LOG_TYPE_DEBUG, "%s Invalid transition from current state: %@ to new state: %@, reason: %@ (Silently dropping.)", buf, 0x2Au);
     }
   }
@@ -250,15 +263,15 @@ LABEL_19:
   {
     lock_printedStateHistory = [(WFStateMachine *)self lock_printedStateHistory];
     *buf = 136316162;
-    v39 = "[WFStateMachine transitionToState:withReason:]";
-    v40 = 2112;
-    v41 = *&v10;
-    v42 = 2112;
-    v43 = stateCopy;
-    v44 = 2112;
-    v45 = reasonCopy;
-    v46 = 2112;
-    v47 = lock_printedStateHistory;
+    v38 = "[WFStateMachine transitionToState:withReason:]";
+    v39 = 2112;
+    v40 = *&v10;
+    v41 = 2112;
+    v42 = stateCopy;
+    v43 = 2112;
+    v44 = reasonCopy;
+    v45 = 2112;
+    v46 = lock_printedStateHistory;
     _os_log_impl(&dword_1B1DE3000, v27, OS_LOG_TYPE_FAULT, "%s Invalid transition from current state: %@ to new state: %@, reason: %@, events: %@", buf, 0x34u);
   }
 
@@ -273,27 +286,24 @@ LABEL_19:
   v28 = 0;
 LABEL_27:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 uint64_t __47__WFStateMachine_transitionToState_withReason___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[WFStateMachine transitionToState:withReason:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s State %@ hit a timeout, cancelling it", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFStateMachine transitionToState:withReason:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s State %@ hit a timeout, cancelling it", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) cancel];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) cancel];
 }
 
 @end

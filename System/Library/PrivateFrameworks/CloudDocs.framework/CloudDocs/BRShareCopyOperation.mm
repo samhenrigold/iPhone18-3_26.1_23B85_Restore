@@ -24,13 +24,10 @@
 - (void)main
 {
   OUTLINED_FUNCTION_6_1();
-  v11 = *MEMORY[0x1E69E9840];
   v1 = [v0 url];
   path = [v1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] copying share for '%@'%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] copying share for '%@'%@", v5, v6, v7, v8);
 }
 
 void __28__BRShareCopyOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

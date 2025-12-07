@@ -9,8 +9,11 @@
 - (void)_accessibilityTimeAnnouncementDidFinish;
 - (void)_loadSnapshotContentViews;
 - (void)dealloc;
+- (void)endScrubbingAnimated:(BOOL)animated;
 - (void)layoutSubviews;
+- (void)scrubToDate:(id)date animated:(BOOL)animated;
 - (void)setTimeView:(id)view;
+- (void)startScrubbingAnimated:(BOOL)animated;
 @end
 
 @implementation NTKFaceViewAccessibility
@@ -88,6 +91,47 @@
   v6.receiver = self;
   v6.super_class = NTKFaceViewAccessibility;
   [(NTKFaceViewAccessibility *)&v6 dealloc];
+}
+
+- (void)startScrubbingAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ([(NTKFaceViewAccessibility *)self _accessibilityCanStartTimeTravel])
+  {
+    v5 = accessibilityLocalizedString(@"time.travel");
+    UIAccessibilitySpeakAndDoNotBeInterrupted();
+
+    _accessibilitySetTimeTravelIsActive(1);
+  }
+
+  v6.receiver = self;
+  v6.super_class = NTKFaceViewAccessibility;
+  [(NTKFaceViewAccessibility *)&v6 startScrubbingAnimated:animatedCopy];
+}
+
+- (void)endScrubbingAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = NTKFaceViewAccessibility;
+  [(NTKFaceViewAccessibility *)&v3 endScrubbingAnimated:animated];
+  _accessibilitySetTimeTravelIsActive(0);
+  [AXTimeTravelDateManager setTimeTravelDate:0];
+}
+
+- (void)scrubToDate:(id)date animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v9.receiver = self;
+  v9.super_class = NTKFaceViewAccessibility;
+  dateCopy = date;
+  [(NTKFaceViewAccessibility *)&v9 scrubToDate:dateCopy animated:animatedCopy];
+  v7 = [(NTKFaceViewAccessibility *)self _accessibilityScrubTimer:v9.receiver];
+  [v7 invalidate];
+  [(NTKFaceViewAccessibility *)self _accessibilitySetTimeTravelDate:dateCopy];
+  v8 = [NSTimer scheduledTimerWithTimeInterval:self target:"_accessibilityAnnounceScrub" selector:0 userInfo:0 repeats:0.3];
+
+  [(NTKFaceViewAccessibility *)self _accessibilitySetScrubTimer:v8];
+  [AXTimeTravelDateManager setTimeTravelDate:dateCopy];
 }
 
 - (id)normalComplicationDisplayWrapperForSlot:(id)slot

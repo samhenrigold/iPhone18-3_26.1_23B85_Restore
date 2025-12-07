@@ -20,14 +20,19 @@
 - (void)dismissFollowUpForSerialNumber:(id)number completion:(id)completion;
 - (void)dismissFollowUps:(id)ups completion:(id)completion;
 - (void)dismissNotificationForSerialNumber:(id)number completion:(id)completion;
+- (void)getAllFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
 - (void)getAmsPropertiesForContext:(id)context withReply:(id)reply;
+- (void)getBTDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
+- (void)getBTPioneerDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
 - (void)getCoverageInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy withReply:(id)reply;
 - (void)getDecodedParamsForPath:(id)path withReply:(id)reply;
 - (void)getDefaultDeviceInfoUsingPolicy:(unint64_t)policy withReply:(id)reply;
+- (void)getDeviceInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params andForcePostFollowup:(BOOL)followup withReply:(id)reply;
 - (void)getDeviceInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy withReply:(id)reply;
 - (void)getDeviceListForLocalDevices:(id)devices sessionID:(id)d policy:(unint64_t)policy params:(id)params salesReplyOnly:(BOOL)only salesInfoReply:(id)reply deviceInfoReply:(id)infoReply completionBlock:(id)self0;
 - (void)getLocalDeviceListWithReply:(id)reply;
 - (void)getLocalDeviceWarrantyForSerialNumber:(id)number withReply:(id)reply;
+- (void)getPrimaryFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
 - (void)getRemoteDeviceListWithReply:(id)reply;
 - (void)getRemoteDeviceWarrantyForSerialNumber:(id)number withAdditionalHeaders:(id)headers withReply:(id)reply;
 - (void)getWarrantyUsingPolicy:(unint64_t)policy withReply:(id)reply;
@@ -148,7 +153,7 @@
 void __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -160,19 +165,17 @@ void __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke(uint64_t a1
 
 uint64_t __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_9(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = _NDOLogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = _NDOLogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "Result %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "Result %d", v6, 8u);
   }
 
   [*(a1 + 32) invalidate];
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)getWarrantyUsingPolicy:(unint64_t)policy withReply:(id)reply
@@ -227,7 +230,7 @@ void __47__NDOManager_getWarrantyUsingPolicy_withReply___block_invoke(uint64_t a
 void __38__NDOManager_checkIsAvailableInStore___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -244,65 +247,61 @@ void __38__NDOManager_checkIsAvailableInStore___block_invoke_12(uint64_t a1, voi
   v4 = [v3 objectForKeyedSubscript:@"AppAvailabilityType"];
   *(*(*(a1 + 40) + 8) + 24) = v4 == 0;
 
-  v5 = _NDOLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _NDOLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
     v8 = v3;
-    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
+    _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appSupportDictionaryWithReply:(id)reply
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy_;
-  v19[4] = __Block_byref_object_dispose_;
-  v21 = @"AppAvailabilityType";
-  v22[0] = &unk_286D6E450;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = __Block_byref_object_copy_;
+  v18[4] = __Block_byref_object_dispose_;
+  v20 = @"AppAvailabilityType";
+  v21[0] = &unk_286D6E450;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   agentConnection = [(NDOManager *)self agentConnection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__NDOManager_appSupportDictionaryWithReply___block_invoke;
-  v15[3] = &unk_279975E60;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__NDOManager_appSupportDictionaryWithReply___block_invoke;
+  v14[3] = &unk_279975E60;
   v6 = agentConnection;
-  v16 = v6;
+  v15 = v6;
   v7 = replyCopy;
-  v17 = v7;
-  v18 = v19;
-  v8 = [v6 remoteObjectProxyWithErrorHandler:v15];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __44__NDOManager_appSupportDictionaryWithReply___block_invoke_18;
-  v12[3] = &unk_279975E88;
+  v16 = v7;
+  v17 = v18;
+  v8 = [v6 remoteObjectProxyWithErrorHandler:v14];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __44__NDOManager_appSupportDictionaryWithReply___block_invoke_18;
+  v11[3] = &unk_279975E88;
   v9 = v6;
-  v13 = v9;
+  v12 = v9;
   v10 = v7;
-  v14 = v10;
-  [v8 appSupportAvailability:@"com.apple.supportapp" withReply:v12];
+  v13 = v10;
+  [v8 appSupportAvailability:@"com.apple.supportapp" withReply:v11];
 
-  _Block_object_dispose(v19, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v18, 8);
 }
 
 void __44__NDOManager_appSupportDictionaryWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
   }
 
   [*(a1 + 32) invalidate];
-  v5 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -339,7 +338,7 @@ void __44__NDOManager_appSupportDictionaryWithReply___block_invoke_18(uint64_t a
 void __29__NDOManager_webURLOverride___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -353,16 +352,14 @@ void __29__NDOManager_webURLOverride___block_invoke_19(uint64_t a1, void *a2)
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
-  (*(*(a1 + 40) + 16))();
-  v4 = _NDOLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = (*(*(a1 + 40) + 16))();
+  v5 = _NDOLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
     v7 = v3;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "webURLOverride : %@", &v6, 0xCu);
+    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "webURLOverride : %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ulWebURLOverride:(id)override
@@ -390,7 +387,7 @@ void __29__NDOManager_webURLOverride___block_invoke_19(uint64_t a1, void *a2)
 void __31__NDOManager_ulWebURLOverride___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -404,16 +401,14 @@ void __31__NDOManager_ulWebURLOverride___block_invoke_21(uint64_t a1, void *a2)
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
-  (*(*(a1 + 40) + 16))();
-  v4 = _NDOLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = (*(*(a1 + 40) + 16))();
+  v5 = _NDOLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
     v7 = v3;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "ulWebURLOverride : %@", &v6, 0xCu);
+    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "ulWebURLOverride : %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)apsSupportedOverride:(id)override
@@ -441,7 +436,7 @@ void __31__NDOManager_ulWebURLOverride___block_invoke_21(uint64_t a1, void *a2)
 void __35__NDOManager_apsSupportedOverride___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -455,60 +450,59 @@ void __35__NDOManager_apsSupportedOverride___block_invoke_22(uint64_t a1, void *
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
-  (*(*(a1 + 40) + 16))();
-  v4 = _NDOLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = (*(*(a1 + 40) + 16))();
+  v5 = _NDOLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
     v7 = v3;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "apsSupportedOverride : %@", &v6, 0xCu);
+    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "apsSupportedOverride : %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAPSSupportedOverrideWithServerValue:(BOOL)value
 {
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy_;
-  v16[3] = __Block_byref_object_dispose_;
-  v17 = 0;
-  if (+[NDOUtilities isInternal])
+  v16 = 0;
+  v17[0] = &v16;
+  v17[1] = 0x3032000000;
+  v17[2] = __Block_byref_object_copy_;
+  v17[3] = __Block_byref_object_dispose_;
+  v18 = 0;
+  v5 = +[NDOUtilities isInternal];
+  if (v5)
   {
-    v5 = CFPreferencesCopyAppValue(@"isAPSSupported", @"com.apple.NewDeviceOutreach");
-    v6 = *(v16[0] + 40);
-    *(v16[0] + 40) = v5;
+    v6 = CFPreferencesCopyAppValue(@"isAPSSupported", @"com.apple.NewDeviceOutreach");
+    v7 = *(v17[0] + 40);
+    *(v17[0] + 40) = v6;
 
-    if (!*(v16[0] + 40))
+    if (!*(v17[0] + 40))
     {
-      v7 = dispatch_semaphore_create(0);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __52__NDOManager_isAPSSupportedOverrideWithServerValue___block_invoke;
-      v12[3] = &unk_279975ED8;
-      v14 = &v15;
-      v8 = v7;
-      v13 = v8;
-      [(NDOManager *)self apsSupportedOverride:v12];
-      v9 = dispatch_time(0, 2000000000);
-      dispatch_semaphore_wait(v8, v9);
+      v8 = dispatch_semaphore_create(0);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __52__NDOManager_isAPSSupportedOverrideWithServerValue___block_invoke;
+      v13[3] = &unk_279975ED8;
+      v15 = &v16;
+      v9 = v8;
+      v14 = v9;
+      [(NDOManager *)self apsSupportedOverride:v13];
+      v10 = dispatch_time(0, 2000000000);
+      dispatch_semaphore_wait(v9, v10);
     }
   }
 
-  if (*(v16[0] + 40))
+  if (*(v17[0] + 40))
   {
-    v10 = _NDOLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _NDOLogSystem(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(NDOManager *)v16 isAPSSupportedOverrideWithServerValue:v10];
+      [(NDOManager *)v17 isAPSSupportedOverrideWithServerValue:v11];
     }
 
-    value = [*(v16[0] + 40) isEqualToString:@"1"];
+    value = [*(v17[0] + 40) isEqualToString:@"1"];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
   return value;
 }
@@ -550,7 +544,7 @@ void __52__NDOManager_isAPSSupportedOverrideWithServerValue___block_invoke(uint6
 void __48__NDOManager_getDecodedParamsForPath_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -562,25 +556,23 @@ void __48__NDOManager_getDecodedParamsForPath_withReply___block_invoke(uint64_t 
 
 void __48__NDOManager_getDecodedParamsForPath_withReply___block_invoke_36(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136446722;
-    v8 = "[NDOManager getDecodedParamsForPath:withReply:]_block_invoke";
-    v9 = 2114;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:  %{public}@ : %{public}@", &v7, 0x20u);
+    v6 = 136446722;
+    v7 = "[NDOManager getDecodedParamsForPath:withReply:]_block_invoke";
+    v8 = 2114;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:  %{public}@ : %{public}@", &v6, 0x20u);
   }
 
   [*(a1 + 40) invalidate];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientConfiguration
@@ -619,7 +611,7 @@ void __48__NDOManager_getDecodedParamsForPath_withReply___block_invoke_36(uint64
 void __33__NDOManager_clientConfiguration__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __33__NDOManager_clientConfiguration__block_invoke_cold_1();
@@ -663,27 +655,25 @@ void __33__NDOManager_clientConfiguration__block_invoke_37(uint64_t a1, void *a2
   v13 = &v16;
   [v4 defaultDevice:v11];
 
-  v6 = _NDOLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _NDOLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v17[5];
+    v8 = v17[5];
     *buf = 138477827;
-    v23 = v7;
-    _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "default device: %{private}@", buf, 0xCu);
+    v23 = v8;
+    _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "default device: %{private}@", buf, 0xCu);
   }
 
-  v8 = v17[5];
+  v9 = v17[5];
   _Block_object_dispose(&v16, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 void __27__NDOManager_defaultDevice__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -727,27 +717,25 @@ void __27__NDOManager_defaultDevice__block_invoke_39(uint64_t a1, void *a2)
   v13 = &v16;
   [v4 pairedWatches:v11];
 
-  v6 = _NDOLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _NDOLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v17[5];
+    v8 = v17[5];
     *buf = 138477827;
-    v23 = v7;
-    _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "paired watches : %{private}@", buf, 0xCu);
+    v23 = v8;
+    _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "paired watches : %{private}@", buf, 0xCu);
   }
 
-  v8 = v17[5];
+  v9 = v17[5];
   _Block_object_dispose(&v16, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 void __27__NDOManager_pairedWatches__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -791,27 +779,25 @@ void __27__NDOManager_pairedWatches__block_invoke_41(uint64_t a1, void *a2)
   v13 = &v16;
   [v4 pairedBTDevices:v11];
 
-  v6 = _NDOLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _NDOLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v17[5];
+    v8 = v17[5];
     *buf = 138477827;
-    v23 = v7;
-    _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "paired BTDevices : %{private}@", buf, 0xCu);
+    v23 = v8;
+    _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "paired BTDevices : %{private}@", buf, 0xCu);
   }
 
-  v8 = v17[5];
+  v9 = v17[5];
   _Block_object_dispose(&v16, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 void __29__NDOManager_pairedBTDevices__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -863,7 +849,7 @@ void __29__NDOManager_pairedBTDevices__block_invoke_43(uint64_t a1, void *a2)
 void __56__NDOManager_getDefaultDeviceInfoUsingForceCachedPolicy__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -908,7 +894,7 @@ void __56__NDOManager_getDefaultDeviceInfoUsingForceCachedPolicy__block_invoke_4
 void __56__NDOManager_getDefaultDeviceInfoUsingPolicy_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -961,7 +947,7 @@ void __56__NDOManager_getDefaultDeviceInfoUsingPolicy_withReply___block_invoke_4
 void __65__NDOManager_getDeviceInfoUsingForceCachedPolicyForSerialNumber___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -997,10 +983,11 @@ void __65__NDOManager_getDeviceInfoUsingForceCachedPolicyForSerialNumber___block
 void __65__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_withReply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _NDOLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _NDOLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __65__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_withReply___block_invoke_cold_1();
     }
@@ -1010,16 +997,44 @@ void __65__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_withReply___block
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = [NDOManagerSupportAppUtilities ndoDeviceInfoFromCoverageInfoData:a2 withSerialNumber:*(a1 + 32)];
-    (*(v7 + 16))(v7, v8);
+    v8 = *(a1 + 40);
+    v9 = [NDOManagerSupportAppUtilities ndoDeviceInfoFromCoverageInfoData:a2 withSerialNumber:*(a1 + 32)];
+    (*(v8 + 16))(v8, v9);
   }
+}
+
+- (void)getDeviceInfoForSerialNumber:(id)number usingPolicy:(unint64_t)policy sessionID:(id)d params:(id)params andForcePostFollowup:(BOOL)followup withReply:(id)reply
+{
+  followupCopy = followup;
+  replyCopy = reply;
+  paramsCopy = params;
+  dCopy = d;
+  numberCopy = number;
+  agentConnection = [(NDOManager *)self agentConnection];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params_andForcePostFollowup_withReply___block_invoke;
+  v27[3] = &unk_279975D98;
+  v19 = agentConnection;
+  v28 = v19;
+  v20 = replyCopy;
+  v29 = v20;
+  v21 = [v19 remoteObjectProxyWithErrorHandler:v27];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params_andForcePostFollowup_withReply___block_invoke_49;
+  v24[3] = &unk_279975FA0;
+  v25 = v19;
+  v26 = v20;
+  v22 = v20;
+  v23 = v19;
+  [v21 getDeviceInfoForSerialNumber:numberCopy usingPolicy:policy sessionID:dCopy params:paramsCopy andForcePostFollowup:followupCopy withReply:v24];
 }
 
 void __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params_andForcePostFollowup_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1053,16 +1068,16 @@ void __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params
   if (acOfferEligibleUntil)
   {
     acOfferEligibleUntil2 = [fromCopy acOfferEligibleUntil];
-    v16 = [NDOUtilities daysFromDate:acOfferEligibleUntil2];
+    v17 = [NDOUtilities daysFromDate:acOfferEligibleUntil2];
   }
 
   else
   {
-    v16 = 1;
+    v17 = 1;
   }
 
-  v17 = _NDOLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _NDOLogSystem(v15);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     defaultDevice2 = [(NDOManager *)self defaultDevice];
     serialNumber3 = [defaultDevice2 serialNumber];
@@ -1075,7 +1090,7 @@ void __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params
     v56 = serialNumber;
     v57 = 2112;
     v58 = acOfferEligibleUntil3;
-    _os_log_impl(&dword_25BD52000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: sn: %@ sn2: %@ %@", buf, 0x2Au);
+    _os_log_impl(&dword_25BD52000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: sn: %@ sn2: %@ %@", buf, 0x2Au);
   }
 
   v50[0] = serialNumber;
@@ -1092,105 +1107,103 @@ void __103__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_sessionID_params
   v49[4] = @"deviceImageUrl";
   deviceImageUrl = [deviceCopy deviceImageUrl];
 
-  v23 = deviceImageUrl;
+  v24 = deviceImageUrl;
   if (!deviceImageUrl)
   {
     deviceImageUrl2 = [fromCopy deviceImageUrl];
     v44 = deviceImageUrl2;
     if (deviceImageUrl2)
     {
-      v23 = deviceImageUrl2;
+      v24 = deviceImageUrl2;
     }
 
     else
     {
-      v23 = &stru_286D686B8;
+      v24 = &stru_286D686B8;
     }
   }
 
-  v50[4] = v23;
+  v50[4] = v24;
   v49[5] = @"deviceDesc";
   deviceDesc = [fromCopy deviceDesc];
-  v26 = deviceDesc;
+  v27 = deviceDesc;
   if (deviceDesc)
   {
-    v27 = deviceDesc;
+    v28 = deviceDesc;
   }
 
   else
   {
-    v27 = &stru_286D686B8;
+    v28 = &stru_286D686B8;
   }
 
-  v50[5] = v27;
+  v50[5] = v28;
   v49[6] = @"eligibilityRemainingInDays";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v16];
-  v50[6] = v28;
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v17];
+  v50[6] = v29;
   v49[7] = @"sgId";
   sgId = [fromCopy sgId];
-  v30 = sgId;
+  v31 = sgId;
   if (sgId)
   {
-    v31 = sgId;
+    v32 = sgId;
   }
 
   else
   {
-    v31 = &stru_286D686B8;
+    v32 = &stru_286D686B8;
   }
 
-  v50[7] = v31;
+  v50[7] = v32;
   v49[8] = @"pfcId";
   pfcId = [fromCopy pfcId];
-  v33 = pfcId;
+  v34 = pfcId;
   if (pfcId)
   {
-    v34 = pfcId;
+    v35 = pfcId;
   }
 
   else
   {
-    v34 = &stru_286D686B8;
+    v35 = &stru_286D686B8;
   }
 
-  v50[8] = v34;
+  v50[8] = v35;
   v49[9] = @"pgfId";
   pgfId = [fromCopy pgfId];
-  v36 = pgfId;
+  v37 = pgfId;
   if (pgfId)
   {
-    v37 = pgfId;
+    v38 = pgfId;
   }
 
   else
   {
-    v37 = &stru_286D686B8;
+    v38 = &stru_286D686B8;
   }
 
-  v50[9] = v37;
+  v50[9] = v38;
   v49[10] = @"parentId";
   parentId = [fromCopy parentId];
-  v39 = parentId;
+  v40 = parentId;
   if (parentId)
   {
-    v40 = parentId;
+    v41 = parentId;
   }
 
   else
   {
-    v40 = &stru_286D686B8;
+    v41 = &stru_286D686B8;
   }
 
-  v50[10] = v40;
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:11];
+  v50[10] = v41;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:11];
 
   if (!deviceImageUrl)
   {
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v42;
 }
 
 - (id)payloadDictionaryForDeviceInfo:(id)info atIndex:(int64_t)index
@@ -1296,252 +1309,251 @@ LABEL_15:
 
 void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v55 = a3;
-  v58 = v4;
-  v57 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v56 = a3;
+  v59 = v4;
+  v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v58 = v5;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x2020000000;
+  v109 = 0;
+  v102 = 0;
+  v103 = &v102;
+  v104 = 0x2020000000;
   v105 = 0;
-  v106 = &v105;
-  v107 = 0x2020000000;
-  v108 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
   v101 = 0;
-  v102 = &v101;
-  v103 = 0x2020000000;
-  v104 = 0;
-  v97 = 0;
-  v98 = &v97;
-  v99 = 0x2020000000;
-  v100 = 0;
-  if (v4 && [v4 count])
+  if (v4 && (v5 = [v4 count]) != 0)
   {
-    *(v98 + 24) = 1;
-    [v57 addObjectsFromArray:v4];
-    *(v106 + 24) = 1;
-    v5 = *(a1 + 64);
-    if (v5 && (*(a1 + 96) & 1) == 0)
+    *(v99 + 24) = 1;
+    [v58 addObjectsFromArray:v4];
+    *(v107 + 24) = 1;
+    v6 = *(a1 + 64);
+    if (v6 && (*(a1 + 96) & 1) == 0)
     {
-      (*(v5 + 16))(v5, v57);
+      v6 = (*(v6 + 16))(v6, v58);
     }
 
-    v6 = _NDOLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _NDOLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       *&buf[4] = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
       *&buf[12] = 1024;
       *&buf[14] = 428;
-      _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d completionBlock", buf, 0x12u);
+      _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d completionBlock", buf, 0x12u);
     }
   }
 
   else
   {
-    v7 = _NDOLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _NDOLogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_cold_1(v7);
+      __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_cold_1(v8);
     }
 
-    v8 = [*(a1 + 32) defaultDevice];
-    v6 = [v8 serialNumber];
+    v9 = [*(a1 + 32) defaultDevice];
+    v7 = [v9 serialNumber];
 
-    v9 = [NDODeviceSection alloc];
-    v10 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/NewDeviceOutreachUI.framework"];
-    v11 = [v10 localizedStringForKey:@"THIS_DEVICE" value:&stru_286D686B8 table:@"Localizable"];
-    v12 = [(NDODeviceSection *)v9 initWithLabel:v11 identifier:@"THIS_DEVICE"];
+    v10 = [NDODeviceSection alloc];
+    v11 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/NewDeviceOutreachUI.framework"];
+    v12 = [v11 localizedStringForKey:@"THIS_DEVICE" value:&stru_286D686B8 table:@"Localizable"];
+    v13 = [(NDODeviceSection *)v10 initWithLabel:v12 identifier:@"THIS_DEVICE"];
 
-    v13 = [NDODeviceSection alloc];
-    v14 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/NewDeviceOutreachUI.framework"];
-    v15 = [v14 localizedStringForKey:@"MORE_DEVICES" value:&stru_286D686B8 table:@"Localizable"];
-    v16 = [(NDODeviceSection *)v13 initWithLabel:v15 identifier:@"MORE_DEVICES"];
+    v14 = [NDODeviceSection alloc];
+    v15 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/NewDeviceOutreachUI.framework"];
+    v16 = [v15 localizedStringForKey:@"MORE_DEVICES" value:&stru_286D686B8 table:@"Localizable"];
+    v17 = [(NDODeviceSection *)v14 initWithLabel:v16 identifier:@"MORE_DEVICES"];
 
-    [v57 addObject:v12];
-    v95 = 0u;
+    [v58 addObject:v13];
     v96 = 0u;
-    v93 = 0u;
+    v97 = 0u;
     v94 = 0u;
-    v17 = *(a1 + 40);
-    v18 = [v17 countByEnumeratingWithState:&v93 objects:v124 count:16];
-    if (v18)
+    v95 = 0u;
+    v18 = *(a1 + 40);
+    v19 = [v18 countByEnumeratingWithState:&v94 objects:v125 count:16];
+    if (v19)
     {
-      v19 = *v94;
+      v20 = *v95;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v94 != v19)
+          if (*v95 != v20)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v21 = *(*(&v93 + 1) + 8 * i);
-          v22 = [v21 serialNumber];
-          v23 = [v22 isEqualToString:v6];
+          v22 = *(*(&v94 + 1) + 8 * i);
+          v23 = [v22 serialNumber];
+          v24 = [v23 isEqualToString:v7];
 
-          if (v23)
+          if (v24)
           {
-            v24 = v12;
+            v25 = v13;
           }
 
           else
           {
-            v24 = v16;
+            v25 = v17;
           }
 
-          [(NDODeviceSection *)v24 addDevice:v21];
+          [(NDODeviceSection *)v25 addDevice:v22];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v93 objects:v124 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v94 objects:v125 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
-    v25 = [(NDODeviceSection *)v16 deviceList];
-    v26 = [v25 count] == 0;
+    v26 = [(NDODeviceSection *)v17 deviceList];
+    v27 = [v26 count] == 0;
 
-    if (!v26)
+    if (!v27)
     {
-      [v57 addObject:v16];
+      [v58 addObject:v17];
     }
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v121 = __Block_byref_object_copy_;
-  v122 = __Block_byref_object_dispose_;
-  v27 = v55;
-  v123 = v27;
-  v53 = dispatch_group_create();
-  v54 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
-  v56 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
-  v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
-  v91 = 0u;
+  v122 = __Block_byref_object_copy_;
+  v123 = __Block_byref_object_dispose_;
+  v28 = v56;
+  v124 = v28;
+  v54 = dispatch_group_create();
+  v55 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+  v57 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+  v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
   v92 = 0u;
-  v89 = 0u;
+  v93 = 0u;
   v90 = 0u;
-  v29 = v57;
-  v30 = [v29 countByEnumeratingWithState:&v89 objects:v119 count:16];
-  if (v30)
+  v91 = 0u;
+  v30 = v58;
+  v31 = [v30 countByEnumeratingWithState:&v90 objects:v120 count:16];
+  if (v31)
   {
-    v31 = *v90;
+    v32 = *v91;
     do
     {
-      for (j = 0; j != v30; ++j)
+      for (j = 0; j != v31; ++j)
       {
-        if (*v90 != v31)
+        if (*v91 != v32)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v30);
         }
 
-        v33 = [*(*(&v89 + 1) + 8 * j) deviceList];
-        [v28 addObjectsFromArray:v33];
+        v34 = [*(*(&v90 + 1) + 8 * j) deviceList];
+        [v29 addObjectsFromArray:v34];
       }
 
-      v30 = [v29 countByEnumeratingWithState:&v89 objects:v119 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v90 objects:v120 count:16];
     }
 
-    while (v30);
+    while (v31);
   }
 
-  v34 = a1;
-  if (*(v98 + 24) != 1 || !*(a1 + 72))
+  v35 = a1;
+  if (*(v99 + 24) != 1 || !*(a1 + 72))
   {
     goto LABEL_38;
   }
 
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_99;
-  v86[3] = &unk_279975FF0;
-  v35 = v56;
-  v36 = *(a1 + 32);
-  v87 = v35;
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_99;
+  v87[3] = &unk_279975FF0;
+  v36 = v57;
+  v37 = *(a1 + 32);
   v88 = v36;
-  [v28 enumerateObjectsUsingBlock:v86];
-  *(v102 + 24) = 1;
-  v37 = *(a1 + 72);
-  v38 = *(*&buf[8] + 40);
-  v39 = [v35 count] ? v35 : 0;
-  (*(v37 + 16))(v37, v38, v39, v27);
-  v40 = _NDOLogSystem();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  v89 = v37;
+  [v29 enumerateObjectsUsingBlock:v87];
+  *(v103 + 24) = 1;
+  v38 = *(a1 + 72);
+  v39 = *(*&buf[8] + 40);
+  v40 = [v36 count] ? v36 : 0;
+  v41 = (*(v38 + 16))(v38, v39, v40, v28);
+  v42 = _NDOLogSystem(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    v52 = *(*&buf[8] + 40);
-    *v109 = 136316162;
-    v110 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke_2";
-    v111 = 1024;
-    v112 = 450;
-    v113 = 2112;
-    v114 = v52;
-    v115 = 2112;
-    v116 = v27;
-    v117 = 2112;
-    v118 = v35;
-    _os_log_debug_impl(&dword_25BD52000, v40, OS_LOG_TYPE_DEBUG, "%s:%d salesInfoReply salesURL:%@ agsULUrl:%@ %@", v109, 0x30u);
+    v53 = *(*&buf[8] + 40);
+    *v110 = 136316162;
+    v111 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke_2";
+    v112 = 1024;
+    v113 = 450;
+    v114 = 2112;
+    v115 = v53;
+    v116 = 2112;
+    v117 = v28;
+    v118 = 2112;
+    v119 = v36;
+    _os_log_debug_impl(&dword_25BD52000, v42, OS_LOG_TYPE_DEBUG, "%s:%d salesInfoReply salesURL:%@ agsULUrl:%@ %@", v110, 0x30u);
   }
 
-  v41 = *(a1 + 96);
-  v34 = a1;
-  if ((v41 & 1) == 0)
+  v43 = *(a1 + 96);
+  v35 = a1;
+  if ((v43 & 1) == 0)
   {
 LABEL_38:
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_102;
     aBlock[3] = &unk_279976018;
-    v42 = v54;
-    v80 = v42;
-    v84 = &v97;
-    v43 = *(v34 + 72);
-    v85 = buf;
-    v44 = *(v34 + 32);
-    v83 = v43;
+    v44 = v55;
     v81 = v44;
-    v45 = v56;
-    v82 = v45;
-    v46 = _Block_copy(aBlock);
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_2;
-    v72[3] = &unk_2799760B8;
-    v47 = v53;
-    v48 = *(v34 + 32);
-    v73 = v47;
-    v74 = v48;
-    v78 = *(a1 + 88);
-    v75 = *(a1 + 48);
-    v76 = *(a1 + 56);
-    v49 = v46;
-    v77 = v49;
-    [v28 enumerateObjectsUsingBlock:v72];
-    v50 = *(*(a1 + 32) + 8);
+    v85 = &v98;
+    v45 = *(v35 + 72);
+    v86 = buf;
+    v46 = *(v35 + 32);
+    v84 = v45;
+    v82 = v46;
+    v47 = v57;
+    v83 = v47;
+    v48 = _Block_copy(aBlock);
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_2;
+    v73[3] = &unk_2799760B8;
+    v49 = v54;
+    v50 = *(v35 + 32);
+    v74 = v49;
+    v75 = v50;
+    v79 = *(a1 + 88);
+    v76 = *(a1 + 48);
+    v77 = *(a1 + 56);
+    v51 = v48;
+    v78 = v51;
+    [v29 enumerateObjectsUsingBlock:v73];
+    v52 = *(*(a1 + 32) + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_105;
     block[3] = &unk_2799760E0;
-    v65 = *(a1 + 64);
-    v68 = &v105;
-    v71 = *(a1 + 96);
-    v61 = v29;
-    v66 = *(a1 + 72);
-    v69 = &v101;
-    v70 = buf;
-    v62 = v45;
-    v63 = v27;
-    v67 = *(a1 + 80);
-    v64 = v42;
-    dispatch_group_notify(v47, v50, block);
+    v66 = *(a1 + 64);
+    v69 = &v106;
+    v72 = *(a1 + 96);
+    v62 = v30;
+    v67 = *(a1 + 72);
+    v70 = &v102;
+    v71 = buf;
+    v63 = v47;
+    v64 = v28;
+    v68 = *(a1 + 80);
+    v65 = v44;
+    dispatch_group_notify(v49, v52, block);
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v97, 8);
-  _Block_object_dispose(&v101, 8);
-  _Block_object_dispose(&v105, 8);
-
-  v51 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v102, 8);
+  _Block_object_dispose(&v106, 8);
 }
 
 void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_99(uint64_t a1, void *a2, uint64_t a3)
@@ -1603,7 +1615,7 @@ void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_sale
   dispatch_group_enter(*(a1 + 32));
   if ([v5 deviceType] == 2)
   {
-    v6 = _NDOLogSystem();
+    v6 = _NDOLogSystem(2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_2_cold_1(v5, v6);
@@ -1675,110 +1687,102 @@ void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_sale
     v4 = [v2 acOfferEligible];
     if (v4 == [*(a1 + 40) acOfferEligible] || *(a1 + 88) == 2)
     {
-      v6 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v7 = *(a1 + 96);
       (*(*(a1 + 80) + 16))();
     }
 
     else
     {
       dispatch_group_enter(*(a1 + 48));
-      v8 = *(a1 + 56);
-      v9 = [*(a1 + 40) serialNumber];
-      v10 = *(a1 + 64);
-      v11 = *(a1 + 72);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_5;
-      v14[3] = &unk_279976040;
-      v17 = *(a1 + 80);
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 96);
-      v15 = v12;
-      v18 = v13;
-      v16 = *(a1 + 48);
-      [v8 getDeviceInfoForSerialNumber:v9 usingPolicy:2 sessionID:v10 params:v11 andForcePostFollowup:0 withReply:v14];
+      v5 = *(a1 + 56);
+      v6 = [*(a1 + 40) serialNumber];
+      v7 = *(a1 + 64);
+      v8 = *(a1 + 72);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_5;
+      v11[3] = &unk_279976040;
+      v14 = *(a1 + 80);
+      v9 = *(a1 + 40);
+      v10 = *(a1 + 96);
+      v12 = v9;
+      v15 = v10;
+      v13 = *(a1 + 48);
+      [v5 getDeviceInfoForSerialNumber:v6 usingPolicy:2 sessionID:v7 params:v8 andForcePostFollowup:0 withReply:v11];
     }
   }
 
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_5(void *a1)
+void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_5(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[7];
-  (*(a1[6] + 16))();
-  v4 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  dispatch_group_leave(v4);
+  dispatch_group_leave(v2);
 }
 
 uint64_t __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_105(uint64_t result)
 {
   v1 = result;
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(result + 64) && (*(*(*(result + 88) + 8) + 24) & 1) == 0 && (*(result + 112) & 1) == 0)
   {
-    v2 = _NDOLogSystem();
+    v2 = _NDOLogSystem(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136446466;
-      v12 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
-      v13 = 1024;
-      v14 = 507;
-      _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d completionBlock", &v11, 0x12u);
+      v8 = 136446466;
+      v9 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
+      v10 = 1024;
+      v11 = 507;
+      _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d completionBlock", &v8, 0x12u);
     }
 
-    v3 = *(v1 + 32);
     result = (*(*(v1 + 64) + 16))();
   }
 
   if (*(v1 + 72) && (*(*(*(v1 + 96) + 8) + 24) & 1) == 0)
   {
-    v4 = _NDOLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = _NDOLogSystem(result);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136446466;
-      v12 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
-      v13 = 1024;
-      v14 = 512;
-      _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d salesInfoReply", &v11, 0x12u);
+      v8 = 136446466;
+      v9 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
+      v10 = 1024;
+      v11 = 512;
+      _os_log_impl(&dword_25BD52000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d salesInfoReply", &v8, 0x12u);
     }
 
-    v5 = *(v1 + 72);
-    v6 = *(*(*(v1 + 104) + 8) + 40);
+    v4 = *(v1 + 72);
+    v5 = *(*(*(v1 + 104) + 8) + 40);
     if ([*(v1 + 40) count])
     {
-      v7 = *(v1 + 40);
+      v6 = *(v1 + 40);
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    result = (*(v5 + 16))(v5, v6, v7, *(v1 + 48));
+    result = (*(v4 + 16))(v4, v5, v6, *(v1 + 48));
   }
 
   if (*(v1 + 80) && (*(v1 + 112) & 1) == 0)
   {
-    v8 = _NDOLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = _NDOLogSystem(result);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136446466;
-      v12 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
-      v13 = 1024;
-      v14 = 517;
-      _os_log_impl(&dword_25BD52000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d deviceInfoReply", &v11, 0x12u);
+      v8 = 136446466;
+      v9 = "[NDOManager getDeviceListForLocalDevices:sessionID:policy:params:salesReplyOnly:salesInfoReply:deviceInfoReply:completionBlock:]_block_invoke";
+      v10 = 1024;
+      v11 = 517;
+      _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d deviceInfoReply", &v8, 0x12u);
     }
 
-    v9 = *(v1 + 56);
-    result = (*(*(v1 + 80) + 16))();
+    return (*(*(v1 + 80) + 16))();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1812,7 +1816,7 @@ uint64_t __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_
 void __77__NDOManager__getDeviceListForLocalDevices_sessionID_params_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __77__NDOManager__getDeviceListForLocalDevices_sessionID_params_completionBlock___block_invoke_cold_1();
@@ -1831,10 +1835,35 @@ void __77__NDOManager__getDeviceListForLocalDevices_sessionID_params_completionB
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)getPrimaryFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply
+{
+  upsCopy = ups;
+  replyCopy = reply;
+  agentConnection = [(NDOManager *)self agentConnection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__NDOManager_getPrimaryFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke;
+  v18[3] = &unk_279975D98;
+  v10 = agentConnection;
+  v19 = v10;
+  v11 = replyCopy;
+  v20 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v18];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __84__NDOManager_getPrimaryFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke_108;
+  v15[3] = &unk_279976158;
+  v16 = v10;
+  v17 = v11;
+  v13 = v11;
+  v14 = v10;
+  [v12 getPrimaryFUPEligibleDeviceInfosUsingPolicy:policy updateFollowUps:upsCopy withReply:v15];
+}
+
 void __84__NDOManager_getPrimaryFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1852,10 +1881,35 @@ void __84__NDOManager_getPrimaryFUPEligibleDeviceInfosUsingPolicy_updateFollowUp
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)getAllFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply
+{
+  upsCopy = ups;
+  replyCopy = reply;
+  agentConnection = [(NDOManager *)self agentConnection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __80__NDOManager_getAllFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke;
+  v18[3] = &unk_279975D98;
+  v10 = agentConnection;
+  v19 = v10;
+  v11 = replyCopy;
+  v20 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v18];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __80__NDOManager_getAllFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke_109;
+  v15[3] = &unk_279976158;
+  v16 = v10;
+  v17 = v11;
+  v13 = v11;
+  v14 = v10;
+  [v12 getAllFUPEligibleDeviceInfosUsingPolicy:policy updateFollowUps:upsCopy withReply:v15];
+}
+
 void __80__NDOManager_getAllFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1873,10 +1927,35 @@ void __80__NDOManager_getAllFUPEligibleDeviceInfosUsingPolicy_updateFollowUps_wi
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)getBTDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply
+{
+  upsCopy = ups;
+  replyCopy = reply;
+  agentConnection = [(NDOManager *)self agentConnection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __68__NDOManager_getBTDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke;
+  v18[3] = &unk_279975D98;
+  v10 = agentConnection;
+  v19 = v10;
+  v11 = replyCopy;
+  v20 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v18];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __68__NDOManager_getBTDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke_110;
+  v15[3] = &unk_279976158;
+  v16 = v10;
+  v17 = v11;
+  v13 = v11;
+  v14 = v10;
+  [v12 getBTDeviceInfosUsingPolicy:policy updateFollowUps:upsCopy withReply:v15];
+}
+
 void __68__NDOManager_getBTDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1894,10 +1973,35 @@ void __68__NDOManager_getBTDeviceInfosUsingPolicy_updateFollowUps_withReply___bl
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)getBTPioneerDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply
+{
+  upsCopy = ups;
+  replyCopy = reply;
+  agentConnection = [(NDOManager *)self agentConnection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __75__NDOManager_getBTPioneerDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke;
+  v18[3] = &unk_279975D98;
+  v10 = agentConnection;
+  v19 = v10;
+  v11 = replyCopy;
+  v20 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v18];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__NDOManager_getBTPioneerDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke_111;
+  v15[3] = &unk_279976158;
+  v16 = v10;
+  v17 = v11;
+  v13 = v11;
+  v14 = v10;
+  [v12 getBTPioneerDeviceInfosUsingPolicy:policy updateFollowUps:upsCopy withReply:v15];
+}
+
 void __75__NDOManager_getBTPioneerDeviceInfosUsingPolicy_updateFollowUps_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1943,7 +2047,7 @@ void __75__NDOManager_getBTPioneerDeviceInfosUsingPolicy_updateFollowUps_withRep
 void __56__NDOManager_dismissFollowUpForSerialNumber_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -1989,7 +2093,7 @@ uint64_t __56__NDOManager_dismissFollowUpForSerialNumber_completion___block_invo
 void __60__NDOManager_dismissNotificationForSerialNumber_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2018,21 +2122,20 @@ uint64_t __60__NDOManager_dismissNotificationForSerialNumber_completion___block_
 
 id __39__NDOManager_postCAEventFor_eventDict___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = _NDOLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "Posting for event: %@ with value: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "Posting for event: %@ with value: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 40);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2065,7 +2168,7 @@ id __39__NDOManager_postCAEventFor_eventDict___block_invoke(uint64_t a1)
 void __75__NDOManager_clearUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2114,7 +2217,7 @@ uint64_t __75__NDOManager_clearUserInitiatedFollowUpDismissalForSerialNumber_wit
 void __63__NDOManager_clearAllUserInitiatedFollowUpDismissalsWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2138,44 +2241,42 @@ uint64_t __63__NDOManager_clearAllUserInitiatedFollowUpDismissalsWithReply___blo
 
 - (void)storeUserInitiatedFollowUpDismissalForSerialNumber:(id)number withReply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   numberCopy = number;
-  v8 = _NDOLogSystem();
+  v8 = _NDOLogSystem(numberCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136380675;
-    v23 = "[NDOManager storeUserInitiatedFollowUpDismissalForSerialNumber:withReply:]";
+    v22 = "[NDOManager storeUserInitiatedFollowUpDismissalForSerialNumber:withReply:]";
     _os_log_impl(&dword_25BD52000, v8, OS_LOG_TYPE_DEFAULT, "%{private}s", buf, 0xCu);
   }
 
   agentConnection = [(NDOManager *)self agentConnection];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke;
-  v19[3] = &unk_279975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke;
+  v18[3] = &unk_279975D98;
   v10 = agentConnection;
-  v20 = v10;
+  v19 = v10;
   v11 = replyCopy;
-  v21 = v11;
-  v12 = [v10 remoteObjectProxyWithErrorHandler:v19];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke_210;
-  v16[3] = &unk_2799761A8;
-  v17 = v10;
-  v18 = v11;
+  v20 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v18];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke_210;
+  v15[3] = &unk_2799761A8;
+  v16 = v10;
+  v17 = v11;
   v13 = v11;
   v14 = v10;
-  [v12 storeUserInitiatedFollowUpDismissalForSerialNumber:numberCopy completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v12 storeUserInitiatedFollowUpDismissalForSerialNumber:numberCopy completion:v15];
 }
 
 void __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2224,7 +2325,7 @@ uint64_t __75__NDOManager_storeUserInitiatedFollowUpDismissalForSerialNumber_wit
 void __42__NDOManager_getLocalDeviceListWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2269,7 +2370,7 @@ void __42__NDOManager_getLocalDeviceListWithReply___block_invoke_211(uint64_t a1
 void __43__NDOManager_getRemoteDeviceListWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2310,7 +2411,7 @@ void __43__NDOManager_getRemoteDeviceListWithReply___block_invoke_213(uint64_t a
 void __57__NDOManager_removePromoSectionWithHashValue_andAckData___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2347,7 +2448,7 @@ void __57__NDOManager_removePromoSectionWithHashValue_andAckData___block_invoke(
 void __62__NDOManager_getLocalDeviceWarrantyForSerialNumber_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2394,7 +2495,7 @@ void __62__NDOManager_getLocalDeviceWarrantyForSerialNumber_withReply___block_in
 void __85__NDOManager_getRemoteDeviceWarrantyForSerialNumber_withAdditionalHeaders_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2440,7 +2541,7 @@ void __85__NDOManager_getRemoteDeviceWarrantyForSerialNumber_withAdditionalHeade
 void __67__NDOManager_getCoverageInfoForSerialNumber_usingPolicy_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2487,7 +2588,7 @@ void __67__NDOManager_getCoverageInfoForSerialNumber_usingPolicy_withReply___blo
 void __51__NDOManager_getAmsPropertiesForContext_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2534,7 +2635,7 @@ void __51__NDOManager_getAmsPropertiesForContext_withReply___block_invoke_218(ui
 void __42__NDOManager_dismissFollowUps_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2580,7 +2681,7 @@ void __42__NDOManager_dismissFollowUps_completion___block_invoke_220(uint64_t a1
 void __46__NDOManager_handleInternalCommand_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1();
@@ -2598,58 +2699,30 @@ void __46__NDOManager_handleInternalCommand_withReply___block_invoke_221(uint64_
   (*(*(a1 + 40) + 16))();
 }
 
-void __46__NDOManager_scheduleOutreachAfter_withReply___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_25BD52000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)isAPSSupportedOverrideWithServerValue:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_25BD52000, a2, OS_LOG_TYPE_DEBUG, "Using overriden value %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_25BD52000, a2, OS_LOG_TYPE_DEBUG, "Using overriden value %@", &v3, 0xCu);
 }
 
 void __33__NDOManager_clientConfiguration__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136446466;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136446466;
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_25BD52000, v0, OS_LOG_TYPE_ERROR, "%{public}s error:%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __65__NDOManager_getDeviceInfoForSerialNumber_usingPolicy_withReply___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_25BD52000, v0, v1, "Unable to get coverage info with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25BD52000, v0, OS_LOG_TYPE_ERROR, "%{public}s error:%@", v1, 0x16u);
 }
 
 void __129__NDOManager_getDeviceListForLocalDevices_sessionID_policy_params_salesReplyOnly_salesInfoReply_deviceInfoReply_completionBlock___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 serialNumber];
-  v5[0] = 136315394;
+  v4[0] = 136315394;
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_25BD52000, a2, OS_LOG_TYPE_DEBUG, "%s Skipping APPLEID Device %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __77__NDOManager__getDeviceListForLocalDevices_sessionID_params_completionBlock___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_25BD52000, v0, v1, "Device list failed with %@, falling to summarily call ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25BD52000, a2, OS_LOG_TYPE_DEBUG, "%s Skipping APPLEID Device %@", v4, 0x16u);
 }
 
 @end

@@ -36,7 +36,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B81C8128();
+  sub_1B81C8128(delegate);
 }
 
 - (NSAttributedString)title
@@ -57,7 +57,7 @@
 
 - (NSDateComponents)dueDateComponents
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7DCC0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7DCC0, &unk_1B81FF130);
   v4 = OUTLINED_FUNCTION_21(v3);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v11 - v5;
@@ -104,7 +104,7 @@
 
 - (NSURL)url
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBA7D868);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBA7D868, &unk_1B81FE8E0);
   v3 = OUTLINED_FUNCTION_21(v2);
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v9 - v4;
@@ -228,7 +228,7 @@
 
 - (id)suggestionCategorySubtitleForItems:(id)items
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0, &unk_1B81FD110);
   v4 = sub_1B81F90C8();
   selfCopy = self;
   object = SGReminderSuggestion.suggestionCategorySubtitle(forItems:)(v4).value._object;

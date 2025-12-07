@@ -58,10 +58,13 @@
 
 uint64_t __57__BKSHIDEventDeferringSelectionPathSymbol_protobufSchema__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  protobufSchema_schema_6408 = [MEMORY[0x1E698E750] buildSchemaForClass:objc_opt_class() builder:&__block_literal_global_6409];
+  v1 = MEMORY[0x1E698E750];
+  objc_opt_class();
+  v2 = [v1 buildSchemaForClass:? builder:?];
+  v3 = protobufSchema_schema_6408;
+  protobufSchema_schema_6408 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 @end

@@ -72,7 +72,7 @@
   sub_1008FBCE0();
 
   type metadata accessor for CRLCollaborationParticipant(0);
-  sub_10090F834(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant);
+  sub_10090F834(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant, &protocol conformance descriptor for NSObject);
   v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -80,12 +80,12 @@
 
 - (NSUUID)expectingViewportFromUUID
 {
-  v3 = sub_1005B981C(&qword_1019F6990);
+  v3 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC8Freeform20CRLFollowCoordinator_expectingViewportFromUUID;
   swift_beginAccess();
-  sub_10000BE14(self + v6, v5, &qword_1019F6990);
+  sub_10000BE14(self + v6, v5, &qword_1019F6990, &qword_10146D2F0);
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -102,7 +102,7 @@
 
 - (void)setExpectingViewportFromUUID:(id)d
 {
-  v5 = sub_1005B981C(&qword_1019F6990);
+  v5 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (d)
@@ -121,7 +121,7 @@
   v10 = OBJC_IVAR____TtC8Freeform20CRLFollowCoordinator_expectingViewportFromUUID;
   swift_beginAccess();
   selfCopy = self;
-  sub_10002C638(v7, self + v10, &qword_1019F6990);
+  sub_10002C638(v7, self + v10, &qword_1019F6990, &qword_10146D2F0);
   swift_endAccess();
 }
 
@@ -135,7 +135,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLFollowCoordinator();
+  v5.super_class = type metadata accessor for CRLFollowCoordinator(0);
   [(CRLFollowCoordinator *)&v5 dealloc];
 }
 
@@ -287,10 +287,10 @@
 
 - (void)setExpectingViewportForOneTimeScrollFrom:(id)from
 {
-  v5 = sub_1005B981C(&qword_101A07B80);
+  v5 = sub_1005B981C(&qword_101A07B80, &qword_101486FA8);
   __chkstk_darwin(v5 - 8);
   v7 = &v20 - v6;
-  v8 = sub_1005B981C(&qword_1019F6990);
+  v8 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v8 - 8);
   v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
@@ -312,19 +312,19 @@
   v16 = OBJC_IVAR____TtC8Freeform20CRLFollowCoordinator_expectingViewportFromUUID;
   swift_beginAccess();
   selfCopy = self;
-  sub_10002C638(v10, self + v16, &qword_1019F6990);
+  sub_10002C638(v10, self + v16, &qword_1019F6990, &qword_10146D2F0);
   swift_endAccess();
-  v18 = type metadata accessor for CRLFollowViewportState();
+  v18 = type metadata accessor for CRLFollowViewportState(0);
   (*(*(v18 - 8) + 56))(v7, 1, 1, v18);
   v19 = OBJC_IVAR____TtC8Freeform20CRLFollowCoordinator_viewportToApply;
   swift_beginAccess();
-  sub_10002C638(v7, selfCopy + v19, &qword_101A07B80);
+  sub_10002C638(v7, selfCopy + v19, &qword_101A07B80, &qword_101486FA8);
   swift_endAccess();
 }
 
 - (void)crlaxNotifyFollowFeatureOfBenignScrollViewDidScrollEvent
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   selfCopy = self;
@@ -333,7 +333,7 @@
   (*(*(v7 - 8) + 56))(v5, 0, 1, v7);
   v8 = OBJC_IVAR____TtC8Freeform20CRLFollowCoordinator_crlaxFollowFeatureLastScrollTimestamp;
   swift_beginAccess();
-  sub_10002C638(v5, selfCopy + v8, &qword_101A0A320);
+  sub_10002C638(v5, selfCopy + v8, &qword_101A0A320, &qword_10146D650);
   swift_endAccess();
 }
 
@@ -359,7 +359,7 @@
   isa = [v2 allObjects];
   if (!isa)
   {
-    sub_100006370(0, &qword_1019F8508);
+    sub_100006370(0, &qword_1019F8508, off_10182F8A8);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }

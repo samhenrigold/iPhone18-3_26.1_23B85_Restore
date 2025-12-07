@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  if (sub_1004030CC())
+  if (sub_1004030CC(AnonymousPingTask))
   {
     v3 = +[BagService appstoredService];
     log = [v3 amsBag];
@@ -32,10 +32,10 @@
           }
 
           v7 = *(*(&v28 + 1) + 8 * v6);
-          if (os_variant_has_internal_content() && (sub_1003D529C(), v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+          if (os_variant_has_internal_content() && (sub_1003D529C(AppDefaultsManager), v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
           {
             v37 = @"canaryIdentifier";
-            v9 = sub_1003D529C();
+            v9 = sub_1003D529C(AppDefaultsManager);
             v38 = v9;
             v10 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
             v11 = sub_100259260(v7, v10);
@@ -43,7 +43,7 @@
             v12 = ASDLogHandleForCategory();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = sub_1003D529C();
+              v13 = sub_1003D529C(AppDefaultsManager);
               *buf = 138543362;
               v33 = v13;
               _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Updated anonymous ping URL to include canaryIdentifier: %{public}@", buf, 0xCu);

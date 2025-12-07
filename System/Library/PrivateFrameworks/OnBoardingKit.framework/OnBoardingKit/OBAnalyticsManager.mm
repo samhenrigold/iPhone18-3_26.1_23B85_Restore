@@ -71,51 +71,49 @@ uint64_t __35__OBAnalyticsManager_sharedManager__block_invoke()
 
 - (void)commit
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = _OBLoggingFacility();
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = _OBLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1B4FB6000, v3, OS_LOG_TYPE_DEFAULT, "Commiting analytics...", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   events = [(OBAnalyticsManager *)self events];
-  v5 = [events countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v5 = [events countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(events);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         name = [v9 name];
         payload = [v9 payload];
         AnalyticsSendEvent();
       }
 
-      v6 = [events countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v6 = [events countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logPresentationOfPrivacyUnifiedAbout
 {
-  v3 = _OBLoggingFacility();
+  v3 = _OBLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -127,68 +125,62 @@ uint64_t __35__OBAnalyticsManager_sharedManager__block_invoke()
 
 - (void)logPresentationOfPrivacySplashWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = _OBLoggingFacility();
+  v5 = _OBLoggingFacility(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v11 = @"gdprAboutShown";
-    v12 = 2112;
-    v13 = identifierCopy;
+    v10 = @"gdprAboutShown";
+    v11 = 2112;
+    v12 = identifierCopy;
     _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "presentation of about event: %@ identifier: %@", buf, 0x16u);
   }
 
-  v8 = @"bundleid";
-  v9 = identifierCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v7 = @"bundleid";
+  v8 = identifierCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   [(OBAnalyticsManager *)self addEvent:@"gdprAboutShown" withPayload:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logPresentationOfPrivacyLinkWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = _OBLoggingFacility();
+  v5 = _OBLoggingFacility(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v11 = @"gdprLinkShown";
-    v12 = 2112;
-    v13 = identifierCopy;
+    v10 = @"gdprLinkShown";
+    v11 = 2112;
+    v12 = identifierCopy;
     _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "presentation of about event: %@ identifier: %@", buf, 0x16u);
   }
 
-  v8 = @"bundleid";
-  v9 = identifierCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v7 = @"bundleid";
+  v8 = identifierCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   [(OBAnalyticsManager *)self addEvent:@"gdprLinkShown" withPayload:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logTapOnPrivacyLinkWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = _OBLoggingFacility();
+  v5 = _OBLoggingFacility(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v11 = @"gdprLinkClicked";
-    v12 = 2112;
-    v13 = identifierCopy;
+    v10 = @"gdprLinkClicked";
+    v11 = 2112;
+    v12 = identifierCopy;
     _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "presentation of about event: %@ identifier: %@", buf, 0x16u);
   }
 
-  v8 = @"bundleid";
-  v9 = identifierCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v7 = @"bundleid";
+  v8 = identifierCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   [(OBAnalyticsManager *)self addEvent:@"gdprLinkClicked" withPayload:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

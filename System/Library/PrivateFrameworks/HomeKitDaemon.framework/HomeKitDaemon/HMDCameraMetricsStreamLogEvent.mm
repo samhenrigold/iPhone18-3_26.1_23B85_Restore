@@ -1,4 +1,5 @@
 @interface HMDCameraMetricsStreamLogEvent
+- (HMDCameraMetricsStreamLogEvent)initWithSessionID:(id)d cameraAccessory:(id)accessory isLocal:(BOOL)local isRelayed:(BOOL)relayed;
 - (NSDictionary)coreAnalyticsEventDictionary;
 - (NSString)accessoryIdentifier;
 - (id)_durationBetweenMilestone1:(id)milestone1 andMilestone2:(id)milestone2 index:(id)index;
@@ -102,7 +103,7 @@ void __73__HMDCameraMetricsStreamLogEvent__addDurationsBetweenMilestones_toEvent
 
 - (id)_durationBetweenMilestone1:(id)milestone1 andMilestone2:(id)milestone2 index:(id)index
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   milestone1Copy = milestone1;
   indexCopy = index;
   v10 = MEMORY[0x277CBEC10];
@@ -128,19 +129,17 @@ void __73__HMDCameraMetricsStreamLogEvent__addDurationsBetweenMilestones_toEvent
 
     else
     {
-      [v14 stringWithFormat:@"%@_%@_%@", v15, v16, v17, v25];
+      [v14 stringWithFormat:@"%@_%@_%@", v15, v16, v17, v24];
     }
     v19 = ;
 
     timestamp = [milestone2Copy timestamp];
     timestamp2 = [milestone1Copy timestamp];
-    v26 = v19;
+    v25 = v19;
     v22 = [MEMORY[0x277CCABB0] numberWithInteger:timestamp - timestamp2];
-    v27[0] = v22;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v26[0] = v22;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -220,9 +219,22 @@ uint64_t __62__HMDCameraMetricsStreamLogEvent__milestonesSortedByTimestamp__bloc
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraMetricsStreamLogEvent isRelayed](self, "isRelayed")}];
   [v3 setObject:v6 forKeyedSubscript:@"isRelayed"];
 
-  v7 = [v3 copy];
+  v7 = objc_msgSend_copy(v3);
 
   return v7;
+}
+
+- (HMDCameraMetricsStreamLogEvent)initWithSessionID:(id)d cameraAccessory:(id)accessory isLocal:(BOOL)local isRelayed:(BOOL)relayed
+{
+  v8.receiver = self;
+  v8.super_class = HMDCameraMetricsStreamLogEvent;
+  result = [(HMDCameraMetricsLogEvent *)&v8 initWithSessionID:d cameraAccessory:accessory isLocal:local];
+  if (result)
+  {
+    result->_relayed = relayed;
+  }
+
+  return result;
 }
 
 @end

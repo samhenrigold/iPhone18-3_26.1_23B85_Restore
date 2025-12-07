@@ -872,22 +872,22 @@ LABEL_11:
   ++*(*(*(v3 + 56) + 8) + 24);
 }
 
-uint64_t __61__MediaControlsCollectionViewController_performBatchUpdates___block_invoke_2(uint64_t result, unint64_t a2)
+id *__61__MediaControlsCollectionViewController_performBatchUpdates___block_invoke_2(id *result, unint64_t a2)
 {
   if (a2)
   {
     v3 = result;
-    result = [*(result + 32) firstIndex];
+    result = [result[4] firstIndex];
     if (result)
     {
-      result = [*(v3 + 32) firstIndex];
-      if (*(*(*(v3 + 48) + 8) + 24) + result >= a2)
+      result = [v3[4] firstIndex];
+      if (result + *(*(v3[6] + 1) + 24) >= a2)
       {
-        [*(v3 + 40) _frameForViewAtIndex:a2];
+        [v3[5] _frameForViewAtIndex:a2];
         Height = CGRectGetHeight(v6);
-        result = [*(v3 + 40) _verticalSpacing];
-        *(*(*(v3 + 56) + 8) + 40) = Height + v5 + *(*(*(v3 + 56) + 8) + 40);
-        ++*(*(*(v3 + 48) + 8) + 24);
+        result = [v3[5] _verticalSpacing];
+        *(*(v3[7] + 1) + 40) = Height + v5 + *(*(v3[7] + 1) + 40);
+        ++*(*(v3[6] + 1) + 24);
       }
     }
   }
@@ -990,32 +990,32 @@ BOOL __61__MediaControlsCollectionViewController_performBatchUpdates___block_inv
   return v5;
 }
 
-uint64_t __61__MediaControlsCollectionViewController_performBatchUpdates___block_invoke_6(uint64_t result, unint64_t a2)
+id *__61__MediaControlsCollectionViewController_performBatchUpdates___block_invoke_6(id *result, unint64_t a2)
 {
   v3 = result;
-  if (*(result + 40) <= a2)
+  if (result[5] <= a2)
   {
-    if (*(result + 56) >= a2)
+    if (result[7] >= a2)
     {
       return result;
     }
 
-    v4 = *(result + 64) + a2;
+    v4 = result[8] + a2;
   }
 
   else
   {
-    v4 = a2 - *(result + 48);
+    v4 = (a2 - result[6]);
   }
 
-  [*(result + 32) _frameForViewAtIndex:v4];
+  [result[4] _frameForViewAtIndex:v4];
   v6 = v5;
   v8 = v7;
-  [*(v3 + 32) _frameForViewAtIndex:a2];
+  [v3[4] _frameForViewAtIndex:a2];
   v10 = v9;
   v12 = v11;
-  v13 = [*(v3 + 32) _insertViewControllerForIndex:a2];
-  v14 = *(v3 + 32);
+  v13 = [v3[4] _insertViewControllerForIndex:a2];
+  v14 = v3[4];
 
   return [v14 _setFrame:a2 forVisibleViewAtIndex:{v6, v8, v10, v12}];
 }
@@ -1929,7 +1929,7 @@ void __71__MediaControlsCollectionViewController__scrollToSelectedItemAnimated__
 
   else if (v7)
   {
-    (*(v7 + 2))(v7);
+    v7[2](v7);
   }
 }
 
@@ -3355,9 +3355,9 @@ void __100__MediaControlsCollectionViewController__transitionTopAndBottomViewCon
     v6 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v10 = [tapCopy state] == 1 || objc_msgSend(tapCopy, "state") == 2;
+  v10 = objc_msgSend_state(tapCopy) == 1 || objc_msgSend_state(tapCopy) == 2;
   [(MediaControlsCollectionViewController *)self _setHighlighted:v10 forViewControllerAtIndex:v6];
-  if ([tapCopy state] == 3)
+  if (objc_msgSend_state(tapCopy) == 3)
   {
     [(MediaControlsCollectionViewController *)self _setHighlighted:0 forViewControllerAtIndex:v6];
     delegate = [(MediaControlsCollectionViewController *)self delegate];
@@ -3604,7 +3604,7 @@ void __117__MediaControlsCollectionViewController__setSelectedItemIndex_animated
   [v19 addAnimations:v21];
 }
 
-uint64_t __117__MediaControlsCollectionViewController__setSelectedItemIndex_animated_shouldScroll_shouldNotifyDelegate_withReason___block_invoke_4(uint64_t a1)
+void *__117__MediaControlsCollectionViewController__setSelectedItemIndex_animated_shouldScroll_shouldNotifyDelegate_withReason___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) performAnimations];
   if ((*(a1 + 48) & 1) != 0 || *(a1 + 49) == 1)

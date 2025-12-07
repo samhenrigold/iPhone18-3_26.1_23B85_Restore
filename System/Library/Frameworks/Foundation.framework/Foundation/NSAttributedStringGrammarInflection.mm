@@ -3,7 +3,7 @@
 
 @implementation NSAttributedStringGrammarInflection
 
-uint64_t __78___NSAttributedStringGrammarInflection_NSInflectionPresets__presetInflections__block_invoke()
+void *__78___NSAttributedStringGrammarInflection_NSInflectionPresets__presetInflections__block_invoke()
 {
   v1[3] = *MEMORY[0x1E69E9840];
   v1[0] = [[_NSAttributedStringGrammarInflection alloc] _initWithGender:2];

@@ -1,8 +1,13 @@
 @interface CellularCsCallGwlPageRespFail
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)csfbFailureEmmCauseAsString:(int)string;
+- (id)csfbFailureLocalCauseAsString:(int)string;
+- (id)csfbFailureTypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)pageRatAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsCsfbFailureEmmCause:(id)cause;
 - (int)StringAsCsfbFailureLocalCause:(id)cause;
@@ -92,6 +97,21 @@
   self->_has = (*&self->_has & 0xFFFFDFFF | v3);
 }
 
+- (id)pageRatAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100317380[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPageRat:(id)rat
 {
   ratCopy = rat;
@@ -144,6 +164,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
+}
+
+- (id)causeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100317398[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -245,6 +280,21 @@
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
 }
 
+- (id)csfbFailureTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1003173E0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCsfbFailureType:(id)type
 {
   typeCopy = type;
@@ -317,6 +367,194 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
+}
+
+- (id)csfbFailureEmmCauseAsString:(int)string
+{
+  if (string > 94)
+  {
+    if (string <= 98)
+    {
+      if (string > 96)
+      {
+        if (string == 97)
+        {
+          v4 = @"LTE_NAS_NON_EXISTENT_MSG_TYPE";
+        }
+
+        else
+        {
+          v4 = @"LTE_NAS_MSG_TYPE_INCOMPATIBLE_WITH_PROTOCOL_STATE";
+        }
+      }
+
+      else if (string == 95)
+      {
+        v4 = @"LTE_NAS_SEMANTICALLY_INCORRECT_MSG";
+      }
+
+      else
+      {
+        v4 = @"LTE_NAS_INVALID_MANDATORY_INFO";
+      }
+    }
+
+    else if (string <= 100)
+    {
+      if (string == 99)
+      {
+        v4 = @"LTE_NAS_NON_EXISTANT_INFO";
+      }
+
+      else
+      {
+        v4 = @"LTE_NAS_CONDITIONAL_IE_ERROR";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 'e':
+          v4 = @"LTE_NAS_MSG_INCOMPATIBLE_WITH_PROTOCOL_STATE";
+
+          break;
+        case 'o':
+          v4 = @"LTE_NAS_PROTOCOL_ERROR_UNSPECIFIED";
+
+          break;
+        case 'p':
+          v4 = @"LTE_NAS_NO_FAILURE";
+
+          break;
+        default:
+LABEL_117:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_118:
+
+          break;
+      }
+    }
+  }
+
+  else
+  {
+    v4 = @"LTE_NAS_IMSI_UNKNOWN_IN_HSS";
+    switch(string)
+    {
+      case 2:
+        goto LABEL_118;
+      case 3:
+        v4 = @"LTE_NAS_ILLEGAL_UE";
+
+        break;
+      case 5:
+        v4 = @"LTE_NAS_IMEI_NOT_ACCEPTED";
+
+        break;
+      case 6:
+        v4 = @"LTE_NAS_ILLEGAL_ME";
+
+        break;
+      case 7:
+        v4 = @"LTE_NAS_EPS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 8:
+        v4 = @"LTE_NAS_EPS_SERVICES_AND_NON_EPS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 9:
+        v4 = @"LTE_NAS_UE_ID_CANNOT_BE_DERIVED_BY_NW";
+
+        break;
+      case 10:
+        v4 = @"LTE_NAS_IMPLICITLY_DETACHED";
+
+        break;
+      case 11:
+        v4 = @"LTE_NAS_PLMN_NOT_ALLOWED";
+
+        break;
+      case 12:
+        v4 = @"LTE_NAS_TRACKING_AREA_NOT_ALLOWED";
+
+        break;
+      case 13:
+        v4 = @"LTE_NAS_ROAMING_NOT_ALLOWED_IN_THIS_TRACKING_AREA";
+
+        break;
+      case 14:
+        v4 = @"LTE_NAS_EPS_SERVICES_NOT_ALLOWED_IN_PLMN";
+
+        break;
+      case 15:
+        v4 = @"LTE_NAS_NO_SUITABLE_CELLS_IN_TRACKING_AREA";
+
+        break;
+      case 16:
+        v4 = @"LTE_NAS_MSC_TEMPORARILY_NOT_REACHABLE";
+
+        break;
+      case 17:
+        v4 = @"LTE_NAS_NW_FAILURE";
+
+        break;
+      case 18:
+        v4 = @"LTE_NAS_CS_DOMAIN_NOT_AVAILABLE";
+
+        break;
+      case 19:
+        v4 = @"LTE_NAS_ESM_FAILURE";
+
+        break;
+      case 20:
+        v4 = @"LTE_NAS_MAC_FAILURE";
+
+        break;
+      case 21:
+        v4 = @"LTE_NAS_SYNCH_FAILURE";
+
+        break;
+      case 22:
+        v4 = @"LTE_NAS_CONGESTION";
+
+        break;
+      case 23:
+        v4 = @"LTE_NAS_UE_SECURITY_CAPABILITIES_MISMATCH";
+
+        break;
+      case 24:
+        v4 = @"LTE_NAS_SECURITY_MODE_REJ_UNSPECIFIED";
+
+        break;
+      case 25:
+        v4 = @"LTE_NAS_NOT_AUTHORIZED_FOR_THIS_CSG";
+
+        break;
+      case 26:
+        v4 = @"LTE_NON_EPS_AUTH_UNACCEPTABLE";
+
+        break;
+      case 38:
+        v4 = @"LTE_NAS_CS_FALLBACK_CALL_EST_NOT_ALLOWED";
+
+        break;
+      case 39:
+        v4 = @"LTE_NAS_CS_DOMAIN_TEMP_NOT_AVAILABLE";
+
+        break;
+      case 40:
+        v4 = @"LTE_NAS_NO_EPS_BEARER_CONTEXT_ACTIVATED";
+
+        break;
+      default:
+        goto LABEL_117;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsCsfbFailureEmmCause:(id)cause
@@ -536,6 +774,324 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFF7F | v3);
+}
+
+- (id)csfbFailureLocalCauseAsString:(int)string
+{
+  if (string > 38)
+  {
+    switch(string)
+    {
+      case 256:
+        v4 = @"DRB_RELEASED_AT_RRC";
+
+        break;
+      case 257:
+        v4 = @"NAS_SIG_CONN_RELEASED";
+
+        break;
+      case 258:
+        v4 = @"EMM_DETACHED";
+
+        break;
+      case 259:
+        v4 = @"EMM_ATTACH_FAILED";
+
+        break;
+      case 260:
+        v4 = @"EMM_ATTACH_STARTED";
+
+        break;
+      case 261:
+        v4 = @"LTE_NAS_SERVICE_REQ_FAILED";
+
+        break;
+      case 262:
+        v4 = @"ESM_ACTIVE_DEDICATED_BEARER_REACTIVATED_BY_NW";
+
+        break;
+      case 263:
+        v4 = @"ESM_LOWER_LAYER_FAILURE";
+
+        break;
+      case 264:
+        v4 = @"ESM_SYNC_UP_WITH_NW";
+
+        break;
+      case 265:
+        v4 = @"ESM_NW_ACTIVATED_DED_BEARER_WITH_ID_OF_DEF_BEARER";
+
+        break;
+      case 266:
+        v4 = @"ESM_BAD_OTA_MESSAGE";
+
+        break;
+      case 267:
+        v4 = @"ESM_DS_REJECTED_THE_CALL";
+
+        break;
+      case 268:
+        v4 = @"ESM_CONTEXT_TRANSFERED_DUE_TO_IRAT";
+
+        break;
+      case 269:
+        v4 = @"DS_EXPLICIT_DEACT";
+
+        break;
+      case 270:
+        v4 = @"ESM_MSGR_FAILURE";
+
+        break;
+      case 271:
+        v4 = @"ESM_LOCAL_CUASE_NONE";
+
+        break;
+      case 272:
+        v4 = @"ESM_REJ_DUE_TO_CONNECTED_STATE";
+
+        break;
+      case 273:
+        v4 = @"LTE_NAS_SERVICE_REQ_FAILED_NO_THROTTLE";
+
+        break;
+      case 274:
+        v4 = @"ACL_FAILURE";
+
+        break;
+      case 275:
+        v4 = @"LTE_NAS_SERVICE_REQ_FAILED_DS_DISALLOW";
+
+        break;
+      case 276:
+        v4 = @"EMM_T3417_EXPIRED";
+
+        break;
+      case 277:
+        v4 = @"EMM_T3417_EXT_EXPIRED";
+
+        break;
+      case 278:
+        v4 = @"LTE_NAS_LRRC_UL_DATA_CNF_FAILURE_TXN";
+
+        break;
+      case 279:
+        v4 = @"LTE_NAS_LRRC_UL_DATA_CNF_FAILURE_HO";
+
+        break;
+      case 280:
+        v4 = @"LTE_NAS_LRRC_UL_DATA_CNF_FAILURE_CONN_REL";
+
+        break;
+      case 281:
+        v4 = @"LTE_NAS_LRRC_UL_DATA_CNF_FAILURE_RLF";
+
+        break;
+      case 282:
+        v4 = @"LTE_NAS_LRRC_UL_DATA_CNF_FAILURE_CTRL_NOT_CONN";
+
+        break;
+      case 283:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_SUCCESS";
+
+        break;
+      case 284:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE";
+
+        break;
+      case 285:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_ABORTED";
+
+        break;
+      case 286:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_ACCESS_BARRED";
+
+        break;
+      case 287:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_CELL_RESEL";
+
+        break;
+      case 288:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_CONFIG_FAILURE";
+
+        break;
+      case 289:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_TIMER_EXPIRED";
+
+        break;
+      case 290:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_LINK_FAILURE";
+
+        break;
+      case 291:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_NOT_CAMPED";
+
+        break;
+      case 292:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_SI_FAILURE";
+
+        break;
+      case 293:
+        v4 = @"LTE_NAS_LRRC_CONN_EST_FAILURE_CONN_REJECT";
+
+        break;
+      case 294:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_NORMAL";
+
+        break;
+      case 295:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_RLF";
+
+        break;
+      case 296:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_CRE_FAILURE";
+
+        break;
+      case 297:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_OOS_DURING_CRE";
+
+        break;
+      case 298:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_ABORTED";
+
+        break;
+      case 299:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_SIB_READ_ERROR";
+
+        break;
+      case 300:
+        v4 = @"LTE_NAS_LRRC_CONN_REL_ABORTED_IRAT_SUCCESS";
+
+        break;
+      case 301:
+        v4 = @"LTE_NAS_REJ_LRRC_RADIO_LINK_FAILURE";
+
+        break;
+      case 302:
+        v4 = @"LTE_NAS_SERVICE_REQ_FAILURE_LTE_NW_REJECT";
+
+        break;
+      case 303:
+        v4 = @"LTE_NAS_DETACH_WITH_REATTACH_LTE_NW_DETACH";
+
+        break;
+      case 304:
+        v4 = @"LTE_NAS_DETACH_WITH_OUT_REATTACH_LTE_NW_DETACH";
+
+        break;
+      case 305:
+        v4 = @"ESM_PROC_TIME_OUT";
+
+        break;
+      default:
+        if (string == 39)
+        {
+          v4 = @"LTE_NAS_CS_DOMAIN_TEMP_NOT_AVAILABLE_LOCAL";
+        }
+
+        else
+        {
+          if (string != 43)
+          {
+            goto LABEL_61;
+          }
+
+          v4 = @"LTE_NAS_ESM_UNKNOWN_EPS_BEARER_CONTEXT";
+        }
+
+        break;
+    }
+
+    return v4;
+  }
+
+  if (string > 11)
+  {
+    if (string > 17)
+    {
+      switch(string)
+      {
+        case 18:
+          v4 = @"LTE_NAS_CS_DOMAIN_NOT_AVAILABLE_LOCAL";
+
+          break;
+        case 25:
+          v4 = @"LTE_NAS_NOT_AUTHORIZED_FOR_THIS_CSG_LOCAL";
+
+          break;
+        case 38:
+          v4 = @"LTE_NAS_CS_FALLBACK_CALL_EST_NOT_ALLOWED_LOCAL";
+
+          break;
+        default:
+          goto LABEL_61;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 12:
+          v4 = @"LTE_NAS_TRACKING_AREA_NOT_ALLOWED_LOCAL";
+
+          break;
+        case 13:
+          v4 = @"LTE_NAS_ROAMING_NOT_ALLOWED_IN_THIS_TRACKING_AREA_LOCAL";
+
+          break;
+        case 15:
+          v4 = @"LTE_NAS_NO_SUITABLE_CELLS_IN_TRACKING_AREA_LOCAL";
+
+          break;
+        default:
+          goto LABEL_61;
+      }
+    }
+  }
+
+  else if (string > 8)
+  {
+    if (string == 9)
+    {
+      v4 = @"LTE_NAS_UE_ID_CANNOT_BE_DERIVED_BY_NW_LOCAL";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"LTE_NAS_IMPLICITLY_DETACHED_LOCAL";
+    }
+
+    else
+    {
+      v4 = @"LTE_NAS_PLMN_NOT_ALLOWED_LOCAL";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 3:
+        v4 = @"LTE_NAS_ILLEGAL_UE_LOCAL";
+
+        break;
+      case 6:
+        v4 = @"LTE_NAS_ILLEGAL_ME_LOCAL";
+
+        break;
+      case 7:
+        v4 = @"LTE_NAS_EPS_SERVICES_NOT_ALLOWED_LOCAL";
+
+        return v4;
+      default:
+LABEL_61:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsCsfbFailureLocalCause:(id)cause
@@ -1796,12 +2352,11 @@ LABEL_21:
 {
   toCopy = to;
   has = self->_has;
-  v28 = toCopy;
+  v8 = toCopy;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v28;
+    toCopy = v8;
     has = self->_has;
     if ((*&has & 0x8000) == 0)
     {
@@ -1820,9 +2375,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -1836,9 +2390,8 @@ LABEL_4:
   }
 
 LABEL_29:
-  pageRat = self->_pageRat;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -1852,9 +2405,8 @@ LABEL_5:
   }
 
 LABEL_30:
-  cause = self->_cause;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -1868,9 +2420,8 @@ LABEL_6:
   }
 
 LABEL_31:
-  isImsiPage = self->_isImsiPage;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -1884,9 +2435,8 @@ LABEL_7:
   }
 
 LABEL_32:
-  csfbFailureType = self->_csfbFailureType;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -1900,9 +2450,8 @@ LABEL_8:
   }
 
 LABEL_33:
-  csfbFailureEmmCause = self->_csfbFailureEmmCause;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -1916,9 +2465,8 @@ LABEL_9:
   }
 
 LABEL_34:
-  csfbFailureLocalCause = self->_csfbFailureLocalCause;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -1932,9 +2480,8 @@ LABEL_10:
   }
 
 LABEL_35:
-  csfbIsLacMismatch = self->_csfbIsLacMismatch;
   PBDataWriterWriteBOOLField();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -1948,9 +2495,8 @@ LABEL_11:
   }
 
 LABEL_36:
-  csfbAbnormalCause = self->_csfbAbnormalCause;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -1964,9 +2510,8 @@ LABEL_12:
   }
 
 LABEL_37:
-  lteRegLac = self->_lteRegLac;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -1980,9 +2525,8 @@ LABEL_13:
   }
 
 LABEL_38:
-  tac = self->_tac;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -1996,9 +2540,8 @@ LABEL_14:
   }
 
 LABEL_39:
-  lteCellId = self->_lteCellId;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -2012,9 +2555,8 @@ LABEL_15:
   }
 
 LABEL_40:
-  attemptArfcn = self->_attemptArfcn;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -2028,9 +2570,8 @@ LABEL_16:
   }
 
 LABEL_41:
-  isAttemptBandPcs = self->_isAttemptBandPcs;
   PBDataWriterWriteBOOLField();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 8) == 0)
   {
@@ -2044,9 +2585,8 @@ LABEL_17:
   }
 
 LABEL_42:
-  attemptLac = self->_attemptLac;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 4) == 0)
   {
@@ -2060,9 +2600,8 @@ LABEL_18:
   }
 
 LABEL_43:
-  attemptCellId = self->_attemptCellId;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -2076,31 +2615,28 @@ LABEL_19:
   }
 
 LABEL_44:
-  numRedirFreq = self->_numRedirFreq;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v8;
   if ((*&self->_has & 0x40000) != 0)
   {
 LABEL_20:
-    isRedirHighBandPcs = self->_isRedirHighBandPcs;
     PBDataWriterWriteBOOLField();
-    toCopy = v28;
+    toCopy = v8;
   }
 
 LABEL_21:
   p_redirArfcns = &self->_redirArfcns;
   if (p_redirArfcns->count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      v9 = p_redirArfcns->list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v28;
-      ++v8;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v8 < p_redirArfcns->count);
+    while (v7 < p_redirArfcns->count);
   }
 }
 
@@ -2798,7 +3334,6 @@ LABEL_21:
       goto LABEL_102;
     }
 
-    v7 = *(equalCopy + 100);
     if (self->_csfbIsLacMismatch)
     {
       if ((*(equalCopy + 100) & 1) == 0)
@@ -2890,7 +3425,6 @@ LABEL_21:
       goto LABEL_102;
     }
 
-    v8 = *(equalCopy + 101);
     if (self->_isAttemptBandPcs)
     {
       if ((*(equalCopy + 101) & 1) == 0)
@@ -2966,7 +3500,6 @@ LABEL_102:
     goto LABEL_102;
   }
 
-  v11 = *(equalCopy + 102);
   if (self->_isRedirHighBandPcs)
   {
     if ((*(equalCopy + 102) & 1) == 0)

@@ -57,19 +57,19 @@
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if ([(EFSQLRow *)self columnCount]<= subscript)
   {
     subscriptCopy = subscript;
-    v37 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v36 = objc_alloc(MEMORY[0x1E696AEC0]);
     _queryString = [(EFSQLRow *)self _queryString];
-    v39 = [v37 initWithFormat:@"Index %lu is out of range for selected columns: %@", subscriptCopy, _queryString];
+    v38 = [v36 initWithFormat:@"Index %lu is out of range for selected columns: %@", subscriptCopy, _queryString];
 
-    v40 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:v39 userInfo:0];
-    objc_exception_throw(v40);
+    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:v38 userInfo:0];
+    objc_exception_throw(v39);
   }
 
-  v44 = &v41;
+  v43 = &v40;
   subscriptCopy2 = subscript;
   selfCopy = self;
   v6 = selfCopy;
@@ -79,11 +79,11 @@
     if (columnCount > 0xC80000)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
-      [currentHandler handleFailureInFunction:v35 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
+      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
+      [currentHandler handleFailureInFunction:v34 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
     }
 
-    v41 = &v41;
+    v40 = &v40;
     if (columnCount <= 1)
     {
       v8 = 1;
@@ -106,9 +106,9 @@
 
     v10 = 8 * v9;
     MEMORY[0x1EEE9AC00](selfCopy);
-    v12 = &v41 - v11;
-    bzero(&v41 - v11, v10);
-    v43 = v12;
+    v12 = &v40 - v11;
+    bzero(&v40 - v11, v10);
+    v42 = v12;
     if (columnCount > 0x100)
     {
       v13 = malloc_type_calloc(v8, 8uLL, 0x80040B8603338uLL);
@@ -120,13 +120,13 @@
       v13 = 0;
     }
 
-    v42 = v13;
+    v41 = v13;
     if (columnCount >= 0x101)
     {
       v12 = v13;
     }
 
-    v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{2 * columnCount, v41}];
+    v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{2 * columnCount, v40}];
     if (columnCount)
     {
       v15 = 0;
@@ -176,8 +176,8 @@
     v6->_columns = v21;
 
     v6->_namedColumnsInitialized = 1;
-    free(v42);
-    v28 = v43 - 8;
+    free(v41);
+    v28 = v42 - 8;
     do
     {
 
@@ -191,30 +191,28 @@
   v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:subscriptCopy2];
   v31 = [(NSDictionary *)v29 objectForKeyedSubscript:v30];
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v31;
 }
 
 - (BOOL)columnExistsWithName:(id)name
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v38 = v35;
+  v40 = *MEMORY[0x1E69E9840];
+  v37 = v34;
   nameCopy = name;
   selfCopy = self;
   v5 = selfCopy;
   if (!selfCopy->_namedColumnsInitialized)
   {
     columnCount = selfCopy->_columnCount;
-    v40 = selfCopy;
+    v39 = selfCopy;
     if (columnCount > 0xC80000)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
-      [currentHandler handleFailureInFunction:v34 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
+      v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
+      [currentHandler handleFailureInFunction:v33 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
     }
 
-    v35[1] = v35;
+    v34[1] = v34;
     if (columnCount <= 1)
     {
       v7 = 1;
@@ -237,9 +235,9 @@
 
     v9 = 8 * v8;
     MEMORY[0x1EEE9AC00](selfCopy);
-    v11 = v35 - v10;
-    bzero(v35 - v10, v9);
-    v37 = v11;
+    v11 = v34 - v10;
+    bzero(v34 - v10, v9);
+    v36 = v11;
     if (columnCount > 0x100)
     {
       v12 = malloc_type_calloc(v7, 8uLL, 0x80040B8603338uLL);
@@ -251,7 +249,7 @@
       v12 = 0;
     }
 
-    v36 = v12;
+    v35 = v12;
     if (columnCount >= 0x101)
     {
       v13 = v12;
@@ -269,7 +267,7 @@
       v16 = v13;
       do
       {
-        v17 = [[EFSQLColumn alloc] initWithSQLiteStatement:v40->_statement index:v15];
+        v17 = [[EFSQLColumn alloc] initWithSQLiteStatement:v39->_statement index:v15];
         objc_storeStrong(v16, v17);
         v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
         [columnCount addObject:v18];
@@ -308,13 +306,13 @@
       }
     }
 
-    v5 = v40;
-    columns = v40->_columns;
-    v40->_columns = v21;
+    v5 = v39;
+    columns = v39->_columns;
+    v39->_columns = v21;
 
     v5->_namedColumnsInitialized = 1;
-    free(v36);
-    v28 = v37 - 8;
+    free(v35);
+    v28 = v36 - 8;
     do
     {
 
@@ -327,28 +325,27 @@
   v29 = [(NSDictionary *)v5->_columns objectForKeyedSubscript:nameCopy];
   v30 = v29 != 0;
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (id)columnNames
 {
-  v36 = &v33;
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = &v32;
+  v37 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v3 = selfCopy;
   if (!selfCopy->_namedColumnsInitialized)
   {
     columnCount = selfCopy->_columnCount;
-    v37 = selfCopy;
+    v36 = selfCopy;
     if (columnCount > 0xC80000)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
-      [currentHandler handleFailureInFunction:v32 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
+      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
+      [currentHandler handleFailureInFunction:v31 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
     }
 
-    v33 = &v33;
+    v32 = &v32;
     if (columnCount <= 1)
     {
       v5 = 1;
@@ -371,9 +368,9 @@
 
     v7 = 8 * v6;
     MEMORY[0x1EEE9AC00](selfCopy);
-    v9 = &v33 - v8;
-    bzero(&v33 - v8, v7);
-    v35 = v9;
+    v9 = &v32 - v8;
+    bzero(&v32 - v8, v7);
+    v34 = v9;
     if (columnCount > 0x100)
     {
       v10 = malloc_type_calloc(v5, 8uLL, 0x80040B8603338uLL);
@@ -385,7 +382,7 @@
       v10 = 0;
     }
 
-    v34 = v10;
+    v33 = v10;
     if (columnCount >= 0x101)
     {
       v11 = v10;
@@ -396,7 +393,7 @@
       v11 = v9;
     }
 
-    v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{2 * columnCount, v33}];
+    v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{2 * columnCount, v32}];
     if (columnCount)
     {
       v13 = 0;
@@ -416,7 +413,7 @@
 
         ++v13;
         ++v14;
-        v3 = v37;
+        v3 = v36;
       }
 
       while (columnCount != v13);
@@ -443,13 +440,13 @@
       }
     }
 
-    v3 = v37;
-    columns = v37->_columns;
-    v37->_columns = v19;
+    v3 = v36;
+    columns = v36->_columns;
+    v36->_columns = v19;
 
     v3->_namedColumnsInitialized = 1;
-    free(v34);
-    v26 = v35 - 8;
+    free(v33);
+    v26 = v34 - 8;
     do
     {
 
@@ -461,8 +458,6 @@
 
   allKeys = [(NSDictionary *)v3->_columns allKeys];
   v28 = [allKeys ef_filter:&__block_literal_global_37];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -478,24 +473,24 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
 
 - (id)objectForKeyedSubscript:(id)subscript
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v42 = v39;
+  v44 = *MEMORY[0x1E69E9840];
+  v41 = v38;
   subscriptCopy = subscript;
   selfCopy = self;
   v5 = selfCopy;
   namedColumnsInitialized = selfCopy->_namedColumnsInitialized;
-  v44 = selfCopy;
+  v43 = selfCopy;
   if (!namedColumnsInitialized)
   {
     columnCount = selfCopy->_columnCount;
     if (columnCount > 0xC80000)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
-      [currentHandler handleFailureInFunction:v34 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
+      v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _initializeAllNamedColumns(EFSQLRow *__strong)"];
+      [currentHandler handleFailureInFunction:v33 file:@"EFSQLRow.m" lineNumber:112 description:{@"Temporary buffer too large or with a negative count (%zu).", columnCount}];
     }
 
-    v39[1] = v39;
+    v38[1] = v38;
     if (columnCount <= 1)
     {
       v8 = 1;
@@ -518,9 +513,9 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
 
     v10 = 8 * v9;
     MEMORY[0x1EEE9AC00](selfCopy);
-    v12 = v39 - v11;
-    bzero(v39 - v11, v10);
-    v41 = v12;
+    v12 = v38 - v11;
+    bzero(v38 - v11, v10);
+    v40 = v12;
     if (columnCount > 0x100)
     {
       v13 = malloc_type_calloc(v8, 8uLL, 0x80040B8603338uLL);
@@ -532,7 +527,7 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
       v13 = 0;
     }
 
-    v40 = v13;
+    v39 = v13;
     if (columnCount >= 0x101)
     {
       v14 = v13;
@@ -550,7 +545,7 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
       v17 = v14;
       do
       {
-        v18 = [[EFSQLColumn alloc] initWithSQLiteStatement:v44->_statement index:v16];
+        v18 = [[EFSQLColumn alloc] initWithSQLiteStatement:v43->_statement index:v16];
         objc_storeStrong(v17, v18);
         v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v16];
         [columnCount addObject:v19];
@@ -589,13 +584,13 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
       }
     }
 
-    v5 = v44;
-    columns = v44->_columns;
-    v44->_columns = v22;
+    v5 = v43;
+    columns = v43->_columns;
+    v43->_columns = v22;
 
     v5->_namedColumnsInitialized = 1;
-    free(v40);
-    v29 = v41 - 8;
+    free(v39);
+    v29 = v40 - 8;
     do
     {
 
@@ -608,15 +603,13 @@ uint64_t __23__EFSQLRow_columnNames__block_invoke(uint64_t a1, void *a2)
   v30 = [(NSDictionary *)v5->_columns objectForKeyedSubscript:subscriptCopy];
   if (!v30)
   {
-    v35 = objc_alloc(MEMORY[0x1E696AEC0]);
-    _queryString = [(EFSQLRow *)v44 _queryString];
-    v37 = [v35 initWithFormat:@"No matching column named %@ in statement: %@", subscriptCopy, _queryString];
+    v34 = objc_alloc(MEMORY[0x1E696AEC0]);
+    _queryString = [(EFSQLRow *)v43 _queryString];
+    v36 = [v34 initWithFormat:@"No matching column named %@ in statement: %@", subscriptCopy, _queryString];
 
-    v38 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v37 userInfo:0];
-    objc_exception_throw(v38);
+    v37 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v36 userInfo:0];
+    objc_exception_throw(v37);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }

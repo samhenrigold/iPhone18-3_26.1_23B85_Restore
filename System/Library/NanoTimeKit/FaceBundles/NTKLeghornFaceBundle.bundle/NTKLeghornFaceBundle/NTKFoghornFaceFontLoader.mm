@@ -38,26 +38,26 @@
   }
 
   v12 = objc_opt_class();
-  objc_msgSend__discretizedTypographicSizeForTypographicSize_(v12, v13, width, height);
-  v15 = v14;
-  v16 = v34.height;
-  *&v14 = weight;
-  v17 = roundf(*&v14);
-  v18 = MEMORY[0x277CCACA8];
-  v34.width = v15;
-  v19 = NSStringFromCGSize(v34);
-  v22 = objc_msgSend_stringWithFormat_(v18, v20, v21, @"(%.1f)-(%.1f)-(%@)-(%u)", *&fontSize, *&v17, v19, set);
+  objc_msgSend__discretizedTypographicSizeForTypographicSize_(v12, v13, v14, width, height);
+  v16 = v15;
+  v17 = v32.height;
+  *&v15 = weight;
+  v18 = roundf(*&v15);
+  v19 = MEMORY[0x277CCACA8];
+  v32.width = v16;
+  v20 = NSStringFromCGSize(v32);
+  v22 = objc_msgSend_stringWithFormat_(v19, v21, @"(%.1f)-(%.1f)-(%@)-(%u)", *&fontSize, *&v18, v20, set);
 
-  v25 = objc_msgSend_objectForKey_(self->_fontCache, v23, v24, v22);
-  if (!v25)
+  v24 = objc_msgSend_objectForKey_(self->_fontCache, v23, v22);
+  if (!v24)
   {
-    v26 = objc_opt_class();
-    v28 = objc_msgSend__foghornFaceFontDescriptorWithTypographicSize_weight_stylisticSet_(v26, v27, v15, set, v16, weight);
-    v25 = objc_msgSend_fontWithDescriptor_size_(MEMORY[0x277CBBB08], v29, fontSize, v28);
-    objc_msgSend_setObject_forKey_(self->_fontCache, v30, v31, v25, v22);
+    v25 = objc_opt_class();
+    v27 = objc_msgSend__foghornFaceFontDescriptorWithTypographicSize_weight_stylisticSet_(v25, v26, set, v16, v17, weight);
+    v24 = objc_msgSend_fontWithDescriptor_size_(MEMORY[0x277CBBB08], v28, v27, fontSize);
+    objc_msgSend_setObject_forKey_(self->_fontCache, v29, v24, v22);
   }
 
-  return v25;
+  return v24;
 }
 
 + (CGSize)_discretizedTypographicSizeForTypographicSize:(CGSize)size
@@ -80,13 +80,13 @@
     sub_23BEE6B74();
   }
 
-  v10 = objc_msgSend_copy(qword_27E1DF020, a2, size.width);
+  v10 = objc_msgSend_copy(qword_27E1DF020, a2, set);
   v11 = objc_opt_new();
-  v13 = objc_msgSend__fontVariationAttributesForTypographicSize_weight_stylisticSet_(self, v12, width, set, height, weight);
-  objc_msgSend_setObject_forKey_(v11, v14, v15, v13, *MEMORY[0x277CC4990]);
-  v18 = objc_msgSend_fontDescriptorByAddingAttributes_(v10, v16, v17, v11);
+  v13 = objc_msgSend__fontVariationAttributesForTypographicSize_weight_stylisticSet_(self, v12, set, width, height, weight);
+  objc_msgSend_setObject_forKey_(v11, v14, v13, *MEMORY[0x277CC4990]);
+  v16 = objc_msgSend_fontDescriptorByAddingAttributes_(v10, v15, v11);
 
-  return v18;
+  return v16;
 }
 
 + (id)_fontVariationAttributesForTypographicSize:(CGSize)size weight:(double)weight stylisticSet:(unint64_t)set
@@ -94,30 +94,30 @@
   width = size.width;
   height = size.height;
   v9 = objc_opt_new();
-  v12 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v10, v11, width);
-  v13 = MEMORY[0x277CCABB0];
-  v14 = TextToFourCharCode();
-  v17 = objc_msgSend_numberWithUnsignedInt_(v13, v15, v16, v14);
-  objc_msgSend_setObject_forKey_(v9, v18, v19, v12, v17);
+  v11 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v10, width);
+  v12 = MEMORY[0x277CCABB0];
+  v13 = TextToFourCharCode();
+  v15 = objc_msgSend_numberWithUnsignedInt_(v12, v14, v13);
+  objc_msgSend_setObject_forKey_(v9, v16, v11, v15);
 
-  v22 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v20, v21, height);
-  v23 = MEMORY[0x277CCABB0];
-  v24 = TextToFourCharCode();
-  v27 = objc_msgSend_numberWithUnsignedInt_(v23, v25, v26, v24);
-  objc_msgSend_setObject_forKey_(v9, v28, v29, v22, v27);
+  v18 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v17, height);
+  v19 = MEMORY[0x277CCABB0];
+  v20 = TextToFourCharCode();
+  v22 = objc_msgSend_numberWithUnsignedInt_(v19, v21, v20);
+  objc_msgSend_setObject_forKey_(v9, v23, v18, v22);
 
-  v31 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v30, weight);
-  v32 = MEMORY[0x277CCABB0];
-  v33 = TextToFourCharCode();
-  v36 = objc_msgSend_numberWithUnsignedInt_(v32, v34, v35, v33);
-  objc_msgSend_setObject_forKey_(v9, v37, v38, v31, v36);
+  v26 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v24, v25, weight);
+  v27 = MEMORY[0x277CCABB0];
+  v28 = TextToFourCharCode();
+  v30 = objc_msgSend_numberWithUnsignedInt_(v27, v29, v28);
+  objc_msgSend_setObject_forKey_(v9, v31, v26, v30);
 
   if (set)
   {
-    v39 = MEMORY[0x277CCABB0];
-    v40 = TextToFourCharCode();
-    v43 = objc_msgSend_numberWithUnsignedInt_(v39, v41, v42, v40);
-    objc_msgSend_setObject_forKey_(v9, v44, v45, MEMORY[0x277CBEC38], v43);
+    v32 = MEMORY[0x277CCABB0];
+    v33 = TextToFourCharCode();
+    v35 = objc_msgSend_numberWithUnsignedInt_(v32, v34, v33);
+    objc_msgSend_setObject_forKey_(v9, v36, MEMORY[0x277CBEC38], v35);
   }
 
   return v9;

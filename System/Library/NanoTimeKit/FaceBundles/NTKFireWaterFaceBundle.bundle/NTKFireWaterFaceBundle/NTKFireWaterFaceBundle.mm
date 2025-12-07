@@ -39,28 +39,28 @@ void sub_F30(id a1)
   qword_CB10 = v1;
 }
 
-id sub_1B84()
+id sub_1B84(uint64_t a1)
 {
   if (qword_CB28 != -1)
   {
     sub_3074();
   }
 
-  v1 = qword_CB20;
+  v2 = qword_CB20;
 
-  return v1;
+  return v2;
 }
 
-id sub_1BC8()
+id sub_1BC8(uint64_t a1)
 {
   if (qword_CB38 != -1)
   {
     sub_3088();
   }
 
-  v1 = qword_CB30;
+  v2 = qword_CB30;
 
-  return v1;
+  return v2;
 }
 
 void sub_29A4(id a1)

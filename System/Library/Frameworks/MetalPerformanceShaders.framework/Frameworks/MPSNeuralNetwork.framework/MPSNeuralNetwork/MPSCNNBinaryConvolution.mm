@@ -195,7 +195,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x2E3, @"[%@ initWithDevice:] is not allowed. Please use initializers that are not marked NS_UNAVAILABLE.", v5, v6, v7, v8);
   }
 
   return 0;
@@ -234,9 +234,9 @@
 
 - (MPSCNNBinaryConvolution)initWithDeviceImpl:(id)impl convolutionDescriptor:(id)descriptor kernelWeights:(const unsigned int *)weights outputBiasTerms:(const float *)terms outputScaleTerms:(const float *)scaleTerms inputBiasTerms:(const float *)biasTerms inputScaleTerms:(const float *)inputScaleTerms type:(unint64_t)self0 flags:(unint64_t)self1
 {
-  v40.receiver = self;
-  v40.super_class = MPSCNNBinaryConvolution;
-  result = [(MPSCNNKernel *)&v40 initWithDevice:impl];
+  v46.receiver = self;
+  v46.super_class = MPSCNNBinaryConvolution;
+  result = [(MPSCNNKernel *)&v46 initWithDevice:impl];
   if (!result)
   {
     return result;
@@ -247,10 +247,14 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"Filter weights pointer should be non-null";
+      v43 = 815;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+LABEL_37:
+
+    return 0;
   }
 
   v25 = *(descriptor + 1);
@@ -258,10 +262,12 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"kernel width must be > 0";
+      v43 = 816;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   v26 = *(descriptor + 2);
@@ -269,50 +275,60 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"kernel height must be > 0";
+      v43 = 817;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if (!*(descriptor + 3))
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"number of input feature channels must be > 0";
+      v43 = 818;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if (!*(descriptor + 4))
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"number of output feature channels must be > 0";
+      v43 = 819;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if (!*(descriptor + 6))
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"strideX must be > 0";
+      v43 = 820;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if (!*(descriptor + 7))
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"strideY must be > 0";
+      v43 = 821;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   v27 = *(descriptor + 8);
@@ -322,19 +338,22 @@
     {
       if (MTLReportFailureTypeEnabled())
       {
-LABEL_35:
-        MTLReportFailure();
+        v42 = @"number of groups must be 1";
+        v43 = 823;
+        goto LABEL_36;
       }
     }
 
     else if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_35;
+      v42 = @"number of groups must be > 0";
+      v43 = 822;
+LABEL_36:
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", v43, v42, v38, v39, v40, v41);
+      goto LABEL_37;
     }
 
-LABEL_36:
-
-    return 0;
+    goto LABEL_37;
   }
 
   result->super._kernelWidth = v25;
@@ -346,8 +365,8 @@ LABEL_36:
   result->super._checkFlags |= 2u;
   result->_flags = flags;
   objc_msgSend_neuronInfo(descriptor, v17, v18, v19, v20, v21, v22, v23);
-  *&v24->_neuronInfo.type = v38;
-  v24->_neuronInfo.aData = v39;
+  *&v24->_neuronInfo.type = v44;
+  v24->_neuronInfo.aData = v45;
   v24->super._encode = sub_239D6E498;
   v24->super._encodeData = v24;
   v24->_convType = type;
@@ -408,8 +427,8 @@ LABEL_36:
 
 - (MPSCNNBinaryConvolution)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v118.receiver = self;
-  v118.super_class = MPSCNNBinaryConvolution;
+  v128.receiver = self;
+  v128.super_class = MPSCNNBinaryConvolution;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (v6)
@@ -420,8 +439,10 @@ LABEL_36:
       {
         v82 = objc_opt_class();
         NSStringFromClass(v82);
+        v87 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+        v88 = 1074;
 LABEL_11:
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", v88, v87, v83, v84, v85, v86);
       }
 
 LABEL_12:
@@ -451,15 +472,15 @@ LABEL_12:
     kernelHeight = v13->super._kernelHeight;
     outputFeatureChannels = v13->_outputFeatureChannels;
     v72 = v13->_inputFeatureChannels + 31;
-    v117 = 1;
-    v79 = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._weights", kernelHeight * kernelWidth * outputFeatureChannels * (v72 >> 5), &v117);
-    v80 = v117;
-    if (v117 == 1)
+    v127 = 1;
+    v79 = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._weights", (kernelHeight * kernelWidth * outputFeatureChannels * (v72 >> 5)), &v127);
+    v80 = v127;
+    if (v127 == 1)
     {
-      v13->_inputbias = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._inputbias", v72 & 0xFFFFFFE0, &v117);
-      v80 = v117;
+      v13->_inputbias = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._inputbias", (v72 & 0xFFFFFFE0), &v127);
+      v80 = v127;
       v81 = outputFeatureChannels + 31;
-      if ((v117 & 1) == 0)
+      if ((v127 & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -468,7 +489,7 @@ LABEL_12:
     else
     {
       v81 = outputFeatureChannels + 31;
-      if ((v117 & 1) == 0)
+      if ((v127 & 1) == 0)
       {
 LABEL_5:
         if (v80)
@@ -480,14 +501,14 @@ LABEL_5:
       }
     }
 
-    v13->_inputScale = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._inputScale", v72 & 0xFFFFFFE0, &v117);
-    v80 = v117;
-    if (v117)
+    v13->_inputScale = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._inputScale", (v72 & 0xFFFFFFE0), &v127);
+    v80 = v127;
+    if (v127)
     {
 LABEL_6:
-      v13->_outputbias = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._outputbias", v81 & 0xFFFFFFE0, &v117);
-      v80 = v117;
-      if ((v117 & 1) == 0)
+      v13->_outputbias = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._outputbias", (v81 & 0xFFFFFFE0), &v127);
+      v80 = v127;
+      if ((v127 & 1) == 0)
       {
         goto LABEL_7;
       }
@@ -512,28 +533,30 @@ LABEL_17:
         {
 LABEL_21:
           v13->_neuronInfo.type = objc_msgSend_decodeInt64ForKey_(aDecoder, v73, @"kMPSCNNBinaryConvolution._neuronType", v74, v75, v76, v77, v78);
-          objc_msgSend_decodeFloatForKey_(aDecoder, v93, @"kMPSCNNBinaryConvolution._neuronParamA", v94, v95, v96, v97, v98);
-          v13->_neuronInfo.a = v99;
-          objc_msgSend_decodeFloatForKey_(aDecoder, v100, @"kMPSCNNBinaryConvolution._neuronParamB", v101, v102, v103, v104, v105);
-          v13->_neuronInfo.b = v106;
-          objc_msgSend_decodeFloatForKey_(aDecoder, v107, @"kMPSCNNBinaryConvolution._neuronParamC", v108, v109, v110, v111, v112);
-          v13->_neuronInfo.c = v113;
+          objc_msgSend_decodeFloatForKey_(aDecoder, v99, @"kMPSCNNBinaryConvolution._neuronParamA", v100, v101, v102, v103, v104);
+          v13->_neuronInfo.a = v105;
+          objc_msgSend_decodeFloatForKey_(aDecoder, v106, @"kMPSCNNBinaryConvolution._neuronParamB", v107, v108, v109, v110, v111);
+          v13->_neuronInfo.b = v112;
+          objc_msgSend_decodeFloatForKey_(aDecoder, v113, @"kMPSCNNBinaryConvolution._neuronParamC", v114, v115, v116, v117, v118);
+          v13->_neuronInfo.c = v119;
           return v13;
         }
 
-        v83 = [MPSCNNPoolingAverage alloc];
-        v86 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_strideInPixelsX_strideInPixelsY_(v83, v84, device, v13->super._kernelWidth, v13->super._kernelHeight, v13->super._strideInPixelsX, v13->super._strideInPixelsY, v85);
-        v13->_poolingFilter = v86;
-        if (v86)
+        v89 = [MPSCNNPoolingAverage alloc];
+        v92 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_strideInPixelsX_strideInPixelsY_(v89, v90, device, v13->super._kernelWidth, v13->super._kernelHeight, v13->super._strideInPixelsX, v13->super._strideInPixelsY, v91);
+        v13->_poolingFilter = v92;
+        if (v92)
         {
-          objc_msgSend_setEdgeMode_(v86, v87, 0, v88, v89, v90, v91, v92);
+          objc_msgSend_setEdgeMode_(v92, v93, 0, v94, v95, v96, v97, v98);
           goto LABEL_21;
         }
 
         if (MTLReportFailureTypeEnabled())
         {
-          v115 = objc_opt_class();
-          NSStringFromClass(v115);
+          v121 = objc_opt_class();
+          NSStringFromClass(v121);
+          v87 = @"[%@ initWithCoder:device:] failed. %@";
+          v88 = 1139;
           goto LABEL_11;
         }
 
@@ -544,18 +567,18 @@ LABEL_22:
 
       if (!v80 && MTLReportFailureTypeEnabled())
       {
-        v116 = objc_opt_class();
-        NSStringFromClass(v116);
-        MTLReportFailure();
+        v122 = objc_opt_class();
+        NSStringFromClass(v122);
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x462, @"[%@ initWithCoder:device:] failed. %@", v123, v124, v125, v126);
       }
 
       return 0;
     }
 
 LABEL_16:
-    v13->_outputScale = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._outputScale", v81 & 0xFFFFFFE0, &v117);
-    v80 = v117;
-    if ((v117 & 1) == 0)
+    v13->_outputScale = sub_239D6FC44(aDecoder, device, @"kMPSCNNBinaryConvolution._outputScale", (v81 & 0xFFFFFFE0), &v127);
+    v80 = v127;
+    if ((v127 & 1) == 0)
     {
       goto LABEL_22;
     }

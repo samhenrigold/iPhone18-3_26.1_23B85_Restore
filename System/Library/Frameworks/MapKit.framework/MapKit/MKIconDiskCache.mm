@@ -13,7 +13,7 @@ void __114___MKIconDiskCache_imageForStyleAttributes_size_scale_isCarplay_isTran
   {
     v3 = UIImagePNGRepresentation(*(a1 + 48));
     v4 = [MEMORY[0x1E696AC08] defaultManager];
-    v5 = [*(*(a1 + 32) + 8) path];
+    v5 = objc_msgSend_path(*(*(a1 + 32) + 8));
     v6 = [v4 fileExistsAtPath:v5];
 
     if ((v6 & 1) == 0)

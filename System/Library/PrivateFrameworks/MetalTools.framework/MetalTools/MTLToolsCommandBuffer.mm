@@ -66,7 +66,10 @@
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value agentMask:(unint64_t)mask;
 - (void)encodeSignalEventScheduled:(id)scheduled value:(unint64_t)value;
 - (void)encodeWaitForEvent:(id)event value:(unint64_t)value;
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout;
 - (void)enqueue;
+- (void)executeSynchronizationNotifications:(int)notifications;
+- (void)executeSynchronizationNotifications:(int)notifications scope:(unint64_t)scope resources:(const void *)resources count:(unint64_t)count;
 - (void)invokeCompletedHandlers;
 - (void)invokeScheduledHandlers;
 - (void)popDebugGroup;
@@ -80,8 +83,10 @@
 - (void)retainObjectsFromRenderPassDescriptor:(id)descriptor;
 - (void)setLabel:(id)label;
 - (void)setLogs:(id)logs;
+- (void)setProfilingEnabled:(BOOL)enabled;
 - (void)setProtectionOptions:(unint64_t)options;
 - (void)setResourceGroups:(const void *)groups count:(unint64_t)count;
+- (void)setResponsibleTaskIDs:(const unsigned int *)ds count:(unsigned int)count;
 - (void)useInternalResidencySet:(id)set;
 - (void)useInternalResidencySets:(const void *)sets count:(unint64_t)count;
 - (void)useResidencySet:(id)set;
@@ -904,6 +909,16 @@
   [baseObject encodeWaitForEvent:baseObject2 value:value];
 }
 
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout
+{
+  v5 = *&timeout;
+  [(MTLToolsCommandBuffer *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [event baseObject];
+
+  [baseObject encodeWaitForEvent:baseObject2 value:value timeout:v5];
+}
+
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value agentMask:(unint64_t)mask
 {
   [(MTLToolsCommandBuffer *)self addRetainedObject:?];
@@ -992,6 +1007,14 @@
   return [baseObject isProfilingEnabled];
 }
 
+- (void)setProfilingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setProfilingEnabled:enabledCopy];
+}
+
 - (NSDictionary)profilingResults
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -1020,15 +1043,31 @@
   [baseObject addSynchronizationNotification:notification];
 }
 
+- (void)executeSynchronizationNotifications:(int)notifications
+{
+  v3 = *&notifications;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject executeSynchronizationNotifications:v3];
+}
+
+- (void)executeSynchronizationNotifications:(int)notifications scope:(unint64_t)scope resources:(const void *)resources count:(unint64_t)count
+{
+  v9 = *&notifications;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject executeSynchronizationNotifications:v9 scope:scope resources:resources count:count];
+}
+
 - (void)setResourceGroups:(const void *)groups count:(unint64_t)count
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v6 = v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11[1] = *MEMORY[0x277D85DE8];
+  v6 = v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     groupsCopy = groups;
     countCopy = count;
-    v9 = (v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v10 = *groupsCopy++;
@@ -1040,18 +1079,17 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dropResourceGroups:(const void *)groups count:(unint64_t)count
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v6 = v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11[1] = *MEMORY[0x277D85DE8];
+  v6 = v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     groupsCopy = groups;
     countCopy = count;
-    v9 = (v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v11 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v10 = *groupsCopy++;
@@ -1063,18 +1101,17 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeCacheHintTag:(unint64_t)tag resourceGroups:(const void *)groups count:(unint64_t)count
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v8 = v14 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13[1] = *MEMORY[0x277D85DE8];
+  v8 = v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     groupsCopy = groups;
     countCopy = count;
-    v11 = (v14 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v11 = (v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v12 = *groupsCopy++;
@@ -1086,18 +1123,17 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeCacheHintFinalize:(unint64_t)finalize resourceGroups:(const void *)groups count:(unint64_t)count
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v8 = v14 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13[1] = *MEMORY[0x277D85DE8];
+  v8 = v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     groupsCopy = groups;
     countCopy = count;
-    v11 = (v14 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v11 = (v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       v12 = *groupsCopy++;
@@ -1109,7 +1145,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProtectionOptions:(unint64_t)options
@@ -1198,6 +1233,14 @@
     objc_autoreleasePoolPop(v6);
     return 0;
   }
+}
+
+- (void)setResponsibleTaskIDs:(const unsigned int *)ds count:(unsigned int)count
+{
+  v4 = *&count;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setResponsibleTaskIDs:ds count:v4];
 }
 
 - (void)useResidencySet:(id)set

@@ -317,7 +317,7 @@
 - (void)setObservedProgress:(NSProgress *)observedProgress
 {
   v5 = observedProgress;
-  if (([(NSProgress *)v5 isEqual:self->_observedProgress]& 1) == 0)
+  if ((objc_msgSend_isEqual_(v5) & 1) == 0)
   {
     [(NSObservation *)self->_progressObservation finishObserving];
     progressObservation = self->_progressObservation;

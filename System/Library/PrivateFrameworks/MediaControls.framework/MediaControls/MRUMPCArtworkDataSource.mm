@@ -269,66 +269,67 @@ void __60__MRUMPCArtworkDataSource_updateArtwork_publishImmediately___block_invo
 
 - (void)publishArtwork:(id)artwork publishingDelay:(double)delay
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   artworkCopy = artwork;
+  v7 = artworkCopy;
   if (delay == 0.3)
   {
-    v7 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MCLogCategoryDefault(artworkCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543874;
+      v16 = 138543874;
       selfCopy3 = self;
-      v17 = 2114;
-      v18 = artworkCopy;
-      v19 = 2048;
+      v18 = 2114;
+      v19 = v7;
+      v20 = 2048;
       delayCopy = 0.3;
-      v8 = "%{public}@ update artwork: %{public}@. delay: %.2fs (timeout)";
+      v9 = "%{public}@ update artwork: %{public}@. delay: %.2fs (timeout)";
 LABEL_9:
-      v10 = v7;
-      v11 = 32;
+      v11 = v8;
+      v12 = 32;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v7 = MCLogCategoryDefault();
-    v9 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = MCLogCategoryDefault(artworkCopy);
+    v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (delay >= 0.005)
     {
-      if (v9)
+      if (v10)
       {
-        v15 = 138543874;
+        v16 = 138543874;
         selfCopy3 = self;
-        v17 = 2114;
-        v18 = artworkCopy;
-        v19 = 2048;
+        v18 = 2114;
+        v19 = v7;
+        v20 = 2048;
         delayCopy = delay;
-        v8 = "%{public}@ update artwork: %{public}@. delay: %.2fs";
+        v9 = "%{public}@ update artwork: %{public}@. delay: %.2fs";
         goto LABEL_9;
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
-      v15 = 138543618;
+      v16 = 138543618;
       selfCopy3 = self;
-      v17 = 2114;
-      v18 = artworkCopy;
-      v8 = "%{public}@ update artwork: %{public}@";
-      v10 = v7;
-      v11 = 22;
+      v18 = 2114;
+      v19 = v7;
+      v9 = "%{public}@ update artwork: %{public}@";
+      v11 = v8;
+      v12 = 22;
 LABEL_10:
-      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, v8, &v15, v11);
+      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, v9, &v16, v12);
     }
   }
 
   publishedArtwork = self->_publishedArtwork;
-  self->_publishedArtwork = artworkCopy;
-  v13 = artworkCopy;
+  self->_publishedArtwork = v7;
+  v14 = v7;
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained artworkDataSource:self didChangeArtwork:v13];
+  [WeakRetained artworkDataSource:self didChangeArtwork:v14];
 }
 
 - (void)configureAllowsAutomaticResponseLoading

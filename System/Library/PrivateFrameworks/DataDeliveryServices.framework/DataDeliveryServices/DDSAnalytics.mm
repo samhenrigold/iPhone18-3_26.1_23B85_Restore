@@ -9,6 +9,7 @@
 - (id)processName;
 - (id)stringForAction:(int)action;
 - (void)cancelRecordingForAsset:(id)asset;
+- (void)recordAssetAction:(int)action forAsset:(id)asset;
 - (void)reportAssetDownloadAnalytic:(id)analytic;
 - (void)reportUpdateCycleAnalytic:(id)analytic;
 @end
@@ -56,28 +57,26 @@ uint64_t __30__DDSAnalytics_sharedInstance__block_invoke()
 
 - (void)cancelRecordingForAsset:(id)asset
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
-  v5 = DefaultLog();
+  v5 = DefaultLog(assetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = [assetCopy uniqueIdentifier];
     *buf = 138412290;
-    v13 = uniqueIdentifier;
+    v12 = uniqueIdentifier;
     _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "Cancel recording asset analytic for %@", buf, 0xCu);
   }
 
   analyticQueue = [(DDSAnalytics *)self analyticQueue];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __40__DDSAnalytics_cancelRecordingForAsset___block_invoke;
-  v10[3] = &unk_1E86C5C70;
-  v10[4] = self;
-  v11 = assetCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __40__DDSAnalytics_cancelRecordingForAsset___block_invoke;
+  v9[3] = &unk_1E86C5C70;
+  v9[4] = self;
+  v10 = assetCopy;
   v8 = assetCopy;
-  dispatch_sync(analyticQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_sync(analyticQueue, v9);
 }
 
 void __40__DDSAnalytics_cancelRecordingForAsset___block_invoke(uint64_t a1)
@@ -85,6 +84,35 @@ void __40__DDSAnalytics_cancelRecordingForAsset___block_invoke(uint64_t a1)
   v3 = [*(a1 + 32) analyticByIdentifier];
   v2 = [*(a1 + 40) uniqueIdentifier];
   [v3 removeObjectForKey:v2];
+}
+
+- (void)recordAssetAction:(int)action forAsset:(id)asset
+{
+  v4 = *&action;
+  v19 = *MEMORY[0x1E69E9840];
+  assetCopy = asset;
+  v7 = DefaultLog(assetCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = [(DDSAnalytics *)self stringForAction:v4];
+    uniqueIdentifier = [assetCopy uniqueIdentifier];
+    *buf = 138543618;
+    v16 = v10;
+    v17 = 2114;
+    v18 = uniqueIdentifier;
+    _os_log_debug_impl(&dword_1DF7C6000, v7, OS_LOG_TYPE_DEBUG, "Record asset action: %{public}@ for %{public}@", buf, 0x16u);
+  }
+
+  analyticQueue = [(DDSAnalytics *)self analyticQueue];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke;
+  block[3] = &unk_1E86C62A0;
+  block[4] = self;
+  v13 = assetCopy;
+  v14 = v4;
+  v9 = assetCopy;
+  dispatch_sync(analyticQueue, block);
 }
 
 void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
@@ -142,15 +170,15 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
   processName = [(DDSAnalytics *)self processName];
   [v5 setObject:processName forKey:@"process"];
 
-  v22 = DefaultLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v23 = DefaultLog(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    [(DDSAnalytics *)v5 reportAssetDownloadAnalytic:v22];
+    [(DDSAnalytics *)v5 reportAssetDownloadAnalytic:v23];
   }
 
-  v23 = [@"com.apple.keyboard.dataDeliveryServices." stringByAppendingString:@"assetDownload"];
-  v27 = v5;
-  v24 = v5;
+  v24 = [@"com.apple.keyboard.dataDeliveryServices." stringByAppendingString:@"assetDownload"];
+  v28 = v5;
+  v25 = v5;
   AnalyticsSendEventLazy();
 
   analyticByIdentifier = [(DDSAnalytics *)self analyticByIdentifier];
@@ -174,15 +202,15 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
   processName = [(DDSAnalytics *)self processName];
   [v5 setObject:processName forKey:@"process"];
 
-  v10 = DefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = DefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(DDSAnalytics *)v5 reportUpdateCycleAnalytic:v10];
+    [(DDSAnalytics *)v5 reportUpdateCycleAnalytic:v11];
   }
 
-  v11 = [@"com.apple.keyboard.dataDeliveryServices." stringByAppendingString:@"updateCycle"];
-  v15 = v5;
-  v12 = v5;
+  v12 = [@"com.apple.keyboard.dataDeliveryServices." stringByAppendingString:@"updateCycle"];
+  v16 = v5;
+  v13 = v5;
   AnalyticsSendEventLazy();
 
   analyticByIdentifier = [(DDSAnalytics *)self analyticByIdentifier];
@@ -196,7 +224,7 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
   assertionsCopy = assertions;
   assetsCopy = assets;
   v8 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"\n"];
-  if (DDS_IS_INTERNAL_INSTALL())
+  if (DDS_IS_INTERNAL_INSTALL(v8, v9))
   {
     selfCopy = self;
     [v8 appendString:@"***********\n"];
@@ -207,19 +235,19 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
     v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v9 = assertionsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v10)
+    v10 = assertionsCopy;
+    v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v33;
+      v12 = v11;
+      v13 = *v33;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v33 != v12)
+          if (*v33 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
           dumpDescription = [*(*(&v32 + 1) + 8 * i) dumpDescription];
@@ -228,10 +256,10 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
           [v8 appendString:@"***********************************\n"];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     [v8 appendString:@"\n\n"];
@@ -242,30 +270,30 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
     v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v15 = assetsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v16)
+    v16 = assetsCopy;
+    v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v29;
+      v18 = v17;
+      v19 = *v29;
       do
       {
-        for (j = 0; j != v17; ++j)
+        for (j = 0; j != v18; ++j)
         {
-          if (*v29 != v18)
+          if (*v29 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v28 + 1) + 8 * j);
-          debuggingID = [v20 debuggingID];
-          [v8 appendFormat:@"\n%@ (%lu)", debuggingID, objc_msgSend(v20, "contentVersion")];
+          v21 = *(*(&v28 + 1) + 8 * j);
+          debuggingID = [v21 debuggingID];
+          [v8 appendFormat:@"\n%@ (%lu)", debuggingID, objc_msgSend(v21, "contentVersion")];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
     [v8 appendString:@"\n\n"];
@@ -281,8 +309,6 @@ void __43__DDSAnalytics_recordAssetAction_forAsset___block_invoke(uint64_t a1)
     v27 = v8;
     [analyticByIdentifier enumerateKeysAndObjectsUsingBlock:v26];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -452,20 +478,18 @@ void __27__DDSAnalytics_processName__block_invoke()
 
 - (void)reportAssetDownloadAnalytic:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Report asset download analytic: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Report asset download analytic: %{public}@", &v2, 0xCu);
 }
 
 - (void)reportUpdateCycleAnalytic:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Report update catalog analytic: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Report update catalog analytic: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -1071,7 +1071,7 @@ uint64_t __79__CKSendMenuPresentationPopoverView_animationForTransitioningToNewS
   [(CKSendMenuPresentationPopoverView *)self bounds];
   if (v9)
   {
-    [v9 affineTransformToDownScaleSize:v10 toSize:{v11, v6, v8}];
+    objc_msgSend_affineTransformToDownScaleSize_toSize_(v9, v10, v11, v6, v8);
   }
 
   else

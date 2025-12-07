@@ -11,7 +11,7 @@
 
 - (id)initForSigningWithSender:(void *)sender compositionSpecification:(void *)specification error:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   senderCopy = sender;
   if (!self)
@@ -19,9 +19,9 @@
     goto LABEL_30;
   }
 
-  v24.receiver = self;
-  v24.super_class = _MFSecCMSEncoder;
-  self = objc_msgSendSuper2(&v24, sel_init);
+  v23.receiver = self;
+  v23.super_class = _MFSecCMSEncoder;
+  self = objc_msgSendSuper2(&v23, sel_init);
   if (!self)
   {
     goto LABEL_30;
@@ -75,7 +75,7 @@ LABEL_12:
     v11 = MFLogGeneral();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForSigningWithSender:self compositionSpecification:? error:?];
+      [_MFSecCMSEncoder initForSigningWithSender:compositionSpecification:error:];
     }
 
 LABEL_22:
@@ -92,14 +92,14 @@ LABEL_23:
     v11 = MFLogGeneral();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForSigningWithSender:self compositionSpecification:? error:?];
+      [_MFSecCMSEncoder initForSigningWithSender:compositionSpecification:error:];
     }
 
     goto LABEL_22;
   }
 
-  v18 = SecCmsSignerInfoCreate();
-  if (!v18)
+  v17 = SecCmsSignerInfoCreate();
+  if (!v17)
   {
     v11 = MFLogGeneral();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
@@ -117,21 +117,32 @@ LABEL_23:
     v11 = MFLogGeneral();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForSigningWithSender:self compositionSpecification:? error:?];
+      [_MFSecCMSEncoder initForSigningWithSender:compositionSpecification:error:];
     }
 
     goto LABEL_22;
   }
 
   *buf = 0;
-  v19 = [senderCopy objectForKey:@"EncryptionIdentity"];
-  if (v19)
+  v18 = [senderCopy objectForKey:@"EncryptionIdentity"];
+  if (v18)
   {
-    SecIdentityCopyCertificate(v19, buf);
+    SecIdentityCopyCertificate(v18, buf);
   }
 
   certificateRef = 0;
   SecIdentityCopyCertificate(v9, &certificateRef);
+  if (*buf)
+  {
+    v19 = *buf;
+  }
+
+  else
+  {
+    v19 = certificateRef;
+  }
+
+  MEMORY[0x1B272A3C0](v17, v19, 0);
   if (*buf)
   {
     v20 = *buf;
@@ -142,18 +153,7 @@ LABEL_23:
     v20 = certificateRef;
   }
 
-  MEMORY[0x1B272A3C0](v18, v20, 0);
-  if (*buf)
-  {
-    v21 = *buf;
-  }
-
-  else
-  {
-    v21 = certificateRef;
-  }
-
-  MEMORY[0x1B272A3B0](v18, v21, 0);
+  MEMORY[0x1B272A3B0](v17, v20, 0);
   if (*buf && !CFEqual(*buf, certificateRef))
   {
     *(self + 10) = SecCmsSignedDataAddCertChain();
@@ -171,10 +171,10 @@ LABEL_23:
 
   if (*(self + 10))
   {
-    v22 = MFLogGeneral();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = MFLogGeneral();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForSigningWithSender:self compositionSpecification:? error:?];
+      [_MFSecCMSEncoder initForSigningWithSender:compositionSpecification:error:];
     }
 
     goto LABEL_23;
@@ -199,22 +199,21 @@ LABEL_24:
 
 LABEL_30:
 
-  v16 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)initForEncryptionWithCompositionSpecification:(void *)specification error:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!self)
   {
     goto LABEL_45;
   }
 
-  v33.receiver = self;
-  v33.super_class = _MFSecCMSEncoder;
-  self = objc_msgSendSuper2(&v33, sel_init);
+  v31.receiver = self;
+  v31.super_class = _MFSecCMSEncoder;
+  self = objc_msgSendSuper2(&v31, sel_init);
   if (!self)
   {
     goto LABEL_45;
@@ -223,28 +222,28 @@ LABEL_30:
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   specificationCopy = specification;
   [v5 objectForKey:@"RecipientCertificates"];
-  v32 = 0u;
-  v31 = 0u;
   v30 = 0u;
-  v7 = v29 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v29 = 0u;
+  v28 = 0u;
+  v7 = v27 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [v7 objectForKey:*(*(&v29 + 1) + 8 * i)];
+        v11 = [v7 objectForKey:*(*(&v27 + 1) + 8 * i)];
         [v6 addObjectsFromArray:v11];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
@@ -264,16 +263,16 @@ LABEL_30:
 
   v13 = [v6 count];
   MEMORY[0x1EEE9AC00](v13);
-  v15 = (&v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((v16 & 1) == 0)
   {
     memset(v15, 170, 8 * v13 + 8);
   }
 
-  v15[v13] = 0;
-  v36.location = 0;
-  v36.length = v13;
-  CFArrayGetValues(v6, v36, v15);
+  *&v15[8 * v13] = 0;
+  v34.location = 0;
+  v34.length = v13;
+  CFArrayGetValues(v6, v34, v15);
   v17 = SecCmsMessageCreate();
   if (!v17)
   {
@@ -312,7 +311,7 @@ LABEL_26:
     v18 = MFLogGeneral();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForEncryptionWithCompositionSpecification:self error:?];
+      [_MFSecCMSEncoder initForEncryptionWithCompositionSpecification:error:];
     }
 
     goto LABEL_37;
@@ -325,7 +324,7 @@ LABEL_26:
     v18 = MFLogGeneral();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder initForEncryptionWithCompositionSpecification:self error:?];
+      [_MFSecCMSEncoder initForEncryptionWithCompositionSpecification:error:];
     }
 
     goto LABEL_37;
@@ -333,15 +332,9 @@ LABEL_26:
 
   if (v13)
   {
-    while (!*(self + 10))
+    while (!*(self + 10) && SecCmsRecipientInfoCreate())
     {
-      v21 = *v15;
-      if (!SecCmsRecipientInfoCreate())
-      {
-        break;
-      }
-
-      ++v15;
+      v15 += 8;
       if (!--v13)
       {
         goto LABEL_34;
@@ -366,16 +359,15 @@ LABEL_38:
   {
     if (specificationCopy)
     {
-      v22 = MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_MESSAGE", @"An error occurred while trying to encrypt your message. Verify that you have valid certificates in your keychain for all of the recipients.", @"Delayed");
-      v23 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:v22];
-      *specificationCopy = v23;
+      v21 = MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_MESSAGE", @"An error occurred while trying to encrypt your message. Verify that you have valid certificates in your keychain for all of the recipients.", @"Delayed");
+      v22 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:v21];
+      *specificationCopy = v22;
     }
 
     self = 0;
   }
 
 LABEL_45:
-  v24 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -419,35 +411,32 @@ LABEL_4:
     v6 = MFLogGeneral();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16[0]) = 0;
-      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_INFO, "#SMIMEErrors -appendData: called twice _MFSecCMSEncoder (only once is allowed for now)!", v16, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_INFO, "#SMIMEErrors -appendData: called twice _MFSecCMSEncoder (only once is allowed for now)!", v13, 2u);
     }
 
     goto LABEL_4;
   }
 
   v7 = [dataCopy length];
-  v16[1] = [v5 bytes];
+  v13[1] = [v5 bytes];
   v8 = objc_alloc_init(MEMORY[0x1E69AD730]);
   singleShot = self->_singleShot;
   self->_singleShot = v8;
 
-  message = self->_message;
-  v11 = self->_singleShot;
-  v12 = SecCmsMessageEncode();
-  self->_SecCMSError = v12;
-  if (v12)
+  v10 = SecCmsMessageEncode();
+  self->_SecCMSError = v10;
+  if (v10)
   {
-    v13 = MFLogGeneral();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = MFLogGeneral();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_MFSecCMSEncoder appendData:?];
+      [_MFSecCMSEncoder appendData:];
     }
 
     v7 = -1;
   }
 
-  v14 = self->_message;
   SecCmsMessageDestroy();
   self->_message = 0;
 LABEL_11:
@@ -457,10 +446,9 @@ LABEL_11:
 
 - (void)done
 {
-  OUTLINED_FUNCTION_7_0(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors SecCmsEncoderFinish on -done returned %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors SecCmsEncoderFinish on -done returned %ld", v2, v3, v4, v5);
 }
 
 - (id)data
@@ -476,60 +464,6 @@ LABEL_11:
   return data;
 }
 
-- (void)initForSigningWithSender:(uint64_t)a1 compositionSpecification:error:.cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsContentInfoSetContentSignedData returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initForSigningWithSender:(uint64_t)a1 compositionSpecification:error:.cold.2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsContentInfoSetContentData for signing returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initForSigningWithSender:(uint64_t)a1 compositionSpecification:error:.cold.3(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsSignerInfoIncludeCerts returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initForSigningWithSender:(uint64_t)a1 compositionSpecification:error:.cold.4(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsSignedDataAddCertChain returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initForEncryptionWithCompositionSpecification:(uint64_t)a1 error:.cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsContentInfoSetContentEnvelopedData returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initForEncryptionWithCompositionSpecification:(uint64_t)a1 error:.cold.2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v2, v3, "#SMIMEErrors SecCmsContentInfoSetContentData for encryption returned %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
 - (void)appendData:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
@@ -537,12 +471,11 @@ LABEL_11:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)appendData:(int *)a1 .cold.2(int *a1)
+- (void)appendData:.cold.2()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors SecCmsMessageEncode returned %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors SecCmsMessageEncode returned %ld", v2, v3, v4, v5);
 }
 
 @end

@@ -48,7 +48,7 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
 
 - (void)timerDidFire:(id)fire
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -68,16 +68,14 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Primary resident discovery retry timer fired", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Primary resident discovery retry timer fired", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMDPrimaryResidentDiscoveryManager *)selfCopy _discoverPrimaryResident];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceMonitorReachableNotification:(id)notification
@@ -102,7 +100,7 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
 
 void __80__HMDPrimaryResidentDiscoveryManager__handleDeviceMonitorReachableNotification___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -140,9 +138,9 @@ void __80__HMDPrimaryResidentDiscoveryManager__handleDeviceMonitorReachableNotif
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = HMFGetLogIdentifier();
-          v17 = 138543362;
-          v18 = v15;
-          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Current device is now reachable. Resetting retry timer and running discovery if it's not running already.", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = v15;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Current device is now reachable. Resetting retry timer and running discovery if it's not running already.", &v16, 0xCu);
         }
 
         objc_autoreleasePoolPop(v12);
@@ -150,8 +148,6 @@ void __80__HMDPrimaryResidentDiscoveryManager__handleDeviceMonitorReachableNotif
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRetryTimer
@@ -229,7 +225,7 @@ LABEL_8:
 
 - (void)sendCheckForResidentsInHomeNotification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained(&self->_context);
@@ -262,8 +258,8 @@ LABEL_8:
       notificationCenter = [(HMDPrimaryResidentDiscoveryManagerDataSource *)v8 notificationCenter];
       uuid = [home uuid];
       uUIDString = [uuid UUIDString];
-      v19 = uUIDString;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v18 = uUIDString;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       [notificationCenter postNotificationName:@"HMDPrimaryResidentDiscoveryFindResidentsNotification" object:0 userInfo:v12];
     }
   }
@@ -277,124 +273,120 @@ LABEL_8:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v16;
+      v20 = v16;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home is nil. Not sending HMDPrimaryResidentDiscoveryFindResidentsNotification.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_discoverPrimaryResident
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (!self)
   {
     dispatch_assert_queue_V2(0);
-    goto LABEL_8;
-  }
-
-  dispatch_assert_queue_V2(self->_queue);
-  if (!objc_getProperty(self, v3, 48, 1))
-  {
-    WeakRetained = objc_loadWeakRetained(&self->_context);
-    if (WeakRetained)
-    {
-      v6 = WeakRetained;
-      [objc_getProperty(self v5];
-      home = [v6 home];
-      homeManager = [home homeManager];
-
-      currentAccessorySetupMetricDispatcher = [homeManager currentAccessorySetupMetricDispatcher];
-      [currentAccessorySetupMetricDispatcher markSetupBeginStage:14 error:0];
-
-      v10 = [objc_alloc(MEMORY[0x277D0F7A8]) initWithQueue:self->_queue];
-      v11 = self->_dataSource;
-      v12 = [(HMDPrimaryResidentDiscoveryManagerDataSource *)v11 createPrimaryResidentDiscoveryOperationWithContext:v6];
-      objc_setProperty_atomic(self, v13, v12, 48);
-
-      v15 = [objc_getProperty(self v14];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke;
-      v37[3] = &unk_2786795F8;
-      v37[4] = self;
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_84;
-      v36[3] = &unk_278689CD8;
-      v36[4] = self;
-      v16 = [v15 inContext:v10 then:v37 orRecover:v36];
-
-      v18 = [objc_getProperty(self v17];
-      v34[4] = self;
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_86;
-      v35[3] = &unk_278689CB0;
-      v35[4] = self;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_2;
-      v34[3] = &unk_278689CD8;
-      v19 = [v18 inContext:v10 then:v35 orRecover:v34];
-
-      v20 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v22 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-      {
-        v23 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v39 = v23;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling primary resident discovery operation", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v20);
-      objc_initWeak(buf, selfCopy);
-      v24 = self->_dataSource;
-      v25 = [(HMDPrimaryResidentDiscoveryManagerDataSource *)v24 transportStartFutureFromContext:v6];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_88;
-      v32[3] = &unk_278685A80;
-      objc_copyWeak(&v33, buf);
-      v26 = [v25 inContext:v10 then:v32];
-
-      objc_destroyWeak(&v33);
-      objc_destroyWeak(buf);
-
-LABEL_11:
-      goto LABEL_12;
-    }
-
 LABEL_8:
     v27 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
+    selfCopy = self;
     v29 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v30;
+      v38 = v30;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Cannot perform the operation because the resident manager context is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v27);
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    [(HMDPrimaryResidentDiscoveryManager *)selfCopy2 completedDiscoveryWithPrimaryResident:0 primaryResidentGenerationID:0 error:v6];
+    [(HMDPrimaryResidentDiscoveryManager *)selfCopy completedDiscoveryWithPrimaryResident:0 primaryResidentGenerationID:0 error:v6];
     goto LABEL_11;
   }
 
-LABEL_12:
-  v31 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_queue);
+  if (objc_getProperty(self, v3, 48, 1))
+  {
+    return;
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_context);
+  if (!WeakRetained)
+  {
+    goto LABEL_8;
+  }
+
+  v6 = WeakRetained;
+  [objc_getProperty(self v5];
+  home = [v6 home];
+  homeManager = [home homeManager];
+
+  currentAccessorySetupMetricDispatcher = [homeManager currentAccessorySetupMetricDispatcher];
+  [currentAccessorySetupMetricDispatcher markSetupBeginStage:14 error:0];
+
+  v10 = [objc_alloc(MEMORY[0x277D0F7A8]) initWithQueue:self->_queue];
+  v11 = self->_dataSource;
+  v12 = [(HMDPrimaryResidentDiscoveryManagerDataSource *)v11 createPrimaryResidentDiscoveryOperationWithContext:v6];
+  objc_setProperty_atomic(self, v13, v12, 48);
+
+  v15 = [objc_getProperty(self v14];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke;
+  v36[3] = &unk_2786795F8;
+  v36[4] = self;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_84;
+  v35[3] = &unk_278689CD8;
+  v35[4] = self;
+  v16 = [v15 inContext:v10 then:v36 orRecover:v35];
+
+  v18 = [objc_getProperty(self v17];
+  v33[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_86;
+  v34[3] = &unk_278689CB0;
+  v34[4] = self;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_2;
+  v33[3] = &unk_278689CD8;
+  v19 = [v18 inContext:v10 then:v34 orRecover:v33];
+
+  v20 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v22 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v38 = v23;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling primary resident discovery operation", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v20);
+  objc_initWeak(buf, selfCopy2);
+  v24 = self->_dataSource;
+  v25 = [(HMDPrimaryResidentDiscoveryManagerDataSource *)v24 transportStartFutureFromContext:v6];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_88;
+  v31[3] = &unk_278685A80;
+  objc_copyWeak(&v32, buf);
+  v26 = [v25 inContext:v10 then:v31];
+
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(buf);
+
+LABEL_11:
 }
 
 uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 currentPrimaryResident];
   v6 = [v3 currentPrimaryResidentGenerationID];
@@ -417,11 +409,11 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v4;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Primary resident discovery operation completed with: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v4;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Primary resident discovery operation completed with: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -440,13 +432,12 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
   [v17 submitLogEvent:v9];
 
   [*(a1 + 32) completedDiscoveryWithPrimaryResident:v4 primaryResidentGenerationID:v6 error:0];
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__block_invoke_84(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v4 = a2;
   Property = *(a1 + 32);
   if (Property)
@@ -489,9 +480,9 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v36 = 138543362;
-      v37 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Primary discovery operation canceled", &v36, 0xCu);
+      v35 = 138543362;
+      v36 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Primary discovery operation canceled", &v35, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -515,13 +506,13 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
 
       v25 = [v24 fireDate];
       [v25 timeIntervalSinceNow];
-      v36 = 138543874;
-      v37 = v23;
-      v38 = 2112;
-      v39 = v9;
-      v40 = 2048;
-      v41 = v26;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Primary discovery failed with error: %@, retrying after %.03f seconds", &v36, 0x20u);
+      v35 = 138543874;
+      v36 = v23;
+      v37 = 2112;
+      v38 = v9;
+      v39 = 2048;
+      v40 = v26;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Primary discovery failed with error: %@, retrying after %.03f seconds", &v35, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -557,7 +548,6 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
     objc_claimAutoreleasedReturnValue();
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -585,7 +575,7 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self->_queue);
@@ -598,30 +588,23 @@ uint64_t __62__HMDPrimaryResidentDiscoveryManager__discoverPrimaryResident__bloc
       {
         v8 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v15 = v8;
+        v12 = v8;
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Cancelling primary resident discovery operation.", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
       [objc_getProperty(selfCopy v9];
-      goto LABEL_6;
     }
 
-    if (!objc_getProperty(self, v4, 56, 1))
+    else if (objc_getProperty(self, v4, 56, 1))
     {
-LABEL_6:
-      v10 = *MEMORY[0x277D85DE8];
-      return;
+      v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12];
+      [(HMDPrimaryResidentDiscoveryManager *)self completedDiscoveryWithPrimaryResident:0 primaryResidentGenerationID:0 error:?];
     }
-
-    v13 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12];
-    [(HMDPrimaryResidentDiscoveryManager *)self completedDiscoveryWithPrimaryResident:0 primaryResidentGenerationID:0 error:?];
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     dispatch_assert_queue_V2(0);
   }
@@ -700,10 +683,9 @@ LABEL_6:
 
 void __49__HMDPrimaryResidentDiscoveryManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_124645;
-  logCategory__hmf_once_v10_124645 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_124645;
+  logCategory__hmf_once_v10_124645 = v0;
 }
 
 @end

@@ -9,24 +9,24 @@
   v2 = objc_alloc_init(self);
   [v2 setIsAbleToTakeScreenshots:1];
   [v2 setReasonForNotBeingAbleToTakeScreenshots:0];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2050000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
   v3 = getMCProfileConnectionClass_softClass;
-  v23 = getMCProfileConnectionClass_softClass;
+  v26 = getMCProfileConnectionClass_softClass;
   if (!getMCProfileConnectionClass_softClass)
   {
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __getMCProfileConnectionClass_block_invoke;
-    v18 = &unk_1E8590188;
-    v19 = &v20;
-    __getMCProfileConnectionClass_block_invoke(&v15);
-    v3 = v21[3];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getMCProfileConnectionClass_block_invoke;
+    v21 = &unk_1E8590188;
+    v22 = &v23;
+    __getMCProfileConnectionClass_block_invoke(&v18);
+    v3 = v24[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v23, 8);
   sharedConnection = [v3 sharedConnection];
   isScreenShotAllowed = [sharedConnection isScreenShotAllowed];
 
@@ -36,23 +36,23 @@
     [v2 setReasonForNotBeingAbleToTakeScreenshots:@"Disallowed from ManagedConfiguration"];
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v7 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
-  v23 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
+  v26 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
   if (!getMKBDeviceUnlockedSinceBootSymbolLoc_ptr)
   {
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke;
-    v18 = &unk_1E8590188;
-    v19 = &v20;
-    __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke(&v15);
-    v7 = v21[3];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke;
+    v21 = &unk_1E8590188;
+    v22 = &v23;
+    __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke(&v18);
+    v7 = v24[3];
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v23, 8);
   if (!v7)
   {
     [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
@@ -79,29 +79,30 @@
     }
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v12 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
-  v23 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
+  v26 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
   if (!getBYSetupAssistantNeedsToRunSymbolLoc_ptr)
   {
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke;
-    v18 = &unk_1E8590188;
-    v19 = &v20;
-    __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(&v15);
-    v12 = v21[3];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke;
+    v21 = &unk_1E8590188;
+    v22 = &v23;
+    __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(&v18);
+    v12 = v24[3];
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v23, 8);
   if (!v12)
   {
 LABEL_25:
-    v14 = [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
-    _Block_object_dispose(&v20, 8);
-    _Unwind_Resume(v14);
+    [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
+    v17 = v16;
+    _Block_object_dispose(&v23, 8);
+    _Unwind_Resume(v17);
   }
 
   if (v12())
@@ -110,7 +111,8 @@ LABEL_25:
     [v2 setReasonForNotBeingAbleToTakeScreenshots:@"Device has not gone through Buddy"];
   }
 
-  if (MGGetBoolAnswer() && _SSShouldIgnoreAbilityCheck())
+  v13 = MGGetBoolAnswer();
+  if (v13 && _SSShouldIgnoreAbilityCheck(v13, v14))
   {
     [v2 setIsAbleToTakeScreenshots:1];
     [v2 setReasonForNotBeingAbleToTakeScreenshots:0];

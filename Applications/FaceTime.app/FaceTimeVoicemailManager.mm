@@ -29,7 +29,7 @@
 
 - (void)voicemailWithIdentifier:(MPMessageID *)identifier completion:(id)completion
 {
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -72,13 +72,13 @@
   if (notifications)
   {
     selfCopy = self;
-    sub_10006F448(0, 3u);
+    sub_10006F448(0, 3);
   }
 }
 
 - (void)deleteVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -105,7 +105,7 @@
 
 - (void)markVoicemailsAsRead:(NSArray *)read completion:(id)completion
 {
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -132,7 +132,7 @@
 
 - (void)trashVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -159,7 +159,7 @@
 
 - (void)removeVoicemailsFromTrash:(NSArray *)trash completion:(id)completion
 {
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -187,7 +187,7 @@
 - (void)messagesPassingTest:(id)test completion:
 {
   v4 = v3;
-  v7 = sub_1000525C4(&qword_100124480);
+  v7 = sub_1000525C4(&qword_100124480, &qword_1000D76D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(test);
@@ -216,7 +216,7 @@
 {
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  sub_10007E2C4(&qword_100125090, type metadata accessor for VoicemailActor);
+  sub_10007E2C4(&qword_100125090, type metadata accessor for VoicemailActor, &unk_1000D79E8);
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
@@ -225,14 +225,14 @@
 
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_10007D134();
+  sub_10007D134(selfCopy);
 }
 
 - (void)reportTranscriptionProblemForVoicemail:(id)voicemail
 {
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  sub_10007E2C4(&qword_100125090, type metadata accessor for VoicemailActor);
+  sub_10007E2C4(&qword_100125090, type metadata accessor for VoicemailActor, &unk_1000D79E8);
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
@@ -241,7 +241,7 @@
 
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_10007D134();
+  sub_10007D134(selfCopy);
 }
 
 @end

@@ -699,18 +699,23 @@ uint64_t __100__PGControlsContainerView__performVisibilityTransitionAnimated_exi
 uint64_t __61__PGControlsContainerView__updateHideControlsAfterDelayTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    if (([*(WeakRetained + 51) isInterrupted] & 1) == 0)
+    v5 = WeakRetained;
+    WeakRetained = [*(WeakRetained + 408) isInterrupted];
+    v2 = v5;
+    if ((WeakRetained & 1) == 0)
     {
-      [v4 _setPrefersControlsHidden:1 animated:1];
-      v2 = v4[61];
-      v4[61] = 0;
+      [v5 _setPrefersControlsHidden:1 animated:1];
+      v3 = v5[61];
+      v5[61] = 0;
+
+      v2 = v5;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v2);
 }
 
 - (void)_invalidateTimer

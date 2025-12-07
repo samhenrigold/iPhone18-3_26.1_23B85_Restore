@@ -8,6 +8,7 @@
 - (MediaConversionQueueDelegate)delegate;
 - (id)anyDestinationURLCollectionForQueueEntry:(id)entry;
 - (id)entriesSortedByExecutionOrderForPendingEntries:(id)entries;
+- (id)markCompletionAndRetrieveClientRequestsForQueueEntry:(id)entry resultURLCollection:(id)collection didConvertSuccessfully:(BOOL)successfully conversionOutputInformation:(id)information conversionOutputData:(id)data conversionOutputFileType:(id)type conversionError:(id)error;
 - (id)optimizeQueueAndDequeueNextRequestQueueEntry;
 - (id)orderingSummaryForRequestList:(id)list;
 - (id)queueEntryWithConversionOptions:(id)options;
@@ -527,6 +528,41 @@ LABEL_31:
 
     while (v28);
   }
+}
+
+- (id)markCompletionAndRetrieveClientRequestsForQueueEntry:(id)entry resultURLCollection:(id)collection didConvertSuccessfully:(BOOL)successfully conversionOutputInformation:(id)information conversionOutputData:(id)data conversionOutputFileType:(id)type conversionError:(id)error
+{
+  successfullyCopy = successfully;
+  entryCopy = entry;
+  collectionCopy = collection;
+  informationCopy = information;
+  dataCopy = data;
+  typeCopy = type;
+  errorCopy = error;
+  if (!entryCopy)
+  {
+    v25 = +[NSAssertionHandler currentHandler];
+    [v25 handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceSharedUtilitiesServiceSide.m" lineNumber:641 description:{@"Invalid parameter not satisfying: %@", @"completedQueueEntry"}];
+  }
+
+  dispatch_assert_queue_V2(self->_requestProcessingQueue);
+  os_unfair_lock_lock(&self->_queueStateLock);
+  currentlyProcessingRequestQueueEntry = self->_currentlyProcessingRequestQueueEntry;
+  if (currentlyProcessingRequestQueueEntry != entryCopy)
+  {
+    v26 = +[NSAssertionHandler currentHandler];
+    [v26 handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceSharedUtilitiesServiceSide.m" lineNumber:645 description:{@"Completed / current request mismatch: %@ / %@", entryCopy, self->_currentlyProcessingRequestQueueEntry}];
+
+    currentlyProcessingRequestQueueEntry = self->_currentlyProcessingRequestQueueEntry;
+  }
+
+  self->_currentlyProcessingRequestQueueEntry = 0;
+
+  os_unfair_lock_unlock(&self->_queueStateLock);
+  [(MediaConversionQueue *)self processCompletedQueueEntry:entryCopy resultURLCollection:collectionCopy didConvertSuccessfully:successfullyCopy conversionOutputInformation:informationCopy conversionOutputData:dataCopy conversionOutputFileType:typeCopy conversionError:errorCopy];
+  clientRequestsSnapshot = [(MediaConversionQueueEntry *)entryCopy clientRequestsSnapshot];
+
+  return clientRequestsSnapshot;
 }
 
 - (id)entriesSortedByExecutionOrderForPendingEntries:(id)entries

@@ -12,13 +12,12 @@
 - (id)batteryIconViewInstance
 {
   v2 = sub_25121136C();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  (*(v5 + 104))(&v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D0FB58]);
-  v6 = objc_allocWithZone(sub_25121138C());
-  v7 = sub_25121139C();
+  (*(v4 + 104))(&v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D0FB58]);
+  v5 = objc_allocWithZone(sub_25121138C());
+  v6 = sub_25121139C();
 
-  return v7;
+  return v6;
 }
 
 - (void)startLisentingWithDevice:(id)device
@@ -49,7 +48,6 @@
 {
   v3 = OBJC_IVAR____TtC16HeadphoneConfigs23ModernBatteryStatusView_listeners;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.super.isa + v3);
   *(&self->super.super.super.super.isa + v3) = MEMORY[0x277D84FA0];
 }
 

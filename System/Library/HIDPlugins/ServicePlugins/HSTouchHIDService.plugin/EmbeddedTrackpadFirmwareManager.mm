@@ -106,99 +106,101 @@
 - (void)_handleHostStateEvent:(id)event
 {
   eventCopy = event;
+  v6 = eventCopy;
   if (eventCopy)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(eventCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316930;
-      v23 = "[Debug] ";
-      v24 = 2080;
-      v25 = "";
-      v26 = 2080;
-      v27 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
-      v28 = 2048;
+      v27 = "[Debug] ";
+      v28 = 2080;
+      v29 = "";
+      v30 = 2080;
+      v31 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
+      v32 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      v30 = 1024;
-      coverClosed = [eventCopy coverClosed];
-      v32 = 1024;
-      displayOff = [eventCopy displayOff];
       v34 = 1024;
-      screenOrientation = [eventCopy screenOrientation];
+      coverClosed = [v6 coverClosed];
       v36 = 1024;
-      deviceOrientation = [eventCopy deviceOrientation];
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [0x%llX] Notifying device of host state change coverClosed(%d) displayOff(%d) screenOrientation(%d) deviceOrientation(%d)", buf, 0x42u);
+      displayOff = [v6 displayOff];
+      v38 = 1024;
+      screenOrientation = [v6 screenOrientation];
+      v40 = 1024;
+      deviceOrientation = [v6 deviceOrientation];
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [0x%llX] Notifying device of host state change coverClosed(%d) displayOff(%d) screenOrientation(%d) deviceOrientation(%d)", buf, 0x42u);
     }
 
-    v15 = -99;
-    screenOrientation2 = [eventCopy screenOrientation];
-    coverClosed2 = [eventCopy coverClosed];
-    if ([eventCopy displayOff])
+    v19 = -99;
+    screenOrientation2 = [v6 screenOrientation];
+    coverClosed2 = [v6 coverClosed];
+    if ([v6 displayOff])
     {
-      v7 = 2;
+      v9 = 2;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
-    v17 = v7 | coverClosed2;
-    deviceOrientation2 = [eventCopy deviceOrientation];
-    v19 = 0;
-    v20 = 0;
+    v21 = v9 | coverClosed2;
+    deviceOrientation2 = [v6 deviceOrientation];
+    v23 = 0;
+    v24 = 0;
     if (![(TrackpadFirmwareManager *)self mtDeviceRef])
     {
-      v12 = +[NSAssertionHandler currentHandler];
-      v13 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
-      [v12 handleFailureInFunction:v13 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+      v16 = +[NSAssertionHandler currentHandler];
+      v17 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
+      [v16 handleFailureInFunction:v17 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
     }
 
-    v8 = MTDeviceSetReport();
-    if (v8)
+    v10 = MTDeviceSetReport();
+    v12 = v10;
+    if (v10)
     {
-      v9 = MTLoggingPlugin();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = MTLoggingPlugin(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         mtDeviceId2 = [(TrackpadFirmwareManager *)self mtDeviceId];
         *buf = 136316162;
-        v23 = "[Error] ";
-        v24 = 2080;
-        v25 = "";
-        v26 = 2080;
-        v27 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
-        v28 = 2048;
+        v27 = "[Error] ";
+        v28 = 2080;
+        v29 = "";
+        v30 = 2080;
+        v31 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
+        v32 = 2048;
         mtDeviceId = mtDeviceId2;
-        v30 = 1024;
-        coverClosed = v8;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to send host state notification to the device with error: 0x%08x", buf, 0x30u);
+        v34 = 1024;
+        coverClosed = v12;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to send host state notification to the device with error: 0x%08x", buf, 0x30u);
       }
     }
 
-    v14.receiver = self;
-    v14.super_class = EmbeddedTrackpadFirmwareManager;
-    [(TrackpadFirmwareManager *)&v14 handleConsume:eventCopy];
+    v18.receiver = self;
+    v18.super_class = EmbeddedTrackpadFirmwareManager;
+    [(TrackpadFirmwareManager *)&v18 handleConsume:v6];
   }
 
   else
   {
-    v11 = MTLoggingPlugin();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = MTLoggingPlugin(0, v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v23 = "[Error] ";
-      v24 = 2080;
-      v25 = "";
-      v26 = 2080;
-      v27 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
-      v28 = 2048;
+      v27 = "[Error] ";
+      v28 = 2080;
+      v29 = "";
+      v30 = 2080;
+      v31 = "[EmbeddedTrackpadFirmwareManager _handleHostStateEvent:]";
+      v32 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Received invalid host state event", buf, 0x2Au);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Received invalid host state event", buf, 0x2Au);
     }
 
-    v21.receiver = self;
-    v21.super_class = EmbeddedTrackpadFirmwareManager;
-    [(TrackpadFirmwareManager *)&v21 handleConsume:0];
+    v25.receiver = self;
+    v25.super_class = EmbeddedTrackpadFirmwareManager;
+    [(TrackpadFirmwareManager *)&v25 handleConsume:0];
   }
 }
 

@@ -10,7 +10,7 @@
 {
   v2 = MEMORY[0x28223BE20](self, a2);
   v3 = v2;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = (v2 + 24);
   if (!*(v2 + 32))
   {
@@ -33,25 +33,25 @@ LABEL_7:
   }
 
   v7 = objc_autoreleasePoolPush();
-  bzero(v15, 0x1000uLL);
-  v14 = 0;
-  v13 = 0uLL;
-  if ([*(v3 + 8) getBytes:v15 maxLength:4096 usedLength:&v14 encoding:*(v3 + 16) options:0 range:*v4 remainingRange:{v4[1], &v13}])
+  bzero(v14, 0x1000uLL);
+  v13 = 0;
+  v12 = 0uLL;
+  if ([*(v3 + 8) getBytes:v14 maxLength:4096 usedLength:&v13 encoding:*(v3 + 16) options:0 range:*v4 remainingRange:{v4[1], &v12}])
   {
-    if (!*(&v13 + 1))
+    if (!*(&v12 + 1))
     {
-      v8 = v14;
-      if (v14 <= 0xFFF && *(v3 + 41) == 1)
+      v8 = v13;
+      if (v13 <= 0xFFF && *(v3 + 41) == 1)
       {
         *(v3 + 41) = 0;
-        v14 = v8 + 1;
-        v15[v8] = 0;
+        v13 = v8 + 1;
+        v14[v8] = 0;
       }
     }
 
-    *v4 = v13;
+    *v4 = v12;
     v9 = objc_alloc(MEMORY[0x277CBEA90]);
-    nullTerminationIfNeeded2 = [v9 initWithBytes:v15 length:v14];
+    nullTerminationIfNeeded2 = [v9 initWithBytes:v14 length:v13];
   }
 
   else
@@ -62,7 +62,6 @@ LABEL_7:
   v6 = nullTerminationIfNeeded2;
   objc_autoreleasePoolPop(v7);
 LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

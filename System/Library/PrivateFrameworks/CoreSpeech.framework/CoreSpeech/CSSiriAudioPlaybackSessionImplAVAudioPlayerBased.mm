@@ -12,15 +12,17 @@
 - (void)audioPlayerDecodeErrorDidOccur:(id)occur error:(id)error;
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully;
 - (void)handleBeginInterruption;
+- (void)handleEndInterruption:(BOOL)interruption;
 - (void)prepareWithOptions:(unint64_t)options audioSession:(id)session completion:(id)completion;
 - (void)startWithOptions:(unint64_t)options audioSession:(id)session preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler;
+- (void)stop:(BOOL)stop completion:(id)completion;
 @end
 
 @implementation CSSiriAudioPlaybackSessionImplAVAudioPlayerBased
 
 - (void)audioPlayerDecodeErrorDidOccur:(id)occur error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   occurCopy = occur;
   errorCopy = error;
   v8 = *MEMORY[0x277CEF0A0];
@@ -28,13 +30,13 @@
   {
     request = self->_request;
     *buf = 136315906;
-    v19 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased audioPlayerDecodeErrorDidOccur:error:]";
-    v20 = 2112;
-    v21 = request;
-    v22 = 2112;
-    v23 = occurCopy;
-    v24 = 2112;
-    v25 = errorCopy;
+    v18 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased audioPlayerDecodeErrorDidOccur:error:]";
+    v19 = 2112;
+    v20 = request;
+    v21 = 2112;
+    v22 = occurCopy;
+    v23 = 2112;
+    v24 = errorCopy;
     _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s request = %@, player = %@, error = %@", buf, 0x2Au);
   }
 
@@ -43,21 +45,19 @@
   block[1] = 3221225472;
   block[2] = __89__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDecodeErrorDidOccur_error___block_invoke;
   block[3] = &unk_2784C6EE8;
-  v15 = occurCopy;
+  v14 = occurCopy;
   selfCopy = self;
-  v17 = errorCopy;
+  v16 = errorCopy;
   v10 = errorCopy;
   v11 = occurCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __89__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDecodeErrorDidOccur_error___block_invoke(uint64_t result)
+id *__89__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDecodeErrorDidOccur_error___block_invoke(id *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 16))
+  if (result[4] == *(result[5] + 2))
   {
-    return [*(result + 40) _didStopWithError:*(result + 48)];
+    return [result[5] _didStopWithError:result[6]];
   }
 
   return result;
@@ -66,34 +66,32 @@ uint64_t __89__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDecod
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully
 {
   successfullyCopy = successfully;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   playingCopy = playing;
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     request = self->_request;
     *buf = 136315906;
-    v16 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased audioPlayerDidFinishPlaying:successfully:]";
-    v17 = 2112;
-    v18 = request;
-    v19 = 2112;
-    v20 = playingCopy;
-    v21 = 1024;
-    v22 = successfullyCopy;
+    v15 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased audioPlayerDidFinishPlaying:successfully:]";
+    v16 = 2112;
+    v17 = request;
+    v18 = 2112;
+    v19 = playingCopy;
+    v20 = 1024;
+    v21 = successfullyCopy;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s request = %@, player = %@, success = %d", buf, 0x26u);
   }
 
   queue = self->_queue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinishPlaying_successfully___block_invoke;
-  v12[3] = &unk_2784C6FA8;
-  v13 = playingCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinishPlaying_successfully___block_invoke;
+  v11[3] = &unk_2784C6FA8;
+  v12 = playingCopy;
   selfCopy = self;
   v10 = playingCopy;
-  dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v11);
 }
 
 void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinishPlaying_successfully___block_invoke(uint64_t a1)
@@ -110,7 +108,7 @@ void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinis
 
 - (void)_finalizeWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = *MEMORY[0x277CEF0A0];
   if (errorCopy)
@@ -118,24 +116,24 @@ void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinis
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
       request = self->_request;
-      v11 = 136315650;
-      v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _finalizeWithError:]";
-      v13 = 2112;
-      v14 = request;
-      v15 = 2112;
-      v16 = errorCopy;
-      _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _finalizeWithError:]";
+      v12 = 2112;
+      v13 = request;
+      v14 = 2112;
+      v15 = errorCopy;
+      _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v10, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     v7 = self->_request;
-    v11 = 136315394;
-    v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _finalizeWithError:]";
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s request = %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _finalizeWithError:]";
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s request = %@", &v10, 0x16u);
   }
 
   *&self->_isActive = 0;
@@ -146,13 +144,11 @@ void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinis
     v9 = self->_completion;
     self->_completion = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didStopWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = MEMORY[0x277CEF0A0];
   v6 = *MEMORY[0x277CEF0A0];
@@ -161,24 +157,24 @@ void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinis
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
       request = self->_request;
-      v12 = 136315650;
-      v13 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
-      v14 = 2112;
-      v15 = request;
-      v16 = 2112;
-      v17 = errorCopy;
-      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
+      v13 = 2112;
+      v14 = request;
+      v15 = 2112;
+      v16 = errorCopy;
+      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v11, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     v8 = self->_request;
-    v12 = 136315394;
-    v13 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s request = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s request = %@", &v11, 0x16u);
   }
 
   player = self->_player;
@@ -193,55 +189,51 @@ void *__93__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased_audioPlayerDidFinis
     v10 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
-      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to destroy.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didStopWithError:]";
+      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to destroy.", &v11, 0xCu);
     }
   }
 
   [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _finalizeWithError:errorCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didNotStartWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
   {
     request = self->_request;
-    v8 = 136315650;
-    v9 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didNotStartWithError:]";
-    v10 = 2112;
-    v11 = request;
-    v12 = 2112;
-    v13 = errorCopy;
-    _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _didNotStartWithError:]";
+    v9 = 2112;
+    v10 = request;
+    v11 = 2112;
+    v12 = errorCopy;
+    _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s request = %@, error = %@", &v7, 0x20u);
   }
 
   [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _finalizeWithError:errorCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEndInterruption:(BOOL)interruption
 {
   interruptionCopy = interruption;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF0A0];
   v6 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     request = self->_request;
-    v11 = 136315650;
-    v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleEndInterruption:]";
-    v13 = 2112;
-    v14 = request;
-    v15 = 1024;
-    v16 = interruptionCopy;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s _request = %@, shouldResume = %d", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleEndInterruption:]";
+    v12 = 2112;
+    v13 = request;
+    v14 = 1024;
+    v15 = interruptionCopy;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s _request = %@, shouldResume = %d", &v10, 0x1Cu);
   }
 
   if (!interruptionCopy)
@@ -261,31 +253,29 @@ LABEL_7:
 
   else
   {
-    v10 = *v5;
+    v9 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleEndInterruption:]";
-      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to resume playing.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleEndInterruption:]";
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to resume playing.", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBeginInterruption
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0A0];
   v4 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     request = self->_request;
-    v8 = 136315394;
-    v9 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleBeginInterruption]";
-    v10 = 2112;
-    v11 = request;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s _request = %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleBeginInterruption]";
+    v9 = 2112;
+    v10 = request;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s _request = %@", &v7, 0x16u);
   }
 
   if ([(AVAudioPlayer *)self->_player isPlaying])
@@ -298,31 +288,30 @@ LABEL_7:
     v6 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleBeginInterruption]";
-      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to pause.", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _handleBeginInterruption]";
+      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to pause.", &v7, 0xCu);
     }
   }
 
   self->_isPrepared = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stop:(BOOL)_stop
 {
   _stopCopy = _stop;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF0A0];
   v6 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     request = self->_request;
     *buf = 136315650;
-    v18 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
-    v19 = 2112;
-    v20 = request;
-    v21 = 1024;
-    v22 = _stopCopy;
+    v17 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
+    v18 = 2112;
+    v19 = request;
+    v20 = 1024;
+    v21 = _stopCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s request = %@, immediately = %d", buf, 0x1Cu);
   }
 
@@ -335,7 +324,7 @@ LABEL_7:
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v18 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
+        v17 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
         _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Stopping audio player...", buf, 0xCu);
       }
 
@@ -363,35 +352,31 @@ LABEL_7:
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v18 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
+      v17 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]";
       _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s Ignored because there's no audio player to stop.", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_INFO, "%s Stopping audio player...", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _stop:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_INFO, "%s Stopping audio player...", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
   v4 = [MEMORY[0x277CEF2A0] errorWithCode:1408 description:@"Stopped playback of AVAudioPlayer." underlyingError:0];
   [v3 _didStopWithError:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startWithOptions:(unint64_t)options audioSession:(id)session preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   handlerCopy = handler;
   executionHandlerCopy = executionHandler;
@@ -402,9 +387,9 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
   {
     request = self->_request;
     *buf = 136315394;
-    v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
-    v46 = 2112;
-    v47 = request;
+    v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+    v45 = 2112;
+    v46 = request;
     _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_INFO, "%s request = %@", buf, 0x16u);
   }
 
@@ -422,9 +407,9 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
         handlerCopy[2](handlerCopy);
       }
 
-      v43 = 0;
-      v27 = [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _prepareWithOptions:options audioSession:sessionCopy error:&v43];
-      v24 = v43;
+      v42 = 0;
+      v27 = [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _prepareWithOptions:options audioSession:sessionCopy error:&v42];
+      v24 = v42;
       if (v27)
       {
         [(AVAudioPlayer *)self->_player setDelegate:self];
@@ -433,9 +418,9 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
         {
           player = self->_player;
           *buf = 136315394;
-          v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
-          v46 = 2112;
-          v47 = player;
+          v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+          v45 = 2112;
+          v46 = player;
           _os_log_impl(&dword_222E4D000, v28, OS_LOG_TYPE_INFO, "%s Asking audio player %@ to play...", buf, 0x16u);
         }
 
@@ -447,9 +432,9 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
           {
             v32 = self->_player;
             *buf = 136315394;
-            v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
-            v46 = 2112;
-            v47 = v32;
+            v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+            v45 = 2112;
+            v46 = v32;
             _os_log_impl(&dword_222E4D000, v31, OS_LOG_TYPE_INFO, "%s Started playing audio player %@.", buf, 0x16u);
           }
 
@@ -476,11 +461,11 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
         {
           if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
           {
-            v42 = self->_player;
+            v41 = self->_player;
             *buf = 136315394;
-            v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
-            v46 = 2112;
-            v47 = v42;
+            v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+            v45 = 2112;
+            v46 = v41;
             _os_log_error_impl(&dword_222E4D000, v31, OS_LOG_TYPE_ERROR, "%s Failed to play audio player %@.", buf, 0x16u);
           }
 
@@ -505,7 +490,7 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
     if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
       _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, "%s Ignored because the audio player is already playing.", buf, 0xCu);
       if (!finalizationHandlerCopy)
       {
@@ -528,7 +513,7 @@ void __58__CSSiriAudioPlaybackSessionImplAVAudioPlayerBased__stop___block_invoke
   if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
+    v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _startWithOptions:audioSession:preparationHandler:executionHandler:finalizationHandler:]";
     _os_log_error_impl(&dword_222E4D000, v19, OS_LOG_TYPE_ERROR, "%s Ignored because the session is already active.", buf, 0xCu);
     if (!finalizationHandlerCopy)
     {
@@ -551,13 +536,11 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_prepareWithOptions:(unint64_t)options audioSession:(id)session error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   if (error)
   {
@@ -579,11 +562,11 @@ LABEL_29:
     {
       player = self->_player;
       *buf = 136315650;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-      v46 = 2112;
-      v47 = player;
-      v48 = 2112;
-      v49 = sessionCopy;
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+      v45 = 2112;
+      v46 = player;
+      v47 = 2112;
+      v48 = sessionCopy;
       v12 = "%s Reused audio player %@ with audio session %@.";
 LABEL_8:
       _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, v12, buf, 0x20u);
@@ -597,7 +580,7 @@ LABEL_8:
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
       _os_log_impl(&dword_222E4D000, v25, OS_LOG_TYPE_INFO, "%s Creating audio player...", buf, 0xCu);
     }
 
@@ -608,17 +591,17 @@ LABEL_8:
     if (itemData)
     {
       itemData2 = [(AFAudioPlaybackRequest *)request itemData];
-      v43 = 0;
-      v30 = &v43;
-      v31 = [v27 initWithData:itemData2 error:&v43];
+      v42 = 0;
+      v30 = &v42;
+      v31 = [v27 initWithData:itemData2 error:&v42];
     }
 
     else
     {
       itemData2 = [(AFAudioPlaybackRequest *)request itemURL];
-      v42 = 0;
-      v30 = &v42;
-      v31 = [v27 initWithContentsOfURL:itemData2 error:&v42];
+      v41 = 0;
+      v30 = &v41;
+      v31 = [v27 initWithContentsOfURL:itemData2 error:&v41];
     }
 
     v33 = v31;
@@ -632,9 +615,9 @@ LABEL_8:
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-        v46 = 2112;
-        v47 = v34;
+        v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+        v45 = 2112;
+        v46 = v34;
         _os_log_error_impl(&dword_222E4D000, v36, OS_LOG_TYPE_ERROR, "%s Failed to create audio player due to error %@.", buf, 0x16u);
       }
 
@@ -654,13 +637,13 @@ LABEL_8:
     v10 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
     {
-      v40 = self->_player;
+      v39 = self->_player;
       *buf = 136315650;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-      v46 = 2112;
-      v47 = v40;
-      v48 = 2112;
-      v49 = sessionCopy;
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+      v45 = 2112;
+      v46 = v39;
+      v47 = 2112;
+      v48 = sessionCopy;
       v12 = "%s Created audio player %@ with audio session %@.";
       goto LABEL_8;
     }
@@ -674,9 +657,9 @@ LABEL_8:
     {
       v15 = self->_player;
       *buf = 136315394;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-      v46 = 2112;
-      v47 = v15;
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+      v45 = 2112;
+      v46 = v15;
       _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Audio player %@ is already prepared to play.", buf, 0x16u);
     }
 
@@ -699,9 +682,9 @@ LABEL_8:
   {
     v21 = self->_player;
     *buf = 136315394;
-    v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-    v46 = 2112;
-    v47 = v21;
+    v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+    v45 = 2112;
+    v46 = v21;
     _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s Preparing audio player %@ to play...", buf, 0x16u);
   }
 
@@ -711,11 +694,11 @@ LABEL_8:
   {
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
     {
-      v41 = self->_player;
+      v40 = self->_player;
       *buf = 136315394;
-      v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-      v46 = 2112;
-      v47 = v41;
+      v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+      v45 = 2112;
+      v46 = v40;
       _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, "%s Failed to prepare audio player %@ to play.", buf, 0x16u);
     }
 
@@ -739,17 +722,24 @@ LABEL_35:
   {
     v24 = self->_player;
     *buf = 136315394;
-    v45 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
-    v46 = 2112;
-    v47 = v24;
+    v44 = "[CSSiriAudioPlaybackSessionImplAVAudioPlayerBased _prepareWithOptions:audioSession:error:]";
+    v45 = 2112;
+    v46 = v24;
     _os_log_impl(&dword_222E4D000, v23, OS_LOG_TYPE_INFO, "%s Prepared audio player %@ to play.", buf, 0x16u);
   }
 
   self->_isPrepared = 1;
 LABEL_36:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v14;
+}
+
+- (void)handleEndInterruption:(BOOL)interruption
+{
+  interruptionCopy = interruption;
+  dispatch_assert_queue_V2(self->_queue);
+
+  [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _handleEndInterruption:interruptionCopy];
 }
 
 - (void)handleBeginInterruption
@@ -757,6 +747,20 @@ LABEL_36:
   dispatch_assert_queue_V2(self->_queue);
 
   [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _handleBeginInterruption];
+}
+
+- (void)stop:(BOOL)stop completion:(id)completion
+{
+  stopCopy = stop;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)self _stop:stopCopy];
+  v6 = completionCopy;
+  if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy);
+    v6 = completionCopy;
+  }
 }
 
 - (void)startWithOptions:(unint64_t)options audioSession:(id)session preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler
@@ -810,15 +814,14 @@ LABEL_36:
 - (NSString)description
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v10.receiver = self;
-  v10.super_class = CSSiriAudioPlaybackSessionImplAVAudioPlayerBased;
-  v4 = [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = CSSiriAudioPlaybackSessionImplAVAudioPlayerBased;
+  v4 = [(CSSiriAudioPlaybackSessionImplAVAudioPlayerBased *)&v9 description];
   request = self->_request;
-  options = self->_options;
-  v7 = AFAudioPlaybackOptionsGetNames();
-  v8 = [v3 initWithFormat:@"%@ {request = %@, options = %@, player = %@}", v4, request, v7, self->_player];
+  v6 = AFAudioPlaybackOptionsGetNames();
+  v7 = [v3 initWithFormat:@"%@ {request = %@, options = %@, player = %@}", v4, request, v6, self->_player];
 
-  return v8;
+  return v7;
 }
 
 @end

@@ -10,7 +10,6 @@
 - (id)makeIHAGatedEventPayloadWithDataSource:(id)source error:(id *)error;
 - (id)makeUnrestrictedEventPayloadWithDataSource:(id)source error:(id *)error;
 - (int64_t)_bucketedWeeksSinceDate:(id)date dataSource:(id)source;
-- (void)_fetchDeviceContextAnalytics;
 @end
 
 @implementation HDMedicationDailyAnalyticsEvent
@@ -310,13 +309,13 @@ LABEL_17:
 
 - (id)_readValueFromKeyValueDomainForKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   medicationsKeyValueDomain = self->_medicationsKeyValueDomain;
   v6 = *MEMORY[0x277D11450];
-  v12 = 0;
-  v7 = [(HDKeyValueDomain *)medicationsKeyValueDomain numberForKey:v6 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(HDKeyValueDomain *)medicationsKeyValueDomain numberForKey:v6 error:&v11];
+  v8 = v11;
   if (!v7)
   {
     _HKInitializeLogging();
@@ -325,14 +324,12 @@ LABEL_17:
     {
       *buf = 138543874;
       selfCopy = self;
-      v15 = 2114;
-      v16 = keyCopy;
-      v17 = 2114;
-      v18 = v8;
+      v14 = 2114;
+      v15 = keyCopy;
+      v16 = 2114;
+      v17 = v8;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -423,12 +420,12 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
 
 - (id)_fetchDeviceContextAnalytics
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   deviceContextManager = [WeakRetained deviceContextManager];
-  v25 = 0;
-  v4 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v25];
-  v5 = v25;
+  v24 = 0;
+  v4 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v24];
+  v5 = v24;
 
   if (v4)
   {
@@ -488,15 +485,15 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
 
     v21 = v20;
 
-    v26[0] = @"countPairediPhone";
-    v26[1] = @"countPairedWatch";
-    v27[0] = v9;
-    v27[1] = v17;
-    v26[2] = @"countPairediPad";
-    v26[3] = @"countPairedVisionPro";
-    v27[2] = v13;
-    v27[3] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+    v25[0] = @"countPairediPhone";
+    v25[1] = @"countPairedWatch";
+    v26[0] = v9;
+    v26[1] = v17;
+    v25[2] = @"countPairediPad";
+    v25[3] = @"countPairedVisionPro";
+    v26[2] = v13;
+    v26[3] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
   }
 
   else
@@ -511,15 +508,13 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_fetchNotificationSettingsAnalyticsWithDataSource:(id)source includingCriticalMedsCount:(BOOL)count
 {
   countCopy = count;
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v6 = objc_opt_new();
   v7 = [(NSUserDefaults *)self->_medicationsUserDefaults hk_BOOLForKey:*MEMORY[0x277D114A0] defaultValue:1];
@@ -552,18 +547,18 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
     v12 = v18;
   }
 
-  v30[0] = @"hasTimeZoneChangeNotificationEnabled";
+  v29[0] = @"hasTimeZoneChangeNotificationEnabled";
   v19 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-  v31[0] = v19;
-  v30[1] = @"hasFollowUpRemindersEnabled";
+  v30[0] = v19;
+  v29[1] = @"hasFollowUpRemindersEnabled";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-  v31[1] = v20;
-  v30[2] = @"hasCriticalAlertsNotificationEnabled";
+  v30[1] = v20;
+  v29[2] = @"hasCriticalAlertsNotificationEnabled";
   v21 = [MEMORY[0x277CCABB0] numberWithBool:areHealthCriticalAlertsAuthorized];
-  v30[3] = @"weeksSinceFirstEnteredDataTypeRoom";
-  v31[2] = v21;
-  v31[3] = v12;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v29[3] = @"weeksSinceFirstEnteredDataTypeRoom";
+  v30[2] = v21;
+  v30[3] = v12;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
   [v6 addEntriesFromDictionary:v22];
 
   if (countCopy)
@@ -576,8 +571,6 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
   }
 
   v26 = [v6 copy];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -600,47 +593,21 @@ void __87__HDMedicationDailyAnalyticsEvent__isImproveHealthRecordsAllowedPayload
   return integerValue;
 }
 
-- (void)_userCharacteristicsAnalyticsPayloadWithDataSource:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error when determining biological sex, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_userCharacteristicsAnalyticsPayloadWithDataSource:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_25181C000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] No error when fetching biological sex but also didn't get object", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_userCharacteristicsAnalyticsPayloadWithDataSource:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error when determining age, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_25181C000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] No error when fetching biological sex but also didn't get object", &v2, 0xCu);
 }
 
 - (void)_isImproveHealthRecordsAllowedPayloadWithDataSource:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = *(*a2 + 40);
-  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] Failed to get health records opt-in status with error: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_fetchDeviceContextAnalytics
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Failed to get deviceContextsDict with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = *(*a2 + 40);
+  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] Failed to get health records opt-in status with error: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

@@ -15,9 +15,9 @@
 
 + (void)presentForScores:(id)scores leaderboards:(id)leaderboards
 {
-  sub_1001A7B44(0, &qword_1003B5A68);
+  sub_1001A7B44(0, &qword_1003B5A68, GKScoreInternal_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1001A7B44(0, &qword_1003B5A58);
+  sub_1001A7B44(0, &qword_1003B5A58, GKLeaderboardInternal_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1001AD150(v4, v5);
 }

@@ -12,14 +12,14 @@
 
 + (BOOL)isSupported
 {
-  EKDirectorySearchOperationClass_0 = getEKDirectorySearchOperationClass_0();
+  EKDirectorySearchOperationClass_0 = getEKDirectorySearchOperationClass_0(self, a2);
 
-  return [(objc_class *)EKDirectorySearchOperationClass_0 isSupported];
+  return [EKDirectorySearchOperationClass_0 isSupported];
 }
 
 - (CNAutocompleteCalendarServerSearch)init
 {
-  v3 = [objc_alloc(getEKEphemeralCacheEventStoreProviderClass()) initWithCreationBlock:&__block_literal_global_28];
+  v3 = [objc_alloc(getEKEphemeralCacheEventStoreProviderClass(self a2))];
   v4 = objc_alloc_init(CNAutocompleteCalendarServerOperationFactory);
   v5 = [(CNAutocompleteCalendarServerSearch *)self initWithEventStoreProvider:v3 operationFactory:v4];
 
@@ -57,92 +57,91 @@ id __42__CNAutocompleteCalendarServerSearch_init__block_invoke()
 
 - (id)executeRequest:(id)request completionHandler:(id)handler
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   fetchContext = [requestCopy fetchContext];
   sendingAddressAccountIdentifier = [fetchContext sendingAddressAccountIdentifier];
 
-  if ((*(*MEMORY[0x277CFBD30] + 16))())
+  v10 = (*(*MEMORY[0x277CFBD30] + 16))();
+  if (v10)
   {
-    v10 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = CNALoggingContextDebug(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Will not run a calendar server search because there's no sending account identifier", buf, 2u);
+      _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Will not run a calendar server search because there's no sending account identifier", buf, 2u);
     }
 
-    v11 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA470];
-    v33[0] = @"Missing sending account identifier";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-    v13 = [v11 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:0 userInfo:v12];
+    v12 = MEMORY[0x277CCA9B8];
+    v33 = *MEMORY[0x277CCA470];
+    v34[0] = @"Missing sending account identifier";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v14 = [v12 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:0 userInfo:v13];
 
-    handlerCopy[2](handlerCopy, 0, v13);
-    v14 = objc_alloc_init(MEMORY[0x277CFBDC8]);
+    handlerCopy[2](handlerCopy, 0, v14);
+    v15 = objc_alloc_init(MEMORY[0x277CFBDC8]);
   }
 
   else
   {
     eventStore = [(EKEphemeralCacheEventStoreProvider *)self->_eventStoreProvider eventStore];
-    v13 = [eventStore sourceWithIdentifier:sendingAddressAccountIdentifier];
+    v14 = [eventStore sourceWithIdentifier:sendingAddressAccountIdentifier];
 
-    v16 = CNALoggingContextDebug();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-    if (v13)
+    v18 = CNALoggingContextDebug(v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      if (v17)
+      if (v19)
       {
         *buf = 138412290;
-        v31 = v13;
-        _os_log_impl(&dword_2155FE000, v16, OS_LOG_TYPE_DEFAULT, "Using source: %@", buf, 0xCu);
+        v32 = v14;
+        _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Using source: %@", buf, 0xCu);
       }
 
       priorityDomainForSorting = [requestCopy priorityDomainForSorting];
       fetchContext2 = [requestCopy fetchContext];
       sendingAddress = [fetchContext2 sendingAddress];
-      v21 = [CNAutocompleteResultFactory factoryWithPriorityDomain:priorityDomainForSorting sendingAddress:sendingAddress];
+      v23 = [CNAutocompleteResultFactory factoryWithPriorityDomain:priorityDomainForSorting sendingAddress:sendingAddress];
 
-      v22 = [(CNAutocompleteCalendarServerSearch *)self executeRequest:requestCopy source:v13 resultsFactory:v21 withCompletionHandler:handlerCopy];
+      v24 = [(CNAutocompleteCalendarServerSearch *)self executeRequest:requestCopy source:v14 resultsFactory:v23 withCompletionHandler:handlerCopy];
     }
 
     else
     {
-      if (v17)
+      if (v19)
       {
         *buf = 138412290;
-        v31 = sendingAddressAccountIdentifier;
-        _os_log_impl(&dword_2155FE000, v16, OS_LOG_TYPE_DEFAULT, "No source found for sending account identifier %@", buf, 0xCu);
+        v32 = sendingAddressAccountIdentifier;
+        _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "No source found for sending account identifier %@", buf, 0xCu);
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA470];
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not get a source from EventKit with account identifier: %@", sendingAddressAccountIdentifier];
-      v29 = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v21 = [v23 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:0 userInfo:v25];
+      v25 = MEMORY[0x277CCA9B8];
+      v29 = *MEMORY[0x277CCA470];
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not get a source from EventKit with account identifier: %@", sendingAddressAccountIdentifier];
+      v30 = v26;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v23 = [v25 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:0 userInfo:v27];
 
-      handlerCopy[2](handlerCopy, 0, v21);
-      v22 = objc_alloc_init(MEMORY[0x277CFBDC8]);
+      handlerCopy[2](handlerCopy, 0, v23);
+      v24 = objc_alloc_init(MEMORY[0x277CFBDC8]);
     }
 
-    v14 = v22;
+    v15 = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 - (id)executeRequest:(id)request source:(id)source resultsFactory:(id)factory withCompletionHandler:(id)handler
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   sourceCopy = source;
   factoryCopy = factory;
   handlerCopy = handler;
   v11 = [(CNAutocompleteCalendarServerSearch *)self queryForFetchRequest:requestCopy];
-  v12 = CNALoggingContextDebug();
+  v12 = CNALoggingContextDebug(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     terms = [v11 terms];
@@ -156,99 +155,96 @@ id __42__CNAutocompleteCalendarServerSearch_init__block_invoke()
   array = [MEMORY[0x277CBEB18] array];
   v15 = objc_alloc_init(MEMORY[0x277CFBEE0]);
   operationFactory = [(CNAutocompleteCalendarServerSearch *)self operationFactory];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke;
-  v57[3] = &unk_2781C5080;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke;
+  v59[3] = &unk_2781C5080;
   v17 = v15;
-  v58 = v17;
+  v60 = v17;
   v18 = array;
-  v59 = v18;
-  v19 = [operationFactory eventKitDirectorySearchOperationForSource:sourceCopy query:v11 resultsBlock:v57];
+  v61 = v18;
+  v19 = [operationFactory eventKitDirectorySearchOperationForSource:sourceCopy query:v11 resultsBlock:v59];
 
-  v20 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = CNALoggingContextTriage(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier = [requestCopy triageIdentifier];
     searchString = [requestCopy searchString];
-    v23 = [searchString length];
+    v24 = [searchString length];
     *buf = 138543618;
     *&buf[4] = triageIdentifier;
     *&buf[12] = 2048;
-    *&buf[14] = v23;
-    _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Will search (%lu letters)", buf, 0x16u);
+    *&buf[14] = v24;
+    _os_log_impl(&dword_2155FE000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Will search (%lu letters)", buf, 0x16u);
   }
 
-  v24 = CNALoggingContextTriage();
-  v25 = os_signpost_id_generate(v24);
+  v26 = CNALoggingContextTriage(v25);
+  v27 = os_signpost_id_generate(v26);
 
-  v26 = CNALoggingContextPerformance();
-  v27 = v26;
-  if ((v25 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  v29 = CNALoggingContextPerformance(v28);
+  v30 = v29;
+  if ((v27 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "Searching Calendar Servers", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v27, "Searching Calendar Servers", "", buf, 2u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v61 = __Block_byref_object_copy__3;
-  v62 = __Block_byref_object_dispose__3;
-  v63 = 0;
+  v63 = __Block_byref_object_copy__3;
+  v64 = __Block_byref_object_dispose__3;
+  v65 = 0;
   defaultProvider = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider timestamp];
-  v30 = v29;
+  v33 = v32;
 
   objc_initWeak(&location, v19);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_16;
+  v49[3] = &unk_2781C50D0;
+  objc_copyWeak(v57, &location);
+  v57[1] = v27;
+  v57[2] = v33;
+  v34 = requestCopy;
+  v50 = v34;
+  v35 = handlerCopy;
+  v55 = v35;
+  v36 = v17;
+  v51 = v36;
+  v37 = v18;
+  v56 = buf;
+  v52 = v37;
+  selfCopy = self;
+  v38 = factoryCopy;
+  v54 = v38;
+  [v19 setCompletionBlock:v49];
+  v39 = objc_alloc_init(MEMORY[0x277CFBDC8]);
   v47[0] = MEMORY[0x277D85DD0];
   v47[1] = 3221225472;
-  v47[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_16;
-  v47[3] = &unk_2781C50D0;
-  objc_copyWeak(v55, &location);
-  v55[1] = v25;
-  v55[2] = v30;
-  v31 = requestCopy;
-  v48 = v31;
-  v32 = handlerCopy;
-  v53 = v32;
-  v33 = v17;
-  v49 = v33;
-  v34 = v18;
-  v54 = buf;
-  v50 = v34;
-  selfCopy = self;
-  v35 = factoryCopy;
-  v52 = v35;
-  [v19 setCompletionBlock:v47];
-  v36 = objc_alloc_init(MEMORY[0x277CFBDC8]);
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_22;
-  v45[3] = &unk_2781C3FB0;
-  v37 = v19;
-  v46 = v37;
-  [v36 addCancelationBlock:v45];
+  v47[2] = __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_22;
+  v47[3] = &unk_2781C3FB0;
+  v40 = v19;
+  v48 = v40;
+  [v39 addCancelationBlock:v47];
   date = [MEMORY[0x277CBEAA8] date];
-  v39 = *(*&buf[8] + 40);
+  v42 = *(*&buf[8] + 40);
   *(*&buf[8] + 40) = date;
 
-  [v37 start];
-  objc_destroyWeak(v55);
+  [v40 start];
+  objc_destroyWeak(v57);
   objc_destroyWeak(&location);
   _Block_object_dispose(buf, 8);
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v39;
 }
 
 void __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v5 = v3;
+  v5 = *(a1 + 40);
+  v4 = v3;
   CNRunWithLock();
 }
 
@@ -262,9 +258,9 @@ void __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFacto
 
 void __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_16(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
-  v3 = CNALoggingContextPerformance();
+  v3 = CNALoggingContextPerformance(WeakRetained);
   v4 = v3;
   v5 = *(a1 + 96);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -286,51 +282,50 @@ void __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFacto
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v41 = __Block_byref_object_copy__3;
-    v42 = __Block_byref_object_dispose__3;
-    v43 = 0;
-    v30 = MEMORY[0x277D85DD0];
-    v17 = *(a1 + 40);
-    v31 = *(a1 + 48);
-    CNRunWithLock();
-    v18 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v42 = __Block_byref_object_copy__3;
+    v43 = __Block_byref_object_dispose__3;
+    v44 = 0;
+    v31 = MEMORY[0x277D85DD0];
+    v32 = *(a1 + 48);
+    v18 = CNRunWithLock();
+    v19 = CNALoggingContextTriage(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [*(a1 + 32) triageIdentifier];
-      *&v20 = COERCE_DOUBLE([*(*&buf[8] + 40) count]);
-      v21 = [*(*&buf[8] + 40) count];
-      v22 = "results";
-      *v32 = 138544130;
-      v33 = v19;
-      v34 = 2048;
-      if (v21 == 1)
+      v20 = [*(a1 + 32) triageIdentifier];
+      *&v21 = COERCE_DOUBLE([*(*&buf[8] + 40) count]);
+      v22 = [*(*&buf[8] + 40) count];
+      v23 = "results";
+      *v33 = 138544130;
+      v34 = v20;
+      v35 = 2048;
+      if (v22 == 1)
       {
-        v22 = "result";
+        v23 = "result";
       }
 
-      v35 = *&v20;
-      v36 = 2080;
-      v37 = v22;
-      v38 = 2114;
-      v39 = v9;
-      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Search complete (%lu %s, %{public}@)", v32, 0x2Au);
+      v36 = *&v21;
+      v37 = 2080;
+      v38 = v23;
+      v39 = 2114;
+      v40 = v9;
+      _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Search complete (%lu %s, %{public}@)", v33, 0x2Au);
     }
 
-    v23 = CNALoggingContextPerformance();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = CNALoggingContextPerformance(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*&buf[8] + 40), "count")}];
+      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*&buf[8] + 40), "count")}];
       [*(*(*(a1 + 80) + 8) + 40) timeIntervalSinceNow];
-      *v32 = 138412546;
-      v33 = v24;
-      v34 = 2048;
-      v35 = v25 * -1000.0;
-      _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_INFO, "Time to fetch Calendar Server: %@ results, in %.3fms", v32, 0x16u);
+      *v33 = 138412546;
+      v34 = v26;
+      v35 = 2048;
+      v36 = v27 * -1000.0;
+      _os_log_impl(&dword_2155FE000, v25, OS_LOG_TYPE_INFO, "Time to fetch Calendar Server: %@ results, in %.3fms", v33, 0x16u);
     }
 
-    v26 = *(*&buf[8] + 40);
-    v27 = [*(a1 + 56) resultTransformWithFactory:*(a1 + 64)];
-    v28 = [v26 _cn_map:v27];
+    v28 = *(*&buf[8] + 40);
+    v29 = [*(a1 + 56) resultTransformWithFactory:*(a1 + 64)];
+    v30 = [v28 _cn_map:v29];
 
     (*(*(a1 + 72) + 16))();
     _Block_object_dispose(buf, 8);
@@ -338,34 +333,29 @@ void __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFacto
 
   else
   {
-    v12 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = CNALoggingContextTriage(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(a1 + 32) triageIdentifier];
-      v14 = [WeakRetained error];
+      v14 = [*(a1 + 32) triageIdentifier];
+      v15 = [WeakRetained error];
       *buf = 138543874;
-      *&buf[4] = v13;
+      *&buf[4] = v14;
       *&buf[12] = 2114;
       *&buf[14] = v9;
       *&buf[22] = 2114;
-      v41 = v14;
-      _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Search failed (%{public}@): %{public}@", buf, 0x20u);
+      v42 = v15;
+      _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Calendar Servers: Search failed (%{public}@): %{public}@", buf, 0x20u);
     }
 
-    v15 = *(a1 + 72);
-    v16 = [WeakRetained error];
-    (*(v15 + 16))(v15, 0, v16);
+    v16 = *(a1 + 72);
+    v17 = [WeakRetained error];
+    (*(v16 + 16))(v16, 0, v17);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __97__CNAutocompleteCalendarServerSearch_executeRequest_source_resultsFactory_withCompletionHandler___block_invoke_18(uint64_t a1)
 {
-  v2 = [*(a1 + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) copy];
 
   return MEMORY[0x2821F96F8]();
 }

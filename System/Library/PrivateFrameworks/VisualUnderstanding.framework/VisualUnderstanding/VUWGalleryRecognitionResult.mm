@@ -23,7 +23,7 @@
 
 - (VUWGalleryRecognitionResult)initWithEntityIdentifier:(id)identifier tag:(id)tag confidence:(id)confidence
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2110);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2110, &unk_1D22527C0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v16 - v9;
   if (tag)

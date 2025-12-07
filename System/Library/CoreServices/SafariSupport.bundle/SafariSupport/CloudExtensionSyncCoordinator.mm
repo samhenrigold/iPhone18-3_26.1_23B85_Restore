@@ -34,6 +34,7 @@
 - (void)_saveCloudExtensionDevice:(id)device shouldUpdateExtensionStatesWhenSavingDevice:(BOOL)savingDevice completionHandler:(id)handler;
 - (void)_saveDeviceToCloudKit;
 - (void)_saveModifiedRecordsToSQLiteStore;
+- (void)_saveNextRecordBatchCreatingCloudExtensionsZoneIfMissing:(BOOL)missing;
 - (void)_setServerChangeTokenInSQLiteStore;
 - (void)_suspendFetchingQueue;
 - (void)_suspendSavingQueue;
@@ -56,9 +57,9 @@
   storeCopy = store;
   extensionStoreCopy = extensionStore;
   liteStoreCopy = liteStore;
-  v33.receiver = self;
-  v33.super_class = CloudExtensionSyncCoordinator;
-  v12 = [(CloudExtensionSyncCoordinator *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = CloudExtensionSyncCoordinator;
+  v12 = [(CloudExtensionSyncCoordinator *)&v34 init];
   v13 = v12;
   if (v12)
   {
@@ -81,8 +82,8 @@
       cloudExtensionLocalStore = qword_100153E78;
       if (!cloudExtensionLocalStore)
       {
-        v16 = sub_1000D23FC();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = sub_1000D23FC(0, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10002BCFC();
         }
@@ -90,11 +91,11 @@
         cloudExtensionLocalStore = +[WBSSQLiteDatabase inMemoryDatabaseURL];
       }
 
-      v17 = [CloudExtensionSQLiteStore alloc];
-      v18 = +[CloudExtensionStore cloudExtensionsRecordZoneID];
-      v19 = [(CloudExtensionSQLiteStore *)v17 initWithDatabaseURL:cloudExtensionLocalStore cloudExtensionsRecordZoneID:v18];
-      v20 = v13->_cloudExtensionLocalStore;
-      v13->_cloudExtensionLocalStore = v19;
+      v18 = [CloudExtensionSQLiteStore alloc];
+      v19 = +[CloudExtensionStore cloudExtensionsRecordZoneID];
+      v20 = [(CloudExtensionSQLiteStore *)v18 initWithDatabaseURL:cloudExtensionLocalStore cloudExtensionsRecordZoneID:v19];
+      v21 = v13->_cloudExtensionLocalStore;
+      v13->_cloudExtensionLocalStore = v20;
     }
 
     [(CloudExtensionSQLiteStore *)v13->_cloudExtensionLocalStore setDelegate:v13];
@@ -103,27 +104,27 @@
     v13->_deleteState = 0;
     v13->_fetchState = 0;
     v13->_fetchOperationType = 0;
-    v21 = dispatch_queue_create("ccom.apple.Safari.CloudBookmarks.CloudExtensionSyncCoordinator.extensionStateSavingQueue", 0);
+    v22 = dispatch_queue_create("ccom.apple.Safari.CloudBookmarks.CloudExtensionSyncCoordinator.extensionStateSavingQueue", 0);
     savingQueue = v13->_savingQueue;
-    v13->_savingQueue = v21;
+    v13->_savingQueue = v22;
 
-    v23 = dispatch_queue_create("com.apple.Safari.CloudBookmarks.CloudExtensionSyncCoordinator.extensionStateFetchingQueue", 0);
+    v24 = dispatch_queue_create("com.apple.Safari.CloudBookmarks.CloudExtensionSyncCoordinator.extensionStateFetchingQueue", 0);
     fetchingQueue = v13->_fetchingQueue;
-    v13->_fetchingQueue = v23;
+    v13->_fetchingQueue = v24;
 
-    v25 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension State Saving"];
+    v26 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension State Saving"];
     saveExtensionStateOperationGroup = v13->_saveExtensionStateOperationGroup;
-    v13->_saveExtensionStateOperationGroup = v25;
+    v13->_saveExtensionStateOperationGroup = v26;
 
-    v27 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension Device Deleting"];
+    v28 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension Device Deleting"];
     deleteDevicesOperationGroup = v13->_deleteDevicesOperationGroup;
-    v13->_deleteDevicesOperationGroup = v27;
+    v13->_deleteDevicesOperationGroup = v28;
 
-    v29 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension State Fetching"];
+    v30 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Extension State Fetching"];
     fetchExtensionStatesOperationGroup = v13->_fetchExtensionStatesOperationGroup;
-    v13->_fetchExtensionStatesOperationGroup = v29;
+    v13->_fetchExtensionStatesOperationGroup = v30;
 
-    v31 = v13;
+    v32 = v13;
   }
 
   return v13;
@@ -131,7 +132,7 @@
 
 - (void)userAccountChanged
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -144,23 +145,23 @@
 - (void)deleteDatabaseWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_1000D23FC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000D23FC(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting the CloudExtensions database", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deleting the CloudExtensions database", buf, 2u);
   }
 
   cloudExtensionLocalStore = self->_cloudExtensionLocalStore;
   ++self->_deletingDatabaseCount;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100026048;
-  v8[3] = &unk_100131990;
-  v8[4] = self;
-  v9 = handlerCopy;
-  v7 = handlerCopy;
-  [(CloudKitSQLiteStore *)cloudExtensionLocalStore deleteDatabaseWithCompletionHandler:v8];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100026048;
+  v9[3] = &unk_100131990;
+  v9[4] = self;
+  v10 = handlerCopy;
+  v8 = handlerCopy;
+  [(CloudKitSQLiteStore *)cloudExtensionLocalStore deleteDatabaseWithCompletionHandler:v9];
 }
 
 - (void)saveExtensionStatesWithDictionaryRepresentation:(id)representation forDevice:(id)device completionHandler:(id)handler
@@ -246,13 +247,14 @@
 
 - (void)_continueSavingExtensionStates
 {
-  if (![(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation])
+  _shouldContinueSyncOperation = [(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation];
+  if ((_shouldContinueSyncOperation & 1) == 0)
   {
-    v4 = sub_1000D23FC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000D23FC(_shouldContinueSyncOperation, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopping save of extension state for current device", v5, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopping save of extension state for current device", v7, 2u);
     }
 
     self->_saveState = 5;
@@ -303,7 +305,7 @@ LABEL_10:
 
 - (void)_mergeDeviceIntoDeviceFromSQLiteStoreIfNecessary
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -325,7 +327,7 @@ LABEL_10:
 
 - (void)_saveDeviceToCloudKit
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -348,9 +350,51 @@ LABEL_10:
   [(CloudExtensionSyncCoordinator *)self _saveNextRecordBatchCreatingCloudExtensionsZoneIfMissing:1];
 }
 
+- (void)_saveNextRecordBatchCreatingCloudExtensionsZoneIfMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  _nextRecordBatchToSave = [(CloudExtensionSyncCoordinator *)self _nextRecordBatchToSave];
+  v6 = [_nextRecordBatchToSave count];
+  v8 = sub_1000D23FC(v6, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v6)
+  {
+    if (v9)
+    {
+      v10 = v8;
+      *buf = 134217984;
+      v16 = [_nextRecordBatchToSave count];
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Saving extension state record batch of size: %lu", buf, 0xCu);
+    }
+
+    objc_initWeak(buf, self);
+    cloudExtensionStore = self->_cloudExtensionStore;
+    saveExtensionStateOperationGroup = self->_saveExtensionStateOperationGroup;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100026FDC;
+    v13[3] = &unk_100132498;
+    objc_copyWeak(&v14, buf);
+    [(CloudExtensionStore *)cloudExtensionStore saveCloudExtensionsRecordBatch:_nextRecordBatchToSave createCloudExtensionsZoneIfMissing:missingCopy inOperationGroup:saveExtensionStateOperationGroup completionHandler:v13];
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(buf);
+  }
+
+  else
+  {
+    if (v9)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Done saving device to CloudKit", buf, 2u);
+    }
+
+    [(CloudExtensionSyncCoordinator *)self _continueSavingExtensionStates];
+  }
+}
+
 - (void)_deleteObsoleteExtensionStateRecordsFromCloudKit
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -360,27 +404,27 @@ LABEL_10:
   if ([(NSArray *)self->_recordNamesOfStatesToDelete count])
   {
     objc_initWeak(buf, self);
-    v4 = [(CloudExtensionSyncCoordinator *)self _recordIDsFromRecordNames:self->_recordNamesOfStatesToDelete];
+    v5 = [(CloudExtensionSyncCoordinator *)self _recordIDsFromRecordNames:self->_recordNamesOfStatesToDelete];
     cloudExtensionStore = self->_cloudExtensionStore;
     saveExtensionStateOperationGroup = self->_saveExtensionStateOperationGroup;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000272DC;
-    v8[3] = &unk_1001324C0;
-    objc_copyWeak(&v9, buf);
-    [(CloudExtensionStore *)cloudExtensionStore deleteCloudExtensionRecords:v4 inOperationGroup:saveExtensionStateOperationGroup completionHandler:v8];
-    objc_destroyWeak(&v9);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000272DC;
+    v9[3] = &unk_1001324C0;
+    objc_copyWeak(&v10, buf);
+    [(CloudExtensionStore *)cloudExtensionStore deleteCloudExtensionRecords:v5 inOperationGroup:saveExtensionStateOperationGroup completionHandler:v9];
+    objc_destroyWeak(&v10);
 
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v7 = sub_1000D23FC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_1000D23FC(0, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "No obsolete extension state records need to be deleted from CloudKit", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "No obsolete extension state records need to be deleted from CloudKit", buf, 2u);
     }
 
     [(CloudExtensionSyncCoordinator *)self _continueSavingExtensionStates];
@@ -389,7 +433,7 @@ LABEL_10:
 
 - (void)_updateSQLiteStoreFromCloudKitAfterSavingExtensionState
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -410,7 +454,7 @@ LABEL_10:
 
 - (void)_finishedSavingExtensionStates
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -664,24 +708,25 @@ LABEL_6:
 
 - (void)_continueFetchingExtensionStates
 {
-  if (self->_fetchError || ![(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation])
+  selfCopy = self;
+  if (self->_fetchError || (self = [(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation], (self & 1) == 0))
   {
-    v4 = sub_1000D23FC();
+    v4 = sub_1000D23FC(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopping fetch of extension states", v6, 2u);
     }
 
-    fetchedDevices = self->_fetchedDevices;
-    self->_fetchedDevices = 0;
+    fetchedDevices = selfCopy->_fetchedDevices;
+    selfCopy->_fetchedDevices = 0;
 
-    self->_fetchState = 7;
+    selfCopy->_fetchState = 7;
     goto LABEL_12;
   }
 
-  fetchState = self->_fetchState;
-  self->_fetchState = fetchState + 1;
+  fetchState = selfCopy->_fetchState;
+  selfCopy->_fetchState = fetchState + 1;
   if (fetchState <= 2)
   {
     if (fetchState)
@@ -689,20 +734,20 @@ LABEL_6:
       if (fetchState == 1)
       {
 
-        [(CloudExtensionSyncCoordinator *)self _fetchChangesFromCloudKitCreatingCloudExtensionsZoneIfMissing:1];
+        [(CloudExtensionSyncCoordinator *)selfCopy _fetchChangesFromCloudKitCreatingCloudExtensionsZoneIfMissing:1];
       }
 
       else if (fetchState == 2)
       {
 
-        [(CloudExtensionSyncCoordinator *)self _removeDeletedRecordsFromSQLiteStore];
+        [(CloudExtensionSyncCoordinator *)selfCopy _removeDeletedRecordsFromSQLiteStore];
       }
     }
 
     else
     {
 
-      [(CloudExtensionSyncCoordinator *)self _getServerChangeTokenFromSQLiteStore];
+      [(CloudExtensionSyncCoordinator *)selfCopy _getServerChangeTokenFromSQLiteStore];
     }
   }
 
@@ -713,13 +758,13 @@ LABEL_6:
       if (fetchState == 3)
       {
 
-        [(CloudExtensionSyncCoordinator *)self _saveModifiedRecordsToSQLiteStore];
+        [(CloudExtensionSyncCoordinator *)selfCopy _saveModifiedRecordsToSQLiteStore];
       }
 
       else
       {
 
-        [(CloudExtensionSyncCoordinator *)self _setServerChangeTokenInSQLiteStore];
+        [(CloudExtensionSyncCoordinator *)selfCopy _setServerChangeTokenInSQLiteStore];
       }
 
       return;
@@ -733,17 +778,17 @@ LABEL_6:
       }
 
 LABEL_12:
-      [(CloudExtensionSyncCoordinator *)self _finishedFetching];
+      [(CloudExtensionSyncCoordinator *)selfCopy _finishedFetching];
       return;
     }
 
-    [(CloudExtensionSyncCoordinator *)self _loadDevicesAndStatesFromSQLiteStore];
+    [(CloudExtensionSyncCoordinator *)selfCopy _loadDevicesAndStatesFromSQLiteStore];
   }
 }
 
 - (void)_deleteDatabaseAndRestartFetch
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -763,7 +808,7 @@ LABEL_12:
 
 - (void)_getServerChangeTokenFromSQLiteStore
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -785,81 +830,81 @@ LABEL_12:
 
 - (void)_fetchChangesFromCloudKitCreatingCloudExtensionsZoneIfMissing:(BOOL)missing
 {
-  objc_initWeak(&location, self);
-  v5 = sub_1000D23FC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_1000D23FC(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Fetching changes from CloudKit", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Fetching changes from CloudKit", buf, 2u);
   }
 
-  v6 = +[NSMutableArray array];
-  modifiedDevices = self->_modifiedDevices;
-  self->_modifiedDevices = v6;
-
   v8 = +[NSMutableArray array];
-  modifiedStates = self->_modifiedStates;
-  self->_modifiedStates = v8;
+  modifiedDevices = self->_modifiedDevices;
+  self->_modifiedDevices = v8;
 
   v10 = +[NSMutableArray array];
+  modifiedStates = self->_modifiedStates;
+  self->_modifiedStates = v10;
+
+  v12 = +[NSMutableArray array];
   namesOfDeletedRecords = self->_namesOfDeletedRecords;
-  self->_namesOfDeletedRecords = v10;
+  self->_namesOfDeletedRecords = v12;
 
   cloudExtensionStore = self->_cloudExtensionStore;
   serverChangeToken = self->_serverChangeToken;
   currentFetchOperationGroup = self->_currentFetchOperationGroup;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100028D5C;
-  v19[3] = &unk_100132538;
-  v19[4] = self;
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100028E04;
-  v18[3] = &unk_100132560;
-  v18[4] = self;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100028EF8;
-  v15[3] = &unk_1001325B0;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_100028D5C;
+  v21[3] = &unk_100132538;
+  v21[4] = self;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100028E04;
+  v20[3] = &unk_100132560;
+  v20[4] = self;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100028EF8;
+  v17[3] = &unk_1001325B0;
   missingCopy = missing;
-  v15[4] = self;
-  objc_copyWeak(&v16, &location);
-  [(CloudExtensionStore *)cloudExtensionStore fetchCloudExtensionsRecordChangesSinceServerChangeToken:serverChangeToken inOperationGroup:currentFetchOperationGroup recordChangedBlock:v19 recordWithIDWasDeletedBlock:v18 completionHandler:v15];
-  objc_destroyWeak(&v16);
+  v17[4] = self;
+  objc_copyWeak(&v18, &location);
+  [(CloudExtensionStore *)cloudExtensionStore fetchCloudExtensionsRecordChangesSinceServerChangeToken:serverChangeToken inOperationGroup:currentFetchOperationGroup recordChangedBlock:v21 recordWithIDWasDeletedBlock:v20 completionHandler:v17];
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 }
 
 - (void)_retryFetchChangesFromCloudKitIfPossibleAfterCreatingCloudExtensionsZoneCompletedWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_1000D23FC();
-  v7 = v6;
+  v7 = sub_1000D23FC(errorCopy, v6);
+  v8 = v7;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10002C2A0(v7, errorCopy);
+      sub_10002C2A0(v8, errorCopy);
     }
 
     objc_storeStrong(&self->_fetchError, error);
     objc_initWeak(location, self);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000293EC;
-    v8[3] = &unk_1001324E8;
-    objc_copyWeak(&v9, location);
-    [(CloudExtensionSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v8];
-    objc_destroyWeak(&v9);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000293EC;
+    v9[3] = &unk_1001324E8;
+    objc_copyWeak(&v10, location);
+    [(CloudExtensionSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v9];
+    objc_destroyWeak(&v10);
     objc_destroyWeak(location);
   }
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit again after creating CloudExtensions zone", location, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit again after creating CloudExtensions zone", location, 2u);
     }
 
     [(CloudExtensionSyncCoordinator *)self _fetchChangesFromCloudKitCreatingCloudExtensionsZoneIfMissing:0];
@@ -869,39 +914,39 @@ LABEL_12:
 - (void)_removeDeletedRecordsFromSQLiteStore
 {
   v3 = [(NSMutableArray *)self->_namesOfDeletedRecords count];
-  v4 = sub_1000D23FC();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  v5 = sub_1000D23FC(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
   if (v3)
   {
-    if (v5)
+    if (v6)
     {
       namesOfDeletedRecords = self->_namesOfDeletedRecords;
-      v7 = v4;
+      v8 = v5;
       *buf = 134217984;
-      v13 = [(NSMutableArray *)namesOfDeletedRecords count];
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Removing %lu deleted records from SQLite", buf, 0xCu);
+      v14 = [(NSMutableArray *)namesOfDeletedRecords count];
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Removing %lu deleted records from SQLite", buf, 0xCu);
     }
 
     [(CloudExtensionSyncCoordinator *)self set_cloudExtensionStoreError:0];
     objc_initWeak(buf, self);
     cloudExtensionLocalStore = self->_cloudExtensionLocalStore;
-    v9 = self->_namesOfDeletedRecords;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000295F4;
-    v10[3] = &unk_1001325D8;
-    objc_copyWeak(&v11, buf);
-    [(CloudExtensionSQLiteStore *)cloudExtensionLocalStore deleteRecordsWithPrimaryKeys:v9 completionHandler:v10];
-    objc_destroyWeak(&v11);
+    v10 = self->_namesOfDeletedRecords;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000295F4;
+    v11[3] = &unk_1001325D8;
+    objc_copyWeak(&v12, buf);
+    [(CloudExtensionSQLiteStore *)cloudExtensionLocalStore deleteRecordsWithPrimaryKeys:v10 completionHandler:v11];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "No records to delete from SQLite", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "No records to delete from SQLite", buf, 2u);
     }
 
     [(CloudExtensionSyncCoordinator *)self _continueFetchingExtensionStates];
@@ -910,44 +955,45 @@ LABEL_12:
 
 - (void)_saveModifiedRecordsToSQLiteStore
 {
-  if ([(NSMutableArray *)self->_modifiedDevices count]|| [(NSMutableArray *)self->_modifiedStates count])
+  v3 = [(NSMutableArray *)self->_modifiedDevices count];
+  if (v3 || (v3 = [(NSMutableArray *)self->_modifiedStates count]) != 0)
   {
-    v3 = sub_1000D23FC();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = sub_1000D23FC(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       modifiedDevices = self->_modifiedDevices;
-      v5 = v3;
-      v6 = [(NSMutableArray *)modifiedDevices count];
-      v7 = [(NSMutableArray *)self->_modifiedStates count];
+      v7 = v5;
+      v8 = [(NSMutableArray *)modifiedDevices count];
+      v9 = [(NSMutableArray *)self->_modifiedStates count];
       *buf = 134218240;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Saving %lu device records and %lu extension state records to SQLite", buf, 0x16u);
+      v17 = v8;
+      v18 = 2048;
+      v19 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Saving %lu device records and %lu extension state records to SQLite", buf, 0x16u);
     }
 
     [(CloudExtensionSyncCoordinator *)self set_cloudExtensionStoreError:0];
     objc_initWeak(buf, self);
     cloudExtensionLocalStore = self->_cloudExtensionLocalStore;
-    v10 = self->_modifiedDevices;
+    v12 = self->_modifiedDevices;
     modifiedStates = self->_modifiedStates;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100029944;
-    v12[3] = &unk_1001325D8;
-    objc_copyWeak(&v13, buf);
-    [(CloudExtensionSQLiteStore *)cloudExtensionLocalStore saveCloudExtensionDevices:v10 extensionStates:modifiedStates completionHandler:v12];
-    objc_destroyWeak(&v13);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100029944;
+    v14[3] = &unk_1001325D8;
+    objc_copyWeak(&v15, buf);
+    [(CloudExtensionSQLiteStore *)cloudExtensionLocalStore saveCloudExtensionDevices:v12 extensionStates:modifiedStates completionHandler:v14];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v11 = sub_1000D23FC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = sub_1000D23FC(0, v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "No modified devices or extension states to save to SQLite", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "No modified devices or extension states to save to SQLite", buf, 2u);
     }
 
     [(CloudExtensionSyncCoordinator *)self _continueFetchingExtensionStates];
@@ -956,7 +1002,7 @@ LABEL_12:
 
 - (void)_setServerChangeTokenInSQLiteStore
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf) = 0;
@@ -966,15 +1012,16 @@ LABEL_12:
   serverChangeToken = self->_serverChangeToken;
   if (serverChangeToken)
   {
-    v12 = 0;
-    v5 = [NSKeyedArchiver archivedDataWithRootObject:serverChangeToken requiringSecureCoding:1 error:&v12];
-    v6 = v12;
+    v14 = 0;
+    v5 = [NSKeyedArchiver archivedDataWithRootObject:serverChangeToken requiringSecureCoding:1 error:&v14];
+    v6 = v14;
+    v8 = v6;
     if (v6)
     {
-      v7 = sub_1000D22B4();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = sub_1000D22B4(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_10002C4D0(v7, v6);
+        sub_10002C4D0(v9, v8);
       }
     }
   }
@@ -987,20 +1034,20 @@ LABEL_12:
   [(CloudExtensionSyncCoordinator *)self set_cloudExtensionStoreError:0];
   objc_initWeak(&buf, self);
   cloudExtensionLocalStore = self->_cloudExtensionLocalStore;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100029C7C;
-  v9[3] = &unk_1001325D8;
-  objc_copyWeak(&v10, &buf);
-  [(CloudKitSQLiteStore *)cloudExtensionLocalStore setServerChangeTokenData:v5 completionHandler:v9];
-  objc_destroyWeak(&v10);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100029C7C;
+  v11[3] = &unk_1001325D8;
+  objc_copyWeak(&v12, &buf);
+  [(CloudKitSQLiteStore *)cloudExtensionLocalStore setServerChangeTokenData:v5 completionHandler:v11];
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&buf);
 }
 
 - (void)_loadDevicesAndStatesFromSQLiteStore
 {
   fetchOperationType = self->_fetchOperationType;
-  v4 = sub_1000D23FC();
+  v4 = sub_1000D23FC(self, a2);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (fetchOperationType == 2)
   {
@@ -1037,7 +1084,7 @@ LABEL_12:
 
 - (void)_finishedFetching
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1092,11 +1139,11 @@ LABEL_12:
   recordCopy = record;
   if ([recordCopy safari_isCloudExtensionDeviceRecord])
   {
-    v5 = [CloudExtensionDevice cloudExtensionDeviceWithCKRecord:recordCopy];
-    if (!v5)
+    v6 = [CloudExtensionDevice cloudExtensionDeviceWithCKRecord:recordCopy];
+    if (!v6)
     {
-      v8 = sub_1000D23FC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000D23FC(0, v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10002C7CC();
       }
@@ -1106,19 +1153,20 @@ LABEL_12:
 
     modifiedDevices = self->_modifiedDevices;
 LABEL_7:
-    [(NSMutableArray *)modifiedDevices addObject:v5];
+    [(NSMutableArray *)modifiedDevices addObject:v6];
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  if ([recordCopy safari_isCloudExtensionStateRecord])
+  safari_isCloudExtensionStateRecord = [recordCopy safari_isCloudExtensionStateRecord];
+  if (safari_isCloudExtensionStateRecord)
   {
-    v5 = [CloudExtensionState cloudExtensionStateWithCKRecord:recordCopy];
-    if (!v5)
+    v6 = [CloudExtensionState cloudExtensionStateWithCKRecord:recordCopy];
+    if (!v6)
     {
-      v9 = sub_1000D23FC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = sub_1000D23FC(0, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_10002C790();
       }
@@ -1130,10 +1178,10 @@ LABEL_14:
     goto LABEL_7;
   }
 
-  v7 = sub_1000D23FC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v11 = sub_1000D23FC(safari_isCloudExtensionStateRecord, v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_10002C700(v7);
+    sub_10002C700(v11);
   }
 
 LABEL_15:
@@ -1158,11 +1206,11 @@ LABEL_15:
 {
   stringsCopy = strings;
   handlerCopy = handler;
-  v8 = sub_1000D23FC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_1000D23FC(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Deleting extension devices from CloudKit", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Deleting extension devices from CloudKit", buf, 2u);
   }
 
   if ([stringsCopy count])
@@ -1173,18 +1221,18 @@ LABEL_15:
     block[2] = sub_10002A768;
     block[3] = &unk_100131A20;
     block[4] = self;
-    v12 = stringsCopy;
-    v13 = handlerCopy;
+    v14 = stringsCopy;
+    v15 = handlerCopy;
     dispatch_async(savingQueue, block);
   }
 
   else
   {
-    v10 = sub_1000D23FC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = sub_1000D23FC(0, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "No extension devices to delete", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "No extension devices to delete", buf, 2u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -1193,7 +1241,8 @@ LABEL_15:
 
 - (void)_continueDeleting
 {
-  if ([(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation])
+  _shouldContinueSyncOperation = [(CloudExtensionSyncCoordinator *)self _shouldContinueSyncOperation];
+  if (_shouldContinueSyncOperation)
   {
     deleteState = self->_deleteState + 1;
     self->_deleteState = deleteState;
@@ -1201,17 +1250,17 @@ LABEL_15:
 
   else
   {
-    v4 = sub_1000D23FC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000D23FC(_shouldContinueSyncOperation, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopping deletion of extension device records", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopping deletion of extension device records", v9, 2u);
     }
 
     self->_deleteState = 3;
-    v5 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
+    v7 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
     deleteExtensionDevicesError = self->_deleteExtensionDevicesError;
-    self->_deleteExtensionDevicesError = v5;
+    self->_deleteExtensionDevicesError = v7;
 
     deleteState = self->_deleteState;
   }
@@ -1232,7 +1281,7 @@ LABEL_15:
 
 - (void)_deleteRecordsFromCloudKit
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -1255,7 +1304,7 @@ LABEL_15:
 
 - (void)_updateSQLiteStoreFromCloudKitAfterDeletingRecords
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -1276,7 +1325,7 @@ LABEL_15:
 
 - (void)_finishedDeletingRecords
 {
-  v3 = sub_1000D23FC();
+  v3 = sub_1000D23FC(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1313,10 +1362,10 @@ LABEL_15:
 - (void)cloudExtensionSQLiteStoreStore:(id)store hadSevereError:(id)error
 {
   errorCopy = error;
-  v6 = sub_1000D23FC();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_1000D23FC(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_10002C918(v6);
+    sub_10002C918(v7);
   }
 
   [(CloudExtensionSyncCoordinator *)self set_cloudExtensionStoreError:errorCopy];
@@ -1348,32 +1397,32 @@ LABEL_15:
   safari_primaryAppleAccount = [(ACAccountStore *)self->_accountStore safari_primaryAppleAccount];
   if (safari_primaryAppleAccount)
   {
-    v4 = safari_primaryAppleAccount;
-    v5 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
-    self->_dataclassEnabled = v5;
-    if ((v5 & 1) == 0)
+    v5 = safari_primaryAppleAccount;
+    v6 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
+    self->_dataclassEnabled = v6;
+    if ((v6 & 1) == 0)
     {
-      v6 = sub_1000D23FC();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000D23FC(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Extension syncing not available because Safari's dataclass isn't enabled", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Extension syncing not available because Safari's dataclass isn't enabled", v12, 2u);
       }
     }
 
     return self->_dataclassEnabled;
   }
 
-  v9 = sub_1000D23FC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_1000D23FC(0, v4);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Extension syncing not available because user is not signed in", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Extension syncing not available because user is not signed in", buf, 2u);
   }
 
-  v7 = 0;
+  v9 = 0;
   self->_dataclassEnabled = 0;
-  return v7;
+  return v9;
 }
 
 - (BOOL)_shouldContinueSyncOperation
@@ -1421,179 +1470,179 @@ LABEL_15:
   if (devicesCopy)
   {
     v4 = +[NSMutableDictionary dictionary];
-    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v33 = devicesCopy;
+    v60 = 0u;
+    v34 = devicesCopy;
     obj = devicesCopy;
-    v36 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
-    if (v36)
+    v37 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
+    if (v37)
     {
-      v35 = *v57;
-      v45 = WBSDefaultProfileIdentifier;
-      v44 = WBSSafariExtensionStateEnabledKey;
-      v43 = WBSSafariExtensionStateEnabledByUserGestureKey;
-      v42 = WBSSafariExtensionStateLastEnabledModificationDate;
-      v50 = WBSSafariExtensionStateDeviceUUIDString;
-      v41 = WBSSafariExtensionStateProfilesKey;
-      v39 = v4;
+      v36 = *v58;
+      v46 = WBSDefaultProfileIdentifier;
+      v45 = WBSSafariExtensionStateEnabledKey;
+      v44 = WBSSafariExtensionStateEnabledByUserGestureKey;
+      v43 = WBSSafariExtensionStateLastEnabledModificationDate;
+      v51 = WBSSafariExtensionStateDeviceUUIDString;
+      v42 = WBSSafariExtensionStateProfilesKey;
+      v40 = v4;
       do
       {
         v5 = 0;
         do
         {
-          if (*v57 != v35)
+          if (*v58 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = v5;
-          v6 = *(*(&v56 + 1) + 8 * v5);
+          v38 = v5;
+          v6 = *(*(&v57 + 1) + 8 * v5);
           deviceUUIDString = [v6 deviceUUIDString];
-          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
+          v56 = 0u;
           cloudExtensionStates = [v6 cloudExtensionStates];
-          v47 = [cloudExtensionStates countByEnumeratingWithState:&v52 objects:v66 count:16];
-          if (v47)
+          v48 = [cloudExtensionStates countByEnumeratingWithState:&v53 objects:v67 count:16];
+          if (v48)
           {
-            v46 = *v53;
+            v47 = *v54;
             do
             {
               v7 = 0;
               do
               {
-                if (*v53 != v46)
+                if (*v54 != v47)
                 {
                   objc_enumerationMutation(cloudExtensionStates);
                 }
 
-                v8 = *(*(&v52 + 1) + 8 * v7);
+                v8 = *(*(&v53 + 1) + 8 * v7);
                 dictionaryRepresentation = [v8 dictionaryRepresentation];
                 if (dictionaryRepresentation)
                 {
                   composedIdentifier = [v8 composedIdentifier];
-                  v10 = [v4 objectForKeyedSubscript:?];
+                  v11 = [v4 objectForKeyedSubscript:?];
                   profileIdentifier = [v8 profileIdentifier];
-                  v12 = profileIdentifier;
-                  v13 = v45;
+                  v13 = profileIdentifier;
+                  v14 = v46;
                   if (profileIdentifier)
                   {
-                    v13 = profileIdentifier;
+                    v14 = profileIdentifier;
                   }
 
-                  v14 = v13;
+                  v15 = v14;
 
-                  v15 = [dictionaryRepresentation mutableCopy];
-                  v48 = v14;
-                  v62 = v14;
-                  v60[0] = v44;
-                  v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v8 isEnabled]);
-                  v61[0] = v16;
-                  v60[1] = v43;
-                  v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v8 wasEnabledByUserGesture]);
-                  v61[1] = v17;
-                  v60[2] = v42;
+                  v16 = [dictionaryRepresentation mutableCopy];
+                  v49 = v15;
+                  v63 = v15;
+                  v61[0] = v45;
+                  v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v8 isEnabled]);
+                  v62[0] = v17;
+                  v61[1] = v44;
+                  v18 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v8 wasEnabledByUserGesture]);
+                  v62[1] = v18;
+                  v61[2] = v43;
                   lastModifiedDate = [v8 lastModifiedDate];
-                  v61[2] = lastModifiedDate;
-                  v19 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:3];
-                  v63 = v19;
-                  v20 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+                  v62[2] = lastModifiedDate;
+                  v20 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:3];
+                  v64 = v20;
+                  v21 = [NSDictionary dictionaryWithObjects:&v64 forKeys:&v63 count:1];
 
                   if (qword_100153E70 != -1)
                   {
                     sub_10002C9A8();
                   }
 
-                  [v15 removeObjectsForKeys:qword_100153E68];
-                  if (v10)
+                  [v16 removeObjectsForKeys:qword_100153E68];
+                  if (v11)
                   {
-                    v21 = [v10 count];
-                    if (v21 < 1)
+                    v22 = [v11 count];
+                    if (v22 < 1)
                     {
 LABEL_22:
-                      [v15 setObject:v20 forKeyedSubscript:v41];
-                      [v10 addObject:v15];
+                      [v16 setObject:v21 forKeyedSubscript:v42];
+                      [v11 addObject:v16];
                     }
 
                     else
                     {
-                      v22 = v21;
-                      v23 = 0;
+                      v23 = v22;
+                      v24 = 0;
                       while (1)
                       {
-                        v24 = [v10 objectAtIndexedSubscript:v23];
-                        v25 = [v24 objectForKeyedSubscript:v50];
-                        v26 = [v25 isEqual:deviceUUIDString];
+                        v25 = [v11 objectAtIndexedSubscript:v24];
+                        v26 = [v25 objectForKeyedSubscript:v51];
+                        v27 = [v26 isEqual:deviceUUIDString];
 
-                        if (v26)
+                        if (v27)
                         {
                           break;
                         }
 
-                        if (v22 == ++v23)
+                        if (v23 == ++v24)
                         {
                           goto LABEL_22;
                         }
                       }
 
-                      v38 = [v24 mutableCopy];
-                      v29 = [v24 objectForKeyedSubscript:v41];
-                      v30 = [v29 mutableCopy];
+                      v39 = [v25 mutableCopy];
+                      v30 = [v25 objectForKeyedSubscript:v42];
+                      v31 = [v30 mutableCopy];
 
-                      [v30 addEntriesFromDictionary:v20];
-                      [v38 setObject:v30 forKeyedSubscript:v41];
-                      v31 = [v38 copy];
-                      [v10 setObject:v31 atIndexedSubscript:v23];
+                      [v31 addEntriesFromDictionary:v21];
+                      [v39 setObject:v31 forKeyedSubscript:v42];
+                      v32 = [v39 copy];
+                      [v11 setObject:v32 atIndexedSubscript:v24];
                     }
 
-                    v4 = v39;
-                    v28 = composedIdentifier;
+                    v4 = v40;
+                    v29 = composedIdentifier;
                   }
 
                   else
                   {
-                    [v15 setObject:v20 forKeyedSubscript:v41];
-                    v10 = [NSMutableArray arrayWithObject:v15];
-                    v28 = composedIdentifier;
-                    [v4 setObject:v10 forKeyedSubscript:composedIdentifier];
+                    [v16 setObject:v21 forKeyedSubscript:v42];
+                    v11 = [NSMutableArray arrayWithObject:v16];
+                    v29 = composedIdentifier;
+                    [v4 setObject:v11 forKeyedSubscript:composedIdentifier];
                   }
                 }
 
                 else
                 {
-                  v27 = sub_1000D23FC();
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                  v28 = sub_1000D23FC(0, v9);
+                  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138477827;
-                    v65 = v8;
-                    _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Could not create extension state dictionary when getting extension states from CloudExtensionState %{private}@", buf, 0xCu);
+                    v66 = v8;
+                    _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Could not create extension state dictionary when getting extension states from CloudExtensionState %{private}@", buf, 0xCu);
                   }
                 }
 
                 v7 = v7 + 1;
               }
 
-              while (v7 != v47);
-              v47 = [cloudExtensionStates countByEnumeratingWithState:&v52 objects:v66 count:16];
+              while (v7 != v48);
+              v48 = [cloudExtensionStates countByEnumeratingWithState:&v53 objects:v67 count:16];
             }
 
-            while (v47);
+            while (v48);
           }
 
-          v5 = v37 + 1;
+          v5 = v38 + 1;
         }
 
-        while ((v37 + 1) != v36);
-        v36 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+        while ((v38 + 1) != v37);
+        v37 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
-    devicesCopy = v33;
+    devicesCopy = v34;
   }
 
   else

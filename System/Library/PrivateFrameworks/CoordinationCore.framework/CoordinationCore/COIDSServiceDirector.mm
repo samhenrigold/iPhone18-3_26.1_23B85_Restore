@@ -64,7 +64,7 @@
 
 - (id)transportWithDiscoveryRecord:(id)record withExecutionContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   contextCopy = context;
   v8 = [[COIDSTransport alloc] initWithDiscoveryRecord:recordCopy executionContext:contextCopy];
@@ -73,13 +73,13 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     iDSIdentifier = [recordCopy IDSIdentifier];
-    v19 = 138543874;
+    v18 = 138543874;
     selfCopy = self;
-    v21 = 2048;
-    v22 = v8;
-    v23 = 2114;
-    v24 = iDSIdentifier;
-    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ created new transport %p for remote IDS identifier %{public}@", &v19, 0x20u);
+    v20 = 2048;
+    v21 = v8;
+    v22 = 2114;
+    v23 = iDSIdentifier;
+    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ created new transport %p for remote IDS identifier %{public}@", &v18, 0x20u);
   }
 
   deviceTokenURI = [recordCopy deviceTokenURI];
@@ -100,60 +100,56 @@
   activeTransports = [(COIDSServiceDirector *)self activeTransports];
   [activeTransports setObject:v8 forKey:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)sendMessage:(id)message toDestination:(id)destination completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v20 = *MEMORY[0x277D185B0];
-  v21[0] = &unk_2857C8898;
+  v20[1] = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D185B0];
+  v20[0] = &unk_2857C8898;
   v8 = MEMORY[0x277CBEAC0];
   handlerCopy = handler;
   destinationCopy = destination;
   messageCopy = message;
-  v12 = [v8 dictionaryWithObjects:v21 forKeys:&v20 count:1];
-  service = [(COIDSServiceDirector *)self service];
-  v14 = [MEMORY[0x277CBEB98] setWithObject:destinationCopy];
-
-  v18 = 0;
-  v19 = 0;
-  [service sendMessage:messageCopy toDestinations:v14 priority:300 options:v12 identifier:&v19 error:&v18];
-
-  v15 = v19;
-  v16 = v18;
-
-  handlerCopy[2](handlerCopy, v15, v16);
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendResponse:(id)response responseIdentifier:(id)identifier toDestination:(id)destination
-{
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19 = *MEMORY[0x277D18610];
-  v20[0] = identifier;
-  v8 = MEMORY[0x277CBEAC0];
-  destinationCopy = destination;
-  identifierCopy = identifier;
-  responseCopy = response;
   v12 = [v8 dictionaryWithObjects:v20 forKeys:&v19 count:1];
   service = [(COIDSServiceDirector *)self service];
   v14 = [MEMORY[0x277CBEB98] setWithObject:destinationCopy];
 
   v17 = 0;
   v18 = 0;
-  [service sendMessage:responseCopy toDestinations:v14 priority:300 options:v12 identifier:&v18 error:&v17];
+  [service sendMessage:messageCopy toDestinations:v14 priority:300 options:v12 identifier:&v18 error:&v17];
 
   v15 = v18;
-  v16 = *MEMORY[0x277D85DE8];
+  v16 = v17;
+
+  handlerCopy[2](handlerCopy, v15, v16);
+}
+
+- (void)sendResponse:(id)response responseIdentifier:(id)identifier toDestination:(id)destination
+{
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D18610];
+  v19[0] = identifier;
+  v8 = MEMORY[0x277CBEAC0];
+  destinationCopy = destination;
+  identifierCopy = identifier;
+  responseCopy = response;
+  v12 = [v8 dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  service = [(COIDSServiceDirector *)self service];
+  v14 = [MEMORY[0x277CBEB98] setWithObject:destinationCopy];
+
+  v16 = 0;
+  v17 = 0;
+  [service sendMessage:responseCopy toDestinations:v14 priority:300 options:v12 identifier:&v17 error:&v16];
+
+  v15 = v17;
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
 {
   successCopy = success;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   errorCopy = error;
   v12 = COCoreLogForCategory(17);
@@ -162,26 +158,24 @@
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy2 = self;
-      v17 = 2114;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ Did send message %{public}@ successfully", &v15, 0x16u);
+      v16 = 2114;
+      v17 = identifierCopy;
+      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ Did send message %{public}@ successfully", &v14, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v15 = 138543874;
+    v14 = 138543874;
     selfCopy2 = self;
-    v17 = 2114;
-    v18 = identifierCopy;
-    v19 = 2114;
-    v20 = errorCopy;
-    _os_log_error_impl(&dword_244378000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to send message %{public}@: %{public}@", &v15, 0x20u);
+    v16 = 2114;
+    v17 = identifierCopy;
+    v18 = 2114;
+    v19 = errorCopy;
+    _os_log_error_impl(&dword_244378000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to send message %{public}@: %{public}@", &v14, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
@@ -205,7 +199,7 @@
 
 void __71__COIDSServiceDirector_service_account_incomingMessage_fromID_context___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) service];
   v3 = [v2 conformsToProtocol:&unk_2857E6360];
 
@@ -228,9 +222,9 @@ void __71__COIDSServiceDirector_service_account_incomingMessage_fromID_context__
   v10 = [*(a1 + 48) incomingResponseIdentifier];
   v11 = [*(a1 + 32) messageFactory];
   v12 = *(a1 + 56);
-  v35 = 0;
-  v13 = [v11 decodeDictionary:v12 error:&v35];
-  v14 = v35;
+  v34 = 0;
+  v13 = [v11 decodeDictionary:v12 error:&v34];
+  v14 = v34;
 
   if (v13)
   {
@@ -247,11 +241,11 @@ void __71__COIDSServiceDirector_service_account_incomingMessage_fromID_context__
       {
         v21 = *(a1 + 32);
         *buf = 138543874;
-        v37 = v21;
-        v38 = 2112;
-        v39 = v9;
-        v40 = 2112;
-        v41 = v10;
+        v36 = v21;
+        v37 = 2112;
+        v38 = v9;
+        v39 = 2112;
+        v40 = v10;
         _os_log_error_impl(&dword_244378000, v20, OS_LOG_TYPE_ERROR, "%{public}@ dropping response '%@' for '%@' from unknown node", buf, 0x20u);
       }
 
@@ -287,9 +281,9 @@ LABEL_18:
           {
             v29 = *(a1 + 32);
             *buf = 138543618;
-            v37 = v29;
-            v38 = 2112;
-            v39 = v9;
+            v36 = v29;
+            v37 = 2112;
+            v38 = v9;
             _os_log_impl(&dword_244378000, log, OS_LOG_TYPE_DEFAULT, "%{public}@ received message '%@' from unknown node. Attempting to create node on demand.", buf, 0x16u);
           }
 
@@ -301,13 +295,13 @@ LABEL_18:
           v28 = COCoreLogForCategory(17);
           if (os_log_type_enabled(&v28->super.super, OS_LOG_TYPE_ERROR))
           {
-            v33 = *(a1 + 32);
+            v32 = *(a1 + 32);
             *buf = 138543874;
-            v37 = v33;
-            v38 = 2112;
-            v39 = v9;
-            v40 = 2114;
-            v41 = v20;
+            v36 = v32;
+            v37 = 2112;
+            v38 = v9;
+            v39 = 2114;
+            v40 = v20;
             _os_log_error_impl(&dword_244378000, &v28->super.super, OS_LOG_TYPE_ERROR, "%{public}@ dropping message '%@' from unknown node. IDS identifier = %{public}@", buf, 0x20u);
           }
         }
@@ -325,14 +319,14 @@ LABEL_18:
   v15 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v31 = [*(a1 + 32) description];
-    v32 = *(a1 + 40);
+    v30 = [*(a1 + 32) description];
+    v31 = *(a1 + 40);
     *buf = 138543874;
-    v37 = v31;
-    v38 = 2114;
-    v39 = v32;
-    v40 = 2114;
-    v41 = v14;
+    v36 = v30;
+    v37 = 2114;
+    v38 = v31;
+    v39 = 2114;
+    v40 = v14;
     _os_log_error_impl(&dword_244378000, v15, OS_LOG_TYPE_ERROR, "%{public}@ received invalid message from %{public}@: %{public}@", buf, 0x20u);
   }
 
@@ -344,7 +338,6 @@ LABEL_18:
   [v18 sendResponse:v19 responseIdentifier:v9 toDestination:*(a1 + 40)];
 
 LABEL_27:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withLock:(id)lock

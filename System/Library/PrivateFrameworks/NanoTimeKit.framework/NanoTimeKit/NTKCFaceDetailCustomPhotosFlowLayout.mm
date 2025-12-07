@@ -7,33 +7,33 @@
 
 - (NTKCFaceDetailCustomPhotosFlowLayout)init
 {
-  v10.receiver = self;
-  v10.super_class = NTKCFaceDetailCustomPhotosFlowLayout;
-  v2 = [(UICollectionViewFlowLayout *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = NTKCFaceDetailCustomPhotosFlowLayout;
+  v2 = [(UICollectionViewFlowLayout *)&v12 init];
   v3 = v2;
   if (v2)
   {
-    [(NTKCFaceDetailCustomPhotosFlowLayout *)v2 _setWantsRightToLeftHorizontalMirroringIfNeeded:1];
-    if (NTKCScreenStyle() == -1)
+    v4 = [(NTKCFaceDetailCustomPhotosFlowLayout *)v2 _setWantsRightToLeftHorizontalMirroringIfNeeded:1];
+    if (NTKCScreenStyle(v4, v5) == -1)
     {
-      v6 = 2.0;
+      v8 = 2.0;
     }
 
     else
     {
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen scale];
-      v6 = 2.0 / v5;
+      v8 = 2.0 / v7;
     }
 
-    [(UICollectionViewFlowLayout *)v3 setMinimumInteritemSpacing:v6];
-    [(UICollectionViewFlowLayout *)v3 setMinimumLineSpacing:v6];
+    [(UICollectionViewFlowLayout *)v3 setMinimumInteritemSpacing:v8];
+    [(UICollectionViewFlowLayout *)v3 setMinimumLineSpacing:v8];
     mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen2 bounds];
-    v8 = (CGRectGetWidth(v11) + v6 * -3.0) * 0.25;
+    v10 = (CGRectGetWidth(v13) + v8 * -3.0) * 0.25;
 
-    [(UICollectionViewFlowLayout *)v3 setItemSize:v8, v8];
-    [(UICollectionViewFlowLayout *)v3 setSectionInset:v6, 0.0, v6, 0.0];
+    [(UICollectionViewFlowLayout *)v3 setItemSize:v10, v10];
+    [(UICollectionViewFlowLayout *)v3 setSectionInset:v8, 0.0, v8, 0.0];
   }
 
   return v3;

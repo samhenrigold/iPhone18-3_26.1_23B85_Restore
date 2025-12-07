@@ -5,6 +5,7 @@
 - (RWIProtocolDebuggerScope)initWithObject:(id)object type:(int64_t)type;
 - (RWIProtocolRuntimeRemoteObject)object;
 - (int64_t)type;
+- (void)setEmpty:(BOOL)empty;
 - (void)setLocation:(id)location;
 - (void)setName:(id)name;
 - (void)setObject:(id)object;
@@ -52,7 +53,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDebuggerScope;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"object"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -198,7 +199,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolDebuggerScope;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"location"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -240,6 +241,13 @@ LABEL_8:
   }
 
   return v7;
+}
+
+- (void)setEmpty:(BOOL)empty
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerScope;
+  [(RWIProtocolJSONObject *)&v3 setBool:empty forKey:@"empty"];
 }
 
 - (BOOL)empty

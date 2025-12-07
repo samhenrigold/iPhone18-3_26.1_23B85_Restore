@@ -3,9 +3,9 @@
 - (_ACPluginDBBundle)initWithPath:(id)path infoPlistModDate:(double)date rsrcModDate:(double)modDate;
 - (__n128)scanWithPriority:loadable:infoPlistPath:;
 - (id).cxx_construct;
-- (uint64_t)scanWithPriority:loadable:infoPlistPath:;
 - (void)encodeWithCoder:(id)coder;
 - (void)scanWithPriority:(int)priority loadable:(BOOL)loadable infoPlistPath:(id)path;
+- (void)scanWithPriority:loadable:infoPlistPath:;
 @end
 
 @implementation _ACPluginDBBundle
@@ -21,7 +21,7 @@
 
 - (void)scanWithPriority:(int)priority loadable:(BOOL)loadable infoPlistPath:(id)path
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   priorityCopy = priority;
   loadableCopy = loadable;
@@ -30,9 +30,9 @@
   self->mBundleComponentVector.mSorted = 1;
   v7 = MEMORY[0x1E695DF20];
   v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:0];
-  v26 = 0;
-  v9 = [v7 dictionaryWithContentsOfURL:v8 error:&v26];
-  v10 = v26;
+  v25 = 0;
+  v9 = [v7 dictionaryWithContentsOfURL:v8 error:&v25];
+  v10 = v25;
 
   if (v10)
   {
@@ -46,12 +46,12 @@
     {
       *cf = 136315906;
       *&cf[4] = "AudioComponentPluginScanner.mm";
-      v32 = 1024;
-      v33 = 167;
-      v34 = 2112;
-      v35 = pathCopy;
-      v36 = 2112;
-      v37 = v10;
+      v31 = 1024;
+      v32 = 167;
+      v33 = 2112;
+      v34 = pathCopy;
+      v35 = 2112;
+      v36 = v10;
       _os_log_impl(&dword_18F5DF000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Can't read %@ error: %@", cf, 0x26u);
     }
   }
@@ -67,10 +67,10 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        applesauce::CF::ArrayRef::from_ns(&v25, v12);
+        applesauce::CF::ArrayRef::from_ns(&v24, v12);
         v14 = *cf;
-        *cf = v25;
-        v25 = v14;
+        *cf = v24;
+        v24 = v14;
         if (v14)
         {
           CFRelease(v14);
@@ -83,10 +83,10 @@
         if (objc_opt_isKindOfClass())
         {
           v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v12, 0}];
-          applesauce::CF::ArrayRef::from_ns(&v25, v16);
+          applesauce::CF::ArrayRef::from_ns(&v24, v16);
           v17 = *cf;
-          *cf = v25;
-          v25 = v17;
+          *cf = v24;
+          v24 = v17;
           if (v17)
           {
             CFRelease(v17);
@@ -99,7 +99,7 @@
       if (v18)
       {
         CFRetain(v18);
-        v25 = v19;
+        v24 = v19;
         v20 = CFGetTypeID(v19);
         if (v20 != CFStringGetTypeID())
         {
@@ -110,40 +110,33 @@
 
       else
       {
-        v25 = 0;
+        v24 = 0;
       }
 
       [MEMORY[0x1E696AAE8] bundleWithPath:self->mFullPath];
       executableArchitectures = [objc_claimAutoreleasedReturnValue() executableArchitectures];
-      applesauce::CF::ArrayRef::from_ns(&v24, executableArchitectures);
+      applesauce::CF::ArrayRef::from_ns(&v23, executableArchitectures);
 
-      v30 = 0;
+      v29 = 0;
       operator new();
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)scanWithPriority:loadable:infoPlistPath:
+- (void)scanWithPriority:loadable:infoPlistPath:
 {
   if (*(a2 + 40) != 0)
   {
-    if (**(result + 8) == 1)
+    if (**(self + 8) == 1)
     {
-      v2 = *(result + 24);
-      v3 = **(result + 16);
-      v4 = *(result + 32);
-      APComponent_FromBundle_Loadable::create_shared();
+      v3 = *(self + 24);
+      v4 = **(self + 16);
+      v5 = 0;
+      APComponent_FromBundle_Loadable::create_shared(&v6, v4, v3, &v5, *(self + 32), a2);
     }
 
-    v5 = *(result + 24);
-    v6 = **(result + 16);
-    v7 = *(result + 32);
     operator new();
   }
-
-  return result;
 }
 
 - (__n128)scanWithPriority:loadable:infoPlistPath:

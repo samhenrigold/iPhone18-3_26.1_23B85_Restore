@@ -75,19 +75,17 @@
 
 uint64_t __39__CSToggleButtonStatusLightView_setOn___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 408);
   if (*(a1 + 40))
   {
-    v3 = &OBJC_IVAR___CSToggleButtonStatusLightView__onImage;
+    v1 = &OBJC_IVAR___CSToggleButtonStatusLightView__onImage;
   }
 
   else
   {
-    v3 = &OBJC_IVAR___CSToggleButtonStatusLightView__offImage;
+    v1 = &OBJC_IVAR___CSToggleButtonStatusLightView__offImage;
   }
 
-  return [*(v1 + 408) setImage:*(v1 + *v3)];
+  return [*(*(a1 + 32) + 408) setImage:*(*(a1 + 32) + *v1)];
 }
 
 @end

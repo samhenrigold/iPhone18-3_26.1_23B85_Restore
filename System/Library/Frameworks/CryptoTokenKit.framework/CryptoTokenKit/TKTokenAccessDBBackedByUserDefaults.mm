@@ -72,7 +72,7 @@
 - (void)removeAccessForBundleID:(id)d matchPartial:(BOOL)partial
 {
   partialCopy = partial;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (![dCopy length])
   {
@@ -83,31 +83,31 @@
   allKeys = [dictionaryRepresentation allKeys];
 
   array = [MEMORY[0x1E695DF70] array];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = allKeys;
-  v10 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  v31 = array;
+  v10 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v30 = array;
   if (!v10)
   {
     goto LABEL_31;
   }
 
   v11 = v10;
-  v12 = *v39;
+  v12 = *v38;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v39 != v12)
+      if (*v38 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v38 + 1) + 8 * i);
-      v15 = [v14 rangeOfString:{@", ", v31}];
+      v14 = *(*(&v37 + 1) + 8 * i);
+      v15 = [v14 rangeOfString:{@", ", v30}];
       if (v15)
       {
         v16 = v15 == 0x7FFFFFFFFFFFFFFFLL;
@@ -171,7 +171,7 @@ LABEL_23:
 
         v16 = v21 == 0x7FFFFFFFFFFFFFFFLL;
         dCopy = v20;
-        array = v31;
+        array = v30;
         if (!v16)
         {
           goto LABEL_23;
@@ -183,7 +183,7 @@ LABEL_23:
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v11 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   }
 
   while (v11);
@@ -196,37 +196,37 @@ LABEL_31:
 
     if (v23)
     {
-      [v31 addObject:v22];
+      [v30 addObject:v22];
     }
 
-    array = v31;
+    array = v30;
   }
 
   if ([array count])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v24 = array;
-    v25 = [v24 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          [(NSUserDefaults *)self->_db removeObjectForKey:*(*(&v34 + 1) + 8 * j)];
+          [(NSUserDefaults *)self->_db removeObjectForKey:*(*(&v33 + 1) + 8 * j)];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v26);
@@ -237,7 +237,7 @@ LABEL_31:
       [TKTokenAccessDBBackedByUserDefaults removeAccessForBundleID:matchPartial:];
     }
 
-    array = v32;
+    array = v31;
     v29 = TK_LOG_token_access_registry_log;
     if (os_log_type_enabled(TK_LOG_token_access_registry_log, OS_LOG_TYPE_DEBUG))
     {
@@ -246,37 +246,36 @@ LABEL_31:
   }
 
 LABEL_48:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allStoredBundleIDs
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
   dictionaryRepresentation = [(NSUserDefaults *)self->_db dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = allKeys;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v12 = [v11 rangeOfString:{@", ", v18}];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v12 = [v11 rangeOfString:{@", ", v17}];
         if (v12)
         {
           v13 = v12 == 0x7FFFFFFFFFFFFFFFLL;
@@ -294,14 +293,13 @@ LABEL_48:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v3 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -326,40 +324,38 @@ LABEL_48:
 
 - (void)clearAllAccessRecords
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   dictionaryRepresentation = [(NSUserDefaults *)self->_db dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
 
-  v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(NSUserDefaults *)self->_db removeObjectForKey:*(*(&v10 + 1) + 8 * v8++)];
+        [(NSUserDefaults *)self->_db removeObjectForKey:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_keyRefForRequest:(id)request
@@ -388,11 +384,10 @@ LABEL_48:
 
 - (void)removeAccessForBundleID:(uint64_t)a1 matchPartial:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Removing stored token access for: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Removing stored token access for: %@", &v2, 0xCu);
 }
 
 @end

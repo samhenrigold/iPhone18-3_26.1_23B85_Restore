@@ -197,7 +197,7 @@ uint64_t __55__SBBacklightController__sharedInstanceCreateIfNeeded___block_invok
   }
 
   v19 = [v7 count];
-  v20 = SBLogBacklight();
+  v20 = SBLogBacklight(v19);
   v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
   if (v19)
   {
@@ -308,44 +308,45 @@ LABEL_9:
 
 - (BOOL)shouldTurnOnScreenForBacklightSource:(int64_t)source
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (source <= 0x2F && ((1 << source) & 0x80E7E01122FCLL) != 0 || !+[SBSpuriousScreenUndimmingAssertion isAnyActive])
+  v23 = *MEMORY[0x277D85DE8];
+  if (source <= 0x2F && ((1 << source) & 0x80E7E01122FCLL) != 0 || (v15 = +[SBSpuriousScreenUndimmingAssertion isAnyActive], !v15))
   {
+    v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
     v5 = self->_informers;
-    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v17;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
-          if (([v10 shouldTurnOnScreenForBacklightSource:{source, v14}] & 1) == 0)
+          v10 = *(*(&v16 + 1) + 8 * i);
+          v11 = [v10 shouldTurnOnScreenForBacklightSource:{source, v16}];
+          if ((v11 & 1) == 0)
           {
-            v12 = SBLogBacklight();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = SBLogBacklight(v11);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v19 = v10;
-              _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Should not turn the screen on due to informer: %{public}@", buf, 0xCu);
+              v21 = v10;
+              _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Should not turn the screen on due to informer: %{public}@", buf, 0xCu);
             }
 
             goto LABEL_15;
           }
         }
 
-        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
         if (v7)
         {
           continue;
@@ -355,12 +356,12 @@ LABEL_9:
       }
     }
 
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v5 = SBLogBacklight();
+    v5 = SBLogBacklight(v15);
     if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -368,16 +369,16 @@ LABEL_9:
     }
 
 LABEL_15:
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)_updateHIDUISensorModeForBacklightState:(int64_t)state source:(int64_t)source
 {
   v38 = *MEMORY[0x277D85DE8];
-  v8 = SBLogBacklight();
+  v8 = SBLogBacklight(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if ((state - 1) > 3)
@@ -545,8 +546,7 @@ LABEL_26:
   v49 = [mEMORY[0x277D0AAA0] transitionAssertionWithReason:v19];
 
   v50 = mEMORY[0x277D0AAA0];
-  [mEMORY[0x277D0AAA0] setBacklightLevel:(v17 * 100.0)];
-  v20 = SBLogBacklight();
+  v20 = SBLogBacklight([mEMORY[0x277D0AAA0] setBacklightLevel:(v17 * 100.0)]);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v47 = a2;
@@ -725,28 +725,29 @@ uint64_t __70__SBBacklightController_setBacklightState_source_animated_completio
 {
   requestCopy = request;
   completionCopy = completion;
+  v8 = completionCopy;
   if (self->_backlightCompletion)
   {
-    v8 = SBLogBacklight();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogBacklight(completionCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Calling backlight change completion due to new request", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Calling backlight change completion due to new request", v16, 2u);
     }
 
-    v9 = MEMORY[0x223D6F7F0](self->_backlightCompletion);
+    v10 = MEMORY[0x223D6F7F0](self->_backlightCompletion);
     backlightCompletion = self->_backlightCompletion;
     self->_backlightCompletion = 0;
 
-    v9[2](v9, self->_backlightState);
+    v10[2](v10, self->_backlightState);
   }
 
-  v11 = [completionCopy copy];
-  v12 = self->_backlightCompletion;
-  self->_backlightCompletion = v11;
+  v12 = [v8 copy];
+  v13 = self->_backlightCompletion;
+  self->_backlightCompletion = v12;
 
   blsBacklight = [(SBBacklightControllerContextProviding *)self->_contextProvider blsBacklight];
-  v14 = [blsBacklight performChangeRequest:requestCopy];
+  v15 = [blsBacklight performChangeRequest:requestCopy];
 }
 
 - (void)_startFadeOutAnimationFromLockSource:(int)source
@@ -759,7 +760,7 @@ uint64_t __70__SBBacklightController_setBacklightState_source_animated_completio
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
-  if (![(NSHashTable *)self->_observers containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_observers) & 1) == 0)
   {
     observers = self->_observers;
     if (!observers)
@@ -778,7 +779,7 @@ uint64_t __70__SBBacklightController_setBacklightState_source_animated_completio
 - (void)removeObserver:(id)observer
 {
   observerCopy = observer;
-  if ([(NSHashTable *)self->_observers containsObject:?])
+  if (objc_msgSend_containsObject_(self->_observers))
   {
     [(NSHashTable *)self->_observers removeObject:observerCopy];
   }
@@ -1033,39 +1034,39 @@ uint64_t __70__SBBacklightController_setBacklightState_source_animated_completio
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvent:(id)event
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v7 = SBLogBacklight();
+  v20 = *MEMORY[0x277D85DE8];
+  v7 = SBLogBacklight(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromBLSBacklightState();
     v9 = self->_backlightCompletion != 0;
-    v15 = 138412546;
-    v16 = v8;
-    v17 = 1024;
-    v18 = v9;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Backlight did complete update to state %@ with pending completion: %{BOOL}u", &v15, 0x12u);
+    v16 = 138412546;
+    v17 = v8;
+    v18 = 1024;
+    v19 = v9;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Backlight did complete update to state %@ with pending completion: %{BOOL}u", &v16, 0x12u);
   }
 
   if (self->_backlightCompletion)
   {
-    v10 = SBLogBacklight();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogBacklight(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Calling backlight change completion due to state update", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Calling backlight change completion due to state update", &v16, 2u);
     }
 
-    v11 = MEMORY[0x223D6F7F0](self->_backlightCompletion);
+    v12 = MEMORY[0x223D6F7F0](self->_backlightCompletion);
     backlightCompletion = self->_backlightCompletion;
     self->_backlightCompletion = 0;
 
-    v13 = 0;
+    v14 = 0;
     if (state <= 3)
     {
-      v13 = qword_21F8A8A40[state];
+      v14 = qword_21F8A8A40[state];
     }
 
-    v11[2](v11, v13);
+    v12[2](v12, v14);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1076,7 +1077,7 @@ uint64_t __70__SBBacklightController_setBacklightState_source_animated_completio
 {
   v17 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v8 = SBLogBacklight();
+  v8 = SBLogBacklight(eventCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromBLSBacklightState();

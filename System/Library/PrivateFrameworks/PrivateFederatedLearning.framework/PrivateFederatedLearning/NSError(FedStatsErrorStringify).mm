@@ -6,7 +6,7 @@
 
 - (id)describe
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v3 = MEMORY[0x277CCACA8];
   domain = [self domain];
@@ -16,30 +16,30 @@
   v8 = [v3 stringWithFormat:@"domain = %@, code = %lu, description = %@", domain, code, v7];
   [array addObject:v8];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v10 = [underlyingErrors countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [underlyingErrors countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        describe = [*(*(&v23 + 1) + 8 * i) describe];
+        describe = [*(*(&v22 + 1) + 8 * i) describe];
         [array addObjectsFromArray:describe];
       }
 
-      v11 = [underlyingErrors countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [underlyingErrors countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -81,8 +81,6 @@
 
     while (v15 < [array count]);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return array;
 }

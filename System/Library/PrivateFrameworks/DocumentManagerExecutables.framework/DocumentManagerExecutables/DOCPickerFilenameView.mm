@@ -39,7 +39,7 @@
 - (NSArray)tags
 {
   swift_beginAccess();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag, 0x277D06260);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -48,7 +48,7 @@
 
 - (void)setTags:(id)tags
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCTag, 0x277D06260);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC26DocumentManagerExecutables21DOCPickerFilenameView_tags;
   swift_beginAccess();
@@ -136,14 +136,14 @@
   swift_beginAccess();
   tagCopy = tag;
   selfCopy = self;
-  v9 = specialized MutableCollection._halfStablePartition(isSuffixElement:)((self + v6));
-  v10 = *(self + v6);
-  if (v10 >> 62)
+  v9 = specialized MutableCollection._halfStablePartition(isSuffixElement:)((self + v6), tagCopy);
+  v11 = *(self + v6);
+  if (v11 >> 62)
   {
-    v13 = v9;
-    v11 = __CocoaSet.count.getter();
-    v9 = v13;
-    if (v11 >= v13)
+    v14 = v9;
+    v12 = __CocoaSet.count.getter();
+    v9 = v14;
+    if (v12 >= v14)
     {
       goto LABEL_3;
     }
@@ -151,14 +151,14 @@
 
   else
   {
-    v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v11 >= v9)
+    v12 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v12 >= v9)
     {
 LABEL_3:
-      specialized Array.replaceSubrange<A>(_:with:)(v9, v11);
+      specialized Array.replaceSubrange<A>(_:with:)(v9, v10, v12);
       swift_endAccess();
-      v12 = DOCPickerFilenameView.tagButton.getter();
-      [v12 setNeedsUpdateConfiguration];
+      v13 = DOCPickerFilenameView.tagButton.getter();
+      [v13 setNeedsUpdateConfiguration];
 
       return;
     }

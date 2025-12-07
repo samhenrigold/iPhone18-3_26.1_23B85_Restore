@@ -6,6 +6,7 @@
 - (void)_removeSpecifierAtIndexPath:(id)path;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -38,6 +39,22 @@
 
   title = [v4 title];
   [(MusicUsageArtistDetailController *)self setTitle:title];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = MusicUsageArtistDetailController;
+  [(MusicUsageArtistDetailController *)&v9 viewDidAppear:appear];
+  specifier = [(MusicUsageArtistDetailController *)self specifier];
+  v5 = [specifier propertyForKey:@"MusicUsageItemPropertyKey"];
+
+  childUsageGroup = [v5 childUsageGroup];
+  if (![childUsageGroup numberOfUsageItems])
+  {
+    navigationController = [(MusicUsageArtistDetailController *)self navigationController];
+    v8 = [navigationController popViewControllerAnimated:1];
+  }
 }
 
 - (id)specifiers

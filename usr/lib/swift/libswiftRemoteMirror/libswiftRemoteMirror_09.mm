@@ -1,4 +1,4 @@
-std::string *swift::Demangle::__runtime::NodePrinter::printChildren(std::string *this, swift::Demangle::__runtime::Node **a2, int a3, const char *a4)
+uint64_t swift::Demangle::__runtime::NodePrinter::printChildren(uint64_t this, swift::Demangle::__runtime::Node **a2, int a3, const char *a4)
 {
   if (!a2)
   {
@@ -42,7 +42,7 @@ LABEL_17:
   while (v8 != v10)
   {
     v11 = *v8++;
-    this = swift::Demangle::__runtime::NodePrinter::print(v6, v11, a3 + 1, 0);
+    this = swift::Demangle::__runtime::NodePrinter::print(v6, v11, (a3 + 1), 0);
     if (a4)
     {
       if (v8 != v10)
@@ -121,7 +121,7 @@ std::string *swift::Demangle::__runtime::NodePrinter::printBoundGenericNoSugar(s
   }
 
   v6 = *(a2 + 1);
-  swift::Demangle::__runtime::NodePrinter::print(this, *a2, a3 + 1, 0);
+  swift::Demangle::__runtime::NodePrinter::print(this, *a2, (a3 + 1), 0);
   std::string::append(&v4->__r_.__value_.__r.__words[1], "<", 1uLL);
   if (v6)
   {
@@ -169,12 +169,12 @@ LABEL_15:
 LABEL_22:
         v12 = *v8;
         v11 = v8 + 1;
-        swift::Demangle::__runtime::NodePrinter::print(v4, v12, a3 + 1, 0);
+        swift::Demangle::__runtime::NodePrinter::print(v4, v12, (a3 + 1), 0);
         while (v11 != v10)
         {
           std::string::append(&v4->__r_.__value_.__r.__words[1], ", ", 2uLL);
           v13 = *v11++;
-          swift::Demangle::__runtime::NodePrinter::print(v4, v13, a3 + 1, 0);
+          swift::Demangle::__runtime::NodePrinter::print(v4, v13, (a3 + 1), 0);
         }
 
         goto LABEL_24;
@@ -284,7 +284,7 @@ LABEL_27:
   return v8 & 1;
 }
 
-BOOL swift::Demangle::__runtime::NodePrinter::isSimpleType(swift::Demangle::__runtime::NodePrinter *this, swift::Demangle::__runtime::Node *a2)
+uint64_t swift::Demangle::__runtime::NodePrinter::isSimpleType(swift::Demangle::__runtime::NodePrinter *this, swift::Demangle::__runtime::Node *a2)
 {
   while (2)
   {
@@ -775,13 +775,13 @@ std::string *swift::Demangle::__runtime::NodePrinter::printWithParens(swift::Dem
   if (swift::Demangle::__runtime::NodePrinter::isSimpleType(this, a2))
   {
 
-    return swift::Demangle::__runtime::NodePrinter::print(this, a2, a3 + 1, 0);
+    return swift::Demangle::__runtime::NodePrinter::print(this, a2, (a3 + 1), 0);
   }
 
   else
   {
     std::string::append((this + 8), "(", 1uLL);
-    swift::Demangle::__runtime::NodePrinter::print(this, a2, a3 + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(this, a2, (a3 + 1), 0);
 
     return std::string::append((this + 8), ")", 1uLL);
   }
@@ -1293,7 +1293,7 @@ LABEL_46:
           v25 = *v18;
 LABEL_64:
           std::string::append(&v4->__r_.__value_.__r.__words[1], "[", 1uLL);
-          v29 = a3 + 1;
+          v29 = (a3 + 1);
           v30 = v4;
           v31 = v25;
 LABEL_78:
@@ -1346,9 +1346,9 @@ LABEL_71:
                 v34 = v32[1];
 LABEL_77:
                 std::string::append(&v4->__r_.__value_.__r.__words[1], "[", 1uLL);
-                swift::Demangle::__runtime::NodePrinter::print(v4, v27, a3 + 1, 0);
+                swift::Demangle::__runtime::NodePrinter::print(v4, v27, (a3 + 1), 0);
                 std::string::append(&v4->__r_.__value_.__r.__words[1], " : ", 3uLL);
-                v29 = a3 + 1;
+                v29 = (a3 + 1);
                 v30 = v4;
                 v31 = v34;
                 goto LABEL_78;
@@ -1426,7 +1426,7 @@ LABEL_86:
     while (v12 != v28)
     {
       v35 = *v12++;
-      swift::Demangle::__runtime::NodePrinter::print(v4, v35, a3 + 1, 0);
+      swift::Demangle::__runtime::NodePrinter::print(v4, v35, (a3 + 1), 0);
     }
   }
 
@@ -1447,7 +1447,7 @@ LABEL_87:
   v37 = *v8;
 LABEL_93:
 
-  return swift::Demangle::__runtime::NodePrinter::print(v4, v37, a3 + 1, 0);
+  return swift::Demangle::__runtime::NodePrinter::print(v4, v37, (a3 + 1), 0);
 }
 
 uint64_t swift::Demangle::__runtime::NodePrinter::getChildIf(uint64_t a1, uint64_t *a2, int a3)
@@ -1847,7 +1847,7 @@ LABEL_38:
 LABEL_42:
   v21 = 0;
 LABEL_43:
-  swift::Demangle::__runtime::NodePrinter::print(v7, v21, a4 + 1, 0);
+  swift::Demangle::__runtime::NodePrinter::print(v7, v21, (a4 + 1), 0);
   v15 = (v15 + 1);
   LODWORD(v11) = *(v5 + 18);
 LABEL_44:
@@ -1964,7 +1964,7 @@ LABEL_69:
 LABEL_73:
   v30 = 0;
 LABEL_74:
-  swift::Demangle::__runtime::NodePrinter::print(v7, v30, a4 + 1, 0);
+  swift::Demangle::__runtime::NodePrinter::print(v7, v30, (a4 + 1), 0);
   v15 = (v15 + 1);
   LODWORD(v11) = *(v5 + 18);
 LABEL_75:
@@ -2143,7 +2143,7 @@ LABEL_104:
 LABEL_120:
   if (v26)
   {
-    swift::Demangle::__runtime::NodePrinter::print(v7, v26, a4 + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(v7, v26, (a4 + 1), 0);
   }
 
   if (v41 == 68)
@@ -2199,7 +2199,7 @@ LABEL_134:
 
   if (v38)
   {
-    swift::Demangle::__runtime::NodePrinter::print(v7, v38, a4 + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(v7, v38, (a4 + 1), 0);
   }
 
   std::string::append((v7 + 8), " -> ", 4uLL);
@@ -2237,12 +2237,12 @@ LABEL_134:
     }
 
     v56 = *(v5 + v55);
-    return swift::Demangle::__runtime::NodePrinter::print(v7, v56, a4 + 1, 0);
+    return swift::Demangle::__runtime::NodePrinter::print(v7, v56, (a4 + 1), 0);
   }
 
 LABEL_150:
   v56 = 0;
-  return swift::Demangle::__runtime::NodePrinter::print(v7, v56, a4 + 1, 0);
+  return swift::Demangle::__runtime::NodePrinter::print(v7, v56, (a4 + 1), 0);
 }
 
 std::string *swift::Demangle::__runtime::NodePrinter::printFunctionType(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::Node *,unsigned int)::$_0::operator()(uint64_t *a1, const char *a2)
@@ -2273,7 +2273,7 @@ std::string *swift::Demangle::__runtime::NodePrinter::printFunctionType(swift::D
     v8 = *(v7 + 18);
     if ((v8 - 1) >= 2)
     {
-      if (v8 != 5 || !*(v7 + 2))
+      if (v8 != 5 || !*(v7 + 8))
       {
         v9 = 0;
         goto LABEL_13;
@@ -2284,7 +2284,7 @@ std::string *swift::Demangle::__runtime::NodePrinter::printFunctionType(swift::D
 
     v9 = *v7;
 LABEL_13:
-    swift::Demangle::__runtime::NodePrinter::print(v4, v9, *(a1 + 4) + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(v4, v9, (*(a1 + 4) + 1), 0);
     std::string::push_back((v4 + 8), 34);
   }
 
@@ -2367,7 +2367,7 @@ LABEL_14:
           if (v9 != 123)
           {
 LABEL_31:
-            swift::Demangle::__runtime::NodePrinter::print(this, *v5, v32 + 1, 0);
+            swift::Demangle::__runtime::NodePrinter::print(this, *v5, (v32 + 1), 0);
             std::string::push_back((this + 8), 32);
             goto LABEL_16;
           }
@@ -2396,7 +2396,7 @@ LABEL_31:
           v10 = 2;
 LABEL_28:
           swift::Demangle::__runtime::NodePrinter::printImplFunctionType(swift::Demangle::__runtime::Node *,unsigned int)::$_0::operator()(v28, v10);
-          swift::Demangle::__runtime::NodePrinter::print(this, *v5, v32 + 1, 0);
+          swift::Demangle::__runtime::NodePrinter::print(this, *v5, (v32 + 1), 0);
           goto LABEL_16;
         }
 
@@ -2479,7 +2479,7 @@ LABEL_53:
         do
         {
           v19 = *v15++;
-          swift::Demangle::__runtime::NodePrinter::print(this, v19, v18 + 1, 0);
+          swift::Demangle::__runtime::NodePrinter::print(this, v19, (v18 + 1), 0);
         }
 
         while (v15 != v17);
@@ -2549,7 +2549,7 @@ LABEL_75:
       do
       {
         v27 = *v23++;
-        swift::Demangle::__runtime::NodePrinter::print(this, v27, v26 + 1, 0);
+        swift::Demangle::__runtime::NodePrinter::print(this, v27, (v26 + 1), 0);
       }
 
       while (v23 != v25);
@@ -2584,7 +2584,7 @@ void swift::Demangle::__runtime::NodePrinter::printImplFunctionType(swift::Deman
         v8 = *a1[4];
         if (v8)
         {
-          swift::Demangle::__runtime::NodePrinter::print(v5, v8, *a1[3] + 1, 0);
+          swift::Demangle::__runtime::NodePrinter::print(v5, v8, (*a1[3] + 1), 0);
           std::string::append((v5 + 2), " ", 1uLL);
         }
 
@@ -2623,7 +2623,7 @@ LABEL_9:
 
     v7 = *v6;
 LABEL_7:
-    swift::Demangle::__runtime::NodePrinter::print(v5, v7, *a1[3] + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(v5, v7, (*a1[3] + 1), 0);
     std::string::push_back((v5 + 2), 32);
     goto LABEL_8;
   }
@@ -3238,13 +3238,12 @@ LABEL_136:
     goto LABEL_45;
   }
 
-  v62 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializationParams(v62, v63, v64);
 }
 
-std::string *swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializationParams(std::string *this, swift::Demangle::__runtime::Node *a2, int a3)
+void swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializationParams(swift::Demangle::__runtime::NodePrinter *this, swift::Demangle::__runtime::Node *a2, int a3)
 {
-  v5 = this;
   v6 = *(a2 + 18);
   if (v6 != 1)
   {
@@ -3253,13 +3252,13 @@ std::string *swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializa
       v6 = *(a2 + 2);
       if (!v6)
       {
-        return this;
+        return;
       }
     }
 
     else if (v6 != 2)
     {
-      return this;
+      return;
     }
   }
 
@@ -3308,10 +3307,10 @@ std::string *swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializa
         LODWORD(v7) = v7 + 4;
         if (v12 + 4 > v6)
         {
-          return this;
+          return;
         }
 
-        std::string::append((v5 + 8), "[", 1uLL);
+        std::string::append((this + 8), "[", 1uLL);
         v20 = *(a2 + 18);
         v21 = v20 - 1;
         switch(v20)
@@ -3320,14 +3319,14 @@ std::string *swift::Demangle::__runtime::NodePrinter::printFunctionSigSpecializa
 LABEL_42:
             if (v20 <= v12)
             {
-              goto LABEL_95;
+              goto LABEL_93;
             }
 
             break;
           case 5:
             if (*(a2 + 2) <= v12)
             {
-              goto LABEL_95;
+              goto LABEL_93;
             }
 
             break;
@@ -3335,46 +3334,83 @@ LABEL_42:
             v20 = 2;
             goto LABEL_42;
           default:
-LABEL_95:
+LABEL_93:
             v23 = 0;
-LABEL_96:
-            swift::Demangle::__runtime::NodePrinter::print(v5, v23, a3 + 1, 0);
-            std::string::append((v5 + 8), " : ", 3uLL);
-            v46 = *(a2 + 18);
-            if (v46 != 2)
+LABEL_94:
+            swift::Demangle::__runtime::NodePrinter::print(this, v23, (a3 + 1), 0);
+            std::string::append((this + 8), " : ", 3uLL);
+            v41 = *(a2 + 18);
+            if (v41 != 2)
             {
-              if (v46 == 5)
+              if (v41 == 5)
               {
-                v47 = *(a2 + 2);
-                goto LABEL_100;
+                v42 = *(a2 + 2);
+                goto LABEL_98;
               }
 
-              goto LABEL_104;
+              goto LABEL_102;
             }
 
-            v47 = *(a2 + 18);
-LABEL_100:
-            v48 = (v12 + 1);
-            if (v47 <= v48)
+            v42 = *(a2 + 18);
+LABEL_98:
+            v43 = (v12 + 1);
+            if (v42 <= v43)
             {
-LABEL_104:
-              v51 = 0;
+LABEL_102:
+              v46 = 0;
             }
 
             else
             {
-              v49 = v46 - 1;
-              v50 = a2;
-              if (v49 >= 2)
+              v44 = v41 - 1;
+              v45 = a2;
+              if (v44 >= 2)
               {
-                v50 = *a2;
+                v45 = *a2;
               }
 
-              v51 = *(v50 + v48);
+              v46 = *(v45 + v43);
             }
 
-            swift::Demangle::__runtime::NodePrinter::print(v5, v51, a3 + 1, 0);
-            std::string::append((v5 + 8), "<", 1uLL);
+            swift::Demangle::__runtime::NodePrinter::print(this, v46, (a3 + 1), 0);
+            std::string::append((this + 8), "<", 1uLL);
+            v47 = *(a2 + 18);
+            v48 = v47 - 1;
+            if (v47 != 1)
+            {
+              if (v47 != 5)
+              {
+                if (v47 == 2)
+                {
+                  v47 = 2;
+                  goto LABEL_108;
+                }
+
+LABEL_112:
+                v51 = 0;
+                goto LABEL_113;
+              }
+
+              v47 = *(a2 + 2);
+            }
+
+LABEL_108:
+            v49 = (v12 + 2);
+            if (v47 <= v49)
+            {
+              goto LABEL_112;
+            }
+
+            v50 = a2;
+            if (v48 >= 2)
+            {
+              v50 = *a2;
+            }
+
+            v51 = *(v50 + v49);
+LABEL_113:
+            swift::Demangle::__runtime::NodePrinter::print(this, v51, (a3 + 1), 0);
+            std::string::append((this + 8), ",", 1uLL);
             v52 = *(a2 + 18);
             v53 = v52 - 1;
             if (v52 != 1)
@@ -3384,22 +3420,22 @@ LABEL_104:
                 if (v52 == 2)
                 {
                   v52 = 2;
-                  goto LABEL_110;
+                  goto LABEL_118;
                 }
 
-LABEL_114:
+LABEL_122:
                 v56 = 0;
-                goto LABEL_115;
+                goto LABEL_123;
               }
 
               v52 = *(a2 + 2);
             }
 
-LABEL_110:
-            v54 = (v12 + 2);
+LABEL_118:
+            v54 = (v12 + 3);
             if (v52 <= v54)
             {
-              goto LABEL_114;
+              goto LABEL_122;
             }
 
             v55 = a2;
@@ -3409,46 +3445,9 @@ LABEL_110:
             }
 
             v56 = *(v55 + v54);
-LABEL_115:
-            swift::Demangle::__runtime::NodePrinter::print(v5, v56, a3 + 1, 0);
-            std::string::append((v5 + 8), ",", 1uLL);
-            v57 = *(a2 + 18);
-            v58 = v57 - 1;
-            if (v57 != 1)
-            {
-              if (v57 != 5)
-              {
-                if (v57 == 2)
-                {
-                  v57 = 2;
-                  goto LABEL_120;
-                }
-
-LABEL_124:
-                v61 = 0;
-                goto LABEL_125;
-              }
-
-              v57 = *(a2 + 2);
-            }
-
-LABEL_120:
-            v59 = (v12 + 3);
-            if (v57 <= v59)
-            {
-              goto LABEL_124;
-            }
-
-            v60 = a2;
-            if (v58 >= 2)
-            {
-              v60 = *a2;
-            }
-
-            v61 = *(v60 + v59);
-LABEL_125:
-            swift::Demangle::__runtime::NodePrinter::print(v5, v61, a3 + 1, 0);
-            this = std::string::append((v5 + 8), ">]", 2uLL);
+LABEL_123:
+            swift::Demangle::__runtime::NodePrinter::print(this, v56, (a3 + 1), 0);
+            std::string::append((this + 8), ">]", 2uLL);
             goto LABEL_10;
         }
 
@@ -3459,7 +3458,7 @@ LABEL_125:
         }
 
         v23 = *(v22 + v12);
-        goto LABEL_96;
+        goto LABEL_94;
       }
 
 LABEL_65:
@@ -3474,7 +3473,7 @@ LABEL_68:
             v19 = 0;
 LABEL_69:
             LODWORD(v7) = v7 + 1;
-            this = swift::Demangle::__runtime::NodePrinter::print(v5, v19, a3 + 1, 0);
+            swift::Demangle::__runtime::NodePrinter::print(this, v19, (a3 + 1), 0);
             goto LABEL_10;
           }
 
@@ -3510,10 +3509,10 @@ LABEL_31:
     v7 = (v7 + 2);
     if (v7 > v6)
     {
-      return this;
+      return;
     }
 
-    std::string::append((v5 + 8), "[", 1uLL);
+    std::string::append((this + 8), "[", 1uLL);
     v32 = *(a2 + 18);
     v33 = v32 - 1;
     if (v32 == 1)
@@ -3525,14 +3524,14 @@ LABEL_31:
     {
       if (v32 != 2)
       {
-        goto LABEL_127;
+        goto LABEL_125;
       }
 
       v32 = 2;
 LABEL_75:
       if (v32 <= v12)
       {
-        goto LABEL_127;
+        goto LABEL_125;
       }
 
       goto LABEL_76;
@@ -3540,9 +3539,9 @@ LABEL_75:
 
     if (*(a2 + 2) <= v12)
     {
-LABEL_127:
+LABEL_125:
       v35 = 0;
-      goto LABEL_128;
+      goto LABEL_126;
     }
 
 LABEL_76:
@@ -3553,86 +3552,86 @@ LABEL_76:
     }
 
     v35 = *(v34 + v12);
-LABEL_128:
-    swift::Demangle::__runtime::NodePrinter::print(v5, v35, a3 + 1, 0);
-    std::string::append((v5 + 8), " : ", 3uLL);
-    v62 = *(a2 + 18);
-    if (v62 == 2)
+LABEL_126:
+    swift::Demangle::__runtime::NodePrinter::print(this, v35, (a3 + 1), 0);
+    std::string::append((this + 8), " : ", 3uLL);
+    v57 = *(a2 + 18);
+    if (v57 == 2)
     {
-      v63 = *(a2 + 18);
+      v58 = *(a2 + 18);
     }
 
     else
     {
-      if (v62 != 5)
+      if (v57 != 5)
       {
-        goto LABEL_136;
+        goto LABEL_134;
       }
 
-      v63 = *(a2 + 2);
+      v58 = *(a2 + 2);
     }
 
-    v64 = (v12 + 1);
-    if (v63 > v64)
+    v59 = (v12 + 1);
+    if (v58 > v59)
     {
-      v65 = v62 - 1;
-      v66 = a2;
-      if (v65 >= 2)
+      v60 = v57 - 1;
+      v61 = a2;
+      if (v60 >= 2)
       {
-        v66 = *a2;
+        v61 = *a2;
       }
 
-      v67 = *(v66 + v64);
-      goto LABEL_137;
+      v62 = *(v61 + v59);
+      goto LABEL_135;
     }
 
-LABEL_136:
-    v67 = 0;
-LABEL_137:
-    swift::Demangle::__runtime::NodePrinter::print(v5, v67, a3 + 1, 0);
-    std::string::append((v5 + 8), ", Argument Types : [", 0x14uLL);
-    v68 = *(a2 + 18);
-    switch(v68)
+LABEL_134:
+    v62 = 0;
+LABEL_135:
+    swift::Demangle::__runtime::NodePrinter::print(this, v62, (a3 + 1), 0);
+    std::string::append((this + 8), ", Argument Types : [", 0x14uLL);
+    v63 = *(a2 + 18);
+    switch(v63)
     {
       case 1u:
-        goto LABEL_140;
+        goto LABEL_138;
       case 5u:
-        v68 = *(a2 + 2);
-        if (v7 < v68)
+        v63 = *(a2 + 2);
+        if (v7 < v63)
         {
           while (1)
           {
-LABEL_145:
-            v69 = a2;
+LABEL_143:
+            v64 = a2;
             if (*(a2 + 18) - 1 >= 2)
             {
-              v69 = *a2;
+              v64 = *a2;
             }
 
-            v70 = *(v69 + v7);
-            if (*(v70 + 8) != 243)
+            v65 = *(v64 + v7);
+            if (*(v65 + 8) != 243)
             {
               break;
             }
 
-            swift::Demangle::__runtime::NodePrinter::print(v5, v70, a3 + 1, 0);
-            if (v7 + 1 < v68)
+            swift::Demangle::__runtime::NodePrinter::print(this, v65, (a3 + 1), 0);
+            if (v7 + 1 < v63)
             {
-              v71 = a2;
+              v66 = a2;
               if (*(a2 + 18) - 1 >= 2)
               {
-                v71 = *a2;
+                v66 = *a2;
               }
 
-              if (*(*(v71 + (v7 + 1)) + 18) == 3)
+              if (*(*(v66 + (v7 + 1)) + 18) == 3)
               {
-                std::string::append((v5 + 8), ", ", 2uLL);
+                std::string::append((this + 8), ", ", 2uLL);
               }
             }
 
-            if (v68 == ++v7)
+            if (v63 == ++v7)
             {
-              LODWORD(v7) = v68;
+              LODWORD(v7) = v63;
               goto LABEL_9;
             }
           }
@@ -3640,21 +3639,21 @@ LABEL_145:
 
         break;
       case 2u:
-LABEL_140:
-        if (v7 < v68)
+LABEL_138:
+        if (v7 < v63)
         {
-          goto LABEL_145;
+          goto LABEL_143;
         }
 
         break;
     }
 
 LABEL_9:
-    this = std::string::append((v5 + 8), "]", 1uLL);
+    std::string::append((this + 8), "]", 1uLL);
 LABEL_10:
     if (v7 >= v6)
     {
-      return this;
+      return;
     }
   }
 
@@ -3670,10 +3669,10 @@ LABEL_10:
       LODWORD(v7) = v7 + 3;
       if (v12 + 3 > v6)
       {
-        return this;
+        return;
       }
 
-      std::string::append((v5 + 8), "[", 1uLL);
+      std::string::append((this + 8), "[", 1uLL);
       v28 = *(a2 + 18);
       v29 = v28 - 1;
       switch(v28)
@@ -3682,14 +3681,14 @@ LABEL_10:
 LABEL_61:
           if (v28 <= v12)
           {
-            goto LABEL_154;
+            goto LABEL_152;
           }
 
           break;
         case 5:
           if (*(a2 + 2) <= v12)
           {
-            goto LABEL_154;
+            goto LABEL_152;
           }
 
           break;
@@ -3697,83 +3696,83 @@ LABEL_61:
           v28 = 2;
           goto LABEL_61;
         default:
-LABEL_154:
+LABEL_152:
           v31 = 0;
-LABEL_155:
-          swift::Demangle::__runtime::NodePrinter::print(v5, v31, a3 + 1, 0);
-          std::string::append((v5 + 8), " : ", 3uLL);
-          v72 = *(a2 + 18);
-          if (v72 != 2)
+LABEL_153:
+          swift::Demangle::__runtime::NodePrinter::print(this, v31, (a3 + 1), 0);
+          std::string::append((this + 8), " : ", 3uLL);
+          v67 = *(a2 + 18);
+          if (v67 != 2)
           {
-            if (v72 == 5)
+            if (v67 == 5)
             {
-              v73 = *(a2 + 2);
-              goto LABEL_159;
+              v68 = *(a2 + 2);
+              goto LABEL_157;
             }
 
-            goto LABEL_163;
+            goto LABEL_161;
           }
 
-          v73 = *(a2 + 18);
-LABEL_159:
-          v74 = (v12 + 1);
-          if (v73 <= v74)
+          v68 = *(a2 + 18);
+LABEL_157:
+          v69 = (v12 + 1);
+          if (v68 <= v69)
           {
-LABEL_163:
-            v77 = 0;
+LABEL_161:
+            v72 = 0;
           }
 
           else
           {
-            v75 = v72 - 1;
-            v76 = a2;
-            if (v75 >= 2)
+            v70 = v67 - 1;
+            v71 = a2;
+            if (v70 >= 2)
             {
-              v76 = *a2;
+              v71 = *a2;
             }
 
-            v77 = *(v76 + v74);
+            v72 = *(v71 + v69);
           }
 
-          swift::Demangle::__runtime::NodePrinter::print(v5, v77, a3 + 1, 0);
-          std::string::append((v5 + 8), "'", 1uLL);
-          v78 = *(a2 + 18);
-          v79 = v78 - 1;
-          if (v78 != 1)
+          swift::Demangle::__runtime::NodePrinter::print(this, v72, (a3 + 1), 0);
+          std::string::append((this + 8), "'", 1uLL);
+          v73 = *(a2 + 18);
+          v74 = v73 - 1;
+          if (v73 != 1)
           {
-            if (v78 != 5)
+            if (v73 != 5)
             {
-              if (v78 == 2)
+              if (v73 == 2)
               {
-                v78 = 2;
-                goto LABEL_169;
+                v73 = 2;
+                goto LABEL_167;
               }
 
-LABEL_173:
-              v82 = 0;
-              goto LABEL_174;
+LABEL_171:
+              v77 = 0;
+              goto LABEL_172;
             }
 
-            v78 = *(a2 + 2);
+            v73 = *(a2 + 2);
           }
 
-LABEL_169:
-          v80 = (v12 + 2);
-          if (v78 <= v80)
+LABEL_167:
+          v75 = (v12 + 2);
+          if (v73 <= v75)
           {
-            goto LABEL_173;
+            goto LABEL_171;
           }
 
-          v81 = a2;
-          if (v79 >= 2)
+          v76 = a2;
+          if (v74 >= 2)
           {
-            v81 = *a2;
+            v76 = *a2;
           }
 
-          v82 = *(v81 + v80);
-LABEL_174:
-          swift::Demangle::__runtime::NodePrinter::print(v5, v82, a3 + 1, 0);
-          std::string::append((v5 + 8), "'", 1uLL);
+          v77 = *(v76 + v75);
+LABEL_172:
+          swift::Demangle::__runtime::NodePrinter::print(this, v77, (a3 + 1), 0);
+          std::string::append((this + 8), "'", 1uLL);
           goto LABEL_9;
       }
 
@@ -3784,16 +3783,16 @@ LABEL_174:
       }
 
       v31 = *(v30 + v12);
-      goto LABEL_155;
+      goto LABEL_153;
     }
 
     LODWORD(v7) = v7 + 2;
     if (v12 + 2 > v6)
     {
-      return this;
+      return;
     }
 
-    std::string::append((v5 + 8), "[", 1uLL);
+    std::string::append((this + 8), "[", 1uLL);
     v14 = *(a2 + 18);
     v15 = v14 - 1;
     switch(v14)
@@ -3802,14 +3801,14 @@ LABEL_174:
 LABEL_22:
         if (v14 <= v12)
         {
-          goto LABEL_85;
+          goto LABEL_83;
         }
 
         break;
       case 5:
         if (*(a2 + 2) <= v12)
         {
-          goto LABEL_85;
+          goto LABEL_83;
         }
 
         break;
@@ -3817,27 +3816,27 @@ LABEL_22:
         v14 = 2;
         goto LABEL_22;
       default:
-LABEL_85:
+LABEL_83:
         v17 = 0;
-LABEL_86:
-        swift::Demangle::__runtime::NodePrinter::print(v5, v17, a3 + 1, 0);
-        std::string::append((v5 + 8), " : ", 3uLL);
-        v41 = *(a2 + 18);
-        if (v41 != 2)
+LABEL_84:
+        swift::Demangle::__runtime::NodePrinter::print(this, v17, (a3 + 1), 0);
+        std::string::append((this + 8), " : ", 3uLL);
+        v36 = *(a2 + 18);
+        if (v36 != 2)
         {
-          if (v41 == 5)
+          if (v36 == 5)
           {
-            v42 = *(a2 + 2);
-            goto LABEL_90;
+            v37 = *(a2 + 2);
+            goto LABEL_88;
           }
 
           goto LABEL_7;
         }
 
-        v42 = *(a2 + 18);
-LABEL_90:
-        v43 = (v12 + 1);
-        if (v42 <= v43)
+        v37 = *(a2 + 18);
+LABEL_88:
+        v38 = (v12 + 1);
+        if (v37 <= v38)
         {
 LABEL_7:
           v8 = 0;
@@ -3845,17 +3844,17 @@ LABEL_7:
 
         else
         {
-          v44 = v41 - 1;
-          v45 = a2;
-          if (v44 >= 2)
+          v39 = v36 - 1;
+          v40 = a2;
+          if (v39 >= 2)
           {
-            v45 = *a2;
+            v40 = *a2;
           }
 
-          v8 = *(v45 + v43);
+          v8 = *(v40 + v38);
         }
 
-        swift::Demangle::__runtime::NodePrinter::print(v5, v8, a3 + 1, 0);
+        swift::Demangle::__runtime::NodePrinter::print(this, v8, (a3 + 1), 0);
         goto LABEL_9;
     }
 
@@ -3866,12 +3865,12 @@ LABEL_7:
     }
 
     v17 = *(v16 + v12);
-    goto LABEL_86;
+    goto LABEL_84;
   }
 
   if (v7 + 2 <= v6)
   {
-    std::string::append((v5 + 8), "[", 1uLL);
+    std::string::append((this + 8), "[", 1uLL);
     v24 = *(a2 + 18);
     v25 = v24 - 1;
     switch(v24)
@@ -3899,31 +3898,12 @@ LABEL_52:
 
           v27 = *(v26 + v7);
 LABEL_81:
-          swift::Demangle::__runtime::NodePrinter::print(v5, v27, a3 + 1, 0);
-          std::string::append((v5 + 8), " : ", 3uLL);
-          v37 = a2;
-          if (*(a2 + 18) - 1 >= 2)
-          {
-            v37 = *a2;
-          }
-
-          v38 = *(v37 + (v7 + 1));
-          v39 = *v38;
-          v40 = *(v38 + 8);
-          v83 = 0;
-          v84 = 0x101010101010101;
-          v85 = 1;
-          v86 = 0;
-          v87 = 16843009;
-          v88 = 1;
-          v89 = 256;
-          v90 = 1;
-          v91 = 0;
-          v92 = 0;
-          v93[0] = off_E0BC8;
-          v93[1] = swift::Demangle::__runtime::genericParameterName;
-          v93[3] = v93;
-          swift::Demangle::__runtime::demangleSymbolAsString(v39, v40, &v83, v36);
+          swift::Demangle::__runtime::NodePrinter::print(this, v27, (a3 + 1), 0);
+          std::string::append((this + 8), " : ", 3uLL);
+          v78[0] = off_E0BC8;
+          v78[1] = swift::Demangle::__runtime::genericParameterName;
+          v78[3] = v78;
+          swift::Demangle::__runtime::demangleSymbolAsString();
         }
 
         break;
@@ -3932,8 +3912,6 @@ LABEL_81:
     v27 = 0;
     goto LABEL_81;
   }
-
-  return this;
 }
 
 void swift::Demangle::__runtime::DemangleOptions::~DemangleOptions(swift::Demangle::__runtime::DemangleOptions *this)
@@ -3967,7 +3945,7 @@ std::string *swift::Demangle::__runtime::NodePrinter::printSpecializationPrefix(
         v14 = *a2;
         v13 = *a2;
 LABEL_12:
-        v15 = &v14[*(a2 + 2)];
+        v15 = (v14 + 8 * *(a2 + 2));
         if (v13 == v15)
         {
           return std::string::append(&v7->__r_.__value_.__r.__words[1], "> of ", 5uLL);
@@ -4035,7 +4013,7 @@ LABEL_19:
         }
 
         std::string::append(&v7->__r_.__value_.__r.__words[1], v17, v23);
-        swift::Demangle::__runtime::NodePrinter::print(v7, v21, a5 + 1, 0);
+        swift::Demangle::__runtime::NodePrinter::print(v7, v21, (a5 + 1), 0);
         v17 = ", ";
         goto LABEL_24;
       }
@@ -4079,7 +4057,7 @@ LABEL_24:
     {
       if (v26 != 80)
       {
-        swift::Demangle::__runtime::NodePrinter::print(v7, v21, a5 + 1, 0);
+        swift::Demangle::__runtime::NodePrinter::print(v7, v21, (a5 + 1), 0);
         goto LABEL_22;
       }
 
@@ -4236,7 +4214,7 @@ LABEL_28:
     goto LABEL_34;
   }
 
-  if (v26 == 5 && *(v15 + 2))
+  if (v26 == 5 && v15[2])
   {
     v27 = *v15;
 LABEL_34:
@@ -4274,7 +4252,7 @@ LABEL_36:
       v34 = *(a1 + 16);
     }
 
-    v35 = swift::Demangle::__runtime::NodePrinter::print(a1, v28, a3 + 1, 1);
+    v35 = swift::Demangle::__runtime::NodePrinter::print(a1, v28, (a3 + 1), 1);
     v36 = *(a1 + 31);
     if ((v36 & 0x80u) != 0)
     {
@@ -4314,13 +4292,13 @@ LABEL_36:
 
   if (v37 == 1)
   {
-    v40 = (v15 + 8);
+    v40 = v15 + 2;
     goto LABEL_63;
   }
 
   if (v37 == 2)
   {
-    v40 = (v15 + 16);
+    v40 = v15 + 4;
     goto LABEL_63;
   }
 
@@ -4332,16 +4310,16 @@ LABEL_36:
 
   v39 = *v15;
 LABEL_57:
-  v40 = (v39 + 8 * *(v15 + 2));
+  v40 = &v39[2 * v15[2]];
 LABEL_63:
   while (v38 != v40 && *(*v38 + 16) != 243)
   {
-    v38 = (v38 + 8);
+    v38 += 2;
   }
 
   if (v37 == 5)
   {
-    if (v38 == (*v15 + 8 * *(v15 + 2)))
+    if (v38 == (*v15 + 8 * v15[2]))
     {
 LABEL_80:
       v15 = 0;
@@ -4352,7 +4330,7 @@ LABEL_80:
 
   else
   {
-    v41 = (v15 + 8);
+    v41 = v15 + 2;
     if (v37 != 1)
     {
       v41 = 0;
@@ -4360,7 +4338,7 @@ LABEL_80:
 
     if (v37 == 2)
     {
-      v42 = (v15 + 16);
+      v42 = v15 + 4;
     }
 
     else
@@ -4534,29 +4512,29 @@ LABEL_126:
   }
 
   std::string::append((a1 + 8), v59, 4uLL);
-  swift::Demangle::__runtime::NodePrinter::print(a1, v31, a3 + 1, 0);
+  swift::Demangle::__runtime::NodePrinter::print(a1, v31, (a3 + 1), 0);
   return 0;
 }
 
-void swift::Demangle::__runtime::nodeToString(swift::Demangle::__runtime *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, const swift::Demangle::__runtime::DemangleOptions *a3@<X2>, uint64_t a4@<X8>)
+void swift::Demangle::__runtime::nodeToString(uint64_t *__return_ptr a1@<X8>, swift::Demangle::__runtime *this@<X0>, swift::Demangle::__runtime::Node *a3@<X1>, const swift::Demangle::__runtime::DemangleOptions *a4@<X2>)
 {
   if (!this)
   {
-    *(a4 + 23) = 0;
-    *a4 = 0;
+    *(a1 + 23) = 0;
+    *a1 = 0;
     return;
   }
 
-  v7 = *a2;
-  v8 = *(a2 + 1);
-  v9 = *(a2 + 4);
-  v6 = *(a2 + 8);
+  v7 = *a3;
+  v8 = *(a3 + 1);
+  v9 = *(a3 + 4);
+  v6 = *(a3 + 8);
   if (v6)
   {
-    if (v6 == (a2 + 40))
+    if (v6 == (a3 + 40))
     {
       v11 = v10;
-      (*(*v6 + 24))(v6, v10, a3);
+      (*(*v6 + 24))(v6, v10, a4);
       v6 = v11;
     }
 
@@ -4612,16 +4590,16 @@ void swift::Demangle::__runtime::nodeToString(swift::Demangle::__runtime *this@<
   (v12[2])(&v12, this);
   if (HIBYTE(v20) == 1)
   {
-    *a4 = __p;
-    *(a4 + 16) = v14;
+    *a1 = __p;
+    a1[2] = v14;
     v14 = 0;
     __p = 0uLL;
   }
 
   else
   {
-    *(a4 + 23) = 0;
-    *a4 = 0;
+    *(a1 + 23) = 0;
+    *a1 = 0;
   }
 
   v12 = off_E1410;
@@ -4686,11 +4664,11 @@ std::string *anonymous namespace::operator<<(std::string *a1, uint64_t a2)
           break;
         case 0x22:
           v7 = a1;
-          v8 = "\\"";
+          v8 = "\";
           break;
         case 0x5C:
           v7 = a1;
-          v8 = "\\\";
+          v8 = "\\\"";
           break;
         default:
 LABEL_22:
@@ -4847,7 +4825,7 @@ LABEL_23:
 
 LABEL_30:
 
-      return swift::Demangle::__runtime::NodePrinter::print(this, a3, a5 + 1, 0);
+      return swift::Demangle::__runtime::NodePrinter::print(this, a3, (a5 + 1), 0);
     }
   }
 
@@ -4880,7 +4858,7 @@ LABEL_24:
 
     v22 = *v21;
 LABEL_56:
-    swift::Demangle::__runtime::NodePrinter::print(this, v22, a5 + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(this, v22, (a5 + 1), 0);
     goto LABEL_57;
   }
 
@@ -4920,7 +4898,7 @@ LABEL_56:
     case 5:
       v18 = *a4;
 LABEL_44:
-      v23 = v18 + 8 * *(a4 + 8);
+      v23 = (v18 + 8 * *(a4 + 8));
       if (v17 == v23)
       {
         goto LABEL_53;
@@ -4937,13 +4915,13 @@ LABEL_44:
 
 LABEL_51:
   v25 = *v17;
-  v24 = (v17 + 8);
-  swift::Demangle::__runtime::NodePrinter::print(this, v25, a5 + 1, 0);
+  v24 = v17 + 1;
+  swift::Demangle::__runtime::NodePrinter::print(this, v25, (a5 + 1), 0);
   while (v24 != v23)
   {
     std::string::append((this + 8), ", ", 2uLL);
     v26 = *v24++;
-    swift::Demangle::__runtime::NodePrinter::print(this, v26, a5 + 1, 0);
+    swift::Demangle::__runtime::NodePrinter::print(this, v26, (a5 + 1), 0);
   }
 
 LABEL_53:
@@ -5205,7 +5183,7 @@ LABEL_22:
   }
 }
 
-uint64_t **matchSequenceOfKinds(uint64_t **result, void *a2)
+uint64_t ***matchSequenceOfKinds(uint64_t ***result, void *a2)
 {
   if (result)
   {
@@ -5268,11 +5246,11 @@ LABEL_11:
   return result;
 }
 
-void swift::Demangle::__runtime::keyPathSourceString(swift::Demangle::__runtime *this, const char *a2)
+void swift::Demangle::__runtime::keyPathSourceString()
 {
-  v4 = 3;
-  LODWORD(v3) = 2112095;
-  swift::Demangle::__runtime::Context::Context(v2);
+  v5 = 3;
+  LODWORD(v4) = 2112095;
+  swift::Demangle::__runtime::Context::Context(v3);
 }
 
 void swift::Demangle::__runtime::keyPathSourceString(char const*,unsigned long)::$_1::operator()(uint64_t **a1@<X0>, char *a2@<X8>)
@@ -5396,35 +5374,35 @@ LABEL_32:
     memmove(a2, v5, v4);
   }
 
-  a2[v4] = 0;
+  *(v4 + a2) = 0;
 }
 
-__n128 std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *this@<X1>, uint64_t a2@<X0>, std::string *a3@<X8>)
+__n128 std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, std::string *this@<X1>, uint64_t a3@<X0>)
 {
-  v4 = *(a2 + 23);
+  v4 = *(a3 + 23);
   if (v4 >= 0)
   {
-    v5 = a2;
+    v5 = a3;
   }
 
   else
   {
-    v5 = *a2;
+    v5 = *a3;
   }
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = *(a3 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = *(a3 + 8);
   }
 
   v7 = std::string::insert(this, 0, v5, v6);
   result = *v7;
-  *a3 = *v7->n128_u8;
+  *a1 = *v7->n128_u8;
   v7->n128_u64[0] = 0;
   v7->n128_u64[1] = 0;
   v7[1].n128_u64[0] = 0;
@@ -5457,7 +5435,7 @@ void swift::Demangle::__runtime::keyPathSourceString(char const*,unsigned long):
   }
 }
 
-_BYTE *std::string::basic_string<__swift::__runtime::llvm::StringRef,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<__swift::__runtime::llvm::StringRef,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -5471,13 +5449,13 @@ _BYTE *std::string::basic_string<__swift::__runtime::llvm::StringRef,0>(_BYTE *_
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
@@ -5552,7 +5530,7 @@ LABEL_5:
   goto LABEL_5;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100](_BYTE *__dst, const void *a2, size_t __len)
+uint64_t *std::string::basic_string[abi:nn200100](uint64_t *__dst, const void *a2, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5564,13 +5542,13 @@ _BYTE *std::string::basic_string[abi:nn200100](_BYTE *__dst, const void *a2, siz
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, a2, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -5801,7 +5779,7 @@ LABEL_60:
   }
 }
 
-uint64_t std::__function::__value_func<std::string ()(unsigned long long,unsigned long long)>::operator()[abi:nn200100](uint64_t a1)
+unint64_t std::__function::__value_func<std::string ()(unsigned long long,unsigned long long)>::operator()[abi:nn200100](uint64_t a1)
 {
   v2 = *(a1 + 24);
   if (v2)
@@ -5813,8 +5791,8 @@ uint64_t std::__function::__value_func<std::string ()(unsigned long long,unsigne
 
   else
   {
-    v5 = std::__throw_bad_function_call[abi:nn200100]();
-    return std::vector<std::string>::emplace_back<std::string>(v5);
+    std::__throw_bad_function_call[abi:nn200100]();
+    return std::vector<std::string>::emplace_back<std::string>(v5, v6);
   }
 }
 
@@ -5860,8 +5838,7 @@ uint64_t std::vector<std::string>::emplace_back<std::string>(uint64_t a1, __int1
     v11 = 24 * v7;
     *v11 = *a2;
     *(v11 + 16) = *(a2 + 2);
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = 24 * v7 + 24;
     v12 = *a1;
@@ -5882,8 +5859,7 @@ uint64_t std::vector<std::string>::emplace_back<std::string>(uint64_t a1, __int1
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v3 + 24;
   }
@@ -6541,11 +6517,11 @@ LABEL_24:
   return v14;
 }
 
-BOOL swift::Punycode::__runtime::encodePunycodeUTF8(int a1, unint64_t a2, std::string *this)
+BOOL swift::Punycode::__runtime::encodePunycodeUTF8(_BYTE *a1, unint64_t a2, std::string *this, char a4)
 {
   __p = 0;
-  v6 = 0;
   v7 = 0;
+  v8 = 0;
   if (a2)
   {
     if (!(a2 >> 62))
@@ -6556,34 +6532,33 @@ BOOL swift::Punycode::__runtime::encodePunycodeUTF8(int a1, unint64_t a2, std::s
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v3 = swift::Punycode::__runtime::encodePunycode(&__p, this);
+  v4 = swift::Punycode::__runtime::encodePunycode(&__p, this);
   if (__p)
   {
-    v6 = __p;
+    v7 = __p;
     operator delete(__p);
   }
 
-  return v3;
+  return v4;
 }
 
-void *std::__split_buffer<unsigned int>::emplace_back<unsigned int const&>(void *result, _DWORD *a2)
+void std::__split_buffer<unsigned int>::emplace_back<unsigned int const&>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
       if (!(v11 >> 62))
@@ -6600,17 +6575,16 @@ void *std::__split_buffer<unsigned int>::emplace_back<unsigned int const&>(void 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v8];
+    a1[1] = &v5[4 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
 BOOL swift::Demangle::__runtime::SubstitutionEntry::identifierEquals(swift::Demangle::__runtime::SubstitutionEntry *this, swift::Demangle::__runtime::Node *a2, swift::Demangle::__runtime::Node *a3)
@@ -6779,9 +6753,8 @@ LABEL_26:
   return result;
 }
 
-uint64_t swift::Demangle::__runtime::RemanglerBase::hashForNode(swift::Demangle::__runtime::RemanglerBase *this, swift::Demangle::__runtime::Node *a2, _BOOL4 a3)
+uint64_t swift::Demangle::__runtime::RemanglerBase::hashForNode(swift::Demangle::__runtime::RemanglerBase *this, swift::Demangle::__runtime::Node *a2, int a3)
 {
-  v3 = a3;
   v6 = (a2 + 16);
   v5 = *(a2 + 8);
   if (a3)
@@ -6882,7 +6855,7 @@ LABEL_30:
   while (v15 != v6)
   {
     v17 = *v15++;
-    swift::Demangle::__runtime::RemanglerBase::entryForNode(v19, this, v17, v3);
+    swift::Demangle::__runtime::RemanglerBase::entryForNode(v19, this, v17, a3);
     v5 = v19[1] + 33 * v5;
   }
 
@@ -7085,7 +7058,7 @@ uint64_t *swift::Demangle::__runtime::RemanglerBase::addSubstitution(uint64_t *t
     v8 = *a2;
     v9 = *(a2 + 2);
     v10 = v7;
-    return std::__hash_table<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::__unordered_map_hasher<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,true>,std::__unordered_map_equal<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,true>,std::allocator<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>>>::__emplace_unique_key_args<swift::Demangle::__runtime::SubstitutionEntry,std::pair<swift::Demangle::__runtime::SubstitutionEntry const,unsigned int>>(this + 1586, &v8);
+    return std::__hash_table<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::__unordered_map_hasher<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,true>,std::__unordered_map_equal<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,true>,std::allocator<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>>>::__emplace_unique_key_args<swift::Demangle::__runtime::SubstitutionEntry,std::pair<swift::Demangle::__runtime::SubstitutionEntry const,unsigned int>>(this + 1586, &v8, &v8);
   }
 
   else
@@ -7100,11 +7073,7 @@ uint64_t *swift::Demangle::__runtime::RemanglerBase::addSubstitution(uint64_t *t
   return this;
 }
 
-swift::Demangle::__runtime::Node *swift::Demangle::__runtime::mangleNode()
-{
-  return swift::Demangle::__runtime::mangleNode();
-}
-
+size_t *swift::Demangle::__runtime::mangleNode()
 {
   result = off_E0250();
   v5 = v4;
@@ -7255,14 +7224,14 @@ LABEL_5:
   return result;
 }
 
-void anonymous namespace::Remangler::mangle(uint64_t *__return_ptr a1@<X8>, _anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *p_flags@<X1>, unint64_t a4@<X2>)
+void anonymous namespace::Remangler::mangle(uint64_t *__return_ptr a1@<X8>, unsigned int *this@<X0>, size_t *a3@<X1>, unint64_t a4@<X2>)
 {
   if (a4 <= 0x400)
   {
     while (2)
     {
       v5 = 0;
-      switch(*(p_flags + 8))
+      switch(*(a3 + 8))
       {
         case 0:
           v18 = a4 + 1;
@@ -7278,7 +7247,7 @@ void anonymous namespace::Remangler::mangle(uint64_t *__return_ptr a1@<X8>, _ano
           goto LABEL_410;
         case 4:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 738;
           goto LABEL_3;
         case 5:
@@ -7383,7 +7352,7 @@ LABEL_159:
           return;
         case 0x26:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1165;
           goto LABEL_3;
         case 0x27:
@@ -7522,12 +7491,12 @@ LABEL_894:
           return;
         case 0x52:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1661;
           goto LABEL_3;
         case 0x53:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1668;
           goto LABEL_3;
         case 0x54:
@@ -7542,7 +7511,7 @@ LABEL_894:
         case 0x57:
           v15 = *(this + 1593);
           v17 = "s";
-          v16 = (this + 12728);
+          v16 = (this + 3182);
           v14 = 1;
           goto LABEL_875;
         case 0x58:
@@ -7575,7 +7544,7 @@ LABEL_137:
           goto LABEL_856;
         case 0x60:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1786;
           goto LABEL_3;
         case 0x61:
@@ -7606,7 +7575,7 @@ LABEL_856:
           goto LABEL_876;
         case 0x68:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1880;
           goto LABEL_3;
         case 0x69:
@@ -7616,24 +7585,24 @@ LABEL_856:
 
           return;
         case 0x6B:
-          v11 = (this + 12728);
-          p_flags = (&stru_20.flags + 1);
+          v11 = (this + 3182);
+          a3 = (&stru_20.flags + 1);
           goto LABEL_832;
         case 0x6C:
 
           return;
         case 0x6D:
         case 0x14F:
-          LOBYTE(p_flags) = *p_flags;
-          v11 = (this + 12728);
+          LOBYTE(a3) = *a3;
+          v11 = (this + 3182);
           goto LABEL_832;
         case 0x6E:
-          v11 = (this + 12728);
-          p_flags = (&stru_20.vmsize + 1);
+          v11 = (this + 3182);
+          a3 = (&stru_20.vmsize + 1);
           goto LABEL_832;
         case 0x6F:
-          v11 = (this + 12728);
-          LOBYTE(p_flags) = 84;
+          v11 = (this + 3182);
+          LOBYTE(a3) = 84;
           goto LABEL_832;
         case 0x70:
 
@@ -7649,7 +7618,7 @@ LABEL_856:
           return;
         case 0x74:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1989;
           goto LABEL_3;
         case 0x75:
@@ -7657,7 +7626,7 @@ LABEL_856:
           return;
         case 0x76:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2019;
           goto LABEL_3;
         case 0x77:
@@ -7665,12 +7634,12 @@ LABEL_856:
           return;
         case 0x78:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2042;
           goto LABEL_3;
         case 0x79:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2030;
           goto LABEL_3;
         case 0x7A:
@@ -7678,27 +7647,27 @@ LABEL_856:
           return;
         case 0x7B:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2268;
           goto LABEL_3;
         case 0x7C:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2036;
           goto LABEL_3;
         case 0x7D:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2273;
           goto LABEL_3;
         case 0x7E:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2278;
           goto LABEL_3;
         case 0x7F:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 2283;
           goto LABEL_3;
         case 0x80:
@@ -8005,17 +7974,17 @@ LABEL_410:
           return;
         case 0xDF:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 3792;
           goto LABEL_3;
         case 0xE0:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 3797;
           goto LABEL_3;
         case 0xE1:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 3803;
           goto LABEL_3;
         case 0xE2:
@@ -8023,11 +7992,11 @@ LABEL_410:
           return;
         case 0xE3:
           v13 = a1;
-          swift::Demangle::__runtime::CharVector::append(this + 3182, *p_flags, *(this + 1593));
+          swift::Demangle::__runtime::CharVector::append(this + 3182, *a3, *(this + 1593));
           goto LABEL_876;
         case 0xE4:
-          v11 = (this + 12728);
-          p_flags = &stru_68.sectname[9];
+          v11 = (this + 3182);
+          a3 = &stru_68.sectname[9];
           goto LABEL_832;
         case 0xE5:
 
@@ -8038,10 +8007,10 @@ LABEL_410:
           return;
         case 0xE8:
         case 0x155:
-          v14 = *(p_flags + 1);
+          v14 = a3[1];
           v15 = *(this + 1593);
-          v16 = (this + 12728);
-          v17 = *p_flags;
+          v16 = (this + 3182);
+          v17 = *a3;
           goto LABEL_875;
         case 0xE9:
 
@@ -8107,7 +8076,7 @@ LABEL_56:
           return;
         case 0x102:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 1885;
           goto LABEL_3;
         case 0x103:
@@ -8136,7 +8105,7 @@ LABEL_56:
           return;
         case 0x10C:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 3417;
           goto LABEL_3;
         case 0x10D:
@@ -8189,23 +8158,23 @@ LABEL_56:
           v17 = "Ya";
           goto LABEL_874;
         case 0x11D:
-          v11 = (this + 12728);
-          p_flags = (&stru_20.fileoff + 3);
+          v11 = (this + 3182);
+          a3 = (&stru_20.fileoff + 3);
           goto LABEL_832;
         case 0x11E:
 
           return;
         case 0x11F:
-          v11 = (this + 12728);
-          p_flags = &stru_68.segname[1];
+          v11 = (this + 3182);
+          a3 = &stru_68.segname[1];
           goto LABEL_832;
         case 0x120:
-          v11 = (this + 12728);
-          p_flags = (&stru_20.initprot + 3);
+          v11 = (this + 3182);
+          a3 = (&stru_20.initprot + 3);
           goto LABEL_832;
         case 0x121:
-          v11 = (this + 12728);
-          p_flags = &stru_20.flags;
+          v11 = (this + 3182);
+          a3 = &stru_20.flags;
           goto LABEL_832;
         case 0x122:
 
@@ -8278,7 +8247,7 @@ LABEL_56:
           return;
         case 0x139:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 3958;
           goto LABEL_3;
         case 0x13A:
@@ -8373,7 +8342,7 @@ LABEL_373:
           v15 = *(this + 1593);
           v17 = "HF";
 LABEL_874:
-          v16 = (this + 12728);
+          v16 = (this + 3182);
           v14 = 2;
           goto LABEL_875;
         case 0x159:
@@ -8395,12 +8364,12 @@ LABEL_874:
           return;
         case 0x15E:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 4097;
           goto LABEL_3;
         case 0x15F:
           *a1 = 7;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 4103;
           goto LABEL_3;
         case 0x160:
@@ -8429,11 +8398,11 @@ LABEL_874:
 
           return;
         case 0x168:
-          v11 = (this + 12728);
-          p_flags = (&stru_20.nsects + 1);
+          v11 = (this + 3182);
+          a3 = (&stru_20.nsects + 1);
 LABEL_832:
           v13 = a1;
-          swift::Demangle::__runtime::RemanglerBuffer::operator<<(v11, p_flags);
+          swift::Demangle::__runtime::RemanglerBuffer::operator<<(v11, a3);
           goto LABEL_876;
         case 0x169:
           v5 = 4;
@@ -8441,9 +8410,9 @@ LABEL_7:
           v6 = this;
           v7 = a4;
           v8 = a1;
-          v9 = (*(this + 1603))(*(this + 1604), v5, *p_flags);
+          v9 = (*(this + 1603))(*(this + 1604), v5, *a3);
           a1 = v8;
-          p_flags = v9;
+          a3 = v9;
           this = v6;
           a4 = (v7 + 1);
           if (v7 == 1024)
@@ -8487,7 +8456,7 @@ LABEL_7:
           v15 = *(this + 1593);
           v17 = "Twd";
 LABEL_616:
-          v16 = (this + 12728);
+          v16 = (this + 3182);
           v14 = 3;
 LABEL_875:
           v13 = a1;
@@ -8502,7 +8471,7 @@ LABEL_876:
           break;
         default:
           *a1 = 4;
-          a1[1] = p_flags;
+          a1[1] = a3;
           v4 = 406;
           goto LABEL_3;
       }
@@ -8515,7 +8484,7 @@ LABEL_876:
   {
 LABEL_2:
     *a1 = 3;
-    a1[1] = p_flags;
+    a1[1] = a3;
     v4 = 397;
 LABEL_3:
     *(a1 + 4) = v4;
@@ -8747,56 +8716,56 @@ LABEL_4:
   return 0;
 }
 
-uint64_t swift::Demangle::__runtime::getUnspecialized@<X0>(uint64_t this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *swift::Demangle::__runtime::getUnspecialized@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, swift::Demangle::__runtime::Node *a3@<X1>)
 {
-  v5 = this;
+  v4 = this;
   while (2)
   {
-    v7 = *(v5 + 16);
-    if ((v7 - 13) < 6)
+    v6 = *(v4 + 8);
+    if ((v6 - 13) < 6)
     {
-      v8 = *(v5 + 18);
-      if ((v8 - 1) >= 2)
+      v7 = *(v4 + 18);
+      if ((v7 - 1) >= 2)
       {
-        if (v8 != 5 || !*(v5 + 8))
+        if (v7 != 5 || !*(v4 + 2))
         {
-          *a3 = 1;
-          *(a3 + 8) = v5;
-          v13 = 4285;
+          *a1 = 1;
+          a1[1] = v4;
+          v12 = 4285;
           goto LABEL_72;
         }
 
-        v5 = *v5;
+        v4 = *v4;
       }
 
-      v9 = *v5;
-      if (*(*v5 + 16) != 243)
+      v8 = *v4;
+      if (*(*v4 + 16) != 243)
       {
-        *a3 = 1;
-        *(a3 + 8) = v9;
-        v13 = 4287;
+        *a1 = 1;
+        a1[1] = v8;
+        v12 = 4287;
         goto LABEL_72;
       }
 
-      v10 = *(v9 + 18);
-      if ((v10 - 1) >= 2)
+      v9 = *(v8 + 18);
+      if ((v9 - 1) >= 2)
       {
-        if (v10 != 5 || !*(v9 + 8))
+        if (v9 != 5 || !*(v8 + 8))
         {
-          *a3 = 1;
-          *(a3 + 8) = v9;
-          v13 = 4288;
+          *a1 = 1;
+          a1[1] = v8;
+          v12 = 4288;
           goto LABEL_72;
         }
 
-        v9 = *v9;
+        v8 = *v8;
       }
 
-      v5 = *v9;
+      v4 = *v8;
       goto LABEL_13;
     }
 
-    switch(*(v5 + 16))
+    switch(*(v4 + 8))
     {
       case 0:
       case 0x1E:
@@ -8819,259 +8788,259 @@ uint64_t swift::Demangle::__runtime::getUnspecialized@<X0>(uint64_t this@<X0>, s
       case 0x107:
       case 0x10A:
       case 0x10D:
-        v14 = *(v5 + 18);
-        if (v14 != 1)
+        v13 = *(v4 + 18);
+        if (v13 != 1)
         {
-          if (v14 == 5)
+          if (v13 == 5)
           {
-            v14 = *(v5 + 8);
+            v13 = *(v4 + 2);
           }
 
-          else if (v14 == 2)
+          else if (v13 == 2)
           {
-            v14 = 2;
+            v13 = 2;
           }
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
         }
 
         goto LABEL_31;
       case 0x13:
-        v11 = *(v5 + 18);
-        if ((v11 - 1) < 2)
+        v10 = *(v4 + 18);
+        if ((v10 - 1) < 2)
         {
           goto LABEL_20;
         }
 
-        if (v11 == 5 && *(v5 + 8))
+        if (v10 == 5 && *(v4 + 2))
         {
-          v5 = *v5;
+          v4 = *v4;
 LABEL_20:
-          v5 = *v5;
-          v12 = *(v5 + 16);
-          if (v12 != 30 && v12 != 78)
+          v4 = *v4;
+          v11 = *(v4 + 8);
+          if (v11 != 30 && v11 != 78)
           {
-            *a3 = 1;
-            *(a3 + 8) = v5;
-            v13 = 4308;
+            *a1 = 1;
+            a1[1] = v4;
+            v12 = 4308;
             goto LABEL_72;
           }
 
 LABEL_13:
-          this = swift::Demangle::__runtime::isSpecialized(v5, v7);
+          this = swift::Demangle::__runtime::isSpecialized(v4, v6);
           if ((this & 1) == 0)
           {
 LABEL_66:
-            *a3 = 0;
-            *(a3 + 8) = 0;
-            *(a3 + 16) = 0;
-            *(a3 + 24) = v5;
+            *a1 = 0;
+            a1[1] = 0;
+            *(a1 + 4) = 0;
+            a1[3] = v4;
             return this;
           }
 
           continue;
         }
 
-        *a3 = 1;
-        *(a3 + 8) = v5;
-        v13 = 4303;
+        *a1 = 1;
+        a1[1] = v4;
+        v12 = 4303;
 LABEL_72:
-        *(a3 + 16) = v13;
+        *(a1 + 4) = v12;
         return this;
       case 0x19:
       case 0x3F:
       case 0xB1:
       case 0xE6:
       case 0xF5:
-        v14 = 2;
+        v13 = 2;
 LABEL_31:
-        this = swift::Demangle::__runtime::NodeFactory::createNode(a2, v7);
-        v16 = this;
-        v17 = *(v5 + 18);
-        v18 = v5;
-        if ((v17 - 1) < 2)
+        this = swift::Demangle::__runtime::NodeFactory::createNode(a3, v6);
+        v15 = this;
+        v16 = *(v4 + 18);
+        v17 = v4;
+        if ((v16 - 1) < 2)
         {
           goto LABEL_35;
         }
 
-        if (v17 != 5 || !*(v5 + 8))
+        if (v16 != 5 || !*(v4 + 2))
         {
-          *a3 = 1;
-          *(a3 + 8) = v5;
-          v13 = 4264;
+          *a1 = 1;
+          a1[1] = v4;
+          v12 = 4264;
           goto LABEL_72;
         }
 
-        v18 = *v5;
+        v17 = *v4;
 LABEL_35:
-        v19 = *v18;
-        if (swift::Demangle::__runtime::isSpecialized(*v18, v15))
+        v18 = *v17;
+        if (swift::Demangle::__runtime::isSpecialized(*v17, v14))
         {
-          this = (swift::Demangle::__runtime::getUnspecialized)(v19, a2, v20);
-          if (*a3)
+          this = swift::Demangle::__runtime::getUnspecialized(a1, v18, a3);
+          if (*a1)
           {
             return this;
           }
 
-          v19 = *(a3 + 24);
+          v18 = a1[3];
         }
 
-        this = swift::Demangle::__runtime::Node::addChild(v16, v19, a2, v21, v22);
-        if (v14 < 2)
+        this = swift::Demangle::__runtime::Node::addChild(v15, v18, a3, v19, v20);
+        if (v13 < 2)
         {
 LABEL_82:
-          *a3 = 0;
-          *(a3 + 8) = 0;
-          *(a3 + 16) = 0;
-          *(a3 + 24) = v16;
+          *a1 = 0;
+          a1[1] = 0;
+          *(a1 + 4) = 0;
+          a1[3] = v15;
           return this;
         }
 
-        v25 = v14;
-        v26 = 1;
+        v23 = v13;
+        v24 = 1;
         while (1)
         {
-          v28 = *(v5 + 18);
-          if (v28 == 2)
+          v26 = *(v4 + 18);
+          if (v26 == 2)
           {
-            if (v28 > v26)
+            if (v26 > v24)
             {
               goto LABEL_47;
             }
           }
 
-          else if (v28 == 5 && *(v5 + 8) > v26)
+          else if (v26 == 5 && *(v4 + 2) > v24)
           {
 LABEL_47:
-            v29 = v28 - 1;
-            v30 = v5;
-            if (v29 >= 2)
+            v27 = v26 - 1;
+            v28 = v4;
+            if (v27 >= 2)
             {
-              v30 = *v5;
+              v28 = *v4;
             }
 
-            v27 = *(v30 + 8 * v26);
+            v25 = *(v28 + 8 * v24);
             goto LABEL_41;
           }
 
-          v27 = 0;
+          v25 = 0;
 LABEL_41:
-          this = swift::Demangle::__runtime::Node::addChild(v16, v27, a2, v23, v24);
-          if (v25 == ++v26)
+          this = swift::Demangle::__runtime::Node::addChild(v15, v25, a3, v21, v22);
+          if (v23 == ++v24)
           {
             goto LABEL_82;
           }
         }
 
       case 0x49:
-        v33 = *(v5 + 18);
-        v34 = v5;
-        if (v33 == 2)
+        v31 = *(v4 + 18);
+        v32 = v4;
+        if (v31 == 2)
         {
           goto LABEL_63;
         }
 
-        if (v33 != 5 || *(v5 + 8) <= 1u)
+        if (v31 != 5 || *(v4 + 2) <= 1u)
         {
-          *a3 = 1;
-          *(a3 + 8) = v5;
-          v13 = 4315;
+          *a1 = 1;
+          a1[1] = v4;
+          v12 = 4315;
           goto LABEL_72;
         }
 
-        v34 = *v5;
+        v32 = *v4;
 LABEL_63:
-        v35 = *(v34 + 8);
-        this = swift::Demangle::__runtime::isSpecialized(v35, v7);
+        v33 = *(v32 + 8);
+        this = swift::Demangle::__runtime::isSpecialized(v33, v6);
         if ((this & 1) == 0)
         {
           goto LABEL_66;
         }
 
-        this = swift::Demangle::__runtime::getUnspecialized(&v47, v35, a2, v36);
-        if (v47)
+        this = swift::Demangle::__runtime::getUnspecialized(&v44, v33, a3);
+        if (v44)
         {
-          *a3 = v47;
-          *(a3 + 16) = v48;
+          *a1 = v44;
+          a1[2] = v45;
           return this;
         }
 
-        Node = swift::Demangle::__runtime::NodeFactory::createNode(a2, 73);
-        v16 = Node;
-        v40 = *(v5 + 18);
-        v41 = v5;
-        if ((v40 - 1) < 2)
+        Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 73);
+        v15 = Node;
+        v37 = *(v4 + 18);
+        v38 = v4;
+        if ((v37 - 1) < 2)
         {
           goto LABEL_77;
         }
 
-        if (v40 == 5 && *(v5 + 8))
+        if (v37 == 5 && *(v4 + 2))
         {
-          v41 = *v5;
+          v38 = *v4;
 LABEL_77:
-          v42 = *v41;
+          v39 = *v38;
         }
 
         else
         {
-          v42 = 0;
+          v39 = 0;
         }
 
-        swift::Demangle::__runtime::Node::addChild(Node, v42, a2, v38, v39);
-        this = swift::Demangle::__runtime::Node::addChild(v16, v49, a2, v43, v44);
-        if (*(v5 + 18) == 5 && *(v5 + 8) == 3)
+        swift::Demangle::__runtime::Node::addChild(Node, v39, a3, v35, v36);
+        this = swift::Demangle::__runtime::Node::addChild(v15, v46, a3, v40, v41);
+        if (*(v4 + 18) == 5 && *(v4 + 2) == 3)
         {
-          this = swift::Demangle::__runtime::Node::addChild(v16, *(*v5 + 16), a2, v45, v46);
+          this = swift::Demangle::__runtime::Node::addChild(v15, *(*v4 + 16), a3, v42, v43);
         }
 
         goto LABEL_82;
       case 0x55:
-        v31 = *(v5 + 18);
-        if ((v31 - 1) < 2)
+        v29 = *(v4 + 18);
+        if ((v29 - 1) < 2)
         {
           goto LABEL_57;
         }
 
-        if (v31 == 5 && *(v5 + 8))
+        if (v29 == 5 && *(v4 + 2))
         {
-          v5 = *v5;
+          v4 = *v4;
 LABEL_57:
-          v32 = *v5;
-          if (*(*v5 + 16) == 243)
+          v30 = *v4;
+          if (*(*v4 + 16) == 243)
           {
-            *a3 = 0;
-            *(a3 + 8) = 0;
-            *(a3 + 16) = 0;
-            *(a3 + 24) = v32;
+            *a1 = 0;
+            a1[1] = 0;
+            *(a1 + 4) = 0;
+            a1[3] = v30;
             return this;
           }
 
-          *a3 = 1;
-          *(a3 + 8) = v32;
-          v13 = 4298;
+          *a1 = 1;
+          a1[1] = v30;
+          v12 = 4298;
         }
 
         else
         {
-          *a3 = 1;
-          *(a3 + 8) = v5;
-          v13 = 4296;
+          *a1 = 1;
+          a1[1] = v4;
+          v12 = 4296;
         }
 
         goto LABEL_72;
       default:
-        *a3 = 5;
-        *(a3 + 8) = v5;
-        v13 = 4332;
+        *a1 = 5;
+        a1[1] = v4;
+        v12 = 4332;
         goto LABEL_72;
     }
   }
 }
 
-uint64_t anonymous namespace::Remangler::mangleAnonymousContext@<X0>(const void **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleAnonymousContext@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v8 = *(a2 + 18);
   v9 = a2;
@@ -9140,10 +9109,10 @@ LABEL_16:
 LABEL_19:
   v12 = *(this + 3184);
   v13 = *(this + 3185);
-  v14 = this[1591];
+  v14 = *(this + 1591);
   if (v12 >= v13)
   {
-    v15 = this[1593];
+    v15 = *(this + 1593);
     v16 = v15[1];
     if (&v14[v13] == v16)
     {
@@ -9195,10 +9164,10 @@ LABEL_34:
     v15[1] = &v16[v19];
     if (v13)
     {
-      memcpy(v16, this[1591], v13);
+      memcpy(v16, *(this + 1591), v13);
     }
 
-    this[1591] = v16;
+    *(this + 1591) = v16;
     LODWORD(v13) = *(this + 3185);
     v14 = v16;
     v12 = *(this + 3184);
@@ -9209,7 +9178,7 @@ LABEL_35:
   *(this + 3184) = v12 + 1;
   v14[v12] = 121;
 LABEL_36:
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "XZ", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "XZ", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
@@ -9292,7 +9261,7 @@ LABEL_14:
   }
 }
 
-uint64_t *anonymous namespace::Remangler::mangleArgumentTuple@<X0>(uint64_t *this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+unsigned int *anonymous namespace::Remangler::mangleArgumentTuple@<X0>(unsigned int *this@<X0>, swift::Demangle::__runtime::Node ***a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v5 = *(a2 + 18);
   if ((v5 - 1) < 2)
@@ -9333,13 +9302,13 @@ LABEL_14:
     v8 = *(v6 + 18);
     if ((v8 - 1) >= 2 && (v8 != 5 || !*(v6 + 2)))
     {
-      v10 = *(this + 3184);
-      v11 = *(this + 3185);
-      v12 = this[1591];
+      v10 = this[3184];
+      v11 = this[3185];
+      v12 = *(this + 1591);
       if (v10 < v11)
       {
 LABEL_37:
-        *(this + 3184) = v10 + 1;
+        this[3184] = v10 + 1;
         v12[v10] = 121;
         *a4 = 0;
         *(a4 + 8) = 0;
@@ -9347,7 +9316,7 @@ LABEL_37:
         return this;
       }
 
-      v13 = this[1593];
+      v13 = *(this + 1593);
       v14 = v13[1];
       if (&v12[v11] == v14)
       {
@@ -9357,7 +9326,7 @@ LABEL_37:
           v13[1] = v14 + 1;
           LODWORD(v16) = 1;
 LABEL_36:
-          *(this + 3185) = v11 + v16;
+          this[3185] = v11 + v16;
           goto LABEL_37;
         }
       }
@@ -9407,15 +9376,15 @@ LABEL_36:
         v25 = this;
         v26 = v11;
         v27 = a4;
-        memcpy(v14, this[1591], v26);
+        memcpy(v14, *(this + 1591), v26);
         this = v25;
         a4 = v27;
       }
 
-      this[1591] = v14;
-      LODWORD(v11) = *(this + 3185);
+      *(this + 1591) = v14;
+      LODWORD(v11) = this[3185];
       v12 = v14;
-      v10 = *(this + 3184);
+      v10 = this[3184];
       goto LABEL_36;
     }
   }
@@ -9481,7 +9450,7 @@ LABEL_16:
       v18 = v16;
       v19 = v17;
       v20 = v15;
-      result = std::__hash_table<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::__unordered_map_hasher<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,true>,std::__unordered_map_equal<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,true>,std::allocator<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>>>::__emplace_unique_key_args<swift::Demangle::__runtime::SubstitutionEntry,std::pair<swift::Demangle::__runtime::SubstitutionEntry const,unsigned int>>(this + 1586, &v18);
+      result = std::__hash_table<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::__unordered_map_hasher<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,true>,std::__unordered_map_equal<swift::Demangle::__runtime::SubstitutionEntry,std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>,std::equal_to<swift::Demangle::__runtime::SubstitutionEntry>,swift::Demangle::__runtime::SubstitutionEntry::Hasher,true>,std::allocator<std::__hash_value_type<swift::Demangle::__runtime::SubstitutionEntry,unsigned int>>>::__emplace_unique_key_args<swift::Demangle::__runtime::SubstitutionEntry,std::pair<swift::Demangle::__runtime::SubstitutionEntry const,unsigned int>>(this + 1586, &v18, &v18);
     }
 
     else
@@ -9499,7 +9468,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleAssociatedTypeMetadataAccessor@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleAssociatedTypeMetadataAccessor@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v7 = *(a2 + 18);
   v8 = a2;
@@ -9510,7 +9479,7 @@ uint64_t *anonymous namespace::Remangler::mangleAssociatedTypeMetadataAccessor@<
       v9 = *a2;
       v8 = *a2;
 LABEL_9:
-      v10 = (v9 + 8 * *(a2 + 2));
+      v10 = &v9[*(a2 + 2)];
       goto LABEL_15;
     }
 
@@ -9545,14 +9514,14 @@ LABEL_15:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wt", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wt", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleDefaultAssociatedTypeMetadataAccessor@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleDefaultAssociatedTypeMetadataAccessor@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v7 = *(a2 + 18);
   v8 = a2;
@@ -9563,7 +9532,7 @@ uint64_t *anonymous namespace::Remangler::mangleDefaultAssociatedTypeMetadataAcc
       v9 = *a2;
       v8 = *a2;
 LABEL_9:
-      v10 = (v9 + 8 * *(a2 + 2));
+      v10 = &v9[*(a2 + 2)];
       goto LABEL_15;
     }
 
@@ -9598,14 +9567,14 @@ LABEL_15:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "TM", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "TM", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleAccessorAttachedMacroExpansion@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+unsigned int *anonymous namespace::Remangler::mangleAccessorAttachedMacroExpansion@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v8 = *(a2 + 18);
   v9 = a2;
@@ -9674,10 +9643,10 @@ LABEL_19:
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
 LABEL_20:
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "fMa", 3uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "fMa", 3uLL, *(this + 1593));
   if (*(a2 + 18) == 5 && *(a2 + 2) >= 4u)
   {
-    v12 = *(*a2 + 3);
+    v12 = (*a2)[3];
   }
 
   else
@@ -9690,7 +9659,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleAssociatedTypeWitnessTableAccessor@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleAssociatedTypeWitnessTableAccessor@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v7 = *(a2 + 18);
   v8 = a2;
@@ -9701,7 +9670,7 @@ uint64_t *anonymous namespace::Remangler::mangleAssociatedTypeWitnessTableAccess
       v9 = *a2;
       v8 = *a2;
 LABEL_9:
-      v10 = (v9 + 8 * *(a2 + 2));
+      v10 = &v9[*(a2 + 2)];
       goto LABEL_15;
     }
 
@@ -9736,14 +9705,14 @@ LABEL_15:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "WT", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "WT", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleBaseWitnessTableAccessor@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleBaseWitnessTableAccessor@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v7 = *(a2 + 18);
   v8 = a2;
@@ -9754,7 +9723,7 @@ uint64_t *anonymous namespace::Remangler::mangleBaseWitnessTableAccessor@<X0>(ch
       v9 = *a2;
       v8 = *a2;
 LABEL_9:
-      v10 = (v9 + 8 * *(a2 + 2));
+      v10 = &v9[*(a2 + 2)];
       goto LABEL_15;
     }
 
@@ -9789,14 +9758,14 @@ LABEL_15:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wb", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "Wb", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   return result;
 }
 
-uint64_t *anonymous namespace::Remangler::mangleAutoClosureType@<X0>(char **this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void *anonymous namespace::Remangler::mangleAutoClosureType@<X0>(_anonymous_namespace_::Remangler *this@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v8 = *(a2 + 18);
   if (v8 == 1)
@@ -9868,9 +9837,94 @@ LABEL_19:
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "XK", 2uLL, this[1593]);
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "XK", 2uLL, *(this + 1593));
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
+  return result;
+}
+
+unsigned int *anonymous namespace::Remangler::mangleBodyAttachedMacroExpansion@<X0>(_anonymous_namespace_::Remangler *this@<X0>, size_t **a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v8 = *(a2 + 18);
+  v9 = a2;
+  if ((v8 - 1) >= 2)
+  {
+    if (v8 != 5 || !*(a2 + 2))
+    {
+      *a4 = 0;
+      *(a4 + 8) = 0;
+      *(a4 + 16) = 0;
+      goto LABEL_8;
+    }
+
+    v9 = *a2;
+  }
+
+  if (*a4)
+  {
+    return result;
+  }
+
+  v8 = *(a2 + 18);
+LABEL_8:
+  v11 = a2;
+  if (v8 != 2)
+  {
+    if (v8 != 5 || *(a2 + 2) < 2u)
+    {
+      *a4 = 0;
+      *(a4 + 8) = 0;
+      *(a4 + 16) = 0;
+      if (v8 != 5)
+      {
+        goto LABEL_19;
+      }
+
+      goto LABEL_16;
+    }
+
+    v11 = *a2;
+  }
+
+  if (*a4)
+  {
+    return result;
+  }
+
+  if (*(a2 + 18) != 5)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  if (*(a2 + 2) > 2u)
+  {
+    if (*a4)
+    {
+      return result;
+    }
+
+    goto LABEL_20;
+  }
+
+LABEL_19:
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
+LABEL_20:
+  result = swift::Demangle::__runtime::CharVector::append(this + 1591, "fMb", 3uLL, *(this + 1593));
+  if (*(a2 + 18) == 5 && *(a2 + 2) >= 4u)
+  {
+    v12 = (*a2)[3];
+  }
+
+  else
+  {
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+  }
+
   return result;
 }

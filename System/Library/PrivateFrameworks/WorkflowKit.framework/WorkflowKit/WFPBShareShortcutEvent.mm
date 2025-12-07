@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sourceAsString:(int)string;
 - (int)StringAsSource:(id)source;
 - (int)source;
 - (unint64_t)hash;
@@ -113,7 +114,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 60);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0 || self->_source != *(equalCopy + 14))
@@ -125,7 +125,7 @@ LABEL_6:
   else if ((*(equalCopy + 60) & 2) != 0)
   {
 LABEL_22:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -169,17 +169,17 @@ LABEL_22:
   sharingMode = self->_sharingMode;
   if (sharingMode | *(equalCopy + 6))
   {
-    v11 = [(NSString *)sharingMode isEqual:?];
+    v10 = [(NSString *)sharingMode isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_23:
 
-  return v11;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -274,51 +274,49 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    actionCount = self->_actionCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_addToSiriBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_galleryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_sharingDestinationBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_sharingMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -412,72 +410,72 @@ LABEL_23:
 - (int)StringAsSource:(id)source
 {
   sourceCopy = source;
-  if ([sourceCopy isEqualToString:@"ShortcutSourceUnknown"])
+  if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = -1;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceOnDevice"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 0;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceGallery"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 1;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceAddToSiri"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 2;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceCloudLink"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 3;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceDefaultShortcut"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 4;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceSiriTopLevelShortcut"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 5;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceAutomatorMigration"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 6;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceFilePublic"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 7;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceFileKnownContacts"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 8;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceFilePersonal"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 9;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceEditorDocumentMenu"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 10;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceAppShortcut"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 11;
   }
 
-  else if ([sourceCopy isEqualToString:@"ShortcutSourceActiveStarterShortcut"])
+  else if (objc_msgSend_isEqualToString_(sourceCopy))
   {
     v4 = 12;
   }
@@ -485,6 +483,21 @@ LABEL_23:
   else
   {
     v4 = -1;
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if ((string + 1) >= 0xE)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E837DEF8[string + 1];
   }
 
   return v4;

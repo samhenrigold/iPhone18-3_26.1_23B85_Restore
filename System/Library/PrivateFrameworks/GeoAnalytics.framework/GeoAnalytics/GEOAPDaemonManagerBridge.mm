@@ -5,9 +5,12 @@
 - (void)flushEvalData;
 - (void)flushUploadHistoryWithCompletion:(id)completion;
 - (void)reportDailySettings:(id)settings completion:(id)completion;
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id completion:(id)completion;
 - (void)reportLogMsg:(id)msg uploadBatchId:(unint64_t)id completion:(id)completion;
 - (void)runAggregationTasks;
+- (void)setEvalMode:(BOOL)mode;
 - (void)showEvalData;
+- (void)showHistoryOfAge:(unsigned int)age;
 - (void)showInflight;
 - (void)showUploadCounts:(id)counts;
 - (void)streamEvalData;
@@ -27,6 +30,41 @@
   completionCopy = completion;
   v4 = +[GEOAPServiceManager sharedManager];
   [v4 flushUploadHistoryWithCompletion:completionCopy];
+}
+
+- (void)showHistoryOfAge:(unsigned int)age
+{
+  v3 = *&age;
+  if ([(GEOAPDaemonManagerBridge *)self _hasEvalEntitlement])
+  {
+    v5 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___GEOAPXPCMapsDebugPanelExporting];
+    [(NSXPCConnection *)self->_conn setRemoteObjectInterface:v5];
+
+    remoteObjectProxy = [(NSXPCConnection *)self->_conn remoteObjectProxy];
+    v7 = +[GEOAPServiceManager sharedManager];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000CBF8;
+    v11[3] = &unk_10003CA00;
+    v12 = remoteObjectProxy;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10000CC40;
+    v9[3] = &unk_10003D5B8;
+    v10 = v12;
+    v8 = v12;
+    [v7 showHistoryOfAge:v3 withVisitorBlock:v11 completion:v9];
+  }
+
+  else
+  {
+    v8 = sub_100000F70();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "eval entitlement is required for this operation", buf, 2u);
+    }
+  }
 }
 
 - (void)showInflight
@@ -99,39 +137,38 @@
 
     remoteObjectProxy = [(NSXPCConnection *)self->_conn remoteObjectProxy];
     objc_initWeak(&location, self);
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10000D1EC;
-    v14[3] = &unk_10003D440;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000D1EC;
+    v13[3] = &unk_10003D440;
     v5 = remoteObjectProxy;
-    v15 = v5;
-    objc_copyWeak(&v16, &location);
-    [(NSXPCConnection *)self->_conn setInterruptionHandler:v14];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10000D274;
-    v11[3] = &unk_10003D440;
+    v14 = v5;
+    objc_copyWeak(&v15, &location);
+    [(NSXPCConnection *)self->_conn setInterruptionHandler:v13];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10000D274;
+    v10[3] = &unk_10003D440;
     v6 = v5;
-    v12 = v6;
-    objc_copyWeak(&v13, &location);
-    [(NSXPCConnection *)self->_conn setInvalidationHandler:v11];
+    v11 = v6;
+    objc_copyWeak(&v12, &location);
+    [(NSXPCConnection *)self->_conn setInvalidationHandler:v10];
     v7 = sub_100001018();
     v8 = v6;
     v9 = v8;
     if (v7)
     {
-      v10 = v7[9];
       *buf = _NSConcreteStackBlock;
-      v19 = 3221225472;
-      v20 = sub_10001A21C;
-      v21 = &unk_10003D5E0;
-      v22 = v8;
-      v23 = v7;
+      v18 = 3221225472;
+      v19 = sub_10001A21C;
+      v20 = &unk_10003D5E0;
+      v21 = v8;
+      v22 = v7;
       geo_isolate_sync();
     }
 
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v15);
 
     objc_destroyWeak(&location);
   }
@@ -172,6 +209,34 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "eval entitlement is required for this operation", buf, 2u);
+    }
+  }
+}
+
+- (void)setEvalMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = sub_100000F70();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = 136315138;
+    v8 = "[GEOAPDaemonManagerBridge setEvalMode:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%s", &v7, 0xCu);
+  }
+
+  if ([(GEOAPDaemonManagerBridge *)self _hasEvalEntitlement])
+  {
+    v6 = +[GEOAPServiceManager sharedManager];
+    [v6 setEvalMode:modeCopy];
+  }
+
+  else
+  {
+    v6 = sub_100000F70();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v7) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "eval entitlement is required for this operation", &v7, 2u);
     }
   }
 }
@@ -281,6 +346,25 @@
 
   v8 = +[GEOAPServiceManager sharedManager];
   [v8 reportDailySettings:settingsCopy completion:completionCopy];
+}
+
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id completion:(id)completion
+{
+  v10 = *&type;
+  completionCopy = completion;
+  idCopy = id;
+  boolCopy = bool;
+  stringCopy = string;
+  v15 = sub_100000F70();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = 136315138;
+    v18 = "[GEOAPDaemonManagerBridge reportDailyUsageCountType:usageString:usageBool:appId:completion:]";
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s", &v17, 0xCu);
+  }
+
+  v16 = +[GEOAPServiceManager sharedManager];
+  [v16 reportDailyUsageCountType:v10 usageString:stringCopy usageBool:boolCopy appId:idCopy completion:completionCopy];
 }
 
 - (void)dealloc

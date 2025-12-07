@@ -53,9 +53,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "AAController, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -86,10 +88,10 @@
 {
   if (self->_invalidateCalled)
   {
-    v5 = NSErrorF();
+    v5 = NSErrorF(NSOSStatusErrorDomain, 4294896148, "Activate after invalidate");
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6000, "[AAController _activate]", 90, "### Activate failed: %@, %@", self, v5);
     }
 
     v3 = objc_retainBlock(self->_activateCompletion);
@@ -115,25 +117,27 @@
   {
     if (dword_1002F6000 <= 30 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-LABEL_12:
-      sub_1001D22E4(self);
+      v4 = "Re-activate: CID 0x%X";
+LABEL_13:
+      sub_1001D22E4(self, v4);
     }
   }
 
   else if (dword_1002F6000 <= 30 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_12;
+    v4 = "Activate: CID 0x%X";
+    goto LABEL_13;
   }
 
-  v4 = xpc_dictionary_create(0, 0, 0);
-  v5 = v4;
+  v5 = xpc_dictionary_create(0, 0, 0);
+  v6 = v5;
   coreBluetoothInternalFlag = self->_coreBluetoothInternalFlag;
   if (coreBluetoothInternalFlag)
   {
-    xpc_dictionary_set_uint64(v4, "intF", coreBluetoothInternalFlag);
+    xpc_dictionary_set_uint64(v5, "intF", coreBluetoothInternalFlag);
   }
 
-  xpc_dictionary_set_string(v5, "mTyp", "CtrA");
+  xpc_dictionary_set_string(v6, "mTyp", "CtrA");
   _ensureXPCStarted = [(AAController *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = _NSConcreteStackBlock;
@@ -141,7 +145,7 @@ LABEL_12:
   handler[2] = sub_10000DFB0;
   handler[3] = &unk_1002B68D0;
   handler[4] = self;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v5, dispatchQueue, handler);
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v6, dispatchQueue, handler);
 }
 
 - (void)_activateXPCCompleted:(id)completed
@@ -152,7 +156,7 @@ LABEL_12:
   {
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D2324(self);
+      sub_1001D2324(self, v5);
     }
 
     v6 = objc_retainBlock(self->_activateCompletion);
@@ -225,22 +229,26 @@ LABEL_12:
 {
   if (!self->_invalidateCalled)
   {
-    if (dword_1002F6000 <= 30 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6000 <= 30)
     {
-      sub_1001D23D8();
+      if (dword_1002F6000 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D23D8(self, a2, v2);
+      }
     }
 
-    v3 = objc_retainBlock(self->_interruptionHandler);
-    v4 = v3;
-    if (v3)
+    v4 = objc_retainBlock(selfCopy->_interruptionHandler);
+    v5 = v4;
+    if (v4)
     {
-      (*(v3 + 2))(v3);
+      (*(v4 + 2))(v4);
     }
 
-    if (self->_activateCalled)
+    if (selfCopy->_activateCalled)
     {
 
-      [(AAController *)self _activateXPC:1];
+      [(AAController *)selfCopy _activateXPC:1];
     }
   }
 }
@@ -282,28 +290,28 @@ LABEL_12:
       interruptionHandler = selfCopy->_interruptionHandler;
       selfCopy->_interruptionHandler = 0;
 
-      v13 = objc_retainBlock(selfCopy->_invalidationHandler);
+      v14 = objc_retainBlock(selfCopy->_invalidationHandler);
       invalidationHandler = selfCopy->_invalidationHandler;
       selfCopy->_invalidationHandler = 0;
 
-      v12 = v13;
-      if (v13)
+      v13 = v14;
+      if (v14)
       {
-        v11 = v13[2](v13);
-        v12 = v13;
+        v11 = v14[2](v14);
+        v13 = v14;
       }
 
       self->_invalidateDone = 1;
       if (dword_1002F6000 <= 30)
       {
-        if (dword_1002F6000 != -1 || (v11 = _LogCategory_Initialize(), v12 = v13, v11))
+        if (dword_1002F6000 != -1 || (v11 = _LogCategory_Initialize(), v13 = v14, v11))
         {
-          v11 = sub_1001D243C();
-          v12 = v13;
+          v11 = sub_1001D243C(v11, v13, v12);
+          v13 = v14;
         }
       }
 
-      _objc_release_x1(v11, v12);
+      _objc_release_x1(v11, v13);
     }
   }
 }
@@ -453,10 +461,10 @@ LABEL_12:
   handlerCopy = handler;
   if (self->_invalidateCalled)
   {
-    v13 = NSErrorF();
+    v13 = NSErrorF(NSOSStatusErrorDomain, 4294896148, "Request after invalidate");
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D26AC(typeCopy);
+      sub_1001D26AC(typeCopy, v13, identifierCopy);
     }
 
 LABEL_15:
@@ -466,10 +474,10 @@ LABEL_15:
 
   if (!identifierCopy)
   {
-    v13 = NSErrorF();
+    v13 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Invalid parameter");
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D2618(typeCopy);
+      sub_1001D2618(typeCopy, v13);
     }
 
     goto LABEL_15;
@@ -526,10 +534,10 @@ LABEL_16:
   handlerCopy = handler;
   if (self->_invalidateCalled)
   {
-    v11 = NSErrorF();
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294896148, "Request after invalidate");
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D27A0();
+      sub_1001D27A0(v11, identifierCopy);
     }
 
 LABEL_11:
@@ -539,10 +547,10 @@ LABEL_11:
 
   if (!identifierCopy)
   {
-    v11 = NSErrorF();
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Invalid parameter");
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D2744();
+      sub_1001D2744(v11);
     }
 
     goto LABEL_11;
@@ -576,7 +584,7 @@ LABEL_12:
   {
     if (dword_1002F6000 != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v12, v5))
     {
-      sub_1001D280C();
+      sub_1001D280C(messageCopy);
       messageCopy = v12;
     }
   }
@@ -618,14 +626,14 @@ LABEL_12:
 
     else
     {
-      v8 = NSErrorF();
+      v8 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "XPC event error");
     }
 
     v11 = v8;
 
     if (dword_1002F6000 <= 90 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D2868();
+      sub_1001D2868(v11, v12);
     }
   }
 }
@@ -649,7 +657,7 @@ LABEL_12:
 
     else if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D2938();
+      sub_1001D2938(v5);
     }
   }
 
@@ -679,10 +687,10 @@ LABEL_12:
     objc_opt_class();
     CUXPCDecodeObject();
     v5 = 0;
-    v8 = CUPrintNSError();
-    v6 = NSPrintF_safe();
-    v7 = v11[5];
-    v11[5] = v6;
+    v6 = CUPrintNSError();
+    v7 = NSPrintF_safe("bad source device: %@", v6);
+    v8 = v11[5];
+    v11[5] = v7;
   }
 
   else
@@ -758,25 +766,25 @@ LABEL_12:
   v8 = objc_retainBlock(v15);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _batteryInfoMessageReceived:fromDevice:]", 10, "Battery Info message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_batteryInfoMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_batteryInfoMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 
@@ -802,25 +810,25 @@ LABEL_12:
   v8 = objc_retainBlock(v15);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _conversationDetectMessageReceived:fromDevice:]", 10, "Conversation detect message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_conversationDetectMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_conversationDetectMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 
@@ -846,40 +854,40 @@ LABEL_12:
   v8 = objc_retainBlock(v22);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v21 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _accessoryUsageSummaryMessageReceived:fromDevice:]", 10, "Accessory Usage Summary message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_accessoryUsageSummaryMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_accessoryUsageSummaryMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (!identifier)
     {
-      v14 = CUPrintNSError();
-      v20 = NSPrintF_safe();
-      v17 = v24[5];
-      v24[5] = v20;
+      v15 = CUPrintNSError();
+      v21 = NSPrintF_safe("bad source identifier: %@", v15);
+      v18 = v24[5];
+      v24[5] = v21;
       goto LABEL_19;
     }
 
     btAddressData = [deviceCopy btAddressData];
-    v12 = CUPrintNSDataAddress();
+    v13 = CUPrintNSDataAddress();
 
-    v13 = v12;
     v14 = v13;
-    if (v13 && [v13 UTF8String])
+    v15 = v14;
+    if (v14 && [v14 UTF8String])
     {
-      v15 = NSDataWithHex();
-      if ([v15 length] == 6 && objc_msgSend(v15, "bytes"))
+      v16 = NSDataWithHex();
+      if ([v16 length] == 6 && objc_msgSend(v16, "bytes"))
       {
         v30 = 0;
         __s1 = 0;
-        v16 = memcmp(&__s1, [v15 bytes], objc_msgSend(v15, "length"));
+        v17 = memcmp(&__s1, [v16 bytes], objc_msgSend(v16, "length"));
 
-        if (v16)
+        if (v17)
         {
-          v9[2](v9, v14, receivedCopy);
+          v10[2](v10, v15, receivedCopy);
 LABEL_13:
 
           goto LABEL_14;
@@ -890,10 +898,10 @@ LABEL_13:
     }
 
 LABEL_17:
-    v17 = CUPrintNSError();
-    v18 = NSPrintF_safe();
-    v19 = v24[5];
-    v24[5] = v18;
+    v18 = CUPrintNSError();
+    v19 = NSPrintF_safe("bad source address: %@", v18);
+    v20 = v24[5];
+    v24[5] = v19;
 
 LABEL_19:
     goto LABEL_13;
@@ -923,25 +931,25 @@ LABEL_14:
   v8 = objc_retainBlock(v15);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _multimodalContextMessageReceived:fromDevice:]", 10, "Multimodal context message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_multimodalContextMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_multimodalContextMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 
@@ -968,27 +976,27 @@ LABEL_14:
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
     [receivedCopy length];
-    v15 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _personalTranslationMessageReceived:fromDevice:]", 10, "Personal Translation message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_personalTranslationMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_personalTranslationMessageHandler);
+  if (v10)
   {
     btAddressData = [deviceCopy btAddressData];
-    v11 = CUPrintNSDataAddress();
+    v12 = CUPrintNSDataAddress();
 
-    if (v11)
+    if (v12)
     {
-      v9[2](v9, v11, receivedCopy);
+      v10[2](v10, v12, receivedCopy);
     }
 
     else
     {
-      v14 = CUPrintNSError();
-      v12 = NSPrintF_safe();
-      v13 = v18[5];
-      v18[5] = v12;
+      v13 = CUPrintNSError();
+      v14 = NSPrintF_safe("Bad source BT address: %@", v13);
+      v15 = v18[5];
+      v18[5] = v14;
     }
   }
 
@@ -1014,25 +1022,25 @@ LABEL_14:
   v8 = objc_retainBlock(v15);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _pmeConfigDataReceived:fromDevice:]", 10, "PME config received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_pmeConfigMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_pmeConfigMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 
@@ -1059,25 +1067,25 @@ LABEL_14:
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
     [receivedCopy length];
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _rawGestureMessageReceived:fromDevice:]", 10, "Raw Gestures message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_rawGestureMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_rawGestureMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 
@@ -1103,25 +1111,25 @@ LABEL_14:
   v8 = objc_retainBlock(v15);
   if (dword_1002F6000 <= 10 && (dword_1002F6000 != -1 || _LogCategory_Initialize()))
   {
-    v14 = CUPrintNSDataHex();
-    LogPrintF();
+    v9 = CUPrintNSDataHex();
+    LogPrintF(&dword_1002F6000, "[AAController _sleepDetectionMessageReceived:fromDevice:]", 10, "Sleep Detection message received: source %@, data <%@>", deviceCopy, v9);
   }
 
-  v9 = objc_retainBlock(self->_sleepDetectionMessageHandler);
-  if (v9)
+  v10 = objc_retainBlock(self->_sleepDetectionMessageHandler);
+  if (v10)
   {
     identifier = [deviceCopy identifier];
     if (identifier)
     {
-      v9[2](v9, identifier, receivedCopy);
+      v10[2](v10, identifier, receivedCopy);
     }
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("bad source identifier: %@", v12);
+      v14 = v17[5];
+      v17[5] = v13;
     }
   }
 

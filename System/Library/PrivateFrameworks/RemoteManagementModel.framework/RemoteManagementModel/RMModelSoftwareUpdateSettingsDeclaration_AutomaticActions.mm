@@ -12,15 +12,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Download";
-  v7[1] = @"InstallOSUpdates";
-  v7[2] = @"InstallSecurityUpdate";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"Download";
+  v6[1] = @"InstallOSUpdates";
+  v6[2] = @"InstallSecurityUpdate";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -114,37 +112,35 @@
 
 - (void)combineWithOther:(id)other
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   otherCopy = other;
   payloadDownload = [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self payloadDownload];
   payloadDownload2 = [otherCopy payloadDownload];
-  v20[0] = @"Allowed";
-  v20[1] = @"AlwaysOn";
-  v20[2] = @"AlwaysOff";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = @"Allowed";
+  v19[1] = @"AlwaysOn";
+  v19[2] = @"AlwaysOff";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v8 = [RMModelConfigurationBase combineEnumLast:payloadDownload other:payloadDownload2 enums:v7];
   [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self setPayloadDownload:v8];
 
   payloadInstallOSUpdates = [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self payloadInstallOSUpdates];
   payloadInstallOSUpdates2 = [otherCopy payloadInstallOSUpdates];
-  v19[0] = @"Allowed";
-  v19[1] = @"AlwaysOn";
-  v19[2] = @"AlwaysOff";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[0] = @"Allowed";
+  v18[1] = @"AlwaysOn";
+  v18[2] = @"AlwaysOff";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   v12 = [RMModelConfigurationBase combineEnumLast:payloadInstallOSUpdates other:payloadInstallOSUpdates2 enums:v11];
   [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self setPayloadInstallOSUpdates:v12];
 
   payloadInstallSecurityUpdate = [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self payloadInstallSecurityUpdate];
   payloadInstallSecurityUpdate2 = [otherCopy payloadInstallSecurityUpdate];
 
-  v18[0] = @"Allowed";
-  v18[1] = @"AlwaysOn";
-  v18[2] = @"AlwaysOff";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[0] = @"Allowed";
+  v17[1] = @"AlwaysOn";
+  v17[2] = @"AlwaysOff";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v16 = [RMModelConfigurationBase combineEnumLast:payloadInstallSecurityUpdate other:payloadInstallSecurityUpdate2 enums:v15];
   [(RMModelSoftwareUpdateSettingsDeclaration_AutomaticActions *)self setPayloadInstallSecurityUpdate:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

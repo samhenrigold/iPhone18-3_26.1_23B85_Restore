@@ -10,48 +10,44 @@
 
 + (id)configurationForDisplayElement
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   storeConfigurationForDisplayElement = [self storeConfigurationForDisplayElement];
   syncPolicyForDisplayElement = [self syncPolicyForDisplayElement];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"$uninstalled == bundleIdentifier" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"app-uninstall" predicate:v6];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E698F330]);
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT bundleIdentifier IN $installed" argumentArray:0];
   v10 = [v8 initWithIdentifier:@"app-uninstall-nightly" predicate:v9];
-  v18[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
   v12 = MEMORY[0x1E698F338];
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"623FCAAE-AD51-483A-BAA5-284D43428B71"];
-  BYTE2(v17) = 1;
-  LOWORD(v17) = 1;
-  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"FrontBoard.DisplayElement" eventClass:objc_opt_class() storeConfig:storeConfigurationForDisplayElement syncPolicy:syncPolicyForDisplayElement legacyNames:0 internalMetadata:0 enableSubscriptions:v17 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v18[0] spaceAttributionOwner:?];
-
-  v15 = *MEMORY[0x1E69E9840];
+  BYTE2(v16) = 1;
+  LOWORD(v16) = 1;
+  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"FrontBoard.DisplayElement" eventClass:objc_opt_class() storeConfig:storeConfigurationForDisplayElement syncPolicy:syncPolicyForDisplayElement legacyNames:0 internalMetadata:0 enableSubscriptions:v16 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v17[0] spaceAttributionOwner:?];
 
   return v14;
 }
 
 + (id)DisplayElement
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForDisplayElement = [self configurationForDisplayElement];
   v3 = +[BMFrontBoardDisplayElement columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"FrontBoard.DisplayElement" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"FrontBoard.DisplayElement" schema:v9 configuration:configurationForDisplayElement];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -40,6 +40,7 @@
 - (void)updateTableViewSeperatorInset;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation MPSearchViewController
@@ -66,7 +67,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1CFB66098();
+  sub_1CFB66098(controller);
 }
 
 - (NSArray)searchControllers
@@ -74,12 +75,10 @@
   selfCopy = self;
   v3 = sub_1CFB5E0B0();
 
-  v4 = *&v3[OBJC_IVAR____TtC11CallsSearch33SearchTableViewDiffableDataSource_searchControllers];
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4EC8A0, &qword_1CFB92380);
-  v5 = sub_1CFB8FB20();
+  v4 = sub_1CFB8FB20();
 
-  return v5;
+  return v4;
 }
 
 - (void)setSearchControllerProvider:(id)provider
@@ -104,7 +103,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1CFB5F258(v8);
+  sub_1CFB5F258(v8, v9);
 }
 
 - (MPSearchViewControllerDelegate)delegate
@@ -155,18 +154,16 @@
 {
   if (*(self + OBJC_IVAR___MPSearchViewController_searchText + 8))
   {
-    v2 = *(self + OBJC_IVAR___MPSearchViewController_searchText);
-    v3 = *(self + OBJC_IVAR___MPSearchViewController_searchText + 8);
 
-    v4 = sub_1CFB8FA80();
+    v2 = sub_1CFB8FA80();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setSearchText:(id)text
@@ -183,27 +180,23 @@
   }
 
   v6 = (self + OBJC_IVAR___MPSearchViewController_searchText);
-  v7 = *(self + OBJC_IVAR___MPSearchViewController_searchText + 8);
   *v6 = v4;
   v6[1] = v5;
 }
 
 - (NSArray)searchTokens
 {
-  v2 = *(self + OBJC_IVAR___MPSearchViewController_searchTokens);
   sub_1CFB5D38C(0, &unk_1EE04BD50, 0x1E69DCF30);
 
-  v3 = sub_1CFB8FB20();
+  v2 = sub_1CFB8FB20();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSearchTokens:(id)tokens
 {
   sub_1CFB5D38C(0, &unk_1EE04BD50, 0x1E69DCF30);
-  v4 = sub_1CFB8FB30();
-  v5 = *(self + OBJC_IVAR___MPSearchViewController_searchTokens);
-  *(self + OBJC_IVAR___MPSearchViewController_searchTokens) = v4;
+  *(self + OBJC_IVAR___MPSearchViewController_searchTokens) = sub_1CFB8FB30();
 }
 
 - (id)searchControllerProvider
@@ -268,6 +261,19 @@
   [v4 setSourceView_];
 }
 
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  appearingCopy = appearing;
+  v6.receiver = self;
+  v6.super_class = MPSearchViewController;
+  selfCopy = self;
+  [(MPSearchViewController *)&v6 viewIsAppearing:appearingCopy];
+  v5 = sub_1CFB5E0B0();
+  sub_1CFB5E3F4();
+
+  [(MPSearchViewController *)selfCopy updateTableViewSeperatorInset:v6.receiver];
+}
+
 - (void)loadConstraints
 {
   selfCopy = self;
@@ -283,25 +289,24 @@
 - (void)prewarmSearchControllersAfterSeconds:(double)seconds
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4EC4B0, &qword_1CFB91F10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = sub_1CFB8FBF0();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = swift_allocObject();
+  v7 = &v14 - v6;
+  v8 = sub_1CFB8FBF0();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
   sub_1CFB8FBC0();
   selfCopy = self;
 
-  v12 = sub_1CFB8FBB0();
-  v13 = swift_allocObject();
-  v14 = MEMORY[0x1E69E85E0];
-  *(v13 + 16) = v12;
-  *(v13 + 24) = v14;
-  *(v13 + 32) = seconds;
-  *(v13 + 40) = v10;
+  v11 = sub_1CFB8FBB0();
+  v12 = swift_allocObject();
+  v13 = MEMORY[0x1E69E85E0];
+  *(v12 + 16) = v11;
+  *(v12 + 24) = v13;
+  *(v12 + 32) = seconds;
+  *(v12 + 40) = v9;
 
-  sub_1CFB80934(0, 0, v8, &unk_1CFB91F20, v13);
+  sub_1CFB80934(0, 0, v7, &unk_1CFB91F20, v12);
 }
 
 - (void)updateSearchResultsForSearchController:(id)controller
@@ -343,33 +348,31 @@
 {
   v8 = sub_1CFB8F780();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
   sub_1CFB62AB4(viewCopy, cellCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (id)tableView:(id)view trailingSwipeActionsConfigurationForRowAtIndexPath:(id)path
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1CFB62F14(viewCopy);
+  v12 = sub_1CFB62F14(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (BOOL)tableView:(id)view shouldDrawTopSeparatorForSection:(int64_t)section
@@ -498,16 +501,15 @@
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   controllerCopy = controller;
   selfCopy = self;
-  v13 = sub_1CFB64F98(controllerCopy);
+  v12 = sub_1CFB64F98(controllerCopy);
 
-  (*(v7 + 8))(v10, v6);
-  return v13;
+  (*(v7 + 8))(v9, v6);
+  return v12;
 }
 
 @end

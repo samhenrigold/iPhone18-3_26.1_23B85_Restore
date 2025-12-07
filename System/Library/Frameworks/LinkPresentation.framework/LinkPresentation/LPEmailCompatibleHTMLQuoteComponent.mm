@@ -12,27 +12,26 @@
   styleCopy = style;
   pathCopy = path;
   generatorCopy = generator;
-  v59.receiver = self;
-  v59.super_class = LPEmailCompatibleHTMLQuoteComponent;
-  v13 = [(LPHTMLComponent *)&v59 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
-  v15 = v13;
+  v57.receiver = self;
+  v57.super_class = LPEmailCompatibleHTMLQuoteComponent;
+  v13 = [(LPHTMLComponent *)&v57 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
   if (v13)
   {
-    LPWebLock(v13, v14);
-    v16 = MEMORY[0x1E696AEC0];
+    LPWebLock();
+    v14 = MEMORY[0x1E696AEC0];
     font = [styleCopy font];
     [font pointSize];
-    v19 = [v16 stringWithFormat:@"%gpt", v18];
+    v17 = [v14 stringWithFormat:@"%gpt", v16];
     cssResolver = [generatorCopy cssResolver];
     localVariables = [cssResolver localVariables];
     pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-font-size", pathCopy];
-    [localVariables setObject:v19 forKeyedSubscript:pathCopy];
+    [localVariables setObject:v17 forKeyedSubscript:pathCopy];
 
-    v23 = CSSAlignmentFromLPTextAlignment([styleCopy textAlignment]);
+    v21 = CSSAlignmentFromLPTextAlignment([styleCopy textAlignment]);
     cssResolver2 = [generatorCopy cssResolver];
     localVariables2 = [cssResolver2 localVariables];
     pathCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-text-alignment", pathCopy];
-    [localVariables2 setObject:v23 forKeyedSubscript:pathCopy2];
+    [localVariables2 setObject:v21 forKeyedSubscript:pathCopy2];
 
     color = [styleCopy color];
     _lp_CSSText = [color _lp_CSSText];
@@ -43,38 +42,38 @@
 
     rootWidth = [generatorCopy rootWidth];
     [rootWidth value];
-    v34 = v33;
+    v32 = v31;
     padding = [styleCopy padding];
     leading = [padding leading];
     [leading value];
-    v38 = v37;
+    v36 = v35;
     padding2 = [styleCopy padding];
     trailing = [padding2 trailing];
     [trailing value];
-    v42 = v34 - v38 - v41;
+    v40 = v32 - v36 - v39;
 
-    v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%gpx", *&v42];
+    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%gpx", *&v40];
     cssResolver4 = [generatorCopy cssResolver];
     localVariables4 = [cssResolver4 localVariables];
     pathCopy4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-width", pathCopy];
-    [localVariables4 setObject:v43 forKeyedSubscript:pathCopy4];
+    [localVariables4 setObject:v41 forKeyedSubscript:pathCopy4];
 
     cssResolver5 = [generatorCopy cssResolver];
-    v48 = [@"lp-rich-link-" stringByAppendingString:pathCopy];
-    element = [(LPHTMLComponent *)v15 element];
-    [cssResolver5 addStyle:v48 toElement:element inComponent:v15];
+    v46 = [@"lp-rich-link-" stringByAppendingString:pathCopy];
+    element = [(LPHTMLComponent *)v13 element];
+    [cssResolver5 addStyle:v46 toElement:element inComponent:v13];
 
-    element2 = [(LPHTMLComponent *)v15 element];
-    generator = [(LPHTMLComponent *)v15 generator];
+    element2 = [(LPHTMLComponent *)v13 element];
+    generator = [(LPHTMLComponent *)v13 generator];
     parentDocument = [generator parentDocument];
-    v53 = truncatedStringAtMaximumMetadataLength(textCopy);
-    v54 = [parentDocument createTextNode:v53];
-    v55 = [element2 appendChild:v54];
+    v51 = truncatedStringAtMaximumMetadataLength(textCopy);
+    v52 = [parentDocument createTextNode:v51];
+    v53 = [element2 appendChild:v52];
 
-    v56 = v15;
+    v54 = v13;
   }
 
-  return v15;
+  return v13;
 }
 
 + (id)baseRules

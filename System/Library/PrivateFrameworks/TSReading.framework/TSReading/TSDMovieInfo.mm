@@ -305,7 +305,7 @@ LABEL_9:
   memset(&v25, 0, sizeof(v25));
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -572,7 +572,7 @@ id __49__TSDMovieInfo_mixedObjectWithFraction_ofObject___block_invoke(uint64_t a
   CMTimeMakeWithSeconds(&time, self->mPosterTime, 90000);
   if (makeAVAsset)
   {
-    [makeAVAsset duration];
+    objc_msgSend_duration(makeAVAsset);
   }
 
   else

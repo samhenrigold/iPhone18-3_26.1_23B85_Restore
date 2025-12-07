@@ -150,7 +150,7 @@ void __47__DSEmergencySOSController_updateKappaBundleID__block_invoke(uint64_t a
 
 - (BOOL)maybeRetryDueToError:(id)error withReason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   reasonCopy = reason;
   dispatch_assert_queue_not_V2(MEMORY[0x277D85CD0]);
@@ -175,7 +175,7 @@ LABEL_8:
   if (os_log_type_enabled(DSLog_18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = errorCopy;
+    v18 = errorCopy;
     _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -186,15 +186,14 @@ LABEL_8:
   block[1] = 3221225472;
   block[2] = __60__DSEmergencySOSController_maybeRetryDueToError_withReason___block_invoke;
   block[3] = &unk_278F75230;
-  objc_copyWeak(&v17, buf);
+  objc_copyWeak(&v16, buf);
   v13 = MEMORY[0x277D85CD0];
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -282,7 +281,7 @@ LABEL_6:
 
 void __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_389(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -305,26 +304,24 @@ LABEL_6:
       if (os_log_type_enabled(DSLog_18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v14 = v5;
+        v13 = v5;
         _os_log_impl(&dword_248C7E000, v8, OS_LOG_TYPE_INFO, "Fetched emergencyContacts: %@ ", buf, 0xCu);
       }
 
       objc_initWeak(buf, WeakRetained);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_393;
-      v10[3] = &unk_278F752A8;
-      objc_copyWeak(&v12, buf);
-      v11 = v5;
-      dispatch_async(MEMORY[0x277D85CD0], v10);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_393;
+      v9[3] = &unk_278F752A8;
+      objc_copyWeak(&v11, buf);
+      v10 = v5;
+      dispatch_async(MEMORY[0x277D85CD0], v9);
       dispatch_group_leave(*(a1 + 32));
 
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v11);
       objc_destroyWeak(buf);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_393(uint64_t a1)
@@ -649,7 +646,7 @@ void __51__DSEmergencySOSController_removeEmergencyContact___block_invoke_2(uint
 
 - (void)emergencyContactFlow:(id)flow didSelectContact:(id)contact
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   contactCopy = contact;
   if (([MEMORY[0x277D495A8] isAllowedToMessageSOSContacts] & 1) == 0)
@@ -668,8 +665,8 @@ void __51__DSEmergencySOSController_removeEmergencyContact___block_invoke_2(uint
 
   else
   {
-    v20[0] = contactCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = contactCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   }
 
   medicalIDData3 = [(DSEmergencySOSController *)self medicalIDData];
@@ -678,17 +675,15 @@ void __51__DSEmergencySOSController_removeEmergencyContact___block_invoke_2(uint
   objc_initWeak(&location, self);
   medicalIDStore = [(DSEmergencySOSController *)self medicalIDStore];
   medicalIDData4 = [(DSEmergencySOSController *)self medicalIDData];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___block_invoke;
-  v17[3] = &unk_278F75EB0;
-  objc_copyWeak(&v18, &location);
-  [medicalIDStore updateMedicalIDData:medicalIDData4 completion:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___block_invoke;
+  v16[3] = &unk_278F75EB0;
+  objc_copyWeak(&v17, &location);
+  [medicalIDStore updateMedicalIDData:medicalIDData4 completion:v16];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___block_invoke(uint64_t a1, int a2, void *a3)
@@ -728,7 +723,6 @@ void __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___bloc
 
 - (void)revokeKappaPermission
 {
-  v3 = *MEMORY[0x277D6C140];
   kappaApprovedAppID = [(DSEmergencySOSController *)self kappaApprovedAppID];
   TCCAccessResetForBundleId();
 
@@ -748,38 +742,6 @@ void __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___bloc
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error fetching medicalIDData: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__DSEmergencySOSController_gatherEmergencyContacts__block_invoke_389_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error fetching emergencyContacts: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__DSEmergencySOSController_removeEmergencyContact___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error removing emergencyContact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__DSEmergencySOSController_emergencyContactFlow_didSelectContact___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error updating medicalIDData error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

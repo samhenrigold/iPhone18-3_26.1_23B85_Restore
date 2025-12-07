@@ -6,9 +6,9 @@
 
 - (id)fb_fallbackSpecification
 {
-  if ([self _uikitShimming_isUISubclass] && UIKitLibraryCore() && getUIApplicationSceneSpecificationClass())
+  if ([self _uikitShimming_isUISubclass] && UIKitLibraryCore(0) && getUIApplicationSceneSpecificationClass())
   {
-    v1 = UIKitLibraryCore();
+    v1 = UIKitLibraryCore(0);
     if (v1)
     {
       v1 = getUIApplicationSceneSpecificationClass();

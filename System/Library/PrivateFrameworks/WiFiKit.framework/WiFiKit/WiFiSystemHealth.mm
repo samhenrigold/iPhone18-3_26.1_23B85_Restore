@@ -6,12 +6,11 @@
 
 - (unint64_t)getComponentStatusWithError:(id *)error
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = WiFiManagerClientCreate();
+  v3 = WiFiManagerClientCreate();
   HardwareFailure = WiFiManagerClientGetHardwareFailure();
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
   if (HardwareFailure == 2)

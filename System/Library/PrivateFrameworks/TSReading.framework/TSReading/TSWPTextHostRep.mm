@@ -97,7 +97,7 @@
 - (id)hitRep:(CGPoint)rep
 {
   editingRep = self->_editingRep;
-  if (!editingRep || ((x = rep.x, y = rep.y, (v5 = [(TSDAbstractLayout *)[(TSDRep *)editingRep layout] geometry]) == 0) ? (v8 = 0uLL, v6 = 0uLL, v7 = 0uLL) : ([(TSDLayoutGeometry *)v5 inverseTransform], v6 = v13, v7 = v14, v8 = v15), result = [(TSWPShapeRep *)self->_editingRep hitRep:vaddq_f64(v8, vmlaq_n_f64(vmulq_n_f64(v7, y), v6, x))], rep.x = x, rep.y = y, !result))
+  if (!editingRep || ((x = rep.x, y = rep.y, (v5 = [(TSDAbstractLayout *)[(TSDRep *)editingRep layout] geometry]) == 0) ? (v8 = 0uLL, v6 = 0uLL, v7 = 0uLL) : (objc_msgSend_inverseTransform(v5), v6 = v13, v7 = v14, v8 = v15), result = [(TSWPShapeRep *)self->_editingRep hitRep:vaddq_f64(v8, vmlaq_n_f64(vmulq_n_f64(v7, y), v6, x))], rep.x = x, rep.y = y, !result))
   {
     v12.receiver = self;
     v12.super_class = TSWPTextHostRep;
@@ -143,7 +143,7 @@
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -278,7 +278,7 @@
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else

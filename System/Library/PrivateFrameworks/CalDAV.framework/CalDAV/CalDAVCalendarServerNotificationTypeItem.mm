@@ -95,34 +95,34 @@ LABEL_8:
 
 - (BOOL)notificationNameIn:(id)in
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   inCopy = in;
-  v5 = [inCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [inCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(inCopy);
         }
 
-        if ([(CalDAVCalendarServerNotificationTypeItem *)self notificationNameMatches:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(CalDAVCalendarServerNotificationTypeItem *)self notificationNameMatches:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [inCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [inCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -135,7 +135,6 @@ LABEL_8:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

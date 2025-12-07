@@ -15,7 +15,7 @@
     location[0] = 0;
     location[1] = 0;
     v18 = 0;
-    [pu_cachedDuration CMTimeValue];
+    objc_msgSend_CMTimeValue(pu_cachedDuration);
     if (v4)
     {
       v7 = v4[2];
@@ -59,13 +59,14 @@
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
+    objc_msgSend_CMTimeValue(pu_cachedDuration);
   }
 
   else
   {
     v8 = 0uLL;
     v9 = 0;
-    [self duration];
+    objc_msgSend_duration(self);
     v6 = v8;
     v7 = v9;
     v5 = [MEMORY[0x1E696B098] valueWithCMTime:&v6];
@@ -77,9 +78,9 @@
     {
       return;
     }
-  }
 
-  [v5 CMTimeValue];
+    objc_msgSend_CMTimeValue(v5);
+  }
 }
 
 @end

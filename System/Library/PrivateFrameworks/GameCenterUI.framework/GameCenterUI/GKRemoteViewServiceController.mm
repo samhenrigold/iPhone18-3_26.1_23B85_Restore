@@ -336,7 +336,7 @@ void __48__GKRemoteViewServiceController_setupRemoteView__block_invoke(uint64_t 
   }
 }
 
-uint64_t __53__GKRemoteViewServiceController_setValue_forKeyPath___block_invoke(uint64_t a1, int a2)
+uint64_t __53__GKRemoteViewServiceController_setValue_forKeyPath___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D0C2A0];
   v4 = *MEMORY[0x277D0C2A0];
@@ -459,11 +459,11 @@ uint64_t __53__GKRemoteViewServiceController_setValue_forKeyPath___block_invoke(
   }
 }
 
-uint64_t __72__GKRemoteViewServiceController__performBlockAfterViewDidAppearIfNeeded__block_invoke(uint64_t a1)
+uint64_t __72__GKRemoteViewServiceController__performBlockAfterViewDidAppearIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
   if (os_log_type_enabled(*MEMORY[0x277D0C2A8], OS_LOG_TYPE_DEBUG))

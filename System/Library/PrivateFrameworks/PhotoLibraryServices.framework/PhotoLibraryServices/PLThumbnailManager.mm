@@ -342,7 +342,7 @@ void __121__PLThumbnailManager__dataForAsset_format_width_height_bytesPerRow_dat
   v15 = [*(*(a1 + 32) + 80) allObjects];
   [*(*(a1 + 32) + 80) removeAllObjects];
   [*(*(a1 + 32) + 96) unlock];
-  v2 = [v15 count];
+  v2 = objc_msgSend_count(v15);
   v3 = v15;
   if (v2)
   {
@@ -371,7 +371,7 @@ void __121__PLThumbnailManager__dataForAsset_format_width_height_bytesPerRow_dat
       v5 = v6 + 1;
     }
 
-    while (v6 + 1 < [v11 count]);
+    while (v6 + 1 < objc_msgSend_count(v11));
     v3 = v15;
     if (v6 >= v4)
     {
@@ -466,7 +466,7 @@ void __121__PLThumbnailManager__dataForAsset_format_width_height_bytesPerRow_dat
   libraryCopy = library;
   v5 = [PLThumbnailIndexes occupiedThumbnailIndexesWithLibrary:libraryCopy fetchTimestampToUpdate:0];
   rangeCount = [v5 rangeCount];
-  v7 = [v5 count];
+  v7 = objc_msgSend_count(v5);
   v32 = 0;
   v33 = &v32;
   v34 = 0x2020000000;
@@ -499,9 +499,9 @@ void __121__PLThumbnailManager__dataForAsset_format_width_height_bytesPerRow_dat
   v30 = v15;
   v31 = &v32;
   [v14 performBlockAndWait:v28];
-  v16 = [v5 count];
+  v16 = objc_msgSend_count(v5);
   v17 = v33[3];
-  v18 = [v5 count];
+  v18 = objc_msgSend_count(v5);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   *&v20 = rangeCount / v7;
   v21 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
@@ -1004,7 +1004,7 @@ LABEL_36:
   v93 = &v92;
   v94 = 0x2020000000;
   v95 = 1;
-  v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(fastThumbPersistenceManagers, "count")}];
+  v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(fastThumbPersistenceManagers)];
   v90 = 0u;
   v91 = 0u;
   v88 = 0u;
@@ -1040,9 +1040,9 @@ LABEL_36:
     while (v17);
   }
 
-  if ([v16 count])
+  if (objc_msgSend_count(v16))
   {
-    if ([v15 count])
+    if (objc_msgSend_count(v15))
     {
       v24 = [(PLThumbnailManager *)selfCopy _performUncompressedTableDownscaleIntoDatas:v15 image:v70 assetUUID:dCopy];
       *(v93 + 24) = v24;
@@ -1145,7 +1145,7 @@ LABEL_29:
     v50 = [v48 tableThumbnailFormatsForConfigPhase:1 withPathManager:pathManager];
 
     v51 = [v50 _pl_filter:&__block_literal_global_158];
-    if (![v51 count])
+    if (!objc_msgSend_count(v51))
     {
       goto LABEL_49;
     }
@@ -1973,7 +1973,7 @@ void __52__PLThumbnailManager_hasMissingThumbnailsInLibrary___block_invoke(void 
 {
   v38 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  if ([(NSMutableArray *)self->_alreadyFailedAssetObjectIDsForRebuild count]< 0x2711)
+  if (objc_msgSend_count(self->_alreadyFailedAssetObjectIDsForRebuild) < 0x2711)
   {
     v32 = 0;
     v33 = &v32;
@@ -2057,7 +2057,7 @@ void __69__PLThumbnailManager__rebuildAssetThumbnailsWithLimit_library_error___b
   v2 = [objc_opt_class() entityInManagedObjectContext:v29];
   [v30 setEntity:v2];
 
-  v3 = [*(*(a1 + 40) + 88) count];
+  v3 = objc_msgSend_count(*(*(a1 + 40) + 88));
   v4 = *(a1 + 40);
   if (v3)
   {
@@ -2090,7 +2090,7 @@ void __69__PLThumbnailManager__rebuildAssetThumbnailsWithLimit_library_error___b
   v26 = v35;
   if (v10)
   {
-    *(*(*(a1 + 48) + 8) + 24) = [v10 count];
+    *(*(*(a1 + 48) + 8) + 24) = objc_msgSend_count(v10);
     v12 = PLThumbnailsGetLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
@@ -2307,7 +2307,7 @@ LABEL_8:
 
 - (BOOL)hasRebuildThumbnailsRequest
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   PLIsAssetsd();
   if (self->_shouldRebuildThumbnails)
   {
@@ -2334,7 +2334,7 @@ LABEL_8:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = v6;
+        v30 = v6;
         _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_ERROR, "Found thumbnail rebuild indicator file on disk at %@, indicates an incomplete thumbnail rebuild on a previous run of assetsd.", buf, 0xCu);
       }
 
@@ -2342,19 +2342,18 @@ LABEL_8:
       v11 = [v10 objectForKey:PLThumbnailRequestRetriesLeftKey];
       intValue = [v11 intValue];
 
-      v13 = (intValue - 1);
       if (intValue < 1)
       {
-        v25 = [v10 count];
-        v26 = PLThumbnailsGetLog();
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
-        if (v25)
+        v24 = objc_msgSend_count(v10);
+        v25 = PLThumbnailsGetLog();
+        v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+        if (v24)
         {
-          if (v27)
+          if (v26)
           {
             *buf = 138543362;
-            v31 = v10;
-            _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "Thumbnail rebuild indicator file on disk has no retries left.  Will not attempt thumbnail rebuild: %{public}@", buf, 0xCu);
+            v30 = v10;
+            _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "Thumbnail rebuild indicator file on disk has no retries left.  Will not attempt thumbnail rebuild: %{public}@", buf, 0xCu);
           }
 
           self->_hasExceededThumbnailRebuildRequestLimit = 1;
@@ -2362,10 +2361,10 @@ LABEL_8:
 
         else
         {
-          if (v27)
+          if (v26)
           {
             *buf = 0;
-            _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "Thumbnail rebuild indicator file on disk is corrupt.  Will not attempt thumbnail rebuild", buf, 2u);
+            _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "Thumbnail rebuild indicator file on disk is corrupt.  Will not attempt thumbnail rebuild", buf, 2u);
           }
         }
 
@@ -2375,47 +2374,47 @@ LABEL_8:
 
       else
       {
-        v14 = [MEMORY[0x1E696AD98] numberWithInt:v13];
-        [v10 setObject:v14 forKey:PLThumbnailRequestRetriesLeftKey];
+        v13 = [MEMORY[0x1E696AD98] numberWithInt:(intValue - 1)];
+        [v10 setObject:v13 forKey:PLThumbnailRequestRetriesLeftKey];
 
         date = [MEMORY[0x1E695DF00] date];
-        v16 = [date description];
-        v17 = [PLThumbnailRequestDateKey stringByAppendingFormat:@"(%d retries left)", intValue];
-        [v10 setObject:v16 forKey:v17];
+        v15 = [date description];
+        v16 = [PLThumbnailRequestDateKey stringByAppendingFormat:@"(%d retries left)", intValue];
+        [v10 setObject:v15 forKey:v16];
 
-        v18 = PLThumbnailsGetLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v17 = PLThumbnailsGetLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v31 = v10;
-          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Updating thumbnail rebuild request indicator file:\n%{public}@", buf, 0xCu);
+          v30 = v10;
+          _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Updating thumbnail rebuild request indicator file:\n%{public}@", buf, 0xCu);
         }
 
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        v29 = 0;
-        v20 = [defaultManager2 removeItemAtPath:v6 error:&v29];
-        v21 = v29;
+        v28 = 0;
+        v19 = [defaultManager2 removeItemAtPath:v6 error:&v28];
+        v20 = v28;
 
-        if ((v20 & 1) == 0)
+        if ((v19 & 1) == 0)
         {
-          v22 = PLThumbnailsGetLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v21 = PLThumbnailsGetLog();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v31 = v21;
-            _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_ERROR, "Failed to remove previous thumbnail rebuild indicator file %@", buf, 0xCu);
+            v30 = v20;
+            _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_ERROR, "Failed to remove previous thumbnail rebuild indicator file %@", buf, 0xCu);
           }
         }
 
-        v23 = [MEMORY[0x1E696AE40] dataWithPropertyList:v10 format:100 options:0 error:0];
-        if (([v23 writeToFile:v6 options:1073741825 error:0] & 1) == 0)
+        v22 = [MEMORY[0x1E696AE40] dataWithPropertyList:v10 format:100 options:0 error:0];
+        if (([v22 writeToFile:v6 options:1073741825 error:0] & 1) == 0)
         {
-          v24 = PLThumbnailsGetLog();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v23 = PLThumbnailsGetLog();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v31 = v6;
-            _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_ERROR, "Failed to write updated thumbnail rebuild indicator file %@", buf, 0xCu);
+            v30 = v6;
+            _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_ERROR, "Failed to write updated thumbnail rebuild indicator file %@", buf, 0xCu);
           }
         }
 
@@ -2469,7 +2468,7 @@ LABEL_8:
     v14 = [userInfo objectForKey:*MEMORY[0x1E696AA08]];
 
     domain = [v14 domain];
-    if ([domain isEqualToString:*MEMORY[0x1E696A798]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       v16 = [v14 code] == 2;
 
@@ -2624,7 +2623,7 @@ LABEL_20:
 
     if (count)
     {
-      *count = [v11 count];
+      *count = objc_msgSend_count(v11);
     }
   }
 

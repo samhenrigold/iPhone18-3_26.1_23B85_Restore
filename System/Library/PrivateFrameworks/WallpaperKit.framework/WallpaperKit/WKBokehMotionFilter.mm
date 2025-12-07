@@ -29,11 +29,11 @@
     *(v2 + 24) = *MEMORY[0x1E695EFF8];
     *(v2 + 40) = *MEMORY[0x1E695F060];
     v4 = [[WKBokehMotionManager alloc] initWithCoefficient:0.00999999978 threshold:?];
-    v5 = *(v3 + 1);
-    *(v3 + 1) = v4;
+    motionManager = v3->_motionManager;
+    v3->_motionManager = v4;
 
-    [(WKBokehMotionManager *)*(v3 + 1) setAccelerometerUpdateInterval:?];
-    [(WKBokehMotionManager *)*(v3 + 1) startDeviceAccelerometerUpdates];
+    [(WKBokehMotionManager *)&v3->_motionManager->super.isa setAccelerometerUpdateInterval:?];
+    [(WKBokehMotionManager *)&v3->_motionManager->super.isa startDeviceAccelerometerUpdates];
   }
 
   return v3;
@@ -183,26 +183,28 @@
 
 - (double)position
 {
-  if (!self)
+  if (self)
+  {
+    return *(self + 24);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_0_2();
   }
-
-  result = *(self + 24);
-  v2 = *(self + 32);
-  return result;
 }
 
 - (double)displacement
 {
-  if (!self)
+  if (self)
+  {
+    return *(self + 40);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_0_2();
   }
-
-  result = *(self + 40);
-  v2 = *(self + 48);
-  return result;
 }
 
 - (float64x2_t)updatePosition

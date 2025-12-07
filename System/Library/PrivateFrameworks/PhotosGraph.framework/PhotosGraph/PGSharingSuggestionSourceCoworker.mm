@@ -6,7 +6,7 @@
 
 - (id)suggestedResultsForInput:(id)input withOptions:(id)options
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   optionsCopy = options;
   momentNodes = [inputCopy momentNodes];
@@ -15,61 +15,61 @@
   if ([coworkers count])
   {
     meNodeCollection = [graph meNodeCollection];
-    v21 = objc_opt_new();
+    v20 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     obj = momentNodes;
-    v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v7)
     {
-      v8 = *v37;
+      v8 = *v36;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v37 != v8)
+          if (*v36 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v36 + 1) + 8 * i);
-          v32 = 0;
-          v33 = &v32;
-          v34 = 0x2020000000;
-          v35 = 0;
-          v28 = 0;
-          v29 = &v28;
-          v30 = 0x2020000000;
+          v10 = *(*(&v35 + 1) + 8 * i);
           v31 = 0;
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __74__PGSharingSuggestionSourceCoworker_suggestedResultsForInput_withOptions___block_invoke;
-          v24[3] = &unk_2788850E0;
-          v25 = coworkers;
-          v26 = &v32;
-          v27 = &v28;
-          [v10 enumeratePersonNodesUsingBlock:v24];
-          if (v33[3])
+          v32 = &v31;
+          v33 = 0x2020000000;
+          v34 = 0;
+          v27 = 0;
+          v28 = &v27;
+          v29 = 0x2020000000;
+          v30 = 0;
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __74__PGSharingSuggestionSourceCoworker_suggestedResultsForInput_withOptions___block_invoke;
+          v23[3] = &unk_2788850E0;
+          v24 = coworkers;
+          v25 = &v31;
+          v26 = &v27;
+          [v10 enumeratePersonNodesUsingBlock:v23];
+          if (v32[3])
           {
-            if ([v10 happensPartiallyAtWorkOfPersonNodes:meNodeCollection] || (v11 = v33[3], v11 >= 3) && v11 / (v29[3] + v11) >= 0.75)
+            if ([v10 happensPartiallyAtWorkOfPersonNodes:meNodeCollection] || (v11 = v32[3], v11 >= 3) && v11 / (v28[3] + v11) >= 0.75)
             {
-              [v21 addObject:v10];
+              [v20 addObject:v10];
             }
           }
 
-          _Block_object_dispose(&v28, 8);
-          _Block_object_dispose(&v32, 8);
+          _Block_object_dispose(&v27, 8);
+          _Block_object_dispose(&v31, 8);
         }
 
-        v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v7);
     }
 
-    if ([v21 count])
+    if ([v20 count])
     {
       v12 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_48268];
       v13 = [coworkers filteredSetUsingPredicate:v12];
@@ -88,12 +88,10 @@
     v14 = [MEMORY[0x277CBEB98] set];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
-uint64_t __74__PGSharingSuggestionSourceCoworker_suggestedResultsForInput_withOptions___block_invoke(uint64_t a1, uint64_t a2)
+void *__74__PGSharingSuggestionSourceCoworker_suggestedResultsForInput_withOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsObject:a2];
   v4 = 48;

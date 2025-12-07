@@ -43,11 +43,11 @@
 
 - (id)_initWithDictionary:(id)dictionary
 {
-  v109[2] = *MEMORY[0x277D85DE8];
+  v111[2] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v108.receiver = self;
-  v108.super_class = UIPrintInfo;
-  v5 = [(UIPrintInfo *)&v108 init];
+  v110.receiver = self;
+  v110.super_class = UIPrintInfo;
+  v5 = [(UIPrintInfo *)&v110 init];
   if (!v5)
   {
     goto LABEL_82;
@@ -57,17 +57,17 @@
   printerID = v5->_printerID;
   v5->_printerID = v6;
 
-  v8 = GetDefaultJobName();
-  v9 = CopyDictionaryString(dictionaryCopy, @"UIPrintInfoJobNameKey", v8);
+  v10 = GetDefaultJobName(v8, v9);
+  v11 = CopyDictionaryString(dictionaryCopy, @"UIPrintInfoJobNameKey", v10);
   jobName = v5->_jobName;
-  v5->_jobName = v9;
+  v5->_jobName = v11;
 
-  v11 = dictionaryCopy;
-  v12 = v11;
-  if (v11 && ([v11 objectForKey:@"UIPrintInfoOutputTypeKey"], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
+  v13 = dictionaryCopy;
+  v14 = v13;
+  if (v13 && ([v13 objectForKey:@"UIPrintInfoOutputTypeKey"], (v15 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v14 = v13;
-    intValue = [v13 intValue];
+    v16 = v15;
+    intValue = [v15 intValue];
   }
 
   else
@@ -76,12 +76,12 @@
   }
 
   v5->_outputType = intValue;
-  v16 = v12;
-  v17 = v16;
-  if (v12 && ([v16 objectForKey:@"UIPrintInfoOrientationKey"], (v18 = objc_claimAutoreleasedReturnValue()) != 0))
+  v18 = v14;
+  v19 = v18;
+  if (v14 && ([v18 objectForKey:@"UIPrintInfoOrientationKey"], (v20 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v19 = v18;
-    intValue2 = [v18 intValue];
+    v21 = v20;
+    intValue2 = [v20 intValue];
   }
 
   else
@@ -91,23 +91,23 @@
 
   v5->_orientation = intValue2;
   intValue3 = (v5->_outputType & 0xFFFFFFFFFFFFFFFDLL) != 1;
-  v22 = v17;
-  v23 = v22;
-  if (v12)
+  v24 = v19;
+  v25 = v24;
+  if (v14)
   {
-    v24 = [v22 objectForKey:@"UIPrintInfoDuplexKey"];
-    if (v24)
-    {
-      v25 = v24;
-      intValue3 = [v24 intValue];
-    }
-
-    v5->_duplex = intValue3;
-    v26 = [v23 objectForKey:@"UIPrintInfoCopiesKey"];
+    v26 = [v24 objectForKey:@"UIPrintInfoDuplexKey"];
     if (v26)
     {
       v27 = v26;
-      intValue4 = [v26 intValue];
+      intValue3 = [v26 intValue];
+    }
+
+    v5->_duplex = intValue3;
+    v28 = [v25 objectForKey:@"UIPrintInfoCopiesKey"];
+    if (v28)
+    {
+      v29 = v28;
+      intValue4 = [v28 intValue];
 
       goto LABEL_17;
     }
@@ -122,15 +122,15 @@
 LABEL_17:
 
   v5->_copies = intValue4;
-  v29 = v23;
-  v30 = v29;
-  if (v12)
+  v31 = v25;
+  v32 = v31;
+  if (v14)
   {
-    v31 = [v29 objectForKey:@"UIPrintInfoScaleUpKey"];
-    if (v31)
+    v33 = [v31 objectForKey:@"UIPrintInfoScaleUpKey"];
+    if (v33)
     {
-      v32 = v31;
-      bOOLValue = [v31 BOOLValue];
+      v34 = v33;
+      bOOLValue = [v33 BOOLValue];
     }
 
     else
@@ -139,11 +139,11 @@ LABEL_17:
     }
 
     v5->_scaleUp = bOOLValue;
-    v35 = [v30 objectForKey:@"UIPrintInfoStapleKey"];
-    if (v35)
+    v37 = [v32 objectForKey:@"UIPrintInfoStapleKey"];
+    if (v37)
     {
-      v36 = v35;
-      intValue5 = [v35 intValue];
+      v38 = v37;
+      intValue5 = [v37 intValue];
     }
 
     else
@@ -159,15 +159,15 @@ LABEL_17:
   }
 
   v5->_staple = intValue5;
-  v37 = v30;
-  v38 = v37;
-  if (v12)
+  v39 = v32;
+  v40 = v39;
+  if (v14)
   {
-    v39 = [v37 objectForKey:@"UIPrintInfoPunchKey"];
-    if (v39)
+    v41 = [v39 objectForKey:@"UIPrintInfoPunchKey"];
+    if (v41)
     {
-      v40 = v39;
-      intValue6 = [v39 intValue];
+      v42 = v41;
+      intValue6 = [v41 intValue];
     }
 
     else
@@ -176,11 +176,11 @@ LABEL_17:
     }
 
     v5->_punch = intValue6;
-    v43 = [v38 objectForKey:@"UIPrintInfoFoldKey"];
-    if (v43)
+    v45 = [v40 objectForKey:@"UIPrintInfoFoldKey"];
+    if (v45)
     {
-      v44 = v43;
-      intValue7 = [v43 intValue];
+      v46 = v45;
+      intValue7 = [v45 intValue];
     }
 
     else
@@ -196,9 +196,9 @@ LABEL_17:
   }
 
   v5->_fold = intValue7;
-  v45 = v38;
-  v46 = v45;
-  if (!v12)
+  v47 = v40;
+  v48 = v47;
+  if (!v14)
   {
     v5->_imagePDFAnnotations = 0;
 LABEL_40:
@@ -206,11 +206,11 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v47 = [v45 objectForKey:@"UIPrintInfoImageAnnotationsKey"];
-  if (v47)
+  v49 = [v47 objectForKey:@"UIPrintInfoImageAnnotationsKey"];
+  if (v49)
   {
-    v48 = v47;
-    bOOLValue2 = [v47 BOOLValue];
+    v50 = v49;
+    bOOLValue2 = [v49 BOOLValue];
   }
 
   else
@@ -219,26 +219,26 @@ LABEL_40:
   }
 
   v5->_imagePDFAnnotations = bOOLValue2;
-  v50 = [v46 objectForKey:@"UIPrintInfoQualityKey"];
-  if (!v50)
+  v52 = [v48 objectForKey:@"UIPrintInfoQualityKey"];
+  if (!v52)
   {
     goto LABEL_40;
   }
 
-  v51 = v50;
-  intValue8 = [v50 intValue];
+  v53 = v52;
+  intValue8 = [v52 intValue];
 
 LABEL_41:
   v5->_quality = intValue8;
-  v53 = v46;
-  v54 = v53;
-  if (v12)
+  v55 = v48;
+  v56 = v55;
+  if (v14)
   {
-    v55 = [v53 objectForKey:@"UIPrintInfoCoatKey"];
-    if (v55)
+    v57 = [v55 objectForKey:@"UIPrintInfoCoatKey"];
+    if (v57)
     {
-      v56 = v55;
-      intValue9 = [v55 intValue];
+      v58 = v57;
+      intValue9 = [v57 intValue];
     }
 
     else
@@ -247,11 +247,11 @@ LABEL_41:
     }
 
     v5->_coat = intValue9;
-    v59 = [v54 objectForKey:@"UIPrintInfoLaminateKey"];
-    if (v59)
+    v61 = [v56 objectForKey:@"UIPrintInfoLaminateKey"];
+    if (v61)
     {
-      v60 = v59;
-      intValue10 = [v59 intValue];
+      v62 = v61;
+      intValue10 = [v61 intValue];
     }
 
     else
@@ -267,12 +267,12 @@ LABEL_41:
   }
 
   v5->_laminate = intValue10;
-  v61 = v54;
-  v62 = v61;
-  if (v12 && ([v61 objectForKey:@"UIPrintInfoTrimKey"], (v63 = objc_claimAutoreleasedReturnValue()) != 0))
+  v63 = v56;
+  v64 = v63;
+  if (v14 && ([v63 objectForKey:@"UIPrintInfoTrimKey"], (v65 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v64 = v63;
-    intValue11 = [v63 intValue];
+    v66 = v65;
+    intValue11 = [v65 intValue];
   }
 
   else
@@ -281,78 +281,78 @@ LABEL_41:
   }
 
   v5->_trim = intValue11;
-  v66 = CopyDictionaryString(v62, @"UIPrintInfoFinishingTemplateKey", 0);
+  v68 = CopyDictionaryString(v64, @"UIPrintInfoFinishingTemplateKey", 0);
   finishingTemplate = v5->_finishingTemplate;
-  v5->_finishingTemplate = v66;
+  v5->_finishingTemplate = v68;
 
-  v68 = CopyDictionaryString(v62, @"UIPrintInfoOutputBinKey", 0);
+  v70 = CopyDictionaryString(v64, @"UIPrintInfoOutputBinKey", 0);
   outputBin = v5->_outputBin;
-  v5->_outputBin = v68;
+  v5->_outputBin = v70;
 
-  v70 = CopyDictionaryString(v62, @"UIPrintInfoPageStackOrderKey", 0);
+  v72 = CopyDictionaryString(v64, @"UIPrintInfoPageStackOrderKey", 0);
   pageStackOrder = v5->_pageStackOrder;
-  v5->_pageStackOrder = v70;
+  v5->_pageStackOrder = v72;
 
-  v72 = CopyDictionaryString(v62, @"UIPrintInfoInputSlotKey", 0);
+  v74 = CopyDictionaryString(v64, @"UIPrintInfoInputSlotKey", 0);
   inputSlot = v5->_inputSlot;
-  v5->_inputSlot = v72;
+  v5->_inputSlot = v74;
 
-  v74 = CopyDictionaryString(v62, @"UIPrintInfoMediaTypeKey", 0);
+  v76 = CopyDictionaryString(v64, @"UIPrintInfoMediaTypeKey", 0);
   mediaType = v5->_mediaType;
-  v5->_mediaType = v74;
+  v5->_mediaType = v76;
 
-  if (v12)
+  if (v14)
   {
-    v76 = [v62 objectForKey:@"UIPrintInfoJobPresetKey"];
+    v78 = [v64 objectForKey:@"UIPrintInfoJobPresetKey"];
   }
 
   else
   {
-    v76 = 0;
+    v78 = 0;
   }
 
   jobPreset = v5->_jobPreset;
-  v5->_jobPreset = v76;
+  v5->_jobPreset = v78;
 
-  v78 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-  v109[0] = v78;
-  v79 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-  v109[1] = v79;
-  v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:2];
-  if (v12)
+  v80 = [MEMORY[0x277CCABB0] numberWithInteger:1];
+  v111[0] = v80;
+  v81 = [MEMORY[0x277CCABB0] numberWithInteger:1];
+  v111[1] = v81;
+  v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
+  if (v14)
   {
-    v81 = [v62 objectForKey:@"UIPrintInfoNUpRowsColumnsKey"];
+    v83 = [v64 objectForKey:@"UIPrintInfoNUpRowsColumnsKey"];
   }
 
   else
   {
-    v81 = 0;
+    v83 = 0;
   }
 
-  if (v81)
+  if (v83)
   {
-    v82 = v81;
+    v84 = v83;
   }
 
   else
   {
-    v82 = v80;
+    v84 = v82;
   }
 
-  v83 = v82;
+  v85 = v84;
 
   nUpRowsColumns = v5->_nUpRowsColumns;
-  v5->_nUpRowsColumns = v83;
+  v5->_nUpRowsColumns = v85;
 
-  v85 = v62;
-  v86 = v85;
-  if (v12)
+  v87 = v64;
+  v88 = v87;
+  if (v14)
   {
-    v87 = [v85 objectForKey:@"UIPrintInfoLayoutDirectionKey"];
-    if (v87)
+    v89 = [v87 objectForKey:@"UIPrintInfoLayoutDirectionKey"];
+    if (v89)
     {
-      v88 = v87;
-      intValue12 = [v87 intValue];
+      v90 = v89;
+      intValue12 = [v89 intValue];
     }
 
     else
@@ -361,11 +361,11 @@ LABEL_41:
     }
 
     v5->_nUpLayoutDirection = intValue12;
-    v91 = [v86 objectForKey:@"UIPrintInfoBorderTypeKey"];
-    if (v91)
+    v93 = [v88 objectForKey:@"UIPrintInfoBorderTypeKey"];
+    if (v93)
     {
-      v92 = v91;
-      intValue13 = [v91 intValue];
+      v94 = v93;
+      intValue13 = [v93 intValue];
     }
 
     else
@@ -381,15 +381,15 @@ LABEL_41:
   }
 
   v5->_borderType = intValue13;
-  v93 = v86;
-  v94 = v93;
-  if (v12)
+  v95 = v88;
+  v96 = v95;
+  if (v14)
   {
-    v95 = [v93 objectForKey:@"UIPrintInfoBookletStyleKey"];
-    if (v95)
+    v97 = [v95 objectForKey:@"UIPrintInfoBookletStyleKey"];
+    if (v97)
     {
-      v96 = v95;
-      intValue14 = [v95 intValue];
+      v98 = v97;
+      intValue14 = [v97 intValue];
     }
 
     else
@@ -398,11 +398,11 @@ LABEL_41:
     }
 
     v5->_bookletStyle = intValue14;
-    v99 = [v94 objectForKey:@"UIPrintInfoFipHorizontalKey"];
-    if (v99)
+    v101 = [v96 objectForKey:@"UIPrintInfoFipHorizontalKey"];
+    if (v101)
     {
-      v100 = v99;
-      bOOLValue3 = [v99 BOOLValue];
+      v102 = v101;
+      bOOLValue3 = [v101 BOOLValue];
     }
 
     else
@@ -418,21 +418,21 @@ LABEL_41:
   }
 
   v5->_flipHorizontal = bOOLValue3;
-  v101 = v94;
-  v102 = v101;
-  v103 = 1.0;
-  if (v12)
+  v103 = v96;
+  v104 = v103;
+  v105 = 1.0;
+  if (v14)
   {
-    v104 = [v101 objectForKey:@"UIPrintInfoScalingFactorKey"];
-    if (v104)
+    v106 = [v103 objectForKey:@"UIPrintInfoScalingFactorKey"];
+    if (v106)
     {
-      v105 = v104;
-      [v104 floatValue];
-      v103 = v106;
+      v107 = v106;
+      [v106 floatValue];
+      v105 = v108;
     }
   }
 
-  v5->_scalingFactor = v103;
+  v5->_scalingFactor = v105;
 LABEL_82:
 
   return v5;
@@ -1894,82 +1894,82 @@ LABEL_36:
   v26 = self->_jobName;
   if (![(NSString *)v26 length])
   {
-    v27 = GetDefaultJobName();
+    v28 = GetDefaultJobName(0, v27);
 
-    v26 = v27;
+    v26 = v28;
   }
 
   precomposedStringWithCanonicalMapping = [(NSString *)v26 precomposedStringWithCanonicalMapping];
-  v29 = [precomposedStringWithCanonicalMapping cStringUsingEncoding:4];
-  if (v29)
+  v30 = [precomposedStringWithCanonicalMapping cStringUsingEncoding:4];
+  if (v30)
   {
-    v30 = v29;
-    if (strlen(v29) < 0x100)
+    v31 = v30;
+    if (strlen(v30) < 0x100)
     {
-      v32 = precomposedStringWithCanonicalMapping;
+      v33 = precomposedStringWithCanonicalMapping;
     }
 
     else
     {
-      v31 = v30 + 254;
+      v32 = v31 + 254;
       do
       {
-        if ((*v31 & 0xC0) != 0x80)
+        if ((*v32 & 0xC0) != 0x80)
         {
           break;
         }
 
-        --v31;
+        --v32;
       }
 
-      while (v31 > v30);
-      if (v31 < v30)
+      while (v32 > v31);
+      if (v32 < v31)
       {
         [UIPrintInfo _createPrintSettingsForPrinter:];
       }
 
-      v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v30 length:v31 - v30 encoding:4];
+      v33 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v31 length:v32 - v31 encoding:4];
     }
 
-    v33 = v32;
+    v34 = v33;
   }
 
   else
   {
-    v33 = &stru_2871AE610;
+    v34 = &stru_2871AE610;
   }
 
-  [v5 setObject:v33 forKey:*MEMORY[0x277D41150]];
-  v34 = self->_outputType - 1;
-  if (v34 > 2)
+  [v5 setObject:v34 forKey:*MEMORY[0x277D41150]];
+  v35 = self->_outputType - 1;
+  if (v35 > 2)
   {
-    v36 = MEMORY[0x277D41228];
-    v35 = MEMORY[0x277D411C8];
+    v37 = MEMORY[0x277D41228];
+    v36 = MEMORY[0x277D411C8];
   }
 
   else
   {
-    v35 = qword_279A9C650[v34];
-    v36 = qword_279A9C668[v34];
+    v36 = qword_279A9C650[v35];
+    v37 = qword_279A9C668[v35];
   }
 
-  [v5 setObject:*v35 forKey:*MEMORY[0x277D411D8]];
-  v37 = *MEMORY[0x277D41220];
-  [v5 setObject:*v36 forKey:*MEMORY[0x277D41220]];
+  [v5 setObject:*v36 forKey:*MEMORY[0x277D411D8]];
+  v38 = *MEMORY[0x277D41220];
+  [v5 setObject:*v37 forKey:*MEMORY[0x277D41220]];
   hasPrintInfoSupported2 = [printerCopy hasPrintInfoSupported];
-  v39 = MEMORY[0x277D41128];
+  v40 = MEMORY[0x277D41128];
   if (hasPrintInfoSupported2)
   {
     printInfoSupported2 = [printerCopy printInfoSupported];
-    v41 = [printInfoSupported2 objectForKey:*v39];
+    v42 = [printInfoSupported2 objectForKey:*v40];
   }
 
   else
   {
-    v41 = 0;
+    v42 = 0;
   }
 
-  v42 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+  v43 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
   staple = self->_staple;
   if (!staple || (self->_outputType | 2) != 2)
   {
@@ -1978,11 +1978,11 @@ LABEL_36:
 
   if (staple == 4)
   {
-    v44 = 4;
-    v45 = [MEMORY[0x277CCABB0] numberWithInteger:4];
-    v46 = [v41 containsObject:v45];
+    v45 = 4;
+    v46 = [MEMORY[0x277CCABB0] numberWithInteger:4];
+    v47 = [v42 containsObject:v46];
 
-    if (v46)
+    if (v47)
     {
       goto LABEL_91;
     }
@@ -1992,11 +1992,11 @@ LABEL_36:
 
   if (staple == 20)
   {
-    v47 = [MEMORY[0x277CCABB0] numberWithInteger:20];
-    v48 = [v41 containsObject:v47];
+    v48 = [MEMORY[0x277CCABB0] numberWithInteger:20];
+    v49 = [v42 containsObject:v48];
 
-    v44 = 20;
-    if (v48)
+    v45 = 20;
+    if (v49)
     {
       goto LABEL_91;
     }
@@ -2006,11 +2006,11 @@ LABEL_36:
 
   if (staple == 21)
   {
-    v49 = [MEMORY[0x277CCABB0] numberWithInteger:21];
-    v50 = [v41 containsObject:v49];
+    v50 = [MEMORY[0x277CCABB0] numberWithInteger:21];
+    v51 = [v42 containsObject:v50];
 
-    v44 = 21;
-    if (v50)
+    v45 = 21;
+    if (v51)
     {
       goto LABEL_91;
     }
@@ -2020,11 +2020,11 @@ LABEL_36:
 
   if (staple == 28)
   {
-    v51 = [MEMORY[0x277CCABB0] numberWithInteger:28];
-    v52 = [v41 containsObject:v51];
+    v52 = [MEMORY[0x277CCABB0] numberWithInteger:28];
+    v53 = [v42 containsObject:v52];
 
-    v44 = 28;
-    if (v52)
+    v45 = 28;
+    if (v53)
     {
       goto LABEL_91;
     }
@@ -2034,11 +2034,11 @@ LABEL_36:
 
   if (staple == 29)
   {
-    v53 = [MEMORY[0x277CCABB0] numberWithInteger:29];
-    v54 = [v41 containsObject:v53];
+    v54 = [MEMORY[0x277CCABB0] numberWithInteger:29];
+    v55 = [v42 containsObject:v54];
 
-    v44 = 29;
-    if (v54)
+    v45 = 29;
+    if (v55)
     {
       goto LABEL_91;
     }
@@ -2048,11 +2048,11 @@ LABEL_36:
 
   if (staple == 31)
   {
-    v55 = [MEMORY[0x277CCABB0] numberWithInteger:31];
-    v56 = [v41 containsObject:v55];
+    v56 = [MEMORY[0x277CCABB0] numberWithInteger:31];
+    v57 = [v42 containsObject:v56];
 
-    v44 = 31;
-    if (v56)
+    v45 = 31;
+    if (v57)
     {
       goto LABEL_91;
     }
@@ -2062,11 +2062,11 @@ LABEL_36:
 
   if (staple == 32)
   {
-    v57 = [MEMORY[0x277CCABB0] numberWithInteger:32];
-    v58 = [v41 containsObject:v57];
+    v58 = [MEMORY[0x277CCABB0] numberWithInteger:32];
+    v59 = [v42 containsObject:v58];
 
-    v44 = 32;
-    if (v58)
+    v45 = 32;
+    if (v59)
     {
       goto LABEL_91;
     }
@@ -2076,11 +2076,11 @@ LABEL_36:
 
   if (staple == 33)
   {
-    v59 = [MEMORY[0x277CCABB0] numberWithInteger:33];
-    v60 = [v41 containsObject:v59];
+    v60 = [MEMORY[0x277CCABB0] numberWithInteger:33];
+    v61 = [v42 containsObject:v60];
 
-    v44 = 33;
-    if (v60)
+    v45 = 33;
+    if (v61)
     {
       goto LABEL_91;
     }
@@ -2090,11 +2090,11 @@ LABEL_36:
 
   if (staple == 35)
   {
-    v61 = [MEMORY[0x277CCABB0] numberWithInteger:35];
-    v62 = [v41 containsObject:v61];
+    v62 = [MEMORY[0x277CCABB0] numberWithInteger:35];
+    v63 = [v42 containsObject:v62];
 
-    v44 = 35;
-    if (v62)
+    v45 = 35;
+    if (v63)
     {
       goto LABEL_91;
     }
@@ -2104,11 +2104,11 @@ LABEL_36:
 
   if (staple == 50)
   {
-    v63 = [MEMORY[0x277CCABB0] numberWithInteger:50];
-    v64 = [v41 containsObject:v63];
+    v64 = [MEMORY[0x277CCABB0] numberWithInteger:50];
+    v65 = [v42 containsObject:v64];
 
-    v44 = 50;
-    if (v64)
+    v45 = 50;
+    if (v65)
     {
       goto LABEL_91;
     }
@@ -2118,19 +2118,19 @@ LABEL_36:
 
   if (staple == 51)
   {
-    v65 = [MEMORY[0x277CCABB0] numberWithInteger:51];
-    v66 = [v41 containsObject:v65];
+    v66 = [MEMORY[0x277CCABB0] numberWithInteger:51];
+    v67 = [v42 containsObject:v66];
 
-    v44 = 51;
-    if ((v66 & 1) == 0)
+    v45 = 51;
+    if ((v67 & 1) == 0)
     {
       staple = self->_staple;
       goto LABEL_89;
     }
 
 LABEL_91:
-    v69 = [MEMORY[0x277CCABB0] numberWithInt:v44];
-    [v42 addObject:v69];
+    v70 = [MEMORY[0x277CCABB0] numberWithInt:v45];
+    [v43 addObject:v70];
 
     goto LABEL_92;
   }
@@ -2138,11 +2138,11 @@ LABEL_91:
 LABEL_89:
   if (staple == 8)
   {
-    v67 = [MEMORY[0x277CCABB0] numberWithInteger:8];
-    v68 = [v41 containsObject:v67];
+    v68 = [MEMORY[0x277CCABB0] numberWithInteger:8];
+    v69 = [v42 containsObject:v68];
 
-    v44 = 8;
-    if (v68)
+    v45 = 8;
+    if (v69)
     {
       goto LABEL_91;
     }
@@ -2157,11 +2157,11 @@ LABEL_92:
 
   if (punch == 5)
   {
-    v71 = 5;
-    v72 = [MEMORY[0x277CCABB0] numberWithInteger:5];
-    v73 = [v41 containsObject:v72];
+    v72 = 5;
+    v73 = [MEMORY[0x277CCABB0] numberWithInteger:5];
+    v74 = [v42 containsObject:v73];
 
-    if (v73)
+    if (v74)
     {
       goto LABEL_129;
     }
@@ -2171,11 +2171,11 @@ LABEL_92:
 
   if (punch == 70)
   {
-    v74 = [MEMORY[0x277CCABB0] numberWithInteger:70];
-    v75 = [v41 containsObject:v74];
+    v75 = [MEMORY[0x277CCABB0] numberWithInteger:70];
+    v76 = [v42 containsObject:v75];
 
-    v71 = 70;
-    if (v75)
+    v72 = 70;
+    if (v76)
     {
       goto LABEL_129;
     }
@@ -2185,11 +2185,11 @@ LABEL_92:
 
   if (punch == 71)
   {
-    v76 = [MEMORY[0x277CCABB0] numberWithInteger:71];
-    v77 = [v41 containsObject:v76];
+    v77 = [MEMORY[0x277CCABB0] numberWithInteger:71];
+    v78 = [v42 containsObject:v77];
 
-    v71 = 71;
-    if (v77)
+    v72 = 71;
+    if (v78)
     {
       goto LABEL_129;
     }
@@ -2199,11 +2199,11 @@ LABEL_92:
 
   if (punch == 74)
   {
-    v78 = [MEMORY[0x277CCABB0] numberWithInteger:74];
-    v79 = [v41 containsObject:v78];
+    v79 = [MEMORY[0x277CCABB0] numberWithInteger:74];
+    v80 = [v42 containsObject:v79];
 
-    v71 = 74;
-    if (v79)
+    v72 = 74;
+    if (v80)
     {
       goto LABEL_129;
     }
@@ -2213,11 +2213,11 @@ LABEL_92:
 
   if (punch == 75)
   {
-    v80 = [MEMORY[0x277CCABB0] numberWithInteger:75];
-    v81 = [v41 containsObject:v80];
+    v81 = [MEMORY[0x277CCABB0] numberWithInteger:75];
+    v82 = [v42 containsObject:v81];
 
-    v71 = 75;
-    if (v81)
+    v72 = 75;
+    if (v82)
     {
       goto LABEL_129;
     }
@@ -2227,11 +2227,11 @@ LABEL_92:
 
   if (punch == 77)
   {
-    v82 = [MEMORY[0x277CCABB0] numberWithInteger:77];
-    v83 = [v41 containsObject:v82];
+    v83 = [MEMORY[0x277CCABB0] numberWithInteger:77];
+    v84 = [v42 containsObject:v83];
 
-    v71 = 77;
-    if (v83)
+    v72 = 77;
+    if (v84)
     {
       goto LABEL_129;
     }
@@ -2241,11 +2241,11 @@ LABEL_92:
 
   if (punch == 78)
   {
-    v84 = [MEMORY[0x277CCABB0] numberWithInteger:78];
-    v85 = [v41 containsObject:v84];
+    v85 = [MEMORY[0x277CCABB0] numberWithInteger:78];
+    v86 = [v42 containsObject:v85];
 
-    v71 = 78;
-    if (v85)
+    v72 = 78;
+    if (v86)
     {
       goto LABEL_129;
     }
@@ -2255,11 +2255,11 @@ LABEL_92:
 
   if (punch == 79)
   {
-    v86 = [MEMORY[0x277CCABB0] numberWithInteger:79];
-    v87 = [v41 containsObject:v86];
+    v87 = [MEMORY[0x277CCABB0] numberWithInteger:79];
+    v88 = [v42 containsObject:v87];
 
-    v71 = 79;
-    if (v87)
+    v72 = 79;
+    if (v88)
     {
       goto LABEL_129;
     }
@@ -2269,11 +2269,11 @@ LABEL_92:
 
   if (punch == 81)
   {
-    v88 = [MEMORY[0x277CCABB0] numberWithInteger:81];
-    v89 = [v41 containsObject:v88];
+    v89 = [MEMORY[0x277CCABB0] numberWithInteger:81];
+    v90 = [v42 containsObject:v89];
 
-    v71 = 81;
-    if (v89)
+    v72 = 81;
+    if (v90)
     {
       goto LABEL_129;
     }
@@ -2283,11 +2283,11 @@ LABEL_92:
 
   if (punch == 82)
   {
-    v90 = [MEMORY[0x277CCABB0] numberWithInteger:82];
-    v91 = [v41 containsObject:v90];
+    v91 = [MEMORY[0x277CCABB0] numberWithInteger:82];
+    v92 = [v42 containsObject:v91];
 
-    v71 = 82;
-    if (v91)
+    v72 = 82;
+    if (v92)
     {
       goto LABEL_129;
     }
@@ -2297,19 +2297,19 @@ LABEL_92:
 
   if (punch == 83)
   {
-    v92 = [MEMORY[0x277CCABB0] numberWithInteger:83];
-    v93 = [v41 containsObject:v92];
+    v93 = [MEMORY[0x277CCABB0] numberWithInteger:83];
+    v94 = [v42 containsObject:v93];
 
-    v71 = 83;
-    if ((v93 & 1) == 0)
+    v72 = 83;
+    if ((v94 & 1) == 0)
     {
       punch = self->_punch;
       goto LABEL_127;
     }
 
 LABEL_129:
-    v96 = [MEMORY[0x277CCABB0] numberWithInt:v71];
-    [v42 addObject:v96];
+    v97 = [MEMORY[0x277CCABB0] numberWithInt:v72];
+    [v43 addObject:v97];
 
     goto LABEL_130;
   }
@@ -2317,11 +2317,11 @@ LABEL_129:
 LABEL_127:
   if (punch == 85)
   {
-    v94 = [MEMORY[0x277CCABB0] numberWithInteger:85];
-    v95 = [v41 containsObject:v94];
+    v95 = [MEMORY[0x277CCABB0] numberWithInteger:85];
+    v96 = [v42 containsObject:v95];
 
-    v71 = 85;
-    if (v95)
+    v72 = 85;
+    if (v96)
     {
       goto LABEL_129;
     }
@@ -2336,11 +2336,11 @@ LABEL_130:
 
   if (fold == 90)
   {
-    v98 = 90;
-    v99 = [MEMORY[0x277CCABB0] numberWithInteger:90];
-    v100 = [v41 containsObject:v99];
+    v99 = 90;
+    v100 = [MEMORY[0x277CCABB0] numberWithInteger:90];
+    v101 = [v42 containsObject:v100];
 
-    if (v100)
+    if (v101)
     {
       goto LABEL_164;
     }
@@ -2350,11 +2350,11 @@ LABEL_130:
 
   if (fold == 91)
   {
-    v101 = [MEMORY[0x277CCABB0] numberWithInteger:91];
-    v102 = [v41 containsObject:v101];
+    v102 = [MEMORY[0x277CCABB0] numberWithInteger:91];
+    v103 = [v42 containsObject:v102];
 
-    v98 = 91;
-    if (v102)
+    v99 = 91;
+    if (v103)
     {
       goto LABEL_164;
     }
@@ -2364,11 +2364,11 @@ LABEL_130:
 
   if (fold == 92)
   {
-    v103 = [MEMORY[0x277CCABB0] numberWithInteger:92];
-    v104 = [v41 containsObject:v103];
+    v104 = [MEMORY[0x277CCABB0] numberWithInteger:92];
+    v105 = [v42 containsObject:v104];
 
-    v98 = 92;
-    if (v104)
+    v99 = 92;
+    if (v105)
     {
       goto LABEL_164;
     }
@@ -2378,11 +2378,11 @@ LABEL_130:
 
   if (fold == 93)
   {
-    v105 = [MEMORY[0x277CCABB0] numberWithInteger:93];
-    v106 = [v41 containsObject:v105];
+    v106 = [MEMORY[0x277CCABB0] numberWithInteger:93];
+    v107 = [v42 containsObject:v106];
 
-    v98 = 93;
-    if (v106)
+    v99 = 93;
+    if (v107)
     {
       goto LABEL_164;
     }
@@ -2392,11 +2392,11 @@ LABEL_130:
 
   if (fold == 94)
   {
-    v107 = [MEMORY[0x277CCABB0] numberWithInteger:94];
-    v108 = [v41 containsObject:v107];
+    v108 = [MEMORY[0x277CCABB0] numberWithInteger:94];
+    v109 = [v42 containsObject:v108];
 
-    v98 = 94;
-    if (v108)
+    v99 = 94;
+    if (v109)
     {
       goto LABEL_164;
     }
@@ -2406,11 +2406,11 @@ LABEL_130:
 
   if (fold == 95)
   {
-    v109 = [MEMORY[0x277CCABB0] numberWithInteger:95];
-    v110 = [v41 containsObject:v109];
+    v110 = [MEMORY[0x277CCABB0] numberWithInteger:95];
+    v111 = [v42 containsObject:v110];
 
-    v98 = 95;
-    if (v110)
+    v99 = 95;
+    if (v111)
     {
       goto LABEL_164;
     }
@@ -2420,11 +2420,11 @@ LABEL_130:
 
   if (fold == 96)
   {
-    v111 = [MEMORY[0x277CCABB0] numberWithInteger:96];
-    v112 = [v41 containsObject:v111];
+    v112 = [MEMORY[0x277CCABB0] numberWithInteger:96];
+    v113 = [v42 containsObject:v112];
 
-    v98 = 96;
-    if (v112)
+    v99 = 96;
+    if (v113)
     {
       goto LABEL_164;
     }
@@ -2434,11 +2434,11 @@ LABEL_130:
 
   if (fold == 97)
   {
-    v113 = [MEMORY[0x277CCABB0] numberWithInteger:97];
-    v114 = [v41 containsObject:v113];
+    v114 = [MEMORY[0x277CCABB0] numberWithInteger:97];
+    v115 = [v42 containsObject:v114];
 
-    v98 = 97;
-    if (v114)
+    v99 = 97;
+    if (v115)
     {
       goto LABEL_164;
     }
@@ -2448,11 +2448,11 @@ LABEL_130:
 
   if (fold == 98)
   {
-    v115 = [MEMORY[0x277CCABB0] numberWithInteger:98];
-    v116 = [v41 containsObject:v115];
+    v116 = [MEMORY[0x277CCABB0] numberWithInteger:98];
+    v117 = [v42 containsObject:v116];
 
-    v98 = 98;
-    if (v116)
+    v99 = 98;
+    if (v117)
     {
       goto LABEL_164;
     }
@@ -2462,19 +2462,19 @@ LABEL_130:
 
   if (fold == 99)
   {
-    v117 = [MEMORY[0x277CCABB0] numberWithInteger:99];
-    v118 = [v41 containsObject:v117];
+    v118 = [MEMORY[0x277CCABB0] numberWithInteger:99];
+    v119 = [v42 containsObject:v118];
 
-    v98 = 99;
-    if ((v118 & 1) == 0)
+    v99 = 99;
+    if ((v119 & 1) == 0)
     {
       fold = self->_fold;
       goto LABEL_162;
     }
 
 LABEL_164:
-    v121 = [MEMORY[0x277CCABB0] numberWithInt:v98];
-    [v42 addObject:v121];
+    v122 = [MEMORY[0x277CCABB0] numberWithInt:v99];
+    [v43 addObject:v122];
 
     goto LABEL_165;
   }
@@ -2482,11 +2482,11 @@ LABEL_164:
 LABEL_162:
   if (fold == 100)
   {
-    v119 = [MEMORY[0x277CCABB0] numberWithInteger:100];
-    v120 = [v41 containsObject:v119];
+    v120 = [MEMORY[0x277CCABB0] numberWithInteger:100];
+    v121 = [v42 containsObject:v120];
 
-    v98 = 100;
-    if (v120)
+    v99 = 100;
+    if (v121)
     {
       goto LABEL_164;
     }
@@ -2495,19 +2495,19 @@ LABEL_162:
 LABEL_165:
   if (self->_coat)
   {
-    v122 = [MEMORY[0x277CCABB0] numberWithInt:15];
-    [v42 addObject:v122];
+    v123 = [MEMORY[0x277CCABB0] numberWithInt:15];
+    [v43 addObject:v123];
   }
 
   if (self->_laminate)
   {
-    v123 = [MEMORY[0x277CCABB0] numberWithInt:16];
-    [v42 addObject:v123];
+    v124 = [MEMORY[0x277CCABB0] numberWithInt:16];
+    [v43 addObject:v124];
   }
 
-  if ([v42 count])
+  if ([v43 count])
   {
-    [v5 setObject:v42 forKey:*v39];
+    [v5 setObject:v43 forKey:*v40];
   }
 
   finishingTemplate = self->_finishingTemplate;
@@ -2541,14 +2541,14 @@ LABEL_165:
 
   if (self->_imagePDFAnnotations)
   {
-    v128 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    [v5 setObject:v128 forKey:*MEMORY[0x277D410B8]];
+    v129 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    [v5 setObject:v129 forKey:*MEMORY[0x277D410B8]];
   }
 
   if (self->_quality != 4)
   {
-    v129 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    [v5 setObject:v129 forKey:v37];
+    v130 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    [v5 setObject:v130 forKey:v38];
   }
 
   inputSlot = self->_inputSlot;
@@ -2569,9 +2569,9 @@ LABEL_165:
     [v5 setObject:jobPreset forKey:*MEMORY[0x277D41168]];
   }
 
-  v133 = v5;
+  v134 = v5;
 
-  return v133;
+  return v134;
 }
 
 - (int64_t)numNUpRows

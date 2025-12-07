@@ -43,10 +43,10 @@
   inputTransform = self->inputTransform;
   if (!inputTransform)
   {
-    v5 = *(MEMORY[0x1E695EFD0] + 16);
-    v18 = *MEMORY[0x1E695EFD0];
-    v19 = v5;
-    v6 = *(MEMORY[0x1E695EFD0] + 32);
+    v7 = *(MEMORY[0x1E695EFD0] + 16);
+    v20 = *MEMORY[0x1E695EFD0];
+    v21 = v7;
+    v8 = *(MEMORY[0x1E695EFD0] + 32);
     goto LABEL_10;
   }
 
@@ -57,80 +57,89 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [(NSValue *)inputTransform count]== 6)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{0), "doubleValue"}];
-        *&v18 = v11;
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{1), "doubleValue"}];
-        *(&v18 + 1) = v12;
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{2), "doubleValue"}];
-        *&v19 = v13;
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{3), "doubleValue"}];
-        *(&v19 + 1) = v14;
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{4), "doubleValue"}];
-        *&v20 = v15;
-        [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{5), "doubleValue"}];
-        *(&v20 + 1) = v16;
-        goto LABEL_11;
+        isKindOfClass = [(NSValue *)inputTransform count];
+        if (isKindOfClass == 6)
+        {
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{0), "doubleValue"}];
+          *&v20 = v13;
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{1), "doubleValue"}];
+          *(&v20 + 1) = v14;
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{2), "doubleValue"}];
+          *&v21 = v15;
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{3), "doubleValue"}];
+          *(&v21 + 1) = v16;
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{4), "doubleValue"}];
+          *&v22 = v17;
+          [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{5), "doubleValue"}];
+          *(&v22 + 1) = v18;
+          goto LABEL_11;
+        }
       }
 
       goto LABEL_20;
     }
 
-    v22 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v23 = 0u;
+    objc_msgSend_transformStruct(inputTransform);
+    v20 = 0u;
     v21 = 0u;
-    [(NSValue *)inputTransform transformStruct];
-    v18 = 0u;
-    v19 = 0u;
-    v6 = 0u;
+    v8 = 0u;
 LABEL_10:
-    v20 = v6;
+    v22 = v8;
     goto LABEL_11;
   }
 
   objCType = [(NSValue *)inputTransform objCType];
-  if (strcmp(objCType, "{CGAffineTransform=dddddd}") && strcmp(objCType, "{?=dddddd}"))
+  if (strcmp(objCType, "{CGAffineTransform=dddddd}"))
   {
-LABEL_20:
-    v17 = ci_logger_filter();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    isKindOfClass = strcmp(objCType, "{?=dddddd}");
+    if (isKindOfClass)
     {
-      [(CIAffineClamp *)self outputImage];
-    }
+LABEL_20:
+      v19 = ci_logger_filter(isKindOfClass, v6);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        [(CIAffineClamp *)self outputImage];
+      }
 
-    return 0;
+      return 0;
+    }
   }
 
-  [(NSValue *)inputTransform getValue:&v18 size:48];
+  [(NSValue *)inputTransform getValue:&v20 size:48];
 LABEL_11:
-  if (fabs(*&v18 * *(&v19 + 1) - *(&v18 + 1) * *&v19) < 0.0016)
+  if (fabs(*&v20 * *(&v21 + 1) - *(&v20 + 1) * *&v21) < 0.0016)
   {
-    v18 = 0u;
-    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
   }
 
   [(CIImage *)self->inputImage extent];
-  IsInfinite = CGRectIsInfinite(v24);
+  IsInfinite = CGRectIsInfinite(v26);
   inputImage = self->inputImage;
   if (IsInfinite)
   {
-    v21 = v18;
-    v22 = v19;
     v23 = v20;
-    v9 = inputImage;
+    v24 = v21;
+    v25 = v22;
+    v11 = inputImage;
   }
 
   else
   {
     [(CIImage *)inputImage extent];
-    v9 = [(CIImage *)inputImage imageByClampingToRect:?];
-    v21 = v18;
-    v22 = v19;
+    v11 = [(CIImage *)inputImage imageByClampingToRect:?];
     v23 = v20;
+    v24 = v21;
+    v25 = v22;
   }
 
-  return [(CIImage *)v9 imageByApplyingTransform:&v21];
+  return [(CIImage *)v11 imageByApplyingTransform:&v23];
 }
 
 - (void)outputImage

@@ -54,66 +54,43 @@ void __57__NavSignLabelAccessibility_accessibilityAttributedLabel__block_invoke(
 
 - (id)accessibilityAttributedUserInputLabels
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v14 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v25 = *MEMORY[0x29EDCA608];
+  v12 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   [(NavSignLabelAccessibility *)self safeArrayForKey:@"textAlternatives"];
-  v24 = 0u;
-  v25 = 0u;
   v22 = 0u;
-  obj = v23 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  obj = v21 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v3)
   {
-    v4 = *v23;
+    v4 = *v21;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v23 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * i);
-        LOBYTE(v15) = 0;
-        v7 = __UIAccessibilitySafeClass();
-        if (v15 == 1)
+        LOBYTE(v13) = 0;
+        v6 = __UIAccessibilitySafeClass();
+        if (v13 == 1 || (v19 = 0, v13 = 0, v14 = &v13, v15 = 0x3032000000, v16 = __Block_byref_object_copy_, v17 = __Block_byref_object_dispose_, v18 = 0, v7 = v6, AXPerformSafeBlock(), v8 = v14[5], v7, _Block_object_dispose(&v13, 8), v18, __UIAccessibilitySafeClass(), v9 = objc_claimAutoreleasedReturnValue(), v8, v19 == 1))
         {
-          goto LABEL_13;
-        }
-
-        v21 = 0;
-        v15 = 0;
-        v16 = &v15;
-        v17 = 0x3032000000;
-        v18 = __Block_byref_object_copy_;
-        v19 = __Block_byref_object_dispose_;
-        v20 = 0;
-        v8 = v7;
-        AXPerformSafeBlock();
-        v9 = v16[5];
-
-        _Block_object_dispose(&v15, 8);
-        v10 = __UIAccessibilitySafeClass();
-
-        if (v21 == 1)
-        {
-LABEL_13:
           abort();
         }
 
-        [v14 axSafelyAddObject:v10];
+        [v12 axSafelyAddObject:v9];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v3);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-
-  return v14;
+  return v12;
 }
 
 void __67__NavSignLabelAccessibility_accessibilityAttributedUserInputLabels__block_invoke(uint64_t a1)

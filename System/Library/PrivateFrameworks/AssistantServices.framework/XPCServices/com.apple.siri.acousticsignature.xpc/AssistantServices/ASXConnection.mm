@@ -1,7 +1,9 @@
 @interface ASXConnection
 - (id)_extractor;
+- (void)appendAcousticData:(id)data sampleCount:(int)count sampleRate:(int)rate;
 - (void)getSignature:(id)signature;
 - (void)reset;
+- (void)setSampleRate:(int)rate;
 @end
 
 @implementation ASXConnection
@@ -22,6 +24,28 @@
   {
     signatureCopy[2](signatureCopy, currentSignature);
   }
+}
+
+- (void)appendAcousticData:(id)data sampleCount:(int)count sampleRate:(int)rate
+{
+  v5 = *&rate;
+  v6 = *&count;
+  dataCopy = data;
+  _extractor = [(ASXConnection *)self _extractor];
+  if (v5 >= 1)
+  {
+    [_extractor setSampleRate:v5];
+  }
+
+  _extractor2 = [(ASXConnection *)self _extractor];
+  [_extractor2 appendAcousticData:dataCopy sampleCount:v6];
+}
+
+- (void)setSampleRate:(int)rate
+{
+  v3 = *&rate;
+  _extractor = [(ASXConnection *)self _extractor];
+  [_extractor setSampleRate:v3];
 }
 
 - (id)_extractor

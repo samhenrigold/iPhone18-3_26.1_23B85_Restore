@@ -9,12 +9,13 @@
 
 - (C2WarmRequest)initWithData:(id)data callback:(id)callback
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   callbackCopy = callback;
-  v40.receiver = self;
-  v40.super_class = C2WarmRequest;
-  v8 = [(C2WarmRequest *)&v40 init];
+  v51.receiver = self;
+  v51.super_class = C2WarmRequest;
+  v8 = [(C2WarmRequest *)&v51 init];
+  v10 = v8;
   if (!v8)
   {
     goto LABEL_38;
@@ -22,47 +23,47 @@
 
   if (!dataCopy)
   {
-    v15 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = mmcs_logging_logger_default(v8, v9);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, "Missing data, cannot init C2WarmRequest", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_ERROR, "Missing data, cannot init C2WarmRequest", buf, 2u);
     }
 
     goto LABEL_34;
   }
 
-  v39 = 0;
-  v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v39];
-  v10 = v39;
-  v11 = v10;
-  if (v9)
+  v50 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v50];
+  v12 = v50;
+  v14 = v12;
+  if (v11)
   {
-    v12 = v10 == 0;
+    v15 = v12 == 0;
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  if (!v12)
+  if (!v15)
   {
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = mmcs_logging_logger_default(v12, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v11;
-      v14 = "Error deserializing request options with error %@";
+      v53 = v14;
+      v17 = "Error deserializing request options with error %@";
 LABEL_20:
-      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
       goto LABEL_21;
     }
 
     goto LABEL_21;
   }
 
-  invokedURL = [v9 invokedURL];
+  invokedURL = [v11 invokedURL];
 
   if (invokedURL)
   {
@@ -71,120 +72,119 @@ LABEL_20:
 
     if (uUIDString)
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"C2WarmRequest requestUUID:%@", uUIDString];
-      if (v19)
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"C2WarmRequest requestUUID:%@", uUIDString];
+      if (v26)
       {
-        v20 = v19;
-        [v9 setIdentifier:v19];
-        v21 = MEMORY[0x277CCACE0];
-        invokedURL2 = [v9 invokedURL];
-        v23 = [v21 componentsWithURL:invokedURL2 resolvingAgainstBaseURL:1];
+        v28 = v26;
+        [v11 setIdentifier:v26];
+        v29 = MEMORY[0x277CCACE0];
+        invokedURL2 = [v11 invokedURL];
+        v31 = [v29 componentsWithURL:invokedURL2 resolvingAgainstBaseURL:1];
 
-        if (v23)
+        if (v31)
         {
-          [v23 setQueryItems:MEMORY[0x277CBEBF8]];
-          [v23 setPath:@"/asset/init"];
-          v24 = [v23 URL];
-          if (v24)
+          [v31 setQueryItems:MEMORY[0x277CBEBF8]];
+          [v31 setPath:@"/asset/init"];
+          v34 = [v31 URL];
+          if (v34)
           {
-            v25 = v24;
-            v26 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v24];
-            v27 = v26;
-            if (v26)
+            v36 = v34;
+            v37 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v34];
+            v39 = v37;
+            if (v37)
             {
-              [v26 setValue:uUIDString forHTTPHeaderField:@"x-apple-request-uuid"];
-              objc_storeStrong(&v8->_warmRequest, v27);
-              v28 = MEMORY[0x259C67460](callbackCopy);
-              callback = v8->_callback;
-              v8->_callback = v28;
+              [v37 setValue:uUIDString forHTTPHeaderField:@"x-apple-request-uuid"];
+              objc_storeStrong(&v10->_warmRequest, v39);
+              v40 = MEMORY[0x259C67460](callbackCopy);
+              callback = v10->_callback;
+              v10->_callback = v40;
 
-              objc_storeStrong(&v8->_warmOptions, v9);
+              objc_storeStrong(&v10->_warmOptions, v11);
             }
 
             else
             {
-              v36 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+              v48 = mmcs_logging_logger_default(0, v38);
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v42 = v25;
-                _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_ERROR, "Error initializing urlRequest with warmURL %@", buf, 0xCu);
+                v53 = v36;
+                _os_log_impl(&dword_2577D8000, v48, OS_LOG_TYPE_ERROR, "Error initializing urlRequest with warmURL %@", buf, 0xCu);
               }
             }
 
-            if (!v27)
+            if (!v39)
             {
               goto LABEL_34;
             }
 
 LABEL_38:
-            v35 = v8;
+            v47 = v10;
             goto LABEL_39;
           }
 
-          v34 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v46 = mmcs_logging_logger_default(0, v35);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v42 = v23;
-            _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_ERROR, "Error initializing warmURL with urlComponents %@", buf, 0xCu);
+            v53 = v31;
+            _os_log_impl(&dword_2577D8000, v46, OS_LOG_TYPE_ERROR, "Error initializing warmURL with urlComponents %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v32 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v44 = mmcs_logging_logger_default(v32, v33);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            invokedURL3 = [v9 invokedURL];
+            invokedURL3 = [v11 invokedURL];
             *buf = 138412290;
-            v42 = invokedURL3;
-            _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_ERROR, "Error initializing urlComponents with url %@", buf, 0xCu);
+            v53 = invokedURL3;
+            _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_ERROR, "Error initializing urlComponents with url %@", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v31 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v43 = mmcs_logging_logger_default(0, v27);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_ERROR, "Error initializing requestIdentifier", buf, 2u);
+          _os_log_impl(&dword_2577D8000, v43, OS_LOG_TYPE_ERROR, "Error initializing requestIdentifier", buf, 2u);
         }
       }
     }
 
     else
     {
-      v30 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v42 = mmcs_logging_logger_default(v24, v25);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_ERROR, "Error initializing requestUUID", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_ERROR, "Error initializing requestUUID", buf, 2u);
       }
     }
 
     goto LABEL_34;
   }
 
-  v13 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v16 = mmcs_logging_logger_default(v20, v21);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v42 = v9;
-    v14 = "Request options missing invokedURL %@ required for warming.";
+    v53 = v11;
+    v17 = "Request options missing invokedURL %@ required for warming.";
     goto LABEL_20;
   }
 
 LABEL_21:
 
 LABEL_34:
-  v35 = 0;
+  v47 = 0;
 LABEL_39:
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v35;
+  return v47;
 }
 
 - (void)send
@@ -201,7 +201,7 @@ LABEL_39:
   if (errorCopy)
   {
     v14 = errorCopy;
-    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, errorCopy, @"Encountered Network Error on Warm Request", v10, v11, v12, v13, v17);
+    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, errorCopy, @"Encountered Network Error on Warm Request", v10, v11, v12, v13);
   }
 
   else

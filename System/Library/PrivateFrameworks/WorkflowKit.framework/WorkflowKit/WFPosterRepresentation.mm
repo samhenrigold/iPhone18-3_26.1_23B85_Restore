@@ -72,7 +72,7 @@
     v6 = equalCopy;
     if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
 LABEL_27:
 
       goto LABEL_28;
@@ -89,7 +89,7 @@ LABEL_27:
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       v13 = v10;
       v14 = v9;
       if (!v9 || !v10)
@@ -101,7 +101,7 @@ LABEL_27:
 
       if (!v15)
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqualToString) = 0;
 LABEL_26:
 
         goto LABEL_27;
@@ -119,7 +119,7 @@ LABEL_26:
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       v19 = v18;
       v20 = v14;
       if (!v14 || !v18)
@@ -130,9 +130,9 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v12 = [v14 isEqualToString:v18];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_25;
       }
@@ -145,25 +145,25 @@ LABEL_25:
     v19 = v23;
     if (v20 == v23)
     {
-      LOBYTE(v12) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (v20 && v23)
       {
-        LOBYTE(v12) = [v20 isEqualToString:v23];
+        LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v20);
       }
     }
 
     goto LABEL_24;
   }
 
-  LOBYTE(v12) = 1;
+  LOBYTE(isEqualToString) = 1;
 LABEL_28:
 
-  return v12;
+  return isEqualToString;
 }
 
 - (id)description

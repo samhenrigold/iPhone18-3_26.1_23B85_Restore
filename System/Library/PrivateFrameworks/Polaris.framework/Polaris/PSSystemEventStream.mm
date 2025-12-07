@@ -2,9 +2,9 @@
 - (BOOL)start;
 - (BOOL)stop;
 - (PSSystemEventStream)initWithKey:(id)key event:(unint64_t)event rate:(unint64_t)rate queue:(id)queue writerInstance:(PRMWriterInstance *)instance;
-- (uint64_t)start;
 - (void)PLSSystemEventNodeNotifyTimer;
 - (void)dealloc;
+- (void)start;
 @end
 
 @implementation PSSystemEventStream
@@ -47,7 +47,7 @@ LABEL_6:
     return v21;
   }
 
-  v23 = [PSSystemEventStream initWithKey:? event:? rate:? queue:? writerInstance:?];
+  v23 = [PSSystemEventStream initWithKey:v25 event:? rate:? queue:? writerInstance:?];
   [(PSSystemEventStream *)v23 dealloc];
   return result;
 }
@@ -84,13 +84,13 @@ LABEL_6:
 {
   if ((ps_system_stream_context_get_keep_running(self->_sys_stream_context) & 1) != 0 || !self->_nodeStopped)
   {
-    start = [(PSSystemEventStream *)&v6 start];
-    [(PSSystemEventStream *)start PLSSystemEventNodeNotifyTimer];
+    [(PSSystemEventStream *)&v6 start];
+    [(PSSystemEventStream *)v4 PLSSystemEventNodeNotifyTimer];
   }
 
   else
   {
-    ps_system_stream_context_set_keep_running(self->_sys_stream_context, 1u);
+    ps_system_stream_context_set_keep_running(self->_sys_stream_context, 1);
     *&self->_running = 1;
     self->_firstSample = 1;
     ps_system_stream_context_set_writer_inst(&self->_sys_stream_context->var0, self->_writer_inst);
@@ -125,31 +125,31 @@ LABEL_6:
 
 - (uint64_t)initWithKey:(char *)a1 event:rate:queue:writerInstance:.cold.1(char **a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v1 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+  v1 = asprintf(a1, "OOM!");
+  v2 = __PLSLogSharedInstance(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v9 = 136315394;
-    v10 = "[PSSystemEventStream initWithKey:event:rate:queue:writerInstance:]";
-    v11 = 1024;
-    v12 = 204;
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d OOM!", &v9, 0x12u);
+    v11 = 136315394;
+    v12 = "[PSSystemEventStream initWithKey:event:rate:queue:writerInstance:]";
+    v13 = 1024;
+    v14 = 204;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d OOM!", &v11, 0x12u);
   }
 
-  v2 = OSLogFlushBuffers();
-  if (v2)
+  v3 = OSLogFlushBuffers();
+  if (v3)
   {
-    v3 = v2;
-    v4 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = v3;
+    v5 = __PLSLogSharedInstance(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[PSSystemEventStream initWithKey:event:rate:queue:writerInstance:]";
-      v11 = 1024;
-      v12 = v3;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v5, v6, "%s() failed to flush buffers with error code: %d", &v9);
+      v11 = 136315394;
+      v12 = "[PSSystemEventStream initWithKey:event:rate:queue:writerInstance:]";
+      v13 = 1024;
+      v14 = v4;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v6, v7, "%s() failed to flush buffers with error code: %d", &v11);
     }
   }
 
@@ -158,41 +158,42 @@ LABEL_6:
     usleep(0x1E8480u);
   }
 
-  v7 = OUTLINED_FUNCTION_0();
-  return [(PSSystemEventStream *)v7 start];
+  v8 = OUTLINED_FUNCTION_0();
+  return [(PSSystemEventStream *)v8 start];
 }
 
-- (uint64_t)start
+- (void)start
 {
   v29 = *MEMORY[0x277D85DE8];
   *self = 0;
   v4 = [a2 key];
   asprintf(self, "Unexpected state: System Event Node started (when it's already active): %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v6 = __PLSLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v6 = [a2 key];
+    v7 = [a2 key];
+    *buf = 136315650;
     v24 = "[PSSystemEventStream start]";
     v25 = 1024;
     v26 = 262;
     v27 = 2080;
-    uTF8String = [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Unexpected state: System Event Node started (when it's already active): %s", v9, v10, v11, v12, v21, v22, 2u);
+    uTF8String = [v7 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Unexpected state: System Event Node started (when it's already active): %s", v10, v11, v12, v13, v21, v22);
   }
 
-  v13 = OSLogFlushBuffers();
-  if (v13)
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v14 = v13;
-    v15 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v15 = v14;
+    v16 = __PLSLogSharedInstance(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       v24 = "[PSSystemEventStream start]";
       v25 = 1024;
-      v26 = v14;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", buf);
+      v26 = v15;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -201,8 +202,8 @@ LABEL_6:
     usleep(0x1E8480u);
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return _timerNotificationFunc_cold_1(v18, v19);
+  v19 = OUTLINED_FUNCTION_0();
+  _timerNotificationFunc_cold_1(v19, v20);
 }
 
 @end

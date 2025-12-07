@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsRequestType:(id)type;
 - (int)requestType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278625100[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestType:(id)type
@@ -109,30 +125,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    requestType = self->_requestType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_requestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_fetchLocationRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_scenarioTriggeredRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -198,7 +213,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_requestType != *(equalCopy + 6))
@@ -210,7 +224,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -232,17 +246,17 @@ LABEL_13:
   scenarioTriggeredRequest = self->_scenarioTriggeredRequest;
   if (scenarioTriggeredRequest | *(equalCopy + 4))
   {
-    v9 = [(HDCodableRoutineScenarioTriggeredRequest *)scenarioTriggeredRequest isEqual:?];
+    v8 = [(HDCodableRoutineScenarioTriggeredRequest *)scenarioTriggeredRequest isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

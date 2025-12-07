@@ -36,9 +36,9 @@
 
 - (void)setCodeText:(id)text
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v25 = textCopy;
+  v24 = textCopy;
   if (textCopy)
   {
     v5 = textCopy;
@@ -65,33 +65,33 @@
   }
 
   v10 = [(__CFString *)v9 length];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   selfCopy = self;
   digits = [(VSTwoFactorDigitView *)self digits];
-  v12 = [digits countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v12 = [digits countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(digits);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         v18 = &stru_2880B8BB0;
         if ([(__CFString *)v9 length]&& v14 < v10)
         {
-          v26 = [(__CFString *)v9 characterAtIndex:v14];
-          v18 = [MEMORY[0x277CCACA8] stringWithCharacters:&v26 length:1];
+          v25 = [(__CFString *)v9 characterAtIndex:v14];
+          v18 = [MEMORY[0x277CCACA8] stringWithCharacters:&v25 length:1];
         }
 
         label = [v17 label];
@@ -100,7 +100,7 @@
         ++v14;
       }
 
-      v13 = [digits countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v13 = [digits countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v13);
@@ -120,8 +120,6 @@
   {
     [(VSTwoFactorDigitView *)selfCopy resignFirstResponder];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -138,7 +136,7 @@
 
 - (void)setupDigitViews
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   digitCount = [(VSTwoFactorDigitView *)self digitCount];
   v5 = digitCount;
@@ -159,30 +157,30 @@
   }
 
   [(VSTwoFactorDigitView *)self setDigits:v3];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v28 = v5;
+    v27 = v5;
     v11 = 0;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       v13 = 0;
       v14 = v11;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * v13);
+        v15 = *(*(&v28 + 1) + 8 * v13);
         topAnchor = [v15 topAnchor];
         topAnchor2 = [(VSTwoFactorDigitView *)self topAnchor];
         v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
@@ -214,30 +212,28 @@
       }
 
       while (v10 != v13);
-      v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v10);
 
-    v5 = v28;
+    v5 = v27;
   }
 
   widthAnchor = [(VSTwoFactorDigitView *)self widthAnchor];
   v26 = [widthAnchor constraintEqualToConstant:v5 * 50.0 + -10.0];
   [v26 setActive:1];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBackward
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[VSTwoFactorDigitView deleteBackward]";
-    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[VSTwoFactorDigitView deleteBackward]";
+    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v6, 0xCu);
   }
 
   codeText = [(VSTwoFactorDigitView *)self codeText];
@@ -246,13 +242,11 @@
     v5 = [codeText substringToIndex:{objc_msgSend(codeText, "length") - 1}];
     [(VSTwoFactorDigitView *)self setCodeText:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertText:(id)text
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   textCopy = text;
   codeText = [(VSTwoFactorDigitView *)self codeText];
   v6 = [codeText length];
@@ -294,13 +288,12 @@
   v19 = VSDefaultLogObject();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = v17;
-    _os_log_impl(&dword_270DD4000, v19, OS_LOG_TYPE_DEFAULT, "Will set updated text to: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = v17;
+    _os_log_impl(&dword_270DD4000, v19, OS_LOG_TYPE_DEFAULT, "Will set updated text to: %@", &v20, 0xCu);
   }
 
   [(VSTwoFactorDigitView *)self setCodeText:v17];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (UITextPosition)beginningOfDocument

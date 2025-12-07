@@ -14,9 +14,6 @@
 - (id)keyValueDomain;
 - (int64_t)_nextActivityMoveModeForNotificationType:(int64_t)type;
 - (int64_t)_queue_determineActivityMoveModeNotificationType;
-- (void)_queue_loadBirthDateComponents;
-- (void)_queue_loadMoveModeChangeSample;
-- (void)_queue_loadWheelchairUse;
 - (void)_queue_scheduleNotificationIfNeeded;
 - (void)_saveMoveModeChangeSampleForActivityMoveMode:(int64_t)mode date:(id)date;
 - (void)_setDate:(id)date forKey:(id)key;
@@ -33,7 +30,7 @@
 
 - (void)_queue_scheduleNotificationIfNeeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   _queue_loadBirthDateComponents = [(FCMoveModeCoordinator *)self _queue_loadBirthDateComponents];
   _queue_loadMoveModeChangeSample = [(FCMoveModeCoordinator *)self _queue_loadMoveModeChangeSample];
@@ -52,9 +49,9 @@
       v12 = *MEMORY[0x277CCC290];
       if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v11;
-        _os_log_impl(&dword_24B55B000, v12, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator scheduling notification %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v11;
+        _os_log_impl(&dword_24B55B000, v12, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator scheduling notification %@", &v15, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -68,12 +65,10 @@
     v14 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_24B55B000, v14, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator failed to load data", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_24B55B000, v14, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator failed to load data", &v15, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_loadBirthDateComponents
@@ -111,17 +106,9 @@
   return v3;
 }
 
-- (void)_queue_loadBirthDateComponents
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "FCMoveModeCoordinator failed to get date of birth: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (BOOL)_queue_loadMoveModeChangeSample
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   activityMoveModeChangeType = [MEMORY[0x277CCD720] activityMoveModeChangeType];
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
   v5 = HDSampleEntityPredicateForStartDate();
@@ -131,30 +118,30 @@
   v8 = [v6 entityEnumeratorWithType:activityMoveModeChangeType profile:WeakRetained];
 
   v9 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104B0] entityClass:objc_opt_class() ascending:0];
-  v23[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   [v8 setOrderingTerms:v10];
 
   [v8 setPredicate:v5];
   [v8 setLimitCount:1];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = 0;
-  v15[4] = &v17;
   v16 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__FCMoveModeCoordinator__queue_loadMoveModeChangeSample__block_invoke;
-  v15[3] = &unk_27900B3D8;
-  LOBYTE(v10) = [v8 enumerateWithError:&v16 handler:v15];
-  v11 = v16;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  v14[4] = &v16;
+  v15 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __56__FCMoveModeCoordinator__queue_loadMoveModeChangeSample__block_invoke;
+  v14[3] = &unk_27900B3D8;
+  LOBYTE(v10) = [v8 enumerateWithError:&v15 handler:v14];
+  v11 = v15;
   v12 = (v11 == 0) | v10;
   if (v12)
   {
-    objc_storeStrong(&self->_mostRecentActivityMoveModeChangeSample, v18[5]);
+    objc_storeStrong(&self->_mostRecentActivityMoveModeChangeSample, v17[5]);
   }
 
   else
@@ -166,8 +153,7 @@
     }
   }
 
-  _Block_object_dispose(&v17, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
   return v12 & 1;
 }
 
@@ -367,7 +353,7 @@
 
 - (void)_saveMoveModeChangeSampleForActivityMoveMode:(int64_t)mode date:(id)date
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dateProvider = self->_dateProvider;
   dateCopy = date;
   coachingCalendar = [(FCCDateProvider *)dateProvider coachingCalendar];
@@ -377,44 +363,41 @@
   v10 = FIActivityMoveModeChangeSampleForDateComponents();
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   dataManager = [WeakRetained dataManager];
-  v15[0] = v10;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [dataManager insertDataObjects:v13 error:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_queue_determineActivityMoveModeNotificationType
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
   coachingCalendar = [(FCCDateProvider *)self->_dateProvider coachingCalendar];
-  birthDateComponents = self->_birthDateComponents;
-  v6 = FIAgeInYearsForDateOfBirthComponentsWithCurrentDateAndCalendar();
-  v7 = MEMORY[0x277CCC290];
-  if (!v6)
+  v5 = FIAgeInYearsForDateOfBirthComponentsWithCurrentDateAndCalendar();
+  v6 = MEMORY[0x277CCC290];
+  if (!v5)
   {
     _HKInitializeLogging();
-    v22 = *v7;
-    if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+    v21 = *v6;
+    if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v46) = 0;
-      v23 = "FCMoveModeCoordinator - age unknown for move mode notification";
+      LOWORD(v44) = 0;
+      v22 = "FCMoveModeCoordinator - age unknown for move mode notification";
 LABEL_45:
-      _os_log_impl(&dword_24B55B000, v22, OS_LOG_TYPE_DEFAULT, v23, &v46, 2u);
+      _os_log_impl(&dword_24B55B000, v21, OS_LOG_TYPE_DEFAULT, v22, &v44, 2u);
     }
 
 LABEL_46:
-    v29 = 0;
+    v28 = 0;
     goto LABEL_78;
   }
 
-  v8 = v6;
+  v7 = v5;
   mostRecentActivityMoveModeChangeSample = self->_mostRecentActivityMoveModeChangeSample;
   if (!mostRecentActivityMoveModeChangeSample)
   {
-    v24 = 0;
+    v23 = 0;
     value = 1;
     goto LABEL_31;
   }
@@ -423,24 +406,24 @@ LABEL_46:
   startDate = [(HKCategorySample *)self->_mostRecentActivityMoveModeChangeSample startDate];
   [startDate timeIntervalSinceReferenceDate];
 
-  v12 = _HKActivityCacheDateComponentsFromCacheIndex();
-  v13 = [coachingCalendar dateFromComponents:v12];
+  v11 = _HKActivityCacheDateComponentsFromCacheIndex();
+  v12 = [coachingCalendar dateFromComponents:v11];
   _lastModeChangeNotificationDate = [(FCMoveModeCoordinator *)self _lastModeChangeNotificationDate];
   _HKInitializeLogging();
-  v15 = *v7;
-  if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+  v14 = *v6;
+  if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    v46 = 138543618;
-    v47 = v13;
-    v48 = 2114;
-    v49 = _lastModeChangeNotificationDate;
-    _os_log_impl(&dword_24B55B000, v15, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - mostRecentMoveModeChangeDate (%{public}@) lastChangeNotificationDate (%{public}@)", &v46, 0x16u);
+    v44 = 138543618;
+    v45 = v12;
+    v46 = 2114;
+    v47 = _lastModeChangeNotificationDate;
+    _os_log_impl(&dword_24B55B000, v14, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - mostRecentMoveModeChangeDate (%{public}@) lastChangeNotificationDate (%{public}@)", &v44, 0x16u);
   }
 
-  [v13 timeIntervalSinceReferenceDate];
-  v17 = v16;
+  [v12 timeIntervalSinceReferenceDate];
+  v16 = v15;
   [_lastModeChangeNotificationDate timeIntervalSinceReferenceDate];
-  if (v17 <= v18)
+  if (v16 <= v17)
   {
 
     if (value == 2)
@@ -451,132 +434,132 @@ LABEL_46:
         if (!_lastWheelchairModeChangeNotificationDate || ![coachingCalendar isDateInToday:_lastWheelchairModeChangeNotificationDate])
         {
           _HKInitializeLogging();
-          v39 = *v7;
-          if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+          v38 = *v6;
+          if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v46) = 0;
-            _os_log_impl(&dword_24B55B000, v39, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user switched to wheelchair mode and needs a move mode change notification", &v46, 2u);
+            LOWORD(v44) = 0;
+            _os_log_impl(&dword_24B55B000, v38, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user switched to wheelchair mode and needs a move mode change notification", &v44, 2u);
           }
 
-          v29 = 6;
+          v28 = 6;
           goto LABEL_77;
         }
 
         _HKInitializeLogging();
-        v20 = *v7;
-        if (!os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+        v19 = *v6;
+        if (!os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_56:
-          v29 = 0;
+          v28 = 0;
 LABEL_77:
 
           goto LABEL_78;
         }
 
-        v46 = 138543362;
-        v47 = _lastWheelchairModeChangeNotificationDate;
-        v21 = "FCMoveModeCoordinator - user switched to wheelchair mode but has already been notified about mode change (%{public}@)";
+        v44 = 138543362;
+        v45 = _lastWheelchairModeChangeNotificationDate;
+        v20 = "FCMoveModeCoordinator - user switched to wheelchair mode but has already been notified about mode change (%{public}@)";
 LABEL_55:
-        _os_log_impl(&dword_24B55B000, v20, OS_LOG_TYPE_DEFAULT, v21, &v46, 0xCu);
+        _os_log_impl(&dword_24B55B000, v19, OS_LOG_TYPE_DEFAULT, v20, &v44, 0xCu);
         goto LABEL_56;
       }
 
-      v24 = 1;
+      v23 = 1;
       value = 2;
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
 LABEL_31:
     _HKInitializeLogging();
-    v30 = *v7;
-    if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+    v29 = *v6;
+    if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = 134218240;
-      v47 = value;
-      v48 = 2048;
-      v49 = v8;
-      _os_log_impl(&dword_24B55B000, v30, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - activityMoveModeForToday (%ld) ageInYears (%lu)", &v46, 0x16u);
+      v44 = 134218240;
+      v45 = value;
+      v46 = 2048;
+      v47 = v7;
+      _os_log_impl(&dword_24B55B000, v29, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - activityMoveModeForToday (%ld) ageInYears (%lu)", &v44, 0x16u);
     }
 
-    if (v8 <= *MEMORY[0x277D095F0])
+    if (v7 <= *MEMORY[0x277D095F0])
     {
-      v31 = v24;
+      v30 = v23;
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
-    if ((v8 <= *MEMORY[0x277D095F0] || value == 2) && v31 == 0)
+    if ((v7 <= *MEMORY[0x277D095F0] || value == 2) && v30 == 0)
     {
-      if (v8 == 17 || v8 == 13)
+      if (v7 == 17 || v7 == 13)
       {
         _HKInitializeLogging();
-        v34 = *v7;
-        if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+        v33 = *v6;
+        if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v46) = 0;
-          _os_log_impl(&dword_24B55B000, v34, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user is in activity move mode graduation year", &v46, 2u);
+          LOWORD(v44) = 0;
+          _os_log_impl(&dword_24B55B000, v33, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user is in activity move mode graduation year", &v44, 2u);
         }
 
         _lastWheelchairModeChangeNotificationDate = [(FCMoveModeCoordinator *)self _lastGraduationNotificationDate];
         if (!_lastWheelchairModeChangeNotificationDate || ![coachingCalendar hk_isDate:_lastWheelchairModeChangeNotificationDate withinNumberOfCalendarDays:366 ofDate:coachingDate])
         {
-          if (v8 == 17)
+          if (v7 == 17)
           {
-            v35 = [(FCMoveModeCoordinator *)self _birthdayForAge:18];
-            v36 = [(FCMoveModeCoordinator *)self _tuesdayBeforeDate:v35];
-            v37 = @"before";
-            v29 = 3;
-            v38 = @"a mandatory";
+            v34 = [(FCMoveModeCoordinator *)self _birthdayForAge:18];
+            v35 = [(FCMoveModeCoordinator *)self _tuesdayBeforeDate:v34];
+            v36 = @"before";
+            v28 = 3;
+            v37 = @"a mandatory";
           }
 
           else
           {
-            v35 = [(FCMoveModeCoordinator *)self _birthdayForAge:13];
-            v36 = [(FCMoveModeCoordinator *)self _tuesdayAfterDate:v35];
-            v37 = @"after";
-            v29 = 2;
-            v38 = @"an";
+            v34 = [(FCMoveModeCoordinator *)self _birthdayForAge:13];
+            v35 = [(FCMoveModeCoordinator *)self _tuesdayAfterDate:v34];
+            v36 = @"after";
+            v28 = 2;
+            v37 = @"an";
           }
 
           _HKInitializeLogging();
-          v40 = *v7;
-          if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+          v39 = *v6;
+          if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
           {
-            v46 = 138543362;
-            v47 = v36;
-            _os_log_impl(&dword_24B55B000, v40, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - expected notificationDate (%{public}@)", &v46, 0xCu);
+            v44 = 138543362;
+            v45 = v35;
+            _os_log_impl(&dword_24B55B000, v39, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - expected notificationDate (%{public}@)", &v44, 0xCu);
           }
 
-          if (v36 && [coachingDate hk_isBeforeDate:v36])
+          if (v35 && [coachingDate hk_isBeforeDate:v35])
           {
             _HKInitializeLogging();
-            v41 = *v7;
-            if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+            v40 = *v6;
+            if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
             {
-              v46 = 138543362;
-              v47 = v37;
-              _os_log_impl(&dword_24B55B000, v41, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - not enough days %{public}@ birthday to notify about activity move mode graduation", &v46, 0xCu);
+              v44 = 138543362;
+              v45 = v36;
+              _os_log_impl(&dword_24B55B000, v40, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - not enough days %{public}@ birthday to notify about activity move mode graduation", &v44, 0xCu);
             }
 
-            v29 = 0;
+            v28 = 0;
           }
 
           else
           {
             _HKInitializeLogging();
-            v42 = *v7;
-            if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+            v41 = *v6;
+            if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
             {
-              v46 = 138543362;
-              v47 = v38;
-              _os_log_impl(&dword_24B55B000, v42, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user needs a notification about %{public}@ activity move mode graduation", &v46, 0xCu);
+              v44 = 138543362;
+              v45 = v37;
+              _os_log_impl(&dword_24B55B000, v41, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user needs a notification about %{public}@ activity move mode graduation", &v44, 0xCu);
             }
           }
 
@@ -584,100 +567,99 @@ LABEL_31:
         }
 
         _HKInitializeLogging();
-        v20 = *v7;
-        if (!os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+        v19 = *v6;
+        if (!os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_56;
         }
 
-        v46 = 138543362;
-        v47 = _lastWheelchairModeChangeNotificationDate;
-        v21 = "FCMoveModeCoordinator - user has already been notified for move mode for this graduation year (%{public}@)";
+        v44 = 138543362;
+        v45 = _lastWheelchairModeChangeNotificationDate;
+        v20 = "FCMoveModeCoordinator - user has already been notified for move mode for this graduation year (%{public}@)";
         goto LABEL_55;
       }
 
-      if (v8 <= *MEMORY[0x277D095F0] && !self->_isWheelchairUser)
+      if (v7 <= *MEMORY[0x277D095F0] && !self->_isWheelchairUser)
       {
         _lastWheelchairModeChangeNotificationDate = [(FCMoveModeCoordinator *)self _upgradeToMoveTimeNotificationDate];
         _HKInitializeLogging();
-        v20 = *v7;
-        v45 = os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT);
+        v19 = *v6;
+        v43 = os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT);
         if (!_lastWheelchairModeChangeNotificationDate)
         {
-          if (v45)
+          if (v43)
           {
-            LOWORD(v46) = 0;
-            _os_log_impl(&dword_24B55B000, v20, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user is an upgrade user and needs to be notified to upgrade to move time", &v46, 2u);
+            LOWORD(v44) = 0;
+            _os_log_impl(&dword_24B55B000, v19, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user is an upgrade user and needs to be notified to upgrade to move time", &v44, 2u);
           }
 
-          v29 = 1;
+          v28 = 1;
           goto LABEL_77;
         }
 
-        if (!v45)
+        if (!v43)
         {
           goto LABEL_56;
         }
 
-        v46 = 138543362;
-        v47 = _lastWheelchairModeChangeNotificationDate;
-        v21 = "FCMoveModeCoordinator - user is an upgrade to move time user but has already been notified (%{public}@)";
+        v44 = 138543362;
+        v45 = _lastWheelchairModeChangeNotificationDate;
+        v20 = "FCMoveModeCoordinator - user is an upgrade to move time user but has already been notified (%{public}@)";
         goto LABEL_55;
       }
 
       _HKInitializeLogging();
-      v22 = *v7;
-      if (!os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+      v21 = *v6;
+      if (!os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_46;
       }
 
-      LOWORD(v46) = 0;
-      v23 = "FCMoveModeCoordinator - user does not need to be notified";
+      LOWORD(v44) = 0;
+      v22 = "FCMoveModeCoordinator - user does not need to be notified";
       goto LABEL_45;
     }
 
     _HKInitializeLogging();
-    v22 = *v7;
-    if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+    v21 = *v6;
+    if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v46) = 0;
-      v23 = "FCMoveModeCoordinator - user activity move mode and age in combination that doesn't require any notifying";
+      LOWORD(v44) = 0;
+      v22 = "FCMoveModeCoordinator - user activity move mode and age in combination that doesn't require any notifying";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  v26 = v8 > 0x11 && value == 1;
+  v25 = v7 > 0x11 && value == 1;
   _HKInitializeLogging();
-  v27 = *v7;
-  if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+  v26 = *v6;
+  if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = &stru_285E82B60;
-    if (v26)
+    v27 = &stru_285E82B60;
+    if (v25)
     {
-      v28 = @"mandatory ";
+      v27 = @"mandatory ";
     }
 
-    v46 = 138543362;
-    v47 = v28;
-    _os_log_impl(&dword_24B55B000, v27, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user needs a %{public}@move mode change notification", &v46, 0xCu);
+    v44 = 138543362;
+    v45 = v27;
+    _os_log_impl(&dword_24B55B000, v26, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator - user needs a %{public}@move mode change notification", &v44, 0xCu);
   }
 
-  if (v26)
+  if (v25)
   {
-    v29 = 5;
+    v28 = 5;
   }
 
   else
   {
-    v29 = 4;
+    v28 = 4;
   }
 
 LABEL_78:
-  v43 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v28;
 }
 
 - (int64_t)_nextActivityMoveModeForNotificationType:(int64_t)type
@@ -889,13 +871,13 @@ uint64_t __54__FCMoveModeCoordinator__userCharacteristicsDidChange__block_invoke
 
 - (void)_setDate:(id)date forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   keyCopy = key;
   keyValueDomain = [(FCMoveModeCoordinator *)self keyValueDomain];
-  v13 = 0;
-  [keyValueDomain setDate:dateCopy forKey:keyCopy error:&v13];
-  v9 = v13;
+  v12 = 0;
+  [keyValueDomain setDate:dateCopy forKey:keyCopy error:&v12];
+  v9 = v12;
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC290];
   v11 = *MEMORY[0x277CCC290];
@@ -910,13 +892,11 @@ uint64_t __54__FCMoveModeCoordinator__userCharacteristicsDidChange__block_invoke
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v15 = keyCopy;
-    v16 = 2114;
-    v17 = dateCopy;
+    v14 = keyCopy;
+    v15 = 2114;
+    v16 = dateCopy;
     _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "FCMoveModeCoordinator successfully saved data to key value domain for key %{public}@ date: %{public}@", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)keyValueDomain
@@ -998,38 +978,6 @@ uint64_t __54__FCMoveModeCoordinator__userCharacteristicsDidChange__block_invoke
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)_queue_loadMoveModeChangeSample
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "FCMoveModeCoordinator failed to load most recent activity move mode change sample: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_loadWheelchairUse
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "FCMoveModeCoordinator failed to get wheelchair use: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dateForKey:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_24B55B000, v0, v1, "FCMoveModeCoordinator failed to read data from key value domain for key %{public}@. Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setDate:forKey:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_24B55B000, v0, v1, "FCMoveModeCoordinator failed to save data to value domain for key %{public}@. Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

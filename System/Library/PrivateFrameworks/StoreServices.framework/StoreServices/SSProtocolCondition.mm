@@ -37,15 +37,21 @@ LABEL_6:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v8 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
@@ -56,17 +62,16 @@ LABEL_6:
     v21 = objc_opt_class();
     v22 = 2112;
     v23 = v4;
-    LODWORD(v19) = 22;
-    result = _os_log_send_and_compose_impl();
+    result = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Invalid condition: %@", &v20, 22);
     if (!result)
     {
       return result;
     }
 
-    v11 = result;
-    v12 = [MEMORY[0x1E696AEC0] stringWithCString:result encoding:{4, &v20, v19}];
-    free(v11);
-    SSFileLog(v8, @"%@", v13, v14, v15, v16, v17, v18, v12);
+    v12 = result;
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:result encoding:4];
+    free(v12);
+    SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, v13);
   }
 
   return 0;

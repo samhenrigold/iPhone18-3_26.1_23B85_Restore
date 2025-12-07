@@ -43,22 +43,25 @@
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
 {
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v5 = sub_15884C(x);
+  v8 = sub_15884C(x, y, width, height);
 
-  if (v5)
+  if (v8)
   {
-    sub_BE70(0, &qword_944B40);
-    v6.super.isa = sub_769450().super.isa;
+    sub_BE70(0, &qword_944B40, UICollectionViewLayoutAttributes_ptr);
+    v9.super.isa = sub_769450().super.isa;
   }
 
   else
   {
-    v6.super.isa = 0;
+    v9.super.isa = 0;
   }
 
-  return v6.super.isa;
+  return v9.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path
@@ -66,30 +69,30 @@
   v4 = sub_757640();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   selfCopy = self;
   isa = sub_757550().super.isa;
   v10 = type metadata accessor for SearchCollectionViewLayout();
-  v14.receiver = selfCopy;
-  v14.super_class = v10;
-  v11 = [(SearchCollectionViewLayout *)&v14 layoutAttributesForItemAtIndexPath:isa];
+  v15.receiver = selfCopy;
+  v15.super_class = v10;
+  v11 = [(SearchCollectionViewLayout *)&v15 layoutAttributesForItemAtIndexPath:isa];
 
   if (v11)
   {
-    v12 = sub_1594C0(v11);
+    v13 = sub_1594C0(v11, v12);
 
     selfCopy = v11;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v13;
 }
 
 - (id)layoutAttributesForDecorationViewOfKind:(id)kind atIndexPath:(id)path

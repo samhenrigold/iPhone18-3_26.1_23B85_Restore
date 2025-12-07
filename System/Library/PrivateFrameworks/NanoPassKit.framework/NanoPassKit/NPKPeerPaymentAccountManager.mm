@@ -25,10 +25,9 @@
 
 void __46__NPKPeerPaymentAccountManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance_sharedInstance_2;
-  sharedInstance_sharedInstance_2 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance_2;
+  sharedInstance_sharedInstance_2 = v1;
 }
 
 - (NPKPeerPaymentAccountManager)initWithPeerPaymentService:(id)service

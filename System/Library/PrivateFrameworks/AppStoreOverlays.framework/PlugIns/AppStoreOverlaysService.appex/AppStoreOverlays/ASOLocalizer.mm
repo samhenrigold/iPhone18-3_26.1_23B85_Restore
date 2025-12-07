@@ -22,7 +22,7 @@
   *(inited + 16) = xmmword_10001C7D0;
   *(inited + 32) = [objc_opt_self() mainBundle];
   v3 = sub_10000E7FC();
-  v4 = objc_allocWithZone(type metadata accessor for Localizer());
+  v4 = objc_allocWithZone(type metadata accessor for Localizer(0));
   v5 = sub_10000E9B4(inited, v3);
 
   return v5;

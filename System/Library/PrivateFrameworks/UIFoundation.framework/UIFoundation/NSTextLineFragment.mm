@@ -704,19 +704,19 @@ LABEL_10:
   return result;
 }
 
-uint64_t __45__NSTextLineFragment_boundsWithType_options___block_invoke(uint64_t a1)
+uint64_t __45__NSTextLineFragment_boundsWithType_options___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CTFontGetLanguageAwareOutsets();
-  v3 = *(*(a1 + 32) + 8);
-  if (*(v3 + 32) < 0.0)
+  v4 = *(*(a1 + 32) + 8);
+  if (*(v4 + 32) < 0.0)
   {
-    *(v3 + 32) = 0;
-    v3 = *(*(a1 + 32) + 8);
+    *(v4 + 32) = 0;
+    v4 = *(*(a1 + 32) + 8);
   }
 
-  if (*(v3 + 48) < 0.0)
+  if (*(v4 + 48) < 0.0)
   {
-    *(v3 + 48) = 0;
+    *(v4 + 48) = 0;
   }
 
   return result;
@@ -935,9 +935,9 @@ LABEL_6:
   return result;
 }
 
-uint64_t __101__NSTextLineFragment__getCaretPositionsForCharactersInRange_positionsCache_positionsCacheSize_block___block_invoke_2(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__101__NSTextLineFragment__getCaretPositionsForCharactersInRange_positionsCache_positionsCacheSize_block___block_invoke_2(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [a2 rangeOfCharacterFromSet:a1[4] options:8];
+  result = [a2 rangeOfCharacterFromSet:a1[4] options:{8, a5, a6}];
   if (!v12)
   {
     ++*(*(a1[5] + 8) + 24);
@@ -1110,7 +1110,7 @@ uint64_t __152__NSTextLineFragment__processCaretGlyphRunForTextSelectionProvider
   objc_autoreleasePoolPop(v14);
 }
 
-uint64_t __95__NSTextLineFragment_enumerateCaretOffsetsWithTextSelectionDataSource_baseLocation_usingBlock___block_invoke(uint64_t a1, unint64_t a2, char a3, _BYTE *a4, double a5)
+void *__95__NSTextLineFragment_enumerateCaretOffsetsWithTextSelectionDataSource_baseLocation_usingBlock___block_invoke(uint64_t a1, unint64_t a2, char a3, _BYTE *a4, double a5)
 {
   v8 = *(a1 + 72) + a5;
   if (v8 >= *(a1 + 80))
@@ -2871,7 +2871,7 @@ LABEL_41:
 
 id __71__NSTextLineFragment_drawTextCorrectionMarkersAtPoint_graphicsContext___block_invoke(double *a1, void *a2, uint64_t a3, void *a4, _BYTE *a5)
 {
-  v9 = [NSTextCorrectionMarkerRendering textCorrectionMarkerTypeWithAttributes:?];
+  v9 = [NSTextCorrectionMarkerRendering textCorrectionMarkerTypeWithAttributes:a3];
   result = [objc_msgSend(a4 "endLocation")];
   if (result != -1)
   {
@@ -3389,7 +3389,7 @@ void __80__NSTextLineFragment_boundsForMarkedTextAtPoint_range_width_adjustmentC
   return v14 & 1;
 }
 
-uint64_t __103__NSTextLineFragment_drawMarkedTextIndicatorAtPoint_graphicsContext_backgroundOnly_adjustmentCallback___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__103__NSTextLineFragment_drawMarkedTextIndicatorAtPoint_graphicsContext_backgroundOnly_adjustmentCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a3 count];
   if (result)

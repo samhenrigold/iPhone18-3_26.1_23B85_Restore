@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)migratorTypeAsString:(int)string;
+- (id)resultAsString:(int)string;
 - (int)StringAsMigratorType:(id)type;
 - (int)StringAsResult:(id)result;
 - (int)migratorType;
@@ -71,6 +73,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)migratorTypeAsString:(int)string
+{
+  if (!string)
+  {
+    return @"PRIMARY_MIGRATOR";
+  }
+
+  if (string == 1)
+  {
+    return @"SECONDARY_MIGRATOR";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+}
+
 - (int)StringAsMigratorType:(id)type
 {
   if ([type isEqualToString:@"PRIMARY_MIGRATOR"])
@@ -110,6 +127,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)resultAsString:(int)string
+{
+  if (!string)
+  {
+    return @"MIGRATION_SUCCESSFUL";
+  }
+
+  if (string == 1)
+  {
+    return @"MIGRATION_FAILED";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsResult:(id)result
@@ -238,7 +270,6 @@ LABEL_20:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -258,7 +289,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  migratorType = self->_migratorType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -273,12 +303,10 @@ LABEL_4:
   }
 
 LABEL_14:
-  duration = self->_duration;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    result = self->_result;
     PBDataWriterWriteInt32Field();
   }
 
@@ -420,7 +448,6 @@ LABEL_6:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 48);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 48) & 2) == 0 || self->_timestamp != *(equal + 2))

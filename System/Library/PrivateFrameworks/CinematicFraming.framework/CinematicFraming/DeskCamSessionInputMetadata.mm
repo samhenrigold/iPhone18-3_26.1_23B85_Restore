@@ -18,7 +18,7 @@
   v18 = v17;
   if (v17)
   {
-    [(DeskCamSessionInputMetadata *)v17 _parseDetectedObjectsInfo:infoCopy];
+    v19 = [(DeskCamSessionInputMetadata *)v17 _parseDetectedObjectsInfo:infoCopy];
     if (dataCopy && ([(DeskCamSessionInputMetadata *)v18 _createCameraCalibrationDictionary:dataCopy], (v19 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       cameraCalibrationDictionary = v18->_cameraCalibrationDictionary;
@@ -30,12 +30,12 @@
     {
       if (d == 1906)
       {
-        defaultCalibrationDictionaryForPictou();
+        defaultCalibrationDictionaryForPictou(v19);
       }
 
       else
       {
-        defaultCalibrationDictionaryForPennsylvania();
+        defaultCalibrationDictionaryForPennsylvania(v19);
       }
       v22 = ;
       v21 = v18->_cameraCalibrationDictionary;

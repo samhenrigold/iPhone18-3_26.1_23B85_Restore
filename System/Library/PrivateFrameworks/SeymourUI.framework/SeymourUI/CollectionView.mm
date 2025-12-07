@@ -8,17 +8,18 @@
 
 - (void)layoutSubviews
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for CollectionView();
-  v2 = v4.receiver;
-  [(CollectionView *)&v4 layoutSubviews];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CollectionView();
+  v2 = v5.receiver;
+  [(CollectionView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC9SeymourUI14CollectionView_onLayoutUpdate];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC9SeymourUI14CollectionView_onLayoutUpdate + 8];
 
     v3(v2);
 
-    sub_20B583ECC(v3);
+    sub_20B583ECC(v3, v4);
   }
 
   else
@@ -28,10 +29,11 @@
 
 - (BOOL)_scrollToTopIfPossible:(BOOL)possible
 {
+  possibleCopy = possible;
   selfCopy = self;
-  v5 = sub_20BD12948(possible);
+  LOBYTE(possibleCopy) = sub_20BD12948(possibleCopy);
 
-  return v5 & 1;
+  return possibleCopy & 1;
 }
 
 - (_TtC9SeymourUI14CollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout

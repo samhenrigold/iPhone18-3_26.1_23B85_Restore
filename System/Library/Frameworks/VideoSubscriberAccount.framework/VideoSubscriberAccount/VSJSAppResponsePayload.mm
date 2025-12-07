@@ -16,9 +16,10 @@
     v4 = MEMORY[0x277CBEBF8];
   }
 
+  userAccounts = self->_userAccounts;
   self->_userAccounts = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, userAccounts);
 }
 
 @end

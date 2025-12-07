@@ -70,9 +70,9 @@ __CFString *AMStringForAmbientPresentationState(unint64_t a1)
   }
 }
 
-void sub_23EE4B54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23EE4B54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -84,16 +84,16 @@ void sub_23EE4BFCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id AMLogGeneral()
+id AMLogGeneral(uint64_t a1)
 {
   if (AMLogGeneral_onceToken != -1)
   {
     AMLogGeneral_cold_1();
   }
 
-  v1 = AMLogGeneral___logObj;
+  v2 = AMLogGeneral___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMLogGeneral_block_invoke()
@@ -105,16 +105,16 @@ uint64_t __AMLogGeneral_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMLogMotion()
+id AMLogMotion(uint64_t a1)
 {
   if (AMLogMotion_onceToken != -1)
   {
     AMLogMotion_cold_1();
   }
 
-  v1 = AMLogMotion___logObj;
+  v2 = AMLogMotion___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMLogMotion_block_invoke()
@@ -126,16 +126,16 @@ uint64_t __AMLogMotion_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMLogPresentation()
+id AMLogPresentation(uint64_t a1)
 {
   if (AMLogPresentation_onceToken != -1)
   {
     AMLogPresentation_cold_1();
   }
 
-  v1 = AMLogPresentation___logObj;
+  v2 = AMLogPresentation___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMLogPresentation_block_invoke()
@@ -147,16 +147,16 @@ uint64_t __AMLogPresentation_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMLogRedMode()
+id AMLogRedMode(uint64_t a1)
 {
   if (AMLogRedMode_onceToken != -1)
   {
     AMLogRedMode_cold_1();
   }
 
-  v1 = AMLogRedMode___logObj;
+  v2 = AMLogRedMode___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMLogRedMode_block_invoke()

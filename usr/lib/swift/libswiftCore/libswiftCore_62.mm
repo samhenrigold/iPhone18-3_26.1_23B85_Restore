@@ -3098,11 +3098,11 @@ void UInt64.SIMD64Storage.subscript.modify(void **a1)
   free(v2);
 }
 
-__n128 Float16.SIMD2Storage._value.setter(__n128 result, __n128 a2)
+float Float16.SIMD2Storage._value.setter(__n128 result, __n128 a2)
 {
   result.n128_u16[1] = a2.n128_u16[0];
   *v2 = result.n128_u32[0];
-  return result;
+  return result.n128_f32[0];
 }
 
 __int16 Float16.SIMD2Storage.subscript.getter@<H0>(char a1@<W0>, double a2@<D0>, __n128 a3@<Q1>)
@@ -3126,7 +3126,7 @@ __int16 key path setter for Float16.SIMD2Storage.subscript(_:) : Float16.SIMD2St
   return result;
 }
 
-uint64_t (*Float16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2, double a3))()
+double (*Float16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2, double a3))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v3;
@@ -3190,7 +3190,7 @@ __int16 key path setter for Float16.SIMD4Storage.subscript(_:) : Float16.SIMD4St
   return result;
 }
 
-uint64_t (*Float16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Float16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -3769,7 +3769,7 @@ float key path setter for Float.SIMD2Storage.subscript(_:) : Float.SIMD2Storage(
   return result;
 }
 
-uint64_t (*Float.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Float.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -6156,7 +6156,7 @@ LABEL_7:
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  swift_arrayInitWithCopy(__dst, v5, v4, byte_1EEEAC6F8);
+  swift_arrayInitWithCopy(__dst, v5, v4, qword_1EEEAC6F8);
   return v6;
 }
 
@@ -6380,7 +6380,7 @@ LABEL_11:
   return v6 | (v5 << 32);
 }
 
-BOOL specialized static __CocoaSet.Index.< infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL specialized static __CocoaSet.Index.< infix(_:_:)(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 < 0)
   {
@@ -6389,7 +6389,7 @@ BOOL specialized static __CocoaSet.Index.< infix(_:_:)(uint64_t a1, uint64_t a2,
 
   else
   {
-    v7 = a1 & 0xFFFFFFFFFFFFFF8;
+    v7 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v8 = type metadata accessor for __CocoaSet.Index.Storage();
@@ -6409,7 +6409,7 @@ LABEL_11:
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (*(v7 + 16) != *(a3 + 16))
+  if (*(v7 + 2) != *(a3 + 16))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -6467,12 +6467,12 @@ int64_t specialized static __StringStorage.create(initializingFrom:codeUnitCapac
   return v8;
 }
 
-uint64_t specialized static String._copying(_:)(Swift::UInt64 a1, Swift::UInt64 a2, unint64_t a3, unint64_t a4)
+uint64_t specialized static String._copying(_:)(Swift::UInt64 a1, Swift::String::Index a2, Swift::UInt64 a3, unint64_t a4)
 {
   if ((a4 & 0x1000000000000000) == 0)
   {
     v4 = a1 >> 16;
-    v5 = a2 >> 16;
+    v5 = a2._rawBits >> 16;
     if ((a4 & 0x2000000000000000) != 0)
     {
       v23[0] = a3;
@@ -6480,7 +6480,7 @@ uint64_t specialized static String._copying(_:)(Swift::UInt64 a1, Swift::UInt64 
       if ((HIBYTE(a4) & 0xF) >= v5)
       {
         v10 = v5 - v4;
-        if (v5 - v4 >= 0)
+        if ((v5 - v4) >= 0)
         {
           v14 = _allASCII(_:)((v23 + v4), v5 - v4);
           v13 = v23 + v4;
@@ -6530,14 +6530,15 @@ LABEL_5:
 
 uint64_t specialized static String._copying(_:)(unint64_t a1, unint64_t a2)
 {
-  rawBits = specialized Collection.subscript.getter(a1, a2)._rawBits;
+  v2 = specialized Collection.subscript.getter(a1, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v7;
-  v9 = specialized static String._copying(_:)(rawBits, v4, v6, v8);
+  v9._rawBits = v4;
+  v10 = specialized static String._copying(_:)(v2, v9, v6, v8);
   v8;
-  return v9;
+  return v10;
 }
 
 int64_t specialized static __StringStorage.create(uninitializedCodeUnitCapacity:initializingUncheckedUTF8With:)(int64_t a1, unint64_t *a2)
@@ -6565,7 +6566,7 @@ int64_t specialized static __StringStorage.create(uninitializedCodeUnitCapacity:
   v7 = _StringGuts._foreignCopyUTF8(into:)(v4 + 32, a1, *a2, a2[1]);
   if (v8)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000029, 0x8000000180671E50, "Swift/StringGutsRangeReplaceable.swift", 0x26uLL, 2, 0x91uLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000029, 0x8000000180671E50, "Swift/StringGutsRangeReplaceable.swift", 0x26uLL, 2, 0x91uLL, 0);
   }
 
   *(v4 + 24) = v7 | 0x3000000000000000;
@@ -7499,7 +7500,7 @@ uint64_t specialized static _HashTable.capacity(forScale:)(char a1)
   return v1;
 }
 
-BOOL specialized static __CocoaDictionary.Index.< infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL specialized static __CocoaDictionary.Index.< infix(_:_:)(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 < 0)
   {
@@ -7508,7 +7509,7 @@ BOOL specialized static __CocoaDictionary.Index.< infix(_:_:)(uint64_t a1, uint6
 
   else
   {
-    v7 = a1 & 0xFFFFFFFFFFFFFF8;
+    v7 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v8 = type metadata accessor for __CocoaDictionary.Index.Storage();
@@ -7528,7 +7529,7 @@ LABEL_11:
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (*(v7 + 16) != *(a3 + 16))
+  if (*(v7 + 2) != *(a3 + 16))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -7546,7 +7547,7 @@ unint64_t _sSlsE20_failEarlyRangeCheck_6boundsySny5IndexQzG_AEtFSs_Tt1gq5Tm(unin
   return result;
 }
 
-uint64_t specialized static AnyKeyPath.== infix(_:_:)(void *a1, void *a2)
+BOOL specialized static AnyKeyPath.== infix(_:_:)(void *a1, void *a2)
 {
   if (a1 == a2)
   {
@@ -8145,7 +8146,7 @@ LABEL_24:
   return !v8 || v9 == v8;
 }
 
-BOOL specialized static __CocoaSet.Index.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL specialized static __CocoaSet.Index.== infix(_:_:)(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 < 0)
   {
@@ -8154,7 +8155,7 @@ BOOL specialized static __CocoaSet.Index.== infix(_:_:)(uint64_t a1, uint64_t a2
 
   else
   {
-    v7 = a1 & 0xFFFFFFFFFFFFFF8;
+    v7 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v8 = type metadata accessor for __CocoaSet.Index.Storage();
@@ -8174,7 +8175,7 @@ LABEL_11:
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (*(v7 + 16) != *(a3 + 16))
+  if (*(v7 + 2) != *(a3 + 16))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -8412,7 +8413,7 @@ LABEL_49:
   return v15(v5, v14, v6 - v5 - v8);
 }
 
-BOOL specialized static __CocoaDictionary.Index.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL specialized static __CocoaDictionary.Index.== infix(_:_:)(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 < 0)
   {
@@ -8421,7 +8422,7 @@ BOOL specialized static __CocoaDictionary.Index.== infix(_:_:)(uint64_t a1, uint
 
   else
   {
-    v7 = a1 & 0xFFFFFFFFFFFFFF8;
+    v7 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v8 = type metadata accessor for __CocoaDictionary.Index.Storage();
@@ -8441,7 +8442,7 @@ LABEL_11:
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (*(v7 + 16) != *(a3 + 16))
+  if (*(v7 + 2) != *(a3 + 16))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -8449,7 +8450,7 @@ LABEL_11:
   return a2 == a4;
 }
 
-uint64_t specialized __CocoaDictionary.Index.key.getter(uint64_t a1, uint64_t a2)
+uint64_t specialized __CocoaDictionary.Index.key.getter(swift *a1, uint64_t a2)
 {
   if (a1 < 0)
   {
@@ -8458,7 +8459,7 @@ uint64_t specialized __CocoaDictionary.Index.key.getter(uint64_t a1, uint64_t a2
 
   else
   {
-    v3 = a1 & 0xFFFFFFFFFFFFFF8;
+    v3 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v4 = type metadata accessor for __CocoaDictionary.Index.Storage();
@@ -8467,7 +8468,7 @@ uint64_t specialized __CocoaDictionary.Index.key.getter(uint64_t a1, uint64_t a2
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v5 = *(v3 + 24);
+  v5 = *(v3 + 3);
   if (*(v5 + 16) <= a2)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -8476,7 +8477,7 @@ uint64_t specialized __CocoaDictionary.Index.key.getter(uint64_t a1, uint64_t a2
   return *(v5 + 8 * a2 + 24);
 }
 
-uint64_t specialized __CocoaDictionary.key(at:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized __CocoaDictionary.key(at:)(swift *a1, uint64_t a2, uint64_t a3)
 {
   if (a1 < 0)
   {
@@ -8485,7 +8486,7 @@ uint64_t specialized __CocoaDictionary.key(at:)(uint64_t a1, uint64_t a2, uint64
 
   else
   {
-    v5 = a1 & 0xFFFFFFFFFFFFFF8;
+    v5 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v6 = type metadata accessor for __CocoaDictionary.Index.Storage();
@@ -8494,7 +8495,7 @@ uint64_t specialized __CocoaDictionary.key(at:)(uint64_t a1, uint64_t a2, uint64
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  if (*(v5 + 16) != a3 || (v7 = *(v5 + 24), *(v7 + 16) <= a2))
+  if (*(v5 + 2) != a3 || (v7 = *(v5 + 3), *(v7 + 16) <= a2))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -8502,7 +8503,7 @@ uint64_t specialized __CocoaDictionary.key(at:)(uint64_t a1, uint64_t a2, uint64
   return *(v7 + 8 * a2 + 24);
 }
 
-uint64_t specialized __CocoaSet.Index.element.getter(uint64_t a1, uint64_t a2)
+uint64_t specialized __CocoaSet.Index.element.getter(swift *a1, uint64_t a2)
 {
   if (a1 < 0)
   {
@@ -8511,7 +8512,7 @@ uint64_t specialized __CocoaSet.Index.element.getter(uint64_t a1, uint64_t a2)
 
   else
   {
-    v3 = a1 & 0xFFFFFFFFFFFFFF8;
+    v3 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v4 = type metadata accessor for __CocoaSet.Index.Storage();
@@ -8520,7 +8521,7 @@ uint64_t specialized __CocoaSet.Index.element.getter(uint64_t a1, uint64_t a2)
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v5 = *(v3 + 24);
+  v5 = *(v3 + 3);
   if (*(v5 + 16) <= a2)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -8529,7 +8530,7 @@ uint64_t specialized __CocoaSet.Index.element.getter(uint64_t a1, uint64_t a2)
   return *(v5 + 8 * a2 + 24);
 }
 
-Swift::UInt64 specialized String.UnicodeScalarView.subscript.getter(Swift::UInt64 result, Swift::String::Index a2, unint64_t a3, unint64_t a4)
+Swift::String::Index specialized String.UnicodeScalarView.subscript.getter(Swift::String::Index result, Swift::String::Index a2, unint64_t a3, unint64_t a4)
 {
   v4 = (a3 >> 59) & 1;
   if ((a4 & 0x1000000000000000) == 0)
@@ -8537,21 +8538,21 @@ Swift::UInt64 specialized String.UnicodeScalarView.subscript.getter(Swift::UInt6
     LOBYTE(v4) = 1;
   }
 
-  v5 = result & 0xC;
+  v5 = result._rawBits & 0xC;
   v6 = 4 << v4;
   v7 = a2._rawBits & 0xC;
-  if ((result & 1) == 0 || v5 == v6 || (a2._rawBits & 1) == 0 || v7 == v6)
+  if ((result._rawBits & 1) == 0 || v5 == v6 || (a2._rawBits & 1) == 0 || v7 == v6)
   {
     if (v7 == v6)
     {
-      v10 = result;
+      rawBits = result._rawBits;
       v11 = a3;
       v12 = a4;
       v13._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(a2)._rawBits;
       a3 = v11;
       a4 = v12;
       a2._rawBits = v13._rawBits;
-      result = v10;
+      result._rawBits = rawBits;
       if (v5 != v6)
       {
         goto LABEL_13;
@@ -8563,11 +8564,11 @@ Swift::UInt64 specialized String.UnicodeScalarView.subscript.getter(Swift::UInt6
       goto LABEL_13;
     }
 
-    rawBits = a2._rawBits;
+    v14 = a2._rawBits;
     v15 = a3;
     v16 = a4;
-    result = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
-    a2._rawBits = rawBits;
+    result._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
+    a2._rawBits = v14;
     a3 = v15;
     a4 = v16;
 LABEL_13:
@@ -8577,13 +8578,13 @@ LABEL_13:
       v9 = HIBYTE(a4) & 0xF;
     }
 
-    if (a2._rawBits >> 14 > 4 * v9 || a2._rawBits >> 14 < result >> 14)
+    if (a2._rawBits >> 14 > 4 * v9 || a2._rawBits >> 14 < result._rawBits >> 14)
     {
 LABEL_20:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    if (result)
+    if (result._rawBits)
     {
       if (a2._rawBits)
       {
@@ -8593,18 +8594,18 @@ LABEL_20:
 
     else
     {
-      v17 = result;
+      v17 = result._rawBits;
       v18 = a2._rawBits;
       v19._rawBits = _StringGuts.scalarAlignSlow(_:)(result)._rawBits;
       a2._rawBits = v18;
-      result = v17 & 0xC | v19._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
+      result._rawBits = v17 & 0xC | v19._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
       if (v18)
       {
         return result;
       }
     }
 
-    v20 = result;
+    v20 = result._rawBits;
     _StringGuts.scalarAlignSlow(_:)(a2);
     return v20;
   }
@@ -8623,7 +8624,7 @@ LABEL_20:
   return result;
 }
 
-Swift::UInt64 specialized String.UTF8View.subscript.getter(Swift::UInt64 result, Swift::String::Index a2, unint64_t a3, unint64_t a4)
+Swift::String::Index specialized String.UTF8View.subscript.getter(Swift::String::Index result, Swift::String::Index a2, unint64_t a3, unint64_t a4)
 {
   v4 = (a3 >> 59) & 1;
   if ((a4 & 0x1000000000000000) == 0)
@@ -8634,23 +8635,23 @@ Swift::UInt64 specialized String.UTF8View.subscript.getter(Swift::UInt64 result,
   v5 = 4 << v4;
   if ((a2._rawBits & 0xC) == 4 << v4)
   {
-    v7 = result;
+    rawBits = result._rawBits;
     v8 = a3;
     v9 = a4;
     v10._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(a2)._rawBits;
     a3 = v8;
     a4 = v9;
     a2._rawBits = v10._rawBits;
-    result = v7;
+    result._rawBits = rawBits;
   }
 
-  if ((result & 0xC) == v5)
+  if ((result._rawBits & 0xC) == v5)
   {
-    rawBits = a2._rawBits;
+    v11 = a2._rawBits;
     v12 = a3;
     v13 = a4;
-    result = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
-    a2._rawBits = rawBits;
+    result._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
+    a2._rawBits = v11;
     a3 = v12;
     a4 = v13;
   }
@@ -8661,7 +8662,7 @@ Swift::UInt64 specialized String.UTF8View.subscript.getter(Swift::UInt64 result,
     v6 = HIBYTE(a4) & 0xF;
   }
 
-  if (a2._rawBits >> 14 > 4 * v6 || a2._rawBits >> 14 < result >> 14)
+  if (a2._rawBits >> 14 > 4 * v6 || a2._rawBits >> 14 < result._rawBits >> 14)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -8669,7 +8670,7 @@ Swift::UInt64 specialized String.UTF8View.subscript.getter(Swift::UInt64 result,
   return result;
 }
 
-Swift::UInt64 specialized Substring.UTF8View.subscript.getter(Swift::UInt64 result, Swift::String::Index a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
+Swift::String::Index specialized Substring.UTF8View.subscript.getter(Swift::String::Index result, Swift::String::Index a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
 {
   v6 = (a5 >> 59) & 1;
   if ((a6 & 0x1000000000000000) == 0)
@@ -8680,28 +8681,28 @@ Swift::UInt64 specialized Substring.UTF8View.subscript.getter(Swift::UInt64 resu
   v7 = 4 << v6;
   if ((a2._rawBits & 0xC) == 4 << v6)
   {
-    v8 = result;
+    rawBits = result._rawBits;
     v9 = a3;
     v10 = a4;
     v11._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(a2)._rawBits;
     a3 = v9;
     a4 = v10;
     a2._rawBits = v11._rawBits;
-    result = v8;
+    result._rawBits = rawBits;
   }
 
-  if ((result & 0xC) == v7)
+  if ((result._rawBits & 0xC) == v7)
   {
-    rawBits = a2._rawBits;
+    v12 = a2._rawBits;
     v13 = a3;
     v14 = a4;
-    result = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
+    result._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(result)._rawBits;
     a3 = v13;
-    a2._rawBits = rawBits;
+    a2._rawBits = v12;
     a4 = v14;
   }
 
-  if (result >> 14 < a3 >> 14 || a2._rawBits >> 14 < result >> 14 || a4 >> 14 < a2._rawBits >> 14)
+  if (result._rawBits >> 14 < a3 >> 14 || a2._rawBits >> 14 < result._rawBits >> 14 || a4 >> 14 < a2._rawBits >> 14)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
@@ -8709,7 +8710,7 @@ Swift::UInt64 specialized Substring.UTF8View.subscript.getter(Swift::UInt64 resu
   return result;
 }
 
-unint64_t specialized Substring.subscript.getter(unint64_t result, Swift::String::Index a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
+Swift::UInt64 specialized Substring.subscript.getter(Swift::UInt64 result, Swift::String::Index a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
 {
   v6 = (a5 >> 59) & 1;
   if ((a6 & 0x1000000000000000) == 0)
@@ -9201,7 +9202,7 @@ unint64_t specialized RandomAccessCollection<>.index(_:offsetBy:)(uint64_t a1, u
   return result;
 }
 
-uint64_t Substring.description.getter(Swift::UInt64 a1, Swift::UInt64 a2, unint64_t a3, unint64_t a4)
+Swift::UInt64 Substring.description.getter(Swift::UInt64 a1, Swift::String::Index a2, Swift::UInt64 a3, unint64_t a4)
 {
   v4 = a3;
   v5 = HIBYTE(a4) & 0xF;
@@ -9210,7 +9211,7 @@ uint64_t Substring.description.getter(Swift::UInt64 a1, Swift::UInt64 a2, unint6
     v5 = a3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (a1 >> 16 || a2 >> 16 != v5)
+  if (a1 >> 16 || a2._rawBits >> 16 != v5)
   {
     return specialized static String._copying(_:)(a1, a2, a3, a4);
   }
@@ -9228,21 +9229,21 @@ char *specialized _BidirectionalCollectionBox.init(_base:)(uint64_t a1)
   swift_getAssociatedTypeWitness(0, v5, v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v8 = v7;
   v9 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v19 - v10;
-  (*(*(v6 - 1) + 16))(&v2[*(v4 + 384)], a1, v6);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v20 - v11;
+  (*(*(v6 - 1) + 2))(&v2[*(v4 + 384)], a1, v6);
   (*(v5 + 64))(v6, v5);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v5, v6, v8, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  v14 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v13);
-  v15 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16 = *(v9 + 32);
-  v16(&v15[*(*v15 + 96)], v11, v8);
+  v15 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v14);
+  v16 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17 = *(v9 + 32);
+  v17(&v16[*(*v16 + 96)], v12, v8);
   (*(v5 + 72))(v6, v5);
-  v17 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16(&v17[*(*v17 + 96)], v11, v8);
-  *(v2 + 2) = v15;
+  v18 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17(&v18[*(*v18 + 96)], v12, v8);
+  *(v2 + 2) = v16;
   *(v2 + 3) = &protocol witness table for _IndexBox<A>;
-  *(v2 + 4) = v17;
+  *(v2 + 4) = v18;
   *(v2 + 5) = &protocol witness table for _IndexBox<A>;
   return v2;
 }
@@ -9256,21 +9257,21 @@ char *specialized _RandomAccessCollectionBox.init(_base:)(uint64_t a1)
   swift_getAssociatedTypeWitness(0, v5, v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v8 = v7;
   v9 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v19 - v10;
-  (*(*(v6 - 1) + 16))(&v2[*(v4 + 392)], a1, v6);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v20 - v11;
+  (*(*(v6 - 1) + 2))(&v2[*(v4 + 392)], a1, v6);
   (*(v5 + 64))(v6, v5);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v5, v6, v8, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  v14 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v13);
-  v15 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16 = *(v9 + 32);
-  v16(&v15[*(*v15 + 96)], v11, v8);
+  v15 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v14);
+  v16 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17 = *(v9 + 32);
+  v17(&v16[*(*v16 + 96)], v12, v8);
   (*(v5 + 72))(v6, v5);
-  v17 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16(&v17[*(*v17 + 96)], v11, v8);
-  *(v2 + 2) = v15;
+  v18 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17(&v18[*(*v18 + 96)], v12, v8);
+  *(v2 + 2) = v16;
   *(v2 + 3) = &protocol witness table for _IndexBox<A>;
-  *(v2 + 4) = v17;
+  *(v2 + 4) = v18;
   *(v2 + 5) = &protocol witness table for _IndexBox<A>;
   return v2;
 }
@@ -9284,62 +9285,62 @@ char *specialized _CollectionBox.init(_base:)(uint64_t a1)
   swift_getAssociatedTypeWitness(0, v5, v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v8 = v7;
   v9 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v19 - v10;
-  (*(*(v6 - 1) + 16))(&v2[*(v4 + 360)], a1, v6);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v20 - v11;
+  (*(*(v6 - 1) + 2))(&v2[*(v4 + 360)], a1, v6);
   (*(v5 + 64))(v6, v5);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v5, v6, v8, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  v14 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v13);
-  v15 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16 = *(v9 + 32);
-  v16(&v15[*(*v15 + 96)], v11, v8);
+  v15 = type metadata accessor for _IndexBox(0, v8, AssociatedConformanceWitness, v14);
+  v16 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17 = *(v9 + 32);
+  v17(&v16[*(*v16 + 96)], v12, v8);
   (*(v5 + 72))(v6, v5);
-  v17 = swift_allocObject(v14, *(v14 + 48), *(v14 + 52));
-  v16(&v17[*(*v17 + 96)], v11, v8);
-  *(v2 + 2) = v15;
+  v18 = swift_allocObject(v15, *(v15 + 48), *(v15 + 52));
+  v17(&v18[*(*v18 + 96)], v12, v8);
+  *(v2 + 2) = v16;
   *(v2 + 3) = &protocol witness table for _IndexBox<A>;
-  *(v2 + 4) = v17;
+  *(v2 + 4) = v18;
   *(v2 + 5) = &protocol witness table for _IndexBox<A>;
   return v2;
 }
 
 uint64_t specialized _UInt128.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *, uint64_t, uint64_t), unint64_t a5)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v11 + 16))(v10);
   result = a4(v10, a2, a3);
   if (v13)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000028, 0x800000018066E8B0, "Swift/LegacyInt128.swift", 0x18uLL, 2, a5);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000028, 0x800000018066E8B0, "Swift/LegacyInt128.swift", 0x18uLL, 2, a5, 0);
   }
 
   return result;
 }
 
-uint64_t specialized UInt128.init<A>(_:)(uint64_t a1, const char *a2, void *a3)
+uint64_t specialized UInt128.init<A>(_:)(uint64_t a1, Class *a2, void *a3)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v7 + 16))(v6);
   result = UInt128.init<A>(exactly:)(v6, a2, a3);
   if (v9)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, 0x8000000180671820, "Swift/UInt128.swift", 0x13uLL, 2, 0x9FuLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, 0x8000000180671820, "Swift/UInt128.swift", 0x13uLL, 2, 0x9FuLL, 0);
   }
 
   return result;
 }
 
-uint64_t specialized Int128.init<A>(_:)(uint64_t a1, const char *a2, void *a3)
+uint64_t specialized Int128.init<A>(_:)(uint64_t a1, Class *a2, void *a3)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v7 + 16))(v6);
   result = Int128.init<A>(exactly:)(v6, a2, a3);
   if (v9)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000051, 0x80000001806718B0, "Swift/Int128.swift", 0x12uLL, 2, 0x9FuLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000051, 0x80000001806718B0, "Swift/Int128.swift", 0x12uLL, 2, 0x9FuLL, 0);
   }
 
   return result;
@@ -9347,7 +9348,7 @@ uint64_t specialized Int128.init<A>(_:)(uint64_t a1, const char *a2, void *a3)
 
 void *specialized AnyBidirectionalCollection._copyContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = (*(*a3 + 152))();
+  v5 = (*(*a3 + 152))(a1, a2);
   v8 = type metadata accessor for AnyIterator(255, a4, v6, v7);
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for AnyIterator<A>, v8, v9);
   v12 = type metadata accessor for _IteratorBox(0, v8, WitnessTable, v11);
@@ -9356,7 +9357,7 @@ void *specialized AnyBidirectionalCollection._copyContents(initializing:)(uint64
   return result;
 }
 
-uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2, const char *a3, int **a4)
+uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2, Class *a3, int **a4)
 {
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = v8;
@@ -9395,17 +9396,17 @@ uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uin
   return result;
 }
 
-uint64_t specialized Range<>.distance(from:to:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t specialized Range<>.distance(from:to:)(uint64_t a1, uint64_t a2, Class *a3, uint64_t a4, uint64_t a5)
 {
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v10 = v9;
   v11 = *(v9 - 1);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v16 - v12;
+  MEMORY[0x1EEE9AC00](v9, v12);
+  v14 = &v17 - v13;
   (*(a4 + 40))(a2, a3, a4);
-  v14 = _ss11numericCastyq_xSzRzSzR_r0_lFxSiSzRzSiRs_r0_lIetnd_Tpq5_0(v13, v10, *(a5 + 8));
-  (*(v11 + 8))(v13, v10);
-  return v14;
+  v15 = _ss11numericCastyq_xSzRzSzR_r0_lFxSiSzRzSiRs_r0_lIetnd_Tpq5_0(v14, v10, *(a5 + 8));
+  (*(v11 + 8))(v14, v10);
+  return v15;
 }
 
 uint64_t specialized static AnyIndex.== infix(_:_:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -9422,7 +9423,7 @@ uint64_t specialized static AnyIndex.== infix(_:_:)(unint64_t a1, uint64_t a2, u
   return (*(a2 + 24))(a3, a4, v11, a2) & 1;
 }
 
-uint64_t specialized static AnyHashable.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static AnyHashable.== infix(_:_:)(void *a1, uint64_t a2)
 {
   v3 = a1[3];
   v4 = a1[4];
@@ -9431,8 +9432,8 @@ uint64_t specialized static AnyHashable.== infix(_:_:)(void *a1, void *a2)
   v5 = v12;
   v6 = v13;
   __swift_project_boxed_opaque_existential_0Tm(v11, v12);
-  v7 = a2[3];
-  v8 = a2[4];
+  v7 = *(a2 + 24);
+  v8 = *(a2 + 32);
   __swift_project_boxed_opaque_existential_0Tm(a2, v7);
   (*(v8 + 8))(v10, v7, v8);
   LOBYTE(a2) = (*(v6 + 16))(v10, v5, v6);
@@ -9458,7 +9459,7 @@ uint64_t specialized static AnyIndex.< infix(_:_:)(unint64_t a1, uint64_t a2, un
 uint64_t specialized UInt128.init<A>(truncatingIfNeeded:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 - 8);
-  v7 = MEMORY[0x1EEE9AC00](a1);
+  v7 = MEMORY[0x1EEE9AC00](a1, a2);
   v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = 64;
   v11 = *(v10 + 240);
@@ -9551,7 +9552,7 @@ LABEL_9:
   return v9;
 }
 
-uint64_t specialized _ArrayBuffer.owner.getter(uint64_t a1, uint64_t *a2)
+uint64_t specialized _ArrayBuffer.owner.getter(uint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
   {
@@ -9679,7 +9680,7 @@ uint64_t partial apply for thunk for @callee_guaranteed (@unowned UnsafeBufferPo
 }
 
 {
-  result = (*(v3 + 32))();
+  result = (*(v3 + 32))(a1, a2);
   if (v4)
   {
     *a3 = v4;
@@ -9698,7 +9699,7 @@ _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
 
 uint64_t partial apply for closure #1 in Array.withContiguousStorageIfAvailable<A>(_:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  result = (*(v3 + 32))();
+  result = (*(v3 + 32))(a1, a2);
   if (v4)
   {
     *a3 = v4;

@@ -48,24 +48,24 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
 
 - (void)accountsDataForMigrator:(id)migrator completion:(id)completion
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   migratorCopy = migrator;
   completionCopy = completion;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = +[WLLocalDataSource _localSourceDataPath];
   v8 = MEMORY[0x277CCACA8];
-  v30 = migratorCopy;
+  v29 = migratorCopy;
   contentType = [migratorCopy contentType];
   v10 = [v8 stringWithFormat:@"%@/accounts", contentType];
   v11 = [v7 stringByAppendingPathComponent:v10];
 
-  v28 = v11;
+  v27 = v11;
   v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:v11];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v14 = *MEMORY[0x277CBE868];
-  v37[0] = *MEMORY[0x277CBE868];
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
-  v27 = v12;
+  v36[0] = *MEMORY[0x277CBE868];
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v26 = v12;
   v16 = [defaultManager enumeratorAtURL:v12 includingPropertiesForKeys:v15 options:1 errorHandler:0];
 
   nextObject = [v16 nextObject];
@@ -74,23 +74,23 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
     v18 = nextObject;
     do
     {
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
-      [v18 getResourceValue:&v32 forKey:v14 error:{&v31, v26}];
-      v19 = v32;
-      v20 = v31;
+      [v18 getResourceValue:&v31 forKey:v14 error:{&v30, v25}];
+      v19 = v31;
+      v20 = v30;
       if (v20)
       {
-        v26 = v20;
+        v25 = v20;
         _WLLog();
       }
 
       else if ([v19 BOOLValue])
       {
-        v35 = @"itemID";
+        v34 = @"itemID";
         lastPathComponent = [v18 lastPathComponent];
-        v36 = lastPathComponent;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v35 = lastPathComponent;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         [v6 addObject:v22];
       }
 
@@ -104,39 +104,37 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
 
   if (completionCopy)
   {
-    v33 = @"dataItemSummaries";
-    v34 = v6;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = @"dataItemSummaries";
+    v33 = v6;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     (*(completionCopy + 2))(completionCopy, v24, 0, 0, 0.0);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)summariesDataForAccount:(id)account migrator:(id)migrator completion:(id)completion
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   accountCopy = account;
   migratorCopy = migrator;
   completionCopy = completion;
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v40 = migratorCopy;
-  v41 = accountCopy;
+  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v39 = migratorCopy;
+  v40 = accountCopy;
   v9 = [WLLocalDataSource _relativePathForAccount:accountCopy migrator:migratorCopy];
   v10 = +[WLLocalDataSource _localSourceDataPath];
-  v43 = v9;
+  v42 = v9;
   v11 = [v10 stringByAppendingPathComponent:v9];
 
-  v38 = v11;
+  v37 = v11;
   v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:v11];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v14 = *MEMORY[0x277CBE868];
   v15 = *MEMORY[0x277CBE838];
-  v53[0] = *MEMORY[0x277CBE868];
-  v53[1] = v15;
-  v42 = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
-  v37 = v12;
+  v52[0] = *MEMORY[0x277CBE868];
+  v52[1] = v15;
+  v41 = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+  v36 = v12;
   v17 = [defaultManager enumeratorAtURL:v12 includingPropertiesForKeys:v16 options:0 errorHandler:0];
 
   nextObject = [v17 nextObject];
@@ -145,11 +143,11 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
     v19 = nextObject;
     do
     {
+      v46 = 0;
       v47 = 0;
-      v48 = 0;
-      [v19 getResourceValue:&v48 forKey:v14 error:&v47];
-      v20 = v48;
-      v21 = v47;
+      [v19 getResourceValue:&v47 forKey:v14 error:&v46];
+      v20 = v47;
+      v21 = v46;
       if (v21)
       {
         unsignedIntegerValue = v21;
@@ -164,17 +162,17 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
       else
       {
         path = [v19 path];
-        v24 = [path rangeOfString:v43];
+        v24 = [path rangeOfString:v42];
         v26 = v25;
 
         path2 = [v19 path];
         v28 = [path2 substringFromIndex:v26 + v24 + 1];
 
+        v44 = 0;
         v45 = 0;
-        v46 = 0;
-        [v19 getResourceValue:&v46 forKey:v42 error:&v45];
-        v29 = v46;
-        v22 = v45;
+        [v19 getResourceValue:&v45 forKey:v41 error:&v44];
+        v29 = v45;
+        v22 = v44;
 
         if (v22)
         {
@@ -185,12 +183,12 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
         v30 = MEMORY[0x277CCACA8];
         unsignedIntegerValue = [v29 unsignedIntegerValue];
         v31 = [v30 stringWithFormat:@"%lu"];
-        v51[0] = @"itemID";
-        v51[1] = @"itemSize";
-        v52[0] = v28;
-        v52[1] = v31;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
-        [v44 addObject:v32];
+        v50[0] = @"itemID";
+        v50[1] = @"itemSize";
+        v51[0] = v28;
+        v51[1] = v31;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+        [v43 addObject:v32];
       }
 
       nextObject2 = [v17 nextObject];
@@ -203,13 +201,11 @@ void __41__WLLocalDataSource__localSourceDataPath__block_invoke()
 
   if (completionCopy)
   {
-    v49 = @"dataItemSummaries";
-    v50 = v44;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v48 = @"dataItemSummaries";
+    v49 = v43;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     (*(completionCopy + 2))(completionCopy, v34, 0, 0, 0.0);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileForSummary:(id)summary migrator:(id)migrator fileAccessor:(id)accessor completion:(id)completion

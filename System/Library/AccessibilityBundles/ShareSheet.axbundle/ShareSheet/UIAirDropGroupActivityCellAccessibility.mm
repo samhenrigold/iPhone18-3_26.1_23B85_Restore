@@ -31,7 +31,7 @@
 
 - (id)accessibilityLabel
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v3 = [(UIAirDropGroupActivityCellAccessibility *)self safeStringForKey:@"displayName"];
   v4 = [(UIAirDropGroupActivityCellAccessibility *)self safeStringForKey:@"subtitle"];
   if ([(UIAirDropGroupActivityCellAccessibility *)self _accessibilityTextSlotID])
@@ -48,9 +48,9 @@
     {
       v10 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[UIAirDropGroupActivityCellAccessibility _accessibilityTextSlotID](self, "_accessibilityTextSlotID")}];
       *buf = 138412546;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v3;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_29C327000, v9, OS_LOG_TYPE_DEFAULT, "Returning slot id %@ for %@", buf, 0x16u);
     }
   }
@@ -64,15 +64,13 @@
 
     else
     {
-      v14.receiver = self;
-      v14.super_class = UIAirDropGroupActivityCellAccessibility;
-      accessibilityLabel = [(UIAirDropGroupActivityCellAccessibility *)&v14 accessibilityLabel];
+      v13.receiver = self;
+      v13.super_class = UIAirDropGroupActivityCellAccessibility;
+      accessibilityLabel = [(UIAirDropGroupActivityCellAccessibility *)&v13 accessibilityLabel];
     }
 
     v7 = accessibilityLabel;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

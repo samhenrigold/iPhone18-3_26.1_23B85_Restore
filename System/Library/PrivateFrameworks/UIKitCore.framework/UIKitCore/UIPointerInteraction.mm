@@ -480,7 +480,7 @@ LABEL_26:
 void __46__UIPointerInteraction_driver_didIssueUpdate___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([*(a1 + 32) allowsUpdatesWhilePrimaryButtonIsPressed] & 1) != 0 || *(a1 + 128) != 1 || (objc_msgSend(*(a1 + 40), "currentRegion"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "_isLatching"), v4, (v5 & 1) == 0) && ((objc_msgSend(v3, "_isLatching") & 1) != 0 || (objc_msgSend(*(a1 + 40), "mostRecentRegion"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v3, "isEqual:", v6), v6, v7)))
+  if (([*(a1 + 32) allowsUpdatesWhilePrimaryButtonIsPressed] & 1) != 0 || *(a1 + 128) != 1 || (objc_msgSend(*(a1 + 40), "currentRegion"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "_isLatching"), v4, (v5 & 1) == 0) && ((objc_msgSend(v3, "_isLatching") & 1) != 0 || (objc_msgSend(*(a1 + 40), "mostRecentRegion"), v6 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v3), v6, isEqual)))
   {
     v8 = *(a1 + 40);
     v9 = *(a1 + 96);
@@ -511,18 +511,18 @@ void __46__UIPointerInteraction_driver_didIssueUpdate___block_invoke(uint64_t a1
   v12 = v11;
   if (v11 == v10)
   {
-    v13 = 1;
+    isEqual = 1;
     goto LABEL_6;
   }
 
   if (v10 && v11)
   {
-    v13 = [v10 isEqual:v11];
+    isEqual = objc_msgSend_isEqual_(v10);
 LABEL_6:
 
     v14 = var2 == currentModifiers;
     v15 = var2 == currentModifiers;
-    if (v13 && v14)
+    if (isEqual && v14)
     {
       goto LABEL_20;
     }
@@ -530,10 +530,10 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  LOBYTE(v13) = 0;
+  LOBYTE(isEqual) = 0;
   v15 = var2 == currentModifiers;
 LABEL_10:
-  if (v12 && (v13 & 1) == 0)
+  if (v12 && (isEqual & 1) == 0)
   {
     [(UIPointerInteraction *)self _pointerDidExitRegion:v12 willEnterNewRegion:v10 != 0];
   }
@@ -543,7 +543,7 @@ LABEL_10:
   currentRegion2 = [(UIPointerInteraction *)self currentRegion];
   if (currentRegion2)
   {
-    if (v13)
+    if (isEqual)
     {
       if (!v15)
       {

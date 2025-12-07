@@ -16,19 +16,20 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for FloatingCollectionView();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for FloatingCollectionView();
   selfCopy = self;
-  [(FloatingCollectionView *)&v6 layoutSubviews];
-  v4 = (selfCopy + OBJC_IVAR____TtC13FitnessCoreUI22FloatingCollectionView_onLayoutUpdate);
+  [(FloatingCollectionView *)&v7 layoutSubviews];
+  v4 = selfCopy + OBJC_IVAR____TtC13FitnessCoreUI22FloatingCollectionView_onLayoutUpdate;
   swift_beginAccess();
   v5 = *v4;
   if (*v4)
   {
+    v6 = *(v4 + 1);
 
     v5(selfCopy);
 
-    sub_20C38F958(v5);
+    sub_20C38F958(v5, v6);
   }
 
   else

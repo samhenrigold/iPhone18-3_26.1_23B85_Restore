@@ -19,44 +19,44 @@
 
 - (void)registerPlayerIfNeeded:(id)needed
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v19[5] = *MEMORY[0x1E69E9840];
   if (!self->_data.videoOutput)
   {
     v5 = *MEMORY[0x1E6965DB8];
     v6 = *MEMORY[0x1E6965FD0];
     v7 = *MEMORY[0x1E6965F50];
     v8 = *MEMORY[0x1E6965F98];
-    v21[0] = *MEMORY[0x1E6965D88];
-    v21[1] = v8;
-    v22[0] = v5;
-    v22[1] = v6;
+    v18[0] = *MEMORY[0x1E6965D88];
+    v18[1] = v8;
+    v19[0] = v5;
+    v19[1] = v6;
     v9 = *MEMORY[0x1E6966100];
-    v21[2] = *MEMORY[0x1E6965F30];
-    v21[3] = v9;
-    v22[2] = v7;
-    v22[3] = MEMORY[0x1E695E118];
-    v21[4] = *MEMORY[0x1E6966130];
-    v22[4] = &unk_1F25D4690;
-    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v22, v21, 5);
+    v18[2] = *MEMORY[0x1E6965F30];
+    v18[3] = v9;
+    v19[2] = v7;
+    v19[3] = MEMORY[0x1E695E118];
+    v18[4] = *MEMORY[0x1E6966130];
+    v19[4] = &unk_1F25D4690;
+    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v19, v18, 5);
     v11 = objc_alloc(MEMORY[0x1E69880D8]);
-    v14 = objc_msgSend_initWithPixelBufferAttributes_(v11, v12, v10, v13);
-    self->_data.videoOutput = v14;
-    v18 = objc_msgSend_currentItem(needed, v15, v16, v17);
-    objc_msgSend_addOutput_(v18, v19, v14, v20);
+    v13 = objc_msgSend_initWithPixelBufferAttributes_(v11, v12, v10);
+    self->_data.videoOutput = v13;
+    v16 = objc_msgSend_currentItem(needed, v14, v15);
+    objc_msgSend_addOutput_(v16, v17, v13);
   }
 }
 
 - (void)unregisterPlayer:(id)player
 {
-  v5 = objc_msgSend_currentItem(player, a2, player, v3);
+  v4 = objc_msgSend_currentItem(player, a2, player);
   videoOutput = self->_data.videoOutput;
 
-  MEMORY[0x1EEE66B58](v5, sel_removeOutput_, videoOutput, v6);
+  MEMORY[0x1EEE66B58](v4, sel_removeOutput_, videoOutput);
 }
 
 - (void)dealloc
 {
-  objc_msgSend_unregisterPlayer_(self, a2, self->_player, v2);
+  objc_msgSend_unregisterPlayer_(self, a2, self->_player);
 
   sub_1AF28BE50(&self->_data);
   textureCache = self->_textureCache;
@@ -66,9 +66,9 @@
     self->_textureCache = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = VFXAVPlayerSource;
-  [(VFXTextureSource *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = VFXAVPlayerSource;
+  [(VFXTextureSource *)&v4 dealloc];
 }
 
 - (void)setPlayer:(id)player
@@ -76,7 +76,7 @@
   player = self->_player;
   if (player != player)
   {
-    objc_msgSend_unregisterPlayer_(self, a2, player, v3);
+    objc_msgSend_unregisterPlayer_(self, a2, player);
 
     self->_player = player;
   }
@@ -92,38 +92,40 @@
 
 - (id)metalTextureWithEngineContext:(__CFXEngineContext *)context textureSampler:(id)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  v33[1] = *MEMORY[0x1E69E9840];
-  v9 = sub_1AF12E2AC(context);
-  objc_msgSend_registerPlayerIfNeeded_(self, v10, self->_player, v11);
+  v30[1] = *MEMORY[0x1E69E9840];
+  v9 = sub_1AF12E2AC(context, a2);
+  objc_msgSend_registerPlayerIfNeeded_(self, v10, self->_player);
   videoOutput = self->_data.videoOutput;
-  v30 = 0uLL;
-  v31 = 0;
-  v16 = sub_1AF1302C4(context);
+  v27 = 0uLL;
+  v28 = 0;
+  v14 = sub_1AF1302C4(context);
   if (videoOutput)
   {
-    objc_msgSend_itemTimeForHostTime_(videoOutput, v13, v14, v15, v16);
+    objc_msgSend_itemTimeForHostTime_(videoOutput, v12, v13, v14);
   }
 
   else
   {
-    v30 = 0uLL;
-    v31 = 0;
+    v27 = 0uLL;
+    v28 = 0;
   }
 
-  v28 = v30;
-  v29 = v31;
-  if (objc_msgSend_hasNewPixelBufferForItemTime_(videoOutput, v13, &v28, v15))
+  v25 = v27;
+  v26 = v28;
+  hasNewPixelBufferForItemTime = objc_msgSend_hasNewPixelBufferForItemTime_(videoOutput, v12, &v25);
+  if (hasNewPixelBufferForItemTime)
   {
-    v28 = v30;
-    v29 = v31;
-    v19 = objc_msgSend_copyPixelBufferForItemTime_itemTimeForDisplay_(videoOutput, v17, &v28, 0);
-    if (v19)
+    v25 = v27;
+    v26 = v28;
+    hasNewPixelBufferForItemTime = objc_msgSend_copyPixelBufferForItemTime_itemTimeForDisplay_(videoOutput, v16, &v25, 0);
+    if (hasNewPixelBufferForItemTime)
     {
-      v21 = v19;
-      sub_1AF28BE04(&self->_data, v17, v20, v18);
-      self->_data.var0 = v21;
-      self->_width = CVPixelBufferGetWidth(v21);
-      self->_height = CVPixelBufferGetHeight(v21);
+      v18 = hasNewPixelBufferForItemTime;
+      sub_1AF28BE04(&self->_data, v16, v17);
+      self->_data.var0 = v18;
+      self->_width = CVPixelBufferGetWidth(v18);
+      hasNewPixelBufferForItemTime = CVPixelBufferGetHeight(v18);
+      self->_height = hasNewPixelBufferForItemTime;
     }
   }
 
@@ -140,15 +142,15 @@
       textureCache = self->_textureCache;
       if (!textureCache)
       {
-        v25 = objc_msgSend_device(v9, v17, 0, v18);
-        v32 = *MEMORY[0x1E6966010];
-        v33[0] = &unk_1F25D43D8;
-        v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v26, v33, &v32, 1);
-        CVMetalTextureCacheCreate(0, 0, v25, v27, &self->_textureCache);
+        v22 = objc_msgSend_device(v9, v16, 0);
+        v29 = *MEMORY[0x1E6966010];
+        v30[0] = &unk_1F25D43D8;
+        v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, v30, &v29, 1);
+        CVMetalTextureCacheCreate(0, 0, v22, v24, &self->_textureCache);
         textureCache = self->_textureCache;
       }
 
-      sub_1AF28BEAC(&self->_data, v9, textureCache, v18);
+      sub_1AF28BEAC(&self->_data, v9, textureCache);
       *status = 257;
       return self->_data.mtlTextureForRenderer;
     }
@@ -156,8 +158,8 @@
 
   else
   {
-    v23 = sub_1AF0D5194();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v20 = sub_1AF0D5194(hasNewPixelBufferForItemTime, v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF3A08();
     }

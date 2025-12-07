@@ -25,7 +25,7 @@
 
 - (void)startMonitoring:(id)monitoring
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -35,15 +35,15 @@
   {
     objc_initWeak(location, self);
     notificationHelper = [(ULBuddyMonitor *)self notificationHelper];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __34__ULBuddyMonitor_startMonitoring___block_invoke;
-    v12[3] = &unk_2798D4080;
-    objc_copyWeak(&v13, location);
-    [notificationHelper addObserverForNotificationName:*MEMORY[0x277D4D9E8] handler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __34__ULBuddyMonitor_startMonitoring___block_invoke;
+    v11[3] = &unk_2798D4080;
+    objc_copyWeak(&v12, location);
+    [notificationHelper addObserverForNotificationName:*MEMORY[0x277D4D9E8] handler:v11];
 
     [(ULBuddyMonitor *)self setBuddyComplete:[(ULBuddyMonitor *)self _checkBuddyComplete]];
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
   }
 
@@ -65,12 +65,10 @@
 
     *location = 138412546;
     *&location[4] = monitoringCopy;
-    v15 = 2112;
-    v16 = v10;
+    v14 = 2112;
+    v15 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, buddyComplete: %@", location, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ULBuddyMonitor_startMonitoring___block_invoke(uint64_t a1)
@@ -86,7 +84,7 @@ void __34__ULBuddyMonitor_startMonitoring___block_invoke(uint64_t a1)
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -102,12 +100,10 @@ void __34__ULBuddyMonitor_startMonitoring___block_invoke(uint64_t a1)
   v7 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name

@@ -34,14 +34,12 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unexpected side effects of deallocating a seal with handlers"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (NFPromiseSeal)initWithValue:(id)value
@@ -192,7 +190,7 @@ LABEL_6:
 
 - (void)seal:(id)seal error:(id)error resolution:(unint64_t)resolution
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sealCopy = seal;
   errorCopy = error;
   lock = [(NFPromiseSeal *)self lock];
@@ -206,30 +204,30 @@ LABEL_6:
   if (![(NFPromiseSeal *)self state])
   {
     [(NFPromiseSeal *)self setState:1];
-    v22 = sealCopy;
+    v21 = sealCopy;
     [(NFPromiseSeal *)self setValue:sealCopy];
     [(NFPromiseSeal *)self setError:errorCopy];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     handlers = [(NFPromiseSeal *)self handlers];
-    v12 = [handlers countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [handlers countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         v15 = 0;
         do
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(handlers);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * v15);
+          v16 = *(*(&v22 + 1) + 8 * v15);
           value = [(NFPromiseSeal *)self value];
           error = [(NFPromiseSeal *)self error];
           (*(v16 + 16))(v16, resolution, value, error);
@@ -238,7 +236,7 @@ LABEL_6:
         }
 
         while (v13 != v15);
-        v13 = [handlers countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [handlers countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -247,25 +245,21 @@ LABEL_6:
     handlers2 = [(NFPromiseSeal *)self handlers];
     [handlers2 removeAllObjects];
 
-    sealCopy = v22;
+    sealCopy = v21;
   }
 
   lock2 = [(NFPromiseSeal *)self lock];
   [lock2 unlock];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)seal:error:resolution:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Seal must be pending to seal"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

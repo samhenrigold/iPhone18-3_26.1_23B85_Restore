@@ -38,7 +38,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   activity = [(NWActivitySuperMetric *)self activity];
   dictionaryReport = [activity dictionaryReport];
@@ -51,7 +51,7 @@
   connectionReports = [(NWActivitySuperMetric *)self connectionReports];
   v9 = [connectionReports count];
 
-  v120 = v3;
+  v127 = v3;
   selfCopy = self;
   if (v9)
   {
@@ -59,37 +59,38 @@
     connectionReports2 = [(NWActivitySuperMetric *)self connectionReports];
     v12 = [v10 initWithCapacity:{objc_msgSend(connectionReports2, "count")}];
 
-    v140 = 0u;
-    v141 = 0u;
-    v138 = 0u;
-    v139 = 0u;
+    v147 = 0u;
+    v148 = 0u;
+    v145 = 0u;
+    v146 = 0u;
     connectionReports3 = [(NWActivitySuperMetric *)self connectionReports];
-    v14 = [connectionReports3 countByEnumeratingWithState:&v138 objects:v148 count:16];
+    v14 = [connectionReports3 countByEnumeratingWithState:&v145 objects:v155 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
-      v17 = *v139;
+      v17 = *v146;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v139 != v17)
+          if (*v146 != v17)
           {
             objc_enumerationMutation(connectionReports3);
           }
 
-          v19 = *(*(&v138 + 1) + 8 * i);
-          if (v16 > [NWActivitySuperMetric limitForFragmentType:4])
+          v19 = *(*(&v145 + 1) + 8 * i);
+          v20 = [NWActivitySuperMetric limitForFragmentType:4];
+          if (v16 > v20)
           {
-            v22 = activityLogHandle();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v23 = activityLogHandle(v20);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               connectionReports4 = [(NWActivitySuperMetric *)selfCopy connectionReports];
-              v24 = [connectionReports4 count];
+              v25 = [connectionReports4 count];
               *buf = 134217984;
-              v147 = v24;
-              _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Reached max connection fragments, dropping the rest (count %lu)", buf, 0xCu);
+              v154 = v25;
+              _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "Reached max connection fragments, dropping the rest (count %lu)", buf, 0xCu);
             }
 
             goto LABEL_21;
@@ -104,17 +105,17 @@
 
           else
           {
-            v21 = activityLogHandle();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v22 = activityLogHandle(0);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v147 = v19;
-              _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
+              v154 = v19;
+              _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
             }
           }
         }
 
-        v15 = [connectionReports3 countByEnumeratingWithState:&v138 objects:v148 count:16];
+        v15 = [connectionReports3 countByEnumeratingWithState:&v145 objects:v155 count:16];
         if (v15)
         {
           continue;
@@ -131,8 +132,8 @@
 
 LABEL_21:
 
-    v3 = v120;
-    [v120 setObject:v12 forKeyedSubscript:@"connectionReports"];
+    v3 = v127;
+    [v127 setObject:v12 forKeyedSubscript:@"connectionReports"];
 
     self = selfCopy;
   }
@@ -142,75 +143,76 @@ LABEL_21:
     v16 = 0;
   }
 
-  v25 = [MEMORY[0x277CCABB0] numberWithInt:v16];
-  [v3 setObject:v25 forKeyedSubscript:@"connectionReportsCount"];
+  v26 = [MEMORY[0x277CCABB0] numberWithInt:v16];
+  [v3 setObject:v26 forKeyedSubscript:@"connectionReportsCount"];
 
   taskMetrics = [(NWActivitySuperMetric *)self taskMetrics];
-  v27 = [taskMetrics count];
+  v28 = [taskMetrics count];
 
-  if (v27)
+  if (v28)
   {
-    v28 = objc_alloc(MEMORY[0x277CBEB18]);
+    v29 = objc_alloc(MEMORY[0x277CBEB18]);
     taskMetrics2 = [(NWActivitySuperMetric *)self taskMetrics];
-    v30 = [v28 initWithCapacity:{objc_msgSend(taskMetrics2, "count")}];
+    v31 = [v29 initWithCapacity:{objc_msgSend(taskMetrics2, "count")}];
 
-    v136 = 0u;
-    v137 = 0u;
-    v134 = 0u;
-    v135 = 0u;
+    v143 = 0u;
+    v144 = 0u;
+    v141 = 0u;
+    v142 = 0u;
     taskMetrics3 = [(NWActivitySuperMetric *)self taskMetrics];
-    v32 = [taskMetrics3 countByEnumeratingWithState:&v134 objects:v145 count:16];
-    if (v32)
+    v33 = [taskMetrics3 countByEnumeratingWithState:&v141 objects:v152 count:16];
+    if (v33)
     {
-      v33 = v32;
-      v34 = 0;
-      v35 = *v135;
+      v34 = v33;
+      v35 = 0;
+      v36 = *v142;
       while (2)
       {
-        for (j = 0; j != v33; ++j)
+        for (j = 0; j != v34; ++j)
         {
-          if (*v135 != v35)
+          if (*v142 != v36)
           {
             objc_enumerationMutation(taskMetrics3);
           }
 
-          v37 = *(*(&v134 + 1) + 8 * j);
-          if (v34 > [NWActivitySuperMetric limitForFragmentType:3])
+          v38 = *(*(&v141 + 1) + 8 * j);
+          v39 = [NWActivitySuperMetric limitForFragmentType:3];
+          if (v35 > v39)
           {
-            v40 = activityLogHandle();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+            v42 = activityLogHandle(v39);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
             {
               taskMetrics4 = [(NWActivitySuperMetric *)selfCopy taskMetrics];
-              v42 = [taskMetrics4 count];
+              v44 = [taskMetrics4 count];
               *buf = 134217984;
-              v147 = v42;
-              _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_INFO, "Reached max task fragments, dropping the rest (count %lu)", buf, 0xCu);
+              v154 = v44;
+              _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_INFO, "Reached max task fragments, dropping the rest (count %lu)", buf, 0xCu);
             }
 
             goto LABEL_42;
           }
 
-          dictionaryReport4 = [v37 dictionaryReport];
+          dictionaryReport4 = [v38 dictionaryReport];
           if (dictionaryReport4)
           {
-            [v30 addObject:dictionaryReport4];
-            v34 = (v34 + 1);
+            [v31 addObject:dictionaryReport4];
+            v35 = (v35 + 1);
           }
 
           else
           {
-            v39 = activityLogHandle();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v41 = activityLogHandle(0);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v147 = v37;
-              _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
+              v154 = v38;
+              _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
             }
           }
         }
 
-        v33 = [taskMetrics3 countByEnumeratingWithState:&v134 objects:v145 count:16];
-        if (v33)
+        v34 = [taskMetrics3 countByEnumeratingWithState:&v141 objects:v152 count:16];
+        if (v34)
         {
           continue;
         }
@@ -221,83 +223,82 @@ LABEL_21:
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
 
 LABEL_42:
 
-    v3 = v120;
-    [v120 setObject:v30 forKeyedSubscript:@"taskMetrics"];
+    v3 = v127;
+    [v127 setObject:v31 forKeyedSubscript:@"taskMetrics"];
 
     self = selfCopy;
   }
 
   else
   {
-    v34 = 0;
+    v35 = 0;
   }
 
-  v43 = [MEMORY[0x277CCABB0] numberWithInt:v34];
-  [v3 setObject:v43 forKeyedSubscript:@"taskMetricsCount"];
+  v45 = [MEMORY[0x277CCABB0] numberWithInt:v35];
+  [v3 setObject:v45 forKeyedSubscript:@"taskMetricsCount"];
 
   wifiFragments = [(NWActivitySuperMetric *)self wifiFragments];
-  v45 = [wifiFragments count];
+  v47 = [wifiFragments count];
 
-  if (!v45)
+  if (!v47)
   {
-    v57 = 0;
+    v61 = 0;
     goto LABEL_89;
   }
 
-  v46 = activityLogHandle();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v49 = activityLogHandle(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
     wifiFragments2 = [(NWActivitySuperMetric *)self wifiFragments];
-    v48 = [wifiFragments2 count];
+    v51 = [wifiFragments2 count];
     *buf = 134217984;
-    v147 = v48;
-    _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "Running transform on %lu fragments", buf, 0xCu);
+    v154 = v51;
+    _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEBUG, "Running transform on %lu fragments", buf, 0xCu);
   }
 
-  v49 = objc_alloc(MEMORY[0x277CBEB18]);
+  v52 = objc_alloc(MEMORY[0x277CBEB18]);
   wifiFragments3 = [(NWActivitySuperMetric *)self wifiFragments];
-  v119 = [v49 initWithCapacity:{objc_msgSend(wifiFragments3, "count")}];
+  v126 = [v52 initWithCapacity:{objc_msgSend(wifiFragments3, "count")}];
 
   wifiFragments4 = [(NWActivitySuperMetric *)self wifiFragments];
-  v52 = [wifiFragments4 count];
+  v55 = [wifiFragments4 count];
 
-  if (v52 == 1)
+  if (v55 == 1)
   {
     wifiFragments5 = [(NWActivitySuperMetric *)self wifiFragments];
     firstObject = [wifiFragments5 firstObject];
 
     if (firstObject)
     {
-      v55 = [firstObject getTransformedFlattened:0];
-      if (v55)
+      v59 = [firstObject getTransformedFlattened:0];
+      if (v59)
       {
-        [v119 addObject:v55];
-        v56 = activityLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+        v60 = activityLogHandle([v126 addObject:v59]);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEBUG, "Single fragment, no transform", buf, 2u);
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEBUG, "Single fragment, no transform", buf, 2u);
         }
 
-        v57 = 1;
+        v61 = 1;
       }
 
       else
       {
-        v56 = activityLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v60 = activityLogHandle(0);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v147 = firstObject;
-          _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_ERROR, "Failed to transform fragment %@", buf, 0xCu);
+          v154 = firstObject;
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_ERROR, "Failed to transform fragment %@", buf, 0xCu);
         }
 
-        v57 = 0;
+        v61 = 0;
       }
 
 LABEL_85:
@@ -308,89 +309,90 @@ LABEL_86:
 
     else
     {
-      v55 = activityLogHandle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v59 = activityLogHandle(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         wifiFragments6 = [(NWActivitySuperMetric *)self wifiFragments];
         *buf = 138412290;
-        v147 = wifiFragments6;
-        _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_ERROR, "Failed to get single fragment from %@", buf, 0xCu);
+        v154 = wifiFragments6;
+        _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_ERROR, "Failed to get single fragment from %@", buf, 0xCu);
       }
 
-      v57 = 0;
+      v61 = 0;
     }
 
-    v3 = v120;
+    v3 = v127;
     goto LABEL_88;
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
-  v131 = 0u;
+  v139 = 0u;
+  v140 = 0u;
+  v137 = 0u;
+  v138 = 0u;
   firstObject = [(NWActivitySuperMetric *)self wifiFragments];
-  v58 = [firstObject countByEnumeratingWithState:&v130 objects:v144 count:16];
-  if (v58)
+  v62 = [firstObject countByEnumeratingWithState:&v137 objects:v151 count:16];
+  if (v62)
   {
-    v60 = v58;
+    v64 = v62;
     dictionaryRepresentation = 0;
-    v57 = 0;
-    v62 = *v131;
-    *&v59 = 67109120;
-    v117 = v59;
+    v61 = 0;
+    v66 = *v138;
+    *&v63 = 67109120;
+    v124 = v63;
     obj = firstObject;
 LABEL_55:
-    v63 = 0;
-    v55 = dictionaryRepresentation;
+    v67 = 0;
+    v59 = dictionaryRepresentation;
     while (1)
     {
-      if (*v131 != v62)
+      if (*v138 != v66)
       {
         objc_enumerationMutation(obj);
       }
 
-      v64 = *(*(&v130 + 1) + 8 * v63);
-      if (v57 > [NWActivitySuperMetric limitForFragmentType:5, v117])
+      v68 = *(*(&v137 + 1) + 8 * v67);
+      v124 = [NWActivitySuperMetric limitForFragmentType:5, v124];
+      if (v61 > v124)
       {
-        v56 = activityLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        v60 = activityLogHandle(v124);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
         {
           wifiFragments7 = [(NWActivitySuperMetric *)selfCopy wifiFragments];
-          v74 = [wifiFragments7 count];
+          v80 = [wifiFragments7 count];
           *buf = 134217984;
-          v147 = v74;
-          _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_INFO, "Reached max Wi-Fi fragments, dropping the rest (count %lu)", buf, 0xCu);
+          v154 = v80;
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_INFO, "Reached max Wi-Fi fragments, dropping the rest (count %lu)", buf, 0xCu);
         }
 
         goto LABEL_81;
       }
 
-      if (v55)
+      if (v59)
       {
         break;
       }
 
-      v65 = activityLogHandle();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+      v70 = activityLogHandle(v124);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v147 = v64;
-        _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEBUG, "Transforming fragments, skipping initial fragment %@", buf, 0xCu);
+        v154 = v68;
+        _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEBUG, "Transforming fragments, skipping initial fragment %@", buf, 0xCu);
       }
 
 LABEL_69:
 
-      awdReport = [v64 awdReport];
+      awdReport = [v68 awdReport];
       dictionaryRepresentation = [awdReport dictionaryRepresentation];
 
       if (!dictionaryRepresentation)
       {
-        v56 = activityLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v60 = activityLogHandle(v77);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v147 = v64;
-          _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
+          v154 = v68;
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
         }
 
 LABEL_81:
@@ -398,52 +400,51 @@ LABEL_81:
         goto LABEL_85;
       }
 
-      ++v63;
-      v55 = dictionaryRepresentation;
-      if (v60 == v63)
+      ++v67;
+      v59 = dictionaryRepresentation;
+      if (v64 == v67)
       {
         firstObject = obj;
-        v60 = [obj countByEnumeratingWithState:&v130 objects:v144 count:16];
-        if (v60)
+        v64 = [obj countByEnumeratingWithState:&v137 objects:v151 count:16];
+        if (v64)
         {
           goto LABEL_55;
         }
 
-        v55 = dictionaryRepresentation;
+        v59 = dictionaryRepresentation;
         goto LABEL_86;
       }
     }
 
-    v65 = [v64 getTransformedFlattenedFrom:v55 style:0 index:v57];
-    if (v65)
+    v70 = [v68 getTransformedFlattenedFrom:v59 style:0 index:v61];
+    if (v70)
     {
-      [v119 addObject:v65];
-      v57 = (v57 + 1);
-      v66 = activityLogHandle();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+      v61 = (v61 + 1);
+      v71 = activityLogHandle([v126 addObject:v70]);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v117;
-        LODWORD(v147) = v57;
-        v67 = v66;
-        v68 = OS_LOG_TYPE_DEBUG;
-        v69 = "Transformed fragment %d";
-        v70 = 8;
+        *buf = v124;
+        LODWORD(v154) = v61;
+        v72 = v71;
+        v73 = OS_LOG_TYPE_DEBUG;
+        v74 = "Transformed fragment %d";
+        v75 = 8;
 LABEL_67:
-        _os_log_impl(&dword_23255B000, v67, v68, v69, buf, v70);
+        _os_log_impl(&dword_23255B000, v72, v73, v74, buf, v75);
       }
     }
 
     else
     {
-      v66 = activityLogHandle();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v71 = activityLogHandle(0);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v147 = v64;
-        v67 = v66;
-        v68 = OS_LOG_TYPE_ERROR;
-        v69 = "Failed to transform fragment %@";
-        v70 = 12;
+        v154 = v68;
+        v72 = v71;
+        v73 = OS_LOG_TYPE_ERROR;
+        v74 = "Failed to transform fragment %@";
+        v75 = 12;
         goto LABEL_67;
       }
     }
@@ -451,82 +452,83 @@ LABEL_67:
     goto LABEL_69;
   }
 
-  v57 = 0;
+  v61 = 0;
   self = selfCopy;
 LABEL_88:
 
-  [v3 setObject:v119 forKeyedSubscript:@"wifiFragments"];
+  [v3 setObject:v126 forKeyedSubscript:@"wifiFragments"];
 LABEL_89:
-  v75 = [MEMORY[0x277CCABB0] numberWithInt:v57];
-  [v3 setObject:v75 forKeyedSubscript:@"wifiFragmentsCount"];
+  v81 = [MEMORY[0x277CCABB0] numberWithInt:v61];
+  [v3 setObject:v81 forKeyedSubscript:@"wifiFragmentsCount"];
 
   cellularFragments = [(NWActivitySuperMetric *)self cellularFragments];
-  v77 = [cellularFragments count];
+  v83 = [cellularFragments count];
 
-  if (v77)
+  if (v83)
   {
-    v78 = objc_alloc(MEMORY[0x277CBEB18]);
+    v84 = objc_alloc(MEMORY[0x277CBEB18]);
     cellularFragments2 = [(NWActivitySuperMetric *)self cellularFragments];
-    v80 = [v78 initWithCapacity:{objc_msgSend(cellularFragments2, "count")}];
+    v86 = [v84 initWithCapacity:{objc_msgSend(cellularFragments2, "count")}];
 
-    v128 = 0u;
-    v129 = 0u;
-    v126 = 0u;
-    v127 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    v133 = 0u;
+    v134 = 0u;
     cellularFragments3 = [(NWActivitySuperMetric *)self cellularFragments];
-    v82 = [cellularFragments3 countByEnumeratingWithState:&v126 objects:v143 count:16];
-    if (v82)
+    v88 = [cellularFragments3 countByEnumeratingWithState:&v133 objects:v150 count:16];
+    if (v88)
     {
-      v83 = v82;
-      v84 = 0;
-      v85 = *v127;
+      v89 = v88;
+      v90 = 0;
+      v91 = *v134;
       while (2)
       {
-        for (k = 0; k != v83; ++k)
+        for (k = 0; k != v89; ++k)
         {
-          if (*v127 != v85)
+          if (*v134 != v91)
           {
             objc_enumerationMutation(cellularFragments3);
           }
 
-          v87 = *(*(&v126 + 1) + 8 * k);
-          if (v84 > [NWActivitySuperMetric limitForFragmentType:6])
+          v93 = *(*(&v133 + 1) + 8 * k);
+          v94 = [NWActivitySuperMetric limitForFragmentType:6];
+          if (v90 > v94)
           {
-            v89 = activityLogHandle();
+            v96 = activityLogHandle(v94);
             self = selfCopy;
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
             {
               cellularFragments4 = [(NWActivitySuperMetric *)selfCopy cellularFragments];
-              v91 = [cellularFragments4 count];
+              v98 = [cellularFragments4 count];
               *buf = 134217984;
-              v147 = v91;
-              _os_log_impl(&dword_23255B000, v89, OS_LOG_TYPE_INFO, "Reached max cellular fragments, dropping the rest (count %lu)", buf, 0xCu);
+              v154 = v98;
+              _os_log_impl(&dword_23255B000, v96, OS_LOG_TYPE_INFO, "Reached max cellular fragments, dropping the rest (count %lu)", buf, 0xCu);
             }
 
             goto LABEL_109;
           }
 
-          if (v87)
+          if (v93)
           {
-            [v80 addObject:v87];
-            v84 = (v84 + 1);
+            [v86 addObject:v93];
+            v90 = (v90 + 1);
           }
 
           else
           {
-            v88 = activityLogHandle();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+            v95 = activityLogHandle(v94);
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v147 = 0;
-              _os_log_impl(&dword_23255B000, v88, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
+              v154 = 0;
+              _os_log_impl(&dword_23255B000, v95, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
             }
           }
         }
 
-        v83 = [cellularFragments3 countByEnumeratingWithState:&v126 objects:v143 count:16];
+        v89 = [cellularFragments3 countByEnumeratingWithState:&v133 objects:v150 count:16];
         self = selfCopy;
-        if (v83)
+        if (v89)
         {
           continue;
         }
@@ -537,90 +539,91 @@ LABEL_89:
 
     else
     {
-      v84 = 0;
+      v90 = 0;
     }
 
 LABEL_109:
 
-    v3 = v120;
-    [v120 setObject:v80 forKeyedSubscript:@"cellularFragments"];
+    v3 = v127;
+    [v127 setObject:v86 forKeyedSubscript:@"cellularFragments"];
   }
 
   else
   {
-    v84 = 0;
+    v90 = 0;
   }
 
-  v92 = [MEMORY[0x277CCABB0] numberWithInt:v84];
-  [v3 setObject:v92 forKeyedSubscript:@"cellularFragmentsCount"];
+  v99 = [MEMORY[0x277CCABB0] numberWithInt:v90];
+  [v3 setObject:v99 forKeyedSubscript:@"cellularFragmentsCount"];
 
   clientFragments = [(NWActivitySuperMetric *)self clientFragments];
-  v94 = [clientFragments count];
+  v101 = [clientFragments count];
 
-  if (v94)
+  if (v101)
   {
-    v95 = objc_alloc(MEMORY[0x277CBEB18]);
+    v102 = objc_alloc(MEMORY[0x277CBEB18]);
     clientFragments2 = [(NWActivitySuperMetric *)self clientFragments];
-    v97 = [v95 initWithCapacity:{objc_msgSend(clientFragments2, "count")}];
+    v104 = [v102 initWithCapacity:{objc_msgSend(clientFragments2, "count")}];
 
-    v124 = 0u;
-    v125 = 0u;
-    v122 = 0u;
-    v123 = 0u;
+    v131 = 0u;
+    v132 = 0u;
+    v129 = 0u;
+    v130 = 0u;
     clientFragments3 = [(NWActivitySuperMetric *)self clientFragments];
-    v99 = [clientFragments3 countByEnumeratingWithState:&v122 objects:v142 count:16];
-    if (v99)
+    v106 = [clientFragments3 countByEnumeratingWithState:&v129 objects:v149 count:16];
+    if (v106)
     {
-      v100 = v99;
-      v101 = 0;
-      v102 = *v123;
+      v107 = v106;
+      v108 = 0;
+      v109 = *v130;
       while (2)
       {
-        for (m = 0; m != v100; ++m)
+        for (m = 0; m != v107; ++m)
         {
-          if (*v123 != v102)
+          if (*v130 != v109)
           {
             objc_enumerationMutation(clientFragments3);
           }
 
-          v104 = *(*(&v122 + 1) + 8 * m);
-          if (v101 > [NWActivitySuperMetric limitForFragmentType:7])
+          v111 = *(*(&v129 + 1) + 8 * m);
+          v112 = [NWActivitySuperMetric limitForFragmentType:7];
+          if (v108 > v112)
           {
-            v106 = activityLogHandle();
+            v114 = activityLogHandle(v112);
             self = selfCopy;
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
             {
               clientFragments4 = [(NWActivitySuperMetric *)selfCopy clientFragments];
-              v108 = [clientFragments4 count];
+              v116 = [clientFragments4 count];
               *buf = 134217984;
-              v147 = v108;
-              _os_log_impl(&dword_23255B000, v106, OS_LOG_TYPE_INFO, "Reached max client fragments, dropping the rest (count %lu)", buf, 0xCu);
+              v154 = v116;
+              _os_log_impl(&dword_23255B000, v114, OS_LOG_TYPE_INFO, "Reached max client fragments, dropping the rest (count %lu)", buf, 0xCu);
             }
 
             goto LABEL_130;
           }
 
-          if (v104)
+          if (v111)
           {
-            [v97 addObject:v104];
-            v101 = (v101 + 1);
+            [v104 addObject:v111];
+            v108 = (v108 + 1);
           }
 
           else
           {
-            v105 = activityLogHandle();
-            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+            v113 = activityLogHandle(v112);
+            if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v147 = 0;
-              _os_log_impl(&dword_23255B000, v105, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
+              v154 = 0;
+              _os_log_impl(&dword_23255B000, v113, OS_LOG_TYPE_ERROR, "Failed to create fragment for %@", buf, 0xCu);
             }
           }
         }
 
-        v100 = [clientFragments3 countByEnumeratingWithState:&v122 objects:v142 count:16];
+        v107 = [clientFragments3 countByEnumeratingWithState:&v129 objects:v149 count:16];
         self = selfCopy;
-        if (v100)
+        if (v107)
         {
           continue;
         }
@@ -631,45 +634,43 @@ LABEL_109:
 
     else
     {
-      v101 = 0;
+      v108 = 0;
     }
 
 LABEL_130:
 
-    v3 = v120;
-    [v120 setObject:v97 forKeyedSubscript:@"clientMetrics"];
+    v3 = v127;
+    [v127 setObject:v104 forKeyedSubscript:@"clientMetrics"];
   }
 
   else
   {
-    v101 = 0;
+    v108 = 0;
   }
 
-  v109 = [MEMORY[0x277CCABB0] numberWithInt:v101];
-  [v3 setObject:v109 forKeyedSubscript:@"clientMetricCount"];
+  v117 = [MEMORY[0x277CCABB0] numberWithInt:v108];
+  [v3 setObject:v117 forKeyedSubscript:@"clientMetricCount"];
 
   algosScore = [(NWActivitySuperMetric *)self algosScore];
   if (algosScore)
   {
-    v111 = algosScore;
+    v119 = algosScore;
     algosScore2 = [(NWActivitySuperMetric *)self algosScore];
-    v113 = [algosScore2 count];
+    v121 = [algosScore2 count];
 
-    if (v113)
+    if (v121)
     {
       algosScore3 = [(NWActivitySuperMetric *)self algosScore];
       [v3 setObject:algosScore3 forKeyedSubscript:@"algosScore"];
     }
   }
 
-  v115 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (void)flattenObject:(id)object intoDictionary:(id)dictionary atPath:(id)path
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dictionaryCopy = dictionary;
   pathCopy = path;
@@ -688,7 +689,7 @@ LABEL_130:
     }
 
     *buf = 138412290;
-    v59 = objectCopy;
+    v58 = objectCopy;
     v14 = "Cannot have nil path when flattening, skipping object: %@";
     v15 = v13;
     v16 = OS_LOG_TYPE_ERROR;
@@ -719,9 +720,9 @@ LABEL_9:
 
 LABEL_7:
     *buf = 138412546;
-    v59 = objectCopy;
-    v60 = 2112;
-    v61 = v10;
+    v58 = objectCopy;
+    v59 = 2112;
+    v60 = v10;
     v12 = "Not flattening object %@ at path %@";
 LABEL_8:
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, v12, buf, 0x16u);
@@ -731,66 +732,66 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v45 = objectCopy;
-    v19 = objectCopy;
+    v44 = objectCopy;
+    v18 = objectCopy;
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    obj = [v19 allKeys];
-    v20 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
-    if (v20)
+    obj = [v18 allKeys];
+    v19 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+    if (v19)
     {
-      v21 = v20;
-      v22 = *v53;
+      v20 = v19;
+      v21 = *v52;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v53 != v22)
+          if (*v52 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v52 + 1) + 8 * i);
-          v25 = [v19 objectForKey:v24];
+          v23 = *(*(&v51 + 1) + 8 * i);
+          v24 = [v18 objectForKey:v23];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v26 = metricsLogHandle;
+            v25 = metricsLogHandle;
             if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v59 = v24;
-              v60 = 2112;
-              v61 = v10;
-              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "Bad key %@ at path %@", buf, 0x16u);
+              v58 = v23;
+              v59 = 2112;
+              v60 = v10;
+              _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "Bad key %@ at path %@", buf, 0x16u);
             }
           }
 
-          v27 = [v10 length];
-          v28 = objc_alloc(MEMORY[0x277CCACA8]);
-          if (v27)
+          v26 = [v10 length];
+          v27 = objc_alloc(MEMORY[0x277CCACA8]);
+          if (v26)
           {
-            v29 = [v28 initWithFormat:@"%@_%@", v10, v24];
+            v28 = [v27 initWithFormat:@"%@_%@", v10, v23];
           }
 
           else
           {
-            v29 = [v28 initWithFormat:@"%@", v24, v44];
+            v28 = [v27 initWithFormat:@"%@", v23, v43];
           }
 
-          v30 = v29;
-          [self flattenObject:v25 intoDictionary:dictionaryCopy atPath:v29];
+          v29 = v28;
+          [self flattenObject:v24 intoDictionary:dictionaryCopy atPath:v28];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v20 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
 
-    objectCopy = v45;
+    objectCopy = v44;
     goto LABEL_13;
   }
 
@@ -807,25 +808,25 @@ LABEL_8:
       }
 
       *buf = 138412546;
-      v59 = objectCopy;
-      v60 = 2112;
-      v61 = v10;
+      v58 = objectCopy;
+      v59 = 2112;
+      v60 = v10;
       v12 = "Adding object: %@ into flat dictionary at path %@";
       goto LABEL_8;
     }
 
-    v43 = metricsLogHandle;
+    v42 = metricsLogHandle;
     if (!os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_INFO))
     {
       goto LABEL_13;
     }
 
     *buf = 138412546;
-    v59 = objectCopy;
-    v60 = 2112;
-    v61 = v10;
+    v58 = objectCopy;
+    v59 = 2112;
+    v60 = v10;
     v14 = "Bad value %@ at path %@, ignoring";
-    v15 = v43;
+    v15 = v42;
     v16 = OS_LOG_TYPE_INFO;
     v17 = 22;
 LABEL_12:
@@ -833,56 +834,54 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v31 = dictionaryCopy;
-  v32 = objectCopy;
+  v30 = dictionaryCopy;
+  v31 = objectCopy;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v33 = [v32 countByEnumeratingWithState:&v48 objects:v56 count:16];
-  if (v33)
+  v32 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v32)
   {
-    v34 = v33;
-    v35 = 0;
-    v36 = *v49;
+    v33 = v32;
+    v34 = 0;
+    v35 = *v48;
     do
     {
-      for (j = 0; j != v34; ++j)
+      for (j = 0; j != v33; ++j)
       {
-        if (*v49 != v36)
+        if (*v48 != v35)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(v31);
         }
 
-        v38 = *(*(&v48 + 1) + 8 * j);
-        v39 = [v10 length];
-        v40 = objc_alloc(MEMORY[0x277CCACA8]);
-        if (v39)
+        v37 = *(*(&v47 + 1) + 8 * j);
+        v38 = [v10 length];
+        v39 = objc_alloc(MEMORY[0x277CCACA8]);
+        if (v38)
         {
-          v41 = [v40 initWithFormat:@"%@_%zu", v10, v35];
+          v40 = [v39 initWithFormat:@"%@_%zu", v10, v34];
         }
 
         else
         {
-          v41 = [v40 initWithFormat:@"%zu", v35, v44];
+          v40 = [v39 initWithFormat:@"%zu", v34, v43];
         }
 
-        v42 = v41;
-        [self flattenObject:v38 intoDictionary:v31 atPath:v41];
+        v41 = v40;
+        [self flattenObject:v37 intoDictionary:v30 atPath:v40];
 
-        ++v35;
+        ++v34;
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
-  dictionaryCopy = v31;
+  dictionaryCopy = v30;
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)limitForFragmentType:(int)type

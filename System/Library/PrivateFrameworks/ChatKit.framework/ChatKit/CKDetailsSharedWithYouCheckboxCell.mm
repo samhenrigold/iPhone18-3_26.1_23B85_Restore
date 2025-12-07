@@ -107,23 +107,23 @@
   v6 = self->_titleLabel;
   self->_titleLabel = v5;
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"SHARED_WITH_YOU_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  localizedUppercaseString = [v8 localizedUppercaseString];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"SHARED_WITH_YOU_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  localizedUppercaseString = [v9 localizedUppercaseString];
   [(UILabel *)self->_titleLabel setText:localizedUppercaseString];
 
-  v10 = self->_titleLabel;
+  v11 = self->_titleLabel;
   clearColor = [MEMORY[0x1E69DC888] clearColor];
-  [(UILabel *)v10 setBackgroundColor:clearColor];
+  [(UILabel *)v11 setBackgroundColor:clearColor];
 
-  v12 = self->_titleLabel;
+  v13 = self->_titleLabel;
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-  [(UILabel *)v12 setTextColor:secondaryLabelColor];
+  [(UILabel *)v13 setTextColor:secondaryLabelColor];
 
-  v14 = self->_titleLabel;
-  v15 = +[CKUIBehavior sharedBehaviors];
-  headerFont = [v15 headerFont];
-  [(UILabel *)v14 setFont:headerFont];
+  v15 = self->_titleLabel;
+  v16 = +[CKUIBehavior sharedBehaviors];
+  headerFont = [v16 headerFont];
+  [(UILabel *)v15 setFont:headerFont];
 
   contentView = [(CKDetailsSharedWithYouCheckboxCell *)self contentView];
   [contentView addSubview:self->_titleLabel];

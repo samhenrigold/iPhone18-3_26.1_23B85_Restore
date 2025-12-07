@@ -16,10 +16,10 @@
 {
   if (a3)
   {
-    return [self setViewControllers:?];
+    return [result setViewControllers:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

@@ -210,7 +210,7 @@
   v14 = v11 - v13;
 
   [userAdjustmentCommand minYDelta];
-  v49 = v15;
+  v62 = v15;
   userAdjustment3 = [userAdjustmentCommand userAdjustment];
   [userAdjustment3 yDelta];
   v18 = v17;
@@ -227,45 +227,48 @@
   v27 = v25 - v26;
   [(NSNumber *)self->_targetWhitePointY doubleValue];
   v29 = v28;
-  [(NSNumber *)self->_measuredWhitePointY doubleValue];
+  doubleValue = [(NSNumber *)self->_measuredWhitePointY doubleValue];
   WhitepointShiftLuminanceLoss = 1.0;
   if (v9 + -0.000001 < v27 && v14 + 0.000001 > v27)
   {
-    v33 = v29 - v30;
-    if (v49 - v18 + -0.000001 < v29 - v30 && v20 - v23 + 0.000001 > v33)
+    v39.n128_f64[0] = v29 - v38.n128_f64[0];
+    v46 = v62 - v18 + -0.000001;
+    if (v46 < v29 - v38.n128_f64[0] && v20 - v23 + 0.000001 > v39.n128_f64[0])
     {
-      WhitepointShiftLuminanceLoss = GetWhitepointShiftLuminanceLoss(v27, v33);
+      v38.n128_f64[0] = v27;
+      v40.f64[0] = v62 - v18;
+      WhitepointShiftLuminanceLoss = GetWhitepointShiftLuminanceLoss(v38, v39, v46, 0.000001, v40, v41, v42, v43, doubleValue, v31, v32, v33, v34, v35, v36, v37);
     }
   }
 
   [userAdjustmentCommand minLuminanceScale];
-  v36 = v35;
+  v49 = v48;
   userAdjustment5 = [userAdjustmentCommand userAdjustment];
   [userAdjustment5 luminanceScale];
-  v39 = v38;
+  v52 = v51;
 
   [userAdjustmentCommand maxLuminanceScale];
-  v41 = v40;
+  v54 = v53;
   userAdjustment6 = [userAdjustmentCommand userAdjustment];
   [userAdjustment6 luminanceScale];
-  v44 = v43;
+  v57 = v56;
 
   if (numberInSpecifierValidationRange(self->_measuredLuminance, self->_measuredLuminanceSpecifier))
   {
     [(NSNumber *)self->_measuredLuminance doubleValue];
     targetLuminanceSpecifier = self->_targetLuminanceSpecifier;
-    v47 = WhitepointShiftLuminanceLoss * v41 / v44 * v46;
-    v48 = WhitepointShiftLuminanceLoss * v36 / v39 * v46;
+    v60 = WhitepointShiftLuminanceLoss * v54 / v57 * v59;
+    v61 = WhitepointShiftLuminanceLoss * v49 / v52 * v59;
   }
 
   else
   {
     targetLuminanceSpecifier = self->_targetLuminanceSpecifier;
-    v48 = 40.0;
-    v47 = 1200.0;
+    v61 = 40.0;
+    v60 = 1200.0;
   }
 
-  updateSpecifierValidationRange(targetLuminanceSpecifier, v48, v47);
+  updateSpecifierValidationRange(targetLuminanceSpecifier, v61, v60);
   [(DBSFineTuneController *)self reloadSpecifier:self->_targetLuminanceSpecifier];
 }
 
@@ -544,7 +547,7 @@
   [mEMORY[0x277D75128] openURL:v2 withCompletionHandler:&__block_literal_global_2];
 }
 
-void __45__DBSFineTuneController_openFineTuneHelpLink__block_invoke(uint64_t a1, char a2)
+void __45__DBSFineTuneController_openFineTuneHelpLink__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -564,7 +567,7 @@ void __45__DBSFineTuneController_openFineTuneHelpLink__block_invoke(uint64_t a1,
   [mEMORY[0x277D75128] openURL:v2 withCompletionHandler:&__block_literal_global_95];
 }
 
-void __53__DBSFineTuneController_openTargetOutOfRangeHelpLink__block_invoke(uint64_t a1, char a2)
+void __53__DBSFineTuneController_openTargetOutOfRangeHelpLink__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {

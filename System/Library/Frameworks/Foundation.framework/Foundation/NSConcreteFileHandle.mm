@@ -1015,13 +1015,13 @@ void __46__NSConcreteFileHandle_performActivity_modes___block_invoke_5(uint64_t 
   return v10;
 }
 
-uint64_t __33__NSConcreteFileHandle__monitor___block_invoke(uint64_t a1)
+uint64_t __33__NSConcreteFileHandle__monitor___block_invoke(uint64_t a1, uint64_t a2)
 {
   _CFAutoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
+    v4 = WeakRetained;
     (*(*(a1 + 32) + 16))();
   }
 

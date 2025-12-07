@@ -27,17 +27,20 @@
   if (userData != dataCopy)
   {
     v8 = dataCopy;
-    if (![(NSString *)userData isEqualToString:dataCopy])
+    userData = [userData isEqualToString:dataCopy];
+    dataCopy = v8;
+    if ((userData & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_userData;
       self->_userData = v6;
 
-      [(UIVisualEffectView *)self->_visualEffectView _setGroupName:self->_userData];
+      userData = [(UIVisualEffectView *)self->_visualEffectView _setGroupName:self->_userData];
+      dataCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](userData, dataCopy);
 }
 
 - (void)layoutSubviews

@@ -10,38 +10,38 @@
 {
   layoutCopy = layout;
   contextCopy = context;
-  v14.receiver = self;
-  v14.super_class = KNMacArchivedUILayout;
-  v10 = [(KNMacArchivedUILayout *)&v14 initWithContext:contextCopy];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = KNMacArchivedUILayout;
+  v8 = [(KNMacArchivedUILayout *)&v12 initWithContext:contextCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_copy(layoutCopy, v8, v9);
-    uiLayout = v10->_uiLayout;
-    v10->_uiLayout = v11;
+    v9 = [layoutCopy copy];
+    uiLayout = v8->_uiLayout;
+    v8->_uiLayout = v9;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[38]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[38]];
 
-  v8 = objc_msgSend_context(self, v6, v7);
-  v10 = objc_msgSend_uiLayoutFromArchive_unarchiver_context_(KNMacUILayout, v9, v5, unarchiverCopy, v8);
+  context = [(KNMacArchivedUILayout *)self context];
+  v6 = [KNMacUILayout uiLayoutFromArchive:v4 unarchiver:unarchiverCopy context:context];
   uiLayout = self->_uiLayout;
-  self->_uiLayout = v10;
+  self->_uiLayout = v6;
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275DCD620, off_2812EA908[38]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275DCD620 descriptor:off_2812EA908[38]];
 
-  objc_msgSend_saveToArchive_archiver_(self->_uiLayout, v6, v5, archiverCopy);
+  [(KNMacUILayout *)self->_uiLayout saveToArchive:v4 archiver:archiverCopy];
 }
 
 @end

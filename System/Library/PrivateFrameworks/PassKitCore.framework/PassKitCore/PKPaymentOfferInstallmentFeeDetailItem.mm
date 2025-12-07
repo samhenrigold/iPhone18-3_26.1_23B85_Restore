@@ -25,15 +25,15 @@
     {
       if (v6)
       {
-        v8 = [(__CFString *)v6 isEqualToString:@"recurring"];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v10 = v7;
-        if (v10 == @"oneTime" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"oneTime"], v11, v12))
+        if (v10 == @"oneTime" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, v12))
         {
           v9 = 2;
           goto LABEL_10;

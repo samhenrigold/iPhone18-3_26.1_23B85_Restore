@@ -18,7 +18,7 @@
 
   else if (dword_1001D3FF0 <= 90 && (dword_1001D3FF0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011CC4C();
+    sub_10011CC4C(_metricsDictionary);
   }
 }
 
@@ -35,7 +35,7 @@
   {
     if (dword_1001D3FF0 <= 90 && (dword_1001D3FF0 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011CC0C();
+      sub_10011CC0C(tokenCopy);
     }
 
     v6 = 0;

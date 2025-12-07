@@ -36,24 +36,13 @@
   v11.receiver = self;
   v11.super_class = NRPowerAssertionActivity;
   v5 = [(NRPowerAssertionActivity *)&v11 init];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = +[NRPowerAssertion sharedInstance];
-  v7 = [v6 addActivityWithName:nameCopy];
-  uuid = v5->_uuid;
-  v5->_uuid = v7;
-
-  if (!v5->_uuid)
+  if (v5 && (+[NRPowerAssertion sharedInstance](NRPowerAssertion, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 addActivityWithName:nameCopy], v7 = objc_claimAutoreleasedReturnValue(), uuid = v5->_uuid, v5->_uuid = v7, uuid, v6, !v5->_uuid))
   {
     v9 = 0;
   }
 
   else
   {
-LABEL_3:
     v9 = v5;
   }
 

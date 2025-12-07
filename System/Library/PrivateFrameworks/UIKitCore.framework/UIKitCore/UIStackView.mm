@@ -395,7 +395,7 @@ LABEL_13:
   [UIView performWithoutAnimation:v6];
 }
 
-uint64_t __66__UIStackView__commonStackViewInitializationWithArrangedSubviews___block_invoke(uint64_t a1)
+void *__66__UIStackView__commonStackViewInitializationWithArrangedSubviews___block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = *(a1 + 32);
@@ -752,7 +752,7 @@ uint64_t __66__UIStackView__commonStackViewInitializationWithArrangedSubviews___
 void __34__UIStackView_setBackgroundColor___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_17_6 = [v0 isEqualToString:@"com.apple.CarPlayApp"];
+  _MergedGlobals_17_6 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (void)setTranslatesAutoresizingMaskIntoConstraints:(BOOL)constraints

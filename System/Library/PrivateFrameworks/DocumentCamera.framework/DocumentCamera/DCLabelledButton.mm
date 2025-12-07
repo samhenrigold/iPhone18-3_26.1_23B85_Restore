@@ -9,9 +9,10 @@
 
 - (DCLabelledButton)initWithSymbolName:(id)name subtitle:(id)subtitle
 {
-  sub_2492ECA24();
-  sub_2492ECA24();
-  return LabelledButton.init(symbolName:subtitle:)();
+  v4 = sub_2492ECA24();
+  v6 = v5;
+  v7 = sub_2492ECA24();
+  return LabelledButton.init(symbolName:subtitle:)(v4, v6, v7, v8);
 }
 
 - (UIMenu)menu
@@ -39,7 +40,7 @@
 
   sub_2492E7AB0(v10, action, events);
 
-  sub_2492E8020(v10, &qword_27EEE1A60);
+  sub_2492E8020(v10, &qword_27EEE1A60, &unk_2492F82D0);
 }
 
 - (void)removeTarget:(id)target action:(SEL)action forControlEvents:(unint64_t)events
@@ -60,7 +61,7 @@
 
   sub_2492E7D14(v10, action, events);
 
-  sub_2492E8020(v10, &qword_27EEE1A60);
+  sub_2492E8020(v10, &qword_27EEE1A60, &unk_2492F82D0);
 }
 
 @end

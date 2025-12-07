@@ -1734,171 +1734,171 @@ id __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke()
   return v0;
 }
 
-void __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_2(uint64_t a1)
+void __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v2 = DBLogForCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v51 = *MEMORY[0x277D85DE8];
+  v3 = DBLogForCategory(0);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = NSStringFromBOOL();
+    v4 = NSStringFromBOOL();
     *buf = 138412290;
-    v49 = v3;
-    _os_log_impl(&dword_248146000, v2, OS_LOG_TYPE_DEFAULT, "Launch transaction completed with success: %@", buf, 0xCu);
+    v50 = v4;
+    _os_log_impl(&dword_248146000, v3, OS_LOG_TYPE_DEFAULT, "Launch transaction completed with success: %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v5 = [WeakRetained process];
+  v6 = [WeakRetained process];
 
-  if (v5)
+  if (v6)
   {
-    v6 = objc_opt_new();
     v7 = objc_opt_new();
+    v8 = objc_opt_new();
     if (*(a1 + 32))
     {
-      v8 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v9 = [v8 BOOLForKey:@"SendOriginatingProcessWithURLAction"];
+      v9 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+      v10 = [v9 BOOLForKey:@"SendOriginatingProcessWithURLAction"];
 
-      v10 = [MEMORY[0x277CF0CD0] processHandle];
-      if (v9)
+      v11 = [MEMORY[0x277CF0CD0] processHandle];
+      if (v10)
       {
         objc_opt_class();
-        v11 = [*(a1 + 40) activationSettings];
-        v12 = [v11 clientProcess];
-        if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
+        v12 = [*(a1 + 40) activationSettings];
+        v13 = [v12 clientProcess];
+        if (v13 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v13 = v12;
+          v14 = v13;
         }
 
         else
         {
-          v13 = 0;
+          v14 = 0;
         }
 
-        v14 = [v13 handle];
+        v15 = [v14 handle];
 
-        v10 = v14;
+        v11 = v15;
       }
 
-      v15 = [objc_alloc(MEMORY[0x277D757D0]) initWithURL:*(a1 + 32) workspaceOriginatingProcess:v10];
-      v16 = DBLogForCategory(0);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v16 = [objc_alloc(MEMORY[0x277D757D0]) initWithURL:*(a1 + 32) workspaceOriginatingProcess:v11];
+      v17 = DBLogForCategory(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v49 = v15;
-        _os_log_impl(&dword_248146000, v16, OS_LOG_TYPE_DEFAULT, "Creating open url action: %@", buf, 0xCu);
+        v50 = v16;
+        _os_log_impl(&dword_248146000, v17, OS_LOG_TYPE_DEFAULT, "Creating open url action: %@", buf, 0xCu);
       }
 
-      [v6 addObject:v15];
+      [v7 addObject:v16];
     }
 
-    v17 = *(a1 + 48);
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_475;
-    v45[3] = &unk_278F020B8;
-    v18 = v6;
-    v46 = v18;
+    v18 = *(a1 + 48);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_475;
+    v46[3] = &unk_278F020B8;
     v19 = v7;
     v47 = v19;
-    [v17 enumerateObjectsUsingBlock:v45];
-    if ([v18 count])
+    v20 = v8;
+    v48 = v20;
+    [v18 enumerateObjectsUsingBlock:v46];
+    if ([v19 count])
     {
-      v20 = [v5 workspace];
-      if (v20)
+      v21 = [v6 workspace];
+      if (v21)
       {
-        v21 = DBLogForCategory(0);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = DBLogForCategory(0);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [v18 count];
+          v23 = [v19 count];
           *buf = 134217984;
-          v49 = v22;
-          _os_log_impl(&dword_248146000, v21, OS_LOG_TYPE_DEFAULT, "Sending %lu actions to the workspace", buf, 0xCu);
+          v50 = v23;
+          _os_log_impl(&dword_248146000, v22, OS_LOG_TYPE_DEFAULT, "Sending %lu actions to the workspace", buf, 0xCu);
         }
 
-        [v20 sendActions:v18];
+        [v21 sendActions:v19];
       }
     }
 
-    if (![v19 count])
+    if (![v20 count])
     {
       goto LABEL_32;
     }
 
-    v23 = [MEMORY[0x277D0AAD8] sharedInstance];
-    v24 = [v23 sceneWithIdentifier:@"com.apple.CarPlayApp.url-delivery"];
+    v24 = [MEMORY[0x277D0AAD8] sharedInstance];
+    v25 = [v24 sceneWithIdentifier:@"com.apple.CarPlayApp.url-delivery"];
 
-    if (v24)
+    if (v25)
     {
-      v25 = [v24 clientProcess];
-      v26 = [v25 identity];
-      v27 = [v26 isEqual:*(a1 + 56)];
+      v26 = [v25 clientProcess];
+      v27 = [v26 identity];
+      v28 = [v27 isEqual:*(a1 + 56)];
 
-      if ((v27 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
-        v28 = DBLogForCategory(0);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = DBLogForCategory(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = [v24 clientProcess];
-          v30 = [v29 identity];
+          v30 = [v25 clientProcess];
+          v31 = [v30 identity];
           *buf = 138543362;
-          v49 = v30;
-          _os_log_impl(&dword_248146000, v28, OS_LOG_TYPE_DEFAULT, "Destroying existing throwaway scene for non-matching process identity: %{public}@", buf, 0xCu);
+          v50 = v31;
+          _os_log_impl(&dword_248146000, v29, OS_LOG_TYPE_DEFAULT, "Destroying existing throwaway scene for non-matching process identity: %{public}@", buf, 0xCu);
         }
 
-        v31 = [MEMORY[0x277D0AAD8] sharedInstance];
-        [v31 destroyScene:@"com.apple.CarPlayApp.url-delivery" withTransitionContext:0];
+        v32 = [MEMORY[0x277D0AAD8] sharedInstance];
+        [v32 destroyScene:@"com.apple.CarPlayApp.url-delivery" withTransitionContext:0];
       }
     }
 
     else
     {
-      v32 = objc_alloc_init(MEMORY[0x277D75180]);
-      v33 = objc_alloc_init([v32 settingsClass]);
-      v34 = [v33 mutableCopy];
-
-      v35 = [MEMORY[0x277D0AA90] mainConfiguration];
-      [v34 setDisplayConfiguration:v35];
+      v33 = objc_alloc_init(MEMORY[0x277D75180]);
+      v34 = objc_alloc_init([v33 settingsClass]);
+      v35 = [v34 mutableCopy];
 
       v36 = [MEMORY[0x277D0AA90] mainConfiguration];
-      [v36 bounds];
-      [v34 setFrame:?];
+      [v35 setDisplayConfiguration:v36];
 
-      [v34 setLevel:1.0];
-      [v34 setInterfaceOrientation:1];
-      v37 = [MEMORY[0x277D0AD50] parametersForSpecification:v32];
-      [v37 setSettings:v34];
-      v38 = DBLogForCategory(0);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v37 = [MEMORY[0x277D0AA90] mainConfiguration];
+      [v37 bounds];
+      [v35 setFrame:?];
+
+      [v35 setLevel:1.0];
+      [v35 setInterfaceOrientation:1];
+      v38 = [MEMORY[0x277D0AD50] parametersForSpecification:v33];
+      [v38 setSettings:v35];
+      v39 = DBLogForCategory(0);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_248146000, v38, OS_LOG_TYPE_DEFAULT, "Creating throwaway scene for action delivery", buf, 2u);
+        _os_log_impl(&dword_248146000, v39, OS_LOG_TYPE_DEFAULT, "Creating throwaway scene for action delivery", buf, 2u);
       }
 
-      v39 = [MEMORY[0x277D0AAD8] sharedInstance];
-      v40 = [v5 workspace];
-      v24 = [v39 createSceneWithIdentifier:@"com.apple.CarPlayApp.url-delivery" parameters:v37 clientProvider:v40 transitionContext:0];
+      v40 = [MEMORY[0x277D0AAD8] sharedInstance];
+      v41 = [v6 workspace];
+      v25 = [v40 createSceneWithIdentifier:@"com.apple.CarPlayApp.url-delivery" parameters:v38 clientProvider:v41 transitionContext:0];
 
-      if (!v24)
+      if (!v25)
       {
         goto LABEL_32;
       }
     }
 
-    v41 = DBLogForCategory(0);
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v42 = DBLogForCategory(0);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = [*(a1 + 48) count];
+      v43 = [*(a1 + 48) count];
       *buf = 134217984;
-      v49 = v42;
-      _os_log_impl(&dword_248146000, v41, OS_LOG_TYPE_DEFAULT, "Sending %lu non-workspace actions via throwaway scene", buf, 0xCu);
+      v50 = v43;
+      _os_log_impl(&dword_248146000, v42, OS_LOG_TYPE_DEFAULT, "Sending %lu non-workspace actions via throwaway scene", buf, 0xCu);
     }
 
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_482;
-    v43[3] = &unk_278F020E0;
-    v44 = v19;
-    [v24 updateSettingsWithTransitionBlock:v43];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __57__DBDashboard__handleBackgroundURLDeliveryForLaunchInfo___block_invoke_482;
+    v44[3] = &unk_278F020E0;
+    v45 = v20;
+    [v25 updateSettingsWithTransitionBlock:v44];
 
 LABEL_32:
   }
@@ -4326,11 +4326,13 @@ LABEL_46:
   alertFocusAssertion = self->_alertFocusAssertion;
   if (alertFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)alertFocusAssertion invalidate];
     objc_storeStrong(&self->_alertFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](alertFocusAssertion, assertionCopy);
 }
 
 - (void)setHomeFocusAssertion:(id)assertion
@@ -4339,11 +4341,13 @@ LABEL_46:
   homeFocusAssertion = self->_homeFocusAssertion;
   if (homeFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)homeFocusAssertion invalidate];
     objc_storeStrong(&self->_homeFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](homeFocusAssertion, assertionCopy);
 }
 
 - (void)setLockOutFocusAssertion:(id)assertion
@@ -4352,11 +4356,13 @@ LABEL_46:
   lockOutFocusAssertion = self->_lockOutFocusAssertion;
   if (lockOutFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)lockOutFocusAssertion invalidate];
     objc_storeStrong(&self->_lockOutFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](lockOutFocusAssertion, assertionCopy);
 }
 
 - (void)setNotificationFocusAssertion:(id)assertion
@@ -4365,11 +4371,13 @@ LABEL_46:
   notificationFocusAssertion = self->_notificationFocusAssertion;
   if (notificationFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)notificationFocusAssertion invalidate];
     objc_storeStrong(&self->_notificationFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](notificationFocusAssertion, assertionCopy);
 }
 
 - (void)setOEMFocusAssertion:(id)assertion
@@ -4378,11 +4386,13 @@ LABEL_46:
   oemFocusAssertion = self->_oemFocusAssertion;
   if (oemFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)oemFocusAssertion invalidate];
     objc_storeStrong(&self->_oemFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](oemFocusAssertion, assertionCopy);
 }
 
 - (void)setClimateFocusAssertion:(id)assertion
@@ -4391,11 +4401,13 @@ LABEL_46:
   climateFocusAssertion = self->_climateFocusAssertion;
   if (climateFocusAssertion != assertionCopy)
   {
+    v7 = assertionCopy;
     [(DBFocusAssertion *)climateFocusAssertion invalidate];
     objc_storeStrong(&self->_climateFocusAssertion, assertion);
+    assertionCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](climateFocusAssertion, assertionCopy);
 }
 
 - (DBScreenshotManager)screenshotManager
@@ -6337,7 +6349,7 @@ void __92__DBDashboard_lockOutController_didChangeFromLockoutMode_toLockOutMode_
   isLockedOut = [lockOutController isLockedOut];
 
   v7 = DBLogForCategory(3uLL);
-  siriButtonSource2 = v7;
+  siriButtonSource = v7;
   if (isLockedOut)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -6351,7 +6363,7 @@ void __92__DBDashboard_lockOutController_didChangeFromLockoutMode_toLockOutMode_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v23 = 0;
-    _os_log_impl(&dword_248146000, siriButtonSource2, OS_LOG_TYPE_DEFAULT, "Received external Siri button down action", v23, 2u);
+    _os_log_impl(&dword_248146000, siriButtonSource, OS_LOG_TYPE_DEFAULT, "Received external Siri button down action", v23, 2u);
   }
 
   siriButtonAssertion = [(DBDashboard *)self siriButtonAssertion];
@@ -6406,8 +6418,8 @@ LABEL_17:
     Current = timestamp;
   }
 
-  siriButtonSource = [(DBDashboard *)self siriButtonSource];
-  v18 = [siriButtonSource speechInteractionActivityWithTimestamp:Current];
+  v17 = [(DBDashboard *)self siriButtonSource:*v23];
+  v18 = [v17 speechInteractionActivityWithTimestamp:Current];
   [(DBDashboard *)self setSiriButtonAssertion:v18];
 
   siriPrewarmAssertion = [(DBDashboard *)self siriPrewarmAssertion];
@@ -6434,8 +6446,8 @@ LABEL_17:
     _os_log_impl(&dword_248146000, v22, OS_LOG_TYPE_DEFAULT, "Sending Siri long press event", v23, 2u);
   }
 
-  siriButtonSource2 = [(DBDashboard *)self siriButtonSource];
-  [siriButtonSource2 didRecognizeLongPress];
+  siriButtonSource = [(DBDashboard *)self siriButtonSource];
+  [siriButtonSource didRecognizeLongPress];
 LABEL_25:
 }
 
@@ -7606,26 +7618,26 @@ LABEL_10:
 
 - (void)environmentConfiguration:(double)configuration viewAreaDidChangeFromViewAreaFrame:(double)frame safeAreaInsets:(double)insets toViewAreaFrame:(double)areaFrame safeAreaInsets:(double)areaInsets duration:(double)duration transitionControlType:(double)type
 {
-  v181[2] = *MEMORY[0x277D85DE8];
+  v174[2] = *MEMORY[0x277D85DE8];
   workspace = [self workspace];
   state = [workspace state];
   activeBundleIdentifier = [state activeBundleIdentifier];
 
-  v32 = +[DBApplicationController sharedInstance];
-  v33 = [v32 applicationWithBundleIdentifier:activeBundleIdentifier];
+  v25 = +[DBApplicationController sharedInstance];
+  v26 = [v25 applicationWithBundleIdentifier:activeBundleIdentifier];
 
   layoutEngine = [self layoutEngine];
-  [layoutEngine areaOfInterestFrameForApplication:v33];
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
+  [layoutEngine areaOfInterestFrameForApplication:v26];
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
 
   rootViewController = [self rootViewController];
   if (a18 <= 0.0)
   {
     interestingWindow = [self interestingWindow];
-    [interestingWindow setFrame:{v36, v38, v40, v42}];
+    [interestingWindow setFrame:{v29, v31, v33, v35}];
 
     cornerRadiusWindow = [self cornerRadiusWindow];
     layoutEngine2 = [self layoutEngine];
@@ -7643,8 +7655,8 @@ LABEL_10:
     homeViewController = [rootViewController homeViewController];
     [homeViewController _setupIconModelWithRelayout:1];
 
-    v96 = +[DBApplicationController sharedInstance];
-    siriApplication = [v96 siriApplication];
+    v89 = +[DBApplicationController sharedInstance];
+    siriApplication = [v89 siriApplication];
 
     siriViewController = [self siriViewController];
     [self sceneFrameForApplication:siriApplication];
@@ -7653,13 +7665,13 @@ LABEL_10:
     notificationViewController = [self notificationViewController];
     notificationWindow = [self notificationWindow];
     [notificationWindow frame];
-    v102 = v101;
-    v104 = v103;
-    v106 = v105;
-    v108 = v107;
+    v95 = v94;
+    v97 = v96;
+    v99 = v98;
+    v101 = v100;
     layoutEngine3 = [self layoutEngine];
     [layoutEngine3 notificationWindowFrame];
-    [notificationViewController handleTransitionFromFrame:v102 toFrame:{v104, v106, v108, v110, v111, v112, v113}];
+    [notificationViewController handleTransitionFromFrame:v95 toFrame:{v97, v99, v101, v103, v104, v105, v106}];
 
     homeViewController2 = [rootViewController homeViewController];
     [homeViewController2 restartPageControlTimerIfNecessary];
@@ -7667,51 +7679,51 @@ LABEL_10:
 
   else
   {
-    v139 = v36;
-    v140 = v38;
-    v141 = v33;
-    v142 = activeBundleIdentifier;
-    v44 = a2 + areaInsets;
-    v45 = frame - (areaInsets + type);
-    v46 = [self _takeSnapshotOfFrame:{v44, configuration + areaFrame, v45, insets - (areaFrame + duration)}];
-    [v46 setAutoresizingMask:18];
+    v132 = v29;
+    v133 = v31;
+    v134 = v26;
+    v135 = activeBundleIdentifier;
+    v37 = a2 + areaInsets;
+    v38 = frame - (areaInsets + type);
+    v39 = [self _takeSnapshotOfFrame:{v37, configuration + areaFrame, v38, insets - (areaFrame + duration)}];
+    [v39 setAutoresizingMask:18];
     _newResizeAnimationWindow = [self _newResizeAnimationWindow];
     [self setResizeWindow:_newResizeAnimationWindow];
-    v48 = objc_alloc(MEMORY[0x277D75D18]);
-    v49 = [v48 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-    [v49 setClipsToBounds:1];
-    v150 = _newResizeAnimationWindow;
-    [_newResizeAnimationWindow addSubview:v49];
-    [v49 setFrame:{v44, configuration + areaFrame, v45, insets - (areaFrame + duration)}];
-    v50 = objc_alloc_init(_TtC9DashBoard15DBAnimationView);
-    [(DBAnimationView *)v50 setAutoresizingMask:18];
-    v181[0] = @"filters.gaussianBlur.inputRadius";
-    v181[1] = @"filters.saturation.inputAmount";
-    v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
-    [(DBAnimationView *)v50 setKeysToAnimate:v51];
+    v41 = objc_alloc(MEMORY[0x277D75D18]);
+    v42 = [v41 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+    [v42 setClipsToBounds:1];
+    v143 = _newResizeAnimationWindow;
+    [_newResizeAnimationWindow addSubview:v42];
+    [v42 setFrame:{v37, configuration + areaFrame, v38, insets - (areaFrame + duration)}];
+    v43 = objc_alloc_init(_TtC9DashBoard15DBAnimationView);
+    [(DBAnimationView *)v43 setAutoresizingMask:18];
+    v174[0] = @"filters.gaussianBlur.inputRadius";
+    v174[1] = @"filters.saturation.inputAmount";
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
+    [(DBAnimationView *)v43 setKeysToAnimate:v44];
 
-    v52 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-    [v52 setName:@"gaussianBlur"];
-    [v52 setValue:&unk_285AA4AC8 forKey:@"inputRadius"];
-    [v52 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
-    v53 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2D0]];
-    [v53 setName:@"saturation"];
-    [v53 setValue:&unk_285AA4AD8 forKey:@"inputAmount"];
-    layer = [(DBAnimationView *)v50 layer];
-    v144 = v53;
-    v146 = v52;
-    v180[0] = v52;
-    v180[1] = v53;
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
-    [layer setFilters:v55];
+    v45 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
+    [v45 setName:@"gaussianBlur"];
+    [v45 setValue:&unk_285AA4AC8 forKey:@"inputRadius"];
+    [v45 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
+    v46 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2D0]];
+    [v46 setName:@"saturation"];
+    [v46 setValue:&unk_285AA4AD8 forKey:@"inputAmount"];
+    layer = [(DBAnimationView *)v43 layer];
+    v137 = v46;
+    v139 = v45;
+    v173[0] = v45;
+    v173[1] = v46;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
+    [layer setFilters:v48];
 
-    [v49 addSubview:v50];
-    [v49 bounds];
-    [(DBAnimationView *)v50 setFrame:?];
-    [(DBAnimationView *)v50 addSubview:v46];
-    [(DBAnimationView *)v50 bounds];
-    v148 = v46;
-    [v46 setFrame:?];
+    [v42 addSubview:v43];
+    [v42 bounds];
+    [(DBAnimationView *)v43 setFrame:?];
+    [(DBAnimationView *)v43 addSubview:v39];
+    [(DBAnimationView *)v43 bounds];
+    v141 = v39;
+    [v39 setFrame:?];
     [MEMORY[0x277CD9FF0] commit];
     [self _updateAppScenesViewArea];
     [self _updateWindowFrames];
@@ -7724,19 +7736,19 @@ LABEL_10:
     notificationViewController2 = [self notificationViewController];
     notificationWindow2 = [self notificationWindow];
     [notificationWindow2 frame];
-    v61 = v60;
-    v63 = v62;
-    v65 = v64;
-    v67 = v66;
+    v54 = v53;
+    v56 = v55;
+    v58 = v57;
+    v60 = v59;
     layoutEngine4 = [self layoutEngine];
     [layoutEngine4 notificationWindowFrame];
-    [notificationViewController2 handleTransitionFromFrame:v61 toFrame:{v63, v65, v67, v69, v70, v71, v72}];
+    [notificationViewController2 handleTransitionFromFrame:v54 toFrame:{v56, v58, v60, v62, v63, v64, v65}];
 
-    v73 = +[DBApplicationController sharedInstance];
-    siriApplication2 = [v73 siriApplication];
+    v66 = +[DBApplicationController sharedInstance];
+    siriApplication2 = [v66 siriApplication];
 
     siriViewController2 = [self siriViewController];
-    v138 = siriApplication2;
+    v131 = siriApplication2;
     [self sceneFrameForApplication:siriApplication2];
     [siriViewController2 handleTransitionToFrame:?];
 
@@ -7747,7 +7759,7 @@ LABEL_10:
     firstObject = [folderControllers firstObject];
 
     currentPageIndex = [firstObject currentPageIndex];
-    v152 = rootViewController;
+    v145 = rootViewController;
     homeViewController4 = [rootViewController homeViewController];
     [homeViewController4 _setupIconModelWithRelayout:1];
 
@@ -7757,7 +7769,7 @@ LABEL_10:
     folderControllers2 = [folderController2 folderControllers];
     firstObject2 = [folderControllers2 firstObject];
 
-    v136 = firstObject;
+    v129 = firstObject;
     if (firstObject != firstObject2)
     {
       if (currentPageIndex > [firstObject2 maximumPageIndex])
@@ -7769,90 +7781,90 @@ LABEL_10:
     }
 
     [MEMORY[0x277CD9FF0] commit];
-    v88 = [self _takeSnapshotOfFrame:{a10 + a15, a11 + a14, a12 - (a15 + a17), a13 - (a14 + a16)}];
-    [v88 setAutoresizingMask:18];
+    v81 = [self _takeSnapshotOfFrame:{a10 + a15, a11 + a14, a12 - (a15 + a17), a13 - (a14 + a16)}];
+    [v81 setAutoresizingMask:18];
     if (a18 >= 0.5)
     {
-      v115 = objc_alloc_init(_TtC9DashBoard29DBIconLayerViewWithLegibility);
+      v108 = objc_alloc_init(_TtC9DashBoard29DBIconLayerViewWithLegibility);
       environmentConfiguration = [self environmentConfiguration];
       iconImageAppearance = [environmentConfiguration iconImageAppearance];
 
       environmentConfiguration2 = [self environmentConfiguration];
       [environmentConfiguration2 pointScale];
       [_TtC9DashBoard11DBIconImage iconImageInfoForScale:?];
-      v120 = v119;
-      v122 = v121;
-      v124 = v123;
-      v126 = v125;
+      v113 = v112;
+      v115 = v114;
+      v117 = v116;
+      v119 = v118;
 
-      v127 = dispatch_get_global_queue(33, 0);
+      v120 = dispatch_get_global_queue(33, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __152__DBDashboard_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke;
       block[3] = &unk_278F02478;
-      v176 = v120;
-      v177 = v122;
-      v178 = v124;
-      v179 = v126;
-      v174 = iconImageAppearance;
-      v89 = v115;
-      v175 = v89;
-      v128 = iconImageAppearance;
-      dispatch_async(v127, block);
+      v169 = v113;
+      v170 = v115;
+      v171 = v117;
+      v172 = v119;
+      v167 = iconImageAppearance;
+      v82 = v108;
+      v168 = v82;
+      v121 = iconImageAppearance;
+      dispatch_async(v120, block);
 
-      [(DBIconLayerViewWithLegibility *)v89 setContentMode:4];
-      [(DBIconLayerViewWithLegibility *)v89 setAutoresizingMask:45];
-      [(DBIconLayerViewWithLegibility *)v89 setBounds:0.0, 0.0, v120, v122];
-      [v49 bounds];
-      MidX = CGRectGetMidX(v182);
-      [v49 bounds];
-      [(DBIconLayerViewWithLegibility *)v89 setCenter:MidX, CGRectGetMidY(v183)];
-      [(DBIconLayerViewWithLegibility *)v89 setAlpha:0.0];
-      [v49 addSubview:v89];
+      [(DBIconLayerViewWithLegibility *)v82 setContentMode:4];
+      [(DBIconLayerViewWithLegibility *)v82 setAutoresizingMask:45];
+      [(DBIconLayerViewWithLegibility *)v82 setBounds:0.0, 0.0, v113, v115];
+      [v42 bounds];
+      MidX = CGRectGetMidX(v175);
+      [v42 bounds];
+      [(DBIconLayerViewWithLegibility *)v82 setCenter:MidX, CGRectGetMidY(v176)];
+      [(DBIconLayerViewWithLegibility *)v82 setAlpha:0.0];
+      [v42 addSubview:v82];
     }
 
     else
     {
-      v89 = 0;
+      v82 = 0;
     }
 
-    v33 = v141;
-    v130 = MEMORY[0x277D75D18];
-    v170[0] = MEMORY[0x277D85DD0];
-    v170[1] = 3221225472;
-    v170[2] = __152__DBDashboard_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_3;
-    v170[3] = &unk_278F014B8;
-    v171 = v50;
-    v172 = v89;
-    v153[0] = MEMORY[0x277D85DD0];
-    v153[1] = 3221225472;
-    v153[2] = __152__DBDashboard_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_704;
-    v153[3] = &unk_278F02518;
-    v154 = v171;
-    v155 = v88;
-    v161 = a18;
-    v162 = a10 + a15;
-    v163 = a11 + a14;
-    v164 = a12 - (a15 + a17);
-    v156 = v49;
+    v26 = v134;
+    v123 = MEMORY[0x277D75D18];
+    v163[0] = MEMORY[0x277D85DD0];
+    v163[1] = 3221225472;
+    v163[2] = __152__DBDashboard_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_3;
+    v163[3] = &unk_278F014B8;
+    v164 = v43;
+    v165 = v82;
+    v146[0] = MEMORY[0x277D85DD0];
+    v146[1] = 3221225472;
+    v146[2] = __152__DBDashboard_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_704;
+    v146[3] = &unk_278F02518;
+    v147 = v164;
+    v148 = v81;
+    v154 = a18;
+    v155 = a10 + a15;
+    v156 = a11 + a14;
+    v157 = a12 - (a15 + a17);
+    v149 = v42;
     selfCopy = self;
-    v165 = a13 - (a14 + a16);
-    v166 = v139;
-    v167 = v140;
-    v168 = v40;
-    v169 = v42;
-    v158 = v148;
-    v159 = v172;
-    rootViewController = v152;
-    v160 = v152;
-    v131 = v172;
-    v132 = v148;
-    v133 = v49;
-    v134 = v88;
-    v135 = v171;
-    [v130 animateWithDuration:v170 animations:v153 completion:0.25];
+    v158 = a13 - (a14 + a16);
+    v159 = v132;
+    v160 = v133;
+    v161 = v33;
+    v162 = v35;
+    v151 = v141;
+    v152 = v165;
+    rootViewController = v145;
+    v153 = v145;
+    v124 = v165;
+    v125 = v141;
+    v126 = v42;
+    v127 = v81;
+    v128 = v164;
+    [v123 animateWithDuration:v163 animations:v146 completion:0.25];
 
-    activeBundleIdentifier = v142;
+    activeBundleIdentifier = v135;
   }
 }
 
@@ -8681,9 +8693,12 @@ void __50__DBDashboard__animateStartupFromScaledMainWindow__block_invoke_720(id 
 
 uint64_t __48__DBDashboard_alwaysDarkStatusBarStyleAssertion__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 152) = [objc_alloc(MEMORY[0x277CF9348]) initWithInterfaceStyle:2];
+  v2 = [objc_alloc(MEMORY[0x277CF9348]) initWithInterfaceStyle:2];
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 152);
+  *(v3 + 152) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BSAnimationSettings)alwaysDarkAnimationSettings
@@ -9073,7 +9088,7 @@ LABEL_12:
 
 - (void)_updateTraitOverridesForTraitOverrides:(id)overrides withHomeScreenStyleData:(id)data userInterfaceStyle:(int64_t)style
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91470);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE91470, qword_24839EA48);
   v8 = sub_248383B10();
   dataCopy = data;
   selfCopy = self;

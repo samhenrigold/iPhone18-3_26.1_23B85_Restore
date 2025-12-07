@@ -8,7 +8,7 @@
 
 - (id)estimatedTTSWordTimingForText:(id)text withLanguage:(id)language voiceName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   textCopy = text;
   nameCopy = name;
   v10 = [(VSWordTimingService *)self timingPlistForLanguage:language];
@@ -17,8 +17,8 @@
     v11 = nameCopy;
     if (!v11 || ([v10 objectForKeyedSubscript:v11], v12 = objc_claimAutoreleasedReturnValue(), v12, !v12))
     {
-      allKeys = [v10 allKeys];
-      firstObject = [allKeys firstObject];
+      v13 = objc_msgSend_allKeys(v10);
+      firstObject = [v13 firstObject];
 
       v11 = firstObject;
     }
@@ -33,11 +33,11 @@
         v18 = VSGetLogDefault();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 138412546;
-          v22 = v11;
-          v23 = 2112;
-          v24 = textCopy;
-          _os_log_impl(&dword_272850000, v18, OS_LOG_TYPE_DEFAULT, "Found prepared word timing info for voice '%@', text: '%@'", &v21, 0x16u);
+          v20 = 138412546;
+          v21 = v11;
+          v22 = 2112;
+          v23 = textCopy;
+          _os_log_impl(&dword_272850000, v18, OS_LOG_TYPE_DEFAULT, "Found prepared word timing info for voice '%@', text: '%@'", &v20, 0x16u);
         }
       }
     }
@@ -52,8 +52,6 @@
   {
     v17 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -72,36 +70,36 @@
 
 - (id)timingInfosFrom:(id)from withText:(id)text
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   textCopy = text;
   array = [MEMORY[0x277CBEB18] array];
-  v32 = fromCopy;
+  v31 = fromCopy;
   [fromCopy objectForKeyedSubscript:@"word_timings"];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v8 = v38 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v8 = v37 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
     obj = v8;
-    v34 = *v36;
+    v33 = *v35;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v36 != v34)
+        if (*v35 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         lastObject = [array lastObject];
-        allKeys = [v13 allKeys];
-        firstObject = [allKeys firstObject];
+        v15 = objc_msgSend_allKeys(v13);
+        firstObject = [v15 firstObject];
 
         v17 = [textCopy rangeOfString:firstObject options:0 range:{v11, objc_msgSend(textCopy, "length") - v11}];
         if (v17 == 0x7FFFFFFFFFFFFFFFLL)
@@ -110,9 +108,9 @@
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v40 = firstObject;
-            v41 = 2112;
-            v42 = textCopy;
+            v39 = firstObject;
+            v40 = 2112;
+            v41 = textCopy;
             _os_log_error_impl(&dword_272850000, v29, OS_LOG_TYPE_ERROR, "Unable to locate word '%@' in '%@'", buf, 0x16u);
           }
 
@@ -142,7 +140,7 @@
       }
 
       v8 = obj;
-      v10 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v10 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (v10)
       {
         continue;
@@ -161,8 +159,6 @@
 
   v28 = array;
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

@@ -55,7 +55,7 @@
 
 - (void)_loadFromCache
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   contentContext = [(FCLocalAreasManager *)self contentContext];
   appConfigurationManager = [contentContext appConfigurationManager];
   possiblyUnfetchedAppConfiguration = [appConfigurationManager possiblyUnfetchedAppConfiguration];
@@ -66,18 +66,18 @@
     v7 = localAreasMappingResourceId;
     v8 = [FCResourcesFetchOperation alloc];
     contentContext2 = [(FCLocalAreasManager *)self contentContext];
-    v16[0] = v7;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v7;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v11 = [(FCResourcesFetchOperation *)v8 initWithContext:contentContext2 resourceIDs:v10 downloadAssets:0];
 
     [(FCFetchOperation *)v11 setCachePolicy:3];
     [(FCFetchOperation *)v11 setCanSendFetchCompletionSynchronously:1];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __37__FCLocalAreasManager__loadFromCache__block_invoke_4;
-    v14[3] = &unk_1E7C3EF70;
-    v14[4] = self;
-    [(FCFetchOperation *)v11 setFetchCompletionBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __37__FCLocalAreasManager__loadFromCache__block_invoke_4;
+    v13[3] = &unk_1E7C3EF70;
+    v13[4] = self;
+    [(FCFetchOperation *)v11 setFetchCompletionBlock:v13];
     [(FCOperation *)v11 start];
     [(FCResourcesFetchOperation *)v11 waitUntilFinished];
   }
@@ -91,13 +91,11 @@
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "No cached mapping resource because the config has no resource ID", buf, 2u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __37__FCLocalAreasManager__loadFromCache__block_invoke_4(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [a2 fetchedObject];
   v4 = [v3 fc_onlyObject];
 
@@ -122,9 +120,9 @@ void __37__FCLocalAreasManager__loadFromCache__block_invoke_4(uint64_t a1, void 
       {
         v13 = v12;
         v14 = [v5 fetchDate];
-        v18 = 138543362;
-        v19 = v14;
-        _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Found cached mapping resource with fetch date: %{public}@", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v14;
+        _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Found cached mapping resource with fetch date: %{public}@", &v17, 0xCu);
       }
     }
 
@@ -133,8 +131,8 @@ void __37__FCLocalAreasManager__loadFromCache__block_invoke_4(uint64_t a1, void 
       v16 = FCLocalAreasLog;
       if (os_log_type_enabled(FCLocalAreasLog, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "No cached mapping resource because the asset hasn't been downloaded", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "No cached mapping resource because the asset hasn't been downloaded", &v17, 2u);
       }
     }
   }
@@ -144,12 +142,10 @@ void __37__FCLocalAreasManager__loadFromCache__block_invoke_4(uint64_t a1, void 
     v15 = FCLocalAreasLog;
     if (os_log_type_enabled(FCLocalAreasLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "No cached mapping resource because the record hasn't been fetched", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "No cached mapping resource because the record hasn't been fetched", &v17, 2u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshWithQoS:(int64_t)s completion:(id)completion
@@ -265,7 +261,7 @@ void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_3(uint6
 
 void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_13(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [*(a1 + 32) contentContext];
   v6 = [v5 appConfigurationManager];
@@ -277,8 +273,8 @@ void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_13(uint
     v9 = v8;
     v10 = [FCResourcesFetchOperation alloc];
     v11 = [*(a1 + 32) contentContext];
-    v32[0] = v9;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+    v31[0] = v9;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
     v13 = [(FCResourcesFetchOperation *)v10 initWithContext:v11 resourceIDs:v12 downloadAssets:1];
 
     [(FCFetchOperation *)v13 setCachePolicy:4];
@@ -302,35 +298,33 @@ void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_13(uint
       v17 = v16;
       v18 = [(FCOperation *)v13 shortOperationDescription];
       *buf = 138543362;
-      v31 = v18;
+      v30 = v18;
       _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "Will issue mapping resource fetch operation: %{public}@", buf, 0xCu);
     }
 
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_15;
-    v24 = &unk_1E7C3B838;
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_15;
+    v23 = &unk_1E7C3B838;
     v19 = *(a1 + 40);
-    v25 = *(a1 + 32);
-    v26 = v19;
-    [(FCFetchOperation *)v13 setFetchCompletionBlock:&v21];
-    [(FCOperation *)v13 start:v21];
+    v24 = *(a1 + 32);
+    v25 = v19;
+    [(FCFetchOperation *)v13 setFetchCompletionBlock:&v20];
+    [(FCOperation *)v13 start:v20];
   }
 
   else
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_14;
-    v27[3] = &unk_1E7C37778;
-    v29 = *(a1 + 40);
-    v28 = v4;
-    __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_14(v27);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_14;
+    v26[3] = &unk_1E7C37778;
+    v28 = *(a1 + 40);
+    v27 = v4;
+    __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_14(v26);
 
-    v9 = v29;
+    v9 = v28;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_14(uint64_t a1)
@@ -338,11 +332,10 @@ uint64_t __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_1
   v2 = FCLocalAreasLog;
   if (os_log_type_enabled(FCLocalAreasLog, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App config has no mapping resource ID", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App config has no mapping resource ID", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -408,28 +401,26 @@ void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_15(uint
 
 void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_2_16(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = FCLocalAreasLog;
   if (os_log_type_enabled(FCLocalAreasLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 error];
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Failed to fetch mapping resource with error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Failed to fetch mapping resource with error: %{public}@", &v8, 0xCu);
   }
 
   v6 = *(a1 + 40);
   v7 = [*(a1 + 32) error];
   (*(v6 + 16))(v6, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_17(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCLocalAreasLog;
   if (os_log_type_enabled(FCLocalAreasLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -437,17 +428,15 @@ void __50__FCLocalAreasManager__refreshWithQoS_completion___block_invoke_17(uint
     v4 = v2;
     v5 = [v3 assetHandle];
     v6 = [v5 downloadError];
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Failed to fetch mapping resource with error: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Failed to fetch mapping resource with error: %{public}@", &v10, 0xCu);
   }
 
   v7 = *(a1 + 40);
   v8 = [*(a1 + 32) assetHandle];
   v9 = [v8 downloadError];
   (*(v7 + 16))(v7, v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

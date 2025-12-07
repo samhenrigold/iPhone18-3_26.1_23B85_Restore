@@ -35,41 +35,40 @@
   {
     route = [(MNActiveRouteInfo *)self->_currentRouteInfo route];
     etaRoute = [(MNActiveRouteInfo *)self->_currentRouteInfo etaRoute];
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x2020000000;
-    *&v32[3] = interval;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2810000000;
+    v31[0] = 0;
+    v31[1] = v31;
+    v31[2] = 0x2020000000;
+    *&v31[3] = interval;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2810000000;
     v13 = *MEMORY[0x1E69A1918];
-    v30 = "";
-    v31 = v13;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __84__MNTunnelLocationProjector__projectedRouteCoordinateFrom_timeInterval_tunnelRange___block_invoke;
-    v21[3] = &unk_1E8430228;
-    v25 = start;
-    v26 = end;
-    v23 = v32;
-    v24 = &v27;
+    v29 = "";
+    v30 = v13;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __84__MNTunnelLocationProjector__projectedRouteCoordinateFrom_timeInterval_tunnelRange___block_invoke;
+    v20[3] = &unk_1E8430228;
+    v24 = start;
+    v25 = end;
+    v22 = v31;
+    v23 = &v26;
     v14 = route;
-    v22 = v14;
-    [v14 iterateTravelTimeRangesFromRouteCoordinate:from etaRoute:etaRoute handler:v21];
-    v15 = v28[4];
+    v21 = v14;
+    [v14 iterateTravelTimeRangesFromRouteCoordinate:from etaRoute:etaRoute handler:v20];
     IsValid = GEOPolylineCoordinateIsValid();
-    v10 = v28[4];
+    v10 = v27[4];
     if (IsValid)
     {
       IsABeforeB = GEOPolylineCoordinateIsABeforeB();
       if (IsABeforeB)
       {
-        v18 = end;
+        v17 = end;
       }
 
       else
       {
-        v18 = start;
+        v17 = start;
       }
 
       if (IsABeforeB)
@@ -79,17 +78,17 @@
 
       if (GEOPolylineCoordinateIsABeforeB())
       {
-        v19 = v10;
+        v18 = v10;
       }
 
       else
       {
-        v19 = v18;
+        v18 = v17;
       }
 
       if (GEOPolylineCoordinateIsABeforeB())
       {
-        v10 = v19;
+        v10 = v18;
       }
 
       else
@@ -97,11 +96,11 @@
         v10 = end;
       }
 
-      v28[4] = v10;
+      v27[4] = v10;
     }
 
-    _Block_object_dispose(&v27, 8);
-    _Block_object_dispose(v32, 8);
+    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(v31, 8);
   }
 
   return v10;
@@ -109,11 +108,9 @@
 
 uint64_t __84__MNTunnelLocationProjector__projectedRouteCoordinateFrom_timeInterval_tunnelRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, double a5, double a6)
 {
-  v12 = *(a1 + 56);
   result = GEOPolylineCoordinateIsABeforeB();
   if ((result & 1) == 0)
   {
-    v14 = *(a1 + 64);
     result = GEOPolylineCoordinateIsABeforeB();
     if (result)
     {
@@ -122,10 +119,10 @@ LABEL_5:
       return result;
     }
 
-    v15 = *(*(*(a1 + 40) + 8) + 24);
-    if (v15 < a6)
+    v13 = *(*(*(a1 + 40) + 8) + 24);
+    if (v13 < a6)
     {
-      result = [*(a1 + 32) routeCoordinateForDistance:a2 afterRouteCoordinate:v15 * a5 / a6];
+      result = [*(a1 + 32) routeCoordinateForDistance:a2 afterRouteCoordinate:v13 * a5 / a6];
       *(*(*(a1 + 48) + 8) + 32) = result;
       goto LABEL_5;
     }
@@ -173,7 +170,7 @@ LABEL_5:
       memset(&v37[2], 0, 156);
       if (fromCopy)
       {
-        [fromCopy clientLocation];
+        objc_msgSend_clientLocation(fromCopy);
       }
 
       [v26 locationCoordinate];
@@ -216,109 +213,109 @@ LABEL_5:
 
 - (void)_locationUpdateOverdueTimerFired
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   lastUnprojectedLocation = self->_lastUnprojectedLocation;
   if (lastUnprojectedLocation && self->_lastUnprojectedLocationDate && self->_currentRouteInfo && -[MNLocation state](lastUnprojectedLocation, "state") == 1 && (-[MNLocation routeMatch](self->_lastUnprojectedLocation, "routeMatch"), v4 = objc_claimAutoreleasedReturnValue(), v5 = -[MNTunnelLocationProjector _tunnelRangeForRouteCoordinate:](self, "_tunnelRangeForRouteCoordinate:", [v4 routeCoordinate]), v7 = v6, v4, !GEOPolylineCoordinateRangeIsInvalid()))
   {
-    v9 = +[MNTimeManager currentDate];
-    [v9 timeIntervalSinceDate:self->_lastUnprojectedLocationDate];
-    v11 = v10;
+    v8 = +[MNTimeManager currentDate];
+    [v8 timeIntervalSinceDate:self->_lastUnprojectedLocationDate];
+    v10 = v9;
 
-    if (v11 < 0.0)
+    if (v10 < 0.0)
     {
-      v43 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v46 = "[MNTunnelLocationProjector _locationUpdateOverdueTimerFired]";
-        v47 = 2080;
-        v48 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNTunnelLocationProjector.m";
-        v49 = 1024;
-        *v50 = 192;
-        *&v50[4] = 2080;
-        *&v50[6] = "timeInterval >= 0";
-        _os_log_impl(&dword_1D311E000, v43, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
+        v45 = "[MNTunnelLocationProjector _locationUpdateOverdueTimerFired]";
+        v46 = 2080;
+        v47 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNTunnelLocationProjector.m";
+        v48 = 1024;
+        *v49 = 192;
+        *&v49[4] = 2080;
+        *&v49[6] = "timeInterval >= 0";
+        _os_log_impl(&dword_1D311E000, v42, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
       }
     }
 
-    if (v11 >= 0.0)
+    if (v10 >= 0.0)
     {
-      v12 = +[MNLocationManager shared];
-      [v12 timeScale];
-      v14 = v11 / v13;
+      v11 = +[MNLocationManager shared];
+      [v11 timeScale];
+      v13 = v10 / v12;
 
       if (!self->_isProjecting)
       {
         route = [(MNActiveRouteInfo *)self->_currentRouteInfo route];
         [route pointAtRouteCoordinate:v5];
-        v17 = v16;
-        v19 = v18;
+        v16 = v15;
+        v18 = v17;
         [route pointAtRouteCoordinate:v7];
-        v21 = v20;
-        v23 = v22;
-        v24 = MNGetMNTunnelProjectorLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v20 = v19;
+        v22 = v21;
+        v23 = MNGetMNTunnelProjectorLog();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v25 = GEOPolylineCoordinateRangeAsString();
+          v24 = GEOPolylineCoordinateRangeAsString();
           [route distanceBetweenRouteCoordinate:v5 andRouteCoordinate:v7];
           *buf = 138413570;
-          v46 = v25;
-          v47 = 2048;
-          v48 = v17;
-          v49 = 2048;
-          *v50 = v19;
-          *&v50[8] = 2048;
-          *&v50[10] = v21;
-          v51 = 2048;
-          v52 = v23;
-          v53 = 2048;
-          v54 = v26;
-          _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_INFO, "Starting location projection through tunnel [%@] (%f, %f) to (%f, %f), tunnel length: %0.1f meters", buf, 0x3Eu);
+          v45 = v24;
+          v46 = 2048;
+          v47 = v16;
+          v48 = 2048;
+          *v49 = v18;
+          *&v49[8] = 2048;
+          *&v49[10] = v20;
+          v50 = 2048;
+          v51 = v22;
+          v52 = 2048;
+          v53 = v25;
+          _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_INFO, "Starting location projection through tunnel [%@] (%f, %f) to (%f, %f), tunnel length: %0.1f meters", buf, 0x3Eu);
         }
       }
 
-      v27 = [(MNTunnelLocationProjector *)self _projectedLocationFrom:self->_lastUnprojectedLocation timeInterval:v5 tunnelRange:v7, v14];
-      if (v27)
+      v26 = [(MNTunnelLocationProjector *)self _projectedLocationFrom:self->_lastUnprojectedLocation timeInterval:v5 tunnelRange:v7, v13];
+      if (v26)
       {
-        v28 = MNGetMNTunnelProjectorLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v27 = MNGetMNTunnelProjectorLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          routeMatch = [v27 routeMatch];
+          routeMatch = [v26 routeMatch];
           [routeMatch routeCoordinate];
-          v29 = GEOPolylineCoordinateAsString();
-          routeMatch2 = [v27 routeMatch];
+          v28 = GEOPolylineCoordinateAsString();
+          routeMatch2 = [v26 routeMatch];
           [routeMatch2 locationCoordinate];
-          v32 = v31;
-          routeMatch3 = [v27 routeMatch];
+          v31 = v30;
+          routeMatch3 = [v26 routeMatch];
           [routeMatch3 locationCoordinate];
-          v35 = v34;
+          v34 = v33;
           route2 = [(MNActiveRouteInfo *)self->_currentRouteInfo route];
           routeMatch4 = [(MNLocation *)self->_lastUnprojectedLocation routeMatch];
           routeCoordinate = [routeMatch4 routeCoordinate];
-          routeMatch5 = [v27 routeMatch];
+          routeMatch5 = [v26 routeMatch];
           [route2 distanceBetweenRouteCoordinate:routeCoordinate andRouteCoordinate:{objc_msgSend(routeMatch5, "routeCoordinate")}];
           *buf = 134219010;
-          v46 = *&v14;
-          v47 = 2112;
-          v48 = v29;
-          v49 = 2048;
-          *v50 = v32;
-          *&v50[8] = 2048;
-          *&v50[10] = v35;
-          v51 = 2048;
-          v52 = v40;
-          _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_INFO, "Time: %0.1fs, projected location: [%@] (%f, %f), distance: %0.1f meters", buf, 0x34u);
+          v45 = *&v13;
+          v46 = 2112;
+          v47 = v28;
+          v48 = 2048;
+          *v49 = v31;
+          *&v49[8] = 2048;
+          *&v49[10] = v34;
+          v50 = 2048;
+          v51 = v39;
+          _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_INFO, "Time: %0.1fs, projected location: [%@] (%f, %f), distance: %0.1f meters", buf, 0x34u);
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        [WeakRetained tunnelLocationProjector:self didUpdateLocation:v27];
+        [WeakRetained tunnelLocationProjector:self didUpdateLocation:v26];
       }
 
-      v42 = +[MNLocationManager shared];
-      [v42 expectedGpsUpdateInterval];
+      v41 = +[MNLocationManager shared];
+      [v41 expectedGpsUpdateInterval];
       [(MNTunnelLocationProjector *)self _resetTimerWithTimeout:?];
 
-      self->_isProjecting = v27 != 0;
+      self->_isProjecting = v26 != 0;
     }
   }
 
@@ -326,8 +323,6 @@ LABEL_5:
   {
     self->_isProjecting = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetTimerWithTimeout:(double)timeout
@@ -362,7 +357,7 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
 
 - (id)_tunnelRanges
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   p_tunnelRanges = &self->_tunnelRanges;
   tunnelRanges = self->_tunnelRanges;
   if (tunnelRanges)
@@ -375,29 +370,29 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
     currentRouteInfo = self->_currentRouteInfo;
     if (currentRouteInfo)
     {
-      v19 = p_tunnelRanges;
+      v18 = p_tunnelRanges;
       route = [(MNActiveRouteInfo *)currentRouteInfo route];
       array = [MEMORY[0x1E695DF70] array];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       cameraInfos = [route cameraInfos];
-      v7 = [cameraInfos countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [cameraInfos countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v24;
+        v9 = *v23;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v24 != v9)
+            if (*v23 != v9)
             {
               objc_enumerationMutation(cameraInfos);
             }
 
-            v11 = *(*(&v23 + 1) + 8 * i);
+            v11 = *(*(&v22 + 1) + 8 * i);
             styleAttributes = [v11 styleAttributes];
             attributes = [styleAttributes attributes];
             firstObject = [attributes firstObject];
@@ -405,22 +400,22 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
             if ([firstObject key] == 65639)
             {
               routeCoordinateRange = 0;
-              v22 = 0;
+              v21 = 0;
               routeCoordinateRange = [v11 routeCoordinateRange];
-              v22 = v15;
+              v21 = v15;
               routeCoordinateRange = [route routeCoordinateForDistance:routeCoordinateRange beforeRouteCoordinate:100.0];
               v16 = [MEMORY[0x1E696B098] value:&routeCoordinateRange withObjCType:"{GEOPolylineCoordinateRange={?=If}{?=If}}"];
               [(NSArray *)array addObject:v16];
             }
           }
 
-          v8 = [cameraInfos countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v8 = [cameraInfos countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v8);
       }
 
-      objc_storeStrong(v19, array);
+      objc_storeStrong(v18, array);
     }
 
     else
@@ -429,39 +424,37 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (GEOPolylineCoordinateRange)_tunnelRangeForRouteCoordinate:(id)coordinate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!GEOPolylineCoordinateIsInvalid())
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     _tunnelRanges = [(MNTunnelLocationProjector *)self _tunnelRanges];
-    v5 = [_tunnelRanges countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v5 = [_tunnelRanges countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(_tunnelRanges);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
-          v17 = 0uLL;
-          [v9 getValue:&v17];
+          v9 = *(*(&v12 + 1) + 8 * v8);
+          v16 = 0uLL;
+          [v9 getValue:&v16];
           if (GEOPolylineCoordinateRangeIsValid() && (GEOPolylineCoordinateInRange() & 1) != 0)
           {
 
@@ -472,7 +465,7 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
         }
 
         while (v6 != v8);
-        v6 = [_tunnelRanges countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [_tunnelRanges countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -483,11 +476,10 @@ void __52__MNTunnelLocationProjector__resetTimerWithTimeout___block_invoke(uint6
     }
   }
 
-  v17 = *MEMORY[0x1E69A1920];
+  v16 = *MEMORY[0x1E69A1920];
 LABEL_14:
-  v11 = *(&v17 + 1);
-  v10 = v17;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *(&v16 + 1);
+  v10 = v16;
   result.end = v11;
   result.start = v10;
   return result;
@@ -529,7 +521,7 @@ LABEL_14:
 
 - (void)updateLocation:(id)location
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   if (([locationCopy isProjected] & 1) == 0)
   {
@@ -538,9 +530,9 @@ LABEL_14:
       v6 = MNGetMNTunnelProjectorLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = locationCopy;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Stopping projection because of new location: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = locationCopy;
+        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "Stopping projection because of new location: %@", &v11, 0xCu);
       }
     }
 
@@ -567,8 +559,6 @@ LABEL_14:
       self->_locationUpdateOverdueTimer = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

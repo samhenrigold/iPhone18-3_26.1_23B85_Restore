@@ -17,20 +17,19 @@
 
 - (int64_t)extensionCount
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___TULiveLookupManagerProxy_manager);
   selfCopy = self;
-  v4 = sub_19586EB70();
-  if (v4 >> 62)
+  v3 = sub_19586EB70();
+  if (v3 >> 62)
   {
-    v5 = sub_19586F160();
+    v4 = sub_19586F160();
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  return v5;
+  return v4;
 }
 
 @end

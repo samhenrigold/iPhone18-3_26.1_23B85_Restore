@@ -842,7 +842,7 @@ LABEL_21:
   p_pointsToSimplify = &self->_pointsToSimplify;
   if (p_pointsToSimplify != simplify)
   {
-    sub_1000DB520(p_pointsToSimplify, *simplify, *(simplify + 1), (*(simplify + 1) - *simplify) >> 4);
+    sub_1000DB520(&p_pointsToSimplify->__begin_, *simplify, *(simplify + 1), (*(simplify + 1) - *simplify) >> 4);
   }
 }
 

@@ -8,55 +8,55 @@
 - (PCNativeStyle)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_init(self, v5, v6, v7, v8, v9, v10);
-  if (v11)
+  v7 = objc_msgSend_init(self, v5, v6);
+  if (v7)
   {
+    v8 = objc_opt_class();
+    v10 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v9, v8, @"backgroundColor");
+    backgroundColor = v7->_backgroundColor;
+    v7->_backgroundColor = v10;
+
     v12 = objc_opt_class();
-    v17 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"backgroundColor", v14, v15, v16);
-    backgroundColor = v11->_backgroundColor;
-    v11->_backgroundColor = v17;
+    v14 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"borderStyle");
+    borderStyle = v7->_borderStyle;
+    v7->_borderStyle = v14;
 
-    v19 = objc_opt_class();
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v20, v19, @"borderStyle", v21, v22, v23);
-    borderStyle = v11->_borderStyle;
-    v11->_borderStyle = v24;
+    v16 = objc_opt_class();
+    v18 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v17, v16, @"buttonStyle");
+    buttonStyle = v7->_buttonStyle;
+    v7->_buttonStyle = v18;
 
-    v26 = objc_opt_class();
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"buttonStyle", v28, v29, v30);
-    buttonStyle = v11->_buttonStyle;
-    v11->_buttonStyle = v31;
+    v20 = objc_opt_class();
+    v22 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v21, v20, @"shadowStyle");
+    shadowStyle = v7->_shadowStyle;
+    v7->_shadowStyle = v22;
 
-    v33 = objc_opt_class();
-    v38 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v34, v33, @"shadowStyle", v35, v36, v37);
-    shadowStyle = v11->_shadowStyle;
-    v11->_shadowStyle = v38;
-
-    v40 = objc_opt_class();
-    v45 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v41, v40, @"textColor", v42, v43, v44);
-    textColor = v11->_textColor;
-    v11->_textColor = v45;
+    v24 = objc_opt_class();
+    v26 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v25, v24, @"textColor");
+    textColor = v7->_textColor;
+    v7->_textColor = v26;
   }
 
-  return v11;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_backgroundColor(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"backgroundColor", v13, v14, v15);
+  v7 = objc_msgSend_backgroundColor(self, v5, v6);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"backgroundColor");
 
-  v22 = objc_msgSend_borderStyle(self, v16, v17, v18, v19, v20, v21);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v23, v22, @"borderStyle", v24, v25, v26);
+  v11 = objc_msgSend_borderStyle(self, v9, v10);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"borderStyle");
 
-  v33 = objc_msgSend_buttonStyle(self, v27, v28, v29, v30, v31, v32);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v34, v33, @"buttonStyle", v35, v36, v37);
+  v15 = objc_msgSend_buttonStyle(self, v13, v14);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v16, v15, @"buttonStyle");
 
-  v44 = objc_msgSend_shadowStyle(self, v38, v39, v40, v41, v42, v43);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v45, v44, @"shadowStyle", v46, v47, v48);
+  v19 = objc_msgSend_shadowStyle(self, v17, v18);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v20, v19, @"shadowStyle");
 
-  v59 = objc_msgSend_textColor(self, v49, v50, v51, v52, v53, v54);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v55, v59, @"textColor", v56, v57, v58);
+  v24 = objc_msgSend_textColor(self, v21, v22);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v23, v24, @"textColor");
 }
 
 @end

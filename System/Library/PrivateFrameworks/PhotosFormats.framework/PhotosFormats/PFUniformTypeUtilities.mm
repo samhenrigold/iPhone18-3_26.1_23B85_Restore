@@ -100,7 +100,7 @@ void __56__PFUniformTypeUtilities_imageTypesUnsupportedForImport__block_invoke()
   v2 = +[PFUniformTypeUtilities icoType];
   v8[2] = v2;
   v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-  v4 = [v3 mutableCopy];
+  v4 = objc_msgSend_mutableCopy(v3);
 
   v5 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"FPX"];
   if (v5)
@@ -561,9 +561,11 @@ LABEL_19:
 
 uint64_t __89__PFUniformTypeUtilities_preferredOrFallbackFilenameExtensionForType_fallbackIdentifier___block_invoke()
 {
-  preferredOrFallbackFilenameExtensionForType_fallbackIdentifier__sTypeToPreferredExtensionMap = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = preferredOrFallbackFilenameExtensionForType_fallbackIdentifier__sTypeToPreferredExtensionMap;
+  preferredOrFallbackFilenameExtensionForType_fallbackIdentifier__sTypeToPreferredExtensionMap = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)typeWithFilenameExtension:(id)extension conformingToType:(id)type
@@ -623,9 +625,11 @@ LABEL_9:
 
 uint64_t __52__PFUniformTypeUtilities_typeWithFilenameExtension___block_invoke()
 {
-  typeWithFilenameExtension__sTypeWithExtensionCache = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = typeWithFilenameExtension__sTypeWithExtensionCache;
+  typeWithFilenameExtension__sTypeWithExtensionCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)typeWithIdentifier:(id)identifier
@@ -670,9 +674,11 @@ LABEL_9:
 
 uint64_t __45__PFUniformTypeUtilities_typeWithIdentifier___block_invoke()
 {
-  typeWithIdentifier__sTypeWithIdentifierCache = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = typeWithIdentifier__sTypeWithIdentifierCache;
+  typeWithIdentifier__sTypeWithIdentifierCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)openEXRImageType
@@ -689,9 +695,11 @@ uint64_t __45__PFUniformTypeUtilities_typeWithIdentifier___block_invoke()
 
 uint64_t __42__PFUniformTypeUtilities_openEXRImageType__block_invoke()
 {
-  openEXRImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.ilm.openexr-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.ilm.openexr-image"];
+  v1 = openEXRImageType_type;
+  openEXRImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)hasselbladFFFRAWImageType
@@ -708,9 +716,11 @@ uint64_t __42__PFUniformTypeUtilities_openEXRImageType__block_invoke()
 
 uint64_t __51__PFUniformTypeUtilities_hasselbladFFFRAWImageType__block_invoke()
 {
-  hasselbladFFFRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.hasselblad.fff-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.hasselblad.fff-raw-image"];
+  v1 = hasselbladFFFRAWImageType_type;
+  hasselbladFFFRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)hasselblad3FRRAWImageType
@@ -727,9 +737,11 @@ uint64_t __51__PFUniformTypeUtilities_hasselbladFFFRAWImageType__block_invoke()
 
 uint64_t __51__PFUniformTypeUtilities_hasselblad3FRRAWImageType__block_invoke()
 {
-  hasselblad3FRRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.hasselblad.3fr-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.hasselblad.3fr-raw-image"];
+  v1 = hasselblad3FRRAWImageType_type;
+  hasselblad3FRRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)leafamericaRAWImageType
@@ -746,9 +758,11 @@ uint64_t __51__PFUniformTypeUtilities_hasselblad3FRRAWImageType__block_invoke()
 
 uint64_t __49__PFUniformTypeUtilities_leafamericaRAWImageType__block_invoke()
 {
-  leafamericaRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.leafamerica.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.leafamerica.raw-image"];
+  v1 = leafamericaRAWImageType_type;
+  leafamericaRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)fujiRAWImageType
@@ -765,9 +779,11 @@ uint64_t __49__PFUniformTypeUtilities_leafamericaRAWImageType__block_invoke()
 
 uint64_t __42__PFUniformTypeUtilities_fujiRAWImageType__block_invoke()
 {
-  fujiRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.fuji.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.fuji.raw-image"];
+  v1 = fujiRAWImageType_type;
+  fujiRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)samsungRAWImageType
@@ -784,9 +800,11 @@ uint64_t __42__PFUniformTypeUtilities_fujiRAWImageType__block_invoke()
 
 uint64_t __45__PFUniformTypeUtilities_samsungRAWImageType__block_invoke()
 {
-  samsungRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.samsung.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.samsung.raw-image"];
+  v1 = samsungRAWImageType_type;
+  samsungRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)nikonRAWImageType
@@ -803,9 +821,11 @@ uint64_t __45__PFUniformTypeUtilities_samsungRAWImageType__block_invoke()
 
 uint64_t __43__PFUniformTypeUtilities_nikonRAWImageType__block_invoke()
 {
-  nikonRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.nikon.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.nikon.raw-image"];
+  v1 = nikonRAWImageType_type;
+  nikonRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)pentaxRAWImageType
@@ -822,9 +842,11 @@ uint64_t __43__PFUniformTypeUtilities_nikonRAWImageType__block_invoke()
 
 uint64_t __44__PFUniformTypeUtilities_pentaxRAWImageType__block_invoke()
 {
-  pentaxRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.pentax.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.pentax.raw-image"];
+  v1 = pentaxRAWImageType_type;
+  pentaxRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)panasonicRAWImageType
@@ -841,9 +863,11 @@ uint64_t __44__PFUniformTypeUtilities_pentaxRAWImageType__block_invoke()
 
 uint64_t __47__PFUniformTypeUtilities_panasonicRAWImageType__block_invoke()
 {
-  panasonicRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.panasonic.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.panasonic.raw-image"];
+  v1 = panasonicRAWImageType_type;
+  panasonicRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)panasonicRW2RAWImageType
@@ -860,9 +884,11 @@ uint64_t __47__PFUniformTypeUtilities_panasonicRAWImageType__block_invoke()
 
 uint64_t __50__PFUniformTypeUtilities_panasonicRW2RAWImageType__block_invoke()
 {
-  panasonicRW2RAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.panasonic.rw2-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.panasonic.rw2-raw-image"];
+  v1 = panasonicRW2RAWImageType_type;
+  panasonicRW2RAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)olympusRAWImageType
@@ -879,9 +905,11 @@ uint64_t __50__PFUniformTypeUtilities_panasonicRW2RAWImageType__block_invoke()
 
 uint64_t __45__PFUniformTypeUtilities_olympusRAWImageType__block_invoke()
 {
-  olympusRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.olympus.raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.olympus.raw-image"];
+  v1 = olympusRAWImageType_type;
+  olympusRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)canonTIFFRAWImageType
@@ -898,9 +926,11 @@ uint64_t __45__PFUniformTypeUtilities_olympusRAWImageType__block_invoke()
 
 uint64_t __47__PFUniformTypeUtilities_canonTIFFRAWImageType__block_invoke()
 {
-  canonTIFFRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.tif-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.tif-raw-image"];
+  v1 = canonTIFFRAWImageType_type;
+  canonTIFFRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)canonCRWRAWImageType
@@ -917,9 +947,11 @@ uint64_t __47__PFUniformTypeUtilities_canonTIFFRAWImageType__block_invoke()
 
 uint64_t __46__PFUniformTypeUtilities_canonCRWRAWImageType__block_invoke()
 {
-  canonCRWRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.crw-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.crw-raw-image"];
+  v1 = canonCRWRAWImageType_type;
+  canonCRWRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)canonCR2RAWImageType
@@ -936,9 +968,11 @@ uint64_t __46__PFUniformTypeUtilities_canonCRWRAWImageType__block_invoke()
 
 uint64_t __46__PFUniformTypeUtilities_canonCR2RAWImageType__block_invoke()
 {
-  canonCR2RAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.cr2-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.canon.cr2-raw-image"];
+  v1 = canonCR2RAWImageType_type;
+  canonCR2RAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)sonyARWRAWImageType
@@ -955,9 +989,11 @@ uint64_t __46__PFUniformTypeUtilities_canonCR2RAWImageType__block_invoke()
 
 uint64_t __45__PFUniformTypeUtilities_sonyARWRAWImageType__block_invoke()
 {
-  sonyARWRAWImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.sony.arw-raw-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.sony.arw-raw-image"];
+  v1 = sonyARWRAWImageType_type;
+  sonyARWRAWImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)jpegXLType
@@ -974,9 +1010,11 @@ uint64_t __45__PFUniformTypeUtilities_sonyARWRAWImageType__block_invoke()
 
 uint64_t __36__PFUniformTypeUtilities_jpegXLType__block_invoke()
 {
-  jpegXLType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.jpeg-xl"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.jpeg-xl"];
+  v1 = jpegXLType_type;
+  jpegXLType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)jpeg2000Type
@@ -993,9 +1031,11 @@ uint64_t __36__PFUniformTypeUtilities_jpegXLType__block_invoke()
 
 uint64_t __38__PFUniformTypeUtilities_jpeg2000Type__block_invoke()
 {
-  jpeg2000Type_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.jpeg-2000"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.jpeg-2000"];
+  v1 = jpeg2000Type_type;
+  jpeg2000Type_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)macPaintType
@@ -1012,9 +1052,11 @@ uint64_t __38__PFUniformTypeUtilities_jpeg2000Type__block_invoke()
 
 uint64_t __38__PFUniformTypeUtilities_macPaintType__block_invoke()
 {
-  macPaintType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.macpaint-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.macpaint-image"];
+  v1 = macPaintType_type;
+  macPaintType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)icoType
@@ -1031,9 +1073,11 @@ uint64_t __38__PFUniformTypeUtilities_macPaintType__block_invoke()
 
 uint64_t __33__PFUniformTypeUtilities_icoType__block_invoke()
 {
-  icoType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.microsoft.ico"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.microsoft.ico"];
+  v1 = icoType_type;
+  icoType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)quicktimeImageType
@@ -1050,9 +1094,11 @@ uint64_t __33__PFUniformTypeUtilities_icoType__block_invoke()
 
 uint64_t __44__PFUniformTypeUtilities_quicktimeImageType__block_invoke()
 {
-  quicktimeImageType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.quicktime-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.quicktime-image"];
+  v1 = quicktimeImageType_type;
+  quicktimeImageType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)pictType
@@ -1069,9 +1115,11 @@ uint64_t __44__PFUniformTypeUtilities_quicktimeImageType__block_invoke()
 
 uint64_t __34__PFUniformTypeUtilities_pictType__block_invoke()
 {
-  pictType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.pict"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.pict"];
+  v1 = pictType_type;
+  pictType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)heicSequenceType
@@ -1088,9 +1136,11 @@ uint64_t __34__PFUniformTypeUtilities_pictType__block_invoke()
 
 uint64_t __42__PFUniformTypeUtilities_heicSequenceType__block_invoke()
 {
-  heicSequenceType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.heics"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.heics"];
+  v1 = heicSequenceType_type;
+  heicSequenceType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)avifType
@@ -1107,9 +1157,11 @@ uint64_t __42__PFUniformTypeUtilities_heicSequenceType__block_invoke()
 
 uint64_t __34__PFUniformTypeUtilities_avifType__block_invoke()
 {
-  avifType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.avif"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.avif"];
+  v1 = avifType_type;
+  avifType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)livePhotoBundlePrivateType
@@ -1126,9 +1178,11 @@ uint64_t __34__PFUniformTypeUtilities_avifType__block_invoke()
 
 uint64_t __52__PFUniformTypeUtilities_livePhotoBundlePrivateType__block_invoke()
 {
-  livePhotoBundlePrivateType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.private.live-photo-bundle"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.private.live-photo-bundle"];
+  v1 = livePhotoBundlePrivateType_type;
+  livePhotoBundlePrivateType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)livePhotoBundleType
@@ -1145,9 +1199,11 @@ uint64_t __52__PFUniformTypeUtilities_livePhotoBundlePrivateType__block_invoke()
 
 uint64_t __45__PFUniformTypeUtilities_livePhotoBundleType__block_invoke()
 {
-  livePhotoBundleType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.live-photo-bundle"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.live-photo-bundle"];
+  v1 = livePhotoBundleType_type;
+  livePhotoBundleType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)supplementalResourceAAEType
@@ -1164,9 +1220,11 @@ uint64_t __45__PFUniformTypeUtilities_livePhotoBundleType__block_invoke()
 
 uint64_t __53__PFUniformTypeUtilities_supplementalResourceAAEType__block_invoke()
 {
-  supplementalResourceAAEType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photos.apple-adjustment-envelope"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photos.apple-adjustment-envelope"];
+  v1 = supplementalResourceAAEType_type;
+  supplementalResourceAAEType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)supplementalResourceXMPType
@@ -1183,9 +1241,11 @@ uint64_t __53__PFUniformTypeUtilities_supplementalResourceAAEType__block_invoke(
 
 uint64_t __53__PFUniformTypeUtilities_supplementalResourceXMPType__block_invoke()
 {
-  supplementalResourceXMPType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.data"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.data"];
+  v1 = supplementalResourceXMPType_type;
+  supplementalResourceXMPType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)adobeIllustratorType
@@ -1202,9 +1262,11 @@ uint64_t __53__PFUniformTypeUtilities_supplementalResourceXMPType__block_invoke(
 
 uint64_t __46__PFUniformTypeUtilities_adobeIllustratorType__block_invoke()
 {
-  adobeIllustratorType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.adobe.illustrator.ai-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.adobe.illustrator.ai-image"];
+  v1 = adobeIllustratorType_type;
+  adobeIllustratorType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)adobePhotoshopType
@@ -1221,9 +1283,11 @@ uint64_t __46__PFUniformTypeUtilities_adobeIllustratorType__block_invoke()
 
 uint64_t __44__PFUniformTypeUtilities_adobePhotoshopType__block_invoke()
 {
-  adobePhotoshopType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.adobe.photoshop-image"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.adobe.photoshop-image"];
+  v1 = adobePhotoshopType_type;
+  adobePhotoshopType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)apertureLibraryType
@@ -1240,9 +1304,11 @@ uint64_t __44__PFUniformTypeUtilities_adobePhotoshopType__block_invoke()
 
 uint64_t __45__PFUniformTypeUtilities_apertureLibraryType__block_invoke()
 {
-  apertureLibraryType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.aperture.library"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.aperture.library"];
+  v1 = apertureLibraryType_type;
+  apertureLibraryType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)iPhotoLibraryType
@@ -1259,9 +1325,11 @@ uint64_t __45__PFUniformTypeUtilities_apertureLibraryType__block_invoke()
 
 uint64_t __43__PFUniformTypeUtilities_iPhotoLibraryType__block_invoke()
 {
-  iPhotoLibraryType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photo.library"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photo.library"];
+  v1 = iPhotoLibraryType_type;
+  iPhotoLibraryType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UTType)photosLibraryType
@@ -1278,9 +1346,11 @@ uint64_t __43__PFUniformTypeUtilities_iPhotoLibraryType__block_invoke()
 
 uint64_t __43__PFUniformTypeUtilities_photosLibraryType__block_invoke()
 {
-  photosLibraryType_type = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photos.library"];
+  v0 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.photos.library"];
+  v1 = photosLibraryType_type;
+  photosLibraryType_type = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -75,13 +75,13 @@
   v8 = _configuration;
   if (_configuration)
   {
-    [_configuration minimumFramerate];
-    [v8 maximumFramerate];
+    objc_msgSend_minimumFramerate(_configuration);
+    objc_msgSend_maximumFramerate(v8);
     if ([currentVideoDeviceFormat cam_supportsPanoramaConfiguration:v8])
     {
-      [v8 minimumFramerate];
+      objc_msgSend_minimumFramerate(v8);
       [currentVideoDevice setActiveVideoMinFrameDuration:buf];
-      [v8 maximumFramerate];
+      objc_msgSend_maximumFramerate(v8);
 LABEL_6:
       [currentVideoDevice setActiveVideoMaxFrameDuration:buf];
       goto LABEL_10;

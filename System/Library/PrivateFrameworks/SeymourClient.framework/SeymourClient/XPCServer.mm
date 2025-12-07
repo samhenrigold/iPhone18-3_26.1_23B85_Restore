@@ -65,7 +65,6 @@
     v10 = 0xF000000000000000;
   }
 
-  v12 = *(&self->super.isa + OBJC_IVAR____TtC13SeymourClient9XPCServer_dispatchService);
   TransportDispatchService.dispatchEvent(_:data:)(event, v8, v10);
   sub_1B4DD2B5C(v8, v10);
 }

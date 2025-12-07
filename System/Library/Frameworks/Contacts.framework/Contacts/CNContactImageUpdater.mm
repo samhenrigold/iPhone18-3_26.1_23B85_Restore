@@ -229,13 +229,17 @@ LABEL_21:
 - (void)updateImageWithImageContact:(void *)a1 setAsMe:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error saving contact: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error saving contact: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)updateImageWithImageContact:(void *)a1 setAsMe:.cold.2(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error setting me contact: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Error setting me contact: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -1,5 +1,8 @@
 @interface CTTransportKey
 - (CTTransportKey)initWithCoder:(id)coder;
+- (CTTransportKey)initWithKey:(id)key epki:(id)epki forIdx:(int)idx toReplace:(id)replace epki:(id)a7;
+- (CTTransportKey)initWithKey:(id)key epki:(id)epki forIdx:(int)idx toReplaceEpki:(id)replaceEpki isLastResort:(BOOL)resort;
+- (CTTransportKey)initWithKey:(id)key forIdx:(int)idx toReplace:(id)replace;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -24,6 +27,71 @@
   [v3 appendString:@">"];
 
   return v3;
+}
+
+- (CTTransportKey)initWithKey:(id)key epki:(id)epki forIdx:(int)idx toReplaceEpki:(id)replaceEpki isLastResort:(BOOL)resort
+{
+  resortCopy = resort;
+  v9 = *&idx;
+  keyCopy = key;
+  epkiCopy = epki;
+  replaceEpkiCopy = replaceEpki;
+  v18.receiver = self;
+  v18.super_class = CTTransportKey;
+  v15 = [(CTTransportKey *)&v18 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(CTTransportKey *)v15 setIndex:v9];
+    [(CTTransportKey *)v16 setKey:keyCopy];
+    [(CTTransportKey *)v16 setKey_epki:epkiCopy];
+    [(CTTransportKey *)v16 setRetiredKey_epki:replaceEpkiCopy];
+    [(CTTransportKey *)v16 setLast_resort:resortCopy];
+  }
+
+  return v16;
+}
+
+- (CTTransportKey)initWithKey:(id)key forIdx:(int)idx toReplace:(id)replace
+{
+  v5 = *&idx;
+  keyCopy = key;
+  v11.receiver = self;
+  v11.super_class = CTTransportKey;
+  v8 = [(CTTransportKey *)&v11 init];
+  v9 = v8;
+  if (v8)
+  {
+    [(CTTransportKey *)v8 setIndex:v5];
+    [(CTTransportKey *)v9 setKey:keyCopy];
+    [(CTTransportKey *)v9 setKey_epki:0];
+    [(CTTransportKey *)v9 setRetiredKey_epki:0];
+    [(CTTransportKey *)v9 setLast_resort:0];
+  }
+
+  return v9;
+}
+
+- (CTTransportKey)initWithKey:(id)key epki:(id)epki forIdx:(int)idx toReplace:(id)replace epki:(id)a7
+{
+  v8 = *&idx;
+  keyCopy = key;
+  epkiCopy = epki;
+  v13 = a7;
+  v17.receiver = self;
+  v17.super_class = CTTransportKey;
+  v14 = [(CTTransportKey *)&v17 init];
+  v15 = v14;
+  if (v14)
+  {
+    [(CTTransportKey *)v14 setIndex:v8];
+    [(CTTransportKey *)v15 setKey:keyCopy];
+    [(CTTransportKey *)v15 setKey_epki:epkiCopy];
+    [(CTTransportKey *)v15 setRetiredKey_epki:v13];
+    [(CTTransportKey *)v15 setLast_resort:0];
+  }
+
+  return v15;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

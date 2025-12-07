@@ -42,8 +42,8 @@
     std::mutex::lock((self + 32));
     if (!stateCopy)
     {
-      __dst = type;
-      dCopy2 = d;
+      *&__dst = type;
+      *(&__dst + 1) = d;
       v15 = std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::find<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>(self + 8, &__dst);
       if ((self + 16) == v15 || (std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::__remove_node_pointer(self + 1, v15), operator delete(v15), *(self + 3)))
       {
@@ -58,9 +58,9 @@
       goto LABEL_27;
     }
 
-    __dst = type;
-    dCopy2 = d;
-    std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::__emplace_unique_key_args<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>,std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>(self + 8, &__dst);
+    *&__dst = type;
+    *(&__dst + 1) = d;
+    std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::__emplace_unique_key_args<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>,std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>(self + 1, &__dst, &__dst);
     v12 = v11;
     if (description)
     {
@@ -76,24 +76,24 @@
         operator new();
       }
 
-      HIBYTE(v25) = v13;
+      HIBYTE(v24) = v13;
       if (v13)
       {
         memcpy(&__dst, description, v13);
       }
 
       *(&__dst + v14) = 0;
-      if (SHIBYTE(v25) >= 0)
+      if (SHIBYTE(v24) >= 0)
       {
-        v16 = HIBYTE(v25);
+        v16 = HIBYTE(v24);
       }
 
       else
       {
-        v16 = dCopy2;
+        v16 = *(&__dst + 1);
       }
 
-      if ((HIBYTE(v25) & 0x80) != 0)
+      if ((HIBYTE(v24) & 0x80) != 0)
       {
         operator delete(__dst);
       }
@@ -104,26 +104,26 @@
       }
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
     v17 = getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr;
-    v31 = getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr;
+    v30 = getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr;
     if (!getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr)
     {
-      __dst = MEMORY[0x277D85DD0];
-      dCopy2 = 3221225472;
-      v25 = ___ZL45getMSNMonitorSetLastMicrophoneClientSymbolLocv_block_invoke;
-      v26 = &unk_278CEAD30;
-      v27 = &v28;
+      *&__dst = MEMORY[0x277D85DD0];
+      *(&__dst + 1) = 3221225472;
+      v24 = ___ZL45getMSNMonitorSetLastMicrophoneClientSymbolLocv_block_invoke;
+      v25 = &unk_278CEAD30;
+      v26 = &v27;
       v18 = MediaSafetyNetLibrary();
       v19 = dlsym(v18, "MSNMonitorSetLastMicrophoneClient");
-      *(v27[1] + 24) = v19;
-      getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr = *(v27[1] + 24);
-      v17 = v29[3];
+      *(v26[1] + 24) = v19;
+      getMSNMonitorSetLastMicrophoneClientSymbolLoc(void)::ptr = *(v26[1] + 24);
+      v17 = v28[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     if (v17)
     {
       v17(description);

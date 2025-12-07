@@ -35,6 +35,7 @@
 - (id)serializedRepresentation;
 - (id)syncDateForKey:(id)key;
 - (id)syncReportDictionary;
+- (id)syncReportDictionaryForAttempt:(unint64_t)attempt withSuccess:(BOOL)success duration:(double)duration;
 - (id)syncUserType;
 - (int64_t)accountStatus;
 - (int64_t)syncControllerRecordType;
@@ -61,14 +62,26 @@
 - (void)setAccountStatus:(int64_t)status;
 - (void)setAnalyticSyncDatesDictionary:(id)dictionary;
 - (void)setAnalyticSyncDatesDictionaryObject:(id)object forKey:(id)key shouldOverrideIfExists:(BOOL)exists;
+- (void)setCreatedChatZone:(BOOL)zone;
+- (void)setDeletedZones:(BOOL)zones;
+- (void)setDisablingDevices:(BOOL)devices;
+- (void)setEligibleForTruthZone:(BOOL)zone;
 - (void)setErrorToAccountNeedsRepair;
 - (void)setErrorToKeyRollingError;
 - (void)setExitDate:(id)date;
+- (void)setFeatureEnabled:(BOOL)enabled;
+- (void)setHasAvailableRecordsToDownload:(BOOL)download;
+- (void)setInExitState:(BOOL)state;
 - (void)setLastDownloadProgress:(double)progress;
 - (void)setLastSyncDate:(id)date;
 - (void)setMiCDeviceIdentifier:(id)identifier;
+- (void)setRemovedFromBackup:(BOOL)backup;
+- (void)setStartingEnabledSettingChange:(BOOL)change;
+- (void)setStartingInitialSyncSetByCloudKitHooks:(BOOL)hooks;
 - (void)setStartingInitialSyncWithRecordType:(int64_t)type;
+- (void)setStartingPeriodicSyncSetByCloudKitHooks:(BOOL)hooks;
 - (void)setStartingPeriodicSyncWithRecordType:(int64_t)type;
+- (void)setSyncCancelled:(BOOL)cancelled;
 - (void)setSyncControllerRecordType:(int64_t)type;
 - (void)setSyncControllerSyncState:(unint64_t)state;
 - (void)setSyncControllerSyncState:(unint64_t)state withRecordType:(int64_t)type;
@@ -77,7 +90,11 @@
 - (void)setSyncSessionID:(id)d;
 - (void)setSyncStatus:(unint64_t)status;
 - (void)setSyncType:(unint64_t)type;
+- (void)setSyncing:(BOOL)syncing;
+- (void)setSyncingEnabled:(BOOL)enabled;
 - (void)setSyncingFinished;
+- (void)setSyncingPaused:(BOOL)paused;
+- (void)syncReportDictionaryForAttempt:(unint64_t)attempt withSuccess:(BOOL)success duration:(double)duration completion:(id)completion;
 @end
 
 @implementation IMDCKSyncState
@@ -122,16 +139,16 @@
 
 - (id)serializedRepresentation
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = IMCloudKitGetSyncStateDictionary();
   syncStatistics = [(IMDCKSyncState *)self syncStatistics];
   if (syncStatistics && (v5 = syncStatistics, -[IMDCKSyncState syncStatistics](self, "syncStatistics"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 count], v6, v5, v7))
   {
     v8 = objc_alloc(MEMORY[0x277CBEB38]);
-    v14 = *MEMORY[0x277D19C18];
+    v13 = *MEMORY[0x277D19C18];
     syncStatistics2 = [(IMDCKSyncState *)self syncStatistics];
-    v15[0] = syncStatistics2;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = syncStatistics2;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     dictionary = [v8 initWithDictionary:v10];
   }
 
@@ -141,8 +158,6 @@
   }
 
   [dictionary addEntriesFromDictionary:v3];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -242,12 +257,33 @@
   return v3;
 }
 
+- (void)setCreatedChatZone:(BOOL)zone
+{
+  zoneCopy = zone;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:zoneCopy forKey:*MEMORY[0x277D199E8]];
+}
+
 - (BOOL)deletedZones
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D199E8] withDefault:0];
 
   return v3;
+}
+
+- (void)setDeletedZones:(BOOL)zones
+{
+  zonesCopy = zones;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:zonesCopy forKey:*MEMORY[0x277D199E8]];
+}
+
+- (void)setFeatureEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:enabledCopy forKey:*MEMORY[0x277D19AD0]];
 }
 
 - (BOOL)isSyncing
@@ -258,12 +294,33 @@
   return v3;
 }
 
+- (void)setSyncing:(BOOL)syncing
+{
+  syncingCopy = syncing;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:syncingCopy forKey:*MEMORY[0x277D19B50]];
+}
+
 - (BOOL)isEligibleForTruthZone
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D19B38] withDefault:0];
 
   return v3;
+}
+
+- (void)setEligibleForTruthZone:(BOOL)zone
+{
+  zoneCopy = zone;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:zoneCopy forKey:*MEMORY[0x277D19B38]];
+}
+
+- (void)setSyncingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:enabledCopy forKey:*MEMORY[0x277D19C80]];
 }
 
 - (BOOL)isRemovedFromBackup
@@ -274,12 +331,26 @@
   return v3;
 }
 
+- (void)setRemovedFromBackup:(BOOL)backup
+{
+  backupCopy = backup;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:backupCopy forKey:*MEMORY[0x277D19B48]];
+}
+
 - (BOOL)isInExitState
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D19B40] withDefault:0];
 
   return v3;
+}
+
+- (void)setInExitState:(BOOL)state
+{
+  stateCopy = state;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:stateCopy forKey:*MEMORY[0x277D19B40]];
 }
 
 - (BOOL)isSyncingPaused
@@ -290,12 +361,26 @@
   return v3;
 }
 
+- (void)setSyncingPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:pausedCopy forKey:*MEMORY[0x277D19C60]];
+}
+
 - (BOOL)syncCancelled
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D19C20] withDefault:0];
 
   return v3;
+}
+
+- (void)setSyncCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:cancelledCopy forKey:*MEMORY[0x277D19C20]];
 }
 
 - (BOOL)isDisablingDevices
@@ -306,12 +391,26 @@
   return v3;
 }
 
+- (void)setDisablingDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:devicesCopy forKey:*MEMORY[0x277D19BF8]];
+}
+
 - (BOOL)isStartingEnabledSettingChange
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D19C00] withDefault:0];
 
   return v3;
+}
+
+- (void)setStartingEnabledSettingChange:(BOOL)change
+{
+  changeCopy = change;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:changeCopy forKey:*MEMORY[0x277D19C00]];
 }
 
 - (BOOL)isStartingPeriodicSyncSetByCloudKitHooks
@@ -322,12 +421,26 @@
   return v3;
 }
 
+- (void)setStartingPeriodicSyncSetByCloudKitHooks:(BOOL)hooks
+{
+  hooksCopy = hooks;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:hooksCopy forKey:*MEMORY[0x277D19C10]];
+}
+
 - (BOOL)isStartingInitialSyncSetByCloudKitHooks
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
   v3 = [keyValueCollection BOOLForKey:*MEMORY[0x277D19C08] withDefault:0];
 
   return v3;
+}
+
+- (void)setStartingInitialSyncSetByCloudKitHooks:(BOOL)hooks
+{
+  hooksCopy = hooks;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:hooksCopy forKey:*MEMORY[0x277D19C08]];
 }
 
 - (NSDate)exitDate
@@ -511,6 +624,13 @@
   return v3;
 }
 
+- (void)setHasAvailableRecordsToDownload:(BOOL)download
+{
+  downloadCopy = download;
+  keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
+  [keyValueCollection setBool:downloadCopy forKey:*MEMORY[0x277D19B10]];
+}
+
 - (double)lastDownloadProgress
 {
   keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
@@ -542,48 +662,46 @@
 
 - (void)addSyncError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = +[IMDCKUtilities sharedInstance];
   v6 = [v5 findRootCauses:errorCopy];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     v10 = *MEMORY[0x277D19C50];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         keyValueCollection = [(IMDCKSyncState *)self keyValueCollection];
         [keyValueCollection addErrorToArray:v12 forKey:v10];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setObject:(id)object forKey:(id)key forDictionary:(id)dictionary shouldSetBuild:(BOOL)build
 {
   buildCopy = build;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   dictionaryCopy = dictionary;
@@ -597,9 +715,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v19 = objectCopy;
-      v20 = 2112;
-      v21 = keyCopy;
+      v18 = objectCopy;
+      v19 = 2112;
+      v20 = keyCopy;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Setting object %@ for key %@ in analyticDict.", buf, 0x16u);
     }
   }
@@ -613,22 +731,20 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v19 = productBuildVersion;
-        v20 = 2112;
-        v21 = qword_27D8CBAB8;
+        v18 = productBuildVersion;
+        v19 = 2112;
+        v20 = qword_27D8CBAB8;
         _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Setting ProductBuildVersion %@ for key %@ in analyticDict.", buf, 0x16u);
       }
     }
 
     [dictionaryCopy setObject:productBuildVersion forKey:qword_27D8CBAB8];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeObjectForKey:(id)key forDictionary:(id)dictionary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dictionaryCopy = dictionary;
   qword_27D8CBAB8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", keyCopy, qword_27D8CBAB8];
@@ -638,58 +754,55 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v11 = qword_27D8CBAB8;
-      v12 = 2112;
-      v13 = keyCopy;
+      v10 = qword_27D8CBAB8;
+      v11 = 2112;
+      v12 = keyCopy;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Removing keys %@ %@ from analyticDict.", buf, 0x16u);
     }
   }
 
   [dictionaryCopy removeObjectForKey:keyCopy];
   [dictionaryCopy removeObjectForKey:qword_27D8CBAB8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeBuildObjectsFromDict:(id)dict
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{(objc_msgSend(dictCopy, "count") + 1) >> 1}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   keyEnumerator = [dictCopy keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 hasSuffix:qword_27D8CBAB8])
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [dictCopy removeObjectsForKeys:v4];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObjectFromAnalyticSyncDatesDictionaryForKey:(id)key
@@ -716,7 +829,7 @@
 - (void)setAnalyticSyncDatesDictionaryObject:(id)object forKey:(id)key shouldOverrideIfExists:(BOOL)exists
 {
   existsCopy = exists;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   if (IMOSLoggingEnabled())
@@ -725,18 +838,18 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = @"NO";
-      *v24 = 138412802;
-      *&v24[4] = objectCopy;
-      *&v24[12] = 2112;
+      *v23 = 138412802;
+      *&v23[4] = objectCopy;
+      *&v23[12] = 2112;
       if (existsCopy)
       {
         v11 = @"YES";
       }
 
-      *&v24[14] = keyCopy;
-      v25 = 2112;
-      v26 = v11;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Request to set analytic sync date for object %@ and key %@ shouldOverrideIfExists %@", v24, 0x20u);
+      *&v23[14] = keyCopy;
+      v24 = 2112;
+      v25 = v11;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Request to set analytic sync date for object %@ and key %@ shouldOverrideIfExists %@", v23, 0x20u);
     }
   }
 
@@ -795,8 +908,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAnalyticSyncDatesObjectForKey:(id)key
@@ -826,36 +937,36 @@ LABEL_21:
 
 - (id)_describeErrors:(id)errors
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorsCopy = errors;
   if ([errorsCopy count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
     [v4 appendFormat:@"Errors(%lu total)", objc_msgSend(errorsCopy, "count")];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = errorsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          logString = [*(*(&v13 + 1) + 8 * i) logString];
+          logString = [*(*(&v12 + 1) + 8 * i) logString];
           [v4 appendFormat:@"|%@", logString];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -866,8 +977,6 @@ LABEL_21:
   {
     v4 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -938,6 +1047,69 @@ LABEL_21:
   v14 = [v13 stringWithFormat:@"chat %@ init %@ %@ full %@ %@ %@", describeRecordCounts, describeRecordCounts2, describeRecordCounts3, describeRecordCounts4, describeRecordCounts5, describeRecordCounts6];
 
   return v14;
+}
+
+- (id)syncReportDictionaryForAttempt:(unint64_t)attempt withSuccess:(BOOL)success duration:(double)duration
+{
+  successCopy = success;
+  syncReportDictionary = [(IMDCKSyncState *)self syncReportDictionary];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:attempt];
+  [syncReportDictionary setObject:v10 forKey:@"syncAttempts"];
+
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:successCopy];
+  [syncReportDictionary setObject:v11 forKey:@"syncSuccess"];
+
+  v12 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
+  [syncReportDictionary setObject:v12 forKey:@"syncDuration"];
+
+  describeRecordCounts = [(IMDCKSyncState *)self describeRecordCounts];
+  [syncReportDictionary setObject:describeRecordCounts forKey:@"syncCounts"];
+
+  v14 = MEMORY[0x277CCABB0];
+  v15 = +[IMDCKUtilities sharedInstance];
+  v16 = [v14 numberWithUnsignedInt:{objc_msgSend(v15, "PCSReportManateeStatus")}];
+  [syncReportDictionary setObject:v16 forKey:@"pcsStatus"];
+
+  return syncReportDictionary;
+}
+
+- (void)syncReportDictionaryForAttempt:(unint64_t)attempt withSuccess:(BOOL)success duration:(double)duration completion:(id)completion
+{
+  successCopy = success;
+  completionCopy = completion;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_22B4D7680;
+  v28 = sub_22B4D7898;
+  syncReportDictionary = [(IMDCKSyncState *)self syncReportDictionary];
+  v11 = v25[5];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:attempt];
+  [v11 setObject:v12 forKey:@"syncAttempts"];
+
+  v13 = v25[5];
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:successCopy];
+  [v13 setObject:v14 forKey:@"syncSuccess"];
+
+  v15 = v25[5];
+  v16 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
+  [v15 setObject:v16 forKey:@"syncDuration"];
+
+  v17 = v25[5];
+  describeRecordCounts = [(IMDCKSyncState *)self describeRecordCounts];
+  [v17 setObject:describeRecordCounts forKey:@"syncCounts"];
+
+  v19 = +[IMDCKUtilities sharedInstance];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_22B56A770;
+  v21[3] = &unk_278704B68;
+  v23 = &v24;
+  v20 = completionCopy;
+  v22 = v20;
+  [v19 PCSReportManateeStatusAsync:v21 timeout:10.0];
+
+  _Block_object_dispose(&v24, 8);
 }
 
 - (NSString)description
@@ -1166,17 +1338,17 @@ LABEL_21:
 
 - (void)setSyncControllerSyncState:(unint64_t)state withRecordType:(int64_t)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   logHandle = [(IMDCKSyncState *)self logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     v8 = IMStringFromIMCloudKitSyncControllerSyncState();
     v9 = IMStringFromIMCloudKitSyncControllerSyncRecordType();
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Setting controller sync type to %@ for record type: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Setting controller sync type to %@ for record type: %@", &v10, 0x16u);
   }
 
   [(IMDCKSyncState *)self _startBatchChange];
@@ -1185,12 +1357,11 @@ LABEL_21:
   [(IMDCKSyncState *)self setSyncControllerRecordType:type];
   [(IMDCKSyncState *)self setSyncControllerSyncState:state];
   [(IMDCKSyncState *)self _finishBatchChange];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyValueCollection:(id)collection willUpdateValues:(id)values
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   logHandle = [(IMDCKSyncState *)self logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
@@ -1254,9 +1425,9 @@ LABEL_15:
   logHandle2 = [(IMDCKSyncState *)self logHandle];
   if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_INFO))
   {
-    v21[0] = 67109120;
-    v21[1] = v14;
-    _os_log_impl(&dword_22B4CC000, logHandle2, OS_LOG_TYPE_INFO, "Updating syncing to: %{BOOL}d", v21, 8u);
+    v20[0] = 67109120;
+    v20[1] = v14;
+    _os_log_impl(&dword_22B4CC000, logHandle2, OS_LOG_TYPE_INFO, "Updating syncing to: %{BOOL}d", v20, 8u);
   }
 
 LABEL_18:
@@ -1270,8 +1441,6 @@ LABEL_18:
   }
 
   [(IMDCKSyncState *)self setStartingEnabledSettingChange:0];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyValueCollection:(id)collection didUpdateValues:(id)values
@@ -1297,44 +1466,40 @@ LABEL_18:
 
 - (void)setErrorToAccountNeedsRepair
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   logHandle = [(IMDCKSyncState *)self logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Account in need of repair detected, setting sync error", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Account in need of repair detected, setting sync error", v8, 2u);
   }
 
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277D19C48];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = @"Account needs repair";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = @"Account needs repair";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 errorWithDomain:v5 code:3 userInfo:v6];
   [(IMDCKSyncState *)self addSyncError:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setErrorToKeyRollingError
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   logHandle = [(IMDCKSyncState *)self logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Account in need of repair detected, setting sync error", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_22B4CC000, logHandle, OS_LOG_TYPE_INFO, "Account in need of repair detected, setting sync error", v8, 2u);
   }
 
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277D19C48];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = @"Account needs repair";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = @"Account needs repair";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 errorWithDomain:v5 code:6 userInfo:v6];
   [(IMDCKSyncState *)self addSyncError:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (IMDCKSyncStateDelegate)delegate

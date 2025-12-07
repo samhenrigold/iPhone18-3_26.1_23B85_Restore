@@ -7,7 +7,7 @@
 
 - (void)populateOutputFromNodeRecursively:()WFContentCollection outputCollection:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   contentItem = [v6 contentItem];
@@ -31,38 +31,36 @@
 
   if (children)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     children2 = [v6 children];
-    v15 = [children2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v15 = [children2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         v18 = 0;
         do
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(children2);
           }
 
-          [self populateOutputFromNodeRecursively:*(*(&v20 + 1) + 8 * v18++) outputCollection:v7];
+          [self populateOutputFromNodeRecursively:*(*(&v19 + 1) + 8 * v18++) outputCollection:v7];
         }
 
         while (v16 != v18);
-        v16 = [children2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v16 = [children2 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v16);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getOnScreenContentForInputContentClasses:()WFContentCollection completionHandler:
@@ -76,7 +74,7 @@
     v10 = processInfo;
     if (processInfo)
     {
-      [processInfo if_auditToken];
+      objc_msgSend_if_auditToken(processInfo);
     }
 
     else

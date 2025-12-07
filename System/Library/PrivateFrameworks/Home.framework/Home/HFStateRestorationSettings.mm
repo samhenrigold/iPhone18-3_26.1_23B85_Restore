@@ -127,7 +127,7 @@ void __34__HFStateRestorationSettings_init__block_invoke(uint64_t a1)
 
 - (void)setSelectedHomeIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (+[HFExecutionEnvironment isHomeApp](HFExecutionEnvironment, "isHomeApp") || +[HFExecutionEnvironment isWatchApp])
   {
@@ -140,13 +140,11 @@ void __34__HFStateRestorationSettings_init__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-      v8 = 138412290;
-      v9 = callStackSymbols;
-      _os_log_fault_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_FAULT, "Error: non-Home process is trying set state restoration values %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = callStackSymbols;
+      _os_log_fault_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_FAULT, "Error: non-Home process is trying set state restoration values %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallySetSelectedHomeIdentifier:(id)identifier
@@ -169,7 +167,7 @@ void __34__HFStateRestorationSettings_init__block_invoke(uint64_t a1)
 
 void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   os_unfair_lock_lock(WeakRetained + 3);
   v3 = [(os_unfair_lock_s *)WeakRetained cancelationToken];
@@ -179,8 +177,8 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
     v4 = HFLogForCategory(0x2DuLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v15) = 0;
-      _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Previous save existed - cancelling", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Previous save existed - cancelling", &v14, 2u);
     }
 
     v5 = [(os_unfair_lock_s *)WeakRetained cancelationToken];
@@ -196,9 +194,9 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) UUIDString];
-    v15 = 138543362;
-    v16 = v8;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings Saving home identifier %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v8;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings Saving home identifier %{public}@", &v14, 0xCu);
   }
 
   v9 = [*(a1 + 32) UUIDString];
@@ -214,9 +212,9 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [*(a1 + 32) UUIDString];
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings Sending notification for home identifier %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings Sending notification for home identifier %{public}@", &v14, 0xCu);
     }
 
     notify_post("HFHomeSyncPreferencesDidChange");
@@ -224,8 +222,6 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
 
   [(os_unfair_lock_s *)WeakRetained setCancelationToken:0];
   os_unfair_lock_unlock(WeakRetained + 3);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)selectedRoomIdentifierForSelectedHome
@@ -280,25 +276,23 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
 
 - (void)syncToNanoPrefs
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     selectedHomeIdentifier = [(HFStateRestorationSettings *)self selectedHomeIdentifier];
     uUIDString = [selectedHomeIdentifier UUIDString];
     *buf = 138543362;
-    v13 = uUIDString;
+    v12 = uUIDString;
     _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings Synchronizing prefs with selected home %{public}@", buf, 0xCu);
   }
 
   v6 = objc_opt_new();
   v7 = MEMORY[0x277CBEB98];
-  v11 = @"HFSelectedHomeKey";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = @"HFSelectedHomeKey";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   v9 = [v7 setWithArray:v8];
   [v6 synchronizeUserDefaultsDomain:@"com.apple.sync.NanoHome" keys:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_homeAppPreferencesValueForKey:(id)key ofClass:(Class)class
@@ -321,56 +315,55 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
 
 - (void)_setHomeAppPreferencesValue:(id)value forKey:(id)key
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = keyCopy;
-    v11 = 2114;
-    v12 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Updating value for Home.app preference %{public}@ to: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = keyCopy;
+    v10 = 2114;
+    v11 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Updating value for Home.app preference %{public}@ to: %{public}@", &v8, 0x16u);
   }
 
   CFPreferencesSetAppValue(keyCopy, valueCopy, @"com.apple.Home");
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_selectedHomeDidChange
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selectedHomeIdentifier = [(HFStateRestorationSettings *)self selectedHomeIdentifier];
   v4 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = selectedHomeIdentifier;
+    v17 = selectedHomeIdentifier;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HFStateRestorationSettings selectedHomeDidChange Notifying observers of new home ID %{public}@", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   observers = [(HFStateRestorationSettings *)self observers];
-  v6 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(observers);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 stateRestorationSettings:self selectedHomeIdentifierDidUpdateExternally:selectedHomeIdentifier];
@@ -380,13 +373,11 @@ void __63__HFStateRestorationSettings__reallySetSelectedHomeIdentifier___block_i
       }
 
       while (v7 != v9);
-      v7 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

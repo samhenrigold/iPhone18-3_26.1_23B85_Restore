@@ -203,7 +203,7 @@ LABEL_30:
 
 - (id)predictForReferenceItemId:(id)id withEmbedding:(id)embedding
 {
-  v76[2] = *MEMORY[0x277D85DE8];
+  v75[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
   embeddingCopy = embedding;
   if (self->_isLoaded || (queue = self->_queue, block[0] = MEMORY[0x277D85DD0], block[1] = 3221225472, block[2] = __83__CalendarEventClassificationModelManager_predictForReferenceItemId_withEmbedding___block_invoke, block[3] = &unk_27893CE68, block[4] = self, dispatch_sync(queue, block), self->_isLoaded))
@@ -267,13 +267,13 @@ LABEL_30:
     if ([v30 count])
     {
       v34 = objc_alloc(MEMORY[0x277CBFF48]);
-      v76[0] = &unk_2846E7980;
+      v75[0] = &unk_2846E7980;
       v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v30, "count")}];
-      v76[1] = v35;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
-      v71 = 0;
-      v37 = [v34 initWithShape:v36 dataType:65568 error:&v71];
-      v38 = v71;
+      v75[1] = v35;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+      v70 = 0;
+      v37 = [v34 initWithShape:v36 dataType:65568 error:&v70];
+      v38 = v70;
 
       if (v38 || !v37)
       {
@@ -298,18 +298,18 @@ LABEL_57:
         goto LABEL_58;
       }
 
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __83__CalendarEventClassificationModelManager_predictForReferenceItemId_withEmbedding___block_invoke_28;
-      v69[3] = &unk_27893DAB0;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __83__CalendarEventClassificationModelManager_predictForReferenceItemId_withEmbedding___block_invoke_28;
+      v68[3] = &unk_27893DAB0;
       v39 = v37;
-      v70 = v39;
-      [v30 enumerateObjectsUsingBlock:v69];
+      v69 = v39;
+      [v30 enumerateObjectsUsingBlock:v68];
       v40 = [[CalendarEventClassificationModelInput alloc] initWithEmb:v39];
       calendarEventClassificationModel = self->_calendarEventClassificationModel;
-      v68 = 0;
-      v42 = [(CalendarEventClassificationModel *)calendarEventClassificationModel predictionFromFeatures:v40 error:&v68];
-      v38 = v68;
+      v67 = 0;
+      v42 = [(CalendarEventClassificationModel *)calendarEventClassificationModel predictionFromFeatures:v40 error:&v67];
+      v38 = v67;
       if (v38)
       {
         if (SKGLogGetCurrentLoggingLevel() >= 2)
@@ -355,7 +355,7 @@ LABEL_54:
               goto LABEL_64;
             }
 
-            v67 = v40;
+            v66 = v40;
             v55 = 0;
             v56 = 1;
             do
@@ -377,14 +377,14 @@ LABEL_54:
             }
 
             while (v56 < v62);
-            v40 = v67;
+            v40 = v66;
             if (v55)
             {
               if (v55 == 1)
               {
-                v74 = *MEMORY[0x277CC22B0];
+                v73 = *MEMORY[0x277CC22B0];
                 v63 = MEMORY[0x277CBEA60];
-                v64 = &v74;
+                v64 = &v73;
               }
 
               else
@@ -395,24 +395,24 @@ LABEL_54:
                   goto LABEL_56;
                 }
 
-                v73 = *MEMORY[0x277CC2298];
+                v72 = *MEMORY[0x277CC2298];
                 v63 = MEMORY[0x277CBEA60];
-                v64 = &v73;
+                v64 = &v72;
               }
             }
 
             else
             {
 LABEL_64:
-              v75 = *MEMORY[0x277CC22A8];
+              v74 = *MEMORY[0x277CC22A8];
               v63 = MEMORY[0x277CBEA60];
-              v64 = &v75;
+              v64 = &v74;
             }
 
             v44 = [v63 arrayWithObjects:v64 count:1];
 LABEL_56:
 
-            v45 = v70;
+            v45 = v69;
             goto LABEL_57;
           }
         }
@@ -465,70 +465,26 @@ LABEL_56:
 LABEL_60:
 
 LABEL_61:
-  v65 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
 
 - (void)loadModel
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, v0, v1, "Calendar event classification model file not found. Error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictForReferenceItemId:withEmbedding:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, v0, v1, "Model loading failed while processing item with reference id %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictForReferenceItemId:withEmbedding:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_0(&dword_231B25000, v0, v1, "MLMultiArray creation failed. Skipping model prediction for item reference id %@. Error=%@");
   v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictForReferenceItemId:withEmbedding:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_0(&dword_231B25000, v0, v1, "Calendar event classification model prediction failed item reference id %@. Error=%@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231B25000, v0, OS_LOG_TYPE_DEBUG, "Loading calendar event classification model file:%@", v1, 0xCu);
 }
 
 - (void)predictForReferenceItemId:(NSObject *)a3 withEmbedding:.cold.4(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 y];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_231B25000, a3, OS_LOG_TYPE_DEBUG, "Calendar event classification model prediction with item reference id %@ is %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictForReferenceItemId:withEmbedding:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, v0, v1, "Calendar event classification model prediction failed for item reference id %@. Output missing.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictForReferenceItemId:withEmbedding:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, v0, v1, "Missing embedding. Skipping model prediction for item reference id %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_231B25000, a3, OS_LOG_TYPE_DEBUG, "Calendar event classification model prediction with item reference id %@ is %@", &v6, 0x16u);
 }
 
 @end

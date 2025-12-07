@@ -55,11 +55,11 @@ void __80___UIEventDeferringEnvironmentsContainer_descriptionBuilderWithMultilin
   }
 }
 
-id __66___UIEventDeferringEnvironmentsContainer_encodeWithXPCDictionary___block_invoke()
+id __66___UIEventDeferringEnvironmentsContainer_encodeWithXPCDictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = BSCreateSerializedBSXPCEncodableObject();
+  v2 = BSCreateSerializedBSXPCEncodableObject();
 
-  return v0;
+  return v2;
 }
 
 @end

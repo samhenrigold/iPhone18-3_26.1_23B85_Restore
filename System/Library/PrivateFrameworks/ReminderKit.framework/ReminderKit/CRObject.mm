@@ -22,29 +22,29 @@
 
 - (CRObject)init
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   cRProperties = [objc_opt_class() CRProperties];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = cRProperties;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v4 objectForKeyedSubscript:v9];
         if ([v10 isEqual:CRPropertyRegisterLatest])
         {
@@ -66,7 +66,7 @@ LABEL_10:
 LABEL_12:
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -76,7 +76,6 @@ LABEL_12:
   uUID = [MEMORY[0x1E696AFB0] UUID];
   v14 = [(CRObject *)self initWithIdentity:uUID fields:v3];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -99,35 +98,35 @@ LABEL_12:
 
 - (CRObject)initWithCRCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeUUIDForKey:@"identity"];
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   cRProperties = [objc_opt_class() CRProperties];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v8 = [cRProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [cRProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(cRProperties);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [coderCopy decodeObjectForKey:v12];
         [v6 setObject:v13 forKeyedSubscript:v12];
       }
 
-      v9 = [cRProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [cRProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -143,7 +142,6 @@ LABEL_12:
     [objects setObject:v14 forKeyedSubscript:identity];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -165,28 +163,28 @@ LABEL_12:
 
 - (void)setupConstraintsFor:(id)for in:(id)in
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   forCopy = for;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [forCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [forCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(forCopy);
         }
 
-        v9 = [forCopy objectForKeyedSubscript:*(*(&v12 + 1) + 8 * v8)];
+        v9 = [forCopy objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v8)];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -198,13 +196,11 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [forCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [forCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFieldKey:(id)key value:(id)value

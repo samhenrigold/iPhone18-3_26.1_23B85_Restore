@@ -50,8 +50,8 @@ void sub_10004E098(uint64_t a1, sqlite3_stmt *a2)
   v14 = xpc_dictionary_create(0, 0, 0);
   if (!v14)
   {
-    v34 = tcc_access_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = tcc_access_log(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       sub_10004F7C0();
     }
@@ -64,7 +64,7 @@ void sub_10004E098(uint64_t a1, sqlite3_stmt *a2)
   xpc_dictionary_set_uint64(v15, "TCCD_MSG_IDENTITY_TYPE_KEY", v16);
   v17 = sqlite3_column_text(a2, 0);
   xpc_dictionary_set_string(v15, "TCCD_MSG_IDENTITY_ID_KEY", v17);
-  v34 = v15;
+  v35 = v15;
   if (sqlite3_column_type(a2, 3) == 5)
   {
     xpc_dictionary_set_uint64(v15, "TCCD_MSG_IDENTITY_VERIFIER_TYPE_KEY", 0);
@@ -75,7 +75,7 @@ void sub_10004E098(uint64_t a1, sqlite3_stmt *a2)
     v18 = sqlite3_column_blob(a2, 3);
     v19 = sqlite3_column_bytes(a2, 3);
     v20 = v18;
-    v15 = v34;
+    v15 = v35;
     xpc_dictionary_set_data(v14, "code_requirement", v20, v19);
   }
 
@@ -90,8 +90,8 @@ void sub_10004E098(uint64_t a1, sqlite3_stmt *a2)
   v22 = sqlite3_column_int(a2, 1);
   if (v22 == 2)
   {
-    v30 = tcc_access_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = tcc_access_log(v22);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10004F634(a2);
     }
@@ -102,15 +102,15 @@ void sub_10004E098(uint64_t a1, sqlite3_stmt *a2)
 
   if (v22 == 1)
   {
-    v29 = sqlite3_column_text(a2, 0);
-    xpc_dictionary_set_string(v14, "path", v29);
+    v30 = sqlite3_column_text(a2, 0);
+    xpc_dictionary_set_string(v14, "path", v30);
     goto LABEL_17;
   }
 
   if (v22)
   {
-    v31 = tcc_access_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v32 = tcc_access_log(v22);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10004F73C(a2);
     }
@@ -129,13 +129,14 @@ LABEL_25:
 
   v24 = v23;
   xpc_dictionary_set_string(v14, "bundle_id", [v23 UTF8String]);
-  v35 = 0;
-  v25 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v24 allowPlaceholder:0 error:&v35];
-  v26 = v35;
+  v36 = 0;
+  v25 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v24 allowPlaceholder:0 error:&v36];
+  v26 = v36;
+  v27 = v26;
   if (!v25)
   {
-    v33 = tcc_access_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = tcc_access_log(v26);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       sub_10004F6B8();
     }
@@ -152,9 +153,9 @@ LABEL_36:
     goto LABEL_26;
   }
 
-  v27 = [v25 URL];
-  v28 = [v27 absoluteString];
-  xpc_dictionary_set_string(v14, "bundle", [v28 UTF8String]);
+  v28 = [v25 URL];
+  v29 = [v28 absoluteString];
+  xpc_dictionary_set_string(v14, "bundle", [v29 UTF8String]);
 
 LABEL_17:
   v13 = 1;
@@ -165,13 +166,13 @@ LABEL_26:
 LABEL_27:
   if (v12)
   {
-    v32 = v13 ^ 1;
+    v33 = v13 ^ 1;
     if (*(a1 + 56) != 1)
     {
-      v32 = 0;
+      v33 = 0;
     }
 
-    if ((v32 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
       xpc_array_append_value(*(*(*(a1 + 48) + 8) + 40), v12);
     }
@@ -205,10 +206,10 @@ uint64_t sub_10004E5F0(uint64_t a1, uint64_t a2, void *a3)
   v6 = [v4 server];
   v7 = [v6 descriptionForMessage:v5];
 
-  v8 = tcc_access_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = tcc_access_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004F800(v7, a2, v8);
+    sub_10004F800(v7, a2, v9);
   }
 
   return 1;
@@ -291,24 +292,25 @@ void handle_TCCAccessCopyCountInformationForServices_with_attribution_chain(void
   v6 = a2;
   v7 = a3;
   v8 = xpc_dictionary_get_array(v5, "services");
-  if (xpc_get_type(v8) == &_xpc_type_array)
+  type = xpc_get_type(v8);
+  if (type == &_xpc_type_array)
   {
     applier[0] = _NSConcreteStackBlock;
     applier[1] = 3221225472;
     applier[2] = sub_10004EAAC;
     applier[3] = &unk_1000A6900;
-    v11 = v5;
-    v12 = v6;
-    v13 = v7;
+    v12 = v5;
+    v13 = v6;
+    v14 = v7;
     xpc_array_apply(v8, applier);
 
-    v9 = v11;
+    v10 = v12;
   }
 
   else
   {
-    v9 = tcc_access_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = tcc_access_log(type);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10004FA7C();
     }
@@ -341,32 +343,33 @@ void handle_TCCExternalMetrics_with_attribution_chain(void *a1, void *a2, void *
 
   v10 = +[TCCDPlatform currentPlatform];
   v11 = @"com.apple.private.tcc.external.report";
-  if ([v7 BOOLValueForEntitlement:v11])
+  v12 = [v7 BOOLValueForEntitlement:v11];
+  if (v12)
   {
-    v12 = [NSString stringWithUTF8String:string];
-    [v10 sendAnalyticsForExternal:v12 withMacBuddyStatus:0 function:v8];
+    v13 = [NSString stringWithUTF8String:string];
+    [v10 sendAnalyticsForExternal:v13 withMacBuddyStatus:0 function:v8];
 
-    v13 = "true";
+    v14 = "true";
   }
 
   else
   {
-    v14 = tcc_access_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = tcc_access_log(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543874;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@ attempted to call %{public}@ without the recommended %{public}@ entitlement", &v15, 0x20u);
+      v16 = 138543874;
+      v17 = v7;
+      v18 = 2114;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@ attempted to call %{public}@ without the recommended %{public}@ entitlement", &v16, 0x20u);
     }
 
-    v13 = "false";
+    v14 = "false";
   }
 
-  xpc_dictionary_set_string(v5, "result", v13);
+  xpc_dictionary_set_string(v5, "result", v14);
 }
 
 void handle_TCCCopyIconResourcePathForService(void *a1, void *a2)
@@ -379,7 +382,7 @@ void handle_TCCCopyIconResourcePathForService(void *a1, void *a2)
   xpc_dictionary_get_int64(v3, "iconForService");
   v6 = xpc_dictionary_get_BOOL(v3, "badgeWithPrivacyHand");
   v7 = TCCAuthPromptIconString();
-  v8 = tcc_access_log();
+  v8 = tcc_access_log(v7);
   v9 = v8;
   if (v7)
   {
@@ -392,22 +395,23 @@ void handle_TCCCopyIconResourcePathForService(void *a1, void *a2)
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#tccIcon TCCCopyIconResourcePathForService: %s(shouldBadge: %d)", buf, 0x12u);
     }
 
-    if (has_private_tcc_entitlement(v3, @"com.apple.private.tcc.icons_for_prompts", 0))
+    v10 = has_private_tcc_entitlement(v3, @"com.apple.private.tcc.icons_for_prompts", 0);
+    if (v10)
     {
-      v10 = [NSString stringWithUTF8String:v7];
-      v11 = +[TCCDPlatform currentPlatform];
-      v12 = [v11 server];
-      v13 = [v12 temporaryDirectory];
-      v9 = [TCCDIconGenerator createIconForTCCService:v10 withTempDirectory:v13];
+      v11 = [NSString stringWithUTF8String:v7];
+      v12 = +[TCCDPlatform currentPlatform];
+      v13 = [v12 server];
+      v14 = [v13 temporaryDirectory];
+      v9 = [TCCDIconGenerator createIconForTCCService:v11 withTempDirectory:v14];
 
-      v14 = +[NSFileManager defaultManager];
-      v15 = [v9 path];
-      LODWORD(v12) = [v14 fileExistsAtPath:v15];
+      v15 = +[NSFileManager defaultManager];
+      v16 = [v9 path];
+      LODWORD(v13) = [v15 fileExistsAtPath:v16];
 
-      if (v12)
+      if (v13)
       {
-        v16 = tcc_access_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = tcc_access_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = v7;
@@ -415,17 +419,17 @@ void handle_TCCCopyIconResourcePathForService(void *a1, void *a2)
           *&buf[14] = v6;
           *&buf[18] = 2112;
           *&buf[20] = v9;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#tccIcon TCCCopyIconResourcePathForService: %s(shouldBadge: %d) service at %@", buf, 0x1Cu);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#tccIcon TCCCopyIconResourcePathForService: %s(shouldBadge: %d) service at %@", buf, 0x1Cu);
         }
 
-        v17 = [v9 path];
-        xpc_dictionary_set_string(v4, "pathToIconFile", [v17 cStringUsingEncoding:4]);
+        v19 = [v9 path];
+        xpc_dictionary_set_string(v4, "pathToIconFile", [v19 cStringUsingEncoding:4]);
       }
     }
 
     else
     {
-      v9 = tcc_access_log();
+      v9 = tcc_access_log(v10);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10004FABC(v5, @"com.apple.private.tcc.icons_for_prompts");
@@ -449,37 +453,37 @@ void handle_TCCIntegrityFlagCheck(void *a1, void *a2)
 
   if (v7)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10004F298;
-    v13[3] = &unk_1000A52A8;
-    v13[4] = &v14;
-    v8 = db_eval("SELECT value FROM integrity_flag WHERE key = 'integrity_flag'", 0, v13);
-    if (v8)
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 0;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10004F298;
+    v14[3] = &unk_1000A52A8;
+    v14[4] = &v15;
+    v9 = db_eval("SELECT value FROM integrity_flag WHERE key = 'integrity_flag'", 0, v14);
+    if (v9)
     {
-      v9 = +[TCCDPlatform currentPlatform];
-      v10 = [v9 server];
-      v11 = [v10 logHandle];
+      v10 = +[TCCDPlatform currentPlatform];
+      v11 = [v10 server];
+      v12 = [v11 logHandle];
 
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10004FC84();
       }
     }
 
-    xpc_dictionary_set_BOOL(v4, "success", v8 == 0);
-    xpc_dictionary_set_BOOL(v4, "result", *(v15 + 6) != 0);
-    _Block_object_dispose(&v14, 8);
+    xpc_dictionary_set_BOOL(v4, "success", v9 == 0);
+    xpc_dictionary_set_BOOL(v4, "result", *(v16 + 6) != 0);
+    _Block_object_dispose(&v15, 8);
   }
 
   else
   {
-    v12 = tcc_access_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = tcc_access_log(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10004FBC8(v5);
     }
@@ -488,9 +492,9 @@ void handle_TCCIntegrityFlagCheck(void *a1, void *a2)
   }
 }
 
-void sub_10004F27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004F27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -513,8 +517,8 @@ void handle_TCCIntegrityFlagReset(void *a1, void *a2)
 
   if ((v7 & 1) == 0)
   {
-    v12 = tcc_access_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = tcc_access_log(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10004FCF4(v5);
     }
@@ -522,25 +526,25 @@ void handle_TCCIntegrityFlagReset(void *a1, void *a2)
     goto LABEL_7;
   }
 
-  v8 = db_eval("INSERT OR REPLACE INTO integrity_flag (key, value) VALUES ('integrity_flag', 0)", 0, 0);
-  v9 = v8 == 0;
-  if (v8)
+  v9 = db_eval("INSERT OR REPLACE INTO integrity_flag (key, value) VALUES ('integrity_flag', 0)", 0, 0);
+  v10 = v9 == 0;
+  if (v9)
   {
-    v10 = +[TCCDPlatform currentPlatform];
-    v11 = [v10 server];
-    v12 = [v11 logHandle];
+    v11 = +[TCCDPlatform currentPlatform];
+    v12 = [v11 server];
+    v13 = [v12 logHandle];
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10004FDAC();
     }
 
 LABEL_7:
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
-  xpc_dictionary_set_BOOL(v3, "success", v9);
+  xpc_dictionary_set_BOOL(v3, "success", v10);
 }
 
 void sub_10004F424(void *a1)
@@ -679,9 +683,9 @@ void sub_10004FEA4(id a1)
   _objc_release_x1();
 }
 
-void sub_1000501CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000501CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -861,17 +865,17 @@ void sub_100050788(uint64_t a1)
   }
 }
 
-void sub_100050DA8(uint64_t a1)
+void sub_100050DA8(uint64_t a1, uint64_t a2)
 {
   if (qword_1000C1238 != -1)
   {
     sub_100052CC8();
   }
 
-  v2 = qword_1000C1240;
+  v3 = qword_1000C1240;
   if (os_log_type_enabled(qword_1000C1240, OS_LOG_TYPE_DEBUG))
   {
-    sub_100052E48(a1, v2);
+    sub_100052E48(a1, v3);
   }
 
   [*(a1 + 32) loadPlist];
@@ -1136,10 +1140,10 @@ id sub_100054D8C(uint64_t a1)
   return v2;
 }
 
-void sub_100054E28()
+void sub_100054E28(uint64_t a1)
 {
-  v0 = tcc_access_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = tcc_access_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100056054();
   }
@@ -1238,10 +1242,10 @@ id sub_10005534C(uint64_t a1)
   return v2;
 }
 
-void sub_100055674()
+void sub_100055674(uint64_t a1)
 {
-  v0 = tcc_access_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = tcc_access_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000560C8();
   }
@@ -1268,10 +1272,10 @@ id sub_1000558A4(uint64_t a1)
   return v6;
 }
 
-void sub_10005598C()
+void sub_10005598C(uint64_t a1)
 {
-  v0 = tcc_access_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = tcc_access_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_10005613C();
   }
@@ -1298,19 +1302,20 @@ id sub_100055BBC(uint64_t a1)
   return v6;
 }
 
-void sub_100055CA4()
+void sub_100055CA4(uint64_t a1)
 {
-  v0 = tcc_access_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = tcc_access_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000561B0();
   }
 }
 
-void sub_100055E44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100055E44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100055EB0(uint64_t a1, void *a2, NSObject *a3)
@@ -1337,29 +1342,33 @@ void sub_100055F90(void *a1, void *a2, NSObject *a3)
 void sub_100056054()
 {
   sub_10000921C(__stack_chk_guard);
+  v6 = 136315394;
   sub_100009180();
-  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, 2u);
+  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000560C8()
 {
   sub_10000921C(__stack_chk_guard);
+  v6 = 136315394;
   sub_100009180();
-  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, 2u);
+  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10005613C()
 {
   sub_10000921C(__stack_chk_guard);
+  v6 = 136315394;
   sub_100009180();
-  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, 2u);
+  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000561B0()
 {
   sub_10000921C(__stack_chk_guard);
+  v6 = 136315394;
   sub_100009180();
-  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, 2u);
+  sub_100055E44(&_mh_execute_header, v0, v1, "%s: Analytics is not available for Event: %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t sub_1000564D0(uint64_t a1)
@@ -1369,9 +1378,9 @@ uint64_t sub_1000564D0(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_1000569C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000569C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1530,12 +1539,12 @@ void sub_100057DA4(void *a1)
   v6 = [NSNumber numberWithUnsignedLongLong:v4];
   [v5 setObject:v3 forKeyedSubscript:v6];
 
-  v7 = tcc_events_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = tcc_events_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Added subscriber %{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Added subscriber %{public}@", &v9, 0xCu);
   }
 }
 
@@ -1556,7 +1565,7 @@ void sub_100057FA8(uint64_t a1, void *a2)
     else
     {
       v10 = xpc_copy_description(v3);
-      v11 = tcc_events_log();
+      v11 = tcc_events_log(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100058AA8(a1, v10, v11);
@@ -1591,7 +1600,7 @@ LABEL_14:
 
   v5 = type;
   v6 = xpc_copy_description(v3);
-  v7 = tcc_events_log();
+  v7 = tcc_events_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     name = xpc_type_get_name(v5);
@@ -1621,12 +1630,12 @@ void sub_10005827C(uint64_t a1)
   v7 = [NSNumber numberWithUnsignedLongLong:v5];
   [v6 removeObjectForKey:v7];
 
-  v8 = tcc_events_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = tcc_events_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Removed subscriber %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Removed subscriber %{public}@", &v10, 0xCu);
   }
 }
 
@@ -1635,7 +1644,7 @@ void sub_10005870C(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2[32] == 1)
   {
-    v3 = tcc_events_log();
+    v3 = tcc_events_log(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
@@ -1798,153 +1807,153 @@ void sub_100059E50()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void log_open_file_descriptors()
+void log_open_file_descriptors(uint64_t a1)
 {
-  v0 = tcc_open_fds_log();
-  v1 = getpid();
-  v2 = proc_pidinfo(v1, 1, 0, 0, 0);
-  if (v2 == -1)
+  v1 = tcc_open_fds_log(a1);
+  v2 = getpid();
+  v3 = proc_pidinfo(v2, 1, 0, 0, 0);
+  if (v3 == -1)
   {
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A480(v0, v17, v18, v19, v20, v21, v22, v23);
+      sub_10005A480(v1, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 
   else
   {
-    v3 = v2;
-    v4 = malloc_type_malloc(v2, 0x5E30FBC4uLL);
-    if (v4)
+    v4 = v3;
+    v5 = malloc_type_malloc(v3, 0x5E30FBC4uLL);
+    if (v5)
     {
-      v5 = v4;
-      v6 = proc_pidinfo(v1, 1, 0, v4, v3);
-      if (v6 == -1)
+      v6 = v5;
+      v7 = proc_pidinfo(v2, 1, 0, v5, v4);
+      if (v7 == -1)
       {
-        if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
         {
-          sub_10005A410(v0, v31, v32, v33, v34, v35, v36, v37);
+          sub_10005A410(v1, v32, v33, v34, v35, v36, v37, v38);
         }
       }
 
       else
       {
-        v7 = (v6 >> 3);
-        if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+        v8 = (v7 >> 3);
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67240192;
-          *&buf[4] = v7;
-          _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "%{public}d open file descriptors", buf, 8u);
+          *&buf[4] = v8;
+          _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "%{public}d open file descriptors", buf, 8u);
         }
 
-        if (v7 >= 1)
+        if (v8 >= 1)
         {
-          v8 = v5 + 1;
+          v9 = v6 + 1;
           do
           {
-            if (*v8 == 1)
+            if (*v9 == 1)
             {
               memcpy(buf, "<path not found>", sizeof(buf));
-              fcntl(*(v8 - 1), 50, buf);
-              if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+              fcntl(*(v9 - 1), 50, buf);
+              if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
               {
-                v9 = *(v8 - 1);
-                v10 = *v8;
-                v38[0] = 67240706;
-                v38[1] = v9;
-                v39 = 1026;
-                v40 = v10;
-                v41 = 2082;
-                v42 = buf;
-                v11 = v38;
-                v12 = v0;
-                v13 = "%{public}d|%{public}d : %{public}s";
-                v14 = 24;
+                v10 = *(v9 - 1);
+                v11 = *v9;
+                v39[0] = 67240706;
+                v39[1] = v10;
+                v40 = 1026;
+                v41 = v11;
+                v42 = 2082;
+                v43 = buf;
+                v12 = v39;
+                v13 = v1;
+                v14 = "%{public}d|%{public}d : %{public}s";
+                v15 = 24;
 LABEL_13:
-                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, v11, v14);
+                _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, v12, v15);
               }
             }
 
-            else if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+            else if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
             {
-              v15 = *(v8 - 1);
-              v16 = *v8;
+              v16 = *(v9 - 1);
+              v17 = *v9;
               *buf = 67240448;
-              *&buf[4] = v15;
+              *&buf[4] = v16;
               *&buf[8] = 1026;
-              *&buf[10] = v16;
-              v11 = buf;
-              v12 = v0;
-              v13 = "%{public}d|%{public}d";
-              v14 = 14;
+              *&buf[10] = v17;
+              v12 = buf;
+              v13 = v1;
+              v14 = "%{public}d|%{public}d";
+              v15 = 14;
               goto LABEL_13;
             }
 
-            v8 += 2;
-            --v7;
+            v9 += 2;
+            --v8;
           }
 
-          while (v7);
+          while (v8);
         }
       }
 
-      free(v5);
+      free(v6);
     }
 
-    else if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A448(v0, v24, v25, v26, v27, v28, v29, v30);
+      sub_10005A448(v1, v25, v26, v27, v28, v29, v30, v31);
     }
   }
 }
 
-void exhaust_file_descriptors()
+void exhaust_file_descriptors(uint64_t a1)
 {
-  v0 = tcc_open_fds_log();
-  v1 = getpid();
-  v2 = +[TCCDPlatform currentPlatform];
-  v3 = [v2 server];
-  v4 = [v3 temporaryDirectory];
-  v5 = [v4 UTF8String];
+  v1 = tcc_open_fds_log(a1);
+  v2 = getpid();
+  v3 = +[TCCDPlatform currentPlatform];
+  v4 = [v3 server];
+  v5 = [v4 temporaryDirectory];
+  v6 = [v5 UTF8String];
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v17 = v5;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Exhausting available file descriptors by opening files in %{public}s", buf, 0xCu);
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Exhausting available file descriptors by opening files in %{public}s", buf, 0xCu);
   }
 
   bzero(buf, 0x400uLL);
-  if ((snprintf(buf, 0x400uLL, "%s/tccd-%d-%04d", v5, v1, 0) & 0x80000000) == 0)
+  if ((snprintf(buf, 0x400uLL, "%s/tccd-%d-%04d", v6, v2, 0) & 0x80000000) == 0)
   {
-    v6 = 1;
+    v7 = 1;
     do
     {
       if (open(buf, 513, 493) == -1)
       {
-        v7 = v0;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = v1;
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v9 = *__error();
-          *v10 = 136446722;
-          v11 = "exhaust_file_descriptors";
-          v12 = 2082;
-          v13 = buf;
-          v14 = 1024;
-          v15 = v9;
-          _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}s: failed to open temp file at path %{public}s: open() failed with errno %d", v10, 0x1Cu);
+          v10 = *__error();
+          *v11 = 136446722;
+          v12 = "exhaust_file_descriptors";
+          v13 = 2082;
+          v14 = buf;
+          v15 = 1024;
+          v16 = v10;
+          _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s: failed to open temp file at path %{public}s: open() failed with errno %d", v11, 0x1Cu);
         }
       }
 
-      v8 = snprintf(buf, 0x400uLL, "%s/tccd-%d-%04d", v5, v1, v6++);
+      v9 = snprintf(buf, 0x400uLL, "%s/tccd-%d-%04d", v6, v2, v7++);
     }
 
-    while ((v8 & 0x80000000) == 0);
+    while ((v9 & 0x80000000) == 0);
   }
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    sub_10005A4B8(v0);
+    sub_10005A4B8(v1);
   }
 }
 
@@ -2160,14 +2169,14 @@ void sub_10005BB58(uint64_t a1, void *a2, int a3)
   v10 = *(*v6 + 48);
   *(*v6 + 48) = v9;
 
-  v11 = *v6;
+  v12 = *v6;
   if (a3)
   {
-    *(v11 + 32) = 2;
-    v12 = tcc_events_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    *(v12 + 32) = 2;
+    v13 = tcc_events_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005BFE8(v6, v12);
+      sub_10005BFE8(v6, v13);
     }
 
     [*v6 _publishPendingEvents];
@@ -2175,11 +2184,11 @@ void sub_10005BB58(uint64_t a1, void *a2, int a3)
 
   else
   {
-    *(v11 + 32) = 3;
-    v13 = tcc_events_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    *(v12 + 32) = 3;
+    v14 = tcc_events_log(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10005BF6C(v6, v13);
+      sub_10005BF6C(v6, v14);
     }
   }
 
@@ -2214,7 +2223,7 @@ void sub_10005C9F8(uint64_t a1, void *a2)
   v2 = [a2 requestingProcess];
   v3 = [v2 description];
   sub_1000090F4();
-  sub_1000091E4(&_mh_execute_header, v4, v5, "'%{public}s' is wrong size in message from %{public}@", v6, v7, v8, v9, v10);
+  sub_1000091E4(&_mh_execute_header, v4, v5, "'%{public}s' is wrong size in message from %{public}@", v6, v7, v8, v9);
 }
 
 void sub_10005CA9C(uint64_t a1, void *a2)
@@ -2222,7 +2231,7 @@ void sub_10005CA9C(uint64_t a1, void *a2)
   v2 = [a2 requestingProcess];
   v3 = [v2 description];
   sub_1000090F4();
-  sub_1000091E4(&_mh_execute_header, v4, v5, "Failed to build 'accessingProcess' from %{public}s in message from <%{public}@>", v6, v7, v8, v9, v10);
+  sub_1000091E4(&_mh_execute_header, v4, v5, "Failed to build 'accessingProcess' from %{public}s in message from <%{public}@>", v6, v7, v8, v9);
 }
 
 void sub_10005CB40(uint64_t a1, NSObject *a2)
@@ -2275,10 +2284,11 @@ void sub_10005D070(uint64_t a1, int a2)
   }
 }
 
-void sub_10005DC98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10005DC98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2882,7 +2892,7 @@ void sub_100061B54()
   v3 = [sub_10001C4F0() pairedDeviceStorageRoot];
   sub_10001C4B4();
   sub_10001C4E4();
-  sub_10001C45C(&_mh_execute_header, v4, v5, "did pair to new device: %@: %@", v6, v7, v8, v9, v10);
+  sub_10001C45C(&_mh_execute_header, v4, v5, "did pair to new device: %@: %@", v6, v7, v8, v9);
 }
 
 void sub_100061BF4()
@@ -3082,7 +3092,7 @@ void sub_100062818()
   v4 = [sub_1000105FC() pendingDeltaSyncChanges];
   [v4 count];
   sub_100008F9C();
-  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService starting SYSession:%{public}@: with %lu delta sync changes", v7, v8, v9, v10, v11);
+  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService starting SYSession:%{public}@: with %lu delta sync changes", v7, v8, v9, v10);
 }
 
 void sub_1000628C4(void *a1)
@@ -3101,7 +3111,7 @@ void sub_10006295C()
   v3 = [sub_10001C4C0() identifier];
   sub_100008F78();
   sub_10001C4E4();
-  sub_10001C45C(&_mh_execute_header, v4, v5, "SYService starting SYSession:%{public}@: adding changes for reset sync: %@", v6, v7, v8, v9, v10);
+  sub_10001C45C(&_mh_execute_header, v4, v5, "SYService starting SYSession:%{public}@: adding changes for reset sync: %@", v6, v7, v8, v9);
 }
 
 void sub_1000629FC(void *a1)
@@ -3213,7 +3223,7 @@ void sub_1000630A4()
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_1000105FC() UUIDString];
   sub_1000090F4();
-  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService willSwitchFromPairingID:%{public}@ toParingID:%{public}@", v7, v8, v9, v10, v11);
+  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService willSwitchFromPairingID:%{public}@ toParingID:%{public}@", v7, v8, v9, v10);
 }
 
 void sub_10006314C()
@@ -3224,7 +3234,7 @@ void sub_10006314C()
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_1000105FC() UUIDString];
   sub_1000090F4();
-  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService didSwitchFromPairingID:%{public}@ toParingID:%{public}@", v7, v8, v9, v10, v11);
+  sub_10001C45C(&_mh_execute_header, v5, v6, "SYService didSwitchFromPairingID:%{public}@ toParingID:%{public}@", v7, v8, v9, v10);
 }
 
 void sub_10006325C()
@@ -3235,7 +3245,7 @@ void sub_10006325C()
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_1000105FC() identifier];
   sub_1000090F4();
-  sub_10001C45C(&_mh_execute_header, v5, v6, "Will prefer session:%{public}@ over this session: %{public}@", v7, v8, v9, v10, v11);
+  sub_10001C45C(&_mh_execute_header, v5, v6, "Will prefer session:%{public}@ over this session: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100063304()
@@ -3246,7 +3256,7 @@ void sub_100063304()
   objc_claimAutoreleasedReturnValue();
   [sub_1000105FC() count];
   sub_100008F9C();
-  sub_10001C45C(&_mh_execute_header, v4, v5, "SYSession:%{public}@; enqueuing %lu changes.", v6, v7, v8, v9, v10);
+  sub_10001C45C(&_mh_execute_header, v4, v5, "SYSession:%{public}@; enqueuing %lu changes.", v6, v7, v8, v9);
 }
 
 void sub_1000633A0()
@@ -3258,7 +3268,7 @@ void sub_1000633A0()
   v4 = [sub_1000105FC() sessionSyncChanges];
   [v4 count];
   sub_100008F9C();
-  sub_10001C45C(&_mh_execute_header, v5, v6, "SYSession:%{public}@; unable to enqueue a change; have %lu left", v7, v8, v9, v10, v11);
+  sub_10001C45C(&_mh_execute_header, v5, v6, "SYSession:%{public}@; unable to enqueue a change; have %lu left", v7, v8, v9, v10);
 }
 
 void sub_10006344C(void *a1)
@@ -3278,7 +3288,7 @@ void sub_1000634E4()
   objc_claimAutoreleasedReturnValue();
   [sub_1000105FC() count];
   sub_100008F9C();
-  sub_10001C45C(&_mh_execute_header, v4, v5, "SYSession:%{public}@; applying %lu changes", v6, v7, v8, v9, v10);
+  sub_10001C45C(&_mh_execute_header, v4, v5, "SYSession:%{public}@; applying %lu changes", v6, v7, v8, v9);
 }
 
 void sub_100063580(void *a1, void *a2)

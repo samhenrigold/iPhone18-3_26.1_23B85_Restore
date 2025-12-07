@@ -2,8 +2,10 @@
 - (BOOL)isFat1216RootDir;
 - (id)checkIfEmpty;
 - (id)fillNameCache:(id)cache;
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name isRoot:(BOOL)root;
 - (id)markDirEntriesAsDeletedAndUpdateMtime:(id)mtime;
 - (void)createEntrySetForName:(unistr255 *)name itemType:(int64_t)type firstCluster:(unsigned int)cluster attrs:(id)attrs offsetInDir:(unint64_t)dir hidden:(BOOL)hidden replyHandler:(id)handler;
+- (void)createNewDirEntryNamed:(id)named type:(int64_t)type attributes:(id)attributes firstDataCluster:(unsigned int)cluster replyHandler:(id)handler;
 - (void)findFreeSlots:(unsigned int)slots useOffsetHint:(BOOL)hint offsetHint:(unint64_t)offsetHint replyHandler:(id)handler;
 - (void)getDirEntryOffsetByIndex:(unsigned int)index replyHandler:(id)handler;
 - (void)iterateDirEntriesAtOffset:(unint64_t)offset numEntries:(unsigned int)entries shouldWriteToDisk:(BOOL)disk replyHandler:(id)handler;
@@ -13,6 +15,26 @@
 @end
 
 @implementation DirItem
+
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name isRoot:(BOOL)root
+{
+  rootCopy = root;
+  v13.receiver = self;
+  v13.super_class = DirItem;
+  v9 = [(FATItem *)&v13 initInVolume:volume inDir:dir startingAt:*&at withData:data andName:name isRoot:?];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 setIsRoot:rootCopy];
+    [v10 setDirVersion:1];
+    [v10 setMaxRADirBlock:0];
+    [v10 setOffsetForNewEntry:0];
+    v11 = dispatch_semaphore_create(1);
+    [v10 setSem:v11];
+  }
+
+  return v10;
+}
 
 - (void)iterateFromOffset:(unint64_t)offset options:(unsigned int)options replyHandler:(id)handler
 {
@@ -262,11 +284,11 @@ LABEL_14:
   handlerCopy = handler;
   v11 = 0;
   v58 = 0;
-  v59[0] = &v58;
-  v59[1] = 0x3032000000;
-  v59[2] = sub_100007260;
-  v59[3] = sub_100007270;
-  v60 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_100007260;
+  v62 = sub_100007270;
+  v63 = 0;
   v54 = 0;
   v55 = &v54;
   v56 = 0x2020000000;
@@ -291,15 +313,15 @@ LABEL_14:
     v44[7] = &v50;
     slotsCopy = slots;
     [(DirItem *)self iterateFromOffset:v11 options:0 replyHandler:v44];
-    if (*(v59[0] + 40))
+    if (v59[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002D790(v59);
+        sub_10002D790();
       }
 
       v13 = 0;
-      v14 = *(v59[0] + 40);
+      v14 = v59[5];
       v15 = 1;
       goto LABEL_9;
     }
@@ -373,11 +395,11 @@ LABEL_9:
     v35[9] = getDirSize;
     [fatManager allocateClusters:(v26 + v24) / v23 forItem:self allowPartial:0 mustBeContig:0 zeroFill:0 replyHandler:v35];
 
-    if (*(v59[0] + 40))
+    if (v59[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002D80C(v59);
+        sub_10002D80C();
       }
     }
 
@@ -385,10 +407,10 @@ LABEL_9:
     {
       volume3 = [(FATItem *)self volume];
       v30 = [volume3 clearNewDirClustersFrom:*(v41 + 6) amount:*(v37 + 6)];
-      v31 = *(v59[0] + 40);
-      *(v59[0] + 40) = v30;
+      v31 = v59[5];
+      v59[5] = v30;
 
-      if (!*(v59[0] + 40))
+      if (!v59[5])
       {
         v33 = 0;
         v32 = v51[3];
@@ -398,12 +420,12 @@ LABEL_9:
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002D888(v59);
+        sub_10002D888();
       }
     }
 
     v32 = 0;
-    v33 = *(v59[0] + 40);
+    v33 = v59[5];
     v34 = 1;
 LABEL_29:
     handlerCopy[2](handlerCopy, v33, v32, v34 & 1);
@@ -425,6 +447,235 @@ LABEL_10:
   _Block_object_dispose(&v50, 8);
   _Block_object_dispose(&v54, 8);
   _Block_object_dispose(&v58, 8);
+}
+
+- (void)createNewDirEntryNamed:(id)named type:(int64_t)type attributes:(id)attributes firstDataCluster:(unsigned int)cluster replyHandler:(id)handler
+{
+  v8 = *&cluster;
+  namedCopy = named;
+  attributesCopy = attributes;
+  handlerCopy = handler;
+  v97 = 0;
+  v98 = &v97;
+  v99 = 0x3032000000;
+  v100 = sub_100007260;
+  v101 = sub_100007270;
+  v102 = 0;
+  v15 = [attributesCopy isValid:2];
+  if (type == 2)
+  {
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = v15;
+  }
+
+  if (v16)
+  {
+    if (!v8 || (-[FATItem volume](self, "volume"), v17 = objc_claimAutoreleasedReturnValue(), [v17 systemInfo], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isClusterValid:", v8), v18, v17, (v19 & 1) != 0))
+    {
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x22010000000;
+      v64 = &unk_10004CC8D;
+      v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v79 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v90 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      volume = [(FATItem *)self volume];
+      v60[0] = _NSConcreteStackBlock;
+      v60[1] = 3221225472;
+      v60[2] = sub_1000086F0;
+      v60[3] = &unk_100050610;
+      v60[4] = &v97;
+      v60[5] = &v61;
+      [volume nameToUnistr:namedCopy flags:0 replyHandler:v60];
+
+      if (v98[5])
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10002DB1C();
+        }
+
+        handlerCopy[2](handlerCopy, v98[5], 0);
+        goto LABEL_33;
+      }
+
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
+      v59 = 0;
+      volume2 = [(FATItem *)self volume];
+      v55[0] = _NSConcreteStackBlock;
+      v55[1] = 3221225472;
+      v55[2] = sub_100008778;
+      v55[3] = &unk_100050728;
+      v55[4] = &v97;
+      v55[5] = &v56;
+      memcpy(__dst, v62 + 4, sizeof(__dst));
+      [volume2 calcNumOfDirEntriesForName:__dst replyHandler:v55];
+
+      if (v98[5])
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10002DB98();
+        }
+
+        handlerCopy[2](handlerCopy, v98[5], 0);
+        goto LABEL_32;
+      }
+
+      v50 = 0;
+      v51 = &v50;
+      v52 = 0x2020000000;
+      v53 = 0;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x2020000000;
+      v49 = 0;
+      v23 = *(v57 + 6);
+      v45[0] = _NSConcreteStackBlock;
+      v45[1] = 3221225472;
+      v45[2] = sub_1000087F4;
+      v45[3] = &unk_100050750;
+      v45[4] = &v97;
+      v45[5] = &v50;
+      v45[6] = &v46;
+      [(DirItem *)self findFreeSlots:v23 useOffsetHint:1 offsetHint:[(DirItem *)self offsetForNewEntry] replyHandler:v45];
+      v24 = v98[5];
+      if (v24)
+      {
+        handlerCopy[2](handlerCopy, v24, 0);
+LABEL_31:
+        _Block_object_dispose(&v46, 8);
+        _Block_object_dispose(&v50, 8);
+LABEL_32:
+        _Block_object_dispose(&v56, 8);
+LABEL_33:
+        _Block_object_dispose(&v61, 8);
+        goto LABEL_34;
+      }
+
+      data = [namedCopy data];
+      v26 = *[data bytes] == 46;
+
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x3032000000;
+      v42 = sub_100007260;
+      v43 = sub_100007270;
+      v44 = 0;
+      v27 = v51[3];
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_100008880;
+      v38[3] = &unk_100050778;
+      v38[4] = &v97;
+      v38[5] = &v39;
+      memcpy(__dst, v62 + 4, sizeof(__dst));
+      [(DirItem *)self createEntrySetForName:__dst itemType:type firstCluster:v8 attrs:attributesCopy offsetInDir:v27 hidden:v26 replyHandler:v38];
+      if (v98[5])
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10002DC14();
+        }
+      }
+
+      else
+      {
+        v28 = v40[5];
+        v29 = v51[3];
+        v30 = *(v57 + 6);
+        memcpy(__dst, v62 + 4, sizeof(__dst));
+        v31 = [(DirItem *)self writeDirEntriesToDisk:v28 atOffset:v29 name:__dst numberOfEntries:v30];
+        v32 = v98[5];
+        v98[5] = v31;
+
+        if (!v98[5])
+        {
+          if (v47[3])
+          {
+            v35 = 0;
+          }
+
+          else
+          {
+            v36 = v51[3];
+            v37 = *(v57 + 6);
+            v35 = v36 + [(DirItem *)self dirEntrySize]* v37;
+          }
+
+          [(DirItem *)self setOffsetForNewEntry:v35];
+          [(DirItem *)self setDirVersion:[(DirItem *)self dirVersion]+ 1];
+          v34 = 0;
+          v33 = v51[3];
+          goto LABEL_30;
+        }
+
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10002DC90();
+        }
+      }
+
+      v33 = 0;
+      v34 = v98[5];
+LABEL_30:
+      handlerCopy[2](handlerCopy, v34, v33);
+      _Block_object_dispose(&v39, 8);
+
+      goto LABEL_31;
+    }
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10002DA94();
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10002DA10();
+  }
+
+  v21 = fs_errorForPOSIXError();
+  handlerCopy[2](handlerCopy, v21, 0);
+
+LABEL_34:
+  _Block_object_dispose(&v97, 8);
 }
 
 - (void)iterateDirEntriesAtOffset:(unint64_t)offset numEntries:(unsigned int)entries shouldWriteToDisk:(BOOL)disk replyHandler:(id)handler

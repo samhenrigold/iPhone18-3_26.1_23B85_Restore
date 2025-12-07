@@ -83,27 +83,27 @@
 
 - (id)currentScopeStringWithError:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_query;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         param = [v9 param];
         v11 = [param isEqualToString:@"scope"];
 
@@ -126,7 +126,7 @@
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -139,7 +139,6 @@
   [MEMORY[0x277CCA9B8] hk_assignError:error code:118 format:@"Unable to find scope query parameter"];
   literal2 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
 
   return literal2;
 }
@@ -187,7 +186,7 @@ LABEL_14:
 
 - (id)_queryParametersWithAuthentication:(id)authentication
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
   if (-[NSString caseInsensitiveCompare:](self->_name, "caseInsensitiveCompare:", @"authorize") || !HKFHIRServerAuthenticationPKCEAlgorithmIsSupported([authenticationCopy PKCEAlgorithm]))
   {
@@ -197,29 +196,29 @@ LABEL_14:
   else
   {
     selfCopy = self;
-    v32 = authenticationCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v31 = authenticationCopy;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = self->_query;
-    v5 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v5 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v33 = 0;
-      v8 = *v36;
+      v32 = 0;
+      v8 = *v35;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v35 + 1) + 8 * i);
+          v10 = *(*(&v34 + 1) + 8 * i);
           param = [v10 param];
           if (param == @"code_challenge" || (v12 = param, [v10 param], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"code_challenge"), v13, v12, (v14 & 1) != 0))
           {
@@ -239,14 +238,14 @@ LABEL_14:
               param3 = [v10 param];
               v17 = [param3 isEqualToString:@"code_challenge_method"];
 
-              v18 = v17 | v33;
+              v18 = v17 | v32;
             }
 
-            v33 = v18;
+            v32 = v18;
           }
         }
 
-        v6 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v6 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v6);
@@ -255,72 +254,70 @@ LABEL_14:
     else
     {
       v7 = 0;
-      LOBYTE(v33) = 0;
+      LOBYTE(v32) = 0;
     }
 
-    v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if ((v7 & 1) == 0)
     {
-      v23 = [[HKClinicalGatewayEndpointSchemaParameter alloc] initWithParam:@"code_challenge" literal:0 variable:@"PKCEChallenge" mode:0];
-      [v22 addObject:v23];
+      v22 = [[HKClinicalGatewayEndpointSchemaParameter alloc] initWithParam:@"code_challenge" literal:0 variable:@"PKCEChallenge" mode:0];
+      [v21 addObject:v22];
     }
 
-    authenticationCopy = v32;
-    if ((v33 & 1) == 0)
+    authenticationCopy = v31;
+    if ((v32 & 1) == 0)
     {
-      v24 = [HKClinicalGatewayEndpointSchemaParameter alloc];
-      v25 = NSStringFromHKFHIRServerAuthenticationPKCEAlgorithm([v32 PKCEAlgorithm]);
-      v26 = [(HKClinicalGatewayEndpointSchemaParameter *)v24 initWithParam:@"code_challenge_method" literal:v25 variable:0 mode:0];
-      [v22 addObject:v26];
+      v23 = [HKClinicalGatewayEndpointSchemaParameter alloc];
+      v24 = NSStringFromHKFHIRServerAuthenticationPKCEAlgorithm([v31 PKCEAlgorithm]);
+      v25 = [(HKClinicalGatewayEndpointSchemaParameter *)v23 initWithParam:@"code_challenge_method" literal:v24 variable:0 mode:0];
+      [v21 addObject:v25];
     }
 
-    v27 = [v22 count];
-    v28 = *(v31 + 72);
-    if (v27)
+    v26 = [v21 count];
+    v27 = *(v30 + 72);
+    if (v26)
     {
-      v29 = [v28 arrayByAddingObjectsFromArray:v22];
+      v28 = [v27 arrayByAddingObjectsFromArray:v21];
     }
 
     else
     {
-      v29 = v28;
+      v28 = v27;
     }
 
-    v19 = v29;
+    v19 = v28;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)_queryItemsWithBindings:(id)bindings queryMode:(int64_t)mode authentication:(id)authentication error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   bindingsCopy = bindings;
   authenticationCopy = authentication;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v30 = authenticationCopy;
+  v29 = authenticationCopy;
   v11 = [(HKClinicalGatewayEndpointSchema *)self _queryParametersWithAuthentication:authenticationCopy];
-  v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v33;
+    v14 = *v32;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         if ([v16 useWithQueryMode:mode])
         {
           literal = [v16 literal];
@@ -358,7 +355,7 @@ LABEL_16:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v13)
       {
         continue;
@@ -370,8 +367,6 @@ LABEL_16:
 
   v24 = v10;
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -870,31 +865,31 @@ LABEL_30:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   body = self->_body;
   if (body)
   {
-    v15 = 0;
-    v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:body options:0 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:body options:0 error:&v14];
+    v8 = v14;
     if (!v7)
     {
       _HKInitializeLogging();
       v9 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        v11 = v9;
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = NSStringFromSelector(a2);
+        v10 = v9;
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v13 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v17 = v13;
-        v18 = 2114;
-        v19 = v14;
-        v20 = 2114;
-        v21 = v8;
-        _os_log_error_impl(&dword_2519FE000, v11, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed to encode JSON to data: %{public}@", buf, 0x20u);
+        v16 = v12;
+        v17 = 2114;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v8;
+        _os_log_error_impl(&dword_2519FE000, v10, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed to encode JSON to data: %{public}@", buf, 0x20u);
       }
     }
   }
@@ -915,13 +910,11 @@ LABEL_30:
   [coderCopy encodeObject:self->_query forKey:@"query"];
   [coderCopy encodeObject:self->_URL forKey:@"URL"];
   [coderCopy encodeObject:self->_definition forKey:@"definition"];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HKClinicalGatewayEndpointSchema)initWithCoder:(id)coder
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"auth"];
   if (v6)
@@ -929,26 +922,26 @@ LABEL_30:
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"body"];
     if (v7)
     {
-      v39 = 0;
-      v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v39];
-      v9 = v39;
+      v38 = 0;
+      v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v38];
+      v9 = v38;
       if (!v8)
       {
         _HKInitializeLogging();
         v10 = *MEMORY[0x277CCC2C0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
         {
-          v27 = v10;
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          v30 = NSStringFromSelector(a2);
+          v26 = v10;
+          v27 = objc_opt_class();
+          v28 = NSStringFromClass(v27);
+          v29 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v41 = v29;
-          v42 = 2114;
-          v43 = v30;
-          v44 = 2114;
-          v45 = v9;
-          _os_log_error_impl(&dword_2519FE000, v27, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed to decode data to JSON: %{public}@", buf, 0x20u);
+          v40 = v28;
+          v41 = 2114;
+          v42 = v29;
+          v43 = 2114;
+          v44 = v9;
+          _os_log_error_impl(&dword_2519FE000, v26, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed to decode data to JSON: %{public}@", buf, 0x20u);
         }
       }
     }
@@ -964,31 +957,31 @@ LABEL_30:
       v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"method"];
       if (v13 && ([coderCopy containsValueForKey:@"minCompatibleAPIVersion"] & 1) != 0)
       {
-        v34 = v12;
-        v33 = [coderCopy decodeIntegerForKey:@"minCompatibleAPIVersion"];
+        v33 = v12;
+        v32 = [coderCopy decodeIntegerForKey:@"minCompatibleAPIVersion"];
         v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-        v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"URL"];
-        v37 = MEMORY[0x277CBEB98];
+        v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"URL"];
+        v36 = MEMORY[0x277CBEB98];
         v15 = objc_opt_class();
         v16 = objc_opt_class();
         v17 = v14;
         v18 = objc_opt_class();
-        v31 = v16;
-        v19 = v36;
-        v38 = [v37 setWithObjects:{v15, v31, v18, objc_opt_class(), 0}];
+        v30 = v16;
+        v19 = v35;
+        v37 = [v36 setWithObjects:{v15, v30, v18, objc_opt_class(), 0}];
         v20 = [coderCopy decodeObjectOfClasses:? forKey:?];
         v21 = v20;
-        if (v17 && v36 && v20)
+        if (v17 && v35 && v20)
         {
           [MEMORY[0x277CBEB98] hk_typesForArrayOf:objc_opt_class()];
-          v22 = v35 = v17;
-          v32 = [coderCopy decodeObjectOfClasses:v22 forKey:@"form"];
+          v22 = v34 = v17;
+          v31 = [coderCopy decodeObjectOfClasses:v22 forKey:@"form"];
           v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"headers"];
           v24 = [coderCopy decodeObjectOfClasses:v22 forKey:@"query"];
-          self = [(HKClinicalGatewayEndpointSchema *)self initWithAuth:v6 body:v8 enabled:v34 form:v32 headers:v23 method:v13 minCompatibleAPIVersion:v33 name:v35 query:v24 URL:v36 definition:v21];
+          self = [(HKClinicalGatewayEndpointSchema *)self initWithAuth:v6 body:v8 enabled:v33 form:v31 headers:v23 method:v13 minCompatibleAPIVersion:v32 name:v34 query:v24 URL:v35 definition:v21];
 
-          v19 = v36;
-          v17 = v35;
+          v19 = v35;
+          v17 = v34;
           selfCopy = self;
         }
 
@@ -1019,7 +1012,6 @@ LABEL_30:
     selfCopy = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -18,7 +18,7 @@
 
 - (id)un_safeCastObjectForKey:()UserNotifications class:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   v6 = UNSafeCast(a4, v5);
 
   return v6;

@@ -22,18 +22,17 @@ LABEL_5:
     defaultManager = v6;
     if (v6)
     {
-      v7 = *MEMORY[0x1E695E480];
       [v6 bytes];
       [defaultManager length];
-      v8 = _MDPlistContainerCreateWithBytes();
-      if (v8)
+      v7 = _MDPlistContainerCreateWithBytes();
+      if (v7)
       {
-        v9 = v8;
-        v10 = _MDPlistContainerCopyRootObject();
-        CFRelease(v9);
-        if (v10)
+        v8 = v7;
+        v9 = _MDPlistContainerCopyRootObject();
+        CFRelease(v8);
+        if (v9)
         {
-          v11 = [[PlistReader alloc] initWithPlist:v10];
+          v10 = [[PlistReader alloc] initWithPlist:v9];
 
 LABEL_10:
           goto LABEL_11;
@@ -42,7 +41,7 @@ LABEL_10:
     }
 
 LABEL_9:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_10;
   }
 
@@ -53,10 +52,10 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v11;
+  return v10;
 }
 
 - (PlistReader)initWithPlist:(id)plist

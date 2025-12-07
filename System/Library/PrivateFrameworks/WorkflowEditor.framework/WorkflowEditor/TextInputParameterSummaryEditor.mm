@@ -57,7 +57,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2745D25E0(change);
+  sub_2745D25E0(change, v6);
 }
 
 - (void)textEntryDidFinish
@@ -69,7 +69,7 @@
 + (unint64_t)variableResultTypeForParameter:(id)parameter
 {
   parameterCopy = parameter;
-  v4 = sub_2745D2870();
+  v4 = sub_2745D2870(parameterCopy);
 
   return v4;
 }

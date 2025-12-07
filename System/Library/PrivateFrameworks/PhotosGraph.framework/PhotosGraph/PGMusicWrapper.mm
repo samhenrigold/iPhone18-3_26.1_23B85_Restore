@@ -25,7 +25,7 @@
 
 + (id)flexMusicCurationWithOptions:(id)options graphManager:(id)manager progressReporter:(id)reporter error:(id *)error
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   managerCopy = manager;
   reporterCopy = reporter;
@@ -33,9 +33,9 @@
   v14 = topicKeywordsAndWeights;
   if (topicKeywordsAndWeights && [topicKeywordsAndWeights count])
   {
-    v97 = 0;
-    v15 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v97];
-    v16 = v97;
+    v96 = 0;
+    v15 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v96];
+    v16 = v96;
     if (!v15)
     {
       v41 = +[PGLogging sharedLogging];
@@ -44,7 +44,7 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v100 = v16;
+        v99 = v16;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation with options failed when creating curator context, error: %@", buf, 0xCu);
       }
 
@@ -65,14 +65,14 @@
 
     v17 = [self _expandTopicKeywordsDictionary:v14];
     v18 = [objc_opt_class() flexMusicFeatureExtractionContextWithCuratorContext:v15];
-    v91 = v17;
+    v90 = v17;
     v19 = [[PGKeywordBasedFeatureExtractor alloc] initWithWeightByKeyword:v17];
     v20 = [reporterCopy childProgressReporterFromStart:0.0 toEnd:0.2];
-    v96 = 0;
-    v89 = v19;
-    v90 = v18;
-    v21 = [(PGKeywordBasedFeatureExtractor *)v19 musicCurationFeaturesWithContext:v18 progressReporter:v20 error:&v96];
-    v93 = v96;
+    v95 = 0;
+    v88 = v19;
+    v89 = v18;
+    v21 = [(PGKeywordBasedFeatureExtractor *)v19 musicCurationFeaturesWithContext:v18 progressReporter:v20 error:&v95];
+    v92 = v95;
 
     if (!v21)
     {
@@ -82,32 +82,32 @@
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v100 = v93;
+        v99 = v92;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music option-based curation failed to extract features with error: %@", buf, 0xCu);
       }
 
       v40 = 0;
       if (error)
       {
-        *error = v93;
+        *error = v92;
       }
 
       goto LABEL_60;
     }
 
-    v80 = v21;
+    v79 = v21;
     photoLibrary = [managerCopy photoLibrary];
     v23 = [PGMusicCurationRecentlyUsedSongs recentlyUsedFlexMusicSongsFromPhotoLibrary:photoLibrary];
 
     recentlyUsedBundledSongIDs = [optionsCopy recentlyUsedBundledSongIDs];
     date = [MEMORY[0x277CBEAA8] date];
-    v83 = v23;
+    v82 = v23;
     [v23 addSongIDs:recentlyUsedBundledSongIDs date:date];
 
     suggestedMood = [optionsCopy suggestedMood];
-    v94 = &stru_2843F5C58;
-    v84 = v15;
-    v82 = v16;
+    v93 = &stru_2843F5C58;
+    v83 = v15;
+    v81 = v16;
     if ([optionsCopy shouldUseSpecificationOptionsForCuration])
     {
       v26 = +[PGLogging sharedLogging];
@@ -129,11 +129,11 @@
         v32 = firstObject;
       }
 
-      v94 = v32;
+      v93 = v32;
 
       phMoods = [musicCurationSpecificationOptions phMoods];
       v34 = phMoods;
-      v21 = v80;
+      v21 = v79;
       if (phMoods && [phMoods count])
       {
         firstObject2 = [v34 firstObject];
@@ -179,7 +179,7 @@
         weightByRegion2 = MEMORY[0x277CBEC10];
       }
 
-      v15 = v84;
+      v15 = v83;
     }
 
     else
@@ -187,7 +187,7 @@
       moodsText2 = MEMORY[0x277CBEBF8];
       weightByRegion2 = MEMORY[0x277CBEC10];
       weightByLanguage2 = MEMORY[0x277CBEC10];
-      v21 = v80;
+      v21 = v79;
     }
 
     v50 = +[PGLogging sharedLogging];
@@ -196,11 +196,11 @@
     if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_INFO))
     {
       *buf = 134218498;
-      v100 = suggestedMood;
-      v101 = 2112;
-      v102 = v94;
-      v103 = 2112;
-      v104 = moodsText2;
+      v99 = suggestedMood;
+      v100 = 2112;
+      v101 = v93;
+      v102 = 2112;
+      v103 = moodsText2;
       _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[MemoriesMusic] Final mood: %llu, genre: %@, moodsKeywordsFromStory: %@", buf, 0x20u);
     }
 
@@ -208,8 +208,8 @@
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
     v55 = v52;
-    v56 = v83;
-    v57 = [(PGFlexMusicCurationParameters *)v55 initWithMood:suggestedMood moodKeywords:moodsText2 recentlyUsedSongs:v83 entityUUID:uUIDString useMoodKeywords:0 features:v21 musicCuratorContext:v15 genre:v94 weightByLanguage:weightByLanguage2 weightByRegion:weightByRegion2];
+    v56 = v82;
+    v57 = [(PGFlexMusicCurationParameters *)v55 initWithMood:suggestedMood moodKeywords:moodsText2 recentlyUsedSongs:v82 entityUUID:uUIDString useMoodKeywords:0 features:v21 musicCuratorContext:v15 genre:v93 weightByLanguage:weightByLanguage2 weightByRegion:weightByRegion2];
 
     v58 = +[PGLogging sharedLogging];
     loggingConnection5 = [v58 loggingConnection];
@@ -221,10 +221,10 @@
     }
 
     v60 = [reporterCopy childProgressReporterFromStart:0.2 toEnd:1.0];
-    v95 = 0;
-    v86 = v57;
-    v40 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v57 progressReporter:v60 error:&v95];
-    v61 = v95;
+    v94 = 0;
+    v85 = v57;
+    v40 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v57 progressReporter:v60 error:&v94];
+    v61 = v94;
 
     if (!v40)
     {
@@ -234,11 +234,11 @@
       if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v100 = v61;
+        v99 = v61;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation using options failed with Error: %@", buf, 0xCu);
       }
 
-      v56 = v83;
+      v56 = v82;
       if (error)
       {
         v73 = v61;
@@ -264,7 +264,7 @@
         goto LABEL_53;
       }
 
-      v81 = bestSongSuggestions;
+      v80 = bestSongSuggestions;
       bestSongSuggestions2 = [v40 bestSongSuggestions];
       firstObject3 = [bestSongSuggestions2 firstObject];
       if (!firstObject3)
@@ -275,13 +275,13 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      v77 = firstObject3;
+      v76 = firstObject3;
       bestSongSuggestions3 = [v40 bestSongSuggestions];
       firstObject4 = [bestSongSuggestions3 firstObject];
-      v78 = [firstObject4 uid];
+      v77 = [firstObject4 uid];
 
-      v56 = v83;
-      if (v78)
+      v56 = v82;
+      if (v77)
       {
         v68 = +[PGLogging sharedLogging];
         loggingConnection7 = [v68 loggingConnection];
@@ -294,11 +294,11 @@ LABEL_53:
 
         bestSongSuggestions4 = [v40 bestSongSuggestions];
         musicCurationSpecificationOptions3 = [bestSongSuggestions4 firstObject];
-        v81 = [musicCurationSpecificationOptions3 uid];
-        v98 = v81;
-        bestSongSuggestions2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
+        v80 = [musicCurationSpecificationOptions3 uid];
+        v97 = v80;
+        bestSongSuggestions2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
         [PGFlexMusicCacher cacheSongAudioAndArtworkForUIDs:?];
-        v56 = v83;
+        v56 = v82;
         goto LABEL_52;
       }
     }
@@ -307,8 +307,8 @@ LABEL_54:
     v70 = v40;
 LABEL_59:
 
-    v15 = v84;
-    v16 = v82;
+    v15 = v83;
+    v16 = v81;
 LABEL_60:
 
 LABEL_61:
@@ -337,38 +337,36 @@ LABEL_61:
 
 LABEL_62:
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return v40;
 }
 
 + (id)_expandTopicKeywordsDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     v9 = @"|";
-    v23 = v5;
+    v22 = v5;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         v12 = [v5 objectForKeyedSubscript:v11];
         if ([v11 containsString:v9])
         {
@@ -376,28 +374,28 @@ LABEL_62:
           v14 = v8;
           v15 = v9;
           v16 = [v11 componentsSeparatedByString:v9];
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
-          v17 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v25;
+            v19 = *v24;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v25 != v19)
+                if (*v24 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                [dictionary setObject:v12 forKeyedSubscript:*(*(&v24 + 1) + 8 * j)];
+                [dictionary setObject:v12 forKeyedSubscript:*(*(&v23 + 1) + 8 * j)];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
             }
 
             while (v18);
@@ -406,7 +404,7 @@ LABEL_62:
           v9 = v15;
           v8 = v14;
           v7 = v13;
-          v5 = v23;
+          v5 = v22;
         }
 
         else
@@ -415,20 +413,18 @@ LABEL_62:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)appleMusicCurationWithOptions:(id)options graphManager:(id)manager progressReporter:(id)reporter error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   managerCopy = manager;
   reporterCopy = reporter;
@@ -436,9 +432,9 @@ LABEL_62:
   v14 = topicKeywordsAndWeights;
   if (topicKeywordsAndWeights && [topicKeywordsAndWeights count])
   {
-    v48 = 0;
-    v15 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v48];
-    v16 = v48;
+    v47 = 0;
+    v15 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v47];
+    v16 = v47;
     if (!v15)
     {
       v30 = +[PGLogging sharedLogging];
@@ -447,7 +443,7 @@ LABEL_62:
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v50 = v16;
+        v49 = v16;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation failed when creating curator context, error: %@", buf, 0xCu);
       }
 
@@ -468,21 +464,21 @@ LABEL_62:
 
     v17 = [self _expandTopicKeywordsDictionary:v14];
     v18 = [objc_opt_class() appleMusicFeatureExtractionContextWithCuratorContext:v15];
-    v44 = v17;
+    v43 = v17;
     v19 = [[PGKeywordBasedFeatureExtractor alloc] initWithWeightByKeyword:v17];
     v20 = [reporterCopy childProgressReporterFromStart:0.0 toEnd:0.2];
-    v47 = 0;
-    v42 = v19;
-    v43 = v18;
-    v21 = [(PGKeywordBasedFeatureExtractor *)v19 musicCurationFeaturesWithContext:v18 progressReporter:v20 error:&v47];
-    v45 = v47;
+    v46 = 0;
+    v41 = v19;
+    v42 = v18;
+    v21 = [(PGKeywordBasedFeatureExtractor *)v19 musicCurationFeaturesWithContext:v18 progressReporter:v20 error:&v46];
+    v44 = v46;
 
     v22 = +[PGLogging sharedLogging];
     loggingConnection2 = [v22 loggingConnection];
 
     if (v21)
     {
-      v41 = v16;
+      v40 = v16;
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -490,31 +486,31 @@ LABEL_62:
       }
 
       v24 = [reporterCopy childProgressReporterFromStart:0.2 toEnd:1.0];
-      v46 = 0;
-      v25 = [PGMusicCurator curateMusicForFeatures:v21 context:v15 progressReporter:v24 error:&v46];
-      v26 = v46;
+      v45 = 0;
+      v25 = [PGMusicCurator curateMusicForFeatures:v21 context:v15 progressReporter:v24 error:&v45];
+      v26 = v45;
 
       if (v25)
       {
         v27 = v25;
-        v16 = v41;
+        v16 = v40;
       }
 
       else
       {
-        v40 = v21;
+        v39 = v21;
         v35 = +[PGLogging sharedLogging];
         loggingConnection3 = [v35 loggingConnection];
 
         if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v50 = v26;
+          v49 = v26;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation error with error: %@", buf, 0xCu);
         }
 
-        v21 = v40;
-        v16 = v41;
+        v21 = v39;
+        v16 = v40;
         if (error)
         {
           v37 = v26;
@@ -528,16 +524,16 @@ LABEL_62:
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v50 = v45;
+        v49 = v44;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation failed to extract features with error: %@", buf, 0xCu);
       }
 
       if (error)
       {
-        v33 = v45;
-        v34 = v45;
+        v33 = v44;
+        v34 = v44;
         v25 = 0;
-        *error = v45;
+        *error = v44;
 LABEL_28:
 
 LABEL_29:
@@ -547,7 +543,7 @@ LABEL_29:
       v25 = 0;
     }
 
-    v33 = v45;
+    v33 = v44;
     goto LABEL_28;
   }
 
@@ -572,8 +568,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -714,7 +708,7 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
 
 + (void)requestMaestroSongsWithOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   managerCopy = manager;
   optionsCopy = options;
@@ -732,13 +726,13 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
 
   info = 0;
   mach_timebase_info(&info);
-  v33 = mach_absolute_time();
+  v32 = mach_absolute_time();
   v15 = [[PGMusicCurationOptions alloc] initWithOptionsDictionary:optionsCopy];
 
-  v35 = 0;
-  v16 = [managerCopy musicCuratorContextWithCurationOptions:v15 error:&v35];
+  v34 = 0;
+  v16 = [managerCopy musicCuratorContextWithCurationOptions:v15 error:&v34];
 
-  v17 = v35;
+  v17 = v34;
   if (v17)
   {
     v18 = +[PGLogging sharedLogging];
@@ -747,7 +741,7 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v38 = v17;
+      v37 = v17;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[MemoriesMusic] requestAllMaestroSongs Unable to get the musicCuratorContext: %@", buf, 0xCu);
     }
 
@@ -755,9 +749,9 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
     replyCopy[2](replyCopy, 0, v20);
   }
 
-  v34 = v17;
-  v21 = [v16 extractSongIdKeywordMappings:&v34];
-  v22 = v34;
+  v33 = v17;
+  v21 = [v16 extractSongIdKeywordMappings:&v33];
+  v22 = v33;
 
   if (v22)
   {
@@ -767,7 +761,7 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
     if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v38 = v22;
+      v37 = v22;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] requestAllMaestroSongs Unable to extractSongIdKeywordMappings: %@", buf, 0xCu);
     }
 
@@ -792,18 +786,16 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
   if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v38 = "RequestMaestroSongsWithOptions";
-    v39 = 2048;
-    v40 = ((((v27 - v33) * numer) / denom) / 1000000.0);
+    v37 = "RequestMaestroSongsWithOptions";
+    v38 = 2048;
+    v39 = ((((v27 - v32) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestRecentlyUsedSongsWithOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   managerCopy = manager;
   replyCopy = reply;
@@ -823,7 +815,7 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
   info = 0;
   mach_timebase_info(&info);
   spid = v12;
-  v41 = mach_absolute_time();
+  v40 = mach_absolute_time();
   if (optionsCopy && (v16 = *MEMORY[0x277D3AE90], [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D3AE90]], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
   {
     v18 = [optionsCopy objectForKeyedSubscript:v16];
@@ -843,7 +835,7 @@ void __112__PGMusicWrapper__musicCurationFeaturesWithFeatureExtractionContext_me
         if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v44 = allEntries;
+          v43 = allEntries;
           v26 = "[MemoriesMusic] recentlyUsedAppleMusicSongs: %@";
 LABEL_14:
           _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, v26, buf, 0xCu);
@@ -866,7 +858,7 @@ LABEL_14:
         if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v44 = allEntries;
+          v43 = allEntries;
           v26 = "[MemoriesMusic] recentlyUsedFlexMusicSongs: %@";
           goto LABEL_14;
         }
@@ -895,7 +887,7 @@ LABEL_15:
   if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v44 = v22;
+    v43 = v22;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] %@", buf, 0xCu);
   }
 
@@ -920,18 +912,16 @@ LABEL_20:
   if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v44 = "RequestRecentlyUsedSongsWithOptions";
-    v45 = 2048;
-    v46 = ((((v34 - v41) * numer) / denom) / 1000000.0);
+    v43 = "RequestRecentlyUsedSongsWithOptions";
+    v44 = 2048;
+    v45 = ((((v34 - v40) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v38, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestFlexMusicCurationWithCurationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   managerCopy = manager;
   optionsCopy = options;
@@ -950,7 +940,7 @@ LABEL_20:
 
   info = 0;
   mach_timebase_info(&info);
-  v49 = mach_absolute_time();
+  v48 = mach_absolute_time();
   v17 = +[PGLogging sharedLogging];
   loggingConnection2 = [v17 loggingConnection];
 
@@ -961,10 +951,10 @@ LABEL_20:
   }
 
   v19 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_370];
-  v50 = 0;
-  v20 = [self flexMusicCurationWithOptions:optionsCopy graphManager:managerCopy progressReporter:v19 error:&v50];
+  v49 = 0;
+  v20 = [self flexMusicCurationWithOptions:optionsCopy graphManager:managerCopy progressReporter:v19 error:&v49];
 
-  v21 = v50;
+  v21 = v49;
   if (v20)
   {
     expandedJsonRepresentation = [v20 expandedJsonRepresentation];
@@ -987,9 +977,9 @@ LABEL_20:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v53 = "FlexMusicCurationUsingOptions";
-        v54 = 2048;
-        v55 = ((((v24 - v49) * numer) / denom) / 1000000.0);
+        v52 = "FlexMusicCurationUsingOptions";
+        v53 = 2048;
+        v54 = ((((v24 - v48) * numer) / denom) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
     }
@@ -1004,11 +994,11 @@ LABEL_20:
       if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v53 = v37;
+        v52 = v37;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation using options failed with serialization error: %@", buf, 0xCu);
       }
 
-      v48 = v37;
+      v47 = v37;
       v40 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:1 localizedDescription:v37];
       replyCopy[2](replyCopy, 0, v40);
       v41 = mach_absolute_time();
@@ -1025,9 +1015,9 @@ LABEL_20:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v53 = "FlexMusicCurationUsingOptions";
-        v54 = 2048;
-        v55 = ((((v41 - v49) * v43) / v42) / 1000000.0);
+        v52 = "FlexMusicCurationUsingOptions";
+        v53 = 2048;
+        v54 = ((((v41 - v48) * v43) / v42) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v45, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
     }
@@ -1041,7 +1031,7 @@ LABEL_20:
     if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v53 = v21;
+      v52 = v21;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation using options failed with Error: %@", buf, 0xCu);
     }
 
@@ -1062,19 +1052,17 @@ LABEL_20:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v53 = "FlexMusicCurationUsingOptions";
-      v54 = 2048;
-      v55 = ((((v32 - v49) * v34) / v33) / 1000000.0);
+      v52 = "FlexMusicCurationUsingOptions";
+      v53 = 2048;
+      v54 = ((((v32 - v48) * v34) / v33) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v36, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestMusicCurationWithCurationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   managerCopy = manager;
   replyCopy = reply;
@@ -1096,7 +1084,7 @@ LABEL_20:
 
   info = 0;
   mach_timebase_info(&info);
-  v87 = mach_absolute_time();
+  v86 = mach_absolute_time();
   shouldUseSpecificationOptionsForCuration = [optionsCopy shouldUseSpecificationOptionsForCuration];
   v18 = +[PGLogging sharedLogging];
   loggingConnection2 = [v18 loggingConnection];
@@ -1111,9 +1099,9 @@ LABEL_20:
     }
 
     musicCurationSpecificationOptions = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_364];
-    v100 = 0;
-    v32 = [self appleMusicCurationWithOptions:optionsCopy graphManager:managerCopy progressReporter:musicCurationSpecificationOptions error:&v100];
-    v24 = v100;
+    v99 = 0;
+    v32 = [self appleMusicCurationWithOptions:optionsCopy graphManager:managerCopy progressReporter:musicCurationSpecificationOptions error:&v99];
+    v24 = v99;
     if (!v32)
     {
       v54 = +[PGLogging sharedLogging];
@@ -1122,7 +1110,7 @@ LABEL_20:
       if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v104 = v24;
+        v103 = v24;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation failed error: %@", buf, 0xCu);
       }
 
@@ -1168,21 +1156,21 @@ LABEL_21:
       {
         v43 = [v40 objectAtIndexedSubscript:0];
         *buf = 138412290;
-        v104 = v43;
+        v103 = v43;
         _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[MemoriesMusic] Start Caching the key Apple Music song %@ for MC. It should trigger the song assets download.", buf, 0xCu);
       }
 
       ignoreProgress = [MEMORY[0x277D22C80] ignoreProgress];
-      v98[0] = MEMORY[0x277D85DD0];
-      v98[1] = 3221225472;
-      v98[2] = __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_365;
-      v98[3] = &unk_278884D38;
-      v99 = v40;
+      v97[0] = MEMORY[0x277D85DD0];
+      v97[1] = 3221225472;
+      v97[2] = __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_365;
+      v97[3] = &unk_278884D38;
+      v98 = v40;
       v45 = v40;
-      [PGMusicAudioCacher cacheSongAudioForAdamIDs:v45 progressReporter:ignoreProgress completionHandler:v98];
+      [PGMusicAudioCacher cacheSongAudioForAdamIDs:v45 progressReporter:ignoreProgress completionHandler:v97];
     }
 
-    v85 = optionsCopy;
+    v84 = optionsCopy;
     v46 = +[PGLogging sharedLogging];
     loggingConnection5 = [v46 loggingConnection];
 
@@ -1193,30 +1181,30 @@ LABEL_21:
     }
 
     v48 = [[PGMusicCurationInflationOptions alloc] initWithInflationActionSource:1];
-    v97 = 0;
-    [managerCopy musicCurationInflationContextWithInflationOptions:v48 error:&v97];
+    v96 = 0;
+    [managerCopy musicCurationInflationContextWithInflationOptions:v48 error:&v96];
     v50 = v49 = managerCopy;
-    v24 = v97;
-    v84 = v49;
+    v24 = v96;
+    v83 = v49;
     if (v50)
     {
-      v96 = 0;
-      v51 = [v49 musicCuratorContextWithCurationOptions:v85 error:&v96];
-      v52 = v96;
+      v95 = 0;
+      v51 = [v49 musicCuratorContextWithCurationOptions:v84 error:&v95];
+      v52 = v95;
       if (v51)
       {
         v53 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_368_21611];
-        v89[0] = MEMORY[0x277D85DD0];
-        v89[1] = 3221225472;
-        v89[2] = __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_2;
-        v89[3] = &unk_278881720;
-        v92 = replyCopy;
-        v93 = v87;
-        v95 = info;
-        v90 = v15;
-        v94 = spid;
-        v91 = musicCurationSpecificationOptions;
-        [PGMusicCurator inflateDisplayMetadataForMusicCuration:v91 inflationContext:v50 curatorContext:v51 progressReporter:v53 completionHandler:v89];
+        v88[0] = MEMORY[0x277D85DD0];
+        v88[1] = 3221225472;
+        v88[2] = __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_2;
+        v88[3] = &unk_278881720;
+        v91 = replyCopy;
+        v92 = v86;
+        v94 = info;
+        v89 = v15;
+        v93 = spid;
+        v90 = musicCurationSpecificationOptions;
+        [PGMusicCurator inflateDisplayMetadataForMusicCuration:v90 inflationContext:v50 curatorContext:v51 progressReporter:v53 completionHandler:v88];
       }
 
       else
@@ -1227,7 +1215,7 @@ LABEL_21:
         if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v104 = v52;
+          v103 = v52;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation musicCuratorContext error: %{public}@", buf, 0xCu);
         }
 
@@ -1248,9 +1236,9 @@ LABEL_21:
         if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v104 = "MusicCurationUsingOptions";
-          v105 = 2048;
-          v106 = ((((v69 - v87) * v71) / v70) / 1000000.0);
+          v103 = "MusicCurationUsingOptions";
+          v104 = 2048;
+          v105 = ((((v69 - v86) * v71) / v70) / 1000000.0);
           _os_log_impl(&dword_22F0FC000, v73, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
         }
       }
@@ -1266,7 +1254,7 @@ LABEL_21:
       if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v104 = v24;
+        v103 = v24;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation inflation error: %{public}@", buf, 0xCu);
       }
 
@@ -1288,15 +1276,15 @@ LABEL_21:
       if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v104 = "MusicCurationUsingOptions";
-        v105 = 2048;
-        v106 = ((((v61 - v87) * v63) / v62) / 1000000.0);
+        v103 = "MusicCurationUsingOptions";
+        v104 = 2048;
+        v105 = ((((v61 - v86) * v63) / v62) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v65, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
     }
 
-    managerCopy = v84;
-    optionsCopy = v85;
+    managerCopy = v83;
+    optionsCopy = v84;
     goto LABEL_53;
   }
 
@@ -1310,45 +1298,45 @@ LABEL_21:
   if (![musicCurationSpecificationOptions isQUEmpty])
   {
     v24 = [[PGSpecificationBasedMusicCurator alloc] initWithOptions:musicCurationSpecificationOptions];
-    v101 = 0;
-    v34 = [(PGSpecificationBasedMusicCurator *)v24 musicCurationAndReturnError:&v101];
-    v35 = v101;
+    v100 = 0;
+    v34 = [(PGSpecificationBasedMusicCurator *)v24 musicCurationAndReturnError:&v100];
+    v35 = v100;
     v36 = v35;
     if (!v34)
     {
-      v75 = +[PGLogging sharedLogging];
-      loggingConnection8 = [v75 loggingConnection];
+      v74 = +[PGLogging sharedLogging];
+      loggingConnection8 = [v74 loggingConnection];
 
       if (os_log_type_enabled(loggingConnection8, OS_LOG_TYPE_ERROR))
       {
         localizedDescription = [v36 localizedDescription];
         *buf = 138412290;
-        v104 = localizedDescription;
+        v103 = localizedDescription;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection8, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music specification-based curation failed with error: %@", buf, 0xCu);
       }
 
-      v77 = [PGError xpcSafeErrorWithError:v36];
+      v76 = [PGError xpcSafeErrorWithError:v36];
       v26 = replyCopy;
-      (*(replyCopy + 2))(replyCopy, 0, v77);
+      (*(replyCopy + 2))(replyCopy, 0, v76);
 
-      v78 = mach_absolute_time();
-      v80 = info.numer;
-      v79 = info.denom;
-      v81 = v15;
-      v82 = v81;
-      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
+      v77 = mach_absolute_time();
+      v79 = info.numer;
+      v78 = info.denom;
+      v80 = v15;
+      v81 = v80;
+      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v82, OS_SIGNPOST_INTERVAL_END, spid, "MusicCurationUsingOptions", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v81, OS_SIGNPOST_INTERVAL_END, spid, "MusicCurationUsingOptions", "", buf, 2u);
       }
 
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v104 = "MusicCurationUsingOptions";
-        v105 = 2048;
-        v106 = ((((v78 - v87) * v80) / v79) / 1000000.0);
-        _os_log_impl(&dword_22F0FC000, v82, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+        v103 = "MusicCurationUsingOptions";
+        v104 = 2048;
+        v105 = ((((v77 - v86) * v79) / v78) / 1000000.0);
+        _os_log_impl(&dword_22F0FC000, v81, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
 
       goto LABEL_53;
@@ -1365,7 +1353,7 @@ LABEL_21:
   if (os_log_type_enabled(loggingConnection9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v104 = @"Apple Music curation failed since specificationOptions is empty";
+    v103 = @"Apple Music curation failed since specificationOptions is empty";
     _os_log_error_impl(&dword_22F0FC000, loggingConnection9, OS_LOG_TYPE_ERROR, "[MemoriesMusic] %@", buf, 0xCu);
   }
 
@@ -1389,20 +1377,18 @@ LABEL_21:
   {
 LABEL_36:
     *buf = 136315394;
-    v104 = "MusicCurationUsingOptions";
-    v105 = 2048;
-    v106 = ((((v27 - v87) * numer) / denom) / 1000000.0);
+    v103 = "MusicCurationUsingOptions";
+    v104 = 2048;
+    v105 = ((((v27 - v86) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
 
 LABEL_53:
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_365(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[PGLogging sharedLogging];
   v7 = [v6 loggingConnection];
@@ -1412,25 +1398,23 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [*(a1 + 32) objectAtIndexedSubscript:0];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Cached Key Apple Music Song: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Cached Key Apple Music Song: %@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Attempt to cache key AM song failed with error: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Attempt to cache key AM song failed with error: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_reply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -1443,7 +1427,7 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v43 = v6;
+        v42 = v6;
         _os_log_impl(&dword_22F0FC000, v8, OS_LOG_TYPE_INFO, "[MemoriesMusic] Successfully produced Apple Music curation using provided options: %@", buf, 0xCu);
       }
 
@@ -1467,9 +1451,9 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v43 = "MusicCurationUsingOptions";
-        v44 = 2048;
-        v45 = ((((v10 - v11) * v13) / v12) / 1000000.0);
+        v42 = "MusicCurationUsingOptions";
+        v43 = 2048;
+        v44 = ((((v10 - v11) * v13) / v12) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
     }
@@ -1483,7 +1467,7 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v43 = v29;
+        v42 = v29;
         _os_log_error_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation error: %@", buf, 0xCu);
       }
 
@@ -1506,9 +1490,9 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
       if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v43 = "MusicCurationUsingOptions";
-        v44 = 2048;
-        v45 = ((((v33 - v34) * v36) / v35) / 1000000.0);
+        v42 = "MusicCurationUsingOptions";
+        v43 = 2048;
+        v44 = ((((v33 - v34) * v36) / v35) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
     }
@@ -1522,7 +1506,7 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v43 = v5;
+      v42 = v5;
       _os_log_error_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music option-based curation inflation failed with error: %@", buf, 0xCu);
     }
 
@@ -1546,14 +1530,12 @@ void __77__PGMusicWrapper_requestMusicCurationWithCurationOptions_graphManager_r
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v43 = "MusicCurationUsingOptions";
-      v44 = 2048;
-      v45 = ((((v21 - v22) * v24) / v23) / 1000000.0);
+      v42 = "MusicCurationUsingOptions";
+      v43 = 2048;
+      v44 = ((((v21 - v22) * v24) / v23) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)cacheRemoveAllForPhotoLibrary:(id)library error:(id *)error
@@ -1701,7 +1683,7 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
 
 + (void)requestFlexMusicCurationForAssetFetchResult:(id)result curationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   optionsCopy = options;
   managerCopy = manager;
@@ -1717,14 +1699,14 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
 
   if ([resultCopy count])
   {
-    v70 = 0;
-    v16 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v70];
-    v17 = v70;
+    v69 = 0;
+    v16 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v69];
+    v17 = v69;
     if (v16)
     {
       v18 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_352_21639];
-      v66 = v16;
-      v67 = [objc_opt_class() flexMusicFeatureExtractionContextWithCuratorContext:v16];
+      v65 = v16;
+      v66 = [objc_opt_class() flexMusicFeatureExtractionContextWithCuratorContext:v16];
       v19 = +[PGLogging sharedLogging];
       loggingConnection2 = [v19 loggingConnection];
 
@@ -1735,21 +1717,21 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
       }
 
       v21 = [v18 childProgressReporterFromStart:0.0 toEnd:0.2];
-      v69 = 0;
-      v22 = [self _musicCurationFeaturesWithFeatureExtractionContext:v67 assetFetchResult:resultCopy graphManager:managerCopy progressReporter:v21 error:&v69];
-      v64 = v69;
+      v68 = 0;
+      v22 = [self _musicCurationFeaturesWithFeatureExtractionContext:v66 assetFetchResult:resultCopy graphManager:managerCopy progressReporter:v21 error:&v68];
+      v63 = v68;
 
-      v65 = v22;
+      v64 = v22;
       if (v22)
       {
-        v63 = v18;
+        v62 = v18;
         photoLibrary = [managerCopy photoLibrary];
         v24 = [PGMusicCurationRecentlyUsedSongs recentlyUsedFlexMusicSongsFromPhotoLibrary:photoLibrary];
 
-        v60 = optionsCopy;
+        v59 = optionsCopy;
         recentlyUsedBundledSongIDs = [optionsCopy recentlyUsedBundledSongIDs];
         date = [MEMORY[0x277CBEAA8] date];
-        v62 = v24;
+        v61 = v24;
         [v24 addSongIDs:recentlyUsedBundledSongIDs date:date];
 
         v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(resultCopy, "count")}];
@@ -1772,18 +1754,18 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
 
         v32 = [v27 sortedArrayUsingSelector:sel_compare_];
         v33 = [PGFlexMusicCurationParameters alloc];
-        v59 = v32;
+        v58 = v32;
         firstObject = [v32 firstObject];
-        v35 = [(PGFlexMusicCurationParameters *)v33 initWithMood:16 moodKeywords:MEMORY[0x277CBEBF8] recentlyUsedSongs:v62 entityUUID:firstObject useMoodKeywords:0 features:v65 musicCuratorContext:v66];
+        v35 = [(PGFlexMusicCurationParameters *)v33 initWithMood:16 moodKeywords:MEMORY[0x277CBEBF8] recentlyUsedSongs:v61 entityUUID:firstObject useMoodKeywords:0 features:v64 musicCuratorContext:v65];
 
-        v68 = 0;
-        v58 = v35;
-        v36 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v35 progressReporter:v63 error:&v68];
-        v37 = v68;
+        v67 = 0;
+        v57 = v35;
+        v36 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v35 progressReporter:v62 error:&v67];
+        v37 = v67;
         v38 = v37;
         if (v36)
         {
-          v61 = v37;
+          v60 = v37;
           jsonRepresentation = [v36 jsonRepresentation];
           if (jsonRepresentation)
           {
@@ -1793,11 +1775,11 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
             if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v72 = jsonRepresentation;
+              v71 = jsonRepresentation;
               _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[MemoriesMusic] Successfully produced Flex Music curation for asset local identifiers: %@", buf, 0xCu);
             }
 
-            v42 = [PGError xpcSafeErrorWithError:v61];
+            v42 = [PGError xpcSafeErrorWithError:v60];
             replyCopy[2](replyCopy, jsonRepresentation, v42);
           }
 
@@ -1810,20 +1792,20 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
             if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v72 = v42;
+              v71 = v42;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music serialization error: %@", buf, 0xCu);
             }
 
             v56 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:1 localizedDescription:v42];
 
             replyCopy[2](replyCopy, 0, v56);
-            v61 = v56;
+            v60 = v56;
           }
 
-          v18 = v63;
-          v49 = v64;
+          v18 = v62;
+          v49 = v63;
 
-          v53 = v61;
+          v53 = v60;
         }
 
         else
@@ -1834,20 +1816,20 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
           if (os_log_type_enabled(loggingConnection5, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v72 = v38;
+            v71 = v38;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection5, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music Curation Error: %@", buf, 0xCu);
           }
 
           [PGError xpcSafeErrorWithError:v38];
           jsonRepresentation = v53 = v38;
           replyCopy[2](replyCopy, 0, jsonRepresentation);
-          v18 = v63;
-          v49 = v64;
+          v18 = v62;
+          v49 = v63;
         }
 
-        optionsCopy = v60;
-        v16 = v66;
-        v50 = v62;
+        optionsCopy = v59;
+        v16 = v65;
+        v50 = v61;
       }
 
       else
@@ -1855,17 +1837,17 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
         v47 = +[PGLogging sharedLogging];
         loggingConnection6 = [v47 loggingConnection];
 
-        v49 = v64;
+        v49 = v63;
         if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v72 = v64;
+          v71 = v63;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music feature extraction error for assert fetch result: %@", buf, 0xCu);
         }
 
-        v50 = [PGError xpcSafeErrorWithError:v64];
+        v50 = [PGError xpcSafeErrorWithError:v63];
         replyCopy[2](replyCopy, 0, v50);
-        v16 = v66;
+        v16 = v65;
       }
     }
 
@@ -1877,7 +1859,7 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
       if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v72 = v17;
+        v71 = v17;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curator context error for asset fetch result: %@", buf, 0xCu);
       }
 
@@ -1894,20 +1876,18 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
     if (os_log_type_enabled(loggingConnection8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v72 = @"Cannot curate music for an empty asset fetch result.";
+      v71 = @"Cannot curate music for an empty asset fetch result.";
       _os_log_error_impl(&dword_22F0FC000, loggingConnection8, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music Curation Error: %@", buf, 0xCu);
     }
 
     v17 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:1 localizedDescription:@"Cannot curate music for an empty asset fetch result."];
     replyCopy[2](replyCopy, 0, v17);
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestFlexMusicCurationForAssetCollection:(id)collection curationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   optionsCopy = options;
   managerCopy = manager;
@@ -1921,27 +1901,27 @@ void __114__PGMusicWrapper_generateFlexMusicCurationDebugInformationForAssetColl
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MemoriesMusic] Building Flex Music curation context for asset collection.", buf, 2u);
   }
 
-  v120 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_341];
+  v119 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_341];
   uuid = [collectionCopy uuid];
-  v125 = 0;
-  v17 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v125];
-  v119 = v125;
+  v124 = 0;
+  v17 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v124];
+  v118 = v124;
   if (v17)
   {
-    v118 = uuid;
+    v117 = uuid;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     v19 = collectionCopy;
     v20 = MEMORY[0x277CBEBF8];
-    v116 = optionsCopy;
+    v115 = optionsCopy;
     if ((isKindOfClass & 1) == 0)
     {
-      v117 = MEMORY[0x277CBEBF8];
+      v116 = MEMORY[0x277CBEBF8];
       v23 = 0;
       suggestedMood = 16;
       collectionCopy = v19;
 LABEL_16:
-      v115 = managerCopy;
+      v114 = managerCopy;
       photoLibrary = [managerCopy photoLibrary];
       v39 = [PGMusicCurationRecentlyUsedSongs recentlyUsedFlexMusicSongsFromPhotoLibrary:photoLibrary];
 
@@ -1951,10 +1931,10 @@ LABEL_16:
 
       if ((isKindOfClass & 1) == 0)
       {
-        photoLibrary2 = [v115 photoLibrary];
-        v123 = 0;
-        v43 = [PGMusicCurationRecentlyUsedSongs recentlyUsedFlexMusicSongsForCollectionsFromPhotoLibrary:photoLibrary2 error:&v123];
-        v44 = v123;
+        photoLibrary2 = [v114 photoLibrary];
+        v122 = 0;
+        v43 = [PGMusicCurationRecentlyUsedSongs recentlyUsedFlexMusicSongsForCollectionsFromPhotoLibrary:photoLibrary2 error:&v122];
+        v44 = v122;
 
         v45 = +[PGLogging sharedLogging];
         loggingConnection2 = [v45 loggingConnection];
@@ -1964,7 +1944,7 @@ LABEL_16:
           if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v128 = v44;
+            v127 = v44;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Error getting the recently used Flex songs for collections. error=%@", buf, 0xCu);
           }
         }
@@ -1974,43 +1954,43 @@ LABEL_16:
           if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v128 = v43;
+            v127 = v43;
             _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[MemoriesMusic] recentlyUsedSongsForCollections = %@", buf, 0xCu);
           }
 
           [v39 appendWithOtherRecentlyUsed:v43];
         }
 
-        optionsCopy = v116;
+        optionsCopy = v115;
       }
 
-      v112 = v39;
-      v47 = [[PGFlexMusicCurationParameters alloc] initWithMood:suggestedMood moodKeywords:v117 recentlyUsedSongs:v39 entityUUID:v118 useMoodKeywords:0 features:v23 musicCuratorContext:v17];
-      v48 = [v120 childProgressReporterFromStart:0.2 toEnd:1.0];
-      v122 = 0;
-      v111 = v47;
-      v49 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v47 progressReporter:v48 error:&v122];
-      v114 = v122;
+      v111 = v39;
+      v47 = [[PGFlexMusicCurationParameters alloc] initWithMood:suggestedMood moodKeywords:v116 recentlyUsedSongs:v39 entityUUID:v117 useMoodKeywords:0 features:v23 musicCuratorContext:v17];
+      v48 = [v119 childProgressReporterFromStart:0.2 toEnd:1.0];
+      v121 = 0;
+      v110 = v47;
+      v49 = [PGFlexMusicCurator curateFlexMusicWithCurationParameters:v47 progressReporter:v48 error:&v121];
+      v113 = v121;
 
       if (!v49)
       {
         v61 = +[PGLogging sharedLogging];
         loggingConnection3 = [v61 loggingConnection];
 
-        v63 = v114;
+        v63 = v113;
         if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
         {
           uuid2 = [collectionCopy uuid];
           *buf = 138412546;
-          v128 = uuid2;
-          v129 = 2112;
-          v130 = v114;
+          v127 = uuid2;
+          v128 = 2112;
+          v129 = v113;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation failed for asset collection (%@) with Error: %@", buf, 0x16u);
         }
 
-        v55 = [PGError xpcSafeErrorWithError:v114];
+        v55 = [PGError xpcSafeErrorWithError:v113];
         replyCopy[2](replyCopy, 0, v55);
-        managerCopy = v115;
+        managerCopy = v114;
         goto LABEL_68;
       }
 
@@ -2036,7 +2016,7 @@ LABEL_16:
             if (extractGenerativeMemoryMusicCuration)
             {
               v55 = extractGenerativeMemoryMusicCuration;
-              v107 = v23;
+              v106 = v23;
               v56 = [extractGenerativeMemoryMusicCuration objectForKeyedSubscript:@"flexMusicSongIds"];
               v57 = v56;
               if (v56 && [v56 count])
@@ -2059,7 +2039,7 @@ LABEL_52:
 
               v70 = v55;
               v55 = v49;
-              v23 = v107;
+              v23 = v106;
 LABEL_53:
 
               jsonRepresentation = [v55 jsonRepresentation];
@@ -2073,9 +2053,9 @@ LABEL_53:
                 {
                   uuid3 = [collectionCopy uuid];
                   *buf = 138412546;
-                  v128 = uuid3;
-                  v129 = 2112;
-                  v130 = v95;
+                  v127 = uuid3;
+                  v128 = 2112;
+                  v129 = v95;
                   _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curation failed for asset collection (%@) with serialization error: %@", buf, 0x16u);
                 }
 
@@ -2083,31 +2063,31 @@ LABEL_53:
 
                 replyCopy[2](replyCopy, 0, v99);
                 v63 = v99;
-                managerCopy = v115;
+                managerCopy = v114;
                 v96 = 0;
                 goto LABEL_67;
               }
 
-              v110 = replyCopy;
+              v109 = replyCopy;
               v74 = +[PGLogging sharedLogging];
               loggingConnection7 = [v74 loggingConnection];
 
-              v63 = v114;
+              v63 = v113;
               if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_INFO))
               {
                 title = [collectionCopy title];
                 uuid4 = [collectionCopy uuid];
                 *buf = 138412802;
-                v128 = title;
-                v129 = 2112;
-                v130 = uuid4;
-                v131 = 2112;
-                v132 = jsonRepresentation;
+                v127 = title;
+                v128 = 2112;
+                v129 = uuid4;
+                v130 = 2112;
+                v131 = jsonRepresentation;
                 _os_log_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Successfully produced Flex Music curation for asset collection (%@) with uuid '%@': %@", buf, 0x20u);
               }
 
               bestSongSuggestions = [v55 bestSongSuggestions];
-              managerCopy = v115;
+              managerCopy = v114;
               if (bestSongSuggestions)
               {
                 bestSongSuggestions5 = bestSongSuggestions;
@@ -2125,8 +2105,8 @@ LABEL_62:
                 firstObject2 = [bestSongSuggestions3 firstObject];
                 v85 = [firstObject2 uid];
 
-                v63 = v114;
-                managerCopy = v115;
+                v63 = v113;
+                managerCopy = v114;
 
                 if (v85)
                 {
@@ -2141,24 +2121,24 @@ LABEL_62:
                     title2 = [collectionCopy title];
                     uuid5 = [collectionCopy uuid];
                     *buf = 138412802;
-                    v128 = v90;
-                    v129 = 2112;
-                    v130 = title2;
-                    v131 = 2112;
-                    v132 = uuid5;
+                    v127 = v90;
+                    v128 = 2112;
+                    v129 = title2;
+                    v130 = 2112;
+                    v131 = uuid5;
                     _os_log_impl(&dword_22F0FC000, loggingConnection8, OS_LOG_TYPE_INFO, "[MemoriesMusic] Cache the key flex song (%@) for collection with title '%@' and with uuid '%@'. This triggers the song assets download.", buf, 0x20u);
 
-                    v63 = v114;
+                    v63 = v113;
                   }
 
                   bestSongSuggestions5 = [v55 bestSongSuggestions];
                   bestSongSuggestions2 = [bestSongSuggestions5 firstObject];
                   v93 = [bestSongSuggestions2 uid];
-                  v126 = v93;
-                  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
+                  v125 = v93;
+                  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
                   [PGFlexMusicCacher cacheSongAudioAndArtworkForUIDs:v94];
 
-                  managerCopy = v115;
+                  managerCopy = v114;
                   goto LABEL_62;
                 }
               }
@@ -2166,17 +2146,17 @@ LABEL_62:
 LABEL_63:
               v95 = [PGError xpcSafeErrorWithError:v63];
               v96 = jsonRepresentation;
-              replyCopy = v110;
-              v110[2](v110, jsonRepresentation, v95);
-              optionsCopy = v116;
+              replyCopy = v109;
+              v109[2](v109, jsonRepresentation, v95);
+              optionsCopy = v115;
 LABEL_67:
 
 LABEL_68:
-              v37 = v117;
-              uuid = v118;
+              v37 = v116;
+              uuid = v117;
 LABEL_69:
 
-              v36 = v119;
+              v36 = v118;
               goto LABEL_70;
             }
           }
@@ -2194,7 +2174,7 @@ LABEL_69:
 
       backingCollectionLocalIdentifier = [optionsCopy backingCollectionLocalIdentifier];
       v65 = backingCollectionLocalIdentifier;
-      v107 = v23;
+      v106 = v23;
       if (backingCollectionLocalIdentifier)
       {
         assetCollectionLocalIdentifier = backingCollectionLocalIdentifier;
@@ -2210,42 +2190,42 @@ LABEL_69:
       v51 = objc_alloc_init(PGFlexMusicCurationManager);
       cache = [v17 cache];
       ignoreProgress = [MEMORY[0x277D22C80] ignoreProgress];
-      v121 = 0;
-      v73 = [(PGFlexMusicCurationManager *)v51 adjustCurationForCollectionWithLocalIdentifier:v55 initialCuration:v49 cache:cache progressReporter:ignoreProgress error:&v121];
-      v57 = v121;
+      v120 = 0;
+      v73 = [(PGFlexMusicCurationManager *)v51 adjustCurationForCollectionWithLocalIdentifier:v55 initialCuration:v49 cache:cache progressReporter:ignoreProgress error:&v120];
+      v57 = v120;
 
       if (!v73)
       {
-        v101 = +[PGLogging sharedLogging];
-        loggingConnection9 = [v101 loggingConnection];
+        v100 = +[PGLogging sharedLogging];
+        loggingConnection9 = [v100 loggingConnection];
 
-        uuid = v118;
+        uuid = v117;
         if (os_log_type_enabled(loggingConnection9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v128 = v118;
-          v129 = 2112;
-          v130 = v57;
+          v127 = v117;
+          v128 = 2112;
+          v129 = v57;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection9, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Adjusting curation for collection (%@) failed with error: %@", buf, 0x16u);
         }
 
-        v103 = [PGError xpcSafeErrorWithError:v114];
-        replyCopy[2](replyCopy, 0, v103);
+        v102 = [PGError xpcSafeErrorWithError:v113];
+        replyCopy[2](replyCopy, 0, v102);
 
-        v63 = v114;
-        managerCopy = v115;
-        optionsCopy = v116;
-        v37 = v117;
-        v23 = v107;
+        v63 = v113;
+        managerCopy = v114;
+        optionsCopy = v115;
+        v37 = v116;
+        v23 = v106;
         goto LABEL_69;
       }
 
       v49 = v73;
-      optionsCopy = v116;
+      optionsCopy = v115;
       goto LABEL_52;
     }
 
-    v109 = replyCopy;
+    v108 = replyCopy;
     v21 = managerCopy;
     v22 = v19;
     v23 = v19;
@@ -2262,7 +2242,7 @@ LABEL_69:
       v26 = v20;
     }
 
-    v117 = v26;
+    v116 = v26;
 
     v27 = [objc_opt_class() flexMusicFeatureExtractionContextWithCuratorContext:v17];
     v28 = +[PGLogging sharedLogging];
@@ -2272,22 +2252,22 @@ LABEL_69:
     {
       uuid6 = [v23 uuid];
       *buf = 138412290;
-      v128 = uuid6;
+      v127 = uuid6;
       _os_log_impl(&dword_22F0FC000, loggingConnection10, OS_LOG_TYPE_INFO, "[MemoriesMusic] Extracting music curation features for memory: %@ for Flex Music curation", buf, 0xCu);
     }
 
-    v31 = [v120 childProgressReporterFromStart:0.0 toEnd:0.2];
-    v124 = 0;
-    v32 = [self _musicCurationFeaturesWithFeatureExtractionContext:v27 memory:v23 graphManager:v21 progressReporter:v31 error:&v124];
-    v33 = v124;
+    v31 = [v119 childProgressReporterFromStart:0.0 toEnd:0.2];
+    v123 = 0;
+    v32 = [self _musicCurationFeaturesWithFeatureExtractionContext:v27 memory:v23 graphManager:v21 progressReporter:v31 error:&v123];
+    v33 = v123;
 
     if (v32)
     {
 
       v23 = v32;
-      optionsCopy = v116;
+      optionsCopy = v115;
       managerCopy = v21;
-      replyCopy = v109;
+      replyCopy = v108;
       collectionCopy = v22;
       goto LABEL_16;
     }
@@ -2300,21 +2280,21 @@ LABEL_69:
     {
       uuid7 = [v23 uuid];
       *buf = 138412546;
-      v128 = uuid7;
-      v129 = 2112;
-      v130 = v33;
+      v127 = uuid7;
+      v128 = 2112;
+      v129 = v33;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection11, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music feature extraction error for PHMemory (%@): %@", buf, 0x16u);
     }
 
     v69 = [PGError xpcSafeErrorWithError:v33];
-    v109[2](v109, 0, v69);
+    v108[2](v108, 0, v69);
 
-    optionsCopy = v116;
-    v37 = v117;
+    optionsCopy = v115;
+    v37 = v116;
     managerCopy = v21;
-    replyCopy = v109;
-    uuid = v118;
-    v36 = v119;
+    replyCopy = v108;
+    uuid = v117;
+    v36 = v118;
   }
 
   else
@@ -2322,27 +2302,25 @@ LABEL_69:
     v34 = +[PGLogging sharedLogging];
     loggingConnection12 = [v34 loggingConnection];
 
-    v36 = v119;
+    v36 = v118;
     if (os_log_type_enabled(loggingConnection12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v128 = v119;
+      v127 = v118;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection12, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Flex Music curator context error for asset fetch result: %@", buf, 0xCu);
     }
 
-    v23 = [PGError xpcSafeErrorWithError:v119];
+    v23 = [PGError xpcSafeErrorWithError:v118];
     replyCopy[2](replyCopy, 0, v23);
     v37 = MEMORY[0x277CBEBF8];
   }
 
 LABEL_70:
-
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestMusicCurationForAssetFetchResult:(id)result curationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   optionsCopy = options;
   managerCopy = manager;
@@ -2354,7 +2332,7 @@ LABEL_70:
   {
     assetCollectionLocalIdentifier = [optionsCopy assetCollectionLocalIdentifier];
     *buf = 138412290;
-    v118 = assetCollectionLocalIdentifier;
+    v117 = assetCollectionLocalIdentifier;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MemoriesMusic] Building Apple Music curation context for asset fetch result. assetCollectionLocalIdentifier = %@", buf, 0xCu);
   }
 
@@ -2375,10 +2353,10 @@ LABEL_70:
 
     info = 0;
     mach_timebase_info(&info);
-    v92 = mach_absolute_time();
-    v115 = 0;
-    v23 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v115];
-    v24 = v115;
+    v91 = mach_absolute_time();
+    v114 = 0;
+    v23 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v114];
+    v24 = v114;
     if (!v23)
     {
       v37 = +[PGLogging sharedLogging];
@@ -2387,7 +2365,7 @@ LABEL_70:
       if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v118 = v24;
+        v117 = v24;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curator context error for asset fetch result: %@", buf, 0xCu);
       }
 
@@ -2396,32 +2374,32 @@ LABEL_70:
       goto LABEL_59;
     }
 
-    v90 = v20;
+    v89 = v20;
     assetCollectionLocalIdentifier2 = [optionsCopy assetCollectionLocalIdentifier];
 
-    v95 = v24;
+    v94 = v24;
     if (assetCollectionLocalIdentifier2)
     {
-      v99 = replyCopy;
+      v98 = replyCopy;
       v26 = optionsCopy;
       v27 = managerCopy;
       v28 = resultCopy;
       v29 = v27;
       photoLibrary = [v27 photoLibrary];
-      v114 = 0;
-      v31 = [PGMusicCurationRecentlyUsedSongs recentlyUsedAppleMusicSongsForCollectionsFromPhotoLibrary:photoLibrary error:&v114];
-      v32 = v114;
+      v113 = 0;
+      v31 = [PGMusicCurationRecentlyUsedSongs recentlyUsedAppleMusicSongsForCollectionsFromPhotoLibrary:photoLibrary error:&v113];
+      v32 = v113;
 
       v33 = +[PGLogging sharedLogging];
       loggingConnection4 = [v33 loggingConnection];
 
-      v96 = v32;
+      v95 = v32;
       if (!v31 || v32)
       {
         if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v118 = v32;
+          v117 = v32;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Error getting the recently used Apple Music songs for collections. error=%@", buf, 0xCu);
         }
       }
@@ -2431,7 +2409,7 @@ LABEL_70:
         if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v118 = v31;
+          v117 = v31;
           _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[MemoriesMusic] recentlyUsedSongsForCollections = %@", buf, 0xCu);
         }
 
@@ -2443,16 +2421,16 @@ LABEL_70:
 
       managerCopy = v29;
       optionsCopy = v26;
-      replyCopy = v99;
+      replyCopy = v98;
     }
 
     else
     {
-      v96 = 0;
+      v95 = 0;
     }
 
-    v97 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_331];
-    v100 = [objc_opt_class() appleMusicFeatureExtractionContextWithCuratorContext:v23];
+    v96 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_331];
+    v99 = [objc_opt_class() appleMusicFeatureExtractionContextWithCuratorContext:v23];
     v40 = +[PGLogging sharedLogging];
     loggingConnection5 = [v40 loggingConnection];
 
@@ -2462,32 +2440,32 @@ LABEL_70:
       _os_log_impl(&dword_22F0FC000, loggingConnection5, OS_LOG_TYPE_INFO, "[MemoriesMusic] Extracting music curation features from asset fetch result for Apple Music curation", buf, 2u);
     }
 
-    v42 = v97;
-    v43 = [v97 childProgressReporterFromStart:0.0 toEnd:0.2];
-    v113 = 0;
-    v44 = [self _musicCurationFeaturesWithFeatureExtractionContext:v100 assetFetchResult:resultCopy graphManager:managerCopy progressReporter:v43 error:&v113];
-    v94 = v113;
+    v42 = v96;
+    v43 = [v96 childProgressReporterFromStart:0.0 toEnd:0.2];
+    v112 = 0;
+    v44 = [self _musicCurationFeaturesWithFeatureExtractionContext:v99 assetFetchResult:resultCopy graphManager:managerCopy progressReporter:v43 error:&v112];
+    v93 = v112;
 
     v45 = +[PGLogging sharedLogging];
     loggingConnection6 = [v45 loggingConnection];
 
-    v98 = v44;
-    v93 = optionsCopy;
+    v97 = v44;
+    v92 = optionsCopy;
     if (!v44)
     {
       v58 = v23;
-      v59 = v94;
+      v59 = v93;
       if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v118 = v94;
+        v117 = v93;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for asset fetch result: %@", buf, 0xCu);
       }
 
-      v60 = [PGError xpcSafeErrorWithError:v94];
+      v60 = [PGError xpcSafeErrorWithError:v93];
       replyCopy[2](replyCopy, 0, v60);
-      v24 = v95;
-      v39 = v96;
+      v24 = v94;
+      v39 = v95;
       goto LABEL_58;
     }
 
@@ -2497,12 +2475,12 @@ LABEL_70:
       _os_log_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_INFO, "[MemoriesMusic] Curating Apple Music for asset fetch result.", buf, 2u);
     }
 
-    v47 = [v97 childProgressReporterFromStart:0.2 toEnd:1.0];
-    v112 = 0;
-    v48 = [PGMusicCurator curateMusicForFeatures:v44 context:v23 progressReporter:v47 error:&v112];
-    v91 = v112;
+    v47 = [v96 childProgressReporterFromStart:0.2 toEnd:1.0];
+    v111 = 0;
+    v48 = [PGMusicCurator curateMusicForFeatures:v44 context:v23 progressReporter:v47 error:&v111];
+    v90 = v111;
 
-    v24 = v95;
+    v24 = v94;
     if (!v48)
     {
       v61 = +[PGLogging sharedLogging];
@@ -2511,38 +2489,38 @@ LABEL_70:
       if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v118 = v91;
+        v117 = v90;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error: %@", buf, 0xCu);
       }
 
       v58 = v23;
 
-      v63 = [PGError xpcSafeErrorWithError:v91];
+      v63 = [PGError xpcSafeErrorWithError:v90];
       replyCopy[2](replyCopy, 0, v63);
-      v39 = v96;
-      v59 = v94;
+      v39 = v95;
+      v59 = v93;
       goto LABEL_57;
     }
 
     backingCollectionLocalIdentifier = [optionsCopy backingCollectionLocalIdentifier];
-    v87 = resultCopy;
+    v86 = resultCopy;
     if (backingCollectionLocalIdentifier || ([optionsCopy assetCollectionLocalIdentifier], (backingCollectionLocalIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
     {
       v50 = backingCollectionLocalIdentifier;
-      v84 = managerCopy;
-      v85 = v22;
+      v83 = managerCopy;
+      v84 = v22;
       v51 = objc_alloc_init(PGMusicCurationManager);
       cache = [v23 cache];
       ignoreProgress = [MEMORY[0x277D22C80] ignoreProgress];
-      v111 = 0;
-      v86 = v50;
-      v54 = [(PGMusicCurationManager *)v51 adjustCurationForCollection:v50 initialCuration:v48 cache:cache progressReporter:ignoreProgress error:&v111];
-      v55 = v111;
+      v110 = 0;
+      v85 = v50;
+      v54 = [(PGMusicCurationManager *)v51 adjustCurationForCollection:v50 initialCuration:v48 cache:cache progressReporter:ignoreProgress error:&v110];
+      v55 = v110;
 
       if (!v54)
       {
-        v88 = v55;
-        v89 = v51;
+        v87 = v55;
+        v88 = v51;
         v64 = +[PGLogging sharedLogging];
         loggingConnection8 = [v64 loggingConnection];
 
@@ -2550,41 +2528,41 @@ LABEL_70:
         {
           assetCollectionLocalIdentifier3 = [optionsCopy assetCollectionLocalIdentifier];
           *buf = 138412546;
-          v118 = assetCollectionLocalIdentifier3;
-          v119 = 2112;
-          v120 = v55;
+          v117 = assetCollectionLocalIdentifier3;
+          v118 = 2112;
+          v119 = v55;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection8, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Adjusting curation for collection (%@) failed with error: %@", buf, 0x16u);
         }
 
-        v39 = v96;
-        v66 = [PGError xpcSafeErrorWithError:v96];
+        v39 = v95;
+        v66 = [PGError xpcSafeErrorWithError:v95];
         replyCopy[2](replyCopy, 0, v66);
-        resultCopy = v87;
-        managerCopy = v84;
-        v22 = v85;
+        resultCopy = v86;
+        managerCopy = v83;
+        v22 = v84;
         goto LABEL_56;
       }
 
       v56 = v54;
       v57 = off_27887B000;
-      managerCopy = v84;
-      v22 = v85;
+      managerCopy = v83;
+      v22 = v84;
     }
 
     else
     {
-      v86 = 0;
+      v85 = 0;
       v56 = v48;
       v57 = off_27887B000;
     }
 
-    v89 = v56;
+    v88 = v56;
     keySongAdamID = [(PGMusicCurationManager *)v56 keySongAdamID];
 
     if (keySongAdamID)
     {
       v68 = MEMORY[0x277CBEA60];
-      keySongAdamID2 = [(PGMusicCurationManager *)v89 keySongAdamID];
+      keySongAdamID2 = [(PGMusicCurationManager *)v88 keySongAdamID];
       v70 = [v68 arrayWithObjects:{keySongAdamID2, 0}];
 
       sharedLogging = [(__objc2_class *)v57[222] sharedLogging];
@@ -2594,18 +2572,18 @@ LABEL_70:
       {
         v73 = [v70 objectAtIndexedSubscript:0];
         *buf = 138412290;
-        v118 = v73;
+        v117 = v73;
         _os_log_impl(&dword_22F0FC000, loggingConnection9, OS_LOG_TYPE_INFO, "[MemoriesMusic] Start Caching the key Apple Music song %@ for the collection. It should trigger the song assets download.", buf, 0xCu);
       }
 
       ignoreProgress2 = [MEMORY[0x277D22C80] ignoreProgress];
-      v109[0] = MEMORY[0x277D85DD0];
-      v109[1] = 3221225472;
-      v109[2] = __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_334;
-      v109[3] = &unk_278884D38;
-      v110 = v70;
+      v108[0] = MEMORY[0x277D85DD0];
+      v108[1] = 3221225472;
+      v108[2] = __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_334;
+      v108[3] = &unk_278884D38;
+      v109 = v70;
       v75 = v70;
-      [PGMusicAudioCacher cacheSongAudioForAdamIDs:v75 progressReporter:ignoreProgress2 completionHandler:v109];
+      [PGMusicAudioCacher cacheSongAudioForAdamIDs:v75 progressReporter:ignoreProgress2 completionHandler:v108];
 
       v57 = off_27887B000;
     }
@@ -2620,23 +2598,23 @@ LABEL_70:
     }
 
     v66 = [[PGMusicCurationInflationOptions alloc] initWithInflationActionSource:1];
-    v108 = 0;
-    v78 = [managerCopy musicCurationInflationContextWithInflationOptions:v66 error:&v108];
-    v88 = v108;
+    v107 = 0;
+    v78 = [managerCopy musicCurationInflationContextWithInflationOptions:v66 error:&v107];
+    v87 = v107;
     if (v78)
     {
       v79 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_338];
-      v101[0] = MEMORY[0x277D85DD0];
-      v101[1] = 3221225472;
-      v101[2] = __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_2;
-      v101[3] = &unk_278881720;
-      v104 = replyCopy;
-      v102 = v89;
-      v105 = v92;
-      v107 = info;
-      v103 = v22;
-      v106 = v90;
-      [PGMusicCurator inflateDisplayMetadataForMusicCuration:v102 inflationContext:v78 curatorContext:0 progressReporter:v79 completionHandler:v101];
+      v100[0] = MEMORY[0x277D85DD0];
+      v100[1] = 3221225472;
+      v100[2] = __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_2;
+      v100[3] = &unk_278881720;
+      v103 = replyCopy;
+      v101 = v88;
+      v104 = v91;
+      v106 = info;
+      v102 = v22;
+      v105 = v89;
+      [PGMusicCurator inflateDisplayMetadataForMusicCuration:v101 inflationContext:v78 curatorContext:0 progressReporter:v79 completionHandler:v100];
     }
 
     else
@@ -2647,30 +2625,30 @@ LABEL_70:
       if (os_log_type_enabled(loggingConnection11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v118 = v88;
+        v117 = v87;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection11, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation inflation error for assets: %{public}@", buf, 0xCu);
       }
 
-      v79 = [PGError xpcSafeErrorWithError:v88];
+      v79 = [PGError xpcSafeErrorWithError:v87];
       replyCopy[2](replyCopy, 0, v79);
     }
 
-    resultCopy = v87;
+    resultCopy = v86;
 
-    v39 = v96;
+    v39 = v95;
 LABEL_56:
     v58 = v23;
 
-    v42 = v97;
-    v59 = v94;
-    v63 = v86;
+    v42 = v96;
+    v59 = v93;
+    v63 = v85;
 LABEL_57:
 
-    v60 = v91;
+    v60 = v90;
 LABEL_58:
 
     v23 = v58;
-    optionsCopy = v93;
+    optionsCopy = v92;
 LABEL_59:
 
     goto LABEL_60;
@@ -2682,20 +2660,18 @@ LABEL_59:
   if (os_log_type_enabled(loggingConnection12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v118 = @"Cannot curate music for an empty asset fetch result.";
+    v117 = @"Cannot curate music for an empty asset fetch result.";
     _os_log_error_impl(&dword_22F0FC000, loggingConnection12, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error: %@", buf, 0xCu);
   }
 
   v22 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:1 localizedDescription:@"Cannot curate music for an empty asset fetch result."];
   replyCopy[2](replyCopy, 0, v22);
 LABEL_60:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_334(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[PGLogging sharedLogging];
   v7 = [v6 loggingConnection];
@@ -2705,25 +2681,23 @@ void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOption
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [*(a1 + 32) objectAtIndexedSubscript:0];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Cached Key Apple Music Song: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Cached Key Apple Music Song: %@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Attempt to cache key AM song failed with error: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Attempt to cache key AM song failed with error: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOptions_graphManager_reply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!a2)
   {
@@ -2733,7 +2707,7 @@ void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOption
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = v5;
+      v26 = v5;
       _os_log_error_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation inflation error for asset fetch result: %@", buf, 0xCu);
     }
 
@@ -2752,7 +2726,7 @@ void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOption
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = v7;
+      v26 = v7;
       _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "[MemoriesMusic] Successfully produced Apple Music curation for asset fetch result: %@", buf, 0xCu);
     }
 
@@ -2773,9 +2747,9 @@ void __93__PGMusicWrapper_requestMusicCurationForAssetFetchResult_curationOption
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v27 = "MusicCurationForAssetFetchResult";
-      v28 = 2048;
-      v29 = ((((v10 - v11) * v13) / v12) / 1000000.0);
+      v26 = "MusicCurationForAssetFetchResult";
+      v27 = 2048;
+      v28 = ((((v10 - v11) * v13) / v12) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -2792,7 +2766,7 @@ LABEL_14:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v27 = v21;
+    v26 = v21;
     _os_log_error_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for asset fetch result: %@", buf, 0xCu);
   }
 
@@ -2801,13 +2775,11 @@ LABEL_14:
 
   v7 = 0;
 LABEL_18:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestMusicCurationForAssetCollection:(id)collection curationOptions:(id)options graphManager:(id)manager reply:(id)reply
 {
-  v123[1] = *MEMORY[0x277D85DE8];
+  v122[1] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   optionsCopy = options;
   managerCopy = manager;
@@ -2828,33 +2800,33 @@ LABEL_18:
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MusicCurationForMemory", "", buf, 2u);
     }
 
-    v93 = v18;
+    v92 = v18;
 
     info = 0;
     mach_timebase_info(&info);
-    v92 = mach_absolute_time();
-    v104 = collectionCopy;
+    v91 = mach_absolute_time();
+    v103 = collectionCopy;
     v21 = +[PGLogging sharedLogging];
     loggingConnection2 = [v21 loggingConnection];
 
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
     {
-      uuid = [v104 uuid];
+      uuid = [v103 uuid];
       *buf = 138412290;
-      v120 = uuid;
+      v119 = uuid;
       _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[MemoriesMusic] Building Apple Music curation context for asset collection: %@.", buf, 0xCu);
     }
 
-    v117 = 0;
-    v24 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v117];
-    v25 = v117;
-    v101 = managerCopy;
+    v116 = 0;
+    v24 = [managerCopy musicCuratorContextWithCurationOptions:optionsCopy error:&v116];
+    v25 = v116;
+    v100 = managerCopy;
     if (v24)
     {
-      v95 = v25;
-      v26 = v104;
-      v99 = photoLibrary;
-      if ([v104 creationType] != 1)
+      v94 = v25;
+      v26 = v103;
+      v98 = photoLibrary;
+      if ([v103 creationType] != 1)
       {
         goto LABEL_18;
       }
@@ -2868,18 +2840,18 @@ LABEL_18:
         _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[MemoriesMusic] Generative PHMemory so extract the curated music", buf, 2u);
       }
 
-      extractGenerativeMemoryMusicCuration = [v104 extractGenerativeMemoryMusicCuration];
+      extractGenerativeMemoryMusicCuration = [v103 extractGenerativeMemoryMusicCuration];
       if (extractGenerativeMemoryMusicCuration)
       {
-        v96 = extractGenerativeMemoryMusicCuration;
+        v95 = extractGenerativeMemoryMusicCuration;
         v30 = +[PGLogging sharedLogging];
         loggingConnection4 = [v30 loggingConnection];
 
         if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_INFO))
         {
-          uuid2 = [v104 uuid];
+          uuid2 = [v103 uuid];
           *buf = 138412290;
-          v120 = uuid2;
+          v119 = uuid2;
           _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[MemoriesMusic] bypassMusicForTopicElection=YES for generative memory: %@", buf, 0xCu);
         }
 
@@ -2889,7 +2861,7 @@ LABEL_18:
       else
       {
 LABEL_18:
-        v96 = 0;
+        v95 = 0;
       }
 
       standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -2899,7 +2871,7 @@ LABEL_18:
       {
         v42 = optionsCopy;
         selfCopy = self;
-        v102 = collectionCopy;
+        v101 = collectionCopy;
         v44 = v20;
         v45 = v42;
         v46 = replyCopy;
@@ -2907,7 +2879,7 @@ LABEL_18:
         v48 = v24;
         v49 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/var/mobile/Media/PhotoData/Caches/GraphService/musicCurationOverride.plist"];
         v50 = [v49 objectForKeyedSubscript:@"memoryUUID"];
-        uuid3 = [v104 uuid];
+        uuid3 = [v103 uuid];
         v52 = [uuid3 isEqualToString:v50];
 
         if (v52)
@@ -2920,50 +2892,50 @@ LABEL_18:
         replyCopy = v46;
         v53 = v45;
         v20 = v44;
-        collectionCopy = v102;
-        v26 = v104;
+        collectionCopy = v101;
+        v26 = v103;
         self = selfCopy;
         optionsCopy = v53;
       }
 
-      v103 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_21707];
-      v98 = v24;
-      v100 = [objc_opt_class() appleMusicFeatureExtractionContextWithCuratorContext:v24];
+      v102 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_21707];
+      v97 = v24;
+      v99 = [objc_opt_class() appleMusicFeatureExtractionContextWithCuratorContext:v24];
       v54 = +[PGLogging sharedLogging];
       loggingConnection5 = [v54 loggingConnection];
 
-      photoLibrary = v99;
+      photoLibrary = v98;
       if (os_log_type_enabled(loggingConnection5, OS_LOG_TYPE_INFO))
       {
         uuid4 = [v26 uuid];
         *buf = 138412290;
-        v120 = uuid4;
+        v119 = uuid4;
         _os_log_impl(&dword_22F0FC000, loggingConnection5, OS_LOG_TYPE_INFO, "[MemoriesMusic] Extracting music curation features for memory: %@ for Apple Music curation", buf, 0xCu);
       }
 
-      v57 = [v103 childProgressReporterFromStart:0.0 toEnd:0.2];
-      v116 = 0;
-      v58 = [self _musicCurationFeaturesWithFeatureExtractionContext:v100 memory:v26 graphManager:managerCopy progressReporter:v57 error:&v116];
-      v94 = v116;
+      v57 = [v102 childProgressReporterFromStart:0.0 toEnd:0.2];
+      v115 = 0;
+      v58 = [self _musicCurationFeaturesWithFeatureExtractionContext:v99 memory:v26 graphManager:managerCopy progressReporter:v57 error:&v115];
+      v93 = v115;
 
       v59 = +[PGLogging sharedLogging];
       loggingConnection6 = [v59 loggingConnection];
 
-      v97 = v58;
+      v96 = v58;
       if (v58)
       {
         if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_INFO))
         {
           uuid5 = [v26 uuid];
           *buf = 138412290;
-          v120 = uuid5;
+          v119 = uuid5;
           _os_log_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_INFO, "[MemoriesMusic] Curating Apple Music for PHMemory: %@.", buf, 0xCu);
         }
 
-        v62 = [v103 childProgressReporterFromStart:0.2 toEnd:1.0];
-        v115 = 0;
-        v63 = [PGMusicCurator curateMusicForFeatures:v58 context:v98 progressReporter:v62 error:&v115];
-        v90 = v115;
+        v62 = [v102 childProgressReporterFromStart:0.2 toEnd:1.0];
+        v114 = 0;
+        v63 = [PGMusicCurator curateMusicForFeatures:v58 context:v97 progressReporter:v62 error:&v114];
+        v89 = v114;
 
         v64 = +[PGLogging sharedLogging];
         loggingConnection7 = [v64 loggingConnection];
@@ -2972,15 +2944,15 @@ LABEL_18:
         {
           if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_INFO))
           {
-            uuid6 = [v104 uuid];
+            uuid6 = [v103 uuid];
             *buf = 138412290;
-            v120 = uuid6;
+            v119 = uuid6;
             _os_log_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_INFO, "[MemoriesMusic] Inflating Apple Music curation for PHMemory: %@.", buf, 0xCu);
           }
 
-          if (v96)
+          if (v95)
           {
-            v67 = [v96 objectForKeyedSubscript:@"appleMusicSongIds"];
+            v67 = [v95 objectForKeyedSubscript:@"appleMusicSongIds"];
             v68 = v67;
             if (v67 && [v67 count])
             {
@@ -3007,28 +2979,28 @@ LABEL_18:
             managerCopy = v72;
           }
 
-          v114 = 0;
-          v91 = [[PGMusicCurationInflationOptions alloc] initWithInflationActionSource:1];
+          v113 = 0;
+          v90 = [[PGMusicCurationInflationOptions alloc] initWithInflationActionSource:1];
           v79 = [managerCopy musicCurationInflationContextWithInflationOptions:? error:?];
-          v89 = 0;
+          v88 = 0;
           if (v79)
           {
             v80 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:&__block_literal_global_318];
-            v105[0] = MEMORY[0x277D85DD0];
-            v105[1] = 3221225472;
-            v105[2] = __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions_graphManager_reply___block_invoke_2;
-            v105[3] = &unk_2788816F8;
-            v106 = v104;
-            v110 = replyCopy;
-            v107 = v63;
-            v108 = v106;
+            v104[0] = MEMORY[0x277D85DD0];
+            v104[1] = 3221225472;
+            v104[2] = __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions_graphManager_reply___block_invoke_2;
+            v104[3] = &unk_2788816F8;
+            v105 = v103;
+            v109 = replyCopy;
+            v106 = v63;
+            v107 = v105;
+            v110 = v91;
+            v112 = info;
+            v108 = v20;
             v111 = v92;
-            v113 = info;
-            v109 = v20;
-            v112 = v93;
-            [PGMusicCurator inflateDisplayMetadataForMusicCuration:v107 inflationContext:v79 curatorContext:0 progressReporter:v80 completionHandler:v105];
+            [PGMusicCurator inflateDisplayMetadataForMusicCuration:v106 inflationContext:v79 curatorContext:0 progressReporter:v80 completionHandler:v104];
 
-            v81 = v89;
+            v81 = v88;
           }
 
           else
@@ -3036,72 +3008,72 @@ LABEL_18:
             v82 = +[PGLogging sharedLogging];
             loggingConnection9 = [v82 loggingConnection];
 
-            v81 = v89;
+            v81 = v88;
             if (os_log_type_enabled(loggingConnection9, OS_LOG_TYPE_ERROR))
             {
-              uuid7 = [v104 uuid];
+              uuid7 = [v103 uuid];
               *buf = 138412546;
-              v120 = uuid7;
-              v121 = 2114;
-              v122 = v89;
+              v119 = uuid7;
+              v120 = 2114;
+              v121 = v88;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection9, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation inflation error for PHMemory (%@): %{public}@", buf, 0x16u);
             }
 
-            v80 = [PGError xpcSafeErrorWithError:v89];
+            v80 = [PGError xpcSafeErrorWithError:v88];
             (*(replyCopy + 2))(replyCopy, 0, v80);
           }
 
-          v26 = v104;
-          v24 = v98;
-          v77 = v94;
-          v73 = v95;
-          v78 = v90;
+          v26 = v103;
+          v24 = v97;
+          v77 = v93;
+          v73 = v94;
+          v78 = v89;
         }
 
         else
         {
-          v26 = v104;
+          v26 = v103;
           if (os_log_type_enabled(loggingConnection7, OS_LOG_TYPE_ERROR))
           {
-            uuid8 = [v104 uuid];
+            uuid8 = [v103 uuid];
             *buf = 138412546;
-            v120 = uuid8;
-            v121 = 2112;
-            v122 = v90;
+            v119 = uuid8;
+            v120 = 2112;
+            v121 = v89;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection7, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for PHMemory (%@): %@", buf, 0x16u);
           }
 
-          v78 = v90;
-          v63 = [PGError xpcSafeErrorWithError:v90];
+          v78 = v89;
+          v63 = [PGError xpcSafeErrorWithError:v89];
           (*(replyCopy + 2))(replyCopy, 0, v63);
-          v24 = v98;
-          v77 = v94;
-          v73 = v95;
+          v24 = v97;
+          v77 = v93;
+          v73 = v94;
         }
 
-        photoLibrary = v99;
+        photoLibrary = v98;
       }
 
       else
       {
-        v77 = v94;
+        v77 = v93;
         if (os_log_type_enabled(loggingConnection6, OS_LOG_TYPE_ERROR))
         {
           uuid9 = [v26 uuid];
           *buf = 138412546;
-          v120 = uuid9;
-          v121 = 2112;
-          v122 = v94;
+          v119 = uuid9;
+          v120 = 2112;
+          v121 = v93;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection6, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for PHMemory (%@): %@", buf, 0x16u);
         }
 
-        v78 = [PGError xpcSafeErrorWithError:v94];
+        v78 = [PGError xpcSafeErrorWithError:v93];
         (*(replyCopy + 2))(replyCopy, 0, v78);
-        v24 = v98;
-        v73 = v95;
+        v24 = v97;
+        v73 = v94;
       }
 
-      v76 = v96;
+      v76 = v95;
     }
 
     else
@@ -3110,14 +3082,14 @@ LABEL_18:
       v74 = +[PGLogging sharedLogging];
       loggingConnection10 = [v74 loggingConnection];
 
-      v26 = v104;
+      v26 = v103;
       if (os_log_type_enabled(loggingConnection10, OS_LOG_TYPE_ERROR))
       {
-        uuid10 = [v104 uuid];
+        uuid10 = [v103 uuid];
         *buf = 138412546;
-        v120 = uuid10;
-        v121 = 2112;
-        v122 = v73;
+        v119 = uuid10;
+        v120 = 2112;
+        v121 = v73;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection10, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for PHMemory (%@): %@", buf, 0x16u);
       }
 
@@ -3126,7 +3098,7 @@ LABEL_18:
     }
 
     librarySpecificFetchOptions = v20;
-    managerCopy = v101;
+    managerCopy = v100;
   }
 
   else
@@ -3138,14 +3110,14 @@ LABEL_18:
     {
       localIdentifier = [collectionCopy localIdentifier];
       *buf = 138412290;
-      v120 = localIdentifier;
+      v119 = localIdentifier;
       _os_log_impl(&dword_22F0FC000, loggingConnection11, OS_LOG_TYPE_INFO, "[MemoriesMusic] requestMusicCurationForAssetCollection delegating to requestMusicCurationForAssetFetchResult for assetCollection.localIdentifier: %@", buf, 0xCu);
     }
 
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
     [librarySpecificFetchOptions setWantsIncrementalChangeDetails:0];
-    v123[0] = *MEMORY[0x277CD9AA8];
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:1];
+    v122[0] = *MEMORY[0x277CD9AA8];
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:1];
     [librarySpecificFetchOptions setFetchPropertySets:v37];
 
     v20 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:collectionCopy options:librarySpecificFetchOptions];
@@ -3155,13 +3127,11 @@ LABEL_18:
     [self requestMusicCurationForAssetFetchResult:v20 curationOptions:v39 graphManager:managerCopy reply:replyCopy];
     optionsCopy = v39;
   }
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 void __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions_graphManager_reply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!a2)
   {
@@ -3170,11 +3140,11 @@ void __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v28 = [*(a1 + 32) uuid];
+      v27 = [*(a1 + 32) uuid];
       *buf = 138412546;
-      v31 = v28;
-      v32 = 2112;
-      v33 = *&v5;
+      v30 = v27;
+      v31 = 2112;
+      v32 = *&v5;
       _os_log_error_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation inflation error for PHMemory (%@): %@", buf, 0x16u);
     }
 
@@ -3195,11 +3165,11 @@ void __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions
       v10 = [*(a1 + 48) title];
       v11 = [*(a1 + 48) uuid];
       *buf = 138412802;
-      v31 = v10;
-      v32 = 2112;
-      v33 = *&v11;
-      v34 = 2112;
-      v35 = v7;
+      v30 = v10;
+      v31 = 2112;
+      v32 = *&v11;
+      v33 = 2112;
+      v34 = v7;
       _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "[MemoriesMusic] Successfully produced Apple Music curation for asset collection (%@) with uuid '%@': %@", buf, 0x20u);
     }
 
@@ -3220,9 +3190,9 @@ void __92__PGMusicWrapper_requestMusicCurationForAssetCollection_curationOptions
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v31 = "MusicCurationForMemory";
-      v32 = 2048;
-      v33 = ((((v12 - v13) * v15) / v14) / 1000000.0);
+      v30 = "MusicCurationForMemory";
+      v31 = 2048;
+      v32 = ((((v12 - v13) * v15) / v14) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -3238,11 +3208,11 @@ LABEL_14:
 
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v29 = [*(a1 + 32) uuid];
+    v28 = [*(a1 + 32) uuid];
     *buf = 138412546;
-    v31 = v29;
-    v32 = 2112;
-    v33 = *&v23;
+    v30 = v28;
+    v31 = 2112;
+    v32 = *&v23;
     _os_log_error_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_ERROR, "[MemoriesMusic] Apple Music curation error for PHMemory (%@): %@", buf, 0x16u);
   }
 
@@ -3251,8 +3221,6 @@ LABEL_14:
 
   v7 = 0;
 LABEL_18:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

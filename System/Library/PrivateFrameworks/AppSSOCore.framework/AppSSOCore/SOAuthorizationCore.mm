@@ -36,20 +36,20 @@
 
 - (SOAuthorizationCore)init
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOAuthorizationCore();
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOAuthorizationCore(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "[SOAuthorizationCore init]";
-    v12 = 2112;
+    v10 = "[SOAuthorizationCore init]";
+    v11 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
-  v9.receiver = self;
-  v9.super_class = SOAuthorizationCore;
-  v4 = [(SOAuthorizationCore *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = SOAuthorizationCore;
+  v4 = [(SOAuthorizationCore *)&v8 init];
   if (v4)
   {
     v5 = objc_alloc_init(SOClient);
@@ -59,7 +59,6 @@
     v4->_enableUserInteraction = 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -86,7 +85,7 @@
   return self;
 }
 
-uint64_t __67__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode___block_invoke(uint64_t a1)
+void *__67__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 48) canPerformAuthorizationWithURL:*(a1 + 32) responseCode:*(a1 + 56) useInternalExtensions:1];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -117,7 +116,7 @@ uint64_t __67__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode__
   return code;
 }
 
-uint64_t __89__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_useInternalExtensions___block_invoke(uint64_t a1)
+void *__89__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_useInternalExtensions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 48) canPerformAuthorizationWithURL:*(a1 + 32) responseCode:*(a1 + 56) callerBundleIdentifier:0 useInternalExtensions:*(a1 + 64)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -154,9 +153,10 @@ uint64_t __89__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_u
 void __112__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
-  *(*(*(a1 + 48) + 8) + 24) = [SOAuthorizationCore _canPerformAuthorizationWithURL:*(a1 + 32) responseCode:*(a1 + 56) callerBundleIdentifier:*(a1 + 40) useInternalExtensions:*(a1 + 72)];
-  v2 = SO_LOG_SOAuthorizationCore();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = [SOAuthorizationCore _canPerformAuthorizationWithURL:*(a1 + 32) responseCode:*(a1 + 56) callerBundleIdentifier:*(a1 + 40) useInternalExtensions:*(a1 + 72)];
+  *(*(*(a1 + 48) + 8) + 24) = v2;
+  v3 = SO_LOG_SOAuthorizationCore(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
@@ -194,10 +194,8 @@ void __112__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_call
     v23 = v6;
     v24 = 2112;
     v25 = v9;
-    _os_log_debug_impl(&dword_1CA238000, v2, OS_LOG_TYPE_DEBUG, "%s %{sensitive, mask.hash}@, responseCode = %d, callerBundleIdentifier = %{public}@, useInternalExtensions = %{public}@, result = %{public}@ on %@", &v10, 0x4Eu);
+    _os_log_debug_impl(&dword_1CA238000, v3, OS_LOG_TYPE_DEBUG, "%s %{sensitive, mask.hash}@, responseCode = %d, callerBundleIdentifier = %{public}@, useInternalExtensions = %{public}@, result = %{public}@ on %@", &v10, 0x4Eu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (void)canPerformAuthorizationWithURL:(id)l responseCode:(int64_t)code callerBundleIdentifier:(id)identifier useInternalExtensions:(BOOL)extensions completion:(id)completion
@@ -244,12 +242,12 @@ void __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_call
   [SOAuthorizationCore _canPerformAuthorizationWithURL:v6 responseCode:v2 callerBundleIdentifier:v4 useInternalExtensions:v5 completion:v10];
 }
 
-uint64_t __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2(uint64_t a1)
+uint64_t __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = SO_LOG_SOAuthorizationCore();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SO_LOG_SOAuthorizationCore(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2_cold_1(a1);
+    __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2_cold_1();
   }
 
   return (*(*(a1 + 48) + 16))();
@@ -287,17 +285,17 @@ void __76__SOAuthorizationCore_getAuthorizationHintsWithURL_responseCode_complet
 
 void __76__SOAuthorizationCore_getAuthorizationHintsWithURL_responseCode_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = SO_LOG_SOAuthorizationCore();
+  v7 = SO_LOG_SOAuthorizationCore(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138478083;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "getAuthorizationHintsWithURL: authorizationHints = %{private}@, error = %{public}@", &v10, 0x16u);
+    v9 = 138478083;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "getAuthorizationHintsWithURL: authorizationHints = %{private}@, error = %{public}@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 32);
@@ -305,24 +303,22 @@ void __76__SOAuthorizationCore_getAuthorizationHintsWithURL_responseCode_complet
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAuthorizationWithURL:(id)l httpHeaders:(id)headers httpBody:(id)body
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   bodyCopy = body;
   headersCopy = headers;
   lCopy = l;
-  v11 = SO_LOG_SOAuthorizationCore();
+  v11 = SO_LOG_SOAuthorizationCore(lCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[SOAuthorizationCore beginAuthorizationWithURL:httpHeaders:httpBody:]";
-    v16 = 2112;
+    v13 = 136315394;
+    v14 = "[SOAuthorizationCore beginAuthorizationWithURL:httpHeaders:httpBody:]";
+    v15 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1CA238000, v11, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v14, 0x16u);
+    _os_log_impl(&dword_1CA238000, v11, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v13, 0x16u);
   }
 
   v12 = objc_alloc_init(SOAuthorizationParametersCore);
@@ -333,25 +329,23 @@ void __76__SOAuthorizationCore_getAuthorizationHintsWithURL_responseCode_complet
 
   [(SOAuthorizationParametersCore *)v12 setUseInternalExtensions:1];
   [(SOAuthorizationCore *)self beginAuthorizationWithParameters:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAuthorizationWithOperation:(id)operation url:(id)url httpHeaders:(id)headers httpBody:(id)body
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   bodyCopy = body;
   headersCopy = headers;
   urlCopy = url;
   operationCopy = operation;
-  v14 = SO_LOG_SOAuthorizationCore();
+  v14 = SO_LOG_SOAuthorizationCore(operationCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315394;
-    v18 = "[SOAuthorizationCore beginAuthorizationWithOperation:url:httpHeaders:httpBody:]";
-    v19 = 2112;
+    v16 = 136315394;
+    v17 = "[SOAuthorizationCore beginAuthorizationWithOperation:url:httpHeaders:httpBody:]";
+    v18 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1CA238000, v14, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v17, 0x16u);
+    _os_log_impl(&dword_1CA238000, v14, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v16, 0x16u);
   }
 
   v15 = objc_alloc_init(SOAuthorizationParametersCore);
@@ -363,8 +357,6 @@ void __76__SOAuthorizationCore_getAuthorizationHintsWithURL_responseCode_complet
   [(SOAuthorizationParametersCore *)v15 setHttpBody:bodyCopy];
   [(SOAuthorizationParametersCore *)v15 setUseInternalExtensions:1];
   [(SOAuthorizationCore *)self beginAuthorizationWithParameters:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAuthorizationWithParameters:(id)parameters
@@ -392,13 +384,13 @@ void __56__SOAuthorizationCore_beginAuthorizationWithParameters___block_invoke(u
 
 - (void)cancelAuthorization
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOAuthorizationCore();
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOAuthorizationCore(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[SOAuthorizationCore cancelAuthorization]";
-    v8 = 2112;
+    v6 = "[SOAuthorizationCore cancelAuthorization]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -409,7 +401,6 @@ void __56__SOAuthorizationCore_beginAuthorizationWithParameters___block_invoke(u
   activity_block[3] = &unk_1E836CF08;
   activity_block[4] = self;
   _os_activity_initiate(&dword_1CA238000, "cancelAuthorization", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugDescription
@@ -495,24 +486,23 @@ void __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_cal
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[SOConfigurationClient defaultClient];
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2;
-    v9[3] = &unk_1E836CF30;
-    v8 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    [v5 willHandleURL:v6 responseCode:v8 callerBundleIdentifier:v7 completion:v9];
+    v4 = +[SOConfigurationClient defaultClient];
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2;
+    v8[3] = &unk_1E836CF30;
+    v7 = *(a1 + 56);
+    v9 = *(a1 + 48);
+    [v4 willHandleURL:v5 responseCode:v7 callerBundleIdentifier:v6 completion:v8];
   }
 }
 
@@ -520,18 +510,20 @@ void __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_cal
 {
   v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
+  v5 = lCopy;
   if (lCopy)
   {
-    v5 = [MEMORY[0x1E698DCE0] shouldProcessURL:lCopy];
+    lCopy = [MEMORY[0x1E698DCE0] shouldProcessURL:lCopy];
+    v6 = lCopy;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = SO_LOG_SOAuthorizationCore();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = SO_LOG_SOAuthorizationCore(lCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v11 = "+[SOAuthorizationCore _doAKshouldProcessURL:]";
     v12 = 2160;
@@ -539,21 +531,20 @@ void __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_cal
     v13 = 1752392040;
     v14 = 2117;
     v10 = 136316163;
-    if (v5)
+    if (v6)
     {
       v9 = @"YES";
     }
 
-    v15 = lCopy;
+    v15 = v5;
     v16 = 2112;
     v17 = v9;
     v18 = 2112;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1CA238000, v6, OS_LOG_TYPE_DEBUG, "%s URL = %{sensitive, mask.hash}@, result = %@ on %@", &v10, 0x34u);
+    _os_log_debug_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEBUG, "%s URL = %{sensitive, mask.hash}@, result = %@ on %@", &v10, 0x34u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 + (void)_doAKshouldProcessURL:(id)l completion:(id)completion
@@ -580,12 +571,12 @@ void __124__SOAuthorizationCore__canPerformAuthorizationWithURL_responseCode_cal
   }
 }
 
-uint64_t __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invoke(uint64_t a1)
+uint64_t __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SO_LOG_SOAuthorizationCore();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SO_LOG_SOAuthorizationCore(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invoke_cold_1(a1);
+    __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invoke_cold_1();
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -593,18 +584,16 @@ uint64_t __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invo
 
 - (void)_cancelAuthorization
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SOAuthorizationCore__cancelAuthorization__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = SO_LOG_SOAuthorizationCore();
+  v6 = SO_LOG_SOAuthorizationCore(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
@@ -619,17 +608,17 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke(uint64_t a1, i
     v8 = *(a1 + 32);
     v7 = (a1 + 32);
     v9 = v8;
-    objc_sync_enter(v9);
-    if (*(*v7 + 16))
+    v10 = objc_sync_enter(v9);
+    if (*(*v7 + 2))
     {
-      v10 = SO_LOG_SOAuthorizationCore();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = SO_LOG_SOAuthorizationCore(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __43__SOAuthorizationCore__cancelAuthorization__block_invoke_cold_1(v7);
+        __43__SOAuthorizationCore__cancelAuthorization__block_invoke_cold_1();
       }
 
-      v11 = *(*v7 + 16);
-      *(*v7 + 16) = 0;
+      v12 = *(*v7 + 2);
+      *(*v7 + 2) = 0;
 
       objc_sync_exit(v9);
       v14[0] = MEMORY[0x1E69E9820];
@@ -637,8 +626,8 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke(uint64_t a1, i
       v14[2] = __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18;
       v14[3] = &unk_1E836CF08;
       v14[4] = *v7;
-      v12 = MEMORY[0x1CCA9D280](v14);
-      [*v7 performBlockOnDelegateQueue:v12];
+      v13 = MEMORY[0x1CCA9D280](v14);
+      [*v7 performBlockOnDelegateQueue:v13];
     }
 
     else
@@ -646,8 +635,6 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke(uint64_t a1, i
       objc_sync_exit(v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1)
@@ -655,10 +642,11 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1
   v2 = [*(a1 + 32) delegate];
   if (v2)
   {
-    if (objc_opt_respondsToSelector())
+    v3 = objc_opt_respondsToSelector();
+    if (v3)
     {
-      v3 = SO_LOG_SOAuthorizationCore();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v4 = SO_LOG_SOAuthorizationCore(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18_cold_1();
       }
@@ -669,8 +657,8 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1
 
   else
   {
-    v4 = SO_LOG_SOAuthorizationCore();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SO_LOG_SOAuthorizationCore(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18_cold_2();
     }
@@ -683,7 +671,7 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1
   authorizationCopy = authorization;
   credentialCopy = credential;
   errorCopy = error;
-  v11 = SO_LOG_SOAuthorizationCore();
+  v11 = SO_LOG_SOAuthorizationCore(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     requestParametersCore = self->_requestParametersCore;
@@ -706,9 +694,9 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1
   }
 
   selfCopy2 = self;
-  objc_sync_enter(selfCopy2);
-  v15 = selfCopy2->_requestParametersCore;
-  if (v15)
+  v15 = objc_sync_enter(selfCopy2);
+  v16 = selfCopy2->_requestParametersCore;
+  if (v16)
   {
     selfCopy2->_requestParametersCore = 0;
 
@@ -721,22 +709,20 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18(uint64_t a1
     v24 = errorCopy;
     v25 = credentialCopy;
     v26 = authorizationCopy;
-    v16 = MEMORY[0x1CCA9D280](&v19);
-    [(SOAuthorizationCore *)selfCopy2 performBlockOnDelegateQueue:v16, v19, v20, v21, v22, v23];
+    v17 = MEMORY[0x1CCA9D280](&v19);
+    [(SOAuthorizationCore *)selfCopy2 performBlockOnDelegateQueue:v17, v19, v20, v21, v22, v23];
   }
 
   else
   {
-    v17 = SO_LOG_SOAuthorizationCore();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = SO_LOG_SOAuthorizationCore(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [SOAuthorizationCore _finishAuthorization:withCredential:error:];
     }
 
     objc_sync_exit(selfCopy2);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke(uint64_t a1)
@@ -750,15 +736,16 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
     {
       if ([SOErrorHelper error:v3 hasCode:-2])
       {
-        if (objc_opt_respondsToSelector())
+        v5 = objc_opt_respondsToSelector();
+        if (v5)
         {
-          v5 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+          v6 = SO_LOG_SOAuthorizationCore(v5);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
           {
             __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_4();
           }
 
-          [v2 authorizationDidCancel:*(a1 + 32)];
+          v5 = [v2 authorizationDidCancel:*(a1 + 32)];
         }
 
         goto LABEL_53;
@@ -766,10 +753,11 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
 
       if ([SOErrorHelper error:*v4 hasCode:-5])
       {
-        if (objc_opt_respondsToSelector())
+        v5 = objc_opt_respondsToSelector();
+        if (v5)
         {
-          v18 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v20 = SO_LOG_SOAuthorizationCore(v5);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_25;
           }
@@ -782,24 +770,26 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
       {
         if (![SOErrorHelper error:*v4 hasCode:-9])
         {
-          if (objc_opt_respondsToSelector())
+          v5 = objc_opt_respondsToSelector();
+          if (v5)
           {
-            v23 = SO_LOG_SOAuthorizationCore();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+            v25 = SO_LOG_SOAuthorizationCore(v5);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
-              __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_1((a1 + 40));
+              __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_1();
             }
 
-            [v2 authorization:*(a1 + 32) didCompleteWithError:*(a1 + 40)];
+            v5 = [v2 authorization:*(a1 + 32) didCompleteWithError:*(a1 + 40)];
           }
 
           goto LABEL_53;
         }
 
-        if (objc_opt_respondsToSelector())
+        v5 = objc_opt_respondsToSelector();
+        if (v5)
         {
-          v18 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v20 = SO_LOG_SOAuthorizationCore(v5);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
 LABEL_25:
             __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_2();
@@ -807,164 +797,169 @@ LABEL_25:
 
 LABEL_26:
 
-          [v2 authorizationDidNotHandle:*(a1 + 32)];
+          v5 = [v2 authorizationDidNotHandle:*(a1 + 32)];
         }
       }
 
 LABEL_53:
-      v30 = SO_LOG_SOAuthorizationCore();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v33 = SO_LOG_SOAuthorizationCore(v5);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
         __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_12();
       }
 
-      v31 = *(a1 + 32);
-      v32 = *(a1 + 56);
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_38;
-      v35[3] = &unk_1E836CFA8;
-      v35[4] = v31;
-      [v31 finishAuthorization:v32 completion:v35];
+      v34 = *(a1 + 32);
+      v35 = *(a1 + 56);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_38;
+      v38[3] = &unk_1E836CFA8;
+      v38[4] = v34;
+      [v34 finishAuthorization:v35 completion:v38];
       goto LABEL_56;
     }
 
-    v7 = *(a1 + 48);
-    if (!v7)
+    v8 = *(a1 + 48);
+    if (!v8)
     {
-      if (objc_opt_respondsToSelector())
+      v5 = objc_opt_respondsToSelector();
+      if (v5)
       {
-        v19 = SO_LOG_SOAuthorizationCore();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v21 = SO_LOG_SOAuthorizationCore(v5);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_11();
         }
 
-        [v2 authorizationDidComplete:*(a1 + 32)];
+        v5 = [v2 authorizationDidComplete:*(a1 + 32)];
       }
 
       goto LABEL_53;
     }
 
-    v8 = [v7 secKeyProxyEndpoints];
+    v9 = [v8 secKeyProxyEndpoints];
 
-    if (v8)
+    if (v9)
     {
-      if ((objc_opt_respondsToSelector() & 1) == 0)
+      v5 = objc_opt_respondsToSelector();
+      if ((v5 & 1) == 0)
       {
         goto LABEL_53;
       }
 
-      v9 = *(a1 + 32);
-      v10 = [*(a1 + 48) secKeyProxyEndpoints];
-      v36 = 0;
-      v11 = [v9 createSecKeysFromSecKeyProxyEndpoints:v10 error:&v36];
-      v12 = v36;
+      v10 = *(a1 + 32);
+      v11 = [*(a1 + 48) secKeyProxyEndpoints];
+      v39 = 0;
+      v12 = [v10 createSecKeysFromSecKeyProxyEndpoints:v11 error:&v39];
+      v13 = v39;
 
-      if (v11)
+      if (v12)
       {
-        v13 = objc_alloc_init(SOAuthorizationResultCore);
-        v14 = [*(a1 + 48) httpAuthorizationHeaders];
-        [(SOAuthorizationResultCore *)v13 setHttpAuthorizationHeaders:v14];
+        v15 = objc_alloc_init(SOAuthorizationResultCore);
+        v16 = [*(a1 + 48) httpAuthorizationHeaders];
+        [(SOAuthorizationResultCore *)v15 setHttpAuthorizationHeaders:v16];
 
-        v15 = [*(a1 + 48) httpResponse];
-        [(SOAuthorizationResultCore *)v13 setHttpResponse:v15];
+        v17 = [*(a1 + 48) httpResponse];
+        [(SOAuthorizationResultCore *)v15 setHttpResponse:v17];
 
-        v16 = [*(a1 + 48) httpBody];
-        [(SOAuthorizationResultCore *)v13 setHttpBody:v16];
+        v18 = [*(a1 + 48) httpBody];
+        [(SOAuthorizationResultCore *)v15 setHttpBody:v18];
 
-        [(SOAuthorizationResultCore *)v13 setPrivateKeys:v11];
-        v17 = SO_LOG_SOAuthorizationCore();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v19 = SO_LOG_SOAuthorizationCore([(SOAuthorizationResultCore *)v15 setPrivateKeys:v12]);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_5();
         }
 
-        [v2 authorization:*(a1 + 32) didCompleteWithAuthorizationResult:v13];
+        [v2 authorization:*(a1 + 32) didCompleteWithAuthorizationResult:v15];
       }
 
       else
       {
-        v28 = SO_LOG_SOAuthorizationCore();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v30 = SO_LOG_SOAuthorizationCore(v14);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_6();
         }
 
-        if (objc_opt_respondsToSelector())
+        v31 = objc_opt_respondsToSelector();
+        if (v31)
         {
-          v29 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v32 = SO_LOG_SOAuthorizationCore(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_7();
           }
 
-          [v2 authorization:*(a1 + 32) didCompleteWithError:v12];
+          [v2 authorization:*(a1 + 32) didCompleteWithError:v13];
         }
       }
     }
 
     else
     {
-      v20 = [*(a1 + 48) httpAuthorizationHeaders];
+      v22 = [*(a1 + 48) httpAuthorizationHeaders];
 
-      if (v20)
+      if (v22)
       {
-        if ((objc_opt_respondsToSelector() & 1) == 0)
+        v5 = objc_opt_respondsToSelector();
+        if ((v5 & 1) == 0)
         {
           goto LABEL_53;
         }
 
-        v21 = SO_LOG_SOAuthorizationCore();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v23 = SO_LOG_SOAuthorizationCore(v5);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_8();
         }
 
-        v22 = *(a1 + 32);
-        v12 = [*(a1 + 48) httpAuthorizationHeaders];
-        [v2 authorization:v22 didCompleteWithHTTPAuthorizationHeaders:v12];
+        v24 = *(a1 + 32);
+        v13 = [*(a1 + 48) httpAuthorizationHeaders];
+        [v2 authorization:v24 didCompleteWithHTTPAuthorizationHeaders:v13];
       }
 
       else
       {
-        v24 = [*(a1 + 48) httpResponse];
+        v26 = [*(a1 + 48) httpResponse];
 
-        if (v24)
+        if (v26)
         {
-          if ((objc_opt_respondsToSelector() & 1) == 0)
+          v5 = objc_opt_respondsToSelector();
+          if ((v5 & 1) == 0)
           {
             goto LABEL_53;
           }
 
-          v25 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v27 = SO_LOG_SOAuthorizationCore(v5);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
             __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_9();
           }
 
-          v26 = *(a1 + 32);
-          v12 = [*(a1 + 48) httpResponse];
-          v27 = [*(a1 + 48) httpBody];
-          [v2 authorization:v26 didCompleteWithHTTPResponse:v12 httpBody:v27];
+          v28 = *(a1 + 32);
+          v13 = [*(a1 + 48) httpResponse];
+          v29 = [*(a1 + 48) httpBody];
+          [v2 authorization:v28 didCompleteWithHTTPResponse:v13 httpBody:v29];
         }
 
         else
         {
-          if ((objc_opt_respondsToSelector() & 1) == 0)
+          v5 = objc_opt_respondsToSelector();
+          if ((v5 & 1) == 0)
           {
             goto LABEL_53;
           }
 
-          v33 = SO_LOG_SOAuthorizationCore();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v36 = SO_LOG_SOAuthorizationCore(v5);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_10();
           }
 
-          v34 = *(a1 + 32);
-          v12 = [SOErrorHelper errorWithCode:-1000 message:@"Invalid credential"];
-          [v2 authorization:v34 didCompleteWithError:v12];
+          v37 = *(a1 + 32);
+          v13 = [SOErrorHelper errorWithCode:-1000 message:@"Invalid credential"];
+          [v2 authorization:v37 didCompleteWithError:v13];
         }
       }
     }
@@ -972,8 +967,8 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v6 = SO_LOG_SOAuthorizationCore();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = SO_LOG_SOAuthorizationCore(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_13();
   }
@@ -983,22 +978,20 @@ LABEL_56:
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_38(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = SO_LOG_SOAuthorizationCore();
+  v6 = SO_LOG_SOAuthorizationCore(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = 138543874;
-    v10 = v8;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2114;
-    v14 = v5;
-    _os_log_debug_impl(&dword_1CA238000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ has finished (success: %d, error: %{public}@)", &v9, 0x1Cu);
+    v7 = *(a1 + 32);
+    v8 = 138543874;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2114;
+    v13 = v5;
+    _os_log_debug_impl(&dword_1CA238000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ has finished (success: %d, error: %{public}@)", &v8, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (SOAuthorizationCoreDelegate)delegate
@@ -1034,7 +1027,7 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
   v48 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = SO_LOG_SOAuthorizationCore();
+  v8 = SO_LOG_SOAuthorizationCore(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [parametersCopy identifier];
@@ -1071,22 +1064,22 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
   }
 
   selfCopy2 = self;
-  objc_sync_enter(selfCopy2);
+  v16 = objc_sync_enter(selfCopy2);
   if (selfCopy2->_requestParametersCore)
   {
-    v16 = SO_LOG_SOAuthorizationCore();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SO_LOG_SOAuthorizationCore(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v27 = selfCopy2;
-      _os_log_impl(&dword_1CA238000, v16, OS_LOG_TYPE_DEFAULT, "%@ is already authorizing => ignoring a new authorization request", buf, 0xCu);
+      _os_log_impl(&dword_1CA238000, v17, OS_LOG_TYPE_DEFAULT, "%@ is already authorizing => ignoring a new authorization request", buf, 0xCu);
     }
 
     if (completionCopy)
     {
       selfCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is already authorizing => ignoring a new authorization request", selfCopy2];
-      v18 = [SOErrorHelper silentInternalErrorWithMessage:selfCopy2];
-      completionCopy[2](completionCopy, 0, v18);
+      v19 = [SOErrorHelper silentInternalErrorWithMessage:selfCopy2];
+      completionCopy[2](completionCopy, 0, v19);
     }
 
     objc_sync_exit(selfCopy2);
@@ -1094,9 +1087,9 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
 
   else
   {
-    v19 = [[SOAuthorizationRequestParametersCore alloc] initWithAuthorizationParametersCore:parametersCopy];
+    v20 = [[SOAuthorizationRequestParametersCore alloc] initWithAuthorizationParametersCore:parametersCopy];
     requestParametersCore = selfCopy2->_requestParametersCore;
-    selfCopy2->_requestParametersCore = v19;
+    selfCopy2->_requestParametersCore = v20;
 
     [(SOAuthorizationRequestParametersCore *)selfCopy2->_requestParametersCore setAuthorizationOptions:selfCopy2->_authorizationOptions];
     [(SOAuthorizationRequestParametersCore *)selfCopy2->_requestParametersCore setEnableUserInteraction:selfCopy2->_enableUserInteraction];
@@ -1115,8 +1108,6 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
     v25 = completionCopy;
     _os_activity_initiate(&dword_1CA238000, "beginAuthorizationWithParameters", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SOAuthorizationCore_Core__beginAuthorizationWithParameters_completion___block_invoke(uint64_t a1)
@@ -1134,17 +1125,17 @@ void __73__SOAuthorizationCore_Core__beginAuthorizationWithParameters_completion
 
 void __73__SOAuthorizationCore_Core__beginAuthorizationWithParameters_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = SO_LOG_SOAuthorizationCore();
+  v7 = SO_LOG_SOAuthorizationCore(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138478083;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "performAuthorizationWithRequestParameters: credential = %{private}@, error = %{public}@", &v10, 0x16u);
+    v9 = 138478083;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "performAuthorizationWithRequestParameters: credential = %{private}@, error = %{public}@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 32);
@@ -1152,15 +1143,13 @@ void __73__SOAuthorizationCore_Core__beginAuthorizationWithParameters_completion
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAuthorizationWithRequestParameters:(id)parameters completion:(id)completion
 {
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = SO_LOG_SOAuthorizationCore();
+  v8 = SO_LOG_SOAuthorizationCore(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(SOAuthorizationCore(Core) *)parametersCopy beginAuthorizationWithRequestParameters:v8 completion:?];
@@ -1206,10 +1195,10 @@ void __73__SOAuthorizationCore_Core__beginAuthorizationWithParameters_completion
 - (void)performBlockOnDelegateQueue:(id)queue
 {
   queueCopy = queue;
-  v5 = SO_LOG_SOAuthorizationCore();
+  v5 = SO_LOG_SOAuthorizationCore(queueCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [SOAuthorizationCore(Core) performBlockOnDelegateQueue:?];
+    [SOAuthorizationCore(Core) performBlockOnDelegateQueue:];
   }
 
   delegateDispatchQueue = self->_delegateDispatchQueue;
@@ -1232,27 +1221,26 @@ LABEL_8:
 
 - (void)debugHintsWithCompletion:(id)completion
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOAuthorizationCore();
+  v5 = SO_LOG_SOAuthorizationCore(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SOAuthorizationCore(Core) debugHintsWithCompletion:]";
-    v9 = 2112;
+    v6 = 136315394;
+    v7 = "[SOAuthorizationCore(Core) debugHintsWithCompletion:]";
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1CA238000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v7, 0x16u);
+    _os_log_impl(&dword_1CA238000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v6, 0x16u);
   }
 
   [(SOClient *)self->_client debugHintsWithCompletion:completionCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishAuthorization:(id)authorization completion:(id)completion
 {
   completionCopy = completion;
   authorizationCopy = authorization;
-  v8 = SO_LOG_SOAuthorizationCore();
+  v8 = SO_LOG_SOAuthorizationCore(authorizationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOAuthorizationCore(Core) finishAuthorization:completion:];
@@ -1263,41 +1251,41 @@ LABEL_8:
 
 - (id)createSecKeysFromSecKeyProxyEndpoints:(id)endpoints error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   endpointsCopy = endpoints;
-  v6 = SO_LOG_SOAuthorizationCore();
+  v6 = SO_LOG_SOAuthorizationCore(endpointsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SOAuthorizationCore(Core) createSecKeysFromSecKeyProxyEndpoints:error:];
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = endpointsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MEMORY[0x1E697AAB0] createKeyFromEndpoint:*(*(&v19 + 1) + 8 * i) error:{error, v19}];
+        v13 = [MEMORY[0x1E697AAB0] createKeyFromEndpoint:*(*(&v18 + 1) + 8 * i) error:{error, v18}];
         if (!v13)
         {
-          v16 = SO_LOG_SOAuthorizationCore();
+          v16 = SO_LOG_SOAuthorizationCore(0);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            [SOAuthorizationCore(Core) createSecKeysFromSecKeyProxyEndpoints:error error:?];
+            [SOAuthorizationCore(Core) createSecKeysFromSecKeyProxyEndpoints:error:];
           }
 
           v15 = 0;
@@ -1308,7 +1296,7 @@ LABEL_8:
         [array addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -1321,15 +1309,13 @@ LABEL_8:
   v15 = array;
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)realms
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOAuthorizationCore();
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOAuthorizationCore(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1342,16 +1328,16 @@ LABEL_15:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   client = self->_client;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __39__SOAuthorizationCore_Kerberos__realms__block_invoke;
-  v11[3] = &unk_1E836D020;
-  v11[4] = buf;
-  [(SOClient *)client realmsWithCompletion:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __39__SOAuthorizationCore_Kerberos__realms__block_invoke;
+  v10[3] = &unk_1E836D020;
+  v10[4] = buf;
+  [(SOClient *)client realmsWithCompletion:v10];
   v5 = *(*&buf[8] + 40);
   if (!v5)
   {
@@ -1365,37 +1351,33 @@ LABEL_15:
   v8 = v5;
   _Block_object_dispose(buf, 8);
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 void __39__SOAuthorizationCore_Kerberos__realms__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = SO_LOG_SOAuthorizationCore();
+  v7 = SO_LOG_SOAuthorizationCore(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "realms = %{public}@, error = %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v6;
+    _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "realms = %{public}@, error = %{public}@", &v10, 0x16u);
   }
 
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v5;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)kerberosProfiles
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOAuthorizationCore();
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOAuthorizationCore(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1408,16 +1390,16 @@ void __39__SOAuthorizationCore_Kerberos__realms__block_invoke(uint64_t a1, void 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   client = self->_client;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __49__SOAuthorizationCore_Kerberos__kerberosProfiles__block_invoke;
-  v11[3] = &unk_1E836D020;
-  v11[4] = buf;
-  [(SOClient *)client profilesWithExtensionBundleIdentifier:@"com.apple.AppSSOKerberos.KerberosExtension" completion:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __49__SOAuthorizationCore_Kerberos__kerberosProfiles__block_invoke;
+  v10[3] = &unk_1E836D020;
+  v10[4] = buf;
+  [(SOClient *)client profilesWithExtensionBundleIdentifier:@"com.apple.AppSSOKerberos.KerberosExtension" completion:v10];
   v5 = *(*&buf[8] + 40);
   if (!v5)
   {
@@ -1431,21 +1413,19 @@ void __39__SOAuthorizationCore_Kerberos__realms__block_invoke(uint64_t a1, void 
   v8 = v5;
   _Block_object_dispose(buf, 8);
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (void)isExtensionProcessWithAuditToken:(id *)token completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = SO_LOG_SOAuthorizationCore();
+  v7 = SO_LOG_SOAuthorizationCore(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "+[SOAuthorizationCore(Process) isExtensionProcessWithAuditToken:completion:]";
-    v17 = 2112;
+    v15 = "+[SOAuthorizationCore(Process) isExtensionProcessWithAuditToken:completion:]";
+    v16 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -1458,15 +1438,13 @@ void __39__SOAuthorizationCore_Kerberos__realms__block_invoke(uint64_t a1, void 
   activity_block[0] = MEMORY[0x1E69E9820];
   activity_block[1] = 3221225472;
   v8 = *&token->var0[4];
-  v13 = *token->var0;
-  v14 = v8;
+  v12 = *token->var0;
+  v13 = v8;
   activity_block[2] = __76__SOAuthorizationCore_Process__isExtensionProcessWithAuditToken_completion___block_invoke_2;
   activity_block[3] = &unk_1E836D048;
-  v12 = completionCopy;
+  v11 = completionCopy;
   v9 = completionCopy;
   _os_activity_initiate(&dword_1CA238000, "isExtensionProcessWithAuditToken", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__SOAuthorizationCore_Process__isExtensionProcessWithAuditToken_completion___block_invoke()
@@ -1522,38 +1500,6 @@ void __93__SOAuthorizationCore_Configuration__isConfigurationActiveForExtensionI
   [v2 isConfigurationActiveForExtensionIdentifier:*(a1 + 32) completion:*(a1 + 40)];
 }
 
-void __123__SOAuthorizationCore_canPerformAuthorizationWithURL_responseCode_callerBundleIdentifier_useInternalExtensions_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  *(a1 + 72);
-  v1 = *(a1 + 56);
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 64);
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x4Eu);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __56__SOAuthorizationCore__doAKshouldProcessURL_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x34u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18_cold_1()
 {
   OUTLINED_FUNCTION_1_2();
@@ -1570,20 +1516,9 @@ void __43__SOAuthorizationCore__cancelAuthorization__block_invoke_18_cold_2()
 
 - (void)_finishAuthorization:withCredential:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_2()
@@ -1609,20 +1544,16 @@ void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SOAuthorizationCore__finishAuthorization_withCredential_error___block_invoke_cold_8()

@@ -10,21 +10,20 @@
 - (NSData)highlightEvent
 {
   v3 = type metadata accessor for CollaborationHighlightEvent(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = self + OBJC_IVAR___BlastDoorCollaborationNotice_collaborationNotice;
-  v8 = type metadata accessor for CollaborationNotice(0);
-  sub_213FB568C(&v7[*(v8 + 24)], v6, type metadata accessor for CollaborationHighlightEvent);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = self + OBJC_IVAR___BlastDoorCollaborationNotice_collaborationNotice;
+  v7 = type metadata accessor for CollaborationNotice(0);
+  sub_213FB568C(&v6[*(v7 + 24)], v5, type metadata accessor for CollaborationHighlightEvent);
   selfCopy = self;
-  v10 = sub_214675854();
-  v12 = v11;
-  v13 = sub_2146D8A38();
-  sub_213FB54FC(v10, v12);
+  v9 = sub_214675854();
+  v11 = v10;
+  v12 = sub_2146D8A38();
+  sub_213FB54FC(v9, v11);
 
-  sub_213FB5844(v6, type metadata accessor for CollaborationHighlightEvent);
+  sub_213FB5844(v5, type metadata accessor for CollaborationHighlightEvent);
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)highlightEventType
@@ -39,16 +38,15 @@
 {
   v3 = sub_2146D8B08();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = self + OBJC_IVAR___BlastDoorCollaborationNotice_collaborationNotice;
-  v9 = type metadata accessor for CollaborationNotice(0);
-  (*(v4 + 16))(v7, &v8[*(v9 + 28)], v3);
-  v10 = sub_2146D8AD8();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR___BlastDoorCollaborationNotice_collaborationNotice;
+  v8 = type metadata accessor for CollaborationNotice(0);
+  (*(v4 + 16))(v6, &v7[*(v8 + 28)], v3);
+  v9 = sub_2146D8AD8();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (BlastDoorCollaborationNotice)init

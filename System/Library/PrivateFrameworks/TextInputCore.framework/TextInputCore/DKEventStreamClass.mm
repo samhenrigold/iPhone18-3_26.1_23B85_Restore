@@ -15,7 +15,7 @@ Class __get_DKEventStreamClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "_DKEventStream");
     return __get_DKAnyStringIdentifierClass_block_invoke(v3);
   }
 

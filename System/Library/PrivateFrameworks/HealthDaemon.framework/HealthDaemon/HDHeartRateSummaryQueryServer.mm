@@ -56,7 +56,7 @@
 - (void)activityCacheManager:(id)manager changedHeartRateSummary:(id)summary isToday:(BOOL)today
 {
   todayCopy = today;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   if (todayCopy)
   {
@@ -66,15 +66,15 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2D0], OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      *v23 = 138412546;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2112;
-      *&v23[14] = summaryCopy;
-      v12 = *&v23[4];
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%@ received updated summary: %@", v23, 0x16u);
+      *v22 = 138412546;
+      *&v22[4] = objc_opt_class();
+      *&v22[12] = 2112;
+      *&v22[14] = summaryCopy;
+      v12 = *&v22[4];
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%@ received updated summary: %@", v22, 0x16u);
     }
 
-    if (([(HKHeartRateSummary *)self->_latestSummary isEqual:summaryCopy, *v23, *&v23[16], v24]& 1) == 0)
+    if (([(HKHeartRateSummary *)self->_latestSummary isEqual:summaryCopy, *v22, *&v22[8], v23]& 1) == 0)
     {
       objc_storeStrong(&self->_latestSummary, summary);
       clientProxy = [(HDQueryServer *)self clientProxy];
@@ -84,14 +84,14 @@
       v18 = *v9;
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
       {
-        v20 = v18;
-        v21 = objc_opt_class();
-        *v23 = 138412546;
-        *&v23[4] = v21;
-        *&v23[12] = 2112;
-        *&v23[14] = remoteObjectProxy;
-        v22 = v21;
-        _os_log_debug_impl(&dword_228986000, v20, OS_LOG_TYPE_DEBUG, "%@ notifying client: %@", v23, 0x16u);
+        v19 = v18;
+        v20 = objc_opt_class();
+        *v22 = 138412546;
+        *&v22[4] = v20;
+        *&v22[12] = 2112;
+        *&v22[14] = remoteObjectProxy;
+        v21 = v20;
+        _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "%@ notifying client: %@", v22, 0x16u);
       }
 
       queryUUID = [(HDQueryServer *)self queryUUID];
@@ -105,15 +105,13 @@
     {
       remoteObjectProxy = v13;
       v15 = objc_opt_class();
-      *v23 = 138412290;
-      *&v23[4] = v15;
+      *v22 = 138412290;
+      *&v22[4] = v15;
       queryUUID = v15;
-      _os_log_debug_impl(&dword_228986000, remoteObjectProxy, OS_LOG_TYPE_DEBUG, "%@ ignoring summary because nothing changed", v23, 0xCu);
+      _os_log_debug_impl(&dword_228986000, remoteObjectProxy, OS_LOG_TYPE_DEBUG, "%@ ignoring summary because nothing changed", v22, 0xCu);
 LABEL_10:
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

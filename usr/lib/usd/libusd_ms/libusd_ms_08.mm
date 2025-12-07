@@ -315,7 +315,7 @@ LABEL_31:
   }
 }
 
-void sub_29A04F2C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_29A04F2C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (__p)
   {
@@ -481,7 +481,7 @@ LABEL_31:
   }
 }
 
-void sub_29A04F5F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_29A04F5F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (__p)
   {
@@ -647,7 +647,7 @@ LABEL_31:
   }
 }
 
-void sub_29A04F918(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_29A04F918(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (__p)
   {
@@ -1241,7 +1241,7 @@ void sub_29A050378(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x29A050368);
 }
 
-void sub_29A0503CC(uint64_t **a1, int a2)
+void sub_29A0503CC(uint64_t ***a1, int a2)
 {
   if (a2 <= 1)
   {
@@ -1254,8 +1254,8 @@ void sub_29A0503CC(uint64_t **a1, int a2)
 
       sub_29A008E78(v9, "geoScope");
       sub_29A008E78(&__p, "uni");
-      v11 = v9;
-      v4 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v11);
+      v12 = v9;
+      v4 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v12, &v11);
       std::string::operator=((v4 + 7), &__p);
     }
 
@@ -1263,8 +1263,8 @@ void sub_29A0503CC(uint64_t **a1, int a2)
     {
       sub_29A008E78(v9, "geoScope");
       sub_29A008E78(&__p, "con");
-      v11 = v9;
-      v7 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v11);
+      v12 = v9;
+      v7 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v12, &v11);
       std::string::operator=((v7 + 7), &__p);
     }
   }
@@ -1276,22 +1276,22 @@ void sub_29A0503CC(uint64_t **a1, int a2)
       case 2:
         sub_29A008E78(v9, "geoScope");
         sub_29A008E78(&__p, "var");
-        v11 = v9;
-        v5 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v11);
+        v12 = v9;
+        v5 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v12, &v11);
         std::string::operator=((v5 + 7), &__p);
         break;
       case 3:
         sub_29A008E78(v9, "geoScope");
         sub_29A008E78(&__p, "vtx");
-        v11 = v9;
-        v6 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v11);
+        v12 = v9;
+        v6 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v12, &v11);
         std::string::operator=((v6 + 7), &__p);
         break;
       case 4:
         sub_29A008E78(v9, "geoScope");
         sub_29A008E78(&__p, "fvr");
-        v11 = v9;
-        v3 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v11);
+        v12 = v9;
+        v3 = sub_29A00B038(a1, v9, &unk_29B4325FC, &v12, &v11);
         std::string::operator=((v3 + 7), &__p);
         break;
       default:
@@ -1479,17 +1479,17 @@ LABEL_5:
   }
 }
 
-void sub_29A05092C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A05092C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   Alembic::Abc::v12::OArchive::~OArchive(va1);
   Alembic::Abc::v12::OObject::~OObject(va);
   _Unwind_Resume(a1);
@@ -1575,7 +1575,7 @@ uint64_t sub_29A050A50(uint64_t a1)
   return a1;
 }
 
-uint64_t Alembic::AbcGeom::v12::OCurvesSchema::setTimeSampling(Alembic::AbcGeom::v12::OCurvesSchema *this, int a2)
+uint64_t Alembic::AbcGeom::v12::OCurvesSchema::setTimeSampling(Alembic::AbcGeom::v12::OCurvesSchema *this, uint64_t a2)
 {
   *(this + 90) = a2;
   if (*(this + 279) < 0)
@@ -2077,8 +2077,8 @@ void sub_29A051390(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A019350(&v23, v27);
   sub_29A008E78(__p, "interpretation");
   sub_29A008E78(&__str, "point");
-  v31 = __p;
-  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v31);
+  v32 = __p;
+  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v32, &v31);
   std::string::operator=((v13 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2146,7 +2146,7 @@ void sub_29A051390(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v27, v27[1]);
 }
 
-void sub_29A0516E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A0516E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -2220,43 +2220,43 @@ void *sub_29A051900(void *a1, uint64_t *a2)
   v5 = a2 + 1;
   if (v6 != 10 || *(v5 + 4) != 3)
   {
-    sub_29A008864(&v17);
-    v8 = sub_29A00911C(v18, "Invalid DataType in TypedArraySample. Expected: ", 48);
-    v16 = 3;
-    v15 = 10;
-    v9 = sub_29A00D330(v8, &v15);
+    sub_29A008864(&v16);
+    v8 = sub_29A00911C(v17, "Invalid DataType in TypedArraySample. Expected: ", 48);
+    BYTE4(v15[0]) = 3;
+    LODWORD(v15[0]) = 10;
+    v9 = sub_29A00D330(v8, v15);
     v10 = sub_29A00911C(v9, ", but got: ", 11);
     sub_29A00D330(v10, v5);
     std::stringbuf::str();
-    sub_29A008C60(&v15, &__p);
+    sub_29A008C60(v15, &__p);
     if (v14 < 0)
     {
       operator delete(__p);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    v12 = sub_29A008E1C(exception, &v15);
+    v12 = sub_29A008E1C(exception, v15);
     __cxa_throw(v12, &unk_2A203B108, sub_29A008B08);
   }
 
   return a1;
 }
 
-void sub_29A051A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A051A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8.__vftable = va_arg(va1, std::exception_vtbl *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v7 = *v5;
-  if (*v5)
+  v10 = *v8;
+  if (*v8)
   {
-    *(v4 + 24) = v7;
-    operator delete(v7);
+    *(v7 + 24) = v10;
+    operator delete(v10);
   }
 
   _Unwind_Resume(a1);
@@ -2386,29 +2386,29 @@ void sub_29A051B54(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A051E38(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A051E38(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -2525,8 +2525,8 @@ void sub_29A0520DC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A019350(&v23, v27);
   sub_29A008E78(__p, "interpretation");
   sub_29A008E78(&__str, "vector");
-  v31 = __p;
-  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v31);
+  v32 = __p;
+  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v32, &v31);
   std::string::operator=((v13 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2594,7 +2594,7 @@ void sub_29A0520DC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v27, v27[1]);
 }
 
-void sub_29A052430(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A052430(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -2727,17 +2727,17 @@ void sub_29A05277C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+char *sub_29A052798(char *__dst, uint64_t *a2, __int128 *a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(a3 + 23) < 0)
   {
-    sub_29A008D14(__dst, *a3, *(a3 + 8));
+    sub_29A008D14(__dst, *a3, *(a3 + 1));
   }
 
   else
   {
     v17 = *a3;
-    *(__dst + 2) = *(a3 + 16);
+    *(__dst + 2) = *(a3 + 2);
     *__dst = v17;
   }
 
@@ -2784,7 +2784,7 @@ char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&__p, "isGeomParam");
   sub_29A008E78(&__str, "true");
   p_p = &__p;
-  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p);
+  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p, &v86);
   std::string::operator=((v20 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2799,7 +2799,7 @@ char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&v86, "float32_t");
   sub_29A008E78(&__p, "podName");
   __str.__r_.__value_.__r.__words[0] = &__p;
-  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str);
+  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str, &p_p);
   std::string::operator=((v21 + 7), &v86);
   if (SHIBYTE(v83[0].__locale_) < 0)
   {
@@ -2811,7 +2811,7 @@ char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&__str, "podExtent");
   p_p = &__str;
-  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p);
+  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p, &v75);
   std::string::operator=((v22 + 7), &v80);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2823,7 +2823,7 @@ char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&p_p, "arrayExtent");
   v74.__r_.__value_.__r.__words[0] = &p_p;
-  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74);
+  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74, &p_p_p);
   std::string::operator=((v23 + 7), &v75);
   if (v71.__r_.__value_.__s.__data_[15] < 0)
   {
@@ -2833,7 +2833,7 @@ char *sub_29A052798(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&p_p, "interpretation");
   sub_29A008E78(&v74, "vector");
   p_p_p = &p_p;
-  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p);
+  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p, &v59);
   std::string::operator=((v24 + 7), &v74);
   if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3274,8 +3274,8 @@ void sub_29A053538(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A019350(&v23, v27);
   sub_29A008E78(__p, "interpretation");
   sub_29A008E78(&__str, "vector");
-  v31 = __p;
-  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v31);
+  v32 = __p;
+  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v32, &v31);
   std::string::operator=((v13 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3343,7 +3343,7 @@ void sub_29A053538(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v27, v27[1]);
 }
 
-void sub_29A05388C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A05388C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -3492,29 +3492,29 @@ void sub_29A053AD4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A053DB8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A053DB8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -3568,43 +3568,43 @@ void *sub_29A053FB8(void *a1, uint64_t *a2)
   v5 = a2 + 1;
   if (v6 != 10 || *(v5 + 4) != 3)
   {
-    sub_29A008864(&v17);
-    v8 = sub_29A00911C(v18, "Invalid DataType in TypedArraySample. Expected: ", 48);
-    v16 = 3;
-    v15 = 10;
-    v9 = sub_29A00D330(v8, &v15);
+    sub_29A008864(&v16);
+    v8 = sub_29A00911C(v17, "Invalid DataType in TypedArraySample. Expected: ", 48);
+    BYTE4(v15[0]) = 3;
+    LODWORD(v15[0]) = 10;
+    v9 = sub_29A00D330(v8, v15);
     v10 = sub_29A00911C(v9, ", but got: ", 11);
     sub_29A00D330(v10, v5);
     std::stringbuf::str();
-    sub_29A008C60(&v15, &__p);
+    sub_29A008C60(v15, &__p);
     if (v14 < 0)
     {
       operator delete(__p);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    v12 = sub_29A008E1C(exception, &v15);
+    v12 = sub_29A008E1C(exception, v15);
     __cxa_throw(v12, &unk_2A203B108, sub_29A008B08);
   }
 
   return a1;
 }
 
-void sub_29A0540F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0540F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8.__vftable = va_arg(va1, std::exception_vtbl *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11.__vftable = va_arg(va1, std::exception_vtbl *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v7 = *v5;
-  if (*v5)
+  v10 = *v8;
+  if (*v8)
   {
-    *(v4 + 24) = v7;
-    operator delete(v7);
+    *(v7 + 24) = v10;
+    operator delete(v10);
   }
 
   _Unwind_Resume(a1);
@@ -3643,17 +3643,17 @@ void sub_29A0541CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+char *sub_29A0541E8(char *__dst, uint64_t *a2, __int128 *a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(a3 + 23) < 0)
   {
-    sub_29A008D14(__dst, *a3, *(a3 + 8));
+    sub_29A008D14(__dst, *a3, *(a3 + 1));
   }
 
   else
   {
     v17 = *a3;
-    *(__dst + 2) = *(a3 + 16);
+    *(__dst + 2) = *(a3 + 2);
     *__dst = v17;
   }
 
@@ -3700,7 +3700,7 @@ char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&__p, "isGeomParam");
   sub_29A008E78(&__str, "true");
   p_p = &__p;
-  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p);
+  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p, &v86);
   std::string::operator=((v20 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3715,7 +3715,7 @@ char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&v86, "float32_t");
   sub_29A008E78(&__p, "podName");
   __str.__r_.__value_.__r.__words[0] = &__p;
-  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str);
+  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str, &p_p);
   std::string::operator=((v21 + 7), &v86);
   if (SHIBYTE(v83[0].__locale_) < 0)
   {
@@ -3727,7 +3727,7 @@ char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&__str, "podExtent");
   p_p = &__str;
-  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p);
+  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p, &v75);
   std::string::operator=((v22 + 7), &v80);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3739,7 +3739,7 @@ char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&p_p, "arrayExtent");
   v74.__r_.__value_.__r.__words[0] = &p_p;
-  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74);
+  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74, &p_p_p);
   std::string::operator=((v23 + 7), &v75);
   if (v71.__r_.__value_.__s.__data_[15] < 0)
   {
@@ -3749,7 +3749,7 @@ char *sub_29A0541E8(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&p_p, "interpretation");
   sub_29A008E78(&v74, "normal");
   p_p_p = &p_p;
-  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p);
+  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p, &v59);
   std::string::operator=((v24 + 7), &v74);
   if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4190,8 +4190,8 @@ void sub_29A054F88(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A019350(&v23, v27);
   sub_29A008E78(__p, "interpretation");
   sub_29A008E78(&__str, "normal");
-  v31 = __p;
-  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v31);
+  v32 = __p;
+  v13 = sub_29A00B038(&v23, __p, &unk_29B4325FC, &v32, &v31);
   std::string::operator=((v13 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4259,7 +4259,7 @@ void sub_29A054F88(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v27, v27[1]);
 }
 
-void sub_29A0552DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A0552DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -4387,17 +4387,17 @@ void sub_29A05565C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+char *sub_29A055678(char *__dst, uint64_t *a2, __int128 *a3, char a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(a3 + 23) < 0)
   {
-    sub_29A008D14(__dst, *a3, *(a3 + 8));
+    sub_29A008D14(__dst, *a3, *(a3 + 1));
   }
 
   else
   {
     v17 = *a3;
-    *(__dst + 2) = *(a3 + 16);
+    *(__dst + 2) = *(a3 + 2);
     *__dst = v17;
   }
 
@@ -4444,7 +4444,7 @@ char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&__p, "isGeomParam");
   sub_29A008E78(&__str, "true");
   p_p = &__p;
-  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p);
+  v20 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &p_p, &v86);
   std::string::operator=((v20 + 7), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4459,7 +4459,7 @@ char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&v86, "float32_t");
   sub_29A008E78(&__p, "podName");
   __str.__r_.__value_.__r.__words[0] = &__p;
-  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str);
+  v21 = sub_29A00B038(v87, &__p, &unk_29B4325FC, &__str, &p_p);
   std::string::operator=((v21 + 7), &v86);
   if (SHIBYTE(v83[0].__locale_) < 0)
   {
@@ -4471,7 +4471,7 @@ char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&__str, "podExtent");
   p_p = &__str;
-  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p);
+  v22 = sub_29A00B038(v87, &__str.__r_.__value_.__l.__data_, &unk_29B4325FC, &p_p, &v75);
   std::string::operator=((v22 + 7), &v80);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4483,7 +4483,7 @@ char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   std::stringbuf::str();
   sub_29A008E78(&p_p, "arrayExtent");
   v74.__r_.__value_.__r.__words[0] = &p_p;
-  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74);
+  v23 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &v74, &p_p_p);
   std::string::operator=((v23 + 7), &v75);
   if (v71.__r_.__value_.__s.__data_[15] < 0)
   {
@@ -4493,7 +4493,7 @@ char *sub_29A055678(char *__dst, uint64_t *a2, uint64_t a3, char a4, int a5, uin
   sub_29A008E78(&p_p, "interpretation");
   sub_29A008E78(&v74, "");
   p_p_p = &p_p;
-  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p);
+  v24 = sub_29A00B038(v87, &p_p, &unk_29B4325FC, &p_p_p, &v59);
   std::string::operator=((v24 + 7), &v74);
   if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4984,29 +4984,29 @@ void sub_29A056414(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A0566F8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A0566F8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -5177,29 +5177,29 @@ void sub_29A0569D8(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A056CB8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A056CB8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -5815,19 +5815,20 @@ LABEL_24:
   return result;
 }
 
-void sub_29A057E38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::exception a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_29A057E38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::exception a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   sub_29A008F20(&a24);
-  sub_29A008B0C(&a28);
-  v31 = __cxa_begin_catch(a1);
+  sub_29A008B0C(va);
+  v30 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(v28 - 48, v31);
+    sub_29A02D768(v27 - 48, v30);
   }
 
   else
   {
-    sub_29A02D6F8(v28 - 48, 0);
+    sub_29A02D6F8(v27 - 48, 0);
   }
 
   __cxa_end_catch();
@@ -6116,11 +6117,11 @@ void sub_29A0584DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29A0584FC(uint64_t a1, int a2, char a3)
+void sub_29A0584FC(uint64_t result, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
-    sub_29A058B80(a1, a2, 0);
+    sub_29A058B80(result, a2, 0);
   }
 }
 
@@ -6209,8 +6210,8 @@ void sub_29A0586EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     sub_29A008E78(__p, "schema");
     sub_29A008E78(&__str, "AbcGeom_FaceSet_v1");
-    v30 = __p;
-    v13 = sub_29A00B038(&v22, __p, &unk_29B432624, &v30);
+    v31 = __p;
+    v13 = sub_29A00B038(&v22, __p, &unk_29B432624, &v31, &v30);
     std::string::operator=((v13 + 7), &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6226,8 +6227,8 @@ void sub_29A0586EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       sub_29A008E78(__p, "schemaBaseType");
       sub_29A008E78(&__str, "AbcGeom_GeomBase_v1");
-      v30 = __p;
-      v14 = sub_29A00B038(&v22, __p, &unk_29B432624, &v30);
+      v31 = __p;
+      v14 = sub_29A00B038(&v22, __p, &unk_29B432624, &v31, &v30);
       std::string::operator=((v14 + 7), &__str);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6265,7 +6266,7 @@ void sub_29A0586EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A0589E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A0589E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -6550,29 +6551,29 @@ void sub_29A058EDC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A0591C0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A0591C0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -6885,7 +6886,7 @@ void sub_29A0598EC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A0598D0);
 }
 
-uint64_t sub_29A05999C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A05999C(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -6954,7 +6955,7 @@ uint64_t sub_29A05999C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -6971,7 +6972,7 @@ uint64_t sub_29A05999C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 5 && *(v13 + 60) == 1 && *(v13 + 24) == 1;
-  if (!v16 || (sub_29A059F28(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A059F28(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -7056,7 +7057,7 @@ uint64_t sub_29A05999C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A059DE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A059DE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -7083,7 +7084,7 @@ void sub_29A059DE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A059B40);
 }
 
-uint64_t sub_29A059F28(uint64_t a1, int a2)
+BOOL sub_29A059F28(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -7178,7 +7179,7 @@ void sub_29A05A134(_Unwind_Exception *a1)
     sub_29A014BEC(v4);
   }
 
-  sub_29A05A530(v1 + 216);
+  sub_29A05A530((v1 + 216));
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v5);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v3);
   Alembic::Abc::v12::OScalarProperty::~OScalarProperty(v2);
@@ -7329,18 +7330,18 @@ void sub_29A05A4C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A05A530(uint64_t a1)
+void **sub_29A05A530(void **a1)
 {
   *a1 = &unk_2A203DC10;
-  v2 = (a1 + 8);
-  v4 = (a1 + 520);
+  v2 = (a1 + 1);
+  v4 = a1 + 65;
   sub_29A05B9EC(&v4);
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 296));
-  Alembic::Abc::v12::OArrayProperty::~OArrayProperty((a1 + 248));
-  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 200));
-  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 152));
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 104));
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 56));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 37));
+  Alembic::Abc::v12::OArrayProperty::~OArrayProperty((a1 + 31));
+  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 25));
+  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 19));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 13));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 7));
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v2);
   return a1;
 }
@@ -7407,7 +7408,7 @@ void sub_29A05A738(_Unwind_Exception *a1)
     sub_29A014BEC(v4);
   }
 
-  sub_29A05A530(v1 + 216);
+  sub_29A05A530((v1 + 216));
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v5);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v3);
   Alembic::Abc::v12::OScalarProperty::~OScalarProperty(v2);
@@ -7505,7 +7506,7 @@ void Alembic::AbcGeom::v12::OLightSchema::setCameraSample(Alembic::AbcGeom::v12:
   sub_29A05B9EC(__p);
 }
 
-void sub_29A05A9B8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, std::__shared_weak_count *a25, char a26)
+void sub_29A05A9B8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26)
 {
   sub_29A05A530(&a26);
   if (a23 < 0)
@@ -7777,28 +7778,28 @@ void Alembic::AbcGeom::v12::OLightSchema::setTimeSampling(Alembic::AbcGeom::v12:
   Alembic::Abc::v12::OObject::~OObject(v5);
 }
 
-void sub_29A05AE44(void *a1, int a2, uint64_t a3, ...)
+void sub_29A05AE44(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v8 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   Alembic::Abc::v12::OArchive::~OArchive(va1);
   Alembic::Abc::v12::OObject::~OObject(va);
-  v6 = __cxa_begin_catch(a1);
+  v7 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(v3 - 48, v6);
+    sub_29A02D768(v4 - 48, v7);
   }
 
   else
   {
-    sub_29A02D6F8(v3 - 48, 0);
+    sub_29A02D6F8(v4 - 48, 0);
   }
 
   __cxa_end_catch();
@@ -8280,18 +8281,18 @@ void sub_29A05B888(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29A05B8EC(char *a1)
+void sub_29A05B8EC(void **a1)
 {
   *a1 = &unk_2A203DC10;
-  v2 = (a1 + 8);
-  v3 = (a1 + 520);
+  v2 = (a1 + 1);
+  v3 = a1 + 65;
   sub_29A05B9EC(&v3);
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 296));
-  Alembic::Abc::v12::OArrayProperty::~OArrayProperty((a1 + 248));
-  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 200));
-  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 152));
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 104));
-  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 56));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 37));
+  Alembic::Abc::v12::OArrayProperty::~OArrayProperty((a1 + 31));
+  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 25));
+  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty((a1 + 19));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 13));
+  Alembic::Abc::v12::OScalarProperty::~OScalarProperty((a1 + 7));
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v2);
   operator delete(a1);
 }
@@ -8513,8 +8514,8 @@ void sub_29A05BED8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     sub_29A008E78(__p, "schema");
     sub_29A008E78(&__str, "AbcGeom_Camera_v1");
-    v29 = __p;
-    v13 = sub_29A00B038(&v21, __p, &unk_29B4326ED, &v29);
+    v30 = __p;
+    v13 = sub_29A00B038(&v21, __p, &unk_29B4326ED, &v30, &v29);
     std::string::operator=((v13 + 7), &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -8551,7 +8552,7 @@ void sub_29A05BED8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_29A01752C(v25, v25[1]);
 }
 
-void sub_29A05C158(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A05C158(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -8579,8 +8580,8 @@ void *sub_29A05C27C(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     v6 = result;
     sub_29A044EF0(result, a4);
-    result = sub_29A044F40(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29A044F40(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -8632,8 +8633,8 @@ void sub_29A05C304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     sub_29A008E78(__p, "schema");
     sub_29A008E78(&__str, "AbcGeom_Light_v1");
-    v29 = __p;
-    v13 = sub_29A00B038(&v21, __p, &unk_29B4326ED, &v29);
+    v30 = __p;
+    v13 = sub_29A00B038(&v21, __p, &unk_29B4326ED, &v30, &v29);
     std::string::operator=((v13 + 7), &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -8670,7 +8671,7 @@ void sub_29A05C304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_29A01752C(v25, v25[1]);
 }
 
-void sub_29A05C584(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25)
+void sub_29A05C584(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a24);
@@ -9001,7 +9002,7 @@ LABEL_55:
   sub_29A01752C(v55, v55[1]);
 }
 
-void sub_29A05CD44(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_29A05CD44(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(&a36);
   if (a23 < 0)
@@ -9277,7 +9278,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t sub_29A05D474(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A05D474(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   v8 = sub_29A05D638(a1, a2, a3, a4, a5);
   *v8 = &unk_2A203DCB0;
@@ -9324,7 +9325,7 @@ void sub_29A05D5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A05D638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A05D638(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *(a1 + 8) = 2;
   sub_29A008E78((a1 + 16), "");
@@ -9351,7 +9352,7 @@ void sub_29A05D6E4(char *a1)
   operator delete(a1);
 }
 
-void sub_29A05D77C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_29A05D77C(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *(&v35 + 1) = 0;
   v36[0] = 0;
@@ -9428,7 +9429,7 @@ LABEL_18:
 
     else
     {
-      v21 = *(a3 + 8);
+      v21 = a3[1];
     }
 
     sub_29A00911C(v18, v20, v21);
@@ -9444,7 +9445,7 @@ LABEL_18:
     __cxa_throw(v23, &unk_2A203B108, sub_29A008B08);
   }
 
-  if ((sub_29A05DD20(v12 + 32, v41) & 1) == 0)
+  if (!sub_29A05DD20(v12 + 32, v41))
   {
     sub_29A008864(&v35);
     v24 = sub_29A00911C(v36, "Incorrect match of schema: ", 27);
@@ -9522,7 +9523,7 @@ LABEL_18:
   sub_29A01752C(v38, v38[1]);
 }
 
-void sub_29A05DB54(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A05DB54(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -9556,7 +9557,7 @@ void sub_29A05DCE4(uint64_t a1)
   operator delete(a1);
 }
 
-uint64_t sub_29A05DD20(uint64_t a1, int a2)
+BOOL sub_29A05DD20(uint64_t a1, int a2)
 {
   if (a2 == 1)
   {
@@ -9846,11 +9847,11 @@ void sub_29A05E634(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Alembic::AbcGeom::v12::ONuPatchSchema::init(Alembic::AbcGeom::v12::ONuPatchSchema *this, uint64_t a2, char a3)
+void Alembic::AbcGeom::v12::ONuPatchSchema::init(uint64_t this, uint64_t a2, char a3)
 {
   *(this + 248) = a3;
-  *(this + 32) = 0;
-  *(this + 33) = a2;
+  *(this + 256) = 0;
+  *(this + 264) = a2;
   if ((a3 & 1) == 0)
   {
     Alembic::AbcGeom::v12::ONuPatchSchema::createPositionProperties(this);

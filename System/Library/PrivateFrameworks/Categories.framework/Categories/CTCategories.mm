@@ -137,22 +137,20 @@ void __32__CTCategories_sharedCategories__block_invoke(uint64_t a1)
 
 - (void)categoryForBundleID:(id)d platform:(id)platform completionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v17[0] = d;
+  v16[0] = d;
   v9 = MEMORY[0x277CBEA60];
   platformCopy = platform;
   dCopy = d;
-  v12 = [v9 arrayWithObjects:v17 count:1];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__CTCategories_categoryForBundleID_platform_completionHandler___block_invoke;
-  v15[3] = &unk_278DAACD8;
-  v16 = handlerCopy;
+  v12 = [v9 arrayWithObjects:v16 count:1];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__CTCategories_categoryForBundleID_platform_completionHandler___block_invoke;
+  v14[3] = &unk_278DAACD8;
+  v15 = handlerCopy;
   v13 = handlerCopy;
-  [(CTCategories *)self categoriesForBundleIDs:v12 platform:platformCopy completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(CTCategories *)self categoriesForBundleIDs:v12 platform:platformCopy completionHandler:v14];
 }
 
 void __63__CTCategories_categoryForBundleID_platform_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -176,21 +174,19 @@ void __63__CTCategories_categoryForBundleID_platform_completionHandler___block_i
 
 - (void)categoryForBundleID:(id)d completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14[0] = d;
+  v13[0] = d;
   v7 = MEMORY[0x277CBEA60];
   dCopy = d;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __54__CTCategories_categoryForBundleID_completionHandler___block_invoke;
-  v12[3] = &unk_278DAACD8;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __54__CTCategories_categoryForBundleID_completionHandler___block_invoke;
+  v11[3] = &unk_278DAACD8;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [(CTCategories *)self categoriesForBundleIDs:v9 platform:@"CTOSPlatformAll" completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(CTCategories *)self categoriesForBundleIDs:v9 platform:@"CTOSPlatformAll" completionHandler:v11];
 }
 
 void __54__CTCategories_categoryForBundleID_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -355,21 +351,19 @@ uint64_t __66__CTCategories_categoriesForBundleIDs_platform_completionHandler___
 
 - (void)categoryForDomainName:(id)name completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14[0] = name;
+  v13[0] = name;
   v7 = MEMORY[0x277CBEA60];
   nameCopy = name;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __56__CTCategories_categoryForDomainName_completionHandler___block_invoke;
-  v12[3] = &unk_278DAACD8;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __56__CTCategories_categoryForDomainName_completionHandler___block_invoke;
+  v11[3] = &unk_278DAACD8;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [(CTCategories *)self categoriesForDomainNames:v9 completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(CTCategories *)self categoriesForDomainNames:v9 completionHandler:v11];
 }
 
 void __56__CTCategories_categoryForDomainName_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -393,13 +387,13 @@ void __56__CTCategories_categoryForDomainName_completionHandler___block_invoke(u
 
 - (void)categoryForDomainURL:(id)l completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   if (lCopy)
   {
-    v13[0] = lCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = lCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -407,15 +401,13 @@ void __56__CTCategories_categoryForDomainName_completionHandler___block_invoke(u
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke;
-  v11[3] = &unk_278DAACD8;
-  v12 = handlerCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke;
+  v10[3] = &unk_278DAACD8;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  [(CTCategories *)self categoriesForDomainURLs:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(CTCategories *)self categoriesForDomainURLs:v8 completionHandler:v10];
 }
 
 void __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -439,7 +431,7 @@ void __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke(ui
 
 - (void)categoriesForDomainNames:(id)names completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   handlerCopy = handler;
   selfCopy = self;
@@ -455,20 +447,20 @@ void __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke(ui
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke;
-  v25[3] = &unk_278DAAD00;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke;
+  v24[3] = &unk_278DAAD00;
   v11 = v10;
-  v26 = v11;
+  v25 = v11;
   v12 = v9;
-  v27 = v12;
-  [namesCopy enumerateObjectsUsingBlock:v25];
+  v26 = v12;
+  [namesCopy enumerateObjectsUsingBlock:v24];
   v13 = [v12 count];
   v14 = MEMORY[0x277D86220];
   v15 = MEMORY[0x277D86220];
@@ -478,20 +470,20 @@ void __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke(ui
     if (v16)
     {
       v17 = [v12 count];
-      *v28 = 134217984;
-      v29 = v17;
-      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "categoriesForDomainNames unCachedDomains :%lu", v28, 0xCu);
+      *v27 = 134217984;
+      v28 = v17;
+      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "categoriesForDomainNames unCachedDomains :%lu", v27, 0xCu);
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_44;
-    v20[3] = &unk_278DAAD50;
-    v21 = v11;
-    v24 = buf;
-    v22 = selfCopy;
-    v23 = handlerCopy;
-    [CTCategory categoryForDomainNames:namesCopy withCompletionHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_44;
+    v19[3] = &unk_278DAAD50;
+    v20 = v11;
+    v23 = buf;
+    v21 = selfCopy;
+    v22 = handlerCopy;
+    [CTCategory categoryForDomainNames:namesCopy withCompletionHandler:v19];
   }
 
   else
@@ -499,16 +491,15 @@ void __55__CTCategories_categoryForDomainURL_completionHandler___block_invoke(ui
     if (v16)
     {
       v18 = [v11 count];
-      *v28 = 134217984;
-      v29 = v18;
-      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE categoriesForDomainNames cachedCategories :%lu", v28, 0xCu);
+      *v27 = 134217984;
+      v28 = v18;
+      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE categoriesForDomainNames cachedCategories :%lu", v27, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, v11, 0);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -534,7 +525,7 @@ void __59__CTCategories_categoriesForDomainNames_completionHandler___block_invok
 
 void __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_44(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6 || ![v5 count])
@@ -565,24 +556,24 @@ LABEL_7:
     {
       v10 = [*(a1 + 32) count];
       *buf = 134217984;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "_ctSharedCache add %lu", buf, 0xCu);
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_45;
-    v15[3] = &unk_278DAAD28;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_45;
+    v14[3] = &unk_278DAAD28;
     v11 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    [v11 enumerateKeysAndObjectsUsingBlock:v15];
+    v15 = *(a1 + 40);
+    [v11 enumerateKeysAndObjectsUsingBlock:v14];
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v12 = [*(a1 + 32) count];
     *buf = 134217984;
-    v18 = v12;
+    v17 = v12;
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE categoriesForDomainNames :%lu", buf, 0xCu);
   }
 
@@ -597,8 +588,6 @@ LABEL_7:
   }
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__CTCategories_categoriesForDomainNames_completionHandler___block_invoke_45(uint64_t a1, void *a2, void *a3)
@@ -616,7 +605,7 @@ uint64_t __59__CTCategories_categoriesForDomainNames_completionHandler___block_i
 
 - (void)categoriesForDomainURLs:(id)ls completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   handlerCopy = handler;
   selfCopy = self;
@@ -632,20 +621,20 @@ uint64_t __59__CTCategories_categoriesForDomainNames_completionHandler___block_i
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
-  v35 = 0;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke;
-  v25[3] = &unk_278DAAD78;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke;
+  v24[3] = &unk_278DAAD78;
   v11 = v10;
-  v26 = v11;
+  v25 = v11;
   v12 = v9;
-  v27 = v12;
-  [lsCopy enumerateObjectsUsingBlock:v25];
+  v26 = v12;
+  [lsCopy enumerateObjectsUsingBlock:v24];
   v13 = [v12 count];
   v14 = MEMORY[0x277D86220];
   v15 = MEMORY[0x277D86220];
@@ -655,20 +644,20 @@ uint64_t __59__CTCategories_categoriesForDomainNames_completionHandler___block_i
     if (v16)
     {
       v17 = [v12 count];
-      *v28 = 134217984;
-      v29 = v17;
-      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "categoriesForDomainURLs unCachedDomainURLs :%lu", v28, 0xCu);
+      *v27 = 134217984;
+      v28 = v17;
+      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "categoriesForDomainURLs unCachedDomainURLs :%lu", v27, 0xCu);
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_47;
-    v20[3] = &unk_278DAAD50;
-    v21 = v11;
-    v24 = buf;
-    v22 = selfCopy;
-    v23 = handlerCopy;
-    [CTCategory categoryForDomainURLs:v12 withCompletionHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_47;
+    v19[3] = &unk_278DAAD50;
+    v20 = v11;
+    v23 = buf;
+    v21 = selfCopy;
+    v22 = handlerCopy;
+    [CTCategory categoryForDomainURLs:v12 withCompletionHandler:v19];
   }
 
   else
@@ -676,18 +665,17 @@ uint64_t __59__CTCategories_categoriesForDomainNames_completionHandler___block_i
     if (v16)
     {
       v18 = [v11 count];
-      *v28 = 136315394;
-      v29 = "[CTCategories categoriesForDomainURLs:completionHandler:]";
-      v30 = 2048;
-      v31 = v18;
-      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s :: cachedCategories %lu", v28, 0x16u);
+      *v27 = 136315394;
+      v28 = "[CTCategories categoriesForDomainURLs:completionHandler:]";
+      v29 = 2048;
+      v30 = v18;
+      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s :: cachedCategories %lu", v27, 0x16u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, v11, 0);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -718,7 +706,7 @@ void __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke
 
 void __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_47(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6 || ![v5 count])
@@ -746,29 +734,25 @@ LABEL_7:
   v10 = *(a1 + 32);
   if (v10)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_2;
-    v15[3] = &unk_278DAADA0;
-    v16 = *(a1 + 40);
-    [v10 enumerateKeysAndObjectsUsingBlock:v15];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_2;
+    v12[3] = &unk_278DAADA0;
+    v13 = *(a1 + 40);
+    [v10 enumerateKeysAndObjectsUsingBlock:v12];
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v11 = [*(a1 + 32) count];
     *buf = 136315394;
-    v18 = "[CTCategories categoriesForDomainURLs:completionHandler:]_block_invoke";
-    v19 = 2048;
-    v20 = v11;
+    v15 = "[CTCategories categoriesForDomainURLs:completionHandler:]_block_invoke";
+    v16 = 2048;
+    v17 = v11;
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s :: %lu", buf, 0x16u);
   }
 
-  v12 = *(a1 + 32);
-  v13 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__CTCategories_categoriesForDomainURLs_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -788,7 +772,7 @@ uint64_t __58__CTCategories_categoriesForDomainURLs_completionHandler___block_in
 
 - (void)unCategorizedDomainsFromDomains:(id)domains withCompletionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -798,34 +782,34 @@ uint64_t __58__CTCategories_categoriesForDomainURLs_completionHandler___block_in
   }
 
   *buf = 0;
-  v33 = buf;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy_;
-  v36 = __Block_byref_object_dispose_;
-  v37 = 0;
+  v32 = buf;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy_;
+  v35 = __Block_byref_object_dispose_;
+  v36 = 0;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = handlerCopy;
+  v17 = handlerCopy;
   v8 = dispatch_group_create();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = domainsCopy;
-  v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (v9)
   {
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       v11 = 0;
       do
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * v11);
+        v12 = *(*(&v27 + 1) + 8 * v11);
         dispatch_group_enter(v8);
         v13 = _domain_queue;
         block[0] = MEMORY[0x277D85DD0];
@@ -833,35 +817,34 @@ uint64_t __58__CTCategories_categoriesForDomainURLs_completionHandler___block_in
         block[2] = __70__CTCategories_unCategorizedDomainsFromDomains_withCompletionHandler___block_invoke;
         block[3] = &unk_278DAADF0;
         block[4] = v12;
-        v25 = v7;
-        v27 = buf;
-        v26 = v8;
-        dispatch_group_async(v26, v13, block);
+        v24 = v7;
+        v26 = buf;
+        v25 = v8;
+        dispatch_group_async(v25, v13, block);
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
     while (v9);
   }
 
   v14 = _domain_queue;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __70__CTCategories_unCategorizedDomainsFromDomains_withCompletionHandler___block_invoke_3;
-  v20[3] = &unk_278DAAE18;
-  v22 = v18;
-  v23 = buf;
-  v21 = v7;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__CTCategories_unCategorizedDomainsFromDomains_withCompletionHandler___block_invoke_3;
+  v19[3] = &unk_278DAAE18;
+  v21 = v17;
+  v22 = buf;
+  v20 = v7;
   v15 = v7;
-  v16 = v18;
-  dispatch_group_notify(v8, v14, v20);
+  v16 = v17;
+  dispatch_group_notify(v8, v14, v19);
 
   _Block_object_dispose(buf, 8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CTCategories_unCategorizedDomainsFromDomains_withCompletionHandler___block_invoke(uint64_t a1)

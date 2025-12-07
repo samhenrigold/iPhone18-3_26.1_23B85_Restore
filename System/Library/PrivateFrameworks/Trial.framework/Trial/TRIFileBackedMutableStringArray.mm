@@ -10,10 +10,10 @@
 
 - (TRIFileBackedMutableStringArray)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = TRIFileBackedMutableStringArray;
-  v2 = [(TRIFileBackedMutableStringArray *)&v20 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = TRIFileBackedMutableStringArray;
+  v2 = [(TRIFileBackedMutableStringArray *)&v19 init];
   v3 = v2;
   if (!v2)
   {
@@ -27,9 +27,9 @@ LABEL_8:
   v4 = NSTemporaryDirectory();
   v5 = [v4 stringByAppendingPathComponent:@"TRIFileBackedMutableStringArray-"];
 
-  v19 = 0;
-  v6 = [MEMORY[0x277D425B8] mkstempWithPrefix:v5 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [MEMORY[0x277D425B8] mkstempWithPrefix:v5 error:&v18];
+  v7 = v18;
   if (v6)
   {
     path = [v6 path];
@@ -41,15 +41,15 @@ LABEL_8:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         path2 = [v6 path];
-        v16 = __error();
-        v17 = strerror(*v16);
-        v18 = *__error();
+        v15 = __error();
+        v16 = strerror(*v15);
+        v17 = *__error();
         *buf = 138412802;
-        v22 = path2;
-        v23 = 2080;
-        v24 = v17;
-        v25 = 1024;
-        v26 = v18;
+        v21 = path2;
+        v22 = 2080;
+        v23 = v16;
+        v24 = 1024;
+        v25 = v17;
         _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "Failed to unlink tempfile %@: %s (%d)", buf, 0x1Cu);
       }
     }
@@ -63,16 +63,15 @@ LABEL_8:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v7;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v7;
     _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "Failed to create tempfile %@XXXXXX for TRIFileBackedMutableStringArray: %@", buf, 0x16u);
   }
 
   v11 = 0;
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -150,7 +149,7 @@ LABEL_8:
 
 - (BOOL)addString:(id)string
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = objc_autoreleasePoolPush();
   uTF8String = [stringCopy UTF8String];
@@ -159,9 +158,9 @@ LABEL_8:
     v7 = uTF8String;
     v8 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:self->_fd closeOnDealloc:0];
     v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v7 length:strlen(v7) + 1 freeWhenDone:0];
-    v15 = 0;
-    v10 = [v8 writeData:v9 error:&v15];
-    v11 = v15;
+    v14 = 0;
+    v10 = [v8 writeData:v9 error:&v14];
+    v11 = v14;
     if (v10)
     {
       ++self->_count;
@@ -173,7 +172,7 @@ LABEL_8:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v11;
+        v16 = v11;
         _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "Failed to append string to TRIFileBackedMutableStringArray: %@", buf, 0xCu);
       }
     }
@@ -185,7 +184,7 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = stringCopy;
+      v16 = stringCopy;
       _os_log_error_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_ERROR, "Failed to add non-UTF-8 string to TRIFileBackedMutableStringArray: %@", buf, 0xCu);
     }
 
@@ -193,21 +192,20 @@ LABEL_8:
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)enumerateStringsWithBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  memset(&v36, 0, sizeof(v36));
-  if (!fstat(self->_fd, &v36))
+  memset(&v35, 0, sizeof(v35));
+  if (!fstat(self->_fd, &v35))
   {
-    st_size = v36.st_size;
-    if (v36.st_size)
+    st_size = v35.st_size;
+    if (v35.st_size)
     {
-      v9 = mmap(0, v36.st_size, 1, 1, self->_fd, 0);
+      v9 = mmap(0, v35.st_size, 1, 1, self->_fd, 0);
       if (v9 == -1)
       {
         v6 = TRILogCategory_ClientFramework();
@@ -216,17 +214,17 @@ LABEL_8:
           goto LABEL_3;
         }
 
-        v20 = __error();
-        v21 = strerror(*v20);
-        v22 = *__error();
-        v36.st_dev = 136315394;
-        *&v36.st_mode = v21;
-        WORD2(v36.st_ino) = 1024;
-        *(&v36.st_ino + 6) = v22;
-        v23 = "Failed to mmap() tempfile: %s (%d)";
-        v24 = &v36;
+        v19 = __error();
+        v20 = strerror(*v19);
+        v21 = *__error();
+        v35.st_dev = 136315394;
+        *&v35.st_mode = v20;
+        WORD2(v35.st_ino) = 1024;
+        *(&v35.st_ino + 6) = v21;
+        v22 = "Failed to mmap() tempfile: %s (%d)";
+        v23 = &v35;
 LABEL_21:
-        _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, v23, v24, 0x12u);
+        _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, v22, v23, 0x12u);
         goto LABEL_3;
       }
 
@@ -247,7 +245,7 @@ LABEL_21:
         }
 
         v14 = v13;
-        LOBYTE(v36.st_dev) = 0;
+        LOBYTE(v35.st_dev) = 0;
         v15 = objc_autoreleasePoolPush();
         v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v12];
         if (!v16)
@@ -256,26 +254,26 @@ LABEL_21:
           [currentHandler handleFailureInMethod:a2 object:self file:@"TRIFileBackedMutableStringArray.m" lineNumber:145 description:@"String somehow did not survive round-trip to UTF-8."];
         }
 
-        blockCopy[2](blockCopy, v16, &v36);
+        blockCopy[2](blockCopy, v16, &v35);
 
         objc_autoreleasePoolPop(v15);
         v12 = v14 + 1;
       }
 
-      while (LOBYTE(v36.st_dev) != 1);
+      while (LOBYTE(v35.st_dev) != 1);
       if (munmap(v10, st_size))
       {
         v17 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v28 = __error();
-          v29 = strerror(*v28);
-          v30 = *__error();
-          v36.st_dev = 136315394;
-          *&v36.st_mode = v29;
-          WORD2(v36.st_ino) = 1024;
-          *(&v36.st_ino + 6) = v30;
-          _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "Failed to munmap TRIFileBackedMutableStringArray buffer: %s (%d)", &v36, 0x12u);
+          v27 = __error();
+          v28 = strerror(*v27);
+          v29 = *__error();
+          v35.st_dev = 136315394;
+          *&v35.st_mode = v28;
+          WORD2(v35.st_ino) = 1024;
+          *(&v35.st_ino + 6) = v29;
+          _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "Failed to munmap TRIFileBackedMutableStringArray buffer: %s (%d)", &v35, 0x12u);
         }
       }
     }
@@ -287,15 +285,15 @@ LABEL_21:
   v6 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v25 = __error();
-    v26 = strerror(*v25);
-    v27 = *__error();
+    v24 = __error();
+    v25 = strerror(*v24);
+    v26 = *__error();
     *buf = 136315394;
-    v33 = v26;
-    v34 = 1024;
-    v35 = v27;
-    v23 = "Failed to stat tempfile for TRIFileBackedMutableStringArray enumeration: %s (%d)";
-    v24 = buf;
+    v32 = v25;
+    v33 = 1024;
+    v34 = v26;
+    v22 = "Failed to stat tempfile for TRIFileBackedMutableStringArray enumeration: %s (%d)";
+    v23 = buf;
     goto LABEL_21;
   }
 
@@ -304,7 +302,6 @@ LABEL_3:
   v7 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

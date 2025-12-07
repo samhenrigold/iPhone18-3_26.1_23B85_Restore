@@ -159,7 +159,7 @@ LABEL_10:
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if ([(JavaNioBuffer *)self remaining]< withIntCopy)
   {
     v14 = new_JavaNioBufferUnderflowException_init();
@@ -231,7 +231,7 @@ LABEL_10:
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if ([(JavaNioBuffer *)self remaining]< withIntCopy)
   {
     v13 = new_JavaNioBufferOverflowException_init();

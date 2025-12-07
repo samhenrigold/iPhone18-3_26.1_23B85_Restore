@@ -35,7 +35,7 @@
   if (options)
   {
     type metadata accessor for UIApplicationLaunchOptionsKey(0);
-    lazy protocol witness table accessor for type SceneBridge and conformance SceneBridge(&lazy protocol witness table cache variable for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey, type metadata accessor for UIApplicationLaunchOptionsKey);
+    lazy protocol witness table accessor for type SceneBridge and conformance SceneBridge(&lazy protocol witness table cache variable for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey, type metadata accessor for UIApplicationLaunchOptionsKey, protocol conformance descriptor for UIApplicationLaunchOptionsKey);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

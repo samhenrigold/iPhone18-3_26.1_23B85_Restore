@@ -35,6 +35,7 @@
 - (void)_locked_updateDataConnectionStateWithContext:(id)context;
 - (void)_locked_updateDataStateBasedOnDataStatus:(id)status;
 - (void)_locked_updateDataStateWithContext:(id)context;
+- (void)_makeDataConnectionAvailable:(BOOL)available;
 - (void)_releaseCTServerConnection;
 - (void)addCellularAutoAssociationClientToken:(id)token;
 - (void)addFastDormancyDisableToken:(id)token;
@@ -48,6 +49,7 @@
 - (void)removeCellularAutoAssociationClientToken:(id)token;
 - (void)removeFastDormancyDisableToken:(id)token;
 - (void)removeWiFiAutoAssociationClientToken:(id)token;
+- (void)setDataConnectionActive:(BOOL)active;
 - (void)showNetworkOptions;
 - (void)showSIMUnlock;
 @end
@@ -95,7 +97,7 @@
 
 - (void)_createCTServerConnection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_coreTelephonyClient)
   {
     v3 = objc_alloc(MEMORY[0x1E69650A0]);
@@ -110,29 +112,26 @@
 
   if (!self->_ctServerConnection)
   {
-    v16 = 0;
-    memset(v15, 0, sizeof(v15));
-    v10 = *MEMORY[0x1E695E480];
+    v14 = 0;
+    memset(v13, 0, sizeof(v13));
     self->_ctServerConnection = _CTServerConnectionCreateWithIdentifier();
     _CTServerConnectionSetTargetQueue();
   }
 
   if (!self->_coreTelephonyClient || !self->_ctServerConnection)
   {
-    v11 = OSLogHandleForIDSCategory("Network");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = self->_coreTelephonyClient;
+      v11 = self->_coreTelephonyClient;
       ctServerConnection = self->_ctServerConnection;
-      LODWORD(v15[0]) = 138412546;
-      *(v15 + 4) = v12;
-      WORD6(v15[0]) = 2112;
-      *(v15 + 14) = ctServerConnection;
-      _os_log_impl(&dword_195988000, v11, OS_LOG_TYPE_DEFAULT, "Failed to create connection(s) to CoreTelephony! { _coreTelephonyClient: %@, _ctServerConnection: %@ }", v15, 0x16u);
+      LODWORD(v13[0]) = 138412546;
+      *(v13 + 4) = v11;
+      WORD6(v13[0]) = 2112;
+      *(v13 + 14) = ctServerConnection;
+      _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "Failed to create connection(s) to CoreTelephony! { _coreTelephonyClient: %@, _ctServerConnection: %@ }", v13, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeDataState
@@ -160,7 +159,7 @@
 
 - (id)_dataCTXPCServiceSubscriptionContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_currentDataSubscriptionContextSync)
   {
     v3 = 0;
@@ -169,9 +168,9 @@
   else
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v12 = 0;
-    v5 = objc_msgSend_getCurrentDataSubscriptionContextSync_(coreTelephonyClient, a2, &v12);
-    v3 = v12;
+    v11 = 0;
+    v5 = objc_msgSend_getCurrentDataSubscriptionContextSync_(coreTelephonyClient, a2, &v11);
+    v3 = v11;
     currentDataSubscriptionContextSync = self->_currentDataSubscriptionContextSync;
     self->_currentDataSubscriptionContextSync = v5;
 
@@ -181,7 +180,7 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = v3;
+        v13 = v3;
         _os_log_impl(&dword_195988000, v7, OS_LOG_TYPE_DEFAULT, "Unable to find relevant telephony subscription context { contextError: %@ }", buf, 0xCu);
       }
     }
@@ -190,7 +189,6 @@
   v8 = self->_currentDataSubscriptionContextSync;
   v9 = v8;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -291,7 +289,7 @@
 
 - (void)_adjustCellularAutoAssociation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_autoAssociateCellular(self, a2, v2))
   {
     objc_msgSend_setDataConnectionActive_(self, v4, 1);
@@ -301,25 +299,24 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         cellAutoAssociationTokens = self->_cellAutoAssociationTokens;
-        v12 = 138412290;
-        v13 = cellAutoAssociationTokens;
-        _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Interface manager: enabling cell assertion (client tokens: %@)", &v12, 0xCu);
+        v10 = 138412290;
+        v11 = cellAutoAssociationTokens;
+        _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Interface manager: enabling cell assertion (client tokens: %@)", &v10, 0xCu);
       }
 
-      ctServerConnection = self->_ctServerConnection;
       _CTServerConnectionPacketContextAssertionCreate();
     }
   }
 
   else if (self->_cellAssertion)
   {
-    v8 = OSLogHandleForIDSCategory("Network");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_cellAutoAssociationTokens;
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: disabling cell assertion (client tokens: %@)", &v12, 0xCu);
+      v8 = self->_cellAutoAssociationTokens;
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_195988000, v7, OS_LOG_TYPE_DEFAULT, "Interface manager: disabling cell assertion (client tokens: %@)", &v10, 0xCu);
     }
 
     cellAssertion = self->_cellAssertion;
@@ -329,8 +326,6 @@
       self->_cellAssertion = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lockedAdjustCellularAutoAssociation
@@ -446,7 +441,7 @@
 
 - (void)addCellularAutoAssociationClientToken:(id)token
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
@@ -467,22 +462,20 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = self->_cellAutoAssociationTokens;
-      v18 = 138412546;
-      v19 = tokenCopy;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Client token: %@ being added to Cellular association clients (%@)", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = tokenCopy;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Client token: %@ being added to Cellular association clients (%@)", &v17, 0x16u);
     }
 
     objc_msgSend__lockedAdjustCellularAutoAssociation(self, v15, v16);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCellularAutoAssociationClientToken:(id)token
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
@@ -490,11 +483,11 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       cellAutoAssociationTokens = self->_cellAutoAssociationTokens;
-      v15 = 138412546;
-      v16 = tokenCopy;
-      v17 = 2112;
-      v18 = cellAutoAssociationTokens;
-      _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Client token: %@ being removed to cellular association clients (%@)", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = tokenCopy;
+      v16 = 2112;
+      v17 = cellAutoAssociationTokens;
+      _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Client token: %@ being removed to cellular association clients (%@)", &v14, 0x16u);
     }
 
     objc_msgSend_lock(self->_lock, v7, v8);
@@ -502,44 +495,41 @@
     objc_msgSend_unlock(self->_lock, v10, v11);
     objc_msgSend__lockedAdjustCellularAutoAssociation(self, v12, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)internetConnectionActivationError:(int)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109120;
-    v12[1] = error;
-    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony connection activation error callback { error: %d }", v12, 8u);
+    v11[0] = 67109120;
+    v11[1] = error;
+    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony connection activation error callback { error: %d }", v11, 8u);
   }
 
   v6 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "Failed to bring up data context", v12, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "Failed to bring up data context", v11, 2u);
   }
 
   objc_msgSend_lock(self->_lock, v7, v8);
   self->_shouldBringUpDataContext = 0;
   objc_msgSend_unlock(self->_lock, v9, v10);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)internetConnectionStateChanged:(id)changed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   v5 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = changedCopy;
-    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony connection state changed callback { dataConnectionStatusInfo: %@ }", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = changedCopy;
+    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony connection state changed callback { dataConnectionStatusInfo: %@ }", &v12, 0xCu);
   }
 
   objc_msgSend_lock(self->_lock, v6, v7);
@@ -547,20 +537,18 @@
   objc_msgSend__locked_updateDataStateBasedOnDataConnectionStatus_(self, v8, changedCopy);
   objc_msgSend__locked_recalculateDataContextUsableAndPostNotificationIfNeeded_(self, v9, 1);
   objc_msgSend_unlock(self->_lock, v10, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)internetDataStatusBasic:(id)basic
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   basicCopy = basic;
   v5 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = basicCopy;
-    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony internetDataStatus callback { dataStatus: %@ }", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = basicCopy;
+    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Received core telephony internetDataStatus callback { dataStatus: %@ }", &v12, 0xCu);
   }
 
   objc_msgSend_lock(self->_lock, v6, v7);
@@ -568,24 +556,22 @@
   objc_msgSend__locked_updateDataStateBasedOnDataStatus_(self, v8, basicCopy);
   objc_msgSend__locked_recalculateDataContextUsableAndPostNotificationIfNeeded_(self, v9, 1);
   objc_msgSend_unlock(self->_lock, v10, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentDataSimChanged:(id)changed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   objc_msgSend_lock(self->_lock, v5, v6);
   v7 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     currentDataSubscriptionContextSync = self->_currentDataSubscriptionContextSync;
-    v16 = 138412546;
-    v17 = currentDataSubscriptionContextSync;
-    v18 = 2112;
-    v19 = changedCopy;
-    _os_log_impl(&dword_195988000, v7, OS_LOG_TYPE_DEFAULT, "Interface manager: updating currentDataSimContext. {old: %@; new: %@}", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = currentDataSubscriptionContextSync;
+    v17 = 2112;
+    v18 = changedCopy;
+    _os_log_impl(&dword_195988000, v7, OS_LOG_TYPE_DEFAULT, "Interface manager: updating currentDataSimContext. {old: %@; new: %@}", &v15, 0x16u);
   }
 
   v11 = objc_msgSend_copy(changedCopy, v9, v10);
@@ -593,20 +579,19 @@
   self->_currentDataSubscriptionContextSync = v11;
 
   objc_msgSend_unlock(self->_lock, v13, v14);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (CTXPCServiceSubscriptionContext)currentDataSubscriptionContextSync
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objc_msgSend_lock(self->_lock, a2, v2);
   currentDataSubscriptionContextSync = self->_currentDataSubscriptionContextSync;
   if (!currentDataSubscriptionContextSync)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v19 = 0;
-    v7 = objc_msgSend_getCurrentDataSubscriptionContextSync_(coreTelephonyClient, v4, &v19);
-    v8 = v19;
+    v18 = 0;
+    v7 = objc_msgSend_getCurrentDataSubscriptionContextSync_(coreTelephonyClient, v4, &v18);
+    v8 = v18;
     v11 = objc_msgSend_copy(v7, v9, v10);
     v12 = self->_currentDataSubscriptionContextSync;
     self->_currentDataSubscriptionContextSync = v11;
@@ -617,7 +602,7 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v8;
+        v20 = v8;
         _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Couldn't get the current context: %@", buf, 0xCu);
       }
     }
@@ -627,19 +612,18 @@
 
   v14 = currentDataSubscriptionContextSync;
   objc_msgSend_unlock(self->_lock, v15, v16);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (void)_locked_updateDataStateWithContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   coreTelephonyClient = self->_coreTelephonyClient;
-  v15 = 0;
-  v7 = objc_msgSend_getDataStatus_error_(coreTelephonyClient, v6, contextCopy, &v15);
-  v10 = v15;
+  v14 = 0;
+  v7 = objc_msgSend_getDataStatus_error_(coreTelephonyClient, v6, contextCopy, &v14);
+  v10 = v14;
   if (v7)
   {
     v11 = objc_msgSend_copyBasic(v7, v8, v9);
@@ -652,24 +636,22 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = contextCopy;
+      v16 = v10;
+      v17 = 2112;
+      v18 = contextCopy;
       _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Failed to query initial data status from telephony { dataError: %@, context: %@ }", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_locked_updateDataConnectionStateWithContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   coreTelephonyClient = self->_coreTelephonyClient;
-  v12 = 0;
-  v7 = objc_msgSend_getConnectionState_connectionType_error_(coreTelephonyClient, v6, contextCopy, 0, &v12);
-  v9 = v12;
+  v11 = 0;
+  v7 = objc_msgSend_getConnectionState_connectionType_error_(coreTelephonyClient, v6, contextCopy, 0, &v11);
+  v9 = v11;
   if (v7)
   {
     objc_msgSend__locked_updateDataStateBasedOnDataConnectionStatus_(self, v8, v7);
@@ -681,14 +663,12 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = contextCopy;
+      v13 = v9;
+      v14 = 2112;
+      v15 = contextCopy;
       _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "Failed to query initial data connection status from telephony { connectionError: %@, context: %@ }", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_locked_updateDataStateBasedOnDataStatus:(id)status
@@ -703,7 +683,7 @@
 - (void)_locked_recalculateDataContextUsableAndPostNotificationIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = !self->_isDataIndicatorNone && self->_isDataContextActive && self->_isDataPossible;
   v6 = OSLogHandleForIDSCategory("Network");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -718,9 +698,9 @@
       v7 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v7;
-    _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "   Data context is attached: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v7;
+    _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "   Data context is attached: %@", &v23, 0xCu);
   }
 
   v8 = OSLogHandleForIDSCategory("Network");
@@ -736,9 +716,9 @@
       v9 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v9;
-    _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "   Data context is active: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v9;
+    _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "   Data context is active: %@", &v23, 0xCu);
   }
 
   v10 = OSLogHandleForIDSCategory("Network");
@@ -754,9 +734,9 @@
       v11 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v11;
-    _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "   Data indicator is none: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v11;
+    _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "   Data indicator is none: %@", &v23, 0xCu);
   }
 
   v12 = OSLogHandleForIDSCategory("Network");
@@ -772,9 +752,9 @@
       v13 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v13;
-    _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "   Data context is usable (previous): %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v13;
+    _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "   Data context is usable (previous): %@", &v23, 0xCu);
   }
 
   v14 = v5;
@@ -787,9 +767,9 @@
       v16 = @"YES";
     }
 
-    v24 = 138412290;
-    v25 = v16;
-    _os_log_impl(&dword_195988000, v15, OS_LOG_TYPE_DEFAULT, "   Data context is usable (new): %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v16;
+    _os_log_impl(&dword_195988000, v15, OS_LOG_TYPE_DEFAULT, "   Data context is usable (new): %@", &v23, 0xCu);
   }
 
   if (self->_isDataContextUsable != v14)
@@ -806,19 +786,17 @@
           v18 = @"YES";
         }
 
-        v24 = 138412546;
-        v25 = @"__kIMMobileNetworkManagerDataStatusChangedNotification";
-        v26 = 2112;
-        v27 = v18;
-        _os_log_impl(&dword_195988000, v17, OS_LOG_TYPE_DEFAULT, "    => Posting data status changed notification { notification: %@, dataContextUsable: %@ }", &v24, 0x16u);
+        v23 = 138412546;
+        v24 = @"__kIMMobileNetworkManagerDataStatusChangedNotification";
+        v25 = 2112;
+        v26 = v18;
+        _os_log_impl(&dword_195988000, v17, OS_LOG_TYPE_DEFAULT, "    => Posting data status changed notification { notification: %@, dataContextUsable: %@ }", &v23, 0x16u);
       }
 
       v21 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v19, v20);
       objc_msgSend___mainThreadPostNotificationName_object_(v21, v22, @"__kIMMobileNetworkManagerDataStatusChangedNotification", 0);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_releaseCTServerConnection
@@ -842,114 +820,109 @@
 
 - (BOOL)_isDataConnectionAvailable
 {
-  v33 = *MEMORY[0x1E69E9840];
-  if (IMPCDoesInterfaceExist())
+  v32 = *MEMORY[0x1E69E9840];
+  if (!IMPCDoesInterfaceExist())
   {
-    if (!self->_registered)
-    {
-      goto LABEL_21;
-    }
+    return 1;
+  }
 
-    v6 = objc_msgSend_currentDataSubscriptionContextSync(self, v3, v4);
-    if (!v6)
-    {
-      goto LABEL_21;
-    }
+  if (!self->_registered)
+  {
+    return 0;
+  }
 
-    coreTelephonyClient = self->_coreTelephonyClient;
-    v30 = 0;
-    v8 = objc_msgSend_getConnectionState_connectionType_error_(coreTelephonyClient, v5, v6, 0, &v30);
-    v11 = v30;
-    if (v8)
+  v6 = objc_msgSend_currentDataSubscriptionContextSync(self, v3, v4);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  coreTelephonyClient = self->_coreTelephonyClient;
+  v29 = 0;
+  v8 = objc_msgSend_getConnectionState_connectionType_error_(coreTelephonyClient, v5, v6, 0, &v29);
+  v11 = v29;
+  if (v8)
+  {
+    v12 = objc_msgSend_state(v8, v9, v10);
+    v13 = v12 == 2;
+    v14 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_msgSend_state(v8, v9, v10);
-      v13 = v12 == 2;
-      v14 = OSLogHandleForIDSCategory("Network");
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = @"NO";
+      if (v12 == 2)
       {
-        v15 = @"NO";
+        v15 = @"YES";
+      }
+
+      *buf = 138412290;
+      v31 = v15;
+      _os_log_impl(&dword_195988000, v14, OS_LOG_TYPE_DEFAULT, "Data context active: %@", buf, 0xCu);
+    }
+
+    v16 = self->_coreTelephonyClient;
+    v28 = 0;
+    v18 = objc_msgSend_getDataStatus_error_(v16, v17, v6, &v28);
+    v19 = v28;
+    v22 = objc_msgSend_indicator(v18, v20, v21);
+
+    if (v22)
+    {
+      v23 = OSLogHandleForIDSCategory("Network");
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = @"NO";
         if (v12 == 2)
         {
-          v15 = @"YES";
+          v24 = @"YES";
         }
 
         *buf = 138412290;
-        v32 = v15;
-        _os_log_impl(&dword_195988000, v14, OS_LOG_TYPE_DEFAULT, "Data context active: %@", buf, 0xCu);
+        v31 = v24;
+        _os_log_impl(&dword_195988000, v23, OS_LOG_TYPE_DEFAULT, "Connection available: %@", buf, 0xCu);
       }
 
-      v16 = self->_coreTelephonyClient;
-      v29 = 0;
-      v18 = objc_msgSend_getDataStatus_error_(v16, v17, v6, &v29);
-      v19 = v29;
-      v22 = objc_msgSend_indicator(v18, v20, v21);
-
-      if (v22)
-      {
-        v23 = OSLogHandleForIDSCategory("Network");
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-        {
-          v24 = @"NO";
-          if (v12 == 2)
-          {
-            v24 = @"YES";
-          }
-
-          *buf = 138412290;
-          v32 = v24;
-          _os_log_impl(&dword_195988000, v23, OS_LOG_TYPE_DEFAULT, "Connection available: %@", buf, 0xCu);
-        }
-
-        v25 = 1;
-      }
-
-      else
-      {
-        v25 = 0;
-      }
+      v25 = 1;
     }
 
     else
     {
-      v26 = OSLogHandleForIDSCategory("Network");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v32 = v11;
-        _os_log_impl(&dword_195988000, v26, OS_LOG_TYPE_DEFAULT, "Couldn't get the connection state: %@", buf, 0xCu);
-      }
-
       v25 = 0;
-      v19 = 0;
-      v13 = 0;
-    }
-
-    if ((v25 & 1) == 0)
-    {
-LABEL_21:
-      v13 = 0;
     }
   }
 
   else
   {
-    v13 = 1;
+    v26 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v31 = v11;
+      _os_log_impl(&dword_195988000, v26, OS_LOG_TYPE_DEFAULT, "Couldn't get the connection state: %@", buf, 0xCu);
+    }
+
+    v25 = 0;
+    v19 = 0;
+    v13 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
+  if ((v25 & 1) == 0)
+  {
+    return 0;
+  }
+
   return v13;
 }
 
 - (int)_getCurrentCTDataStatus
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_currentDataSubscriptionContextSync(self, a2, v2);
   if (v5)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v15 = 0;
-    v7 = objc_msgSend_getDataStatus_error_(coreTelephonyClient, v4, v5, &v15);
-    v8 = v15;
+    v14 = 0;
+    v7 = objc_msgSend_getDataStatus_error_(coreTelephonyClient, v4, v5, &v14);
+    v8 = v14;
     v11 = objc_msgSend_indicator(v7, v9, v10);
 
     if (v8)
@@ -958,7 +931,7 @@ LABEL_21:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = v8;
+        v16 = v8;
         _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Couldn't get the data status: %@", buf, 0xCu);
       }
     }
@@ -969,13 +942,116 @@ LABEL_21:
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (void)_makeDataConnectionAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v21 = *MEMORY[0x1E69E9840];
+  if (IMPCDoesInterfaceExist() && self->_registered)
+  {
+    v5 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = @"NO";
+      if (availableCopy)
+      {
+        v6 = @"YES";
+      }
+
+      v19 = 138412290;
+      v20 = v6;
+      _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "Forcing data connection available: %@", &v19, 0xCu);
+    }
+
+    v7 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      if (self->_shouldBringUpDataContext)
+      {
+        v8 = @"YES";
+      }
+
+      else
+      {
+        v8 = @"NO";
+      }
+
+      v19 = 138412290;
+      v20 = v8;
+      _os_log_impl(&dword_195988000, v7, OS_LOG_TYPE_DEFAULT, "    ShouldBringUpDataContext: %@", &v19, 0xCu);
+    }
+
+    v9 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      if (self->_isDataContextUsable)
+      {
+        v10 = @"YES";
+      }
+
+      else
+      {
+        v10 = @"NO";
+      }
+
+      v19 = 138412290;
+      v20 = v10;
+      _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "    DataContextUsable: %@", &v19, 0xCu);
+    }
+
+    if (self->_isDataContextUsable == availableCopy)
+    {
+      v11 = OSLogHandleForIDSCategory("Network");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_195988000, v11, OS_LOG_TYPE_DEFAULT, "Data connection is already active", &v19, 2u);
+      }
+    }
+
+    else
+    {
+      v12 = OSLogHandleForIDSCategory("Network");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_195988000, v12, OS_LOG_TYPE_DEFAULT, "Making cellular data connection active", &v19, 2u);
+      }
+
+      v16 = objc_msgSend__dataCTXPCServiceSubscriptionContext(self, v13, v14);
+      if (v16)
+      {
+        v17 = objc_msgSend_setPacketContextActiveByServiceType_connectionType_active_(self->_coreTelephonyClient, v15, v16, 0, availableCopy);
+        if (v17)
+        {
+          v18 = OSLogHandleForIDSCategory("Network");
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          {
+            v19 = 138412290;
+            v20 = v17;
+            _os_log_impl(&dword_195988000, v18, OS_LOG_TYPE_DEFAULT, "Failed to make cellular data connection active { error: %@ }", &v19, 0xCu);
+          }
+        }
+      }
+
+      else
+      {
+        v17 = OSLogHandleForIDSCategory("Network");
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_195988000, v17, OS_LOG_TYPE_DEFAULT, "Failed to make cellular data connection active due to nil subscription context", &v19, 2u);
+        }
+      }
+    }
+  }
 }
 
 - (BOOL)requiresSIMInserted
 {
-  *&v9[5] = *MEMORY[0x1E69E9840];
+  *&v8[5] = *MEMORY[0x1E69E9840];
   if (self->_ctServerConnection)
   {
     IsUserIdentityModuleRequired = _CTServerConnectionIsUserIdentityModuleRequired();
@@ -987,9 +1063,9 @@ LABEL_21:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v9[0] = v3;
-        LOWORD(v9[1]) = 1024;
-        *(&v9[1] + 2) = v4;
+        v8[0] = v3;
+        LOWORD(v8[1]) = 1024;
+        *(&v8[1] + 2) = v4;
         _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsUserIdentityModuleRequired failed with error: (%i, %i).", buf, 0xEu);
       }
     }
@@ -1000,7 +1076,7 @@ LABEL_21:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v9 = @"NO";
+        *v8 = @"NO";
         _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsUserIdentityModuleRequired returned: %@", buf, 0xCu);
       }
     }
@@ -1016,9 +1092,7 @@ LABEL_21:
     }
   }
 
-  result = 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)isSIMRemoved
@@ -1057,23 +1131,23 @@ LABEL_21:
 
 - (id)_telephonyDataSIMStatus
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend__dataCTXPCServiceSubscriptionContext(self, a2, v2);
   if (v5)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v13 = 0;
-    v7 = objc_msgSend_getSIMStatus_error_(coreTelephonyClient, v4, v5, &v13);
-    v8 = v13;
+    v12 = 0;
+    v7 = objc_msgSend_getSIMStatus_error_(coreTelephonyClient, v4, v5, &v12);
+    v8 = v12;
     if (!v7)
     {
       v9 = OSLogHandleForIDSCategory("Network");
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v15 = v8;
-        v16 = 2112;
-        v17 = v5;
+        v14 = v8;
+        v15 = 2112;
+        v16 = v5;
         _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "Failed to read SIM status { error: %@, context: %@ }", buf, 0x16u);
       }
     }
@@ -1091,8 +1165,6 @@ LABEL_21:
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
@@ -1108,25 +1180,25 @@ LABEL_21:
 
 - (BOOL)inValidSIMState
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_isSIMRemoved(self, a2, v2))
   {
     v9 = objc_msgSend__dataCTXPCServiceSubscriptionContext(self, v4, v5);
     if (v9)
     {
       coreTelephonyClient = self->_coreTelephonyClient;
-      v20 = 0;
-      isPhoneNumberCredentialValid_outError = objc_msgSend_isPhoneNumberCredentialValid_outError_(coreTelephonyClient, v8, v9, &v20);
-      v11 = v20;
+      v19 = 0;
+      isPhoneNumberCredentialValid_outError = objc_msgSend_isPhoneNumberCredentialValid_outError_(coreTelephonyClient, v8, v9, &v19);
+      v11 = v19;
       if (!v11)
       {
         if ((isPhoneNumberCredentialValid_outError & 1) == 0)
         {
-          v19 = OSLogHandleForIDSCategory("Network");
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v18 = OSLogHandleForIDSCategory("Network");
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_195988000, v19, OS_LOG_TYPE_DEFAULT, "   => CT reports phone credentials are not valid for data subscription context", buf, 2u);
+            _os_log_impl(&dword_195988000, v18, OS_LOG_TYPE_DEFAULT, "   => CT reports phone credentials are not valid for data subscription context", buf, 2u);
           }
         }
 
@@ -1138,9 +1210,9 @@ LABEL_21:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = v12;
-        v23 = 2112;
-        v24 = v9;
+        v21 = v12;
+        v22 = 2112;
+        v23 = v9;
         _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Failed to query phone number credential validity for data subscription context { error: %@, context: %@ }", buf, 0x16u);
       }
     }
@@ -1158,7 +1230,7 @@ LABEL_21:
     isPhoneNumberCredentialValid_outError = objc_msgSend__legacy_inValidSIMState(self, v14, v15);
 LABEL_14:
 
-    goto LABEL_15;
+    return isPhoneNumberCredentialValid_outError;
   }
 
   v6 = OSLogHandleForIDSCategory("Network");
@@ -1168,15 +1240,12 @@ LABEL_14:
     _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "   => CT reports SIM is removed -- assuming credential is valid", buf, 2u);
   }
 
-  isPhoneNumberCredentialValid_outError = 1;
-LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
-  return isPhoneNumberCredentialValid_outError;
+  return 1;
 }
 
 - (BOOL)_legacy_inValidSIMState
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!self->_ctServerConnection)
   {
     v3 = OSLogHandleForIDSCategory("Network");
@@ -1196,35 +1265,52 @@ LABEL_15:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v8 = IsPhoneNumberCredentialValid;
-      v9 = 1024;
-      v10 = HIDWORD(IsPhoneNumberCredentialValid);
+      v7 = IsPhoneNumberCredentialValid;
+      v8 = 1024;
+      v9 = HIDWORD(IsPhoneNumberCredentialValid);
       _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "Error querying device user identity module { error: (%d:%d) }", buf, 0xEu);
     }
 
 LABEL_5:
 
-    result = 1;
-    goto LABEL_10;
+    return 1;
   }
 
-  v6 = OSLogHandleForIDSCategory("Network");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = OSLogHandleForIDSCategory("Network");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "   => CT reports phone credentials are not valid", buf, 2u);
+    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "   => CT reports phone credentials are not valid", buf, 2u);
   }
 
-  result = 0;
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)isDataSwitchEnabled
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (!self->_ctServerConnection)
+  v11 = *MEMORY[0x1E69E9840];
+  if (self->_ctServerConnection)
+  {
+    IsEnabled = _CTServerConnectionGetCellularDataIsEnabled();
+    v3 = IsEnabled;
+    v4 = HIDWORD(IsEnabled);
+    if (!HIDWORD(IsEnabled))
+    {
+      return 0;
+    }
+
+    v6 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      v8 = v3;
+      v9 = 1024;
+      v10 = v4;
+      _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionGetCellularDataIsEnabled failed with error: (%i, %i).", buf, 0xEu);
+    }
+  }
+
+  else
   {
     v6 = OSLogHandleForIDSCategory("Network");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1232,35 +1318,9 @@ LABEL_10:
       *buf = 0;
       _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionGetCellularDataIsEnabled failed, missing _ctServerConnection", buf, 2u);
     }
-
-    goto LABEL_9;
   }
 
-  IsEnabled = _CTServerConnectionGetCellularDataIsEnabled();
-  v3 = IsEnabled;
-  v4 = HIDWORD(IsEnabled);
-  if (HIDWORD(IsEnabled))
-  {
-    v6 = OSLogHandleForIDSCategory("Network");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109376;
-      v9 = v3;
-      v10 = 1024;
-      v11 = v4;
-      _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionGetCellularDataIsEnabled failed with error: (%i, %i).", buf, 0xEu);
-    }
-
-LABEL_9:
-
-    result = 0;
-    goto LABEL_10;
-  }
-
-  result = 0;
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)isDataConnectionActive
@@ -1271,6 +1331,30 @@ LABEL_10:
   }
 
   return MEMORY[0x1EEE66B58](self, sel__isDataConnectionAvailable, v3);
+}
+
+- (void)setDataConnectionActive:(BOOL)active
+{
+  v10 = *MEMORY[0x1E69E9840];
+  if (self->_registered)
+  {
+    activeCopy = active;
+    v5 = OSLogHandleForIDSCategory("Network");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = @"NO";
+      if (activeCopy)
+      {
+        v6 = @"YES";
+      }
+
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "SetDataConnectionActive: %@", &v8, 0xCu);
+    }
+
+    objc_msgSend__makeDataConnectionAvailable_(self, v7, activeCopy);
+  }
 }
 
 @end

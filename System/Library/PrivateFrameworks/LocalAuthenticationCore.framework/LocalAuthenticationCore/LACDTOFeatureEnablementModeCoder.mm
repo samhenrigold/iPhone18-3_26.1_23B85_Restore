@@ -7,9 +7,9 @@
 
 - (id)encode:(id)encode
 {
-  rawValue = [encode rawValue];
+  v7 = objc_msgSend_rawValue(encode, a2);
   v3 = [LACDTOKVStoreValue alloc];
-  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:&rawValue length:1];
+  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:1];
   v5 = [(LACDTOKVStoreValue *)v3 initWithData:v4];
 
   return v5;

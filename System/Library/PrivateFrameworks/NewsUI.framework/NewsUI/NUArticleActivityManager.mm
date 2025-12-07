@@ -51,7 +51,7 @@
 
 - (id)activityItemSources
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [NUArticleImageActivityItemSource alloc];
   headline = [(NUArticleActivityManager *)self headline];
   v5 = [(NUArticleImageActivityItemSource *)v3 initWithHeadline:headline];
@@ -65,40 +65,38 @@
   headline3 = [(NUArticleActivityManager *)self headline];
   v12 = [(NUArticleTextActivityItemSource *)v10 initWithHeadline:headline3];
 
-  v16[0] = v5;
-  v16[1] = v12;
-  v16[2] = v9;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[0] = v5;
+  v15[1] = v12;
+  v15[2] = v9;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }
 
 - (id)activities
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(NUArticleActivityManager *)self supportedActivities];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v22 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
         v9 = [(NUArticleActivityManager *)self activityForType:unsignedIntegerValue];
         if (!v9)
         {
@@ -120,14 +118,13 @@
         [array addObject:v9];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
   v18 = [array copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -254,23 +251,25 @@ LABEL_9:
 - (id)activityTitleForHeadline:(id)headline withType:(unint64_t)type
 {
   headlineCopy = headline;
-  v7 = 0;
+  v7 = headlineCopy;
+  v8 = 0;
   if (type <= 2)
   {
     if (type)
     {
       if (type == 1)
       {
-        v14 = [(NUArticleActivityManager *)self articleDislikedForHeadline:headlineCopy];
-        v9 = NUBundle();
-        if (v14)
+        v18 = [(NUArticleActivityManager *)self articleDislikedForHeadline:headlineCopy];
+        v19 = v18;
+        v11 = NUBundle(v18);
+        if (v19)
         {
-          v10 = @"Undo Suggest Less";
+          v12 = @"Undo Suggest Less";
         }
 
         else
         {
-          v10 = @"Suggest Less";
+          v12 = @"Suggest Less";
         }
       }
 
@@ -281,63 +280,66 @@ LABEL_9:
           goto LABEL_24;
         }
 
-        v8 = [(NUArticleActivityManager *)self channelMutedForHeadline:headlineCopy];
-        v9 = NUBundle();
-        if (v8)
+        v9 = [(NUArticleActivityManager *)self channelMutedForHeadline:headlineCopy];
+        v10 = v9;
+        v11 = NUBundle(v9);
+        if (v10)
         {
-          v10 = @"Unblock Channel";
+          v12 = @"Unblock Channel";
         }
 
         else
         {
-          v10 = @"Block Channel";
+          v12 = @"Block Channel";
         }
       }
     }
 
     else
     {
-      v12 = [(NUArticleActivityManager *)self articleLikedForHeadline:headlineCopy];
-      v9 = NUBundle();
-      if (v12)
+      v15 = [(NUArticleActivityManager *)self articleLikedForHeadline:headlineCopy];
+      v16 = v15;
+      v11 = NUBundle(v15);
+      if (v16)
       {
-        v10 = @"Undo Suggest More";
+        v12 = @"Undo Suggest More";
       }
 
       else
       {
-        v10 = @"Suggest More";
+        v12 = @"Suggest More";
       }
     }
 
 LABEL_22:
-    v13 = v9;
+    v17 = v11;
     goto LABEL_23;
   }
 
   switch(type)
   {
     case 3uLL:
-      v13 = NUBundle();
-      v9 = v13;
-      v10 = @"Open in Safari";
+      v17 = NUBundle(headlineCopy);
+      v11 = v17;
+      v12 = @"Open in Safari";
       break;
     case 4uLL:
-      v13 = NUBundle();
-      v9 = v13;
-      v10 = @"Report a Concern";
+      v17 = NUBundle(headlineCopy);
+      v11 = v17;
+      v12 = @"Report a Concern";
       break;
     case 5uLL:
-      v11 = [(NUArticleActivityManager *)self articleSavedForHeadline:headlineCopy];
-      v9 = NUBundle();
-      if (v11)
+      v13 = [(NUArticleActivityManager *)self articleSavedForHeadline:headlineCopy];
+      v14 = v13;
+      v11 = NUBundle(v13);
+      if (v14)
       {
-        v10 = @"Unsave";
+        v12 = @"Unsave";
       }
 
       else
       {
-        v10 = @"Save";
+        v12 = @"Save";
       }
 
       goto LABEL_22;
@@ -346,11 +348,11 @@ LABEL_22:
   }
 
 LABEL_23:
-  v7 = [v13 localizedStringForKey:v10 value:&stru_286E03B58 table:0];
+  v8 = [v17 localizedStringForKey:v12 value:&stru_286E03B58 table:0];
 
 LABEL_24:
 
-  return v7;
+  return v8;
 }
 
 - (id)activityImageForHeadline:(id)headline withType:(unint64_t)type

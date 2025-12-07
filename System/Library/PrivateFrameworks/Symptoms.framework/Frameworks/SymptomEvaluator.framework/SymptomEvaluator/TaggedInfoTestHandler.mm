@@ -10,7 +10,7 @@
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   eventQualifiers = [symptomCopy eventQualifiers];
   v6 = [eventQualifiers objectForKeyedSubscript:@"1"];
@@ -28,16 +28,16 @@
     {
       v11 = self->_informer;
       *buf = 134217984;
-      v33 = v11;
+      v32 = v11;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "TaggedInfoTestHandler gets informer at %p", buf, 0xCu);
     }
   }
 
   if (v6)
   {
-    v31 = 0;
-    v12 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v31];
-    v13 = v31;
+    v30 = 0;
+    v12 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v30];
+    v13 = v30;
     v14 = v13;
     v15 = @"Can't create jsonObject";
     if (v12 && !v13)
@@ -50,7 +50,7 @@
         if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v33 = v12;
+          v32 = v12;
           _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "BasebandFlowInformerTestAccess supplied with %{public}@", buf, 0xCu);
         }
 
@@ -64,12 +64,12 @@
 
             v18 = @"Set informImmediate";
 LABEL_49:
-            v28 = flowLogHandle;
+            v27 = flowLogHandle;
             if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v33 = v18;
-              _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "TaggedInfoTestHandler symptom processing: %@", buf, 0xCu);
+              v32 = v18;
+              _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "TaggedInfoTestHandler symptom processing: %@", buf, 0xCu);
             }
 
             v14 = 0;
@@ -118,21 +118,21 @@ LABEL_49:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v30 = [v12 objectForKeyedSubscript:@"start"];
-                  if (v30)
+                  v29 = [v12 objectForKeyedSubscript:@"start"];
+                  if (v29)
                   {
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      if ([v30 BOOLValue])
+                      if ([v29 BOOLValue])
                       {
-                        v29 = [v12 objectForKeyedSubscript:@"digest"];
-                        if (v29)
+                        v28 = [v12 objectForKeyedSubscript:@"digest"];
+                        if (v28)
                         {
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v22 = [[BasebandFlowDigest alloc] initWithDictionary:v29];
+                            v22 = [[BasebandFlowDigest alloc] initWithDictionary:v28];
                             if (v22)
                             {
                               v23 = self->_informer;
@@ -229,19 +229,18 @@ LABEL_49:
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v33 = v15;
+    v32 = v15;
     _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "TaggedInfoTestHandler symptom processing: %@", buf, 0xCu);
   }
 
 LABEL_48:
 
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   informer = self->_informer;
   if (!informer)
@@ -253,15 +252,13 @@ LABEL_48:
     informer = self->_informer;
   }
 
-  v15 = @"state";
+  v14 = @"state";
   getState = [(BasebandFlowInformer *)informer getState];
-  v16[0] = getState;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = getState;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
   date = [MEMORY[0x277CBEAA8] date];
   (*(blockCopy + 2))(blockCopy, 0, "Status", date, 0, 0, v12);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_sharedInstance
@@ -283,7 +280,7 @@ LABEL_48:
 
 void __40__TaggedInfoTestHandler__sharedInstance__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = objc_alloc_init(*(a1 + 32));
   v2 = _sharedInstance_sharedInstance;
   _sharedInstance_sharedInstance = v1;
@@ -297,12 +294,10 @@ void __40__TaggedInfoTestHandler__sharedInstance__block_invoke(uint64_t a1)
   v6 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8[0] = 67109120;
-    v8[1] = 17;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "TaggedInfoTestHandler set self for symptomstool -m %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = 17;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "TaggedInfoTestHandler set self for symptomstool -m %d", v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configureClass:(id)class
@@ -326,18 +321,17 @@ void __40__TaggedInfoTestHandler__sharedInstance__block_invoke(uint64_t a1)
 
 - (void)noteSymptom:(void *)a1 .cold.1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   v2 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Exception trying to create JSON object %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Exception trying to create JSON object %@", &v3, 0xCu);
   }
 
   objc_end_catch();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

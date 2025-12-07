@@ -27,7 +27,7 @@
 
 - (void)replayChange:(id)change stagedChange:(id)stagedChange
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   stagedChangeCopy = stagedChange;
   if (stagedChangeCopy)
@@ -60,9 +60,9 @@
         if (changeCopy)
         {
           objectChange3 = [changeCopy objectChange];
-          v42 = 0;
-          [objectChange2 diff:objectChange3 differingFields:&v42];
-          v14 = v42;
+          v41 = 0;
+          [objectChange2 diff:objectChange3 differingFields:&v41];
+          v14 = v41;
 
           if ([v14 count])
           {
@@ -74,11 +74,11 @@
               v18 = HMFGetLogIdentifier();
               objectChange4 = [changeCopy objectChange];
               *buf = 138543874;
-              v44 = v18;
-              v45 = 2112;
-              v46 = objectChange4;
-              v47 = 2112;
-              v48 = v14;
+              v43 = v18;
+              v44 = 2112;
+              v45 = objectChange4;
+              v46 = 2112;
+              v47 = v14;
               _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Must replay change from cloud: object %@ has diff %@", buf, 0x20u);
             }
 
@@ -97,11 +97,11 @@
                 v26 = HMFGetLogIdentifier();
                 objectChange7 = [changeCopy objectChange];
                 *buf = 138543874;
-                v44 = v26;
-                v45 = 2112;
-                v46 = objectChange7;
-                v47 = 2112;
-                v48 = v22;
+                v43 = v26;
+                v44 = 2112;
+                v45 = objectChange7;
+                v46 = 2112;
+                v47 = v22;
                 _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to replay: object %@ with error %@", buf, 0x20u);
               }
 
@@ -124,9 +124,9 @@
         else
         {
           objectChange8 = [stagedChangeCopy objectChange];
-          v41 = 0;
-          [objectChange2 diff:objectChange8 differingFields:&v41];
-          v14 = v41;
+          v40 = 0;
+          [objectChange2 diff:objectChange8 differingFields:&v40];
+          v14 = v40;
 
           if ([v14 count])
           {
@@ -137,11 +137,11 @@
             {
               v39 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v44 = v39;
-              v45 = 2112;
-              v46 = stagedChangeCopy;
-              v47 = 2112;
-              v48 = v14;
+              v43 = v39;
+              v44 = 2112;
+              v45 = stagedChangeCopy;
+              v46 = 2112;
+              v47 = v14;
               _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Change from cloud: object %@ has diff %@", buf, 0x20u);
             }
 
@@ -162,9 +162,9 @@ LABEL_30:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v44 = v32;
-        v45 = 2112;
-        v46 = stagedChangeCopy;
+        v43 = v32;
+        v44 = 2112;
+        v45 = stagedChangeCopy;
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Change cannot be process further, dropping changes %@", buf, 0x16u);
       }
 
@@ -184,8 +184,6 @@ LABEL_30:
 LABEL_9:
   [(HMDCloudChange *)selfCopy5 setApplyType:v11];
 LABEL_31:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetRecord
@@ -245,7 +243,7 @@ LABEL_31:
 
 - (void)updateWithObjectChange:(id)change
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   objectChangeType = [changeCopy objectChangeType];
   v6 = objectChangeType;
@@ -323,10 +321,10 @@ LABEL_11:
         }
 
         v21 = HMFGetLogIdentifier();
-        *v36 = 138543618;
-        *&v36[4] = v21;
-        *&v36[12] = 2112;
-        *&v36[14] = changeCopy;
+        *v35 = 138543618;
+        *&v35[4] = v21;
+        *&v35[12] = 2112;
+        *&v35[14] = changeCopy;
         v22 = "%{public}@Retaining 'delete' change, cannot convert a delete to an update, %@";
       }
 
@@ -341,10 +339,10 @@ LABEL_11:
         }
 
         v21 = HMFGetLogIdentifier();
-        *v36 = 138543618;
-        *&v36[4] = v21;
-        *&v36[12] = 2112;
-        *&v36[14] = changeCopy;
+        *v35 = 138543618;
+        *&v35[4] = v21;
+        *&v35[12] = 2112;
+        *&v35[14] = changeCopy;
         v22 = "%{public}@Object is already deleted, dropping delete %@";
       }
     }
@@ -360,14 +358,14 @@ LABEL_11:
       }
 
       v21 = HMFGetLogIdentifier();
-      *v36 = 138543618;
-      *&v36[4] = v21;
-      *&v36[12] = 2112;
-      *&v36[14] = changeCopy;
+      *v35 = 138543618;
+      *&v35[4] = v21;
+      *&v35[12] = 2112;
+      *&v35[14] = changeCopy;
       v22 = "%{public}@Change has already be invalidated, dropping further changes %@";
     }
 
-    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, v22, v36, 0x16u);
+    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, v22, v35, 0x16u);
 LABEL_42:
 
     goto LABEL_43;
@@ -392,11 +390,11 @@ LABEL_19:
     {
 LABEL_26:
       v17 = HMFGetLogIdentifier();
-      *v36 = 138543618;
-      *&v36[4] = v17;
-      *&v36[12] = 2112;
-      *&v36[14] = changeCopy;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change because object change in unknown type, %@", v36, 0x16u);
+      *v35 = 138543618;
+      *&v35[4] = v17;
+      *&v35[12] = 2112;
+      *&v35[14] = changeCopy;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change because object change in unknown type, %@", v35, 0x16u);
     }
 
 LABEL_27:
@@ -425,11 +423,11 @@ LABEL_36:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = HMFGetLogIdentifier();
-      *v36 = 138543618;
-      *&v36[4] = v30;
-      *&v36[12] = 2112;
-      *&v36[14] = v11;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change because merge object change fail with error %@", v36, 0x16u);
+      *v35 = 138543618;
+      *&v35[4] = v30;
+      *&v35[12] = 2112;
+      *&v35[14] = v11;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change because merge object change fail with error %@", v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v27);
@@ -450,9 +448,9 @@ LABEL_36:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     v26 = HMFGetLogIdentifier();
-    *v36 = 138543362;
-    *&v36[4] = v26;
-    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Cannot merge updated change into an add because object change does not exist", v36, 0xCu);
+    *v35 = 138543362;
+    *&v35[4] = v26;
+    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Cannot merge updated change into an add because object change does not exist", v35, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
@@ -476,11 +474,11 @@ LABEL_39:
     {
       v21 = HMFGetLogIdentifier();
       objectChange4 = [(HMDCloudChange *)selfCopy10 objectChange];
-      *v36 = 138543618;
-      *&v36[4] = v21;
-      *&v36[12] = 2112;
-      *&v36[14] = objectChange4;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Changing update change back to an add %@", v36, 0x16u);
+      *v35 = 138543618;
+      *&v35[4] = v21;
+      *&v35[12] = 2112;
+      *&v35[14] = objectChange4;
+      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Changing update change back to an add %@", v35, 0x16u);
 
       goto LABEL_42;
     }
@@ -491,16 +489,14 @@ LABEL_43:
   }
 
 LABEL_44:
-  v33 = [(HMDCloudChange *)self rowIDsSet:*v36];
+  v33 = [(HMDCloudChange *)self rowIDsSet:*v35];
   v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(changeCopy, "bsoLogRowID")}];
   [v33 addObject:v34];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDeletedCloudRecord:(id)record
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
@@ -515,20 +511,18 @@ LABEL_44:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Cannot update deleted cloud record without cloudRecord", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Cannot update deleted cloud record without cloudRecord", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCloudRecord:(id)record
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
@@ -554,11 +548,11 @@ LABEL_44:
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               v14 = HMFGetLogIdentifier();
-              v32 = 138543618;
-              v33 = v14;
-              v34 = 2112;
-              v35 = v10;
-              _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change, merge object change with cached object change fail with error %@", &v32, 0x16u);
+              v31 = 138543618;
+              v32 = v14;
+              v33 = 2112;
+              v34 = v10;
+              _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change, merge object change with cached object change fail with error %@", &v31, 0x16u);
             }
 
             objc_autoreleasePoolPop(v11);
@@ -586,11 +580,11 @@ LABEL_44:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           v28 = HMFGetLogIdentifier();
-          v32 = 138543618;
-          v33 = v28;
-          v34 = 2112;
-          v35 = extractObjectChange;
-          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Local changes will not modify cloud record, dropping local changes: %@", &v32, 0x16u);
+          v31 = 138543618;
+          v32 = v28;
+          v33 = 2112;
+          v34 = extractObjectChange;
+          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Local changes will not modify cloud record, dropping local changes: %@", &v31, 0x16u);
         }
 
         objc_autoreleasePoolPop(v25);
@@ -616,11 +610,11 @@ LABEL_22:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = HMFGetLogIdentifier();
-          v32 = 138543618;
-          v33 = v23;
-          v34 = 2112;
-          v35 = selfCopy3;
-          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change, cannot add a new record unless the change type is added, %@", &v32, 0x16u);
+          v31 = 138543618;
+          v32 = v23;
+          v33 = 2112;
+          v34 = selfCopy3;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalidating change, cannot add a new record unless the change type is added, %@", &v31, 0x16u);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -640,17 +634,15 @@ LABEL_22:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v19;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot update cloud record without cloudRecord", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v19;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot update cloud record without cloudRecord", &v31, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
 
 LABEL_23:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceChangeToDelete
@@ -750,7 +742,7 @@ LABEL_23:
 
 - (id)_initWithObjectChange:(id)change cloudObjectRecord:(id)record
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   recordCopy = record;
   v8 = recordCopy;
@@ -763,7 +755,7 @@ LABEL_23:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v12;
+      v29 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Either objectChange or cloudObjectRecord must be specified, not both", buf, 0xCu);
     }
 
@@ -789,7 +781,7 @@ LABEL_13:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v18;
+      v29 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Could not create the object change for the given record", buf, 0xCu);
     }
 
@@ -808,9 +800,9 @@ LABEL_13:
     v15 = qword_253D4BF28[objectChangeType];
   }
 
-  v28.receiver = self;
-  v28.super_class = HMDCloudChange;
-  v20 = [(HMDCloudChange *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDCloudChange;
+  v20 = [(HMDCloudChange *)&v27 init];
   v21 = v20;
   if (v20)
   {
@@ -834,7 +826,6 @@ LABEL_13:
   v19 = selfCopy2;
 LABEL_19:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

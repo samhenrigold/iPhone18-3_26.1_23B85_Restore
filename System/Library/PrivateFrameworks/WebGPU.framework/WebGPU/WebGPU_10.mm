@@ -1,12 +1,12 @@
-void sub_2256CFD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, WebGPU::RenderPipeline *a10, uint64_t a11, ...)
+void sub_2256CFD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, WebGPU::RenderPipeline *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, WebGPU::RenderPipeline *a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v18 = va_arg(va1, WebGPU::BindGroup *);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v25 = va_arg(va1, WebGPU::BindGroup *);
 
-  WTF::Ref<WebGPU::BindGroup,WTF::RawPtrTraits<WebGPU::BindGroup>,WTF::DefaultRefDerefTraits<WebGPU::BindGroup>>::~Ref(va, v14, v15);
-  WTF::Ref<WebGPU::PipelineLayout,WTF::RawPtrTraits<WebGPU::PipelineLayout>,WTF::DefaultRefDerefTraits<WebGPU::PipelineLayout>>::~Ref(va1, v16);
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::RenderPipeline>::deref(a10, v17);
+  WTF::Ref<WebGPU::BindGroup,WTF::RawPtrTraits<WebGPU::BindGroup>,WTF::DefaultRefDerefTraits<WebGPU::BindGroup>>::~Ref(va, v21, v22);
+  WTF::Ref<WebGPU::PipelineLayout,WTF::RawPtrTraits<WebGPU::PipelineLayout>,WTF::DefaultRefDerefTraits<WebGPU::PipelineLayout>>::~Ref(va1, v23);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::RenderPipeline>::deref(a17, v24);
   _Unwind_Resume(a1);
 }
 
@@ -102,7 +102,7 @@ LABEL_20:
   return v11 != 0;
 }
 
-unint64_t WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(uint64_t a1, _BYTE *a2, void *a3)
+uint64_t WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(uint64_t a1, _BYTE *a2, void *a3)
 {
   v5 = a3;
   *a2 = 0;
@@ -255,7 +255,7 @@ LABEL_47:
   return v12 | a1;
 }
 
-unint64_t WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(WebGPU::RenderPassEncoder *this, BOOL *a2)
+uint64_t WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(WebGPU::RenderPassEncoder *this, BOOL *a2)
 {
   v2 = *(this + 9);
   v4[0] = MEMORY[0x277D85DD0];
@@ -305,38 +305,38 @@ void WebGPU::RenderPassEncoder::emitMemoryBarrier(uint64_t a1, void *a2)
   }
 }
 
-void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(WebGPU::RenderPassEncoder *this@<X0>, unint64_t a2@<X5>, WebGPU::Buffer *a3@<X7>, unsigned int a4@<W1>, int a5@<W2>, unsigned int a6@<W3>, MTLIndexType a7@<X4>, uint64_t a8@<X6>, uint64_t a9@<X8>, unsigned int a10, unsigned int a11, WebGPU::RenderPassEncoder *a12, atomic_uint **a13, unsigned int a14, MTLPrimitiveType a15)
+void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(uint64_t *__return_ptr a1@<X8>, WebGPU::RenderPassEncoder *this@<X0>, unint64_t a3@<X5>, WebGPU::Buffer *a4@<X7>, int a5@<W1>, int a6@<W2>, unsigned int a7@<W3>, unint64_t a8@<X4>, uint64_t a9@<X6>, unsigned int a10, unsigned int a11, WebGPU::RenderPassEncoder *a12, id *a13, unsigned int a14, MTLPrimitiveType a15)
 {
   v73 = *MEMORY[0x277D85DE8];
-  if (!a8)
+  if (!a9)
   {
     v25 = 0;
     goto LABEL_25;
   }
 
-  v16 = a3;
+  v16 = a4;
   v23 = this;
-  v24 = *(a8 + 8);
+  v24 = *(a9 + 8);
   v25 = v24;
-  if (!v23 || !v24 || *(a8 + 44) == 4)
+  if (!v23 || !v24 || *(a9 + 44) == 4)
   {
     goto LABEL_25;
   }
 
   if ((a10 & v16) == 0xFFFFFFFF)
   {
-    *a9 = 0;
+    *a1 = 0;
     goto LABEL_27;
   }
 
   v26 = 1;
-  if (a7)
+  if (a8)
   {
     v26 = 2;
   }
 
   v51 = v26;
-  if (!v16 || !a10 || [v24 length] <= a2 || -a5 > v16)
+  if (!v16 || !a10 || [v24 length] <= a3 || -a6 > v16)
   {
     goto LABEL_25;
   }
@@ -349,26 +349,26 @@ void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(WebGPU::RenderPass
 
   else
   {
-    v29 = v16 + a5;
+    v29 = v16 + a6;
   }
 
   v49 = v29;
   v50 = v28;
-  WebGPU::Buffer::canSkipDrawIndexedValidation(a8, a2 >> v51, v23, v29, a4, a7, a6, a5, &v52, a10, v28, 0);
+  WebGPU::Buffer::canSkipDrawIndexedValidation(a9, a3 >> v51, v23, v29, a5, a8, a7, a6, &v52, a10, v28, 0);
   if (v54 == 1)
   {
-    if ((WebGPU::Buffer::didReadOOB(a8, 0) & 1) == 0)
+    if ((WebGPU::Buffer::didReadOOB(a9, 0) & 1) == 0)
     {
       v30 = *(a12 + 23);
       ++*(v30 + 4);
       v67 = v30;
-      WebGPU::Buffer::skippedDrawIndexedValidation(a8, v30, v52);
+      WebGPU::Buffer::skippedDrawIndexedValidation(a9, v30, v52, v53);
       WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(&v67);
       v31 = 0;
 LABEL_26:
-      *a9 = v31;
+      *a1 = v31;
 LABEL_27:
-      *(a9 + 8) = 0;
+      a1[1] = 0;
       goto LABEL_28;
     }
 
@@ -378,12 +378,12 @@ LABEL_25:
   }
 
   v32 = v23 << v51;
-  if (__CFADD__(v32, a2) || v32 + a2 > [v25 length])
+  if (__CFADD__(v32, a3) || v32 + a3 > [v25 length])
   {
     goto LABEL_25;
   }
 
-  v34 = a6 >= a10 || a6 + a4 > a10;
+  v34 = a7 >= a10 || a7 + a5 > a10;
   v35 = !v34;
   if (v34)
   {
@@ -397,7 +397,7 @@ LABEL_25:
 
   if (v35)
   {
-    v37 = a4;
+    v37 = a5;
   }
 
   else
@@ -406,19 +406,19 @@ LABEL_25:
   }
 
   v67 = __PAIR64__(v37, v36);
-  v68 = a2 >> v51;
-  v69 = a5;
-  v70 = a6;
+  v68 = a3 >> v51;
+  v69 = a6;
+  v70 = a7;
   v71 = 0;
   v47 = WebGPU::RenderPassEncoder::renderCommandEncoder(a12);
   v46 = WebGPU::Device::safeCreateBufferWithData<WebGPU::WebKitMTLDrawIndexedPrimitivesIndirectArguments>(a13, &v67);
-  v38 = WebGPU::Device::indexBufferClampPipeline(a13, a7, a14);
+  v38 = WebGPU::Device::indexBufferClampPipeline(a13, a8, a14);
   if (v38)
   {
     v45 = v38;
     [v47 setRenderPipelineState:v38];
 
-    WebGPU::RenderPassEncoder::setVertexBuffer(a12, v47, v25, a2, 0);
+    WebGPU::RenderPassEncoder::setVertexBuffer(a12, v47, v25, a3, 0);
     WebGPU::RenderPassEncoder::setVertexBuffer(a12, v47, v46, 0, 1u);
     v39 = ~v50;
     if (v16 != -1)
@@ -451,16 +451,16 @@ LABEL_25:
     v64[3] = &__block_descriptor_104_ea8_32c138_ZTSKZN6WebGPU17RenderPassEncoder29clampIndexBufferToValidValuesEjjij12MTLIndexTypemPNS_6BufferEjjRS0_RNS_6DeviceEj16MTLPrimitiveTypeE3__0_e28_v16__0___MTLCommandBuffer__8l;
     v52 = v48;
     WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::Ref(&v53, a13);
-    v54 = a2 >> v51;
+    v54 = a3 >> v51;
     v55 = v23;
     v56 = v49;
-    v57 = a4;
-    v58 = a7;
-    v59 = a6;
-    v60 = a5;
+    v57 = a5;
+    v58 = a8;
+    v59 = a7;
+    v60 = a6;
     v61 = a10;
     v62 = v50;
-    WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::Ref(v63, a8);
+    WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::Ref(v63, a9);
     v44 = v46;
     v63[1] = v44;
     WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::$_0(v65, &v52);
@@ -468,33 +468,33 @@ LABEL_25:
     WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::~$_0(&v52);
 
     WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(&v66);
-    *a9 = 1;
-    *(a9 + 8) = v44;
+    *a1 = 1;
+    a1[1] = v44;
     WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::~$_0(v65);
   }
 
   else
   {
-    *a9 = 2;
-    *(a9 + 8) = 0;
+    *a1 = 2;
+    a1[1] = 0;
   }
 
 LABEL_28:
 }
 
-void sub_2256D0760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2256D0760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::~$_0(v15 + 32);
+  va_start(va, a20);
+  WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::~$_0(v22 + 32);
   WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::~$_0(va);
 
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v16 - 144));
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v23 - 144));
   _Unwind_Resume(a1);
 }
 
-id WebGPU::Device::safeCreateBufferWithData<WebGPU::WebKitMTLDrawIndexedPrimitivesIndirectArguments>(uint64_t a1, uint64_t a2)
+id WebGPU::Device::safeCreateBufferWithData<WebGPU::WebKitMTLDrawIndexedPrimitivesIndirectArguments>(id *a1, uint64_t a2)
 {
-  v3 = [*(a1 + 8) newBufferWithBytes:a2 length:24 options:0];
+  v3 = [a1[1] newBufferWithBytes:a2 length:24 options:0];
   WebGPU::Device::setOwnerWithIdentity(a1, v3);
 
   return v3;
@@ -795,7 +795,7 @@ LABEL_7:
   return a1;
 }
 
-void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(WebGPU::RenderPassEncoder *this, uint64_t a2, WebGPU::RenderPassEncoder *a3, unsigned int a4, int a5, MTLIndexType a6, MTLIndexType a7, BOOL *a8, _BYTE *a9)
+void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(WebGPU::RenderPassEncoder *this, uint64_t a2, WebGPU::RenderPassEncoder *a3, int a4, int a5, MTLIndexType a6, unint64_t a7, BOOL *a8, _BYTE *a9)
 {
   v11 = a6;
   v17 = *(a2 + 72);
@@ -805,26 +805,26 @@ void WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(WebGPU::RenderPass
   v20[3] = &__block_descriptor_40_e8_Q12__0I8l;
   v20[4] = a2;
   v18 = WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(v17, a9, v20);
-  WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(a3, a8, v18, a4, a5, v11, a7, *(a2 + 40), this, HIDWORD(v18), v19, a2, *(a2 + 32), *(a2 + 248), *(a2 + 88));
+  WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(this, a3, a8, v18, a4, a5, v11, a7, *(a2 + 40), HIDWORD(v18), v19, a2, *(a2 + 32), *(a2 + 248), *(a2 + 88));
 }
 
-void WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(id *this@<X0>, id *a2@<X1>, WebGPU::Buffer *a3@<X2>, unint64_t a4@<X3>, void *a5@<X4>, int a6@<W5>, int a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, WebGPU::Device *a10, WebGPU::Device *a11, id *a12, WebGPU::RenderPassEncoder *a13, BOOL *a14)
+void WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(uint64_t *__return_ptr a1@<X8>, id *this@<X0>, id *a3@<X1>, WebGPU::Buffer *a4@<X2>, unint64_t a5@<X3>, void *a6@<X4>, int a7@<W5>, int a8@<W6>, uint64_t a9@<X7>, WebGPU::Device *a10, WebGPU::Device *a11, id *a12, WebGPU::RenderPassEncoder *a13, BOOL *a14)
 {
   v40 = *MEMORY[0x277D85DE8];
-  if ((a7 & a6) == 0xFFFFFFFF)
+  if ((a8 & a7) == 0xFFFFFFFF)
   {
-    *a9 = a2[1];
-    a9[1] = a5;
+    *a1 = a3[1];
+    a1[1] = a6;
     return;
   }
 
   if (this)
   {
     v23 = this[1];
-    if (v23 && *(this + 44) != 4 && *(a2 + 44) != 4)
+    if (v23 && *(this + 44) != 4 && *(a3 + 44) != 4)
     {
-      v37 = a2[2];
-      if (!HIDWORD(a4) && (a3 ? (v24 = 4) : (v24 = 2), !__CFADD__(a4, v24) && a7 && a6 && v37 && [v23 length] > (a4 + v24)))
+      v37 = a3[2];
+      if (!HIDWORD(a5) && (a4 ? (v24 = 4) : (v24 = 2), !__CFADD__(a5, v24) && a8 && a7 && v37 && [v23 length] > (a5 + v24)))
       {
         v36 = WebGPU::RenderPassEncoder::renderCommandEncoder(a12);
         v25 = WebGPU::Device::indexedIndirectBufferClampPipeline(a10, a11);
@@ -837,18 +837,18 @@ void WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(id *this@<
 
         v34 = [v23 length];
         v26 = 1;
-        if (a3)
+        if (a4)
         {
           v26 = 2;
         }
 
         v33 = v26;
-        WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a2[1], a5, 0);
-        WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a2[3], 0, 1u);
+        WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a3[1], a6, 0);
+        WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a3[3], 0, 1u);
         WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, v37, 0, 2u);
-        v35 = (v34 - a4) >> v33;
+        v35 = (v34 - a5) >> v33;
         v39[0] = v35;
-        v39[1] = a7;
+        v39[1] = a8;
         WebGPU::RenderPassEncoder::setVertexBytes(a12, v36, v39, 8, 3u);
         [v36 drawPrimitives:0 vertexStart:0 vertexCount:1];
         WebGPU::RenderPassEncoder::emitMemoryBarrier(a12, v36);
@@ -859,23 +859,23 @@ void WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(id *this@<
           v36 = v27;
         }
 
-        v28 = WebGPU::Device::indexBufferClampPipeline(a10, a3, a11);
+        v28 = WebGPU::Device::indexBufferClampPipeline(a10, a4, a11);
         if (v28)
         {
           [v36 setRenderPipelineState:v28];
 
           v29 = v36;
-          WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, v23, a4, 0);
-          WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a2[3], 0, 1u);
-          v31 = a8 == 2 || a8 == 4;
-          if (a6 == -1)
+          WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, v23, a5, 0);
+          WebGPU::RenderPassEncoder::setVertexBuffer(a12, v36, a3[3], 0, 1u);
+          v31 = a9 == 2 || a9 == 4;
+          if (a7 == -1)
           {
             v32 = ~v31;
           }
 
           else
           {
-            v32 = a6;
+            v32 = a7;
           }
 
           v38[0] = v32;
@@ -885,30 +885,30 @@ void WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(id *this@<
           [v36 drawPrimitives:0 indirectBuffer:v37 indirectBufferOffset:0];
           WebGPU::RenderPassEncoder::emitMemoryBarrier(a12, v36);
           *a13 = 1;
-          a2[32] = a3;
-          a2[29] = a5;
-          a2[30] = a4;
-          *(a2 + 62) = a6;
-          *(a2 + 63) = a7;
-          *(a2 + 66) = 2;
+          a3[32] = a4;
+          a3[29] = a6;
+          a3[30] = a5;
+          *(a3 + 62) = a7;
+          *(a3 + 63) = a8;
+          *(a3 + 66) = 2;
           WebGPU::checkForIndirectDrawDeviceLost(a10, a12, v37);
-          *a9 = a2[3];
-          a9[1] = 0;
+          *a1 = a3[3];
+          a1[1] = 0;
         }
 
         else
         {
 LABEL_38:
-          *a9 = 0;
-          a9[1] = 0;
+          *a1 = 0;
+          a1[1] = 0;
           v29 = v36;
         }
       }
 
       else
       {
-        *a9 = 0;
-        a9[1] = 0;
+        *a1 = 0;
+        a1[1] = 0;
       }
 
       goto LABEL_17;
@@ -920,8 +920,8 @@ LABEL_38:
     v23 = 0;
   }
 
-  *a9 = 0;
-  a9[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
 LABEL_17:
 }
 
@@ -1223,70 +1223,70 @@ uint64_t WebGPU::RenderPassEncoder::splitRenderPass(WebGPU::RenderPassEncoder *t
   return 1;
 }
 
-void sub_2256D17A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2256D17A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D17B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2256D17B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D17D0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2256D17D0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a9);
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::RenderPipeline>::deref(v9, a2);
+  va_start(va, a15);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::RenderPipeline>::deref(v15, a2);
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D17EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2256D17EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2256D1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D1818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D182C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D1840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
+  va_start(va, a15);
 
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D1858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2256D1818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D182C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D1840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D1858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
 
   WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -1488,41 +1488,41 @@ LABEL_33:
 LABEL_39:
 }
 
-void sub_2256D1B8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D1B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebGPU::checkForIndirectDrawDeviceLost(WebGPU::Device &,WebGPU::RenderPassEncoder &,objc_object  {objcproto9MTLBuffer}*)::$_0::~$_0(va);
 
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v4 - 72));
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v5 - 72));
   _Unwind_Resume(a1);
 }
 
-void sub_2256D1BC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D1BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v3 - 72));
+  va_start(va, a3);
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v4 - 72));
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
 
   _Unwind_Resume(a1);
 }
 
-void WebGPU::RenderPassEncoder::clampIndirectBufferToValidValues(id *this@<X0>, WebGPU::Buffer *a2@<X1>, WebGPU::Device *a3@<X5>, WebGPU::RenderPassEncoder *a4@<X7>, unsigned int a5@<W2>, unsigned int a6@<W3>, WebGPU::Device *a7@<X4>, uint64_t a8@<X6>, void *a9@<X8>, BOOL *a10)
+void WebGPU::RenderPassEncoder::clampIndirectBufferToValidValues(uint64_t *__return_ptr a1@<X8>, id *this@<X0>, WebGPU::Buffer *a3@<X1>, WebGPU::Device *a4@<X5>, WebGPU::RenderPassEncoder *a5@<X7>, unsigned int a6@<W2>, unsigned int a7@<W3>, atomic_ullong *a8@<X4>, uint64_t a9@<X6>, BOOL *a10)
 {
   v32[1] = *MEMORY[0x277D85DE8];
-  if (a5 && a6 && *(this + 44) != 4)
+  if (a6 && a7 && *(this + 44) != 4)
   {
-    if ((a6 & a5) == 0xFFFFFFFF)
+    if ((a7 & a6) == 0xFFFFFFFF)
     {
-      *a9 = this[1];
-      a9[1] = a2;
+      *a1 = this[1];
+      a1[1] = a3;
     }
 
-    else if (this[29] == a2 && *(this + 62) == a5 && *(this + 63) == a6 && *(this + 66) == 1)
+    else if (this[29] == a3 && *(this + 62) == a6 && *(this + 63) == a7 && *(this + 66) == 1)
     {
-      v17 = *(a8 + 184);
+      v17 = *(a9 + 184);
       ++*(v17 + 4);
       v32[0] = v17;
-      WebGPU::Buffer::skippedDrawIndirectValidation(this, v17, a2, a5, a6);
+      WebGPU::Buffer::skippedDrawIndirectValidation(this, v17, a3, a6, a7);
       if (*(v17 + 4) == 1)
       {
         WebGPU::CommandEncoder::~CommandEncoder(v17);
@@ -1534,78 +1534,78 @@ void WebGPU::RenderPassEncoder::clampIndirectBufferToValidValues(id *this@<X0>, 
         --*(v17 + 4);
       }
 
-      *a9 = this[2];
-      a9[1] = 0;
+      *a1 = this[2];
+      a1[1] = 0;
     }
 
     else
     {
-      if (*(*(a8 + 184) + 172))
+      if (*(*(a9 + 184) + 172))
       {
         v18 = 0;
       }
 
       else
       {
-        v18 = *(a8 + 16);
+        v18 = *(a9 + 16);
       }
 
-      v20 = a3;
+      v20 = a4;
       v21 = v18;
-      v31 = a7;
-      v22 = WebGPU::Device::indirectBufferClampPipeline(a7, v20);
+      v31 = a8;
+      v22 = WebGPU::Device::indirectBufferClampPipeline(a8, v20);
       if (v22)
       {
         [v21 setRenderPipelineState:v22];
 
-        WebGPU::RenderPassEncoder::setVertexBuffer(a8, v21, this[1], a2, 0);
+        WebGPU::RenderPassEncoder::setVertexBuffer(a9, v21, this[1], a3, 0);
         v23 = this[2];
-        WebGPU::RenderPassEncoder::setVertexBuffer(a8, v21, v23, 0, 1u);
+        WebGPU::RenderPassEncoder::setVertexBuffer(a9, v21, v23, 0, 1u);
 
-        v32[0] = __PAIR64__(a6, a5);
+        v32[0] = __PAIR64__(a7, a6);
         v24 = v21;
         [v24 setVertexBytes:v32 length:8 atIndex:2];
-        *(a8 + 1184) = 0;
-        *(a8 + 1192) = 0;
+        *(a9 + 1184) = 0;
+        *(a9 + 1192) = 0;
 
         [v24 drawPrimitives:0 vertexStart:0 vertexCount:1];
         v25 = v24;
         v26 = v25;
-        v27 = *(a8 + 252) + 1;
-        *(a8 + 252) = v27;
-        if (v27 < *(*(a8 + 32) + 280))
+        v27 = *(a9 + 252) + 1;
+        *(a9 + 252) = v27;
+        if (v27 < *(*(a9 + 32) + 280))
         {
           [v25 memoryBarrierWithScope:1 afterStages:1 beforeStages:1];
         }
 
-        *a4 = 1;
-        this[29] = a2;
-        *(this + 62) = a5;
-        *(this + 63) = a6;
+        *a5 = 1;
+        this[29] = a3;
+        *(this + 62) = a6;
+        *(this + 63) = a7;
         *(this + 66) = 1;
         v28 = this[2];
-        WebGPU::checkForIndirectDrawDeviceLost(v31, a8, v28);
+        WebGPU::checkForIndirectDrawDeviceLost(v31, a9, v28);
 
-        *a9 = this[2];
-        a9[1] = 0;
+        *a1 = this[2];
+        a1[1] = 0;
       }
 
       else
       {
-        *a9 = 0;
-        a9[1] = 0;
+        *a1 = 0;
+        a1[1] = 0;
       }
     }
   }
 
   else
   {
-    *a9 = 0;
-    a9[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 }
 
-void WebGPU::verticesPerPrimitive(WebGPU *this, MTLPrimitiveType a2)
+void WebGPU::verticesPerPrimitive(unint64_t this, MTLPrimitiveType a2)
 {
   if (this >= 5)
   {
@@ -1969,7 +1969,7 @@ LABEL_78:
                 --*(v40 + 8);
               }
 
-              if (*(this + 41) < 3u && (WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::growImpl<(WTF::FailureAction)0>(this + 38), *(this + 41) <= 2u))
+              if (*(this + 41) < 3u && (WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::growImpl<(WTF::FailureAction)0>(this + 38, v50), *(this + 41) <= 2u))
               {
                 __break(0xC471u);
               }
@@ -2013,31 +2013,31 @@ LABEL_73:
   }
 }
 
-void sub_2256D2454(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D2454(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a5);
+  va_start(va, a7);
   WTF::Ref<WebGPU::PipelineLayout,WTF::RawPtrTraits<WebGPU::PipelineLayout>,WTF::DefaultRefDerefTraits<WebGPU::PipelineLayout>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D2468(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D2468(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a5);
+  va_start(va, a7);
   WTF::Ref<WebGPU::PipelineLayout,WTF::RawPtrTraits<WebGPU::PipelineLayout>,WTF::DefaultRefDerefTraits<WebGPU::PipelineLayout>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D2490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256D2490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va, v6);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va, v9);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D24A8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D24A8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a5);
+  va_start(va, a7);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
@@ -2430,7 +2430,7 @@ WebGPU::RenderPassEncoder *wgpuRenderPassEncoderRelease(WebGPU::RenderPassEncode
   return result;
 }
 
-void wgpuRenderPassEncoderBeginOcclusionQuery(WebGPU::RenderPassEncoder *this, unsigned int a2)
+void wgpuRenderPassEncoderBeginOcclusionQuery(WebGPU::RenderPassEncoder *this, uint64_t a2)
 {
   ++*(this + 2);
   v3 = *(this + 23);
@@ -2459,7 +2459,7 @@ void wgpuRenderPassEncoderBeginOcclusionQuery(WebGPU::RenderPassEncoder *this, u
     atomic_compare_exchange_strong_explicit(*v7, &v10, 1u, memory_order_acquire, memory_order_acquire);
     if (v10)
     {
-      MEMORY[0x22AA683C0](v11);
+      MEMORY[0x22AA683C0](v11, a2);
     }
 
     ++*(v11 + 8);
@@ -2533,7 +2533,7 @@ LABEL_6:
   v21 = a2;
   WebGPU::CommandEncoder::~CommandEncoder(v3);
   bmalloc::api::tzoneFree(v22, v23);
-  a2 = v21;
+  LODWORD(a2) = v21;
   if (!v6)
   {
 LABEL_22:
@@ -2550,7 +2550,7 @@ LABEL_31:
     goto LABEL_37;
   }
 
-  v24 = 8 * a2;
+  v24 = (8 * a2);
   v25 = *(this + 27);
   if (!v25)
   {
@@ -2590,9 +2590,9 @@ LABEL_38:
 
   *(this + 2474) = 1;
   *(this + 12) = v24;
-  v36 = 8 * a2;
+  v36 = (8 * a2);
   WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(this + 27, &v36, v35);
-  if (*(this + 13) != -1 && (WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::contains<(WTF::ShouldValidateKey)1>(*(this + 28), v24) & 1) == 0)
+  if (*(this + 13) != -1 && !WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::contains<(WTF::ShouldValidateKey)1>(*(this + 28), v24))
   {
     v33 = WebGPU::RenderPassEncoder::renderCommandEncoder(this);
     [v33 setVisibilityResultMode:2 offset:v24];
@@ -2615,28 +2615,28 @@ LABEL_24:
   }
 }
 
-void sub_2256D2F14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D2F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D2F2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D2F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D2F40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D2F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v4);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -2674,7 +2674,7 @@ WebGPU::RenderPassEncoder **WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits
   return result;
 }
 
-void wgpuRenderPassEncoderDraw(WebGPU::RenderPassEncoder *this, unsigned int a2, unsigned int a3, unint64_t a4, const WebGPU::Buffer *a5)
+void wgpuRenderPassEncoderDraw(WebGPU::RenderPassEncoder *this, uint64_t a2, uint64_t a3, unint64_t a4, const WebGPU::Buffer *a5)
 {
   ++*(this + 2);
   v6 = *(this + 23);
@@ -2703,7 +2703,7 @@ void wgpuRenderPassEncoderDraw(WebGPU::RenderPassEncoder *this, unsigned int a2,
     atomic_compare_exchange_strong_explicit(*v10, &v13, 1u, memory_order_acquire, memory_order_acquire);
     if (v13)
     {
-      MEMORY[0x22AA683C0](v14);
+      MEMORY[0x22AA683C0](v14, a2, a3, a4, a5);
     }
 
     ++*(v14 + 8);
@@ -2714,7 +2714,7 @@ void wgpuRenderPassEncoderDraw(WebGPU::RenderPassEncoder *this, unsigned int a2,
     }
 
 LABEL_16:
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", "void WebGPU::RenderPassEncoder::draw(uint32_t, uint32_t, uint32_t, uint32_t)"];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", a4, a5, "void WebGPU::RenderPassEncoder::draw(uint32_t, uint32_t, uint32_t, uint32_t)"];
     WebGPU::Device::generateAValidationError(v10, v16);
 
     do
@@ -2764,8 +2764,8 @@ LABEL_30:
     WebGPU::CommandEncoder::~CommandEncoder(v6);
     bmalloc::api::tzoneFree(v28, v29);
     a4 = v27;
-    a2 = v26;
-    a3 = v25;
+    LODWORD(a2) = v26;
+    LODWORD(a3) = v25;
     a5 = v24;
     if (v9)
     {
@@ -2892,32 +2892,32 @@ LABEL_24:
   }
 }
 
-void sub_2256D3348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D3348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D3360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D3360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D3374(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256D3374(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void wgpuRenderPassEncoderDrawIndexed(WebGPU::RenderPassEncoder *this, WebGPU::RenderPassEncoder *a2, unsigned int a3, unsigned int a4, int a5, MTLIndexType a6)
+void wgpuRenderPassEncoderDrawIndexed(WebGPU::RenderPassEncoder *this, WebGPU::RenderPassEncoder *a2, uint64_t a3, uint64_t a4, uint64_t a5, MTLIndexType a6)
 {
   ++*(this + 2);
   v7 = *(this + 23);
@@ -2946,7 +2946,7 @@ void wgpuRenderPassEncoderDrawIndexed(WebGPU::RenderPassEncoder *this, WebGPU::R
     atomic_compare_exchange_strong_explicit(*v14, &v17, 1u, memory_order_acquire, memory_order_acquire);
     if (v17)
     {
-      MEMORY[0x22AA683C0](v18);
+      MEMORY[0x22AA683C0](v18, a2, a3, a4, a5, a6);
     }
 
     ++*(v18 + 8);
@@ -2957,7 +2957,7 @@ void wgpuRenderPassEncoderDrawIndexed(WebGPU::RenderPassEncoder *this, WebGPU::R
     }
 
 LABEL_16:
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", "void WebGPU::RenderPassEncoder::drawIndexed(uint32_t, uint32_t, uint32_t, int32_t, uint32_t)"];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", a4, a5, a6, "void WebGPU::RenderPassEncoder::drawIndexed(uint32_t, uint32_t, uint32_t, int32_t, uint32_t)"];
     WebGPU::Device::generateAValidationError(v14, v20);
 
     v64 = 0;
@@ -2990,6 +2990,8 @@ LABEL_16:
     goto LABEL_23;
   }
 
+  v9 = a5;
+  v10 = a3;
   v12 = *(v7 + 16);
   *(v7 + 16) = v12 + 1;
   if (*(*(v7 + 192) + 8))
@@ -3035,7 +3037,7 @@ LABEL_24:
   }
 
 LABEL_32:
-  v32 = a2 * a3;
+  v32 = a2 * v10;
   if ((v32 & 0xFFFFFFFF00000000) != 0)
   {
     v33 = *(this + 4);
@@ -3083,13 +3085,13 @@ LABEL_54:
       goto LABEL_54;
     }
 
-    if (!WebGPU::RenderPassEncoder::runIndexBufferValidation(this, v49, a3))
+    if (!WebGPU::RenderPassEncoder::runIndexBufferValidation(this, v49, v10))
     {
       goto LABEL_25;
     }
 
     v66 = 0;
-    WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(&v64, this, a2, a3, a5, v49, *(this + 6), v47, &v66);
+    WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(&v64, this, a2, v10, v9, v49, *(this + 6), v47, &v66);
     v54 = v64;
     if (v64 == 1)
     {
@@ -3111,7 +3113,7 @@ LABEL_54:
       goto LABEL_75;
     }
 
-    if (!a3)
+    if (!v10)
     {
       goto LABEL_75;
     }
@@ -3145,7 +3147,7 @@ LABEL_54:
     else
     {
       v62 = WebGPU::RenderPassEncoder::renderCommandEncoder(this);
-      [v62 drawIndexedPrimitives:*(this + 11) indexCount:v52 indexType:*(this + 6) indexBuffer:v58 indexBufferOffset:v47 instanceCount:a3 baseVertex:a5 baseInstance:{v49, this}];
+      [v62 drawIndexedPrimitives:*(this + 11) indexCount:v52 indexType:*(this + 6) indexBuffer:v58 indexBufferOffset:v47 instanceCount:v10 baseVertex:v9 baseInstance:{v49, this}];
     }
 
 LABEL_74:
@@ -3177,7 +3179,7 @@ LABEL_35:
   atomic_compare_exchange_strong_explicit(*v33, &v36, 1u, memory_order_acquire, memory_order_acquire);
   if (v36)
   {
-    MEMORY[0x22AA683C0](v37);
+    MEMORY[0x22AA683C0](v37, a2, a3, a4, a5, a6);
   }
 
   ++*(v37 + 8);
@@ -3224,26 +3226,26 @@ LABEL_25:
   }
 }
 
-void sub_2256D38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D38DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D38DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D38F0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256D38F0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -3413,7 +3415,7 @@ LABEL_17:
               v21 = WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(this, &v58);
               v57 = 0;
               LODWORD(v53) = *(this + 62);
-              WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(*(this + 5), a2, *(this + 6), *(this + 7), a3, v21, SHIDWORD(v21), *(this + 11), v56, *(this + 4), v53, this, &v57, v54);
+              WebGPU::RenderPassEncoder::clampIndirectIndexBufferToValidValues(v56, *(this + 5), a2, *(this + 6), *(this + 7), a3, v21, SHIDWORD(v21), *(this + 11), *(this + 4), v53, this, &v57, v54);
               v23 = v56[0];
               v24 = v56[1];
               if (v57 == 1)
@@ -3530,38 +3532,38 @@ LABEL_70:
   return result;
 }
 
-void sub_2256D3DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2256D3DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v11 = va_arg(va1, atomic_ullong *);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v16 = va_arg(va1, atomic_ullong *);
 
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v10);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v15);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D3E50(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2256D3E50(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, atomic_ullong *);
+  va_start(va1, a12);
+  va_start(va, a12);
+  v13 = va_arg(va1, atomic_ullong *);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D3E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2256D3E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v10 = va_arg(va1, atomic_ullong *);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v15 = va_arg(va1, atomic_ullong *);
   va_copy(va2, va1);
-  v12 = va_arg(va2, WebGPU::RenderPassEncoder *);
+  v17 = va_arg(va2, WebGPU::RenderPassEncoder *);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v8);
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v9);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v13);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v14);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
@@ -3746,7 +3748,7 @@ LABEL_22:
   v50 = 0;
   v20 = WebGPU::RenderPassEncoder::computeMininumVertexInstanceCount(this, &v50);
   v49 = 0;
-  WebGPU::RenderPassEncoder::clampIndirectBufferToValidValues(a2, a3, *(this + 62), &v49, v20, HIDWORD(v20), *(this + 4), this, v48, v45);
+  WebGPU::RenderPassEncoder::clampIndirectBufferToValidValues(v48, a2, a3, *(this + 62), &v49, v20, HIDWORD(v20), *(this + 4), this, v45);
   if (v49 == 1)
   {
     v22 = WebGPU::RenderPassEncoder::splitRenderPass(this);
@@ -3812,45 +3814,45 @@ LABEL_58:
   return result;
 }
 
-void sub_2256D42A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D42A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D42BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D42BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, atomic_ullong *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, atomic_ullong *);
 
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v6);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D42EC(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_2256D42EC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, atomic_ullong *);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v5 = va_arg(va1, atomic_ullong *);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D4308(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D4308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, atomic_ullong *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, atomic_ullong *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, WebGPU::RenderPassEncoder *);
+  v9 = va_arg(va2, WebGPU::RenderPassEncoder *);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v4);
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v5);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v6);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
@@ -4008,29 +4010,29 @@ LABEL_25:
   }
 }
 
-void sub_2256D456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D4580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D4580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D45A0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
-
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
-  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D45A0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -4378,38 +4380,38 @@ LABEL_44:
   }
 }
 
-void sub_2256D4B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D4B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D4B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D4B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v6 + 40));
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v7 - 72));
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v10 + 40));
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v11 - 72));
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D4BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D4BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v5 - 72));
+  va_start(va, a9);
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref((v9 - 72));
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D4C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D4C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v12 = va_arg(va1, WebGPU::RenderPassEncoder *);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v11);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -6133,16 +6135,16 @@ LABEL_45:
   }
 }
 
-void sub_2256D6740(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, WebGPU::RenderPassEncoder *a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, id *a61, uint64_t a62, atomic_ullong *a63)
+void sub_2256D6740(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, WebGPU::RenderPassEncoder *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, WebGPU::RenderBundle *a61, uint64_t a62, atomic_ullong *a63)
 {
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(&a63, a2);
 
-  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(&a71);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v71, v74);
+  WTF::Ref<WebGPU::CommandEncoder,WTF::RawPtrTraits<WebGPU::CommandEncoder>,WTF::DefaultRefDerefTraits<WebGPU::CommandEncoder>>::~Ref(&a65);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v65, v68);
 
   WTF::Ref<WebGPU::RenderBundle,WTF::RawPtrTraits<WebGPU::RenderBundle>,WTF::DefaultRefDerefTraits<WebGPU::RenderBundle>>::~Ref(&a61);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(&a26);
-  WTF::Vector<WTF::Ref<WebGPU::RenderBundle,WTF::RawPtrTraits<WebGPU::RenderBundle>,WTF::DefaultRefDerefTraits<WebGPU::RenderBundle>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a27, v75);
+  WTF::Vector<WTF::Ref<WebGPU::RenderBundle,WTF::RawPtrTraits<WebGPU::RenderBundle>,WTF::DefaultRefDerefTraits<WebGPU::RenderBundle>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a27, v69);
   _Unwind_Resume(a1);
 }
 
@@ -6249,9 +6251,9 @@ void wgpuRenderPassEncoderPopDebugGroup(WebGPU::RenderPassEncoder *this)
   }
 }
 
-void sub_2256D6CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D6CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -6376,7 +6378,7 @@ void wgpuRenderPassEncoderSetBindGroup(WebGPU::RenderPassEncoder *this, unsigned
     }
 
 LABEL_18:
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", "void WebGPU::RenderPassEncoder::setBindGroup(uint32_t, const BindGroup *, std::optional<Vector<uint32_t>> &&)"];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", a4, "void WebGPU::RenderPassEncoder::setBindGroup(uint32_t, const BindGroup *, std::optional<Vector<uint32_t>> &&)"];
     WebGPU::Device::generateAValidationError(v10, v16);
 
     v82[0] = 0;
@@ -6718,7 +6720,7 @@ LABEL_110:
       v72 = v80;
       *v71 += 2;
       v83 = v71;
-      WTF::HashTable<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>,WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::HashTraits<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::HashTraits<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v72 + 14, &v83, v49, v82);
+      WTF::HashTable<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>,WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::HashTraits<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::HashTraits<WTF::RefPtr<WebGPU::Sampler const,WTF::RawPtrTraits<WebGPU::Sampler const>,WTF::DefaultRefDerefTraits<WebGPU::Sampler const>>>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>((v72 + 112), &v83, v82, v49);
       v74 = v83;
       v83 = 0;
       if (!v74)
@@ -6807,15 +6809,15 @@ LABEL_34:
   *(this + 2) = v24;
 }
 
-void sub_2256D750C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
+void sub_2256D750C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v9 = va_arg(va1, WebGPU::BindGroup *);
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::BindGroupLayout>::deref(v5, a2);
-  if (v4)
+  va_start(va1, a5);
+  va_start(va, a5);
+  v10 = va_arg(va1, WebGPU::BindGroup *);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::BindGroupLayout>::deref(v6, a2);
+  if (v5)
   {
-    WTF::Ref<WebGPU::BindGroup,WTF::RawPtrTraits<WebGPU::BindGroup>,WTF::DefaultRefDerefTraits<WebGPU::BindGroup>>::~Ref(va, v7, v8);
+    WTF::Ref<WebGPU::BindGroup,WTF::RawPtrTraits<WebGPU::BindGroup>,WTF::DefaultRefDerefTraits<WebGPU::BindGroup>>::~Ref(va, v8, v9);
   }
 
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
@@ -6851,7 +6853,7 @@ void wgpuRenderPassEncoderSetBlendConstant(uint64_t a1, _OWORD *a2)
     atomic_compare_exchange_strong_explicit(*v7, &v10, 1u, memory_order_acquire, memory_order_acquire);
     if (v10)
     {
-      MEMORY[0x22AA683C0](v11);
+      MEMORY[0x22AA683C0](v11, a2);
     }
 
     ++*(v11 + 8);
@@ -6959,29 +6961,29 @@ LABEL_24:
   }
 }
 
-void sub_2256D77C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D77C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D77D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D77D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D77F8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
-
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
-  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D77F8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -7262,34 +7264,34 @@ LABEL_57:
   return result;
 }
 
-void sub_2256D7BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D7BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D7C0C(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_2256D7C0C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, atomic_ullong *);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v5 = va_arg(va1, atomic_ullong *);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D7C28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D7C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, atomic_ullong *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, atomic_ullong *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, WebGPU::RenderPassEncoder *);
+  v9 = va_arg(va2, WebGPU::RenderPassEncoder *);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v4);
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va2, v5);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v6);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
@@ -7334,7 +7336,7 @@ void sub_2256D7D04(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void wgpuRenderPassEncoderSetScissorRect(WebGPU::RenderPassEncoder *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+void wgpuRenderPassEncoderSetScissorRect(WebGPU::RenderPassEncoder *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   ++*(this + 2);
   v6 = *(this + 23);
@@ -7363,7 +7365,7 @@ void wgpuRenderPassEncoderSetScissorRect(WebGPU::RenderPassEncoder *this, unsign
     atomic_compare_exchange_strong_explicit(*v10, &v13, 1u, memory_order_acquire, memory_order_acquire);
     if (v13)
     {
-      MEMORY[0x22AA683C0](v14);
+      MEMORY[0x22AA683C0](v14, a2, a3, a4, a5);
     }
 
     ++*(v14 + 8);
@@ -7374,7 +7376,7 @@ void wgpuRenderPassEncoderSetScissorRect(WebGPU::RenderPassEncoder *this, unsign
     }
 
 LABEL_16:
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", "void WebGPU::RenderPassEncoder::setScissorRect(uint32_t, uint32_t, uint32_t, uint32_t)"];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: failed as encoding has finished", a4, a5, "void WebGPU::RenderPassEncoder::setScissorRect(uint32_t, uint32_t, uint32_t, uint32_t)"];
     WebGPU::Device::generateAValidationError(v10, v16);
 
     do
@@ -7439,10 +7441,10 @@ LABEL_6:
   v27 = a2;
   WebGPU::CommandEncoder::~CommandEncoder(v6);
   bmalloc::api::tzoneFree(v28, v29);
-  a2 = v27;
-  a3 = v26;
-  a4 = v25;
-  a5 = v24;
+  LODWORD(a2) = v27;
+  LODWORD(a3) = v26;
+  LODWORD(a4) = v25;
+  LODWORD(a5) = v24;
   if (!v9)
   {
 LABEL_22:
@@ -7454,7 +7456,7 @@ LABEL_23:
   }
 
 LABEL_31:
-  if (__CFADD__(a2, a4) || a4 + a2 > *(this + 60) || __CFADD__(a3, a5) || a5 + a3 > *(this + 61))
+  if (__CFADD__(a2, a4) || (a4 + a2) > *(this + 60) || __CFADD__(a3, a5) || (a5 + a3) > *(this + 61))
   {
     WebGPU::RenderPassEncoder::makeInvalid(this, 0);
   }
@@ -7486,35 +7488,35 @@ LABEL_24:
   }
 }
 
-void sub_2256D7F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D7F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D7FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D7FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D7FCC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
-
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
-  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D7FCC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void wgpuRenderPassEncoderSetStencilReference(uint64_t a1, unsigned __int8 a2)
+void wgpuRenderPassEncoderSetStencilReference(uint64_t a1, uint64_t a2)
 {
   ++*(a1 + 8);
   v3 = *(a1 + 184);
@@ -7543,7 +7545,7 @@ void wgpuRenderPassEncoderSetStencilReference(uint64_t a1, unsigned __int8 a2)
     atomic_compare_exchange_strong_explicit(*v7, &v10, 1u, memory_order_acquire, memory_order_acquire);
     if (v10)
     {
-      MEMORY[0x22AA683C0](v11);
+      MEMORY[0x22AA683C0](v11, a2);
     }
 
     ++*(v11 + 8);
@@ -7624,7 +7626,7 @@ LABEL_24:
     v20 = a2;
     WebGPU::CommandEncoder::~CommandEncoder(v3);
     bmalloc::api::tzoneFree(v21, v22);
-    a2 = v20;
+    LOBYTE(a2) = v20;
     if (v6)
     {
       goto LABEL_27;
@@ -7648,29 +7650,29 @@ LABEL_28:
   bmalloc::api::tzoneFree(v23, v24);
 }
 
-void sub_2256D81E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D81E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D81F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D81F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D8218(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
-
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
-  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D8218(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -8042,23 +8044,23 @@ LABEL_48:
   }
 }
 
-void sub_2256D8750(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256D8750(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a5);
+  va_start(va, a8);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D8768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D8768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v3, v6);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v5, v8);
   _Unwind_Resume(a1);
 }
 
-void wgpuRenderPassEncoderSetViewport(WebGPU::RenderPassEncoder *this, float a2, float a3, float a4, float a5, float a6, float a7)
+void wgpuRenderPassEncoderSetViewport(WebGPU::RenderPassEncoder *this, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
 {
   ++*(this + 2);
   v8 = *(this + 23);
@@ -8087,7 +8089,7 @@ void wgpuRenderPassEncoderSetViewport(WebGPU::RenderPassEncoder *this, float a2,
     atomic_compare_exchange_strong_explicit(*v12, &v15, 1u, memory_order_acquire, memory_order_acquire);
     if (v15)
     {
-      MEMORY[0x22AA683C0](v16);
+      MEMORY[0x22AA683C0](v16, a2, a3, a4, a5, a6, a7);
     }
 
     ++*(v16 + 8);
@@ -8157,20 +8159,20 @@ LABEL_6:
     }
   }
 
-  v26 = a7;
-  v27 = a6;
-  v28 = a5;
-  v29 = a4;
-  v30 = a3;
-  v31 = a2;
+  v26 = a7.n128_u32[0];
+  v27 = a6.n128_u32[0];
+  v28 = a5.n128_u32[0];
+  v29 = a4.n128_u32[0];
+  v30 = a3.n128_u32[0];
+  v31 = a2.n128_u32[0];
   WebGPU::CommandEncoder::~CommandEncoder(v8);
   bmalloc::api::tzoneFree(v32, v33);
-  a2 = v31;
-  a3 = v30;
-  a4 = v29;
-  a5 = v28;
-  a6 = v27;
-  a7 = v26;
+  a2.n128_u32[0] = v31;
+  a3.n128_u32[0] = v30;
+  a4.n128_u32[0] = v29;
+  a5.n128_u32[0] = v28;
+  a6.n128_u32[0] = v27;
+  a7.n128_u32[0] = v26;
   if (!v11)
   {
 LABEL_22:
@@ -8182,7 +8184,7 @@ LABEL_23:
   }
 
 LABEL_31:
-  if (a2 < 0.0 || a3 < 0.0 || a4 < 0.0 || a5 < 0.0 || (a2 + a4) > *(this + 60) || a6 > a7 || a7 > 1.0 || a6 < 0.0 || (a3 + a5) > *(this + 61))
+  if (a2.n128_f32[0] < 0.0 || a3.n128_f32[0] < 0.0 || a4.n128_f32[0] < 0.0 || a5.n128_f32[0] < 0.0 || (a2.n128_f32[0] + a4.n128_f32[0]) > *(this + 60) || a6.n128_f32[0] > a7.n128_f32[0] || a7.n128_f32[0] > 1.0 || a6.n128_f32[0] < 0.0 || (a3.n128_f32[0] + a5.n128_f32[0]) > *(this + 61))
   {
     WebGPU::RenderPassEncoder::makeInvalid(this, 0);
   }
@@ -8190,12 +8192,12 @@ LABEL_31:
   else
   {
     v34 = *(this + 2464);
-    *(this + 302) = a2;
-    *(this + 303) = a3;
-    *(this + 304) = a4;
-    *(this + 305) = a5;
-    *(this + 306) = a6;
-    *(this + 307) = a7;
+    *(this + 302) = a2.n128_f32[0];
+    *(this + 303) = a3.n128_f32[0];
+    *(this + 304) = a4.n128_f32[0];
+    *(this + 305) = a5.n128_f32[0];
+    *(this + 306) = a6.n128_f32[0];
+    *(this + 307) = a7.n128_f32[0];
     if ((v34 & 1) == 0)
     {
       *(this + 2464) = 1;
@@ -8216,29 +8218,29 @@ LABEL_24:
   }
 }
 
-void sub_2256D8A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D8A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2256D8AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2256D8AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, WebGPU::RenderPassEncoder *);
+
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v7);
+  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2256D8AD0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, WebGPU::RenderPassEncoder *);
-
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, v5);
-  WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2256D8AD0(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, WebGPU::RenderPassEncoder *);
   WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref(va1, a2);
   WTF::Ref<WebGPU::RenderPassEncoder,WTF::RawPtrTraits<WebGPU::RenderPassEncoder>,WTF::DefaultRefDerefTraits<WebGPU::RenderPassEncoder>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -8374,7 +8376,7 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::RenderPassEncoder::clampIndexBuffe
   return WTF::fastFree(a1, v2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::operator() const(objc_object  {objcproto16MTLCommandBuffer}*)::{lambda(void)#1},void>::call(uint64_t a1)
+void *WTF::Detail::CallableWrapper<WebGPU::RenderPassEncoder::clampIndexBufferToValidValues(unsigned int,unsigned int,int,unsigned int,MTLIndexType,unsigned long,WebGPU::Buffer *,unsigned int,unsigned int,WebGPU::RenderPassEncoder&,WebGPU::Device &,unsigned int,MTLPrimitiveType)::$_0::operator() const(objc_object  {objcproto16MTLCommandBuffer}*)::{lambda(void)#1},void>::call(uint64_t a1)
 {
   v2 = *(*(a1 + 16) + 16);
   atomic_fetch_add(v2, 1u);
@@ -8448,9 +8450,9 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::RenderPassEncoder::clampIndexBuffe
   return result;
 }
 
-void sub_2256D9044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2256D9044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -8540,9 +8542,9 @@ LABEL_13:
 LABEL_17:
 }
 
-void sub_2256D9230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, ...)
+void sub_2256D9230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
@@ -8797,9 +8799,9 @@ void WTF::Detail::CallableWrapper<WebGPU::checkForIndirectDrawDeviceLost(WebGPU:
   }
 }
 
-void sub_2256D9740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2256D9740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -8934,7 +8936,7 @@ void WTF::Detail::CallableWrapper<WebGPU::RenderPassEncoder::executeBundles(WTF:
   WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineSet<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,int>((v21 + 272), &v25, &v24, v23);
 }
 
-uint64_t WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::contains<(WTF::ShouldValidateKey)1>(uint64_t a1, uint64_t a2)
+BOOL WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::contains<(WTF::ShouldValidateKey)1>(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -8990,7 +8992,7 @@ _OWORD *WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsa
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -9020,7 +9022,7 @@ LABEL_13:
       {
         v23 = *(v8 - 4);
         *v7 = v15;
-        *(v7 + 1) = v8 + 16 * v23;
+        *(v7 + 8) = v8 + 16 * v23;
         *(v7 + 16) = 0;
         *(v15 + 8) = *a4;
         return result;
@@ -9044,13 +9046,13 @@ LABEL_13:
     }
 
     *v17 = -1;
-    *(v17 + 2) = 0;
+    *(v17 + 8) = 0;
     v8 = *a2;
     --*(*a2 - 16);
     *v17 = *a3;
   }
 
-  *(v17 + 2) = *a4;
+  *(v17 + 8) = *a4;
   v19 = *(v8 - 16);
   v20 = *(v8 - 12) + 1;
   *(v8 - 12) = v20;
@@ -9070,7 +9072,7 @@ LABEL_13:
   {
     if (!v22)
     {
-      result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8u, v17);
+      result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8uLL, v17);
       v17 = result;
       v8 = *a2;
       if (!*a2)
@@ -9086,7 +9088,7 @@ LABEL_21:
     }
 
 LABEL_20:
-    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, v22 << (6 * v20 >= (2 * v22)), v17);
+    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, (v22 << (6 * v20 >= (2 * v22))), v17);
     v17 = result;
     v8 = *a2;
     if (!*a2)
@@ -9099,21 +9101,22 @@ LABEL_20:
 
 LABEL_22:
   *v7 = v17;
-  *(v7 + 1) = v8 + 16 * v22;
+  *(v7 + 8) = v8 + 16 * v22;
   *(v7 + 16) = 1;
   return result;
 }
 
-_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::OptionSet<WebGPU::BindGroupEntryUsage>,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::OptionSet<WebGPU::BindGroupEntryUsage>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
@@ -9124,14 +9127,14 @@ _OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,W
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 
-  v12 = a2;
+  v12 = v4;
   v13 = v9 + 6;
   do
   {
@@ -9144,8 +9147,8 @@ _OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,W
   while (v12);
 LABEL_7:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -9507,30 +9510,30 @@ LABEL_4:
   return WTF::fastFree(a1, a2);
 }
 
-unsigned int *WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::growImpl<(WTF::FailureAction)0>(unsigned int *result)
+unsigned int *WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::growImpl<(WTF::FailureAction)0>(unsigned int *result, unint64_t a2)
 {
-  v1 = result;
+  v2 = result;
   if (result[2] <= 2)
   {
-    v2 = *result;
-    v3 = result[3];
-    v4 = WTF::fastMalloc(0x40);
-    v1[2] = 16;
-    *v1 = v4;
-    result = memcpy(v4, v2, 4 * v3);
-    if (v2)
+    v3 = *result;
+    v4 = result[3];
+    v5 = WTF::fastMalloc(0x40);
+    v2[2] = 16;
+    *v2 = v5;
+    result = memcpy(v5, v3, 4 * v4);
+    if (v3)
     {
-      if (*v1 == v2)
+      if (*v2 == v3)
       {
-        *v1 = 0;
-        v1[2] = 0;
+        *v2 = 0;
+        v2[2] = 0;
       }
 
-      result = WTF::fastFree(v2, v5);
+      result = WTF::fastFree(v3, v6);
     }
   }
 
-  v1[3] = 3;
+  v2[3] = 3;
   return result;
 }
 
@@ -9833,7 +9836,7 @@ LABEL_61:
               {
                 v57 = v48 + *(a1 + 104);
                 v104 = v57;
-                WTF::StringImpl::substring(v56);
+                WTF::StringImpl::substring(v101, v56);
                 v60 = v101[0];
                 v61 = v113[0];
                 if (v113[0])
@@ -10085,7 +10088,7 @@ LABEL_136:
 
 LABEL_108:
         WebGPU::makeBindingLayout<mpark::variant<WGSL::BufferBindingLayout,WGSL::SamplerBindingLayout,WGSL::TextureBindingLayout,WGSL::StorageTextureBindingLayout,WGSL::ExternalTextureBindingLayout> const>(v100, &v105, (v36 + 16), 0, 0, *&v66);
-        if ((WebGPU::BindGroupLayout::equalBindingEntries(v101, v100) & 1) == 0)
+        if (!WebGPU::BindGroupLayout::equalBindingEntries(v101, v100))
         {
           v88 = 0;
           v89 = v113[0];
@@ -10113,7 +10116,7 @@ LABEL_51:
     }
 
 LABEL_111:
-    v90 = *(v89 - 4);
+    v90 = *(v89 - 1);
     if (v90)
     {
       v91 = v89;
@@ -10139,7 +10142,7 @@ LABEL_111:
       while (v90);
     }
 
-    WTF::fastFree((v89 - 16), a2);
+    WTF::fastFree((v89 - 2), a2);
     a1 = v97;
 LABEL_119:
     if ((v88 & 1) == 0)

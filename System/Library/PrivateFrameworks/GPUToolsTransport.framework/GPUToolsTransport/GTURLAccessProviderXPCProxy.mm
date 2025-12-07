@@ -163,23 +163,20 @@ void __80__GTURLAccessProviderXPCProxy_securityScopedURLFromSandboxID_completion
   connection = [(GTXPCConnection *)self->_connection connection];
   xpc_connection_get_audit_token();
 
-  v9 = *MEMORY[0x277D861B8];
   [lCopy fileSystemRepresentation];
-
-  v10 = *MEMORY[0x277D861E8];
-  v11 = sandbox_extension_issue_file_to_process();
-  if (v11)
+  v9 = sandbox_extension_issue_file_to_process();
+  if (v9)
   {
-    v12 = v11;
-    xpc_dictionary_set_string(empty, "sandboxExtension", v11);
-    free(v12);
+    v10 = v9;
+    xpc_dictionary_set_string(empty, "sandboxExtension", v9);
+    free(v10);
   }
 
-  v13 = [(GTXPCConnection *)self->_connection sendMessageWithReplySync:empty error:0, 0, 0, 0, 0];
-  if (v13)
+  v11 = [(GTXPCConnection *)self->_connection sendMessageWithReplySync:empty error:0, 0, 0, 0, 0];
+  if (v11)
   {
-    v14 = objc_opt_class();
-    nsobject = xpc_dictionary_get_nsobject(v13, "identifier", v14);
+    v12 = objc_opt_class();
+    nsobject = xpc_dictionary_get_nsobject(v11, "identifier", v12);
   }
 
   else
@@ -311,33 +308,30 @@ void __73__GTURLAccessProviderXPCProxy_copyIdentifier_toDevice_completionHandler
   uTF8String = [deviceCopy UTF8String];
   xpc_dictionary_set_string(empty, "deviceUDID", uTF8String);
   xpc_dictionary_set_nsobject(empty, "dir", directoryCopy);
-  v29 = 0u;
-  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   connection = [(GTXPCConnection *)self->_connection connection];
   xpc_connection_get_audit_token();
 
-  v19 = *MEMORY[0x277D861C0];
   [directoryCopy fileSystemRepresentation];
-
-  v20 = *MEMORY[0x277D861E8];
-  v27 = 0u;
-  v28 = 0u;
-  v21 = sandbox_extension_issue_file_to_process();
-  if (v21)
+  v25 = 0u;
+  v26 = 0u;
+  v19 = sandbox_extension_issue_file_to_process();
+  if (v19)
   {
-    v22 = v21;
-    xpc_dictionary_set_string(empty, "dirse", v21);
-    free(v22);
+    v20 = v19;
+    xpc_dictionary_set_string(empty, "dirse", v19);
+    free(v20);
   }
 
   connection = self->_connection;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __83__GTURLAccessProviderXPCProxy_copyIdentifier_toDevice_directory_completionHandler___block_invoke;
-  v25[3] = &unk_279661050;
-  v26 = handlerCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __83__GTURLAccessProviderXPCProxy_copyIdentifier_toDevice_directory_completionHandler___block_invoke;
+  v23[3] = &unk_279661050;
   v24 = handlerCopy;
-  [(GTXPCConnection *)connection sendMessage:empty replyHandler:v25];
+  v22 = handlerCopy;
+  [(GTXPCConnection *)connection sendMessage:empty replyHandler:v23];
 }
 
 void __83__GTURLAccessProviderXPCProxy_copyIdentifier_toDevice_directory_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -355,14 +349,6 @@ void __83__GTURLAccessProviderXPCProxy_copyIdentifier_toDevice_directory_complet
   {
     (*(*(a1 + 32) + 16))();
   }
-}
-
-- (void)securityScopedURLFromSandboxID:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

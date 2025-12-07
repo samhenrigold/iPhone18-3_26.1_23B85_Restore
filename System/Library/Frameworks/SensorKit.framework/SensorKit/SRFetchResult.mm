@@ -75,7 +75,7 @@
 
 - (id)sample
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sampleClass = self->_sampleClass;
   if (!sampleClass)
   {
@@ -83,10 +83,10 @@
     sampleClass = self->_sampleClass;
     if (!sampleClass)
     {
-      v7 = MEMORY[0x1E695DF30];
-      v8 = *MEMORY[0x1E695D930];
-      v9 = @"Failed to find a sample class to construct the sample object";
-      v10 = 0;
+      v6 = MEMORY[0x1E695DF30];
+      v7 = *MEMORY[0x1E695D930];
+      v8 = @"Failed to find a sample class to construct the sample object";
+      v9 = 0;
       goto LABEL_11;
     }
   }
@@ -94,28 +94,26 @@
   v4 = [[sampleClass alloc] initWithBinarySampleRepresentation:self->_sampleData metadata:self->_metadata timestamp:self->_timestamp];
   if (!v4)
   {
-    v11 = NSStringFromClass(self->_sampleClass);
-    v12 = SRLogFetchRequest;
+    v10 = NSStringFromClass(self->_sampleClass);
+    v11 = SRLogFetchRequest;
     if (os_log_type_enabled(SRLogFetchRequest, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v18 = v11;
-      _os_log_fault_impl(&dword_1C914D000, v12, OS_LOG_TYPE_FAULT, "Failed to instantiate a sample of type %{public}@ with the given data", buf, 0xCu);
+      v17 = v10;
+      _os_log_fault_impl(&dword_1C914D000, v11, OS_LOG_TYPE_FAULT, "Failed to instantiate a sample of type %{public}@ with the given data", buf, 0xCu);
     }
 
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D930];
-    v15 = @"SRSampleClass";
-    v16 = v11;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v9 = @"Unable to construct a sample object";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D930];
+    v14 = @"SRSampleClass";
+    v15 = v10;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v8 = @"Unable to construct a sample object";
+    v6 = v12;
     v7 = v13;
-    v8 = v14;
 LABEL_11:
-    objc_exception_throw([v7 exceptionWithName:v8 reason:v9 userInfo:v10]);
+    objc_exception_throw([v6 exceptionWithName:v7 reason:v8 userInfo:v9]);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

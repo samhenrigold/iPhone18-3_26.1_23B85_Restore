@@ -18,18 +18,7 @@ BOOL ____CFBinaryPlistCreateObjectFiltered_block_invoke(uint64_t a1, int8x16_t *
 
   v10 = *(a1 + 48);
   v11 = *(a1 + 64);
-  if (v10 == 2)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = *(a1 + 56) >> 31 == 0;
-    *(a1 + 56);
-  }
-
-  if (v12)
+  if (v10 != 2 && *(a1 + 56) >> 31 == 0)
   {
     v17 = CFStringCreateWithBytes(v11, a2, a3, 0x600u, 0);
     v14 = v17;
@@ -39,22 +28,20 @@ BOOL ____CFBinaryPlistCreateObjectFiltered_block_invoke(uint64_t a1, int8x16_t *
       {
         if (malloc_size(v17))
         {
-          v19 = *(a1 + 72);
-          v18 = *(a1 + 80);
-          v20 = __NSCreateBPlistMappedString();
-          if (v20)
+          v18 = __NSCreateBPlistMappedString();
+          if (v18)
           {
-            v21 = v20;
+            v19 = v18;
             CFRelease(v14);
-            v14 = v21;
+            v14 = v19;
           }
         }
       }
 
-      v22 = *(a1 + 88);
-      if (v22)
+      v20 = *(a1 + 88);
+      if (v20)
       {
-        CFDictionarySetValue(v22, *(a1 + 96), v14);
+        CFDictionarySetValue(v20, *(a1 + 96), v14);
       }
     }
   }
@@ -103,18 +90,7 @@ BOOL ____CFBinaryPlistCreateObjectFiltered_block_invoke_2(uint64_t a1, int8x16_t
 
   v10 = *(a1 + 48);
   v11 = *(a1 + 64);
-  if (v10 == 2)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = *(a1 + 56) >> 31 == 0;
-    *(a1 + 56);
-  }
-
-  if (v12)
+  if (v10 != 2 && *(a1 + 56) >> 31 == 0)
   {
     v17 = CFStringCreateWithBytes(v11, a2, a3, 0x10000100u, 0);
     v14 = v17;
@@ -124,22 +100,20 @@ BOOL ____CFBinaryPlistCreateObjectFiltered_block_invoke_2(uint64_t a1, int8x16_t
       {
         if (malloc_size(v17))
         {
-          v19 = *(a1 + 72);
-          v18 = *(a1 + 80);
-          v20 = __NSCreateBPlistMappedString();
-          if (v20)
+          v18 = __NSCreateBPlistMappedString();
+          if (v18)
           {
-            v21 = v20;
+            v19 = v18;
             CFRelease(v14);
-            v14 = v21;
+            v14 = v19;
           }
         }
       }
 
-      v22 = *(a1 + 88);
-      if (v22)
+      v20 = *(a1 + 88);
+      if (v20)
       {
-        CFDictionarySetValue(v22, *(a1 + 96), v14);
+        CFDictionarySetValue(v20, *(a1 + 96), v14);
       }
     }
   }

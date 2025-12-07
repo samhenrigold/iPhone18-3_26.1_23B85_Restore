@@ -16,7 +16,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_10000B008();
+  sub_10000B008(selfCopy);
 }
 
 @end

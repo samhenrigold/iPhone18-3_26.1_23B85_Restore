@@ -37,7 +37,7 @@
 
 - (id)folderDefaultNameAtIndex:(unint64_t)index
 {
-  v3 = [(NSMutableArray *)self->_folderDefaultNames objectAtIndex:index];
+  v3 = objc_msgSend_objectAtIndex_(self->_folderDefaultNames, a2, index);
   v4 = objc_opt_self();
   if (objc_opt_isKindOfClass())
   {
@@ -56,7 +56,7 @@
 
 - (id)folderUniqueIdentifierAtIndex:(unint64_t)index
 {
-  v3 = [(NSMutableArray *)self->_folderUniqueIdentifiers objectAtIndex:index];
+  v3 = objc_msgSend_objectAtIndex_(self->_folderUniqueIdentifiers, a2, index);
   v4 = objc_opt_self();
   if (objc_opt_isKindOfClass())
   {

@@ -209,7 +209,7 @@ void __54__SBCaptureApplicationCenter_knownCaptureApplications__block_invoke(uin
 
 - (id)launchActionsForCaptureApplication:(id)application launchTarget:(unint64_t)target launchType:(unint64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   v8 = objc_opt_new();
   if (!type)
@@ -217,21 +217,21 @@ void __54__SBCaptureApplicationCenter_knownCaptureApplications__block_invoke(uin
     v9 = +[SBCaptureApplicationCenter sharedInstance];
     v10 = [v9 captureApplicationForBundleIdentifier:applicationCopy];
 
-    v11 = SBLogCaptureApplication();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = SBLogCaptureApplication(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
-      if (v12)
+      if (v13)
       {
-        v16 = 138412290;
-        v17 = applicationCopy;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Adding launch actions for the capture application (%@)", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = applicationCopy;
+        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Adding launch actions for the capture application (%@)", &v17, 0xCu);
       }
 
       if (target == 1)
       {
-        v13 = v10;
-        v14 = 1;
+        v14 = v10;
+        v15 = 1;
       }
 
       else
@@ -243,19 +243,19 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        v13 = v10;
-        v14 = 0;
+        v14 = v10;
+        v15 = 0;
       }
 
-      [v13 launchActionsForTarget:v14 launchType:0];
-      v8 = v11 = v8;
+      [v14 launchActionsForTarget:v15 launchType:0];
+      v8 = v12 = v8;
     }
 
-    else if (v12)
+    else if (v13)
     {
-      v16 = 138412290;
-      v17 = applicationCopy;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "No capture application found for %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = applicationCopy;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "No capture application found for %@", &v17, 0xCu);
     }
 
     goto LABEL_13;
@@ -348,45 +348,46 @@ void __73__SBCaptureApplicationCenter_launchCaptureApplication_launchType_source
 
 - (id)predictedPrewarmBundleIdentifierForApplicationBundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = _os_feature_enabled_impl();
   v6 = identifierCopy;
-  if ([v6 isEqualToString:@"com.apple.camera"])
+  v7 = [v6 isEqualToString:@"com.apple.camera"];
+  if (v7)
   {
-    v7 = v5 == 0;
+    v8 = v5 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   bundleIdentifier = v6;
-  if (!v7)
+  if (!v8)
   {
-    v9 = [(SBCaptureApplicationCenter *)self captureApplicationForBundleIdentifier:v6];
+    v10 = [(SBCaptureApplicationCenter *)self captureApplicationForBundleIdentifier:v6];
     bundleIdentifier = v6;
-    if (v9)
+    if (v10)
     {
-      v10 = +[SBLockScreenManager sharedInstanceIfExists];
-      wouldAttemptToHandleATransitionRequest = [v10 wouldAttemptToHandleATransitionRequest];
+      v11 = +[SBLockScreenManager sharedInstanceIfExists];
+      wouldAttemptToHandleATransitionRequest = [v11 wouldAttemptToHandleATransitionRequest];
 
       bundleIdentifier = v6;
       if (wouldAttemptToHandleATransitionRequest)
       {
-        extension = [v9 extension];
+        extension = [v10 extension];
         bundleIdentifier = [extension bundleIdentifier];
       }
     }
   }
 
-  v13 = SBLogCaptureApplication();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = SBLogCaptureApplication(v7);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = bundleIdentifier;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Possible prewarm bundle identifier %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = bundleIdentifier;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Possible prewarm bundle identifier %@", &v16, 0xCu);
   }
 
   return bundleIdentifier;
@@ -496,9 +497,9 @@ uint64_t __104__SBCaptureApplicationCenter_launchForExtensionToApplicationTransi
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -538,13 +539,13 @@ uint64_t __104__SBCaptureApplicationCenter_launchForExtensionToApplicationTransi
   v5 = objc_opt_self();
   v6 = [entitlements objectForKey:@"com.apple.private.tcc.allow" ofClass:v5];
 
-  LOBYTE(v5) = [v6 containsObject:*MEMORY[0x277D6C120]];
+  LOBYTE(v5) = objc_msgSend_containsObject_(v6);
   return v5;
 }
 
 - (BOOL)isApplicationLaunchNeededForApplicationBundleIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   privacyPreflightController = [SBApp privacyPreflightController];
   v6 = +[SBApplicationController sharedInstance];
@@ -556,52 +557,57 @@ uint64_t __104__SBCaptureApplicationCenter_launchForExtensionToApplicationTransi
 
   if (v10)
   {
-    v11 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogCaptureApplication(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Preflight is required for this capture application, application launch is required for %@", &v17, 0xCu);
+      v20 = 138412290;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Preflight is required for this capture application, application launch is required for %@", &v20, 0xCu);
     }
 
-    v12 = 1;
-  }
-
-  else if ([(SBCaptureApplicationCenter *)self _bundleHasCameraEntitlement:identifierCopy])
-  {
-    v13 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = 138412290;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Application is entitled to have camera access %@", &v17, 0xCu);
-    }
-
-    v12 = 0;
+    v13 = 1;
   }
 
   else
   {
-    v14 = [(SBCaptureApplicationCenter *)self _isTCCGrantedForKey:*MEMORY[0x277D6C120] applicationBundleIdentifier:identifierCopy];
-    v15 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [(SBCaptureApplicationCenter *)self _bundleHasCameraEntitlement:identifierCopy];
+    if (v14)
     {
-      v17 = 138412546;
-      v18 = identifierCopy;
-      v19 = 1024;
-      v20 = v14;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "TCC state for application %@: %{BOOL}u", &v17, 0x12u);
+      v15 = SBLogCaptureApplication(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = 138412290;
+        v21 = identifierCopy;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Application is entitled to have camera access %@", &v20, 0xCu);
+      }
+
+      v13 = 0;
     }
 
-    v12 = !v14;
+    else
+    {
+      v16 = [(SBCaptureApplicationCenter *)self _isTCCGrantedForKey:*MEMORY[0x277D6C120] applicationBundleIdentifier:identifierCopy];
+      v17 = v16;
+      v18 = SBLogCaptureApplication(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = 138412546;
+        v21 = identifierCopy;
+        v22 = 1024;
+        v23 = v17;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "TCC state for application %@: %{BOOL}u", &v20, 0x12u);
+      }
+
+      v13 = v17 ^ 1;
+    }
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)shouldInstallLaunchMonitoringForCaptureApplicationBundleIdentfier:(id)identfier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identfierCopy = identfier;
   privacyPreflightController = [SBApp privacyPreflightController];
   v6 = +[SBApplicationController sharedInstance];
@@ -613,77 +619,78 @@ uint64_t __104__SBCaptureApplicationCenter_launchForExtensionToApplicationTransi
 
   if (!v10)
   {
-    if ([(SBCaptureApplicationCenter *)self _bundleHasCameraEntitlement:identfierCopy])
+    v15 = [(SBCaptureApplicationCenter *)self _bundleHasCameraEntitlement:identfierCopy];
+    if (v15)
     {
-      v11 = SBLogCaptureApplication();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = SBLogCaptureApplication(v15);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = identfierCopy;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Application is entitled to have camera access %@", &v21, 0xCu);
+        v26 = 138412290;
+        v27 = identfierCopy;
+        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Application is entitled to have camera access %@", &v26, 0xCu);
       }
     }
 
     else
     {
-      v11 = [(SBCaptureApplicationCenter *)self captureApplicationForBundleIdentifier:identfierCopy];
-      attributes = [v11 attributes];
+      v12 = [(SBCaptureApplicationCenter *)self captureApplicationForBundleIdentifier:identfierCopy];
+      attributes = [v12 attributes];
       cameraTCCStatus = [attributes cameraTCCStatus];
 
       if (cameraTCCStatus != 4)
       {
-        attributes2 = [v11 attributes];
+        attributes2 = [v12 attributes];
         cameraTCCStatus2 = [attributes2 cameraTCCStatus];
 
         if (!cameraTCCStatus2)
         {
-          v20 = SBLogCaptureApplication();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v24 = SBLogCaptureApplication(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             [SBCaptureApplicationCenter shouldInstallLaunchMonitoringForCaptureApplicationBundleIdentfier:];
           }
         }
 
-        v11 = SBLogCaptureApplication();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = SBLogCaptureApplication(v25);
+        if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_5;
         }
 
-        v21 = 138412290;
-        v22 = identfierCopy;
-        v12 = "Camera cannot be used yet for this capture application %@, we will not install launch monitoring";
+        v26 = 138412290;
+        v27 = identfierCopy;
+        v13 = "Camera cannot be used yet for this capture application %@, we will not install launch monitoring";
         goto LABEL_4;
       }
 
-      v16 = SBLogCaptureApplication();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = SBLogCaptureApplication(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = identfierCopy;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Camera TCC is allowed for this capture application %@", &v21, 0xCu);
+        v26 = 138412290;
+        v27 = identfierCopy;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Camera TCC is allowed for this capture application %@", &v26, 0xCu);
       }
     }
 
-    v13 = 1;
+    v14 = 1;
     goto LABEL_14;
   }
 
-  v11 = SBLogCaptureApplication();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogCaptureApplication(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = identfierCopy;
-    v12 = "Preflight is required for this capture application %@, we will not install launch monitoring";
+    v26 = 138412290;
+    v27 = identfierCopy;
+    v13 = "Preflight is required for this capture application %@, we will not install launch monitoring";
 LABEL_4:
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, v12, &v21, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, v13, &v26, 0xCu);
   }
 
 LABEL_5:
-  v13 = 0;
+  v14 = 0;
 LABEL_14:
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)_isTCCGrantedForKey:(__CFString *)key applicationBundleIdentifier:(id)identifier
@@ -798,28 +805,29 @@ LABEL_17:
   processCopy = process;
   reasonCopy = reason;
   v10 = [[SBCaptureApplicationTerminationInfo alloc] initWithProcessName:processCopy terminationReason:reasonCopy];
-  if ([(SBCaptureApplicationCenter *)self _shouldPromptLaunchTerminationAlertForTerminationInfo:v10])
+  v11 = [(SBCaptureApplicationCenter *)self _shouldPromptLaunchTerminationAlertForTerminationInfo:v10];
+  if (v11)
   {
     objc_initWeak(&location, self);
-    v11 = dispatch_time(0, (delay * 1000000000.0));
+    v12 = dispatch_time(0, (delay * 1000000000.0));
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __98__SBCaptureApplicationCenter_promptLaunchTerminationAlertIfNecessaryForProcess_afterDelay_reason___block_invoke;
     block[3] = &unk_2783B4560;
-    objc_copyWeak(&v17, &location);
-    v14 = processCopy;
-    v15 = reasonCopy;
-    v16 = v10;
-    dispatch_after(v11, MEMORY[0x277D85CD0], block);
+    objc_copyWeak(&v18, &location);
+    v15 = processCopy;
+    v16 = reasonCopy;
+    v17 = v10;
+    dispatch_after(v12, MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v12 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogCaptureApplication(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SBCaptureApplicationCenter promptLaunchTerminationAlertIfNecessaryForProcess:afterDelay:reason:];
     }
@@ -830,7 +838,7 @@ void __98__SBCaptureApplicationCenter_promptLaunchTerminationAlertIfNecessaryFor
 {
   v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = SBLogCaptureApplication();
+  v3 = SBLogCaptureApplication(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -867,7 +875,7 @@ LABEL_6:
   v13 = 0;
   v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v4 fromData:v6 error:&v13];
   v8 = v13;
-  v9 = SBLogCaptureApplication();
+  v9 = SBLogCaptureApplication(v8);
   v10 = v9;
   if (v8)
   {
@@ -902,9 +910,9 @@ LABEL_10:
   [v10 addObject:v8];
   v11 = MEMORY[0x277CCAAB0];
   v12 = [v10 copy];
-  v19 = 0;
-  v13 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v19];
-  v14 = v19;
+  v20 = 0;
+  v13 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v20];
+  v14 = v20;
 
   if (v13)
   {
@@ -912,20 +920,20 @@ LABEL_10:
     [standardUserDefaults setObject:v13 forKey:@"SBCaptureApplicationTerminationInfoList"];
   }
 
-  v16 = SBLogCaptureApplication();
-  v17 = v16;
+  v17 = SBLogCaptureApplication(v15);
+  v18 = v17;
   if (v14)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SBCaptureApplicationCenter _storeTerminationInfoWithProcessName:reason:];
     }
   }
 
-  else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Successfully archived terminationInfoList", v18, 2u);
+    *v19 = 0;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Successfully archived terminationInfoList", v19, 2u);
   }
 }
 

@@ -29,9 +29,9 @@ void __96___UIInteractiveHighlightEnvironment_applyBackgroundEffectWithMagnitude
   [WeakRetained setValue:v1];
 }
 
-uint64_t __96___UIInteractiveHighlightEnvironment_applyBackgroundEffectWithMagnitude_interactive_completion___block_invoke_3(uint64_t a1, uint64_t a2, char a3)
+uint64_t __96___UIInteractiveHighlightEnvironment_applyBackgroundEffectWithMagnitude_interactive_completion___block_invoke_3(uint64_t a1, const char *a2, char a3)
 {
-  if ((*(a1 + 56) & 1) == 0 && (a3 & 1) == 0 && [*(*(a1 + 32) + 104) isEqual:*(a1 + 40)])
+  if ((*(a1 + 56) & 1) == 0 && (a3 & 1) == 0 && objc_msgSend_isEqual_(*(*(a1 + 32) + 104), a2, *(a1 + 40)))
   {
     [*(a1 + 32) finalizeBackgroundEffect];
   }

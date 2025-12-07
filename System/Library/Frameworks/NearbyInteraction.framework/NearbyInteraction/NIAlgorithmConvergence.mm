@@ -55,7 +55,7 @@
 
 - (NIAlgorithmConvergence)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"status"];
   if (![coderCopy containsValueForKey:@"reasons"])
@@ -65,9 +65,9 @@
   }
 
   v6 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"reasons"];
 
@@ -82,7 +82,6 @@ LABEL_5:
   v10 = 0;
 LABEL_6:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

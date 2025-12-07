@@ -58,9 +58,9 @@
 {
   if (!self->_map)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", a2, message, versioned, "[TSPComponentExternalReferenceMap appendReferencesFromMessage:componentIsVersioned:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm", 42, "_map");
     v16 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPComponentExternalReferenceMap appendReferencesFromMessage:componentIsVersioned:]", "[TSPComponentExternalReferenceMap appendReferencesFromMessage:componentIsVersioned:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm", 42, "_map");
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPComponentExternalReferenceMap appendReferencesFromMessage:componentIsVersioned:]");
     v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v18, v20, 42, 1, "invalid nil value for '%{public}s'", "_map");
 
@@ -93,11 +93,11 @@
         v12 = *(v10 + 32);
       }
 
-      v22[0] = v12;
+      v22 = v12;
       v13 = *(v10 + 40);
       map = self->_map;
-      v22[2] = v22;
-      v15 = sub_276AB5C84(map, v22);
+      v23 = &v22;
+      v15 = sub_276AB5C84(map, &v22, &unk_276C16A93, &v23);
       v15[3] = v11;
       *(v15 + 32) = v13;
       *(v15 + 33) = versioned;
@@ -118,9 +118,9 @@
   {
     if (*(v6 + 8))
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Map shouldn't have been initialized yet.", "[TSPComponentExternalReferenceMap initWithComponentExternalReferenceMap:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm", 61);
       v9 = MEMORY[0x277D81150];
-      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSPComponentExternalReferenceMap initWithComponentExternalReferenceMap:]", "[TSPComponentExternalReferenceMap initWithComponentExternalReferenceMap:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm", 61);
+      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSPComponentExternalReferenceMap initWithComponentExternalReferenceMap:]");
       v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentExternalReferenceMap.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 61, 1, "Map shouldn't have been initialized yet.");
 
@@ -175,7 +175,7 @@
           if (v9 == *(message + 57))
           {
 LABEL_14:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 54, v9 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 216), v9 + 1);
             v7 = *(message + 29);
             v9 = *v7;
           }
@@ -208,7 +208,7 @@ LABEL_14:
           if (v13 == *(message + 21))
           {
 LABEL_17:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 18, v13 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 72), v13 + 1);
             v11 = *(message + 11);
             v13 = *v11;
           }
@@ -300,15 +300,15 @@ LABEL_20:
 
 - (void)addExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak componentIsVersioned:(BOOL)versioned
 {
-  v11[0] = identifier;
+  identifierCopy = identifier;
   map = self->_map;
   if (!map)
   {
     operator new();
   }
 
-  v11[2] = v11;
-  v10 = sub_276AB5C84(map, v11);
+  v12 = &identifierCopy;
+  v10 = sub_276AB5C84(map, &identifierCopy, &unk_276C16A93, &v12);
   v10[3] = componentIdentifier;
   *(v10 + 32) = weak;
   *(v10 + 33) = versioned;

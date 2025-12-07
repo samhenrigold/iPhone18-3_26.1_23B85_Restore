@@ -89,12 +89,12 @@
     {
       self->_enabled = 1;
 
-      objc_msgSend_restart(self, a2, enabled, v3);
+      objc_msgSend_restart(self, a2, enabled);
     }
 
     else
     {
-      objc_msgSend_stopIfNeeded(self, a2, enabled, v3);
+      objc_msgSend_stopIfNeeded(self, a2, enabled);
       self->_enabled = 0;
     }
   }
@@ -112,7 +112,7 @@
     }
 
     self->_iteration = 0;
-    if (!objc_msgSend__canJitter(Weak, v4, v5, v6))
+    if (!objc_msgSend__canJitter(Weak, v4, v5))
     {
       return;
     }
@@ -120,14 +120,14 @@
     self->_state = 0;
   }
 
-  MEMORY[0x1EEE66B58](self, sel_jitter, v5, v6);
+  MEMORY[0x1EEE66B58](self, sel_jitter, v5);
 }
 
 - (void)jitter
 {
   if (self->_iteration >= 0x52)
   {
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDFBA08(v3);
@@ -141,13 +141,13 @@
     v6 = objc_autoreleasePoolPush();
     v7 = v5;
     iteration = self->_iteration;
-    v13 = (iteration & 1) == 0 && iteration > 8;
-    v14 = objc_msgSend_renderer(v5, v8, v9, v10);
-    objc_msgSend__jitterAtStep_updateMainFramebuffer_redisplay_jitterer_(v14, v15, self->_iteration, v13, v13, self);
+    v12 = (iteration & 1) == 0 && iteration > 8;
+    v13 = objc_msgSend_renderer(v5, v8, v9);
+    objc_msgSend__jitterAtStep_updateMainFramebuffer_redisplay_jitterer_(v13, v14, self->_iteration, v12, v12, self);
     state = self->_state;
-    v17 = self->_iteration + 1;
-    self->_iteration = v17;
-    if (v17 == 81)
+    v16 = self->_iteration + 1;
+    self->_iteration = v16;
+    if (v16 == 81)
     {
       if (!state)
       {
@@ -166,12 +166,12 @@
     }
 
     objc_autoreleasePoolPop(v6);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_1AF3B62AC;
-    v18[3] = &unk_1E7A7A770;
-    v18[4] = v5;
-    dispatch_async(MEMORY[0x1E69E96A0], v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1AF3B62AC;
+    v17[3] = &unk_1E7A7A770;
+    v17[4] = v5;
+    dispatch_async(MEMORY[0x1E69E96A0], v17);
   }
 }
 

@@ -4,6 +4,7 @@
 - (void)authorizationIdentifiersForEntriesNotExistingParticipants:(id)participants configuration:(id)configuration completion:(id)completion;
 - (void)codableEntryWithUUID:(id)d configuration:(id)configuration completion:(id)completion;
 - (void)disableAllSharingEntriesWithConfiguration:(id)configuration completion:(id)completion;
+- (void)insertOrReplaceCodableSharingEntries:(id)entries shouldResolveCNContact:(BOOL)contact completion:(id)completion;
 - (void)pauseStatusForEntriesWithUUIDs:(id)ds configuration:(id)configuration completion:(id)completion;
 - (void)sharingEntryExistsWithPredicate:(id)predicate configuration:(id)configuration completion:(id)completion;
 @end
@@ -136,7 +137,6 @@ uint64_t __95__HDCloudSyncSummarySharingEntryShim_sharingEntryExistsWithPredicat
     v3 = 0;
   }
 
-  v4 = *(a1 + 32);
   return (*(v2 + 16))(v2, v3 & 1);
 }
 
@@ -349,6 +349,39 @@ BOOL __84__HDCloudSyncSummarySharingEntryShim_codableEntryWithUUID_configuration
   *(v8 + 40) = v7;
 
   return *(*(a1[6] + 8) + 40) != 0;
+}
+
+- (void)insertOrReplaceCodableSharingEntries:(id)entries shouldResolveCNContact:(BOOL)contact completion:(id)completion
+{
+  contactCopy = contact;
+  completionCopy = completion;
+  if (entries)
+  {
+    entriesCopy = entries;
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+    sharingEntryManager = [WeakRetained sharingEntryManager];
+    v20 = 0;
+    v12 = [sharingEntryManager insertOrReplaceCodableEntries:entriesCopy shouldResolveCNContact:contactCopy error:&v20];
+
+    entries = v20;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  queue = self->_queue;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __109__HDCloudSyncSummarySharingEntryShim_insertOrReplaceCodableSharingEntries_shouldResolveCNContact_completion___block_invoke;
+  v16[3] = &unk_278616460;
+  v19 = v12;
+  entriesCopy2 = entries;
+  v18 = completionCopy;
+  entriesCopy3 = entries;
+  v15 = completionCopy;
+  dispatch_async(queue, v16);
 }
 
 @end

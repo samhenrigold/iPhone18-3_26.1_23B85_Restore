@@ -45,9 +45,11 @@
 
 uint64_t __35__GKSavedGameManager_sharedManager__block_invoke()
 {
-  sharedManager_sManager = objc_alloc_init(GKSavedGameManager);
+  v0 = objc_alloc_init(GKSavedGameManager);
+  v1 = sharedManager_sManager;
+  sharedManager_sManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (GKSavedGameManager)init
@@ -149,39 +151,37 @@ void __41__GKSavedGameManager_savedGamesWithName___block_invoke(uint64_t a1, uin
 
 - (id)savedGameForDocuments:(id)documents
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   documentsCopy = documents;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(documentsCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = documentsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(GKSavedGameManager *)self savedGameForDocument:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(GKSavedGameManager *)self savedGameForDocument:*(*(&v13 + 1) + 8 * i), v13];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -278,36 +278,36 @@ void __41__GKSavedGameManager_savedGamesWithName___block_invoke(uint64_t a1, uin
 
 - (id)documentToSaveWithName:(id)name
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
     v5 = +[GKSavedGameDocument currentDeviceName];
-    v24 = nameCopy;
+    v23 = nameCopy;
     v6 = [(NSMutableDictionary *)self->_documents objectForKey:nameCopy];
     allObjects = [v6 allObjects];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v8 = allObjects;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v26;
+      v12 = *v25;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           deviceName = [v14 deviceName];
           v16 = [deviceName isEqualToString:v5];
 
@@ -336,7 +336,7 @@ void __41__GKSavedGameManager_savedGamesWithName___block_invoke(uint64_t a1, uin
           v11 = v20;
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           continue;
@@ -353,7 +353,7 @@ void __41__GKSavedGameManager_savedGamesWithName___block_invoke(uint64_t a1, uin
 
 LABEL_17:
 
-    nameCopy = v24;
+    nameCopy = v23;
   }
 
   else
@@ -361,41 +361,39 @@ LABEL_17:
     v11 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)currentDocumentWithName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
     v5 = [(NSMutableDictionary *)self->_documents objectForKey:nameCopy];
     allObjects = [v5 allObjects];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = allObjects;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if (([v13 isConflictVersion] & 1) == 0)
           {
             v14 = v13;
@@ -404,7 +402,7 @@ LABEL_17:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -420,8 +418,6 @@ LABEL_17:
   {
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -796,7 +792,7 @@ uint64_t __65__GKSavedGameManager_deleteSavedGamesWithName_completionHandler___b
 
 void __41__GKSavedGameManager_startSavedGameQuery__block_invoke(uint64_t a1)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 16))
   {
     v2 = objc_alloc_init(MEMORY[0x277CCAB28]);
@@ -804,17 +800,17 @@ void __41__GKSavedGameManager_startSavedGameQuery__block_invoke(uint64_t a1)
 
     v3 = *(*(a1 + 32) + 24);
     v4 = *MEMORY[0x277CCA500];
-    v18[0] = *MEMORY[0x277CCA4F8];
-    v18[1] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = *MEMORY[0x277CCA4F8];
+    v17[1] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     [v3 setSearchScopes:v5];
 
     v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K ENDSWITH %@", *MEMORY[0x277CCA4D0], @"bundle"];
     [*(*(a1 + 32) + 24) setPredicate:v6];
     v7 = *(*(a1 + 32) + 24);
     v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CCA4C8] ascending:1];
-    v17 = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [v7 setSortDescriptors:v9];
 
     v10 = [MEMORY[0x277CCAB98] defaultCenter];
@@ -855,8 +851,6 @@ void __41__GKSavedGameManager_startSavedGameQuery__block_invoke(uint64_t a1)
       __41__GKSavedGameManager_startSavedGameQuery__block_invoke_cold_2(v15);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableQueryUpdates
@@ -1123,7 +1117,7 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
 
 void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) hasConflict])
   {
@@ -1132,26 +1126,26 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
       [*(a1 + 40) addObject:*(a1 + 48)];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = v3;
-    v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v21;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v22 != v6)
+          if (*v21 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
+          v8 = *(*(&v20 + 1) + 8 * i);
           v9 = [v8 URL];
           v10 = [*(a1 + 56) objectForKey:v9];
           if (!v10)
@@ -1165,19 +1159,19 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
 
           v12 = *(a1 + 64);
           v11 = *(a1 + 72);
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_5;
-          v17[3] = &unk_2785DD910;
-          v18 = v10;
-          v19 = v11;
-          v20 = v9;
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_5;
+          v16[3] = &unk_2785DD910;
+          v17 = v10;
+          v18 = v11;
+          v19 = v9;
           v13 = v9;
           v14 = v10;
-          [v12 perform:v17];
+          [v12 perform:v16];
         }
 
-        v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v5);
@@ -1185,8 +1179,6 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
   }
 
   (*(*(a1 + 80) + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_5(id *a1, void *a2)
@@ -1219,28 +1211,28 @@ uint64_t __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___
 
 void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_61(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v33;
+    v6 = *v32;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         v9 = [*(a1 + 32) objectForKey:v8];
         if (![v9 count])
         {
@@ -1248,13 +1240,13 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v5);
   }
 
-  v25 = v2;
+  v24 = v2;
   [*(a1 + 32) removeObjectsForKeys:v2];
   v10 = [*(*(a1 + 40) + 32) allKeys];
   v11 = [*(a1 + 32) allKeys];
@@ -1267,26 +1259,26 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
     (*(v13 + 16))(v13, v12 ^ 1u);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v14 = *(a1 + 48);
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(a1 + 40) savedGamesWithName:*(*(&v28 + 1) + 8 * j)];
+        v19 = [*(a1 + 40) savedGamesWithName:*(*(&v27 + 1) + 8 * j)];
         if ([v19 count] >= 2)
         {
           v20 = +[GKLocalPlayer localPlayer];
@@ -1302,23 +1294,21 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
 
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_61_cold_1(&buf, v27, v22);
+            __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_61_cold_1(&buf, v26, v22);
           }
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callFetchHandlers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_ubiquityUnavailable)
   {
     errorForNoUbiquity = [(GKSavedGameManager *)self errorForNoUbiquity];
@@ -1331,41 +1321,40 @@ void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___bloc
     errorForNoUbiquity = 0;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_fetchHandlers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = _Block_copy(*(*(&v12 + 1) + 8 * v9));
+        v10 = _Block_copy(*(*(&v11 + 1) + 8 * v9));
         v10[2](v10, v4, errorForNoUbiquity);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  [(GKSavedGameManager *)self setFetchHandlers:0, v12];
-  v11 = *MEMORY[0x277D85DE8];
+  [(GKSavedGameManager *)self setFetchHandlers:0, v11];
 }
 
 - (void)documentConflictStateChanged:(id)changed
@@ -1454,30 +1443,30 @@ void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHa
 
 void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v33 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v32 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v50;
+    v8 = *v49;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v50 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * i);
+        v10 = *(*(&v48 + 1) + 8 * i);
         v11 = [v10 fileURL];
 
         if (v11)
@@ -1487,108 +1476,107 @@ void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHa
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
     }
 
     while (v7);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v13 = v3;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v54 count:16];
-  v15 = v33;
+  v14 = [v13 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v15 = v32;
   if (v14)
   {
     v16 = v14;
-    v17 = *v46;
+    v17 = *v45;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v46 != v17)
+        if (*v45 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * j);
+        v19 = *(*(&v44 + 1) + 8 * j);
         v20 = [v19 URL];
         v21 = [v4 containsObject:v20];
 
         if (v21)
         {
-          [v33 addObject:v19];
+          [v32 addObject:v19];
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v16);
   }
 
-  v22 = [v33 count];
+  v22 = [v32 count];
   if (v22 == [v13 count])
   {
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_3;
-    v42[3] = &unk_2785DD898;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_3;
+    v41[3] = &unk_2785DD898;
     v23 = *(a1 + 40);
-    v43 = *(a1 + 48);
-    v44 = *(a1 + 40);
-    [v23 perform:v42];
+    v42 = *(a1 + 48);
+    v43 = *(a1 + 40);
+    [v23 perform:v41];
 
-    v24 = v43;
+    v24 = v42;
   }
 
   else
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v24 = v33;
-    v25 = [v24 countByEnumeratingWithState:&v38 objects:v53 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v24 = v32;
+    v25 = [v24 countByEnumeratingWithState:&v37 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v39;
+      v27 = *v38;
       do
       {
         v28 = v24;
         for (k = 0; k != v26; ++k)
         {
-          if (*v39 != v27)
+          if (*v38 != v27)
           {
             objc_enumerationMutation(v28);
           }
 
-          v30 = *(*(&v38 + 1) + 8 * k);
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_5;
-          v34[3] = &unk_2785DD910;
+          v30 = *(*(&v37 + 1) + 8 * k);
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_5;
+          v33[3] = &unk_2785DD910;
           v31 = *(a1 + 40);
-          v35 = *(a1 + 48);
-          v36 = v30;
-          v37 = *(a1 + 40);
-          [v31 perform:v34];
+          v34 = *(a1 + 48);
+          v35 = v30;
+          v36 = *(a1 + 40);
+          [v31 perform:v33];
         }
 
         v24 = v28;
-        v26 = [v28 countByEnumeratingWithState:&v38 objects:v53 count:16];
+        v26 = [v28 countByEnumeratingWithState:&v37 objects:v52 count:16];
       }
 
       while (v26);
-      v15 = v33;
+      v15 = v32;
     }
   }
 
   (*(*(a1 + 56) + 16))();
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -1640,34 +1628,34 @@ void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHa
 
 void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_7(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 40) documentForSavedGame:*(*(&v22 + 1) + 8 * i)];
+        v7 = [*(a1 + 40) documentForSavedGame:*(*(&v21 + 1) + 8 * i)];
         if (v7)
         {
           [*(a1 + 40) removeDocument:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v4);
@@ -1684,22 +1672,20 @@ void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHa
     [(GKSavedGameDocument *)v9 setName:*(a1 + 48)];
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_8;
-  v16[3] = &unk_2785DDAC8;
-  v21 = v8 == 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_8;
+  v15[3] = &unk_2785DDAC8;
+  v20 = v8 == 0;
   v12 = *(a1 + 48);
   v13 = *(a1 + 56);
-  v16[4] = *(a1 + 40);
-  v17 = v9;
-  v18 = v12;
-  v20 = *(a1 + 72);
-  v19 = *(a1 + 64);
+  v15[4] = *(a1 + 40);
+  v16 = v9;
+  v17 = v12;
+  v19 = *(a1 + 72);
+  v18 = *(a1 + 64);
   v14 = v9;
-  [(GKSavedGameDocument *)v14 saveData:v13 completionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(GKSavedGameDocument *)v14 saveData:v13 completionHandler:v15];
 }
 
 void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHandler___block_invoke_8(uint64_t a1, void *a2)
@@ -1741,7 +1727,7 @@ void __78__GKSavedGameManager_resolveConflictingSavedGames_withData_completionHa
   dispatch_async(v3, block);
 }
 
-uint64_t __35__GKSavedGameManager_setupUbiquity__block_invoke(uint64_t a1)
+void *__35__GKSavedGameManager_setupUbiquity__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [v2 URLForUbiquityContainerIdentifier:0];
@@ -1769,25 +1755,22 @@ uint64_t __35__GKSavedGameManager_setupUbiquity__block_invoke(uint64_t a1)
 
 - (void)saveGameData:(void *)a1 withName:(void *)a2 completionHandler:.cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 name];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "Unresolved saved game conflict for file: %{public}@. Provide a GKSavedGameListener protocol conformance to resolve conflicts. https://developer.apple.com/documentation/gamekit/gksavedgamelistener", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "Unresolved saved game conflict for file: %{public}@. Provide a GKSavedGameListener protocol conformance to resolve conflicts. https://developer.apple.com/documentation/gamekit/gksavedgamelistener", &v5, 0xCu);
 }
 
 void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "GKSavedGameManager->updateSavedGameDocumentsForQueryWithHandler: Error - error downloading item at url: %@ with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "GKSavedGameManager->updateSavedGameDocumentsForQueryWithHandler: Error - error downloading item at url: %@ with error: %@", &v3, 0x16u);
 }
 
 void __66__GKSavedGameManager_updateSavedGameDocumentsForQueryWithHandler___block_invoke_61_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)

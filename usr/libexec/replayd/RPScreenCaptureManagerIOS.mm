@@ -8,6 +8,7 @@
 - (void)screenCaptureControllerDidReceiveClearScreen:(id)screen;
 - (void)screenCaptureControllerMediaServicesWereReset:(id)reset;
 - (void)screenCaptureControllerWasPreempted:(id)preempted;
+- (void)startSessionWithPID:(int)d windowSize:(CGSize)size captureType:(int)type contextIDs:(id)ds mixedRealityCamera:(BOOL)camera systemCapture:(BOOL)capture outputHandler:(id)handler didStartHandler:(id)self0;
 - (void)stop;
 @end
 
@@ -253,6 +254,78 @@ LABEL_35:
   }
 
   return v9;
+}
+
+- (void)startSessionWithPID:(int)d windowSize:(CGSize)size captureType:(int)type contextIDs:(id)ds mixedRealityCamera:(BOOL)camera systemCapture:(BOOL)capture outputHandler:(id)handler didStartHandler:(id)self0
+{
+  captureCopy = capture;
+  cameraCopy = camera;
+  v13 = *&type;
+  height = size.height;
+  width = size.width;
+  handlerCopy = handler;
+  dsCopy = ds;
+  v20 = objc_retainBlock(startHandler);
+  didStartScreenCaptureHandler = self->super._didStartScreenCaptureHandler;
+  self->super._didStartScreenCaptureHandler = v20;
+
+  self->super._screenCaptureDidStart = 0;
+  height = [(RPScreenCaptureManagerIOS *)self setupCaptureConfigWithMirroringMode:v13 windowSize:dsCopy contextIDs:captureCopy systemCapture:width, height];
+
+  screenCaptureController = self->_screenCaptureController;
+  if (screenCaptureController)
+  {
+    [(FigScreenCaptureController *)screenCaptureController stopCapture];
+  }
+
+  v24 = [FigScreenCaptureController screenCaptureControllerWithCaptureConfiguration:height];
+  v25 = self->_screenCaptureController;
+  self->_screenCaptureController = v24;
+
+  if (dword_1000B6840 <= 1)
+  {
+    v26 = &_os_log_default;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = self->_screenCaptureController;
+      if (v27)
+      {
+        objc_msgSend_minIntervalBetweenFrames(self->_screenCaptureController);
+      }
+
+      else
+      {
+        memset(v31, 0, 24);
+      }
+
+      Seconds = CMTimeGetSeconds(v31);
+      *v31 = 136448002;
+      *&v31[4] = "[RPScreenCaptureManagerIOS startSessionWithPID:windowSize:captureType:contextIDs:mixedRealityCamera:systemCapture:outputHandler:didStartHandler:]";
+      *&v31[12] = 1024;
+      *&v31[14] = 197;
+      *&v31[18] = 2048;
+      *&v31[20] = v27;
+      v32 = 1024;
+      dCopy = d;
+      v34 = 2048;
+      v35 = width;
+      v36 = 2048;
+      v37 = height;
+      v38 = 2048;
+      v39 = Seconds;
+      v40 = 1024;
+      v41 = cameraCopy;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d starting capture with FigCaptureController %p, pid %d, window size width %.1f x height:%.1f, minIntervalBetweenFrames(seconds): %lf mixedRealityCamera=%d", v31, 0x46u);
+    }
+  }
+
+  [(FigScreenCaptureController *)self->_screenCaptureController setDelegate:self];
+  v29 = objc_retainBlock(handlerCopy);
+
+  screenCaptureOutputHandler = self->super._screenCaptureOutputHandler;
+  self->super._screenCaptureOutputHandler = v29;
+
+  [(FigScreenCaptureController *)self->_screenCaptureController startCapture];
 }
 
 - (void)stop

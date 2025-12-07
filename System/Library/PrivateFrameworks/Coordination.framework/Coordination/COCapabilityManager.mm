@@ -155,7 +155,7 @@ void __30__COCapabilityManager_dealloc__block_invoke(uint64_t a1)
 
 void __44__COCapabilityManager_unregisterCapability___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -163,18 +163,16 @@ void __44__COCapabilityManager_unregisterCapability___block_invoke(uint64_t a1, 
     v5 = COLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister Capability(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister Capability(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addObserverForCapability:(id)capability inCluster:(id)cluster usingBlock:(id)block
@@ -237,7 +235,7 @@ void __44__COCapabilityManager_unregisterCapability___block_invoke(uint64_t a1, 
 
 void __38__COCapabilityManager_removeObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -245,26 +243,24 @@ void __38__COCapabilityManager_removeObserver___block_invoke(uint64_t a1, void *
     v5 = COLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218754;
-      v9 = WeakRetained;
-      v10 = 2048;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to remove Observer(%p/%@): %@", &v8, 0x2Au);
+      v6 = *(a1 + 32);
+      v7 = 134218754;
+      v8 = WeakRetained;
+      v9 = 2048;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to remove Observer(%p/%@): %@", &v7, 0x2Au);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)availabilityChanged:(BOOL)changed ofCapability:(id)capability inCluster:(id)cluster
 {
   changedCopy = changed;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   capabilityCopy = capability;
   clusterCopy = cluster;
   v9 = COLogForCategory(3);
@@ -282,36 +278,36 @@ void __38__COCapabilityManager_removeObserver___block_invoke(uint64_t a1, void *
       v10 = 78;
     }
 
-    v30 = 2112;
-    v31 = capabilityCopy;
-    v32 = 2112;
-    v33 = clusterCopy;
-    v34 = 1024;
-    v35 = v10;
+    v29 = 2112;
+    v30 = capabilityCopy;
+    v31 = 2112;
+    v32 = clusterCopy;
+    v33 = 1024;
+    v34 = v10;
     _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p received notification that Capability(%@) in Cluster(%@) is Available(%c)", buf, 0x26u);
   }
 
   selfCopy2 = self;
   observers = [(COCapabilityManager *)self observers];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v12 = [observers countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [observers countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(observers);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * i);
+        v16 = *(*(&v22 + 1) + 8 * i);
         capability = [v16 capability];
         if ([capability isEqualToString:capabilityCopy])
         {
@@ -329,13 +325,11 @@ void __38__COCapabilityManager_removeObserver___block_invoke(uint64_t a1, void *
         }
       }
 
-      v13 = [observers countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [observers countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)registeredCapabilities
@@ -380,10 +374,7 @@ uint64_t __49__COCapabilityManager_setRegisteredCapabilities___block_invoke(uint
     result = [result isEqualToSet:?];
     if ((result & 1) == 0)
     {
-      v3 = [*(a1 + 32) copy];
-      v4 = *(a1 + 40);
-      v5 = *(v4 + 16);
-      *(v4 + 16) = v3;
+      *(*(a1 + 40) + 16) = [*(a1 + 32) copy];
 
       return MEMORY[0x2821F96F8]();
     }
@@ -434,10 +425,7 @@ uint64_t __36__COCapabilityManager_setObservers___block_invoke(uint64_t a1)
     result = [result isEqualToArray:?];
     if ((result & 1) == 0)
     {
-      v3 = [*(a1 + 32) copy];
-      v4 = *(a1 + 40);
-      v5 = *(v4 + 24);
-      *(v4 + 24) = v3;
+      *(*(a1 + 40) + 24) = [*(a1 + 32) copy];
 
       return MEMORY[0x2821F96F8]();
     }
@@ -449,7 +437,7 @@ uint64_t __36__COCapabilityManager_setObservers___block_invoke(uint64_t a1)
 - (void)_notifyObserver:(id)observer available:(BOOL)available
 {
   availableCopy = available;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v7 = COLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -468,30 +456,28 @@ uint64_t __36__COCapabilityManager_setObservers___block_invoke(uint64_t a1)
     cluster = [observerCopy cluster];
     *buf = 134219266;
     selfCopy = self;
-    v19 = 2048;
-    v20 = observerCopy;
-    v21 = 2112;
-    v22 = observerCopy;
-    v23 = 1024;
-    v24 = v8;
-    v25 = 2112;
-    v26 = capability;
-    v27 = 2112;
-    v28 = cluster;
+    v18 = 2048;
+    v19 = observerCopy;
+    v20 = 2112;
+    v21 = observerCopy;
+    v22 = 1024;
+    v23 = v8;
+    v24 = 2112;
+    v25 = capability;
+    v26 = 2112;
+    v27 = cluster;
     _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, "%p notifying Observer(%p/%@) of Availability(%c) for Capability(%@) in Cluster(%@)", buf, 0x3Au);
   }
 
   observerQueue = [(COCapabilityManager *)self observerQueue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __49__COCapabilityManager__notifyObserver_available___block_invoke;
-  v14[3] = &unk_278E133C0;
-  v15 = observerCopy;
-  v16 = availableCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__COCapabilityManager__notifyObserver_available___block_invoke;
+  v13[3] = &unk_278E133C0;
+  v14 = observerCopy;
+  v15 = availableCopy;
   v12 = observerCopy;
-  dispatch_async(observerQueue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(observerQueue, v13);
 }
 
 - (void)_withLock:(id)lock
@@ -630,64 +616,64 @@ void __56__COCapabilityManager__remoteInterfaceWithErrorHandler___block_invoke_6
 
 - (void)_lostConnectionToService
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   observers = [(COCapabilityManager *)self observers];
   registeredCapabilities = [(COCapabilityManager *)self registeredCapabilities];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = observers;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(COCapabilityManager *)self _registerObserver:*(*(&v21 + 1) + 8 * v9++)];
+        [(COCapabilityManager *)self _registerObserver:*(*(&v20 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = registeredCapabilities;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(COCapabilityManager *)self _registerCapabililty:*(*(&v17 + 1) + 8 * v14++), v17];
+        [(COCapabilityManager *)self _registerCapabililty:*(*(&v16 + 1) + 8 * v14++), v16];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v12);
@@ -700,8 +686,6 @@ void __56__COCapabilityManager__remoteInterfaceWithErrorHandler___block_invoke_6
     selfCopy = self;
     _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%p done restoring state after lost connection to service", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerCapabililty:(id)capabililty
@@ -729,7 +713,7 @@ void __56__COCapabilityManager__remoteInterfaceWithErrorHandler___block_invoke_6
 
 void __44__COCapabilityManager__registerCapabililty___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -737,18 +721,16 @@ void __44__COCapabilityManager__registerCapabililty___block_invoke(uint64_t a1, 
     v5 = COLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register Capability(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register Capability(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerObserver:(id)observer
@@ -779,7 +761,7 @@ void __44__COCapabilityManager__registerCapabililty___block_invoke(uint64_t a1, 
 
 void __41__COCapabilityManager__registerObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -787,20 +769,18 @@ void __41__COCapabilityManager__registerObserver___block_invoke(uint64_t a1, voi
     v5 = COLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218754;
-      v9 = WeakRetained;
-      v10 = 2048;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to add Observer(%p/%@): %@", &v8, 0x2Au);
+      v6 = *(a1 + 32);
+      v7 = 134218754;
+      v8 = WeakRetained;
+      v9 = 2048;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to add Observer(%p/%@): %@", &v7, 0x2Au);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)lastConnection
@@ -812,95 +792,65 @@ void __41__COCapabilityManager__registerObserver___block_invoke(uint64_t a1, voi
 
 - (void)initWithConnectionProvider:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 134218242;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_244328000, a3, OS_LOG_TYPE_DEBUG, "%p created with %@ provider", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerCapability:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p ignoring duplicate registration of Capability(%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterCapability:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p cannot unregister Capability(%@) that is not registered");
-  v2 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_244328000, a3, OS_LOG_TYPE_DEBUG, "%p created with %@ provider", &v7, 0x16u);
 }
 
 - (void)unregisterCapability:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserverForCapability:inCluster:usingBlock:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__COCapabilityManager__remoteInterfaceWithErrorHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Capability service interrupted", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Capability service interrupted", &v2, 0xCu);
 }
 
 void __56__COCapabilityManager__remoteInterfaceWithErrorHandler___block_invoke_68_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Capability service invalidated", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Capability service invalidated", &v2, 0xCu);
 }
 
 - (void)_registerCapabililty:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerObserver:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

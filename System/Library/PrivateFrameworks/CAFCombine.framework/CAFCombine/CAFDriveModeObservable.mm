@@ -24,31 +24,31 @@
 
 - (void)modeItemsService:(id)service didUpdateIdentifiers:(id)identifiers
 {
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
-  CAFDriveModeObservable.modeItemsService(_:didUpdateIdentifiers:)();
+  CAFDriveModeObservable.modeItemsService(_:didUpdateIdentifiers:)(selfCopy, v6);
 }
 
 - (void)modeItemsService:(id)service didUpdateCurrentIndex:(unsigned int)index
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDriveModeObservable.modeItemsService(_:didUpdateCurrentIndex:)();
+  CAFDriveModeObservable.modeItemsService(_:didUpdateCurrentIndex:)(selfCopy, index);
 }
 
 - (void)modeItemsService:(id)service didUpdateDefaultIndex:(unsigned int)index
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDriveModeObservable.modeItemsService(_:didUpdateDefaultIndex:)();
+  CAFDriveModeObservable.modeItemsService(_:didUpdateDefaultIndex:)(selfCopy, index);
 }
 
 - (void)driveModeService:(id)service didUpdateHidden:(BOOL)hidden
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDriveModeObservable.driveModeService(_:didUpdateHidden:)();
+  CAFDriveModeObservable.driveModeService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

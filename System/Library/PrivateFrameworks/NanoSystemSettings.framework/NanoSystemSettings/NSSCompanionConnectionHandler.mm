@@ -8,12 +8,14 @@
 - (void)getAccountsInfoForAccountType:(id)type completionHandler:(id)handler;
 - (void)getDiagnosticLogFileFromGizmo:(id)gizmo withResults:(id)results;
 - (void)getDiagnosticLogsInfo:(id)info;
+- (void)getFullProfileInfoWithIdentifier:(id)identifier includeManagedPayloads:(BOOL)payloads completionHandler:(id)handler;
 - (void)getLegalDocuments:(id)documents;
 - (void)getLocalesInfo:(id)info;
 - (void)getProfilesInfo:(id)info;
 - (void)getUsage:(id)usage;
 - (void)getWatchFaces:(id)faces;
 - (void)installProfile:(id)profile replyHandler:(id)handler;
+- (void)obliterateGizmoPreservingeSIM:(BOOL)m completionHandler:(id)handler;
 - (void)purgeUsageBundle:(id)bundle replyHandler:(id)handler;
 - (void)rebootDevice;
 - (void)recordSoftwareUpdateSpaceFailure:(id)failure osBeingUpdatedTo:(id)to completion:(id)completion;
@@ -23,6 +25,7 @@
 - (void)setAirplaneModeSettings:(id)settings withCompletionHandler:(id)handler;
 - (void)setDeviceName:(id)name;
 - (void)setWatchFaceIdentifier:(id)identifier forFocusModeIdentifier:(id)modeIdentifier completionHandler:(id)handler;
+- (void)updateBetaEnrollmentStatus:(id)status requiresUnenroll:(BOOL)unenroll withCompletion:(id)completion;
 @end
 
 @implementation NSSCompanionConnectionHandler
@@ -275,6 +278,23 @@
   }
 }
 
+- (void)obliterateGizmoPreservingeSIM:(BOOL)m completionHandler:(id)handler
+{
+  mCopy = m;
+  handlerCopy = handler;
+  if ([(NSSConnectionHandler *)self hasNanoSystemSettingsEntitlementKey:@"obliterate"])
+  {
+    delegate = [(NSSConnectionHandler *)self delegate];
+    [delegate obliterateGizmoPreservingeSIM:mCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    delegate = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
+    handlerCopy[2](handlerCopy);
+  }
+}
+
 - (void)getProfilesInfo:(id)info
 {
   infoCopy = info;
@@ -288,6 +308,24 @@
   {
     delegate = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
     infoCopy[2](infoCopy, 0);
+  }
+}
+
+- (void)getFullProfileInfoWithIdentifier:(id)identifier includeManagedPayloads:(BOOL)payloads completionHandler:(id)handler
+{
+  payloadsCopy = payloads;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  if ([(NSSConnectionHandler *)self hasNanoSystemSettingsEntitlementKey:@"profiles"])
+  {
+    delegate = [(NSSConnectionHandler *)self delegate];
+    [delegate getFullProfileInfoWithIdentifier:identifierCopy includeManagedPayloads:payloadsCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    delegate = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, delegate);
   }
 }
 
@@ -431,6 +469,32 @@
 
     v6 = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
     (*(statusCopy + 2))(statusCopy, 0, v6);
+  }
+}
+
+- (void)updateBetaEnrollmentStatus:(id)status requiresUnenroll:(BOOL)unenroll withCompletion:(id)completion
+{
+  unenrollCopy = unenroll;
+  statusCopy = status;
+  completionCopy = completion;
+  if ([(NSSConnectionHandler *)self hasNanoSystemSettingsEntitlementKey:@"betaenrollment"])
+  {
+    delegate = [(NSSConnectionHandler *)self delegate];
+    [delegate updateBetaEnrollmentStatus:statusCopy requiresUnenroll:unenrollCopy withCompletion:completionCopy];
+  }
+
+  else
+  {
+    v11 = NSSLogForType();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315138;
+      v14 = "[NSSCompanionConnectionHandler updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: Discarding request due to missing entitlement", &v13, 0xCu);
+    }
+
+    v12 = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v12);
   }
 }
 

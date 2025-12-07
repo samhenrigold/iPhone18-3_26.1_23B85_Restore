@@ -13,11 +13,11 @@
 
 - (SFUserActivityData)initWithProtobuf:(id)protobuf
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v23.receiver = self;
-  v23.super_class = SFUserActivityData;
-  v5 = [(SFUserActivityData *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SFUserActivityData;
+  v5 = [(SFUserActivityData *)&v22 init];
   if (v5)
   {
     activityType = [protobufCopy activityType];
@@ -39,33 +39,33 @@
       v9 = 0;
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     userInfos2 = [protobufCopy userInfos];
-    v11 = [userInfos2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v11 = [userInfos2 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(userInfos2);
           }
 
-          v15 = [[SFUserActivityInfo alloc] initWithProtobuf:*(*(&v19 + 1) + 8 * i)];
+          v15 = [[SFUserActivityInfo alloc] initWithProtobuf:*(*(&v18 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [userInfos2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v12 = [userInfos2 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v12);
@@ -75,7 +75,6 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

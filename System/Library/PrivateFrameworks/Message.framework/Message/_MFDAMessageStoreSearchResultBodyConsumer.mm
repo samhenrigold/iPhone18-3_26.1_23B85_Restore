@@ -1,7 +1,9 @@
 @interface _MFDAMessageStoreSearchResultBodyConsumer
+- (BOOL)shouldBeginStreamingForMailMessage:(id)message format:(int)format;
 - (BOOL)waitUntilDoneBeforeDate:(id)date;
 - (_MFDAMessageStoreSearchResultBodyConsumer)init;
 - (void)actionFailed:(int64_t)failed forTask:(id)task error:(id)error;
+- (void)consumeData:(char *)data length:(int)length format:(int)format mailMessage:(id)message;
 - (void)didEndStreamingForMailMessage:(id)message;
 - (void)searchResultFetchedWithResponses:(id)responses;
 - (void)waitUntilDone;
@@ -97,6 +99,25 @@ LABEL_12:
   doneCondition = self->_doneCondition;
 
   [(MFConditionLock *)doneCondition unlockWithCondition:1];
+}
+
+- (BOOL)shouldBeginStreamingForMailMessage:(id)message format:(int)format
+{
+  v4 = *&format;
+  messageCopy = message;
+  streamConsumer = [(_MFDAMessageStoreSearchResultBodyConsumer *)self streamConsumer];
+  LOBYTE(v4) = [streamConsumer shouldBeginStreamingForMailMessage:messageCopy format:v4];
+
+  return v4;
+}
+
+- (void)consumeData:(char *)data length:(int)length format:(int)format mailMessage:(id)message
+{
+  v6 = *&format;
+  v7 = *&length;
+  messageCopy = message;
+  streamConsumer = [(_MFDAMessageStoreSearchResultBodyConsumer *)self streamConsumer];
+  [streamConsumer consumeData:data length:v7 format:v6 mailMessage:messageCopy];
 }
 
 - (void)didEndStreamingForMailMessage:(id)message

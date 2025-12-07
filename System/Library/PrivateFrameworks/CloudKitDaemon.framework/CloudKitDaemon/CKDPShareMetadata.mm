@@ -424,37 +424,36 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_routingKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_protectedFullToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_ownerParticipant)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_callerParticipant)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    participantPermission = self->_participantPermission;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -473,35 +472,32 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  participantState = self->_participantState;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_12:
-    participantType = self->_participantType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_13:
   if (self->_rootRecordType)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_signedCryptoRequirements)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    denyAccessRequests = self->_denyAccessRequests;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -711,7 +707,6 @@ LABEL_5:
     }
   }
 
-  v16 = *(equalCopy + 76);
   if (*&self->_has)
   {
     if ((*(equalCopy + 76) & 1) == 0 || self->_participantPermission != *(equalCopy + 6))
@@ -752,29 +747,29 @@ LABEL_5:
   }
 
   rootRecordType = self->_rootRecordType;
-  v18 = equalCopy[6];
-  if (rootRecordType | v18 && !objc_msgSend_isEqual_(rootRecordType, v7, v18))
+  v17 = equalCopy[6];
+  if (rootRecordType | v17 && !objc_msgSend_isEqual_(rootRecordType, v7, v17))
   {
     goto LABEL_31;
   }
 
   signedCryptoRequirements = self->_signedCryptoRequirements;
-  v20 = equalCopy[8];
-  if (signedCryptoRequirements | v20)
+  v19 = equalCopy[8];
+  if (signedCryptoRequirements | v19)
   {
-    if (!objc_msgSend_isEqual_(signedCryptoRequirements, v7, v20))
+    if (!objc_msgSend_isEqual_(signedCryptoRequirements, v7, v19))
     {
       goto LABEL_31;
     }
   }
 
-  v21 = (*(equalCopy + 76) & 8) == 0;
+  v20 = (*(equalCopy + 76) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 76) & 8) == 0)
     {
 LABEL_31:
-      v21 = 0;
+      v20 = 0;
       goto LABEL_32;
     }
 
@@ -791,12 +786,12 @@ LABEL_31:
       goto LABEL_31;
     }
 
-    v21 = 1;
+    v20 = 1;
   }
 
 LABEL_32:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash

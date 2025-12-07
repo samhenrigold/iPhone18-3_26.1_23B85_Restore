@@ -15,6 +15,7 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)previewControllerDidUpdatePreferredContentSize:(id)size;
 - (void)previewControllerDidUpdateTitle:(id)title;
+- (void)previewControllerWantsFullScreen:(BOOL)screen;
 - (void)previewDidAppear:(BOOL)appear;
 - (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewWillAppear:(BOOL)appear;
@@ -55,6 +56,13 @@
   v3 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_219];
 
   return v3;
+}
+
+- (void)previewControllerWantsFullScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  protocolHost = [(QLPreviewExtensionServiceContext_iOS *)self protocolHost];
+  [protocolHost previewControllerWantsFullScreen:screenCopy];
 }
 
 - (void)previewControllerDidUpdateTitle:(id)title

@@ -12,7 +12,7 @@ void ___UIBoundingPathBitmapDataImageRepresentation_block_invoke(unint64_t *a1, 
     v4 = 0x1E70E9000uLL;
     while (v3 == a1[6] && a1[7])
     {
-      v5 = [*(v4 + 1736) blackColor];
+      v5 = objc_msgSend_blackColor(*(v4 + 1736));
       [v5 setFill];
 
       [v37 fillRect:{0.0, v3, a1[4], a1[7]}];
@@ -76,7 +76,7 @@ LABEL_33:
               {
                 v10 = v6 - v7;
 LABEL_32:
-                v27 = [*(v4 + 1736) blackColor];
+                v27 = objc_msgSend_blackColor(*(v4 + 1736));
                 goto LABEL_30;
               }
 

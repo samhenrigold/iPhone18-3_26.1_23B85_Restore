@@ -48,11 +48,11 @@
 
 - (HMDResidentUser)initWithCoder:(id)coder
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = HMDResidentUser;
-  v5 = [(HMDUser *)&v28 initWithCoder:coderCopy];
+  v27.receiver = self;
+  v27.super_class = HMDResidentUser;
+  v5 = [(HMDUser *)&v27 initWithCoder:coderCopy];
   if (v5)
   {
     v5->_configurationState = [coderCopy decodeInt32ForKey:@"residentConfigState"];
@@ -95,9 +95,9 @@ LABEL_17:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v16;
-        v31 = 2112;
-        v32 = device;
+        v29 = v16;
+        v30 = 2112;
+        v31 = device;
         v17 = "%{public}@Could not determine userID from device generated for HMDResidentUser with expected destination: %@";
 LABEL_14:
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, v17, buf, 0x16u);
@@ -113,9 +113,9 @@ LABEL_14:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v16;
-        v31 = 2112;
-        v32 = device;
+        v29 = v16;
+        v30 = 2112;
+        v31 = device;
         v17 = "%{public}@Failed to resolve device for HMDResidentUser with expected destination: %@";
         goto LABEL_14;
       }
@@ -127,21 +127,21 @@ LABEL_16:
 
     if (!userID2)
     {
-      v22 = objc_autoreleasePoolPush();
-      v23 = v5;
-      v24 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v21 = objc_autoreleasePoolPush();
+      v22 = v5;
+      v23 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        v25 = HMFGetLogIdentifier();
+        v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v25;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing expected userID", buf, 0xCu);
+        v29 = v24;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing expected userID", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v22);
-      v26 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing expected userID"];
-      v27 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v27 submitLogEvent:v26];
+      objc_autoreleasePoolPop(v21);
+      v25 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing expected userID"];
+      v26 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v26 submitLogEvent:v25];
     }
 
     goto LABEL_17;
@@ -149,13 +149,12 @@ LABEL_16:
 
 LABEL_18:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -223,7 +222,7 @@ LABEL_18:
             {
               v33 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v40 = v33;
+              v39 = v33;
               _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Disabling", buf, 0xCu);
             }
 
@@ -251,12 +250,10 @@ LABEL_18:
 
   if (v36)
   {
-    v38.receiver = self;
-    v38.super_class = HMDResidentUser;
-    [(HMDUser *)&v38 _transactionUserUpdated:0 newValues:v36 message:messageCopy];
+    v37.receiver = self;
+    v37.super_class = HMDResidentUser;
+    [(HMDUser *)&v37 _transactionUserUpdated:0 newValues:v36 message:messageCopy];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
@@ -347,7 +344,7 @@ LABEL_18:
 
 - (BOOL)updateWithDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (deviceCopy)
   {
@@ -362,11 +359,11 @@ LABEL_18:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v10;
-        v23 = 2112;
-        v24 = deviceCopy;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating the device: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v10;
+        v22 = 2112;
+        v23 = deviceCopy;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating the device: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -386,11 +383,11 @@ LABEL_18:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v18;
-        v23 = 2112;
-        v24 = deviceCopy;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Updating the device: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v18;
+        v22 = 2112;
+        v23 = deviceCopy;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Updating the device: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -404,7 +401,6 @@ LABEL_18:
     v6 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -468,11 +464,11 @@ LABEL_18:
 
 - (void)configureWithHome:(id)home
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v10.receiver = self;
-  v10.super_class = HMDResidentUser;
-  [(HMDUser *)&v10 configureWithHome:homeCopy];
+  v9.receiver = self;
+  v9.super_class = HMDResidentUser;
+  [(HMDUser *)&v9 configureWithHome:homeCopy];
   if ([(HMDResidentUser *)self isBlocked]&& [(HMDResidentUser *)self configurationState]== 2)
   {
     v5 = objc_autoreleasePoolPush();
@@ -482,15 +478,13 @@ LABEL_18:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Disabling as we are blocked", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     [(HMDResidentUser *)selfCopy setConfigurationState:3];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentUser)initWithDevice:(id)device home:(id)home pairingIdentity:(id)identity configurationState:(unint64_t)state

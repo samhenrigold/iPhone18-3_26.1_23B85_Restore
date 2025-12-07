@@ -30,10 +30,10 @@
   [v12 setSuggestion:v19];
   [trackerCopy trackScalarForMessage:v12];
 
-  v20 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = __atxlog_handle_metrics(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    [ATXContextMenuFeedbackTracker _logContextMenuFeedbackWithMenuActionType:self suggestion:v12 consumerSubType:v20 tracker:?];
+    [ATXContextMenuFeedbackTracker _logContextMenuFeedbackWithMenuActionType:self suggestion:v12 consumerSubType:v21 tracker:?];
   }
 }
 

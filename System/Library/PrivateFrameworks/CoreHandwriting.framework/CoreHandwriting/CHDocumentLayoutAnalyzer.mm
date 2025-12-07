@@ -112,7 +112,7 @@
       sub_18368964C();
     }
 
-    for (i = 0; i < objc_msgSend_strokeCount(v186, v53, v54, v55, v56, v57); i += selfCopy->_contentNumStrokes)
+    for (i = 0; i < objc_msgSend_strokeCount(v186, v53, v54, v55, v56, v57); i += selfCopy->_strokeClassificationMatrix.__cap_)
     {
       if (cancelCopy && (cancelCopy[2]() & 1) != 0)
       {

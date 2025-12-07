@@ -95,6 +95,7 @@
 - (void)_handleCDPActionURL:(id)l;
 - (void)_handleChangePasswordActionURL:(id)l;
 - (void)_handleOONAddressVettingActionURL:(id)l;
+- (void)_handleObjectModelChangeForController:(id)controller objectModel:(id)model isModal:(BOOL)modal;
 - (void)_handlePaymentMethodSummaryResponse:(id)response;
 - (void)_handleResourcesDictionaryDidChange:(id)change;
 - (void)_handleSecondaryAuthenticationResponse:(id)response baseURL:(id)l completion:(id)completion;
@@ -160,15 +161,18 @@
 - (void)genericTermsRemoteUI:(id)i didFinishWithSuccess:(BOOL)success;
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)insertSpecifier:(id)specifier afterSpecifierNamed:(id)named animated:(BOOL)animated;
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
 - (void)operationsHelper:(id)helper willSaveAccount:(id)account;
 - (void)presentCustodianSetupFlow:(id)flow;
 - (void)refreshDetailTextForTableCellWithTag:(int64_t)tag;
 - (void)reloadSpecifierForProvider:(id)provider identifier:(id)identifier;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)remoteUIController:(id)controller didDismissModalNavigationWithObjectModels:(id)models;
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response;
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal;
 - (void)remoteUIController:(id)controller didRefreshObjectModel:(id)model;
 - (void)remoteUIController:(id)controller willPresentModalNavigationController:(id)navigationController;
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally;
 - (void)remoteUIControllerDidDismiss:(id)dismiss;
 - (void)setDeferredURL:(id)l;
 - (void)setSpecifier:(id)specifier;
@@ -177,7 +181,10 @@
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider showViewController:(id)controller;
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willMoveToParentViewController:(id)controller;
@@ -187,7 +194,7 @@
 
 - (void)dealloc
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -213,6 +220,28 @@
   v5.receiver = self;
   v5.super_class = AAUIAppleAccountViewController;
   [(AAUIAppleAccountViewController *)&v5 dealloc];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(NSOperationQueue *)self->_networkActivityQueue cancelAllOperations];
+  v5.receiver = self;
+  v5.super_class = AAUIAppleAccountViewController;
+  [(AAUIAppleAccountViewController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AAUIAppleAccountViewController;
+  [(AAUIAppleAccountViewController *)&v4 viewWillAppear:appear];
+  if (+[AAUIAppleAccountViewController _isSplitView])
+  {
+    [(AAUIAppleAccountViewController *)self _loadCloudStorageSummary];
+  }
+
+  [(AAUIAppleAccountViewController *)self _setupHeader];
 }
 
 - (void)willMoveToParentViewController:(id)controller
@@ -353,7 +382,7 @@
 
 - (void)_setupAppleAccountHeader
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_33C90();
@@ -408,7 +437,7 @@
 
   else
   {
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(_storeAccount);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_33CCC();
@@ -460,7 +489,7 @@
 
 - (void)_setupHeader
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_33D08();
@@ -490,7 +519,7 @@
 
 - (void)_layoutTableHeaderView
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_33E34();
@@ -521,7 +550,7 @@
 
 - (void)_layoutHeader
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_33E70();
@@ -588,6 +617,60 @@
   }
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = AAUIAppleAccountViewController;
+  v4 = [(AAUIAppleAccountViewController *)&v16 viewDidAppear:appear];
+  v5 = _AAUILogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithInt:!self->_appearedBefore];
+    *buf = 138412290;
+    v18 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController appeared, first time: %@", buf, 0xCu);
+  }
+
+  if (!self->_appearedBefore)
+  {
+    if (self->_shouldAttemptToEnableDataclasses && (-[AAUIAppleAccountViewController _appleAccount](self, "_appleAccount"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 aa_isPrimaryEmailVerified], v12, v13))
+    {
+      [(AAUIAppleAccountViewController *)self _enableAllProvisionedDataclasses];
+    }
+
+    else
+    {
+      accountOperationsHelper = [(AAUIAppleAccountViewController *)self accountOperationsHelper];
+      isRemovingAccount = [accountOperationsHelper isRemovingAccount];
+
+      if ((isRemovingAccount & 1) == 0)
+      {
+        [(AAUIAppleAccountViewController *)self _presentFirstAlertIfNecessary];
+        [(AAUIAppleAccountViewController *)self _checkNetworkReachabilityAndValidateAccount];
+      }
+    }
+  }
+
+  resourcesDictionary = [(AAUIAppleAccountDeferredURL *)self->_deferredURL resourcesDictionary];
+
+  if (resourcesDictionary)
+  {
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_33EAC();
+    }
+
+    resourcesDictionary2 = [(AAUIAppleAccountDeferredURL *)self->_deferredURL resourcesDictionary];
+    v11 = [resourcesDictionary2 copy];
+
+    [(AAUIAppleAccountDeferredURL *)self->_deferredURL setResourcesDictionary:0];
+    [(AAUIAppleAccountViewController *)self _handleResourcesDictionaryDidChange:v11];
+  }
+
+  self->_appearedBefore = 1;
 }
 
 - (id)_appleAccount
@@ -754,22 +837,23 @@
     v8 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager altDSIDForAccount:_appleAccount service:AIDAServiceTypeCloud];
     v9 = AIDAServiceTypeStore;
     v10 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager altDSIDForAccount:v5 service:AIDAServiceTypeStore];
-    if ([v8 length] && objc_msgSend(v10, "length"))
+    v11 = [v8 length];
+    if (v11 && (v11 = [v10 length]) != 0)
     {
       v6 = [v8 isEqualToString:v10];
     }
 
     else
     {
-      v11 = _AAUILogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_33EE8();
       }
 
-      v12 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:_appleAccount service:v7];
-      v13 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:v5 service:v9];
-      v6 = [v12 isEqualToString:v13];
+      v13 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:_appleAccount service:v7];
+      v14 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:v5 service:v9];
+      v6 = [v13 isEqualToString:v14];
     }
   }
 
@@ -817,7 +901,7 @@
   profilePictureStore = self->_profilePictureStore;
   if (!profilePictureStore)
   {
-    v4 = _AAUIPPSLogSystem();
+    v4 = _AAUIPPSLogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -866,7 +950,7 @@
 - (void)setSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(specifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_33F6C();
@@ -884,7 +968,7 @@
 - (void)setDeferredURL:(id)l
 {
   lCopy = l;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_33FA8();
@@ -920,48 +1004,54 @@
   self->_cachedResourceDictionary = v5;
 
   v7 = [changeCopy objectForKeyedSubscript:@"aaaction"];
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_handleResourcesDictionaryDidChange action - %@", &v12, 0xCu);
+    v15 = 138412290;
+    v16 = v7;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_handleResourcesDictionaryDidChange action - %@", &v15, 0xCu);
   }
 
-  if ([(AAUIAppleAccountViewController *)self _handleDeeplinkWithAction:v7 pendingDictionary:changeCopy])
+  v9 = [(AAUIAppleAccountViewController *)self _handleDeeplinkWithAction:v7 pendingDictionary:changeCopy];
+  if (v9)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_34100();
     }
   }
 
-  else if ([(AAUIAppleAccountViewController *)self _handleDeeplinkBySpecifierProviderWithAction:v7 pendingDictionary:changeCopy])
-  {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-    {
-      sub_34090();
-    }
-  }
-
   else
   {
-    v10 = [(AAUIAppleAccountViewController *)self _handleAuthKitURLWithPendingDictionary:changeCopy];
-    v11 = _AAUILogSystem();
-    v9 = v11;
-    if (v10)
+    v11 = [(AAUIAppleAccountViewController *)self _handleDeeplinkBySpecifierProviderWithAction:v7 pendingDictionary:changeCopy];
+    if (v11)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        sub_34054();
+        sub_34090();
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else
     {
-      sub_33FE4();
+      v12 = [(AAUIAppleAccountViewController *)self _handleAuthKitURLWithPendingDictionary:changeCopy];
+      v13 = v12;
+      v14 = _AAUILogSystem(v12);
+      v10 = v14;
+      if (v13)
+      {
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          sub_34054();
+        }
+      }
+
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        sub_33FE4();
+      }
     }
   }
 }
@@ -974,7 +1064,7 @@
   {
     [(AAUIAppleAccountViewController *)self _handleAuthActionURL:dictionaryCopy];
 LABEL_21:
-    v8 = 1;
+    v9 = 1;
     goto LABEL_22;
   }
 
@@ -1026,22 +1116,23 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  if ([actionCopy isEqual:@"upgradeSecurityLevel"])
+  v8 = [actionCopy isEqual:@"upgradeSecurityLevel"];
+  if (v8)
   {
     [(AAUIAppleAccountViewController *)self _handleUpgradeSecurityLevelActionURL:dictionaryCopy];
     goto LABEL_21;
   }
 
-  v10 = _AAUILogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _AAUILogSystem(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_34170();
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_22:
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)_handleDeeplinkBySpecifierProviderWithAction:(id)action pendingDictionary:(id)dictionary
@@ -1053,77 +1144,87 @@ LABEL_22:
 
   if (v9)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = actionCopy;
-      v11 = "AAUIAppleAccountViewController Family specifier provider handled: %@";
+      v20 = 138412290;
+      v21 = actionCopy;
+      v12 = "AAUIAppleAccountViewController Family specifier provider handled: %@";
 LABEL_10:
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, v11, &v16, 0xCu);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, v12, &v20, 0xCu);
       goto LABEL_11;
     }
 
     goto LABEL_11;
   }
 
-  if ([(AAUISpecifierProvider *)self->_dmcReauthSpecifierProvider handleURL:dictionaryCopy])
+  v13 = [(AAUISpecifierProvider *)self->_dmcReauthSpecifierProvider handleURL:dictionaryCopy];
+  if (v13)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = actionCopy;
-      v11 = "AAUIAppleAccountViewController DMC Reauth specifier provider handled: %@";
+      v20 = 138412290;
+      v21 = actionCopy;
+      v12 = "AAUIAppleAccountViewController DMC Reauth specifier provider handled: %@";
       goto LABEL_10;
     }
 
 LABEL_11:
-    v14 = 1;
+    v17 = 1;
     goto LABEL_12;
   }
 
   _storeSpecifierProvider = [(AAUIAppleAccountViewController *)self _storeSpecifierProvider];
-  v13 = [_storeSpecifierProvider handleURL:dictionaryCopy];
+  v15 = [_storeSpecifierProvider handleURL:dictionaryCopy];
 
-  if (v13)
+  if (v15)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v16);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = actionCopy;
-      v11 = "SKAccountPageSpecifierProvider specifier provider handled: %@";
+      v20 = 138412290;
+      v21 = actionCopy;
+      v12 = "SKAccountPageSpecifierProvider specifier provider handled: %@";
       goto LABEL_10;
     }
 
     goto LABEL_11;
   }
 
-  if (self->_tuiOptInSpecifierProvider && (objc_opt_respondsToSelector() & 1) != 0 && [(AAUISpecifierProvider *)self->_tuiOptInSpecifierProvider handleURL:dictionaryCopy])
+  tuiOptInSpecifierProvider = self->_tuiOptInSpecifierProvider;
+  if (tuiOptInSpecifierProvider)
   {
-    v10 = _AAUILogSystem();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    tuiOptInSpecifierProvider = objc_opt_respondsToSelector();
+    if (tuiOptInSpecifierProvider)
     {
-      goto LABEL_11;
-    }
+      tuiOptInSpecifierProvider = [(AAUISpecifierProvider *)self->_tuiOptInSpecifierProvider handleURL:dictionaryCopy];
+      if (tuiOptInSpecifierProvider)
+      {
+        v11 = _AAUILogSystem(tuiOptInSpecifierProvider);
+        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_11;
+        }
 
-    v16 = 138412290;
-    v17 = actionCopy;
-    v11 = "TUIOptInSpecifierProvider specifier provider handled: %@";
-    goto LABEL_10;
+        v20 = 138412290;
+        v21 = actionCopy;
+        v12 = "TUIOptInSpecifierProvider specifier provider handled: %@";
+        goto LABEL_10;
+      }
+    }
   }
 
-  v10 = _AAUILogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _AAUILogSystem(tuiOptInSpecifierProvider);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_341E0();
   }
 
-  v14 = 0;
+  v17 = 0;
 LABEL_12:
 
-  return v14;
+  return v17;
 }
 
 - (BOOL)_handleAuthKitURLWithPendingDictionary:(id)dictionary
@@ -1134,7 +1235,7 @@ LABEL_12:
   if (v5)
   {
     v6 = objc_alloc_init(AAUIAuthKitURLHandler);
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_34250(dictionaryCopy);
@@ -1154,7 +1255,7 @@ LABEL_12:
     goto LABEL_26;
   }
 
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
@@ -1282,7 +1383,7 @@ LABEL_23:
   *&self->ACUIAccountConfigurationViewController_opaque[v3] = v6;
 
 LABEL_26:
-  v34 = _AAUILogSystem();
+  v34 = _AAUILogSystem(self);
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     v35 = *&self->ACUIAccountConfigurationViewController_opaque[v3];
@@ -1647,32 +1748,34 @@ LABEL_26:
 
   if (v37)
   {
-    if (([v35 securityLevelForAccount:v37] & 0xFFFFFFFFFFFFFFFELL) == 4)
+    v38 = [v35 securityLevelForAccount:v37];
+    if ((v38 & 0xFFFFFFFFFFFFFFFELL) == 4)
     {
       if (![v35 userUnderAgeForAccount:v37])
       {
         goto LABEL_25;
       }
 
-      v38 = [v35 authorizationUsedForAccount:v37];
-      v39 = _AAUILogSystem();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v39 = [v35 authorizationUsedForAccount:v37];
+      v40 = v39;
+      v41 = _AAUILogSystem(v39);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         sub_34320();
       }
 
-      if (v38)
+      if (v40)
       {
 LABEL_25:
-        v40 = self->_servicesGroupSpecifiers;
-        v41 = [(AAUIAppleAccountViewController *)self _siwaSpecifierForAccount:_appleAccount];
-        [(NSMutableArray *)v40 addObject:v41];
+        v43 = self->_servicesGroupSpecifiers;
+        v44 = [(AAUIAppleAccountViewController *)self _siwaSpecifierForAccount:_appleAccount];
+        [(NSMutableArray *)v43 addObject:v44];
 
         goto LABEL_29;
       }
 
-      v42 = _AAUILogSystem();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v45 = _AAUILogSystem(v42);
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_28;
       }
@@ -1680,8 +1783,8 @@ LABEL_25:
 
     else
     {
-      v42 = _AAUILogSystem();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v45 = _AAUILogSystem(v38);
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
 LABEL_28:
 
@@ -1697,42 +1800,42 @@ LABEL_29:
   _appleAccount5 = [(AAUIAppleAccountViewController *)self _appleAccount];
   if (_appleAccount5)
   {
-    v44 = _appleAccount5;
+    v47 = _appleAccount5;
     _appleAccount6 = [(AAUIAppleAccountViewController *)self _appleAccount];
     aa_isPrimaryEmailVerified = [_appleAccount6 aa_isPrimaryEmailVerified];
 
     if ((aa_isPrimaryEmailVerified & 1) == 0)
     {
-      v53 = _appleAccount;
-      v57 = 0u;
+      v56 = _appleAccount;
+      v60 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v47 = self->_servicesGroupSpecifiers;
-      v48 = [(NSMutableArray *)v47 countByEnumeratingWithState:&v55 objects:v59 count:16];
-      if (v48)
+      v59 = 0u;
+      v50 = self->_servicesGroupSpecifiers;
+      v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v58 objects:v62 count:16];
+      if (v51)
       {
-        v49 = v48;
-        v50 = *v56;
+        v52 = v51;
+        v53 = *v59;
         do
         {
-          for (i = 0; i != v49; i = i + 1)
+          for (i = 0; i != v52; i = i + 1)
           {
-            if (*v56 != v50)
+            if (*v59 != v53)
             {
-              objc_enumerationMutation(v47);
+              objc_enumerationMutation(v50);
             }
 
-            [*(*(&v55 + 1) + 8 * i) setProperty:&__kCFBooleanFalse forKey:{v13, v53}];
+            [*(*(&v58 + 1) + 8 * i) setProperty:&__kCFBooleanFalse forKey:{v13, v56}];
           }
 
-          v49 = [(NSMutableArray *)v47 countByEnumeratingWithState:&v55 objects:v59 count:16];
+          v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v58 objects:v62 count:16];
         }
 
-        while (v49);
+        while (v52);
       }
 
-      _appleAccount = v53;
+      _appleAccount = v56;
       v25 = _storeAccount;
     }
   }
@@ -1845,42 +1948,43 @@ LABEL_40:
 - (void)_loadCloudStorageSummary
 {
   _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
+  v4 = _appleAccount;
   if (_appleAccount)
   {
     if (!self->_isStorageSummaryRequestInProgress)
     {
       self->_isStorageSummaryRequestInProgress = 1;
       *buf = 0;
-      v8 = buf;
-      v9 = 0x3032000000;
-      v10 = sub_16804;
-      v11 = sub_16814;
-      v12 = [[ICSHomeDataController alloc] initWithAccount:_appleAccount];
-      v5 = *(v8 + 5);
-      v6[0] = _NSConcreteStackBlock;
-      v6[1] = 3221225472;
-      v6[2] = sub_1681C;
-      v6[3] = &unk_598D8;
-      v6[4] = self;
-      v6[5] = buf;
-      [v5 fetchCloudStorage:0 completion:v6];
+      v9 = buf;
+      v10 = 0x3032000000;
+      v11 = sub_16804;
+      v12 = sub_16814;
+      v13 = [[ICSHomeDataController alloc] initWithAccount:_appleAccount];
+      v6 = *(v9 + 5);
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 3221225472;
+      v7[2] = sub_1681C;
+      v7[3] = &unk_598D8;
+      v7[4] = self;
+      v7[5] = buf;
+      [v6 fetchCloudStorage:0 completion:v7];
       _Block_object_dispose(buf, 8);
 
       goto LABEL_9;
     }
 
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _AAUILogSystem(_appleAccount);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Storage summary request is already in progress. Bailing.", buf, 2u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Storage summary request is already in progress. Bailing.", buf, 2u);
     }
   }
 
   else
   {
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_34398();
     }
@@ -2114,48 +2218,48 @@ LABEL_10:
     {
       isChangingState = [(AAUIDeviceLocatorService *)self->_deviceLocatorService isChangingState];
       _isRestoringFromiCloud = [(AAUIAppleAccountViewController *)self _isRestoringFromiCloud];
-      v25 = +[AADeviceInfo isMultiUserMode];
+      v26 = +[AADeviceInfo isMultiUserMode];
       _activeFaceTimeCall = [(AAUIAppleAccountViewController *)self _activeFaceTimeCall];
-      if (!isNetworkReachable || (isChangingState & 1) != 0 || (_isRestoringFromiCloud & 1) != 0 || _shouldRestrictSignoutMessage || (v25 & 1) != 0 || _activeFaceTimeCall)
+      if (!isNetworkReachable || (isChangingState & 1) != 0 || (_isRestoringFromiCloud & 1) != 0 || _shouldRestrictSignoutMessage || (v26 & 1) != 0 || _activeFaceTimeCall)
       {
-        v27 = _AAUILogSystem();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = _AAUILogSystem(_activeFaceTimeCall);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           sub_343D4();
         }
 
-        v28 = _AAUILogSystem();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v30 = _AAUILogSystem(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           sub_34410();
         }
 
-        v29 = _AAUILogSystem();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v32 = _AAUILogSystem(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           sub_34490();
         }
 
-        v30 = _AAUILogSystem();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v34 = _AAUILogSystem(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           sub_34518();
         }
 
-        v31 = _AAUILogSystem();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v36 = _AAUILogSystem(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           sub_345A0();
         }
 
-        v32 = _AAUILogSystem();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v38 = _AAUILogSystem(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           sub_34628();
         }
 
-        v33 = _AAUILogSystem();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v40 = _AAUILogSystem(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           sub_346B0();
         }
@@ -2167,8 +2271,8 @@ LABEL_10:
     else if ((isNetworkReachable & 1) == 0)
     {
 LABEL_31:
-      v34 = _AAUILogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v41 = _AAUILogSystem(v23);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         sub_34738();
       }
@@ -2193,7 +2297,7 @@ LABEL_38:
 - (void)_reloadSignoutGroupSpecifiersForName:(id)name
 {
   nameCopy = name;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -2302,12 +2406,12 @@ LABEL_38:
 
     if (v10)
     {
-      v11 = _AAUILogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Presenting modal for security controller: %@", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = v8;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Presenting modal for security controller: %@", &v13, 0xCu);
       }
 
       [(AAUIServerUIHookHandler *)self->_serverHookHandler setPresentingControllerOverride:navigationControllerCopy];
@@ -2327,12 +2431,12 @@ LABEL_38:
 
     if (v8)
     {
-      v9 = _AAUILogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _AAUILogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v6;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Dismissing modal for security controller: %@", buf, 0xCu);
+        v23 = v6;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Dismissing modal for security controller: %@", buf, 0xCu);
       }
 
       [(AAUIServerUIHookHandler *)self->_serverHookHandler setPresentingControllerOverride:0];
@@ -2341,10 +2445,10 @@ LABEL_38:
     if (self->_didCompleteHSA2)
     {
       self->_didCompleteHSA2 = 0;
-      v10 = [AAUICDPHelper helperWithPresenter:self];
-      cdpStateControllerForPrimaryAccount = [v10 cdpStateControllerForPrimaryAccount];
-      v12 = _AAUILogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = [AAUICDPHelper helperWithPresenter:self];
+      cdpStateControllerForPrimaryAccount = [v11 cdpStateControllerForPrimaryAccount];
+      v13 = _AAUILogSystem(cdpStateControllerForPrimaryAccount);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_347C0(self);
       }
@@ -2356,22 +2460,22 @@ LABEL_38:
       [context2 setType:13];
 
       currentObjectModel = self->_currentObjectModel;
-      v16 = [NSBundle bundleForClass:objc_opt_class()];
-      v17 = [v16 localizedStringForKey:@"STINGRAY_TITLE_VERIFYING" value:&stru_5A5F0 table:@"Localizable"];
-      [(RUIObjectModel *)currentObjectModel startNavigationBarSpinnerWithTitle:v17];
+      v17 = [NSBundle bundleForClass:objc_opt_class()];
+      v18 = [v17 localizedStringForKey:@"STINGRAY_TITLE_VERIFYING" value:&stru_5A5F0 table:@"Localizable"];
+      [(RUIObjectModel *)currentObjectModel startNavigationBarSpinnerWithTitle:v18];
 
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v20 = _AAUILogSystem(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         sub_3487C(cdpStateControllerForPrimaryAccount);
       }
 
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_18514;
-      v19[3] = &unk_599B8;
-      v19[4] = self;
-      [cdpStateControllerForPrimaryAccount repairCloudDataProtectionStateWithCompletion:v19];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_18514;
+      v21[3] = &unk_599B8;
+      v21[4] = self;
+      [cdpStateControllerForPrimaryAccount repairCloudDataProtectionStateWithCompletion:v21];
     }
   }
 }
@@ -2425,7 +2529,7 @@ LABEL_38:
 - (void)_paymentSpecifierWasTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2435,15 +2539,16 @@ LABEL_38:
   v6 = [NSURL URLWithString:SKAccountPagePaymentsShippingURLString];
   v7 = [[SKAccountPageViewController alloc] initWithAccountURL:v6];
   v8 = objc_opt_respondsToSelector();
-  p_super = _AAUILogSystem();
-  v10 = os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT);
-  if (v8)
+  v9 = v8;
+  p_super = _AAUILogSystem(v8);
+  v11 = os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       cachedResourceDictionary = self->_cachedResourceDictionary;
       *buf = 138412290;
-      v17 = cachedResourceDictionary;
+      v18 = cachedResourceDictionary;
       _os_log_impl(&dword_0, p_super, OS_LOG_TYPE_DEFAULT, "Passing cached resource dictionary %@", buf, 0xCu);
     }
 
@@ -2452,7 +2557,7 @@ LABEL_38:
     self->_cachedResourceDictionary = 0;
   }
 
-  else if (v10)
+  else if (v11)
   {
     *buf = 0;
     _os_log_impl(&dword_0, p_super, OS_LOG_TYPE_DEFAULT, "SKAccountPageViewController does not respond to setClientData:", buf, 2u);
@@ -2462,14 +2567,14 @@ LABEL_38:
   [v7 setAccount:_grandSlamAccount];
 
   [(AAUIAppleAccountViewController *)self _startSpinnerInSpecifier:tappedCopy];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_18D04;
-  v14[3] = &unk_594A0;
-  v14[4] = self;
-  v15 = v7;
-  v13 = v7;
-  [v13 loadWithCompletionBlock:v14];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_18D04;
+  v15[3] = &unk_594A0;
+  v15[4] = self;
+  v16 = v7;
+  v14 = v7;
+  [v14 loadWithCompletionBlock:v15];
 }
 
 - (void)_cloudSpecifierWasTapped:(id)tapped
@@ -2515,33 +2620,34 @@ LABEL_9:
   typeCopy = type;
   v5 = objc_alloc_init(AAUISignInController);
   [v5 setDelegate:self];
-  v13 = typeCopy;
-  v6 = [NSArray arrayWithObjects:&v13 count:1];
+  v14 = typeCopy;
+  v6 = [NSArray arrayWithObjects:&v14 count:1];
   [v5 setServiceTypes:v6];
 
   [v5 _setShouldForceOperation:1];
-  if (PSIsiPad())
+  v7 = PSIsiPad();
+  if (v7)
   {
     [v5 setModalPresentationStyle:2];
-    [v5 setModalTransitionStyle:0];
+    v7 = [v5 setModalTransitionStyle:0];
   }
 
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AAUILogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = typeCopy;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Preflighting sign in controller for service: %{public}@", buf, 0xCu);
+    v13 = typeCopy;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Preflighting sign in controller for service: %{public}@", buf, 0xCu);
   }
 
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_19008;
-  v9[3] = &unk_59720;
-  v9[4] = self;
-  v10 = v5;
-  v8 = v5;
-  [v8 prepareInViewController:self completion:v9];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_19008;
+  v10[3] = &unk_59720;
+  v10[4] = self;
+  v11 = v5;
+  v9 = v5;
+  [v9 prepareInViewController:self completion:v10];
 }
 
 - (void)_storeSpecifierWasTapped:(id)tapped
@@ -2589,7 +2695,6 @@ LABEL_11:
 
           [v14 setControllerLoadAction:0];
           [tappedCopy removePropertyForKey:v5];
-          v17 = *&tappedCopy[OBJC_IVAR___PSSpecifier_detailControllerClass];
           if (objc_opt_respondsToSelector())
           {
             [*&tappedCopy[OBJC_IVAR___PSSpecifier_detailControllerClass] validateSpecifier:?];
@@ -2639,166 +2744,166 @@ LABEL_17:
   tappedCopy = tapped;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v39 = _os_activity_create(&dword_0, "appleaccount/sign-out", &_os_activity_current, OS_ACTIVITY_FLAG_DETACHED);
-  os_activity_scope_enter(v39, &state);
+  v42 = _os_activity_create(&dword_0, "appleaccount/sign-out", &_os_activity_current, OS_ACTIVITY_FLAG_DETACHED);
+  os_activity_scope_enter(v42, &state);
   objc_initWeak(&location, self);
   [(AAUIAppleAccountViewController *)self _stopObservingAccountStoreChanges];
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = sub_16804;
-  v67 = sub_16814;
-  v68 = [[AAUISignOutFlowControllerDelegate alloc] initWithPresentingViewController:self];
-  [v64[5] setAccountManager:self->_accountManager];
-  [v64[5] setClientID:@"spyglassSignOut"];
-  v61[0] = _NSConcreteStackBlock;
-  v61[1] = 3221225472;
-  v61[2] = sub_19FE8;
-  v61[3] = &unk_59A80;
-  objc_copyWeak(&v62, &location);
-  v61[4] = &v63;
-  v41 = objc_retainBlock(v61);
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = sub_16804;
+  v70 = sub_16814;
+  v71 = [[AAUISignOutFlowControllerDelegate alloc] initWithPresentingViewController:self];
+  [v67[5] setAccountManager:self->_accountManager];
+  [v67[5] setClientID:@"spyglassSignOut"];
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_19FE8;
+  v64[3] = &unk_59A80;
+  objc_copyWeak(&v65, &location);
+  v64[4] = &v66;
+  v44 = objc_retainBlock(v64);
   _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
   _storeAccount = [(AAUIAppleAccountViewController *)self _storeAccount];
   v6 = +[AKAccountManager sharedInstance];
   aa_altDSID = [_appleAccount aa_altDSID];
-  v42 = [v6 authKitAccountWithAltDSID:aa_altDSID];
+  v45 = [v6 authKitAccountWithAltDSID:aa_altDSID];
 
   v8 = objc_alloc_init(AIDAMutableServiceContext);
   [v8 setViewController:self];
   v9 = AIDAServiceTypeCloud;
-  v10 = v64[5];
-  v72 = AIDAServiceTypeCloud;
-  v73 = v10;
-  v11 = [NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+  v10 = v67[5];
+  v75 = AIDAServiceTypeCloud;
+  v76 = v10;
+  v11 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
   [v8 setSignOutContexts:v11];
 
   if (_appleAccount && _storeAccount)
   {
-    objc_initWeak(from, self);
-    v12 = _AAUISignOutLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(from, self);
+    v14 = _AAUISignOutLogSystem(inited);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "User signed in to iCloud & Store, prompting for clarification...", buf, 2u);
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User signed in to iCloud & Store, prompting for clarification...", buf, 2u);
     }
 
-    v53[0] = _NSConcreteStackBlock;
-    v53[1] = 3221225472;
-    v53[2] = sub_1A2A0;
-    v53[3] = &unk_59B70;
-    objc_copyWeak(&v59, from);
-    v54 = v42;
-    v55 = v8;
-    v58 = v41;
-    v56 = _storeAccount;
-    v57 = _appleAccount;
-    [(AAUIAppleAccountViewController *)self _promptForAccountSignOutAppleAccount:v57 storeAccount:v56 completion:v53, tappedCopy, v39];
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 3221225472;
+    v56[2] = sub_1A2A0;
+    v56[3] = &unk_59B70;
+    objc_copyWeak(&v62, from);
+    v57 = v45;
+    v58 = v8;
+    v61 = v44;
+    v59 = _storeAccount;
+    v60 = _appleAccount;
+    [(AAUIAppleAccountViewController *)self _promptForAccountSignOutAppleAccount:v60 storeAccount:v59 completion:v56, tappedCopy, v42];
 
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(from);
   }
 
   else if (_appleAccount)
   {
-    v13 = [(AAUIAppleAccountViewController *)self _appleAccount:tappedCopy];
-    v14 = [v13 aa_isAccountClass:AAAccountClassPrimary];
+    v15 = [(AAUIAppleAccountViewController *)self _appleAccount:tappedCopy];
+    v16 = [v15 aa_isAccountClass:AAAccountClassPrimary];
 
-    if (v14)
+    if (v16)
     {
-      v15 = _AAUISignOutLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = _AAUISignOutLogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(from[0]) = 138412290;
-        *(from + 4) = v42;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Signing out user from iCloud service for account %@", from, 0xCu);
+        *(from + 4) = v45;
+        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Signing out user from iCloud service for account %@", from, 0xCu);
       }
 
-      [(AAUIAppleAccountViewController *)self _setSignOutInProgressForAppleAccount:v42];
+      [(AAUIAppleAccountViewController *)self _setSignOutInProgressForAppleAccount:v45];
       objc_initWeak(from, self);
       serviceOwnersManager = self->_serviceOwnersManager;
-      v17 = [v8 copy];
-      v45[0] = _NSConcreteStackBlock;
-      v45[1] = 3221225472;
-      v45[2] = sub_1AE58;
-      v45[3] = &unk_59BC0;
-      objc_copyWeak(&v50, from);
-      v46 = v42;
-      v49 = v41;
-      v47 = _appleAccount;
-      v48 = v8;
-      [(AIDAServiceOwnerProtocol *)serviceOwnersManager signOutService:v9 withContext:v17 completion:v45];
+      v20 = [v8 copy];
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_1AE58;
+      v48[3] = &unk_59BC0;
+      objc_copyWeak(&v53, from);
+      v49 = v45;
+      v52 = v44;
+      v50 = _appleAccount;
+      v51 = v8;
+      [(AIDAServiceOwnerProtocol *)serviceOwnersManager signOutService:v9 withContext:v20 completion:v48];
 
-      objc_destroyWeak(&v50);
+      objc_destroyWeak(&v53);
       objc_destroyWeak(from);
     }
 
     else
     {
-      v22 = [NSBundle bundleForClass:objc_opt_class()];
-      v23 = [v22 localizedStringForKey:@"DELETE_ACCOUNT" value:&stru_5A5F0 table:@"Localizable"];
-      v24 = [NSBundle bundleForClass:objc_opt_class()];
-      v25 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"DELETE_ACCOUNT_WARNING_FORMAT"];
-      v26 = [v24 localizedStringForKey:v25 value:&stru_5A5F0 table:@"Localizable"];
-      v27 = [UIAlertController alertWithTitle:v23 message:v26];
-
-      v28 = [NSBundle bundleForClass:objc_opt_class()];
-      v29 = [v28 localizedStringForKey:@"DELETE_ACCOUNT" value:&stru_5A5F0 table:@"Localizable"];
-      v51[0] = _NSConcreteStackBlock;
-      v51[1] = 3221225472;
-      v51[2] = sub_1AE04;
-      v51[3] = &unk_59B98;
-      v51[4] = self;
-      v52 = _appleAccount;
-      v30 = [UIAlertAction actionWithTitle:v29 style:2 handler:v51];
+      v25 = [NSBundle bundleForClass:objc_opt_class()];
+      v26 = [v25 localizedStringForKey:@"DELETE_ACCOUNT" value:&stru_5A5F0 table:@"Localizable"];
+      v27 = [NSBundle bundleForClass:objc_opt_class()];
+      v28 = [UIDevice modelSpecificLocalizedStringKeyForKey:@"DELETE_ACCOUNT_WARNING_FORMAT"];
+      v29 = [v27 localizedStringForKey:v28 value:&stru_5A5F0 table:@"Localizable"];
+      v30 = [UIAlertController alertWithTitle:v26 message:v29];
 
       v31 = [NSBundle bundleForClass:objc_opt_class()];
-      v32 = [v31 localizedStringForKey:@"CANCEL" value:&stru_5A5F0 table:@"Localizable"];
-      v33 = [UIAlertAction actionWithTitle:v32 style:1 handler:0];
+      v32 = [v31 localizedStringForKey:@"DELETE_ACCOUNT" value:&stru_5A5F0 table:@"Localizable"];
+      v54[0] = _NSConcreteStackBlock;
+      v54[1] = 3221225472;
+      v54[2] = sub_1AE04;
+      v54[3] = &unk_59B98;
+      v54[4] = self;
+      v55 = _appleAccount;
+      v33 = [UIAlertAction actionWithTitle:v32 style:2 handler:v54];
 
-      [v27 addAction:v30];
-      [v27 addAction:v33];
+      v34 = [NSBundle bundleForClass:objc_opt_class()];
+      v35 = [v34 localizedStringForKey:@"CANCEL" value:&stru_5A5F0 table:@"Localizable"];
+      v36 = [UIAlertAction actionWithTitle:v35 style:1 handler:0];
+
+      [v30 addAction:v33];
+      [v30 addAction:v36];
       navigationController = [(AAUIAppleAccountViewController *)self navigationController];
-      [navigationController presentViewController:v27 animated:1 completion:0];
+      [navigationController presentViewController:v30 animated:1 completion:0];
     }
   }
 
   else if (_storeAccount)
   {
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(from[0]) = 138412290;
       *(from + 4) = 0;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Signing out user from iTunes service for account %@", from, 0xCu);
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Signing out user from iTunes service for account %@", from, 0xCu);
     }
 
-    v19 = self->_serviceOwnersManager;
-    v20 = [v8 copy];
-    v21 = AIDAServiceTypeStore;
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1B134;
-    v43[3] = &unk_59B48;
-    v44 = v41;
-    [(AIDAServiceOwnerProtocol *)v19 signOutService:v21 withContext:v20 completion:v43];
+    v22 = self->_serviceOwnersManager;
+    v23 = [v8 copy];
+    v24 = AIDAServiceTypeStore;
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_1B134;
+    v46[3] = &unk_59B48;
+    v47 = v44;
+    [(AIDAServiceOwnerProtocol *)v22 signOutService:v24 withContext:v23 completion:v46];
   }
 
   else
   {
-    v35 = _AAUISignOutLogSystem();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = _AAUISignOutLogSystem(v12);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(from[0]) = 0;
-      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "User attempted to sign out but isn't signed in!", from, 2u);
+      _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "User attempted to sign out but isn't signed in!", from, 2u);
     }
 
-    v36 = [NSError aa_errorWithCode:-1, tappedCopy, v39];
-    (v41[2])(v41, 0, v36);
+    v39 = [NSError aa_errorWithCode:-1, tappedCopy, v42];
+    (v44[2])(v44, 0, v39);
   }
 
-  objc_destroyWeak(&v62);
-  _Block_object_dispose(&v63, 8);
+  objc_destroyWeak(&v65);
+  _Block_object_dispose(&v66, 8);
 
   objc_destroyWeak(&location);
   os_activity_scope_leave(&state);
@@ -2807,7 +2912,7 @@ LABEL_17:
 - (void)_setSignOutInProgressForAppleAccount:(id)account
 {
   accountCopy = account;
-  v5 = _AAUISignOutLogSystem();
+  v5 = _AAUISignOutLogSystem(accountCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_34AA4();
@@ -2823,7 +2928,7 @@ LABEL_17:
 - (void)_setSignOutNotInProgressForAppleAccount:(id)account
 {
   accountCopy = account;
-  v5 = _AAUISignOutLogSystem();
+  v5 = _AAUISignOutLogSystem(accountCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_34B8C();
@@ -2845,13 +2950,14 @@ LABEL_17:
   v12 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager altDSIDForAccount:accountCopy service:AIDAServiceTypeCloud];
   v13 = AIDAServiceTypeStore;
   v14 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager altDSIDForAccount:storeAccountCopy service:AIDAServiceTypeStore];
-  if ([v12 isEqualToString:v14])
+  v15 = [v12 isEqualToString:v14];
+  if (v15)
   {
-    v15 = _AAUISignOutLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUISignOutLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Apple account and store account have matching altDSIDs!", buf, 2u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Apple account and store account have matching altDSIDs!", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 1, 1);
@@ -2859,15 +2965,16 @@ LABEL_17:
 
   else
   {
-    v16 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:accountCopy service:v11];
-    v17 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:storeAccountCopy service:v13];
-    if ([v16 isEqualToString:v17])
+    v17 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:accountCopy service:v11];
+    v18 = [(AIDAServiceOwnerProtocol *)self->_serviceOwnersManager DSIDForAccount:storeAccountCopy service:v13];
+    v19 = [v17 isEqualToString:v18];
+    if (v19)
     {
-      v18 = _AAUISignOutLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = _AAUISignOutLogSystem(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Apple account and store account have matching DSIDs!", buf, 2u);
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Apple account and store account have matching DSIDs!", buf, 2u);
       }
 
       completionCopy[2](completionCopy, 1, 1);
@@ -2877,58 +2984,58 @@ LABEL_17:
     {
       PSIsiPad();
       [NSBundle bundleForClass:objc_opt_class()];
-      v19 = v38 = v16;
-      [v19 localizedStringForKey:@"MULTIPLE_SERVICES_MESSAGE" value:&stru_5A5F0 table:@"Localizable"];
-      v20 = v37 = v17;
-      v39 = [UIAlertController alertWithTitle:v20 message:0];
+      v21 = v40 = v17;
+      [v21 localizedStringForKey:@"MULTIPLE_SERVICES_MESSAGE" value:&stru_5A5F0 table:@"Localizable"];
+      v22 = v39 = v18;
+      v41 = [UIAlertController alertWithTitle:v22 message:0];
 
-      v21 = [NSBundle bundleForClass:objc_opt_class()];
-      v22 = [v21 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_BOTH" value:&stru_5A5F0 table:@"Localizable"];
+      v23 = [NSBundle bundleForClass:objc_opt_class()];
+      v24 = [v23 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_BOTH" value:&stru_5A5F0 table:@"Localizable"];
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_1BAA4;
+      v48[3] = &unk_59C48;
+      v25 = completionCopy;
+      v49 = v25;
+      v26 = [UIAlertAction actionWithTitle:v24 style:2 handler:v48];
+      [v41 addAction:v26];
+
+      v27 = [NSBundle bundleForClass:objc_opt_class()];
+      v28 = [v27 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_CLOUD" value:&stru_5A5F0 table:@"Localizable"];
       v46[0] = _NSConcreteStackBlock;
       v46[1] = 3221225472;
-      v46[2] = sub_1BAA4;
+      v46[2] = sub_1BB28;
       v46[3] = &unk_59C48;
-      v23 = completionCopy;
-      v47 = v23;
-      v24 = [UIAlertAction actionWithTitle:v22 style:2 handler:v46];
-      [v39 addAction:v24];
+      v29 = v25;
+      v47 = v29;
+      v30 = [UIAlertAction actionWithTitle:v28 style:2 handler:v46];
+      [v41 addAction:v30];
 
-      v25 = [NSBundle bundleForClass:objc_opt_class()];
-      v26 = [v25 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_CLOUD" value:&stru_5A5F0 table:@"Localizable"];
+      v31 = [NSBundle bundleForClass:objc_opt_class()];
+      v32 = [v31 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_STORE" value:&stru_5A5F0 table:@"Localizable"];
       v44[0] = _NSConcreteStackBlock;
       v44[1] = 3221225472;
-      v44[2] = sub_1BB28;
+      v44[2] = sub_1BBAC;
       v44[3] = &unk_59C48;
-      v27 = v23;
-      v45 = v27;
-      v28 = [UIAlertAction actionWithTitle:v26 style:2 handler:v44];
-      [v39 addAction:v28];
+      v33 = v29;
+      v45 = v33;
+      v34 = [UIAlertAction actionWithTitle:v32 style:2 handler:v44];
+      [v41 addAction:v34];
 
-      v29 = [NSBundle bundleForClass:objc_opt_class()];
-      v30 = [v29 localizedStringForKey:@"MULTIPLE_SERVICES_SIGN_OUT_STORE" value:&stru_5A5F0 table:@"Localizable"];
+      v35 = [NSBundle bundleForClass:objc_opt_class()];
+      v36 = [v35 localizedStringForKey:@"MULTIPLE_SERVICES_CANCEL" value:&stru_5A5F0 table:@"Localizable"];
       v42[0] = _NSConcreteStackBlock;
       v42[1] = 3221225472;
-      v42[2] = sub_1BBAC;
+      v42[2] = sub_1BC30;
       v42[3] = &unk_59C48;
-      v31 = v27;
-      v43 = v31;
-      v32 = [UIAlertAction actionWithTitle:v30 style:2 handler:v42];
-      [v39 addAction:v32];
+      v37 = v33;
+      v17 = v40;
+      v43 = v37;
+      v38 = [UIAlertAction actionWithTitle:v36 style:1 handler:v42];
+      [v41 addAction:v38];
 
-      v33 = [NSBundle bundleForClass:objc_opt_class()];
-      v34 = [v33 localizedStringForKey:@"MULTIPLE_SERVICES_CANCEL" value:&stru_5A5F0 table:@"Localizable"];
-      v40[0] = _NSConcreteStackBlock;
-      v40[1] = 3221225472;
-      v40[2] = sub_1BC30;
-      v40[3] = &unk_59C48;
-      v35 = v31;
-      v16 = v38;
-      v41 = v35;
-      v36 = [UIAlertAction actionWithTitle:v34 style:1 handler:v40];
-      [v39 addAction:v36];
-
-      v17 = v37;
-      [(AAUIAppleAccountViewController *)self presentViewController:v39 animated:1 completion:0];
+      v18 = v39;
+      [(AAUIAppleAccountViewController *)self presentViewController:v41 animated:1 completion:0];
     }
   }
 }
@@ -2940,24 +3047,24 @@ LABEL_17:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AAUILogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Subscription Specifier tapped", buf, 2u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Subscription Specifier tapped", buf, 2u);
   }
 
-  v7 = [NSURL URLWithString:SKAccountPageManageSubscriptionsURLString];
-  v8 = [[SKAccountPageViewController alloc] initWithAccountURL:v7];
+  v8 = [NSURL URLWithString:SKAccountPageManageSubscriptionsURLString];
+  v9 = [[SKAccountPageViewController alloc] initWithAccountURL:v8];
   [(AAUIAppleAccountViewController *)self _startSpinnerInSpecifier:tappedCopy];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1BE44;
-  v10[3] = &unk_594A0;
-  v10[4] = self;
-  v9 = v8;
-  v11 = v9;
-  [v9 loadWithCompletionBlock:v10];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1BE44;
+  v11[3] = &unk_594A0;
+  v11[4] = self;
+  v10 = v9;
+  v12 = v10;
+  [v10 loadWithCompletionBlock:v11];
 
   os_activity_scope_leave(&state);
 }
@@ -3046,24 +3153,24 @@ LABEL_17:
 
   if (error)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       error2 = [responseCopy error];
-      v12 = 138412290;
-      v13 = error2;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Failed to fetch payment method summary with error: %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = error2;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Failed to fetch payment method summary with error: %@", &v13, 0xCu);
     }
   }
 
   else if ([responseCopy numberOfCards])
   {
-    v8 = [responseCopy description];
+    v9 = [responseCopy description];
     paymentSpecifierValue = self->_paymentSpecifierValue;
-    self->_paymentSpecifierValue = v8;
+    self->_paymentSpecifierValue = v9;
 
     _paymentSpecifierProvider = [(AAUIAppleAccountViewController *)self _paymentSpecifierProvider];
-    v11 = _paymentSpecifierProvider;
+    v12 = _paymentSpecifierProvider;
     if (_paymentSpecifierProvider)
     {
       [_paymentSpecifierProvider setPaymentSummaryDescription:self->_paymentSpecifierValue];
@@ -3283,6 +3390,233 @@ LABEL_17:
   }
 }
 
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally
+{
+  modallyCopy = modally;
+  controllerCopy = controller;
+  modelCopy = model;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [(AAUIAppleAccountViewController *)self _handleObjectModelChangeForController:controllerCopy objectModel:modelCopy isModal:modallyCopy];
+  }
+}
+
+- (void)_handleObjectModelChangeForController:(id)controller objectModel:(id)model isModal:(BOOL)modal
+{
+  modalCopy = modal;
+  controllerCopy = controller;
+  modelCopy = model;
+  v10 = _AAUILogSystem(modelCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier = [modelCopy identifier];
+    *buf = 138412290;
+    v82 = identifier;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Handling an object model: %@", buf, 0xCu);
+  }
+
+  objc_storeStrong(&self->_currentObjectModel, model);
+  defaultPages = [modelCopy defaultPages];
+  firstObject = [defaultPages firstObject];
+  navigationItem = [firstObject navigationItem];
+
+  if (+[AAUIFeatureFlags isSolariumEnabled](AAUIFeatureFlags, "isSolariumEnabled") && ([navigationItem rightBarButtonItems], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "count") == 0, v15, v16))
+  {
+    identifier2 = [controllerCopy identifier];
+    v36 = [identifier2 isEqualToString:@"_AAUIRemotePageIdentifierSecondaryAuth"];
+
+    if (v36)
+    {
+      if (!self->_hasShownSecondaryAuthFirstPage)
+      {
+        if (+[AAUIFeatureFlags isHighlightAAUICloseButtonInRUIFlowsEnabled])
+        {
+          v37 = 16;
+        }
+
+        else
+        {
+          v37 = 24;
+        }
+
+        v38 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:v37 target:self action:"_cancelSecondaryAuthenticationWasTapped:"];
+        [navigationItem setRightBarButtonItem:v38];
+
+        self->_hasShownSecondaryAuthFirstPage = 1;
+      }
+    }
+
+    else if (modalCopy)
+    {
+      if (+[AAUIFeatureFlags isHighlightAAUICloseButtonInRUIFlowsEnabled])
+      {
+        v69 = 16;
+      }
+
+      else
+      {
+        v69 = 24;
+      }
+
+      v70 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:v69 target:self action:"_cancelButtonForRemoteObjectModelWasTapped:"];
+      [navigationItem setRightBarButtonItem:v70];
+    }
+  }
+
+  else if ((+[AAUIFeatureFlags isSolariumEnabled](AAUIFeatureFlags, "isSolariumEnabled") & 1) == 0 && ([navigationItem leftBarButtonItems], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count") == 0, v17, v18))
+  {
+    identifier3 = [controllerCopy identifier];
+    v40 = [identifier3 isEqualToString:@"_AAUIRemotePageIdentifierSecondaryAuth"];
+
+    if (v40)
+    {
+      if (!self->_hasShownSecondaryAuthFirstPage)
+      {
+        v41 = [UIBarButtonItem alloc];
+        v42 = [NSBundle bundleForClass:objc_opt_class()];
+        v43 = [v42 localizedStringForKey:@"CANCEL" value:&stru_5A5F0 table:@"Localizable"];
+        v44 = [v41 initWithTitle:v43 style:0 target:self action:"_cancelSecondaryAuthenticationWasTapped:"];
+        [navigationItem setLeftBarButtonItem:v44];
+
+        self->_hasShownSecondaryAuthFirstPage = 1;
+      }
+    }
+
+    else if (modalCopy)
+    {
+      v71 = [UIBarButtonItem alloc];
+      v72 = [NSBundle bundleForClass:objc_opt_class()];
+      v73 = [v72 localizedStringForKey:@"CANCEL" value:&stru_5A5F0 table:@"Localizable"];
+      v74 = [v71 initWithTitle:v73 style:0 target:self action:"_cancelButtonForRemoteObjectModelWasTapped:"];
+      [navigationItem setLeftBarButtonItem:v74];
+    }
+  }
+
+  else
+  {
+    objc_initWeak(buf, controllerCopy);
+    v75 = _NSConcreteStackBlock;
+    v76 = 3221225472;
+    v77 = sub_1D784;
+    v78 = &unk_59CE8;
+    objc_copyWeak(&v79, buf);
+    v80 = modalCopy;
+    [controllerCopy setHandlerForButtonName:AKActionButtonKey handler:&v75];
+    objc_destroyWeak(&v79);
+    objc_destroyWeak(buf);
+  }
+
+  identifier4 = [controllerCopy identifier];
+  v20 = [identifier4 isEqualToString:@"_AAUIRemotePageIdentifierSecurity"];
+
+  if (v20)
+  {
+    [(AAUIServerUIHookHandler *)self->_serverHookHandler processObjectModel:modelCopy isModal:modalCopy];
+  }
+
+  identifier5 = [controllerCopy identifier];
+  v22 = [identifier5 isEqualToString:@"_AAUIRemotePageIdentifierPersonalInfo"];
+
+  if (v22)
+  {
+    if (!self->_serverHookHandler)
+    {
+      v24 = objc_opt_new();
+      v25 = [v24 hooksFor:3 accountManager:self->_accountManager];
+      v26 = [[AAUIServerUIHookHandler alloc] initWithRemoteUIController:controllerCopy hooks:v25];
+      serverHookHandler = self->_serverHookHandler;
+      self->_serverHookHandler = v26;
+    }
+
+    v28 = _AAUILogSystem(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Processing object model for Personal Info page.", buf, 2u);
+    }
+
+    [(AAUIServerUIHookHandler *)self->_serverHookHandler processObjectModel:modelCopy isModal:modalCopy];
+  }
+
+  identifier6 = [controllerCopy identifier];
+  v30 = [identifier6 isEqualToString:@"_AAUIRemotePageIdentifierPaymentInfo"];
+
+  if (v30)
+  {
+    clientInfo = [modelCopy clientInfo];
+    v32 = [clientInfo objectForKey:@"paymentSummary"];
+
+    if (v32)
+    {
+      [(AARequester *)self->_paymentMethodSummaryRequester cancel];
+      self->_didAttemptToFetchPaymentMethodSummary = 1;
+      objc_storeStrong(&self->_paymentSpecifierValue, v32);
+      _paymentSpecifierProvider = [(AAUIAppleAccountViewController *)self _paymentSpecifierProvider];
+      v34 = _paymentSpecifierProvider;
+      if (_paymentSpecifierProvider)
+      {
+        [_paymentSpecifierProvider setPaymentSummaryDescription:self->_paymentSpecifierValue];
+      }
+
+      else
+      {
+        [(AAUIAppleAccountViewController *)self reloadSpecifier:self->_paymentSpecifier];
+      }
+    }
+  }
+
+  clientInfo2 = [modelCopy clientInfo];
+  v46 = [clientInfo2 objectForKeyedSubscript:@"showDeviceHeaderNatively"];
+  bOOLValue = [v46 BOOLValue];
+
+  if (bOOLValue)
+  {
+    v49 = _AAUILogSystem(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Adding FMIP Header to Device Info RUI", buf, 2u);
+    }
+
+    defaultPages2 = [modelCopy defaultPages];
+    firstObject2 = [defaultPages2 firstObject];
+
+    deviceRecentlyTapped = [(AAUIDeviceSpecifierProvider *)self->_deviceSpecifierProvider deviceRecentlyTapped];
+    clientInfo3 = [modelCopy clientInfo];
+    [deviceRecentlyTapped updateWithRUIClientInfo:clientInfo3];
+
+    v54 = [AAUIFMIPHeaderDeviceInfoPageSurrogate alloc];
+    _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
+    v56 = [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)v54 initWithPage:firstObject2 device:deviceRecentlyTapped appleAccount:_appleAccount];
+    deviceSurrogate = self->_deviceSurrogate;
+    self->_deviceSurrogate = v56;
+
+    [(AAUIFMIPHeaderDeviceInfoPageSurrogate *)self->_deviceSurrogate setDelegate:self->_deviceSpecifierProvider];
+    if (([deviceRecentlyTapped showFMIPRow] & 1) != 0 || ((objc_msgSend(deviceRecentlyTapped, "showBackupRow") & 1) != 0 || objc_msgSend(deviceRecentlyTapped, "showAppleCareRow")) && (-[AAUIAppleAccountViewController _appleAccount](self, "_appleAccount"), v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_msgSend(v58, "aa_isAccountClass:", AAAccountClassPrimary), v58, v59))
+    {
+      v60 = [(AAUIAppleAccountViewController *)self _RUITableViewSectionForDevice:deviceRecentlyTapped inPage:firstObject2 delegate:self->_deviceSurrogate];
+      tableViewOM = [firstObject2 tableViewOM];
+      sections = [tableViewOM sections];
+      [sections insertObject:v60 atIndex:0];
+    }
+  }
+
+  defaultPages3 = [modelCopy defaultPages];
+  firstObject3 = [defaultPages3 firstObject];
+
+  if ([AAUIRUITableViewSectionInjector shouldInject:AAUIRUITableInjectionTypeGDPR inPage:firstObject3])
+  {
+    v65 = [AAUIRUITableViewSectionInjectorFactory tableViewSectionInjectorForGPPRWithPage:firstObject3];
+    objectModelDecorators = self->_objectModelDecorators;
+    sourceURL = [modelCopy sourceURL];
+    [(NSMutableDictionary *)objectModelDecorators setObject:v65 forKey:sourceURL];
+  }
+
+  clientInfo4 = [modelCopy clientInfo];
+  [(AAUIAppleAccountViewController *)self _updateLocalAccountInformationFromClientInfo:clientInfo4];
+}
+
 - (void)_updateLocalAccountInformationFromClientInfo:(id)info
 {
   infoCopy = info;
@@ -3327,13 +3661,14 @@ LABEL_17:
       [v9 _aa_setPrimaryEmail:v14];
     }
 
-    if ([v9 isDirty])
+    isDirty = [v9 isDirty];
+    if (isDirty)
     {
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = _AAUILogSystem(isDirty);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Server returned updated contact information, updating account...", buf, 2u);
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Server returned updated contact information, updating account...", buf, 2u);
       }
 
       _accountStore = [(AAUIAppleAccountViewController *)selfCopy _accountStore];
@@ -3439,17 +3774,17 @@ LABEL_17:
 {
   controllerCopy = controller;
   modelCopy = model;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *signal;
-    v29 = 138412802;
-    v30 = controllerCopy;
-    v31 = 2112;
-    v32 = modelCopy;
-    v33 = 2048;
-    v34 = v11;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController (%@) did receieve objectModel (%@) with actionSignal (%lu)", &v29, 0x20u);
+    v32 = 138412802;
+    v33 = controllerCopy;
+    v34 = 2112;
+    v35 = modelCopy;
+    v36 = 2048;
+    v37 = v11;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController (%@) did receieve objectModel (%@) with actionSignal (%lu)", &v32, 0x20u);
   }
 
   clientInfo = [(AAUIServerUIHookHandler *)modelCopy clientInfo];
@@ -3457,13 +3792,14 @@ LABEL_17:
   if (clientInfo)
   {
     v14 = [clientInfo objectForKey:AAUIClientInfoActionKey];
-    if ([v14 isEqualToString:@"update:trustedDevicesSummary"])
+    v15 = [v14 isEqualToString:@"update:trustedDevicesSummary"];
+    if (v15)
     {
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = _AAUILogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v29) = 0;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Server request client to update trusted devices list", &v29, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Server request client to update trusted devices list", &v32, 2u);
       }
 
       [(AAUIDeviceSpecifierProvider *)self->_deviceSpecifierProvider refreshDeviceList];
@@ -3473,53 +3809,53 @@ LABEL_17:
   if (!*signal)
   {
     allPages = [(AAUIServerUIHookHandler *)modelCopy allPages];
-    v17 = [allPages count];
+    v18 = [allPages count];
 
-    if (!v17)
+    if (!v18)
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = _AAUILogSystem(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         serverHookHandler = self->_serverHookHandler;
-        v29 = 138412546;
-        v30 = modelCopy;
-        v31 = 2112;
-        v32 = serverHookHandler;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController: Undefined action signal and no page, not displaying modally! Processing objectModel (%@) with handler (%@)", &v29, 0x16u);
+        v32 = 138412546;
+        v33 = modelCopy;
+        v34 = 2112;
+        v35 = serverHookHandler;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController: Undefined action signal and no page, not displaying modally! Processing objectModel (%@) with handler (%@)", &v32, 0x16u);
       }
 
-      v20 = self->_serverHookHandler;
-      if (!v20)
+      v22 = self->_serverHookHandler;
+      if (!v22)
       {
-        v21 = _AAUILogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = _AAUILogSystem(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v29) = 0;
-          _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "_serverHookHandler is nil", &v29, 2u);
+          LOWORD(v32) = 0;
+          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "_serverHookHandler is nil", &v32, 2u);
         }
 
-        v22 = objc_opt_new();
-        v23 = [v22 hooksFor:1 accountManager:self->_accountManager];
-        v24 = [[AAUIServerUIHookHandler alloc] initWithRemoteUIController:controllerCopy hooks:v23];
-        v25 = self->_serverHookHandler;
-        self->_serverHookHandler = v24;
+        v24 = objc_opt_new();
+        v25 = [v24 hooksFor:1 accountManager:self->_accountManager];
+        v26 = [[AAUIServerUIHookHandler alloc] initWithRemoteUIController:controllerCopy hooks:v25];
+        v27 = self->_serverHookHandler;
+        self->_serverHookHandler = v26;
 
-        v26 = _AAUILogSystem();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v29 = _AAUILogSystem(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = self->_serverHookHandler;
+          v30 = self->_serverHookHandler;
           activeRemoteUIController = self->_activeRemoteUIController;
-          v29 = 138412546;
-          v30 = v27;
-          v31 = 2112;
-          v32 = activeRemoteUIController;
-          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "_serverHookHandler is %@, remoteController: %@", &v29, 0x16u);
+          v32 = 138412546;
+          v33 = v30;
+          v34 = 2112;
+          v35 = activeRemoteUIController;
+          _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "_serverHookHandler is %@, remoteController: %@", &v32, 0x16u);
         }
 
-        v20 = self->_serverHookHandler;
+        v22 = self->_serverHookHandler;
       }
 
-      [(AAUIServerUIHookHandler *)v20 processObjectModel:modelCopy isModal:0];
+      [(AAUIServerUIHookHandler *)v22 processObjectModel:modelCopy isModal:0];
     }
   }
 }
@@ -3529,15 +3865,15 @@ LABEL_17:
   v2 = objc_alloc_init(CDPFollowUpController);
   v3 = +[CDPFollowUpContext contextForStateRepair];
   [v3 setRepairType:2];
-  v6 = 0;
-  [v2 postFollowUpWithContext:v3 error:&v6];
-  if (v6)
+  v7 = 0;
+  v4 = [v2 postFollowUpWithContext:v3 error:&v7];
+  if (v7)
   {
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Failed to post CDP repair follow up", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Failed to post CDP repair follow up", v6, 2u);
     }
   }
 }
@@ -3560,139 +3896,146 @@ LABEL_17:
   if ([responseCopy statusCode] == &stru_158.reloff + 1)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      currentRequest = [controllerCopy currentRequest];
+      isKindOfClass = [controllerCopy currentRequest];
+      v10 = isKindOfClass;
     }
 
     else
     {
-      currentRequest = 0;
+      v10 = 0;
     }
 
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _AAUILogSystem(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Got a 401 response from BuddyML request.", buf, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Got a 401 response from BuddyML request.", buf, 2u);
     }
 
     objc_initWeak(buf, self);
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_1EA94;
-    v38[3] = &unk_59D30;
-    objc_copyWeak(&v41, buf);
-    v11 = currentRequest;
-    v39 = v11;
-    v40 = controllerCopy;
-    [(AAUIAppleAccountViewController *)self _refreshAppleIDSettingsTokensWithCompletion:v38];
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_1EA94;
+    v43[3] = &unk_59D30;
+    objc_copyWeak(&v46, buf);
+    v13 = v10;
+    v44 = v13;
+    v45 = controllerCopy;
+    [(AAUIAppleAccountViewController *)self _refreshAppleIDSettingsTokensWithCompletion:v43];
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v46);
     objc_destroyWeak(buf);
-  }
-
-  else if ([responseCopy statusCode] == stru_B8.segname)
-  {
-    [(AAUIAppleAccountViewController *)self _stopSpinnerInActiveSpecifier];
   }
 
   else
   {
-    v12 = _AAUILogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    statusCode = [responseCopy statusCode];
+    if (statusCode == stru_B8.segname)
     {
-      v13 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [responseCopy statusCode]);
-      *buf = 138412290;
-      v43 = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "unexpected HTTP response for BuddyML request: %@", buf, 0xCu);
+      [(AAUIAppleAccountViewController *)self _stopSpinnerInActiveSpecifier];
     }
 
-    v14 = [NSBundle bundleForClass:objc_opt_class()];
-    v15 = [v14 localizedStringForKey:@"ICLOUD_UNREACHABLE_TITLE" value:&stru_5A5F0 table:@"Localizable"];
-    v16 = [NSBundle bundleForClass:objc_opt_class()];
-    v17 = [v16 localizedStringForKey:@"OK" value:&stru_5A5F0 table:@"Localizable"];
-    v18 = [UIAlertController alertWithTitle:v15 message:0 buttonTitle:v17 actionHandler:0];
+    else
+    {
+      v14 = _AAUILogSystem(statusCode);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [responseCopy statusCode]);
+        *buf = 138412290;
+        v48 = v15;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "unexpected HTTP response for BuddyML request: %@", buf, 0xCu);
+      }
 
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_1EBDC;
-    v37[3] = &unk_59680;
-    v37[4] = self;
-    [(AAUIAppleAccountViewController *)self presentViewController:v18 animated:1 completion:v37];
+      v16 = [NSBundle bundleForClass:objc_opt_class()];
+      v17 = [v16 localizedStringForKey:@"ICLOUD_UNREACHABLE_TITLE" value:&stru_5A5F0 table:@"Localizable"];
+      v18 = [NSBundle bundleForClass:objc_opt_class()];
+      v19 = [v18 localizedStringForKey:@"OK" value:&stru_5A5F0 table:@"Localizable"];
+      v20 = [UIAlertController alertWithTitle:v17 message:0 buttonTitle:v19 actionHandler:0];
+
+      v42[0] = _NSConcreteStackBlock;
+      v42[1] = 3221225472;
+      v42[2] = sub_1EBDC;
+      v42[3] = &unk_59680;
+      v42[4] = self;
+      [(AAUIAppleAccountViewController *)self presentViewController:v20 animated:1 completion:v42];
+    }
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19 = controllerCopy;
-    identifier = [v19 identifier];
-    v21 = [identifier isEqualToString:@"_AAUIRemotePageIdentifierSecurity"];
+    v21 = controllerCopy;
+    identifier = [v21 identifier];
+    v23 = [identifier isEqualToString:@"_AAUIRemotePageIdentifierSecurity"];
 
-    if (v21)
+    if (v23)
     {
-      v22 = [(AKAppleIDServerResourceLoadDelegate *)self->_serverUILoadDelegate isResponseFinalForHSA2ServerFlow:responseCopy];
-      self->_didCompleteHSA2 = v22;
-      if (v22)
+      v24 = [(AKAppleIDServerResourceLoadDelegate *)self->_serverUILoadDelegate isResponseFinalForHSA2ServerFlow:responseCopy];
+      self->_didCompleteHSA2 = v24;
+      if (v24)
       {
-        v23 = _AAUILogSystem();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v25 = _AAUILogSystem(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Completed HSA2 flow", buf, 2u);
+          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Completed HSA2 flow", buf, 2u);
         }
       }
     }
   }
 
   clientInfo = [(RUIObjectModel *)self->_currentObjectModel clientInfo];
-  v25 = [clientInfo objectForKey:@"currentPasswordRowId"];
+  v27 = [clientInfo objectForKey:@"currentPasswordRowId"];
 
-  if (v25)
+  if (v27)
   {
-    v26 = _AAUILogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v29 = _AAUILogSystem(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Detected old password identifier, attempting to harvest...", buf, 2u);
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Detected old password identifier, attempting to harvest...", buf, 2u);
     }
 
     displayedPages = [(RUIObjectModel *)self->_currentObjectModel displayedPages];
     firstObject = [displayedPages firstObject];
-    v29 = [(AAUIAppleAccountViewController *)self _passcodeValueFromPage:firstObject withFieldIdentifier:v25];
+    v32 = [(AAUIAppleAccountViewController *)self _passcodeValueFromPage:firstObject withFieldIdentifier:v27];
 
-    if (v29)
+    if (v32)
     {
-      objc_storeStrong(&self->_oldPassword, v29);
+      objc_storeStrong(&self->_oldPassword, v32);
     }
   }
 
   clientInfo2 = [(RUIObjectModel *)self->_currentObjectModel clientInfo];
-  v31 = [clientInfo2 objectForKey:@"newPasswordRowId"];
+  v34 = [clientInfo2 objectForKey:@"newPasswordRowId"];
 
-  if (v31)
+  if (v34)
   {
-    v32 = _AAUILogSystem();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v36 = _AAUILogSystem(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Detected new password identifier, attempting to harvest...", buf, 2u);
+      _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Detected new password identifier, attempting to harvest...", buf, 2u);
     }
 
-    v33 = +[NSMutableDictionary dictionary];
-    [(RUIObjectModel *)self->_currentObjectModel populatePostbackDictionary:v33];
-    v34 = [v33 objectForKey:v31];
-    if (v34)
+    v37 = +[NSMutableDictionary dictionary];
+    [(RUIObjectModel *)self->_currentObjectModel populatePostbackDictionary:v37];
+    v38 = [v37 objectForKey:v34];
+    v39 = v38;
+    if (v38)
     {
-      v35 = _AAUILogSystem();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v40 = _AAUILogSystem(v38);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v31;
-        _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "Harvested a new password with identifier: %@", buf, 0xCu);
+        v48 = v34;
+        _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Harvested a new password with identifier: %@", buf, 0xCu);
       }
 
-      objc_storeStrong(&self->_newPassword, v34);
+      objc_storeStrong(&self->_newPassword, v39);
     }
   }
 }
@@ -3701,34 +4044,35 @@ LABEL_17:
 {
   identifierCopy = identifier;
   passcodeViewOM = [page passcodeViewOM];
+  v7 = passcodeViewOM;
   if (passcodeViewOM)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(passcodeViewOM);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      attributes = [passcodeViewOM attributes];
-      v9 = [attributes objectForKeyedSubscript:@"id"];
-      v16 = 138412290;
-      v17 = v9;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Found a passcode OM with ID: %@", &v16, 0xCu);
+      attributes = [v7 attributes];
+      v10 = [attributes objectForKeyedSubscript:@"id"];
+      v18 = 138412290;
+      v19 = v10;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Found a passcode OM with ID: %@", &v18, 0xCu);
     }
   }
 
-  attributes2 = [passcodeViewOM attributes];
-  v11 = [attributes2 objectForKeyedSubscript:@"id"];
-  v12 = [v11 isEqual:identifierCopy];
+  attributes2 = [v7 attributes];
+  v12 = [attributes2 objectForKeyedSubscript:@"id"];
+  v13 = [v12 isEqual:identifierCopy];
 
-  if (v12)
+  if (v13)
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = identifierCopy;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Harvesting passcode with for identifier: %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Harvesting passcode with for identifier: %@", &v18, 0xCu);
     }
 
-    submittedPIN = [passcodeViewOM submittedPIN];
+    submittedPIN = [v7 submittedPIN];
   }
 
   else
@@ -3744,7 +4088,7 @@ LABEL_17:
   requestCopy = request;
   controllerCopy = controller;
   completionCopy = completion;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(completionCopy);
   v11 = v10;
   if (requestCopy)
   {
@@ -3798,7 +4142,7 @@ LABEL_17:
 - (void)_addHeadersToRequest:(id)request
 {
   requestCopy = request;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -3836,7 +4180,7 @@ LABEL_17:
 {
   completionCopy = completion;
   serverUILoadDelegate = self->_serverUILoadDelegate;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (serverUILoadDelegate)
   {
@@ -3880,41 +4224,42 @@ LABEL_17:
 - (void)_attemptUpdateAuthControllerWithActionableResponse:(id)response
 {
   responseCopy = response;
-  if ([(AKAppleIDServerResourceLoadDelegate *)self->_serverUILoadDelegate isResponseActionable:responseCopy])
+  v5 = [(AKAppleIDServerResourceLoadDelegate *)self->_serverUILoadDelegate isResponseActionable:responseCopy];
+  if (v5)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Final Apple ID settings UI server response! Informing AuthKit...", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Final Apple ID settings UI server response! Informing AuthKit...", buf, 2u);
     }
 
     _grandSlamAccount = [(AAUIAppleAccountViewController *)self _grandSlamAccount];
-    v7 = objc_alloc_init(AKAppleIDAuthenticationContext);
+    v8 = objc_alloc_init(AKAppleIDAuthenticationContext);
     aida_alternateDSID = [_grandSlamAccount aida_alternateDSID];
-    [v7 setAltDSID:aida_alternateDSID];
+    [v8 setAltDSID:aida_alternateDSID];
 
-    [v7 setAnticipateEscrowAttempt:1];
+    [v8 setAnticipateEscrowAttempt:1];
     username = [_grandSlamAccount username];
-    [v7 setUsername:username];
+    [v8 setUsername:username];
 
-    v10 = dispatch_semaphore_create(0);
+    v11 = dispatch_semaphore_create(0);
     _authController = [(AAUIAppleAccountViewController *)self _authController];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1F7F4;
-    v13[3] = &unk_599B8;
-    v14 = v10;
-    v12 = v10;
-    [_authController updateStateWithExternalAuthenticationResponse:responseCopy forContext:v7 completion:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1F7F4;
+    v14[3] = &unk_599B8;
+    v15 = v11;
+    v13 = v11;
+    [_authController updateStateWithExternalAuthenticationResponse:responseCopy forContext:v8 completion:v14];
 
-    dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
   }
 }
 
 - (void)_imageControlTapped
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3951,7 +4296,7 @@ LABEL_17:
 
 - (void)_profilePictureStoreDidChange:(id)change
 {
-  v4 = _AAUIPPSLogSystem();
+  v4 = _AAUIPPSLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -4014,7 +4359,7 @@ LABEL_17:
 
 - (void)documentPickerWasCancelled:(id)cancelled
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -4094,7 +4439,7 @@ LABEL_17:
   responseCopy = response;
   lCopy = l;
   completionCopy = completion;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134217984;
@@ -4196,17 +4541,8 @@ LABEL_17:
 
     v7 = AAPrefsDomain;
     v8 = CFPreferencesCopyAppValue(@"AAMobileMeAccountAlerts", AAPrefsDomain);
-    if (!v8)
+    if (!v8 || ([_appleAccount identifier], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKey:", v9), v10 = objc_claimAutoreleasedReturnValue(), v9, !v10) || (objc_msgSend(v10, "objectForKey:", stringValue), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "BOOLValue"), v11, v10, (v12 & 1) == 0))
     {
-      goto LABEL_5;
-    }
-
-    identifier = [_appleAccount identifier];
-    v10 = [v8 objectForKey:identifier];
-
-    if (!v10 || ([v10 objectForKey:stringValue], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "BOOLValue"), v11, v10, (v12 & 1) == 0))
-    {
-LABEL_5:
       v13 = [v4 objectForKeyedSubscript:@"title"];
       v14 = [v4 objectForKeyedSubscript:@"message"];
       [(AAUIAppleAccountViewController *)self _showAlertWithTitle:v13 message:v14];
@@ -4217,8 +4553,8 @@ LABEL_5:
         v15 = objc_alloc_init(NSMutableDictionary);
       }
 
-      identifier2 = [_appleAccount identifier];
-      v17 = [v15 objectForKey:identifier2];
+      identifier = [_appleAccount identifier];
+      v17 = [v15 objectForKey:identifier];
       v18 = [v17 mutableCopy];
 
       if (!v18)
@@ -4234,8 +4570,8 @@ LABEL_5:
         [v18 setValue:&__kCFBooleanTrue forKey:stringValue2];
       }
 
-      identifier3 = [_appleAccount identifier];
-      [v15 setObject:v18 forKey:identifier3];
+      identifier2 = [_appleAccount identifier];
+      [v15 setObject:v18 forKey:identifier2];
 
       CFPreferencesSetAppValue(@"AAMobileMeAccountAlerts", v15, v7);
       CFPreferencesSynchronize(v7, kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
@@ -4255,32 +4591,39 @@ LABEL_5:
 
   v13 = [toAccountsCopy objectForKeyedSubscript:v6];
   v14 = [toAccountsCopy objectForKeyedSubscript:v10];
-  v64 = [(AAUIAppleAccountViewController *)self _personNameComponentsForAccountCollection:toAccountsCopy];
+  v66 = [(AAUIAppleAccountViewController *)self _personNameComponentsForAccountCollection:toAccountsCopy];
 
-  if (v9 && ([v9 aa_isPrimaryEmailVerified] & 1) == 0 && objc_msgSend(v13, "aa_isPrimaryEmailVerified"))
+  if (v9)
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (([v9 aa_isPrimaryEmailVerified] & 1) == 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "_reloadOptionsForChangesFromAccounts:toAccounts: Apple Account primary email address became verified.", buf, 2u);
-    }
+      aa_isPrimaryEmailVerified = [v13 aa_isPrimaryEmailVerified];
+      if (aa_isPrimaryEmailVerified)
+      {
+        v16 = _AAUILogSystem(aa_isPrimaryEmailVerified);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "_reloadOptionsForChangesFromAccounts:toAccounts: Apple Account primary email address became verified.", buf, 2u);
+        }
 
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_217BC;
-    block[3] = &unk_59680;
-    block[4] = self;
-    dispatch_async(&_dispatch_main_q, block);
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_217BC;
+        block[3] = &unk_59680;
+        block[4] = self;
+        dispatch_async(&_dispatch_main_q, block);
+      }
+    }
   }
 
   username = [v9 username];
-  v65 = v13;
+  v67 = v13;
   username2 = [v13 username];
   if (username | username2 && ![username isEqual:username2])
   {
-    v20 = 0;
-    v21 = v64;
+    v21 = 0;
+    v22 = v66;
   }
 
   else
@@ -4289,41 +4632,20 @@ LABEL_5:
     username4 = [v14 username];
     if (username3 | username4)
     {
-      v20 = [username3 isEqual:username4];
+      v21 = [username3 isEqual:username4];
     }
 
     else
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    v21 = v64;
+    v22 = v66;
   }
 
-  if (v12 | v21)
+  if (v12 | v22)
   {
-    v22 = [v12 isEqual:v21];
-  }
-
-  else
-  {
-    v22 = 1;
-  }
-
-  v61 = v14;
-  if (v11 || !v14)
-  {
-    if (v11)
-    {
-      v24 = v14 == 0;
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-
-    v23 = v24;
+    v23 = [v12 isEqual:v22];
   }
 
   else
@@ -4331,90 +4653,112 @@ LABEL_5:
     v23 = 1;
   }
 
-  v62 = v11;
-  v60 = v12;
-  if (v9 || !v65)
+  v63 = v14;
+  if (v11 || !v14)
   {
-    if (v9)
+    if (v11)
     {
-      v26 = v65 == 0;
+      v25 = v14 == 0;
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
-    v25 = v26;
+    v24 = v25;
   }
 
   else
   {
-    v25 = 1;
+    v24 = 1;
   }
 
-  v57 = v22;
-  v58 = v20 & v22;
-  v59 = v20;
-  aa_needsToVerifyTerms = [v65 aa_needsToVerifyTerms];
+  v64 = v11;
+  v62 = v12;
+  if (v9 || !v67)
+  {
+    if (v9)
+    {
+      v27 = v67 == 0;
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v26 = v27;
+  }
+
+  else
+  {
+    v26 = 1;
+  }
+
+  v59 = v23;
+  v60 = v21 & v23;
+  v61 = v21;
+  aa_needsToVerifyTerms = [v67 aa_needsToVerifyTerms];
   aa_needsToVerifyTerms2 = [v9 aa_needsToVerifyTerms];
-  aa_suspensionInfo = [v65 aa_suspensionInfo];
+  aa_suspensionInfo = [v67 aa_suspensionInfo];
   isiCloudSuspended = [aa_suspensionInfo isiCloudSuspended];
   aa_suspensionInfo2 = [v9 aa_suspensionInfo];
-  v32 = v9;
+  v33 = v9;
   isiCloudSuspended2 = [aa_suspensionInfo2 isiCloudSuspended];
 
-  aa_suspensionInfo3 = [v65 aa_suspensionInfo];
+  aa_suspensionInfo3 = [v67 aa_suspensionInfo];
   isFamilySuspended = [aa_suspensionInfo3 isFamilySuspended];
-  v63 = v32;
-  aa_suspensionInfo4 = [v32 aa_suspensionInfo];
+  v65 = v33;
+  aa_suspensionInfo4 = [v33 aa_suspensionInfo];
   isFamilySuspended2 = [aa_suspensionInfo4 isFamilySuspended];
 
-  v38 = 1;
-  if (((v23 | v25) & 1) == 0 && ((aa_needsToVerifyTerms ^ aa_needsToVerifyTerms2) & 1) == 0)
+  v39 = 1;
+  if (((v24 | v26) & 1) == 0 && ((aa_needsToVerifyTerms ^ aa_needsToVerifyTerms2) & 1) == 0)
   {
-    v38 = isiCloudSuspended ^ isiCloudSuspended2 | isFamilySuspended ^ isFamilySuspended2;
+    v39 = isiCloudSuspended ^ isiCloudSuspended2 | isFamilySuspended ^ isFamilySuspended2;
   }
 
-  v39 = kAccountDataclassBackup;
-  v40 = v63;
-  v41 = [v63 isEnabledForDataclass:kAccountDataclassBackup];
-  v42 = [v65 isEnabledForDataclass:v39];
-  if (v58)
+  v40 = kAccountDataclassBackup;
+  v41 = v65;
+  v42 = [v65 isEnabledForDataclass:kAccountDataclassBackup];
+  v43 = [v67 isEnabledForDataclass:v40];
+  v44 = v43;
+  if (v60)
   {
-    v43 = 0;
+    v45 = 0;
     goto LABEL_48;
   }
 
-  if ((v59 & 1) == 0)
+  if ((v61 & 1) == 0)
   {
-    v44 = _AAUILogSystem();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v46 = _AAUILogSystem(v43);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
-      username5 = [v63 username];
-      username6 = [v65 username];
-      username7 = [v62 username];
-      username8 = [v61 username];
+      username5 = [v65 username];
+      username6 = [v67 username];
+      username7 = [v64 username];
+      username8 = [v63 username];
       *buf = 138413058;
-      v68 = username5;
-      v69 = 2112;
-      v70 = username6;
+      v70 = username5;
       v71 = 2112;
-      v72 = username7;
+      v72 = username6;
       v73 = 2112;
-      v74 = username8;
-      _os_log_debug_impl(&dword_0, v44, OS_LOG_TYPE_DEBUG, "AAUI Username change: AppleAccount: %@/%@ (old/new)  StoreAccount: %@/%@ (old/new)", buf, 0x2Au);
+      v74 = username7;
+      v75 = 2112;
+      v76 = username8;
+      _os_log_debug_impl(&dword_0, v46, OS_LOG_TYPE_DEBUG, "AAUI Username change: AppleAccount: %@/%@ (old/new)  StoreAccount: %@/%@ (old/new)", buf, 0x2Au);
 
-      v40 = v63;
+      v41 = v65;
     }
 
     goto LABEL_46;
   }
 
-  if ((v57 & 1) == 0)
+  if ((v59 & 1) == 0)
   {
-    v44 = _AAUILogSystem();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v46 = _AAUILogSystem(v43);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
       sub_34D84();
     }
@@ -4422,15 +4766,15 @@ LABEL_5:
 LABEL_46:
   }
 
-  v43 = 1;
+  v45 = 1;
 LABEL_48:
-  v45 = v41 ^ v42;
-  if ((v38 & 1) == 0)
+  v47 = v42 ^ v44;
+  if ((v39 & 1) == 0)
   {
-    v47 = v62;
-    v48 = v60;
-    v49 = v65;
-    if (!v45)
+    v49 = v64;
+    v50 = v62;
+    v51 = v67;
+    if (!v47)
     {
       goto LABEL_57;
     }
@@ -4438,51 +4782,51 @@ LABEL_48:
     goto LABEL_54;
   }
 
-  v46 = _AAUILogSystem();
-  v47 = v62;
-  v48 = v60;
-  v49 = v65;
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  v48 = _AAUILogSystem(v43);
+  v49 = v64;
+  v50 = v62;
+  v51 = v67;
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "Account authentication state changed. Will reload specifiers.", buf, 2u);
+    _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Account authentication state changed. Will reload specifiers.", buf, 2u);
   }
 
-  v43 |= 2uLL;
-  if (v45)
+  v45 |= 2uLL;
+  if (v47)
   {
 LABEL_54:
-    v50 = _AAUILogSystem();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v52 = _AAUILogSystem(v43);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "Account backup dataclass changed", buf, 2u);
+      _os_log_impl(&dword_0, v52, OS_LOG_TYPE_DEFAULT, "Account backup dataclass changed", buf, 2u);
     }
 
-    v43 |= 4uLL;
+    v45 |= 4uLL;
   }
 
 LABEL_57:
-  if (v40 && !v49)
+  if (v41 && !v51)
   {
-    v51 = _AAUILogSystem();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v53 = _AAUILogSystem(v43);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEFAULT, "AppleAccount signed out", buf, 2u);
+      _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "AppleAccount signed out", buf, 2u);
     }
 
-    v43 |= 8uLL;
+    v45 |= 8uLL;
   }
 
-  return v43;
+  return v45;
 }
 
 - (void)operationsHelper:(id)helper willSaveAccount:(id)account
 {
   accountCopy = account;
   helperCopy = helper;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(helperCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -4499,6 +4843,35 @@ LABEL_57:
   v9.receiver = self;
   v9.super_class = AAUIAppleAccountViewController;
   [(AAUIAppleAccountViewController *)&v9 operationsHelper:helperCopy willSaveAccount:accountCopy];
+}
+
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  accountCopy = account;
+  helperCopy = helper;
+  v13 = _AAUILogSystem(helperCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = @"NO";
+    if (successCopy)
+    {
+      v14 = @"YES";
+    }
+
+    *buf = 138412546;
+    v17 = v14;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Operations helper did save account with success? %@, error: %@", buf, 0x16u);
+  }
+
+  v15.receiver = self;
+  v15.super_class = AAUIAppleAccountViewController;
+  [(AAUIAppleAccountViewController *)&v15 operationsHelper:helperCopy didSaveAccount:accountCopy withSuccess:successCopy error:errorCopy];
+
+  [(AAUIAppleAccountViewController *)self _startObservingAccountStoreChanges];
 }
 
 - (void)_issueFindMyiPhonePromptWithTitle:(id)title andMessage:(id)message
@@ -4751,32 +5124,33 @@ LABEL_7:
 - (BOOL)_setupForNetworkActivity
 {
   tryLock = [(NSLock *)self->_accountValidationLock tryLock];
+  v4 = tryLock;
   if (tryLock)
   {
     self->_performingUpdate = 1;
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _AAUILogSystem(tryLock);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Enabling task completion", buf, 2u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Enabling task completion", buf, 2u);
     }
 
     [(AAUIAppleAccountViewController *)self setTaskCompletionAssertionEnabled:1];
-    v5 = +[UIApplication sharedApplication];
-    [v5 setNetworkActivityIndicatorVisible:1];
+    v6 = +[UIApplication sharedApplication];
+    [v6 setNetworkActivityIndicatorVisible:1];
   }
 
   else
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(tryLock);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Failed to grab validation lock.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Failed to grab validation lock.", v8, 2u);
     }
   }
 
-  return tryLock;
+  return v4;
 }
 
 - (void)_cleanupFromNetworkActivity
@@ -4793,8 +5167,7 @@ LABEL_7:
   v5 = +[UIApplication sharedApplication];
   [v5 setNetworkActivityIndicatorVisible:0];
 
-  [(AAUIAppleAccountViewController *)self setTaskCompletionAssertionEnabled:0];
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem([(AAUIAppleAccountViewController *)self setTaskCompletionAssertionEnabled:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 0;
@@ -4804,7 +5177,7 @@ LABEL_7:
 
 - (void)_checkNetworkReachabilityAndValidateAccount
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4815,23 +5188,23 @@ LABEL_7:
   isNetworkReachable = [v4 isNetworkReachable];
 
   performedUpdate = self->_performedUpdate;
-  v7 = _AAUILogSystem();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = _AAUILogSystem(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (performedUpdate)
   {
-    if (v8)
+    if (v9)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Revaidation already complete, skipping", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Revaidation already complete, skipping", v10, 2u);
     }
   }
 
   else if (isNetworkReachable)
   {
-    if (v8)
+    if (v9)
     {
-      *v11 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Performing network revalidation of account", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Performing network revalidation of account", v12, 2u);
     }
 
     [(AAUIAppleAccountViewController *)self _performNetworkValidation];
@@ -4839,10 +5212,10 @@ LABEL_7:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "We are offline, starting to wait for reachability...", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "We are offline, starting to wait for reachability...", v11, 2u);
     }
 
     self->_monitoringReachability = 1;
@@ -4855,13 +5228,13 @@ LABEL_7:
   v4 = _appleAccount;
   if (_appleAccount)
   {
-    if ([_appleAccount aa_needsRegistration] && (objc_msgSend(v4, "aa_isSyncedAccount") & 1) == 0)
+    if ([_appleAccount aa_needsRegistration] && (v5 = objc_msgSend(v4, "aa_isSyncedAccount"), (v5 & 1) == 0))
     {
-      v6 = _AAUILogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _AAUILogSystem(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "The account has no dataclass properties and needs to be registered", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "The account has no dataclass properties and needs to be registered", v8, 2u);
       }
 
       [(AAUIAppleAccountViewController *)self _registerAccount];
@@ -4875,11 +5248,11 @@ LABEL_7:
 
   else
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Not signed in to an iCloud account, unable to perform network validation", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Not signed in to an iCloud account, unable to perform network validation", buf, 2u);
     }
   }
 }
@@ -4899,7 +5272,7 @@ LABEL_7:
 - (void)_reachabilityChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -4977,80 +5350,82 @@ LABEL_7:
 - (void)_revalidateAccount
 {
   _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
+  v4 = _appleAccount;
   if (!_appleAccount)
   {
-    v5 = _AAUILogSystem();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(0);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
     *buf = 0;
-    v8 = "User not signed in to AppleAccount, will not perform revalidation";
+    v10 = "User not signed in to AppleAccount, will not perform revalidation";
 LABEL_14:
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
     goto LABEL_17;
   }
 
   allowAccountRevalidation = self->_allowAccountRevalidation;
-  v5 = _AAUILogSystem();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = _AAUILogSystem(_appleAccount);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (!allowAccountRevalidation)
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_17;
     }
 
     *buf = 0;
-    v8 = "Hold off account revalidation, we're probably displaying a dialog";
+    v10 = "Hold off account revalidation, we're probably displaying a dialog";
     goto LABEL_14;
   }
 
-  if (v6)
+  if (v7)
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Revalidating Account", buf, 2u);
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Revalidating Account", buf, 2u);
   }
 
-  if (![(AAUIAppleAccountViewController *)self _setupForNetworkActivity])
+  _setupForNetworkActivity = [(AAUIAppleAccountViewController *)self _setupForNetworkActivity];
+  if ((_setupForNetworkActivity & 1) == 0)
   {
-    v5 = _AAUILogSystem();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(_setupForNetworkActivity);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
     *buf = 0;
-    v8 = "Network setup failed, aborting update";
+    v10 = "Network setup failed, aborting update";
     goto LABEL_14;
   }
 
-  if ([_appleAccount aa_isPrimaryEmailVerified])
+  if ([v4 aa_isPrimaryEmailVerified])
   {
-    v7 = -32768;
+    v9 = -32768;
   }
 
   else
   {
-    v9 = [NSBundle bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"VERIFYING" value:&stru_5A5F0 table:@"Localizable"];
-    [(AAUIAppleAccountViewController *)self startValidationWithPrompt:v10 userInteraction:1];
+    v11 = [NSBundle bundleForClass:objc_opt_class()];
+    v12 = [v11 localizedStringForKey:@"VERIFYING" value:&stru_5A5F0 table:@"Localizable"];
+    [(AAUIAppleAccountViewController *)self startValidationWithPrompt:v12 userInteraction:1];
 
-    v7 = 2;
+    v9 = 2;
   }
 
-  v11 = [_appleAccount copy];
-  v12 = dispatch_get_global_queue(v7, 0);
+  v13 = [v4 copy];
+  v14 = dispatch_get_global_queue(v9, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_23A78;
   block[3] = &unk_59F78;
   block[4] = self;
-  v14 = _appleAccount;
-  v15 = v11;
-  v5 = v11;
-  dispatch_async(v12, block);
+  v16 = v4;
+  v17 = v13;
+  v6 = v13;
+  dispatch_async(v14, block);
 
 LABEL_17:
 }
@@ -5069,75 +5444,78 @@ LABEL_17:
 
     if (!aa_password)
     {
-      v6 = _AAUILogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = _AAUILogSystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        v10 = "No iCloud auth token and no password. Need to do password auth.";
-        v11 = v16;
+        *v20 = 0;
+        v14 = "No iCloud auth token and no password. Need to do password auth.";
+        v15 = v20;
         goto LABEL_16;
       }
 
 LABEL_17:
-      v9 = 1;
+      v11 = 1;
       goto LABEL_18;
     }
   }
 
-  if (CFPreferencesGetAppBooleanValue(@"AAUISuppressFire", @"com.apple.Preferences", 0) == 1)
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AAUISuppressFire", @"com.apple.Preferences", 0);
+  if (AppBooleanValue == 1)
   {
-    v6 = _AAUILogSystem();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(AppBooleanValue);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_8:
-      v9 = 0;
+      v11 = 0;
 LABEL_18:
 
       goto LABEL_19;
     }
 
     *buf = 0;
-    v7 = "AAUISuppressFire is on. Will not check for Lilac Mode.";
-    v8 = buf;
+    v9 = "AAUISuppressFire is on. Will not check for Lilac Mode.";
+    v10 = buf;
 LABEL_7:
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
     goto LABEL_8;
   }
 
-  if (([accountCopy isAuthenticated] & 1) == 0)
+  isAuthenticated = [accountCopy isAuthenticated];
+  if ((isAuthenticated & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(isAuthenticated);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 0;
-      v10 = "Account is marked as unauthenticated. Need to do password auth.";
-      v11 = &v14;
+      v18 = 0;
+      v14 = "Account is marked as unauthenticated. Need to do password auth.";
+      v15 = &v18;
 LABEL_16:
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
       goto LABEL_17;
     }
 
     goto LABEL_17;
   }
 
-  if (([accountCopy aa_isPrimaryEmailVerified] & 1) == 0)
+  aa_isPrimaryEmailVerified = [accountCopy aa_isPrimaryEmailVerified];
+  if ((aa_isPrimaryEmailVerified & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(aa_isPrimaryEmailVerified);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    v13 = 0;
-    v7 = "iCloud account is still unverified. Skipping Lilac Mode check.";
-    v8 = &v13;
+    v17 = 0;
+    v9 = "iCloud account is still unverified. Skipping Lilac Mode check.";
+    v10 = &v17;
     goto LABEL_7;
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_19:
 
-  return v9;
+  return v11;
 }
 
 - (void)_beginValidationForAccount:(id)account
@@ -5168,11 +5546,11 @@ LABEL_19:
   {
     if (!errorCopy || successCopy)
     {
-      v24 = _AAUILogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = _AAUILogSystem(aa_isPrimaryEmailVerified2);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "validation operations canceled", buf, 2u);
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "validation operations canceled", buf, 2u);
       }
 
       self->_performedUpdate = 1;
@@ -5186,9 +5564,9 @@ LABEL_19:
       block[2] = sub_24534;
       block[3] = &unk_59FC8;
       block[4] = self;
-      v33 = errorCopy;
-      v34 = _appleAccount;
-      v35 = accountCopy;
+      v34 = errorCopy;
+      v35 = _appleAccount;
+      v36 = accountCopy;
       dispatch_async(&_dispatch_main_q, block);
     }
 
@@ -5196,29 +5574,29 @@ LABEL_19:
   }
 
   v15 = aa_isPrimaryEmailVerified2;
-  v30 = aa_serviceUnavailable;
-  v31 = aa_isPrimaryEmailVerified;
-  v29 = aa_serviceUnavailable2;
-  v41 = 0u;
+  v31 = aa_serviceUnavailable;
+  v32 = aa_isPrimaryEmailVerified;
+  v30 = aa_serviceUnavailable2;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   provisionedDataclasses = [accountCopy provisionedDataclasses];
-  v17 = [provisionedDataclasses countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v17 = [provisionedDataclasses countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v40;
+    v19 = *v41;
     do
     {
       for (i = 0; i != v18; i = i + 1)
       {
-        if (*v40 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(provisionedDataclasses);
         }
 
-        v21 = *(*(&v39 + 1) + 8 * i);
+        v21 = *(*(&v40 + 1) + 8 * i);
         v22 = [_appleAccount isEnabledForDataclass:v21];
         if (v22 != [accountCopy isEnabledForDataclass:v21])
         {
@@ -5226,53 +5604,53 @@ LABEL_19:
         }
       }
 
-      v18 = [provisionedDataclasses countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v18 = [provisionedDataclasses countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v18);
   }
 
-  if (v31 & 1 | ((v15 & 1) == 0) && ((v30 ^ 1 | v29) & 1) != 0)
+  if (v32 & 1 | ((v15 & 1) == 0) && ((v31 ^ 1 | v30) & 1) != 0)
   {
     if ((v15 & 1) == 0)
     {
       [(AAUIAppleAccountViewController *)self _autoVerifyAccount];
-      v23 = 0;
+      v24 = 0;
       goto LABEL_26;
     }
   }
 
   else
   {
-    v25 = _AAUILogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = _AAUILogSystem(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Account became verified", buf, 2u);
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Account became verified", buf, 2u);
     }
 
-    v26 = [NSBundle bundleForClass:objc_opt_class()];
-    v27 = [v26 localizedStringForKey:@"APPLEID_TITLE" value:&stru_5A5F0 table:@"Localizable"];
-    [(AAUIAppleAccountViewController *)self stopValidationWithPrompt:v27 showButtons:0];
+    v27 = [NSBundle bundleForClass:objc_opt_class()];
+    v28 = [v27 localizedStringForKey:@"APPLEID_TITLE" value:&stru_5A5F0 table:@"Localizable"];
+    [(AAUIAppleAccountViewController *)self stopValidationWithPrompt:v28 showButtons:0];
 
     [(AAUIAppleAccountViewController *)self _accountEmailBecameVerified];
   }
 
-  v23 = 1;
+  v24 = 1;
 LABEL_26:
   self->_performedUpdate = 1;
   [(AAUIAppleAccountViewController *)self _presentFirstAlertIfNecessary];
-  v28 = dispatch_get_global_queue(0, 0);
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_24464;
-  v36[3] = &unk_594A0;
-  v36[4] = self;
-  v37 = accountCopy;
-  dispatch_async(v28, v36);
+  v29 = dispatch_get_global_queue(0, 0);
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_24464;
+  v37[3] = &unk_594A0;
+  v37[4] = self;
+  v38 = accountCopy;
+  dispatch_async(v29, v37);
 
   errorCopy = 0;
-  if (v23)
+  if (v24)
   {
 LABEL_27:
     [(AAUIAppleAccountViewController *)self _cleanupFromNetworkActivity];
@@ -5289,7 +5667,7 @@ LABEL_27:
 
 - (void)_enableAllProvisionedDataclasses
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5330,7 +5708,7 @@ LABEL_27:
 
   else
   {
-    v9 = _AAUILogSystem();
+    v9 = _AAUILogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -5412,31 +5790,31 @@ LABEL_9:
 
   else
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
       aa_needsToVerifyTerms = [_appleAccount aa_needsToVerifyTerms];
-      v10 = @"NO";
+      v11 = @"NO";
       if (aa_needsToVerifyTerms)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
       *buf = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Terms have not been agreed to, are we in gray mode like we should? %@, let's save.", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Terms have not been agreed to, are we in gray mode like we should? %@, let's save.", buf, 0xCu);
     }
 
     [(AAUIAppleAccountViewController *)self _forgetSpecifiers];
     [(AAUIAppleAccountViewController *)self reloadSpecifiers];
-    v11 = dispatch_get_global_queue(0, 0);
+    v12 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_24D7C;
     block[3] = &unk_59680;
     block[4] = self;
-    dispatch_async(v11, block);
+    dispatch_async(v12, block);
   }
 }
 
@@ -5459,7 +5837,7 @@ LABEL_9:
 
 - (void)_autoVerifyAccount
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5485,36 +5863,37 @@ LABEL_9:
 - (void)_handleAccountAutoVerificationCompletionWithSuccess:(BOOL)success error:(id)error
 {
   errorCopy = error;
+  v7 = errorCopy;
   if (success)
   {
     _accountStore = [(AAUIAppleAccountViewController *)self _accountStore];
     _appleAccount = [(AAUIAppleAccountViewController *)self _appleAccount];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_2528C;
-    v12[3] = &unk_599B8;
-    v12[4] = self;
-    [_accountStore aa_updatePropertiesForAppleAccount:_appleAccount completion:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_2528C;
+    v13[3] = &unk_599B8;
+    v13[4] = self;
+    [_accountStore aa_updatePropertiesForAppleAccount:_appleAccount completion:v13];
 LABEL_5:
 
     goto LABEL_6;
   }
 
-  _accountStore = _AAUILogSystem();
+  _accountStore = _AAUILogSystem(errorCopy);
   if (os_log_type_enabled(_accountStore, OS_LOG_TYPE_DEFAULT))
   {
-    _appleAccount = [errorCopy localizedDescription];
+    _appleAccount = [v7 localizedDescription];
     *buf = 138412290;
-    v14 = _appleAccount;
+    v15 = _appleAccount;
     _os_log_impl(&dword_0, _accountStore, OS_LOG_TYPE_DEFAULT, "Verification failed: %@", buf, 0xCu);
     goto LABEL_5;
   }
 
 LABEL_6:
 
-  v9 = [NSBundle bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"APPLEID_TITLE_REBRAND" value:&stru_5A5F0 table:@"Localizable"];
-  [(AAUIAppleAccountViewController *)self stopValidationWithPrompt:v10 showButtons:0];
+  v10 = [NSBundle bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"APPLEID_TITLE_REBRAND" value:&stru_5A5F0 table:@"Localizable"];
+  [(AAUIAppleAccountViewController *)self stopValidationWithPrompt:v11 showButtons:0];
 
   navigationItem = [(AAUIAppleAccountViewController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:0];
@@ -5730,83 +6109,84 @@ LABEL_16:
   if (window)
   {
     self->_loadedViaURL = 1;
-    v10 = [lCopy objectForKeyedSubscript:@"aaaction"];
-    v11 = [lCopy copy];
+    v11 = [lCopy objectForKeyedSubscript:@"aaaction"];
+    v12 = [lCopy copy];
     cachedResourceDictionary = self->_cachedResourceDictionary;
-    self->_cachedResourceDictionary = v11;
+    self->_cachedResourceDictionary = v12;
 
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v10;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController handleURL action - %@", buf, 0xCu);
+      v34 = v11;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "AAUIAppleAccountViewController handleURL action - %@", buf, 0xCu);
     }
 
-    if ([v10 isEqual:@"auth"])
+    if ([v11 isEqual:@"auth"])
     {
       [(AAUIAppleAccountViewController *)self _handleAuthActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"resetPassword"])
+    if ([v11 isEqual:@"resetPassword"])
     {
       [(AAUIAppleAccountViewController *)self _handleiForgotActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"changePassword"])
+    if ([v11 isEqual:@"changePassword"])
     {
       [(AAUIAppleAccountViewController *)self _handleChangePasswordActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"CDP"])
+    if ([v11 isEqual:@"CDP"])
     {
       [(AAUIAppleAccountViewController *)self _handleCDPActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"accountRecovery"])
+    if ([v11 isEqual:@"accountRecovery"])
     {
       [(AAUIAppleAccountViewController *)self _handleAccountRecoveryURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"accountBeneficiary"])
+    if ([v11 isEqual:@"accountBeneficiary"])
     {
       [(AAUIAppleAccountViewController *)self _handleAccountBeneficiaryURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"accountContactDetails"])
+    if ([v11 isEqual:@"accountContactDetails"])
     {
       [(AAUIAppleAccountViewController *)self _contactSpecifierWasTapped:0];
       goto LABEL_43;
     }
 
-    if ([v10 isEqualToString:@"IDMSUrl"])
+    if ([v11 isEqualToString:@"IDMSUrl"])
     {
       [(AAUIAppleAccountViewController *)self _handleAuthkitFollowUpServerUI:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"oonAddressVetting"])
+    if ([v11 isEqual:@"oonAddressVetting"])
     {
       [(AAUIAppleAccountViewController *)self _handleOONAddressVettingActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([v10 isEqual:@"upgradeSecurityLevel"])
+    if ([v11 isEqual:@"upgradeSecurityLevel"])
     {
       [(AAUIAppleAccountViewController *)self _handleUpgradeSecurityLevelActionURL:lCopy];
       goto LABEL_43;
     }
 
-    if ([(AAUIAppleAccountViewController *)self _handleAuthKitURLWithPendingDictionary:lCopy])
+    v20 = [(AAUIAppleAccountViewController *)self _handleAuthKitURLWithPendingDictionary:lCopy];
+    if (v20)
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v21 = _AAUILogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         sub_34EF8();
       }
@@ -5815,77 +6195,82 @@ LABEL_16:
     }
 
     _familySpecifierProvider = [(AAUIAppleAccountViewController *)self _familySpecifierProvider];
-    v20 = [_familySpecifierProvider handleURL:lCopy];
+    v23 = [_familySpecifierProvider handleURL:lCopy];
 
-    if (v20)
+    if (v23)
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = _AAUILogSystem(v24);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = v10;
-        v21 = "AAUIAppleAccountViewController Family specifier provider handled: %@";
+        v34 = v11;
+        v25 = "AAUIAppleAccountViewController Family specifier provider handled: %@";
 LABEL_41:
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
-      }
-    }
-
-    else if ([(AAUISpecifierProvider *)self->_dmcReauthSpecifierProvider handleURL:lCopy])
-    {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v27 = v10;
-        v21 = "AAUIAppleAccountViewController DMC Reauth specifier provider handled: %@";
-        goto LABEL_41;
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
       }
     }
 
     else
     {
-      _storeSpecifierProvider = [(AAUIAppleAccountViewController *)self _storeSpecifierProvider];
-      v23 = [_storeSpecifierProvider handleURL:lCopy];
-
-      if (!v23)
+      v26 = [(AAUISpecifierProvider *)self->_dmcReauthSpecifierProvider handleURL:lCopy];
+      if (v26)
       {
-        if (!self->_tuiOptInSpecifierProvider || (objc_opt_respondsToSelector() & 1) == 0 || ![(AAUISpecifierProvider *)self->_tuiOptInSpecifierProvider handleURL:lCopy])
+        v21 = _AAUILogSystem(v26);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = _AAUILogSystem();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138412546;
-            v27 = v10;
-            v28 = 2112;
-            v29 = lCopy;
-            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Unknown action (%@) sent to AAUIAppleAccountViewController. %@", buf, 0x16u);
-          }
-
-          v25.receiver = self;
-          v25.super_class = AAUIAppleAccountViewController;
-          [(AAUIAppleAccountViewController *)&v25 handleURL:lCopy withCompletion:completionCopy];
-          goto LABEL_45;
+          *buf = 138412290;
+          v34 = v11;
+          v25 = "AAUIAppleAccountViewController DMC Reauth specifier provider handled: %@";
+          goto LABEL_41;
         }
-
-        v18 = _AAUILogSystem();
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_42;
-        }
-
-        *buf = 138412290;
-        v27 = v10;
-        v21 = "TUIOptInSpecifierProvider specifier provider handled: %@";
-        goto LABEL_41;
       }
 
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        *buf = 138412290;
-        v27 = v10;
-        v21 = "SKAccountPageSpecifierProvider specifier provider handled: %@";
-        goto LABEL_41;
+        _storeSpecifierProvider = [(AAUIAppleAccountViewController *)self _storeSpecifierProvider];
+        v28 = [_storeSpecifierProvider handleURL:lCopy];
+
+        if (!v28)
+        {
+          tuiOptInSpecifierProvider = self->_tuiOptInSpecifierProvider;
+          if (!tuiOptInSpecifierProvider || (tuiOptInSpecifierProvider = objc_opt_respondsToSelector(), (tuiOptInSpecifierProvider & 1) == 0) || (tuiOptInSpecifierProvider = [(AAUISpecifierProvider *)self->_tuiOptInSpecifierProvider handleURL:lCopy], !tuiOptInSpecifierProvider))
+          {
+            v31 = _AAUILogSystem(tuiOptInSpecifierProvider);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412546;
+              v34 = v11;
+              v35 = 2112;
+              v36 = lCopy;
+              _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Unknown action (%@) sent to AAUIAppleAccountViewController. %@", buf, 0x16u);
+            }
+
+            v32.receiver = self;
+            v32.super_class = AAUIAppleAccountViewController;
+            [(AAUIAppleAccountViewController *)&v32 handleURL:lCopy withCompletion:completionCopy];
+            goto LABEL_45;
+          }
+
+          v21 = _AAUILogSystem(tuiOptInSpecifierProvider);
+          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_42;
+          }
+
+          *buf = 138412290;
+          v34 = v11;
+          v25 = "TUIOptInSpecifierProvider specifier provider handled: %@";
+          goto LABEL_41;
+        }
+
+        v21 = _AAUILogSystem(v29);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v34 = v11;
+          v25 = "SKAccountPageSpecifierProvider specifier provider handled: %@";
+          goto LABEL_41;
+        }
       }
     }
 
@@ -5902,8 +6287,8 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v14 = _AAUILogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _AAUILogSystem(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     sub_34F34();
   }
@@ -5911,9 +6296,9 @@ LABEL_45:
   deferredURL = self->_deferredURL;
   if (!deferredURL)
   {
-    v16 = objc_alloc_init(AAUIAppleAccountDeferredURL);
-    v17 = self->_deferredURL;
-    self->_deferredURL = v16;
+    v18 = objc_alloc_init(AAUIAppleAccountDeferredURL);
+    v19 = self->_deferredURL;
+    self->_deferredURL = v18;
 
     deferredURL = self->_deferredURL;
   }
@@ -5930,45 +6315,46 @@ LABEL_46:
   contextForPrimaryAccount = [v6 contextForPrimaryAccount];
   v8 = [v5 initWithContext:contextForPrimaryAccount];
 
-  if (([v8 isManateeAvailable:0] & 1) == 0)
+  v9 = [v8 isManateeAvailable:0];
+  if ((v9 & 1) == 0)
   {
-    v10 = [[AAUISpinnerViewController alloc] initWithNibName:0 bundle:0];
-    v11 = [[UINavigationController alloc] initWithRootViewController:v10];
-    v12 = [CDPUIDeviceToDeviceEncryptionFlowContext alloc];
-    v13 = +[CDPAccount sharedInstance];
-    primaryAccountAltDSID = [v13 primaryAccountAltDSID];
-    v15 = [v12 initWithAltDSID:primaryAccountAltDSID];
+    v11 = [[AAUISpinnerViewController alloc] initWithNibName:0 bundle:0];
+    v12 = [[UINavigationController alloc] initWithRootViewController:v11];
+    v13 = [CDPUIDeviceToDeviceEncryptionFlowContext alloc];
+    v14 = +[CDPAccount sharedInstance];
+    primaryAccountAltDSID = [v14 primaryAccountAltDSID];
+    v16 = [v13 initWithAltDSID:primaryAccountAltDSID];
 
-    [v15 setSecurityUpgradeContext:AKSecurityUpgradeContextKeychainSync];
-    [v15 setDeviceToDeviceEncryptionUpgradeUIStyle:1];
-    [v15 setDeviceToDeviceEncryptionUpgradeType:0];
-    [v15 setPresentingViewController:v11];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_26260;
-    v19[3] = &unk_59FC8;
-    v20 = [[CDPUIDeviceToDeviceEncryptionHelper alloc] initWithContext:v15];
-    v21 = v11;
+    [v16 setSecurityUpgradeContext:AKSecurityUpgradeContextKeychainSync];
+    [v16 setDeviceToDeviceEncryptionUpgradeUIStyle:1];
+    [v16 setDeviceToDeviceEncryptionUpgradeType:0];
+    [v16 setPresentingViewController:v12];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_26260;
+    v20[3] = &unk_59FC8;
+    v21 = [[CDPUIDeviceToDeviceEncryptionHelper alloc] initWithContext:v16];
+    v22 = v12;
     selfCopy = self;
-    v23 = v4;
-    v16 = v11;
-    v17 = v20;
-    [(AAUIAppleAccountViewController *)self presentViewController:v16 animated:1 completion:v19];
+    v24 = v4;
+    v17 = v12;
+    v18 = v21;
+    [(AAUIAppleAccountViewController *)self presentViewController:v17 animated:1 completion:v20];
 
     goto LABEL_7;
   }
 
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AAUILogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "_handleUpgradeSecurityLevelActionURL called when Manatee is already available", v18, 2u);
+    *v19 = 0;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "_handleUpgradeSecurityLevelActionURL called when Manatee is already available", v19, 2u);
   }
 
   if (v4)
   {
-    v10 = +[LSApplicationWorkspace defaultWorkspace];
-    [v10 openApplicationWithBundleID:v4];
+    v11 = +[LSApplicationWorkspace defaultWorkspace];
+    [v11 openApplicationWithBundleID:v4];
 LABEL_7:
   }
 }
@@ -5976,7 +6362,7 @@ LABEL_7:
 - (void)_handleAuthkitFollowUpServerUI:(id)i
 {
   iCopy = i;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(iCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_34F70();
@@ -5996,10 +6382,11 @@ LABEL_7:
 
     [v7 setUrlKey:v6];
     v11 = objc_alloc_init(AKAppleIDFollowUpServerUIPresenter);
-    if (objc_opt_respondsToSelector())
+    v12 = objc_opt_respondsToSelector();
+    if (v12)
     {
-      v12 = _AAUILogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = _AAUILogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_34FE0();
       }
@@ -6010,7 +6397,7 @@ LABEL_7:
 
   else
   {
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_3501C();
@@ -6021,7 +6408,7 @@ LABEL_7:
 - (void)_handleCDPActionURL:(id)l
 {
   lCopy = l;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -6047,7 +6434,7 @@ LABEL_7:
 
 - (void)_handleiForgotActionURL:(id)l
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -6071,7 +6458,7 @@ LABEL_7:
 
 - (void)_handleChangePasswordActionURL:(id)l
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -6095,7 +6482,7 @@ LABEL_7:
 - (void)_handleAuthActionURL:(id)l
 {
   lCopy = l;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -6117,7 +6504,7 @@ LABEL_7:
 - (void)_handleAccountRecoveryURL:(id)l
 {
   lCopy = l;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -6129,7 +6516,7 @@ LABEL_7:
   if (v6)
   {
     v7 = [lCopy objectForKey:@"highlight"];
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_35058();
@@ -6147,7 +6534,7 @@ LABEL_7:
 - (void)_handleAccountBeneficiaryURL:(id)l
 {
   lCopy = l;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -6186,87 +6573,88 @@ LABEL_7:
   v5 = [lCopy objectForKeyedSubscript:@"potentialMatches"];
   v6 = [lCopy objectForKeyedSubscript:@"sharedItem"];
   v7 = [lCopy objectForKeyedSubscript:@"shareURL"];
+  v8 = v7;
   if (v5)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = v5;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Found matches in URL dictionary: %@", buf, 0xCu);
+      v33 = v5;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Found matches in URL dictionary: %@", buf, 0xCu);
     }
 
-    v9 = [(__CFString *)v5 componentsSeparatedByString:@", "];
-    v10 = [v9 mutableCopy];
+    v10 = [(__CFString *)v5 componentsSeparatedByString:@", "];
+    v11 = [v10 mutableCopy];
 
-    if ([v10 count])
+    if ([v11 count])
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        v12 = [v10 objectAtIndexedSubscript:v11];
-        v13 = [v12 componentsSeparatedByString:@":"];
-        [v10 setObject:v13 atIndexedSubscript:v11];
+        v13 = [v11 objectAtIndexedSubscript:v12];
+        v14 = [v13 componentsSeparatedByString:@":"];
+        [v11 setObject:v14 atIndexedSubscript:v12];
 
-        ++v11;
+        ++v12;
       }
 
-      while (v11 < [v10 count]);
+      while (v12 < [v11 count]);
     }
 
     [(AAUIAppleAccountViewController *)self _loadCloudKitSettingsBundleIfNeeded];
-    v14 = NSClassFromString(@"CKVettingAddressSelectionController");
-    if (v14)
+    v15 = NSClassFromString(@"CKVettingAddressSelectionController");
+    if (v15)
     {
-      if (v6 && v7)
+      if (v6 && v8)
       {
-        v15 = v14;
-        v16 = [NSURL URLWithString:v7];
-        v17 = v16;
-        if (!v16)
+        v16 = v15;
+        v17 = [NSURL URLWithString:v8];
+        v18 = v17;
+        if (!v17)
         {
-          v28 = _AAUILogSystem();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v30 = _AAUILogSystem(0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v31 = v7;
-            _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Invalid URL from rawShareURL: %@", buf, 0xCu);
+            v33 = v8;
+            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Invalid URL from rawShareURL: %@", buf, 0xCu);
           }
 
           goto LABEL_24;
         }
 
-        v34[0] = v10;
-        v34[1] = v6;
-        v34[2] = v16;
-        v18 = [NSArray arrayWithObjects:v34 count:3];
-        v19 = objc_alloc_init(v15);
-        v29 = v18;
-        v20 = v18;
+        v36[0] = v11;
+        v36[1] = v6;
+        v36[2] = v17;
+        v19 = [NSArray arrayWithObjects:v36 count:3];
+        v20 = objc_alloc_init(v16);
+        v31 = v19;
         v21 = v19;
-        [v19 performSelector:"setParameters:" withObject:v20];
-        if (v21)
+        v22 = v20;
+        v23 = [v20 performSelector:"setParameters:" withObject:v21];
+        if (v22)
         {
-          v22 = [[UINavigationController alloc] initWithRootViewController:v21];
-          [v22 setDelegate:self];
-          v23 = +[UIDevice currentDevice];
-          -[NSObject setModalPresentationStyle:](v22, "setModalPresentationStyle:", 2 * ([v23 userInterfaceIdiom] != 0));
+          v24 = [[UINavigationController alloc] initWithRootViewController:v22];
+          [v24 setDelegate:self];
+          v25 = +[UIDevice currentDevice];
+          -[NSObject setModalPresentationStyle:](v24, "setModalPresentationStyle:", 2 * ([v25 userInterfaceIdiom] != 0));
 
           navigationController = [(AAUIAppleAccountViewController *)self navigationController];
-          [navigationController presentViewController:v22 animated:1 completion:0];
+          [navigationController presentViewController:v24 animated:1 completion:0];
         }
 
         else
         {
-          v22 = _AAUILogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = _AAUILogSystem(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v31 = @"CKVettingAddressSelectionController";
-            v32 = 2112;
-            v28 = v29;
-            v33 = v29;
-            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Unable to instantiate class named %@ using params %@", buf, 0x16u);
+            v33 = @"CKVettingAddressSelectionController";
+            v34 = 2112;
+            v30 = v31;
+            v35 = v31;
+            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Unable to instantiate class named %@ using params %@", buf, 0x16u);
 LABEL_23:
 
 LABEL_24:
@@ -6274,33 +6662,33 @@ LABEL_24:
           }
         }
 
-        v28 = v29;
+        v30 = v31;
         goto LABEL_23;
       }
 
-      v17 = _AAUILogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _AAUILogSystem(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v25 = "Unexpectedly found sharedItem or rawShareURL to be null.";
-        v26 = v17;
-        v27 = 2;
+        v27 = "Unexpectedly found sharedItem or rawShareURL to be null.";
+        v28 = v18;
+        v29 = 2;
         goto LABEL_17;
       }
     }
 
     else
     {
-      v17 = _AAUILogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _AAUILogSystem(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = @"CKVettingAddressSelectionController";
-        v25 = "Unable to load class named %@, is CloudKit.bundle in place?";
-        v26 = v17;
-        v27 = 12;
+        v33 = @"CKVettingAddressSelectionController";
+        v27 = "Unable to load class named %@, is CloudKit.bundle in place?";
+        v28 = v18;
+        v29 = 12;
 LABEL_17:
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, v27, buf, v29);
       }
     }
 
@@ -6315,13 +6703,14 @@ LABEL_25:
 
   v4 = [v3 stringByAppendingPathComponent:@"CloudKitSettings.bundle"];
   v5 = [NSBundle bundleWithPath:v4];
-  if (([v5 isLoaded] & 1) == 0)
+  isLoaded = [v5 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(isLoaded);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "CloudKit settings bundle not loaded. Loading...", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "CloudKit settings bundle not loaded. Loading...", v8, 2u);
     }
 
     [v5 load];
@@ -6449,10 +6838,11 @@ LABEL_13:
   providerCopy = provider;
   specifierCopy = specifier;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  if ([(AAUIAppleAccountViewController *)self _hasActiveSpecifier])
+  _hasActiveSpecifier = [(AAUIAppleAccountViewController *)self _hasActiveSpecifier];
+  if (_hasActiveSpecifier)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(_hasActiveSpecifier);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_351B0();
     }
@@ -6468,18 +6858,51 @@ LABEL_13:
 {
   providerCopy = provider;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  if ([(AAUIAppleAccountViewController *)self _hasActiveSpecifier])
+  _hasActiveSpecifier = [(AAUIAppleAccountViewController *)self _hasActiveSpecifier];
+  if (_hasActiveSpecifier)
   {
     [(AAUIAppleAccountViewController *)self _stopSpinnerInActiveSpecifier];
   }
 
   else
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(_hasActiveSpecifier);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_35220();
     }
+  }
+}
+
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  v11 = _AAUILogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 138412290;
+    v15 = providerCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Reloading specifiers for provider %@", &v14, 0xCu);
+  }
+
+  if (self->_familySpecifierProvider == providerCopy)
+  {
+    servicesGroupSpecifiers = self->_servicesGroupSpecifiers;
+    self->_servicesGroupSpecifiers = 0;
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [(AAUISpecifierProvider *)providerCopy specifiers];
+    [(AAUIAppleAccountViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(AAUIAppleAccountViewController *)self reloadSpecifiers];
   }
 }
 
@@ -6488,44 +6911,45 @@ LABEL_13:
   specifierCopy = specifier;
   namedCopy = named;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AAUILogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [(AAUIAppleAccountViewController *)self specifierForID:namedCopy];
-    v16 = 138412546;
-    v17 = specifierCopy;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Inserting new specifier %@ after %@", &v16, 0x16u);
+    v11 = [(AAUIAppleAccountViewController *)self specifierForID:namedCopy];
+    v19 = 138412546;
+    v20 = specifierCopy;
+    v21 = 2112;
+    v22 = v11;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Inserting new specifier %@ after %@", &v19, 0x16u);
   }
 
-  if ([*&self->ACUIAccountConfigurationViewController_opaque[OBJC_IVAR___PSListController__specifiers] containsObject:specifierCopy])
+  v12 = [*&self->ACUIAccountConfigurationViewController_opaque[OBJC_IVAR___PSListController__specifiers] containsObject:specifierCopy];
+  if (v12)
   {
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      v12 = "Did not insert new specifier because it's already present";
-      v13 = v11;
-      v14 = 2;
+      LOWORD(v19) = 0;
+      v14 = "Did not insert new specifier because it's already present";
+      v15 = v13;
+      v16 = 2;
 LABEL_8:
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, v14, &v19, v16);
     }
   }
 
   else
   {
-    v15 = [(AAUIAppleAccountViewController *)self specifierForID:namedCopy];
-    [(AAUIAppleAccountViewController *)self insertSpecifier:specifierCopy afterSpecifier:v15 animated:1];
+    v17 = [(AAUIAppleAccountViewController *)self specifierForID:namedCopy];
+    [(AAUIAppleAccountViewController *)self insertSpecifier:specifierCopy afterSpecifier:v17 animated:1];
 
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _AAUILogSystem(v18);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = specifierCopy;
-      v12 = "Inserted new specifier %@";
-      v13 = v11;
-      v14 = 12;
+      v19 = 138412290;
+      v20 = specifierCopy;
+      v14 = "Inserted new specifier %@";
+      v15 = v13;
+      v16 = 12;
       goto LABEL_8;
     }
   }
@@ -6535,12 +6959,12 @@ LABEL_8:
 {
   identifierCopy = identifier;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v6 = _AAUILogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = identifierCopy;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = identifierCopy;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v8, 0xCu);
   }
 
   [(AAUIAppleAccountViewController *)self reloadSpecifierID:identifierCopy];

@@ -26,7 +26,7 @@
   }
 
   bundleCopy = bundle;
-  return sub_100154888(v5, v7, bundle);
+  return sub_100154888(v9, v5, v7, bundle);
 }
 
 - (COSContextualVolumeProfileViewController)initWithCoder:(id)coder

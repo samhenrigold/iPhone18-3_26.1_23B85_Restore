@@ -24,26 +24,26 @@
 
 + (uint64_t)_fetchPersistedMedsList:(void *)list profile:(void *)profile transaction:(uint64_t)transaction error:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listCopy = list;
   profileCopy = profile;
   v10 = objc_opt_self();
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   v11 = MEMORY[0x277D10950];
   objc_opt_self();
   v12 = [MEMORY[0x277D10938] predicateForListUserDomainConceptWithType:2];
-  v13 = +[HDCloudSyncStateUpdaterMedsListDelegate _medsListOrderingTerms];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __93__HDCloudSyncStateUpdaterMedsListDelegate__fetchPersistedMedsList_profile_transaction_error___block_invoke;
-  v19[3] = &unk_2796CD200;
-  v19[4] = &v20;
-  v14 = [v11 enumerateCodableObjectsForPredicate:v12 limit:1 orderingTerms:v13 profile:listCopy transaction:profileCopy error:transaction handler:v19];
+  v13 = +[(HDCloudSyncStateUpdaterMedsListDelegate *)v10];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __93__HDCloudSyncStateUpdaterMedsListDelegate__fetchPersistedMedsList_profile_transaction_error___block_invoke;
+  v18[3] = &unk_2796CD200;
+  v18[4] = &v19;
+  v14 = [v11 enumerateCodableObjectsForPredicate:v12 limit:1 orderingTerms:v13 profile:listCopy transaction:profileCopy error:transaction handler:v18];
 
   if (v14)
   {
@@ -51,7 +51,7 @@
     v15 = HKLogMedication();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      if (v21[5])
+      if (v20[5])
       {
         v16 = @"non-nil";
       }
@@ -62,33 +62,32 @@
       }
 
       *buf = 138543618;
-      v27 = v10;
-      v28 = 2112;
-      v29 = v16;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v16;
       _os_log_impl(&dword_25181C000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetch %@ local meds list for state sync", buf, 0x16u);
     }
 
     if (a2)
     {
-      *a2 = v21[5];
+      *a2 = v20[5];
     }
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (uint64_t)_fetchCloudState:(void *)state codableSyncState:(uint64_t)syncState profile:(uint64_t)profile error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v8 = objc_opt_self();
-  v17 = 0;
-  v9 = [stateCopy decodedObjectOfClass:objc_opt_class() version:0 decodedObject:&v17 error:profile];
+  v16 = 0;
+  v9 = [stateCopy decodedObjectOfClass:objc_opt_class() version:0 decodedObject:&v16 error:profile];
 
-  v10 = v17;
+  v10 = v16;
   v11 = 0;
   if (v9)
   {
@@ -103,9 +102,9 @@
       }
 
       *buf = 138543618;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v13;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v13;
       _os_log_impl(&dword_25181C000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Decode %@ cloud meds list for state sync", buf, 0x16u);
     }
 
@@ -118,7 +117,6 @@
     v11 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -175,7 +173,7 @@
 
 uint64_t __119__HDCloudSyncStateUpdaterMedsListDelegate_shouldUpdateWithMergedState_cloudState_localState_profile_transaction_error___block_invoke(void *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCD580] createWithCodableConcept:a1[4] profile:a1[5]];
   v3 = [MEMORY[0x277CCD580] createWithCodableConcept:a1[6] profile:a1[5]];
   v4 = [(HDCloudSyncStateUpdaterMedsListDelegate *)a1[7] _mergeCloudList:v2 localList:v3];
@@ -223,15 +221,15 @@ LABEL_11:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = a1[7];
-      v22 = 138544130;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v5;
-      v26 = 2114;
-      v27 = v3;
-      v28 = 2114;
-      v29 = v2;
-      _os_log_impl(&dword_25181C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: result %{public}@ from merging %{public}@ and %{public}@", &v22, 0x2Au);
+      v21 = 138544130;
+      v22 = v16;
+      v23 = 2114;
+      v24 = v5;
+      v25 = 2114;
+      v26 = v3;
+      v27 = 2114;
+      v28 = v2;
+      _os_log_impl(&dword_25181C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: result %{public}@ from merging %{public}@ and %{public}@", &v21, 0x2Au);
     }
 
     v17 = [v5 codableRepresentationForSyncWithProfile:a1[5]];
@@ -240,13 +238,12 @@ LABEL_11:
     *(v18 + 40) = v17;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)updateCodableSyncState:(id)state withMergeState:(id)mergeState profile:(id)profile error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   mergeStateCopy = mergeState;
   stateCopy = state;
@@ -254,19 +251,18 @@ LABEL_11:
   v12 = HKLogMedication();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
+    v14 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set meds list in cloud state for state sync", &v15, 0xCu);
+    _os_log_impl(&dword_25181C000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set meds list in cloud state for state sync", &v14, 0xCu);
   }
 
   [stateCopy setCodableObject:mergeStateCopy version:0 profile:profileCopy];
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (uint64_t)_persistCloudState:(void *)state profile:(uint64_t)profile error:
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v7 = a2;
   v8 = objc_opt_self();
@@ -275,16 +271,15 @@ LABEL_11:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Persist meds list for state sync", buf, 0xCu);
   }
 
   v10 = MEMORY[0x277D10950];
-  v15 = v7;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = v7;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v12 = [v10 receiveSyncObjects:v11 version:objc_msgSend(MEMORY[0x277D10950] syncProvenance:"supportedSyncVersionRange") profile:0 error:{stateCopy, profile}];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -292,14 +287,12 @@ LABEL_11:
 {
   v5[1] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v0 = objc_alloc(MEMORY[0x277D10B68]);
-  v1 = [v0 initWithExpression:*MEMORY[0x277D10528] ascending:0];
-  v5[0] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v1 = objc_alloc(MEMORY[0x277D10B68]);
+  v2 = [v1 initWithExpression:*MEMORY[0x277D10528] ascending:0];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
-  v3 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v3;
 }
 
 - (id)_mergeCloudList:(void *)list localList:

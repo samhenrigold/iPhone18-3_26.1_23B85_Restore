@@ -184,35 +184,35 @@ LABEL_7:
 
 + (unsigned)gamePlatformSetForGamePlatformStrings:(id)strings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [stringsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(stringsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 length])
         {
           v6 |= [GKGameDescriptor gamePlatformSetFromGamePlatform:[GKGameDescriptor gamePlatformFromServerGameDescriptorString:v9]];
         }
       }
 
-      v5 = [stringsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -223,7 +223,6 @@ LABEL_7:
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -328,60 +327,52 @@ LABEL_7:
   return v3;
 }
 
-void __43__GKGameDescriptor_secureCodedPropertyKeys__block_invoke()
+void __43__GKGameDescriptor_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"adamID";
-  v4[0] = objc_opt_class();
-  v3[1] = @"externalVersion";
-  v4[1] = objc_opt_class();
-  v3[2] = @"bundleIdentifier";
-  v4[2] = objc_opt_class();
-  v3[3] = @"bundleVersion";
-  v4[3] = objc_opt_class();
-  v3[4] = @"shortBundleVersion";
-  v4[4] = objc_opt_class();
-  v3[5] = @"platform";
-  v4[5] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_1;
-  secureCodedPropertyKeys_sSecureCodedKeys_1 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"adamID";
+  v5[0] = objc_opt_class();
+  v4[1] = @"externalVersion";
+  v5[1] = objc_opt_class();
+  v4[2] = @"bundleIdentifier";
+  v5[2] = objc_opt_class();
+  v4[3] = @"bundleVersion";
+  v5[3] = objc_opt_class();
+  v4[4] = @"shortBundleVersion";
+  v5[4] = objc_opt_class();
+  v4[5] = @"platform";
+  v5[5] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:6];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_1;
+  secureCodedPropertyKeys_sSecureCodedKeys_1 = v2;
 }
 
 + (id)stringForPlatform:(int64_t)platform
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ((platform - 1) >= 5)
+  v12 = *MEMORY[0x277D85DE8];
+  if ((platform - 1) < 5)
   {
+    return off_2785DDE10[platform - 1];
+  }
+
+  v5 = os_log_GKGeneral;
+  if (!os_log_GKGeneral)
+  {
+    v6 = GKOSLoggers();
     v5 = os_log_GKGeneral;
-    if (!os_log_GKGeneral)
-    {
-      v6 = GKOSLoggers();
-      v5 = os_log_GKGeneral;
-    }
-
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-    {
-      v7 = MEMORY[0x277CCABB0];
-      v8 = v5;
-      v9 = [v7 numberWithInteger:platform];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "No platform string for specified GKGamePlatform value (%@), defaulting to iOS.", &v11, 0xCu);
-    }
-
-    result = @"ios";
   }
 
-  else
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    result = off_2785DDE10[platform - 1];
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v5;
+    v9 = [v7 numberWithInteger:platform];
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "No platform string for specified GKGamePlatform value (%@), defaulting to iOS.", &v10, 0xCu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"ios";
 }
 
 - (id)dictionaryForRequest

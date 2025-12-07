@@ -1,4 +1,5 @@
 @interface CDRecentServiceInfo
++ (id)CDRecentServiceInfo:(id)info atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)amount info:(id)a7;
 - (BOOL)isEmpty;
 - (BOOL)updateAmount:(id)amount atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)purgeableAmount deductFromCurrentAmount:(BOOL)currentAmount info:(id)info;
 - (BOOL)validate:(double)validate atUrgency:(int)urgency;
@@ -33,7 +34,7 @@
 
 - (id)description
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   p_amount = &self->recentinfo.urgencies[0].amount;
   v6 = -4;
@@ -64,26 +65,26 @@
   }
 
   while (!__CFADD__(v6++, 1));
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = [(CDRecentServiceInfo *)self serviceInfo];
-  v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
+        v17 = *(*(&v25 + 1) + 8 * i);
         v18 = MEMORY[0x1E696AEC0];
         serviceInfo = [(CDRecentServiceInfo *)self serviceInfo];
         v20 = [serviceInfo objectForKeyedSubscript:v17];
@@ -91,7 +92,7 @@
         [array addObject:v21];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -99,14 +100,12 @@
 
   v22 = [array componentsJoinedByString:{@", "}];
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (void)updateInfo:(id)info
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   if (infoCopy)
   {
@@ -126,9 +125,9 @@
 
     else
     {
-      v12 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
+      v11 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
 
-      if (!v12)
+      if (!v11)
       {
 LABEL_7:
         serviceInfo3 = [(CDRecentServiceInfo *)self serviceInfo];
@@ -139,27 +138,27 @@ LABEL_7:
 
         else
         {
-          v17 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
+          v16 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
 
-          if (!v17)
+          if (!v16)
           {
             goto LABEL_10;
           }
 
-          v18 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
-          [v6 setObject:v18 forKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
+          v17 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
+          [v6 setObject:v17 forKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
 
-          v19 = [v6 copy];
-          [(CDRecentServiceInfo *)self setServiceInfo:v19];
+          v18 = [v6 copy];
+          [(CDRecentServiceInfo *)self setServiceInfo:v18];
 
           serviceInfo3 = CDGetLogHandle("client");
           if (os_log_type_enabled(serviceInfo3, OS_LOG_TYPE_DEFAULT))
           {
             serviceInfo4 = [(CDRecentServiceInfo *)self serviceInfo];
-            v21 = [serviceInfo4 objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
-            v22 = 138412290;
-            v23 = v21;
-            _os_log_impl(&dword_1BA7F1000, serviceInfo3, OS_LOG_TYPE_DEFAULT, "CDRecentServiceInfo updated procname: %@", &v22, 0xCu);
+            v20 = [serviceInfo4 objectForKeyedSubscript:@"CACHE_DELETE_PROCNAME"];
+            v21 = 138412290;
+            v22 = v20;
+            _os_log_impl(&dword_1BA7F1000, serviceInfo3, OS_LOG_TYPE_DEFAULT, "CDRecentServiceInfo updated procname: %@", &v21, 0xCu);
           }
         }
 
@@ -167,20 +166,20 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v13 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
-      [v6 setObject:v13 forKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
+      v12 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
+      [v6 setObject:v12 forKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
 
-      v14 = [v6 copy];
-      [(CDRecentServiceInfo *)self setServiceInfo:v14];
+      v13 = [v6 copy];
+      [(CDRecentServiceInfo *)self setServiceInfo:v13];
 
       serviceInfo2 = CDGetLogHandle("client");
       if (os_log_type_enabled(serviceInfo2, OS_LOG_TYPE_DEFAULT))
       {
         serviceInfo5 = [(CDRecentServiceInfo *)self serviceInfo];
-        v16 = [serviceInfo5 objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
-        v22 = 138412290;
-        v23 = v16;
-        _os_log_impl(&dword_1BA7F1000, serviceInfo2, OS_LOG_TYPE_DEFAULT, "CDRecentServiceInfo updated signingID: %@", &v22, 0xCu);
+        v15 = [serviceInfo5 objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
+        v21 = 138412290;
+        v22 = v15;
+        _os_log_impl(&dword_1BA7F1000, serviceInfo2, OS_LOG_TYPE_DEFAULT, "CDRecentServiceInfo updated signingID: %@", &v21, 0xCu);
       }
     }
 
@@ -188,19 +187,17 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CDRecentServiceInfo)initWithAmount:(id)amount atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)purgeableAmount info:(id)info
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   amountCopy = amount;
   purgeableAmountCopy = purgeableAmount;
   infoCopy = info;
-  v29.receiver = self;
-  v29.super_class = CDRecentServiceInfo;
-  v15 = [(CDRecentServiceInfo *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = CDRecentServiceInfo;
+  v15 = [(CDRecentServiceInfo *)&v28 init];
   v16 = v15;
   if (!v15)
   {
@@ -253,9 +250,9 @@ LABEL_19:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v30 = @"CACHE_DELETE_ITEMIZED_NONPURGEABLE";
-          v31[0] = purgeableAmountCopy;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+          v29 = @"CACHE_DELETE_ITEMIZED_NONPURGEABLE";
+          v30[0] = purgeableAmountCopy;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
           v24 = v16[10];
           v16[10] = v23;
 
@@ -272,15 +269,25 @@ LABEL_19:
   v20 = CDGetLogHandle("client");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    v28 = 0;
-    _os_log_error_impl(&dword_1BA7F1000, v20, OS_LOG_TYPE_ERROR, "parameter error, must supply amount and urgency", &v28, 2u);
+    v27 = 0;
+    _os_log_error_impl(&dword_1BA7F1000, v20, OS_LOG_TYPE_ERROR, "parameter error, must supply amount and urgency", &v27, 2u);
   }
 
   v21 = 0;
 LABEL_20:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v21;
+}
+
++ (id)CDRecentServiceInfo:(id)info atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)amount info:(id)a7
+{
+  v9 = *&urgency;
+  v11 = a7;
+  amountCopy = amount;
+  infoCopy = info;
+  v14 = [[CDRecentServiceInfo alloc] initWithAmount:infoCopy atUrgency:v9 withTimestamp:amountCopy nonPurgeableAmount:v11 info:timestamp];
+
+  return v14;
 }
 
 - (BOOL)validate:(double)validate atUrgency:(int)urgency
@@ -519,7 +526,7 @@ LABEL_15:
 - (void)log
 {
   v2 = 0;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   p_amount = &self->recentinfo.urgencies[0].amount;
   do
   {
@@ -529,11 +536,11 @@ LABEL_15:
       v5 = *p_amount;
       v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:*(p_amount - 1)];
       *buf = 67109634;
-      v9 = v2;
-      v10 = 2048;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
+      v8 = v2;
+      v9 = 2048;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&dword_1BA7F1000, v4, OS_LOG_TYPE_DEFAULT, "     urgency %d, amount : %llu, timestamp: %@", buf, 0x1Cu);
     }
 
@@ -542,7 +549,6 @@ LABEL_15:
   }
 
   while (v2 != 4);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

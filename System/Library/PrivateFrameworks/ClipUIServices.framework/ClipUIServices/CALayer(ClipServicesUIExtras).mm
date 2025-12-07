@@ -1,11 +1,11 @@
 @interface CALayer(ClipServicesUIExtras)
-- (uint64_t)cps_pauseAnimations;
-- (uint64_t)cps_resumeAnimations;
+- (void)cps_pauseAnimations;
+- (void)cps_resumeAnimations;
 @end
 
 @implementation CALayer(ClipServicesUIExtras)
 
-- (uint64_t)cps_pauseAnimations
+- (void)cps_pauseAnimations
 {
   result = [self speed];
   if (v3 != 0.0)
@@ -20,7 +20,7 @@
   return result;
 }
 
-- (uint64_t)cps_resumeAnimations
+- (void)cps_resumeAnimations
 {
   result = [self speed];
   if (v3 <= 0.0)

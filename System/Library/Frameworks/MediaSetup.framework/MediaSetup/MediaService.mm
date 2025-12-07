@@ -215,16 +215,14 @@ LABEL_38:
 
 - (id)_failWithError:(unint64_t)error errorString:(id)string
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to initialize MediaService object, Nil %@", string];
   NSLog(&stru_284C4D138.isa, string);
   v6 = MEMORY[0x277CCA9B8];
-  v11 = @"MSUserInfoErrorStringKey";
-  v12[0] = string;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"MSUserInfoErrorStringKey";
+  v11[0] = string;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.mediasetup.serviceonboarding.errorDomain" code:error userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

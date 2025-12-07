@@ -65,31 +65,31 @@
 
 - (void)enumerateResponseHandlersWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   responseHandlers = [(_IMDRelayPendingServiceReachabilityRequest *)self responseHandlers];
   keyEnumerator = [responseHandlers keyEnumerator];
 
-  v7 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         responseHandlers2 = [(_IMDRelayPendingServiceReachabilityRequest *)self responseHandlers];
         v13 = [responseHandlers2 objectForKey:v11];
         blockCopy[2](blockCopy, v11, v13);
@@ -98,13 +98,11 @@
       }
 
       while (v8 != v10);
-      v8 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

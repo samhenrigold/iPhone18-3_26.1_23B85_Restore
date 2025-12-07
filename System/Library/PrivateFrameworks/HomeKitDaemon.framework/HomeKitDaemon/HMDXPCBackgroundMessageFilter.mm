@@ -6,7 +6,7 @@
 
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   policiesCopy = policies;
   if (messageCopy)
@@ -39,9 +39,9 @@ LABEL_19:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             v21 = HMFGetLogIdentifier();
-            v28 = 138543362;
-            v29 = v21;
-            _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Handler does not support background access", &v28, 0xCu);
+            v27 = 138543362;
+            v28 = v21;
+            _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Handler does not support background access", &v27, 0xCu);
           }
 
           objc_autoreleasePoolPop(v18);
@@ -59,9 +59,9 @@ LABEL_19:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             v25 = HMFGetLogIdentifier();
-            v28 = 138543362;
-            v29 = v25;
-            _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Missing background policy", &v28, 0xCu);
+            v27 = 138543362;
+            v28 = v25;
+            _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Missing background policy", &v27, 0xCu);
           }
 
           objc_autoreleasePoolPop(v22);
@@ -82,7 +82,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

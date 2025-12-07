@@ -113,14 +113,11 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
   self->_showInSettings = settings;
   if (settings)
   {
-    v4 = @"com.apple.Preferences";
-    targetBundleIdentifier = self->_targetBundleIdentifier;
-    self->_targetBundleIdentifier = &v4->isa;
+    self->_targetBundleIdentifier = @"com.apple.Preferences";
   }
 
   else
   {
-    v6 = self->_targetBundleIdentifier;
     self->_targetBundleIdentifier = 0;
   }
 
@@ -265,14 +262,14 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
   {
     v4 = MEMORY[0x277CCAC58];
     userInfo2 = [(FLFollowUpItem *)self userInfo];
-    v9 = 0;
-    userInfo = [v4 dataWithPropertyList:userInfo2 format:200 options:0 error:&v9];
-    v6 = v9;
+    v10 = 0;
+    userInfo = [v4 dataWithPropertyList:userInfo2 format:200 options:0 error:&v10];
+    v6 = v10;
 
     if (!userInfo)
     {
-      v7 = _FLLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _FLLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpAction _userInfoData];
       }
@@ -286,17 +283,17 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
 {
   if (data)
   {
-    v8 = 0;
-    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v8];
-    v5 = v8;
+    v9 = 0;
+    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v9];
+    v5 = v9;
     [(FLFollowUpItem *)self setUserInfo:v4];
 
     userInfo = [(FLFollowUpItem *)self userInfo];
 
     if (!userInfo)
     {
-      v7 = _FLLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _FLLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpAction set_userInfoData:];
       }
@@ -342,8 +339,8 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
 
       if (!v10)
       {
-        v11 = _FLLogSystem();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = _FLLogSystem(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           expirationDate = self->_expirationDate;
           *buf = 138412802;
@@ -352,7 +349,7 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
           v18 = currentCalendar;
           v19 = 2112;
           v20 = expirationDate;
-          _os_log_error_impl(&dword_22E696000, v11, OS_LOG_TYPE_ERROR, "Could not build midnight adjusted date with comoponents %@ from calendar %@, reverting to expiration date as is %@", buf, 0x20u);
+          _os_log_error_impl(&dword_22E696000, v12, OS_LOG_TYPE_ERROR, "Could not build midnight adjusted date with comoponents %@ from calendar %@, reverting to expiration date as is %@", buf, 0x20u);
         }
 
         v10 = self->_expirationDate;
@@ -365,8 +362,6 @@ uint64_t __42__FLFollowUpItem__expirationDateFormatter__block_invoke()
   else
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

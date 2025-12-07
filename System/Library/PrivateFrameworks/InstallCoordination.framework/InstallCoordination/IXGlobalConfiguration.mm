@@ -41,7 +41,6 @@
 
 uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_shared = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x1EEE66BB8]();
@@ -49,10 +48,10 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
 - (IXGlobalConfiguration)init
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = IXGlobalConfiguration;
-  v2 = [(IXGlobalConfiguration *)&v15 init];
+  v16 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = IXGlobalConfiguration;
+  v2 = [(IXGlobalConfiguration *)&v14 init];
   v3 = v2;
   if (v2)
   {
@@ -60,19 +59,19 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
     v4 = sysconf(71);
     if (v4 == -1)
     {
-      [(IXGlobalConfiguration *)&v14 init];
+      [(IXGlobalConfiguration *)&v13 init];
     }
 
-    memset(&v14, 0, sizeof(v14));
-    v13 = 0;
-    if (getpwnam_r("mobile", &v14, &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v4, &v13) || !v13)
+    memset(&v13, 0, sizeof(v13));
+    v12 = 0;
+    if (getpwnam_r("mobile", &v13, &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v4, &v12) || !v12)
     {
-      [(IXGlobalConfiguration *)&v12 init];
+      [(IXGlobalConfiguration *)&v11 init];
     }
 
-    pw_dir = v14.pw_dir;
-    v3->_daemonUID = v14.pw_uid;
-    v3->_daemonGID = v14.pw_gid;
+    pw_dir = v13.pw_dir;
+    v3->_daemonUID = v13.pw_uid;
+    v3->_daemonGID = v13.pw_gid;
     v6 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:pw_dir isDirectory:1 relativeToURL:0];
     daemonUserHome = v3->_daemonUserHome;
     v3->_daemonUserHome = v6;
@@ -82,7 +81,6 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
     v3->_rootPath = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -99,8 +97,8 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
+  v8 = OUTLINED_FUNCTION_0_0(v2, v3, v4, v5, &dword_1DA47A000, v6, v7, "Failed to fetch system container URL: %@");
+  OUTLINED_FUNCTION_5(v8);
   __break(1u);
 }
 
@@ -172,16 +170,14 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)dataDirectoryAbortingOnError
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [(IXGlobalConfiguration *)self dataDirectoryWithError:&v7];
-  v3 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [(IXGlobalConfiguration *)self dataDirectoryWithError:&v6];
+  v3 = v6;
   if (!v2)
   {
-    [(IXGlobalConfiguration *)&v6 dataDirectoryAbortingOnError];
+    [(IXGlobalConfiguration *)&v5 dataDirectoryAbortingOnError];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -204,33 +200,39 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)promiseStagingRootAbortingOnErrorForInstallLocation:(id)location usingUniqueName:(id)name
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   nameCopy = name;
-  v13 = 0;
-  v8 = [(IXGlobalConfiguration *)self promiseStagingRootForInstallLocation:locationCopy usingUniqueName:nameCopy error:&v13];
-  v9 = v13;
+  v16 = 0;
+  v8 = [(IXGlobalConfiguration *)self promiseStagingRootForInstallLocation:locationCopy usingUniqueName:nameCopy error:&v16];
+  v9 = v16;
   if (!v8)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v20 = 0u;
+    v15 = 0;
+    memset(v23, 0, sizeof(v23));
+    v11 = MEMORY[0x1E69E9C10];
     v12 = v9;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v14 = 138412802;
-    v15 = locationCopy;
-    v16 = 2112;
-    v17 = nameCopy;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_send_and_compose_impl();
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v17 = 138412802;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v18 = locationCopy;
+    v19 = 2112;
+    v20 = nameCopy;
+    v21 = 2112;
+    v22 = v12;
+    _os_log_send_and_compose_impl(v14, &v15, v23, 80, &dword_1DA47A000, v11, 16, "Failed to get promise staging directory for install location %@ with uniqueName %@: %@", &v17, 32);
     _os_crash_msg();
     __break(1u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -254,16 +256,14 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)removabilityDirectoryAbortingOnError
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [(IXGlobalConfiguration *)self removabilityDirectoryWithError:&v7];
-  v3 = v7;
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [(IXGlobalConfiguration *)self removabilityDirectoryWithError:&v6];
+  v3 = v6;
   if (!v2)
   {
-    [(IXGlobalConfiguration *)&v6 createDirectories];
+    [(IXGlobalConfiguration *)&v5 createDirectories];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -287,11 +287,11 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)_userTempDirURLWithError:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
-  bzero(v12, 0x400uLL);
-  if (confstr(65537, v12, 0x400uLL))
+  v12 = *MEMORY[0x1E69E9840];
+  bzero(v11, 0x400uLL);
+  if (confstr(65537, v11, 0x400uLL))
   {
-    v4 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v12 isDirectory:1 relativeToURL:0];
+    v4 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v11 isDirectory:1 relativeToURL:0];
     v5 = 0;
     if (!error)
     {
@@ -320,8 +320,6 @@ uint64_t __39__IXGlobalConfiguration_sharedInstance__block_invoke(uint64_t a1)
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -420,25 +418,23 @@ LABEL_7:
   a2[2] = 0u;
   *a2 = 0u;
   OUTLINED_FUNCTION_4();
-  strerror(v4);
-  OUTLINED_FUNCTION_3_0();
-  v5 = *self;
+  v10 = strerror(v4);
+  OUTLINED_FUNCTION_3_0(v10, v5, v6, v7, &dword_1DA47A000, v8, v9, "Failed to get home dir path size: %s");
   _os_crash_msg();
   __break(1u);
 }
 
 - (void)_dataStorageHomeURLWithError:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 136315650;
-  v5 = "[IXGlobalConfiguration _dataStorageHomeURLWithError:]";
-  v6 = 2048;
-  v7 = v2;
-  v8 = 2112;
-  v9 = 0;
-  _os_log_error_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_ERROR, "%s: Failed to get group container path for group 'systemgroup.com.apple.installcoordinationd'; container_system_group_path_for_identifier returned %llu : %@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315650;
+  v4 = "[IXGlobalConfiguration _dataStorageHomeURLWithError:]";
+  v5 = 2048;
+  v6 = v2;
+  v7 = 2112;
+  v8 = 0;
+  _os_log_error_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_ERROR, "%s: Failed to get group container path for group 'systemgroup.com.apple.installcoordinationd'; container_system_group_path_for_identifier returned %llu : %@", &v3, 0x20u);
 }
 
 - (void)dataDirectoryAbortingOnError
@@ -446,8 +442,8 @@ LABEL_7:
   OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
+  v8 = OUTLINED_FUNCTION_0_0(v2, v3, v4, v5, &dword_1DA47A000, v6, v7, "Failed to get data directory: %@");
+  OUTLINED_FUNCTION_5(v8);
   __break(1u);
 }
 

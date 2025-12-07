@@ -525,18 +525,18 @@ LABEL_11:
   storeCopy = store;
   reminderStoreCopy = reminderStore;
   sessionCopy = session;
-  v49 = objectCopy;
-  v52 = [objectCopy objectAtIndexedSubscript:0];
+  v47 = objectCopy;
+  v50 = [objectCopy objectAtIndexedSubscript:0];
   delegate = [sessionCopy delegate];
   v10 = +[NDTPerf wallTime];
   objc_opt_class();
-  v11 = v52;
+  v11 = v50;
   if (objc_opt_isKindOfClass())
   {
     if (os_log_type_enabled(*(qword_1000D18A8 + 8), OS_LOG_TYPE_DEBUG))
     {
       sub_100072BA0();
-      v11 = v52;
+      v11 = v50;
     }
 
     reminderStore = self->_reminderStore;
@@ -554,7 +554,7 @@ LABEL_11:
     if (os_log_type_enabled(*(qword_1000D18A8 + 8), OS_LOG_TYPE_DEBUG))
     {
       sub_1000727FC();
-      v11 = v52;
+      v11 = v50;
     }
 
     v14 = v11;
@@ -565,19 +565,19 @@ LABEL_11:
     {
       if (([v14 isDefaultTaskCalendar] & 1) == 0 && (objc_msgSend(v14, "isDefaultEventCalendar") & 1) == 0)
       {
-        v48 = *(qword_1000D18A8 + 8);
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v46 = *(qword_1000D18A8 + 8);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          sub_1000729F4(v48, sessionCopy, v14);
+          sub_1000729F4(v46, sessionCopy, v14);
         }
 
         goto LABEL_56;
       }
 
-      v38 = *(qword_1000D18A8 + 8);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v36 = *(qword_1000D18A8 + 8);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        sub_100072B00(v38, sessionCopy);
+        sub_100072B00(v36, sessionCopy);
       }
     }
 
@@ -605,41 +605,41 @@ LABEL_11:
       isReminderKitEnabled2 = [environment2 isReminderKitEnabled];
       if (supportedEntityTypes)
       {
-        v41 = 0;
+        v39 = 0;
       }
 
       else
       {
-        v41 = isReminderKitEnabled2;
+        v39 = isReminderKitEnabled2;
       }
 
-      v42 = *(qword_1000D18A8 + 8);
-      if (v41)
+      v40 = *(qword_1000D18A8 + 8);
+      if (v39)
       {
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v43 = v42;
+          v41 = v40;
           identifier = [sessionCopy identifier];
           attributes3 = [v14 attributes];
-          v46 = sub_10002CDF8([attributes3 title]);
+          v44 = sub_10002CDF8([attributes3 title]);
           calendarIdentifier = [v14 calendarIdentifier];
           *buf = 138544130;
           *&buf[4] = identifier;
           *&buf[12] = 2114;
-          *&buf[14] = v46;
+          *&buf[14] = v44;
           *&buf[22] = 2114;
-          v67 = calendarIdentifier;
-          v68 = 1024;
-          v69 = supportedEntityTypes;
-          _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "[Session: %{public}@] createOrUpdateSYObject: calendar or list %{public}@/%{public}@ has entitySupportType %d", buf, 0x26u);
+          v65 = calendarIdentifier;
+          v66 = 1024;
+          v67 = supportedEntityTypes;
+          _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "[Session: %{public}@] createOrUpdateSYObject: calendar or list %{public}@/%{public}@ has entitySupportType %d", buf, 0x26u);
         }
 
         goto LABEL_56;
       }
 
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000728B4(v42, sessionCopy);
+        sub_1000728B4(v40, sessionCopy);
       }
     }
 
@@ -651,9 +651,7 @@ LABEL_56:
   }
 
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v23 = *(qword_1000D18A8 + 8);
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     if (os_log_type_enabled(*(qword_1000D18A8 + 8), OS_LOG_TYPE_DEBUG))
     {
@@ -670,48 +668,48 @@ LABEL_56:
       goto LABEL_57;
     }
 
-    v26 = +[NSMutableArray array];
-    v55 = +[NSMutableArray array];
-    v61 = 0u;
-    v62 = 0u;
+    v24 = +[NSMutableArray array];
+    v53 = +[NSMutableArray array];
     v59 = 0u;
     v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     obj = objectCopy;
-    v27 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
-    if (!v27)
+    v25 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
+    if (!v25)
     {
       goto LABEL_32;
     }
 
-    v28 = *v60;
+    v26 = *v58;
     while (1)
     {
-      for (i = 0; i != v27; i = i + 1)
+      for (i = 0; i != v25; i = i + 1)
       {
-        if (*v60 != v28)
+        if (*v58 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v59 + 1) + 8 * i);
+        v28 = *(*(&v57 + 1) + 8 * i);
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v67 = 0;
-        v58[0] = _NSConcreteStackBlock;
-        v58[1] = 3221225472;
-        v58[2] = sub_10003F4CC;
-        v58[3] = &unk_1000B5970;
-        v58[4] = v30;
-        v58[5] = buf;
-        [v30 enumerateCalendarItemIdentifiersUsingBlock:v58];
+        v65 = 0;
+        v56[0] = _NSConcreteStackBlock;
+        v56[1] = 3221225472;
+        v56[2] = sub_10003F4CC;
+        v56[3] = &unk_1000B5970;
+        v56[4] = v28;
+        v56[5] = buf;
+        [v28 enumerateCalendarItemIdentifiersUsingBlock:v56];
         environment4 = [(NEKSyncController *)self environment];
         if ([environment4 isReminderKitEnabled])
         {
-          v32 = *(*&buf[8] + 24) == 2;
+          v30 = *(*&buf[8] + 24) == 2;
 
-          v33 = v55;
-          if (v32)
+          v31 = v53;
+          if (v30)
           {
             goto LABEL_30;
           }
@@ -721,41 +719,41 @@ LABEL_56:
         {
         }
 
-        v33 = v26;
+        v31 = v24;
         if (*(*&buf[8] + 24) == 3)
         {
-          v34 = *(qword_1000D18A8 + 8);
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v32 = *(qword_1000D18A8 + 8);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             identifier2 = [sessionCopy identifier];
-            sub_1000727A0(identifier2, v63, &v64, v34);
+            sub_1000727A0(identifier2, v61, &v62, v32);
           }
 
-          v33 = v26;
+          v31 = v24;
         }
 
 LABEL_30:
-        [v33 addObject:v30];
+        [v31 addObject:v28];
         _Block_object_dispose(buf, 8);
       }
 
-      v27 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
-      if (!v27)
+      v25 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
+      if (!v25)
       {
 LABEL_32:
 
-        if ([v26 count])
+        if ([v24 count])
         {
-          v36 = +[NDTPerf wallTime];
-          [(NEKStore *)self->_eventStore updateICS:v26 store:storeCopy session:sessionCopy];
-          [delegate setEventUpdateTimeNs:{+[NDTPerf wallTime](NDTPerf, "wallTime") + objc_msgSend(delegate, "eventUpdateTimeNs") - v36}];
+          v34 = +[NDTPerf wallTime];
+          [(NEKStore *)self->_eventStore updateICS:v24 store:storeCopy session:sessionCopy];
+          [delegate setEventUpdateTimeNs:{+[NDTPerf wallTime](NDTPerf, "wallTime") + objc_msgSend(delegate, "eventUpdateTimeNs") - v34}];
         }
 
-        if ([v55 count])
+        if ([v53 count])
         {
-          v37 = +[NDTPerf wallTime];
-          [(NEKStore *)self->_reminderStore updateICS:v55 store:reminderStoreCopy session:sessionCopy];
-          [delegate setReminderUpdateTimeNs:{+[NDTPerf wallTime](NDTPerf, "wallTime") + objc_msgSend(delegate, "reminderUpdateTimeNs") - v37}];
+          v35 = +[NDTPerf wallTime];
+          [(NEKStore *)self->_reminderStore updateICS:v53 store:reminderStoreCopy session:sessionCopy];
+          [delegate setReminderUpdateTimeNs:{+[NDTPerf wallTime](NDTPerf, "wallTime") + objc_msgSend(delegate, "reminderUpdateTimeNs") - v35}];
         }
 
         goto LABEL_57;
@@ -1634,51 +1632,51 @@ LABEL_15:
   [statsTracker nextTimeout];
   v5 = v4;
 
-  v6 = sub_10004157C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10004157C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     statsTracker2 = [(NEKSyncSession *)self->_syncSession statsTracker];
     [statsTracker2 mean];
-    v9 = v8;
+    v10 = v9;
     statsTracker3 = [(NEKSyncSession *)self->_syncSession statsTracker];
     [statsTracker3 stddev];
     *buf = 134218240;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v11;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Before timeout stats: x (mean) = %.02f sigma (stddev) = %f", buf, 0x16u);
+    v21 = v10;
+    v22 = 2048;
+    v23 = v12;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Before timeout stats: x (mean) = %.02f sigma (stddev) = %f", buf, 0x16u);
   }
 
-  v12 = fmin(v5, 14400.0);
+  v13 = fmin(v5, 14400.0);
 
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"internal_enableLongTimeouts", @"com.apple.EventKitSync", &keyExistsAndHasValidFormat);
   if (keyExistsAndHasValidFormat && AppBooleanValue)
   {
-    v14 = sub_10004157C();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_10004157C(AppBooleanValue);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Comically long session timeouts enabled!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Comically long session timeouts enabled!", buf, 2u);
     }
 
-    v12 = 144000.0;
+    v13 = 144000.0;
   }
 
-  v15 = CFPreferencesGetAppBooleanValue(@"internal_enableShortTimeouts", @"com.apple.EventKitSync", &keyExistsAndHasValidFormat);
-  if (keyExistsAndHasValidFormat && v15)
+  v16 = CFPreferencesGetAppBooleanValue(@"internal_enableShortTimeouts", @"com.apple.EventKitSync", &keyExistsAndHasValidFormat);
+  if (keyExistsAndHasValidFormat && v16)
   {
-    v16 = sub_10004157C();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_10004157C(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Comically short session timeouts enabled!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Comically short session timeouts enabled!", buf, 2u);
     }
 
     return 30.0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)_shouldFakeFailure
@@ -1971,15 +1969,15 @@ LABEL_15:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v91 = sub_100042878;
-    v92 = sub_1000428A4;
-    v93 = 0;
-    v82[0] = _NSConcreteStackBlock;
-    v82[1] = 3221225472;
-    v82[2] = sub_1000428AC;
-    v82[3] = &unk_1000B5A00;
-    v82[4] = buf;
-    v16 = objc_retainBlock(v82);
+    v92 = sub_100042878;
+    v93 = sub_1000428A4;
+    v94 = 0;
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_1000428AC;
+    v83[3] = &unk_1000B5A00;
+    v83[4] = buf;
+    v16 = objc_retainBlock(v83);
     v17 = *(*&buf[8] + 40);
     *(*&buf[8] + 40) = v16;
 
@@ -1989,7 +1987,7 @@ LABEL_15:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         identifier = [endedCopy identifier];
-        sub_100073498(identifier, self, v89, v18);
+        sub_100073498(identifier, self, v90, v18);
       }
 
       self->_isNightlySync = 0;
@@ -2018,7 +2016,7 @@ LABEL_15:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         identifier2 = [endedCopy identifier];
-        sub_100073564(identifier2, v83, v22);
+        sub_100073564(identifier2, v84, v22);
       }
 
       (*(*(*&buf[8] + 40) + 16))();
@@ -2030,20 +2028,20 @@ LABEL_15:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         identifier3 = [endedCopy identifier];
-        sub_100073514(identifier3, v83, v24);
+        sub_100073514(identifier3, v84, v24);
       }
 
       objc_initWeak(location, self);
       v26 = *(*&buf[8] + 40);
-      v78[0] = _NSConcreteStackBlock;
-      v78[1] = 3221225472;
-      v78[2] = sub_100042914;
-      v78[3] = &unk_1000B5138;
-      objc_copyWeak(&v80, location);
-      v79 = endedCopy;
-      (*(v26 + 16))(v26, v78);
+      v79[0] = _NSConcreteStackBlock;
+      v79[1] = 3221225472;
+      v79[2] = sub_100042914;
+      v79[3] = &unk_1000B5138;
+      objc_copyWeak(&v81, location);
+      v80 = endedCopy;
+      (*(v26 + 16))(v26, v79);
 
-      objc_destroyWeak(&v80);
+      objc_destroyWeak(&v81);
       objc_destroyWeak(location);
     }
 
@@ -2063,35 +2061,35 @@ LABEL_15:
           identifier4 = [endedCopy identifier];
           statsTracker3 = [delegate statsTracker];
           [statsTracker3 mean];
-          v66 = v65;
+          v67 = v66;
           statsTracker4 = [delegate statsTracker];
           [statsTracker4 stddev];
-          *v83 = 138543874;
-          v84 = identifier4;
-          v85 = 2048;
-          v86 = v66;
-          v87 = 2048;
-          v88 = v68;
-          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[Session: %{public}@] sendSessionEnded: failed sync stats, x (mean) [%.02f] sigma (stddev) [%f]", v83, 0x20u);
+          *v84 = 138543874;
+          v85 = identifier4;
+          v86 = 2048;
+          v87 = v67;
+          v88 = 2048;
+          v89 = v69;
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[Session: %{public}@] sendSessionEnded: failed sync stats, x (mean) [%.02f] sigma (stddev) [%f]", v84, 0x20u);
         }
       }
 
       v30 = *(*&buf[8] + 40);
-      v73 = _NSConcreteStackBlock;
-      v74 = 3221225472;
-      v75 = sub_100042964;
-      v76 = &unk_1000B4B90;
+      v74 = _NSConcreteStackBlock;
+      v75 = 3221225472;
+      v76 = sub_100042964;
+      v77 = &unk_1000B4B90;
       selfCopy = self;
       (*(v30 + 16))();
     }
 
     v31 = *(*&buf[8] + 40);
-    v71[0] = _NSConcreteStackBlock;
-    v71[1] = 3221225472;
-    v71[2] = sub_10004296C;
-    v71[3] = &unk_1000B4B90;
-    v72 = endedCopy;
-    (*(v31 + 16))(v31, v71);
+    v72[0] = _NSConcreteStackBlock;
+    v72[1] = 3221225472;
+    v72[2] = sub_10004296C;
+    v72[3] = &unk_1000B4B90;
+    v73 = endedCopy;
+    (*(v31 + 16))(v31, v72);
     environment3 = [(NEKSyncController *)self environment];
     analytics = [environment3 analytics];
     [analytics recordSessionType:3];
@@ -2154,36 +2152,36 @@ LABEL_15:
     statsTracker6 = [delegate statsTracker];
     [statsTracker6 save];
 
-    v56 = sub_10004157C();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+    v57 = sub_10004157C(v56);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       statsTracker7 = [delegate statsTracker];
       [statsTracker7 mean];
-      v59 = v58;
+      v60 = v59;
       statsTracker8 = [delegate statsTracker];
       [statsTracker8 stddev];
       *buf = 134218496;
       *&buf[4] = v54;
       *&buf[12] = 2048;
-      *&buf[14] = v59;
+      *&buf[14] = v60;
       *&buf[22] = 2048;
-      v91 = v61;
-      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Post success update sync timings: elapsed=%.02f x=%.02f sigma=%f", buf, 0x20u);
+      v92 = v62;
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Post success update sync timings: elapsed=%.02f x=%.02f sigma=%f", buf, 0x20u);
     }
 
     environment8 = [(NEKSyncController *)self environment];
     analytics2 = [environment8 analytics];
     if ([endedCopy isResetSync])
     {
-      v64 = 1;
+      v65 = 1;
     }
 
     else
     {
-      v64 = 2;
+      v65 = 2;
     }
 
-    [analytics2 recordSessionType:v64];
+    [analytics2 recordSessionType:v65];
   }
 
   fetcher = [delegate fetcher];

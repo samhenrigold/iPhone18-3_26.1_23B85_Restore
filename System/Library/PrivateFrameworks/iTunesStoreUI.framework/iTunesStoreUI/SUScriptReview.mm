@@ -22,26 +22,27 @@
 
 - (SUScriptReview)initWithReview:(id)review
 {
-  v8.receiver = self;
-  v8.super_class = SUScriptReview;
-  v4 = [(SUScriptObject *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = SUScriptReview;
+  v4 = [(SUScriptObject *)&v10 init];
+  v6 = v4;
   if (v4)
   {
     if (review)
     {
-      v5 = [review copy];
+      v7 = [review copy];
     }
 
     else
     {
-      v6 = ISUIMobileStoreUIFramework();
-      v5 = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuireviewmeta.isa, v6));
+      v8 = ISUIMobileStoreUIFramework(v4, v5);
+      v7 = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuireviewmeta.isa, v8));
     }
 
-    v4->_review = v5;
+    v6->_review = v7;
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)dealloc

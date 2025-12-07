@@ -112,15 +112,15 @@
 
 + (void)_deleteStagedManifestFileForEntry:(void *)entry updateCoordinator:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   entryCopy = entry;
   v6 = objc_opt_self();
   shardRegistry = [entryCopy shardRegistry];
 
-  v12 = 0;
-  v8 = [shardRegistry deleteStagedShardFileForEntry:v4 error:&v12];
-  v9 = v12;
+  v11 = 0;
+  v8 = [shardRegistry deleteStagedShardFileForEntry:v4 error:&v11];
+  v9 = v11;
 
   if ((v8 & 1) == 0)
   {
@@ -129,16 +129,14 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v4;
-      v17 = 2114;
-      v18 = v9;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v4;
+      v16 = 2114;
+      v17 = v9;
       _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: After import unable to delete staged file for %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)importOntologyShardEntry:(id)entry shardRegistry:(id)registry error:(id *)error

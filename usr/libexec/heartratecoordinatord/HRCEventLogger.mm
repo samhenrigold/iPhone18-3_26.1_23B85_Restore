@@ -1,5 +1,6 @@
 @interface HRCEventLogger
 - (HRCEventLogger)initWithRootDirectory:(id)directory ioHelper:(id)helper isInternalVariant:(BOOL)variant queue:(id)queue;
+- (HRCEventLogger)initWithRootDirectory:(id)directory isInternalVariant:(BOOL)variant;
 - (void)_addClient;
 - (void)_flush;
 - (void)_flushAndClose;
@@ -43,10 +44,10 @@
 {
   dispatch_assert_queue_V2(self->_loggingQueue);
   ++self->_clientCount;
-  v3 = sub_10000132C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = sub_10000132C(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A8A4(&self->_clientCount, v3);
+    sub_10001A8A4(&self->_clientCount, v4);
   }
 
   [(HRCEventLogger *)self _recomputeLoggingStatus];
@@ -55,19 +56,19 @@
 - (void)_recomputeLoggingStatus
 {
   dispatch_assert_queue_V2(self->_loggingQueue);
-  v3 = sub_10000132C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_10000132C(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     clientCount = self->_clientCount;
-    v8[0] = 67240192;
-    v8[1] = clientCount;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "HRCEventLogger client count : %{public}d", v8, 8u);
+    v9[0] = 67240192;
+    v9[1] = clientCount;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "HRCEventLogger client count : %{public}d", v9, 8u);
   }
 
-  v5 = self->_clientCount == 0;
+  v6 = self->_clientCount == 0;
   ioHelper = [(HRCEventLogger *)self ioHelper];
-  v7 = ioHelper;
-  if (v5)
+  v8 = ioHelper;
+  if (v6)
   {
     [ioHelper stopLogging];
   }
@@ -78,13 +79,27 @@
   }
 }
 
+- (HRCEventLogger)initWithRootDirectory:(id)directory isInternalVariant:(BOOL)variant
+{
+  variantCopy = variant;
+  directoryCopy = directory;
+  v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v8 = dispatch_queue_attr_make_with_qos_class(v7, QOS_CLASS_BACKGROUND, -1);
+
+  v9 = dispatch_queue_create("com.apple.heartratecoordinatord.logger", v8);
+  v10 = [[HRCEventLoggerIOHelper alloc] initWithRootDirectory:directoryCopy withQueue:v9 isInternalVariant:variantCopy];
+  v11 = [(HRCEventLogger *)self initWithRootDirectory:directoryCopy ioHelper:v10 isInternalVariant:variantCopy queue:v9];
+
+  return v11;
+}
+
 - (HRCEventLogger)initWithRootDirectory:(id)directory ioHelper:(id)helper isInternalVariant:(BOOL)variant queue:(id)queue
 {
   helperCopy = helper;
   queueCopy = queue;
-  v18.receiver = self;
-  v18.super_class = HRCEventLogger;
-  v11 = [(HRCEventLogger *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = HRCEventLogger;
+  v11 = [(HRCEventLogger *)&v19 init];
   v11->_clientCount = 0;
   objc_storeStrong(&v11->_loggingQueue, queue);
   objc_storeStrong(&v11->_ioHelper, helper);
@@ -93,16 +108,16 @@
   handler[1] = 3221225472;
   handler[2] = sub_1000194B4;
   handler[3] = &unk_100040C58;
-  objc_copyWeak(&v16, &location);
-  notify_register_dispatch("com.apple.HeartRateCoordinator.logFlush", &v11->_flushToken, queueCopy, handler);
-  v12 = sub_10000132C();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  objc_copyWeak(&v17, &location);
+  v12 = notify_register_dispatch("com.apple.HeartRateCoordinator.logFlush", &v11->_flushToken, queueCopy, handler);
+  v13 = sub_10000132C(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "HRCEventLogger init", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "HRCEventLogger init", v15, 2u);
   }
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
   return v11;
@@ -252,10 +267,10 @@
   if (self->_clientCount)
   {
     --self->_clientCount;
-    v3 = sub_10000132C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_10000132C(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001A920(&self->_clientCount, v3);
+      sub_10001A920(&self->_clientCount, v4);
     }
 
     [(HRCEventLogger *)self _recomputeLoggingStatus];
@@ -263,10 +278,10 @@
 
   else
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = sub_10000132C(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_10001A99C(v4);
+      sub_10001A99C(v5);
     }
   }
 }
@@ -294,11 +309,11 @@
 - (void)_handleFlushNotification
 {
   dispatch_assert_queue_V2(self->_loggingQueue);
-  v3 = sub_10000132C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_10000132C(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "HRCEventLogger flush received", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "HRCEventLogger flush received", buf, 2u);
   }
 
   ioHelper = [(HRCEventLogger *)self ioHelper];
@@ -307,20 +322,20 @@
   if (started)
   {
     [(HRCEventLogger *)self _flushAndClose];
-    v6 = "com.apple.HeartRateCoordinator.logFlushFinshed";
+    v7 = "com.apple.HeartRateCoordinator.logFlushFinshed";
   }
 
   else
   {
-    v6 = "com.apple.HeartRateCoordinator.logFlushNotNeeded";
+    v7 = "com.apple.HeartRateCoordinator.logFlushNotNeeded";
   }
 
-  notify_post(v6);
-  v7 = sub_10000132C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = notify_post(v7);
+  v9 = sub_10000132C(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "HRCEventLogger flush complete", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "HRCEventLogger flush complete", v10, 2u);
   }
 }
 
@@ -371,19 +386,18 @@
   {
     ioHelper2 = [(HRCEventLogger *)self ioHelper];
     v13 = update->var0;
-    var1 = update->var1;
-    v15 = update->var2;
-    v16 = update->var3;
-    v17 = *&update->var4;
-    v19[0] = 0;
-    v19[1] = 0;
-    v20 = 0;
-    v18[0] = timestamp;
+    v14 = update->var2;
+    v15 = update->var3;
+    v16 = *&update->var4;
+    v18[0] = 0;
+    v18[1] = 0;
+    v19 = 0;
+    v17[0] = timestamp;
     [v13 timeIntervalSinceReferenceDate];
-    v18[1] = v10;
-    [v16 getUUIDBytes:v19];
-    v20 = v17;
-    v11 = [NSData dataWithBytes:v18 length:34];
+    v17[1] = v10;
+    [v15 getUUIDBytes:v18];
+    v19 = v16;
+    v11 = [NSData dataWithBytes:v17 length:34];
     v12 = sub_100001844(398, 34, v11);
 
     [ioHelper2 handleEncodedData:v12];
@@ -487,12 +501,12 @@
   ioHelper = [(HRCEventLogger *)self ioHelper];
   started = [ioHelper started];
 
-  v9 = sub_10000132C();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10000132C(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v18[0] = 67109120;
-    v18[1] = started;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Writing analytics to log, logging started: %{BOOL}u", v18, 8u);
+    v19[0] = 67109120;
+    v19[1] = started;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Writing analytics to log, logging started: %{BOOL}u", v19, 8u);
   }
 
   if ((started & 1) == 0)
@@ -502,28 +516,28 @@
   }
 
   ioHelper3 = [(HRCEventLogger *)self ioHelper];
-  v12 = dataCopy;
-  v13 = v12;
+  v13 = dataCopy;
+  v14 = v13;
   if (reportCopy == 2)
   {
-    v14 = [v12 length];
-    v15 = 403;
+    v15 = [v13 length];
+    v16 = 403;
     goto LABEL_9;
   }
 
   if (reportCopy == 1)
   {
-    v14 = [v12 length];
-    v15 = 402;
+    v15 = [v13 length];
+    v16 = 402;
 LABEL_9:
-    v16 = sub_100001844(v15, v14, v13);
+    v17 = sub_100001844(v16, v15, v14);
     goto LABEL_11;
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_11:
 
-  [ioHelper3 handleEncodedData:v16];
+  [ioHelper3 handleEncodedData:v17];
   if ((started & 1) == 0)
   {
     ioHelper4 = [(HRCEventLogger *)self ioHelper];

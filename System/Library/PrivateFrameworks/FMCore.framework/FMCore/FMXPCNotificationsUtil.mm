@@ -44,14 +44,14 @@ uint64_t __40__FMXPCNotificationsUtil_sharedInstance__block_invoke()
 
 void __64__FMXPCNotificationsUtil_handleDarwinNotificationsWithHandlers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   }
 
   else
@@ -68,27 +68,27 @@ void __64__FMXPCNotificationsUtil_handleDarwinNotificationsWithHandlers___block_
     }
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = +[FMXPCNotificationsUtil sharedInstance];
         [v13 registerHandler:v5 forDarwinNotification:v12];
 
@@ -96,13 +96,11 @@ void __64__FMXPCNotificationsUtil_handleDarwinNotificationsWithHandlers___block_
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__FMXPCNotificationsUtil_handleDarwinNotificationsWithHandlers___block_invoke_2(int a1, xpc_object_t xdict)
@@ -123,14 +121,14 @@ void __64__FMXPCNotificationsUtil_handleDarwinNotificationsWithHandlers___block_
 
 void __69__FMXPCNotificationsUtil_handleDistributedNotificationsWithHandlers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   }
 
   else
@@ -147,27 +145,27 @@ void __69__FMXPCNotificationsUtil_handleDistributedNotificationsWithHandlers___b
     }
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = +[FMXPCNotificationsUtil sharedInstance];
         [v13 registerHandler:v5 forDistributedNotification:v12];
 
@@ -175,13 +173,11 @@ void __69__FMXPCNotificationsUtil_handleDistributedNotificationsWithHandlers___b
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__FMXPCNotificationsUtil_handleDistributedNotificationsWithHandlers___block_invoke_2(uint64_t a1, void *a2)
@@ -277,29 +273,27 @@ void __64__FMXPCNotificationsUtil_registerHandler_forDarwinNotification___block_
 
   if (v4)
   {
-    v5 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = LogCategory_Unspecified(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[4];
+      v7 = a1[4];
       v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Trying to register a duplicate handler for notification %@", &v10, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Trying to register a duplicate handler for notification %@", &v10, 0xCu);
     }
   }
 
   else
   {
-    v7 = [a1[5] copy];
-    v8 = [WeakRetained darwinNotificationHandlers];
-    [v8 setObject:v7 forKeyedSubscript:a1[4]];
+    v8 = [a1[5] copy];
+    v9 = [WeakRetained darwinNotificationHandlers];
+    [v9 setObject:v8 forKeyedSubscript:a1[4]];
 
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v5, "Notification", [a1[4] cStringUsingEncoding:4]);
+    v6 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v6, "Notification", [a1[4] cStringUsingEncoding:4]);
     [a1[4] cStringUsingEncoding:4];
     xpc_set_event();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterHandlerForDarwinNotification:(id)notification
@@ -375,29 +369,27 @@ void __69__FMXPCNotificationsUtil_registerHandler_forDistributedNotification___b
 
   if (v4)
   {
-    v5 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = LogCategory_Unspecified(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[4];
+      v7 = a1[4];
       v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Trying to register a duplicate handler for notification %@", &v10, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Trying to register a duplicate handler for notification %@", &v10, 0xCu);
     }
   }
 
   else
   {
-    v7 = [a1[5] copy];
-    v8 = [WeakRetained distributedNotificationHandlers];
-    [v8 setObject:v7 forKeyedSubscript:a1[4]];
+    v8 = [a1[5] copy];
+    v9 = [WeakRetained distributedNotificationHandlers];
+    [v9 setObject:v8 forKeyedSubscript:a1[4]];
 
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v5, "Name", [a1[4] cStringUsingEncoding:4]);
+    v6 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v6, "Name", [a1[4] cStringUsingEncoding:4]);
     [a1[4] cStringUsingEncoding:4];
     xpc_set_event();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterHandlerForDistributedNotification:(id)notification
@@ -461,30 +453,28 @@ void __56__FMXPCNotificationsUtil__didReceiveDarwinNotification___block_invoke(u
 
   if (v4)
   {
-    v5 = dispatch_get_global_queue(0, 0);
+    v6 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __56__FMXPCNotificationsUtil__didReceiveDarwinNotification___block_invoke_2;
     block[3] = &unk_278FD9B78;
     v10 = v4;
-    dispatch_async(v5, block);
+    dispatch_async(v6, block);
 
-    v6 = v10;
+    v7 = v10;
   }
 
   else
   {
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = LogCategory_Unspecified(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Received darwin notification %@ but no handler found", buf, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_INFO, "Received darwin notification %@ but no handler found", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didReceiveDistributedNotification:(id)notification withContext:(id)context
@@ -517,31 +507,29 @@ void __73__FMXPCNotificationsUtil__didReceiveDistributedNotification_withContext
 
   if (v4)
   {
-    v5 = dispatch_get_global_queue(0, 0);
+    v6 = dispatch_get_global_queue(0, 0);
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
     v9[2] = __73__FMXPCNotificationsUtil__didReceiveDistributedNotification_withContext___block_invoke_2;
     v9[3] = &unk_278FD97D0;
     v11 = v4;
     v10 = *(a1 + 40);
-    dispatch_async(v5, v9);
+    dispatch_async(v6, v9);
 
-    v6 = v11;
+    v7 = v11;
   }
 
   else
   {
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = LogCategory_Unspecified(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_INFO, "Received distributed notification %@ but no handler found", buf, 0xCu);
+      v13 = v8;
+      _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_INFO, "Received distributed notification %@ but no handler found", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,6 +1,5 @@
 @interface _GCDevicePhysicalInputButtonElement
 + (unsigned)updateContextSize;
-- (BOOL)_isAnalog;
 - (BOOL)isAnalog;
 - (BOOL)isEqualToElement:(id)element;
 - (BOOL)isPressed;
@@ -24,30 +23,31 @@
 - (double)lastValueLatency;
 - (double)lastValueTimestamp;
 - (float)value;
+- (id)_analogPressValueField;
+- (id)_forceValueField;
+- (id)_isAnalog;
+- (id)_pressedDidChangeHandler;
+- (id)_pressedValueField;
+- (id)_setAnalog:(id *)result;
+- (id)_setAnalogPressValueField:(id *)result;
+- (id)_setForceValueField:(id *)result;
+- (id)_setLastPressedTimestamp:(id *)result;
+- (id)_setLastValueTimestamp:(id *)result;
+- (id)_setPressed:(id *)result;
+- (id)_setPressedDidChangeHandler:(id *)result;
+- (id)_setPressedThreshold:(id *)result;
+- (id)_setPressedValueField:(id *)result;
+- (id)_setSources:(id *)result;
+- (id)_setTouchValueField:(id *)result;
+- (id)_setValue:(id *)result;
+- (id)_setValueDidChangeHandler:(id *)result;
+- (id)_sources;
+- (id)_touchValueField;
+- (id)_valueDidChangeHandler;
 - (id)pressedDidChangeHandler;
 - (id)valueDidChangeHandler;
-- (uint64_t)_analogPressValueField;
 - (uint64_t)_force;
-- (uint64_t)_forceValueField;
-- (uint64_t)_pressedDidChangeHandler;
-- (uint64_t)_pressedValueField;
-- (uint64_t)_setAnalog:(uint64_t)result;
-- (uint64_t)_setAnalogPressValueField:(uint64_t)result;
-- (uint64_t)_setForceValueField:(uint64_t)result;
-- (uint64_t)_setLastPressedTimestamp:(uint64_t)result;
-- (uint64_t)_setLastValueTimestamp:(uint64_t)result;
-- (uint64_t)_setPressed:(uint64_t)result;
-- (uint64_t)_setPressedDidChangeHandler:(uint64_t)result;
-- (uint64_t)_setPressedThreshold:(uint64_t)result;
-- (uint64_t)_setPressedValueField:(uint64_t)result;
-- (uint64_t)_setSources:(uint64_t)result;
-- (uint64_t)_setTouchValueField:(uint64_t)result;
-- (uint64_t)_setValue:(uint64_t)result;
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result;
-- (uint64_t)_sources;
 - (uint64_t)_touch;
-- (uint64_t)_touchValueField;
-- (uint64_t)_valueDidChangeHandler;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -425,7 +425,7 @@ LABEL_26:
   v7.super_class = _GCDevicePhysicalInputButtonElement;
   if ([(_GCDevicePhysicalInputElement *)&v7 isEqualToElement:elementCopy])
   {
-    [(_GCDevicePhysicalInputButtonElement *)self isEqualToElement:elementCopy, &v8];
+    [(_GCDevicePhysicalInputButtonElement *)&self->super.super.super.isa isEqualToElement:elementCopy, &v8];
     v5 = v8;
   }
 
@@ -489,10 +489,10 @@ LABEL_30:
   }
 
 LABEL_3:
-  v11 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v12 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v13 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v14 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v11 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v12 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v13 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v14 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   if (v12 == -1)
   {
     v12 = v11;
@@ -500,14 +500,14 @@ LABEL_3:
 
   if (v11 != -1)
   {
-    v15 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v15 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     [event floatValueForElement:v11];
     v17 = v16;
-    v18 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v18 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     if ((v17 - v18) > 0.00000011921 != (v15 - v18) > 0.00000011921)
     {
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_pressedSlot forSlot:?];
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_pressedTimestampSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_pressedSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_pressedTimestampSlot forSlot:?];
 LABEL_8:
       *(update + v10) |= 0x1800u;
       v9 = 1;
@@ -521,15 +521,15 @@ LABEL_8:
 
   if (self)
   {
-    v19 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v19 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     [event floatValueForElement:v12];
     if (v20 == v19)
     {
       goto LABEL_14;
     }
 
-    [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
-    [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueTimestampSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueTimestampSlot forSlot:?];
     goto LABEL_13;
   }
 
@@ -643,10 +643,10 @@ LABEL_30:
   }
 
 LABEL_3:
-  v11 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v12 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v13 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-  v14 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v11 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v12 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v13 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+  v14 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   if (v12 == -1)
   {
     v12 = v11;
@@ -654,14 +654,14 @@ LABEL_3:
 
   if (v11 != -1)
   {
-    v15 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v15 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     [event floatValueForKey:v11];
     v17 = v16;
-    v18 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v18 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     if ((v17 - v18) > 0.00000011921 != (v15 - v18) > 0.00000011921)
     {
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_pressedSlot forSlot:?];
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_pressedTimestampSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_pressedSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_pressedTimestampSlot forSlot:?];
 LABEL_8:
       *(update + v10) |= 0x1800u;
       v9 = 1;
@@ -675,15 +675,15 @@ LABEL_8:
 
   if (self)
   {
-    v19 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v19 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     [event floatValueForKey:v12];
     if (v20 == v19)
     {
       goto LABEL_14;
     }
 
-    [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
-    [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueTimestampSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueTimestampSlot forSlot:?];
     goto LABEL_13;
   }
 
@@ -766,9 +766,9 @@ LABEL_14:
 - (_GCDevicePhysicalInputButtonElement)initWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v33.receiver = self;
-  v33.super_class = _GCDevicePhysicalInputButtonElement;
-  v6 = [(_GCDevicePhysicalInputElement *)&v33 initWithParameters:parametersCopy];
+  v27.receiver = self;
+  v27.super_class = _GCDevicePhysicalInputButtonElement;
+  v6 = [(_GCDevicePhysicalInputElement *)&v27 initWithParameters:parametersCopy];
   [(_GCDevicePhysicalInputButtonElementParameters *)parametersCopy sources];
   objc_claimAutoreleasedReturnValue();
   v7 = OUTLINED_FUNCTION_8_0();
@@ -776,7 +776,6 @@ LABEL_14:
 
   if (parametersCopy)
   {
-    v8 = *(parametersCopy + 40);
     if (!v6)
     {
       goto LABEL_4;
@@ -788,14 +787,13 @@ LABEL_14:
   if (v6)
   {
 LABEL_3:
-    v9 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v9 _testAndSetPrimitiveValue:v10 forSlot:v11];
+    v8 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v8 _testAndSetPrimitiveValue:v9 forSlot:v10];
   }
 
 LABEL_4:
   if (parametersCopy)
   {
-    v12 = parametersCopy[11];
     if (!v6)
     {
       goto LABEL_7;
@@ -807,14 +805,13 @@ LABEL_4:
   if (v6)
   {
 LABEL_6:
-    v13 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v13 _testAndSetPrimitiveValue:v14 forSlot:v15];
+    v11 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v11 _testAndSetPrimitiveValue:v12 forSlot:v13];
   }
 
 LABEL_7:
   if (parametersCopy)
   {
-    v16 = *(parametersCopy + 9);
     if (!v6)
     {
       goto LABEL_10;
@@ -826,14 +823,13 @@ LABEL_7:
   if (v6)
   {
 LABEL_9:
-    v17 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v17 _testAndSetPrimitiveValue:v18 forSlot:v19];
+    v14 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v14 _testAndSetPrimitiveValue:v15 forSlot:v16];
   }
 
 LABEL_10:
   if (parametersCopy)
   {
-    v20 = *(parametersCopy + 10);
     if (!v6)
     {
       goto LABEL_13;
@@ -845,14 +841,13 @@ LABEL_10:
   if (v6)
   {
 LABEL_12:
-    v21 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v21 _testAndSetPrimitiveValue:v22 forSlot:v23];
+    v17 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v17 _testAndSetPrimitiveValue:v18 forSlot:v19];
   }
 
 LABEL_13:
   if (parametersCopy)
   {
-    v24 = *(parametersCopy + 11);
     if (!v6)
     {
       goto LABEL_16;
@@ -864,8 +859,8 @@ LABEL_13:
   if (v6)
   {
 LABEL_15:
-    v25 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v25 _testAndSetPrimitiveValue:v26 forSlot:v27];
+    v20 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v20 _testAndSetPrimitiveValue:v21 forSlot:v22];
   }
 
 LABEL_16:
@@ -879,31 +874,30 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  v28 = *(parametersCopy + 12);
   if (v6)
   {
 LABEL_18:
-    v29 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v29 _testAndSetPrimitiveValue:v30 forSlot:v31];
+    v23 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v23 _testAndSetPrimitiveValue:v24 forSlot:v25];
   }
 
 LABEL_19:
-  if (parametersCopy && *(parametersCopy + 7))
+  if (parametersCopy && parametersCopy[7])
   {
-    [[_GCDevicePhysicalInputTouchInput alloc] initWithParameters:*(parametersCopy + 7)];
+    [[_GCDevicePhysicalInputTouchInput alloc] initWithParameters:parametersCopy[7]];
     v6->_touchInputSlot = [OUTLINED_FUNCTION_8_0() view:v6 makeReferenceToView:&OBJC_IVAR___GCController__motionConfigurableSensors];
   }
 
-  if (parametersCopy && *(parametersCopy + 8))
+  if (parametersCopy && parametersCopy[8])
   {
-    [[_GCDevicePhysicalInputSensorInput alloc] initWithParameters:*(parametersCopy + 8)];
+    [[_GCDevicePhysicalInputSensorInput alloc] initWithParameters:parametersCopy[8]];
     v6->_forceInputSlot = [OUTLINED_FUNCTION_8_0() view:v6 makeReferenceToView:&OBJC_IVAR___GCController__motionConfigurableSensors];
   }
 
   return v6;
 }
 
-- (uint64_t)_setSources:(uint64_t)result
+- (id)_setSources:(id *)result
 {
   if (result)
   {
@@ -922,7 +916,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setAnalog:(uint64_t)result
+- (id)_setAnalog:(id *)result
 {
   if (result)
   {
@@ -932,7 +926,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setPressedThreshold:(uint64_t)result
+- (id)_setPressedThreshold:(id *)result
 {
   if (result)
   {
@@ -942,7 +936,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setPressedValueField:(uint64_t)result
+- (id)_setPressedValueField:(id *)result
 {
   if (result)
   {
@@ -952,7 +946,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setAnalogPressValueField:(uint64_t)result
+- (id)_setAnalogPressValueField:(id *)result
 {
   if (result)
   {
@@ -962,7 +956,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setTouchValueField:(uint64_t)result
+- (id)_setTouchValueField:(id *)result
 {
   if (result)
   {
@@ -972,7 +966,7 @@ LABEL_19:
   return result;
 }
 
-- (uint64_t)_setForceValueField:(uint64_t)result
+- (id)_setForceValueField:(id *)result
 {
   if (result)
   {
@@ -1026,8 +1020,8 @@ LABEL_19:
 
 - (BOOL)update:(void *)update forUsages:(unint64_t)usages with:(id)with
 {
-  v86.receiver = self;
-  v86.super_class = _GCDevicePhysicalInputButtonElement;
+  v76.receiver = self;
+  v76.super_class = _GCDevicePhysicalInputButtonElement;
   v10 = [_GCDevicePhysicalInputElement update:sel_update_forUsages_with_ forUsages:? with:?];
   p_inst_meths = &OBJC_PROTOCOL___GCSystemGestureXPCProxyServiceRemoteServerInterface.inst_meths;
   v12 = MyUpdateContext_Offset_12;
@@ -1045,17 +1039,17 @@ LABEL_3:
 
 LABEL_41:
       [(_GCDevicePhysicalInputButtonElement *)with _valueDidChangeHandler];
-      v43 = OUTLINED_FUNCTION_8_7();
-      v45 = [(_GCDevicePhysicalInputButtonElement *)v43 _setValueDidChangeHandler:v44];
+      v37 = OUTLINED_FUNCTION_8_7();
+      v39 = [(_GCDevicePhysicalInputButtonElement *)v37 _setValueDidChangeHandler:v38];
       OUTLINED_FUNCTION_17_1();
-      OUTLINED_FUNCTION_18_0(v46 & 0xFF7F);
+      OUTLINED_FUNCTION_18_0(v40 & 0xFF7F);
 
       [(_GCDevicePhysicalInputButtonElement *)with _pressedDidChangeHandler];
-      v47 = OUTLINED_FUNCTION_8_7();
-      [(_GCDevicePhysicalInputButtonElement *)v47 _setPressedDidChangeHandler:v48];
+      v41 = OUTLINED_FUNCTION_8_7();
+      [(_GCDevicePhysicalInputButtonElement *)v41 _setPressedDidChangeHandler:v42];
       OUTLINED_FUNCTION_17_1();
-      OUTLINED_FUNCTION_18_0(v49 & 0xFEFF);
-      v10 |= v45 | v50;
+      OUTLINED_FUNCTION_18_0(v43 & 0xFEFF);
+      v10 |= v39 | v44;
 
       if ((usages & 8) == 0)
       {
@@ -1073,8 +1067,8 @@ LABEL_41:
 
   [(_GCDevicePhysicalInputButtonElement *)with _sources];
   v13 = OUTLINED_FUNCTION_8_7();
-  v84 = [(_GCDevicePhysicalInputButtonElement *)v13 _setSources:v14];
-  *(update + v12) = *(update + v12) & 0xFFFE | v84;
+  v74 = [(_GCDevicePhysicalInputButtonElement *)v13 _setSources:v14];
+  *(update + v12) = *(update + v12) & 0xFFFE | v74;
 
   if (with)
   {
@@ -1109,12 +1103,11 @@ LABEL_9:
   }
 
 LABEL_12:
-  v18 = *(update + v12) & 0xFFFD;
   OUTLINED_FUNCTION_2_20(v17);
   if (with)
   {
-    v19 = OUTLINED_FUNCTION_49(72);
-    v20 = OUTLINED_FUNCTION_3_3(v19);
+    v18 = OUTLINED_FUNCTION_49(72);
+    v19 = OUTLINED_FUNCTION_3_3(v18);
     if (self)
     {
       goto LABEL_14;
@@ -1123,66 +1116,64 @@ LABEL_12:
 
   else
   {
-    v20 = 0.0;
+    v19 = 0.0;
     if (self)
     {
 LABEL_14:
-      v21 = OUTLINED_FUNCTION_6_9(*&v20, 72);
-      if (v21)
+      v20 = OUTLINED_FUNCTION_6_9(*&v19, 72);
+      if (v20)
       {
-        v22 = 4;
+        v21 = 4;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
       goto LABEL_17;
     }
   }
 
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
 LABEL_17:
-  v23 = *(update + v12) & 0xFFFB;
-  OUTLINED_FUNCTION_2_20(v22);
+  OUTLINED_FUNCTION_2_20(v21);
   if (with)
   {
-    v24 = OUTLINED_FUNCTION_49(80);
+    v22 = OUTLINED_FUNCTION_49(80);
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  v85 = v10;
+  v75 = v10;
   if (self)
   {
-    v25 = OUTLINED_FUNCTION_6_9(v24, 80);
-    if (v25)
+    v23 = OUTLINED_FUNCTION_6_9(v22, 80);
+    if (v23)
     {
-      v26 = 8;
+      v24 = 8;
     }
 
     else
     {
-      v26 = 0;
+      v24 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
-    v26 = 0;
+    v23 = 0;
+    v24 = 0;
   }
 
-  v27 = *(update + v12) & 0xFFF7;
-  OUTLINED_FUNCTION_2_20(v26);
+  OUTLINED_FUNCTION_2_20(v24);
   if (with)
   {
-    v28 = OUTLINED_FUNCTION_49(88);
+    v25 = OUTLINED_FUNCTION_49(88);
     if (self)
     {
       goto LABEL_25;
@@ -1191,98 +1182,95 @@ LABEL_17:
 
   else
   {
-    v28 = 0;
+    v25 = 0;
     if (self)
     {
 LABEL_25:
-      v29 = OUTLINED_FUNCTION_6_9(v28, 88);
-      if (v29)
+      v26 = OUTLINED_FUNCTION_6_9(v25, 88);
+      if (v26)
       {
-        v30 = 16;
+        v27 = 16;
       }
 
       else
       {
-        v30 = 0;
+        v27 = 0;
       }
 
       goto LABEL_28;
     }
   }
 
-  v29 = 0;
-  v30 = 0;
+  v26 = 0;
+  v27 = 0;
 LABEL_28:
-  v31 = v16 | v21;
-  v32 = *(update + v12) & 0xFFEF;
-  OUTLINED_FUNCTION_2_20(v30);
+  v28 = v16 | v20;
+  OUTLINED_FUNCTION_2_20(v27);
   if (with)
   {
-    v33 = OUTLINED_FUNCTION_49(96);
+    v29 = OUTLINED_FUNCTION_49(96);
   }
 
   else
   {
-    v33 = 0;
+    v29 = 0;
   }
 
-  v34 = v31 | v25;
+  v30 = v28 | v23;
   if (self)
   {
-    v35 = OUTLINED_FUNCTION_6_9(v33, 96);
-    if (v35)
+    v31 = OUTLINED_FUNCTION_6_9(v29, 96);
+    if (v31)
     {
-      v36 = 32;
+      v32 = 32;
     }
 
     else
     {
-      v36 = 0;
+      v32 = 0;
+    }
+  }
+
+  else
+  {
+    v31 = 0;
+    v32 = 0;
+  }
+
+  v33 = v30 | v26;
+  OUTLINED_FUNCTION_2_20(v32);
+  if (with)
+  {
+    v34 = OUTLINED_FUNCTION_49(104);
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  p_inst_meths = (&OBJC_PROTOCOL___GCSystemGestureXPCProxyServiceRemoteServerInterface + 24);
+  v5 = (v33 | v31);
+  if (self)
+  {
+    if (OUTLINED_FUNCTION_6_9(v34, 104))
+    {
+      v35 = 64;
+    }
+
+    else
+    {
+      v35 = 0;
     }
   }
 
   else
   {
     v35 = 0;
-    v36 = 0;
   }
 
-  v37 = v34 | v29;
-  v38 = *(update + v12) & 0xFFDF;
-  OUTLINED_FUNCTION_2_20(v36);
-  if (with)
-  {
-    v39 = OUTLINED_FUNCTION_49(104);
-  }
-
-  else
-  {
-    v39 = 0;
-  }
-
-  p_inst_meths = (&OBJC_PROTOCOL___GCSystemGestureXPCProxyServiceRemoteServerInterface + 24);
-  v5 = (v37 | v35);
-  if (self)
-  {
-    if (OUTLINED_FUNCTION_6_9(v39, 104))
-    {
-      v40 = 64;
-    }
-
-    else
-    {
-      v40 = 0;
-    }
-  }
-
-  else
-  {
-    v40 = 0;
-  }
-
-  v41 = *(update + v12) & 0xFFBF;
-  OUTLINED_FUNCTION_2_20(v40);
-  v10 = v85 | v84 | v42 | v5;
+  OUTLINED_FUNCTION_2_20(v35);
+  v10 = v75 | v74 | v36 | v5;
   if ((usages & 4) != 0)
   {
     goto LABEL_41;
@@ -1297,145 +1285,141 @@ LABEL_4:
 LABEL_42:
   if (with)
   {
-    v51 = OUTLINED_FUNCTION_49(128);
-    v52 = OUTLINED_FUNCTION_3_3(v51);
+    v45 = OUTLINED_FUNCTION_49(128);
+    v46 = OUTLINED_FUNCTION_3_3(v45);
     if (self)
     {
       goto LABEL_44;
     }
 
 LABEL_85:
-    v53 = 0;
-    v54 = 0;
+    v47 = 0;
+    v48 = 0;
     goto LABEL_47;
   }
 
-  v52 = 0.0;
+  v46 = 0.0;
   if (!self)
   {
     goto LABEL_85;
   }
 
 LABEL_44:
-  v53 = OUTLINED_FUNCTION_6_9(*&v52, 128);
-  if (v53)
+  v47 = OUTLINED_FUNCTION_6_9(*&v46, 128);
+  if (v47)
   {
-    v54 = 512;
+    v48 = 512;
   }
 
   else
   {
-    v54 = 0;
+    v48 = 0;
   }
 
 LABEL_47:
-  v55 = *(update + v12) & 0xFDFF;
-  OUTLINED_FUNCTION_2_20(v54);
+  OUTLINED_FUNCTION_2_20(v48);
   if (with)
   {
-    v56 = OUTLINED_FUNCTION_49(136);
+    v49 = OUTLINED_FUNCTION_49(136);
     if (self)
     {
       goto LABEL_49;
     }
 
 LABEL_87:
-    v57 = 0;
-    v58 = 0;
+    v50 = 0;
+    v51 = 0;
     goto LABEL_52;
   }
 
-  v56 = 0;
+  v49 = 0;
   if (!self)
   {
     goto LABEL_87;
   }
 
 LABEL_49:
-  v57 = OUTLINED_FUNCTION_6_9(v56, 136);
-  if (v57)
+  v50 = OUTLINED_FUNCTION_6_9(v49, 136);
+  if (v50)
   {
-    v58 = 1024;
+    v51 = 1024;
   }
 
   else
   {
-    v58 = 0;
+    v51 = 0;
   }
 
 LABEL_52:
-  v59 = *(update + v12) & 0xFBFF;
-  OUTLINED_FUNCTION_2_20(v58);
+  OUTLINED_FUNCTION_2_20(v51);
   if (with)
   {
-    v60 = OUTLINED_FUNCTION_49(128);
-    v61 = OUTLINED_FUNCTION_3_3(v60);
+    v52 = OUTLINED_FUNCTION_49(128);
+    v53 = OUTLINED_FUNCTION_3_3(v52);
     if (self)
     {
       goto LABEL_54;
     }
 
 LABEL_89:
-    v62 = 0;
-    v63 = 0;
+    v54 = 0;
+    v55 = 0;
     goto LABEL_57;
   }
 
-  v61 = 0.0;
+  v53 = 0.0;
   if (!self)
   {
     goto LABEL_89;
   }
 
 LABEL_54:
-  v62 = OUTLINED_FUNCTION_6_9(*&v61, 144);
-  if (v62)
+  v54 = OUTLINED_FUNCTION_6_9(*&v53, 144);
+  if (v54)
   {
-    v63 = 2048;
+    v55 = 2048;
   }
 
   else
   {
-    v63 = 0;
+    v55 = 0;
   }
 
 LABEL_57:
-  v64 = v53 | v57;
-  v65 = *(update + v12) & 0xF7FF;
-  OUTLINED_FUNCTION_2_20(v63);
+  v56 = v47 | v50;
+  OUTLINED_FUNCTION_2_20(v55);
   if (with)
   {
-    v66 = OUTLINED_FUNCTION_49(152);
+    v57 = OUTLINED_FUNCTION_49(152);
   }
 
   else
   {
-    v66 = 0;
+    v57 = 0;
   }
 
-  v67 = v64 | v62;
+  v58 = v56 | v54;
   if (self)
   {
-    if (OUTLINED_FUNCTION_6_9(v66, 152))
+    if (OUTLINED_FUNCTION_6_9(v57, 152))
     {
-      v68 = 4096;
+      v59 = 4096;
     }
 
     else
     {
-      v68 = 0;
+      v59 = 0;
     }
   }
 
   else
   {
-    v68 = 0;
+    v59 = 0;
   }
 
   p_inst_meths = &OBJC_PROTOCOL___GCSystemGestureXPCProxyServiceRemoteServerInterface.inst_meths;
-  v69 = *(update + v12) & 0xEFFF;
-  OUTLINED_FUNCTION_2_20(v68);
-  v10 |= v67 | v70;
+  OUTLINED_FUNCTION_2_20(v59);
+  v10 |= v58 | v60;
 LABEL_64:
   _touch = [(_GCDevicePhysicalInputButtonElement *)self _touch];
   if ((touchUpdateContext_Offset_0 & 1) == 0)
@@ -1443,45 +1427,45 @@ LABEL_64:
     touchUpdateContext_Offset_0 = 1;
   }
 
-  v72 = *(p_inst_meths + 140);
-  if (v72 == -1)
+  v62 = *(p_inst_meths + 140);
+  if (v62 == -1)
   {
-    v72 = +[_GCDevicePhysicalInputElement updateContextSize];
-    *(p_inst_meths + 140) = v72;
+    v62 = +[_GCDevicePhysicalInputElement updateContextSize];
+    *(p_inst_meths + 140) = v62;
     if (touchUpdateContext_Offset_0)
     {
-      v73 = 2;
+      v63 = 2;
     }
 
     else
     {
-      v73 = 0xFFFFFFFFLL;
+      v63 = 0xFFFFFFFFLL;
     }
   }
 
   else
   {
-    v73 = 2;
+    v63 = 2;
   }
 
-  v74 = update + v72;
+  v64 = update + v62;
   _touch2 = [(_GCDevicePhysicalInputButtonElement *)with _touch];
-  LOBYTE(v74) = [_touch update:&v74[v73] forUsages:usages with:_touch2];
+  LOBYTE(v64) = [_touch update:&v64[v63] forUsages:usages with:_touch2];
   OUTLINED_FUNCTION_17_1();
-  OUTLINED_FUNCTION_18_0(v76 & 0xDFFF);
+  OUTLINED_FUNCTION_18_0(v66 & 0xDFFF);
 
   _force = [(_GCDevicePhysicalInputButtonElement *)self _force];
   updated = forceUpdateContext(update);
   _force2 = [(_GCDevicePhysicalInputButtonElement *)with _force];
   [_force update:updated forUsages:usages with:_force2];
   OUTLINED_FUNCTION_17_1();
-  OUTLINED_FUNCTION_18_0(v80 & 0xBFFF);
-  v82 = v10 | v81 | v74;
+  OUTLINED_FUNCTION_18_0(v70 & 0xBFFF);
+  v72 = v10 | v71 | v64;
 
-  return v82 & 1;
+  return v72 & 1;
 }
 
-- (uint64_t)_sources
+- (id)_sources
 {
   if (result)
   {
@@ -1492,11 +1476,11 @@ LABEL_64:
   return result;
 }
 
-- (BOOL)_isAnalog
+- (id)_isAnalog
 {
   if (result)
   {
-    return [(_GCDevicePhysicalInputView *)result _primitiveValueForSlot:?]!= 0;
+    return ([(_GCDevicePhysicalInputView *)result _primitiveValueForSlot:?]!= 0);
   }
 
   return result;
@@ -1514,7 +1498,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_pressedValueField
+- (id)_pressedValueField
 {
   if (result)
   {
@@ -1524,7 +1508,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_analogPressValueField
+- (id)_analogPressValueField
 {
   if (result)
   {
@@ -1534,7 +1518,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_touchValueField
+- (id)_touchValueField
 {
   if (result)
   {
@@ -1544,7 +1528,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_forceValueField
+- (id)_forceValueField
 {
   if (result)
   {
@@ -1554,7 +1538,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_valueDidChangeHandler
+- (id)_valueDidChangeHandler
 {
   if (result)
   {
@@ -1565,7 +1549,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result
+- (id)_setValueDidChangeHandler:(id *)result
 {
   if (result)
   {
@@ -1578,7 +1562,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_pressedDidChangeHandler
+- (id)_pressedDidChangeHandler
 {
   if (result)
   {
@@ -1589,7 +1573,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_setPressedDidChangeHandler:(uint64_t)result
+- (id)_setPressedDidChangeHandler:(id *)result
 {
   if (result)
   {
@@ -1614,7 +1598,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_setValue:(uint64_t)result
+- (id)_setValue:(id *)result
 {
   if (result)
   {
@@ -1637,7 +1621,7 @@ LABEL_64:
   }
 }
 
-- (uint64_t)_setLastValueTimestamp:(uint64_t)result
+- (id)_setLastValueTimestamp:(id *)result
 {
   if (result)
   {
@@ -1647,7 +1631,7 @@ LABEL_64:
   return result;
 }
 
-- (uint64_t)_setPressed:(uint64_t)result
+- (id)_setPressed:(id *)result
 {
   if (result)
   {
@@ -1670,7 +1654,7 @@ LABEL_64:
   }
 }
 
-- (uint64_t)_setLastPressedTimestamp:(uint64_t)result
+- (id)_setLastPressedTimestamp:(id *)result
 {
   if (result)
   {
@@ -1703,7 +1687,7 @@ LABEL_64:
   isAnalog = [(_GCDevicePhysicalInputButtonElement *)self isAnalog];
   if (self)
   {
-    v8 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v8 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   }
 
   else
@@ -1749,7 +1733,7 @@ LABEL_64:
 
 - (id)valueDidChangeHandler
 {
-  _valueDidChangeHandler = [(_GCDevicePhysicalInputButtonElement *)self _valueDidChangeHandler];
+  _valueDidChangeHandler = [(_GCDevicePhysicalInputButtonElement *)&self->super.super.super.isa _valueDidChangeHandler];
 
   return _valueDidChangeHandler;
 }
@@ -1761,7 +1745,7 @@ LABEL_64:
     return 0.0;
   }
 
-  v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   return OUTLINED_FUNCTION_3_3(v2);
 }
 
@@ -1769,7 +1753,7 @@ LABEL_64:
 {
   if (self)
   {
-    LOBYTE(self) = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]!= 0;
+    LOBYTE(self) = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]!= 0;
   }
 
   return self;
@@ -1779,7 +1763,7 @@ LABEL_64:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1797,7 +1781,7 @@ LABEL_64:
 
   if (self)
   {
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1811,14 +1795,14 @@ LABEL_64:
 
 - (NSSet)sources
 {
-  _sources = [(_GCDevicePhysicalInputButtonElement *)self _sources];
+  _sources = [(_GCDevicePhysicalInputButtonElement *)&self->super.super.super.isa _sources];
 
   return _sources;
 }
 
 - (id)pressedDidChangeHandler
 {
-  _pressedDidChangeHandler = [(_GCDevicePhysicalInputButtonElement *)self _pressedDidChangeHandler];
+  _pressedDidChangeHandler = [(_GCDevicePhysicalInputButtonElement *)&self->super.super.super.isa _pressedDidChangeHandler];
 
   return _pressedDidChangeHandler;
 }
@@ -1828,8 +1812,8 @@ LABEL_64:
   if (self)
   {
     selfCopy = self;
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
-    v4 = [(_GCDevicePhysicalInputView *)selfCopy _primitiveValueForSlot:?];
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
+    v4 = [(_GCDevicePhysicalInputView *)&selfCopy->super.super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = (v3 - OUTLINED_FUNCTION_3_3(v4)) > 0.00000011921;
   }
 
@@ -1840,7 +1824,7 @@ LABEL_64:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1858,7 +1842,7 @@ LABEL_64:
 
   if (self)
   {
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1895,7 +1879,7 @@ LABEL_64:
   [v4 preCommit:forceUpdateContext(a2) sender:a1];
 }
 
-- (void)postCommit:(void *)a1 sender:.cold.1(void *a1)
+- (void)postCommit:(id *)a1 sender:.cold.1(id *a1)
 {
   v2 = [(_GCDevicePhysicalInputButtonElement *)a1 _valueDidChangeHandler];
   if (v2)
@@ -1908,7 +1892,7 @@ LABEL_64:
   OUTLINED_FUNCTION_15_3();
 }
 
-- (void)postCommit:(void *)a1 sender:.cold.2(void *a1)
+- (void)postCommit:(id *)a1 sender:.cold.2(id *a1)
 {
   v2 = [(_GCDevicePhysicalInputButtonElement *)a1 _pressedDidChangeHandler];
   if (v2)
@@ -1946,7 +1930,7 @@ LABEL_64:
   [v4 postCommit:forceUpdateContext(a2) sender:a1];
 }
 
-- (void)isEqualToElement:(char *)a3 .cold.1(uint64_t a1, void *a2, char *a3)
+- (void)isEqualToElement:(unsigned __int8 *)a3 .cold.1(id *a1, id *a2, unsigned __int8 *a3)
 {
   v8 = [(_GCDevicePhysicalInputButtonElement *)a1 _sources];
   v9 = [(_GCDevicePhysicalInputButtonElement *)a2 _sources];

@@ -33,7 +33,7 @@
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     [(TSActivationPolicyMismatchFlow *)v2 firstViewController];
@@ -72,11 +72,10 @@ void __54__TSActivationPolicyMismatchFlow_firstViewController___block_invoke(uin
 
 - (void)firstViewController
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSActivationPolicyMismatchFlow firstViewController]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]unimplemented, please use async version @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSActivationPolicyMismatchFlow firstViewController]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]unimplemented, please use async version @%s", &v1, 0xCu);
 }
 
 @end

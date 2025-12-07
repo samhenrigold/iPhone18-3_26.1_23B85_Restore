@@ -109,7 +109,7 @@
     v36 = CAFDDataLogging();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      [CAFDCarDataServiceAgent initWithSessionStatus:? config:?];
+      [CAFDCarDataServiceAgent initWithSessionStatus:config:];
     }
 
     v49 = 0u;
@@ -1445,7 +1445,7 @@ void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_valu
       v13 = CAFDDataLogging();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_3(a1);
+        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_3();
       }
 
       (*(*(a1 + 64) + 16))();
@@ -1460,7 +1460,7 @@ void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_valu
       v15 = CAFDDataLogging();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_1(a1);
+        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_1();
       }
 
       v16 = *(a1 + 64);
@@ -1475,7 +1475,7 @@ void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_valu
       v10 = CAFDDataLogging();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_2(a1);
+        __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_2();
       }
 
       v11 = *(a1 + 64);
@@ -1779,19 +1779,19 @@ void __62__CAFDCarDataServiceAgent_listener_shouldAcceptNewConnection___block_in
   dispatch_async(workQueue, v7);
 }
 
-void __45__CAFDCarDataServiceAgent__removeConnection___block_invoke(uint64_t a1)
+void __45__CAFDCarDataServiceAgent__removeConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CAFDDataLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = CAFDDataLogging();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45__CAFDCarDataServiceAgent__removeConnection___block_invoke_cold_1(a1);
+    __45__CAFDCarDataServiceAgent__removeConnection___block_invoke_cold_1();
   }
 
-  v3 = [*(a1 + 40) connections];
-  [v3 removeObject:*(a1 + 32)];
+  v4 = [*(a1 + 40) connections];
+  [v4 removeObject:*(a1 + 32)];
 
-  v4 = [*(a1 + 40) remoteProxies];
-  [v4 unregisterObserver:*(a1 + 32)];
+  v5 = [*(a1 + 40) remoteProxies];
+  [v5 unregisterObserver:*(a1 + 32)];
 }
 
 - (void)_addRegistration:(id)registration instanceIDs:(id)ds priority:(id)priority withResponse:(id)response
@@ -2034,13 +2034,6 @@ void __81__CAFDCarDataServiceAgent__removeRegistration_instanceIDs_priority_with
   os_unfair_lock_unlock(&self->_channelLock);
 
   return v9;
-}
-
-- (void)initWithSessionStatus:(_BYTE *)a1 config:.cold.1(_BYTE *a1)
-{
-  *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)_setupCarDataChannel:channelType:qualityOfService:streamPriority:priority:.cold.1()
@@ -2336,31 +2329,25 @@ void __49__CAFDCarDataServiceAgent_carDataChannelDidOpen___block_invoke_242_cold
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_1(uint64_t a1)
+void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_1()
 {
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_10();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x20u);
 }
 
-void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_2(uint64_t a1)
+void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_2()
 {
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_3(uint64_t a1)
+void __87__CAFDCarDataServiceAgent_didReceiveRequestFromPluginID_instanceID_value_withResponse___block_invoke_3_cold_3()
 {
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)didReceiveErrorFromPluginID:error:.cold.1()
@@ -2404,13 +2391,6 @@ void __62__CAFDCarDataServiceAgent_listener_shouldAcceptNewConnection___block_in
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void __45__CAFDCarDataServiceAgent__removeConnection___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)_addRegistration:instanceIDs:priority:withResponse:.cold.1()

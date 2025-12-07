@@ -27,7 +27,7 @@ void __69__ThreadNetworkManagerSelfHealHandler_initSelfHealThreadNetworkTimer__b
   [v2 timeIntervalSince1970];
   v4 = v3;
 
-  v5 = ThreadNetworkLoggingCategory(1u);
+  v5 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 136315650;
@@ -54,7 +54,7 @@ void __69__ThreadNetworkManagerSelfHealHandler_initSelfHealThreadNetworkTimer__b
 
 - (void)cleanUpThreadKeychainEntries
 {
-  v2 = ThreadNetworkLoggingCategory(1u);
+  v2 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v7 = 136315394;
@@ -74,7 +74,7 @@ void __69__ThreadNetworkManagerSelfHealHandler_initSelfHealThreadNetworkTimer__b
 
   else
   {
-    v6 = ThreadNetworkLoggingCategory(1u);
+    v6 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [ThreadNetworkManagerSelfHealHandler cleanUpThreadKeychainEntries];
@@ -87,7 +87,7 @@ void __67__ThreadNetworkManagerSelfHealHandler_cleanUpThreadKeychainEntries__blo
   v2 = a2;
   if (v2)
   {
-    v3 = ThreadNetworkLoggingCategory(1u);
+    v3 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __67__ThreadNetworkManagerSelfHealHandler_cleanUpThreadKeychainEntries__block_invoke_cold_1();
@@ -96,7 +96,7 @@ void __67__ThreadNetworkManagerSelfHealHandler_cleanUpThreadKeychainEntries__blo
 
   else
   {
-    v3 = ThreadNetworkLoggingCategory(1u);
+    v3 = ThreadNetworkLoggingCategory(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 136315394;

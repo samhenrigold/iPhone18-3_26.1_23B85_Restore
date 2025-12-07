@@ -67,7 +67,7 @@ LABEL_13:
 
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   descriptionCopy = description;
   v7 = objc_alloc_init(_INPBIntentSlotValue);
@@ -86,31 +86,31 @@ LABEL_13:
         if (isKindOfClass)
         {
           v10 = objectCopy;
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
-          v11 = [v10 countByEnumeratingWithState:&v49 objects:v55 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v48 objects:v54 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v50;
+            v13 = *v49;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v50 != v13)
+                if (*v49 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = INIntentSlotValueTransformToInteger(*(*(&v49 + 1) + 8 * i));
+                v15 = INIntentSlotValueTransformToInteger(*(*(&v48 + 1) + 8 * i));
                 values = [v15 values];
                 firstObject2 = [values firstObject];
                 [(_INPBIntentSlotValue *)v7 addPayloadIntegerValue:firstObject2];
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v49 objects:v55 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v48 objects:v54 count:16];
             }
 
             while (v12);
@@ -153,30 +153,30 @@ LABEL_28:
         {
           v20 = objectCopy;
           v21 = objc_alloc_init(_INPBIntegerList);
+          v44 = 0u;
           v45 = 0u;
           v46 = 0u;
           v47 = 0u;
-          v48 = 0u;
           v22 = v20;
-          v23 = [v22 countByEnumeratingWithState:&v45 objects:v54 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v44 objects:v53 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v46;
+            v25 = *v45;
             do
             {
               for (j = 0; j != v24; ++j)
               {
-                if (*v46 != v25)
+                if (*v45 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v27 = INIntentSlotValueTransformToInteger(*(*(&v45 + 1) + 8 * j));
+                v27 = INIntentSlotValueTransformToInteger(*(*(&v44 + 1) + 8 * j));
                 [(_INPBIntegerList *)v21 addDataString:v27];
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v45 objects:v54 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v44 objects:v53 count:16];
             }
 
             while (v24);
@@ -198,39 +198,39 @@ LABEL_28:
       {
         firstObject5 = [objectCopy firstObject];
         objc_opt_class();
-        v33 = objc_opt_isKindOfClass();
+        v32 = objc_opt_isKindOfClass();
 
-        if (v33)
+        if (v32)
         {
           v10 = objectCopy;
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
-          v34 = [v10 countByEnumeratingWithState:&v41 objects:v53 count:16];
-          if (v34)
+          v33 = [v10 countByEnumeratingWithState:&v40 objects:v52 count:16];
+          if (v33)
           {
-            v35 = v34;
-            v36 = *v42;
+            v34 = v33;
+            v35 = *v41;
             do
             {
-              for (k = 0; k != v35; ++k)
+              for (k = 0; k != v34; ++k)
               {
-                if (*v42 != v36)
+                if (*v41 != v35)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v38 = INIntentSlotValueTransformToLong(*(*(&v41 + 1) + 8 * k));
-                values3 = [v38 values];
+                v37 = INIntentSlotValueTransformToLong(*(*(&v40 + 1) + 8 * k));
+                values3 = [v37 values];
                 firstObject6 = [values3 firstObject];
                 [(_INPBIntentSlotValue *)v7 addPayloadLongValue:firstObject6];
               }
 
-              v35 = [v10 countByEnumeratingWithState:&v41 objects:v53 count:16];
+              v34 = [v10 countByEnumeratingWithState:&v40 objects:v52 count:16];
             }
 
-            while (v35);
+            while (v34);
           }
 
           goto LABEL_28;
@@ -276,8 +276,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

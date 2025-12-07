@@ -1,6 +1,6 @@
 void destroy for TTRRemindersListUncommittedSection(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0, qword_21DC0F3A0);
   swift_getEnumCaseMultiPayload();
   v4 = type metadata accessor for TTRRemindersListViewModel.Item(0);
   if ((*(*(v4 - 8) + 48))(a1, 1, v4))
@@ -373,9 +373,9 @@ LABEL_83:
   }
 }
 
-void *initializeWithCopy for TTRRemindersListUncommittedSection(void *a1, void *a2, uint64_t a3)
+void **initializeWithCopy for TTRRemindersListUncommittedSection(void **a1, void **a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0, qword_21DC0F3A0);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   v7 = type metadata accessor for TTRRemindersListViewModel.Item(0);
   v8 = *(v7 - 8);
@@ -384,10 +384,10 @@ void *initializeWithCopy for TTRRemindersListUncommittedSection(void *a1, void *
   {
     if (v9)
     {
-      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
       memcpy(a1, a2, *(*(v10 - 8) + 64));
 LABEL_264:
-      v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0);
+      v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0, &qword_21DC0F430);
       *(a1 + *(v202 + 48)) = *(a2 + *(v202 + 48));
       goto LABEL_269;
     }
@@ -404,7 +404,7 @@ LABEL_264:
             v55 = *(v54 - 8);
             if ((*(v55 + 48))(a2, 1, v54))
             {
-              v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+              v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
               memcpy(a1, a2, *(*(v56 - 8) + 64));
             }
 
@@ -499,7 +499,7 @@ LABEL_263:
       if (v61(a2 + v23, 1, v43))
       {
 LABEL_55:
-        v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+        v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
         memcpy(a1 + v23, a2 + v23, *(*(v47 - 8) + 64));
         a3 = v320;
         goto LABEL_262;
@@ -943,7 +943,7 @@ LABEL_254:
 
   if (v9)
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
     memcpy(a1, a2, *(*(v11 - 8) + 64));
     goto LABEL_269;
   }
@@ -1359,7 +1359,7 @@ LABEL_256:
     if (v64(a2 + v29, 1, v49))
     {
 LABEL_57:
-      v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+      v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
       memcpy(a1 + v29, a2 + v29, *(*(v53 - 8) + 64));
       a3 = v321;
       goto LABEL_267;
@@ -1424,7 +1424,7 @@ LABEL_266:
       v58 = *(v57 - 8);
       if ((*(v58 + 48))(a2, 1, v57))
       {
-        v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+        v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
         memcpy(a1, a2, *(*(v59 - 8) + 64));
       }
 
@@ -1892,7 +1892,7 @@ LABEL_366:
     if (v230(v215 + v212, 1, v213))
     {
 LABEL_294:
-      v225 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+      v225 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
       memcpy(v204 + v212, v215 + v212, *(*(v225 - 8) + 64));
       goto LABEL_395;
     }
@@ -1956,7 +1956,7 @@ LABEL_380:
       v227 = *(v226 - 8);
       if ((*(v227 + 48))(v205, 1, v226))
       {
-        v228 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+        v228 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
         memcpy(v204, v205, *(*(v228 - 8) + 64));
       }
 
@@ -2027,13 +2027,13 @@ LABEL_301:
   return a1;
 }
 
-void *assignWithCopy for TTRRemindersListUncommittedSection(uint64_t a1, void *a2, uint64_t a3)
+void **assignWithCopy for TTRRemindersListUncommittedSection(void **a1, void **a2, uint64_t a3)
 {
   v3 = a1;
   if (a1 != a2)
   {
-    sub_21D0CF7E0(a1, &qword_27CE5A3A0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0);
+    sub_21D0CF7E0(a1, &qword_27CE5A3A0, qword_21DC0F3A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0, qword_21DC0F3A0);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     v7 = type metadata accessor for TTRRemindersListViewModel.Item(0);
     v8 = *(v7 - 8);
@@ -2042,10 +2042,10 @@ void *assignWithCopy for TTRRemindersListUncommittedSection(uint64_t a1, void *a
     {
       if (v9)
       {
-        v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+        v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
         memcpy(v3, a2, *(*(v10 - 8) + 64));
 LABEL_265:
-        v218 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0);
+        v218 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0, &qword_21DC0F430);
         *(v3 + *(v218 + 48)) = *(a2 + *(v218 + 48));
         goto LABEL_270;
       }
@@ -2062,7 +2062,7 @@ LABEL_265:
               v55 = *(v54 - 8);
               if ((*(v55 + 48))(a2, 1, v54))
               {
-                v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+                v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
                 memcpy(v3, a2, *(*(v56 - 8) + 64));
               }
 
@@ -2161,7 +2161,7 @@ LABEL_264:
         if (v61(a2 + v23, 1, v43))
         {
 LABEL_56:
-          v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+          v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
           memcpy(v3 + v23, a2 + v23, *(*(v47 - 8) + 64));
           a3 = v342;
           goto LABEL_263;
@@ -2618,7 +2618,7 @@ LABEL_255:
 
     if (v9)
     {
-      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
       memcpy(v3, a2, *(*(v11 - 8) + 64));
       goto LABEL_270;
     }
@@ -2635,7 +2635,7 @@ LABEL_255:
             v58 = *(v57 - 8);
             if ((*(v58 + 48))(a2, 1, v57))
             {
-              v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+              v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
               memcpy(v3, a2, *(*(v59 - 8) + 64));
             }
 
@@ -2726,7 +2726,7 @@ LABEL_270:
                 v243 = *(v242 - 8);
                 if ((*(v243 + 48))(v221, 1, v242))
                 {
-                  v244 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+                  v244 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
                   memcpy(v220, v221, *(*(v244 - 8) + 64));
                 }
 
@@ -2818,7 +2818,7 @@ LABEL_396:
           if (v246(&v231[v228], 1, v229))
           {
 LABEL_295:
-            v241 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+            v241 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
             memcpy(v220 + v228, &v231[v228], *(*(v241 - 8) + 64));
             goto LABEL_396;
           }
@@ -3280,7 +3280,7 @@ LABEL_367:
       if (v64(a2 + v29, 1, v49))
       {
 LABEL_58:
-        v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+        v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
         memcpy(v3 + v29, a2 + v29, *(*(v53 - 8) + 64));
         a3 = v343;
         goto LABEL_268;
@@ -3741,9 +3741,9 @@ LABEL_257:
   return v3;
 }
 
-_BYTE *initializeWithTake for TTRRemindersListUncommittedSection(_BYTE *a1, _BYTE *a2, uint64_t a3)
+void *initializeWithTake for TTRRemindersListUncommittedSection(void *a1, void *a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0, qword_21DC0F3A0);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   v7 = type metadata accessor for TTRRemindersListViewModel.Item(0);
   v8 = *(v7 - 8);
@@ -3752,11 +3752,11 @@ _BYTE *initializeWithTake for TTRRemindersListUncommittedSection(_BYTE *a1, _BYT
   {
     if (v9)
     {
-      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
       memcpy(a1, a2, *(*(v10 - 8) + 64));
 LABEL_182:
-      v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0);
-      *&a1[*(v82 + 48)] = *&a2[*(v82 + 48)];
+      v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0, &qword_21DC0F430);
+      *(a1 + *(v82 + 48)) = *(a2 + *(v82 + 48));
       goto LABEL_187;
     }
 
@@ -3779,12 +3779,12 @@ LABEL_182:
           {
             v50 = sub_21DBF563C();
             (*(*(v50 - 8) + 32))(a1, a2, v50);
-            a1[*(v40 + 20)] = a2[*(v40 + 20)];
+            *(a1 + *(v40 + 20)) = *(a2 + *(v40 + 20));
             (*(v41 + 56))(a1, 0, 1, v40);
           }
 
           v51 = type metadata accessor for TTRTemplatePublicLinkData(0);
-          *&a1[*(v51 + 20)] = *&a2[*(v51 + 20)];
+          *(a1 + *(v51 + 20)) = *(a2 + *(v51 + 20));
           goto LABEL_180;
         }
 
@@ -3796,7 +3796,7 @@ LABEL_182:
         *a1 = *a2;
         v32 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
         v33 = sub_21DBF8D7C();
-        (*(*(v33 - 8) + 32))(&a1[v32], &a2[v32], v33);
+        (*(*(v33 - 8) + 32))(a1 + v32, a2 + v32, v33);
 LABEL_180:
         swift_storeEnumTagMultiPayload();
         goto LABEL_181;
@@ -3810,7 +3810,7 @@ LABEL_180:
           v21 = *(v20 - 8);
           if ((*(v21 + 48))(a2, 1, v20))
           {
-            v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+            v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
             memcpy(a1, a2, *(*(v22 - 8) + 64));
           }
 
@@ -3819,13 +3819,13 @@ LABEL_180:
             *a1 = *a2;
             v54 = *(v20 + 20);
             v55 = sub_21DBF6C1C();
-            (*(*(v55 - 8) + 32))(&a1[v54], &a2[v54], v55);
+            (*(*(v55 - 8) + 32))(a1 + v54, a2 + v54, v55);
             (*(v21 + 56))(a1, 0, 1, v20);
           }
 
           v56 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-          v57 = &a1[v56];
-          v58 = &a2[v56];
+          v57 = a1 + v56;
+          v58 = a2 + v56;
           *v57 = *v58;
           *(v57 + 2) = *(v58 + 2);
           goto LABEL_180;
@@ -3838,7 +3838,7 @@ LABEL_180:
       v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
       v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
       v28 = *(v27 - 8);
-      if (!(*(v28 + 48))(&a2[v26], 1, v27))
+      if (!(*(v28 + 48))(a2 + v26, 1, v27))
       {
         v46 = swift_getEnumCaseMultiPayload();
         if (v46 <= 3)
@@ -3903,8 +3903,8 @@ LABEL_14:
 LABEL_133:
             v68 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
             v69 = v68[5];
-            v70 = &a1[v69];
-            v71 = &a2[v69];
+            v70 = (a1 + v69);
+            v71 = (a2 + v69);
             v72 = v71[3];
             v70[2] = v71[2];
             v70[3] = v72;
@@ -3916,12 +3916,12 @@ LABEL_133:
             v70[5] = v71[5];
             v70[6] = v74;
             v70[4] = v71[4];
-            a1[v68[6]] = a2[v68[6]];
-            a1[v68[7]] = a2[v68[7]];
-            a1[v68[8]] = a2[v68[8]];
-            a1[v68[9]] = a2[v68[9]];
-            a1[v68[10]] = a2[v68[10]];
-            *&a1[v68[11]] = *&a2[v68[11]];
+            *(a1 + v68[6]) = *(a2 + v68[6]);
+            *(a1 + v68[7]) = *(a2 + v68[7]);
+            *(a1 + v68[8]) = *(a2 + v68[8]);
+            *(a1 + v68[9]) = *(a2 + v68[9]);
+            *(a1 + v68[10]) = *(a2 + v68[10]);
+            *(a1 + v68[11]) = *(a2 + v68[11]);
             goto LABEL_180;
           }
 
@@ -3943,7 +3943,7 @@ LABEL_181:
         v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
         v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
         v28 = *(v27 - 8);
-        if ((*(v28 + 48))(&a2[v26], 1, v27))
+        if ((*(v28 + 48))(a2 + v26, 1, v27))
         {
           goto LABEL_61;
         }
@@ -3961,15 +3961,15 @@ LABEL_181:
         {
 LABEL_114:
           v65 = sub_21DBF563C();
-          (*(*(v65 - 8) + 32))(&a1[v26], &a2[v26], v65);
+          (*(*(v65 - 8) + 32))(a1 + v26, a2 + v26, v65);
           swift_storeEnumTagMultiPayload();
 LABEL_179:
-          (*(v28 + 56))(&a1[v26], 0, 1, v27);
+          (*(v28 + 56))(a1 + v26, 0, 1, v27);
           goto LABEL_180;
         }
 
 LABEL_178:
-        memcpy(&a1[v26], &a2[v26], *(v28 + 64));
+        memcpy(a1 + v26, a2 + v26, *(v28 + 64));
         goto LABEL_179;
       }
 
@@ -3977,7 +3977,7 @@ LABEL_178:
       v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
       v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
       v28 = *(v27 - 8);
-      if (!(*(v28 + 48))(&a2[v26], 1, v27))
+      if (!(*(v28 + 48))(a2 + v26, 1, v27))
       {
         v48 = swift_getEnumCaseMultiPayload();
         if (v48 <= 3)
@@ -3998,14 +3998,14 @@ LABEL_178:
     }
 
 LABEL_61:
-    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-    memcpy(&a1[v26], &a2[v26], *(*(v38 - 8) + 64));
+    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+    memcpy(a1 + v26, a2 + v26, *(*(v38 - 8) + 64));
     goto LABEL_180;
   }
 
   if (v9)
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
     memcpy(a1, a2, *(*(v11 - 8) + 64));
     goto LABEL_187;
   }
@@ -4029,12 +4029,12 @@ LABEL_61:
         {
           v52 = sub_21DBF563C();
           (*(*(v52 - 8) + 32))(a1, a2, v52);
-          a1[*(v43 + 20)] = a2[*(v43 + 20)];
+          *(a1 + *(v43 + 20)) = *(a2 + *(v43 + 20));
           (*(v44 + 56))(a1, 0, 1, v43);
         }
 
         v53 = type metadata accessor for TTRTemplatePublicLinkData(0);
-        *&a1[*(v53 + 20)] = *&a2[*(v53 + 20)];
+        *(a1 + *(v53 + 20)) = *(a2 + *(v53 + 20));
         goto LABEL_185;
       }
 
@@ -4046,7 +4046,7 @@ LABEL_61:
       *a1 = *a2;
       v34 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
       v35 = sub_21DBF8D7C();
-      (*(*(v35 - 8) + 32))(&a1[v34], &a2[v34], v35);
+      (*(*(v35 - 8) + 32))(a1 + v34, a2 + v34, v35);
 LABEL_185:
       swift_storeEnumTagMultiPayload();
       goto LABEL_186;
@@ -4060,7 +4060,7 @@ LABEL_185:
         v24 = *(v23 - 8);
         if ((*(v24 + 48))(a2, 1, v23))
         {
-          v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+          v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
           memcpy(a1, a2, *(*(v25 - 8) + 64));
         }
 
@@ -4069,13 +4069,13 @@ LABEL_185:
           *a1 = *a2;
           v59 = *(v23 + 20);
           v60 = sub_21DBF6C1C();
-          (*(*(v60 - 8) + 32))(&a1[v59], &a2[v59], v60);
+          (*(*(v60 - 8) + 32))(a1 + v59, a2 + v59, v60);
           (*(v24 + 56))(a1, 0, 1, v23);
         }
 
         v61 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-        v62 = &a1[v61];
-        v63 = &a2[v61];
+        v62 = a1 + v61;
+        v63 = a2 + v61;
         *v62 = *v63;
         *(v62 + 2) = *(v63 + 2);
         goto LABEL_185;
@@ -4088,7 +4088,7 @@ LABEL_185:
     v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
     v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
     v31 = *(v30 - 8);
-    if (!(*(v31 + 48))(&a2[v29], 1, v30))
+    if (!(*(v31 + 48))(a2 + v29, 1, v30))
     {
       v47 = swift_getEnumCaseMultiPayload();
       if (v47 <= 3)
@@ -4118,7 +4118,7 @@ LABEL_185:
       v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
       v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
       v31 = *(v30 - 8);
-      if ((*(v31 + 48))(&a2[v29], 1, v30))
+      if ((*(v31 + 48))(a2 + v29, 1, v30))
       {
         goto LABEL_63;
       }
@@ -4136,15 +4136,15 @@ LABEL_185:
       {
 LABEL_119:
         v67 = sub_21DBF563C();
-        (*(*(v67 - 8) + 32))(&a1[v29], &a2[v29], v67);
+        (*(*(v67 - 8) + 32))(a1 + v29, a2 + v29, v67);
         swift_storeEnumTagMultiPayload();
 LABEL_184:
-        (*(v31 + 56))(&a1[v29], 0, 1, v30);
+        (*(v31 + 56))(a1 + v29, 0, 1, v30);
         goto LABEL_185;
       }
 
 LABEL_183:
-      memcpy(&a1[v29], &a2[v29], *(v31 + 64));
+      memcpy(a1 + v29, a2 + v29, *(v31 + 64));
       goto LABEL_184;
     }
 
@@ -4152,7 +4152,7 @@ LABEL_183:
     v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
     v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
     v31 = *(v30 - 8);
-    if (!(*(v31 + 48))(&a2[v29], 1, v30))
+    if (!(*(v31 + 48))(a2 + v29, 1, v30))
     {
       v49 = swift_getEnumCaseMultiPayload();
       if (v49 <= 3)
@@ -4172,8 +4172,8 @@ LABEL_183:
     }
 
 LABEL_63:
-    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-    memcpy(&a1[v29], &a2[v29], *(*(v39 - 8) + 64));
+    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+    memcpy(a1 + v29, a2 + v29, *(*(v39 - 8) + 64));
     goto LABEL_185;
   }
 
@@ -4218,8 +4218,8 @@ LABEL_23:
 LABEL_135:
       v75 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
       v76 = v75[5];
-      v77 = &a1[v76];
-      v78 = &a2[v76];
+      v77 = (a1 + v76);
+      v78 = (a2 + v76);
       v79 = v78[3];
       v77[2] = v78[2];
       v77[3] = v79;
@@ -4231,12 +4231,12 @@ LABEL_135:
       v77[5] = v78[5];
       v77[6] = v81;
       v77[4] = v78[4];
-      a1[v75[6]] = a2[v75[6]];
-      a1[v75[7]] = a2[v75[7]];
-      a1[v75[8]] = a2[v75[8]];
-      a1[v75[9]] = a2[v75[9]];
-      a1[v75[10]] = a2[v75[10]];
-      *&a1[v75[11]] = *&a2[v75[11]];
+      *(a1 + v75[6]) = *(a2 + v75[6]);
+      *(a1 + v75[7]) = *(a2 + v75[7]);
+      *(a1 + v75[8]) = *(a2 + v75[8]);
+      *(a1 + v75[9]) = *(a2 + v75[9]);
+      *(a1 + v75[10]) = *(a2 + v75[10]);
+      *(a1 + v75[11]) = *(a2 + v75[11]);
       goto LABEL_185;
     }
 
@@ -4252,8 +4252,8 @@ LABEL_186:
 LABEL_187:
   swift_storeEnumTagMultiPayload();
   v83 = *(a3 + 20);
-  v84 = &a1[v83];
-  v85 = &a2[v83];
+  v84 = a1 + v83;
+  v85 = a2 + v83;
   v86 = swift_getEnumCaseMultiPayload();
   if (v86 > 3)
   {
@@ -4304,7 +4304,7 @@ LABEL_273:
         v91 = *(v90 - 8);
         if ((*(v91 + 48))(v85, 1, v90))
         {
-          v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+          v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
           memcpy(v84, v85, *(*(v92 - 8) + 64));
         }
 
@@ -4416,7 +4416,7 @@ LABEL_271:
     }
 
 LABEL_215:
-    v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+    v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
     memcpy(&v84[v93], &v85[v93], *(*(v99 - 8) + 64));
     goto LABEL_273;
   }
@@ -4494,12 +4494,12 @@ LABEL_218:
   return a1;
 }
 
-_BYTE *assignWithTake for TTRRemindersListUncommittedSection(_BYTE *a1, _BYTE *a2, uint64_t a3)
+void *assignWithTake for TTRRemindersListUncommittedSection(void *a1, void *a2, uint64_t a3)
 {
   if (a1 != a2)
   {
-    sub_21D0CF7E0(a1, &qword_27CE5A3A0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0);
+    sub_21D0CF7E0(a1, &qword_27CE5A3A0, qword_21DC0F3A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3A0, qword_21DC0F3A0);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     v7 = type metadata accessor for TTRRemindersListViewModel.Item(0);
     v8 = *(v7 - 8);
@@ -4508,11 +4508,11 @@ _BYTE *assignWithTake for TTRRemindersListUncommittedSection(_BYTE *a1, _BYTE *a
     {
       if (v9)
       {
-        v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+        v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
         memcpy(a1, a2, *(*(v10 - 8) + 64));
 LABEL_183:
-        v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0);
-        *&a1[*(v82 + 48)] = *&a2[*(v82 + 48)];
+        v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A3F0, &qword_21DC0F430);
+        *(a1 + *(v82 + 48)) = *(a2 + *(v82 + 48));
         goto LABEL_188;
       }
 
@@ -4535,12 +4535,12 @@ LABEL_183:
             {
               v50 = sub_21DBF563C();
               (*(*(v50 - 8) + 32))(a1, a2, v50);
-              a1[*(v40 + 20)] = a2[*(v40 + 20)];
+              *(a1 + *(v40 + 20)) = *(a2 + *(v40 + 20));
               (*(v41 + 56))(a1, 0, 1, v40);
             }
 
             v51 = type metadata accessor for TTRTemplatePublicLinkData(0);
-            *&a1[*(v51 + 20)] = *&a2[*(v51 + 20)];
+            *(a1 + *(v51 + 20)) = *(a2 + *(v51 + 20));
             goto LABEL_181;
           }
 
@@ -4552,7 +4552,7 @@ LABEL_183:
           *a1 = *a2;
           v32 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
           v33 = sub_21DBF8D7C();
-          (*(*(v33 - 8) + 32))(&a1[v32], &a2[v32], v33);
+          (*(*(v33 - 8) + 32))(a1 + v32, a2 + v32, v33);
 LABEL_181:
           swift_storeEnumTagMultiPayload();
           goto LABEL_182;
@@ -4566,7 +4566,7 @@ LABEL_181:
             v21 = *(v20 - 8);
             if ((*(v21 + 48))(a2, 1, v20))
             {
-              v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+              v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
               memcpy(a1, a2, *(*(v22 - 8) + 64));
             }
 
@@ -4575,13 +4575,13 @@ LABEL_181:
               *a1 = *a2;
               v54 = *(v20 + 20);
               v55 = sub_21DBF6C1C();
-              (*(*(v55 - 8) + 32))(&a1[v54], &a2[v54], v55);
+              (*(*(v55 - 8) + 32))(a1 + v54, a2 + v54, v55);
               (*(v21 + 56))(a1, 0, 1, v20);
             }
 
             v56 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-            v57 = &a1[v56];
-            v58 = &a2[v56];
+            v57 = a1 + v56;
+            v58 = a2 + v56;
             *v57 = *v58;
             *(v57 + 2) = *(v58 + 2);
             goto LABEL_181;
@@ -4594,7 +4594,7 @@ LABEL_181:
         v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
         v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
         v28 = *(v27 - 8);
-        if (!(*(v28 + 48))(&a2[v26], 1, v27))
+        if (!(*(v28 + 48))(a2 + v26, 1, v27))
         {
           v46 = swift_getEnumCaseMultiPayload();
           if (v46 <= 3)
@@ -4659,8 +4659,8 @@ LABEL_15:
 LABEL_134:
               v68 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
               v69 = v68[5];
-              v70 = &a1[v69];
-              v71 = &a2[v69];
+              v70 = (a1 + v69);
+              v71 = (a2 + v69);
               v72 = v71[3];
               v70[2] = v71[2];
               v70[3] = v72;
@@ -4672,12 +4672,12 @@ LABEL_134:
               v70[5] = v71[5];
               v70[6] = v74;
               v70[4] = v71[4];
-              a1[v68[6]] = a2[v68[6]];
-              a1[v68[7]] = a2[v68[7]];
-              a1[v68[8]] = a2[v68[8]];
-              a1[v68[9]] = a2[v68[9]];
-              a1[v68[10]] = a2[v68[10]];
-              *&a1[v68[11]] = *&a2[v68[11]];
+              *(a1 + v68[6]) = *(a2 + v68[6]);
+              *(a1 + v68[7]) = *(a2 + v68[7]);
+              *(a1 + v68[8]) = *(a2 + v68[8]);
+              *(a1 + v68[9]) = *(a2 + v68[9]);
+              *(a1 + v68[10]) = *(a2 + v68[10]);
+              *(a1 + v68[11]) = *(a2 + v68[11]);
               goto LABEL_181;
             }
 
@@ -4699,7 +4699,7 @@ LABEL_182:
           v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
           v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
           v28 = *(v27 - 8);
-          if ((*(v28 + 48))(&a2[v26], 1, v27))
+          if ((*(v28 + 48))(a2 + v26, 1, v27))
           {
             goto LABEL_62;
           }
@@ -4717,15 +4717,15 @@ LABEL_182:
           {
 LABEL_115:
             v65 = sub_21DBF563C();
-            (*(*(v65 - 8) + 32))(&a1[v26], &a2[v26], v65);
+            (*(*(v65 - 8) + 32))(a1 + v26, a2 + v26, v65);
             swift_storeEnumTagMultiPayload();
 LABEL_180:
-            (*(v28 + 56))(&a1[v26], 0, 1, v27);
+            (*(v28 + 56))(a1 + v26, 0, 1, v27);
             goto LABEL_181;
           }
 
 LABEL_179:
-          memcpy(&a1[v26], &a2[v26], *(v28 + 64));
+          memcpy(a1 + v26, a2 + v26, *(v28 + 64));
           goto LABEL_180;
         }
 
@@ -4733,7 +4733,7 @@ LABEL_179:
         v26 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
         v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
         v28 = *(v27 - 8);
-        if (!(*(v28 + 48))(&a2[v26], 1, v27))
+        if (!(*(v28 + 48))(a2 + v26, 1, v27))
         {
           v48 = swift_getEnumCaseMultiPayload();
           if (v48 <= 3)
@@ -4754,14 +4754,14 @@ LABEL_179:
       }
 
 LABEL_62:
-      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-      memcpy(&a1[v26], &a2[v26], *(*(v38 - 8) + 64));
+      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+      memcpy(a1 + v26, a2 + v26, *(*(v38 - 8) + 64));
       goto LABEL_181;
     }
 
     if (v9)
     {
-      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80);
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD80, &qword_21DC0CE80);
       memcpy(a1, a2, *(*(v11 - 8) + 64));
       goto LABEL_188;
     }
@@ -4785,12 +4785,12 @@ LABEL_62:
           {
             v52 = sub_21DBF563C();
             (*(*(v52 - 8) + 32))(a1, a2, v52);
-            a1[*(v43 + 20)] = a2[*(v43 + 20)];
+            *(a1 + *(v43 + 20)) = *(a2 + *(v43 + 20));
             (*(v44 + 56))(a1, 0, 1, v43);
           }
 
           v53 = type metadata accessor for TTRTemplatePublicLinkData(0);
-          *&a1[*(v53 + 20)] = *&a2[*(v53 + 20)];
+          *(a1 + *(v53 + 20)) = *(a2 + *(v53 + 20));
           goto LABEL_186;
         }
 
@@ -4802,7 +4802,7 @@ LABEL_62:
         *a1 = *a2;
         v34 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
         v35 = sub_21DBF8D7C();
-        (*(*(v35 - 8) + 32))(&a1[v34], &a2[v34], v35);
+        (*(*(v35 - 8) + 32))(a1 + v34, a2 + v34, v35);
 LABEL_186:
         swift_storeEnumTagMultiPayload();
         goto LABEL_187;
@@ -4816,7 +4816,7 @@ LABEL_186:
           v24 = *(v23 - 8);
           if ((*(v24 + 48))(a2, 1, v23))
           {
-            v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+            v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
             memcpy(a1, a2, *(*(v25 - 8) + 64));
           }
 
@@ -4825,13 +4825,13 @@ LABEL_186:
             *a1 = *a2;
             v59 = *(v23 + 20);
             v60 = sub_21DBF6C1C();
-            (*(*(v60 - 8) + 32))(&a1[v59], &a2[v59], v60);
+            (*(*(v60 - 8) + 32))(a1 + v59, a2 + v59, v60);
             (*(v24 + 56))(a1, 0, 1, v23);
           }
 
           v61 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-          v62 = &a1[v61];
-          v63 = &a2[v61];
+          v62 = a1 + v61;
+          v63 = a2 + v61;
           *v62 = *v63;
           *(v62 + 2) = *(v63 + 2);
           goto LABEL_186;
@@ -4844,7 +4844,7 @@ LABEL_186:
       v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
       v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
       v31 = *(v30 - 8);
-      if (!(*(v31 + 48))(&a2[v29], 1, v30))
+      if (!(*(v31 + 48))(a2 + v29, 1, v30))
       {
         v47 = swift_getEnumCaseMultiPayload();
         if (v47 <= 3)
@@ -4909,8 +4909,8 @@ LABEL_24:
 LABEL_136:
             v75 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
             v76 = v75[5];
-            v77 = &a1[v76];
-            v78 = &a2[v76];
+            v77 = (a1 + v76);
+            v78 = (a2 + v76);
             v79 = v78[3];
             v77[2] = v78[2];
             v77[3] = v79;
@@ -4922,12 +4922,12 @@ LABEL_136:
             v77[5] = v78[5];
             v77[6] = v81;
             v77[4] = v78[4];
-            a1[v75[6]] = a2[v75[6]];
-            a1[v75[7]] = a2[v75[7]];
-            a1[v75[8]] = a2[v75[8]];
-            a1[v75[9]] = a2[v75[9]];
-            a1[v75[10]] = a2[v75[10]];
-            *&a1[v75[11]] = *&a2[v75[11]];
+            *(a1 + v75[6]) = *(a2 + v75[6]);
+            *(a1 + v75[7]) = *(a2 + v75[7]);
+            *(a1 + v75[8]) = *(a2 + v75[8]);
+            *(a1 + v75[9]) = *(a2 + v75[9]);
+            *(a1 + v75[10]) = *(a2 + v75[10]);
+            *(a1 + v75[11]) = *(a2 + v75[11]);
             goto LABEL_186;
           }
 
@@ -4943,9 +4943,9 @@ LABEL_187:
 LABEL_188:
         swift_storeEnumTagMultiPayload();
         v83 = *(a3 + 20);
-        v84 = &a1[v83];
-        v85 = &a2[v83];
-        sub_21D106918(&a1[v83], type metadata accessor for TTRRemindersListViewModel.Item);
+        v84 = (a1 + v83);
+        v85 = (a2 + v83);
+        sub_21D106918(a1 + v83, type metadata accessor for TTRRemindersListViewModel.Item);
         v86 = swift_getEnumCaseMultiPayload();
         if (v86 <= 3)
         {
@@ -5031,7 +5031,7 @@ LABEL_251:
             if ((*(v95 + 48))(v85 + v93, 1, v94))
             {
 LABEL_216:
-              v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+              v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
               memcpy(v84 + v93, v85 + v93, *(*(v99 - 8) + 64));
               goto LABEL_274;
             }
@@ -5161,7 +5161,7 @@ LABEL_274:
             v91 = *(v90 - 8);
             if ((*(v91 + 48))(v85, 1, v90))
             {
-              v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+              v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
               memcpy(v84, v85, *(*(v92 - 8) + 64));
             }
 
@@ -5194,7 +5194,7 @@ LABEL_219:
         v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
         v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
         v31 = *(v30 - 8);
-        if ((*(v31 + 48))(&a2[v29], 1, v30))
+        if ((*(v31 + 48))(a2 + v29, 1, v30))
         {
           goto LABEL_64;
         }
@@ -5212,15 +5212,15 @@ LABEL_219:
         {
 LABEL_120:
           v67 = sub_21DBF563C();
-          (*(*(v67 - 8) + 32))(&a1[v29], &a2[v29], v67);
+          (*(*(v67 - 8) + 32))(a1 + v29, a2 + v29, v67);
           swift_storeEnumTagMultiPayload();
 LABEL_185:
-          (*(v31 + 56))(&a1[v29], 0, 1, v30);
+          (*(v31 + 56))(a1 + v29, 0, 1, v30);
           goto LABEL_186;
         }
 
 LABEL_184:
-        memcpy(&a1[v29], &a2[v29], *(v31 + 64));
+        memcpy(a1 + v29, a2 + v29, *(v31 + 64));
         goto LABEL_185;
       }
 
@@ -5228,7 +5228,7 @@ LABEL_184:
       v29 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
       v30 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
       v31 = *(v30 - 8);
-      if (!(*(v31 + 48))(&a2[v29], 1, v30))
+      if (!(*(v31 + 48))(a2 + v29, 1, v30))
       {
         v49 = swift_getEnumCaseMultiPayload();
         if (v49 <= 3)
@@ -5249,28 +5249,28 @@ LABEL_184:
     }
 
 LABEL_64:
-    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-    memcpy(&a1[v29], &a2[v29], *(*(v39 - 8) + 64));
+    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+    memcpy(a1 + v29, a2 + v29, *(*(v39 - 8) + 64));
     goto LABEL_186;
   }
 
   return a1;
 }
 
-void sub_21D2DB8F0()
+void sub_21D2DB8F0(uint64_t a1)
 {
-  sub_21D2B78E4();
-  if (v0 <= 0x3F)
+  sub_21D2B78E4(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for TTRRemindersListViewModel.Item(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_initStructMetadata();
     }
   }
 }
 
-void *initializeBufferWithCopyOfBuffer for TTRRemindersListSectionCreationLocation(void *a1, void *a2, uint64_t a3)
+void **initializeBufferWithCopyOfBuffer for TTRRemindersListSectionCreationLocation(void **a1, void **a2, uint64_t a3)
 {
   v5 = *(*(a3 - 8) + 80);
   if ((v5 & 0x20000) == 0)
@@ -5321,7 +5321,7 @@ LABEL_123:
           v39 = *(v38 - 8);
           if ((*(v39 + 48))(a2, 1, v38))
           {
-            v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+            v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
             memcpy(a1, a2, *(*(v40 - 8) + 64));
           }
 
@@ -5807,7 +5807,7 @@ LABEL_252:
         v42 = *(v41 - 8);
         if ((*(v42 + 48))(a2, 1, v41))
         {
-          v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
+          v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
           memcpy(a1, a2, *(*(v43 - 8) + 64));
         }
 
@@ -5865,7 +5865,7 @@ LABEL_41:
       if (v48(a2 + v17, 1, v18))
       {
 LABEL_55:
-        v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
+        v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
         memcpy(a1 + v17, a2 + v17, *(*(v37 - 8) + 64));
         goto LABEL_251;
       }
@@ -6272,12 +6272,12 @@ LABEL_199:
 
   v9 = *a2;
   *a1 = *a2;
-  a1 = (v9 + ((v5 + 16) & ~v5));
+  a1 = &v9[(v5 + 16) & ~v5];
 
   return a1;
 }
 
-void destroy for TTRRemindersListSectionCreationLocation(uint64_t a1)
+void destroy for TTRRemindersListSectionCreationLocation(uint64_t a1, uint64_t a2)
 {
   swift_getEnumCaseMultiPayload();
   type metadata accessor for TTRRemindersListViewModel.Item(0);
@@ -6295,12 +6295,12 @@ void destroy for TTRRemindersListSectionCreationLocation(uint64_t a1)
     }
 
     type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v7 = swift_getEnumCaseMultiPayload();
-    if (v7 > 4)
+    v8 = swift_getEnumCaseMultiPayload();
+    if (v8 > 4)
     {
-      if (v7 <= 7)
+      if (v8 <= 7)
       {
-        if (v7 != 5 && v7 != 6)
+        if (v8 != 5 && v8 != 6)
         {
           goto LABEL_41;
         }
@@ -6308,7 +6308,7 @@ void destroy for TTRRemindersListSectionCreationLocation(uint64_t a1)
         goto LABEL_37;
       }
 
-      if (v7 != 8 && v7 != 9)
+      if (v8 != 8 && v8 != 9)
       {
         goto LABEL_41;
       }
@@ -6316,36 +6316,36 @@ void destroy for TTRRemindersListSectionCreationLocation(uint64_t a1)
 
     else
     {
-      if (v7 > 2)
+      if (v8 > 2)
       {
         goto LABEL_37;
       }
 
-      if (v7 != 1)
+      if (v8 != 1)
       {
-        if (v7 != 2)
+        if (v8 != 2)
         {
 LABEL_41:
-          v18 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-          v19 = a1 + *(v18 + 20);
-          if (*(v19 + 8))
+          v19 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+          v20 = a1 + *(v19 + 20);
+          if (*(v20 + 8))
           {
 
-            sub_21D179EF0(*(v19 + 16), *(v19 + 24), *(v19 + 32), *(v19 + 40), *(v19 + 48), *(v19 + 56), *(v19 + 64));
-            v20 = *(v19 + 120);
-            if (v20 != 255)
+            sub_21D179EF0(*(v20 + 16), *(v20 + 24), *(v20 + 32), *(v20 + 40), *(v20 + 48), *(v20 + 56), *(v20 + 64));
+            v21 = *(v20 + 120);
+            if (v21 != 255)
             {
-              sub_21D1078C0(*(v19 + 72), *(v19 + 80), *(v19 + 88), *(v19 + 96), *(v19 + 104), *(v19 + 112), v20 & 1);
+              sub_21D1078C0(*(v20 + 72), *(v20 + 80), *(v20 + 88), *(v20 + 96), *(v20 + 104), *(v20 + 112), v21 & 1);
             }
           }
 
-          v8 = *(a1 + *(v18 + 44));
+          v9 = *(a1 + *(v19 + 44));
           goto LABEL_45;
         }
 
 LABEL_37:
-        v17 = sub_21DBF563C();
-        (*(*(v17 - 8) + 8))(a1, v17);
+        v18 = sub_21DBF563C();
+        (*(*(v18 - 8) + 8))(a1, v18);
         goto LABEL_41;
       }
     }
@@ -6357,7 +6357,7 @@ LABEL_37:
   {
     if (EnumCaseMultiPayload != 4)
     {
-      v8 = *(a1 + 16);
+      v9 = *(a1 + 16);
 LABEL_45:
 
       return;
@@ -6365,19 +6365,19 @@ LABEL_45:
 
 LABEL_17:
 
-    v9 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-    v10 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    if ((*(*(v10 - 8) + 48))(a1 + v9, 1, v10))
+    v10 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+    v11 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    if ((*(*(v11 - 8) + 48))(a1 + v10, 1, v11))
     {
       return;
     }
 
-    v11 = swift_getEnumCaseMultiPayload();
-    if (v11 > 4)
+    v12 = swift_getEnumCaseMultiPayload();
+    if (v12 > 4)
     {
-      if (v11 <= 7)
+      if (v12 <= 7)
       {
-        if (v11 != 5 && v11 != 6)
+        if (v12 != 5 && v12 != 6)
         {
           return;
         }
@@ -6385,7 +6385,7 @@ LABEL_17:
         goto LABEL_49;
       }
 
-      if (v11 != 8 && v11 != 9)
+      if (v12 != 8 && v12 != 9)
       {
         return;
       }
@@ -6393,21 +6393,21 @@ LABEL_17:
 
     else
     {
-      if (v11 > 2)
+      if (v12 > 2)
       {
 LABEL_49:
-        v4 = sub_21DBF563C();
-        v5 = *(*(v4 - 8) + 8);
-        v6 = a1 + v9;
+        v5 = sub_21DBF563C();
+        v6 = *(*(v5 - 8) + 8);
+        v7 = a1 + v10;
 LABEL_50:
 
-        v5(v6, v4);
+        v6(v7, v5);
         return;
       }
 
-      if (v11 != 1)
+      if (v12 != 1)
       {
-        if (v11 != 2)
+        if (v12 != 2)
         {
           return;
         }
@@ -6416,7 +6416,7 @@ LABEL_50:
       }
     }
 
-    v8 = *(a1 + v9);
+    v9 = *(a1 + v10);
     goto LABEL_45;
   }
 
@@ -6424,16 +6424,16 @@ LABEL_50:
   {
     if (EnumCaseMultiPayload == 7)
     {
-      v16 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-      if ((*(*(v16 - 8) + 48))(a1, 1, v16))
+      v17 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+      if ((*(*(v17 - 8) + 48))(a1, 1, v17))
       {
         return;
       }
 
-      v21 = sub_21DBF563C();
-      v5 = *(*(v21 - 8) + 8);
-      v4 = v21;
-      v6 = a1;
+      v22 = sub_21DBF563C();
+      v6 = *(*(v22 - 8) + 8);
+      v5 = v22;
+      v7 = a1;
     }
 
     else
@@ -6443,49 +6443,49 @@ LABEL_50:
         return;
       }
 
-      v3 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
-      v4 = sub_21DBF8D7C();
-      v5 = *(*(v4 - 8) + 8);
-      v6 = a1 + v3;
+      v4 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
+      v5 = sub_21DBF8D7C();
+      v6 = *(*(v5 - 8) + 8);
+      v7 = a1 + v4;
     }
 
     goto LABEL_50;
   }
 
-  v12 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-  if (!(*(*(v12 - 8) + 48))(a1, 1, v12))
+  v13 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+  if (!(*(*(v13 - 8) + 48))(a1, 1, v13))
   {
 
-    v13 = *(v12 + 20);
-    v14 = sub_21DBF6C1C();
-    (*(*(v14 - 8) + 8))(a1 + v13, v14);
+    v14 = *(v13 + 20);
+    v15 = sub_21DBF6C1C();
+    (*(*(v15 - 8) + 8))(a1 + v14, v15);
   }
 
-  v15 = a1 + *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-  if (*(v15 + 8))
+  v16 = a1 + *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+  if (*(v16 + 8))
   {
 
-    v8 = *(v15 + 16);
+    v9 = *(v16 + 16);
     goto LABEL_45;
   }
 }
 
-void *initializeWithCopy for TTRRemindersListSectionCreationLocation(void *a1, void *a2)
+void **initializeWithCopy for TTRRemindersListSectionCreationLocation(void **a1, void **a2, uint64_t a3)
 {
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v5 = type metadata accessor for TTRRemindersListViewModel.Item(0);
-  v6 = swift_getEnumCaseMultiPayload();
+  v6 = type metadata accessor for TTRRemindersListViewModel.Item(0);
+  v7 = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload == 1)
   {
-    if (v6 > 3)
+    if (v7 > 3)
     {
-      if (v6 > 5)
+      if (v7 > 5)
       {
-        if (v6 != 6)
+        if (v7 != 6)
         {
-          if (v6 != 7)
+          if (v7 != 7)
           {
-            if (v6 == 8)
+            if (v7 == 8)
             {
               goto LABEL_13;
             }
@@ -6493,9 +6493,9 @@ void *initializeWithCopy for TTRRemindersListSectionCreationLocation(void *a1, v
             goto LABEL_66;
           }
 
-          v47 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-          v48 = *(v47 - 8);
-          if ((*(v48 + 48))(a2, 1, v47))
+          v48 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+          v49 = *(v48 - 8);
+          if ((*(v49 + 48))(a2, 1, v48))
           {
             goto LABEL_65;
           }
@@ -6503,79 +6503,79 @@ void *initializeWithCopy for TTRRemindersListSectionCreationLocation(void *a1, v
           goto LABEL_121;
         }
 
-        v35 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-        v36 = *(v35 - 8);
-        if ((*(v36 + 48))(a2, 1, v35))
+        v36 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+        v37 = *(v36 - 8);
+        if ((*(v37 + 48))(a2, 1, v36))
         {
-          v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-          memcpy(a1, a2, *(*(v37 - 8) + 64));
+          v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+          memcpy(a1, a2, *(*(v38 - 8) + 64));
         }
 
         else
         {
           *a1 = *a2;
-          v54 = *(v35 + 20);
-          v55 = sub_21DBF6C1C();
-          v56 = *(*(v55 - 8) + 16);
+          v55 = *(v36 + 20);
+          v56 = sub_21DBF6C1C();
+          v57 = *(*(v56 - 8) + 16);
           sub_21DBF8E0C();
-          v56(a1 + v54, a2 + v54, v55);
-          (*(v36 + 56))(a1, 0, 1, v35);
+          v57(a1 + v55, a2 + v55, v56);
+          (*(v37 + 56))(a1, 0, 1, v36);
         }
 
-        v57 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-        v58 = a1 + v57;
-        v59 = a2 + v57;
-        v60 = *(v59 + 1);
-        if (!v60)
+        v58 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+        v59 = a1 + v58;
+        v60 = a2 + v58;
+        v61 = *(v60 + 1);
+        if (!v61)
         {
-          *v58 = *v59;
-          *(v58 + 2) = *(v59 + 2);
+          *v59 = *v60;
+          *(v59 + 2) = *(v60 + 2);
           goto LABEL_248;
         }
 
 LABEL_108:
-        *v58 = *v59;
-        *(v58 + 1) = v60;
-        v65 = *(v59 + 2);
-        *(v58 + 2) = v65;
+        *v59 = *v60;
+        *(v59 + 1) = v61;
+        v66 = *(v60 + 2);
+        *(v59 + 2) = v66;
         sub_21DBF8E0C();
-        v66 = v65;
+        v67 = v66;
         goto LABEL_248;
       }
 
-      if (v6 != 4)
+      if (v7 != 4)
       {
 LABEL_39:
         *a1 = *a2;
         *(a1 + 8) = *(a2 + 8);
         *(a1 + 9) = *(a2 + 9);
-        v22 = a2[2];
-        a1[2] = v22;
-        v23 = v22;
+        v23 = a2[2];
+        a1[2] = v23;
+        v24 = v23;
         goto LABEL_248;
       }
 
-      v41 = *a2;
+      v42 = *a2;
       *a1 = *a2;
-      v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-      v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v16 = *(v15 - 8);
-      v42 = *(v16 + 48);
-      v43 = v41;
-      if (v42(a2 + v14, 1, v15))
+      v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+      v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v17 = *(v16 - 8);
+      v43 = *(v17 + 48);
+      v44 = v42;
+      if (v43(a2 + v15, 1, v16))
       {
 LABEL_53:
-        v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-        memcpy(a1 + v14, a2 + v14, *(*(v34 - 8) + 64));
+        v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+        memcpy(a1 + v15, a2 + v15, *(*(v35 - 8) + 64));
         goto LABEL_248;
       }
 
-      v67 = swift_getEnumCaseMultiPayload();
-      if (v67 > 4)
+      v68 = swift_getEnumCaseMultiPayload();
+      if (v68 > 4)
       {
-        if (v67 <= 7)
+        if (v68 <= 7)
         {
-          if (v67 == 5 || v67 == 6)
+          if (v68 == 5 || v68 == 6)
           {
             goto LABEL_220;
           }
@@ -6583,7 +6583,7 @@ LABEL_53:
           goto LABEL_246;
         }
 
-        if (v67 != 8 && v67 != 9)
+        if (v68 != 8 && v68 != 9)
         {
           goto LABEL_246;
         }
@@ -6591,17 +6591,17 @@ LABEL_53:
         goto LABEL_224;
       }
 
-      if (v67 <= 2)
+      if (v68 <= 2)
       {
-        if (v67 != 1)
+        if (v68 != 1)
         {
-          if (v67 == 2)
+          if (v68 == 2)
           {
             goto LABEL_220;
           }
 
 LABEL_246:
-          memcpy(a1 + v14, a2 + v14, *(v16 + 64));
+          memcpy(a1 + v15, a2 + v15, *(v17 + 64));
           goto LABEL_247;
         }
 
@@ -6609,26 +6609,439 @@ LABEL_246:
       }
 
 LABEL_220:
-      v160 = sub_21DBF563C();
-      (*(*(v160 - 8) + 16))(a1 + v14, a2 + v14, v160);
+      v161 = sub_21DBF563C();
+      (*(*(v161 - 8) + 16))(a1 + v15, a2 + v15, v161);
       swift_storeEnumTagMultiPayload();
 LABEL_247:
-      (*(v16 + 56))(a1 + v14, 0, 1, v15);
+      (*(v17 + 56))(a1 + v15, 0, 1, v16);
       goto LABEL_248;
     }
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
-      if (v6 == 2)
+      if (v7 == 2)
       {
-        v28 = *a2;
+        v29 = *a2;
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v29 = *(v16 + 48);
-        v30 = v28;
-        if (v29(a2 + v14, 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v30 = *(v17 + 48);
+        v31 = v29;
+        if (v30(a2 + v15, 1, v16))
+        {
+          goto LABEL_53;
+        }
+
+        v53 = swift_getEnumCaseMultiPayload();
+        if (v53 > 4)
+        {
+          if (v53 <= 7)
+          {
+            if (v53 == 5 || v53 == 6)
+            {
+              goto LABEL_220;
+            }
+
+            goto LABEL_246;
+          }
+
+          if (v53 != 8 && v53 != 9)
+          {
+            goto LABEL_246;
+          }
+
+          goto LABEL_224;
+        }
+
+        if (v53 > 2)
+        {
+          goto LABEL_220;
+        }
+
+        if (v53 == 1)
+        {
+          goto LABEL_224;
+        }
+
+        if (v53 != 2)
+        {
+          goto LABEL_246;
+        }
+      }
+
+      else
+      {
+        v14 = *a2;
+        *a1 = *a2;
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v18 = *(v17 + 48);
+        v19 = v14;
+        if (v18(a2 + v15, 1, v16))
+        {
+          goto LABEL_53;
+        }
+
+        v51 = swift_getEnumCaseMultiPayload();
+        if (v51 > 4)
+        {
+          if (v51 <= 7)
+          {
+            if (v51 == 5 || v51 == 6)
+            {
+              goto LABEL_220;
+            }
+
+            goto LABEL_246;
+          }
+
+          if (v51 != 8 && v51 != 9)
+          {
+            goto LABEL_246;
+          }
+
+          goto LABEL_224;
+        }
+
+        if (v51 > 2)
+        {
+          goto LABEL_220;
+        }
+
+        if (v51 == 1)
+        {
+          goto LABEL_224;
+        }
+
+        if (v51 != 2)
+        {
+          goto LABEL_246;
+        }
+      }
+
+      goto LABEL_220;
+    }
+
+    if (v7)
+    {
+      if (v7 != 1)
+      {
+        goto LABEL_66;
+      }
+
+      v10 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v11 = swift_getEnumCaseMultiPayload();
+      if (v11 <= 4)
+      {
+        if (v11 > 2)
+        {
+LABEL_123:
+          v72 = sub_21DBF563C();
+          (*(*(v72 - 8) + 16))(a1, a2, v72);
+          swift_storeEnumTagMultiPayload();
+          goto LABEL_176;
+        }
+
+        if (v11 != 1)
+        {
+          if (v11 == 2)
+          {
+            goto LABEL_123;
+          }
+
+          goto LABEL_175;
+        }
+
+LABEL_127:
+        v74 = *a2;
+        *a1 = *a2;
+        v75 = v74;
+        swift_storeEnumTagMultiPayload();
+        goto LABEL_176;
+      }
+
+      if (v11 > 7)
+      {
+        if (v11 == 8 || v11 == 9)
+        {
+          goto LABEL_127;
+        }
+      }
+
+      else if (v11 == 5 || v11 == 6)
+      {
+        goto LABEL_123;
+      }
+
+LABEL_175:
+      memcpy(a1, a2, *(*(v10 - 8) + 64));
+LABEL_176:
+      v84 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+      v85 = v84[5];
+      v86 = a1 + v85;
+      v87 = a2 + v85;
+      v88 = *(a2 + v85 + 8);
+      if (v88)
+      {
+        v165 = a2;
+        v169 = a1;
+        *v86 = *v87;
+        *(v86 + 1) = v88;
+        v89 = *(v87 + 2);
+        v90 = *(v87 + 3);
+        v91 = *(v87 + 4);
+        v92 = *(v87 + 5);
+        v93 = *(v87 + 6);
+        v94 = *(v87 + 7);
+        v95 = v87[64];
+        sub_21DBF8E0C();
+        sub_21D2A7DB4(v89, v90, v91, v92, v93, v94, v95);
+        *(v86 + 2) = v89;
+        *(v86 + 3) = v90;
+        *(v86 + 4) = v91;
+        *(v86 + 5) = v92;
+        *(v86 + 6) = v93;
+        *(v86 + 7) = v94;
+        v86[64] = v95;
+        *(v86 + 65) = *(v87 + 65);
+        v96 = v87[120];
+        if (v96 == 255)
+        {
+          *(v86 + 72) = *(v87 + 72);
+          *(v86 + 88) = *(v87 + 88);
+          *(v86 + 104) = *(v87 + 104);
+          v86[120] = v87[120];
+        }
+
+        else
+        {
+          v98 = *(v87 + 9);
+          v97 = *(v87 + 10);
+          v99 = *(v87 + 11);
+          v100 = *(v87 + 12);
+          v101 = *(v87 + 13);
+          v102 = *(v87 + 14);
+          v103 = v96 & 1;
+          sub_21D0FB960(v98, v97, v99, v100, v101, v102, v96 & 1);
+          *(v86 + 9) = v98;
+          *(v86 + 10) = v97;
+          *(v86 + 11) = v99;
+          *(v86 + 12) = v100;
+          *(v86 + 13) = v101;
+          *(v86 + 14) = v102;
+          v86[120] = v103;
+        }
+
+        v86[121] = v87[121];
+        a2 = v165;
+        a1 = v169;
+        goto LABEL_189;
+      }
+
+LABEL_194:
+      v141 = *(v87 + 5);
+      *(v86 + 4) = *(v87 + 4);
+      *(v86 + 5) = v141;
+      *(v86 + 6) = *(v87 + 6);
+      *(v86 + 106) = *(v87 + 106);
+      v142 = *(v87 + 1);
+      *v86 = *v87;
+      *(v86 + 1) = v142;
+      v143 = *(v87 + 3);
+      *(v86 + 2) = *(v87 + 2);
+      *(v86 + 3) = v143;
+LABEL_189:
+      *(a1 + v84[6]) = *(a2 + v84[6]);
+      *(a1 + v84[7]) = *(a2 + v84[7]);
+      *(a1 + v84[8]) = *(a2 + v84[8]);
+      *(a1 + v84[9]) = *(a2 + v84[9]);
+      *(a1 + v84[10]) = *(a2 + v84[10]);
+      v121 = v84[11];
+      v122 = *(a2 + v121);
+      *(a1 + v121) = v122;
+      v123 = v122;
+      goto LABEL_248;
+    }
+
+    v25 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v26 = swift_getEnumCaseMultiPayload();
+    if (v26 <= 4)
+    {
+      if (v26 > 2)
+      {
+LABEL_131:
+        v78 = sub_21DBF563C();
+        (*(*(v78 - 8) + 16))(a1, a2, v78);
+        swift_storeEnumTagMultiPayload();
+        goto LABEL_191;
+      }
+
+      if (v26 != 1)
+      {
+        if (v26 == 2)
+        {
+          goto LABEL_131;
+        }
+
+        goto LABEL_190;
+      }
+
+LABEL_135:
+      v80 = *a2;
+      *a1 = *a2;
+      v81 = v80;
+      swift_storeEnumTagMultiPayload();
+      goto LABEL_191;
+    }
+
+    if (v26 > 7)
+    {
+      if (v26 == 8 || v26 == 9)
+      {
+        goto LABEL_135;
+      }
+    }
+
+    else if (v26 == 5 || v26 == 6)
+    {
+      goto LABEL_131;
+    }
+
+LABEL_190:
+    memcpy(a1, a2, *(*(v25 - 8) + 64));
+LABEL_191:
+    v84 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+    v124 = v84[5];
+    v86 = a1 + v124;
+    v87 = a2 + v124;
+    v125 = *(a2 + v124 + 8);
+    if (v125)
+    {
+      v167 = a2;
+      v171 = a1;
+      *v86 = *v87;
+      *(v86 + 1) = v125;
+      v126 = *(v87 + 2);
+      v127 = *(v87 + 3);
+      v128 = *(v87 + 4);
+      v129 = *(v87 + 5);
+      v130 = *(v87 + 6);
+      v131 = *(v87 + 7);
+      v132 = v87[64];
+      sub_21DBF8E0C();
+      sub_21D2A7DB4(v126, v127, v128, v129, v130, v131, v132);
+      *(v86 + 2) = v126;
+      *(v86 + 3) = v127;
+      *(v86 + 4) = v128;
+      *(v86 + 5) = v129;
+      *(v86 + 6) = v130;
+      *(v86 + 7) = v131;
+      v86[64] = v132;
+      *(v86 + 65) = *(v87 + 65);
+      v133 = v87[120];
+      if (v133 == 255)
+      {
+        *(v86 + 72) = *(v87 + 72);
+        *(v86 + 88) = *(v87 + 88);
+        *(v86 + 104) = *(v87 + 104);
+        v86[120] = v87[120];
+      }
+
+      else
+      {
+        v135 = *(v87 + 9);
+        v134 = *(v87 + 10);
+        v136 = *(v87 + 11);
+        v137 = *(v87 + 12);
+        v138 = *(v87 + 13);
+        v139 = *(v87 + 14);
+        v140 = v133 & 1;
+        sub_21D0FB960(v135, v134, v136, v137, v138, v139, v133 & 1);
+        *(v86 + 9) = v135;
+        *(v86 + 10) = v134;
+        *(v86 + 11) = v136;
+        *(v86 + 12) = v137;
+        *(v86 + 13) = v138;
+        *(v86 + 14) = v139;
+        v86[120] = v140;
+      }
+
+      v86[121] = v87[121];
+      a2 = v167;
+      a1 = v171;
+      goto LABEL_189;
+    }
+
+    goto LABEL_194;
+  }
+
+  if (v7 <= 3)
+  {
+    if (v7 > 1)
+    {
+      if (v7 == 2)
+      {
+        v32 = *a2;
+        *a1 = *a2;
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v33 = *(v17 + 48);
+        v34 = v32;
+        if (v33(a2 + v15, 1, v16))
+        {
+          goto LABEL_53;
+        }
+
+        v54 = swift_getEnumCaseMultiPayload();
+        if (v54 > 4)
+        {
+          if (v54 <= 7)
+          {
+            if (v54 == 5 || v54 == 6)
+            {
+              goto LABEL_220;
+            }
+
+            goto LABEL_246;
+          }
+
+          if (v54 != 8 && v54 != 9)
+          {
+            goto LABEL_246;
+          }
+
+          goto LABEL_224;
+        }
+
+        if (v54 > 2)
+        {
+          goto LABEL_220;
+        }
+
+        if (v54 == 1)
+        {
+          goto LABEL_224;
+        }
+
+        if (v54 != 2)
+        {
+          goto LABEL_246;
+        }
+      }
+
+      else
+      {
+        v20 = *a2;
+        *a1 = *a2;
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v21 = *(v17 + 48);
+        v22 = v20;
+        if (v21(a2 + v15, 1, v16))
         {
           goto LABEL_53;
         }
@@ -6670,445 +7083,32 @@ LABEL_247:
         }
       }
 
-      else
-      {
-        v13 = *a2;
-        *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v17 = *(v16 + 48);
-        v18 = v13;
-        if (v17(a2 + v14, 1, v15))
-        {
-          goto LABEL_53;
-        }
-
-        v50 = swift_getEnumCaseMultiPayload();
-        if (v50 > 4)
-        {
-          if (v50 <= 7)
-          {
-            if (v50 == 5 || v50 == 6)
-            {
-              goto LABEL_220;
-            }
-
-            goto LABEL_246;
-          }
-
-          if (v50 != 8 && v50 != 9)
-          {
-            goto LABEL_246;
-          }
-
-          goto LABEL_224;
-        }
-
-        if (v50 > 2)
-        {
-          goto LABEL_220;
-        }
-
-        if (v50 == 1)
-        {
-          goto LABEL_224;
-        }
-
-        if (v50 != 2)
-        {
-          goto LABEL_246;
-        }
-      }
-
       goto LABEL_220;
     }
 
-    if (v6)
+    if (v7)
     {
-      if (v6 != 1)
+      if (v7 != 1)
       {
         goto LABEL_66;
       }
 
-      v9 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v10 = swift_getEnumCaseMultiPayload();
-      if (v10 <= 4)
+      v12 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v13 = swift_getEnumCaseMultiPayload();
+      if (v13 <= 4)
       {
-        if (v10 > 2)
-        {
-LABEL_123:
-          v71 = sub_21DBF563C();
-          (*(*(v71 - 8) + 16))(a1, a2, v71);
-          swift_storeEnumTagMultiPayload();
-          goto LABEL_176;
-        }
-
-        if (v10 != 1)
-        {
-          if (v10 == 2)
-          {
-            goto LABEL_123;
-          }
-
-          goto LABEL_175;
-        }
-
-LABEL_127:
-        v73 = *a2;
-        *a1 = *a2;
-        v74 = v73;
-        swift_storeEnumTagMultiPayload();
-        goto LABEL_176;
-      }
-
-      if (v10 > 7)
-      {
-        if (v10 == 8 || v10 == 9)
-        {
-          goto LABEL_127;
-        }
-      }
-
-      else if (v10 == 5 || v10 == 6)
-      {
-        goto LABEL_123;
-      }
-
-LABEL_175:
-      memcpy(a1, a2, *(*(v9 - 8) + 64));
-LABEL_176:
-      v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-      v84 = v83[5];
-      v85 = a1 + v84;
-      v86 = a2 + v84;
-      v87 = *(a2 + v84 + 8);
-      if (v87)
-      {
-        v164 = a2;
-        v168 = a1;
-        *v85 = *v86;
-        *(v85 + 1) = v87;
-        v88 = *(v86 + 2);
-        v89 = *(v86 + 3);
-        v90 = *(v86 + 4);
-        v91 = *(v86 + 5);
-        v92 = *(v86 + 6);
-        v93 = *(v86 + 7);
-        v94 = v86[64];
-        sub_21DBF8E0C();
-        sub_21D2A7DB4(v88, v89, v90, v91, v92, v93, v94);
-        *(v85 + 2) = v88;
-        *(v85 + 3) = v89;
-        *(v85 + 4) = v90;
-        *(v85 + 5) = v91;
-        *(v85 + 6) = v92;
-        *(v85 + 7) = v93;
-        v85[64] = v94;
-        *(v85 + 65) = *(v86 + 65);
-        v95 = v86[120];
-        if (v95 == 255)
-        {
-          *(v85 + 72) = *(v86 + 72);
-          *(v85 + 88) = *(v86 + 88);
-          *(v85 + 104) = *(v86 + 104);
-          v85[120] = v86[120];
-        }
-
-        else
-        {
-          v97 = *(v86 + 9);
-          v96 = *(v86 + 10);
-          v98 = *(v86 + 11);
-          v99 = *(v86 + 12);
-          v100 = *(v86 + 13);
-          v101 = *(v86 + 14);
-          v102 = v95 & 1;
-          sub_21D0FB960(v97, v96, v98, v99, v100, v101, v95 & 1);
-          *(v85 + 9) = v97;
-          *(v85 + 10) = v96;
-          *(v85 + 11) = v98;
-          *(v85 + 12) = v99;
-          *(v85 + 13) = v100;
-          *(v85 + 14) = v101;
-          v85[120] = v102;
-        }
-
-        v85[121] = v86[121];
-        a2 = v164;
-        a1 = v168;
-        goto LABEL_189;
-      }
-
-LABEL_194:
-      v140 = *(v86 + 5);
-      *(v85 + 4) = *(v86 + 4);
-      *(v85 + 5) = v140;
-      *(v85 + 6) = *(v86 + 6);
-      *(v85 + 106) = *(v86 + 106);
-      v141 = *(v86 + 1);
-      *v85 = *v86;
-      *(v85 + 1) = v141;
-      v142 = *(v86 + 3);
-      *(v85 + 2) = *(v86 + 2);
-      *(v85 + 3) = v142;
-LABEL_189:
-      *(a1 + v83[6]) = *(a2 + v83[6]);
-      *(a1 + v83[7]) = *(a2 + v83[7]);
-      *(a1 + v83[8]) = *(a2 + v83[8]);
-      *(a1 + v83[9]) = *(a2 + v83[9]);
-      *(a1 + v83[10]) = *(a2 + v83[10]);
-      v120 = v83[11];
-      v121 = *(a2 + v120);
-      *(a1 + v120) = v121;
-      v122 = v121;
-      goto LABEL_248;
-    }
-
-    v24 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v25 = swift_getEnumCaseMultiPayload();
-    if (v25 <= 4)
-    {
-      if (v25 > 2)
-      {
-LABEL_131:
-        v77 = sub_21DBF563C();
-        (*(*(v77 - 8) + 16))(a1, a2, v77);
-        swift_storeEnumTagMultiPayload();
-        goto LABEL_191;
-      }
-
-      if (v25 != 1)
-      {
-        if (v25 == 2)
-        {
-          goto LABEL_131;
-        }
-
-        goto LABEL_190;
-      }
-
-LABEL_135:
-      v79 = *a2;
-      *a1 = *a2;
-      v80 = v79;
-      swift_storeEnumTagMultiPayload();
-      goto LABEL_191;
-    }
-
-    if (v25 > 7)
-    {
-      if (v25 == 8 || v25 == 9)
-      {
-        goto LABEL_135;
-      }
-    }
-
-    else if (v25 == 5 || v25 == 6)
-    {
-      goto LABEL_131;
-    }
-
-LABEL_190:
-    memcpy(a1, a2, *(*(v24 - 8) + 64));
-LABEL_191:
-    v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-    v123 = v83[5];
-    v85 = a1 + v123;
-    v86 = a2 + v123;
-    v124 = *(a2 + v123 + 8);
-    if (v124)
-    {
-      v166 = a2;
-      v170 = a1;
-      *v85 = *v86;
-      *(v85 + 1) = v124;
-      v125 = *(v86 + 2);
-      v126 = *(v86 + 3);
-      v127 = *(v86 + 4);
-      v128 = *(v86 + 5);
-      v129 = *(v86 + 6);
-      v130 = *(v86 + 7);
-      v131 = v86[64];
-      sub_21DBF8E0C();
-      sub_21D2A7DB4(v125, v126, v127, v128, v129, v130, v131);
-      *(v85 + 2) = v125;
-      *(v85 + 3) = v126;
-      *(v85 + 4) = v127;
-      *(v85 + 5) = v128;
-      *(v85 + 6) = v129;
-      *(v85 + 7) = v130;
-      v85[64] = v131;
-      *(v85 + 65) = *(v86 + 65);
-      v132 = v86[120];
-      if (v132 == 255)
-      {
-        *(v85 + 72) = *(v86 + 72);
-        *(v85 + 88) = *(v86 + 88);
-        *(v85 + 104) = *(v86 + 104);
-        v85[120] = v86[120];
-      }
-
-      else
-      {
-        v134 = *(v86 + 9);
-        v133 = *(v86 + 10);
-        v135 = *(v86 + 11);
-        v136 = *(v86 + 12);
-        v137 = *(v86 + 13);
-        v138 = *(v86 + 14);
-        v139 = v132 & 1;
-        sub_21D0FB960(v134, v133, v135, v136, v137, v138, v132 & 1);
-        *(v85 + 9) = v134;
-        *(v85 + 10) = v133;
-        *(v85 + 11) = v135;
-        *(v85 + 12) = v136;
-        *(v85 + 13) = v137;
-        *(v85 + 14) = v138;
-        v85[120] = v139;
-      }
-
-      v85[121] = v86[121];
-      a2 = v166;
-      a1 = v170;
-      goto LABEL_189;
-    }
-
-    goto LABEL_194;
-  }
-
-  if (v6 <= 3)
-  {
-    if (v6 > 1)
-    {
-      if (v6 == 2)
-      {
-        v31 = *a2;
-        *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v32 = *(v16 + 48);
-        v33 = v31;
-        if (v32(a2 + v14, 1, v15))
-        {
-          goto LABEL_53;
-        }
-
-        v53 = swift_getEnumCaseMultiPayload();
-        if (v53 > 4)
-        {
-          if (v53 <= 7)
-          {
-            if (v53 == 5 || v53 == 6)
-            {
-              goto LABEL_220;
-            }
-
-            goto LABEL_246;
-          }
-
-          if (v53 != 8 && v53 != 9)
-          {
-            goto LABEL_246;
-          }
-
-          goto LABEL_224;
-        }
-
-        if (v53 > 2)
-        {
-          goto LABEL_220;
-        }
-
-        if (v53 == 1)
-        {
-          goto LABEL_224;
-        }
-
-        if (v53 != 2)
-        {
-          goto LABEL_246;
-        }
-      }
-
-      else
-      {
-        v19 = *a2;
-        *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v20 = *(v16 + 48);
-        v21 = v19;
-        if (v20(a2 + v14, 1, v15))
-        {
-          goto LABEL_53;
-        }
-
-        v51 = swift_getEnumCaseMultiPayload();
-        if (v51 > 4)
-        {
-          if (v51 <= 7)
-          {
-            if (v51 == 5 || v51 == 6)
-            {
-              goto LABEL_220;
-            }
-
-            goto LABEL_246;
-          }
-
-          if (v51 != 8 && v51 != 9)
-          {
-            goto LABEL_246;
-          }
-
-          goto LABEL_224;
-        }
-
-        if (v51 > 2)
-        {
-          goto LABEL_220;
-        }
-
-        if (v51 == 1)
-        {
-          goto LABEL_224;
-        }
-
-        if (v51 != 2)
-        {
-          goto LABEL_246;
-        }
-      }
-
-      goto LABEL_220;
-    }
-
-    if (v6)
-    {
-      if (v6 != 1)
-      {
-        goto LABEL_66;
-      }
-
-      v11 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v12 = swift_getEnumCaseMultiPayload();
-      if (v12 <= 4)
-      {
-        if (v12 > 2)
+        if (v13 > 2)
         {
 LABEL_124:
-          v72 = sub_21DBF563C();
-          (*(*(v72 - 8) + 16))(a1, a2, v72);
+          v73 = sub_21DBF563C();
+          (*(*(v73 - 8) + 16))(a1, a2, v73);
           swift_storeEnumTagMultiPayload();
           goto LABEL_183;
         }
 
-        if (v12 != 1)
+        if (v13 != 1)
         {
-          if (v12 == 2)
+          if (v13 == 2)
           {
             goto LABEL_124;
           }
@@ -7117,110 +7117,110 @@ LABEL_124:
         }
 
 LABEL_130:
-        v75 = *a2;
+        v76 = *a2;
         *a1 = *a2;
-        v76 = v75;
+        v77 = v76;
         swift_storeEnumTagMultiPayload();
         goto LABEL_183;
       }
 
-      if (v12 > 7)
+      if (v13 > 7)
       {
-        if (v12 == 8 || v12 == 9)
+        if (v13 == 8 || v13 == 9)
         {
           goto LABEL_130;
         }
       }
 
-      else if (v12 == 5 || v12 == 6)
+      else if (v13 == 5 || v13 == 6)
       {
         goto LABEL_124;
       }
 
 LABEL_182:
-      memcpy(a1, a2, *(*(v11 - 8) + 64));
+      memcpy(a1, a2, *(*(v12 - 8) + 64));
 LABEL_183:
-      v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-      v103 = v83[5];
-      v85 = a1 + v103;
-      v86 = a2 + v103;
-      v104 = *(a2 + v103 + 8);
-      if (v104)
+      v84 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+      v104 = v84[5];
+      v86 = a1 + v104;
+      v87 = a2 + v104;
+      v105 = *(a2 + v104 + 8);
+      if (v105)
       {
-        v165 = a2;
-        v169 = a1;
-        *v85 = *v86;
-        *(v85 + 1) = v104;
-        v105 = *(v86 + 2);
-        v106 = *(v86 + 3);
-        v107 = *(v86 + 4);
-        v108 = *(v86 + 5);
-        v109 = *(v86 + 6);
-        v110 = *(v86 + 7);
-        v111 = v86[64];
+        v166 = a2;
+        v170 = a1;
+        *v86 = *v87;
+        *(v86 + 1) = v105;
+        v106 = *(v87 + 2);
+        v107 = *(v87 + 3);
+        v108 = *(v87 + 4);
+        v109 = *(v87 + 5);
+        v110 = *(v87 + 6);
+        v111 = *(v87 + 7);
+        v112 = v87[64];
         sub_21DBF8E0C();
-        sub_21D2A7DB4(v105, v106, v107, v108, v109, v110, v111);
-        *(v85 + 2) = v105;
-        *(v85 + 3) = v106;
-        *(v85 + 4) = v107;
-        *(v85 + 5) = v108;
-        *(v85 + 6) = v109;
-        *(v85 + 7) = v110;
-        v85[64] = v111;
-        *(v85 + 65) = *(v86 + 65);
-        v112 = v86[120];
-        if (v112 == 255)
+        sub_21D2A7DB4(v106, v107, v108, v109, v110, v111, v112);
+        *(v86 + 2) = v106;
+        *(v86 + 3) = v107;
+        *(v86 + 4) = v108;
+        *(v86 + 5) = v109;
+        *(v86 + 6) = v110;
+        *(v86 + 7) = v111;
+        v86[64] = v112;
+        *(v86 + 65) = *(v87 + 65);
+        v113 = v87[120];
+        if (v113 == 255)
         {
-          *(v85 + 72) = *(v86 + 72);
-          *(v85 + 88) = *(v86 + 88);
-          *(v85 + 104) = *(v86 + 104);
-          v85[120] = v86[120];
+          *(v86 + 72) = *(v87 + 72);
+          *(v86 + 88) = *(v87 + 88);
+          *(v86 + 104) = *(v87 + 104);
+          v86[120] = v87[120];
         }
 
         else
         {
-          v114 = *(v86 + 9);
-          v113 = *(v86 + 10);
-          v115 = *(v86 + 11);
-          v116 = *(v86 + 12);
-          v117 = *(v86 + 13);
-          v118 = *(v86 + 14);
-          v119 = v112 & 1;
-          sub_21D0FB960(v114, v113, v115, v116, v117, v118, v112 & 1);
-          *(v85 + 9) = v114;
-          *(v85 + 10) = v113;
-          *(v85 + 11) = v115;
-          *(v85 + 12) = v116;
-          *(v85 + 13) = v117;
-          *(v85 + 14) = v118;
-          v85[120] = v119;
+          v115 = *(v87 + 9);
+          v114 = *(v87 + 10);
+          v116 = *(v87 + 11);
+          v117 = *(v87 + 12);
+          v118 = *(v87 + 13);
+          v119 = *(v87 + 14);
+          v120 = v113 & 1;
+          sub_21D0FB960(v115, v114, v116, v117, v118, v119, v113 & 1);
+          *(v86 + 9) = v115;
+          *(v86 + 10) = v114;
+          *(v86 + 11) = v116;
+          *(v86 + 12) = v117;
+          *(v86 + 13) = v118;
+          *(v86 + 14) = v119;
+          v86[120] = v120;
         }
 
-        v85[121] = v86[121];
-        a2 = v165;
-        a1 = v169;
+        v86[121] = v87[121];
+        a2 = v166;
+        a1 = v170;
         goto LABEL_189;
       }
 
       goto LABEL_194;
     }
 
-    v26 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v27 = swift_getEnumCaseMultiPayload();
-    if (v27 <= 4)
+    v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v28 = swift_getEnumCaseMultiPayload();
+    if (v28 <= 4)
     {
-      if (v27 > 2)
+      if (v28 > 2)
       {
 LABEL_132:
-        v78 = sub_21DBF563C();
-        (*(*(v78 - 8) + 16))(a1, a2, v78);
+        v79 = sub_21DBF563C();
+        (*(*(v79 - 8) + 16))(a1, a2, v79);
         swift_storeEnumTagMultiPayload();
         goto LABEL_198;
       }
 
-      if (v27 != 1)
+      if (v28 != 1)
       {
-        if (v27 == 2)
+        if (v28 == 2)
         {
           goto LABEL_132;
         }
@@ -7229,119 +7229,119 @@ LABEL_132:
       }
 
 LABEL_138:
-      v81 = *a2;
+      v82 = *a2;
       *a1 = *a2;
-      v82 = v81;
+      v83 = v82;
       swift_storeEnumTagMultiPayload();
       goto LABEL_198;
     }
 
-    if (v27 > 7)
+    if (v28 > 7)
     {
-      if (v27 == 8 || v27 == 9)
+      if (v28 == 8 || v28 == 9)
       {
         goto LABEL_138;
       }
     }
 
-    else if (v27 == 5 || v27 == 6)
+    else if (v28 == 5 || v28 == 6)
     {
       goto LABEL_132;
     }
 
 LABEL_197:
-    memcpy(a1, a2, *(*(v26 - 8) + 64));
+    memcpy(a1, a2, *(*(v27 - 8) + 64));
 LABEL_198:
-    v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-    v143 = v83[5];
-    v85 = a1 + v143;
-    v86 = a2 + v143;
-    v144 = *(a2 + v143 + 8);
-    if (v144)
+    v84 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+    v144 = v84[5];
+    v86 = a1 + v144;
+    v87 = a2 + v144;
+    v145 = *(a2 + v144 + 8);
+    if (v145)
     {
-      v167 = a2;
-      v171 = a1;
-      *v85 = *v86;
-      *(v85 + 1) = v144;
-      v145 = *(v86 + 2);
-      v146 = *(v86 + 3);
-      v147 = *(v86 + 4);
-      v148 = *(v86 + 5);
-      v150 = *(v86 + 6);
-      v149 = *(v86 + 7);
-      v151 = v86[64];
+      v168 = a2;
+      v172 = a1;
+      *v86 = *v87;
+      *(v86 + 1) = v145;
+      v146 = *(v87 + 2);
+      v147 = *(v87 + 3);
+      v148 = *(v87 + 4);
+      v149 = *(v87 + 5);
+      v151 = *(v87 + 6);
+      v150 = *(v87 + 7);
+      v152 = v87[64];
       sub_21DBF8E0C();
-      sub_21D2A7DB4(v145, v146, v147, v148, v150, v149, v151);
-      *(v85 + 2) = v145;
-      *(v85 + 3) = v146;
-      *(v85 + 4) = v147;
-      *(v85 + 5) = v148;
-      *(v85 + 6) = v150;
-      *(v85 + 7) = v149;
-      v85[64] = v151;
-      *(v85 + 65) = *(v86 + 65);
-      v152 = v86[120];
-      if (v152 == 255)
+      sub_21D2A7DB4(v146, v147, v148, v149, v151, v150, v152);
+      *(v86 + 2) = v146;
+      *(v86 + 3) = v147;
+      *(v86 + 4) = v148;
+      *(v86 + 5) = v149;
+      *(v86 + 6) = v151;
+      *(v86 + 7) = v150;
+      v86[64] = v152;
+      *(v86 + 65) = *(v87 + 65);
+      v153 = v87[120];
+      if (v153 == 255)
       {
-        *(v85 + 72) = *(v86 + 72);
-        *(v85 + 88) = *(v86 + 88);
-        *(v85 + 104) = *(v86 + 104);
-        v85[120] = v86[120];
+        *(v86 + 72) = *(v87 + 72);
+        *(v86 + 88) = *(v87 + 88);
+        *(v86 + 104) = *(v87 + 104);
+        v86[120] = v87[120];
       }
 
       else
       {
-        v154 = *(v86 + 9);
-        v153 = *(v86 + 10);
-        v155 = *(v86 + 11);
-        v156 = *(v86 + 12);
-        v157 = *(v86 + 13);
-        v158 = *(v86 + 14);
-        v159 = v152 & 1;
-        sub_21D0FB960(v154, v153, v155, v156, v157, v158, v152 & 1);
-        *(v85 + 9) = v154;
-        *(v85 + 10) = v153;
-        *(v85 + 11) = v155;
-        *(v85 + 12) = v156;
-        *(v85 + 13) = v157;
-        *(v85 + 14) = v158;
-        v85[120] = v159;
+        v155 = *(v87 + 9);
+        v154 = *(v87 + 10);
+        v156 = *(v87 + 11);
+        v157 = *(v87 + 12);
+        v158 = *(v87 + 13);
+        v159 = *(v87 + 14);
+        v160 = v153 & 1;
+        sub_21D0FB960(v155, v154, v156, v157, v158, v159, v153 & 1);
+        *(v86 + 9) = v155;
+        *(v86 + 10) = v154;
+        *(v86 + 11) = v156;
+        *(v86 + 12) = v157;
+        *(v86 + 13) = v158;
+        *(v86 + 14) = v159;
+        v86[120] = v160;
       }
 
-      v85[121] = v86[121];
-      a2 = v167;
-      a1 = v171;
+      v86[121] = v87[121];
+      a2 = v168;
+      a1 = v172;
       goto LABEL_189;
     }
 
     goto LABEL_194;
   }
 
-  if (v6 <= 5)
+  if (v7 <= 5)
   {
-    if (v6 != 4)
+    if (v7 != 4)
     {
       goto LABEL_39;
     }
 
-    v44 = *a2;
+    v45 = *a2;
     *a1 = *a2;
-    v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-    v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v16 = *(v15 - 8);
-    v45 = *(v16 + 48);
-    v46 = v44;
-    if (v45(a2 + v14, 1, v15))
+    v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+    v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v17 = *(v16 - 8);
+    v46 = *(v17 + 48);
+    v47 = v45;
+    if (v46(a2 + v15, 1, v16))
     {
       goto LABEL_53;
     }
 
-    v68 = swift_getEnumCaseMultiPayload();
-    if (v68 > 4)
+    v69 = swift_getEnumCaseMultiPayload();
+    if (v69 > 4)
     {
-      if (v68 <= 7)
+      if (v69 <= 7)
       {
-        if (v68 == 5 || v68 == 6)
+        if (v69 == 5 || v69 == 6)
         {
           goto LABEL_220;
         }
@@ -7349,7 +7349,7 @@ LABEL_198:
         goto LABEL_246;
       }
 
-      if (v68 != 8 && v68 != 9)
+      if (v69 != 8 && v69 != 9)
       {
         goto LABEL_246;
       }
@@ -7357,14 +7357,14 @@ LABEL_198:
 
     else
     {
-      if (v68 > 2)
+      if (v69 > 2)
       {
         goto LABEL_220;
       }
 
-      if (v68 != 1)
+      if (v69 != 1)
       {
-        if (v68 == 2)
+        if (v69 == 2)
         {
           goto LABEL_220;
         }
@@ -7374,104 +7374,104 @@ LABEL_198:
     }
 
 LABEL_224:
-    v161 = *(a2 + v14);
-    *(a1 + v14) = v161;
-    v162 = v161;
+    v162 = *(a2 + v15);
+    *(a1 + v15) = v162;
+    v163 = v162;
     swift_storeEnumTagMultiPayload();
     goto LABEL_247;
   }
 
-  switch(v6)
+  switch(v7)
   {
     case 6:
-      v38 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-      v39 = *(v38 - 8);
-      if ((*(v39 + 48))(a2, 1, v38))
+      v39 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+      v40 = *(v39 - 8);
+      if ((*(v40 + 48))(a2, 1, v39))
       {
-        v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-        memcpy(a1, a2, *(*(v40 - 8) + 64));
+        v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+        memcpy(a1, a2, *(*(v41 - 8) + 64));
       }
 
       else
       {
         *a1 = *a2;
-        v61 = *(v38 + 20);
-        v62 = sub_21DBF6C1C();
-        v63 = *(*(v62 - 8) + 16);
+        v62 = *(v39 + 20);
+        v63 = sub_21DBF6C1C();
+        v64 = *(*(v63 - 8) + 16);
         sub_21DBF8E0C();
-        v63(a1 + v61, a2 + v61, v62);
-        (*(v39 + 56))(a1, 0, 1, v38);
+        v64(a1 + v62, a2 + v62, v63);
+        (*(v40 + 56))(a1, 0, 1, v39);
       }
 
-      v64 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-      v58 = a1 + v64;
-      v59 = a2 + v64;
-      v60 = *(v59 + 1);
-      if (!v60)
+      v65 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+      v59 = a1 + v65;
+      v60 = a2 + v65;
+      v61 = *(v60 + 1);
+      if (!v61)
       {
-        *v58 = *v59;
-        *(v58 + 2) = *(v59 + 2);
+        *v59 = *v60;
+        *(v59 + 2) = *(v60 + 2);
         goto LABEL_248;
       }
 
       goto LABEL_108;
     case 7:
-      v47 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-      v48 = *(v47 - 8);
-      if ((*(v48 + 48))(a2, 1, v47))
+      v48 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+      v49 = *(v48 - 8);
+      if ((*(v49 + 48))(a2, 1, v48))
       {
 LABEL_65:
-        v49 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
-        memcpy(a1, a2, *(*(v49 - 8) + 64));
+        v50 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
+        memcpy(a1, a2, *(*(v50 - 8) + 64));
 LABEL_122:
-        v70 = type metadata accessor for TTRTemplatePublicLinkData(0);
-        *(a1 + *(v70 + 20)) = *(a2 + *(v70 + 20));
+        v71 = type metadata accessor for TTRTemplatePublicLinkData(0);
+        *(a1 + *(v71 + 20)) = *(a2 + *(v71 + 20));
         goto LABEL_248;
       }
 
 LABEL_121:
-      v69 = sub_21DBF563C();
-      (*(*(v69 - 8) + 16))(a1, a2, v69);
-      *(a1 + *(v47 + 20)) = *(a2 + *(v47 + 20));
-      (*(v48 + 56))(a1, 0, 1, v47);
+      v70 = sub_21DBF563C();
+      (*(*(v70 - 8) + 16))(a1, a2, v70);
+      *(a1 + *(v48 + 20)) = *(a2 + *(v48 + 20));
+      (*(v49 + 56))(a1, 0, 1, v48);
       goto LABEL_122;
     case 8:
 LABEL_13:
       *a1 = *a2;
-      v7 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
-      v8 = sub_21DBF8D7C();
-      (*(*(v8 - 8) + 16))(a1 + v7, a2 + v7, v8);
+      v8 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
+      v9 = sub_21DBF8D7C();
+      (*(*(v9 - 8) + 16))(a1 + v8, a2 + v8, v9);
 LABEL_248:
       swift_storeEnumTagMultiPayload();
       goto LABEL_249;
   }
 
 LABEL_66:
-  memcpy(a1, a2, *(*(v5 - 8) + 64));
+  memcpy(a1, a2, *(*(v6 - 8) + 64));
 LABEL_249:
   swift_storeEnumTagMultiPayload();
   return a1;
 }
 
-void *assignWithCopy for TTRRemindersListSectionCreationLocation(void *a1, void *a2)
+void **assignWithCopy for TTRRemindersListSectionCreationLocation(void **a1, void **a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     sub_21D106918(a1, type metadata accessor for TTRRemindersListSectionCreationLocation);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    v5 = type metadata accessor for TTRRemindersListViewModel.Item(0);
-    v6 = swift_getEnumCaseMultiPayload();
+    v6 = type metadata accessor for TTRRemindersListViewModel.Item(0);
+    v7 = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload == 1)
     {
-      if (v6 > 3)
+      if (v7 > 3)
       {
-        if (v6 > 5)
+        if (v7 > 5)
         {
-          if (v6 != 6)
+          if (v7 != 6)
           {
-            if (v6 != 7)
+            if (v7 != 7)
             {
-              if (v6 == 8)
+              if (v7 == 8)
               {
                 goto LABEL_14;
               }
@@ -7479,83 +7479,83 @@ void *assignWithCopy for TTRRemindersListSectionCreationLocation(void *a1, void 
               goto LABEL_67;
             }
 
-            v47 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-            v48 = *(v47 - 8);
-            if ((*(v48 + 48))(a2, 1, v47))
+            v48 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+            v49 = *(v48 - 8);
+            if ((*(v49 + 48))(a2, 1, v48))
             {
 LABEL_66:
-              v49 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
-              memcpy(a1, a2, *(*(v49 - 8) + 64));
+              v50 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
+              memcpy(a1, a2, *(*(v50 - 8) + 64));
 LABEL_123:
-              v69 = type metadata accessor for TTRTemplatePublicLinkData(0);
-              *(a1 + *(v69 + 20)) = *(a2 + *(v69 + 20));
+              v70 = type metadata accessor for TTRTemplatePublicLinkData(0);
+              *(a1 + *(v70 + 20)) = *(a2 + *(v70 + 20));
               goto LABEL_250;
             }
 
 LABEL_122:
-            v68 = sub_21DBF563C();
-            (*(*(v68 - 8) + 16))(a1, a2, v68);
-            *(a1 + *(v47 + 20)) = *(a2 + *(v47 + 20));
-            (*(v48 + 56))(a1, 0, 1, v47);
+            v69 = sub_21DBF563C();
+            (*(*(v69 - 8) + 16))(a1, a2, v69);
+            *(a1 + *(v48 + 20)) = *(a2 + *(v48 + 20));
+            (*(v49 + 56))(a1, 0, 1, v48);
             goto LABEL_123;
           }
 
-          v35 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-          v36 = *(v35 - 8);
-          if ((*(v36 + 48))(a2, 1, v35))
+          v36 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+          v37 = *(v36 - 8);
+          if ((*(v37 + 48))(a2, 1, v36))
           {
-            v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-            memcpy(a1, a2, *(*(v37 - 8) + 64));
+            v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+            memcpy(a1, a2, *(*(v38 - 8) + 64));
           }
 
           else
           {
             *a1 = *a2;
-            v54 = *(v35 + 20);
-            v55 = sub_21DBF6C1C();
-            v178 = *(*(v55 - 8) + 16);
+            v55 = *(v36 + 20);
+            v56 = sub_21DBF6C1C();
+            v179 = *(*(v56 - 8) + 16);
             sub_21DBF8E0C();
-            v178(a1 + v54, a2 + v54, v55);
-            (*(v36 + 56))(a1, 0, 1, v35);
+            v179(a1 + v55, a2 + v55, v56);
+            (*(v37 + 56))(a1, 0, 1, v36);
           }
 
-          v56 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-          v57 = a1 + v56;
-          v58 = a2 + v56;
-          if (!*(v58 + 1))
+          v57 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+          v58 = a1 + v57;
+          v59 = a2 + v57;
+          if (!*(v59 + 1))
           {
-            v64 = *v58;
-            *(v57 + 2) = *(v58 + 2);
-            *v57 = v64;
+            v65 = *v59;
+            *(v58 + 2) = *(v59 + 2);
+            *v58 = v65;
             goto LABEL_250;
           }
 
           goto LABEL_109;
         }
 
-        if (v6 != 4)
+        if (v7 != 4)
         {
           goto LABEL_40;
         }
 
-        v41 = *a2;
+        v42 = *a2;
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v42 = *(v16 + 48);
-        v43 = v41;
-        if (v42(a2 + v14, 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v43 = *(v17 + 48);
+        v44 = v42;
+        if (v43(a2 + v15, 1, v16))
         {
           goto LABEL_54;
         }
 
-        v66 = swift_getEnumCaseMultiPayload();
-        if (v66 > 4)
+        v67 = swift_getEnumCaseMultiPayload();
+        if (v67 > 4)
         {
-          if (v66 <= 7)
+          if (v67 <= 7)
           {
-            if (v66 == 5 || v66 == 6)
+            if (v67 == 5 || v67 == 6)
             {
               goto LABEL_222;
             }
@@ -7563,7 +7563,7 @@ LABEL_122:
             goto LABEL_248;
           }
 
-          if (v66 != 8 && v66 != 9)
+          if (v67 != 8 && v67 != 9)
           {
             goto LABEL_248;
           }
@@ -7571,17 +7571,17 @@ LABEL_122:
           goto LABEL_226;
         }
 
-        if (v66 <= 2)
+        if (v67 <= 2)
         {
-          if (v66 != 1)
+          if (v67 != 1)
           {
-            if (v66 == 2)
+            if (v67 == 2)
             {
               goto LABEL_222;
             }
 
 LABEL_248:
-            memcpy(a1 + v14, a2 + v14, *(v16 + 64));
+            memcpy(a1 + v15, a2 + v15, *(v17 + 64));
             goto LABEL_249;
           }
 
@@ -7589,36 +7589,36 @@ LABEL_248:
         }
 
 LABEL_222:
-        v166 = sub_21DBF563C();
-        (*(*(v166 - 8) + 16))(a1 + v14, a2 + v14, v166);
+        v167 = sub_21DBF563C();
+        (*(*(v167 - 8) + 16))(a1 + v15, a2 + v15, v167);
         swift_storeEnumTagMultiPayload();
 LABEL_249:
-        (*(v16 + 56))(a1 + v14, 0, 1, v15);
+        (*(v17 + 56))(a1 + v15, 0, 1, v16);
         goto LABEL_250;
       }
 
-      if (v6 > 1)
+      if (v7 > 1)
       {
-        if (v6 == 2)
+        if (v7 == 2)
         {
-          v28 = *a2;
+          v29 = *a2;
           *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          v29 = *(v16 + 48);
-          v30 = v28;
-          if (v29(a2 + v14, 1, v15))
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          v30 = *(v17 + 48);
+          v31 = v29;
+          if (v30(a2 + v15, 1, v16))
           {
             goto LABEL_54;
           }
 
-          v52 = swift_getEnumCaseMultiPayload();
-          if (v52 > 4)
+          v53 = swift_getEnumCaseMultiPayload();
+          if (v53 > 4)
           {
-            if (v52 <= 7)
+            if (v53 <= 7)
             {
-              if (v52 == 5 || v52 == 6)
+              if (v53 == 5 || v53 == 6)
               {
                 goto LABEL_222;
               }
@@ -7626,7 +7626,7 @@ LABEL_249:
               goto LABEL_248;
             }
 
-            if (v52 != 8 && v52 != 9)
+            if (v53 != 8 && v53 != 9)
             {
               goto LABEL_248;
             }
@@ -7634,17 +7634,17 @@ LABEL_249:
             goto LABEL_226;
           }
 
-          if (v52 > 2)
+          if (v53 > 2)
           {
             goto LABEL_222;
           }
 
-          if (v52 == 1)
+          if (v53 == 1)
           {
             goto LABEL_226;
           }
 
-          if (v52 != 2)
+          if (v53 != 2)
           {
             goto LABEL_248;
           }
@@ -7652,24 +7652,24 @@ LABEL_249:
 
         else
         {
-          v13 = *a2;
+          v14 = *a2;
           *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          v17 = *(v16 + 48);
-          v18 = v13;
-          if (v17(a2 + v14, 1, v15))
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          v18 = *(v17 + 48);
+          v19 = v14;
+          if (v18(a2 + v15, 1, v16))
           {
             goto LABEL_54;
           }
 
-          v50 = swift_getEnumCaseMultiPayload();
-          if (v50 > 4)
+          v51 = swift_getEnumCaseMultiPayload();
+          if (v51 > 4)
           {
-            if (v50 <= 7)
+            if (v51 <= 7)
             {
-              if (v50 == 5 || v50 == 6)
+              if (v51 == 5 || v51 == 6)
               {
                 goto LABEL_222;
               }
@@ -7677,7 +7677,7 @@ LABEL_249:
               goto LABEL_248;
             }
 
-            if (v50 != 8 && v50 != 9)
+            if (v51 != 8 && v51 != 9)
             {
               goto LABEL_248;
             }
@@ -7685,17 +7685,17 @@ LABEL_249:
             goto LABEL_226;
           }
 
-          if (v50 > 2)
+          if (v51 > 2)
           {
             goto LABEL_222;
           }
 
-          if (v50 == 1)
+          if (v51 == 1)
           {
             goto LABEL_226;
           }
 
-          if (v50 != 2)
+          if (v51 != 2)
           {
             goto LABEL_248;
           }
@@ -7704,29 +7704,29 @@ LABEL_249:
         goto LABEL_222;
       }
 
-      if (v6)
+      if (v7)
       {
-        if (v6 != 1)
+        if (v7 != 1)
         {
           goto LABEL_67;
         }
 
-        v9 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v10 = swift_getEnumCaseMultiPayload();
-        if (v10 <= 4)
+        v10 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v11 = swift_getEnumCaseMultiPayload();
+        if (v11 <= 4)
         {
-          if (v10 > 2)
+          if (v11 > 2)
           {
 LABEL_124:
-            v70 = sub_21DBF563C();
-            (*(*(v70 - 8) + 16))(a1, a2, v70);
+            v71 = sub_21DBF563C();
+            (*(*(v71 - 8) + 16))(a1, a2, v71);
             swift_storeEnumTagMultiPayload();
             goto LABEL_177;
           }
 
-          if (v10 != 1)
+          if (v11 != 1)
           {
-            if (v10 == 2)
+            if (v11 == 2)
             {
               goto LABEL_124;
             }
@@ -7735,136 +7735,136 @@ LABEL_124:
           }
 
 LABEL_128:
-          v72 = *a2;
+          v73 = *a2;
           *a1 = *a2;
-          v73 = v72;
+          v74 = v73;
           swift_storeEnumTagMultiPayload();
           goto LABEL_177;
         }
 
-        if (v10 > 7)
+        if (v11 > 7)
         {
-          if (v10 == 8 || v10 == 9)
+          if (v11 == 8 || v11 == 9)
           {
             goto LABEL_128;
           }
         }
 
-        else if (v10 == 5 || v10 == 6)
+        else if (v11 == 5 || v11 == 6)
         {
           goto LABEL_124;
         }
 
 LABEL_176:
-        memcpy(a1, a2, *(*(v9 - 8) + 64));
+        memcpy(a1, a2, *(*(v10 - 8) + 64));
 LABEL_177:
-        v82 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-        v83 = v82[5];
-        v84 = a1 + v83;
-        v85 = a2 + v83;
-        if (*(a2 + v83 + 8))
+        v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+        v84 = v83[5];
+        v85 = a1 + v84;
+        v86 = a2 + v84;
+        if (*(a2 + v84 + 8))
         {
-          *v84 = *v85;
-          *(v84 + 1) = *(v85 + 1);
-          v86 = *(v85 + 2);
-          v87 = *(v85 + 3);
-          v88 = *(v85 + 4);
-          v89 = *(v85 + 5);
-          v90 = *(v85 + 6);
-          v170 = *(v85 + 7);
-          v180 = v85[64];
+          *v85 = *v86;
+          *(v85 + 1) = *(v86 + 1);
+          v87 = *(v86 + 2);
+          v88 = *(v86 + 3);
+          v89 = *(v86 + 4);
+          v90 = *(v86 + 5);
+          v91 = *(v86 + 6);
+          v171 = *(v86 + 7);
+          v181 = v86[64];
           sub_21DBF8E0C();
-          sub_21D2A7DB4(v86, v87, v88, v89, v90, v170, v180);
-          *(v84 + 2) = v86;
-          *(v84 + 3) = v87;
-          *(v84 + 4) = v88;
-          *(v84 + 5) = v89;
-          *(v84 + 6) = v90;
-          *(v84 + 7) = v170;
-          v84[64] = v180;
-          v84[65] = v85[65];
-          v84[66] = v85[66];
-          v84[67] = v85[67];
-          v84[68] = v85[68];
-          v91 = v85[120];
-          if (v91 == 255)
+          sub_21D2A7DB4(v87, v88, v89, v90, v91, v171, v181);
+          *(v85 + 2) = v87;
+          *(v85 + 3) = v88;
+          *(v85 + 4) = v89;
+          *(v85 + 5) = v90;
+          *(v85 + 6) = v91;
+          *(v85 + 7) = v171;
+          v85[64] = v181;
+          v85[65] = v86[65];
+          v85[66] = v86[66];
+          v85[67] = v86[67];
+          v85[68] = v86[68];
+          v92 = v86[120];
+          if (v92 == 255)
           {
-            v97 = *(v85 + 72);
-            v98 = *(v85 + 88);
-            v99 = *(v85 + 104);
-            v84[120] = v85[120];
-            *(v84 + 104) = v99;
-            *(v84 + 88) = v98;
-            *(v84 + 72) = v97;
+            v98 = *(v86 + 72);
+            v99 = *(v86 + 88);
+            v100 = *(v86 + 104);
+            v85[120] = v86[120];
+            *(v85 + 104) = v100;
+            *(v85 + 88) = v99;
+            *(v85 + 72) = v98;
           }
 
           else
           {
-            v171 = *(v85 + 10);
-            v181 = *(v85 + 9);
-            v92 = *(v85 + 11);
-            v93 = *(v85 + 12);
-            v94 = *(v85 + 13);
-            v95 = *(v85 + 14);
-            v96 = v91 & 1;
-            sub_21D0FB960(v181, v171, v92, v93, v94, v95, v91 & 1);
-            *(v84 + 9) = v181;
-            *(v84 + 10) = v171;
-            *(v84 + 11) = v92;
-            *(v84 + 12) = v93;
-            *(v84 + 13) = v94;
-            *(v84 + 14) = v95;
-            v84[120] = v96;
+            v172 = *(v86 + 10);
+            v182 = *(v86 + 9);
+            v93 = *(v86 + 11);
+            v94 = *(v86 + 12);
+            v95 = *(v86 + 13);
+            v96 = *(v86 + 14);
+            v97 = v92 & 1;
+            sub_21D0FB960(v182, v172, v93, v94, v95, v96, v92 & 1);
+            *(v85 + 9) = v182;
+            *(v85 + 10) = v172;
+            *(v85 + 11) = v93;
+            *(v85 + 12) = v94;
+            *(v85 + 13) = v95;
+            *(v85 + 14) = v96;
+            v85[120] = v97;
           }
 
-          v84[121] = v85[121];
+          v85[121] = v86[121];
           goto LABEL_190;
         }
 
 LABEL_187:
-        v112 = *v85;
-        v113 = *(v85 + 1);
-        v114 = *(v85 + 3);
-        *(v84 + 2) = *(v85 + 2);
-        *(v84 + 3) = v114;
-        *v84 = v112;
-        *(v84 + 1) = v113;
-        v115 = *(v85 + 4);
-        v116 = *(v85 + 5);
-        v117 = *(v85 + 6);
-        *(v84 + 106) = *(v85 + 106);
-        *(v84 + 5) = v116;
-        *(v84 + 6) = v117;
-        *(v84 + 4) = v115;
+        v113 = *v86;
+        v114 = *(v86 + 1);
+        v115 = *(v86 + 3);
+        *(v85 + 2) = *(v86 + 2);
+        *(v85 + 3) = v115;
+        *v85 = v113;
+        *(v85 + 1) = v114;
+        v116 = *(v86 + 4);
+        v117 = *(v86 + 5);
+        v118 = *(v86 + 6);
+        *(v85 + 106) = *(v86 + 106);
+        *(v85 + 5) = v117;
+        *(v85 + 6) = v118;
+        *(v85 + 4) = v116;
 LABEL_190:
-        *(a1 + v82[6]) = *(a2 + v82[6]);
-        *(a1 + v82[7]) = *(a2 + v82[7]);
-        *(a1 + v82[8]) = *(a2 + v82[8]);
-        *(a1 + v82[9]) = *(a2 + v82[9]);
-        *(a1 + v82[10]) = *(a2 + v82[10]);
-        v121 = v82[11];
-        v122 = *(a2 + v121);
-        *(a1 + v121) = v122;
-        v123 = v122;
+        *(a1 + v83[6]) = *(a2 + v83[6]);
+        *(a1 + v83[7]) = *(a2 + v83[7]);
+        *(a1 + v83[8]) = *(a2 + v83[8]);
+        *(a1 + v83[9]) = *(a2 + v83[9]);
+        *(a1 + v83[10]) = *(a2 + v83[10]);
+        v122 = v83[11];
+        v123 = *(a2 + v122);
+        *(a1 + v122) = v123;
+        v124 = v123;
         goto LABEL_250;
       }
 
-      v24 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v25 = swift_getEnumCaseMultiPayload();
-      if (v25 <= 4)
+      v25 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v26 = swift_getEnumCaseMultiPayload();
+      if (v26 <= 4)
       {
-        if (v25 > 2)
+        if (v26 > 2)
         {
 LABEL_132:
-          v76 = sub_21DBF563C();
-          (*(*(v76 - 8) + 16))(a1, a2, v76);
+          v77 = sub_21DBF563C();
+          (*(*(v77 - 8) + 16))(a1, a2, v77);
           swift_storeEnumTagMultiPayload();
           goto LABEL_192;
         }
 
-        if (v25 != 1)
+        if (v26 != 1)
         {
-          if (v25 == 2)
+          if (v26 == 2)
           {
             goto LABEL_132;
           }
@@ -7873,125 +7873,125 @@ LABEL_132:
         }
 
 LABEL_136:
-        v78 = *a2;
+        v79 = *a2;
         *a1 = *a2;
-        v79 = v78;
+        v80 = v79;
         swift_storeEnumTagMultiPayload();
         goto LABEL_192;
       }
 
-      if (v25 > 7)
+      if (v26 > 7)
       {
-        if (v25 == 8 || v25 == 9)
+        if (v26 == 8 || v26 == 9)
         {
           goto LABEL_136;
         }
       }
 
-      else if (v25 == 5 || v25 == 6)
+      else if (v26 == 5 || v26 == 6)
       {
         goto LABEL_132;
       }
 
 LABEL_191:
-      memcpy(a1, a2, *(*(v24 - 8) + 64));
+      memcpy(a1, a2, *(*(v25 - 8) + 64));
 LABEL_192:
-      v82 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-      v124 = v82[5];
-      v84 = a1 + v124;
-      v85 = a2 + v124;
-      if (*(a2 + v124 + 8))
+      v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+      v125 = v83[5];
+      v85 = a1 + v125;
+      v86 = a2 + v125;
+      if (*(a2 + v125 + 8))
       {
-        *v84 = *v85;
-        *(v84 + 1) = *(v85 + 1);
-        v125 = *(v85 + 2);
-        v126 = *(v85 + 3);
-        v127 = *(v85 + 4);
-        v128 = *(v85 + 5);
-        v129 = *(v85 + 6);
-        v174 = *(v85 + 7);
-        v184 = v85[64];
+        *v85 = *v86;
+        *(v85 + 1) = *(v86 + 1);
+        v126 = *(v86 + 2);
+        v127 = *(v86 + 3);
+        v128 = *(v86 + 4);
+        v129 = *(v86 + 5);
+        v130 = *(v86 + 6);
+        v175 = *(v86 + 7);
+        v185 = v86[64];
         sub_21DBF8E0C();
-        sub_21D2A7DB4(v125, v126, v127, v128, v129, v174, v184);
-        *(v84 + 2) = v125;
-        *(v84 + 3) = v126;
-        *(v84 + 4) = v127;
-        *(v84 + 5) = v128;
-        *(v84 + 6) = v129;
-        *(v84 + 7) = v174;
-        v84[64] = v184;
-        v84[65] = v85[65];
-        v84[66] = v85[66];
-        v84[67] = v85[67];
-        v84[68] = v85[68];
-        v130 = v85[120];
-        if (v130 == 255)
+        sub_21D2A7DB4(v126, v127, v128, v129, v130, v175, v185);
+        *(v85 + 2) = v126;
+        *(v85 + 3) = v127;
+        *(v85 + 4) = v128;
+        *(v85 + 5) = v129;
+        *(v85 + 6) = v130;
+        *(v85 + 7) = v175;
+        v85[64] = v185;
+        v85[65] = v86[65];
+        v85[66] = v86[66];
+        v85[67] = v86[67];
+        v85[68] = v86[68];
+        v131 = v86[120];
+        if (v131 == 255)
         {
-          v136 = *(v85 + 72);
-          v137 = *(v85 + 88);
-          v138 = *(v85 + 104);
-          v84[120] = v85[120];
-          *(v84 + 104) = v138;
-          *(v84 + 88) = v137;
-          *(v84 + 72) = v136;
+          v137 = *(v86 + 72);
+          v138 = *(v86 + 88);
+          v139 = *(v86 + 104);
+          v85[120] = v86[120];
+          *(v85 + 104) = v139;
+          *(v85 + 88) = v138;
+          *(v85 + 72) = v137;
         }
 
         else
         {
-          v175 = *(v85 + 10);
-          v185 = *(v85 + 9);
-          v131 = *(v85 + 11);
-          v132 = *(v85 + 12);
-          v133 = *(v85 + 13);
-          v134 = *(v85 + 14);
-          v135 = v130 & 1;
-          sub_21D0FB960(v185, v175, v131, v132, v133, v134, v130 & 1);
-          *(v84 + 9) = v185;
-          *(v84 + 10) = v175;
-          *(v84 + 11) = v131;
-          *(v84 + 12) = v132;
-          *(v84 + 13) = v133;
-          *(v84 + 14) = v134;
-          v84[120] = v135;
+          v176 = *(v86 + 10);
+          v186 = *(v86 + 9);
+          v132 = *(v86 + 11);
+          v133 = *(v86 + 12);
+          v134 = *(v86 + 13);
+          v135 = *(v86 + 14);
+          v136 = v131 & 1;
+          sub_21D0FB960(v186, v176, v132, v133, v134, v135, v131 & 1);
+          *(v85 + 9) = v186;
+          *(v85 + 10) = v176;
+          *(v85 + 11) = v132;
+          *(v85 + 12) = v133;
+          *(v85 + 13) = v134;
+          *(v85 + 14) = v135;
+          v85[120] = v136;
         }
 
-        v84[121] = v85[121];
+        v85[121] = v86[121];
         goto LABEL_190;
       }
 
       goto LABEL_187;
     }
 
-    if (v6 > 3)
+    if (v7 > 3)
     {
-      if (v6 > 5)
+      if (v7 > 5)
       {
-        if (v6 != 6)
+        if (v7 != 6)
         {
-          if (v6 != 7)
+          if (v7 != 7)
           {
-            if (v6 == 8)
+            if (v7 == 8)
             {
 LABEL_14:
               *a1 = *a2;
-              v7 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
-              v8 = sub_21DBF8D7C();
-              (*(*(v8 - 8) + 16))(a1 + v7, a2 + v7, v8);
+              v8 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
+              v9 = sub_21DBF8D7C();
+              (*(*(v9 - 8) + 16))(a1 + v8, a2 + v8, v9);
 LABEL_250:
               swift_storeEnumTagMultiPayload();
               goto LABEL_251;
             }
 
 LABEL_67:
-            memcpy(a1, a2, *(*(v5 - 8) + 64));
+            memcpy(a1, a2, *(*(v6 - 8) + 64));
 LABEL_251:
             swift_storeEnumTagMultiPayload();
             return a1;
           }
 
-          v47 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-          v48 = *(v47 - 8);
-          if ((*(v48 + 48))(a2, 1, v47))
+          v48 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+          v49 = *(v48 - 8);
+          if ((*(v49 + 48))(a2, 1, v48))
           {
             goto LABEL_66;
           }
@@ -7999,80 +7999,80 @@ LABEL_251:
           goto LABEL_122;
         }
 
-        v38 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-        v39 = *(v38 - 8);
-        if ((*(v39 + 48))(a2, 1, v38))
+        v39 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+        v40 = *(v39 - 8);
+        if ((*(v40 + 48))(a2, 1, v39))
         {
-          v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-          memcpy(a1, a2, *(*(v40 - 8) + 64));
+          v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+          memcpy(a1, a2, *(*(v41 - 8) + 64));
         }
 
         else
         {
           *a1 = *a2;
-          v59 = *(v38 + 20);
-          v60 = sub_21DBF6C1C();
-          v179 = *(*(v60 - 8) + 16);
+          v60 = *(v39 + 20);
+          v61 = sub_21DBF6C1C();
+          v180 = *(*(v61 - 8) + 16);
           sub_21DBF8E0C();
-          v179(a1 + v59, a2 + v59, v60);
-          (*(v39 + 56))(a1, 0, 1, v38);
+          v180(a1 + v60, a2 + v60, v61);
+          (*(v40 + 56))(a1, 0, 1, v39);
         }
 
-        v61 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-        v57 = a1 + v61;
-        v58 = a2 + v61;
-        if (!*(v58 + 1))
+        v62 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+        v58 = a1 + v62;
+        v59 = a2 + v62;
+        if (!*(v59 + 1))
         {
-          v65 = *v58;
-          *(v57 + 2) = *(v58 + 2);
-          *v57 = v65;
+          v66 = *v59;
+          *(v58 + 2) = *(v59 + 2);
+          *v58 = v66;
           goto LABEL_250;
         }
 
 LABEL_109:
-        *v57 = *v58;
-        *(v57 + 1) = *(v58 + 1);
-        v62 = *(v58 + 2);
-        *(v57 + 2) = v62;
+        *v58 = *v59;
+        *(v58 + 1) = *(v59 + 1);
+        v63 = *(v59 + 2);
+        *(v58 + 2) = v63;
         sub_21DBF8E0C();
-        v63 = v62;
+        v64 = v63;
         goto LABEL_250;
       }
 
-      if (v6 != 4)
+      if (v7 != 4)
       {
 LABEL_40:
         *a1 = *a2;
         *(a1 + 8) = *(a2 + 8);
         *(a1 + 9) = *(a2 + 9);
         *(a1 + 10) = *(a2 + 10);
-        v22 = a2[2];
-        a1[2] = v22;
-        v23 = v22;
+        v23 = a2[2];
+        a1[2] = v23;
+        v24 = v23;
         goto LABEL_250;
       }
 
-      v44 = *a2;
+      v45 = *a2;
       *a1 = *a2;
-      v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-      v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v16 = *(v15 - 8);
-      v45 = *(v16 + 48);
-      v46 = v44;
-      if (v45(a2 + v14, 1, v15))
+      v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+      v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v17 = *(v16 - 8);
+      v46 = *(v17 + 48);
+      v47 = v45;
+      if (v46(a2 + v15, 1, v16))
       {
 LABEL_54:
-        v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-        memcpy(a1 + v14, a2 + v14, *(*(v34 - 8) + 64));
+        v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+        memcpy(a1 + v15, a2 + v15, *(*(v35 - 8) + 64));
         goto LABEL_250;
       }
 
-      v67 = swift_getEnumCaseMultiPayload();
-      if (v67 > 4)
+      v68 = swift_getEnumCaseMultiPayload();
+      if (v68 > 4)
       {
-        if (v67 <= 7)
+        if (v68 <= 7)
         {
-          if (v67 == 5 || v67 == 6)
+          if (v68 == 5 || v68 == 6)
           {
             goto LABEL_222;
           }
@@ -8080,7 +8080,7 @@ LABEL_54:
           goto LABEL_248;
         }
 
-        if (v67 != 8 && v67 != 9)
+        if (v68 != 8 && v68 != 9)
         {
           goto LABEL_248;
         }
@@ -8088,14 +8088,14 @@ LABEL_54:
 
       else
       {
-        if (v67 > 2)
+        if (v68 > 2)
         {
           goto LABEL_222;
         }
 
-        if (v67 != 1)
+        if (v68 != 1)
         {
-          if (v67 == 2)
+          if (v68 == 2)
           {
             goto LABEL_222;
           }
@@ -8105,35 +8105,35 @@ LABEL_54:
       }
 
 LABEL_226:
-      v167 = *(a2 + v14);
-      *(a1 + v14) = v167;
-      v168 = v167;
+      v168 = *(a2 + v15);
+      *(a1 + v15) = v168;
+      v169 = v168;
       swift_storeEnumTagMultiPayload();
       goto LABEL_249;
     }
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
-      if (v6 == 2)
+      if (v7 == 2)
       {
-        v31 = *a2;
+        v32 = *a2;
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v32 = *(v16 + 48);
-        v33 = v31;
-        if (v32(a2 + v14, 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v33 = *(v17 + 48);
+        v34 = v32;
+        if (v33(a2 + v15, 1, v16))
         {
           goto LABEL_54;
         }
 
-        v53 = swift_getEnumCaseMultiPayload();
-        if (v53 > 4)
+        v54 = swift_getEnumCaseMultiPayload();
+        if (v54 > 4)
         {
-          if (v53 <= 7)
+          if (v54 <= 7)
           {
-            if (v53 == 5 || v53 == 6)
+            if (v54 == 5 || v54 == 6)
             {
               goto LABEL_222;
             }
@@ -8141,7 +8141,7 @@ LABEL_226:
             goto LABEL_248;
           }
 
-          if (v53 != 8 && v53 != 9)
+          if (v54 != 8 && v54 != 9)
           {
             goto LABEL_248;
           }
@@ -8149,17 +8149,17 @@ LABEL_226:
           goto LABEL_226;
         }
 
-        if (v53 > 2)
+        if (v54 > 2)
         {
           goto LABEL_222;
         }
 
-        if (v53 == 1)
+        if (v54 == 1)
         {
           goto LABEL_226;
         }
 
-        if (v53 != 2)
+        if (v54 != 2)
         {
           goto LABEL_248;
         }
@@ -8167,24 +8167,24 @@ LABEL_226:
 
       else
       {
-        v19 = *a2;
+        v20 = *a2;
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        v20 = *(v16 + 48);
-        v21 = v19;
-        if (v20(a2 + v14, 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        v21 = *(v17 + 48);
+        v22 = v20;
+        if (v21(a2 + v15, 1, v16))
         {
           goto LABEL_54;
         }
 
-        v51 = swift_getEnumCaseMultiPayload();
-        if (v51 > 4)
+        v52 = swift_getEnumCaseMultiPayload();
+        if (v52 > 4)
         {
-          if (v51 <= 7)
+          if (v52 <= 7)
           {
-            if (v51 == 5 || v51 == 6)
+            if (v52 == 5 || v52 == 6)
             {
               goto LABEL_222;
             }
@@ -8192,7 +8192,7 @@ LABEL_226:
             goto LABEL_248;
           }
 
-          if (v51 != 8 && v51 != 9)
+          if (v52 != 8 && v52 != 9)
           {
             goto LABEL_248;
           }
@@ -8200,17 +8200,17 @@ LABEL_226:
           goto LABEL_226;
         }
 
-        if (v51 > 2)
+        if (v52 > 2)
         {
           goto LABEL_222;
         }
 
-        if (v51 == 1)
+        if (v52 == 1)
         {
           goto LABEL_226;
         }
 
-        if (v51 != 2)
+        if (v52 != 2)
         {
           goto LABEL_248;
         }
@@ -8219,29 +8219,29 @@ LABEL_226:
       goto LABEL_222;
     }
 
-    if (v6)
+    if (v7)
     {
-      if (v6 != 1)
+      if (v7 != 1)
       {
         goto LABEL_67;
       }
 
-      v11 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v12 = swift_getEnumCaseMultiPayload();
-      if (v12 <= 4)
+      v12 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v13 = swift_getEnumCaseMultiPayload();
+      if (v13 <= 4)
       {
-        if (v12 > 2)
+        if (v13 > 2)
         {
 LABEL_125:
-          v71 = sub_21DBF563C();
-          (*(*(v71 - 8) + 16))(a1, a2, v71);
+          v72 = sub_21DBF563C();
+          (*(*(v72 - 8) + 16))(a1, a2, v72);
           swift_storeEnumTagMultiPayload();
           goto LABEL_184;
         }
 
-        if (v12 != 1)
+        if (v13 != 1)
         {
-          if (v12 == 2)
+          if (v13 == 2)
           {
             goto LABEL_125;
           }
@@ -8250,102 +8250,102 @@ LABEL_125:
         }
 
 LABEL_131:
-        v74 = *a2;
+        v75 = *a2;
         *a1 = *a2;
-        v75 = v74;
+        v76 = v75;
         swift_storeEnumTagMultiPayload();
         goto LABEL_184;
       }
 
-      if (v12 > 7)
+      if (v13 > 7)
       {
-        if (v12 == 8 || v12 == 9)
+        if (v13 == 8 || v13 == 9)
         {
           goto LABEL_131;
         }
       }
 
-      else if (v12 == 5 || v12 == 6)
+      else if (v13 == 5 || v13 == 6)
       {
         goto LABEL_125;
       }
 
 LABEL_183:
-      memcpy(a1, a2, *(*(v11 - 8) + 64));
+      memcpy(a1, a2, *(*(v12 - 8) + 64));
 LABEL_184:
-      v82 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-      v100 = v82[5];
-      v84 = a1 + v100;
-      v85 = a2 + v100;
-      if (*(a2 + v100 + 8))
+      v83 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+      v101 = v83[5];
+      v85 = a1 + v101;
+      v86 = a2 + v101;
+      if (*(a2 + v101 + 8))
       {
-        *v84 = *v85;
-        *(v84 + 1) = *(v85 + 1);
-        v101 = *(v85 + 2);
-        v102 = *(v85 + 3);
-        v103 = *(v85 + 4);
-        v104 = *(v85 + 5);
-        v105 = *(v85 + 6);
-        v172 = *(v85 + 7);
-        v182 = v85[64];
+        *v85 = *v86;
+        *(v85 + 1) = *(v86 + 1);
+        v102 = *(v86 + 2);
+        v103 = *(v86 + 3);
+        v104 = *(v86 + 4);
+        v105 = *(v86 + 5);
+        v106 = *(v86 + 6);
+        v173 = *(v86 + 7);
+        v183 = v86[64];
         sub_21DBF8E0C();
-        sub_21D2A7DB4(v101, v102, v103, v104, v105, v172, v182);
-        *(v84 + 2) = v101;
-        *(v84 + 3) = v102;
-        *(v84 + 4) = v103;
-        *(v84 + 5) = v104;
-        *(v84 + 6) = v105;
-        *(v84 + 7) = v172;
-        v84[64] = v182;
-        v84[65] = v85[65];
-        v84[66] = v85[66];
-        v84[67] = v85[67];
-        v84[68] = v85[68];
-        v106 = v85[120];
-        if (v106 == 255)
+        sub_21D2A7DB4(v102, v103, v104, v105, v106, v173, v183);
+        *(v85 + 2) = v102;
+        *(v85 + 3) = v103;
+        *(v85 + 4) = v104;
+        *(v85 + 5) = v105;
+        *(v85 + 6) = v106;
+        *(v85 + 7) = v173;
+        v85[64] = v183;
+        v85[65] = v86[65];
+        v85[66] = v86[66];
+        v85[67] = v86[67];
+        v85[68] = v86[68];
+        v107 = v86[120];
+        if (v107 == 255)
         {
-          v118 = *(v85 + 72);
-          v119 = *(v85 + 88);
-          v120 = *(v85 + 104);
-          v84[120] = v85[120];
-          *(v84 + 104) = v120;
-          *(v84 + 88) = v119;
-          *(v84 + 72) = v118;
+          v119 = *(v86 + 72);
+          v120 = *(v86 + 88);
+          v121 = *(v86 + 104);
+          v85[120] = v86[120];
+          *(v85 + 104) = v121;
+          *(v85 + 88) = v120;
+          *(v85 + 72) = v119;
         }
 
         else
         {
-          v173 = *(v85 + 10);
-          v183 = *(v85 + 9);
-          v107 = *(v85 + 11);
-          v108 = *(v85 + 12);
-          v109 = *(v85 + 13);
-          v110 = *(v85 + 14);
-          v111 = v106 & 1;
-          sub_21D0FB960(v183, v173, v107, v108, v109, v110, v106 & 1);
-          *(v84 + 9) = v183;
-          *(v84 + 10) = v173;
-          *(v84 + 11) = v107;
-          *(v84 + 12) = v108;
-          *(v84 + 13) = v109;
-          *(v84 + 14) = v110;
-          v84[120] = v111;
+          v174 = *(v86 + 10);
+          v184 = *(v86 + 9);
+          v108 = *(v86 + 11);
+          v109 = *(v86 + 12);
+          v110 = *(v86 + 13);
+          v111 = *(v86 + 14);
+          v112 = v107 & 1;
+          sub_21D0FB960(v184, v174, v108, v109, v110, v111, v107 & 1);
+          *(v85 + 9) = v184;
+          *(v85 + 10) = v174;
+          *(v85 + 11) = v108;
+          *(v85 + 12) = v109;
+          *(v85 + 13) = v110;
+          *(v85 + 14) = v111;
+          v85[120] = v112;
         }
 
-        v84[121] = v85[121];
+        v85[121] = v86[121];
         goto LABEL_190;
       }
 
       goto LABEL_187;
     }
 
-    v26 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v27 = swift_getEnumCaseMultiPayload();
-    if (v27 > 4)
+    v27 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v28 = swift_getEnumCaseMultiPayload();
+    if (v28 > 4)
     {
-      if (v27 <= 7)
+      if (v28 <= 7)
       {
-        if (v27 == 5 || v27 == 6)
+        if (v28 == 5 || v28 == 6)
         {
           goto LABEL_133;
         }
@@ -8353,7 +8353,7 @@ LABEL_184:
         goto LABEL_198;
       }
 
-      if (v27 != 8 && v27 != 9)
+      if (v28 != 8 && v28 != 9)
       {
         goto LABEL_198;
       }
@@ -8361,121 +8361,121 @@ LABEL_184:
 
     else
     {
-      if (v27 > 2)
+      if (v28 > 2)
       {
 LABEL_133:
-        v77 = sub_21DBF563C();
-        (*(*(v77 - 8) + 16))(a1, a2, v77);
+        v78 = sub_21DBF563C();
+        (*(*(v78 - 8) + 16))(a1, a2, v78);
         swift_storeEnumTagMultiPayload();
 LABEL_199:
-        v139 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-        v140 = v139[5];
-        v141 = a1 + v140;
-        v142 = a2 + v140;
-        if (*(a2 + v140 + 8))
+        v140 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+        v141 = v140[5];
+        v142 = a1 + v141;
+        v143 = a2 + v141;
+        if (*(a2 + v141 + 8))
         {
-          *v141 = *v142;
-          *(v141 + 1) = *(v142 + 1);
-          v143 = *(v142 + 2);
-          v144 = *(v142 + 3);
-          v145 = *(v142 + 4);
-          v146 = *(v142 + 5);
-          v147 = *(v142 + 6);
-          v186 = *(v142 + 7);
-          v176 = v142[64];
+          *v142 = *v143;
+          *(v142 + 1) = *(v143 + 1);
+          v144 = *(v143 + 2);
+          v145 = *(v143 + 3);
+          v146 = *(v143 + 4);
+          v147 = *(v143 + 5);
+          v148 = *(v143 + 6);
+          v187 = *(v143 + 7);
+          v177 = v143[64];
           sub_21DBF8E0C();
-          sub_21D2A7DB4(v143, v144, v145, v146, v147, v186, v176);
-          *(v141 + 2) = v143;
-          *(v141 + 3) = v144;
-          *(v141 + 4) = v145;
-          *(v141 + 5) = v146;
-          *(v141 + 6) = v147;
-          *(v141 + 7) = v186;
-          v141[64] = v176;
-          v141[65] = v142[65];
-          v141[66] = v142[66];
-          v141[67] = v142[67];
-          v141[68] = v142[68];
-          v148 = v142[120];
-          if (v148 == 255)
+          sub_21D2A7DB4(v144, v145, v146, v147, v148, v187, v177);
+          *(v142 + 2) = v144;
+          *(v142 + 3) = v145;
+          *(v142 + 4) = v146;
+          *(v142 + 5) = v147;
+          *(v142 + 6) = v148;
+          *(v142 + 7) = v187;
+          v142[64] = v177;
+          v142[65] = v143[65];
+          v142[66] = v143[66];
+          v142[67] = v143[67];
+          v142[68] = v143[68];
+          v149 = v143[120];
+          if (v149 == 255)
           {
-            v160 = *(v142 + 72);
-            v161 = *(v142 + 88);
-            v162 = *(v142 + 104);
-            v141[120] = v142[120];
-            *(v141 + 104) = v162;
-            *(v141 + 88) = v161;
-            *(v141 + 72) = v160;
+            v161 = *(v143 + 72);
+            v162 = *(v143 + 88);
+            v163 = *(v143 + 104);
+            v142[120] = v143[120];
+            *(v142 + 104) = v163;
+            *(v142 + 88) = v162;
+            *(v142 + 72) = v161;
           }
 
           else
           {
-            v177 = *(v142 + 10);
-            v187 = *(v142 + 9);
-            v149 = *(v142 + 11);
-            v150 = *(v142 + 12);
-            v151 = *(v142 + 13);
-            v152 = *(v142 + 14);
-            v153 = v148 & 1;
-            sub_21D0FB960(v187, v177, v149, v150, v151, v152, v148 & 1);
-            *(v141 + 9) = v187;
-            *(v141 + 10) = v177;
-            *(v141 + 11) = v149;
-            *(v141 + 12) = v150;
-            *(v141 + 13) = v151;
-            *(v141 + 14) = v152;
-            v141[120] = v153;
+            v178 = *(v143 + 10);
+            v188 = *(v143 + 9);
+            v150 = *(v143 + 11);
+            v151 = *(v143 + 12);
+            v152 = *(v143 + 13);
+            v153 = *(v143 + 14);
+            v154 = v149 & 1;
+            sub_21D0FB960(v188, v178, v150, v151, v152, v153, v149 & 1);
+            *(v142 + 9) = v188;
+            *(v142 + 10) = v178;
+            *(v142 + 11) = v150;
+            *(v142 + 12) = v151;
+            *(v142 + 13) = v152;
+            *(v142 + 14) = v153;
+            v142[120] = v154;
           }
 
-          v141[121] = v142[121];
+          v142[121] = v143[121];
         }
 
         else
         {
-          v154 = *v142;
-          v155 = *(v142 + 1);
-          v156 = *(v142 + 3);
-          *(v141 + 2) = *(v142 + 2);
-          *(v141 + 3) = v156;
-          *v141 = v154;
-          *(v141 + 1) = v155;
-          v157 = *(v142 + 4);
-          v158 = *(v142 + 5);
-          v159 = *(v142 + 6);
-          *(v141 + 106) = *(v142 + 106);
-          *(v141 + 5) = v158;
-          *(v141 + 6) = v159;
-          *(v141 + 4) = v157;
+          v155 = *v143;
+          v156 = *(v143 + 1);
+          v157 = *(v143 + 3);
+          *(v142 + 2) = *(v143 + 2);
+          *(v142 + 3) = v157;
+          *v142 = v155;
+          *(v142 + 1) = v156;
+          v158 = *(v143 + 4);
+          v159 = *(v143 + 5);
+          v160 = *(v143 + 6);
+          *(v142 + 106) = *(v143 + 106);
+          *(v142 + 5) = v159;
+          *(v142 + 6) = v160;
+          *(v142 + 4) = v158;
         }
 
-        *(a1 + v139[6]) = *(a2 + v139[6]);
-        *(a1 + v139[7]) = *(a2 + v139[7]);
-        *(a1 + v139[8]) = *(a2 + v139[8]);
-        *(a1 + v139[9]) = *(a2 + v139[9]);
-        *(a1 + v139[10]) = *(a2 + v139[10]);
-        v163 = v139[11];
-        v164 = *(a2 + v163);
-        *(a1 + v163) = v164;
-        v165 = v164;
+        *(a1 + v140[6]) = *(a2 + v140[6]);
+        *(a1 + v140[7]) = *(a2 + v140[7]);
+        *(a1 + v140[8]) = *(a2 + v140[8]);
+        *(a1 + v140[9]) = *(a2 + v140[9]);
+        *(a1 + v140[10]) = *(a2 + v140[10]);
+        v164 = v140[11];
+        v165 = *(a2 + v164);
+        *(a1 + v164) = v165;
+        v166 = v165;
         goto LABEL_250;
       }
 
-      if (v27 != 1)
+      if (v28 != 1)
       {
-        if (v27 == 2)
+        if (v28 == 2)
         {
           goto LABEL_133;
         }
 
 LABEL_198:
-        memcpy(a1, a2, *(*(v26 - 8) + 64));
+        memcpy(a1, a2, *(*(v27 - 8) + 64));
         goto LABEL_199;
       }
     }
 
-    v80 = *a2;
+    v81 = *a2;
     *a1 = *a2;
-    v81 = v80;
+    v82 = v81;
     swift_storeEnumTagMultiPayload();
     goto LABEL_199;
   }
@@ -8483,30 +8483,30 @@ LABEL_198:
   return a1;
 }
 
-void *initializeWithTake for TTRRemindersListSectionCreationLocation(void *a1, char *a2)
+void *initializeWithTake for TTRRemindersListSectionCreationLocation(void *a1, char *a2, uint64_t a3)
 {
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v5 = type metadata accessor for TTRRemindersListViewModel.Item(0);
-  v6 = swift_getEnumCaseMultiPayload();
+  v6 = type metadata accessor for TTRRemindersListViewModel.Item(0);
+  v7 = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload != 1)
   {
-    if (v6 <= 3)
+    if (v7 <= 3)
     {
-      if (v6 <= 1)
+      if (v7 <= 1)
       {
-        if (!v6)
+        if (!v7)
         {
-          v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v20 = swift_getEnumCaseMultiPayload();
-          if (v20 <= 3)
+          v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v21 = swift_getEnumCaseMultiPayload();
+          if (v21 <= 3)
           {
-            if (v20 == 2 || v20 == 3)
+            if (v21 == 2 || v21 == 3)
             {
               goto LABEL_19;
             }
           }
 
-          else if (v20 == 4 || v20 == 5 || v20 == 6)
+          else if (v21 == 4 || v21 == 5 || v21 == 6)
           {
             goto LABEL_19;
           }
@@ -8514,19 +8514,19 @@ void *initializeWithTake for TTRRemindersListSectionCreationLocation(void *a1, c
           goto LABEL_123;
         }
 
-        if (v6 == 1)
+        if (v7 == 1)
         {
-          v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v9 = swift_getEnumCaseMultiPayload();
-          if (v9 <= 3)
+          v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v10 = swift_getEnumCaseMultiPayload();
+          if (v10 <= 3)
           {
-            if (v9 == 2 || v9 == 3)
+            if (v10 == 2 || v10 == 3)
             {
               goto LABEL_19;
             }
           }
 
-          else if (v9 == 4 || v9 == 5 || v9 == 6)
+          else if (v10 == 4 || v10 == 5 || v10 == 6)
           {
             goto LABEL_19;
           }
@@ -8537,30 +8537,30 @@ void *initializeWithTake for TTRRemindersListSectionCreationLocation(void *a1, c
         goto LABEL_64;
       }
 
-      if (v6 == 2)
+      if (v7 == 2)
       {
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        if ((*(v16 + 48))(&a2[v14], 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        if ((*(v17 + 48))(&a2[v15], 1, v16))
         {
 LABEL_59:
-          v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-          memcpy(a1 + v14, &a2[v14], *(*(v21 - 8) + 64));
+          v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+          memcpy(a1 + v15, &a2[v15], *(*(v22 - 8) + 64));
           goto LABEL_165;
         }
 
-        v28 = swift_getEnumCaseMultiPayload();
-        if (v28 <= 3)
+        v29 = swift_getEnumCaseMultiPayload();
+        if (v29 <= 3)
         {
-          if (v28 == 2 || v28 == 3)
+          if (v29 == 2 || v29 == 3)
           {
             goto LABEL_105;
           }
         }
 
-        else if (v28 == 4 || v28 == 5 || v28 == 6)
+        else if (v29 == 4 || v29 == 5 || v29 == 6)
         {
           goto LABEL_105;
         }
@@ -8569,24 +8569,24 @@ LABEL_59:
       else
       {
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        if ((*(v16 + 48))(&a2[v14], 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        if ((*(v17 + 48))(&a2[v15], 1, v16))
         {
           goto LABEL_59;
         }
 
-        v38 = swift_getEnumCaseMultiPayload();
-        if (v38 <= 3)
+        v39 = swift_getEnumCaseMultiPayload();
+        if (v39 <= 3)
         {
-          if (v38 == 2 || v38 == 3)
+          if (v39 == 2 || v39 == 3)
           {
             goto LABEL_105;
           }
         }
 
-        else if (v38 == 4 || v38 == 5 || v38 == 6)
+        else if (v39 == 4 || v39 == 5 || v39 == 6)
         {
           goto LABEL_105;
         }
@@ -8595,15 +8595,104 @@ LABEL_59:
       goto LABEL_163;
     }
 
-    if (v6 <= 6)
+    if (v7 <= 6)
     {
-      if (v6 == 4)
+      if (v7 == 4)
       {
         *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        if ((*(v16 + 48))(&a2[v14], 1, v15))
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        if ((*(v17 + 48))(&a2[v15], 1, v16))
+        {
+          goto LABEL_59;
+        }
+
+        v27 = swift_getEnumCaseMultiPayload();
+        if (v27 <= 3)
+        {
+          if (v27 == 2 || v27 == 3)
+          {
+            goto LABEL_105;
+          }
+        }
+
+        else if (v27 == 4 || v27 == 5 || v27 == 6)
+        {
+          goto LABEL_105;
+        }
+
+        goto LABEL_163;
+      }
+
+      if (v7 != 6)
+      {
+        goto LABEL_64;
+      }
+
+      v12 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+      v13 = *(v12 - 8);
+      if ((*(v13 + 48))(a2, 1, v12))
+      {
+LABEL_29:
+        v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+        memcpy(a1, a2, *(*(v14 - 8) + 64));
+LABEL_100:
+        v34 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+        v35 = a1 + v34;
+        v36 = &a2[v34];
+        *v35 = *v36;
+        *(v35 + 2) = *(v36 + 2);
+        goto LABEL_165;
+      }
+
+LABEL_99:
+      *a1 = *a2;
+      v32 = *(v12 + 20);
+      v33 = sub_21DBF6C1C();
+      (*(*(v33 - 8) + 32))(a1 + v32, &a2[v32], v33);
+      (*(v13 + 56))(a1, 0, 1, v12);
+      goto LABEL_100;
+    }
+
+    if (v7 != 7)
+    {
+      if (v7 != 8)
+      {
+        goto LABEL_64;
+      }
+
+LABEL_41:
+      *a1 = *a2;
+      v18 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
+      v19 = sub_21DBF8D7C();
+      (*(*(v19 - 8) + 32))(a1 + v18, &a2[v18], v19);
+LABEL_165:
+      swift_storeEnumTagMultiPayload();
+      goto LABEL_166;
+    }
+
+    v23 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+    v24 = *(v23 - 8);
+    if ((*(v24 + 48))(a2, 1, v23))
+    {
+      goto LABEL_63;
+    }
+
+    goto LABEL_97;
+  }
+
+  if (v7 > 3)
+  {
+    if (v7 <= 6)
+    {
+      if (v7 == 4)
+      {
+        *a1 = *a2;
+        v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+        v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+        v17 = *(v16 - 8);
+        if ((*(v17 + 48))(&a2[v15], 1, v16))
         {
           goto LABEL_59;
         }
@@ -8625,103 +8714,14 @@ LABEL_59:
         goto LABEL_163;
       }
 
-      if (v6 != 6)
+      if (v7 != 6)
       {
         goto LABEL_64;
       }
 
-      v11 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-      v12 = *(v11 - 8);
-      if ((*(v12 + 48))(a2, 1, v11))
-      {
-LABEL_29:
-        v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-        memcpy(a1, a2, *(*(v13 - 8) + 64));
-LABEL_100:
-        v33 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-        v34 = a1 + v33;
-        v35 = &a2[v33];
-        *v34 = *v35;
-        *(v34 + 2) = *(v35 + 2);
-        goto LABEL_165;
-      }
-
-LABEL_99:
-      *a1 = *a2;
-      v31 = *(v11 + 20);
-      v32 = sub_21DBF6C1C();
-      (*(*(v32 - 8) + 32))(a1 + v31, &a2[v31], v32);
-      (*(v12 + 56))(a1, 0, 1, v11);
-      goto LABEL_100;
-    }
-
-    if (v6 != 7)
-    {
-      if (v6 != 8)
-      {
-        goto LABEL_64;
-      }
-
-LABEL_41:
-      *a1 = *a2;
-      v17 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
-      v18 = sub_21DBF8D7C();
-      (*(*(v18 - 8) + 32))(a1 + v17, &a2[v17], v18);
-LABEL_165:
-      swift_storeEnumTagMultiPayload();
-      goto LABEL_166;
-    }
-
-    v22 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-    v23 = *(v22 - 8);
-    if ((*(v23 + 48))(a2, 1, v22))
-    {
-      goto LABEL_63;
-    }
-
-    goto LABEL_97;
-  }
-
-  if (v6 > 3)
-  {
-    if (v6 <= 6)
-    {
-      if (v6 == 4)
-      {
-        *a1 = *a2;
-        v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-        v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-        v16 = *(v15 - 8);
-        if ((*(v16 + 48))(&a2[v14], 1, v15))
-        {
-          goto LABEL_59;
-        }
-
-        v25 = swift_getEnumCaseMultiPayload();
-        if (v25 <= 3)
-        {
-          if (v25 == 2 || v25 == 3)
-          {
-            goto LABEL_105;
-          }
-        }
-
-        else if (v25 == 4 || v25 == 5 || v25 == 6)
-        {
-          goto LABEL_105;
-        }
-
-        goto LABEL_163;
-      }
-
-      if (v6 != 6)
-      {
-        goto LABEL_64;
-      }
-
-      v11 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-      v12 = *(v11 - 8);
-      if ((*(v12 + 48))(a2, 1, v11))
+      v12 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+      v13 = *(v12 - 8);
+      if ((*(v13 + 48))(a2, 1, v12))
       {
         goto LABEL_29;
       }
@@ -8729,9 +8729,9 @@ LABEL_165:
       goto LABEL_99;
     }
 
-    if (v6 != 7)
+    if (v7 != 7)
     {
-      if (v6 != 8)
+      if (v7 != 8)
       {
         goto LABEL_64;
       }
@@ -8739,50 +8739,50 @@ LABEL_165:
       goto LABEL_41;
     }
 
-    v22 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-    v23 = *(v22 - 8);
-    if ((*(v23 + 48))(a2, 1, v22))
+    v23 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+    v24 = *(v23 - 8);
+    if ((*(v24 + 48))(a2, 1, v23))
     {
 LABEL_63:
-      v24 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
-      memcpy(a1, a2, *(*(v24 - 8) + 64));
+      v25 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
+      memcpy(a1, a2, *(*(v25 - 8) + 64));
 LABEL_98:
-      v30 = type metadata accessor for TTRTemplatePublicLinkData(0);
-      *(a1 + *(v30 + 20)) = *&a2[*(v30 + 20)];
+      v31 = type metadata accessor for TTRTemplatePublicLinkData(0);
+      *(a1 + *(v31 + 20)) = *&a2[*(v31 + 20)];
       goto LABEL_165;
     }
 
 LABEL_97:
-    v29 = sub_21DBF563C();
-    (*(*(v29 - 8) + 32))(a1, a2, v29);
-    *(a1 + *(v22 + 20)) = a2[*(v22 + 20)];
-    (*(v23 + 56))(a1, 0, 1, v22);
+    v30 = sub_21DBF563C();
+    (*(*(v30 - 8) + 32))(a1, a2, v30);
+    *(a1 + *(v23 + 20)) = a2[*(v23 + 20)];
+    (*(v24 + 56))(a1, 0, 1, v23);
     goto LABEL_98;
   }
 
-  if (v6 > 1)
+  if (v7 > 1)
   {
-    if (v6 == 2)
+    if (v7 == 2)
     {
       *a1 = *a2;
-      v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-      v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v16 = *(v15 - 8);
-      if ((*(v16 + 48))(&a2[v14], 1, v15))
+      v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+      v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v17 = *(v16 - 8);
+      if ((*(v17 + 48))(&a2[v15], 1, v16))
       {
         goto LABEL_59;
       }
 
-      v27 = swift_getEnumCaseMultiPayload();
-      if (v27 <= 3)
+      v28 = swift_getEnumCaseMultiPayload();
+      if (v28 <= 3)
       {
-        if (v27 == 2 || v27 == 3)
+        if (v28 == 2 || v28 == 3)
         {
           goto LABEL_105;
         }
       }
 
-      else if (v27 == 4 || v27 == 5 || v27 == 6)
+      else if (v28 == 4 || v28 == 5 || v28 == 6)
       {
         goto LABEL_105;
       }
@@ -8791,53 +8791,53 @@ LABEL_97:
     else
     {
       *a1 = *a2;
-      v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-      v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-      v16 = *(v15 - 8);
-      if ((*(v16 + 48))(&a2[v14], 1, v15))
+      v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+      v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+      v17 = *(v16 - 8);
+      if ((*(v17 + 48))(&a2[v15], 1, v16))
       {
         goto LABEL_59;
       }
 
-      v36 = swift_getEnumCaseMultiPayload();
-      if (v36 <= 3)
+      v37 = swift_getEnumCaseMultiPayload();
+      if (v37 <= 3)
       {
-        if (v36 == 2 || v36 == 3)
+        if (v37 == 2 || v37 == 3)
         {
           goto LABEL_105;
         }
       }
 
-      else if (v36 == 4 || v36 == 5 || v36 == 6)
+      else if (v37 == 4 || v37 == 5 || v37 == 6)
       {
 LABEL_105:
-        v37 = sub_21DBF563C();
-        (*(*(v37 - 8) + 32))(a1 + v14, &a2[v14], v37);
+        v38 = sub_21DBF563C();
+        (*(*(v38 - 8) + 32))(a1 + v15, &a2[v15], v38);
         swift_storeEnumTagMultiPayload();
 LABEL_164:
-        (*(v16 + 56))(a1 + v14, 0, 1, v15);
+        (*(v17 + 56))(a1 + v15, 0, 1, v16);
         goto LABEL_165;
       }
     }
 
 LABEL_163:
-    memcpy(a1 + v14, &a2[v14], *(v16 + 64));
+    memcpy(a1 + v15, &a2[v15], *(v17 + 64));
     goto LABEL_164;
   }
 
-  if (!v6)
+  if (!v7)
   {
-    v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v19 = swift_getEnumCaseMultiPayload();
-    if (v19 <= 3)
+    v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v20 = swift_getEnumCaseMultiPayload();
+    if (v20 <= 3)
     {
-      if (v19 == 2 || v19 == 3)
+      if (v20 == 2 || v20 == 3)
       {
         goto LABEL_19;
       }
     }
 
-    else if (v19 == 4 || v19 == 5 || v19 == 6)
+    else if (v20 == 4 || v20 == 5 || v20 == 6)
     {
       goto LABEL_19;
     }
@@ -8845,291 +8845,78 @@ LABEL_163:
     goto LABEL_123;
   }
 
-  if (v6 == 1)
+  if (v7 == 1)
   {
-    v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-    v8 = swift_getEnumCaseMultiPayload();
-    if (v8 <= 3)
+    v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+    v9 = swift_getEnumCaseMultiPayload();
+    if (v9 <= 3)
     {
-      if (v8 == 2 || v8 == 3)
+      if (v9 == 2 || v9 == 3)
       {
         goto LABEL_19;
       }
     }
 
-    else if (v8 == 4 || v8 == 5 || v8 == 6)
+    else if (v9 == 4 || v9 == 5 || v9 == 6)
     {
 LABEL_19:
-      v10 = sub_21DBF563C();
-      (*(*(v10 - 8) + 32))(a1, a2, v10);
+      v11 = sub_21DBF563C();
+      (*(*(v11 - 8) + 32))(a1, a2, v11);
       swift_storeEnumTagMultiPayload();
 LABEL_124:
-      v39 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-      v40 = v39[5];
-      v41 = (a1 + v40);
-      v42 = &a2[v40];
-      v43 = *(v42 + 3);
-      v41[2] = *(v42 + 2);
-      v41[3] = v43;
-      v44 = *(v42 + 1);
-      *v41 = *v42;
-      v41[1] = v44;
-      *(v41 + 106) = *(v42 + 106);
-      v45 = *(v42 + 6);
-      v41[5] = *(v42 + 5);
-      v41[6] = v45;
-      v41[4] = *(v42 + 4);
-      *(a1 + v39[6]) = a2[v39[6]];
-      *(a1 + v39[7]) = a2[v39[7]];
-      *(a1 + v39[8]) = a2[v39[8]];
-      *(a1 + v39[9]) = a2[v39[9]];
-      *(a1 + v39[10]) = a2[v39[10]];
-      *(a1 + v39[11]) = *&a2[v39[11]];
+      v40 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+      v41 = v40[5];
+      v42 = (a1 + v41);
+      v43 = &a2[v41];
+      v44 = *(v43 + 3);
+      v42[2] = *(v43 + 2);
+      v42[3] = v44;
+      v45 = *(v43 + 1);
+      *v42 = *v43;
+      v42[1] = v45;
+      *(v42 + 106) = *(v43 + 106);
+      v46 = *(v43 + 6);
+      v42[5] = *(v43 + 5);
+      v42[6] = v46;
+      v42[4] = *(v43 + 4);
+      *(a1 + v40[6]) = a2[v40[6]];
+      *(a1 + v40[7]) = a2[v40[7]];
+      *(a1 + v40[8]) = a2[v40[8]];
+      *(a1 + v40[9]) = a2[v40[9]];
+      *(a1 + v40[10]) = a2[v40[10]];
+      *(a1 + v40[11]) = *&a2[v40[11]];
       goto LABEL_165;
     }
 
 LABEL_123:
-    memcpy(a1, a2, *(*(v7 - 8) + 64));
+    memcpy(a1, a2, *(*(v8 - 8) + 64));
     goto LABEL_124;
   }
 
 LABEL_64:
-  memcpy(a1, a2, *(*(v5 - 8) + 64));
+  memcpy(a1, a2, *(*(v6 - 8) + 64));
 LABEL_166:
   swift_storeEnumTagMultiPayload();
   return a1;
 }
 
-void *assignWithTake for TTRRemindersListSectionCreationLocation(void *a1, void *a2)
+void *assignWithTake for TTRRemindersListSectionCreationLocation(void *a1, void *a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     sub_21D106918(a1, type metadata accessor for TTRRemindersListSectionCreationLocation);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    v5 = type metadata accessor for TTRRemindersListViewModel.Item(0);
-    v6 = swift_getEnumCaseMultiPayload();
+    v6 = type metadata accessor for TTRRemindersListViewModel.Item(0);
+    v7 = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload == 1)
     {
-      if (v6 <= 3)
+      if (v7 <= 3)
       {
-        if (v6 <= 1)
+        if (v7 <= 1)
         {
-          if (!v6)
+          if (!v7)
           {
-            v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-            v19 = swift_getEnumCaseMultiPayload();
-            if (v19 <= 3)
-            {
-              if (v19 == 2 || v19 == 3)
-              {
-                goto LABEL_20;
-              }
-            }
-
-            else if (v19 == 4 || v19 == 5 || v19 == 6)
-            {
-              goto LABEL_20;
-            }
-
-            goto LABEL_124;
-          }
-
-          if (v6 == 1)
-          {
-            v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-            v8 = swift_getEnumCaseMultiPayload();
-            if (v8 <= 3)
-            {
-              if (v8 == 2 || v8 == 3)
-              {
-                goto LABEL_20;
-              }
-            }
-
-            else if (v8 == 4 || v8 == 5 || v8 == 6)
-            {
-LABEL_20:
-              v10 = sub_21DBF563C();
-              (*(*(v10 - 8) + 32))(a1, a2, v10);
-              swift_storeEnumTagMultiPayload();
-LABEL_125:
-              v39 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
-              v40 = v39[5];
-              v41 = (a1 + v40);
-              v42 = (a2 + v40);
-              v43 = v42[3];
-              v41[2] = v42[2];
-              v41[3] = v43;
-              v44 = v42[1];
-              *v41 = *v42;
-              v41[1] = v44;
-              *(v41 + 106) = *(v42 + 106);
-              v45 = v42[6];
-              v41[5] = v42[5];
-              v41[6] = v45;
-              v41[4] = v42[4];
-              *(a1 + v39[6]) = *(a2 + v39[6]);
-              *(a1 + v39[7]) = *(a2 + v39[7]);
-              *(a1 + v39[8]) = *(a2 + v39[8]);
-              *(a1 + v39[9]) = *(a2 + v39[9]);
-              *(a1 + v39[10]) = *(a2 + v39[10]);
-              *(a1 + v39[11]) = *(a2 + v39[11]);
-              goto LABEL_166;
-            }
-
-LABEL_124:
-            memcpy(a1, a2, *(*(v7 - 8) + 64));
-            goto LABEL_125;
-          }
-
-LABEL_65:
-          memcpy(a1, a2, *(*(v5 - 8) + 64));
-LABEL_167:
-          swift_storeEnumTagMultiPayload();
-          return a1;
-        }
-
-        if (v6 == 2)
-        {
-          *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
-          {
-            goto LABEL_60;
-          }
-
-          v27 = swift_getEnumCaseMultiPayload();
-          if (v27 <= 3)
-          {
-            if (v27 == 2 || v27 == 3)
-            {
-              goto LABEL_106;
-            }
-          }
-
-          else if (v27 == 4 || v27 == 5 || v27 == 6)
-          {
-            goto LABEL_106;
-          }
-        }
-
-        else
-        {
-          *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
-          {
-            goto LABEL_60;
-          }
-
-          v36 = swift_getEnumCaseMultiPayload();
-          if (v36 <= 3)
-          {
-            if (v36 == 2 || v36 == 3)
-            {
-              goto LABEL_106;
-            }
-          }
-
-          else if (v36 == 4 || v36 == 5 || v36 == 6)
-          {
-LABEL_106:
-            v37 = sub_21DBF563C();
-            (*(*(v37 - 8) + 32))(a1 + v14, a2 + v14, v37);
-            swift_storeEnumTagMultiPayload();
-LABEL_165:
-            (*(v16 + 56))(a1 + v14, 0, 1, v15);
-            goto LABEL_166;
-          }
-        }
-
-LABEL_164:
-        memcpy(a1 + v14, a2 + v14, *(v16 + 64));
-        goto LABEL_165;
-      }
-
-      if (v6 <= 6)
-      {
-        if (v6 == 4)
-        {
-          *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
-          {
-            goto LABEL_60;
-          }
-
-          v25 = swift_getEnumCaseMultiPayload();
-          if (v25 <= 3)
-          {
-            if (v25 == 2 || v25 == 3)
-            {
-              goto LABEL_106;
-            }
-          }
-
-          else if (v25 == 4 || v25 == 5 || v25 == 6)
-          {
-            goto LABEL_106;
-          }
-
-          goto LABEL_164;
-        }
-
-        if (v6 != 6)
-        {
-          goto LABEL_65;
-        }
-
-        v11 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-        v12 = *(v11 - 8);
-        if ((*(v12 + 48))(a2, 1, v11))
-        {
-          goto LABEL_30;
-        }
-
-        goto LABEL_100;
-      }
-
-      if (v6 != 7)
-      {
-        if (v6 != 8)
-        {
-          goto LABEL_65;
-        }
-
-        goto LABEL_42;
-      }
-
-      v22 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-      v23 = *(v22 - 8);
-      if ((*(v23 + 48))(a2, 1, v22))
-      {
-LABEL_64:
-        v24 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
-        memcpy(a1, a2, *(*(v24 - 8) + 64));
-LABEL_99:
-        v30 = type metadata accessor for TTRTemplatePublicLinkData(0);
-        *(a1 + *(v30 + 20)) = *(a2 + *(v30 + 20));
-        goto LABEL_166;
-      }
-    }
-
-    else
-    {
-      if (v6 <= 3)
-      {
-        if (v6 <= 1)
-        {
-          if (!v6)
-          {
-            v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+            v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
             v20 = swift_getEnumCaseMultiPayload();
             if (v20 <= 3)
             {
@@ -9147,9 +8934,9 @@ LABEL_99:
             goto LABEL_124;
           }
 
-          if (v6 == 1)
+          if (v7 == 1)
           {
-            v7 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+            v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
             v9 = swift_getEnumCaseMultiPayload();
             if (v9 <= 3)
             {
@@ -9161,27 +8948,56 @@ LABEL_99:
 
             else if (v9 == 4 || v9 == 5 || v9 == 6)
             {
-              goto LABEL_20;
+LABEL_20:
+              v11 = sub_21DBF563C();
+              (*(*(v11 - 8) + 32))(a1, a2, v11);
+              swift_storeEnumTagMultiPayload();
+LABEL_125:
+              v40 = type metadata accessor for TTRRemindersListViewModel.SectionHeader(0);
+              v41 = v40[5];
+              v42 = (a1 + v41);
+              v43 = (a2 + v41);
+              v44 = v43[3];
+              v42[2] = v43[2];
+              v42[3] = v44;
+              v45 = v43[1];
+              *v42 = *v43;
+              v42[1] = v45;
+              *(v42 + 106) = *(v43 + 106);
+              v46 = v43[6];
+              v42[5] = v43[5];
+              v42[6] = v46;
+              v42[4] = v43[4];
+              *(a1 + v40[6]) = *(a2 + v40[6]);
+              *(a1 + v40[7]) = *(a2 + v40[7]);
+              *(a1 + v40[8]) = *(a2 + v40[8]);
+              *(a1 + v40[9]) = *(a2 + v40[9]);
+              *(a1 + v40[10]) = *(a2 + v40[10]);
+              *(a1 + v40[11]) = *(a2 + v40[11]);
+              goto LABEL_166;
             }
 
-            goto LABEL_124;
+LABEL_124:
+            memcpy(a1, a2, *(*(v8 - 8) + 64));
+            goto LABEL_125;
           }
 
-          goto LABEL_65;
+LABEL_65:
+          memcpy(a1, a2, *(*(v6 - 8) + 64));
+LABEL_167:
+          swift_storeEnumTagMultiPayload();
+          return a1;
         }
 
-        if (v6 == 2)
+        if (v7 == 2)
         {
           *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
           {
-LABEL_60:
-            v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70);
-            memcpy(a1 + v14, a2 + v14, *(*(v21 - 8) + 64));
-            goto LABEL_166;
+            goto LABEL_60;
           }
 
           v28 = swift_getEnumCaseMultiPayload();
@@ -9202,41 +9018,49 @@ LABEL_60:
         else
         {
           *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
           {
             goto LABEL_60;
           }
 
-          v38 = swift_getEnumCaseMultiPayload();
-          if (v38 <= 3)
+          v37 = swift_getEnumCaseMultiPayload();
+          if (v37 <= 3)
           {
-            if (v38 == 2 || v38 == 3)
+            if (v37 == 2 || v37 == 3)
             {
               goto LABEL_106;
             }
           }
 
-          else if (v38 == 4 || v38 == 5 || v38 == 6)
+          else if (v37 == 4 || v37 == 5 || v37 == 6)
           {
-            goto LABEL_106;
+LABEL_106:
+            v38 = sub_21DBF563C();
+            (*(*(v38 - 8) + 32))(a1 + v15, a2 + v15, v38);
+            swift_storeEnumTagMultiPayload();
+LABEL_165:
+            (*(v17 + 56))(a1 + v15, 0, 1, v16);
+            goto LABEL_166;
           }
         }
 
-        goto LABEL_164;
+LABEL_164:
+        memcpy(a1 + v15, a2 + v15, *(v17 + 64));
+        goto LABEL_165;
       }
 
-      if (v6 <= 6)
+      if (v7 <= 6)
       {
-        if (v6 == 4)
+        if (v7 == 4)
         {
           *a1 = *a2;
-          v14 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
-          v15 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
-          v16 = *(v15 - 8);
-          if ((*(v16 + 48))(a2 + v14, 1, v15))
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
           {
             goto LABEL_60;
           }
@@ -9258,75 +9082,251 @@ LABEL_60:
           goto LABEL_164;
         }
 
-        if (v6 != 6)
+        if (v7 != 6)
         {
           goto LABEL_65;
         }
 
-        v11 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
-        v12 = *(v11 - 8);
-        if ((*(v12 + 48))(a2, 1, v11))
+        v12 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+        v13 = *(v12 - 8);
+        if ((*(v13 + 48))(a2, 1, v12))
+        {
+          goto LABEL_30;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (v7 != 7)
+      {
+        if (v7 != 8)
+        {
+          goto LABEL_65;
+        }
+
+        goto LABEL_42;
+      }
+
+      v23 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+      v24 = *(v23 - 8);
+      if ((*(v24 + 48))(a2, 1, v23))
+      {
+LABEL_64:
+        v25 = type metadata accessor for TTRTemplatePublicLinkData.StateToDisplay(0);
+        memcpy(a1, a2, *(*(v25 - 8) + 64));
+LABEL_99:
+        v31 = type metadata accessor for TTRTemplatePublicLinkData(0);
+        *(a1 + *(v31 + 20)) = *(a2 + *(v31 + 20));
+        goto LABEL_166;
+      }
+    }
+
+    else
+    {
+      if (v7 <= 3)
+      {
+        if (v7 <= 1)
+        {
+          if (!v7)
+          {
+            v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+            v21 = swift_getEnumCaseMultiPayload();
+            if (v21 <= 3)
+            {
+              if (v21 == 2 || v21 == 3)
+              {
+                goto LABEL_20;
+              }
+            }
+
+            else if (v21 == 4 || v21 == 5 || v21 == 6)
+            {
+              goto LABEL_20;
+            }
+
+            goto LABEL_124;
+          }
+
+          if (v7 == 1)
+          {
+            v8 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+            v10 = swift_getEnumCaseMultiPayload();
+            if (v10 <= 3)
+            {
+              if (v10 == 2 || v10 == 3)
+              {
+                goto LABEL_20;
+              }
+            }
+
+            else if (v10 == 4 || v10 == 5 || v10 == 6)
+            {
+              goto LABEL_20;
+            }
+
+            goto LABEL_124;
+          }
+
+          goto LABEL_65;
+        }
+
+        if (v7 == 2)
+        {
+          *a1 = *a2;
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
+          {
+LABEL_60:
+            v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5CD70, &unk_21DC09230);
+            memcpy(a1 + v15, a2 + v15, *(*(v22 - 8) + 64));
+            goto LABEL_166;
+          }
+
+          v29 = swift_getEnumCaseMultiPayload();
+          if (v29 <= 3)
+          {
+            if (v29 == 2 || v29 == 3)
+            {
+              goto LABEL_106;
+            }
+          }
+
+          else if (v29 == 4 || v29 == 5 || v29 == 6)
+          {
+            goto LABEL_106;
+          }
+        }
+
+        else
+        {
+          *a1 = *a2;
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
+          {
+            goto LABEL_60;
+          }
+
+          v39 = swift_getEnumCaseMultiPayload();
+          if (v39 <= 3)
+          {
+            if (v39 == 2 || v39 == 3)
+            {
+              goto LABEL_106;
+            }
+          }
+
+          else if (v39 == 4 || v39 == 5 || v39 == 6)
+          {
+            goto LABEL_106;
+          }
+        }
+
+        goto LABEL_164;
+      }
+
+      if (v7 <= 6)
+      {
+        if (v7 == 4)
+        {
+          *a1 = *a2;
+          v15 = *(type metadata accessor for TTRRemindersListViewModel.ReminderID(0) + 20);
+          v16 = type metadata accessor for TTRRemindersListViewModel.SectionID(0);
+          v17 = *(v16 - 8);
+          if ((*(v17 + 48))(a2 + v15, 1, v16))
+          {
+            goto LABEL_60;
+          }
+
+          v27 = swift_getEnumCaseMultiPayload();
+          if (v27 <= 3)
+          {
+            if (v27 == 2 || v27 == 3)
+            {
+              goto LABEL_106;
+            }
+          }
+
+          else if (v27 == 4 || v27 == 5 || v27 == 6)
+          {
+            goto LABEL_106;
+          }
+
+          goto LABEL_164;
+        }
+
+        if (v7 != 6)
+        {
+          goto LABEL_65;
+        }
+
+        v12 = type metadata accessor for TTRRemindersListViewModel.HashtagLabelSelectorState(0);
+        v13 = *(v12 - 8);
+        if ((*(v13 + 48))(a2, 1, v12))
         {
 LABEL_30:
-          v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440);
-          memcpy(a1, a2, *(*(v13 - 8) + 64));
+          v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5A440, &unk_21DC16170);
+          memcpy(a1, a2, *(*(v14 - 8) + 64));
 LABEL_101:
-          v33 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
-          v34 = a1 + v33;
-          v35 = a2 + v33;
-          *v34 = *v35;
-          *(v34 + 2) = *(v35 + 2);
+          v34 = *(type metadata accessor for TTRRemindersListViewModel.HashtagsState(0) + 20);
+          v35 = a1 + v34;
+          v36 = a2 + v34;
+          *v35 = *v36;
+          *(v35 + 2) = *(v36 + 2);
           goto LABEL_166;
         }
 
 LABEL_100:
         *a1 = *a2;
-        v31 = *(v11 + 20);
-        v32 = sub_21DBF6C1C();
-        (*(*(v32 - 8) + 32))(a1 + v31, a2 + v31, v32);
-        (*(v12 + 56))(a1, 0, 1, v11);
+        v32 = *(v12 + 20);
+        v33 = sub_21DBF6C1C();
+        (*(*(v33 - 8) + 32))(a1 + v32, a2 + v32, v33);
+        (*(v13 + 56))(a1, 0, 1, v12);
         goto LABEL_101;
       }
 
-      if (v6 != 7)
+      if (v7 != 7)
       {
-        if (v6 != 8)
+        if (v7 != 8)
         {
           goto LABEL_65;
         }
 
 LABEL_42:
         *a1 = *a2;
-        v17 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
-        v18 = sub_21DBF8D7C();
-        (*(*(v18 - 8) + 32))(a1 + v17, a2 + v17, v18);
+        v18 = *(type metadata accessor for TTRRemindersListTips(0) + 20);
+        v19 = sub_21DBF8D7C();
+        (*(*(v19 - 8) + 32))(a1 + v18, a2 + v18, v19);
 LABEL_166:
         swift_storeEnumTagMultiPayload();
         goto LABEL_167;
       }
 
-      v22 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
-      v23 = *(v22 - 8);
-      if ((*(v23 + 48))(a2, 1, v22))
+      v23 = type metadata accessor for TTRTemplatePublicLinkData.CreatedStateDescription(0);
+      v24 = *(v23 - 8);
+      if ((*(v24 + 48))(a2, 1, v23))
       {
         goto LABEL_64;
       }
     }
 
-    v29 = sub_21DBF563C();
-    (*(*(v29 - 8) + 32))(a1, a2, v29);
-    *(a1 + *(v22 + 20)) = *(a2 + *(v22 + 20));
-    (*(v23 + 56))(a1, 0, 1, v22);
+    v30 = sub_21DBF563C();
+    (*(*(v30 - 8) + 32))(a1, a2, v30);
+    *(a1 + *(v23 + 20)) = *(a2 + *(v23 + 20));
+    (*(v24 + 56))(a1, 0, 1, v23);
     goto LABEL_99;
   }
 
   return a1;
 }
 
-uint64_t sub_21D2E85E0()
+uint64_t sub_21D2E85E0(uint64_t a1)
 {
   result = type metadata accessor for TTRRemindersListViewModel.Item(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initEnumMetadataMultiPayload();
     return 0;
@@ -9779,7 +9779,7 @@ LABEL_18:
       v85 = a3;
       v86 = v4;
       *v13 = *v14;
-      *(v13 + 8) = *(v14 + 1);
+      *(v13 + 1) = *(v14 + 1);
       sub_21DBF8E0C();
 
       v17 = *(v14 + 2);
@@ -9790,36 +9790,36 @@ LABEL_18:
       v21 = *(v14 + 7);
       v23 = v14[64];
       sub_21D2A7DB4(v17, v18, v19, v20, v22, v21, v23);
-      v24 = *(v13 + 16);
-      v25 = *(v13 + 24);
-      v26 = *(v13 + 32);
-      v27 = *(v13 + 40);
-      v28 = *(v13 + 48);
-      v29 = *(v13 + 56);
-      *(v13 + 16) = v17;
-      *(v13 + 24) = v18;
-      *(v13 + 32) = v19;
-      *(v13 + 40) = v20;
-      *(v13 + 48) = v22;
-      *(v13 + 56) = v21;
-      v30 = *(v13 + 64);
-      *(v13 + 64) = v23;
+      v24 = *(v13 + 2);
+      v25 = *(v13 + 3);
+      v26 = *(v13 + 4);
+      v27 = *(v13 + 5);
+      v28 = *(v13 + 6);
+      v29 = *(v13 + 7);
+      *(v13 + 2) = v17;
+      *(v13 + 3) = v18;
+      *(v13 + 4) = v19;
+      *(v13 + 5) = v20;
+      *(v13 + 6) = v22;
+      *(v13 + 7) = v21;
+      v30 = v13[64];
+      v13[64] = v23;
       sub_21D179EF0(v24, v25, v26, v27, v28, v29, v30);
-      *(v13 + 65) = v14[65];
-      *(v13 + 66) = v14[66];
-      *(v13 + 67) = v14[67];
-      *(v13 + 68) = v14[68];
+      v13[65] = v14[65];
+      v13[66] = v14[66];
+      v13[67] = v14[67];
+      v13[68] = v14[68];
       v31 = v14[120];
-      if (*(v13 + 120) != 255)
+      if (v13[120] != 255)
       {
         if (v31 == 255)
         {
-          sub_21D2E979C(v13 + 72);
+          sub_21D2E979C((v13 + 72));
           v76 = *(v14 + 88);
           v77 = *(v14 + 104);
           v78 = v14[120];
           *(v13 + 72) = *(v14 + 72);
-          *(v13 + 120) = v78;
+          v13[120] = v78;
           *(v13 + 104) = v77;
           *(v13 + 88) = v76;
         }
@@ -9834,20 +9834,20 @@ LABEL_18:
           v37 = *(v14 + 14);
           v38 = v31 & 1;
           sub_21D0FB960(v32, v33, v34, v35, v36, v37, v31 & 1);
-          v39 = *(v13 + 72);
-          v40 = *(v13 + 80);
-          v41 = *(v13 + 88);
-          v42 = *(v13 + 96);
-          v43 = *(v13 + 104);
-          v44 = *(v13 + 112);
-          v45 = *(v13 + 120);
-          *(v13 + 72) = v32;
-          *(v13 + 80) = v33;
-          *(v13 + 88) = v34;
-          *(v13 + 96) = v35;
-          *(v13 + 104) = v36;
-          *(v13 + 112) = v37;
-          *(v13 + 120) = v38;
+          v39 = *(v13 + 9);
+          v40 = *(v13 + 10);
+          v41 = *(v13 + 11);
+          v42 = *(v13 + 12);
+          v43 = *(v13 + 13);
+          v44 = *(v13 + 14);
+          v45 = v13[120];
+          *(v13 + 9) = v32;
+          *(v13 + 10) = v33;
+          *(v13 + 11) = v34;
+          *(v13 + 12) = v35;
+          *(v13 + 13) = v36;
+          *(v13 + 14) = v37;
+          v13[120] = v38;
           sub_21D1078C0(v39, v40, v41, v42, v43, v44, v45);
         }
 
@@ -9855,7 +9855,7 @@ LABEL_31:
         a3 = v85;
         v4 = v86;
         v11 = v84;
-        *(v13 + 121) = v14[121];
+        v13[121] = v14[121];
         goto LABEL_32;
       }
 
@@ -9865,7 +9865,7 @@ LABEL_25:
         v67 = *(v14 + 72);
         v68 = *(v14 + 88);
         v69 = *(v14 + 104);
-        *(v13 + 120) = v14[120];
+        v13[120] = v14[120];
         *(v13 + 104) = v69;
         *(v13 + 88) = v68;
         *(v13 + 72) = v67;
@@ -9881,13 +9881,13 @@ LABEL_25:
         v58 = *(v14 + 14);
         v59 = v31 & 1;
         sub_21D0FB960(v53, v54, v55, v56, v57, v58, v31 & 1);
-        *(v13 + 72) = v53;
-        *(v13 + 80) = v54;
-        *(v13 + 88) = v55;
-        *(v13 + 96) = v56;
-        *(v13 + 104) = v57;
-        *(v13 + 112) = v58;
-        *(v13 + 120) = v59;
+        *(v13 + 9) = v53;
+        *(v13 + 10) = v54;
+        *(v13 + 11) = v55;
+        *(v13 + 12) = v56;
+        *(v13 + 13) = v57;
+        *(v13 + 14) = v58;
+        v13[120] = v59;
       }
 
       goto LABEL_31;
@@ -9899,17 +9899,17 @@ LABEL_25:
     v61 = *(v14 + 3);
     v63 = *v14;
     v62 = *(v14 + 1);
-    *(v13 + 32) = *(v14 + 2);
-    *(v13 + 48) = v61;
+    *(v13 + 2) = *(v14 + 2);
+    *(v13 + 3) = v61;
     *v13 = v63;
-    *(v13 + 16) = v62;
+    *(v13 + 1) = v62;
     v65 = *(v14 + 5);
     v64 = *(v14 + 6);
     v66 = *(v14 + 4);
     *(v13 + 106) = *(v14 + 106);
-    *(v13 + 80) = v65;
-    *(v13 + 96) = v64;
-    *(v13 + 64) = v66;
+    *(v13 + 5) = v65;
+    *(v13 + 6) = v64;
+    *(v13 + 4) = v66;
   }
 
   else
@@ -9920,7 +9920,7 @@ LABEL_25:
       v85 = a3;
       v86 = v4;
       *v13 = *v14;
-      *(v13 + 8) = *(v14 + 1);
+      *(v13 + 1) = *(v14 + 1);
       v46 = *(v14 + 2);
       v47 = *(v14 + 3);
       v48 = *(v14 + 4);
@@ -9930,17 +9930,17 @@ LABEL_25:
       v52 = v14[64];
       sub_21DBF8E0C();
       sub_21D2A7DB4(v46, v47, v48, v49, v50, v51, v52);
-      *(v13 + 16) = v46;
-      *(v13 + 24) = v47;
-      *(v13 + 32) = v48;
-      *(v13 + 40) = v49;
-      *(v13 + 48) = v50;
-      *(v13 + 56) = v51;
-      *(v13 + 64) = v52;
-      *(v13 + 65) = v14[65];
-      *(v13 + 66) = v14[66];
-      *(v13 + 67) = v14[67];
-      *(v13 + 68) = v14[68];
+      *(v13 + 2) = v46;
+      *(v13 + 3) = v47;
+      *(v13 + 4) = v48;
+      *(v13 + 5) = v49;
+      *(v13 + 6) = v50;
+      *(v13 + 7) = v51;
+      v13[64] = v52;
+      v13[65] = v14[65];
+      v13[66] = v14[66];
+      v13[67] = v14[67];
+      v13[68] = v14[68];
       v31 = v14[120];
       goto LABEL_25;
     }
@@ -9948,17 +9948,17 @@ LABEL_25:
     v70 = *v14;
     v71 = *(v14 + 1);
     v72 = *(v14 + 3);
-    *(v13 + 32) = *(v14 + 2);
-    *(v13 + 48) = v72;
+    *(v13 + 2) = *(v14 + 2);
+    *(v13 + 3) = v72;
     *v13 = v70;
-    *(v13 + 16) = v71;
+    *(v13 + 1) = v71;
     v73 = *(v14 + 4);
     v74 = *(v14 + 5);
     v75 = *(v14 + 6);
     *(v13 + 106) = *(v14 + 106);
-    *(v13 + 80) = v74;
-    *(v13 + 96) = v75;
-    *(v13 + 64) = v73;
+    *(v13 + 5) = v74;
+    *(v13 + 6) = v75;
+    *(v13 + 4) = v73;
   }
 
 LABEL_32:

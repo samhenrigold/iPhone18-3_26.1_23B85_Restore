@@ -104,13 +104,13 @@
 
 void __42__CARSessionChannel_openChannelWithError___block_invoke(uint64_t a1)
 {
-  v51[1] = *MEMORY[0x1E69E9840];
-  v2 = CarGeneralLogging();
+  v58[1] = *MEMORY[0x1E69E9840];
+  v2 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shortChannelType];
     *buf = 138543362;
-    v45 = v3;
+    v52 = v3;
     _os_log_impl(&dword_1C81FC000, v2, OS_LOG_TYPE_DEFAULT, "Attempting to start remote control session for channel %{public}@", buf, 0xCu);
   }
 
@@ -122,7 +122,7 @@ void __42__CARSessionChannel_openChannelWithError___block_invoke(uint64_t a1)
   v9 = [*(a1 + 32) sendAsIs];
   v10 = [*(a1 + 32) qualityOfService];
   v11 = [*(a1 + 32) streamPriority];
-  v41 = a1;
+  v48 = a1;
   v13 = *(a1 + 40);
   v12 = a1 + 40;
   v14 = *(v13 + 8);
@@ -132,82 +132,90 @@ void __42__CARSessionChannel_openChannelWithError___block_invoke(uint64_t a1)
 
   if (v15)
   {
-    v16 = *v4;
     v17 = *v4;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __42__CARSessionChannel_openChannelWithError___block_invoke_20;
-    v42[3] = &unk_1E82FBF70;
-    v42[4] = v16;
-    [v17 setInvalidationHandler:v42];
     v18 = *v4;
-    v19 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v19)
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __42__CARSessionChannel_openChannelWithError___block_invoke_20;
+    v49[3] = &unk_1E82FBF70;
+    v49[4] = v17;
+    [v18 setInvalidationHandler:v49];
+    v19 = *v4;
+    VTable = CMBaseObjectGetVTable();
+    v22 = *(VTable + 16);
+    v21 = VTable + 16;
+    v23 = *(v22 + 16);
+    if (v23)
     {
-      v20 = v19(v15, _CRHandleRemoteControlEvent, v18);
-      if (!v20)
+      v21 = v23(v15, _CRHandleRemoteControlEvent, v19);
+      v24 = v21;
+      if (!v21)
       {
-        v21 = CarGeneralLogging();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v25 = CarGeneralLogging(v21);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [*v4 shortChannelType];
+          v26 = [*v4 shortChannelType];
           *buf = 138543362;
-          v45 = v22;
-          _os_log_impl(&dword_1C81FC000, v21, OS_LOG_TYPE_DEFAULT, "remoteControlSessionStart for channel %{public}@", buf, 0xCu);
+          v52 = v26;
+          _os_log_impl(&dword_1C81FC000, v25, OS_LOG_TYPE_DEFAULT, "remoteControlSessionStart for channel %{public}@", buf, 0xCu);
         }
 
-        v23 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-        if (v23)
+        v27 = CMBaseObjectGetVTable();
+        v29 = *(v27 + 16);
+        v28 = v27 + 16;
+        v30 = *(v29 + 32);
+        if (v30)
         {
-          v24 = v23(v15);
-          if (!v24)
+          v28 = v30(v15);
+          v31 = v28;
+          if (!v28)
           {
             *(*v4 + 1) = v15;
-            v25 = CarGeneralLogging();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v32 = CarGeneralLogging(v28);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = [*v4 shortChannelType];
-              v27 = [*v4 channelID];
+              v33 = [*v4 shortChannelType];
+              v34 = [*v4 channelID];
               *buf = 138543618;
-              v45 = v26;
-              v46 = 2114;
-              v47 = v27;
-              _os_log_impl(&dword_1C81FC000, v25, OS_LOG_TYPE_DEFAULT, "Successfully opened remote control session for channel %{public}@ with clientUUID %{public}@", buf, 0x16u);
+              v52 = v33;
+              v53 = 2114;
+              v54 = v34;
+              _os_log_impl(&dword_1C81FC000, v32, OS_LOG_TYPE_DEFAULT, "Successfully opened remote control session for channel %{public}@ with clientUUID %{public}@", buf, 0x16u);
             }
 
-            v28 = 1;
+            v35 = 1;
             goto LABEL_18;
           }
         }
 
         else
         {
-          v24 = -12782;
+          v31 = -12782;
         }
 
-        v39 = CarGeneralLogging();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v46 = CarGeneralLogging(v28);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           __42__CARSessionChannel_openChannelWithError___block_invoke_cold_1(v4);
         }
 
-        v40 = MEMORY[0x1E696ABC0];
-        v48 = *MEMORY[0x1E696AA08];
-        v31 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v24 userInfo:0];
-        v49 = v31;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-        v33 = v40;
-        v34 = 6;
+        v47 = MEMORY[0x1E696ABC0];
+        v55 = *MEMORY[0x1E696AA08];
+        v38 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v31 userInfo:0];
+        v56 = v38;
+        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+        v40 = v47;
+        v41 = 6;
 LABEL_17:
-        v35 = [v33 errorWithDomain:@"com.apple.carkit.session" code:v34 userInfo:v32];
-        v36 = *(*v12 + 8);
-        v37 = *(v36 + 40);
-        *(v36 + 40) = v35;
+        v42 = [v40 errorWithDomain:@"com.apple.carkit.session" code:v41 userInfo:v39];
+        v43 = *(*v12 + 8);
+        v44 = *(v43 + 40);
+        *(v43 + 40) = v42;
 
         [*v4 _channelQueue_closeChannel];
-        v28 = 0;
+        v35 = 0;
 LABEL_18:
-        *(*(*(v41 + 48) + 8) + 24) = v28;
+        *(*(*(v48 + 48) + 8) + 24) = v35;
 
         return;
       }
@@ -215,33 +223,33 @@ LABEL_18:
 
     else
     {
-      v20 = -12782;
+      v24 = -12782;
     }
 
-    v29 = CarGeneralLogging();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v36 = CarGeneralLogging(v21);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       __42__CARSessionChannel_openChannelWithError___block_invoke_cold_2(v4);
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v50 = *MEMORY[0x1E696AA08];
-    v31 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v20 userInfo:0];
-    v51[0] = v31;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
-    v33 = v30;
-    v34 = 5;
+    v37 = MEMORY[0x1E696ABC0];
+    v57 = *MEMORY[0x1E696AA08];
+    v38 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v24 userInfo:0];
+    v58[0] = v38;
+    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+    v40 = v37;
+    v41 = 5;
     goto LABEL_17;
   }
 
-  v38 = CarGeneralLogging();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+  v45 = CarGeneralLogging(v16);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
     __42__CARSessionChannel_openChannelWithError___block_invoke_cold_3(v4);
   }
 
-  [*(v41 + 32) _channelQueue_closeChannel];
-  *(*(*(v41 + 48) + 8) + 24) = 0;
+  [*(v48 + 32) _channelQueue_closeChannel];
+  *(*(*(v48 + 48) + 8) + 24) = 0;
 }
 
 uint64_t __42__CARSessionChannel_openChannelWithError___block_invoke_20(uint64_t a1)
@@ -286,17 +294,17 @@ void __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke(v
   v2 = a1[4];
   if (!*(v2 + 8))
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = CarGeneralLogging(a1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke_cold_3(v10);
+      __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke_cold_3(v13);
     }
 
     goto LABEL_11;
   }
 
   ++*(v2 + 80);
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke_cold_1(v3);
@@ -305,24 +313,27 @@ void __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke(v
   v5 = a1[4];
   v6 = *(v5 + 8);
   v7 = a1[6];
-  v8 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v8 || v8(v6, v7, _CRRemoteControlSendMessageCompletion, v5))
+  VTable = CMBaseObjectGetVTable();
+  v10 = *(VTable + 16);
+  v9 = VTable + 16;
+  v11 = *(v10 + 8);
+  if (!v11 || (v9 = v11(v6, v7, _CRRemoteControlSendMessageCompletion, v5), v9))
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = CarGeneralLogging(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __56__CARSessionChannel_sendChannelMessage_withDescription___block_invoke_cold_2(v3);
     }
 
 LABEL_11:
 
-    v9 = 0;
+    v12 = 0;
     goto LABEL_12;
   }
 
-  v9 = 1;
+  v12 = 1;
 LABEL_12:
-  *(*(a1[7] + 8) + 24) = v9;
+  *(*(a1[7] + 8) + 24) = v12;
 }
 
 - (void)closeChannel
@@ -343,18 +354,18 @@ LABEL_12:
 
   if (self->_remoteControlSession)
   {
-    v4 = CarGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "tearing down remote control session", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "tearing down remote control session", v8, 2u);
     }
 
     remoteControlSession = self->_remoteControlSession;
-    v6 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-    if (v6)
+    v7 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v7)
     {
-      v6(remoteControlSession);
+      v7(remoteControlSession);
     }
   }
 }
@@ -366,21 +377,21 @@ LABEL_12:
 
   if (self->_remoteControlSession)
   {
-    v4 = CarGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "invalidating remote control session", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "invalidating remote control session", v9, 2u);
     }
 
     CMBaseObject = FigEndpointRemoteControlSessionGetCMBaseObject();
     if (CMBaseObject)
     {
-      v6 = CMBaseObject;
-      v7 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-      if (v7)
+      v7 = CMBaseObject;
+      v8 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+      if (v8)
       {
-        v7(v6);
+        v8(v7);
       }
     }
 
@@ -401,33 +412,36 @@ LABEL_12:
 {
   if (self->_remoteControlSession)
   {
-    v12 = 0;
+    v14 = 0;
     CMBaseObject = FigEndpointRemoteControlSessionGetCMBaseObject();
-    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v5 || ((v6 = v5(CMBaseObject, key, *MEMORY[0x1E695E480], &v12), v6 != -12787) ? (v7 = v6 == 0) : (v7 = 1), !v7))
+    VTable = CMBaseObjectGetVTable();
+    v7 = *(VTable + 8);
+    v6 = VTable + 8;
+    v8 = *(v7 + 48);
+    if (!v8 || ((v6 = v8(CMBaseObject, key, *MEMORY[0x1E695E480], &v14), v6 != -12787) ? (v9 = v6 == 0) : (v9 = 1), !v9))
     {
-      v8 = CarGeneralLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = CarGeneralLogging(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [CARSessionChannel _endpointValueForKey:];
       }
     }
 
-    v9 = v12;
+    v11 = v14;
   }
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CarGeneralLogging(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CARSessionChannel _endpointValueForKey:];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)_dataReceived:(id)received
@@ -446,7 +460,7 @@ LABEL_12:
 
 void __35__CARSessionChannel__dataReceived___block_invoke(uint64_t a1)
 {
-  v2 = CarGeneralLogging();
+  v2 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __35__CARSessionChannel__dataReceived___block_invoke_cold_1(a1);
@@ -480,7 +494,7 @@ void __35__CARSessionChannel__dataReceived___block_invoke(uint64_t a1)
 
 void __34__CARSessionChannel__sendComplete__block_invoke(uint64_t a1)
 {
-  v2 = CarGeneralLogging();
+  v2 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __34__CARSessionChannel__sendComplete__block_invoke_cold_1(a1);
@@ -515,7 +529,7 @@ void __34__CARSessionChannel__sendComplete__block_invoke(uint64_t a1)
 void __40__CARSessionChannel__channelInvalidated__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = CarGeneralLogging();
+  v2 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shortChannelType];

@@ -42,19 +42,19 @@
 
 - (SYBacklinkMonitorServiceHandle)initWithConnection:(id)connection queue:(id)queue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   queueCopy = queue;
-  v22.receiver = self;
-  v22.super_class = SYBacklinkMonitorServiceHandle;
-  v9 = [(SYBacklinkMonitorServiceHandle *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SYBacklinkMonitorServiceHandle;
+  v9 = [(SYBacklinkMonitorServiceHandle *)&v21 init];
   if (v9)
   {
     v10 = os_log_create("com.apple.synapse", "BacklinkMonitor");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v24 = connectionCopy;
+      v23 = connectionCopy;
       _os_log_impl(&dword_225901000, v10, OS_LOG_TYPE_INFO, "BacklinkServiceHandle: Creating handle for connection: %p.", buf, 0xCu);
     }
 
@@ -69,21 +69,20 @@
     [connectionCopy setRemoteObjectInterface:v12];
 
     objc_initWeak(buf, v9);
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __59__SYBacklinkMonitorServiceHandle_initWithConnection_queue___block_invoke;
-    v19 = &unk_27856C4D0;
-    objc_copyWeak(&v21, buf);
-    v20 = v9;
-    v13 = MEMORY[0x22AA6A360](&v16);
-    [connectionCopy setInterruptionHandler:{v13, v16, v17, v18, v19}];
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __59__SYBacklinkMonitorServiceHandle_initWithConnection_queue___block_invoke;
+    v18 = &unk_27856C4D0;
+    objc_copyWeak(&v20, buf);
+    v19 = v9;
+    v13 = MEMORY[0x22AA6A360](&v15);
+    [connectionCopy setInterruptionHandler:{v13, v15, v16, v17, v18}];
     [connectionCopy setInvalidationHandler:v13];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -136,16 +135,16 @@ void __49__SYBacklinkMonitorServiceHandle_setFilterCache___block_invoke(uint64_t
 
 - (void)activeUserActivityDidChange:(id)change context:(id)context completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   completionCopy = completion;
   contextCopy = context;
   v11 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 134217984;
-    v15 = changeCopy;
-    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_INFO, "BacklinkServiceHandle: Received request to process activity change. Activity info: %p.", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = changeCopy;
+    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_INFO, "BacklinkServiceHandle: Received request to process activity change. Activity info: %p.", &v13, 0xCu);
   }
 
   delegate = [(SYBacklinkMonitorServiceHandle *)self delegate];
@@ -155,13 +154,11 @@ void __49__SYBacklinkMonitorServiceHandle_setFilterCache___block_invoke(uint64_t
   {
     completionCopy[2](completionCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIndicatorCoverage:(id)coverage
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   integerValue = [coverage integerValue];
   if (integerValue <= 2)
   {
@@ -169,18 +166,16 @@ void __49__SYBacklinkMonitorServiceHandle_setFilterCache___block_invoke(uint64_t
     v6 = os_log_create("com.apple.synapse", "BacklinkMonitor");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 134218240;
+      v8 = 134218240;
       _indicatorCoverage = [(SYBacklinkMonitorServiceHandle *)self _indicatorCoverage];
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_INFO, "BacklinkServiceHandle: Change indicator coverage from: %ld to: %ld", &v9, 0x16u);
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_INFO, "BacklinkServiceHandle: Change indicator coverage from: %ld to: %ld", &v8, 0x16u);
     }
 
     v7 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.Synapse"];
     [v7 setInteger:v5 forKey:@"indicatorCoverage"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)indicatorCoverageWithCompletion:(id)completion
@@ -203,11 +198,10 @@ void __49__SYBacklinkMonitorServiceHandle_setFilterCache___block_invoke(uint64_t
 
 void __49__SYBacklinkMonitorServiceHandle_setFilterCache___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "BacklinkServiceHandle: Error creating remote service proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "BacklinkServiceHandle: Error creating remote service proxy: %@", &v2, 0xCu);
 }
 
 @end

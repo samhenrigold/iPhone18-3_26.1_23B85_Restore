@@ -32,28 +32,27 @@
   ObjectType = swift_getObjectType();
   v6 = sub_2480309A8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.isa + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording) = 0;
   *(&self->super.isa + OBJC_IVAR___DTProcessorTraceRecorder_state) = 0;
-  v11 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
-  v12 = qword_27EE83A18;
+  v10 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
+  v11 = qword_27EE83A18;
   configurationCopy = configuration;
-  if (v12 != -1)
+  if (v11 != -1)
   {
     swift_once();
   }
 
-  v14 = sub_248006DF0(v6, qword_27EE85A60);
-  v15 = *(v7 + 16);
-  v15(self + v11, v14, v6);
-  v15(v10, v14, v6);
+  v13 = sub_248006DF0(v6, qword_27EE85A60);
+  v14 = *(v7 + 16);
+  v14(self + v10, v13, v6);
+  v14(v9, v13, v6);
   sub_248030908();
   *(&self->super.isa + OBJC_IVAR___DTProcessorTraceRecorder_configuration) = configurationCopy;
-  v17.receiver = self;
-  v17.super_class = ObjectType;
-  return [(DTProcessorTraceRecorder *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = ObjectType;
+  return [(DTProcessorTraceRecorder *)&v16 init];
 }
 
 - (void)dealloc

@@ -479,8 +479,8 @@
   v8 = [(ContainerHeaderView *)&v24 initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
   if (v8)
   {
-    configuration = [buttonCopy configuration];
-    [(ContainerHeaderView *)v8 setMainCardButton:configuration];
+    v9 = objc_msgSend_configuration(buttonCopy);
+    [(ContainerHeaderView *)v8 setMainCardButton:v9];
 
     v10 = objc_opt_new();
     v20 = 0u;
@@ -503,12 +503,12 @@
           }
 
           v16 = *(*(&v20 + 1) + 8 * i);
-          configuration2 = [v16 configuration];
+          v17 = objc_msgSend_configuration(v16, v20);
 
-          if (configuration2)
+          if (v17)
           {
-            configuration3 = [v16 configuration];
-            [v10 addObject:configuration3];
+            v18 = objc_msgSend_configuration(v16);
+            [v10 addObject:v18];
           }
         }
 

@@ -35,146 +35,148 @@
 {
   flagsCopy = flags;
   context = objc_autoreleasePoolPush();
-  if ([(PPSFeatureFlagReader *)self hasEntitlements])
+  hasEntitlements = [(PPSFeatureFlagReader *)self hasEntitlements];
+  if (hasEntitlements)
   {
-    v4 = +[FFConfiguration shared];
-    domains = [v4 domains];
+    v5 = +[FFConfiguration shared];
+    domains = [v5 domains];
 
-    if (![domains count])
+    v7 = [domains count];
+    if (!v7)
     {
-      v6 = logPPSFeatureFlagReader();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = logPPSFeatureFlagReader(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        sub_100001ED0(v6);
+        sub_100001ED0(v8);
       }
 
-      flagsCopy[2](flagsCopy, &__NSArray0__struct);
+      v7 = flagsCopy[2](flagsCopy, &__NSArray0__struct);
     }
 
-    v7 = logPPSFeatureFlagReader();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = logPPSFeatureFlagReader(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_100001F14(domains, v7);
+      sub_100001F14(domains, v9);
     }
 
-    v33 = +[NSMutableArray array];
+    v35 = +[NSMutableArray array];
+    v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
     obj = domains;
-    v30 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
-    if (v30)
+    v32 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
+    if (v32)
     {
-      v29 = *v41;
+      v31 = *v43;
       do
       {
-        for (i = 0; i != v30; i = i + 1)
+        for (i = 0; i != v32; i = i + 1)
         {
-          if (*v41 != v29)
+          if (*v43 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v40 + 1) + 8 * i);
-          v9 = +[FFConfiguration shared];
-          v32 = [v9 featuresForDomain:v8];
+          v10 = *(*(&v42 + 1) + 8 * i);
+          v11 = +[FFConfiguration shared];
+          v34 = [v11 featuresForDomain:v10];
 
-          if ([v32 count])
+          if ([v34 count])
           {
+            v40 = 0u;
+            v41 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
-            v34 = v32;
-            v10 = [v34 countByEnumeratingWithState:&v36 objects:v50 count:16];
-            if (v10)
+            v36 = v34;
+            v12 = [v36 countByEnumeratingWithState:&v38 objects:v52 count:16];
+            if (v12)
             {
-              v35 = *v37;
+              v37 = *v39;
               do
               {
-                v11 = 0;
+                v13 = 0;
                 do
                 {
-                  if (*v37 != v35)
+                  if (*v39 != v37)
                   {
-                    objc_enumerationMutation(v34);
+                    objc_enumerationMutation(v36);
                   }
 
-                  v12 = *(*(&v36 + 1) + 8 * v11);
-                  v13 = +[FFConfiguration shared];
-                  v14 = [v13 stateForFeature:v12 domain:v8];
+                  v14 = *(*(&v38 + 1) + 8 * v13);
+                  v15 = +[FFConfiguration shared];
+                  v16 = [v15 stateForFeature:v14 domain:v10];
 
-                  if (v14)
+                  if (v16)
                   {
-                    v15 = +[FFConfiguration shared];
-                    v16 = [v15 defaultStateForFeature:v12 domain:v8];
+                    v17 = +[FFConfiguration shared];
+                    v18 = [v17 defaultStateForFeature:v14 domain:v10];
 
-                    if (!v16 || (v17 = [v16 value], v17 != objc_msgSend(v14, "value")))
+                    if (!v18 || (v19 = [v18 value], v19 != objc_msgSend(v16, "value")))
                     {
-                      attributes = [v16 attributes];
-                      v19 = [attributes objectForKeyedSubscript:@"TargetRelease"];
-                      value = [v19 value];
-                      v21 = logPPSFeatureFlagReader();
-                      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+                      attributes = [v18 attributes];
+                      v21 = [attributes objectForKeyedSubscript:@"TargetRelease"];
+                      value = [v21 value];
+                      v23 = logPPSFeatureFlagReader(value);
+                      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412802;
-                        v45 = v8;
-                        v46 = 2112;
-                        v47 = v12;
+                        v47 = v10;
                         v48 = 2112;
-                        v49 = v19;
-                        _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] FFDomain: %@, FFName: %@, FFTargetRelease: %@", buf, 0x20u);
+                        v49 = v14;
+                        v50 = 2112;
+                        v51 = v21;
+                        _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] FFDomain: %@, FFName: %@, FFTargetRelease: %@", buf, 0x20u);
                       }
 
-                      v22 = +[NSMutableDictionary dictionary];
-                      [v22 setObject:v8 forKeyedSubscript:@"Domain"];
-                      [v22 setObject:v12 forKeyedSubscript:@"FeatureName"];
-                      v23 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v14 value]);
-                      [v22 setObject:v23 forKeyedSubscript:@"State"];
+                      v24 = +[NSMutableDictionary dictionary];
+                      [v24 setObject:v10 forKeyedSubscript:@"Domain"];
+                      [v24 setObject:v14 forKeyedSubscript:@"FeatureName"];
+                      v25 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v16 value]);
+                      [v24 setObject:v25 forKeyedSubscript:@"State"];
 
                       if (value)
                       {
-                        v24 = value;
+                        v26 = value;
                       }
 
                       else
                       {
-                        v24 = @"Unknown";
+                        v26 = @"Unknown";
                       }
 
-                      [v22 setObject:v24 forKeyedSubscript:@"TargetRelease"];
-                      [v33 addObject:v22];
+                      [v24 setObject:v26 forKeyedSubscript:@"TargetRelease"];
+                      [v35 addObject:v24];
                     }
                   }
 
-                  v11 = v11 + 1;
+                  v13 = v13 + 1;
                 }
 
-                while (v10 != v11);
-                v10 = [v34 countByEnumeratingWithState:&v36 objects:v50 count:16];
+                while (v12 != v13);
+                v12 = [v36 countByEnumeratingWithState:&v38 objects:v52 count:16];
               }
 
-              while (v10);
+              while (v12);
             }
           }
         }
 
-        v30 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
+        v32 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
       }
 
-      while (v30);
+      while (v32);
     }
 
-    flagsCopy[2](flagsCopy, v33);
+    flagsCopy[2](flagsCopy, v35);
   }
 
   else
   {
-    v25 = logPPSFeatureFlagReader();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = logPPSFeatureFlagReader(hasEntitlements);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_100001E8C(v25);
+      sub_100001E8C(v27);
     }
 
     flagsCopy[2](flagsCopy, &__NSArray0__struct);
@@ -187,23 +189,24 @@
 {
   v2 = +[NSXPCConnection currentConnection];
   v3 = [v2 valueForEntitlement:@"com.apple.powerlog.PPSFeatureFlagReader.launch-xpc"];
-  if (objc_opt_respondsToSelector() & 1) != 0 && ([v3 BOOLValue])
+  v4 = objc_opt_respondsToSelector();
+  if (v4 & 1) != 0 && (v4 = [v3 BOOLValue], (v4))
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v5 = logPPSFeatureFlagReader();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = logPPSFeatureFlagReader(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000207C(v7, [v2 processIdentifier], v5);
+      sub_10000207C(v8, [v2 processIdentifier], v6);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 @end

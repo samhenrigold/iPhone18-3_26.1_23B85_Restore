@@ -84,7 +84,7 @@ HKQueryDescriptor *__67__HKSampleCountQuery_initWithSampleTypes_predicate_result
 
 void __67__HKSampleCountQuery_initWithSampleTypes_predicate_resultsHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -98,39 +98,38 @@ void __67__HKSampleCountQuery_initWithSampleTypes_predicate_resultsHandler___blo
     v10 = 0;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
-        v17 = [v11 objectForKeyedSubscript:{v16, v20}];
+        v16 = *(*(&v19 + 1) + 8 * i);
+        v17 = [v11 objectForKeyedSubscript:{v16, v19}];
         v18 = [v16 sampleType];
         [v10 setObject:v17 forKeyedSubscript:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
   }
 
   (*(*(a1 + 32) + 16))();
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (HKSampleCountQuery)initWithSampleType:(id)type predicate:(id)predicate resultsHandler:(id)handler
@@ -146,42 +145,41 @@ void __67__HKSampleCountQuery_initWithSampleTypes_predicate_resultsHandler___blo
 
 - (NSSet)sampleTypes
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DFA8]);
   queryDescriptors = [(HKQuery *)self queryDescriptors];
   v5 = [v3 initWithCapacity:{objc_msgSend(queryDescriptors, "count")}];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   queryDescriptors2 = [(HKQuery *)self queryDescriptors];
-  v7 = [queryDescriptors2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [queryDescriptors2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(queryDescriptors2);
         }
 
-        sampleType = [*(*(&v15 + 1) + 8 * i) sampleType];
+        sampleType = [*(*(&v14 + 1) + 8 * i) sampleType];
         [v5 addObject:sampleType];
       }
 
-      v8 = [queryDescriptors2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [queryDescriptors2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -364,10 +362,10 @@ LABEL_6:
 
 - (void)queue_validate
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = HKSampleCountQuery;
-  [(HKQuery *)&v24 queue_validate];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = HKSampleCountQuery;
+  [(HKQuery *)&v23 queue_validate];
   sampleTypeCountResultsHandler = self->_sampleTypeCountResultsHandler;
   if (self->_resultsHandler)
   {
@@ -409,28 +407,28 @@ LABEL_3:
   }
 
 LABEL_7:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = [(HKQuery *)self queryDescriptors];
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x1E695D940];
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v12 = *(*(&v19 + 1) + 8 * v11);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -452,13 +450,11 @@ LABEL_7:
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_queryDidDeactivate:(id)deactivate

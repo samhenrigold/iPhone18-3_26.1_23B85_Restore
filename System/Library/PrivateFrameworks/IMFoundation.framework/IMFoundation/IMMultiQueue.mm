@@ -158,42 +158,41 @@
 
 - (id)loggableOverview
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF70];
   v5 = objc_msgSend_count(self->_queueMap, a2, v2);
   v7 = objc_msgSend_arrayWithCapacity_(v4, v6, v5);
   v8 = objc_autoreleasePoolPush();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = self->_queueMap;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v20, v24, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v19, v23, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = objc_msgSend_loggableOverviewForKey_(self, v12, *(*(&v20 + 1) + 8 * i), v20);
+        v16 = objc_msgSend_loggableOverviewForKey_(self, v12, *(*(&v19 + 1) + 8 * i), v19);
         objc_msgSend_addObject_(v7, v17, v16);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v20, v24, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v19, v23, 16);
     }
 
     while (v13);
   }
 
   objc_autoreleasePoolPop(v8);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

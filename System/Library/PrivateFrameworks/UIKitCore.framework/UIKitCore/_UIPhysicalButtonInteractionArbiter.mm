@@ -1,12 +1,13 @@
 @interface _UIPhysicalButtonInteractionArbiter
 - (UIScene)_scene;
+- (_UIPhysicalButtonConfigurationResolutionContext)_performConfigurationResolutionForRequiredWindow:(uint64_t)window;
 - (_UIPhysicalButtonInteractionArbiter)init;
 - (_UIPhysicalButtonInteractionArbiter)initWithScene:(id)scene;
 - (_UIPhysicalButtonInteractionArbiterSystemShellDelegate)systemShellDelegate;
+- (double)_configureDeferredResolutionDisplayLinkForScreen:(uint64_t)screen;
 - (id)_actionRespondersForScene:(id)scene;
 - (id)_gestureViewsForWindow:(uint64_t)window physicalButton:;
 - (id)_mostActiveViewServiceSessionForScene;
-- (id)_performConfigurationResolutionForRequiredWindow:(uint64_t)window;
 - (id)_registerPhysicalButtonInteraction:(uint64_t)interaction;
 - (id)_registerViewServiceObserver:(id *)observer;
 - (id)configurationResolutionContextForSystemShellWindow:(id)window;
@@ -16,7 +17,6 @@
 - (id)localEventDeferringTargetWindowForEnvironment:(id)environment;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_configureDeferredResolutionDisplayLinkForScreen:(uint64_t)result;
 - (void)_addSystemShellWindowRequiringResolutionIfNeeded:(uint64_t)needed;
 - (void)_beginObservingWindowVisibilityChanges;
 - (void)_beginTrackingWindow:(uint64_t)window;
@@ -33,7 +33,7 @@
 - (void)_setNeedsResolutionOfPhysicalButtonConfigurationsInSceneForReason:(uint64_t)reason;
 - (void)_setNeedsResolutionOfPhysicalButtonConfigurationsInWindow:(unint64_t)window forReason:;
 - (void)_setResolutionStrategy:(int)strategy forInitialization:;
-- (void)_unregisterAllPhysicalButtonInteractionsForDetachingWindow:(uint64_t)window;
+- (void)_unregisterAllPhysicalButtonInteractionsForDetachingWindow:(uint64_t)result;
 - (void)_windowHostingScene:(id)scene willMoveFromScreen:(id)screen toScreen:(id)toScreen;
 - (void)_windowVisibilityDidChange:(id)change;
 - (void)dealloc;
@@ -254,9 +254,9 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v32 = [v29 isEqual:v30];
+      isEqual = objc_msgSend_isEqual_(v29);
 
-      if ((v32 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_27;
       }
@@ -669,7 +669,7 @@ LABEL_108:
       selfCopy = v232;
       if (v188 && v122)
       {
-        v124 = [(__CFString *)v121 isEqual:v122];
+        v124 = objc_msgSend_isEqual_(v121);
 
         v92 = v189;
         if (v124)
@@ -958,7 +958,7 @@ LABEL_194:
     goto LABEL_177;
   }
 
-  v107 = [(__CFString *)v102 isEqual:v103];
+  v107 = objc_msgSend_isEqual_(v102);
 
   if ((v107 & 1) == 0)
   {
@@ -1245,31 +1245,29 @@ LABEL_195:
   }
 }
 
-- (uint64_t)_configureDeferredResolutionDisplayLinkForScreen:(uint64_t)result
+- (double)_configureDeferredResolutionDisplayLinkForScreen:(uint64_t)screen
 {
-  if (result)
+  if (screen)
   {
-    v2 = result;
-    v3 = *(result + 104);
+    v3 = *(screen + 104);
     if (!v3)
     {
-      v4 = [a2 displayLinkWithTarget:v2 selector:sel__deferredResolutionDisplayLinkTicked_];
-      v5 = *(v2 + 104);
-      *(v2 + 104) = v4;
+      v4 = [a2 displayLinkWithTarget:screen selector:sel__deferredResolutionDisplayLinkTicked_];
+      v5 = *(screen + 104);
+      *(screen + 104) = v4;
 
-      v6 = *(v2 + 104);
+      v6 = *(screen + 104);
       mainRunLoop = [MEMORY[0x1E695DFD0] mainRunLoop];
       [v6 addToRunLoop:mainRunLoop forMode:*MEMORY[0x1E695DA28]];
 
-      v3 = *(v2 + 104);
+      v3 = *(screen + 104);
     }
 
-    result = [v3 isPaused];
-    if (result)
+    if ([v3 isPaused])
     {
-      [*(v2 + 104) setPaused:0];
+      [*(screen + 104) setPaused:0];
 
-      return kdebug_trace();
+      kdebug_trace();
     }
   }
 
@@ -1738,21 +1736,21 @@ LABEL_9:
   }
 }
 
-- (void)_unregisterAllPhysicalButtonInteractionsForDetachingWindow:(uint64_t)window
+- (void)_unregisterAllPhysicalButtonInteractionsForDetachingWindow:(uint64_t)result
 {
   v19 = *MEMORY[0x1E69E9840];
-  if (window)
+  if (result)
   {
-    if ((*(window + 40) & 8) == 0)
+    if ((*(result + 40) & 8) == 0)
     {
-      *(window + 40) |= 8u;
+      *(result + 40) |= 8u;
     }
 
     v16 = 0u;
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    sortedObjects = [(_UIEvaluatedObjectCache *)*(window + 72) sortedObjects];
+    sortedObjects = [(_UIEvaluatedObjectCache *)*(result + 72) sortedObjects];
     v5 = [sortedObjects copy];
 
     v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
@@ -1785,14 +1783,14 @@ LABEL_9:
       while (v7);
     }
 
-    v13 = *(window + 40);
-    *(window + 40) = v13 & 0xE7;
+    v13 = *(result + 40);
+    *(result + 40) = v13 & 0xE7;
     if ((v13 & 0x10) != 0)
     {
-      [(_UIPhysicalButtonInteractionArbiter *)window _resolveConfigurations];
+      [(_UIPhysicalButtonInteractionArbiter *)result _resolveConfigurations];
     }
 
-    [(_UIPhysicalButtonInteractionArbiter *)window _removeAllSystemShellReferencesForDetachingWindow:a2];
+    [(_UIPhysicalButtonInteractionArbiter *)result _removeAllSystemShellReferencesForDetachingWindow:a2];
   }
 }
 
@@ -1965,7 +1963,7 @@ LABEL_9:
   return v12;
 }
 
-- (id)_performConfigurationResolutionForRequiredWindow:(uint64_t)window
+- (_UIPhysicalButtonConfigurationResolutionContext)_performConfigurationResolutionForRequiredWindow:(uint64_t)window
 {
   v4 = objc_opt_new();
   v15 = 0;
@@ -2065,22 +2063,22 @@ LABEL_13:
 {
   if (reason)
   {
-    v2 = *(reason + 72);
-    if (v2)
+    v3 = *(reason + 72);
+    if (v3)
     {
-      if ([*(v2 + 24) count])
+      if ([*(v3 + 24) count])
       {
         _scene = [reason _scene];
         if (_scene)
         {
-          v4 = _scene;
+          v5 = _scene;
           _hasInvalidated = [_scene _hasInvalidated];
 
           if ((_hasInvalidated & 1) == 0)
           {
-            v6 = *(reason + 40) & 2;
+            v7 = *(reason + 40) & 2;
             kdebug_trace();
-            if (!v6)
+            if (!v7)
             {
 
               [(_UIPhysicalButtonInteractionArbiter *)reason _scheduleDeferredConfigurationResolution];
@@ -2119,7 +2117,7 @@ LABEL_13:
               {
                 [(_UIPhysicalButtonInteractionArbiter *)self _addSystemShellWindowRequiringResolutionIfNeeded:a2];
 
-                [_UIPhysicalButtonInteractionArbiter _setNeedsResolutionOfPhysicalButtonConfigurationsInSceneForReason:self];
+                [(_UIPhysicalButtonInteractionArbiter *)self _setNeedsResolutionOfPhysicalButtonConfigurationsInSceneForReason:window];
               }
 
               else
@@ -2295,15 +2293,15 @@ LABEL_28:
   v13 = v12;
   if (v12 == delegateCopy)
   {
-    v14 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v14 = 0;
+    isEqual = 0;
     if (delegateCopy && v12)
     {
-      v14 = [delegateCopy isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(delegateCopy);
     }
   }
 
@@ -2349,7 +2347,7 @@ LABEL_28:
   }
 
   objc_storeWeak(&self->_systemShellDelegate, delegateCopy);
-  if ((v14 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v27 = objc_loadWeakRetained(&self->_systemShellDelegate);
 
@@ -2383,7 +2381,7 @@ LABEL_28:
     {
       *&self->_arbiterFlags |= 0x20u;
 
-      [_UIPhysicalButtonInteractionArbiter _setNeedsResolutionOfPhysicalButtonConfigurationsInSceneForReason:?];
+      [(_UIPhysicalButtonInteractionArbiter *)self _setNeedsResolutionOfPhysicalButtonConfigurationsInSceneForReason:?];
     }
   }
 }

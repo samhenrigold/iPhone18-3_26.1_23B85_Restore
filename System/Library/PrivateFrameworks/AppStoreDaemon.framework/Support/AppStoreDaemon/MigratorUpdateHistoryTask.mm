@@ -22,7 +22,7 @@
 
 - (void)main
 {
-  v3 = sub_10029BBB4();
+  v3 = sub_10029BBB4(Storage);
   v4 = [v3 URLByAppendingPathComponent:@"Documents/AppUpdates.sqlitedb"];
   path = [v4 path];
 
@@ -34,7 +34,7 @@
     sub_1003CA720(self, path, @"app_updates");
   }
 
-  v6 = sub_10029BBB4();
+  v6 = sub_10029BBB4(Storage);
   v7 = [v6 URLByAppendingPathComponent:@"Documents/updates.sqlitedb"];
   path2 = [v7 path];
 

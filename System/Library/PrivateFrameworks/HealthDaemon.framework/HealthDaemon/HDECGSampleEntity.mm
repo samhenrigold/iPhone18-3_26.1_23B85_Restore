@@ -10,13 +10,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -99,7 +97,7 @@ uint64_t __83__HDECGSampleEntity_insertDataObject_withProvenance_inDatabase_pers
 
 + (BOOL)_insertECGWithCodableBinarySample:(id)sample syncStore:(id)store profile:(id)profile provenance:(id)provenance error:(id *)error
 {
-  v55[2] = *MEMORY[0x277D85DE8];
+  v54[2] = *MEMORY[0x277D85DE8];
   provenanceCopy = provenance;
   profileCopy = profile;
   sampleCopy = sample;
@@ -151,14 +149,14 @@ uint64_t __83__HDECGSampleEntity_insertDataObject_withProvenance_inDatabase_pers
     v30 = v20;
     metadata4 = v29;
     objc_opt_self();
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __66__HDECGSampleEntity__symptomSamplesForSymptomTypes_withValue_ecg___block_invoke;
-    v51[3] = &unk_27862F408;
-    v52 = v30;
-    v53 = 0;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __66__HDECGSampleEntity__symptomSamplesForSymptomTypes_withValue_ecg___block_invoke;
+    v50[3] = &unk_27862F408;
+    v51 = v30;
+    v52 = 0;
     v31 = v30;
-    v32 = [metadata4 hk_map:v51];
+    v32 = [metadata4 hk_map:v50];
   }
 
   else
@@ -171,35 +169,34 @@ LABEL_9:
   metadata7 = [v20 metadata];
   v35 = [v33 initWithDictionary:metadata7];
 
-  v55[0] = v12;
-  v55[1] = v18;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+  v54[0] = v12;
+  v54[1] = v18;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
   [v35 removeObjectsForKeys:v36];
 
   [v20 _setMetadata:v35];
-  v46 = [v32 hk_map:&__block_literal_global_241];
+  v45 = [v32 hk_map:&__block_literal_global_241];
   uUID = [v20 UUID];
-  v50 = 0;
-  v45 = [HDAssociationEntity associateSampleUUIDs:v46 withSampleUUID:uUID type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:&v50 profile:profileCopy error:error];
-  v38 = v50;
+  v49 = 0;
+  v44 = [HDAssociationEntity associateSampleUUIDs:v45 withSampleUUID:uUID type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:&v49 profile:profileCopy error:error];
+  v38 = v49;
 
   dataManager = [profileCopy dataManager];
 
-  v54 = v20;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+  v53 = v20;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
   v41 = [v40 arrayByAddingObjectsFromArray:v32];
   _creationDate = [v20 _creationDate];
 
   [_creationDate timeIntervalSinceReferenceDate];
   LOBYTE(v38) = [dataManager insertDataObjects:v41 withProvenance:provenanceCopy creationDate:error error:?];
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v45 & v38;
+  return v44 & v38;
 }
 
 id __66__HDECGSampleEntity__symptomSamplesForSymptomTypes_withValue_ecg___block_invoke(uint64_t a1, void *a2)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCD0B0];
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
@@ -216,20 +213,18 @@ id __66__HDECGSampleEntity__symptomSamplesForSymptomTypes_withValue_ecg___block_
   v13 = [*(a1 + 32) sourceRevision];
   [v11 _setSourceRevision:v13];
 
-  v21[0] = 0;
-  v21[1] = 0;
+  v20[0] = 0;
+  v20[1] = 0;
   v14 = [*(a1 + 32) UUID];
-  [v14 getUUIDBytes:v21];
+  [v14 getUUIDBytes:v20];
 
-  v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v21 length:16];
+  v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v20 length:16];
   LOBYTE(v13) = [v6 code];
 
-  v20 = v13;
-  v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v20 length:1];
+  v19 = v13;
+  v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v19 length:1];
   v17 = [MEMORY[0x277CCAD78] hk_v3UUIDWithNameSpace:v15 name:v16];
   [v11 _setUUID:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

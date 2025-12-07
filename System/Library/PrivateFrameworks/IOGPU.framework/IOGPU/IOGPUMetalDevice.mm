@@ -1,4 +1,5 @@
 @interface IOGPUMetalDevice
++ (void)registerService:(unsigned int)service;
 - (BOOL)supportsVertexAmplificationCount:(unint64_t)count;
 - (IOGPUMetalDevice)initWithAcceleratorPort:(unsigned int)port options:(unint64_t)options;
 - (id)_deviceWrapper;
@@ -31,7 +32,9 @@
 - (void)kickCleanupQueue;
 - (void)launchMappingThread;
 - (void)periodicUpdateResourcePoolPurgeability;
+- (void)setComputePipelineStateCommandShmemSize:(unsigned int)size;
 - (void)setHwResourcePool:(id *)pool count:(int)count;
+- (void)setSegmentListShmemSize:(unsigned int)size;
 @end
 
 @implementation IOGPUMetalDevice
@@ -124,6 +127,60 @@ LABEL_8:
   v3 = [IOGPUMetalFence alloc];
 
   return [(IOGPUMetalFence *)v3 initWithDevice:self];
+}
+
++ (void)registerService:(unsigned int)service
+{
+  v3 = *&service;
+  CFProperty = IORegistryEntryCreateCFProperty(service, @"MetalPluginName", 0, 0);
+  if (!CFProperty)
+  {
+    return;
+  }
+
+  v5 = CFProperty;
+  v6 = CFGetTypeID(CFProperty);
+  if (v6 == CFStringGetTypeID())
+  {
+    v7 = [MEMORY[0x1E696AAE8] bundleWithPath:{objc_msgSend(objc_msgSend(@"/System/Library/Extensions", "stringByAppendingPathComponent:", v5), "stringByAppendingString:", @".bundle"}];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = IORegistryEntryCreateCFProperty(v3, @"MetalPluginClassName", 0, 0);
+      if (v9)
+      {
+        v10 = v9;
+        v11 = CFGetTypeID(v9);
+        if (v11 == CFStringGetTypeID())
+        {
+          principalClass = [v8 classNamed:v10];
+          CFRelease(v10);
+          if (principalClass)
+          {
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          CFRelease(v10);
+        }
+      }
+
+      principalClass = [v8 principalClass];
+LABEL_11:
+      if ([(objc_class *)principalClass isSubclassOfClass:objc_opt_class()])
+      {
+        v13 = [[principalClass alloc] initWithAcceleratorPort:v3];
+        if (v13)
+        {
+          MTLAddDevice();
+        }
+      }
+    }
+  }
+
+  CFRelease(v5);
 }
 
 - (void)dealloc
@@ -221,12 +278,33 @@ void __27__IOGPUMetalDevice_dealloc__block_invoke(uint64_t a1)
   dispatch_release(v4);
 }
 
+- (void)setSegmentListShmemSize:(unsigned int)size
+{
+  if (self->_storageCreateParams.segmentListShmemPool->_priv.shmemSize < size)
+  {
+    v4 = [[IOGPUMetalDeviceShmemPool alloc] initWithDevice:self resourceClass:objc_opt_class() shmemSize:*&size shmemType:0 options:0];
+
+    self->_storageCreateParams.segmentListShmemPool = v4;
+  }
+}
+
+- (void)setComputePipelineStateCommandShmemSize:(unsigned int)size
+{
+  p_storageCreateParams = &self->_storageCreateParams;
+  if (self->_storageCreateParams.kernelCommandShmemPool->_priv.shmemSize < size)
+  {
+    v4 = [[IOGPUMetalDeviceShmemPool alloc] initWithDevice:self resourceClass:objc_opt_class() shmemSize:*&size shmemType:1 options:0];
+
+    p_storageCreateParams->kernelCommandShmemPool = v4;
+  }
+}
+
 - (IOGPUMetalDevice)initWithAcceleratorPort:(unsigned int)port options:(unint64_t)options
 {
   +[IOGPUMemoryInfo initialize];
-  v19.receiver = self;
-  v19.super_class = IOGPUMetalDevice;
-  v7 = [(_MTLDevice *)&v19 init];
+  v22.receiver = self;
+  v22.super_class = IOGPUMetalDevice;
+  v7 = [(_MTLDevice *)&v22 init];
   if (v7)
   {
     v7[776] = MTLGetEnvDefault() != 0;
@@ -300,30 +378,32 @@ void __27__IOGPUMetalDevice_dealloc__block_invoke(uint64_t a1)
     *(v7 + 89) = v14;
     if (v14)
     {
-      *&v7[*MEMORY[0x1E6974310]] = IOGPUDeviceGetGlobalTraceObjectID(*(v7 + 79));
+      GlobalTraceObjectID = IOGPUDeviceGetGlobalTraceObjectID(*(v7 + 79));
+      *&v7[*MEMORY[0x1E6974310]] = GlobalTraceObjectID;
       if (*__globalGPUCommPage)
       {
-        IOGPUDeviceGetGlobalTraceObjectID(*(v7 + 79));
-        IOGPUDeviceTraceEvent();
+        v16 = GlobalTraceObjectID;
+        v17 = IOGPUDeviceGetGlobalTraceObjectID(*(v7 + 79));
+        IOGPUDeviceTraceEvent(0, 8, 11, v16, v17, 0, 0);
       }
 
       *(v7 + 100) = dispatch_queue_create("com.Metal.DeviceCleaupQueue", 0);
       *(v7 + 101) = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v7 + 99));
       v7[820] = 0;
-      v18[0] = 0;
-      v18[1] = v18;
-      v18[2] = 0x3052000000;
-      v18[3] = __Block_byref_object_copy__0;
-      v18[4] = __Block_byref_object_dispose__0;
-      v18[5] = v7;
-      v15 = *(v7 + 101);
+      v21[0] = 0;
+      v21[1] = v21;
+      v21[2] = 0x3052000000;
+      v21[3] = __Block_byref_object_copy__0;
+      v21[4] = __Block_byref_object_dispose__0;
+      v21[5] = v7;
+      v18 = *(v7 + 101);
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __52__IOGPUMetalDevice_initWithAcceleratorPort_options___block_invoke;
       handler[3] = &unk_1E8362A38;
-      handler[4] = v18;
-      dispatch_source_set_event_handler(v15, handler);
-      _Block_object_dispose(v18, 8);
+      handler[4] = v21;
+      dispatch_source_set_event_handler(v18, handler);
+      _Block_object_dispose(v21, 8);
     }
 
     else

@@ -71,7 +71,7 @@
 {
   v4 = [SBKeyboardFocusPolicy alloc];
 
-  return [(SBKeyboardFocusPolicy *)&v4->super.isa _initWithCopyOf:?];
+  return [(SBKeyboardFocusPolicy *)v4 _initWithCopyOf:?];
 }
 
 - (void)setKeyboardFocusTarget:(const char *)a1 .cold.1(const char *a1, uint64_t a2)

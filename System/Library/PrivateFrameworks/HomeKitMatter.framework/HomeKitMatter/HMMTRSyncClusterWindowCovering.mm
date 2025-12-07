@@ -23,17 +23,16 @@
 
 uint64_t __45__HMMTRSyncClusterWindowCovering_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v28;
-  logCategory__hmf_once_v28 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v28;
+  logCategory__hmf_once_v28 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)readAttributePluginTargetPositionLiftPercent100thsWithParams:(id)params
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterWindowCovering *)self readAttributeFeatureMapWithParams:v5];
@@ -61,11 +60,11 @@ uint64_t __45__HMMTRSyncClusterWindowCovering_logCategory__block_invoke()
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v15;
-      v31 = 2048;
-      v32 = unsignedIntegerValue;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v15;
+      v30 = 2048;
+      v31 = unsignedIntegerValue;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -80,9 +79,9 @@ uint64_t __45__HMMTRSyncClusterWindowCovering_logCategory__block_invoke()
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           v26 = HMFGetLogIdentifier();
-          v29 = 138543362;
-          v30 = v26;
-          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@The Lift Target Value is not supported by this device, so we map it to Tilt Target Value instead", &v29, 0xCu);
+          v28 = 138543362;
+          v29 = v26;
+          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@The Lift Target Value is not supported by this device, so we map it to Tilt Target Value instead", &v28, 0xCu);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -93,9 +92,9 @@ uint64_t __45__HMMTRSyncClusterWindowCovering_logCategory__block_invoke()
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v19;
-        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error: Window covering cluster's feature map does NOT have neither Lift nor Tilt features enabled", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v19;
+        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error: Window covering cluster's feature map does NOT have neither Lift nor Tilt features enabled", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -113,23 +112,21 @@ LABEL_19:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     v24 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v24;
-    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v24;
+    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v21);
   v25 = 0;
 LABEL_20:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)readAttributePluginCurrentPositionLiftPercent100thsWithParams:(id)params
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterWindowCovering *)self readAttributeFeatureMapWithParams:v5];
@@ -157,11 +154,11 @@ LABEL_20:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v15;
-      v31 = 2048;
-      v32 = unsignedIntegerValue;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v15;
+      v30 = 2048;
+      v31 = unsignedIntegerValue;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -176,9 +173,9 @@ LABEL_20:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           v26 = HMFGetLogIdentifier();
-          v29 = 138543362;
-          v30 = v26;
-          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@The Lift Current Value is not supported by this device, so we map it to Tilt Current Value instead", &v29, 0xCu);
+          v28 = 138543362;
+          v29 = v26;
+          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@The Lift Current Value is not supported by this device, so we map it to Tilt Current Value instead", &v28, 0xCu);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -189,9 +186,9 @@ LABEL_20:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v19;
-        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error: Window covering cluster's feature map does NOT have neither Lift nor Tilt features enabled", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v19;
+        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error: Window covering cluster's feature map does NOT have neither Lift nor Tilt features enabled", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -209,23 +206,21 @@ LABEL_19:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     v24 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v24;
-    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v24;
+    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v21);
   v25 = 0;
 LABEL_20:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (void)writeAttributePluginTargetPositionTiltWithSetValue:(id)value expectedValueInterval:(id)interval
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   intervalCopy = interval;
   v8 = objc_alloc_init(MEMORY[0x277CD54D8]);
@@ -271,11 +266,11 @@ LABEL_20:
       HMFGetLogIdentifier();
       v23 = v22 = intervalCopy;
       *buf = 138543874;
-      v38 = v23;
-      v39 = 2048;
-      v40 = unsignedIntegerValue;
-      v41 = 2112;
-      v42 = valueCopy;
+      v37 = v23;
+      v38 = 2048;
+      v39 = unsignedIntegerValue;
+      v40 = 2112;
+      v41 = valueCopy;
       _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu, set value %@", buf, 0x20u);
 
       intervalCopy = v22;
@@ -297,24 +292,24 @@ LABEL_20:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v28 = v35 = intervalCopy;
+        v28 = v34 = intervalCopy;
         tiltPercent100thsValue = [v24 tiltPercent100thsValue];
         *buf = 138543618;
-        v38 = v28;
-        v39 = 2112;
-        v40 = tiltPercent100thsValue;
+        v37 = v28;
+        v38 = 2112;
+        v39 = tiltPercent100thsValue;
         _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_DEBUG, "%{public}@tiltPercent100thsValue %@", buf, 0x16u);
 
-        intervalCopy = v35;
+        intervalCopy = v34;
       }
 
       objc_autoreleasePoolPop(v25);
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTiltWithSetValue_expectedValueInterval___block_invoke;
-      v36[3] = &unk_2786EF290;
-      v36[4] = v26;
-      [(MTRClusterWindowCovering *)v26 goToTiltPercentageWithParams:v24 expectedValues:0 expectedValueInterval:intervalCopy completionHandler:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTiltWithSetValue_expectedValueInterval___block_invoke;
+      v35[3] = &unk_2786EF290;
+      v35[4] = v26;
+      [(MTRClusterWindowCovering *)v26 goToTiltPercentageWithParams:v24 expectedValues:0 expectedValueInterval:intervalCopy completionHandler:v35];
     }
   }
 
@@ -327,19 +322,17 @@ LABEL_20:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v33;
+      v37 = v33;
       _os_log_impl(&dword_22AEAE000, v32, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v30);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTiltWithSetValue_expectedValueInterval___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -347,20 +340,19 @@ void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTil
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Wrote to GoToTiltPercentage. Result: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Wrote to GoToTiltPercentage. Result: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAttributePluginTargetPositionWithSetValue:(id)value expectedValueInterval:(id)interval
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   intervalCopy = interval;
   v8 = objc_alloc_init(MEMORY[0x277CD54D8]);
@@ -406,11 +398,11 @@ void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTil
       HMFGetLogIdentifier();
       v23 = v22 = intervalCopy;
       *buf = 138543874;
-      v42 = v23;
-      v43 = 2048;
-      v44 = unsignedIntegerValue;
-      v45 = 2112;
-      v46 = valueCopy;
+      v41 = v23;
+      v42 = 2048;
+      v43 = unsignedIntegerValue;
+      v44 = 2112;
+      v45 = valueCopy;
       _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Window covering Feature Map from device %tu, set value %@", buf, 0x20u);
 
       intervalCopy = v22;
@@ -428,7 +420,7 @@ void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTil
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v42 = v37;
+          v41 = v37;
           _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_DEBUG, "%{public}@The Lift is not supported by this device, so we map Lift commands to Tilt instead", buf, 0xCu);
         }
 
@@ -452,24 +444,24 @@ void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTil
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v28 = v39 = intervalCopy;
+        v28 = v38 = intervalCopy;
         liftPercent100thsValue = [v24 liftPercent100thsValue];
         *buf = 138543618;
-        v42 = v28;
-        v43 = 2112;
-        v44 = liftPercent100thsValue;
+        v41 = v28;
+        v42 = 2112;
+        v43 = liftPercent100thsValue;
         _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_DEBUG, "%{public}@liftPercent100thsValue %@", buf, 0x16u);
 
-        intervalCopy = v39;
+        intervalCopy = v38;
       }
 
       objc_autoreleasePoolPop(v25);
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __103__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionWithSetValue_expectedValueInterval___block_invoke;
-      v40[3] = &unk_2786EF290;
-      v40[4] = v26;
-      [(MTRClusterWindowCovering *)v26 goToLiftPercentageWithParams:v24 expectedValues:0 expectedValueInterval:intervalCopy completionHandler:v40];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __103__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionWithSetValue_expectedValueInterval___block_invoke;
+      v39[3] = &unk_2786EF290;
+      v39[4] = v26;
+      [(MTRClusterWindowCovering *)v26 goToLiftPercentageWithParams:v24 expectedValues:0 expectedValueInterval:intervalCopy completionHandler:v39];
     }
   }
 
@@ -482,19 +474,17 @@ void __107__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionTil
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v33;
+      v41 = v33;
       _os_log_impl(&dword_22AEAE000, v32, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read the window covering cluster's feature map", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v30);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionWithSetValue_expectedValueInterval___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -502,15 +492,14 @@ void __103__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Wrote to GoToLiftPercentage. Result: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Wrote to GoToLiftPercentage. Result: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendUpOrDownCommand:(id)command expectedValueInterval:(id)interval
@@ -539,7 +528,7 @@ void __103__HMMTRSyncClusterWindowCovering_writeAttributePluginTargetPositionWit
 
 void __76__HMMTRSyncClusterWindowCovering_sendUpOrDownCommand_expectedValueInterval___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -550,25 +539,25 @@ void __76__HMMTRSyncClusterWindowCovering_sendUpOrDownCommand_expectedValueInter
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v3;
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v3;
       v9 = "%{public}@An error occurred while trying to write to DownOrClose: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_22AEAE000, v10, v11, v9, &v13, 0x16u);
+      _os_log_impl(&dword_22AEAE000, v10, v11, v9, &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = 0;
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = 0;
     v9 = "%{public}@Wrote to DownOrClose. Result: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_DEBUG;
@@ -576,12 +565,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMMTRSyncClusterWindowCovering_sendUpOrDownCommand_expectedValueInterval___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -592,25 +580,25 @@ void __76__HMMTRSyncClusterWindowCovering_sendUpOrDownCommand_expectedValueInter
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v3;
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v3;
       v9 = "%{public}@An error occurred while trying to write to UpOrOpen: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_22AEAE000, v10, v11, v9, &v13, 0x16u);
+      _os_log_impl(&dword_22AEAE000, v10, v11, v9, &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = 0;
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = 0;
     v9 = "%{public}@Wrote to UpOrOpen. Result: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_DEBUG;
@@ -618,7 +606,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -14,7 +14,7 @@
 
 + (id)createURLForRecipientHandle:(id)handle payloadType:(int64_t)type
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCACE0];
   handleCopy = handle;
   v8 = objc_alloc_init(v6);
@@ -23,21 +23,19 @@
   v9 = [self _generateCommonQueryItemsWithPayloadType:type groupID:0 data:0 sessionStartEntryType:0];
   v10 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"recipient" value:handleCopy];
 
-  v16[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v12 = [v9 arrayByAddingObjectsFromArray:v11];
 
   [v8 setQueryItems:v12];
   v13 = [v8 URL];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)createURLForSuggestionsWithRecipientHandle:(id)handle appPayloadDataString:(id)string givenName:(id)name payloadType:(int64_t)type sessionStartEntryType:(unint64_t)entryType
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v13 = MEMORY[0x277CCACE0];
   stringCopy = string;
@@ -48,15 +46,15 @@
   v17 = [self _generateCommonQueryItemsWithPayloadType:type groupID:0 data:stringCopy sessionStartEntryType:entryType];
 
   v18 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"recipient" value:handleCopy];
-  v28[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v20 = [v17 arrayByAddingObjectsFromArray:v19];
 
   if (nameCopy)
   {
     v21 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"givenName" value:nameCopy];
-    v27 = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     v23 = [v20 arrayByAddingObjectsFromArray:v22];
 
     v20 = v23;
@@ -64,8 +62,6 @@
 
   [v16 setQueryItems:v20];
   v24 = [v16 URL];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -134,14 +130,14 @@
 
 + (id)_generateCommonQueryItemsWithPayloadType:(int64_t)type groupID:(id)d data:(id)data sessionStartEntryType:(unint64_t)entryType
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   v11 = MEMORY[0x277CBEB38];
-  v38 = @"payloadType";
+  v37 = @"payloadType";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v39[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v38[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v14 = [v11 dictionaryWithDictionary:v13];
 
   if (dCopy)
@@ -160,18 +156,18 @@
     [v14 setObject:v15 forKey:@"sessionStartEntryType"];
   }
 
-  v32 = 0;
-  v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:8 error:&v32];
-  v17 = v32;
+  v31 = 0;
+  v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:8 error:&v31];
+  v17 = v31;
   if (v17)
   {
     v18 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v35 = "+[SMDeepLinkURLFactory _generateCommonQueryItemsWithPayloadType:groupID:data:sessionStartEntryType:]";
-      v36 = 2112;
-      v37 = v17;
+      v34 = "+[SMDeepLinkURLFactory _generateCommonQueryItemsWithPayloadType:groupID:data:sessionStartEntryType:]";
+      v35 = 2112;
+      v36 = v17;
       _os_log_impl(&dword_26455D000, v18, OS_LOG_TYPE_DEFAULT, "%s, createURLForDetailView, failed to create json payload with error: %@", buf, 0x16u);
     }
 
@@ -180,7 +176,7 @@
 
   else
   {
-    v31 = v16;
+    v30 = v16;
     v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v16 encoding:4];
     typeCopy = type;
     v20 = objc_alloc(MEMORY[0x277CBEB18]);
@@ -193,17 +189,15 @@
     if ((typeCopy - 2) < 3)
     {
       v26 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"allowRetargeting" value:@"true"];
-      v33 = v26;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+      v32 = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
       [v25 addObjectsFromArray:v27];
     }
 
     v19 = [v25 copy];
 
-    v16 = v31;
+    v16 = v30;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -256,7 +250,7 @@
 
 + (int64_t)resolvePayloadTypeFromURL:(id)l
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -282,9 +276,9 @@
       v34 = NSStringFromClass(v33);
       v35 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v56 = v34;
-      v57 = 2112;
-      v58 = v35;
+      v55 = v34;
+      v56 = 2112;
+      v57 = v35;
       _os_log_error_impl(&dword_26455D000, v8, OS_LOG_TYPE_ERROR, "%@,%@,missing url components", buf, 0x16u);
     }
 
@@ -297,13 +291,13 @@
     v36 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
-      v42 = NSStringFromSelector(a2);
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      v41 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v56 = v41;
-      v57 = 2112;
-      v58 = v42;
+      v55 = v40;
+      v56 = 2112;
+      v57 = v41;
       _os_log_error_impl(&dword_26455D000, v36, OS_LOG_TYPE_ERROR, "%@,%@,missing queryItems", buf, 0x16u);
     }
 
@@ -313,34 +307,34 @@ LABEL_41:
     goto LABEL_44;
   }
 
-  v46 = v6;
-  v47 = lCopy;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v45 = v6;
+  v46 = lCopy;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v8 = queryItems;
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (!v9)
   {
-    v49 = 0;
+    v48 = 0;
     goto LABEL_43;
   }
 
   v10 = v9;
   aSelector = a2;
-  v49 = 0;
-  v11 = *v52;
+  v48 = 0;
+  v11 = *v51;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v52 != v11)
+      if (*v51 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v51 + 1) + 8 * i);
+      v13 = *(*(&v50 + 1) + 8 * i);
       value = [v13 value];
       if (!value)
       {
@@ -351,9 +345,9 @@ LABEL_41:
           v30 = NSStringFromClass(v29);
           v31 = NSStringFromSelector(aSelector);
           *buf = 138412546;
-          v56 = v30;
-          v57 = 2112;
-          v58 = v31;
+          v55 = v30;
+          v56 = 2112;
+          v57 = v31;
           _os_log_error_impl(&dword_26455D000, v24, OS_LOG_TYPE_ERROR, "%@,%@,queryItem missing value", buf, 0x16u);
         }
 
@@ -370,24 +364,24 @@ LABEL_29:
       }
 
       v17 = [value dataUsingEncoding:4];
-      v50 = 0;
-      v18 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v17 options:0 error:&v50];
-      v19 = v50;
+      v49 = 0;
+      v18 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v17 options:0 error:&v49];
+      v19 = v49;
       if (v19 || !v18)
       {
         v20 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           v25 = objc_opt_class();
-          v44 = NSStringFromClass(v25);
+          v43 = NSStringFromClass(v25);
           v26 = NSStringFromSelector(aSelector);
           *buf = 138412802;
-          v56 = v44;
-          v57 = 2112;
-          v58 = v26;
+          v55 = v43;
+          v56 = 2112;
+          v57 = v26;
           v27 = v26;
-          v59 = 2112;
-          v60 = value;
+          v58 = 2112;
+          v59 = value;
           _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, "%@,%@, failure to decode json object %@", buf, 0x20u);
         }
 
@@ -402,14 +396,14 @@ LABEL_29:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v32 = objc_opt_class();
-          v45 = NSStringFromClass(v32);
-          v43 = NSStringFromSelector(aSelector);
+          v44 = NSStringFromClass(v32);
+          v42 = NSStringFromSelector(aSelector);
           *buf = 138412802;
-          v56 = v45;
-          v57 = 2112;
-          v58 = v43;
-          v59 = 2112;
-          v60 = v20;
+          v55 = v44;
+          v56 = 2112;
+          v57 = v42;
+          v58 = 2112;
+          v59 = v20;
           _os_log_error_impl(&dword_26455D000, v28, OS_LOG_TYPE_ERROR, "%@,%@, failure to decode type %@", buf, 0x20u);
         }
 
@@ -420,13 +414,13 @@ LABEL_25:
 
       unsignedIntegerValue = [v20 unsignedIntegerValue];
       v22 = unsignedIntegerValue > 4;
-      v23 = v49;
+      v23 = v48;
       if (unsignedIntegerValue <= 4)
       {
         v23 = unsignedIntegerValue;
       }
 
-      v49 = v23;
+      v48 = v23;
 LABEL_26:
 
       if (!v22)
@@ -438,25 +432,24 @@ LABEL_26:
       {
 
         v37 = 0;
-        v6 = v46;
-        lCopy = v47;
+        v6 = v45;
+        lCopy = v46;
         goto LABEL_44;
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
   }
 
   while (v10);
 LABEL_43:
 
-  v6 = v46;
-  lCopy = v47;
-  v37 = v49;
+  v6 = v45;
+  lCopy = v46;
+  v37 = v48;
 LABEL_44:
 
 LABEL_45:
-  v38 = *MEMORY[0x277D85DE8];
   return v37;
 }
 

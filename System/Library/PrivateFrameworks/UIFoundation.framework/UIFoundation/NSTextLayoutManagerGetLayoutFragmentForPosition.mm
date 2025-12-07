@@ -3,7 +3,7 @@
 
 @implementation NSTextLayoutManagerGetLayoutFragmentForPosition
 
-uint64_t ____NSTextLayoutManagerGetLayoutFragmentForPosition_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *____NSTextLayoutManagerGetLayoutFragmentForPosition_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 state];
   if (!result)

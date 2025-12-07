@@ -44,10 +44,10 @@
 
 - (id)runAction
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = AMSUIWebLogAction;
-  runAction = [(AMSUIWebAction *)&v13 runAction];
+  v17 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AMSUIWebLogAction;
+  runAction = [(AMSUIWebAction *)&v12 runAction];
   v4 = [(AMSUIWebLogAction *)self _logTypeFromLevel:[(AMSUIWebLogAction *)self level]];
   if ([(AMSUIWebLogAction *)self sensitive]&& !os_variant_has_internal_content())
   {
@@ -71,15 +71,13 @@
     context = [(AMSUIWebAction *)self context];
     logKey = [context logKey];
     *buf = 138543618;
-    v15 = logKey;
-    v16 = 2112;
-    v17 = message;
+    v14 = logKey;
+    v15 = 2112;
+    v16 = message;
     _os_log_impl(&dword_1BB036000, oSLogObject, v4, "JSLog: [%{public}@] %@", buf, 0x16u);
   }
 
   v10 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E118]];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

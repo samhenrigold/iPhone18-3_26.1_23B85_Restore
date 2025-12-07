@@ -19,17 +19,17 @@
 
 - (FigWiredMemory)initWithLength:(unint64_t)length
 {
-  v12.receiver = self;
-  v12.super_class = FigWiredMemory;
-  v4 = [(FigWiredMemory *)&v12 init];
-  v5 = v4;
-  if (v4)
+  v19.receiver = self;
+  v19.super_class = FigWiredMemory;
+  v5 = [(FigWiredMemory *)&v19 init];
+  v6 = v5;
+  if (v5)
   {
-    v6 = (length + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
-    *(v4 + 3) = v6;
-    if (vm_allocate(*MEMORY[0x1E69E9A60], v4 + 1, v6, 1694498817) || (bytes = v5->_bytes) == 0)
+    v7 = (length + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+    *(v5 + 3) = v7;
+    if (vm_allocate(*MEMORY[0x1E69E9A60], v5 + 1, v7, 1694498817) || (bytes = v6->_bytes) == 0)
     {
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v13, v14, v15, v16, v17, v18);
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -40,26 +40,26 @@
 
     else
     {
-      if (mlock(bytes, v5->_roundedLength))
+      if (mlock(bytes, v6->_roundedLength))
       {
-        v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+        v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
         ReportMemoryException();
-        v9 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v9 = 1;
+        v10 = 1;
       }
 
-      v5->_isWired = v9;
-      v5->_length = length;
+      v6->_isWired = v10;
+      v6->_length = length;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc

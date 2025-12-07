@@ -5,8 +5,8 @@
 - (uint64_t)nmr_isSystemPodcastsPath;
 - (uint64_t)nmr_isSystemRemotePath;
 - (uint64_t)nmr_isSystemVoiceMemosPath;
-- (uint64_t)nmr_isSystemWorkoutGuidedWalkPath;
 - (uint64_t)nmr_isSystemWorkoutPath;
+- (void)nmr_isSystemWorkoutGuidedWalkPath;
 @end
 
 @implementation MPCPlayerPath(NanoMediaRemote)
@@ -35,7 +35,7 @@
   return v2;
 }
 
-- (uint64_t)nmr_isSystemWorkoutGuidedWalkPath
+- (void)nmr_isSystemWorkoutGuidedWalkPath
 {
   result = [self nmr_isSystemWorkoutPath];
   if (result)
@@ -75,7 +75,7 @@
 
 + (id)nmr_pathWithNowPlayingURL:()NanoMediaRemote
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCACE0] componentsWithURL:a3 resolvingAgainstBaseURL:0];
   queryItems = [v4 queryItems];
   v6 = [queryItems count];
@@ -86,32 +86,32 @@
     queryItems2 = [v4 queryItems];
     v9 = [v7 dictionaryWithCapacity:{objc_msgSend(queryItems2, "count")}];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     queryItems3 = [v4 queryItems];
-    v11 = [queryItems3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = [queryItems3 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v26;
+      v13 = *v25;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(queryItems3);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           value = [v15 value];
           name = [v15 name];
           [v9 setObject:value forKeyedSubscript:name];
         }
 
-        v12 = [queryItems3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v12 = [queryItems3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v12);
@@ -137,8 +137,6 @@
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

@@ -44,7 +44,7 @@
   return selfCopy;
 }
 
-uint64_t __27__OperationState_cancelled__block_invoke(uint64_t a1)
+void *__27__OperationState_cancelled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) operationCancelled];
   if (result)
@@ -120,7 +120,7 @@ uint64_t __23__OperationState_begin__block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __21__OperationState_end__block_invoke(uint64_t a1)
+void *__21__OperationState_end__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setOperationRefcount:{objc_msgSend(*(a1 + 32), "operationRefcount") - 1}];
   result = [*(a1 + 32) operationRefcount];

@@ -70,7 +70,7 @@
 
 - (void)setFeatures:(id)features
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -80,26 +80,26 @@
 
   v8 = objc_opt_new();
   v9 = objc_opt_new();
-  v16 = objc_opt_new();
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v15 = objc_opt_new();
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = selfCopy->_features;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -122,23 +122,22 @@
               continue;
             }
 
-            [v16 addObject:v14];
+            [v15 addObject:v14];
           }
         }
       }
 
-      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   [(IPMessageUnit *)selfCopy setDataFeatures:v8];
-  [(IPMessageUnit *)selfCopy setKeywordFeatures:v16];
+  [(IPMessageUnit *)selfCopy setKeywordFeatures:v15];
   [(IPMessageUnit *)selfCopy setSentenceFeatures:v9];
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSentenceFeatures:(id)features
@@ -207,7 +206,7 @@
 
 - (NSArray)features
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_features)
@@ -225,29 +224,29 @@
   {
     v6 = objc_opt_new();
     v7 = objc_opt_new();
-    v16 = objc_opt_new();
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
+    v15 = objc_opt_new();
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = selfCopy->_features;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (!v9)
     {
       goto LABEL_22;
     }
 
-    v10 = *v18;
+    v10 = *v17;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -270,18 +269,18 @@
               continue;
             }
 
-            [v16 addObject:v12];
+            [v15 addObject:v12];
           }
         }
       }
 
-      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (!v9)
       {
 LABEL_22:
 
         [(IPMessageUnit *)selfCopy setDataFeatures:v6];
-        [(IPMessageUnit *)selfCopy setKeywordFeatures:v16];
+        [(IPMessageUnit *)selfCopy setKeywordFeatures:v15];
         [(IPMessageUnit *)selfCopy setSentenceFeatures:v7];
 
         break;
@@ -292,14 +291,12 @@ LABEL_22:
   v13 = selfCopy->_features;
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)rejectionRanges
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   rejectionRanges = selfCopy->_rejectionRanges;
@@ -308,90 +305,88 @@ LABEL_22:
     rejectionRanges = selfCopy->_text;
     if (rejectionRanges)
     {
-      v22 = selfCopy;
-      v7 = objc_opt_new();
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v21 = selfCopy;
+      v6 = objc_opt_new();
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       sentenceFeatures = [(IPMessageUnit *)selfCopy sentenceFeatures];
-      v9 = [sentenceFeatures countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (v9)
+      v8 = [sentenceFeatures countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v8)
       {
         obj = sentenceFeatures;
-        v24 = *v30;
+        v23 = *v29;
         do
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            if (*v30 != v24)
+            if (*v29 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v29 + 1) + 8 * i);
-            matchRange = [v11 matchRange];
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
+            v10 = *(*(&v28 + 1) + 8 * i);
+            matchRange = [v10 matchRange];
             v26 = 0u;
-            fragments = [v11 fragments];
-            v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v14)
+            v27 = 0u;
+            v24 = 0u;
+            v25 = 0u;
+            fragments = [v10 fragments];
+            v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
+            if (v13)
             {
-              v15 = *v26;
+              v14 = *v25;
               do
               {
-                for (j = 0; j != v14; ++j)
+                for (j = 0; j != v13; ++j)
                 {
-                  if (*v26 != v15)
+                  if (*v25 != v14)
                   {
                     objc_enumerationMutation(fragments);
                   }
 
-                  v17 = *(*(&v25 + 1) + 8 * j);
-                  if ([v17 mainPolarity] == 4)
+                  v16 = *(*(&v24 + 1) + 8 * j);
+                  if ([v16 mainPolarity] == 4)
                   {
-                    range = [v17 range];
-                    [v17 range];
-                    [v7 addIndexesInRange:{range + matchRange, v19}];
+                    range = [v16 range];
+                    [v16 range];
+                    [v6 addIndexesInRange:{range + matchRange, v18}];
                   }
                 }
 
-                v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
+                v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
               }
 
-              while (v14);
+              while (v13);
             }
           }
 
           sentenceFeatures = obj;
-          v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
-        while (v9);
+        while (v8);
       }
 
-      v20 = [v7 copy];
-      v21 = v22->_rejectionRanges;
-      v22->_rejectionRanges = v20;
+      v19 = [v6 copy];
+      v20 = v21->_rejectionRanges;
+      v21->_rejectionRanges = v19;
 
-      rejectionRanges = v22->_rejectionRanges;
-      selfCopy = v22;
+      rejectionRanges = v21->_rejectionRanges;
+      selfCopy = v21;
     }
   }
 
   v4 = rejectionRanges;
   objc_sync_exit(selfCopy);
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)neutralRanges
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   neutralRanges = selfCopy->_neutralRanges;
@@ -400,90 +395,88 @@ LABEL_22:
     neutralRanges = selfCopy->_text;
     if (neutralRanges)
     {
-      v22 = selfCopy;
-      v7 = objc_opt_new();
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v21 = selfCopy;
+      v6 = objc_opt_new();
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       sentenceFeatures = [(IPMessageUnit *)selfCopy sentenceFeatures];
-      v9 = [sentenceFeatures countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (v9)
+      v8 = [sentenceFeatures countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v8)
       {
         obj = sentenceFeatures;
-        v24 = *v30;
+        v23 = *v29;
         do
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            if (*v30 != v24)
+            if (*v29 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v29 + 1) + 8 * i);
-            matchRange = [v11 matchRange];
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
+            v10 = *(*(&v28 + 1) + 8 * i);
+            matchRange = [v10 matchRange];
             v26 = 0u;
-            fragments = [v11 fragments];
-            v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v14)
+            v27 = 0u;
+            v24 = 0u;
+            v25 = 0u;
+            fragments = [v10 fragments];
+            v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
+            if (v13)
             {
-              v15 = *v26;
+              v14 = *v25;
               do
               {
-                for (j = 0; j != v14; ++j)
+                for (j = 0; j != v13; ++j)
                 {
-                  if (*v26 != v15)
+                  if (*v25 != v14)
                   {
                     objc_enumerationMutation(fragments);
                   }
 
-                  v17 = *(*(&v25 + 1) + 8 * j);
-                  if (([v17 mainPolarity] - 5) <= 0xFFFFFFFFFFFFFFFCLL)
+                  v16 = *(*(&v24 + 1) + 8 * j);
+                  if (([v16 mainPolarity] - 5) <= 0xFFFFFFFFFFFFFFFCLL)
                   {
-                    range = [v17 range];
-                    [v17 range];
-                    [v7 addIndexesInRange:{range + matchRange, v19}];
+                    range = [v16 range];
+                    [v16 range];
+                    [v6 addIndexesInRange:{range + matchRange, v18}];
                   }
                 }
 
-                v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
+                v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
               }
 
-              while (v14);
+              while (v13);
             }
           }
 
           sentenceFeatures = obj;
-          v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
-        while (v9);
+        while (v8);
       }
 
-      v20 = [v7 copy];
-      v21 = v22->_neutralRanges;
-      v22->_neutralRanges = v20;
+      v19 = [v6 copy];
+      v20 = v21->_neutralRanges;
+      v21->_neutralRanges = v19;
 
-      neutralRanges = v22->_neutralRanges;
-      selfCopy = v22;
+      neutralRanges = v21->_neutralRanges;
+      selfCopy = v21;
     }
   }
 
   v4 = neutralRanges;
   objc_sync_exit(selfCopy);
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)proposalAndAcceptationRanges
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   proposalAndAcceptationRanges = selfCopy->_proposalAndAcceptationRanges;
@@ -492,83 +485,81 @@ LABEL_22:
     proposalAndAcceptationRanges = selfCopy->_text;
     if (proposalAndAcceptationRanges)
     {
-      v22 = selfCopy;
-      v7 = objc_opt_new();
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v21 = selfCopy;
+      v6 = objc_opt_new();
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       sentenceFeatures = [(IPMessageUnit *)selfCopy sentenceFeatures];
-      v9 = [sentenceFeatures countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (v9)
+      v8 = [sentenceFeatures countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v8)
       {
         obj = sentenceFeatures;
-        v24 = *v30;
+        v23 = *v29;
         do
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            if (*v30 != v24)
+            if (*v29 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v29 + 1) + 8 * i);
-            matchRange = [v11 matchRange];
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
+            v10 = *(*(&v28 + 1) + 8 * i);
+            matchRange = [v10 matchRange];
             v26 = 0u;
-            fragments = [v11 fragments];
-            v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v14)
+            v27 = 0u;
+            v24 = 0u;
+            v25 = 0u;
+            fragments = [v10 fragments];
+            v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
+            if (v13)
             {
-              v15 = *v26;
+              v14 = *v25;
               do
               {
-                for (j = 0; j != v14; ++j)
+                for (j = 0; j != v13; ++j)
                 {
-                  if (*v26 != v15)
+                  if (*v25 != v14)
                   {
                     objc_enumerationMutation(fragments);
                   }
 
-                  v17 = *(*(&v25 + 1) + 8 * j);
-                  if (([v17 mainPolarity] & 0xFFFFFFFFFFFFFFFELL) == 2)
+                  v16 = *(*(&v24 + 1) + 8 * j);
+                  if (([v16 mainPolarity] & 0xFFFFFFFFFFFFFFFELL) == 2)
                   {
-                    range = [v17 range];
-                    [v17 range];
-                    [v7 addIndexesInRange:{range + matchRange, v19}];
+                    range = [v16 range];
+                    [v16 range];
+                    [v6 addIndexesInRange:{range + matchRange, v18}];
                   }
                 }
 
-                v14 = [fragments countByEnumeratingWithState:&v25 objects:v33 count:16];
+                v13 = [fragments countByEnumeratingWithState:&v24 objects:v32 count:16];
               }
 
-              while (v14);
+              while (v13);
             }
           }
 
           sentenceFeatures = obj;
-          v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
-        while (v9);
+        while (v8);
       }
 
-      v20 = [v7 copy];
-      v21 = v22->_proposalAndAcceptationRanges;
-      v22->_proposalAndAcceptationRanges = v20;
+      v19 = [v6 copy];
+      v20 = v21->_proposalAndAcceptationRanges;
+      v21->_proposalAndAcceptationRanges = v19;
 
-      proposalAndAcceptationRanges = v22->_proposalAndAcceptationRanges;
-      selfCopy = v22;
+      proposalAndAcceptationRanges = v21->_proposalAndAcceptationRanges;
+      selfCopy = v21;
     }
   }
 
   v4 = proposalAndAcceptationRanges;
   objc_sync_exit(selfCopy);
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

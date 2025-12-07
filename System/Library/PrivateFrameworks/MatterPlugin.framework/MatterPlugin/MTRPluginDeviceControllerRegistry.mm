@@ -67,47 +67,46 @@ uint64_t __51__MTRPluginDeviceControllerRegistry_sharedInstance__block_invoke()
 
 - (NSArray)controllers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   array = [MEMORY[0x277CBEB18] array];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   controllerEntities = [(MTRPluginDeviceControllerRegistry *)selfCopy controllerEntities];
-  v5 = [controllerEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [controllerEntities countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(controllerEntities);
         }
 
-        controller = [*(*(&v11 + 1) + 8 * i) controller];
+        controller = [*(*(&v10 + 1) + 8 * i) controller];
         [array addObject:controller];
       }
 
-      v5 = [controllerEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [controllerEntities countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)deviceControllerForUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -125,20 +124,19 @@ uint64_t __51__MTRPluginDeviceControllerRegistry_sharedInstance__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       controllerEntities = [(MTRPluginDeviceControllerRegistry *)selfCopy controllerEntities];
-      v13 = 138412802;
-      v14 = selfCopy;
-      v15 = 2112;
-      v16 = dCopy;
-      v17 = 2048;
-      v18 = [controllerEntities count];
-      _os_log_error_impl(&dword_25830F000, v9, OS_LOG_TYPE_ERROR, "%@ Cannot find controller for UUID %@ in %lu controllers - controller was not added to registry", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = selfCopy;
+      v14 = 2112;
+      v15 = dCopy;
+      v16 = 2048;
+      v17 = [controllerEntities count];
+      _os_log_error_impl(&dword_25830F000, v9, OS_LOG_TYPE_ERROR, "%@ Cannot find controller for UUID %@ in %lu controllers - controller was not added to registry", &v12, 0x20u);
     }
 
     controller2 = 0;
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
 
   return controller2;
 }
@@ -182,29 +180,29 @@ uint64_t __51__MTRPluginDeviceControllerRegistry_sharedInstance__block_invoke()
 
 - (id)_deviceControllerEntityForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     controllerEntities = [(MTRPluginDeviceControllerRegistry *)self controllerEntities];
-    v6 = [controllerEntities countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [controllerEntities countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(controllerEntities);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           entityIdentifier = [v9 entityIdentifier];
           v11 = [entityIdentifier isEqual:identifierCopy];
 
@@ -215,7 +213,7 @@ uint64_t __51__MTRPluginDeviceControllerRegistry_sharedInstance__block_invoke()
           }
         }
 
-        v6 = [controllerEntities countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [controllerEntities countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -233,8 +231,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -249,7 +245,7 @@ LABEL_12:
 
 - (BOOL)addDeviceController:(id)controller forEntityWithIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   selfCopy = self;
@@ -262,13 +258,13 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       controller = [v9 controller];
-      v17 = 138412802;
-      v18 = selfCopy;
-      v19 = 2112;
-      v20 = controller;
-      v21 = 2112;
-      v22 = identifierCopy;
-      _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Found existing controller %@ for entity UUID %@, ignoring add request", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = selfCopy;
+      v18 = 2112;
+      v19 = controller;
+      v20 = 2112;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ Found existing controller %@ for entity UUID %@, ignoring add request", &v16, 0x20u);
     }
   }
 
@@ -276,13 +272,13 @@ LABEL_12:
   {
     if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412802;
-      v18 = selfCopy;
-      v19 = 2112;
-      v20 = controllerCopy;
-      v21 = 2112;
-      v22 = identifierCopy;
-      _os_log_impl(&dword_25830F000, v10, OS_LOG_TYPE_DEFAULT, "%@ Adding device controller: %@ for entityIdentifier %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = selfCopy;
+      v18 = 2112;
+      v19 = controllerCopy;
+      v20 = 2112;
+      v21 = identifierCopy;
+      _os_log_impl(&dword_25830F000, v10, OS_LOG_TYPE_DEFAULT, "%@ Adding device controller: %@ for entityIdentifier %@", &v16, 0x20u);
     }
 
     MTRAssociateControllerWithHomeUUID(controllerCopy, identifierCopy);
@@ -300,38 +296,37 @@ LABEL_12:
     [(MTRPluginDeviceControllerRegistry *)selfCopy _queryAndUpdateRunningModeForHomeUUID:identifierCopy];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)removeDeviceController:(id)controller
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = selfCopy;
   controllerEntities = [(MTRPluginDeviceControllerRegistry *)selfCopy controllerEntities];
   v7 = [controllerEntities copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         controller = [v11 controller];
         uniqueIdentifier = [controller uniqueIdentifier];
         uniqueIdentifier2 = [controllerCopy uniqueIdentifier];
@@ -343,9 +338,9 @@ LABEL_12:
           if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v27 = obj;
-            v28 = 2112;
-            v29 = v11;
+            v26 = obj;
+            v27 = 2112;
+            v28 = v11;
             _os_log_impl(&dword_25830F000, v17, OS_LOG_TYPE_DEFAULT, "%@ Removing device controller entity: %@", buf, 0x16u);
           }
 
@@ -357,7 +352,7 @@ LABEL_12:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v8)
       {
         continue;
@@ -371,115 +366,111 @@ LABEL_12:
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = obj;
-    v28 = 2112;
-    v29 = controllerCopy;
+    v26 = obj;
+    v27 = 2112;
+    v28 = controllerCopy;
     _os_log_impl(&dword_25830F000, v16, OS_LOG_TYPE_DEFAULT, "%@ Tried to remove device controller, but wasn't present: %@", buf, 0x16u);
   }
 
 LABEL_14:
   objc_sync_exit(obj);
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_forceUpdateRunningModeForController:(id)controller
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v37 = 2112;
-    v38 = controllerCopy;
+    v36 = 2112;
+    v37 = controllerCopy;
     _os_log_impl(&dword_25830F000, v5, OS_LOG_TYPE_DEFAULT, "%@ _forceUpdateRunningModeForController for controller %@", buf, 0x16u);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   controllerEntities = [(MTRPluginDeviceControllerRegistry *)self controllerEntities];
   v7 = [controllerEntities copy];
 
   obj = v7;
-  v30 = [v7 countByEnumeratingWithState:&v31 objects:v43 count:16];
-  if (v30)
+  v29 = [v7 countByEnumeratingWithState:&v30 objects:v42 count:16];
+  if (v29)
   {
-    v8 = *v32;
-    v28 = controllerCopy;
+    v8 = *v31;
+    v27 = controllerCopy;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
-        if (!controllerCopy)
+        v10 = *(*(&v30 + 1) + 8 * i);
+        if (controllerCopy)
         {
-          goto LABEL_10;
-        }
+          controller = [*(*(&v30 + 1) + 8 * i) controller];
+          uniqueIdentifier = [controller uniqueIdentifier];
+          uniqueIdentifier2 = [controllerCopy uniqueIdentifier];
+          v14 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
-        controller = [*(*(&v31 + 1) + 8 * i) controller];
-        uniqueIdentifier = [controller uniqueIdentifier];
-        uniqueIdentifier2 = [controllerCopy uniqueIdentifier];
-        v14 = [uniqueIdentifier isEqual:uniqueIdentifier2];
-
-        if (v14)
-        {
-LABEL_10:
-          v15 = +[MTRPluginServer sharedInstance];
-          entityIdentifier = [v10 entityIdentifier];
-          v17 = [v15 _unsafeQueryRunningModeFromDelegateForHomeUUID:entityIdentifier];
-
-          v18 = matterPluginLog_default;
-          if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
+          if (!v14)
           {
-            v19 = v18;
-            controller2 = [v10 controller];
-            uniqueIdentifier3 = [controller2 uniqueIdentifier];
-            [v10 entityIdentifier];
-            v22 = v8;
-            v24 = v23 = self;
-            v25 = MTRPluginHomeRunnningModeAsString(v17);
-            *buf = 138413058;
-            selfCopy = v23;
-            v37 = 2112;
-            v38 = uniqueIdentifier3;
-            v39 = 2112;
-            v40 = v24;
-            v41 = 2112;
-            v42 = v25;
-            _os_log_impl(&dword_25830F000, v19, OS_LOG_TYPE_DEFAULT, "%@ _forceUpdateRunningModeForController found controller UUID %@ homeUUID %@ current running mode %@", buf, 0x2Au);
-
-            self = v23;
-            v8 = v22;
-            controllerCopy = v28;
+            continue;
           }
-
-          entityIdentifier2 = [v10 entityIdentifier];
-          [(MTRPluginDeviceControllerRegistry *)self _runningModeChanged:v17 forHomeUUID:entityIdentifier2];
         }
+
+        v15 = +[MTRPluginServer sharedInstance];
+        entityIdentifier = [v10 entityIdentifier];
+        v17 = [v15 _unsafeQueryRunningModeFromDelegateForHomeUUID:entityIdentifier];
+
+        v18 = matterPluginLog_default;
+        if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
+        {
+          v19 = v18;
+          controller2 = [v10 controller];
+          uniqueIdentifier3 = [controller2 uniqueIdentifier];
+          [v10 entityIdentifier];
+          v22 = v8;
+          v24 = v23 = self;
+          v25 = MTRPluginHomeRunnningModeAsString(v17);
+          *buf = 138413058;
+          selfCopy = v23;
+          v36 = 2112;
+          v37 = uniqueIdentifier3;
+          v38 = 2112;
+          v39 = v24;
+          v40 = 2112;
+          v41 = v25;
+          _os_log_impl(&dword_25830F000, v19, OS_LOG_TYPE_DEFAULT, "%@ _forceUpdateRunningModeForController found controller UUID %@ homeUUID %@ current running mode %@", buf, 0x2Au);
+
+          self = v23;
+          v8 = v22;
+          controllerCopy = v27;
+        }
+
+        entityIdentifier2 = [v10 entityIdentifier];
+        [(MTRPluginDeviceControllerRegistry *)self _runningModeChanged:v17 forHomeUUID:entityIdentifier2];
       }
 
-      v30 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v29 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)devicesChangedForController:(id)controller
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -488,24 +479,22 @@ LABEL_10:
   {
     uniqueIdentifier = [controllerCopy uniqueIdentifier];
     devices = [controllerCopy devices];
-    v10 = 138412802;
-    v11 = selfCopy;
-    v12 = 2112;
-    v13 = uniqueIdentifier;
-    v14 = 2048;
-    v15 = [devices count];
-    _os_log_impl(&dword_25830F000, v6, OS_LOG_TYPE_DEFAULT, "%@ Device controller delegate devices changed for controller UUID %@ devices count %lu", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = selfCopy;
+    v11 = 2112;
+    v12 = uniqueIdentifier;
+    v13 = 2048;
+    v14 = [devices count];
+    _os_log_impl(&dword_25830F000, v6, OS_LOG_TYPE_DEFAULT, "%@ Device controller delegate devices changed for controller UUID %@ devices count %lu", &v9, 0x20u);
   }
 
   [(MTRPluginDeviceControllerRegistry *)selfCopy _forceUpdateRunningModeForController:controllerCopy];
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resumeControllerForPotentialPairing:(id)pairing
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pairingCopy = pairing;
   v5 = +[MTRPluginServer sharedInstance];
   isRunning = [v5 isRunning];
@@ -516,8 +505,8 @@ LABEL_10:
   {
     if (v8)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_25830F000, v7, OS_LOG_TYPE_DEFAULT, "*** We are potentially pairing, forcing/returning local mode without querying delegate", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_25830F000, v7, OS_LOG_TYPE_DEFAULT, "*** We are potentially pairing, forcing/returning local mode without querying delegate", &v14, 2u);
     }
 
     object = [pairingCopy object];
@@ -535,11 +524,11 @@ LABEL_10:
     v12 = matterPluginLog_default;
     if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
+      v14 = 138412546;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = object2;
-      _os_log_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEFAULT, "%@ Forcing running mode to local for home %@, since we are potentially pairing", &v15, 0x16u);
+      v16 = 2112;
+      v17 = object2;
+      _os_log_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEFAULT, "%@ Forcing running mode to local for home %@, since we are potentially pairing", &v14, 0x16u);
     }
 
     [(MTRPluginDeviceControllerRegistry *)self _runningModeChanged:2 forHomeUUID:object2];
@@ -553,21 +542,19 @@ LABEL_10:
   {
     object2 = v7;
     name = [pairingCopy name];
-    v15 = 138412546;
+    v14 = 138412546;
     selfCopy2 = self;
-    v17 = 2112;
-    v18 = name;
-    _os_log_impl(&dword_25830F000, object2, OS_LOG_TYPE_DEFAULT, "%@ Ignoring handling notification %@ since and server running state is NO", &v15, 0x16u);
+    v16 = 2112;
+    v17 = name;
+    _os_log_impl(&dword_25830F000, object2, OS_LOG_TYPE_DEFAULT, "%@ Ignoring handling notification %@ since and server running state is NO", &v14, 0x16u);
 
 LABEL_12:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSuspendedStateBasedOnRunningMode:(id)mode
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   v5 = +[MTRPluginServer sharedInstance];
   isRunning = [v5 isRunning];
@@ -589,10 +576,10 @@ LABEL_12:
           name = [modeCopy name];
           *buf = 138412802;
           selfCopy3 = self;
-          v30 = 2112;
-          v31 = object2;
-          v32 = 2112;
-          v33 = name;
+          v29 = 2112;
+          v30 = object2;
+          v31 = 2112;
+          v32 = name;
           _os_log_impl(&dword_25830F000, v10, OS_LOG_TYPE_DEFAULT, "%@ Potentially updating running mode for home %@, due to notification %@", buf, 0x20u);
         }
 
@@ -612,41 +599,41 @@ LABEL_12:
       name2 = [modeCopy name];
       *buf = 138412546;
       selfCopy3 = self;
-      v30 = 2112;
-      v31 = name2;
+      v29 = 2112;
+      v30 = name2;
       _os_log_impl(&dword_25830F000, v15, OS_LOG_TYPE_DEFAULT, "%@ Handling notification %@ and re-querying running mode for all homes", buf, 0x16u);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     controllerEntities = [(MTRPluginDeviceControllerRegistry *)self controllerEntities];
     object2 = [controllerEntities copy];
 
-    v18 = [object2 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v18 = [object2 countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(object2);
           }
 
-          entityIdentifier = [*(*(&v24 + 1) + 8 * v21) entityIdentifier];
+          entityIdentifier = [*(*(&v23 + 1) + 8 * v21) entityIdentifier];
           [(MTRPluginDeviceControllerRegistry *)self _queryAndUpdateRunningModeForHomeUUID:entityIdentifier];
 
           ++v21;
         }
 
         while (v19 != v21);
-        v19 = [object2 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v19 = [object2 countByEnumeratingWithState:&v23 objects:v33 count:16];
       }
 
       while (v19);
@@ -662,19 +649,17 @@ LABEL_12:
     name3 = [modeCopy name];
     *buf = 138412546;
     selfCopy3 = self;
-    v30 = 2112;
-    v31 = name3;
+    v29 = 2112;
+    v30 = name3;
     _os_log_impl(&dword_25830F000, object2, OS_LOG_TYPE_DEFAULT, "%@ Ignoring handling notification %@ since and server running state is NO", buf, 0x16u);
 
 LABEL_19:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryAndUpdateRunningModeForHomeUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
@@ -686,48 +671,46 @@ LABEL_19:
     {
       v8 = v7;
       v9 = MTRPluginHomeRunnningModeAsString(v6);
-      v12 = 138412802;
+      v11 = 138412802;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_25830F000, v8, OS_LOG_TYPE_DEFAULT, "%@ Home delegate returned running mode: %@ for homeUUID: %@", &v12, 0x20u);
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_25830F000, v8, OS_LOG_TYPE_DEFAULT, "%@ Home delegate returned running mode: %@ for homeUUID: %@", &v11, 0x20u);
     }
 
     v10 = +[MTRPluginServer sharedInstance];
     [v10 runningModeForHomeUUID:dCopy runningModeChanged:v6];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRunningModeForAllControllers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   controllerEntities = [(MTRPluginDeviceControllerRegistry *)self controllerEntities];
   v4 = [controllerEntities copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = +[MTRPluginServer sharedInstance];
         entityIdentifier = [v9 entityIdentifier];
         v12 = [v10 _unsafeQueryRunningModeFromDelegateForHomeUUID:entityIdentifier];
@@ -739,19 +722,17 @@ LABEL_19:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRunningMode:(int64_t)mode forceUpdateControllerConfiguration:(BOOL)configuration forHomeUUID:(id)d
 {
   configurationCopy = configuration;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v9 = [(MTRPluginDeviceControllerRegistry *)self _runningModeForUUID:dCopy];
   v10 = v9;
@@ -765,12 +746,12 @@ LABEL_19:
       v14 = MTRPluginHomeRunnningModeAsString(mode);
       *buf = 138413058;
       selfCopy2 = self;
-      v36 = 2112;
-      v37 = v13;
-      v38 = 2112;
-      v39 = v14;
-      v40 = 2112;
-      v41 = dCopy;
+      v35 = 2112;
+      v36 = v13;
+      v37 = 2112;
+      v38 = v14;
+      v39 = 2112;
+      v40 = dCopy;
       _os_log_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEFAULT, "%@ Switching running mode from '%@' to '%@' for home %@", buf, 0x2Au);
     }
 
@@ -786,41 +767,41 @@ LABEL_19:
       v17 = MTRPluginHomeRunnningModeAsString(mode);
       *buf = 138412802;
       selfCopy2 = self;
-      v36 = 2112;
-      v37 = v17;
-      v38 = 2112;
-      v39 = dCopy;
+      v35 = 2112;
+      v36 = v17;
+      v37 = 2112;
+      v38 = dCopy;
       _os_log_impl(&dword_25830F000, v16, OS_LOG_TYPE_DEFAULT, "%@ Running mode '%@' unchanged for home %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v18 = +[MTRPluginClientManager sharedInstance];
     clients = [v18 clients];
     v20 = [clients copy];
 
-    v21 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v30;
+      v23 = *v29;
       do
       {
         v24 = 0;
         do
         {
-          if (*v30 != v23)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v29 + 1) + 8 * v24);
-          if (!dCopy || ([*(*(&v29 + 1) + 8 * v24) homeUUID], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(dCopy, "isEqual:", v26), v26, v27))
+          v25 = *(*(&v28 + 1) + 8 * v24);
+          if (!dCopy || ([*(*(&v28 + 1) + 8 * v24) homeUUID], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(dCopy, "isEqual:", v26), v26, v27))
           {
             [v25 runningModeChanged:mode];
           }
@@ -829,44 +810,42 @@ LABEL_19:
         }
 
         while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v22);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runningModeChanged:(int64_t)changed forHomeUUID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   controllerEntities = [(MTRPluginDeviceControllerRegistry *)selfCopy controllerEntities];
-  v9 = [controllerEntities countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v9 = [controllerEntities countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v9)
   {
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(controllerEntities);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (dCopy)
         {
-          entityIdentifier = [*(*(&v19 + 1) + 8 * i) entityIdentifier];
+          entityIdentifier = [*(*(&v18 + 1) + 8 * i) entityIdentifier];
           v14 = [dCopy isEqual:entityIdentifier];
 
           if (!v14)
@@ -880,11 +859,11 @@ LABEL_19:
         {
           v16 = MTRPluginHomeRunnningModeAsString(changed);
           *buf = 138412802;
-          v24 = selfCopy;
-          v25 = 2112;
-          v26 = v16;
-          v27 = 2112;
-          v28 = dCopy;
+          v23 = selfCopy;
+          v24 = 2112;
+          v25 = v16;
+          v26 = 2112;
+          v27 = dCopy;
           _os_log_impl(&dword_25830F000, v15, OS_LOG_TYPE_DEFAULT, "%@ Switching running mode to '%@' for home %@", buf, 0x20u);
         }
 
@@ -893,19 +872,18 @@ LABEL_19:
         MTRUpdateRunningModeForController(changed, controller, selfCopy);
       }
 
-      v9 = [controllerEntities countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v9 = [controllerEntities countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v9);
   }
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRunningModeOfAllClientsForHome:(id)home
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if (homeCopy)
   {
@@ -919,36 +897,36 @@ LABEL_19:
       v9 = MTRPluginHomeRunnningModeAsString(v6);
       *buf = 138412802;
       selfCopy = self;
-      v28 = 2112;
-      v29 = v9;
-      v30 = 2112;
-      v31 = homeCopy;
+      v27 = 2112;
+      v28 = v9;
+      v29 = 2112;
+      v30 = homeCopy;
       _os_log_impl(&dword_25830F000, v8, OS_LOG_TYPE_DEFAULT, "%@ Updating running mode for all clients to '%@' for home %@", buf, 0x20u);
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v10 = +[MTRPluginClientManager sharedInstance];
     clients = [v10 clients];
     v12 = [clients copy];
 
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           homeUUID = [v17 homeUUID];
           v19 = [homeCopy isEqual:homeUUID];
 
@@ -958,25 +936,22 @@ LABEL_19:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runningModeForUUID:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25830F000, log, OS_LOG_TYPE_ERROR, "%@ Cannot find controller for UUID %@ - returning unknown running mode, controller was not added to registry", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25830F000, log, OS_LOG_TYPE_ERROR, "%@ Cannot find controller for UUID %@ - returning unknown running mode, controller was not added to registry", &v3, 0x16u);
 }
 
 @end

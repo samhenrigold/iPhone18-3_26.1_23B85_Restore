@@ -84,13 +84,14 @@
 
 - (void)setDetailText:(id)text attributes:(id)attributes
 {
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(self, a2);
+  if (isInternalInstall)
   {
-    v4 = _RUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "Detail text is not supported with setupAssistant-style title headers", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, "Detail text is not supported with setupAssistant-style title headers", v6, 2u);
     }
   }
 }

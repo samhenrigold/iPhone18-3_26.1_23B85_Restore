@@ -16,8 +16,8 @@
   v5 = gdc::DebugTreeNode::createChildNode(node, &v19);
   gdc::DebugTreeNode::DebugTreeNode(&v13, v5);
   memset(v12, 0, sizeof(v12));
-  attributes = [(GEOStyleAttributes *)self->_originalStyleAttributes attributes];
-  if ([attributes countByEnumeratingWithState:v12 objects:v22 count:16])
+  v6 = objc_msgSend_attributes(self->_originalStyleAttributes);
+  if ([v6 countByEnumeratingWithState:v12 objects:v22 count:16])
   {
     v7 = **(&v12[0] + 1);
     std::to_string(&v10, 0);
@@ -74,9 +74,9 @@
           {
             artwork4 = [annotationCopy artwork];
             icon2 = [artwork4 icon];
-            styleAttributes = [icon2 styleAttributes];
+            v18 = objc_msgSend_styleAttributes(icon2);
             originalStyleAttributes = v10->_originalStyleAttributes;
-            v10->_originalStyleAttributes = styleAttributes;
+            v10->_originalStyleAttributes = v18;
 
             objc_storeStrong(&v10->_routeAnnotation, annotation);
             artwork = v10;

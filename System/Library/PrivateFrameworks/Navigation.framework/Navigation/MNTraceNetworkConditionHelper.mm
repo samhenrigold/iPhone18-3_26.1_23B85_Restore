@@ -36,58 +36,54 @@
 
 + (id)nlcProfiles
 {
-  v2 = *MEMORY[0x1E695E898];
-  v3 = _CFPreferencesCopyValueWithContainer();
-  if (![v3 count])
+  v2 = _CFPreferencesCopyValueWithContainer();
+  if (![v2 count])
   {
-    v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfFile:@"/Developer/Library/PreferenceBundles/Developer Settings.bundle/com.apple.network.prefPaneSimulate.plist"];
-    v5 = [v4 objectForKeyedSubscript:@"Profiles"];
+    v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfFile:@"/Developer/Library/PreferenceBundles/Developer Settings.bundle/com.apple.network.prefPaneSimulate.plist"];
+    v4 = [v3 objectForKeyedSubscript:@"Profiles"];
 
     _CFPreferencesSetValueWithContainer();
-    v3 = v5;
+    v2 = v4;
   }
 
-  return v3;
+  return v2;
 }
 
 + (id)activeNLCProfile
 {
-  v2 = *MEMORY[0x1E695E898];
+  v2 = _CFPreferencesCopyValueWithContainer();
   v3 = _CFPreferencesCopyValueWithContainer();
-  v4 = _CFPreferencesCopyValueWithContainer();
-  bOOLValue = [v4 BOOLValue];
+  bOOLValue = [v3 BOOLValue];
 
-  v6 = _CFPreferencesCopyValueWithContainer();
-  longValue = [v6 longValue];
+  v5 = _CFPreferencesCopyValueWithContainer();
+  longValue = [v5 longValue];
 
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   [processInfo systemUptime];
-  v10 = v9;
+  v9 = v8;
 
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
-  v13 = v12 - longValue <= v10;
+  v12 = v11 - longValue <= v9;
 
-  if ((v13 & bOOLValue) != 0)
+  if ((v12 & bOOLValue) != 0)
   {
-    v14 = v3;
+    v13 = v2;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  return v14;
+  return v13;
 }
 
 + (BOOL)disableNLC
 {
-  memset(v29, 0, sizeof(v29));
-  v28 = 0u;
-  v27 = 0u;
+  memset(v27, 0, sizeof(v27));
   v26 = 0u;
   v25 = 0u;
   v24 = 0u;
@@ -97,43 +93,45 @@
   v20 = 0u;
   v19 = 0u;
   v18 = 0u;
-  v17 = 21;
-  v16 = 0;
-  v2 = _nlc_connect(&v16);
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 21;
+  v14 = 0;
+  v2 = _nlc_connect(&v14);
   v3 = v2 == 1;
   if (v2 != 1)
   {
-    v12 = GEOFindOrCreateLog();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = GEOFindOrCreateLog();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
 
-    *v15 = 0;
-    v9 = "_nlc_connect failed";
-    v10 = v12;
-    v11 = OS_LOG_TYPE_ERROR;
+    *v13 = 0;
+    v7 = "_nlc_connect failed";
+    v8 = v10;
+    v9 = OS_LOG_TYPE_ERROR;
     goto LABEL_16;
   }
 
-  v4 = _nlc_stop_simulation(&v16, &v17);
+  v4 = _nlc_stop_simulation(&v14, &v15);
   if (v4 != 1)
   {
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "_nlc_stop_simulation failed", v15, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "_nlc_stop_simulation failed", v13, 2u);
     }
   }
 
-  if (_nlc_disconnect(&v16) != 1)
+  if (_nlc_disconnect(&v14) != 1)
   {
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed", v15, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "_nlc_disconnect failed", v13, 2u);
     }
   }
 
@@ -142,18 +140,16 @@
     return 0;
   }
 
-  v7 = *MEMORY[0x1E695E4C0];
-  v8 = *MEMORY[0x1E695E898];
   _CFPreferencesSetValueWithContainer();
-  v12 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v10 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v15 = 0;
-    v9 = "Network Link Conditioner disabled";
-    v10 = v12;
-    v11 = OS_LOG_TYPE_INFO;
+    *v13 = 0;
+    v7 = "Network Link Conditioner disabled";
+    v8 = v10;
+    v9 = OS_LOG_TYPE_INFO;
 LABEL_16:
-    _os_log_impl(&dword_1D311E000, v10, v11, v9, v15, 2u);
+    _os_log_impl(&dword_1D311E000, v8, v9, v7, v13, 2u);
   }
 
 LABEL_17:
@@ -163,7 +159,7 @@ LABEL_17:
 
 + (BOOL)enableNLC:(id)c
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   cCopy = c;
   if (([self hasActiveNetworkConditionInducer] & 1) == 0)
   {
@@ -177,20 +173,20 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    memset(v60, 0, sizeof(v60));
-    v59 = 0u;
-    v58 = 0u;
-    v57 = 0u;
+    memset(v57, 0, sizeof(v57));
     v56 = 0u;
     v55 = 0u;
     v54 = 0u;
-    v53 = 21;
-    v68 = 0;
-    v66 = 0u;
-    v67 = 0u;
-    memset(v65, 0, sizeof(v65));
+    v53 = 0u;
+    v52 = 0u;
+    v51 = 0u;
+    v50 = 21;
+    v65 = 0;
     v63 = 0u;
     v64 = 0u;
+    memset(v62, 0, sizeof(v62));
+    v60 = 0u;
+    v61 = 0u;
     v8 = [v6 objectForKeyedSubscript:@"DownlinkBandwidth"];
     unsignedIntValue = [v8 unsignedIntValue];
 
@@ -211,12 +207,12 @@ LABEL_44:
 
     else
     {
-      LODWORD(v63) = 9;
-      *&v66 = __PAIR64__(bOOLValue, unsignedIntValue);
-      *(&v66 + 1) = __PAIR64__(unsignedIntValue2, LODWORD(v14));
-      v67 = 0uLL;
+      LODWORD(v60) = 9;
+      *&v63 = __PAIR64__(bOOLValue, unsignedIntValue);
+      *(&v63 + 1) = __PAIR64__(unsignedIntValue2, LODWORD(v14));
+      v64 = 0uLL;
       v18 = 13;
-      v68 = 0;
+      v65 = 0;
     }
 
     v19 = [v7 objectForKeyedSubscript:@"UplinkBandwidth"];
@@ -234,11 +230,11 @@ LABEL_44:
 
     if (unsignedIntValue3 || v25 != 0.0 || unsignedIntValue4)
     {
-      LODWORD(v63) = v18;
-      HIDWORD(v64) = unsignedIntValue3;
-      *&v65[0] = __PAIR64__(LODWORD(v25), bOOLValue2);
-      memset(v65 + 12, 0, 20);
-      DWORD2(v65[0]) = unsignedIntValue4;
+      LODWORD(v60) = v18;
+      HIDWORD(v61) = unsignedIntValue3;
+      *&v62[0] = __PAIR64__(LODWORD(v25), bOOLValue2);
+      memset(v62 + 12, 0, 20);
+      DWORD2(v62[0]) = unsignedIntValue4;
     }
 
     v28 = [v7 objectForKeyedSubscript:@"RunOnInterface"];
@@ -246,29 +242,29 @@ LABEL_44:
     {
       [v28 cStringUsingEncoding:1];
       __strlcpy_chk();
-      LODWORD(v63) = v63 | 1;
+      LODWORD(v60) = v60 | 1;
     }
 
     v29 = [v7 objectForKeyedSubscript:@"ProtocolFamily"];
-    DWORD1(v63) = [v29 unsignedIntValue];
+    DWORD1(v60) = [v29 unsignedIntValue];
 
-    if (DWORD1(v63))
+    if (DWORD1(v60))
     {
-      LODWORD(v63) = v63 | 1;
+      LODWORD(v60) = v60 | 1;
     }
 
     v30 = [v7 objectForKeyedSubscript:@"ExcludeLoopback"];
-    DWORD2(v63) = [v30 unsignedIntValue];
+    DWORD2(v60) = [v30 unsignedIntValue];
 
-    if (v63)
+    if (v60)
     {
-      *&v60[56] = v65[1];
-      *&v60[72] = v66;
-      *&v60[88] = v67;
-      *&v60[104] = v68;
-      *&v60[8] = v63;
-      *&v60[24] = v64;
-      *&v60[40] = v65[0];
+      *&v57[56] = v62[1];
+      *&v57[72] = v63;
+      *&v57[88] = v64;
+      *&v57[104] = v65;
+      *&v57[8] = v60;
+      *&v57[24] = v61;
+      *&v57[40] = v62[0];
     }
 
     v31 = [v7 objectForKeyedSubscript:@"DNSDelayValue"];
@@ -279,25 +275,25 @@ LABEL_44:
       v33 = [v7 objectForKeyedSubscript:@"ExcludeLoopback"];
       unsignedIntValue6 = [v33 unsignedIntValue];
 
-      *(&v54 + 4) = 6;
-      HIDWORD(v54) = unsignedIntValue6;
-      v55 = 0uLL;
-      *&v56 = 0;
-      DWORD2(v56) = 0;
-      HIDWORD(v56) = unsignedIntValue5;
-      *&v57 = 0;
-      *(&v57 + 1) = 0x3500000011;
-      v58 = 0u;
-      v59 = 0u;
-      *v60 = 0;
+      *(&v51 + 4) = 6;
+      HIDWORD(v51) = unsignedIntValue6;
+      v52 = 0uLL;
+      *&v53 = 0;
+      DWORD2(v53) = 0;
+      HIDWORD(v53) = unsignedIntValue5;
+      *&v54 = 0;
+      *(&v54 + 1) = 0x3500000011;
+      v55 = 0u;
+      v56 = 0u;
+      *v57 = 0;
     }
 
-    v52 = 0;
-    v35 = _nlc_connect(&v52);
+    v49 = 0;
+    v35 = _nlc_connect(&v49);
     v5 = v35 == 1;
     if (v35 == 1)
     {
-      started = _nlc_start_simulation(&v52, &v53);
+      started = _nlc_start_simulation(&v49, &v50);
       if (started != 1)
       {
         v37 = GEOFindOrCreateLog();
@@ -308,7 +304,7 @@ LABEL_44:
         }
       }
 
-      if (_nlc_disconnect(&v52) != 1)
+      if (_nlc_disconnect(&v49) != 1)
       {
         v38 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
@@ -324,19 +320,17 @@ LABEL_44:
         goto LABEL_43;
       }
 
-      v39 = *MEMORY[0x1E695E898];
       _CFPreferencesSetValueWithContainer();
-      v40 = *MEMORY[0x1E695E4D0];
       _CFPreferencesSetValueWithContainer();
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSince1970];
-      v43 = v42;
+      v41 = v40;
 
-      [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v43];
+      [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v41];
       _CFPreferencesSetValueWithContainer();
       CFPreferencesAppSynchronize(@"com.apple.network.prefPaneSimulate");
-      v48 = GEOFindOrCreateLog();
-      if (!os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      v46 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
 LABEL_41:
 
@@ -345,88 +339,87 @@ LABEL_43:
       }
 
       *buf = 138412290;
-      v62 = cCopy;
-      v44 = "Network Link Conditioner set to %@";
-      v45 = v48;
-      v46 = OS_LOG_TYPE_INFO;
-      v47 = 12;
+      v59 = cCopy;
+      v42 = "Network Link Conditioner set to %@";
+      v43 = v46;
+      v44 = OS_LOG_TYPE_INFO;
+      v45 = 12;
     }
 
     else
     {
-      v48 = GEOFindOrCreateLog();
-      if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v46 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_41;
       }
 
       *buf = 0;
-      v44 = "_nlc_connect failed";
-      v45 = v48;
-      v46 = OS_LOG_TYPE_ERROR;
-      v47 = 2;
+      v42 = "_nlc_connect failed";
+      v43 = v46;
+      v44 = OS_LOG_TYPE_ERROR;
+      v45 = 2;
     }
 
-    _os_log_impl(&dword_1D311E000, v45, v46, v44, buf, v47);
+    _os_log_impl(&dword_1D311E000, v43, v44, v42, buf, v45);
     goto LABEL_41;
   }
 
   v5 = 0;
 LABEL_45:
 
-  v50 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (BOOL)hasActiveNetworkConditionInducer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   ConditionInducerLibrary();
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v2 = getCOConditionSessionClass_softClass;
-  v20 = getCOConditionSessionClass_softClass;
+  v19 = getCOConditionSessionClass_softClass;
   if (!getCOConditionSessionClass_softClass)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __getCOConditionSessionClass_block_invoke;
-    v16[3] = &unk_1E842FE88;
-    v16[4] = &v17;
-    __getCOConditionSessionClass_block_invoke(v16);
-    v2 = v18[3];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __getCOConditionSessionClass_block_invoke;
+    v15[3] = &unk_1E842FE88;
+    v15[4] = &v16;
+    __getCOConditionSessionClass_block_invoke(v15);
+    v2 = v17[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   getActiveConditions = [v3 getActiveConditions];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allKeys = [getActiveConditions allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v12 objects:v21 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v11 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) containsString:@"SlowNetwork"])
+        if ([*(*(&v11 + 1) + 8 * i) containsString:@"SlowNetwork"])
         {
           v9 = 1;
           goto LABEL_13;
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v21 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -439,13 +432,12 @@ LABEL_45:
   v9 = 0;
 LABEL_13:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)isCellDataEnabled
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   ctConnection();
   IsEnabled = _CTServerConnectionGetCellularDataIsEnabled();
   v3 = errorFromCTError(IsEnabled);
@@ -455,19 +447,18 @@ LABEL_13:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v8 = v3;
+      v7 = v3;
       _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Couldn't get cell data state: %@", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (BOOL)setCellDataEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   ctConnection();
   IsEnabled = _CTServerConnectionSetCellularDataIsEnabled();
   v5 = errorFromCTError(IsEnabled);
@@ -477,13 +468,13 @@ LABEL_13:
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v5;
+      v13 = 138412290;
+      v14 = v5;
       v8 = "Couldn't set cell data state: %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1D311E000, v9, v10, v8, &v14, 0xCu);
+      _os_log_impl(&dword_1D311E000, v9, v10, v8, &v13, 0xCu);
     }
   }
 
@@ -495,15 +486,14 @@ LABEL_8:
       v11 = "en";
     }
 
-    v14 = 136315138;
-    v15 = v11;
+    v13 = 136315138;
+    v14 = v11;
     v8 = "Cell Data %sabled";
     v9 = v7;
     v10 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5 == 0;
 }
 
@@ -539,22 +529,22 @@ LABEL_8:
 + (BOOL)setWiFiEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v26 = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   if (!ATKLoggerLibraryCore_frameworkLibrary)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v20 = __ATKLoggerLibraryCore_block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0l;
-    v22 = &v18;
-    v23 = xmmword_1E842FEF8;
-    v24 = 0;
+    v19 = __ATKLoggerLibraryCore_block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0l;
+    v21 = &v17;
+    v22 = xmmword_1E842FEF8;
+    v23 = 0;
     ATKLoggerLibraryCore_frameworkLibrary = _sl_dlopen();
-    v4 = v18;
+    v4 = v17;
     if (ATKLoggerLibraryCore_frameworkLibrary)
     {
-      if (!v18)
+      if (!v17)
       {
         goto LABEL_4;
       }
@@ -562,7 +552,7 @@ LABEL_8:
 
     else
     {
-      v4 = abort_report_np();
+      v4 = abort_report_np("%s", v17);
       __break(1u);
     }
 
@@ -571,24 +561,24 @@ LABEL_8:
 
 LABEL_4:
   CoreAutomationDeviceLibrary();
-  *&v23 = 0;
-  *(&v23 + 1) = &v23;
-  v24 = 0x2050000000;
+  *&v22 = 0;
+  *(&v22 + 1) = &v22;
+  v23 = 0x2050000000;
   v5 = getCAMDEmbeddedDeviceServiceClass_softClass;
-  v25 = getCAMDEmbeddedDeviceServiceClass_softClass;
+  v24 = getCAMDEmbeddedDeviceServiceClass_softClass;
   if (!getCAMDEmbeddedDeviceServiceClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v20 = __getCAMDEmbeddedDeviceServiceClass_block_invoke;
-    v21 = &unk_1E842FE88;
-    v22 = &v23;
+    v19 = __getCAMDEmbeddedDeviceServiceClass_block_invoke;
+    v20 = &unk_1E842FE88;
+    v21 = &v22;
     __getCAMDEmbeddedDeviceServiceClass_block_invoke(&buf);
-    v5 = *(*(&v23 + 1) + 24);
+    v5 = *(*(&v22 + 1) + 24);
   }
 
   v6 = v5;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   initAsMobile = [[v6 alloc] initAsMobile];
   [initAsMobile setDirectInvocations:0];
   [initAsMobile start];
@@ -633,7 +623,6 @@ LABEL_4:
     _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "WiFi power set to %s", &buf, 0xCu);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return error == 0;
 }
 

@@ -230,8 +230,9 @@
   }
 }
 
-uint64_t __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke(uint64_t a1, int a2)
+uint64_t __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (!*MEMORY[0x277D0C2A0])
@@ -245,7 +246,7 @@ uint64_t __56__GKMatchmakerViewController__setupRemoteViewController__block_invo
     }
   }
 
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 void __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke_57(uint64_t a1, void *a2, void *a3)
@@ -315,7 +316,7 @@ void __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke_2
   [v5 hasCanceledMultiplayerInitiateBulletinForSessionToken:v7 handler:v9];
 }
 
-uint64_t __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke_3(uint64_t a1, int a2)
+uint64_t __56__GKMatchmakerViewController__setupRemoteViewController__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1182,72 +1183,72 @@ void __47__GKMatchmakerViewController_setShareInvitees___block_invoke(uint64_t a
   _Block_object_dispose(buf, 8);
 }
 
-void __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke(uint64_t a1)
+void __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277D0C2A0];
+  v28 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v3 = GKOSLoggers();
+    v4 = GKOSLoggers();
   }
 
-  v4 = MEMORY[0x277D0C2B0];
-  v5 = *MEMORY[0x277D0C2B0];
+  v5 = MEMORY[0x277D0C2B0];
+  v6 = *MEMORY[0x277D0C2B0];
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138412290;
-    v26 = v6;
-    _os_log_impl(&dword_24DE53000, v5, OS_LOG_TYPE_INFO, "GKMatchmakerVC entered async queue. UUID: %@", buf, 0xCu);
+    v27 = v7;
+    _os_log_impl(&dword_24DE53000, v6, OS_LOG_TYPE_INFO, "GKMatchmakerVC entered async queue. UUID: %@", buf, 0xCu);
   }
 
-  v7 = [objc_alloc(MEMORY[0x277D0C148]) initWithInternalRepresentation:*(a1 + 40)];
-  [*(a1 + 48) setMatchRequest:v7];
+  v8 = [objc_alloc(MEMORY[0x277D0C148]) initWithInternalRepresentation:*(a1 + 40)];
+  [*(a1 + 48) setMatchRequest:v8];
   [*(a1 + 48) setUserCancelledMatching:0];
-  v8 = [*(a1 + 48) invitationGroup];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke_142;
-  v20[3] = &unk_27966C610;
-  v21 = *(a1 + 32);
-  v9 = v7;
-  v10 = *(a1 + 48);
-  v22 = v9;
+  v9 = [*(a1 + 48) invitationGroup];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke_142;
+  v21[3] = &unk_27966C610;
+  v22 = *(a1 + 32);
+  v10 = v8;
+  v11 = *(a1 + 48);
   v23 = v10;
-  v19 = *(a1 + 56);
-  v11 = v19;
-  v24 = v19;
-  [v8 perform:v20];
+  v24 = v11;
+  v20 = *(a1 + 56);
+  v12 = v20;
+  v25 = v20;
+  [v9 perform:v21];
 
-  v12 = [*(a1 + 48) invitationGroup];
-  v13 = [v12 waitWithTimeout:5.0];
+  v13 = [*(a1 + 48) invitationGroup];
+  v14 = [v13 waitWithTimeout:5.0];
 
-  if (v13)
+  if (v14)
   {
-    if (!*v2)
+    if (!*v3)
     {
-      v14 = GKOSLoggers();
+      v15 = GKOSLoggers();
     }
 
-    v15 = *v4;
-    if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
+    v16 = *v5;
+    if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke_cold_1((a1 + 40), a1 + 64, v15);
+      __71__GKMatchmakerViewController_startMatchingWithRequest_devicePushToken___block_invoke_cold_1((a1 + 40), a1 + 64, v16);
     }
   }
 
-  if (!*v2)
+  if (!*v3)
   {
-    v16 = GKOSLoggers();
+    v17 = GKOSLoggers();
   }
 
-  v17 = *v4;
-  if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
+  v18 = *v5;
+  if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
   {
-    v18 = *(a1 + 32);
+    v19 = *(a1 + 32);
     *buf = 138412290;
-    v26 = v18;
-    _os_log_impl(&dword_24DE53000, v17, OS_LOG_TYPE_INFO, "After invitation group wait or timeout. UUID: %@", buf, 0xCu);
+    v27 = v19;
+    _os_log_impl(&dword_24DE53000, v18, OS_LOG_TYPE_INFO, "After invitation group wait or timeout. UUID: %@", buf, 0xCu);
   }
 }
 
@@ -1795,8 +1796,9 @@ void __58__GKMatchmakerViewController_setBrowsingForNearbyPlayers___block_invoke
   [matchmaker activateGroupActivityWithHandler:&__block_literal_global_162];
 }
 
-void __53__GKMatchmakerViewController_activateGroupActivities__block_invoke(uint64_t a1, int a2)
+void __53__GKMatchmakerViewController_activateGroupActivities__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v6 = *MEMORY[0x277D85DE8];
   if (!*MEMORY[0x277D0C2A0])
   {
@@ -1807,7 +1809,7 @@ void __53__GKMatchmakerViewController_activateGroupActivities__block_invoke(uint
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
     v5[0] = 67109120;
-    v5[1] = a2;
+    v5[1] = v2;
     _os_log_impl(&dword_24DE53000, v4, OS_LOG_TYPE_INFO, "Game Center done activating GroupActivity, success: %hhd", v5, 8u);
   }
 }

@@ -871,7 +871,7 @@ LABEL_9:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       if (v5 > 0.0)
       {
         v6 = v5;

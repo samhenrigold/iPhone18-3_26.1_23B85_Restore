@@ -9,9 +9,9 @@
 
 - (PLThreadInfo)initWithThread:(unint64_t)thread inProcess:(int)process
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, 512);
-  if (proc_pidinfo(process, 10, thread, v9, 1288) <= 0 && (*__error() == 3 || *__error() == 22))
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, 512);
+  if (proc_pidinfo(process, 10, thread, v8, 1288) <= 0 && (*__error() == 3 || *__error() == 22))
   {
     v6 = 0;
   }
@@ -19,12 +19,11 @@
   else
   {
     v6 = objc_alloc_init(PLThreadInfo);
-    [(PLThreadInfo *)v6 setUserTime:*&v9[0] / 1000000000.0];
-    [(PLThreadInfo *)v6 setSystemTime:*(&v9[0] + 1) / 1000000000.0];
+    [(PLThreadInfo *)v6 setUserTime:*&v8[0] / 1000000000.0];
+    [(PLThreadInfo *)v6 setSystemTime:*(&v8[0] + 1) / 1000000000.0];
     [(PLThreadInfo *)v6 setThreadID:thread];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -74,24 +73,7 @@
 - (BOOL)isEqualToThreadInfo:(id)info
 {
   infoCopy = info;
-  if (!infoCopy)
-  {
-    goto LABEL_4;
-  }
-
-  threadName = [(PLThreadInfo *)self threadName];
-  threadName2 = [infoCopy threadName];
-  v7 = [threadName isEqualToString:threadName2];
-
-  if (!v7)
-  {
-    goto LABEL_4;
-  }
-
-  [(PLThreadInfo *)self userTime];
-  v9 = v8;
-  [infoCopy userTime];
-  if (v9 == v10)
+  if (infoCopy && (-[PLThreadInfo threadName](self, "threadName"), v5 = objc_claimAutoreleasedReturnValue(), [infoCopy threadName], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v7) && (-[PLThreadInfo userTime](self, "userTime"), v9 = v8, objc_msgSend(infoCopy, "userTime"), v9 == v10))
   {
     [(PLThreadInfo *)self systemTime];
     v14 = v13;
@@ -101,7 +83,6 @@
 
   else
   {
-LABEL_4:
     v11 = 0;
   }
 

@@ -312,42 +312,43 @@ uint64_t __70__AVTAvatarActionsMenuController_avatarEditorViewControllerDidCance
 - (void)confirmShouldDeleteRecord:(id)record resultBlock:(id)block
 {
   blockCopy = block;
-  if (AVTUIDisableDeleteConfirmation_once())
+  v6 = AVTUIDisableDeleteConfirmation_once();
+  if (v6)
   {
     blockCopy[2](blockCopy, 1);
   }
 
   else
   {
-    v6 = AVTAvatarUIBundle();
-    v7 = [v6 localizedStringForKey:@"DELETE_MEMOJI_ALERT_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
-    v8 = [AVTAlertController alertControllerWithTitle:0 message:v7 preferredStyle:1];
+    v7 = AVTAvatarUIBundle(v6);
+    v8 = [v7 localizedStringForKey:@"DELETE_MEMOJI_ALERT_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
+    v9 = [AVTAlertController alertControllerWithTitle:0 message:v8 preferredStyle:1];
 
-    v9 = MEMORY[0x1E69DC648];
-    v10 = AVTAvatarUIBundle();
-    v11 = [v10 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __72__AVTAvatarActionsMenuController_confirmShouldDeleteRecord_resultBlock___block_invoke;
-    v24[3] = &unk_1E7F3AE00;
-    v12 = blockCopy;
-    v25 = v12;
-    v13 = [v9 actionWithTitle:v11 style:1 handler:v24];
-    [v8 addAction:v13];
+    v10 = MEMORY[0x1E69DC648];
+    v12 = AVTAvatarUIBundle(v11);
+    v13 = [v12 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __72__AVTAvatarActionsMenuController_confirmShouldDeleteRecord_resultBlock___block_invoke;
+    v27[3] = &unk_1E7F3AE00;
+    v14 = blockCopy;
+    v28 = v14;
+    v15 = [v10 actionWithTitle:v13 style:1 handler:v27];
+    [v9 addAction:v15];
 
-    v14 = MEMORY[0x1E69DC648];
-    v15 = AVTAvatarUIBundle();
-    v16 = [v15 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __72__AVTAvatarActionsMenuController_confirmShouldDeleteRecord_resultBlock___block_invoke_2;
-    v22 = &unk_1E7F3AE00;
-    v23 = v12;
-    v17 = [v14 actionWithTitle:v16 style:2 handler:&v19];
-    [v8 addAction:{v17, v19, v20, v21, v22}];
+    v16 = MEMORY[0x1E69DC648];
+    v18 = AVTAvatarUIBundle(v17);
+    v19 = [v18 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __72__AVTAvatarActionsMenuController_confirmShouldDeleteRecord_resultBlock___block_invoke_2;
+    v25 = &unk_1E7F3AE00;
+    v26 = v14;
+    v20 = [v16 actionWithTitle:v19 style:2 handler:&v22];
+    [v9 addAction:{v20, v22, v23, v24, v25}];
 
     delegate = [(AVTAvatarActionsMenuController *)self delegate];
-    [delegate actionsController:self presentAlertController:v8];
+    [delegate actionsController:self presentAlertController:v9];
   }
 }
 

@@ -1,6 +1,7 @@
 @interface HearingDevicesComplicationTimelineEntryModel
 - (HearingDevicesComplicationTimelineEntryModel)initWithEntryDate:(id)date;
 - (id)_textProviderForEar:(id)ear value:(id)value;
+- (id)entryForComplicationFamily:(int64_t)family hearingDevice:(id)device adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode;
 - (id)extraLargeForHearingDeviceDataProvider:(id)provider;
 - (id)graphicBezelForHearingDeviceDataProvider:(id)provider adjustsIndependently:(BOOL)independently;
 - (id)graphicCircularForHearingDeviceDataProvider:(id)provider;
@@ -10,6 +11,7 @@
 - (id)mediumCircleForHearingDeviceDataProvider:(id)provider;
 - (id)smallCircleForHearingDeviceDataProvider:(id)provider;
 - (id)smallModularForHearingDeviceDataProvider:(id)provider;
+- (id)templateForComplicationFamily:(int64_t)family hearingDeviceDataProvider:(id)provider adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode;
 - (id)utilitarianLargeForHearingDeviceDataProvider:(id)provider adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode;
 - (id)utilitarianSmallFlatForHearingDeviceDataProvider:(id)provider adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode;
 @end
@@ -29,6 +31,117 @@
   }
 
   return v7;
+}
+
+- (id)entryForComplicationFamily:(int64_t)family hearingDevice:(id)device adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode
+{
+  independentlyCopy = independently;
+  deviceCopy = device;
+  v11 = objc_alloc_init(HearingDeviceDataProvider);
+  [(HearingDeviceDataProvider *)v11 setHearingDevice:deviceCopy];
+
+  v12 = [(HearingDevicesComplicationTimelineEntryModel *)self templateForComplicationFamily:family hearingDeviceDataProvider:v11 adjustsIndependently:independentlyCopy preferredDisplayMode:mode];
+  if (v12)
+  {
+    entryDate = [(HearingDevicesComplicationTimelineEntryModel *)self entryDate];
+    v14 = [CLKComplicationTimelineEntry entryWithDate:entryDate complicationTemplate:v12];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
+}
+
+- (id)templateForComplicationFamily:(int64_t)family hearingDeviceDataProvider:(id)provider adjustsIndependently:(BOOL)independently preferredDisplayMode:(int64_t)mode
+{
+  independentlyCopy = independently;
+  providerCopy = provider;
+  if (family <= 5)
+  {
+    if (family <= 1)
+    {
+      if (!family)
+      {
+        v11 = [(HearingDevicesComplicationTimelineEntryModel *)self smallModularForHearingDeviceDataProvider:providerCopy];
+        goto LABEL_27;
+      }
+
+      if (family == 1)
+      {
+        v11 = [(HearingDevicesComplicationTimelineEntryModel *)self largeModularForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy];
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+      switch(family)
+      {
+        case 2:
+LABEL_19:
+          v11 = [(HearingDevicesComplicationTimelineEntryModel *)self utilitarianSmallFlatForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy preferredDisplayMode:mode];
+          goto LABEL_27;
+        case 3:
+          v11 = [(HearingDevicesComplicationTimelineEntryModel *)self utilitarianLargeForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy preferredDisplayMode:mode];
+          goto LABEL_27;
+        case 4:
+          v11 = [(HearingDevicesComplicationTimelineEntryModel *)self smallCircleForHearingDeviceDataProvider:providerCopy];
+LABEL_27:
+          v12 = v11;
+          goto LABEL_28;
+      }
+    }
+  }
+
+  else
+  {
+    if (family <= 8)
+    {
+      if (family != 6)
+      {
+        if (family == 7)
+        {
+          [(HearingDevicesComplicationTimelineEntryModel *)self extraLargeForHearingDeviceDataProvider:providerCopy];
+        }
+
+        else
+        {
+          [(HearingDevicesComplicationTimelineEntryModel *)self graphicCornerForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy preferredDisplayMode:mode];
+        }
+        v11 = ;
+        goto LABEL_27;
+      }
+
+      goto LABEL_19;
+    }
+
+    switch(family)
+    {
+      case 9:
+        v11 = [(HearingDevicesComplicationTimelineEntryModel *)self graphicBezelForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy];
+        goto LABEL_27;
+      case 10:
+        v11 = [(HearingDevicesComplicationTimelineEntryModel *)self graphicCircularForHearingDeviceDataProvider:providerCopy];
+        goto LABEL_27;
+      case 11:
+        v11 = [(HearingDevicesComplicationTimelineEntryModel *)self graphicRectangularForHearingDeviceDataProvider:providerCopy adjustsIndependently:independentlyCopy];
+        goto LABEL_27;
+    }
+  }
+
+  if (CLKComplicationFamilyCircularMedium == family)
+  {
+    v11 = [(HearingDevicesComplicationTimelineEntryModel *)self mediumCircleForHearingDeviceDataProvider:providerCopy];
+    goto LABEL_27;
+  }
+
+  v12 = 0;
+LABEL_28:
+
+  return v12;
 }
 
 - (id)smallModularForHearingDeviceDataProvider:(id)provider

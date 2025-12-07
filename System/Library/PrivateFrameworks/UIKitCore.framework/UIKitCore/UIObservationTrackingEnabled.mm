@@ -3,7 +3,7 @@
 
 @implementation UIObservationTrackingEnabled
 
-uint64_t ___UIObservationTrackingEnabled_block_invoke()
+BOOL ___UIObservationTrackingEnabled_block_invoke()
 {
   result = _UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceObservationTrackingDisabled, @"ForceObservationTrackingDisabled", _UIInternalPreferenceUpdateBool);
   if (byte_1ED48B2FC)

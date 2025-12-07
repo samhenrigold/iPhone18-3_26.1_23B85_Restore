@@ -8,21 +8,19 @@
 
 - (void)saveTermsAcceptance:(id)acceptance completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   acceptanceCopy = acceptance;
   completionCopy = completion;
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = acceptanceCopy;
-    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Saving terms acceptance: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = acceptanceCopy;
+    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Saving terms acceptance: %@", &v10, 0xCu);
   }
 
   v9 = [(CDPDTermsInfoBackupController *)self _buildSecureBackupTermsInfo:acceptanceCopy];
   [MEMORY[0x277CFB280] saveTermsAcceptance:v9 reply:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_buildSecureBackupTermsInfo:(id)info
@@ -131,11 +129,10 @@ void __75__CDPDTermsInfoBackupController_fetchTermsAcceptanceForAccount_completi
 
 void __75__CDPDTermsInfoBackupController_fetchTermsAcceptanceForAccount_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Error fetching terms acceptance %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Error fetching terms acceptance %@", &v2, 0xCu);
 }
 
 @end

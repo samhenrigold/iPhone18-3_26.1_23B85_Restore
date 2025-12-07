@@ -6,20 +6,21 @@
 - (void)_deactivateSpinner;
 - (void)_setupAccountHandlersForDisabledOperation;
 - (void)turnOnTapped:(id)tapped;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegDisabledController
 
 - (id)specifierList
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (v3)
   {
     goto LABEL_20;
   }
 
-  v27 = *MEMORY[0x277D3FC48];
+  v26 = *MEMORY[0x277D3FC48];
   v4 = 1568;
   turnOnButton = self->_turnOnButton;
   self->_turnOnButton = 0;
@@ -28,30 +29,30 @@
   self->_spinner = 0;
 
   v7 = CNFRegLoadSpecifiersFromPlist(self, @"CNFRegDisabled", self);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v8)
   {
     goto LABEL_17;
   }
 
   v9 = v8;
-  v10 = *v31;
-  v28 = *MEMORY[0x277D40170];
-  v29 = v7;
+  v10 = *v30;
+  v27 = *MEMORY[0x277D40170];
+  v28 = v7;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v31 != v10)
+      if (*v30 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v30 + 1) + 8 * i);
+      v12 = *(*(&v29 + 1) + 8 * i);
       identifier = [v12 identifier];
       v14 = [identifier isEqual:@"FACETIME_DISABLED_SPINNER_ID"];
 
@@ -92,16 +93,16 @@
             identifier3 = [v21 localizedStringForKey:@"FACETIME_SETTINGS_ACCOUNT_LABEL_APPLEACCOUNT" value:&stru_2856D3978 table:v23];
 
             v4 = v22;
-            v7 = v29;
+            v7 = v28;
 
-            [v12 setProperty:identifier3 forKey:v28];
+            [v12 setProperty:identifier3 forKey:v27];
             [v12 setName:identifier3];
           }
         }
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
   }
 
   while (v9);
@@ -111,12 +112,11 @@ LABEL_17:
     [v7 removeObjectAtIndex:{objc_msgSend(v7, "indexOfObject:")}];
   }
 
-  v24 = *(&self->super.super.super.super.super.super.super.isa + v27);
-  *(&self->super.super.super.super.super.super.super.isa + v27) = v7;
+  v24 = *(&self->super.super.super.super.super.super.super.isa + v26);
+  *(&self->super.super.super.super.super.super.super.isa + v26) = v7;
 
-  v3 = *(&self->super.super.super.super.super.super.super.isa + v27);
+  v3 = *(&self->super.super.super.super.super.super.super.isa + v26);
 LABEL_20:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -245,9 +245,18 @@ void __69__CNFRegDisabledController__setupAccountHandlersForDisabledOperation__b
   }
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(CNFRegDisabledController *)self _deactivateSpinner];
+  v5.receiver = self;
+  v5.super_class = CNFRegDisabledController;
+  [(CNFRegFirstRunController *)&v5 viewWillDisappear:disappearCopy];
+}
+
 - (id)getAccountNameForSpecifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   regController = [(CNFRegListController *)self regController];
   v4 = _os_feature_enabled_impl();
   v5 = CommunicationsSetupUIBundle();
@@ -264,16 +273,14 @@ void __69__CNFRegDisabledController__setupAccountHandlersForDisabledOperation__b
 
   v8 = [v5 localizedStringForKey:v7 value:&stru_2856D3978 table:v6];
 
-  memset(v13, 0, sizeof(v13));
+  memset(v12, 0, sizeof(v12));
   appleIDAccounts = [regController appleIDAccounts];
-  if ([appleIDAccounts countByEnumeratingWithState:v13 objects:v14 count:16])
+  if ([appleIDAccounts countByEnumeratingWithState:v12 objects:v13 count:16])
   {
-    loginDisplayString = [**(&v13[0] + 1) loginDisplayString];
+    loginDisplayString = [**(&v12[0] + 1) loginDisplayString];
 
     v8 = loginDisplayString;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

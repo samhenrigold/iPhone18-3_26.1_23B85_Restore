@@ -1,6 +1,7 @@
 @interface SFWiFiHealthMonitor
 - (SFWiFiHealthMonitor)init;
 - (id)description;
+- (uint64_t)_update;
 - (void)_activate;
 - (void)_invalidate;
 - (void)_update;
@@ -18,62 +19,74 @@
 
 - (SFWiFiHealthMonitor)init
 {
-  v7.receiver = self;
-  v7.super_class = SFWiFiHealthMonitor;
-  v2 = [(SFWiFiHealthMonitor *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFWiFiHealthMonitor;
+  v2 = [(SFWiFiHealthMonitor *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    v4 = *(v2 + 14);
+    *(v2 + 14) = v3;
 
-    *&v3->_lockdownActivated = -1;
+    *(v2 + 12) = -1;
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v19 = 0;
+  NSAppendPrintF(&v19, "SFWiFiHealthMonitor %{ptr}", self);
+  v3 = v19;
+  v18 = v3;
   wifiStatusInternal = self->_wifiStatusInternal;
-  if (wifiStatusInternal <= 3)
+  if (wifiStatusInternal > 3)
+  {
+    v5 = "?";
+  }
+
+  else
   {
     v5 = off_1E78913F8[wifiStatusInternal];
   }
 
-  NSAppendPrintF();
-  v6 = v3;
+  NSAppendPrintF(&v18, ", iStatus %s", v5);
+  v6 = v18;
 
+  v17 = v6;
   wifiStatusExternal = self->_wifiStatusExternal;
-  if (wifiStatusExternal <= 3)
+  if (wifiStatusExternal > 3)
+  {
+    v8 = "?";
+  }
+
+  else
   {
     v8 = off_1E78913F8[wifiStatusExternal];
   }
 
-  NSAppendPrintF();
-  v9 = v6;
+  NSAppendPrintF(&v17, ", eStatus %s", v8);
+  v9 = v17;
 
   if (self->_wifiStatusGoodTicks)
   {
+    v16 = v9;
     mach_absolute_time();
-    wifiStatusGoodTicks = self->_wifiStatusGoodTicks;
-    UpTicksToSeconds();
-    NSAppendPrintF();
-    v11 = v9;
+    v10 = UpTicksToSeconds();
+    NSAppendPrintF(&v16, ", Good %ll{dur}", v10);
+    v11 = v16;
 
     v9 = v11;
   }
 
   if (self->_wifiStatusBadTicks)
   {
+    v15 = v9;
     mach_absolute_time();
-    wifiStatusBadTicks = self->_wifiStatusBadTicks;
-    UpTicksToSeconds();
-    NSAppendPrintF();
-    v13 = v9;
+    v12 = UpTicksToSeconds();
+    NSAppendPrintF(&v15, ", Bad %ll{dur}", v12);
+    v13 = v15;
 
     v9 = v13;
   }
@@ -94,16 +107,20 @@
 
 - (void)_activate
 {
-  if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFWiFiHealthMonitor <= 30)
   {
-    [SFWiFiHealthMonitor _activate];
+    if (gLogCategory_SFWiFiHealthMonitor != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFWiFiHealthMonitor *)self _activate];
+    }
   }
 
-  v10 = 0;
+  v9 = 0;
   CFPrefs_GetDouble();
-  v4 = v3;
-  wifiStatusDebounceSecs = self->_wifiStatusDebounceSecs;
-  if (v4 != wifiStatusDebounceSecs)
+  v5 = v4;
+  wifiStatusDebounceSecs = selfCopy->_wifiStatusDebounceSecs;
+  if (v5 != wifiStatusDebounceSecs)
   {
     if (gLogCategory_SFWiFiHealthMonitor <= 40)
     {
@@ -114,39 +131,37 @@
           goto LABEL_9;
         }
 
-        wifiStatusDebounceSecs = self->_wifiStatusDebounceSecs;
+        wifiStatusDebounceSecs = selfCopy->_wifiStatusDebounceSecs;
       }
 
-      v7 = wifiStatusDebounceSecs;
-      v8 = v4;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFWiFiHealthMonitor, "[SFWiFiHealthMonitor _activate]", 40, "Debounce seconds: %.3f -> %.3f\n", wifiStatusDebounceSecs, v5);
     }
 
 LABEL_9:
-    self->_wifiStatusDebounceSecs = v4;
+    selfCopy->_wifiStatusDebounceSecs = v5;
   }
 
-  if (self->_lockdownActivationNotifyToken == -1)
+  if (selfCopy->_lockdownActivationNotifyToken == -1)
   {
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __32__SFWiFiHealthMonitor__activate__block_invoke;
     handler[3] = &unk_1E788CB60;
-    handler[4] = self;
-    notify_register_dispatch("com.apple.mobile.lockdown.activation_state", &self->_lockdownActivationNotifyToken, dispatchQueue, handler);
+    handler[4] = selfCopy;
+    notify_register_dispatch("com.apple.mobile.lockdown.activation_state", &selfCopy->_lockdownActivationNotifyToken, dispatchQueue, handler);
   }
 
-  [(SFWiFiHealthMonitor *)self _update:*&v7];
+  [(SFWiFiHealthMonitor *)selfCopy _update];
 }
 
-uint64_t __32__SFWiFiHealthMonitor__activate__block_invoke(uint64_t result)
+void *__32__SFWiFiHealthMonitor__activate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 12) = -1;
-    return [*(result + 32) _update];
+    return [*(result + 4) _update];
   }
 
   return result;
@@ -165,40 +180,44 @@ uint64_t __32__SFWiFiHealthMonitor__activate__block_invoke(uint64_t result)
 
 - (void)_invalidate
 {
-  if (!self->_invalidateCalled && gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (!self->_invalidateCalled && gLogCategory_SFWiFiHealthMonitor <= 30)
   {
-    [SFWiFiHealthMonitor _invalidate];
+    if (gLogCategory_SFWiFiHealthMonitor != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFWiFiHealthMonitor *)self _invalidate];
+    }
   }
 
-  self->_invalidateCalled = 1;
-  lockdownActivationNotifyToken = self->_lockdownActivationNotifyToken;
+  selfCopy->_invalidateCalled = 1;
+  lockdownActivationNotifyToken = selfCopy->_lockdownActivationNotifyToken;
   if (lockdownActivationNotifyToken != -1)
   {
     notify_cancel(lockdownActivationNotifyToken);
-    self->_lockdownActivationNotifyToken = -1;
+    selfCopy->_lockdownActivationNotifyToken = -1;
   }
 
-  [(CURetrier *)self->_wifiRetrier invalidateDirect];
-  wifiRetrier = self->_wifiRetrier;
-  self->_wifiRetrier = 0;
+  [(CURetrier *)selfCopy->_wifiRetrier invalidateDirect];
+  wifiRetrier = selfCopy->_wifiRetrier;
+  selfCopy->_wifiRetrier = 0;
 
-  [(SFWiFiHealthMonitor *)self _wifiEnsureStopped];
-  invalidationHandler = self->_invalidationHandler;
+  [(SFWiFiHealthMonitor *)selfCopy _wifiEnsureStopped];
+  invalidationHandler = selfCopy->_invalidationHandler;
   if (invalidationHandler)
   {
     invalidationHandler[2]();
-    v6 = self->_invalidationHandler;
+    v7 = selfCopy->_invalidationHandler;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  self->_invalidationHandler = 0;
+  selfCopy->_invalidationHandler = 0;
 
-  statusHandler = self->_statusHandler;
-  self->_statusHandler = 0;
+  statusHandler = selfCopy->_statusHandler;
+  selfCopy->_statusHandler = 0;
 }
 
 - (void)reset
@@ -212,57 +231,69 @@ uint64_t __32__SFWiFiHealthMonitor__activate__block_invoke(uint64_t result)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __28__SFWiFiHealthMonitor_reset__block_invoke(uint64_t a1)
+uint64_t __28__SFWiFiHealthMonitor_reset__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFWiFiHealthMonitor <= 30)
   {
-    __28__SFWiFiHealthMonitor_reset__block_invoke_cold_1();
+    if (gLogCategory_SFWiFiHealthMonitor != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __28__SFWiFiHealthMonitor_reset__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _wifiStatusChangedInternal:1];
+  return [v4 _wifiStatusChangedInternal:1];
 }
 
 - (void)_update
 {
+  selfCopy = self;
   lockdownActivated = self->_lockdownActivated;
   if (lockdownActivated < 0)
   {
-    lockdownActivated = MAGetActivationState();
-    if (self->_lockdownActivated != lockdownActivated)
+    self = MAGetActivationState();
+    lockdownActivated = self;
+    if (selfCopy->_lockdownActivated != self)
     {
-      if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFWiFiHealthMonitor <= 30)
       {
-        [SFWiFiHealthMonitor _update];
+        if (gLogCategory_SFWiFiHealthMonitor != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          self = [(SFWiFiHealthMonitor *)lockdownActivated _update];
+        }
       }
 
-      self->_lockdownActivated = lockdownActivated;
+      selfCopy->_lockdownActivated = lockdownActivated;
     }
   }
 
-  wifiRetrier = self->_wifiRetrier;
+  wifiRetrier = selfCopy->_wifiRetrier;
   if (lockdownActivated)
   {
     if (!wifiRetrier)
     {
-      if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFWiFiHealthMonitor <= 30)
       {
-        [SFWiFiHealthMonitor _update];
+        if (gLogCategory_SFWiFiHealthMonitor != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFWiFiHealthMonitor *)self _update];
+        }
       }
 
-      v5 = objc_alloc_init(MEMORY[0x1E6999520]);
-      v6 = self->_wifiRetrier;
-      self->_wifiRetrier = v5;
+      v6 = objc_alloc_init(MEMORY[0x1E6999520]);
+      v7 = selfCopy->_wifiRetrier;
+      selfCopy->_wifiRetrier = v6;
 
-      [(CURetrier *)self->_wifiRetrier setDispatchQueue:self->_dispatchQueue];
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __30__SFWiFiHealthMonitor__update__block_invoke;
-      v8[3] = &unk_1E788B198;
-      v8[4] = self;
-      [(CURetrier *)self->_wifiRetrier setActionHandler:v8];
-      [(CURetrier *)self->_wifiRetrier startDirect];
+      [(CURetrier *)selfCopy->_wifiRetrier setDispatchQueue:selfCopy->_dispatchQueue];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __30__SFWiFiHealthMonitor__update__block_invoke;
+      v9[3] = &unk_1E788B198;
+      v9[4] = selfCopy;
+      [(CURetrier *)selfCopy->_wifiRetrier setActionHandler:v9];
+      [(CURetrier *)selfCopy->_wifiRetrier startDirect];
     }
   }
 
@@ -270,17 +301,20 @@ uint64_t __28__SFWiFiHealthMonitor_reset__block_invoke(uint64_t a1)
   {
     if (wifiRetrier)
     {
-      if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFWiFiHealthMonitor <= 30)
       {
-        [SFWiFiHealthMonitor _update];
+        if (gLogCategory_SFWiFiHealthMonitor != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFWiFiHealthMonitor *)self _update];
+        }
       }
 
-      [(CURetrier *)self->_wifiRetrier invalidateDirect];
-      v7 = self->_wifiRetrier;
-      self->_wifiRetrier = 0;
+      [(CURetrier *)selfCopy->_wifiRetrier invalidateDirect];
+      v8 = selfCopy->_wifiRetrier;
+      selfCopy->_wifiRetrier = 0;
     }
 
-    [(SFWiFiHealthMonitor *)self _wifiEnsureStopped];
+    [(SFWiFiHealthMonitor *)selfCopy _wifiEnsureStopped];
   }
 }
 
@@ -304,9 +338,9 @@ uint64_t __28__SFWiFiHealthMonitor_reset__block_invoke(uint64_t a1)
 
   if (gLogCategory_SFWiFiHealthMonitor <= 60)
   {
-    if (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize())
+    if (gLogCategory_SFWiFiHealthMonitor != -1 || (v4 = _LogCategory_Initialize(), v4))
     {
-      [SFWiFiHealthMonitor _wifiEnsureStarted];
+      [(SFWiFiHealthMonitor *)v4 _wifiEnsureStarted];
     }
 
     if (self->_wifiManager)
@@ -315,26 +349,26 @@ LABEL_39:
       if (!self->_wifiManagerSetup)
       {
         CFRunLoopGetMain();
-        v5 = *MEMORY[0x1E695E8D0];
         WiFiManagerClientScheduleWithRunLoop();
-        wifiManager = self->_wifiManager;
         WiFiManagerClientRegisterDeviceAttachmentCallback();
-        v7 = self->_wifiManager;
-        WiFiManagerClientRegisterServerRestartCallback();
+        restarted = WiFiManagerClientRegisterServerRestartCallback();
         self->_wifiManagerSetup = 1;
-        if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_SFWiFiHealthMonitor <= 30)
         {
-          [SFWiFiHealthMonitor _wifiEnsureStarted];
+          if (gLogCategory_SFWiFiHealthMonitor != -1 || (restarted = _LogCategory_Initialize(), restarted))
+          {
+            [(SFWiFiHealthMonitor *)restarted _wifiEnsureStarted];
+          }
         }
       }
 
       if (self->_wifiManager && !self->_wifiDevice)
       {
-        v8 = WiFiManagerClientCopyDevices();
-        v9 = v8;
-        if (v8 && CFArrayGetCount(v8) >= 1)
+        v10 = WiFiManagerClientCopyDevices();
+        v11 = v10;
+        if (v10 && CFArrayGetCount(v10) >= 1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
+          ValueAtIndex = CFArrayGetValueAtIndex(v11, 0);
           self->_wifiDevice = ValueAtIndex;
           CFRetain(ValueAtIndex);
           goto LABEL_21;
@@ -342,8 +376,8 @@ LABEL_39:
 
         if (gLogCategory_SFWiFiHealthMonitor <= 60 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
         {
-          [SFWiFiHealthMonitor _wifiEnsureStarted];
-          if (!v9)
+          [(SFWiFiHealthMonitor *)v11 _wifiEnsureStarted];
+          if (!v11)
           {
             goto LABEL_22;
           }
@@ -351,10 +385,10 @@ LABEL_39:
           goto LABEL_21;
         }
 
-        if (v9)
+        if (v11)
         {
 LABEL_21:
-          CFRelease(v9);
+          CFRelease(v11);
         }
       }
     }
@@ -364,12 +398,14 @@ LABEL_22:
   if (self->_wifiDevice && !self->_wifiDeviceSetup)
   {
     WiFiDeviceClientRegisterAutoJoinNotificationCallback();
-    wifiDevice = self->_wifiDevice;
-    WiFiDeviceClientRegisterRemovalCallback();
+    v13 = WiFiDeviceClientRegisterRemovalCallback();
     self->_wifiDeviceSetup = 1;
-    if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFWiFiHealthMonitor <= 30)
     {
-      [SFWiFiHealthMonitor _wifiEnsureStarted];
+      if (gLogCategory_SFWiFiHealthMonitor != -1 || (v13 = _LogCategory_Initialize(), v13))
+      {
+        [(SFWiFiHealthMonitor *)v13 _wifiEnsureStarted];
+      }
     }
 
     [(CURetrier *)self->_wifiRetrier succeededDirect];
@@ -398,13 +434,15 @@ LABEL_22:
   if (self->_wifiDevice)
   {
     WiFiDeviceClientRegisterAutoJoinNotificationCallback();
-    wifiDevice = self->_wifiDevice;
     WiFiDeviceClientRegisterRemovalCallback();
     CFRelease(self->_wifiDevice);
     self->_wifiDevice = 0;
-    if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFWiFiHealthMonitor <= 30)
     {
-      [SFWiFiHealthMonitor _wifiEnsureStopped];
+      if (gLogCategory_SFWiFiHealthMonitor != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        [(SFWiFiHealthMonitor *)v6 _wifiEnsureStopped];
+      }
     }
   }
 
@@ -412,17 +450,17 @@ LABEL_22:
   if (self->_wifiManager)
   {
     WiFiManagerClientRegisterDeviceAttachmentCallback();
-    wifiManager = self->_wifiManager;
     WiFiManagerClientRegisterServerRestartCallback();
-    v8 = self->_wifiManager;
     CFRunLoopGetMain();
-    v9 = *MEMORY[0x1E695E8D0];
     WiFiManagerClientUnscheduleFromRunLoop();
     CFRelease(self->_wifiManager);
     self->_wifiManager = 0;
-    if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFWiFiHealthMonitor <= 30)
     {
-      [SFWiFiHealthMonitor _wifiEnsureStopped];
+      if (gLogCategory_SFWiFiHealthMonitor != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        [(SFWiFiHealthMonitor *)v9 _wifiEnsureStopped];
+      }
     }
   }
 }
@@ -430,35 +468,33 @@ LABEL_22:
 - (void)_wifiAutoJoinNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = *MEMORY[0x1E69B2030];
   CFStringGetTypeID();
-  v5 = CFDictionaryGetTypedValue();
+  v4 = CFDictionaryGetTypedValue();
   if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
   {
-    [SFWiFiHealthMonitor _wifiAutoJoinNotification:];
+    [SFWiFiHealthMonitor _wifiAutoJoinNotification:v4];
   }
 
-  if (([v5 isEqual:*MEMORY[0x1E69B2040]] & 1) != 0 || (objc_msgSend(v5, "isEqual:", *MEMORY[0x1E69B2038]) & 1) != 0 || objc_msgSend(v5, "isEqual:", *MEMORY[0x1E69B2020]))
+  if (([v4 isEqual:*MEMORY[0x1E69B2040]] & 1) != 0 || (objc_msgSend(v4, "isEqual:", *MEMORY[0x1E69B2038]) & 1) != 0 || objc_msgSend(v4, "isEqual:", *MEMORY[0x1E69B2020]))
   {
-    v6 = *MEMORY[0x1E69B2028];
     if (CFDictionaryGetInt64())
     {
-      v7 = 3;
+      v5 = 3;
     }
 
     else
     {
-      v7 = 2;
+      v5 = 2;
     }
 
     goto LABEL_10;
   }
 
-  if ([v5 isEqual:*MEMORY[0x1E69B2048]])
+  if ([v4 isEqual:*MEMORY[0x1E69B2048]])
   {
-    v7 = 1;
+    v5 = 1;
 LABEL_10:
-    [(SFWiFiHealthMonitor *)self _wifiStatusChangedInternal:v7];
+    [(SFWiFiHealthMonitor *)self _wifiStatusChangedInternal:v5];
   }
 }
 
@@ -472,31 +508,40 @@ LABEL_10:
 
   if (gLogCategory_SFWiFiHealthMonitor <= 30)
   {
-    if (gLogCategory_SFWiFiHealthMonitor != -1)
+    if (gLogCategory_SFWiFiHealthMonitor == -1)
     {
-LABEL_4:
-      if (wifiStatusExternal <= 3)
+      if (!_LogCategory_Initialize())
       {
-        v6 = off_1E78913F8[wifiStatusExternal];
+        goto LABEL_13;
       }
 
-      if (external <= 3)
-      {
-        v7 = off_1E78913F8[external];
-      }
-
-      LogPrintF();
-      goto LABEL_11;
-    }
-
-    if (_LogCategory_Initialize())
-    {
       wifiStatusExternal = self->_wifiStatusExternal;
-      goto LABEL_4;
     }
+
+    if (wifiStatusExternal > 3)
+    {
+      v6 = "?";
+    }
+
+    else
+    {
+      v6 = off_1E78913F8[wifiStatusExternal];
+    }
+
+    if (external > 3)
+    {
+      v7 = "?";
+    }
+
+    else
+    {
+      v7 = off_1E78913F8[external];
+    }
+
+    LogPrintF(&gLogCategory_SFWiFiHealthMonitor, "[SFWiFiHealthMonitor _wifiStatusChangedExternal:]", 30, "External status changed: %s -> %s\n", v6, v7);
   }
 
-LABEL_11:
+LABEL_13:
   self->_wifiStatusExternal = external;
   statusHandler = self->_statusHandler;
   if (statusHandler)
@@ -517,31 +562,40 @@ LABEL_11:
 
   if (gLogCategory_SFWiFiHealthMonitor <= 30)
   {
-    if (gLogCategory_SFWiFiHealthMonitor != -1)
+    if (gLogCategory_SFWiFiHealthMonitor == -1)
     {
-LABEL_5:
-      if (wifiStatusInternal <= 3)
+      if (!_LogCategory_Initialize())
       {
-        v6 = off_1E78913F8[wifiStatusInternal];
+        goto LABEL_14;
       }
 
-      if (internal <= 3)
-      {
-        v7 = off_1E78913F8[internal];
-      }
-
-      LogPrintF();
-      goto LABEL_12;
-    }
-
-    if (_LogCategory_Initialize())
-    {
       wifiStatusInternal = self->_wifiStatusInternal;
-      goto LABEL_5;
     }
+
+    if (wifiStatusInternal > 3)
+    {
+      v6 = "?";
+    }
+
+    else
+    {
+      v6 = off_1E78913F8[wifiStatusInternal];
+    }
+
+    if (internal > 3)
+    {
+      v7 = "?";
+    }
+
+    else
+    {
+      v7 = off_1E78913F8[internal];
+    }
+
+    LogPrintF(&gLogCategory_SFWiFiHealthMonitor, "[SFWiFiHealthMonitor _wifiStatusChangedInternal:]", 30, "Internal status changed: %s -> %s\n", v6, v7);
   }
 
-LABEL_12:
+LABEL_14:
   self->_wifiStatusInternal = internal;
   if (internal == 1)
   {
@@ -584,33 +638,57 @@ LABEL_12:
   }
 }
 
-uint64_t __50__SFWiFiHealthMonitor__wifiStatusChangedInternal___block_invoke(uint64_t result)
+void *__50__SFWiFiHealthMonitor__wifiStatusChangedInternal___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(result + 32) + 8) & 1) == 0)
+  if ((*(result[4] + 8) & 1) == 0)
   {
-    v2 = result;
-    if (gLogCategory_SFWiFiHealthMonitor <= 30 && (gLogCategory_SFWiFiHealthMonitor != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (gLogCategory_SFWiFiHealthMonitor <= 30)
     {
-      __50__SFWiFiHealthMonitor__wifiStatusChangedInternal___block_invoke_cold_1();
+      if (gLogCategory_SFWiFiHealthMonitor != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __50__SFWiFiHealthMonitor__wifiStatusChangedInternal___block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v3 = *(*(v2 + 32) + 88);
-    if (v3)
+    v5 = *(v4[4] + 88);
+    if (v5)
     {
-      v4 = v3;
-      dispatch_source_cancel(v4);
-      v5 = *(v2 + 32);
-      v6 = *(v5 + 88);
-      *(v5 + 88) = 0;
+      v6 = v5;
+      dispatch_source_cancel(v6);
+      v7 = v4[4];
+      v8 = *(v7 + 88);
+      *(v7 + 88) = 0;
     }
 
-    v7 = *(v2 + 32);
-    v8 = v7[13];
+    v9 = v4[4];
+    v10 = v9[13];
 
-    return [v7 _wifiStatusChangedExternal:v8];
+    return [v9 _wifiStatusChangedExternal:v10];
   }
 
   return result;
+}
+
+- (uint64_t)_update
+{
+  v1 = "yes";
+  if (self)
+  {
+    v2 = "no";
+  }
+
+  else
+  {
+    v2 = "yes";
+  }
+
+  if ((self & 1) == 0)
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_SFWiFiHealthMonitor, "[SFWiFiHealthMonitor _update]", 30, "Lockdown activation changed: %s -> %s\n", v2, v1);
 }
 
 @end

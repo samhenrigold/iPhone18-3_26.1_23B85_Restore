@@ -9,6 +9,7 @@
 - (id)assetNamed:(id)named withUsage:(id)usage disableExperimentation:(BOOL)experimentation;
 - (id)assetSetIdForSELF:(BOOL)f stagedDuringSU:(BOOL *)u;
 - (id)createAssetFromMAAsset:(id)asset assetName:(id)name experimentationEnabled:(BOOL)enabled experimentId:(id)id;
+- (id)createAssetFromPreinstalledWithAutoAssetInfo:(id)info assetName:(id)name experimentationEnabled:(BOOL)enabled experimentId:(id)id;
 - (id)createAssets;
 - (id)getAutoAssetPreinstalled;
 - (id)overlayRoots:(id)roots;
@@ -21,27 +22,26 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     uuid = self->_uuid;
     *buf = 136315394;
-    v8 = "[UAFAssetSet dealloc]";
-    v9 = 2114;
-    v10 = uuid;
+    v7 = "[UAFAssetSet dealloc]";
+    v8 = 2114;
+    v9 = uuid;
     _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Asset set dealloc'd", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = UAFAssetSet;
-  [(UAFAssetSet *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = UAFAssetSet;
+  [(UAFAssetSet *)&v5 dealloc];
 }
 
 - (id)createAssets
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextClient);
   v4 = os_signpost_id_generate(v3);
 
@@ -51,9 +51,9 @@
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     uuid = self->_uuid;
-    v26 = 138543362;
-    v27 = uuid;
-    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "createAssets", "%{public}@", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = uuid;
+    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "createAssets", "%{public}@", &v25, 0xCu);
   }
 
   v9 = objc_autoreleasePoolPush();
@@ -76,9 +76,9 @@
     if (v7 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
       v15 = self->_uuid;
-      v26 = 138543362;
-      v27 = v15;
-      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v14, OS_SIGNPOST_INTERVAL_END, v4, "createAssets", "%{public}@", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v15;
+      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v14, OS_SIGNPOST_INTERVAL_END, v4, "createAssets", "%{public}@", &v25, 0xCu);
     }
 
     if ([v12 count])
@@ -105,9 +105,9 @@
     if (v7 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       v20 = self->_uuid;
-      v26 = 138543362;
-      v27 = v20;
-      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v19, OS_SIGNPOST_INTERVAL_END, v4, "createAssets", "%{public}@", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v20;
+      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v19, OS_SIGNPOST_INTERVAL_END, v4, "createAssets", "%{public}@", &v25, 0xCu);
     }
 
     if ([v12 count])
@@ -117,13 +117,13 @@
       {
         v22 = self->_uuid;
         v23 = [v12 count];
-        v26 = 136315650;
-        v27 = "[UAFAssetSet createAssets]";
-        v28 = 2114;
-        v29 = v22;
-        v30 = 1024;
-        v31 = v23;
-        _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Returning %d transformed asset(s)", &v26, 0x1Cu);
+        v25 = 136315650;
+        v26 = "[UAFAssetSet createAssets]";
+        v27 = 2114;
+        v28 = v22;
+        v29 = 1024;
+        v30 = v23;
+        _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Returning %d transformed asset(s)", &v25, 0x1Cu);
       }
 
       v12 = v12;
@@ -136,14 +136,12 @@
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)autoAssets:(id)assets usages:(id)usages
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   usagesCopy = usages;
   autoAssetType = [assetsCopy autoAssetType];
@@ -163,11 +161,11 @@
     if (os_log_type_enabled(name2, OS_LOG_TYPE_DEBUG))
     {
       name = [assetsCopy name];
-      v15 = 136315394;
-      v16 = "+[UAFAssetSet autoAssets:usages:]";
-      v17 = 2114;
-      v18 = name;
-      _os_log_debug_impl(&dword_1BCF2C000, name2, OS_LOG_TYPE_DEBUG, "%s No Auto assets defined for %{public}@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[UAFAssetSet autoAssets:usages:]";
+      v16 = 2114;
+      v17 = name;
+      _os_log_debug_impl(&dword_1BCF2C000, name2, OS_LOG_TYPE_DEBUG, "%s No Auto assets defined for %{public}@", &v14, 0x16u);
     }
   }
 
@@ -180,25 +178,23 @@
     }
 
     name2 = [assetsCopy name];
-    v15 = 136315394;
-    v16 = "+[UAFAssetSet autoAssets:usages:]";
-    v17 = 2114;
-    v18 = name2;
-    _os_log_debug_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEBUG, "%s Auto asset type not specified for %{public}@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[UAFAssetSet autoAssets:usages:]";
+    v16 = 2114;
+    v17 = name2;
+    _os_log_debug_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEBUG, "%s Auto asset type not specified for %{public}@", &v14, 0x16u);
   }
 
 LABEL_9:
   v10 = 0;
 LABEL_10:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)autoAssetSet:(id)set usages:(id)usages uuid:(id)uuid autoAssets:(id)assets experiment:(id)experiment atomicInstance:(id)instance error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   setCopy = set;
   uuidCopy = uuid;
   instanceCopy = instance;
@@ -212,11 +208,11 @@ LABEL_10:
   if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     name = [setCopy name];
-    v31 = 138543618;
-    v32 = uuidCopy;
-    v33 = 2114;
-    v34 = name;
-    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "AutoAsset Assets", "%{public}@:%{public}@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = uuidCopy;
+    v32 = 2114;
+    v33 = name;
+    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "AutoAsset Assets", "%{public}@:%{public}@", &v30, 0x16u);
   }
 
   if (error)
@@ -233,14 +229,12 @@ LABEL_10:
   if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
     name3 = [setCopy name];
-    v31 = 138543618;
-    v32 = uuidCopy;
-    v33 = 2114;
-    v34 = name3;
-    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v27, OS_SIGNPOST_INTERVAL_END, v19, "AutoAsset Assets", "%{public}@:%{public}@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = uuidCopy;
+    v32 = 2114;
+    v33 = name3;
+    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v27, OS_SIGNPOST_INTERVAL_END, v19, "AutoAsset Assets", "%{public}@:%{public}@", &v30, 0x16u);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -248,18 +242,18 @@ LABEL_10:
 - (UAFAssetSet)initWithAssetSet:(id)set usages:(id)usages configurationDirURLs:(id)ls disableExperimentation:(BOOL)experimentation consistencyToken:(id)token
 {
   experimentationCopy = experimentation;
-  v134 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   setCopy = set;
   usagesCopy = usages;
   lsCopy = ls;
   tokenCopy = token;
-  v125.receiver = self;
-  v125.super_class = UAFAssetSet;
-  v17 = [(UAFAssetSet *)&v125 init];
+  v124.receiver = self;
+  v124.super_class = UAFAssetSet;
+  v17 = [(UAFAssetSet *)&v124 init];
   if (v17)
   {
-    v122 = usagesCopy;
-    v123 = lsCopy;
+    v121 = usagesCopy;
+    v122 = lsCopy;
     v18 = UAFGetLogCategory(&UAFLogContextClient);
     v19 = os_signpost_id_generate(v18);
 
@@ -271,7 +265,7 @@ LABEL_10:
     {
       uuid = v17->_uuid;
       *buf = 138543362;
-      v127 = uuid;
+      v126 = uuid;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "AssetSet init", "%{public}@", buf, 0xCu);
     }
 
@@ -283,19 +277,19 @@ LABEL_10:
     *&v17->_rootsPresent = 0;
     v26 = UAFGetLogCategory(&UAFLogContextClient);
     v27 = v26;
-    lsCopy = v123;
+    lsCopy = v122;
     if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       v28 = v17->_uuid;
       *buf = 138543362;
-      v127 = v28;
+      v126 = v28;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v19, "AssetSet Configuration", "%{public}@", buf, 0xCu);
     }
 
     v29 = +[UAFConfigurationManager defaultManager];
-    if (v123)
+    if (v122)
     {
-      v30 = [[UAFConfigurationManager alloc] initWithURLs:v123];
+      v30 = [[UAFConfigurationManager alloc] initWithURLs:v122];
 
       v29 = v30;
     }
@@ -310,9 +304,9 @@ LABEL_10:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-        v128 = 2114;
-        v129 = setCopy;
+        v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+        v127 = 2114;
+        v128 = setCopy;
         _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, "%s Could not init asset set %{public}@", buf, 0x16u);
       }
 
@@ -322,7 +316,7 @@ LABEL_10:
       {
         v41 = v17->_uuid;
         *buf = 138543362;
-        v127 = v41;
+        v126 = v41;
         _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v40, OS_SIGNPOST_INTERVAL_END, v19, "AssetSet Configuration", "%{public}@", buf, 0xCu);
       }
 
@@ -340,7 +334,7 @@ LABEL_10:
     minVersions = v17->_minVersions;
     v17->_minVersions = v33;
 
-    v35 = [(UAFAssetSetConfiguration *)v17->_cfg getAutoAssets:v122];
+    v35 = [(UAFAssetSetConfiguration *)v17->_cfg getAutoAssets:v121];
     assetNameToAutoAsset = v17->_assetNameToAutoAsset;
     v17->_assetNameToAutoAsset = v35;
 
@@ -355,14 +349,14 @@ LABEL_10:
       v17->_experimentationEnabled = experimentalAssets != 0;
     }
 
-    v120 = setCopy;
+    v119 = setCopy;
     v45 = UAFGetLogCategory(&UAFLogContextClient);
     v46 = v45;
     if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
     {
       v47 = v17->_uuid;
       *buf = 138543362;
-      v127 = v47;
+      v126 = v47;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v46, OS_SIGNPOST_INTERVAL_END, v19, "AssetSet Configuration", "%{public}@", buf, 0xCu);
     }
 
@@ -377,14 +371,14 @@ LABEL_10:
     {
       v53 = v17->_uuid;
       *buf = 138543362;
-      v127 = v53;
+      v126 = v53;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v49, "Lock AutoAssets", "%{public}@", buf, 0xCu);
     }
 
     v54 = tokenCopy != 0;
     if (tokenCopy)
     {
-      lsCopy = v123;
+      lsCopy = v122;
       if (experimentationCopy)
       {
         experiment = [tokenCopy experiment];
@@ -394,13 +388,13 @@ LABEL_10:
           v56 = UAFGetLogCategory(&UAFLogContextClient);
           if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v116 = v17->_uuid;
+            v115 = v17->_uuid;
             *buf = 136315650;
-            v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-            v128 = 2114;
-            v129 = v116;
-            v130 = 2112;
-            v131 = tokenCopy;
+            v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+            v127 = 2114;
+            v128 = v115;
+            v129 = 2112;
+            v130 = tokenCopy;
             _os_log_error_impl(&dword_1BCF2C000, v56, OS_LOG_TYPE_ERROR, "%s %{public}@: Consistency Token %@ has an experiment in it but disableExperimentation is YES", buf, 0x20u);
           }
 
@@ -410,7 +404,7 @@ LABEL_10:
           {
             v59 = v17->_uuid;
             *buf = 138543362;
-            v127 = v59;
+            v126 = v59;
             _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v58, OS_SIGNPOST_INTERVAL_END, v49, "Lock AutoAssets", "%{public}@", buf, 0xCu);
           }
 
@@ -419,25 +413,25 @@ LABEL_10:
           if (v22 > 0xFFFFFFFFFFFFFFFDLL)
           {
             v37 = 0;
-            setCopy = v120;
+            setCopy = v119;
             goto LABEL_89;
           }
 
-          setCopy = v120;
+          setCopy = v119;
           if (!os_signpost_enabled(v60))
           {
 LABEL_40:
             v37 = 0;
 LABEL_89:
 
-            usagesCopy = v122;
+            usagesCopy = v121;
             goto LABEL_90;
           }
 
 LABEL_39:
           v61 = v17->_uuid;
           *buf = 138543362;
-          v127 = v61;
+          v126 = v61;
           _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v43, OS_SIGNPOST_INTERVAL_END, spid, "AssetSet init", "%{public}@", buf, 0xCu);
           goto LABEL_40;
         }
@@ -452,8 +446,8 @@ LABEL_39:
       {
         v54 = 0;
         v65 = 0;
+        v117 = 0;
         v118 = 0;
-        v119 = 0;
 LABEL_53:
         v17->_experimentationEnabled = v17->_experiment != 0;
         if ([(UAFAutoAssetSet *)v17->_autoAssetSet experimentActivated])
@@ -466,7 +460,7 @@ LABEL_53:
           experimentId = &stru_1F3B6B510;
         }
 
-        lsCopy = v123;
+        lsCopy = v122;
         experimentId = v17->_experimentId;
         v17->_experimentId = &experimentId->isa;
 
@@ -476,7 +470,7 @@ LABEL_53:
         {
           v88 = v17->_uuid;
           *buf = 138543362;
-          v127 = v88;
+          v126 = v88;
           _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v87, OS_SIGNPOST_INTERVAL_END, v49, "Lock AutoAssets", "%{public}@", buf, 0xCu);
         }
 
@@ -495,23 +489,23 @@ LABEL_53:
             v109 = UAFGetLogCategory(&UAFLogContextClient);
             if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
             {
-              v117 = v17->_uuid;
+              v116 = v17->_uuid;
               *buf = 136315906;
-              v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-              v128 = 2114;
-              v129 = v117;
-              v130 = 2112;
-              v131 = tokenCopy;
-              v132 = 2112;
+              v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+              v127 = 2114;
+              v128 = v116;
+              v129 = 2112;
+              v130 = tokenCopy;
+              v131 = 2112;
               p_super = v91;
               _os_log_error_impl(&dword_1BCF2C000, v109, OS_LOG_TYPE_ERROR, "%s %{public}@: Consistency Token %@ does not match installed roots %@", buf, 0x2Au);
             }
 
             objc_autoreleasePoolPop(v90);
             v37 = 0;
-            v43 = v119;
-            setCopy = v120;
-            lsCopy = v123;
+            v43 = v118;
+            setCopy = v119;
+            lsCopy = v122;
           }
 
           else
@@ -536,26 +530,26 @@ LABEL_53:
             v17->_assets = createAssets;
 
             v101 = v17->_experimentId;
-            v43 = v119;
+            v43 = v118;
             if (v101 && ![(NSString *)v101 isEqualToString:&stru_1F3B6B510])
             {
               [(UAFAssetSetConsistencyToken *)v17->_consistencyToken setExperimentActivated:1];
             }
 
             v102 = UAFGetLogCategory(&UAFLogContextClient);
-            lsCopy = v123;
+            lsCopy = v122;
             if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
             {
               v103 = v17->_uuid;
               usages = v17->_usages;
               v104 = v17->_name;
               *buf = 136315906;
-              v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-              v128 = 2114;
-              v129 = v103;
-              v130 = 2114;
-              v131 = v104;
-              v132 = 2114;
+              v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+              v127 = 2114;
+              v128 = v103;
+              v129 = 2114;
+              v130 = v104;
+              v131 = 2114;
               p_super = &usages->super;
               _os_log_impl(&dword_1BCF2C000, v102, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Asset set initialized for %{public}@ with usages: %{public}@", buf, 0x2Au);
             }
@@ -566,30 +560,30 @@ LABEL_53:
             {
               v108 = v17->_uuid;
               *buf = 138543362;
-              v127 = v108;
+              v126 = v108;
               _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v107, OS_SIGNPOST_INTERVAL_END, spid, "AssetSet init", "%{public}@", buf, 0xCu);
             }
 
             v37 = v17;
-            setCopy = v120;
+            setCopy = v119;
           }
         }
 
         else
         {
           v110 = UAFGetLogCategory(&UAFLogContextClient);
-          v43 = v119;
-          setCopy = v120;
+          v43 = v118;
+          setCopy = v119;
           if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-            v128 = 2114;
-            v129 = v120;
-            v130 = 2114;
-            v131 = tokenCopy;
-            v132 = 2114;
-            p_super = v119;
+            v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+            v127 = 2114;
+            v128 = v119;
+            v129 = 2114;
+            v130 = tokenCopy;
+            v131 = 2114;
+            p_super = v118;
             _os_log_error_impl(&dword_1BCF2C000, v110, OS_LOG_TYPE_ERROR, "%s Could not init asset set %{public}@ with consistency token %{public}@: %{public}@", buf, 0x2Au);
           }
 
@@ -599,7 +593,7 @@ LABEL_53:
           {
             v113 = v17->_uuid;
             *buf = 138543362;
-            v127 = v113;
+            v126 = v113;
             _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v112, OS_SIGNPOST_INTERVAL_END, spid, "AssetSet init", "%{public}@", buf, 0xCu);
           }
 
@@ -616,11 +610,11 @@ LABEL_52:
       v78 = v17->_uuid;
       v79 = v17->_assetNameToAutoAsset;
       v80 = v17->_experiment;
-      v124 = 0;
-      v118 = atomicInstance;
-      v81 = [UAFAssetSet autoAssetSet:v76 usages:v77 uuid:v78 autoAssets:v79 experiment:v80 atomicInstance:atomicInstance error:&v124];
-      v82 = v124;
-      v119 = v124;
+      v123 = 0;
+      v117 = atomicInstance;
+      v81 = [UAFAssetSet autoAssetSet:v76 usages:v77 uuid:v78 autoAssets:v79 experiment:v80 atomicInstance:atomicInstance error:&v123];
+      v82 = v123;
+      v118 = v123;
       autoAssetSet = v17->_autoAssetSet;
       v17->_autoAssetSet = v81;
 
@@ -649,11 +643,11 @@ LABEL_52:
         v68 = v17->_uuid;
         v69 = v17->_name;
         *buf = 136315650;
-        v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-        v128 = 2114;
-        v129 = v68;
-        v130 = 2114;
-        v131 = v69;
+        v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+        v127 = 2114;
+        v128 = v68;
+        v129 = 2114;
+        v130 = v69;
         v70 = "%s %{public}@: Experimentation not enabled for asset set %{public}@";
 LABEL_49:
         _os_log_impl(&dword_1BCF2C000, experimentalAssets3, OS_LOG_TYPE_DEFAULT, v70, buf, 0x20u);
@@ -668,11 +662,11 @@ LABEL_49:
         v71 = v17->_uuid;
         v72 = v17->_name;
         *buf = 136315650;
-        v127 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
-        v128 = 2114;
-        v129 = v71;
-        v130 = 2114;
-        v131 = v72;
+        v126 = "[UAFAssetSet initWithAssetSet:usages:configurationDirURLs:disableExperimentation:consistencyToken:]";
+        v127 = 2114;
+        v128 = v71;
+        v129 = 2114;
+        v130 = v72;
         v70 = "%s %{public}@: No experimental assets for asset set %{public}@";
         goto LABEL_49;
       }
@@ -687,7 +681,6 @@ LABEL_51:
   v37 = 0;
 LABEL_90:
 
-  v114 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
@@ -797,7 +790,7 @@ void __84__UAFAssetSet_createAssetFromMAAsset_assetName_experimentationEnabled_e
 
 - (id)assetNamed:(id)named
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   assets = self->_assets;
   if (assets)
@@ -832,15 +825,15 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         uuid = self->_uuid;
-        v23 = 136315906;
-        v24 = "[UAFAssetSet assetNamed:]";
-        v25 = 2114;
-        v26 = uuid;
-        v27 = 2114;
+        v22 = 136315906;
+        v23 = "[UAFAssetSet assetNamed:]";
+        v24 = 2114;
+        v25 = uuid;
+        v26 = 2114;
         p_isa = &namedCopy->isa;
-        v29 = 2114;
-        v30 = v11;
-        _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Returning %{public}@ from source %{public}@", &v23, 0x2Au);
+        v28 = 2114;
+        v29 = v11;
+        _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Returning %{public}@ from source %{public}@", &v22, 0x2Au);
       }
 
       goto LABEL_17;
@@ -849,16 +842,16 @@ LABEL_12:
     v19 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v22 = self->_uuid;
-      v23 = 136315906;
-      v24 = "[UAFAssetSet assetNamed:]";
-      v25 = 2114;
-      v26 = v22;
-      v27 = 2114;
+      v21 = self->_uuid;
+      v22 = 136315906;
+      v23 = "[UAFAssetSet assetNamed:]";
+      v24 = 2114;
+      v25 = v21;
+      v26 = 2114;
       p_isa = &namedCopy->isa;
-      v29 = 2114;
-      v30 = v7;
-      _os_log_error_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_ERROR, "%s %{public}@: Asset %{public}@ is not valid, returning nil instead of: %{public}@", &v23, 0x2Au);
+      v28 = 2114;
+      v29 = v7;
+      _os_log_error_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_ERROR, "%s %{public}@: Asset %{public}@ is not valid, returning nil instead of: %{public}@", &v22, 0x2Au);
     }
 
     v12 = v7;
@@ -872,15 +865,15 @@ LABEL_12:
     {
       v13 = self->_uuid;
       name = self->_name;
-      v23 = 136315906;
-      v24 = "[UAFAssetSet assetNamed:]";
-      v25 = 2114;
-      v26 = v13;
-      v27 = 2114;
+      v22 = 136315906;
+      v23 = "[UAFAssetSet assetNamed:]";
+      v24 = 2114;
+      v25 = v13;
+      v26 = 2114;
       p_isa = name;
-      v29 = 2114;
-      v30 = namedCopy;
-      _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: No assets in asset set %{public}@ while querying %{public}@", &v23, 0x2Au);
+      v28 = 2114;
+      v29 = namedCopy;
+      _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: No assets in asset set %{public}@ while querying %{public}@", &v22, 0x2Au);
     }
 
     v7 = 0;
@@ -889,15 +882,13 @@ LABEL_12:
 
 LABEL_17:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)assetNamed:(id)named withUsage:(id)usage disableExperimentation:(BOOL)experimentation
 {
   experimentationCopy = experimentation;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   usageCopy = usage;
   v10 = objc_autoreleasePoolPush();
@@ -949,16 +940,16 @@ LABEL_12:
 
     else
     {
-      v37 = v13;
-      v38 = v10;
-      v39 = namedCopy;
+      v36 = v13;
+      v37 = v10;
+      v38 = namedCopy;
       cfg = self->_cfg;
       uuid = self->_uuid;
       experiment = self->_experiment;
       atomicInstance = [(UAFAssetSetConsistencyToken *)self->_consistencyToken atomicInstance];
-      v40 = 0;
-      v29 = [UAFAssetSet autoAssetSet:cfg usages:usageCopy uuid:uuid autoAssets:0 experiment:experiment atomicInstance:atomicInstance error:&v40];
-      v24 = v40;
+      v39 = 0;
+      v29 = [UAFAssetSet autoAssetSet:cfg usages:usageCopy uuid:uuid autoAssets:0 experiment:experiment atomicInstance:atomicInstance error:&v39];
+      v24 = v39;
       v30 = self->_cachingAutoAssetSet;
       self->_cachingAutoAssetSet = v29;
 
@@ -966,31 +957,31 @@ LABEL_12:
       if (!cachingAutoAssetSet)
       {
         v32 = UAFGetLogCategory(&UAFLogContextClient);
-        namedCopy = v39;
+        namedCopy = v38;
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v35 = self->_uuid;
+          v34 = self->_uuid;
           name = [(UAFAssetSetConfiguration *)self->_cfg name];
           *buf = 136315906;
-          v42 = "[UAFAssetSet assetNamed:withUsage:disableExperimentation:]";
-          v43 = 2114;
-          v44 = v35;
-          v45 = 2114;
-          v46 = name;
-          v47 = 2114;
-          v48 = v24;
+          v41 = "[UAFAssetSet assetNamed:withUsage:disableExperimentation:]";
+          v42 = 2114;
+          v43 = v34;
+          v44 = 2114;
+          v45 = name;
+          v46 = 2114;
+          v47 = v24;
           _os_log_error_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_ERROR, "%s %{public}@: Auto assets for Asset %{public}@ cannot be locked:%{public}@", buf, 0x2Au);
         }
 
         v20 = 0;
-        v13 = v37;
-        v10 = v38;
+        v13 = v36;
+        v10 = v37;
         goto LABEL_26;
       }
 
-      v10 = v38;
-      namedCopy = v39;
-      v13 = v37;
+      v10 = v37;
+      namedCopy = v38;
+      v13 = v36;
     }
 
     v31 = [(UAFAutoAssetSet *)cachingAutoAssetSet assetWithName:namedCopy autoAssets:v14 experiment:v22];
@@ -1015,11 +1006,11 @@ LABEL_26:
   {
     v19 = self->_uuid;
     *buf = 136315650;
-    v42 = "[UAFAssetSet assetNamed:withUsage:disableExperimentation:]";
-    v43 = 2114;
-    v44 = v19;
-    v45 = 2114;
-    v46 = namedCopy;
+    v41 = "[UAFAssetSet assetNamed:withUsage:disableExperimentation:]";
+    v42 = 2114;
+    v43 = v19;
+    v44 = 2114;
+    v45 = namedCopy;
     _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Returning %{public}@ from MA Root", buf, 0x20u);
   }
 
@@ -1027,14 +1018,13 @@ LABEL_26:
 LABEL_27:
 
   objc_autoreleasePoolPop(v10);
-  v33 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (id)assetSetIdForSELF:(BOOL)f stagedDuringSU:(BOOL *)u
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (self->_factoryAssetsPresent)
   {
     catalogAssetSetID = @"Factory";
@@ -1073,13 +1063,13 @@ LABEL_12:
     {
       uuid = self->_uuid;
       name = self->_name;
-      v19 = 136315650;
-      v20 = "[UAFAssetSet assetSetIdForSELF:stagedDuringSU:]";
-      v21 = 2114;
-      v22 = uuid;
-      v23 = 2114;
-      v24 = name;
-      _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: MA AutoAssetSet's downloadedCatalogCachedAssetSetID is nil for asset set - %{public}@", &v19, 0x20u);
+      v18 = 136315650;
+      v19 = "[UAFAssetSet assetSetIdForSELF:stagedDuringSU:]";
+      v20 = 2114;
+      v21 = uuid;
+      v22 = 2114;
+      v23 = name;
+      _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@: MA AutoAssetSet's downloadedCatalogCachedAssetSetID is nil for asset set - %{public}@", &v18, 0x20u);
     }
 
     goto LABEL_15;
@@ -1090,9 +1080,9 @@ LABEL_12:
     v11 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v19 = 136315138;
-      v20 = "[UAFAssetSet assetSetIdForSELF:stagedDuringSU:]";
-      _os_log_fault_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_FAULT, "%s MA AutoAssetSet's assetSetID is same as assetSetName", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[UAFAssetSet assetSetIdForSELF:stagedDuringSU:]";
+      _os_log_fault_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_FAULT, "%s MA AutoAssetSet's assetSetID is same as assetSetName", &v18, 0xCu);
     }
 
     v12 = UAFGetLogCategory(&UAFLogContextClient);
@@ -1113,14 +1103,12 @@ LABEL_19:
     catalogAssetSetID = v16;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return catalogAssetSetID;
 }
 
 - (id)applyOSCompatibility:(id)compatibility
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   compatibilityCopy = compatibility;
   metadataAsset = [(UAFAssetSetConfiguration *)self->_cfg metadataAsset];
   if (!metadataAsset)
@@ -1140,7 +1128,7 @@ LABEL_19:
   v9 = v8;
   metadataAsset3 = [(UAFAssetSetConfiguration *)self->_cfg metadataAsset];
   [compatibilityCopy objectForKeyedSubscript:metadataAsset3];
-  v11 = v61 = self;
+  v11 = v60 = self;
   location = [v11 location];
 
   selfCopy3 = self;
@@ -1154,16 +1142,16 @@ LABEL_10:
   metadataAsset4 = [(UAFAssetSetConfiguration *)self->_cfg metadataAsset];
   v15 = [compatibilityCopy objectForKeyedSubscript:metadataAsset4];
   location2 = [v15 location];
-  v66 = 0;
-  v17 = [UAFAssetSetMetadata fromAssetDir:location2 error:&v66];
-  v18 = v66;
+  v65 = 0;
+  v17 = [UAFAssetSetMetadata fromAssetDir:location2 error:&v65];
+  v18 = v65;
 
   if (v17)
   {
     if (![v17 OSSupported:self->_cfg])
     {
       thirdPartyCompatibilityVersion = [v17 thirdPartyCompatibilityVersion];
-      v59 = v18;
+      v58 = v18;
       if (thirdPartyCompatibilityVersion)
       {
         v20 = thirdPartyCompatibilityVersion;
@@ -1184,18 +1172,18 @@ LABEL_10:
               uuid = self->_uuid;
               name = [(UAFAssetSetConfiguration *)self->_cfg name];
               thirdPartyCompatibilityVersion2 = [v17 thirdPartyCompatibilityVersion];
-              v51 = [UAFAssetSetMetadata OSThirdPartyCompatibilityVersion:self->_cfg];
+              v50 = [UAFAssetSetMetadata OSThirdPartyCompatibilityVersion:self->_cfg];
               *buf = 136316162;
-              v69 = "[UAFAssetSet applyOSCompatibility:]";
-              v70 = 2114;
-              v71 = uuid;
+              v68 = "[UAFAssetSet applyOSCompatibility:]";
+              v69 = 2114;
+              v70 = uuid;
               selfCopy3 = self;
-              v72 = 2114;
-              v73 = name;
-              v74 = 2114;
-              v75 = thirdPartyCompatibilityVersion2;
-              v76 = 2114;
-              v77 = v51;
+              v71 = 2114;
+              v72 = name;
+              v73 = 2114;
+              v74 = thirdPartyCompatibilityVersion2;
+              v75 = 2114;
+              v76 = v50;
               _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Asset set %{public}@ with third party compatibility version %{public}@ incompatible with current compatibility version %{public}@", buf, 0x34u);
             }
 
@@ -1213,46 +1201,46 @@ LABEL_10:
         maxOSVersion2 = [v17 maxOSVersion];
         v30 = +[UAFAssetSetMetadata OSVersion];
         *buf = 136316418;
-        v69 = "[UAFAssetSet applyOSCompatibility:]";
-        v70 = 2114;
-        v71 = v26;
-        v72 = 2114;
-        v73 = name2;
-        v74 = 2114;
-        v75 = minOSVersion2;
-        v76 = 2114;
-        v77 = maxOSVersion2;
-        v78 = 2114;
-        v79 = v30;
+        v68 = "[UAFAssetSet applyOSCompatibility:]";
+        v69 = 2114;
+        v70 = v26;
+        v71 = 2114;
+        v72 = name2;
+        v73 = 2114;
+        v74 = minOSVersion2;
+        v75 = 2114;
+        v76 = maxOSVersion2;
+        v77 = 2114;
+        v78 = v30;
         _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Asset set %{public}@ with minOSVersion %{public}@ and maxOSVersion %{public}@ incompatible with current OS Version %{public}@", buf, 0x3Eu);
 
         selfCopy3 = self;
       }
 
 LABEL_18:
-      v60 = v17;
+      v59 = v17;
 
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       assets = [(UAFAssetSetConfiguration *)selfCopy3->_cfg assets];
-      v32 = [assets countByEnumeratingWithState:&v62 objects:v67 count:16];
+      v32 = [assets countByEnumeratingWithState:&v61 objects:v66 count:16];
       if (v32)
       {
         v33 = v32;
         v22 = 0;
-        v34 = *v63;
+        v34 = *v62;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v63 != v34)
+            if (*v62 != v34)
             {
               objc_enumerationMutation(assets);
             }
 
-            v36 = *(*(&v62 + 1) + 8 * i);
+            v36 = *(*(&v61 + 1) + 8 * i);
             if ([v36 ignoreOSCompatibility])
             {
               name3 = [v36 name];
@@ -1273,24 +1261,24 @@ LABEL_18:
                 v42 = UAFGetLogCategory(&UAFLogContextClient);
                 if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
                 {
-                  v43 = v61->_uuid;
+                  v43 = v60->_uuid;
                   name6 = [v36 name];
-                  name7 = [(UAFAssetSetConfiguration *)v61->_cfg name];
+                  name7 = [(UAFAssetSetConfiguration *)v60->_cfg name];
                   *buf = 136315906;
-                  v69 = "[UAFAssetSet applyOSCompatibility:]";
-                  v70 = 2114;
-                  v71 = v43;
-                  v72 = 2114;
-                  v73 = name6;
-                  v74 = 2114;
-                  v75 = name7;
+                  v68 = "[UAFAssetSet applyOSCompatibility:]";
+                  v69 = 2114;
+                  v70 = v43;
+                  v71 = 2114;
+                  v72 = name6;
+                  v73 = 2114;
+                  v74 = name7;
                   _os_log_impl(&dword_1BCF2C000, v42, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Asset %{public}@ in asset set %{public}@ included as it ignores OS compatibility", buf, 0x2Au);
                 }
               }
             }
           }
 
-          v33 = [assets countByEnumeratingWithState:&v62 objects:v67 count:16];
+          v33 = [assets countByEnumeratingWithState:&v61 objects:v66 count:16];
         }
 
         while (v33);
@@ -1301,8 +1289,8 @@ LABEL_18:
         v22 = 0;
       }
 
-      v18 = v59;
-      v17 = v60;
+      v18 = v58;
+      v17 = v59;
       goto LABEL_35;
     }
   }
@@ -1312,26 +1300,26 @@ LABEL_18:
     v23 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v52 = v18;
-      v53 = self->_uuid;
+      v51 = v18;
+      v52 = self->_uuid;
       metadataAsset5 = [(UAFAssetSetConfiguration *)self->_cfg metadataAsset];
       name8 = [(UAFAssetSetConfiguration *)self->_cfg name];
       metadataAsset6 = [(UAFAssetSetConfiguration *)self->_cfg metadataAsset];
-      v57 = [compatibilityCopy objectForKeyedSubscript:metadataAsset6];
-      location3 = [v57 location];
+      v56 = [compatibilityCopy objectForKeyedSubscript:metadataAsset6];
+      location3 = [v56 location];
       *buf = 136316418;
-      v69 = "[UAFAssetSet applyOSCompatibility:]";
-      v70 = 2114;
-      v71 = v53;
-      v18 = v52;
-      v72 = 2114;
-      v73 = metadataAsset5;
-      v74 = 2114;
-      v75 = name8;
-      v76 = 2112;
-      v77 = location3;
-      v78 = 2114;
-      v79 = v52;
+      v68 = "[UAFAssetSet applyOSCompatibility:]";
+      v69 = 2114;
+      v70 = v52;
+      v18 = v51;
+      v71 = 2114;
+      v72 = metadataAsset5;
+      v73 = 2114;
+      v74 = name8;
+      v75 = 2112;
+      v76 = location3;
+      v77 = 2114;
+      v78 = v51;
       _os_log_error_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_ERROR, "%s %{public}@: Failed to load asset set metadata from asset %{public}@ in asset set %{public}@ at location %@: %{public}@", buf, 0x3Eu);
     }
   }
@@ -1340,14 +1328,13 @@ LABEL_18:
 LABEL_35:
 
 LABEL_36:
-  v46 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 - (id)applyMinVersions:(id)versions
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   versionsCopy = versions;
   v5 = UAFGetLogCategory(&UAFLogContextClient);
   v6 = os_signpost_id_generate(v5);
@@ -1358,69 +1345,56 @@ LABEL_36:
   {
     uuid = self->_uuid;
     *buf = 138543362;
-    v45 = uuid;
+    v44 = uuid;
     _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Min Versions", "%{public}@", buf, 0xCu);
   }
 
   if (self->_minVersions)
   {
     spid = v6;
-    v35 = v6 - 1;
-    v37 = objc_opt_new();
+    v34 = v6 - 1;
+    v36 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v36 = versionsCopy;
+    v35 = versionsCopy;
     v10 = versionsCopy;
-    v39 = [v10 countByEnumeratingWithState:&v40 objects:v54 count:16];
-    if (v39)
+    v38 = [v10 countByEnumeratingWithState:&v39 objects:v53 count:16];
+    if (v38)
     {
-      v38 = *v41;
+      v37 = *v40;
       do
       {
-        for (i = 0; i != v39; ++i)
+        for (i = 0; i != v38; ++i)
         {
-          if (*v41 != v38)
+          if (*v40 != v37)
           {
             objc_enumerationMutation(v10);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           v13 = [v10 objectForKeyedSubscript:v12];
           v14 = [(NSDictionary *)self->_minVersions objectForKeyedSubscript:v12];
-          if (!v14)
-          {
-            goto LABEL_12;
-          }
-
-          v15 = v14;
-          metadata = [v13 metadata];
-          v17 = [metadata objectForKeyedSubscript:@"version"];
-          [(NSDictionary *)self->_minVersions objectForKeyedSubscript:v12];
-          v19 = v18 = self;
-          v20 = [UAFPlatform compareVersion:v17 with:v19];
-
-          self = v18;
-          if (v20 == -1)
+          if (v14 && (v15 = v14, [v13 metadata], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "objectForKeyedSubscript:", @"version"), v17 = objc_claimAutoreleasedReturnValue(), -[NSDictionary objectForKeyedSubscript:](self->_minVersions, "objectForKeyedSubscript:", v12), v18 = self, v19 = objc_claimAutoreleasedReturnValue(), v20 = +[UAFPlatform compareVersion:with:](UAFPlatform, "compareVersion:with:", v17, v19), v19, self = v18, v17, v16, v15, v20 == -1))
           {
             v21 = UAFGetLogCategory(&UAFLogContextClient);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               v22 = v18->_uuid;
-              metadata2 = [v13 metadata];
-              v24 = [metadata2 objectForKeyedSubscript:@"version"];
+              metadata = [v13 metadata];
+              v24 = [metadata objectForKeyedSubscript:@"version"];
               v25 = [(NSDictionary *)v18->_minVersions objectForKeyedSubscript:v12];
               *buf = 136316162;
-              v45 = "[UAFAssetSet applyMinVersions:]";
-              v46 = 2114;
-              v47 = v22;
-              v48 = 2112;
-              v49 = v12;
-              v50 = 2112;
-              v51 = v24;
-              v52 = 2112;
-              v53 = v25;
+              v44 = "[UAFAssetSet applyMinVersions:]";
+              v45 = 2114;
+              v46 = v22;
+              v47 = 2112;
+              v48 = v12;
+              v49 = 2112;
+              v50 = v24;
+              v51 = 2112;
+              v52 = v25;
               _os_log_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Not included %@ as it's version %@ is less than the required minimum %@", buf, 0x34u);
 
               self = v18;
@@ -1429,28 +1403,27 @@ LABEL_36:
 
           else
           {
-LABEL_12:
-            [v37 setObject:v13 forKeyedSubscript:v12];
+            [v36 setObject:v13 forKeyedSubscript:v12];
           }
         }
 
-        v39 = [v10 countByEnumeratingWithState:&v40 objects:v54 count:16];
+        v38 = [v10 countByEnumeratingWithState:&v39 objects:v53 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
 
     v26 = UAFGetLogCategory(&UAFLogContextClient);
     v27 = v26;
-    if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    if (v34 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       v28 = self->_uuid;
       *buf = 138543362;
-      v45 = v28;
+      v44 = v28;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v27, OS_SIGNPOST_INTERVAL_END, spid, "Min Versions", "%{public}@", buf, 0xCu);
     }
 
-    versionsCopy = v36;
+    versionsCopy = v35;
   }
 
   else
@@ -1461,21 +1434,19 @@ LABEL_12:
     {
       v31 = self->_uuid;
       *buf = 138543362;
-      v45 = v31;
+      v44 = v31;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v30, OS_SIGNPOST_INTERVAL_END, v6, "Min Versions", "%{public}@", buf, 0xCu);
     }
 
-    v37 = versionsCopy;
+    v36 = versionsCopy;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v37;
+  return v36;
 }
 
 - (id)overlayRoots:(id)roots
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   rootsCopy = roots;
   preinstalledAssetsSummary = [(UAFAssetSetConsistencyToken *)self->_consistencyToken preinstalledAssetsSummary];
 
@@ -1490,7 +1461,7 @@ LABEL_12:
     {
       uuid = self->_uuid;
       *buf = 138543362;
-      v23 = uuid;
+      v22 = uuid;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Overlay Roots", "%{public}@", buf, 0xCu);
     }
 
@@ -1504,13 +1475,13 @@ LABEL_12:
         self->_rootsPresent = 1;
       }
 
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __28__UAFAssetSet_overlayRoots___block_invoke;
-      v19[3] = &unk_1E7FFEB00;
-      v20 = v11;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __28__UAFAssetSet_overlayRoots___block_invoke;
+      v18[3] = &unk_1E7FFEB00;
+      v19 = v11;
       selfCopy = self;
-      [v13 enumerateKeysAndObjectsUsingBlock:v19];
+      [v13 enumerateKeysAndObjectsUsingBlock:v18];
     }
 
     v14 = UAFGetLogCategory(&UAFLogContextClient);
@@ -1519,7 +1490,7 @@ LABEL_12:
     {
       v16 = self->_uuid;
       *buf = 138543362;
-      v23 = v16;
+      v22 = v16;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v15, OS_SIGNPOST_INTERVAL_END, v7, "Overlay Roots", "%{public}@", buf, 0xCu);
     }
   }
@@ -1529,30 +1500,26 @@ LABEL_12:
     v11 = rootsCopy;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 void __28__UAFAssetSet_overlayRoots___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   [*(a1 + 32) setObject:a3 forKeyedSubscript:v5];
   v6 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(*(a1 + 40) + 56);
-    v9 = 136315650;
-    v10 = "[UAFAssetSet overlayRoots:]_block_invoke";
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s %{public}@: using autoasset root for %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[UAFAssetSet overlayRoots:]_block_invoke";
+    v10 = 2114;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s %{public}@: using autoasset root for %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)applyAssetTransformations:(id)transformations
@@ -1565,9 +1532,62 @@ void __28__UAFAssetSet_overlayRoots___block_invoke(uint64_t a1, void *a2, uint64
   return v6;
 }
 
+- (id)createAssetFromPreinstalledWithAutoAssetInfo:(id)info assetName:(id)name experimentationEnabled:(BOOL)enabled experimentId:(id)id
+{
+  enabledCopy = enabled;
+  v27 = *MEMORY[0x1E69E9840];
+  infoCopy = info;
+  nameCopy = name;
+  idCopy = id;
+  autoAssetType = [(UAFAssetSetConfiguration *)self->_cfg autoAssetType];
+
+  if (autoAssetType)
+  {
+    v14 = [infoCopy objectForKeyedSubscript:@"AssetSpecifier"];
+    if (v14)
+    {
+      v15 = [UAFPreinstalledAssetsCache assetSpecifier:v14 assetSetConfiguration:self->_cfg];
+      v16 = v15;
+      if (v15)
+      {
+        v15 = [(UAFAssetSet *)self createAssetFromMAAsset:v15 assetName:nameCopy experimentationEnabled:enabledCopy experimentId:idCopy];
+      }
+
+      v17 = v15;
+
+      v18 = v17;
+    }
+
+    else
+    {
+      v17 = UAFGetLogCategory(&UAFLogContextClient);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        name = self->_name;
+        v21 = 136315650;
+        v22 = "[UAFAssetSet createAssetFromPreinstalledWithAutoAssetInfo:assetName:experimentationEnabled:experimentId:]";
+        v23 = 2114;
+        v24 = nameCopy;
+        v25 = 2114;
+        nameCopy2 = name;
+        _os_log_error_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_ERROR, "%s No AutoAssetSpecifier for %{public}@ asset in %{public}@ asset set, skipping", &v21, 0x20u);
+      }
+
+      v18 = 0;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
 - (id)getAutoAssetPreinstalled
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   autoAssetType = [(UAFAssetSetConfiguration *)self->_cfg autoAssetType];
 
@@ -1578,14 +1598,14 @@ void __28__UAFAssetSet_overlayRoots___block_invoke(uint64_t a1, void *a2, uint64
   }
 
   assetNameToAutoAsset = self->_assetNameToAutoAsset;
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke;
-  v49[3] = &unk_1E7FFE450;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke;
+  v48[3] = &unk_1E7FFE450;
   v6 = v3;
-  v50 = v6;
+  v49 = v6;
   selfCopy = self;
-  [(NSDictionary *)assetNameToAutoAsset enumerateKeysAndObjectsUsingBlock:v49];
+  [(NSDictionary *)assetNameToAutoAsset enumerateKeysAndObjectsUsingBlock:v48];
   if (!self->_experiment)
   {
     v32 = v6;
@@ -1593,11 +1613,11 @@ void __28__UAFAssetSet_overlayRoots___block_invoke(uint64_t a1, void *a2, uint64
   }
 
   [UAFPreinstalledAssetsCache assetSpecifiersFromRoots:self->_cfg];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v7 = v48 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v45 objects:v52 count:16];
+  v7 = v47 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v51 count:16];
   if (!v8)
   {
 LABEL_15:
@@ -1609,17 +1629,17 @@ LABEL_16:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v46;
+  v11 = *v45;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v46 != v11)
+      if (*v45 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v45 + 1) + 8 * i);
+      v13 = *(*(&v44 + 1) + 8 * i);
       assetSpecifiers = [(UAFAssetSetExperiment *)self->_experiment assetSpecifiers];
       v15 = [assetSpecifiers objectForKeyedSubscript:v13];
 
@@ -1636,7 +1656,7 @@ LABEL_16:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v45 objects:v52 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v44 objects:v51 count:16];
   }
 
   while (v9);
@@ -1648,47 +1668,46 @@ LABEL_16:
 
   v17 = objc_opt_new();
   v18 = self->_assetNameToAutoAsset;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_2;
-  v42[3] = &unk_1E7FFE450;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_2;
+  v41[3] = &unk_1E7FFE450;
   v19 = v17;
-  v43 = v19;
+  v42 = v19;
   selfCopy2 = self;
-  [(NSDictionary *)v18 enumerateKeysAndObjectsUsingBlock:v42];
+  [(NSDictionary *)v18 enumerateKeysAndObjectsUsingBlock:v41];
   v20 = objc_opt_new();
   v21 = self->_assetNameToAutoAsset;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_3;
-  v38[3] = &unk_1E7FFDF90;
-  v39 = v19;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_3;
+  v37[3] = &unk_1E7FFDF90;
+  v38 = v19;
   v22 = v20;
-  v40 = v22;
+  v39 = v22;
   selfCopy3 = self;
   v23 = v19;
-  [(NSDictionary *)v21 enumerateKeysAndObjectsUsingBlock:v38];
+  [(NSDictionary *)v21 enumerateKeysAndObjectsUsingBlock:v37];
   experimentId = [(UAFAssetSetExperiment *)self->_experiment experimentId];
   experimentId = self->_experimentId;
   self->_experimentId = experimentId;
 
   v26 = self->_assetNameToAutoAsset;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4;
-  v35[3] = &unk_1E7FFE450;
-  v36 = v22;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4;
+  v34[3] = &unk_1E7FFE450;
+  v35 = v22;
   v27 = v6;
-  v37 = v27;
+  v36 = v27;
   v28 = v22;
-  [(NSDictionary *)v26 enumerateKeysAndObjectsUsingBlock:v35];
+  [(NSDictionary *)v26 enumerateKeysAndObjectsUsingBlock:v34];
   v29 = v27;
 
 LABEL_17:
 LABEL_20:
 
 LABEL_21:
-  v33 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1752,7 +1771,7 @@ void __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4(uint64_t a1, voi
 
 - (void)mapAsset:(id)asset queue:(id)queue completion:(id)completion
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   queueCopy = queue;
   completionCopy = completion;
@@ -1761,15 +1780,15 @@ void __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4(uint64_t a1, voi
     queueCopy = dispatch_get_global_queue(0, 0);
   }
 
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = __41__UAFAssetSet_mapAsset_queue_completion___block_invoke;
-  v30 = &unk_1E7FFDBF0;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __41__UAFAssetSet_mapAsset_queue_completion___block_invoke;
+  v29 = &unk_1E7FFDBF0;
   v11 = completionCopy;
-  v32 = v11;
+  v31 = v11;
   v12 = queueCopy;
-  v31 = v12;
-  v13 = MEMORY[0x1BFB33950](&v27);
+  v30 = v12;
+  v13 = MEMORY[0x1BFB33950](&v26);
   if (!self->_autoAssetSet)
   {
     v16 = UAFGetLogCategory(&UAFLogContextClient);
@@ -1777,22 +1796,22 @@ void __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4(uint64_t a1, voi
     {
       uuid = self->_uuid;
       *buf = 136315394;
-      v36 = "[UAFAssetSet mapAsset:queue:completion:]";
-      v37 = 2114;
-      v38 = uuid;
+      v35 = "[UAFAssetSet mapAsset:queue:completion:]";
+      v36 = 2114;
+      v37 = uuid;
       _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s %{public}@: mapping assets is only supported for autoassets", buf, 0x16u);
     }
 
     v17 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A578];
-    v42[0] = @"Not supported";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:{1, v27, v28, v29, v30}];
+    v40 = *MEMORY[0x1E696A578];
+    v41[0] = @"Not supported";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:{1, v26, v27, v28, v29}];
     v19 = v17;
     v20 = 5000;
     goto LABEL_12;
   }
 
-  v14 = [(UAFAssetSet *)self assets:v27];
+  v14 = [(UAFAssetSet *)self assets:v26];
   v15 = [v14 objectForKeyedSubscript:assetCopy];
 
   if (!v15)
@@ -1800,20 +1819,20 @@ void __39__UAFAssetSet_getAutoAssetPreinstalled__block_invoke_4(uint64_t a1, voi
     v21 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v26 = self->_uuid;
+      v25 = self->_uuid;
       *buf = 136315650;
-      v36 = "[UAFAssetSet mapAsset:queue:completion:]";
-      v37 = 2114;
-      v38 = v26;
-      v39 = 2114;
-      v40 = assetCopy;
+      v35 = "[UAFAssetSet mapAsset:queue:completion:]";
+      v36 = 2114;
+      v37 = v25;
+      v38 = 2114;
+      v39 = assetCopy;
       _os_log_error_impl(&dword_1BCF2C000, v21, OS_LOG_TYPE_ERROR, "%s %{public}@: No '%{public}@' asset in asset set", buf, 0x20u);
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
-    v34 = @"Asset missing";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x1E696A578];
+    v33 = @"Asset missing";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v19 = v22;
     v20 = 5001;
 LABEL_12:
@@ -1825,8 +1844,6 @@ LABEL_12:
 
   [(UAFAutoAssetSet *)self->_autoAssetSet mapAsset:assetCopy queue:v12 completion:v11];
 LABEL_13:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __41__UAFAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -1848,7 +1865,7 @@ void __41__UAFAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1, voi
 
 - (void)invalidateWithQueue:(id)queue completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   v8 = UAFGetLogCategory(&UAFLogContextClient);
@@ -1856,9 +1873,9 @@ void __41__UAFAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1, voi
   {
     uuid = self->_uuid;
     *buf = 136315394;
-    v16 = "[UAFAssetSet invalidateWithQueue:completion:]";
-    v17 = 2114;
-    v18 = uuid;
+    v15 = "[UAFAssetSet invalidateWithQueue:completion:]";
+    v16 = 2114;
+    v17 = uuid;
     _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Explicit invalidation", buf, 0x16u);
   }
 
@@ -1880,11 +1897,9 @@ void __41__UAFAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1, voi
     block[1] = 3221225472;
     block[2] = __46__UAFAssetSet_invalidateWithQueue_completion___block_invoke;
     block[3] = &unk_1E7FFD4E8;
-    v14 = completionCopy;
+    v13 = completionCopy;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

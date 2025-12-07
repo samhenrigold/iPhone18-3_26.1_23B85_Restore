@@ -80,39 +80,8 @@ LABEL_3:
 {
   optionsCopy = options;
   v5 = optionsCopy;
-  if (!optionsCopy)
+  if (!optionsCopy || (v6 = self->_downloadOptions == 0, [optionsCopy downloadOptions], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (downloadOptions = self->_downloadOptions) != 0 && (objc_msgSend(v5, "downloadOptions"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIDownloadOptions isEqual:](downloadOptions, "isEqual:", v10), v10, !v11) || (v12 = self->_cacheDeleteAvailableSpaceClass == 0, objc_msgSend(v5, "cacheDeleteAvailableSpaceClass"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_downloadOptions == 0;
-  downloadOptions = [optionsCopy downloadOptions];
-  v8 = downloadOptions != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  downloadOptions = self->_downloadOptions;
-  if (downloadOptions)
-  {
-    downloadOptions2 = [v5 downloadOptions];
-    v11 = [(TRIDownloadOptions *)downloadOptions isEqual:downloadOptions2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_cacheDeleteAvailableSpaceClass == 0;
-  cacheDeleteAvailableSpaceClass = [v5 cacheDeleteAvailableSpaceClass];
-  v14 = cacheDeleteAvailableSpaceClass != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     cacheDeleteAvailableSpaceClass = self->_cacheDeleteAvailableSpaceClass;
     if (cacheDeleteAvailableSpaceClass)
     {
-      cacheDeleteAvailableSpaceClass2 = [v5 cacheDeleteAvailableSpaceClass];
-      v17 = [(NSNumber *)cacheDeleteAvailableSpaceClass isEqual:cacheDeleteAvailableSpaceClass2];
+      cacheDeleteAvailableSpaceClass = [v5 cacheDeleteAvailableSpaceClass];
+      v17 = [(NSNumber *)cacheDeleteAvailableSpaceClass isEqual:cacheDeleteAvailableSpaceClass];
     }
 
     else

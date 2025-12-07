@@ -10,7 +10,7 @@
 - (CGRect)frame
 {
   selfCopy = self;
-  ConversationControlsJoinCallCountdownView.frame.getter();
+  ConversationControlsJoinCallCountdownView.frame.getter(selfCopy);
   v4 = v3;
   v6 = v5;
   v8 = v7;

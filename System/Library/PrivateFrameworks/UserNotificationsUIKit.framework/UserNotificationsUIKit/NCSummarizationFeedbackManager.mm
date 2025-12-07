@@ -61,7 +61,7 @@
 
 - (id)sectionTitle
 {
-  sub_21E8B8C00();
+  sub_21E8B8C00(self->summarizationFeedbackManagerSwift[OBJC_IVAR___NCSummarizationFeedbackManager_summarizationFeedbackManagerSwift], self->summarizationFeedbackManagerSwift[OBJC_IVAR___NCSummarizationFeedbackManager_summarizationFeedbackManagerSwift + 1]);
   v2 = sub_21E92A428();
 
   return v2;
@@ -69,9 +69,9 @@
 
 - (BOOL)isPriorityFeedbackEnabled
 {
-  v5 = &type metadata for NotificationsUIFeatureFlags;
-  v6 = sub_21E8B8B00();
-  v4[0] = 2;
+  v4[3] = &type metadata for NotificationsUIFeatureFlags;
+  v4[4] = sub_21E8B8B00();
+  LOBYTE(v4[0]) = 2;
   v2 = sub_21E9297F8();
   __swift_destroy_boxed_opaque_existential_1Tm(v4);
   return v2 & 1;

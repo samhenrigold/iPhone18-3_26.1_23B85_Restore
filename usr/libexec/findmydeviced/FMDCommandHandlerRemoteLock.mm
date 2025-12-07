@@ -33,28 +33,28 @@
 
   if (v6)
   {
-    v11 = intValue;
-    v12 = [NSURL URLWithString:v6];
-    v13 = [FMDRequestAckLock alloc];
+    v12 = intValue;
+    v13 = [NSURL URLWithString:v6];
+    v14 = [FMDRequestAckLock alloc];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v15 = [(FMDRequestAckLock *)v13 initWithProvider:provider lockCommand:commandParams2 cmdStatusCode:v11 ackURL:v12];
+    v16 = [(FMDRequestAckLock *)v14 initWithProvider:provider lockCommand:commandParams2 cmdStatusCode:v12 ackURL:v13];
 
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100146878;
-    v17[3] = &unk_1002CD1D0;
-    v18 = completionCopy;
-    [(FMDRequest *)v15 setCompletionHandler:v17];
-    [provider enqueueRequest:v15];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100146878;
+    v18[3] = &unk_1002CD1D0;
+    v19 = completionCopy;
+    [(FMDRequest *)v16 setCompletionHandler:v18];
+    [provider enqueueRequest:v16];
   }
 
   else
   {
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100002880(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not acking the lock command because there is no ack URL", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not acking the lock command because there is no ack URL", v17, 2u);
     }
   }
 }

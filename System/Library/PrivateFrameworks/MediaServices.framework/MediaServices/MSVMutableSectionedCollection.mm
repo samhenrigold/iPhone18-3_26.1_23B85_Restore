@@ -111,38 +111,36 @@ LABEL_12:
 
 - (void)appendItems:(id)items
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        [(MSVMutableSectionedCollection *)self appendItem:*(*(&v10 + 1) + 8 * v8++)];
+        [(MSVMutableSectionedCollection *)self appendItem:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)appendItem:(id)item
@@ -255,7 +253,7 @@ LABEL_12:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init([objc_opt_class() msv_immutableClass]);
   if (v4)
   {
@@ -264,34 +262,34 @@ LABEL_12:
     v4[2] = v5;
 
     v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->super._sectionedItems, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = self->super._sectionedItems;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [*(*(&v18 + 1) + 8 * v12) copy];
+          v13 = [*(*(&v17 + 1) + 8 * v12) copy];
           [v7 addObject:v13];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -302,7 +300,6 @@ LABEL_12:
     v4[1] = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -312,9 +309,7 @@ LABEL_12:
   sectionedItems = self->super._sectionedItems;
   self->super._sectionedItems = v3;
 
-  v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  sections = self->super._sections;
-  self->super._sections = v5;
+  self->super._sections = objc_alloc_init(MEMORY[0x1E695DF70]);
 
   MEMORY[0x1EEE66BB8]();
 }

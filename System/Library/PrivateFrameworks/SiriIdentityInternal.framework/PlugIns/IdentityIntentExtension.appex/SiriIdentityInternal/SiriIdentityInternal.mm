@@ -8,60 +8,59 @@ uint64_t sub_1000012D0()
 
 id sub_100001304@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v23 = a1;
+  v22 = a1;
   v3 = sub_100001964();
   v4 = *(v3 - 8);
-  v5 = v4[8];
-  v6 = (__chkstk_darwin)();
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v22 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v21 - v8;
   if (qword_100008120 != -1)
   {
     swift_once();
   }
 
-  v11 = sub_100001808(v3, qword_100008158);
-  v12 = v4[2];
-  v12(v10, v11, v3);
-  v13 = sub_100001944();
-  v14 = sub_100001974();
-  if (os_log_type_enabled(v13, v14))
+  v10 = sub_100001808(v3, qword_100008158);
+  v11 = *(v4 + 16);
+  v11(v9, v10, v3);
+  v12 = sub_100001944();
+  v13 = sub_100001974();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    v22 = a2;
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v13, v14, "Returning handler for intent", v15, 2u);
-    a2 = v22;
+    v14 = swift_slowAlloc();
+    v21 = a2;
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v12, v13, "Returning handler for intent", v14, 2u);
+    a2 = v21;
   }
 
-  v16 = v4[1];
-  v16(v10, v3);
+  v15 = *(v4 + 8);
+  v15(v9, v3);
   sub_100001914();
   if (swift_dynamicCastClass())
   {
-    v12(v8, v11, v3);
-    v17 = sub_100001944();
-    v18 = sub_100001974();
-    if (os_log_type_enabled(v17, v18))
+    v11(v7, v10, v3);
+    v16 = sub_100001944();
+    v17 = sub_100001974();
+    if (os_log_type_enabled(v16, v17))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&_mh_execute_header, v17, v18, "Intent is SwitchProfileIntent. Returning switchProfileHandler", v19, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v16, v17, "Intent is SwitchProfileIntent. Returning switchProfileHandler", v18, 2u);
     }
 
-    v16(v8, v3);
+    v15(v7, v3);
     if (qword_100008118 != -1)
     {
       swift_once();
     }
 
-    v23 = qword_100008150;
+    v22 = qword_100008150;
     a2[3] = sub_100001934();
-    v20 = v23;
-    *a2 = v23;
+    v19 = v22;
+    *a2 = v22;
 
-    return v20;
+    return v19;
   }
 
   else
@@ -131,14 +130,11 @@ uint64_t sub_100001840()
 
 uint64_t *sub_1000018B0(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

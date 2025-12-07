@@ -34,20 +34,18 @@
 
 + (void)fetchDataAtURL:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Fetching MDM data at: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Fetching MDM data at: %{public}@", &v2, 0xCu);
 }
 
 + (void)downloadDataAtURL:(uint64_t)a1 downloadURL:(NSObject *)a2 completionHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Downloading MDM data at: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Downloading MDM data at: %{public}@", &v2, 0xCu);
 }
 
 @end

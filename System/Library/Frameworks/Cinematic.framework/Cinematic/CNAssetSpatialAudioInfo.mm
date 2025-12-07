@@ -18,7 +18,7 @@
   asset = [metadataCopy asset];
   v18 = 0;
   formatDescriptions = [metadataCopy formatDescriptions];
-  getEligibleCinematicAudioVersion(formatDescriptions);
+  getEligibleCinematicAudioVersion(formatDescriptions, &v18);
 
   v9 = *MEMORY[0x277CE5E70];
   v13[0] = MEMORY[0x277D85DD0];
@@ -27,7 +27,7 @@
   v13[3] = &unk_278A16070;
   v15 = metadataCopy;
   v16 = handlerCopy;
-  v17 = 0;
+  v17 = v18;
   v14 = asset;
   v10 = metadataCopy;
   v11 = asset;
@@ -37,13 +37,14 @@
 
 void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_1();
     }
@@ -51,13 +52,13 @@ void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler
 LABEL_4:
 
     (*(*(a1 + 48) + 16))();
-    goto LABEL_50;
+    goto LABEL_49;
   }
 
   if (![v5 count])
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CNLogSystem(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_5();
     }
@@ -65,169 +66,167 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v43 = v5;
-  v44 = a1;
-  v54 = 0u;
+  v44 = v5;
+  v45 = a1;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
+  v54 = 0u;
   obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v53;
+    v10 = v9;
+    v11 = *v54;
     while (2)
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v53 != v10)
+        if (*v54 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v52 + 1) + 8 * v11);
-        v13 = [v12 formatDescriptions];
-        if ([v13 count])
+        v13 = *(*(&v53 + 1) + 8 * v12);
+        v14 = [v13 formatDescriptions];
+        if ([v14 count])
         {
-          v14 = 0;
+          v15 = 0;
           while (1)
           {
-            v15 = [v13 objectAtIndex:v14];
-            if (CMFormatDescriptionGetMediaType(v15) == 1835365473 && CMFormatDescriptionGetMediaSubType(v15) == 1835360888)
+            v16 = [v14 objectAtIndex:v15];
+            if (CMFormatDescriptionGetMediaType(v16) == 1835365473 && CMFormatDescriptionGetMediaSubType(v16) == 1835360888)
             {
-              Identifiers = CMMetadataFormatDescriptionGetIdentifiers(v15);
-              v60.length = CFArrayGetCount(Identifiers);
-              v60.location = 0;
-              if (CFArrayContainsValue(Identifiers, v60, @"mdta/com.apple.quicktime.cinematic-audio"))
+              Identifiers = CMMetadataFormatDescriptionGetIdentifiers(v16);
+              v61.length = CFArrayGetCount(Identifiers);
+              v61.location = 0;
+              if (CFArrayContainsValue(Identifiers, v61, @"mdta/com.apple.quicktime.cinematic-audio"))
               {
                 break;
               }
             }
 
-            if (++v14 >= [v13 count])
+            if (++v15 >= [v14 count])
             {
               goto LABEL_17;
             }
           }
 
-          v17 = v12;
+          v18 = v13;
 
-          if (v17)
+          if (v18)
           {
 
-            v20 = (v44 + 32);
-            v21 = *(v44 + 32);
-            v56 = *MEMORY[0x277CC08F0];
-            v57 = *(MEMORY[0x277CC08F0] + 16);
-            v22 = [v17 makeSampleCursorWithPresentationTimeStamp:&v56];
-            v23 = v22;
-            obja = v21;
-            if (v22)
+            v22 = *(v45 + 32);
+            v57 = *MEMORY[0x277CC08F0];
+            v58 = *(MEMORY[0x277CC08F0] + 16);
+            v23 = [v18 makeSampleCursorWithPresentationTimeStamp:&v57];
+            v24 = v23;
+            obja = v22;
+            if (v23)
             {
-              v24 = [objc_alloc(MEMORY[0x277CE6628]) initWithStartCursor:v22];
-              v25 = [objc_alloc(MEMORY[0x277CE6618]) initWithAsset:v21 timebase:0];
-              [v24 setDirection:1];
-              [v24 setPreferredMinSampleCount:1];
-              [v24 setMaxSampleCount:1];
-              v26 = [v25 createSampleBufferForRequest:v24 error:0];
-              v27 = [objc_alloc(MEMORY[0x277CE6648]) initWithSampleBuffer:v26];
-              v28 = [v27 items];
-              v29 = [v28 indexOfObjectPassingTest:&__block_literal_global_54];
+              v25 = [objc_alloc(MEMORY[0x277CE6628]) initWithStartCursor:v23];
+              v26 = [objc_alloc(MEMORY[0x277CE6618]) initWithAsset:v22 timebase:0];
+              [v25 setDirection:1];
+              [v25 setPreferredMinSampleCount:1];
+              [v25 setMaxSampleCount:1];
+              v27 = [v26 createSampleBufferForRequest:v25 error:0];
+              v28 = [objc_alloc(MEMORY[0x277CE6648]) initWithSampleBuffer:v27];
+              v29 = [v28 items];
+              v30 = [v29 indexOfObjectPassingTest:&__block_literal_global_54];
 
-              if (v29 == 0x7FFFFFFFFFFFFFFFLL)
+              if (v30 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v30 = 0;
                 v31 = 0;
                 v32 = 0;
-                goto LABEL_41;
+                v33 = 0;
+                goto LABEL_40;
               }
 
-              v34 = [v27 items];
-              v32 = [v34 objectAtIndex:v29];
+              v35 = [v28 items];
+              v33 = [v35 objectAtIndex:v30];
 
-              if (v32)
+              if (v33)
               {
-                v33 = [v32 dataValue];
+                v34 = [v33 dataValue];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v35 = v33;
-                  v31 = 1;
-                  v30 = v33;
+                  v36 = v34;
+                  v32 = 1;
+                  v31 = v34;
                 }
 
                 else
                 {
-                  v30 = 0;
                   v31 = 0;
+                  v32 = 0;
                 }
 
-                v20 = (v44 + 32);
-                goto LABEL_40;
+                goto LABEL_39;
               }
 
-              v30 = 0;
               v31 = 0;
-              v20 = (v44 + 32);
+              v32 = 0;
             }
 
             else
             {
-              v33 = _CNLogSystem();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v34 = _CNLogSystem(0);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
-                __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_2(v33);
+                __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_2(v34);
               }
 
-              v30 = 0;
-              v24 = 0;
-              v25 = 0;
               v31 = 0;
+              v25 = 0;
+              v26 = 0;
               v32 = 0;
-              v27 = 0;
-LABEL_40:
+              v33 = 0;
+              v28 = 0;
+LABEL_39:
             }
 
-LABEL_41:
+LABEL_40:
 
-            v36 = v30;
-            if ((v31 & 1) == 0)
+            v37 = v31;
+            v38 = v37;
+            if ((v32 & 1) == 0)
             {
-              v38 = _CNLogSystem();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v40 = _CNLogSystem(v37);
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_3(v20);
+                __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_3();
               }
 
-              v37 = *(*(v44 + 48) + 16);
-              goto LABEL_47;
+              v39 = *(*(v45 + 48) + 16);
+              goto LABEL_46;
             }
 
-            if (*(v44 + 56) == 65537)
+            if (*(v45 + 56) == 65537)
             {
-              v37 = *(*(v44 + 48) + 16);
-LABEL_47:
-              v37();
+              v39 = *(*(v45 + 48) + 16);
+LABEL_46:
+              v39();
 
-              goto LABEL_49;
+              goto LABEL_48;
             }
 
-            v39 = *MEMORY[0x277CE6198];
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1;
-            v47[3] = &unk_278A16048;
-            v48 = *(v44 + 40);
-            v49 = *(v44 + 32);
-            v40 = *(v44 + 48);
-            v50 = v36;
-            v51 = v40;
-            v41 = v36;
-            [v17 loadAssociatedTracksOfType:v39 completionHandler:v47];
+            v41 = *MEMORY[0x277CE6198];
+            v48[0] = MEMORY[0x277D85DD0];
+            v48[1] = 3221225472;
+            v48[2] = __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1;
+            v48[3] = &unk_278A16048;
+            v49 = *(v45 + 40);
+            v50 = *(v45 + 32);
+            v42 = *(v45 + 48);
+            v51 = v38;
+            v52 = v42;
+            v43 = v38;
+            [v18 loadAssociatedTracksOfType:v41 completionHandler:v48];
 
-            goto LABEL_49;
+            goto LABEL_48;
           }
         }
 
@@ -236,13 +235,13 @@ LABEL_47:
 LABEL_17:
         }
 
-        ++v11;
+        ++v12;
       }
 
-      while (v11 != v9);
-      v18 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-      v9 = v18;
-      if (v18)
+      while (v12 != v10);
+      v19 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v10 = v19;
+      if (v19)
       {
         continue;
       }
@@ -251,59 +250,56 @@ LABEL_17:
     }
   }
 
-  v19 = _CNLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v21 = _CNLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_4();
   }
 
-  (*(*(v44 + 48) + 16))();
+  (*(*(v45 + 48) + 16))();
+LABEL_48:
+  v7 = 0;
+  v5 = v44;
 LABEL_49:
-  v6 = 0;
-  v5 = v43;
-LABEL_50:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
-void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1(void *a1, void *a2, void *a3)
+void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v8)
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v8 = v5;
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v19;
-      v11 = *MEMORY[0x277CE5E48];
+      v10 = v9;
+      v11 = *v18;
+      v12 = *MEMORY[0x277CE5E48];
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v13 mediaType];
-          if ([v14 isEqualToString:v11])
+          v14 = *(*(&v17 + 1) + 8 * i);
+          v15 = [v14 mediaType];
+          if ([v15 isEqualToString:v12])
           {
-            v15 = [v13 isEqual:a1[4]];
+            v16 = [v14 isEqual:*(a1 + 32)];
 
-            if (v15)
+            if (v16)
             {
-
-              v16 = a1[6];
-              goto LABEL_17;
+              goto LABEL_16;
             }
           }
 
@@ -312,26 +308,25 @@ void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
   else
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1_cold_1(v6, a1);
+      __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1_cold_1();
     }
   }
 
-LABEL_17:
-  (*(a1[7] + 16))();
+LABEL_16:
 
-  v17 = *MEMORY[0x277D85DE8];
+  (*(*(a1 + 56) + 16))();
 }
 
 + (BOOL)isSupported
@@ -376,10 +371,11 @@ void __38__CNAssetSpatialAudioInfo_isSupported__block_invoke()
 {
   assetCopy = asset;
   handlerCopy = handler;
-  if (!+[CNAssetSpatialAudioInfo isSupported])
+  v7 = +[CNAssetSpatialAudioInfo isSupported];
+  if ((v7 & 1) == 0)
   {
-    v9 = _CNLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _CNLogSystem(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[CNAssetSpatialAudioInfo loadFromAsset:completionHandler:];
     }
@@ -388,97 +384,99 @@ void __38__CNAssetSpatialAudioInfo_isSupported__block_invoke()
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v9 = _CNLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _CNLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[CNAssetSpatialAudioInfo loadFromAsset:completionHandler:];
     }
 
 LABEL_8:
 
-    v8 = _CNCinematicError(5, 0);
-    handlerCopy[2](handlerCopy, 0, v8);
+    v10 = _CNCinematicError(5, 0);
+    handlerCopy[2](handlerCopy, 0, v10);
     goto LABEL_9;
   }
 
-  v7 = *MEMORY[0x277CE5E48];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke;
-  v10[3] = &unk_278A16018;
-  v11 = assetCopy;
-  v12 = handlerCopy;
-  [v11 loadTracksWithMediaType:v7 completionHandler:v10];
+  v9 = *MEMORY[0x277CE5E48];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke;
+  v12[3] = &unk_278A16018;
+  v13 = assetCopy;
+  v14 = handlerCopy;
+  [v13 loadTracksWithMediaType:v9 completionHandler:v12];
 
-  v8 = v11;
+  v10 = v13;
 LABEL_9:
 }
 
 void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v36 = 0;
+  v7 = v6;
+  v37 = 0;
   if (v6)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_1(v6, a1);
+      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_1();
     }
 
-    v8 = *(a1 + 40);
-    v9 = _CNCinematicError(2, v6);
-    (*(v8 + 16))(v8, 0, v9);
+    v9 = *(a1 + 40);
+    v10 = _CNCinematicError(2, v7);
+    (*(v9 + 16))(v9, 0, v10);
   }
 
   else
   {
-    v27 = a1;
-    v34 = 0u;
+    v28 = a1;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v11)
+    v34 = 0u;
+    v11 = v5;
+    v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v33;
+      v13 = v12;
+      v14 = *v34;
 LABEL_7:
-      v14 = 0;
+      v15 = 0;
       while (1)
       {
-        if (*v33 != v13)
+        if (*v34 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v32 + 1) + 8 * v14);
-        v16 = [v15 formatDescriptions];
-        EligibleCinematicAudioVersion = getEligibleCinematicAudioVersion(v16);
+        v16 = *(*(&v33 + 1) + 8 * v15);
+        v17 = [v16 formatDescriptions];
+        EligibleCinematicAudioVersion = getEligibleCinematicAudioVersion(v17, &v37);
 
         if (EligibleCinematicAudioVersion)
         {
-          v18 = [v15 formatDescriptions];
-          v19 = [v18 objectAtIndexedSubscript:0];
+          v19 = [v16 formatDescriptions];
+          v20 = [v19 objectAtIndexedSubscript:0];
 
-          mFormatID = CMAudioFormatDescriptionGetRichestDecodableFormat(v19)->mASBD.mFormatID;
-          v21 = mFormatID == 1634754915 || mFormatID == 1902211171;
-          v22 = v21 || mFormatID == 1667330147;
-          if (v22 && HIWORD(v36) << 16 == 0x10000)
+          mFormatID = CMAudioFormatDescriptionGetRichestDecodableFormat(v20)->mASBD.mFormatID;
+          v22 = mFormatID == 1634754915 || mFormatID == 1902211171;
+          v23 = v22 || mFormatID == 1667330147;
+          if (v23 && HIWORD(v37) << 16 == 0x10000)
           {
             break;
           }
         }
 
-        if (v12 == ++v14)
+        if (v13 == ++v15)
         {
-          v12 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
-          if (v12)
+          v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          if (v13)
           {
             goto LABEL_7;
           }
@@ -487,24 +485,24 @@ LABEL_7:
         }
       }
 
-      v23 = v15;
+      v25 = v16;
 
-      if (!v23)
+      if (!v25)
       {
         goto LABEL_25;
       }
 
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11;
-      v28[3] = &unk_278A160E0;
-      v29 = v23;
-      v31 = *(v27 + 40);
-      v30 = *(v27 + 32);
-      v9 = v23;
-      [v9 loadValuesAsynchronouslyForKeys:&unk_284A06F88 completionHandler:v28];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11;
+      v29[3] = &unk_278A160E0;
+      v30 = v25;
+      v32 = *(v28 + 40);
+      v31 = *(v28 + 32);
+      v10 = v25;
+      [v10 loadValuesAsynchronouslyForKeys:&unk_284A06F88 completionHandler:v29];
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
@@ -512,65 +510,65 @@ LABEL_7:
 LABEL_22:
 
 LABEL_25:
-      v24 = _CNLogSystem();
-      v6 = 0;
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = _CNLogSystem(v24);
+      v7 = 0;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_2(v27);
+        __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_2();
       }
 
-      v25 = *(v27 + 40);
-      v9 = _CNCinematicError(3, 0);
-      (*(v25 + 16))(v25, 0, v9);
+      v27 = *(v28 + 40);
+      v10 = _CNCinematicError(3, 0);
+      (*(v27 + 16))(v27, 0, v10);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v12 = 0;
-  v3 = [v2 statusOfValueForKey:@"playable" error:&v12];
-  v4 = v12;
+  v14 = 0;
+  v3 = [v2 statusOfValueForKey:@"playable" error:&v14];
+  v4 = v14;
+  v5 = v4;
   if (v3 != 2)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _CNLogSystem(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_1(v4, a1);
+      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_1();
     }
 
     goto LABEL_8;
   }
 
-  if (![*(a1 + 32) isPlayable])
+  v6 = [*(a1 + 32) isPlayable];
+  if (!v6)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_2(a1);
+      __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_2();
     }
 
 LABEL_8:
 
-    v8 = *(a1 + 48);
-    v6 = _CNCinematicError(3, 0);
-    (*(v8 + 16))(v8, 0, v6);
+    v10 = *(a1 + 48);
+    v8 = _CNCinematicError(3, 0);
+    (*(v10 + 16))(v10, 0, v8);
     goto LABEL_9;
   }
 
-  v5 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_2;
-  v9[3] = &unk_278A160B8;
-  v11 = *(a1 + 48);
-  v10 = *(a1 + 32);
-  [CNAssetSpatialAudioInfo findAssociatedRemixMetadata:v5 completionHandler:v9];
+  v7 = *(a1 + 32);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_2;
+  v11[3] = &unk_278A160B8;
+  v13 = *(a1 + 48);
+  v12 = *(a1 + 32);
+  [CNAssetSpatialAudioInfo findAssociatedRemixMetadata:v7 completionHandler:v11];
 
-  v6 = v11;
+  v8 = v13;
 LABEL_9:
 }
 
@@ -623,27 +621,25 @@ uint64_t __73__CNAssetSpatialAudioInfo_checkIfContainsSpatialAudio_completionHan
 
 - (id)audioMixWithEffectIntensity:(float)intensity renderingStyle:(int64_t)style
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   audioMix = [MEMORY[0x277CE6538] audioMix];
   v8 = objc_alloc_init(MEMORY[0x277CE6540]);
   [v8 setTrackID:{-[AVAssetTrack trackID](self->_spatialAudioTrack, "trackID")}];
-  v16 = *MEMORY[0x277CC08F0];
-  v15 = v16;
-  v17 = *(MEMORY[0x277CC08F0] + 16);
-  v9 = v17;
-  [v8 setDialogMixBias:&v16 atTime:{COERCE_DOUBLE(__PAIR64__(DWORD1(v16), LODWORD(intensity)))}];
+  v15 = *MEMORY[0x277CC08F0];
+  v14 = v15;
+  v16 = *(MEMORY[0x277CC08F0] + 16);
+  v9 = v16;
+  [v8 setDialogMixBias:&v15 atTime:{COERCE_DOUBLE(__PAIR64__(DWORD1(v15), LODWORD(intensity)))}];
   *&v10 = style;
-  v16 = v15;
-  v17 = v9;
-  [v8 setRenderingStyle:&v16 atTime:v10];
+  v15 = v14;
+  v16 = v9;
+  [v8 setRenderingStyle:&v15 atTime:v10];
   v11 = [MEMORY[0x277CE6488] cinematicAudioEffectWithData:self->_metadataBlob];
   [v8 addEffect:v11];
 
-  v18[0] = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [audioMix setInputParameters:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return audioMix;
 }
@@ -738,85 +734,14 @@ LABEL_6:
   return dictionary;
 }
 
-void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_2(NSObject *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4 = **&MEMORY[0x277CC08F0];
-  Seconds = CMTimeGetSeconds(&v4);
-  LODWORD(v4.value) = 134217984;
-  *(&v4.value + 4) = Seconds;
-  _os_log_error_impl(&dword_236F52000, a1, OS_LOG_TYPE_ERROR, "failed to create cursor at cursorTime %0.3f, bad movie", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_cold_3(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73__CNAssetSpatialAudioInfo_findAssociatedRemixMetadata_completionHandler___block_invoke_1_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_236F52000, v3, v4, "Error: (%@) no eligible referent tracks found for metadata track %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)loadFromAsset:completionHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_236F52000, v3, v4, "Error: (%@) loading video tracks in asset %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_236F52000, v3, v4, "Error: (%@) failed to load playable property of asset %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__CNAssetSpatialAudioInfo_loadFromAsset_completionHandler___block_invoke_11_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = **&MEMORY[0x277CC08F0];
+  Seconds = CMTimeGetSeconds(&v3);
+  LODWORD(v3.value) = 134217984;
+  *(&v3.value + 4) = Seconds;
+  _os_log_error_impl(&dword_236F52000, a1, OS_LOG_TYPE_ERROR, "failed to create cursor at cursorTime %0.3f, bad movie", &v3, 0xCu);
 }
 
 @end

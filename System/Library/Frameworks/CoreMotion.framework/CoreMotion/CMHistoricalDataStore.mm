@@ -29,10 +29,10 @@
 
 - (CMHistoricalDataStore)init
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5.receiver = self;
-  v5.super_class = CMHistoricalDataStore;
-  v2 = [(CMHistoricalDataStore *)&v5 init];
+  v5 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CMHistoricalDataStore;
+  v2 = [(CMHistoricalDataStore *)&v4 init];
   if (v2)
   {
     v2->fConfiguration = 0;
@@ -40,7 +40,6 @@
     operator new();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -58,23 +57,22 @@
 
 - (BOOL)queryConfigurationFromDaemon
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (!self->fConfiguration)
   {
     sub_19B5B64E0();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)fetchCardioSamplesFrom:(double)from to:(double)to queryToken:(id)token withHandler:(id)handler
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
-    v65 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, token);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v65, v66, a2, self, @"CMHistoricalDataStore.mm", 140, @"Invalid parameter not satisfying: %@", @"handler");
+    v72 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, token);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v72, v73, a2, self, @"CMHistoricalDataStore.mm", 140, @"Invalid parameter not satisfying: %@", @"handler");
   }
 
   if (qword_1EAFE2AA8 != -1)
@@ -87,10 +85,10 @@
   {
     *buf = 134218498;
     fromCopy3 = from;
-    v84 = 2048;
+    v93 = 2048;
     toCopy3 = to;
-    v86 = 2112;
-    v87 = *&token;
+    v95 = 2112;
+    v96 = *&token;
     _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Fetching cardio samples from: %f to: %f. Received token: %@", buf, 0x20u);
   }
 
@@ -103,35 +101,36 @@
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v76 = 134218498;
+    v85 = 134218498;
     fromCopy4 = from;
-    v78 = 2048;
+    v87 = 2048;
     toCopy4 = to;
-    v80 = 2112;
-    v81 = *&token;
-    v13 = _os_log_send_and_compose_impl();
+    v89 = 2112;
+    v90 = *&token;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "[HistoricalFetch] Fetching cardio samples from: %f to: %f. Received token: %@", &v85, 32);
+    v14 = v13;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    if (v14 != buf)
     {
-      free(v13);
+      free(v14);
     }
   }
 
-  v14 = objc_alloc_init(CMHistoricalCardioSamples);
-  v15 = objc_autoreleasePoolPush();
-  if ((objc_msgSend_queryConfigurationFromDaemon(self, v16, v17) & 1) == 0)
+  v15 = objc_alloc_init(CMHistoricalCardioSamples);
+  v16 = objc_autoreleasePoolPush();
+  if ((objc_msgSend_queryConfigurationFromDaemon(self, v17, v18) & 1) == 0)
   {
-    v74 = *MEMORY[0x1E696A578];
-    v75 = @"Failed to get datastore configuration";
-    v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, &v75, &v74, 1);
-    v43 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v45, 103, v44);
+    v83 = *MEMORY[0x1E696A578];
+    v84 = @"Failed to get datastore configuration";
+    v48 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, &v84, &v83, 1);
+    v47 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v49, 103, v48);
 LABEL_46:
-    (*(handler + 2))(handler, v14, 0, 1, v43);
+    (*(handler + 2))(handler, v15, 0, 1, v47);
     goto LABEL_47;
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v22 = Current;
+  v23 = Current;
   if (to <= from || Current < from)
   {
     if (qword_1EAFE2AA8 != -1)
@@ -139,20 +138,20 @@ LABEL_46:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v46 = qword_1EAFE2AB0;
+    v50 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
       fromCopy3 = from;
-      v84 = 2048;
+      v93 = 2048;
       toCopy3 = to;
-      v86 = 2048;
-      v87 = v22;
-      _os_log_impl(&dword_19B41C000, v46, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", buf, 0x20u);
+      v95 = 2048;
+      v96 = v23;
+      _os_log_impl(&dword_19B41C000, v50, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", buf, 0x20u);
     }
 
-    v47 = sub_19B420058();
-    if ((*(v47 + 160) & 0x80000000) == 0 || (*(v47 + 164) & 0x80000000) == 0 || (*(v47 + 168) & 0x80000000) == 0 || *(v47 + 152))
+    v51 = sub_19B420058();
+    if ((*(v51 + 160) & 0x80000000) == 0 || (*(v51 + 164) & 0x80000000) == 0 || (*(v51 + 168) & 0x80000000) == 0 || *(v51 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -160,74 +159,76 @@ LABEL_46:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v76 = 134218496;
+      v85 = 134218496;
       fromCopy4 = from;
-      v78 = 2048;
+      v87 = 2048;
       toCopy4 = to;
-      v80 = 2048;
-      v81 = v22;
-      v49 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v49);
-      if (v49 != buf)
+      v89 = 2048;
+      v90 = v23;
+      LODWORD(v74) = 32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", COERCE_DOUBLE(&v85), v74, v75);
+      v54 = v53;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v53);
+      if (v54 != buf)
       {
-        free(v49);
+        free(v54);
       }
     }
 
-    v72 = *MEMORY[0x1E696A578];
-    v73 = @"Invalid timestamps.";
-    v50 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, &v73, &v72, 1);
+    v81 = *MEMORY[0x1E696A578];
+    v82 = @"Invalid timestamps.";
+    v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v52, &v82, &v81, 1);
 LABEL_45:
-    v43 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v51, 107, v50);
+    v47 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v56, 107, v55);
     goto LABEL_46;
   }
 
-  isDbOpenAndValid = objc_msgSend_isDbOpenAndValid(self, v19, v20);
+  isDbOpenAndValid = objc_msgSend_isDbOpenAndValid(self, v20, v21);
   if (!isDbOpenAndValid)
   {
-    objc_msgSend_initializeWithToken_type_start_end_(self, v24, token, 0, from, to);
-    if (objc_msgSend_tokenSanityChecks(self, v53, v54))
+    objc_msgSend_initializeWithToken_type_start_end_(self, v25, token, 0, from, to);
+    if (objc_msgSend_tokenSanityChecks(self, v57, v58))
     {
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = sub_19B5B1064;
-      v67[3] = &unk_1E75329B0;
-      v67[5] = self;
-      v67[6] = handler;
-      v67[4] = v14;
-      objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v55, 0, v67);
+      v76[0] = MEMORY[0x1E69E9820];
+      v76[1] = 3221225472;
+      v76[2] = sub_19B5B1064;
+      v76[3] = &unk_1E75329B0;
+      v76[5] = self;
+      v76[6] = handler;
+      v76[4] = v15;
+      objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v59, 0, v76);
       goto LABEL_47;
     }
 
-    v68 = *MEMORY[0x1E696A578];
-    v69 = @"Invalid token.";
-    v50 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v55, &v69, &v68, 1);
+    v77 = *MEMORY[0x1E696A578];
+    v78 = @"Invalid token.";
+    v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v59, &v78, &v77, 1);
     goto LABEL_45;
   }
 
-  v26 = isDbOpenAndValid;
-  v27 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v24, v25);
-  v30 = objc_msgSend_coldDBPath(self, v28, v29);
-  if (objc_msgSend_fileExistsAtPath_(v27, v31, v30))
+  v27 = isDbOpenAndValid;
+  v28 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v25, v26);
+  v31 = objc_msgSend_coldDBPath(self, v29, v30);
+  if (objc_msgSend_fileExistsAtPath_(v28, v32, v31))
   {
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v32 = qword_1EAFE2AB0;
+    v33 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
-      *&v35 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v33, v34));
+      *&v36 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v34, v35));
       *buf = 138478083;
-      fromCopy3 = *&v35;
-      v84 = 1026;
-      LODWORD(toCopy3) = v26;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
+      fromCopy3 = *&v36;
+      v93 = 1026;
+      LODWORD(toCopy3) = v27;
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
     }
 
-    v36 = sub_19B420058();
-    if ((*(v36 + 160) & 0x80000000) == 0 || (*(v36 + 164) & 0x80000000) == 0 || (*(v36 + 168) & 0x80000000) == 0 || *(v36 + 152))
+    v37 = sub_19B420058();
+    if ((*(v37 + 160) & 0x80000000) == 0 || (*(v37 + 164) & 0x80000000) == 0 || (*(v37 + 168) & 0x80000000) == 0 || *(v37 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -235,22 +236,26 @@ LABEL_45:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v76 = 138478083;
-      fromCopy4 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v38, v39));
-      v78 = 1026;
-      LODWORD(toCopy4) = v26;
-      v40 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v40);
-      if (v40 != buf)
+      v41 = qword_1EAFE2AB0;
+      *&v42 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v39, v40));
+      v85 = 138478083;
+      fromCopy4 = *&v42;
+      v87 = 1026;
+      LODWORD(toCopy4) = v27;
+      LODWORD(v74) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v41, 16, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", &v85, *&v74);
+      v44 = v43;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v43);
+      if (v44 != buf)
       {
-        free(v40);
+        free(v44);
       }
     }
 
-    v70 = *MEMORY[0x1E696A578];
-    v71 = @"Unable to access datastore. Is the device locked?";
-    v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, &v71, &v70, 1);
-    v43 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v42, 109, v41);
+    v79 = *MEMORY[0x1E696A578];
+    v80 = @"Unable to access datastore. Is the device locked?";
+    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v38, &v80, &v79, 1);
+    v47 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v46, 109, v45);
     goto LABEL_46;
   }
 
@@ -259,19 +264,19 @@ LABEL_45:
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
   }
 
-  v56 = qword_1EAFE2AB0;
+  v60 = qword_1EAFE2AB0;
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
   {
-    *&v59 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v57, v58));
+    *&v63 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v61, v62));
     *buf = 138478083;
-    fromCopy3 = *&v59;
-    v84 = 1026;
-    LODWORD(toCopy3) = v26;
-    _os_log_impl(&dword_19B41C000, v56, OS_LOG_TYPE_ERROR, "[HistoricalFetch] No file found at path %{private}@; return code %{public}d", buf, 0x12u);
+    fromCopy3 = *&v63;
+    v93 = 1026;
+    LODWORD(toCopy3) = v27;
+    _os_log_impl(&dword_19B41C000, v60, OS_LOG_TYPE_ERROR, "[HistoricalFetch] No file found at path %{private}@; return code %{public}d", buf, 0x12u);
   }
 
-  v60 = sub_19B420058();
-  if ((*(v60 + 160) & 0x80000000) == 0 || (*(v60 + 164) & 0x80000000) == 0 || (*(v60 + 168) & 0x80000000) == 0 || *(v60 + 152))
+  v64 = sub_19B420058();
+  if ((*(v64 + 160) & 0x80000000) == 0 || (*(v64 + 164) & 0x80000000) == 0 || (*(v64 + 168) & 0x80000000) == 0 || *(v64 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
@@ -279,31 +284,34 @@ LABEL_45:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v76 = 138478083;
-    fromCopy4 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v61, v62));
-    v78 = 1026;
-    LODWORD(toCopy4) = v26;
-    v63 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v63);
-    if (v63 != buf)
+    v67 = qword_1EAFE2AB0;
+    *&v68 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v65, v66));
+    v85 = 138478083;
+    fromCopy4 = *&v68;
+    v87 = 1026;
+    LODWORD(toCopy4) = v27;
+    LODWORD(v74) = 18;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v67, 16, "[HistoricalFetch] No file found at path %{private}@; return code %{public}d", &v85, *&v74);
+    v70 = v69;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchCardioSamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v69);
+    if (v70 != buf)
     {
-      free(v63);
+      free(v70);
     }
   }
 
-  (*(handler + 2))(handler, v14, 0, 1, 0);
+  (*(handler + 2))(handler, v15, 0, 1, 0);
 LABEL_47:
-  objc_autoreleasePoolPop(v15);
-  v52 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v16);
 }
 
 - (void)fetchMobilitySamplesFrom:(double)from to:(double)to queryToken:(id)token withHandler:(id)handler
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
-    v51 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, token);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v51, v52, a2, self, @"CMHistoricalDataStore.mm", 249, @"Invalid parameter not satisfying: %@", @"handler");
+    v55 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, token);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v55, v56, a2, self, @"CMHistoricalDataStore.mm", 249, @"Invalid parameter not satisfying: %@", @"handler");
   }
 
   if (qword_1EAFE2AA8 != -1)
@@ -316,10 +324,10 @@ LABEL_47:
   {
     *buf = 134218498;
     fromCopy3 = from;
-    v70 = 2048;
+    v76 = 2048;
     toCopy3 = to;
-    v72 = 2112;
-    v73 = *&token;
+    v78 = 2112;
+    v79 = *&token;
     _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Fetching mobility samples from: %f to: %f. Received token: %@", buf, 0x20u);
   }
 
@@ -332,26 +340,27 @@ LABEL_47:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v62 = 134218498;
+    v68 = 134218498;
     fromCopy4 = from;
-    v64 = 2048;
+    v70 = 2048;
     toCopy4 = to;
-    v66 = 2112;
-    v67 = *&token;
-    v13 = _os_log_send_and_compose_impl();
+    v72 = 2112;
+    v73 = *&token;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "[HistoricalFetch] Fetching mobility samples from: %f to: %f. Received token: %@", &v68, 32);
+    v14 = v13;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore fetchMobilitySamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    if (v14 != buf)
     {
-      free(v13);
+      free(v14);
     }
   }
 
-  v14 = objc_alloc_init(CMHistoricalMobilitySamples);
-  v15 = objc_autoreleasePoolPush();
-  if (objc_msgSend_queryConfigurationFromDaemon(self, v16, v17))
+  v15 = objc_alloc_init(CMHistoricalMobilitySamples);
+  v16 = objc_autoreleasePoolPush();
+  if (objc_msgSend_queryConfigurationFromDaemon(self, v17, v18))
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v22 = Current;
+    v23 = Current;
     if (to <= from || Current < from)
     {
       if (qword_1EAFE2AA8 != -1)
@@ -359,20 +368,20 @@ LABEL_47:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v40 = qword_1EAFE2AB0;
+      v44 = qword_1EAFE2AB0;
       if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218496;
         fromCopy3 = from;
-        v70 = 2048;
+        v76 = 2048;
         toCopy3 = to;
-        v72 = 2048;
-        v73 = v22;
-        _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", buf, 0x20u);
+        v78 = 2048;
+        v79 = v23;
+        _os_log_impl(&dword_19B41C000, v44, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", buf, 0x20u);
       }
 
-      v41 = sub_19B420058();
-      if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
+      v45 = sub_19B420058();
+      if ((*(v45 + 160) & 0x80000000) == 0 || (*(v45 + 164) & 0x80000000) == 0 || (*(v45 + 168) & 0x80000000) == 0 || *(v45 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2AA8 != -1)
@@ -380,49 +389,51 @@ LABEL_47:
           dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
         }
 
-        v62 = 134218496;
+        v68 = 134218496;
         fromCopy4 = from;
-        v64 = 2048;
+        v70 = 2048;
         toCopy4 = to;
-        v66 = 2048;
-        v67 = v22;
-        v43 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchMobilitySamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v43);
-        if (v43 != buf)
+        v72 = 2048;
+        v73 = v23;
+        LODWORD(v57) = 32;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: invalid timestamps start:%f,end:%f,now:%f", COERCE_DOUBLE(&v68), v57, v58);
+        v48 = v47;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchMobilitySamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v47);
+        if (v48 != buf)
         {
-          free(v43);
+          free(v48);
         }
       }
 
-      v58 = *MEMORY[0x1E696A578];
-      v59 = @"Invalid timestamps.";
-      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v42, &v59, &v58, 1);
+      v64 = *MEMORY[0x1E696A578];
+      v65 = @"Invalid timestamps.";
+      v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v46, &v65, &v64, 1);
     }
 
     else
     {
-      isDbOpenAndValid = objc_msgSend_isDbOpenAndValid(self, v19, v20);
+      isDbOpenAndValid = objc_msgSend_isDbOpenAndValid(self, v20, v21);
       if (isDbOpenAndValid)
       {
-        v25 = isDbOpenAndValid;
+        v26 = isDbOpenAndValid;
         if (qword_1EAFE2AA8 != -1)
         {
           dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
         }
 
-        v26 = qword_1EAFE2AB0;
+        v27 = qword_1EAFE2AB0;
         if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
         {
-          *&v29 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v27, v28));
+          *&v30 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v28, v29));
           *buf = 138478083;
-          fromCopy3 = *&v29;
-          v70 = 1026;
-          LODWORD(toCopy3) = v25;
-          _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
+          fromCopy3 = *&v30;
+          v76 = 1026;
+          LODWORD(toCopy3) = v26;
+          _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
         }
 
-        v30 = sub_19B420058();
-        if ((*(v30 + 160) & 0x80000000) == 0 || (*(v30 + 164) & 0x80000000) == 0 || (*(v30 + 168) & 0x80000000) == 0 || *(v30 + 152))
+        v31 = sub_19B420058();
+        if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2AA8 != -1)
@@ -430,65 +441,68 @@ LABEL_47:
             dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
           }
 
-          v62 = 138478083;
-          fromCopy4 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v32, v33));
-          v64 = 1026;
-          LODWORD(toCopy4) = v25;
-          v34 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchMobilitySamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v34);
-          if (v34 != buf)
+          v35 = qword_1EAFE2AB0;
+          *&v36 = COERCE_DOUBLE(objc_msgSend_coldDBPath(self, v33, v34));
+          v68 = 138478083;
+          fromCopy4 = *&v36;
+          v70 = 1026;
+          LODWORD(toCopy4) = v26;
+          LODWORD(v57) = 18;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v35, 16, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", &v68, *&v57);
+          v38 = v37;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore fetchMobilitySamplesFrom:to:queryToken:withHandler:]", "CoreLocation: %s\n", v37);
+          if (v38 != buf)
           {
-            free(v34);
+            free(v38);
           }
         }
 
-        v56 = *MEMORY[0x1E696A578];
-        v57 = @"Unable to access datastore. Is the device locked?";
-        v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v31, &v57, &v56, 1);
-        v37 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v36, 109, v35);
+        v62 = *MEMORY[0x1E696A578];
+        v63 = @"Unable to access datastore. Is the device locked?";
+        v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, &v63, &v62, 1);
+        v41 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v40, 109, v39);
         goto LABEL_45;
       }
 
-      objc_msgSend_initializeWithToken_type_start_end_(self, v24, token, 1, from, to);
-      if (objc_msgSend_tokenSanityChecks(self, v47, v48))
+      objc_msgSend_initializeWithToken_type_start_end_(self, v25, token, 1, from, to);
+      if (objc_msgSend_tokenSanityChecks(self, v51, v52))
       {
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = sub_19B5B1E78;
-        v53[3] = &unk_1E75329B0;
-        v53[5] = self;
-        v53[6] = handler;
-        v53[4] = v14;
-        objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v49, 0, v53);
+        v59[0] = MEMORY[0x1E69E9820];
+        v59[1] = 3221225472;
+        v59[2] = sub_19B5B1E78;
+        v59[3] = &unk_1E75329B0;
+        v59[5] = self;
+        v59[6] = handler;
+        v59[4] = v15;
+        objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v53, 0, v59);
         goto LABEL_46;
       }
 
-      v54 = *MEMORY[0x1E696A578];
-      v55 = @"Invalid token.";
-      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v49, &v55, &v54, 1);
+      v60 = *MEMORY[0x1E696A578];
+      v61 = @"Invalid token.";
+      v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, &v61, &v60, 1);
     }
 
-    v37 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v45, 107, v44);
+    v41 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v50, 107, v49);
   }
 
   else
   {
-    v60 = *MEMORY[0x1E696A578];
-    v61 = @"Failed to get datastore configuration";
-    v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, &v61, &v60, 1);
-    v37 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v39, 103, v38);
+    v66 = *MEMORY[0x1E696A578];
+    v67 = @"Failed to get datastore configuration";
+    v42 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, &v67, &v66, 1);
+    v41 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v43, 103, v42);
   }
 
 LABEL_45:
-  (*(handler + 2))(handler, v14, 0, 1, v37);
+  (*(handler + 2))(handler, v15, 0, 1, v41);
 LABEL_46:
-  objc_autoreleasePoolPop(v15);
-  v46 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v16);
 }
 
 - (void)nextHistoricalFetchWithCount:(unint64_t)count withHandler:(id)handler
 {
-  v171 = *MEMORY[0x1E69E9840];
+  v182 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2AA8 != -1)
   {
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
@@ -508,9 +522,9 @@ LABEL_46:
     }
 
     *buf = 136315394;
-    *v170 = v10;
-    *&v170[8] = 2048;
-    *&v170[10] = count;
+    *v181 = v10;
+    *&v181[8] = 2048;
+    *&v181[10] = count;
     _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEBUG, "[HistoricalFetch] Next %s fetch with count: %lu", buf, 0x16u);
   }
 
@@ -523,50 +537,52 @@ LABEL_46:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
+    v16 = qword_1EAFE2AB0;
     if (objc_msgSend_fetchType(self->fToken, v14, v15))
     {
-      v16 = "Mobility";
+      v17 = "Mobility";
     }
 
     else
     {
-      v16 = "Cardio";
+      v17 = "Cardio";
     }
 
-    v161 = 136315394;
-    *v162 = v16;
-    *&v162[8] = 2048;
-    *&v162[10] = count;
-    v17 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v17);
-    if (v17 != buf)
+    v172 = 136315394;
+    *v173 = v17;
+    *&v173[8] = 2048;
+    *&v173[10] = count;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v16, 2, "[HistoricalFetch] Next %s fetch with count: %lu", &v172, 22);
+    v19 = v18;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v18);
+    if (v19 != buf)
     {
-      free(v17);
+      free(v19);
     }
   }
 
   isDbOpenAndValid = objc_msgSend_isDbOpenAndValid(self, v12, v13);
   if (isDbOpenAndValid)
   {
-    v21 = isDbOpenAndValid;
+    v23 = isDbOpenAndValid;
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v22 = qword_1EAFE2AB0;
+    v24 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
-      v25 = objc_msgSend_coldDBPath(self, v23, v24);
+      v27 = objc_msgSend_coldDBPath(self, v25, v26);
       *buf = 138478083;
-      *v170 = v25;
-      *&v170[8] = 1026;
-      *&v170[10] = v21;
-      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
+      *v181 = v27;
+      *&v181[8] = 1026;
+      *&v181[10] = v23;
+      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", buf, 0x12u);
     }
 
-    v26 = sub_19B420058();
-    if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
+    v28 = sub_19B420058();
+    if ((*(v28 + 160) & 0x80000000) == 0 || (*(v28 + 164) & 0x80000000) == 0 || (*(v28 + 168) & 0x80000000) == 0 || *(v28 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -574,33 +590,37 @@ LABEL_46:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v161 = 138478083;
-      *v162 = objc_msgSend_coldDBPath(self, v28, v29);
-      *&v162[8] = 1026;
-      *&v162[10] = v21;
-      v30 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v30);
-      if (v30 != buf)
+      v32 = qword_1EAFE2AB0;
+      v33 = objc_msgSend_coldDBPath(self, v30, v31);
+      v172 = 138478083;
+      *v173 = v33;
+      *&v173[8] = 1026;
+      *&v173[10] = v23;
+      LODWORD(v160) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v32, 16, "[HistoricalFetch] Unable to open file at path %{private}@; return code %{public}d", &v172, v160);
+      v35 = v34;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v34);
+      if (v35 != buf)
       {
-        free(v30);
+        free(v35);
       }
     }
 
-    v167 = *MEMORY[0x1E696A578];
-    v168 = @"Unable to access datastore. Is the device locked?";
-    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, &v168, &v167, 1);
-    v33 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v32, 109, v31);
+    v178 = *MEMORY[0x1E696A578];
+    v179 = @"Unable to access datastore. Is the device locked?";
+    v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, &v179, &v178, 1);
+    v38 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v37, 109, v36);
 LABEL_55:
-    v87 = v33;
-    v88 = *(handler + 2);
+    v93 = v38;
+    v94 = *(handler + 2);
     handlerCopy4 = handler;
-    v90 = 0;
+    v96 = 0;
 LABEL_56:
-    v91 = 0;
-    v92 = 1;
+    v97 = 0;
+    v98 = 1;
 LABEL_57:
-    v88(handlerCopy4, v90, v91, v92, v87);
-    goto LABEL_58;
+    v94(handlerCopy4, v96, v97, v98, v93);
+    return;
   }
 
   if (!self->fToken || !self->fDb)
@@ -610,15 +630,15 @@ LABEL_57:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v81 = qword_1EAFE2AB0;
+    v86 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v81, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid DB or token", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v86, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid DB or token", buf, 2u);
     }
 
-    v82 = sub_19B420058();
-    if ((*(v82 + 160) & 0x80000000) == 0 || (*(v82 + 164) & 0x80000000) == 0 || (*(v82 + 168) & 0x80000000) == 0 || *(v82 + 152))
+    v87 = sub_19B420058();
+    if ((*(v87 + 160) & 0x80000000) == 0 || (*(v87 + 164) & 0x80000000) == 0 || (*(v87 + 168) & 0x80000000) == 0 || *(v87 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -626,153 +646,52 @@ LABEL_57:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      LOWORD(v161) = 0;
-      v84 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v84);
-      if (v84 != buf)
+      LOWORD(v172) = 0;
+      LODWORD(v160) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: invalid DB or token", &v172, v160);
+      v90 = v89;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v89);
+      if (v90 != buf)
       {
-        free(v84);
+        free(v90);
       }
     }
 
-    v165 = *MEMORY[0x1E696A578];
-    v166 = @"Unexpected invalidation.";
-    v85 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v83, &v166, &v165, 1);
-    v33 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v86, 107, v85);
+    v176 = *MEMORY[0x1E696A578];
+    v177 = @"Unexpected invalidation.";
+    v91 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v88, &v177, &v176, 1);
+    v38 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v92, 107, v91);
     goto LABEL_55;
   }
 
-  v34 = objc_msgSend_tableNames(self, v19, v20);
-  if (objc_msgSend_count(v34, v35, v36) <= count)
+  v39 = objc_msgSend_tableNames(self, v21, v22);
+  if (objc_msgSend_count(v39, v40, v41) <= count)
   {
-    v88 = *(handler + 2);
+    v94 = *(handler + 2);
     handlerCopy4 = handler;
-    v90 = 0;
-    v91 = 0;
-    v92 = 1;
-    goto LABEL_60;
-  }
-
-  v39 = objc_msgSend_tables(self->fToken, v37, v38);
-  if (!objc_msgSend_count(v39, v40, v41))
-  {
-    if (qword_1EAFE2AA8 != -1)
-    {
-      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-    }
-
-    v94 = qword_1EAFE2AB0;
-    if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v94, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: No tables in token", buf, 2u);
-    }
-
-    v95 = sub_19B420058();
-    if ((*(v95 + 160) & 0x80000000) == 0 || (*(v95 + 164) & 0x80000000) == 0 || (*(v95 + 168) & 0x80000000) == 0 || *(v95 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2AA8 != -1)
-      {
-        dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-      }
-
-      LOWORD(v161) = 0;
-      v97 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v97);
-      if (v97 != buf)
-      {
-        free(v97);
-      }
-    }
-
-    v163 = *MEMORY[0x1E696A578];
-    v164 = @"Empty token.";
-    v98 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v96, &v164, &v163, 1);
-    v33 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v99, 112, v98);
-    goto LABEL_55;
+    v96 = 0;
+    v97 = 0;
+    v98 = 1;
+    goto LABEL_59;
   }
 
   v44 = objc_msgSend_tables(self->fToken, v42, v43);
-  Object = objc_msgSend_firstObject(v44, v45, v46);
-  v50 = objc_msgSend_tableNameFromToken(self, v48, v49);
-  if (!*v50)
+  if (!objc_msgSend_count(v44, v45, v46))
   {
-    objc_msgSend_markCursorDone(self, v51, v52);
-    v154[0] = MEMORY[0x1E69E9820];
-    v154[1] = 3221225472;
-    v154[2] = sub_19B5B3290;
-    v154[3] = &unk_1E75329D8;
-    v154[4] = handler;
-    objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v100, count + 1, v154);
-    goto LABEL_58;
-  }
-
-  v53 = v50;
-  if (!objc_msgSend_cachedLastRecordId(Object, v51, v52) || !objc_msgSend_recordId(Object, v54, v55))
-  {
-    FirstRecordIdForTable = objc_msgSend_getFirstRecordIdForTable_(self, v54, v53);
-    objc_msgSend_setRecordId_(Object, v57, FirstRecordIdForTable);
-  }
-
-  LastRecordIdForTable = objc_msgSend_getLastRecordIdForTable_(self, v54, v53);
-  objc_msgSend_setCachedLastRecordId_(Object, v59, LastRecordIdForTable);
-  v62 = objc_msgSend_recordId(Object, v60, v61);
-  if (v62 >= objc_msgSend_cachedLastRecordId(Object, v63, v64))
-  {
-    objc_msgSend_markCursorDone(self, v65, v66);
-    v153[0] = MEMORY[0x1E69E9820];
-    v153[1] = 3221225472;
-    v153[2] = sub_19B5B32A0;
-    v153[3] = &unk_1E75329D8;
-    v153[4] = handler;
-    objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v101, count + 1, v153);
-    goto LABEL_58;
-  }
-
-  v67 = v53;
-  ppStmt = 0;
-  PageSize = objc_msgSend_getPageSize(self, v65, v66);
-  v151 = MEMORY[0x1E696AEC0];
-  v71 = objc_msgSend_recordId(Object, v69, v70);
-  v74 = objc_msgSend_recordId(Object, v72, v73) + PageSize;
-  if (v74 >= objc_msgSend_cachedLastRecordId(Object, v75, v76))
-  {
-    RecordId = objc_msgSend_cachedLastRecordId(Object, v77, v78);
-  }
-
-  else
-  {
-    RecordId = objc_msgSend_recordId(Object, v77, v78) + PageSize;
-  }
-
-  v102 = v67;
-  v103 = objc_msgSend_stringWithFormat_(v151, v80, @"SELECT * FROM %s WHERE id > %lu AND id <= %lu ORDER BY id ASC", v67, v71, RecordId);
-  fDb = self->fDb;
-  v107 = objc_msgSend_UTF8String(v103, v105, v106);
-  v108 = sqlite3_prepare_v2(fDb, v107, -1, &ppStmt, 0);
-  if (v108)
-  {
-    v109 = v108;
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v110 = qword_1EAFE2AB0;
+    v99 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
-      *buf = 67109635;
-      *v170 = v109;
-      *&v170[4] = 2113;
-      *&v170[6] = v103;
-      *&v170[14] = 2082;
-      *&v170[16] = v102;
-      _os_log_impl(&dword_19B41C000, v110, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error %d preparing SQLite statement: %{private}@, table: %{public}s", buf, 0x1Cu);
+      *buf = 0;
+      _os_log_impl(&dword_19B41C000, v99, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: No tables in token", buf, 2u);
     }
 
-    v111 = sub_19B420058();
-    if ((*(v111 + 160) & 0x80000000) == 0 || (*(v111 + 164) & 0x80000000) == 0 || (*(v111 + 168) & 0x80000000) == 0 || *(v111 + 152))
+    v100 = sub_19B420058();
+    if ((*(v100 + 160) & 0x80000000) == 0 || (*(v100 + 164) & 0x80000000) == 0 || (*(v100 + 168) & 0x80000000) == 0 || *(v100 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -780,52 +699,218 @@ LABEL_57:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v161 = 67109635;
-      *v162 = v109;
-      *&v162[4] = 2113;
-      *&v162[6] = v103;
-      *&v162[14] = 2082;
-      *&v162[16] = v102;
-      v113 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v113);
-      if (v113 != buf)
+      LOWORD(v172) = 0;
+      LODWORD(v160) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: No tables in token", &v172, v160);
+      v103 = v102;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v102);
+      if (v103 != buf)
       {
-        free(v113);
+        free(v103);
       }
     }
 
-    v159 = *MEMORY[0x1E696A578];
-    v160 = @"Unknown database error.";
-    v114 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v112, &v160, &v159, 1);
-    v33 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v115, 103, v114);
+    v174 = *MEMORY[0x1E696A578];
+    v175 = @"Empty token.";
+    v104 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v101, &v175, &v174, 1);
+    v38 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v105, 112, v104);
     goto LABEL_55;
   }
 
-  v116 = objc_opt_new();
-  v118 = objc_msgSend_populateArray_fromSql_query_(self, v117, v116, ppStmt, v103);
-  if (v118 == 101)
+  v49 = objc_msgSend_tables(self->fToken, v47, v48);
+  Object = objc_msgSend_firstObject(v49, v50, v51);
+  v55 = objc_msgSend_tableNameFromToken(self, v53, v54);
+  if (*v55)
   {
-    v119 = sqlite3_finalize(ppStmt);
-    if (v119)
+    v58 = v55;
+    if (!objc_msgSend_cachedLastRecordId(Object, v56, v57) || !objc_msgSend_recordId(Object, v59, v60))
     {
-      v122 = v119;
+      FirstRecordIdForTable = objc_msgSend_getFirstRecordIdForTable_(self, v59, v58);
+      objc_msgSend_setRecordId_(Object, v62, FirstRecordIdForTable);
+    }
+
+    LastRecordIdForTable = objc_msgSend_getLastRecordIdForTable_(self, v59, v58);
+    objc_msgSend_setCachedLastRecordId_(Object, v64, LastRecordIdForTable);
+    v67 = objc_msgSend_recordId(Object, v65, v66);
+    if (v67 >= objc_msgSend_cachedLastRecordId(Object, v68, v69))
+    {
+      objc_msgSend_markCursorDone(self, v70, v71);
+      v164[0] = MEMORY[0x1E69E9820];
+      v164[1] = 3221225472;
+      v164[2] = sub_19B5B32A0;
+      v164[3] = &unk_1E75329D8;
+      v164[4] = handler;
+      objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v107, count + 1, v164);
+    }
+
+    else
+    {
+      v72 = v58;
+      ppStmt = 0;
+      PageSize = objc_msgSend_getPageSize(self, v70, v71);
+      v162 = MEMORY[0x1E696AEC0];
+      v76 = objc_msgSend_recordId(Object, v74, v75);
+      v79 = objc_msgSend_recordId(Object, v77, v78) + PageSize;
+      if (v79 >= objc_msgSend_cachedLastRecordId(Object, v80, v81))
+      {
+        RecordId = objc_msgSend_cachedLastRecordId(Object, v82, v83);
+      }
+
+      else
+      {
+        RecordId = objc_msgSend_recordId(Object, v82, v83) + PageSize;
+      }
+
+      v108 = v72;
+      v109 = objc_msgSend_stringWithFormat_(v162, v85, @"SELECT * FROM %s WHERE id > %lu AND id <= %lu ORDER BY id ASC", v72, v76, RecordId);
+      fDb = self->fDb;
+      v113 = objc_msgSend_UTF8String(v109, v111, v112);
+      v114 = sqlite3_prepare_v2(fDb, v113, -1, &ppStmt, 0);
+      if (v114)
+      {
+        v115 = v114;
+        if (qword_1EAFE2AA8 != -1)
+        {
+          dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+        }
+
+        v116 = qword_1EAFE2AB0;
+        if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109635;
+          *v181 = v115;
+          *&v181[4] = 2113;
+          *&v181[6] = v109;
+          *&v181[14] = 2082;
+          *&v181[16] = v108;
+          _os_log_impl(&dword_19B41C000, v116, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error %d preparing SQLite statement: %{private}@, table: %{public}s", buf, 0x1Cu);
+        }
+
+        v117 = sub_19B420058();
+        if ((*(v117 + 160) & 0x80000000) == 0 || (*(v117 + 164) & 0x80000000) == 0 || (*(v117 + 168) & 0x80000000) == 0 || *(v117 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2AA8 != -1)
+          {
+            dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+          }
+
+          v172 = 67109635;
+          *v173 = v115;
+          *&v173[4] = 2113;
+          *&v173[6] = v109;
+          *&v173[14] = 2082;
+          *&v173[16] = v108;
+          LODWORD(v161) = 28;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error %d preparing SQLite statement: %{private}@, table: %{public}s", &v172, v161);
+          v120 = v119;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v119);
+          if (v120 != buf)
+          {
+            free(v120);
+          }
+        }
+
+        v170 = *MEMORY[0x1E696A578];
+        v171 = @"Unknown database error.";
+        v121 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v118, &v171, &v170, 1);
+        v38 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v122, 103, v121);
+        goto LABEL_55;
+      }
+
+      v123 = objc_opt_new();
+      v125 = objc_msgSend_populateArray_fromSql_query_(self, v124, v123, ppStmt, v109);
+      if (v125 == 101)
+      {
+        v126 = sqlite3_finalize(ppStmt);
+        if (v126)
+        {
+          v129 = v126;
+          if (qword_1EAFE2AA8 != -1)
+          {
+            dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+          }
+
+          v130 = qword_1EAFE2AB0;
+          if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 67240450;
+            *v181 = v129;
+            *&v181[4] = 2082;
+            *&v181[6] = v108;
+            _os_log_impl(&dword_19B41C000, v130, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error finalizing SQLite statement: %{public}d, table: %{public}s", buf, 0x12u);
+          }
+
+          v131 = sub_19B420058();
+          if ((*(v131 + 160) & 0x80000000) == 0 || (*(v131 + 164) & 0x80000000) == 0 || (*(v131 + 168) & 0x80000000) == 0 || *(v131 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2AA8 != -1)
+            {
+              dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+            }
+
+            v172 = 67240450;
+            *v173 = v129;
+            *&v173[4] = 2082;
+            *&v173[6] = v108;
+            LODWORD(v161) = 18;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error finalizing SQLite statement: %{public}d, table: %{public}s", &v172, v161);
+            v134 = v133;
+            sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v133);
+            if (v134 != buf)
+            {
+              free(v134);
+            }
+          }
+
+          v166 = *MEMORY[0x1E696A578];
+          v167 = @"Unknown database error.";
+          v135 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v132, &v167, &v166, 1);
+          v93 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v136, 103, v135);
+          v94 = *(handler + 2);
+          handlerCopy4 = handler;
+          v96 = v123;
+          goto LABEL_56;
+        }
+
+        v148 = objc_msgSend_tables(self->fToken, v127, v128);
+        objc_msgSend_setObject_atIndexedSubscript_(v148, v149, Object, 0);
+        v152 = objc_msgSend_datatype(Object, v150, v151);
+        v155 = objc_msgSend_recordId(Object, v153, v154);
+        if (v155 >= objc_msgSend_cachedLastRecordId(Object, v156, v157))
+        {
+          objc_msgSend_markCursorDone(self, v158, v159);
+        }
+
+        v94 = *(handler + 2);
+        handlerCopy4 = handler;
+        v96 = v123;
+        v97 = v152;
+        v98 = 0;
+LABEL_59:
+        v93 = 0;
+        goto LABEL_57;
+      }
+
+      v137 = v125;
       if (qword_1EAFE2AA8 != -1)
       {
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v123 = qword_1EAFE2AB0;
+      v138 = qword_1EAFE2AB0;
       if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
       {
         *buf = 67240450;
-        *v170 = v122;
-        *&v170[4] = 2082;
-        *&v170[6] = v102;
-        _os_log_impl(&dword_19B41C000, v123, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error finalizing SQLite statement: %{public}d, table: %{public}s", buf, 0x12u);
+        *v181 = v137;
+        *&v181[4] = 2082;
+        *&v181[6] = v108;
+        _os_log_impl(&dword_19B41C000, v138, OS_LOG_TYPE_ERROR, "[HistoricalFetch] SQLite error: %{public}d, table: %{public}s", buf, 0x12u);
       }
 
-      v124 = sub_19B420058();
-      if ((*(v124 + 160) & 0x80000000) == 0 || (*(v124 + 164) & 0x80000000) == 0 || (*(v124 + 168) & 0x80000000) == 0 || *(v124 + 152))
+      v139 = sub_19B420058();
+      if ((*(v139 + 160) & 0x80000000) == 0 || (*(v139 + 164) & 0x80000000) == 0 || (*(v139 + 168) & 0x80000000) == 0 || *(v139 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2AA8 != -1)
@@ -833,97 +918,44 @@ LABEL_57:
           dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
         }
 
-        v161 = 67240450;
-        *v162 = v122;
-        *&v162[4] = 2082;
-        *&v162[6] = v102;
-        v126 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v126);
-        if (v126 != buf)
+        v172 = 67240450;
+        *v173 = v137;
+        *&v173[4] = 2082;
+        *&v173[6] = v108;
+        LODWORD(v161) = 18;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] SQLite error: %{public}d, table: %{public}s", &v172, v161);
+        v142 = v141;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v141);
+        if (v142 != buf)
         {
-          free(v126);
+          free(v142);
         }
       }
 
-      v155 = *MEMORY[0x1E696A578];
-      v156 = @"Unknown database error.";
-      v127 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v125, &v156, &v155, 1);
-      v87 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v128, 103, v127);
-      v88 = *(handler + 2);
-      handlerCopy4 = handler;
-      v90 = v116;
-      goto LABEL_56;
+      v168 = *MEMORY[0x1E696A578];
+      v169 = @"Unknown database error.";
+      v143 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v140, &v169, &v168, 1);
+      v145 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v144, 103, v143);
+      objc_msgSend_removeAllObjects(v123, v146, v147);
+      (*(handler + 2))(handler, v123, 0, 1, v145);
     }
-
-    v139 = objc_msgSend_tables(self->fToken, v120, v121);
-    objc_msgSend_setObject_atIndexedSubscript_(v139, v140, Object, 0);
-    v143 = objc_msgSend_datatype(Object, v141, v142);
-    v146 = objc_msgSend_recordId(Object, v144, v145);
-    if (v146 >= objc_msgSend_cachedLastRecordId(Object, v147, v148))
-    {
-      objc_msgSend_markCursorDone(self, v149, v150);
-    }
-
-    v88 = *(handler + 2);
-    handlerCopy4 = handler;
-    v90 = v116;
-    v91 = v143;
-    v92 = 0;
-LABEL_60:
-    v87 = 0;
-    goto LABEL_57;
   }
 
-  v129 = v118;
-  if (qword_1EAFE2AA8 != -1)
+  else
   {
-    dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+    objc_msgSend_markCursorDone(self, v56, v57);
+    v165[0] = MEMORY[0x1E69E9820];
+    v165[1] = 3221225472;
+    v165[2] = sub_19B5B3290;
+    v165[3] = &unk_1E75329D8;
+    v165[4] = handler;
+    objc_msgSend_nextHistoricalFetchWithCount_withHandler_(self, v106, count + 1, v165);
   }
-
-  v130 = qword_1EAFE2AB0;
-  if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67240450;
-    *v170 = v129;
-    *&v170[4] = 2082;
-    *&v170[6] = v102;
-    _os_log_impl(&dword_19B41C000, v130, OS_LOG_TYPE_ERROR, "[HistoricalFetch] SQLite error: %{public}d, table: %{public}s", buf, 0x12u);
-  }
-
-  v131 = sub_19B420058();
-  if ((*(v131 + 160) & 0x80000000) == 0 || (*(v131 + 164) & 0x80000000) == 0 || (*(v131 + 168) & 0x80000000) == 0 || *(v131 + 152))
-  {
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2AA8 != -1)
-    {
-      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-    }
-
-    v161 = 67240450;
-    *v162 = v129;
-    *&v162[4] = 2082;
-    *&v162[6] = v102;
-    v133 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore nextHistoricalFetchWithCount:withHandler:]", "CoreLocation: %s\n", v133);
-    if (v133 != buf)
-    {
-      free(v133);
-    }
-  }
-
-  v157 = *MEMORY[0x1E696A578];
-  v158 = @"Unknown database error.";
-  v134 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v132, &v158, &v157, 1);
-  v136 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v135, 103, v134);
-  objc_msgSend_removeAllObjects(v116, v137, v138);
-  (*(handler + 2))(handler, v116, 0, 1, v136);
-LABEL_58:
-  v93 = *MEMORY[0x1E69E9840];
 }
 
 - (int)populateArray:(id)array fromSql:(sqlite3_stmt *)sql query:(id)query
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v9 = objc_msgSend_tables(self->fToken, a2, array);
   v11 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, 0);
   v14 = objc_msgSend_recordId(v11, v12, v13);
@@ -999,15 +1031,17 @@ LABEL_12:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v41 = _os_log_send_and_compose_impl();
+    LOWORD(v75[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 1, "[HistoricalFetch] Constructed results.", v75, 2);
+    v42 = v41;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore populateArray:fromSql:query:]", "CoreLocation: %s\n", v41);
-    if (v41 == buf)
+    if (v42 == buf)
     {
       goto LABEL_36;
     }
 
 LABEL_35:
-    free(v41);
+    free(v42);
     goto LABEL_36;
   }
 
@@ -1016,19 +1050,19 @@ LABEL_35:
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
   }
 
-  v42 = qword_1EAFE2AB0;
+  v43 = qword_1EAFE2AB0;
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
   {
-    v45 = objc_msgSend_datatype(v20, v43, v44);
+    v46 = objc_msgSend_datatype(v20, v44, v45);
     *buf = 67240450;
-    v74 = v23;
-    v75 = 2114;
-    v76 = objc_msgSend_tableNameForCurrentType_(self, v46, v45);
-    _os_log_impl(&dword_19B41C000, v42, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error constructing results. SQL return code: %{public}d, table:%{public}@", buf, 0x12u);
+    v79 = v23;
+    v80 = 2114;
+    v81 = objc_msgSend_tableNameForCurrentType_(self, v47, v46);
+    _os_log_impl(&dword_19B41C000, v43, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error constructing results. SQL return code: %{public}d, table:%{public}@", buf, 0x12u);
   }
 
-  v47 = sub_19B420058();
-  if ((*(v47 + 160) & 0x80000000) == 0 || (*(v47 + 164) & 0x80000000) == 0 || (*(v47 + 168) & 0x80000000) == 0 || *(v47 + 152))
+  v48 = sub_19B420058();
+  if ((*(v48 + 160) & 0x80000000) == 0 || (*(v48 + 164) & 0x80000000) == 0 || (*(v48 + 168) & 0x80000000) == 0 || *(v48 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
@@ -1036,187 +1070,191 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v50 = objc_msgSend_datatype(v20, v48, v49);
-    objc_msgSend_tableNameForCurrentType_(self, v51, v50);
-    v41 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore populateArray:fromSql:query:]", "CoreLocation: %s\n", v41);
-    if (v41 != buf)
+    v51 = qword_1EAFE2AB0;
+    v52 = objc_msgSend_datatype(v20, v49, v50);
+    v75[0] = 67240450;
+    v75[1] = v23;
+    v76 = 2114;
+    v77 = objc_msgSend_tableNameForCurrentType_(self, v53, v52);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v51, 16, "[HistoricalFetch] Error constructing results. SQL return code: %{public}d, table:%{public}@", v75, 18);
+    v42 = v54;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore populateArray:fromSql:query:]", "CoreLocation: %s\n", v54);
+    if (v42 != buf)
     {
       goto LABEL_35;
     }
   }
 
 LABEL_36:
-  v52 = CFAbsoluteTimeGetCurrent();
-  v55 = objc_msgSend_tables(self->fToken, v53, v54);
-  v57 = objc_msgSend_objectAtIndexedSubscript_(v55, v56, 0);
-  v60 = objc_msgSend_recordId(v57, v58, v59);
+  v55 = CFAbsoluteTimeGetCurrent();
+  v58 = objc_msgSend_tables(self->fToken, v56, v57);
+  v60 = objc_msgSend_objectAtIndexedSubscript_(v58, v59, 0);
+  v63 = objc_msgSend_recordId(v60, v61, v62);
   if (qword_1EAFE2AA8 != -1)
   {
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
   }
 
-  v61 = qword_1EAFE2AB0;
+  v64 = qword_1EAFE2AB0;
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
   {
-    if (objc_msgSend_fetchType(self->fToken, v62, v63))
+    if (objc_msgSend_fetchType(self->fToken, v65, v66))
     {
-      v66 = "Mobility";
+      v69 = "Mobility";
     }
 
     else
     {
-      v66 = "Cardio";
+      v69 = "Cardio";
     }
 
-    v67 = objc_msgSend_count(array, v64, v65);
-    v70 = objc_msgSend_tableNameFromToken(self, v68, v69);
+    v70 = objc_msgSend_count(array, v67, v68);
+    v73 = objc_msgSend_tableNameFromToken(self, v71, v72);
     *buf = 68291586;
-    v74 = 0;
-    v75 = 2082;
-    v76 = "";
-    v77 = 2082;
-    v78 = v66;
-    v79 = 2050;
-    v80 = v52 - Current;
-    v81 = 1026;
-    v82 = v67;
-    v83 = 2050;
-    v84 = Current;
-    v85 = 2050;
-    v86 = v52;
-    v87 = 1026;
-    v88 = v23;
-    v89 = 2082;
-    v90 = v70;
-    v91 = 2050;
-    v92 = v14;
-    v93 = 2050;
-    v94 = v60;
-    v95 = 2114;
+    v79 = 0;
+    v80 = 2082;
+    v81 = "";
+    v82 = 2082;
+    v83 = v69;
+    v84 = 2050;
+    v85 = v55 - Current;
+    v86 = 1026;
+    v87 = v70;
+    v88 = 2050;
+    v89 = Current;
+    v90 = 2050;
+    v91 = v55;
+    v92 = 1026;
+    v93 = v23;
+    v94 = 2082;
+    v95 = v73;
+    v96 = 2050;
+    v97 = v14;
+    v98 = 2050;
+    v99 = v63;
+    v100 = 2114;
     queryCopy = query;
-    _os_log_impl(&dword_19B41C000, v61, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:[HistoricalFetch] Query complete, type:%{public, location:escape_only}s, duration:%{public}f, numSamples:%{public}u, start:%{public}f, end:%{public}f, returnCode:%{public}d, table:%{public, location:escape_only}s, recordId (pre-query):%{public}lu, recordId (post-query):%{public}lu, query:%{public, location:escape_only}@}", buf, 0x6Eu);
+    _os_log_impl(&dword_19B41C000, v64, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:[HistoricalFetch] Query complete, type:%{public, location:escape_only}s, duration:%{public}f, numSamples:%{public}u, start:%{public}f, end:%{public}f, returnCode:%{public}d, table:%{public, location:escape_only}s, recordId (pre-query):%{public}lu, recordId (post-query):%{public}lu, query:%{public, location:escape_only}@}", buf, 0x6Eu);
   }
 
-  v71 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (id)parseCardioTypeFromSql:(sqlite3_stmt *)sql datatype:(unint64_t)datatype
 {
   result = 0;
-  v32 = *MEMORY[0x1E69E9840];
-  if (datatype > 3)
+  v31 = *MEMORY[0x1E69E9840];
+  if (datatype <= 3)
   {
-    if (datatype > 5)
+    if (datatype <= 1)
     {
-      if (datatype == 6)
+      if (!datatype)
       {
-        objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessInputsSessionMetrics, a2, sql);
-        v5 = [CMCardioFitnessInputsSessionMetrics alloc];
-        v10 = v22;
-        v11 = v23;
-        v12 = v24;
-        v8 = v20;
-        v9 = v21;
-        goto LABEL_20;
+        objc_msgSend_inputFromPreparedStatement_(CMPedestrianGrade, a2, sql);
+        v5 = [CMPedestrianGrade alloc];
+        v7 = v19;
+        *&v8 = v20;
+        return objc_msgSend_initWithSample_(v5, v6, &v7);
       }
 
-      if (datatype == 7)
+      if (datatype != 1)
       {
-        objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessSummary, a2, sql);
-        v5 = [CMCardioFitnessSummary alloc];
-        v16 = v28;
-        v17 = v29;
-        v18 = v30;
-        v19 = v31;
-        v12 = v24;
-        v13 = v25;
-        v14 = v26;
-        v15 = v27;
-        v8 = v20;
-        v9 = v21;
-        v10 = v22;
-        v11 = v23;
-        goto LABEL_20;
+        return result;
       }
 
-      goto LABEL_21;
+      objc_msgSend_inputFromPreparedStatement_(CMRecoveryHeartRate, a2, sql);
+      v5 = [CMRecoveryHeartRate alloc];
+      goto LABEL_12;
     }
 
-    if (datatype == 4)
-    {
-      objc_msgSend_inputFromPreparedStatement_(CMVO2MaxInputs, a2, sql);
-      v5 = [CMVO2MaxInputs alloc];
-      v12 = v24;
-      v13 = v25;
-      v14 = v26;
-      v8 = v20;
-      v9 = v21;
-      v10 = v22;
-      v11 = v23;
-      goto LABEL_20;
-    }
-
-    objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessResults, a2, sql);
-    v5 = [CMCardioFitnessResults alloc];
-    v14 = v26;
-    v15 = v27;
-    v16 = v28;
-    *&v17 = v29;
-LABEL_11:
-    v10 = v22;
-    v11 = v23;
-    v12 = v24;
-    v13 = v25;
-    goto LABEL_12;
-  }
-
-  if (datatype > 1)
-  {
     if (datatype == 2)
     {
       objc_msgSend_inputFromPreparedStatement_(CMWorkoutPhysicalEffort, a2, sql);
       v5 = [CMWorkoutPhysicalEffort alloc];
+      v7 = v19;
       v8 = v20;
       v9 = v21;
-      v10 = v22;
-      *&v11 = v23;
-      goto LABEL_20;
+      *&v10 = v22;
+      return objc_msgSend_initWithSample_(v5, v6, &v7);
     }
 
     objc_msgSend_inputFromPreparedStatement_(CMRecoverySession, a2, sql);
     v5 = [CMRecoverySession alloc];
+    v13 = v25;
     v14 = v26;
     v15 = v27;
     v16 = v28;
-    v17 = v29;
+LABEL_11:
+    v9 = v21;
+    v10 = v22;
+    v11 = v23;
+    v12 = v24;
+LABEL_12:
+    v7 = v19;
+    v8 = v20;
+    return objc_msgSend_initWithSample_(v5, v6, &v7);
+  }
+
+  if (datatype <= 5)
+  {
+    if (datatype == 4)
+    {
+      objc_msgSend_inputFromPreparedStatement_(CMVO2MaxInputs, a2, sql);
+      v5 = [CMVO2MaxInputs alloc];
+      v11 = v23;
+      v12 = v24;
+      v13 = v25;
+      v7 = v19;
+      v8 = v20;
+      v9 = v21;
+      v10 = v22;
+      return objc_msgSend_initWithSample_(v5, v6, &v7);
+    }
+
+    objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessResults, a2, sql);
+    v5 = [CMCardioFitnessResults alloc];
+    v13 = v25;
+    v14 = v26;
+    v15 = v27;
+    *&v16 = v28;
     goto LABEL_11;
   }
 
-  if (!datatype)
+  if (datatype == 6)
   {
-    objc_msgSend_inputFromPreparedStatement_(CMPedestrianGrade, a2, sql);
-    v5 = [CMPedestrianGrade alloc];
+    objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessInputsSessionMetrics, a2, sql);
+    v5 = [CMCardioFitnessInputsSessionMetrics alloc];
+    v9 = v21;
+    v10 = v22;
+    v11 = v23;
+    v7 = v19;
     v8 = v20;
-    *&v9 = v21;
-    goto LABEL_20;
   }
 
-  if (datatype == 1)
+  else
   {
-    objc_msgSend_inputFromPreparedStatement_(CMRecoveryHeartRate, a2, sql);
-    v5 = [CMRecoveryHeartRate alloc];
-LABEL_12:
+    if (datatype != 7)
+    {
+      return result;
+    }
+
+    objc_msgSend_inputFromPreparedStatement_(CMCardioFitnessSummary, a2, sql);
+    v5 = [CMCardioFitnessSummary alloc];
+    v15 = v27;
+    v16 = v28;
+    v17 = v29;
+    v18 = v30;
+    v11 = v23;
+    v12 = v24;
+    v13 = v25;
+    v14 = v26;
+    v7 = v19;
     v8 = v20;
     v9 = v21;
-LABEL_20:
-    result = objc_msgSend_initWithSample_(v5, v6, &v8);
+    v10 = v22;
   }
 
-LABEL_21:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_initWithSample_(v5, v6, &v7);
 }
 
 - (id)parseMobilityTypeFromSql:(sqlite3_stmt *)sql dataype:(unint64_t)dataype
@@ -1318,60 +1356,61 @@ LABEL_21:
 
 - (int)isDbOpenAndValid
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   p_fDb = &self->fDb;
   if (self->fDb)
   {
-    v4 = 0;
+    return 0;
   }
 
-  else
+  objc_msgSend_closeDBConnection(self, a2, v2);
+  v8 = objc_msgSend_coldDBPath(self, v6, v7);
+  v11 = objc_msgSend_UTF8String(v8, v9, v10);
+  v4 = sqlite3_open_v2(v11, p_fDb, 131073, 0);
+  if (qword_1EAFE2AA8 != -1)
   {
-    objc_msgSend_closeDBConnection(self, a2, v2);
-    v8 = objc_msgSend_coldDBPath(self, v6, v7);
-    v11 = objc_msgSend_UTF8String(v8, v9, v10);
-    v4 = sqlite3_open_v2(v11, p_fDb, 131073, 0);
+    dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+  }
+
+  v12 = qword_1EAFE2AB0;
+  if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138478083;
+    v27 = objc_msgSend_coldDBPath(self, v13, v14);
+    v28 = 1024;
+    v29 = v4;
+    _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Opened DB at %{private}@ with rc %d", buf, 0x12u);
+  }
+
+  v15 = sub_19B420058();
+  if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v12 = qword_1EAFE2AB0;
-    if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
+    v18 = qword_1EAFE2AB0;
+    v22 = 138478083;
+    v23 = objc_msgSend_coldDBPath(self, v16, v17);
+    v24 = 1024;
+    v25 = v4;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 0, "[HistoricalFetch] Opened DB at %{private}@ with rc %d", &v22, 18);
+    v20 = v19;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore isDbOpenAndValid]", "CoreLocation: %s\n", v19);
+    if (v20 != buf)
     {
-      *buf = 138478083;
-      v22 = objc_msgSend_coldDBPath(self, v13, v14);
-      v23 = 1024;
-      v24 = v4;
-      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Opened DB at %{private}@ with rc %d", buf, 0x12u);
-    }
-
-    v15 = sub_19B420058();
-    if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2AA8 != -1)
-      {
-        dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-      }
-
-      objc_msgSend_coldDBPath(self, v16, v17);
-      v18 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore isDbOpenAndValid]", "CoreLocation: %s\n", v18);
-      if (v18 != buf)
-      {
-        free(v18);
-      }
+      free(v20);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)tokenSanityChecks
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_version(self->fToken, a2, v2) != 2)
   {
     if (qword_1EAFE2AA8 != -1)
@@ -1384,14 +1423,14 @@ LABEL_21:
     {
       v20 = objc_msgSend_version(self->fToken, v18, v19);
       *buf = 134217984;
-      v44 = v20;
+      v51 = v20;
       _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: unexpected token version %lu", buf, 0xCu);
     }
 
     v21 = sub_19B420058();
     if ((*(v21 + 160) & 0x80000000) != 0 && (*(v21 + 164) & 0x80000000) != 0 && (*(v21 + 168) & 0x80000000) != 0 && !*(v21 + 152))
     {
-      goto LABEL_27;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1400,7 +1439,9 @@ LABEL_21:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
+    v24 = qword_1EAFE2AB0;
     objc_msgSend_version(self->fToken, v22, v23);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v24, 16, "[HistoricalFetch] Error: unexpected token version %lu", v49);
     goto LABEL_25;
   }
 
@@ -1414,23 +1455,23 @@ LABEL_21:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v24 = qword_1EAFE2AB0;
+    v26 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
-      objc_msgSend_startTime(self->fToken, v25, v26);
-      v28 = v27;
-      objc_msgSend_endTime(self->fToken, v29, v30);
+      objc_msgSend_startTime(self->fToken, v27, v28);
+      v30 = v29;
+      objc_msgSend_endTime(self->fToken, v31, v32);
       *buf = 134349312;
-      v44 = v28;
-      v45 = 2050;
-      v46 = v31;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid token timestamps, start:%{public}f end:%{public}f", buf, 0x16u);
+      v51 = v30;
+      v52 = 2050;
+      v53 = v33;
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: invalid token timestamps, start:%{public}f end:%{public}f", buf, 0x16u);
     }
 
-    v32 = sub_19B420058();
-    if ((*(v32 + 160) & 0x80000000) != 0 && (*(v32 + 164) & 0x80000000) != 0 && (*(v32 + 168) & 0x80000000) != 0 && !*(v32 + 152))
+    v34 = sub_19B420058();
+    if ((*(v34 + 160) & 0x80000000) != 0 && (*(v34 + 164) & 0x80000000) != 0 && (*(v34 + 168) & 0x80000000) != 0 && !*(v34 + 152))
     {
-      goto LABEL_27;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1439,72 +1480,75 @@ LABEL_21:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    objc_msgSend_startTime(self->fToken, v33, v34);
-    objc_msgSend_endTime(self->fToken, v35, v36);
+    v37 = qword_1EAFE2AB0;
+    objc_msgSend_startTime(self->fToken, v35, v36);
+    v39 = v38;
+    objc_msgSend_endTime(self->fToken, v40, v41);
+    *v49 = 134349312;
+    *&v49[4] = v39;
+    *&v49[12] = 2050;
+    *&v49[14] = v42;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v37, 16, "[HistoricalFetch] Error: invalid token timestamps, start:%{public}f end:%{public}f", v49, 22, *v49, *&v49[8]);
 LABEL_25:
-    v37 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore tokenSanityChecks]", "CoreLocation: %s\n", v37);
-    if (v37 == buf)
+    v43 = v25;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore tokenSanityChecks]", "CoreLocation: %s\n", v25);
+    if (v43 == buf)
     {
-LABEL_27:
-      result = 0;
-      goto LABEL_28;
+      return 0;
     }
 
 LABEL_26:
-    free(v37);
-    goto LABEL_27;
+    free(v43);
+    return 0;
   }
 
   v13 = objc_msgSend_tables(self->fToken, v10, v11);
-  if (!objc_msgSend_count(v13, v14, v15))
+  if (objc_msgSend_count(v13, v14, v15))
   {
-    if (qword_1EAFE2AA8 != -1)
-    {
-      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-    }
+    return 1;
+  }
 
-    v39 = qword_1EAFE2AB0;
-    if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
-    {
-      fToken = self->fToken;
-      *buf = 138412290;
-      v44 = fToken;
-      _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: no mobility tables found in token: %@", buf, 0xCu);
-    }
+  if (qword_1EAFE2AA8 != -1)
+  {
+    dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+  }
 
-    v41 = sub_19B420058();
-    if ((*(v41 + 160) & 0x80000000) != 0 && (*(v41 + 164) & 0x80000000) != 0 && (*(v41 + 168) & 0x80000000) != 0 && !*(v41 + 152))
-    {
-      goto LABEL_27;
-    }
+  v44 = qword_1EAFE2AB0;
+  if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
+  {
+    fToken = self->fToken;
+    *buf = 138412290;
+    v51 = fToken;
+    _os_log_impl(&dword_19B41C000, v44, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: no mobility tables found in token: %@", buf, 0xCu);
+  }
 
+  v46 = sub_19B420058();
+  if ((*(v46 + 160) & 0x80000000) == 0 || (*(v46 + 164) & 0x80000000) == 0 || (*(v46 + 168) & 0x80000000) == 0 || *(v46 + 152))
+  {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v42 = self->fToken;
-    v37 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore tokenSanityChecks]", "CoreLocation: %s\n", v37);
-    if (v37 == buf)
+    v47 = self->fToken;
+    *v49 = 138412290;
+    *&v49[4] = v47;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: no mobility tables found in token: %@", v49, 12);
+    v43 = v48;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore tokenSanityChecks]", "CoreLocation: %s\n", v48);
+    if (v43 != buf)
     {
-      goto LABEL_27;
+      goto LABEL_26;
     }
-
-    goto LABEL_26;
   }
 
-  result = 1;
-LABEL_28:
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)initializeWithToken:(id)token type:(unint64_t)type start:(double)start end:(double)end
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   if (!token)
   {
     if (qword_1EAFE2AA8 != -1)
@@ -1512,16 +1556,16 @@ LABEL_28:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v31 = qword_1EAFE2AB0;
+    v30 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       startCopy = *&type;
-      _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Generating new token for type=%lu", buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Generating new token for type=%lu", buf, 0xCu);
     }
 
-    v32 = sub_19B420058();
-    if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
+    v31 = sub_19B420058();
+    if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -1529,8 +1573,11 @@ LABEL_28:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v35 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore initializeWithToken:type:start:end:]", "CoreLocation: %s\n", v35);
+      v62 = 134217984;
+      startCopy2 = *&type;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "[HistoricalFetch] Generating new token for type=%lu", &v62);
+      v35 = v34;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore initializeWithToken:type:start:end:]", "CoreLocation: %s\n", v34);
       if (v35 != buf)
       {
         free(v35);
@@ -1545,22 +1592,20 @@ LABEL_28:
         goto LABEL_44;
       }
 
-      v36 = objc_msgSend_mobilityToken(CMMobilityToken, v33, v34);
+      v36 = objc_msgSend_mobilityToken(CMMobilityToken, v32, v33);
     }
 
     else
     {
-      v36 = objc_msgSend_cardioToken(CMCardioToken, v33, v34);
+      v36 = objc_msgSend_cardioToken(CMCardioToken, v32, v33);
     }
 
     fToken = v36;
     self->fToken = fToken;
 LABEL_44:
-    objc_msgSend_setStartTime_(fToken, v33, v34, start);
-    objc_msgSend_setEndTime_(self->fToken, v52, v53, end);
-    objc_msgSend_cacheAllRecordIds(self, v54, v55);
-LABEL_45:
-    v56 = *MEMORY[0x1E69E9840];
+    objc_msgSend_setStartTime_(fToken, v32, v33, start);
+    objc_msgSend_setEndTime_(self->fToken, v57, v58, end);
+    objc_msgSend_cacheAllRecordIds(self, v59, v60);
     return;
   }
 
@@ -1578,7 +1623,22 @@ LABEL_45:
   tokenCopy = token;
   self->fToken = tokenCopy;
   v20 = fabs(end) == INFINITY;
-  if (fabs(start) == INFINITY && v20)
+  if (fabs(start) != INFINITY || !v20)
+  {
+    objc_msgSend_startTime(tokenCopy, v18, v19);
+    if (v24 > start)
+    {
+      objc_msgSend_startTime(self->fToken, v22, v23);
+      start = v25;
+    }
+
+    objc_msgSend_setStartTime_(self->fToken, v22, v23, start);
+    v28 = self->fToken;
+
+    objc_msgSend_setEndTime_(v28, v26, v27, end);
+  }
+
+  else
   {
     if (qword_1EAFE2AA8 != -1)
     {
@@ -1593,12 +1653,12 @@ LABEL_45:
       objc_msgSend_endTime(self->fToken, v42, v43);
       *buf = 134218752;
       startCopy = start;
-      v59 = 2048;
+      v72 = 2048;
       endCopy = end;
-      v61 = 2048;
-      v62 = v41;
-      v63 = 2048;
-      v64 = v44;
+      v74 = 2048;
+      v75 = v41;
+      v76 = 2048;
+      v77 = v44;
       _os_log_impl(&dword_19B41C000, v37, OS_LOG_TYPE_INFO, "[HistoricalFetch] #Warning: ignoring [%f,%f], persisting previous parameters (start=%f, end=%f)", buf, 0x2Au);
     }
 
@@ -1611,36 +1671,33 @@ LABEL_45:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
+      v48 = qword_1EAFE2AB0;
       objc_msgSend_startTime(self->fToken, v46, v47);
-      objc_msgSend_endTime(self->fToken, v48, v49);
-      v50 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore initializeWithToken:type:start:end:]", "CoreLocation: %s\n", v50);
-      if (v50 != buf)
+      v50 = v49;
+      objc_msgSend_endTime(self->fToken, v51, v52);
+      v62 = 134218752;
+      startCopy2 = start;
+      v64 = 2048;
+      endCopy2 = end;
+      v66 = 2048;
+      v67 = v50;
+      v68 = 2048;
+      v69 = v53;
+      LODWORD(v61) = 42;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v48, 1, "[HistoricalFetch] #Warning: ignoring [%f,%f], persisting previous parameters (start=%f, end=%f)", COERCE_DOUBLE(&v62), v61);
+      v55 = v54;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore initializeWithToken:type:start:end:]", "CoreLocation: %s\n", v54);
+      if (v55 != buf)
       {
-        free(v50);
+        free(v55);
       }
     }
-
-    goto LABEL_45;
   }
-
-  objc_msgSend_startTime(tokenCopy, v18, v19);
-  if (v24 > start)
-  {
-    objc_msgSend_startTime(self->fToken, v22, v23);
-    start = v25;
-  }
-
-  objc_msgSend_setStartTime_(self->fToken, v22, v23, start);
-  v28 = self->fToken;
-  v29 = *MEMORY[0x1E69E9840];
-
-  objc_msgSend_setEndTime_(v28, v26, v27, end);
 }
 
 - (unint64_t)getRecordIdForTable:(const char *)table ascending:(BOOL)ascending
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (!self->fDb)
   {
     if (qword_1EAFE2AA8 != -1)
@@ -1648,17 +1705,17 @@ LABEL_45:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v29 = qword_1EAFE2AB0;
+    v30 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: DB invalid", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error: DB invalid", buf, 2u);
     }
 
-    v30 = sub_19B420058();
-    if ((*(v30 + 160) & 0x80000000) != 0 && (*(v30 + 164) & 0x80000000) != 0 && (*(v30 + 168) & 0x80000000) != 0 && !*(v30 + 152))
+    v31 = sub_19B420058();
+    if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
     {
-      goto LABEL_41;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1667,8 +1724,9 @@ LABEL_45:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    LOWORD(v55) = 0;
-    goto LABEL_39;
+    LOWORD(v63) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error: DB invalid", &v63, 2);
+    goto LABEL_41;
   }
 
   ascendingCopy = ascending;
@@ -1715,106 +1773,111 @@ LABEL_45:
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381187;
-      tableCopy8 = table;
-      v61 = 1024;
-      *v62 = v26;
-      *&v62[4] = 2112;
-      *&v62[6] = v22;
+      tableCopy9 = table;
+      v69 = 1024;
+      *v70 = v26;
+      *&v70[4] = 2112;
+      *&v70[6] = v22;
       _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error on table %{private}s prepare statement (code=%d): %@", buf, 0x1Cu);
     }
 
     v28 = sub_19B420058();
     if ((*(v28 + 160) & 0x80000000) != 0 && (*(v28 + 164) & 0x80000000) != 0 && (*(v28 + 168) & 0x80000000) != 0 && !*(v28 + 152))
     {
-      goto LABEL_41;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2AA8 == -1)
-    {
-      goto LABEL_38;
-    }
-
-LABEL_110:
-    dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-LABEL_38:
-    v55 = 136381187;
-    tableCopy9 = table;
-    v57 = 1024;
-    *v58 = v26;
-    *&v58[4] = 2112;
-    *&v58[6] = v22;
-LABEL_39:
-    v34 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v34);
-    if (v34 != buf)
-    {
-      free(v34);
-    }
-
-LABEL_41:
-    v35 = 0;
-    goto LABEL_42;
-  }
-
-  v31 = sqlite3_step(ppStmt);
-  if ((v31 - 102) <= 0xFFFFFFFD)
-  {
-    v26 = v31;
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v32 = qword_1EAFE2AB0;
+    v63 = 136381187;
+    tableCopy10 = table;
+    v65 = 1024;
+    *v66 = v26;
+    *&v66[4] = 2112;
+    *&v66[6] = v22;
+    LODWORD(v61) = 28;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error on table %{private}s prepare statement (code=%d): %@", &v63, v61);
+LABEL_41:
+    v36 = v29;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v29);
+    if (v36 != buf)
+    {
+      free(v36);
+    }
+
+    return 0;
+  }
+
+  v32 = sqlite3_step(ppStmt);
+  if ((v32 - 102) <= 0xFFFFFFFD)
+  {
+    v33 = v32;
+    if (qword_1EAFE2AA8 != -1)
+    {
+      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
+    }
+
+    v34 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381187;
-      tableCopy8 = table;
-      v61 = 1024;
-      *v62 = v26;
-      *&v62[4] = 2112;
-      *&v62[6] = v22;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error on table %{private}s step statement (code=%d): %@", buf, 0x1Cu);
+      tableCopy9 = table;
+      v69 = 1024;
+      *v70 = v33;
+      *&v70[4] = 2112;
+      *&v70[6] = v22;
+      _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error on table %{private}s step statement (code=%d): %@", buf, 0x1Cu);
     }
 
-    v33 = sub_19B420058();
-    if ((*(v33 + 160) & 0x80000000) != 0 && (*(v33 + 164) & 0x80000000) != 0 && (*(v33 + 168) & 0x80000000) != 0 && !*(v33 + 152))
+    v35 = sub_19B420058();
+    if ((*(v35 + 160) & 0x80000000) != 0 && (*(v35 + 164) & 0x80000000) != 0 && (*(v35 + 168) & 0x80000000) != 0 && !*(v35 + 152))
     {
-      goto LABEL_41;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2AA8 == -1)
+    if (qword_1EAFE2AA8 != -1)
     {
-      goto LABEL_38;
+      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    goto LABEL_110;
+    v63 = 136381187;
+    tableCopy10 = table;
+    v65 = 1024;
+    *v66 = v33;
+    *&v66[4] = 2112;
+    *&v66[6] = v22;
+    LODWORD(v61) = 28;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error on table %{private}s step statement (code=%d): %@", &v63, v61);
+    goto LABEL_41;
   }
 
-  v38 = sqlite3_column_int(ppStmt, 0);
-  if (v38 < 1)
+  v39 = sqlite3_column_int(ppStmt, 0);
+  if (v39 < 1)
   {
-    if (v38)
+    if (v39)
     {
       if (qword_1EAFE2AA8 != -1)
       {
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v39 = qword_1EAFE2AB0;
+      v40 = qword_1EAFE2AB0;
       if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        tableCopy8 = table;
-        _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_ERROR, "[HistoricalFetch] %s: Invalid rowId", buf, 0xCu);
+        tableCopy9 = table;
+        _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_ERROR, "[HistoricalFetch] %s: Invalid rowId", buf, 0xCu);
       }
 
-      v40 = sub_19B420058();
-      if ((*(v40 + 160) & 0x80000000) != 0 && (*(v40 + 164) & 0x80000000) != 0 && (*(v40 + 168) & 0x80000000) != 0 && !*(v40 + 152))
+      v41 = sub_19B420058();
+      if ((*(v41 + 160) & 0x80000000) != 0 && (*(v41 + 164) & 0x80000000) != 0 && (*(v41 + 168) & 0x80000000) != 0 && !*(v41 + 152))
       {
-        goto LABEL_73;
+        goto LABEL_75;
       }
 
       bzero(buf, 0x65CuLL);
@@ -1823,10 +1886,11 @@ LABEL_41:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v55 = 136315138;
-      tableCopy9 = table;
-      v41 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n");
+      v63 = 136315138;
+      tableCopy10 = table;
+      v42 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] %s: Invalid rowId", &v63);
+      v44 = v43;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v42);
     }
 
     else
@@ -1836,18 +1900,18 @@ LABEL_41:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v42 = qword_1EAFE2AB0;
+      v45 = qword_1EAFE2AB0;
       if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        tableCopy8 = table;
-        _os_log_impl(&dword_19B41C000, v42, OS_LOG_TYPE_DEBUG, "[HistoricalFetch] %s: No records found", buf, 0xCu);
+        tableCopy9 = table;
+        _os_log_impl(&dword_19B41C000, v45, OS_LOG_TYPE_DEBUG, "[HistoricalFetch] %s: No records found", buf, 0xCu);
       }
 
-      v43 = sub_19B420058();
-      if (*(v43 + 160) <= 1 && *(v43 + 164) <= 1 && *(v43 + 168) <= 1 && !*(v43 + 152))
+      v46 = sub_19B420058();
+      if (*(v46 + 160) <= 1 && *(v46 + 164) <= 1 && *(v46 + 168) <= 1 && !*(v46 + 152))
       {
-        goto LABEL_73;
+        goto LABEL_75;
       }
 
       bzero(buf, 0x65CuLL);
@@ -1856,45 +1920,46 @@ LABEL_41:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v55 = 136315138;
-      tableCopy9 = table;
-      v41 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n");
+      v63 = 136315138;
+      tableCopy10 = table;
+      v47 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 2, "[HistoricalFetch] %s: No records found", &v63);
+      v44 = v48;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v47);
     }
 
-    if (v41 != buf)
+    if (v44 != buf)
     {
-      free(v41);
+      free(v44);
     }
 
-LABEL_73:
-    v35 = 0;
-    goto LABEL_74;
+LABEL_75:
+    v37 = 0;
+    goto LABEL_76;
   }
 
-  v35 = (v38 - ascendingCopy);
-LABEL_74:
-  v44 = sqlite3_finalize(ppStmt);
-  if (v44)
+  v37 = (v39 - ascendingCopy);
+LABEL_76:
+  v49 = sqlite3_finalize(ppStmt);
+  if (v49)
   {
-    v45 = v44;
+    v50 = v49;
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v46 = qword_1EAFE2AB0;
+    v51 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
-      tableCopy8 = table;
-      v61 = 1024;
-      *v62 = v45;
-      _os_log_impl(&dword_19B41C000, v46, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error on table %{private}s finalize (code=%d)", buf, 0x12u);
+      tableCopy9 = table;
+      v69 = 1024;
+      *v70 = v50;
+      _os_log_impl(&dword_19B41C000, v51, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error on table %{private}s finalize (code=%d)", buf, 0x12u);
     }
 
-    v47 = sub_19B420058();
-    if ((*(v47 + 160) & 0x80000000) == 0 || (*(v47 + 164) & 0x80000000) == 0 || (*(v47 + 168) & 0x80000000) == 0 || *(v47 + 152))
+    v52 = sub_19B420058();
+    if ((*(v52 + 160) & 0x80000000) == 0 || (*(v52 + 164) & 0x80000000) == 0 || (*(v52 + 168) & 0x80000000) == 0 || *(v52 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -1902,15 +1967,17 @@ LABEL_74:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v55 = 136380931;
-      tableCopy9 = table;
-      v57 = 1024;
-      *v58 = v45;
-      v48 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v48);
-      if (v48 != buf)
+      v63 = 136380931;
+      tableCopy10 = table;
+      v65 = 1024;
+      *v66 = v50;
+      LODWORD(v61) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error on table %{private}s finalize (code=%d)", &v63, v61);
+      v54 = v53;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v53);
+      if (v54 != buf)
       {
-        free(v48);
+        free(v54);
       }
     }
   }
@@ -1920,30 +1987,30 @@ LABEL_74:
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
   }
 
-  v49 = qword_1EAFE2AB0;
+  v55 = qword_1EAFE2AB0;
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEBUG))
   {
     if (ascendingCopy)
     {
-      v50 = "first";
+      v56 = "first";
     }
 
     else
     {
-      v50 = "last";
+      v56 = "last";
     }
 
     *buf = 136315651;
-    tableCopy8 = v50;
-    v61 = 2048;
-    *v62 = v35;
-    *&v62[8] = 2081;
-    *&v62[10] = table;
-    _os_log_impl(&dword_19B41C000, v49, OS_LOG_TYPE_DEBUG, "[HistoricalFetch] Caching %s record id %lu for table %{private}s", buf, 0x20u);
+    tableCopy9 = v56;
+    v69 = 2048;
+    *v70 = v37;
+    *&v70[8] = 2081;
+    *&v70[10] = table;
+    _os_log_impl(&dword_19B41C000, v55, OS_LOG_TYPE_DEBUG, "[HistoricalFetch] Caching %s record id %lu for table %{private}s", buf, 0x20u);
   }
 
-  v51 = sub_19B420058();
-  if (*(v51 + 160) > 1 || *(v51 + 164) > 1 || *(v51 + 168) > 1 || *(v51 + 152))
+  v57 = sub_19B420058();
+  if (*(v57 + 160) > 1 || *(v57 + 164) > 1 || *(v57 + 168) > 1 || *(v57 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
@@ -1953,36 +2020,36 @@ LABEL_74:
 
     if (ascendingCopy)
     {
-      v52 = "first";
+      v58 = "first";
     }
 
     else
     {
-      v52 = "last";
+      v58 = "last";
     }
 
-    v55 = 136315651;
-    tableCopy9 = v52;
-    v57 = 2048;
-    *v58 = v35;
-    *&v58[8] = 2081;
-    *&v58[10] = table;
-    v53 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v53);
-    if (v53 != buf)
+    v63 = 136315651;
+    tableCopy10 = v58;
+    v65 = 2048;
+    *v66 = v37;
+    *&v66[8] = 2081;
+    *&v66[10] = table;
+    LODWORD(v61) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 2, "[HistoricalFetch] Caching %s record id %lu for table %{private}s", &v63, v61);
+    v60 = v59;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore getRecordIdForTable:ascending:]", "CoreLocation: %s\n", v59);
+    if (v60 != buf)
     {
-      free(v53);
+      free(v60);
     }
   }
 
-LABEL_42:
-  v36 = *MEMORY[0x1E69E9840];
-  return v35;
+  return v37;
 }
 
 - (void)markCursorDone
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_tables(self->fToken, a2, v2);
   Object = objc_msgSend_firstObject(v4, v5, v6);
   objc_msgSend_addObject_(v4, v8, Object);
@@ -1997,7 +2064,7 @@ LABEL_42:
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136380675;
-    v18 = v12;
+    v20 = v12;
     _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "[HistoricalFetch] Bumped token, next table:%{private}s", buf, 0xCu);
   }
 
@@ -2010,20 +2077,21 @@ LABEL_42:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v15 = _os_log_send_and_compose_impl();
+    v17 = 136380675;
+    v18 = v12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "[HistoricalFetch] Bumped token, next table:%{private}s", &v17, 12);
+    v16 = v15;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore markCursorDone]", "CoreLocation: %s\n", v15);
-    if (v15 != buf)
+    if (v16 != buf)
     {
-      free(v15);
+      free(v16);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheAllRecordIds
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   objc_msgSend_startTime(self->fToken, a2, v2);
   v5 = v4;
   objc_msgSend_endTime(self->fToken, v6, v7);
@@ -2059,9 +2127,9 @@ LABEL_42:
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v46 = v5;
-    v47 = 2048;
-    v48 = v9;
+    v51 = v5;
+    v52 = 2048;
+    v53 = v9;
     _os_log_impl(&dword_19B41C000, v41, OS_LOG_TYPE_INFO, "[HistoricalFetch] Cached all record ids from %f to %f", buf, 0x16u);
   }
 
@@ -2074,15 +2142,19 @@ LABEL_42:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v43 = _os_log_send_and_compose_impl();
+    v46 = 134218240;
+    v47 = v5;
+    v48 = 2048;
+    v49 = v9;
+    LODWORD(v45) = 22;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 1, "[HistoricalFetch] Cached all record ids from %f to %f", COERCE_DOUBLE(&v46), v45);
+    v44 = v43;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore cacheAllRecordIds]", "CoreLocation: %s\n", v43);
-    if (v43 != buf)
+    if (v44 != buf)
     {
-      free(v43);
+      free(v44);
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (const)tableNameFromToken
@@ -2116,7 +2188,7 @@ LABEL_42:
 
 - (void)closeDBConnection
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   fDb = self->fDb;
   if (fDb)
   {
@@ -2133,7 +2205,7 @@ LABEL_42:
       if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v11 = v5;
+        v12 = v5;
         _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Error closing DB connection, return code: %d", buf, 8u);
       }
 
@@ -2146,18 +2218,20 @@ LABEL_42:
           dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
         }
 
-        v8 = _os_log_send_and_compose_impl();
+        v10[0] = 67109120;
+        v10[1] = v5;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "[HistoricalFetch] Error closing DB connection, return code: %d", v10);
+        v9 = v8;
         sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore closeDBConnection]", "CoreLocation: %s\n", v8);
-        if (v8 != buf)
+        if (v9 != buf)
         {
-          free(v8);
+          free(v9);
         }
       }
     }
   }
 
   self->fDb = 0;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)tableNames
@@ -2204,7 +2278,7 @@ LABEL_42:
 
 - (BOOL)_setConfiguration:(id)configuration
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2213,26 +2287,28 @@ LABEL_42:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v28 = qword_1EAFE2AB0;
+    v30 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_ERROR, "Failed to get reply dictionary", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_ERROR, "Failed to get reply dictionary", buf, 2u);
     }
 
-    v29 = sub_19B420058();
-    if ((*(v29 + 160) & 0x80000000) != 0 && (*(v29 + 164) & 0x80000000) != 0 && (*(v29 + 168) & 0x80000000) != 0 && !*(v29 + 152))
+    v31 = sub_19B420058();
+    if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
     {
-      goto LABEL_39;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2AA8 == -1)
+    if (qword_1EAFE2AA8 != -1)
     {
-      goto LABEL_37;
+      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    goto LABEL_74;
+    LOWORD(v49) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 16, "Failed to get reply dictionary", &v49, 2, v49, v50);
+    goto LABEL_40;
   }
 
   v6 = objc_msgSend_objectForKeyedSubscript_(configuration, v5, @"CMColdStorageDatabasePath");
@@ -2245,29 +2321,30 @@ LABEL_42:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v30 = qword_1EAFE2AB0;
+    v32 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      *v46 = configuration;
-      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_FAULT, "Malformed datastore configuration: %@. Ignoring and trying again.", buf, 0xCu);
+      *v52 = configuration;
+      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_FAULT, "Malformed datastore configuration: %@. Ignoring and trying again.", buf, 0xCu);
     }
 
-    v31 = sub_19B420058();
-    if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
+    v33 = sub_19B420058();
+    if ((*(v33 + 160) & 0x80000000) != 0 && (*(v33 + 164) & 0x80000000) != 0 && (*(v33 + 168) & 0x80000000) != 0 && !*(v33 + 152))
     {
-      goto LABEL_39;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2AA8 == -1)
+    if (qword_1EAFE2AA8 != -1)
     {
-      goto LABEL_37;
+      dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-LABEL_74:
-    dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
-    goto LABEL_37;
+    LODWORD(v49) = 138412290;
+    *(&v49 + 4) = configuration;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 17, "Malformed datastore configuration: %@. Ignoring and trying again.", &v49, 12, v49, v50);
+    goto LABEL_40;
   }
 
   if (objc_msgSend_count(v11, v12, v13) < 8 || objc_msgSend_count(v8, v14, v15) <= 4)
@@ -2281,20 +2358,20 @@ LABEL_74:
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_FAULT))
     {
       *buf = 67240960;
-      *v46 = objc_msgSend_count(v11, v19, v20);
-      *&v46[4] = 1026;
-      *&v46[6] = 8;
-      v47 = 1026;
-      v48 = objc_msgSend_count(v8, v21, v22);
-      v49 = 1026;
-      v50 = 5;
+      *v52 = objc_msgSend_count(v11, v19, v20);
+      *&v52[4] = 1026;
+      *&v52[6] = 8;
+      v53 = 1026;
+      v54 = objc_msgSend_count(v8, v21, v22);
+      v55 = 1026;
+      v56 = 5;
       _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_FAULT, "Invalid datastore configuration: Less than the expected number of tables. Cardio:%{public}d/%{public}d, Mobility=%{public}d/%{public}d", buf, 0x1Au);
     }
 
     v23 = sub_19B420058();
     if ((*(v23 + 160) & 0x80000000) != 0 && (*(v23 + 164) & 0x80000000) != 0 && (*(v23 + 168) & 0x80000000) != 0 && !*(v23 + 152))
     {
-      goto LABEL_39;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -2303,37 +2380,43 @@ LABEL_74:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    objc_msgSend_count(v11, v24, v25);
-    objc_msgSend_count(v8, v26, v27);
-LABEL_37:
-    v32 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v32);
-    if (v32 != buf)
+    v26 = qword_1EAFE2AB0;
+    LODWORD(v49) = 67240960;
+    DWORD1(v49) = objc_msgSend_count(v11, v24, v25);
+    WORD4(v49) = 1026;
+    *(&v49 + 10) = 8;
+    HIWORD(v49) = 1026;
+    LODWORD(v50) = objc_msgSend_count(v8, v27, v28);
+    WORD2(v50) = 1026;
+    *(&v50 + 6) = 5;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v26, 17, "Invalid datastore configuration: Less than the expected number of tables. Cardio:%{public}d/%{public}d, Mobility=%{public}d/%{public}d", &v49, 26, v49, v50);
+LABEL_40:
+    v34 = v29;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v29);
+    if (v34 != buf)
     {
-      free(v32);
+      free(v34);
     }
 
-LABEL_39:
-    result = 0;
-    goto LABEL_40;
+    return 0;
   }
 
-  if (objc_msgSend_count(v11, v16, v17) > 8 || objc_msgSend_count(v8, v35, v36) >= 6)
+  if (objc_msgSend_count(v11, v16, v17) > 8 || objc_msgSend_count(v8, v36, v37) >= 6)
   {
     if (qword_1EAFE2AA8 != -1)
     {
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v37 = qword_1EAFE2AB0;
+    v38 = qword_1EAFE2AB0;
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v37, OS_LOG_TYPE_DEFAULT, "#Warning: More tables available in configuration than are being collected.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v38, OS_LOG_TYPE_DEFAULT, "#Warning: More tables available in configuration than are being collected.", buf, 2u);
     }
 
-    v38 = sub_19B420058();
-    if (*(v38 + 160) > 1 || *(v38 + 164) > 1 || *(v38 + 168) > 1 || *(v38 + 152))
+    v39 = sub_19B420058();
+    if (*(v39 + 160) > 1 || *(v39 + 164) > 1 || *(v39 + 168) > 1 || *(v39 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2AA8 != -1)
@@ -2341,11 +2424,13 @@ LABEL_39:
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
       }
 
-      v39 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v39);
-      if (v39 != buf)
+      LOWORD(v49) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "#Warning: More tables available in configuration than are being collected.", &v49, 2);
+      v41 = v40;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v40);
+      if (v41 != buf)
       {
-        free(v39);
+        free(v41);
       }
     }
   }
@@ -2356,17 +2441,17 @@ LABEL_39:
     dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
   }
 
-  v40 = qword_1EAFE2AB0;
+  v42 = qword_1EAFE2AB0;
   if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_DEFAULT))
   {
     fConfiguration = self->fConfiguration;
     *buf = 138412290;
-    *v46 = fConfiguration;
-    _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_DEFAULT, "Received datastore configuration: %@", buf, 0xCu);
+    *v52 = fConfiguration;
+    _os_log_impl(&dword_19B41C000, v42, OS_LOG_TYPE_DEFAULT, "Received datastore configuration: %@", buf, 0xCu);
   }
 
-  v42 = sub_19B420058();
-  if (*(v42 + 160) > 1 || *(v42 + 164) > 1 || *(v42 + 168) > 1 || *(v42 + 152))
+  v44 = sub_19B420058();
+  if (*(v44 + 160) > 1 || *(v44 + 164) > 1 || *(v44 + 168) > 1 || *(v44 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2AA8 != -1)
@@ -2374,19 +2459,20 @@ LABEL_39:
       dispatch_once(&qword_1EAFE2AA8, &unk_1F0E3A2E0);
     }
 
-    v44 = self->fConfiguration;
-    v43 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v43);
-    if (v43 != buf)
+    v45 = self->fConfiguration;
+    LODWORD(v49) = 138412290;
+    *(&v49 + 4) = v45;
+    LODWORD(v48) = 12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AB0, 0, "Received datastore configuration: %@", &v49, v48);
+    v47 = v46;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHistoricalDataStore _setConfiguration:]", "CoreLocation: %s\n", v46);
+    if (v47 != buf)
     {
-      free(v43);
+      free(v47);
     }
   }
 
-  result = 1;
-LABEL_40:
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (void)_cacheTableNamesForToken:(id)token

@@ -47,9 +47,8 @@
   sub_20D9EE8D0(inited);
   v14 = v13;
   swift_setDeallocating();
-  v15 = *(inited + 16);
   swift_arrayDestroy();
-  sub_20DA7141C(v14, 3, MEMORY[0x277D84FA0], home, sender);
+  sub_20DA7141C(v14, 3u, MEMORY[0x277D84FA0], home, sender);
 }
 
 - (void)batchedValuesDidUpdateForCharacteristics:(id)characteristics inHome:(id)home sender:(SEL)sender
@@ -68,11 +67,11 @@
   selfCopy = self;
   settingsCopy = settings;
   homeCopy = home;
-  sub_20DA7141C(update, 1, MEMORY[0x277D84FA0], home, sender);
+  sub_20DA7141C(update, 1u, MEMORY[0x277D84FA0], home, sender);
   if (settingsCopy)
   {
     v13 = settingsCopy;
-    sub_20DA7141C(settingsCopy, 2, MEMORY[0x277D84FA0], home, sender);
+    sub_20DA7141C(settingsCopy, 2u, MEMORY[0x277D84FA0], home, sender);
 
     homeCopy = selfCopy;
     selfCopy = v13;
@@ -88,7 +87,7 @@
   accessory = [updateCopy accessory];
   home = [accessory home];
 
-  sub_20DA7141C(update, 4, MEMORY[0x277D84FA0], home, sender);
+  sub_20DA7141C(update, 4u, MEMORY[0x277D84FA0], home, sender);
 }
 
 - (void)batchedSoftwareUpdateV2DidUpdateForAccessory:(id)accessory sender:(SEL)sender

@@ -25,18 +25,19 @@
 
 - (void)registerForLockNotifications
 {
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000036FC;
-  v5[3] = &unk_10001C6E8;
-  v5[4] = self;
-  v3 = objc_retainBlock(v5);
-  if (notify_register_dispatch(kSBSLockStateNotifyKey, &self->_notifyToken, &_dispatch_main_q, v3))
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_1000036FC;
+  v6[3] = &unk_10001C6E8;
+  v6[4] = self;
+  v3 = objc_retainBlock(v6);
+  v4 = notify_register_dispatch(kSBSLockStateNotifyKey, &self->_notifyToken, &_dispatch_main_q, v3);
+  if (v4)
   {
-    v4 = sub_10000C1BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_10000C1BC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10000ECD8(v4);
+      sub_10000ECD8(v5);
     }
 
     self->_notifyToken = -1;

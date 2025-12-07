@@ -40,52 +40,52 @@
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
   components[4] = *MEMORY[0x1E69E9840];
-  if ([element isEqualToString:@"UIPDFAnnotation"])
+  if (objc_msgSend_isEqualToString_(element, a2, @"UIPDFAnnotation"))
   {
     v10 = [attributes valueForKey:@"type"];
-    if ([v10 isEqualToString:@"UIPDFAnnotationTypeCircle"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA2A8;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeFreeText"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA2B8;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeHighlight"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA2C0;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeLine"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA2C8;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeStamp"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA310;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeStrikeOut"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA318;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeText"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA320;
     }
 
-    else if ([v10 isEqualToString:@"UIPDFAnnotationTypeUnderline"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = off_1E70EA328;
     }
 
     else
     {
-      if (![v10 isEqualToString:@"UIPDFAnnotationTypePopup"])
+      if (!objc_msgSend_isEqualToString_(v10))
       {
         v23 = 0;
         goto LABEL_34;
@@ -100,14 +100,14 @@ LABEL_34:
     return;
   }
 
-  if ([element isEqualToString:@"ID"])
+  if (objc_msgSend_isEqualToString_(element))
   {
 LABEL_5:
     self->_characters = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
     return;
   }
 
-  if ([element isEqualToString:@"Color"])
+  if (objc_msgSend_isEqualToString_(element))
   {
     v12 = [attributes valueForKey:@"R"];
     v13 = [attributes valueForKey:@"G"];
@@ -138,7 +138,7 @@ LABEL_5:
     CGColorRelease(v22);
   }
 
-  else if ([element isEqualToString:@"Contents"] || objc_msgSend(element, "isEqualToString:", @"Tag") || objc_msgSend(element, "isEqualToString:", @"Index") || objc_msgSend(element, "isEqualToString:", @"PopupID") || objc_msgSend(element, "isEqualToString:", @"ParentID"))
+  else if (objc_msgSend_isEqualToString_(element) || objc_msgSend_isEqualToString_(element) || objc_msgSend_isEqualToString_(element) || objc_msgSend_isEqualToString_(element) || objc_msgSend_isEqualToString_(element))
   {
     goto LABEL_5;
   }
@@ -146,27 +146,27 @@ LABEL_5:
 
 - (void)parser:(id)parser didEndElement:(id)element namespaceURI:(id)i qualifiedName:(id)name
 {
-  if ([element isEqualToString:@"ID"])
+  if (objc_msgSend_isEqualToString_(element, a2, @"ID"))
   {
     [(UIPDFAnnotation *)self->_annotation setAnnotationID:self->_characters];
   }
 
-  else if ([element isEqualToString:@"Contents"])
+  else if (objc_msgSend_isEqualToString_(element))
   {
     [(UIPDFAnnotation *)self->_annotation setContents:self->_characters];
   }
 
-  else if ([element isEqualToString:@"PopupID"] || objc_msgSend(element, "isEqualToString:", @"ParentID"))
+  else if (objc_msgSend_isEqualToString_(element) || objc_msgSend_isEqualToString_(element))
   {
     [(UIPDFAnnotation *)self->_annotation setAssociatedAnnotationID:self->_characters];
   }
 
-  else if ([element isEqualToString:@"Tag"])
+  else if (objc_msgSend_isEqualToString_(element))
   {
     [(UIPDFAnnotation *)self->_annotation setTag:[(NSMutableString *)self->_characters integerValue]];
   }
 
-  else if ([element isEqualToString:@"Index"])
+  else if (objc_msgSend_isEqualToString_(element))
   {
     [(UIPDFAnnotation *)self->_annotation setIndex:[(NSMutableString *)self->_characters integerValue]];
   }

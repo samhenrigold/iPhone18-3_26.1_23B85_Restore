@@ -55,10 +55,11 @@
 
   v7 = (self + OBJC_IVAR____TtC15ControlCenterUI22ControlIconDragPreview_cleanUpHandler);
   v8 = *(self + OBJC_IVAR____TtC15ControlCenterUI22ControlIconDragPreview_cleanUpHandler);
+  v9 = *(self + OBJC_IVAR____TtC15ControlCenterUI22ControlIconDragPreview_cleanUpHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_21E9FFAF0(v8);
+  sub_21E9FFAF0(v8, v9);
 }
 
 - (void)setDragState:(unint64_t)state

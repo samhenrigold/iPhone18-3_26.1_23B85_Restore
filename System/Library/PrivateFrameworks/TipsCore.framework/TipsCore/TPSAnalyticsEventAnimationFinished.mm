@@ -1,4 +1,5 @@
 @interface TPSAnalyticsEventAnimationFinished
++ (id)eventWithTipID:(id)d animationFinished:(BOOL)finished animationSource:(id)source collectionID:(id)iD correlationID:(id)correlationID;
 - (TPSAnalyticsEventAnimationFinished)initWithCoder:(id)coder;
 - (id)_initWithTipID:(id)d animationFinished:(BOOL)finished animationSource:(id)source collectionID:(id)iD correlationID:(id)correlationID;
 - (id)mutableAnalyticsEventRepresentation;
@@ -57,6 +58,18 @@
   }
 
   return v18;
+}
+
++ (id)eventWithTipID:(id)d animationFinished:(BOOL)finished animationSource:(id)source collectionID:(id)iD correlationID:(id)correlationID
+{
+  finishedCopy = finished;
+  correlationIDCopy = correlationID;
+  iDCopy = iD;
+  sourceCopy = source;
+  dCopy = d;
+  v16 = [[self alloc] _initWithTipID:dCopy animationFinished:finishedCopy animationSource:sourceCopy collectionID:iDCopy correlationID:correlationIDCopy];
+
+  return v16;
 }
 
 - (void)encodeWithCoder:(id)coder

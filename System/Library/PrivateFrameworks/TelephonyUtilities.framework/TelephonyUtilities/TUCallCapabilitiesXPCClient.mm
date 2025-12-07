@@ -89,36 +89,36 @@ void __35__TUCallCapabilitiesXPCClient_init__block_invoke(uint64_t a1)
   queue = [(TUCallCapabilitiesXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = TUDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = TUDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Retrieving initial call capabilities state.", buf, 2u);
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Retrieving initial call capabilities state.", buf, 2u);
   }
 
-  v5 = [(TUCallCapabilitiesXPCClient *)self synchronousServerWithErrorHandler:&__block_literal_global_21];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke_12;
-  v6[3] = &unk_1E7425CA8;
-  v6[4] = self;
-  [v5 callCapabilitiesState:v6];
+  v6 = [(TUCallCapabilitiesXPCClient *)self synchronousServerWithErrorHandler:&__block_literal_global_21];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke_12;
+  v7[3] = &unk_1E7425CA8;
+  v7[4] = self;
+  [v6 callCapabilitiesState:v7];
 }
 
 - (NSXPCConnection)xpcConnection
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   queue = [(TUCallCapabilitiesXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
   {
-    v5 = TUDefaultLog();
+    v5 = TUDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = @"com.apple.telephonyutilities.callservicesdaemon.callcapabilities";
+      v19 = @"com.apple.telephonyutilities.callservicesdaemon.callcapabilities";
       _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Setting up XPC connection for %@", buf, 0xCu);
     }
 
@@ -134,26 +134,24 @@ void __35__TUCallCapabilitiesXPCClient_init__block_invoke(uint64_t a1)
 
     [(NSXPCConnection *)self->_xpcConnection setExportedObject:self];
     objc_initWeak(buf, self);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke;
-    v17[3] = &unk_1E7424998;
-    objc_copyWeak(&v18, buf);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v17];
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke_8;
-    v15 = &unk_1E7424998;
-    objc_copyWeak(&v16, buf);
-    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:&v12];
-    [(NSXPCConnection *)self->_xpcConnection resume:v12];
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke;
+    v16[3] = &unk_1E7424998;
+    objc_copyWeak(&v17, buf);
+    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v16];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke_8;
+    v14 = &unk_1E7424998;
+    objc_copyWeak(&v15, buf);
+    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:&v11];
+    [(NSXPCConnection *)self->_xpcConnection resume:v11];
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return xpcConnection;
 }
@@ -203,16 +201,15 @@ void __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke_12(uint64_t 
   v4 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v4);
 
-  v5 = TUDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TUDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
     v8 = v3;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Received initial call capabilities state: %p", &v7, 0xCu);
+    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Received initial call capabilities state: %p", &v7, 0xCu);
   }
 
   [*(a1 + 32) _updateState:v3];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (TUCallCapabilitiesState)state
@@ -269,19 +266,17 @@ void __36__TUCallCapabilitiesXPCClient_state__block_invoke(uint64_t a1)
 
 void __35__TUCallCapabilitiesXPCClient_init__block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _retrieveState];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -299,11 +294,11 @@ void __35__TUCallCapabilitiesXPCClient_init__block_invoke_2(uint64_t a1)
   queue = [(TUCallCapabilitiesXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = TUDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = TUDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Server did disconnect", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Server did disconnect", v7, 2u);
   }
 
   state = self->_state;
@@ -328,7 +323,7 @@ void __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke(uint64_t a1)
 
 uint64_t __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -360,7 +355,7 @@ void __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke_8(uint64_t a1
 
 uint64_t __44__TUCallCapabilitiesXPCClient_xpcConnection__block_invoke_2_9(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -509,28 +504,28 @@ void __46__TUCallCapabilitiesXPCClient_removeDelegate___block_invoke(uint64_t a1
 
 void __60__TUCallCapabilitiesXPCClient_performDelegateCallbackBlock___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = [*(a1 + 32) delegateToQueue];
-  v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v14;
     do
     {
       v5 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * v5);
+        v6 = *(*(&v13 + 1) + 8 * v5);
         v7 = [*(a1 + 32) delegateToQueue];
         v8 = [v7 objectForKey:v6];
 
@@ -540,20 +535,18 @@ void __60__TUCallCapabilitiesXPCClient_performDelegateCallbackBlock___block_invo
         block[3] = &unk_1E7425540;
         v9 = *(a1 + 40);
         block[4] = v6;
-        v13 = v9;
+        v12 = v9;
         dispatch_async(v8, block);
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRelayCallingEnabled:(BOOL)enabled
@@ -909,25 +902,23 @@ void __41__TUCallCapabilitiesXPCClient_invalidate__block_invoke(uint64_t a1)
 
 uint64_t __54__TUCallCapabilitiesXPCClient_capabilityStateUpdated___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCClient - capabilityStateUpdated: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCClient - capabilityStateUpdated: %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _updateState:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _updateState:*(a1 + 32)];
 }
 
 void __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke_cold_1(v2, v3);
@@ -955,16 +946,14 @@ void __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke(uint64_t a1,
   else
   {
     objc_storeStrong(&self->_state, state);
-    v7 = TUDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TUDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v12 = stateCopy;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Updated to newState: %@", buf, 0xCu);
+      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Updated to newState: %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __44__TUCallCapabilitiesXPCClient__updateState___block_invoke(uint64_t a1)
@@ -994,11 +983,10 @@ void __44__TUCallCapabilitiesXPCClient__updateState___block_invoke_2(uint64_t a1
 
 void __45__TUCallCapabilitiesXPCClient__retrieveState__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error grabbing remote object proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error grabbing remote object proxy: %@", &v2, 0xCu);
 }
 
 @end

@@ -44,38 +44,36 @@ uint64_t __53__TKSmartCardTokenRegistrationManager_defaultManager__block_invoke(
 
 - (NSArray)registeredSmartCardTokens
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   registeredSmartCardTokens = [(TKSmartCardTokenRegistrationXPCClient *)self->_remoteObjectProxy registeredSmartCardTokens];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [registeredSmartCardTokens countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [registeredSmartCardTokens countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(registeredSmartCardTokens);
         }
 
-        stringRepresentation = [*(*(&v12 + 1) + 8 * i) stringRepresentation];
+        stringRepresentation = [*(*(&v11 + 1) + 8 * i) stringRepresentation];
         [array addObject:stringRepresentation];
       }
 
-      v6 = [registeredSmartCardTokens countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [registeredSmartCardTokens countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }

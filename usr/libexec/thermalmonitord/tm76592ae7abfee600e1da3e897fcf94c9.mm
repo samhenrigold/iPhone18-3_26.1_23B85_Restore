@@ -104,14 +104,14 @@
 
 - (int)computeMaxCGTemp
 {
-  if (SHIDWORD(qword_1000AB90C) <= qword_1000AB90C)
+  if (SDWORD2(xmmword_1000AB908) <= SDWORD1(xmmword_1000AB908))
   {
-    return qword_1000AB90C;
+    return DWORD1(xmmword_1000AB908);
   }
 
   else
   {
-    return HIDWORD(qword_1000AB90C);
+    return DWORD2(xmmword_1000AB908);
   }
 }
 

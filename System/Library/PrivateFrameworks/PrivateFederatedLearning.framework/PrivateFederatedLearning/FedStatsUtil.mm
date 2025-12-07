@@ -73,7 +73,7 @@
 
 + (id)sha1:(id)sha1
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sha1Copy = sha1;
   uTF8String = [sha1 UTF8String];
   v7 = strlen(uTF8String);
@@ -84,8 +84,6 @@
     v10 = [self intToBitString:md[i] length:8];
     [v8 appendFormat:@"%@", v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -106,7 +106,7 @@
           [(CRVehiclePolicyMonitor *)self->_monitor startMonitoring];
           if (gLogCategory_APCarPlayPolicyMonitor <= 40 && (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize()))
           {
-            [APCarPlayPolicyMonitor endpointAuthenticationSucceeded];
+            [(APCarPlayPolicyMonitor *)self endpointAuthenticationSucceeded];
           }
         }
       }
@@ -120,7 +120,7 @@
 {
   if (gLogCategory_APCarPlayPolicyMonitor <= 40 && (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize()))
   {
-    [APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:];
+    [APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:?];
   }
 
   v4 = FigCFWeakReferenceHolderCopyReferencedObject();
@@ -129,7 +129,7 @@
     v5 = v4;
     if (gLogCategory_APCarPlayPolicyMonitor <= 50 && (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize()))
     {
-      [APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:];
+      [APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:?];
     }
 
     v6 = dispatch_semaphore_create(0);
@@ -144,10 +144,14 @@
     else
     {
       v8 = dispatch_time(0, 5000000000);
-      dispatch_semaphore_wait(v6, v8);
-      if (gLogCategory_APCarPlayPolicyMonitor <= 50 && (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize()))
+      v9 = dispatch_semaphore_wait(v6, v8);
+      if (gLogCategory_APCarPlayPolicyMonitor <= 50)
       {
-        [APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:];
+        v10 = v9;
+        if (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize())
+        {
+          [(APCarPlayPolicyMonitor *)self willDisableVehicleTrackedByMonitor:v10];
+        }
       }
     }
 
@@ -164,7 +168,7 @@
 {
   if (gLogCategory_APCarPlayPolicyMonitor <= 40 && (gLogCategory_APCarPlayPolicyMonitor != -1 || _LogCategory_Initialize()))
   {
-    [APCarPlayPolicyMonitor willEnableVehicleTrackedByMonitor:];
+    [APCarPlayPolicyMonitor willEnableVehicleTrackedByMonitor:?];
   }
 
   v4 = FigCFWeakReferenceHolderCopyReferencedObject();
@@ -175,6 +179,17 @@
 
     CFRelease(v5);
   }
+}
+
+- (uint64_t)willDisableVehicleTrackedByMonitor:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+{
+  v2 = "timed out";
+  if (!a2)
+  {
+    v2 = "completed";
+  }
+
+  return LogPrintF(&gLogCategory_APCarPlayPolicyMonitor, "[APCarPlayPolicyMonitor willDisableVehicleTrackedByMonitor:]", 33554482, "Deactivation of endpoint %{ptr} %s\n", *(a1 + 24), v2);
 }
 
 @end

@@ -34,8 +34,8 @@
   entityCopy = entity;
   keysCopy = keys;
   blockCopy = block;
-  entity = [objectCopy entity];
-  v14 = [entity isKindOfEntity:entityCopy];
+  v13 = objc_msgSend_entity(objectCopy);
+  v14 = [v13 isKindOfEntity:entityCopy];
 
   if (v14)
   {
@@ -93,7 +93,7 @@
 {
   blockCopy = block;
   objectCopy = object;
-  v8 = +[PLManagedAsset entity];
+  v8 = objc_msgSend_entity(PLManagedAsset);
   [(PLUnintendedChangeChecker *)self _checkForUnintendedChangesOnObject:objectCopy withEntity:v8 unexpectedKeys:self->_unexpectedCPLAssetKeys block:blockCopy];
 }
 
@@ -101,10 +101,10 @@
 {
   blockCopy = block;
   objectCopy = object;
-  v8 = +[PLManagedAsset entity];
+  v8 = objc_msgSend_entity(PLManagedAsset);
   [(PLUnintendedChangeChecker *)self _checkForUnintendedChangesOnObject:objectCopy withEntity:v8 unexpectedKeys:self->_unexpectedMomentAssetKeys block:blockCopy];
 
-  v9 = +[PLAdditionalAssetAttributes entity];
+  v9 = objc_msgSend_entity(PLAdditionalAssetAttributes);
   [(PLUnintendedChangeChecker *)self _checkForUnintendedChangesOnObject:objectCopy withEntity:v9 unexpectedKeys:self->_unexpectedMomentAdditionalAssetAttributeKeys block:blockCopy];
 }
 

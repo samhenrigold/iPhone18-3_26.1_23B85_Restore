@@ -214,86 +214,79 @@ LABEL_13:
 
 + (void)JSONArrayForArray:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter JSONArrayForArray:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)JSONDictionaryForDictionary:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter JSONDictionaryForDictionary:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)bestEffortJSONObjectForObject:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter bestEffortJSONObjectForObject:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)bestEffortJSONObjectForObject:.cold.2()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter bestEffortJSONObjectForObject:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)bestEffortJSONObjectForObject:.cold.3()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter bestEffortJSONObjectForObject:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)stringForObject:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter stringForObject:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 + (void)stringForObject:.cold.2()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKJSONConverter stringForObject:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 @end

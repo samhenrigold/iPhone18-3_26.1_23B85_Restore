@@ -41,16 +41,17 @@
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5, v7);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v12 = v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v14 = DOCSidebarCollectionView.dequeueReusableCell(withReuseIdentifier:for:)(v10, v12, v9);
+  DOCSidebarCollectionView.dequeueReusableCell(withReuseIdentifier:for:)(v10, v12, v9);
+  v15 = v14;
 
   (*(v6 + 8))(v9, v5);
 
-  return v14;
+  return v15;
 }
 
 - (void)touchesEnded:(id)ended withEvent:(id)event

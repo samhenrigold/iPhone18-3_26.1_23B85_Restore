@@ -1,7 +1,6 @@
 @interface MFPersistenceDatabaseConnection_iOS
 - (BOOL)performWithOptions:(unint64_t)options transactionError:(id *)error block:(id)block;
 - (int)configureSQLConnection;
-- (uint64_t)_handleProtectedDataIOError;
 - (void)_handleBusyError;
 - (void)_handleCorruptDatabase;
 - (void)_handleFullDatabase;
@@ -220,58 +219,11 @@ LABEL_18:
   }
 }
 
-- (uint64_t)_handleProtectedDataIOError
+- (void)_handleProtectedDataIOError
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (!result)
-  {
-    goto LABEL_13;
-  }
-
-  v1 = result;
-  currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
-  if ([currentDevice isInternal])
-  {
-
-LABEL_5:
-    v4 = MFLogGeneral();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = EFContentProtectionDumpDiagnosticState();
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "#Warning %@", &v10, 0xCu);
-    }
-
-    v6 = MFLogGeneral();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      [MFPersistenceDatabaseConnection_iOS _handleProtectedDataIOError];
-    }
-
-    goto LABEL_10;
-  }
-
-  v3 = EFIsSeedBuild();
-
-  if (v3)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_10:
-  v7 = MFLogGeneral();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    MEMORY[0x1B27299E0]();
-    v8 = EFContentProtectionStateDescription();
-    [(MFPersistenceDatabaseConnection_iOS *)v8 _handleProtectedDataIOError];
-  }
-
-  result = [v1 setHadIOError:1];
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  *buf = 138543362;
+  *(buf + 4) = self;
+  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Got back IO error with protected database attached.  Protection state = %{public}@", buf, 0xCu);
 }
 
 - (void)_handleInvalidDatabaseIOError
@@ -342,24 +294,15 @@ LABEL_13:
 
 - (void)_logFileSystemStats
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(self, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = a2;
-    v9 = 2112;
-    v10 = a3;
-    _os_log_impl(&dword_1B0389000, self, OS_LOG_TYPE_DEFAULT, "#Warning %@/%@ bytes (free/total)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = a2;
+    v8 = 2112;
+    v9 = a3;
+    _os_log_impl(&dword_1B0389000, self, OS_LOG_TYPE_DEFAULT, "#Warning %@/%@ bytes (free/total)", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleProtectedDataIOError
-{
-  *buf = 138543362;
-  *(buf + 4) = self;
-  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Got back IO error with protected database attached.  Protection state = %{public}@", buf, 0xCu);
 }
 
 @end

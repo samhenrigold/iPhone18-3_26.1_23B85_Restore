@@ -111,9 +111,10 @@
 - (id)opaqueEntityManager
 {
   selfCopy = self;
-  v3 = sub_1AFC8B660();
+  sub_1AFC8B660();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSString)tag

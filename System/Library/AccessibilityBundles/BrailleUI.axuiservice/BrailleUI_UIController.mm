@@ -36,19 +36,19 @@
 
 - (void)connectionWillBeInterruptedForClientWithIdentifier:(id)identifier
 {
-  v4 = (*(*(sub_4164(&qword_C5F0, &qword_5810) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_4164(&qword_C5F0, &qword_5810);
   __chkstk_darwin();
-  v6 = &v11 - v5;
-  v7 = sub_51A4();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v5 = &v10 - v4;
+  v6 = sub_51A4();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   sub_5184();
   selfCopy = self;
-  v9 = sub_5174();
-  v10 = swift_allocObject();
-  v10[2] = v9;
-  v10[3] = &protocol witness table for MainActor;
-  v10[4] = selfCopy;
-  sub_25F0(0, 0, v6, &unk_5890, v10);
+  v8 = sub_5174();
+  v9 = swift_allocObject();
+  v9[2] = v8;
+  v9[3] = &protocol witness table for MainActor;
+  v9[4] = selfCopy;
+  sub_25F0(0, 0, v5, &unk_5890, v9);
 }
 
 - (BrailleUI_UIController)init

@@ -99,7 +99,7 @@ LABEL_9:
 
 - (void)_privateEmailSpecifierWasTapped:(id)tapped
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained specifierProvider:self willBeginLoadingSpecifier:tappedCopy];
@@ -108,10 +108,9 @@ LABEL_9:
   privateEmailManageURL = [v6 privateEmailManageURL];
 
   v8 = objc_alloc_init(MEMORY[0x277CCAB70]);
-  v24 = privateEmailManageURL;
+  v23 = privateEmailManageURL;
   [v8 setURL:privateEmailManageURL];
-  [v8 setHTTPMethod:@"GET"];
-  v9 = LogSubsystem();
+  v9 = LogSubsystem([v8 setHTTPMethod:@"GET"]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(ICSPrivateEmailSpecifierProvider *)v8 _privateEmailSpecifierWasTapped:v9];
@@ -126,10 +125,10 @@ LABEL_9:
   aa_altDSID = [v13 aa_altDSID];
   v16 = [v14 initWithAltDSID:aa_altDSID upgradeContext:*MEMORY[0x277CF00A0]];
 
-  v25[0] = v10;
-  v25[1] = v11;
-  v25[2] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+  v24[0] = v10;
+  v24[1] = v11;
+  v24[2] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
   v18 = objc_alloc(MEMORY[0x277CECA58]);
   accountManager = self->_accountManager;
   v20 = objc_loadWeakRetained(&self->_presenter);
@@ -139,14 +138,12 @@ LABEL_9:
 
   [(AAUIGrandSlamRemoteUIPresenter *)self->_privateEmailPresenter setDelegate:self];
   [(AAUIGrandSlamRemoteUIPresenter *)self->_privateEmailPresenter loadRequest:v8];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIRequestComplete:(id)complete error:(id)error
 {
   errorCopy = error;
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(errorCopy);
   v7 = v6;
   if (errorCopy)
   {
@@ -208,10 +205,10 @@ void __61__ICSPrivateEmailSpecifierProvider__fetchCloudStorageSummary__block_inv
 
   if (v6)
   {
-    v10 = LogSubsystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = LogSubsystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __61__ICSPrivateEmailSpecifierProvider__fetchCloudStorageSummary__block_invoke_cold_1(v6, v10);
+      __61__ICSPrivateEmailSpecifierProvider__fetchCloudStorageSummary__block_invoke_cold_1(v6, v11);
     }
   }
 
@@ -251,29 +248,26 @@ void __61__ICSPrivateEmailSpecifierProvider__fetchCloudStorageSummary__block_inv
 
 - (void)_privateEmailSpecifierWasTapped:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "Private email specifier tapped, url %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "Private email specifier tapped, url %@", &v2, 0xCu);
 }
 
 - (void)remoteUIRequestComplete:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "private email specifier failed with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "private email specifier failed with error %@", &v2, 0xCu);
 }
 
 void __61__ICSPrivateEmailSpecifierProvider__fetchCloudStorageSummary__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch storage summary with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch storage summary with error: %@", &v2, 0xCu);
 }
 
 @end

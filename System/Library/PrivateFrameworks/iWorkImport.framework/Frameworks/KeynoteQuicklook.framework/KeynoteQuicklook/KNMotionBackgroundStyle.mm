@@ -51,10 +51,9 @@
 + (id)defaultStyleWithContext:(id)context
 {
   contextCopy = context;
-  v4 = objc_alloc(objc_opt_class());
-  isVariation = objc_msgSend_initWithContext_name_overridePropertyMap_isVariation_(v4, v5, contextCopy, 0, 0, 0);
+  v4 = [objc_alloc(objc_opt_class()) initWithContext:contextCopy name:0 overridePropertyMap:0 isVariation:0];
 
-  return isVariation;
+  return v4;
 }
 
 - (KNMotionBackgroundStyle)initWithContext:(id)context name:(id)name overridePropertyMap:(id)map isVariation:(BOOL)variation
@@ -66,111 +65,111 @@
 
 - (void)notifyClientsOfUpdate
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v4 = objc_msgSend_stylesheet(self, a2, v2, 0);
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_stylesOfClass_(v4, v6, v5);
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  stylesheet = [(KNMotionBackgroundStyle *)self stylesheet];
+  v4 = [stylesheet stylesOfClass:objc_opt_class()];
 
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v17, v21, 16);
-  if (v11)
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v12 = *v18;
+    v6 = *v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v12)
+        if (*v12 != v6)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v4);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        v15 = objc_msgSend_motionBackgroundStyle(v14, v9, v10);
-        v16 = v15 == self;
+        v8 = *(*(&v11 + 1) + 8 * i);
+        motionBackgroundStyle = [v8 motionBackgroundStyle];
+        v10 = motionBackgroundStyle == self;
 
-        if (v16)
+        if (v10)
         {
-          objc_msgSend_referencedStyleWasUpdated_(v14, v9, self);
+          [v8 referencedStyleWasUpdated:self];
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v17, v21, 16);
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v5);
   }
 }
 
 - (void)setOverridePropertyMap:(id)map
 {
   mapCopy = map;
-  v7.receiver = self;
-  v7.super_class = KNMotionBackgroundStyle;
-  [(KNMotionBackgroundStyle *)&v7 setOverridePropertyMap:mapCopy];
-  objc_msgSend_notifyClientsOfUpdate(self, v5, v6);
+  v5.receiver = self;
+  v5.super_class = KNMotionBackgroundStyle;
+  [(KNMotionBackgroundStyle *)&v5 setOverridePropertyMap:mapCopy];
+  [(KNMotionBackgroundStyle *)self notifyClientsOfUpdate];
 }
 
 - (void)setPosterFrameData:(id)data
 {
   dataCopy = data;
-  objc_msgSend_willModify(self, v5, v6);
+  [(KNMotionBackgroundStyle *)self willModify];
   objc_storeStrong(&self->_posterFrameData, data);
-  objc_msgSend_notifyClientsOfUpdate(self, v7, v8);
+  [(KNMotionBackgroundStyle *)self notifyClientsOfUpdate];
 }
 
 - (TSUColor)referenceColor
 {
-  v3 = objc_msgSend_propertyMap(self, a2, v2);
-  if (objc_msgSend_containsProperty_(v3, v4, 4108))
+  propertyMap = [(KNMotionBackgroundStyle *)self propertyMap];
+  if ([propertyMap containsProperty:4108])
   {
-    objc_msgSend_objectForProperty_(v3, v5, 4108);
+    v3 = 4108;
     goto LABEL_3;
   }
 
-  if (!objc_msgSend_containsProperty_(v3, v5, 4107))
+  if (![propertyMap containsProperty:4107])
   {
-    if (objc_msgSend_containsProperty_(v3, v8, 4109))
+    if ([propertyMap containsProperty:4109])
     {
-      objc_msgSend_objectForProperty_(v3, v13, 4109);
+      v3 = 4109;
     }
 
-    else if (objc_msgSend_containsProperty_(v3, v13, 4110))
+    else if ([propertyMap containsProperty:4110])
     {
-      objc_msgSend_objectForProperty_(v3, v14, 4110);
+      v3 = 4110;
     }
 
-    else if (objc_msgSend_containsProperty_(v3, v14, 4191))
+    else if ([propertyMap containsProperty:4191])
     {
-      objc_msgSend_objectForProperty_(v3, v15, 4191);
+      v3 = 4191;
     }
 
     else
     {
-      if (!objc_msgSend_containsProperty_(v3, v15, 4111))
+      if (![propertyMap containsProperty:4111])
       {
-        v6 = objc_msgSend_blackColor(MEMORY[0x277D81180], v16, v17);
+        blackColor = [MEMORY[0x277D81180] blackColor];
         goto LABEL_4;
       }
 
-      objc_msgSend_objectForProperty_(v3, v16, 4111);
+      v3 = 4111;
     }
 
-    v6 = LABEL_3:;
+LABEL_3:
+    blackColor = [propertyMap objectForProperty:v3];
 LABEL_4:
-    v7 = v6;
+    firstColor = blackColor;
     goto LABEL_7;
   }
 
-  v9 = objc_msgSend_objectForProperty_(v3, v8, 4107);
-  v7 = objc_msgSend_firstColor(v9, v10, v11);
+  v6 = [propertyMap objectForProperty:4107];
+  firstColor = [v6 firstColor];
 
 LABEL_7:
 
-  return v7;
+  return firstColor;
 }
 
 - (void)copyAuxiliaryInformationToMigratedStyle:(id)style
@@ -178,20 +177,20 @@ LABEL_7:
   styleCopy = style;
   objc_opt_class();
   v4 = TSUCheckedDynamicCast();
-  v9 = objc_msgSend_posterFrameData(v4, v5, v6);
-  if (!v9)
+  posterFrameData = [v4 posterFrameData];
+  if (!posterFrameData)
   {
-    v10 = objc_msgSend_propertyMap(self, v7, v8);
-    v13 = objc_msgSend_allProperties(v10, v11, v12);
-    hasEqualValues_forProperties = objc_msgSend_hasEqualValues_forProperties_(self, v14, v4, v13);
+    propertyMap = [(KNMotionBackgroundStyle *)self propertyMap];
+    allProperties = [propertyMap allProperties];
+    v8 = [(KNMotionBackgroundStyle *)self hasEqualValues:v4 forProperties:allProperties];
 
-    if (!hasEqualValues_forProperties)
+    if (!v8)
     {
       goto LABEL_5;
     }
 
-    v9 = objc_msgSend_posterFrameData(self, v16, v17);
-    objc_msgSend_setPosterFrameData_(v4, v18, v9);
+    posterFrameData = [(KNMotionBackgroundStyle *)self posterFrameData];
+    [v4 setPosterFrameData:posterFrameData];
   }
 
 LABEL_5:
@@ -200,33 +199,33 @@ LABEL_5:
 - (id)targetParentForStyleMappingByStyleMapper:(id)mapper intoStylesheet:(id)stylesheet
 {
   stylesheetCopy = stylesheet;
-  v8 = objc_msgSend_valueForProperty_(self, v6, 4101);
-  if (!v8)
+  v6 = [(KNMotionBackgroundStyle *)self valueForProperty:4101];
+  if (!v6)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNMotionBackgroundStyle targetParentForStyleMappingByStyleMapper:intoStylesheet:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNMotionBackgroundStyle.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 363, 0, "invalid nil value for '%{public}s'", "motionBackgroundName");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNMotionBackgroundStyle targetParentForStyleMappingByStyleMapper:intoStylesheet:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNMotionBackgroundStyle.mm"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:363 isFatal:0 description:{"invalid nil value for '%{public}s'", "motionBackgroundName"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_275D679EC;
   aBlock[3] = &unk_27A698120;
-  v16 = v8;
-  v28 = v16;
-  v17 = _Block_copy(aBlock);
-  v20 = objc_msgSend_rootAncestor(self, v18, v19);
-  v23 = objc_msgSend_styleIdentifier(v20, v21, v22);
+  v10 = v6;
+  v17 = v10;
+  v11 = _Block_copy(aBlock);
+  rootAncestor = [(KNMotionBackgroundStyle *)self rootAncestor];
+  styleIdentifier = [rootAncestor styleIdentifier];
 
-  if (v23)
+  if (styleIdentifier)
   {
-    v25 = objc_msgSend_cascadedStyleWithIdentifier_(stylesheetCopy, v24, v23);
-    if (v17[2](v17, v25))
+    v14 = [stylesheetCopy cascadedStyleWithIdentifier:styleIdentifier];
+    if (v11[2](v11, v14))
     {
-      if (v25)
+      if (v14)
       {
         goto LABEL_9;
       }
@@ -237,32 +236,32 @@ LABEL_5:
     }
   }
 
-  v25 = objc_msgSend_firstCascadedStylePassingTest_(stylesheetCopy, v24, v17);
+  v14 = [stylesheetCopy firstCascadedStylePassingTest:v11];
 LABEL_9:
 
-  return v25;
+  return v14;
 }
 
 - (id)makeAlternateFill
 {
-  v4 = objc_msgSend_referenceColor(self, a2, v2);
-  v9 = objc_msgSend_posterFrameData(self, v5, v6);
-  if (!v9 || (objc_msgSend_posterFrameData(self, v7, v8), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_null(MEMORY[0x277D80828], v11, v12), v13 = objc_claimAutoreleasedReturnValue(), v13, v10, v9, v10 == v13))
+  referenceColor = [(KNMotionBackgroundStyle *)self referenceColor];
+  posterFrameData = [(KNMotionBackgroundStyle *)self posterFrameData];
+  if (!posterFrameData || (-[KNMotionBackgroundStyle posterFrameData](self, "posterFrameData"), v5 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277D80828] null], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, posterFrameData, v5 == v6))
   {
-    v27 = objc_msgSend_colorWithColor_(MEMORY[0x277D801F8], v7, v4);
+    v11 = [MEMORY[0x277D801F8] colorWithColor:referenceColor];
   }
 
   else
   {
-    v14 = objc_alloc(MEMORY[0x277D802C0]);
-    v17 = objc_msgSend_posterFrameData(self, v15, v16);
-    v20 = objc_msgSend_owningDocument(self, v18, v19);
-    v23 = objc_msgSend_show(v20, v21, v22);
-    objc_msgSend_size(v23, v24, v25);
-    v27 = objc_msgSend_initWithImageData_technique_tintColor_size_referenceColor_(v14, v26, v17, 3, 0, v4);
+    v7 = objc_alloc(MEMORY[0x277D802C0]);
+    posterFrameData2 = [(KNMotionBackgroundStyle *)self posterFrameData];
+    owningDocument = [(TSPObject *)self owningDocument];
+    show = [owningDocument show];
+    [show size];
+    v11 = [v7 initWithImageData:posterFrameData2 technique:3 tintColor:0 size:referenceColor referenceColor:?];
   }
 
-  return v27;
+  return v11;
 }
 
 + (id)backgroundNameForStyleIdentifier:(id)identifier
@@ -273,14 +272,14 @@ LABEL_9:
     sub_275E59DE0();
   }
 
-  v5 = objc_msgSend_objectForKeyedSubscript_(qword_280A3BF80, v3, identifierCopy);
-  if (!v5)
+  v4 = [qword_280A3BF80 objectForKeyedSubscript:identifierCopy];
+  if (!v4)
   {
-    v6 = sub_275DC204C();
-    v5 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"Custom Dynamic Background", &stru_2884D8E20, @"Keynote");
+    v5 = sub_275DC204C(0);
+    v4 = [v5 localizedStringForKey:@"Custom Dynamic Background" value:&stru_2884D8E20 table:@"Keynote"];
   }
 
-  return v5;
+  return v4;
 }
 
 + (id)axDescriptionForStyleIdentifier:(id)identifier
@@ -291,22 +290,22 @@ LABEL_9:
     sub_275E59DF4();
   }
 
-  v5 = objc_msgSend_objectForKeyedSubscript_(qword_280A3BF90, v3, identifierCopy);
-  if (!v5)
+  v4 = [qword_280A3BF90 objectForKeyedSubscript:identifierCopy];
+  if (!v4)
   {
-    v6 = sub_275DC204C();
-    v5 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"Customized moving background", &stru_2884D8E20, @"Keynote");
+    v5 = sub_275DC204C(0);
+    v4 = [v5 localizedStringForKey:@"Customized moving background" value:&stru_2884D8E20 table:@"Keynote"];
   }
 
-  return v5;
+  return v4;
 }
 
 + (id)toolTipForStyle:(id)style
 {
-  v4 = objc_msgSend_styleIdentifier(style, a2, style);
-  v6 = objc_msgSend_backgroundNameForStyleIdentifier_(self, v5, v4);
+  styleIdentifier = [style styleIdentifier];
+  v5 = [self backgroundNameForStyleIdentifier:styleIdentifier];
 
-  return v6;
+  return v5;
 }
 
 + (id)nextUnusedStyleIdentifierInStylesheet:(id)stylesheet
@@ -320,13 +319,13 @@ LABEL_9:
     v7 = String();
     v8 = String();
 
-    v10 = objc_msgSend_styleWithIdentifier_(stylesheetCopy, v9, v8);
+    v9 = [stylesheetCopy styleWithIdentifier:v8];
 
     ++v5;
     v4 = v8;
   }
 
-  while (v10);
+  while (v9);
 
   return v8;
 }
@@ -335,1351 +334,1338 @@ LABEL_9:
 {
   mapCopy = map;
   unarchiverCopy = unarchiver;
-  v10 = objc_opt_class();
-  v11 = *(archive + 4);
-  if ((v11 & 0x80) != 0)
+  v9 = objc_opt_class();
+  v10 = *(archive + 4);
+  if ((v10 & 0x80) != 0)
+  {
+    v11 = TSPTSUColorCreateFromMessage();
+    [mapCopy setObject:v11 forProperty:4108];
+
+    v10 = *(archive + 4);
+  }
+
+  if ((v10 & 0x100) != 0)
   {
     v12 = TSPTSUColorCreateFromMessage();
-    objc_msgSend_setObject_forProperty_(mapCopy, v13, v12, 4108);
+    [mapCopy setObject:v12 forProperty:4109];
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x100) != 0)
+  if ((v10 & 0x200) != 0)
+  {
+    v13 = TSPTSUColorCreateFromMessage();
+    [mapCopy setObject:v13 forProperty:4110];
+
+    v10 = *(archive + 4);
+  }
+
+  if ((v10 & 0x800) != 0)
   {
     v14 = TSPTSUColorCreateFromMessage();
-    objc_msgSend_setObject_forProperty_(mapCopy, v15, v14, 4109);
+    [mapCopy setObject:v14 forProperty:4191];
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x200) != 0)
+  if ((v10 & 0x400) != 0)
   {
-    v16 = TSPTSUColorCreateFromMessage();
-    objc_msgSend_setObject_forProperty_(mapCopy, v17, v16, 4110);
+    v15 = TSPTSUColorCreateFromMessage();
+    [mapCopy setObject:v15 forProperty:4111];
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x800) != 0)
+  if (v10)
   {
-    v18 = TSPTSUColorCreateFromMessage();
-    objc_msgSend_setObject_forProperty_(mapCopy, v19, v18, 4191);
+    0xFFFFFFFFFFFFFFFELL = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 5) & 0xFFFFFFFFFFFFFFFELL];
+    v223 = 0xFFFFFFFFFFFFFFFELL;
+    v17 = [v9 validateObjectValue:&v223 withClass:objc_opt_class() forProperty:4101];
+    v18 = v223;
 
-    v11 = *(archive + 4);
-  }
-
-  if ((v11 & 0x400) != 0)
-  {
-    v20 = TSPTSUColorCreateFromMessage();
-    objc_msgSend_setObject_forProperty_(mapCopy, v21, v20, 4111);
-
-    v11 = *(archive + 4);
-  }
-
-  if (v11)
-  {
-    v22 = objc_alloc(MEMORY[0x277CCACA8]);
-    v24 = objc_msgSend_tsp_initWithProtobufString_(v22, v23, *(archive + 5) & 0xFFFFFFFFFFFFFFFELL);
-    v263 = v24;
-    v25 = objc_opt_class();
-    v27 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v26, &v263, v25, 4101);
-    v28 = v263;
-
-    if (v27)
+    if (v17)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v29, v28, 4101);
+      [mapCopy setObject:v18 forProperty:4101];
     }
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 2) != 0)
+  if ((v10 & 2) != 0)
   {
-    v30 = objc_alloc(MEMORY[0x277CCACA8]);
-    v32 = objc_msgSend_tsp_initWithProtobufString_(v30, v31, *(archive + 6) & 0xFFFFFFFFFFFFFFFELL);
-    v262 = v32;
-    v33 = objc_opt_class();
-    v35 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v34, &v262, v33, 4102);
-    v36 = v262;
+    0xFFFFFFFFFFFFFFFELL2 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 6) & 0xFFFFFFFFFFFFFFFELL];
+    v222 = 0xFFFFFFFFFFFFFFFELL2;
+    v20 = [v9 validateObjectValue:&v222 withClass:objc_opt_class() forProperty:4102];
+    v21 = v222;
 
-    if (v35)
+    if (v20)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v37, v36, 4102);
+      [mapCopy setObject:v21 forProperty:4102];
     }
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x40) != 0)
+  if ((v10 & 0x40) != 0)
   {
-    v38 = objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80248], v9, *(archive + 11), unarchiverCopy);
-    v261 = v38;
-    v39 = objc_opt_class();
-    v41 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v40, &v261, v39, 4107);
-    v42 = v261;
+    v22 = [MEMORY[0x277D80248] instanceWithArchive:*(archive + 11) unarchiver:unarchiverCopy];
+    v221 = v22;
+    v23 = [v9 validateObjectValue:&v221 withClass:objc_opt_class() forProperty:4107];
+    v24 = v221;
 
-    if (v41)
+    if (v23)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v43, v42, 4107);
+      [mapCopy setObject:v24 forProperty:4107];
     }
   }
 
   if ((*(archive + 21) & 8) != 0)
   {
-    v260 = *(archive + 96);
-    if (objc_msgSend_validateIntValue_forProperty_(v10, v9, &v260, 4112))
+    v220 = *(archive + 96);
+    if ([v9 validateIntValue:&v220 forProperty:4112])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260), 4112);
+      [mapCopy setIntValue:LODWORD(v220) forProperty:4112];
     }
   }
 
   if ((*(archive + 17) & 0x10) != 0)
   {
-    v44 = *(archive + 17);
-    v260 = v44;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4118))
+    v25 = *(archive + 17);
+    v220 = v25;
+    if ([v9 validateFloatValue:&v220 forProperty:4118])
     {
-      *&v45 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4118, v45);
+      *&v26 = v220;
+      [mapCopy setFloatValue:4118 forProperty:v26];
     }
   }
 
-  v46 = *(archive + 6);
-  if ((v46 & 0x80000) != 0)
+  v27 = *(archive + 6);
+  if ((v27 & 0x80000) != 0)
   {
-    v47 = *(archive + 82);
-    v260 = v47;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4119))
+    v28 = *(archive + 82);
+    v220 = v28;
+    if ([v9 validateFloatValue:&v220 forProperty:4119])
     {
-      *&v48 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4119, v48);
+      *&v29 = v220;
+      [mapCopy setFloatValue:4119 forProperty:v29];
     }
 
-    v46 = *(archive + 6);
+    v27 = *(archive + 6);
   }
 
-  if ((v46 & 0x100000) != 0)
+  if ((v27 & 0x100000) != 0)
   {
-    v49 = *(archive + 83);
-    v260 = v49;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4120))
+    v30 = *(archive + 83);
+    v220 = v30;
+    if ([v9 validateFloatValue:&v220 forProperty:4120])
     {
-      *&v50 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4120, v50);
+      *&v31 = v220;
+      [mapCopy setFloatValue:4120 forProperty:v31];
     }
 
-    v46 = *(archive + 6);
+    v27 = *(archive + 6);
   }
 
-  if ((v46 & 0x200000) != 0)
+  if ((v27 & 0x200000) != 0)
   {
-    v51 = *(archive + 84);
-    v260 = v51;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4121))
+    v32 = *(archive + 84);
+    v220 = v32;
+    if ([v9 validateFloatValue:&v220 forProperty:4121])
     {
-      *&v52 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4121, v52);
+      *&v33 = v220;
+      [mapCopy setFloatValue:4121 forProperty:v33];
     }
 
-    v46 = *(archive + 6);
+    v27 = *(archive + 6);
   }
 
-  if ((v46 & 0x400000) != 0)
+  if ((v27 & 0x400000) != 0)
   {
-    v53 = *(archive + 85);
-    v260 = v53;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4122))
+    v34 = *(archive + 85);
+    v220 = v34;
+    if ([v9 validateFloatValue:&v220 forProperty:4122])
     {
-      *&v54 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4122, v54);
+      *&v35 = v220;
+      [mapCopy setFloatValue:4122 forProperty:v35];
     }
 
-    v46 = *(archive + 6);
+    v27 = *(archive + 6);
   }
 
-  if ((v46 & 0x800000) != 0)
+  if ((v27 & 0x800000) != 0)
   {
-    v55 = *(archive + 86);
-    v260 = v55;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4123))
+    v36 = *(archive + 86);
+    v220 = v36;
+    if ([v9 validateFloatValue:&v220 forProperty:4123])
     {
-      *&v56 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4123, v56);
+      *&v37 = v220;
+      [mapCopy setFloatValue:4123 forProperty:v37];
     }
 
-    v46 = *(archive + 6);
+    v27 = *(archive + 6);
   }
 
-  if ((v46 & 0x1000000) != 0)
+  if ((v27 & 0x1000000) != 0)
   {
-    v57 = *(archive + 87);
-    v260 = v57;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4124))
+    v38 = *(archive + 87);
+    v220 = v38;
+    if ([v9 validateFloatValue:&v220 forProperty:4124])
     {
-      *&v58 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4124, v58);
+      *&v39 = v220;
+      [mapCopy setFloatValue:4124 forProperty:v39];
     }
   }
 
   if ((*(archive + 17) & 0x20) != 0)
   {
-    v59 = *(archive + 18);
-    v260 = v59;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4146))
+    v40 = *(archive + 18);
+    v220 = v40;
+    if ([v9 validateFloatValue:&v220 forProperty:4146])
     {
-      *&v60 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4146, v60);
+      *&v41 = v220;
+      [mapCopy setFloatValue:4146 forProperty:v41];
     }
   }
 
   if ((*(archive + 27) & 2) != 0)
   {
-    v61 = *(archive + 88);
-    v260 = v61;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4147))
+    v42 = *(archive + 88);
+    v220 = v42;
+    if ([v9 validateFloatValue:&v220 forProperty:4147])
     {
-      *&v62 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4147, v62);
+      *&v43 = v220;
+      [mapCopy setFloatValue:4147 forProperty:v43];
     }
   }
 
-  v63 = *(archive + 4);
-  if ((v63 & 0x4000) != 0)
+  v44 = *(archive + 4);
+  if ((v44 & 0x4000) != 0)
   {
-    v64 = *(archive + 19);
-    v260 = v64;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4148))
+    v45 = *(archive + 19);
+    v220 = v45;
+    if ([v9 validateFloatValue:&v220 forProperty:4148])
     {
-      *&v65 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4148, v65);
+      *&v46 = v220;
+      [mapCopy setFloatValue:4148 forProperty:v46];
     }
 
-    v63 = *(archive + 4);
+    v44 = *(archive + 4);
   }
 
-  if ((v63 & 0x8000) != 0)
+  if ((v44 & 0x8000) != 0)
   {
-    v66 = *(archive + 20);
-    v260 = v66;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4149))
+    v47 = *(archive + 20);
+    v220 = v47;
+    if ([v9 validateFloatValue:&v220 forProperty:4149])
     {
-      *&v67 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4149, v67);
-    }
-  }
-
-  v68 = *(archive + 6);
-  if ((v68 & 0x10000000) != 0)
-  {
-    v69 = *(archive + 91);
-    v260 = v69;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4150))
-    {
-      *&v70 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4150, v70);
-    }
-
-    v68 = *(archive + 6);
-  }
-
-  if ((v68 & 0x20000000) != 0)
-  {
-    v71 = *(archive + 92);
-    v260 = v71;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4151))
-    {
-      *&v72 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4151, v72);
-    }
-
-    v68 = *(archive + 6);
-  }
-
-  if ((v68 & 0x40000000) != 0)
-  {
-    v73 = *(archive + 93);
-    v260 = v73;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4152))
-    {
-      *&v74 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4152, v74);
-    }
-
-    v68 = *(archive + 6);
-  }
-
-  if (v68 < 0)
-  {
-    v75 = *(archive + 94);
-    v260 = v75;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4153))
-    {
-      *&v76 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4153, v76);
+      *&v48 = v220;
+      [mapCopy setFloatValue:4149 forProperty:v48];
     }
   }
 
-  v77 = *(archive + 4);
-  if ((v77 & 0x10000) != 0)
+  v49 = *(archive + 6);
+  if ((v49 & 0x10000000) != 0)
   {
-    v78 = *(archive + 21);
-    v260 = v78;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4156))
+    v50 = *(archive + 91);
+    v220 = v50;
+    if ([v9 validateFloatValue:&v220 forProperty:4150])
     {
-      *&v79 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4156, v79);
+      *&v51 = v220;
+      [mapCopy setFloatValue:4150 forProperty:v51];
     }
 
-    v77 = *(archive + 4);
+    v49 = *(archive + 6);
   }
 
-  if ((v77 & 0x20000) != 0)
+  if ((v49 & 0x20000000) != 0)
   {
-    LODWORD(v260) = *(archive + 22);
-    if (objc_msgSend_validateIntValue_forProperty_(v10, v9, &v260, 4177))
+    v52 = *(archive + 92);
+    v220 = v52;
+    if ([v9 validateFloatValue:&v220 forProperty:4151])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260), 4177);
+      *&v53 = v220;
+      [mapCopy setFloatValue:4151 forProperty:v53];
     }
 
-    v77 = *(archive + 4);
+    v49 = *(archive + 6);
   }
 
-  if ((v77 & 0x40000) != 0)
+  if ((v49 & 0x40000000) != 0)
   {
-    v80 = *(archive + 23);
-    v260 = v80;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4176))
+    v54 = *(archive + 93);
+    v220 = v54;
+    if ([v9 validateFloatValue:&v220 forProperty:4152])
     {
-      *&v81 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4176, v81);
+      *&v55 = v220;
+      [mapCopy setFloatValue:4152 forProperty:v55];
+    }
+
+    v49 = *(archive + 6);
+  }
+
+  if (v49 < 0)
+  {
+    v56 = *(archive + 94);
+    v220 = v56;
+    if ([v9 validateFloatValue:&v220 forProperty:4153])
+    {
+      *&v57 = v220;
+      [mapCopy setFloatValue:4153 forProperty:v57];
+    }
+  }
+
+  v58 = *(archive + 4);
+  if ((v58 & 0x10000) != 0)
+  {
+    v59 = *(archive + 21);
+    v220 = v59;
+    if ([v9 validateFloatValue:&v220 forProperty:4156])
+    {
+      *&v60 = v220;
+      [mapCopy setFloatValue:4156 forProperty:v60];
+    }
+
+    v58 = *(archive + 4);
+  }
+
+  if ((v58 & 0x20000) != 0)
+  {
+    LODWORD(v220) = *(archive + 22);
+    if ([v9 validateIntValue:&v220 forProperty:4177])
+    {
+      [mapCopy setIntValue:LODWORD(v220) forProperty:4177];
+    }
+
+    v58 = *(archive + 4);
+  }
+
+  if ((v58 & 0x40000) != 0)
+  {
+    v61 = *(archive + 23);
+    v220 = v61;
+    if ([v9 validateFloatValue:&v220 forProperty:4176])
+    {
+      *&v62 = v220;
+      [mapCopy setFloatValue:4176 forProperty:v62];
     }
   }
 
   if ((*(archive + 21) & 0x10) != 0)
   {
-    LODWORD(v260) = *(archive + 388);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4178))
+    LODWORD(v220) = *(archive + 388);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4178])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4178);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4178];
     }
   }
 
-  v82 = *(archive + 4);
-  if ((v82 & 4) != 0)
+  v63 = *(archive + 4);
+  if ((v63 & 4) != 0)
   {
-    v83 = objc_alloc(MEMORY[0x277CCACA8]);
-    v85 = objc_msgSend_tsp_initWithProtobufString_(v83, v84, *(archive + 7) & 0xFFFFFFFFFFFFFFFELL);
-    v259 = v85;
-    v86 = objc_opt_class();
-    v88 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v87, &v259, v86, 4103);
-    v89 = v259;
+    0xFFFFFFFFFFFFFFFELL3 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 7) & 0xFFFFFFFFFFFFFFFELL];
+    v219 = 0xFFFFFFFFFFFFFFFELL3;
+    v65 = [v9 validateObjectValue:&v219 withClass:objc_opt_class() forProperty:4103];
+    v66 = v219;
 
-    if (v88)
+    if (v65)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v90, v89, 4103);
+      [mapCopy setObject:v66 forProperty:4103];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 8) != 0)
+  if ((v63 & 8) != 0)
   {
-    v91 = objc_alloc(MEMORY[0x277CCACA8]);
-    v93 = objc_msgSend_tsp_initWithProtobufString_(v91, v92, *(archive + 8) & 0xFFFFFFFFFFFFFFFELL);
-    v258 = v93;
-    v94 = objc_opt_class();
-    v96 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v95, &v258, v94, 4104);
-    v97 = v258;
+    0xFFFFFFFFFFFFFFFELL4 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 8) & 0xFFFFFFFFFFFFFFFELL];
+    v218 = 0xFFFFFFFFFFFFFFFELL4;
+    v68 = [v9 validateObjectValue:&v218 withClass:objc_opt_class() forProperty:4104];
+    v69 = v218;
 
-    if (v96)
+    if (v68)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v98, v97, 4104);
+      [mapCopy setObject:v69 forProperty:4104];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x10) != 0)
+  if ((v63 & 0x10) != 0)
   {
-    v99 = objc_alloc(MEMORY[0x277CCACA8]);
-    v101 = objc_msgSend_tsp_initWithProtobufString_(v99, v100, *(archive + 9) & 0xFFFFFFFFFFFFFFFELL);
-    v257 = v101;
-    v102 = objc_opt_class();
-    v104 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v103, &v257, v102, 4105);
-    v105 = v257;
+    0xFFFFFFFFFFFFFFFELL5 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 9) & 0xFFFFFFFFFFFFFFFELL];
+    v217 = 0xFFFFFFFFFFFFFFFELL5;
+    v71 = [v9 validateObjectValue:&v217 withClass:objc_opt_class() forProperty:4105];
+    v72 = v217;
 
-    if (v104)
+    if (v71)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v106, v105, 4105);
+      [mapCopy setObject:v72 forProperty:4105];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x20) != 0)
+  if ((v63 & 0x20) != 0)
   {
-    v107 = objc_alloc(MEMORY[0x277CCACA8]);
-    v109 = objc_msgSend_tsp_initWithProtobufString_(v107, v108, *(archive + 10) & 0xFFFFFFFFFFFFFFFELL);
-    v256 = v109;
-    v110 = objc_opt_class();
-    v112 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v111, &v256, v110, 4106);
-    v113 = v256;
+    0xFFFFFFFFFFFFFFFELL6 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 10) & 0xFFFFFFFFFFFFFFFELL];
+    v216 = 0xFFFFFFFFFFFFFFFELL6;
+    v74 = [v9 validateObjectValue:&v216 withClass:objc_opt_class() forProperty:4106];
+    v75 = v216;
 
-    if (v112)
+    if (v74)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v114, v113, 4106);
+      [mapCopy setObject:v75 forProperty:4106];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x80000) != 0)
+  if ((v63 & 0x80000) != 0)
   {
-    v115 = *(archive + 24);
-    v260 = v115;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4113))
+    v76 = *(archive + 24);
+    v220 = v76;
+    if ([v9 validateFloatValue:&v220 forProperty:4113])
     {
-      *&v116 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4113, v116);
+      *&v77 = v220;
+      [mapCopy setFloatValue:4113 forProperty:v77];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x100000) != 0)
+  if ((v63 & 0x100000) != 0)
   {
-    v117 = *(archive + 25);
-    v260 = v117;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4114))
+    v78 = *(archive + 25);
+    v220 = v78;
+    if ([v9 validateFloatValue:&v220 forProperty:4114])
     {
-      *&v118 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4114, v118);
+      *&v79 = v220;
+      [mapCopy setFloatValue:4114 forProperty:v79];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x200000) != 0)
+  if ((v63 & 0x200000) != 0)
   {
-    v119 = *(archive + 26);
-    v260 = v119;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4115))
+    v80 = *(archive + 26);
+    v220 = v80;
+    if ([v9 validateFloatValue:&v220 forProperty:4115])
     {
-      *&v120 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4115, v120);
+      *&v81 = v220;
+      [mapCopy setFloatValue:4115 forProperty:v81];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x400000) != 0)
+  if ((v63 & 0x400000) != 0)
   {
-    v121 = *(archive + 27);
-    v260 = v121;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4116))
+    v82 = *(archive + 27);
+    v220 = v82;
+    if ([v9 validateFloatValue:&v220 forProperty:4116])
     {
-      *&v122 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4116, v122);
+      *&v83 = v220;
+      [mapCopy setFloatValue:4116 forProperty:v83];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x800000) != 0)
+  if ((v63 & 0x800000) != 0)
   {
-    v123 = *(archive + 28);
-    v260 = v123;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4117))
+    v84 = *(archive + 28);
+    v220 = v84;
+    if ([v9 validateFloatValue:&v220 forProperty:4117])
     {
-      *&v124 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4117, v124);
+      *&v85 = v220;
+      [mapCopy setFloatValue:4117 forProperty:v85];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x1000000) != 0)
+  if ((v63 & 0x1000000) != 0)
   {
-    v125 = *(archive + 29);
-    v260 = v125;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4125))
+    v86 = *(archive + 29);
+    v220 = v86;
+    if ([v9 validateFloatValue:&v220 forProperty:4125])
     {
-      *&v126 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4125, v126);
+      *&v87 = v220;
+      [mapCopy setFloatValue:4125 forProperty:v87];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x2000000) != 0)
+  if ((v63 & 0x2000000) != 0)
   {
-    v127 = *(archive + 30);
-    v260 = v127;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4126))
+    v88 = *(archive + 30);
+    v220 = v88;
+    if ([v9 validateFloatValue:&v220 forProperty:4126])
     {
-      *&v128 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4126, v128);
+      *&v89 = v220;
+      [mapCopy setFloatValue:4126 forProperty:v89];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x4000000) != 0)
+  if ((v63 & 0x4000000) != 0)
   {
-    v129 = *(archive + 31);
-    v260 = v129;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4127))
+    v90 = *(archive + 31);
+    v220 = v90;
+    if ([v9 validateFloatValue:&v220 forProperty:4127])
     {
-      *&v130 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4127, v130);
+      *&v91 = v220;
+      [mapCopy setFloatValue:4127 forProperty:v91];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x8000000) != 0)
+  if ((v63 & 0x8000000) != 0)
   {
-    v131 = *(archive + 32);
-    v260 = v131;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4128))
+    v92 = *(archive + 32);
+    v220 = v92;
+    if ([v9 validateFloatValue:&v220 forProperty:4128])
     {
-      *&v132 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4128, v132);
+      *&v93 = v220;
+      [mapCopy setFloatValue:4128 forProperty:v93];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x10000000) != 0)
+  if ((v63 & 0x10000000) != 0)
   {
-    v133 = *(archive + 33);
-    v260 = v133;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4129))
+    v94 = *(archive + 33);
+    v220 = v94;
+    if ([v9 validateFloatValue:&v220 forProperty:4129])
     {
-      *&v134 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4129, v134);
+      *&v95 = v220;
+      [mapCopy setFloatValue:4129 forProperty:v95];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x20000000) != 0)
+  if ((v63 & 0x20000000) != 0)
   {
-    v135 = *(archive + 34);
-    v260 = v135;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4130))
+    v96 = *(archive + 34);
+    v220 = v96;
+    if ([v9 validateFloatValue:&v220 forProperty:4130])
     {
-      *&v136 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4130, v136);
+      *&v97 = v220;
+      [mapCopy setFloatValue:4130 forProperty:v97];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if ((v82 & 0x40000000) != 0)
+  if ((v63 & 0x40000000) != 0)
   {
-    v137 = *(archive + 35);
-    v260 = v137;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4131))
+    v98 = *(archive + 35);
+    v220 = v98;
+    if ([v9 validateFloatValue:&v220 forProperty:4131])
     {
-      *&v138 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4131, v138);
+      *&v99 = v220;
+      [mapCopy setFloatValue:4131 forProperty:v99];
     }
 
-    v82 = *(archive + 4);
+    v63 = *(archive + 4);
   }
 
-  if (v82 < 0)
+  if (v63 < 0)
   {
-    v139 = *(archive + 36);
-    v260 = v139;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4132))
+    v100 = *(archive + 36);
+    v220 = v100;
+    if ([v9 validateFloatValue:&v220 forProperty:4132])
     {
-      *&v140 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4132, v140);
+      *&v101 = v220;
+      [mapCopy setFloatValue:4132 forProperty:v101];
     }
   }
 
-  v141 = *(archive + 5);
-  if (v141)
+  v102 = *(archive + 5);
+  if (v102)
   {
-    v142 = *(archive + 37);
-    v260 = v142;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4133))
+    v103 = *(archive + 37);
+    v220 = v103;
+    if ([v9 validateFloatValue:&v220 forProperty:4133])
     {
-      *&v143 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4133, v143);
+      *&v104 = v220;
+      [mapCopy setFloatValue:4133 forProperty:v104];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 2) != 0)
+  if ((v102 & 2) != 0)
   {
-    v144 = *(archive + 38);
-    v260 = v144;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4134))
+    v105 = *(archive + 38);
+    v220 = v105;
+    if ([v9 validateFloatValue:&v220 forProperty:4134])
     {
-      *&v145 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4134, v145);
+      *&v106 = v220;
+      [mapCopy setFloatValue:4134 forProperty:v106];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 4) != 0)
+  if ((v102 & 4) != 0)
   {
-    v146 = *(archive + 39);
-    v260 = v146;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4135))
+    v107 = *(archive + 39);
+    v220 = v107;
+    if ([v9 validateFloatValue:&v220 forProperty:4135])
     {
-      *&v147 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4135, v147);
+      *&v108 = v220;
+      [mapCopy setFloatValue:4135 forProperty:v108];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 8) != 0)
+  if ((v102 & 8) != 0)
   {
-    v148 = *(archive + 40);
-    v260 = v148;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4136))
+    v109 = *(archive + 40);
+    v220 = v109;
+    if ([v9 validateFloatValue:&v220 forProperty:4136])
     {
-      *&v149 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4136, v149);
+      *&v110 = v220;
+      [mapCopy setFloatValue:4136 forProperty:v110];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x10) != 0)
+  if ((v102 & 0x10) != 0)
   {
-    v150 = *(archive + 41);
-    v260 = v150;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4137))
+    v111 = *(archive + 41);
+    v220 = v111;
+    if ([v9 validateFloatValue:&v220 forProperty:4137])
     {
-      *&v151 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4137, v151);
+      *&v112 = v220;
+      [mapCopy setFloatValue:4137 forProperty:v112];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x20) != 0)
+  if ((v102 & 0x20) != 0)
   {
-    v152 = *(archive + 42);
-    v260 = v152;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4138))
+    v113 = *(archive + 42);
+    v220 = v113;
+    if ([v9 validateFloatValue:&v220 forProperty:4138])
     {
-      *&v153 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4138, v153);
+      *&v114 = v220;
+      [mapCopy setFloatValue:4138 forProperty:v114];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x40) != 0)
+  if ((v102 & 0x40) != 0)
   {
-    v154 = *(archive + 43);
-    v260 = v154;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4139))
+    v115 = *(archive + 43);
+    v220 = v115;
+    if ([v9 validateFloatValue:&v220 forProperty:4139])
     {
-      *&v155 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4139, v155);
+      *&v116 = v220;
+      [mapCopy setFloatValue:4139 forProperty:v116];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x80) != 0)
+  if ((v102 & 0x80) != 0)
   {
-    v156 = *(archive + 44);
-    v260 = v156;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4140))
+    v117 = *(archive + 44);
+    v220 = v117;
+    if ([v9 validateFloatValue:&v220 forProperty:4140])
     {
-      *&v157 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4140, v157);
+      *&v118 = v220;
+      [mapCopy setFloatValue:4140 forProperty:v118];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x100) != 0)
+  if ((v102 & 0x100) != 0)
   {
-    v158 = *(archive + 45);
-    v260 = v158;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4141))
+    v119 = *(archive + 45);
+    v220 = v119;
+    if ([v9 validateFloatValue:&v220 forProperty:4141])
     {
-      *&v159 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4141, v159);
+      *&v120 = v220;
+      [mapCopy setFloatValue:4141 forProperty:v120];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x200) != 0)
+  if ((v102 & 0x200) != 0)
   {
-    v160 = *(archive + 46);
-    v260 = v160;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4142))
+    v121 = *(archive + 46);
+    v220 = v121;
+    if ([v9 validateFloatValue:&v220 forProperty:4142])
     {
-      *&v161 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4142, v161);
+      *&v122 = v220;
+      [mapCopy setFloatValue:4142 forProperty:v122];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x400) != 0)
+  if ((v102 & 0x400) != 0)
   {
-    v162 = *(archive + 47);
-    v260 = v162;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4143))
+    v123 = *(archive + 47);
+    v220 = v123;
+    if ([v9 validateFloatValue:&v220 forProperty:4143])
     {
-      *&v163 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4143, v163);
+      *&v124 = v220;
+      [mapCopy setFloatValue:4143 forProperty:v124];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x10000) != 0)
+  if ((v102 & 0x10000) != 0)
   {
-    v164 = *(archive + 49);
-    v260 = v164;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4144))
+    v125 = *(archive + 49);
+    v220 = v125;
+    if ([v9 validateFloatValue:&v220 forProperty:4144])
     {
-      *&v165 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4144, v165);
+      *&v126 = v220;
+      [mapCopy setFloatValue:4144 forProperty:v126];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x20000) != 0)
+  if ((v102 & 0x20000) != 0)
   {
-    v166 = *(archive + 50);
-    v260 = v166;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4145))
+    v127 = *(archive + 50);
+    v220 = v127;
+    if ([v9 validateFloatValue:&v220 forProperty:4145])
     {
-      *&v167 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4145, v167);
+      *&v128 = v220;
+      [mapCopy setFloatValue:4145 forProperty:v128];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x40000) != 0)
+  if ((v102 & 0x40000) != 0)
   {
-    v168 = *(archive + 51);
-    v260 = v168;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4154))
+    v129 = *(archive + 51);
+    v220 = v129;
+    if ([v9 validateFloatValue:&v220 forProperty:4154])
     {
-      *&v169 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4154, v169);
+      *&v130 = v220;
+      [mapCopy setFloatValue:4154 forProperty:v130];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x80000) != 0)
+  if ((v102 & 0x80000) != 0)
   {
-    v170 = *(archive + 52);
-    v260 = v170;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4155))
+    v131 = *(archive + 52);
+    v220 = v131;
+    if ([v9 validateFloatValue:&v220 forProperty:4155])
     {
-      *&v171 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4155, v171);
+      *&v132 = v220;
+      [mapCopy setFloatValue:4155 forProperty:v132];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x100000) != 0)
+  if ((v102 & 0x100000) != 0)
   {
-    v172 = *(archive + 53);
-    v260 = v172;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4157))
+    v133 = *(archive + 53);
+    v220 = v133;
+    if ([v9 validateFloatValue:&v220 forProperty:4157])
     {
-      *&v173 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4157, v173);
+      *&v134 = v220;
+      [mapCopy setFloatValue:4157 forProperty:v134];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x200000) != 0)
+  if ((v102 & 0x200000) != 0)
   {
-    v174 = *(archive + 54);
-    v260 = v174;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4158))
+    v135 = *(archive + 54);
+    v220 = v135;
+    if ([v9 validateFloatValue:&v220 forProperty:4158])
     {
-      *&v175 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4158, v175);
+      *&v136 = v220;
+      [mapCopy setFloatValue:4158 forProperty:v136];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x400000) != 0)
+  if ((v102 & 0x400000) != 0)
   {
-    v176 = *(archive + 55);
-    v260 = v176;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4159))
+    v137 = *(archive + 55);
+    v220 = v137;
+    if ([v9 validateFloatValue:&v220 forProperty:4159])
     {
-      *&v177 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4159, v177);
+      *&v138 = v220;
+      [mapCopy setFloatValue:4159 forProperty:v138];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x800000) != 0)
+  if ((v102 & 0x800000) != 0)
   {
-    v178 = *(archive + 56);
-    v260 = v178;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4160))
+    v139 = *(archive + 56);
+    v220 = v139;
+    if ([v9 validateFloatValue:&v220 forProperty:4160])
     {
-      *&v179 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4160, v179);
+      *&v140 = v220;
+      [mapCopy setFloatValue:4160 forProperty:v140];
     }
 
-    v141 = *(archive + 5);
+    v102 = *(archive + 5);
   }
 
-  if ((v141 & 0x1000000) != 0)
+  if ((v102 & 0x1000000) != 0)
   {
-    v180 = *(archive + 57);
-    v260 = v180;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4161))
+    v141 = *(archive + 57);
+    v220 = v141;
+    if ([v9 validateFloatValue:&v220 forProperty:4161])
     {
-      *&v181 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4161, v181);
+      *&v142 = v220;
+      [mapCopy setFloatValue:4161 forProperty:v142];
     }
   }
 
   if ((*(archive + 27) & 4) != 0)
   {
-    v182 = *(archive + 89);
-    v260 = v182;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4162))
+    v143 = *(archive + 89);
+    v220 = v143;
+    if ([v9 validateFloatValue:&v220 forProperty:4162])
     {
-      *&v183 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4162, v183);
+      *&v144 = v220;
+      [mapCopy setFloatValue:4162 forProperty:v144];
     }
   }
 
-  v184 = *(archive + 5);
-  if ((v184 & 0x2000000) != 0)
+  v145 = *(archive + 5);
+  if ((v145 & 0x2000000) != 0)
   {
-    v185 = *(archive + 58);
-    v260 = v185;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4163))
+    v146 = *(archive + 58);
+    v220 = v146;
+    if ([v9 validateFloatValue:&v220 forProperty:4163])
     {
-      *&v186 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4163, v186);
+      *&v147 = v220;
+      [mapCopy setFloatValue:4163 forProperty:v147];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if ((v184 & 0x4000000) != 0)
+  if ((v145 & 0x4000000) != 0)
   {
-    v187 = *(archive + 59);
-    v260 = v187;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4164))
+    v148 = *(archive + 59);
+    v220 = v148;
+    if ([v9 validateFloatValue:&v220 forProperty:4164])
     {
-      *&v188 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4164, v188);
+      *&v149 = v220;
+      [mapCopy setFloatValue:4164 forProperty:v149];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if ((v184 & 0x8000000) != 0)
+  if ((v145 & 0x8000000) != 0)
   {
-    v189 = *(archive + 60);
-    v260 = v189;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4165))
+    v150 = *(archive + 60);
+    v220 = v150;
+    if ([v9 validateFloatValue:&v220 forProperty:4165])
     {
-      *&v190 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4165, v190);
+      *&v151 = v220;
+      [mapCopy setFloatValue:4165 forProperty:v151];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if ((v184 & 0x10000000) != 0)
+  if ((v145 & 0x10000000) != 0)
   {
-    v191 = *(archive + 61);
-    v260 = v191;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4166))
+    v152 = *(archive + 61);
+    v220 = v152;
+    if ([v9 validateFloatValue:&v220 forProperty:4166])
     {
-      *&v192 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4166, v192);
+      *&v153 = v220;
+      [mapCopy setFloatValue:4166 forProperty:v153];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if ((v184 & 0x20000000) != 0)
+  if ((v145 & 0x20000000) != 0)
   {
-    v193 = *(archive + 62);
-    v260 = v193;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4167))
+    v154 = *(archive + 62);
+    v220 = v154;
+    if ([v9 validateFloatValue:&v220 forProperty:4167])
     {
-      *&v194 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4167, v194);
+      *&v155 = v220;
+      [mapCopy setFloatValue:4167 forProperty:v155];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if ((v184 & 0x40000000) != 0)
+  if ((v145 & 0x40000000) != 0)
   {
-    v195 = *(archive + 63);
-    v260 = v195;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4168))
+    v156 = *(archive + 63);
+    v220 = v156;
+    if ([v9 validateFloatValue:&v220 forProperty:4168])
     {
-      *&v196 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4168, v196);
+      *&v157 = v220;
+      [mapCopy setFloatValue:4168 forProperty:v157];
     }
 
-    v184 = *(archive + 5);
+    v145 = *(archive + 5);
   }
 
-  if (v184 < 0)
+  if (v145 < 0)
   {
-    v197 = *(archive + 64);
-    v260 = v197;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4169))
+    v158 = *(archive + 64);
+    v220 = v158;
+    if ([v9 validateFloatValue:&v220 forProperty:4169])
     {
-      *&v198 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4169, v198);
-    }
-  }
-
-  v199 = *(archive + 6);
-  if (v199)
-  {
-    v200 = *(archive + 65);
-    v260 = v200;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4170))
-    {
-      *&v201 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4170, v201);
-    }
-
-    v199 = *(archive + 6);
-  }
-
-  if ((v199 & 2) != 0)
-  {
-    v202 = *(archive + 66);
-    v260 = v202;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4171))
-    {
-      *&v203 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4171, v203);
-    }
-
-    v199 = *(archive + 6);
-  }
-
-  if ((v199 & 4) != 0)
-  {
-    v204 = *(archive + 67);
-    v260 = v204;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4172))
-    {
-      *&v205 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4172, v205);
-    }
-
-    v199 = *(archive + 6);
-  }
-
-  if ((v199 & 8) != 0)
-  {
-    v206 = *(archive + 68);
-    v260 = v206;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4173))
-    {
-      *&v207 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4173, v207);
-    }
-
-    v199 = *(archive + 6);
-  }
-
-  if ((v199 & 0x10) != 0)
-  {
-    v208 = *(archive + 69);
-    v260 = v208;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4174))
-    {
-      *&v209 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4174, v209);
-    }
-
-    v199 = *(archive + 6);
-  }
-
-  if ((v199 & 0x20) != 0)
-  {
-    v210 = *(archive + 70);
-    v260 = v210;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4175))
-    {
-      *&v211 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4175, v211);
+      *&v159 = v220;
+      [mapCopy setFloatValue:4169 forProperty:v159];
     }
   }
 
-  v212 = *(archive + 5);
-  if ((v212 & 0x2000) != 0)
+  v160 = *(archive + 6);
+  if (v160)
   {
-    LODWORD(v260) = *(archive + 389);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4179))
+    v161 = *(archive + 65);
+    v220 = v161;
+    if ([v9 validateFloatValue:&v220 forProperty:4170])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4179);
+      *&v162 = v220;
+      [mapCopy setFloatValue:4170 forProperty:v162];
     }
 
-    v212 = *(archive + 5);
+    v160 = *(archive + 6);
   }
 
-  if ((v212 & 0x4000) != 0)
+  if ((v160 & 2) != 0)
   {
-    LODWORD(v260) = *(archive + 390);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4180))
+    v163 = *(archive + 66);
+    v220 = v163;
+    if ([v9 validateFloatValue:&v220 forProperty:4171])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4180);
+      *&v164 = v220;
+      [mapCopy setFloatValue:4171 forProperty:v164];
     }
 
-    v212 = *(archive + 5);
+    v160 = *(archive + 6);
   }
 
-  if ((v212 & 0x8000) != 0)
+  if ((v160 & 4) != 0)
   {
-    LODWORD(v260) = *(archive + 391);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4181))
+    v165 = *(archive + 67);
+    v220 = v165;
+    if ([v9 validateFloatValue:&v220 forProperty:4172])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4181);
-    }
-  }
-
-  v213 = *(archive + 6);
-  if ((v213 & 0x40) != 0)
-  {
-    v260 = *(archive + 142);
-    if (objc_msgSend_validateIntValue_forProperty_(v10, v9, &v260, 4182))
-    {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260), 4182);
+      *&v166 = v220;
+      [mapCopy setFloatValue:4172 forProperty:v166];
     }
 
-    v213 = *(archive + 6);
+    v160 = *(archive + 6);
   }
 
-  if ((v213 & 0x80) != 0)
+  if ((v160 & 8) != 0)
   {
-    LODWORD(v260) = *(archive + 572);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4183))
+    v167 = *(archive + 68);
+    v220 = v167;
+    if ([v9 validateFloatValue:&v220 forProperty:4173])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4183);
+      *&v168 = v220;
+      [mapCopy setFloatValue:4173 forProperty:v168];
     }
 
-    v213 = *(archive + 6);
+    v160 = *(archive + 6);
   }
 
-  if ((v213 & 0x100) != 0)
+  if ((v160 & 0x10) != 0)
   {
-    LODWORD(v260) = *(archive + 573);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v260, 4184))
+    v169 = *(archive + 69);
+    v220 = v169;
+    if ([v9 validateFloatValue:&v220 forProperty:4174])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260) != 0, 4184);
+      *&v170 = v220;
+      [mapCopy setFloatValue:4174 forProperty:v170];
     }
 
-    v213 = *(archive + 6);
+    v160 = *(archive + 6);
   }
 
-  if ((v213 & 0x200) != 0)
+  if ((v160 & 0x20) != 0)
   {
-    v214 = *(archive + 72);
-    v260 = v214;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4185))
+    v171 = *(archive + 70);
+    v220 = v171;
+    if ([v9 validateFloatValue:&v220 forProperty:4175])
     {
-      *&v215 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4185, v215);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x400) != 0)
-  {
-    v216 = *(archive + 73);
-    v260 = v216;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4186))
-    {
-      *&v217 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4186, v217);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x800) != 0)
-  {
-    v218 = *(archive + 74);
-    v260 = v218;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4187))
-    {
-      *&v219 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4187, v219);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x1000) != 0)
-  {
-    v220 = *(archive + 75);
-    v260 = v220;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4188))
-    {
-      *&v221 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4188, v221);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x2000) != 0)
-  {
-    v222 = *(archive + 76);
-    v260 = v222;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4189))
-    {
-      *&v223 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4189, v223);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x4000) != 0)
-  {
-    v224 = *(archive + 77);
-    v260 = v224;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4190))
-    {
-      *&v225 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4190, v225);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x8000) != 0)
-  {
-    v226 = *(archive + 78);
-    v260 = v226;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4192))
-    {
-      *&v227 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4192, v227);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x10000) != 0)
-  {
-    v228 = *(archive + 79);
-    v260 = v228;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4193))
-    {
-      *&v229 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4193, v229);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x20000) != 0)
-  {
-    v230 = *(archive + 80);
-    v260 = v230;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4194))
-    {
-      *&v231 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4194, v231);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x8000000) != 0)
-  {
-    v232 = *(archive + 90);
-    v260 = v232;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4195))
-    {
-      *&v233 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4195, v233);
-    }
-
-    v213 = *(archive + 6);
-  }
-
-  if ((v213 & 0x40000) != 0)
-  {
-    v234 = *(archive + 81);
-    v260 = v234;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4196))
-    {
-      *&v235 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4196, v235);
+      *&v172 = v220;
+      [mapCopy setFloatValue:4175 forProperty:v172];
     }
   }
 
-  v236 = *(archive + 7);
-  if ((v236 & 0x20) != 0)
+  v173 = *(archive + 5);
+  if ((v173 & 0x2000) != 0)
   {
-    v260 = *(archive + 200);
-    if (objc_msgSend_validateIntValue_forProperty_(v10, v9, &v260, 4197))
+    LODWORD(v220) = *(archive + 389);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4179])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, LODWORD(v260), 4197);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4179];
     }
 
-    v236 = *(archive + 7);
+    v173 = *(archive + 5);
   }
 
-  if (v236)
+  if ((v173 & 0x4000) != 0)
   {
-    v237 = *(archive + 95);
-    v260 = v237;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4198))
+    LODWORD(v220) = *(archive + 390);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4180])
     {
-      *&v238 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4198, v238);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4180];
     }
 
-    v236 = *(archive + 7);
+    v173 = *(archive + 5);
   }
 
-  if ((v236 & 2) != 0)
+  if ((v173 & 0x8000) != 0)
   {
-    v239 = *(archive + 96);
-    v260 = v239;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4199))
+    LODWORD(v220) = *(archive + 391);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4181])
     {
-      *&v240 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4199, v240);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4181];
+    }
+  }
+
+  v174 = *(archive + 6);
+  if ((v174 & 0x40) != 0)
+  {
+    v220 = *(archive + 142);
+    if ([v9 validateIntValue:&v220 forProperty:4182])
+    {
+      [mapCopy setIntValue:LODWORD(v220) forProperty:4182];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 4) != 0)
+  if ((v174 & 0x80) != 0)
   {
-    v241 = *(archive + 97);
-    v260 = v241;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4200))
+    LODWORD(v220) = *(archive + 572);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4183])
     {
-      *&v242 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4200, v242);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4183];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 8) != 0)
+  if ((v174 & 0x100) != 0)
   {
-    v243 = *(archive + 98);
-    v260 = v243;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4201))
+    LODWORD(v220) = *(archive + 573);
+    if ([v9 validateIntValueAsBool:&v220 forProperty:4184])
     {
-      *&v244 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4201, v244);
+      [mapCopy setIntValue:LODWORD(v220) != 0 forProperty:4184];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x10) != 0)
+  if ((v174 & 0x200) != 0)
   {
-    v245 = *(archive + 99);
-    v260 = v245;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4202))
+    v175 = *(archive + 72);
+    v220 = v175;
+    if ([v9 validateFloatValue:&v220 forProperty:4185])
     {
-      *&v246 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4202, v246);
+      *&v176 = v220;
+      [mapCopy setFloatValue:4185 forProperty:v176];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x80) != 0)
+  if ((v174 & 0x400) != 0)
   {
-    v247 = *(archive + 101);
-    v260 = v247;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4203))
+    v177 = *(archive + 73);
+    v220 = v177;
+    if ([v9 validateFloatValue:&v220 forProperty:4186])
     {
-      *&v248 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4203, v248);
+      *&v178 = v220;
+      [mapCopy setFloatValue:4186 forProperty:v178];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x100) != 0)
+  if ((v174 & 0x800) != 0)
   {
-    v249 = *(archive + 102);
-    v260 = v249;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4204))
+    v179 = *(archive + 74);
+    v220 = v179;
+    if ([v9 validateFloatValue:&v220 forProperty:4187])
     {
-      *&v250 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4204, v250);
+      *&v180 = v220;
+      [mapCopy setFloatValue:4187 forProperty:v180];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x200) != 0)
+  if ((v174 & 0x1000) != 0)
   {
-    v251 = *(archive + 103);
-    v260 = v251;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4205))
+    v181 = *(archive + 75);
+    v220 = v181;
+    if ([v9 validateFloatValue:&v220 forProperty:4188])
     {
-      *&v252 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4205, v252);
+      *&v182 = v220;
+      [mapCopy setFloatValue:4188 forProperty:v182];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x400) != 0)
+  if ((v174 & 0x2000) != 0)
   {
-    v253 = *(archive + 104);
-    v260 = v253;
-    if (objc_msgSend_validateFloatValue_forProperty_(v10, v9, &v260, 4206))
+    v183 = *(archive + 76);
+    v220 = v183;
+    if ([v9 validateFloatValue:&v220 forProperty:4189])
     {
-      *&v254 = v260;
-      objc_msgSend_setFloatValue_forProperty_(mapCopy, v9, 4206, v254);
+      *&v184 = v220;
+      [mapCopy setFloatValue:4189 forProperty:v184];
     }
 
-    v236 = *(archive + 7);
+    v174 = *(archive + 6);
   }
 
-  if ((v236 & 0x40) != 0)
+  if ((v174 & 0x4000) != 0)
   {
-    v260 = *(archive + 201);
-    if (objc_msgSend_validateIntValue_forProperty_(v10, v9, &v260, 4207))
+    v185 = *(archive + 77);
+    v220 = v185;
+    if ([v9 validateFloatValue:&v220 forProperty:4190])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v255, LODWORD(v260), 4207);
+      *&v186 = v220;
+      [mapCopy setFloatValue:4190 forProperty:v186];
+    }
+
+    v174 = *(archive + 6);
+  }
+
+  if ((v174 & 0x8000) != 0)
+  {
+    v187 = *(archive + 78);
+    v220 = v187;
+    if ([v9 validateFloatValue:&v220 forProperty:4192])
+    {
+      *&v188 = v220;
+      [mapCopy setFloatValue:4192 forProperty:v188];
+    }
+
+    v174 = *(archive + 6);
+  }
+
+  if ((v174 & 0x10000) != 0)
+  {
+    v189 = *(archive + 79);
+    v220 = v189;
+    if ([v9 validateFloatValue:&v220 forProperty:4193])
+    {
+      *&v190 = v220;
+      [mapCopy setFloatValue:4193 forProperty:v190];
+    }
+
+    v174 = *(archive + 6);
+  }
+
+  if ((v174 & 0x20000) != 0)
+  {
+    v191 = *(archive + 80);
+    v220 = v191;
+    if ([v9 validateFloatValue:&v220 forProperty:4194])
+    {
+      *&v192 = v220;
+      [mapCopy setFloatValue:4194 forProperty:v192];
+    }
+
+    v174 = *(archive + 6);
+  }
+
+  if ((v174 & 0x8000000) != 0)
+  {
+    v193 = *(archive + 90);
+    v220 = v193;
+    if ([v9 validateFloatValue:&v220 forProperty:4195])
+    {
+      *&v194 = v220;
+      [mapCopy setFloatValue:4195 forProperty:v194];
+    }
+
+    v174 = *(archive + 6);
+  }
+
+  if ((v174 & 0x40000) != 0)
+  {
+    v195 = *(archive + 81);
+    v220 = v195;
+    if ([v9 validateFloatValue:&v220 forProperty:4196])
+    {
+      *&v196 = v220;
+      [mapCopy setFloatValue:4196 forProperty:v196];
+    }
+  }
+
+  v197 = *(archive + 7);
+  if ((v197 & 0x20) != 0)
+  {
+    v220 = *(archive + 200);
+    if ([v9 validateIntValue:&v220 forProperty:4197])
+    {
+      [mapCopy setIntValue:LODWORD(v220) forProperty:4197];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if (v197)
+  {
+    v198 = *(archive + 95);
+    v220 = v198;
+    if ([v9 validateFloatValue:&v220 forProperty:4198])
+    {
+      *&v199 = v220;
+      [mapCopy setFloatValue:4198 forProperty:v199];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 2) != 0)
+  {
+    v200 = *(archive + 96);
+    v220 = v200;
+    if ([v9 validateFloatValue:&v220 forProperty:4199])
+    {
+      *&v201 = v220;
+      [mapCopy setFloatValue:4199 forProperty:v201];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 4) != 0)
+  {
+    v202 = *(archive + 97);
+    v220 = v202;
+    if ([v9 validateFloatValue:&v220 forProperty:4200])
+    {
+      *&v203 = v220;
+      [mapCopy setFloatValue:4200 forProperty:v203];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 8) != 0)
+  {
+    v204 = *(archive + 98);
+    v220 = v204;
+    if ([v9 validateFloatValue:&v220 forProperty:4201])
+    {
+      *&v205 = v220;
+      [mapCopy setFloatValue:4201 forProperty:v205];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x10) != 0)
+  {
+    v206 = *(archive + 99);
+    v220 = v206;
+    if ([v9 validateFloatValue:&v220 forProperty:4202])
+    {
+      *&v207 = v220;
+      [mapCopy setFloatValue:4202 forProperty:v207];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x80) != 0)
+  {
+    v208 = *(archive + 101);
+    v220 = v208;
+    if ([v9 validateFloatValue:&v220 forProperty:4203])
+    {
+      *&v209 = v220;
+      [mapCopy setFloatValue:4203 forProperty:v209];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x100) != 0)
+  {
+    v210 = *(archive + 102);
+    v220 = v210;
+    if ([v9 validateFloatValue:&v220 forProperty:4204])
+    {
+      *&v211 = v220;
+      [mapCopy setFloatValue:4204 forProperty:v211];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x200) != 0)
+  {
+    v212 = *(archive + 103);
+    v220 = v212;
+    if ([v9 validateFloatValue:&v220 forProperty:4205])
+    {
+      *&v213 = v220;
+      [mapCopy setFloatValue:4205 forProperty:v213];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x400) != 0)
+  {
+    v214 = *(archive + 104);
+    v220 = v214;
+    if ([v9 validateFloatValue:&v220 forProperty:4206])
+    {
+      *&v215 = v220;
+      [mapCopy setFloatValue:4206 forProperty:v215];
+    }
+
+    v197 = *(archive + 7);
+  }
+
+  if ((v197 & 0x40) != 0)
+  {
+    v220 = *(archive + 201);
+    if ([v9 validateIntValue:&v220 forProperty:4207])
+    {
+      [mapCopy setIntValue:LODWORD(v220) forProperty:4207];
     }
   }
 }
@@ -1689,11 +1675,29 @@ LABEL_9:
   mapCopy = map;
   archiverCopy = archiver;
   v9 = objc_opt_class();
-  if (objc_msgSend_containsProperty_(mapCopy, v10, 4108))
+  if ([mapCopy containsProperty:4108])
   {
-    v12 = objc_msgSend_objectForProperty_(mapCopy, v11, 4108);
+    v10 = [mapCopy objectForProperty:4108];
     *(archive + 4) |= 0x80u;
     if (!*(archive + 12))
+    {
+      v11 = *(archive + 1);
+      if (v11)
+      {
+        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      *(archive + 12) = MEMORY[0x277C8F010](v11);
+    }
+
+    TSPTSUColorCopyToMessage();
+  }
+
+  if ([mapCopy containsProperty:4109])
+  {
+    v12 = [mapCopy objectForProperty:4109];
+    *(archive + 4) |= 0x100u;
+    if (!*(archive + 13))
     {
       v13 = *(archive + 1);
       if (v13)
@@ -1701,35 +1705,53 @@ LABEL_9:
         v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      *(archive + 12) = MEMORY[0x277C8F010](v13);
+      *(archive + 13) = MEMORY[0x277C8F010](v13);
     }
 
     TSPTSUColorCopyToMessage();
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v11, 4109))
+  if ([mapCopy containsProperty:4110])
   {
-    v15 = objc_msgSend_objectForProperty_(mapCopy, v14, 4109);
-    *(archive + 4) |= 0x100u;
-    if (!*(archive + 13))
-    {
-      v16 = *(archive + 1);
-      if (v16)
-      {
-        v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      *(archive + 13) = MEMORY[0x277C8F010](v16);
-    }
-
-    TSPTSUColorCopyToMessage();
-  }
-
-  if (objc_msgSend_containsProperty_(mapCopy, v14, 4110))
-  {
-    v18 = objc_msgSend_objectForProperty_(mapCopy, v17, 4110);
+    v14 = [mapCopy objectForProperty:4110];
     *(archive + 4) |= 0x200u;
     if (!*(archive + 14))
+    {
+      v15 = *(archive + 1);
+      if (v15)
+      {
+        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      *(archive + 14) = MEMORY[0x277C8F010](v15);
+    }
+
+    TSPTSUColorCopyToMessage();
+  }
+
+  if ([mapCopy containsProperty:4191])
+  {
+    v16 = [mapCopy objectForProperty:4191];
+    *(archive + 4) |= 0x800u;
+    if (!*(archive + 16))
+    {
+      v17 = *(archive + 1);
+      if (v17)
+      {
+        v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      *(archive + 16) = MEMORY[0x277C8F010](v17);
+    }
+
+    TSPTSUColorCopyToMessage();
+  }
+
+  if ([mapCopy containsProperty:4111])
+  {
+    v18 = [mapCopy objectForProperty:4111];
+    *(archive + 4) |= 0x400u;
+    if (!*(archive + 15))
     {
       v19 = *(archive + 1);
       if (v19)
@@ -1737,1298 +1759,1249 @@ LABEL_9:
         v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      *(archive + 14) = MEMORY[0x277C8F010](v19);
+      *(archive + 15) = MEMORY[0x277C8F010](v19);
     }
 
     TSPTSUColorCopyToMessage();
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v17, 4191))
+  if ([mapCopy containsProperty:4101])
   {
-    v21 = objc_msgSend_objectForProperty_(mapCopy, v20, 4191);
-    *(archive + 4) |= 0x800u;
-    if (!*(archive + 16))
-    {
-      v22 = *(archive + 1);
-      if (v22)
-      {
-        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
-      }
+    v20 = [mapCopy objectForProperty:4101];
+    v229 = v20;
+    v21 = [v9 validateObjectValue:&v229 withClass:objc_opt_class() forProperty:4101];
+    v22 = v229;
 
-      *(archive + 16) = MEMORY[0x277C8F010](v22);
-    }
-
-    TSPTSUColorCopyToMessage();
-  }
-
-  if (objc_msgSend_containsProperty_(mapCopy, v20, 4111))
-  {
-    v24 = objc_msgSend_objectForProperty_(mapCopy, v23, 4111);
-    *(archive + 4) |= 0x400u;
-    if (!*(archive + 15))
-    {
-      v25 = *(archive + 1);
-      if (v25)
-      {
-        v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      *(archive + 15) = MEMORY[0x277C8F010](v25);
-    }
-
-    TSPTSUColorCopyToMessage();
-  }
-
-  if (objc_msgSend_containsProperty_(mapCopy, v23, 4101))
-  {
-    v27 = objc_msgSend_objectForProperty_(mapCopy, v26, 4101);
-    v459 = v27;
-    v28 = objc_opt_class();
-    v30 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v29, &v459, v28, 4101);
-    v31 = v459;
-
-    if (v30)
+    if (v21)
     {
       *(archive + 4) |= 1u;
-      v32 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v31, v33, v32);
+      [v22 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v26, 4102))
+  if ([mapCopy containsProperty:4102])
   {
-    v35 = objc_msgSend_objectForProperty_(mapCopy, v34, 4102);
-    v458 = v35;
-    v36 = objc_opt_class();
-    v38 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v37, &v458, v36, 4102);
-    v39 = v458;
+    v23 = [mapCopy objectForProperty:4102];
+    v228 = v23;
+    v24 = [v9 validateObjectValue:&v228 withClass:objc_opt_class() forProperty:4102];
+    v25 = v228;
 
-    if (v38)
+    if (v24)
     {
       *(archive + 4) |= 2u;
-      v40 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v39, v41, v40);
+      [v25 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v34, 4107))
+  if ([mapCopy containsProperty:4107])
   {
-    v43 = objc_msgSend_objectForProperty_(mapCopy, v42, 4107);
-    v457 = v43;
-    v44 = objc_opt_class();
-    v46 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v45, &v457, v44, 4107);
-    v47 = v457;
+    v26 = [mapCopy objectForProperty:4107];
+    v227 = v26;
+    v27 = [v9 validateObjectValue:&v227 withClass:objc_opt_class() forProperty:4107];
+    v28 = v227;
 
-    if (v46)
+    if (v27)
     {
       *(archive + 4) |= 0x40u;
-      v49 = *(archive + 11);
-      if (!v49)
+      v29 = *(archive + 11);
+      if (!v29)
       {
-        v50 = *(archive + 1);
-        if (v50)
+        v30 = *(archive + 1);
+        if (v30)
         {
-          v50 = *(v50 & 0xFFFFFFFFFFFFFFFELL);
+          v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v49 = MEMORY[0x277C8EF70](v50);
-        *(archive + 11) = v49;
+        v29 = MEMORY[0x277C8EF70](v30);
+        *(archive + 11) = v29;
       }
 
-      objc_msgSend_saveToArchive_archiver_(v47, v48, v49, archiverCopy);
+      [v28 saveToArchive:v29 archiver:archiverCopy];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v42, 4112))
+  if ([mapCopy containsProperty:4112])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v51, 4112);
-    if (objc_msgSend_validateIntValue_forProperty_(v9, v52, &v456, 4112))
+    LODWORD(v226) = [mapCopy intValueForProperty:4112];
+    if ([v9 validateIntValue:&v226 forProperty:4112])
     {
-      v53 = v456;
+      v31 = v226;
       *(archive + 5) |= 0x800u;
-      *(archive + 96) = v53;
+      *(archive + 96) = v31;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v51, 4118))
+  if ([mapCopy containsProperty:4118])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v54, 4118);
-    v456 = v55;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v56, &v456, 4118))
+    [mapCopy floatValueForProperty:4118];
+    v226 = v32;
+    if ([v9 validateFloatValue:&v226 forProperty:4118])
     {
-      v57 = v456;
+      v33 = v226;
       *(archive + 4) |= 0x1000u;
-      *(archive + 17) = v57;
+      *(archive + 17) = v33;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v54, 4119))
+  if ([mapCopy containsProperty:4119])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v58, 4119);
-    v456 = v59;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v60, &v456, 4119))
+    [mapCopy floatValueForProperty:4119];
+    v226 = v34;
+    if ([v9 validateFloatValue:&v226 forProperty:4119])
     {
-      v61 = v456;
+      v35 = v226;
       *(archive + 6) |= 0x80000u;
-      *(archive + 82) = v61;
+      *(archive + 82) = v35;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v58, 4120))
+  if ([mapCopy containsProperty:4120])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v62, 4120);
-    v456 = v63;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v64, &v456, 4120))
+    [mapCopy floatValueForProperty:4120];
+    v226 = v36;
+    if ([v9 validateFloatValue:&v226 forProperty:4120])
     {
-      v65 = v456;
+      v37 = v226;
       *(archive + 6) |= 0x100000u;
-      *(archive + 83) = v65;
+      *(archive + 83) = v37;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v62, 4121))
+  if ([mapCopy containsProperty:4121])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v66, 4121);
-    v456 = v67;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v68, &v456, 4121))
+    [mapCopy floatValueForProperty:4121];
+    v226 = v38;
+    if ([v9 validateFloatValue:&v226 forProperty:4121])
     {
-      v69 = v456;
+      v39 = v226;
       *(archive + 6) |= 0x200000u;
-      *(archive + 84) = v69;
+      *(archive + 84) = v39;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v66, 4122))
+  if ([mapCopy containsProperty:4122])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v70, 4122);
-    v456 = v71;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v72, &v456, 4122))
+    [mapCopy floatValueForProperty:4122];
+    v226 = v40;
+    if ([v9 validateFloatValue:&v226 forProperty:4122])
     {
-      v73 = v456;
+      v41 = v226;
       *(archive + 6) |= 0x400000u;
-      *(archive + 85) = v73;
+      *(archive + 85) = v41;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v70, 4123))
+  if ([mapCopy containsProperty:4123])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v74, 4123);
-    v456 = v75;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v76, &v456, 4123))
+    [mapCopy floatValueForProperty:4123];
+    v226 = v42;
+    if ([v9 validateFloatValue:&v226 forProperty:4123])
     {
-      v77 = v456;
+      v43 = v226;
       *(archive + 6) |= 0x800000u;
-      *(archive + 86) = v77;
+      *(archive + 86) = v43;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v74, 4124))
+  if ([mapCopy containsProperty:4124])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v78, 4124);
-    v456 = v79;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v80, &v456, 4124))
+    [mapCopy floatValueForProperty:4124];
+    v226 = v44;
+    if ([v9 validateFloatValue:&v226 forProperty:4124])
     {
-      v81 = v456;
+      v45 = v226;
       *(archive + 6) |= 0x1000000u;
-      *(archive + 87) = v81;
+      *(archive + 87) = v45;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v78, 4146))
+  if ([mapCopy containsProperty:4146])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v82, 4146);
-    v456 = v83;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v84, &v456, 4146))
+    [mapCopy floatValueForProperty:4146];
+    v226 = v46;
+    if ([v9 validateFloatValue:&v226 forProperty:4146])
     {
-      v85 = v456;
+      v47 = v226;
       *(archive + 4) |= 0x2000u;
-      *(archive + 18) = v85;
+      *(archive + 18) = v47;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v82, 4147))
+  if ([mapCopy containsProperty:4147])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v86, 4147);
-    v456 = v87;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v88, &v456, 4147))
+    [mapCopy floatValueForProperty:4147];
+    v226 = v48;
+    if ([v9 validateFloatValue:&v226 forProperty:4147])
     {
-      v89 = v456;
+      v49 = v226;
       *(archive + 6) |= 0x2000000u;
-      *(archive + 88) = v89;
+      *(archive + 88) = v49;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v86, 4148))
+  if ([mapCopy containsProperty:4148])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v90, 4148);
-    v456 = v91;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v92, &v456, 4148))
+    [mapCopy floatValueForProperty:4148];
+    v226 = v50;
+    if ([v9 validateFloatValue:&v226 forProperty:4148])
     {
-      v93 = v456;
+      v51 = v226;
       *(archive + 4) |= 0x4000u;
-      *(archive + 19) = v93;
+      *(archive + 19) = v51;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v90, 4149))
+  if ([mapCopy containsProperty:4149])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v94, 4149);
-    v456 = v95;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v96, &v456, 4149))
+    [mapCopy floatValueForProperty:4149];
+    v226 = v52;
+    if ([v9 validateFloatValue:&v226 forProperty:4149])
     {
-      v97 = v456;
+      v53 = v226;
       *(archive + 4) |= 0x8000u;
-      *(archive + 20) = v97;
+      *(archive + 20) = v53;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v94, 4150))
+  if ([mapCopy containsProperty:4150])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v98, 4150);
-    v456 = v99;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v100, &v456, 4150))
+    [mapCopy floatValueForProperty:4150];
+    v226 = v54;
+    if ([v9 validateFloatValue:&v226 forProperty:4150])
     {
-      v101 = v456;
+      v55 = v226;
       *(archive + 6) |= 0x10000000u;
-      *(archive + 91) = v101;
+      *(archive + 91) = v55;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v98, 4151))
+  if ([mapCopy containsProperty:4151])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v102, 4151);
-    v456 = v103;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v104, &v456, 4151))
+    [mapCopy floatValueForProperty:4151];
+    v226 = v56;
+    if ([v9 validateFloatValue:&v226 forProperty:4151])
     {
-      v105 = v456;
+      v57 = v226;
       *(archive + 6) |= 0x20000000u;
-      *(archive + 92) = v105;
+      *(archive + 92) = v57;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v102, 4152))
+  if ([mapCopy containsProperty:4152])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v106, 4152);
-    v456 = v107;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v108, &v456, 4152))
+    [mapCopy floatValueForProperty:4152];
+    v226 = v58;
+    if ([v9 validateFloatValue:&v226 forProperty:4152])
     {
-      v109 = v456;
+      v59 = v226;
       *(archive + 6) |= 0x40000000u;
-      *(archive + 93) = v109;
+      *(archive + 93) = v59;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v106, 4153))
+  if ([mapCopy containsProperty:4153])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v110, 4153);
-    v456 = v111;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v112, &v456, 4153))
+    [mapCopy floatValueForProperty:4153];
+    v226 = v60;
+    if ([v9 validateFloatValue:&v226 forProperty:4153])
     {
-      v113 = v456;
+      v61 = v226;
       *(archive + 6) |= 0x80000000;
-      *(archive + 94) = v113;
+      *(archive + 94) = v61;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v110, 4156))
+  if ([mapCopy containsProperty:4156])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v114, 4156);
-    v456 = v115;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v116, &v456, 4156))
+    [mapCopy floatValueForProperty:4156];
+    v226 = v62;
+    if ([v9 validateFloatValue:&v226 forProperty:4156])
     {
-      v117 = v456;
+      v63 = v226;
       *(archive + 4) |= 0x10000u;
-      *(archive + 21) = v117;
+      *(archive + 21) = v63;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v114, 4177))
+  if ([mapCopy containsProperty:4177])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v118, 4177);
-    if (objc_msgSend_validateIntValue_forProperty_(v9, v119, &v456, 4177))
+    LODWORD(v226) = [mapCopy intValueForProperty:4177];
+    if ([v9 validateIntValue:&v226 forProperty:4177])
     {
-      v120 = SLODWORD(v456);
+      v64 = SLODWORD(v226);
       *(archive + 4) |= 0x20000u;
-      *(archive + 22) = v120;
+      *(archive + 22) = v64;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v118, 4176))
+  if ([mapCopy containsProperty:4176])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v121, 4176);
-    v456 = v122;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v123, &v456, 4176))
+    [mapCopy floatValueForProperty:4176];
+    v226 = v65;
+    if ([v9 validateFloatValue:&v226 forProperty:4176])
     {
-      v124 = v456;
+      v66 = v226;
       *(archive + 4) |= 0x40000u;
-      *(archive + 23) = v124;
+      *(archive + 23) = v66;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v121, 4178))
+  if ([mapCopy containsProperty:4178])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v125, 4178);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v126, &v456, 4178))
+    LODWORD(v226) = [mapCopy intValueForProperty:4178];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4178])
     {
-      v127 = LODWORD(v456) != 0;
+      v67 = LODWORD(v226) != 0;
       *(archive + 5) |= 0x1000u;
-      *(archive + 388) = v127;
+      *(archive + 388) = v67;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v125, 4103))
+  if ([mapCopy containsProperty:4103])
   {
-    v129 = objc_msgSend_objectForProperty_(mapCopy, v128, 4103);
-    v455 = v129;
-    v130 = objc_opt_class();
-    v132 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v131, &v455, v130, 4103);
-    v133 = v455;
+    v68 = [mapCopy objectForProperty:4103];
+    v225 = v68;
+    v69 = [v9 validateObjectValue:&v225 withClass:objc_opt_class() forProperty:4103];
+    v70 = v225;
 
-    if (v132)
+    if (v69)
     {
       *(archive + 4) |= 4u;
-      v134 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v133, v135, v134);
+      [v70 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v128, 4104))
+  if ([mapCopy containsProperty:4104])
   {
-    v137 = objc_msgSend_objectForProperty_(mapCopy, v136, 4104);
-    v454 = v137;
-    v138 = objc_opt_class();
-    v140 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v139, &v454, v138, 4104);
-    v141 = v454;
+    v71 = [mapCopy objectForProperty:4104];
+    v224 = v71;
+    v72 = [v9 validateObjectValue:&v224 withClass:objc_opt_class() forProperty:4104];
+    v73 = v224;
 
-    if (v140)
+    if (v72)
     {
       *(archive + 4) |= 8u;
-      v142 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v141, v143, v142);
+      [v73 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v136, 4105))
+  if ([mapCopy containsProperty:4105])
   {
-    v145 = objc_msgSend_objectForProperty_(mapCopy, v144, 4105);
-    v453 = v145;
-    v146 = objc_opt_class();
-    v148 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v147, &v453, v146, 4105);
-    v149 = v453;
+    v74 = [mapCopy objectForProperty:4105];
+    v223 = v74;
+    v75 = [v9 validateObjectValue:&v223 withClass:objc_opt_class() forProperty:4105];
+    v76 = v223;
 
-    if (v148)
+    if (v75)
     {
       *(archive + 4) |= 0x10u;
-      v150 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v149, v151, v150);
+      [v76 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v144, 4106))
+  if ([mapCopy containsProperty:4106])
   {
-    v153 = objc_msgSend_objectForProperty_(mapCopy, v152, 4106);
-    v452 = v153;
-    v154 = objc_opt_class();
-    v156 = objc_msgSend_validateObjectValue_withClass_forProperty_(v9, v155, &v452, v154, 4106);
-    v157 = v452;
+    v77 = [mapCopy objectForProperty:4106];
+    v222 = v77;
+    v78 = [v9 validateObjectValue:&v222 withClass:objc_opt_class() forProperty:4106];
+    v79 = v222;
 
-    if (v156)
+    if (v78)
     {
       *(archive + 4) |= 0x20u;
-      v158 = google::protobuf::internal::ArenaStringPtr::Mutable();
-      objc_msgSend_tsp_saveToProtobufString_(v157, v159, v158);
+      [v79 tsp_saveToProtobufString:google::protobuf::internal::ArenaStringPtr::Mutable()];
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v152, 4113, v452))
+  if ([mapCopy containsProperty:{4113, v222}])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v160, 4113);
-    v456 = v161;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v162, &v456, 4113))
+    [mapCopy floatValueForProperty:4113];
+    v226 = v80;
+    if ([v9 validateFloatValue:&v226 forProperty:4113])
     {
-      v163 = v456;
+      v81 = v226;
       *(archive + 4) |= 0x80000u;
-      *(archive + 24) = v163;
+      *(archive + 24) = v81;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v160, 4114))
+  if ([mapCopy containsProperty:4114])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v164, 4114);
-    v456 = v165;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v166, &v456, 4114))
+    [mapCopy floatValueForProperty:4114];
+    v226 = v82;
+    if ([v9 validateFloatValue:&v226 forProperty:4114])
     {
-      v167 = v456;
+      v83 = v226;
       *(archive + 4) |= 0x100000u;
-      *(archive + 25) = v167;
+      *(archive + 25) = v83;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v164, 4115))
+  if ([mapCopy containsProperty:4115])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v168, 4115);
-    v456 = v169;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v170, &v456, 4115))
+    [mapCopy floatValueForProperty:4115];
+    v226 = v84;
+    if ([v9 validateFloatValue:&v226 forProperty:4115])
     {
-      v171 = v456;
+      v85 = v226;
       *(archive + 4) |= 0x200000u;
-      *(archive + 26) = v171;
+      *(archive + 26) = v85;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v168, 4116))
+  if ([mapCopy containsProperty:4116])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v172, 4116);
-    v456 = v173;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v174, &v456, 4116))
+    [mapCopy floatValueForProperty:4116];
+    v226 = v86;
+    if ([v9 validateFloatValue:&v226 forProperty:4116])
     {
-      v175 = v456;
+      v87 = v226;
       *(archive + 4) |= 0x400000u;
-      *(archive + 27) = v175;
+      *(archive + 27) = v87;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v172, 4117))
+  if ([mapCopy containsProperty:4117])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v176, 4117);
-    v456 = v177;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v178, &v456, 4117))
+    [mapCopy floatValueForProperty:4117];
+    v226 = v88;
+    if ([v9 validateFloatValue:&v226 forProperty:4117])
     {
-      v179 = v456;
+      v89 = v226;
       *(archive + 4) |= 0x800000u;
-      *(archive + 28) = v179;
+      *(archive + 28) = v89;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v176, 4125))
+  if ([mapCopy containsProperty:4125])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v180, 4125);
-    v456 = v181;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v182, &v456, 4125))
+    [mapCopy floatValueForProperty:4125];
+    v226 = v90;
+    if ([v9 validateFloatValue:&v226 forProperty:4125])
     {
-      v183 = v456;
+      v91 = v226;
       *(archive + 4) |= 0x1000000u;
-      *(archive + 29) = v183;
+      *(archive + 29) = v91;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v180, 4126))
+  if ([mapCopy containsProperty:4126])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v184, 4126);
-    v456 = v185;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v186, &v456, 4126))
+    [mapCopy floatValueForProperty:4126];
+    v226 = v92;
+    if ([v9 validateFloatValue:&v226 forProperty:4126])
     {
-      v187 = v456;
+      v93 = v226;
       *(archive + 4) |= 0x2000000u;
-      *(archive + 30) = v187;
+      *(archive + 30) = v93;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v184, 4127))
+  if ([mapCopy containsProperty:4127])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v188, 4127);
-    v456 = v189;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v190, &v456, 4127))
+    [mapCopy floatValueForProperty:4127];
+    v226 = v94;
+    if ([v9 validateFloatValue:&v226 forProperty:4127])
     {
-      v191 = v456;
+      v95 = v226;
       *(archive + 4) |= 0x4000000u;
-      *(archive + 31) = v191;
+      *(archive + 31) = v95;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v188, 4128))
+  if ([mapCopy containsProperty:4128])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v192, 4128);
-    v456 = v193;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v194, &v456, 4128))
+    [mapCopy floatValueForProperty:4128];
+    v226 = v96;
+    if ([v9 validateFloatValue:&v226 forProperty:4128])
     {
-      v195 = v456;
+      v97 = v226;
       *(archive + 4) |= 0x8000000u;
-      *(archive + 32) = v195;
+      *(archive + 32) = v97;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v192, 4129))
+  if ([mapCopy containsProperty:4129])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v196, 4129);
-    v456 = v197;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v198, &v456, 4129))
+    [mapCopy floatValueForProperty:4129];
+    v226 = v98;
+    if ([v9 validateFloatValue:&v226 forProperty:4129])
     {
-      v199 = v456;
+      v99 = v226;
       *(archive + 4) |= 0x10000000u;
-      *(archive + 33) = v199;
+      *(archive + 33) = v99;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v196, 4130))
+  if ([mapCopy containsProperty:4130])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v200, 4130);
-    v456 = v201;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v202, &v456, 4130))
+    [mapCopy floatValueForProperty:4130];
+    v226 = v100;
+    if ([v9 validateFloatValue:&v226 forProperty:4130])
     {
-      v203 = v456;
+      v101 = v226;
       *(archive + 4) |= 0x20000000u;
-      *(archive + 34) = v203;
+      *(archive + 34) = v101;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v200, 4131))
+  if ([mapCopy containsProperty:4131])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v204, 4131);
-    v456 = v205;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v206, &v456, 4131))
+    [mapCopy floatValueForProperty:4131];
+    v226 = v102;
+    if ([v9 validateFloatValue:&v226 forProperty:4131])
     {
-      v207 = v456;
+      v103 = v226;
       *(archive + 4) |= 0x40000000u;
-      *(archive + 35) = v207;
+      *(archive + 35) = v103;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v204, 4132))
+  if ([mapCopy containsProperty:4132])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v208, 4132);
-    v456 = v209;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v210, &v456, 4132))
+    [mapCopy floatValueForProperty:4132];
+    v226 = v104;
+    if ([v9 validateFloatValue:&v226 forProperty:4132])
     {
-      v211 = v456;
+      v105 = v226;
       *(archive + 4) |= 0x80000000;
-      *(archive + 36) = v211;
+      *(archive + 36) = v105;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v208, 4133))
+  if ([mapCopy containsProperty:4133])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v212, 4133);
-    v456 = v213;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v214, &v456, 4133))
+    [mapCopy floatValueForProperty:4133];
+    v226 = v106;
+    if ([v9 validateFloatValue:&v226 forProperty:4133])
     {
-      v215 = v456;
+      v107 = v226;
       *(archive + 5) |= 1u;
-      *(archive + 37) = v215;
+      *(archive + 37) = v107;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v212, 4134))
+  if ([mapCopy containsProperty:4134])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v216, 4134);
-    v456 = v217;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v218, &v456, 4134))
+    [mapCopy floatValueForProperty:4134];
+    v226 = v108;
+    if ([v9 validateFloatValue:&v226 forProperty:4134])
     {
-      v219 = v456;
+      v109 = v226;
       *(archive + 5) |= 2u;
-      *(archive + 38) = v219;
+      *(archive + 38) = v109;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v216, 4135))
+  if ([mapCopy containsProperty:4135])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v220, 4135);
-    v456 = v221;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v222, &v456, 4135))
+    [mapCopy floatValueForProperty:4135];
+    v226 = v110;
+    if ([v9 validateFloatValue:&v226 forProperty:4135])
     {
-      v223 = v456;
+      v111 = v226;
       *(archive + 5) |= 4u;
-      *(archive + 39) = v223;
+      *(archive + 39) = v111;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v220, 4136))
+  if ([mapCopy containsProperty:4136])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v224, 4136);
-    v456 = v225;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v226, &v456, 4136))
+    [mapCopy floatValueForProperty:4136];
+    v226 = v112;
+    if ([v9 validateFloatValue:&v226 forProperty:4136])
     {
-      v227 = v456;
+      v113 = v226;
       *(archive + 5) |= 8u;
-      *(archive + 40) = v227;
+      *(archive + 40) = v113;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v224, 4137))
+  if ([mapCopy containsProperty:4137])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v228, 4137);
-    v456 = v229;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v230, &v456, 4137))
+    [mapCopy floatValueForProperty:4137];
+    v226 = v114;
+    if ([v9 validateFloatValue:&v226 forProperty:4137])
     {
-      v231 = v456;
+      v115 = v226;
       *(archive + 5) |= 0x10u;
-      *(archive + 41) = v231;
+      *(archive + 41) = v115;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v228, 4138))
+  if ([mapCopy containsProperty:4138])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v232, 4138);
-    v456 = v233;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v234, &v456, 4138))
+    [mapCopy floatValueForProperty:4138];
+    v226 = v116;
+    if ([v9 validateFloatValue:&v226 forProperty:4138])
     {
-      v235 = v456;
+      v117 = v226;
       *(archive + 5) |= 0x20u;
-      *(archive + 42) = v235;
+      *(archive + 42) = v117;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v232, 4139))
+  if ([mapCopy containsProperty:4139])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v236, 4139);
-    v456 = v237;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v238, &v456, 4139))
+    [mapCopy floatValueForProperty:4139];
+    v226 = v118;
+    if ([v9 validateFloatValue:&v226 forProperty:4139])
     {
-      v239 = v456;
+      v119 = v226;
       *(archive + 5) |= 0x40u;
-      *(archive + 43) = v239;
+      *(archive + 43) = v119;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v236, 4140))
+  if ([mapCopy containsProperty:4140])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v240, 4140);
-    v456 = v241;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v242, &v456, 4140))
+    [mapCopy floatValueForProperty:4140];
+    v226 = v120;
+    if ([v9 validateFloatValue:&v226 forProperty:4140])
     {
-      v243 = v456;
+      v121 = v226;
       *(archive + 5) |= 0x80u;
-      *(archive + 44) = v243;
+      *(archive + 44) = v121;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v240, 4141))
+  if ([mapCopy containsProperty:4141])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v244, 4141);
-    v456 = v245;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v246, &v456, 4141))
+    [mapCopy floatValueForProperty:4141];
+    v226 = v122;
+    if ([v9 validateFloatValue:&v226 forProperty:4141])
     {
-      v247 = v456;
+      v123 = v226;
       *(archive + 5) |= 0x100u;
-      *(archive + 45) = v247;
+      *(archive + 45) = v123;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v244, 4142))
+  if ([mapCopy containsProperty:4142])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v248, 4142);
-    v456 = v249;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v250, &v456, 4142))
+    [mapCopy floatValueForProperty:4142];
+    v226 = v124;
+    if ([v9 validateFloatValue:&v226 forProperty:4142])
     {
-      v251 = v456;
+      v125 = v226;
       *(archive + 5) |= 0x200u;
-      *(archive + 46) = v251;
+      *(archive + 46) = v125;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v248, 4143))
+  if ([mapCopy containsProperty:4143])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v252, 4143);
-    v456 = v253;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v254, &v456, 4143))
+    [mapCopy floatValueForProperty:4143];
+    v226 = v126;
+    if ([v9 validateFloatValue:&v226 forProperty:4143])
     {
-      v255 = v456;
+      v127 = v226;
       *(archive + 5) |= 0x400u;
-      *(archive + 47) = v255;
+      *(archive + 47) = v127;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v252, 4144))
+  if ([mapCopy containsProperty:4144])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v256, 4144);
-    v456 = v257;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v258, &v456, 4144))
+    [mapCopy floatValueForProperty:4144];
+    v226 = v128;
+    if ([v9 validateFloatValue:&v226 forProperty:4144])
     {
-      v259 = v456;
+      v129 = v226;
       *(archive + 5) |= 0x10000u;
-      *(archive + 49) = v259;
+      *(archive + 49) = v129;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v256, 4145))
+  if ([mapCopy containsProperty:4145])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v260, 4145);
-    v456 = v261;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v262, &v456, 4145))
+    [mapCopy floatValueForProperty:4145];
+    v226 = v130;
+    if ([v9 validateFloatValue:&v226 forProperty:4145])
     {
-      v263 = v456;
+      v131 = v226;
       *(archive + 5) |= 0x20000u;
-      *(archive + 50) = v263;
+      *(archive + 50) = v131;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v260, 4154))
+  if ([mapCopy containsProperty:4154])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v264, 4154);
-    v456 = v265;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v266, &v456, 4154))
+    [mapCopy floatValueForProperty:4154];
+    v226 = v132;
+    if ([v9 validateFloatValue:&v226 forProperty:4154])
     {
-      v267 = v456;
+      v133 = v226;
       *(archive + 5) |= 0x40000u;
-      *(archive + 51) = v267;
+      *(archive + 51) = v133;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v264, 4155))
+  if ([mapCopy containsProperty:4155])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v268, 4155);
-    v456 = v269;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v270, &v456, 4155))
+    [mapCopy floatValueForProperty:4155];
+    v226 = v134;
+    if ([v9 validateFloatValue:&v226 forProperty:4155])
     {
-      v271 = v456;
+      v135 = v226;
       *(archive + 5) |= 0x80000u;
-      *(archive + 52) = v271;
+      *(archive + 52) = v135;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v268, 4157))
+  if ([mapCopy containsProperty:4157])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v272, 4157);
-    v456 = v273;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v274, &v456, 4157))
+    [mapCopy floatValueForProperty:4157];
+    v226 = v136;
+    if ([v9 validateFloatValue:&v226 forProperty:4157])
     {
-      v275 = v456;
+      v137 = v226;
       *(archive + 5) |= 0x100000u;
-      *(archive + 53) = v275;
+      *(archive + 53) = v137;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v272, 4158))
+  if ([mapCopy containsProperty:4158])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v276, 4158);
-    v456 = v277;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v278, &v456, 4158))
+    [mapCopy floatValueForProperty:4158];
+    v226 = v138;
+    if ([v9 validateFloatValue:&v226 forProperty:4158])
     {
-      v279 = v456;
+      v139 = v226;
       *(archive + 5) |= 0x200000u;
-      *(archive + 54) = v279;
+      *(archive + 54) = v139;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v276, 4159))
+  if ([mapCopy containsProperty:4159])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v280, 4159);
-    v456 = v281;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v282, &v456, 4159))
+    [mapCopy floatValueForProperty:4159];
+    v226 = v140;
+    if ([v9 validateFloatValue:&v226 forProperty:4159])
     {
-      v283 = v456;
+      v141 = v226;
       *(archive + 5) |= 0x400000u;
-      *(archive + 55) = v283;
+      *(archive + 55) = v141;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v280, 4160))
+  if ([mapCopy containsProperty:4160])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v284, 4160);
-    v456 = v285;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v286, &v456, 4160))
+    [mapCopy floatValueForProperty:4160];
+    v226 = v142;
+    if ([v9 validateFloatValue:&v226 forProperty:4160])
     {
-      v287 = v456;
+      v143 = v226;
       *(archive + 5) |= 0x800000u;
-      *(archive + 56) = v287;
+      *(archive + 56) = v143;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v284, 4161))
+  if ([mapCopy containsProperty:4161])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v288, 4161);
-    v456 = v289;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v290, &v456, 4161))
+    [mapCopy floatValueForProperty:4161];
+    v226 = v144;
+    if ([v9 validateFloatValue:&v226 forProperty:4161])
     {
-      v291 = v456;
+      v145 = v226;
       *(archive + 5) |= 0x1000000u;
-      *(archive + 57) = v291;
+      *(archive + 57) = v145;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v288, 4162))
+  if ([mapCopy containsProperty:4162])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v292, 4162);
-    v456 = v293;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v294, &v456, 4162))
+    [mapCopy floatValueForProperty:4162];
+    v226 = v146;
+    if ([v9 validateFloatValue:&v226 forProperty:4162])
     {
-      v295 = v456;
+      v147 = v226;
       *(archive + 6) |= 0x4000000u;
-      *(archive + 89) = v295;
+      *(archive + 89) = v147;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v292, 4163))
+  if ([mapCopy containsProperty:4163])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v296, 4163);
-    v456 = v297;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v298, &v456, 4163))
+    [mapCopy floatValueForProperty:4163];
+    v226 = v148;
+    if ([v9 validateFloatValue:&v226 forProperty:4163])
     {
-      v299 = v456;
+      v149 = v226;
       *(archive + 5) |= 0x2000000u;
-      *(archive + 58) = v299;
+      *(archive + 58) = v149;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v296, 4164))
+  if ([mapCopy containsProperty:4164])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v300, 4164);
-    v456 = v301;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v302, &v456, 4164))
+    [mapCopy floatValueForProperty:4164];
+    v226 = v150;
+    if ([v9 validateFloatValue:&v226 forProperty:4164])
     {
-      v303 = v456;
+      v151 = v226;
       *(archive + 5) |= 0x4000000u;
-      *(archive + 59) = v303;
+      *(archive + 59) = v151;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v300, 4165))
+  if ([mapCopy containsProperty:4165])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v304, 4165);
-    v456 = v305;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v306, &v456, 4165))
+    [mapCopy floatValueForProperty:4165];
+    v226 = v152;
+    if ([v9 validateFloatValue:&v226 forProperty:4165])
     {
-      v307 = v456;
+      v153 = v226;
       *(archive + 5) |= 0x8000000u;
-      *(archive + 60) = v307;
+      *(archive + 60) = v153;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v304, 4166))
+  if ([mapCopy containsProperty:4166])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v308, 4166);
-    v456 = v309;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v310, &v456, 4166))
+    [mapCopy floatValueForProperty:4166];
+    v226 = v154;
+    if ([v9 validateFloatValue:&v226 forProperty:4166])
     {
-      v311 = v456;
+      v155 = v226;
       *(archive + 5) |= 0x10000000u;
-      *(archive + 61) = v311;
+      *(archive + 61) = v155;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v308, 4167))
+  if ([mapCopy containsProperty:4167])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v312, 4167);
-    v456 = v313;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v314, &v456, 4167))
+    [mapCopy floatValueForProperty:4167];
+    v226 = v156;
+    if ([v9 validateFloatValue:&v226 forProperty:4167])
     {
-      v315 = v456;
+      v157 = v226;
       *(archive + 5) |= 0x20000000u;
-      *(archive + 62) = v315;
+      *(archive + 62) = v157;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v312, 4168))
+  if ([mapCopy containsProperty:4168])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v316, 4168);
-    v456 = v317;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v318, &v456, 4168))
+    [mapCopy floatValueForProperty:4168];
+    v226 = v158;
+    if ([v9 validateFloatValue:&v226 forProperty:4168])
     {
-      v319 = v456;
+      v159 = v226;
       *(archive + 5) |= 0x40000000u;
-      *(archive + 63) = v319;
+      *(archive + 63) = v159;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v316, 4169))
+  if ([mapCopy containsProperty:4169])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v320, 4169);
-    v456 = v321;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v322, &v456, 4169))
+    [mapCopy floatValueForProperty:4169];
+    v226 = v160;
+    if ([v9 validateFloatValue:&v226 forProperty:4169])
     {
-      v323 = v456;
+      v161 = v226;
       *(archive + 5) |= 0x80000000;
-      *(archive + 64) = v323;
+      *(archive + 64) = v161;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v320, 4170))
+  if ([mapCopy containsProperty:4170])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v324, 4170);
-    v456 = v325;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v326, &v456, 4170))
+    [mapCopy floatValueForProperty:4170];
+    v226 = v162;
+    if ([v9 validateFloatValue:&v226 forProperty:4170])
     {
-      v327 = v456;
+      v163 = v226;
       *(archive + 6) |= 1u;
-      *(archive + 65) = v327;
+      *(archive + 65) = v163;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v324, 4171))
+  if ([mapCopy containsProperty:4171])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v328, 4171);
-    v456 = v329;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v330, &v456, 4171))
+    [mapCopy floatValueForProperty:4171];
+    v226 = v164;
+    if ([v9 validateFloatValue:&v226 forProperty:4171])
     {
-      v331 = v456;
+      v165 = v226;
       *(archive + 6) |= 2u;
-      *(archive + 66) = v331;
+      *(archive + 66) = v165;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v328, 4172))
+  if ([mapCopy containsProperty:4172])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v332, 4172);
-    v456 = v333;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v334, &v456, 4172))
+    [mapCopy floatValueForProperty:4172];
+    v226 = v166;
+    if ([v9 validateFloatValue:&v226 forProperty:4172])
     {
-      v335 = v456;
+      v167 = v226;
       *(archive + 6) |= 4u;
-      *(archive + 67) = v335;
+      *(archive + 67) = v167;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v332, 4173))
+  if ([mapCopy containsProperty:4173])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v336, 4173);
-    v456 = v337;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v338, &v456, 4173))
+    [mapCopy floatValueForProperty:4173];
+    v226 = v168;
+    if ([v9 validateFloatValue:&v226 forProperty:4173])
     {
-      v339 = v456;
+      v169 = v226;
       *(archive + 6) |= 8u;
-      *(archive + 68) = v339;
+      *(archive + 68) = v169;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v336, 4174))
+  if ([mapCopy containsProperty:4174])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v340, 4174);
-    v456 = v341;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v342, &v456, 4174))
+    [mapCopy floatValueForProperty:4174];
+    v226 = v170;
+    if ([v9 validateFloatValue:&v226 forProperty:4174])
     {
-      v343 = v456;
+      v171 = v226;
       *(archive + 6) |= 0x10u;
-      *(archive + 69) = v343;
+      *(archive + 69) = v171;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v340, 4175))
+  if ([mapCopy containsProperty:4175])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v344, 4175);
-    v456 = v345;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v346, &v456, 4175))
+    [mapCopy floatValueForProperty:4175];
+    v226 = v172;
+    if ([v9 validateFloatValue:&v226 forProperty:4175])
     {
-      v347 = v456;
+      v173 = v226;
       *(archive + 6) |= 0x20u;
-      *(archive + 70) = v347;
+      *(archive + 70) = v173;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v344, 4179))
+  if ([mapCopy containsProperty:4179])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v348, 4179);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v349, &v456, 4179))
+    LODWORD(v226) = [mapCopy intValueForProperty:4179];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4179])
     {
-      v350 = LODWORD(v456) != 0;
+      v174 = LODWORD(v226) != 0;
       *(archive + 5) |= 0x2000u;
-      *(archive + 389) = v350;
+      *(archive + 389) = v174;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v348, 4180))
+  if ([mapCopy containsProperty:4180])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v351, 4180);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v352, &v456, 4180))
+    LODWORD(v226) = [mapCopy intValueForProperty:4180];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4180])
     {
-      v353 = LODWORD(v456) != 0;
+      v175 = LODWORD(v226) != 0;
       *(archive + 5) |= 0x4000u;
-      *(archive + 390) = v353;
+      *(archive + 390) = v175;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v351, 4181))
+  if ([mapCopy containsProperty:4181])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v354, 4181);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v355, &v456, 4181))
+    LODWORD(v226) = [mapCopy intValueForProperty:4181];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4181])
     {
-      v356 = LODWORD(v456) != 0;
+      v176 = LODWORD(v226) != 0;
       *(archive + 5) |= 0x8000u;
-      *(archive + 391) = v356;
+      *(archive + 391) = v176;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v354, 4182))
+  if ([mapCopy containsProperty:4182])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v357, 4182);
-    if (objc_msgSend_validateIntValue_forProperty_(v9, v358, &v456, 4182))
+    LODWORD(v226) = [mapCopy intValueForProperty:4182];
+    if ([v9 validateIntValue:&v226 forProperty:4182])
     {
-      v359 = v456;
+      v177 = v226;
       *(archive + 6) |= 0x40u;
-      *(archive + 142) = v359;
+      *(archive + 142) = v177;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v357, 4183))
+  if ([mapCopy containsProperty:4183])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v360, 4183);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v361, &v456, 4183))
+    LODWORD(v226) = [mapCopy intValueForProperty:4183];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4183])
     {
-      v362 = LODWORD(v456) != 0;
+      v178 = LODWORD(v226) != 0;
       *(archive + 6) |= 0x80u;
-      *(archive + 572) = v362;
+      *(archive + 572) = v178;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v360, 4184))
+  if ([mapCopy containsProperty:4184])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v363, 4184);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v364, &v456, 4184))
+    LODWORD(v226) = [mapCopy intValueForProperty:4184];
+    if ([v9 validateIntValueAsBool:&v226 forProperty:4184])
     {
-      v365 = LODWORD(v456) != 0;
+      v179 = LODWORD(v226) != 0;
       *(archive + 6) |= 0x100u;
-      *(archive + 573) = v365;
+      *(archive + 573) = v179;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v363, 4185))
+  if ([mapCopy containsProperty:4185])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v366, 4185);
-    v456 = v367;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v368, &v456, 4185))
+    [mapCopy floatValueForProperty:4185];
+    v226 = v180;
+    if ([v9 validateFloatValue:&v226 forProperty:4185])
     {
-      v369 = v456;
+      v181 = v226;
       *(archive + 6) |= 0x200u;
-      *(archive + 72) = v369;
+      *(archive + 72) = v181;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v366, 4186))
+  if ([mapCopy containsProperty:4186])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v370, 4186);
-    v456 = v371;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v372, &v456, 4186))
+    [mapCopy floatValueForProperty:4186];
+    v226 = v182;
+    if ([v9 validateFloatValue:&v226 forProperty:4186])
     {
-      v373 = v456;
+      v183 = v226;
       *(archive + 6) |= 0x400u;
-      *(archive + 73) = v373;
+      *(archive + 73) = v183;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v370, 4187))
+  if ([mapCopy containsProperty:4187])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v374, 4187);
-    v456 = v375;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v376, &v456, 4187))
+    [mapCopy floatValueForProperty:4187];
+    v226 = v184;
+    if ([v9 validateFloatValue:&v226 forProperty:4187])
     {
-      v377 = v456;
+      v185 = v226;
       *(archive + 6) |= 0x800u;
-      *(archive + 74) = v377;
+      *(archive + 74) = v185;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v374, 4188))
+  if ([mapCopy containsProperty:4188])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v378, 4188);
-    v456 = v379;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v380, &v456, 4188))
+    [mapCopy floatValueForProperty:4188];
+    v226 = v186;
+    if ([v9 validateFloatValue:&v226 forProperty:4188])
     {
-      v381 = v456;
+      v187 = v226;
       *(archive + 6) |= 0x1000u;
-      *(archive + 75) = v381;
+      *(archive + 75) = v187;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v378, 4189))
+  if ([mapCopy containsProperty:4189])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v382, 4189);
-    v456 = v383;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v384, &v456, 4189))
+    [mapCopy floatValueForProperty:4189];
+    v226 = v188;
+    if ([v9 validateFloatValue:&v226 forProperty:4189])
     {
-      v385 = v456;
+      v189 = v226;
       *(archive + 6) |= 0x2000u;
-      *(archive + 76) = v385;
+      *(archive + 76) = v189;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v382, 4190))
+  if ([mapCopy containsProperty:4190])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v386, 4190);
-    v456 = v387;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v388, &v456, 4190))
+    [mapCopy floatValueForProperty:4190];
+    v226 = v190;
+    if ([v9 validateFloatValue:&v226 forProperty:4190])
     {
-      v389 = v456;
+      v191 = v226;
       *(archive + 6) |= 0x4000u;
-      *(archive + 77) = v389;
+      *(archive + 77) = v191;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v386, 4192))
+  if ([mapCopy containsProperty:4192])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v390, 4192);
-    v456 = v391;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v392, &v456, 4192))
+    [mapCopy floatValueForProperty:4192];
+    v226 = v192;
+    if ([v9 validateFloatValue:&v226 forProperty:4192])
     {
-      v393 = v456;
+      v193 = v226;
       *(archive + 6) |= 0x8000u;
-      *(archive + 78) = v393;
+      *(archive + 78) = v193;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v390, 4193))
+  if ([mapCopy containsProperty:4193])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v394, 4193);
-    v456 = v395;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v396, &v456, 4193))
+    [mapCopy floatValueForProperty:4193];
+    v226 = v194;
+    if ([v9 validateFloatValue:&v226 forProperty:4193])
     {
-      v397 = v456;
+      v195 = v226;
       *(archive + 6) |= 0x10000u;
-      *(archive + 79) = v397;
+      *(archive + 79) = v195;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v394, 4194))
+  if ([mapCopy containsProperty:4194])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v398, 4194);
-    v456 = v399;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v400, &v456, 4194))
+    [mapCopy floatValueForProperty:4194];
+    v226 = v196;
+    if ([v9 validateFloatValue:&v226 forProperty:4194])
     {
-      v401 = v456;
+      v197 = v226;
       *(archive + 6) |= 0x20000u;
-      *(archive + 80) = v401;
+      *(archive + 80) = v197;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v398, 4195))
+  if ([mapCopy containsProperty:4195])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v402, 4195);
-    v456 = v403;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v404, &v456, 4195))
+    [mapCopy floatValueForProperty:4195];
+    v226 = v198;
+    if ([v9 validateFloatValue:&v226 forProperty:4195])
     {
-      v405 = v456;
+      v199 = v226;
       *(archive + 6) |= 0x8000000u;
-      *(archive + 90) = v405;
+      *(archive + 90) = v199;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v402, 4196))
+  if ([mapCopy containsProperty:4196])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v406, 4196);
-    v456 = v407;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v408, &v456, 4196))
+    [mapCopy floatValueForProperty:4196];
+    v226 = v200;
+    if ([v9 validateFloatValue:&v226 forProperty:4196])
     {
-      v409 = v456;
+      v201 = v226;
       *(archive + 6) |= 0x40000u;
-      *(archive + 81) = v409;
+      *(archive + 81) = v201;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v406, 4197))
+  if ([mapCopy containsProperty:4197])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v410, 4197);
-    if (objc_msgSend_validateIntValue_forProperty_(v9, v411, &v456, 4197))
+    LODWORD(v226) = [mapCopy intValueForProperty:4197];
+    if ([v9 validateIntValue:&v226 forProperty:4197])
     {
-      v412 = v456;
+      v202 = v226;
       *(archive + 7) |= 0x20u;
-      *(archive + 200) = v412;
+      *(archive + 200) = v202;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v410, 4198))
+  if ([mapCopy containsProperty:4198])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v413, 4198);
-    v456 = v414;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v415, &v456, 4198))
+    [mapCopy floatValueForProperty:4198];
+    v226 = v203;
+    if ([v9 validateFloatValue:&v226 forProperty:4198])
     {
-      v416 = v456;
+      v204 = v226;
       *(archive + 7) |= 1u;
-      *(archive + 95) = v416;
+      *(archive + 95) = v204;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v413, 4199))
+  if ([mapCopy containsProperty:4199])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v417, 4199);
-    v456 = v418;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v419, &v456, 4199))
+    [mapCopy floatValueForProperty:4199];
+    v226 = v205;
+    if ([v9 validateFloatValue:&v226 forProperty:4199])
     {
-      v420 = v456;
+      v206 = v226;
       *(archive + 7) |= 2u;
-      *(archive + 96) = v420;
+      *(archive + 96) = v206;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v417, 4200))
+  if ([mapCopy containsProperty:4200])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v421, 4200);
-    v456 = v422;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v423, &v456, 4200))
+    [mapCopy floatValueForProperty:4200];
+    v226 = v207;
+    if ([v9 validateFloatValue:&v226 forProperty:4200])
     {
-      v424 = v456;
+      v208 = v226;
       *(archive + 7) |= 4u;
-      *(archive + 97) = v424;
+      *(archive + 97) = v208;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v421, 4201))
+  if ([mapCopy containsProperty:4201])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v425, 4201);
-    v456 = v426;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v427, &v456, 4201))
+    [mapCopy floatValueForProperty:4201];
+    v226 = v209;
+    if ([v9 validateFloatValue:&v226 forProperty:4201])
     {
-      v428 = v456;
+      v210 = v226;
       *(archive + 7) |= 8u;
-      *(archive + 98) = v428;
+      *(archive + 98) = v210;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v425, 4202))
+  if ([mapCopy containsProperty:4202])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v429, 4202);
-    v456 = v430;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v431, &v456, 4202))
+    [mapCopy floatValueForProperty:4202];
+    v226 = v211;
+    if ([v9 validateFloatValue:&v226 forProperty:4202])
     {
-      v432 = v456;
+      v212 = v226;
       *(archive + 7) |= 0x10u;
-      *(archive + 99) = v432;
+      *(archive + 99) = v212;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v429, 4203))
+  if ([mapCopy containsProperty:4203])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v433, 4203);
-    v456 = v434;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v435, &v456, 4203))
+    [mapCopy floatValueForProperty:4203];
+    v226 = v213;
+    if ([v9 validateFloatValue:&v226 forProperty:4203])
     {
-      v436 = v456;
+      v214 = v226;
       *(archive + 7) |= 0x80u;
-      *(archive + 101) = v436;
+      *(archive + 101) = v214;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v433, 4204))
+  if ([mapCopy containsProperty:4204])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v437, 4204);
-    v456 = v438;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v439, &v456, 4204))
+    [mapCopy floatValueForProperty:4204];
+    v226 = v215;
+    if ([v9 validateFloatValue:&v226 forProperty:4204])
     {
-      v440 = v456;
+      v216 = v226;
       *(archive + 7) |= 0x100u;
-      *(archive + 102) = v440;
+      *(archive + 102) = v216;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v437, 4205))
+  if ([mapCopy containsProperty:4205])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v441, 4205);
-    v456 = v442;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v443, &v456, 4205))
+    [mapCopy floatValueForProperty:4205];
+    v226 = v217;
+    if ([v9 validateFloatValue:&v226 forProperty:4205])
     {
-      v444 = v456;
+      v218 = v226;
       *(archive + 7) |= 0x200u;
-      *(archive + 103) = v444;
+      *(archive + 103) = v218;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v441, 4206))
+  if ([mapCopy containsProperty:4206])
   {
-    objc_msgSend_floatValueForProperty_(mapCopy, v445, 4206);
-    v456 = v446;
-    if (objc_msgSend_validateFloatValue_forProperty_(v9, v447, &v456, 4206))
+    [mapCopy floatValueForProperty:4206];
+    v226 = v219;
+    if ([v9 validateFloatValue:&v226 forProperty:4206])
     {
-      v448 = v456;
+      v220 = v226;
       *(archive + 7) |= 0x400u;
-      *(archive + 104) = v448;
+      *(archive + 104) = v220;
     }
   }
 
-  if (objc_msgSend_containsProperty_(mapCopy, v445, 4207))
+  if ([mapCopy containsProperty:4207])
   {
-    LODWORD(v456) = objc_msgSend_intValueForProperty_(mapCopy, v449, 4207);
-    if (objc_msgSend_validateIntValue_forProperty_(v9, v450, &v456, 4207))
+    LODWORD(v226) = [mapCopy intValueForProperty:4207];
+    if ([v9 validateIntValue:&v226 forProperty:4207])
     {
-      v451 = v456;
+      v221 = v226;
       *(archive + 7) |= 0x40u;
-      *(archive + 201) = v451;
+      *(archive + 201) = v221;
     }
   }
 }
@@ -3037,9 +3010,9 @@ LABEL_9:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[118]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[118]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNMotionBackgroundStyle *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -3055,42 +3028,42 @@ LABEL_9:
     v7 = MEMORY[0x277D80BD0];
   }
 
-  v23.receiver = self;
-  v23.super_class = KNMotionBackgroundStyle;
-  [(KNMotionBackgroundStyle *)&v23 loadFromArchive:v7 unarchiver:unarchiverCopy];
-  v10 = *(archive + 12);
-  if (v10)
+  v17.receiver = self;
+  v17.super_class = KNMotionBackgroundStyle;
+  [(KNMotionBackgroundStyle *)&v17 loadFromArchive:v7 unarchiver:unarchiverCopy];
+  v8 = *(archive + 12);
+  if (v8)
   {
-    v11 = objc_alloc(MEMORY[0x277D80AB8]);
-    v14 = objc_msgSend_initWithCapacity_(v11, v12, v10);
+    v9 = [objc_alloc(MEMORY[0x277D80AB8]) initWithCapacity:v8];
     if (*(archive + 4))
     {
-      objc_msgSend_loadMotionBackgroundStylePropertiesIntoPropertyMap_fromArchive_unarchiver_(self, v13, v14, *(archive + 4), unarchiverCopy);
+      v10 = *(archive + 4);
     }
 
     else
     {
-      objc_msgSend_loadMotionBackgroundStylePropertiesIntoPropertyMap_fromArchive_unarchiver_(self, v13, v14, &unk_2812EBDF0, unarchiverCopy);
+      v10 = &unk_2812EBDF0;
     }
 
-    v15 = *MEMORY[0x277D80AF0];
-    v16 = *(&self->super.super.super.isa + v15);
-    *(&self->super.super.super.isa + v15) = v14;
+    [(KNMotionBackgroundStyle *)self loadMotionBackgroundStylePropertiesIntoPropertyMap:v9 fromArchive:v10 unarchiver:unarchiverCopy];
+    v11 = *MEMORY[0x277D80AF0];
+    v12 = *(&self->super.super.super.isa + v11);
+    *(&self->super.super.super.isa + v11) = v9;
   }
 
   if ((*(archive + 16) & 4) != 0)
   {
-    v17 = objc_msgSend_readDataReferenceMessage_(unarchiverCopy, v8, *(archive + 5));
+    v13 = [unarchiverCopy readDataReferenceMessage:*(archive + 5)];
     posterFrameData = self->_posterFrameData;
-    self->_posterFrameData = v17;
+    self->_posterFrameData = v13;
   }
 
-  v19 = objc_msgSend_name(self, v8, v9);
-  isEqualToString = objc_msgSend_isEqualToString_(v19, v20, &stru_2884D8E20);
+  name = [(KNMotionBackgroundStyle *)self name];
+  v16 = [name isEqualToString:&stru_2884D8E20];
 
-  if (isEqualToString)
+  if (v16)
   {
-    objc_msgSend_setName_(self, v22, 0);
+    [(KNMotionBackgroundStyle *)self setName:0];
   }
 }
 
@@ -3098,9 +3071,9 @@ LABEL_9:
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275D6D55C, off_2812EA908[118]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275D6D55C descriptor:off_2812EA908[118]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNMotionBackgroundStyle *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -3120,27 +3093,47 @@ LABEL_9:
     *(archive + 3) = v7;
   }
 
-  v26.receiver = self;
-  v26.super_class = KNMotionBackgroundStyle;
-  [(KNMotionBackgroundStyle *)&v26 saveToArchive:v7 archiver:archiverCopy];
-  v11 = objc_msgSend_overrideCount(self, v9, v10);
-  if (v11)
+  v19.receiver = self;
+  v19.super_class = KNMotionBackgroundStyle;
+  [(KNMotionBackgroundStyle *)&v19 saveToArchive:v7 archiver:archiverCopy];
+  overrideCount = [(KNMotionBackgroundStyle *)self overrideCount];
+  if (overrideCount)
   {
-    if (v11 >> 31)
+    if (overrideCount >> 31)
     {
-      v19 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[KNMotionBackgroundStyle(PersistenceAdditions) saveToArchive:archiver:]");
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNMotionBackgroundStyle.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v23, v20, v22, 617, 0, "Out-of-bounds type assignment was clamped to max");
+      v16 = MEMORY[0x277D81150];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNMotionBackgroundStyle(PersistenceAdditions) saveToArchive:archiver:]"];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNMotionBackgroundStyle.mm"];
+      [v16 handleFailureInFunction:v17 file:v18 lineNumber:617 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25);
-      LODWORD(v11) = 0x7FFFFFFF;
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      LODWORD(overrideCount) = 0x7FFFFFFF;
     }
 
-    v13 = *(archive + 4);
-    *(archive + 12) = v11;
-    *(archive + 4) = v13 | 0xA;
-    v14 = *(archive + 4);
+    v10 = *(archive + 4);
+    *(archive + 12) = overrideCount;
+    *(archive + 4) = v10 | 0xA;
+    v11 = *(archive + 4);
+    if (!v11)
+    {
+      v12 = *(archive + 1);
+      if (v12)
+      {
+        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v11 = sub_275E219FC(v12);
+      *(archive + 4) = v11;
+    }
+
+    [(KNMotionBackgroundStyle *)self saveMotionBackgroundStylePropertyMap:*(&self->super.super.super.isa + *MEMORY[0x277D80AF0]) toArchive:v11 archiver:archiverCopy];
+  }
+
+  posterFrameData = self->_posterFrameData;
+  if (posterFrameData)
+  {
+    *(archive + 4) |= 4u;
+    v14 = *(archive + 5);
     if (!v14)
     {
       v15 = *(archive + 1);
@@ -3149,31 +3142,11 @@ LABEL_9:
         v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v14 = sub_275E219FC(v15);
-      *(archive + 4) = v14;
+      v14 = MEMORY[0x277C8EFD0](v15);
+      *(archive + 5) = v14;
     }
 
-    objc_msgSend_saveMotionBackgroundStylePropertyMap_toArchive_archiver_(self, v12, *(&self->super.super.super.isa + *MEMORY[0x277D80AF0]), v14, archiverCopy);
-  }
-
-  posterFrameData = self->_posterFrameData;
-  if (posterFrameData)
-  {
-    *(archive + 4) |= 4u;
-    v17 = *(archive + 5);
-    if (!v17)
-    {
-      v18 = *(archive + 1);
-      if (v18)
-      {
-        v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      v17 = MEMORY[0x277C8EFD0](v18);
-      *(archive + 5) = v17;
-    }
-
-    objc_msgSend_setDataReference_message_(archiverCopy, v12, posterFrameData, v17);
+    [archiverCopy setDataReference:posterFrameData message:v14];
   }
 }
 

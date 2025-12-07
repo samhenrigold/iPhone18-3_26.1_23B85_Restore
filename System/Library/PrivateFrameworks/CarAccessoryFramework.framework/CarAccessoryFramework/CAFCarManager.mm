@@ -18,6 +18,8 @@
 - (void)_setupCafdConnectionIfAvailable;
 - (void)_updateCar;
 - (void)dealloc;
+- (void)enableNotificationForCharacteristic:(id)characteristic enable:(BOOL)enable response:(id)response;
+- (void)enableNotificationForControl:(id)control enable:(BOOL)enable response:(id)response;
 - (void)handleResponse:(id)response instanceID:(id)d response:(id)a5;
 - (void)invalidate;
 - (void)notifyControl:(id)control value:(id)value;
@@ -33,27 +35,28 @@
 
 - (CAFCarManager)init
 {
-  if ([(CAFCarManager *)self _isEntitled])
+  _isEntitled = [(CAFCarManager *)self _isEntitled];
+  if (_isEntitled)
   {
-    v3 = CAFAppIdentifier();
-    v4 = [(CAFCarManager *)self initWithIdentifier:v3];
+    v4 = CAFAppIdentifier(_isEntitled);
+    v5 = [(CAFCarManager *)self initWithIdentifier:v4];
   }
 
   else
   {
-    v3 = [[CAFCarManagerMutableConfiguration alloc] initWithRegistrationDictionary:&unk_284683570];
-    v4 = [(CAFCarManager *)self initWithConfig:v3];
+    v4 = [[CAFCarManagerMutableConfiguration alloc] initWithRegistrationDictionary:&unk_284683570];
+    v5 = [(CAFCarManager *)self initWithConfig:v4];
   }
 
-  v5 = v4;
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (CAFCarManager)initWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = CAFCarManagerLogging();
+  v5 = CAFCarManagerLogging(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager initWithIdentifier:];
@@ -67,25 +70,25 @@
 
 - (CAFCarManager)initWithRegistrationFilePath:(id)path
 {
-  v4 = CAFCarManagerLogging();
+  v4 = CAFCarManagerLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager initWithRegistrationFilePath:];
   }
 
-  v5 = CAFAppIdentifier();
-  v6 = [(CAFCarManager *)self initWithIdentifier:v5];
+  v6 = CAFAppIdentifier(v5);
+  v7 = [(CAFCarManager *)self initWithIdentifier:v6];
 
-  return v6;
+  return v7;
 }
 
 - (CAFCarManager)initWithConfig:(id)config
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v45.receiver = self;
-  v45.super_class = CAFCarManager;
-  v5 = [(CAFCarManager *)&v45 init];
+  v46.receiver = self;
+  v46.super_class = CAFCarManager;
+  v5 = [(CAFCarManager *)&v46 init];
   v6 = v5;
   if (v5)
   {
@@ -109,122 +112,123 @@
     handler[1] = 3221225472;
     handler[2] = __32__CAFCarManager_initWithConfig___block_invoke;
     handler[3] = &unk_27890D928;
-    objc_copyWeak(&v43, &location);
+    objc_copyWeak(&v44, &location);
     v15 = notify_register_dispatch("com.apple.private.caraccessoryframework.cardata.available", &v6->_carDataToken, notifyQueue, handler);
 
     if (v15)
     {
-      v16 = CAFGeneralLogging();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = CAFGeneralLogging(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(CAFCarManager *)v15 initWithConfig:v16];
+        [(CAFCarManager *)v15 initWithConfig:v17];
       }
     }
 
-    [(CAFCarManager *)v6 _setupCafdConnectionIfAvailable];
-    v17 = CAFCarManagerLogging();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = CAFCarManagerLogging([(CAFCarManager *)v6 _setupCafdConnectionIfAvailable]);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [CAFCarManager initWithConfig:];
     }
 
-    v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
+    v40 = 0u;
     config = [(CAFCarManager *)v6 config];
     registrations = [config registrations];
     treeLogLines = [registrations treeLogLines];
 
-    v21 = [treeLogLines countByEnumeratingWithState:&v38 objects:v49 count:16];
-    if (v21)
+    v22 = [treeLogLines countByEnumeratingWithState:&v39 objects:v50 count:16];
+    v24 = v22;
+    if (v22)
     {
-      v23 = *v39;
-      *&v22 = 138543362;
-      v33 = v22;
+      v25 = *v40;
+      *&v23 = 138543362;
+      v34 = v23;
       do
       {
-        v24 = 0;
+        v26 = 0;
         do
         {
-          if (*v39 != v23)
+          if (*v40 != v25)
           {
             objc_enumerationMutation(treeLogLines);
           }
 
-          v25 = *(*(&v38 + 1) + 8 * v24);
-          v26 = CAFRegistrationLogging();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v27 = *(*(&v39 + 1) + 8 * v26);
+          v28 = CAFRegistrationLogging(v22);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v33;
-            v48 = v25;
-            _os_log_debug_impl(&dword_231618000, v26, OS_LOG_TYPE_DEBUG, "registrations %{public}@", buf, 0xCu);
+            *buf = v34;
+            v49 = v27;
+            _os_log_debug_impl(&dword_231618000, v28, OS_LOG_TYPE_DEBUG, "registrations %{public}@", buf, 0xCu);
           }
 
-          ++v24;
+          ++v26;
         }
 
-        while (v21 != v24);
-        v21 = [treeLogLines countByEnumeratingWithState:&v38 objects:v49 count:16];
+        while (v24 != v26);
+        v22 = [treeLogLines countByEnumeratingWithState:&v39 objects:v50 count:16];
+        v24 = v22;
       }
 
-      while (v21);
+      while (v22);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v28 = [&unk_284682FB8 countByEnumeratingWithState:&v34 objects:v46 count:16];
-    if (v28)
+    v36 = 0u;
+    v30 = [&unk_284682FB8 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    if (v30)
     {
-      v29 = *v35;
+      v31 = *v36;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v35 != v29)
+          if (*v36 != v31)
           {
             objc_enumerationMutation(&unk_284682FB8);
           }
 
-          [defaultCenter addObserver:v6 selector:sel__didReceiveLifecycleNotification_ name:*(*(&v34 + 1) + 8 * i) object:{0, v33}];
+          [defaultCenter addObserver:v6 selector:sel__didReceiveLifecycleNotification_ name:*(*(&v35 + 1) + 8 * i) object:{0, v34}];
         }
 
-        v28 = [&unk_284682FB8 countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v30 = [&unk_284682FB8 countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
-      while (v28);
+      while (v30);
     }
 
-    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __32__CAFCarManager_initWithConfig___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CAFCarManagerLogging();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = CAFCarManagerLogging(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __32__CAFCarManager_initWithConfig___block_invoke_cold_1();
     }
 
-    [WeakRetained _setupCafdConnectionIfAvailable];
+    [v2 _setupCafdConnectionIfAvailable];
   }
 }
 
 - (void)_didReceiveLifecycleNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = CAFCarManagerLogging();
+  v5 = CAFCarManagerLogging(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(CAFCarManager *)self _didReceiveLifecycleNotification:notificationCopy];
@@ -258,10 +262,18 @@ void __32__CAFCarManager_initWithConfig___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self];
+
+  v5 = CAFCarManagerLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFCarManager dealloc];
+  }
+
+  v6.receiver = self;
+  v6.super_class = CAFCarManager;
+  [(CAFCarManager *)&v6 dealloc];
 }
 
 - (BOOL)_isEntitled
@@ -279,10 +291,11 @@ void __32__CAFCarManager_initWithConfig___block_invoke(uint64_t a1)
     v4 = 0;
   }
 
-  if (([v4 containsObject:@"com.apple.caraccessoryframework.cardata"] & 1) == 0)
+  v5 = [v4 containsObject:@"com.apple.caraccessoryframework.cardata"];
+  if ((v5 & 1) == 0)
   {
-    v6 = CAFGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = CAFGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [CAFCarManager _isEntitled];
     }
@@ -290,33 +303,32 @@ void __32__CAFCarManager_initWithConfig___block_invoke(uint64_t a1)
     goto LABEL_12;
   }
 
-  if (([processHandle hasEntitlement:@"com.apple.private.carp"] & 1) == 0)
+  v6 = [processHandle hasEntitlement:@"com.apple.private.carp"];
+  if ((v6 & 1) == 0)
   {
-    v6 = CAFGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = CAFGeneralLogging(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [CAFCarManager _isEntitled];
     }
 
 LABEL_12:
 
-    v5 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
-  v5 = 1;
+  v7 = 1;
 LABEL_13:
 
-  return v5;
+  return v7;
 }
 
 - (void)_setupCafdConnectionIfAvailable
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeConnectionWithReason:(id)reason
@@ -352,8 +364,8 @@ LABEL_13:
   connectionProxy2 = [(CAFCarManager *)self connectionProxy];
   [connectionProxy2 invalidate];
 
-  v11 = CAFCarManagerLogging();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = CAFCarManagerLogging(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager _locked_closeConnectionWithReason:];
   }
@@ -376,20 +388,20 @@ LABEL_13:
   if (v8)
   {
 LABEL_7:
-    v10 = 1;
+    v11 = 1;
     goto LABEL_8;
   }
 
-  v9 = CAFRegistrationLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = CAFRegistrationLogging(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager shouldAllocAccessoryType:typeCopy];
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_8:
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)shouldAllocAccessoryType:(id)type serviceConfig:(id)config
@@ -415,66 +427,44 @@ LABEL_8:
   }
 
   v30 = v12;
-  if (*(v28 + 24) != 1)
+  if (*(v28 + 24) == 1 && (-[CAFCarManager config](self, "config"), v14 = objc_claimAutoreleasedReturnValue(), [v14 registrations], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "nodeForAccessory:serviceType:", typeCopy, v8), v16 = objc_claimAutoreleasedReturnValue(), v15, v14, objc_msgSend(v16, "children"), v17 = objc_claimAutoreleasedReturnValue(), v22[0] = MEMORY[0x277D85DD0], v22[1] = 3221225472, v22[2] = __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke, v22[3] = &unk_27890D978, v23 = configCopy, v24 = typeCopy, v25 = v8, v26 = &v27, objc_msgSend(v17, "enumerateKeysAndObjectsUsingBlock:", v22), v17, v25, v24, v23, v16, (v28[3] & 1) != 0))
   {
-    goto LABEL_7;
-  }
-
-  config3 = [(CAFCarManager *)self config];
-  registrations2 = [config3 registrations];
-  v15 = [registrations2 nodeForAccessory:typeCopy serviceType:v8];
-
-  children = [v15 children];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke;
-  v22[3] = &unk_27890D978;
-  v23 = configCopy;
-  v24 = typeCopy;
-  v25 = v8;
-  v26 = &v27;
-  [children enumerateKeysAndObjectsUsingBlock:v22];
-
-  if (v28[3])
-  {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-LABEL_7:
-    v18 = CAFRegistrationLogging();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = CAFRegistrationLogging(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v19 = [CAFAccessoryTypes accessoryNameForType:typeCopy];
+      v20 = [CAFAccessoryTypes accessoryNameForType:typeCopy];
       [CAFServiceTypes serviceNameForType:v8];
       objc_claimAutoreleasedReturnValue();
       [CAFCarManager shouldAllocAccessoryType:serviceConfig:];
     }
 
-    v17 = *(v28 + 24);
+    v18 = *(v28 + 24);
   }
 
   _Block_object_dispose(&v27, 8);
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v17 & 1;
+  return v18 & 1;
 }
 
 void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v8 registeredValues];
   if ([v9 count])
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__0;
-    v25 = __Block_byref_object_dispose__0;
-    v26 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__0;
+    v26 = __Block_byref_object_dispose__0;
+    v27 = 0;
     objc_opt_class();
     v10 = [*(a1 + 32) objectForKeyedSubscript:@"characteristics"];
     if (v10 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -489,49 +479,50 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke(u
 
     if (v11)
     {
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_120;
-      v18[3] = &unk_27890D950;
-      v19 = v7;
-      v20 = &v21;
-      [v11 enumerateObjectsUsingBlock:v18];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_120;
+      v19[3] = &unk_27890D950;
+      v20 = v7;
+      v21 = &v22;
+      [v11 enumerateObjectsUsingBlock:v19];
     }
 
-    if (v22[5])
+    if (v23[5])
     {
-      if ([v9 containsObject:?])
+      v13 = [v9 containsObject:?];
+      if (v13)
       {
 LABEL_15:
 
-        _Block_object_dispose(&v21, 8);
+        _Block_object_dispose(&v22, 8);
         goto LABEL_16;
       }
 
-      v12 = CAFRegistrationLogging();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = CAFRegistrationLogging(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v13 = [CAFAccessoryTypes accessoryNameForType:*(a1 + 40)];
-        v14 = [CAFServiceTypes serviceNameForType:*(a1 + 48)];
-        v15 = v22[5];
+        v15 = [CAFAccessoryTypes accessoryNameForType:*(a1 + 40)];
+        v16 = [CAFServiceTypes serviceNameForType:*(a1 + 48)];
+        v17 = v23[5];
         *buf = 138544130;
-        v28 = v13;
-        v29 = 2114;
-        v30 = v14;
-        v31 = 2114;
-        v32 = v15;
-        v33 = 2114;
-        v34 = v9;
-        _os_log_debug_impl(&dword_231618000, v12, OS_LOG_TYPE_DEBUG, "characteristic %{public}@.%{public}@ value %{public}@ is not in registered values %{public}@", buf, 0x2Au);
+        v29 = v15;
+        v30 = 2114;
+        v31 = v16;
+        v32 = 2114;
+        v33 = v17;
+        v34 = 2114;
+        v35 = v9;
+        _os_log_debug_impl(&dword_231618000, v14, OS_LOG_TYPE_DEBUG, "characteristic %{public}@.%{public}@ value %{public}@ is not in registered values %{public}@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v12 = CAFRegistrationLogging();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = CAFRegistrationLogging(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v16 = [CAFAccessoryTypes accessoryNameForType:*(a1 + 40)];
+        v18 = [CAFAccessoryTypes accessoryNameForType:*(a1 + 40)];
         [CAFServiceTypes serviceNameForType:*(a1 + 48)];
         objc_claimAutoreleasedReturnValue();
         __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_cold_1();
@@ -544,8 +535,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_120(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -589,12 +578,12 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_1
   if (v14)
   {
 LABEL_7:
-    v16 = 1;
+    v17 = 1;
     goto LABEL_8;
   }
 
-  v15 = CAFRegistrationLogging();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = CAFRegistrationLogging(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     v19 = [CAFAccessoryTypes accessoryNameForType:typeCopy];
     v20 = [CAFServiceTypes serviceNameForType:serviceTypeCopy];
@@ -605,14 +594,13 @@ LABEL_7:
     v25 = v20;
     v26 = 2114;
     v27 = v21;
-    _os_log_debug_impl(&dword_231618000, v15, OS_LOG_TYPE_DEBUG, "should not allocate characteristic %{public}@.%{public}@.%{public}@", &v22, 0x20u);
+    _os_log_debug_impl(&dword_231618000, v16, OS_LOG_TYPE_DEBUG, "should not allocate characteristic %{public}@.%{public}@.%{public}@", &v22, 0x20u);
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (BOOL)shouldAllocAccessoryType:(id)type serviceType:(id)serviceType controlType:(id)controlType
@@ -635,12 +623,12 @@ LABEL_8:
   if (v14)
   {
 LABEL_7:
-    v16 = 1;
+    v17 = 1;
     goto LABEL_8;
   }
 
-  v15 = CAFRegistrationLogging();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = CAFRegistrationLogging(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     v19 = [CAFAccessoryTypes accessoryNameForType:typeCopy];
     v20 = [CAFServiceTypes serviceNameForType:serviceTypeCopy];
@@ -651,14 +639,13 @@ LABEL_7:
     v25 = v20;
     v26 = 2114;
     v27 = v21;
-    _os_log_debug_impl(&dword_231618000, v15, OS_LOG_TYPE_DEBUG, "should not allocate control %{public}@.%{public}@.%{public}@", &v22, 0x20u);
+    _os_log_debug_impl(&dword_231618000, v16, OS_LOG_TYPE_DEBUG, "should not allocate control %{public}@.%{public}@.%{public}@", &v22, 0x20u);
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (BOOL)shouldInitializeCharacteristic:(id)characteristic
@@ -713,11 +700,9 @@ LABEL_8:
 
 - (void)_updateCar
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestControl:(id)control value:(id)value response:(id)response
@@ -725,7 +710,7 @@ LABEL_8:
   controlCopy = control;
   responseCopy = response;
   valueCopy = value;
-  v11 = CAFRequestResponseLogging();
+  v11 = CAFRequestResponseLogging(valueCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager requestControl:value:response:];
@@ -743,7 +728,7 @@ LABEL_8:
 {
   controlCopy = control;
   valueCopy = value;
-  v8 = CAFRequestResponseLogging();
+  v8 = CAFRequestResponseLogging(valueCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager notifyControl:value:];
@@ -814,7 +799,7 @@ LABEL_10:
 {
   characteristicCopy = characteristic;
   responseCopy = response;
-  v8 = CAFRequestResponseLogging();
+  v8 = CAFRequestResponseLogging(responseCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager readCharacteristic:response:];
@@ -848,11 +833,11 @@ void __45__CAFCarManager_readCharacteristic_response___block_invoke(void *a1, vo
 
 - (void)writeCharacteristic:(id)characteristic value:(id)value response:(id)response
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   valueCopy = value;
   responseCopy = response;
-  v11 = CAFRequestResponseLogging();
+  v11 = CAFRequestResponseLogging(responseCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarManager writeCharacteristic:value:response:];
@@ -862,32 +847,30 @@ void __45__CAFCarManager_readCharacteristic_response___block_invoke(void *a1, vo
   remoteProxy = [connectionProxy remoteProxy];
   pluginID = [characteristicCopy pluginID];
   instanceID = [characteristicCopy instanceID];
-  v25 = instanceID;
+  v24 = instanceID;
   null = valueCopy;
   if (!valueCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v26[0] = null;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = null;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   priority = [characteristicCopy priority];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __52__CAFCarManager_writeCharacteristic_value_response___block_invoke;
-  v22[3] = &unk_27890D9A0;
-  v22[4] = self;
-  v23 = characteristicCopy;
-  v24 = responseCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __52__CAFCarManager_writeCharacteristic_value_response___block_invoke;
+  v21[3] = &unk_27890D9A0;
+  v21[4] = self;
+  v22 = characteristicCopy;
+  v23 = responseCopy;
   v18 = responseCopy;
   v19 = characteristicCopy;
-  [remoteProxy writeToPluginID:pluginID values:v16 priority:priority withResponse:v22];
+  [remoteProxy writeToPluginID:pluginID values:v16 priority:priority withResponse:v21];
 
   if (!valueCopy)
   {
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CAFCarManager_writeCharacteristic_value_response___block_invoke(void *a1, void *a2)
@@ -897,6 +880,55 @@ void __52__CAFCarManager_writeCharacteristic_value_response___block_invoke(void 
   v5 = a2;
   v6 = [v4 instanceID];
   [v3 handleResponse:v5 instanceID:v6 response:a1[6]];
+}
+
+- (void)enableNotificationForCharacteristic:(id)characteristic enable:(BOOL)enable response:(id)response
+{
+  enableCopy = enable;
+  characteristicCopy = characteristic;
+  responseCopy = response;
+  v10 = CAFRequestResponseLogging(responseCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFCarManager enableNotificationForCharacteristic:enableCopy enable:characteristicCopy response:?];
+  }
+
+  connectionProxy = [(CAFCarManager *)self connectionProxy];
+  remoteProxy = [connectionProxy remoteProxy];
+  pluginID = [characteristicCopy pluginID];
+  registrationInstanceIDs = [characteristicCopy registrationInstanceIDs];
+  priority = [characteristicCopy priority];
+  if (enableCopy)
+  {
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __69__CAFCarManager_enableNotificationForCharacteristic_enable_response___block_invoke;
+    v25[3] = &unk_27890D9A0;
+    v16 = &v26;
+    v25[4] = self;
+    v26 = characteristicCopy;
+    v17 = &v27;
+    v27 = responseCopy;
+    v18 = responseCopy;
+    v19 = characteristicCopy;
+    [remoteProxy addRegistrationToPluginID:pluginID instanceIDs:registrationInstanceIDs priority:priority withResponse:v25];
+  }
+
+  else
+  {
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __69__CAFCarManager_enableNotificationForCharacteristic_enable_response___block_invoke_2;
+    v22[3] = &unk_27890D9A0;
+    v16 = &v23;
+    v22[4] = self;
+    v23 = characteristicCopy;
+    v17 = &v24;
+    v24 = responseCopy;
+    v20 = responseCopy;
+    v21 = characteristicCopy;
+    [remoteProxy removeRegistrationFromPluginID:pluginID instanceIDs:registrationInstanceIDs priority:priority withResponse:v22];
+  }
 }
 
 void __69__CAFCarManager_enableNotificationForCharacteristic_enable_response___block_invoke(void *a1, void *a2)
@@ -915,6 +947,55 @@ void __69__CAFCarManager_enableNotificationForCharacteristic_enable_response___b
   v5 = a2;
   v6 = [v4 instanceID];
   [v3 handleResponse:v5 instanceID:v6 response:a1[6]];
+}
+
+- (void)enableNotificationForControl:(id)control enable:(BOOL)enable response:(id)response
+{
+  enableCopy = enable;
+  controlCopy = control;
+  responseCopy = response;
+  v10 = CAFRequestResponseLogging(responseCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFCarManager enableNotificationForControl:enableCopy enable:controlCopy response:?];
+  }
+
+  connectionProxy = [(CAFCarManager *)self connectionProxy];
+  remoteProxy = [connectionProxy remoteProxy];
+  pluginID = [controlCopy pluginID];
+  registrationInstanceIDs = [controlCopy registrationInstanceIDs];
+  priority = [controlCopy priority];
+  if (enableCopy)
+  {
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __62__CAFCarManager_enableNotificationForControl_enable_response___block_invoke;
+    v25[3] = &unk_27890D9A0;
+    v16 = &v26;
+    v25[4] = self;
+    v26 = controlCopy;
+    v17 = &v27;
+    v27 = responseCopy;
+    v18 = responseCopy;
+    v19 = controlCopy;
+    [remoteProxy addRegistrationToPluginID:pluginID instanceIDs:registrationInstanceIDs priority:priority withResponse:v25];
+  }
+
+  else
+  {
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __62__CAFCarManager_enableNotificationForControl_enable_response___block_invoke_2;
+    v22[3] = &unk_27890D9A0;
+    v16 = &v23;
+    v22[4] = self;
+    v23 = controlCopy;
+    v17 = &v24;
+    v24 = responseCopy;
+    v20 = responseCopy;
+    v21 = controlCopy;
+    [remoteProxy removeRegistrationFromPluginID:pluginID instanceIDs:registrationInstanceIDs priority:priority withResponse:v22];
+  }
 }
 
 void __62__CAFCarManager_enableNotificationForControl_enable_response___block_invoke(void *a1, void *a2)
@@ -942,10 +1023,11 @@ void __62__CAFCarManager_enableNotificationForControl_enable_response___block_in
   valueCopy = value;
   responseCopy = response;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v14 = CAFRequestResponseLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = CAFRequestResponseLogging(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [CAFCarManager performGroupedRequest:key:value:withResponse:];
     }
@@ -961,10 +1043,11 @@ LABEL_17:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v20 = objc_opt_isKindOfClass();
+  if (v20)
   {
-    v19 = CAFRequestResponseLogging();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = CAFRequestResponseLogging(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [CAFCarManager performGroupedRequest:key:value:withResponse:];
     }
@@ -978,10 +1061,11 @@ LABEL_17:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v22 = objc_opt_isKindOfClass();
+  if (v22)
   {
-    v20 = CAFRequestResponseLogging();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v23 = CAFRequestResponseLogging(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [CAFCarManager performGroupedRequest:key:value:withResponse:];
     }
@@ -995,10 +1079,11 @@ LABEL_17:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v24 = objc_opt_isKindOfClass();
+  if (v24)
   {
-    v21 = CAFRequestResponseLogging();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v25 = CAFRequestResponseLogging(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       [CAFCarManager performGroupedRequest:key:value:withResponse:];
     }
@@ -1016,20 +1101,16 @@ LABEL_18:
 
 - (void)invalidate
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithRegistrationFilePath:.cold.1()
@@ -1041,20 +1122,17 @@ LABEL_18:
 
 - (void)initWithConfig:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Unable to register for car data available notifications (%i)", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Unable to register for car data available notifications (%i)", v2, 8u);
 }
 
 - (void)initWithConfig:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__CAFCarManager_initWithConfig___block_invoke_cold_1()
@@ -1066,34 +1144,27 @@ void __32__CAFCarManager_initWithConfig___block_invoke_cold_1()
 
 - (void)_didReceiveLifecycleNotification:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 name];
+  v7 = [a2 name];
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_locked_closeConnectionWithReason:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_3_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_231618000, v2, OS_LOG_TYPE_DEBUG, "%s %{public}@: connection cleared for %{public}@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_231618000, v2, OS_LOG_TYPE_DEBUG, "%s %{public}@: connection cleared for %{public}@", v3, 0x20u);
 }
 
 - (void)shouldAllocAccessoryType:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [CAFAccessoryTypes accessoryNameForType:a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldAllocAccessoryType:serviceConfig:.cold.1()
@@ -1113,7 +1184,6 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
 - (void)requestControl:value:response:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x277D85DE8];
   [v2 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_14() instanceID];
@@ -1122,14 +1192,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyControl:value:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x277D85DE8];
   [v2 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_14() instanceID];
@@ -1138,14 +1205,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readCharacteristic:response:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x277D85DE8];
   [v2 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_14() instanceID];
@@ -1154,27 +1218,21 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeCharacteristic:value:response:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [v1 pluginID];
   v3 = [v0 instanceID];
   v4 = [v0 priority];
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableNotificationForCharacteristic:(uint64_t)a1 enable:(void *)a2 response:.cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   [a2 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_14() instanceID];
@@ -1183,13 +1241,10 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableNotificationForControl:(uint64_t)a1 enable:(void *)a2 response:.cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   [a2 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_14() instanceID];
@@ -1198,14 +1253,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performGroupedRequest:key:value:withResponse:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_7_1() count];
@@ -1213,14 +1265,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performGroupedRequest:key:value:withResponse:.cold.2()
 {
   OUTLINED_FUNCTION_4_1();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_7_1() count];
@@ -1228,14 +1277,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performGroupedRequest:key:value:withResponse:.cold.3()
 {
   OUTLINED_FUNCTION_4_1();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_7_1() count];
@@ -1243,14 +1289,11 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performGroupedRequest:key:value:withResponse:.cold.4()
 {
   OUTLINED_FUNCTION_4_1();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 pluginID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_7_1() count];
@@ -1258,8 +1301,6 @@ void __56__CAFCarManager_shouldAllocAccessoryType_serviceConfig___block_invoke_c
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

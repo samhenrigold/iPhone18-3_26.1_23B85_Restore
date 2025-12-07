@@ -67,7 +67,7 @@
   {
     if (locationCopy)
     {
-      [locationCopy clientLocation];
+      objc_msgSend_clientLocation(locationCopy);
     }
 
     else

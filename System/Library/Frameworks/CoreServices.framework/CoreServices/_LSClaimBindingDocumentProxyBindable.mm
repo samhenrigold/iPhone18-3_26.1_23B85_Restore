@@ -1,5 +1,6 @@
 @interface _LSClaimBindingDocumentProxyBindable
 - (BOOL)isEqual:(id)equal;
+- (BindingEvaluator)baseBindingEvaluatorWithBindingStyle:(SEL)style auditToken:(unsigned __int8)token;
 - (_LSClaimBindingDocumentProxyBindable)initWithCoder:(id)coder;
 - (id)initWithProxy:(id *)proxy;
 - (id)typeRecordWithError:(id *)error;
@@ -180,6 +181,148 @@
   v30 = 0;
 
   return v12;
+}
+
+- (BindingEvaluator)baseBindingEvaluatorWithBindingStyle:(SEL)style auditToken:(unsigned __int8)token
+{
+  tokenCopy = token;
+  v32 = *MEMORY[0x1E69E9840];
+  v8 = [(LSDocumentProxy *)self->_documentProxy URL];
+  v9 = v8;
+  v10 = &kUTTypeData;
+  if (v8)
+  {
+    if ([(LaunchServices::BindingEvaluator *)v8 hasDirectoryPath])
+    {
+      v10 = &kUTTypeDirectory;
+    }
+
+    v30[0] = 0;
+    v31 = 0;
+    v11 = [FSNode canReadURL:v9 fromSandboxWithAuditToken:a5];
+    v12 = *v10;
+    if (v11)
+    {
+      LaunchServices::BindingEvaluator::CreateWithURL(v9, v29);
+      std::optional<LaunchServices::BindingEvaluator>::operator=[abi:nn200100]<LaunchServices::BindingEvaluator,void>(v30, v29);
+      LaunchServices::BindingEvaluator::~BindingEvaluator(v29);
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    v30[0] = 0;
+    v31 = 0;
+  }
+
+  typeIdentifier = [(LSDocumentProxy *)self->_documentProxy typeIdentifier];
+  if (typeIdentifier)
+  {
+    name = [(LSDocumentProxy *)self->_documentProxy name];
+    LaunchServices::BindingEvaluator::CreateWithUTI(v29, typeIdentifier, name);
+    std::optional<LaunchServices::BindingEvaluator>::operator=[abi:nn200100]<LaunchServices::BindingEvaluator,void>(v30, v29);
+    LaunchServices::BindingEvaluator::~BindingEvaluator(v29);
+  }
+
+  else
+  {
+    name2 = [(LSDocumentProxy *)self->_documentProxy name];
+    pathExtension = [name2 pathExtension];
+
+    if (pathExtension)
+    {
+      PreferredIdentifierForTag = UTTypeCreatePreferredIdentifierForTag(@"public.filename-extension", pathExtension, v12);
+      if (PreferredIdentifierForTag)
+      {
+        name3 = [(LSDocumentProxy *)self->_documentProxy name];
+        LaunchServices::BindingEvaluator::CreateWithUTI(v29, PreferredIdentifierForTag, name3);
+        std::optional<LaunchServices::BindingEvaluator>::operator=[abi:nn200100]<LaunchServices::BindingEvaluator,void>(v30, v29);
+        LaunchServices::BindingEvaluator::~BindingEvaluator(v29);
+      }
+    }
+
+    else
+    {
+      PreferredIdentifierForTag = [(LSDocumentProxy *)self->_documentProxy MIMEType];
+      if (PreferredIdentifierForTag)
+      {
+        v19 = UTTypeCreatePreferredIdentifierForTag(@"public.mime-type", PreferredIdentifierForTag, v12);
+        if (v19)
+        {
+          name4 = [(LSDocumentProxy *)self->_documentProxy name];
+          LaunchServices::BindingEvaluator::CreateWithUTI(v29, v19, name4);
+          std::optional<LaunchServices::BindingEvaluator>::operator=[abi:nn200100]<LaunchServices::BindingEvaluator,void>(v30, v29);
+          LaunchServices::BindingEvaluator::~BindingEvaluator(v29);
+        }
+      }
+    }
+  }
+
+LABEL_18:
+  if ((v31 & 1) == 0)
+  {
+    if (v12)
+    {
+      v20 = v12;
+    }
+
+    else
+    {
+      v20 = @"public.data";
+    }
+
+    LaunchServices::BindingEvaluator::CreateWithUTI(v29, v20, 0);
+    std::optional<LaunchServices::BindingEvaluator>::operator=[abi:nn200100]<LaunchServices::BindingEvaluator,void>(v30, v29);
+    LaunchServices::BindingEvaluator::~BindingEvaluator(v29);
+  }
+
+  if (tokenCopy == 1)
+  {
+    v21 = 320;
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  if (tokenCopy == 2)
+  {
+    v22 = 12320;
+  }
+
+  else
+  {
+    v22 = v21;
+  }
+
+  if (tokenCopy != 3)
+  {
+    v23 = v22 | 0x2020;
+    if (v22 | 0x2020)
+    {
+      Options = LaunchServices::BindingEvaluator::getOptions(v30);
+      LaunchServices::BindingEvaluator::setOptions(v30, Options | v23);
+    }
+  }
+
+  v25 = [LSDocumentProxy _bindingEvaluatorResultFilterForBindingStyle:tokenCopy contentIsManaged:[(LSDocumentProxy *)self->_documentProxy isContentManaged] sourceAuditToken:[(LSDocumentProxy *)self->_documentProxy sourceAuditToken]];
+  LaunchServices::BindingEvaluator::setResultFilter(v30, v25);
+
+  if ((v31 & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:nn200100]();
+  }
+
+  LaunchServices::BindingEvaluator::BindingEvaluator(retstr, v30);
+  if (v31 == 1)
+  {
+    LaunchServices::BindingEvaluator::~BindingEvaluator(v30);
+  }
+
+  return result;
 }
 
 @end

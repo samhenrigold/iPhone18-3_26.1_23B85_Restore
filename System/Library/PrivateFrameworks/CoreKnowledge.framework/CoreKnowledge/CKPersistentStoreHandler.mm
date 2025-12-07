@@ -10,9 +10,6 @@
 - (BOOL)saveKeysAndValues:(id)values error:(id *)error;
 - (BOOL)setWeightForLinkWithLabel:(id)label between:(id)between and:(id)and toValue:(int64_t)value error:(id *)error;
 - (CKPersistentStoreHandler)initWithName:(id)name;
-- (id)_valuesForKeys:(id)keys error:(id *)error;
-- (id)keysAndValuesAndReturnError:(id *)error;
-- (id)keysAndValuesForKeysMatching:(id)matching error:(id *)error;
 - (id)tripleComponentsMatching:(id)matching error:(id *)error;
 @end
 
@@ -20,7 +17,7 @@
 
 + (id)inMemoryHandler
 {
-  v2 = sub_1C8694120();
+  v2 = sub_1C8694120(self);
 
   return v2;
 }
@@ -30,38 +27,6 @@
   sub_1C86F8EFC();
   CKPersistentStoreHandler.init(name:)();
   return result;
-}
-
-- (id)keysAndValuesAndReturnError:(id *)error
-{
-  selfCopy = self;
-  sub_1C8696468();
-
-  v4 = sub_1C86F8E8C();
-
-  return v4;
-}
-
-- (id)keysAndValuesForKeysMatching:(id)matching error:(id *)error
-{
-  matchingCopy = matching;
-  selfCopy = self;
-  sub_1C8696A70(matchingCopy);
-
-  v7 = sub_1C86F8E8C();
-
-  return v7;
-}
-
-- (id)_valuesForKeys:(id)keys error:(id *)error
-{
-  v5 = sub_1C86F909C();
-  selfCopy = self;
-  sub_1C86975A8(v5);
-
-  v7 = sub_1C86F908C();
-
-  return v7;
 }
 
 - (BOOL)saveKeysAndValues:(id)values error:(id *)error
@@ -75,9 +40,10 @@
 
 - (BOOL)removeValueForKey:(id)key error:(id *)error
 {
-  sub_1C86F8EFC();
+  v5 = sub_1C86F8EFC();
+  v7 = v6;
   selfCopy = self;
-  sub_1C8698A20();
+  sub_1C8698A20(v5, v7);
 
   return 1;
 }
@@ -103,7 +69,7 @@
 - (BOOL)removeAllValuesAndReturnError:(id *)error
 {
   selfCopy = self;
-  sub_1C8699654();
+  sub_1C8699654(selfCopy);
 
   return 1;
 }
@@ -172,10 +138,11 @@
 
 - (BOOL)dropLinksBetween:(id)between and:(id)and error:(id *)error
 {
-  sub_1C86F8EFC();
+  v6 = sub_1C86F8EFC();
+  v8 = v7;
   sub_1C86F8EFC();
   selfCopy = self;
-  sub_1C869BDD0();
+  sub_1C869BDD0(v6, v8);
 
   return 1;
 }

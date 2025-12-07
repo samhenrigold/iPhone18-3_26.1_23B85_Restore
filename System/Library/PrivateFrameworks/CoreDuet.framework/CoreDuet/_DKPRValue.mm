@@ -97,7 +97,7 @@
     [_DKPRValue writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_stringValue)
   {
@@ -107,30 +107,27 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    integerValue = self->_integerValue;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
-  v7 = v10;
+  v6 = v7;
   if ((has & 2) != 0)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    v7 = v10;
+    v6 = v7;
   }
 
   if (self->_blobValue)
   {
     PBDataWriterWriteDataField();
-    v7 = v10;
+    v6 = v7;
   }
 
   if (*&self->_has)
   {
-    dateValue = self->_dateValue;
     PBDataWriterWriteDoubleField();
-    v7 = v10;
+    v6 = v7;
   }
 }
 
@@ -199,7 +196,6 @@
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_integerValue != *(equalCopy + 3))
@@ -232,14 +228,14 @@
     if (![(NSData *)blobValue isEqual:?])
     {
 LABEL_23:
-      v10 = 0;
+      v9 = 0;
       goto LABEL_24;
     }
 
     has = self->_has;
   }
 
-  v10 = (*(equalCopy + 56) & 1) == 0;
+  v9 = (*(equalCopy + 56) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_dateValue != *(equalCopy + 1))
@@ -247,12 +243,12 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_24:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

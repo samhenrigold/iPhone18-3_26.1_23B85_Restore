@@ -18,37 +18,37 @@ uint64_t __56__UIImage_MPUtilities__imageWithRoundedCornersOfRadius___block_invo
   return [v9 drawInRect:{v2, v3, v5, v7}];
 }
 
-void __40__UIImage_MPUtilities__imageWithShadow___block_invoke(uint64_t a1, CGContext *a2)
+void __40__UIImage_MPUtilities__imageWithShadow___block_invoke(uint64_t a1, CGContext *a2, double a3, double a4, double a5, double a6)
 {
-  v4 = [*(a1 + 32) shadowColor];
-  if (v4)
+  v8 = [*(a1 + 32) shadowColor];
+  if (v8)
   {
-    v5 = [MEMORY[0x1E69DC888] clearColor];
-    v6 = [v4 isEqual:v5];
+    v9 = [MEMORY[0x1E69DC888] clearColor];
+    v10 = [v8 isEqual:v9];
 
-    if ((v6 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v7 = *(a1 + 56);
-      v8 = *(a1 + 48) * v7;
-      CGAffineTransformMakeScale(&v19, v7, v7);
-      CGContextSetShadowWithColor(a2, vmlaq_n_f64(vmulq_n_f64(*&v19.c, *(a1 + 72)), *&v19.a, *(a1 + 64)), v8, [v4 CGColor]);
+      v11 = *(a1 + 56);
+      v12 = *(a1 + 48) * v11;
+      CGAffineTransformMakeScale(&v23, v11, v11);
+      CGContextSetShadowWithColor(a2, vmlaq_n_f64(vmulq_n_f64(*&v23.c, *(a1 + 72)), *&v23.a, *(a1 + 64)), v12, [v8 CGColor]);
     }
   }
 
-  v9 = [*(a1 + 40) CGImage];
-  CGImageGetWidth(v9);
-  CGImageGetHeight(v9);
+  v13 = [*(a1 + 40) CGImage];
+  CGImageGetWidth(v13);
+  CGImageGetHeight(v13);
   UIRectCenteredIntegralRect();
-  v11 = v10;
-  v13 = v12;
   v15 = v14;
   v17 = v16;
-  v18 = [*(a1 + 40) CGImage];
-  v20.origin.x = v11;
-  v20.origin.y = v13;
-  v20.size.width = v15;
-  v20.size.height = v17;
-  CGContextDrawImage(a2, v20, v18);
+  v19 = v18;
+  v21 = v20;
+  v22 = [*(a1 + 40) CGImage];
+  v24.origin.x = v15;
+  v24.origin.y = v17;
+  v24.size.width = v19;
+  v24.size.height = v21;
+  CGContextDrawImage(a2, v24, v22);
 }
 
 void __60__UIImage_MPUtilities__imageWithEtchedBorderOfColor_radius___block_invoke(uint64_t a1, CGContext *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -104,7 +104,7 @@ void __60__UIImage_MPUtilities__imageWithEtchedBorderOfColor_radius___block_invo
   CGImageRelease(Image);
 }
 
-uint64_t __56__UIImage_MPUtilities__initWithContentsOfExactFilePath___block_invoke()
+void *__56__UIImage_MPUtilities__initWithContentsOfExactFilePath___block_invoke()
 {
   result = [MEMORY[0x1E69B34E0] deviceSupportsASTC];
   initWithContentsOfExactFilePath__deviceSupportsASTC = result;

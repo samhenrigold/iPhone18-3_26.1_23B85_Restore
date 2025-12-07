@@ -113,37 +113,35 @@
 
 - (id)description
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"..<%@: %@>", objc_opt_class(), self->_name];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = self->_mutableTasks;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 appendFormat:@"\n%@", *(*(&v11 + 1) + 8 * i)];
+        [v3 appendFormat:@"\n%@", *(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -167,9 +165,7 @@
 
 - (void)setFrequency:(unint64_t)frequency
 {
-  v4 = [PSGraphFrequencyFixed fixedFrequency:frequency];
-  graphFrequency = self->_graphFrequency;
-  self->_graphFrequency = v4;
+  self->_graphFrequency = [PSGraphFrequencyFixed fixedFrequency:frequency];
 
   MEMORY[0x2821F96F8]();
 }
@@ -226,191 +222,191 @@
 
 - (id)getExternalInputs
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   selfCopy = self;
   v4 = self->_mutableTasks;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v76 objects:v86 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v75 objects:v85 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v77;
+    v7 = *v76;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v77 != v7)
+        if (*v76 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v76 + 1) + 8 * i);
+        v9 = *(*(&v75 + 1) + 8 * i);
+        v71 = 0u;
         v72 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v75 = 0u;
         outputs = [v9 outputs];
-        v11 = [outputs countByEnumeratingWithState:&v72 objects:v85 count:16];
+        v11 = [outputs countByEnumeratingWithState:&v71 objects:v84 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v73;
+          v13 = *v72;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v73 != v13)
+              if (*v72 != v13)
               {
                 objc_enumerationMutation(outputs);
               }
 
-              resourceKey = [*(*(&v72 + 1) + 8 * j) resourceKey];
+              resourceKey = [*(*(&v71 + 1) + 8 * j) resourceKey];
               [v3 addObject:resourceKey];
             }
 
-            v12 = [outputs countByEnumeratingWithState:&v72 objects:v85 count:16];
+            v12 = [outputs countByEnumeratingWithState:&v71 objects:v84 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v76 objects:v86 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v75 objects:v85 count:16];
     }
 
     while (v6);
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v16 = selfCopy->_mutableSourceTasks;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v68 objects:v84 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v67 objects:v83 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v69;
+    v19 = *v68;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v69 != v19)
+        if (*v68 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v68 + 1) + 8 * k);
+        v21 = *(*(&v67 + 1) + 8 * k);
+        v63 = 0u;
         v64 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
         outputs2 = [v21 outputs];
-        v23 = [outputs2 countByEnumeratingWithState:&v64 objects:v83 count:16];
+        v23 = [outputs2 countByEnumeratingWithState:&v63 objects:v82 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v65;
+          v25 = *v64;
           do
           {
             for (m = 0; m != v24; ++m)
             {
-              if (*v65 != v25)
+              if (*v64 != v25)
               {
                 objc_enumerationMutation(outputs2);
               }
 
-              resourceKey2 = [*(*(&v64 + 1) + 8 * m) resourceKey];
+              resourceKey2 = [*(*(&v63 + 1) + 8 * m) resourceKey];
               [v3 addObject:resourceKey2];
             }
 
-            v24 = [outputs2 countByEnumeratingWithState:&v64 objects:v83 count:16];
+            v24 = [outputs2 countByEnumeratingWithState:&v63 objects:v82 count:16];
           }
 
           while (v24);
         }
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v68 objects:v84 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v67 objects:v83 count:16];
     }
 
     while (v18);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v28 = selfCopy->_mutableWriters;
-  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v60 objects:v82 count:16];
+  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v59 objects:v81 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v61;
+    v31 = *v60;
     do
     {
       for (n = 0; n != v30; ++n)
       {
-        if (*v61 != v31)
+        if (*v60 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        output = [*(*(&v60 + 1) + 8 * n) output];
+        output = [*(*(&v59 + 1) + 8 * n) output];
         resourceKey3 = [output resourceKey];
         [v3 addObject:resourceKey3];
       }
 
-      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v60 objects:v82 count:16];
+      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v59 objects:v81 count:16];
     }
 
     while (v30);
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = selfCopy->_mutableTasks;
-  v51 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v81 count:16];
-  if (v51)
+  v50 = [(NSMutableArray *)obj countByEnumeratingWithState:&v55 objects:v80 count:16];
+  if (v50)
   {
-    v49 = *v57;
+    v48 = *v56;
     do
     {
-      for (ii = 0; ii != v51; ++ii)
+      for (ii = 0; ii != v50; ++ii)
       {
-        if (*v57 != v49)
+        if (*v56 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v56 + 1) + 8 * ii);
+        v37 = *(*(&v55 + 1) + 8 * ii);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
         inputs = [v37 inputs];
-        v39 = [inputs countByEnumeratingWithState:&v52 objects:v80 count:16];
+        v39 = [inputs countByEnumeratingWithState:&v51 objects:v79 count:16];
         if (v39)
         {
           v40 = v39;
-          v41 = *v53;
+          v41 = *v52;
           do
           {
             for (jj = 0; jj != v40; ++jj)
             {
-              if (*v53 != v41)
+              if (*v52 != v41)
               {
                 objc_enumerationMutation(inputs);
               }
 
-              v43 = *(*(&v52 + 1) + 8 * jj);
+              v43 = *(*(&v51 + 1) + 8 * jj);
               resourceKey4 = [v43 resourceKey];
               v45 = [v3 containsObject:resourceKey4];
 
@@ -420,68 +416,66 @@
               }
             }
 
-            v40 = [inputs countByEnumeratingWithState:&v52 objects:v80 count:16];
+            v40 = [inputs countByEnumeratingWithState:&v51 objects:v79 count:16];
           }
 
           while (v40);
         }
       }
 
-      v51 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v81 count:16];
+      v50 = [(NSMutableArray *)obj countByEnumeratingWithState:&v55 objects:v80 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)waitResources
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(PSGraph *)self tasks];
-  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         inputs = [v8 inputs];
-        v10 = [inputs countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v10 = [inputs countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v21;
+          v12 = *v20;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v21 != v12)
+              if (*v20 != v12)
               {
                 objc_enumerationMutation(inputs);
               }
 
-              v14 = *(*(&v20 + 1) + 8 * j);
+              v14 = *(*(&v19 + 1) + 8 * j);
               if (![v14 type])
               {
                 resourceKey = [v14 resourceKey];
@@ -494,48 +488,46 @@
               }
             }
 
-            v11 = [inputs countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v11 = [inputs countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v11);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)producedResources
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   writers = [(PSGraph *)self writers];
-  v5 = [writers countByEnumeratingWithState:&v61 objects:v69 count:16];
+  v5 = [writers countByEnumeratingWithState:&v60 objects:v68 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v62;
+    v7 = *v61;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v62 != v7)
+        if (*v61 != v7)
         {
           objc_enumerationMutation(writers);
         }
 
-        v9 = *(*(&v61 + 1) + 8 * i);
+        v9 = *(*(&v60 + 1) + 8 * i);
         output = [v9 output];
         resourceKey = [output resourceKey];
 
@@ -547,53 +539,53 @@
         }
       }
 
-      v6 = [writers countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v6 = [writers countByEnumeratingWithState:&v60 objects:v68 count:16];
     }
 
     while (v6);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   selfCopy = self;
   obj = [(PSGraph *)self sourceTasks];
-  v14 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
+  v14 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v58;
+    v16 = *v57;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v58 != v16)
+        if (*v57 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v57 + 1) + 8 * j);
+        v18 = *(*(&v56 + 1) + 8 * j);
+        v52 = 0u;
         v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
         outputs = [v18 outputs];
-        v20 = [outputs countByEnumeratingWithState:&v53 objects:v67 count:16];
+        v20 = [outputs countByEnumeratingWithState:&v52 objects:v66 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v54;
+          v22 = *v53;
           do
           {
             for (k = 0; k != v21; ++k)
             {
-              if (*v54 != v22)
+              if (*v53 != v22)
               {
                 objc_enumerationMutation(outputs);
               }
 
-              v24 = *(*(&v53 + 1) + 8 * k);
+              v24 = *(*(&v52 + 1) + 8 * k);
               resourceKey3 = [v24 resourceKey];
 
               if (resourceKey3)
@@ -603,59 +595,59 @@
               }
             }
 
-            v21 = [outputs countByEnumeratingWithState:&v53 objects:v67 count:16];
+            v21 = [outputs countByEnumeratingWithState:&v52 objects:v66 count:16];
           }
 
           while (v21);
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
+      v15 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
     }
 
     while (v15);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obja = [(PSGraph *)selfCopy tasks];
-  v27 = [obja countByEnumeratingWithState:&v49 objects:v66 count:16];
+  v27 = [obja countByEnumeratingWithState:&v48 objects:v65 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v50;
+    v29 = *v49;
     do
     {
       for (m = 0; m != v28; ++m)
       {
-        if (*v50 != v29)
+        if (*v49 != v29)
         {
           objc_enumerationMutation(obja);
         }
 
-        v31 = *(*(&v49 + 1) + 8 * m);
+        v31 = *(*(&v48 + 1) + 8 * m);
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         outputs2 = [v31 outputs];
-        v33 = [outputs2 countByEnumeratingWithState:&v45 objects:v65 count:16];
+        v33 = [outputs2 countByEnumeratingWithState:&v44 objects:v64 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v46;
+          v35 = *v45;
           do
           {
             for (n = 0; n != v34; ++n)
             {
-              if (*v46 != v35)
+              if (*v45 != v35)
               {
                 objc_enumerationMutation(outputs2);
               }
 
-              v37 = *(*(&v45 + 1) + 8 * n);
+              v37 = *(*(&v44 + 1) + 8 * n);
               resourceKey5 = [v37 resourceKey];
 
               if (resourceKey5)
@@ -665,40 +657,38 @@
               }
             }
 
-            v34 = [outputs2 countByEnumeratingWithState:&v45 objects:v65 count:16];
+            v34 = [outputs2 countByEnumeratingWithState:&v44 objects:v64 count:16];
           }
 
           while (v34);
         }
       }
 
-      v28 = [obja countByEnumeratingWithState:&v49 objects:v66 count:16];
+      v28 = [obja countByEnumeratingWithState:&v48 objects:v65 count:16];
     }
 
     while (v28);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)IOSurfacesForResourceKey:(id)key error:(id *)error
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (![(PSGraph *)self executionContext][32])
   {
-    v15 = MEMORY[0x277CCACA8];
+    v16 = MEMORY[0x277CCACA8];
     name = [(PSGraph *)self name];
-    keyCopy = [v15 stringWithFormat:@"%s can only be called after the transition which adds this graph (%@) (%p) has completed, key (%@)", "-[PSGraph IOSurfacesForResourceKey:error:]", name, self, keyCopy];
+    keyCopy = [v16 stringWithFormat:@"%s can only be called after the transition which adds this graph (%@) (%p) has completed, key (%@)", "-[PSGraph IOSurfacesForResourceKey:error:]", name, self, keyCopy];
 
-    v18 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __PSGraphLogSharedInstance(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v62 = keyCopy;
-      _os_log_impl(&dword_25EC85000, v18, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v67 = keyCopy;
+      _os_log_impl(&dword_25EC85000, v20, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (!error)
@@ -706,12 +696,12 @@
       goto LABEL_43;
     }
 
-    v19 = MEMORY[0x277CCA9B8];
-    v59 = *MEMORY[0x277CCA450];
-    v60 = keyCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-    v21 = v19;
-    v22 = -1;
+    v21 = MEMORY[0x277CCA9B8];
+    v64 = *MEMORY[0x277CCA450];
+    v65 = keyCopy;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    v23 = v21;
+    v24 = -1;
     goto LABEL_42;
   }
 
@@ -724,57 +714,57 @@
     v10 = [-[PSGraph executionContext](selfCopy "executionContext")[40]];
     pointerValue = [v10 pointerValue];
 
-    v12 = __PSGraphLogSharedInstance();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+    v13 = __PSGraphLogSharedInstance(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
     if (pointerValue)
     {
-      if (v13)
+      if (v14)
       {
         *buf = 136315906;
-        v62 = "getWriterInstanceForGraphAndKey";
-        v63 = 2048;
-        v64 = selfCopy;
-        v65 = 2080;
+        v67 = "getWriterInstanceForGraphAndKey";
+        v68 = 2048;
+        v69 = selfCopy;
+        v70 = 2080;
         uTF8String = [v8 UTF8String];
-        v67 = 2048;
-        v68 = pointerValue;
-        _os_log_impl(&dword_25EC85000, v12, OS_LOG_TYPE_DEBUG, "%s: Found writer instance for graph %p key %s writerInst %p", buf, 0x2Au);
+        v72 = 2048;
+        v73 = pointerValue;
+        _os_log_impl(&dword_25EC85000, v13, OS_LOG_TYPE_DEBUG, "%s: Found writer instance for graph %p key %s writerInst %p", buf, 0x2Au);
       }
 
       pointerValue2 = 0;
       goto LABEL_19;
     }
 
-    if (v13)
+    if (v14)
     {
       *buf = 136315650;
-      v62 = "getWriterInstanceForGraphAndKey";
-      v63 = 2048;
-      v64 = selfCopy;
-      v65 = 2080;
+      v67 = "getWriterInstanceForGraphAndKey";
+      v68 = 2048;
+      v69 = selfCopy;
+      v70 = 2080;
       uTF8String = [v8 UTF8String];
-      _os_log_impl(&dword_25EC85000, v12, OS_LOG_TYPE_DEBUG, "%s: Failed to find writer instance for graph %p key %s", buf, 0x20u);
+      _os_log_impl(&dword_25EC85000, v13, OS_LOG_TYPE_DEBUG, "%s: Failed to find writer instance for graph %p key %s", buf, 0x20u);
     }
   }
 
-  v23 = selfCopy;
-  v24 = v8;
-  v25 = [-[PSGraph executionContext](v23 "executionContext")[48]];
+  v25 = selfCopy;
+  v26 = v8;
+  v27 = [-[PSGraph executionContext](v25 "executionContext")[48]];
 
-  if (!v25)
+  if (!v27)
   {
 LABEL_37:
 
-    v48 = MEMORY[0x277CCACA8];
-    name2 = [(PSGraph *)v23 name];
-    keyCopy = [v48 stringWithFormat:@"%s: Key (%@) or writer/reader instance not found for graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v24, name2, v23];
+    v53 = MEMORY[0x277CCACA8];
+    name2 = [(PSGraph *)v25 name];
+    keyCopy = [v53 stringWithFormat:@"%s: Key (%@) or writer/reader instance not found for graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v26, name2, v25];
 
-    v50 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v56 = __PSGraphLogSharedInstance(v55);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v62 = keyCopy;
-      _os_log_impl(&dword_25EC85000, v50, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v67 = keyCopy;
+      _os_log_impl(&dword_25EC85000, v56, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (!error)
@@ -782,76 +772,76 @@ LABEL_37:
       goto LABEL_43;
     }
 
-    v34 = MEMORY[0x277CCA9B8];
-    v57 = *MEMORY[0x277CCA450];
-    v58 = keyCopy;
-    v35 = MEMORY[0x277CBEAC0];
-    v36 = &v58;
-    v37 = &v57;
+    v38 = MEMORY[0x277CCA9B8];
+    v62 = *MEMORY[0x277CCA450];
+    v63 = keyCopy;
+    v39 = MEMORY[0x277CBEAC0];
+    v40 = &v63;
+    v41 = &v62;
 LABEL_41:
-    v20 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:1];
-    v21 = v34;
-    v22 = -2;
+    v22 = [v39 dictionaryWithObjects:v40 forKeys:v41 count:1];
+    v23 = v38;
+    v24 = -2;
 LABEL_42:
-    *error = [v21 errorWithDomain:@"com.apple.polarisgraph" code:v22 userInfo:v20];
+    *error = [v23 errorWithDomain:@"com.apple.polarisgraph" code:v24 userInfo:v22];
 
 LABEL_43:
-    v43 = 0;
+    v48 = 0;
     goto LABEL_44;
   }
 
-  v26 = [-[PSGraph executionContext](v23 "executionContext")[48]];
-  pointerValue2 = [v26 pointerValue];
+  v28 = [-[PSGraph executionContext](v25 "executionContext")[48]];
+  pointerValue2 = [v28 pointerValue];
 
-  v12 = __PSGraphLogSharedInstance();
-  v27 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  v13 = __PSGraphLogSharedInstance(v29);
+  v30 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
   if (!pointerValue2)
   {
-    if (v27)
+    if (v30)
     {
-      uTF8String2 = [v24 UTF8String];
+      uTF8String2 = [v26 UTF8String];
       *buf = 136315650;
-      v62 = "getReaderInstanceForGraphAndKey";
-      v63 = 2048;
-      v64 = v23;
-      v65 = 2080;
+      v67 = "getReaderInstanceForGraphAndKey";
+      v68 = 2048;
+      v69 = v25;
+      v70 = 2080;
       uTF8String = uTF8String2;
-      _os_log_impl(&dword_25EC85000, v12, OS_LOG_TYPE_DEBUG, "%s: Failed to find reader instance for graph %p key %s", buf, 0x20u);
+      _os_log_impl(&dword_25EC85000, v13, OS_LOG_TYPE_DEBUG, "%s: Failed to find reader instance for graph %p key %s", buf, 0x20u);
     }
 
     goto LABEL_37;
   }
 
-  if (v27)
+  if (v30)
   {
-    uTF8String3 = [v24 UTF8String];
+    uTF8String3 = [v26 UTF8String];
     *buf = 136315906;
-    v62 = "getReaderInstanceForGraphAndKey";
-    v63 = 2048;
-    v64 = v23;
-    v65 = 2080;
+    v67 = "getReaderInstanceForGraphAndKey";
+    v68 = 2048;
+    v69 = v25;
+    v70 = 2080;
     uTF8String = uTF8String3;
-    v67 = 2048;
-    v68 = pointerValue2;
-    _os_log_impl(&dword_25EC85000, v12, OS_LOG_TYPE_DEBUG, "%s: Found reader instance for graph %p key %s readerInst %p", buf, 0x2Au);
+    v72 = 2048;
+    v73 = pointerValue2;
+    _os_log_impl(&dword_25EC85000, v13, OS_LOG_TYPE_DEBUG, "%s: Found reader instance for graph %p key %s readerInst %p", buf, 0x2Au);
   }
 
   pointerValue = 0;
 LABEL_19:
 
-  v29 = (-[PSGraph executionContext](selfCopy, "executionContext")[16])(-[PSGraph executionContext](selfCopy, "executionContext"), pointerValue, pointerValue2, [v8 UTF8String]);
-  if (v29 == -2)
+  v32 = (-[PSGraph executionContext](selfCopy, "executionContext")[16])(-[PSGraph executionContext](selfCopy, "executionContext"), pointerValue, pointerValue2, [v8 UTF8String]);
+  if (v32 == -2)
   {
-    v38 = MEMORY[0x277CCACA8];
+    v42 = MEMORY[0x277CCACA8];
     name3 = [(PSGraph *)selfCopy name];
-    keyCopy = [v38 stringWithFormat:@"%s: Resource class not supported for key (%@), graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v8, name3, selfCopy];
+    keyCopy = [v42 stringWithFormat:@"%s: Resource class not supported for key (%@), graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v8, name3, selfCopy];
 
-    v40 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v45 = __PSGraphLogSharedInstance(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v62 = keyCopy;
-      _os_log_impl(&dword_25EC85000, v40, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v67 = keyCopy;
+      _os_log_impl(&dword_25EC85000, v45, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (!error)
@@ -859,28 +849,28 @@ LABEL_19:
       goto LABEL_43;
     }
 
-    v34 = MEMORY[0x277CCA9B8];
-    v53 = *MEMORY[0x277CCA450];
-    v54 = keyCopy;
-    v35 = MEMORY[0x277CBEAC0];
-    v36 = &v54;
-    v37 = &v53;
+    v38 = MEMORY[0x277CCA9B8];
+    v58 = *MEMORY[0x277CCA450];
+    v59 = keyCopy;
+    v39 = MEMORY[0x277CBEAC0];
+    v40 = &v59;
+    v41 = &v58;
     goto LABEL_41;
   }
 
-  v30 = v29;
-  if (v29 == -1)
+  v33 = v32;
+  if (v32 == -1)
   {
-    v31 = MEMORY[0x277CCACA8];
+    v34 = MEMORY[0x277CCACA8];
     name4 = [(PSGraph *)selfCopy name];
-    keyCopy = [v31 stringWithFormat:@"%s: Writer/reader instance not found for key (%@) graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v8, name4, selfCopy];
+    keyCopy = [v34 stringWithFormat:@"%s: Writer/reader instance not found for key (%@) graph (%@) (%p)", "-[PSGraph IOSurfacesForResourceKey:error:]", v8, name4, selfCopy];
 
-    v33 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v37 = __PSGraphLogSharedInstance(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v62 = keyCopy;
-      _os_log_impl(&dword_25EC85000, v33, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v67 = keyCopy;
+      _os_log_impl(&dword_25EC85000, v37, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (!error)
@@ -888,49 +878,47 @@ LABEL_19:
       goto LABEL_43;
     }
 
-    v34 = MEMORY[0x277CCA9B8];
-    v55 = *MEMORY[0x277CCA450];
-    v56 = keyCopy;
-    v35 = MEMORY[0x277CBEAC0];
-    v36 = &v56;
-    v37 = &v55;
+    v38 = MEMORY[0x277CCA9B8];
+    v60 = *MEMORY[0x277CCA450];
+    v61 = keyCopy;
+    v39 = MEMORY[0x277CBEAC0];
+    v40 = &v61;
+    v41 = &v60;
     goto LABEL_41;
   }
 
-  v41 = malloc_type_calloc(v29, 8uLL, 0x2004093837F09uLL);
-  if (!v41)
+  v46 = malloc_type_calloc(v32, 8uLL, 0x2004093837F09uLL);
+  if (!v46)
   {
     [PSGraph IOSurfacesForResourceKey:error:];
   }
 
-  v42 = v41;
-  (-[PSGraph executionContext](selfCopy, "executionContext")[24])(-[PSGraph executionContext](selfCopy, "executionContext"), pointerValue, pointerValue2, [v8 UTF8String], v41);
-  v43 = [MEMORY[0x277CBEB18] arrayWithCapacity:v30];
-  if (v30 >= 1)
+  v47 = v46;
+  (-[PSGraph executionContext](selfCopy, "executionContext")[24])(-[PSGraph executionContext](selfCopy, "executionContext"), pointerValue, pointerValue2, [v8 UTF8String], v46);
+  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:v33];
+  if (v33 >= 1)
   {
-    v44 = v30;
-    v45 = v42;
+    v49 = v33;
+    v50 = v47;
     do
     {
-      v46 = *v45++;
-      [v43 addObject:v46];
-      --v44;
+      v51 = *v50++;
+      [v48 addObject:v51];
+      --v49;
     }
 
-    while (v44);
+    while (v49);
   }
 
-  free(v42);
+  free(v47);
 LABEL_44:
 
-  v51 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v48;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "initWithName:", self->_name}];
   v5 = *&self->_minInterval.value;
   *(v4 + 488) = self->_minInterval.epoch;
@@ -957,121 +945,121 @@ LABEL_44:
   *(v4 + 170) = self->_subgraph_idx;
   objc_storeStrong((v4 + 464), self->_currentSystemStride);
   objc_storeStrong((v4 + 184), self->_tag);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   tasks = [(PSGraph *)self tasks];
-  v9 = [tasks countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v9 = [tasks countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v47;
+    v11 = *v46;
     do
     {
       v12 = 0;
       do
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(tasks);
         }
 
-        [v4 addTask:*(*(&v46 + 1) + 8 * v12++)];
+        [v4 addTask:*(*(&v45 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [tasks countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v10 = [tasks countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v10);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   sourceTasks = [(PSGraph *)self sourceTasks];
-  v14 = [sourceTasks countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v14 = [sourceTasks countByEnumeratingWithState:&v41 objects:v51 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v43;
+    v16 = *v42;
     do
     {
       v17 = 0;
       do
       {
-        if (*v43 != v16)
+        if (*v42 != v16)
         {
           objc_enumerationMutation(sourceTasks);
         }
 
-        [v4 addSourceTask:*(*(&v42 + 1) + 8 * v17++)];
+        [v4 addSourceTask:*(*(&v41 + 1) + 8 * v17++)];
       }
 
       while (v15 != v17);
-      v15 = [sourceTasks countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v15 = [sourceTasks countByEnumeratingWithState:&v41 objects:v51 count:16];
     }
 
     while (v15);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   readers = [(PSGraph *)self readers];
-  v19 = [readers countByEnumeratingWithState:&v38 objects:v51 count:16];
+  v19 = [readers countByEnumeratingWithState:&v37 objects:v50 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v39;
+    v21 = *v38;
     do
     {
       v22 = 0;
       do
       {
-        if (*v39 != v21)
+        if (*v38 != v21)
         {
           objc_enumerationMutation(readers);
         }
 
-        [v4 addReader:*(*(&v38 + 1) + 8 * v22++)];
+        [v4 addReader:*(*(&v37 + 1) + 8 * v22++)];
       }
 
       while (v20 != v22);
-      v20 = [readers countByEnumeratingWithState:&v38 objects:v51 count:16];
+      v20 = [readers countByEnumeratingWithState:&v37 objects:v50 count:16];
     }
 
     while (v20);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   writers = [(PSGraph *)self writers];
-  v24 = [writers countByEnumeratingWithState:&v34 objects:v50 count:16];
+  v24 = [writers countByEnumeratingWithState:&v33 objects:v49 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v35;
+    v26 = *v34;
     do
     {
       v27 = 0;
       do
       {
-        if (*v35 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(writers);
         }
 
-        [v4 addWriter:*(*(&v34 + 1) + 8 * v27++)];
+        [v4 addWriter:*(*(&v33 + 1) + 8 * v27++)];
       }
 
       while (v25 != v27);
-      v25 = [writers countByEnumeratingWithState:&v34 objects:v50 count:16];
+      v25 = [writers countByEnumeratingWithState:&v33 objects:v49 count:16];
     }
 
     while (v25);
@@ -1100,7 +1088,6 @@ LABEL_44:
   *(v4 + 136) = v31;
   *(v4 + 120) = v30;
   *(v4 + 104) = v29;
-  v32 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1127,31 +1114,31 @@ LABEL_44:
 
 - (void)setSyncDataContext:(ps_sync_context_s *)context
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  asprintf(&v8, "Attempted to set sync context. This setter should never be called.", context);
-  v3 = __PSGraphLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v3 = asprintf(&v9, "Attempted to set sync context. This setter should never be called.", context);
+  v4 = __PSGraphLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v10 = "[PSGraph(WakeboardSPI) setSyncDataContext:]";
-    v11 = 1024;
-    v12 = 2069;
-    _os_log_impl(&dword_25EC85000, v3, OS_LOG_TYPE_FAULT, "%s:%d Attempted to set sync context. This setter should never be called.", buf, 0x12u);
+    v11 = "[PSGraph(WakeboardSPI) setSyncDataContext:]";
+    v12 = 1024;
+    v13 = 2069;
+    _os_log_impl(&dword_25EC85000, v4, OS_LOG_TYPE_FAULT, "%s:%d Attempted to set sync context. This setter should never be called.", buf, 0x12u);
   }
 
-  v4 = OSLogFlushBuffers();
-  if (v4)
+  v5 = OSLogFlushBuffers();
+  if (v5)
   {
-    v5 = v4;
-    v6 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = v5;
+    v7 = __PSGraphLogSharedInstance(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[PSGraph(WakeboardSPI) setSyncDataContext:]";
-      v11 = 1024;
-      v12 = v5;
-      _os_log_impl(&dword_25EC85000, v6, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v11 = "[PSGraph(WakeboardSPI) setSyncDataContext:]";
+      v12 = 1024;
+      v13 = v6;
+      _os_log_impl(&dword_25EC85000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -1160,13 +1147,13 @@ LABEL_44:
     usleep(0x1E8480u);
   }
 
-  v7 = abort_with_reason();
-  ps_graph_get_sync_data(v7);
+  v8 = abort_with_reason();
+  ps_graph_get_sync_data(v8);
 }
 
 - (id)JSONObject
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v188 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   name = [(PSGraph *)self name];
   [dictionary setObject:name forKeyedSubscript:@"graph_name"];
@@ -1212,33 +1199,33 @@ LABEL_44:
   [dictionary setObject:v20 forKeyedSubscript:@"criticality_ane"];
 
   v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{ps_graph_ane_priority_description(-[PSGraph ANEPriority](self, "ANEPriority"))}];
-  v135 = dictionary;
+  v134 = dictionary;
   [dictionary setObject:v21 forKeyedSubscript:@"priority_ane"];
 
   selfCopy = self;
   resourceInfo = [(PSGraph *)self resourceInfo];
   v23 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(resourceInfo, "count")}];
+  v173 = 0u;
   v174 = 0u;
   v175 = 0u;
   v176 = 0u;
-  v177 = 0u;
   v24 = resourceInfo;
-  v147 = [v24 countByEnumeratingWithState:&v174 objects:v188 count:16];
-  if (v147)
+  v146 = [v24 countByEnumeratingWithState:&v173 objects:v187 count:16];
+  if (v146)
   {
-    v141 = v23;
-    v144 = *v175;
-    v139 = v24;
+    v140 = v23;
+    v143 = *v174;
+    v138 = v24;
     do
     {
-      for (i = 0; i != v147; ++i)
+      for (i = 0; i != v146; ++i)
       {
-        if (*v175 != v144)
+        if (*v174 != v143)
         {
           objc_enumerationMutation(v24);
         }
 
-        v26 = *(*(&v174 + 1) + 8 * i);
+        v26 = *(*(&v173 + 1) + 8 * i);
         dictionary2 = [MEMORY[0x277CBEB38] dictionary];
         v28 = [v24 objectForKey:v26];
         v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:{ps_resource_class_description(objc_msgSend(v28, "resourceClass"))}];
@@ -1290,8 +1277,8 @@ LABEL_13:
             [dictionary2 setObject:ioSurfaceProperties2 forKey:@"properties"];
           }
 
-          v24 = v139;
-          v23 = v141;
+          v24 = v138;
+          v23 = v140;
         }
 
         else if (resourceClass > 8)
@@ -1320,16 +1307,16 @@ LABEL_16:
           v42 = format;
           if (format)
           {
-            v186[0] = @"is_unwarped";
+            v185[0] = @"is_unwarped";
             v43 = [*(v9 + 2992) numberWithBool:{objc_msgSend(format, "isUnwarped")}];
-            v187[0] = v43;
-            v186[1] = @"is_rectified";
+            v186[0] = v43;
+            v185[1] = @"is_rectified";
             v44 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v42, "isRectified")}];
-            v187[1] = v44;
-            v186[2] = @"is_pyramid";
+            v186[1] = v44;
+            v185[2] = @"is_pyramid";
             v45 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v42, "isPyramid")}];
-            v187[2] = v45;
-            v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:v186 count:3];
+            v186[2] = v45;
+            v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v186 forKeys:v185 count:3];
             [dictionary2 setObject:v46 forKey:@"camera_format"];
 
             v9 = 0x277CCA000;
@@ -1338,49 +1325,49 @@ LABEL_16:
           setProvider(dictionary2, [v40 provider]);
           ioSurfaceProperties3 = [v40 ioSurfaceProperties];
 
-          v24 = v139;
+          v24 = v138;
           if (ioSurfaceProperties3)
           {
             ioSurfaceProperties4 = [v40 ioSurfaceProperties];
             [dictionary2 setObject:ioSurfaceProperties4 forKey:@"properties"];
           }
 
-          v23 = v141;
+          v23 = v140;
         }
 
 LABEL_25:
         [v23 setObject:dictionary2 forKey:v26];
       }
 
-      v147 = [v24 countByEnumeratingWithState:&v174 objects:v188 count:16];
+      v146 = [v24 countByEnumeratingWithState:&v173 objects:v187 count:16];
     }
 
-    while (v147);
+    while (v146);
   }
 
-  [v135 setObject:v23 forKeyedSubscript:@"resources"];
+  [v134 setObject:v23 forKeyedSubscript:@"resources"];
   array = [MEMORY[0x277CBEB18] array];
+  v169 = 0u;
   v170 = 0u;
   v171 = 0u;
   v172 = 0u;
-  v173 = 0u;
   obj = [(PSGraph *)selfCopy tasks];
-  v140 = [obj countByEnumeratingWithState:&v170 objects:v185 count:16];
-  if (v140)
+  v139 = [obj countByEnumeratingWithState:&v169 objects:v184 count:16];
+  if (v139)
   {
-    v137 = *v171;
+    v136 = *v170;
     do
     {
       v52 = 0;
       do
       {
-        if (*v171 != v137)
+        if (*v170 != v136)
         {
           objc_enumerationMutation(obj);
         }
 
-        v142 = v52;
-        v53 = *(*(&v170 + 1) + 8 * v52);
+        v141 = v52;
+        v53 = *(*(&v169 + 1) + 8 * v52);
         dictionary3 = [MEMORY[0x277CBEB38] dictionary];
         name2 = [v53 name];
         [dictionary3 setObject:name2 forKeyedSubscript:@"task_name"];
@@ -1390,49 +1377,49 @@ LABEL_25:
 
         segments = [v53 segments];
 
-        v145 = v53;
-        v148 = dictionary3;
+        v144 = v53;
+        v147 = dictionary3;
         if (segments)
         {
           array2 = [MEMORY[0x277CBEB18] array];
+          v165 = 0u;
           v166 = 0u;
           v167 = 0u;
           v168 = 0u;
-          v169 = 0u;
           segments2 = [v53 segments];
-          v60 = [segments2 countByEnumeratingWithState:&v166 objects:v184 count:16];
+          v60 = [segments2 countByEnumeratingWithState:&v165 objects:v183 count:16];
           if (v60)
           {
             v61 = v60;
-            v62 = *v167;
+            v62 = *v166;
             do
             {
               for (j = 0; j != v61; ++j)
               {
-                if (*v167 != v62)
+                if (*v166 != v62)
                 {
                   objc_enumerationMutation(segments2);
                 }
 
-                v64 = *(*(&v166 + 1) + 8 * j);
-                v182[0] = @"segment_name";
+                v64 = *(*(&v165 + 1) + 8 * j);
+                v181[0] = @"segment_name";
                 name3 = [v64 name];
-                v183[0] = name3;
-                v182[1] = @"compute_agent";
+                v182[0] = name3;
+                v181[1] = @"compute_agent";
                 v66 = [MEMORY[0x277CCACA8] stringWithUTF8String:{ps_compute_agent_description(objc_msgSend(v64, "computeAgent"))}];
-                v183[1] = v66;
-                v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v183 forKeys:v182 count:2];
+                v182[1] = v66;
+                v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v182 forKeys:v181 count:2];
                 [array2 addObject:v67];
               }
 
-              v61 = [segments2 countByEnumeratingWithState:&v166 objects:v184 count:16];
+              v61 = [segments2 countByEnumeratingWithState:&v165 objects:v183 count:16];
             }
 
             while (v61);
           }
 
-          [v148 setObject:array2 forKeyedSubscript:@"segments"];
-          v53 = v145;
+          [v147 setObject:array2 forKeyedSubscript:@"segments"];
+          v53 = v144;
         }
 
         else
@@ -1441,26 +1428,26 @@ LABEL_25:
         }
 
         array3 = [MEMORY[0x277CBEB18] array];
+        v161 = 0u;
         v162 = 0u;
         v163 = 0u;
         v164 = 0u;
-        v165 = 0u;
         inputs = [v53 inputs];
-        v70 = [inputs countByEnumeratingWithState:&v162 objects:v181 count:16];
+        v70 = [inputs countByEnumeratingWithState:&v161 objects:v180 count:16];
         if (v70)
         {
           v71 = v70;
-          v72 = *v163;
+          v72 = *v162;
           do
           {
             for (k = 0; k != v71; ++k)
             {
-              if (*v163 != v72)
+              if (*v162 != v72)
               {
                 objc_enumerationMutation(inputs);
               }
 
-              v74 = *(*(&v162 + 1) + 8 * k);
+              v74 = *(*(&v161 + 1) + 8 * k);
               dictionary4 = [MEMORY[0x277CBEB38] dictionary];
               resourceKey = [v74 resourceKey];
               [dictionary4 setObject:resourceKey forKeyedSubscript:@"input_name"];
@@ -1496,58 +1483,58 @@ LABEL_25:
               [array3 addObject:dictionary4];
             }
 
-            v71 = [inputs countByEnumeratingWithState:&v162 objects:v181 count:16];
+            v71 = [inputs countByEnumeratingWithState:&v161 objects:v180 count:16];
           }
 
           while (v71);
         }
 
-        [v148 setObject:array3 forKeyedSubscript:@"inputs"];
-        outputs = [v145 outputs];
+        [v147 setObject:array3 forKeyedSubscript:@"inputs"];
+        outputs = [v144 outputs];
         v84 = [outputs arrayByApplyingSelector:sel_resourceKey];
-        [v148 setObject:v84 forKeyedSubscript:@"outputs"];
+        [v147 setObject:v84 forKeyedSubscript:@"outputs"];
 
-        waitBarriers = [v145 waitBarriers];
+        waitBarriers = [v144 waitBarriers];
         v86 = [waitBarriers arrayByApplyingSelector:sel_name];
-        [v148 setObject:v86 forKeyedSubscript:@"wait_barriers"];
+        [v147 setObject:v86 forKeyedSubscript:@"wait_barriers"];
 
-        updateBarriers = [v145 updateBarriers];
+        updateBarriers = [v144 updateBarriers];
         v88 = [updateBarriers arrayByApplyingSelector:sel_name];
-        [v148 setObject:v88 forKeyedSubscript:@"update_barriers"];
+        [v147 setObject:v88 forKeyedSubscript:@"update_barriers"];
 
-        [array addObject:v148];
-        v52 = v142 + 1;
+        [array addObject:v147];
+        v52 = v141 + 1;
       }
 
-      while (v142 + 1 != v140);
-      v140 = [obj countByEnumeratingWithState:&v170 objects:v185 count:16];
+      while (v141 + 1 != v139);
+      v139 = [obj countByEnumeratingWithState:&v169 objects:v184 count:16];
     }
 
-    while (v140);
+    while (v139);
   }
 
-  [v135 setObject:array forKeyedSubscript:@"tasks"];
+  [v134 setObject:array forKeyedSubscript:@"tasks"];
   array4 = [MEMORY[0x277CBEB18] array];
+  v157 = 0u;
   v158 = 0u;
   v159 = 0u;
   v160 = 0u;
-  v161 = 0u;
   sourceTasks = [(PSGraph *)selfCopy sourceTasks];
-  v90 = [sourceTasks countByEnumeratingWithState:&v158 objects:v180 count:16];
+  v90 = [sourceTasks countByEnumeratingWithState:&v157 objects:v179 count:16];
   if (v90)
   {
     v91 = v90;
-    v92 = *v159;
+    v92 = *v158;
     do
     {
       for (m = 0; m != v91; ++m)
       {
-        if (*v159 != v92)
+        if (*v158 != v92)
         {
           objc_enumerationMutation(sourceTasks);
         }
 
-        v94 = *(*(&v158 + 1) + 8 * m);
+        v94 = *(*(&v157 + 1) + 8 * m);
         dictionary5 = [MEMORY[0x277CBEB38] dictionary];
         name4 = [v94 name];
         [dictionary5 setObject:name4 forKeyedSubscript:@"source_task_name"];
@@ -1559,34 +1546,34 @@ LABEL_25:
         [array4 addObject:dictionary5];
       }
 
-      v91 = [sourceTasks countByEnumeratingWithState:&v158 objects:v180 count:16];
+      v91 = [sourceTasks countByEnumeratingWithState:&v157 objects:v179 count:16];
     }
 
     while (v91);
   }
 
-  [v135 setObject:array4 forKeyedSubscript:@"source_tasks"];
+  [v134 setObject:array4 forKeyedSubscript:@"source_tasks"];
   array5 = [MEMORY[0x277CBEB18] array];
+  v153 = 0u;
   v154 = 0u;
   v155 = 0u;
   v156 = 0u;
-  v157 = 0u;
   readers = [(PSGraph *)selfCopy readers];
-  v99 = [readers countByEnumeratingWithState:&v154 objects:v179 count:16];
+  v99 = [readers countByEnumeratingWithState:&v153 objects:v178 count:16];
   if (v99)
   {
     v100 = v99;
-    v101 = *v155;
+    v101 = *v154;
     do
     {
       for (n = 0; n != v100; ++n)
       {
-        if (*v155 != v101)
+        if (*v154 != v101)
         {
           objc_enumerationMutation(readers);
         }
 
-        v103 = *(*(&v154 + 1) + 8 * n);
+        v103 = *(*(&v153 + 1) + 8 * n);
         dictionary6 = [MEMORY[0x277CBEB38] dictionary];
         name5 = [v103 name];
         [dictionary6 setObject:name5 forKeyedSubscript:@"reader_name"];
@@ -1623,34 +1610,34 @@ LABEL_25:
         [array5 addObject:dictionary6];
       }
 
-      v100 = [readers countByEnumeratingWithState:&v154 objects:v179 count:16];
+      v100 = [readers countByEnumeratingWithState:&v153 objects:v178 count:16];
     }
 
     while (v100);
   }
 
-  [v135 setObject:array5 forKeyedSubscript:@"readers"];
+  [v134 setObject:array5 forKeyedSubscript:@"readers"];
   array6 = [MEMORY[0x277CBEB18] array];
+  v149 = 0u;
   v150 = 0u;
   v151 = 0u;
   v152 = 0u;
-  v153 = 0u;
   writers = [(PSGraph *)selfCopy writers];
-  v123 = [writers countByEnumeratingWithState:&v150 objects:v178 count:16];
+  v123 = [writers countByEnumeratingWithState:&v149 objects:v177 count:16];
   if (v123)
   {
     v124 = v123;
-    v125 = *v151;
+    v125 = *v150;
     do
     {
       for (ii = 0; ii != v124; ++ii)
       {
-        if (*v151 != v125)
+        if (*v150 != v125)
         {
           objc_enumerationMutation(writers);
         }
 
-        v127 = *(*(&v150 + 1) + 8 * ii);
+        v127 = *(*(&v149 + 1) + 8 * ii);
         dictionary7 = [MEMORY[0x277CBEB38] dictionary];
         name6 = [v127 name];
         [dictionary7 setObject:name6 forKeyedSubscript:@"writer_name"];
@@ -1662,16 +1649,15 @@ LABEL_25:
         [array6 addObject:dictionary7];
       }
 
-      v124 = [writers countByEnumeratingWithState:&v150 objects:v178 count:16];
+      v124 = [writers countByEnumeratingWithState:&v149 objects:v177 count:16];
     }
 
     while (v124);
   }
 
-  [v135 setObject:array6 forKeyedSubscript:@"writers"];
-  v132 = *MEMORY[0x277D85DE8];
+  [v134 setObject:array6 forKeyedSubscript:@"writers"];
 
-  return v135;
+  return v134;
 }
 
 @end

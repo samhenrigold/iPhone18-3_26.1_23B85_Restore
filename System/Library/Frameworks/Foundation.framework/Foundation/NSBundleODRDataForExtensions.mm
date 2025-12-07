@@ -3,7 +3,7 @@
 
 @implementation NSBundleODRDataForExtensions
 
-uint64_t __64___NSBundleODRDataForExtensions_dataForBundle_createIfRequired___block_invoke()
+uint64_t __64___NSBundleODRDataForExtensions_dataForBundle_createIfRequired___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_new();
   qword_1ED439AB8 = result;

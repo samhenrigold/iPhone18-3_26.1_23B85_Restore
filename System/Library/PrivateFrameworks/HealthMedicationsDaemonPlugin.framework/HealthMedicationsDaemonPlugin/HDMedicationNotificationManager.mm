@@ -12,12 +12,13 @@
 - (id)_activeSchedulesFromDate:(void *)date calendar:(void *)calendar transaction:(uint64_t)transaction error:;
 - (id)_alarm:(void *)_alarm filterDueEventsToHandle:(void *)handle date:;
 - (id)_expirationEventsToRemoveAtDate:error:;
+- (id)_followUpNotificationsEnabled;
 - (id)_generateScheduleItemsWithSchedules:(void *)schedules fromDate:(void *)date endDate:(void *)endDate calendar:(uint64_t)calendar error:;
 - (id)_medicationDoseEventsForScheduleItems:(id *)items transaction:(void *)transaction error:;
 - (id)_nextScheduleItemsWithTransaction:(void *)transaction date:(void *)date snoozeFireDates:(uint64_t)dates error:;
 - (id)_notInteractedDoseEventsForScheduleItems:(id)items transaction:(id)transaction;
 - (id)_notificationSentScheduleItemsWithTransaction:(uint64_t)transaction error:;
-- (id)_pruneAllScheduleItemsBefore:(NSObject *)before createDoseEvents:(int)events excludeDoseEventCreationForGivenDate:(void *)date transaction:(void *)transaction error:;
+- (id)_pruneAllScheduleItemsBefore:(NSObject *)before createDoseEvents:(uint64_t)events excludeDoseEventCreationForGivenDate:(void *)date transaction:(void *)transaction error:;
 - (id)_removeDeliveredNotificationsLoggedAsTakenOrSkippedNotFromNotificationInterfaceFromDate:(void *)date error:;
 - (id)_scheduleItemsNotSentPredicate;
 - (id)_scheduleItemsSentPredicate;
@@ -31,14 +32,12 @@
 - (id)unitTesting_activeSchedulesFromDate:(id)date transaction:(id)transaction error:(id *)error;
 - (uint64_t)_deleteNotInteractedAndNotLoggedDoseEventFor:(uint64_t)for transaction:(uint64_t)transaction error:;
 - (uint64_t)_doseReminderSettingIsDisabled;
-- (uint64_t)_followUpNotificationsEnabled;
-- (uint64_t)_isDueEventExpired:(void *)expired fromDate:;
 - (uint64_t)_isDueEventOnHold:(uint64_t)hold;
 - (uint64_t)_notificationIsEnabled;
 - (uint64_t)_removeExpirationEventsForIdentifiers:(uint64_t)identifiers error:;
 - (uint64_t)_saveNotInteractedDoseEventsForScheduleItems:(void *)items transaction:(uint64_t)transaction error:;
 - (uint64_t)_saveScheduleItems:(void *)items notificationSentScheduleItems:(void *)scheduleItems transaction:(void *)transaction error:;
-- (uint64_t)_scheduleMedicationsFromDate:(int)date clearNotSentItems:(int)items areDoseRemindersEnabled:(void *)enabled transaction:(char **__ptr32 *)transaction error:;
+- (uint64_t)_scheduleMedicationsFromDate:(uint64_t)date clearNotSentItems:(int)items areDoseRemindersEnabled:(void *)enabled transaction:(char **__ptr32 *)transaction error:;
 - (uint64_t)_scheduleRestorableAlarmWithItems:(uint64_t)items date:(void *)date snoozeFireDates:(uint64_t)dates error:;
 - (uint64_t)_scheduleRestorableAlarmWithNextScheduleItemsTransaction:(void *)transaction date:(NSObject *)date error:;
 - (uint64_t)_schedulingIsEnabled;
@@ -46,6 +45,7 @@
 - (void)_addNotificationObserver:(id)observer;
 - (void)_alarm:(void *)_alarm confirmDeliveryByRemovingEvent:;
 - (void)_alarm:(void *)_alarm confirmDeliveryByRemovingEvents:;
+- (void)_isDueEventExpired:(void *)expired fromDate:;
 - (void)_queue_alarm:(id)_queue_alarm didReceiveDueEvents:(id)events date:(id)date;
 - (void)_queue_alarm:(void *)_queue_alarm didReceiveDueExpirationEvents:;
 @end
@@ -130,46 +130,44 @@ void __107__HDMedicationNotificationManager_initWithProfile_userDefaults_alarmQu
 
 - (BOOL)rescheduleMedicationsWithError:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling medications", &v10, 0xCu);
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling medications", &v9, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   v7 = [(HDMedicationNotificationManager *)self _rescheduleMedicationsFromDate:date error:error];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_rescheduleMedicationsFromDate:(id)date error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   _HKInitializeLogging();
   v7 = HKLogMedication();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = dateCopy;
-    _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling medications from date: %{public}@", &v11, 0x16u);
+    v12 = 2114;
+    v13 = dateCopy;
+    _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Rescheduling medications from date: %{public}@", &v10, 0x16u);
   }
 
   v8 = [(HDMedicationNotificationManager *)self _scheduleMedicationsFromDate:dateCopy clearNotSentItems:1 error:error];
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_scheduleMedicationsFromDate:(id)date clearNotSentItems:(BOOL)items error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   areDoseRemindersEnabled = [(HDMedicationNotificationManager *)self areDoseRemindersEnabled];
   _HKInitializeLogging();
@@ -180,35 +178,34 @@ void __107__HDMedicationNotificationManager_initWithProfile_userDefaults_alarmQu
     v12 = HKStringFromBool();
     *buf = 138544130;
     selfCopy = self;
-    v25 = 2114;
-    v26 = dateCopy;
-    v27 = 2114;
-    v28 = v11;
-    v29 = 2114;
-    v30 = v12;
+    v24 = 2114;
+    v25 = dateCopy;
+    v26 = 2114;
+    v27 = v11;
+    v28 = 2114;
+    v29 = v12;
     _os_log_impl(&dword_25181C000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduling medications from date: %{public}@, clearItems: %{public}@, areDoseRemindersEnabled: %{public}@", buf, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __88__HDMedicationNotificationManager__scheduleMedicationsFromDate_clearNotSentItems_error___block_invoke;
-  v19[3] = &unk_2796CDC28;
-  v19[4] = self;
-  v20 = dateCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __88__HDMedicationNotificationManager__scheduleMedicationsFromDate_clearNotSentItems_error___block_invoke;
+  v18[3] = &unk_2796CDC28;
+  v18[4] = self;
+  v19 = dateCopy;
   itemsCopy = items;
-  v22 = areDoseRemindersEnabled;
+  v21 = areDoseRemindersEnabled;
   v15 = dateCopy;
-  v16 = [(HDHealthEntity *)HDMedicationScheduleItemEntity performWriteTransactionWithHealthDatabase:database error:error block:v19];
+  v16 = [(HDHealthEntity *)HDMedicationScheduleItemEntity performWriteTransactionWithHealthDatabase:database error:error block:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)_queue_alarm:(id)_queue_alarm didReceiveDueEvents:(id)events date:(id)date
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   _queue_alarmCopy = _queue_alarm;
   eventsCopy = events;
   dateCopy = date;
@@ -220,40 +217,40 @@ void __107__HDMedicationNotificationManager_initWithProfile_userDefaults_alarmQu
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(eventsCopy, "count")}];
     *buf = 138543874;
     selfCopy4 = self;
-    v63 = 2114;
-    v64 = v11;
-    v65 = 2114;
-    v66 = eventsCopy;
+    v62 = 2114;
+    v63 = v11;
+    v64 = 2114;
+    v65 = eventsCopy;
     _os_log_impl(&dword_25181C000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received %{public}@ due events: %{public}@", buf, 0x20u);
   }
 
   if (([(HDMedicationNotificationManager *)self _notificationIsEnabled]& 1) != 0)
   {
-    v46 = eventsCopy;
+    v45 = eventsCopy;
     [(HDMedicationNotificationManager *)self _alarm:_queue_alarmCopy filterDueEventsToHandle:eventsCopy date:dateCopy];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    obj = v59 = 0u;
-    v52 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
-    if (!v52)
+    obj = v58 = 0u;
+    v51 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+    if (!v51)
     {
       goto LABEL_34;
     }
 
-    v49 = *v57;
+    v48 = *v56;
     selfCopy2 = self;
-    v51 = _queue_alarmCopy;
+    v50 = _queue_alarmCopy;
     while (1)
     {
-      for (i = 0; i != v52; ++i)
+      for (i = 0; i != v51; ++i)
       {
-        if (*v57 != v49)
+        if (*v56 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v56 + 1) + 8 * i);
+        v13 = *(*(&v55 + 1) + 8 * i);
         _HKInitializeLogging();
         v14 = HKLogMedication();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -261,8 +258,8 @@ void __107__HDMedicationNotificationManager_initWithProfile_userDefaults_alarmQu
           v15 = objc_opt_class();
           *buf = 138543618;
           selfCopy4 = v15;
-          v63 = 2114;
-          v64 = v13;
+          v62 = 2114;
+          v63 = v13;
           v16 = v15;
           _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Handling due event: %{public}@", buf, 0x16u);
         }
@@ -294,8 +291,8 @@ LABEL_18:
             v26 = HKSensitiveLogItem();
             *buf = 138543618;
             selfCopy4 = self;
-            v63 = 2114;
-            v64 = v26;
+            v62 = 2114;
+            v63 = v26;
             _os_log_impl(&dword_25181C000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Critical alerts are unauthorized for a critical due event: %{public}@. Falling back to time-sensitive", buf, 0x16u);
           }
 
@@ -319,20 +316,20 @@ LABEL_19:
           {
             *buf = 138543618;
             selfCopy4 = selfCopy2;
-            v63 = 2114;
-            v64 = v33;
+            v62 = 2114;
+            v63 = v33;
             _os_log_impl(&dword_25181C000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@] Posting notification with request: %{public}@", buf, 0x16u);
           }
 
           v35 = objc_loadWeakRetained(&selfCopy2->_profile);
           notificationManager2 = [v35 notificationManager];
-          v54[0] = MEMORY[0x277D85DD0];
-          v54[1] = 3221225472;
-          v54[2] = __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date___block_invoke;
-          v54[3] = &unk_2796CDC50;
-          v54[4] = selfCopy2;
-          v55 = eventIdentifier;
-          [notificationManager2 postNotificationWithRequest:v33 completion:v54];
+          v53[0] = MEMORY[0x277D85DD0];
+          v53[1] = 3221225472;
+          v53[2] = __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date___block_invoke;
+          v53[3] = &unk_2796CDC50;
+          v53[4] = selfCopy2;
+          v54 = eventIdentifier;
+          [notificationManager2 postNotificationWithRequest:v33 completion:v53];
 
           v37 = objc_loadWeakRetained(&selfCopy2->_profile);
           healthMedicationsProfileExtension = [v37 healthMedicationsProfileExtension];
@@ -346,9 +343,9 @@ LABEL_19:
           else
           {
             scheduleItemIdentifier3 = [v13 scheduleItemIdentifier];
-            v53 = 0;
-            v42 = [medicationScheduleManager updateNotificationSent:1 scheduleItemIdentifier:scheduleItemIdentifier3 error:&v53];
-            v40 = v53;
+            v52 = 0;
+            v42 = [medicationScheduleManager updateNotificationSent:1 scheduleItemIdentifier:scheduleItemIdentifier3 error:&v52];
+            v40 = v52;
 
             if ((v42 & 1) == 0)
             {
@@ -358,15 +355,15 @@ LABEL_19:
               {
                 *buf = 138543618;
                 selfCopy4 = selfCopy2;
-                v63 = 2114;
-                v64 = v40;
+                v62 = 2114;
+                v63 = v40;
                 _os_log_error_impl(&dword_25181C000, v43, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to update notification sent to YES: %{public}@", buf, 0x16u);
               }
             }
           }
 
-          _queue_alarmCopy = v51;
-          [(HDMedicationNotificationManager *)selfCopy2 _alarm:v51 confirmDeliveryByRemovingEvent:v13];
+          _queue_alarmCopy = v50;
+          [(HDMedicationNotificationManager *)selfCopy2 _alarm:v50 confirmDeliveryByRemovingEvent:v13];
         }
 
         else
@@ -378,22 +375,22 @@ LABEL_19:
           {
             *buf = 138543618;
             selfCopy4 = selfCopy2;
-            v63 = 2114;
-            v64 = eventIdentifier;
+            v62 = 2114;
+            v63 = eventIdentifier;
             _os_log_error_impl(&dword_25181C000, v32, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to make the notification object for due item identifier: %{public}@", buf, 0x16u);
           }
 
-          _queue_alarmCopy = v51;
-          [(HDMedicationNotificationManager *)selfCopy2 _alarm:v51 confirmDeliveryByRemovingEvent:v13];
+          _queue_alarmCopy = v50;
+          [(HDMedicationNotificationManager *)selfCopy2 _alarm:v50 confirmDeliveryByRemovingEvent:v13];
         }
       }
 
-      v52 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
-      if (!v52)
+      v51 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+      if (!v51)
       {
 LABEL_34:
 
-        eventsCopy = v46;
+        eventsCopy = v45;
         goto LABEL_38;
       }
     }
@@ -410,13 +407,11 @@ LABEL_34:
 
   [(HDMedicationNotificationManager *)self _alarm:_queue_alarmCopy confirmDeliveryByRemovingEvents:eventsCopy];
 LABEL_38:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKLogMedication();
@@ -427,11 +422,11 @@ void __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v9;
-      _os_log_impl(&dword_25181C000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did successfully post notification for due item: %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2114;
+      v17 = v9;
+      _os_log_impl(&dword_25181C000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did successfully post notification for due item: %{public}@", &v14, 0x16u);
     }
 
     v10 = MEMORY[0x277D11560];
@@ -446,8 +441,6 @@ void __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date
   {
     __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date___block_invoke_cold_1(a1);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__HDMedicationNotificationManager__alarm_filterDueEventsToHandle_date___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -471,84 +464,82 @@ uint64_t __102__HDMedicationNotificationManager__saveScheduleItems_notificationS
 
 uint64_t __96__HDMedicationNotificationManager__nextScheduleItemsWithTransaction_date_snoozeFireDates_error___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
   if (([HDMedicationNotificationManager _takenOrSkippedItemDoseIdentifiers:containsAllItemDoseIdentifiersForItem:]& 1) == 0)
   {
     [*(a1 + 48) addObject:v3];
-    v8 = *(a1 + 32);
-    v26 = 0;
-    v27 = 0;
-    v9 = [(HDMedicationNotificationManager *)v8 _snoozedDoseEventDate:v3 forScheduleItem:&v26 error:?];
-    v10 = v27;
-    v11 = v26;
-    if (v9)
+    v5 = *(a1 + 32);
+    v23 = 0;
+    v24 = 0;
+    v6 = [(HDMedicationNotificationManager *)v5 _snoozedDoseEventDate:v3 forScheduleItem:&v23 error:?];
+    v7 = v24;
+    v8 = v23;
+    if (v6)
     {
-      if (v10)
+      if (v7)
       {
         [*(a1 + 32) _snoozeDuration];
-        v12 = [v10 dateByAddingTimeInterval:?];
-        if (([v12 hk_isAfterOrEqualToDate:*(a1 + 56)]& 1) == 0 && !HDIsUnitTesting())
+        v9 = [v7 dateByAddingTimeInterval:?];
+        if (([v9 hk_isAfterOrEqualToDate:*(a1 + 56)]& 1) == 0 && !HDIsUnitTesting())
         {
           goto LABEL_17;
         }
 
-        v13 = *(a1 + 64);
-        v14 = [v3 identifier];
-        [v13 setObject:v12 forKeyedSubscript:v14];
+        v10 = *(a1 + 64);
+        v11 = [v3 identifier];
+        [v10 setObject:v9 forKeyedSubscript:v11];
 
         _HKInitializeLogging();
-        v15 = HKLogMedication();
-        LODWORD(v14) = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+        v12 = HKLogMedication();
+        LODWORD(v11) = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
 
-        if (!v14)
+        if (!v11)
         {
           goto LABEL_17;
         }
 
-        v16 = HKLogMedication();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v13 = HKLogMedication();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v17 = *(a1 + 32);
-          v18 = [v3 identifier];
-          v19 = HKSensitiveLogItem();
-          v20 = HKSensitiveLogItem();
+          v14 = *(a1 + 32);
+          v15 = [v3 identifier];
+          v16 = HKSensitiveLogItem();
+          v17 = HKSensitiveLogItem();
           *buf = 138543874;
-          v29 = v17;
-          v30 = 2114;
-          v31 = v19;
-          v32 = 2114;
-          v33 = v20;
-          _os_log_impl(&dword_25181C000, v16, OS_LOG_TYPE_INFO, "[%{public}@] Will add alarm for snoozed item identifier: %{public}@ snoozeFireDate: %{public}@", buf, 0x20u);
+          v26 = v14;
+          v27 = 2114;
+          v28 = v16;
+          v29 = 2114;
+          v30 = v17;
+          _os_log_impl(&dword_25181C000, v13, OS_LOG_TYPE_INFO, "[%{public}@] Will add alarm for snoozed item identifier: %{public}@ snoozeFireDate: %{public}@", buf, 0x20u);
         }
 
         goto LABEL_16;
       }
 
       _HKInitializeLogging();
-      v23 = HKLogMedication();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
+      v20 = HKLogMedication();
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
 
-      if (!v24)
+      if (!v21)
       {
 LABEL_18:
 
         goto LABEL_2;
       }
 
-      v12 = HKLogMedication();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v9 = HKLogMedication();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v25 = *(a1 + 32);
-        v22 = [v3 identifier];
-        v16 = HKSensitiveLogItem();
+        v22 = *(a1 + 32);
+        v19 = [v3 identifier];
+        v13 = HKSensitiveLogItem();
         *buf = 138543618;
-        v29 = v25;
-        v30 = 2114;
-        v31 = v16;
-        _os_log_impl(&dword_25181C000, v12, OS_LOG_TYPE_INFO, "[%{public}@] No snooze dose event found for item identifier: %{public}@", buf, 0x16u);
+        v26 = v22;
+        v27 = 2114;
+        v28 = v13;
+        _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_INFO, "[%{public}@] No snooze dose event found for item identifier: %{public}@", buf, 0x16u);
         goto LABEL_15;
       }
     }
@@ -556,19 +547,19 @@ LABEL_18:
     else
     {
       _HKInitializeLogging();
-      v12 = HKLogMedication();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v9 = HKLogMedication();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 32);
-        v22 = [v3 identifier];
-        v16 = HKSensitiveLogItem();
+        v18 = *(a1 + 32);
+        v19 = [v3 identifier];
+        v13 = HKSensitiveLogItem();
         *buf = 138543874;
-        v29 = v21;
-        v30 = 2114;
-        v31 = v16;
-        v32 = 2114;
-        v33 = v11;
-        _os_log_error_impl(&dword_25181C000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to query snoozed date for item identifier: %{public}@ error: %{public}@", buf, 0x20u);
+        v26 = v18;
+        v27 = 2114;
+        v28 = v13;
+        v29 = 2114;
+        v30 = v8;
+        _os_log_error_impl(&dword_25181C000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to query snoozed date for item identifier: %{public}@ error: %{public}@", buf, 0x20u);
 LABEL_15:
 
 LABEL_16:
@@ -582,7 +573,6 @@ LABEL_17:
 
 LABEL_2:
 
-  v6 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -676,9 +666,9 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
 
 - (id)_notInteractedDoseEventsForScheduleItems:(id)items transaction:(id)transaction
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v66 = 0;
+  v65 = 0;
   v6 = [HDMedicationNotificationManager _medicationDoseEventsForScheduleItems:itemsCopy transaction:? error:?];
   v7 = 0;
   if (!v6)
@@ -692,29 +682,29 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
   }
 
   selfCopy = self;
-  v42 = v7;
+  v41 = v7;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = v6;
-  v10 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+  v10 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v63;
+    v12 = *v62;
     v13 = *MEMORY[0x277CCC520];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v63 != v12)
+        if (*v62 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        metadata = [*(*(&v62 + 1) + 8 * i) metadata];
+        metadata = [*(*(&v61 + 1) + 8 * i) metadata];
         v16 = [metadata objectForKey:v13];
 
         if (v16)
@@ -723,60 +713,60 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+      v11 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
     }
 
     while (v11);
   }
 
-  v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v43 = itemsCopy;
-  v46 = [v43 countByEnumeratingWithState:&v58 objects:v72 count:16];
-  if (v46)
+  v42 = itemsCopy;
+  v45 = [v42 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  if (v45)
   {
-    v45 = *v59;
+    v44 = *v58;
     v17 = 0x277CCD000uLL;
     do
     {
       v18 = 0;
       do
       {
-        if (*v59 != v45)
+        if (*v58 != v44)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        v47 = v18;
-        v19 = *(*(&v58 + 1) + 8 * v18);
+        v46 = v18;
+        v19 = *(*(&v57 + 1) + 8 * v18);
         identifier = [v19 identifier];
+        v53 = 0u;
         v54 = 0u;
         v55 = 0u;
         v56 = 0u;
-        v57 = 0u;
-        v50 = v19;
+        v49 = v19;
         doses = [v19 doses];
-        v20 = [doses countByEnumeratingWithState:&v54 objects:v71 count:16];
+        v20 = [doses countByEnumeratingWithState:&v53 objects:v70 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v55;
-          v49 = *v55;
+          v22 = *v54;
+          v48 = *v54;
           do
           {
             v23 = 0;
-            v51 = v21;
+            v50 = v21;
             do
             {
-              if (*v55 != v22)
+              if (*v54 != v22)
               {
                 objc_enumerationMutation(doses);
               }
 
-              v24 = *(*(&v54 + 1) + 8 * v23);
+              v24 = *(*(&v53 + 1) + 8 * v23);
               v25 = *(v17 + 1616);
               medicationIdentifier = [v24 medicationIdentifier];
               v27 = [v25 syncIdentifierForScheduleItemIdentifier:identifier medicationIdentifier:medicationIdentifier];
@@ -788,37 +778,37 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
                 v30 = *(v17 + 1616);
                 medicationIdentifier2 = [v24 medicationIdentifier];
                 dose = [v24 dose];
-                scheduledDateTime = [v50 scheduledDateTime];
-                [v50 scheduledDateTime];
+                scheduledDateTime = [v49 scheduledDateTime];
+                [v49 scheduledDateTime];
                 v35 = v34 = v9;
                 v36 = [v30 medicationDoseEventWithLogOrigin:2 scheduleItemIdentifier:identifier medicationIdentifier:medicationIdentifier2 scheduledDoseQuantity:dose doseQuantity:0 scheduledDate:scheduledDateTime startDate:v35 logStatus:1 doseUnitString:0 metadata:v29];
 
                 v9 = v34;
                 v17 = 0x277CCD000;
-                [v48 addObject:v36];
+                [v47 addObject:v36];
 
-                v22 = v49;
-                v21 = v51;
+                v22 = v48;
+                v21 = v50;
               }
 
               ++v23;
             }
 
             while (v21 != v23);
-            v21 = [doses countByEnumeratingWithState:&v54 objects:v71 count:16];
+            v21 = [doses countByEnumeratingWithState:&v53 objects:v70 count:16];
           }
 
           while (v21);
         }
 
-        v18 = v47 + 1;
+        v18 = v46 + 1;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [v43 countByEnumeratingWithState:&v58 objects:v72 count:16];
+      while (v46 + 1 != v45);
+      v45 = [v42 countByEnumeratingWithState:&v57 objects:v71 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   _HKInitializeLogging();
@@ -827,15 +817,13 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
   {
     v38 = HKSensitiveLogItem();
     *buf = 138543618;
-    v68 = selfCopy;
-    v69 = 2114;
-    v70 = v38;
+    v67 = selfCopy;
+    v68 = 2114;
+    v69 = v38;
     _os_log_impl(&dword_25181C000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Not interacted dose events: %{public}@", buf, 0x16u);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v48;
+  return v47;
 }
 
 - (double)_followUpDuration
@@ -862,7 +850,6 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
 
 - (void)_queue_alarm:(void *)_queue_alarm didReceiveDueExpirationEvents:
 {
-  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   _queue_alarmCopy = _queue_alarm;
   if (self)
@@ -888,8 +875,6 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
       [(HDMedicationNotificationManager *)self _alarm:v6 confirmDeliveryByRemovingEvents:_queue_alarmCopy];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_doseReminderSettingIsDisabled
@@ -917,9 +902,10 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
   return result;
 }
 
-- (uint64_t)_scheduleMedicationsFromDate:(int)date clearNotSentItems:(int)items areDoseRemindersEnabled:(void *)enabled transaction:(char **__ptr32 *)transaction error:
+- (uint64_t)_scheduleMedicationsFromDate:(uint64_t)date clearNotSentItems:(int)items areDoseRemindersEnabled:(void *)enabled transaction:(char **__ptr32 *)transaction error:
 {
-  v238 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  v237 = *MEMORY[0x277D85DE8];
   v12 = a2;
   enabledCopy = enabled;
   if (!self)
@@ -935,9 +921,9 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
   {
     v16 = HKStringFromBool();
     OUTLINED_FUNCTION_2_1(5.8383e-34);
-    v235 = v12;
-    v236 = v17;
-    v237 = v18;
+    v234 = v12;
+    v235 = v17;
+    v236 = v18;
     OUTLINED_FUNCTION_12();
     _os_log_impl(v19, v20, v21, v22, v23, 0x20u);
   }
@@ -946,119 +932,119 @@ uint64_t __79__HDMedicationNotificationManager__removeExpirationEventsForIdentif
   {
     if (items)
     {
-      v232[1] = 0;
-      v27 = OUTLINED_FUNCTION_26();
-      v30 = [(HDMedicationNotificationManager *)v27 _removeDeliveredNotificationsLoggedAsTakenOrSkippedNotFromNotificationInterfaceFromDate:v28 error:v29];
-      v31 = 0;
+      v231[1] = 0;
+      v26 = OUTLINED_FUNCTION_26();
+      v29 = [(HDMedicationNotificationManager *)v26 _removeDeliveredNotificationsLoggedAsTakenOrSkippedNotFromNotificationInterfaceFromDate:v27 error:v28];
+      v30 = 0;
       _HKInitializeLogging();
-      v32 = HKLogMedication();
-      v33 = v32;
-      if (v30)
+      v31 = HKLogMedication();
+      v32 = v31;
+      if (v29)
       {
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_2_1(5.8382e-34);
-          v235 = v30;
+          v234 = v29;
           OUTLINED_FUNCTION_12();
-          _os_log_impl(v35, v36, v37, v38, v39, 0x16u);
+          _os_log_impl(v34, v35, v36, v37, v38, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_2_1(5.8382e-34);
-        v235 = v31;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, v33, v34, "[%{public}@] Failed to remove notifications taken or skipped outside of notification UI: %{public}@", buf);
+        v234 = v30;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, v32, v33, "[%{public}@] Failed to remove notifications taken or skipped outside of notification UI: %{public}@", buf);
       }
 
-      v232[0] = v31;
-      v40 = [(HDMedicationNotificationManager *)self _removeExpirationEventsForIdentifiers:v30 error:v232];
-      v41 = v232[0];
+      v231[0] = v30;
+      v39 = [(HDMedicationNotificationManager *)self _removeExpirationEventsForIdentifiers:v29 error:v231];
+      v40 = v231[0];
 
       _HKInitializeLogging();
-      v42 = HKLogMedication();
-      v43 = v42;
-      if (v40)
+      v41 = HKLogMedication();
+      v42 = v41;
+      if (v39)
       {
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v30, "count")}];
+          v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v29, "count")}];
           OUTLINED_FUNCTION_1_4(5.8382e-34);
-          *(v46 + 14) = v45;
-          _os_log_impl(&dword_25181C000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully removed %{public}@ overdue expiration events", buf, 0x16u);
+          *(v45 + 14) = v44;
+          _os_log_impl(&dword_25181C000, v42, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully removed %{public}@ overdue expiration events", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_1_4(5.8382e-34);
-        *(v47 + 14) = v41;
+        *(v46 + 14) = v40;
         OUTLINED_FUNCTION_3_1();
-        _os_log_error_impl(v48, v49, v50, v51, v52, 0x16u);
+        _os_log_error_impl(v47, v48, v49, v50, v51, 0x16u);
       }
     }
 
-    v231[4] = 0;
-    v53 = OUTLINED_FUNCTION_17();
-    v56 = [(HDMedicationNotificationManager *)v53 _notificationSentScheduleItemsWithTransaction:v54 error:v55];
-    v57 = 0;
-    v58 = v57;
-    if (!v56)
+    v230[4] = 0;
+    v52 = OUTLINED_FUNCTION_17();
+    v55 = [(HDMedicationNotificationManager *)v52 _notificationSentScheduleItemsWithTransaction:v53 error:v54];
+    v56 = 0;
+    v57 = v56;
+    if (!v55)
     {
       _HKInitializeLogging();
-      v68 = HKLogMedication();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v67 = HKLogMedication();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_2_1(5.8382e-34);
-        v235 = v58;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, v68, v86, "[%{public}@] Fetching notification sent schedule items before rescheduling failed with error: %{public}@", buf);
+        v234 = v57;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, v67, v85, "[%{public}@] Fetching notification sent schedule items before rescheduling failed with error: %{public}@", buf);
       }
 
       goto LABEL_31;
     }
 
-    v226 = v57;
-    v59 = &off_251879000;
-    if (!date)
+    v225 = v56;
+    v58 = &off_251879000;
+    if (!dateCopy)
     {
       goto LABEL_21;
     }
 
     _HKInitializeLogging();
-    v69 = HKLogMedication();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+    v68 = HKLogMedication();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_4_0(5.8381e-34);
-      OUTLINED_FUNCTION_23(&dword_25181C000, v69, v70, "[%{public}@] Clearing items", buf);
+      OUTLINED_FUNCTION_23(&dword_25181C000, v68, v69, "[%{public}@] Clearing items", buf);
     }
 
-    v231[3] = 0;
-    v71 = OUTLINED_FUNCTION_26();
-    v74 = [(HDMedicationNotificationManager *)v71 _pruneAllScheduleItemsBefore:v72 createDoseEvents:1 excludeDoseEventCreationForGivenDate:1 transaction:enabledCopy error:v73];
-    v75 = 0;
+    v230[3] = 0;
+    v70 = OUTLINED_FUNCTION_26();
+    v73 = [(HDMedicationNotificationManager *)v70 _pruneAllScheduleItemsBefore:v71 createDoseEvents:1 excludeDoseEventCreationForGivenDate:1 transaction:enabledCopy error:v72];
+    v74 = 0;
 
-    if (!v74)
+    if (!v73)
     {
       _HKInitializeLogging();
-      v76 = HKLogMedication();
-      v58 = v226;
-      if (OUTLINED_FUNCTION_21(v76))
+      v75 = HKLogMedication();
+      v57 = v225;
+      if (OUTLINED_FUNCTION_21(v75))
       {
         OUTLINED_FUNCTION_2_1(5.8383e-34);
-        v235 = v12;
-        v236 = v99;
-        v237 = v75;
+        v234 = v12;
+        v235 = v98;
+        v236 = v74;
         OUTLINED_FUNCTION_3_1();
-        _os_log_error_impl(v100, v101, v102, v103, v104, 0x20u);
+        _os_log_error_impl(v99, v100, v101, v102, v103, 0x20u);
       }
 
-      v77 = v75;
-      if (v77)
+      v76 = v74;
+      if (v76)
       {
         if (transaction)
         {
-          v78 = v77;
-          *transaction = v77;
+          v77 = v76;
+          *transaction = v76;
         }
 
         else
@@ -1072,62 +1058,62 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    v231[2] = 0;
-    v90 = OUTLINED_FUNCTION_26();
-    v94 = [(HDMedicationNotificationManager *)v90 _deleteNotInteractedAndNotLoggedDoseEventFor:v91 transaction:v92 error:v93];
-    v95 = 0;
-    if (v94)
+    v230[2] = 0;
+    v89 = OUTLINED_FUNCTION_26();
+    v93 = [(HDMedicationNotificationManager *)v89 _deleteNotInteractedAndNotLoggedDoseEventFor:v90 transaction:v91 error:v92];
+    v94 = 0;
+    if (v93)
     {
-      v231[1] = 0;
-      v119 = OUTLINED_FUNCTION_17();
-      v122 = [(HDMedicationNotificationManager *)v119 _removeAllScheduleItemsWithTransaction:v120 error:v121];
-      v123 = 0;
-      if (v122)
+      v230[1] = 0;
+      v118 = OUTLINED_FUNCTION_17();
+      v121 = [(HDMedicationNotificationManager *)v118 _removeAllScheduleItemsWithTransaction:v119 error:v120];
+      v122 = 0;
+      if (v121)
       {
-        v124 = *(self + 24);
-        v231[0] = 0;
-        v125 = [v124 removeAllEventsWithError:v231];
-        v15 = v231[0];
-        if (v125)
+        v123 = *(self + 24);
+        v230[0] = 0;
+        v124 = [v123 removeAllEventsWithError:v230];
+        v15 = v230[0];
+        if (v124)
         {
-          v230[1] = 0;
+          v229[1] = 0;
           OUTLINED_FUNCTION_26();
-          v169 = [HDMedicationNotificationManager _expirationEventsToRemoveAtDate:error:];
-          v223 = 0;
-          v225 = v169;
-          if (v169)
+          v168 = [HDMedicationNotificationManager _expirationEventsToRemoveAtDate:error:];
+          v222 = 0;
+          v224 = v168;
+          if (v168)
           {
-            v170 = *(self + 32);
-            v230[0] = 0;
-            v171 = [v170 removeEvents:v169 error:v230];
-            v221 = v230[0];
-            v219 = v171;
-            if (v171)
+            v169 = *(self + 32);
+            v229[0] = 0;
+            v170 = [v169 removeEvents:v168 error:v229];
+            v220 = v229[0];
+            v218 = v170;
+            if (v170)
             {
-              v172 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
-              v173 = *(self + 40);
-              *(self + 40) = v172;
+              v171 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
+              v172 = *(self + 40);
+              *(self + 40) = v171;
             }
 
             else
             {
               _HKInitializeLogging();
-              v189 = HKLogMedication();
-              if (OUTLINED_FUNCTION_22(v189))
+              v188 = HKLogMedication();
+              if (OUTLINED_FUNCTION_22(v188))
               {
                 OUTLINED_FUNCTION_1_4(5.8382e-34);
-                *(v210 + 14) = v221;
+                *(v209 + 14) = v220;
                 OUTLINED_FUNCTION_5_1();
-                _os_log_error_impl(v211, v212, v213, v214, v215, 0x16u);
+                _os_log_error_impl(v210, v211, v212, v213, v214, 0x16u);
               }
 
-              v190 = v221;
-              if (v190)
+              v189 = v220;
+              if (v189)
               {
                 if (transaction)
                 {
-                  v191 = v190;
-                  *transaction = v190;
+                  v190 = v189;
+                  *transaction = v189;
                 }
 
                 else
@@ -1136,69 +1122,69 @@ LABEL_31:
                 }
               }
 
-              v233 = 0;
+              v232 = 0;
             }
 
-            v59 = &off_251879000;
-            if (v219)
+            v58 = &off_251879000;
+            if (v218)
             {
 LABEL_21:
-              v60 = v12;
-              v61 = [v60 dateByAddingTimeInterval:1814400.0];
-              if ([*(self + 40) hk_isAfterOrEqualToDate:v61])
+              v59 = v12;
+              v60 = [v59 dateByAddingTimeInterval:1814400.0];
+              if ([*(self + 40) hk_isAfterOrEqualToDate:v60])
               {
                 _HKInitializeLogging();
-                v62 = HKLogMedication();
-                v63 = OUTLINED_FUNCTION_24(v62);
+                v61 = HKLogMedication();
+                v62 = OUTLINED_FUNCTION_24(v61);
 
-                if (v63)
+                if (v62)
                 {
-                  v64 = HKLogMedication();
-                  if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+                  v63 = HKLogMedication();
+                  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
                   {
-                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v59 + 153)));
-                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v65, v66, "[%{public}@] Generation window already scheduled.");
+                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v58 + 153)));
+                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v64, v65, "[%{public}@] Generation window already scheduled.");
                   }
                 }
 
-                v233 = v15;
-                v67 = v60;
-                v58 = v226;
+                v232 = v15;
+                v66 = v59;
+                v57 = v225;
                 goto LABEL_27;
               }
 
-              v67 = v60;
-              if ([*(self + 40) hk_isAfterOrEqualToDate:v60])
+              v66 = v59;
+              if ([*(self + 40) hk_isAfterOrEqualToDate:v59])
               {
-                v67 = *(self + 40);
+                v66 = *(self + 40);
               }
 
               [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
-              v224 = v229 = 0;
-              v79 = [(HDMedicationNotificationManager *)self _activeSchedulesFromDate:v67 calendar:v224 transaction:enabledCopy error:&v229];
-              v220 = v229;
-              v222 = v79;
-              if (!v79)
+              v223 = v228 = 0;
+              v78 = [(HDMedicationNotificationManager *)self _activeSchedulesFromDate:v66 calendar:v223 transaction:enabledCopy error:&v228];
+              v219 = v228;
+              v221 = v78;
+              if (!v78)
               {
                 _HKInitializeLogging();
-                v87 = HKLogMedication();
-                if (OUTLINED_FUNCTION_21(v87))
+                v86 = HKLogMedication();
+                if (OUTLINED_FUNCTION_21(v86))
                 {
                   OUTLINED_FUNCTION_2_1(5.8382e-34);
-                  v235 = v220;
+                  v234 = v219;
                   OUTLINED_FUNCTION_3_1();
-                  _os_log_error_impl(v111, v112, v113, v114, v115, 0x16u);
+                  _os_log_error_impl(v110, v111, v112, v113, v114, 0x16u);
                 }
 
-                v85 = v220;
-                v88 = v220;
-                v58 = v226;
-                if (v88)
+                v84 = v219;
+                v87 = v219;
+                v57 = v225;
+                if (v87)
                 {
                   if (transaction)
                   {
-                    v89 = v88;
-                    *transaction = v88;
+                    v88 = v87;
+                    *transaction = v87;
                   }
 
                   else
@@ -1207,53 +1193,53 @@ LABEL_21:
                   }
                 }
 
-                v233 = 0;
+                v232 = 0;
                 goto LABEL_60;
               }
 
-              if (![v79 count])
+              if (![v78 count])
               {
                 _HKInitializeLogging();
-                v80 = HKLogMedication();
-                v81 = OUTLINED_FUNCTION_24(v80);
+                v79 = HKLogMedication();
+                v80 = OUTLINED_FUNCTION_24(v79);
 
-                if (v81)
+                if (v80)
                 {
-                  v82 = HKLogMedication();
-                  if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+                  v81 = HKLogMedication();
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
                   {
-                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v59 + 153)));
-                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v83, v84, "[%{public}@] No active schedules.");
+                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v58 + 153)));
+                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v82, v83, "[%{public}@] No active schedules.");
                   }
                 }
 
-                v233 = v79;
+                v232 = v78;
                 goto LABEL_50;
               }
 
-              v228 = 0;
-              v105 = [(HDMedicationNotificationManager *)self _generateScheduleItemsWithSchedules:v79 fromDate:v67 endDate:v61 calendar:v224 error:&v228];
-              v217 = v228;
-              v218 = v105;
-              if (!v105)
+              v227 = 0;
+              v104 = [(HDMedicationNotificationManager *)self _generateScheduleItemsWithSchedules:v78 fromDate:v66 endDate:v60 calendar:v223 error:&v227];
+              v216 = v227;
+              v217 = v104;
+              if (!v104)
               {
                 _HKInitializeLogging();
-                v116 = HKLogMedication();
-                if (OUTLINED_FUNCTION_21(v116))
+                v115 = HKLogMedication();
+                if (OUTLINED_FUNCTION_21(v115))
                 {
                   OUTLINED_FUNCTION_1_4(5.8382e-34);
-                  *(v147 + 14) = v217;
+                  *(v146 + 14) = v216;
                   OUTLINED_FUNCTION_3_1();
-                  _os_log_error_impl(v148, v149, v150, v151, v152, 0x16u);
+                  _os_log_error_impl(v147, v148, v149, v150, v151, 0x16u);
                 }
 
-                v117 = v217;
-                if (v117)
+                v116 = v216;
+                if (v116)
                 {
                   if (transaction)
                   {
-                    v118 = v117;
-                    *transaction = v117;
+                    v117 = v116;
+                    *transaction = v116;
                   }
 
                   else
@@ -1262,76 +1248,76 @@ LABEL_21:
                   }
                 }
 
-                v233 = 0;
+                v232 = 0;
                 goto LABEL_92;
               }
 
-              if (![v105 count])
+              if (![v104 count])
               {
                 _HKInitializeLogging();
-                v106 = HKLogMedication();
-                v107 = OUTLINED_FUNCTION_24(v106);
+                v105 = HKLogMedication();
+                v106 = OUTLINED_FUNCTION_24(v105);
 
-                if (v107)
+                if (v106)
                 {
-                  v108 = HKLogMedication();
-                  if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+                  v107 = HKLogMedication();
+                  if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
                   {
-                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v59 + 153)));
-                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v109, v110, "[%{public}@] No generated schedule items.");
+                    OUTLINED_FUNCTION_4_0(COERCE_FLOAT(*(v58 + 153)));
+                    OUTLINED_FUNCTION_11_0(&dword_25181C000, v108, v109, "[%{public}@] No generated schedule items.");
                   }
                 }
 
-                v233 = v105;
+                v232 = v104;
                 goto LABEL_92;
               }
 
-              v227 = 0;
-              v138 = [(HDMedicationNotificationManager *)self _saveScheduleItems:v105 notificationSentScheduleItems:v56 transaction:enabledCopy error:&v227];
-              v216 = v227;
-              if (v138)
+              v226 = 0;
+              v137 = [(HDMedicationNotificationManager *)self _saveScheduleItems:v104 notificationSentScheduleItems:v55 transaction:enabledCopy error:&v226];
+              v215 = v226;
+              if (v137)
               {
-                v139 = OUTLINED_FUNCTION_17();
-                v142 = [(HDMedicationNotificationManager *)v139 _scheduleRestorableAlarmWithNextScheduleItemsTransaction:v140 date:v60 error:v141];
-                v143 = 0;
-                v144 = v142;
-                if (v142)
+                v138 = OUTLINED_FUNCTION_17();
+                v141 = [(HDMedicationNotificationManager *)v138 _scheduleRestorableAlarmWithNextScheduleItemsTransaction:v139 date:v59 error:v140];
+                v142 = 0;
+                v143 = v141;
+                if (v141)
                 {
-                  v145 = v61;
-                  v146 = *(self + 40);
-                  *(self + 40) = v145;
+                  v144 = v60;
+                  v145 = *(self + 40);
+                  *(self + 40) = v144;
 LABEL_134:
 
-                  v233 = v144;
+                  v232 = v143;
 LABEL_92:
 
 LABEL_50:
-                  v85 = v220;
-                  v58 = v226;
+                  v84 = v219;
+                  v57 = v225;
 LABEL_60:
 
 LABEL_27:
-                  v24 = v233;
+                  v24 = v232;
 LABEL_32:
 
                   goto LABEL_6;
                 }
 
                 _HKInitializeLogging();
-                v165 = HKLogMedication();
-                if (OUTLINED_FUNCTION_21(v165))
+                v164 = HKLogMedication();
+                if (OUTLINED_FUNCTION_21(v164))
                 {
                   OUTLINED_FUNCTION_1_4(5.8382e-34);
-                  *(v192 + 14) = v143;
+                  *(v191 + 14) = v142;
                   OUTLINED_FUNCTION_3_1();
-                  _os_log_error_impl(v193, v194, v195, v196, v197, 0x16u);
+                  _os_log_error_impl(v192, v193, v194, v195, v196, 0x16u);
                 }
 
-                v146 = v143;
-                if (!v146)
+                v145 = v142;
+                if (!v145)
                 {
 LABEL_133:
-                  v143 = v146;
+                  v142 = v145;
                   goto LABEL_134;
                 }
 
@@ -1341,95 +1327,95 @@ LABEL_133:
                   goto LABEL_133;
                 }
 
-                v166 = v146;
+                v165 = v145;
 LABEL_124:
-                *transaction = v146;
+                *transaction = v145;
                 goto LABEL_133;
               }
 
               _HKInitializeLogging();
-              v153 = HKLogMedication();
-              if (OUTLINED_FUNCTION_21(v153))
+              v152 = HKLogMedication();
+              if (OUTLINED_FUNCTION_21(v152))
               {
                 OUTLINED_FUNCTION_1_4(5.8382e-34);
-                *(v154 + 14) = v216;
+                *(v153 + 14) = v215;
                 OUTLINED_FUNCTION_3_1();
-                _os_log_error_impl(v155, v156, v157, v158, v159, 0x16u);
+                _os_log_error_impl(v154, v155, v156, v157, v158, 0x16u);
               }
 
-              v160 = OUTLINED_FUNCTION_17();
-              v163 = [(HDMedicationNotificationManager *)v160 _removeAllScheduleItemsNotSentWithTransaction:v161 error:v162];
-              v143 = 0;
-              if (v163)
+              v159 = OUTLINED_FUNCTION_17();
+              v162 = [(HDMedicationNotificationManager *)v159 _removeAllScheduleItemsNotSentWithTransaction:v160 error:v161];
+              v142 = 0;
+              if (v162)
               {
-                v146 = v216;
-                if (v146)
+                v145 = v215;
+                if (v145)
                 {
                   if (transaction)
                   {
-                    v164 = v146;
-                    v144 = 0;
-                    *transaction = v146;
+                    v163 = v145;
+                    v143 = 0;
+                    *transaction = v145;
                     goto LABEL_134;
                   }
 
                   _HKLogDroppedError();
                 }
 
-                v144 = 0;
+                v143 = 0;
                 goto LABEL_134;
               }
 
               _HKInitializeLogging();
-              v167 = HKLogMedication();
-              if (OUTLINED_FUNCTION_21(v167))
+              v166 = HKLogMedication();
+              if (OUTLINED_FUNCTION_21(v166))
               {
                 OUTLINED_FUNCTION_1_4(5.8382e-34);
-                *(v198 + 14) = v143;
+                *(v197 + 14) = v142;
                 OUTLINED_FUNCTION_3_1();
-                _os_log_error_impl(v199, v200, v201, v202, v203, 0x16u);
+                _os_log_error_impl(v198, v199, v200, v201, v202, 0x16u);
               }
 
-              v146 = v143;
-              if (v146)
+              v145 = v142;
+              if (v145)
               {
                 if (transaction)
                 {
-                  v168 = v146;
-                  v144 = 0;
+                  v167 = v145;
+                  v143 = 0;
                   goto LABEL_124;
                 }
 
                 _HKLogDroppedError();
               }
 
-              v144 = 0;
+              v143 = 0;
               goto LABEL_133;
             }
 
 LABEL_82:
             v24 = 0;
-            v58 = v226;
+            v57 = v225;
             goto LABEL_32;
           }
 
           _HKInitializeLogging();
-          v186 = HKLogMedication();
-          if (OUTLINED_FUNCTION_22(v186))
+          v185 = HKLogMedication();
+          if (OUTLINED_FUNCTION_22(v185))
           {
             OUTLINED_FUNCTION_1_4(5.8382e-34);
-            *(v204 + 14) = v223;
+            *(v203 + 14) = v222;
             OUTLINED_FUNCTION_5_1();
-            _os_log_error_impl(v205, v206, v207, v208, v209, 0x16u);
+            _os_log_error_impl(v204, v205, v206, v207, v208, 0x16u);
           }
 
-          v187 = v223;
-          if (v187)
+          v186 = v222;
+          if (v186)
           {
             if (transaction)
             {
-              v188 = v187;
-              *transaction = v187;
+              v187 = v186;
+              *transaction = v186;
             }
 
             else
@@ -1442,22 +1428,22 @@ LABEL_82:
         else
         {
           _HKInitializeLogging();
-          v126 = HKLogMedication();
-          if (OUTLINED_FUNCTION_22(v126))
+          v125 = HKLogMedication();
+          if (OUTLINED_FUNCTION_22(v125))
           {
             OUTLINED_FUNCTION_1_4(5.8382e-34);
-            *(v180 + 14) = v15;
+            *(v179 + 14) = v15;
             OUTLINED_FUNCTION_5_1();
-            _os_log_error_impl(v181, v182, v183, v184, v185, 0x16u);
+            _os_log_error_impl(v180, v181, v182, v183, v184, 0x16u);
           }
 
-          v127 = v15;
-          if (v127)
+          v126 = v15;
+          if (v126)
           {
             if (transaction)
             {
-              v128 = v127;
-              *transaction = v127;
+              v127 = v126;
+              *transaction = v126;
             }
 
             else
@@ -1471,22 +1457,22 @@ LABEL_82:
       else
       {
         _HKInitializeLogging();
-        v135 = HKLogMedication();
-        if (OUTLINED_FUNCTION_22(v135))
+        v134 = HKLogMedication();
+        if (OUTLINED_FUNCTION_22(v134))
         {
           OUTLINED_FUNCTION_1_4(5.8382e-34);
-          *(v174 + 14) = v123;
+          *(v173 + 14) = v122;
           OUTLINED_FUNCTION_5_1();
-          _os_log_error_impl(v175, v176, v177, v178, v179, 0x16u);
+          _os_log_error_impl(v174, v175, v176, v177, v178, 0x16u);
         }
 
-        v136 = v123;
-        if (v136)
+        v135 = v122;
+        if (v135)
         {
           if (transaction)
           {
-            v137 = v136;
-            *transaction = v136;
+            v136 = v135;
+            *transaction = v135;
           }
 
           else
@@ -1500,24 +1486,24 @@ LABEL_82:
     else
     {
       _HKInitializeLogging();
-      v96 = HKLogMedication();
-      if (OUTLINED_FUNCTION_22(v96))
+      v95 = HKLogMedication();
+      if (OUTLINED_FUNCTION_22(v95))
       {
         OUTLINED_FUNCTION_2_1(5.8383e-34);
-        v235 = v12;
-        v236 = v129;
-        v237 = v95;
+        v234 = v12;
+        v235 = v128;
+        v236 = v94;
         OUTLINED_FUNCTION_5_1();
-        _os_log_error_impl(v130, v131, v132, v133, v134, 0x20u);
+        _os_log_error_impl(v129, v130, v131, v132, v133, 0x20u);
       }
 
-      v97 = v95;
-      if (v97)
+      v96 = v94;
+      if (v96)
       {
         if (transaction)
         {
-          v98 = v97;
-          *transaction = v97;
+          v97 = v96;
+          *transaction = v96;
         }
 
         else
@@ -1533,13 +1519,12 @@ LABEL_82:
   v24 = 1;
 LABEL_6:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (uint64_t)_schedulingIsEnabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -1554,21 +1539,20 @@ LABEL_6:
       v6 = HKLogMedication();
       if (OUTLINED_FUNCTION_28(v6))
       {
-        v9 = 138543362;
-        v10 = v1;
-        OUTLINED_FUNCTION_23(&dword_25181C000, WeakRetained, v7, "[%{public}@] Scheduling disabled. Health app is hidden or not installed.", &v9);
+        v8 = 138543362;
+        v9 = v1;
+        OUTLINED_FUNCTION_23(&dword_25181C000, WeakRetained, v7, "[%{public}@] Scheduling disabled. Health app is hidden or not installed.", &v8);
       }
 
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1667,9 +1651,10 @@ LABEL_6:
   return v7;
 }
 
-- (id)_pruneAllScheduleItemsBefore:(NSObject *)before createDoseEvents:(int)events excludeDoseEventCreationForGivenDate:(void *)date transaction:(void *)transaction error:
+- (id)_pruneAllScheduleItemsBefore:(NSObject *)before createDoseEvents:(uint64_t)events excludeDoseEventCreationForGivenDate:(void *)date transaction:(void *)transaction error:
 {
-  v52 = *MEMORY[0x277D85DE8];
+  eventsCopy = events;
+  v51 = *MEMORY[0x277D85DE8];
   v12 = a2;
   dateCopy = date;
   if (self)
@@ -1681,27 +1666,27 @@ LABEL_6:
       v15 = HKStringFromBool();
       v16 = HKStringFromBool();
       OUTLINED_FUNCTION_6_1();
-      v47 = v12;
-      v48 = v17;
-      v49 = v15;
-      v50 = v17;
-      v51 = v18;
+      v46 = v12;
+      v47 = v17;
+      v48 = v15;
+      v49 = v17;
+      v50 = v18;
       OUTLINED_FUNCTION_12();
       _os_log_impl(v19, v20, v21, v22, v23, 0x2Au);
     }
 
-    v24 = HDMedicationScheduleItemPredicateForScheduledDateTime(3);
+    v24 = HDMedicationScheduleItemPredicateForScheduledDateTime(3, v12);
     v25 = v24;
-    if (events)
+    if (eventsCopy)
     {
       currentCalendar = [self[6] currentCalendar];
       v27 = [currentCalendar startOfDayForDate:v12];
-      v25 = HDMedicationScheduleItemPredicateForScheduledDateTime(3);
+      v25 = HDMedicationScheduleItemPredicateForScheduledDateTime(3, v27);
     }
 
     OUTLINED_FUNCTION_27();
     v29 = [(HDMedicationNotificationManager *)self _scheduleItemsWithPredicate:v25 transaction:dateCopy error:v28];
-    v30 = v45[1];
+    v30 = v44[1];
     if (v29)
     {
       if (![v29 count] || !before)
@@ -1721,31 +1706,31 @@ LABEL_9:
         goto LABEL_20;
       }
 
-      v45[0] = 0;
-      v38 = [(HDMedicationNotificationManager *)self _saveNotInteractedDoseEventsForScheduleItems:v29 transaction:dateCopy error:v45];
-      v39 = v45[0];
-      v40 = v39;
-      if (v38)
+      v44[0] = 0;
+      v37 = [(HDMedicationNotificationManager *)self _saveNotInteractedDoseEventsForScheduleItems:v29 transaction:dateCopy error:v44];
+      v38 = v44[0];
+      v39 = v38;
+      if (v37)
       {
 
         goto LABEL_9;
       }
 
       _HKInitializeLogging();
-      v42 = HKLogMedication();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v41 = HKLogMedication();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_6_1();
-        v47 = v40;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, v42, v44, "[%{public}@] Failed to save Not Interacted Dose Events with error: %{public}@", v46);
+        v46 = v39;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, v41, v43, "[%{public}@] Failed to save Not Interacted Dose Events with error: %{public}@", v45);
       }
 
-      v34 = v40;
+      v34 = v39;
       if (v34)
       {
         if (transaction)
         {
-          v43 = v34;
+          v42 = v34;
           *transaction = v34;
         }
 
@@ -1763,8 +1748,8 @@ LABEL_9:
       if (OUTLINED_FUNCTION_22(v33))
       {
         OUTLINED_FUNCTION_6_1();
-        v47 = v30;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, before, v41, "[%{public}@] Failed to fetch schedule items with error: %{public}@", v46);
+        v46 = v30;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, before, v40, "[%{public}@] Failed to fetch schedule items with error: %{public}@", v45);
       }
 
       v34 = v30;
@@ -1792,84 +1777,73 @@ LABEL_20:
   v32 = 0;
 LABEL_21:
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (uint64_t)_deleteNotInteractedAndNotLoggedDoseEventFor:(uint64_t)for transaction:(uint64_t)transaction error:
 {
-  v28[3] = *MEMORY[0x277D85DE8];
-  if (self)
+  v27[3] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v7 = *(self + 48);
-    v8 = a2;
-    currentCalendar = [v7 currentCalendar];
-    v10 = [currentCalendar startOfDayForDate:v8];
-
-    v11 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v10 duration:86400.0];
-    medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
-    v13 = HDSampleEntityPredicateForDateInterval();
-
-    v14 = HDMedicationDoseEventEntityPredicateForStatuses();
-    v15 = HDMedicationDoseEventEntityPredicateForLogOrigin();
-    v28[0] = v13;
-    v28[1] = v14;
-    v28[2] = v15;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
-    objc_claimAutoreleasedReturnValue();
-    v16 = [OUTLINED_FUNCTION_14_0() predicateMatchingAllPredicates:?];
-
-    v23 = 0;
-    WeakRetained = objc_loadWeakRetained((self + 8));
-    dataManager = [WeakRetained dataManager];
-    v19 = [dataManager deleteDataObjectsOfClass:objc_opt_class() predicate:v16 limit:*MEMORY[0x277D10C08] deletedSampleCount:&v23 notifyObservers:1 generateDeletedObjects:1 recursiveDeleteAuthorizationBlock:0 error:transaction];
-
-    _HKInitializeLogging();
-    v20 = HKLogMedication();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543618;
-      selfCopy = self;
-      v26 = 2048;
-      v27 = v23;
-      _os_log_impl(&dword_25181C000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %ld 'not interacted' and 'not logged' dose events", buf, 0x16u);
-    }
+    return 0;
   }
 
-  else
+  v7 = *(self + 48);
+  v8 = a2;
+  currentCalendar = [v7 currentCalendar];
+  v10 = [currentCalendar startOfDayForDate:v8];
+
+  v11 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v10 duration:86400.0];
+  medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
+  v13 = HDSampleEntityPredicateForDateInterval();
+
+  v14 = HDMedicationDoseEventEntityPredicateForStatuses();
+  v15 = HDMedicationDoseEventEntityPredicateForLogOrigin();
+  v27[0] = v13;
+  v27[1] = v14;
+  v27[2] = v15;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  objc_claimAutoreleasedReturnValue();
+  v16 = [OUTLINED_FUNCTION_14_0() predicateMatchingAllPredicates:?];
+
+  v22 = 0;
+  WeakRetained = objc_loadWeakRetained((self + 8));
+  dataManager = [WeakRetained dataManager];
+  v19 = [dataManager deleteDataObjectsOfClass:objc_opt_class() predicate:v16 limit:*MEMORY[0x277D10C08] deletedSampleCount:&v22 notifyObservers:1 generateDeletedObjects:1 recursiveDeleteAuthorizationBlock:0 error:transaction];
+
+  _HKInitializeLogging();
+  v20 = HKLogMedication();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 0;
+    *buf = 138543618;
+    selfCopy = self;
+    v25 = 2048;
+    v26 = v22;
+    _os_log_impl(&dword_25181C000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %ld 'not interacted' and 'not logged' dose events", buf, 0x16u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_removeAllScheduleItemsWithTransaction:(uint64_t)transaction error:
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (self)
+  v12 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v5 = a2;
-    _HKInitializeLogging();
-    v6 = HKLogMedication();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 138543362;
-      selfCopy = self;
-      OUTLINED_FUNCTION_23(&dword_25181C000, v6, v7, "[%{public}@] Removing all schedule items with transaction", &v11);
-    }
-
-    v8 = [HDMedicationScheduleItemEntity deleteMedicationScheduleItemsWithPredicate:0 transaction:v5 error:transaction];
+    return 0;
   }
 
-  else
+  v5 = a2;
+  _HKInitializeLogging();
+  v6 = HKLogMedication();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 0;
+    v10 = 138543362;
+    selfCopy = self;
+    OUTLINED_FUNCTION_23(&dword_25181C000, v6, v7, "[%{public}@] Removing all schedule items with transaction", &v10);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [HDMedicationScheduleItemEntity deleteMedicationScheduleItemsWithPredicate:0 transaction:v5 error:transaction];
   return v8;
 }
 
@@ -1901,51 +1875,51 @@ LABEL_21:
 
 - (id)_activeSchedulesFromDate:(void *)date calendar:(void *)calendar transaction:(uint64_t)transaction error:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v8 = a2;
-  v43 = v8;
+  v42 = v8;
   if (self)
   {
     v9 = v8;
     calendarCopy = calendar;
     v11 = [date startOfDayForDate:v9];
     v12 = [v9 dateByAddingTimeInterval:1814400.0];
-    v13 = HDMedicationSchedulePredicateForStartDateTime(3);
+    v13 = HDMedicationSchedulePredicateForStartDateTime(3, v12);
 
-    v41 = v11;
-    HDMedicationSchedulePredicateForEndDateTime(6);
-    v57 = v56 = v13;
-    v39 = v57;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:2];
+    v40 = v11;
+    HDMedicationSchedulePredicateForEndDateTime(6, v11);
+    v56 = v55 = v13;
+    v38 = v56;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:2];
     objc_claimAutoreleasedReturnValue();
     v14 = [OUTLINED_FUNCTION_15() predicateMatchingAllPredicates:?];
 
     HDMedicationSchedulePredicateForNilEndDateTime();
-    v40 = v13;
-    v55 = v54 = v13;
-    v37 = v55;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:2];
+    v39 = v13;
+    v54 = v53 = v13;
+    v36 = v54;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:2];
     objc_claimAutoreleasedReturnValue();
     v15 = [OUTLINED_FUNCTION_15() predicateMatchingAllPredicates:?];
 
     v16 = +[HDMedicationScheduleEntity availableSchedulePredicate];
     v17 = MEMORY[0x277D10B20];
-    v38 = v14;
-    v53[0] = v14;
-    v53[1] = v15;
-    v36 = v15;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v37 = v14;
+    v52[0] = v14;
+    v52[1] = v15;
+    v35 = v15;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
     v19 = [v17 predicateMatchingAnyPredicates:v18];
 
     v20 = [MEMORY[0x277D10B28] doesNotContainPredicateWithProperty:@"schedule_type" values:&unk_2863C2C60];
     v21 = HDMedicationSchedulePredicateForActiveMedications();
     v22 = MEMORY[0x277D10B20];
-    v35 = v16;
-    v52[0] = v16;
-    v52[1] = v20;
-    v52[2] = v19;
-    v52[3] = v21;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:4];
+    v34 = v16;
+    v51[0] = v16;
+    v51[1] = v20;
+    v51[2] = v19;
+    v51[3] = v21;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
     v24 = [v22 predicateMatchingAllPredicates:v23];
 
     selfCopy = self;
@@ -1962,13 +1936,13 @@ LABEL_21:
       v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v29, "count")}];
       v32 = HKSensitiveLogItem();
       *buf = 138544130;
-      v45 = selfCopy;
-      v46 = 2114;
-      v47 = v43;
-      v48 = 2114;
-      v49 = v31;
-      v50 = 2114;
-      v51 = v32;
+      v44 = selfCopy;
+      v45 = 2114;
+      v46 = v42;
+      v47 = 2114;
+      v48 = v31;
+      v49 = 2114;
+      v50 = v32;
       _os_log_impl(&dword_25181C000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Active schedules from date: %{public}@, %{public}@ active schedules: %{public}@", buf, 0x2Au);
     }
   }
@@ -1978,14 +1952,12 @@ LABEL_21:
     v29 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)_generateScheduleItemsWithSchedules:(void *)schedules fromDate:(void *)date endDate:(void *)endDate calendar:(uint64_t)calendar error:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v11 = a2;
   if (self)
   {
@@ -2003,17 +1975,17 @@ LABEL_21:
       v19 = HKSensitiveLogItem();
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
       v21 = HKSensitiveLogItem();
-      v26 = 138544386;
+      v25 = 138544386;
       selfCopy = self;
       OUTLINED_FUNCTION_6_0();
-      v28 = v18;
-      v29 = v22;
-      v30 = v19;
-      v31 = v22;
-      v32 = v20;
-      v33 = v22;
-      v34 = v23;
-      _os_log_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Generated %{public}@ schedule items: %{public}@, for %{public}@ schedules: %{public}@", &v26, 0x34u);
+      v27 = v18;
+      v28 = v22;
+      v29 = v19;
+      v30 = v22;
+      v31 = v20;
+      v32 = v22;
+      v33 = v23;
+      _os_log_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Generated %{public}@ schedule items: %{public}@, for %{public}@ schedules: %{public}@", &v25, 0x34u);
     }
   }
 
@@ -2022,14 +1994,12 @@ LABEL_21:
     v16 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (uint64_t)_saveScheduleItems:(void *)items notificationSentScheduleItems:(void *)scheduleItems transaction:(void *)transaction error:
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v9 = a2;
   itemsCopy = items;
   scheduleItemsCopy = scheduleItems;
@@ -2043,42 +2013,42 @@ LABEL_21:
       v14 = HKSensitiveLogItem();
       *buf = 138543874;
       selfCopy = self;
-      v53 = 2114;
-      v54 = v13;
-      v55 = 2114;
-      v56 = v14;
+      v52 = 2114;
+      v53 = v13;
+      v54 = 2114;
+      v55 = v14;
       _os_log_impl(&dword_25181C000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving %{public}@ schedule items with transaction: %{public}@", buf, 0x20u);
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = v9;
-    v15 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v15 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v15)
     {
       v16 = v15;
       selfCopy2 = self;
       transactionCopy = transaction;
-      v42 = v9;
-      v17 = *v47;
+      v41 = v9;
+      v17 = *v46;
       while (2)
       {
         for (i = 0; i != v16; i = (i + 1))
         {
-          if (*v47 != v17)
+          if (*v46 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v46 + 1) + 8 * i);
-          v45[0] = MEMORY[0x277D85DD0];
-          v45[1] = 3221225472;
-          v45[2] = __102__HDMedicationNotificationManager__saveScheduleItems_notificationSentScheduleItems_transaction_error___block_invoke;
-          v45[3] = &unk_2796CDCB8;
-          v45[4] = v19;
-          v20 = [itemsCopy hk_firstObjectPassingTest:v45];
+          v19 = *(*(&v45 + 1) + 8 * i);
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __102__HDMedicationNotificationManager__saveScheduleItems_notificationSentScheduleItems_transaction_error___block_invoke;
+          v44[3] = &unk_2796CDCB8;
+          v44[4] = v19;
+          v20 = [itemsCopy hk_firstObjectPassingTest:v44];
           v21 = v19;
           if (v20 && [v20 notificationSent])
           {
@@ -2097,9 +2067,9 @@ LABEL_21:
             v21 = v28;
           }
 
-          v44 = 0;
-          v29 = [HDMedicationScheduleItemEntity insertMedicationScheduleItem:v21 transaction:scheduleItemsCopy error:&v44];
-          v30 = v44;
+          v43 = 0;
+          v29 = [HDMedicationScheduleItemEntity insertMedicationScheduleItem:v21 transaction:scheduleItemsCopy error:&v43];
+          v30 = v43;
 
           if (!v29)
           {
@@ -2110,14 +2080,14 @@ LABEL_21:
             {
               *buf = 138543618;
               selfCopy = selfCopy2;
-              v53 = 2048;
-              v54 = v30;
+              v52 = 2048;
+              v53 = v30;
               OUTLINED_FUNCTION_10_1(&dword_25181C000, v16, v34, "[%{public}@] Insert medication schedule items failed with error: %public@", buf);
             }
 
             v35 = v30;
             v36 = v35;
-            v9 = v42;
+            v9 = v41;
             if (v35)
             {
               if (transactionCopy)
@@ -2138,7 +2108,7 @@ LABEL_21:
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v16 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v16)
         {
           continue;
@@ -2148,7 +2118,7 @@ LABEL_21:
       }
 
       v31 = 1;
-      v9 = v42;
+      v9 = v41;
     }
 
     else
@@ -2164,40 +2134,34 @@ LABEL_24:
     v31 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)_removeAllScheduleItemsNotSentWithTransaction:(uint64_t)transaction error:
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (self)
+  if (!self)
   {
-    v6 = a2;
-    _HKInitializeLogging();
-    v7 = HKLogMedication();
-    if (OUTLINED_FUNCTION_25(v7))
-    {
-      OUTLINED_FUNCTION_12();
-      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
-    }
-
-    _scheduleItemsNotSentPredicate = [(HDMedicationNotificationManager *)self _scheduleItemsNotSentPredicate];
-    v14 = [HDMedicationScheduleItemEntity deleteMedicationScheduleItemsWithPredicate:_scheduleItemsNotSentPredicate transaction:v6 error:transaction];
+    return 0;
   }
 
-  else
+  v6 = a2;
+  _HKInitializeLogging();
+  v7 = HKLogMedication();
+  if (OUTLINED_FUNCTION_25(v7))
   {
-    v14 = 0;
+    OUTLINED_FUNCTION_12();
+    _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  _scheduleItemsNotSentPredicate = [(HDMedicationNotificationManager *)self _scheduleItemsNotSentPredicate];
+  v14 = [HDMedicationScheduleItemEntity deleteMedicationScheduleItemsWithPredicate:_scheduleItemsNotSentPredicate transaction:v6 error:transaction];
+
   return v14;
 }
 
 - (uint64_t)_scheduleRestorableAlarmWithNextScheduleItemsTransaction:(void *)transaction date:(NSObject *)date error:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (!self)
   {
@@ -2215,12 +2179,12 @@ LABEL_24:
     OUTLINED_FUNCTION_23(&dword_25181C000, a2, v10, "[%{public}@] Scheduling restorable alarms with next schedule items", buf);
   }
 
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  v11 = [(HDMedicationNotificationManager *)self _nextScheduleItemsWithTransaction:v8 date:transactionCopy snoozeFireDates:&v37 error:&v36];
+  v11 = [(HDMedicationNotificationManager *)self _nextScheduleItemsWithTransaction:v8 date:transactionCopy snoozeFireDates:&v36 error:&v35];
 
-  v12 = v37;
-  v13 = v36;
+  v12 = v36;
+  v13 = v35;
   if (!v11)
   {
     _HKInitializeLogging();
@@ -2228,8 +2192,8 @@ LABEL_24:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_7_1();
-      v40 = v13;
-      OUTLINED_FUNCTION_10_1(&dword_25181C000, v18, v34, "[%{public}@] Failed to fetch the next rescheduled item with error: %{public}@.", buf);
+      v39 = v13;
+      OUTLINED_FUNCTION_10_1(&dword_25181C000, v18, v33, "[%{public}@] Failed to fetch the next rescheduled item with error: %{public}@.", buf);
     }
 
     v17 = v13;
@@ -2257,18 +2221,18 @@ LABEL_16:
     if ([v12 count])
     {
       _HKInitializeLogging();
-      v22 = HKLogMedication();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+      v21 = HKLogMedication();
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
 
-      if (v23)
+      if (v22)
       {
-        v24 = HKLogMedication();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v23 = HKLogMedication();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
+          v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
           OUTLINED_FUNCTION_7_1();
-          v40 = v26;
-          _os_log_impl(&dword_25181C000, v24, OS_LOG_TYPE_INFO, "[%{public}@] Snoozed %{public}@ notification with identifiers, removing from Notifications Center", buf, 0x16u);
+          v39 = v25;
+          _os_log_impl(&dword_25181C000, v23, OS_LOG_TYPE_INFO, "[%{public}@] Snoozed %{public}@ notification with identifiers, removing from Notifications Center", buf, 0x16u);
         }
       }
 
@@ -2279,18 +2243,18 @@ LABEL_16:
       [OUTLINED_FUNCTION_14_0() removeDeliveredNotificationsForScheduleItemIdentifiers:?];
     }
 
-    v29 = OUTLINED_FUNCTION_17();
-    v15 = [(HDMedicationNotificationManager *)v29 _scheduleRestorableAlarmWithItems:v30 date:transactionCopy snoozeFireDates:v12 error:v31];
+    v28 = OUTLINED_FUNCTION_17();
+    v15 = [(HDMedicationNotificationManager *)v28 _scheduleRestorableAlarmWithItems:v29 date:transactionCopy snoozeFireDates:v12 error:v30];
     v17 = 0;
     if ((v15 & 1) == 0)
     {
       _HKInitializeLogging();
-      v32 = HKLogMedication();
-      if (OUTLINED_FUNCTION_22(v32))
+      v31 = HKLogMedication();
+      if (OUTLINED_FUNCTION_22(v31))
       {
         OUTLINED_FUNCTION_7_1();
-        v40 = v17;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, &off_251879000, v35, "[%{public}@] Failed to schedule the initial restorable alarm with error: %{public}@.", buf);
+        v39 = v17;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, &off_251879000, v34, "[%{public}@] Failed to schedule the initial restorable alarm with error: %{public}@.", buf);
       }
 
       v17 = v17;
@@ -2298,7 +2262,7 @@ LABEL_16:
       {
         if (date)
         {
-          v33 = v17;
+          v32 = v17;
           *date = v17;
         }
 
@@ -2333,13 +2297,12 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (uint64_t)_notificationIsEnabled
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -2347,8 +2310,7 @@ LABEL_18:
     {
       if (![(HDMedicationNotificationManager *)v1 _doseReminderSettingIsDisabled])
       {
-        result = 1;
-        goto LABEL_7;
+        return 1;
       }
 
       _HKInitializeLogging();
@@ -2358,8 +2320,8 @@ LABEL_18:
         goto LABEL_6;
       }
 
-      v6 = 138543362;
-      v7 = v1;
+      v5 = 138543362;
+      v6 = v1;
       v4 = "[%{public}@] Notification disabled. Dose reminder is toggled off.";
     }
 
@@ -2371,33 +2333,30 @@ LABEL_18:
       {
 LABEL_6:
 
-        result = 0;
-        goto LABEL_7;
+        return 0;
       }
 
-      v6 = 138543362;
-      v7 = v1;
+      v5 = 138543362;
+      v6 = v1;
       v4 = "[%{public}@] Notification disabled. Scheduling is disabled.";
     }
 
-    OUTLINED_FUNCTION_23(&dword_25181C000, v2, v3, v4, &v6);
+    OUTLINED_FUNCTION_23(&dword_25181C000, v2, v3, v4, &v5);
     goto LABEL_6;
   }
 
-LABEL_7:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_alarm:(void *)_alarm confirmDeliveryByRemovingEvents:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _alarmCopy = _alarm;
   if (self)
   {
     OUTLINED_FUNCTION_27();
     v6 = [a2 removeEvents:_alarmCopy error:?];
-    v7 = v12;
+    v7 = v11;
     _HKInitializeLogging();
     v8 = HKLogMedication();
     v9 = v8;
@@ -2417,55 +2376,53 @@ LABEL_7:
       *buf = 138543874;
       selfCopy2 = self;
       OUTLINED_FUNCTION_8_1();
-      v15 = v11;
-      v16 = v7;
+      v14 = v10;
+      v15 = v7;
       _os_log_error_impl(&dword_25181C000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to confirm delivery by removing event for client identifier: %{public}@, error: %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_alarm:(void *)_alarm filterDueEventsToHandle:(void *)handle date:
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v33 = a2;
+  v40 = *MEMORY[0x277D85DE8];
+  v32 = a2;
   _alarmCopy = _alarm;
   handleCopy = handle;
   if (!self)
   {
     v26 = 0;
-    v29 = v33;
+    v29 = v32;
     goto LABEL_23;
   }
 
-  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v32 = _alarmCopy;
+  v31 = _alarmCopy;
   v10 = _alarmCopy;
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (!v11)
   {
     goto LABEL_18;
   }
 
   v12 = v11;
-  v13 = *v36;
+  v13 = *v35;
   do
   {
     v14 = 0;
     do
     {
-      if (*v36 != v13)
+      if (*v35 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v35 + 1) + 8 * v14);
+      v15 = *(*(&v34 + 1) + 8 * v14);
       if ([(HDMedicationNotificationManager *)self _isDueEventExpired:v15 fromDate:handleCopy])
       {
         _HKInitializeLogging();
@@ -2483,7 +2440,7 @@ LABEL_7:
       }
 
       v22 = [(HDMedicationNotificationManager *)self _isDueEventOnHold:v15];
-      v21 = v34;
+      v21 = v33;
       if (v22)
       {
         _HKInitializeLogging();
@@ -2508,55 +2465,52 @@ LABEL_11:
     }
 
     while (v12 != v14);
-    v25 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v25 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
     v12 = v25;
   }
 
   while (v25);
 LABEL_18:
 
-  v26 = v34;
-  [v34 sortUsingComparator:&__block_literal_global_343];
-  if ([v34 count] >= 3)
+  v26 = v33;
+  [v33 sortUsingComparator:&__block_literal_global_343];
+  if ([v33 count] >= 3)
   {
-    v27 = [v34 subarrayWithRange:{0, (objc_msgSend(v34, "count") + -2.0)}];
+    v27 = [v33 subarrayWithRange:{0, (objc_msgSend(v33, "count") + -2.0)}];
     [v9 addObjectsFromArray:v27];
-    v28 = [v34 hk_mutableSubarrayWithRange:{(objc_msgSend(v34, "count") + -2.0), 2}];
+    v28 = [v33 hk_mutableSubarrayWithRange:{(objc_msgSend(v33, "count") + -2.0), 2}];
 
     v26 = v28;
   }
 
-  _alarmCopy = v32;
-  v29 = v33;
+  _alarmCopy = v31;
+  v29 = v32;
   if ([v9 count])
   {
-    [(HDMedicationNotificationManager *)self _alarm:v33 confirmDeliveryByRemovingEvents:v9];
+    [(HDMedicationNotificationManager *)self _alarm:v32 confirmDeliveryByRemovingEvents:v9];
   }
 
 LABEL_23:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (void)_alarm:(void *)_alarm confirmDeliveryByRemovingEvent:
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v10[0] = _alarm;
+    v9[0] = _alarm;
     v5 = MEMORY[0x277CBEA60];
     _alarmCopy = _alarm;
     v7 = a2;
-    v8 = [v5 arrayWithObjects:v10 count:1];
+    v8 = [v5 arrayWithObjects:v9 count:1];
 
     [(HDMedicationNotificationManager *)self _alarm:v7 confirmDeliveryByRemovingEvents:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_isDueEventExpired:(void *)expired fromDate:
+- (void)_isDueEventExpired:(void *)expired fromDate:
 {
   if (result)
   {
@@ -2574,7 +2528,7 @@ LABEL_23:
 - (uint64_t)_isDueEventOnHold:(uint64_t)hold
 {
   holdCopy = hold;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (hold)
   {
     v3 = a2;
@@ -2586,7 +2540,7 @@ LABEL_23:
 
     OUTLINED_FUNCTION_27();
     v8 = [medicationNotificationSyncManager isScheduleItemOnHold:scheduleItemIdentifier errorOut:?];
-    v9 = v14;
+    v9 = v13;
 
     if (v8)
     {
@@ -2595,7 +2549,7 @@ LABEL_23:
         holdCopy = 1;
 LABEL_9:
 
-        goto LABEL_10;
+        return holdCopy;
       }
     }
 
@@ -2605,11 +2559,11 @@ LABEL_9:
       v10 = HKLogMedication();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543618;
-        v16 = holdCopy;
-        v17 = 2114;
-        v18 = v9;
-        OUTLINED_FUNCTION_10_1(&dword_25181C000, v10, v11, "[%{public}@]: isScheduleItemOnHold returned error=[%{public}@], but treating it as not on hold", &v15);
+        v14 = 138543618;
+        v15 = holdCopy;
+        v16 = 2114;
+        v17 = v9;
+        OUTLINED_FUNCTION_10_1(&dword_25181C000, v10, v11, "[%{public}@]: isScheduleItemOnHold returned error=[%{public}@], but treating it as not on hold", &v14);
       }
     }
 
@@ -2617,8 +2571,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return holdCopy;
 }
 
@@ -2646,7 +2598,7 @@ LABEL_10:
 
 - (id)_nextScheduleItemsWithTransaction:(void *)transaction date:(void *)date snoozeFireDates:(uint64_t)dates error:
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v8 = a2;
   transactionCopy = transaction;
   if (self)
@@ -2656,26 +2608,26 @@ LABEL_10:
     v12 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"scheduled_date_time" entityClass:objc_opt_class() ascending:1];
     v13 = transactionCopy;
     v14 = [HDMedicationNotificationManager _takenOrSkippedItemDoseIdentifiersNearDate:self error:?];
-    v29 = v14;
+    v28 = v14;
     if (v14)
     {
-      v27 = transactionCopy;
-      v25 = v12;
-      v41[0] = v12;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __96__HDMedicationNotificationManager__nextScheduleItemsWithTransaction_date_snoozeFireDates_error___block_invoke;
-      v30[3] = &unk_2796CDCE0;
-      v30[4] = self;
-      v31 = v14;
-      v26 = v10;
+      v26 = transactionCopy;
+      v24 = v12;
+      v40[0] = v12;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __96__HDMedicationNotificationManager__nextScheduleItemsWithTransaction_date_snoozeFireDates_error___block_invoke;
+      v29[3] = &unk_2796CDCE0;
+      v29[4] = self;
+      v30 = v14;
+      v25 = v10;
       v16 = v10;
-      v32 = v16;
-      v33 = v13;
+      v31 = v16;
+      v32 = v13;
       v17 = v11;
-      v34 = v17;
-      v18 = [HDMedicationScheduleItemEntity enumerateItemsWithPredicate:0 orderingTerms:v15 transaction:v8 error:dates enumerationHandler:v30];
+      v33 = v17;
+      v18 = [HDMedicationScheduleItemEntity enumerateItemsWithPredicate:0 orderingTerms:v15 transaction:v8 error:dates enumerationHandler:v29];
 
       if (date)
       {
@@ -2691,14 +2643,14 @@ LABEL_10:
         v22 = HKSensitiveLogItem();
         *buf = 138543874;
         selfCopy = self;
-        v37 = 2114;
-        v38 = v21;
-        v39 = 2114;
-        v40 = v22;
+        v36 = 2114;
+        v37 = v21;
+        v38 = 2114;
+        v39 = v22;
         _os_log_impl(&dword_25181C000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Next %{public}@ schedule items: %{public}@", buf, 0x20u);
       }
 
-      transactionCopy = v27;
+      transactionCopy = v26;
       if (v18)
       {
         v14 = [MEMORY[0x277CBEA60] arrayWithArray:v16];
@@ -2709,8 +2661,8 @@ LABEL_10:
         v14 = 0;
       }
 
-      v10 = v26;
-      v12 = v25;
+      v10 = v25;
+      v12 = v24;
     }
   }
 
@@ -2718,8 +2670,6 @@ LABEL_10:
   {
     v14 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -2814,7 +2764,7 @@ LABEL_10:
 
 - (id)_snoozedDoseEventWithScheduleItemIdentifier:(void *)identifier medicationIdentifiers:(uint64_t)identifiers error:
 {
-  v20[5] = *MEMORY[0x277D85DE8];
+  v19[5] = *MEMORY[0x277D85DE8];
   if (self)
   {
     identifierCopy = identifier;
@@ -2824,12 +2774,12 @@ LABEL_10:
     v10 = HDMedicationDoseEventEntityPredicateForStatus();
     v11 = HDMedicationDoseEventEntityPredicateForStatus();
     v12 = HDMedicationDoseEventEntityPredicateForStatus();
-    v20[0] = v8;
-    v20[1] = v9;
-    v20[2] = v10;
-    v20[3] = v11;
-    v20[4] = v12;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
+    v19[0] = v8;
+    v19[1] = v9;
+    v19[2] = v10;
+    v19[3] = v11;
+    v19[4] = v12;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
     objc_claimAutoreleasedReturnValue();
     v13 = [OUTLINED_FUNCTION_14_0() predicateMatchingAllPredicates:?];
 
@@ -2844,14 +2794,12 @@ LABEL_10:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_takenOrSkippedDoseEventsNearDate:(uint64_t)date error:
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   if (date)
   {
     OUTLINED_FUNCTION_19();
@@ -2863,17 +2811,17 @@ LABEL_10:
 
     v9 = HDSampleEntityPredicateForEndDate();
 
-    v22[0] = v7;
-    v22[1] = v9;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = v7;
+    v21[1] = v9;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     objc_claimAutoreleasedReturnValue();
     v10 = [OUTLINED_FUNCTION_13_0() predicateMatchingAllPredicates:?];
 
     v11 = HDMedicationDoseEventEntityPredicateForStatuses();
     v12 = MEMORY[0x277D10B20];
-    v21[0] = v10;
-    v21[1] = v11;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = v10;
+    v20[1] = v11;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v14 = [v12 predicateMatchingAllPredicates:v13];
 
     medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
@@ -2886,8 +2834,6 @@ LABEL_10:
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2903,44 +2849,43 @@ LABEL_10:
   return self;
 }
 
-uint64_t __108__HDMedicationNotificationManager__takenOrSkippedItemDoseIdentifiers_containsAllItemDoseIdentifiersForItem___block_invoke(void *a1, void *a2)
+uint64_t __108__HDMedicationNotificationManager__takenOrSkippedItemDoseIdentifiers_containsAllItemDoseIdentifiersForItem___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a2;
-  v6 = [v4 identifier];
-  v7 = [v5 medicationIdentifier];
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 48);
+  v4 = a2;
+  v5 = [v3 identifier];
+  v6 = [v4 medicationIdentifier];
 
-  [(HDMedicationNotificationManager *)v3 _uniqueDoseIdentifierFromItemIdentifier:v6 medicationidentifier:v7];
+  [(HDMedicationNotificationManager *)v2 _uniqueDoseIdentifierFromItemIdentifier:v5 medicationidentifier:v6];
   objc_claimAutoreleasedReturnValue();
-  v8 = [OUTLINED_FUNCTION_15() containsObject:?];
+  v7 = [OUTLINED_FUNCTION_15() containsObject:?];
 
-  return v8;
+  return v7;
 }
 
 - (uint64_t)_scheduleRestorableAlarmWithItems:(uint64_t)items date:(void *)date snoozeFireDates:(uint64_t)dates error:
 {
   datesCopy = dates;
   OUTLINED_FUNCTION_19();
-  v64 = *MEMORY[0x277D85DE8];
-  v57 = v8;
+  v63 = *MEMORY[0x277D85DE8];
+  v56 = v8;
   v9 = v5;
   v10 = v6;
-  v56 = v9;
+  v55 = v9;
   dateCopy = date;
   if (v6)
   {
-    v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v49 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v57, "count")}];
+    v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v48 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v56, "count")}];
     _followUpNotificationsEnabled = [(HDMedicationNotificationManager *)v6 _followUpNotificationsEnabled];
-    v52 = v6;
-    if ([v57 count])
+    v51 = v6;
+    if ([v56 count])
     {
       v11 = 0;
       while (1)
       {
-        v12 = [v57 objectAtIndexedSubscript:{v11, datesCopy}];
+        v12 = [v56 objectAtIndexedSubscript:{v11, datesCopy}];
         scheduledDateTime = [v12 scheduledDateTime];
         [v10 _followUpDuration];
         v14 = [scheduledDateTime dateByAddingTimeInterval:?];
@@ -2949,10 +2894,10 @@ uint64_t __108__HDMedicationNotificationManager__takenOrSkippedItemDoseIdentifie
 
         doses = [v12 doses];
         v18 = [doses hk_mapToSet:&__block_literal_global_377];
-        v54 = [v18 count];
+        v53 = [v18 count];
 
-        v19 = [scheduledDateTime hk_isAfterOrEqualToDate:v56];
-        v55 = v16;
+        v19 = [scheduledDateTime hk_isAfterOrEqualToDate:v55];
+        v54 = v16;
         if (!v19)
         {
           break;
@@ -2964,26 +2909,26 @@ uint64_t __108__HDMedicationNotificationManager__takenOrSkippedItemDoseIdentifie
           goto LABEL_9;
         }
 
-        v10 = v52;
+        v10 = v51;
         if (notificationSent)
         {
           v21 = 1;
-          v58 = scheduledDateTime;
+          v57 = scheduledDateTime;
 LABEL_18:
           v30 = v10[4];
           identifier2 = [v12 identifier];
           v32 = [scheduledDateTime dateByAddingTimeInterval:43200.0];
           v33 = [v30 medicationExpirationEventWithScheduleItemIdentifier:identifier2 dueDate:v32];
 
-          [v49 addObject:v33];
+          [v48 addObject:v33];
           goto LABEL_19;
         }
 
         v28 = scheduledDateTime;
 LABEL_17:
-        v58 = v28;
+        v57 = v28;
         v29 = [v10[3] medicationNotificationEventWithScheduleItem:v12 dueDate:? isFollowUp:? isCritical:? medicationsCount:?];
-        [v50 addObject:v29];
+        [v49 addObject:v29];
 
         v21 = 0;
         if (v19)
@@ -2992,7 +2937,7 @@ LABEL_17:
         }
 
 LABEL_19:
-        v34 = _followUpNotificationsEnabled & [v14 hk_isAfterOrEqualToDate:v56];
+        v34 = _followUpNotificationsEnabled & [v14 hk_isAfterOrEqualToDate:v55];
         if (v21 && v34)
         {
           if (([v12 notificationSent] & 1) == 0)
@@ -3007,8 +2952,8 @@ LABEL_24:
           mEMORY[0x277D115D8] = [MEMORY[0x277D115D8] sharedInstance];
           v38 = [mEMORY[0x277D115D8] containsAtLeastOneOfIdentifiers:v36];
 
-          v39 = [v10[3] medicationNotificationEventWithScheduleItem:v12 dueDate:v14 isFollowUp:1 isCritical:v38 medicationsCount:v54];
-          [v50 addObject:v39];
+          v39 = [v10[3] medicationNotificationEventWithScheduleItem:v12 dueDate:v14 isFollowUp:1 isCritical:v38 medicationsCount:v53];
+          [v49 addObject:v39];
 
           goto LABEL_25;
         }
@@ -3020,7 +2965,7 @@ LABEL_24:
 
 LABEL_25:
 
-        if ([v57 count] <= ++v11)
+        if ([v56 count] <= ++v11)
         {
           goto LABEL_26;
         }
@@ -3029,26 +2974,26 @@ LABEL_25:
       if (!v16)
       {
         v21 = 1;
-        v58 = scheduledDateTime;
-        v10 = v52;
+        v57 = scheduledDateTime;
+        v10 = v51;
         goto LABEL_19;
       }
 
 LABEL_9:
       v22 = v16;
 
-      v10 = v52;
-      [v52 _snoozeDuration];
+      v10 = v51;
+      [v51 _snoozeDuration];
       v24 = [v22 dateByAddingTimeInterval:-v23];
       v25 = [v24 hk_isAfterOrEqualToDate:v14];
       v26 = [v22 hk_isAfterOrEqualToDate:v14];
-      v58 = v22;
+      v57 = v22;
       if (v25)
       {
         v27 = v22;
 
         v14 = v27;
-        v10 = v52;
+        v10 = v51;
       }
 
       if ((v25 | v26) & _followUpNotificationsEnabled)
@@ -3062,29 +3007,29 @@ LABEL_9:
         goto LABEL_18;
       }
 
-      v28 = v58;
+      v28 = v57;
       goto LABEL_17;
     }
 
 LABEL_26:
-    v40 = [v10[3] scheduleEvents:v50 error:{datesCopy, datesCopy}];
+    v40 = [v10[3] scheduleEvents:v49 error:{datesCopy, datesCopy}];
     if (v40)
     {
       v41 = v10[4];
-      v59 = 0;
-      v42 = [v41 scheduleEvents:v49 error:&v59];
-      v43 = v59;
+      v58 = 0;
+      v42 = [v41 scheduleEvents:v48 error:&v58];
+      v43 = v58;
       if ((v42 & 1) == 0)
       {
         _HKInitializeLogging();
         v44 = HKLogMedication();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          v60 = 138543618;
-          v61 = v52;
-          v62 = 2114;
-          v63 = v43;
-          OUTLINED_FUNCTION_10_1(&dword_25181C000, v44, v45, "[%{public}@] Failed to schedule expiration alarms. %{public}@", &v60);
+          v59 = 138543618;
+          v60 = v51;
+          v61 = 2114;
+          v62 = v43;
+          OUTLINED_FUNCTION_10_1(&dword_25181C000, v44, v45, "[%{public}@] Failed to schedule expiration alarms. %{public}@", &v59);
         }
       }
     }
@@ -3095,20 +3040,19 @@ LABEL_26:
     v40 = 0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
-- (uint64_t)_followUpNotificationsEnabled
+- (id)_followUpNotificationsEnabled
 {
   selfCopy = self;
   if (self)
   {
     v2 = *MEMORY[0x277D11430];
-    v3 = [*(self + 56) objectForKey:*MEMORY[0x277D11430]];
+    v3 = [self[7] objectForKey:*MEMORY[0x277D11430]];
     if (v3)
     {
-      selfCopy = [*(selfCopy + 56) BOOLForKey:v2];
+      selfCopy = [selfCopy[7] BOOLForKey:v2];
     }
 
     else
@@ -3122,14 +3066,14 @@ LABEL_26:
 
 - (id)_takenOrSkippedAlarmIdentifiersSince:(id *)since error:
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (since)
   {
     v3 = HDMedicationDoseEventEntityPredicateForScheduledDate();
     v4 = HDMedicationDoseEventEntityPredicateForStatuses();
-    v11[0] = v3;
-    v11[1] = v4;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+    v10[0] = v3;
+    v10[1] = v4;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
     objc_claimAutoreleasedReturnValue();
     v5 = [OUTLINED_FUNCTION_13_0() predicateMatchingAllPredicates:?];
 
@@ -3144,8 +3088,6 @@ LABEL_26:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3211,7 +3153,6 @@ BOOL __90__HDMedicationNotificationManager_pruneAllScheduleItemsBeforeDate_creat
 
 - (uint64_t)_saveNotInteractedDoseEventsForScheduleItems:(void *)items transaction:(uint64_t)transaction error:
 {
-  v23 = *MEMORY[0x277D85DE8];
   v8 = a2;
   if (self)
   {
@@ -3249,41 +3190,40 @@ BOOL __90__HDMedicationNotificationManager_pruneAllScheduleItemsBeforeDate_creat
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)_medicationDoseEventsForScheduleItems:(id *)items transaction:(void *)transaction error:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (items)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = transactionCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          identifier = [*(*(&v16 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v15 + 1) + 8 * i) identifier];
           [v4 addObject:identifier];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -3300,35 +3240,30 @@ BOOL __90__HDMedicationNotificationManager_pruneAllScheduleItemsBeforeDate_creat
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 void __73__HDMedicationNotificationManager__queue_alarm_didReceiveDueEvents_date___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v8 = 138543874;
-  v9 = v1;
+  v6 = 138543874;
+  v7 = v1;
   OUTLINED_FUNCTION_6_0();
-  v10 = v3;
-  v11 = v4;
-  v12 = v5;
-  _os_log_error_impl(&dword_25181C000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to post notification request for due item: %{public}@, error:%{public}@", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v2;
+  v9 = v3;
+  v10 = v4;
+  _os_log_error_impl(&dword_25181C000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to post notification request for due item: %{public}@, error:%{public}@", &v6, 0x20u);
 }
 
 - (void)_notInteractedDoseEventsForScheduleItems:(uint64_t)a1 transaction:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
   OUTLINED_FUNCTION_6_0();
-  v6 = v1;
-  OUTLINED_FUNCTION_10_1(&dword_25181C000, v2, v2, "[%{public}@] Failed to fetch the existing dose events for schedule item with error: %{public}@.", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = v1;
+  OUTLINED_FUNCTION_10_1(&dword_25181C000, v2, v2, "[%{public}@] Failed to fetch the existing dose events for schedule item with error: %{public}@.", &v3);
 }
 
 @end

@@ -305,7 +305,7 @@
   if (v23)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [(NSString *)self->applicationBundleIdentifier length]&& ![(NSString *)self->applicationBundleIdentifier isEqualToString:@"com.apple.shortcuts"])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && [(NSString *)self->applicationBundleIdentifier length]&& (objc_msgSend_isEqualToString_(self->applicationBundleIdentifier) & 1) == 0)
     {
       -[UIWebClip setIsAppClip:](self, "setIsAppClip:", [v23 BOOLValue]);
     }
@@ -1974,7 +1974,7 @@ uint64_t __30__UIWebClip_eligibilityAlert___block_invoke_2(uint64_t a1)
 {
   lCopy = l;
   scheme = [lCopy scheme];
-  if (([scheme isEqualToString:@"webclip"] & 1) != 0 || objc_msgSend(scheme, "isEqualToString:", @"webapp"))
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) != 0 || objc_msgSend_isEqualToString_(scheme))
   {
     resourceSpecifier = [lCopy resourceSpecifier];
     if (resourceSpecifier)

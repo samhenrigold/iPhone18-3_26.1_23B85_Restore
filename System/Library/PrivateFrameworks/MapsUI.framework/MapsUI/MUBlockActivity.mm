@@ -64,34 +64,34 @@
 
 + (id)createBlockActivitiesFromPlaceActionItems:(id)items usingActionManager:(id)manager presentationOptions:(id)options analyticsModuleMetadata:(id)metadata
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   managerCopy = manager;
   optionsCopy = options;
   metadataCopy = metadata;
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = itemsCopy;
-  v12 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v31 = *v39;
-    v30 = *MEMORY[0x1E696F118];
-    v29 = *MEMORY[0x1E696F108];
+    v30 = *v38;
+    v29 = *MEMORY[0x1E696F118];
+    v28 = *MEMORY[0x1E696F108];
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        resolvedActionItem = [*(*(&v38 + 1) + 8 * i) resolvedActionItem];
+        resolvedActionItem = [*(*(&v37 + 1) + 8 * i) resolvedActionItem];
         v16 = [resolvedActionItem titleForDisplayStyle:0];
         v17 = [resolvedActionItem symbolForDisplayStyle:0];
         v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -100,36 +100,35 @@
         if (sourceView)
         {
           sourceView2 = [optionsCopy sourceView];
-          [v18 setObject:sourceView2 forKeyedSubscript:v30];
+          [v18 setObject:sourceView2 forKeyedSubscript:v29];
         }
 
         if (metadataCopy)
         {
-          [v18 setObject:metadataCopy forKeyedSubscript:v29];
+          [v18 setObject:metadataCopy forKeyedSubscript:v28];
         }
 
         v21 = [MUBlockActivity alloc];
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __152__MUBlockActivity_MKPlaceActionManagerExtras__createBlockActivitiesFromPlaceActionItems_usingActionManager_presentationOptions_analyticsModuleMetadata___block_invoke;
-        v34[3] = &unk_1E8218E68;
-        v35 = managerCopy;
-        v36 = resolvedActionItem;
-        v37 = v18;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __152__MUBlockActivity_MKPlaceActionManagerExtras__createBlockActivitiesFromPlaceActionItems_usingActionManager_presentationOptions_analyticsModuleMetadata___block_invoke;
+        v33[3] = &unk_1E8218E68;
+        v34 = managerCopy;
+        v35 = resolvedActionItem;
+        v36 = v18;
         v22 = v18;
         v23 = resolvedActionItem;
-        v24 = [(MUBlockActivity *)v21 initWithTitle:v16 systemImageName:v17 activityType:0 block:v34];
-        [v32 addObject:v24];
+        v24 = [(MUBlockActivity *)v21 initWithTitle:v16 systemImageName:v17 activityType:0 block:v33];
+        [v31 addObject:v24];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v13 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v13);
   }
 
-  v25 = [v32 copy];
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [v31 copy];
 
   return v25;
 }

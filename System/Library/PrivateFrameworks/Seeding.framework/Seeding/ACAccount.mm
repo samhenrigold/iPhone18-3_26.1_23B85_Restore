@@ -5,7 +5,7 @@
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -29,11 +29,11 @@ void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke(
     block[1] = 3221225472;
     block[2] = __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_605;
     block[3] = &unk_2787CC1B8;
-    v21 = *(a1 + 40);
-    v20 = v5;
+    v20 = *(a1 + 40);
+    v19 = v5;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v9 = v21;
+    v9 = v20;
   }
 
   else
@@ -47,21 +47,19 @@ void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke(
 
     v11 = [*(a1 + 32) accountStore];
     v12 = *(a1 + 32);
-    v22[0] = @"com.apple.gs.beta.auth";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_606;
-    v16[3] = &unk_2787CC1E0;
+    v21[0] = @"com.apple.gs.beta.auth";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_606;
+    v15[3] = &unk_2787CC1E0;
     v14 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v17 = v14;
-    [v11 aida_renewCredentialsForAccount:v12 services:v13 completion:v16];
+    v15[4] = *(a1 + 32);
+    v16 = v14;
+    [v11 aida_renewCredentialsForAccount:v12 services:v13 completion:v15];
 
-    v9 = v17;
+    v9 = v16;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_606(uint64_t a1, uint64_t a2, void *a3)
@@ -178,22 +176,17 @@ void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_606_cold_1()
@@ -203,23 +196,12 @@ void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_606_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_22E41E000, v0, v1, "Credential renewal failed with [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_607_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ACAccount_Seeding__fetchCredentialTokenWithCompletion___block_invoke_607_cold_3()

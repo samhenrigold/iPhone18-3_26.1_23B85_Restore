@@ -80,7 +80,7 @@
     [NPKProtoInsertBridgeNotificationRequest writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
   if (!self->_message)
   {
@@ -98,24 +98,23 @@
     PBDataWriterWriteStringField();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (*&self->_has)
   {
-    playSound = self->_playSound;
     PBDataWriterWriteBOOLField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_notificationIdentifier)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_expirationDateData)
   {
     PBDataWriterWriteDataField();
-    v5 = v7;
+    v5 = v6;
   }
 }
 

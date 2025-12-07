@@ -108,54 +108,54 @@
   controllerCopy = controller;
   settingsCopy = settings;
   adapterCopy = adapter;
-  v11 = SBLogPIP();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = SBLogPIP();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [SBPIPContainerViewController initWithPIPController:interactionSettings:adapter:];
+    [SBPIPContainerViewController initWithPIPController:a2 interactionSettings:? adapter:?];
   }
 
-  v30.receiver = self;
-  v30.super_class = SBPIPContainerViewController;
-  v12 = [(SBPIPContainerViewController *)&v30 initWithNibName:0 bundle:0];
-  v13 = v12;
-  if (v12)
+  v31.receiver = self;
+  v31.super_class = SBPIPContainerViewController;
+  v13 = [(SBPIPContainerViewController *)&v31 initWithNibName:0 bundle:0];
+  v14 = v13;
+  if (v13)
   {
-    objc_storeWeak(&v12->_pipController, controllerCopy);
-    objc_storeStrong(&v13->_interactionSettings, settings);
-    v13->_requiredInterfaceOrientation = 0;
+    objc_storeWeak(&v13->_pipController, controllerCopy);
+    objc_storeStrong(&v14->_interactionSettings, settings);
+    v14->_requiredInterfaceOrientation = 0;
     weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
-    observerHashTable = v13->_observerHashTable;
-    v13->_observerHashTable = weakObjectsHashTable;
+    observerHashTable = v14->_observerHashTable;
+    v14->_observerHashTable = weakObjectsHashTable;
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    waitInteractionAnimationsCompletionBlocks = v13->_waitInteractionAnimationsCompletionBlocks;
-    v13->_waitInteractionAnimationsCompletionBlocks = v16;
+    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    waitInteractionAnimationsCompletionBlocks = v14->_waitInteractionAnimationsCompletionBlocks;
+    v14->_waitInteractionAnimationsCompletionBlocks = v17;
 
-    interactiveFluidBehavior = [(SBPIPInteractionSettings *)v13->_interactionSettings interactiveFluidBehavior];
-    interactiveAnimationSettings = v13->_interactiveAnimationSettings;
-    v13->_interactiveAnimationSettings = interactiveFluidBehavior;
+    interactiveFluidBehavior = [(SBPIPInteractionSettings *)v14->_interactionSettings interactiveFluidBehavior];
+    interactiveAnimationSettings = v14->_interactiveAnimationSettings;
+    v14->_interactiveAnimationSettings = interactiveFluidBehavior;
 
-    stashTabFluidBehavior = [(SBPIPInteractionSettings *)v13->_interactionSettings stashTabFluidBehavior];
-    stashTabAnimationSettings = v13->_stashTabAnimationSettings;
-    v13->_stashTabAnimationSettings = stashTabFluidBehavior;
+    stashTabFluidBehavior = [(SBPIPInteractionSettings *)v14->_interactionSettings stashTabFluidBehavior];
+    stashTabAnimationSettings = v14->_stashTabAnimationSettings;
+    v14->_stashTabAnimationSettings = stashTabFluidBehavior;
 
-    regionUpdateFluidBehavior = [(SBPIPInteractionSettings *)v13->_interactionSettings regionUpdateFluidBehavior];
-    regionUpdateAnimationSettings = v13->_regionUpdateAnimationSettings;
-    v13->_regionUpdateAnimationSettings = regionUpdateFluidBehavior;
+    regionUpdateFluidBehavior = [(SBPIPInteractionSettings *)v14->_interactionSettings regionUpdateFluidBehavior];
+    regionUpdateAnimationSettings = v14->_regionUpdateAnimationSettings;
+    v14->_regionUpdateAnimationSettings = regionUpdateFluidBehavior;
 
-    [(SBPIPContainerViewController *)v13 _setAdapter:adapterCopy];
-    v24 = objc_alloc(MEMORY[0x277D66A50]);
-    v25 = objc_opt_class();
-    v26 = NSStringFromClass(v25);
-    v27 = [v24 initWithIdentifier:v26];
-    displayLayoutElement = v13->_displayLayoutElement;
-    v13->_displayLayoutElement = v27;
+    [(SBPIPContainerViewController *)v14 _setAdapter:adapterCopy];
+    v25 = objc_alloc(MEMORY[0x277D66A50]);
+    v26 = objc_opt_class();
+    v27 = NSStringFromClass(v26);
+    v28 = [v25 initWithIdentifier:v27];
+    displayLayoutElement = v14->_displayLayoutElement;
+    v14->_displayLayoutElement = v28;
 
-    [(SBSDisplayLayoutElement *)v13->_displayLayoutElement setLayoutRole:5];
-    [(SBSDisplayLayoutElement *)v13->_displayLayoutElement setUIApplicationElement:1];
+    [(SBSDisplayLayoutElement *)v14->_displayLayoutElement setLayoutRole:5];
+    [(SBSDisplayLayoutElement *)v14->_displayLayoutElement setUIApplicationElement:1];
   }
 
-  return v13;
+  return v14;
 }
 
 - (SBPIPContainerViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -1745,7 +1745,7 @@ LABEL_27:
       if (superview == view)
       {
         superview2 = [contentPlaceholderView superview];
-        [contentPlaceholderView frame];
+        objc_msgSend_frame(contentPlaceholderView);
         v14 = v13;
         v16 = v15;
         v18 = v17;
@@ -2056,7 +2056,7 @@ LABEL_23:
 {
   layer = [(UIView *)self->_contentView layer];
   presentationLayer = [layer presentationLayer];
-  [presentationLayer frame];
+  objc_msgSend_frame(presentationLayer);
 
   superview = [(UIView *)self->_contentView superview];
   [superview bounds];
@@ -3212,10 +3212,12 @@ void __73__SBPIPContainerViewController__updateDisplayLayoutElementReferenceFram
   [(SBPIPContainerViewController *)self setStashed:v3];
 }
 
-- (void)initWithPIPController:interactionSettings:adapter:.cold.1()
+- (void)initWithPIPController:(uint64_t)a1 interactionSettings:(uint64_t)a2 adapter:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%{public}@", v3, v4, v5, v6, 2u);
+  v2 = _SBFLoggingMethodProem();
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v3, v4, "%{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)updateDisplayLayoutElementWithBuilder:.cold.1()

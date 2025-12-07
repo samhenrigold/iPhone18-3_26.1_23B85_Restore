@@ -2,9 +2,11 @@
 - (PPTopicTransform)initWithPath:(id)path mappingId:(id)id;
 - (id)QIDWeightsWithMappedTopicIdentifier:(id)identifier;
 - (id)payloadForTopic:(unsigned int)topic;
-- (void)_applyScaling:(unsigned int)scaling vectorLength:(int)length scalingType:(float)type scalingFactor:;
+- (void)_applyScaling:(uint64_t)scaling vectorLength:(int)length scalingType:(float)type scalingFactor:;
 - (void)_enumerateSparseColumnAtIndex:(void *)index block:;
 - (void)addBias:(float *)bias;
+- (void)addWeightedTopicScoreToBuffer:(float *)buffer countNonZeroComponentsInBuffer:(unsigned __int16 *)inBuffer qid:(unsigned int)qid score:(float)score;
+- (void)addWeightedTopicScoreToBuffer:(float *)buffer qid:(unsigned int)qid score:(float)score;
 - (void)applyFeatureNormalization:(float *)normalization vectorLength:(int)length;
 - (void)applyFeatureSmoothing:(float *)smoothing vectorLength:(int)length;
 - (void)applyOutputActivation:(float *)activation;
@@ -163,11 +165,12 @@ LABEL_23:
   cblas_sscal_NEWLAPACK();
 }
 
-- (void)_applyScaling:(unsigned int)scaling vectorLength:(int)length scalingType:(float)type scalingFactor:
+- (void)_applyScaling:(uint64_t)scaling vectorLength:(int)length scalingType:(float)type scalingFactor:
 {
   scalingCopy = scaling;
   if (self)
   {
+    scalingCopy2 = scaling;
     v7 = a2;
     if (length > 2)
     {
@@ -178,19 +181,19 @@ LABEL_23:
 
       else if (length == 4)
       {
-        fabsf(a2[cblas_icamax_NEWLAPACK()]);
+        cblas_icamax_NEWLAPACK();
         cblas_sscal_NEWLAPACK();
-        if (scaling)
+        if (scalingCopy2)
         {
-          scalingCopy2 = scaling;
+          v9 = scalingCopy2;
           do
           {
             *v7 = *v7 + type;
             ++v7;
-            --scalingCopy2;
+            --v9;
           }
 
-          while (scalingCopy2);
+          while (v9);
         }
       }
     }
@@ -259,7 +262,7 @@ LABEL_23:
 
 - (id)QIDWeightsWithMappedTopicIdentifier:(id)identifier
 {
-  *&v36[5] = *MEMORY[0x277D85DE8];
+  *&v35[5] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = indexForPayload(identifierCopy, self->_payloads, self->_header.topicCount, self->_header.payloadLen);
   if (v5 == -1)
@@ -268,7 +271,7 @@ LABEL_23:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v36 = identifierCopy;
+      *v35 = identifierCopy;
       _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "Mapped topic ID (%@) not found in this mapping.", buf, 0xCu);
     }
 
@@ -278,14 +281,14 @@ LABEL_23:
   else
   {
     v6 = objc_opt_new();
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v31 = __56__PPTopicTransform_QIDWeightsWithMappedTopicIdentifier___block_invoke;
-    v32 = &unk_278973DA0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v30 = __56__PPTopicTransform_QIDWeightsWithMappedTopicIdentifier___block_invoke;
+    v31 = &unk_278973DA0;
     selfCopy = self;
     v7 = v6;
-    v34 = v7;
-    v8 = v30;
+    v33 = v7;
+    v8 = v29;
     nonzeroCount = self->_header.nonzeroCount;
     if (nonzeroCount && (v10 = self->_header.topicCount) != 0)
     {
@@ -323,7 +326,7 @@ LABEL_23:
 
         if (v16 != &matrixIndices[v13] && *v16 == v14)
         {
-          (v31)(v8, v11, *(self->_matrixElts + v16 - matrixIndices));
+          (v30)(v8, v11, *(self->_matrixElts + v16 - matrixIndices));
         }
 
         v11 = (v11 + 1);
@@ -338,22 +341,20 @@ LABEL_23:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         topicCount = self->_header.topicCount;
-        v28 = self->_header.nonzeroCount;
+        v27 = self->_header.nonzeroCount;
         *buf = 67109376;
-        v36[0] = v28;
-        LOWORD(v36[1]) = 1024;
-        *(&v36[1] + 2) = topicCount;
+        v35[0] = v27;
+        LOWORD(v35[1]) = 1024;
+        *(&v35[1] + 2) = topicCount;
         _os_log_error_impl(&dword_23224A000, v22, OS_LOG_TYPE_ERROR, "Sparse matrix shape error: %u nonzero elements for %u topics.", buf, 0xEu);
       }
     }
 
-    v23 = v34;
+    v23 = v33;
     v24 = v7;
 
     v25 = v24;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -371,6 +372,53 @@ void __56__PPTopicTransform_QIDWeightsWithMappedTopicIdentifier___block_invoke(u
   v5 = *(a1 + 40);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v2];
   [v5 setObject:v7 forKeyedSubscript:v6];
+}
+
+- (void)addWeightedTopicScoreToBuffer:(float *)buffer qid:(unsigned int)qid score:(float)score
+{
+  qidCount = self->_header.qidCount;
+  if (!qidCount)
+  {
+    goto LABEL_10;
+  }
+
+  qids = self->_qids;
+  v7 = qids;
+  v8 = self->_header.qidCount;
+  do
+  {
+    v9 = v8 >> 1;
+    v10 = &v7[v8 >> 1];
+    v12 = *v10;
+    v11 = v10 + 1;
+    v8 += ~(v8 >> 1);
+    if (v12 < qid)
+    {
+      v7 = v11;
+    }
+
+    else
+    {
+      v8 = v9;
+    }
+  }
+
+  while (v8);
+  if (v7 != &qids[qidCount] && *v7 == qid)
+  {
+    *&qid = (v7 - qids) >> 2;
+LABEL_10:
+    if (qid != -1)
+    {
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __60__PPTopicTransform_addWeightedTopicScoreToBuffer_qid_score___block_invoke;
+      v13[3] = &__block_descriptor_44_e11_v16__0I8f12l;
+      v13[4] = buffer;
+      scoreCopy = score;
+      [(PPTopicTransform *)self _enumerateSparseColumnAtIndex:qid block:v13];
+    }
+  }
 }
 
 float __60__PPTopicTransform_addWeightedTopicScoreToBuffer_qid_score___block_invoke(uint64_t a1, unsigned int a2, float a3)
@@ -445,6 +493,54 @@ float __60__PPTopicTransform_addWeightedTopicScoreToBuffer_qid_score___block_inv
   }
 }
 
+- (void)addWeightedTopicScoreToBuffer:(float *)buffer countNonZeroComponentsInBuffer:(unsigned __int16 *)inBuffer qid:(unsigned int)qid score:(float)score
+{
+  qidCount = self->_header.qidCount;
+  if (!qidCount)
+  {
+    goto LABEL_10;
+  }
+
+  qids = self->_qids;
+  v8 = qids;
+  v9 = self->_header.qidCount;
+  do
+  {
+    v10 = v9 >> 1;
+    v11 = &v8[v9 >> 1];
+    v13 = *v11;
+    v12 = v11 + 1;
+    v9 += ~(v9 >> 1);
+    if (v13 < qid)
+    {
+      v8 = v12;
+    }
+
+    else
+    {
+      v9 = v10;
+    }
+  }
+
+  while (v9);
+  if (v8 != &qids[qidCount] && *v8 == qid)
+  {
+    *&qid = (v8 - qids) >> 2;
+LABEL_10:
+    if (qid != -1)
+    {
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __91__PPTopicTransform_addWeightedTopicScoreToBuffer_countNonZeroComponentsInBuffer_qid_score___block_invoke;
+      v14[3] = &__block_descriptor_52_e11_v16__0I8f12l;
+      v14[4] = inBuffer;
+      v14[5] = buffer;
+      scoreCopy = score;
+      [(PPTopicTransform *)self _enumerateSparseColumnAtIndex:qid block:v14];
+    }
+  }
+}
+
 float __91__PPTopicTransform_addWeightedTopicScoreToBuffer_countNonZeroComponentsInBuffer_qid_score___block_invoke(uint64_t a1, unsigned int a2, float a3)
 {
   v3 = *(a1 + 40);
@@ -456,18 +552,18 @@ float __91__PPTopicTransform_addWeightedTopicScoreToBuffer_countNonZeroComponent
 
 - (id)payloadForTopic:(unsigned int)topic
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_header.topicCount <= topic)
   {
     v8 = pp_topics_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = self->_header.topicCount - 1;
-      v12[0] = 67109376;
-      v12[1] = topic;
-      v13 = 1024;
-      v14 = v11;
-      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "Topic index %u too big (max: %u)", v12, 0xEu);
+      v10 = self->_header.topicCount - 1;
+      v11[0] = 67109376;
+      v11[1] = topic;
+      v12 = 1024;
+      v13 = v10;
+      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "Topic index %u too big (max: %u)", v11, 0xEu);
     }
 
     v7 = 0;
@@ -481,27 +577,25 @@ float __91__PPTopicTransform_addWeightedTopicScoreToBuffer_countNonZeroComponent
     objc_autoreleasePoolPop(v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (PPTopicTransform)initWithPath:(id)path mappingId:(id)id
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   idCopy = id;
-  v63.receiver = self;
-  v63.super_class = PPTopicTransform;
-  v8 = [(PPTopicTransform *)&v63 init];
+  v62.receiver = self;
+  v62.super_class = PPTopicTransform;
+  v8 = [(PPTopicTransform *)&v62 init];
   if (!v8)
   {
     goto LABEL_50;
   }
 
-  v62 = 0;
-  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v62];
-  v10 = v62;
+  v61 = 0;
+  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v61];
+  v10 = v61;
   data = v8->_data;
   v8->_data = v9;
 
@@ -514,7 +608,7 @@ float __91__PPTopicTransform_addWeightedTopicScoreToBuffer_countNonZeroComponent
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v65 = pathCopy;
+        v64 = pathCopy;
         v14 = "Topic transform truncated: %@";
         v15 = v13;
         v16 = 12;
@@ -537,7 +631,7 @@ LABEL_53:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v65 = pathCopy;
+        v64 = pathCopy;
         _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "Topic transform truncated: %@", buf, 0xCu);
       }
 
@@ -700,9 +794,9 @@ LABEL_50:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v65 = pathCopy;
-    v66 = 2112;
-    v67 = v10;
+    v64 = pathCopy;
+    v65 = 2112;
+    v66 = v10;
     v14 = "Could not load topic transform %@: %@";
     v15 = v13;
     v16 = 22;
@@ -714,7 +808,6 @@ LABEL_7:
   v17 = 0;
 LABEL_51:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

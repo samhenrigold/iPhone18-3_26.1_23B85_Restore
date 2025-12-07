@@ -33,7 +33,7 @@
   v10 = cardSetViewController2;
   if (cardSetViewController2)
   {
-    [cardSetViewController2 contractedTransform];
+    objc_msgSend_contractedTransform(cardSetViewController2);
   }
 
   else
@@ -51,7 +51,7 @@
   v14 = cardSetViewController4;
   if (cardSetViewController4)
   {
-    [cardSetViewController4 expandedTransform];
+    objc_msgSend_expandedTransform(cardSetViewController4);
   }
 
   else
@@ -92,7 +92,7 @@
   v5 = cardSetViewController;
   if (cardSetViewController)
   {
-    [cardSetViewController expandedTransform];
+    objc_msgSend_expandedTransform(cardSetViewController);
   }
 
   else

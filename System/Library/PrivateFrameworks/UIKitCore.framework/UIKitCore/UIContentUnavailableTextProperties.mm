@@ -6,7 +6,7 @@
 - (id)attributedText;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (uint64_t)_isEqualToProperties:(int)properties compareText:;
+- (uint64_t)_isEqualToProperties:(uint64_t)properties compareText:;
 - (uint64_t)_isEqualToPropertiesQuick:(int)quick compareText:;
 - (void)_applyPropertiesFromDefaultProperties:(uint64_t)properties;
 - (void)_applyToLabel:(uint64_t)label;
@@ -282,18 +282,19 @@
   return v6;
 }
 
-- (uint64_t)_isEqualToProperties:(int)properties compareText:
+- (uint64_t)_isEqualToProperties:(uint64_t)properties compareText:
 {
+  propertiesCopy = properties;
   v5 = a2;
   if (self)
   {
-    if (([(UIContentUnavailableTextProperties *)self _isEqualToPropertiesQuick:v5 compareText:properties]& 1) != 0)
+    if (([(UIContentUnavailableTextProperties *)self _isEqualToPropertiesQuick:v5 compareText:propertiesCopy]& 1) != 0)
     {
       self = 1;
       goto LABEL_30;
     }
 
-    if (properties)
+    if (propertiesCopy)
     {
       v6 = *(v5 + 2);
       v7 = *(self + 16);
@@ -310,9 +311,9 @@
           goto LABEL_28;
         }
 
-        v10 = [v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_29;
         }
@@ -333,7 +334,7 @@
           goto LABEL_28;
         }
 
-        v13 = [v7 isEqual:v12];
+        v13 = objc_msgSend_isEqual_(v7);
 
         if (!v13)
         {
@@ -357,7 +358,7 @@
         goto LABEL_28;
       }
 
-      v16 = [v7 isEqual:v15];
+      v16 = objc_msgSend_isEqual_(v7);
 
       if (!v16)
       {
@@ -384,7 +385,7 @@ LABEL_32:
 
     if (v7 && v18)
     {
-      v19 = [v7 isEqual:v18];
+      v19 = objc_msgSend_isEqual_(v7);
 
       if (v19)
       {
@@ -438,9 +439,9 @@ LABEL_30:
         goto LABEL_16;
       }
 
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_26;
       }
@@ -454,7 +455,7 @@ LABEL_30:
     {
       if (v8 && v13)
       {
-        v14 = [v8 isEqual:v13];
+        v14 = objc_msgSend_isEqual_(v8);
 
         if (!v14)
         {

@@ -103,7 +103,7 @@ void __46__NMSPodcastsDownloadableContentProvider_init__block_invoke_2(uint64_t 
 
 - (id)createItemEnumerator
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D3DAF0] = [MEMORY[0x277D3DAF0] sharedInstance];
   isReady = [mEMORY[0x277D3DAF0] isReady];
 
@@ -125,7 +125,7 @@ void __46__NMSPodcastsDownloadableContentProvider_init__block_invoke_2(uint64_t 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v52 = v12;
+      v51 = v12;
       _os_log_impl(&dword_25B27B000, v13, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Saved Episodes %{public}@", buf, 0xCu);
     }
 
@@ -139,28 +139,28 @@ void __46__NMSPodcastsDownloadableContentProvider_init__block_invoke_2(uint64_t 
     }
 
     v17 = [mEMORY[0x277D3DAF0]2 objectForKey:@"PodcastsStationDownloadSettings"];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke;
-    v47[3] = &unk_27993ECE0;
-    v50 = v5;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke;
+    v46[3] = &unk_27993ECE0;
+    v49 = v5;
     v18 = mainOrPrivateContext;
-    v48 = v18;
+    v47 = v18;
     v19 = array;
-    v49 = v19;
-    [v17 enumerateKeysAndObjectsUsingBlock:v47];
+    v48 = v19;
+    [v17 enumerateKeysAndObjectsUsingBlock:v46];
     array2 = [MEMORY[0x277CBEB18] array];
     v21 = [mEMORY[0x277D3DAF0]2 objectForKey:@"PodcastsShowDownloadSettings"];
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke_20;
-    v43 = &unk_27993ECE0;
-    v46 = v5;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke_20;
+    v42 = &unk_27993ECE0;
+    v45 = v5;
     v22 = v18;
-    v44 = v22;
+    v43 = v22;
     v23 = array2;
-    v45 = v23;
-    [v21 enumerateKeysAndObjectsUsingBlock:&v40];
+    v44 = v23;
+    [v21 enumerateKeysAndObjectsUsingBlock:&v39];
     if ([v23 count])
     {
       v24 = [NMSAlternatingItemEnumerator alloc];
@@ -178,7 +178,7 @@ void __46__NMSPodcastsDownloadableContentProvider_init__block_invoke_2(uint64_t 
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v52 = v29;
+      v51 = v29;
       _os_log_impl(&dword_25B27B000, v30, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Up Next %{public}@", buf, 0xCu);
     }
 
@@ -210,14 +210,12 @@ void __46__NMSPodcastsDownloadableContentProvider_init__block_invoke_2(uint64_t 
     v36 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v36;
 }
 
 void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [[NMSPodcastsDownloadSettings alloc] initWithCollectionType:2 dictionary:v6];
@@ -227,11 +225,11 @@ void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_in
     v8 = NMLogForCategory(5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Station %{public}@ - %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Station %{public}@ - %{public}@", &v12, 0x16u);
     }
 
     v9 = [NMSEpisodeFetchRequestItemEnumerator alloc];
@@ -240,13 +238,11 @@ void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_in
 
     [*(a1 + 40) addObject:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [[NMSPodcastsDownloadSettings alloc] initWithCollectionType:3 dictionary:v6];
@@ -256,11 +252,11 @@ void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_in
     v8 = NMLogForCategory(5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Show %{public}@ - %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) Show %{public}@ - %{public}@", &v12, 0x16u);
     }
 
     v9 = [NMSEpisodeFetchRequestItemEnumerator alloc];
@@ -269,8 +265,6 @@ void __62__NMSPodcastsDownloadableContentProvider_createItemEnumerator__block_in
 
     [*(a1 + 40) addObject:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate
@@ -385,23 +379,22 @@ void __66__NMSPodcastsDownloadableContentProvider_extensionAccessDidChange__bloc
 
 - (void)environmentMonitorDidChangePower:(id)power
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   v5 = NMLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = [powerCopy isCharging];
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "NMSPodcastsDownloadableContentProvider environment monitor did change power %x", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = [powerCopy isCharging];
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "NMSPodcastsDownloadableContentProvider environment monitor did change power %x", v6, 8u);
   }
 
   [(NMSPodcastsDownloadableContentProvider *)self _notifyDelegateContentDidChangeImmediately];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSPersistentHistoryToken)lastMergedToken
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_mergeQueue);
   lastMergedToken = self->_lastMergedToken;
   if (!lastMergedToken)
@@ -411,16 +404,16 @@ void __66__NMSPodcastsDownloadableContentProvider_extensionAccessDidChange__bloc
 
     if (v5)
     {
-      v12 = 0;
-      v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
-      v7 = v12;
+      v11 = 0;
+      v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
+      v7 = v11;
       if (v7)
       {
         p_super = _MTLogCategoryDatabase();
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v14 = v7;
+          v13 = v7;
           _os_log_impl(&dword_25B27B000, p_super, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider encountered error trying to fetch previous history token %@", buf, 0xCu);
         }
       }
@@ -446,22 +439,20 @@ void __66__NMSPodcastsDownloadableContentProvider_extensionAccessDidChange__bloc
     lastMergedToken = self->_lastMergedToken;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return lastMergedToken;
 }
 
 - (void)setLastMergedToken:(id)token
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_mergeQueue);
   objc_storeStrong(&self->_lastMergedToken, token);
   if (tokenCopy)
   {
-    v17 = 0;
-    v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v17];
-    v7 = v17;
+    v16 = 0;
+    v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v16];
+    v7 = v16;
     standardUserDefaults2 = v7;
     if (v6)
     {
@@ -482,7 +473,7 @@ void __66__NMSPodcastsDownloadableContentProvider_extensionAccessDidChange__bloc
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v19 = tokenCopy;
+        v18 = tokenCopy;
         v11 = "NMSPodcastsDownloadableContentProvider set last processed persistent history token %@";
         v12 = v10;
         v13 = OS_LOG_TYPE_INFO;
@@ -496,7 +487,7 @@ void __66__NMSPodcastsDownloadableContentProvider_extensionAccessDidChange__bloc
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = standardUserDefaults2;
+        v18 = standardUserDefaults2;
         v11 = "NMSPodcastsDownloadableContentProvider encountered error archiving last persistent history token %@";
         v12 = v10;
         v13 = OS_LOG_TYPE_ERROR;
@@ -518,8 +509,6 @@ LABEL_13:
   standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults2 removeObjectForKey:@"NMSPodcastsDownloadableContentObserverPersistentHistoryToken"];
 LABEL_15:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_ctx
@@ -532,7 +521,7 @@ LABEL_15:
 
 - (BOOL)_changeContainsRelevantEpisodeChanges:(id)changes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   changedObjectID = [changesCopy changedObjectID];
   entity = [changedObjectID entity];
@@ -542,25 +531,25 @@ LABEL_15:
   {
     if (([changesCopy changeType] & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       updatedProperties = [changesCopy updatedProperties];
-      v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
-        v9 = *v18;
+        v9 = *v17;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(updatedProperties);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * i);
+            v11 = *(*(&v16 + 1) + 8 * i);
             propertiesToObserveForDownloadableEpisodes = [MEMORY[0x277D3DAF8] propertiesToObserveForDownloadableEpisodes];
             name2 = [v11 name];
             v14 = [propertiesToObserveForDownloadableEpisodes containsObject:name2];
@@ -572,7 +561,7 @@ LABEL_15:
             }
           }
 
-          v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             continue;
@@ -596,13 +585,12 @@ LABEL_14:
     LOBYTE(v8) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_changeContainsRelevantShowChanges:(id)changes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   changedObjectID = [changesCopy changedObjectID];
   entity = [changedObjectID entity];
@@ -612,25 +600,25 @@ LABEL_14:
   {
     if (([changesCopy changeType] & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       updatedProperties = [changesCopy updatedProperties];
-      v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
-        v9 = *v18;
+        v9 = *v17;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(updatedProperties);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * i);
+            v11 = *(*(&v16 + 1) + 8 * i);
             propertiesToObserveForDownloadableEpisodes = [MEMORY[0x277D3DB38] propertiesToObserveForDownloadableEpisodes];
             name2 = [v11 name];
             v14 = [propertiesToObserveForDownloadableEpisodes containsObject:name2];
@@ -642,7 +630,7 @@ LABEL_14:
             }
           }
 
-          v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             continue;
@@ -666,13 +654,12 @@ LABEL_14:
     LOBYTE(v8) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_changeContainsRelevantStationChanges:(id)changes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   changedObjectID = [changesCopy changedObjectID];
   entity = [changedObjectID entity];
@@ -682,25 +669,25 @@ LABEL_14:
   {
     if (([changesCopy changeType] & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       updatedProperties = [changesCopy updatedProperties];
-      v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
-        v9 = *v18;
+        v9 = *v17;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(updatedProperties);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * i);
+            v11 = *(*(&v16 + 1) + 8 * i);
             propertiesToObserveForDownloadableEpisodes = [MEMORY[0x277D3DB30] propertiesToObserveForDownloadableEpisodes];
             name2 = [v11 name];
             v14 = [propertiesToObserveForDownloadableEpisodes containsObject:name2];
@@ -712,7 +699,7 @@ LABEL_14:
             }
           }
 
-          v8 = [updatedProperties countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [updatedProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             continue;
@@ -736,26 +723,23 @@ LABEL_14:
     LOBYTE(v8) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)_relevantChannelProperties
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = *MEMORY[0x277D3DBB8];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = *MEMORY[0x277D3DBB8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)_changeContainsRelevantChannelChanges:(id)changes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   changedObjectID = [changesCopy changedObjectID];
   entity = [changedObjectID entity];
@@ -765,26 +749,26 @@ LABEL_14:
   {
     if (([changesCopy changeType] & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       updatedProperties = [changesCopy updatedProperties];
-      v9 = [updatedProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [updatedProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v21;
+        v11 = *v20;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v21 != v11)
+            if (*v20 != v11)
             {
               objc_enumerationMutation(updatedProperties);
             }
 
-            v13 = *(*(&v20 + 1) + 8 * i);
+            v13 = *(*(&v19 + 1) + 8 * i);
             _relevantChannelProperties = [(NMSPodcastsDownloadableContentProvider *)self _relevantChannelProperties];
             name2 = [v13 name];
             v16 = [_relevantChannelProperties containsObject:name2];
@@ -796,7 +780,7 @@ LABEL_14:
             }
           }
 
-          v10 = [updatedProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v10 = [updatedProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v10)
           {
             continue;
@@ -821,33 +805,32 @@ LABEL_14:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)_shouldMergeHistoryTransaction:(id)transaction
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   changes = [transaction changes];
-  v5 = [changes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [changes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(changes);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([(NMSPodcastsDownloadableContentProvider *)self _changeContainsRelevantEpisodeChanges:v9]|| [(NMSPodcastsDownloadableContentProvider *)self _changeContainsRelevantShowChanges:v9]|| [(NMSPodcastsDownloadableContentProvider *)self _changeContainsRelevantStationChanges:v9]|| [(NMSPodcastsDownloadableContentProvider *)self _changeContainsRelevantChannelChanges:v9])
         {
           v10 = 1;
@@ -855,7 +838,7 @@ LABEL_14:
         }
       }
 
-      v6 = [changes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [changes countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 0;
       if (v6)
       {
@@ -873,7 +856,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -966,7 +948,7 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
 
 - (void)_handlePersistentStoreRemoteChangeNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = _MTLogCategoryDatabase();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -974,11 +956,11 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
     name = [notificationCopy name];
     userInfo = [notificationCopy userInfo];
     v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBE200]];
-    v17 = 138412546;
-    v18 = name;
-    v19 = 2112;
-    v20 = v8;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentProvider received %@ with token %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = name;
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentProvider received %@ with token %@", &v16, 0x16u);
   }
 
   mEMORY[0x277D3DAF0] = [MEMORY[0x277D3DAF0] sharedInstance];
@@ -1001,59 +983,57 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
     v14 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider cannot open Podcasts DB. Will not respond to notification.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider cannot open Podcasts DB. Will not respond to notification.", &v16, 2u);
     }
 
     mEMORY[0x277D3DAF0]2 = [MEMORY[0x277D3DAF0] sharedInstance];
     [mEMORY[0x277D3DAF0]2 attemptToFix];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processLatestPersistenHistoryChanges
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   _ctx = [(NMSPodcastsDownloadableContentProvider *)self _ctx];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__10;
-  v40 = __Block_byref_object_dispose__10;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__10;
+  v39 = __Block_byref_object_dispose__10;
   lastMergedToken = [(NMSPodcastsDownloadableContentProvider *)self lastMergedToken];
-  v4 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:v37[5]];
+  v4 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:v36[5]];
   [v4 setResultType:5];
   [v4 setFetchBatchSize:200];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__10;
-  v34 = __Block_byref_object_dispose__10;
-  v35 = 0;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3032000000;
-  v28[3] = __Block_byref_object_copy__10;
-  v28[4] = __Block_byref_object_dispose__10;
   v29 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke;
-  v23[3] = &unk_27993DCD0;
-  v26 = v28;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__10;
+  v33 = __Block_byref_object_dispose__10;
+  v34 = 0;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__10;
+  v27[4] = __Block_byref_object_dispose__10;
+  v28 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke;
+  v22[3] = &unk_27993DCD0;
+  v25 = v27;
   v5 = _ctx;
-  v24 = v5;
+  v23 = v5;
   v6 = v4;
-  v25 = v6;
-  v27 = &v30;
-  [v5 performBlockAndWait:v23];
-  if (v31[5])
+  v24 = v6;
+  v26 = &v29;
+  [v5 performBlockAndWait:v22];
+  if (v30[5])
   {
     v7 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = v31[5];
+      v8 = v30[5];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v8;
       _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider encountered error trying to fetch store result %@", &buf, 0xCu);
@@ -1067,29 +1047,29 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
     }
 
     [(NMSPodcastsDownloadableContentProvider *)self setLastMergedToken:0];
-    v10 = v31[5];
-    v31[5] = 0;
+    v10 = v30[5];
+    v30[5] = 0;
 
     v11 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:0];
 
     [v11 setResultType:5];
     [v11 setFetchBatchSize:200];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke_34;
-    v18[3] = &unk_27993DCD0;
-    v21 = v28;
-    v19 = v5;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke_34;
+    v17[3] = &unk_27993DCD0;
+    v20 = v27;
+    v18 = v5;
     v6 = v11;
-    v20 = v6;
-    v22 = &v30;
-    [v19 performBlockAndWait:v18];
-    if (v31[5])
+    v19 = v6;
+    v21 = &v29;
+    [v18 performBlockAndWait:v17];
+    if (v30[5])
     {
       v12 = _MTLogCategoryDatabase();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = v31[5];
+        v13 = v30[5];
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v13;
         _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider encountered error trying to fetch store result after setting to nil %@", &buf, 0xCu);
@@ -1101,25 +1081,25 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke_35;
-  v17[3] = &unk_27993DCF8;
-  v17[4] = self;
-  v17[5] = v28;
-  v17[6] = &buf;
-  v17[7] = &v36;
-  [v5 performBlockAndWait:v17];
-  [(NMSPodcastsDownloadableContentProvider *)self setLastMergedToken:v37[5]];
+  v42 = 0x2020000000;
+  v43 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke_35;
+  v16[3] = &unk_27993DCF8;
+  v16[4] = self;
+  v16[5] = v27;
+  v16[6] = &buf;
+  v16[7] = &v35;
+  [v5 performBlockAndWait:v16];
+  [(NMSPodcastsDownloadableContentProvider *)self setLastMergedToken:v36[5]];
   if (*(*(&buf + 1) + 24) == 1)
   {
     v14 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "NMSPodcastsDownloadableContentProvider notifying delegate", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "NMSPodcastsDownloadableContentProvider notifying delegate", v15, 2u);
     }
 
     [(NMSPodcastsDownloadableContentProvider *)self _notifyDelegateContentDidChange];
@@ -1128,11 +1108,10 @@ void __84__NMSPodcastsDownloadableContentProvider__notifyDelegateContentDidChang
   _Block_object_dispose(&buf, 8);
 LABEL_16:
 
-  _Block_object_dispose(v28, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(&v29, 8);
 
-  _Block_object_dispose(&v36, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke(void *a1)
@@ -1163,28 +1142,28 @@ void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistory
 
 void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistoryChanges__block_invoke_35(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [*(*(*(a1 + 40) + 8) + 40) result];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         if ([*(a1 + 32) _shouldMergeHistoryTransaction:v7])
         {
@@ -1192,8 +1171,8 @@ void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistory
           v9 = _MTLogCategoryDatabase();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            *v17 = 0;
-            _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentProvider merging changes", v17, 2u);
+            *v16 = 0;
+            _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentProvider merging changes", v16, 2u);
           }
 
           v10 = [MEMORY[0x277D3DAE8] sharedInstance];
@@ -1212,13 +1191,11 @@ void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistory
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePodcastsPinningSelectionsDidChangeNotification:(id)notification
@@ -1242,40 +1219,40 @@ void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistory
 
 - (void)_resetPersistentHistoryTokenAndNotifyObservers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_mergeQueue);
   mEMORY[0x277D3DAF0] = [MEMORY[0x277D3DAF0] sharedInstance];
   isReady = [mEMORY[0x277D3DAF0] isReady];
 
   if (isReady)
   {
-    *v18 = 0;
-    v19 = v18;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy__10;
-    v22 = __Block_byref_object_dispose__10;
-    v23 = 0;
+    *v17 = 0;
+    v18 = v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__10;
+    v21 = __Block_byref_object_dispose__10;
+    v22 = 0;
     _ctx = [(NMSPodcastsDownloadableContentProvider *)self _ctx];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __88__NMSPodcastsDownloadableContentProvider__resetPersistentHistoryTokenAndNotifyObservers__block_invoke;
-    v15 = &unk_27993DCA8;
-    v17 = v18;
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __88__NMSPodcastsDownloadableContentProvider__resetPersistentHistoryTokenAndNotifyObservers__block_invoke;
+    v14 = &unk_27993DCA8;
+    v16 = v17;
     v6 = _ctx;
-    v16 = v6;
-    [v6 performBlockAndWait:&v12];
-    [(NMSPodcastsDownloadableContentProvider *)self setLastMergedToken:*(v19 + 5), v12, v13, v14, v15];
+    v15 = v6;
+    [v6 performBlockAndWait:&v11];
+    [(NMSPodcastsDownloadableContentProvider *)self setLastMergedToken:*(v18 + 5), v11, v12, v13, v14];
     v7 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(v19 + 5);
+      v8 = *(v18 + 5);
       *buf = 138412290;
-      v25 = v8;
+      v24 = v8;
       _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "NMSPodcastsDownloadableContentProvider resetting persistent history token and notifying observers. Latest token %@", buf, 0xCu);
     }
 
     [(NMSPodcastsDownloadableContentProvider *)self _notifyDelegateContentDidChange];
-    _Block_object_dispose(v18, 8);
+    _Block_object_dispose(v17, 8);
   }
 
   else
@@ -1283,15 +1260,13 @@ void __79__NMSPodcastsDownloadableContentProvider__processLatestPersistenHistory
     v9 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider cannot open Podcasts DB. Will not reset persistent history.", v18, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_ERROR, "NMSPodcastsDownloadableContentProvider cannot open Podcasts DB. Will not reset persistent history.", v17, 2u);
     }
 
     mEMORY[0x277D3DAF0]2 = [MEMORY[0x277D3DAF0] sharedInstance];
     [mEMORY[0x277D3DAF0]2 attemptToFix];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NMSPodcastsDownloadableContentProvider__resetPersistentHistoryTokenAndNotifyObservers__block_invoke(uint64_t a1)

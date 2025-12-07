@@ -34,7 +34,7 @@
     }
 
     v12 = *(*values + 32);
-    v35 = v12;
+    v31 = v12;
     if (!*(&self->_hasMin + 1))
     {
       goto LABEL_4;
@@ -44,7 +44,7 @@
   else
   {
     v12 = 0;
-    v35 = 0;
+    v31 = 0;
     if (!*(&self->_hasMin + 1))
     {
 LABEL_4:
@@ -60,10 +60,10 @@ LABEL_4:
 
   v13 = *(*values + 40);
 LABEL_8:
-  v34 = v13;
+  v30 = v13;
   MLIRElementType = getMLIRElementType(*builder, self->_dequantDataType);
-  v32 = 0;
-  v33 = mlir::TypeAttr::get(MLIRElementType);
+  v28 = 0;
+  v29 = mlir::TypeAttr::get(MLIRElementType);
   if (v12)
   {
     if (v13)
@@ -74,35 +74,35 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  mpsFileLoc("[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm", __p);
-  v15 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ConstantOp>(table, builder, __p, 0x170u, nameCopy);
-  if (v31 < 0)
+  mpsFileLoc(&__p, "[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm");
+  v15 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ConstantOp>(table, builder, &__p, 0x170u, nameCopy);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  LODWORD(v25) = 0;
-  v35 = mlir::OpBuilder::create<mlir::mps::ConstantOp,int>(builder, v15, &v25) - 16;
+  LODWORD(v24) = 0;
+  v31 = mlir::OpBuilder::create<mlir::mps::ConstantOp,int>(builder, v15, &v24) - 16;
   if (!v13)
   {
 LABEL_14:
-    mpsFileLoc("[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm", v28);
-    v16 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ConstantOp>(table, builder, v28, 0x175u, nameCopy);
-    if (v29 < 0)
+    mpsFileLoc(&v26, "[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm");
+    v16 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ConstantOp>(table, builder, &v26, 0x175u, nameCopy);
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28[0]);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    LODWORD(v25) = 0;
-    v34 = mlir::OpBuilder::create<mlir::mps::ConstantOp,float>(builder, v16, &v25) - 16;
+    LODWORD(v24) = 0;
+    v30 = mlir::OpBuilder::create<mlir::mps::ConstantOp,float>(builder, v16, &v24) - 16;
   }
 
 LABEL_17:
-  mpsFileLoc("[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm", v26);
-  v17 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::DequantizeOp>(table, builder, v26, 0x179u, nameCopy);
-  if (v27 < 0)
+  mpsFileLoc(&v25, "[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm");
+  v17 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::DequantizeOp>(table, builder, &v25, 0x179u, nameCopy);
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26[0]);
+    operator delete(v25.__r_.__value_.__l.__data_);
   }
 
   if (*(values + 1) - *values <= 0x18uLL)
@@ -110,12 +110,12 @@ LABEL_17:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v25 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v17, *values, (*values + 24), &v35, &v34, &v33, &v32) - 16;
-  mpsFileLoc("[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm", v23);
-  v18 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::GatherOp>(table, builder, v23, 0x17Fu, nameCopy);
-  if (v24 < 0)
+  v24 = mlir::OpBuilder::create<mlir::mps::DequantizeOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::TypeAttr &,mlir::IntegerAttr &>(builder, v17, *values, (*values + 24), &v31, &v30, &v29, &v28) - 16;
+  mpsFileLoc(&v23, "[MPSGraphQuantizedGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm");
+  v18 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::GatherOp>(table, builder, &v23, 0x17Fu, nameCopy);
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23[0]);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
   v19 = *(values + 1) - *values;
@@ -124,7 +124,7 @@ LABEL_17:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v22 = mlir::OpBuilder::create<mlir::mps::GatherOp,mlir::Value &,mlir::Value &,mlir::Value &,unsigned long &,BOOL &>(builder, v18, &v25, (*values + 8), (*values + 16), &self->_batchDims, &self->_allowNegativeIndices) - 16;
+  v22 = mlir::OpBuilder::create<mlir::mps::GatherOp,mlir::Value &,mlir::Value &,mlir::Value &,unsigned long &,BOOL &>(builder, v18, &v24, (*values + 8), (*values + 16), &self->_batchDims, &self->_allowNegativeIndices) - 16;
   DefiningOp = mlir::Value::getDefiningOp(&v22);
 
   return DefiningOp;

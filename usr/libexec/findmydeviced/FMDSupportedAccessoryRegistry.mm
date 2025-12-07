@@ -67,9 +67,9 @@
 - (FMDSupportedAccessoryRegistry)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v24.receiver = self;
-  v24.super_class = FMDSupportedAccessoryRegistry;
-  v5 = [(FMDSupportedAccessoryRegistry *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = FMDSupportedAccessoryRegistry;
+  v5 = [(FMDSupportedAccessoryRegistry *)&v25 init];
   if (v5)
   {
     v6 = dispatch_queue_create("FMDSupportedAccessoryRegistry.serialQueue", 0);
@@ -100,20 +100,20 @@
     block[1] = 3221225472;
     block[2] = sub_1001ECA04;
     block[3] = &unk_1002CE3B8;
-    objc_copyWeak(&v22, &location);
+    objc_copyWeak(&v23, &location);
     v15 = v13;
-    v20 = v15;
-    v21 = delegateCopy;
+    v21 = v15;
+    v22 = delegateCopy;
     dispatch_async(serialQueue, block);
 
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100002880(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry initialized", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry initialized", v19, 2u);
     }
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
@@ -225,7 +225,7 @@
       goto LABEL_8;
     }
 
-    v5 = sub_100002880();
+    v5 = sub_100002880(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       name = [supportedCopy name];
@@ -490,7 +490,7 @@ LABEL_7:
 
     else
     {
-      v7 = sub_100002880();
+      v7 = sub_100002880(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *v9 = 0;
@@ -532,17 +532,17 @@ LABEL_7:
     {
       v5 = accessoryCopy;
       v6 = [[FMDAccessoryIdentifier alloc] initWithVendorID:objc_msgSend(v5 productID:{"vendorID"), objc_msgSend(v5, "productID")}];
-      v7 = sub_100002880();
+      v7 = sub_100002880(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         name = [v5 name];
-        v16 = 138412802;
-        v17 = name;
-        v18 = 1024;
+        v17 = 138412802;
+        v18 = name;
+        v19 = 1024;
         vendorID = [v5 vendorID];
-        v20 = 1024;
+        v21 = 1024;
         productID = [v5 productID];
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "supportedAccessoryForAccessory - accessory (name: %@) addressableAccessory (vendorID: %d, productID: %d)", &v16, 0x18u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "supportedAccessoryForAccessory - accessory (name: %@) addressableAccessory (vendorID: %d, productID: %d)", &v17, 0x18u);
       }
 
       goto LABEL_11;
@@ -565,13 +565,13 @@ LABEL_11:
   accessoryType = [v6 accessoryType];
   v11 = [v9 configForAccessoryType:accessoryType];
 
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002880(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     supportedAccessory = [v11 supportedAccessory];
-    v16 = 67109120;
-    LODWORD(v17) = [supportedAccessory productID];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "supportedAccessoryForAccessory - Accessory (productID: %d) of category extension is supported", &v16, 8u);
+    v17 = 67109120;
+    LODWORD(v18) = [supportedAccessory productID];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "supportedAccessoryForAccessory - Accessory (productID: %d) of category extension is supported", &v17, 8u);
   }
 
   supportedAccessory2 = [v11 supportedAccessory];
@@ -584,73 +584,74 @@ LABEL_12:
 - (id)supportedAccessoryForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_10000ABA4;
-  v24 = sub_100002B9C;
-  v25 = 0;
-  if (identifierCopy && (v5 = [[FMDAccessoryIdentifier alloc] initWithString:@"0_0"], v6 = objc_msgSend(identifierCopy, "isEqual:", v5), v5, (v6 & 1) == 0))
+  v5 = identifierCopy;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_10000ABA4;
+  v26 = sub_100002B9C;
+  v27 = 0;
+  if (identifierCopy && (v6 = [[FMDAccessoryIdentifier alloc] initWithString:@"0_0"], v7 = objc_msgSend(v5, "isEqual:", v6), v6, (v7 & 1) == 0))
   {
     serialQueue = [(FMDSupportedAccessoryRegistry *)self serialQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1001EE7CC;
     block[3] = &unk_1002D01E0;
-    v9 = identifierCopy;
+    v10 = v5;
     selfCopy = self;
-    v19 = &v20;
-    v17 = v9;
+    v21 = &v22;
+    v19 = v10;
     dispatch_sync(serialQueue, block);
 
-    if (v21[5])
+    if (v23[5])
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100002880(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        vendorID = [v21[5] vendorID];
-        productID = [v21[5] productID];
+        vendorID = [v23[5] vendorID];
+        productID = [v23[5] productID];
         *buf = 67109634;
-        *v27 = vendorID;
-        *&v27[4] = 1024;
-        *&v27[6] = productID;
-        *v28 = 2112;
-        *&v28[2] = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry accessory (vendorID: %d, productID: %d) is supported %@", buf, 0x18u);
+        *v29 = vendorID;
+        *&v29[4] = 1024;
+        *&v29[6] = productID;
+        *v30 = 2112;
+        *&v30[2] = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry accessory (vendorID: %d, productID: %d) is supported %@", buf, 0x18u);
       }
     }
 
     else
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100002880(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         supportedAccessories = [(FMDSupportedAccessoryRegistry *)self supportedAccessories];
         *buf = 138412546;
-        *v27 = v9;
-        *&v27[8] = 2112;
-        *v28 = supportedAccessories;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry accessory %@ is NOT in the listed of supportedAccessories %@", buf, 0x16u);
+        *v29 = v10;
+        *&v29[8] = 2112;
+        *v30 = supportedAccessories;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry accessory %@ is NOT in the listed of supportedAccessories %@", buf, 0x16u);
       }
     }
 
-    v7 = v17;
+    v8 = v19;
   }
 
   else
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(identifierCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry - Cannot verify support if vendorID/productID are 0. Default to unsupported.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMDSupportedAccessoryRegistry - Cannot verify support if vendorID/productID are 0. Default to unsupported.", buf, 2u);
     }
   }
 
-  v14 = v21[5];
-  _Block_object_dispose(&v20, 8);
+  v16 = v23[5];
+  _Block_object_dispose(&v22, 8);
 
-  return v14;
+  return v16;
 }
 
 - (FMDAssetRegistry)assetRegistry

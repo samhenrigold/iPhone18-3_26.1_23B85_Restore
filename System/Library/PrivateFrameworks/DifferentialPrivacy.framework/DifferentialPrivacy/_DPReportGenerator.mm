@@ -232,37 +232,37 @@
 
 - (BOOL)markSubmitted:(id)submitted storage:(id)storage
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   submittedCopy = submitted;
   storageCopy = storage;
   if (storageCopy)
   {
     v7 = objc_autoreleasePoolPush();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = submittedCopy;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v15 + 1) + 8 * v12++) setSubmitted:{1, v15}];
+          [*(*(&v14 + 1) + 8 * v12++) setSubmitted:{1, v14}];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -272,13 +272,12 @@
     objc_autoreleasePoolPop(v7);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return storageCopy != 0;
 }
 
 - (id)generateReportUsing:(id)using
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   usingCopy = using;
   v6 = +[_DPLog daemon];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -311,57 +310,57 @@ LABEL_9:
     goto LABEL_29;
   }
 
-  v29 = objc_autoreleasePoolPush();
+  v28 = objc_autoreleasePoolPush();
   v9 = +[_DPKeyNames keyNamesGroupedByPropertyName];
   v10 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v32 = v9;
+  v31 = v9;
   allKeys = [v9 allKeys];
   [objc_opt_class() randomizeKeys:allKeys andSortByPriority:1];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  obj = v43 = 0u;
-  v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v33)
+  obj = v42 = 0u;
+  v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v32)
   {
-    v31 = *v41;
+    v30 = *v40;
     do
     {
       v11 = 0;
       do
       {
-        if (*v41 != v31)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = v11;
-        v12 = *(*(&v40 + 1) + 8 * v11);
+        v34 = v11;
+        v12 = *(*(&v39 + 1) + 8 * v11);
         context = objc_autoreleasePoolPush();
-        v13 = [v32 objectForKeyedSubscript:v12];
+        v13 = [v31 objectForKeyedSubscript:v12];
         v14 = [v13 mutableCopy];
 
         v15 = [MEMORY[0x277CBEBF8] mutableCopy];
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v37;
+          v19 = *v36;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v37 != v19)
+              if (*v36 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v36 + 1) + 8 * i);
+              v21 = *(*(&v35 + 1) + 8 * i);
               [v15 addObject:v21];
               v22 = [objc_opt_class() queryKeysForPattern:v21 storage:usingCopy];
               if ([v22 count])
@@ -371,7 +370,7 @@ LABEL_9:
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
           }
 
           while (v18);
@@ -386,22 +385,20 @@ LABEL_9:
         }
 
         objc_autoreleasePoolPop(context);
-        v11 = v35 + 1;
+        v11 = v34 + 1;
       }
 
-      while (v35 + 1 != v33);
-      v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      while (v34 + 1 != v32);
+      v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   v8 = [(_DPReportGenerator *)self generateReportForKeys:v10 storage:usingCopy];
 
-  objc_autoreleasePoolPop(v29);
+  objc_autoreleasePoolPop(v28);
 LABEL_29:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -440,7 +437,7 @@ LABEL_29:
 
 - (void)reportMetricsForKey:(id)key toBeSubmitted:(id)submitted currentDate:(id)date storage:(id)storage
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   submittedCopy = submitted;
   dateCopy = date;
@@ -451,62 +448,60 @@ LABEL_29:
     if (v14)
     {
       selfCopy = self;
-      v42 = v14;
-      v41 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-604800.0];
-      v40 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-86400.0];
-      v38 = [_DPRecordQueryPredicates predicateForRecordsInDateRangeStart:v41 end:dateCopy];
-      v39 = [_DPRecordQueryPredicates predicateForRecordsInDateRangeStart:v40 end:dateCopy];
+      v41 = v14;
+      v40 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-604800.0];
+      v39 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:dateCopy sinceDate:-86400.0];
+      v37 = [_DPRecordQueryPredicates predicateForRecordsInDateRangeStart:v40 end:dateCopy];
+      v38 = [_DPRecordQueryPredicates predicateForRecordsInDateRangeStart:v39 end:dateCopy];
       v15 = [_DPRecordQueryPredicates predicateForRecordsMatchingKey:keyCopy];
       v16 = MEMORY[0x277CCA920];
-      v47[0] = v15;
-      v47[1] = v39;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-      v37 = [v16 andPredicateWithSubpredicates:v17];
-
-      v18 = MEMORY[0x277CCA920];
       v46[0] = v15;
       v46[1] = v38;
-      v36 = v15;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-      v35 = [v18 andPredicateWithSubpredicates:v19];
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+      v36 = [v16 andPredicateWithSubpredicates:v17];
 
-      v34 = [objc_opt_class() queryRecordCountForKey:keyCopy withPredicate:v37 storage:storageCopy];
-      v20 = [objc_opt_class() queryRecordCountForKey:keyCopy withPredicate:v35 storage:storageCopy];
-      v21 = MEMORY[0x277CCA920];
+      v18 = MEMORY[0x277CCA920];
       v45[0] = v15;
+      v45[1] = v37;
+      v35 = v15;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+      v34 = [v18 andPredicateWithSubpredicates:v19];
+
+      v33 = [objc_opt_class() queryRecordCountForKey:keyCopy withPredicate:v36 storage:storageCopy];
+      v20 = [objc_opt_class() queryRecordCountForKey:keyCopy withPredicate:v34 storage:storageCopy];
+      v21 = MEMORY[0x277CCA920];
+      v44[0] = v15;
       v22 = +[_DPRecordQueryPredicates predicateForRecordsNotSubmitted];
-      v45[1] = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+      v44[1] = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
       v24 = [v21 andPredicateWithSubpredicates:v23];
 
       v25 = [objc_opt_class() queryRecordCountForKey:keyCopy withPredicate:v24 storage:storageCopy];
       v26 = [submittedCopy count] / v25;
-      v44[0] = keyCopy;
-      v43[0] = @"useCase";
-      v43[1] = @"countLastWeek";
+      v43[0] = keyCopy;
+      v42[0] = @"useCase";
+      v42[1] = @"countLastWeek";
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20];
-      v44[1] = v27;
-      v43[2] = @"countLastDay";
-      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v34];
-      v44[2] = v28;
-      v43[3] = @"proportionSubmitted";
+      v43[1] = v27;
+      v42[2] = @"countLastDay";
+      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v33];
+      v43[2] = v28;
+      v42[3] = @"proportionSubmitted";
       v29 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-      v44[3] = v29;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+      v43[3] = v29;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
 
       metricsCollector = [(_DPReportGenerator *)selfCopy metricsCollector];
       [metricsCollector reportMetricsForEvent:@"com.apple.DifferentialPrivacy.usage" withMetrics:v30];
 
-      v14 = v42;
+      v14 = v41;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateReportForKeys:(id)keys storage:(id)storage
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   storageCopy = storage;
   if (!storageCopy)
@@ -517,42 +512,42 @@ LABEL_29:
 
   context = objc_autoreleasePoolPush();
   v7 = MEMORY[0x277CBEBF8];
-  v59 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v61 = [v7 mutableCopy];
-  v58 = [v7 mutableCopy];
-  v68 = [MEMORY[0x277CBEC10] mutableCopy];
-  v60 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
+  v58 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v60 = [v7 mutableCopy];
+  v57 = [v7 mutableCopy];
+  v67 = [MEMORY[0x277CBEC10] mutableCopy];
+  v59 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
-  v57 = keysCopy;
+  v56 = keysCopy;
   v8 = keysCopy;
-  v9 = [v8 countByEnumeratingWithState:&v73 objects:v78 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v72 objects:v77 count:16];
   if (!v9)
   {
     goto LABEL_33;
   }
 
   v10 = v9;
-  v62 = 40;
-  v63 = storageCopy;
+  v61 = 40;
+  v62 = storageCopy;
   v11 = 0x27858A000uLL;
-  v12 = *v74;
-  v65 = v8;
-  v66 = *v74;
+  v12 = *v73;
+  v64 = v8;
+  v65 = *v73;
   while (2)
   {
     v13 = 0;
-    v67 = v10;
+    v66 = v10;
     do
     {
-      if (*v74 != v12)
+      if (*v73 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v73 + 1) + 8 * v13);
+      v14 = *(*(&v72 + 1) + 8 * v13);
       v15 = objc_autoreleasePoolPush();
       v16 = [*(v11 + 624) keyPropertiesForKey:v14];
       v17 = v16;
@@ -565,17 +560,17 @@ LABEL_29:
         name = [budget2 name];
 
         v21 = [_DPPrivacyBudget balanceForBudgetWithName:name];
-        v22 = [v68 objectForKeyedSubscript:name];
+        v22 = [v67 objectForKeyedSubscript:name];
         unsignedIntegerValue = [v22 unsignedIntegerValue];
 
         v24 = v21 - unsignedIntegerValue;
         if (v24 < 1)
         {
 LABEL_27:
-          v12 = v66;
+          v12 = v65;
 
           v11 = 0x27858A000;
-          v10 = v67;
+          v10 = v66;
           goto LABEL_28;
         }
 
@@ -597,22 +592,22 @@ LABEL_27:
             v27 = [v28 subarrayWithRange:{0, v24}];
           }
 
-          v8 = v65;
+          v8 = v64;
           if (![v27 count])
           {
             goto LABEL_26;
           }
 
           v29 = [v27 count];
-          if (v62 - v29 < 0)
+          if (v61 - v29 < 0)
           {
 
             objc_autoreleasePoolPop(v15);
-            storageCopy = v63;
+            storageCopy = v62;
             goto LABEL_33;
           }
 
-          v62 -= v29;
+          v61 -= v29;
           v30 = [_DPJSONSegment alloc];
           serverAlgorithmString = [v17 serverAlgorithmString];
           parameterDictionary = [v17 parameterDictionary];
@@ -620,24 +615,24 @@ LABEL_27:
 
           if (v33)
           {
-            [v61 addObjectsFromArray:v27];
+            [v60 addObjectsFromArray:v27];
             if (transport == 2)
+            {
+              [v57 addObject:v33];
+            }
+
+            [(_DPReportGenerator *)self reportMetricsForKey:v14 toBeSubmitted:v27 currentDate:v59 storage:v62];
+            if (+[_DPDeviceInfo isInternalBuild]|| transport != 2)
             {
               [v58 addObject:v33];
             }
 
-            [(_DPReportGenerator *)self reportMetricsForKey:v14 toBeSubmitted:v27 currentDate:v60 storage:v63];
-            if (+[_DPDeviceInfo isInternalBuild]|| transport != 2)
-            {
-              [v59 addObject:v33];
-            }
-
-            v34 = [v68 objectForKeyedSubscript:name];
+            v34 = [v67 objectForKeyedSubscript:name];
             unsignedIntegerValue2 = [v34 unsignedIntegerValue];
 
             v36 = [v27 count];
             v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v36 + unsignedIntegerValue2];
-            [v68 setObject:v37 forKeyedSubscript:name];
+            [v67 setObject:v37 forKeyedSubscript:name];
           }
         }
 
@@ -647,10 +642,10 @@ LABEL_27:
           objc_autoreleasePoolPop(v26);
         }
 
-        v8 = v65;
+        v8 = v64;
 LABEL_26:
 
-        storageCopy = v63;
+        storageCopy = v62;
         goto LABEL_27;
       }
 
@@ -661,7 +656,7 @@ LABEL_28:
     }
 
     while (v10 != v13);
-    v10 = [v8 countByEnumeratingWithState:&v73 objects:v78 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v72 objects:v77 count:16];
     if (v10)
     {
       continue;
@@ -672,18 +667,18 @@ LABEL_28:
 
 LABEL_33:
 
-  v39 = v59;
-  if (![v59 count])
+  v39 = v58;
+  if (![v58 count])
   {
     v38 = 0;
-    keysCopy = v57;
-    v41 = v58;
+    keysCopy = v56;
+    v41 = v57;
     goto LABEL_50;
   }
 
   v40 = objc_autoreleasePoolPush();
-  v41 = v58;
-  if (![v59 count] || (+[_DPJSONOutputHelper submissionContentForSegments:](_DPJSONOutputHelper, "submissionContentForSegments:", v59), (v42 = objc_claimAutoreleasedReturnValue()) == 0))
+  v41 = v57;
+  if (![v58 count] || (+[_DPJSONOutputHelper submissionContentForSegments:](_DPJSONOutputHelper, "submissionContentForSegments:", v58), (v42 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     objc_autoreleasePoolPop(v40);
     v38 = 0;
@@ -697,36 +692,36 @@ LABEL_33:
   if (!v38)
   {
 LABEL_48:
-    keysCopy = v57;
+    keysCopy = v56;
     goto LABEL_50;
   }
 
-  [(_DPReportGenerator *)self markSubmitted:v61 storage:storageCopy];
+  [(_DPReportGenerator *)self markSubmitted:v60 storage:storageCopy];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v44 = v68;
-  v45 = [v44 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v44 = v67;
+  v45 = [v44 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v70;
+    v47 = *v69;
     do
     {
       for (i = 0; i != v46; ++i)
       {
-        if (*v70 != v47)
+        if (*v69 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = *(*(&v69 + 1) + 8 * i);
+        v49 = *(*(&v68 + 1) + 8 * i);
         v50 = [v44 objectForKeyedSubscript:v49];
         +[_DPPrivacyBudget debit:budgetWithName:](_DPPrivacyBudget, "debit:budgetWithName:", [v50 unsignedIntegerValue], v49);
       }
 
-      v46 = [v44 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v46 = [v44 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v46);
@@ -735,21 +730,19 @@ LABEL_48:
   v51 = objc_autoreleasePoolPush();
   [_DPPrivacyBudget updateAllBudgetsIn:storageCopy];
   objc_autoreleasePoolPop(v51);
-  v41 = v58;
-  keysCopy = v57;
-  if ([v58 count])
+  v41 = v57;
+  keysCopy = v56;
+  if ([v57 count])
   {
-    v52 = [_DPJSONOutputHelper submissionContentForSegments:v58];
+    v52 = [_DPJSONOutputHelper submissionContentForSegments:v57];
     v53 = [_DPUploadHelper writeFileForParsec:v52];
   }
 
-  v39 = v59;
+  v39 = v58;
 LABEL_50:
 
   objc_autoreleasePoolPop(context);
 LABEL_51:
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -773,36 +766,28 @@ LABEL_51:
 
 - (void)generateReportUsing:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = +[_DPStrings databaseDirectoryPath];
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "%@: Data Base Directory Path: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "%@: Data Base Directory Path: %@", &v5, 0x16u);
 }
 
 - (void)generateReportUsing:(const char *)a1 .cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateReportUsing:(const char *)a1 .cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

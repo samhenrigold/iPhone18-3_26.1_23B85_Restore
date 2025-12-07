@@ -34,7 +34,7 @@
 - (ANSTVideoFeatureExtractor)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_22E65CB98(v5);
@@ -46,46 +46,47 @@
 
 - (ANSTVideoFeatureExtractor)initWithConfig:(id)config error:(id *)error
 {
-  v13 = 0;
-  v5 = objc_msgSend__initWithConfig_error_(self, a2, config, &v13);
-  v6 = v13;
+  v14 = 0;
+  v5 = objc_msgSend__initWithConfig_error_(self, a2, config, &v14);
+  v6 = v14;
+  v7 = v6;
   if (v5[105])
   {
-    v7 = v5;
+    v8 = v5;
   }
 
   else
   {
-    v8 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_22E65CC1C(v6, v8);
+      sub_22E65CC1C(v7, v9);
     }
 
-    objc_msgSend_releaseResourceSafely(v5, v9, v10);
+    objc_msgSend_releaseResourceSafely(v5, v10, v11);
     if (error)
     {
-      v11 = v6;
-      v7 = 0;
-      *error = v6;
+      v12 = v7;
+      v8 = 0;
+      *error = v7;
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_initWithConfig:(id)config error:(id *)error
 {
-  v78[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v74.receiver = self;
-  v74.super_class = ANSTVideoFeatureExtractor;
-  v8 = [(ANSTVideoFeatureExtractor *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = ANSTVideoFeatureExtractor;
+  v8 = [(ANSTVideoFeatureExtractor *)&v73 init];
   v9 = v8;
   if (!v8)
   {
@@ -159,9 +160,9 @@
       }
 
       v48 = MEMORY[0x277CCA9B8];
-      v75 = *MEMORY[0x277CCA068];
-      v76 = @"Failed to allocate intermediate pixel buffer for preprocessing.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, &v76, &v75, 1);
+      v74 = *MEMORY[0x277CCA068];
+      v75 = @"Failed to allocate intermediate pixel buffer for preprocessing.";
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, &v75, &v74, 1);
       goto LABEL_12;
     }
 
@@ -176,9 +177,9 @@ LABEL_18:
   if (error)
   {
     v48 = MEMORY[0x277CCA9B8];
-    v77 = *MEMORY[0x277CCA068];
-    v78[0] = @"Failed to prepare VTPixelTransferSession.";
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v78, &v77, 1);
+    v76 = *MEMORY[0x277CCA068];
+    v77[0] = @"Failed to prepare VTPixelTransferSession.";
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v77, &v76, 1);
     v49 = LABEL_12:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v48, v50, @"ANSTErrorDomain", 3, v49);
   }
@@ -187,7 +188,6 @@ LABEL_13:
   v51 = v9;
 
 LABEL_19:
-  v72 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -255,51 +255,47 @@ LABEL_19:
 
 - (BOOL)digestFrame:(__CVBuffer *)frame error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (!self->_initSucceeded)
   {
     if (error)
     {
-      v12 = MEMORY[0x277CCA9B8];
-      v16 = *MEMORY[0x277CCA068];
-      v17[0] = @"Initialization was not successful. Please check error log.";
-      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v17, &v16, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v12, v14, @"ANSTErrorDomain", 3, v13);
+      v11 = MEMORY[0x277CCA9B8];
+      v14 = *MEMORY[0x277CCA068];
+      v15[0] = @"Initialization was not successful. Please check error log.";
+      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v15, &v14, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"ANSTErrorDomain", 3, v12);
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   objc_msgSend_resetInputBinding(self, a2, frame);
   if (!objc_msgSend_bindVideoInput_error_(self, v7, frame, error) || !objc_msgSend_commitInputBindingWithError_(self, v8, error))
   {
-LABEL_9:
-    v15 = *MEMORY[0x277D85DE8];
     return 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return objc_msgSend_executeInferenceWithError_(self, v9, error);
 }
 
 - (BOOL)bindVideoInput:(__CVBuffer *)input error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   if (!self->_initSucceeded)
   {
     if (error)
     {
       v6 = MEMORY[0x277CCA9B8];
-      v25 = *MEMORY[0x277CCA068];
-      v26[0] = @"Initialization was not successful. Please check error log.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v26, &v25, 1);
+      v24 = *MEMORY[0x277CCA068];
+      v25[0] = @"Initialization was not successful. Please check error log.";
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v25, &v24, 1);
       goto LABEL_7;
     }
 
 LABEL_8:
     LOBYTE(v9) = 0;
-    goto LABEL_9;
+    return v9;
   }
 
   if (self->_inputBindingCommitted)
@@ -307,9 +303,9 @@ LABEL_8:
     if (error)
     {
       v6 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
-      v24 = @"Input binding ready comitted. In order to binding new input, please run [ANSTVideoFeatureExtractor resetInputBinding] first.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, &v24, &v23, 1);
+      v22 = *MEMORY[0x277CCA450];
+      v23 = @"Input binding ready comitted. In order to binding new input, please run [ANSTVideoFeatureExtractor resetInputBinding] first.";
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, &v23, &v22, 1);
       v7 = LABEL_7:;
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v6, v8, @"ANSTErrorDomain", 3, v7);
 
@@ -333,41 +329,39 @@ LABEL_8:
   p_preprocessedInputImage = &self->_preprocessedInputImage;
   if (Width == CVPixelBufferGetWidth(self->_preprocessedInputImage) && (Height = CVPixelBufferGetHeight(*p_rawInputImage), Height == CVPixelBufferGetHeight(*p_preprocessedInputImage)) && (PixelFormatType = CVPixelBufferGetPixelFormatType(*p_rawInputImage), PixelFormatType == CVPixelBufferGetPixelFormatType(*p_preprocessedInputImage)))
   {
-    v19 = 0;
+    v18 = 0;
     p_preprocessedInputImage = &self->_rawInputImage;
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
-  v20 = *p_preprocessedInputImage;
-  self->_needsPreprocessing = v19;
-  v9 = objc_msgSend_bindInputFrameBuffer_error_(self->_model, v16, v20, error);
+  v19 = *p_preprocessedInputImage;
+  self->_needsPreprocessing = v18;
+  v9 = objc_msgSend_bindInputFrameBuffer_error_(self->_model, v15, v19, error);
   if (v9)
   {
-    objc_msgSend_addObject_(self->_modalityStatus, v21, @"Video");
+    objc_msgSend_addObject_(self->_modalityStatus, v20, @"Video");
     LOBYTE(v9) = 1;
   }
 
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)bindAudioInput:(id)input error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (self->_initSucceeded)
   {
     if (error)
     {
       v8 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA450];
-      v14 = @"Audio input is not supported yet.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, &v14, &v13, 1);
+      v12 = *MEMORY[0x277CCA450];
+      v13 = @"Audio input is not supported yet.";
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, &v13, &v12, 1);
       v9 = LABEL_6:;
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v8, v10, @"ANSTErrorDomain", 3, v9);
     }
@@ -376,33 +370,32 @@ LABEL_9:
   else if (error)
   {
     v8 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA068];
-    v16[0] = @"Initialization was not successful. Please check error log.";
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v16, &v15, 1);
+    v14 = *MEMORY[0x277CCA068];
+    v15[0] = @"Initialization was not successful. Please check error log.";
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v15, &v14, 1);
     goto LABEL_6;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)executeInferenceWithError:(id *)error
 {
   normalizedMeanFeature = error;
-  v51[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   if (!self->_initSucceeded)
   {
     if (!error)
     {
-      goto LABEL_16;
+      return normalizedMeanFeature;
     }
 
-    v10 = MEMORY[0x277CCA9B8];
-    v50 = *MEMORY[0x277CCA068];
-    v51[0] = @"Initialization was not successful. Please check error log.";
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v51, &v50, 1);
-    v8 = LABEL_13:;
-    objc_msgSend_errorWithDomain_code_userInfo_(v10, v11, @"ANSTErrorDomain", 3, v8);
+    v11 = MEMORY[0x277CCA9B8];
+    v45 = *MEMORY[0x277CCA068];
+    v46[0] = @"Initialization was not successful. Please check error log.";
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v46, &v45, 1);
+    v9 = LABEL_13:;
+    objc_msgSend_errorWithDomain_code_userInfo_(v11, v12, @"ANSTErrorDomain", 3, v9);
     goto LABEL_14;
   }
 
@@ -410,17 +403,17 @@ LABEL_9:
   {
     if (!error)
     {
-      goto LABEL_16;
+      return normalizedMeanFeature;
     }
 
-    v10 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA450];
-    v49 = @"Input binding not committed yet. Please run [ANSTVideoFeatureExtractor commitInputBinding] first.";
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, &v49, &v48, 1);
+    v11 = MEMORY[0x277CCA9B8];
+    v43 = *MEMORY[0x277CCA450];
+    v44 = @"Input binding not committed yet. Please run [ANSTVideoFeatureExtractor commitInputBinding] first.";
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, &v44, &v43, 1);
     goto LABEL_13;
   }
 
-  if (!self->_needsPreprocessing || !VTPixelTransferSessionTransferImage(self->_pixelTransferSession, self->_rawInputImage, self->_preprocessedInputImage))
+  if (!self->_needsPreprocessing || (v5 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, self->_rawInputImage, self->_preprocessedInputImage), !v5))
   {
     if (objc_msgSend_executeInferenceWithError_(self->_model, a2, normalizedMeanFeature))
     {
@@ -428,22 +421,20 @@ LABEL_9:
       IOSurfaceLock(v16, 1u, 0);
       BaseAddress = IOSurfaceGetBaseAddress(v16);
       v18 = self->_windowBuffer[self->_currentIndex];
-      windowSum = self->_windowSum;
       cblas_saxpy_NEWLAPACK();
       if (self->_windowFilled)
       {
-        v22 = self->_windowSum;
         cblas_saxpy_NEWLAPACK();
       }
 
-      v23 = objc_msgSend_outputFeatureDescriptor(self->_model, v20, v21);
-      v26 = objc_msgSend_sizeInBytes(v23, v24, v25);
-      memcpy(v18, BaseAddress, v26);
+      v21 = objc_msgSend_outputFeatureDescriptor(self->_model, v19, v20);
+      v24 = objc_msgSend_sizeInBytes(v21, v22, v23);
+      memcpy(v18, BaseAddress, v24);
 
       IOSurfaceUnlock(v16, 1u, 0);
       currentIndex = self->_currentIndex;
       self->_currentIndex = currentIndex + 1;
-      if (objc_msgSend_windowSize(self, v28, v29) <= currentIndex + 1)
+      if (objc_msgSend_windowSize(self, v26, v27) <= currentIndex + 1)
       {
         self->_currentIndex = 0;
         self->_windowFilled = 1;
@@ -452,95 +443,84 @@ LABEL_9:
       else if (!self->_windowFilled)
       {
         LOBYTE(normalizedMeanFeature) = 1;
-        goto LABEL_16;
+        return normalizedMeanFeature;
       }
 
-      v32 = self->_windowSum;
+      windowSum = self->_windowSum;
       normalizedMeanFeature = self->_normalizedMeanFeature;
-      v33 = objc_msgSend_outputFeatureDescriptor(self->_model, v30, v31);
-      v36 = objc_msgSend_sizeInBytes(v33, v34, v35);
-      memcpy(normalizedMeanFeature, v32, v36);
+      v31 = objc_msgSend_outputFeatureDescriptor(self->_model, v28, v29);
+      v34 = objc_msgSend_sizeInBytes(v31, v32, v33);
+      memcpy(normalizedMeanFeature, windowSum, v34);
 
-      objc_msgSend_windowSize(self, v37, v38);
-      v39 = self->_normalizedMeanFeature;
+      objc_msgSend_windowSize(self, v35, v36);
       LOBYTE(normalizedMeanFeature) = 1;
       cblas_sscal_NEWLAPACK();
-      v40 = self->_normalizedMeanFeature;
       cblas_snrm2_NEWLAPACK();
-      v41 = self->_normalizedMeanFeature;
       cblas_sscal_NEWLAPACK();
-      v44 = objc_msgSend_delegate(self, v42, v43);
-      objc_msgSend_videoFeatureExtractor_didUpdateVideoFeature_(v44, v45, self, self->_currentVideoFeatureData);
+      v39 = objc_msgSend_delegate(self, v37, v38);
+      objc_msgSend_videoFeatureExtractor_didUpdateVideoFeature_(v39, v40, self, self->_currentVideoFeatureData);
 
-      goto LABEL_16;
+      return normalizedMeanFeature;
     }
 
     goto LABEL_15;
   }
 
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_22E65CCA8(v5);
+    sub_22E65CCA8(v6);
   }
 
   if (normalizedMeanFeature)
   {
-    v7 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA450];
-    v47 = @"Failed to preprocess input pixel buffer.";
-    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, &v47, &v46, 1);
-    objc_msgSend_errorWithDomain_code_userInfo_(v7, v9, @"ANSTErrorDomain", 4, v8);
+    v8 = MEMORY[0x277CCA9B8];
+    v41 = *MEMORY[0x277CCA450];
+    v42 = @"Failed to preprocess input pixel buffer.";
+    v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, &v42, &v41, 1);
+    objc_msgSend_errorWithDomain_code_userInfo_(v8, v10, @"ANSTErrorDomain", 4, v9);
     *normalizedMeanFeature = LABEL_14:;
 
 LABEL_15:
     LOBYTE(normalizedMeanFeature) = 0;
   }
 
-LABEL_16:
-  v12 = *MEMORY[0x277D85DE8];
   return normalizedMeanFeature;
 }
 
 - (BOOL)commitInputBindingWithError:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  if (!self->_initSucceeded)
+  v13[1] = *MEMORY[0x277D85DE8];
+  if (self->_initSucceeded)
   {
-    if (error)
+    if (objc_msgSend_count(self->_modalityStatus, a2, error))
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA068];
-      v14[0] = @"Initialization was not successful. Please check error log.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v14, &v13, 1);
-      v8 = LABEL_8:;
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v7, v9, @"ANSTErrorDomain", 3, v8);
+      result = 1;
+      self->_inputBindingCommitted = 1;
+      return result;
     }
 
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
-  }
-
-  if (!objc_msgSend_count(self->_modalityStatus, a2, error))
-  {
     if (error)
     {
       v7 = MEMORY[0x277CCA9B8];
-      v11 = *MEMORY[0x277CCA450];
-      v12 = @"Commit failure since no input is binded yet. Please run [ANSTVideoFeatureExtractor bindVideoInput:error:] or [ANSTVideoFeatureExtractor bindAudioInput:error:] first.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, &v12, &v11, 1);
+      v10 = *MEMORY[0x277CCA450];
+      v11 = @"Commit failure since no input is binded yet. Please run [ANSTVideoFeatureExtractor bindVideoInput:error:] or [ANSTVideoFeatureExtractor bindAudioInput:error:] first.";
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, &v11, &v10, 1);
       goto LABEL_8;
     }
-
-    goto LABEL_9;
   }
 
-  result = 1;
-  self->_inputBindingCommitted = 1;
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  else if (error)
+  {
+    v7 = MEMORY[0x277CCA9B8];
+    v12 = *MEMORY[0x277CCA068];
+    v13[0] = @"Initialization was not successful. Please check error log.";
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v13, &v12, 1);
+    v8 = LABEL_8:;
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v7, v9, @"ANSTErrorDomain", 3, v8);
+  }
+
+  return 0;
 }
 
 - (void)resetInputBinding
@@ -571,7 +551,7 @@ LABEL_10:
 
 - (id)getCurrentVideoFeatureWithOutError:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (self->_initSucceeded)
   {
     if (self->_windowFilled)
@@ -584,15 +564,14 @@ LABEL_10:
   else if (error)
   {
     v5 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA068];
-    v11[0] = @"Initialization was not successful. Please check error log.";
-    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v11, &v10, 1);
+    v9 = *MEMORY[0x277CCA068];
+    v10[0] = @"Initialization was not successful. Please check error log.";
+    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v10, &v9, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v5, v7, @"ANSTErrorDomain", 3, v6);
   }
 
   v3 = 0;
 LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

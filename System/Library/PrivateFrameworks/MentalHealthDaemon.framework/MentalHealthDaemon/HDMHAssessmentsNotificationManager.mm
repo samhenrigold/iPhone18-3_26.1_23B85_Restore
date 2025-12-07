@@ -18,6 +18,7 @@
 - (void)_removeRelatedDeliveredHDMHNotificationsForEvent:(id)event;
 - (void)_rescheduleNotifications;
 - (void)_triggerImmediateSyncWithReason:(id)reason;
+- (void)_unitTest_notifyDidEvaluateIfMaintenanceWorkIsNeeded:(BOOL)needed;
 - (void)dealloc;
 - (void)profileDidBecomeReady:(id)ready;
 - (void)promptedAssessmentsManagerDidUpdatePromptedAssessments:(id)assessments;
@@ -111,26 +112,25 @@ void __50__HDMHAssessmentsNotificationManager__queue_start__block_invoke(uint64_
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2048;
+    v8 = objc_opt_class();
+    v9 = 2048;
     selfCopy = self;
-    v5 = v9;
+    v5 = v8;
     _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidating notification manager: %p", buf, 0x16u);
   }
 
   [(HDRestorableAlarm *)self->_restorableAlarm invalidate];
   [(HKMHSettingsManager *)self->_settingsManager removeObserver:self];
-  v7.receiver = self;
-  v7.super_class = HDMHAssessmentsNotificationManager;
-  [(HDMHAssessmentsNotificationManager *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HDMHAssessmentsNotificationManager;
+  [(HDMHAssessmentsNotificationManager *)&v6 dealloc];
 }
 
 - (id)scheduledNotificationsWithError:(id *)error
@@ -171,7 +171,7 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
 
 - (void)settingsManagerDidUpdateNotificationSettings:(id)settings
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   hasAnyAssessmentNotificationsEnabled = [(HKMHSettingsManager *)self->_settingsManager hasAnyAssessmentNotificationsEnabled];
   _HKInitializeLogging();
@@ -182,13 +182,13 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
     if (v6)
     {
       v7 = v5;
-      *v12 = 138543362;
-      *&v12[4] = objc_opt_class();
-      v8 = *&v12[4];
-      _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification settings changed: rescheduling notifications", v12, 0xCu);
+      *v11 = 138543362;
+      *&v11[4] = objc_opt_class();
+      v8 = *&v11[4];
+      _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification settings changed: rescheduling notifications", v11, 0xCu);
     }
 
-    [(HDMHAssessmentsNotificationManager *)self _rescheduleNotifications];
+    [(HDMHAssessmentsNotificationManager *)self _rescheduleNotifications:*v11];
   }
 
   else
@@ -196,16 +196,14 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
     if (v6)
     {
       v9 = v5;
-      *v12 = 138543362;
-      *&v12[4] = objc_opt_class();
-      v10 = *&v12[4];
-      _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifications not enabled", v12, 0xCu);
+      *v11 = 138543362;
+      *&v11[4] = objc_opt_class();
+      v10 = *&v11[4];
+      _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifications not enabled", v11, 0xCu);
     }
 
-    [(HDMHAssessmentsNotificationManager *)self _queue_removeAllScheduledNotifications];
+    [(HDMHAssessmentsNotificationManager *)self _queue_removeAllScheduledNotifications:*v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_requestFromAlarmEvent:(id)event
@@ -231,7 +229,7 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
 
 - (void)_queue_alarm:(id)_queue_alarm didReceiveDueEvents:(id)events
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -245,11 +243,11 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
     v11 = v9;
     v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(eventsCopy, "count")}];
     *buf = 138543874;
-    v33 = v9;
-    v34 = 2114;
-    v35 = v12;
-    v36 = 2112;
-    v37 = eventsCopy;
+    v32 = v9;
+    v33 = 2114;
+    v34 = v12;
+    v35 = 2112;
+    v36 = eventsCopy;
     _os_log_impl(&dword_258977000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received %{public}@ due events: %@", buf, 0x20u);
   }
 
@@ -269,9 +267,9 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
         v18 = v17;
         v19 = objc_opt_class();
         *buf = 138543618;
-        v33 = v19;
-        v34 = 2112;
-        v35 = firstObject;
+        v32 = v19;
+        v33 = 2112;
+        v34 = firstObject;
         v20 = v19;
         _os_log_impl(&dword_258977000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification for event was due more than one day ago: %@", buf, 0x16u);
       }
@@ -281,14 +279,14 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
     v21 = [(HDMHAssessmentsNotificationManager *)self _requestFromAlarmEvent:firstObject];
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     notificationManager = [WeakRetained notificationManager];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke;
-    v30[3] = &unk_2798AAD48;
-    v30[4] = self;
-    v31 = v21;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke;
+    v29[3] = &unk_2798AAD48;
+    v29[4] = self;
+    v30 = v21;
     v24 = v21;
-    [notificationManager postNotificationWithRequest:v24 completion:v30];
+    [notificationManager postNotificationWithRequest:v24 completion:v29];
   }
 
   else
@@ -300,20 +298,18 @@ id __70__HDMHAssessmentsNotificationManager_scheduledNotificationsWithError___bl
       v26 = v25;
       v27 = objc_opt_class();
       *buf = 138543618;
-      v33 = v27;
-      v34 = 2112;
-      v35 = firstObject;
+      v32 = v27;
+      v33 = 2112;
+      v34 = firstObject;
       v28 = v27;
       _os_log_impl(&dword_258977000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping sending notification for event; assessment notifications are not enabled and supported: %@", buf, 0x16u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -323,61 +319,57 @@ void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents__
 
     if (v8)
     {
-      v9 = (a1 + 32);
-      v10 = [*(a1 + 32) _currentDate];
-      v11 = *(*(a1 + 32) + 32);
-      v26 = 0;
-      v12 = [v11 hdmh_setUpdatedPeriodicPromptedAssessmentNotificationFireDate:v10 error:&v26];
-      v13 = v26;
+      v9 = [*(a1 + 32) _currentDate];
+      v10 = *(*(a1 + 32) + 32);
+      v23 = 0;
+      v11 = [v10 hdmh_setUpdatedPeriodicPromptedAssessmentNotificationFireDate:v9 error:&v23];
+      v12 = v23;
       _HKInitializeLogging();
+      v13 = *MEMORY[0x277CCC2F0];
       v14 = *MEMORY[0x277CCC2F0];
-      v15 = *MEMORY[0x277CCC2F0];
-      if (v12)
+      if (v11)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = *v9;
-          v17 = v14;
-          v18 = objc_opt_class();
-          v19 = v18;
-          v20 = HKSensitiveLogItem();
+          v15 = v13;
+          v16 = objc_opt_class();
+          v17 = v16;
+          v18 = HKSensitiveLogItem();
           *buf = 138543618;
-          v28 = v18;
-          v29 = 2112;
-          v30 = v20;
-          _os_log_impl(&dword_258977000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully saved date fired for periodic prompted assessment notification in key value domain with date: %@", buf, 0x16u);
+          v25 = v16;
+          v26 = 2112;
+          v27 = v18;
+          _os_log_impl(&dword_258977000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully saved date fired for periodic prompted assessment notification in key value domain with date: %@", buf, 0x16u);
         }
 
-        [*v9 _triggerImmediateSyncWithReason:@"hdmh_setUpdatedPeriodicPromptedAssessmentNotificationFireDate"];
+        [*(a1 + 32) _triggerImmediateSyncWithReason:@"hdmh_setUpdatedPeriodicPromptedAssessmentNotificationFireDate"];
       }
 
-      else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_2((a1 + 32), v14);
+        __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_2(a1 + 32, v13);
       }
     }
 
-    v22 = *(a1 + 32);
-    v23 = *(v22 + 24);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_318;
-    v25[3] = &unk_2798AAB58;
-    v25[4] = v22;
-    dispatch_async(v23, v25);
+    v20 = *(a1 + 32);
+    v21 = *(v20 + 24);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_318;
+    v22[3] = &unk_2798AAB58;
+    v22[4] = v20;
+    dispatch_async(v21, v22);
   }
 
   else
   {
     _HKInitializeLogging();
-    v21 = *MEMORY[0x277CCC2F0];
+    v19 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
     {
-      __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_1(a1, v21);
+      __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_1(a1, v19, v5);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerImmediateSyncWithReason:(id)reason
@@ -400,7 +392,7 @@ void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents__
 
 void __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F0];
@@ -409,25 +401,22 @@ void __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
-      v14 = 138543618;
+      v8 = v6;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      v12 = v10;
-      _os_log_impl(&dword_258977000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v14, 0x16u);
+      v11 = v9;
+      _os_log_impl(&dword_258977000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6);
+    __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRelatedDeliveredHDMHNotificationsForEvent:(id)event
@@ -468,13 +457,10 @@ void __68__HDMHAssessmentsNotificationManager__queue_rescheduleNotifications__bl
 - (void)_rescheduleNotifications
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error scheduling new events: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error scheduling new events: %{public}@", v7, v8, v9, v10);
 }
 
 - (id)_eventsToSchedule
@@ -494,7 +480,7 @@ void __68__HDMHAssessmentsNotificationManager__queue_rescheduleNotifications__bl
 
 - (void)_queue_removeAllScheduledNotificationsIfNotEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(HKMHSettingsManager *)self->_settingsManager hasAnyAssessmentNotificationsEnabled])
   {
@@ -503,18 +489,15 @@ void __68__HDMHAssessmentsNotificationManager__queue_rescheduleNotifications__bl
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v5 = v9;
-      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Aborting maintenance removal of notifications because notifications are enabled", &v8, 0xCu);
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v5 = v7;
+      _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Aborting maintenance removal of notifications because notifications are enabled", &v6, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
 
     [(HDMHAssessmentsNotificationManager *)self _queue_removeAllScheduledNotifications];
   }
@@ -523,13 +506,40 @@ void __68__HDMHAssessmentsNotificationManager__queue_rescheduleNotifications__bl
 - (void)_queue_removeAllScheduledNotifications
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error removing all scheduled notifications: %{public}@", v7, v8, v9, v10, v12);
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error removing all scheduled notifications: %{public}@", v7, v8, v9, v10);
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_unitTest_notifyDidEvaluateIfMaintenanceWorkIsNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v16 = *MEMORY[0x277D85DE8];
+  unitTest_didEvaluateIfMaintenanceWorkIsNeeded = [(HDMHAssessmentsNotificationManager *)self unitTest_didEvaluateIfMaintenanceWorkIsNeeded];
+  v6 = unitTest_didEvaluateIfMaintenanceWorkIsNeeded;
+  if (unitTest_didEvaluateIfMaintenanceWorkIsNeeded)
+  {
+    (*(unitTest_didEvaluateIfMaintenanceWorkIsNeeded + 16))(unitTest_didEvaluateIfMaintenanceWorkIsNeeded, neededCopy);
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v7 = *MEMORY[0x277CCC300];
+    if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v7;
+      v10 = 138543874;
+      v11 = objc_opt_class();
+      v12 = 2048;
+      selfCopy = self;
+      v14 = 1024;
+      v15 = neededCopy;
+      v9 = v11;
+      _os_log_impl(&dword_258977000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Did evaluate for maintenance work: %d", &v10, 0x1Cu);
+    }
+  }
 }
 
 - (void)profileDidBecomeReady:(id)ready
@@ -597,52 +607,50 @@ void __68__HDMHAssessmentsNotificationManager__queue_rescheduleNotifications__bl
   }
 }
 
-void __78__HDMHAssessmentsNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2(uint64_t a1)
+void __78__HDMHAssessmentsNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
   {
-    __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2_cold_1(a1, v2);
+    __70__HDMHSOMNotificationManager__queue_enqueueMaintenanceRemovalIfNeeded__block_invoke_2_cold_1(a1, v3);
   }
 }
 
 - (void)_queue_runMaintenanceRemoval
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v7 = 138543362;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing maintenance work: notifications not enabled and supported", v7, 0xCu);
+    *v6 = 138543362;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing maintenance work: notifications not enabled and supported", v6, 0xCu);
   }
 
-  [(HDMHAssessmentsNotificationManager *)self _queue_removeAllScheduledNotificationsIfNotEnabled];
+  [(HDMHAssessmentsNotificationManager *)self _queue_removeAllScheduledNotificationsIfNotEnabled:*v6];
   self->_queue_hasEnqueuedMaintenanceWork = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptedAssessmentsManagerDidUpdatePromptedAssessments:(id)assessments
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v6 = v9;
-    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Prompted assessments manager did update", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v6 = v8;
+    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Prompted assessments manager did update", &v7, 0xCu);
   }
 
   dispatch_assert_queue_V2(self->_queue);
   [(HDMHAssessmentsNotificationManager *)self _rescheduleNotifications];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_nextBehaviorBasedDateWithError:(id *)error
@@ -759,10 +767,10 @@ LABEL_20:
 
 - (id)_periodicAssessmentEvent
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v29 = 0;
-  v3 = [(HDMHAssessmentsNotificationManager *)self _nextBehaviorBasedDateWithError:&v29];
-  v4 = v29;
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = 0;
+  v3 = [(HDMHAssessmentsNotificationManager *)self _nextBehaviorBasedDateWithError:&v28];
+  v4 = v28;
   if (v4)
   {
     v5 = v4;
@@ -777,9 +785,9 @@ LABEL_20:
 
   else
   {
-    v28 = 0;
-    v7 = [(HDMHAssessmentsNotificationManager *)self _nextRegularlyScheduledDateWithError:&v28];
-    v5 = v28;
+    v27 = 0;
+    v7 = [(HDMHAssessmentsNotificationManager *)self _nextRegularlyScheduledDateWithError:&v27];
+    v5 = v27;
     if (v5)
     {
       _HKInitializeLogging();
@@ -802,13 +810,13 @@ LABEL_20:
         v11 = v10;
         v12 = objc_opt_class();
         *buf = 138544130;
-        v31 = v12;
-        v32 = 2112;
-        v33 = v3;
-        v34 = 2112;
-        v35 = v7;
-        v36 = 2112;
-        v37 = v8;
+        v30 = v12;
+        v31 = 2112;
+        v32 = v3;
+        v33 = 2112;
+        v34 = v7;
+        v35 = 2112;
+        v36 = v8;
         v13 = v12;
         _os_log_impl(&dword_258977000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Behavior Date: %@, Regular Date: %@, Selected Date: %@", buf, 0x2Au);
       }
@@ -835,7 +843,7 @@ LABEL_20:
           v23 = v22;
           v24 = objc_opt_class();
           *buf = 138543362;
-          v31 = v24;
+          v30 = v24;
           v25 = v24;
           _os_log_impl(&dword_258977000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] No upcoming periodic prompted assessment.", buf, 0xCu);
         }
@@ -845,107 +853,91 @@ LABEL_20:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_requestFromAlarmEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v3 = v2;
   v4 = OUTLINED_FUNCTION_3();
-  v12 = [v0 eventIdentifier];
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Could not create notification request from event identifier: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  v6 = [v0 eventIdentifier];
+  *v13 = 138543618;
+  *&v13[4] = v4;
+  *&v13[12] = 2112;
+  *&v13[14] = v6;
+  OUTLINED_FUNCTION_0(&dword_258977000, v7, v8, "[%{public}@] Could not create notification request from event identifier: %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
-void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_1(uint64_t a1, void *a2)
+void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v14 = *(a1 + 40);
-  v6 = v5;
-  OUTLINED_FUNCTION_4(&dword_258977000, v7, v8, "[%{public}@] Error posting user notification for request %@: %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  *v13 = 138543874;
+  *&v13[4] = objc_opt_class();
+  *&v13[12] = 2112;
+  *&v13[14] = *(a1 + 40);
+  *&v13[22] = 2114;
+  v14 = a3;
+  v6 = *&v13[4];
+  OUTLINED_FUNCTION_4(&dword_258977000, v7, v8, "[%{public}@] Error posting user notification for request %@: %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], v14);
 }
 
-void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __71__HDMHAssessmentsNotificationManager__queue_alarm_didReceiveDueEvents___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3();
-  v6 = OUTLINED_FUNCTION_1(v5);
-  OUTLINED_FUNCTION_0(&dword_258977000, v7, v8, "[%{public}@] Error saving date fired for periodic prompted assessment notification in key value domain: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3();
+  v5 = OUTLINED_FUNCTION_1(v4);
+  OUTLINED_FUNCTION_0(&dword_258977000, v6, v7, "[%{public}@] Error saving date fired for periodic prompted assessment notification in key value domain: %{public}@", v8, v9, v10, v11);
 }
 
-void __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, void *a2)
+void __70__HDMHAssessmentsNotificationManager__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v14 = *(a1 + 40);
-  v6 = v5;
-  OUTLINED_FUNCTION_4(&dword_258977000, v7, v8, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  *v13 = 138543874;
+  *&v13[4] = objc_opt_class();
+  *&v13[12] = 2114;
+  *&v13[14] = *(a1 + 40);
+  *&v13[22] = 2114;
+  v14 = a3;
+  v6 = *&v13[4];
+  OUTLINED_FUNCTION_4(&dword_258977000, v7, v8, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], v14);
 }
 
 - (void)_nextBehaviorBasedDateWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error requesting prompted assessments %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error requesting prompted assessments %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_nextRegularlyScheduledDateWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error retrieving cadence in days %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error retrieving cadence in days %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_nextRegularlyScheduledDateWithError:.cold.2()
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error retrieving last fired date for last periodic prompted assessment notification from key value domain: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Error retrieving last fired date for last periodic prompted assessment notification from key value domain: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_periodicAssessmentEvent
 {
   OUTLINED_FUNCTION_2_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_1(v3);
-  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Unable to get next regularlyScheduledDate, not scheduling due to error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_258977000, v5, v6, "[%{public}@] Unable to get next regularlyScheduledDate, not scheduling due to error: %{public}@", v7, v8, v9, v10);
 }
 
 @end

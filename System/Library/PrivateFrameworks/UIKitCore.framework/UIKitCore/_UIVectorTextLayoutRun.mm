@@ -117,7 +117,7 @@
   layoutInfo = self->_layoutInfo;
   if (layoutInfo)
   {
-    [(_UIVectorTextLayoutInfo *)layoutInfo coordinateAdjustment];
+    objc_msgSend_coordinateAdjustment(layoutInfo);
   }
 
   [(_UIVectorTextLayoutRun *)self usedRunRect];
@@ -177,7 +177,7 @@
     layoutInfo = self->_layoutInfo;
     if (layoutInfo)
     {
-      [(_UIVectorTextLayoutInfo *)layoutInfo coordinateAdjustment];
+      objc_msgSend_coordinateAdjustment(layoutInfo);
     }
 
     GlyphCount = CTRunGetGlyphCount(self->_runRef);

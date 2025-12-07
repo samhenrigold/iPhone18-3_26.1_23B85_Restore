@@ -516,11 +516,11 @@ LABEL_51:
 
 - (SFSplitCardSection)initWithProtobuf:(id)protobuf
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v40.receiver = self;
-  v40.super_class = SFSplitCardSection;
-  v5 = [(SFCardSection *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = SFSplitCardSection;
+  v5 = [(SFCardSection *)&v39 init];
   if (v5)
   {
     topTitle = [protobufCopy topTitle];
@@ -562,32 +562,32 @@ LABEL_51:
       v17 = 0;
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     listItems2 = [protobufCopy listItems];
-    v19 = [listItems2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v19 = [listItems2 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(listItems2);
           }
 
-          if (*(*(&v36 + 1) + 8 * i))
+          if (*(*(&v35 + 1) + 8 * i))
           {
             [v17 addObject:?];
           }
         }
 
-        v20 = [listItems2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v20 = [listItems2 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v20);
@@ -625,7 +625,6 @@ LABEL_51:
     v33 = v5;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

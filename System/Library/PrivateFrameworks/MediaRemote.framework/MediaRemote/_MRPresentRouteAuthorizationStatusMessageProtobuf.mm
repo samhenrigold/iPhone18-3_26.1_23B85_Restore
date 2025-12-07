@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (int)status;
 - (unint64_t)hash;
@@ -26,60 +27,75 @@
   }
 }
 
+- (id)statusAsString:(int)string
+{
+  if ((string + 1) >= 0xB)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A06F0[string + 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsStatus:(id)status
 {
   statusCopy = status;
-  if ([statusCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = -1;
   }
 
-  else if ([statusCopy isEqualToString:@"OK"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 0;
   }
 
-  else if ([statusCopy isEqualToString:@"AuthenticationRequired"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 1;
   }
 
-  else if ([statusCopy isEqualToString:@"AuthenticationFailed"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 2;
   }
 
-  else if ([statusCopy isEqualToString:@"Busy"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 3;
   }
 
-  else if ([statusCopy isEqualToString:@"OutOfRange"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 4;
   }
 
-  else if ([statusCopy isEqualToString:@"UnknownError"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 5;
   }
 
-  else if ([statusCopy isEqualToString:@"NotConnected"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 6;
   }
 
-  else if ([statusCopy isEqualToString:@"IPAliasingNotSupported"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 7;
   }
 
-  else if ([statusCopy isEqualToString:@"RelayFailed2GHzNetwork"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 8;
   }
 
-  else if ([statusCopy isEqualToString:@"RelayFailedMultiDFSNetwork"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 9;
   }
@@ -136,18 +152,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_route)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

@@ -11,14 +11,12 @@
 
 - (NSArray)storeSubscriptionTypes
 {
-  v3 = OBJC_IVAR____TtC8MapsSync23MapsSyncStoreController_storeSubscriptionTypes;
   swift_beginAccess();
-  v4 = *(self + v3);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB943408, &qword_1B63C5070);
-  v5 = sub_1B63BEC94();
+  v2 = sub_1B63BEC94();
 
-  return v5;
+  return v2;
 }
 
 - (void)setStoreSubscriptionTypes:(id)types
@@ -27,7 +25,6 @@
   v4 = sub_1B63BECA4();
   v5 = OBJC_IVAR____TtC8MapsSync23MapsSyncStoreController_storeSubscriptionTypes;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

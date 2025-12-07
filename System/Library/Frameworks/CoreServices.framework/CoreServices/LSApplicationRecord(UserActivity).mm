@@ -18,7 +18,7 @@
         while (1)
         {
           v8 = v9;
-          v10 = (a2 - v9) >> 4;
+          v10 = &a2[-v9] >> 4;
           v11 = v10 - 2;
           if (v10 > 2)
           {
@@ -32,7 +32,7 @@
                 return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>(v8, v8 + 16, v8 + 32, v93, a3);
               case 5:
 
-                return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>(v8, v8 + 16, v8 + 32, v8 + 48, v93, a3);
+                return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>(v8, (v8 + 16), (v8 + 32), (v8 + 48), v93, a3);
             }
           }
 
@@ -45,15 +45,15 @@
 
             if (v10 == 2)
             {
-              result = _LSBundleCompareForActivityContinuationSuitability(***a3, *(a2 - 8), *(v8 + 8));
+              result = _LSBundleCompareForActivityContinuationSuitability(***a3, *(a2 - 1), *(v8 + 8));
               if (result == -1)
               {
                 v42 = *v8;
-                *v8 = *(a2 - 16);
-                *(a2 - 16) = v42;
+                *v8 = *(a2 - 4);
+                *(a2 - 4) = v42;
                 v43 = *(v8 + 8);
-                *(v8 + 8) = *(a2 - 8);
-                *(a2 - 8) = v43;
+                *(v8 + 8) = *(a2 - 1);
+                *(a2 - 1) = v43;
               }
 
               return result;
@@ -73,12 +73,12 @@
                 do
                 {
                   v49 = v44;
-                  result = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v48 + 3), *(v48 + 1));
+                  result = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v48 + 24), *(v48 + 8));
                   if (result == -1)
                   {
                     v50 = a2;
                     v51 = *v49;
-                    v52 = *(v48 + 3);
+                    v52 = *(v48 + 24);
                     v53 = v47;
                     while (1)
                     {
@@ -106,12 +106,12 @@ LABEL_85:
                     a2 = v50;
                   }
 
-                  v44 = v49 + 4;
+                  v44 = v49 + 16;
                   v47 += 16;
                   v48 = v49;
                 }
 
-                while (v49 + 4 != a2);
+                while (v49 + 16 != a2);
               }
             }
 
@@ -145,12 +145,12 @@ LABEL_85:
                   a2 = v86;
                 }
 
-                v44 = v85 + 4;
+                v44 = v85 + 16;
                 v84 += 2;
                 v8 = v85;
               }
 
-              while (v85 + 4 != a2);
+              while (v85 + 16 != a2);
             }
 
             return result;
@@ -272,10 +272,10 @@ LABEL_85:
 
                 else
                 {
-                  *v72 = *(v68 - 16);
-                  *(v72 + 8) = *(v68 - 8);
-                  *(v68 - 16) = v98;
-                  *(v68 - 8) = v95;
+                  *v72 = *(v68 - 4);
+                  *(v72 + 8) = *(v68 - 1);
+                  *(v68 - 4) = v98;
+                  *(v68 - 1) = v95;
                   v76 = (v72 - v8 + 16) >> 4;
                   v77 = v76 < 2;
                   v78 = v76 - 2;
@@ -331,8 +331,8 @@ LABEL_85:
           else
           {
             std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>(v8, (v8 + 16 * (v10 >> 1)), v93, a3);
-            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>((v8 + 16), (v13 - 16), (a2 - 32), a3);
-            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>((v8 + 32), (v8 + 16 + 16 * v12), (a2 - 48), a3);
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>((v8 + 16), (v13 - 16), a2 - 8, a3);
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>((v8 + 32), (v8 + 16 + 16 * v12), a2 - 12, a3);
             std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,0>((v13 - 16), (v8 + 16 * (v10 >> 1)), (v8 + 16 + 16 * v12), a3);
             v14 = *v8;
             *v8 = *v13;
@@ -350,7 +350,7 @@ LABEL_85:
 
           v32 = *v8;
           v33 = *(v8 + 8);
-          result = _LSBundleCompareForActivityContinuationSuitability(***a3, v33, *(a2 - 8));
+          result = _LSBundleCompareForActivityContinuationSuitability(***a3, v33, *(a2 - 1));
           if (result == -1)
           {
             v35 = v8;
@@ -389,7 +389,7 @@ LABEL_85:
             do
             {
               v36 = v37 - 16;
-              result = _LSBundleCompareForActivityContinuationSuitability(***a3, v33, *(v37 - 8));
+              result = _LSBundleCompareForActivityContinuationSuitability(***a3, v33, *(v37 - 1));
               v37 = v36;
             }
 
@@ -402,8 +402,8 @@ LABEL_85:
             *v9 = *v36;
             *v36 = v38;
             v39 = *(v9 + 8);
-            *(v9 + 8) = *(v36 + 8);
-            *(v36 + 8) = v39;
+            *(v9 + 8) = *(v36 + 1);
+            *(v36 + 1) = v39;
             do
             {
               v40 = *(v9 + 24);
@@ -413,7 +413,7 @@ LABEL_85:
             while (_LSBundleCompareForActivityContinuationSuitability(***a3, v33, v40) != -1);
             do
             {
-              v41 = *(v36 - 8);
+              v41 = *(v36 - 1);
               v36 -= 16;
               result = _LSBundleCompareForActivityContinuationSuitability(***a3, v33, v41);
             }
@@ -450,7 +450,7 @@ LABEL_85:
           while (v20 < v24)
           {
             v22 = v24 - 16;
-            v25 = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v24 - 8), v18);
+            v25 = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v24 - 1), v18);
             v24 = v22;
             if (v25 == -1)
             {
@@ -466,7 +466,7 @@ LABEL_85:
           do
           {
             v22 = v21 - 16;
-            v23 = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v21 - 8), v18);
+            v23 = _LSBundleCompareForActivityContinuationSuitability(***a3, *(v21 - 1), v18);
             v21 = v22;
           }
 
@@ -519,11 +519,11 @@ LABEL_27:
         }
 
 LABEL_38:
-        result = std::__introsort<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,false>(v8, v9 - 16, a3, a4, a5 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *,false>(v8, (v9 - 16), a3, a4, a5 & 1);
         a5 = 0;
       }
 
-      v31 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *>(v8, v9 - 16, a3);
+      v31 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *>(v8, (v9 - 16), a3);
       result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,+[LSApplicationRecord(UserActivity) applicationRecordsForUserActivityType:limit:error:]::$_0 &,std::pair<unsigned int,LSBundleData const*> *>(v9, a2, a3);
       if (result)
       {
@@ -536,7 +536,7 @@ LABEL_38:
       }
     }
 
-    a2 = v9 - 16;
+    a2 = (v9 - 16);
     if (!v31)
     {
       continue;

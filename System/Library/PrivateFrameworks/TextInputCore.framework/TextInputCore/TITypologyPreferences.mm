@@ -80,29 +80,27 @@
 
 - (NSURL)typologyDirectoryURL
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = TI_KB_USER_DIRECTORY();
   _typologyLoggingEnabledByProfile = [(TITypologyPreferences *)self _typologyLoggingEnabledByProfile];
   v5 = MEMORY[0x277CBEBC0];
   if (_typologyLoggingEnabledByProfile)
   {
-    v13[0] = v3;
+    v12[0] = v3;
     v6 = @"TypologyVault";
-    v7 = v13;
+    v7 = v12;
   }
 
   else
   {
-    v12 = v3;
+    v11 = v3;
     v6 = @"Typology";
-    v7 = &v12;
+    v7 = &v11;
   }
 
   v7[1] = v6;
   v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
   v9 = [v5 fileURLWithPathComponents:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

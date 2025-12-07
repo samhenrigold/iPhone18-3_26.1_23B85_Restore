@@ -14,7 +14,7 @@
   [(TSMTIEMaskError *)self mask];
   v9 = v8;
   [(TSMTIEMaskError *)self mtie];
-  v11 = [v3 stringWithFormat:@"<%@: %p: {%.9f, %.9f, %0.9f}>", v5, self, v7, v9, v10];
+  v11 = [v3 stringWithFormat:v5, self, v7, v9, v10];
 
   return v11;
 }

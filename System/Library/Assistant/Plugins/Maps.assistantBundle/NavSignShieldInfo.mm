@@ -1,4 +1,5 @@
 @interface NavSignShieldInfo
++ (id)shieldWithID:(int)d stringID:(id)iD text:(id)text;
 - (BOOL)isEqual:(id)equal;
 - (NavSignShieldInfo)initWithShieldID:(int)d shieldStringID:(id)iD shieldText:(id)text;
 - (id)_car_shieldImageWithSize:(int64_t)size scale:(double)scale useAdaptiveStyling:(BOOL)styling nightMode:(BOOL)mode;
@@ -229,6 +230,16 @@ LABEL_14:
   }
 
   return v17;
+}
+
++ (id)shieldWithID:(int)d stringID:(id)iD text:(id)text
+{
+  v6 = *&d;
+  textCopy = text;
+  iDCopy = iD;
+  v10 = [[self alloc] initWithShieldID:v6 shieldStringID:iDCopy shieldText:textCopy];
+
+  return v10;
 }
 
 @end

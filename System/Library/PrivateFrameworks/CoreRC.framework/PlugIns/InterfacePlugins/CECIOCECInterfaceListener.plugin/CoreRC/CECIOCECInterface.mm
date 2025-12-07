@@ -9,6 +9,7 @@
 - (void)_close;
 - (void)_interfaceTerminated:(__IOCECInterface *)terminated;
 - (void)_open;
+- (void)_updateStatusWithEDID:(id *)d HPD:(BOOL)pD hibernate:(BOOL)hibernate;
 - (void)dealloc;
 - (void)scheduleWithDispatchQueue:(id)queue;
 - (void)setAttributes:(id *)attributes;
@@ -79,7 +80,7 @@
   serialQueue = [(CECIOCECInterface *)self serialQueue];
   if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    sub_1FD4(self);
+    sub_1FD4();
   }
 
   if (!self->_isOpen && self->_iocecInterface && serialQueue != 0)
@@ -87,19 +88,16 @@
     v5 = IOCECInterfaceOpenReceiveQueue();
     if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
     {
-      v13 = "[CECIOCECInterface _open]";
-      v14 = v5;
+      v9 = "[CECIOCECInterface _open]";
+      v10 = v5;
       selfCopy = self;
       LogPrintF();
     }
 
     if (!v5)
     {
-      iocecInterface = self->_iocecInterface;
       IOCECInterfaceRegisterTerminatedCallback();
-      v9 = self->_iocecInterface;
       IOCECInterfaceRegisterReceiveCallback();
-      v10 = self->_iocecInterface;
       IOCECInterfaceRegisterStatusCallback();
       [(CECIOCECInterface *)self setReceiveWorkloop:dispatch_workloop_create_inactive("IOCECInterface - Receive Workloop")];
       if ([(CECIOCECInterface *)self receiveWorkloop])
@@ -107,13 +105,12 @@
         [(CECIOCECInterface *)self receiveWorkloop];
         dispatch_workloop_set_scheduler_priority();
         dispatch_activate([(CECIOCECInterface *)self receiveWorkloop]);
-        v11 = self->_iocecInterface;
         [(CECIOCECInterface *)self receiveWorkloop];
         IOCECInterfaceScheduleWithDispatchQueue();
         self->_isOpen = 1;
-        v6 = v16;
-        v16[0] = _NSConcreteStackBlock;
-        v16[1] = 3221225472;
+        v6 = v12;
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 3221225472;
         v7 = sub_11A4;
         goto LABEL_17;
       }
@@ -121,15 +118,15 @@
       sub_2034();
     }
 
-    v6 = v15;
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
+    v6 = v11;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
     v7 = sub_12C4;
 LABEL_17:
     v6[2] = v7;
     v6[3] = &unk_41A8;
     v6[4] = self;
-    [(CECIOCECInterface *)self dispatchAsyncHighPriority:selfCopy, v13, v14];
+    [(CECIOCECInterface *)self dispatchAsyncHighPriority:selfCopy, v9, v10];
   }
 }
 
@@ -137,29 +134,24 @@ LABEL_17:
 {
   if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    sub_2144(self);
+    sub_2144();
   }
 
   if (self->_isOpen)
   {
     if ([(CECIOCECInterface *)self receiveWorkloop])
     {
-      iocecInterface = self->_iocecInterface;
       [(CECIOCECInterface *)self receiveWorkloop];
       IOCECInterfaceUnscheduleFromDispatchQueue();
-      v4 = self->_iocecInterface;
       IOCECInterfaceRegisterStatusCallback();
-      v5 = self->_iocecInterface;
       IOCECInterfaceRegisterReceiveCallback();
-      v6 = self->_iocecInterface;
       IOCECInterfaceRegisterTerminatedCallback();
     }
 
-    v7 = self->_iocecInterface;
     IOCECInterfaceCloseReceiveQueue();
-    v8.receiver = self;
-    v8.super_class = CECIOCECInterface;
-    [(CECIOCECInterface *)&v8 setAddressMask:0 error:0];
+    v3.receiver = self;
+    v3.super_class = CECIOCECInterface;
+    [(CECIOCECInterface *)&v3 setAddressMask:0 error:0];
     self->_isOpen = 0;
 
     [(CECIOCECInterface *)self setReceiveWorkloop:0];
@@ -189,15 +181,14 @@ LABEL_17:
 {
   v7 = -536870206;
   __dst = 0uLL;
-  v13 = 0;
+  v12 = 0;
   if (self->_isOpen)
   {
     v8 = *(frame + 16);
     if ((v8 & 0x1Fu) - 17 >= 0xFFFFFFF0)
     {
       memcpy(&__dst, frame, v8 & 0x1F);
-      v13 = v13 & 0xF0 | (v8 - 1) & 0xF;
-      iocecInterface = self->_iocecInterface;
+      v12 = v12 & 0xF0 | (v8 - 1) & 0xF;
       v7 = IOCECInterfaceSendFrame();
       if (!v7)
       {
@@ -216,9 +207,9 @@ LABEL_17:
     return 0;
   }
 
-  v11 = [NSError errorWithDomain:NSMachErrorDomain code:v7 userInfo:0];
+  v10 = [NSError errorWithDomain:NSMachErrorDomain code:v7 userInfo:0];
   result = 0;
-  *error = v11;
+  *error = v10;
   return result;
 }
 
@@ -255,6 +246,41 @@ LABEL_17:
   return [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:4];
 }
 
+- (void)_updateStatusWithEDID:(id *)d HPD:(BOOL)pD hibernate:(BOOL)hibernate
+{
+  hibernateCopy = hibernate;
+  pDCopy = pD;
+  if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
+  {
+    var5 = d->var5;
+    var6 = d->var6;
+    v15 = hibernateCopy;
+    var1 = d->var1;
+    var0 = d->var0;
+    v14 = pDCopy;
+    selfCopy = self;
+    v12 = "[CECIOCECInterface _updateStatusWithEDID:HPD:hibernate:]";
+    LogPrintF();
+  }
+
+  v9 = *&d->var6[6];
+  v19[2] = *&d->var5[22];
+  v19[3] = v9;
+  v19[4] = *&d->var6[22];
+  v10 = *&d->var5[6];
+  v19[0] = *&d->var0;
+  v19[1] = v10;
+  [(CECIOCECInterface *)self setAttributes:v19, selfCopy, v12, var0, v14, v15, var1, var5, var6];
+  [(CECIOCECInterface *)self setHpd:pDCopy];
+  if ([(CECIOCECInterface *)self hibernate]!= hibernateCopy)
+  {
+    [(CECIOCECInterface *)self setHibernate:hibernateCopy];
+    [(CECIOCECInterface *)self hibernationChanged:hibernateCopy];
+  }
+
+  [(CECIOCECInterface *)self didChangeProperties];
+}
+
 - ($D1819ED0CAECE69E625AEC8AD7BCEE3A)attributes
 {
   v3 = *&self[1].var4;
@@ -283,13 +309,12 @@ LABEL_17:
 {
   if (self->_isOpen)
   {
-    iocecInterface = self->_iocecInterface;
-    v6 = IOCECInterfaceSetLogicalAddressMask();
+    v5 = IOCECInterfaceSetLogicalAddressMask();
   }
 
   else
   {
-    v6 = -536870195;
+    v5 = -536870195;
   }
 
   if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
@@ -297,12 +322,12 @@ LABEL_17:
     LogPrintF();
   }
 
-  if (v6 && error)
+  if (v5 && error)
   {
-    *error = [NSError errorWithDomain:NSMachErrorDomain code:v6 userInfo:0];
+    *error = [NSError errorWithDomain:NSMachErrorDomain code:v5 userInfo:0];
   }
 
-  return v6 == 0;
+  return v5 == 0;
 }
 
 - (void)_interfaceTerminated:(__IOCECInterface *)terminated

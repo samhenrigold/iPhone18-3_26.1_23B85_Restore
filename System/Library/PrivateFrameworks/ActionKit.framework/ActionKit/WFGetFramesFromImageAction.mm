@@ -24,39 +24,37 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke;
-  v7[3] = &unk_278C211D0;
-  v7[4] = self;
-  [inputCopy generateCollectionByCoercingToItemClasses:v5 completionHandler:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke;
+  v6[3] = &unk_278C211D0;
+  v6[4] = self;
+  [inputCopy generateCollectionByCoercingToItemClasses:v5 completionHandler:v6];
 }
 
 void __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if ([v6 numberOfItems])
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke_2;
-    v17[3] = &unk_278C1B0A0;
-    v18 = *(a1 + 32);
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke_5;
-    v16[3] = &unk_278C21E70;
-    v16[4] = v18;
-    [v6 transformItemsAndFlattenUsingBlock:v17 completionHandler:v16];
+    v16[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke_2;
+    v16[3] = &unk_278C1B0A0;
+    v17 = *(a1 + 32);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke_5;
+    v15[3] = &unk_278C21E70;
+    v15[4] = v17;
+    [v6 transformItemsAndFlattenUsingBlock:v16 completionHandler:v15];
   }
 
   else
@@ -71,19 +69,17 @@ void __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke(
     {
       v9 = MEMORY[0x277CCA9B8];
       v10 = *MEMORY[0x277D7CB30];
-      v19[0] = *MEMORY[0x277CCA470];
+      v18[0] = *MEMORY[0x277CCA470];
       v11 = WFLocalizedString(@"No Image Provided");
-      v20[0] = v11;
-      v19[1] = *MEMORY[0x277CCA450];
+      v19[0] = v11;
+      v18[1] = *MEMORY[0x277CCA450];
       v12 = WFLocalizedString(@"No GIF was passed as input to Get Frames from Image.");
-      v20[1] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v19[1] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
       v14 = [v9 errorWithDomain:v10 code:6 userInfo:v13];
       [v8 finishRunningWithError:v14];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WFGetFramesFromImageAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2, void *a3)

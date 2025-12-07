@@ -49,7 +49,7 @@
 
 - (id)feedIDForBin:()FCAdditions paid:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a3 > 1)
   {
     if (a3 == 2)
@@ -116,20 +116,19 @@
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't get feed ID for unknown bin"];
-    v11 = 136315906;
-    v12 = "[NTPBFeedConfiguration(FCAdditions) feedIDForBin:paid:]";
-    v13 = 2080;
-    v14 = "NTPBFeedConfiguration+FCAdditions.m";
-    v15 = 1024;
-    v16 = 56;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v10 = 136315906;
+    v11 = "[NTPBFeedConfiguration(FCAdditions) feedIDForBin:paid:]";
+    v12 = 2080;
+    v13 = "NTPBFeedConfiguration+FCAdditions.m";
+    v14 = 1024;
+    v15 = 56;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   paidBFeedID = [self feedIDForBin:FCNextHigherVolumeFeedBin(a3) paid:a4];
 LABEL_22:
-  v9 = *MEMORY[0x1E69E9840];
 
   return paidBFeedID;
 }

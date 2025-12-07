@@ -68,13 +68,12 @@
 
 - (void)appendData:forSection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315650;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_2720B1000, v1, OS_LOG_TYPE_DEBUG, "#D %s%sserver returned data we don't have a consumer for, might be expected for section %@", v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2720B1000, v1, OS_LOG_TYPE_DEBUG, "#D %s%sserver returned data we don't have a consumer for, might be expected for section %@", v2, 0x20u);
 }
 
 @end

@@ -12,6 +12,9 @@
 - (void)commitChangesAndDismissKeyboard:(BOOL)keyboard;
 - (void)suspend;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SignatureEditingPane
@@ -266,6 +269,32 @@ LABEL_13:
   v3.super_class = SignatureEditingPane;
   [(SignatureEditingPane *)&v3 suspend];
   [(SignatureEditingPane *)self commitChangesAndDismissKeyboard:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SignatureEditingPane;
+  [(SignatureEditingPane *)&v5 viewDidAppear:appear];
+  parentController = [(SignatureEditingPane *)self parentController];
+  [(SignatureEditingPane *)self setParentListController:parentController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SignatureEditingPane;
+  [(SignatureEditingPane *)&v4 viewWillDisappear:disappear];
+  [(SignatureEditingPane *)self commitChangesAndDismissKeyboard:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SignatureEditingPane;
+  [(SignatureEditingPane *)&v4 viewDidDisappear:disappear];
+  [(SignatureEditingPane *)self commitChangesAndDismissKeyboard:0];
+  [(SignatureEditingPane *)self setParentListController:0];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

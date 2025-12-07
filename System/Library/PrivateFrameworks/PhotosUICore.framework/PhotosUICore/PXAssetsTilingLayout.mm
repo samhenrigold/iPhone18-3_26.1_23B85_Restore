@@ -147,7 +147,7 @@
 - (BOOL)_getDimmingTileIdentifier:(PXTileIdentifier *)identifier outGeometry:(PXTileGeometry *)geometry group:(unint64_t *)group userData:(id *)data forContentTileGeometry:(const PXTileGeometry *)tileGeometry indexPath:(PXSimpleIndexPath *)path
 {
   selectionBadgeOptions = [(PXAssetsTilingLayout *)self selectionBadgeOptions];
-  [(PXAssetsTilingLayout *)self highlightedIndexPath];
+  objc_msgSend_highlightedIndexPath(self);
   v16 = path->dataSourceIdentifier == v43 && path->section == *(&v43 + 1) && path->item == v44;
   dataCopy = data;
   v17 = v16 && path->subitem == *(&v44 + 1);

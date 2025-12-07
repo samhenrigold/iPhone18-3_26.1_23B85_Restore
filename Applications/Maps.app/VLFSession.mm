@@ -257,9 +257,9 @@
   [(VLFSession *)self setShouldObserveFrames:0];
   [(VLFSession *)self setNotifiedFirstFrame:0];
   [(ARSession *)self->_session _addObserver:self];
-  configuration = [(VLFSession *)self configuration];
-  -[VLFSession setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [configuration isAutoFocusEnabled] ^ 1);
-  [(ARSession *)self->_session runWithConfiguration:configuration options:3];
+  v9 = objc_msgSend_configuration(self);
+  -[VLFSession setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [v9 isAutoFocusEnabled] ^ 1);
+  [(ARSession *)self->_session runWithConfiguration:v9 options:3];
   if ([(ARSession *)self->_session state]== 1 && [(VLFSession *)self mode]== 1)
   {
     [(VLFSession *)self startLocationUpdates];
@@ -919,7 +919,7 @@ LABEL_28:
 
   isCoordinateFused = [locationCopy isCoordinateFused];
   session = [(VLFSession *)self session];
-  configuration = [session configuration];
+  v25 = objc_msgSend_configuration(session);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 

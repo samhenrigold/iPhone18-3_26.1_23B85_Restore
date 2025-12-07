@@ -224,7 +224,7 @@
 
   describedImageRequested = [interestCopy describedImageRequested];
   identifier = [describedImageRequested identifier];
-  v59 = v15;
+  v62 = v15;
   v18 = [v15 containsObject:identifier];
 
   if (v18)
@@ -234,35 +234,35 @@
     if (([interestCopy needsNewVersion] & 1) != 0 || !objc_msgSend(comparatorCopy, "isMatching:withCandidateImage:includeQuality:", describedImageRequested2, describedImageShown, 0) || objc_msgSend(describedImageShown, "quality") <= 0x65)
     {
       persistanceOptions = [requestCopy persistanceOptions];
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       v20 = imagesCopy;
-      v21 = [v20 countByEnumeratingWithState:&v68 objects:v76 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v71 objects:v79 count:16];
       if (!v21)
       {
         goto LABEL_44;
       }
 
-      v57 = v13;
-      v58 = imagesCopy;
-      v63 = 0;
-      v66 = -1;
-      v67 = *v69;
-      v62 = describedImageRequested2;
-      v60 = comparatorCopy;
-      v61 = v20;
+      v60 = v13;
+      v61 = imagesCopy;
+      v66 = 0;
+      v69 = -1;
+      v70 = *v72;
+      v65 = describedImageRequested2;
+      v63 = comparatorCopy;
+      v64 = v20;
       while (2)
       {
         for (i = 0; i != v21; i = i + 1)
         {
-          if (*v69 != v67)
+          if (*v72 != v70)
           {
             objc_enumerationMutation(v20);
           }
 
-          v23 = *(*(&v68 + 1) + 8 * i);
+          v23 = *(*(&v71 + 1) + 8 * i);
           [BICCacheStats logOperation:BICCacheStatsOperationInterestCheck[0] forRequest:requestCopy];
           v24 = [comparatorCopy differenceFromRequest:describedImageRequested2 toCandidateImage:v23];
           if (v24 != -1)
@@ -301,78 +301,79 @@
             {
               requestCopy = v26;
               [BICCacheStats logOperation:BICCacheStatsOperationImageDelivered[0] forRequest:v26];
-              if ([describedImageShown isLowQuality] && objc_msgSend(v23, "quality") >= 0x66)
+              isLowQuality = [describedImageShown isLowQuality];
+              if (isLowQuality && (isLowQuality = [v23 quality], isLowQuality >= 0x66))
               {
-                v34 = BCImageCacheLog();
-                v35 = v57;
-                imagesCopy = v58;
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+                v36 = BCImageCacheLog(isLowQuality);
+                v37 = v60;
+                imagesCopy = v61;
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v73 = v23;
-                  v74 = 2112;
-                  v75 = v26;
-                  v36 = "BCCacheManager: Performing quality upgrade on exact interest for image=%@ for request=%@";
+                  v76 = v23;
+                  v77 = 2112;
+                  v78 = v26;
+                  v38 = "BCCacheManager: Performing quality upgrade on exact interest for image=%@ for request=%@";
                   goto LABEL_40;
                 }
               }
 
               else
               {
-                v34 = BCImageCacheLog();
-                v35 = v57;
-                imagesCopy = v58;
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+                v36 = BCImageCacheLog(isLowQuality);
+                v37 = v60;
+                imagesCopy = v61;
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v73 = v23;
-                  v74 = 2112;
-                  v75 = v26;
-                  v36 = "BCCacheManager: Found exact interest for image=%@ for request=%@";
+                  v76 = v23;
+                  v77 = 2112;
+                  v78 = v26;
+                  v38 = "BCCacheManager: Found exact interest for image=%@ for request=%@";
 LABEL_40:
-                  _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, v36, buf, 0x16u);
+                  _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, v38, buf, 0x16u);
                 }
               }
 
-              comparatorCopy = v60;
+              comparatorCopy = v63;
 
-              v37 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v23 request:v26];
-              [v35 addObject:v37];
+              v39 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v23 request:v26];
+              [v37 addObject:v39];
 
-              v38 = v23;
-              v13 = v35;
-              describedImageRequested2 = v62;
-              if ([v38 isLowQuality])
+              v40 = v23;
+              v13 = v37;
+              describedImageRequested2 = v65;
+              if ([v40 isLowQuality])
               {
-                v39 = [BCCacheOperation operationWithKind:2 vendedImageInterest:interestCopy request:requestCopy];
-                [v35 addObject:v39];
+                v41 = [BCCacheOperation operationWithKind:2 vendedImageInterest:interestCopy request:requestCopy];
+                [v37 addObject:v41];
               }
 
               [interestCopy setNeedsNewVersion:0];
 
               v21 = 0;
-              v20 = v61;
+              v20 = v64;
 LABEL_44:
 
               goto LABEL_45;
             }
 
             requestCopy = v26;
-            if (v25 < v66)
+            if (v25 < v69)
             {
               v31 = v23;
 
-              v66 = v25;
-              v63 = v31;
+              v69 = v25;
+              v66 = v31;
             }
 
-            comparatorCopy = v60;
-            v20 = v61;
-            describedImageRequested2 = v62;
+            comparatorCopy = v63;
+            v20 = v64;
+            describedImageRequested2 = v65;
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v68 objects:v76 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v71 objects:v79 count:16];
         if (v21)
         {
           continue;
@@ -381,46 +382,46 @@ LABEL_44:
         break;
       }
 
-      if (!v63)
+      if (!v66)
       {
         v21 = 0;
-        v13 = v57;
-        imagesCopy = v58;
+        v13 = v60;
+        imagesCopy = v61;
         goto LABEL_45;
       }
 
-      v32 = BCImageCacheLog();
-      v13 = v57;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v33 = BCImageCacheLog(v32);
+      v13 = v60;
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v73 = v63;
-        v74 = 2112;
-        v75 = describedImageRequested2;
-        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "BCCacheManager: Found inexact match for of image=%@ for request=%@", buf, 0x16u);
+        v76 = v66;
+        v77 = 2112;
+        v78 = describedImageRequested2;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "BCCacheManager: Found inexact match for of image=%@ for request=%@", buf, 0x16u);
       }
 
-      image = [v63 image];
+      image = [v66 image];
 
-      if (!v66 && (persistanceOptions & 2) != 0)
+      if (!v69 && (persistanceOptions & 2) != 0)
       {
         v20 = [BCCacheOperation operationWithKind:5 subject:requestCopy request:requestCopy];
-        [v57 addObject:v20];
-        imagesCopy = v58;
+        [v60 addObject:v20];
+        imagesCopy = v61;
 LABEL_33:
-        v21 = v63;
+        v21 = v66;
         goto LABEL_44;
       }
 
       if (image)
       {
-        v21 = v63;
-        imagesCopy = v58;
-        if ([comparatorCopy isMatching:describedImageRequested2 withGenericImage:v63])
+        v21 = v66;
+        imagesCopy = v61;
+        if ([comparatorCopy isMatching:describedImageRequested2 withGenericImage:v66])
         {
           if ([describedImageShown isGenericSeriesStack])
           {
-            isSeriesStackWithGenerics = [v63 isSeriesStackWithGenerics];
+            isSeriesStackWithGenerics = [v66 isSeriesStackWithGenerics];
           }
 
           else
@@ -445,23 +446,22 @@ LABEL_33:
           }
 
           [BICCacheStats incrementCounter:kBICCacheStatsCounterGenericsDelivered[0]];
-          [BICCacheStats logOperation:BICCacheStatsOperationGenericImageDelivered[0] forRequest:requestCopy];
-          v51 = BCImageCacheLog();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          v54 = BCImageCacheLog([BICCacheStats logOperation:BICCacheStatsOperationGenericImageDelivered[0] forRequest:requestCopy]);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
             bu_prettyDescription = [v20 bu_prettyDescription];
             *buf = 138412290;
-            v73 = bu_prettyDescription;
-            _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "BCCacheManager: Found generic interest for images=%@", buf, 0xCu);
+            v76 = bu_prettyDescription;
+            _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "BCCacheManager: Found generic interest for images=%@", buf, 0xCu);
           }
 
-          if (([requestCopy requestOptions] & 8) != 0 || (objc_msgSend(requestCopy, "primaryRequest"), v53 = objc_claimAutoreleasedReturnValue(), v53, v53))
+          if (([requestCopy requestOptions] & 8) != 0 || (objc_msgSend(requestCopy, "primaryRequest"), v56 = objc_claimAutoreleasedReturnValue(), v56, v56))
           {
-            [v63 setRequestOptions:{objc_msgSend(v63, "requestOptions") | 8}];
+            [v66 setRequestOptions:{objc_msgSend(v66, "requestOptions") | 8}];
           }
 
-          v54 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v63 request:requestCopy];
-          [v57 addObject:v54];
+          v57 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v66 request:requestCopy];
+          [v60 addObject:v57];
 
           if (([requestCopy requestOptions] & 8) == 0)
           {
@@ -470,27 +470,28 @@ LABEL_33:
             if (!primaryRequest)
             {
               v20 = [BCCacheOperation operationWithKind:3 vendedImageInterest:interestCopy request:requestCopy];
-              [v57 addObject:v20];
+              [v60 addObject:v20];
               goto LABEL_33;
             }
           }
 
 LABEL_92:
-          v21 = v63;
+          v21 = v66;
           goto LABEL_45;
         }
 
-        if (([requestCopy requestOptions] & 0x10) == 0 || (v44 = objc_msgSend(describedImageRequested2, "processingOptions"), v30 = v44 == objc_msgSend(v63, "processingOptions"), v21 = v63, !v30))
+        if (([requestCopy requestOptions] & 0x10) == 0 || (v46 = objc_msgSend(describedImageRequested2, "processingOptions"), v30 = v46 == objc_msgSend(v66, "processingOptions"), v21 = v66, !v30))
         {
-          if (![comparatorCopy isTransformableMatch:describedImageRequested2 withCandidateImage:v21])
+          v50 = [comparatorCopy isTransformableMatch:describedImageRequested2 withCandidateImage:v21];
+          if (!v50)
           {
-            v20 = BCImageCacheLog();
+            v20 = BCImageCacheLog(v50);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v73 = v21;
-              v74 = 2112;
-              v75 = requestCopy;
+              v76 = v21;
+              v77 = 2112;
+              v78 = requestCopy;
               _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "BCCacheManager: Not transformable image=%@ for request=%@", buf, 0x16u);
             }
 
@@ -498,60 +499,59 @@ LABEL_92:
           }
 
           [v21 image];
-          v49 = v48 = v21;
+          v52 = v51 = v21;
 
-          if (v49)
+          if (v52)
           {
             [BICCacheStats logOperation:BICCacheStatsOperationBestMatchNeedsTransform[0] forRequest:requestCopy];
-            v50 = [BCCacheOperation operationWithKind:0 subject:v48 result:describedImageRequested2 request:requestCopy];
-            [v57 addObject:v50];
-            v21 = v48;
-            v20 = v50;
+            v53 = [BCCacheOperation operationWithKind:0 subject:v51 result:describedImageRequested2 request:requestCopy];
+            [v60 addObject:v53];
+            v21 = v51;
+            v20 = v53;
             goto LABEL_44;
           }
 
-          v21 = v48;
+          v21 = v51;
 LABEL_45:
 
           goto LABEL_46;
         }
 
-        [BICCacheStats logOperation:BICCacheStatsOperationImageDelivered[0] forRequest:requestCopy];
-        v45 = BCImageCacheLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v47 = BCImageCacheLog([BICCacheStats logOperation:BICCacheStatsOperationImageDelivered[0] forRequest:requestCopy]);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
           bu_prettyDescription2 = [v20 bu_prettyDescription];
           *buf = 138412290;
-          v73 = bu_prettyDescription2;
-          _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "BCCacheManager: Found best match interest for images=%@", buf, 0xCu);
+          v76 = bu_prettyDescription2;
+          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "BCCacheManager: Found best match interest for images=%@", buf, 0xCu);
         }
 
-        v21 = v63;
-        v47 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v63 request:requestCopy];
+        v21 = v66;
+        v49 = [BCCacheOperation operationWithKind:1 vendedImageInterest:interestCopy subject:v66 request:requestCopy];
       }
 
       else
       {
         quality = [describedImageShown quality];
-        imagesCopy = v58;
+        imagesCopy = v61;
         if (quality != 1)
         {
-          v43 = [v63 quality] > quality || objc_msgSend(v63, "quality") == 0;
-          v56 = [describedImageShown isGenericSeriesStack] && (objc_msgSend(v63, "processingOptions") >> 5) & 1;
-          if (!v43 && !v56)
+          v45 = [v66 quality] > quality || objc_msgSend(v66, "quality") == 0;
+          v59 = [describedImageShown isGenericSeriesStack] && (objc_msgSend(v66, "processingOptions") >> 5) & 1;
+          if (!v45 && !v59)
           {
             goto LABEL_92;
           }
         }
 
         [BICCacheStats logOperation:BICCacheStatsOperationBestMatchNeedsFetch[0] forRequest:requestCopy];
-        v21 = v63;
-        [v63 setPriority:{objc_msgSend(describedImageRequested2, "priority")}];
-        v47 = [BCCacheOperation operationWithKind:4 subject:v63 request:requestCopy];
+        v21 = v66;
+        [v66 setPriority:{objc_msgSend(describedImageRequested2, "priority")}];
+        v49 = [BCCacheOperation operationWithKind:4 subject:v66 request:requestCopy];
       }
 
-      v20 = v47;
-      [v57 addObject:v47];
+      v20 = v49;
+      [v60 addObject:v49];
       goto LABEL_44;
     }
 
@@ -754,8 +754,7 @@ LABEL_105:
           [v81 createDirectoryAtPath:v72 withIntermediateDirectories:0 attributes:0 error:0];
         }
 
-        [BCCacheManager migrateCacheAt:v72];
-        v82 = BCImageCacheLog();
+        v82 = BCImageCacheLog([BCCacheManager migrateCacheAt:v72]);
         if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
@@ -1040,7 +1039,7 @@ LABEL_106:
 
 - (void)_memoryWarning:(id)warning
 {
-  v4 = BCImageCacheLog();
+  v4 = BCImageCacheLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_1E7BA4();
@@ -1094,7 +1093,7 @@ LABEL_106:
 - (void)_preloadAdamIDs:(id)ds
 {
   dsCopy = ds;
-  v5 = BCImageCacheLog();
+  v5 = BCImageCacheLog(dsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [dsCopy count]);
@@ -1125,58 +1124,59 @@ LABEL_106:
 - (void)_preloadOneBatch
 {
   objc_initWeak(&location, self);
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_86E64;
+  v26 = sub_86E74;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_86E64;
-  v25 = sub_86E74;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v12 = sub_87CF8;
-  v13 = &unk_2CB5F8;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v13 = sub_87CF8;
+  v14 = &unk_2CB5F8;
   selfCopy = self;
-  v15 = &v21;
-  v16 = &v17;
-  v3 = v11;
+  v16 = &v22;
+  v17 = &v18;
+  v3 = v12;
   os_unfair_lock_lock(&self->_accessLock);
-  v12(v3);
+  v13(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
-  if ([v22[5] count])
+  v4 = [v23[5] count];
+  if (v4)
   {
-    v4 = BCImageCacheLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = BCImageCacheLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v22[5] count]);
-      v6 = [NSNumber numberWithInteger:v18[3]];
+      v6 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v23[5] count]);
+      v7 = [NSNumber numberWithInteger:v19[3]];
       *buf = 138412546;
-      v29 = v5;
-      v30 = 2112;
-      v31 = v6;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Preloading one batch of %@ asset IDs, remaining=%@", buf, 0x16u);
+      v30 = v6;
+      v31 = 2112;
+      v32 = v7;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Preloading one batch of %@ asset IDs, remaining=%@", buf, 0x16u);
     }
 
-    v7 = [BICDescribedImage describedImageWithIdentifier:@"prioritizer" size:0 processingOptions:CGSizeZero.width, CGSizeZero.height];
-    [v7 setPriority:2];
+    v8 = [BICDescribedImage describedImageWithIdentifier:@"prioritizer" size:0 processingOptions:CGSizeZero.width, CGSizeZero.height];
+    [v8 setPriority:2];
     lowPriorityWorkQueue = [(BCCacheManager *)self lowPriorityWorkQueue];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_87E00;
-    v9[3] = &unk_2CB620;
-    objc_copyWeak(&v10, &location);
-    v9[4] = &v21;
-    [lowPriorityWorkQueue addWorkItemWithPriority:v7 description:@"CacheManager preload one batch" block:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_87E00;
+    v10[3] = &unk_2CB620;
+    objc_copyWeak(&v11, &location);
+    v10[4] = &v22;
+    [lowPriorityWorkQueue addWorkItemWithPriority:v8 description:@"CacheManager preload one batch" block:v10];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
   objc_destroyWeak(&location);
 }
@@ -1185,7 +1185,7 @@ LABEL_106:
 {
   batchCopy = batch;
   completionCopy = completion;
-  v8 = BCImageCacheLog();
+  v8 = BCImageCacheLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -1420,21 +1420,22 @@ LABEL_106:
   optionsCopy = options;
   sizeCopy = size;
   dCopy = d;
-  v13 = 0;
-  v8 = ClampImageSize(&sizeCopy, 0, &v13);
-  v9 = v13;
+  v14 = 0;
+  v8 = ClampImageSize(&sizeCopy, 0, &v14);
+  v9 = v14;
+  v10 = v9;
   if (v8)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1E7BD8(dCopy, v9, v10);
+      sub_1E7BD8(dCopy, v10, v11);
     }
   }
 
-  v11 = [(BCCacheManager *)self _fetchLayerForIdentifier:dCopy size:optionsCopy options:sizeCopy.width, sizeCopy.height];
+  v12 = [(BCCacheManager *)self _fetchLayerForIdentifier:dCopy size:optionsCopy options:sizeCopy.width, sizeCopy.height];
 
-  return v11;
+  return v12;
 }
 
 - (id)_fetchLayerForIdentifier:(id)identifier size:(CGSize)size options:(unsigned __int16)options
@@ -1443,21 +1444,21 @@ LABEL_106:
   width = size.width;
   identifierCopy = identifier;
   v9 = objc_autoreleasePoolPush();
-  v10 = CGSizeScaleToScreen(width);
-  v12 = [BICDescribedImage describedImageWithIdentifier:identifierCopy size:optionsCopy processingOptions:round(v10), round(v11)];
-  [v12 setPriority:5];
-  [v12 setUnknownAspectRatio:1];
-  v13 = [(BCCacheManager *)self _fetchLayerForImage:v12];
+  v11 = CGSizeScaleToScreen(v9, v10, width);
+  v13 = [BICDescribedImage describedImageWithIdentifier:identifierCopy size:optionsCopy processingOptions:round(v11), round(v12)];
+  [v13 setPriority:5];
+  [v13 setUnknownAspectRatio:1];
+  v14 = [(BCCacheManager *)self _fetchLayerForImage:v13];
 
   objc_autoreleasePoolPop(v9);
 
-  return v13;
+  return v14;
 }
 
 - (id)_fetchLayerForImage:(id)image
 {
   imageCopy = image;
-  v5 = BCImageCacheLog();
+  v5 = BCImageCacheLog(imageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
@@ -1501,17 +1502,17 @@ LABEL_106:
 
   if (image)
   {
-    v14 = BCImageCacheLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = BCImageCacheLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v19 = v12;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "BCCacheManager: Exact match from RAM of image=%@", buf, 0xCu);
+      v20 = v12;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "BCCacheManager: Exact match from RAM of image=%@", buf, 0xCu);
     }
 
-    v17 = v12;
-    v15 = [NSArray arrayWithObjects:&v17 count:1];
-    [(BCCacheManager *)self _checkInterestForDescribedImages:v15 forRequest:requestCopy];
+    v18 = v12;
+    v16 = [NSArray arrayWithObjects:&v18 count:1];
+    [(BCCacheManager *)self _checkInterestForDescribedImages:v16 forRequest:requestCopy];
   }
 
   else
@@ -1607,7 +1608,7 @@ LABEL_106:
 - (void)_performGenericUpgradeOfStackForRequest:(id)request
 {
   requestCopy = request;
-  v5 = BCImageCacheLog();
+  v5 = BCImageCacheLog(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1799,61 +1800,62 @@ LABEL_106:
   if ([imagesCopy count])
   {
     objc_initWeak(&location, self);
-    if ([imagesCopy count] == &dword_0 + 1)
+    v8 = [imagesCopy count];
+    if (v8 == &dword_0 + 1)
     {
-      v8 = BCImageCacheLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = BCImageCacheLog(1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [imagesCopy objectAtIndexedSubscript:0];
+        v10 = [imagesCopy objectAtIndexedSubscript:0];
         *buf = 138412290;
-        v26 = v9;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Adding 1 image to cache: %@", buf, 0xCu);
+        v27 = v10;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Adding 1 image to cache: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v8 = BCImageCacheLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = BCImageCacheLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [imagesCopy count]);
-        v11 = [imagesCopy objectAtIndexedSubscript:0];
+        v11 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [imagesCopy count]);
+        v12 = [imagesCopy objectAtIndexedSubscript:0];
         *buf = 138412546;
-        v26 = v10;
-        v27 = 2112;
-        v28 = v11;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Adding %@ images to cache, e.g. %@", buf, 0x16u);
+        v27 = v11;
+        v28 = 2112;
+        v29 = v12;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "BCCacheManager: Adding %@ images to cache, e.g. %@", buf, 0x16u);
       }
     }
 
-    if ([imagesCopy count] != &dword_0 + 1 || (objc_msgSend(imagesCopy, "objectAtIndexedSubscript:", 0), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "image"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 == 0, v13, v12, v14))
+    if ([imagesCopy count] != &dword_0 + 1 || (objc_msgSend(imagesCopy, "objectAtIndexedSubscript:", 0), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "image"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 == 0, v14, v13, v15))
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
       [(BCCacheManager *)self _checkInterestForDescribedImages:imagesCopy forRequest:requestCopy];
-      v15 = 1;
+      v16 = 1;
     }
 
     level1 = [(BCCacheManager *)self level1];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_8C624;
-    v19[3] = &unk_2CB9F0;
-    v23 = v15;
-    objc_copyWeak(&v22, &location);
-    v17 = imagesCopy;
-    v20 = v17;
-    v21 = requestCopy;
-    [level1 addDescribedImages:v17 forRequest:v21 completion:v19];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_8C624;
+    v20[3] = &unk_2CB9F0;
+    v24 = v16;
+    objc_copyWeak(&v23, &location);
+    v18 = imagesCopy;
+    v21 = v18;
+    v22 = requestCopy;
+    [level1 addDescribedImages:v18 forRequest:v22 completion:v20];
 
-    +[BICCacheStats addToCounter:amount:](BICCacheStats, "addToCounter:amount:", kBICCacheStatsCounterImagesPushed[0], [v17 count]);
+    +[BICCacheStats addToCounter:amount:](BICCacheStats, "addToCounter:amount:", kBICCacheStatsCounterImagesPushed[0], [v18 count]);
     coalescingPruning = [(BCCacheManager *)self coalescingPruning];
     [coalescingPruning signalWithCompletion:&stru_2CBA10];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 }
@@ -2174,55 +2176,55 @@ LABEL_20:
 {
   descriptionCopy = description;
   requestCopy = request;
-  v8 = BCImageCacheLog();
+  v8 = BCImageCacheLog(requestCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v30 = descriptionCopy;
+    v32 = descriptionCopy;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "BCCacheManager: Asked to make generic for image=%@", buf, 0xCu);
   }
 
   if ([(BCCacheManager *)self _isGenericNeededForDescription:descriptionCopy forRequest:requestCopy])
   {
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_8DD20;
-    v25[3] = &unk_2C89F8;
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_8DD20;
+    v27[3] = &unk_2C89F8;
     v9 = requestCopy;
-    v26 = v9;
+    v28 = v9;
     v10 = descriptionCopy;
-    v27 = v10;
+    v29 = v10;
     selfCopy = self;
     os_unfair_lock_lock(&self->_accessLock);
-    sub_8DD20(v25);
+    sub_8DD20(v27);
     os_unfair_lock_unlock(&self->_accessLock);
-    v11 = BCImageCacheLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = BCImageCacheLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v10;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "BCCacheManager: Making generic for image=%@", buf, 0xCu);
+      v32 = v10;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "BCCacheManager: Making generic for image=%@", buf, 0xCu);
     }
 
     [BICCacheStats logOperation:BICCacheStatsOperationMakingGenericQueueStart[0] forRequest:v9];
-    [v10 imageSize];
-    v14 = v13;
-    v15 = v12;
+    imageSize = [v10 imageSize];
+    v16 = v15;
+    v17 = v14;
     height = CGSizeZero.height;
-    if (CGSizeZero.width == v13 && height == v12)
+    if (CGSizeZero.width == v15 && height == v14)
     {
-      [v9 imageSize];
-      v14 = v17;
-      v15 = v18;
+      imageSize = [v9 imageSize];
+      v16 = v19;
+      v17 = v20;
     }
 
-    if (CGSizeZero.width == v14 && height == v15)
+    if (CGSizeZero.width == v16 && height == v17)
     {
-      v19 = BCImageCacheLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v21 = BCImageCacheLog(imageSize);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "BCCacheManager: _makeGenericForDescription: invalid image size", buf, 2u);
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "BCCacheManager: _makeGenericForDescription: invalid image size", buf, 2u);
       }
     }
 
@@ -2231,18 +2233,18 @@ LABEL_20:
       objc_initWeak(buf, self);
       kdebug_trace();
       highPriorityWorkQueue = [(BCCacheManager *)self highPriorityWorkQueue];
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_8DDA0;
-      v21[3] = &unk_2CBB60;
-      objc_copyWeak(v24, buf);
-      v22 = v9;
-      v23 = v10;
-      v24[1] = *&v14;
-      v24[2] = *&v15;
-      [highPriorityWorkQueue addWorkItemWithPriority:v22 description:@"CacheManager make generic" block:v21];
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_8DDA0;
+      v23[3] = &unk_2CBB60;
+      objc_copyWeak(v26, buf);
+      v24 = v9;
+      v25 = v10;
+      v26[1] = *&v16;
+      v26[2] = *&v17;
+      [highPriorityWorkQueue addWorkItemWithPriority:v24 description:@"CacheManager make generic" block:v23];
 
-      objc_destroyWeak(v24);
+      objc_destroyWeak(v26);
       objc_destroyWeak(buf);
     }
   }
@@ -2255,7 +2257,7 @@ LABEL_20:
 
 - (void)explicitContentRestrictedChanged
 {
-  v3 = BCImageCacheLog();
+  v3 = BCImageCacheLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -2545,33 +2547,33 @@ LABEL_17:
   }
 
   [NSString stringWithFormat:@"%.0f x %.0f %@ %@", v10, v11, v12, v14];
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = sub_86E64;
-  v59 = sub_86E74;
-  v60 = 0;
-  v49[0] = _NSConcreteStackBlock;
-  v49[1] = 3221225472;
-  v50 = sub_903CC;
-  v51 = &unk_2C7BC0;
-  v54 = &v55;
-  v17 = v52 = self;
-  v53 = v17;
-  v18 = v49;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = sub_86E64;
+  v61 = sub_86E74;
+  v62 = 0;
+  v51[0] = _NSConcreteStackBlock;
+  v51[1] = 3221225472;
+  v52 = sub_903CC;
+  v53 = &unk_2C7BC0;
+  v56 = &v57;
+  v17 = v54 = self;
+  v55 = v17;
+  v18 = v51;
   os_unfair_lock_lock(&self->_accessLock);
-  v50(v18);
+  v52(v18);
   os_unfair_lock_unlock(&self->_accessLock);
 
-  v19 = v56[5];
+  v19 = v58[5];
   if (v19)
   {
     v20 = [v19 copy];
-    v21 = v56[5];
-    v56[5] = v20;
+    v21 = v58[5];
+    v58[5] = v20;
 
     identifier = [imageCopy identifier];
-    [v56[5] setIdentifier:identifier];
+    [v58[5] setIdentifier:identifier];
 LABEL_11:
 
     goto LABEL_12;
@@ -2603,35 +2605,35 @@ LABEL_11:
     CGColorSpaceRelease(DeviceRGB);
     if (v31)
     {
-      v32 = 0.0;
-      v33 = v27;
-      v34 = v29;
+      v33 = 0.0;
+      v34 = v27;
+      v35 = v29;
       if (v16)
       {
-        v35 = [UIColor colorWithRed:243.0 / dbl_2A3CD0[v13 == 0] green:243.0 / dbl_2A3CD0[v13 == 0] blue:248.0 / dbl_2A3CD0[v13 == 0] alpha:1.0];
-        CGContextSetFillColorWithColor(v31, [v35 CGColor]);
+        v36 = [UIColor colorWithRed:243.0 / dbl_2A3CD0[v13 == 0] green:243.0 / dbl_2A3CD0[v13 == 0] blue:248.0 / dbl_2A3CD0[v13 == 0] alpha:1.0];
+        CGContextSetFillColorWithColor(v31, [v36 CGColor]);
 
         CGContextSaveGState(v31);
-        v33 = v27 * 0.85;
-        v34 = v29 * 0.85;
-        v36 = [UIBezierPath bezierPathWithRoundedRect:0.0 cornerRadius:v29 - v29 * 0.85, v27 * 0.85, v29 * 0.85, 3.0];
-        CGContextAddPath(v31, [v36 CGPath]);
+        v34 = v27 * 0.85;
+        v35 = v29 * 0.85;
+        v37 = [UIBezierPath bezierPathWithRoundedRect:0.0 cornerRadius:v29 - v29 * 0.85, v27 * 0.85, v29 * 0.85, 3.0];
+        CGContextAddPath(v31, [v37 CGPath]);
         CGContextFillPath(v31);
         CGContextRestoreGState(v31);
-        v32 = v27 - v27 * 0.85;
+        v33 = v27 - v27 * 0.85;
       }
 
-      v37 = 255.0;
+      v38 = 255.0;
       if (v13)
       {
-        v37 = 512.0;
+        v38 = 512.0;
       }
 
-      v38 = [UIColor colorWithRed:243.0 / v37 green:243.0 / v37 blue:248.0 / v37 alpha:1.0];
-      CGContextSetFillColorWithColor(v31, [v38 CGColor]);
+      v39 = [UIColor colorWithRed:243.0 / v38 green:243.0 / v38 blue:248.0 / v38 alpha:1.0];
+      CGContextSetFillColorWithColor(v31, [v39 CGColor]);
 
       CGContextSaveGState(v31);
-      identifier = [UIBezierPath bezierPathWithRoundedRect:v32 cornerRadius:0.0, v33, v34, 3.0];
+      identifier = [UIBezierPath bezierPathWithRoundedRect:v33 cornerRadius:0.0, v34, v35, 3.0];
       CGContextAddPath(v31, [identifier CGPath]);
       CGContextFillPath(v31);
       CGContextRestoreGState(v31);
@@ -2639,31 +2641,31 @@ LABEL_11:
       CGContextRelease(v31);
       if (Image)
       {
-        v40 = [imageCopy copy];
-        [v40 setProcessingOptions:(v16 | v13)];
-        v41 = [BICImage imageWithCGImage:Image];
-        [v40 setImage:v41];
+        v42 = [imageCopy copy];
+        [v42 setProcessingOptions:(v16 | v13)];
+        v43 = [BICImage imageWithCGImage:Image];
+        [v42 setImage:v43];
 
-        [v40 setQuality:1];
+        [v42 setQuality:1];
         CGImageRelease(Image);
-        objc_storeStrong(v56 + 5, v40);
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v44 = sub_90438;
-        v45 = &unk_2C8838;
+        objc_storeStrong(v58 + 5, v42);
+        v45[0] = _NSConcreteStackBlock;
+        v45[1] = 3221225472;
+        v46 = sub_90438;
+        v47 = &unk_2C8838;
         selfCopy = self;
-        v47 = v17;
-        v48 = &v55;
-        v42 = v43;
+        v49 = v17;
+        v50 = &v57;
+        v44 = v45;
         os_unfair_lock_lock(&self->_accessLock);
-        v44(v42);
+        v46(v44);
         os_unfair_lock_unlock(&self->_accessLock);
       }
 
       else
       {
-        v40 = BCImageCacheLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v42 = BCImageCacheLog(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           sub_1E7E3C();
         }
@@ -2672,7 +2674,7 @@ LABEL_11:
 
     else
     {
-      identifier = BCImageCacheLog();
+      identifier = BCImageCacheLog(v32);
       if (os_log_type_enabled(identifier, OS_LOG_TYPE_ERROR))
       {
         sub_1E7EBC();
@@ -2683,10 +2685,10 @@ LABEL_11:
   }
 
 LABEL_12:
-  [BICCacheStats logDescribedImage:v56[5] withComment:@"BlankCover"];
-  v23 = v56[5];
+  [BICCacheStats logDescribedImage:v58[5] withComment:@"BlankCover"];
+  v23 = v58[5];
 
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v57, 8);
 
   return v23;
 }
@@ -2861,7 +2863,7 @@ LABEL_12:
   forCopy = for;
   requestCopy = request;
   completionCopy = completion;
-  v15 = BCImageCacheLog();
+  v15 = BCImageCacheLog(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -2933,7 +2935,7 @@ LABEL_12:
 - (void)imageSetPersisting:(id)persisting newVersionForImageSetIdentifierss:(id)identifierss
 {
   identifierssCopy = identifierss;
-  v6 = BCImageCacheLog();
+  v6 = BCImageCacheLog(identifierssCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -2980,8 +2982,7 @@ LABEL_12:
           describedImageRequested = [v10 describedImageRequested];
           [BICCacheStats logOperation:BICCacheStatsOperationNeedNewVersion[0] forRequest:describedImageRequested];
           [v10 setNeedsNewVersion:1];
-          [(BCCacheManager *)self _fetchImagesMatchingDescription:describedImageRequested forRequest:describedImageRequested];
-          v12 = BCImageCacheLog();
+          v12 = BCImageCacheLog([(BCCacheManager *)self _fetchImagesMatchingDescription:describedImageRequested forRequest:describedImageRequested]);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;

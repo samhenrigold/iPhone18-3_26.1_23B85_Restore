@@ -107,14 +107,14 @@
 
 - (void)deleteAssetFile
 {
-  v26[0] = @"asset_url";
-  v26[1] = @"owns_asset";
+  v25[0] = @"asset_url";
+  v25[1] = @"owns_asset";
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  [(DirectUploadEntity *)self getValues:&v24 forProperties:v26 count:2];
-  if ([v25 BOOLValue])
+  [(DirectUploadEntity *)self getValues:&v23 forProperties:v25 count:2];
+  if ([v24 BOOLValue])
   {
-    v2 = v24 == 0;
+    v2 = v23 == 0;
   }
 
   else
@@ -125,23 +125,23 @@
   if (!v2)
   {
     v3 = [NSURL alloc];
-    v4 = [v3 initWithString:v24];
+    v4 = [v3 initWithString:v23];
     if (![v4 isFileURL])
+    {
+LABEL_21:
+
+      goto LABEL_22;
+    }
+
+    v5 = objc_alloc_init(NSFileManager);
+    v16 = 0;
+    v6 = [v5 removeItemAtURL:v4 error:&v16];
+    v7 = v16;
+    if (v6)
     {
 LABEL_20:
 
       goto LABEL_21;
-    }
-
-    v5 = objc_alloc_init(NSFileManager);
-    v17 = 0;
-    v6 = [v5 removeItemAtURL:v4 error:&v17];
-    v7 = v17;
-    if (v6)
-    {
-LABEL_19:
-
-      goto LABEL_20;
     }
 
     v8 = +[SSLogConfig sharedDaemonConfig];
@@ -153,16 +153,21 @@ LABEL_19:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -170,32 +175,31 @@ LABEL_19:
     if (v10)
     {
       v12 = objc_opt_class();
-      v18 = 138412802;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v4;
+      v17 = 138412802;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v4;
       v13 = v12;
-      LODWORD(v16) = 32;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not delete asset file: %@, URL: %@", &v17, 32);
 
       if (!v14)
       {
-LABEL_18:
+LABEL_19:
 
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v18, v16];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-LABEL_21:
+LABEL_22:
   for (i = 1; i != -1; --i)
   {
   }

@@ -60,37 +60,35 @@
 
 void __51__VTUISpeechSynthesizer_speak_language_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     v5 = [WeakRetained text];
-    v7 = 136315394;
-    v8 = "[VTUISpeechSynthesizer speak:language:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[VTUISpeechSynthesizer speak:language:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__VTUISpeechSynthesizer_speak_language_completion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[VTUISpeechSynthesizer speak:language:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech synthesizer failed to speak TTS %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[VTUISpeechSynthesizer speak:language:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech synthesizer failed to speak TTS %@", &v8, 0x16u);
     }
   }
 
@@ -102,8 +100,6 @@ void __51__VTUISpeechSynthesizer_speak_language_completion___block_invoke_5(uint
     v7 = *(v6 + 16);
     *(v6 + 16) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speak:(id)speak completion:(id)completion
@@ -131,7 +127,7 @@ void __51__VTUISpeechSynthesizer_speak_language_completion___block_invoke_5(uint
 
 void __42__VTUISpeechSynthesizer_speak_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -139,11 +135,11 @@ void __42__VTUISpeechSynthesizer_speak_completion___block_invoke(uint64_t a1, vo
   {
     if (v5)
     {
-      v12 = 136315394;
-      v13 = "[VTUISpeechSynthesizer speak:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech synthesizer failed to speak AudioHint Request %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[VTUISpeechSynthesizer speak:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech synthesizer failed to speak AudioHint Request %@", &v11, 0x16u);
     }
   }
 
@@ -151,11 +147,11 @@ void __42__VTUISpeechSynthesizer_speak_completion___block_invoke(uint64_t a1, vo
   {
     v6 = v4;
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v12 = 136315394;
-    v13 = "[VTUISpeechSynthesizer speak:completion:]_block_invoke";
-    v14 = 2048;
-    v15 = [WeakRetained dialogNumber];
-    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s Finished speaking AudioHint Request - dialogNumber #%ld", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[VTUISpeechSynthesizer speak:completion:]_block_invoke";
+    v13 = 2048;
+    v14 = [WeakRetained dialogNumber];
+    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s Finished speaking AudioHint Request - dialogNumber #%ld", &v11, 0x16u);
   }
 
   v8 = *(*(a1 + 32) + 8);
@@ -166,8 +162,6 @@ void __42__VTUISpeechSynthesizer_speak_completion___block_invoke(uint64_t a1, vo
     v10 = *(v9 + 8);
     *(v9 + 8) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeaking

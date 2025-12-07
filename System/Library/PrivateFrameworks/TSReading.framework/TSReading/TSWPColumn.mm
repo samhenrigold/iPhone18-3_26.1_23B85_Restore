@@ -86,31 +86,31 @@
 
 + (CGRect)caretRectForInsertionPoint:(id)point withColumns:(id)columns
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBF398];
   v7 = *MEMORY[0x277CBF398];
   v8 = *(MEMORY[0x277CBF398] + 8);
   v9 = *(MEMORY[0x277CBF398] + 16);
   v10 = *(MEMORY[0x277CBF398] + 24);
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v11 = [columns countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v28 = 0u;
+  v11 = [columns countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v26;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(columns);
         }
 
-        [*(*(&v24 + 1) + 8 * i) caretRectForSelection:point];
+        [*(*(&v25 + 1) + 8 * i) caretRectForSelection:point];
         v7 = v16;
         v8 = v17;
         v9 = v15;
@@ -122,7 +122,7 @@
         }
       }
 
-      v12 = [columns countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [columns countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v12)
       {
         continue;
@@ -133,28 +133,30 @@
   }
 
 LABEL_11:
-  v30.origin.x = v7;
-  v30.origin.y = v8;
-  v30.size.width = v9;
-  v30.size.height = v10;
-  if (!CGRectEqualToRect(v30, *v6))
+  v31.origin.x = v7;
+  v31.origin.y = v8;
+  v31.size.width = v9;
+  v31.size.height = v10;
+  if (!CGRectEqualToRect(v31, *v6))
   {
     v19 = +[TSWPColumn columnForCharIndex:eol:withColumns:](TSWPColumn, "columnForCharIndex:eol:withColumns:", [point start], 1, columns);
     if (v19)
     {
-      [v19 lineMetricsAtCharIndex:objc_msgSend(point allowEndOfLine:{"start", 0), 1}];
+      v20 = v19;
+      [point start];
+      objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v20);
       v8 = 0.0;
     }
   }
 
-  v20 = v7;
-  v21 = v8;
-  v22 = v9;
-  v23 = v10;
-  result.size.height = v23;
-  result.size.width = v22;
-  result.origin.y = v21;
-  result.origin.x = v20;
+  v21 = v7;
+  v22 = v8;
+  v23 = v9;
+  v24 = v10;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v22;
+  result.origin.x = v21;
   return result;
 }
 
@@ -400,12 +402,12 @@ LABEL_49:
   columnsCopy = columns;
   y = point.y;
   x = point.x;
-  v35 = *MEMORY[0x277D85DE8];
-  v30 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v11 = [array countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v34 = 0u;
+  v11 = [array countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v11)
   {
     return 0;
@@ -413,18 +415,18 @@ LABEL_49:
 
   v12 = v11;
   v13 = 0;
-  v14 = *v31;
+  v14 = *v32;
   v15 = INFINITY;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v31 != v14)
+      if (*v32 != v14)
       {
         objc_enumerationMutation(array);
       }
 
-      v17 = *(*(&v30 + 1) + 8 * i);
+      v17 = *(*(&v31 + 1) + 8 * i);
       [v17 frameBounds];
       v19 = v18;
       v21 = v20;
@@ -432,28 +434,29 @@ LABEL_49:
       v25 = v24;
       if ((!columnsCopy || [v17 countLines]) && (!onlyColumnsCopy || objc_msgSend(v17, "countLines") != 1 || (*(objc_msgSend(v17, "lineFragmentAtIndex:", 0) + 24) & 0x40) == 0))
       {
-        v37.origin.x = v19;
-        v37.origin.y = v21;
-        v37.size.width = v23;
-        v37.size.height = v25;
-        v36.x = x;
-        v36.y = y;
-        if (CGRectContainsPoint(v37, v36))
+        v38.origin.x = v19;
+        v38.origin.y = v21;
+        v38.size.width = v23;
+        v38.size.height = v25;
+        v37.x = x;
+        v37.y = y;
+        if (CGRectContainsPoint(v38, v37))
         {
           return v17;
         }
 
-        v26 = TSDClampPointInRect();
-        v28 = TSDDistanceSquared(x, y, v26, v27);
-        if (v28 < v15)
+        v26.n128_f64[0] = x;
+        v27 = TSDClampPointInRect(v26, y, v19, v21, v23, v25);
+        v29 = TSDDistanceSquared(x, y, v27, v28);
+        if (v29 < v15)
         {
           v13 = v17;
-          v15 = v28;
+          v15 = v29;
         }
       }
     }
 
-    v12 = [array countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v12 = [array countByEnumeratingWithState:&v31 objects:v35 count:16];
     v17 = v13;
   }
 
@@ -488,7 +491,7 @@ LABEL_49:
 {
   y = point.y;
   x = point.x;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = [self closestColumnInColumnsArray:array forPoint:0 ignoreEmptyColumns:1 ignoreDrawableOnlyColumns:?];
   if (!v7)
   {
@@ -496,185 +499,185 @@ LABEL_49:
   }
 
   v8 = v7;
-  v9 = [v7 charIndexFromPoint:0 allowPastBreak:1 pastCenterGoesToNextChar:0 allowNotFound:0 isAtEndOfLine:0 outFragment:0 leadingEdge:{x, y}];
+  [v7 charIndexFromPoint:0 allowPastBreak:1 pastCenterGoesToNextChar:0 allowNotFound:0 isAtEndOfLine:0 outFragment:0 leadingEdge:{x, y}];
   storage = [v8 storage];
   if (storage)
   {
-    [storage paragraphEnumeratorAtCharIndex:v9 styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(storage);
   }
 
   else
   {
-    memset(&v56, 0, sizeof(v56));
+    memset(&v55, 0, sizeof(v55));
   }
 
-  v11 = TSWPParagraphEnumerator::paragraphTextRange(&v56);
-  v13 = v12;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v10 = TSWPParagraphEnumerator::paragraphTextRange(&v55);
+  v12 = v11;
   v53 = 0u;
-  v14 = [array countByEnumeratingWithState:&v52 objects:v57 count:16];
-  v49 = y;
-  v51 = v8;
-  v48 = v13;
-  if (v14)
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v13 = [array countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v48 = y;
+  v50 = v8;
+  v47 = v12;
+  if (v13)
   {
-    v15 = *v53;
-    v16 = v11 + v13;
-    v50 = 0.0;
-    v17 = 1;
+    v14 = *v52;
+    v15 = v10 + v12;
+    v49 = 0.0;
+    v16 = 1;
+    v17 = 0.0;
     v18 = 0.0;
-    v19 = 0.0;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v53 != v15)
+        if (*v52 != v14)
         {
           objc_enumerationMutation(array);
         }
 
-        v21 = *(*(&v52 + 1) + 8 * i);
-        range = [v21 range];
-        if (range + v23 > v11)
+        v20 = *(*(&v51 + 1) + 8 * i);
+        range = [v20 range];
+        if (range + v22 > v10)
         {
-          if ([v21 range] >= v16)
+          if ([v20 range] >= v15)
           {
             goto LABEL_35;
           }
 
-          [v21 frameBounds];
-          v25 = v24;
-          v27 = v26;
-          v29 = v28;
-          v31 = v30;
-          v32 = [v21 lineFragmentForCharIndex:v11 knobTag:11 selectionType:0];
-          v33 = [v21 lineFragmentForCharIndex:v16 knobTag:10 selectionType:0];
-          v34 = v33;
-          if (v21 == v51)
+          [v20 frameBounds];
+          v24 = v23;
+          v26 = v25;
+          v28 = v27;
+          v30 = v29;
+          v31 = [v20 lineFragmentForCharIndex:v10 knobTag:11 selectionType:0];
+          v32 = [v20 lineFragmentForCharIndex:v15 knobTag:10 selectionType:0];
+          v33 = v32;
+          if (v20 == v50)
           {
-            if (v32)
+            if (v31)
             {
-              MinY = CGRectGetMinY(*(v32 + 48));
-              if (v34)
+              MinY = CGRectGetMinY(*(v31 + 48));
+              if (v33)
               {
-                v25 = v34[6];
-                v27 = v34[7];
-                v29 = v34[8];
-                v31 = v34[9];
+                v24 = v33[6];
+                v26 = v33[7];
+                v28 = v33[8];
+                v30 = v33[9];
               }
 
-              v42 = *(v32 + 112);
-              v59.origin.x = v25;
-              v59.origin.y = v27;
-              v59.size.width = v29;
-              v59.size.height = v31;
-              v49 = v49 - (MinY + v42);
-              Height = CGRectGetMaxY(v59) - (MinY + v42);
+              v41 = *(v31 + 112);
+              v58.origin.x = v24;
+              v58.origin.y = v26;
+              v58.size.width = v28;
+              v58.size.height = v30;
+              v48 = v48 - (MinY + v41);
+              Height = CGRectGetMaxY(v58) - (MinY + v41);
             }
 
-            else if (v33)
+            else if (v32)
             {
-              MaxY = CGRectGetMaxY(*(v33 + 48));
-              v61.origin.x = v25;
-              v61.origin.y = v27;
-              v61.size.width = v29;
-              v61.size.height = v31;
-              Height = MaxY - CGRectGetMinY(v61);
+              MaxY = CGRectGetMaxY(*(v32 + 48));
+              v60.origin.x = v24;
+              v60.origin.y = v26;
+              v60.size.width = v28;
+              v60.size.height = v30;
+              Height = MaxY - CGRectGetMinY(v60);
             }
 
             else
             {
-              v63.origin.x = v25;
-              v63.origin.y = v27;
-              v63.size.width = v29;
-              v63.size.height = v31;
-              Height = CGRectGetHeight(v63);
+              v62.origin.x = v24;
+              v62.origin.y = v26;
+              v62.size.width = v28;
+              v62.size.height = v30;
+              Height = CGRectGetHeight(v62);
             }
 
-            v17 = 0;
-            v18 = v18 + Height;
+            v16 = 0;
+            v17 = v17 + Height;
           }
 
-          else if (v17)
+          else if (v16)
           {
-            v35 = v25;
-            v36 = v27;
-            v37 = v29;
-            v38 = v31;
-            if (v32)
+            v34 = v24;
+            v35 = v26;
+            v36 = v28;
+            v37 = v30;
+            if (v31)
             {
-              v39 = CGRectGetMaxY(*&v35);
-              v40 = v39 - CGRectGetMinY(*(v32 + 48));
+              v38 = CGRectGetMaxY(*&v34);
+              v39 = v38 - CGRectGetMinY(*(v31 + 48));
             }
 
             else
             {
-              v40 = CGRectGetHeight(*&v35);
+              v39 = CGRectGetHeight(*&v34);
             }
 
-            v19 = v19 + v40;
-            v17 = 1;
+            v18 = v18 + v39;
+            v16 = 1;
           }
 
           else
           {
-            if (v33)
+            if (v32)
             {
-              v44 = CGRectGetMaxY(*(v33 + 48));
-              v60.origin.x = v25;
-              v60.origin.y = v27;
-              v60.size.width = v29;
-              v60.size.height = v31;
-              v17 = 0;
-              v45 = v44 - CGRectGetMinY(v60);
+              v43 = CGRectGetMaxY(*(v32 + 48));
+              v59.origin.x = v24;
+              v59.origin.y = v26;
+              v59.size.width = v28;
+              v59.size.height = v30;
+              v16 = 0;
+              v44 = v43 - CGRectGetMinY(v59);
             }
 
             else
             {
-              v62.origin.x = v25;
-              v62.origin.y = v27;
-              v62.size.width = v29;
-              v62.size.height = v31;
-              v45 = CGRectGetHeight(v62);
-              v17 = 0;
+              v61.origin.x = v24;
+              v61.origin.y = v26;
+              v61.size.width = v28;
+              v61.size.height = v30;
+              v44 = CGRectGetHeight(v61);
+              v16 = 0;
             }
 
-            v50 = v50 + v45;
+            v49 = v49 + v44;
           }
         }
       }
 
-      v14 = [array countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v13 = [array countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
   else
   {
-    v50 = 0.0;
+    v49 = 0.0;
+    v17 = 0.0;
     v18 = 0.0;
-    v19 = 0.0;
   }
 
 LABEL_35:
-  if (v49 + v19 > (v50 + v18 + v19) * 0.5)
+  if (v48 + v18 > (v49 + v17 + v18) * 0.5)
   {
-    if (v11 + v48)
+    if (v10 + v47)
     {
-      v11 = v11 + v48 - (v11 + v48 != [objc_msgSend(v51 storage]);
+      v10 = v10 + v47 - (v10 + v47 != [objc_msgSend(v50 storage]);
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
   }
 
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v56);
-  return v11;
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v55);
+  return v10;
 }
 
 + (id)smartFieldWithAttributeKind:(unsigned int)kind inColumnArray:(id)array atPoint:(CGPoint)point
@@ -1583,7 +1586,7 @@ LABEL_6:
     height = v18.size.height;
   }
 
-  [(TSWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self);
   v19.origin.x = x;
   v19.origin.y = y;
   v19.size.width = width;
@@ -1727,9 +1730,10 @@ LABEL_6:
 
 - (double)horizontalOffsetForCharIndex:(unint64_t)index lineFragmentIndex:(unint64_t)fragmentIndex bumpPastHyphen:(BOOL)hyphen allowPastLineBounds:(BOOL)bounds
 {
+  hyphenCopy = hyphen;
   v9 = TSWPLineFragmentArray::objectAtIndex(self->_lineFragmentArray.__ptr_, fragmentIndex);
 
-  return TSWPLineFragment::wpOffsetForCharIndex(v9, index, hyphen, bounds, 0);
+  return TSWPLineFragment::wpOffsetForCharIndex(v9, index, hyphenCopy, bounds, 0);
 }
 
 - (const)lineFragmentClosestToPoint:(CGPoint)point knobTag:(unint64_t)tag
@@ -1738,7 +1742,7 @@ LABEL_6:
   x = point.x;
   if (self)
   {
-    [(TSWPColumn *)self transformToWP];
+    objc_msgSend_transformToWP(self, a2);
     v8 = v22;
     v9 = v23;
     v10 = v24;
@@ -1788,84 +1792,85 @@ LABEL_6:
   v9 = 0;
   if (index && v7 == index)
   {
-    v9 = IsParagraphBreakingCharacter([(TSWPStorage *)self->_storage characterAtIndex:index - 1]);
+    v10 = [(TSWPStorage *)self->_storage characterAtIndex:index - 1];
+    v9 = IsParagraphBreakingCharacter(v10, v11);
   }
 
   lineFragmentArray = [(TSWPColumn *)self lineFragmentArray];
-  v11 = TSWPLineFragmentArray::count(*lineFragmentArray);
-  if (!v11)
+  v13 = TSWPLineFragmentArray::count(*lineFragmentArray);
+  if (!v13)
   {
     return 0;
   }
 
-  v12 = v11;
+  v14 = v13;
   for (i = 0; ; ++i)
   {
-    v14 = TSWPLineFragmentArray::objectAtIndex(*lineFragmentArray, i);
-    v15 = *(v14 + 24);
-    if ((v15 & 0x40) == 0)
+    v16 = TSWPLineFragmentArray::objectAtIndex(*lineFragmentArray, i);
+    v17 = *(v16 + 24);
+    if ((v17 & 0x40) == 0)
     {
-      v16 = v14;
-      v18 = *v14;
-      v17 = *(v14 + 8);
-      v19 = index - *v14 < v17 && index >= *v14;
-      v20 = index == v18 && v8 == index;
-      if (!v20 && !v19)
+      v18 = v16;
+      v20 = *v16;
+      v19 = *(v16 + 8);
+      v21 = index - *v16 < v19 && index >= *v16;
+      v22 = index == v20 && v8 == index;
+      if (!v22 && !v21)
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       else
       {
-        v22 = (v15 >> 9) & 1;
-        if (index != v18)
+        v24 = (v17 >> 9) & 1;
+        if (index != v20)
         {
-          v22 = 1;
+          v24 = 1;
         }
 
         if (tag != 11)
         {
-          v22 = 1;
+          v24 = 1;
         }
 
-        v23 = (v15 & 1) != 0 ? v22 : 1;
+        v25 = (v17 & 1) != 0 ? v24 : 1;
       }
 
       if (type == 7)
       {
-        v24 = (tag == 11) ^ ((*(v14 + 24) & 0x1000u) >> 12);
-        v18 = TSWPLineFragment::leftMostCharIndex(v14);
-        v25 = TSWPLineFragment::rightMostCharIndex(v16);
+        v26 = (tag == 11) ^ ((*(v16 + 24) & 0x1000u) >> 12);
+        v20 = TSWPLineFragment::leftMostCharIndex(v16);
+        v27 = TSWPLineFragment::rightMostCharIndex(v18);
       }
 
       else
       {
-        v25 = v17 + v18;
-        v24 = tag == 11;
+        v27 = v19 + v20;
+        v26 = tag == 11;
       }
 
-      LOBYTE(v26) = 0;
-      v27 = v25 == index ? v24 : 1;
-      v28 = v27 ^ 1;
-      v29 = (v25 != index) | (v8 != index || (v24 & 1) == 0) | v9 & 1 ? v28 : v12 == 1;
-      if (v24 && v18 == index)
+      LOBYTE(v28) = 0;
+      v29 = v27 == index ? v26 : 1;
+      v30 = v29 ^ 1;
+      v31 = (v27 != index) | (v8 != index || (v26 & 1) == 0) | v9 & 1 ? v30 : v14 == 1;
+      if (v26 && v20 == index)
       {
-        v26 = (*(v16 + 25) >> 1) & 1;
+        v28 = (*(v18 + 25) >> 1) & 1;
       }
 
-      if ((v23 | v29) & 1) != 0 || (v26)
+      if ((v25 | v31) & 1) != 0 || (v28)
       {
         break;
       }
     }
 
-    if (!--v12)
+    if (!--v14)
     {
       return 0;
     }
   }
 
-  return v16;
+  return v18;
 }
 
 - (unint64_t)lineIndexForCharIndex:(unint64_t)index eol:(BOOL)eol
@@ -1876,70 +1881,55 @@ LABEL_6:
   {
     v8 = [(TSWPStorage *)self->_storage characterAtIndex:index - 1];
     v9 = v8;
-    v10 = IsParagraphBreakingCharacter(v8);
+    v11 = IsParagraphBreakingCharacter(v8, v10);
     if (v9 == 8232)
     {
-      v11 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
   }
 
   else
-  {
-    v11 = 0;
-  }
-
-  if (v7 == index)
   {
     v12 = 0;
   }
 
+  if (v7 == index)
+  {
+    v13 = 0;
+  }
+
   else
   {
-    v12 = [-[TSWPStorage attachmentAtCharIndex:](self->_storage attachmentAtCharIndex:{index), "isPartitioned"}];
+    v13 = [-[TSWPStorage attachmentAtCharIndex:](self->_storage attachmentAtCharIndex:{index), "isPartitioned"}];
   }
 
   lineFragmentArray = [(TSWPColumn *)self lineFragmentArray];
-  v14 = TSWPLineFragmentArray::count(*lineFragmentArray);
-  if (!v14)
+  v15 = TSWPLineFragmentArray::count(*lineFragmentArray);
+  if (!v15)
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v15 = v14;
-  v16 = 0;
+  v16 = v15;
+  v17 = 0;
   while (1)
   {
-    v17 = TSWPLineFragmentArray::objectAtIndex(*lineFragmentArray, v16);
-    v18 = *(v17 + 8);
-    v19 = index == *v17 && v7 == index;
-    v20 = index - *v17 < v18 && index >= *v17;
-    v21 = !(v12 & (index == *v17));
-    v22 = v18 + *v17;
-    v23 = v22 == index && !(v12 & (index == *v17) & ((*(v17 + 24) & 0x200u) >> 9));
-    v24 = v22;
-    if (v11 | v21)
+    v18 = TSWPLineFragmentArray::objectAtIndex(*lineFragmentArray, v17);
+    v19 = *(v18 + 8);
+    v20 = index == *v18 && v7 == index;
+    v21 = index - *v18 < v19 && index >= *v18;
+    v22 = !(v13 & (index == *v18));
+    v23 = v19 + *v18;
+    v24 = v23 == index && !(v13 & (index == *v18) & ((*(v18 + 24) & 0x200u) >> 9));
+    v25 = v23;
+    if (v12 | v22)
     {
-      v25 = v11 & v12 & (index == *v17) & ((*(v17 + 24) & 0x200u) >> 9);
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    if (v11 | v21)
-    {
-      v23 = 0;
-    }
-
-    if (v24 == index && (eolCopy && v25 & 1 | ((v12 & (index == *v17) & ((*(v17 + 24) & 0x200u) >> 9)) == 0) || v7 == index))
-    {
-      v26 = (*(v17 + 24) & 0x100) != 0 ? 0 : v11 ^ 1;
+      v26 = v12 & v13 & (index == *v18) & ((*(v18 + 24) & 0x200u) >> 9);
     }
 
     else
@@ -1947,18 +1937,33 @@ LABEL_6:
       v26 = 0;
     }
 
-    if (((v20 & (v21 | ((*(v17 + 24) & 0x200u) >> 9)) | v19 | v23 | v25) & 1) != 0 || v26)
+    if (v12 | v22)
+    {
+      v24 = 0;
+    }
+
+    if (v25 == index && (eolCopy && v26 & 1 | ((v13 & (index == *v18) & ((*(v18 + 24) & 0x200u) >> 9)) == 0) || v7 == index))
+    {
+      v27 = (*(v18 + 24) & 0x100) != 0 ? 0 : v12 ^ 1;
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    if (((v21 & (v22 | ((*(v18 + 24) & 0x200u) >> 9)) | v20 | v24 | v26) & 1) != 0 || v27)
     {
       break;
     }
 
-    if (v15 == ++v16)
+    if (v16 == ++v17)
     {
       return 0x7FFFFFFFFFFFFFFFLL;
     }
   }
 
-  return v16;
+  return v17;
 }
 
 - (CGRect)caretRectForSelection:(id)selection
@@ -2000,7 +2005,7 @@ LABEL_6:
   {
     v24 = [(TSWPStorage *)self->_storage characterAtIndex:range - 1];
     v25 = v24;
-    v26 = IsParagraphBreakingCharacter(v24);
+    v27 = IsParagraphBreakingCharacter(v24, v26);
     if (v25 == 8232)
     {
       v23 = 1;
@@ -2008,77 +2013,76 @@ LABEL_6:
 
     else
     {
-      v23 = v26;
+      v23 = v27;
     }
   }
 
   if (range == v19)
   {
-    v27 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v27 = [-[TSWPStorage attachmentAtCharIndex:](self->_storage attachmentAtCharIndex:{range), "isPartitioned"}];
+    v28 = [-[TSWPStorage attachmentAtCharIndex:](self->_storage attachmentAtCharIndex:{range), "isPartitioned"}];
   }
 
-  if (range >= startCharIndex && range - startCharIndex < characterCount && (range <= startCharIndex ? (v28 = range == v17) : (v28 = 1), !v28 ? (v29 = 0) : (v29 = 1), v29 & 1 | (((caretAffinity == 1) | v27 & 1) == 0) | v23 & 1) || (!v23 ? (v30 = (caretAffinity == 1) | v27) : (v30 = v27), range == characterCount + startCharIndex && v30 & 1 | (range == v19)))
+  if (range >= startCharIndex && range - startCharIndex < characterCount && (range <= startCharIndex ? (v29 = range == v17) : (v29 = 1), !v29 ? (v30 = 0) : (v30 = 1), v30 & 1 | (((caretAffinity == 1) | v28 & 1) == 0) | v23 & 1) || (!v23 ? (v31 = (caretAffinity == 1) | v28) : (v31 = v28), range == characterCount + startCharIndex && v31 & 1 | (range == v19)))
   {
-    v31 = [(TSWPColumn *)self lineIndexForCharIndex:range eol:(caretAffinity == 1) | (v27 & 1)];
-    if (v31 < [(TSWPColumn *)self countLines])
+    v32 = [(TSWPColumn *)self lineIndexForCharIndex:range eol:(caretAffinity == 1) | (v28 & 1)];
+    if (v32 < [(TSWPColumn *)self countLines])
     {
-      v32 = [(TSWPColumn *)self lineFragmentAtIndex:v31];
-      if (!v32)
+      v33 = [(TSWPColumn *)self lineFragmentAtIndex:v32];
+      if (!v33)
       {
         [objc_msgSend(MEMORY[0x277D6C290] "currentHandler")];
       }
 
-      v50 = 0;
-      v33 = TSWPLineFragment::fontAtCharIndex(v32, range - ((range > v17) & (v23 ^ 1u)), &v50);
-      v34 = [(TSWPStorage *)self->_storage characterStyleAtCharIndex:range left:v23 ^ 1u effectiveRange:0];
-      v35 = [(TSWPStyleProvider *)[(TSWPColumn *)self styleProvider] paragraphStyleAtParIndex:[(TSWPStorage *)self->_storage paragraphIndexAtCharIndex:range] effectiveRange:0];
-      if (v33)
+      v51 = 0;
+      v34 = TSWPLineFragment::fontAtCharIndex(v33, range - ((range > v17) & (v23 ^ 1u)), &v51);
+      v35 = [(TSWPStorage *)self->_storage characterStyleAtCharIndex:range left:v23 ^ 1u effectiveRange:0];
+      v36 = [(TSWPStyleProvider *)[(TSWPColumn *)self styleProvider] paragraphStyleAtParIndex:[(TSWPStorage *)self->_storage paragraphIndexAtCharIndex:range] effectiveRange:0];
+      if (v34)
       {
         FontForStyle = 0;
       }
 
       else
       {
-        FontForStyle = TSWPFastCreateFontForStyle(v34, v35, self->_scaleTextPercent);
-        v33 = FontForStyle;
+        FontForStyle = TSWPFastCreateFontForStyle(v35, v36, self->_scaleTextPercent);
         if (!FontForStyle)
         {
           goto LABEL_50;
         }
       }
 
-      v49 = 0u;
-      memset(&v48, 0, sizeof(v48));
-      TSWPFontHeightInfoForFont(v33, &v48);
-      v37 = TSWPResolvePropertyForStyles(v34, v35, 33, 0);
-      if (v37)
+      v50 = 0u;
+      memset(&v49, 0, sizeof(v49));
+      TSWPFontHeightInfoForFont(&v49);
+      v38 = TSWPResolvePropertyForStyles(v35, v36, 33, 0);
+      if (v38)
       {
-        [v37 doubleValue];
-        v39 = v38;
+        [v38 doubleValue];
+        v40 = v39;
       }
 
       else
       {
-        v39 = 0.0;
+        v40 = 0.0;
       }
 
-      TSWPLineFragment::wpOffsetForInsertionPoint(v32, [selectionCopy insertionChar], objc_msgSend(selectionCopy, "leadingEdge"), objc_msgSend(selectionCopy, "isVisual"), 0);
-      v9 = v40;
-      v41 = *(v32 + 4) + *(v32 + 5) - v39;
-      v46 = 0.0;
+      TSWPLineFragment::wpOffsetForInsertionPoint(v33, [selectionCopy insertionChar], objc_msgSend(selectionCopy, "leadingEdge"), objc_msgSend(selectionCopy, "isVisual"), 0);
+      v9 = v41;
+      v42 = *(v33 + 4) + *(v33 + 5) - v40;
       v47 = 0.0;
-      v44 = 0.0;
+      v48 = 0.0;
       v45 = 0.0;
-      v43 = 0.0;
-      if (TSWPLineFragment::isInsideTateChuYokoLineAtCharIndex(v32, range, &v47, &v46, &v45, &v44, &v43))
+      v46 = 0.0;
+      v44 = 0.0;
+      if (TSWPLineFragment::isInsideTateChuYokoLineAtCharIndex(v33, range, &v48, &v47, &v46, &v45, &v44))
       {
-        v10 = floor(v41 + v46 * 0.5 - v47);
-        v11 = v45 + v44 + v43;
+        v10 = floor(v42 + v47 * 0.5 - v48);
+        v11 = v46 + v45 + v44;
         v9 = v9 - v11;
         v12 = 0.0;
         if (!FontForStyle)
@@ -2089,14 +2093,14 @@ LABEL_6:
         goto LABEL_49;
       }
 
-      if ([(TSWPColumn *)self textIsVertical]&& !v50)
+      if ([(TSWPColumn *)self textIsVertical]&& !v51)
       {
-        v48.c = (v48.c + v48.d) * 0.5;
-        v48.d = v48.c;
+        v49.c = (v49.c + v49.d) * 0.5;
+        v49.d = v49.c;
       }
 
-      v10 = floor(v41 - v48.c - v48.tx);
-      v12 = ceil(v41 + v48.d) - v10;
+      v10 = floor(v42 - v49.c - v49.tx);
+      v12 = ceil(v42 + v49.d) - v10;
       v11 = 0.0;
       if (FontForStyle)
       {
@@ -2107,12 +2111,12 @@ LABEL_49:
   }
 
 LABEL_50:
-  [(TSWPColumn *)self transformFromWP];
-  v51.origin.x = v9;
-  v51.origin.y = v10;
-  v51.size.width = v11;
-  v51.size.height = v12;
-  return CGRectApplyAffineTransform(v51, &v48);
+  objc_msgSend_transformFromWP(self);
+  v52.origin.x = v9;
+  v52.origin.y = v10;
+  v52.size.width = v11;
+  v52.size.height = v12;
+  return CGRectApplyAffineTransform(v52, &v49);
 }
 
 - (CGRect)glyphRectForRange:(_NSRange)range includingLabel:(BOOL)label
@@ -2379,7 +2383,7 @@ LABEL_50:
     {
       if (self)
       {
-        [(TSWPColumn *)self transformFromWP];
+        objc_msgSend_transformFromWP(self);
       }
 
       else
@@ -2643,7 +2647,7 @@ LABEL_50:
   if (self)
   {
 LABEL_6:
-    [(TSWPColumn *)self transformFromWP];
+    objc_msgSend_transformFromWP(self);
   }
 
   else
@@ -2717,7 +2721,7 @@ LABEL_6:
   if (self)
   {
 LABEL_6:
-    [(TSWPColumn *)self transformFromWP];
+    objc_msgSend_transformFromWP(self);
   }
 
   else
@@ -3234,7 +3238,7 @@ LABEL_77:
         v94 = v93;
         if (self)
         {
-          [(TSWPColumn *)self transformFromWP];
+          objc_msgSend_transformFromWP(self);
         }
 
         else
@@ -3522,17 +3526,17 @@ LABEL_11:
 {
   foundCopy = found;
   charCopy = char;
-  v40 = 1;
+  v41 = 1;
   if (self)
   {
     y = point.y;
     x = point.x;
-    [(TSWPColumn *)self transformToWP];
+    objc_msgSend_transformToWP(self, a2);
     point.y = y;
     point.x = x;
-    v17 = *v37;
-    v16 = v38;
-    v18 = v39;
+    v17 = *v38;
+    v16 = v39;
+    v18 = v40;
   }
 
   else
@@ -3543,37 +3547,37 @@ LABEL_11:
   }
 
   v19 = vaddq_f64(v18, vmlaq_n_f64(vmulq_n_f64(v16, point.y), v17, point.x));
-  v37[0] = 0;
+  v38[0] = 0;
   if (line)
   {
     *line = 0;
   }
 
-  v20 = [(TSWPColumn *)self charIndexFromWPPoint:charCopy pastCenterGoesToNextChar:foundCopy allowNotFound:v37 outFragment:&v40 leadingEdge:*&v19];
+  v20 = [(TSWPColumn *)self charIndexFromWPPoint:charCopy pastCenterGoesToNextChar:foundCopy allowNotFound:v38 outFragment:&v41 leadingEdge:*&v19];
   v21 = v20;
-  if (v37[0] && v20 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v38[0] && v20 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v22 = *(v37[0] + 1);
+    v22 = *(v38[0] + 1);
     if (v22)
     {
-      v23 = v20 + !v40;
-      if (v23 == v22 + *v37[0])
+      v23 = v20 + !v41;
+      if (v23 == v22 + *v38[0])
       {
-        v24 = v23 - 1;
+        v24 = (v23 - 1);
         v25 = [(TSWPStorage *)self->_storage characterAtIndex:v23 - 1];
         v26 = v25;
-        v27 = IsParagraphBreakingCharacter(v25);
+        v28 = IsParagraphBreakingCharacter(v25, v27);
         if (v26 == 8232)
         {
-          v28 = 1;
+          v29 = 1;
         }
 
         else
         {
-          v28 = v27;
+          v29 = v28;
         }
 
-        if (v28 != 1 || break)
+        if (v29 != 1 || break)
         {
           if (line)
           {
@@ -3583,7 +3587,7 @@ LABEL_11:
 
         else
         {
-          v40 = 1;
+          v41 = 1;
           v21 = v24;
         }
       }
@@ -3591,29 +3595,29 @@ LABEL_11:
 
     if (fragment)
     {
-      *fragment = v37[0];
+      *fragment = v38[0];
     }
   }
 
   if (edge)
   {
-    *edge = v40;
+    *edge = v41;
     return v21;
   }
 
-  if (!v40 && v21 != 0x7FFFFFFFFFFFFFFFLL)
+  if (!v41 && v21 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (!v37[0])
+    if (!v38[0])
     {
       p_storage = &self->_storage;
       goto LABEL_34;
     }
 
-    v30 = TSWPLineFragment::writingDirectionForCharIndex(v37[0], v21);
-    v31 = v37[0];
-    if (break || ((*(v37[0] + 25) & 0x10) != 0 ? (v32 = TSWPLineFragment::rightMostCharIndex(v37[0])) : (v32 = TSWPLineFragment::leftMostCharIndex(v37[0])), (v34 = v32, v31 = v37[0], v21 != v34) || (v30 != 1) != (*(v37[0] + 25) & 0x10) >> 4))
+    v31 = TSWPLineFragment::writingDirectionForCharIndex(v38[0], v21);
+    v32 = v38[0];
+    if (break || ((*(v38[0] + 25) & 0x10) != 0 ? (v33 = TSWPLineFragment::rightMostCharIndex(v38[0])) : (v33 = TSWPLineFragment::leftMostCharIndex(v38[0])), (v35 = v33, v32 = v38[0], v21 != v35) || (v31 != 1) != (*(v38[0] + 25) & 0x10) >> 4))
     {
-      p_storage = (v31 + 184);
+      p_storage = (v32 + 184);
 LABEL_34:
       if (*p_storage)
       {
@@ -3632,7 +3636,7 @@ LABEL_34:
   {
     y = point.y;
     x = point.x;
-    [(TSWPColumn *)self transformToWP];
+    objc_msgSend_transformToWP(self, a2);
     point.y = y;
     point.x = x;
     v7 = v54;
@@ -4368,7 +4372,7 @@ LABEL_40:
   v46 = v45;
   v48 = v47;
   v50 = v49;
-  [(TSWPColumn *)self transformToWP];
+  objc_msgSend_transformToWP(self);
   v98.origin.x = v44;
   v98.origin.y = v46;
   v98.size.width = v48;

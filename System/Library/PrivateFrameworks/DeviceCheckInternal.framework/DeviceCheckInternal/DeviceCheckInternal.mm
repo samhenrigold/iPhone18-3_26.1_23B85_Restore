@@ -1,13 +1,13 @@
-id sub_100000F04()
+id sub_100000F04(uint64_t a1)
 {
   if (qword_100010CF0 != -1)
   {
     sub_100006338();
   }
 
-  v1 = qword_100010CF8;
+  v2 = qword_100010CF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000011C0(id a1)
@@ -24,25 +24,25 @@ void sub_1000013C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000013F0(uint64_t a1)
+void sub_1000013F0(uint64_t a1, uint64_t a2)
 {
   if (qword_100010CE8 != -1)
   {
     sub_1000062D4();
   }
 
-  v2 = qword_100010CE0;
+  v3 = qword_100010CE0;
   if (os_log_type_enabled(qword_100010CE0, OS_LOG_TYPE_DEBUG))
   {
-    v3 = v2;
+    v4 = v3;
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v5 = 136315650;
-    v6 = "DCXPCListener.m";
-    v7 = 1024;
-    v8 = 85;
-    v9 = 2112;
-    v10 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d Invalidated connection. { connection=%@ }", &v5, 0x1Cu);
+    v6 = 136315650;
+    v7 = "DCXPCListener.m";
+    v8 = 1024;
+    v9 = 85;
+    v10 = 2112;
+    v11 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d Invalidated connection. { connection=%@ }", &v6, 0x1Cu);
   }
 }
 
@@ -76,15 +76,15 @@ void sub_100001774(id a1)
 void sub_100001C3C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -92,8 +92,6 @@ void sub_100001C3C(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
     AppAttest_AppAttestation_CreateKey();
   }
 
@@ -104,14 +102,14 @@ void sub_100001C3C(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 104;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -119,15 +117,15 @@ void sub_100001C3C(uint64_t a1)
 void sub_100001E9C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -135,9 +133,6 @@ void sub_100001E9C(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
     AppAttest_AppAttestation_CreateKeyWithTeamIdentifier();
   }
 
@@ -148,14 +143,14 @@ void sub_100001E9C(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 124;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -163,15 +158,15 @@ void sub_100001E9C(uint64_t a1)
 void sub_100002128(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -179,10 +174,6 @@ void sub_100002128(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
     AppAttest_AppAttestation_AttestKey();
   }
 
@@ -193,14 +184,14 @@ void sub_100002128(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 144;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -208,15 +199,15 @@ void sub_100002128(uint64_t a1)
 void sub_1000023D8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 72));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -224,11 +215,6 @@ void sub_1000023D8(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
     AppAttest_AppAttestation_AttestKeyWithTeamIdentifier();
   }
 
@@ -239,29 +225,29 @@ void sub_1000023D8(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 164;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
 
 void sub_100002634(uint64_t a1)
 {
-  v16 = -1;
+  v14 = -1;
   v2 = *(a1 + 32);
-  v15 = 0;
-  v3 = sub_100005E34(@"appattest-webauthn", v2, &v16, &v15);
-  v4 = v15;
+  v13 = 0;
+  v3 = sub_100005E34(@"appattest-webauthn", v2, &v14, &v13);
+  v4 = v13;
   v5 = v4;
   if (v3)
   {
-    v6 = v16 == 0;
+    v6 = v14 == 0;
   }
 
   else
@@ -282,21 +268,19 @@ void sub_100002634(uint64_t a1)
       v9 = v8;
       v10 = [v5 localizedDescription];
       *buf = 136315906;
-      v18 = "DCClientHandler.m";
-      v19 = 1024;
-      v20 = 184;
-      v21 = 2112;
-      v22 = v10;
-      v23 = 1024;
-      v24 = v16;
+      v16 = "DCClientHandler.m";
+      v17 = 1024;
+      v18 = 184;
+      v19 = 2112;
+      v20 = v10;
+      v21 = 1024;
+      v22 = v14;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Failed to fetch key from keychain. { error=%@, err=%d }", buf, 0x22u);
     }
   }
 
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  v14 = *(a1 + 56);
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 56);
+  v11 = *(a1 + 32);
   AppAttest_WebAuthentication_AttestKey();
 }
 
@@ -410,16 +394,16 @@ void sub_100002CB8(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v20 = -1;
+    v19 = -1;
     v3 = *(a1 + 32);
     v4 = *(a1 + 64);
-    v19 = 0;
-    v5 = sub_100005C28(@"appattest-device", v3, v4, &v20, &v19);
-    v6 = v19;
+    v18 = 0;
+    v5 = sub_100005C28(@"appattest-device", v3, v4, &v19, &v18);
+    v6 = v18;
     v7 = v6;
     if (v5)
     {
-      v8 = v20 == 0;
+      v8 = v19 == 0;
     }
 
     else
@@ -446,7 +430,7 @@ void sub_100002CB8(uint64_t a1)
         *&buf[18] = 2112;
         *&buf[20] = v12;
         *&buf[28] = 1024;
-        *&buf[30] = v20;
+        *&buf[30] = v19;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Failed to fetch key from keychain. { error=%@, err=%d }", buf, 0x22u);
       }
     }
@@ -456,7 +440,7 @@ void sub_100002CB8(uint64_t a1)
     v14 = v13;
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else
@@ -464,9 +448,8 @@ void sub_100002CB8(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 48);
-    v17 = *(a1 + 32);
+    v17 = *(a1 + 48);
+    v16 = *(a1 + 32);
     AppAttest_DeviceAttestation_AttestKeyWithAuditToken();
   }
 
@@ -606,15 +589,15 @@ void sub_1000032F8(uint64_t a1)
 void sub_100003454(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -622,10 +605,6 @@ void sub_100003454(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
     AppAttest_AppAttestation_Assert();
   }
 
@@ -636,14 +615,14 @@ void sub_100003454(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 277;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -651,15 +630,15 @@ void sub_100003454(uint64_t a1)
 void sub_100003704(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 72));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -667,11 +646,6 @@ void sub_100003704(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
     AppAttest_AppAttestation_AssertWithTeamIdentifier();
   }
 
@@ -682,14 +656,14 @@ void sub_100003704(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 297;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -697,15 +671,15 @@ void sub_100003704(uint64_t a1)
 void sub_1000039B8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 72));
-  v3 = WeakRetained;
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     memset(buf, 0, 32);
-    v4 = [WeakRetained connection];
-    v5 = v4;
-    if (v4)
+    v3 = [WeakRetained connection];
+    v4 = v3;
+    if (v3)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     else
@@ -713,11 +687,6 @@ void sub_1000039B8(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
     AppAttest_AppAttestation_SignWithTeamIdentifier();
   }
 
@@ -728,14 +697,14 @@ void sub_1000039B8(uint64_t a1)
       sub_1000062FC();
     }
 
-    v6 = qword_100010D00;
+    v5 = qword_100010D00;
     if (os_log_type_enabled(qword_100010D00, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "DCClientHandler.m";
       *&buf[12] = 1024;
       *&buf[14] = 317;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create strong reference to self.", buf, 0x12u);
     }
   }
 }
@@ -759,7 +728,7 @@ void sub_100003E40(uint64_t a1)
     v5 = v4;
     if (v4)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v4);
     }
 
     else
@@ -801,7 +770,7 @@ void sub_1000040E0(uint64_t a1)
     v5 = v4;
     if (v4)
     {
-      [v4 auditToken];
+      objc_msgSend_auditToken(v4);
     }
 
     else
@@ -809,12 +778,7 @@ void sub_1000040E0(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 56);
-    v12 = v10;
+    v7 = *(a1 + 64);
     AppAttest_AppAttestation_GetKey();
   }
 

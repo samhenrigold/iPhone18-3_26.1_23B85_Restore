@@ -63,7 +63,7 @@ LABEL_47:
   v17 = sourceFrame4;
   if (sourceFrame4)
   {
-    [sourceFrame4 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(sourceFrame4);
   }
 
   else
@@ -106,7 +106,7 @@ LABEL_58:
   v27 = nextFrame3;
   if (nextFrame3)
   {
-    [nextFrame3 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(nextFrame3);
   }
 
   else
@@ -402,7 +402,7 @@ LABEL_26:
     }
   }
 
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732317268);
   v15 = [GGMController alloc];
   OUTLINED_FUNCTION_0_1();
   v17 = [v16 initWithFrameWidth:? FrameHeight:? usePrecomputedFlow:?];
@@ -427,7 +427,7 @@ LABEL_29:
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732317664);
   if (!self->_usePrecomputedFlow && self->_acceptsOpticalFlow)
   {
     [(OpticalFlowProcessor *)self->_opticalFlowProcessor setStreamingMode:1];

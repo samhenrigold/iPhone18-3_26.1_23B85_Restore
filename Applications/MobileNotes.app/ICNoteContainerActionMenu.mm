@@ -89,7 +89,7 @@
   itemCopy = item;
   managerCopy = manager;
   v17 = sub_10039740C(containerCopy, controllerCopy, item, managerCopy, v11, v12);
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v17;
 }
@@ -118,13 +118,13 @@
   v18 = controllerCopy;
   v19 = itemCopy;
   v20 = managerCopy;
-  sub_100010854(v11);
+  sub_100010854(v11, v12);
   v21 = v24(v17, v18, item, v20, v11, v12);
   type metadata accessor for NoteContainerActionMenu();
   sub_100397734();
   v22.super.super.isa = ActionMenuProvider.makeMenu(deferredChildren:)(1).super.super.isa;
 
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v22.super.super.isa;
 }
@@ -153,13 +153,13 @@
   v19 = controllerCopy;
   v20 = itemCopy;
   v21 = managerCopy;
-  sub_100010854(v12);
+  sub_100010854(v12, v13);
   v22 = v25(v18, v19, item, v21, v12, v13);
   type metadata accessor for NoteContainerActionMenu();
   sub_100397734();
   v23.super.super.isa = ActionMenuProvider.makeMenu(deferredChildren:)(children).super.super.isa;
 
-  sub_10000C840(v12);
+  sub_10000C840(v12, v13);
 
   return v23.super.super.isa;
 }
@@ -184,7 +184,7 @@
   itemCopy = item;
   managerCopy = manager;
   v17 = sub_1003975A0(folderCopy, controllerCopy, item, managerCopy, v11, v12);
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v17;
 }
@@ -213,13 +213,13 @@
   v18 = controllerCopy;
   v19 = itemCopy;
   v20 = managerCopy;
-  sub_100010854(v11);
+  sub_100010854(v11, v12);
   v21 = v24(v17, v18, item, v20, v11, v12);
   type metadata accessor for NoteContainerActionMenu();
   sub_100397734();
   v22.super.super.isa = ActionMenuProvider.makeMenu(deferredChildren:)(1).super.super.isa;
 
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v22.super.super.isa;
 }
@@ -248,13 +248,13 @@
   v19 = controllerCopy;
   v20 = itemCopy;
   v21 = managerCopy;
-  sub_100010854(v12);
+  sub_100010854(v12, v13);
   v22 = v25(v18, v19, item, v21, v12, v13);
   type metadata accessor for NoteContainerActionMenu();
   sub_100397734();
   v23.super.super.isa = ActionMenuProvider.makeMenu(deferredChildren:)(children).super.super.isa;
 
-  sub_10000C840(v12);
+  sub_10000C840(v12, v13);
 
   return v23.super.super.isa;
 }
@@ -306,10 +306,11 @@
 
   v7 = (self + OBJC_IVAR___ICNoteContainerActionMenu_completion);
   v8 = *(self + OBJC_IVAR___ICNoteContainerActionMenu_completion);
+  v9 = *(self + OBJC_IVAR___ICNoteContainerActionMenu_completion + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (id)menuSections
@@ -317,7 +318,7 @@
   selfCopy = self;
   sub_100393518();
 
-  sub_1000054A4(0, &qword_1006C6400);
+  sub_1000054A4(0, &qword_1006C6400, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -342,7 +343,7 @@
 - (id)debugSectionMenu
 {
   selfCopy = self;
-  v3 = sub_100393A14();
+  v3 = sub_100393A14(selfCopy);
 
   return v3;
 }

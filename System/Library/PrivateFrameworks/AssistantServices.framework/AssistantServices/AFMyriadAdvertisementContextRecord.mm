@@ -19,7 +19,7 @@
 
 - (id)_deviceIDFromBytes:(const unsigned __int8 *)(a3
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (uuid_is_null(a3))
   {
     goto LABEL_2;
@@ -39,7 +39,6 @@ LABEL_2:
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v5];
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -80,7 +79,7 @@ LABEL_5:
 
 - (void)_initializeMyriadAdvertisementContextRecordFromData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [dataCopy length];
   if (dataCopy && v5)
@@ -90,11 +89,11 @@ LABEL_5:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       advertisementContextVersion = self->_advertisementContextVersion;
-      v15 = 136315394;
-      v16 = "[AFMyriadAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
-      v17 = 1024;
-      LODWORD(v18) = advertisementContextVersion;
-      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Initializing Myriad advertisement context (version: %d)", &v15, 0x12u);
+      v14 = 136315394;
+      v15 = "[AFMyriadAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
+      v16 = 1024;
+      LODWORD(v17) = advertisementContextVersion;
+      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Initializing Myriad advertisement context (version: %d)", &v14, 0x12u);
     }
 
     self->_advertisementRecordType = [(AFMyriadAdvertisementContextRecord *)self _getAdvertisementRecordTypeForVersion:self->_advertisementContextVersion data:dataCopy];
@@ -114,24 +113,22 @@ LABEL_5:
     v13 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315394;
-      v16 = "[AFMyriadAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
-      v17 = 2112;
-      v18 = dataCopy;
-      _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s #myriad-advertisementcontext: Received wedged Myriad advertisement context record %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[AFMyriadAdvertisementContextRecord _initializeMyriadAdvertisementContextRecordFromData:]";
+      v16 = 2112;
+      v17 = dataCopy;
+      _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s #myriad-advertisementcontext: Received wedged Myriad advertisement context record %@", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getDeviceIdForVersion:(unsigned __int8)version data:(id)data
 {
   versionCopy = version;
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v13[0] = 0;
-  v13[1] = 0;
+  v12[0] = 0;
+  v12[1] = 0;
   v7 = [dataCopy length];
   if ((versionCopy - 1) > 1)
   {
@@ -146,8 +143,8 @@ LABEL_5:
   {
     v8 = 17;
 LABEL_6:
-    [dataCopy getBytes:v13 range:{v8, 16}];
-    v9 = [(AFMyriadAdvertisementContextRecord *)self _deviceIDFromBytes:v13];
+    [dataCopy getBytes:v12 range:{v8, 16}];
+    v9 = [(AFMyriadAdvertisementContextRecord *)self _deviceIDFromBytes:v12];
     goto LABEL_8;
   }
 
@@ -155,27 +152,23 @@ LABEL_6:
 LABEL_8:
   v10 = [v9 copy];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)_getMyriadAdvertisementDataForVersion:(unsigned __int8)version data:(id)data
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = [(AFMyriadAdvertisementContextRecord *)self _advertisementPayloadSizeForVersion:self->_advertisementContextVersion];
   MEMORY[0x1EEE9AC00]();
-  v8 = v12 - v7;
-  bzero(v12 - v7, v6);
+  v8 = v11 - v7;
+  bzero(v11 - v7, v6);
   if ([dataCopy length] >= v6 + 10)
   {
     [dataCopy getBytes:v8 range:{10, v6}];
   }
 
   v9 = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:v6];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -223,20 +216,20 @@ LABEL_8:
 
 - (BOOL)isSaneForVoiceTriggerEndTime:(double)time endtimeDistanceThreshold:(double)threshold
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (time <= 0.0)
   {
     v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315394;
-      v16 = "[AFMyriadAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
-      v17 = 2048;
-      *v18 = time;
-      _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s Invalid Voicetrigger endtime: %f", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[AFMyriadAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
+      v16 = 2048;
+      *v17 = time;
+      _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s Invalid Voicetrigger endtime: %f", &v14, 0x16u);
     }
 
-    v9 = 0;
+    return 0;
   }
 
   else
@@ -258,31 +251,30 @@ LABEL_8:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       advertisementPayload = self->_advertisementPayload;
-      v15 = 136316674;
-      v16 = "[AFMyriadAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
-      v17 = 1024;
-      *v18 = v8 <= v6;
-      *&v18[4] = 2048;
-      *&v18[6] = v6;
-      v19 = 2048;
+      v14 = 136316674;
+      v15 = "[AFMyriadAdvertisementContextRecord isSaneForVoiceTriggerEndTime:endtimeDistanceThreshold:]";
+      v16 = 1024;
+      *v17 = v8 <= v6;
+      *&v17[4] = 2048;
+      *&v17[6] = v6;
+      v18 = 2048;
       timeCopy = time;
-      v21 = 2048;
-      v22 = voiceTriggerEndTime;
-      v23 = 2048;
-      v24 = v8;
-      v25 = 2112;
-      v26 = advertisementPayload;
-      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s VoicetriggerEndtime isSane: %d (threshold: %f, me: %f, other: %f, abs-diff: %f adv: %@)", &v15, 0x44u);
+      v20 = 2048;
+      v21 = voiceTriggerEndTime;
+      v22 = 2048;
+      v23 = v8;
+      v24 = 2112;
+      v25 = advertisementPayload;
+      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s VoicetriggerEndtime isSane: %d (threshold: %f, me: %f, other: %f, abs-diff: %f adv: %@)", &v14, 0x44u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)myriadAdvertisementContextAsData
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   data = [MEMORY[0x1E695DF88] data];
   v4 = [(AFMyriadAdvertisementContextRecord *)self _advertisementPayloadSizeForVersion:self->_advertisementContextVersion];
   v5 = &buf[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -293,32 +285,30 @@ LABEL_8:
     [(NSData *)self->_advertisementPayload getBytes:v5 length:v4];
   }
 
-  v17[0] = 0;
-  v17[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
   deviceID = self->_deviceID;
   if (deviceID)
   {
-    [(NSUUID *)deviceID getUUIDBytes:v17];
+    [(NSUUID *)deviceID getUUIDBytes:v16];
   }
 
   [data appendBytes:&self->_advertisementContextVersion length:1];
   [data appendBytes:&self->_advertisementRecordType length:1];
   [data appendBytes:&self->_voiceTriggerEndTime length:8];
   [data appendBytes:v5 length:v4];
-  [data appendBytes:v17 length:16];
+  [data appendBytes:v16 length:16];
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v9 = v8;
     v10 = [data length];
     *buf = 136315394;
-    v14 = "[AFMyriadAdvertisementContextRecord myriadAdvertisementContextAsData]";
-    v15 = 2048;
-    v16 = v10;
+    v13 = "[AFMyriadAdvertisementContextRecord myriadAdvertisementContextAsData]";
+    v14 = 2048;
+    v15 = v10;
     _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s Generated Myriad advertisement context data: %lu bytes", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return data;
 }

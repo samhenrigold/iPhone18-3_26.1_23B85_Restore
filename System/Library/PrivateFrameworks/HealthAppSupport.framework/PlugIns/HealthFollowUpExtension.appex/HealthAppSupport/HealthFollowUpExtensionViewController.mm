@@ -4,6 +4,7 @@
 - (id)makeHealthStore;
 - (id)makeHealthViewControllerToPresent;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HealthFollowUpExtensionViewController
@@ -15,6 +16,43 @@
   v2 = [NSArray arrayWithObjects:v4 count:2];
 
   return v2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = HealthFollowUpExtensionViewController;
+  [(HealthFollowUpExtensionViewController *)&v12 viewDidAppear:appear];
+  _HKInitializeLogging();
+  v4 = HKLogDefault;
+  if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v4;
+    v6 = objc_opt_class();
+    activeItem = self->_activeItem;
+    activeAction = self->_activeAction;
+    *buf = 138412802;
+    v14 = v6;
+    v15 = 2112;
+    v16 = activeItem;
+    v17 = 2112;
+    v18 = activeAction;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] Attempting to present view controller for item %@, action %@", buf, 0x20u);
+  }
+
+  makeHealthViewControllerToPresent = [(HealthFollowUpExtensionViewController *)self makeHealthViewControllerToPresent];
+  if (makeHealthViewControllerToPresent)
+  {
+    v11 = [[UINavigationController alloc] initWithRootViewController:makeHealthViewControllerToPresent];
+    [v11 setModalInPresentation:1];
+    [(HealthFollowUpExtensionViewController *)self presentViewController:v11 animated:1 completion:0];
+  }
+
+  else
+  {
+    [(HealthFollowUpExtensionViewController *)self finishProcessing];
+  }
 }
 
 - (id)makeHealthViewControllerToPresent
@@ -33,7 +71,7 @@
     v7 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      sub_100002AEC(v7);
+      sub_100002AEC(v7, self);
     }
 
     v6 = 0;
@@ -80,7 +118,7 @@
     v19 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      sub_100002B88(v19);
+      sub_100002B88(v19, self);
     }
 
     v20 = objc_opt_class();

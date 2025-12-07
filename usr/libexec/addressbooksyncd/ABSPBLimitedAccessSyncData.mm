@@ -119,44 +119,41 @@
   has = self->_has;
   if (has)
   {
-    currentSequenceNumber = self->_currentSequenceNumber;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    fullSyncRequired = self->_fullSyncRequired;
     PBDataWriterWriteBOOLField();
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v8 = self->_syncEvents;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_syncEvents;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v15;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 }
 
@@ -252,7 +249,6 @@
     goto LABEL_12;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_currentSequenceNumber != *(equalCopy + 1))
@@ -274,7 +270,7 @@
     }
 
 LABEL_12:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
@@ -283,7 +279,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v9 = *(equalCopy + 24);
   if (self->_fullSyncRequired)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -301,17 +296,17 @@ LABEL_9:
   syncEvents = self->_syncEvents;
   if (syncEvents | *(equalCopy + 2))
   {
-    v7 = [(NSMutableArray *)syncEvents isEqual:?];
+    v6 = [(NSMutableArray *)syncEvents isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_13:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

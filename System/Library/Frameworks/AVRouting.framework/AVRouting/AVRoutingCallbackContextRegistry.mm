@@ -118,7 +118,7 @@ uint64_t __66__AVRoutingCallbackContextRegistry_registerCallbackContextObject___
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __70__AVRoutingCallbackContextRegistry_unregisterCallbackContextForToken___block_invoke(void *a1)
+void *__70__AVRoutingCallbackContextRegistry_unregisterCallbackContextForToken___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) removeObjectForKey:a1[5]];
   *(*(a1[6] + 8) + 24) = *(a1[4] + 16);

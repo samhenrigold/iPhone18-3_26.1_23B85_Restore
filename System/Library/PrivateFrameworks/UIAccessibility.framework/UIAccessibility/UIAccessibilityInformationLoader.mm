@@ -342,11 +342,11 @@ uint64_t __78__UIAccessibilityInformationLoader__loadAccessibilityInformationOnM
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __78__UIAccessibilityInformationLoader__loadAccessibilityInformationOnMainThread___block_invoke_2(uint64_t result, uint64_t a2, int a3)
+id *__78__UIAccessibilityInformationLoader__loadAccessibilityInformationOnMainThread___block_invoke_2(id *result, uint64_t a2, int a3)
 {
   if (a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

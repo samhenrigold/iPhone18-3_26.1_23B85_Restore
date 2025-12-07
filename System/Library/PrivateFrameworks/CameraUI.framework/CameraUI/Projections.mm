@@ -5,7 +5,7 @@
 
 void __Projections_projectionRows_planar8UtoF_block_invoke(uint64_t a1)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1);
   STACK[0xFF38] = *MEMORY[0x1E69E9840];
   v2 = *(v1 + 32);
   v3 = *(v2 + 6);
@@ -131,11 +131,11 @@ void __Projections_projectionRows_planar8UtoF_block_invoke(uint64_t a1)
   *(v42 + 10) = 0;
 }
 
-uint64_t __Projections_projectionCols_planar8UtoF_block_invoke(uint64_t a1)
+void __Projections_projectionCols_planar8UtoF_block_invoke(uint64_t a1)
 {
-  result = MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1);
   STACK[0x3308] = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
+  v2 = *(v1 + 32);
   v3 = *(v2 + 3);
   if (v3 >= 1)
   {
@@ -151,7 +151,7 @@ uint64_t __Projections_projectionCols_planar8UtoF_block_invoke(uint64_t a1)
         PRFM            #0x10, [SP,#0x60+var_60]
       }
 
-      result = __memcpy_chk();
+      __memcpy_chk();
       v14 = *(v2 + 6);
       switch(v14)
       {
@@ -253,7 +253,6 @@ LABEL_23:
 
 LABEL_27:
   *(v2 + 10) = 0;
-  return result;
 }
 
 @end

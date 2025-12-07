@@ -17,6 +17,7 @@
 - (NSMeasurement)aqi;
 - (NSMeasurement)temperature;
 - (unsigned)icyConditions;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -236,6 +237,80 @@
   isInvalid = [aqiCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000003000001D"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    temperatureCharacteristic = [(CAFExteriorConditions *)self temperatureCharacteristic];
+    uniqueIdentifier2 = [temperatureCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      temperature = [(CAFExteriorConditions *)self temperature];
+      [observers exteriorConditionsService:self didUpdateTemperature:temperature];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000051000005"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    icyConditionsCharacteristic = [(CAFExteriorConditions *)self icyConditionsCharacteristic];
+    uniqueIdentifier4 = [icyConditionsCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers exteriorConditionsService:self didUpdateIcyConditions:{-[CAFExteriorConditions icyConditions](self, "icyConditions")}];
+LABEL_13:
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000031000010"])
+  {
+    goto LABEL_13;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  aqiCharacteristic = [(CAFExteriorConditions *)self aqiCharacteristic];
+  uniqueIdentifier6 = [aqiCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    temperature = [(CAFExteriorConditions *)self aqi];
+    [observers exteriorConditionsService:self didUpdateAqi:temperature];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFExteriorConditions;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTemperature

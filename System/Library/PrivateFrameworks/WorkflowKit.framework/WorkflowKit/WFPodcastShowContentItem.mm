@@ -30,10 +30,9 @@
 
 + (id)contentCategories
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E6996FD8];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = *MEMORY[0x1E6996FD8];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -49,26 +48,24 @@
 
 + (id)propertyBuilders
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6996D90];
   v3 = WFLocalizedContentPropertyNameMarker(@"Feed URL");
   v4 = [v2 keyPath:@"object.feedURL" name:v3 class:objc_opt_class()];
-  v17[0] = v4;
+  v16[0] = v4;
   v5 = MEMORY[0x1E6996D90];
   v6 = WFLocalizedContentPropertyNameMarker(@"Genre");
   v7 = [v5 keyPath:@"object.genre" name:v6 class:objc_opt_class()];
-  v17[1] = v7;
+  v16[1] = v7;
   v8 = MEMORY[0x1E6996D90];
   v9 = WFLocalizedContentPropertyNameMarker(@"Episode Count");
   v10 = [v8 keyPath:@"object.trackCount" name:v9 class:objc_opt_class()];
-  v17[2] = v10;
+  v16[2] = v10;
   v11 = MEMORY[0x1E6996D90];
   v12 = WFLocalizedContentPropertyNameMarker(@"Artist");
   v13 = [v11 keyPath:@"object.artistName" name:v12 class:objc_opt_class()];
-  v17[3] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v16[3] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
 
   return v14;
 }

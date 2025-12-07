@@ -221,12 +221,12 @@
 
 - (id)queryItemsWithNamePrefix:(id)prefix
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   v5 = MEMORY[0x1E695DF70];
   v6 = [(TUConversationParticipantAssociation *)self identifierQueryItemWithNamePrefix:prefixCopy];
-  v13[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v8 = [v5 arrayWithArray:v7];
 
   avcIdentifier = [(TUConversationParticipantAssociation *)self avcIdentifier];
@@ -236,8 +236,6 @@
     v10 = [(TUConversationParticipantAssociation *)self avcIdentifierQueryItemWithNamePrefix:prefixCopy];
     [v8 addObject:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

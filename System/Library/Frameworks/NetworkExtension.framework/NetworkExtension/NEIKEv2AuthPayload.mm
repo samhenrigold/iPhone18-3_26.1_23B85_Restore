@@ -2,7 +2,8 @@
 - (BOOL)generatePayloadData;
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
-- (uint64_t)copyFullAuthenticationData;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
+- (void)copyFullAuthenticationData;
 - (void)setAuthProtocol:(uint64_t)protocol;
 - (void)setAuthenticationData:(uint64_t)data;
 @end
@@ -11,18 +12,18 @@
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] > 3)
   {
-    v48 = 0;
-    [dataCopy getBytes:&v48 length:4];
+    v47 = 0;
+    [dataCopy getBytes:&v47 length:4];
     if ([dataCopy length] == 4)
     {
       v5 = ne_log_obj();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        String = NEIKEv2AuthenticationMethodCreateString(v48);
+        String = NEIKEv2AuthenticationMethodCreateString(v47);
         *buf = 138412290;
         *&buf[4] = String;
         _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Auth payload with method %@ does not have any data", buf, 0xCu);
@@ -32,22 +33,22 @@
     }
 
     v7 = [dataCopy length] - 4;
-    if (v48 == 12)
+    if (v47 == 12)
     {
       v24 = [[NEIKEv2AuthenticationProtocol alloc] initWithSecurePassword:-1];
     }
 
     else
     {
-      if (v48 == 14)
+      if (v47 == 14)
       {
-        v47 = 0;
-        [dataCopy getBytes:&v47 range:{4, 1}];
-        v8 = v47;
-        v9 = v47 + 1;
-        if (v7 > v47)
+        v46 = 0;
+        [dataCopy getBytes:&v46 range:{4, 1}];
+        v8 = v46;
+        v9 = v46 + 1;
+        if (v7 > v46)
         {
-          v10 = [dataCopy subdataWithRange:{4, v47 + 1}];
+          v10 = [dataCopy subdataWithRange:{4, v46 + 1}];
           v11 = [NEIKEv2AuthenticationProtocol alloc];
           v12 = v10;
           v13 = v12;
@@ -75,14 +76,14 @@ LABEL_42:
                       goto LABEL_46;
                     }
 
-                    v41 = ne_log_obj();
-                    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                    v40 = ne_log_obj();
+                    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                     {
-                      v43 = self->_authProtocol;
-                      v44 = NEIKEv2DigitalSignatureAlgorithmCreateString([(NEIKEv2AuthenticationProtocol *)v43 digitalSignatureAlgorithm]);
+                      v42 = self->_authProtocol;
+                      v43 = NEIKEv2DigitalSignatureAlgorithmCreateString([(NEIKEv2AuthenticationProtocol *)v42 digitalSignatureAlgorithm]);
                       *buf = 138412290;
-                      *&buf[4] = v44;
-                      _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "Auth payload with digital signature method %@ does not have any data", buf, 0xCu);
+                      *&buf[4] = v43;
+                      _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "Auth payload with digital signature method %@ does not have any data", buf, 0xCu);
                     }
                   }
 
@@ -90,38 +91,38 @@ LABEL_42:
                 }
               }
 
-              v45 = v8;
-              v46 = v9;
+              v44 = v8;
+              v45 = v9;
               v16 = v13;
               objc_opt_self();
               v17 = [v16 bytes] + 1;
               v18 = [v16 length];
               memset(buf, 0, 32);
-              v49[0] = v17;
-              v49[1] = (v18 - 1);
-              v19 = DERParseSequenceToObject(v49, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, buf, 0x20uLL, 0x20uLL);
-              v50 = v19;
+              v48[0] = v17;
+              v48[1] = (v18 - 1);
+              v19 = DERParseSequenceToObject(v48, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, buf, 0x20uLL, 0x20uLL);
+              v49 = v19;
               if (v19)
               {
-                v40 = v19;
-                v32 = ne_log_obj();
-                if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                v39 = v19;
+                v31 = ne_log_obj();
+                if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_73;
                 }
 
-                *v51 = 67109378;
-                *v52 = v40;
-                *&v52[4] = 2112;
-                *&v52[6] = v16;
-                v33 = "Could not parse AlgorithmIdentifier, error %d payload %@";
+                *v50 = 67109378;
+                *v51 = v39;
+                *&v51[4] = 2112;
+                *&v51[6] = v16;
+                v32 = "Could not parse AlgorithmIdentifier, error %d payload %@";
               }
 
               else
               {
-                v20 = NEIKEv2ASN1CheckForNULLItem(&buf[16], &v50);
-                v21 = v50;
-                if (!v50)
+                v20 = NEIKEv2ASN1CheckForNULLItem(&buf[16], &v49);
+                v21 = v49;
+                if (!v49)
                 {
                   v22 = v20;
                   if (DEROidCompare(buf, &oidEd25519))
@@ -134,25 +135,25 @@ LABEL_40:
 
                       v11 = [(NEIKEv2AuthenticationProtocol *)v11 initWithDigitalSignature:v23];
                       v27 = v11;
-                      v9 = v46;
+                      v9 = v45;
 LABEL_41:
-                      v8 = v45;
+                      v8 = v44;
                       goto LABEL_42;
                     }
 
-                    v32 = ne_log_obj();
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                    v31 = ne_log_obj();
+                    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                     {
-                      v42 = NEIKEv2DigitalSignatureAlgorithmCreateString(v23);
-                      *v51 = 138412546;
-                      *v52 = v42;
-                      *&v52[8] = 2112;
-                      *&v52[10] = v16;
-                      _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "Unexpected non-NULL parameters for signature algorithm %@, payload %@", v51, 0x16u);
+                      v41 = NEIKEv2DigitalSignatureAlgorithmCreateString(v23);
+                      *v50 = 138412546;
+                      *v51 = v41;
+                      *&v51[8] = 2112;
+                      *&v51[10] = v16;
+                      _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "Unexpected non-NULL parameters for signature algorithm %@, payload %@", v50, 0x16u);
                     }
 
 LABEL_73:
-                    v9 = v46;
+                    v9 = v45;
 
                     v27 = 0;
                     goto LABEL_41;
@@ -204,15 +205,15 @@ LABEL_73:
                   {
                     if (v22)
                     {
-                      v32 = ne_log_obj();
-                      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                      v31 = ne_log_obj();
+                      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                       {
                         goto LABEL_73;
                       }
 
-                      *v51 = 138412290;
-                      *v52 = v16;
-                      v33 = "Unexpected NULL parameters for RSA-PSS, payload %@";
+                      *v50 = 138412290;
+                      *v51 = v16;
+                      v32 = "Unexpected NULL parameters for RSA-PSS, payload %@";
                     }
 
                     else
@@ -223,62 +224,62 @@ LABEL_73:
                         goto LABEL_40;
                       }
 
-                      v32 = ne_log_obj();
-                      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                      v31 = ne_log_obj();
+                      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                       {
                         goto LABEL_73;
                       }
 
-                      *v51 = 138412290;
-                      *v52 = v16;
-                      v33 = "Unable to get RSA-PSS authentication protocol, payload %@";
+                      *v50 = 138412290;
+                      *v51 = v16;
+                      v32 = "Unable to get RSA-PSS authentication protocol, payload %@";
                     }
                   }
 
                   else
                   {
-                    v32 = ne_log_obj();
-                    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                    v31 = ne_log_obj();
+                    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_73;
                     }
 
-                    *v51 = 138412290;
-                    *v52 = v16;
-                    v33 = "Unrecognized digital signature AlgorithmIdentifier OID, payload %@";
+                    *v50 = 138412290;
+                    *v51 = v16;
+                    v32 = "Unrecognized digital signature AlgorithmIdentifier OID, payload %@";
                   }
 
-                  v37 = v32;
-                  v38 = 12;
+                  v36 = v31;
+                  v37 = 12;
 LABEL_70:
-                  _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, v33, v51, v38);
+                  _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, v32, v50, v37);
                   goto LABEL_73;
                 }
 
-                v32 = ne_log_obj();
-                if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                v31 = ne_log_obj();
+                if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_73;
                 }
 
-                *v51 = 67109378;
-                *v52 = v21;
-                *&v52[4] = 2112;
-                *&v52[6] = v16;
-                v33 = "Could not parse AlgorithmIdentifier parameters, error %d payload %@";
+                *v50 = 67109378;
+                *v51 = v21;
+                *&v51[4] = 2112;
+                *&v51[6] = v16;
+                v32 = "Could not parse AlgorithmIdentifier parameters, error %d payload %@";
               }
 
-              v37 = v32;
-              v38 = 18;
+              v36 = v31;
+              v37 = 18;
               goto LABEL_70;
             }
 
-            v39 = ne_log_obj();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+            v38 = ne_log_obj();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315138;
               *&buf[4] = "[NEIKEv2AuthenticationProtocol(Packet) initWithDigitalSignatureAlgorithmIdentifier:]";
-              _os_log_fault_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_FAULT, "%s called with null digitalSignatureAlgorithmIdentifier", buf, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_FAULT, "%s called with null digitalSignatureAlgorithmIdentifier", buf, 0xCu);
             }
           }
 
@@ -293,16 +294,16 @@ LABEL_70:
           *&buf[4] = v9;
           *&buf[12] = 2112;
           *&buf[14] = dataCopy;
-          v34 = "AuthData too short for AlgorithmIdentifier len %zu, payload %@";
-          v35 = v5;
-          v36 = 22;
+          v33 = "AuthData too short for AlgorithmIdentifier len %zu, payload %@";
+          v34 = v5;
+          v35 = 22;
           goto LABEL_55;
         }
 
         goto LABEL_5;
       }
 
-      v24 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:v48];
+      v24 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:v47];
     }
 
     v25 = v24;
@@ -321,11 +322,11 @@ LABEL_46:
   {
     *buf = 136315138;
     *&buf[4] = "[NEIKEv2AuthPayload parsePayloadData:]";
-    v34 = "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_auth_hdr_t))";
-    v35 = v5;
-    v36 = 12;
+    v33 = "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_auth_hdr_t))";
+    v34 = v5;
+    v35 = 12;
 LABEL_55:
-    _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, v34, buf, v36);
+    _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, v33, buf, v35);
   }
 
 LABEL_5:
@@ -334,7 +335,6 @@ LABEL_6:
   hasRequiredFields = 0;
 LABEL_47:
 
-  v30 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 
@@ -356,7 +356,7 @@ LABEL_47:
 
 - (BOOL)generatePayloadData
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     if ([0 hasRequiredFields])
@@ -398,7 +398,7 @@ LABEL_51:
         authProtocol = self->_authProtocol;
         if (!authProtocol)
         {
-          goto LABEL_55;
+          return authProtocol;
         }
 
         if (![(NEIKEv2AuthenticationProtocol *)self->_authProtocol isDigitalSignature])
@@ -410,7 +410,7 @@ LABEL_51:
           }
 
           *buf = 136315138;
-          v27 = "[NEIKEv2AuthenticationProtocol(Packet) copyDigitalSignatureAlgorithmIdentifier]";
+          v26 = "[NEIKEv2AuthenticationProtocol(Packet) copyDigitalSignatureAlgorithmIdentifier]";
           v18 = "%s called with null self.isDigitalSignature";
           goto LABEL_45;
         }
@@ -499,11 +499,11 @@ LABEL_41:
           if (v14)
           {
             authenticationData = self->_authenticationData;
-            v25[0] = v14;
-            v25[1] = authenticationData;
+            v24[0] = v14;
+            v24[1] = authenticationData;
             v16 = MEMORY[0x1E695DEC8];
             v17 = authenticationData;
-            authProtocol = [v16 arrayWithObjects:v25 count:2];
+            authProtocol = [v16 arrayWithObjects:v24 count:2];
             [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:?];
 
             LOBYTE(authProtocol) = 1;
@@ -512,7 +512,7 @@ LABEL_41:
 
 LABEL_54:
           LOBYTE(authProtocol) = 0;
-          goto LABEL_55;
+          return authProtocol;
         }
 
         if (digitalSignatureAlgorithm != 1)
@@ -536,7 +536,7 @@ LABEL_38:
           }
 
           *buf = 138412290;
-          v27 = authProtocol;
+          v26 = authProtocol;
           v18 = "Cannot create algorithm identifier for authentication protocol %@";
 LABEL_45:
           _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v18, buf, 0xCu);
@@ -552,23 +552,21 @@ LABEL_34:
 
       v8 = self->_authenticationData;
 LABEL_14:
-      v24 = v8;
+      v23 = v8;
       v9 = MEMORY[0x1E695DEC8];
       v10 = v8;
       LOBYTE(authProtocol) = 1;
-      v11 = [v9 arrayWithObjects:&v24 count:1];
+      v11 = [v9 arrayWithObjects:&v23 count:1];
       [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v11];
 
 LABEL_43:
-      goto LABEL_55;
+      return authProtocol;
     }
 
     goto LABEL_51;
   }
 
   LOBYTE(authProtocol) = 1;
-LABEL_55:
-  v21 = *MEMORY[0x1E69E9840];
   return authProtocol;
 }
 
@@ -603,7 +601,31 @@ LABEL_55:
   return selfCopy;
 }
 
-- (uint64_t)copyFullAuthenticationData
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2AuthPayload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v7 appendPrettyObject:self->_authProtocol withName:@"Authentication Protocol" andIndent:v5 options:options];
+    authenticationData = self->_authenticationData;
+  }
+
+  else
+  {
+    [v7 appendPrettyObject:0 withName:@"Authentication Protocol" andIndent:v5 options:options];
+    authenticationData = 0;
+  }
+
+  [v7 appendPrettyObject:authenticationData withName:@"Authentication Data" andIndent:v5 options:options];
+
+  return v7;
+}
+
+- (void)copyFullAuthenticationData
 {
   if (!self || (*(self + 8) & 1) != 0)
   {

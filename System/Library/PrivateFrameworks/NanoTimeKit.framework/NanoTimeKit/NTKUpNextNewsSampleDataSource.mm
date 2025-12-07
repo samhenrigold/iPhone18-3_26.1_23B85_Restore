@@ -20,7 +20,7 @@
 
 void __53__NTKUpNextNewsSampleDataSource__newCircularTemplate__block_invoke()
 {
-  if (NewsServicesLibraryCore_0())
+  if (NewsServicesLibraryCore_0(0))
   {
     v5 = 0;
     v6 = &v5;

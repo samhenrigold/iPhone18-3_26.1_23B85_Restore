@@ -3,6 +3,8 @@
 + (id)_peopleNamesFromLMQualifiers:(id)qualifiers;
 + (id)_subfieldsFromString:(id)string;
 + (id)quickTypeQueryFromLMTokens:(id)tokens localeIdentifier:(id)identifier recipients:(id)recipients bundleIdentifier:(id)bundleIdentifier;
++ (id)quickTypeQueryWithType:(unsigned __int8)type subtype:(unsigned __int8)subtype semanticTag:(unsigned __int8)tag fields:(unsigned int)fields time:(unsigned __int8)time options:(unsigned __int8)options subFields:(id)subFields label:(id)self0 people:(id)self1 localeIdentifier:(id)self2 bundleIdentifier:(id)self3 recipients:(id)self4;
++ (id)quickTypeQueryWithType:(unsigned __int8)type subtype:(unsigned __int8)subtype semanticTag:(unsigned __int8)tag fields:(unsigned int)fields time:(unsigned __int8)time subFields:(id)subFields label:(id)label people:(id)self0 localeIdentifier:(id)self1 bundleIdentifier:(id)self2 recipients:(id)self3;
 + (unsigned)_fieldsFromStrings:(id)strings;
 + (unsigned)_semanticTagFromString:(id)string;
 + (unsigned)_subtypeFromString:(id)string;
@@ -23,11 +25,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_people;
-  v5 = [v3 initWithFormat:@"<PPQuickTypeQuery t:%lu st:%lu sm:%lu f:%lu tm:%lu o:%lu sf:%@ l:%@ p:%@ li:%@ bi:%@ r:%@ to:%@>", self->_type, self->_subtype, self->_semanticTag, self->_fields, self->_time, self->_options, self->_subFields, self->_label, self->_people, self->_localeIdentifier, self->_bundleIdentifier, self->_recipients, self->_timeoutSeconds];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<PPQuickTypeQuery t:%lu st:%lu sm:%lu f:%lu tm:%lu o:%lu sf:%@ l:%@ p:%@ li:%@ bi:%@ r:%@ to:%@>", self->_type, self->_subtype, self->_semanticTag, self->_fields, self->_time, self->_options, self->_subFields, self->_label, self->_people, self->_localeIdentifier, self->_bundleIdentifier, self->_recipients, self->_timeoutSeconds];
 
-  return v5;
+  return v2;
 }
 
 - (BOOL)isResultEquivelentToQuickTypeQuery:(id)query
@@ -306,7 +306,7 @@ LABEL_7:
 
 + (id)_peopleNamesFromLMQualifiers:(id)qualifiers
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   qualifiersCopy = qualifiers;
   v4 = objc_opt_new();
   v5 = [qualifiersCopy objectForKeyedSubscript:*MEMORY[0x1E69ABE38]];
@@ -320,8 +320,8 @@ LABEL_7:
 
     else
     {
-      v32[0] = v5;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+      v31[0] = v5;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
     }
 
     v9 = v6;
@@ -332,8 +332,8 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31 = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+    v30 = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
 LABEL_10:
     v10 = v8;
     goto LABEL_12;
@@ -352,15 +352,15 @@ LABEL_12:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+    v29 = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
 LABEL_16:
     v13 = v12;
     if (v10 && v12)
     {
-      v27 = v11;
-      v28 = v7;
-      v29 = qualifiersCopy;
+      v26 = v11;
+      v27 = v7;
+      v28 = qualifiersCopy;
       v14 = [v12 count];
       v15 = [v10 count];
       if (v14 >= v15)
@@ -391,10 +391,10 @@ LABEL_16:
 
       v9 = v17;
       v5 = 0;
-      qualifiersCopy = v29;
+      qualifiersCopy = v28;
       v4 = v17;
-      v11 = v27;
-      v7 = v28;
+      v11 = v26;
+      v7 = v27;
       goto LABEL_31;
     }
 
@@ -435,7 +435,6 @@ LABEL_30:
 LABEL_31:
 
 LABEL_32:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -468,41 +467,39 @@ LABEL_32:
 
 void __55__PPQuickTypeQuery__labelFromLMFieldString_qualifiers___block_invoke()
 {
-  v12[8] = *MEMORY[0x1E69E9840];
+  v11[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E695CB90];
   v1 = *MEMORY[0x1E69ABE60];
-  v11[0] = *MEMORY[0x1E69ABE88];
-  v11[1] = v1;
+  v10[0] = *MEMORY[0x1E69ABE88];
+  v10[1] = v1;
   v2 = *MEMORY[0x1E695CB60];
-  v12[0] = v0;
-  v12[1] = v2;
+  v11[0] = v0;
+  v11[1] = v2;
   v3 = *MEMORY[0x1E695CBD8];
   v4 = *MEMORY[0x1E69ABE20];
-  v11[2] = *MEMORY[0x1E69ABF48];
-  v11[3] = v4;
+  v10[2] = *MEMORY[0x1E69ABF48];
+  v10[3] = v4;
   v5 = *MEMORY[0x1E695CB78];
-  v12[2] = v3;
-  v12[3] = v5;
+  v11[2] = v3;
+  v11[3] = v5;
   v6 = *MEMORY[0x1E69ABF38];
-  v11[4] = *MEMORY[0x1E69ABE50];
-  v11[5] = v6;
-  v12[4] = v2;
-  v12[5] = v3;
+  v10[4] = *MEMORY[0x1E69ABE50];
+  v10[5] = v6;
+  v11[4] = v2;
+  v11[5] = v3;
   v7 = *MEMORY[0x1E69ABF40];
-  v11[6] = *MEMORY[0x1E69ABE58];
-  v11[7] = v7;
-  v12[6] = v2;
-  v12[7] = v3;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:8];
+  v10[6] = *MEMORY[0x1E69ABE58];
+  v10[7] = v7;
+  v11[6] = v2;
+  v11[7] = v3;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:8];
   v9 = _labelFromLMFieldString_qualifiers__map;
   _labelFromLMFieldString_qualifiers__map = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_subfieldsFromString:(id)string
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (_subfieldsFromString__once != -1)
   {
@@ -513,16 +510,14 @@ void __55__PPQuickTypeQuery__labelFromLMFieldString_qualifiers___block_invoke()
   v5 = v4;
   if (v4)
   {
-    v9[0] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -550,63 +545,61 @@ void __41__PPQuickTypeQuery__subfieldsFromString___block_invoke()
 
 void __36__PPQuickTypeQuery__timeFromString___block_invoke()
 {
-  v7[6] = *MEMORY[0x1E69E9840];
+  v6[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ABEB0];
-  v6[0] = *MEMORY[0x1E69ABEA8];
-  v6[1] = v0;
-  v7[0] = &unk_1F1B45958;
-  v7[1] = &unk_1F1B45958;
+  v5[0] = *MEMORY[0x1E69ABEA8];
+  v5[1] = v0;
+  v6[0] = &unk_1F1B45958;
+  v6[1] = &unk_1F1B45958;
   v1 = *MEMORY[0x1E69ABE68];
-  v6[2] = *MEMORY[0x1E69ABDE8];
-  v6[3] = v1;
-  v7[2] = &unk_1F1B45958;
-  v7[3] = &unk_1F1B45970;
+  v5[2] = *MEMORY[0x1E69ABDE8];
+  v5[3] = v1;
+  v6[2] = &unk_1F1B45958;
+  v6[3] = &unk_1F1B45970;
   v2 = *MEMORY[0x1E69ABE70];
-  v6[4] = *MEMORY[0x1E69ABF20];
-  v6[5] = v2;
-  v7[4] = &unk_1F1B45958;
-  v7[5] = &unk_1F1B45958;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:6];
+  v5[4] = *MEMORY[0x1E69ABF20];
+  v5[5] = v2;
+  v6[4] = &unk_1F1B45958;
+  v6[5] = &unk_1F1B45958;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:6];
   v4 = _timeFromString__map;
   _timeFromString__map = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (unsigned)_fieldsFromStrings:(id)strings
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   if (_fieldsFromStrings__once != -1)
   {
     dispatch_once(&_fieldsFromStrings__once, &__block_literal_global_163);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = stringsCopy;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [_fieldsFromStrings__map objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+        v10 = [_fieldsFromStrings__map objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
         v7 |= [v10 unsignedIntValue];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -617,88 +610,85 @@ void __36__PPQuickTypeQuery__timeFromString___block_invoke()
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void __39__PPQuickTypeQuery__fieldsFromStrings___block_invoke()
 {
-  v18[28] = *MEMORY[0x1E69E9840];
+  v17[28] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ABE88];
-  v17[0] = *MEMORY[0x1E69ABEC0];
-  v17[1] = v0;
-  v18[0] = &unk_1F1B45B20;
-  v18[1] = &unk_1F1B45B20;
+  v16[0] = *MEMORY[0x1E69ABEC0];
+  v16[1] = v0;
+  v17[0] = &unk_1F1B45B20;
+  v17[1] = &unk_1F1B45B20;
   v1 = *MEMORY[0x1E69ABF48];
-  v17[2] = *MEMORY[0x1E69ABE60];
-  v17[3] = v1;
-  v18[2] = &unk_1F1B45B20;
-  v18[3] = &unk_1F1B45B20;
+  v16[2] = *MEMORY[0x1E69ABE60];
+  v16[3] = v1;
+  v17[2] = &unk_1F1B45B20;
+  v17[3] = &unk_1F1B45B20;
   v2 = *MEMORY[0x1E69ABE08];
-  v17[4] = *MEMORY[0x1E69ABE20];
-  v17[5] = v2;
-  v18[4] = &unk_1F1B45B20;
-  v18[5] = &unk_1F1B45B38;
+  v16[4] = *MEMORY[0x1E69ABE20];
+  v16[5] = v2;
+  v17[4] = &unk_1F1B45B20;
+  v17[5] = &unk_1F1B45B38;
   v3 = *MEMORY[0x1E69ABE50];
-  v17[6] = *MEMORY[0x1E69ABDC0];
-  v17[7] = v3;
-  v18[6] = &unk_1F1B45B50;
-  v18[7] = &unk_1F1B45B50;
+  v16[6] = *MEMORY[0x1E69ABDC0];
+  v16[7] = v3;
+  v17[6] = &unk_1F1B45B50;
+  v17[7] = &unk_1F1B45B50;
   v4 = *MEMORY[0x1E69ABE40];
-  v17[8] = *MEMORY[0x1E69ABF38];
-  v17[9] = v4;
-  v18[8] = &unk_1F1B45B50;
-  v18[9] = &unk_1F1B45B98;
+  v16[8] = *MEMORY[0x1E69ABF38];
+  v16[9] = v4;
+  v17[8] = &unk_1F1B45B50;
+  v17[9] = &unk_1F1B45B98;
   v5 = *MEMORY[0x1E69ABE30];
-  v17[10] = *MEMORY[0x1E69ABF08];
-  v17[11] = v5;
-  v18[10] = &unk_1F1B45BB0;
-  v18[11] = &unk_1F1B45BC8;
+  v16[10] = *MEMORY[0x1E69ABF08];
+  v16[11] = v5;
+  v17[10] = &unk_1F1B45BB0;
+  v17[11] = &unk_1F1B45BC8;
   v6 = *MEMORY[0x1E69ABF40];
-  v17[12] = *MEMORY[0x1E69ABE58];
-  v17[13] = v6;
-  v18[12] = &unk_1F1B45B68;
-  v18[13] = &unk_1F1B45B68;
+  v16[12] = *MEMORY[0x1E69ABE58];
+  v16[13] = v6;
+  v17[12] = &unk_1F1B45B68;
+  v17[13] = &unk_1F1B45B68;
   v7 = *MEMORY[0x1E69ABDD0];
-  v17[14] = *MEMORY[0x1E69ABEC8];
-  v17[15] = v7;
-  v18[14] = &unk_1F1B45B80;
-  v18[15] = &unk_1F1B45BE0;
+  v16[14] = *MEMORY[0x1E69ABEC8];
+  v16[15] = v7;
+  v17[14] = &unk_1F1B45B80;
+  v17[15] = &unk_1F1B45BE0;
   v8 = *MEMORY[0x1E69ABEA8];
-  v17[16] = *MEMORY[0x1E69ABDC8];
-  v17[17] = v8;
-  v18[16] = &unk_1F1B45BF8;
-  v18[17] = &unk_1F1B45C28;
+  v16[16] = *MEMORY[0x1E69ABDC8];
+  v16[17] = v8;
+  v17[16] = &unk_1F1B45BF8;
+  v17[17] = &unk_1F1B45C28;
   v9 = *MEMORY[0x1E69ABDE8];
-  v17[18] = *MEMORY[0x1E69ABEB0];
-  v17[19] = v9;
-  v18[18] = &unk_1F1B45C58;
-  v18[19] = &unk_1F1B45C70;
+  v16[18] = *MEMORY[0x1E69ABEB0];
+  v16[19] = v9;
+  v17[18] = &unk_1F1B45C58;
+  v17[19] = &unk_1F1B45C70;
   v10 = *MEMORY[0x1E69ABF20];
-  v17[20] = *MEMORY[0x1E69ABE68];
-  v17[21] = v10;
-  v18[20] = &unk_1F1B45C58;
-  v18[21] = &unk_1F1B45C58;
+  v16[20] = *MEMORY[0x1E69ABE68];
+  v16[21] = v10;
+  v17[20] = &unk_1F1B45C58;
+  v17[21] = &unk_1F1B45C58;
   v11 = *MEMORY[0x1E69ABEF8];
-  v17[22] = *MEMORY[0x1E69ABE70];
-  v17[23] = v11;
-  v18[22] = &unk_1F1B45C40;
-  v18[23] = &unk_1F1B45C10;
+  v16[22] = *MEMORY[0x1E69ABE70];
+  v16[23] = v11;
+  v17[22] = &unk_1F1B45C40;
+  v17[23] = &unk_1F1B45C10;
   v12 = *MEMORY[0x1E69ABE00];
-  v17[24] = *MEMORY[0x1E69ABDF8];
-  v17[25] = v12;
-  v18[24] = &unk_1F1B45CA0;
-  v18[25] = &unk_1F1B45C88;
+  v16[24] = *MEMORY[0x1E69ABDF8];
+  v16[25] = v12;
+  v17[24] = &unk_1F1B45CA0;
+  v17[25] = &unk_1F1B45C88;
   v13 = *MEMORY[0x1E69ABDB8];
-  v17[26] = *MEMORY[0x1E69ABDF0];
-  v17[27] = v13;
-  v18[26] = &unk_1F1B45CB8;
-  v18[27] = &unk_1F1B45CD0;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:28];
+  v16[26] = *MEMORY[0x1E69ABDF0];
+  v16[27] = v13;
+  v17[26] = &unk_1F1B45CB8;
+  v17[27] = &unk_1F1B45CD0;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:28];
   v15 = _fieldsFromStrings__map;
   _fieldsFromStrings__map = v14;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (unsigned)_semanticTagFromString:(id)string
@@ -718,56 +708,54 @@ void __39__PPQuickTypeQuery__fieldsFromStrings___block_invoke()
 
 void __43__PPQuickTypeQuery__semanticTagFromString___block_invoke()
 {
-  v4[22] = *MEMORY[0x1E69E9840];
-  v3[0] = @"name";
-  v3[1] = @"honorifix-prefix";
-  v4[0] = &unk_1F1B45A48;
-  v4[1] = &unk_1F1B45A90;
-  v3[2] = @"given-name";
-  v3[3] = @"additional-name";
-  v4[2] = &unk_1F1B45A78;
-  v4[3] = &unk_1F1B45B08;
-  v3[4] = @"family-name";
-  v3[5] = @"nickname";
-  v4[4] = &unk_1F1B45A60;
-  v4[5] = &unk_1F1B45B08;
-  v3[6] = @"honorifix-suffix";
-  v3[7] = @"organization-title";
-  v4[6] = &unk_1F1B45AA8;
-  v4[7] = &unk_1F1B45B08;
-  v3[8] = @"organization";
-  v3[9] = @"location";
-  v4[8] = &unk_1F1B45970;
-  v4[9] = &unk_1F1B45988;
-  v3[10] = @"street-address";
-  v3[11] = @"address-line1";
-  v4[10] = &unk_1F1B45958;
-  v4[11] = &unk_1F1B459A0;
-  v3[12] = @"address-line2";
-  v3[13] = @"address-level2";
-  v4[12] = &unk_1F1B45B08;
-  v4[13] = &unk_1F1B459B8;
-  v3[14] = @"address-level1+2";
-  v3[15] = @"address-level1";
-  v4[14] = &unk_1F1B45A18;
-  v4[15] = &unk_1F1B459E8;
-  v3[16] = @"address-level3";
-  v3[17] = @"country-name";
-  v4[16] = &unk_1F1B45A30;
-  v4[17] = &unk_1F1B45A00;
-  v3[18] = @"postal-code";
-  v3[19] = @"tel";
-  v4[18] = &unk_1F1B459D0;
-  v4[19] = &unk_1F1B45AD8;
-  v3[20] = @"email";
-  v3[21] = @"url";
-  v4[20] = &unk_1F1B45AC0;
-  v4[21] = &unk_1F1B45AF0;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:22];
+  v3[22] = *MEMORY[0x1E69E9840];
+  v2[0] = @"name";
+  v2[1] = @"honorifix-prefix";
+  v3[0] = &unk_1F1B45A48;
+  v3[1] = &unk_1F1B45A90;
+  v2[2] = @"given-name";
+  v2[3] = @"additional-name";
+  v3[2] = &unk_1F1B45A78;
+  v3[3] = &unk_1F1B45B08;
+  v2[4] = @"family-name";
+  v2[5] = @"nickname";
+  v3[4] = &unk_1F1B45A60;
+  v3[5] = &unk_1F1B45B08;
+  v2[6] = @"honorifix-suffix";
+  v2[7] = @"organization-title";
+  v3[6] = &unk_1F1B45AA8;
+  v3[7] = &unk_1F1B45B08;
+  v2[8] = @"organization";
+  v2[9] = @"location";
+  v3[8] = &unk_1F1B45970;
+  v3[9] = &unk_1F1B45988;
+  v2[10] = @"street-address";
+  v2[11] = @"address-line1";
+  v3[10] = &unk_1F1B45958;
+  v3[11] = &unk_1F1B459A0;
+  v2[12] = @"address-line2";
+  v2[13] = @"address-level2";
+  v3[12] = &unk_1F1B45B08;
+  v3[13] = &unk_1F1B459B8;
+  v2[14] = @"address-level1+2";
+  v2[15] = @"address-level1";
+  v3[14] = &unk_1F1B45A18;
+  v3[15] = &unk_1F1B459E8;
+  v2[16] = @"address-level3";
+  v2[17] = @"country-name";
+  v3[16] = &unk_1F1B45A30;
+  v3[17] = &unk_1F1B45A00;
+  v2[18] = @"postal-code";
+  v2[19] = @"tel";
+  v3[18] = &unk_1F1B459D0;
+  v3[19] = &unk_1F1B45AD8;
+  v2[20] = @"email";
+  v2[21] = @"url";
+  v3[20] = &unk_1F1B45AC0;
+  v3[21] = &unk_1F1B45AF0;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:22];
   v1 = _semanticTagFromString__map;
   _semanticTagFromString__map = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (unsigned)_subtypeFromString:(id)string
@@ -787,57 +775,55 @@ void __43__PPQuickTypeQuery__semanticTagFromString___block_invoke()
 
 void __39__PPQuickTypeQuery__subtypeFromString___block_invoke()
 {
-  v13[18] = *MEMORY[0x1E69E9840];
+  v12[18] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ABEF0];
-  v12[0] = *MEMORY[0x1E69ABE28];
-  v12[1] = v0;
-  v13[0] = &unk_1F1B45958;
-  v13[1] = &unk_1F1B45970;
+  v11[0] = *MEMORY[0x1E69ABE28];
+  v11[1] = v0;
+  v12[0] = &unk_1F1B45958;
+  v12[1] = &unk_1F1B45970;
   v1 = *MEMORY[0x1E69ABEA8];
-  v12[2] = *MEMORY[0x1E69ABF18];
-  v12[3] = v1;
-  v13[2] = &unk_1F1B45970;
-  v13[3] = &unk_1F1B45988;
+  v11[2] = *MEMORY[0x1E69ABF18];
+  v11[3] = v1;
+  v12[2] = &unk_1F1B45970;
+  v12[3] = &unk_1F1B45988;
   v2 = *MEMORY[0x1E69ABE70];
-  v12[4] = *MEMORY[0x1E69ABF20];
-  v12[5] = v2;
-  v13[4] = &unk_1F1B45988;
-  v13[5] = &unk_1F1B45988;
+  v11[4] = *MEMORY[0x1E69ABF20];
+  v11[5] = v2;
+  v12[4] = &unk_1F1B45988;
+  v12[5] = &unk_1F1B45988;
   v3 = *MEMORY[0x1E69ABDE8];
-  v12[6] = *MEMORY[0x1E69ABEB0];
-  v12[7] = v3;
-  v13[6] = &unk_1F1B459A0;
-  v13[7] = &unk_1F1B459A0;
+  v11[6] = *MEMORY[0x1E69ABEB0];
+  v11[7] = v3;
+  v12[6] = &unk_1F1B459A0;
+  v12[7] = &unk_1F1B459A0;
   v4 = *MEMORY[0x1E69ABEE0];
-  v12[8] = *MEMORY[0x1E69ABE68];
-  v12[9] = v4;
-  v13[8] = &unk_1F1B459A0;
-  v13[9] = &unk_1F1B459D0;
+  v11[8] = *MEMORY[0x1E69ABE68];
+  v11[9] = v4;
+  v12[8] = &unk_1F1B459A0;
+  v12[9] = &unk_1F1B459D0;
   v5 = *MEMORY[0x1E69ABDF8];
-  v12[10] = *MEMORY[0x1E69ABED8];
-  v12[11] = v5;
-  v13[10] = &unk_1F1B459E8;
-  v13[11] = &unk_1F1B45A00;
+  v11[10] = *MEMORY[0x1E69ABED8];
+  v11[11] = v5;
+  v12[10] = &unk_1F1B459E8;
+  v12[11] = &unk_1F1B45A00;
   v6 = *MEMORY[0x1E69ABE00];
-  v12[12] = *MEMORY[0x1E69ABDF0];
-  v12[13] = v6;
-  v13[12] = &unk_1F1B45A00;
-  v13[13] = &unk_1F1B45A00;
+  v11[12] = *MEMORY[0x1E69ABDF0];
+  v11[13] = v6;
+  v12[12] = &unk_1F1B45A00;
+  v12[13] = &unk_1F1B45A00;
   v7 = *MEMORY[0x1E69ABE90];
-  v12[14] = *MEMORY[0x1E69ABDE0];
-  v12[15] = v7;
-  v13[14] = &unk_1F1B45A18;
-  v13[15] = &unk_1F1B45A30;
+  v11[14] = *MEMORY[0x1E69ABDE0];
+  v11[15] = v7;
+  v12[14] = &unk_1F1B45A18;
+  v12[15] = &unk_1F1B45A30;
   v8 = *MEMORY[0x1E69ABE18];
-  v12[16] = *MEMORY[0x1E69ABE98];
-  v12[17] = v8;
-  v13[16] = &unk_1F1B45A48;
-  v13[17] = &unk_1F1B45A60;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:18];
+  v11[16] = *MEMORY[0x1E69ABE98];
+  v11[17] = v8;
+  v12[16] = &unk_1F1B45A48;
+  v12[17] = &unk_1F1B45A60;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:18];
   v10 = _subtypeFromString__map;
   _subtypeFromString__map = v9;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (unsigned)_typeFromString:(id)string
@@ -857,29 +843,62 @@ void __39__PPQuickTypeQuery__subtypeFromString___block_invoke()
 
 void __36__PPQuickTypeQuery__typeFromString___block_invoke()
 {
-  v6[5] = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ABE10];
-  v5[0] = *MEMORY[0x1E69ABEB8];
-  v5[1] = v0;
-  v6[0] = &unk_1F1B45958;
-  v6[1] = &unk_1F1B45970;
+  v4[0] = *MEMORY[0x1E69ABEB8];
+  v4[1] = v0;
+  v5[0] = &unk_1F1B45958;
+  v5[1] = &unk_1F1B45970;
   v1 = *MEMORY[0x1E69ABEA0];
-  v5[2] = *MEMORY[0x1E69ABE78];
-  v5[3] = v1;
-  v6[2] = &unk_1F1B45988;
-  v6[3] = &unk_1F1B459A0;
-  v5[4] = *MEMORY[0x1E69ABF30];
-  v6[4] = &unk_1F1B459B8;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:5];
+  v4[2] = *MEMORY[0x1E69ABE78];
+  v4[3] = v1;
+  v5[2] = &unk_1F1B45988;
+  v5[3] = &unk_1F1B459A0;
+  v4[4] = *MEMORY[0x1E69ABF30];
+  v5[4] = &unk_1F1B459B8;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:5];
   v3 = _typeFromString__map;
   _typeFromString__map = v2;
+}
 
-  v4 = *MEMORY[0x1E69E9840];
++ (id)quickTypeQueryWithType:(unsigned __int8)type subtype:(unsigned __int8)subtype semanticTag:(unsigned __int8)tag fields:(unsigned int)fields time:(unsigned __int8)time options:(unsigned __int8)options subFields:(id)subFields label:(id)self0 people:(id)self1 localeIdentifier:(id)self2 bundleIdentifier:(id)self3 recipients:(id)self4
+{
+  timeCopy = time;
+  optionsCopy = options;
+  tagCopy = tag;
+  subtypeCopy = subtype;
+  typeCopy = type;
+  recipientsCopy = recipients;
+  bundleIdentifierCopy = bundleIdentifier;
+  identifierCopy = identifier;
+  peopleCopy = people;
+  labelCopy = label;
+  subFieldsCopy = subFields;
+  v23 = [[PPQuickTypeQuery alloc] initWithType:typeCopy subtype:subtypeCopy semanticTag:tagCopy fields:fields time:timeCopy options:optionsCopy subFields:subFieldsCopy label:labelCopy people:peopleCopy localeIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy recipients:recipientsCopy timeoutSeconds:0];
+
+  return v23;
+}
+
++ (id)quickTypeQueryWithType:(unsigned __int8)type subtype:(unsigned __int8)subtype semanticTag:(unsigned __int8)tag fields:(unsigned int)fields time:(unsigned __int8)time subFields:(id)subFields label:(id)label people:(id)self0 localeIdentifier:(id)self1 bundleIdentifier:(id)self2 recipients:(id)self3
+{
+  timeCopy = time;
+  tagCopy = tag;
+  subtypeCopy = subtype;
+  typeCopy = type;
+  recipientsCopy = recipients;
+  bundleIdentifierCopy = bundleIdentifier;
+  identifierCopy = identifier;
+  peopleCopy = people;
+  labelCopy = label;
+  subFieldsCopy = subFields;
+  v23 = [[PPQuickTypeQuery alloc] initWithType:typeCopy subtype:subtypeCopy semanticTag:tagCopy fields:fields time:timeCopy options:0 subFields:subFieldsCopy label:labelCopy people:peopleCopy localeIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy recipients:recipientsCopy timeoutSeconds:0];
+
+  return v23;
 }
 
 + (id)quickTypeQueryFromLMTokens:(id)tokens localeIdentifier:(id)identifier recipients:(id)recipients bundleIdentifier:(id)bundleIdentifier
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   v11 = *MEMORY[0x1E69ABEE8];
   bundleIdentifierCopy = bundleIdentifier;
@@ -891,8 +910,8 @@ void __36__PPQuickTypeQuery__typeFromString___block_invoke()
   v16 = v15;
   if (v13)
   {
-    v42[0] = v13;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+    v41[0] = v13;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
     if (!v16)
     {
       goto LABEL_4;
@@ -905,50 +924,48 @@ void __36__PPQuickTypeQuery__typeFromString___block_invoke()
   if (v15)
   {
 LABEL_3:
-    v41 = v16;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v40 = v16;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
 
     v17 = v18;
   }
 
 LABEL_4:
   v19 = [tokensCopy objectForKeyedSubscript:*MEMORY[0x1E69ABED0]];
-  v35 = [PPQuickTypeQuery alloc];
-  v36 = [tokensCopy objectForKeyedSubscript:*MEMORY[0x1E69ABF28]];
-  v34 = [self _typeFromString:?];
+  v34 = [PPQuickTypeQuery alloc];
+  v35 = [tokensCopy objectForKeyedSubscript:*MEMORY[0x1E69ABF28]];
+  v33 = [self _typeFromString:?];
   v20 = v13;
   if (!v13)
   {
     v20 = [tokensCopy objectForKeyedSubscript:*MEMORY[0x1E69ABF00]];
   }
 
-  v40 = v16;
-  v33 = [self _subtypeFromString:v20];
+  v39 = v16;
+  v32 = [self _subtypeFromString:v20];
   v21 = [tokensCopy objectForKeyedSubscript:@"textContentTypeTag"];
-  v31 = [self _semanticTagFromString:v21];
-  v30 = [self _fieldsFromStrings:v17];
-  v37 = v17;
+  v30 = [self _semanticTagFromString:v21];
+  v29 = [self _fieldsFromStrings:v17];
+  v36 = v17;
   if (v13)
   {
-    v29 = [self _timeFromString:v13];
+    v28 = [self _timeFromString:v13];
     v22 = [self _subfieldsFromString:v13];
-    v32 = v21;
+    v31 = v21;
     v21 = v22;
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
     v22 = 0;
-    v32 = v20;
+    v31 = v20;
   }
 
   v23 = [tokensCopy objectForKeyedSubscript:*v14];
   v24 = [self _labelFromLMFieldString:v23 qualifiers:v19];
   v25 = [self _peopleNamesFromLMQualifiers:v19];
-  v26 = [(PPQuickTypeQuery *)v35 initWithType:v34 subtype:v33 semanticTag:v31 fields:v30 time:v29 options:0 subFields:v22 label:v24 people:v25 localeIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy recipients:recipientsCopy timeoutSeconds:&unk_1F1B45928];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = [(PPQuickTypeQuery *)v34 initWithType:v33 subtype:v32 semanticTag:v30 fields:v29 time:v28 options:0 subFields:v22 label:v24 people:v25 localeIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy recipients:recipientsCopy timeoutSeconds:&unk_1F1B45928];
 
   return v26;
 }

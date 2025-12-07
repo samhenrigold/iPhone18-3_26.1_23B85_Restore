@@ -139,7 +139,7 @@
 
 void __86__CKSettingsMessagesForBusinessViewController_setPersonalizedAlertsEnabled_specifier___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) setRequestInFlight:0];
   if ([v3 error])
@@ -151,18 +151,16 @@ void __86__CKSettingsMessagesForBusinessViewController_setPersonalizedAlertsEnab
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = *(a1 + 40);
-        v7 = 138412546;
-        v8 = v5;
-        v9 = 2048;
-        v10 = [v3 error];
-        _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_INFO, "Error setting Personalized Alerts toggle. Setting to value: %@. Error: %lu", &v7, 0x16u);
+        v6 = 138412546;
+        v7 = v5;
+        v8 = 2048;
+        v9 = [v3 error];
+        _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_INFO, "Error setting Personalized Alerts toggle. Setting to value: %@. Error: %lu", &v6, 0x16u);
       }
     }
   }
 
   [*(a1 + 32) reloadSpecifiers];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)personalizedAlertsEnabled:(id)enabled

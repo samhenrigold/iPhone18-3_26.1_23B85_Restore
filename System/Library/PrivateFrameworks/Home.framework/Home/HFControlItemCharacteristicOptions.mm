@@ -16,15 +16,14 @@
 
 + (HFControlItemCharacteristicOptions)optionsWithReadWriteCharacteristicTypes:(id)types
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v5 = [self alloc];
-  v10 = &unk_282523B80;
-  v11[0] = typesCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = &unk_282523B80;
+  v10[0] = typesCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [v5 initWithCharacteristicTypesByUsage:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -103,18 +102,16 @@ id __79__HFControlItemCharacteristicOptions__characteristicTypesForUsagesPassing
 
 - (id)optionsByAddingCharacteristicTypes:(id)types forUsage:(unint64_t)usage
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v7 = [HFControlItemCharacteristicOptions alloc];
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:usage];
-  v14 = v8;
-  v15[0] = typesCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = v8;
+  v14[0] = typesCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [(HFControlItemCharacteristicOptions *)v7 initWithCharacteristicTypesByUsage:v9];
   v11 = [(HFControlItemCharacteristicOptions *)self optionsByAddingCharacteristicOptions:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -91,7 +91,7 @@
   return allPropertyKeys___allPropertyKeys;
 }
 
-uint64_t __36__SSPurchasableItem_allPropertyKeys__block_invoke()
+void *__36__SSPurchasableItem_allPropertyKeys__block_invoke()
 {
   v1[5] = *MEMORY[0x1E69E9840];
   v1[0] = SSPurchasableItemPID;

@@ -1,4 +1,4 @@
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(_OWORD **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6)
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(_OWORD *, _BYTE *), uint64_t a5, uint64_t a6)
 {
   v7 = a3;
   v86 = MEMORY[0x29EDCA190];
@@ -382,15 +382,16 @@ LABEL_56:
   }
 }
 
+uint64_t specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(uint64_t a1, void (*a2)(void *, uint64_t *), uint64_t a3)
+{
+  return specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2);
+}
+
+{
+  return specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2);
+}
+
 uint64_t specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(uint64_t a1, void (*a2)(void *, uint64_t *))
-{
-  return specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2);
-}
-
-{
-  return specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2);
-}
-
 {
   UninitializedySayxG_SpyxGtSiFZs6UInt64V_Tt0g5Tm = _sSa22_allocateUninitializedySayxG_SpyxGtSiFZs6UInt64V_Tt0g5Tm(a1);
   v11 = 0;
@@ -497,7 +498,7 @@ uint64_t specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(
   return specialized Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2);
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, int *a2, uint64_t (*a3)(int *, int *))
+uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t (*a3)(int *, int *))
 {
   v6 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -626,7 +627,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, __int16 *a2, uint64_t (*a3)(__int16 *, __int16 *))
+uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t (*a3)(__int16 *, __int16 *))
 {
   v6 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -756,136 +757,135 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, uint64_t *a2, uint64_t (*a3)(uint64_t *, uint64_t *))
-{
-  v6 = *a1;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-  }
-
-  *a1 = v6;
-  v7 = *(v6 + 2);
-  if (v7 < 2)
-  {
-    return 1;
-  }
-
-  while (1)
-  {
-    v8 = v7 - 1;
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 2, 1, v6);
-    v9 = *&v6[16 * v7];
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 1, 1, v6);
-    if (!*v14)
-    {
-      break;
-    }
-
-    v10 = *&v6[16 * v8 + 40];
-    specialized _merge<A>(low:mid:high:buffer:by:)((*v14 + 8 * v9), (*v14 + 8 * *&v6[16 * v8 + 32]), (*v14 + 8 * v10), a2, a3);
-    if (v3)
-    {
-      return 1;
-    }
-
-    if (v10 < v9)
-    {
-      goto LABEL_12;
-    }
-
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-    }
-
-    specialized Array._checkSubscript_mutating(_:)(v7 - 2, v6);
-    v11 = &v6[16 * v7];
-    *v11 = v9;
-    *(v11 + 1) = v10;
-    *a1 = v6;
-    specialized Array.remove(at:)(v7 - 1);
-    v6 = *a1;
-    v7 = *(*a1 + 2);
-    if (v7 <= 1)
-    {
-      return 1;
-    }
-  }
-
-  _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-LABEL_12:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  v6 = *a1;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-  }
-
-  *a1 = v6;
-  v7 = *(v6 + 2);
-  if (v7 < 2)
-  {
-    return 1;
-  }
-
-  while (1)
-  {
-    v8 = v7 - 1;
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 2, 1, v6);
-    v9 = *&v6[16 * v7];
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 1, 1, v6);
-    if (!*v14)
-    {
-      break;
-    }
-
-    v10 = *&v6[16 * v8 + 40];
-    specialized _merge<A>(low:mid:high:buffer:by:)((*v14 + 8 * v9), (*v14 + 8 * *&v6[16 * v8 + 32]), (*v14 + 8 * v10), a2, a3);
-    if (v3)
-    {
-      return 1;
-    }
-
-    if (v10 < v9)
-    {
-      goto LABEL_12;
-    }
-
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-    }
-
-    specialized Array._checkSubscript_mutating(_:)(v7 - 2, v6);
-    v11 = &v6[16 * v7];
-    *v11 = v9;
-    *(v11 + 1) = v10;
-    *a1 = v6;
-    specialized Array.remove(at:)(v7 - 1);
-    v6 = *a1;
-    v7 = *(*a1 + 2);
-    if (v7 <= 1)
-    {
-      return 1;
-    }
-  }
-
-  _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-LABEL_12:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
 uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t (*a3)(uint64_t *, uint64_t *))
+{
+  v6 = *a1;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
+  }
+
+  *a1 = v6;
+  v7 = *(v6 + 2);
+  if (v7 < 2)
+  {
+    return 1;
+  }
+
+  while (1)
+  {
+    v8 = v7 - 1;
+    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 2, 1, v6);
+    v9 = *&v6[16 * v7];
+    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 1, 1, v6);
+    if (!*v14)
+    {
+      break;
+    }
+
+    v10 = *&v6[16 * v8 + 40];
+    specialized _merge<A>(low:mid:high:buffer:by:)((*v14 + 8 * v9), (*v14 + 8 * *&v6[16 * v8 + 32]), (*v14 + 8 * v10), a2, a3);
+    if (v3)
+    {
+      return 1;
+    }
+
+    if (v10 < v9)
+    {
+      goto LABEL_12;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
+    }
+
+    specialized Array._checkSubscript_mutating(_:)(v7 - 2, v6);
+    v11 = &v6[16 * v7];
+    *v11 = v9;
+    *(v11 + 1) = v10;
+    *a1 = v6;
+    specialized Array.remove(at:)(v7 - 1);
+    v6 = *a1;
+    v7 = *(*a1 + 2);
+    if (v7 <= 1)
+    {
+      return 1;
+    }
+  }
+
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+LABEL_12:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  v6 = *a1;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
+  }
+
+  *a1 = v6;
+  v7 = *(v6 + 2);
+  if (v7 < 2)
+  {
+    return 1;
+  }
+
+  while (1)
+  {
+    v8 = v7 - 1;
+    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 2, 1, v6);
+    v9 = *&v6[16 * v7];
+    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7 - 1, 1, v6);
+    if (!*v14)
+    {
+      break;
+    }
+
+    v10 = *&v6[16 * v8 + 40];
+    specialized _merge<A>(low:mid:high:buffer:by:)((*v14 + 8 * v9), (*v14 + 8 * *&v6[16 * v8 + 32]), (*v14 + 8 * v10), a2, a3);
+    if (v3)
+    {
+      return 1;
+    }
+
+    if (v10 < v9)
+    {
+      goto LABEL_12;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
+    }
+
+    specialized Array._checkSubscript_mutating(_:)(v7 - 2, v6);
+    v11 = &v6[16 * v7];
+    *v11 = v9;
+    *(v11 + 1) = v10;
+    *a1 = v6;
+    specialized Array.remove(at:)(v7 - 1);
+    v6 = *a1;
+    v7 = *(*a1 + 2);
+    if (v7 <= 1)
+    {
+      return 1;
+    }
+  }
+
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+LABEL_12:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
 {
   v6 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -950,7 +950,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, _OWORD *a2, uint64_t (*a3)(uint64_t *, uint64_t *))
+uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t (*a3)(void *, void *))
 {
   v6 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -1015,7 +1015,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(int *, int *))
+uint64_t specialized _findNextRun<A>(in:from:by:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(int *, int *))
 {
   v7 = a4 + 1;
   if (!__OFADD__(a4, 1))
@@ -1120,7 +1120,7 @@ uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(__int16 *, __int16 *))
+uint64_t specialized _findNextRun<A>(in:from:by:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(__int16 *, __int16 *))
 {
   v7 = a4 + 1;
   if (!__OFADD__(a4, 1))
@@ -1172,7 +1172,7 @@ uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *, char *))
+uint64_t specialized _findNextRun<A>(in:from:by:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *, char *))
 {
   v7 = a4 + 1;
   if (!__OFADD__(a4, 1))
@@ -1220,7 +1220,7 @@ uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t *, uint64_t *))
+uint64_t specialized _findNextRun<A>(in:from:by:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t *, uint64_t *))
 {
   v7 = a4 + 1;
   if (!__OFADD__(a4, 1))
@@ -1390,6 +1390,7 @@ uint64_t specialized _findNextRun<A>(in:from:by:)(void *a1, uint64_t a2, uint64_
   return result;
 }
 
+uint64_t specialized _findNextRun<A>(in:from:by:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void *, void *))
 {
   v6 = a4 + 1;
   if (!__OFADD__(a4, 1))
@@ -1462,7 +1463,6 @@ uint64_t specialized Array.append(_:)(uint64_t a1)
   return specialized Array.append(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
 
-uint64_t specialized Array.append(_:)(int a1)
 {
   return specialized Array.append(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
@@ -1472,30 +1472,6 @@ uint64_t specialized Array.append(_:)(int a1)
 }
 
 {
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if ((result & 1) == 0)
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 16) + 1, 1, v3);
-    v3 = result;
-  }
-
-  v6 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  if (v6 >= v5 >> 1)
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1, v3);
-    v3 = result;
-  }
-
-  *(v3 + 16) = v6 + 1;
-  *(v3 + 4 * v6 + 32) = a1;
-  *v1 = v3;
-  return result;
-}
-
-uint64_t specialized Array.append(_:)(__int16 a1)
-{
   return specialized Array.append(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
 
@@ -1503,7 +1479,6 @@ uint64_t specialized Array.append(_:)(__int16 a1)
   return specialized Array.append(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
 
-uint64_t specialized Array.append(_:)(char a1)
 {
   return specialized Array.append(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
@@ -1658,19 +1633,19 @@ uint64_t specialized Array.append(_:)(double a1)
 
 uint64_t specialized Array.append(_:)(uint64_t a1, uint64_t a2)
 {
-  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
+  return specialized Array.append(_:)(a1, a2, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
 {
@@ -1698,29 +1673,53 @@ uint64_t specialized Array.append(_:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t specialized Array.append(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+uint64_t specialized Array.append(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
-  v9 = *v4;
+  v11 = *v5;
   result = swift_isUniquelyReferenced_nonNull_native();
   if ((result & 1) == 0)
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 16) + 1, 1, v9, a3, a4);
-    v9 = result;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 16) + 1, 1, v11, a3, a4, a5);
+    v11 = result;
   }
 
-  v12 = *(v9 + 16);
-  v11 = *(v9 + 24);
-  if (v12 >= v11 >> 1)
+  v14 = *(v11 + 16);
+  v13 = *(v11 + 24);
+  if (v14 >= v13 >> 1)
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1, v9, a3, a4);
-    v9 = result;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1, v11, a3, a4, a5);
+    v11 = result;
   }
 
-  *(v9 + 16) = v12 + 1;
-  v13 = v9 + 16 * v12;
-  *(v13 + 32) = a1;
-  *(v13 + 40) = a2;
-  *v4 = v9;
+  *(v11 + 16) = v14 + 1;
+  v15 = v11 + 16 * v14;
+  *(v15 + 32) = a1;
+  *(v15 + 40) = a2;
+  *v5 = v11;
+  return result;
+}
+
+uint64_t specialized Array.append(_:)(int a1)
+{
+  v3 = *v1;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  if ((result & 1) == 0)
+  {
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 16) + 1, 1, v3);
+    v3 = result;
+  }
+
+  v6 = *(v3 + 16);
+  v5 = *(v3 + 24);
+  if (v6 >= v5 >> 1)
+  {
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1, v3);
+    v3 = result;
+  }
+
+  *(v3 + 16) = v6 + 1;
+  *(v3 + 4 * v6 + 32) = a1;
+  *v1 = v3;
   return result;
 }
 
@@ -1745,7 +1744,7 @@ _OWORD *specialized Array.append(_:)(_OWORD *a1)
   return result;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t *__src, uint64_t *a2, uint64_t *a3, uint64_t *__dst, uint64_t (*a5)(uint64_t *, uint64_t *))
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__src, char *a2, char *a3, char *__dst, uint64_t (*a5)(uint64_t *, uint64_t *))
 {
   v5 = __dst;
   v6 = a3;
@@ -1772,16 +1771,17 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t *__src, uint64_
   if (v11 >= v13 >> 3)
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, v13 >> 3, __dst);
-    v18 = &v5[v14];
+    v18 = &v5[8 * v14];
     if (v12 >= 8)
     {
-      v19 = &v5[v14];
+      v19 = &v5[8 * v14];
       v20 = v27;
       do
       {
         v28 = v18;
-        v21 = v7--;
-        --v6;
+        v21 = v7;
+        v7 -= 8;
+        v6 -= 8;
         while (1)
         {
           if (v21 <= v8)
@@ -1791,7 +1791,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t *__src, uint64_
             goto LABEL_39;
           }
 
-          v23 = v19 - 1;
+          v23 = v19 - 8;
           v22 = *(v19 - 1);
           v30 = *v7;
           v31 = v22;
@@ -1803,20 +1803,20 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t *__src, uint64_
             goto LABEL_39;
           }
 
-          v25 = v6 + 1;
+          v25 = v6 + 8;
           if (v24)
           {
             break;
           }
 
-          v18 = v19 - 1;
+          v18 = v19 - 8;
           if (v25 != v19)
           {
             *v6 = *v23;
           }
 
-          --v6;
-          --v19;
+          v6 -= 8;
+          v19 -= 8;
           if (v23 <= v5)
           {
             v7 = v21;
@@ -1841,7 +1841,7 @@ LABEL_38:
   else
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, v11, __dst);
-    v15 = &v5[v11];
+    v15 = &v5[8 * v11];
     v32 = v15;
     if (v9 >= 8 && v7 < v6)
     {
@@ -1857,7 +1857,7 @@ LABEL_38:
 
         if (v16)
         {
-          v17 = v7 + 1;
+          v17 = v7 + 8;
           if (v8 < v7 || v8 >= v17 || v8 != v7)
           {
             *v8 = *v7;
@@ -1871,11 +1871,13 @@ LABEL_38:
             *v8 = *v5;
           }
 
-          v33 = ++v5;
+          v5 += 8;
+          v33 = v5;
           v17 = v7;
         }
 
-        v34 = ++v8;
+        v8 += 8;
+        v34 = v8;
         if (v5 >= v15)
         {
           break;
@@ -1919,16 +1921,17 @@ LABEL_39:
   if (v11 >= v13 >> 3)
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, v13 >> 3, __dst);
-    v18 = &v5[v14];
+    v18 = &v5[8 * v14];
     if (v12 >= 8)
     {
-      v19 = &v5[v14];
+      v19 = &v5[8 * v14];
       v20 = v27;
       do
       {
         v28 = v18;
-        v21 = v7--;
-        --v6;
+        v21 = v7;
+        v7 -= 8;
+        v6 -= 8;
         while (1)
         {
           if (v21 <= v8)
@@ -1938,7 +1941,7 @@ LABEL_39:
             goto LABEL_39;
           }
 
-          v22 = v19 - 1;
+          v22 = v19 - 8;
           v23 = *(v19 - 1);
           v30 = *v7;
           v31 = v23;
@@ -1950,20 +1953,20 @@ LABEL_39:
             goto LABEL_39;
           }
 
-          v25 = v6 + 1;
+          v25 = v6 + 8;
           if (v24)
           {
             break;
           }
 
-          v18 = v19 - 1;
+          v18 = v19 - 8;
           if (v25 != v19)
           {
             *v6 = *v22;
           }
 
-          --v6;
-          --v19;
+          v6 -= 8;
+          v19 -= 8;
           if (v22 <= v5)
           {
             v7 = v21;
@@ -1988,7 +1991,7 @@ LABEL_38:
   else
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, v11, __dst);
-    v15 = &v5[v11];
+    v15 = &v5[8 * v11];
     v32 = v15;
     if (v9 >= 8 && v7 < v6)
     {
@@ -2004,7 +2007,7 @@ LABEL_38:
 
         if (v16)
         {
-          v17 = v7 + 1;
+          v17 = v7 + 8;
           if (v8 < v7 || v8 >= v17 || v8 != v7)
           {
             *v8 = *v7;
@@ -2018,11 +2021,13 @@ LABEL_38:
             *v8 = *v5;
           }
 
-          v33 = ++v5;
+          v5 += 8;
+          v33 = v5;
           v17 = v7;
         }
 
-        v34 = ++v8;
+        v8 += 8;
+        v34 = v8;
         if (v5 >= v15)
         {
           break;
@@ -2040,7 +2045,7 @@ LABEL_39:
   return 1;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(int *__src, int *a2, int *a3, int *__dst, uint64_t (*a5)(int *, int *))
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__src, char *a2, char *a3, char *__dst, uint64_t (*a5)(int *, int *))
 {
   v5 = __dst;
   v6 = a3;
@@ -2067,16 +2072,17 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(int *__src, int *a2, int
   if (v11 >= v13 >> 2)
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, v13 >> 2, __dst);
-    v18 = &v5[v14];
+    v18 = &v5[4 * v14];
     if (v12 >= 4)
     {
-      v19 = &v5[v14];
+      v19 = &v5[4 * v14];
       v20 = v27;
       do
       {
         v28 = v18;
-        v21 = v7--;
-        --v6;
+        v21 = v7;
+        v7 -= 4;
+        v6 -= 4;
         while (1)
         {
           if (v21 <= v8)
@@ -2086,7 +2092,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(int *__src, int *a2, int
             goto LABEL_39;
           }
 
-          v23 = v19 - 1;
+          v23 = v19 - 4;
           v22 = *(v19 - 1);
           v30 = *v7;
           v31 = v22;
@@ -2098,20 +2104,20 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(int *__src, int *a2, int
             goto LABEL_39;
           }
 
-          v25 = v6 + 1;
+          v25 = v6 + 4;
           if (v24)
           {
             break;
           }
 
-          v18 = v19 - 1;
+          v18 = v19 - 4;
           if (v25 != v19)
           {
             *v6 = *v23;
           }
 
-          --v6;
-          --v19;
+          v6 -= 4;
+          v19 -= 4;
           if (v23 <= v5)
           {
             v7 = v21;
@@ -2136,7 +2142,7 @@ LABEL_38:
   else
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, v11, __dst);
-    v15 = &v5[v11];
+    v15 = &v5[4 * v11];
     v32 = v15;
     if (v9 >= 4 && v7 < v6)
     {
@@ -2152,7 +2158,7 @@ LABEL_38:
 
         if (v16)
         {
-          v17 = v7 + 1;
+          v17 = v7 + 4;
           if (v8 < v7 || v8 >= v17 || v8 != v7)
           {
             *v8 = *v7;
@@ -2166,11 +2172,13 @@ LABEL_38:
             *v8 = *v5;
           }
 
-          v33 = ++v5;
+          v5 += 4;
+          v33 = v5;
           v17 = v7;
         }
 
-        v34 = ++v8;
+        v8 += 4;
+        v34 = v8;
         if (v5 >= v15)
         {
           break;
@@ -2214,16 +2222,17 @@ LABEL_39:
   if (v11 >= v13 >> 2)
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, v13 >> 2, __dst);
-    v18 = &v5[v14];
+    v18 = &v5[4 * v14];
     if (v12 >= 4)
     {
-      v19 = &v5[v14];
+      v19 = &v5[4 * v14];
       v20 = v27;
       do
       {
         v28 = v18;
-        v21 = v7--;
-        --v6;
+        v21 = v7;
+        v7 -= 4;
+        v6 -= 4;
         while (1)
         {
           if (v21 <= v8)
@@ -2233,7 +2242,7 @@ LABEL_39:
             goto LABEL_39;
           }
 
-          v22 = v19 - 1;
+          v22 = v19 - 4;
           v23 = *(v19 - 1);
           v30 = *v7;
           v31 = v23;
@@ -2245,20 +2254,20 @@ LABEL_39:
             goto LABEL_39;
           }
 
-          v25 = v6 + 1;
+          v25 = v6 + 4;
           if (v24)
           {
             break;
           }
 
-          v18 = v19 - 1;
+          v18 = v19 - 4;
           if (v25 != v19)
           {
             *v6 = *v22;
           }
 
-          --v6;
-          --v19;
+          v6 -= 4;
+          v19 -= 4;
           if (v22 <= v5)
           {
             v7 = v21;
@@ -2283,7 +2292,7 @@ LABEL_38:
   else
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, v11, __dst);
-    v15 = &v5[v11];
+    v15 = &v5[4 * v11];
     v32 = v15;
     if (v9 >= 4 && v7 < v6)
     {
@@ -2299,7 +2308,7 @@ LABEL_38:
 
         if (v16)
         {
-          v17 = v7 + 1;
+          v17 = v7 + 4;
           if (v8 < v7 || v8 >= v17 || v8 != v7)
           {
             *v8 = *v7;
@@ -2313,11 +2322,13 @@ LABEL_38:
             *v8 = *v5;
           }
 
-          v33 = ++v5;
+          v5 += 4;
+          v33 = v5;
           v17 = v7;
         }
 
-        v34 = ++v8;
+        v8 += 4;
+        v34 = v8;
         if (v5 >= v15)
         {
           break;
@@ -2335,7 +2346,7 @@ LABEL_39:
   return 1;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(__int16 *__src, __int16 *a2, __int16 *a3, __int16 *__dst, uint64_t (*a5)(__int16 *, __int16 *))
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__src, char *a2, char *a3, char *__dst, uint64_t (*a5)(__int16 *, __int16 *))
 {
   v31 = __src;
   v5 = __dst;
@@ -2343,23 +2354,24 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(__int16 *__src, __int16 
   v7 = a2;
   v8 = __src;
   v9 = a2 - __src;
-  v10 = a2 - __src;
+  v10 = (a2 - __src) / 2;
   v11 = a3 - a2;
-  v12 = a3 - a2;
+  v12 = (a3 - a2) / 2;
   v30 = __dst;
   if (v10 >= v12)
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, a3 - a2, __dst);
-    v16 = &v5[v12];
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, (a3 - a2) / 2, __dst);
+    v16 = &v5[2 * v12];
     if (v11 >= 2)
     {
-      v17 = &v5[v12];
+      v17 = &v5[2 * v12];
       v18 = v24;
       do
       {
         v25 = v16;
-        v19 = v7--;
-        --v6;
+        v19 = v7;
+        v7 -= 2;
+        v6 -= 2;
         while (1)
         {
           if (v19 <= v8)
@@ -2369,7 +2381,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(__int16 *__src, __int16 
             goto LABEL_35;
           }
 
-          v20 = v17 - 1;
+          v20 = v17 - 2;
           v28 = *(v17 - 1);
           v27 = *v7;
           v21 = a5(&v28, &v27);
@@ -2380,20 +2392,20 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(__int16 *__src, __int16 
             goto LABEL_35;
           }
 
-          v22 = v6 + 1;
+          v22 = v6 + 2;
           if (v21)
           {
             break;
           }
 
-          v16 = v17 - 1;
+          v16 = v17 - 2;
           if (v22 != v17)
           {
             *v6 = *v20;
           }
 
-          --v6;
-          --v17;
+          v6 -= 2;
+          v17 -= 2;
           if (v20 <= v5)
           {
             v7 = v19;
@@ -2417,8 +2429,8 @@ LABEL_34:
 
   else
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, a2 - __src, __dst);
-    v13 = &v5[v10];
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, (a2 - __src) / 2, __dst);
+    v13 = &v5[2 * v10];
     v29 = v13;
     if (v9 >= 2 && v7 < v6)
     {
@@ -2434,7 +2446,7 @@ LABEL_34:
 
         if (v14)
         {
-          v15 = v7 + 1;
+          v15 = v7 + 2;
           if (v8 < v7 || v8 >= v15 || v8 != v7)
           {
             *v8 = *v7;
@@ -2448,11 +2460,13 @@ LABEL_34:
             *v8 = *v5;
           }
 
-          v30 = ++v5;
+          v5 += 2;
+          v30 = v5;
           v15 = v7;
         }
 
-        v31 = ++v8;
+        v8 += 2;
+        v31 = v8;
         if (v5 >= v13)
         {
           break;
@@ -2647,7 +2661,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__src, char *a2, u
       do
       {
         v26 = v8;
-        v27 = v25 - 1;
+        v27 = (v25 - 16);
         v39 = v8 - 16;
         v40 = v23;
         while (1)
@@ -2795,7 +2809,7 @@ LABEL_39:
   return 1;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2, _OWORD *a3, _OWORD *__dst, uint64_t (*a5)(uint64_t *, uint64_t *))
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__src, char *a2, char *a3, char *__dst, uint64_t (*a5)(void *, void *))
 {
   v6 = v5;
   v7 = __dst;
@@ -2823,17 +2837,17 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2,
   if (v13 >= v15 >> 5)
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, v15 >> 5, __dst);
-    v23 = &v7[2 * v16];
+    v23 = &v7[32 * v16];
     if (v14 >= 32)
     {
-      v24 = &v7[2 * v16];
+      v24 = &v7[32 * v16];
       do
       {
         v35 = v23;
         v36 = v9;
-        v9 -= 2;
-        v25 = v24 - 2;
-        v8 -= 2;
+        v9 -= 32;
+        v25 = v24 - 32;
+        v8 -= 32;
         while (1)
         {
           if (v36 <= v10)
@@ -2865,40 +2879,40 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2,
             break;
           }
 
-          if (v8 + 2 != v25 + 2)
+          if (v8 + 32 != v25 + 32)
           {
-            v32 = v25[1];
+            v32 = *(v25 + 1);
             *v8 = *v25;
-            v8[1] = v32;
+            *(v8 + 1) = v32;
           }
 
-          v23 = v29 - 2;
-          v26 = v25 - 2;
-          v8 -= 2;
-          v24 = v29 - 2;
+          v23 = v29 - 32;
+          v26 = v25 - 32;
+          v8 -= 32;
+          v24 = v29 - 32;
           v27 = v25 > v7;
-          v25 -= 2;
+          v25 -= 32;
           v6 = 0;
           if (!v27)
           {
-            v23 = v26 + 2;
+            v23 = v26 + 32;
             v9 = v36;
             goto LABEL_37;
           }
         }
 
-        if (v8 + 2 != v36)
+        if (v8 + 32 != v36)
         {
-          v33 = v9[1];
+          v33 = *(v9 + 1);
           *v8 = *v9;
-          v8[1] = v33;
+          *(v8 + 1) = v33;
         }
 
-        v24 = v25 + 2;
+        v24 = v25 + 32;
         v6 = 0;
       }
 
-      while (v25 + 2 > v7);
+      while (v25 + 32 > v7);
     }
 
 LABEL_37:
@@ -2909,7 +2923,7 @@ LABEL_37:
   else
   {
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(__src, v13, __dst);
-    v17 = &v7[2 * v13];
+    v17 = &v7[32 * v13];
     v40 = v17;
     if (v11 >= 32 && v9 < v8)
     {
@@ -2928,12 +2942,12 @@ LABEL_37:
         __swift_destroy_boxed_opaque_existential_0(v39);
         if (v19)
         {
-          v20 = v9 + 2;
+          v20 = v9 + 32;
           if (v10 < v9 || v10 >= v20 || v10 != v9)
           {
-            v21 = v9[1];
+            v21 = *(v9 + 1);
             *v10 = *v9;
-            v10[1] = v21;
+            *(v10 + 1) = v21;
           }
         }
 
@@ -2941,17 +2955,17 @@ LABEL_37:
         {
           if (v10 != v7)
           {
-            v22 = v7[1];
+            v22 = *(v7 + 1);
             *v10 = *v7;
-            v10[1] = v22;
+            *(v10 + 1) = v22;
           }
 
-          v7 += 2;
+          v7 += 32;
           v41 = v7;
           v20 = v9;
         }
 
-        v10 += 2;
+        v10 += 32;
         v42 = v10;
         if (v7 < v17)
         {
@@ -3007,7 +3021,6 @@ uint64_t specialized Array.remove(at:)(uint64_t a1)
     v6 = v4 - 1 - a1;
     v7 = &v3[16 * a1];
     v8 = *(v7 + 4);
-    v9 = *(v7 + 5);
     specialized UnsafeMutablePointer.moveInitialize(from:count:)(v7 + 48, v6, v7 + 32);
     *(v3 + 2) = v5;
     *v1 = v3;
@@ -3080,30 +3093,30 @@ uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()()
 
 char *specialized Array._makeUniqueAndReserveCapacityIfNotUnique()()
 {
-  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
+  return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(&_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
-char *specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(uint64_t *a1, uint64_t *a2)
+char *specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v5 = *v2;
+  v7 = *v3;
   result = swift_isUniquelyReferenced_nonNull_native();
-  *v2 = v5;
+  *v3 = v7;
   if (!result)
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, *(v5 + 16) + 1, 1, v5, a1, a2);
-    *v2 = result;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, *(v7 + 16) + 1, 1, v7, a1, a2, a3);
+    *v3 = result;
   }
 
   return result;
@@ -3186,28 +3199,28 @@ uint64_t specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(uint6
 
 char *specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(char *a1)
 {
-  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
+  return specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
-char *specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(char *result, uint64_t *a2, uint64_t *a3)
+char *specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(char *result, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = *(*v3 + 24);
-  if ((result + 1) > (v4 >> 1))
+  v5 = *(*v4 + 24);
+  if ((result + 1) > (v5 >> 1))
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v4 > 1), (result + 1), 1, *v3, a2, a3);
-    *v3 = result;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), (result + 1), 1, *v4, a2, a3, a4);
+    *v4 = result;
   }
 
   return result;
@@ -3360,23 +3373,19 @@ char *specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
 {
@@ -3387,7 +3396,11 @@ char *specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
 }
 
-char *specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(void **a1, const void **a2, void *a3)
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+char *specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(char **a1, char **a2, void *a3)
 {
   v4 = *a2;
   v5 = *a3 - v4;
@@ -3429,12 +3442,11 @@ char *specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(void **a
   else
   {
     result = *a1;
-    v7 = *a3 - v4;
-    v8 = v5 / 2;
-    if (result != v4 || result >= &v4[2 * v8])
+    v7 = v5 / 2;
+    if (result != v4 || result >= &v4[2 * v7])
     {
 
-      return memmove(result, v4, 2 * v8);
+      return memmove(result, v4, 2 * v7);
     }
   }
 
@@ -3552,7 +3564,7 @@ void *specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(void **a
   return result;
 }
 
-char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, uint64_t a2, char a3, uint64_t a4)
+char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, uint64_t a4)
 {
   v5 = a2;
   v6 = result;
@@ -3598,6 +3610,85 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v11;
 }
 
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 24);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 16);
+  v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCyp_Tt1g5(v8, v7);
+  v10 = v9;
+  if (v5)
+  {
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v9 + 32);
+    *(a4 + 16) = 0;
+  }
+
+  else
+  {
+    specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, v8, (v9 + 32), a4);
+  }
+
+  return v10;
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  if (a2 <= a1)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = a2;
+  }
+
+  if (!v4)
+  {
+    return MEMORY[0x29EDCA190];
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  result = v6;
+  v10 = v7 - 32;
+  v9 = v7 < 32;
+  v11 = v7 - 17;
+  if (!v9)
+  {
+    v11 = v10;
+  }
+
+  v6[2] = a1;
+  v6[3] = 2 * (v11 >> 4);
+  return result;
+}
+
+char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, uint64_t a2, char a3, uint64_t a4)
 {
   v5 = a2;
   v6 = result;
@@ -4228,128 +4319,49 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v11;
 }
 
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
 {
-  if (a2 <= a1)
-  {
-    v4 = a1;
-  }
-
-  else
-  {
-    v4 = a2;
-  }
-
-  if (!v4)
-  {
-    return MEMORY[0x29EDCA190];
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  v6 = swift_allocObject();
-  v7 = _swift_stdlib_malloc_size(v6);
-  result = v6;
-  v10 = v7 - 32;
-  v9 = v7 < 32;
-  v11 = v7 - 17;
-  if (!v9)
-  {
-    v11 = v10;
-  }
-
-  v6[2] = a1;
-  v6[3] = 2 * (v11 >> 4);
-  return result;
-}
-
-char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
-{
-  v7 = result;
+  v8 = result;
   if (a3)
   {
-    v8 = *(a4 + 24);
-    v9 = v8 >> 1;
-    if ((v8 >> 1) < a2)
+    v9 = *(a4 + 24);
+    v10 = v9 >> 1;
+    if ((v9 >> 1) < a2)
     {
-      if (v9 + 0x4000000000000000 < 0)
+      if (v10 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v10 = v9 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v9 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v9 = a2;
+        v10 = a2;
       }
     }
   }
 
   else
   {
-    v9 = a2;
+    v10 = a2;
   }
 
-  v10 = *(a4 + 16);
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(v10, v9, a5, a6);
-  v12 = v11;
-  if (v7)
+  v11 = *(a4 + 16);
+  v12 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(v11, v10, a5, a6);
+  v13 = v12;
+  if (v8)
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v10, v11 + 32);
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v11, v12 + 32);
     *(a4 + 16) = 0;
   }
 
   else
   {
-    specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, v10, (v11 + 32), a4);
+    specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, v11, (v12 + 32), a4);
   }
 
-  return v12;
-}
-
-char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, uint64_t a4)
-{
-  v5 = result;
-  if (a3)
-  {
-    v6 = *(a4 + 24);
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
-    {
-      if (v7 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v7 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = a2;
-  }
-
-  v8 = *(a4 + 16);
-  v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCyp_Tt1g5(v8, v7);
-  v10 = v9;
-  if (v5)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v9 + 32);
-    *(a4 + 16) = 0;
-  }
-
-  else
-  {
-    specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, v8, (v9 + 32), a4);
-  }
-
-  return v10;
+  return v13;
 }
 
 uint64_t specialized _ArrayBuffer._nonNative.getter(uint64_t a1)
@@ -4410,7 +4422,7 @@ char *specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t a1
   return v4;
 }
 
-uint64_t specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t specialized _ArrayBuffer._copyContents(subRange:initializing:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = specialized _ArrayBuffer._copyContents(subRange:initializing:)(a1, a2, a3, a4);
 
@@ -4814,7 +4826,7 @@ void *specialized Array.formIndex(before:)(void *result)
   return result;
 }
 
-uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
+uint64_t specialized Array.removeAll(keepingCapacity:)(uint64_t a1)
 {
   return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), &_ss23_ContiguousArrayStorageCys6UInt64VGMd, &_ss23_ContiguousArrayStorageCys6UInt64VGMR);
 }
@@ -4848,6 +4860,184 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
 }
 
 {
+  return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:), &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
+}
+
+{
+  return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:), &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
+}
+
+uint64_t specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
+{
+  if (a1)
+  {
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v9 = *v4;
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+    }
+
+    else
+    {
+      if (*(v9 + 24) >= 2uLL)
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+        v11 = swift_allocObject();
+        v12 = _swift_stdlib_malloc_size(v11);
+        v13 = v12 - 32;
+        if (v12 < 32)
+        {
+          v13 = v12 - 25;
+        }
+
+        v11[2] = 0;
+        v11[3] = 2 * (v13 >> 3);
+      }
+
+      else
+      {
+        v11 = MEMORY[0x29EDCA190];
+      }
+
+      *v4 = v11;
+    }
+  }
+
+  else
+  {
+
+    *v4 = MEMORY[0x29EDCA190];
+  }
+
+  return result;
+}
+
+{
+  if (a1)
+  {
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v9 = *v4;
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+    }
+
+    else
+    {
+      if (*(v9 + 24) >= 2uLL)
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+        v11 = swift_allocObject();
+        v12 = _swift_stdlib_malloc_size(v11);
+        v13 = v12 - 32;
+        if (v12 < 32)
+        {
+          v13 = v12 - 29;
+        }
+
+        v11[2] = 0;
+        v11[3] = 2 * (v13 >> 2);
+      }
+
+      else
+      {
+        v11 = MEMORY[0x29EDCA190];
+      }
+
+      *v4 = v11;
+    }
+  }
+
+  else
+  {
+
+    *v4 = MEMORY[0x29EDCA190];
+  }
+
+  return result;
+}
+
+{
+  if (a1)
+  {
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v9 = *v4;
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+    }
+
+    else
+    {
+      if (*(v9 + 24) >= 2uLL)
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+        v11 = swift_allocObject();
+        v12 = _swift_stdlib_malloc_size(v11);
+        v11[2] = 0;
+        v11[3] = (v12 - 32 + ((v12 - 32) >> 63)) & 0xFFFFFFFFFFFFFFFELL;
+      }
+
+      else
+      {
+        v11 = MEMORY[0x29EDCA190];
+      }
+
+      *v4 = v11;
+    }
+  }
+
+  else
+  {
+
+    *v4 = MEMORY[0x29EDCA190];
+  }
+
+  return result;
+}
+
+{
+  if (a1)
+  {
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v9 = *v4;
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+    }
+
+    else
+    {
+      if (*(v9 + 24) >= 2uLL)
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+        v11 = swift_allocObject();
+        v12 = _swift_stdlib_malloc_size(v11);
+        v11[2] = 0;
+        v11[3] = 2 * v12 - 64;
+      }
+
+      else
+      {
+        v11 = MEMORY[0x29EDCA190];
+      }
+
+      *v4 = v11;
+    }
+  }
+
+  else
+  {
+
+    *v4 = MEMORY[0x29EDCA190];
+  }
+
+  return result;
+}
+
+uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
+{
   return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), &_ss23_ContiguousArrayStorageCySuGMd, &_ss23_ContiguousArrayStorageCySuGMR);
 }
 
@@ -4856,43 +5046,38 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
 }
 
 {
-  return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:), &_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
-}
-
-{
-  v3 = *v1;
   if (a1)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v5 = *v1;
+    v3 = *v1;
     if (isUniquelyReferenced_nonNull_native)
     {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v5 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v3 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
     }
 
     else
     {
-      if (*(v5 + 24) >= 2uLL)
+      if (*(v3 + 24) >= 2uLL)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd, &_ss23_ContiguousArrayStorageCySdGMR);
-        v7 = swift_allocObject();
-        v8 = _swift_stdlib_malloc_size(v7);
-        v9 = v8 - 32;
-        if (v8 < 32)
+        v5 = swift_allocObject();
+        v6 = _swift_stdlib_malloc_size(v5);
+        v7 = v6 - 32;
+        if (v6 < 32)
         {
-          v9 = v8 - 25;
+          v7 = v6 - 25;
         }
 
-        v7[2] = 0;
-        v7[3] = 2 * (v9 >> 3);
+        v5[2] = 0;
+        v5[3] = 2 * (v7 >> 3);
       }
 
       else
       {
-        v7 = MEMORY[0x29EDCA190];
+        v5 = MEMORY[0x29EDCA190];
       }
 
-      *v1 = v7;
+      *v1 = v5;
     }
   }
 
@@ -4906,59 +5091,38 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
 }
 
 {
-  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-}
-
-{
-  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
-}
-
-{
-  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
-}
-
-{
-  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
-}
-
-{
-  return specialized Array.removeAll(keepingCapacity:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:), &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
-}
-
-{
-  v3 = *v1;
   if (a1)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v5 = *v1;
+    v3 = *v1;
     if (isUniquelyReferenced_nonNull_native)
     {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v5 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v3 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
     }
 
     else
     {
-      if (*(v5 + 24) >= 2uLL)
+      if (*(v3 + 24) >= 2uLL)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySJGMd, &_ss23_ContiguousArrayStorageCySJGMR);
-        v7 = swift_allocObject();
-        v8 = _swift_stdlib_malloc_size(v7);
-        v9 = v8 - 32;
-        if (v8 < 32)
+        v5 = swift_allocObject();
+        v6 = _swift_stdlib_malloc_size(v5);
+        v7 = v6 - 32;
+        if (v6 < 32)
         {
-          v9 = v8 - 17;
+          v7 = v6 - 17;
         }
 
-        v7[2] = 0;
-        v7[3] = 2 * (v9 >> 4);
+        v5[2] = 0;
+        v5[3] = 2 * (v7 >> 4);
       }
 
       else
       {
-        v7 = MEMORY[0x29EDCA190];
+        v5 = MEMORY[0x29EDCA190];
       }
 
-      *v1 = v7;
+      *v1 = v5;
     }
   }
 
@@ -4972,39 +5136,38 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
 }
 
 {
-  v3 = *v1;
   if (a1)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v5 = *v1;
+    v3 = *v1;
     if (isUniquelyReferenced_nonNull_native)
     {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v5 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v3 + 16), specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
     }
 
     else
     {
-      if (*(v5 + 24) >= 2uLL)
+      if (*(v3 + 24) >= 2uLL)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
-        v7 = swift_allocObject();
-        v8 = _swift_stdlib_malloc_size(v7);
-        v9 = v8 - 32;
-        if (v8 < 32)
+        v5 = swift_allocObject();
+        v6 = _swift_stdlib_malloc_size(v5);
+        v7 = v6 - 32;
+        if (v6 < 32)
         {
-          v9 = v8 - 1;
+          v7 = v6 - 1;
         }
 
-        v7[2] = 0;
-        v7[3] = 2 * (v9 >> 5);
+        v5[2] = 0;
+        v5[3] = 2 * (v7 >> 5);
       }
 
       else
       {
-        v7 = MEMORY[0x29EDCA190];
+        v5 = MEMORY[0x29EDCA190];
       }
 
-      *v1 = v7;
+      *v1 = v5;
     }
   }
 
@@ -5017,189 +5180,24 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1)
   return result;
 }
 
-uint64_t specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
+char *specialized Array.removeAll(keepingCapacity:)(uint64_t a1)
 {
-  v6 = *v4;
-  if (a1)
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *v4;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v11 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-    }
-
-    else
-    {
-      if (*(v11 + 24) >= 2uLL)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-        v13 = swift_allocObject();
-        v14 = _swift_stdlib_malloc_size(v13);
-        v15 = v14 - 32;
-        if (v14 < 32)
-        {
-          v15 = v14 - 25;
-        }
-
-        v13[2] = 0;
-        v13[3] = 2 * (v15 >> 3);
-      }
-
-      else
-      {
-        v13 = MEMORY[0x29EDCA190];
-      }
-
-      *v4 = v13;
-    }
-  }
-
-  else
-  {
-
-    *v4 = MEMORY[0x29EDCA190];
-  }
-
-  return result;
+  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  v6 = *v4;
-  if (a1)
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *v4;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v11 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-    }
-
-    else
-    {
-      if (*(v11 + 24) >= 2uLL)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-        v13 = swift_allocObject();
-        v14 = _swift_stdlib_malloc_size(v13);
-        v15 = v14 - 32;
-        if (v14 < 32)
-        {
-          v15 = v14 - 29;
-        }
-
-        v13[2] = 0;
-        v13[3] = 2 * (v15 >> 2);
-      }
-
-      else
-      {
-        v13 = MEMORY[0x29EDCA190];
-      }
-
-      *v4 = v13;
-    }
-  }
-
-  else
-  {
-
-    *v4 = MEMORY[0x29EDCA190];
-  }
-
-  return result;
+  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
+char *specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v6 = *v4;
   if (a1)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *v4;
+    v9 = *v4;
     if (isUniquelyReferenced_nonNull_native)
     {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v11 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-    }
-
-    else
-    {
-      if (*(v11 + 24) >= 2uLL)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-        v13 = swift_allocObject();
-        v14 = _swift_stdlib_malloc_size(v13);
-        v13[2] = 0;
-        v13[3] = (v14 - 32 + ((v14 - 32) >> 63)) & 0xFFFFFFFFFFFFFFFELL;
-      }
-
-      else
-      {
-        v13 = MEMORY[0x29EDCA190];
-      }
-
-      *v4 = v13;
-    }
-  }
-
-  else
-  {
-
-    *v4 = MEMORY[0x29EDCA190];
-  }
-
-  return result;
-}
-
-{
-  v6 = *v4;
-  if (a1)
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v11 = *v4;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v11 + 16), a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-    }
-
-    else
-    {
-      if (*(v11 + 24) >= 2uLL)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-        v13 = swift_allocObject();
-        v14 = _swift_stdlib_malloc_size(v13);
-        v13[2] = 0;
-        v13[3] = 2 * v14 - 64;
-      }
-
-      else
-      {
-        v13 = MEMORY[0x29EDCA190];
-      }
-
-      *v4 = v13;
-    }
-  }
-
-  else
-  {
-
-    *v4 = MEMORY[0x29EDCA190];
-  }
-
-  return result;
-}
-
-uint64_t specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t *a2, uint64_t *a3)
-{
-  v5 = *v3;
-  if (a1)
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *v3;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, a3);
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v9 + 16), a2, a3, a4);
     }
 
     else
@@ -5224,54 +5222,62 @@ uint64_t specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t *a2, ui
         v11 = MEMORY[0x29EDCA190];
       }
 
-      *v3 = v11;
+      *v4 = v11;
     }
   }
 
   else
   {
 
-    *v3 = MEMORY[0x29EDCA190];
+    *v4 = MEMORY[0x29EDCA190];
   }
 
   return result;
 }
 
+char *specialized Array.removeAll(keepingCapacity:)(char a1)
+{
+  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
+}
+
+{
+  return specialized Array.removeAll(keepingCapacity:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
+}
+
 uint64_t specialized Array.removeAll(keepingCapacity:)(char a1, uint64_t (*a2)(void), uint64_t (*a3)(uint64_t, uint64_t, void), uint64_t *a4, uint64_t *a5)
 {
-  v7 = *v5;
   if (a1)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v13 = *v5;
+    v11 = *v5;
     if (isUniquelyReferenced_nonNull_native)
     {
-      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v13 + 16), a2, a3);
+      return specialized Array.replaceSubrange<A>(_:with:)(0, *(v11 + 16), a2, a3);
     }
 
     else
     {
-      if (*(v13 + 24) >= 2uLL)
+      if (*(v11 + 24) >= 2uLL)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
-        v15 = swift_allocObject();
-        v16 = _swift_stdlib_malloc_size(v15);
-        v17 = v16 - 32;
-        if (v16 < 32)
+        v13 = swift_allocObject();
+        v14 = _swift_stdlib_malloc_size(v13);
+        v15 = v14 - 32;
+        if (v14 < 32)
         {
-          v17 = v16 - 29;
+          v15 = v14 - 29;
         }
 
-        v15[2] = 0;
-        v15[3] = 2 * (v17 >> 2);
+        v13[2] = 0;
+        v13[3] = 2 * (v15 >> 2);
       }
 
       else
       {
-        v15 = MEMORY[0x29EDCA190];
+        v13 = MEMORY[0x29EDCA190];
       }
 
-      *v5 = v15;
+      *v5 = v13;
     }
   }
 
@@ -5334,22 +5340,6 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
 }
 
 {
-  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-}
-
-{
-  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
-}
-
-{
-  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
-}
-
-{
-  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
-}
-
-{
   return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
 }
 
@@ -5359,6 +5349,23 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
 
 {
   return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+}
+
+char *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
+{
+  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
+}
+
+{
+  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
+}
+
+{
+  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
+}
+
+{
+  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
 uint64_t specialized default argument 0 of Array.removeAll(keepingCapacity:)()
@@ -5499,44 +5506,44 @@ uint64_t specialized Array.reserveCapacity(_:)(uint64_t a1)
   return specialized Array.reserveCapacity(_:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
 
-char *specialized Array.reserveCapacity(_:)(int64_t a1)
+char *specialized Array.reserveCapacity(_:)(uint64_t a1)
 {
-  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
+  return specialized Array.reserveCapacity(_:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
 }
 
-char *specialized Array.reserveCapacity(_:)(int64_t a1, uint64_t *a2, uint64_t *a3)
+char *specialized Array.reserveCapacity(_:)(int64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v7 = *v3;
+  v9 = *v4;
   result = swift_isUniquelyReferenced_nonNull_native();
-  if (!result || a1 > *(v7 + 24) >> 1)
+  if (!result || a1 > *(v9 + 3) >> 1)
   {
-    if (*(v7 + 16) <= a1)
+    if (*(v9 + 2) <= a1)
     {
-      v9 = a1;
+      v11 = a1;
     }
 
     else
     {
-      v9 = *(v7 + 16);
+      v11 = *(v9 + 2);
     }
 
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v9, 0, v7, a2, a3);
-    v7 = result;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 0, v9, a2, a3, a4);
+    v9 = result;
   }
 
-  *v3 = v7;
+  *v4 = v9;
   return result;
 }
 
@@ -5546,11 +5553,6 @@ uint64_t specialized Array.reserveCapacity(_:)(uint64_t a1, uint64_t (*a2)(void)
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || a1 > *(v5 + 24) >> 1)
   {
-    if (*(v5 + 16) > a1)
-    {
-      v7 = *(v5 + 16);
-    }
-
     result = a2();
     v5 = result;
   }
@@ -5631,19 +5633,19 @@ uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1)
 }
 
 {
-  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:));
+  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:), MEMORY[0x29EDC99B0]);
 }
 
 {
-  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:));
+  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:), MEMORY[0x29EDC9988]);
 }
 
 {
-  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:));
+  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:), MEMORY[0x29EDC99A8]);
 }
 
 {
-  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:));
+  return specialized Array._copyToNewBuffer(oldCount:)(a1, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, specialized default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:), MEMORY[0x29EDC99A0]);
 }
 
 {
@@ -5662,14 +5664,14 @@ uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1)
   specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(&v5, a1, 0, v3);
 }
 
-uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), uint64_t a5)
 {
-  v9 = specialized _ArrayBufferProtocol._forceCreateUniqueMutableBuffer(countForNewBuffer:minNewCapacity:)(a1, a1 + 1, *v4, a2, a3);
-  v7 = a4();
-  specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(&v9, a1, 0, v7);
+  v12 = specialized _ArrayBufferProtocol._forceCreateUniqueMutableBuffer(countForNewBuffer:minNewCapacity:)(a1, a1 + 1, *v5, a2, a3);
+  v9 = a4();
+  specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(&v12, a1, 0, v9, v10, a5);
 }
 
-uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), void (*a5)(void **, void *, void, uint64_t, uint64_t))
+uint64_t specialized Array._copyToNewBuffer(oldCount:)(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), void (*a5)(uint64_t *, uint64_t, void, uint64_t, uint64_t))
 {
   v12 = specialized _ArrayBufferProtocol._forceCreateUniqueMutableBuffer(countForNewBuffer:minNewCapacity:)(a1, a1 + 1, *v5, a2, a3);
   v9 = a4();
@@ -6270,102 +6272,6 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v11 = v4;
-  v13 = *(*v4 + 16);
-  v14 = v13 - a2;
-  if (__OFSUB__(v13, a2))
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v15 = v14 - v10;
-  if (__OFSUB__(v14, v10))
-  {
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v16 = v5 + 32 + 16 * a2;
-  __dst = (v16 + 16 * a3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v18 = *v11;
-  if (isUniquelyReferenced_nonNull_native && v13 <= *(v18 + 24) >> 1)
-  {
-
-    swift_arrayDestroy();
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)((v18 + 32), a2, (v5 + 32));
-    if ((v15 & 0x8000000000000000) == 0)
-    {
-      swift_arrayDestroy();
-      a4(v16, a3);
-      specialized UnsafeMutablePointer.moveInitialize(from:count:)((v18 + 32 + 16 * a2 + 16 * v15), v10, __dst);
-      if ((*(v18 + 16) - v13) >= 0)
-      {
-        swift_arrayDestroy();
-        *(v18 + 16) = 0;
-
-LABEL_10:
-
-        *v11 = v5;
-        return result;
-      }
-    }
-
-    goto LABEL_20;
-  }
-
-  if ((a2 & 0x8000000000000000) == 0)
-  {
-    v20 = specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, a2, v5 + 32, *v11);
-    a4(v20, a3);
-    v21 = a2 + v15;
-    if (!__OFADD__(a2, v15))
-    {
-      v22 = *(v18 + 16);
-      if (v22 >= v21)
-      {
-        specialized _ArrayBuffer._copyContents(subRange:initializing:)(v21, v22, __dst, v18);
-        goto LABEL_10;
-      }
-
-      goto LABEL_21;
-    }
-
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    _fatalErrorMessage(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-LABEL_21:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = *a1;
-  v6 = *(*a1 + 16);
-  v7 = __OFSUB__(v6, a2);
-  v8 = v6 - a2;
-  if (v7)
-  {
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  v10 = v8 - a3;
-  if (__OFSUB__(v8, a3))
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
   v12 = *(*v4 + 16);
   v13 = v12 - a2;
   if (__OFSUB__(v12, a2))
@@ -6629,6 +6535,103 @@ LABEL_21:
   return result;
 }
 
+uint64_t specialized _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t), uint64_t a5, uint64_t a6)
+{
+  v7 = *a1;
+  v8 = *(*a1 + 16);
+  v9 = __OFSUB__(v8, a2);
+  v10 = v8 - a2;
+  if (v9)
+  {
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v12 = v10 - a3;
+  if (__OFSUB__(v10, a3))
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v13 = v6;
+  v15 = *(*v6 + 16);
+  v16 = v15 - a2;
+  if (__OFSUB__(v15, a2))
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  v17 = v16 - v12;
+  if (__OFSUB__(v16, v12))
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  v18 = v7 + 32 + 16 * a2;
+  __dst = (v18 + 16 * a3);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v20 = *v13;
+  if (isUniquelyReferenced_nonNull_native && v15 <= *(v20 + 24) >> 1)
+  {
+
+    swift_arrayDestroy();
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)((v20 + 32), a2, (v7 + 32));
+    if ((v17 & 0x8000000000000000) == 0)
+    {
+      swift_arrayDestroy();
+      a4(v18, a3);
+      specialized UnsafeMutablePointer.moveInitialize(from:count:)((v20 + 32 + 16 * a2 + 16 * v17), v12, __dst);
+      if ((*(v20 + 16) - v15) >= 0)
+      {
+        swift_arrayDestroy();
+        *(v20 + 16) = 0;
+
+LABEL_10:
+
+        *v13 = v7;
+        return result;
+      }
+    }
+
+    goto LABEL_20;
+  }
+
+  if ((a2 & 0x8000000000000000) == 0)
+  {
+    v22 = specialized _ArrayBuffer._copyContents(subRange:initializing:)(0, a2, v7 + 32, *v13);
+    a4(v22, a3);
+    v23 = a2 + v17;
+    if (!__OFADD__(a2, v17))
+    {
+      v24 = *(v20 + 16);
+      if (v24 >= v23)
+      {
+        specialized _ArrayBuffer._copyContents(subRange:initializing:)(v23, v24, __dst, v20);
+        goto LABEL_10;
+      }
+
+      goto LABEL_21;
+    }
+
+LABEL_19:
+    __break(1u);
+LABEL_20:
+    _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+LABEL_21:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
 uint64_t specialized Array.init(_uninitializedCount:)(uint64_t a1)
 {
   return specialized Array.init(_uninitializedCount:)(a1);
@@ -6742,602 +6745,601 @@ void *specialized Array.formIndex(after:)(void *result)
   return result;
 }
 
-uint64_t (*specialized Array.subscript.modify(char ***a1, unint64_t a2))()
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-{
-  *a1 = v2;
-  v5 = *v2;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    a1[1] = v5;
-    if ((a2 & 0x8000000000000000) != 0)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  if (*(v5 + 2) > a2)
-  {
-    return Array.subscript.modifyspecialized ;
-  }
-
-LABEL_6:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
 uint64_t (*specialized Array.subscript.modify(char ***a1, unint64_t a2))(uint64_t result)
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+{
+  *a1 = v2;
+  v5 = *v2;
+  if (swift_isUniquelyReferenced_nonNull_native())
+  {
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    a1[1] = v5;
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(v5 + 2) > a2)
+  {
+    return Array.subscript.modifyspecialized ;
+  }
+
+LABEL_6:
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
 {
   *a1 = v2;
   v5 = *v2;
@@ -7425,11 +7427,9 @@ uint64_t specialized Array.subscript.getter(unint64_t a1, uint64_t a2)
 
   else
   {
-    v2 = a2 + 16 * a1;
-    v3 = *(v2 + 32);
-    v4 = *(v2 + 40);
+    v2 = *(a2 + 16 * a1 + 32);
 
-    return v3;
+    return v2;
   }
 
   return result;
@@ -7455,11 +7455,9 @@ uint64_t specialized Array.subscript.getter(unint64_t a1, uint64_t a2)
 
   else
   {
-    v2 = a2 + 16 * a1;
-    v3 = *(v2 + 32);
-    v4 = *(v2 + 40);
+    v2 = *(a2 + 16 * a1 + 32);
 
-    return v3;
+    return v2;
   }
 
   return result;
@@ -7473,11 +7471,6 @@ unint64_t specialized Array.subscript.getter(unint64_t result, uint64_t a2)
     __break(1u);
   }
 
-  else
-  {
-    v2 = *(a2 + 4 * result + 32);
-  }
-
   return result;
 }
 
@@ -7486,11 +7479,6 @@ unint64_t specialized Array.subscript.getter(unint64_t result, uint64_t a2)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
-  }
-
-  else
-  {
-    v2 = *(a2 + 8 * result + 32);
   }
 
   return result;
@@ -7514,7 +7502,7 @@ uint64_t specialized Array.subscript.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@
   return result;
 }
 
-uint64_t (*specialized Array.subscript.read(void *a1, unint64_t a2, uint64_t a3))()
+void (*specialized Array.subscript.read(void *a1, unint64_t a2, uint64_t a3))()
 {
   if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
   {
@@ -7595,87 +7583,7 @@ uint64_t (*specialized Array.subscript.read(void *a1, unint64_t a2, uint64_t a3)
   return result;
 }
 
-{
-  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  else
-  {
-    v4 = a3 + 16 * a2;
-    v5 = *(v4 + 40);
-    *a1 = *(v4 + 32);
-    a1[1] = v5;
-
-    return Array.subscript.readspecialized ;
-  }
-
-  return result;
-}
-
-{
-  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  else
-  {
-    v4 = a3 + 16 * a2;
-    v5 = *(v4 + 40);
-    *a1 = *(v4 + 32);
-    a1[1] = v5;
-
-    return Array.subscript.readspecialized ;
-  }
-
-  return result;
-}
-
-{
-  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  else
-  {
-    v4 = a3 + 16 * a2;
-    v5 = *(v4 + 40);
-    *a1 = *(v4 + 32);
-    a1[1] = v5;
-
-    return Array.subscript.readspecialized ;
-  }
-
-  return result;
-}
-
-{
-  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  else
-  {
-    v4 = a3 + 16 * a2;
-    v5 = *(v4 + 40);
-    *a1 = *(v4 + 32);
-    a1[1] = v5;
-
-    return Array.subscript.readspecialized ;
-  }
-
-  return result;
-}
-
-uint64_t (*specialized Array.subscript.read(_DWORD *a1, unint64_t a2, uint64_t a3))()
+void (*specialized Array.subscript.read(_DWORD *a1, unint64_t a2, uint64_t a3))()
 {
   if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
   {
@@ -7740,7 +7648,7 @@ uint64_t (*specialized Array.subscript.read(_DWORD *a1, unint64_t a2, uint64_t a
   return result;
 }
 
-uint64_t (*specialized Array.subscript.read(_WORD *a1, unint64_t a2, uint64_t a3))()
+void (*specialized Array.subscript.read(_WORD *a1, unint64_t a2, uint64_t a3))()
 {
   if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
   {
@@ -7773,7 +7681,7 @@ uint64_t (*specialized Array.subscript.read(_WORD *a1, unint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t (*specialized Array.subscript.read(_BYTE *a1, unint64_t a2, uint64_t a3))()
+void (*specialized Array.subscript.read(_BYTE *a1, unint64_t a2, uint64_t a3))()
 {
   if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
   {
@@ -7827,7 +7735,87 @@ uint64_t (*specialized Array.subscript.read(void *a1, unint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t (*specialized Array.subscript.read(uint64_t a1, unint64_t a2, uint64_t a3))()
+{
+  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = a3 + 16 * a2;
+    v5 = *(v4 + 40);
+    *a1 = *(v4 + 32);
+    a1[1] = v5;
+
+    return Array.subscript.readspecialized ;
+  }
+
+  return result;
+}
+
+{
+  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = a3 + 16 * a2;
+    v5 = *(v4 + 40);
+    *a1 = *(v4 + 32);
+    a1[1] = v5;
+
+    return Array.subscript.readspecialized ;
+  }
+
+  return result;
+}
+
+{
+  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = a3 + 16 * a2;
+    v5 = *(v4 + 40);
+    *a1 = *(v4 + 32);
+    a1[1] = v5;
+
+    return Array.subscript.readspecialized ;
+  }
+
+  return result;
+}
+
+{
+  if ((a2 & 0x8000000000000000) != 0 || *(a3 + 16) <= a2)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = a3 + 16 * a2;
+    v5 = *(v4 + 40);
+    *a1 = *(v4 + 32);
+    a1[1] = v5;
+
+    return Array.subscript.readspecialized ;
+  }
+
+  return result;
+}
+
+void (*specialized Array.subscript.read(uint64_t a1, unint64_t a2, uint64_t a3))()
 {
   if ((a2 & 0x8000000000000000) == 0 && *(a3 + 16) > a2)
   {
@@ -7839,23 +7827,55 @@ uint64_t (*specialized Array.subscript.read(uint64_t a1, unint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t specialized Array.init(repeating:count:)(unint64_t a1, unint64_t a2)
+int64x2_t *specialized Array.init(repeating:count:)(unint64_t a1, unint64_t a2)
 {
-  return specialized Array.init(repeating:count:)(a1, a2);
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDCA0D0]);
 }
 
 {
-  return specialized Array.init(repeating:count:)(a1, a2);
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9F60]);
 }
 
 {
-  return specialized Array.init(repeating:count:)(a1, a2);
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9CA8]);
 }
 
 {
-  return specialized Array.init(repeating:count:)(a1, a2);
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9BA8]);
 }
 
+int32x4_t *specialized Array.init(repeating:count:)(uint64_t a1, unint64_t a2)
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDCA0A8]);
+}
+
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9F48]);
+}
+
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDCA140]);
+}
+
+int16x8_t *specialized Array.init(repeating:count:)(uint64_t a1, unint64_t a2)
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDCA090]);
+}
+
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9F28]);
+}
+
+uint64_t specialized Array.init(repeating:count:)(uint64_t a1, size_t a2)
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDCA018]);
+}
+
+{
+  return specialized Array.init(repeating:count:)(a1, a2, MEMORY[0x29EDC9F00]);
+}
+
+int16x8_t *specialized Array.init(repeating:count:)(unsigned int a1, unint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -7870,140 +7890,71 @@ uint64_t specialized Array.init(repeating:count:)(unint64_t a1, unint64_t a2)
   }
 
   result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(result + 16) = a2;
-  v5 = (result + 32);
-  if (a2 <= 3)
-  {
-    v6 = 0;
-LABEL_9:
-    v10 = a2 - v6;
-    do
-    {
-      *v5++ = a1;
-      --v10;
-    }
-
-    while (v10);
-    return result;
-  }
-
-  v6 = a2 & 0x7FFFFFFFFFFFFFFCLL;
-  v5 += a2 & 0x7FFFFFFFFFFFFFFCLL;
-  v7 = vdupq_n_s64(a1);
-  v8 = (result + 48);
-  v9 = a2 & 0x7FFFFFFFFFFFFFFCLL;
-  do
-  {
-    v8[-1] = v7;
-    *v8 = v7;
-    v8 += 2;
-    v9 -= 4;
-  }
-
-  while (v9);
-  if (v6 != a2)
-  {
-    goto LABEL_9;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array.init(repeating:count:)(unsigned int a1, unint64_t a2)
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  if (!a2)
-  {
-    return MEMORY[0x29EDCA190];
-  }
-
-  result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(result + 16) = a2;
-  v5 = (result + 32);
+  result[1].i64[0] = a2;
+  v6 = result + 2;
   if (a2 < 4)
   {
-    v6 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
   if (a2 >= 0x10)
   {
-    v6 = a2 & 0x7FFFFFFFFFFFFFF0;
-    v7 = vdupq_n_s16(a1);
-    v8 = (result + 48);
-    v9 = a2 & 0x7FFFFFFFFFFFFFF0;
+    v7 = a2 & 0x7FFFFFFFFFFFFFF0;
+    v8 = vdupq_n_s16(a1);
+    v9 = result + 3;
+    v10 = a2 & 0x7FFFFFFFFFFFFFF0;
     do
     {
-      v8[-1] = v7;
-      *v8 = v7;
-      v8 += 2;
-      v9 -= 16;
+      v9[-1] = v8;
+      *v9 = v8;
+      v9 += 2;
+      v10 -= 16;
     }
 
-    while (v9);
-    if (v6 == a2)
+    while (v10);
+    if (v7 == a2)
     {
       return result;
     }
 
     if ((a2 & 0xC) == 0)
     {
-      v5 += v6;
+      v6 = (v6 + 2 * v7);
 LABEL_17:
-      v14 = a2 - v6;
+      v15 = a2 - v7;
       do
       {
-        *v5++ = a1;
-        --v14;
+        v6->i16[0] = a1;
+        v6 = (v6 + 2);
+        --v15;
       }
 
-      while (v14);
+      while (v15);
       return result;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v10 = v6;
-  v6 = a2 & 0x7FFFFFFFFFFFFFFCLL;
-  v5 += a2 & 0x7FFFFFFFFFFFFFFCLL;
-  v11 = vdup_n_s16(a1);
-  v12 = 2 * v10 + 32;
-  v13 = v10 - (a2 & 0x7FFFFFFFFFFFFFFCLL);
+  v11 = v7;
+  v7 = a2 & 0x7FFFFFFFFFFFFFFCLL;
+  v6 = (v6 + 2 * (a2 & 0x7FFFFFFFFFFFFFFCLL));
+  v12 = vdup_n_s16(a1);
+  v13 = 2 * v11 + 32;
+  v14 = v11 - (a2 & 0x7FFFFFFFFFFFFFFCLL);
   do
   {
-    *(result + v12) = v11;
-    v12 += 8;
-    v13 += 4;
+    *&result->i8[v13] = v12;
+    v13 += 8;
+    v14 += 4;
   }
 
-  while (v13);
-  if (v6 != a2)
+  while (v14);
+  if (v7 != a2)
   {
     goto LABEL_17;
   }
@@ -8011,72 +7962,7 @@ LABEL_17:
   return result;
 }
 
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  if (!a2)
-  {
-    return MEMORY[0x29EDCA190];
-  }
-
-  result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(result + 16) = a2;
-  v5 = (result + 32);
-  if (a2 <= 7)
-  {
-    v6 = 0;
-LABEL_9:
-    v10 = a2 - v6;
-    do
-    {
-      *v5++ = a1;
-      --v10;
-    }
-
-    while (v10);
-    return result;
-  }
-
-  v6 = a2 & 0x7FFFFFFFFFFFFFF8;
-  v5 += a2 & 0x7FFFFFFFFFFFFFF8;
-  v7 = vdupq_n_s32(a1);
-  v8 = (result + 48);
-  v9 = a2 & 0x7FFFFFFFFFFFFFF8;
-  do
-  {
-    v8[-1] = v7;
-    *v8 = v7;
-    v8 += 2;
-    v9 -= 8;
-  }
-
-  while (v9);
-  if (v6 != a2)
-  {
-    goto LABEL_9;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array.init(repeating:count:)(int a1, size_t a2)
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
-{
-  return specialized Array.init(repeating:count:)(a1, a2);
-}
-
+uint64_t specialized Array.init(repeating:count:)(int a1, size_t a2, uint64_t a3)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -8091,16 +7977,71 @@ uint64_t specialized Array.init(repeating:count:)(int a1, size_t a2)
       return MEMORY[0x29EDCA190];
     }
 
-    v4 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v4 + 16) = a2;
-    memset((v4 + 32), a1, a2);
-    return v4;
+    v5 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v5 + 16) = a2;
+    memset((v5 + 32), a1, a2);
+    return v5;
   }
 
   return result;
 }
 
-uint64_t specialized Array.init(repeating:count:)(unint64_t a1, int32x2_t a2)
+int64x2_t *specialized Array.init(repeating:count:)(unint64_t a1, unint64_t a2, uint64_t a3)
+{
+  if ((a2 & 0x8000000000000000) != 0)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  if (!a2)
+  {
+    return MEMORY[0x29EDCA190];
+  }
+
+  result = static Array._allocateBufferUninitialized(minimumCapacity:)();
+  result[1].i64[0] = a2;
+  v6 = result + 2;
+  if (a2 <= 3)
+  {
+    v7 = 0;
+LABEL_9:
+    v11 = a2 - v7;
+    do
+    {
+      v6->i64[0] = a1;
+      v6 = (v6 + 8);
+      --v11;
+    }
+
+    while (v11);
+    return result;
+  }
+
+  v7 = a2 & 0x7FFFFFFFFFFFFFFCLL;
+  v6 = (v6 + 8 * (a2 & 0x7FFFFFFFFFFFFFFCLL));
+  v8 = vdupq_n_s64(a1);
+  v9 = result + 3;
+  v10 = a2 & 0x7FFFFFFFFFFFFFFCLL;
+  do
+  {
+    v9[-1] = v8;
+    *v9 = v8;
+    v9 += 2;
+    v10 -= 4;
+  }
+
+  while (v10);
+  if (v7 != a2)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+int32x4_t *specialized Array.init(repeating:count:)(unint64_t a1, int32x2_t a2)
 {
   if ((a1 & 0x8000000000000000) != 0)
   {
@@ -8115,8 +8056,8 @@ uint64_t specialized Array.init(repeating:count:)(unint64_t a1, int32x2_t a2)
   }
 
   result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(result + 16) = a1;
-  v4 = (result + 32);
+  result[1].i64[0] = a1;
+  i32 = result[2].i32;
   if (a1 <= 7)
   {
     v5 = 0;
@@ -8125,7 +8066,7 @@ LABEL_9:
     v10 = a1 - v5;
     do
     {
-      *v4++ = v6;
+      *i32++ = v6;
       --v10;
     }
 
@@ -8134,10 +8075,10 @@ LABEL_9:
   }
 
   v5 = a1 & 0x7FFFFFFFFFFFFFF8;
-  v4 += a1 & 0x7FFFFFFFFFFFFFF8;
+  i32 += a1 & 0x7FFFFFFFFFFFFFF8;
   v6 = a2.i32[0];
   v7 = vdupq_lane_s32(a2, 0);
-  v8 = (result + 48);
+  v8 = result + 3;
   v9 = a1 & 0x7FFFFFFFFFFFFFF8;
   do
   {
@@ -8275,7 +8216,62 @@ uint64_t specialized Array.init(repeating:count:)(uint64_t a1, uint64_t a2, uint
   return specialized Array.init(repeating:count:)(a1, a2, a3);
 }
 
-uint64_t specialized Array.init(repeating:count:)(uint64_t *a1, uint64_t a2)
+int32x4_t *specialized Array.init(repeating:count:)(unsigned int a1, unint64_t a2, uint64_t a3)
+{
+  if ((a2 & 0x8000000000000000) != 0)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  if (!a2)
+  {
+    return MEMORY[0x29EDCA190];
+  }
+
+  result = static Array._allocateBufferUninitialized(minimumCapacity:)();
+  result[1].i64[0] = a2;
+  v6 = result + 2;
+  if (a2 <= 7)
+  {
+    v7 = 0;
+LABEL_9:
+    v11 = a2 - v7;
+    do
+    {
+      v6->i32[0] = a1;
+      v6 = (v6 + 4);
+      --v11;
+    }
+
+    while (v11);
+    return result;
+  }
+
+  v7 = a2 & 0x7FFFFFFFFFFFFFF8;
+  v6 = (v6 + 4 * (a2 & 0x7FFFFFFFFFFFFFF8));
+  v8 = vdupq_n_s32(a1);
+  v9 = result + 3;
+  v10 = a2 & 0x7FFFFFFFFFFFFFF8;
+  do
+  {
+    v9[-1] = v8;
+    *v9 = v8;
+    v9 += 2;
+    v10 -= 8;
+  }
+
+  while (v10);
+  if (v7 != a2)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+uint64_t specialized Array.init(repeating:count:)(void *a1, uint64_t a2)
 {
   v2 = a2;
   UninitializedySayxG_SpyxGtSiFZs6UInt64V_Tt0g5Tm = _sSa22_allocateUninitializedySayxG_SpyxGtSiFZs6UInt64V_Tt0g5Tm(a2);
@@ -8684,7 +8680,7 @@ char *specialized _ContiguousArrayBuffer._copyContents(subRange:initializing:)(u
   return result;
 }
 
-uint64_t specialized _ContiguousArrayBuffer._copyContents(subRange:initializing:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t specialized _ContiguousArrayBuffer._copyContents(subRange:initializing:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   return specialized _ContiguousArrayBuffer._copyContents(subRange:initializing:)(a1, a2, a3, a4);
 }
@@ -8936,7 +8932,6 @@ uint64_t specialized _ArrayBuffer._isNative.getter()
 
 uint64_t specialized _ArrayBuffer.requestUniqueMutableBackingBuffer(minimumCapacity:)(uint64_t a1)
 {
-  v3 = *v1;
   if (swift_isUniquelyReferenced_nonNull_native() && a1 <= *(*v1 + 24) >> 1)
   {
   }
@@ -8965,11 +8960,9 @@ uint64_t specialized _ArrayBuffer.subscript.getter(uint64_t a1, uint64_t a2)
 }
 
 {
-  v2 = a2 + 16 * a1;
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
+  v2 = *(a2 + 16 * a1 + 32);
 
-  return v3;
+  return v2;
 }
 
 {
@@ -8977,14 +8970,12 @@ uint64_t specialized _ArrayBuffer.subscript.getter(uint64_t a1, uint64_t a2)
 }
 
 {
-  v2 = a2 + 16 * a1;
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
+  v2 = *(a2 + 16 * a1 + 32);
 
-  return v3;
+  return v2;
 }
 
-uint64_t (*specialized _ArrayBuffer.subscript.read(void *a1, uint64_t a2, uint64_t a3))()
+void (*specialized _ArrayBuffer.subscript.read(void *a1, uint64_t a2, uint64_t a3))()
 {
   *a1 = *(a3 + 8 * a2 + 32);
   return Range<>.subscript.readspecialized ;
@@ -9010,52 +9001,7 @@ uint64_t (*specialized _ArrayBuffer.subscript.read(void *a1, uint64_t a2, uint64
   return Range<>.subscript.readspecialized ;
 }
 
-{
-  v4 = a3 + 16 * a2;
-  v5 = *(v4 + 40);
-  *a1 = *(v4 + 32);
-  a1[1] = v5;
-
-  return Array.subscript.readspecialized ;
-}
-
-{
-  v4 = a3 + 16 * a2;
-  v5 = *(v4 + 40);
-  *a1 = *(v4 + 32);
-  a1[1] = v5;
-
-  return Array.subscript.readspecialized ;
-}
-
-{
-  v4 = a3 + 16 * a2;
-  v5 = *(v4 + 40);
-  *a1 = *(v4 + 32);
-  a1[1] = v5;
-
-  return Array.subscript.readspecialized ;
-}
-
-{
-  v4 = a3 + 16 * a2;
-  v5 = *(v4 + 40);
-  *a1 = *(v4 + 32);
-  a1[1] = v5;
-
-  return Array.subscript.readspecialized ;
-}
-
-{
-  v4 = a3 + 16 * a2;
-  v5 = *(v4 + 40);
-  *a1 = *(v4 + 32);
-  a1[1] = v5;
-
-  return Array.subscript.readspecialized ;
-}
-
-uint64_t (*specialized _ArrayBuffer.subscript.read(_DWORD *a1, uint64_t a2, uint64_t a3))()
+void (*specialized _ArrayBuffer.subscript.read(_DWORD *a1, uint64_t a2, uint64_t a3))()
 {
   *a1 = *(a3 + 4 * a2 + 32);
   return Range<>.subscript.readspecialized ;
@@ -9076,7 +9022,7 @@ uint64_t (*specialized _ArrayBuffer.subscript.read(_DWORD *a1, uint64_t a2, uint
   return Range<>.subscript.readspecialized ;
 }
 
-uint64_t (*specialized _ArrayBuffer.subscript.read(_WORD *a1, uint64_t a2, uint64_t a3))()
+void (*specialized _ArrayBuffer.subscript.read(_WORD *a1, uint64_t a2, uint64_t a3))()
 {
   *a1 = *(a3 + 2 * a2 + 32);
   return Range<>.subscript.readspecialized ;
@@ -9087,7 +9033,7 @@ uint64_t (*specialized _ArrayBuffer.subscript.read(_WORD *a1, uint64_t a2, uint6
   return Range<>.subscript.readspecialized ;
 }
 
-uint64_t (*specialized _ArrayBuffer.subscript.read(_BYTE *a1, uint64_t a2, uint64_t a3))()
+void (*specialized _ArrayBuffer.subscript.read(_BYTE *a1, uint64_t a2, uint64_t a3))()
 {
   *a1 = *(a3 + a2 + 32);
   return Range<>.subscript.readspecialized ;
@@ -9096,6 +9042,52 @@ uint64_t (*specialized _ArrayBuffer.subscript.read(_BYTE *a1, uint64_t a2, uint6
 {
   *a1 = *(a3 + a2 + 32);
   return Range<>.subscript.readspecialized ;
+}
+
+uint64_t (*specialized _ArrayBuffer.subscript.read(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
+{
+  v4 = a3 + 16 * a2;
+  v5 = *(v4 + 40);
+  *a1 = *(v4 + 32);
+  a1[1] = v5;
+
+  return Array.subscript.readspecialized ;
+}
+
+{
+  v4 = a3 + 16 * a2;
+  v5 = *(v4 + 40);
+  *a1 = *(v4 + 32);
+  a1[1] = v5;
+
+  return Array.subscript.readspecialized ;
+}
+
+{
+  v4 = a3 + 16 * a2;
+  v5 = *(v4 + 40);
+  *a1 = *(v4 + 32);
+  a1[1] = v5;
+
+  return Array.subscript.readspecialized ;
+}
+
+{
+  v4 = a3 + 16 * a2;
+  v5 = *(v4 + 40);
+  *a1 = *(v4 + 32);
+  a1[1] = v5;
+
+  return Array.subscript.readspecialized ;
+}
+
+{
+  v4 = a3 + 16 * a2;
+  v5 = *(v4 + 40);
+  *a1 = *(v4 + 32);
+  a1[1] = v5;
+
+  return Array.subscript.readspecialized ;
 }
 
 unint64_t specialized _ArrayBuffer._checkInoutAndNativeTypeCheckedBounds(_:wasNativeTypeChecked:)(unint64_t result, char a2, uint64_t a3)

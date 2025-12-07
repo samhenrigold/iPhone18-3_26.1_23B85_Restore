@@ -207,7 +207,6 @@
   objc_storeStrong(v24, 0);
   objc_storeStrong(&v25, 0);
   _Block_object_dispose(&v26, 8);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -255,7 +254,6 @@ void __32__AccelerometerBuffer_logBuffer__block_invoke(uint64_t a1, void *a2, vo
 
   objc_storeStrong(v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __32__AccelerometerBuffer_logBuffer__block_invoke_41(id *a1, void *a2, void *a3, void *a4)
@@ -295,7 +293,6 @@ void __32__AccelerometerBuffer_logBuffer__block_invoke_41(id *a1, void *a2, void
   [a1[4] addObject:v15[0]];
   objc_storeStrong(v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)csv

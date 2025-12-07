@@ -187,7 +187,7 @@
 
 - (id)save
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   activeDSIDRecord = [self activeDSIDRecord];
 
   if (activeDSIDRecord)
@@ -205,7 +205,7 @@
       activeDSIDRecord3 = [selfCopy activeDSIDRecord];
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.adprivacyd [%@ save] starting", objc_opt_class()];
       takeXPCTransaction();
-      v44 = v8;
+      v43 = v8;
       mEMORY[0x277CE9658] = [MEMORY[0x277CE9658] sharedInstance];
       getDSIDDicFromStorage = [mEMORY[0x277CE9658] getDSIDDicFromStorage];
       v11 = [getDSIDDicFromStorage mutableCopy];
@@ -267,36 +267,36 @@
       if (v20)
       {
         [activeDSIDRecord3 setDirty:0];
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         aDIDRecords = [activeDSIDRecord3 ADIDRecords];
         allValues = [aDIDRecords allValues];
 
-        v33 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v33 = [allValues countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v33)
         {
-          v34 = *v46;
+          v34 = *v45;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v46 != v34)
+              if (*v45 != v34)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              [*(*(&v45 + 1) + 8 * i) setDirty:0];
+              [*(*(&v44 + 1) + 8 * i) setDirty:0];
             }
 
-            v33 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v33 = [allValues countByEnumeratingWithState:&v44 objects:v48 count:16];
           }
 
           while (v33);
         }
 
-        v36 = v44;
+        v36 = v43;
         v21 = 0;
       }
 
@@ -313,7 +313,7 @@
           _ADLog();
         }
 
-        v36 = v44;
+        v36 = v43;
       }
 
       objc_sync_exit(selfCopy);
@@ -325,8 +325,6 @@
     v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithAdCode:0 andDescription:{@"Aborting save, no DSID record."}];
     [v21 AD_Log:@"iAdIDLogging"];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -382,9 +380,9 @@
 
 - (void)finishedReconciling:()Private withError:
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v44 = a3;
-  v45 = a4;
+  v51 = *MEMORY[0x277D85DE8];
+  v43 = a3;
+  v44 = a4;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   _reconcileInProgress = 0;
@@ -408,10 +406,10 @@ LABEL_5:
   v10 = MEMORY[0x277CCACA8];
   v11 = objc_opt_class();
   v12 = v11;
-  if (v45)
+  if (v44)
   {
-    code = [v45 code];
-    localizedDescription = [v45 localizedDescription];
+    code = [v44 code];
+    localizedDescription = [v44 localizedDescription];
     v15 = [v10 stringWithFormat:@"[%@]: Error %ld reconciling DSID record: %@", v12, code, localizedDescription];
     _ADLog();
 
@@ -419,7 +417,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v36 = [v10 stringWithFormat:@"[%@]: Successfully reconciled DSID record for DSID %@", v11, dSID];
+  v35 = [v10 stringWithFormat:@"[%@]: Successfully reconciled DSID record for DSID %@", v11, dSID];
   _ADLog();
 
   [selfCopy logIDs:@"Final reconciled IDs:"];
@@ -460,9 +458,9 @@ LABEL_6:
     }
   }
 
-  if (v44)
+  if (v43)
   {
-    v44[2]();
+    v43[2]();
   }
 
   [_reconcileOperations reset];
@@ -478,30 +476,30 @@ LABEL_6:
     _ADLog();
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v29 = _postReconcileOperations;
-  v30 = [v29 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v30)
   {
-    v31 = *v48;
+    v31 = *v47;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v48 != v31)
+        if (*v47 != v31)
         {
           objc_enumerationMutation(v29);
         }
 
-        v33 = *(*(&v47 + 1) + 8 * i);
+        v33 = *(*(&v46 + 1) + 8 * i);
         workQueue2 = [MEMORY[0x277CE96B8] workQueue];
         [workQueue2 addOperationWithBlock:v33];
       }
 
-      v30 = [v29 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
     while (v30);
@@ -513,8 +511,6 @@ LABEL_6:
   }
 
   objc_sync_exit(v27);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAccountData:()Private
@@ -669,23 +665,23 @@ LABEL_6:
 
 - (uint64_t)scheduleDailyUpdate
 {
-  v0 = [objc_alloc(MEMORY[0x277CE95F8]) initWithID:@"com.apple.ap.adprivacyd.rotateDeviceNewsPlusSubscriberID"];
-  [v0 setGracePeriod:300];
-  v1 = [MEMORY[0x277CCACA8] stringWithCString:*MEMORY[0x277D86350] encoding:4];
-  [v0 setPriority:v1];
+  v1 = [objc_alloc(MEMORY[0x277CE95F8]) initWithID:@"com.apple.ap.adprivacyd.rotateDeviceNewsPlusSubscriberID"];
+  [v1 setGracePeriod:300];
+  v2 = [MEMORY[0x277CCACA8] stringWithCString:*MEMORY[0x277D86350] encoding:4];
+  [v1 setPriority:v2];
 
-  [v0 setAllowBattery:1];
-  [v0 setDelay:86400];
-  [v0 setIsRepeating:0];
-  [v0 setRequireSleep:1];
-  [v0 setRequireClassCData:1];
-  [v0 setRequiresNetworkConnectivity:0];
-  [v0 setRequireBuddyComplete:1];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Rescheduling deviceNewsPlusSubscriberID rotation to run again in %lld seconds.", objc_opt_class(), objc_msgSend(v0, "delay")];
+  [v1 setAllowBattery:1];
+  [v1 setDelay:86400];
+  [v1 setIsRepeating:0];
+  [v1 setRequireSleep:1];
+  [v1 setRequireClassCData:1];
+  [v1 setRequiresNetworkConnectivity:0];
+  [v1 setRequireBuddyComplete:1];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Rescheduling deviceNewsPlusSubscriberID rotation to run again in %lld seconds.", objc_opt_class(), objc_msgSend(v1, "delay")];
   _ADLog();
 
   mEMORY[0x277CE9600] = [MEMORY[0x277CE9600] sharedInstance];
-  [mEMORY[0x277CE9600] addBackgroundTask:v0];
+  [mEMORY[0x277CE9600] addBackgroundTask:v1];
 
   return 1;
 }
@@ -806,15 +802,15 @@ LABEL_9:
 
 - (void)rotateAccountToken
 {
-  v0 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v4 = [v0 initWithSuiteName:*MEMORY[0x277CE95C8]];
+  v1 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v5 = [v1 initWithSuiteName:*MEMORY[0x277CE95C8]];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Setting UUID - %@ for account DSID state.", objc_opt_class(), uUIDString];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Setting UUID - %@ for account DSID state.", objc_opt_class(), uUIDString];
   _ADLog();
 
-  [v4 setObject:uUIDString forKey:@"AccountStateUUID"];
+  [v5 setObject:uUIDString forKey:@"AccountStateUUID"];
 }
 
 @end

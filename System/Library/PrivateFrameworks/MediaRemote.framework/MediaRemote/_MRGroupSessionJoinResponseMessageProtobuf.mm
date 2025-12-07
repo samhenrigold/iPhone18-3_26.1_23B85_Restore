@@ -46,9 +46,8 @@
     [_MRGroupSessionJoinResponseMessageProtobuf writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  approved = self->_approved;
   PBDataWriterWriteBOOLField();
 }
 

@@ -3,7 +3,7 @@
 
 @implementation NSError
 
-uint64_t __63__NSError_BRCSyncOperationThrottle__brc_syncOperationErrorKind__block_invoke(uint64_t a1, void *a2)
+void *__63__NSError_BRCSyncOperationThrottle__brc_syncOperationErrorKind__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 brc_isCloudKitErrorConsideredAsSuccessForZoneThrottle];
   if (result)
@@ -396,12 +396,11 @@ void __42__NSError_BRCAdditions__brc_strippedError__block_invoke_2(uint64_t a1, 
 
 void __35__NSError_BRCAdditions__initialize__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v2, sel_description);
-  v4 = class_getInstanceMethod(v2, sel_brc_description);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_description);
+  v3 = class_getInstanceMethod(v1, sel_brc_description);
 
-  method_exchangeImplementations(InstanceMethod, v4);
+  method_exchangeImplementations(InstanceMethod, v3);
 }
 
 void __68__NSError_BRCAdditions__brc_telemetryReportableErrorWithRecordName___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)

@@ -21,10 +21,10 @@
   inputPointsL = [(PICurvesLUTFilter *)self inputPointsL];
   v10 = [PICurvesLUTFilter curvePointsFromDictionaries:inputPointsL];
 
-  [PICurvesLUTFilter calculateCurveTable:v4];
-  [PICurvesLUTFilter calculateCurveTable:v6];
-  [PICurvesLUTFilter calculateCurveTable:v8];
-  [PICurvesLUTFilter calculateCurveTable:v10];
+  objc_msgSend_calculateCurveTable_(PICurvesLUTFilter);
+  objc_msgSend_calculateCurveTable_(PICurvesLUTFilter);
+  objc_msgSend_calculateCurveTable_(PICurvesLUTFilter);
+  objc_msgSend_calculateCurveTable_(PICurvesLUTFilter);
   v11 = [PICurvesLUTFilter tableImageFromRed:v16 green:v15 blue:v14 luminance:__p];
   if (__p)
   {

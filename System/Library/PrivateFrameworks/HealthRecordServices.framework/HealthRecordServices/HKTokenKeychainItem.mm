@@ -1,7 +1,10 @@
 @interface HKTokenKeychainItem
++ (BOOL)_addTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error;
 + (BOOL)_deleteTokenIdentifiedByName:(id)name error:(id *)error;
 + (BOOL)_isTokenPresentIdentifiedByName:(id)name error:(id *)error;
 + (BOOL)_makeTokenSynchronizableIfNeededIdentifiedByName:(id)name error:(id *)error;
++ (BOOL)_storeTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error;
++ (BOOL)_updateTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error;
 + (id)_fetchTokenIdentifiedByName:(id)name error:(id *)error;
 + (id)_identifyingAttributesForKeyIdentifiedByName:(id)name;
 + (id)_keyQueryAttributesForKeyIdentifiedByName:(id)name;
@@ -107,45 +110,41 @@
 
 + (id)_identifyingAttributesForKeyIdentifiedByName:(id)name
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
     +[HKTokenKeychainItem _identifyingAttributesForKeyIdentifiedByName:];
   }
 
-  v13[0] = *MEMORY[0x277CDC228];
+  v12[0] = *MEMORY[0x277CDC228];
   tokenKeychainItemSecurityClass = [self tokenKeychainItemSecurityClass];
-  v14[0] = tokenKeychainItemSecurityClass;
-  v13[1] = *MEMORY[0x277CDBF20];
+  v13[0] = tokenKeychainItemSecurityClass;
+  v12[1] = *MEMORY[0x277CDBF20];
   v6 = [nameCopy dataUsingEncoding:4];
   v7 = *MEMORY[0x277CDBED8];
   v8 = *MEMORY[0x277CDBF10];
-  v14[1] = v6;
-  v14[2] = v8;
+  v13[1] = v6;
+  v13[2] = v8;
   v9 = *MEMORY[0x277CDC140];
-  v13[2] = v7;
-  v13[3] = v9;
-  v14[3] = *MEMORY[0x277CDC148];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[2] = v7;
+  v12[3] = v9;
+  v13[3] = *MEMORY[0x277CDC148];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }
 
 + (id)_keyQueryAttributesForKeyIdentifiedByName:(id)name
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [self _identifyingAttributesForKeyIdentifiedByName:name];
   v4 = [v3 mutableCopy];
 
-  v8 = *MEMORY[0x277CDC558];
-  v9[0] = *MEMORY[0x277CBED28];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CDC558];
+  v8[0] = *MEMORY[0x277CBED28];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v4 addEntriesFromDictionary:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -153,7 +152,7 @@
 + (id)_storableAttributesForKeyIdentifiedByName:(id)name data:(id)data modificationDate:(id)date synchronizable:(BOOL)synchronizable
 {
   synchronizableCopy = synchronizable;
-  v28[5] = *MEMORY[0x277D85DE8];
+  v27[5] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dataCopy = data;
   dateCopy = date;
@@ -182,10 +181,10 @@ LABEL_3:
 
   v16 = *MEMORY[0x277CDBFC0];
   v17 = *MEMORY[0x277CBED28];
-  v28[0] = *MEMORY[0x277CBED28];
+  v27[0] = *MEMORY[0x277CBED28];
   v18 = *MEMORY[0x277CDC088];
-  v27[0] = v16;
-  v27[1] = v18;
+  v26[0] = v16;
+  v26[1] = v18;
   date = v13;
   if (!v13)
   {
@@ -194,28 +193,26 @@ LABEL_3:
 
   v20 = *MEMORY[0x277CDC0A8];
   v21 = *MEMORY[0x277CDC0C0];
-  v28[1] = date;
-  v28[2] = v21;
+  v27[1] = date;
+  v27[2] = v21;
   v22 = *MEMORY[0x277CDC140];
-  v27[2] = v20;
-  v27[3] = v22;
+  v26[2] = v20;
+  v26[3] = v22;
   v23 = *MEMORY[0x277CBED10];
   if (synchronizableCopy)
   {
     v23 = v17;
   }
 
-  v27[4] = *MEMORY[0x277CDC5E8];
-  v28[3] = v23;
-  v28[4] = dataCopy;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:5];
+  v26[4] = *MEMORY[0x277CDC5E8];
+  v27[3] = v23;
+  v27[4] = dataCopy;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:5];
   [v15 addEntriesFromDictionary:v24];
 
   if (!v13)
   {
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -248,14 +245,14 @@ LABEL_3:
 
 + (BOOL)_makeTokenSynchronizableIfNeededIdentifiedByName:(id)name error:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [self _identifyingAttributesForKeyIdentifiedByName:nameCopy];
   v8 = [v7 mutableCopy];
-  v26 = *MEMORY[0x277CDC550];
+  v25 = *MEMORY[0x277CDC550];
   v9 = *MEMORY[0x277CBED28];
-  v27[0] = *MEMORY[0x277CBED28];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v26[0] = *MEMORY[0x277CBED28];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   [v8 setValuesForKeysWithDictionary:v10];
 
   result = 0;
@@ -271,16 +268,16 @@ LABEL_3:
       goto LABEL_8;
     }
 
-    v24 = v12;
-    v25 = v9;
-    v11 = SecItemUpdate(v7, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1]);
+    v23 = v12;
+    v24 = v9;
+    v11 = SecItemUpdate(v7, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1]);
   }
 
   if (v11 == -25308)
   {
     v18 = MEMORY[0x277CCA9B8];
     v16 = HKSensitiveLogItem();
-    [v18 hk_assignError:error code:6 format:{@"Token is not accessible (device locked?), name: %@", v16, v22}];
+    [v18 hk_assignError:error code:6 format:{@"Token is not accessible (device locked?), name: %@", v16, v21}];
 LABEL_11:
 
     v17 = 0;
@@ -293,7 +290,7 @@ LABEL_11:
     {
       v15 = MEMORY[0x277CCA9B8];
       v16 = HKSensitiveLogItem();
-      [v15 hk_assignError:error code:118 format:{@"No token found for name %@", v16, v22}];
+      [v15 hk_assignError:error code:118 format:{@"No token found for name %@", v16, v21}];
     }
 
     else
@@ -310,7 +307,6 @@ LABEL_8:
   v17 = 1;
 LABEL_12:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -354,6 +350,125 @@ LABEL_9:
 LABEL_10:
 
   return v10;
+}
+
++ (BOOL)_storeTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error
+{
+  synchronizableCopy = synchronizable;
+  nameCopy = name;
+  dataCopy = data;
+  if ([dataCopy length])
+  {
+    v12 = [self _updateTokenIdentifiedByName:nameCopy data:dataCopy synchronizable:synchronizableCopy error:error];
+  }
+
+  else
+  {
+    v13 = MEMORY[0x277CCA9B8];
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = HKSensitiveLogItem();
+    [v13 hk_assignError:error code:3 format:{@"Cannot store %@ with an empty token for name %@", v15, v16}];
+
+    v12 = 0;
+  }
+
+  return v12;
+}
+
++ (BOOL)_updateTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error
+{
+  synchronizableCopy = synchronizable;
+  v27[3] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  dataCopy = data;
+  v12 = [self _identifyingAttributesForKeyIdentifiedByName:nameCopy];
+  v26[0] = *MEMORY[0x277CDC088];
+  date = [MEMORY[0x277CBEAA8] date];
+  v14 = date;
+  v15 = MEMORY[0x277CBED28];
+  if (!synchronizableCopy)
+  {
+    v15 = MEMORY[0x277CBED10];
+  }
+
+  v16 = *MEMORY[0x277CDC140];
+  v17 = *v15;
+  v27[0] = date;
+  v27[1] = v17;
+  v18 = *MEMORY[0x277CDC5E8];
+  v26[1] = v16;
+  v26[2] = v18;
+  v27[2] = dataCopy;
+  v19 = SecItemUpdate(v12, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3]);
+
+  if (v19 == -25308)
+  {
+    v21 = MEMORY[0x277CCA9B8];
+    v22 = HKSensitiveLogItem();
+    [v21 hk_assignError:error code:6 format:{@"Token is not accessible (device locked?), name: %@", v22, v25}];
+LABEL_10:
+
+    v20 = 0;
+    goto LABEL_11;
+  }
+
+  if (!v19)
+  {
+    v20 = 1;
+    goto LABEL_11;
+  }
+
+  if (v19 != -25300)
+  {
+    v23 = MEMORY[0x277CCA9B8];
+    v22 = HKSensitiveLogItem();
+    [v23 hk_assignError:error code:3 format:{@"Failed to update token for name %@, OSStatus: %d", v22, v19}];
+    goto LABEL_10;
+  }
+
+  v20 = [self _addTokenIdentifiedByName:nameCopy data:dataCopy synchronizable:synchronizableCopy error:error];
+LABEL_11:
+
+  return v20;
+}
+
++ (BOOL)_addTokenIdentifiedByName:(id)name data:(id)data synchronizable:(BOOL)synchronizable error:(id *)error
+{
+  synchronizableCopy = synchronizable;
+  nameCopy = name;
+  v11 = MEMORY[0x277CBEAA8];
+  dataCopy = data;
+  date = [v11 date];
+  v14 = [self _storableAttributesForKeyIdentifiedByName:nameCopy data:dataCopy modificationDate:date synchronizable:synchronizableCopy];
+
+  v15 = SecItemAdd(v14, 0);
+  if (v15)
+  {
+    v16 = v15;
+    if (v15 == -25308)
+    {
+      v17 = MEMORY[0x277CCA9B8];
+      v18 = HKSensitiveLogItem();
+      [v17 hk_assignError:error code:6 format:{@"Token is not accessible (device locked?), name: %@", v18, v22}];
+    }
+
+    else
+    {
+      v20 = MEMORY[0x277CCA9B8];
+      v18 = HKSensitiveLogItem();
+      [v20 hk_assignError:error code:3 format:{@"Failed to add token for name %@, OSStatus: %d", v18, v16}];
+    }
+
+    v19 = 0;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  return v19;
 }
 
 + (BOOL)_deleteTokenIdentifiedByName:(id)name error:(id *)error

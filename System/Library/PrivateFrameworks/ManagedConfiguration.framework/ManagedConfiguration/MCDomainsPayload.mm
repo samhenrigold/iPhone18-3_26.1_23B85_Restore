@@ -13,10 +13,9 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.domains";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.domains";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -56,7 +55,7 @@
 
 + (BOOL)isPatternValid:(id)valid forField:(id)field outError:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   fieldCopy = field;
   if ([validCopy length])
@@ -91,26 +90,26 @@
           pathComponents = v20;
         }
 
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         pathComponents = pathComponents;
-        v21 = [pathComponents countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v21 = [pathComponents countByEnumeratingWithState:&v38 objects:v42 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v40;
+          v23 = *v39;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v40 != v23)
+              if (*v39 != v23)
               {
                 objc_enumerationMutation(pathComponents);
               }
 
-              if (![*(*(&v39 + 1) + 8 * i) length])
+              if (![*(*(&v38 + 1) + 8 * i) length])
               {
                 v15 = [MCDomainsPayload invalidDomainPatternErrorWithPattern:validCopy field:fieldCopy];
 
@@ -118,7 +117,7 @@
               }
             }
 
-            v22 = [pathComponents countByEnumeratingWithState:&v39 objects:v43 count:16];
+            v22 = [pathComponents countByEnumeratingWithState:&v38 objects:v42 count:16];
             if (v22)
             {
               continue;
@@ -136,13 +135,13 @@
 
         if ([v25 length] >= 2)
         {
-          v28 = [v25 substringWithRange:{0, 1}];
-          if ([v28 isEqualToString:@"*"])
+          v27 = [v25 substringWithRange:{0, 1}];
+          if ([v27 isEqualToString:@"*"])
           {
-            v29 = [v25 substringWithRange:{1, 1}];
-            v30 = [v29 isEqualToString:@"."];
+            v28 = [v25 substringWithRange:{1, 1}];
+            v29 = [v28 isEqualToString:@"."];
 
-            if ((v30 & 1) == 0)
+            if ((v29 & 1) == 0)
             {
               goto LABEL_26;
             }
@@ -152,33 +151,33 @@
           {
           }
 
-          if ([v25 rangeOfString:@":" options:{12, v39}] != 0x7FFFFFFFFFFFFFFFLL)
+          if ([v25 rangeOfString:@":" options:{12, v38}] != 0x7FFFFFFFFFFFFFFFLL)
           {
             goto LABEL_26;
           }
         }
 
-        v31 = [v25 rangeOfString:@":" options:{4, v39}];
-        if (v31)
+        v30 = [v25 rangeOfString:@":" options:{4, v38}];
+        if (v30)
         {
-          v32 = v31;
-          if (v31 == 0x7FFFFFFFFFFFFFFFLL)
+          v31 = v30;
+          if (v30 == 0x7FFFFFFFFFFFFFFFLL)
           {
             goto LABEL_40;
           }
 
-          if (v31 != [v25 length] - 1 && objc_msgSend(v25, "rangeOfString:options:range:", @":", 0, 0, v32) == 0x7FFFFFFFFFFFFFFFLL)
+          if (v30 != [v25 length] - 1 && objc_msgSend(v25, "rangeOfString:options:range:", @":", 0, 0, v31) == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v33 = [v25 substringFromIndex:v32 + 1];
+            v32 = [v25 substringFromIndex:v31 + 1];
             decimalDigitCharacterSet = [MEMORY[0x1E696AB08] decimalDigitCharacterSet];
             invertedSet = [decimalDigitCharacterSet invertedSet];
-            v36 = [v33 rangeOfCharacterFromSet:invertedSet];
+            v35 = [v32 rangeOfCharacterFromSet:invertedSet];
 
-            if (v36 != 0x7FFFFFFFFFFFFFFFLL)
+            if (v35 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v37 = [MCDomainsPayload invalidDomainPatternErrorWithPattern:validCopy field:fieldCopy];
-              v38 = v33;
-              v15 = v37;
+              v36 = [MCDomainsPayload invalidDomainPatternErrorWithPattern:validCopy field:fieldCopy];
+              v37 = v32;
+              v15 = v36;
 
               goto LABEL_27;
             }
@@ -190,7 +189,7 @@ LABEL_40:
         }
 
 LABEL_26:
-        v15 = [MCDomainsPayload invalidDomainPatternErrorWithPattern:validCopy field:fieldCopy, v39];
+        v15 = [MCDomainsPayload invalidDomainPatternErrorWithPattern:validCopy field:fieldCopy, v38];
 LABEL_27:
 
 LABEL_29:
@@ -227,7 +226,6 @@ LABEL_10:
 
 LABEL_31:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -244,68 +242,68 @@ uint64_t __53__MCDomainsPayload_isPatternValid_forField_outError___block_invoke(
 
 - (MCDomainsPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v96.receiver = self;
-  v96.super_class = MCDomainsPayload;
-  v9 = [(MCPayload *)&v96 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v93.receiver = self;
+  v93.super_class = MCDomainsPayload;
+  v9 = [(MCPayload *)&v93 initWithDictionary:dictionaryCopy profile:profile outError:error];
   v10 = v9;
   if (!v9)
   {
     goto LABEL_25;
   }
 
-  v70 = v9;
+  v67 = v9;
   errorCopy = error;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v95 = 0;
-  v67 = dictionaryCopy;
-  v11 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"WebDomains" isRequired:0 outError:&v95];
-  v12 = v95;
-  v75 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v11, "count")}];
+  v92 = 0;
+  v64 = dictionaryCopy;
+  v11 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"WebDomains" isRequired:0 outError:&v92];
+  v12 = v92;
+  v72 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v11, "count")}];
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v91 objects:v109 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v88 objects:v106 count:16];
   obj = v13;
   if (v14)
   {
     v15 = v14;
-    v16 = *v92;
+    v16 = *v89;
     while (2)
     {
       v17 = 0;
       v18 = v12;
       do
       {
-        if (*v92 != v16)
+        if (*v89 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v91 + 1) + 8 * v17)];
-        v90 = v18;
-        v20 = [MCDomainsPayload isPatternValid:v19 forField:@"WebDomains" outError:&v90];
-        v12 = v90;
+        v19 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v88 + 1) + 8 * v17)];
+        v87 = v18;
+        v20 = [MCDomainsPayload isPatternValid:v19 forField:@"WebDomains" outError:&v87];
+        v12 = v87;
 
         if (!v20)
         {
           v21 = 0;
           v22 = 0;
-          v66 = 0;
-          v72 = obj;
-          v73 = 0;
-          dictionaryCopy = v67;
+          v63 = 0;
+          v69 = obj;
+          v70 = 0;
+          dictionaryCopy = v64;
           v24 = dictionary2;
           v25 = dictionary;
-          v10 = v70;
+          v10 = v67;
           goto LABEL_14;
         }
 
-        [v75 addObject:v19];
+        [v72 addObject:v19];
 
         ++v17;
         v18 = v12;
@@ -313,7 +311,7 @@ uint64_t __53__MCDomainsPayload_isPatternValid_forField_outError___block_invoke(
 
       while (v15 != v17);
       v13 = obj;
-      v15 = [obj countByEnumeratingWithState:&v91 objects:v109 count:16];
+      v15 = [obj countByEnumeratingWithState:&v88 objects:v106 count:16];
       if (v15)
       {
         continue;
@@ -327,12 +325,12 @@ uint64_t __53__MCDomainsPayload_isPatternValid_forField_outError___block_invoke(
   {
     v21 = 0;
     v22 = 0;
-    v73 = 0;
+    v70 = 0;
     v23 = 0;
-    dictionaryCopy = v67;
+    dictionaryCopy = v64;
     v24 = dictionary2;
     v25 = dictionary;
-    v10 = v70;
+    v10 = v67;
     v26 = 0x1E695D000;
     errorCopy2 = errorCopy;
     if (!errorCopy)
@@ -350,29 +348,29 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  dictionaryCopy = v67;
+  dictionaryCopy = v64;
   v24 = dictionary2;
   v25 = dictionary;
-  v10 = v70;
+  v10 = v67;
   errorCopy2 = error;
   if (v13)
   {
-    v107 = @"values";
-    allObjects = [v75 allObjects];
-    v108 = allObjects;
-    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-    [dictionary setObject:v35 forKeyedSubscript:@"managedWebDomains"];
+    v104 = @"values";
+    allObjects = [v72 allObjects];
+    v105 = allObjects;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+    [dictionary setObject:v34 forKeyedSubscript:@"managedWebDomains"];
   }
 
-  v89 = 0;
-  v23 = [v67 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"EmailDomains" isRequired:0 outError:&v89];
-  v36 = v89;
-  if (v36)
+  v86 = 0;
+  v23 = [v64 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"EmailDomains" isRequired:0 outError:&v86];
+  v35 = v86;
+  if (v35)
   {
-    v12 = v36;
+    v12 = v35;
     v21 = 0;
     v22 = 0;
-    v73 = 0;
+    v70 = 0;
     v26 = 0x1E695D000;
     if (!errorCopy)
     {
@@ -384,13 +382,13 @@ LABEL_17:
 
   if (v23)
   {
-    v105 = @"values";
-    v106 = v23;
-    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-    [dictionary2 setObject:v37 forKeyedSubscript:@"managedEmailDomains"];
+    v102 = @"values";
+    v103 = v23;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+    [dictionary2 setObject:v36 forKeyedSubscript:@"managedEmailDomains"];
   }
 
-  profile = [(MCPayload *)v70 profile];
+  profile = [(MCPayload *)v67 profile];
   if ([profile isStub])
   {
   }
@@ -411,60 +409,60 @@ LABEL_17:
     }
   }
 
-  v66 = v23;
-  v88 = 0;
-  v41 = [v67 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SafariPasswordAutoFillDomains" isRequired:0 outError:&v88];
-  v12 = v88;
-  v72 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v41, "count")}];
+  v63 = v23;
+  v85 = 0;
+  v40 = [v64 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SafariPasswordAutoFillDomains" isRequired:0 outError:&v85];
+  v12 = v85;
+  v69 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v40, "count")}];
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v42 = v41;
-  v43 = [v42 countByEnumeratingWithState:&v84 objects:v104 count:16];
-  v73 = v42;
-  if (v43)
+  v41 = v40;
+  v42 = [v41 countByEnumeratingWithState:&v81 objects:v101 count:16];
+  v70 = v41;
+  if (v42)
   {
-    v44 = v43;
-    v45 = *v85;
+    v43 = v42;
+    v44 = *v82;
     while (2)
     {
-      v46 = 0;
-      v47 = v12;
+      v45 = 0;
+      v46 = v12;
       do
       {
-        if (*v85 != v45)
+        if (*v82 != v44)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v70);
         }
 
-        v48 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v84 + 1) + 8 * v46)];
-        v83 = v47;
-        v49 = [MCDomainsPayload isPatternValid:v48 forField:@"SafariPasswordAutoFillDomains" outError:&v83];
-        v12 = v83;
+        v47 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v81 + 1) + 8 * v45)];
+        v80 = v46;
+        v48 = [MCDomainsPayload isPatternValid:v47 forField:@"SafariPasswordAutoFillDomains" outError:&v80];
+        v12 = v80;
 
-        if (!v49)
+        if (!v48)
         {
           v21 = 0;
           v22 = 0;
-          v19 = v73;
-          dictionaryCopy = v67;
+          v19 = v70;
+          dictionaryCopy = v64;
           v24 = dictionary2;
           v25 = dictionary;
-          v10 = v70;
+          v10 = v67;
           goto LABEL_47;
         }
 
-        [v72 addObject:v48];
+        [v69 addObject:v47];
 
-        ++v46;
-        v47 = v12;
+        ++v45;
+        v46 = v12;
       }
 
-      while (v44 != v46);
-      v42 = v73;
-      v44 = [v73 countByEnumeratingWithState:&v84 objects:v104 count:16];
-      if (v44)
+      while (v43 != v45);
+      v41 = v70;
+      v43 = [v70 countByEnumeratingWithState:&v81 objects:v101 count:16];
+      if (v43)
       {
         continue;
       }
@@ -477,40 +475,38 @@ LABEL_17:
   {
     v21 = 0;
     v22 = 0;
-    dictionaryCopy = v67;
+    dictionaryCopy = v64;
     v24 = dictionary2;
     v25 = dictionary;
-    v10 = v70;
+    v10 = v67;
     goto LABEL_15;
   }
 
-  dictionaryCopy = v67;
+  dictionaryCopy = v64;
   v24 = dictionary2;
   v25 = dictionary;
   errorCopy2 = errorCopy;
-  v23 = v66;
-  if (v42)
+  v23 = v63;
+  if (v41)
   {
-    v102 = @"values";
-    allObjects2 = [v72 allObjects];
-    v103 = allObjects2;
-    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
-    [dictionary setObject:v51 forKeyedSubscript:@"allowedSafariPasswordAutoFillDomains"];
+    v99 = @"values";
+    allObjects2 = [v69 allObjects];
+    v100 = allObjects2;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+    [dictionary setObject:v50 forKeyedSubscript:@"allowedSafariPasswordAutoFillDomains"];
   }
 
-  v52 = 0x1E696A000uLL;
-  v82 = 0;
-  v22 = [v67 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CrossSiteTrackingPreventionRelaxedDomains" isRequired:0 outError:&v82];
-  v53 = v82;
-  v10 = v70;
-  if (!v53)
+  v79 = 0;
+  v22 = [v64 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CrossSiteTrackingPreventionRelaxedDomains" isRequired:0 outError:&v79];
+  v51 = v79;
+  v10 = v67;
+  if (!v51)
   {
     if ([v22 count] >= 0xB)
     {
-      v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:10];
-      v12 = [MCDomainsPayload tooManyDomainsErrorWithMaxCount:v54 field:@"CrossSiteTrackingPreventionRelaxedDomains"];
+      v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:10];
+      v12 = [MCDomainsPayload tooManyDomainsErrorWithMaxCount:v52 field:@"CrossSiteTrackingPreventionRelaxedDomains"];
 
-      v52 = 0x1E696A000;
       if (v12)
       {
         goto LABEL_53;
@@ -518,47 +514,47 @@ LABEL_17:
     }
 
     v19 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v22, "count")}];
+    v75 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
     v22 = v22;
-    v65 = [v22 countByEnumeratingWithState:&v78 objects:v101 count:16];
-    if (v65)
+    v62 = [v22 countByEnumeratingWithState:&v75 objects:v98 count:16];
+    if (v62)
     {
       v12 = 0;
-      v64 = *v79;
+      v61 = *v76;
       while (2)
       {
-        v55 = 0;
-        v56 = v12;
+        v53 = 0;
+        v54 = v12;
         do
         {
-          if (*v79 != v64)
+          if (*v76 != v61)
           {
             objc_enumerationMutation(v22);
           }
 
-          v57 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v78 + 1) + 8 * v55), v64];
-          v77 = v56;
-          v58 = [MCDomainsPayload isPatternValid:v57 forField:@"CrossSiteTrackingPreventionRelaxedDomains" outError:&v77];
-          v12 = v77;
+          v55 = [MCDomainsCacheEntry normalizedPatternString:*(*(&v75 + 1) + 8 * v53), v61];
+          v74 = v54;
+          v56 = [MCDomainsPayload isPatternValid:v55 forField:@"CrossSiteTrackingPreventionRelaxedDomains" outError:&v74];
+          v12 = v74;
 
-          if (!v58)
+          if (!v56)
           {
 
             goto LABEL_66;
           }
 
-          [v19 addObject:v57];
+          [v19 addObject:v55];
 
-          ++v55;
-          v56 = v12;
+          ++v53;
+          v54 = v12;
         }
 
-        while (v65 != v55);
-        v65 = [v22 countByEnumeratingWithState:&v78 objects:v101 count:16];
-        if (v65)
+        while (v62 != v53);
+        v62 = [v22 countByEnumeratingWithState:&v75 objects:v98 count:16];
+        if (v62)
         {
           continue;
         }
@@ -569,9 +565,8 @@ LABEL_17:
 LABEL_66:
 
       v25 = dictionary;
-      v10 = v70;
+      v10 = v67;
       v24 = dictionary2;
-      v52 = 0x1E696A000;
       if (v12)
       {
         v21 = 0;
@@ -580,7 +575,7 @@ LABEL_14:
 LABEL_15:
         v26 = 0x1E695D000uLL;
         errorCopy2 = errorCopy;
-        v23 = v66;
+        v23 = v63;
         goto LABEL_16;
       }
     }
@@ -591,32 +586,29 @@ LABEL_15:
 
     if (v22)
     {
-      v99 = @"values";
+      v96 = @"values";
       allObjects3 = [v19 allObjects];
-      v100 = allObjects3;
-      v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-      [v24 setObject:v60 forKeyedSubscript:@"crossSiteTrackingPreventionRelaxedDomains"];
-
-      v52 = 0x1E696A000uLL;
+      v97 = allObjects3;
+      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+      [v24 setObject:v58 forKeyedSubscript:@"crossSiteTrackingPreventionRelaxedDomains"];
     }
 
-    v61 = *(v52 + 3776);
-    v76 = 0;
-    v21 = [v67 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CrossSiteTrackingPreventionRelaxedApps" isRequired:0 outError:&v76];
-    v62 = v76;
-    if (v62)
+    v73 = 0;
+    v21 = [v64 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CrossSiteTrackingPreventionRelaxedApps" isRequired:0 outError:&v73];
+    v59 = v73;
+    if (v59)
     {
-      v12 = v62;
+      v12 = v59;
     }
 
-    else if ([v21 count] < 0xB || (objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", 10), v63 = objc_claimAutoreleasedReturnValue(), dictionaryCopy = v67, +[MCDomainsPayload tooManyAppsErrorWithMaxCount:field:](MCDomainsPayload, "tooManyAppsErrorWithMaxCount:field:", v63, @"CrossSiteTrackingPreventionRelaxedApps"), v12 = objc_claimAutoreleasedReturnValue(), v63, !v12))
+    else if ([v21 count] < 0xB || (objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", 10), v60 = objc_claimAutoreleasedReturnValue(), dictionaryCopy = v64, +[MCDomainsPayload tooManyAppsErrorWithMaxCount:field:](MCDomainsPayload, "tooManyAppsErrorWithMaxCount:field:", v60, @"CrossSiteTrackingPreventionRelaxedApps"), v12 = objc_claimAutoreleasedReturnValue(), v60, !v12))
     {
       if (v21)
       {
-        v97 = @"values";
-        v98 = v21;
-        v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-        [v24 setObject:v48 forKeyedSubscript:@"crossSiteTrackingPreventionRelaxedApps"];
+        v94 = @"values";
+        v95 = v21;
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        [v24 setObject:v47 forKeyedSubscript:@"crossSiteTrackingPreventionRelaxedApps"];
         v12 = 0;
 LABEL_47:
       }
@@ -630,7 +622,7 @@ LABEL_47:
     goto LABEL_14;
   }
 
-  v12 = v53;
+  v12 = v51;
 LABEL_53:
   v21 = 0;
   v26 = 0x1E695D000;
@@ -642,7 +634,7 @@ LABEL_16:
   }
 
 LABEL_19:
-  v29 = v73;
+  v29 = v70;
 LABEL_20:
   dictionary3 = [*(v26 + 3984) dictionary];
   if ([v24 count])
@@ -659,7 +651,6 @@ LABEL_20:
   v10->_restrictions = dictionary3;
 
 LABEL_25:
-  v32 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

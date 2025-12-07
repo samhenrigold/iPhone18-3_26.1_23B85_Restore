@@ -1208,7 +1208,7 @@ void __116__SBSystemApertureProvidedContentElement_contentProviderWillTransition
   containerViewCopy = containerView;
   if ((self->_leadingView == viewCopy || self->_trailingView == viewCopy) && !self->_actionView && !self->_secondaryView && BSFloatApproximatelyEqualToFloat())
   {
-    [containerViewCopy frame];
+    objc_msgSend_frame(containerViewCopy);
     v11 = (v10 - height) * 0.5;
   }
 

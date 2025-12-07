@@ -22,30 +22,16 @@
 
       v21 = v14;
       objc_opt_class();
-      v22 = v21;
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      v24 = v21;
+      if (isKindOfClass)
       {
-        v23 = MEMORY[0x1E696AEC0];
-        v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v21, "length")}];
-        v22 = [v23 stringWithFormat:@"<redacted string. len=%@", v24];
+        v25 = MEMORY[0x1E696AEC0];
+        v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v21, "length")}];
+        v24 = [v25 stringWithFormat:@"<redacted string. len=%@", v26];
       }
-
-      if (!AXPerformValidationChecks())
+      if (!AXPerformValidationChecks(isKindOfClass, v23) || (v27 = AXShouldCrashOnValidationErrors(), v28 = objc_opt_class(), NSStringFromClass(v28), v29 = ;
       {
-        goto LABEL_17;
-      }
-
-      v25 = AXShouldCrashOnValidationErrors();
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
-      v28 = NSStringFromClass(a4);
-      v29 = objc_opt_class();
-      v56 = NSStringFromClass(v29);
-      v35 = __UIAccessibilityHandleValidationErrorWithDescription(v25, 0, @"Value for key %@ on object <%@: %p> is not an %@; class: %@; value: %@", v30, v31, v32, v33, v34, v13);
-
-      if (!v35)
-      {
-LABEL_17:
 
 LABEL_18:
         v14 = 0;
@@ -61,10 +47,10 @@ LABEL_18:
       if (strcmp(objCType, a5))
       {
         v16 = 0;
-        v57 = &a9;
+        v63 = &a9;
         while (1)
         {
-          v17 = v57++;
+          v17 = v63++;
           if (!*v17)
           {
             break;
@@ -81,48 +67,50 @@ LABEL_18:
           }
         }
 
-        if (AXShouldReportValidationErrors())
+        v39 = AXShouldReportValidationErrors();
+        if (v39)
         {
-          v37 = +[AXValidationManager sharedInstance];
-          v38 = objc_opt_class();
-          v39 = NSStringFromClass(v38);
-          [v37 sendExceptionForSafeValueKey:v13 onTarget:v39 overrideProcessName:0];
+          v41 = +[AXValidationManager sharedInstance];
+          v42 = objc_opt_class();
+          v43 = NSStringFromClass(v42);
+          [v41 sendExceptionForSafeValueKey:v13 onTarget:v43 overrideProcessName:0];
         }
 
-        if (!AXPerformValidationChecks())
+        if (!AXPerformValidationChecks(v39, v40))
         {
           goto LABEL_35;
         }
 
         if (v16)
         {
-          v40 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%s", a5];
-          v58 = &a10;
-          for (i = a9; i; i = *v42)
+          v44 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%s", a5];
+          v64 = &a10;
+          for (i = a9; i; i = *v46)
           {
-            [v40 appendFormat:@", %s", i];
-            v42 = v58++;
+            [v44 appendFormat:@", %s", i];
+            v46 = v64++;
           }
 
-          [v40 UTF8String];
+          [v44 UTF8String];
         }
 
         else
         {
-          v40 = 0;
+          v44 = 0;
         }
 
-        v43 = v14;
+        v47 = v14;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v48 = objc_opt_isKindOfClass();
+        if (v48)
         {
-          v44 = MEMORY[0x1E696AEC0];
-          v45 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v43, "length")}];
-          v46 = [v44 stringWithFormat:@"<redacted string. len=%@", v45];
+          v50 = MEMORY[0x1E696AEC0];
+          v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v47, "length")}];
+          v52 = [v50 stringWithFormat:@"<redacted string. len=%@", v51];
 
-          v43 = v46;
+          v47 = v52;
         }
-        if (!AXPerformValidationChecks() || (v47 = AXShouldCrashOnValidationErrors(), v48 = objc_opt_class(), NSStringFromClass(v48), v55 = ;
+        if (!AXPerformValidationChecks(v48, v49) || (v53 = AXShouldCrashOnValidationErrors(), v54 = objc_opt_class(), NSStringFromClass(v54), v61 = ;
         {
 
 LABEL_35:

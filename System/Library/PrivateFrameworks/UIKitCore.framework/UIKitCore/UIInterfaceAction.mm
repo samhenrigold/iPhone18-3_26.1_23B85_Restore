@@ -146,7 +146,7 @@ LABEL_12:
 - (void)_setVisualStyle:(id)style
 {
   styleCopy = style;
-  if (([styleCopy isEqual:self->_visualStyle] & 1) == 0)
+  if ((objc_msgSend_isEqual_(styleCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyle, style);
     [(UIInterfaceAction *)self _notifyObserversVisualStyleDidChange];
@@ -198,7 +198,7 @@ LABEL_12:
 - (void)setTitle:(id)title
 {
   titleCopy = title;
-  if (([titleCopy isEqual:self->_title] & 1) == 0)
+  if ((objc_msgSend_isEqual_(titleCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_title, title);
     [(UIInterfaceAction *)self _notifyObserversDidChangeActionProperty:@"title"];
@@ -217,7 +217,7 @@ LABEL_12:
 - (void)setLeadingImage:(id)image
 {
   imageCopy = image;
-  if (([imageCopy isEqual:self->_leadingImage] & 1) == 0)
+  if ((objc_msgSend_isEqual_(imageCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_leadingImage, image);
     [(UIInterfaceAction *)self _notifyObserversDidChangeActionProperty:@"leadingImage"];
@@ -227,7 +227,7 @@ LABEL_12:
 - (void)setTrailingImage:(id)image
 {
   imageCopy = image;
-  if (([imageCopy isEqual:self->_trailingImage] & 1) == 0)
+  if ((objc_msgSend_isEqual_(imageCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_trailingImage, image);
     [(UIInterfaceAction *)self _notifyObserversDidChangeActionProperty:@"trailingImage"];
@@ -281,7 +281,7 @@ LABEL_12:
 - (void)_setTitleTextColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_titleTextColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_titleTextColor) & 1) == 0)
   {
     objc_storeStrong(&self->_titleTextColor, color);
     [(UIInterfaceAction *)self _notifyObserversDidChangeActionProperty:@"titleTextColor"];
@@ -291,7 +291,7 @@ LABEL_12:
 - (void)_setImageTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_imageTintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_imageTintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_imageTintColor, color);
     [(UIInterfaceAction *)self _notifyObserversDidChangeActionProperty:@"imageTintColor"];

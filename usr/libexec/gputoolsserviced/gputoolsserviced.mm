@@ -305,31 +305,8 @@ LABEL_25:
   v25 = [v2 objectForKeyedSubscript:@"platformPrefix"];
   v26 = [v16 objectForKeyedSubscript:@"GPUTOOLS_EXTRA_PLUGIN_PATHS"];
   v27 = [v2 objectForKeyedSubscript:@"shouldLoadReplayer"];
-  if (!v27)
+  if (!v27 || (v28 = v27, [v2 objectForKeyedSubscript:@"shouldLoadCapture"], v43 = v24, v29 = v22, v30 = v19, v31 = v20, v32 = v26, v33 = v25, v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "BOOLValue"), v34, v25 = v33, v26 = v32, v20 = v31, v19 = v30, v22 = v29, v24 = v43, v28, v35))
   {
-    goto LABEL_39;
-  }
-
-  v28 = v27;
-  [v2 objectForKeyedSubscript:@"shouldLoadCapture"];
-  v43 = v24;
-  v29 = v22;
-  v30 = v19;
-  v31 = v20;
-  v32 = v26;
-  v34 = v33 = v25;
-  v35 = [v34 BOOLValue];
-
-  v25 = v33;
-  v26 = v32;
-  v20 = v31;
-  v19 = v30;
-  v22 = v29;
-  v24 = v43;
-
-  if (v35)
-  {
-LABEL_39:
     v36 = [@"/System/Library/PrivateFrameworks/" stringByAppendingPathComponent:@"GPUToolsCapture.framework/GPUToolsCapture"];
     if (([v24 containsObject:v36] & 1) == 0)
     {
@@ -1246,10 +1223,9 @@ uint64_t sub_1000075F0(uint64_t a1)
     v2 = 56;
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + v2) + 16);
+  v3 = *(*(a1 + v2) + 16);
 
-  return v4();
+  return v3();
 }
 
 void sub_1000076E4(uint64_t a1)
@@ -2192,15 +2168,14 @@ void sub_10000EBB8(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 16);
+    v3 = *(a1[6] + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1[4] + 48) makeURL:a1[5]];
+    v4 = [*(a1[4] + 48) makeURL:a1[5]];
     (*(a1[6] + 16))();
   }
 }
@@ -2218,7 +2193,7 @@ void sub_10000EEDC(uint64_t a1, void *a2)
         v4 = gt_tagged_log(0x10u);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
-          sub_1000135E8((a1 + 32));
+          sub_1000135E8();
         }
       }
 
@@ -2415,7 +2390,7 @@ void sub_10000FB8C(void *a1, void *a2)
       v10 = gt_tagged_log(0x10u);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000138B8(a1 + 6, v3);
+        sub_1000138B8((a1 + 6), v3);
       }
     }
 
@@ -2453,7 +2428,7 @@ void sub_10000FB8C(void *a1, void *a2)
     v10 = gt_tagged_log(0x10u);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000138B8(a1 + 6, v8);
+      sub_1000138B8((a1 + 6), v8);
     }
   }
 
@@ -2471,55 +2446,51 @@ void sub_10000FB8C(void *a1, void *a2)
 
 void sub_1000104E8(uint64_t a1)
 {
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_100010804;
-  v30 = sub_100010814;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_100010804;
+  v29 = sub_100010814;
+  v30 = 0;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v25 = 0;
-  v17 = _NSConcreteStackBlock;
-  v18 = 3221225472;
-  v19 = sub_10001081C;
-  v20 = &unk_100040CC8;
+  v24 = 0;
+  v16 = _NSConcreteStackBlock;
+  v17 = 3221225472;
+  v18 = sub_10001081C;
+  v19 = &unk_100040CC8;
   v4 = *(a1 + 48);
   v5 = *(a1 + 64);
-  v21 = *(a1 + 56);
+  v20 = *(a1 + 56);
   v6 = v5;
   v7 = *(a1 + 88);
-  v23 = &v26;
-  v24 = v7;
-  v22 = v6;
-  LOBYTE(v3) = GTFileWriterTransferFileEntries(v2, v3, v4, &v25, &v17);
-  v8 = v25;
+  v22 = &v25;
+  v23 = v7;
+  v21 = v6;
+  LOBYTE(v3) = GTFileWriterTransferFileEntries(v2, v3, v4, &v24, &v16);
+  v8 = v24;
   if ((v3 & 1) == 0)
   {
-    [*(a1 + 72) stopAccessingSecurityScopedResource];
-    v11 = *(*(a1 + 80) + 16);
-LABEL_7:
-    v11();
-    goto LABEL_13;
+    goto LABEL_6;
   }
 
   v9 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 2000000000);
   if (!dispatch_semaphore_wait(*(*(a1 + 56) + 56), v9))
   {
-    if (v27[5])
-    {
-      [*(a1 + 72) stopAccessingSecurityScopedResource];
-      v12 = v27[5];
-    }
-
-    else
+    if (!v26[5])
     {
       dispatch_semaphore_signal(*(*(a1 + 56) + 56));
       [*(a1 + 72) stopAccessingSecurityScopedResource];
+      v11 = *(*(a1 + 80) + 16);
+      goto LABEL_7;
     }
 
+LABEL_6:
+    [*(a1 + 72) stopAccessingSecurityScopedResource];
     v11 = *(*(a1 + 80) + 16);
-    goto LABEL_7;
+LABEL_7:
+    v11();
+    goto LABEL_12;
   }
 
   if (GTCoreLogUseOsLog())
@@ -2533,22 +2504,22 @@ LABEL_7:
 
   else
   {
-    v13 = __stderrp;
+    v12 = __stderrp;
     v10 = [NSString stringWithFormat:@"beginTransferSessionWithFileEntries timed out waiting for final write to complete"];
-    fprintf(v13, "%s\n", [v10 UTF8String]);
+    fprintf(v12, "%s\n", [v10 UTF8String]);
   }
 
-  v32 = NSLocalizedDescriptionKey;
-  v14 = [NSString stringWithFormat:@"%@ hit a timeout: %@", @"GTFileWriterService", @"beginTransferSessionWithFileEntries timed out waiting for final write to complete", v17, v18, v19, v20, v21];
-  v33 = v14;
-  v15 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-  v16 = [NSError errorWithDomain:@"com.apple.gputools.transport" code:6 userInfo:v15];
+  v31 = NSLocalizedDescriptionKey;
+  v13 = [NSString stringWithFormat:@"%@ hit a timeout: %@", @"GTFileWriterService", @"beginTransferSessionWithFileEntries timed out waiting for final write to complete", v16, v17, v18, v19, v20];
+  v32 = v13;
+  v14 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+  v15 = [NSError errorWithDomain:@"com.apple.gputools.transport" code:6 userInfo:v14];
 
   [*(a1 + 72) stopAccessingSecurityScopedResource];
   (*(*(a1 + 80) + 16))();
 
-LABEL_13:
-  _Block_object_dispose(&v26, 8);
+LABEL_12:
+  _Block_object_dispose(&v25, 8);
 }
 
 uint64_t sub_100010804(uint64_t result, uint64_t a2)
@@ -2770,10 +2741,11 @@ id sub_100013040(uint64_t a1, uint64_t a2)
   return [v3 sendMessage:v4];
 }
 
-void sub_10001309C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001309C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100013128()
@@ -2805,13 +2777,12 @@ void sub_1000134F0()
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Start transfer of %@ to %@", v2, 0x16u);
 }
 
-void sub_1000135E8(uint64_t *a1)
+void sub_1000135E8()
 {
-  v1 = *a1;
-  v2 = *__error();
+  __error();
   sub_100013104();
   sub_10001311C();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
 void sub_100013674()
@@ -2823,10 +2794,10 @@ void sub_100013674()
 
 void sub_1000136E4()
 {
-  v0 = *__error();
+  __error();
   sub_100013104();
   sub_10001311C();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x12u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
 void sub_1000137D8()
@@ -2843,13 +2814,12 @@ void sub_100013848()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000138B8(uint64_t *a1, void *a2)
+void sub_1000138B8(uint64_t a1, void *a2)
 {
-  v2 = *a1;
-  v3 = [a2 localizedDescription];
+  v2 = [a2 localizedDescription];
   sub_1000130EC();
   sub_10001311C();
-  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 void sub_100013958(uint64_t *a1, NSObject *a2)
@@ -3145,10 +3115,11 @@ uint64_t sub_10001AF5C(uint64_t a1, int a2, id obj)
   return 0;
 }
 
-void sub_10001AF98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001AF98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10001B01C()
@@ -3243,7 +3214,6 @@ uint64_t sub_10001BB6C(void *a1)
     v2 = 0;
     do
     {
-      v3 = a1[4];
       (*(a1[5] + 16))();
       ++v2;
     }
@@ -3251,10 +3221,9 @@ uint64_t sub_10001BB6C(void *a1)
     while (v2 < a1[7]);
   }
 
-  v4 = a1[4];
-  v5 = *(a1[6] + 16);
+  v3 = *(a1[6] + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_10001C0AC(uint64_t a1, void *a2)
@@ -3267,10 +3236,9 @@ void sub_10001C0AC(uint64_t a1, void *a2)
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -3285,10 +3253,9 @@ void sub_10001C3D8(uint64_t a1, void *a2)
 
   else
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -3377,10 +3344,9 @@ void sub_10001D4AC(uint64_t a1, void *a2)
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -3569,7 +3535,6 @@ void sub_1000201EC(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_1000203B0(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   CSSymbolicatorCreateWithPid();
   if (CSIsNull())
   {
@@ -3734,7 +3699,7 @@ id sub_10002141C(uint64_t a1, void *a2, uint64_t a3)
   return [*(a1 + 40) updateAndRelayMessage:*(a1 + 32) fromConnection:*(a1 + 48) toConnection:*(a1 + 56)];
 }
 
-id sub_100022198(void *a1)
+char *sub_100022198(void *a1)
 {
   string = xpc_dictionary_get_string(a1, "_device_dest");
   if (string)
@@ -3990,10 +3955,7 @@ uint64_t sub_100023DD4(uint64_t a1)
   {
   }
 
-  v5 = os_log_create(*v2, v2[1]);
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = v5;
+  *(*(a1 + 32) + 16) = os_log_create(*v2, v2[1]);
 
   return _objc_release_x1();
 }
@@ -4334,7 +4296,7 @@ uint64_t **sub_1000242B8(unint64_t *a1, unint64_t a2)
     pthread_mutex_lock((v8 + 8));
   }
 
-  v10 = (a1 + 5);
+  v10 = a1 + 5;
   v9 = *a1;
   if (v5 <= *a1)
   {
@@ -4406,7 +4368,7 @@ uint64_t **sub_1000242B8(unint64_t *a1, unint64_t a2)
       *a1 = v9;
     }
 
-    v12 = (*(v6 + 4) + 1);
+    v12 = (*(v6 + 16) + 1);
 LABEL_41:
     v25 = a1[2] + v12;
     if (v25 >= a1[1])
@@ -4430,7 +4392,7 @@ LABEL_41:
     goto LABEL_28;
   }
 
-  v11 = *(v6 + 4);
+  v11 = *(v6 + 16);
   if (v5 <= v11)
   {
 LABEL_17:
@@ -4448,7 +4410,7 @@ LABEL_17:
       break;
     }
 
-    v11 = *(v6 + 4);
+    v11 = *(v6 + 16);
     if (v5 <= v11)
     {
       goto LABEL_17;
@@ -4470,7 +4432,7 @@ LABEL_28:
     *(v20 + 32) = v20 + v2;
 LABEL_45:
     *v6 = 0;
-    v6[3] = (v6 + 5);
+    *(v6 + 24) = v6 + 40;
   }
 
   return v6;
@@ -4648,7 +4610,7 @@ uint64_t *sub_100024698(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
     result = result[5];
     if (result)
     {
-      *(v7 + 40) = *result;
+      v7[5] = *result;
     }
 
     else
@@ -4658,9 +4620,9 @@ uint64_t *sub_100024698(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 
     result[2] = a3;
     result[3] = a4;
-    *result = *(v7 + 32);
+    *result = v7[4];
     result[1] = a2;
-    *(v7 + 32) = result;
+    v7[4] = result;
   }
 
   return result;
@@ -4967,7 +4929,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       outputStruct = 0uLL;
       *&v255 = 0;
-      [v8 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v8);
       v22 = v255;
       *(v6 + 7) = outputStruct;
       v6[9] = v22;
@@ -6081,16 +6043,16 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
       v125 = WORD4(outputStruct);
       v126 = v5 + 12 * v124;
       *v126 = DWORD2(outputStruct);
-      *(v126 + 4) = v124;
+      *(v126 + 2) = v124;
       if ((v125 & 0x400) == 0)
       {
-        *(v126 + 6) = BYTE1(v256);
+        *(v126 + 3) = BYTE1(v256);
       }
 
       if ((v125 & 0x461) == 1)
       {
-        *(v126 + 8) = [v8 minimumLinearTextureAlignmentForPixelFormat:v124];
-        *(v126 + 10) = [v8 minimumTextureBufferAlignmentForPixelFormat:v124];
+        *(v126 + 4) = [v8 minimumLinearTextureAlignmentForPixelFormat:v124];
+        *(v126 + 5) = [v8 minimumTextureBufferAlignmentForPixelFormat:v124];
       }
 
       ++v123;
@@ -6155,7 +6117,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(m))
       {
-        *(v136 + 4 * v135++) = m;
+        *&v136[4 * v135++] = m;
       }
     }
 
@@ -6165,7 +6127,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(v138))
       {
-        *(v136 + 4 * v135++) = v138;
+        *&v136[4 * v135++] = v138;
       }
 
       ++v138;
@@ -6177,7 +6139,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(n))
       {
-        *(v136 + 4 * v135++) = n;
+        *&v136[4 * v135++] = n;
       }
     }
 
@@ -6188,7 +6150,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
       v143 = v141;
       if (sub_100027F08(v142))
       {
-        *(v136 + 4 * v135++) = v142;
+        *&v136[4 * v135++] = v142;
       }
 
       v142 = -12543;
@@ -6202,7 +6164,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(v144))
       {
-        *(v136 + 4 * v135++) = v144;
+        *&v136[4 * v135++] = v144;
       }
 
       ++v144;
@@ -6216,7 +6178,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(v146))
       {
-        *(v136 + 4 * v135++) = v146;
+        *&v136[4 * v135++] = v146;
       }
 
       ++v146;
@@ -6230,7 +6192,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(v148))
       {
-        *(v136 + 4 * v135++) = v148;
+        *&v136[4 * v135++] = v148;
       }
 
       ++v148;
@@ -6244,7 +6206,7 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     {
       if (sub_100027F08(v150))
       {
-        *(v136 + 4 * v135++) = v150;
+        *&v136[4 * v135++] = v150;
       }
 
       ++v150;
@@ -6252,14 +6214,14 @@ uint64_t *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, uint64_t a2)
     }
 
     while (v151);
-    *(v136 + 4 * v135) = 0;
-    *(v136 + 4 * (v135 + 1)) = -12281;
-    *(v136 + 4 * (v135 + 2)) = -12280;
-    *(v136 + 4 * (v135 + 3)) = -12272;
-    *(v136 + 4 * (v135 + 4)) = -8183;
-    *(v136 + 4 * (v135 + 5)) = -8182;
-    *(v136 + 4 * (v135 + 6)) = -8181;
-    qsort(v5 + 49684, v135 + 7, 4uLL, sub_100027324);
+    *&v136[4 * v135] = 0;
+    *&v136[4 * (v135 + 1)] = -12281;
+    *&v136[4 * (v135 + 2)] = -12280;
+    *&v136[4 * (v135 + 3)] = -12272;
+    *&v136[4 * (v135 + 4)] = -8183;
+    *&v136[4 * (v135 + 5)] = -8182;
+    *&v136[4 * (v135 + 6)] = -8181;
+    qsort(v5 + 49684, (v135 + 7), 4uLL, sub_100027324);
     *(v6 + 68) = v135 + 7;
     if (objc_opt_respondsToSelector())
     {
@@ -7587,7 +7549,7 @@ uint64_t GTCapabilitiesRuntime_heapAccelerationStructureInfoCompatible(uint64_t 
   return v8;
 }
 
-id GTCapabilitiesRuntime_serialize(const uint8_t *a1, uint64_t a2, uint64_t a3)
+id GTCapabilitiesRuntime_serialize(uint8_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = 66688;
   v13 = 66688;
@@ -7703,7 +7665,7 @@ LABEL_8:
   return 0;
 }
 
-char *sub_100027A04(char *result, uint64_t a2, unint64_t a3, uint64_t a4, int a5, _BYTE *a6, uint64_t a7)
+char *sub_100027A04(char *result, uint64_t a2, size_t a3, uint64_t a4, int a5, _BYTE *a6, uint64_t a7)
 {
   if (a5 == 1 && (v11 = result, v12 = 24 * a4, (result = sub_100024570(a7, 24 * a4)) != 0))
   {
@@ -7786,7 +7748,7 @@ LABEL_8:
   return 0;
 }
 
-void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t a8)
+void sub_100027BE8(char *a1, uint64_t a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t a8)
 {
   if (a6 == 1)
   {
@@ -7795,8 +7757,8 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
     if (v15)
     {
       v16 = v15;
-      v40 = a2;
-      v41 = a7;
+      v38 = a2;
+      v39 = a7;
       bzero(v15, v14);
       if (a3 >= 0x10)
       {
@@ -7824,13 +7786,13 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
       v22 = &a1[a5 * a3];
       while (1)
       {
-        bzero(&v44, 0x250uLL);
+        bzero(&v41[1], 0x250uLL);
         v23 = 0;
         v24 = 0;
-        v43[0] = 56;
+        v41[0] = 56;
         do
         {
-          v24 += (v43[v23++] + 7) & 0xFFFFFFFFFFFFFFF8;
+          v24 += (v41[v23++] + 7) & 0xFFFFFFFFFFFFFFF8;
         }
 
         while (v23 != 75);
@@ -7847,7 +7809,7 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
         v29 = v26;
         do
         {
-          if (((v43[v28] + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
+          if (((v41[v28] + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
           {
             v30 = v29;
           }
@@ -7857,13 +7819,13 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
             v30 = 0;
           }
 
-          v29 = (v29 + ((v43[v28] + 7) & 0xFFFFFFFFFFFFFFF8));
-          v43[v28++] = v30;
+          v29 = (v29 + ((v41[v28] + 7) & 0xFFFFFFFFFFFFFFF8));
+          v41[v28++] = v30;
         }
 
         while (v28 != 75);
-        v31 = v43[0];
-        *(v43[0] + 48) = 512;
+        v31 = v41[0];
+        *(v41[0] + 48) = 512;
         *v31 = xmmword_100032378;
         *(v31 + 16) = unk_100032388;
         *(v31 + 32) = xmmword_100032398;
@@ -7913,8 +7875,6 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
                 *(v31 + 42) = *(v34 + 9);
                 if (v32 >= 0x23)
                 {
-                  v38 = *(v34 + 22);
-                  v39 = *(v34 + 24);
                   *(v31 + 16) = v34[80] | (*(v34 + 22) << 8) | (*(v34 + 24) << 16) | (*(v34 + 26) << 24);
                   if (v32 >= 0x27)
                   {
@@ -7946,13 +7906,13 @@ void sub_100027BE8(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5
         v16[3 * v21++] = v26;
         if (v21 == a5)
         {
-          *v40 = v16;
-          *(v40 + 8) = a5;
+          *v38 = v16;
+          *(v38 + 8) = a5;
           return;
         }
       }
 
-      a7 = v41;
+      a7 = v39;
     }
   }
 

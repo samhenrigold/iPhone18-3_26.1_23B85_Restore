@@ -501,7 +501,7 @@ LABEL_10:
     WebDatabaseProvider::singleton(void)::databaseProvider = v3;
   }
 
-  WebDatabaseProvider::deleteAllDatabases(v3);
+  WebDatabaseProvider::deleteAllDatabases(v3, a2);
 }
 
 @end

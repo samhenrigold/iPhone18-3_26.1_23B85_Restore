@@ -419,7 +419,7 @@ uint64_t sub_295717820(void *a1)
   return isKindOfClass & 1;
 }
 
-float sub_295717878(void *a1, uint64_t a2, _DWORD *a3)
+float sub_295717878(void *a1, uint64_t a2, float *a3)
 {
   if (a1 && a2 && a3)
   {
@@ -431,7 +431,7 @@ float sub_295717878(void *a1, uint64_t a2, _DWORD *a3)
     if (Float32IfPresent)
     {
       result = 0.0;
-      *a3 = 0;
+      *a3 = 0.0;
     }
   }
 
@@ -518,13 +518,6 @@ unsigned __int16 *sub_295717A90(unsigned __int16 *result, float32x4_t *a2, int32
   return result;
 }
 
-void sub_295717AD4(unsigned __int16 *a1, uint64_t a2)
-{
-  v2 = *a1 + (*(a2 + 24) & 0xFEu);
-  v3 = a1[1] + (*(a2 + 25) & 0xFEu);
-  operator new[]();
-}
-
 unsigned __int16 *sub_295717CAC(unsigned __int16 *result, float *a2, float a3)
 {
   v3 = result[1] * *result;
@@ -550,7 +543,7 @@ unsigned __int16 *sub_295717CAC(unsigned __int16 *result, float *a2, float a3)
   return result;
 }
 
-uint64_t sub_295717CE8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_295717CE8(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -572,7 +565,7 @@ void sub_295717D40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_295717D5C(uint64_t a1, unint64_t a2)
+void sub_295717D5C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -613,7 +606,7 @@ void sub_295717E88()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-uint64_t sub_295717EBC()
+uint64_t *sub_295717EBC()
 {
   LODWORD(v5) = -1;
   *&v0 = -1;
@@ -623,7 +616,7 @@ uint64_t sub_295717EBC()
   qword_2A18AAA48 = 0;
   unk_2A18AAA50 = 0;
   qword_2A18AAA40 = 0;
-  sub_295717CE8(&qword_2A18AAA40, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAA40, &v3, &v5 + 1, 9uLL);
   word_2A18AAA58 = 771;
   v3 = xmmword_295742890;
   v4 = unk_2957428A0;
@@ -631,7 +624,7 @@ uint64_t sub_295717EBC()
   qword_2A18AABE0 = 0;
   unk_2A18AABE8 = 0;
   qword_2A18AABD8 = 0;
-  sub_295717CE8(&qword_2A18AABD8, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AABD8, &v3, &v5 + 1, 9uLL);
   word_2A18AABF0 = 771;
   LODWORD(v9[0]) = -1;
   *&v1 = -1;
@@ -645,7 +638,7 @@ uint64_t sub_295717EBC()
   qword_2A18AA9C8 = 0;
   unk_2A18AA9D0 = 0;
   qword_2A18AA9C0 = 0;
-  sub_295717CE8(&qword_2A18AA9C0, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AA9C0, &v3, v9 + 1, 0x19uLL);
   word_2A18AA9D8 = 1285;
   v5 = xmmword_2957428D4;
   v6 = unk_2957428E4;
@@ -657,7 +650,7 @@ uint64_t sub_295717EBC()
   qword_2A18AAB60 = 0;
   unk_2A18AAB68 = 0;
   qword_2A18AAB58 = 0;
-  sub_295717CE8(&qword_2A18AAB58, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AAB58, &v3, v9 + 1, 0x19uLL);
   word_2A18AAB70 = 1285;
   v9[2] = xmmword_295742998;
   v9[3] = unk_2957429A8;
@@ -674,7 +667,7 @@ uint64_t sub_295717EBC()
   qword_2A18AAAD8 = 0;
   unk_2A18AAAE0 = 0;
   qword_2A18AAAE8 = 0;
-  result = sub_295717CE8(&qword_2A18AAAD8, &v3, &v11, 0x31uLL);
+  result = sub_295717CE8(&qword_2A18AAAD8, &v3, v11, 0x31uLL);
   word_2A18AAAF0 = 1799;
   return result;
 }
@@ -1082,7 +1075,7 @@ float32x4_t *sub_29571886C(float32x4_t *result, uint64_t a2, uint64_t a3, unint6
     v10 = v9 >> 1;
     v11 = a6 >> 2;
     v12 = vcvts_n_u32_f32(ceilf(vcvts_n_f32_u64(a4 - a7, 2uLL)), 2uLL);
-    v13 = a4 - v12;
+    v13 = (a4 - v12);
     v14 = a8 + 1;
     if (a8 + 1 + v10 >= a5)
     {
@@ -1240,19 +1233,12 @@ float32x4_t *sub_29571886C(float32x4_t *result, uint64_t a2, uint64_t a3, unint6
         v51 = v50;
         v52 = v49;
         v53 = v48;
-        result = v13;
-        if (v13 < a4)
+        for (result = v13; result < a4; result = (result + 4))
         {
-          do
-          {
-            v54 = *v53++;
-            v55 = v54;
-            v56 = *v52++;
-            *v51++ = vsubq_f32(v55, v56);
-            result = (result + 4);
-          }
-
-          while (result < a4);
+          v54 = *v53++;
+          v55 = v54;
+          v56 = *v52++;
+          *v51++ = vsubq_f32(v55, v56);
         }
 
         ++v14;
@@ -1374,12 +1360,12 @@ unint64_t sub_295718B94(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4
   return result;
 }
 
-void sub_295718DF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_295718DF0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = FigStreamingDepthProcessorCPU;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1409,7 +1395,7 @@ size_t sub_2957195E8(int a1, int a2, CVPixelBufferRef pixelBuffer)
   return CVPixelBufferGetBytesPerRow(pixelBuffer);
 }
 
-uint64_t sub_295719610()
+uint64_t sub_295719610(uint64_t a1, uint64_t a2)
 {
 
   return kdebug_trace();
@@ -1426,7 +1412,7 @@ void sub_295719640()
   qword_2A18AAA68 = 0;
   unk_2A18AAA70 = 0;
   qword_2A18AAA60 = 0;
-  sub_295717CE8(&qword_2A18AAA60, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAA60, &v3, &v5 + 1, 9uLL);
   word_2A18AAA78 = 771;
   v3 = xmmword_295742A38;
   v4 = unk_295742A48;
@@ -1434,7 +1420,7 @@ void sub_295719640()
   qword_2A18AAC00 = 0;
   unk_2A18AAC08 = 0;
   qword_2A18AABF8 = 0;
-  sub_295717CE8(&qword_2A18AABF8, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AABF8, &v3, &v5 + 1, 9uLL);
   word_2A18AAC10 = 771;
   LODWORD(v9[0]) = -1;
   *&v2 = -1;
@@ -1448,7 +1434,7 @@ void sub_295719640()
   qword_2A18AA9E8 = 0;
   unk_2A18AA9F0 = 0;
   qword_2A18AA9E0 = 0;
-  sub_295717CE8(&qword_2A18AA9E0, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AA9E0, &v3, v9 + 1, 0x19uLL);
   word_2A18AA9F8 = 1285;
   v5 = xmmword_295742A7C;
   v6 = unk_295742A8C;
@@ -1460,7 +1446,7 @@ void sub_295719640()
   qword_2A18AAB80 = 0;
   unk_2A18AAB88 = 0;
   qword_2A18AAB78 = 0;
-  sub_295717CE8(&qword_2A18AAB78, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AAB78, &v3, v9 + 1, 0x19uLL);
   word_2A18AAB90 = 1285;
   v9[2] = xmmword_295742B40;
   v9[3] = unk_295742B50;
@@ -1477,7 +1463,7 @@ void sub_295719640()
   qword_2A18AAAF8 = 0;
   unk_2A18AAB00 = 0;
   qword_2A18AAB08 = 0;
-  sub_295717CE8(&qword_2A18AAAF8, &v3, &v11, 0x31uLL);
+  sub_295717CE8(&qword_2A18AAAF8, &v3, v11, 0x31uLL);
   word_2A18AAB10 = 1799;
   objc_autoreleasePoolPop(v0);
 }
@@ -1513,7 +1499,7 @@ void sub_295719890(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2957198B8(uint64_t a1, void *a2)
+void sub_2957198B8(uint64_t *a1, void *a2)
 {
   a2;
   v3 = sub_295719C14(a1);
@@ -1535,28 +1521,28 @@ void sub_2957198B8(uint64_t a1, void *a2)
   operator new();
 }
 
-void sub_2957199FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_2957199FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x29C250EB0](v10, 0x1081C40EAF677CBLL);
+  MEMORY[0x29C250EB0](v10, 0x1081C40EAF677CBLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_295719A44(uint64_t a1)
+void sub_295719A44(void *a1)
 {
-  v1 = *(a1 + 24);
+  v1 = a1[3];
   if ((v1 & 3) == 0)
   {
     v3 = 0;
     memset(v4, 0, sizeof(v4));
     do
     {
-      malloc_type_posix_memalign((v4 + v3), 0x10uLL, v1 * *(a1 + 16), 0x100004052888210uLL);
+      malloc_type_posix_memalign((v4 + v3), 0x10uLL, v1 * a1[2], 0x100004052888210uLL);
       v3 += 8;
     }
 
     while (v3 != 48);
-    sub_295719CD4(a1 + 32, *&v4[0]);
+    sub_295719CD4(a1 + 4, *&v4[0]);
   }
 
   sub_29572D5CC();
@@ -1621,11 +1607,11 @@ void sub_295719BDC(void *a1)
 uint64_t sub_295719C14(uint64_t a1)
 {
   v6 = *(a1 + 8);
-  v2 = sub_29571A588(&unk_2A18AAAC0, &v6);
+  v2 = sub_29571A588(&qword_2A18AAAC0, &v6);
   if (v2 == &unk_2A18AAAC8)
   {
     v5 = vextq_s8(*(a1 + 8), *(a1 + 8), 8uLL);
-    v2 = sub_29571A588(&unk_2A18AAAC0, &v5);
+    v2 = sub_29571A588(&qword_2A18AAAC0, &v5);
     if (v2 == &unk_2A18AAAC8)
     {
       exception = __cxa_allocate_exception(8uLL);
@@ -1637,7 +1623,7 @@ uint64_t sub_295719C14(uint64_t a1)
   return v2[6];
 }
 
-uint64_t sub_295719D1C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2>, void *a4@<X8>, double a5@<D0>, float a6@<S1>)
+uint64_t sub_295719D1C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2>, void *a4@<X8>, float a5@<S1>, double a6@<D0>)
 {
   v10 = a3;
   if (!a3)
@@ -1645,18 +1631,10 @@ uint64_t sub_295719D1C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2
     v10 = *(a1 + 112);
   }
 
-  sub_295719E14(a1, a2, *(a1 + 32), *(a1 + 48), a5);
-  v11 = *(a1 + 80);
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 96);
-  v14 = *(a1 + 64);
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v21 = *(a1 + 24);
-  v18 = (***(a1 + 128))(*(a1 + 128));
-  v18.n128_f32[0] = a6;
-  result = sub_295719F00(a1, *(a1 + 96), *(a1 + 80), *(a1 + 32), v10, v18.n128_f64[0]);
+  sub_295719E14(a1, a2, *(a1 + 32), *(a1 + 48), a6);
+  v11 = (***(a1 + 128))(*(a1 + 128));
+  v11.n128_f32[0] = a5;
+  result = sub_295719F00(a1, *(a1 + 96), *(a1 + 80), *(a1 + 32), v10, v11.n128_f64[0]);
   if (a3)
   {
     *a4 = 0;
@@ -1665,12 +1643,12 @@ uint64_t sub_295719D1C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2
 
   else
   {
-    v20 = *(a1 + 120);
+    v13 = *(a1 + 120);
     *a4 = *(a1 + 112);
-    a4[1] = v20;
-    if (v20)
+    a4[1] = v13;
+    if (v13)
     {
-      atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1687,7 +1665,7 @@ uint64_t sub_295719E14(uint64_t result, _OWORD *a2, int8x16_t *a3, int8x16_t *a4
 
   v6 = *(result + 16) * v5;
   v7 = (a2 + v6);
-  v8 = a2 + v6 + -4 * ((v6 >> 2) - 12 * (v6 / 0x30));
+  v8 = (a2 + v6 + -4 * ((v6 >> 2) - 12 * (v6 / 0x30)));
   if (v8 != a2)
   {
     v9 = vdupq_lane_s32(*&a5, 0);
@@ -1858,7 +1836,7 @@ void *sub_29571A054(void *a1, unint64_t *a2, uint64_t a3)
     v6 = 24 * a3;
     do
     {
-      sub_29571A0D8(a1, v4, a2);
+      sub_29571A0D8(a1, v4, a2, a2);
       a2 += 3;
       v6 -= 24;
     }
@@ -1869,15 +1847,15 @@ void *sub_29571A054(void *a1, unint64_t *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t sub_29571A0D8(void *a1, void *a2, unint64_t *a3)
+uint64_t sub_29571A0D8(void *a1, void *a2, unint64_t *a3, uint64_t a4)
 {
-  v3 = *sub_29571A178(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *sub_29571A178(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *sub_29571A178(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -2014,7 +1992,7 @@ LABEL_3:
   }
 }
 
-uint64_t *sub_29571A2DC(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_29571A2DC(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2098,12 +2076,12 @@ uint64_t *sub_29571A398(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2117,22 +2095,22 @@ uint64_t *sub_29571A398(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2166,13 +2144,13 @@ uint64_t *sub_29571A398(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2420,7 +2398,7 @@ void sub_29571AAF0(void *a1)
   JUMPOUT(0x29C250EB0);
 }
 
-uint64_t sub_29571AB8C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2>, void *a4@<X8>, double a5@<D0>, float a6@<S1>)
+uint64_t sub_29571AB8C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, int8x16_t *a3@<X2>, void *a4@<X8>, float a5@<S1>, double a6@<D0>)
 {
   result = *(a1 + 8);
   if (result)
@@ -2532,7 +2510,7 @@ uint64_t sub_29571B1C8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   a12 = v20;
   a13 = v19;
 
-  return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v16, a2, &a14, &a11, a5, a6);
+  return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v16, a2, &a14, &a11, a5, a6, a7, a8);
 }
 
 uint64_t sub_29571B1F4()
@@ -3478,22 +3456,22 @@ void sub_29571F5AC(uint64_t a1, void *a2)
   }
 }
 
-void sub_29571FA28(uint64_t a1, __int16 a2, __int16 a3, char a4, char a5, char a6, char a7)
+void sub_29571FA28(unsigned __int16 *a1, unsigned __int16 a2, unsigned __int16 a3, char a4, char a5, char a6, char a7)
 {
   *a1 = a2;
-  *(a1 + 2) = a3;
+  a1[1] = a3;
   *(a1 + 4) = a4;
   *(a1 + 5) = a5;
   *(a1 + 6) = a6;
   *(a1 + 7) = a7;
-  *(a1 + 8) = 0u;
-  *(a1 + 136) = 0;
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0;
+  *(a1 + 4) = 0u;
+  *(a1 + 17) = 0;
+  *(a1 + 12) = 0u;
+  *(a1 + 20) = 0u;
+  *(a1 + 28) = 0u;
+  *(a1 + 44) = 0u;
+  *(a1 + 52) = 0u;
+  *(a1 + 15) = 0;
   operator new[]();
 }
 
@@ -3953,7 +3931,7 @@ void sub_29572036C(unsigned __int16 *a1, void *__src, void *__dst, const void *a
   }
 }
 
-void sub_29572070C(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6)
+void sub_29572070C(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
   if (a4 >= 4)
   {
@@ -3964,15 +3942,15 @@ void sub_29572070C(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint6
   {
     case 3u:
 
-      sub_295721D8C(a1, a2, a3, a5, a6);
+      sub_295721D8C(result, a2, a3, a5, a6);
       break;
     case 2u:
 
-      sub_295721CB8(a1, a2, a3, a5, a6);
+      sub_295721CB8(result, a2, a3, a5, a6);
       break;
     case 1u:
 
-      sub_295721BFC(a1, a2, a3, a5, a6);
+      sub_295721BFC(result, a2, a3, a5, a6);
       break;
   }
 }
@@ -4016,7 +3994,7 @@ void sub_295720788(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5,
     {
       v28 = v20 * a7;
       ++v20;
-      v29 = (v48 + 16 * (v28 & 0x3FFFFFFF));
+      v29 = v48 + 16 * (v28 & 0x3FFFFFFF);
       if (a7 < 4)
       {
         v37 = 0;
@@ -4038,7 +4016,7 @@ void sub_295720788(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5,
           v50.val[2] = *&v27[v30 + 8];
           v50.val[3] = *(v23 + v30);
           vst4q_f32(v29, v50);
-          v29 += 16;
+          v29 += 64;
           v50.val[0] = vaddq_f32(vaddq_f32(v50.val[0], v50.val[1]), vaddq_f32(v50.val[2], v50.val[3]));
           *(v26 + v30) = v50.val[0];
           *(v25 + v30) = vrecpeq_f32(vmaxq_f32(v50.val[0], v24));
@@ -4066,15 +4044,15 @@ void sub_295720788(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5,
           *v29 = *v40;
           v42 = *v33++;
           v43 = v42;
-          v29[1] = v42;
+          *(v29 + 4) = v42;
           v44 = *(v40 - 2);
-          v29[2] = v44;
+          *(v29 + 8) = v44;
           v45 = *v34++;
-          v29[3] = v45;
+          *(v29 + 12) = v45;
           v46 = ((v41 + v43) + v44) + v45;
           *v35++ = v46;
           *v36++ = 1.0 / fmaxf(v46, 0.00097656);
-          v29 += 4;
+          v29 += 16;
           ++v40;
           --v39;
         }
@@ -4361,7 +4339,7 @@ float32x4_t *sub_295720C60(float32x4_t *result, float *a2, float32x4_t *__dst, u
   }
 
   v20 = __dst;
-  v21 = &v7->f32[v10];
+  v21 = (v7 + 4 * v10);
   v44 = -2 * a4;
   v41 = v13;
   v42 = a5;
@@ -4371,8 +4349,8 @@ float32x4_t *sub_295720C60(float32x4_t *result, float *a2, float32x4_t *__dst, u
   {
     result = v7;
     v7 = v21;
-    *v21 = *a2;
-    v22 = v21 + 1;
+    v21->f32[0] = *a2;
+    v22 = &v21->f32[1];
     if (a4 < 8)
     {
       v25 = 0;
@@ -4496,7 +4474,7 @@ LABEL_27:
   return result;
 }
 
-char *sub_295720EDC(char *result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned __int8 a7, char a8)
+char *sub_295720EDC(char *result, uint64_t a2, float *a3, uint64_t a4, unsigned int a5, unsigned int a6, uint64_t a7, char a8)
 {
   v9 = result;
   if (result[4] - 1 == a5)
@@ -4507,19 +4485,19 @@ char *sub_295720EDC(char *result, uint64_t a2, uint64_t a3, uint64_t a4, unsigne
   if (result[5])
   {
     sub_2957211BC(result, a2, a3, *(result + 11), a4, *(*(result + 4) + 8 * a5), *(*(result + 6) + 8 * a5), *(*(result + 7) + 8 * a5), *(*(result + 8) + 8 * a5), a7, *(*(result + 1) + 2 * a5), *(*(result + 2) + 2 * a5));
-    v10 = *(*(v9 + 8) + 2 * a5);
-    v11 = *(*(v9 + 16) + 2 * a5);
+    v10 = *(*(v9 + 1) + 2 * a5);
+    v11 = *(*(v9 + 2) + 2 * a5);
     if (v11 * v10)
     {
-      memmove(*(v9 + 112), *(v9 + 88), 4 * v11 * v10);
-      v10 = *(*(v9 + 8) + 2 * a5);
-      v11 = *(*(v9 + 16) + 2 * a5);
+      memmove(*(v9 + 14), *(v9 + 11), 4 * v11 * v10);
+      v10 = *(*(v9 + 1) + 2 * a5);
+      v11 = *(*(v9 + 2) + 2 * a5);
     }
 
-    sub_29572178C(v9, *(v9 + 112), *(v9 + 88), v10, v11);
-    if (*(*(v9 + 8) + 2 * a5))
+    sub_29572178C(v9, *(v9 + 14), *(v9 + 11), v10, v11);
+    if (*(*(v9 + 1) + 2 * a5))
     {
-      if (*(*(v9 + 16) + 2 * a5))
+      if (*(*(v9 + 2) + 2 * a5))
       {
         operator new[]();
       }
@@ -5174,6 +5152,80 @@ void sub_295721BFC(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsig
   }
 }
 
+void sub_295721CB8(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
+{
+  if (a5 >= 3)
+  {
+    v5 = 0;
+    v6 = a4 - 2;
+    do
+    {
+      v7 = (a2 + 4 * (a4 + v5 * a4));
+      v8 = (a2 + 4 * (v5 + 2) * a4);
+      v9 = (a3 + 4 * ((v5 * a4) >> 4));
+      if (a4 < 0x10)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v10 = 0;
+        do
+        {
+          v16 = vld4q_f32(v7);
+          v7 += 16;
+          v16.val[0] = vmaxq_f32(v16.val[1], v16.val[2]);
+          *(&v16 + 16) = vld4q_f32(v8);
+          v8 += 16;
+          *v9++ = vmaxq_f32(v16.val[0], vmaxq_f32(v16.val[2], v16.val[3]));
+          v10 += 16;
+        }
+
+        while ((a4 - 15) > v10);
+        v11 = a4 & 0xFFF0;
+      }
+
+      if (v6 > v11)
+      {
+        v12 = (v7 + 2);
+        v13 = (v8 + 2);
+        do
+        {
+          v14 = *(v12 - 1);
+          if (v14 <= *v12)
+          {
+            v14 = *v12;
+          }
+
+          v15 = *(v13 - 1);
+          if (v15 <= *v13)
+          {
+            v15 = *v13;
+          }
+
+          if (v14 <= v15)
+          {
+            v14 = v15;
+          }
+
+          v9->f32[0] = v14;
+          v9 = (v9 + 4);
+          v11 += 4;
+          v12 += 4;
+          v13 += 4;
+        }
+
+        while (v6 > v11);
+      }
+
+      v5 = (v5 + 4);
+    }
+
+    while (v5 < (a5 - 2));
+  }
+}
+
 void sub_295721D8C(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
   if (a5 >= 5)
@@ -5355,7 +5407,7 @@ void sub_295721F14(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsig
   }
 }
 
-uint64_t sub_295721FA4()
+uint64_t *sub_295721FA4()
 {
   LODWORD(v5) = -1;
   *&v0 = -1;
@@ -5365,7 +5417,7 @@ uint64_t sub_295721FA4()
   qword_2A18AAA88 = 0;
   unk_2A18AAA90 = 0;
   qword_2A18AAA80 = 0;
-  sub_295717CE8(&qword_2A18AAA80, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAA80, &v3, &v5 + 1, 9uLL);
   word_2A18AAA98 = 771;
   v3 = xmmword_295742E9C;
   v4 = unk_295742EAC;
@@ -5373,7 +5425,7 @@ uint64_t sub_295721FA4()
   qword_2A18AAC20 = 0;
   unk_2A18AAC28 = 0;
   qword_2A18AAC18 = 0;
-  sub_295717CE8(&qword_2A18AAC18, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAC18, &v3, &v5 + 1, 9uLL);
   word_2A18AAC30 = 771;
   LODWORD(v9[0]) = -1;
   *&v1 = -1;
@@ -5387,7 +5439,7 @@ uint64_t sub_295721FA4()
   qword_2A18AAA08 = 0;
   unk_2A18AAA10 = 0;
   qword_2A18AAA00 = 0;
-  sub_295717CE8(&qword_2A18AAA00, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AAA00, &v3, v9 + 1, 0x19uLL);
   word_2A18AAA18 = 1285;
   v5 = xmmword_295742EE0;
   v6 = unk_295742EF0;
@@ -5399,7 +5451,7 @@ uint64_t sub_295721FA4()
   qword_2A18AABA0 = 0;
   unk_2A18AABA8 = 0;
   qword_2A18AAB98 = 0;
-  sub_295717CE8(&qword_2A18AAB98, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AAB98, &v3, v9 + 1, 0x19uLL);
   word_2A18AABB0 = 1285;
   v9[2] = xmmword_295742FA4;
   v9[3] = unk_295742FB4;
@@ -5416,12 +5468,12 @@ uint64_t sub_295721FA4()
   qword_2A18AAB18 = 0;
   unk_2A18AAB20 = 0;
   qword_2A18AAB28 = 0;
-  result = sub_295717CE8(&qword_2A18AAB18, &v3, &v11, 0x31uLL);
+  result = sub_295717CE8(&qword_2A18AAB18, &v3, v11, 0x31uLL);
   word_2A18AAB30 = 1799;
   return result;
 }
 
-void sub_295722148(uint64_t a1, int a2, int a3, int a4, float a5, float a6, float a7, float a8)
+void sub_295722148(uint64_t a1, unsigned int a2, unsigned int a3, int a4, float a5, float a6, float a7, float a8)
 {
   *a1 = a2;
   *(a1 + 4) = a3;
@@ -5570,11 +5622,11 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
+uint64_t sub_29572252C(float *a1, int8x16_t *a2, float32x4_t *a3)
 {
   v4 = a2;
   v6 = *a1;
-  v7 = a1[1];
+  v7 = *(a1 + 1);
   v8 = (a2 + 4 * (v7 * v6));
   v9 = 0.0;
   if (v7 * v6)
@@ -5600,7 +5652,7 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
 
   while (v10 < v8)
   {
-    v13 = v10->f32[0];
+    v13 = *v10->i32;
     v10 = (v10 + 4);
     v14 = v13;
     if (v9 < v13)
@@ -5614,7 +5666,7 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
   src.width = v6;
   src.rowBytes = 4 * v6;
   vImageHistogramCalculation_PlanarF(&src, histogram, 0x100u, -1.0, v9, 0);
-  v15 = (a1[1] * *a1 - histogram[0]) * 0.05;
+  v15 = ((*(a1 + 1) * *a1) - histogram[0]) * 0.05;
   v16 = 1.0;
   if (v15)
   {
@@ -5636,14 +5688,14 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
   }
 
   *&v15 = ((((v9 + 1.0) + 1.0) * v16) * 0.0039062) + -1.0;
-  if (*&v15 >= *(a1 + 3))
+  if (*&v15 >= a1[3])
   {
-    LODWORD(v15) = a1[3];
+    *&v15 = a1[3];
   }
 
   v31 = *&v15;
   sub_295722718(a1, v4, a3);
-  v20 = a1[1] * *a1;
+  v20 = *(a1 + 1) * *a1;
   if (v20 < 4)
   {
     v21 = 0;
@@ -5653,7 +5705,7 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
   else
   {
     v21 = 0;
-    v22 = (a1 + 4);
+    v22 = a1 + 4;
     v23 = vld1q_dup_f32(v22);
     v24 = v31.i32[0];
     v25 = vdupq_lane_s32(v31, 0);
@@ -5664,7 +5716,7 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
       ++v4;
       v27 = v21 + 7;
       v21 += 4;
-      v20 = a1[1] * *a1;
+      v20 = *(a1 + 1) * *a1;
     }
 
     while (v27 < v20);
@@ -5676,7 +5728,7 @@ uint64_t sub_29572252C(unsigned int *a1, int8x16_t *a2, float32x4_t *a3)
   {
     do
     {
-      if (a3->f32[0] > *(a1 + 4))
+      if (a3->f32[0] > a1[4])
       {
         v4->i32[0] = v24;
       }
@@ -6044,16 +6096,15 @@ LABEL_39:
   return result;
 }
 
-unsigned int *sub_295722D10(unsigned int *result, uint64_t a2)
+uint64_t sub_295722D10(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (result[2])
+  if (*(result + 8))
   {
-    v2 = result;
-    v3 = *(result + 5);
-    sub_295723354(a2, *v2, *(v2 + 4), result[1] + 4, *v2 + 4);
-    v5 = *v2;
-    v4 = v2[1];
-    sub_295722C00();
+    v3 = result;
+    v5 = *(result + 32);
+    v4 = *(result + 40);
+    v6 = sub_295723354(a2, *v3, *(v3 + 32), *(result + 4) + 4, *v3 + 4);
+    sub_295722C00(v6, v5, *(v3 + 4) + 4, *v3 + 4, v4);
   }
 
   return result;
@@ -6318,12 +6369,11 @@ uint64_t sub_2957256E8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   return objc_msgSend_width(v6, a2, a3, a4, a5, a6);
 }
 
-uint64_t sub_295725704(double a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t sub_295725704(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v9 = a1 * *(v7 + 160);
-  v10 = *(v7 + 48);
+  v8 = *(v6 + 48);
 
-  return objc_msgSend_mapSize(v10, a3, a4, a5, a6, a7);
+  return objc_msgSend_mapSize(v8, a2, a3, a4, a5, a6);
 }
 
 uint64_t sub_295725724(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -6442,18 +6492,19 @@ void *sub_295727F40(void *a1)
     a1[12] = 0;
   }
 
-  if (a1[13])
+  v13 = a1[13];
+  if (v13)
   {
-    v13 = sub_295717A8C();
-    MEMORY[0x29C250EB0](v13, 0x1010C40198E3B44);
+    v14 = sub_295717A8C(v13);
+    MEMORY[0x29C250EB0](v14, 0x1010C40198E3B44);
     a1[13] = 0;
   }
 
-  v14 = a1[14];
-  if (v14)
+  v15 = a1[14];
+  if (v15)
   {
-    v15 = sub_295720368(v14);
-    MEMORY[0x29C250EB0](v15, 0x1090C408851B61ELL);
+    v16 = sub_295720368(v15);
+    MEMORY[0x29C250EB0](v16, 0x1090C408851B61ELL);
     a1[14] = 0;
   }
 
@@ -6473,43 +6524,39 @@ uint64_t sub_295728094(uint64_t a1, const void *a2, int8x16_t *a3)
   v9 = sub_29572252C(*(a1 + 88), a3, *(a1 + 144));
   *(a1 + 200) += MEMORY[0x29C250DB0](v9) - v8;
   v10 = MEMORY[0x29C250DB0]();
-  v11 = *(a1 + 160);
-  sub_295722D10(*(a1 + 88), a2);
-  v12 = sub_295723520(*(a1 + 88), *(a1 + 160), *(a1 + 144), 3.0, 10.0, 0.2);
-  *(a1 + 216) += MEMORY[0x29C250DB0](v12) - v10;
-  v13 = MEMORY[0x29C250DB0]();
-  v14 = *(a1 + 28);
-  v15 = *(a1 + 32);
-  v16 = sub_2957235B8(*(a1 + 88), *(a1 + 136), a3);
-  *(a1 + 224) += MEMORY[0x29C250DB0](v16) - v13;
+  sub_295722D10(*(a1 + 88), a2, *(a1 + 160));
+  v11 = sub_295723520(*(a1 + 88), *(a1 + 160), *(a1 + 144), 3.0, 10.0, 0.2);
+  *(a1 + 216) += MEMORY[0x29C250DB0](v11) - v10;
+  v12 = MEMORY[0x29C250DB0]();
+  v13 = sub_2957235B8(*(a1 + 88), *(a1 + 136), a3);
+  *(a1 + 224) += MEMORY[0x29C250DB0](v13) - v12;
   if (*(a1 + 36) == 1)
   {
-    v17 = MEMORY[0x29C250DB0]();
-    v18 = v17;
+    v14 = MEMORY[0x29C250DB0]();
+    v15 = v14;
     if (*a1)
     {
-      v19 = *a1;
       sub_29571B9E4(*(a1 + 96), a3, a2, *(a1 + 64), *(a1 + 136));
     }
 
     else
     {
-      v20 = *(a1 + 6);
-      if (v20 * *(a1 + 4))
+      v16 = *(a1 + 6);
+      if (v16 * *(a1 + 4))
       {
-        v17 = memmove(*(a1 + 168), a3, 4 * v20 * *(a1 + 4));
+        v14 = memmove(*(a1 + 168), a3, 4 * v16 * *(a1 + 4));
       }
     }
 
-    *(a1 + 232) += MEMORY[0x29C250DB0](v17) - v18;
+    *(a1 + 232) += MEMORY[0x29C250DB0](v14) - v15;
   }
 
-  v21 = MEMORY[0x29C250DB0]();
-  v23 = *(a1 + 104);
+  v17 = MEMORY[0x29C250DB0]();
+  v19 = *(a1 + 104);
   if (*(a1 + 72) == 1)
   {
-    v22.i32[0] = -1.0;
-    sub_295717A90(v23, a3, v22);
+    v18.i32[0] = -1.0;
+    sub_295717A90(v19, a3, v18);
     if (*(a1 + 74) == 1)
     {
       sub_295717CAC(*(a1 + 104), *(a1 + 160), *(a1 + 76));
@@ -6517,42 +6564,42 @@ uint64_t sub_295728094(uint64_t a1, const void *a2, int8x16_t *a3)
 
     if (*(a1 + 73) == 1)
     {
-      v24 = *(a1 + 104);
+      v20 = *(a1 + 104);
       memset(__p, 0, sizeof(__p));
       sub_2957283CC(__p, qword_2A18AABB8, qword_2A18AABC0, (qword_2A18AABC0 - qword_2A18AABB8) >> 2);
-      v34 = word_2A18AABD0;
-      sub_295717AD4(v24, __p);
+      v30 = word_2A18AABD0;
+      sub_295717AD4(v20, __p);
     }
   }
 
   else
   {
-    v25 = sub_295717CE0(v23);
+    v21 = sub_295717CE0(v19);
     if (*(a1 + 6) * *(a1 + 4))
     {
-      memset(v25, 255, 4 * *(a1 + 4) * *(a1 + 6));
+      memset(v21, 255, 4 * *(a1 + 4) * *(a1 + 6));
     }
   }
 
-  v26 = MEMORY[0x29C250DB0]();
-  *(a1 + 208) += &v26[-v21];
+  v22 = MEMORY[0x29C250DB0]();
+  *(a1 + 208) += &v22[-v17];
   if (*(a1 + 176) == 1)
   {
-    v26 = memcpy(*(a1 + 152), a3, 4 * *(a1 + 4) * *(a1 + 6));
+    v22 = memcpy(*(a1 + 152), a3, 4 * *(a1 + 4) * *(a1 + 6));
   }
 
-  v27 = MEMORY[0x29C250DB0](v26);
-  v28 = *(a1 + 112);
-  v29 = sub_295717CE0(*(a1 + 104));
-  sub_29572036C(v28, a3, a3, v29, *(a1 + 160), *(a1 + 144), 0.4, *(a1 + 20));
+  v23 = MEMORY[0x29C250DB0](v22);
+  v24 = *(a1 + 112);
+  v25 = sub_295717CE0(*(a1 + 104));
+  sub_29572036C(v24, a3, a3, v25, *(a1 + 160), *(a1 + 144), 0.4, *(a1 + 20));
   result = MEMORY[0x29C250DB0]();
-  *(a1 + 264) += result - v27;
+  *(a1 + 264) += result - v23;
   if (*(a1 + 36) == 1)
   {
-    v31 = MEMORY[0x29C250DB0]();
-    v32 = sub_29571BE0C(*(a1 + 96), a2, a3, *(a1 + 136));
-    result = MEMORY[0x29C250DB0](v32);
-    *(a1 + 272) += result - v31;
+    v27 = MEMORY[0x29C250DB0]();
+    v28 = sub_29571BE0C(*(a1 + 96), a2, a3, *(a1 + 136));
+    result = MEMORY[0x29C250DB0](v28);
+    *(a1 + 272) += result - v27;
   }
 
   ++*a1;
@@ -6569,7 +6616,7 @@ void sub_2957283B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_2957283CC(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_2957283CC(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6591,7 +6638,7 @@ void sub_29572842C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_295728448()
+uint64_t *sub_295728448()
 {
   LODWORD(v5) = -1;
   *&v0 = -1;
@@ -6601,7 +6648,7 @@ uint64_t sub_295728448()
   qword_2A18AAAA8 = 0;
   unk_2A18AAAB0 = 0;
   qword_2A18AAAA0 = 0;
-  sub_295717CE8(&qword_2A18AAAA0, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAAA0, &v3, &v5 + 1, 9uLL);
   word_2A18AAAB8 = 771;
   v3 = xmmword_295743070;
   v4 = unk_295743080;
@@ -6609,7 +6656,7 @@ uint64_t sub_295728448()
   qword_2A18AAC40 = 0;
   unk_2A18AAC48 = 0;
   qword_2A18AAC38 = 0;
-  sub_295717CE8(&qword_2A18AAC38, &v3, &v5 + 4, 9uLL);
+  sub_295717CE8(&qword_2A18AAC38, &v3, &v5 + 1, 9uLL);
   word_2A18AAC50 = 771;
   LODWORD(v9[0]) = -1;
   *&v1 = -1;
@@ -6623,7 +6670,7 @@ uint64_t sub_295728448()
   qword_2A18AAA28 = 0;
   unk_2A18AAA30 = 0;
   qword_2A18AAA20 = 0;
-  sub_295717CE8(&qword_2A18AAA20, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AAA20, &v3, v9 + 1, 0x19uLL);
   word_2A18AAA38 = 1285;
   v5 = xmmword_2957430B4;
   v6 = unk_2957430C4;
@@ -6635,7 +6682,7 @@ uint64_t sub_295728448()
   qword_2A18AABC0 = 0;
   unk_2A18AABC8 = 0;
   qword_2A18AABB8 = 0;
-  sub_295717CE8(&qword_2A18AABB8, &v3, v9 + 4, 0x19uLL);
+  sub_295717CE8(&qword_2A18AABB8, &v3, v9 + 1, 0x19uLL);
   word_2A18AABD0 = 1285;
   v9[2] = xmmword_295743178;
   v9[3] = unk_295743188;
@@ -6652,7 +6699,7 @@ uint64_t sub_295728448()
   qword_2A18AAB38 = 0;
   unk_2A18AAB40 = 0;
   qword_2A18AAB48 = 0;
-  result = sub_295717CE8(&qword_2A18AAB38, &v3, &v11, 0x31uLL);
+  result = sub_295717CE8(&qword_2A18AAB38, &v3, v11, 0x31uLL);
   word_2A18AAB50 = 1799;
   return result;
 }
@@ -7414,7 +7461,7 @@ uint64_t sub_29572D4EC(uint64_t a1, uint64_t a2, char *a3)
   *(a1 + 56) = a2;
   if (*MEMORY[0x29EDB9270] == 1)
   {
-    sub_295719610();
+    sub_295719610(822150710, 20);
     a2 = *(a1 + 56);
     if (!a2)
     {
@@ -7461,20 +7508,20 @@ uint64_t sub_29572DC64(void *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
 
   sub_29571B20C();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
 uint64_t sub_29572DD10(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7483,10 +7530,10 @@ uint64_t sub_29572DDBC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7495,10 +7542,10 @@ uint64_t sub_29572DE68(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7507,35 +7554,21 @@ uint64_t sub_29572DF14(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_29572E0AC()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572E128()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_29572E1A4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7544,9 +7577,9 @@ uint64_t sub_29572E250(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7555,27 +7588,20 @@ uint64_t sub_29572E2FC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_29572E3A8()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_29572E428(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7584,9 +7610,9 @@ uint64_t sub_29572E4D8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7595,159 +7621,89 @@ uint64_t sub_29572E588()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 191, v0);
 }
 
 uint64_t sub_29572E638()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 192, v0);
 }
 
 uint64_t sub_29572E6E8()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 198, v0);
 }
 
 uint64_t sub_29572E798()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 197, v0);
 }
 
 uint64_t sub_29572E848()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 195, v0);
 }
 
 uint64_t sub_29572E8F8()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 194, v0);
 }
 
 uint64_t sub_29572E9A8()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 189, v0);
 }
 
 uint64_t sub_29572EA58()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
-}
-
-uint64_t sub_29572EB08()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EB7C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EBF0()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EC64()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572ECD8()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572ED4C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EDC0()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EE34()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EEA8()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29572EF1C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 1, "<<<< FigStillDepthProcessor_ANE >>>>", 188, v0);
 }
 
 uint64_t sub_29572EF90(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7756,9 +7712,9 @@ uint64_t sub_29572F03C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7767,9 +7723,9 @@ uint64_t sub_29572F0E8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7778,9 +7734,9 @@ uint64_t sub_29572F194(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7789,9 +7745,9 @@ uint64_t sub_29572F240(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7800,9 +7756,9 @@ uint64_t sub_29572F2EC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7811,9 +7767,9 @@ uint64_t sub_29572F398(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7822,9 +7778,9 @@ uint64_t sub_29572F444(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7833,32 +7789,32 @@ uint64_t sub_29572F4F0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-void sub_29572F59C(uint64_t a1, uint64_t a2)
+void sub_29572F59C(uint64_t a1, const char *a2)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v14, v16, a2, v20, v21, v22, v23);
   sub_29571B20C();
   sub_29571B1BC();
-  v2 = FigSignalErrorAtGM();
-  v10 = sub_29571ECAC(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12, v13, a2);
+  v3 = FigSignalErrorAtGM(v2);
+  v11 = sub_29571ECAC(v3, v4, v5, v6, v7, v8, v9, v10, v13, v15, v17, v19);
 }
 
 uint64_t sub_29572F65C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7867,10 +7823,10 @@ uint64_t sub_29572F708(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7879,10 +7835,10 @@ uint64_t sub_29572F7B4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7891,10 +7847,10 @@ uint64_t sub_29572F860(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7903,9 +7859,9 @@ uint64_t sub_29572F90C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7914,9 +7870,9 @@ uint64_t sub_29572F9B8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7925,9 +7881,9 @@ uint64_t sub_29572FA64(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7936,9 +7892,9 @@ uint64_t sub_29572FB10(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7947,9 +7903,9 @@ uint64_t sub_29572FBBC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -7958,39 +7914,40 @@ void sub_29572FC68(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
   sub_29571ECCC();
   sub_29571ECB8();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v8, v9, v10, v11, v12, v13, v14);
   sub_29571ECCC();
   sub_29571B1BC();
-  *a4 = FigSignalErrorAtGM();
+  *a4 = FigSignalErrorAtGM(v6);
 }
 
 void sub_29572FD28(void *a1, void *a2, _DWORD *a3)
 {
   sub_29571ECCC();
-  FigDebugAssert3();
+  v7 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v3, v10, v12, v13, v14, v15, v16);
   sub_29571ECCC();
-  *a3 = FigSignalErrorAtGM();
+  *a3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v8, v9, v11);
 }
 
-void sub_29572FDF8(uint64_t a1)
+void sub_29572FDF8(const char *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v13, v15, a1, v19, v20, v21, v22);
   sub_29571B20C();
   sub_29571B1BC();
-  v1 = FigSignalErrorAtGM();
-  v9 = sub_29571ECAC(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, a1);
+  v2 = FigSignalErrorAtGM(v1);
+  v10 = sub_29571ECAC(v2, v3, v4, v5, v6, v7, v8, v9, v12, v14, v16, v18);
 }
 
 uint64_t sub_29572FEB8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -7999,9 +7956,9 @@ uint64_t sub_29572FF64(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8010,9 +7967,9 @@ uint64_t sub_295730010(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8021,9 +7978,9 @@ uint64_t sub_2957300BC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8032,10 +7989,10 @@ uint64_t sub_295730168(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8044,10 +8001,10 @@ uint64_t sub_295730214(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8056,10 +8013,10 @@ uint64_t sub_2957302C0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8068,10 +8025,10 @@ uint64_t sub_29573036C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8080,10 +8037,10 @@ uint64_t sub_295730418(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8092,10 +8049,10 @@ uint64_t sub_2957304C4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8104,10 +8061,10 @@ uint64_t sub_295730570(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8116,9 +8073,9 @@ uint64_t sub_29573061C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8127,9 +8084,9 @@ uint64_t sub_2957306C8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8138,9 +8095,9 @@ uint64_t sub_295730774(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8149,9 +8106,9 @@ uint64_t sub_295730820(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8160,9 +8117,9 @@ uint64_t sub_2957308CC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8171,32 +8128,32 @@ uint64_t sub_295730978(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-void sub_295730A24(uint64_t a1, uint64_t a2)
+void sub_295730A24(uint64_t a1, const char *a2)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v14, v16, a2, v20, v21, v22, v23);
   sub_29571B20C();
   sub_29571B1BC();
-  v2 = FigSignalErrorAtGM();
-  v10 = sub_29571ECAC(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12, v13, a2);
+  v3 = FigSignalErrorAtGM(v2);
+  v11 = sub_29571ECAC(v3, v4, v5, v6, v7, v8, v9, v10, v13, v15, v17, v19);
 }
 
 uint64_t sub_295730AE4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8205,9 +8162,9 @@ uint64_t sub_295730B90(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8216,9 +8173,9 @@ uint64_t sub_295730C3C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8227,9 +8184,9 @@ uint64_t sub_295730CE8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8238,9 +8195,9 @@ uint64_t sub_295730D94(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8249,9 +8206,9 @@ uint64_t sub_295730E40(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8260,9 +8217,9 @@ uint64_t sub_295730EEC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8271,9 +8228,9 @@ uint64_t sub_295730F98(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8282,9 +8239,9 @@ uint64_t sub_295731044(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8293,9 +8250,9 @@ uint64_t sub_2957310F0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8304,9 +8261,9 @@ uint64_t sub_29573119C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8315,9 +8272,9 @@ uint64_t sub_295731248(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8326,9 +8283,9 @@ uint64_t sub_2957312F4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8337,9 +8294,9 @@ uint64_t sub_2957313A0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8348,19 +8305,20 @@ uint64_t sub_29573144C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_2957314F8(uint64_t a1, _DWORD *a2)
+uint64_t sub_2957314F8(int a1, _DWORD *a2)
 {
   sub_29571ECE4();
-  FigDebugAssert3();
+  v6 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v2, v9, v11, v12, v13, v14, v15);
   sub_29571ECE4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v8, v10);
   *a2 = result;
   return result;
 }
@@ -8369,31 +8327,31 @@ void sub_2957315BC(uint64_t a1, void *a2, _DWORD *a3)
 {
   sub_29571ECE4();
   sub_29571ECB8();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, v12, v13);
   sub_29571ECE4();
   sub_29571B1BC();
-  *a3 = FigSignalErrorAtGM();
+  *a3 = FigSignalErrorAtGM(v5);
 }
 
-void sub_295731678(uint64_t a1)
+void sub_295731678(const char *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v13, v15, a1, v19, v20, v21, v22);
   sub_29571B20C();
   sub_29571B1BC();
-  v1 = FigSignalErrorAtGM();
-  v9 = sub_29571ECAC(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, a1);
+  v2 = FigSignalErrorAtGM(v1);
+  v10 = sub_29571ECAC(v2, v3, v4, v5, v6, v7, v8, v9, v12, v14, v16, v18);
 }
 
 uint64_t sub_295731738(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8402,9 +8360,9 @@ uint64_t sub_2957317E4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8413,9 +8371,9 @@ uint64_t sub_295731890(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8424,9 +8382,9 @@ uint64_t sub_29573193C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8435,9 +8393,9 @@ uint64_t sub_2957319E8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8446,9 +8404,9 @@ uint64_t sub_295731A94(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8457,9 +8415,9 @@ uint64_t sub_295731B40(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8468,9 +8426,9 @@ uint64_t sub_295731BEC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8479,9 +8437,9 @@ uint64_t sub_295731C98(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8490,9 +8448,9 @@ uint64_t sub_295731D44(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8501,9 +8459,9 @@ uint64_t sub_295731DF0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8512,9 +8470,9 @@ uint64_t sub_295731E9C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8559,26 +8517,28 @@ void sub_295732278()
 uint64_t sub_295732514(void *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
 
   fig_log_get_emitter();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
 }
 
-void sub_2957325DC(void *a1)
+void sub_2957325DC(const char *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v2 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v1, v3, a1, v6, v7, vars0, vars8);
 }
 
 uint64_t sub_29573267C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8587,10 +8547,10 @@ uint64_t sub_295732728(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8599,10 +8559,10 @@ uint64_t sub_2957327D4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8611,10 +8571,10 @@ uint64_t sub_295732880(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8623,9 +8583,9 @@ uint64_t sub_29573292C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8634,9 +8594,9 @@ uint64_t sub_2957329D8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8645,10 +8605,10 @@ uint64_t sub_295732A84(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8657,10 +8617,10 @@ uint64_t sub_295732B30(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8669,10 +8629,10 @@ uint64_t sub_295732BDC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8681,10 +8641,10 @@ uint64_t sub_295732C88(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8693,10 +8653,10 @@ uint64_t sub_295732D34(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8705,10 +8665,10 @@ uint64_t sub_295732DE0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8717,9 +8677,9 @@ uint64_t sub_295732E8C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8728,10 +8688,10 @@ uint64_t sub_295732F38(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8740,10 +8700,10 @@ uint64_t sub_295732FE4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8752,10 +8712,10 @@ uint64_t sub_295733090(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8764,10 +8724,10 @@ uint64_t sub_29573313C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8776,10 +8736,10 @@ uint64_t sub_2957331E8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8788,99 +8748,99 @@ uint64_t sub_295733318()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733398()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733418()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733498()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733518()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733598()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733618()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733698()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733718()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733798()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733818(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_295724F60();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
@@ -8889,8 +8849,8 @@ uint64_t sub_2957338A0(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -8899,8 +8859,8 @@ uint64_t sub_29573392C(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -8909,8 +8869,8 @@ uint64_t sub_2957339B8(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -8919,369 +8879,369 @@ uint64_t sub_295733A44()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733AD0()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733B5C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733BE8()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733C74()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733D00()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733D8C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733E18()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733EA4()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733F30()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295733FBC()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734048()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957340D4()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734160()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957341EC()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734278()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734304()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734390()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_29573441C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957344A8()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734534()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957345C0()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_29573464C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957346D8()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734764()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957347F0()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_29573487C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734908()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734994()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734A20()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734AAC()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734B38()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734BC4()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734C50()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734CDC()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734D68()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295734F74(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_295724F60();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
@@ -9290,79 +9250,79 @@ uint64_t sub_295734FFC()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295735088()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295735114()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957351A0()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_29573522C()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957352B8()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_295735344()
 {
   sub_295724F34();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   sub_295724F60();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v1);
 }
 
 uint64_t sub_2957353D0(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_295724F60();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
@@ -9371,110 +9331,65 @@ uint64_t sub_295735458(_DWORD *a1)
 {
   sub_295724F44();
   sub_295724F54();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_295724F60();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_295735DF8(uint64_t a1, void *a2)
+uint64_t sub_295735DF8(int a1, void *a2)
 {
   fig_log_get_emitter();
   sub_295725698();
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v7, v9, v11, v12, v13, v14, v15);
 
   fig_log_get_emitter();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v8, v10);
 }
 
 uint64_t sub_295735EC4()
 {
   sub_29571C7C4();
   sub_295725698();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  v3 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 4294954516, "(Fig)", 79, v0);
 }
 
 uint64_t sub_295735F78()
 {
   sub_29571C7C4();
   sub_295725698();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  v3 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
-}
-
-uint64_t sub_29573602C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_2957360A4()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29573611C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736194()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_29573620C()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736284()
-{
-  fig_log_get_emitter();
-  sub_29571EC44();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 4294954516, "(Fig)", 78, v0);
 }
 
 uint64_t sub_2957362FC(_DWORD *a1)
 {
   fig_log_get_emitter();
   sub_295725698();
-  FigDebugAssert3();
+  v3 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_2957363C0()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_295736438(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9483,10 +9398,10 @@ uint64_t sub_2957364E4(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9495,10 +9410,10 @@ uint64_t sub_295736590(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9507,10 +9422,10 @@ uint64_t sub_29573663C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9519,10 +9434,10 @@ uint64_t sub_2957366E8(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9531,10 +9446,10 @@ uint64_t sub_295736794(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9543,10 +9458,10 @@ uint64_t sub_295736840(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9555,10 +9470,10 @@ uint64_t sub_2957368EC(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9567,10 +9482,10 @@ uint64_t sub_295736998(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   sub_29571B20C();
   sub_29571B1BC();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -9579,302 +9494,239 @@ uint64_t sub_295736A44(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_295736AF0()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
-}
-
-void sub_295736B6C(void *a1)
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  FigDebugAssert3();
-}
-
-uint64_t sub_295736BF0()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736C6C()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736CE8()
-{
-  fig_log_get_emitter();
-  sub_29571C7B0();
-  return FigDebugAssert3();
 }
 
 uint64_t sub_295736D64()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
-  sub_29571C7C4();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+  v1 = sub_29571C7C4();
 
-  return FigSignalErrorAtGM();
-}
-
-uint64_t sub_295736E14()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736E90()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736F0C()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
-}
-
-uint64_t sub_295736F88()
-{
-  fig_log_get_emitter();
-  sub_295727B70();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, 4294954516, "<<<< FigStillDepthProcessor_GPU >>>>", 337, v0);
 }
 
 uint64_t sub_295737004()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957370B4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737164()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737214()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957372C4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737374()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737424()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957374D4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737584()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737634()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957376E4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737794()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737844()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957378F4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_2957379A4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737A54()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737B04()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737BB4()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737C64()
 {
   sub_29571C7C4();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_29571C7C4();
   sub_29571B1BC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_295737D14(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9883,9 +9735,9 @@ uint64_t sub_295737DC0(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9894,9 +9746,157 @@ uint64_t sub_295737E6C(_DWORD *a1)
 {
   sub_29571B20C();
   sub_29571B194();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   sub_29571B20C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295737F18(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_29573803C(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  sub_29571B20C();
+  sub_29571B1BC();
+  result = FigSignalErrorAtGM(v2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_2957380E8(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  sub_29571B20C();
+  sub_29571B1BC();
+  result = FigSignalErrorAtGM(v2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295738194(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295738240(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_2957382EC(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295738398(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295738444(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_2957384F0(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  sub_29571B20C();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_29573859C(int a1)
+{
+  sub_29571B20C();
+  sub_295725698();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
+  v3 = sub_29571B20C();
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 1, "<<<< FigStillDepthProcessor_GPU >>>>", 561, v1);
+}
+
+uint64_t sub_295738654(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  sub_29571B20C();
+  sub_29571B1BC();
+  result = FigSignalErrorAtGM(v2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_29573877C(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  sub_29571B20C();
+  sub_29571B1BC();
+  result = FigSignalErrorAtGM(v2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_295738828(_DWORD *a1)
+{
+  sub_29571B20C();
+  sub_29571B194();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  sub_29571B20C();
+  sub_29571B1BC();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }

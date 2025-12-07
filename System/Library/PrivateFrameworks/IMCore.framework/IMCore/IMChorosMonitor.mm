@@ -45,25 +45,25 @@
 
 - (IMChorosMonitor)init
 {
-  v10.receiver = self;
-  v10.super_class = IMChorosMonitor;
-  v2 = [(IMChorosMonitor *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = IMChorosMonitor;
+  v2 = [(IMChorosMonitor *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x1E6965080]);
-    v5 = objc_msgSend_initWithDelegate_queue_(v3, v4, v2, MEMORY[0x1E69E96A0]);
+    v4 = [v3 initWithDelegate:v2 queue:MEMORY[0x1E69E96A0]];
     coreTelephonyStewieMonitor = v2->_coreTelephonyStewieMonitor;
-    v2->_coreTelephonyStewieMonitor = v5;
+    v2->_coreTelephonyStewieMonitor = v4;
 
     if (!v2->_coreTelephonyStewieMonitor)
     {
       if (IMOSLoggingEnabled())
       {
-        v7 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v6 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
-          *v9 = 0;
-          _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Failed to load monitor", v9, 2u);
+          *v8 = 0;
+          _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Failed to load monitor", v8, 2u);
         }
       }
     }
@@ -74,20 +74,20 @@
 
 - (BOOL)isSatelliteConnectionActive
 {
-  v3 = objc_msgSend_getState(self, a2, v2);
-  isStewieActiveOverBB = objc_msgSend_isStewieActiveOverBB(v3, v4, v5);
+  getState = [(IMChorosMonitor *)self getState];
+  isStewieActiveOverBB = [getState isStewieActiveOverBB];
 
   return isStewieActiveOverBB;
 }
 
 - (BOOL)isMessagingActiveOverSatellite
 {
-  v3 = objc_msgSend_getState(self, a2, v2);
-  isActiveService = objc_msgSend_isActiveService_(v3, v4, 16);
-  v7 = objc_msgSend_isActiveService_(v3, v6, 32);
-  if ((isActiveService & 1) != 0 || v7)
+  getState = [(IMChorosMonitor *)self getState];
+  v3 = [getState isActiveService:16];
+  v4 = [getState isActiveService:32];
+  if ((v3 & 1) != 0 || v4)
   {
-    isStewieActiveOverBB = objc_msgSend_isStewieActiveOverBB(v3, v8, v9);
+    isStewieActiveOverBB = [getState isStewieActiveOverBB];
   }
 
   else
@@ -100,188 +100,188 @@
 
 - (BOOL)isStewieActive
 {
-  v3 = objc_msgSend_getState(self, a2, v2);
-  isActiveService = 1;
-  if ((objc_msgSend_isActiveService_(v3, v5, 1) & 1) == 0)
+  getState = [(IMChorosMonitor *)self getState];
+  v3 = 1;
+  if (([getState isActiveService:1] & 1) == 0)
   {
-    isActiveService = objc_msgSend_isActiveService_(v3, v6, 8);
+    v3 = [getState isActiveService:8];
   }
 
-  return isActiveService;
+  return v3;
 }
 
 - (void)presentSatelliteConnectionBannerIfNecessaryWithChat:(id)chat withReason:(id)reason ignoreTimerLimit:(BOOL)limit
 {
   limitCopy = limit;
-  v104 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   chatCopy = chat;
   reasonCopy = reason;
-  if (objc_msgSend_needsShowConnectionUI(self, v10, v11) && objc_msgSend_monitorStarted(self, v12, v13))
+  if ([(IMChorosMonitor *)self needsShowConnectionUI]&& [(IMChorosMonitor *)self monitorStarted])
   {
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Got pending request to show Connection UI. Not show Offer pill.", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Got pending request to show Connection UI. Not show Offer pill.", buf, 2u);
     }
 
-    objc_msgSend_launchStewieForMessagingWithAppForegrounded_(self, v15, 1);
+    [(IMChorosMonitor *)self launchStewieForMessagingWithAppForegrounded:1];
     goto LABEL_30;
   }
 
-  v16 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v11 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v101 = reasonCopy;
-    _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Try to present offer for reason: %@", buf, 0xCu);
+    v51 = reasonCopy;
+    _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Try to present offer for reason: %@", buf, 0xCu);
   }
 
-  if (!chatCopy || objc_msgSend_isSatelliteMessagingCompatible(chatCopy, v17, v18))
+  if (!chatCopy || [chatCopy isSatelliteMessagingCompatible])
   {
-    v92 = limitCopy;
-    v96 = reasonCopy;
-    v19 = objc_msgSend_sharedInstanceForBagType_(MEMORY[0x1E69A53F0], v17, 1);
-    v21 = objc_msgSend_objectForKey_(v19, v20, @"when-to-first-show-OTG-banner");
-    v23 = objc_msgSend_objectForKey_(v19, v22, @"how-often-to-show-OTG-banner");
-    v25 = objc_msgSend_objectForKey_(v19, v24, @"when-to-stop-showing-OTG-banner");
-    v28 = objc_msgSend_messagesAppDomain(MEMORY[0x1E695E000], v26, v27);
-    v29 = MEMORY[0x1E69A7850];
-    v31 = objc_msgSend_integerForKey_(v28, v30, *MEMORY[0x1E69A7850]);
+    v42 = limitCopy;
+    v46 = reasonCopy;
+    v12 = [MEMORY[0x1E69A53F0] sharedInstanceForBagType:1];
+    v13 = [v12 objectForKey:@"when-to-first-show-OTG-banner"];
+    v14 = [v12 objectForKey:@"how-often-to-show-OTG-banner"];
+    v15 = [v12 objectForKey:@"when-to-stop-showing-OTG-banner"];
+    messagesAppDomain = [MEMORY[0x1E695E000] messagesAppDomain];
+    v17 = MEMORY[0x1E69A7850];
+    v18 = [messagesAppDomain integerForKey:*MEMORY[0x1E69A7850]];
 
-    v34 = objc_msgSend_messagesAppDomain(MEMORY[0x1E695E000], v32, v33);
-    v94 = objc_msgSend_integerForKey_(v34, v35, *MEMORY[0x1E69A7D20]);
+    messagesAppDomain2 = [MEMORY[0x1E695E000] messagesAppDomain];
+    v44 = [messagesAppDomain2 integerForKey:*MEMORY[0x1E69A7D20]];
 
-    v38 = objc_msgSend_getState(self, v36, v37);
-    v95 = v25;
-    if (objc_msgSend_isAnyServicesAvailableFor_(MEMORY[0x1E69A81A8], v39, v38))
+    getState = [(IMChorosMonitor *)self getState];
+    v45 = v15;
+    if ([MEMORY[0x1E69A81A8] isAnyServicesAvailableFor:getState])
     {
-      v93 = v21;
-      v42 = objc_msgSend_messagesAppDomain(MEMORY[0x1E695E000], v40, v41);
-      objc_msgSend_setInteger_forKey_(v42, v43, v31 + 1, *v29);
+      v43 = v13;
+      messagesAppDomain3 = [MEMORY[0x1E695E000] messagesAppDomain];
+      [messagesAppDomain3 setInteger:v18 + 1 forKey:*v17];
 
-      if (objc_msgSend_integerValue(v25, v44, v45) <= 0 || (v48 = v25, v94 < objc_msgSend_integerValue(v25, v46, v47)))
+      if ([v15 integerValue] <= 0 || (v22 = v15, v44 < objc_msgSend(v15, "integerValue")))
       {
-        v49 = v23;
-        if (objc_msgSend_integerValue(v23, v46, v47) && v31 % objc_msgSend_integerValue(v23, v50, v51))
+        v23 = v14;
+        if ([v14 integerValue] && v18 % objc_msgSend(v14, "integerValue"))
         {
-          v52 = IMLogHandleForCategory();
-          v21 = v93;
-          reasonCopy = v96;
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+          v24 = IMLogHandleForCategory();
+          v13 = v43;
+          reasonCopy = v46;
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v55 = objc_msgSend_integerValue(v49, v53, v54);
+            integerValue = [v23 integerValue];
             *buf = 134218240;
-            v101 = v55;
-            v102 = 2048;
-            v103 = v94;
-            v56 = "Not showing satellite connection banner. Only showing banner on every %ld attempt. number of times attempted: %ld";
+            v51 = integerValue;
+            v52 = 2048;
+            v53 = v44;
+            v26 = "Not showing satellite connection banner. Only showing banner on every %ld attempt. number of times attempted: %ld";
 LABEL_23:
-            v61 = v52;
-            v62 = 22;
+            v28 = v24;
+            v29 = 22;
 LABEL_24:
-            _os_log_impl(&dword_1A823F000, v61, OS_LOG_TYPE_INFO, v56, buf, v62);
+            _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, v26, buf, v29);
           }
         }
 
         else
         {
-          v21 = v93;
-          reasonCopy = v96;
-          if (objc_msgSend_integerValue(v93, v50, v51) - 1 <= v31)
+          v13 = v43;
+          reasonCopy = v46;
+          if ([v43 integerValue] - 1 <= v18)
           {
-            v67 = objc_msgSend_objectForKey_(v19, v57, @"limit-to-start-showing-OTG-banner");
-            v70 = objc_msgSend_integerValue(v67, v68, v69);
+            v31 = [v12 objectForKey:@"limit-to-start-showing-OTG-banner"];
+            integerValue2 = [v31 integerValue];
 
-            if (v70 <= 0)
+            if (integerValue2 <= 0)
             {
-              v73 = 600;
+              v33 = 600;
             }
 
             else
             {
-              v73 = v70;
+              v33 = integerValue2;
             }
 
-            v74 = objc_msgSend_messagesAppDomain(MEMORY[0x1E695E000], v71, v72);
-            v76 = objc_msgSend_BOOLForKey_(v74, v75, IMIgnoreTimerLimit);
+            messagesAppDomain4 = [MEMORY[0x1E695E000] messagesAppDomain];
+            v35 = [messagesAppDomain4 BOOLForKey:IMIgnoreTimerLimit];
 
-            objc_msgSend_timeSinceBeingOffGrid(self, v77, v78);
-            if (v80 >= v73)
+            [(IMChorosMonitor *)self timeSinceBeingOffGrid];
+            if (v36 >= v33)
             {
-              if (objc_msgSend_isEqualToString_(v96, v79, IMReasonDidBeginTyping))
+              if ([v46 isEqualToString:IMReasonDidBeginTyping])
               {
-                v52 = IMLogHandleForCategory();
-                v21 = v93;
-                if (!os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+                v24 = IMLogHandleForCategory();
+                v13 = v43;
+                if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_29;
                 }
 
                 *buf = 0;
-                v56 = "Not showing banner because we should have shown it when entering chat.";
-                v61 = v52;
-                v62 = 2;
+                v26 = "Not showing banner because we should have shown it when entering chat.";
+                v28 = v24;
+                v29 = 2;
                 goto LABEL_24;
               }
             }
 
-            else if (((v92 | v76) & 1) == 0)
+            else if (((v42 | v35) & 1) == 0)
             {
-              v81 = v73;
-              v52 = IMLogHandleForCategory();
-              v21 = v93;
-              if (!os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+              v37 = v33;
+              v24 = IMLogHandleForCategory();
+              v13 = v43;
+              if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
               {
                 goto LABEL_29;
               }
 
               *buf = 134217984;
-              v101 = v81;
-              v56 = "Not showing satellite connection banner as it's been less than %ld seconds since we are without connection";
-              v61 = v52;
-              v62 = 12;
+              v51 = v37;
+              v26 = "Not showing satellite connection banner as it's been less than %ld seconds since we are without connection";
+              v28 = v24;
+              v29 = 12;
               goto LABEL_24;
             }
 
-            v52 = objc_alloc_init(MEMORY[0x1E6965078]);
-            objc_msgSend_setReason_(v52, v82, 8);
-            v83 = *MEMORY[0x1E69654B0];
-            v98[0] = *MEMORY[0x1E69654A8];
-            v98[1] = v83;
-            v99[0] = MEMORY[0x1E695E118];
-            v99[1] = v96;
-            v85 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v84, v99, v98, 2);
-            objc_msgSend_setMetadata_(v52, v86, v85);
+            v24 = objc_alloc_init(MEMORY[0x1E6965078]);
+            [v24 setReason:8];
+            v38 = *MEMORY[0x1E69654B0];
+            v48[0] = *MEMORY[0x1E69654A8];
+            v48[1] = v38;
+            v49[0] = MEMORY[0x1E695E118];
+            v49[1] = v46;
+            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+            [v24 setMetadata:v39];
 
-            v87 = IMLogHandleForCategory();
-            v21 = v93;
-            if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+            v40 = IMLogHandleForCategory();
+            v13 = v43;
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A823F000, v87, OS_LOG_TYPE_INFO, "Requesting satellite connection banner", buf, 2u);
+              _os_log_impl(&dword_1A823F000, v40, OS_LOG_TYPE_INFO, "Requesting satellite connection banner", buf, 2u);
             }
 
-            v90 = objc_msgSend_telephonyClient(self, v88, v89);
-            v97[0] = MEMORY[0x1E69E9820];
-            v97[1] = 3221225472;
-            v97[2] = sub_1A82ED2EC;
-            v97[3] = &unk_1E7811CE0;
-            v97[4] = v94;
-            objc_msgSend_requestStewieWithContext_completion_(v90, v91, v52, v97);
+            telephonyClient = [(IMChorosMonitor *)self telephonyClient];
+            v47[0] = MEMORY[0x1E69E9820];
+            v47[1] = 3221225472;
+            v47[2] = sub_1A82ED2EC;
+            v47[3] = &unk_1E7811CE0;
+            v47[4] = v44;
+            [telephonyClient requestStewieWithContext:v24 completion:v47];
 
             goto LABEL_29;
           }
 
-          v52 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+          v24 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v60 = objc_msgSend_integerValue(v93, v58, v59);
+            integerValue3 = [v43 integerValue];
             *buf = 134218240;
-            v101 = v60;
-            v102 = 2048;
-            v103 = v31;
-            v56 = "Not showing satellite connection banner. Only showing banner on after %ld attempts. Number of attempts: %ld";
+            v51 = integerValue3;
+            v52 = 2048;
+            v53 = v18;
+            v26 = "Not showing satellite connection banner. Only showing banner on after %ld attempts. Number of attempts: %ld";
             goto LABEL_23;
           }
         }
@@ -291,60 +291,58 @@ LABEL_29:
         goto LABEL_30;
       }
 
-      v52 = IMLogHandleForCategory();
-      v49 = v23;
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+      v24 = IMLogHandleForCategory();
+      v23 = v14;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v65 = objc_msgSend_integerValue(v48, v63, v64);
+        integerValue4 = [v22 integerValue];
         *buf = 134218240;
-        v101 = v65;
-        v102 = 2048;
-        v103 = v94;
-        _os_log_impl(&dword_1A823F000, v52, OS_LOG_TYPE_INFO, "Not showing satellite connection banner. Limit has been reached. Limit: %ld, number of times shown: %ld", buf, 0x16u);
+        v51 = integerValue4;
+        v52 = 2048;
+        v53 = v44;
+        _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Not showing satellite connection banner. Limit has been reached. Limit: %ld, number of times shown: %ld", buf, 0x16u);
       }
 
-      v21 = v93;
+      v13 = v43;
     }
 
     else
     {
-      v52 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+      v24 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v52, OS_LOG_TYPE_INFO, "Stewie state disallow displaying banner.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Stewie state disallow displaying banner.", buf, 2u);
       }
 
-      v49 = v23;
+      v23 = v14;
     }
 
-    reasonCopy = v96;
+    reasonCopy = v46;
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startMonitor
 {
-  v5 = xmmword_1E78121D8;
-  v6 = *off_1E78121E8;
-  v7 = 82;
+  v4 = xmmword_1E78121D8;
+  v5 = *off_1E78121E8;
+  v6 = 82;
   v3 = IMLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_1A84E0864(&v5, v3);
+    sub_1A84E0864(&v4, v3);
   }
 
-  objc_msgSend_startMonitorWithOffer_(self, v4, 1, v5, v6, v7);
+  [(IMChorosMonitor *)self startMonitorWithOffer:1, v4, v5, v6];
 }
 
 - (void)startMonitorIfNeededForReason:(int64_t)reason withOffer:(BOOL)offer callInBackground:(BOOL)background
 {
   backgroundCopy = background;
-  if ((objc_msgSend_monitorStarted(self, a2, reason) & 1) == 0)
+  if (![(IMChorosMonitor *)self monitorStarted])
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -389,24 +387,24 @@ LABEL_30:
   if (!self->_telephonyClient)
   {
     v3 = objc_alloc(MEMORY[0x1E69650A0]);
-    v5 = objc_msgSend_initWithQueue_(v3, v4, MEMORY[0x1E69E96A0]);
+    v4 = [v3 initWithQueue:MEMORY[0x1E69E96A0]];
     telephonyClient = self->_telephonyClient;
-    self->_telephonyClient = v5;
+    self->_telephonyClient = v4;
 
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Created new _telephonyClient", v10, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Created new _telephonyClient", v9, 2u);
       }
     }
   }
 
-  v8 = self->_telephonyClient;
+  v7 = self->_telephonyClient;
 
-  return v8;
+  return v7;
 }
 
 - (void)reset
@@ -427,82 +425,78 @@ LABEL_30:
 
 - (void)stateChanged:(id)changed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v18 = 134218752;
-      active = objc_msgSend_activeServices(changedCopy, v7, v8);
-      v20 = 2048;
-      v21 = objc_msgSend_allowedServices(changedCopy, v9, v10);
-      v22 = 2048;
-      v23 = objc_msgSend_status(changedCopy, v11, v12);
-      v24 = 2048;
-      v25 = objc_msgSend_transportType(changedCopy, v13, v14);
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Stewie status changed to: activeServices: %ld - allowedServices: %ld - status: %ld - transport: %ld", &v18, 0x2Au);
+      v6 = 134218752;
+      activeServices = [changedCopy activeServices];
+      v8 = 2048;
+      allowedServices = [changedCopy allowedServices];
+      v10 = 2048;
+      status = [changedCopy status];
+      v12 = 2048;
+      transportType = [changedCopy transportType];
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Stewie status changed to: activeServices: %ld - allowedServices: %ld - status: %ld - transport: %ld", &v6, 0x2Au);
     }
   }
 
-  v15 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v4, v5);
-  objc_msgSend___mainThreadPostNotificationName_object_(v15, v16, @"IMChorosMonitorStewieStatusChangedNotification", 0);
-
-  v17 = *MEMORY[0x1E69E9840];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"IMChorosMonitorStewieStatusChangedNotification" object:0];
 }
 
 - (BOOL)isStewieEmergencyActive
 {
-  v3 = objc_msgSend_getState(self, a2, v2);
-  isActiveService = objc_msgSend_isActiveService_(v3, v4, 1);
+  getState = [(IMChorosMonitor *)self getState];
+  v3 = [getState isActiveService:1];
 
-  return isActiveService;
+  return v3;
 }
 
 - (BOOL)shouldShowTextEmergencyServicesButton
 {
-  v3 = objc_msgSend_getState(self, a2, v2);
-  if (objc_msgSend_isActiveService_(v3, v4, 1))
+  getState = [(IMChorosMonitor *)self getState];
+  if ([getState isActiveService:1])
   {
-    isAllowedService = 0;
+    v3 = 0;
   }
 
   else
   {
-    isAllowedService = objc_msgSend_isAllowedService_(v3, v5, 1);
+    v3 = [getState isAllowedService:1];
   }
 
-  return isAllowedService;
+  return v3;
 }
 
 - (void)_setStewieRoadsideContext:(id)context forChat:(id)chat
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   chatCopy = chat;
-  v8 = objc_msgSend_roadsideProviderIDFromChatIdentifier_(IMChorosMonitor, v7, chatCopy);
-  v10 = v8;
-  if (v8)
+  v7 = [IMChorosMonitor roadsideProviderIDFromChatIdentifier:chatCopy];
+  v8 = v7;
+  if (v7)
   {
-    v16 = *MEMORY[0x1E69654B8];
-    v17[0] = v8;
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v17, &v16, 1);
-    objc_msgSend_setMetadata_(contextCopy, v12, v11);
+    v11 = *MEMORY[0x1E69654B8];
+    v12[0] = v7;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    [contextCopy setMetadata:v9];
 
-    objc_msgSend_setReason_(contextCopy, v13, 7);
+    [contextCopy setReason:7];
   }
 
   else
   {
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E0994();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openStewieAppForChatIdentifier:(id)identifier completion:(id)completion
@@ -512,38 +506,38 @@ LABEL_30:
   v8 = objc_alloc_init(MEMORY[0x1E6965078]);
   if (IMIsStringStewieEmergency())
   {
-    objc_msgSend_setReason_(v8, v9, 2);
+    [v8 setReason:2];
 LABEL_5:
     if (IMOSLoggingEnabled())
     {
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Requesting to open application", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Requesting to open application", buf, 2u);
       }
     }
 
-    v14 = objc_msgSend_telephonyClient(self, v11, v12);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1A8308B08;
-    v17[3] = &unk_1E7812258;
-    v18 = completionCopy;
-    objc_msgSend_requestStewieWithContext_completion_(v14, v15, v8, v17);
+    telephonyClient = [(IMChorosMonitor *)self telephonyClient];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1A8308B08;
+    v12[3] = &unk_1E7812258;
+    v13 = completionCopy;
+    [telephonyClient requestStewieWithContext:v8 completion:v12];
 
-    v16 = v18;
+    v11 = v13;
     goto LABEL_12;
   }
 
-  if (objc_msgSend_isStewieRoadsideChat_(IMChorosMonitor, v9, identifierCopy))
+  if ([IMChorosMonitor isStewieRoadsideChat:identifierCopy])
   {
-    objc_msgSend__setStewieRoadsideContext_forChat_(self, v10, v8, identifierCopy);
+    [(IMChorosMonitor *)self _setStewieRoadsideContext:v8 forChat:identifierCopy];
     goto LABEL_5;
   }
 
-  v16 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v11 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_1A84E0994();
   }
@@ -553,141 +547,137 @@ LABEL_12:
 
 - (void)placeEmergencyCallToHandle:(id)handle completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   completionCopy = completion;
   v7 = objc_alloc_init(MEMORY[0x1E69D8A90]);
   v8 = objc_alloc(MEMORY[0x1E69D8BD0]);
-  v11 = objc_msgSend_emergencyProvider(v7, v9, v10);
-  v13 = objc_msgSend_initWithProvider_(v8, v12, v11);
+  emergencyProvider = [v7 emergencyProvider];
+  v10 = [v8 initWithProvider:emergencyProvider];
 
-  objc_msgSend_setDialType_(v13, v14, 1);
+  [v10 setDialType:1];
   if (handleCopy)
   {
-    objc_msgSend_setHandle_(v13, v15, handleCopy);
+    [v10 setHandle:handleCopy];
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v19 = objc_msgSend_handle(v13, v17, v18);
-        v22 = objc_msgSend_value(v19, v20, v21);
+        handle = [v10 handle];
+        value = [handle value];
         *buf = 138412290;
-        v37 = v22;
-        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Requesting a specific handle %@ in the dial request.", buf, 0xCu);
+        v21 = value;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Requesting a specific handle %@ in the dial request.", buf, 0xCu);
       }
     }
   }
 
-  v23 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v14 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     sub_1A84E0A94();
   }
 
-  if (objc_msgSend_isValid(v13, v24, v25))
+  if ([v10 isValid])
   {
-    v28 = objc_msgSend_sharedInstance(MEMORY[0x1E69D8A58], v26, v27);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = sub_1A8308EB8;
-    v34[3] = &unk_1E7812258;
-    v35 = completionCopy;
-    objc_msgSend_launchAppForDialRequest_completion_(v28, v29, v13, v34);
+    mEMORY[0x1E69D8A58] = [MEMORY[0x1E69D8A58] sharedInstance];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1A8308EB8;
+    v18[3] = &unk_1E7812258;
+    v19 = completionCopy;
+    [mEMORY[0x1E69D8A58] launchAppForDialRequest:v10 completion:v18];
 
-    v30 = v35;
+    v16 = v19;
   }
 
   else
   {
-    v31 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v17 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E0AFC();
     }
 
-    v30 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v32, @"IMChorosMonitorPlaceEmergencyCallErrorDomain", 1, 0);
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMChorosMonitorPlaceEmergencyCallErrorDomain" code:1 userInfo:0];
     if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, v30);
+      (*(completionCopy + 2))(completionCopy, v16);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)emergencyHandles
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   emergencyHandles = self->_emergencyHandles;
   if (!emergencyHandles)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v5 = objc_alloc_init(MEMORY[0x1E69D8A90]);
-    v8 = objc_msgSend_emergencyProvider(v5, v6, v7);
-    v11 = v8;
-    if (v8)
+    emergencyProvider = [v5 emergencyProvider];
+    v7 = emergencyProvider;
+    if (emergencyProvider)
     {
-      v12 = objc_msgSend_emergencyLabeledHandles(v8, v9, v10);
+      emergencyLabeledHandles = [emergencyProvider emergencyLabeledHandles];
 
-      if (v12)
+      if (emergencyLabeledHandles)
       {
-        v38 = v5;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v13 = objc_msgSend_emergencyLabeledHandles(v11, v9, v10);
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v39, v43, 16);
-        if (v15)
+        v22 = v5;
+        v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        emergencyLabeledHandles2 = [v7 emergencyLabeledHandles];
+        v10 = [emergencyLabeledHandles2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v10)
         {
-          v18 = v15;
-          v19 = *v40;
+          v11 = v10;
+          v12 = *v24;
           do
           {
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v11; ++i)
             {
-              if (*v40 != v19)
+              if (*v24 != v12)
               {
-                objc_enumerationMutation(v13);
+                objc_enumerationMutation(emergencyLabeledHandles2);
               }
 
-              v21 = *(*(&v39 + 1) + 8 * i);
-              v22 = objc_msgSend_label(v21, v16, v17);
+              v14 = *(*(&v23 + 1) + 8 * i);
+              label = [v14 label];
 
-              v27 = objc_msgSend_handle(v21, v23, v24);
-              if (v22)
+              handle = [v14 handle];
+              if (label)
               {
-                v28 = objc_msgSend_label(v21, v25, v26);
-                objc_msgSend_setObject_forKeyedSubscript_(v4, v29, v27, v28);
+                label2 = [v14 label];
+                [v4 setObject:handle forKeyedSubscript:label2];
               }
 
               else
               {
-                v28 = objc_msgSend_handle(v21, v25, v26);
-                v32 = objc_msgSend_value(v28, v30, v31);
-                objc_msgSend_setObject_forKeyedSubscript_(v4, v33, v27, v32);
+                label2 = [v14 handle];
+                value = [label2 value];
+                [v4 setObject:handle forKeyedSubscript:value];
               }
             }
 
-            v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v39, v43, 16);
+            v11 = [emergencyLabeledHandles2 countByEnumeratingWithState:&v23 objects:v27 count:16];
           }
 
-          while (v18);
+          while (v11);
         }
 
-        v5 = v38;
+        v5 = v22;
       }
     }
 
-    v34 = objc_msgSend_copy(v4, v9, v10);
-    v35 = self->_emergencyHandles;
-    self->_emergencyHandles = v34;
+    v19 = [v4 copy];
+    v20 = self->_emergencyHandles;
+    self->_emergencyHandles = v19;
 
     emergencyHandles = self->_emergencyHandles;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return emergencyHandles;
 }
@@ -697,12 +687,70 @@ LABEL_12:
   identifierCopy = identifier;
   if (IMIsStringStewieEmergency())
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  else if (objc_msgSend_isStewieRoadsideChat_(IMChorosMonitor, v4, identifierCopy))
+  else if ([IMChorosMonitor isStewieRoadsideChat:identifierCopy])
   {
-    v5 = 8;
+    v4 = 8;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
+- (BOOL)isStewieRoadsideActive
+{
+  getState = [(IMChorosMonitor *)self getState];
+  v3 = [getState isActiveService:8];
+
+  return v3;
+}
+
+- (BOOL)shouldShowTextRoadsideProviderButton
+{
+  getState = [(IMChorosMonitor *)self getState];
+  if ([getState isActiveService:8])
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = [getState isAllowedService:8];
+  }
+
+  return v3;
+}
+
+- (id)mostRecentlyUsedRoadsideChatIdentifier
+{
+  IMGetDomainIntForKey();
+
+  return MEMORY[0x1EEE66B58](IMChorosMonitor, sel_chatIdentifierForRoadside_);
+}
+
++ (id)roadsideProviderIDFromChatIdentifier:(id)identifier
+{
+  identifierCopy = identifier;
+  if ([IMChorosMonitor serviceFromChatIdentifier:identifierCopy]== 8)
+  {
+    v4 = [identifierCopy componentsSeparatedByString:@":"];
+    if ([v4 count] >= 3)
+    {
+      v6 = objc_opt_new();
+      v7 = [v4 objectAtIndexedSubscript:2];
+      v5 = [v6 numberFromString:v7];
+    }
+
+    else
+    {
+      v5 = 0;
+    }
   }
 
   else
@@ -713,194 +761,135 @@ LABEL_12:
   return v5;
 }
 
-- (BOOL)isStewieRoadsideActive
-{
-  v3 = objc_msgSend_getState(self, a2, v2);
-  isActiveService = objc_msgSend_isActiveService_(v3, v4, 8);
-
-  return isActiveService;
-}
-
-- (BOOL)shouldShowTextRoadsideProviderButton
-{
-  v3 = objc_msgSend_getState(self, a2, v2);
-  if (objc_msgSend_isActiveService_(v3, v4, 8))
-  {
-    isAllowedService = 0;
-  }
-
-  else
-  {
-    isAllowedService = objc_msgSend_isAllowedService_(v3, v5, 8);
-  }
-
-  return isAllowedService;
-}
-
-- (id)mostRecentlyUsedRoadsideChatIdentifier
-{
-  v2 = IMGetDomainIntForKey();
-
-  return MEMORY[0x1EEE66B58](IMChorosMonitor, sel_chatIdentifierForRoadside_, v2);
-}
-
-+ (id)roadsideProviderIDFromChatIdentifier:(id)identifier
-{
-  identifierCopy = identifier;
-  if (objc_msgSend_serviceFromChatIdentifier_(IMChorosMonitor, v4, identifierCopy) == 8)
-  {
-    v6 = objc_msgSend_componentsSeparatedByString_(identifierCopy, v5, @":");
-    if (objc_msgSend_count(v6, v7, v8) >= 3)
-    {
-      v10 = objc_opt_new();
-      v12 = objc_msgSend_objectAtIndexedSubscript_(v6, v11, 2);
-      v9 = objc_msgSend_numberFromString_(v10, v13, v12);
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9;
-}
-
 - (id)roadsideProviderForProviderId:(int64_t)id
 {
-  v4 = objc_msgSend_telephonyClient(self, a2, id);
+  telephonyClient = [(IMChorosMonitor *)self telephonyClient];
   v5 = objc_opt_new();
-  v17 = 0;
-  v7 = objc_msgSend_fetchRoadsideProvidersWithContext_error_(v4, v6, v5, &v17);
-  v8 = v17;
+  v12 = 0;
+  v6 = [telephonyClient fetchRoadsideProvidersWithContext:v5 error:&v12];
+  v7 = v12;
 
-  if (v8)
+  if (v7)
   {
-    v11 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    providers = IMLogHandleForCategory();
+    if (os_log_type_enabled(providers, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E0BCC();
     }
 
 LABEL_4:
-    v12 = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v11 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    providers = IMLogHandleForCategory();
+    if (os_log_type_enabled(providers, OS_LOG_TYPE_ERROR))
     {
-      sub_1A84E0C34(v11);
+      sub_1A84E0C34(providers);
     }
 
     goto LABEL_4;
   }
 
-  v11 = objc_msgSend_providers(v7, v9, v10);
-  v14 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v13, id);
-  v12 = objc_msgSend_objectForKeyedSubscript_(v11, v15, v14);
+  providers = [v6 providers];
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:id];
+  v9 = [providers objectForKeyedSubscript:v10];
 
 LABEL_7:
 
-  return v12;
+  return v9;
 }
 
 - (id)roadsideProviderNameForProviderId:(int64_t)id
 {
-  v3 = objc_msgSend_roadsideProviderForProviderId_(self, a2, id);
-  v6 = objc_msgSend_providerName(v3, v4, v5);
+  v3 = [(IMChorosMonitor *)self roadsideProviderForProviderId:id];
+  providerName = [v3 providerName];
 
-  return v6;
+  return providerName;
 }
 
 - (id)roadsideBusinessIDForProviderId:(int64_t)id
 {
-  v3 = objc_msgSend_roadsideProviderForProviderId_(self, a2, id);
-  v6 = objc_msgSend_bizId(v3, v4, v5);
+  v3 = [(IMChorosMonitor *)self roadsideProviderForProviderId:id];
+  bizId = [v3 bizId];
 
-  if (objc_msgSend__appearsToBeBusinessID(v6, v7, v8))
+  if ([bizId _appearsToBeBusinessID])
   {
-    v9 = v6;
+    v5 = bizId;
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
   }
 
-  v10 = v9;
+  v6 = v5;
 
-  return v9;
+  return v5;
 }
 
 - (id)roadsideProviderNameForChatIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_sharedRegistry(IMChatRegistry, v5, v6);
-  v9 = objc_msgSend_existingChatWithChatIdentifier_(v7, v8, identifierCopy);
+  v5 = +[IMChatRegistry sharedRegistry];
+  v6 = [v5 existingChatWithChatIdentifier:identifierCopy];
 
-  v12 = objc_msgSend_displayName(v9, v10, v11);
-  if (v12)
+  displayName = [v6 displayName];
+  if (displayName)
   {
-    v14 = v12;
-    v15 = v14;
+    v8 = displayName;
+    v9 = v8;
   }
 
   else
   {
-    v16 = objc_msgSend_roadsideProviderIDFromChatIdentifier_(IMChorosMonitor, v13, identifierCopy);
-    v19 = v16;
-    if (v16 && (v20 = objc_msgSend_integerValue(v16, v17, v18), objc_msgSend_roadsideProviderNameForProviderId_(self, v21, v20), (v22 = objc_claimAutoreleasedReturnValue()) != 0))
+    v10 = [IMChorosMonitor roadsideProviderIDFromChatIdentifier:identifierCopy];
+    v11 = v10;
+    if (v10 && (-[IMChorosMonitor roadsideProviderNameForProviderId:](self, "roadsideProviderNameForProviderId:", [v10 integerValue]), (v12 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v15 = v22;
-      v14 = v15;
+      v9 = v12;
+      v8 = v9;
     }
 
     else
     {
-      v23 = sub_1A8361964();
-      v15 = objc_msgSend_localizedStringForKey_value_table_(v23, v24, @"STEWIE_ROADSIDE_FALLBACK_HANDLE_NAME", &stru_1F1B76F98, @"IMCoreLocalizable-Avocet");
+      v13 = sub_1A8361964();
+      v9 = [v13 localizedStringForKey:@"STEWIE_ROADSIDE_FALLBACK_HANDLE_NAME" value:&stru_1F1B76F98 table:@"IMCoreLocalizable-Avocet"];
 
-      v14 = 0;
+      v8 = 0;
     }
   }
 
-  return v15;
+  return v9;
 }
 
 - (id)roadsideBusinessIDForChatIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_sharedRegistry(IMChatRegistry, v5, v6);
-  v9 = objc_msgSend_existingChatWithChatIdentifier_(v7, v8, identifierCopy);
+  v5 = +[IMChatRegistry sharedRegistry];
+  v6 = [v5 existingChatWithChatIdentifier:identifierCopy];
 
-  v12 = objc_msgSend_associatedBusinessID(v9, v10, v11);
-  if (v12)
+  associatedBusinessID = [v6 associatedBusinessID];
+  if (associatedBusinessID)
   {
-    v14 = v12;
+    v8 = associatedBusinessID;
   }
 
   else
   {
-    v15 = objc_msgSend_roadsideProviderIDFromChatIdentifier_(IMChorosMonitor, v13, identifierCopy);
-    v18 = v15;
-    if (v15)
+    v9 = [IMChorosMonitor roadsideProviderIDFromChatIdentifier:identifierCopy];
+    v10 = v9;
+    if (v9)
     {
-      v19 = objc_msgSend_integerValue(v15, v16, v17);
-      v15 = objc_msgSend_roadsideBusinessIDForProviderId_(self, v20, v19);
+      v9 = -[IMChorosMonitor roadsideBusinessIDForProviderId:](self, "roadsideBusinessIDForProviderId:", [v9 integerValue]);
     }
 
-    v14 = v15;
+    v8 = v9;
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)launchStewieForMessagingWithAppForegrounded:(BOOL)foregrounded

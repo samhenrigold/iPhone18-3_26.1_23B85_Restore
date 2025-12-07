@@ -1,480 +1,4 @@
-void *JSONS::JSONfromGameTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  __src[0] = 0;
-  __src[1] = 0;
-  v47 = 0;
-  v48 = FIK::defaultAllocator(a1);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "is_raytrace_");
-  v4 = *(a1 + 228);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v4, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v5 = &v42;
-  }
-
-  else
-  {
-    v5 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v6 = v44;
-  }
-
-  else
-  {
-    v6 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v5, v6);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "is_chest_");
-  v7 = *(a1 + 229);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v7, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v8 = &v42;
-  }
-
-  else
-  {
-    v8 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v9 = v44;
-  }
-
-  else
-  {
-    v9 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v8, v9);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "is_vr_task_");
-  v10 = *(a1 + 230);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v10, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v11 = &v42;
-  }
-
-  else
-  {
-    v11 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v12 = v44;
-  }
-
-  else
-  {
-    v12 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v11, v12);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "use_fk_orientation_");
-  v13 = *(a1 + 231);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v13, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v14 = &v42;
-  }
-
-  else
-  {
-    v14 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v15 = v44;
-  }
-
-  else
-  {
-    v15 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v14, v15);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "is_ls_look_at_");
-  v16 = *(a1 + 232);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v16, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v17 = &v42;
-  }
-
-  else
-  {
-    v17 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v18 = v44;
-  }
-
-  else
-  {
-    v18 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v17, v18);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "is_look_at_");
-  v19 = *(a1 + 233);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineBool(&v39, v19, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v20 = &v42;
-  }
-
-  else
-  {
-    v20 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v21 = v44;
-  }
-
-  else
-  {
-    v21 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v20, v21);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "look_at_axis");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineVect(&v39, (a1 + 176), &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v22 = &v42;
-  }
-
-  else
-  {
-    v22 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v23 = v44;
-  }
-
-  else
-  {
-    v23 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v22, v23);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "mesh_offset_");
-  v24 = *(a1 + 236);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineReal(&v39, &v36, &v33, 8, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v25 = &v42;
-  }
-
-  else
-  {
-    v25 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v26 = v44;
-  }
-
-  else
-  {
-    v26 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v25, v26);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "motion_controller_offset_");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, ",");
-  JSONS::JSONLineTransform(&v39, (a1 + 192), &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v27 = &v42;
-  }
-
-  else
-  {
-    v27 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v28 = v44;
-  }
-
-  else
-  {
-    v28 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v27, v28);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, "blend_type_");
-  v29 = *(a1 + 224);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v36, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v33, &unk_245A04BAE);
-  JSONS::JSONLineTargetBlendType(&v39, v29, &v36, &v33, &v42);
-  if ((v44 & 0x80u) == 0)
-  {
-    v30 = &v42;
-  }
-
-  else
-  {
-    v30 = v42;
-  }
-
-  if ((v44 & 0x80u) == 0)
-  {
-    v31 = v44;
-  }
-
-  else
-  {
-    v31 = v43;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(__src, v30, v31);
-  if (v44 < 0 && v42)
-  {
-    (*(*v45 + 24))(v45, v42, 0, 8);
-  }
-
-  if (v34 < 0 && v33)
-  {
-    (*(*v35 + 24))(v35, v33, 0, 8);
-  }
-
-  if (v37 < 0 && v36)
-  {
-    (*(*v38 + 24))(v38, v36, 0, 8);
-  }
-
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  result = JSONS::JSONfromRigTask(a1, __src, a2);
-  if (SHIBYTE(v47) < 0)
-  {
-    if (__src[0])
-    {
-      return (*(*v48 + 3))(v48, __src[0], 0, 8);
-    }
-  }
-
-  return result;
-}
-
-void *JSONS::JSONfromRigBalanceTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *JSONS::JSONfromRigBalanceTask@<X0>(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -530,7 +54,7 @@ void *JSONS::JSONfromRigBalanceTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v20, "position_dof");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v17, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v14, ",");
-  JSONS::JSONLineFromArray<BOOL,3ul>(&v20, (a1 + 4), &v17, &v14, &v23);
+  JSONS::JSONLineFromArray<BOOL,3ul>(&v20, a1 + 4, &v17, &v14, &v23);
   if ((v25 & 0x80u) == 0)
   {
     v7 = &v23;
@@ -575,7 +99,7 @@ void *JSONS::JSONfromRigBalanceTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v20, "precision");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v17, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v14, ",");
-  JSONS::JSONLineVect(&v20, (a1 + 32), &v17, &v14, &v23);
+  JSONS::JSONLineVect(&v20, &v17, &v14, &v23);
   if ((v25 & 0x80u) == 0)
   {
     v9 = &v23;
@@ -620,7 +144,7 @@ void *JSONS::JSONfromRigBalanceTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v20, "weight");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v17, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v14, &unk_245A04BAE);
-  JSONS::JSONLineVect(&v20, (a1 + 16), &v17, &v14, &v23);
+  JSONS::JSONLineVect(&v20, &v17, &v14, &v23);
   if ((v25 & 0x80u) == 0)
   {
     v11 = &v23;
@@ -665,705 +189,698 @@ void *JSONS::JSONfromRigBalanceTask@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, "}", 1uLL);
 }
 
-void *JSONS::JSONfromSolverSettings@<X0>(int *a1@<X0>, void *a2@<X8>)
+void *JSONS::JSONfromSolverSettings@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   a2[3] = FIK::defaultAllocator(a1);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, "{", 1uLL);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_moments_enabled_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_moments_enabled_");
   v4 = *(a1 + 52);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBool(&v54, v4, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBool(&v47, v4, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v5 = &v57;
+    v5 = &v50;
   }
 
   else
   {
-    v5 = v57;
+    v5 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v6 = v59;
+    v6 = v52;
   }
 
   else
   {
-    v6 = v58;
+    v6 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v5, v6);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "translate_root");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "translate_root");
   v7 = *(a1 + 24);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBool(&v54, v7, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBool(&v47, v7, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v8 = &v57;
+    v8 = &v50;
   }
 
   else
   {
-    v8 = v57;
+    v8 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v9 = v59;
+    v9 = v52;
   }
 
   else
   {
-    v9 = v58;
+    v9 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v8, v9);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "enable_shadow_posing_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "enable_shadow_posing_");
   v10 = *(a1 + 25);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBool(&v54, v10, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBool(&v47, v10, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v11 = &v57;
+    v11 = &v50;
   }
 
   else
   {
-    v11 = v57;
+    v11 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v12 = v59;
+    v12 = v52;
   }
 
   else
   {
-    v12 = v58;
+    v12 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v11, v12);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "combine_errors_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "combine_errors_");
   v13 = *(a1 + 26);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBool(&v54, v13, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBool(&v47, v13, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v14 = &v57;
+    v14 = &v50;
   }
 
   else
   {
-    v14 = v57;
+    v14 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v15 = v59;
+    v15 = v52;
   }
 
   else
   {
-    v15 = v58;
+    v15 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v14, v15);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_task_type");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBalanceType(&v54, a1 + 7, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_task_type");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBalanceType(&v47, (a1 + 28), &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v16 = &v57;
-  }
-
-  else
-  {
-    v16 = v57;
-  }
-
-  if ((v59 & 0x80u) == 0)
-  {
-    v17 = v59;
+    v16 = &v50;
   }
 
   else
   {
-    v17 = v58;
+    v16 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v17 = v52;
+  }
+
+  else
+  {
+    v17 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v16, v17);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_use_default_zmp");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_use_default_zmp");
   v18 = *(a1 + 53);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineBool(&v54, v18, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineBool(&v47, v18, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v19 = &v57;
+    v19 = &v50;
   }
 
   else
   {
-    v19 = v57;
+    v19 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v20 = v59;
+    v20 = v52;
   }
 
   else
   {
-    v20 = v58;
+    v20 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v19, v20);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "max_iterations_");
-  v21 = a1[3];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineInt(&v54, v21, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "max_iterations_");
+  v21 = *(a1 + 12);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineInt(&v47, v21, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v22 = &v57;
-  }
-
-  else
-  {
-    v22 = v57;
-  }
-
-  if ((v59 & 0x80u) == 0)
-  {
-    v23 = v59;
+    v22 = &v50;
   }
 
   else
   {
-    v23 = v58;
+    v22 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v23 = v52;
+  }
+
+  else
+  {
+    v23 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v22, v23);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "task_precision_");
-  v24 = a1[4];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "task_precision_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v25 = &v57;
-  }
-
-  else
-  {
-    v25 = v57;
-  }
-
-  if ((v59 & 0x80u) == 0)
-  {
-    v26 = v59;
+    v24 = &v50;
   }
 
   else
   {
-    v26 = v58;
+    v24 = v50;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v25, v26);
-  if (v59 < 0 && v57)
+  if ((v52 & 0x80u) == 0)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
-  }
-
-  if (v49 < 0 && v48)
-  {
-    (*(*v50 + 24))(v50, v48, 0, 8);
-  }
-
-  if (v52 < 0 && v51)
-  {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_figure_mass_");
-  v27 = a1[14];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
-  {
-    v28 = &v57;
+    v25 = v52;
   }
 
   else
   {
-    v28 = v57;
+    v25 = v51;
   }
 
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v24, v25);
+  if (v52 < 0 && v50)
   {
-    v29 = v59;
+    (*(*v53 + 24))(v53, v50, 0, 8);
+  }
+
+  if (v42 < 0 && v41)
+  {
+    (*(*v43 + 24))(v43, v41, 0, 8);
+  }
+
+  if (v45 < 0 && v44)
+  {
+    (*(*v46 + 24))(v46, v44, 0, 8);
+  }
+
+  if (v48 < 0 && v47)
+  {
+    (*(*v49 + 24))(v49, v47, 0, 8);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_figure_mass_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
+  {
+    v26 = &v50;
   }
 
   else
   {
-    v29 = v58;
+    v26 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v27 = v52;
+  }
+
+  else
+  {
+    v27 = v51;
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v26, v27);
+  if (v52 < 0 && v50)
+  {
+    (*(*v53 + 24))(v53, v50, 0, 8);
+  }
+
+  if (v42 < 0 && v41)
+  {
+    (*(*v43 + 24))(v43, v41, 0, 8);
+  }
+
+  if (v45 < 0 && v44)
+  {
+    (*(*v46 + 24))(v46, v44, 0, 8);
+  }
+
+  if (v48 < 0 && v47)
+  {
+    (*(*v49 + 24))(v49, v47, 0, 8);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "limits_gain_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
+  {
+    v28 = &v50;
+  }
+
+  else
+  {
+    v28 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v29 = v52;
+  }
+
+  else
+  {
+    v29 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v28, v29);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "limits_gain_");
-  v30 = a1[5];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_moments_weight_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v31 = &v57;
-  }
-
-  else
-  {
-    v31 = v57;
-  }
-
-  if ((v59 & 0x80u) == 0)
-  {
-    v32 = v59;
+    v30 = &v50;
   }
 
   else
   {
-    v32 = v58;
+    v30 = v50;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v31, v32);
-  if (v59 < 0 && v57)
+  if ((v52 & 0x80u) == 0)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
-  }
-
-  if (v49 < 0 && v48)
-  {
-    (*(*v50 + 24))(v50, v48, 0, 8);
-  }
-
-  if (v52 < 0 && v51)
-  {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_moments_weight_");
-  v33 = a1[12];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
-  {
-    v34 = &v57;
+    v31 = v52;
   }
 
   else
   {
-    v34 = v57;
+    v31 = v51;
   }
 
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v30, v31);
+  if (v52 < 0 && v50)
   {
-    v35 = v59;
+    (*(*v53 + 24))(v53, v50, 0, 8);
+  }
+
+  if (v42 < 0 && v41)
+  {
+    (*(*v43 + 24))(v43, v41, 0, 8);
+  }
+
+  if (v45 < 0 && v44)
+  {
+    (*(*v46 + 24))(v46, v44, 0, 8);
+  }
+
+  if (v48 < 0 && v47)
+  {
+    (*(*v49 + 24))(v49, v47, 0, 8);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "p_coeff_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
+  {
+    v32 = &v50;
   }
 
   else
   {
-    v35 = v58;
+    v32 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v33 = v52;
+  }
+
+  else
+  {
+    v33 = v51;
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v32, v33);
+  if (v52 < 0 && v50)
+  {
+    (*(*v53 + 24))(v53, v50, 0, 8);
+  }
+
+  if (v42 < 0 && v41)
+  {
+    (*(*v43 + 24))(v43, v41, 0, 8);
+  }
+
+  if (v45 < 0 && v44)
+  {
+    (*(*v46 + 24))(v46, v44, 0, 8);
+  }
+
+  if (v48 < 0 && v47)
+  {
+    (*(*v49 + 24))(v49, v47, 0, 8);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "solution_tolerance_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
+  {
+    v34 = &v50;
+  }
+
+  else
+  {
+    v34 = v50;
+  }
+
+  if ((v52 & 0x80u) == 0)
+  {
+    v35 = v52;
+  }
+
+  else
+  {
+    v35 = v51;
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v34, v35);
-  if (v59 < 0 && v57)
+  if (v52 < 0 && v50)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v42 < 0 && v41)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  if (v45 < 0 && v44)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v55 < 0 && v54)
+  if (v48 < 0 && v47)
   {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "p_coeff_");
-  v36 = *a1;
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "retargeting_gain_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, ",");
+  JSONS::JSONLineReal(&v47, &v44, &v41, 8, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    v37 = &v57;
-  }
-
-  else
-  {
-    v37 = v57;
-  }
-
-  if ((v59 & 0x80u) == 0)
-  {
-    v38 = v59;
+    v36 = &v50;
   }
 
   else
   {
-    v38 = v58;
+    v36 = v50;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v37, v38);
-  if (v59 < 0 && v57)
+  if ((v52 & 0x80u) == 0)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
-  }
-
-  if (v49 < 0 && v48)
-  {
-    (*(*v50 + 24))(v50, v48, 0, 8);
-  }
-
-  if (v52 < 0 && v51)
-  {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "solution_tolerance_");
-  v39 = a1[1];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
-  {
-    v40 = &v57;
+    v37 = v52;
   }
 
   else
   {
-    v40 = v57;
+    v37 = v51;
   }
 
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v36, v37);
+  if (v52 < 0 && v50)
   {
-    v41 = v59;
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  else
+  if (v42 < 0 && v41)
   {
-    v41 = v58;
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v40, v41);
-  if (v59 < 0 && v57)
+  if (v45 < 0 && v44)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v48 < 0 && v47)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
-  if (v52 < 0 && v51)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v47, "balance_zero_moment_point");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v44, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, &unk_245A04BAE);
+  JSONS::JSONLineVect(&v47, &v44, &v41, &v50);
+  if ((v52 & 0x80u) == 0)
   {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "retargeting_gain_");
-  v42 = a1[2];
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, ",");
-  JSONS::JSONLineReal(&v54, &v51, &v48, 8, &v57);
-  if ((v59 & 0x80u) == 0)
-  {
-    v43 = &v57;
+    v38 = &v50;
   }
 
   else
   {
-    v43 = v57;
+    v38 = v50;
   }
 
-  if ((v59 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v44 = v59;
-  }
-
-  else
-  {
-    v44 = v58;
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v43, v44);
-  if (v59 < 0 && v57)
-  {
-    (*(*v60 + 24))(v60, v57, 0, 8);
-  }
-
-  if (v49 < 0 && v48)
-  {
-    (*(*v50 + 24))(v50, v48, 0, 8);
-  }
-
-  if (v52 < 0 && v51)
-  {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v54, "balance_zero_moment_point");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v48, &unk_245A04BAE);
-  JSONS::JSONLineVect(&v54, a1 + 8, &v51, &v48, &v57);
-  if ((v59 & 0x80u) == 0)
-  {
-    v45 = &v57;
+    v39 = v52;
   }
 
   else
   {
-    v45 = v57;
+    v39 = v51;
   }
 
-  if ((v59 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v38, v39);
+  if (v52 < 0 && v50)
   {
-    v46 = v59;
+    (*(*v53 + 24))(v53, v50, 0, 8);
   }
 
-  else
+  if (v42 < 0 && v41)
   {
-    v46 = v58;
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v45, v46);
-  if (v59 < 0 && v57)
+  if (v45 < 0 && v44)
   {
-    (*(*v60 + 24))(v60, v57, 0, 8);
+    (*(*v46 + 24))(v46, v44, 0, 8);
   }
 
-  if (v49 < 0 && v48)
+  if (v48 < 0 && v47)
   {
-    (*(*v50 + 24))(v50, v48, 0, 8);
-  }
-
-  if (v52 < 0 && v51)
-  {
-    (*(*v53 + 24))(v53, v51, 0, 8);
-  }
-
-  if (v55 < 0 && v54)
-  {
-    (*(*v56 + 24))(v56, v54, 0, 8);
+    (*(*v49 + 24))(v49, v47, 0, 8);
   }
 
   return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, "}", 1uLL);
 }
 
-void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *JSONS::JSONFromAimSetup@<X0>(int *a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -1418,7 +935,7 @@ void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v21, "mode");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v18, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v15, ",");
-  JSONS::JSONLineAimingMode(&v21, (a1 + 120), &v18, &v15, &v24);
+  JSONS::JSONLineAimingMode(&v21, a1 + 30, &v18, &v15, &v24);
   if ((v26 & 0x80u) == 0)
   {
     v6 = &v24;
@@ -1463,7 +980,7 @@ void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v21, "controller_task");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v18, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v15, ",");
-  JSONS::JSONLineObject<FIK::Item>(&v21, (a1 + 24), &v18, &v15, 1, &v24);
+  JSONS::JSONLineObject<FIK::Item>(&v21, (a1 + 6), &v18, &v15, 1, &v24);
   if ((v26 & 0x80u) == 0)
   {
     v8 = &v24;
@@ -1508,7 +1025,7 @@ void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v21, "trigger_hand_tasks");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v18, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v15, ",");
-  JSONS::JSONLineIKArrayT<FIK::Item>(&v21, (a1 + 56), &v18, &v15, 1, &v24);
+  JSONS::JSONLineIKArrayT<FIK::Item>(&v21, a1 + 7, &v18, &v15, 1, &v24);
   if ((v26 & 0x80u) == 0)
   {
     v10 = &v24;
@@ -1553,7 +1070,7 @@ void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v21, "handle_hand_tasks");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v18, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v15, &unk_245A04BAE);
-  JSONS::JSONLineIKArrayT<FIK::Item>(&v21, (a1 + 88), &v18, &v15, 1, &v24);
+  JSONS::JSONLineIKArrayT<FIK::Item>(&v21, a1 + 11, &v18, &v15, 1, &v24);
   if ((v26 & 0x80u) == 0)
   {
     v12 = &v24;
@@ -1598,7 +1115,7 @@ void *JSONS::JSONFromAimSetup@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::push_back(a2, 125);
 }
 
-void *JSONS::JSONLineObject<FIK::Item>@<X0>(void **a1@<X0>, int *a2@<X1>, const void **a3@<X2>, void **a4@<X3>, int a5@<W4>, void *a6@<X8>)
+void *JSONS::JSONLineObject<FIK::Item>@<X0>(void ***a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, void ***a4@<X3>, int a5@<W4>, void *a6@<X8>)
 {
   std::operator+[abi:nn200100]<char,std::char_traits<char>,FIK::FIKAllocator<char>>(a3, 34, __src);
   v11 = *(a1 + 23);
@@ -1732,7 +1249,7 @@ void *JSONS::JSONLineObject<FIK::Item>@<X0>(void **a1@<X0>, int *a2@<X1>, const 
   return result;
 }
 
-void *JSONS::JSONLineIKArrayT<FIK::Item>@<X0>(void **a1@<X0>, unint64_t *a2@<X1>, const void **a3@<X2>, void **a4@<X3>, int a5@<W4>, void *a6@<X8>)
+void *JSONS::JSONLineIKArrayT<FIK::Item>@<X0>(void ***a1@<X0>, unint64_t *a2@<X1>, const void **a3@<X2>, void ***a4@<X3>, int a5@<W4>, void *a6@<X8>)
 {
   std::operator+[abi:nn200100]<char,std::char_traits<char>,FIK::FIKAllocator<char>>(a3, 34, __src);
   v11 = *(a1 + 23);
@@ -1866,7 +1383,7 @@ void *JSONS::JSONLineIKArrayT<FIK::Item>@<X0>(void **a1@<X0>, unint64_t *a2@<X1>
   return result;
 }
 
-void *JSONS::JSONFromAimSetups@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *JSONS::JSONFromAimSetups@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
 {
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(a2, "[");
   v4 = *a1;
@@ -1884,7 +1401,7 @@ void *JSONS::JSONFromAimSetups@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
     v6 = 1;
     do
     {
-      JSONS::JSONFromAimSetup(a1[2] + (v5 << 7), v16);
+      JSONS::JSONFromAimSetup((a1[2] + (v5 << 7)), v16);
       v7 = std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(v16, ",", 1uLL);
       v8 = v7[2];
       v9 = v7[3];
@@ -1931,7 +1448,7 @@ void *JSONS::JSONFromAimSetups@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
     while (v4 - 1 > v6++);
   }
 
-  JSONS::JSONFromAimSetup(a1[2] + (v4 << 7) - 128, &v19);
+  JSONS::JSONFromAimSetup((a1[2] + (v4 << 7) - 128), &v19);
   if (v20 >= 0)
   {
     v13 = &v19;
@@ -1961,7 +1478,7 @@ void *JSONS::JSONFromAimSetups@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, "]", 1uLL);
 }
 
-void *JSONS::JSONfromFootPlacement@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *JSONS::JSONfromFootPlacement@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -2066,7 +1583,7 @@ void *JSONS::JSONfromFootPlacement@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v31, "raytracing_tasks");
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v28, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v25, ",");
-  JSONS::JSONLineIKArray(&v31, (a1 + 32), &v28, &v25, &v46);
+  JSONS::JSONLineIKArray(&v31, a1 + 4, &v28, &v25, &v46);
   if ((v48 & 0x80u) == 0)
   {
     v8 = &v46;
@@ -2109,7 +1626,7 @@ void *JSONS::JSONfromFootPlacement@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v22, "aiming_setups");
-  JSONS::JSONFromAimSetups((a1 + 64), v19);
+  JSONS::JSONFromAimSetups(a1 + 8, v19);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v16, &unk_245A04BAE);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v13, &unk_245A04BAE);
   JSONS::JSONLine(v22, v19, v16, v13, &v46);
@@ -2169,52 +1686,52 @@ void *JSONS::JSONfromIKRig@<X0>(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
   a3[2] = 0;
   a3[3] = FIK::defaultAllocator(a1);
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, "{", 1uLL);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "rig_type_");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineRigType(&v69, (a1 + 48), &v66, &v63, &v72);
-  if (v73 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "rig_type_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineRigType(&v68, (a1 + 48), &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    v6 = &v72;
+    v6 = &v71;
   }
 
   else
   {
-    v6 = v72;
+    v6 = v71;
   }
 
-  if (v73 >= 0)
+  if (v72 >= 0)
   {
-    v7 = HIBYTE(v73);
+    v7 = HIBYTE(v72);
   }
 
   else
   {
-    v7 = *(&v72 + 1);
+    v7 = *(&v71 + 1);
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v6, v7);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  if (v64 < 0 && v63)
+  if (v63 < 0 && v62)
   {
-    (*(*v65 + 24))(v65, v63, 0, 8);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  if (v67 < 0 && v66)
+  if (v66 < 0 && v65)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (SHIBYTE(v70) < 0 && v69)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v71 + 24))(v71, v69, 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  v8 = std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "uid");
+  v8 = std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "uid");
   if (*(a1 + 8))
   {
     v9 = *a1;
@@ -2225,457 +1742,456 @@ void *JSONS::JSONfromIKRig@<X0>(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
     v9 = &unk_245A04BAE;
   }
 
+  v59 = 0;
   v60 = 0;
-  v61 = 0;
-  v62 = FIK::defaultAllocator(v8);
+  v61 = FIK::defaultAllocator(v8);
   v10 = strlen(v9);
-  IKString::assign(&v60, v9, v10);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineStr(&v69, &v60, &v66, &v63, &v72);
-  if (v73 >= 0)
+  IKString::assign(&v59, v9, v10);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineStr(&v68, &v59, &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    v11 = &v72;
+    v11 = &v71;
   }
 
   else
   {
-    v11 = v72;
+    v11 = v71;
   }
 
-  if (v73 >= 0)
+  if (v72 >= 0)
   {
-    v12 = HIBYTE(v73);
+    v12 = HIBYTE(v72);
   }
 
   else
   {
-    v12 = *(&v72 + 1);
+    v12 = *(&v71 + 1);
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v11, v12);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  if (v64 < 0 && v63)
+  if (v63 < 0 && v62)
   {
-    (*(*v65 + 24))(v65, v63, 0, 8);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  if (v67 < 0 && v66)
+  if (v66 < 0 && v65)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v61)
+  if (v60)
   {
-    (*(*v62 + 3))(v62, v60, 0, 8);
+    (*(*v61 + 3))(v61, v59, 0, 8);
   }
 
-  if (SHIBYTE(v70) < 0 && v69)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v71 + 24))(v71, v69, 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "unit_scale");
-  v13 = *(a1 + 24);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineReal(&v69, &v66, &v63, 8, &v72);
-  if (v73 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "unit_scale");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineReal(&v68, &v65, &v62, 8, &v71);
+  if (v72 >= 0)
   {
-    v14 = &v72;
-  }
-
-  else
-  {
-    v14 = v72;
-  }
-
-  if (v73 >= 0)
-  {
-    v15 = HIBYTE(v73);
+    v13 = &v71;
   }
 
   else
   {
-    v15 = *(&v72 + 1);
+    v13 = v71;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v14, v15);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (v72 >= 0)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
-  }
-
-  if (v64 < 0 && v63)
-  {
-    (*(*v65 + 24))(v65, v63, 0, 8);
-  }
-
-  if (v67 < 0 && v66)
-  {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "up_axis");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineAxis(&v69, (a1 + 28), &v66, &v63, &v72);
-  if (v73 >= 0)
-  {
-    v16 = &v72;
+    v14 = HIBYTE(v72);
   }
 
   else
   {
-    v16 = v72;
+    v14 = *(&v71 + 1);
   }
 
-  if (v73 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v13, v14);
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    v17 = HIBYTE(v73);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  else
+  if (v63 < 0 && v62)
   {
-    v17 = *(&v72 + 1);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v16, v17);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (v66 < 0 && v65)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v64 < 0 && v63)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v65 + 24))(v65, v63, 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  if (v67 < 0 && v66)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "up_axis");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineAxis(&v68, (a1 + 28), &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "forward_axis");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineAxis(&v69, (a1 + 32), &v66, &v63, &v72);
-  if (v73 >= 0)
-  {
-    v18 = &v72;
+    v15 = &v71;
   }
 
   else
   {
-    v18 = v72;
+    v15 = v71;
   }
 
-  if (v73 >= 0)
+  if (v72 >= 0)
   {
-    v19 = HIBYTE(v73);
-  }
-
-  else
-  {
-    v19 = *(&v72 + 1);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v18, v19);
-  if (SHIBYTE(v73) < 0 && v72)
-  {
-    (*(*v74 + 24))(v74, v72, 0, 8);
-  }
-
-  if (v64 < 0 && v63)
-  {
-    (*(*v65 + 24))(v65, v63, 0, 8);
-  }
-
-  if (v67 < 0 && v66)
-  {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "right_axis");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineAxis(&v69, (a1 + 36), &v66, &v63, &v72);
-  if (v73 >= 0)
-  {
-    v20 = &v72;
+    v16 = HIBYTE(v72);
   }
 
   else
   {
-    v20 = v72;
+    v16 = *(&v71 + 1);
   }
 
-  if (v73 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v15, v16);
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    v21 = HIBYTE(v73);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  else
+  if (v63 < 0 && v62)
   {
-    v21 = *(&v72 + 1);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v20, v21);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (v66 < 0 && v65)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v64 < 0 && v63)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v65 + 24))(v65, v63, 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  if (v67 < 0 && v66)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "forward_axis");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineAxis(&v68, (a1 + 32), &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "left_handed");
-  v22 = *(a1 + 40);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineInt(&v69, v22, &v66, &v63, &v72);
-  if (v73 >= 0)
-  {
-    v23 = &v72;
+    v17 = &v71;
   }
 
   else
   {
-    v23 = v72;
+    v17 = v71;
   }
 
-  if (v73 >= 0)
+  if (v72 >= 0)
   {
-    v24 = HIBYTE(v73);
-  }
-
-  else
-  {
-    v24 = *(&v72 + 1);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v23, v24);
-  if (SHIBYTE(v73) < 0 && v72)
-  {
-    (*(*v74 + 24))(v74, v72, 0, 8);
-  }
-
-  if (v64 < 0 && v63)
-  {
-    (*(*v65 + 24))(v65, v63, 0, 8);
-  }
-
-  if (v67 < 0 && v66)
-  {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v69, "continuous_solving_");
-  v25 = *(a1 + 44);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v66, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v63, ",");
-  JSONS::JSONLineBool(&v69, v25, &v66, &v63, &v72);
-  if (v73 >= 0)
-  {
-    v26 = &v72;
+    v18 = HIBYTE(v72);
   }
 
   else
   {
-    v26 = v72;
+    v18 = *(&v71 + 1);
   }
 
-  if (v73 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v17, v18);
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    v27 = HIBYTE(v73);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  else
+  if (v63 < 0 && v62)
   {
-    v27 = *(&v72 + 1);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v26, v27);
-  if (SHIBYTE(v73) < 0 && v72)
+  if (v66 < 0 && v65)
   {
-    (*(*v74 + 24))(v74, v72, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v64 < 0 && v63)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v65 + 24))(v65, v63, 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  if (v67 < 0 && v66)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "right_axis");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineAxis(&v68, (a1 + 36), &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
-  }
-
-  if (SHIBYTE(v70) < 0 && v69)
-  {
-    (*(*v71 + 24))(v71, v69, 0, 8);
-  }
-
-  JSONS::JSONfromRigBalanceTask(a1 + 128, &v72);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v57, "balance_task_");
-  v56 = v74;
-  if (SHIBYTE(v73) < 0)
-  {
-    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&__dst, v72, *(&v72 + 1));
+    v19 = &v71;
   }
 
   else
   {
-    __dst = v72;
-    v55 = v73;
+    v19 = v71;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v51, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v48, ",");
-  JSONS::JSONLine(v57, &__dst, v51, v48, &v69);
-  if (v70 >= 0)
+  if (v72 >= 0)
   {
-    v28 = &v69;
+    v20 = HIBYTE(v72);
   }
 
   else
   {
-    v28 = v69;
+    v20 = *(&v71 + 1);
   }
 
-  if (v70 >= 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v19, v20);
+  if (SHIBYTE(v72) < 0 && v71)
   {
-    v29 = HIBYTE(v70);
+    (*(*v73 + 24))(v73, v71, 0, 8);
   }
 
-  else
+  if (v63 < 0 && v62)
   {
-    v29 = *(&v69 + 1);
+    (*(*v64 + 24))(v64, v62, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v28, v29);
-  if (SHIBYTE(v70) < 0 && v69)
+  if (v66 < 0 && v65)
   {
-    (*(*v71 + 24))(v71, v69, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v49 < 0 && v48[0])
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    (*(*v50 + 24))(v50, v48[0], 0, 8);
+    (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  if (v52 < 0 && v51[0])
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "left_handed");
+  v21 = *(a1 + 40);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineInt(&v68, v21, &v65, &v62, &v71);
+  if (v72 >= 0)
   {
-    (*(*v53 + 24))(v53, v51[0], 0, 8);
-  }
-
-  if (SHIBYTE(v55) < 0 && __dst)
-  {
-    (*(*v56 + 24))(v56, __dst, 0, 8);
-  }
-
-  if (v58 < 0 && v57[0])
-  {
-    (*(*v59 + 24))(v59, v57[0], 0, 8);
-  }
-
-  JSONS::JSONfromSolverSettings((a1 + 64), &v69);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v45, "solver_conf_");
-  v44 = v71;
-  if (SHIBYTE(v70) < 0)
-  {
-    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&v42, v69, *(&v69 + 1));
+    v22 = &v71;
   }
 
   else
   {
+    v22 = v71;
+  }
+
+  if (v72 >= 0)
+  {
+    v23 = HIBYTE(v72);
+  }
+
+  else
+  {
+    v23 = *(&v71 + 1);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v22, v23);
+  if (SHIBYTE(v72) < 0 && v71)
+  {
+    (*(*v73 + 24))(v73, v71, 0, 8);
+  }
+
+  if (v63 < 0 && v62)
+  {
+    (*(*v64 + 24))(v64, v62, 0, 8);
+  }
+
+  if (v66 < 0 && v65)
+  {
+    (*(*v67 + 24))(v67, v65, 0, 8);
+  }
+
+  if (SHIBYTE(v69) < 0 && v68)
+  {
+    (*(*v70 + 24))(v70, v68, 0, 8);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v68, "continuous_solving_");
+  v24 = *(a1 + 44);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v65, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v62, ",");
+  JSONS::JSONLineBool(&v68, v24, &v65, &v62, &v71);
+  if (v72 >= 0)
+  {
+    v25 = &v71;
+  }
+
+  else
+  {
+    v25 = v71;
+  }
+
+  if (v72 >= 0)
+  {
+    v26 = HIBYTE(v72);
+  }
+
+  else
+  {
+    v26 = *(&v71 + 1);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v25, v26);
+  if (SHIBYTE(v72) < 0 && v71)
+  {
+    (*(*v73 + 24))(v73, v71, 0, 8);
+  }
+
+  if (v63 < 0 && v62)
+  {
+    (*(*v64 + 24))(v64, v62, 0, 8);
+  }
+
+  if (v66 < 0 && v65)
+  {
+    (*(*v67 + 24))(v67, v65, 0, 8);
+  }
+
+  if (SHIBYTE(v69) < 0 && v68)
+  {
+    (*(*v70 + 24))(v70, v68, 0, 8);
+  }
+
+  JSONS::JSONfromRigBalanceTask((a1 + 128), &v71);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v56, "balance_task_");
+  v55 = v73;
+  if (SHIBYTE(v72) < 0)
+  {
+    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&__dst, v71, *(&v71 + 1));
+  }
+
+  else
+  {
+    __dst = v71;
+    v54 = v72;
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v50, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v47, ",");
+  JSONS::JSONLine(v56, &__dst, v50, v47, &v68);
+  if (v69 >= 0)
+  {
+    v27 = &v68;
+  }
+
+  else
+  {
+    v27 = v68;
+  }
+
+  if (v69 >= 0)
+  {
+    v28 = HIBYTE(v69);
+  }
+
+  else
+  {
+    v28 = *(&v68 + 1);
+  }
+
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v27, v28);
+  if (SHIBYTE(v69) < 0 && v68)
+  {
+    (*(*v70 + 24))(v70, v68, 0, 8);
+  }
+
+  if (v48 < 0 && v47[0])
+  {
+    (*(*v49 + 24))(v49, v47[0], 0, 8);
+  }
+
+  if (v51 < 0 && v50[0])
+  {
+    (*(*v52 + 24))(v52, v50[0], 0, 8);
+  }
+
+  if (SHIBYTE(v54) < 0 && __dst)
+  {
+    (*(*v55 + 24))(v55, __dst, 0, 8);
+  }
+
+  if (v57 < 0 && v56[0])
+  {
+    (*(*v58 + 24))(v58, v56[0], 0, 8);
+  }
+
+  JSONS::JSONfromSolverSettings(a1 + 64, &v68);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v44, "solver_conf_");
+  v43 = v70;
+  if (SHIBYTE(v69) < 0)
+  {
+    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&v41, v68, *(&v68 + 1));
+  }
+
+  else
+  {
+    v41 = v68;
     v42 = v69;
-    v43 = v70;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v39, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v36, &unk_245A04BAE);
-  JSONS::JSONLine(v45, &v42, v39, v36, &v66);
-  if ((v67 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v38, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v35, &unk_245A04BAE);
+  JSONS::JSONLine(v44, &v41, v38, v35, &v65);
+  if ((v66 & 0x80u) == 0)
   {
-    v30 = &v66;
+    v29 = &v65;
   }
 
   else
+  {
+    v29 = v65;
+  }
+
+  if ((v66 & 0x80u) == 0)
   {
     v30 = v66;
   }
 
-  if ((v67 & 0x80u) == 0)
-  {
-    v31 = v67;
-  }
-
   else
   {
-    v31 = *(&v66 + 1);
+    v30 = *(&v65 + 1);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v30, v31);
-  if (v67 < 0 && v66)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v29, v30);
+  if (v66 < 0 && v65)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  if (v37 < 0 && v36[0])
+  if (v36 < 0 && v35[0])
   {
-    (*(*v38 + 24))(v38, v36[0], 0, 8);
+    (*(*v37 + 24))(v37, v35[0], 0, 8);
   }
 
-  if (v40 < 0 && v39[0])
+  if (v39 < 0 && v38[0])
   {
-    (*(*v41 + 24))(v41, v39[0], 0, 8);
+    (*(*v40 + 24))(v40, v38[0], 0, 8);
   }
 
-  if (SHIBYTE(v43) < 0 && v42)
+  if (SHIBYTE(v42) < 0 && v41)
   {
-    (*(*v44 + 24))(v44, v42, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v46 < 0 && v45[0])
+  if (v45 < 0 && v44[0])
   {
-    (*(*v47 + 24))(v47, v45[0], 0, 8);
+    (*(*v46 + 24))(v46, v44[0], 0, 8);
   }
 
   if (*(a2 + 23) < 0)
@@ -2692,40 +2208,40 @@ void *JSONS::JSONfromIKRig@<X0>(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, ",", 1uLL);
-  v32 = *(a2 + 23);
-  if (v32 >= 0)
+  v31 = *(a2 + 23);
+  if (v31 >= 0)
   {
-    v33 = a2;
+    v32 = a2;
   }
 
   else
   {
-    v33 = *a2;
+    v32 = *a2;
   }
 
-  if (v32 >= 0)
+  if (v31 >= 0)
   {
-    v34 = *(a2 + 23);
+    v33 = *(a2 + 23);
   }
 
   else
   {
-    v34 = a2[1];
+    v33 = a2[1];
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v33, v34);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, v32, v33);
 LABEL_207:
   result = std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a3, "}", 1uLL);
-  if (SHIBYTE(v70) < 0 && v69)
+  if (SHIBYTE(v69) < 0 && v68)
   {
-    result = (*(*v71 + 24))(v71, v69, 0, 8);
+    result = (*(*v70 + 24))(v70, v68, 0, 8);
   }
 
-  if (SHIBYTE(v73) < 0)
+  if (SHIBYTE(v72) < 0)
   {
-    if (v72)
+    if (v71)
     {
-      return (*(*v74 + 24))(v74, v72, 0, 8);
+      return (*(*v73 + 24))(v73, v71, 0, 8);
     }
   }
 
@@ -2735,57 +2251,57 @@ LABEL_207:
 void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   __src = 0uLL;
-  v89 = 0;
-  v90 = FIK::defaultAllocator(a1);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v81, "bones_");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v78, "[");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v75, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v72, &unk_245A04BAE);
-  JSONS::JSONLine(v81, v78, v75, v72, &v84);
-  if ((v86 & 0x80u) == 0)
+  v88 = 0;
+  v89 = FIK::defaultAllocator(a1);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v80, "bones_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v77, "[");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v74, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v71, &unk_245A04BAE);
+  JSONS::JSONLine(v80, v77, v74, v71, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v4 = &v84;
+    v4 = &v83;
   }
 
   else
   {
-    v4 = v84;
+    v4 = v83;
   }
 
-  if ((v86 & 0x80u) == 0)
-  {
-    v5 = v86;
-  }
-
-  else
+  if ((v85 & 0x80u) == 0)
   {
     v5 = v85;
   }
 
+  else
+  {
+    v5 = v84;
+  }
+
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v4, v5);
-  if (v86 < 0 && v84)
+  if (v85 < 0 && v83)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    (*(*v86 + 24))(v86, v83, 0, 8);
   }
 
-  if (v73 < 0 && v72[0])
+  if (v72 < 0 && v71[0])
   {
-    (*(*v74 + 24))(v74, v72[0], 0, 8);
+    (*(*v73 + 24))(v73, v71[0], 0, 8);
   }
 
-  if (v76 < 0 && v75[0])
+  if (v75 < 0 && v74[0])
   {
-    (*(*v77 + 24))(v77, v75[0], 0, 8);
+    (*(*v76 + 24))(v76, v74[0], 0, 8);
   }
 
-  if (v79 < 0 && v78[0])
+  if (v78 < 0 && v77[0])
   {
-    (*(*v80 + 24))(v80, v78[0], 0, 8);
+    (*(*v79 + 24))(v79, v77[0], 0, 8);
   }
 
-  if (v82 < 0 && v81[0])
+  if (v81 < 0 && v80[0])
   {
-    (*(*v83 + 24))(v83, v81[0], 0, 8);
+    (*(*v82 + 24))(v82, v80[0], 0, 8);
   }
 
   if (*(a1 + 208))
@@ -2794,31 +2310,31 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     v7 = 0;
     do
     {
-      JSONS::JSONfromMoCapBone((*(a1 + 224) + v6), &v84);
-      if ((v86 & 0x80u) == 0)
+      JSONS::JSONfromMoCapBone((*(a1 + 224) + v6), &v83);
+      if ((v85 & 0x80u) == 0)
       {
-        v8 = &v84;
+        v8 = &v83;
       }
 
       else
       {
-        v8 = v84;
+        v8 = v83;
       }
 
-      if ((v86 & 0x80u) == 0)
-      {
-        v9 = v86;
-      }
-
-      else
+      if ((v85 & 0x80u) == 0)
       {
         v9 = v85;
       }
 
-      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v8, v9);
-      if (v86 < 0 && v84)
+      else
       {
-        (*(*v87 + 24))(v87, v84, 0, 8);
+        v9 = v84;
+      }
+
+      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v8, v9);
+      if (v85 < 0 && v83)
+      {
+        (*(*v86 + 24))(v86, v83, 0, 8);
       }
 
       v10 = *(a1 + 208);
@@ -2836,55 +2352,55 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, "],", 2uLL);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v69, "sources");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v66, "[");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v63, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v60, &unk_245A04BAE);
-  JSONS::JSONLine(v69, v66, v63, v60, &v84);
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v68, "sources");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v65, "[");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v62, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v59, &unk_245A04BAE);
+  JSONS::JSONLine(v68, v65, v62, v59, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v11 = &v84;
+    v11 = &v83;
   }
 
   else
   {
-    v11 = v84;
+    v11 = v83;
   }
 
-  if ((v86 & 0x80u) == 0)
-  {
-    v12 = v86;
-  }
-
-  else
+  if ((v85 & 0x80u) == 0)
   {
     v12 = v85;
   }
 
+  else
+  {
+    v12 = v84;
+  }
+
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v11, v12);
-  if (v86 < 0 && v84)
+  if (v85 < 0 && v83)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    (*(*v86 + 24))(v86, v83, 0, 8);
   }
 
-  if (v61 < 0 && v60[0])
+  if (v60 < 0 && v59[0])
   {
-    (*(*v62 + 24))(v62, v60[0], 0, 8);
+    (*(*v61 + 24))(v61, v59[0], 0, 8);
   }
 
-  if (v64 < 0 && v63[0])
+  if (v63 < 0 && v62[0])
   {
-    (*(*v65 + 24))(v65, v63[0], 0, 8);
+    (*(*v64 + 24))(v64, v62[0], 0, 8);
   }
 
-  if (v67 < 0 && v66[0])
+  if (v66 < 0 && v65[0])
   {
-    (*(*v68 + 24))(v68, v66[0], 0, 8);
+    (*(*v67 + 24))(v67, v65[0], 0, 8);
   }
 
-  if (v70 < 0 && v69[0])
+  if (v69 < 0 && v68[0])
   {
-    (*(*v71 + 24))(v71, v69[0], 0, 8);
+    (*(*v70 + 24))(v70, v68[0], 0, 8);
   }
 
   if (*(a1 + 240))
@@ -2893,38 +2409,38 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     v14 = 1;
     do
     {
-      v15 = (*(a1 + 256) + 96 * v13);
-      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v57, &unk_245A04BAE);
-      JSONS::JSONfromRigBoneBase(v15, &v57, &v84);
-      if ((v86 & 0x80u) == 0)
+      v15 = *(a1 + 256) + 96 * v13;
+      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v56, &unk_245A04BAE);
+      JSONS::JSONfromRigBoneBase(v15, &v56, &v83);
+      if ((v85 & 0x80u) == 0)
       {
-        v16 = &v84;
+        v16 = &v83;
       }
 
       else
       {
-        v16 = v84;
+        v16 = v83;
       }
 
-      if ((v86 & 0x80u) == 0)
-      {
-        v17 = v86;
-      }
-
-      else
+      if ((v85 & 0x80u) == 0)
       {
         v17 = v85;
       }
 
-      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v16, v17);
-      if (v86 < 0 && v84)
+      else
       {
-        (*(*v87 + 24))(v87, v84, 0, 8);
+        v17 = v84;
       }
 
-      if (v58 < 0 && v57)
+      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v16, v17);
+      if (v85 < 0 && v83)
       {
-        (*(*v59 + 24))(v59, v57, 0, 8);
+        (*(*v86 + 24))(v86, v83, 0, 8);
+      }
+
+      if (v57 < 0 && v56)
+      {
+        (*(*v58 + 24))(v58, v56, 0, 8);
       }
 
       v18 = *(a1 + 240);
@@ -2942,55 +2458,55 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, "],", 2uLL);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v54, "tasks_");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v51, "[");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v48, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v45, &unk_245A04BAE);
-  JSONS::JSONLine(v54, v51, v48, v45, &v84);
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v53, "tasks_");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v50, "[");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v47, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(v44, &unk_245A04BAE);
+  JSONS::JSONLine(v53, v50, v47, v44, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v20 = &v84;
+    v20 = &v83;
   }
 
   else
   {
-    v20 = v84;
+    v20 = v83;
   }
 
-  if ((v86 & 0x80u) == 0)
-  {
-    v21 = v86;
-  }
-
-  else
+  if ((v85 & 0x80u) == 0)
   {
     v21 = v85;
   }
 
+  else
+  {
+    v21 = v84;
+  }
+
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v20, v21);
-  if (v86 < 0 && v84)
+  if (v85 < 0 && v83)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    (*(*v86 + 24))(v86, v83, 0, 8);
   }
 
-  if (v46 < 0 && v45[0])
+  if (v45 < 0 && v44[0])
   {
-    (*(*v47 + 24))(v47, v45[0], 0, 8);
+    (*(*v46 + 24))(v46, v44[0], 0, 8);
   }
 
-  if (v49 < 0 && v48[0])
+  if (v48 < 0 && v47[0])
   {
-    (*(*v50 + 24))(v50, v48[0], 0, 8);
+    (*(*v49 + 24))(v49, v47[0], 0, 8);
   }
 
-  if (v52 < 0 && v51[0])
+  if (v51 < 0 && v50[0])
   {
-    (*(*v53 + 24))(v53, v51[0], 0, 8);
+    (*(*v52 + 24))(v52, v50[0], 0, 8);
   }
 
-  if (v55 < 0 && v54[0])
+  if (v54 < 0 && v53[0])
   {
-    (*(*v56 + 24))(v56, v54[0], 0, 8);
+    (*(*v55 + 24))(v55, v53[0], 0, 8);
   }
 
   if (*(a1 + 176))
@@ -2999,31 +2515,31 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     v23 = 1;
     do
     {
-      JSONS::JSONfromMoCapTask(*(a1 + 192) + (v22 << 8), &v84);
-      if ((v86 & 0x80u) == 0)
+      JSONS::JSONfromMoCapTask(*(a1 + 192) + (v22 << 8), &v83);
+      if ((v85 & 0x80u) == 0)
       {
-        v24 = &v84;
+        v24 = &v83;
       }
 
       else
       {
-        v24 = v84;
+        v24 = v83;
       }
 
-      if ((v86 & 0x80u) == 0)
-      {
-        v25 = v86;
-      }
-
-      else
+      if ((v85 & 0x80u) == 0)
       {
         v25 = v85;
       }
 
-      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v24, v25);
-      if (v86 < 0 && v84)
+      else
       {
-        (*(*v87 + 24))(v87, v84, 0, 8);
+        v25 = v84;
+      }
+
+      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v24, v25);
+      if (v85 < 0 && v83)
+      {
+        (*(*v86 + 24))(v86, v83, 0, 8);
       }
 
       v26 = *(a1 + 176);
@@ -3041,105 +2557,114 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   }
 
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, "],", 2uLL);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v57, "source_transform");
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v42, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, ",");
-  JSONS::JSONLineTransform(&v57, (a1 + 272), &v42, &v39, &v84);
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v56, "source_transform");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v38, ",");
+  JSONS::JSONLineTransform(&v56, &v41, &v38, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v27 = &v84;
+    v27 = &v83;
   }
 
   else
   {
-    v27 = v84;
+    v27 = v83;
   }
 
-  if ((v86 & 0x80u) == 0)
-  {
-    v28 = v86;
-  }
-
-  else
+  if ((v85 & 0x80u) == 0)
   {
     v28 = v85;
   }
 
+  else
+  {
+    v28 = v84;
+  }
+
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v27, v28);
-  if (v86 < 0 && v84)
+  if (v85 < 0 && v83)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    (*(*v86 + 24))(v86, v83, 0, 8);
   }
 
-  if (v40 < 0 && v39)
+  if (v39 < 0 && v38)
   {
-    (*(*v41 + 24))(v41, v39, 0, 8);
+    (*(*v40 + 24))(v40, v38, 0, 8);
   }
 
-  if (v43 < 0 && v42)
+  if (v42 < 0 && v41)
   {
-    (*(*v44 + 24))(v44, v42, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v58 < 0 && v57)
+  if (v57 < 0 && v56)
   {
-    (*(*v59 + 24))(v59, v57, 0, 8);
+    (*(*v58 + 24))(v58, v56, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v57, "rigid_body_solve");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v56, "rigid_body_solve");
   v29 = *(a1 + 304);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v42, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, ",");
-  JSONS::JSONLineBool(&v57, v29, &v42, &v39, &v84);
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v38, ",");
+  JSONS::JSONLineBool(&v56, v29, &v41, &v38, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v30 = &v84;
+    v30 = &v83;
   }
 
   else
   {
-    v30 = v84;
+    v30 = v83;
   }
 
-  if ((v86 & 0x80u) == 0)
-  {
-    v31 = v86;
-  }
-
-  else
+  if ((v85 & 0x80u) == 0)
   {
     v31 = v85;
   }
 
+  else
+  {
+    v31 = v84;
+  }
+
   std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v30, v31);
-  if (v86 < 0 && v84)
+  if (v85 < 0 && v83)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    (*(*v86 + 24))(v86, v83, 0, 8);
   }
 
-  if (v40 < 0 && v39)
+  if (v39 < 0 && v38)
   {
-    (*(*v41 + 24))(v41, v39, 0, 8);
+    (*(*v40 + 24))(v40, v38, 0, 8);
   }
 
-  if (v43 < 0 && v42)
+  if (v42 < 0 && v41)
   {
-    (*(*v44 + 24))(v44, v42, 0, 8);
+    (*(*v43 + 24))(v43, v41, 0, 8);
   }
 
-  if (v58 < 0 && v57)
+  if (v57 < 0 && v56)
   {
-    (*(*v59 + 24))(v59, v57, 0, 8);
+    (*(*v58 + 24))(v58, v56, 0, 8);
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v57, "source_scale");
-  v32 = *(a1 + 308);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v42, &unk_245A04BAE);
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v39, &unk_245A04BAE);
-  JSONS::JSONLineReal(&v57, &v42, &v39, 8, &v84);
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v56, "source_scale");
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v41, &unk_245A04BAE);
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(&v38, &unk_245A04BAE);
+  JSONS::JSONLineReal(&v56, &v41, &v38, 8, &v83);
+  if ((v85 & 0x80u) == 0)
   {
-    v33 = &v84;
+    v32 = &v83;
+  }
+
+  else
+  {
+    v32 = v83;
+  }
+
+  if ((v85 & 0x80u) == 0)
+  {
+    v33 = v85;
   }
 
   else
@@ -3147,60 +2672,50 @@ void *JSONS::JSONfromMoCapRig@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     v33 = v84;
   }
 
-  if ((v86 & 0x80u) == 0)
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v32, v33);
+  if (v85 < 0 && v83)
   {
-    v34 = v86;
+    (*(*v86 + 24))(v86, v83, 0, 8);
+  }
+
+  if (v39 < 0 && v38)
+  {
+    (*(*v40 + 24))(v40, v38, 0, 8);
+  }
+
+  if (v42 < 0 && v41)
+  {
+    (*(*v43 + 24))(v43, v41, 0, 8);
+  }
+
+  if (v57 < 0 && v56)
+  {
+    (*(*v58 + 24))(v58, v56, 0, 8);
+  }
+
+  v37 = v89;
+  if (SHIBYTE(v88) < 0)
+  {
+    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&v35, __src, *(&__src + 1));
   }
 
   else
   {
-    v34 = v85;
+    v35 = __src;
+    v36 = v88;
   }
 
-  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(&__src, v33, v34);
-  if (v86 < 0 && v84)
+  result = JSONS::JSONfromIKRig(a1, &v35, a2);
+  if (SHIBYTE(v36) < 0 && v35)
   {
-    (*(*v87 + 24))(v87, v84, 0, 8);
+    result = (*(*v37 + 3))(v37, v35, 0, 8);
   }
 
-  if (v40 < 0 && v39)
-  {
-    (*(*v41 + 24))(v41, v39, 0, 8);
-  }
-
-  if (v43 < 0 && v42)
-  {
-    (*(*v44 + 24))(v44, v42, 0, 8);
-  }
-
-  if (v58 < 0 && v57)
-  {
-    (*(*v59 + 24))(v59, v57, 0, 8);
-  }
-
-  v38 = v90;
-  if (SHIBYTE(v89) < 0)
-  {
-    std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_copy_ctor_external(&v36, __src, *(&__src + 1));
-  }
-
-  else
-  {
-    v36 = __src;
-    v37 = v89;
-  }
-
-  result = JSONS::JSONfromIKRig(a1, &v36, a2);
-  if (SHIBYTE(v37) < 0 && v36)
-  {
-    result = (*(*v38 + 3))(v38, v36, 0, 8);
-  }
-
-  if (SHIBYTE(v89) < 0)
+  if (SHIBYTE(v88) < 0)
   {
     if (__src)
     {
-      return (*(*v90 + 3))(v90, __src, 0, 8);
+      return (*(*v89 + 3))(v89, __src, 0, 8);
     }
   }
 
@@ -3212,7 +2727,7 @@ void *JSONS::JSONfromGameRig@<X0>(FIK *a1@<X0>, void *a2@<X8>)
   __src = 0uLL;
   v58 = 0;
   v59 = FIK::defaultAllocator(a1);
-  JSONS::JSONfromFootPlacement(a1 + 240, &v53);
+  JSONS::JSONfromFootPlacement(a1 + 30, &v53);
   if ((v55 & 0x80u) == 0)
   {
     v4 = &v53;
@@ -3520,7 +3035,7 @@ void JSONS::ObjectFromJSON<FIK::Item>(uint64_t a1@<X1>, unsigned int *a2@<X2>, u
 
 uint64_t JSONS::ObjectFromJSON<FIK::AimSetup>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = a2;
@@ -3540,61 +3055,59 @@ uint64_t JSONS::ObjectFromJSON<FIK::AimSetup>@<X0>(int *a1@<X0>, uint64_t a2@<X1
   v8 = JSONS::StringFromJSON(a3, "name");
   IKString::assign(a4, v8, v9);
   *(a4 + 120) = JSONS::AimingModeFromJSON(a3, "mode");
-  *&v24 = 0x405000000000000;
-  *(&v23 + 1) = "controller_task";
-  *&v23 = 15;
-  v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a3, &v23);
-  JSONS::ObjectFromJSON<FIK::Item>(a2, v10, &v23);
-  *(a4 + 24) = v23;
-  IKString::operator=((a4 + 32), &v23 + 8);
-  if (v24)
+  *&v23 = 0x405000000000000;
+  *(&v22 + 1) = "controller_task";
+  *&v22 = 15;
+  v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a3, &v22);
+  JSONS::ObjectFromJSON<FIK::Item>(a2, v10, &v22);
+  *(a4 + 24) = v22;
+  IKString::operator=((a4 + 32), &v22 + 8);
+  if (v23)
   {
-    (*(**(&v24 + 1) + 24))(*(&v24 + 1), *(&v23 + 1), 0, 8);
+    (*(**(&v23 + 1) + 24))(*(&v23 + 1), *(&v22 + 1), 0, 8);
   }
 
-  JSONS::ArrayFromJSON<FIK::Item>("trigger_hand_tasks", a1, a2, a3, &v21);
-  v11 = v21;
-  v12 = v22;
-  v21 = 0u;
-  *&v22 = 0;
+  JSONS::ArrayFromJSON<FIK::Item>(&v20, "trigger_hand_tasks", a1, a2, a3);
+  v11 = v20;
+  v12 = v21;
+  v20 = 0u;
+  *&v21 = 0;
   v13 = *(a4 + 56);
   *(a4 + 56) = v11;
   v14 = *(a4 + 72);
   *(a4 + 72) = v12;
-  v23 = v13;
-  v24 = v14;
-  FIK::IKArray<FIK::Item>::~IKArray(&v23);
-  FIK::IKArray<FIK::Item>::~IKArray(&v21);
-  JSONS::ArrayFromJSON<FIK::Item>("handle_hand_tasks", a1, a2, a3, &v21);
-  v15 = v21;
-  v16 = v22;
-  v21 = 0u;
-  *&v22 = 0;
+  v22 = v13;
+  v23 = v14;
+  FIK::IKArray<FIK::Item>::~IKArray(&v22);
+  FIK::IKArray<FIK::Item>::~IKArray(&v20);
+  JSONS::ArrayFromJSON<FIK::Item>(&v20, "handle_hand_tasks", a1, a2, a3);
+  v15 = v20;
+  v16 = v21;
+  v20 = 0u;
+  *&v21 = 0;
   v17 = *(a4 + 88);
   *(a4 + 88) = v15;
   v18 = *(a4 + 104);
   *(a4 + 104) = v16;
-  v23 = v17;
-  v24 = v18;
-  FIK::IKArray<FIK::Item>::~IKArray(&v23);
-  result = FIK::IKArray<FIK::Item>::~IKArray(&v21);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  v22 = v17;
+  v23 = v18;
+  FIK::IKArray<FIK::Item>::~IKArray(&v22);
+  return FIK::IKArray<FIK::Item>::~IKArray(&v20);
 }
 
-void JSONS::ArrayFromJSON<FIK::Item>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<X1>, int *a4@<X2>, void *a5@<X8>)
+void JSONS::ArrayFromJSON<FIK::Item>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, uint64_t a4@<X1>, unsigned int *a5@<X2>)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  if ((*(a4 + 1) + 48 * *a4) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s))
+  v21 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  if ((*(a5 + 1) + 48 * *a5) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s))
   {
-    v19 = __s;
-    v20 = 0x405000000000000;
-    v18 = strlen(__s);
-    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v18);
+    v18 = __s;
+    v19 = 0x405000000000000;
+    v17 = strlen(__s);
+    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v17);
     if (*(v10 + 11) == 4 && *v10 != 0)
     {
       v12 = v10;
@@ -3603,21 +3116,21 @@ void JSONS::ArrayFromJSON<FIK::Item>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<
       v15 = 0;
       while (1)
       {
-        JSONS::ObjectFromJSON<FIK::Item>(a3, (v12[1] + v13), &v18);
-        v16 = *a2;
-        if (*a2)
+        JSONS::ObjectFromJSON<FIK::Item>(a4, (v12[1] + v13), &v17);
+        v16 = *a3;
+        if (*a3)
         {
           v15 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::Item>::push_back<FIK::Item&,void>(a5, &v18);
+          FIK::IKArray<FIK::Item>::push_back<FIK::Item&,void>(a1, &v17);
         }
 
-        if (v20)
+        if (v19)
         {
-          (*(*v21 + 24))(v21, v19, 0, 8);
+          (*(*v20 + 24))(v20, v18, 0, 8);
         }
 
         if (v16)
@@ -3629,24 +3142,21 @@ void JSONS::ArrayFromJSON<FIK::Item>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_17;
+          return;
         }
       }
 
       if ((v15 & 1) == 0)
       {
-        FIK::IKArray<FIK::Item>::~IKArray(a5);
+        FIK::IKArray<FIK::Item>::~IKArray(a1);
       }
     }
   }
-
-LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t JSONS::FootPlacementFromJSON@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unsigned int *a3@<X2>, void *a4@<X8>)
+unsigned int *JSONS::FootPlacementFromJSON@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unsigned int *a3@<X2>, void *a4@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
@@ -3660,155 +3170,152 @@ uint64_t JSONS::FootPlacementFromJSON@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unsig
   a4[10] = 0;
   a4[11] = a2;
   result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a3, "foot_placement_");
-  if (*(a3 + 1) + 48 * *a3 != result)
+  if ((*(a3 + 1) + 48 * *a3) != result)
   {
-    *(&v23 + 1) = "foot_placement_";
-    *&v24 = 0x405000000000000;
-    *&v23 = 15;
-    v9 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a3, &v23);
+    *(&v22 + 1) = "foot_placement_";
+    *&v23 = 0x405000000000000;
+    *&v22 = 15;
+    v9 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a3, &v22);
     result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(v9, "raytracing_tasks");
-    if (v9[1] + 48 * *v9 != result)
+    if ((v9[1] + 48 * *v9) == result)
     {
-      *(&v23 + 1) = "raytracing_tasks";
-      *&v24 = 0x405000000000000;
-      *&v23 = 16;
-      if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v23) + 11) & 7) == 5)
-      {
-        JSONS::ArrayFromJSON<IKString>("raytracing_tasks", a1, a2, v9, &v21);
-        v23 = 0u;
-        v10 = v21;
-        v11 = v22;
-        v21 = 0u;
-        *&v22 = 0;
-        *a4 = v10;
-        *(a4 + 1) = v11;
-        *&v24 = 0;
-        *(&v24 + 1) = a2;
-      }
-
-      else
-      {
-        *(&v23 + 1) = "raytracing_tasks";
-        *&v24 = 0x405000000000000;
-        *&v23 = 16;
-        if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v23) + 11) & 7) != 6)
-        {
-          *(&v23 + 1) = "raytracing_tasks";
-          *&v24 = 0x405000000000000;
-          *&v23 = 16;
-          if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v23) + 11) & 7) != 4)
-          {
-            goto LABEL_12;
-          }
-        }
-
-        JSONS::ArrayFromJSON<int>("raytracing_tasks", a1, a2, v9, &v23);
-        FIK::IKArray<unsigned int>::operator=((a4 + 4), &v23);
-        *&v23 = 0;
-        if (v24)
-        {
-          (*(**(&v24 + 1) + 24))(*(&v24 + 1), v24, 0, 8);
-        }
-
-        JSONS::ArrayFromJSON<IKString>("raytracing_task_names", a1, a2, v9, &v21);
-        v12 = v21;
-        v13 = v22;
-        v21 = 0uLL;
-        *&v22 = 0;
-        v14 = *a4;
-        v15 = *(a4 + 1);
-        *a4 = v12;
-        *(a4 + 1) = v13;
-        v23 = v14;
-        v24 = v15;
-      }
-
-      FIK::IKArray<IKString>::~IKArray(&v23);
-      FIK::IKArray<IKString>::~IKArray(&v21);
-LABEL_12:
-      JSONS::ArrayFromJSON<FIK::AimSetup>("aiming_setups", a1, a2, v9, &v21);
-      v16 = v21;
-      v17 = v22;
-      v21 = 0uLL;
-      *&v22 = 0;
-      v18 = *(a4 + 4);
-      v19 = *(a4 + 5);
-      *(a4 + 4) = v16;
-      *(a4 + 5) = v17;
-      v23 = v18;
-      v24 = v19;
-      FIK::IKArray<FIK::AimSetup>::~IKArray(&v23);
-      result = FIK::IKArray<FIK::AimSetup>::~IKArray(&v21);
-      goto LABEL_13;
+      *a1 = 3;
+      return result;
     }
 
-    *a1 = 3;
+    *(&v22 + 1) = "raytracing_tasks";
+    *&v23 = 0x405000000000000;
+    *&v22 = 16;
+    if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v22) + 11) & 7) == 5)
+    {
+      JSONS::ArrayFromJSON<IKString>(&v20, "raytracing_tasks", a1, a2, v9);
+      v22 = 0u;
+      v10 = v20;
+      v11 = v21;
+      v20 = 0u;
+      *&v21 = 0;
+      *a4 = v10;
+      *(a4 + 1) = v11;
+      *&v23 = 0;
+      *(&v23 + 1) = a2;
+    }
+
+    else
+    {
+      *(&v22 + 1) = "raytracing_tasks";
+      *&v23 = 0x405000000000000;
+      *&v22 = 16;
+      if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v22) + 11) & 7) != 6)
+      {
+        *(&v22 + 1) = "raytracing_tasks";
+        *&v23 = 0x405000000000000;
+        *&v22 = 16;
+        if ((*(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(v9, &v22) + 11) & 7) != 4)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      JSONS::ArrayFromJSON<int>(&v22, "raytracing_tasks", a1, a2, v9);
+      FIK::IKArray<unsigned int>::operator=((a4 + 4), &v22);
+      *&v22 = 0;
+      if (v23)
+      {
+        (*(**(&v23 + 1) + 24))(*(&v23 + 1), v23, 0, 8);
+      }
+
+      JSONS::ArrayFromJSON<IKString>(&v20, "raytracing_task_names", a1, a2, v9);
+      v12 = v20;
+      v13 = v21;
+      v20 = 0uLL;
+      *&v21 = 0;
+      v14 = *a4;
+      v15 = *(a4 + 1);
+      *a4 = v12;
+      *(a4 + 1) = v13;
+      v22 = v14;
+      v23 = v15;
+    }
+
+    FIK::IKArray<IKString>::~IKArray(&v22);
+    FIK::IKArray<IKString>::~IKArray(&v20);
+LABEL_12:
+    JSONS::ArrayFromJSON<FIK::AimSetup>(&v20, "aiming_setups", a1, a2, v9);
+    v16 = v20;
+    v17 = v21;
+    v20 = 0uLL;
+    *&v21 = 0;
+    v18 = *(a4 + 4);
+    v19 = *(a4 + 5);
+    *(a4 + 4) = v16;
+    *(a4 + 5) = v17;
+    v22 = v18;
+    v23 = v19;
+    FIK::IKArray<FIK::AimSetup>::~IKArray(&v22);
+    return FIK::IKArray<FIK::AimSetup>::~IKArray(&v20);
   }
 
-LABEL_13:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-unsigned int *JSONS::ArrayFromJSON<int>@<X0>(char *__s@<X3>, _DWORD *a2@<X0>, uint64_t a3@<X1>, unsigned int *a4@<X2>, uint64_t *a5@<X8>)
+uint64_t *JSONS::ArrayFromJSON<int>@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, _DWORD *a3@<X0>, uint64_t a4@<X1>, unsigned int *a5@<X2>)
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s);
-  if ((*(a4 + 1) + 48 * *a4) != result)
+  v18[3] = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s);
+  if ((*(a5 + 1) + 48 * *a5) != result)
   {
-    v19[1] = __s;
-    v19[2] = 0x405000000000000;
-    v19[0] = strlen(__s);
-    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, v19);
+    v18[1] = __s;
+    v18[2] = 0x405000000000000;
+    v18[0] = strlen(__s);
+    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, v18);
     if (*(result + 11) == 4)
     {
       v10 = result;
       if (*result)
       {
-        if (!*a2)
+        if (!*a3)
         {
           v11 = 0;
           v12 = 0;
           v13 = 1;
           do
           {
-            v14 = *(*(v10 + 1) + v11);
-            result = FIK::IKArray<unsigned int>::reserve(a5, v12 + 1);
-            v15 = *a5;
-            *(a5[2] + 4 * *a5) = v14;
+            v14 = *(v10[1] + v11);
+            result = FIK::IKArray<unsigned int>::reserve(a1, v12 + 1);
+            v15 = *a1;
+            *(a1[2] + 4 * *a1) = v14;
             v12 = v15 + 1;
-            *a5 = v15 + 1;
+            *a1 = v15 + 1;
             v11 += 24;
           }
 
-          while (v13++ < *v10 && *a2 == 0);
+          while (v13++ < *v10 && *a3 == 0);
         }
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-unsigned int *JSONS::ArrayFromJSON<FIK::AimSetup>@<X0>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<X1>, unsigned int *a4@<X2>, void *a5@<X8>)
+uint64_t *JSONS::ArrayFromJSON<FIK::AimSetup>@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, uint64_t a4@<X1>, unsigned int *a5@<X2>)
 {
-  v25[5] = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s);
-  if ((*(a4 + 1) + 48 * *a4) != result)
+  v24[5] = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s);
+  if ((*(a5 + 1) + 48 * *a5) != result)
   {
-    v19 = __s;
-    v20 = 0x405000000000000;
-    v18 = strlen(__s);
-    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v18);
+    v18 = __s;
+    v19 = 0x405000000000000;
+    v17 = strlen(__s);
+    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v17);
     if (*(result + 11) == 4 && *result != 0)
     {
       v12 = result;
@@ -3817,30 +3324,30 @@ unsigned int *JSONS::ArrayFromJSON<FIK::AimSetup>@<X0>(char *__s@<X3>, int *a2@<
       v15 = 0;
       while (1)
       {
-        JSONS::ObjectFromJSON<FIK::AimSetup>(a2, a3, (*(v12 + 1) + v13), &v18);
-        v16 = *a2;
-        if (*a2)
+        JSONS::ObjectFromJSON<FIK::AimSetup>(a3, a4, (v12[1] + v13), &v17);
+        v16 = *a3;
+        if (*a3)
         {
           v15 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::AimSetup>::push_back<FIK::AimSetup&,void>(a5, &v18);
+          FIK::IKArray<FIK::AimSetup>::push_back<FIK::AimSetup&,void>(a1, &v17);
         }
 
-        FIK::IKArray<FIK::Item>::~IKArray(v25);
-        result = FIK::IKArray<FIK::Item>::~IKArray(&v24);
-        if (v22)
+        FIK::IKArray<FIK::Item>::~IKArray(v24);
+        result = FIK::IKArray<FIK::Item>::~IKArray(&v23);
+        if (v21)
         {
-          result = (*(*v23 + 24))(v23, v21, 0, 8);
+          result = (*(*v22 + 24))(v22, v20, 0, 8);
+          v20 = 0;
           v21 = 0;
-          v22 = 0;
         }
 
-        if (v19)
+        if (v18)
         {
-          result = (*(*v20 + 24))(v20, v18, 0, 8);
+          result = (*(*v19 + 24))(v19, v17, 0, 8);
         }
 
         if (v16)
@@ -3852,19 +3359,17 @@ unsigned int *JSONS::ArrayFromJSON<FIK::AimSetup>@<X0>(char *__s@<X3>, int *a2@<
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_19;
+          return result;
         }
       }
 
       if ((v15 & 1) == 0)
       {
-        result = FIK::IKArray<FIK::AimSetup>::~IKArray(a5);
+        return FIK::IKArray<FIK::AimSetup>::~IKArray(a1);
       }
     }
   }
 
-LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3872,7 +3377,7 @@ uint64_t FIK::SerialisationJson::LoadJSON(uint64_t a1, unsigned __int8 *a2, unin
 {
   v20 = a2;
   v21 = a3;
-  v4 = std::string_view::find[abi:nn200100](&v20, "\\"", 0);
+  v4 = std::string_view::find[abi:nn200100](&v20, "\", 0);
   if (v4 == -1)
   {
     if (*(rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>::Parse<0u,rapidjson::UTF8<char>>(a1, v20, v21) + 88))
@@ -3902,7 +3407,7 @@ uint64_t FIK::SerialisationJson::LoadJSON(uint64_t a1, unsigned __int8 *a2, unin
     do
     {
       v8 = v7 + 1;
-      v9 = std::string_view::find[abi:nn200100](&v20, "\\"", v7 + 1);
+      v9 = std::string_view::find[abi:nn200100](&v20, "\", v7 + 1);
       v10 = v21 - (v7 + 1);
       if (v21 < v7 + 1)
       {
@@ -4090,7 +3595,7 @@ void FIK::SerialisationJson::GetMoCapRig(FIK::Allocator *a1@<X2>, int *a2@<X0>, 
   *(a4 + 308) = 1065353216;
   *(a4 + 48) = 1;
   JSONS::IKRigFromJSON(a2, a4, a3);
-  JSONS::ArrayFromJSON<FIK::MoCapBone>("bones_", a2, a1, a3, &v23);
+  JSONS::ArrayFromJSON<FIK::MoCapBone>(&v23, "bones_", a2, a1, a3);
   v8 = v23;
   v9 = v24;
   v23 = 0u;
@@ -4103,7 +3608,7 @@ void FIK::SerialisationJson::GetMoCapRig(FIK::Allocator *a1@<X2>, int *a2@<X0>, 
   v26 = v11;
   FIK::IKArray<FIK::MoCapBone>::~IKArray(&v25);
   FIK::IKArray<FIK::MoCapBone>::~IKArray(&v23);
-  JSONS::ArrayFromJSON<FIK::MoCapTask>("tasks_", a2, a1, a3, &v23);
+  JSONS::ArrayFromJSON<FIK::MoCapTask>(&v23, "tasks_", a2, a1, a3);
   v12 = v23;
   v13 = v24;
   v23 = 0u;
@@ -4116,7 +3621,7 @@ void FIK::SerialisationJson::GetMoCapRig(FIK::Allocator *a1@<X2>, int *a2@<X0>, 
   v26 = v15;
   FIK::IKArray<FIK::MoCapTask>::~IKArray(&v25);
   FIK::IKArray<FIK::MoCapTask>::~IKArray(&v23);
-  JSONS::ArrayFromJSON<FIK::RigBoneBase>("sources", a2, a1, a3, &v23);
+  JSONS::ArrayFromJSON<FIK::RigBoneBase>(&v23, "sources", a2, a1, a3);
   v16 = v23;
   v17 = v24;
   v23 = 0u;
@@ -4139,20 +3644,20 @@ void FIK::SerialisationJson::GetMoCapRig(FIK::Allocator *a1@<X2>, int *a2@<X0>, 
   *(a4 + 308) = JSONS::RealFromJSON(a3, "source_scale", 0.0);
 }
 
-unsigned int *JSONS::ArrayFromJSON<FIK::MoCapBone>@<X0>(char *__s@<X3>, int *a2@<X0>, FIK::Allocator *a3@<X1>, unsigned int *a4@<X2>, void *a5@<X8>)
+uint64_t *JSONS::ArrayFromJSON<FIK::MoCapBone>@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, FIK::Allocator *a4@<X1>, unsigned int *a5@<X2>)
 {
-  v28[17] = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s);
-  if ((*(a4 + 1) + 48 * *a4) != result)
+  v27[17] = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s);
+  if ((*(a5 + 1) + 48 * *a5) != result)
   {
-    v19 = __s;
-    v20 = 0x405000000000000;
-    v18 = strlen(__s);
-    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v18);
+    v18 = __s;
+    v19 = 0x405000000000000;
+    v17 = strlen(__s);
+    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v17);
     if (*(result + 11) == 4 && *result != 0)
     {
       v12 = result;
@@ -4161,97 +3666,19 @@ unsigned int *JSONS::ArrayFromJSON<FIK::MoCapBone>@<X0>(char *__s@<X3>, int *a2@
       v15 = 0;
       while (1)
       {
-        JSONS::MoCapBoneFromJSON(a2, a3, (*(v12 + 1) + v13), &v18);
-        v16 = *a2;
-        if (*a2)
+        JSONS::MoCapBoneFromJSON(a3, a4, (v12[1] + v13), &v17);
+        v16 = *a3;
+        if (*a3)
         {
           v15 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone&,void>(a5, &v18);
+          FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone&,void>(a1, &v17);
         }
 
-        result = FIK::IKArray<IKString>::~IKArray(v28);
-        if (v26)
-        {
-          result = (*(*v27 + 24))(v27, v25, 0, 8);
-          v25 = 0;
-          v26 = 0;
-        }
-
-        if (v23)
-        {
-          result = (*(*v24 + 24))(v24, v22, 0, 8);
-          v22 = 0;
-          v23 = 0;
-        }
-
-        if (v20)
-        {
-          result = (*(*v21 + 24))(v21, v19, 0, 8);
-        }
-
-        if (v16)
-        {
-          break;
-        }
-
-        ++v14;
-        v13 += 24;
-        if (v14 >= *v12)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      if ((v15 & 1) == 0)
-      {
-        result = FIK::IKArray<FIK::MoCapBone>::~IKArray(a5);
-      }
-    }
-  }
-
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unsigned int *JSONS::ArrayFromJSON<FIK::MoCapTask>@<X0>(char *__s@<X3>, int *a2@<X0>, FIK::Allocator *a3@<X1>, unsigned int *a4@<X2>, void *a5@<X8>)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s);
-  if ((*(a4 + 1) + 48 * *a4) != result)
-  {
-    v19 = __s;
-    v20 = 0x405000000000000;
-    v18 = strlen(__s);
-    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v18);
-    if (*(result + 11) == 4 && *result != 0)
-    {
-      v12 = result;
-      v13 = 0;
-      v14 = 0;
-      v15 = 0;
-      while (1)
-      {
-        result = JSONS::MoCapTaskFromJSON(a2, a3, (*(v12 + 1) + v13), &v18);
-        v16 = *a2;
-        if (*a2)
-        {
-          v15 = 1;
-        }
-
-        else
-        {
-          result = FIK::IKArray<FIK::MoCapTask>::push_back<FIK::MoCapTask&,void>(a5, &v18);
-        }
-
+        result = FIK::IKArray<IKString>::~IKArray(v27);
         if (v25)
         {
           result = (*(*v26 + 24))(v26, v24, 0, 8);
@@ -4280,35 +3707,109 @@ unsigned int *JSONS::ArrayFromJSON<FIK::MoCapTask>@<X0>(char *__s@<X3>, int *a2@
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_21;
+          return result;
         }
       }
 
       if ((v15 & 1) == 0)
       {
-        result = FIK::IKArray<FIK::MoCapTask>::~IKArray(a5);
+        return FIK::IKArray<FIK::MoCapBone>::~IKArray(a1);
       }
     }
   }
 
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void JSONS::ArrayFromJSON<FIK::RigBoneBase>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<X1>, int *a4@<X2>, void *a5@<X8>)
+uint64_t *JSONS::ArrayFromJSON<FIK::MoCapTask>@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, FIK::Allocator *a4@<X1>, unsigned int *a5@<X2>)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  if ((*(a4 + 1) + 48 * *a4) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s))
+  v26 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s);
+  if ((*(a5 + 1) + 48 * *a5) != result)
   {
-    v20.i64[1] = __s;
-    v21 = 0x405000000000000;
-    v20.i64[0] = strlen(__s);
-    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v20);
+    v18 = __s;
+    v19 = 0x405000000000000;
+    v17 = strlen(__s);
+    result = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v17);
+    if (*(result + 11) == 4 && *result != 0)
+    {
+      v12 = result;
+      v13 = 0;
+      v14 = 0;
+      v15 = 0;
+      while (1)
+      {
+        result = JSONS::MoCapTaskFromJSON(a3, a4, (v12[1] + v13), &v17);
+        v16 = *a3;
+        if (*a3)
+        {
+          v15 = 1;
+        }
+
+        else
+        {
+          result = FIK::IKArray<FIK::MoCapTask>::push_back<FIK::MoCapTask&,void>(a1, &v17);
+        }
+
+        if (v24)
+        {
+          result = (*(*v25 + 24))(v25, v23, 0, 8);
+          v23 = 0;
+          v24 = 0;
+        }
+
+        if (v21)
+        {
+          result = (*(*v22 + 24))(v22, v20, 0, 8);
+          v20 = 0;
+          v21 = 0;
+        }
+
+        if (v18)
+        {
+          result = (*(*v19 + 24))(v19, v17, 0, 8);
+        }
+
+        if (v16)
+        {
+          break;
+        }
+
+        ++v14;
+        v13 += 24;
+        if (v14 >= *v12)
+        {
+          return result;
+        }
+      }
+
+      if ((v15 & 1) == 0)
+      {
+        return FIK::IKArray<FIK::MoCapTask>::~IKArray(a1);
+      }
+    }
+  }
+
+  return result;
+}
+
+void JSONS::ArrayFromJSON<FIK::RigBoneBase>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, uint64_t a4@<X1>, unsigned int *a5@<X2>)
+{
+  v28 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  if ((*(a5 + 1) + 48 * *a5) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s))
+  {
+    v19.i64[1] = __s;
+    v20 = 0x405000000000000;
+    v19.i64[0] = strlen(__s);
+    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v19);
     if (*(v10 + 11) == 4 && *v10 != 0)
     {
       v12 = v10;
@@ -4318,37 +3819,37 @@ void JSONS::ArrayFromJSON<FIK::RigBoneBase>(char *__s@<X3>, int *a2@<X0>, uint64
       while (1)
       {
         v16 = v12[1];
-        v20 = 0xFFFFFFFFFFFFFFFFLL;
-        v21 = 0;
+        v19 = 0xFFFFFFFFFFFFFFFFLL;
+        v20 = 0;
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
-        v22 = a3;
-        v25 = a3;
+        v21 = a4;
+        v24 = a4;
+        v25 = 0;
         v26 = 0;
-        v27 = 0;
-        v28 = xmmword_245A01E80;
-        v17.n128_f64[0] = JSONS::RigBoneBaseFromJSON(&v20, (v16 + v13));
-        v18 = *a2;
-        if (*a2)
+        v27 = xmmword_245A01E80;
+        v17.n128_f64[0] = JSONS::RigBoneBaseFromJSON(&v19, (v16 + v13));
+        v18 = *a3;
+        if (*a3)
         {
           v15 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::RigBoneBase>::push_back<FIK::RigBoneBase&,void>(a5, &v20);
+          FIK::IKArray<FIK::RigBoneBase>::push_back<FIK::RigBoneBase&,void>(a1, &v19);
         }
 
-        if (v24)
+        if (v23)
         {
-          (*(*v25 + 24))(v25, v23, 0, 8, v17);
+          (*(*v24 + 24))(v24, v22, 0, 8, v17);
+          v22 = 0;
           v23 = 0;
-          v24 = 0;
         }
 
-        if (v21)
+        if (v20)
         {
-          (*(*v22 + 24))(v22, v20.i64[1], 0, 8, v17);
+          (*(*v21 + 24))(v21, v19.i64[1], 0, 8, v17);
         }
 
         if (v18)
@@ -4360,19 +3861,16 @@ void JSONS::ArrayFromJSON<FIK::RigBoneBase>(char *__s@<X3>, int *a2@<X0>, uint64
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
       if ((v15 & 1) == 0)
       {
-        FIK::IKArray<FIK::RigBoneBase>::~IKArray(a5);
+        FIK::IKArray<FIK::RigBoneBase>::~IKArray(a1);
       }
     }
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t FIK::SerialisationJson::GetGameRig@<X0>(FIK::Allocator *a1@<X2>, int *a2@<X0>, unsigned int *a3@<X1>, uint64_t a4@<X8>)
@@ -4427,7 +3925,7 @@ uint64_t FIK::SerialisationJson::GetGameRig@<X0>(FIK::Allocator *a1@<X2>, int *a
   }
 
   FIK::IKArray<IKString>::~IKArray(&v25);
-  JSONS::ArrayFromJSON<FIK::RigBone>("bones_", a2, a1, a3, &v32);
+  JSONS::ArrayFromJSON<FIK::RigBone>(&v32, "bones_", a2, a1, a3);
   v16 = v32;
   v17 = v33;
   v32 = 0u;
@@ -4440,7 +3938,7 @@ uint64_t FIK::SerialisationJson::GetGameRig@<X0>(FIK::Allocator *a1@<X2>, int *a
   v26 = v19;
   FIK::IKArray<FIK::RigBone>::~IKArray(&v25);
   FIK::IKArray<FIK::RigBone>::~IKArray(&v32);
-  JSONS::ArrayFromJSON<FIK::GameTask>("tasks_", a2, a1, a3, &v32);
+  JSONS::ArrayFromJSON<FIK::GameTask>(&v32, "tasks_", a2, a1, a3);
   v20 = v32;
   v21 = v33;
   v32 = 0u;
@@ -4455,75 +3953,75 @@ uint64_t FIK::SerialisationJson::GetGameRig@<X0>(FIK::Allocator *a1@<X2>, int *a
   return FIK::IKArray<FIK::GameTask>::~IKArray(&v32);
 }
 
-void JSONS::ArrayFromJSON<FIK::RigBone>(char *__s@<X3>, int *a2@<X0>, uint64_t a3@<X1>, int *a4@<X2>, void *a5@<X8>)
+void JSONS::ArrayFromJSON<FIK::RigBone>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, uint64_t a4@<X1>, unsigned int *a5@<X2>)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  if ((*(a4 + 1) + 48 * *a4) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s))
+  v44 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  if ((*(a5 + 1) + 48 * *a5) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s))
   {
-    v22 = __s;
-    v23 = 0x405000000000000;
-    v21 = strlen(__s);
-    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v21);
+    v21 = __s;
+    v22 = 0x405000000000000;
+    v20 = strlen(__s);
+    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v20);
     if (*(v10 + 11) == 4 && *v10 != 0)
     {
       v12 = v10;
       v13 = 0;
       v14 = 0;
-      v20 = 0;
+      v19 = 0;
       v15 = vdup_n_s32(0x43B40000u);
       while (1)
       {
         v16 = v12[1];
-        v21 = -1;
+        v20 = -1;
+        v21 = 0;
         v22 = 0;
-        v23 = 0;
+        v24 = 0;
         v25 = 0;
-        v26 = 0;
-        v24 = a3;
-        v27 = a3;
+        v23 = a4;
+        v26 = a4;
+        v27 = 0;
         v28 = 0;
-        v29 = 0;
-        v30 = xmmword_245A01E80;
-        v31 = 16843009;
-        v32 = 1;
-        v33 = 0;
-        v34 = xmmword_245A022E0;
-        v35 = 0x3F80000000000000;
+        v29 = xmmword_245A01E80;
+        v30 = 16843009;
+        v31 = 1;
+        v32 = 0;
+        v33 = xmmword_245A022E0;
+        v34 = 0x3F80000000000000;
+        v35 = xmmword_245A01EF0;
         v36 = xmmword_245A01EF0;
-        v37 = xmmword_245A01EF0;
-        v38 = xmmword_245A022F0;
-        v39 = v15;
-        v40 = 1135869952;
-        v44 = 0;
-        v43 = 0u;
+        v37 = xmmword_245A022F0;
+        v38 = v15;
+        v39 = 1135869952;
+        v43 = 0;
         v42 = 0u;
         v41 = 0u;
-        v17.n128_f64[0] = JSONS::RigBoneFromJSON(a2, &v21, (v16 + v13));
-        v18 = *a2;
-        if (*a2)
+        v40 = 0u;
+        v17.n128_f64[0] = JSONS::RigBoneFromJSON(a3, &v20, (v16 + v13));
+        v18 = *a3;
+        if (*a3)
         {
-          v20 = 1;
+          v19 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::RigBone>::push_back<FIK::RigBone&,void>(a5, &v21);
+          FIK::IKArray<FIK::RigBone>::push_back<FIK::RigBone&,void>(a1, &v20);
         }
 
-        if (v26)
+        if (v25)
         {
-          (*(*v27 + 24))(v27, v25, 0, 8, v17);
+          (*(*v26 + 24))(v26, v24, 0, 8, v17);
+          v24 = 0;
           v25 = 0;
-          v26 = 0;
         }
 
-        if (v23)
+        if (v22)
         {
-          (*(*v24 + 24))(v24, v22, 0, 8, v17);
+          (*(*v23 + 24))(v23, v21, 0, 8, v17);
         }
 
         if (v18)
@@ -4535,34 +4033,31 @@ void JSONS::ArrayFromJSON<FIK::RigBone>(char *__s@<X3>, int *a2@<X0>, uint64_t a
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
-      if ((v20 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        FIK::IKArray<FIK::RigBone>::~IKArray(a5);
+        FIK::IKArray<FIK::RigBone>::~IKArray(a1);
       }
     }
   }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void JSONS::ArrayFromJSON<FIK::GameTask>(char *__s@<X3>, int *a2@<X0>, FIK::Allocator *a3@<X1>, int *a4@<X2>, void *a5@<X8>)
+void JSONS::ArrayFromJSON<FIK::GameTask>(uint64_t *__return_ptr a1@<X8>, char *__s@<X3>, int *a3@<X0>, FIK::Allocator *a4@<X1>, unsigned int *a5@<X2>)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  a5[3] = a3;
-  if ((*(a4 + 1) + 48 * *a4) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a4, __s))
+  v23 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = a4;
+  if ((*(a5 + 1) + 48 * *a5) != rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::FindMember(a5, __s))
   {
-    v19 = __s;
-    v20 = 0x405000000000000;
-    v18 = strlen(__s);
-    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a4, &v18);
+    v18 = __s;
+    v19 = 0x405000000000000;
+    v17 = strlen(__s);
+    v10 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::operator[]<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(a5, &v17);
     if (*(v10 + 11) == 4 && *v10 != 0)
     {
       v12 = v10;
@@ -4571,28 +4066,28 @@ void JSONS::ArrayFromJSON<FIK::GameTask>(char *__s@<X3>, int *a2@<X0>, FIK::Allo
       v15 = 0;
       while (1)
       {
-        JSONS::GameTaskFromJSON(a2, a3, (v12[1] + v13), &v18);
-        v16 = *a2;
-        if (*a2)
+        JSONS::GameTaskFromJSON(a3, a4, (v12[1] + v13), &v17);
+        v16 = *a3;
+        if (*a3)
         {
           v15 = 1;
         }
 
         else
         {
-          FIK::IKArray<FIK::GameTask>::push_back<FIK::GameTask&,void>(a5, &v18);
+          FIK::IKArray<FIK::GameTask>::push_back<FIK::GameTask&,void>(a1, &v17);
         }
 
-        if (v22)
+        if (v21)
         {
-          (*(*v23 + 24))(v23, v21, 0, 8);
+          (*(*v22 + 24))(v22, v20, 0, 8);
+          v20 = 0;
           v21 = 0;
-          v22 = 0;
         }
 
-        if (v19)
+        if (v18)
         {
-          (*(*v20 + 24))(v20, v18, 0, 8);
+          (*(*v19 + 24))(v19, v17, 0, 8);
         }
 
         if (v16)
@@ -4604,56 +4099,53 @@ void JSONS::ArrayFromJSON<FIK::GameTask>(char *__s@<X3>, int *a2@<X0>, FIK::Allo
         v13 += 24;
         if (v14 >= *v12)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
       if ((v15 & 1) == 0)
       {
-        FIK::IKArray<FIK::GameTask>::~IKArray(a5);
+        FIK::IKArray<FIK::GameTask>::~IKArray(a1);
       }
     }
   }
-
-LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void FIK::SerialisationJson::LoadIKRigFromString()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = 0u;
-  v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  v0 = 0u;
-  v5 = 1024;
-  v6 = 0;
-  v7 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v5 = 0u;
+  v10 = 1024;
+  v11 = 0;
+  v12 = 0;
   operator new();
 }
 
 void FIK::SerialisationJson::LoadMoCapRigFromString()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = 0u;
-  v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  v0 = 0u;
-  v5 = 1024;
-  v6 = 0;
-  v7 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v5 = 0u;
+  v10 = 1024;
+  v11 = 0;
+  v12 = 0;
   operator new();
 }
 
-uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
+uint64_t FIK::Serialisation::fixUpRigIndices(void *a1)
 {
-  v3 = (a1 + 208);
-  v2 = *(a1 + 208);
+  v3 = (a1 + 26);
+  v2 = a1[26];
   if (v2)
   {
-    v4 = *(a1 + 224);
+    v4 = a1[28];
     v5 = 1;
     do
     {
@@ -4665,10 +4157,10 @@ uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
     while (v6);
   }
 
-  v7 = *(a1 + 240);
+  v7 = a1[30];
   if (v7)
   {
-    v8 = *(a1 + 256);
+    v8 = a1[32];
     v9 = 1;
     do
     {
@@ -4680,10 +4172,10 @@ uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
     while (v6);
   }
 
-  FIK::IKRigUtils::updateParentIndices<FIK::MoCapBone>((a1 + 208));
-  FIK::IKRigUtils::updateParentIndices<FIK::RigBoneBase>((a1 + 240));
-  FIK::IKRigUtils::updateTargetIndices<FIK::MoCapTask,FIK::MoCapBone>((a1 + 176), v3);
-  if (FIK::IKRigUtils::updateSourceIndices(v3, (a1 + 176), (a1 + 240)))
+  FIK::IKRigUtils::updateParentIndices<FIK::MoCapBone>(a1 + 52);
+  FIK::IKRigUtils::updateParentIndices<FIK::RigBoneBase>(a1 + 60);
+  FIK::IKRigUtils::updateTargetIndices<FIK::MoCapTask,FIK::MoCapBone>(a1 + 22, v3);
+  if (FIK::IKRigUtils::updateSourceIndices(v3, a1 + 22, a1 + 60))
   {
     return 0;
   }
@@ -4694,6 +4186,21 @@ uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
   }
 }
 
+void FIK::SerialisationJson::LoadGameRigFromString()
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v5 = 0u;
+  v10 = 1024;
+  v11 = 0;
+  v12 = 0;
+  operator new();
+}
+
+uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
 {
   v3 = (a1 + 208);
   v2 = *(a1 + 208);
@@ -4715,38 +4222,24 @@ uint64_t FIK::Serialisation::fixUpRigIndices(uint64_t a1)
   return 0;
 }
 
-void FIK::SerialisationJson::LoadGameRigFromString()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = 0u;
-  v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  v0 = 0u;
-  v5 = 1024;
-  v6 = 0;
-  v7 = 0;
-  operator new();
-}
-
-uint64_t FIK::SerialisationJson::ReadFile(uint64_t a1)
+uint64_t FIK::SerialisationJson::ReadFile(uint64_t a1, uint64_t a2)
 {
   v13[19] = *MEMORY[0x277D85DE8];
   v13[6] = 0;
-  v2 = MEMORY[0x277D82858] + 24;
-  v3 = MEMORY[0x277D82858] + 64;
+  v3 = MEMORY[0x277D82858] + 24;
+  v4 = MEMORY[0x277D82858] + 64;
   v13[0] = MEMORY[0x277D82858] + 64;
-  v4 = MEMORY[0x277D82808];
-  v5 = *(MEMORY[0x277D82808] + 16);
+  v5 = MEMORY[0x277D82808];
+  v6 = *(MEMORY[0x277D82808] + 16);
   v11[0] = *(MEMORY[0x277D82808] + 8);
-  *(v11 + *(v11[0] - 24)) = v5;
+  *(v11 + *(v11[0] - 24)) = v6;
   v11[1] = 0;
-  v6 = (v11 + *(v11[0] - 24));
-  std::ios_base::init(v6, v12);
-  v6[1].__vftable = 0;
-  v6[1].__fmtflags_ = -1;
-  v11[0] = v2;
-  v13[0] = v3;
+  v7 = (v11 + *(v11[0] - 24));
+  std::ios_base::init(v7, v12);
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  v11[0] = v3;
+  v13[0] = v4;
   MEMORY[0x245D77E10](v12);
   if (!std::filebuf::open())
   {
@@ -4756,126 +4249,125 @@ uint64_t FIK::SerialisationJson::ReadFile(uint64_t a1)
   if (v12[15])
   {
     std::getline[abi:nn200100]<char,std::char_traits<char>,FIK::FIKAllocator<char>>(v11, a1, 0);
-    v7 = *(a1 + 23);
-    if ((v7 & 0x80u) != 0)
+    v8 = *(a1 + 23);
+    if ((v8 & 0x80u) != 0)
     {
-      v7 = *(a1 + 8);
+      v8 = *(a1 + 8);
     }
 
-    v8 = 2 * (v7 == 0);
+    v9 = 2 * (v8 == 0);
   }
 
   else
   {
-    v8 = 1;
+    v9 = 1;
   }
 
-  v11[0] = *v4;
-  *(v11 + *(v11[0] - 24)) = v4[3];
+  v11[0] = *v5;
+  *(v11 + *(v11[0] - 24)) = v5[3];
   MEMORY[0x245D77E20](v12);
   std::istream::~istream();
   MEMORY[0x245D77F30](v13);
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
-void FIK::SerialisationJson::LoadMoCapRigFromFile(FIK *a1@<X0>, FIK::Allocator *a2@<X3>, uint64_t a3@<X8>)
+void FIK::SerialisationJson::LoadMoCapRigFromFile(FIK *a1@<X0>, uint64_t a2@<X1>, FIK::Allocator *a3@<X3>, uint64_t a4@<X8>)
 {
-  v7[0] = 0;
-  v7[1] = 0;
-  v8 = 0;
-  v9 = FIK::defaultAllocator(a1);
-  File = FIK::SerialisationJson::ReadFile(v7);
+  v9[0] = 0;
+  v9[1] = 0;
+  v10 = 0;
+  v11 = FIK::defaultAllocator(a1);
+  File = FIK::SerialisationJson::ReadFile(v9, a2);
   *a1 = File;
   if (!File)
   {
     FIK::SerialisationJson::LoadMoCapRigFromString();
   }
 
-  FIK::IKRig::IKRig(a3, a2);
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 192) = 0;
-  *(a3 + 200) = a2;
-  *(a3 + 208) = 0;
-  *(a3 + 216) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 232) = a2;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0;
-  *(a3 + 264) = a2;
-  *(a3 + 272) = 0;
-  *(a3 + 280) = 0;
-  *(a3 + 288) = xmmword_245A01E80;
-  *(a3 + 304) = 0;
-  *(a3 + 308) = 1065353216;
-  *(a3 + 48) = 1;
-  if (SHIBYTE(v8) < 0)
+  FIK::IKRig::IKRig(a4, a3);
+  *(a4 + 176) = 0;
+  *(a4 + 184) = 0;
+  *(a4 + 192) = 0;
+  *(a4 + 200) = a3;
+  *(a4 + 208) = 0;
+  *(a4 + 216) = 0;
+  *(a4 + 224) = 0;
+  *(a4 + 232) = a3;
+  *(a4 + 240) = 0;
+  *(a4 + 248) = 0;
+  *(a4 + 256) = 0;
+  *(a4 + 264) = a3;
+  *(a4 + 272) = 0;
+  *(a4 + 280) = 0;
+  *(a4 + 288) = xmmword_245A01E80;
+  *(a4 + 304) = 0;
+  *(a4 + 308) = 1065353216;
+  *(a4 + 48) = 1;
+  if (SHIBYTE(v10) < 0)
   {
-    if (v7[0])
+    if (v9[0])
     {
-      (*(*v9 + 3))(v9, v7[0], 0, 8);
+      (*(*v11 + 3))(v11, v9[0], 0, 8);
     }
   }
 }
 
-void FIK::SerialisationJson::LoadGameRigFromFile(FIK *a1@<X0>, FIK::Allocator *a2@<X3>, uint64_t a3@<X8>)
+void FIK::SerialisationJson::LoadGameRigFromFile(FIK *a1@<X0>, uint64_t a2@<X1>, FIK::Allocator *a3@<X3>, uint64_t a4@<X8>)
 {
-  v8[0] = 0;
-  v8[1] = 0;
-  v9 = 0;
-  v10 = FIK::defaultAllocator(a1);
-  File = FIK::SerialisationJson::ReadFile(v8);
+  v10[0] = 0;
+  v10[1] = 0;
+  v11 = 0;
+  v12 = FIK::defaultAllocator(a1);
+  File = FIK::SerialisationJson::ReadFile(v10, a2);
   *a1 = File;
   if (!File)
   {
     FIK::SerialisationJson::LoadGameRigFromString();
   }
 
-  v7 = FIK::IKRig::IKRig(a3, a2);
-  *(a3 + 176) = 0;
-  *(a3 + 184) = 0;
-  *(a3 + 192) = 0;
-  *(a3 + 200) = a2;
-  *(a3 + 208) = 0;
-  *(a3 + 216) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 232) = a2;
-  *(a3 + 240) = 0;
-  *(a3 + 248) = 0;
-  *(a3 + 256) = 0;
-  *(a3 + 264) = a2;
-  *(a3 + 272) = 0;
-  *(a3 + 280) = 0;
-  *(a3 + 288) = 0;
-  *(a3 + 296) = a2;
-  *(a3 + 304) = 0;
-  *(a3 + 312) = 0;
-  *(a3 + 320) = 0;
-  *(a3 + 328) = a2;
-  *(a3 + 48) = 2;
-  if (SHIBYTE(v9) < 0)
+  v9 = FIK::IKRig::IKRig(a4, a3);
+  *(a4 + 176) = 0;
+  *(a4 + 184) = 0;
+  *(a4 + 192) = 0;
+  *(a4 + 200) = a3;
+  *(a4 + 208) = 0;
+  *(a4 + 216) = 0;
+  *(a4 + 224) = 0;
+  *(a4 + 232) = a3;
+  *(a4 + 240) = 0;
+  *(a4 + 248) = 0;
+  *(a4 + 256) = 0;
+  *(a4 + 264) = a3;
+  *(a4 + 272) = 0;
+  *(a4 + 280) = 0;
+  *(a4 + 288) = 0;
+  *(a4 + 296) = a3;
+  *(a4 + 304) = 0;
+  *(a4 + 312) = 0;
+  *(a4 + 320) = 0;
+  *(a4 + 328) = a3;
+  *(a4 + 48) = 2;
+  if (SHIBYTE(v11) < 0)
   {
-    if (v8[0])
+    if (v10[0])
     {
-      (*(*v10 + 3))(v10, v8[0], 0, 8, v7);
+      (*(*v12 + 3))(v12, v10[0], 0, 8, v9);
     }
   }
 }
 
-uint64_t FIK::IKArray<IKString>::reserve(uint64_t result, unint64_t a2)
+uint64_t *FIK::IKArray<IKString>::reserve(uint64_t *result, unint64_t a2)
 {
-  if (*(result + 8) < a2)
+  if (result[1] < a2)
   {
     v18 = v2;
     v19 = v3;
     v4 = result;
-    v5 = *(result + 24);
+    v5 = result[3];
     v6 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
     if (v6)
     {
-      v7 = (*(*v5 + 16))(*(result + 24), 24 * v6, 8);
+      v7 = (*(*v5 + 16))(result[3], 24 * v6, 8);
       v8 = v7;
       if (24 * v6)
       {
@@ -4895,8 +4387,8 @@ uint64_t FIK::IKArray<IKString>::reserve(uint64_t result, unint64_t a2)
       v11 = v8;
       do
       {
-        v11 = IKString::IKString(v11, v9, v9[2]) + 3;
-        v9 += 3;
+        v11 = IKString::IKString(v11, v9, *(v9 + 16)) + 3;
+        v9 += 24;
         --v10;
       }
 
@@ -4928,30 +4420,30 @@ uint64_t FIK::IKArray<IKString>::reserve(uint64_t result, unint64_t a2)
   return result;
 }
 
-uint64_t FIK::SerialisationJson::WriteFile(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t FIK::SerialisationJson::WriteFile(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
-  v16[19] = *MEMORY[0x277D85DE8];
-  v16[6] = 0;
+  v15[19] = *MEMORY[0x277D85DE8];
+  v15[6] = 0;
   v4 = MEMORY[0x277D82860] + 24;
   v5 = MEMORY[0x277D82860] + 64;
-  v16[0] = MEMORY[0x277D82860] + 64;
+  v15[0] = MEMORY[0x277D82860] + 64;
   v6 = MEMORY[0x277D82810];
   v7 = *(MEMORY[0x277D82810] + 16);
-  v14 = *(MEMORY[0x277D82810] + 8);
-  *&v15[*(v14 - 24) - 8] = v7;
-  v8 = &v15[*(v14 - 24) - 8];
-  std::ios_base::init(v8, v15);
+  v13 = *(MEMORY[0x277D82810] + 8);
+  *&v14[*(v13 - 24) - 8] = v7;
+  v8 = &v14[*(v13 - 24) - 8];
+  std::ios_base::init(v8, v14);
   v8[1].__vftable = 0;
   v8[1].__fmtflags_ = -1;
-  v14 = v4;
-  v16[0] = v5;
-  MEMORY[0x245D77E10](v15);
+  v13 = v4;
+  v15[0] = v5;
+  MEMORY[0x245D77E10](v14);
   if (!std::filebuf::open())
   {
-    std::ios_base::clear(&v15[*(v14 - 24) - 8], *&v15[*(v14 - 24) + 24] | 4);
+    std::ios_base::clear(&v14[*(v13 - 24) - 8], *&v14[*(v13 - 24) + 24] | 4);
   }
 
-  if ((v15[*(v14 - 24) + 24] & 5) == 0)
+  if ((v14[*(v13 - 24) + 24] & 5) == 0)
   {
     v9 = *(a3 + 23);
     if (v9 >= 0)
@@ -4971,23 +4463,21 @@ uint64_t FIK::SerialisationJson::WriteFile(uint64_t a1, uint64_t a2, uint64_t a3
 
     else
     {
-      v11 = *(a3 + 8);
+      v11 = a3[1];
     }
 
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v14, v10, v11);
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v13, v10, v11);
     if (!std::filebuf::close())
     {
-      std::ios_base::clear(&v15[*(v14 - 24) - 8], *&v15[*(v14 - 24) + 24] | 4);
+      std::ios_base::clear(&v14[*(v13 - 24) - 8], *&v14[*(v13 - 24) + 24] | 4);
     }
   }
 
-  v14 = *v6;
-  *&v15[*(v14 - 24) - 8] = v6[3];
-  MEMORY[0x245D77E20](v15);
+  v13 = *v6;
+  *&v14[*(v13 - 24) - 8] = v6[3];
+  MEMORY[0x245D77E20](v14);
   std::ostream::~ostream();
-  result = MEMORY[0x245D77F30](v16);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x245D77F30](v15);
 }
 
 uint64_t FIK::SerialisationJson::SaveMoCapRig(uint64_t a1, const char *a2, int a3)
@@ -5394,53 +4884,53 @@ uint64_t FIK::IKRigUtils::updateSourceIndices(void *a1, void *a2, unsigned int *
       *v10 = v14;
       if (v14 == -1)
       {
-        v15 = *(v10 - 38);
-        if (v15 == -1)
+        v16 = *(v10 - 38);
+        if (v16 == -1)
         {
-          v16 = ikinemaLogObject();
-          ikinemaAssertHandler(*v16, 0, "updateSourceIndices", "(task.target_index_ != kInvalidRigIndex) Task without target index detected, you need to call updateTargetIndices first");
-          v15 = *(v10 - 38);
+          v17 = ikinemaLogObject(v14, v15);
+          v14 = ikinemaAssertHandler(*v17, 0, "updateSourceIndices", "(task.target_index_ != kInvalidRigIndex) Task without target index detected, you need to call updateTargetIndices first");
+          v16 = *(v10 - 38);
         }
 
-        if (*a1 < v15)
+        if (*a1 < v16)
         {
-          v17 = ikinemaLogObject();
-          ikinemaAssertHandler(*v17, 0, "updateSourceIndices", "(static_cast<size_t>(task.target_index_) <= bones.size()) Task with invalid target bone");
-          v15 = *(v10 - 38);
+          v18 = ikinemaLogObject(v14, v15);
+          v14 = ikinemaAssertHandler(*v18, 0, "updateSourceIndices", "(static_cast<size_t>(task.target_index_) <= bones.size()) Task with invalid target bone");
+          v16 = *(v10 - 38);
         }
 
-        if (v15 == -1)
+        if (v16 == -1)
         {
-          v20 = *ikinemaLogObject();
-          v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+          v21 = *ikinemaLogObject(v14, v15);
+          v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
           result = 0;
-          if (v21)
+          if (v22)
           {
             if (*(v10 - 24))
             {
-              v23 = *(v10 - 25);
+              v24 = *(v10 - 25);
             }
 
             else
             {
-              v23 = &unk_245A04BAE;
+              v24 = &unk_245A04BAE;
             }
 
             v26 = *(v10 - 38);
             v27 = 136315650;
             v28 = "updateSourceIndices";
             v29 = 2080;
-            v30 = v23;
+            v30 = v24;
             v31 = 1024;
             v32 = v26;
-            _os_log_impl(&dword_245976000, v20, OS_LOG_TYPE_DEFAULT, "%s: Task %s contains invalid target index: %d\n", &v27, 0x1Cu);
-            result = 0;
+            _os_log_impl(&dword_245976000, v21, OS_LOG_TYPE_DEFAULT, "%s: Task %s contains invalid target index: %d\n", &v27, 0x1Cu);
+            return 0;
           }
 
-          goto LABEL_31;
+          return result;
         }
 
-        *v10 = *(a1[2] + 544 * v15 + 280);
+        *v10 = *(a1[2] + 544 * v16 + 280);
       }
 
       v10 += 64;
@@ -5450,31 +4940,25 @@ uint64_t FIK::IKRigUtils::updateSourceIndices(void *a1, void *a2, unsigned int *
     while (v11);
     if (*a2)
     {
-      v18 = *a2 << 8;
-      v19 = (a2[2] + 200);
-      while (*v19 != -1)
+      v19 = *a2 << 8;
+      for (i = (a2[2] + 200); *i != -1; i += 64)
       {
-        v19 += 64;
-        v18 -= 256;
-        if (!v18)
+        v19 -= 256;
+        if (!v19)
         {
-          goto LABEL_30;
+          return 1;
         }
       }
 
-      v24 = ikinemaLogObject()[2];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = ikinemaLogObject(v14, v15)[2];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        FIK::IKRigUtils::updateSourceIndices(v24);
+        FIK::IKRigUtils::updateSourceIndices(v25);
       }
     }
   }
 
-LABEL_30:
-  result = 1;
-LABEL_31:
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 unsigned int *FIK::IKRigUtils::updateParentIndices<FIK::RigBone>(unsigned int *result)
@@ -5551,7 +5035,7 @@ unint64_t *FIK::IKRigUtils::updateTargetIndices<FIK::GameTask,FIK::RigBone>(unin
   return result;
 }
 
-void FIK::IKArray<IKString>::push_back<IKString&,void>(void *a1, char **a2)
+void FIK::IKArray<IKString>::push_back<IKString&,void>(uint64_t *a1, uint64_t a2)
 {
   FIK::IKArray<IKString>::reserve(a1, *a1 + 1);
   v4 = a1[3];
@@ -5559,19 +5043,18 @@ void FIK::IKArray<IKString>::push_back<IKString&,void>(void *a1, char **a2)
   *v5 = 0;
   v5[1] = 0;
   v5[2] = v4;
-  v7 = *a2;
-  v6 = a2[1];
+  v6 = *(a2 + 8);
   if (v6)
   {
-    v8 = *a2;
+    v7 = *a2;
   }
 
   else
   {
-    v8 = &unk_245A04BAE;
+    v7 = &unk_245A04BAE;
   }
 
-  IKString::assign(v5, v8, v6);
+  IKString::assign(v5, v7, v6);
   ++*a1;
 }
 
@@ -6149,7 +5632,7 @@ LABEL_18:
 LABEL_19:
   if (a4 != a6 + __len)
   {
-    __src = memmove(&v18[__len + a7], &v14[__len + a6], a4 - (a6 + __len));
+    __src = memmove(v18 + __len + a7, v14 + __len + a6, a4 - (a6 + __len));
   }
 
   if (a2 != 22 && v14)
@@ -6162,15 +5645,15 @@ LABEL_19:
   return __src;
 }
 
-void *std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::resize(void *result, unint64_t a2, int a3)
+_BYTE *std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::resize(_BYTE *result, unint64_t a2, int a3)
 {
-  v3 = *(result + 23);
+  v3 = result[23];
   if ((v3 & 0x8000000000000000) != 0)
   {
-    v3 = result[1];
+    v3 = *(result + 1);
     if (v3 >= a2)
     {
-      result[1] = a2;
+      *(result + 1) = a2;
       result = *result;
       goto LABEL_7;
     }
@@ -6183,9 +5666,9 @@ void *std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::re
     return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(result, a2 - v3, a3);
   }
 
-  *(result + 23) = a2;
+  result[23] = a2;
 LABEL_7:
-  *(result + a2) = 0;
+  result[a2] = 0;
   return result;
 }
 
@@ -6784,12 +6267,12 @@ uint64_t rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>::~MemoryPoolAll
   return a1;
 }
 
-FIK *rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>::Clear(uint64_t a1, void *a2)
+FIK::RapidJsonAllocator *rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>::Clear(uint64_t a1, void *a2)
 {
   for (i = *(a1 + 16); ; i = *(a1 + 16))
   {
     result = *i;
-    v5 = *(*i + 2);
+    v5 = *(*i + 16);
     if (!v5)
     {
       break;
@@ -6910,13 +6393,13 @@ LABEL_23:
   **a2 = v2;
 }
 
-void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(FIK::RapidJsonAllocator *result, void **a2, uint64_t a3)
+void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(FIK::RapidJsonAllocator *a1, void **a2, uint64_t a3)
 {
   v3 = **a2;
   if (v3 == (*a2)[2])
   {
 LABEL_11:
-    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseNumber<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseNumber<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
     return;
   }
 
@@ -6926,13 +6409,13 @@ LABEL_11:
     switch(v4)
     {
       case '{':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseObject<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseObject<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         break;
       case 't':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseTrue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseTrue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         break;
       case 'n':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseNull<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseNull<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         return;
       default:
         goto LABEL_11;
@@ -6944,13 +6427,13 @@ LABEL_11:
     switch(v4)
     {
       case '""':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseString<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseString<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         break;
       case '[':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseArray<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseArray<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         break;
       case 'f':
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseFalse<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(result, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseFalse<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
         return;
       default:
         goto LABEL_11;
@@ -7189,16 +6672,16 @@ uint64_t *rapidjson::UTF8<char>::Encode<rapidjson::GenericReader<rapidjson::UTF8
     v6 = v3 + 1;
     ++*(v3 + 2);
 LABEL_24:
-    v28 = *v3;
-    v29 = *(v28 + 24);
-    if ((*(v28 + 32) - v29) <= 0)
+    v27 = *v3;
+    v28 = *(v27 + 24);
+    if ((*(v27 + 32) - v28) <= 0)
     {
-      result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(v28, 1);
-      v29 = *(v28 + 24);
+      result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(v27, 1);
+      v28 = *(v27 + 24);
     }
 
-    *(v28 + 24) = v29 + 1;
-    *v29 = a2 & 0x3F | 0x80;
+    *(v27 + 24) = v28 + 1;
+    *v28 = a2 & 0x3F | 0x80;
     goto LABEL_27;
   }
 
@@ -7207,8 +6690,7 @@ LABEL_24:
   v12 = *(*result + 32) - v11;
   if (HIWORD(a2))
   {
-    v21 = (a2 >> 18) | 0xFFFFFFF0;
-    v14 = *(*result + 32) == v11;
+    v20 = (a2 >> 18) | 0xFFFFFFF0;
     if (v12 <= 0)
     {
       result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(*result, 1);
@@ -7216,40 +6698,39 @@ LABEL_24:
     }
 
     *(v10 + 24) = v11 + 1;
-    *v11 = v21;
+    *v11 = v20;
     v6 = v3 + 1;
     ++*(v3 + 2);
-    v22 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
-    v23 = *v3;
-    v24 = *(*v3 + 24);
-    if ((*(*v3 + 32) - v24) <= 0)
+    v21 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
+    v22 = *v3;
+    v23 = *(*v3 + 24);
+    if ((*(*v3 + 32) - v23) <= 0)
     {
       result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(*v3, 1);
-      v22 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
-      v24 = *(v23 + 24);
+      v21 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
+      v23 = *(v22 + 24);
     }
 
-    *(v23 + 24) = v24 + 1;
-    *v24 = v22;
+    *(v22 + 24) = v23 + 1;
+    *v23 = v21;
     ++*(v3 + 2);
-    v25 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
-    v26 = *v3;
-    v27 = *(*v3 + 24);
-    if ((*(*v3 + 32) - v27) <= 0)
+    v24 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+    v25 = *v3;
+    v26 = *(*v3 + 24);
+    if ((*(*v3 + 32) - v26) <= 0)
     {
       result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(*v3, 1);
-      v25 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
-      v27 = *(v26 + 24);
+      v24 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+      v26 = *(v25 + 24);
     }
 
-    *(v26 + 24) = v27 + 1;
-    *v27 = v25;
+    *(v25 + 24) = v26 + 1;
+    *v26 = v24;
     ++*(v3 + 2);
     goto LABEL_24;
   }
 
   v13 = (a2 >> 12) | 0xFFFFFFE0;
-  v14 = *(*result + 32) == v11;
   if (v12 <= 0)
   {
     result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(*result, 1);
@@ -7260,31 +6741,31 @@ LABEL_24:
   *v11 = v13;
   v6 = v3 + 1;
   ++*(v3 + 2);
-  v15 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
-  v16 = *v3;
-  v17 = *(*v3 + 24);
-  if ((*(*v3 + 32) - v17) <= 0)
+  v14 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+  v15 = *v3;
+  v16 = *(*v3 + 24);
+  if ((*(*v3 + 32) - v16) <= 0)
   {
     result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(*v3, 1);
-    v15 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
-    v17 = *(v16 + 24);
+    v14 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+    v16 = *(v15 + 24);
   }
 
-  *(v16 + 24) = v17 + 1;
-  *v17 = v15;
+  *(v15 + 24) = v16 + 1;
+  *v16 = v14;
   ++*(v3 + 2);
-  v18 = a2 & 0x3F | 0x80;
-  v19 = *v3;
-  v20 = *(v19 + 24);
-  if ((*(v19 + 32) - v20) <= 0)
+  v17 = a2 & 0x3F | 0x80;
+  v18 = *v3;
+  v19 = *(v18 + 24);
+  if ((*(v18 + 32) - v19) <= 0)
   {
-    result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(v19, 1);
-    v18 = a2 & 0x3F | 0x80;
-    v20 = *(v19 + 24);
+    result = rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Expand<char>(v18, 1);
+    v17 = a2 & 0x3F | 0x80;
+    v19 = *(v18 + 24);
   }
 
-  *(v19 + 24) = v20 + 1;
-  *v20 = v18;
+  *(v18 + 24) = v19 + 1;
+  *v19 = v17;
 LABEL_27:
   ++*v6;
   return result;
@@ -7296,7 +6777,7 @@ FIK::RapidJsonAllocator *rapidjson::internal::Stack<FIK::RapidJsonAllocator>::Ex
   if (v4)
   {
     v5 = *(a1 + 32) - v4;
-    v6 = (v5 + ((v5 + 1) >> 1));
+    v6 = v5 + ((v5 + 1) >> 1);
     v7 = *a1;
   }
 
@@ -7577,7 +7058,7 @@ LABEL_12:
   return 1;
 }
 
-uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>::Uint64(uint64_t a1, uint64_t a2)
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>::Uint64(uint64_t a1, unint64_t a2)
 {
   v4 = *(a1 + 64);
   if (*(a1 + 72) - v4 <= 23)
@@ -7590,7 +7071,7 @@ uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolA
   *(v4 + 8) = 0;
   *(v4 + 16) = 0;
   *v4 = a2;
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     v5 = 278;
   }
@@ -7646,7 +7127,7 @@ uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolA
   return 1;
 }
 
-uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>::Uint(uint64_t a1, int a2)
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>::Uint(uint64_t a1, unsigned int a2)
 {
   v4 = *(a1 + 64);
   if (*(a1 + 72) - v4 <= 23)
@@ -7659,7 +7140,7 @@ uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolA
   *(v4 + 8) = 0;
   *(v4 + 16) = 0;
   *v4 = a2;
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     v5 = 470;
   }
@@ -7715,7 +7196,7 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
   return rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartObject(a1);
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::EndObject(void **a1)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::EndObject(uint64_t **a1)
 {
   v2 = a1[4];
   v3 = *(v2 - 2);
@@ -7724,13 +7205,13 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
   {
     v4 = *a1;
     v5 = (*a1)[3];
-    if (((*a1)[4] - v5) <= 0)
+    if ((*a1)[4] - v5 <= 0)
     {
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-      v5 = *(v4 + 24);
+      v5 = v4[3];
     }
 
-    *(v4 + 24) = v5 + 1;
+    v4[3] = (v5 + 1);
     *v5 = 10;
     rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(a1);
   }
@@ -7756,22 +7237,22 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
   return rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartArray(a1);
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::EndArray(void **a1)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::EndArray(uint64_t **a1)
 {
   v2 = a1[4];
-  v3 = *(v2 - 2);
-  a1[4] = v2 - 2;
+  v3 = *(v2 - 16);
+  a1[4] = (v2 - 16);
   if (v3 && (*(a1 + 68) & 1) == 0)
   {
     v4 = *a1;
     v5 = (*a1)[3];
-    if (((*a1)[4] - v5) <= 0)
+    if ((*a1)[4] - v5 <= 0)
     {
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-      v5 = *(v4 + 24);
+      v5 = v4[3];
     }
 
-    *(v4 + 24) = v5 + 1;
+    v4[3] = (v5 + 1);
     *v5 = 10;
     rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(a1);
   }
@@ -7780,7 +7261,7 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
   return 1;
 }
 
-BOOL rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Double(void **a1, double a2)
+BOOL rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Double(uint64_t **a1, double a2)
 {
   rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
   v4 = *&a2;
@@ -7788,13 +7269,13 @@ BOOL rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char
   {
     v5 = *a1;
     v6 = (*a1)[3];
-    if (((*a1)[4] - v6) <= 24)
+    if ((*a1)[4] - v6 <= 24)
     {
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 25);
-      v6 = *(v5 + 24);
+      v6 = v5[3];
     }
 
-    *(v5 + 24) = v6 + 25;
+    v5[3] = (v6 + 25);
     if (a2 == 0.0)
     {
       v7 = v6;
@@ -7898,18 +7379,18 @@ BOOL rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char
   return (*&a2 & 0x7FF0000000000000) != 0x7FF0000000000000;
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Int(_BYTE *a1, rapidjson::internal *a2)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Int(uint64_t **a1, rapidjson::internal *a2)
 {
   rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
   v5 = *a1;
-  v6 = *(*a1 + 24);
-  if ((*(*a1 + 32) - v6) <= 10)
+  v6 = (*a1)[3];
+  if ((*a1)[4] - v6 <= 10)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 11);
-    v6 = *(v5 + 24);
+    v6 = v5[3];
   }
 
-  *(v5 + 24) = v6 + 11;
+  v5[3] = (v6 + 11);
   if ((a2 & 0x80000000) != 0)
   {
     *v6 = 45;
@@ -7922,38 +7403,38 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
     v7 = v6;
   }
 
-  *(*a1 + 24) = *(*a1 + 24) + rapidjson::internal::u32toa(a2, v7, v4) - v6 - 11;
+  (*a1)[3] = (*a1)[3] + rapidjson::internal::u32toa(a2, v7, v4) - v6 - 11;
   return 1;
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint(_BYTE *a1, rapidjson::internal *a2)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint(uint64_t **a1, rapidjson::internal *a2)
 {
   rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
   v5 = *a1;
-  v6 = *(*a1 + 24);
-  if ((*(*a1 + 32) - v6) <= 9)
+  v6 = (*a1)[3];
+  if ((*a1)[4] - v6 <= 9)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 10);
-    v6 = *(v5 + 24);
+    v6 = v5[3];
   }
 
-  *(v5 + 24) = v6 + 10;
-  *(*a1 + 24) = *(*a1 + 24) + rapidjson::internal::u32toa(a2, v6, v4) - v6 - 10;
+  v5[3] = (v6 + 10);
+  (*a1)[3] = (*a1)[3] + rapidjson::internal::u32toa(a2, v6, v4) - v6 - 10;
   return 1;
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Int64(_BYTE *a1, unint64_t a2)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Int64(uint64_t **a1, unint64_t a2)
 {
   rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
   v5 = *a1;
-  v6 = *(*a1 + 24);
-  if ((*(*a1 + 32) - v6) <= 20)
+  v6 = (*a1)[3];
+  if ((*a1)[4] - v6 <= 20)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 21);
-    v6 = *(v5 + 24);
+    v6 = v5[3];
   }
 
-  *(v5 + 24) = v6 + 21;
+  v5[3] = (v6 + 21);
   if ((a2 & 0x8000000000000000) != 0)
   {
     *v6 = 45;
@@ -7966,86 +7447,86 @@ uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<
     v7 = v6;
   }
 
-  *(*a1 + 24) = *(*a1 + 24) + rapidjson::internal::u64toa(a2, v7, v4) - v6 - 21;
+  (*a1)[3] = (*a1)[3] + rapidjson::internal::u64toa(a2, v7, v4) - v6 - 21;
   return 1;
 }
 
-uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint64(_BYTE *a1, unint64_t a2)
+uint64_t rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint64(uint64_t **a1, rapidjson::internal *a2)
 {
   rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
   v5 = *a1;
-  v6 = *(*a1 + 24);
-  if ((*(*a1 + 32) - v6) <= 19)
+  v6 = (*a1)[3];
+  if ((*a1)[4] - v6 <= 19)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 20);
-    v6 = *(v5 + 24);
+    v6 = v5[3];
   }
 
-  *(v5 + 24) = v6 + 20;
-  *(*a1 + 24) = *(*a1 + 24) + rapidjson::internal::u64toa(a2, v6, v4) - v6 - 20;
+  v5[3] = (v6 + 20);
+  (*a1)[3] = (*a1)[3] + rapidjson::internal::u64toa(a2, v6, v4) - v6 - 20;
   return 1;
 }
 
-_BYTE *rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(_BYTE *result)
+uint64_t **rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(uint64_t **result)
 {
   v1 = result;
-  v2 = *(result + 4);
-  if (v2 == *(result + 3))
+  v2 = result[4];
+  if (v2 == result[3])
   {
-    result[60] = 1;
+    *(result + 60) = 1;
     return result;
   }
 
-  v3 = *(v2 - 16);
+  v3 = *(v2 - 2);
   if (*(v2 - 8) == 1)
   {
     if (v3)
     {
       v4 = *result;
-      v5 = *(*result + 24);
-      if ((*(*result + 32) - v5) <= 0)
+      v5 = (*result)[3];
+      if ((*result)[4] - v5 <= 0)
       {
-        v18 = *result;
+        v17 = *result;
         result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v4, 1);
-        v4 = v18;
-        v5 = v18[3];
+        v4 = v17;
+        v5 = v17[3];
       }
 
-      v4[3] = v5 + 1;
+      v4[3] = (v5 + 1);
       *v5 = 44;
-      if (v1[68])
+      if (*(v1 + 68))
       {
         v6 = *v1;
-        v7 = *(*v1 + 24);
-        if ((*(*v1 + 32) - v7) <= 0)
+        v7 = (*v1)[3];
+        if ((*v1)[4] - v7 <= 0)
         {
-          v20 = *v1;
+          v19 = *v1;
           result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v6, 1);
-          v6 = v20;
-          v7 = v20[3];
+          v6 = v19;
+          v7 = v19[3];
         }
 
-        v6[3] = v7 + 1;
+        v6[3] = (v7 + 1);
         *v7 = 32;
       }
     }
 
-    if (v1[68])
+    if (*(v1 + 68))
     {
       goto LABEL_30;
     }
 
     v8 = *v1;
-    v9 = *(*v1 + 24);
-    if ((*(*v1 + 32) - v9) <= 0)
+    v9 = (*v1)[3];
+    if ((*v1)[4] - v9 <= 0)
     {
-      v19 = *v1;
+      v18 = *v1;
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v8, 1);
-      v8 = v19;
-      v9 = v19[3];
+      v8 = v18;
+      v9 = v18[3];
     }
 
-    v8[3] = v9 + 1;
+    v8[3] = (v9 + 1);
     *v9 = 10;
     goto LABEL_29;
   }
@@ -8056,114 +7537,113 @@ _BYTE *rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<ch
   }
 
   v10 = *result;
-  v11 = *(*result + 24);
-  v12 = *(*result + 32) - v11 <= 0;
+  v11 = (*result)[3];
   if ((v3 & 1) == 0)
   {
-    if ((*(*result + 32) - v11) <= 0)
+    if ((*result)[4] - v11 <= 0)
     {
-      v21 = *result;
+      v20 = *result;
       result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v10, 1);
-      v10 = v21;
-      v11 = v21[3];
+      v10 = v20;
+      v11 = v20[3];
     }
 
-    v10[3] = v11 + 1;
+    v10[3] = (v11 + 1);
     *v11 = 44;
 LABEL_20:
-    v13 = *v1;
-    v14 = *(*v1 + 24);
-    if ((*(*v1 + 32) - v14) <= 0)
+    v12 = *v1;
+    v13 = (*v1)[3];
+    if ((*v1)[4] - v13 <= 0)
     {
-      v17 = *v1;
-      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v13, 1);
-      v13 = v17;
-      v14 = v17[3];
+      v16 = *v1;
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v12, 1);
+      v12 = v16;
+      v13 = v16[3];
     }
 
-    v13[3] = v14 + 1;
-    v15 = 10;
+    v12[3] = (v13 + 1);
+    v14 = 10;
     goto LABEL_28;
   }
 
-  if ((*(*result + 32) - v11) <= 0)
+  if ((*result)[4] - v11 <= 0)
   {
-    v22 = *result;
+    v21 = *result;
     result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v10, 1);
-    v10 = v22;
-    v11 = v22[3];
+    v10 = v21;
+    v11 = v21[3];
   }
 
-  v10[3] = v11 + 1;
+  v10[3] = (v11 + 1);
   *v11 = 58;
-  v16 = *v1;
-  v14 = *(*v1 + 24);
-  if ((*(*v1 + 32) - v14) <= 0)
+  v15 = *v1;
+  v13 = (*v1)[3];
+  if ((*v1)[4] - v13 <= 0)
   {
-    v23 = *v1;
-    result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v16, 1);
-    v16 = v23;
-    v14 = v23[3];
+    v22 = *v1;
+    result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v15, 1);
+    v15 = v22;
+    v13 = v22[3];
   }
 
-  v16[3] = v14 + 1;
-  v15 = 32;
+  v15[3] = (v13 + 1);
+  v14 = 32;
 LABEL_28:
-  *v14 = v15;
-  if ((*(v2 - 16) & 1) == 0)
+  *v13 = v14;
+  if ((*(v2 - 2) & 1) == 0)
   {
 LABEL_29:
     result = rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(v1);
   }
 
 LABEL_30:
-  ++*(v2 - 16);
+  ++*(v2 - 2);
   return result;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteNull(uint64_t a1)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteNull(uint64_t **a1)
 {
   v2 = *a1;
   v3 = v2[3];
-  if ((v2[4] - v3) <= 3)
+  if (v2[4] - v3 <= 3)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v2, 4);
     v2 = *a1;
-    v3 = *(*a1 + 24);
+    v3 = (*a1)[3];
   }
 
-  v2[3] = v3 + 1;
+  v2[3] = (v3 + 1);
   *v3 = 110;
-  v4 = *(*a1 + 24);
-  *(*a1 + 24) = v4 + 1;
+  v4 = (*a1)[3];
+  (*a1)[3] = (v4 + 1);
   *v4 = 117;
-  v5 = *(*a1 + 24);
-  *(*a1 + 24) = v5 + 1;
+  v5 = (*a1)[3];
+  (*a1)[3] = (v5 + 1);
   *v5 = 108;
-  v6 = *(*a1 + 24);
-  *(*a1 + 24) = v6 + 1;
+  v6 = (*a1)[3];
+  (*a1)[3] = (v6 + 1);
   *v6 = 108;
   return 1;
 }
 
-void *rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(uint64_t a1)
+void *rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(uint64_t **a1)
 {
-  v1 = ((*(a1 + 32) - *(a1 + 24)) >> 4) * *(a1 + 64);
+  v1 = ((a1[4] - a1[3]) >> 4) * *(a1 + 16);
   v2 = *a1;
   v3 = *(a1 + 61);
-  v4 = *(*a1 + 24);
+  v4 = (*a1)[3];
   if (v2[4] - v4 < v1)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v2, v1);
     v4 = v2[3];
   }
 
-  v2[3] = &v4[v1];
+  v2[3] = v4 + v1;
 
   return memset(v4, v3, v1);
 }
 
-char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(void *a1, uint64_t a2)
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(uint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   if (v2)
@@ -8217,7 +7697,7 @@ char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(void *a1, size
   return result;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteBool(uint64_t a1, int a2)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteBool(uint64_t **a1, int a2)
 {
   v3 = *a1;
   v4 = v3[3];
@@ -8228,10 +7708,10 @@ uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,
     {
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v3, 4);
       v3 = *a1;
-      v4 = *(*a1 + 24);
+      v4 = (*a1)[3];
     }
 
-    v3[3] = v4 + 1;
+    v3[3] = (v4 + 1);
     *v4 = 116;
     v6 = 117;
     v7 = 114;
@@ -8243,46 +7723,46 @@ uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,
     {
       rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v3, 5);
       v3 = *a1;
-      v4 = *(*a1 + 24);
+      v4 = (*a1)[3];
     }
 
-    v3[3] = v4 + 1;
+    v3[3] = (v4 + 1);
     *v4 = 102;
-    v8 = *(*a1 + 24);
-    *(*a1 + 24) = v8 + 1;
+    v8 = (*a1)[3];
+    (*a1)[3] = (v8 + 1);
     *v8 = 97;
     v6 = 115;
     v7 = 108;
   }
 
-  v9 = *(*a1 + 24);
-  *(*a1 + 24) = v9 + 1;
+  v9 = (*a1)[3];
+  (*a1)[3] = (v9 + 1);
   *v9 = v7;
-  v10 = *(*a1 + 24);
-  *(*a1 + 24) = v10 + 1;
+  v10 = (*a1)[3];
+  (*a1)[3] = (v10 + 1);
   *v10 = v6;
-  v11 = *(*a1 + 24);
-  *(*a1 + 24) = v11 + 1;
+  v11 = (*a1)[3];
+  (*a1)[3] = (v11 + 1);
   *v11 = 101;
   return 1;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartObject(void **a1)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartObject(uint64_t **a1)
 {
   v1 = *a1;
   v2 = (*a1)[3];
-  if (((*a1)[4] - v2) <= 0)
+  if ((*a1)[4] - v2 <= 0)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-    v2 = *(v1 + 24);
+    v2 = v1[3];
   }
 
-  *(v1 + 24) = v2 + 1;
+  v1[3] = (v2 + 1);
   *v2 = 123;
   return 1;
 }
 
-char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Level>(void *a1, uint64_t a2)
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Level>(uint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   if (v2)
@@ -8315,52 +7795,52 @@ char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::Wri
   return rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(a1, v5);
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteEndObject(void **a1)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteEndObject(uint64_t **a1)
 {
   v1 = *a1;
   v2 = (*a1)[3];
-  if (((*a1)[4] - v2) <= 0)
+  if ((*a1)[4] - v2 <= 0)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-    v2 = *(v1 + 24);
+    v2 = v1[3];
   }
 
-  *(v1 + 24) = v2 + 1;
+  v1[3] = (v2 + 1);
   *v2 = 125;
   return 1;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartArray(void **a1)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteStartArray(uint64_t **a1)
 {
   v1 = *a1;
   v2 = (*a1)[3];
-  if (((*a1)[4] - v2) <= 0)
+  if ((*a1)[4] - v2 <= 0)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-    v2 = *(v1 + 24);
+    v2 = v1[3];
   }
 
-  *(v1 + 24) = v2 + 1;
+  v1[3] = (v2 + 1);
   *v2 = 91;
   return 1;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteEndArray(void **a1)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteEndArray(uint64_t **a1)
 {
   v1 = *a1;
   v2 = (*a1)[3];
-  if (((*a1)[4] - v2) <= 0)
+  if ((*a1)[4] - v2 <= 0)
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*a1, 1);
-    v2 = *(v1 + 24);
+    v2 = v1[3];
   }
 
-  *(v1 + 24) = v2 + 1;
+  v1[3] = (v2 + 1);
   *v2 = 93;
   return 1;
 }
 
-uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(uint64_t a1, int8x16_t *a2, unsigned int a3)
+uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(uint64_t **a1, int8x16_t *a2, unsigned int a3)
 {
   v6 = *a1;
   v7 = 6 * a3 + 2;
@@ -8369,10 +7849,10 @@ uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,
   {
     rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v6, v7);
     v6 = *a1;
-    v8 = *(*a1 + 24);
+    v8 = (*a1)[3];
   }
 
-  v6[3] = v8 + 1;
+  v6[3] = (v8 + 1);
   *v8 = 34;
   v9 = a2->u64 + a3;
   v10.i64[0] = 0x2222222222222222;
@@ -8421,8 +7901,8 @@ uint64_t rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,
             if (v20.i64[1])
             {
               v21 = (__clz(v20.u64[1]) >> 3) | 8;
-              v22 = *(*a1 + 24);
-              *(*a1 + 24) = v22 + v21;
+              v22 = (*a1)[3];
+              (*a1)[3] = v22 + v21;
 LABEL_22:
               v24 = 0;
               do
@@ -8435,15 +7915,15 @@ LABEL_22:
               goto LABEL_24;
             }
 
-            v18 = *(*a1 + 24);
-            *(*a1 + 24) = v18 + 1;
+            v18 = (*a1)[3];
+            (*a1)[3] = v18[1].i64;
             *v18 = v19;
             ++i;
           }
 
           v23 = __clz(v20.u64[0]);
-          v22 = *(*a1 + 24);
-          *(*a1 + 24) = v22 + (v23 >> 3);
+          v22 = (*a1)[3];
+          (*a1)[3] = v22 + (v23 >> 3);
           if (!HIBYTE(v20.i64[0]))
           {
             v21 = v23 >> 3;
@@ -8463,8 +7943,8 @@ LABEL_24:
         }
 
         i = (i + 1);
-        v17 = *(*a1 + 24);
-        *(*a1 + 24) = v17 + 1;
+        v17 = (*a1)[3];
+        (*a1)[3] = (v17 + 1);
         *v17 = v16;
       }
 
@@ -8480,8 +7960,8 @@ LABEL_25:
 LABEL_27:
     v25 = i->u8[0];
     v26 = rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(char const*,unsigned int)::escape[v25];
-    v27 = *(*a1 + 24);
-    *(*a1 + 24) = v27 + 1;
+    v27 = (*a1)[3];
+    (*a1)[3] = (v27 + 1);
     if (v26)
     {
       rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(v27, a1, v26, v25);
@@ -8499,8 +7979,8 @@ LABEL_27:
     }
   }
 
-  v28 = *(*a1 + 24);
-  *(*a1 + 24) = v28 + 1;
+  v28 = (*a1)[3];
+  (*a1)[3] = (v28 + 1);
   *v28 = 34;
   return 1;
 }
@@ -8674,18 +8154,16 @@ LABEL_9:
   return result;
 }
 
-unint64_t rapidjson::internal::DiyFp::operator*(uint64_t a1, uint64_t a2)
+unint64_t rapidjson::internal::DiyFp::operator*(void *a1, void *a2)
 {
   v2 = HIDWORD(*a1);
   v3 = HIDWORD(*a2);
   v4 = v3 * *a1;
   v5 = *a2 * v2;
-  v6 = HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((((*a2 * *a1) >> 32) + v5 + v4 + 0x80000000) >> 32);
-  v7 = (*(a1 + 8) + *(a2 + 8) + 64);
-  return v6;
+  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((((*a2 * *a1) >> 32) + v5 + v4 + 0x80000000) >> 32);
 }
 
-uint64_t rapidjson::internal::DigitGen(uint64_t *a1, uint64_t *a2, unint64_t a3, uint64_t a4, int *a5, _DWORD *a6)
+unint64_t rapidjson::internal::DigitGen(uint64_t *a1, uint64_t *a2, unint64_t a3, uint64_t a4, int *a5, _DWORD *a6)
 {
   v6 = -*(a2 + 2);
   v7 = 1;
@@ -8927,7 +8405,7 @@ LABEL_46:
 
   while (10 * v29 <= v12);
   *a6 -= v28;
-  if ((1 - v28) < -18)
+  if (1 - v28 < -18)
   {
     v33 = 0;
   }
@@ -9013,14 +8491,14 @@ _BYTE *rapidjson::internal::u32toa(rapidjson::internal *this, _BYTE *a2, char *a
 
     else
     {
-      *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this / 0x64u));
+      *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this / 0x64u];
     }
 
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this / 0x64u) + 1);
+    *a2++ = HIBYTE(rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this / 0x64u]);
 LABEL_9:
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x64u));
+    *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x64u];
 LABEL_10:
-    *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x64u)) + 1);
+    *a2 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x64u)) + 1);
     return a2 + 1;
   }
 
@@ -9042,18 +8520,18 @@ LABEL_10:
 
     else
     {
-      *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3);
+      *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3);
     }
 
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3 + 1);
+    *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3 + 1);
 LABEL_15:
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * ((this / 0x2710) % 0x64u));
+    *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(this / 0x2710) % 0x64u];
 LABEL_16:
-    *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * ((this / 0x2710) % 0x64u)) + 1);
-    a2[1] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 / 0x64));
-    a2[2] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 / 0x64) + 1);
-    a2[3] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 % 0x64));
-    a2[4] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x2710 % 0x64)) + 1);
+    *a2 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * ((this / 0x2710) % 0x64u)) + 1);
+    a2[1] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 / 0x64];
+    a2[2] = HIBYTE(rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 / 0x64]);
+    a2[3] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 % 0x64];
+    a2[4] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x2710 % 0x64)) + 1);
     return a2 + 5;
   }
 
@@ -9067,17 +8545,17 @@ LABEL_16:
 
   else
   {
-    *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v5);
+    *a2 = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v5];
     v7 = a2 + 2;
   }
 
   v8 = v7;
-  *v7 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v6 / 0x7A120uLL) & 0x3FFE));
-  *(v7 + 1) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v6 / 0x2710) % 0x64u);
-  *(v7 + 2) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v6 % 0x2710 / 0x64);
-  v7[6] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v6 % 0x2710 % 0x64));
+  *v7 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v6 / 0x7A120uLL) & 0x3FFE));
+  *(v7 + 1) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(v6 / 0x2710) % 0x64u];
+  *(v7 + 2) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v6 % 0x2710 / 0x64];
+  v7[6] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v6 % 0x2710 % 0x64];
   v4 = v7 + 8;
-  v8[7] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v6 % 0x2710 % 0x64)) + 1);
+  v8[7] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v6 % 0x2710 % 0x64)) + 1);
   return v4;
 }
 
@@ -9090,12 +8568,12 @@ _BYTE *rapidjson::internal::u64toa(unint64_t this, _BYTE *a2, char *a3)
       v4 = this % 0x5F5E100;
       v5 = this / 0x5F5E100;
       v6 = (v5 / 0x7A120uLL) & 0x3FFE;
-      v7 = 2 * ((v5 / 0x2710) % 0x64u);
-      v8 = 2 * (v5 % 0x2710 / 0x64);
-      v9 = 2 * (v5 % 0x2710 % 0x64);
+      v7 = (v5 / 0x2710) % 0x64u;
+      v8 = v5 % 0x2710 / 0x64;
+      v9 = v5 % 0x2710 % 0x64;
       v10 = v4 % 0x2710;
       v11 = (v4 / 0x7A120uLL) & 0x3FFE;
-      v12 = 2 * ((v4 / 0x2710) % 0x64u);
+      v12 = (v4 / 0x2710) % 0x64u;
       if (this < 0x38D7EA4C68000)
       {
         if (this < 0x5AF3107A4000)
@@ -9117,44 +8595,44 @@ _BYTE *rapidjson::internal::u64toa(unint64_t this, _BYTE *a2, char *a3)
                 }
 
 LABEL_21:
-                *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v8 + 1);
+                *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v8 * 2) + 1);
 LABEL_22:
-                *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v9);
+                *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v9];
 LABEL_23:
-                *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v9 + 1);
-                a2[1] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v11);
-                a2[2] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v11 + 1);
-                a2[3] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v12);
-                a2[4] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v12 + 1);
-                a2[5] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v10 / 0x64u));
-                a2[6] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v10 / 0x64u) + 1);
-                a2[7] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v10 % 0x64u));
-                a2[8] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v10 % 0x64u)) + 1);
+                *a2 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v9 * 2) + 1);
+                a2[1] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v11);
+                a2[2] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v11 + 1);
+                a2[3] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v12];
+                a2[4] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v12 * 2) + 1);
+                a2[5] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v10 / 0x64u];
+                a2[6] = HIBYTE(rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v10 / 0x64u]);
+                a2[7] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v10 % 0x64u];
+                a2[8] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v10 % 0x64u)) + 1);
                 return a2 + 9;
               }
 
 LABEL_20:
-              *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v8);
+              *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v8];
               goto LABEL_21;
             }
 
 LABEL_19:
-            *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v7 + 1);
+            *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v7 * 2) + 1);
             goto LABEL_20;
           }
 
 LABEL_18:
-          *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v7);
+          *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v7];
           goto LABEL_19;
         }
       }
 
       else
       {
-        *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v6);
+        *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v6);
       }
 
-      *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v6 + 1);
+      *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v6 + 1);
       goto LABEL_18;
     }
 
@@ -9167,10 +8645,10 @@ LABEL_18:
         v22 = (1311 * v14) >> 17;
         if (this > 0x8AC7230489E7FFFFLL)
         {
-          v23 = 2 * (v14 - 100 * v22);
-          *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v22);
-          a2[2] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v23);
-          v24 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v23 & 0xFFFE) + 1);
+          v23 = (v14 - 100 * v22);
+          *a2 = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v22];
+          a2[2] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v23];
+          v24 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v23 * 2) & 0xFFFE) + 1);
           v18 = a2 + 4;
           a2[3] = v24;
         }
@@ -9178,14 +8656,14 @@ LABEL_18:
         else
         {
           *a2 = v22 + 48;
-          *(a2 + 1) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v14 - 100 * v22));
+          *(a2 + 1) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(v14 - 100 * v22)];
           v18 = a2 + 3;
         }
 
         goto LABEL_31;
       }
 
-      *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v14);
+      *a2 = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v14];
       v16 = a2 + 2;
     }
 
@@ -9199,17 +8677,17 @@ LABEL_18:
 LABEL_31:
     v19 = v15 % 0x5F5E100;
     v20 = v15 / 0x5F5E100;
-    *v18 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v20 / 0x7A120uLL) & 0x3FFE));
-    *(v18 + 1) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v20 / 0x2710) % 0x64u);
-    *(v18 + 2) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v20 % 0x2710 / 0x64);
-    v18[6] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v20 % 0x2710 % 0x64));
-    v18[7] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v20 % 0x2710 % 0x64)) + 1);
-    *(v18 + 4) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v19 / 0x7A120uLL) & 0x3FFE));
-    *(v18 + 5) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v19 / 0x2710) % 0x64u);
-    *(v18 + 6) = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v19 % 0x2710 / 0x64);
-    v18[14] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (v19 % 0x2710 % 0x64));
+    *v18 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v20 / 0x7A120uLL) & 0x3FFE));
+    *(v18 + 1) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(v20 / 0x2710) % 0x64u];
+    *(v18 + 2) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v20 % 0x2710 / 0x64];
+    v18[6] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v20 % 0x2710 % 0x64];
+    v18[7] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v20 % 0x2710 % 0x64)) + 1);
+    *(v18 + 4) = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + ((v19 / 0x7A120uLL) & 0x3FFE));
+    *(v18 + 5) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(v19 / 0x2710) % 0x64u];
+    *(v18 + 6) = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v19 % 0x2710 / 0x64];
+    v18[14] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v19 % 0x2710 % 0x64];
     v17 = v18 + 16;
-    v18[15] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v19 % 0x2710 % 0x64)) + 1);
+    v18[15] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (v19 % 0x2710 % 0x64)) + 1);
     return v17;
   }
 
@@ -9231,22 +8709,22 @@ LABEL_31:
 
     else
     {
-      *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v13);
+      *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v13);
     }
 
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v13 + 1);
+    *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v13 + 1);
 LABEL_26:
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * ((this / 0x2710) % 0x64u));
+    *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[(this / 0x2710) % 0x64u];
 LABEL_27:
-    *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * ((this / 0x2710) % 0x64u)) + 1);
-    a2[1] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 / 0x64));
-    a2[2] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 / 0x64) + 1);
-    a2[3] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x2710 % 0x64));
-    a2[4] = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x2710 % 0x64)) + 1);
+    *a2 = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * ((this / 0x2710) % 0x64u)) + 1);
+    a2[1] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 / 0x64];
+    a2[2] = HIBYTE(rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 / 0x64]);
+    a2[3] = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x2710 % 0x64];
+    a2[4] = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (2 * (this % 0x2710 % 0x64)) + 1);
     return a2 + 5;
   }
 
-  v3 = 2 * (this / 0x64uLL);
+  v3 = this / 0x64uLL;
   if (this < 0x3E8)
   {
     if (this < 0x64)
@@ -9262,14 +8740,14 @@ LABEL_27:
 
   else
   {
-    *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3);
+    *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[v3];
   }
 
-  *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + v3 + 1);
+  *a2++ = *(rapidjson::internal::GetDigitsLut(void)::cDigitsLut + (v3 * 2) + 1);
 LABEL_14:
-  *a2++ = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x64));
+  *a2++ = rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x64];
 LABEL_15:
-  *a2 = *(&rapidjson::internal::GetDigitsLut(void)::cDigitsLut + 2 * (this % 0x64) + 1);
+  *a2 = HIBYTE(rapidjson::internal::GetDigitsLut(void)::cDigitsLut[this % 0x64]);
   return a2 + 1;
 }
 
@@ -9318,7 +8796,7 @@ LABEL_10:
   return a1;
 }
 
-BOOL rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::StringEqual<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(unsigned int *a1, int *a2)
+BOOL rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::StringEqual<rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>(unsigned int *a1, unsigned int *a2)
 {
   if ((*(a1 + 11) & 0x1000) != 0)
   {
@@ -9548,13 +9026,13 @@ LABEL_18:
 LABEL_19:
   if (a7)
   {
-    __src = memmove(&v19[__len], a8, a7);
+    __src = memmove(v19 + __len, a8, a7);
   }
 
   v21 = a4 - (a6 + __len);
   if (v21)
   {
-    __src = memmove(&v19[__len + a7], &v14[__len + a6], v21);
+    __src = memmove(v19 + __len + a7, v14 + __len + a6, v21);
   }
 
   if (a2 != 22 && v14)
@@ -9566,7 +9044,7 @@ LABEL_19:
   *v13 = v19;
   v13[1] = v22;
   v13[2] = v20;
-  v19[v22] = 0;
+  *(v19 + v22) = 0;
   return __src;
 }
 
@@ -9675,7 +9153,7 @@ void *std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__
 
     v7 = (*(*__dst[3] + 16))(__dst[3], v6, 128);
     v5[1] = a3;
-    v5[2] = v6 | 0x8000000000000000;
+    v5[2] = (v6 | 0x8000000000000000);
     *v5 = v7;
     v5 = v7;
   }
@@ -9706,7 +9184,7 @@ uint64_t std::basic_stringbuf<char,std::char_traits<char>,FIK::FIKAllocator<char
   return a1;
 }
 
-void *std::basic_stringbuf<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_buf_ptrs[abi:nn200100](uint64_t a1)
+_BYTE *std::basic_stringbuf<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__init_buf_ptrs[abi:nn200100](uint64_t a1)
 {
   *(a1 + 96) = 0;
   result = (a1 + 64);
@@ -9726,15 +9204,15 @@ void *std::basic_stringbuf<char,std::char_traits<char>,FIK::FIKAllocator<char>>:
   v6 = *(a1 + 104);
   if ((v6 & 8) != 0)
   {
-    *(a1 + 96) = v4 + v5;
+    *(a1 + 96) = &v4[v5];
     *(a1 + 16) = v4;
     *(a1 + 24) = v4;
-    *(a1 + 32) = v4 + v5;
+    *(a1 + 32) = &v4[v5];
   }
 
   if ((v6 & 0x10) != 0)
   {
-    *(a1 + 96) = v4 + v5;
+    *(a1 + 96) = &v4[v5];
     if ((v3 & 0x80000000) != 0)
     {
       v7 = (*(a1 + 80) & 0x7FFFFFFFFFFFFFFFLL) - 1;
@@ -9754,21 +9232,21 @@ void *std::basic_stringbuf<char,std::char_traits<char>,FIK::FIKAllocator<char>>:
 
     *(a1 + 40) = v4;
     *(a1 + 48) = v4;
-    *(a1 + 56) = v4 + v8;
+    *(a1 + 56) = &v4[v8];
     if ((*(a1 + 104) & 3) != 0)
     {
       if (v5 >> 31)
       {
         v9 = ((v5 - 0x80000000) * 0x200000005uLL) >> 64;
         v10 = 0x7FFFFFFF * ((v9 + ((v5 - 0x80000000 - v9) >> 1)) >> 30);
-        v4 = (v4 + v10 + 0x7FFFFFFF);
+        v4 += v10 + 0x7FFFFFFF;
         v5 = v5 - v10 - 0x7FFFFFFF;
         *(a1 + 48) = v4;
       }
 
       if (v5)
       {
-        *(a1 + 48) = v4 + v5;
+        *(a1 + 48) = &v4[v5];
       }
     }
   }
@@ -9928,4 +9406,514 @@ LABEL_6:
   }
 
   return __src;
+}
+
+char *std::operator+[abi:nn200100]<char,std::char_traits<char>,FIK::FIKAllocator<char>>@<X0>(const void **a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+{
+  if (*(a1 + 23) >= 0)
+  {
+    v5 = *(a1 + 23);
+  }
+
+  else
+  {
+    v5 = a1[1];
+  }
+
+  v10 = a1[3];
+  result = std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100](a3, v5 + 1, &v10);
+  if (result[23] >= 0)
+  {
+    v7 = result;
+  }
+
+  else
+  {
+    v7 = *result;
+  }
+
+  if (v5)
+  {
+    if (*(a1 + 23) >= 0)
+    {
+      v8 = a1;
+    }
+
+    else
+    {
+      v8 = *a1;
+    }
+
+    result = memmove(v7, v8, v5);
+  }
+
+  v9 = &v7[v5];
+  *v9 = a2;
+  v9[1] = 0;
+  return result;
+}
+
+void *JSONS::JSONIKArray<FIK::Item>@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
+{
+  std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::basic_string[abi:nn200100]<0>(a2, "[");
+  v4 = *a1;
+  if (*a1)
+  {
+    v5 = 0;
+    v6 = 1;
+    do
+    {
+      if (v6 != 1)
+      {
+        std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::push_back(a2, 44);
+      }
+
+      JSONS::JSONObject<FIK::Item>(a1[2] + 32 * v5, v11);
+      if ((v12 & 0x80u) == 0)
+      {
+        v7 = v11;
+      }
+
+      else
+      {
+        v7 = v11[0];
+      }
+
+      if ((v12 & 0x80u) == 0)
+      {
+        v8 = v12;
+      }
+
+      else
+      {
+        v8 = v11[1];
+      }
+
+      std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::append(a2, v7, v8);
+      if (v12 < 0 && v11[0])
+      {
+        (*(*v13 + 24))(v13, v11[0], 0, 8);
+      }
+
+      v5 = v6;
+    }
+
+    while (v4 > v6++);
+  }
+
+  return std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::push_back(a2, 93);
+}
+
+void FIK::IKArray<FIK::Item>::push_back<FIK::Item&,void>(uint64_t *a1, uint64_t a2)
+{
+  FIK::IKArray<FIK::Item>::reserve(a1, *a1 + 1);
+  v4 = a1[3];
+  v5 = a1[2] + 32 * *a1;
+  *v5 = *a2;
+  *(v5 + 16) = 0;
+  *(v5 + 24) = v4;
+  *(v5 + 8) = 0;
+  v6 = (v5 + 8);
+  v7 = *(a2 + 16);
+  if (v7)
+  {
+    v8 = *(a2 + 8);
+  }
+
+  else
+  {
+    v8 = &unk_245A04BAE;
+  }
+
+  IKString::assign(v6, v8, v7);
+  ++*a1;
+}
+
+uint64_t *FIK::IKArray<FIK::Item>::reserve(uint64_t *result, unint64_t a2)
+{
+  if (result[1] < a2)
+  {
+    v19 = v2;
+    v20 = v3;
+    v4 = result;
+    v5 = result[3];
+    v6 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+    if (v6)
+    {
+      v7 = (*(*v5 + 16))(result[3], 32 * v6, 8);
+      v8 = v7;
+      if (32 * v6)
+      {
+        bzero(v7, 32 * v6);
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v9 = v4[2];
+    v10 = *v4;
+    if (*v4)
+    {
+      v11 = (v8 + 8);
+      v12 = v9 + 8;
+      do
+      {
+        *(v11 - 2) = *(v12 - 8);
+        v11 = IKString::IKString(v11, v12, *(v12 + 16)) + 4;
+        v12 += 32;
+        --v10;
+      }
+
+      while (v10);
+      v9 = v4[2];
+      v13 = *v4;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = v4[1];
+    v15 = v4[3];
+    v4[1] = v6;
+    v4[2] = v8;
+    v4[3] = v5;
+    v16 = v14;
+    v17 = v9;
+    v18 = v15;
+    result = FIK::IKArray<FIK::Item>::destroyBufferObjects(&v16, v13);
+    if (v17)
+    {
+      return (*(*v18 + 24))(v18, v17, 0, 8);
+    }
+  }
+
+  return result;
+}
+
+uint64_t FIK::IKArray<FIK::AimSetup>::push_back<FIK::AimSetup&,void>(uint64_t *a1, uint64_t a2)
+{
+  FIK::IKArray<FIK::AimSetup>::reserve(a1, *a1 + 1);
+  result = FIK::AimSetup::AimSetup(a1[2] + (*a1 << 7), a2, a1[3]);
+  ++*a1;
+  return result;
+}
+
+uint64_t *FIK::IKArray<FIK::AimSetup>::reserve(uint64_t *result, unint64_t a2)
+{
+  if (result[1] < a2)
+  {
+    v26 = v2;
+    v27 = v3;
+    v4 = result;
+    v5 = result[3];
+    v6 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v23 = v6;
+    if (v6)
+    {
+      v7 = (*(*v5 + 16))(v5, v6 << 7, 8);
+      v8 = v7;
+      v24 = v7;
+      v25 = v5;
+      if (v6 << 7)
+      {
+        bzero(v7, v6 << 7);
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+      v24 = 0;
+      v25 = v5;
+    }
+
+    v9 = v4[2];
+    v10 = *v4;
+    if (*v4)
+    {
+      v11 = 0;
+      do
+      {
+        v12 = &v9[v11];
+        v13 = &v8[v11];
+        IKString::IKString(&v8[v11], &v9[v11], *&v9[v11 + 16]);
+        *(v13 + 6) = *&v9[v11 + 24];
+        IKString::IKString(&v8[v11 + 32], v12 + 4, *(v12 + 6));
+        v14 = *&v9[v11 + 56];
+        *(v12 + 7) = 0;
+        *(v13 + 7) = v14;
+        v15 = *&v9[v11 + 64];
+        v16 = *&v9[v11 + 72];
+        *(v12 + 8) = 0;
+        *(v13 + 8) = v15;
+        *(v12 + 9) = 0;
+        *(v13 + 72) = v16;
+        v17 = *&v9[v11 + 88];
+        *(v12 + 11) = 0;
+        *(v13 + 11) = v17;
+        v18 = *&v9[v11 + 96];
+        v19 = *&v9[v11 + 104];
+        *(v12 + 12) = 0;
+        *(v13 + 12) = v18;
+        *(v12 + 13) = 0;
+        *(v13 + 104) = v19;
+        *(v13 + 30) = *&v9[v11 + 120];
+        v11 += 128;
+        --v10;
+      }
+
+      while (v10);
+      v9 = v4[2];
+      v20 = *v4;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v21 = v4[1];
+    v22 = v4[3];
+    v4[1] = v6;
+    v4[2] = v8;
+    v4[3] = v5;
+    v23 = v21;
+    v24 = v9;
+    v25 = v22;
+    result = FIK::IKArray<FIK::AimSetup>::destroyBufferObjects(&v23, v20);
+    if (v24)
+    {
+      return (*(*v25 + 24))(v25, v24, 0, 8);
+    }
+  }
+
+  return result;
+}
+
+uint64_t FIK::AimSetup::AimSetup(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a3;
+  v6 = *(a2 + 8);
+  if (v6)
+  {
+    v7 = *a2;
+  }
+
+  else
+  {
+    v7 = &unk_245A04BAE;
+  }
+
+  IKString::assign(a1, v7, v6);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = a3;
+  v8 = *(a2 + 40);
+  if (v8)
+  {
+    v9 = *(a2 + 32);
+  }
+
+  else
+  {
+    v9 = &unk_245A04BAE;
+  }
+
+  IKString::assign((a1 + 32), v9, v8);
+  FIK::IKArray<FIK::Item>::IKArray((a1 + 56), (a2 + 56), a3);
+  FIK::IKArray<FIK::Item>::IKArray((a1 + 88), (a2 + 88), a3);
+  *(a1 + 120) = *(a2 + 120);
+  return a1;
+}
+
+unint64_t *FIK::IKArray<FIK::Item>::IKArray(unint64_t *a1, unint64_t *a2, uint64_t a3)
+{
+  v7 = *a2;
+  v6 = a2[1];
+  *a1 = v7;
+  FIK::IKArray<FIK::Item>::MemoryBlock::MemoryBlock(a1 + 1, v6, a3);
+  if (*a1)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      v10 = a1[2] + v8;
+      v11 = a2[2] + v8;
+      *v10 = *v11;
+      *(v10 + 16) = 0;
+      *(v10 + 24) = a3;
+      *(v10 + 8) = 0;
+      v12 = (v10 + 8);
+      v15 = v11 + 8;
+      v14 = *(v11 + 8);
+      v13 = *(v15 + 8);
+      if (v13)
+      {
+        v16 = v14;
+      }
+
+      else
+      {
+        v16 = &unk_245A04BAE;
+      }
+
+      IKString::assign(v12, v16, v13);
+      ++v9;
+      v8 += 32;
+    }
+
+    while (v9 < *a1);
+  }
+
+  return a1;
+}
+
+void *std::basic_string<char,std::char_traits<char>,FIK::FIKAllocator<char>>::__shrink_or_extend(void *__dst, unint64_t a2)
+{
+  v3 = __dst;
+  v4 = *(__dst + 23);
+  if (v4 < 0)
+  {
+    v4 = __dst[1];
+    v7 = __dst[2];
+    v5 = (v7 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    v6 = HIBYTE(v7);
+  }
+
+  else
+  {
+    v5 = 22;
+    LOBYTE(v6) = *(__dst + 23);
+  }
+
+  v8 = a2 > 0x16;
+  if (a2 < 0x17)
+  {
+    v11 = *__dst;
+    v10 = __dst;
+    if ((v6 & 0x80) != 0)
+    {
+      goto LABEL_25;
+    }
+
+LABEL_16:
+    v6 = v6;
+LABEL_26:
+    if (v6 != -1)
+    {
+      __dst = memmove(v10, v11, v6 + 1);
+    }
+
+    if (v11)
+    {
+      v15 = v8;
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+
+    if ((v15 & 1) == 0)
+    {
+      __dst = (*(*v3[3] + 24))(v3[3], v11, 0, 8);
+    }
+
+    if (a2 < 0x17)
+    {
+      *(v3 + 23) = v4 & 0x7F;
+    }
+
+    else
+    {
+      v3[1] = v4;
+      v3[2] = (a2 + 1) | 0x8000000000000000;
+      *v3 = v10;
+    }
+
+    return __dst;
+  }
+
+  if (v5 < a2)
+  {
+    v9 = a2 + 1;
+    if (a2 == -1)
+    {
+      v10 = 0;
+      if ((v6 & 0x80) != 0)
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_15;
+    }
+
+    __dst = (*(*__dst[3] + 16))(__dst[3], v9, 128);
+    v10 = __dst;
+    LOBYTE(v6) = *(v3 + 23);
+    if ((v6 & 0x80) == 0)
+    {
+LABEL_15:
+      v11 = v3;
+      goto LABEL_16;
+    }
+
+LABEL_24:
+    v11 = *v3;
+LABEL_25:
+    v8 = 0;
+    v6 = v3[1];
+    goto LABEL_26;
+  }
+
+  v12 = a2 + 1;
+  if (a2 == -1)
+  {
+    v10 = 0;
+    if ((v6 & 0x80) == 0)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    __dst = (*(*__dst[3] + 16))(__dst[3], v12, 128);
+    v10 = __dst;
+    if ((*(v3 + 23) & 0x80) == 0)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  v13 = v3[2];
+  if ((v13 & 0x7FFFFFFFFFFFFFFFLL) - 1 >= a2)
+  {
+    v6 = HIBYTE(v13);
+    if ((v6 & 0x80) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_19:
+  if (v10)
+  {
+    v14 = *(*v3[3] + 24);
+
+    return v14();
+  }
+
+  return __dst;
 }

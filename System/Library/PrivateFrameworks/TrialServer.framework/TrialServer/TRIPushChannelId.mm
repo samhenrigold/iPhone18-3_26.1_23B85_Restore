@@ -14,11 +14,11 @@
 
 - (TRIPushChannelId)initWithIdentifier:(id)identifier type:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v17.receiver = self;
-  v17.super_class = TRIPushChannelId;
-  v7 = [(TRIPushChannelId *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = TRIPushChannelId;
+  v7 = [(TRIPushChannelId *)&v16 init];
   if (!v7)
   {
     goto LABEL_10;
@@ -30,7 +30,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = identifierCopy;
+      v18 = identifierCopy;
       _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Channel generation being skipped for test identifier: %@", buf, 0xCu);
     }
 
@@ -65,7 +65,6 @@ LABEL_6:
   v9 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -91,7 +90,7 @@ LABEL_11:
 + (id)_base64ChannelIdForIdentifier:(id)identifier populationType:(int)type
 {
   typeCopy = type;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   uTF8String = [identifierCopy UTF8String];
   if (!uTF8String)
@@ -107,7 +106,7 @@ LABEL_11:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v19 = identifierCopy;
+      v18 = identifierCopy;
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Received an unexpected odd length identifier: %{public}@", buf, 0xCu);
     }
   }
@@ -120,8 +119,8 @@ LABEL_11:
       if (v8 < 2)
       {
 LABEL_8:
-        v17 = typeCopy;
-        [v9 appendBytes:&v17 length:1];
+        v16 = typeCopy;
+        [v9 appendBytes:&v16 length:1];
         if ([v9 length]< 0x11)
         {
           v14 = [v9 base64EncodedStringWithOptions:0];
@@ -132,7 +131,7 @@ LABEL_8:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v19 = identifierCopy;
+          v18 = identifierCopy;
           _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unexpectedly long channel id for identifier %{public}@", buf, 0xCu);
         }
       }
@@ -166,7 +165,6 @@ LABEL_8:
 LABEL_16:
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

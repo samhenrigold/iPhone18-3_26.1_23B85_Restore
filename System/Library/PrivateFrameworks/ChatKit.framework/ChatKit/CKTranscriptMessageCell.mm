@@ -329,7 +329,7 @@ LABEL_20:
       v101 = v87;
       if (contactImageView)
       {
-        [contactImageView transform];
+        objc_msgSend_transform(contactImageView);
       }
 
       else

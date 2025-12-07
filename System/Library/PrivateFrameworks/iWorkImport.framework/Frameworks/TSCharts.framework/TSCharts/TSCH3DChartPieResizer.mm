@@ -101,7 +101,7 @@
     if (layout)
     {
       startingSizeCopy = __p;
-      objc_msgSend_resizingSize(layout, a2, v5, v6, v7);
+      objc_msgSend_resizingSize(layout, v5, v6, v7);
       LODWORD(v5) = HIDWORD(__p[0]);
     }
 
@@ -111,113 +111,117 @@
       __p[1] = 0;
       v5 = 0.0;
       startingSizeCopy = __p;
-      v77 = 0;
+      v48 = 0;
     }
   }
 
   v14 = *startingSizeCopy + 0.5;
+  v15 = *&v5 + 0.5;
   LODWORD(v7) = *size;
-  v15 = *(size + 1);
+  v16 = *(size + 1);
   *&v6 = v14 - *size;
-  *&v5 = (*&v5 + 0.5) - v15;
-  v16 = *&v6 != 0;
-  if (v16 && *&v5 != 0)
+  *&v5 = (*&v5 + 0.5) - v16;
+  v17 = *&v6 != 0;
+  if (v17 && *&v5 != 0)
   {
-    v16 = *size < v15;
+    v17 = *size < v16;
   }
 
-  self->_directions.var0.var0 = v16;
-  self->_directions.var1.var0 = !v16;
-  v17 = objc_msgSend_squareSize_(self, a2, v5, v6, v7, size);
+  self->_directions.var0.var0 = v17;
+  self->_directions.var1.var0 = !v17;
+  v18 = objc_msgSend_squareSize_(self, a2, v5, v6, v7, size);
   if (byte_280A46430 == 1)
   {
-    v18 = objc_opt_class();
-    v19 = NSStringFromSelector(a2);
-    v20 = MEMORY[0x277CCACA8];
-    v73 = *size;
-    sub_276152FD4("vec2(%f, %f)", v21, v22, v23, v24, v25, v26, v27, SLOBYTE(v73));
-    if (v77 >= 0)
+    v19 = objc_opt_class();
+    v20 = NSStringFromSelector(a2);
+    v21 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec2(%f, %f)", *size, *(size + 1));
+    if (v48 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v20, v28, v29, v30, v31, __p);
+      objc_msgSend_stringWithUTF8String_(v21, v22, v23, v24, v25, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v20, v28, v29, v30, v31, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v21, v22, v23, v24, v25, __p[0]);
     }
-    v39 = ;
-    if (SHIBYTE(v77) < 0)
+    v26 = ;
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v40 = MEMORY[0x277CCACA8];
-    v74 = v14;
-    sub_276152FD4("vec2(%f, %f)", v32, v33, v34, v35, v36, v37, v38, SLOBYTE(v74));
-    if (v77 >= 0)
+    v27 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec2(%f, %f)", v14, v15);
+    if (v48 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v40, v41, v42, v43, v44, __p);
+      objc_msgSend_stringWithUTF8String_(v27, v28, v29, v30, v31, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v40, v41, v42, v43, v44, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v27, v28, v29, v30, v31, __p[0]);
     }
-    v52 = ;
-    if (SHIBYTE(v77) < 0)
+    v32 = ;
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v53 = MEMORY[0x277CCACA8];
+    v33 = MEMORY[0x277CCACA8];
+    v34 = "false";
     if (self->_directions.var0.var0)
     {
-      v54 = "true";
+      v35 = "true";
     }
 
     else
     {
-      v54 = "false";
+      v35 = "false";
     }
 
-    sub_276152FD4("bvec2(%s, %s)", v45, v46, v47, v48, v49, v50, v51, v54);
-    if (v77 >= 0)
+    if (self->_directions.var1.var0)
     {
-      objc_msgSend_stringWithUTF8String_(v53, v55, v56, v57, v58, __p);
+      v34 = "true";
+    }
+
+    sub_276152FD4(__p, "bvec2(%s, %s)", v35, v34);
+    if (v48 >= 0)
+    {
+      objc_msgSend_stringWithUTF8String_(v33, v36, v37, v38, v39, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v53, v55, v56, v57, v58, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v33, v36, v37, v38, v39, __p[0]);
     }
-    v66 = ;
-    if (SHIBYTE(v77) < 0)
+    v40 = ;
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v67 = MEMORY[0x277CCACA8];
-    v75 = *v11;
-    sub_276152FD4("vec2(%f, %f)", v59, v60, v61, v62, v63, v64, v65, SLOBYTE(v75));
-    if (v77 >= 0)
+    v41 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec2(%f, %f)", *v11, v11[1]);
+    if (v48 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v67, v68, v69, v70, v71, __p);
+      objc_msgSend_stringWithUTF8String_(v41, v42, v43, v44, v45, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v67, v68, v69, v70, v71, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v41, v42, v43, v44, v45, __p[0]);
     }
-    v72 = ;
-    if (SHIBYTE(v77) < 0)
+    v46 = ;
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PRequestCurren.isa, v18, self, v19, v39, v52, v66, v72);
+    NSLog(&cfstr_PRequestCurren.isa, v19, self, v20, v26, v32, v40, v46);
   }
 
-  return v17;
+  return v18;
 }
 
 - (tvec2<float>)updateResizerFromRequestedSize:(void *)size startingSize:(void *)startingSize

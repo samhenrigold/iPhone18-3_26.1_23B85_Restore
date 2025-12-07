@@ -9,19 +9,20 @@
 - (id)specifiers
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  if ([MEMORY[0x277CEC7B8] isMultiUserMode])
+  isMultiUserMode = [MEMORY[0x277CEC7B8] isMultiUserMode];
+  if (isMultiUserMode)
   {
-    _familySpecifier = _FALogSystem();
+    _familySpecifier = _FALogSystem(isMultiUserMode);
     if (!os_log_type_enabled(_familySpecifier, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_10;
     }
 
-    v11 = 0;
-    v5 = "Device is in multi-user mode, not showing top level Family specifiers.";
-    v6 = &v11;
+    v13 = 0;
+    v6 = "Device is in multi-user mode, not showing top level Family specifiers.";
+    v7 = &v13;
 LABEL_9:
-    _os_log_impl(&dword_21BB35000, _familySpecifier, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+    _os_log_impl(&dword_21BB35000, _familySpecifier, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
     goto LABEL_10;
   }
 
@@ -29,15 +30,15 @@ LABEL_9:
 
   if (!_appleAccount)
   {
-    _familySpecifier = _FALogSystem();
+    _familySpecifier = _FALogSystem(v9);
     if (!os_log_type_enabled(_familySpecifier, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_10;
     }
 
-    v10 = 0;
-    v5 = "User not signed in to AppleAccount, not showing top level Family specifiers.";
-    v6 = &v10;
+    v12 = 0;
+    v6 = "User not signed in to AppleAccount, not showing top level Family specifiers.";
+    v7 = &v12;
     goto LABEL_9;
   }
 
@@ -49,10 +50,10 @@ LABEL_9:
 
 LABEL_10:
 
-  v8 = [v3 copy];
-  [(FASettingsSpecifierProvider *)self setSpecifiers:v8];
+  v10 = [v3 copy];
+  [(FASettingsSpecifierProvider *)self setSpecifiers:v10];
 
-  return v8;
+  return v10;
 }
 
 - (id)_familySpecifier
@@ -61,20 +62,20 @@ LABEL_10:
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   _familyState = [standardUserDefaults integerForKey:0];
 
-  v5 = _familyState && !self->super._familyCircle && !self->super._didFailToGetFamilyDetails;
-  v6 = _FALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = _familyState && !self->super._familyCircle && !self->super._didFailToGetFamilyDetails;
+  v7 = _FALogSystem(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109376;
-    v10[1] = v5;
+    v10[1] = v6;
     v11 = 2048;
     v12 = _familyState;
-    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Using cache - %d with state - %lu", v10, 0x12u);
+    _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Using cache - %d with state - %lu", v10, 0x12u);
   }
 
   if (self->super._familyCircle || self->super._didFailToGetFamilyDetails)
   {
-    if (v5)
+    if (v6)
     {
       goto LABEL_11;
     }
@@ -83,19 +84,18 @@ LABEL_10:
   }
 
   [(FASettingsSpecifierProvider *)self _loadFamilyDetailsWithCompletion:0];
-  if (!v5)
+  if (!v6)
   {
 LABEL_10:
     _familyState = [(FASettingsSpecifierProvider *)self _familyState];
   }
 
 LABEL_11:
-  v7 = [(FATopLevelSettingsSpecifierProvider *)self _familyBaseSpecifierWithState:_familyState];
-  [v7 setControllerLoadAction:sel__viewFamilySpecifierWasTapped_];
-  [v7 setIdentifier:0];
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = [(FATopLevelSettingsSpecifierProvider *)self _familyBaseSpecifierWithState:_familyState];
+  [v8 setControllerLoadAction:sel__viewFamilySpecifierWasTapped_];
+  [v8 setIdentifier:0];
 
-  return v7;
+  return v8;
 }
 
 - (id)_familyBaseSpecifierWithState:(unint64_t)state

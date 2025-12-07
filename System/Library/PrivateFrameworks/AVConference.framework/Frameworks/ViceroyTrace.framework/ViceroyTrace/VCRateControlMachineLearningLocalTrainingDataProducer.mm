@@ -22,12 +22,12 @@ LABEL_7:
     return 0;
   }
 
-  *(v6 + 4) = d;
+  v6->_recipeID = d;
   v7 = [objc_alloc(MEMORY[0x277CCACA0]) initWithFormat:@"%@/%s", +[VCDiskUtils getCachesDirectoryPath](VCDiskUtils, "getCachesDirectoryPath"), "rc_fl_data"];
-  *(v6 + 3) = v7;
+  v6->_directoryPath = v7;
   if (![VCDiskUtils createDefaultAttributeDirectoryIfNeeded:v7])
   {
-    [VCRateControlMachineLearningLocalTrainingDataProducer initWithDataStore:v6 recipeID:v6 + 3];
+    [VCRateControlMachineLearningLocalTrainingDataProducer initWithDataStore:v6 recipeID:?];
     goto LABEL_7;
   }
 
@@ -57,7 +57,7 @@ uint64_t __84__VCRateControlMachineLearningLocalTrainingDataProducer_initWithDat
 
 - (void)runTrainingDataPostProcessing:(id)processing
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = [processing copy];
   self->_databasePath = v4;
   v5 = sqlite3_open([(NSString *)v4 UTF8String], &self->_database);
@@ -96,26 +96,26 @@ uint64_t __84__VCRateControlMachineLearningLocalTrainingDataProducer_initWithDat
   {
     if (VRTraceGetErrorLogLevelForModule("") >= 7)
     {
-      v10 = VRTraceErrorLogLevelToCSTR(7u);
-      v11 = gVRTraceOSLog;
+      v9 = VRTraceErrorLogLevelToCSTR(7u);
+      v10 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = sqlite3_errmsg(self->_database);
-        *v19 = 136316162;
-        *&v19[4] = v10;
-        *&v19[12] = 2080;
-        *&v19[14] = "[VCRateControlMachineLearningLocalTrainingDataProducer runTrainingDataPostProcessing:]";
-        *&v19[22] = 1024;
-        *v20 = 75;
-        *&v20[4] = 1024;
-        *&v20[6] = v6;
-        *&v20[10] = 2080;
-        *&v20[12] = v12;
-        v13 = " [%s] %s:%d SQLite Error: could not open database with return code=%d error=%s";
-        v14 = v11;
-        v15 = 44;
+        v11 = sqlite3_errmsg(self->_database);
+        *v18 = 136316162;
+        *&v18[4] = v9;
+        *&v18[12] = 2080;
+        *&v18[14] = "[VCRateControlMachineLearningLocalTrainingDataProducer runTrainingDataPostProcessing:]";
+        *&v18[22] = 1024;
+        *v19 = 75;
+        *&v19[4] = 1024;
+        *&v19[6] = v6;
+        *&v19[10] = 2080;
+        *&v19[12] = v11;
+        v12 = " [%s] %s:%d SQLite Error: could not open database with return code=%d error=%s";
+        v13 = v10;
+        v14 = 44;
 LABEL_18:
-        _os_log_impl(&dword_23D4DF000, v14, OS_LOG_TYPE_DEFAULT, v13, v19, v15);
+        _os_log_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEFAULT, v12, v18, v14);
       }
     }
   }
@@ -124,62 +124,60 @@ LABEL_18:
   {
     if (objc_opt_respondsToSelector())
     {
-      v9 = [(VCRateControlMachineLearningLocalTrainingDataProducer *)self performSelector:sel_logPrefix];
+      v8 = [(VCRateControlMachineLearningLocalTrainingDataProducer *)self performSelector:sel_logPrefix];
     }
 
     else
     {
-      v9 = &stru_284F80940;
+      v8 = &stru_284F80940;
     }
 
     if (VRTraceGetErrorLogLevelForModule("") >= 7)
     {
-      v16 = VRTraceErrorLogLevelToCSTR(7u);
-      v17 = gVRTraceOSLog;
+      v15 = VRTraceErrorLogLevelToCSTR(7u);
+      v16 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = sqlite3_errmsg(self->_database);
-        *v19 = 136316674;
-        *&v19[4] = v16;
-        *&v19[12] = 2080;
-        *&v19[14] = "[VCRateControlMachineLearningLocalTrainingDataProducer runTrainingDataPostProcessing:]";
-        *&v19[22] = 1024;
-        *v20 = 75;
-        *&v20[4] = 2112;
-        *&v20[6] = v9;
-        *&v20[14] = 2048;
-        *&v20[16] = self;
-        LOWORD(v21) = 1024;
-        *(&v21 + 2) = v6;
-        HIWORD(v21) = 2080;
-        v22 = v18;
-        v13 = " [%s] %s:%d %@(%p) SQLite Error: could not open database with return code=%d error=%s";
-        v14 = v17;
-        v15 = 64;
+        v17 = sqlite3_errmsg(self->_database);
+        *v18 = 136316674;
+        *&v18[4] = v15;
+        *&v18[12] = 2080;
+        *&v18[14] = "[VCRateControlMachineLearningLocalTrainingDataProducer runTrainingDataPostProcessing:]";
+        *&v18[22] = 1024;
+        *v19 = 75;
+        *&v19[4] = 2112;
+        *&v19[6] = v8;
+        *&v19[14] = 2048;
+        *&v19[16] = self;
+        LOWORD(v20) = 1024;
+        *(&v20 + 2) = v6;
+        HIWORD(v20) = 2080;
+        v21 = v17;
+        v12 = " [%s] %s:%d %@(%p) SQLite Error: could not open database with return code=%d error=%s";
+        v13 = v16;
+        v14 = 64;
         goto LABEL_18;
       }
     }
   }
 
 LABEL_7:
-  [(VCRateControlMachineLearningLocalTrainingDataProducer *)self removeDatabaseFile:*v19];
-  v8 = *MEMORY[0x277D85DE8];
+  [(VCRateControlMachineLearningLocalTrainingDataProducer *)self removeDatabaseFile:*v18];
 }
 
 - (void)setUpTrainingDataForPlugin
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_0();
@@ -188,7 +186,7 @@ LABEL_7:
     v7 = 38;
 LABEL_11:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_9;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -206,45 +204,42 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDatabaseFile
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
   if ([defaultManager fileExistsAtPath:self->_databasePath])
   {
-    v18 = 0;
-    if (![defaultManager removeItemAtPath:self->_databasePath error:&v18] || v18 != 0)
+    v17 = 0;
+    if (![defaultManager removeItemAtPath:self->_databasePath error:&v17] || v17 != 0)
     {
       if (objc_opt_class() == self)
       {
         if (VRTraceGetErrorLogLevelForModule("") < 3)
         {
-          goto LABEL_15;
+          return;
         }
 
         v6 = VRTraceErrorLogLevelToCSTR(3u);
         v7 = gVRTraceOSLog;
         if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_15;
+          return;
         }
 
         databasePath = self->_databasePath;
-        localizedDescription = [v18 localizedDescription];
+        localizedDescription = [v17 localizedDescription];
         *buf = 136316162;
-        v20 = v6;
-        v21 = 2080;
-        v22 = "[VCRateControlMachineLearningLocalTrainingDataProducer removeDatabaseFile]";
-        v23 = 1024;
-        v24 = 167;
-        v25 = 2112;
-        v26 = databasePath;
-        v27 = 2112;
+        v19 = v6;
+        v20 = 2080;
+        v21 = "[VCRateControlMachineLearningLocalTrainingDataProducer removeDatabaseFile]";
+        v22 = 1024;
+        v23 = 167;
+        v24 = 2112;
+        v25 = databasePath;
+        v26 = 2112;
         selfCopy = localizedDescription;
         v10 = " [%s] %s:%d Failed to delete RemoteDataCollectionDumpProducer database with databasePath=%@, error=%@";
         v11 = v7;
@@ -265,32 +260,32 @@ LABEL_9:
 
         if (VRTraceGetErrorLogLevelForModule("") < 3)
         {
-          goto LABEL_15;
+          return;
         }
 
         v13 = VRTraceErrorLogLevelToCSTR(3u);
         v14 = gVRTraceOSLog;
         if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_15;
+          return;
         }
 
-        v16 = self->_databasePath;
-        localizedDescription2 = [v18 localizedDescription];
+        v15 = self->_databasePath;
+        localizedDescription2 = [v17 localizedDescription];
         *buf = 136316674;
-        v20 = v13;
-        v21 = 2080;
-        v22 = "[VCRateControlMachineLearningLocalTrainingDataProducer removeDatabaseFile]";
-        v23 = 1024;
-        v24 = 167;
-        v25 = 2112;
-        v26 = v5;
-        v27 = 2048;
+        v19 = v13;
+        v20 = 2080;
+        v21 = "[VCRateControlMachineLearningLocalTrainingDataProducer removeDatabaseFile]";
+        v22 = 1024;
+        v23 = 167;
+        v24 = 2112;
+        v25 = v5;
+        v26 = 2048;
         selfCopy = self;
-        v29 = 2112;
-        v30 = v16;
-        v31 = 2112;
-        v32 = localizedDescription2;
+        v28 = 2112;
+        v29 = v15;
+        v30 = 2112;
+        v31 = localizedDescription2;
         v10 = " [%s] %s:%d %@(%p) Failed to delete RemoteDataCollectionDumpProducer database with databasePath=%@, error=%@";
         v11 = v14;
         v12 = 68;
@@ -299,14 +294,11 @@ LABEL_9:
       _os_log_error_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
     }
   }
-
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkCountQuery:(char *)query withDatabase:(sqlite3 *)database minValue:(int)value maxValue:(int)maxValue
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   ppStmt = 0;
   if (sqlite3_prepare_v2(database, query, -1, &ppStmt, 0) || sqlite3_step(ppStmt) != 100)
   {
@@ -340,17 +332,17 @@ LABEL_15:
     }
 
     *buf = 136316930;
-    v26 = v17;
+    v25 = v17;
     OUTLINED_FUNCTION_4_0();
-    v27 = 2112;
-    *v28 = v10;
-    *&v28[8] = 2048;
+    v26 = 2112;
+    *v27 = v10;
+    *&v27[8] = 2048;
     selfCopy = self;
-    v30 = v19;
-    v31 = v9;
-    v32 = v19;
+    v29 = v19;
+    v30 = v9;
+    v31 = v19;
     valueCopy = value;
-    v34 = v19;
+    v33 = v19;
     maxValueCopy = maxValue;
     v14 = " [%s] %s:%d %@(%p) Training table has numberOfRows=%d, requiredRange=[%d, %d]";
     v15 = v18;
@@ -365,12 +357,12 @@ LABEL_15:
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316418;
-      v26 = v11;
+      v25 = v11;
       OUTLINED_FUNCTION_4_0();
-      v27 = v13;
-      *v28 = v9;
-      *&v28[4] = v13;
-      *&v28[6] = value;
+      v26 = v13;
+      *v27 = v9;
+      *&v27[4] = v13;
+      *&v27[6] = value;
       LOWORD(selfCopy) = v13;
       *(&selfCopy + 2) = maxValue;
       v14 = " [%s] %s:%d Training table has numberOfRows=%d, requiredRange=[%d, %d]";
@@ -385,34 +377,31 @@ LABEL_14:
   v21 = v9 >= value && v9 <= maxValue;
 LABEL_20:
   sqlite3_finalize(ppStmt);
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-- (void)initWithDataStore:(void *)a1 recipeID:(uint64_t *)a2 .cold.1(void *a1, uint64_t *a2)
+- (void)initWithDataStore:(void *)a1 recipeID:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_9;
+      return;
     }
 
-    v4 = *a2;
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_6_0();
-    v10 = 38;
+    v7 = 38;
 LABEL_11:
-    _os_log_error_impl(v5, v6, v7, v8, v9, v10);
-    goto LABEL_9;
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -425,32 +414,27 @@ LABEL_11:
     VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v12 = *a2;
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_7_0();
       OUTLINED_FUNCTION_8_0();
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDataStore:recipeID:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (!objc_opt_class())
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_0();
@@ -458,7 +442,7 @@ LABEL_9:
     v5 = 28;
 LABEL_11:
     _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-    goto LABEL_9;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -479,14 +463,10 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runTrainingDataPostProcessing:(sqlite3 *)a1 .cold.1(sqlite3 **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -496,16 +476,13 @@ LABEL_9:
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_5_0();
-      _os_log_error_impl(v3, v4, v5, v6, v7, 0x30u);
+      _os_log_error_impl(v2, v3, v4, v5, v6, 0x30u);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runTrainingDataPostProcessing:(sqlite3 *)a1 .cold.2(sqlite3 **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -515,16 +492,14 @@ LABEL_9:
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_5_0();
-      _os_log_error_impl(v3, v4, v5, v6, v7, 0x30u);
+      _os_log_error_impl(v2, v3, v4, v5, v6, 0x30u);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runTrainingDataPostProcessing:(void *)a1 .cold.3(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") >= 7)
@@ -533,15 +508,15 @@ LABEL_9:
       v4 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315650;
-        v12 = v3;
+        v10 = 136315650;
+        v11 = v3;
         OUTLINED_FUNCTION_0();
-        v13 = 84;
+        v12 = 84;
         v5 = " [%s] %s:%d Session data is too small or too big to be used for training";
         v6 = v4;
         v7 = 28;
 LABEL_11:
-        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v5, &v11, v7);
+        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v5, &v10, v7);
       }
     }
   }
@@ -564,13 +539,13 @@ LABEL_11:
       v9 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136316162;
-        v12 = v8;
+        v10 = 136316162;
+        v11 = v8;
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_2_0();
-        v14 = v2;
-        v15 = 2048;
-        v16 = a1;
+        v13 = v2;
+        v14 = 2048;
+        v15 = a1;
         v5 = " [%s] %s:%d %@(%p) Session data is too small or too big to be used for training";
         v6 = v9;
         v7 = 48;
@@ -578,8 +553,6 @@ LABEL_11:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

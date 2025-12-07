@@ -38,19 +38,17 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"title";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"title";
   filename = [(HFAccessoryDiagnosticItem *)self filename];
-  v10[1] = @"hidden";
-  v11[0] = filename;
-  v11[1] = MEMORY[0x277CBEC28];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"hidden";
+  v10[0] = filename;
+  v10[1] = MEMORY[0x277CBEC28];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v5 = MEMORY[0x277D2C900];
   v6 = [HFItemUpdateOutcome outcomeWithResults:v4];
   v7 = [v5 futureWithResult:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

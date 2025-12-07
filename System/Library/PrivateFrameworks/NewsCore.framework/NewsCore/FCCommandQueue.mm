@@ -23,7 +23,7 @@
 
 void __31__FCCommandQueue__loadFromDisk__block_invoke(uint64_t a1)
 {
-  v32[8] = *MEMORY[0x1E69E9840];
+  v31[8] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -75,12 +75,12 @@ void __31__FCCommandQueue__loadFromDisk__block_invoke(uint64_t a1)
   {
     v19 = v18[5];
     v20 = [v19 objectForKey:@"pendingCommands"];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __48__FCCommandQueue__deserializeCommandsFromStore___block_invoke;
-    v32[3] = &unk_1E7C40270;
-    v32[4] = v18;
-    v18 = [v20 fc_arrayByTransformingWithBlock:v32];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __48__FCCommandQueue__deserializeCommandsFromStore___block_invoke;
+    v31[3] = &unk_1E7C40270;
+    v31[4] = v18;
+    v18 = [v20 fc_arrayByTransformingWithBlock:v31];
   }
 
   else
@@ -99,14 +99,14 @@ void __31__FCCommandQueue__loadFromDisk__block_invoke(uint64_t a1)
     v22 = 0;
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __31__FCCommandQueue__loadFromDisk__block_invoke_2;
-  v30[3] = &unk_1E7C36C58;
-  v30[4] = v21;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __31__FCCommandQueue__loadFromDisk__block_invoke_2;
+  v29[3] = &unk_1E7C36C58;
+  v29[4] = v21;
   v23 = v18;
-  v31 = v23;
-  [v22 performWithLockSync:v30];
+  v30 = v23;
+  [v22 performWithLockSync:v29];
   for (i = [v23 count]; i; --i)
   {
     v26 = *(a1 + 32);
@@ -136,8 +136,6 @@ void __31__FCCommandQueue__loadFromDisk__block_invoke(uint64_t a1)
 
   dispatch_group_leave(v28);
   [(FCCommandQueue *)*(a1 + 32) _scheduleCommandExecution];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __33__FCCommandQueue_sharedWorkQueue__block_invoke()
@@ -200,56 +198,32 @@ void __33__FCCommandQueue_sharedWorkQueue__block_invoke()
 
 - (void)_executeNextCommand
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = FCCommandQueueWorkQueueUnique;
     if (dispatch_get_specific(FCCommandQueueWorkQueueUnique) != v2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
-      v20 = 136315906;
-      v21 = "[FCCommandQueue _executeNextCommand]";
-      v22 = 2080;
-      v23 = "FCCommandQueue.m";
-      v24 = 1024;
-      *v25 = 319;
-      *&v25[4] = 2114;
-      *&v25[6] = v19;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v20, 0x26u);
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
+      v19 = 136315906;
+      v20 = "[FCCommandQueue _executeNextCommand]";
+      v21 = 2080;
+      v22 = "FCCommandQueue.m";
+      v23 = 1024;
+      *v24 = 319;
+      *&v24[4] = 2114;
+      *&v24[6] = v18;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v19, 0x26u);
     }
 
-    if ((*(self + 8) & 1) == 0 && (*(self + 9) & 1) == 0 && [*(self + 80) count])
+    if ((*(self + 8) & 1) != 0 || (*(self + 9) & 1) != 0 || ![*(self + 80) count])
     {
-      *(self + 9) = 1;
-      dispatch_group_enter(*(self + 104));
-      v3 = *(self + 80);
-      firstObject = [v3 firstObject];
-
-      v5 = FCCommandQueueLog;
-      if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
+      v12 = FCCommandQueueLog;
+      if (!os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(self + 32);
-        v7 = v6;
-        v8 = v5;
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v20 = 138543874;
-        v21 = v6;
-        v22 = 2114;
-        v23 = v10;
-        v24 = 2048;
-        *v25 = firstObject;
-        _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@> will execute next command: <%{public}@ %p>", &v20, 0x20u);
+        return;
       }
 
-      v11 = *(self + 16);
-      [firstObject executeWithContext:v11 delegate:self qualityOfService:[(FCCommandQueue *)self _qualityOfServiceForNextCommand]];
-      goto LABEL_19;
-    }
-
-    v12 = FCCommandQueueLog;
-    if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
-    {
       v13 = *(self + 32);
       if (*(self + 8))
       {
@@ -275,40 +249,64 @@ void __33__FCCommandQueue_sharedWorkQueue__block_invoke()
       v11 = v13;
       firstObject = v12;
       v17 = [v16 count];
-      v20 = 138544130;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 2114;
-      *v25 = v15;
-      *&v25[8] = 2048;
-      *&v25[10] = v17;
-      _os_log_impl(&dword_1B63EF000, firstObject, OS_LOG_TYPE_DEFAULT, "<%{public}@> not executing next command because suspended=%{public}@, executing=%{public}@, commandCount=%lu", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 2114;
+      *v24 = v15;
+      *&v24[8] = 2048;
+      *&v24[10] = v17;
+      _os_log_impl(&dword_1B63EF000, firstObject, OS_LOG_TYPE_DEFAULT, "<%{public}@> not executing next command because suspended=%{public}@, executing=%{public}@, commandCount=%lu", &v19, 0x2Au);
+    }
 
-LABEL_19:
+    else
+    {
+      *(self + 9) = 1;
+      dispatch_group_enter(*(self + 104));
+      v3 = *(self + 80);
+      firstObject = [v3 firstObject];
+
+      v5 = FCCommandQueueLog;
+      if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = *(self + 32);
+        v7 = v6;
+        v8 = v5;
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
+        v19 = 138543874;
+        v20 = v6;
+        v21 = 2114;
+        v22 = v10;
+        v23 = 2048;
+        *v24 = firstObject;
+        _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@> will execute next command: <%{public}@ %p>", &v19, 0x20u);
+      }
+
+      v11 = *(self + 16);
+      [firstObject executeWithContext:v11 delegate:self qualityOfService:[(FCCommandQueue *)self _qualityOfServiceForNextCommand]];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleCommandExecution
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = FCCommandQueueWorkQueueUnique;
     if (dispatch_get_specific(FCCommandQueueWorkQueueUnique) != v2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
       *buf = 136315906;
-      v19 = "[FCCommandQueue _scheduleCommandExecution]";
-      v20 = 2080;
-      v21 = "FCCommandQueue.m";
-      v22 = 1024;
-      v23 = 286;
-      v24 = 2114;
-      v25 = v16;
+      v18 = "[FCCommandQueue _scheduleCommandExecution]";
+      v19 = 2080;
+      v20 = "FCCommandQueue.m";
+      v21 = 1024;
+      v22 = 286;
+      v23 = 2114;
+      v24 = v15;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -368,8 +366,6 @@ LABEL_19:
       dispatch_source_set_timer(v11, v14, 0xFFFFFFFFFFFFFFFFLL, v13);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__FCCommandQueue__loadFromDisk__block_invoke_2(uint64_t a1)
@@ -385,19 +381,19 @@ uint64_t __31__FCCommandQueue__loadFromDisk__block_invoke_2(uint64_t a1)
 
 void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if ((!v2 || (*(v2 + 8) & 1) == 0) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should only clear the command queue when it's suspended"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should only clear the command queue when it's suspended"];
     *buf = 136315906;
-    v13 = "[FCCommandQueue clear]_block_invoke";
-    v14 = 2080;
-    v15 = "FCCommandQueue.m";
-    v16 = 1024;
-    v17 = 250;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCCommandQueue clear]_block_invoke";
+    v13 = 2080;
+    v14 = "FCCommandQueue.m";
+    v15 = 1024;
+    v16 = 250;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -429,59 +425,56 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
       v8 = 0;
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __23__FCCommandQueue_clear__block_invoke_33;
-    v11[3] = &unk_1E7C36EA0;
-    v11[4] = v7;
-    [v8 performWithLockSync:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __23__FCCommandQueue_clear__block_invoke_33;
+    v10[3] = &unk_1E7C36EA0;
+    v10[4] = v7;
+    [v8 performWithLockSync:v10];
   }
 
   [(FCCommandQueue *)isa _savePendingCommands];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_savePendingCommands
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = FCCommandQueueWorkQueueUnique;
     if (dispatch_get_specific(FCCommandQueueWorkQueueUnique) != v2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
-      *v9 = 136315906;
-      *&v9[4] = "[FCCommandQueue _savePendingCommands]";
-      *&v9[12] = 2080;
-      *&v9[14] = "FCCommandQueue.m";
-      *&v9[22] = 1024;
-      LODWORD(v10) = 394;
-      WORD2(v10) = 2114;
-      *(&v10 + 6) = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v9, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing private structures outside the work queue"];
+      *v8 = 136315906;
+      *&v8[4] = "[FCCommandQueue _savePendingCommands]";
+      *&v8[12] = 2080;
+      *&v8[14] = "FCCommandQueue.m";
+      *&v8[22] = 1024;
+      LODWORD(v9) = 394;
+      WORD2(v9) = 2114;
+      *(&v9 + 6) = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v8, 0x26u);
     }
 
     v3 = *(self + 40);
     if (v3)
     {
       v4 = *(self + 80);
-      *v9 = MEMORY[0x1E69E9820];
-      *&v9[8] = 3221225472;
-      *&v9[16] = __45__FCCommandQueue__serializeCommands_toStore___block_invoke;
-      *&v10 = &unk_1E7C40C08;
-      *(&v10 + 1) = self;
+      *v8 = MEMORY[0x1E69E9820];
+      *&v8[8] = 3221225472;
+      *&v8[16] = __45__FCCommandQueue__serializeCommands_toStore___block_invoke;
+      *&v9 = &unk_1E7C40C08;
+      *(&v9 + 1) = self;
       v5 = v3;
-      v6 = [v4 fc_arrayByTransformingWithBlock:v9];
+      v6 = [v4 fc_arrayByTransformingWithBlock:v8];
       [v5 setObject:v6 forKey:@"pendingCommands"];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initWithContext:(void *)context persistentStorePath:(void *)path urgency:(int)urgency suspended:(void *)suspended delegate:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v12 = a2;
   contextCopy = context;
   suspendedCopy = suspended;
@@ -489,21 +482,21 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
   {
     if (!v12 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
+      v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
       *buf = 136315906;
       *&buf[4] = "[FCCommandQueue initWithContext:persistentStorePath:urgency:suspended:delegate:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCCommandQueue.m";
       *&buf[22] = 1024;
-      LODWORD(v41) = 89;
-      WORD2(v41) = 2114;
-      *(&v41 + 6) = v38;
+      LODWORD(v40) = 89;
+      WORD2(v40) = 2114;
+      *(&v40 + 6) = v37;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v39.receiver = self;
-    v39.super_class = FCCommandQueue;
-    v15 = objc_msgSendSuper2(&v39, sel_init);
+    v38.receiver = self;
+    v38.super_class = FCCommandQueue;
+    v15 = objc_msgSendSuper2(&v38, sel_init);
     self = v15;
     if (v15)
     {
@@ -577,8 +570,8 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __31__FCCommandQueue__loadFromDisk__block_invoke;
-          *&v41 = &unk_1E7C36EA0;
-          *(&v41 + 1) = self;
+          *&v40 = &unk_1E7C36EA0;
+          *(&v40 + 1) = self;
           dispatch_async(v35, buf);
         }
       }
@@ -591,36 +584,34 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (FCCommandQueue)initWithContext:(id)context storeDirectory:(id)directory storeFilename:(id)filename urgency:(int64_t)urgency suspended:(BOOL)suspended delegate:(id)delegate
 {
   suspendedCopy = suspended;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   filenameCopy = filename;
   delegateCopy = delegate;
   contextCopy = context;
   if (![filenameCopy length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expecting a valid storeFilename"];
-    v23 = 136315906;
-    v24 = "[FCCommandQueue initWithContext:storeDirectory:storeFilename:urgency:suspended:delegate:]";
-    v25 = 2080;
-    v26 = "FCCommandQueue.m";
-    v27 = 1024;
-    v28 = 137;
-    v29 = 2114;
-    v30 = v22;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v23, 0x26u);
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expecting a valid storeFilename"];
+    v22 = 136315906;
+    v23 = "[FCCommandQueue initWithContext:storeDirectory:storeFilename:urgency:suspended:delegate:]";
+    v24 = 2080;
+    v25 = "FCCommandQueue.m";
+    v26 = 1024;
+    v27 = 137;
+    v28 = 2114;
+    v29 = v21;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v22, 0x26u);
   }
 
   v18 = [directoryCopy stringByAppendingPathComponent:filenameCopy];
   v19 = [(FCCommandQueue *)&self->super.isa initWithContext:contextCopy persistentStorePath:v18 urgency:urgency suspended:suspendedCopy delegate:delegateCopy];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -650,7 +641,7 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
 
 - (void)resume
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   v3 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
@@ -666,7 +657,7 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
     }
 
     *buf = 138543362;
-    v10 = name;
+    v9 = name;
     v5 = v3;
     _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@> will resume", buf, 0xCu);
   }
@@ -687,12 +678,11 @@ void __23__FCCommandQueue_clear__block_invoke(uint64_t a1)
   block[3] = &unk_1E7C36EA0;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __24__FCCommandQueue_resume__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2 && (*(v2 + 8) & 1) != 0)
   {
@@ -701,16 +691,16 @@ void __24__FCCommandQueue_resume__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't resume the command queue unless it's suspended"];
-    v6 = 136315906;
-    v7 = "[FCCommandQueue resume]_block_invoke";
-    v8 = 2080;
-    v9 = "FCCommandQueue.m";
-    v10 = 1024;
-    v11 = 160;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't resume the command queue unless it's suspended"];
+    v5 = 136315906;
+    v6 = "[FCCommandQueue resume]_block_invoke";
+    v7 = 2080;
+    v8 = "FCCommandQueue.m";
+    v9 = 1024;
+    v10 = 160;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
     v2 = *(a1 + 32);
     if (v2)
@@ -733,7 +723,6 @@ LABEL_5:
   v3 = *(a1 + 32);
 LABEL_6:
   [(FCCommandQueue *)v3 _scheduleCommandExecution];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCommand:(id)command
@@ -746,7 +735,7 @@ LABEL_6:
 
 - (void)_addCommand:(void *)command saveCompletion:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   commandCopy = command;
   if (self && v5)
@@ -760,28 +749,26 @@ LABEL_6:
       v11 = objc_opt_class();
       v12 = NSStringFromClass(v11);
       *buf = 138543874;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v12;
-      v23 = 2048;
-      v24 = v5;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2048;
+      v23 = v5;
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> will add command <%{public}@ %p>", buf, 0x20u);
     }
 
     dispatch_group_enter(*(self + 96));
     v13 = *(self + 64);
     _qualityOfServiceForNextCommand = [(FCCommandQueue *)self _qualityOfServiceForNextCommand];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __45__FCCommandQueue__addCommand_saveCompletion___block_invoke;
-    v16[3] = &unk_1E7C38FF0;
-    v16[4] = self;
-    v17 = v5;
-    v18 = commandCopy;
-    FCDispatchAsyncWithQualityOfService(v13, _qualityOfServiceForNextCommand, v16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __45__FCCommandQueue__addCommand_saveCompletion___block_invoke;
+    v15[3] = &unk_1E7C38FF0;
+    v15[4] = self;
+    v16 = v5;
+    v17 = commandCopy;
+    FCDispatchAsyncWithQualityOfService(v13, _qualityOfServiceForNextCommand, v15);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCommand:(id)command saveCompletion:(id)completion
@@ -795,7 +782,7 @@ LABEL_6:
 
 void __45__FCCommandQueue__addCommand_saveCompletion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -833,24 +820,24 @@ LABEL_9:
   if ((v5 & 1) != 0 || ![v4 canCoalesceWithCommand:*(a1 + 40)])
   {
 LABEL_18:
-    v19 = *(a1 + 32);
-    if (v19)
+    v18 = *(a1 + 32);
+    if (v18)
     {
-      v20 = *(v19 + 88);
+      v19 = *(v18 + 88);
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27;
-    v27[3] = &unk_1E7C36C58;
-    v27[4] = v19;
-    v28 = *(a1 + 40);
-    [v20 performWithLockSync:v27];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27;
+    v25[3] = &unk_1E7C36C58;
+    v25[4] = v18;
+    v26 = *(a1 + 40);
+    [v19 performWithLockSync:v25];
 
     goto LABEL_21;
   }
@@ -869,50 +856,47 @@ LABEL_18:
       v8 = 0;
     }
 
-    v9 = *(a1 + 40);
-    v10 = v8;
-    v11 = v6;
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = *(a1 + 40);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
+    v9 = v8;
+    v10 = v6;
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = *(a1 + 40);
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
     *buf = 138544386;
-    v30 = v8;
-    v31 = 2114;
+    v28 = v8;
+    v29 = 2114;
+    v30 = v12;
+    v31 = 2048;
     v32 = v13;
-    v33 = 2048;
-    v34 = v14;
-    v35 = 2114;
-    v36 = v16;
-    v37 = 2048;
-    v38 = v4;
-    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@> will coalesce command <%{public}@ %p> with <%{public}@ %p>", buf, 0x34u);
+    v33 = 2114;
+    v34 = v15;
+    v35 = 2048;
+    v36 = v4;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> will coalesce command <%{public}@ %p> with <%{public}@ %p>", buf, 0x34u);
   }
 
   [v4 coalesceWithCommand:*(a1 + 40)];
-  v17 = *(a1 + 32);
-  if (v17)
+  v16 = *(a1 + 32);
+  if (v16)
   {
-    v18 = *(v17 + 96);
+    v17 = *(v16 + 96);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  dispatch_group_leave(v18);
+  dispatch_group_leave(v17);
 LABEL_21:
   [(FCCommandQueue *)*(a1 + 32) _savePendingCommands];
   [(FCCommandQueue *)*(a1 + 32) _scheduleCommandExecution];
-  v25 = *(a1 + 48);
-  if (v25)
+  v24 = *(a1 + 48);
+  if (v24)
   {
-    (*(v25 + 16))(v25, v21, v22, v23, v24);
+    (*(v24 + 16))(v24, v20, v21, v22, v23);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint64_t a1)
@@ -928,7 +912,7 @@ uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint6
 
 - (void)flushWithCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   [MEMORY[0x1E696AF00] isMainThread];
   if (handlerCopy)
@@ -949,7 +933,7 @@ uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint6
         }
 
         *buf = 138543362;
-        v16 = name;
+        v15 = name;
         v7 = v5;
         _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@> no need to flush command queue because it's empty", buf, 0xCu);
       }
@@ -971,13 +955,13 @@ uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint6
 
       v10 = workQueue;
       _qualityOfServiceForNextCommand = [(FCCommandQueue *)self _qualityOfServiceForNextCommand];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __45__FCCommandQueue_flushWithCompletionHandler___block_invoke;
-      v13[3] = &unk_1E7C37BC0;
-      v13[4] = self;
-      v14 = handlerCopy;
-      FCDispatchAsyncWithQualityOfService(v10, _qualityOfServiceForNextCommand, v13);
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __45__FCCommandQueue_flushWithCompletionHandler___block_invoke;
+      v12[3] = &unk_1E7C37BC0;
+      v12[4] = self;
+      v13 = handlerCopy;
+      FCDispatchAsyncWithQualityOfService(v10, _qualityOfServiceForNextCommand, v12);
     }
   }
 
@@ -985,17 +969,15 @@ uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint6
   {
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
     *buf = 136315906;
-    v16 = "[FCCommandQueue flushWithCompletionHandler:]";
-    v17 = 2080;
-    v18 = "FCCommandQueue.m";
-    v19 = 1024;
-    v20 = 217;
-    v21 = 2114;
-    v22 = v8;
+    v15 = "[FCCommandQueue flushWithCompletionHandler:]";
+    v16 = 2080;
+    v17 = "FCCommandQueue.m";
+    v18 = 1024;
+    v19 = 217;
+    v20 = 2114;
+    v21 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isEmpty
@@ -1014,7 +996,7 @@ uint64_t __45__FCCommandQueue__addCommand_saveCompletion___block_invoke_27(uint6
 
 void __45__FCCommandQueue_flushWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -1036,9 +1018,9 @@ void __45__FCCommandQueue_flushWithCompletionHandler___block_invoke(uint64_t a1)
     v7 = v5;
     v8 = v2;
     *buf = 138543618;
-    v16 = v4;
-    v17 = 2048;
-    v18 = [v6 count];
+    v15 = v4;
+    v16 = 2048;
+    v17 = [v6 count];
     _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@> need to flush %lu commands from the command queue", buf, 0x16u);
   }
 
@@ -1054,16 +1036,14 @@ void __45__FCCommandQueue_flushWithCompletionHandler___block_invoke(uint64_t a1)
     v10 = 0;
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __45__FCCommandQueue_flushWithCompletionHandler___block_invoke_29;
-  v13[3] = &unk_1E7C37778;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __45__FCCommandQueue_flushWithCompletionHandler___block_invoke_29;
+  v12[3] = &unk_1E7C37778;
   v11 = *(a1 + 40);
-  v13[4] = *(a1 + 32);
-  v14 = v11;
-  dispatch_group_notify(v10, MEMORY[0x1E69E96A0], v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[4] = *(a1 + 32);
+  v13 = v11;
+  dispatch_group_notify(v10, MEMORY[0x1E69E96A0], v12);
 }
 
 uint64_t __45__FCCommandQueue_flushWithCompletionHandler___block_invoke_29(uint64_t a1)
@@ -1228,7 +1208,7 @@ void __48__FCCommandQueue__applicationDidEnterBackground__block_invoke_4(uint64_
 
 - (void)command:(id)command didFinishWithStatus:(unint64_t)status
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   v7 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
@@ -1249,13 +1229,13 @@ void __48__FCCommandQueue__applicationDidEnterBackground__block_invoke_4(uint64_
     v12 = NSStringFromClass(v11);
     v13 = FCCommandStatusDescription(status);
     *buf = 138544130;
-    v20 = name;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2048;
-    v24 = commandCopy;
-    v25 = 2114;
-    v26 = v13;
+    v19 = name;
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2048;
+    v23 = commandCopy;
+    v24 = 2114;
+    v25 = v13;
     _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> finished executing command: <%{public}@ %p> with status: %{public}@", buf, 0x2Au);
   }
 
@@ -1271,20 +1251,18 @@ void __48__FCCommandQueue__applicationDidEnterBackground__block_invoke_4(uint64_
 
   v15 = workQueue;
   _qualityOfServiceForNextCommand = [(FCCommandQueue *)self _qualityOfServiceForNextCommand];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __46__FCCommandQueue_command_didFinishWithStatus___block_invoke;
-  v18[3] = &unk_1E7C3C970;
-  v18[4] = self;
-  v18[5] = status;
-  FCDispatchAsyncWithQualityOfService(v15, _qualityOfServiceForNextCommand, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __46__FCCommandQueue_command_didFinishWithStatus___block_invoke;
+  v17[3] = &unk_1E7C3C970;
+  v17[4] = self;
+  v17[5] = status;
+  FCDispatchAsyncWithQualityOfService(v15, _qualityOfServiceForNextCommand, v17);
 }
 
 void __46__FCCommandQueue_command_didFinishWithStatus___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1308,7 +1286,7 @@ void __46__FCCommandQueue_command_didFinishWithStatus___block_invoke(uint64_t a1
           }
 
           *buf = 138543362;
-          v29 = v5;
+          v28 = v5;
           v6 = v4;
           _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@> will try to execute the next command when the network is available", buf, 0xCu);
         }
@@ -1334,7 +1312,7 @@ LABEL_19:
       }
 
       *buf = 138543362;
-      v29 = v18;
+      v28 = v18;
       v19 = v16;
       _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "<%{public}@> will move on to the next command", buf, 0xCu);
 
@@ -1363,12 +1341,12 @@ LABEL_19:
       v22 = 0;
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __46__FCCommandQueue_command_didFinishWithStatus___block_invoke_51;
-    v26[3] = &unk_1E7C36EA0;
-    v26[4] = v21;
-    [v22 performWithLockSync:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __46__FCCommandQueue_command_didFinishWithStatus___block_invoke_51;
+    v25[3] = &unk_1E7C36EA0;
+    v25[4] = v21;
+    [v22 performWithLockSync:v25];
     [(FCCommandQueue *)*(a1 + 32) _savePendingCommands];
     [(FCCommandQueue *)*(a1 + 32) _executeNextCommand];
     goto LABEL_28;
@@ -1386,7 +1364,7 @@ LABEL_19:
       }
 
       *buf = 138543362;
-      v29 = v8;
+      v28 = v8;
       v9 = v7;
       _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@> will try to execute the next command in 60s since we got a retry-later error", buf, 0xCu);
     }
@@ -1427,7 +1405,6 @@ LABEL_28:
   }
 
   dispatch_group_leave(v24);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__FCCommandQueue_command_didFinishWithStatus___block_invoke_51(uint64_t a1)

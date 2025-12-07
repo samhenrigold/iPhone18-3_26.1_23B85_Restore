@@ -31,99 +31,94 @@
 
 - (NSSet)devices
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_deviceMap objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [v3 addObject:*(*(&v12 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   v9 = [v3 copy];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)start
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (self->_isRunning)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(TVRXDeviceQuery *)self _notifyDelegateDidUpdateDevices];
   }
 
   else
   {
-    v4 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = _TVRCGeneralLog(self);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
+      v4 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> starting.", &v6, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> starting.", &v4, 0xCu);
     }
 
     self->_isRunning = 1;
     [(NSMutableDictionary *)self->_deviceMap removeAllObjects];
     [(TVRXDeviceQuery *)self _startSearch];
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)stop
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (self->_isRunning)
   {
-    v3 = _TVRCGeneralLog();
+    v3 = _TVRCGeneralLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
+      v4 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> stopping.", &v5, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> stopping.", &v4, 0xCu);
     }
 
     self->_isRunning = 0;
     [(TVRXDeviceQuery *)self _stopSearch];
     [(NSMutableDictionary *)self->_deviceMap removeAllObjects];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSearch
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCGeneralLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> has Rapport enabled.", &v9, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> has Rapport enabled.", &v8, 0xCu);
   }
 
   v4 = objc_alloc_init(TVRCRapportDeviceQuery);
@@ -138,7 +133,6 @@
 
   [(TVRCMatchPointDeviceQuery *)self->_matchPointQuery setDelegate:self];
   [(TVRCMatchPointDeviceQuery *)self->_matchPointQuery start];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopSearch
@@ -157,57 +151,57 @@
 - (id)_findDeviceForDeviceImpl:(id)impl createIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   implCopy = impl;
   identifier = [implCopy identifier];
   _init = [(NSMutableDictionary *)self->_deviceMap objectForKey:identifier];
   if (!_init)
   {
-    v22 = neededCopy;
-    v23 = identifier;
-    v26 = 0u;
+    v23 = neededCopy;
+    v24 = identifier;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     allValues = [(NSMutableDictionary *)self->_deviceMap allValues];
-    v10 = [allValues countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v26;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           allIdentifiers = [v14 allIdentifiers];
           allIdentifiers2 = [implCopy allIdentifiers];
           v17 = [allIdentifiers intersectsSet:allIdentifiers2];
 
           if (v17)
           {
-            v18 = _TVRCGeneralLog();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v20 = _TVRCGeneralLog(v18);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v29 = v14;
-              v30 = 2114;
-              v31 = implCopy;
-              _os_log_impl(&dword_26CF7F000, v18, OS_LOG_TYPE_DEFAULT, "Found an existing device: %{public}@ for impl: %{public}@", buf, 0x16u);
+              v30 = v14;
+              v31 = 2114;
+              v32 = implCopy;
+              _os_log_impl(&dword_26CF7F000, v20, OS_LOG_TYPE_DEFAULT, "Found an existing device: %{public}@ for impl: %{public}@", buf, 0x16u);
             }
 
             _init = v14;
-            identifier = v23;
+            identifier = v24;
             goto LABEL_20;
           }
         }
 
-        v11 = [allValues countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v11 = [allValues countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v11)
         {
           continue;
@@ -217,23 +211,23 @@
       }
     }
 
-    identifier = v23;
-    if (v23)
+    identifier = v24;
+    if (v24)
     {
-      if (v22)
+      if (v23)
       {
         _init = [[TVRXDevice alloc] _init];
-        [(NSMutableDictionary *)self->_deviceMap setObject:_init forKey:v23];
+        [(NSMutableDictionary *)self->_deviceMap setObject:_init forKey:v24];
         goto LABEL_20;
       }
     }
 
     else
     {
-      v19 = _TVRCGeneralLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _TVRCGeneralLog(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [TVRXDeviceQuery _findDeviceForDeviceImpl:v19 createIfNeeded:?];
+        [TVRXDeviceQuery _findDeviceForDeviceImpl:v21 createIfNeeded:?];
       }
     }
 
@@ -241,8 +235,6 @@
   }
 
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return _init;
 }
@@ -261,49 +253,47 @@ LABEL_20:
 
 - (void)addedDevice:(id)device
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218242;
+    v7 = 134218242;
     selfCopy = self;
-    v10 = 2114;
-    v11 = deviceCopy;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Attempting to add new device %{public}@.", &v8, 0x16u);
+    v9 = 2114;
+    v10 = deviceCopy;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Attempting to add new device %{public}@.", &v7, 0x16u);
   }
 
   v6 = [(TVRXDeviceQuery *)self _findDeviceForDeviceImpl:deviceCopy createIfNeeded:1];
   [v6 addDeviceImpl:deviceCopy];
   [(TVRXDeviceQuery *)self _notifyDelegateDidUpdateDevices];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removedDevice:(id)device
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134218242;
+    v11 = 134218242;
     selfCopy3 = self;
-    v14 = 2114;
-    v15 = deviceCopy;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Removed device %{public}@.", &v12, 0x16u);
+    v13 = 2114;
+    v14 = deviceCopy;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Removed device %{public}@.", &v11, 0x16u);
   }
 
   v6 = [(TVRXDeviceQuery *)self _findDeviceForDeviceImpl:deviceCopy createIfNeeded:0];
-  v7 = _TVRCGeneralLog();
+  v7 = _TVRCGeneralLog(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
     if (v8)
     {
-      v12 = 134217984;
+      v11 = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Device existed for removed television.", &v12, 0xCu);
+      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Device existed for removed television.", &v11, 0xCu);
     }
 
     [v6 removeDeviceImpl:deviceCopy];
@@ -321,15 +311,13 @@ LABEL_20:
   {
     if (v8)
     {
-      v12 = 134218242;
+      v11 = 134218242;
       selfCopy3 = self;
-      v14 = 2112;
-      v15 = deviceCopy;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Failed to remove device %@ because it doesn't exist.", &v12, 0x16u);
+      v13 = 2112;
+      v14 = deviceCopy;
+      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "<TVRXDeviceQuery %p> Failed to remove device %@ because it doesn't exist.", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (TVRXDeviceQueryDelegate)delegate

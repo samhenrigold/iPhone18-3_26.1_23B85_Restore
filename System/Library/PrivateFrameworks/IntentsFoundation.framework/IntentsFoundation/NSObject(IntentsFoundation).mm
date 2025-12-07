@@ -20,10 +20,10 @@
 {
   if (a3)
   {
-    return [self setValue:? forKey:?];
+    return [result setValue:? forKey:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

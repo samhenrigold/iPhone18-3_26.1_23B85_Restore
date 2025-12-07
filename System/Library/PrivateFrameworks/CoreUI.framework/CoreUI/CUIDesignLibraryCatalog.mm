@@ -250,8 +250,8 @@ LABEL_18:
     v15 = [__coreUIBundleResoucePath stringByAppendingPathComponent:{objc_msgSend(objc_opt_class(), "_bundleNameForResolvedDesignSystem:", system)}];
     if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
     {
-      v22 = [v15 stringByAppendingPathComponent:v13];
-      error = [[CUIDesignLibraryCatalog alloc] initWithURL:[NSURL error:"fileURLWithPath:" fileURLWithPath:v22], error];
+      v16 = [v15 stringByAppendingPathComponent:v13];
+      error = [[CUIDesignLibraryCatalog alloc] initWithURL:[NSURL error:"fileURLWithPath:" fileURLWithPath:v16], error];
       if (error)
       {
         v14 = error;
@@ -265,7 +265,7 @@ LABEL_18:
 
       if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
       {
-        _CUILog(4, "CoreUI: Error: Couldn't open CUIDesignLibraryCatalog at path %@.", v24, v25, v26, v27, v28, v29, v22);
+        _CUILog(4, "CoreUI: Error: Couldn't open CUIDesignLibraryCatalog at path %@.", v16);
       }
     }
 
@@ -276,7 +276,7 @@ LABEL_18:
         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:260 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Error: Couldn't find CUIDesignLibraryCatalog bundle at path %@. Check to make sure that the DesignLibrary .uicatalog files have been distilled and installed in the correct resource location. This may involve building the correct DesignLibrary bundle target as a separate step.", v15], NSLocalizedDescriptionKey, 0]];
       }
 
-      _CUILog(4, "CoreUI: [CUIDesignLibraryCatalog catalogForDesignSystem:colorScheme:contrast:styling:] Couldn't locate catalog at path '%@'.", v16, v17, v18, v19, v20, v21, v15);
+      _CUILog(4, "CoreUI: [CUIDesignLibraryCatalog catalogForDesignSystem:colorScheme:contrast:styling:] Couldn't locate catalog at path '%@'.", v15);
     }
 
     v14 = 0;
@@ -288,14 +288,14 @@ LABEL_13:
   return v14;
 }
 
-void __85__CUIDesignLibraryCatalog_catalogForDesignSystem_colorScheme_contrast_styling_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void __85__CUIDesignLibraryCatalog_catalogForDesignSystem_colorScheme_contrast_styling_error___block_invoke()
 {
   __catalogCache = objc_alloc_init(NSMutableDictionary);
   __coreUIBundleResoucePath = [[NSBundle bundleForClass:?]];
   if (!__coreUIBundleResoucePath)
   {
 
-    _CUILog(4, "CoreUI: [CUIDesignLibraryCatalog catalogForDesignSystem:colorScheme:contrast:styling:] Couldn't locate CoreUIBundle", v9, v10, v11, v12, v13, v14, a9);
+    _CUILog(4, "CoreUI: [CUIDesignLibraryCatalog catalogForDesignSystem:colorScheme:contrast:styling:] Couldn't locate CoreUIBundle");
   }
 }
 
@@ -429,16 +429,16 @@ LABEL_54:
   }
 
   v17 = [(CUIDesignLibraryCatalog *)self _colorNameStringFromNameEnum:name palette:palette];
+  v38 = 0;
   v37 = 0;
-  v36 = 0;
   if (name == 11)
   {
-    v19 = &kCGColorWhite;
-    v20 = -1;
+    v18 = &kCGColorWhite;
+    v19 = -1;
 LABEL_8:
-    v37 = v20;
-    ConstantColor = CGColorGetConstantColor(*v19);
-    CGColorRetain(ConstantColor);
+    v38 = v19;
+    ConstantColor = CGColorGetConstantColor(*v18);
+    v21 = CGColorRetain(ConstantColor);
     if (ConstantColor)
     {
       goto LABEL_17;
@@ -449,77 +449,78 @@ LABEL_8:
 
   if (name == 12)
   {
-    v19 = &kCGColorBlack;
-    v20 = -16777216;
+    v18 = &kCGColorBlack;
+    v19 = -16777216;
     goto LABEL_8;
   }
 
-  v22 = v17;
-  if ([_LookupStructuredThemeProvider(self->_storageRef v18)])
+  v23 = v17;
+  v21 = [_LookupStructuredThemeProvider() getPhysicalColor:&v37 withName:v17];
+  if (v21)
   {
-    v20 = v37;
+    v19 = v38;
 LABEL_12:
-    if (BYTE2(v20) == BYTE1(v20) && BYTE1(v20) == v20)
+    if (BYTE2(v19) == BYTE1(v19) && BYTE1(v19) == v19)
     {
-      components = BYTE2(v20) / 255.0;
-      v39 = HIBYTE(v20) / 255.0;
-      GrayGamma2_2 = _CUIColorSpaceGetGrayGamma2_2();
+      components = BYTE2(v19) / 255.0;
+      v40 = HIBYTE(v19) / 255.0;
+      GrayGamma2_2 = _CUIColorSpaceGetGrayGamma2_2(v21, v22);
     }
 
     else
     {
-      components = BYTE2(v20) / 255.0;
-      v39 = BYTE1(v20) / 255.0;
-      v40 = v20 / 255.0;
-      v41 = HIBYTE(v20) / 255.0;
-      GrayGamma2_2 = _CUIColorSpaceGetSRGB();
+      components = BYTE2(v19) / 255.0;
+      v40 = BYTE1(v19) / 255.0;
+      v41 = v19 / 255.0;
+      v42 = HIBYTE(v19) / 255.0;
+      GrayGamma2_2 = _CUIColorSpaceGetSRGB(v21, v22);
     }
 
     ConstantColor = CGColorCreate(GrayGamma2_2, &components);
 LABEL_17:
     colorScheme = [(CUIDesignLibraryCatalog *)self colorScheme];
     styling = [(CUIDesignLibraryCatalog *)self styling];
-    v26 = 0;
+    v27 = 0;
     if ((name - 13) <= 0xFFFFFFFFFFFFFFFDLL && styling == 1)
     {
       if (colorScheme == 1)
       {
-        v27 = 27;
+        v28 = 27;
+      }
+
+      else
+      {
+        v28 = 0;
+      }
+
+      if (!colorScheme)
+      {
+        v28 = 26;
+      }
+
+      if (BYTE2(v38) == v38)
+      {
+        v29 = v28;
+      }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      if (BYTE2(v38) != BYTE1(v38))
+      {
+        v29 = 0;
+      }
+
+      if (HIBYTE(v38) == 255)
+      {
+        v27 = v29;
       }
 
       else
       {
         v27 = 0;
-      }
-
-      if (!colorScheme)
-      {
-        v27 = 26;
-      }
-
-      if (BYTE2(v37) == v37)
-      {
-        v28 = v27;
-      }
-
-      else
-      {
-        v28 = 0;
-      }
-
-      if (BYTE2(v37) != BYTE1(v37))
-      {
-        v28 = 0;
-      }
-
-      if (HIBYTE(v37) == 255)
-      {
-        v26 = v28;
-      }
-
-      else
-      {
-        v26 = 0;
       }
     }
 
@@ -528,11 +529,11 @@ LABEL_17:
       goto LABEL_53;
     }
 
-    v29 = colorWithName_palette_displayGamut_hierarchyLevel_error__CUIHierarchicalColorOpacities[level];
+    v30 = colorWithName_palette_displayGamut_hierarchyLevel_error__CUIHierarchicalColorOpacities[level];
     if (colorScheme == 1)
     {
-      v30 = (name == 10 || name == 0) && level == 2;
-      v31 = 0.2;
+      v31 = (name == 10 || name == 0) && level == 2;
+      v32 = 0.2;
     }
 
     else
@@ -541,23 +542,23 @@ LABEL_17:
       {
 LABEL_52:
         Alpha = CGColorGetAlpha(ConstantColor);
-        CopyWithAlpha = CGColorCreateCopyWithAlpha(ConstantColor, v29 * Alpha);
+        CopyWithAlpha = CGColorCreateCopyWithAlpha(ConstantColor, v30 * Alpha);
         CGColorRelease(ConstantColor);
         ConstantColor = CopyWithAlpha;
 LABEL_53:
-        v16 = [[CUIDesignColor alloc] initWithColor:ConstantColor blendMode:v26 displayGamut:0];
+        v16 = [[CUIDesignColor alloc] initWithColor:ConstantColor blendMode:v27 displayGamut:0];
         CGColorRelease(ConstantColor);
         *v14 = v16;
         goto LABEL_54;
       }
 
-      v30 = level == 1 && name == 2;
-      v31 = 0.3;
+      v31 = level == 1 && name == 2;
+      v32 = 0.3;
     }
 
-    if (v30)
+    if (v31)
     {
-      v29 = v31;
+      v30 = v32;
     }
 
     goto LABEL_52;
@@ -565,7 +566,7 @@ LABEL_53:
 
   if (error)
   {
-    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:260 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"The requested color, %@, could not be found in the %@ CUIDesignLibrary catalog.", v22, self->_assetStoreName], NSLocalizedDescriptionKey, 0]];
+    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:260 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"The requested color, %@, could not be found in the %@ CUIDesignLibrary catalog.", v23, self->_assetStoreName], NSLocalizedDescriptionKey, 0]];
   }
 
   *v14 = kCFNull;
@@ -576,9 +577,9 @@ LABEL_53:
 
 - (id)shapeEffectPresetWithName:(id)name error:(id *)error
 {
-  v7 = _LookupStructuredThemeProvider(self->_storageRef, a2);
+  v7 = _LookupStructuredThemeProvider();
   v8 = [v7 renditionKeyForName:name];
-  _CUILog(3, "[CUIDesignLibraryCatalog shapeEffectPresetWithName:%@]", v9, v10, v11, v12, v13, v14, name);
+  _CUILog(3, "[CUIDesignLibraryCatalog shapeEffectPresetWithName:%@]", name);
   CUIRenditionKeyValueForAttribute(v8, 17);
   kdebug_trace();
   if (!v8)
@@ -586,18 +587,18 @@ LABEL_53:
     goto LABEL_5;
   }
 
-  v15 = [CUIRenditionKey renditionKeyWithKeyList:v8];
-  [(CUIRenditionKey *)v15 setThemeScale:1];
-  [(CUIRenditionKey *)v15 setThemeState:0];
-  [(CUIRenditionKey *)v15 setThemePresentationState:0];
-  [(CUIRenditionKey *)v15 setThemeValue:0];
-  [(CUIRenditionKey *)v15 setThemeDimension1:0];
-  [(CUIRenditionKey *)v15 setThemeAppearance:0];
-  v16 = [v7 renditionWithKey:{-[CUIRenditionKey keyList](v15, "keyList")}];
-  effectPreset = v16;
-  if (v16)
+  v9 = [CUIRenditionKey renditionKeyWithKeyList:v8];
+  [(CUIRenditionKey *)v9 setThemeScale:1];
+  [(CUIRenditionKey *)v9 setThemeState:0];
+  [(CUIRenditionKey *)v9 setThemePresentationState:0];
+  [(CUIRenditionKey *)v9 setThemeValue:0];
+  [(CUIRenditionKey *)v9 setThemeDimension1:0];
+  [(CUIRenditionKey *)v9 setThemeAppearance:0];
+  v10 = [v7 renditionWithKey:{-[CUIRenditionKey keyList](v9, "keyList")}];
+  effectPreset = v10;
+  if (v10)
   {
-    if ([v16 type] == 7)
+    if ([v10 type] == 7)
     {
       effectPreset = [effectPreset effectPreset];
       goto LABEL_6;

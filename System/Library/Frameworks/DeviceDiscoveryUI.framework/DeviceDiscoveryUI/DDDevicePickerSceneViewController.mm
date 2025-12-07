@@ -107,7 +107,7 @@ uint64_t __62__DDDevicePickerSceneViewController__publicKeyFromParameters___bloc
 
 - (void)_deviceDiscoveryDismiss
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _DDUICoreLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -122,45 +122,42 @@ uint64_t __62__DDDevicePickerSceneViewController__publicKeyFromParameters___bloc
   block[3] = &unk_278A48370;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_devicePickerDidCreateApplicationServiceEndpoint:(id)endpoint
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v13 = 2112;
-    v14 = endpointCopy;
+    v12 = 2112;
+    v13 = endpointCopy;
     _os_log_impl(&dword_238060000, v5, OS_LOG_TYPE_DEFAULT, "%@ Did receive endpoint %@", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationServiceEndpoint___block_invoke;
-  v8[3] = &unk_278A48398;
-  v9 = endpointCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationServiceEndpoint___block_invoke;
+  v7[3] = &unk_278A48398;
+  v8 = endpointCopy;
   selfCopy2 = self;
   v6 = endpointCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-void __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationServiceEndpoint___block_invoke(uint64_t a1)
+void __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationServiceEndpoint___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _DDUICoreLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _DDUICoreLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_238060000, v2, OS_LOG_TYPE_DEFAULT, "Returning nw_endpoint %@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_238060000, v3, OS_LOG_TYPE_DEFAULT, "Returning nw_endpoint %@", &v6, 0xCu);
   }
 
   if (*(a1 + 32))
@@ -175,39 +172,35 @@ void __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationSe
 
   [(DDDevicePickerSceneViewController *)*(a1 + 40) _invokeCompletionWithEndpoint:error_with_inferred_domain orError:?];
   [*(a1 + 40) dismissViewControllerAnimated:1 completion:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_devicePickerDidCreateBonjourEndpoint:(id)endpoint
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v12 = 2112;
-    v13 = endpointCopy;
+    v11 = 2112;
+    v12 = endpointCopy;
     _os_log_impl(&dword_238060000, v5, OS_LOG_TYPE_DEFAULT, "%@ Did receive bonjour endpoint %@", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoint___block_invoke;
-  v8[3] = &unk_278A48398;
-  v8[4] = self;
-  v9 = endpointCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoint___block_invoke;
+  v7[3] = &unk_278A48398;
+  v7[4] = self;
+  v8 = endpointCopy;
   v6 = endpointCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 - (void)_devicePickerDidCreateBrowserResultData:(id)data
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -215,21 +208,19 @@ void __86__DDDevicePickerSceneViewController__devicePickerDidCreateApplicationSe
     v6 = [dataCopy description];
     *buf = 138412546;
     selfCopy = self;
-    v13 = 2112;
-    v14 = v6;
+    v12 = 2112;
+    v13 = v6;
     _os_log_impl(&dword_238060000, v5, OS_LOG_TYPE_DEFAULT, "%@ Did receive data %@", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResultData___block_invoke;
-  v9[3] = &unk_278A48398;
-  v9[4] = self;
-  v10 = dataCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResultData___block_invoke;
+  v8[3] = &unk_278A48398;
+  v8[4] = self;
+  v9 = dataCopy;
   v7 = dataCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResultData___block_invoke(uint64_t a1)
@@ -243,14 +234,14 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
 
 - (void)setupSceneHosting
 {
-  v42[4] = *MEMORY[0x277D85DE8];
+  v41[4] = *MEMORY[0x277D85DE8];
   if (self && !*(self + 992))
   {
     [self _beginDelayingPresentation:&__block_literal_global_0 cancellationHandler:3.0];
     v2 = [MEMORY[0x277D46F60] identityForAngelJobLabel:@"com.apple.networkendpointpickerui"];
     v3 = objc_alloc(MEMORY[0x277D761E0]);
     specification = [MEMORY[0x277D761F8] specification];
-    v37 = v2;
+    v36 = v2;
     v5 = [v3 initWithProcessIdentity:v2 sceneSpecification:specification];
     v6 = *(self + 992);
     *(self + 992) = v5;
@@ -260,7 +251,7 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
     v8 = [(DDDevicePickerSceneViewController *)self _publicKeyFromParameters:?];
     v9 = *(self + 992);
     v10 = [MEMORY[0x277CCACA8] stringWithCString:application_service_name encoding:4];
-    v36 = v8;
+    v35 = v8;
     [DDDeviceDiscoveryViewSettingsSwift updateHostingControllerWithHostingController:v9 serviceIdentifier:v10 publicKey:v8 browseDescriptor:*(self + 1024) browseParameters:*(self + 1032)];
 
     sceneViewController = [*(self + 992) sceneViewController];
@@ -270,34 +261,34 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
     {
       view = [self view];
       *buf = 138412290;
-      v39 = view;
+      v38 = view;
       _os_log_impl(&dword_238060000, v12, OS_LOG_TYPE_INFO, "Setting up scene with %@", buf, 0xCu);
     }
 
-    v35 = sceneViewController;
+    v34 = sceneViewController;
     view2 = [sceneViewController view];
     view3 = [self view];
     [view3 addSubview:view2];
     [view2 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v29 = MEMORY[0x277CCAAD0];
+    v28 = MEMORY[0x277CCAAD0];
     leadingAnchor = [view2 leadingAnchor];
     leadingAnchor2 = [view3 leadingAnchor];
-    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v42[0] = v32;
+    v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v41[0] = v31;
     trailingAnchor = [view2 trailingAnchor];
     trailingAnchor2 = [view3 trailingAnchor];
-    v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v42[1] = v28;
+    v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v41[1] = v27;
     topAnchor = [view2 topAnchor];
     topAnchor2 = [view3 topAnchor];
     v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v42[2] = v18;
+    v41[2] = v18;
     bottomAnchor = [view2 bottomAnchor];
     bottomAnchor2 = [view3 bottomAnchor];
     v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v42[3] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
-    [v29 activateConstraints:v22];
+    v41[3] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
+    [v28 activateConstraints:v22];
 
     v23 = _DDUICoreLog();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -306,21 +297,18 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
       v25 = v24;
       [view3 frame];
       *buf = 134218240;
-      v39 = v25;
-      v40 = 2048;
-      v41 = v26;
+      v38 = v25;
+      v39 = 2048;
+      v40 = v26;
       _os_log_impl(&dword_238060000, v23, OS_LOG_TYPE_INFO, "Setting up scene with frame: %f, %f", buf, 0x16u);
     }
 
-    [v35 didMoveToParentViewController:self];
+    [v34 didMoveToParentViewController:self];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeCompletionWithEndpoint:(void *)endpoint orError:
 {
-  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   endpointCopy = endpoint;
   if (self)
@@ -329,7 +317,7 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_3(&dword_238060000, v8, v9, "%p Invoking completion, with endpoint %@ or error %@", v10, v11, v12, v13, v25);
+      OUTLINED_FUNCTION_3(&dword_238060000, v8, v9, "%p Invoking completion, with endpoint %@ or error %@", v10, v11, v12, v13);
     }
 
     devicePickerCompletionHandler = [self devicePickerCompletionHandler];
@@ -349,8 +337,6 @@ void __77__DDDevicePickerSceneViewController__devicePickerDidCreateBrowserResult
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoint___block_invoke(uint64_t a1)
@@ -364,7 +350,6 @@ void __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoi
 
 - (void)_invokeCompletionWithData:(void *)data orError:
 {
-  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   dataCopy = data;
   if (self)
@@ -374,7 +359,7 @@ void __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoi
     {
       v8 = [v5 description];
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_3(&dword_238060000, v9, v10, "%p Invoking completion, with data %@ or error %@", v11, v12, v13, v14, v26);
+      OUTLINED_FUNCTION_3(&dword_238060000, v9, v10, "%p Invoking completion, with data %@ or error %@", v11, v12, v13, v14);
     }
 
     devicePickerDataCompletionHandler = [self devicePickerDataCompletionHandler];
@@ -394,17 +379,14 @@ void __75__DDDevicePickerSceneViewController__devicePickerDidCreateBonjourEndpoi
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBrowseDescriptor:(uint64_t)a1 parameters:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238060000, a2, OS_LOG_TYPE_ERROR, "The provided browser descriptor %@ is not an application service descriptor!  Returning nil....", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238060000, a2, OS_LOG_TYPE_ERROR, "The provided browser descriptor %@ is not an application service descriptor!  Returning nil....", &v2, 0xCu);
 }
 
 @end

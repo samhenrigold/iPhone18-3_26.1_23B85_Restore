@@ -585,7 +585,7 @@ LABEL_11:
   v29 = SALog();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    sub_10003DB4C(&v80 + 1);
+    sub_10003DB4C();
   }
 
   v30 = NSPOSIXErrorDomain;
@@ -601,27 +601,27 @@ LABEL_16:
 + (BOOL)isNodeID:(unint64_t)d oldestForDStreamID:(unint64_t)iD forVolPath:(id)path
 {
   pathCopy = path;
-  bzero(&v28, 0x878uLL);
-  if (statfs([pathCopy UTF8String], &v28))
+  bzero(&v27, 0x878uLL);
+  if (statfs([pathCopy UTF8String], &v27))
   {
-    v8 = *__error();
-    v9 = SALog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = SALog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10003DCDC();
     }
 
 LABEL_4:
 
-    v10 = 0;
+    v9 = 0;
     goto LABEL_34;
   }
 
-  v11 = malloc_type_malloc(0x1D4C0uLL, 0x1000040504FFAC1uLL);
-  if (!v11)
+  v10 = malloc_type_malloc(0x1D4C0uLL, 0x1000040504FFAC1uLL);
+  if (!v10)
   {
-    v9 = SALog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SALog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10003DD64();
     }
@@ -629,67 +629,67 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v22[0] = 0x100000001;
-  v26 = 0x1D4C000000000;
-  v27 = v11;
-  v12 = -1;
-  v24 = 0;
-  v25 = -1;
-  v22[1] = iD;
+  v21[0] = 0x100000001;
+  v25 = 0x1D4C000000000;
+  v26 = v10;
+  v11 = -1;
   v23 = 0;
-  if (fsctl(v28.f_mntonname, 0xC0384A74uLL, v22, 1u))
+  v24 = -1;
+  v21[1] = iD;
+  v22 = 0;
+  if (fsctl(v27.f_mntonname, 0xC0384A74uLL, v21, 1u))
   {
 LABEL_7:
-    v13 = SALog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = SALog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10003DB4C(&v26 + 1);
+      sub_10003DB4C();
     }
   }
 
   else
   {
-    v14 = 0;
-    while (HIDWORD(v26) >= 0x18)
+    v13 = 0;
+    while (HIDWORD(v25) >= 0x18)
     {
-      if (HIDWORD(v26) != 24)
+      if (HIDWORD(v25) != 24)
       {
-        v15 = 0;
-        v16 = 24;
-        while (*&v27[v15] == iD)
+        v14 = 0;
+        v15 = 24;
+        while (*&v26[v14] == iD)
         {
-          v17 = *&v27[v15 + 16];
-          if (v17)
+          v16 = *&v26[v14 + 16];
+          if (v16)
           {
-            v18 = &v27[v15 + 48];
-            v19 = v17;
+            v17 = &v26[v14 + 48];
+            v18 = v16;
             while (1)
             {
-              v14 = *(v18 - 3);
-              if ((*v18 & 1) == 0 && v14 < v12)
+              v13 = *(v17 - 3);
+              if ((*v17 & 1) == 0 && v13 < v11)
               {
-                v12 = *(v18 - 3);
-                if (v14 < d)
+                v11 = *(v17 - 3);
+                if (v13 < d)
                 {
                   break;
                 }
               }
 
-              v18 += 32;
-              if (!--v19)
+              v17 += 32;
+              if (!--v18)
               {
                 goto LABEL_25;
               }
             }
 
-            v12 = *(v18 - 3);
+            v11 = *(v17 - 3);
             goto LABEL_28;
           }
 
 LABEL_25:
-          v15 = (v16 + 32 * v17);
-          v16 = v15 + 24;
-          if (v15 + 24 >= HIDWORD(v26))
+          v14 = (v15 + 32 * v16);
+          v15 = v14 + 24;
+          if (v14 + 24 >= HIDWORD(v25))
           {
             goto LABEL_15;
           }
@@ -699,9 +699,9 @@ LABEL_25:
       }
 
 LABEL_15:
-      v23 = v14;
-      HIDWORD(v26) = 120000;
-      if (fsctl(v28.f_mntonname, 0xC0384A74uLL, v22, 1u))
+      v22 = v13;
+      HIDWORD(v25) = 120000;
+      if (fsctl(v27.f_mntonname, 0xC0384A74uLL, v21, 1u))
       {
         goto LABEL_7;
       }
@@ -709,20 +709,20 @@ LABEL_15:
   }
 
 LABEL_28:
-  if (v12)
+  if (v11)
   {
-    v20 = v12 == d;
+    v19 = v11 == d;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v10 = v20;
+  v9 = v19;
 LABEL_34:
 
-  return v10;
+  return v9;
 }
 
 @end

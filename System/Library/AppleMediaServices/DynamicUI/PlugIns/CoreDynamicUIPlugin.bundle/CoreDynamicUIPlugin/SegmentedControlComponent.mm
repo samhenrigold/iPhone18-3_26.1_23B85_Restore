@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_57964();
+  sub_57964(selfCopy);
 }
 
 - (void)segmentedControlAction

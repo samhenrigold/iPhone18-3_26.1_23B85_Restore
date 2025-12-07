@@ -120,18 +120,19 @@ VCPFaceProcessingVersionManager *__64__VCPFaceProcessingVersionManager_sharedMan
 - (int)defaultProcessingVersion
 {
   v3 = _os_feature_enabled_impl();
-  if (![(PHPhotoLibrary *)self->_photoLibrary isSystemPhotoLibrary])
+  isSystemPhotoLibrary = [(PHPhotoLibrary *)self->_photoLibrary isSystemPhotoLibrary];
+  if (!isSystemPhotoLibrary)
   {
     return 15;
   }
 
-  if ((VCPMAIsAppleInternal() & v3) != 1)
+  if ((VCPMAIsAppleInternal(isSystemPhotoLibrary, v5) & v3) != 1)
   {
     return 15;
   }
 
-  v4 = [VCPPhotosAutoCounterWorker workerWithPhotoLibrary:self->_photoLibrary];
-  optInPersonCount = [v4 optInPersonCount];
+  v6 = [VCPPhotosAutoCounterWorker workerWithPhotoLibrary:self->_photoLibrary];
+  optInPersonCount = [v6 optInPersonCount];
 
   if (!optInPersonCount)
   {

@@ -22,28 +22,28 @@
 
 - (void)_observer_sceneLayerManagerDidUpdateLayers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [(NSHashTable *)self->_observers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 sceneLayerManagerDidUpdateLayers:self];
@@ -53,39 +53,37 @@
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_observer_didStartTrackingLayers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [(NSHashTable *)self->_observers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 sceneLayerManagerDidStartTrackingLayers:self];
@@ -95,13 +93,11 @@
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (FBScene)scene
@@ -113,28 +109,28 @@
 
 - (void)_observer_didStopTrackingLayers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [(NSHashTable *)self->_observers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 sceneLayerManagerDidStopTrackingLayers:self];
@@ -144,13 +140,11 @@
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_objc_initiateDealloc
@@ -214,27 +208,27 @@
 
 - (id)layerWithContextID:(unsigned int)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_layers;
-  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 contextID] == d)
         {
           v10 = v9;
@@ -242,7 +236,7 @@
         }
       }
 
-      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -254,8 +248,6 @@
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -363,13 +355,12 @@ uint64_t __38__FBSceneLayerManager__initWithScene___block_invoke()
     __FB_REPORT_MAIN_THREAD_VIOLATION__(0, "[FBSceneLayerManager _setLayers:]");
   }
 
-  fbsLayers = self->_fbsLayers;
   if ((BSEqualObjects() & 1) == 0)
   {
     self->_needsRebuildLayers = 1;
-    v5 = [layersCopy copy];
-    v6 = self->_fbsLayers;
-    self->_fbsLayers = v5;
+    v4 = [layersCopy copy];
+    fbsLayers = self->_fbsLayers;
+    self->_fbsLayers = v4;
   }
 
   if (self->_needsRebuildLayers && ![(NSHashTable *)self->_suspendAssertions count])
@@ -428,36 +419,36 @@ void __49__FBSceneLayerManager__suspendUpdatesWithReason___block_invoke(uint64_t
 
 - (void)_rebuildLayers
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
   {
     __FB_REPORT_MAIN_THREAD_VIOLATION__(0, "[FBSceneLayerManager _rebuildLayers]");
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_scene);
-  v18 = [(NSOrderedSet *)self->_layers count];
+  v17 = [(NSOrderedSet *)self->_layers count];
   v3 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{-[NSOrderedSet count](self->_fbsLayers, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   selfCopy = self;
   v4 = self->_fbsLayers;
-  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [FBSceneLayer layerWithFBSSceneLayer:v9];
         if (v10)
         {
@@ -471,15 +462,15 @@ void __49__FBSceneLayerManager__suspendUpdatesWithReason___block_invoke(uint64_t
           {
             clientHandle = [WeakRetained clientHandle];
             *buf = 138543618;
-            v26 = v9;
-            v27 = 2114;
-            v28 = clientHandle;
+            v25 = v9;
+            v26 = 2114;
+            v27 = clientHandle;
             _os_log_error_impl(&dword_1A89DD000, v11, OS_LOG_TYPE_ERROR, "Ignoring bogus scene layer %{public}@ from %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v6);
@@ -494,14 +485,14 @@ void __49__FBSceneLayerManager__suspendUpdatesWithReason___block_invoke(uint64_t
   {
     v15 = [v3 count];
     v16 = v15;
-    if (!v15 || v18)
+    if (!v15 || v17)
     {
-      if (v15 | v18)
+      if (v15 | v17)
       {
         [(FBSceneLayerManager *)selfCopy _observer_sceneLayerManagerDidUpdateLayers];
         if (!v16)
         {
-          if (v18)
+          if (v17)
           {
             [(FBSceneLayerManager *)selfCopy _observer_didStopTrackingLayers];
           }
@@ -515,8 +506,6 @@ void __49__FBSceneLayerManager__suspendUpdatesWithReason___block_invoke(uint64_t
       [(FBSceneLayerManager *)selfCopy _observer_sceneLayerManagerDidUpdateLayers];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeSuspendAssertion:(id)assertion

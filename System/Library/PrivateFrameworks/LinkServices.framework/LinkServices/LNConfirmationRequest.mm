@@ -2,6 +2,7 @@
 - (LNConfirmationRequest)initWithCoder:(id)coder;
 - (LNConfirmationRequest)initWithIdentifier:(id)identifier parameterName:(id)name value:(id)value dialog:(id)dialog viewSnippet:(id)snippet;
 - (void)encodeWithCoder:(id)coder;
+- (void)respondWithConfirmation:(BOOL)confirmation;
 - (void)respondWithError:(id)error;
 - (void)respondWithUpdates:(id)updates;
 @end
@@ -48,7 +49,7 @@
 
 - (void)respondWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionHandler = self->_completionHandler;
   if (completionHandler)
@@ -68,19 +69,17 @@
     {
       v10 = objc_opt_class();
       identifier = [(LNConfirmationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithUpdates:(id)updates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (self->_completionHandler)
   {
@@ -101,14 +100,43 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNConfirmationRequest *)self identifier];
-      v13 = 138543618;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
+    }
+  }
+}
+
+- (void)respondWithConfirmation:(BOOL)confirmation
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (self->_completionHandler)
+  {
+    confirmationCopy = confirmation;
+    v5 = [LNConfirmationResponse alloc];
+    identifier = [(LNConfirmationRequest *)self identifier];
+    responseContext = [(LNRequest *)self responseContext];
+    v12 = [(LNConfirmationResponse *)v5 initWithIdentifier:identifier context:responseContext confirmed:confirmationCopy updates:0];
+
+    (*(self->_completionHandler + 2))();
+    completionHandler = self->_completionHandler;
+    self->_completionHandler = 0;
+  }
+
+  else
+  {
+    v9 = getLNLogCategoryExecution();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = objc_opt_class();
+      identifier2 = [(LNConfirmationRequest *)self identifier];
+      *buf = 138543618;
       v14 = v10;
       v15 = 2114;
       v16 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (LNConfirmationRequest)initWithIdentifier:(id)identifier parameterName:(id)name value:(id)value dialog:(id)dialog viewSnippet:(id)snippet

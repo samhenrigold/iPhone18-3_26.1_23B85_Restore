@@ -121,26 +121,26 @@
 
 - (void)loadIntoResourceManager:(void *)manager
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = self->_ioSurfaces;
-  v3 = [(NSDictionary *)obj countByEnumeratingWithState:&v24 objects:v37 count:16];
+  v3 = [(NSDictionary *)obj countByEnumeratingWithState:&v23 objects:v36 count:16];
   if (v3)
   {
-    v4 = *v25;
+    v4 = *v24;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v25 != v4)
+        if (*v24 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v24 + 1) + 8 * i);
+        v6 = *(*(&v23 + 1) + 8 * i);
         v7 = [(NSDictionary *)self->_ioSurfaces objectForKeyedSubscript:v6];
         v8 = v7;
         baseAddress = [v7 baseAddress];
@@ -159,70 +159,69 @@
         }
 
         bytesPerElement = [v7 bytesPerElement];
-        *&v31 = baseAddress;
-        *(&v31 + 1) = allocationSize;
-        v32 = bytesPerElement;
-        v35 = llvm::detail::UniqueFunctionBase<void,void *,unsigned long,unsigned long>::CallbacksHolder<[MPSGraphExecutableConstantData loadIntoResourceManager:]::$_4,[MPSGraphExecutableConstantData loadIntoResourceManager:]::$_4,void>::Callbacks + 2;
+        *&v30 = baseAddress;
+        *(&v30 + 1) = allocationSize;
+        v31 = bytesPerElement;
+        v34 = llvm::detail::UniqueFunctionBase<void,void *,unsigned long,unsigned long>::CallbacksHolder<[MPSGraphExecutableConstantData loadIntoResourceManager:]::$_4,[MPSGraphExecutableConstantData loadIntoResourceManager:]::$_4,void>::Callbacks + 2;
+        v32 = v27;
         v33 = v28;
-        v34 = v29;
-        v30 = 0;
-        v36 = 0;
-        mlir::mps::MPSResourceBlobManagerInterface::defineEntryValue(manager, v13, v14, &v31);
-        if (v35 >= 8)
+        v29 = 0;
+        v35 = 0;
+        mlir::mps::MPSResourceBlobManagerInterface::defineEntryValue(manager, v13, v14, &v30);
+        if (v34 >= 8)
         {
-          v16 = (v35 & 2) != 0 ? &v33 : v33;
-          (*(v35 & 0xFFFFFFFFFFFFFFF8))(v16, v31, *(&v31 + 1), v32);
-          v17 = v35;
-          if (v35 >= 8)
+          (*(v34 & 0xFFFFFFFFFFFFFFF8))();
+          v16 = v34;
+          if (v34 >= 8)
           {
-            if ((v35 & 4) != 0)
+            if ((v34 & 4) != 0)
             {
-              if ((v35 & 2) != 0)
+              if ((v34 & 2) != 0)
               {
-                v18 = &v33;
+                v17 = &v32;
               }
 
               else
               {
-                v18 = v33;
+                v17 = v32;
               }
 
-              (*((v35 & 0xFFFFFFFFFFFFFFF8) + 16))(v18);
+              (*((v34 & 0xFFFFFFFFFFFFFFF8) + 16))(v17);
             }
 
-            if ((v17 & 2) == 0)
+            if ((v16 & 2) == 0)
             {
-              llvm::deallocate_buffer(v33, *(&v33 + 1));
+              llvm::deallocate_buffer(v32, *(&v32 + 1));
             }
           }
         }
 
-        v19 = v30;
-        if (v30 >= 8)
+        v18 = v29;
+        if (v29 >= 8)
         {
-          if ((v30 & 4) != 0)
+          if ((v29 & 4) != 0)
           {
-            if ((v30 & 2) != 0)
+            if ((v29 & 2) != 0)
             {
-              v20 = &v28;
+              v19 = &v27;
             }
 
             else
             {
-              v20 = v28;
+              v19 = v27;
             }
 
-            (*((v30 & 0xFFFFFFFFFFFFFFF8) + 16))(v20);
+            (*((v29 & 0xFFFFFFFFFFFFFFF8) + 16))(v19);
           }
 
-          if ((v19 & 2) == 0)
+          if ((v18 & 2) == 0)
           {
-            llvm::deallocate_buffer(v28, *(&v28 + 1));
+            llvm::deallocate_buffer(v27, *(&v27 + 1));
           }
         }
       }
 
-      v3 = [(NSDictionary *)obj countByEnumeratingWithState:&v24 objects:v37 count:16];
+      v3 = [(NSDictionary *)obj countByEnumeratingWithState:&v23 objects:v36 count:16];
     }
 
     while (v3);

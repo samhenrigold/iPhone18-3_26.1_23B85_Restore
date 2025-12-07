@@ -12,8 +12,8 @@ int res_9_ninit(res_9_state a1)
 
 int res_9_vinit(res_9_state a1, int a2)
 {
-  v178 = *MEMORY[0x29EDCA608];
-  v151.st_dev = 0;
+  v175 = *MEMORY[0x29EDCA608];
+  v148.st_dev = 0;
   v4 = dns_configuration_copy();
   if (v4)
   {
@@ -37,101 +37,101 @@ int res_9_vinit(res_9_state a1, int a2)
     v8 = getenv("RES_RETRY_TIMEOUT");
     if (v8)
     {
-      v146 = atoi(v8);
+      v143 = atoi(v8);
     }
 
     else
     {
-      v146 = 0;
+      v143 = 0;
     }
 
-    v13 = getenv("RES_RETRY");
-    if (v13)
+    v11 = getenv("RES_RETRY");
+    if (v11)
     {
-      v7->retry = atoi(v13);
+      v7->retry = atoi(v11);
     }
 
-    v14 = *(v5 + 8);
-    if (v14 >= 4)
+    v12 = *(v5 + 8);
+    if (v12 >= 4)
     {
-      v14 = 3;
+      v12 = 3;
       *(v5 + 8) = 3;
 LABEL_21:
-      v15 = 0;
+      v13 = 0;
       while (1)
       {
-        v16 = *(*(*(v5 + 12) + 8 * v15) + 1);
-        if (v16 == 2)
+        v14 = *(*(*(v5 + 12) + 8 * v13) + 1);
+        if (v14 == 2)
         {
           break;
         }
 
-        if (v16 == 30)
+        if (v14 == 30)
         {
-          v17 = 8;
+          v15 = 8;
 LABEL_26:
-          v176 = 0u;
-          v177 = 0u;
-          v174 = 0u;
-          v175 = 0u;
-          v172 = 0u;
           v173 = 0u;
-          v170 = 0u;
+          v174 = 0u;
           v171 = 0u;
-          v168 = 0u;
+          v172 = 0u;
           v169 = 0u;
-          v166 = 0u;
+          v170 = 0u;
           v167 = 0u;
-          v164 = 0u;
+          v168 = 0u;
           v165 = 0u;
-          __str = 0u;
+          v166 = 0u;
           v163 = 0u;
-          inet_ntop(v16, (*(*(v5 + 12) + 8 * v15) + v17), &__str, 0x100u);
-          res_build(v7, v6, &v151, "nameserver", &__str);
-          v14 = *(v5 + 8);
+          v164 = 0u;
+          v161 = 0u;
+          v162 = 0u;
+          __str = 0u;
+          v160 = 0u;
+          inet_ntop(v14, (*(*(v5 + 12) + 8 * v13) + v15), &__str, 0x100u);
+          res_build(v7, v6, &v148, "nameserver", &__str);
+          v12 = *(v5 + 8);
         }
 
-        if (++v15 >= v14)
+        if (++v13 >= v12)
         {
           goto LABEL_28;
         }
       }
 
-      v17 = 4;
+      v15 = 4;
       goto LABEL_26;
     }
 
-    if (v14 >= 1)
+    if (v12 >= 1)
     {
       goto LABEL_21;
     }
 
 LABEL_28:
-    LODWORD(v18) = *(v5 + 24);
-    if (v18 < 7)
+    LODWORD(v16) = *(v5 + 24);
+    if (v16 < 7)
     {
-      if (v18 < 1)
+      if (v16 < 1)
       {
 LABEL_33:
-        if (v18 || !*v5)
+        if (v16 || !*v5)
         {
           goto LABEL_34;
         }
 
-        v39 = 0;
+        v37 = 0;
         for (i = (*v5 - 1); ; ++i)
         {
           if (i[1] == 46)
           {
-            ++v39;
+            ++v37;
           }
 
           else if (!i[1])
           {
             while (1)
             {
-              *v153 = i;
-              v41 = *v5;
+              *v150 = i;
+              v39 = *v5;
               if (i < *v5)
               {
                 break;
@@ -139,49 +139,49 @@ LABEL_33:
 
               if (*i != 46)
               {
-                res_build(v7, v6, &v151, "search", v41);
-                v41 = *v5;
+                res_build(v7, v6, &v148, "search", v39);
+                v39 = *v5;
                 break;
               }
 
               *i = 0;
-              --v39;
-              i = (*v153 - 1);
+              --v37;
+              i = (*v150 - 1);
             }
 
-            *v153 = v41;
-            if (v39 >= 2 && v151.st_dev <= 2u)
+            *v150 = v39;
+            if (v37 >= 2 && v148.st_dev <= 2u)
             {
-              v136 = v39 + 1;
+              v133 = v37 + 1;
               do
               {
-                v137 = *v153;
-                for (j = **v153; j != 46; j = v139)
+                v134 = *v150;
+                for (j = **v150; j != 46; j = v136)
                 {
-                  v139 = *++v137;
+                  v136 = *++v134;
                 }
 
-                *v153 = v137 + 1;
-                res_build(v7, v6, &v151, "search", (v137 + 1));
-                if (v136 < 4)
+                *v150 = v134 + 1;
+                res_build(v7, v6, &v148, "search", (v134 + 1));
+                if (v133 < 4)
                 {
                   break;
                 }
 
-                --v136;
+                --v133;
               }
 
-              while (v151.st_dev < 3u);
+              while (v148.st_dev < 3u);
             }
 
 LABEL_34:
-            v20 = *(v5 + 56);
+            v18 = *(v5 + 56);
             snprintf(&__str, 0x100uLL, "%d", *(v5 + 60));
-            res_build(v7, v6, &v151, "search_order", &__str);
-            v21 = *(v5 + 36);
-            if (v21 < 11)
+            res_build(v7, v6, &v148, "search_order", &__str);
+            v19 = *(v5 + 36);
+            if (v19 < 11)
             {
-              if (v21 >= 1)
+              if (v19 >= 1)
               {
                 goto LABEL_37;
               }
@@ -189,26 +189,26 @@ LABEL_34:
 
             else
             {
-              v21 = 10;
+              v19 = 10;
               *(v5 + 36) = 10;
 LABEL_37:
-              for (k = 0; k < v21; ++k)
+              for (k = 0; k < v19; ++k)
               {
                 if (v7)
                 {
-                  v23 = *(v7 + 392);
-                  if (v23 <= 0x9F)
+                  v21 = *(v7 + 392);
+                  if (v21 <= 0x9F)
                   {
-                    *(v7->sort_list + ((v23 >> 1) & 0x78)) = **(*(v5 + 40) + 8 * k);
-                    *(v7 + 392) = v23 + 16;
-                    v21 = *(v5 + 36);
+                    *(v7->sort_list + ((v21 >> 1) & 0x78)) = **(*(v5 + 40) + 8 * k);
+                    *(v7 + 392) = v21 + 16;
+                    v19 = *(v5 + 36);
                   }
                 }
               }
             }
 
-            *v153 = *(v5 + 48);
-            word = res_next_word(v153);
+            *v150 = *(v5 + 48);
+            word = res_next_word(v150);
             if (!word)
             {
 LABEL_82:
@@ -218,16 +218,16 @@ LABEL_82:
                 nscount = 1;
               }
 
-              if (!v20)
+              if (!v18)
               {
-                if (v146)
+                if (v143)
                 {
-                  LODWORD(v20) = nscount * v146 * v7->retry;
+                  LODWORD(v18) = nscount * v143 * v7->retry;
                 }
 
                 else
                 {
-                  LODWORD(v20) = 30;
+                  LODWORD(v18) = 30;
                 }
               }
 
@@ -247,129 +247,129 @@ LABEL_82:
               }
 
               result = 0;
-              if (v20)
+              if (v18)
               {
-                v56 = v20;
+                v54 = v18;
               }
 
               else
               {
-                v56 = 30;
+                v54 = 30;
               }
 
-              v7->retrans = v56;
+              v7->retrans = v54;
               v7->options = options | 1;
-              goto LABEL_324;
+              return result;
             }
 
-            v25 = word;
-            v26 = "ndots";
-            v27 = "nibble";
-            v28 = "timeout:";
+            v23 = word;
+            v24 = "ndots";
+            v25 = "nibble";
+            v26 = "timeout:";
             while (2)
             {
-              if (!strncmp(v25, "ndots:", 6uLL))
+              if (!strncmp(v23, "ndots:", 6uLL))
               {
-                v37 = v25 + 6;
-                v34 = v7;
-                v35 = v6;
-                v36 = v26;
+                v35 = v23 + 6;
+                v32 = v7;
+                v33 = v6;
+                v34 = v24;
                 goto LABEL_73;
               }
 
-              if (!strncmp(v25, "nibble:", 7uLL))
+              if (!strncmp(v23, "nibble:", 7uLL))
               {
-                v37 = v25 + 7;
-                v34 = v7;
-                v35 = v6;
-                v36 = v27;
+                v35 = v23 + 7;
+                v32 = v7;
+                v33 = v6;
+                v34 = v25;
                 goto LABEL_73;
               }
 
-              if (!strncmp(v25, "nibble2:", 8uLL))
+              if (!strncmp(v23, "nibble2:", 8uLL))
               {
-                v37 = (v25 + 1);
-                v34 = v7;
-                v35 = v6;
-                v36 = "nibble2";
+                v35 = (v23 + 1);
+                v32 = v7;
+                v33 = v6;
+                v34 = "nibble2";
                 goto LABEL_73;
               }
 
-              if (!strncmp(v25, v28, 8uLL))
+              if (!strncmp(v23, v26, 8uLL))
               {
-                v146 = atoi(v25 + 8);
+                v143 = atoi(v23 + 8);
                 goto LABEL_74;
               }
 
-              if (!strncmp(v25, "attempts:", 9uLL))
+              if (!strncmp(v23, "attempts:", 9uLL))
               {
-                v37 = v25 + 9;
-                v34 = v7;
-                v35 = v6;
-                v36 = "attempts";
+                v35 = v23 + 9;
+                v32 = v7;
+                v33 = v6;
+                v34 = "attempts";
                 goto LABEL_73;
               }
 
-              if (!strncmp(v25, "bitstring:", 0xAuLL))
+              if (!strncmp(v23, "bitstring:", 0xAuLL))
               {
-                v37 = v25 + 10;
-                v34 = v7;
-                v35 = v6;
-                v36 = "bitstring";
+                v35 = v23 + 10;
+                v32 = v7;
+                v33 = v6;
+                v34 = "bitstring";
                 goto LABEL_73;
               }
 
-              if (!strncmp(v25, "v6revmode:", 0xAuLL))
+              if (!strncmp(v23, "v6revmode:", 0xAuLL))
               {
-                v37 = v25 + 10;
-                v34 = v7;
-                v35 = v6;
-                v36 = "v6revmode";
+                v35 = v23 + 10;
+                v32 = v7;
+                v33 = v6;
+                v34 = "v6revmode";
                 goto LABEL_73;
               }
 
+              v27 = v24;
+              v28 = v18;
               v29 = v26;
-              v30 = v20;
-              v31 = v28;
-              v32 = v27;
-              v33 = "debug";
-              if (!strcmp(v25, "debug") || (v33 = "no_tld_query", !strcmp(v25, "no_tld_query")))
+              v30 = v25;
+              v31 = "debug";
+              if (!strcmp(v23, "debug") || (v31 = "no_tld_query", !strcmp(v23, "no_tld_query")))
               {
-                res_build(v7, v6, &v151, v33, 0);
-                v27 = v32;
+                res_build(v7, v6, &v148, v31, 0);
+                v25 = v30;
               }
 
               else
               {
-                v27 = v32;
-                if (strcmp(v25, "inet6"))
+                v25 = v30;
+                if (strcmp(v23, "inet6"))
                 {
-                  v28 = v31;
-                  if (strcmp(v25, "rotate"))
+                  v26 = v29;
+                  if (strcmp(v23, "rotate"))
                   {
-                    v20 = v30;
-                    if (strcmp(v25, "no-check-names"))
+                    v18 = v28;
+                    if (strcmp(v23, "no-check-names"))
                     {
-                      v26 = v29;
-                      if (!strcmp(v25, "edns0"))
+                      v24 = v27;
+                      if (!strcmp(v23, "edns0"))
                       {
-                        res_build(v7, v6, &v151, "edns0", 0);
+                        res_build(v7, v6, &v148, "edns0", 0);
                         goto LABEL_74;
                       }
 
-                      if (*v25 != 97 || *(v25 + 1) != 54 || *(v25 + 2))
+                      if (*v23 != 97 || *(v23 + 1) != 54 || *(v23 + 2))
                       {
-                        if (!strcmp(v25, "dname"))
+                        if (!strcmp(v23, "dname"))
                         {
-                          v34 = v7;
-                          v35 = v6;
-                          v36 = "dname";
+                          v32 = v7;
+                          v33 = v6;
+                          v34 = "dname";
                           goto LABEL_81;
                         }
 
 LABEL_74:
-                        v25 = res_next_word(v153);
-                        if (!v25)
+                        v23 = res_next_word(v150);
+                        if (!v23)
                         {
                           goto LABEL_82;
                         }
@@ -377,35 +377,35 @@ LABEL_74:
                         continue;
                       }
 
-                      v34 = v7;
-                      v35 = v6;
-                      v36 = "a6";
+                      v32 = v7;
+                      v33 = v6;
+                      v34 = "a6";
 LABEL_81:
-                      v37 = 0;
+                      v35 = 0;
 LABEL_73:
-                      res_build(v34, v35, &v151, v36, v37);
+                      res_build(v32, v33, &v148, v34, v35);
                       goto LABEL_74;
                     }
 
-                    res_build(v7, v6, &v151, "no-check-names", 0);
+                    res_build(v7, v6, &v148, "no-check-names", 0);
 LABEL_71:
-                    v26 = v29;
+                    v24 = v27;
                     goto LABEL_74;
                   }
 
-                  res_build(v7, v6, &v151, "rotate", 0);
+                  res_build(v7, v6, &v148, "rotate", 0);
 LABEL_70:
-                  v20 = v30;
+                  v18 = v28;
                   goto LABEL_71;
                 }
 
-                res_build(v7, v6, &v151, "inet6", 0);
+                res_build(v7, v6, &v148, "inet6", 0);
               }
 
               break;
             }
 
-            v28 = v31;
+            v26 = v29;
             goto LABEL_70;
           }
         }
@@ -417,14 +417,14 @@ LABEL_70:
       *(v5 + 24) = 6;
     }
 
-    v19 = 0;
+    v17 = 0;
     do
     {
-      res_build(v7, v6, &v151, "search", *(*(v5 + 28) + 8 * v19++));
-      v18 = *(v5 + 24);
+      res_build(v7, v6, &v148, "search", *(*(v5 + 28) + 8 * v17++));
+      v16 = *(v5 + 24);
     }
 
-    while (v19 < v18);
+    while (v17 < v16);
     goto LABEL_33;
   }
 
@@ -441,18 +441,18 @@ LABEL_70:
   }
 
   a1->id = arc4random();
-  *&v153[4] = 0u;
+  *&v150[4] = 0u;
+  v151 = 0u;
+  v152 = 0u;
+  v153 = 0u;
   v154 = 0u;
   v155 = 0u;
   v156 = 0u;
   v157 = 0u;
-  v158 = 0u;
-  v159 = 0u;
-  v160 = 0u;
-  memset(v161, 0, sizeof(v161));
-  *v153 = 889192976;
-  *&v161[4] = *MEMORY[0x29EDCA680];
-  HIDWORD(v160) = 889200156;
+  memset(v158, 0, sizeof(v158));
+  *v150 = 889192976;
+  *&v158[4] = *MEMORY[0x29EDCA680];
+  HIDWORD(v157) = 889200156;
   a1->nscount = 0;
   *(a1 + 392) = *(a1 + 392) & 0xF0 | 1;
   a1->pfcode = 0;
@@ -466,49 +466,47 @@ LABEL_70:
   {
     bzero(v9, 0x3C8uLL);
     *a1->_u._ext.ext = a1->nsaddr_list[0];
-    ext = a1->_u._ext.ext;
     __strlcpy_chk();
-    v11 = a1->_u._ext.ext;
     __strlcpy_chk();
     *(a1->_u._ext.ext + 480) = 2;
-    v12 = 3;
+    v10 = 3;
   }
 
   else
   {
     _res_9_h_errno_set(a1, -1);
-    v12 = 0;
+    v10 = 0;
   }
 
   *(a1 + 392) &= 0xFu;
-  res_9_setservers(a1, v153, 2);
-  if (issetugid() || (v44 = getenv("LOCALDOMAIN")) == 0)
+  res_9_setservers(a1, v150, 2);
+  if (issetugid() || (v42 = getenv("LOCALDOMAIN")) == 0)
   {
-    v42 = 0;
-    v43 = 1;
+    v40 = 0;
+    v41 = 1;
     goto LABEL_127;
   }
 
-  v45 = strncpy(a1->defdname, v44, 0xFFuLL);
-  v46 = 0;
-  v42 = 0;
+  v43 = strncpy(a1->defdname, v42, 0xFFuLL);
+  v44 = 0;
+  v40 = 0;
   a1->defdname[255] = 0;
-  a1->dnsrch[0] = v45;
-  v47 = &a1->dnsrch[1];
-  for (m = 80; m <= 119; v47 = (a1 + m))
+  a1->dnsrch[0] = v43;
+  v45 = &a1->dnsrch[1];
+  for (m = 80; m <= 119; v45 = (a1 + m))
   {
-    v49 = *v45;
-    if (v49 > 9)
+    v47 = *v43;
+    if (v47 > 9)
     {
-      if (v49 == 32)
+      if (v47 == 32)
       {
 LABEL_108:
-        *v45 = 0;
-        v46 = 1;
+        *v43 = 0;
+        v44 = 1;
         goto LABEL_112;
       }
 
-      if (v49 == 10)
+      if (v47 == 10)
       {
         break;
       }
@@ -516,62 +514,62 @@ LABEL_108:
 
     else
     {
-      if (v49 == 9)
+      if (v47 == 9)
       {
         goto LABEL_108;
       }
 
-      if (!*v45)
+      if (!*v43)
       {
         break;
       }
     }
 
-    if (v46)
+    if (v44)
     {
-      v46 = 0;
+      v44 = 0;
       m += 8;
-      *v47 = v45;
-      v42 = 1;
+      *v45 = v43;
+      v40 = 1;
     }
 
 LABEL_112:
-    ++v45;
+    ++v43;
   }
 
   while (1)
   {
-    v50 = *v45;
-    v51 = v50 > 0x20;
-    v52 = (1 << v50) & 0x100000601;
-    if (!v51 && v52 != 0)
+    v48 = *v43;
+    v49 = v48 > 0x20;
+    v50 = (1 << v48) & 0x100000601;
+    if (!v49 && v50 != 0)
     {
       break;
     }
 
-    ++v45;
+    ++v43;
   }
 
-  v43 = 0;
+  v41 = 0;
+  *v43 = 0;
   *v45 = 0;
-  *v47 = 0;
 LABEL_127:
-  v57 = fopen("/etc/resolv.conf", "re");
-  if (!v57)
+  v55 = fopen("/etc/resolv.conf", "re");
+  if (!v55)
   {
     goto LABEL_296;
   }
 
-  v58 = v57;
-  memset(&v151, 0, sizeof(v151));
+  v56 = v55;
+  memset(&v148, 0, sizeof(v148));
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   if (a1->_u._ext.ext)
   {
-    v59 = fileno(v57);
-    if (!fstat(v59, &v151))
+    v57 = fileno(v55);
+    if (!fstat(v57, &v148))
     {
-      *(a1->_u._ext.ext + 936) = v151.st_mtimespec;
+      *(a1->_u._ext.ext + 936) = v148.st_mtimespec;
       if (!clock_gettime(_CLOCK_MONOTONIC, &__tp))
       {
         *(a1->_u._ext.ext + 119) = __tp.tv_sec;
@@ -579,15 +577,15 @@ LABEL_127:
     }
   }
 
-  if (!fgets(&__str, 1024, v58))
+  if (!fgets(&__str, 1024, v56))
   {
-    v120 = 0;
+    v118 = 0;
     goto LABEL_295;
   }
 
-  v145 = v42;
-  v60 = 0;
-  v147 = 0;
+  v142 = v40;
+  v58 = 0;
+  v144 = 0;
   __dst = a1->defdname;
   sort_list = a1->sort_list;
   while (2)
@@ -599,21 +597,21 @@ LABEL_127:
 
     if (__str == 1634561892 && WORD2(__str) == 28265)
     {
-      v65 = BYTE6(__str);
+      v63 = BYTE6(__str);
       if (BYTE6(__str) == 32 || BYTE6(__str) == 9)
       {
-        if (!v43)
+        if (!v41)
         {
           goto LABEL_136;
         }
 
         for (n = &__str + 6; ; ++n)
         {
-          if (v65 > 9u)
+          if (v63 > 9u)
           {
-            if (v65 != 32)
+            if (v63 != 32)
             {
-              if (v65 == 10)
+              if (v63 == 10)
               {
                 goto LABEL_136;
               }
@@ -622,106 +620,106 @@ LABEL_127:
             }
           }
 
-          else if (v65 != 9)
+          else if (v63 != 9)
           {
-            if (!v65)
+            if (!v63)
             {
               goto LABEL_136;
             }
 
 LABEL_260:
-            v107 = strncpy(__dst, n, 0xFFuLL);
+            v105 = strncpy(__dst, n, 0xFFuLL);
             a1->defdname[255] = 0;
-            v108 = strpbrk(v107, " \t\n");
-            v145 = 0;
-            if (v108)
+            v106 = strpbrk(v105, " \t\n");
+            v142 = 0;
+            if (v106)
             {
-              *v108 = 0;
+              *v106 = 0;
             }
 
             goto LABEL_136;
           }
 
-          v68 = n[1];
-          v65 = v68;
+          v66 = n[1];
+          v63 = v66;
         }
       }
     }
 
-    v62 = __str == 1918985587 && WORD2(__str) == 26723;
-    if (!v62 || (v69 = BYTE6(__str), BYTE6(__str) != 32) && BYTE6(__str) != 9)
+    v60 = __str == 1918985587 && WORD2(__str) == 26723;
+    if (!v60 || (v67 = BYTE6(__str), BYTE6(__str) != 32) && BYTE6(__str) != 9)
     {
       if (__str == 0x76726573656D616ELL && WORD4(__str) == 29285)
       {
-        v72 = BYTE10(__str);
-        if ((BYTE10(__str) == 32 || BYTE10(__str) == 9) && v60 < v12)
+        v70 = BYTE10(__str);
+        if ((BYTE10(__str) == 32 || BYTE10(__str) == 9) && v58 < v10)
         {
-          v73 = v60;
-          v148 = 0;
-          for (ii = &__str + 10; v72 == 32 || v72 == 9; ++ii)
+          v71 = v58;
+          v145 = 0;
+          for (ii = &__str + 10; v70 == 32 || v70 == 9; ++ii)
           {
-            v76 = ii[1];
-            v72 = v76;
+            v74 = ii[1];
+            v70 = v74;
           }
 
           ii[strcspn(ii, ";# \t\n")] = 0;
           if (*ii)
           {
-            v103 = *ii == 10;
+            v101 = *ii == 10;
           }
 
           else
           {
-            v103 = 1;
+            v101 = 1;
           }
 
-          if (!v103)
+          if (!v101)
           {
-            memset(&v149, 0, sizeof(v149));
-            v149.ai_socktype = 2;
-            v149.ai_flags = 4;
-            __sprintf_chk(&v152, 0, 0x20uLL, "%u", 53);
-            if (!getaddrinfo(ii, &v152, &v149, &v148))
+            memset(&v146, 0, sizeof(v146));
+            v146.ai_socktype = 2;
+            v146.ai_flags = 4;
+            __sprintf_chk(&v149, 0, 0x20uLL, "%u", 53);
+            if (!getaddrinfo(ii, &v149, &v146, &v145))
             {
-              v104 = v148;
-              ai_addrlen = v148->ai_addrlen;
+              v102 = v145;
+              ai_addrlen = v145->ai_addrlen;
               if (ai_addrlen <= 0x80)
               {
-                v106 = a1->_u._ext.ext;
-                if (v106)
+                ext = a1->_u._ext.ext;
+                if (ext)
                 {
-                  memcpy(v106 + 128 * v73, v148->ai_addr, ai_addrlen);
-                  v104 = v148;
-                  ai_addrlen = v148->ai_addrlen;
+                  memcpy(ext + 128 * v71, v145->ai_addr, ai_addrlen);
+                  v102 = v145;
+                  ai_addrlen = v145->ai_addrlen;
                 }
 
-                v119 = &a1->nsaddr_list[v73];
+                v117 = &a1->nsaddr_list[v71];
                 if (ai_addrlen > 0x10)
                 {
-                  v119->sin_family = 0;
+                  v117->sin_family = 0;
                 }
 
                 else
                 {
-                  memcpy(v119, v104->ai_addr, ai_addrlen);
+                  memcpy(v117, v102->ai_addr, ai_addrlen);
                 }
 
-                v73 = (v73 + 1);
+                v71 = (v71 + 1);
               }
 
-              freeaddrinfo(v104);
+              freeaddrinfo(v102);
             }
           }
 
-          v60 = v73;
+          v58 = v71;
           goto LABEL_136;
         }
       }
 
-      if (__str != 0x7473696C74726F73 || (v77 = BYTE8(__str), BYTE8(__str) != 32) && BYTE8(__str) != 9)
+      if (__str != 0x7473696C74726F73 || (v75 = BYTE8(__str), BYTE8(__str) != 32) && BYTE8(__str) != 9)
       {
-        v64 = __str == 1769238639 && *(&__str + 3) == 1936617321;
-        if (v64 && (BYTE7(__str) == 32 || BYTE7(__str) == 9))
+        v62 = __str == 1769238639 && *(&__str + 3) == 1936617321;
+        if (v62 && (BYTE7(__str) == 32 || BYTE7(__str) == 9))
         {
           res_setoptions(a1, &__str + 7, "conf");
         }
@@ -729,145 +727,145 @@ LABEL_260:
         goto LABEL_136;
       }
 
-      v152.s_addr = 0;
-      *&v149.ai_flags = 0;
-      *&v149.ai_socktype = 0;
-      if (v147 > 9)
+      v149.s_addr = 0;
+      *&v146.ai_flags = 0;
+      *&v146.ai_socktype = 0;
+      if (v144 > 9)
       {
         goto LABEL_136;
       }
 
-      v78 = a1->_u._ext.ext + 384;
-      v79 = &__str + 8;
-      v143 = v60;
+      v76 = a1->_u._ext.ext + 384;
+      v77 = &__str + 8;
+      v140 = v58;
       while (1)
       {
-        for (jj = v79; ; ++jj)
+        for (jj = v77; ; ++jj)
         {
-          if (v77 > 0x3Bu)
+          if (v75 > 0x3Bu)
           {
-            v79 = jj;
+            v77 = jj;
             goto LABEL_201;
           }
 
-          if (((1 << v77) & 0x100000200) == 0)
+          if (((1 << v75) & 0x100000200) == 0)
           {
             break;
           }
 
-          v81 = jj[1];
-          v77 = v81;
+          v79 = jj[1];
+          v75 = v79;
         }
 
-        v79 = jj;
-        if (((1 << v77) & 0x800000000000401) != 0)
+        v77 = jj;
+        if (((1 << v75) & 0x800000000000401) != 0)
         {
-          v60 = v143;
+          v58 = v140;
           goto LABEL_136;
         }
 
         do
         {
 LABEL_201:
-          if (v77 == 38)
+          if (v75 == 38)
           {
             break;
           }
 
-          if (v77 == 47)
+          if (v75 == 47)
           {
             break;
           }
 
-          if ((v77 & 0x80) != 0)
+          if ((v75 & 0x80) != 0)
           {
             break;
           }
 
-          if (v77 == 59)
+          if (v75 == 59)
           {
             break;
           }
 
-          if ((*(MEMORY[0x29EDCA600] + 4 * v77 + 60) & 0x4000) != 0)
+          if ((*(MEMORY[0x29EDCA600] + 4 * v75 + 60) & 0x4000) != 0)
           {
             break;
           }
 
-          v82 = *++v79;
-          v77 = v82;
+          v80 = *++v77;
+          v75 = v80;
         }
 
-        while (v82);
-        v141 = v78;
-        *v79 = 0;
-        if (inet_aton(jj, &v152))
+        while (v80);
+        v138 = v76;
+        *v77 = 0;
+        if (inet_aton(jj, &v149))
         {
           break;
         }
 
-        if (inet_pton(30, jj, &v149) == 1)
+        if (inet_pton(30, jj, &v146) == 1)
         {
-          v140 = v12;
-          v78 = v141;
-          v89 = &v141[36 * v147];
-          *v89 = 30;
-          *(v89 + 4) = *&v149.ai_flags;
-          v90 = v89 + 20;
-          *v79++ = v77;
-          v91 = v79;
+          v137 = v10;
+          v76 = v138;
+          v87 = &v138[36 * v144];
+          *v87 = 30;
+          *(v87 + 4) = *&v146.ai_flags;
+          v88 = v87 + 20;
+          *v77++ = v75;
+          v89 = v77;
           while (1)
           {
-            v92 = *v79;
-            v93 = *v79;
-            if (!*v79 || v93 == 59 || (v92 & 0x80) != 0 || (*(MEMORY[0x29EDCA600] + 4 * v92 + 60) & 0x4000) != 0)
+            v90 = *v77;
+            v91 = *v77;
+            if (!*v77 || v91 == 59 || (v90 & 0x80) != 0 || (*(MEMORY[0x29EDCA600] + 4 * v90 + 60) & 0x4000) != 0)
             {
               break;
             }
 
-            ++v79;
+            ++v77;
           }
 
-          *v79 = 0;
-          if (v77 == 47)
+          *v77 = 0;
+          if (v75 == 47)
           {
-            v96 = atoi(v91);
-            v78 = v141;
-            if ((v96 & 0x80000000) == 0)
+            v94 = atoi(v89);
+            v76 = v138;
+            if ((v94 & 0x80000000) == 0)
             {
               goto LABEL_239;
             }
           }
 
-          else if (v77 != 38 || (v95 = inet_pton(30, v91, v90), v78 = v141, v95 != 1))
+          else if (v75 != 38 || (v93 = inet_pton(30, v89, v88), v76 = v138, v93 != 1))
           {
-            v96 = 128;
+            v94 = 128;
 LABEL_239:
-            v100 = 0;
+            v98 = 0;
             while (2)
             {
-              if (v96 < 1)
+              if (v94 < 1)
               {
-                LOBYTE(v102) = 0;
-                v101 = v96;
+                LOBYTE(v100) = 0;
+                v99 = v94;
 LABEL_244:
-                v90[v100] = v102;
+                v88[v98] = v100;
               }
 
               else
               {
-                v101 = (v96 - 8);
-                v90[v100] = -1;
-                if (v96 <= 7)
+                v99 = (v94 - 8);
+                v88[v98] = -1;
+                if (v94 <= 7)
                 {
-                  v102 = 255 << (8 - v96);
+                  v100 = 255 << (8 - v94);
                   goto LABEL_244;
                 }
               }
 
-              ++v100;
-              v96 = v101;
-              if (v100 == 16)
+              ++v98;
+              v94 = v99;
+              if (v98 == 16)
               {
                 break;
               }
@@ -876,104 +874,104 @@ LABEL_244:
             }
           }
 
-          sort_list[v147] = -1;
-          v94 = (v147 + 1);
-          v77 = v93;
-          v12 = v140;
+          sort_list[v144] = -1;
+          v92 = (v144 + 1);
+          v75 = v91;
+          v10 = v137;
         }
 
         else
         {
-          v94 = v147;
-          v78 = v141;
+          v92 = v144;
+          v76 = v138;
         }
 
 LABEL_247:
-        *v79 = v77;
-        v147 = v94;
-        v60 = v143;
-        if (v94 >= 10)
+        *v77 = v75;
+        v144 = v92;
+        v58 = v140;
+        if (v92 >= 10)
         {
           goto LABEL_136;
         }
       }
 
-      v83 = v12;
-      v84 = &sort_list[v147];
-      s_addr = v152.s_addr;
-      v84->s_addr = v152.s_addr;
-      if (v77 <= 0x2Fu && ((1 << v77) & 0x804000000001) != 0)
+      v81 = v10;
+      v82 = &sort_list[v144];
+      s_addr = v149.s_addr;
+      v82->s_addr = v149.s_addr;
+      if (v75 <= 0x2Fu && ((1 << v75) & 0x804000000001) != 0)
       {
-        *v79++ = v77;
-        v86 = v79;
+        *v77++ = v75;
+        v84 = v77;
         while (1)
         {
-          v87 = *v79;
-          v77 = *v79;
-          if (!*v79 || v87 == 59 || v87 < 0 || (*(MEMORY[0x29EDCA600] + 4 * v87 + 60) & 0x4000) != 0)
+          v85 = *v77;
+          v75 = *v77;
+          if (!*v77 || v85 == 59 || v85 < 0 || (*(MEMORY[0x29EDCA600] + 4 * v85 + 60) & 0x4000) != 0)
           {
             break;
           }
 
-          ++v79;
+          ++v77;
         }
 
-        *v79 = 0;
-        if (inet_aton(v86, &v152))
+        *v77 = 0;
+        if (inet_aton(v84, &v149))
         {
-          v88 = v152.s_addr;
+          v86 = v149.s_addr;
 LABEL_237:
-          v78 = v141;
-          v84[1].s_addr = v88;
-          v99 = &v141[36 * v147];
-          *v99 = 2;
-          *(v99 + 1) = v84->s_addr;
-          *(v99 + 5) = v84[1];
-          v94 = (v147 + 1);
-          v12 = v83;
+          v76 = v138;
+          v82[1].s_addr = v86;
+          v97 = &v138[36 * v144];
+          *v97 = 2;
+          *(v97 + 1) = v82->s_addr;
+          *(v97 + 5) = v82[1];
+          v92 = (v144 + 1);
+          v10 = v81;
           goto LABEL_247;
         }
 
-        s_addr = v84->s_addr;
+        s_addr = v82->s_addr;
       }
 
-      v97 = bswap32(s_addr);
-      if (v97 >> 30 == 2)
+      v95 = bswap32(s_addr);
+      if (v95 >> 30 == 2)
       {
-        v98 = 0xFFFF;
-      }
-
-      else
-      {
-        v98 = 0xFFFFFF;
-      }
-
-      if (v97 < 0)
-      {
-        v88 = v98;
+        v96 = 0xFFFF;
       }
 
       else
       {
-        v88 = 255;
+        v96 = 0xFFFFFF;
+      }
+
+      if (v95 < 0)
+      {
+        v86 = v96;
+      }
+
+      else
+      {
+        v86 = 255;
       }
 
       goto LABEL_237;
     }
 
-    if (!v43)
+    if (!v41)
     {
       goto LABEL_136;
     }
 
-    v70 = &__str + 6;
+    v68 = &__str + 6;
     while (2)
     {
-      if (v69 <= 9u)
+      if (v67 <= 9u)
       {
-        if (v69 != 9)
+        if (v67 != 9)
         {
-          if (!v69)
+          if (!v67)
           {
             goto LABEL_136;
           }
@@ -984,79 +982,79 @@ LABEL_237:
         goto LABEL_179;
       }
 
-      if (v69 == 32)
+      if (v67 == 32)
       {
 LABEL_179:
-        v71 = *++v70;
-        v69 = v71;
+        v69 = *++v68;
+        v67 = v69;
         continue;
       }
 
       break;
     }
 
-    if (v69 == 10)
+    if (v67 == 10)
     {
       goto LABEL_136;
     }
 
 LABEL_267:
     defdname = a1->defdname;
-    v110 = strncpy(__dst, v70, 0xFFuLL);
+    v108 = strncpy(__dst, v68, 0xFFuLL);
     a1->defdname[255] = 0;
-    v111 = strchr(v110, 10);
-    if (v111)
+    v109 = strchr(v108, 10);
+    if (v109)
     {
-      *v111 = 0;
+      *v109 = 0;
     }
 
     a1->dnsrch[0] = __dst;
-    v112 = a1->defdname[0];
+    v110 = a1->defdname[0];
     if (a1->defdname[0])
     {
-      v113 = 0;
-      v114 = &a1->dnsrch[1];
-      v115 = 80;
+      v111 = 0;
+      v112 = &a1->dnsrch[1];
+      v113 = 80;
       do
       {
-        if (v112 == 32 || v112 == 9)
+        if (v110 == 32 || v110 == 9)
         {
           *defdname = 0;
-          v113 = 1;
+          v111 = 1;
         }
 
-        else if (v113)
+        else if (v111)
         {
-          v113 = 0;
-          v115 += 8;
-          *v114 = defdname;
+          v111 = 0;
+          v113 += 8;
+          *v112 = defdname;
         }
 
-        v116 = *++defdname;
-        v112 = v116;
-        v114 = (a1 + v115);
+        v114 = *++defdname;
+        v110 = v114;
+        v112 = (a1 + v113);
       }
 
-      while (v116 && v115 < 120);
+      while (v114 && v113 < 120);
     }
 
     else
     {
-      v114 = &a1->dnsrch[1];
+      v112 = &a1->dnsrch[1];
     }
 
-    v117 = (defdname + 1);
-    while (v112 > 0x20 || ((1 << v112) & 0x100000201) == 0)
+    v115 = (defdname + 1);
+    while (v110 > 0x20 || ((1 << v110) & 0x100000201) == 0)
     {
-      v118 = *v117++;
-      v112 = v118;
+      v116 = *v115++;
+      v110 = v116;
     }
 
-    *(v117 - 1) = 0;
-    *v114 = 0;
-    v145 = 1;
+    *(v115 - 1) = 0;
+    *v112 = 0;
+    v142 = 1;
 LABEL_136:
-    if (fgets(&__str, 1024, v58))
+    if (fgets(&__str, 1024, v56))
     {
       continue;
     }
@@ -1064,95 +1062,95 @@ LABEL_136:
     break;
   }
 
-  v120 = 16 * v147;
-  v42 = v145;
-  if (v60 >= 1)
+  v118 = 16 * v144;
+  v40 = v142;
+  if (v58 >= 1)
   {
-    a1->nscount = v60;
+    a1->nscount = v58;
   }
 
 LABEL_295:
-  *(a1 + 392) = *(a1 + 392) & 0xF | v120;
-  fclose(v58);
+  *(a1 + 392) = *(a1 + 392) & 0xF | v118;
+  fclose(v56);
 LABEL_296:
-  v121 = a1->defdname;
+  v119 = a1->defdname;
   if (!a1->defdname[0] && !gethostname(&__str, 0xFFuLL) && strchr(&__str, 46))
   {
     __strlcpy_chk();
   }
 
-  if (!v42)
+  if (!v40)
   {
     a1->dnsrch[1] = 0;
-    v122 = &a1->dnsrch[1];
-    a1->dnsrch[0] = v121;
-    v123 = a1->defdname[0];
+    v120 = &a1->dnsrch[1];
+    a1->dnsrch[0] = v119;
+    v121 = a1->defdname[0];
     if (a1->defdname[0])
     {
-      v124 = 0;
-      v125 = &a1->defdname[1];
+      v122 = 0;
+      v123 = &a1->defdname[1];
       do
       {
-        if (v123 == 46)
+        if (v121 == 46)
         {
-          ++v124;
+          ++v122;
         }
 
-        v126 = *v125++;
-        v123 = v126;
+        v124 = *v123++;
+        v121 = v124;
       }
 
-      while (v126);
-      if (v124 >= 2)
+      while (v124);
+      if (v122 >= 2)
       {
-        v127 = 80;
+        v125 = 80;
         do
         {
-          v121 = strchr(v121, 46) + 1;
-          *v122++ = v121;
-          if (v127 > 0x57)
+          v119 = strchr(v119, 46) + 1;
+          *v120++ = v119;
+          if (v125 > 0x57)
           {
             break;
           }
 
-          v127 += 8;
-          v51 = v124-- > 2;
+          v125 += 8;
+          v49 = v122-- > 2;
         }
 
-        while (v51);
+        while (v49);
       }
     }
 
-    *v122 = 0;
-    v128 = MEMORY[0x29EDCA620];
+    *v120 = 0;
+    v126 = MEMORY[0x29EDCA620];
     if ((a1->options & 2) != 0)
     {
-      v129 = *__error();
-      fwrite(";; res_init()... default dnsrch list:\n", 0x26uLL, 1uLL, *v128);
-      *__error() = v129;
+      v127 = *__error();
+      fwrite(";; res_init()... default dnsrch list:\n", 0x26uLL, 1uLL, *v126);
+      *__error() = v127;
     }
 
     if (a1->dnsrch[0])
     {
-      v130 = &a1->dnsrch[1];
+      v128 = &a1->dnsrch[1];
       do
       {
         if ((a1->options & 2) != 0)
         {
-          v131 = *__error();
-          fprintf(*v128, ";;\t%s\n", *(v130 - 1));
-          *__error() = v131;
+          v129 = *__error();
+          fprintf(*v126, ";;\t%s\n", *(v128 - 1));
+          *__error() = v129;
         }
       }
 
-      while (*v130++);
+      while (*v128++);
     }
 
     if ((a1->options & 2) != 0)
     {
-      v133 = *__error();
-      fwrite(";;\t..END..\n", 0xBuLL, 1uLL, *v128);
-      *__error() = v133;
+      v131 = *__error();
+      fwrite(";;\t..END..\n", 0xBuLL, 1uLL, *v126);
+      *__error() = v131;
     }
   }
 
@@ -1163,18 +1161,15 @@ LABEL_296:
 
   else
   {
-    v134 = getenv("RES_OPTIONS");
-    if (v134)
+    v132 = getenv("RES_OPTIONS");
+    if (v132)
     {
-      res_setoptions(a1, v134, "env");
+      res_setoptions(a1, v132, "env");
     }
   }
 
   a1->options |= 1uLL;
-  result = a1->res_h_errno;
-LABEL_324:
-  v135 = *MEMORY[0x29EDCA608];
-  return result;
+  return a1->res_h_errno;
 }
 
 res_9_state res_build_start(res_9_state a1)
@@ -1236,9 +1231,7 @@ res_9_state res_build_start(res_9_state a1)
   if (v1->_u._ext.ext)
   {
     __strlcpy_chk();
-    ext = v1->_u._ext.ext;
     __strlcpy_chk();
-    v3 = v1->_u._ext.ext;
     __strlcpy_chk();
   }
 
@@ -2060,7 +2053,7 @@ LABEL_53:
   return -1;
 }
 
-uint64_t dns_async_start(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t dns_async_start(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7)
 {
   *a1 = 0;
   if (!a2)
@@ -2167,7 +2160,6 @@ LABEL_19:
 
   si_item_release();
 LABEL_21:
-  v14 = a3[2];
   si_module_release();
 
   free(a3);
@@ -2180,7 +2172,7 @@ dns_resource_record_t *__cdecl dns_parse_resource_record(const char *buf, uint32
   return _dns_parse_resource_record_internal(buf, &v4, &v3);
 }
 
-dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_t *a2, unsigned int *a3)
+dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unsigned int **a2, unsigned int *a3)
 {
   if (*a3 >= 1)
   {
@@ -2198,7 +2190,7 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
         v6->ttl = bswap32(*(v8 + 4));
         v10 = bswap32(*(v8 + 8));
         v11 = v8 + 10;
-        *a2 = v8 + 10;
+        *a2 = (v8 + 10);
         v12 = *a3 - 10;
         *a3 = v12;
         if (v12 >= HIWORD(v10))
@@ -2215,8 +2207,7 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
 
               *a3 -= 4;
               v6->data.A = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
-              v31 = **a2;
-              *a2 += 4;
+              v31 = *(*a2)++;
               v6->data.A->addr.s_addr = v31;
               goto LABEL_61;
             case 2u:
@@ -2246,20 +2237,19 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
 
               *a3 -= 20;
               v32 = *a2;
-              v33 = bswap32(**a2);
-              *a2 += 4;
+              v33 = bswap32(*(*a2)++);
               v6->data.A[4].addr.s_addr = v33;
               v34 = bswap32(v32[1]);
-              *a2 = (v32 + 2);
+              *a2 = v32 + 2;
               v6->data.A[5].addr.s_addr = v34;
               v35 = bswap32(v32[2]);
-              *a2 = (v32 + 3);
+              *a2 = v32 + 3;
               v6->data.A[6].addr.s_addr = v35;
               v36 = bswap32(v32[3]);
-              *a2 = (v32 + 4);
+              *a2 = v32 + 4;
               v6->data.A[7].addr.s_addr = v36;
               v37 = bswap32(v32[4]);
-              *a2 = (v32 + 5);
+              *a2 = v32 + 5;
               v6->data.A[8].addr.s_addr = v37;
               goto LABEL_61;
             case 0xBu:
@@ -2279,11 +2269,10 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
               *a3 = v40 - v13;
               v6->data.A = malloc_type_calloc(1uLL, 0x18uLL, 0x1010040A3B16CB0uLL);
               v43 = *a2;
-              v44 = **a2;
-              *a2 += 4;
+              v44 = *(*a2)++;
               v6->data.A->addr.s_addr = v44;
               LOBYTE(v44) = *(v43 + 4);
-              *a2 = v43 + 5;
+              *a2 = (v43 + 5);
               LOBYTE(v6->data.A[1].addr.s_addr) = v44;
               v6->data.A[2].addr.s_addr = 8 * v41;
               *&v6->data.A[4].addr.s_addr = 0;
@@ -2296,7 +2285,8 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
                 do
                 {
                   v48 = v47;
-                  v49 = *(*a2)++;
+                  v49 = **a2;
+                  *a2 = (*a2 + 1);
                   v47 += 8;
                   v50 = 128;
                   v51 = 8;
@@ -2355,7 +2345,7 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
               *a3 -= 2;
               v6->data.A = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040749D3347uLL);
               v15 = bswap32(**a2) >> 16;
-              *a2 += 2;
+              *a2 = (*a2 + 2);
               LOWORD(v6->data.A->addr.s_addr) = v15;
               goto LABEL_31;
             case 0x10u:
@@ -2378,8 +2368,7 @@ dns_resource_record_t *_dns_parse_resource_record_internal(uint64_t a1, unint64_
 
               *a3 -= 4;
               v6->data.A = malloc_type_calloc(1uLL, 0x10uLL, 0x101004082113244uLL);
-              v38 = bswap32(**a2);
-              *a2 += 4;
+              v38 = bswap32(*(*a2)++);
               v6->data.A->addr.s_addr = v38;
               goto LABEL_31;
             case 0x13u:
@@ -2426,16 +2415,13 @@ LABEL_32:
 
               *a3 -= 16;
               v6->data.A = malloc_type_calloc(1uLL, 0x10uLL, 0x1000040451B5BE8uLL);
-              v59 = **a2;
-              *a2 += 4;
+              v59 = *(*a2)++;
               v6->data.A->addr.s_addr = v59;
-              v60 = **a2;
-              *a2 += 4;
+              v60 = *(*a2)++;
               v6->data.A[1].addr.s_addr = v60;
-              v61 = **a2;
-              *a2 += 4;
+              v61 = *(*a2)++;
               v6->data.A[2].addr.s_addr = v61;
-              v24 = *a2 + 4;
+              v24 = *a2 + 1;
               v23 = **a2;
               goto LABEL_59;
             case 0x1Du:
@@ -2447,25 +2433,26 @@ LABEL_32:
               *a3 -= 16;
               v6->data.A = malloc_type_calloc(1uLL, 0x10uLL, 0x1000040451B5BE8uLL);
               v16 = *a2;
-              v17 = *(*a2)++;
+              v17 = **a2;
+              *a2 = (*a2 + 1);
               LOBYTE(v6->data.A->addr.s_addr) = v17;
               v18 = *(v16 + 1);
-              *a2 = v16 + 2;
+              *a2 = (v16 + 2);
               BYTE1(v6->data.A->addr.s_addr) = v18;
               v19 = *(v16 + 2);
-              *a2 = v16 + 3;
+              *a2 = (v16 + 3);
               BYTE2(v6->data.A->addr.s_addr) = v19;
               v20 = *(v16 + 3);
               v21 = *(v16 + 4);
-              *a2 = v16 + 4;
+              *a2 = (v16 + 4);
               HIBYTE(v6->data.A->addr.s_addr) = v20;
-              *a2 = v16 + 8;
+              *a2 = (v16 + 8);
               v6->data.A[1].addr.s_addr = bswap32(v21);
               v22 = bswap32(*(v16 + 8));
-              *a2 = v16 + 12;
+              *a2 = (v16 + 12);
               v6->data.A[2].addr.s_addr = v22;
               v23 = bswap32(*(v16 + 12));
-              v24 = v16 + 16;
+              v24 = (v16 + 16);
 LABEL_59:
               *a2 = v24;
               v6->data.A[3].addr.s_addr = v23;
@@ -2480,13 +2467,13 @@ LABEL_59:
               v6->data.A = malloc_type_calloc(1uLL, 0x10uLL, 0x101004057418832uLL);
               v25 = *a2;
               v26 = bswap32(**a2);
-              *a2 += 2;
+              *a2 = (*a2 + 2);
               LOWORD(v6->data.A->addr.s_addr) = HIWORD(v26);
               v27 = bswap32(*(v25 + 2));
-              *a2 = v25 + 4;
+              *a2 = (v25 + 4);
               HIWORD(v6->data.A->addr.s_addr) = HIWORD(v27);
               v28 = bswap32(*(v25 + 4)) >> 16;
-              *a2 = v25 + 6;
+              *a2 = (v25 + 6);
               LOWORD(v6->data.A[1].addr.s_addr) = v28;
 LABEL_31:
               v30 = _dns_parse_domain_name(a1, a2, a3);
@@ -2498,7 +2485,7 @@ LABEL_31:
               LOWORD(v39->addr.s_addr) = v13;
               *&v6->data.A[2].addr.s_addr = malloc_type_calloc(1uLL, v13, 0x3306BC2CuLL);
               memmove(*&v6->data.A[2].addr.s_addr, *a2, v13);
-              *a2 += v13;
+              *a2 = (*a2 + v13);
               goto LABEL_61;
           }
 
@@ -2524,7 +2511,7 @@ LABEL_61:
                 v62 = (v12 - *a3) <= v13 ? v13 : v12 - *a3;
                 if (v12 >= v62)
                 {
-                  *a2 = v11 + v62;
+                  *a2 = (v11 + v62);
                   *a3 = v12 - v62;
                   return v6;
                 }
@@ -2551,7 +2538,7 @@ dns_question_t *__cdecl dns_parse_question(const char *buf, uint32_t len)
   return _dns_parse_question_internal(buf, &v4, &v3);
 }
 
-_WORD *_dns_parse_question_internal(uint64_t a1, unint64_t *a2, unsigned int *a3)
+_WORD *_dns_parse_question_internal(uint64_t a1, unsigned __int16 **a2, unsigned int *a3)
 {
   if (a2 && *a2 && *a3 >= 1)
   {
@@ -2566,7 +2553,7 @@ _WORD *_dns_parse_question_internal(uint64_t a1, unint64_t *a2, unsigned int *a3
         v9 = *a2;
         v6[4] = bswap32(**a2) >> 16;
         v10 = bswap32(*(v9 + 2)) >> 16;
-        *a2 = v9 + 4;
+        *a2 = (v9 + 4);
         v6[5] = v10;
         return v6;
       }
@@ -2599,7 +2586,7 @@ dns_reply_t *__cdecl dns_parse_packet(const char *buf, uint32_t len)
       v5[3] = bswap32(*(buf + 3)) >> 16;
       v5[4] = bswap32(*(buf + 4)) >> 16;
       v8 = bswap32(*(buf + 5)) >> 16;
-      v19 = buf + 12;
+      v19 = (buf + 12);
       v5[5] = v8;
       v18 = v3;
       v2->question = malloc_type_calloc(v7, 8uLL, 0x2004093837F09uLL);
@@ -2987,6 +2974,61 @@ uint32_t dns_get_buffer_size(dns_handle_t d)
   }
 
   return d;
+}
+
+dns_reply_t *__cdecl dns_lookup(dns_handle_t dns, const char *name, uint32_t dnsclass, uint32_t dnstype)
+{
+  result = 0;
+  if (dns && name)
+  {
+    v7 = *&dnstype;
+    v8 = *&dnsclass;
+    v13 = -1;
+    if (*(dns + 3))
+    {
+      goto LABEL_7;
+    }
+
+    v9 = *(dns + 8);
+    if (!v9)
+    {
+      v9 = 0x2000;
+      *(dns + 8) = 0x2000;
+    }
+
+    result = malloc_type_malloc(v9, 0x6B42DA23uLL);
+    *(dns + 3) = result;
+    if (result)
+    {
+LABEL_7:
+      v14 = 128;
+      v10 = malloc_type_calloc(1uLL, 0x80uLL, 0x1000040AE2C30F4uLL);
+      v11 = *(dns + 1);
+      if (*dns)
+      {
+        v12 = _pdns_search(v11, *(dns + 2), name, v8, v7, *(dns + 3), *(dns + 8), v10, &v14);
+      }
+
+      else
+      {
+        _check_cache(v11);
+        v12 = _sdns_search(*(dns + 1), name, v8, v7, 0, 1, *(dns + 3), *(dns + 8), v10, &v14, &v13);
+      }
+
+      if (v12 > 0 && (result = dns_parse_packet(*(dns + 3), v12)) != 0)
+      {
+        result->server = v10;
+      }
+
+      else
+      {
+        free(v10);
+        return 0;
+      }
+    }
+  }
+
+  return result;
 }
 
 const char *__cdecl dns_type_string(uint16_t dnstype)
@@ -3560,9 +3602,9 @@ uint64_t _dns_print_question_lock(uint64_t a1, FILE *a2, int a3)
 
 uint64_t _dns_print_resource_record_lock(uint64_t a1, FILE *a2, int a3)
 {
-  v61 = *MEMORY[0x29EDCA608];
-  v58 = 0uLL;
-  v59 = 0;
+  v32 = *MEMORY[0x29EDCA608];
+  v29 = 0uLL;
+  v30 = 0;
   if (a3)
   {
     pthread_mutex_lock(&_dnsPrintLock);
@@ -3576,9 +3618,9 @@ uint64_t _dns_print_resource_record_lock(uint64_t a1, FILE *a2, int a3)
   switch(*(a1 + 8))
   {
     case 1:
-      v25.s_addr = **(a1 + 16);
-      inet_ntoa(v25);
-      goto LABEL_5;
+      v19.s_addr = **(a1 + 16);
+      inet_ntoa(v19);
+      goto LABEL_4;
     case 2:
     case 3:
     case 4:
@@ -3588,39 +3630,29 @@ uint64_t _dns_print_resource_record_lock(uint64_t a1, FILE *a2, int a3)
     case 9:
     case 0xC:
     case 0x13:
-      v9 = **(a1 + 16);
-      goto LABEL_5;
+      goto LABEL_4;
     case 6:
-      v34 = *(a1 + 16);
-      v56 = *(v34 + 28);
-      v57 = *(v34 + 32);
-      v54 = *(v34 + 20);
-      v55 = *(v34 + 24);
-      v50 = *(v34 + 8);
-      v52 = *(v34 + 16);
-      fprintf(a2, " %s %s %u %u %u %u %u", *v34);
+      fprintf(a2, " %s %s %u %u %u %u %u", **(a1 + 16));
       break;
     case 0xB:
-      v15.s_addr = **(a1 + 16);
-      v16 = inet_ntoa(v15);
-      fprintf(a2, " %s", v16);
-      v17 = getprotobynumber(*(*(a1 + 16) + 4));
-      if (v17)
+      v13.s_addr = **(a1 + 16);
+      v14 = inet_ntoa(v13);
+      fprintf(a2, " %s", v14);
+      v15 = getprotobynumber(*(*(a1 + 16) + 4));
+      if (v15)
       {
-        p_p_name = &v17->p_name;
-        fprintf(a2, " %s", v17->p_name);
-        v19 = *(a1 + 16);
-        if (*(v19 + 8))
+        p_p_name = &v15->p_name;
+        fprintf(a2, " %s", v15->p_name);
+        v17 = *(a1 + 16);
+        if (*(v17 + 8))
         {
-          v20 = 0;
+          v18 = 0;
           do
           {
-            if (*(*(v19 + 16) + v20))
+            if (*(*(v17 + 16) + v18))
             {
-              v21 = getservbyport(v20, *p_p_name);
-              if (v21)
+              if (getservbyport(v18, *p_p_name))
               {
-                s_name = v21->s_name;
                 fprintf(a2, " %s");
               }
 
@@ -3630,17 +3662,16 @@ uint64_t _dns_print_resource_record_lock(uint64_t a1, FILE *a2, int a3)
               }
             }
 
-            ++v20;
-            v19 = *(a1 + 16);
+            ++v18;
+            v17 = *(a1 + 16);
           }
 
-          while (v20 < *(v19 + 8));
+          while (v18 < *(v17 + 8));
         }
       }
 
       else
       {
-        v44 = *(*(a1 + 16) + 4);
         fprintf(a2, " UNKNOWN PROTOCOL %u");
       }
 
@@ -3648,37 +3679,26 @@ uint64_t _dns_print_resource_record_lock(uint64_t a1, FILE *a2, int a3)
     case 0xD:
     case 0xE:
     case 0x11:
-      v10 = *(a1 + 16);
-      v39 = *v10;
-      v45 = v10[1];
       fprintf(a2, " %s %s");
       break;
     case 0xF:
-      v26 = *(a1 + 16);
-      v42 = *v26;
-      v48 = *(v26 + 1);
-      goto LABEL_30;
+    case 0x12:
+      fprintf(a2, " %u %s");
+      break;
     case 0x10:
-      v35 = *(a1 + 16);
-      if (*v35)
+      v26 = *(a1 + 16);
+      if (*v26)
       {
-        v36 = 0;
+        v27 = 0;
         do
         {
-          fprintf(a2, " %s", *(*(v35 + 1) + 8 * v36++));
-          v35 = *(a1 + 16);
+          fprintf(a2, " %s", *(*(v26 + 1) + 8 * v27++));
+          v26 = *(a1 + 16);
         }
 
-        while (v36 < *v35);
+        while (v27 < *v26);
       }
 
-      break;
-    case 0x12:
-      v27 = *(a1 + 16);
-      v43 = *v27;
-      v49 = *(v27 + 1);
-LABEL_30:
-      fprintf(a2, " %u %s");
       break;
     case 0x14:
       fprintf(a2, " %s", **(a1 + 16));
@@ -3687,19 +3707,16 @@ LABEL_30:
         break;
       }
 
-      goto LABEL_5;
+      goto LABEL_4;
     case 0x15:
-      v24 = *(a1 + 16);
-      v41 = *v24;
-      v47 = *(v24 + 1);
       fprintf(a2, " %hu %s");
       break;
     case 0x1C:
-      v58 = 0uLL;
-      v59 = 0;
-      v58 = **(a1 + 16);
-      inet_ntop(30, &v58, v60, 0x40u);
-LABEL_5:
+      v29 = 0uLL;
+      v30 = 0;
+      v29 = **(a1 + 16);
+      inet_ntop(30, &v29, v31, 0x40u);
+LABEL_4:
       fprintf(a2, " %s");
       break;
     case 0x1D:
@@ -3707,29 +3724,29 @@ LABEL_5:
       fprintf(a2, " %s", coord_ntoa_buf);
       coord_ntoa(*(*(a1 + 16) + 8), 0);
       fprintf(a2, " %s", coord_ntoa_buf);
-      v11 = *(*(a1 + 16) + 12);
-      v12 = v11 < 10000000;
-      if (v11 >= 10000000)
+      v9 = *(*(a1 + 16) + 12);
+      v10 = v9 < 10000000;
+      if (v9 >= 10000000)
       {
-        v13 = v11 - 10000000;
+        v11 = v9 - 10000000;
       }
 
       else
       {
-        v13 = 10000000 - v11;
+        v11 = 10000000 - v9;
       }
 
-      if (v12)
+      if (v10)
       {
-        v14 = -(v13 / 0x64);
+        v12 = -(v11 / 0x64);
       }
 
       else
       {
-        v14 = v13 / 0x64;
+        v12 = v11 / 0x64;
       }
 
-      __sprintf_chk(alt_ntoa_buf, 0, 0x80uLL, "%d.%.2d", v14, v13 % 0x64);
+      __sprintf_chk(alt_ntoa_buf, 0, 0x80uLL, "%d.%.2d", v12, v11 % 0x64);
       fprintf(a2, " %sm", alt_ntoa_buf);
       precsize_ntoa(*(*(a1 + 16) + 1));
       fprintf(a2, " %sm", precsize_ntoa_buf);
@@ -3739,43 +3756,38 @@ LABEL_5:
       fprintf(a2, " %sm");
       break;
     case 0x21:
-      v23 = *(a1 + 16);
-      v51 = v23[2];
-      v53 = *(v23 + 1);
-      v40 = *v23;
-      v46 = v23[1];
       fprintf(a2, " %hu %hu %hu %s");
       break;
     default:
-      v28 = **(a1 + 16);
-      fprintf(a2, " %u ", v28);
-      if (v28)
+      v20 = **(a1 + 16);
+      fprintf(a2, " %u ", v20);
+      if (v20)
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v20; ++i)
         {
           fprintf(a2, "%x", *(*(*(a1 + 16) + 8) + i));
         }
       }
 
       fwrite(" (", 2uLL, 1uLL, a2);
-      v30 = *(a1 + 16);
-      v31 = *v30;
-      if (*v30)
+      v22 = *(a1 + 16);
+      v23 = *v22;
+      if (*v22)
       {
-        v32 = 0;
+        v24 = 0;
         do
         {
-          v33 = *(*(*(a1 + 16) + 8) + v32);
-          if (v33 < 0)
+          v25 = *(*(*(a1 + 16) + 8) + v24);
+          if (v25 < 0)
           {
-            LOBYTE(v33) = 32;
+            LOBYTE(v25) = 32;
           }
 
-          fputc(v33, a2);
-          ++v32;
+          fputc(v25, a2);
+          ++v24;
         }
 
-        while (v31 != v32);
+        while (v23 != v24);
       }
 
       fwrite(")\n", 2uLL, 1uLL, a2);
@@ -3785,16 +3797,15 @@ LABEL_5:
   result = fputc(10, a2);
   if (a3)
   {
-    result = pthread_mutex_unlock(&_dnsPrintLock);
+    return pthread_mutex_unlock(&_dnsPrintLock);
   }
 
-  v38 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void dns_print_reply(const dns_reply_t *r, FILE *f, uint16_t mask)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock(&_dnsPrintLock);
   if (!r)
   {
@@ -3837,7 +3848,6 @@ LABEL_23:
 LABEL_10:
     fprintf(f, "status %u\n", r->status);
 LABEL_24:
-    v10 = *MEMORY[0x29EDCA608];
 
     pthread_mutex_unlock(&_dnsPrintLock);
     return;
@@ -3866,15 +3876,15 @@ LABEL_13:
 
   if ((header->flags & 0x8000u) != 0)
   {
-    v11 = "QR: Reply\n";
+    v10 = "QR: Reply\n";
   }
 
   else
   {
-    v11 = "QR: Query\n";
+    v10 = "QR: Query\n";
   }
 
-  fwrite(v11, 0xAuLL, 1uLL, f);
+  fwrite(v10, 0xAuLL, 1uLL, f);
   if ((mask & 0x2000) == 0)
   {
 LABEL_14:
@@ -3926,31 +3936,31 @@ LABEL_32:
   }
 
   sa_family = server->sa_family;
-  v14 = 4;
+  v13 = 4;
   if (sa_family == 30)
   {
-    v14 = 8;
+    v13 = 8;
   }
 
-  v15 = inet_ntop(sa_family, &server->sa_len + v14, v36, 0x400u);
-  fprintf(f, "Server: %s", v15);
-  v16 = r->server;
-  v17 = v16->sa_family;
-  if (v17 == 30)
+  v14 = inet_ntop(sa_family, &server->sa_len + v13, v34, 0x400u);
+  fprintf(f, "Server: %s", v14);
+  v15 = r->server;
+  v16 = v15->sa_family;
+  if (v16 == 30)
   {
-    v18 = *&v16[1].sa_data[6];
-    if (v18)
+    v17 = *&v15[1].sa_data[6];
+    if (v17)
     {
 LABEL_38:
-      v19 = if_indextoname(v18, v36);
-      fprintf(f, "%%%s", v19);
+      v18 = if_indextoname(v17, v34);
+      fprintf(f, "%%%s", v18);
     }
   }
 
-  else if (v17 == 2)
+  else if (v16 == 2)
   {
-    v18 = *&v16->sa_data[6];
-    if (v18)
+    v17 = *&v15->sa_data[6];
+    if (v17)
     {
       goto LABEL_38;
     }
@@ -3971,17 +3981,17 @@ LABEL_15:
 LABEL_46:
   if ((header->flags & 0x400) != 0)
   {
-    v20 = "AA: Authoritative\n";
-    v21 = 18;
+    v19 = "AA: Authoritative\n";
+    v20 = 18;
   }
 
   else
   {
-    v20 = "AA: Non-Authoritative\n";
-    v21 = 22;
+    v19 = "AA: Non-Authoritative\n";
+    v20 = 22;
   }
 
-  fwrite(v20, v21, 1uLL, f);
+  fwrite(v19, v20, 1uLL, f);
   if ((mask & 0x10) == 0)
   {
 LABEL_17:
@@ -3996,17 +4006,17 @@ LABEL_17:
 LABEL_50:
   if ((header->flags & 0x200) != 0)
   {
-    v22 = "TC: Truncated\n";
-    v23 = 14;
+    v21 = "TC: Truncated\n";
+    v22 = 14;
   }
 
   else
   {
-    v22 = "TC: Non-Truncated\n";
-    v23 = 18;
+    v21 = "TC: Non-Truncated\n";
+    v22 = 18;
   }
 
-  fwrite(v22, v23, 1uLL, f);
+  fwrite(v21, v22, 1uLL, f);
   if ((mask & 0x20) == 0)
   {
 LABEL_18:
@@ -4021,17 +4031,17 @@ LABEL_18:
 LABEL_54:
   if ((header->flags & 0x100) != 0)
   {
-    v24 = "RD: Recursion desired\n";
-    v25 = 22;
+    v23 = "RD: Recursion desired\n";
+    v24 = 22;
   }
 
   else
   {
-    v24 = "RD: No recursion desired\n";
-    v25 = 25;
+    v23 = "RD: No recursion desired\n";
+    v24 = 25;
   }
 
-  fwrite(v24, v25, 1uLL, f);
+  fwrite(v23, v24, 1uLL, f);
   if ((mask & 0x40) == 0)
   {
 LABEL_19:
@@ -4046,17 +4056,17 @@ LABEL_19:
 LABEL_58:
   if ((header->flags & 0x80) != 0)
   {
-    v26 = "RA: Recursion available\n";
-    v27 = 24;
+    v25 = "RA: Recursion available\n";
+    v26 = 24;
   }
 
   else
   {
-    v26 = "RA: No recursion available \n";
-    v27 = 28;
+    v25 = "RA: No recursion available \n";
+    v26 = 28;
   }
 
-  fwrite(v26, v27, 1uLL, f);
+  fwrite(v25, v26, 1uLL, f);
   if ((mask & 0x100) == 0)
   {
 LABEL_20:
@@ -4069,13 +4079,13 @@ LABEL_91:
     fprintf(f, "Question (%hu):\n", header->qdcount);
     if (header->qdcount)
     {
-      v31 = 0;
+      v30 = 0;
       do
       {
-        _dns_print_question_lock(r->question[v31++], f, 0);
+        _dns_print_question_lock(r->question[v30++], f, 0);
       }
 
-      while (v31 < header->qdcount);
+      while (v30 < header->qdcount);
     }
 
     goto LABEL_94;
@@ -4083,47 +4093,47 @@ LABEL_91:
 
 LABEL_62:
   fwrite("Rcode: ", 7uLL, 1uLL, f);
-  v28 = header->flags & 0xF;
-  if (v28 <= 4)
+  v27 = header->flags & 0xF;
+  if (v27 <= 4)
   {
     if ((header->flags & 0xFu) <= 1)
     {
       if ((header->flags & 0xF) != 0)
       {
-        v29 = "Format error \n";
+        v28 = "Format error \n";
         goto LABEL_81;
       }
 
-      v29 = "No error\n";
-      v30 = 9;
+      v28 = "No error\n";
+      v29 = 9;
     }
 
     else
     {
-      if (v28 != 2)
+      if (v27 != 2)
       {
-        if (v28 != 3)
+        if (v27 != 3)
         {
-          if (v28 == 4)
+          if (v27 == 4)
           {
-            v29 = "Not implemented\n";
-            v30 = 16;
+            v28 = "Not implemented\n";
+            v29 = 16;
             goto LABEL_90;
           }
 
           goto LABEL_107;
         }
 
-        v29 = "Name error \n";
+        v28 = "Name error \n";
         goto LABEL_85;
       }
 
-      v29 = "Server failure\n";
-      v30 = 15;
+      v28 = "Server failure\n";
+      v29 = 15;
     }
 
 LABEL_90:
-    fwrite(v29, v30, 1uLL, f);
+    fwrite(v28, v29, 1uLL, f);
     if ((mask & 0x200) == 0)
     {
       goto LABEL_94;
@@ -4134,19 +4144,19 @@ LABEL_90:
 
   if ((header->flags & 0xFu) > 7)
   {
-    switch(v28)
+    switch(v27)
     {
       case 8u:
-        v29 = "RR Set does not exist\n";
-        v30 = 22;
+        v28 = "RR Set does not exist\n";
+        v29 = 22;
         break;
       case 9u:
-        v29 = "Not authoritative\n";
-        v30 = 18;
+        v28 = "Not authoritative\n";
+        v29 = 18;
         break;
       case 0xAu:
-        v29 = "Record zone does not match section zone\n";
-        v30 = 40;
+        v28 = "Record zone does not match section zone\n";
+        v29 = 40;
         goto LABEL_90;
       default:
         goto LABEL_107;
@@ -4155,21 +4165,21 @@ LABEL_90:
     goto LABEL_90;
   }
 
-  switch(v28)
+  switch(v27)
   {
     case 5u:
-      v29 = "Refused\n";
-      v30 = 8;
+      v28 = "Refused\n";
+      v29 = 8;
       goto LABEL_90;
     case 6u:
-      v29 = "Name exists\n";
+      v28 = "Name exists\n";
 LABEL_85:
-      v30 = 12;
+      v29 = 12;
       goto LABEL_90;
     case 7u:
-      v29 = "RR Set exists\n";
+      v28 = "RR Set exists\n";
 LABEL_81:
-      v30 = 14;
+      v29 = 14;
       goto LABEL_90;
   }
 
@@ -4186,13 +4196,13 @@ LABEL_94:
     fprintf(f, "Answer (%hu):\n", header->ancount);
     if (header->ancount)
     {
-      v32 = 0;
+      v31 = 0;
       do
       {
-        _dns_print_resource_record_lock(r->answer[v32++], f, 0);
+        _dns_print_resource_record_lock(r->answer[v31++], f, 0);
       }
 
-      while (v32 < header->ancount);
+      while (v31 < header->ancount);
     }
   }
 
@@ -4201,13 +4211,13 @@ LABEL_94:
     fprintf(f, "Authority (%hu):\n", header->nscount);
     if (header->nscount)
     {
-      v33 = 0;
+      v32 = 0;
       do
       {
-        _dns_print_resource_record_lock(r->authority[v33++], f, 0);
+        _dns_print_resource_record_lock(r->authority[v32++], f, 0);
       }
 
-      while (v33 < header->nscount);
+      while (v32 < header->nscount);
     }
   }
 
@@ -4216,18 +4226,17 @@ LABEL_94:
     fprintf(f, "Additional records (%hu):\n", header->arcount);
     if (header->arcount)
     {
-      v34 = 0;
+      v33 = 0;
       do
       {
-        _dns_print_resource_record_lock(r->additional[v34++], f, 0);
+        _dns_print_resource_record_lock(r->additional[v33++], f, 0);
       }
 
-      while (v34 < header->arcount);
+      while (v33 < header->arcount);
     }
   }
 
   pthread_mutex_unlock(&_dnsPrintLock);
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 void dns_print_handle(dns_handle_t d, FILE *f)
@@ -4279,7 +4288,7 @@ LABEL_10:
 
 uint64_t _pdns_print_handle(uint64_t a1, FILE *__stream)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (*(a1 + 16))
@@ -4293,21 +4302,110 @@ uint64_t _pdns_print_handle(uint64_t a1, FILE *__stream)
     }
 
     fwrite("Flags:", 6uLL, 1uLL, __stream);
-    v6 = *(a1 + 44);
-    if (!v6)
+    v5 = *(a1 + 44);
+    if (!v5)
     {
       result = fwrite(" None\n", 6uLL, 1uLL, __stream);
-      goto LABEL_17;
+LABEL_17:
+      v6 = *a1;
+      if (*a1)
+      {
+        if (*(v6 + 128))
+        {
+          fprintf(__stream, "Domain: %s\n", v6 + 128);
+        }
+
+        fprintf(__stream, "Search Order: %d\n", *(a1 + 56));
+        fprintf(__stream, "Total Timeout: %d\n", *(a1 + 48));
+        fprintf(__stream, "Retry Timeout: %d\n", **a1);
+        fprintf(__stream, "Retry Attempts: %d\n", *(*a1 + 4));
+        if (v6[4] == 1)
+        {
+          v7 = &unk_2998BE18D;
+        }
+
+        else
+        {
+          v7 = "s";
+        }
+
+        result = fprintf(__stream, "Server%s:\n", v7);
+        if (v6[4])
+        {
+          v8 = 0;
+          do
+          {
+            nsaddr = get_nsaddr(v6, v8);
+            if (*(nsaddr + 1) == 30)
+            {
+              v10 = 8;
+            }
+
+            else
+            {
+              v10 = 4;
+            }
+
+            v11 = inet_ntop(*(nsaddr + 1), (nsaddr + v10), v19, 0x400u);
+            fprintf(__stream, "  %u: %s", v8, v11);
+            result = fputc(10, __stream);
+            ++v8;
+          }
+
+          while (v8 < v6[4]);
+        }
+
+        if (*(a1 + 24))
+        {
+          result = fwrite("Search List:\n", 0xDuLL, 1uLL, __stream);
+          if (*(a1 + 24))
+          {
+            v12 = 0;
+            do
+            {
+              result = fprintf(__stream, "  %u: %s\n", v12, *(*(a1 + 32) + 8 * v12));
+              ++v12;
+            }
+
+            while (v12 < *(a1 + 24));
+          }
+        }
+
+        if (v6[99])
+        {
+          result = fwrite("Sortlist:\n", 0xAuLL, 1uLL, __stream);
+          if (v6[99])
+          {
+            v13 = 0;
+            v14 = v6 + 99;
+            do
+            {
+              fprintf(__stream, "  %u: ", v13);
+              v15.s_addr = *v14;
+              v16 = inet_ntoa(v15);
+              fprintf(__stream, "%s/", v16);
+              v17.s_addr = v14[1];
+              v18 = inet_ntoa(v17);
+              result = fprintf(__stream, "%s\n", v18);
+              v14 = &v6[2 * ++v13 + 99];
+            }
+
+            while (*v14);
+          }
+        }
+      }
+
+      return result;
     }
 
-    if (v6)
+    if (v5)
     {
       fwrite(" Debug", 6uLL, 1uLL, __stream);
-      v6 = *(a1 + 44);
-      if ((v6 & 2) == 0)
+      v5 = *(a1 + 44);
+      if ((v5 & 2) == 0)
       {
 LABEL_11:
-        if ((v6 & 4) == 0)
+        if ((v5 & 4) == 0)
         {
           goto LABEL_12;
         }
@@ -4316,17 +4414,17 @@ LABEL_11:
       }
     }
 
-    else if ((v6 & 2) == 0)
+    else if ((v5 & 2) == 0)
     {
       goto LABEL_11;
     }
 
     fwrite(" DirCheck", 9uLL, 1uLL, __stream);
-    v6 = *(a1 + 44);
-    if ((v6 & 4) == 0)
+    v5 = *(a1 + 44);
+    if ((v5 & 4) == 0)
     {
 LABEL_12:
-      if ((v6 & 8) == 0)
+      if ((v5 & 8) == 0)
       {
         goto LABEL_13;
       }
@@ -4336,105 +4434,15 @@ LABEL_12:
 
 LABEL_40:
     fwrite(" IPv6", 5uLL, 1uLL, __stream);
-    v6 = *(a1 + 44);
-    if ((v6 & 8) == 0)
+    v5 = *(a1 + 44);
+    if ((v5 & 8) == 0)
     {
 LABEL_13:
-      if ((v6 & 0x10) == 0)
+      if ((v5 & 0x10) == 0)
       {
 LABEL_15:
         result = fputc(10, __stream);
-LABEL_17:
-        v7 = *a1;
-        if (*a1)
-        {
-          if (*(v7 + 128))
-          {
-            fprintf(__stream, "Domain: %s\n", v7 + 128);
-          }
-
-          fprintf(__stream, "Search Order: %d\n", *(a1 + 56));
-          fprintf(__stream, "Total Timeout: %d\n", *(a1 + 48));
-          fprintf(__stream, "Retry Timeout: %d\n", **a1);
-          fprintf(__stream, "Retry Attempts: %d\n", *(*a1 + 4));
-          if (v7[4] == 1)
-          {
-            v8 = &unk_2998BE18D;
-          }
-
-          else
-          {
-            v8 = "s";
-          }
-
-          result = fprintf(__stream, "Server%s:\n", v8);
-          if (v7[4])
-          {
-            v9 = 0;
-            do
-            {
-              nsaddr = get_nsaddr(v7, v9);
-              if (*(nsaddr + 1) == 30)
-              {
-                v11 = 8;
-              }
-
-              else
-              {
-                v11 = 4;
-              }
-
-              v12 = inet_ntop(*(nsaddr + 1), (nsaddr + v11), v21, 0x400u);
-              fprintf(__stream, "  %u: %s", v9, v12);
-              result = fputc(10, __stream);
-              ++v9;
-            }
-
-            while (v9 < v7[4]);
-          }
-
-          if (*(a1 + 24))
-          {
-            result = fwrite("Search List:\n", 0xDuLL, 1uLL, __stream);
-            if (*(a1 + 24))
-            {
-              v13 = 0;
-              do
-              {
-                result = fprintf(__stream, "  %u: %s\n", v13, *(*(a1 + 32) + 8 * v13));
-                ++v13;
-              }
-
-              while (v13 < *(a1 + 24));
-            }
-          }
-
-          if (v7[99])
-          {
-            result = fwrite("Sortlist:\n", 0xAuLL, 1uLL, __stream);
-            if (v7[99])
-            {
-              v14 = 0;
-              v15 = v7 + 99;
-              do
-              {
-                fprintf(__stream, "  %u: ", v14);
-                v16.s_addr = *v15;
-                v17 = inet_ntoa(v16);
-                fprintf(__stream, "%s/", v17);
-                v18.s_addr = v15[1];
-                v19 = inet_ntoa(v18);
-                result = fprintf(__stream, "%s\n", v19);
-                v15 = &v7[2 * ++v14 + 99];
-              }
-
-              while (*v15);
-            }
-          }
-        }
-
-        v20 = *MEMORY[0x29EDCA608];
-        return result;
+        goto LABEL_17;
       }
 
 LABEL_14:
@@ -4451,8 +4459,6 @@ LABEL_41:
 
     goto LABEL_14;
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return fwrite("-nil-\n", 6uLL, 1uLL, __stream);
 }
@@ -4837,23 +4843,23 @@ uint64_t precsize_ntoa(unsigned int a1)
   return __sprintf_chk(precsize_ntoa_buf, 0, 0x13uLL, "%ld.%.2ld", v3 / 0x64uLL, v3 % 0x64);
 }
 
-void _check_cache(uint64_t a1)
+void _check_cache(uint64_t result)
 {
-  if (!a1)
+  if (!result)
   {
     return;
   }
 
   check = 0;
-  if (*(a1 + 28))
+  if (*(result + 28))
   {
-    v2 = *(a1 + 40);
+    v2 = *(result + 40);
     if (v2 != -1)
     {
       check = 1;
       if (!notify_check(v2, &check) && check != 1)
       {
-        v3 = *(a1 + 44);
+        v3 = *(result + 44);
         if (v3 != -1)
         {
           check = 1;
@@ -4866,33 +4872,33 @@ void _check_cache(uint64_t a1)
     }
   }
 
-  *a1 = 0;
-  if (*(a1 + 8))
+  *result = 0;
+  if (*(result + 8))
   {
     v4 = 0;
     do
     {
-      _pdns_free(*(*(a1 + 16) + 8 * v4++));
+      _pdns_free(*(*(result + 16) + 8 * v4++));
     }
 
-    while (v4 < *(a1 + 8));
+    while (v4 < *(result + 8));
   }
 
-  *(a1 + 8) = 0;
-  v5 = *(a1 + 16);
+  *(result + 8) = 0;
+  v5 = *(result + 16);
   if (v5)
   {
     free(v5);
   }
 
-  *(a1 + 16) = 0;
+  *(result + 16) = 0;
   v6 = dns_configuration_copy();
   v7 = v6;
   if (!v6 || (v8 = *v6, *v6 < 1))
   {
     v11 = _pdns_file_open("/etc/resolv.conf");
     v8 = 0;
-    *a1 = v11;
+    *result = v11;
     if (v11)
     {
       goto LABEL_56;
@@ -4902,7 +4908,7 @@ void _check_cache(uint64_t a1)
   }
 
   v9 = **(v6 + 4);
-  if ((*(a1 + 36) & 0x20) != 0)
+  if ((*(result + 36) & 0x20) != 0)
   {
     v12 = _pdns_build_start(*v9);
     v10 = v12;
@@ -4968,7 +4974,7 @@ LABEL_34:
 
   v10 = _pdns_convert_sc(**(v6 + 4));
 LABEL_35:
-  *a1 = v10;
+  *result = v10;
   if (!v10)
   {
     goto LABEL_61;
@@ -5040,11 +5046,11 @@ LABEL_49:
   }
 
 LABEL_55:
-  v11 = *a1;
-  if (*a1)
+  v11 = *result;
+  if (*result)
   {
 LABEL_56:
-    v25 = *(a1 + 36);
+    v25 = *(result + 36);
     if ((v25 & 1) != 0 && *v11)
     {
       *(*v11 + 8) |= 2uLL;
@@ -5052,7 +5058,7 @@ LABEL_56:
 
     v11[11] |= v25 & 8 | 0x10;
     v26 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
-    *(a1 + 16) = v26;
+    *(result + 16) = v26;
     if (!v26)
     {
       if (v7)
@@ -5063,9 +5069,9 @@ LABEL_56:
       return;
     }
 
-    v27 = *(a1 + 8);
-    v26[v27] = *a1;
-    *(a1 + 8) = v27 + 1;
+    v27 = *(result + 8);
+    v26[v27] = *result;
+    *(result + 8) = v27 + 1;
   }
 
 LABEL_61:
@@ -5077,7 +5083,7 @@ LABEL_76:
       dns_configuration_free();
     }
 
-    if ((*(a1 + 36) & 2) != 0)
+    if ((*(result + 36) & 2) != 0)
     {
       v35 = opendir("/etc/resolver");
       if (v35)
@@ -5107,7 +5113,7 @@ LABEL_76:
           }
 
           v41 = v40;
-          v42 = *(a1 + 36);
+          v42 = *(result + 36);
           if (v42)
           {
             *(*v40 + 8) |= 2uLL;
@@ -5118,28 +5124,28 @@ LABEL_76:
             v40[11] |= 8u;
           }
 
-          v43 = *(a1 + 8);
-          v44 = v43 ? reallocf(*(a1 + 16), 8 * (v43 + 1)) : malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
-          *(a1 + 16) = v44;
+          v43 = *(result + 8);
+          v44 = v43 ? reallocf(*(result + 16), 8 * (v43 + 1)) : malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
+          *(result + 16) = v44;
           if (!v44)
           {
             break;
           }
 
-          v45 = *(a1 + 8);
+          v45 = *(result + 8);
           v44[v45] = v41;
-          *(a1 + 8) = v45 + 1;
+          *(result + 8) = v45 + 1;
         }
 
-        *(a1 + 8) = 0;
+        *(result + 8) = 0;
         return;
       }
 
-      *(a1 + 36) &= ~2u;
+      *(result + 36) &= ~2u;
     }
 
 LABEL_98:
-    *(a1 + 28) = 1;
+    *(result + 28) = 1;
     return;
   }
 
@@ -5163,7 +5169,7 @@ LABEL_73:
   }
 
   v30 = v29;
-  v31 = *(a1 + 36);
+  v31 = *(result + 36);
   if (v31)
   {
     *(*v29 + 8) |= 2uLL;
@@ -5174,10 +5180,10 @@ LABEL_73:
     v29[11] |= 8u;
   }
 
-  v32 = *(a1 + 8);
+  v32 = *(result + 8);
   if (v32)
   {
-    v33 = reallocf(*(a1 + 16), 8 * (v32 + 1));
+    v33 = reallocf(*(result + 16), 8 * (v32 + 1));
   }
 
   else
@@ -5185,16 +5191,16 @@ LABEL_73:
     v33 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
   }
 
-  *(a1 + 16) = v33;
+  *(result + 16) = v33;
   if (v33)
   {
-    v34 = *(a1 + 8);
+    v34 = *(result + 8);
     v33[v34] = v30;
-    *(a1 + 8) = v34 + 1;
+    *(result + 8) = v34 + 1;
     goto LABEL_73;
   }
 
-  *(a1 + 8) = 0;
+  *(result + 8) = 0;
 LABEL_96:
   dns_configuration_free();
 }
@@ -5583,7 +5589,7 @@ LABEL_34:
 
 void *_pdns_file_open(char *a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   __filename = 0;
   if (a1 && (*a1 & 0xFE) != 0x2E)
   {
@@ -5595,120 +5601,123 @@ void *_pdns_file_open(char *a1)
     asprintf(&__filename, "%s");
   }
 
-  if (__filename && (v2 = fopen(__filename, "r"), free(__filename), v2))
+  if (!__filename)
   {
-    v3 = _pdns_build_start(0);
-    if (v3)
+    return 0;
+  }
+
+  v2 = fopen(__filename, "r");
+  free(__filename);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = _pdns_build_start(0);
+  if (v3)
+  {
+    v4 = getenv("RES_RETRY_TIMEOUT");
+    if (v4)
     {
-      v4 = getenv("RES_RETRY_TIMEOUT");
-      if (v4)
-      {
-        *(v3 + 13) = atoi(v4);
-      }
+      *(v3 + 13) = atoi(v4);
+    }
 
-      v5 = getenv("RES_RETRY");
-      v18 = v5;
-      if (v5)
-      {
-        *(*v3 + 4) = atoi(v5);
-      }
+    v5 = getenv("RES_RETRY");
+    v17 = v5;
+    if (v5)
+    {
+      *(*v3 + 4) = atoi(v5);
+    }
 
-      while (fgets(v20, 1024, v2))
+    while (fgets(v19, 1024, v2))
+    {
+      if (v19[0] != 35 && v19[0] != 59)
       {
-        if (v20[0] != 35 && v20[0] != 59)
+        v17 = v19;
+        word = res_next_word(&v17);
+        if (word)
         {
-          v18 = v20;
-          word = res_next_word(&v18);
-          if (word)
+          v7 = word;
+          if (!strcmp(word, "sortlist"))
           {
-            v7 = word;
-            if (!strcmp(word, "sortlist"))
+            v11 = res_next_word(&v17);
+            if (v11)
             {
-              v11 = res_next_word(&v18);
-              if (v11)
+              v12 = v11;
+              do
               {
-                v12 = v11;
-                do
-                {
-                  _pdns_build(v3, "sortlist", v12);
-                  v12 = res_next_word(&v18);
-                }
+                _pdns_build(v3, "sortlist", v12);
+                v12 = res_next_word(&v17);
+              }
 
-                while (v12);
+              while (v12);
+            }
+          }
+
+          else if (!strcmp(v7, "timeout"))
+          {
+            v13 = res_next_word(&v17);
+            if (v13)
+            {
+              _pdns_build(v3, "total_timeout", v13);
+            }
+          }
+
+          else
+          {
+            v8 = strcmp(v7, "options");
+            v9 = res_next_word(&v17);
+            v10 = v9;
+            if (v8)
+            {
+              if (v9)
+              {
+                _pdns_build(v3, v7, v9);
+              }
+
+              if (!strcmp(v7, "domain") && !v3[2])
+              {
+                _pdns_set_name(v3, v10);
               }
             }
 
-            else if (!strcmp(v7, "timeout"))
+            else if (v9)
             {
-              v13 = res_next_word(&v18);
-              if (v13)
+              do
               {
-                _pdns_build(v3, "total_timeout", v13);
-              }
-            }
-
-            else
-            {
-              v8 = strcmp(v7, "options");
-              v9 = res_next_word(&v18);
-              v10 = v9;
-              if (v8)
-              {
-                if (v9)
+                v14 = strchr(v10, 58);
+                v15 = v14;
+                if (v14)
                 {
-                  _pdns_build(v3, v7, v9);
+                  *v14 = 0;
+                  v15 = v14 + 1;
                 }
 
-                if (!strcmp(v7, "domain") && !v3[2])
-                {
-                  _pdns_set_name(v3, v10);
-                }
+                _pdns_build(v3, v10, v15);
+                v10 = res_next_word(&v17);
               }
 
-              else if (v9)
-              {
-                do
-                {
-                  v14 = strchr(v10, 58);
-                  v15 = v14;
-                  if (v14)
-                  {
-                    *v14 = 0;
-                    v15 = v14 + 1;
-                  }
-
-                  _pdns_build(v3, v10, v15);
-                  v10 = res_next_word(&v18);
-                }
-
-                while (v10);
-              }
+              while (v10);
             }
           }
         }
       }
-
-      fclose(v2);
-      if (!v3[2])
-      {
-        _pdns_set_name(v3, a1);
-      }
-
-      _pdns_build_finish(v3);
     }
 
-    else
+    fclose(v2);
+    if (!v3[2])
     {
-      fclose(v2);
+      _pdns_set_name(v3, a1);
     }
+
+    _pdns_build_finish(v3);
   }
 
   else
   {
-    v3 = 0;
+    fclose(v2);
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -5929,7 +5938,6 @@ uint64_t _dns_open_notify(uint64_t out_token)
       out_token = notify_register_check("com.apple.system.dns.resolver.dir", v4);
       if (!out_token)
       {
-        v6 = *v4;
         out_token = notify_monitor_file();
         if (!out_token)
         {
@@ -6207,42 +6215,56 @@ char *__cdecl dns_search_list_domain(dns_handle_t dns, uint32_t i)
   return strdup(v7);
 }
 
-uint64_t _pdns_search(uint64_t a1, uint64_t a2, char *__s, int a4, int a5, u_char *a6, int a7, _DWORD *a8, socklen_t *a9)
+uint64_t _pdns_search(uint64_t a1, void *a2, char *__s, uint64_t a4, uint64_t a5, u_char *a6, uint64_t a7, _DWORD *a8, socklen_t *a9)
 {
   v9 = 0xFFFFFFFFLL;
-  if (a2 && __s && *a2 && *(*a2 + 16) && (a5 != 28 || (*(a2 + 44) & 0xC) != 8))
+  if (a2)
   {
-    if (!*(a2 + 16) || strrchr(__s, 46))
+    if (__s)
     {
-      goto LABEL_15;
-    }
+      if (*a2)
+      {
+        if (*(*a2 + 16))
+        {
+          v15 = a5;
+          v16 = a4;
+          if (a5 != 28 || (*(a2 + 11) & 0xC) != 8)
+          {
+            if (!a2[2] || strrchr(__s, 46))
+            {
+              goto LABEL_15;
+            }
 
-    v19 = *(a2 + 24);
-    if (v19 == -1)
-    {
-      _pdns_process_res_search_list(a2);
-      v19 = *(a2 + 24);
-    }
+            v19 = *(a2 + 6);
+            if (v19 == -1)
+            {
+              _pdns_process_res_search_list(a2);
+              v19 = *(a2 + 6);
+            }
 
-    if (v19 || *(*a2 + 128))
-    {
+            if (v19 || *(*a2 + 128))
+            {
 LABEL_15:
-      _pdns_delay(a1);
-      return __res_nsearch_list_2(*a2, __s, a4, a5, a6, a7, a8, a9, *(a2 + 24), *(a2 + 32));
-    }
+              _pdns_delay(a1);
+              return __res_nsearch_list_2(*a2, __s, v16, v15, a6, a7, a8, a9, *(a2 + 6), a2[4]);
+            }
 
-    _pdns_delay(a1);
-    v20 = 0;
-    asprintf(&v20, "%s.%s.", __s, *(a2 + 16));
-    if (v20)
-    {
-      v9 = res_nsearch_2(*a2, v20, a4, a5, a6, a7, a8, a9);
-      free(v20);
-    }
+            _pdns_delay(a1);
+            v20 = 0;
+            asprintf(&v20, "%s.%s.", __s, a2[2]);
+            if (v20)
+            {
+              v9 = res_nsearch_2(*a2, v20, v16, v15, a6, a7, a8, a9);
+              free(v20);
+            }
 
-    else
-    {
-      return 0xFFFFFFFFLL;
+            else
+            {
+              return 0xFFFFFFFFLL;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -6856,7 +6878,7 @@ void **_pdns_get_default_handles(uint64_t a1, void **a2)
   return a2;
 }
 
-uint64_t _pdns_query(uint64_t a1, uint64_t a2, char *a3, int a4, int a5, u_char *a6, int a7, _DWORD *a8, socklen_t *a9, int *a10)
+uint64_t _pdns_query(uint64_t a1, uint64_t a2, char *a3, int a4, int a5, u_char *a6, uint64_t a7, _DWORD *a8, socklen_t *a9, int *a10)
 {
   result = 0xFFFFFFFFLL;
   if (a2 && a3)
@@ -6882,6 +6904,51 @@ uint64_t _pdns_query(uint64_t a1, uint64_t a2, char *a3, int a4, int a5, u_char 
     else
     {
       return 0xFFFFFFFFLL;
+    }
+  }
+
+  return result;
+}
+
+int32_t dns_query(dns_handle_t dns, const char *name, uint32_t dnsclass, uint32_t dnstype, char *buf, uint32_t len, sockaddr *from, uint32_t *fromlen)
+{
+  result = -1;
+  if (dns && name)
+  {
+    v15 = *&dnstype;
+    v18 = 0;
+    v17 = *(dns + 1);
+    if (*dns)
+    {
+      return _pdns_query(v17, *(dns + 2), name, dnsclass, dnstype, buf, *&len, from, fromlen, &v18);
+    }
+
+    else
+    {
+      _check_cache(v17);
+      return _sdns_search(*(dns + 1), name, dnsclass, v15, 1, 1, buf, len, from, fromlen, &v18);
+    }
+  }
+
+  return result;
+}
+
+int32_t dns_search(dns_handle_t dns, const char *name, uint32_t dnsclass, uint32_t dnstype, char *buf, uint32_t len, sockaddr *from, uint32_t *fromlen)
+{
+  result = -1;
+  if (dns && name)
+  {
+    v15 = *&dnstype;
+    v17 = *(dns + 1);
+    if (*dns)
+    {
+      return _pdns_search(v17, *(dns + 2), name, *&dnsclass, *&dnstype, buf, *&len, from, fromlen);
+    }
+
+    else
+    {
+      _check_cache(v17);
+      return _sdns_search(*(dns + 1), name, dnsclass, v15, 0, 1, buf, len, from, fromlen, &v18);
     }
   }
 
@@ -7184,7 +7251,7 @@ void res_9_dst_init()
       }
     }
 
-    bzero(&res_9_dst_t_func, 0x4F0uLL);
+    bzero(res_9_dst_t_func, 0x4F0uLL);
     res_9_dst_hmac_md5_init();
   }
 }
@@ -7230,10 +7297,10 @@ uint64_t res_9_dst_verify_data(char a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 
 unsigned int *res_9_dst_buffer_to_key(const char *a1, unsigned int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   if (a2 > 0x9D || !res_9_dst_t_func[a2])
   {
-    goto LABEL_14;
+    return 0;
   }
 
   v12 = malloc_type_malloc(0x30uLL, 0x10B00406B5C31EBuLL);
@@ -7242,9 +7309,7 @@ unsigned int *res_9_dst_buffer_to_key(const char *a1, unsigned int a2, unsigned 
   {
 LABEL_13:
     res_9_dst_free_key(v13);
-LABEL_14:
-    v13 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   *(v12 + 1) = 0u;
@@ -7280,11 +7345,11 @@ LABEL_14:
   v17 = v13[4];
   if (v17 <= 0x9D && res_9_dst_t_func[v17])
   {
-    bzero(&v26, 0x800uLL);
-    res_9_dst_s_put_int16(&v26, *(v13 + 10));
+    bzero(&v25, 0x800uLL);
+    res_9_dst_s_put_int16(&v25, *(v13 + 10));
     v18 = v13[4];
-    v27 = v13[3];
-    v28 = v18;
+    v26 = v13[3];
+    v27 = v18;
     v19 = v13[5];
     if (v19 < 0x10000)
     {
@@ -7293,24 +7358,24 @@ LABEL_14:
 
     else
     {
-      res_9_dst_s_put_int16(v29, HIWORD(v19));
+      res_9_dst_s_put_int16(v28, HIWORD(v19));
       v20 = 6;
     }
 
     if (*(v13 + 4))
     {
-      v23 = *(v13 + 5);
-      if (v23 && (v24 = *(v23 + 40)) != 0)
+      v22 = *(v13 + 5);
+      if (v22 && (v23 = *(v22 + 40)) != 0)
       {
-        v25 = v24(v13, &v26 + v20, 2048 - v20);
-        if (v25 <= 0)
+        v24 = v23(v13, &v25 + v20, 2048 - v20);
+        if (v24 <= 0)
         {
           v20 = -1;
         }
 
         else
         {
-          v20 += v25;
+          v20 += v24;
         }
       }
 
@@ -7326,9 +7391,7 @@ LABEL_14:
     v20 = -31;
   }
 
-  *(v13 + 12) = res_9_dst_s_dns_key_id(&v26, v20);
-LABEL_15:
-  v21 = *MEMORY[0x29EDCA608];
+  *(v13 + 12) = res_9_dst_s_dns_key_id(&v25, v20);
   return v13;
 }
 
@@ -7474,16 +7537,16 @@ uint64_t dst_hmac_md5_sign(char a1, uint64_t a2, CC_MD5_CTX **a3, void *data, si
 
 uint64_t dst_hmac_md5_verify(char a1, uint64_t a2, CC_MD5_CTX **a3, void *data, signed int len, void *a6, int a7)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (!a2)
   {
-    goto LABEL_16;
+    return 0xFFFFFFFFLL;
   }
 
   v8 = *(a2 + 32);
   if (!v8)
   {
-    goto LABEL_16;
+    return 0xFFFFFFFFLL;
   }
 
   if (a1)
@@ -7491,7 +7554,7 @@ uint64_t dst_hmac_md5_verify(char a1, uint64_t a2, CC_MD5_CTX **a3, void *data, 
     v16 = malloc_type_malloc(0x5CuLL, 0x100004034A301B9uLL);
     if (!v16)
     {
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
 
     v15 = v16;
@@ -7504,13 +7567,13 @@ uint64_t dst_hmac_md5_verify(char a1, uint64_t a2, CC_MD5_CTX **a3, void *data, 
   {
     if (!a3)
     {
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
 
     v15 = *a3;
     if (!*a3)
     {
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
   }
 
@@ -7525,45 +7588,21 @@ uint64_t dst_hmac_md5_verify(char a1, uint64_t a2, CC_MD5_CTX **a3, void *data, 
     {
       result = 0;
       *a3 = v15;
-      goto LABEL_17;
+      return result;
     }
 
-LABEL_16:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_17;
+    return 0xFFFFFFFFLL;
   }
 
-  if (a7 != 16 || !a6 || !v8)
+  if (a7 == 16 && a6 && v8 && ((CC_MD5_Final(md, v15), CC_MD5_Init(v15), CC_MD5_Update(v15, (v8 + 64), 0x40u), CC_MD5_Update(v15, md, 0x10u), CC_MD5_Final(md, v15), *&v15->A = 0u, *&v15->Nl = 0u, *&v15->data[2] = 0u, *&v15->data[6] = 0u, *&v15->data[10] = 0u, *&v15->data[13] = 0u, free(v15), *md == *a6) ? (v18 = v20 == a6[1]) : (v18 = 0), v18))
   {
-    goto LABEL_25;
-  }
-
-  CC_MD5_Final(md, v15);
-  CC_MD5_Init(v15);
-  CC_MD5_Update(v15, (v8 + 64), 0x40u);
-  CC_MD5_Update(v15, md, 0x10u);
-  CC_MD5_Final(md, v15);
-  *&v15->A = 0u;
-  *&v15->Nl = 0u;
-  *&v15->data[2] = 0u;
-  *&v15->data[6] = 0u;
-  *&v15->data[10] = 0u;
-  *&v15->data[13] = 0u;
-  free(v15);
-  if (*md == *a6 && v21 == a6[1])
-  {
-    result = 0;
+    return 0;
   }
 
   else
   {
-LABEL_25:
-    result = 4294967268;
+    return 4294967268;
   }
-
-LABEL_17:
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t dst_hmac_md5_free_key_structure(_OWORD *a1)
@@ -7625,9 +7664,9 @@ uint64_t dst_hmac_md5_to_dns_key(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t dst_buffer_to_hmac_md5(uint64_t a1, const void *a2, CC_LONG a3)
+uint64_t dst_buffer_to_hmac_md5(uint64_t a1, unsigned __int8 *a2, CC_LONG a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   result = 0xFFFFFFFFLL;
   if (a1)
   {
@@ -7650,10 +7689,10 @@ uint64_t dst_buffer_to_hmac_md5(uint64_t a1, const void *a2, CC_LONG a3)
           v7[1] = 0u;
           if (v6 >= 0x41)
           {
-            memset(&v14, 0, sizeof(v14));
-            CC_MD5_Init(&v14);
-            CC_MD5_Update(&v14, a2, v6);
-            CC_MD5_Final(md, &v14);
+            memset(&v13, 0, sizeof(v13));
+            CC_MD5_Init(&v13);
+            CC_MD5_Update(&v13, a2, v6);
+            CC_MD5_Final(md, &v13);
             v6 = 16;
           }
 
@@ -7675,18 +7714,17 @@ uint64_t dst_buffer_to_hmac_md5(uint64_t a1, const void *a2, CC_LONG a3)
           while (v9 != 4);
           *(a1 + 8) = v6;
           *(a1 + 32) = v8;
-          result = 1;
+          return 1;
         }
 
         else
         {
-          result = 4294967294;
+          return 4294967294;
         }
       }
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -8145,7 +8183,7 @@ int res_9_ns_name_ntop(const u_char *a1, char *a2, size_t a3)
   v5 = *a1;
   if (*a1)
   {
-    v29 = a3;
+    v27 = a3;
     v6 = a2;
     while (1)
     {
@@ -8196,23 +8234,23 @@ int res_9_ns_name_ntop(const u_char *a1, char *a2, size_t a3)
 
       if (v7)
       {
-        v18 = v7 + 1;
+        v17 = v7 + 1;
         v6 = v8;
         while (1)
         {
-          v20 = *v9++;
-          v19 = v20;
-          v21 = (1 << (v20 - 34)) & 0x4000000420010C5;
-          if ((v20 - 34) > 0x3A || v21 == 0)
+          v19 = *v9++;
+          v18 = v19;
+          v20 = (1 << (v19 - 34)) & 0x4000000420010C5;
+          if ((v19 - 34) > 0x3A || v20 == 0)
           {
-            if ((v19 - 127) > 0xFFFFFFA1)
+            if ((v18 - 127) > 0xFFFFFFA1)
             {
               if (v6 >= v4)
               {
                 goto LABEL_61;
               }
 
-              *v6++ = v19;
+              *v6++ = v18;
             }
 
             else
@@ -8223,10 +8261,10 @@ int res_9_ns_name_ntop(const u_char *a1, char *a2, size_t a3)
               }
 
               *v6 = 92;
-              v23 = (41 * v19) >> 12;
-              v6[1] = digits[v23];
-              v6[2] = digits[(v19 - 100 * v23) / 0xAu];
-              v6[3] = digits[(v19 - 10 * ((205 * v19) >> 11))];
+              v22 = (41 * v18) >> 12;
+              v6[1] = digits[v22];
+              v6[2] = digits[(v18 - 100 * v22) / 0xAu];
+              v6[3] = digits[(v18 - 10 * ((205 * v18) >> 11))];
               v6 += 4;
             }
           }
@@ -8239,11 +8277,11 @@ int res_9_ns_name_ntop(const u_char *a1, char *a2, size_t a3)
             }
 
             *v6 = 92;
-            v6[1] = v19;
+            v6[1] = v18;
             v6 += 2;
           }
 
-          if (--v18 <= 1)
+          if (--v17 <= 1)
           {
             goto LABEL_53;
           }
@@ -8256,7 +8294,7 @@ LABEL_53:
       a1 = v9;
       if (!*v9)
       {
-        a3 = v29;
+        a3 = v27;
         if (v6 != a2)
         {
           goto LABEL_59;
@@ -8268,8 +8306,8 @@ LABEL_53:
 
     if (v5 != 65)
     {
-      v27 = __error();
-      v28 = 22;
+      v25 = __error();
+      v26 = 22;
       goto LABEL_62;
     }
 
@@ -8326,26 +8364,24 @@ LABEL_53:
         goto LABEL_50;
       }
 
-      v24 = *v14 >> 4;
-      v17 = sprintf(v13, "%1x");
+      v16 = sprintf(v13, "%1x");
     }
 
     else
     {
-      v16 = *v14;
-      v17 = sprintf(v13, "%02x");
+      v16 = sprintf(v13, "%02x");
     }
 
     v9 += 2;
-    v13 += v17;
+    v13 += v16;
 LABEL_50:
-    v25 = v13 + sprintf(v13, "/%d]", v11) - v8;
-    if (v25 < 0)
+    v23 = v13 + sprintf(v13, "/%d]", v11) - v8;
+    if (v23 < 0)
     {
       goto LABEL_61;
     }
 
-    v6 = &v8[v25 & 0x7FFFFFFF];
+    v6 = &v8[v23 & 0x7FFFFFFF];
     goto LABEL_53;
   }
 
@@ -8361,10 +8397,10 @@ LABEL_59:
   if (v6 >= v4)
   {
 LABEL_61:
-    v27 = __error();
-    v28 = 40;
+    v25 = __error();
+    v26 = 40;
 LABEL_62:
-    *v27 = v28;
+    *v25 = v26;
     return -1;
   }
 
@@ -8553,7 +8589,7 @@ LABEL_17:
     }
 
     v24 = 40;
-    if (v9 + 1 >= v21 || (v25 = v7 + 1, (v7 + 1) >= v6))
+    if (v9 + 1 >= v21 || (v25 = v7 + 1, v7 + 1 >= v6))
     {
 LABEL_86:
       *__error() = v24;
@@ -9203,37 +9239,35 @@ LABEL_68:
 
 int res_9_ns_name_uncompress(const u_char *a1, const u_char *a2, const u_char *a3, char *a4, size_t a5)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  result = res_9_ns_name_unpack2(a1, a2, a3, v10, 255, 0);
+  v10 = *MEMORY[0x29EDCA608];
+  result = res_9_ns_name_unpack2(a1, a2, a3, v9, 255, 0);
   if (result != -1)
   {
     v8 = result;
-    if (res_9_ns_name_ntop(v10, a4, a5) == -1)
+    if (res_9_ns_name_ntop(v9, a4, a5) == -1)
     {
-      result = -1;
+      return -1;
     }
 
     else
     {
-      result = v8;
+      return v8;
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 int res_9_ns_name_compress(const char *a1, u_char *a2, size_t a3, const u_char **a4, const u_char **a5)
 {
   v7 = a3;
-  v12 = *MEMORY[0x29EDCA608];
-  result = res_9_ns_name_pton2(a1, v11, 255, 0);
+  v11 = *MEMORY[0x29EDCA608];
+  result = res_9_ns_name_pton2(a1, v10, 255, 0);
   if (result != -1)
   {
-    result = res_9_ns_name_pack(v11, a2, v7, a4, a5);
+    return res_9_ns_name_pack(v10, a2, v7, a4, a5);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 

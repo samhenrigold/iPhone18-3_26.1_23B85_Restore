@@ -125,7 +125,7 @@ void __31__EMHideMyEmail_sharedInstance__block_invoke()
 
 - (void)isAvailable:(id)available
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   availableCopy = available;
   isAvailable = [(EMHideMyEmail *)self isAvailable];
   if (isAvailable)
@@ -141,19 +141,19 @@ void __31__EMHideMyEmail_sharedInstance__block_invoke()
       }
 
       *buf = 138543362;
-      v23 = v8;
+      v22 = v8;
       _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "Hide My Email subscription is %{public}@available.", buf, 0xCu);
     }
 
     if (availableCopy)
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __29__EMHideMyEmail_isAvailable___block_invoke_79;
-      v15[3] = &unk_1E826D1F0;
-      v17 = availableCopy;
-      v16 = isAvailable;
-      v9 = v15;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __29__EMHideMyEmail_isAvailable___block_invoke_79;
+      v14[3] = &unk_1E826D1F0;
+      v16 = availableCopy;
+      v15 = isAvailable;
+      v9 = v14;
       mainThreadScheduler = [MEMORY[0x1E699B978] mainThreadScheduler];
       [mainThreadScheduler performBlock:v9];
     }
@@ -173,18 +173,16 @@ void __31__EMHideMyEmail_sharedInstance__block_invoke()
     aBlock[2] = __29__EMHideMyEmail_isAvailable___block_invoke;
     aBlock[3] = &unk_1E826D178;
     aBlock[4] = self;
-    v21 = availableCopy;
+    v20 = availableCopy;
     v12 = _Block_copy(aBlock);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __29__EMHideMyEmail_isAvailable___block_invoke_67;
-    v18[3] = &unk_1E826D1C8;
-    v19 = v12;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __29__EMHideMyEmail_isAvailable___block_invoke_67;
+    v17[3] = &unk_1E826D1C8;
+    v18 = v12;
     v13 = v12;
-    [(EMHideMyEmail *)self _hasCloudPlusSubscription:v18];
+    [(EMHideMyEmail *)self _hasCloudPlusSubscription:v17];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __29__EMHideMyEmail_isAvailable___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -208,27 +206,22 @@ void __29__EMHideMyEmail_isAvailable___block_invoke(uint64_t a1, uint64_t a2, vo
 
 uint64_t __29__EMHideMyEmail_isAvailable___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = +[EMHideMyEmail log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 48);
-    v4 = NSStringFromBOOL();
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "Hide My Email subscription availablity check returned: %@.", &v9, 0xCu);
+    v3 = NSStringFromBOOL();
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "Hide My Email subscription availablity check returned: %@.", &v5, 0xCu);
   }
 
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __29__EMHideMyEmail_isAvailable___block_invoke_67(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [MEMORY[0x1E6959A48] defaultStore];
   v7 = [v6 aa_primaryAppleAccount];
@@ -240,31 +233,29 @@ void __29__EMHideMyEmail_isAvailable___block_invoke_67(uint64_t a1, int a2, void
     {
       v9 = [v7 identifier];
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "AppleAccount<%@> missing PremimumMailSettings Dataclass. Renewing Credentials...", buf, 0xCu);
     }
 
     v10 = [MEMORY[0x1E6959A48] defaultStore];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __29__EMHideMyEmail_isAvailable___block_invoke_70;
-    v12[3] = &unk_1E826D1A0;
-    v13 = v7;
-    v14 = *(a1 + 32);
-    [v10 renewCredentialsForAccount:v13 completion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __29__EMHideMyEmail_isAvailable___block_invoke_70;
+    v11[3] = &unk_1E826D1A0;
+    v12 = v7;
+    v13 = *(a1 + 32);
+    [v10 renewCredentialsForAccount:v12 completion:v11];
   }
 
   else
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __29__EMHideMyEmail_isAvailable___block_invoke_70(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -272,7 +263,7 @@ void __29__EMHideMyEmail_isAvailable___block_invoke_70(uint64_t a1, uint64_t a2,
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [*(a1 + 32) identifier];
-      __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(v7, v5, &v13);
+      __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(v7, v5, &v12);
     }
 
 LABEL_8:
@@ -288,26 +279,24 @@ LABEL_8:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 32) identifier];
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "AppleAccount<%@> renewed credentials and updated Premium Mail Settings.", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "AppleAccount<%@> renewed credentials and updated Premium Mail Settings.", &v12, 0xCu);
     }
 
     goto LABEL_8;
   }
 
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"EMHideMyEmailErrorDomain" code:1 userInfo:0];
-  v11 = +[EMHideMyEmail log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"EMHideMyEmailErrorDomain" code:1 userInfo:0];
+  v10 = +[EMHideMyEmail log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v12 = [*(a1 + 32) identifier];
-    __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(v12, v10, &v13);
+    v11 = [*(a1 + 32) identifier];
+    __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(v11, v9, &v12);
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_9:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hasCloudPlusSubscription:(void *)subscription
@@ -516,7 +505,7 @@ LABEL_15:
 
 - (id)forwardingEmailForAccount:(id)account
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   if (!accountCopy)
   {
@@ -543,9 +532,9 @@ LABEL_15:
     {
       username = [v11 username];
       *buf = 67109376;
-      v27 = 0;
-      v28 = 1024;
-      v29 = username != 0;
+      v26 = 0;
+      v27 = 1024;
+      v28 = username != 0;
       _os_log_impl(&dword_1C6655000, v12, OS_LOG_TYPE_DEFAULT, "Attempt to fetch forwardingEmail address from AKAccountManager.sharedInstance forwardingEmailForAccount is %{BOOL}d whereas with altDSID address is %{BOOL}d", buf, 0xEu);
     }
 
@@ -568,8 +557,6 @@ LABEL_15:
 
     username3 = [v11 username];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return username3;
 }
@@ -648,33 +635,28 @@ void __74__EMHideMyEmail_hideMyEmailAddressForRecipientAddress_altDSID_completio
 
 void __74__EMHideMyEmail_hideMyEmailAddressForRecipientAddress_altDSID_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v4 = *(a1 + 48);
-    v8 = [v3 privateEmailAddress];
-    (*(v4 + 16))(v4);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(a1 + 48);
+    v4 = [v2 privateEmailAddress];
+    (*(v3 + 16))(v3);
   }
 
   else
   {
     if (*(a1 + 40))
     {
-      v9 = +[EMHideMyEmail log];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v5 = +[EMHideMyEmail log];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [*(a1 + 40) ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         __74__EMHideMyEmail_hideMyEmailAddressForRecipientAddress_altDSID_completion___block_invoke_2_cold_1();
       }
-
-      v6 = *(a1 + 40);
     }
 
     (*(*(a1 + 48) + 16))();
-    v7 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -759,31 +741,25 @@ void __69__EMHideMyEmail_hideMyEmailAddressesInAccountWithAltDSID_completion___b
 
 void __69__EMHideMyEmail_hideMyEmailAddressesInAccountWithAltDSID_completion___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = *(a1 + 48);
     v4 = [v2 ef_mapSelector:sel_privateEmailAddress];
-    v5 = *(a1 + 40);
-    v9 = v4;
     (*(v3 + 16))(v3);
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = +[EMHideMyEmail log];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v5 = +[EMHideMyEmail log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 40) ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __69__EMHideMyEmail_hideMyEmailAddressesInAccountWithAltDSID_completion___block_invoke_2_cold_1();
     }
 
-    v7 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -836,7 +812,6 @@ void __69__EMHideMyEmail_hideMyEmailAddressesInAccountWithAltDSID_completion___b
 
 void __68__EMHideMyEmail_isHideMyEmailAddressValid_senderAddress_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([v5 containsObject:*(a1 + 32)] & 1) == 0)
@@ -868,7 +843,6 @@ void __68__EMHideMyEmail_isHideMyEmailAddressValid_senderAddress_completion___bl
   [v15 logOneTimeEvent:v14];
 
   (*(*(a1 + 48) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateHideMyEmailAddressForEmailAddress:(id)address completion:(id)completion
@@ -950,16 +924,16 @@ void __78__EMHideMyEmail_generateHideMyEmailAddressForEmailAddress_altDSID_compl
   [v8 performBlock:v10];
 }
 
-void __78__EMHideMyEmail_generateHideMyEmailAddressForEmailAddress_altDSID_completion___block_invoke_2(uint64_t a1)
+void __78__EMHideMyEmail_generateHideMyEmailAddressForEmailAddress_altDSID_completion___block_invoke_2(void *a1)
 {
-  if (*(a1 + 32))
+  if (a1[4])
   {
-    (*(*(a1 + 64) + 16))();
+    (*(a1[8] + 16))();
   }
 
   else
   {
-    [(EMHideMyEmail *)*(a1 + 40) _registerHideMyEmailAddress:*(a1 + 56) altDSID:*(a1 + 64) completion:?];
+    [(EMHideMyEmail *)a1[5] _registerHideMyEmailAddress:a1[7] altDSID:a1[8] completion:?];
   }
 }
 
@@ -1030,33 +1004,28 @@ void __62__EMHideMyEmail__lookUpHideMyEmailAddress_altDSID_completion___block_in
 
 void __62__EMHideMyEmail__lookUpHideMyEmailAddress_altDSID_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v4 = *(a1 + 48);
-    v8 = [v3 privateEmailAddress];
-    (*(v4 + 16))(v4);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(a1 + 48);
+    v4 = [v2 privateEmailAddress];
+    (*(v3 + 16))(v3);
   }
 
   else
   {
     if (*(a1 + 40))
     {
-      v9 = +[EMHideMyEmail log];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v5 = +[EMHideMyEmail log];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [*(a1 + 40) ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         __62__EMHideMyEmail__lookUpHideMyEmailAddress_altDSID_completion___block_invoke_2_cold_1();
       }
-
-      v6 = *(a1 + 40);
     }
 
     (*(*(a1 + 48) + 16))();
-    v7 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1077,13 +1046,13 @@ void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_
   [v9 performBlock:v10];
 }
 
-void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_invoke_2(void *a1)
+void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
+  v2 = *(a1 + 32);
   if (v2)
   {
-    v3 = a1[6];
-    v6 = [v2 privateEmailAddress];
+    v3 = *(a1 + 48);
+    v5 = [v2 privateEmailAddress];
     (*(v3 + 16))(v3);
   }
 
@@ -1095,14 +1064,13 @@ void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_
       __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_invoke_2_cold_1(a1, v4);
     }
 
-    v5 = a1[5];
-    (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
   }
 }
 
 - (void)generateReplyToEmailForRecipient:(id)recipient hmeAddress:(id)address account:(id)account completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   addressCopy = address;
   accountCopy = account;
@@ -1114,27 +1082,25 @@ void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_
   v17 = +[EMHideMyEmail log];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [(EMHMERecipientCreationRequest *)v16 debugDescription];
-    v21 = [recipientCopy debugDescription];
-    v22 = [addressCopy debugDescription];
+    v19 = [(EMHMERecipientCreationRequest *)v16 debugDescription];
+    v20 = [recipientCopy debugDescription];
+    v21 = [addressCopy debugDescription];
     *buf = 138412802;
-    v26 = v20;
-    v27 = 2112;
-    v28 = v21;
-    v29 = 2112;
-    v30 = v22;
+    v25 = v19;
+    v26 = 2112;
+    v27 = v20;
+    v28 = 2112;
+    v29 = v21;
     _os_log_debug_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEBUG, "ReplyTo address Request %@ for recipient:%@ hmeAddress:%@", buf, 0x20u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke;
-  v23[3] = &unk_1E826D380;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke;
+  v22[3] = &unk_1E826D380;
   v18 = completionCopy;
-  v24 = v18;
-  [(AARequest *)v16 performRequestWithHandler:v23];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = v18;
+  [(AARequest *)v16 performRequestWithHandler:v22];
 }
 
 void __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -1156,7 +1122,7 @@ void __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_com
 
 void __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke_2(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [v2 replyToAddress];
   if (!v3 || *(a1 + 40))
@@ -1166,15 +1132,11 @@ void __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_com
     {
       v5 = [*(a1 + 32) responseDictionary];
       v6 = [*(a1 + 40) localizedDescription];
-      __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke_2_cold_1(v5, v6, v9);
+      __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke_2_cold_1(v5, v6, v7);
     }
-
-    v7 = *(a1 + 40);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (ACAccount)primaryAccount
@@ -1206,7 +1168,6 @@ void __43__EMHideMyEmail__hasCloudPlusSubscription___block_invoke(uint64_t a1)
 
 void __43__EMHideMyEmail__hasCloudPlusSubscription___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1233,8 +1194,6 @@ void __43__EMHideMyEmail__hasCloudPlusSubscription___block_invoke_2(uint64_t a1,
   }
 
   (*(v7 + 16))(v7, v10, v9);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(void *a1, uint64_t a2, uint64_t a3)
@@ -1245,26 +1204,24 @@ void __29__EMHideMyEmail_isAvailable___block_invoke_70_cold_1(void *a1, uint64_t
 
 void __54__EMHideMyEmail_isHideMyEmailAddressValid_completion___block_invoke_2_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Hide My Email address is available: %{BOOL}d in the list of HME addresses", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Hide My Email address is available: %{BOOL}d in the list of HME addresses", v2, 8u);
 }
 
 - (void)_isConfiguredForAccount:(uint64_t *)a1 error:(NSObject *)a2 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Hide My Email configuration error for account:%@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Hide My Email configuration error for account:%@", &v3, 0xCu);
 }
 
 - (void)_isConfiguredForAccount:(NSObject *)a1 error:(char)a2 .cold.2(NSObject *a1, char a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -1273,12 +1230,10 @@ void __54__EMHideMyEmail_isHideMyEmailAddressValid_completion___block_invoke_2_c
       v4 = @"YES";
     }
 
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1C6655000, a1, OS_LOG_TYPE_DEFAULT, "Hide My Email configured for account:%@.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1C6655000, a1, OS_LOG_TYPE_DEFAULT, "Hide My Email configured for account:%@.", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __74__EMHideMyEmail_hideMyEmailAddressForRecipientAddress_altDSID_completion___block_invoke_2_cold_1()
@@ -1311,12 +1266,11 @@ void __62__EMHideMyEmail__lookUpHideMyEmailAddress_altDSID_completion___block_in
 
 void __64__EMHideMyEmail__registerHideMyEmailAddress_altDSID_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Failed to generate new HME address. %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Failed to generate new HME address. %{public}@", &v3, 0xCu);
 }
 
 void __80__EMHideMyEmail_generateReplyToEmailForRecipient_hmeAddress_account_completion___block_invoke_2_cold_1(void *a1, void *a2, uint64_t a3)

@@ -9,6 +9,7 @@
 - (NSArray)unsatisfiedRequirementIdentifiers;
 - (NSString)highestPriorityUnsatisfiedRequirement;
 - (NSString)hk_redactedDescription;
+- (id)copyUpdatingRequirementForIdentifier:(id)identifier isSatisfied:(BOOL)satisfied;
 - (id)objectForKeyedSubscript:(id)subscript;
 - (id)unsatisfiedRequirementIdentifiersDescription;
 - (void)encodeWithCoder:(id)coder;
@@ -39,31 +40,31 @@
 
 + (id)evaluationOfRequirements:(id)requirements dataSource:(id)source overrides:(id)overrides error:(id *)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   requirementsCopy = requirements;
   sourceCopy = source;
   overridesCopy = overrides;
   v10 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(requirementsCopy, "count")}];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v11 = requirementsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v49;
+    v14 = *v48;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v49 != v14)
+        if (*v48 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v48 + 1) + 8 * i);
+        v16 = *(*(&v47 + 1) + 8 * i);
         requirementIdentifier = [objc_opt_class() requirementIdentifier];
         v18 = [overridesCopy overriddenSatisfactionOfRequirementWithIdentifier:requirementIdentifier];
         v19 = v18;
@@ -75,9 +76,9 @@
 
         else
         {
-          v47 = 0;
-          v20 = [v16 isSatisfiedWithDataSource:sourceCopy error:&v47];
-          v22 = v47;
+          v46 = 0;
+          v20 = [v16 isSatisfiedWithDataSource:sourceCopy error:&v46];
+          v22 = v46;
           v21 = v22;
           if (!v20)
           {
@@ -87,9 +88,9 @@
               domain = [v22 domain];
               code = [v21 code];
               userInfo = [v21 userInfo];
-              v54 = @"HKFeatureAvailabilityRequirementIdentifier";
-              v55 = requirementIdentifier;
-              v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+              v53 = @"HKFeatureAvailabilityRequirementIdentifier";
+              v54 = requirementIdentifier;
+              v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
               v31 = [userInfo hk_dictionaryByAddingEntriesFromDictionary:v30];
               v32 = v28;
               v33 = domain;
@@ -98,9 +99,9 @@
 
             else
             {
-              v52 = @"HKFeatureAvailabilityRequirementIdentifier";
-              v53 = requirementIdentifier;
-              v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+              v51 = @"HKFeatureAvailabilityRequirementIdentifier";
+              v52 = requirementIdentifier;
+              v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
               v36 = v28;
               v33 = v35;
               v34 = [v36 hk_error:2000 userInfo:v35];
@@ -131,7 +132,7 @@
         [v10 setObject:v20 forKeyedSubscript:requirementIdentifier];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v47 objects:v55 count:16];
       if (v13)
       {
         continue;
@@ -150,16 +151,14 @@
   v27 = [v26 initWithRequirementIdentifiersOrderedByPriority:v25 satisfactionByRequirementIdentifier:requirementIdentifier];
 LABEL_20:
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
-uint64_t __99__HKFeatureAvailabilityRequirementsEvaluation_evaluationOfRequirements_dataSource_overrides_error___block_invoke()
+uint64_t __99__HKFeatureAvailabilityRequirementsEvaluation_evaluationOfRequirements_dataSource_overrides_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 requirementIdentifier];
+  return [v2 requirementIdentifier];
 }
 
 + (id)emptyEvaluation
@@ -173,28 +172,28 @@ uint64_t __99__HKFeatureAvailabilityRequirementsEvaluation_evaluationOfRequireme
 
 - (NSString)highestPriorityUnsatisfiedRequirement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = self->_requirementIdentifiersOrderedByPriority;
-  v4 = [(NSOrderedSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [(NSOrderedSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v9 = [(NSDictionary *)self->_satisfactionByRequirementIdentifier objectForKeyedSubscript:v8, v14];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [(NSDictionary *)self->_satisfactionByRequirementIdentifier objectForKeyedSubscript:v8, v13];
         bOOLValue = [v9 BOOLValue];
 
         if (!bOOLValue)
@@ -204,7 +203,7 @@ uint64_t __99__HKFeatureAvailabilityRequirementsEvaluation_evaluationOfRequireme
         }
       }
 
-      v5 = [(NSOrderedSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSOrderedSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -216,8 +215,6 @@ uint64_t __99__HKFeatureAvailabilityRequirementsEvaluation_evaluationOfRequireme
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -237,17 +234,17 @@ LABEL_11:
 
   if (v5)
   {
-    v6 = [(NSDictionary *)self->_satisfactionByRequirementIdentifier objectForKeyedSubscript:identifierCopy];
-    bOOLValue = [v6 BOOLValue];
+    v8 = [(NSDictionary *)self->_satisfactionByRequirementIdentifier objectForKeyedSubscript:identifierCopy];
+    bOOLValue = [v8 BOOLValue];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v8 = HKLogInfrastructure();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    _HKInitializeLogging(v6, v7);
+    v12 = HKLogInfrastructure(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(HKFeatureAvailabilityRequirementsEvaluation *)identifierCopy isRequirementSatisfiedWithIdentifier:v8];
+      [(HKFeatureAvailabilityRequirementsEvaluation *)identifierCopy isRequirementSatisfiedWithIdentifier:v12];
     }
 
     bOOLValue = 0;
@@ -283,6 +280,35 @@ uint64_t __80__HKFeatureAvailabilityRequirementsEvaluation_unsatisfiedRequiremen
   v3 = [v2 BOOLValue];
 
   return v3 ^ 1u;
+}
+
+- (id)copyUpdatingRequirementForIdentifier:(id)identifier isSatisfied:(BOOL)satisfied
+{
+  satisfiedCopy = satisfied;
+  satisfactionByRequirementIdentifier = self->_satisfactionByRequirementIdentifier;
+  identifierCopy = identifier;
+  v8 = [(NSDictionary *)satisfactionByRequirementIdentifier objectForKeyedSubscript:identifierCopy];
+
+  if (!v8)
+  {
+    _HKInitializeLogging(v9, v10);
+    v13 = HKLogInfrastructure(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      [HKFeatureAvailabilityRequirementsEvaluation copyUpdatingRequirementForIdentifier:v13 isSatisfied:?];
+    }
+  }
+
+  v14 = [(NSDictionary *)self->_satisfactionByRequirementIdentifier mutableCopy];
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:satisfiedCopy];
+  [v14 setObject:v15 forKeyedSubscript:identifierCopy];
+
+  v16 = objc_alloc(objc_opt_class());
+  requirementIdentifiersOrderedByPriority = self->_requirementIdentifiersOrderedByPriority;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v14];
+  v19 = [v16 initWithRequirementIdentifiersOrderedByPriority:requirementIdentifiersOrderedByPriority satisfactionByRequirementIdentifier:v18];
+
+  return v19;
 }
 
 - (id)unsatisfiedRequirementIdentifiersDescription
@@ -338,28 +364,28 @@ __CFString *__91__HKFeatureAvailabilityRequirementsEvaluation_unsatisfiedRequire
 
 - (NSString)hk_redactedDescription
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   allKeys = [(NSDictionary *)self->_satisfactionByRequirementIdentifier allKeys];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         [string appendString:v9];
         [string appendString:@" = "];
         if (HKFeatureAvailabilityRequirementIdentifierReflectsSensitiveData(v9))
@@ -378,15 +404,13 @@ __CFString *__91__HKFeatureAvailabilityRequirementsEvaluation_unsatisfiedRequire
         [string appendString:@"; "];
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@:%p %@>", objc_opt_class(), self, string];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -418,11 +442,10 @@ __CFString *__91__HKFeatureAvailabilityRequirementsEvaluation_unsatisfiedRequire
 
 - (void)isRequirementSatisfiedWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "Requesting satisfaction of unknown requirement with identifier %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "Requesting satisfaction of unknown requirement with identifier %{public}@", &v2, 0xCu);
 }
 
 @end

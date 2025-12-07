@@ -240,11 +240,11 @@ LABEL_9:
   [animator addCompletion:{v5, item}];
 }
 
-uint64_t __82__PXPhotosDetailsAssetsWidget_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(uint64_t result, uint64_t a2)
+id *__82__PXPhotosDetailsAssetsWidget_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _setDraggingAssetReferences:0];
+    return [result[4] _setDraggingAssetReferences:0];
   }
 
   return result;
@@ -260,11 +260,11 @@ uint64_t __82__PXPhotosDetailsAssetsWidget_dragInteraction_item_willAnimateCance
   [animator addCompletion:v5];
 }
 
-uint64_t __83__PXPhotosDetailsAssetsWidget_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(uint64_t result, uint64_t a2)
+id *__83__PXPhotosDetailsAssetsWidget_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(id *result, uint64_t a2)
 {
   if (a2 == 1)
   {
-    return [*(result + 32) _setDraggingAssetReferences:0];
+    return [result[4] _setDraggingAssetReferences:0];
   }
 
   return result;
@@ -424,7 +424,7 @@ uint64_t __83__PXPhotosDetailsAssetsWidget_dragInteraction_willAnimateLiftWithAn
 
   [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{x, y}];
   memset(buf, 0, 32);
-  [PXPhotosDetailsAssetsWidget _assetIndexPathAtLocation:"_assetIndexPathAtLocation:padding:" padding:?];
+  objc_msgSend__assetIndexPathAtLocation_padding_(self);
   if (*buf == *off_1E7721F68)
   {
     v18 = 0;
@@ -505,7 +505,7 @@ uint64_t __83__PXPhotosDetailsAssetsWidget_dragInteraction_willAnimateLiftWithAn
 
     [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{v13, v15}];
     memset(buf, 0, sizeof(buf));
-    [PXPhotosDetailsAssetsWidget _assetIndexPathAtLocation:"_assetIndexPathAtLocation:padding:" padding:?];
+    objc_msgSend__assetIndexPathAtLocation_padding_(self);
     if (*buf == *off_1E7721F68)
     {
       v18 = MEMORY[0x1E695E0F0];
@@ -817,7 +817,7 @@ LABEL_14:
   v9 = v8;
   if (v8)
   {
-    [v8 indexPath];
+    objc_msgSend_indexPath(v8);
   }
 
   else
@@ -1043,7 +1043,7 @@ LABEL_14:
   v20 = *(off_1E7721FA0 + 2);
   v21 = *(off_1E7721FA0 + 3);
 
-  return [(PXPhotosDetailsAssetsWidget *)self _assetIndexPathAtLocation:v15 padding:v17, v18, v19, v20, v21];
+  return objc_msgSend__assetIndexPathAtLocation_padding_(self, v15, v17, v18, v19, v20, v21);
 }
 
 - (BOOL)swipeSelectionManager:(id)manager shouldBeginSelectionAtLocation:(CGPoint)location
@@ -1156,7 +1156,7 @@ LABEL_14:
   v12 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:visibleCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -1201,7 +1201,7 @@ void __79__PXPhotosDetailsAssetsWidget_oneUpPresentation_scrollAssetReferenceToV
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -1393,7 +1393,7 @@ void __79__PXPhotosDetailsAssetsWidget_oneUpPresentation_scrollAssetReferenceToV
   v6 = _tilingController;
   if (_tilingController)
   {
-    [_tilingController tileIdentifierForTile:tappedCopy];
+    objc_msgSend_tileIdentifierForTile_(_tilingController);
   }
 
   else
@@ -1446,7 +1446,7 @@ void __79__PXPhotosDetailsAssetsWidget_oneUpPresentation_scrollAssetReferenceToV
     v26 = 0u;
     if (referenceCopy)
     {
-      [referenceCopy indexPath];
+      objc_msgSend_indexPath(referenceCopy);
     }
 
     _assetsScene = [(PXPhotosDetailsAssetsWidget *)self _assetsScene];
@@ -1520,7 +1520,7 @@ void __81__PXPhotosDetailsAssetsWidget__handleTapOnAssetReference_autoPlayVideo_
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -2195,7 +2195,7 @@ void __60__PXPhotosDetailsAssetsWidget_observable_didChange_context___block_invo
   v11 = (100 * item);
   if (layoutCopy)
   {
-    [layoutCopy focusedIndexPath];
+    objc_msgSend_focusedIndexPath(layoutCopy);
     item = path->item;
     v12 = *(&v17 + 1);
     v13 = v17;
@@ -2264,7 +2264,7 @@ void __60__PXPhotosDetailsAssetsWidget_observable_didChange_context___block_invo
     v14 = 0u;
     if (selectionSnapshot)
     {
-      [selectionSnapshot firstSelectedIndexPath];
+      objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
     }
 
     dataSource = [selectionSnapshot dataSource];
@@ -2315,7 +2315,7 @@ void __60__PXPhotosDetailsAssetsWidget_observable_didChange_context___block_invo
   [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{x, y}];
   v42 = 0u;
   v43 = 0u;
-  [PXPhotosDetailsAssetsWidget _assetIndexPathAtLocation:"_assetIndexPathAtLocation:padding:" padding:?];
+  objc_msgSend__assetIndexPathAtLocation_padding_(self);
   if (*off_1E7721F68)
   {
     _assetsScene2 = [(PXPhotosDetailsAssetsWidget *)self _assetsScene];
@@ -2388,7 +2388,7 @@ void __60__PXPhotosDetailsAssetsWidget_observable_didChange_context___block_invo
   v21 = 0u;
   v22 = 0u;
   v20 = 0u;
-  if (tilingController && ([tilingController hitTestTileAtPoint:&__block_literal_global_360_146134 padding:x passingTest:{y, *off_1E7721FA8, *(off_1E7721FA8 + 1), *(off_1E7721FA8 + 2), *(off_1E7721FA8 + 3)}], v20))
+  if (tilingController && (objc_msgSend_hitTestTileAtPoint_padding_passingTest_(tilingController, x, y, *off_1E7721FA8, *(off_1E7721FA8 + 1), *(off_1E7721FA8 + 2), *(off_1E7721FA8 + 3)), v20))
   {
     currentLayout = [tilingController currentLayout];
     memset(v19, 0, sizeof(v19));
@@ -2530,7 +2530,7 @@ void __60__PXPhotosDetailsAssetsWidget_observable_didChange_context___block_invo
   [_assetsScene performChanges:v5];
 }
 
-uint64_t __46__PXPhotosDetailsAssetsWidget__toggleCuration__block_invoke(uint64_t a1)
+void *__46__PXPhotosDetailsAssetsWidget__toggleCuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _curate];
   if (*(a1 + 40) != result)
@@ -2774,29 +2774,33 @@ LABEL_16:
   v6 = sourceCopy;
   if ((v5 & 1) == 0)
   {
-    v7 = sourceCopy;
-    if (!sourceCopy)
+    if (sourceCopy)
+    {
+      v7 = objc_msgSend_options(sourceCopy, sourceCopy);
+    }
+
+    else
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"PXPhotosDetailsAssetsWidget.m" lineNumber:862 description:{@"Invalid parameter not satisfying: %@", @"photosDataSource != nil"}];
 
-      v7 = 0;
+      v7 = objc_msgSend_options(0, v17);
     }
 
-    v8 = -[PXPhotosDataSource initWithPhotosDataSource:options:]([PXPhotosDataSource alloc], "initWithPhotosDataSource:options:", sourceCopy, [v7 options] | 0x10);
+    0x10 = [[PXPhotosDataSource alloc] initWithPhotosDataSource:sourceCopy options:v7 | 0x10];
     v9 = objc_opt_class();
     context = [(PXPhotosDetailsAssetsWidget *)self context];
     people = [context people];
-    [v9 _refreshSortDescriptorsInPhotosDataSource:v8 withPeople:people];
+    [v9 _refreshSortDescriptorsInPhotosDataSource:0x10 withPeople:people];
 
-    firstAssetCollection = [(PXPhotosDataSource *)v8 firstAssetCollection];
+    firstAssetCollection = [(PXPhotosDataSource *)0x10 firstAssetCollection];
     if (firstAssetCollection)
     {
-      [(PXPhotosDataSource *)v8 setWantsCuration:[(PXPhotosDetailsAssetsWidget *)self _curate] forAssetCollection:firstAssetCollection];
-      if ([(PXPhotosDataSource *)v8 isCuratedAssetsEmptyForAssetCollection:firstAssetCollection])
+      [(PXPhotosDataSource *)0x10 setWantsCuration:[(PXPhotosDetailsAssetsWidget *)self _curate] forAssetCollection:firstAssetCollection];
+      if ([(PXPhotosDataSource *)0x10 isCuratedAssetsEmptyForAssetCollection:firstAssetCollection])
       {
         self->__curate = 0;
-        [(PXPhotosDataSource *)v8 setWantsCuration:0 forAssetCollection:firstAssetCollection];
+        [(PXPhotosDataSource *)0x10 setWantsCuration:0 forAssetCollection:firstAssetCollection];
       }
     }
 
@@ -2806,8 +2810,8 @@ LABEL_16:
     }
 
     photosDataSource = self->__photosDataSource;
-    self->__photosDataSource = v8;
-    v14 = v8;
+    self->__photosDataSource = 0x10;
+    v14 = 0x10;
 
     _dataSourceManager = [(PXPhotosDetailsAssetsWidget *)self _dataSourceManager];
     [_dataSourceManager setPhotosDataSource:v14];
@@ -2920,7 +2924,7 @@ LABEL_16:
     v21 = 0u;
     if (referenceCopy)
     {
-      [referenceCopy indexPath];
+      objc_msgSend_indexPath(referenceCopy);
     }
 
     v19[0] = v20;
@@ -2976,7 +2980,7 @@ LABEL_16:
   v14 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -3157,7 +3161,7 @@ LABEL_16:
 {
   v10 = 0u;
   v11 = 0u;
-  [(PXPhotosDetailsAssetsWidget *)self _assetIndexPathAtLocation:point.x padding:point.y, padding.top, padding.left, padding.bottom, padding.right];
+  objc_msgSend__assetIndexPathAtLocation_padding_(self, a2, point.x, point.y, padding.top, padding.left, padding.bottom, padding.right);
   if (*off_1E7721F68)
   {
     _dataSourceManager = [(PXPhotosDetailsAssetsWidget *)self _dataSourceManager];
@@ -3188,42 +3192,30 @@ LABEL_16:
   *&retstr->item = v13;
   _dataSourceManager = [(PXPhotosDetailsAssetsWidget *)self _dataSourceManager];
   dataSource = [_dataSourceManager dataSource];
-  identifier = [dataSource identifier];
+  [dataSource identifier];
 
-  v28 = 0;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v23 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v20 = 0u;
   _assetsScene = [(PXPhotosDetailsAssetsWidget *)self _assetsScene];
   tilingController = [_assetsScene tilingController];
-  v19 = tilingController;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __65__PXPhotosDetailsAssetsWidget__assetIndexPathAtLocation_padding___block_invoke;
-  v22[3] = &__block_descriptor_40_e355_B504__0_PXTileIdentifier_Q_10Q__8_v96_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_104_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_296Q488___NSObject__496l;
-  v22[4] = identifier;
+  v18 = tilingController;
   if (tilingController)
   {
-    [tilingController hitTestTileAtPoint:v22 padding:x passingTest:{y, top, left, bottom, right}];
+    objc_msgSend_hitTestTileAtPoint_padding_passingTest_(tilingController, x, y, top, left, bottom, right);
   }
 
   else
   {
-    v28 = 0;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v23 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
   }
 
-  if (v23 == __PAIR128__(6432423, 5))
+  if (v20 == __PAIR128__(6432423, 5))
   {
-    v21 = v25;
-    *&retstr->dataSourceIdentifier = v24;
-    *&retstr->item = v21;
+    *&retstr->dataSourceIdentifier = v21;
+    *&retstr->item = v22;
   }
 
   return result;
@@ -3529,12 +3521,12 @@ LABEL_6:
 
 - (void)_configureLayout:(id)layout
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   _layoutEngine = [(PXPhotosDetailsAssetsWidget *)self _layoutEngine];
   layoutSnapshot = [_layoutEngine layoutSnapshot];
 
-  v55 = layoutSnapshot;
+  v53 = layoutSnapshot;
   if (!layoutSnapshot)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -3542,51 +3534,50 @@ LABEL_6:
   }
 
   _hiddenAssetReferences = [(PXPhotosDetailsAssetsWidget *)self _hiddenAssetReferences];
-  v54 = _hiddenAssetReferences;
+  v52 = _hiddenAssetReferences;
   if ([_hiddenAssetReferences count])
   {
     v9 = objc_alloc_init(off_1E77217C8);
+    v62 = 0u;
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
     v10 = _hiddenAssetReferences;
-    v11 = [v10 countByEnumeratingWithState:&v64 objects:v70 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v65;
+      v13 = *v63;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v65 != v13)
+          if (*v63 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v64 + 1) + 8 * i);
-          v62 = 0u;
-          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
           dataSource = [layoutCopy dataSource];
-          v17 = dataSource;
+          v16 = dataSource;
           if (dataSource)
           {
-            [dataSource indexPathForAssetReference:v15];
+            objc_msgSend_indexPathForAssetReference_(dataSource);
           }
 
           else
           {
-            v62 = 0u;
-            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
           }
 
-          v60 = v62;
-          v61 = v63;
-          [v9 addIndexPath:&v60];
+          v58 = v60;
+          v59 = v61;
+          [v9 addIndexPath:&v58];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v64 objects:v70 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
       }
 
       while (v12);
@@ -3599,96 +3590,95 @@ LABEL_6:
   }
 
   _draggingAssetReferences = [(PXPhotosDetailsAssetsWidget *)self _draggingAssetReferences];
-  v53 = _draggingAssetReferences;
+  v51 = _draggingAssetReferences;
   if ([_draggingAssetReferences count])
   {
-    v19 = objc_alloc_init(off_1E77217C8);
+    v18 = objc_alloc_init(off_1E77217C8);
+    v54 = 0u;
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v20 = _draggingAssetReferences;
-    v21 = [v20 countByEnumeratingWithState:&v56 objects:v69 count:16];
-    if (v21)
+    v19 = _draggingAssetReferences;
+    v20 = [v19 countByEnumeratingWithState:&v54 objects:v67 count:16];
+    if (v20)
     {
-      v22 = v21;
-      v23 = *v57;
+      v21 = v20;
+      v22 = *v55;
       do
       {
-        for (j = 0; j != v22; ++j)
+        for (j = 0; j != v21; ++j)
         {
-          if (*v57 != v23)
+          if (*v55 != v22)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v56 + 1) + 8 * j);
-          v62 = 0u;
-          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
           dataSource2 = [layoutCopy dataSource];
-          v27 = dataSource2;
+          v25 = dataSource2;
           if (dataSource2)
           {
-            [dataSource2 indexPathForAssetReference:v25];
+            objc_msgSend_indexPathForAssetReference_(dataSource2);
           }
 
           else
           {
-            v62 = 0u;
-            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
           }
 
-          v60 = v62;
-          v61 = v63;
-          [v19 addIndexPath:&v60];
+          v58 = v60;
+          v59 = v61;
+          [v18 addIndexPath:&v58];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v56 objects:v69 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v54 objects:v67 count:16];
       }
 
-      while (v22);
+      while (v21);
     }
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
   _highlightedAssetReference = [(PXPhotosDetailsAssetsWidget *)self _highlightedAssetReference];
-  v49 = *(off_1E7722228 + 1);
-  v51 = *off_1E7722228;
-  v62 = *off_1E7722228;
-  v63 = v49;
+  v47 = *(off_1E7722228 + 1);
+  v49 = *off_1E7722228;
+  v60 = *off_1E7722228;
+  v61 = v47;
   if (_highlightedAssetReference)
   {
     dataSource3 = [layoutCopy dataSource];
-    v30 = dataSource3;
+    v28 = dataSource3;
     if (dataSource3)
     {
-      [dataSource3 indexPathForAssetReference:_highlightedAssetReference];
+      objc_msgSend_indexPathForAssetReference_(dataSource3);
     }
 
     else
     {
-      v60 = 0u;
-      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
     }
 
-    v62 = v60;
-    v63 = v61;
+    v60 = v58;
+    v61 = v59;
   }
 
   _focusedAssetReference = [(PXPhotosDetailsAssetsWidget *)self _focusedAssetReference];
-  v60 = v51;
-  v61 = v50;
+  v58 = v49;
+  v59 = v48;
   if (_focusedAssetReference)
   {
     dataSource4 = [layoutCopy dataSource];
-    v33 = dataSource4;
+    v31 = dataSource4;
     if (dataSource4)
     {
-      [dataSource4 indexPathForAssetReference:_focusedAssetReference];
+      objc_msgSend_indexPathForAssetReference_(dataSource4);
     }
 
     else
@@ -3696,47 +3686,47 @@ LABEL_6:
       memset(buf, 0, 32);
     }
 
-    v60 = *buf;
-    v61 = *&buf[16];
+    v58 = *buf;
+    v59 = *&buf[16];
   }
 
-  v52 = _highlightedAssetReference;
+  v50 = _highlightedAssetReference;
   dataSource5 = [layoutCopy dataSource];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     photosDataSource = [dataSource5 photosDataSource];
     wantsCurationForFirstAssetCollection = [photosDataSource wantsCurationForFirstAssetCollection];
-    if ([photosDataSource numberOfSections] < 1 || (objc_msgSend(photosDataSource, "assetsInSection:", 0), v37 = objc_claimAutoreleasedReturnValue(), v37, v37))
+    if ([photosDataSource numberOfSections] < 1 || (objc_msgSend(photosDataSource, "assetsInSection:", 0), v35 = objc_claimAutoreleasedReturnValue(), v35, v35))
     {
       isEmpty = [photosDataSource isEmpty];
-      v39 = 2;
+      v37 = 2;
       if (wantsCurationForFirstAssetCollection)
       {
-        v39 = 0;
+        v37 = 0;
       }
 
       if (isEmpty)
       {
-        v40 = v39;
+        v38 = v37;
       }
 
       else
       {
-        v40 = 0;
+        v38 = 0;
       }
     }
 
     else
     {
-      v40 = 1;
+      v38 = 1;
     }
   }
 
   else
   {
     LOBYTE(wantsCurationForFirstAssetCollection) = 0;
-    v40 = 0;
+    v38 = 0;
   }
 
   [layoutCopy setSelectionBadgeOptions:1025];
@@ -3745,45 +3735,45 @@ LABEL_6:
 
   if (wantsCurationForFirstAssetCollection)
   {
-    v43 = 1;
+    v41 = 1;
     gridContentMode = 1;
   }
 
   else
   {
     gridContentMode = [spec gridContentMode];
-    v43 = 3;
+    v41 = 3;
   }
 
   if (![spec enableBadges])
   {
-    v43 = 0;
+    v41 = 0;
   }
 
   [layoutCopy setContentMode:gridContentMode];
-  [layoutCopy setBadgeOptions:v43];
-  [layoutCopy setLayoutSnapshot:v55];
+  [layoutCopy setBadgeOptions:v41];
+  [layoutCopy setLayoutSnapshot:v53];
   [layoutCopy setHiddenIndexPaths:v9];
-  [layoutCopy setPlaceholderMode:v40];
-  *buf = v62;
-  *&buf[16] = v63;
-  [layoutCopy setHighlightedIndexPath:buf];
-  [layoutCopy setDraggingIndexPaths:v19];
+  [layoutCopy setPlaceholderMode:v38];
   *buf = v60;
   *&buf[16] = v61;
+  [layoutCopy setHighlightedIndexPath:buf];
+  [layoutCopy setDraggingIndexPaths:v18];
+  *buf = v58;
+  *&buf[16] = v59;
   [layoutCopy setFocusedIndexPath:buf];
   [layoutCopy setSpec:spec];
-  if (v40 != 1 && self->_loadStartDate)
+  if (v38 != 1 && self->_loadStartDate)
   {
-    v45 = PLRelatedGetLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v43 = PLRelatedGetLog();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       [(NSDate *)self->_loadStartDate timeIntervalSinceNow];
       *buf = 138412546;
       *&buf[4] = self;
       *&buf[12] = 2048;
-      *&buf[14] = -v46;
-      _os_log_impl(&dword_1A3C1C000, v45, OS_LOG_TYPE_DEFAULT, "[%@] initial data souce loaded in %fs", buf, 0x16u);
+      *&buf[14] = -v44;
+      _os_log_impl(&dword_1A3C1C000, v43, OS_LOG_TYPE_DEFAULT, "[%@] initial data souce loaded in %fs", buf, 0x16u);
     }
 
     loadStartDate = self->_loadStartDate;

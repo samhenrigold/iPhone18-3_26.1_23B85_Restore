@@ -9,7 +9,7 @@
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
   sub_1007A2254();
-  sub_1001F1160(&qword_100AEE3F0);
+  sub_1001F1160(&qword_100AEE3F0, &unk_100836DE0);
   sub_10079E1D4();
 }
 

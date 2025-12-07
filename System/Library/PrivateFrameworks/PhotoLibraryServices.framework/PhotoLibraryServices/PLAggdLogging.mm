@@ -652,9 +652,9 @@ LABEL_43:
 
   v30 = [v57 additionalAttributes];
   v31 = [v30 importedByBundleIdentifier];
-  v32 = [v31 isEqualToString:*MEMORY[0x1E69BFF00]];
+  isEqualToString = objc_msgSend_isEqualToString_(v31);
 
-  if (v32)
+  if (isEqualToString)
   {
     atomic_fetch_add((*(a1 + 32) + 432), 1uLL);
     v33 = [v57 additionalAttributes];
@@ -672,7 +672,7 @@ LABEL_43:
   {
     v36 = [v57 additionalAttributes];
     v37 = [v36 importedByBundleIdentifier];
-    if ([v37 isEqualToString:*MEMORY[0x1E69BFF18]])
+    if (objc_msgSend_isEqualToString_(v37))
     {
     }
 
@@ -680,7 +680,7 @@ LABEL_43:
     {
       v38 = [v57 additionalAttributes];
       v39 = [v38 importedByBundleIdentifier];
-      v40 = [v39 isEqualToString:*MEMORY[0x1E69BFF40]];
+      v40 = objc_msgSend_isEqualToString_(v39);
 
       if (!v40)
       {
@@ -694,7 +694,7 @@ LABEL_43:
   atomic_fetch_add(v35, 1uLL);
 LABEL_57:
   v41 = [v57 detectedFaces];
-  v42 = [v41 count];
+  v42 = objc_msgSend_count(v41);
 
   if (v42)
   {
@@ -814,7 +814,7 @@ LABEL_79:
   }
 }
 
-uint64_t __120__PLAggdLogging__configureEnumeratorForLibrarySummaryLogging_cloudPhotoLibraryEnabled_dataForCA_libraryServicesManager___block_invoke_2(uint64_t a1, void *a2)
+void *__120__PLAggdLogging__configureEnumeratorForLibrarySummaryLogging_cloudPhotoLibraryEnabled_dataForCA_libraryServicesManager___block_invoke_2(uint64_t a1, void *a2)
 {
   atomic_fetch_add((*(a1 + 32) + 208), 1uLL);
   result = [a2 isTorsoOnly];
@@ -943,7 +943,7 @@ LABEL_22:
   }
 
   v16 = [v18 userFeedbacks];
-  v17 = [v16 count];
+  v17 = objc_msgSend_count(v16);
 
   if (v17)
   {
@@ -1789,7 +1789,7 @@ LABEL_6:
   v12 = [v18 additionalAttributes];
   v13 = [v12 importedByBundleIdentifier];
 
-  if ([v13 isEqualToString:*MEMORY[0x1E69BFF00]])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     v14 = 56;
 LABEL_20:
@@ -1799,7 +1799,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if ([v13 isEqualToString:*MEMORY[0x1E69BFF20]])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     v14 = 64;
     goto LABEL_20;
@@ -2718,7 +2718,7 @@ void __114__PLAggdLogging_configureEnumeratorForHyperionLocalResourcesLogging_cl
     v164 = v172;
   }
 
-  v173 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v173 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 40))];
   [*(a1 + 64) _addPrefix:v164 toKeysInDictionary:*(a1 + 40) inPrefixedDictionary:v173];
   [*(a1 + 40) removeAllObjects];
   [*(a1 + 40) addEntriesFromDictionary:v173];
@@ -2914,7 +2914,7 @@ void __68__PLAggdLogging__addPrefix_toKeysInDictionary_inPrefixedDictionary___bl
   prefixCopy = prefix;
   dictionaryCopy = dictionary;
   formatterCopy = formatter;
-  if ([valuesCopy count])
+  if (objc_msgSend_count(valuesCopy))
   {
     v13 = [valuesCopy sortedArrayUsingSelector:sel_compare_];
     firstObject = [v13 firstObject];
@@ -2927,7 +2927,7 @@ void __68__PLAggdLogging__addPrefix_toKeysInDictionary_inPrefixedDictionary___bl
     v19 = [prefixCopy stringByAppendingString:@"Max"];
     [dictionaryCopy setObject:v18 forKeyedSubscript:v19];
 
-    v20 = [v13 objectAtIndexedSubscript:{objc_msgSend(v13, "count") >> 1}];
+    v20 = [v13 objectAtIndexedSubscript:objc_msgSend_count(v13) >> 1];
     v21 = formatterCopy[2](formatterCopy, v20);
     v22 = [prefixCopy stringByAppendingString:@"Median"];
     [dictionaryCopy setObject:v21 forKeyedSubscript:v22];
@@ -2967,7 +2967,7 @@ void __68__PLAggdLogging__addPrefix_toKeysInDictionary_inPrefixedDictionary___bl
       v27 = 0.0;
     }
 
-    v30 = [MEMORY[0x1E696AD98] numberWithDouble:{v27 / objc_msgSend(v23, "count")}];
+    v30 = [MEMORY[0x1E696AD98] numberWithDouble:v27 / objc_msgSend_count(v23)];
     v31 = formatterCopy[2](formatterCopy, v30);
     v32 = [prefixCopy stringByAppendingString:@"Mean"];
     [dictionaryCopy setObject:v31 forKeyedSubscript:v32];
@@ -3004,7 +3004,7 @@ void __68__PLAggdLogging__addPrefix_toKeysInDictionary_inPrefixedDictionary___bl
     selfCopy = self;
     v40 = v8;
     v41 = loggingCopy;
-    v15 = [v12 count];
+    v15 = objc_msgSend_count(v12);
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v15];
     v37 = v15;
     v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v15];
@@ -3040,7 +3040,7 @@ void __68__PLAggdLogging__addPrefix_toKeysInDictionary_inPrefixedDictionary___bl
 
           v29 = MEMORY[0x1E696AD98];
           assets = [v23 assets];
-          v31 = [v29 numberWithUnsignedInteger:{objc_msgSend(assets, "count")}];
+          v31 = [v29 numberWithUnsignedInteger:objc_msgSend_count(assets)];
           [v17 addObject:v31];
         }
 
@@ -3146,7 +3146,7 @@ uint64_t __58__PLAggdLogging_performSlideshowProjectStatisticsLogging___block_in
   {
     v43 = v7;
     v44 = loggingCopy;
-    v45 = [v10 count];
+    v45 = objc_msgSend_count(v10);
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
@@ -3198,10 +3198,10 @@ uint64_t __58__PLAggdLogging_performSlideshowProjectStatisticsLogging___block_in
     v26 = v45;
     v27 = v15 / v45;
     v28 = [v12 valueForKeyPath:@"cachedCount"];
-    if ([v28 count])
+    if (objc_msgSend_count(v28))
     {
       v11 = 0;
-      if ([v28 count] == 1)
+      if (objc_msgSend_count(v28) == 1)
       {
         firstObject = [v28 firstObject];
         integerValue = [firstObject integerValue];
@@ -3212,8 +3212,8 @@ uint64_t __58__PLAggdLogging_performSlideshowProjectStatisticsLogging___block_in
       {
         v31 = v27;
         firstObject = [v28 sortedArrayUsingSelector:sel_compare_];
-        v32 = [v28 count];
-        v33 = [firstObject count] >> 1;
+        v32 = objc_msgSend_count(v28);
+        v33 = objc_msgSend_count(firstObject) >> 1;
         if (v32)
         {
           v34 = [firstObject objectAtIndex:v33];

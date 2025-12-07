@@ -78,22 +78,22 @@ BOOL __105__AERecoveryPolicySession_deactivateWithRemainingPersistentDeactivatio
   v9 = persistentDeactivations;
   v10 = [(NSArray *)v9 ae_map:&__block_literal_global_0];
 
-  v11 = AECoreLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = AECoreLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v23 = v10;
-    _os_log_impl(&dword_23C1AA000, v11, OS_LOG_TYPE_DEFAULT, "Running recovering session with deactivations: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_23C1AA000, v12, OS_LOG_TYPE_DEFAULT, "Running recovering session with deactivations: %{public}@", buf, 0xCu);
   }
 
   if (self)
   {
-    v12 = self->_persistentDeactivations;
+    v13 = self->_persistentDeactivations;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   OUTLINED_FUNCTION_0();
@@ -103,19 +103,17 @@ BOOL __105__AERecoveryPolicySession_deactivateWithRemainingPersistentDeactivatio
   v19 = v7;
   selfCopy = self;
   v21 = completionCopy;
-  v13 = completionCopy;
-  [(AERecoveryPolicySession *)self deactivateWithRemainingPersistentDeactivations:v12 currentEvent:0 errors:MEMORY[0x277CBEBF8] completion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = completionCopy;
+  [(AERecoveryPolicySession *)self deactivateWithRemainingPersistentDeactivations:v13 currentEvent:0 errors:MEMORY[0x277CBEBF8] completion:v15];
 }
 
 void __52__AERecoveryPolicySession_deactivateWithCompletion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) endInterval];
   v4 = v3;
-  v5 = AECoreLog();
+  v5 = AECoreLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -134,68 +132,69 @@ void __52__AERecoveryPolicySession_deactivateWithCompletion___block_invoke_5(uin
   }
 
   v8 = [v7 hasPersistentData];
-  v9 = AECoreLog();
-  v10 = v9;
-  if (v8)
+  v9 = v8;
+  v10 = AECoreLog(v8);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_23C1AA000, v10, OS_LOG_TYPE_FAULT, "Some scratchpads were not removed meaning some deactivations failed. Will reattempt to recover on next launch.", buf, 2u);
+      _os_log_fault_impl(&dword_23C1AA000, v11, OS_LOG_TYPE_FAULT, "Some scratchpads were not removed meaning some deactivations failed. Will reattempt to recover on next launch.", buf, 2u);
     }
 
-    v11 = 0;
-    v12 = v4;
+    v12 = 0;
+    v13 = v4;
   }
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23C1AA000, v10, OS_LOG_TYPE_DEFAULT, "No scratchpads are left after running deactivations. Cleaning up all state…", buf, 2u);
+      _os_log_impl(&dword_23C1AA000, v11, OS_LOG_TYPE_DEFAULT, "No scratchpads are left after running deactivations. Cleaning up all state…", buf, 2u);
     }
 
-    v13 = *(a1 + 40);
-    if (v13)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      v13 = v13[2];
+      v14 = v14[2];
     }
 
-    v22 = 0;
-    v14 = v13;
-    v15 = [v14 cleanUpPolicyStoreWithError:&v22];
-    v11 = v22;
+    v23 = 0;
+    v15 = v14;
+    v16 = [v15 cleanUpPolicyStoreWithError:&v23];
+    v12 = v23;
 
-    if (v15)
+    if (v16)
     {
-      v12 = v4;
+      v13 = v4;
       goto LABEL_19;
     }
 
-    v16 = AECoreLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = AECoreLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = [v11 ae_verboseDescription];
+      v22 = [v12 ae_verboseDescription];
       *buf = 138543362;
-      v26 = v21;
-      _os_log_error_impl(&dword_23C1AA000, v16, OS_LOG_TYPE_ERROR, "Failed to clean up policy store. Error: %{public}@", buf, 0xCu);
+      v27 = v22;
+      _os_log_error_impl(&dword_23C1AA000, v18, OS_LOG_TYPE_ERROR, "Failed to clean up policy store. Error: %{public}@", buf, 0xCu);
     }
 
-    v12 = [v4 ae_adding:v11];
-    v10 = v4;
+    v13 = [v4 ae_adding:v12];
+    v11 = v4;
   }
 
 LABEL_19:
   if ([v4 count])
   {
-    v17 = *MEMORY[0x277CCA578];
-    v23[0] = AEPolicySessionFailedToDeactivateSubsystemsKey;
-    v23[1] = v17;
-    v24[0] = v12;
-    v24[1] = v12;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    v19 = AECoreErrorUserInfo(101, v18);
+    v19 = *MEMORY[0x277CCA578];
+    v24[0] = AEPolicySessionFailedToDeactivateSubsystemsKey;
+    v24[1] = v19;
+    v25[0] = v13;
+    v25[1] = v13;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v21 = AECoreErrorUserInfo(101, v20);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -203,8 +202,6 @@ LABEL_19:
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateWithRemainingPersistentDeactivations:(uint64_t)deactivations currentEvent:(void *)event errors:(void *)errors completion:

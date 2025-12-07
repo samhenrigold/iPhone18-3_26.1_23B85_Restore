@@ -65,11 +65,11 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"color";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"color";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSymbolImageWithColor color](self, "color")}];
-  v9[1] = @"name";
-  v10[0] = v3;
+  v8[1] = @"name";
+  v9[0] = v3;
   name = [(CAFSymbolImageWithColor *)self name];
   null = name;
   if (!name)
@@ -77,13 +77,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v10[1] = null;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = null;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   if (!name)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

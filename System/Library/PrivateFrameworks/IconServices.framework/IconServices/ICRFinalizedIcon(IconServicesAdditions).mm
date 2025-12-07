@@ -46,33 +46,33 @@
   if (v11)
   {
     cacheFinalizedIconOnGeneratedImage = [v4 cacheFinalizedIconOnGeneratedImage];
-    v13 = objc_alloc(MEMORY[0x1E69A8988]);
+    v14 = objc_alloc(MEMORY[0x1E69A8988]);
     [v4 scale];
     if (cacheFinalizedIconOnGeneratedImage)
     {
-      v14 = [v13 initWithCGImage:v11 scale:self finalizedIcon:?];
+      v15 = [v14 initWithCGImage:v11 scale:self finalizedIcon:?];
     }
 
     else
     {
-      v14 = [v13 initWithCGImage:v11 scale:?];
+      v15 = [v14 initWithCGImage:v11 scale:?];
     }
 
-    v16 = v14;
+    v17 = v15;
   }
 
   else
   {
-    v15 = _ISDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _ISDefaultLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [ICRFinalizedIcon(IconServicesAdditions) _IS_imageWithCompositingDescriptor:v15];
+      [ICRFinalizedIcon(IconServicesAdditions) _IS_imageWithCompositingDescriptor:v16];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 @end

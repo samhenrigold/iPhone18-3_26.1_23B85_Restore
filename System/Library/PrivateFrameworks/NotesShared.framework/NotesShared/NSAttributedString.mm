@@ -44,20 +44,20 @@ void __126__NSAttributedString_NSAttributedStringPersistenceAdditions__ic_saveTo
       }
 
       v11 = a1[8];
-      v12 = *(v11 + 116);
-      v13 = *(v11 + 112);
+      v12 = v11[29];
+      v13 = v11[28];
       if (v13 >= v12)
       {
-        if (v12 == *(v11 + 120))
+        if (v12 == v11[30])
         {
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v11 + 104, v12 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v11 + 26, v12 + 1);
         }
 
         google::protobuf::internal::GenericTypeHandler<topotext::Attachment>::New();
       }
 
-      v14 = *(v11 + 104);
-      *(v11 + 112) = v13 + 1;
+      v14 = *(v11 + 13);
+      v11[28] = v13 + 1;
       v15 = *(v14 + 8 * v13);
       v22 = a1[5];
       v23 = *(a1[7] + 8);
@@ -78,20 +78,20 @@ void __126__NSAttributedString_NSAttributedStringPersistenceAdditions__ic_saveTo
       }
 
       v17 = a1[8];
-      v18 = *(v17 + 116);
-      v19 = *(v17 + 112);
+      v18 = v17[29];
+      v19 = v17[28];
       if (v19 >= v18)
       {
-        if (v18 == *(v17 + 120))
+        if (v18 == v17[30])
         {
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v17 + 104, v18 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v17 + 26, v18 + 1);
         }
 
         google::protobuf::internal::GenericTypeHandler<topotext::Attachment>::New();
       }
 
-      v20 = *(v17 + 104);
-      *(v17 + 112) = v19 + 1;
+      v20 = *(v17 + 13);
+      v17[28] = v19 + 1;
       v21 = *(v20 + 8 * v19);
       v28 = a1[5];
       v29 = (a1[9] >> 1) & 1;
@@ -355,11 +355,11 @@ void __90__NSAttributedString_Shared__ic_attributedStringWithOnlyAdaptiveImageAt
   }
 }
 
-uint64_t __59__NSAttributedString_Shared__ic_searchableStringInContext___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__59__NSAttributedString_Shared__ic_searchableStringInContext___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x277D74058] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x277D74058] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -430,6 +430,13 @@ void __59__NSAttributedString_UI__enumerateEditsInRange_usingBlock___block_invok
   v8 = [[ICTTTextEdit alloc] initWithAttributes:v7 range:a3, a4];
 
   (*(*(a1 + 32) + 16))();
+}
+
+void __88__NSAttributedString_Shared__ic_enumerateAttachmentsInContext_range_options_usingBlock___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Found NSAttachmentAttribute in text storage that isn't a ICTTAttachment: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -25,7 +25,7 @@
   if (self && (self = *&self[1].var0[4]) != 0)
   {
     selfCopy = self;
-    [($115C4C562B26FF47E01F9F4EA65B5887 *)self realToken];
+    objc_msgSend_realToken(self);
   }
 
   else

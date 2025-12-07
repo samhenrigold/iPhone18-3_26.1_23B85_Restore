@@ -15,34 +15,34 @@
   if (v6)
   {
     CGImageDestinationAddImage(v6, image, 0);
-    v7 = CGImageDestinationFinalize(v6);
+    v8 = CGImageDestinationFinalize(v6);
     CFRelease(v6);
-    if (v7)
+    if (v8)
     {
-      v8 = [(__CFData *)v4 copy];
+      v10 = [(__CFData *)v4 copy];
       goto LABEL_9;
     }
 
-    v9 = _CRKLogGeneral_16();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _CRKLogGeneral_16(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CRKCoreGraphicsUtilities imageDataFromImage:v9];
+      [CRKCoreGraphicsUtilities imageDataFromImage:v11];
     }
   }
 
   else
   {
-    v9 = _CRKLogGeneral_16();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _CRKLogGeneral_16(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CRKCoreGraphicsUtilities imageDataFromImage:v9];
+      [CRKCoreGraphicsUtilities imageDataFromImage:v11];
     }
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_9:
 
-  return v8;
+  return v10;
 }
 
 + (CGImage)createResizedImageFromImage:(CGImage *)image newSize:(CGSize)size

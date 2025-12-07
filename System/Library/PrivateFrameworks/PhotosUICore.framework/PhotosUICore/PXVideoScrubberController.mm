@@ -68,7 +68,7 @@
     target = self->_target;
     if (target)
     {
-      [(PXVideoScrubberControllerTarget *)target currentItemDuration];
+      objc_msgSend_currentItemDuration(target, a2);
     }
 
     v6 = v8;
@@ -99,25 +99,25 @@
   }
 }
 
-void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_invoke(uint64_t a1)
+void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_invoke(uint64_t a1, const char *a2)
 {
-  v7 = 0uLL;
-  v8 = 0;
-  v2 = *(*(a1 + 32) + 120);
-  if (v2)
+  v8 = 0uLL;
+  v9 = 0;
+  v3 = *(*(a1 + 32) + 120);
+  if (v3)
   {
-    [v2 playerCurrentTime];
+    objc_msgSend_playerCurrentTime(v3, a2);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_invoke_2;
   block[3] = &unk_1E7747EF8;
-  objc_copyWeak(&v4, (a1 + 40));
-  v5 = v7;
+  objc_copyWeak(&v5, (a1 + 40));
   v6 = v8;
+  v7 = v9;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v4);
+  objc_destroyWeak(&v5);
 }
 
 void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_invoke_2(uint64_t a1)
@@ -145,7 +145,7 @@ void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_i
         _pendingSeekRequest = _activeSeekRequest;
       }
 
-      [_pendingSeekRequest seekTime];
+      objc_msgSend_seekTime(_pendingSeekRequest);
       [(PXVideoScrubberController *)self _progressForTime:?];
       [(PXVideoScrubberController *)self _setPlayheadProgress:0 andSeekVideoPlayer:?];
     }
@@ -153,7 +153,7 @@ void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_i
     else
     {
       memset(&v10, 0, sizeof(v10));
-      [(PXVideoScrubberController *)self _avPlayerCurrentTime];
+      objc_msgSend__avPlayerCurrentTime(self);
       time = v10;
       [(PXVideoScrubberController *)self _progressForTime:CMTimeGetSeconds(&time)];
       [(PXVideoScrubberController *)self _setPlayheadProgress:0 andSeekVideoPlayer:?];
@@ -252,7 +252,7 @@ void __63__PXVideoScrubberController__updateAvPlayerCurrentTimeIfNeeded__block_i
 - (double)_duration
 {
   memset(&v4[1], 0, sizeof(CMTime));
-  [(PXVideoScrubberController *)self _avPlayerDuration];
+  objc_msgSend__avPlayerDuration(self, a2);
   if (0 >> 96 == 1)
   {
     v4[0] = v4[1];
@@ -421,13 +421,13 @@ void __42__PXVideoScrubberController__addObservers__block_invoke(uint64_t a1)
   if (_pendingSeekRequest2)
   {
     v12 = playerStatus;
-    [_pendingSeekRequest2 seekTime];
+    objc_msgSend_seekTime(_pendingSeekRequest2);
     v14 = v13;
     v36 = 0uLL;
     v37 = 0;
     if (target)
     {
-      [target currentItemDuration];
+      objc_msgSend_currentItemDuration(target);
     }
 
     memset(&time, 0, sizeof(time));
@@ -594,7 +594,7 @@ void __43__PXVideoScrubberController__updateSeeking__block_invoke_2(uint64_t a1)
   v6 = target;
   if (target)
   {
-    [target currentItemDuration];
+    objc_msgSend_currentItemDuration(target);
   }
 
   else

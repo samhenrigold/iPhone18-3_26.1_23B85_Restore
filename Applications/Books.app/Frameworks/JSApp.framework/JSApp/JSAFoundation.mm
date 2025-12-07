@@ -41,25 +41,25 @@
 
   objc_sync_exit(v6);
 
-  v9 = JSALog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = JSALog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = firedCopy;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Timer fired: %@: %@", buf, 0x16u);
+    v15 = firedCopy;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Timer fired: %@: %@", buf, 0x16u);
   }
 
   if (v8)
   {
-    v10 = +[JSABridge sharedInstance];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_DBA0;
-    v11[3] = &unk_B27E8;
-    v12 = v8;
-    [v10 enqueueBlock:v11 file:@"JSAFoundation.m" line:186];
+    v11 = +[JSABridge sharedInstance];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_DBA0;
+    v12[3] = &unk_B27E8;
+    v13 = v8;
+    [v11 enqueueBlock:v12 file:@"JSAFoundation.m" line:186];
   }
 }
 

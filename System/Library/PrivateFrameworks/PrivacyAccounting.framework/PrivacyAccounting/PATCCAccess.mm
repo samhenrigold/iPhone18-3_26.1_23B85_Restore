@@ -2,12 +2,14 @@
 + (id)accessWithAccessor:(id)accessor forService:(id)service;
 + (id)accessWithAuditToken:(id *)token forService:(id)service;
 + (id)accessWithAuthorization:(id)authorization;
++ (id)accessWithInsecureProcessIdentifier:(int)identifier forService:(id)service;
 - (BOOL)isEqualToAccess:(id)access withOptions:(unint64_t)options;
 - (PATCCAccess)initWithAccessor:(id)accessor forService:(id)service assetIdentifiers:(id)identifiers;
 - (PATCCAccess)initWithAccessor:(id)accessor identifier:(id)identifier kind:(int64_t)kind forService:(id)service;
 - (PATCCAccess)initWithAuditToken:(id *)token forService:(id)service;
 - (PATCCAccess)initWithAuthorization:(id)authorization;
 - (PATCCAccess)initWithCoder:(id)coder;
+- (PATCCAccess)initWithInsecureProcessIdentifier:(int)identifier forService:(id)service;
 - (PATCCAccess)initWithProto:(id)proto;
 - (PATCCAccess)initWithProtoData:(id)data;
 - (id)category;
@@ -61,29 +63,27 @@
 
 void __23__PATCCAccess_category__block_invoke()
 {
-  v7[7] = *MEMORY[0x1E69E9840];
+  v6[7] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69D5500];
-  v6[0] = *MEMORY[0x1E69D5520];
-  v6[1] = v0;
-  v7[0] = @"camera";
-  v7[1] = @"contacts";
+  v5[0] = *MEMORY[0x1E69D5520];
+  v5[1] = v0;
+  v6[0] = @"camera";
+  v6[1] = @"contacts";
   v1 = *MEMORY[0x1E69D5588];
-  v6[2] = *MEMORY[0x1E69D5580];
-  v6[3] = v1;
-  v7[2] = @"mediaLibrary";
-  v7[3] = @"microphone";
+  v5[2] = *MEMORY[0x1E69D5580];
+  v5[3] = v1;
+  v6[2] = @"mediaLibrary";
+  v6[3] = @"microphone";
   v2 = *MEMORY[0x1E69D5600];
-  v6[4] = *MEMORY[0x1E69D55C8];
-  v6[5] = v2;
-  v7[4] = @"photos";
-  v7[5] = @"userTracking";
-  v6[6] = *MEMORY[0x1E69D5518];
-  v7[6] = @"calendar";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:7];
+  v5[4] = *MEMORY[0x1E69D55C8];
+  v5[5] = v2;
+  v6[4] = @"photos";
+  v6[5] = @"userTracking";
+  v5[6] = *MEMORY[0x1E69D5518];
+  v6[6] = @"calendar";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:7];
   v4 = category_tccServiceToCategory;
   category_tccServiceToCategory = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -124,6 +124,15 @@ void __23__PATCCAccess_category__block_invoke()
   v8 = [[self alloc] initWithAccessor:accessorCopy forService:serviceCopy];
 
   return v8;
+}
+
++ (id)accessWithInsecureProcessIdentifier:(int)identifier forService:(id)service
+{
+  v4 = *&identifier;
+  serviceCopy = service;
+  v7 = [[self alloc] initWithInsecureProcessIdentifier:v4 forService:serviceCopy];
+
+  return v7;
 }
 
 - (PATCCAccess)initWithAuthorization:(id)authorization
@@ -207,6 +216,16 @@ void __23__PATCCAccess_category__block_invoke()
   }
 
   return v11;
+}
+
+- (PATCCAccess)initWithInsecureProcessIdentifier:(int)identifier forService:(id)service
+{
+  v4 = *&identifier;
+  serviceCopy = service;
+  v7 = [[PAApplication alloc] initWithInsecureProcessIdentifier:v4];
+  v8 = [(PATCCAccess *)self initWithAccessor:v7 forService:serviceCopy];
+
+  return v8;
 }
 
 - (unint64_t)hashWithOptions:(unint64_t)options

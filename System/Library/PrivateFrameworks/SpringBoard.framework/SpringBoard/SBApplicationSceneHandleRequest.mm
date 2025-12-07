@@ -26,7 +26,7 @@
       goto LABEL_10;
     }
 
-    v7 = SBLogWorkspace();
+    v7 = SBLogWorkspace(sb_displayWindowingMode);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v10 = _SBFLoggingMethodProem();

@@ -93,7 +93,7 @@
   return v7;
 }
 
-uint64_t __51__VCAudioCaptionsBufferInfoCollection_streamTokens__block_invoke(uint64_t a1)
+void *__51__VCAudioCaptionsBufferInfoCollection_streamTokens__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -115,12 +115,12 @@ uint64_t __51__VCAudioCaptionsBufferInfoCollection_streamTokens__block_invoke_2(
 uint64_t __51__VCAudioCaptionsBufferInfoCollection_streamTokens__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v3 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(a2, "token")}];
+  v3 = [MEMORY[0x1E696AD98] numberWithInteger:objc_msgSend_token(a2)];
 
   return [v2 addObject:v3];
 }
 
-uint64_t __VCAudioCaptionsBufferInfoCollection_GetBufferInfo_block_invoke(void *a1)
+void *__VCAudioCaptionsBufferInfoCollection_GetBufferInfo_block_invoke(void *a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -145,14 +145,14 @@ uint64_t __VCAudioCaptionsBufferInfoCollection_GetBufferInfo_block_invoke(void *
 
         v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = a1[6];
-        result = [v7 token];
+        result = objc_msgSend_token(v7);
         if (v8 == result)
         {
           *(*(a1[5] + 8) + 40) = v7;
           return result;
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -170,7 +170,7 @@ uint64_t __VCAudioCaptionsBufferInfoCollection_GetBufferInfo_block_invoke(void *
   return result;
 }
 
-uint64_t __VCAudioCaptionsBufferInfoCollection_AddBufferInfo_block_invoke(void *a1)
+void *__VCAudioCaptionsBufferInfoCollection_AddBufferInfo_block_invoke(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];
@@ -180,8 +180,8 @@ uint64_t __VCAudioCaptionsBufferInfoCollection_AddBufferInfo_block_invoke(void *
     while (1)
     {
       v5 = [*(v3 + 8) objectAtIndexedSubscript:v4];
-      v6 = [v2 token];
-      result = [v5 token];
+      v6 = objc_msgSend_token(v2);
+      result = objc_msgSend_token(v5);
       if (v6 == result)
       {
         break;
@@ -207,7 +207,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __VCAudioCaptionsBufferInfoCollection_CopyOrderedBufferInfos_block_invoke(uint64_t a1)
+void *__VCAudioCaptionsBufferInfoCollection_CopyOrderedBufferInfos_block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

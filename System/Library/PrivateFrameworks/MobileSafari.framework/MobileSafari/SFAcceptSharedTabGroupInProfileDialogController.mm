@@ -162,7 +162,7 @@
   return v3;
 }
 
-void __62__SFAcceptSharedTabGroupInProfileDialogController__makeDialog__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void __62__SFAcceptSharedTabGroupInProfileDialogController__makeDialog__block_invoke(uint64_t a1, _BYTE *a2, void *a3, void *a4)
 {
   v15 = a3;
   v7 = a4;
@@ -172,7 +172,7 @@ void __62__SFAcceptSharedTabGroupInProfileDialogController__makeDialog__block_in
     goto LABEL_5;
   }
 
-  if ([*(a1 + 40) count] - 1 == a2)
+  if (([*(a1 + 40) count] - 1) == a2)
   {
     v8 = *(*(*(a1 + 32) + 32) + 16);
 LABEL_5:

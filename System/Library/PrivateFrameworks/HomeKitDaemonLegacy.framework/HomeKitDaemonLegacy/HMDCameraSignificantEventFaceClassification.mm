@@ -53,7 +53,7 @@
     [array addObject:v22];
   }
 
-  v23 = [array copy];
+  v23 = objc_msgSend_copy(array);
 
   return v23;
 }
@@ -101,7 +101,7 @@
     [(HMDCameraSignificantEventFaceClassification *)v10 setUnassociatedFaceCropUUID:uUID3];
   }
 
-  v16 = [(HMDMutableCameraSignificantEventFaceClassification *)v10 copy];
+  v16 = objc_msgSend_copy(v10);
 
   return v16;
 }
@@ -137,25 +137,7 @@
     {
       personManagerUUID = [(HMDCameraSignificantEventFaceClassification *)self personManagerUUID];
       personManagerUUID2 = [v6 personManagerUUID];
-      if (![personManagerUUID isEqual:personManagerUUID2])
-      {
-        goto LABEL_12;
-      }
-
-      personUUID = [(HMDCameraSignificantEventFaceClassification *)self personUUID];
-      personUUID2 = [v6 personUUID];
-      v13 = HMFEqualObjects();
-
-      if (!v13)
-      {
-        goto LABEL_12;
-      }
-
-      personName = [(HMDCameraSignificantEventFaceClassification *)self personName];
-      personName2 = [v6 personName];
-      v16 = HMFEqualObjects();
-
-      if (v16)
+      if ([personManagerUUID isEqual:personManagerUUID2] && (-[HMDCameraSignificantEventFaceClassification personUUID](self, "personUUID"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "personUUID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (-[HMDCameraSignificantEventFaceClassification personName](self, "personName"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "personName"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16))
       {
         unassociatedFaceCropUUID = [(HMDCameraSignificantEventFaceClassification *)self unassociatedFaceCropUUID];
         unassociatedFaceCropUUID2 = [v6 unassociatedFaceCropUUID];
@@ -164,7 +146,6 @@
 
       else
       {
-LABEL_12:
         v19 = 0;
       }
     }

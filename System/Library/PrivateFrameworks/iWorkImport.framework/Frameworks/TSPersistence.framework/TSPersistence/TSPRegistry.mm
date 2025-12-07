@@ -11,8 +11,11 @@
 - (void)dealloc;
 - (void)registerPersistenceMessages;
 - (void)resetForMessageType:(unsigned int)type descriptor:(const void *)descriptor;
+- (void)setDeprecatedMessageType:(unsigned int)type;
 - (void)setMessageType:(unsigned int)type forUnarchiveClassname:(const char *)classname;
+- (void)setMessageType:(unsigned int)type messagePrototype:(const Message *)prototype descriptor:(const void *)descriptor unarchiveClassname:(const char *)classname;
 - (void)setOverrideMessageType:(unsigned int)type messagePrototype:(const Message *)prototype descriptor:(const void *)descriptor;
+- (void)setOverrideMessageType:(unsigned int)type messagePrototype:(const Message *)prototype descriptor:(const void *)descriptor unarchiveClassname:(const char *)classname;
 - (void)setUpgradeMessageType:(unsigned int)type messagePrototype:(const Message *)prototype unarchiveClass:(Class)class unarchiveClassname:(const char *)classname;
 - (void)setUpgradeMessageType:(unsigned int)type messagePrototype:(const Message *)prototype unarchiveClassname:(const char *)classname;
 @end
@@ -175,10 +178,9 @@
       v5 = *v5;
     }
 
-    v13 = v5;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Descriptor %{public}s isn't registered", "[TSPRegistry messageTypeForDescriptor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 206, v5);
     v6 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPRegistry messageTypeForDescriptor:]", "[TSPRegistry messageTypeForDescriptor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 206, v13);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPRegistry messageTypeForDescriptor:]");
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
     v12 = descriptorCopy[1];
     if (*(v12 + 23) < 0)
@@ -213,9 +215,9 @@
         if (!Class)
         {
           v23 = v8;
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d No class for name %{public}s", "[TSPRegistry unarchiveClassForMessageType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 227, v8);
           v17 = MEMORY[0x277D81150];
-          v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPRegistry unarchiveClassForMessageType:]", "[TSPRegistry unarchiveClassForMessageType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 227, v8);
+          v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPRegistry unarchiveClassForMessageType:]");
           v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v19, v21, 227, 1, "No class for name %{public}s", v23);
 
@@ -264,14 +266,15 @@
 
 - (void)setMessageType:(unsigned int)type forUnarchiveClassname:(const char *)classname
 {
+  selfCopy = self;
   typeCopy = type;
   __s = classname;
   if (!sub_276A1F240(&self->_classnameToMessageTypeMap.__table_.__bucket_list_.__ptr_, &__s))
   {
-    v4 = strlen(__s);
-    v5 = malloc_type_malloc(v4 + 1, 0x100004077774924uLL);
-    strcpy(v5, __s);
-    sub_276A1F354();
+    v5 = strlen(__s);
+    v6 = malloc_type_malloc(v5 + 1, 0x100004077774924uLL);
+    strcpy(v6, __s);
+    sub_276A1F354(selfCopy + 128);
   }
 }
 
@@ -304,18 +307,57 @@
   }
 }
 
+- (void)setMessageType:(unsigned int)type messagePrototype:(const Message *)prototype descriptor:(const void *)descriptor unarchiveClassname:(const char *)classname
+{
+  typeCopy = type;
+  descriptorCopy = descriptor;
+  prototypeCopy = prototype;
+  classnameCopy = classname;
+  objc_msgSend_resetForMessageType_descriptor_(self, a2, *&type, descriptor);
+  sub_276A1F67C(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &prototypeCopy);
+  sub_276A1F8C0(&self->_descriptorToMessageTypeMap.__table_.__bucket_list_.__ptr_, &descriptorCopy, &descriptorCopy, &typeCopy);
+  sub_276A1FB00(&self->_messageTypeToClassnameMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &classnameCopy);
+  sub_276A1FD44(&self->_messageTypeToClassMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy);
+  objc_msgSend_setMessageType_forUnarchiveClassname_(self, v7, typeCopy, classnameCopy);
+}
+
+- (void)setOverrideMessageType:(unsigned int)type messagePrototype:(const Message *)prototype descriptor:(const void *)descriptor unarchiveClassname:(const char *)classname
+{
+  typeCopy = type;
+  objc_msgSend_setOverrideMessageType_messagePrototype_descriptor_(self, a2, *&type, prototype, descriptor);
+  v8 = sub_276A1F0D4(&self->_messageTypeToClassnameMap.__table_.__bucket_list_.__ptr_, &typeCopy);
+  if (!v8)
+  {
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d No class to override for message type %u", "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:unarchiveClassname:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 353, typeCopy);
+    v10 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:unarchiveClassname:]");
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v12, v14, 353, 1, "No class to override for message type %u", typeCopy);
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  v8[3] = classname;
+  objc_msgSend_setMessageType_forUnarchiveClassname_(self, v9, typeCopy, classname);
+}
+
 - (void)setUpgradeMessageType:(unsigned int)type messagePrototype:(const Message *)prototype unarchiveClassname:(const char *)classname
 {
   typeCopy = type;
-  sub_276A1F67C(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy);
-  sub_276A1FB00(&self->_messageTypeToClassnameMap.__table_.__bucket_list_.__ptr_, &typeCopy);
-  sub_276A1FD44(&self->_messageTypeToClassMap.__table_.__bucket_list_.__ptr_, &typeCopy);
-  objc_msgSend_setMessageType_forUnarchiveClassname_(self, v6, typeCopy, classname, 0);
+  classnameCopy = classname;
+  prototypeCopy = prototype;
+  sub_276A1F67C(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &prototypeCopy);
+  sub_276A1FB00(&self->_messageTypeToClassnameMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &classnameCopy);
+  sub_276A1FD44(&self->_messageTypeToClassMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy);
+  objc_msgSend_setMessageType_forUnarchiveClassname_(self, v6, typeCopy, classnameCopy, 0);
 }
 
 - (void)setUpgradeMessageType:(unsigned int)type messagePrototype:(const Message *)prototype unarchiveClass:(Class)class unarchiveClassname:(const char *)classname
 {
   typeCopy = type;
+  classCopy = class;
+  prototypeCopy = prototype;
   if (!type)
   {
     if (classname)
@@ -328,9 +370,9 @@
       classnameCopy = "Nil";
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Don't use a message type of 0 for class %{public}s", a2, "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 374, classnameCopy);
     v13 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 374, classnameCopy);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]");
     v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v15, v17, 374, 1, "Don't use a message type of 0 for class %{public}s", classnameCopy);
 LABEL_12:
@@ -352,16 +394,16 @@ LABEL_12:
       classnameCopy2 = "Nil";
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Putting a non-TSPObject class in TSPRegistry: %{public}s", "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 375, classnameCopy2);
     v20 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 375, classnameCopy2);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPRegistry setUpgradeMessageType:messagePrototype:unarchiveClass:unarchiveClassname:]");
     v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v23, v15, v17, 375, 1, "Putting a non-TSPObject class in TSPRegistry: %{public}s", classnameCopy2);
     goto LABEL_12;
   }
 
-  sub_276A1F67C(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy);
-  sub_276A1FF78(&self->_messageTypeToClassMap.__table_.__bucket_list_.__ptr_, &typeCopy);
+  sub_276A1F67C(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &prototypeCopy);
+  sub_276A1FF78(&self->_messageTypeToClassMap.__table_.__bucket_list_.__ptr_, &typeCopy, &typeCopy, &classCopy);
   objc_msgSend_setMessageType_forUnarchiveClassname_(self, v11, typeCopy, classname);
 }
 
@@ -372,10 +414,9 @@ LABEL_12:
   v7 = sub_276A1F0D4(&self->_messageTypeToPrototypeMap.__table_.__bucket_list_.__ptr_, &typeCopy);
   if (!v7)
   {
-    v14 = typeCopy;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d No class to override for message type %u", "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 392, typeCopy, descriptorCopy);
     v8 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:]", "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm", 392, v14, descriptorCopy);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPRegistry setOverrideMessageType:messagePrototype:descriptor:]");
     v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRegistry.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 392, 1, "No class to override for message type %u", typeCopy);
 
@@ -384,7 +425,15 @@ LABEL_12:
   }
 
   v7[3] = prototype;
-  sub_276A1F8C0(&self->_descriptorToMessageTypeMap.__table_.__bucket_list_.__ptr_, &descriptorCopy);
+  sub_276A1F8C0(&self->_descriptorToMessageTypeMap.__table_.__bucket_list_.__ptr_, &descriptorCopy, &descriptorCopy, &typeCopy);
+}
+
+- (void)setDeprecatedMessageType:(unsigned int)type
+{
+  v3 = *&type;
+  v6 = objc_opt_class();
+
+  objc_msgSend_setUpgradeMessageType_messagePrototype_unarchiveClass_unarchiveClassname_(self, v5, v3, 0, v6, "TSPUnknownObject");
 }
 
 - (id)description

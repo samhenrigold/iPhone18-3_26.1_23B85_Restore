@@ -1,10 +1,8 @@
 @interface AgeDateTimeResolutionResult
 + (id)confirmationRequiredWithAgeDateTimeToConfirm:(id)confirm;
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm;
 + (id)disambiguationWithAgeDateTimesToDisambiguate:(id)disambiguate;
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate;
 + (id)successWithResolvedAgeDateTime:(id)time;
-+ (id)successWithResolvedObject:(id)object;
 @end
 
 @implementation AgeDateTimeResolutionResult
@@ -37,26 +35,13 @@
   return v5;
 }
 
-+ (id)successWithResolvedObject:(id)object
-{
-  objectCopy = object;
-  static AgeDateTimeResolutionResult.success(with:)();
-  return static AgeDateTimeResolutionResult.disambiguation(with:)();
-}
-
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   type metadata accessor for INObject();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  static AgeDateTimeResolutionResult.success(with:)();
-  return static AgeDateTimeResolutionResult.confirmationRequired(with:)();
-}
-
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm
-{
-  confirmCopy = confirm;
-  static AgeDateTimeResolutionResult.confirmationRequired(with:)();
-  return AgeDateTimeResolutionResult.__allocating_init(JSONDictionary:intent:)();
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  static AgeDateTimeResolutionResult.success(with:)(v3);
+  static AgeDateTimeResolutionResult.confirmationRequired(with:)(v4);
+  return result;
 }
 
 @end

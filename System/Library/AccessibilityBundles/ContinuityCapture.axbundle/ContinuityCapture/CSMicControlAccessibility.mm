@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
+- (void)setMicControlState:(unint64_t)state animated:(BOOL)animated;
 @end
 
 @implementation CSMicControlAccessibility
@@ -42,6 +43,14 @@ LABEL_9:
   v3.receiver = self;
   v3.super_class = CSMicControlAccessibility;
   return *MEMORY[0x29EDC7F70] | [(CSMicControlAccessibility *)&v3 accessibilityTraits];
+}
+
+- (void)setMicControlState:(unint64_t)state animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = CSMicControlAccessibility;
+  [(CSMicControlAccessibility *)&v5 setMicControlState:state animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], self);
 }
 
 @end

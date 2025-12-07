@@ -22,7 +22,7 @@
 + (void)makeViewControllerForRemoteInviteWithRecipients:(id)recipients chatGUID:(id)d resultHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  sub_24DF88A8C(0, &qword_27F1E2F40);
+  sub_24DF88A8C(0, &qword_27F1E2F40, 0x277CBDA58);
   v7 = sub_24E347F08();
   if (d)
   {

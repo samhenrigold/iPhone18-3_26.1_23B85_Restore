@@ -13,7 +13,7 @@
   v5 = [(HMDMessageFilter *)&v14 init];
   if (v5)
   {
-    v6 = [nameCopy copy];
+    v6 = objc_msgSend_copy(nameCopy);
     name = v5->_name;
     v5->_name = v6;
 
@@ -42,10 +42,9 @@
 
 void __31__HMDMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_131693;
-  logCategory__hmf_once_v1_131693 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_131693;
+  logCategory__hmf_once_v1_131693 = v0;
 }
 
 @end

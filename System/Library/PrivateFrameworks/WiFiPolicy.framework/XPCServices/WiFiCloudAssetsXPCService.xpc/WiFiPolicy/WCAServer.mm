@@ -603,22 +603,8 @@
         v55 = 0;
         v53 = 0;
         v51 = 0;
-        if (!v26)
+        if (!v26 || (v24 = [v62 objectForKeyedSubscript:@"Country"], v60 = v24, v59 = 1, v58 = +[NSLocale currentLocale](NSLocale, "currentLocale"), v57 = 1, v56 = objc_msgSend(v58, "countryCode"), v55 = 1, v25 = 0, (objc_msgSend(v24, "containsObject:") & 1) != 0))
         {
-          goto LABEL_9;
-        }
-
-        v24 = [v62 objectForKeyedSubscript:@"Country"];
-        v60 = v24;
-        v59 = 1;
-        v58 = +[NSLocale currentLocale];
-        v57 = 1;
-        countryCode = [v58 countryCode];
-        v55 = 1;
-        v25 = 0;
-        if ([v24 containsObject:?])
-        {
-LABEL_9:
           v54 = [v62 objectForKeyedSubscript:@"Device"];
           v53 = 1;
           v23 = 1;

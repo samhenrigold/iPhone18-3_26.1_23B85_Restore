@@ -21,7 +21,7 @@
   v11 = open([path UTF8String], 0, 256);
   if (v11 == -1)
   {
-    v15 = _ISDefaultLog();
+    v15 = _ISDefaultLog(v11);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       +[ISStoreUnit storeUnitWithStoreURL:UUID:];
@@ -67,7 +67,7 @@
   v4 = [dataCopy length];
   if (!v4)
   {
-    v9 = _ISDefaultLog();
+    v9 = _ISDefaultLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ISStoreUnit storeUnitWithData:v9];
@@ -91,7 +91,7 @@ LABEL_9:
   v8 = v7;
   if (v7 == -1)
   {
-    v9 = _ISDefaultLog();
+    v9 = _ISDefaultLog(-1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ISStoreUnit storeUnitWithData:v9];
@@ -180,7 +180,7 @@ LABEL_10:
     v9 = open([v8 UTF8String], 0, 256);
     if (v9 == -1)
     {
-      v15 = _ISDefaultLog();
+      v15 = _ISDefaultLog(v9);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         +[ISStoreUnit storeUnitWithStoreURL:UUID:];
@@ -192,14 +192,14 @@ LABEL_10:
       v10 = v9;
       bytes = [(NSData *)self->_data bytes];
       v12 = lseek(v10, 0, 2);
-      if (v12 && (v13 = v12, v12 == [(NSData *)self->_data length]))
+      if (v12 && (v13 = v12, v12 = [(NSData *)self->_data length], v13 == v12))
       {
         mmap(bytes, v13, 1, 17, v10, 0);
       }
 
       else
       {
-        v14 = _ISDefaultLog();
+        v14 = _ISDefaultLog(v12);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           [(ISStoreUnit *)v8 remapWithStoreURL:v14];
@@ -213,30 +213,26 @@ LABEL_10:
 
 + (void)storeUnitWithStoreURL:UUID:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_7(&dword_1A77B8000, v1, v2, "Failed to open cache file for mapping at path: %@ error: %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1A77B8000, v0, v1, "Failed to open cache file for mapping at path: %@ error: %d", v2, v3, v4, v5);
 }
 
 + (void)storeUnitWithData:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_1A77B8000, a1, OS_LOG_TYPE_FAULT, "Could not mmap(...), error: %d\n", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_1A77B8000, a1, OS_LOG_TYPE_FAULT, "Could not mmap(...), error: %d\n", v3, 8u);
 }
 
 - (void)remapWithStoreURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Failed remap store entry with path: %@ due to data size mismatch.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Failed remap store entry with path: %@ due to data size mismatch.", &v2, 0xCu);
 }
 
 @end

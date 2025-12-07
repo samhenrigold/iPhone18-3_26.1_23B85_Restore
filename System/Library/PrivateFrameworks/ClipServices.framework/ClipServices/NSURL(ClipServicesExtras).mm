@@ -16,44 +16,42 @@
 
 + (id)cps_resolvedURLWithStoreIconURLString:()ClipServicesExtras iconSize:
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
-    v19[0] = @"{w}";
+    v18[0] = @"{w}";
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", a4];
-    v20[0] = v6;
-    v19[1] = @"{h}";
+    v19[0] = v6;
+    v18[1] = @"{h}";
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", a4];
-    v20[1] = v7;
-    v19[2] = @"{f}";
-    v19[3] = @"{c}";
-    v20[2] = @"png";
-    v20[3] = @"bb";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[1] = v7;
+    v18[2] = @"{f}";
+    v18[3] = @"{c}";
+    v19[2] = @"png";
+    v19[3] = @"bb";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
 
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__1;
-    v17 = __Block_byref_object_dispose__1;
-    v18 = [v5 copy];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __76__NSURL_ClipServicesExtras__cps_resolvedURLWithStoreIconURLString_iconSize___block_invoke;
-    v12[3] = &unk_278DCE228;
-    v12[4] = &v13;
-    [v8 enumerateKeysAndObjectsUsingBlock:v12];
-    v9 = [MEMORY[0x277CBEBC0] URLWithString:v14[5]];
-    _Block_object_dispose(&v13, 8);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__1;
+    v16 = __Block_byref_object_dispose__1;
+    v17 = [v5 copy];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __76__NSURL_ClipServicesExtras__cps_resolvedURLWithStoreIconURLString_iconSize___block_invoke;
+    v11[3] = &unk_278DCE228;
+    v11[4] = &v12;
+    [v8 enumerateKeysAndObjectsUsingBlock:v11];
+    v9 = [MEMORY[0x277CBEBC0] URLWithString:v13[5]];
+    _Block_object_dispose(&v12, 8);
   }
 
   else
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -257,7 +255,7 @@
 
 - (id)cps_sanitizedURL
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   cps_embeddedItemID = [self cps_embeddedItemID];
   if (!cps_embeddedItemID)
   {
@@ -268,17 +266,17 @@
   v3 = [MEMORY[0x277CCACE0] componentsWithURL:self resolvingAgainstBaseURL:1];
   pathComponents = [self pathComponents];
   string = [MEMORY[0x277CCAB68] string];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0x7FFFFFFFFFFFFFFFLL;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __45__NSURL_ClipServicesExtras__cps_sanitizedURL__block_invoke;
-  v23[3] = &unk_278DCE250;
-  v23[4] = &v24;
-  [pathComponents enumerateObjectsUsingBlock:v23];
-  v6 = v25[3];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0x7FFFFFFFFFFFFFFFLL;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __45__NSURL_ClipServicesExtras__cps_sanitizedURL__block_invoke;
+  v22[3] = &unk_278DCE250;
+  v22[4] = &v23;
+  [pathComponents enumerateObjectsUsingBlock:v22];
+  v6 = v24[3];
   if (v6 == 2)
   {
     v7 = [pathComponents objectAtIndexedSubscript:1];
@@ -318,8 +316,8 @@ LABEL_7:
 
     if (v19)
     {
-      v28[0] = firstObject;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v27[0] = firstObject;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
       [v12 setQueryItems:v20];
     }
 
@@ -331,10 +329,8 @@ LABEL_7:
     selfCopy2 = self;
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return selfCopy2;
 }

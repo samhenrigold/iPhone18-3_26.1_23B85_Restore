@@ -33,7 +33,7 @@
 
 + (void)addInsertionAnimationsToInfos:(id)infos onInteractiveCanvasController:(id)controller
 {
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   ObjCClassMetadata = swift_getObjCClassMetadata();
   controllerCopy = controller;
@@ -60,7 +60,7 @@
 + (void)addChangeShapeAnimationsWithAnimateOutInfos:(id)infos animateInInfos:(id)inInfos interactiveCanvasController:(id)controller completionHandler:(id)handler
 {
   v7 = _Block_copy(handler);
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = swift_allocObject();
@@ -129,7 +129,7 @@
 + (void)addAnchorAnimations:(id)animations tableRep:(id)rep interactiveCanvasController:(id)controller
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_10098B468(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_10098B468(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v7 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   repCopy = rep;
   controllerCopy = controller;

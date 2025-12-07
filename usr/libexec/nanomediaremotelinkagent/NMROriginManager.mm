@@ -339,7 +339,7 @@ LABEL_7:
               goto LABEL_29;
             }
 
-            v20 = sub_1000199A4();
+            v20 = sub_1000199A4(v14);
             v21 = [(NSDictionary *)selfCopy->_availableOriginsByDeviceIdentifier objectForKeyedSubscript:v20];
             v22 = v21;
             if (v21)
@@ -468,7 +468,7 @@ LABEL_29:
     v6 = sub_10002C180(2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000310C8(identifierCopy, self);
+      sub_1000310C8();
     }
 
     v7 = self->_localOriginIdentifier;
@@ -516,48 +516,46 @@ LABEL_29:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[Origin] Fetching MediaRemote available origins and active origin.", buf, 2u);
   }
 
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v24[3] = 0;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x2020000000;
+  v22[3] = 0;
   *buf = 0;
-  v19 = buf;
-  v20 = 0x3032000000;
-  v21 = sub_1000193E0;
-  v22 = sub_1000193F0;
-  v23 = 0;
+  v17 = buf;
+  v18 = 0x3032000000;
+  v19 = sub_1000193E0;
+  v20 = sub_1000193F0;
+  v21 = 0;
   v4 = dispatch_group_create();
   dispatch_group_enter(v4);
-  serialQueue = self->_serialQueue;
-  v12 = _NSConcreteStackBlock;
-  v13 = 3221225472;
-  v14 = sub_10001C570;
-  v15 = &unk_1000492B0;
-  v17 = v24;
-  v16 = v4;
+  v10 = _NSConcreteStackBlock;
+  v11 = 3221225472;
+  v12 = sub_10001C570;
+  v13 = &unk_1000492B0;
+  v15 = v22;
+  v14 = v4;
   MRMediaRemoteGetAvailableOrigins();
-  dispatch_group_enter(v16);
-  v6 = self->_serialQueue;
+  dispatch_group_enter(v14);
   block[7] = _NSConcreteStackBlock;
   block[8] = 3221225472;
   block[9] = sub_10001C5E0;
   block[10] = &unk_1000492D8;
-  v11 = buf;
-  v7 = v16;
-  v10 = v7;
+  v9 = buf;
+  v5 = v14;
+  v8 = v5;
   MRMediaRemoteGetActiveOrigin();
-  v8 = self->_serialQueue;
+  serialQueue = self->_serialQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001C670;
   block[3] = &unk_100049300;
   block[4] = self;
-  block[5] = v24;
+  block[5] = v22;
   block[6] = buf;
-  dispatch_group_notify(v7, v8, block);
+  dispatch_group_notify(v5, serialQueue, block);
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 - (void)_handleDeviceInfoDidChangeNotification:(id)notification

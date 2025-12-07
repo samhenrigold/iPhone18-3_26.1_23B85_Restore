@@ -29,7 +29,7 @@
 
 - (void)noteStateDidProgress:(unint64_t)progress
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if ([(CPLEngineResourceDownloadTask *)self willGenerateReport])
   {
     v5 = [(NSMutableArray *)self->_stateProgressDates count];
@@ -63,11 +63,11 @@
 
       v16 = MEMORY[0x1E696AAF0];
       identity = [resource identity];
-      v28 = [v16 stringFromByteCount:objc_msgSend(identity countStyle:{"fileSize"), 1}];
+      v27 = [v16 stringFromByteCount:objc_msgSend(identity countStyle:{"fileSize"), 1}];
 
-      v27 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [resource resourceType]);
+      v26 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [resource resourceType]);
       v18 = [(NSMutableArray *)self->_stateProgressDates objectAtIndexedSubscript:0];
-      v26 = [CPLDateFormatter stringFromDate:v18];
+      v25 = [CPLDateFormatter stringFromDate:v18];
 
       if (self->_preemptingCount)
       {
@@ -99,21 +99,21 @@
             itemScopedIdentifier = [resource itemScopedIdentifier];
             transportIdentifier = self->_transportIdentifier;
             *buf = 138414082;
-            v30 = v27;
-            v31 = 2112;
-            v32 = v28;
-            v33 = 2112;
-            v34 = itemScopedIdentifier;
-            v35 = 2112;
-            v36 = v9;
-            v37 = 2112;
-            v38 = v26;
-            v39 = 2112;
-            v40 = transportIdentifier;
-            v41 = 2112;
-            v42 = v20;
-            v43 = 2112;
-            v44 = v19;
+            v29 = v26;
+            v30 = 2112;
+            v31 = v27;
+            v32 = 2112;
+            v33 = itemScopedIdentifier;
+            v34 = 2112;
+            v35 = v9;
+            v36 = 2112;
+            v37 = v25;
+            v38 = 2112;
+            v39 = transportIdentifier;
+            v40 = 2112;
+            v41 = v20;
+            v42 = 2112;
+            v43 = v19;
             _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "[%@ (%@) %@]: %@ [launch: %@] [transport ID: %@]%@%@", buf, 0x52u);
           }
 
@@ -128,19 +128,19 @@ LABEL_22:
         {
           itemScopedIdentifier2 = [resource itemScopedIdentifier];
           *buf = 138413826;
-          v30 = v27;
-          v31 = 2112;
-          v32 = v28;
-          v33 = 2112;
-          v34 = itemScopedIdentifier2;
-          v35 = 2112;
-          v36 = v9;
-          v37 = 2112;
-          v38 = v26;
-          v39 = 2112;
-          v40 = v20;
-          v41 = 2112;
-          v42 = v19;
+          v29 = v26;
+          v30 = 2112;
+          v31 = v27;
+          v32 = 2112;
+          v33 = itemScopedIdentifier2;
+          v34 = 2112;
+          v35 = v9;
+          v36 = 2112;
+          v37 = v25;
+          v38 = 2112;
+          v39 = v20;
+          v40 = 2112;
+          v41 = v19;
           _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "[%@ (%@) %@]: %@ [launch: %@]%@%@", buf, 0x48u);
         }
 
@@ -150,8 +150,6 @@ LABEL_22:
 LABEL_24:
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelTask

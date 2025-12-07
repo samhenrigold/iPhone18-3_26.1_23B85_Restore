@@ -17,6 +17,7 @@
 - (void)_setTimerEnabled:(id)enabled withSpecifier:(id)specifier;
 - (void)_showDataCollectionOptInIfNeeded;
 - (void)_updateRemindersSpecifiers;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BRKSettingsViewController
@@ -54,6 +55,25 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = BRKSettingsViewController;
+  [(BRKSettingsViewController *)&v11 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"SETTINGS_TITLE" table:@"Localizable" locale:v5 bundleURL:bundleURL];
+
+  v9 = [NSString stringWithFormat:@"bridge:root=%@", @"com.apple.BrookBridgeSettings"];
+  v10 = [NSURL URLWithString:v9];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:@"com.apple.BrookBridgeSettings" title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v10];
+
+  [(BRKRemindersSettingsHelper *)self->_helper update];
+  [(BRKSettingsViewController *)self _showDataCollectionOptInIfNeeded];
 }
 
 - (void)_showDataCollectionOptInIfNeeded

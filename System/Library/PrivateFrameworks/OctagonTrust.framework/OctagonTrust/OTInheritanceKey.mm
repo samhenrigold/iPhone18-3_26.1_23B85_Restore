@@ -83,30 +83,30 @@
 
 - (id)dictionary
 {
-  v21[6] = *MEMORY[0x1E69E9840];
-  v20[0] = @"uuid";
+  v20[6] = *MEMORY[0x1E69E9840];
+  v19[0] = @"uuid";
   uuid = [(OTInheritanceKey *)self uuid];
-  v18 = [uuid description];
-  v21[0] = v18;
-  v20[1] = @"wrappingKeyData";
+  v17 = [uuid description];
+  v20[0] = v17;
+  v19[1] = @"wrappingKeyData";
   wrappingKeyData = [(OTInheritanceKey *)self wrappingKeyData];
   v3 = [wrappingKeyData base64EncodedStringWithOptions:0];
-  v21[1] = v3;
-  v20[2] = @"wrappingKeyString";
+  v20[1] = v3;
+  v19[2] = @"wrappingKeyString";
   wrappingKeyString = [(OTInheritanceKey *)self wrappingKeyString];
-  v21[2] = wrappingKeyString;
-  v20[3] = @"wrappedKeyData";
+  v20[2] = wrappingKeyString;
+  v19[3] = @"wrappedKeyData";
   wrappedKeyData = [(OTInheritanceKey *)self wrappedKeyData];
   v6 = [wrappedKeyData base64EncodedStringWithOptions:0];
-  v21[3] = v6;
-  v20[4] = @"wrappedKeyString";
+  v20[3] = v6;
+  v19[4] = @"wrappedKeyString";
   wrappedKeyString = [(OTInheritanceKey *)self wrappedKeyString];
-  v21[4] = wrappedKeyString;
-  v20[5] = @"recoveryKeyData";
+  v20[4] = wrappedKeyString;
+  v19[5] = @"recoveryKeyData";
   recoveryKeyData = [(OTInheritanceKey *)self recoveryKeyData];
   v9 = [recoveryKeyData base64EncodedStringWithOptions:0];
-  v21[5] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:6];
+  v20[5] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
   v11 = [v10 mutableCopy];
 
   claimTokenData = [(OTInheritanceKey *)self claimTokenData];
@@ -115,8 +115,6 @@
 
   claimTokenString = [(OTInheritanceKey *)self claimTokenString];
   [v11 setObject:claimTokenString forKeyedSubscript:@"claimTokenString"];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -394,13 +392,13 @@
 
 - (OTInheritanceKey)initWithUUID:(id)d claimTokenData:(id)data wrappingKeyData:(id)keyData error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dataCopy = data;
   keyDataCopy = keyData;
-  v28.receiver = self;
-  v28.super_class = OTInheritanceKey;
-  v14 = [(OTInheritanceKey *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = OTInheritanceKey;
+  v14 = [(OTInheritanceKey *)&v27 init];
   v15 = v14;
   if (v14)
   {
@@ -452,7 +450,6 @@ LABEL_8:
   v25 = v15;
 LABEL_9:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -631,7 +628,7 @@ LABEL_10:
 
 - (BOOL)unwrapWithError:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   if ([(NSData *)self->_wrappingKeyData length]== 32)
   {
     if ([(NSData *)self->_wrappedKeyData length]== 72)
@@ -639,37 +636,36 @@ LABEL_10:
       [(NSData *)self->_wrappedKeyData length];
       v5 = ccwrap_unwrapped_size();
       v6 = [MEMORY[0x1E695DF88] dataWithLength:{v5, v5}];
-      v7 = ccaes_ecb_decrypt_mode();
-      v8 = *v7 + 15;
-      v9 = v8 & 0xFFFFFFFFFFFFFFF0;
-      if (v8 >= 0x10)
+      v7 = *ccaes_ecb_decrypt_mode() + 15;
+      v8 = v7 & 0xFFFFFFFFFFFFFFF0;
+      if (v7 >= 0x10)
       {
-        v10 = (v28 - (v8 & 0xFFFFFFFFFFFFFFF0));
+        v9 = (v25 - (v7 & 0xFFFFFFFFFFFFFFF0));
         do
         {
-          *v10 = 0xAAAAAAAAAAAAAAAALL;
-          v10[1] = 0xAAAAAAAAAAAAAAAALL;
-          v10 += 2;
-          v9 -= 16;
+          *v9 = 0xAAAAAAAAAAAAAAAALL;
+          v9[1] = 0xAAAAAAAAAAAAAAAALL;
+          v9 += 2;
+          v8 -= 16;
         }
 
-        while (v9);
+        while (v8);
       }
 
       [(NSData *)self->_wrappingKeyData length];
       [(NSData *)self->_wrappingKeyData bytes];
-      v11 = ccecb_init();
-      if (v11)
+      v10 = ccecb_init();
+      if (v10)
       {
         if (error)
         {
-          v12 = MEMORY[0x1E696ABC0];
-          recoveryKeyData = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccecb_init failed: %d", v11];
-          v14 = v12;
-          v15 = 9;
+          v11 = MEMORY[0x1E696ABC0];
+          recoveryKeyData = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccecb_init failed: %d", v10];
+          v13 = v11;
+          v14 = 9;
 LABEL_18:
-          [v14 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v15 description:recoveryKeyData];
-          *error = v21 = 0;
+          [v13 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v14 description:recoveryKeyData];
+          *error = v20 = 0;
 LABEL_21:
 
           goto LABEL_22;
@@ -681,67 +677,63 @@ LABEL_21:
         [(NSData *)self->_wrappedKeyData length];
         [(NSData *)self->_wrappedKeyData bytes];
         [v6 mutableBytes];
-        v22 = ccwrap_auth_decrypt();
-        v23 = *v7;
+        v21 = ccwrap_auth_decrypt();
         cc_clear();
-        if (!v22)
+        if (!v21)
         {
-          v25 = v6;
+          v23 = v6;
           recoveryKeyData = self->_recoveryKeyData;
-          self->_recoveryKeyData = v25;
-          v21 = 1;
+          self->_recoveryKeyData = v23;
+          v20 = 1;
           goto LABEL_21;
         }
 
         if (error)
         {
-          v24 = MEMORY[0x1E696ABC0];
-          recoveryKeyData = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccwrap_auth_decrypt: %d", v22];
-          v14 = v24;
-          v15 = 5;
+          v22 = MEMORY[0x1E696ABC0];
+          recoveryKeyData = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccwrap_auth_decrypt: %d", v21];
+          v13 = v22;
+          v14 = 5;
           goto LABEL_18;
         }
       }
 
-      v21 = 0;
+      v20 = 0;
 LABEL_22:
 
-      goto LABEL_23;
+      return v20;
     }
 
     if (error)
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"wrong wrapped key length: %u", -[NSData length](self->_wrappedKeyData, "length")];
-      v18 = v20;
-      v19 = 10;
+      v19 = MEMORY[0x1E696ABC0];
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"wrong wrapped key length: %u", -[NSData length](self->_wrappedKeyData, "length")];
+      v17 = v19;
+      v18 = 10;
       goto LABEL_13;
     }
   }
 
   else if (error)
   {
-    v16 = MEMORY[0x1E696ABC0];
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"wrong wrapping key length: %u", -[NSData length](self->_wrappingKeyData, "length")];
-    v18 = v16;
-    v19 = 8;
+    v15 = MEMORY[0x1E696ABC0];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"wrong wrapping key length: %u", -[NSData length](self->_wrappingKeyData, "length")];
+    v17 = v15;
+    v18 = 8;
 LABEL_13:
-    *error = [v18 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v19 description:v17];
+    *error = [v17 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v18 description:v16];
   }
 
-  v21 = 0;
-LABEL_23:
-  v26 = *MEMORY[0x1E69E9840];
-  return v21;
+  return 0;
 }
 
 - (OTInheritanceKey)initWithUUID:(id)d error:(id *)error
 {
   bytes[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v29.receiver = self;
-  v29.super_class = OTInheritanceKey;
-  v8 = [(OTInheritanceKey *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = OTInheritanceKey;
+  v8 = [(OTInheritanceKey *)&v28 init];
   v9 = v8;
   if (v8)
   {
@@ -815,47 +807,45 @@ LABEL_11:
   v26 = v9;
 LABEL_12:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (BOOL)wrapWithWrappingKey:(id)key error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   [(NSData *)self->_recoveryKeyData length];
   v8 = ccwrap_wrapped_size();
-  v9 = [MEMORY[0x1E695DF88] dataWithLength:{v8, v8, v29}];
-  v10 = ccaes_ecb_encrypt_mode();
-  v11 = *v10 + 15;
-  v12 = v11 & 0xFFFFFFFFFFFFFFF0;
-  if (v11 >= 0x10)
+  v9 = [MEMORY[0x1E695DF88] dataWithLength:{v8, v8, v26}];
+  v10 = *ccaes_ecb_encrypt_mode() + 15;
+  v11 = v10 & 0xFFFFFFFFFFFFFFF0;
+  if (v10 >= 0x10)
   {
-    v13 = (&v28 - (v11 & 0xFFFFFFFFFFFFFFF0));
+    v12 = (&v25 - (v10 & 0xFFFFFFFFFFFFFFF0));
     do
     {
-      *v13 = 0xAAAAAAAAAAAAAAAALL;
-      v13[1] = 0xAAAAAAAAAAAAAAAALL;
-      v13 += 2;
-      v12 -= 16;
+      *v12 = 0xAAAAAAAAAAAAAAAALL;
+      v12[1] = 0xAAAAAAAAAAAAAAAALL;
+      v12 += 2;
+      v11 -= 16;
     }
 
-    while (v12);
+    while (v11);
   }
 
   [keyCopy length];
   [keyCopy bytes];
-  v14 = ccecb_init();
-  if (v14)
+  v13 = ccecb_init();
+  if (v13)
   {
     if (error)
     {
-      v15 = MEMORY[0x1E696ABC0];
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccecb_init failed: %d", v14];
-      v17 = v15;
-      v18 = 9;
+      v14 = MEMORY[0x1E696ABC0];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccecb_init failed: %d", v13];
+      v16 = v14;
+      v17 = 9;
 LABEL_10:
-      *error = [v17 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v18 description:v16];
+      *error = [v16 errorWithDomain:@"com.apple.security.OctagonTrust.OTInheritanceKey" code:v17 description:v15];
 
 LABEL_11:
       LOBYTE(error) = 0;
@@ -867,22 +857,21 @@ LABEL_11:
     [(NSData *)self->_recoveryKeyData length];
     [(NSData *)self->_recoveryKeyData bytes];
     [v9 mutableBytes];
-    v19 = ccwrap_auth_encrypt();
-    v20 = *v10;
+    v18 = ccwrap_auth_encrypt();
     cc_clear();
-    if (!v19)
+    if (!v18)
     {
       objc_storeStrong(&self->_wrappingKeyData, key);
-      v24 = [OTInheritanceKey printableWithData:self->_wrappingKeyData checksumSize:3 error:error];
+      v21 = [OTInheritanceKey printableWithData:self->_wrappingKeyData checksumSize:3 error:error];
       wrappingKeyString = self->_wrappingKeyString;
-      self->_wrappingKeyString = v24;
+      self->_wrappingKeyString = v21;
 
       if (self->_wrappingKeyString)
       {
         objc_storeStrong(&self->_wrappedKeyData, v9);
-        v26 = [OTInheritanceKey printableWithData:self->_wrappedKeyData checksumSize:3 error:error];
+        v23 = [OTInheritanceKey printableWithData:self->_wrappedKeyData checksumSize:3 error:error];
         wrappedKeyString = self->_wrappedKeyString;
-        self->_wrappedKeyString = v26;
+        self->_wrappedKeyString = v23;
 
         LOBYTE(error) = self->_wrappedKeyString != 0;
         goto LABEL_12;
@@ -893,17 +882,16 @@ LABEL_11:
 
     if (error)
     {
-      v21 = MEMORY[0x1E696ABC0];
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccwrap_auth_encrypt: %d", v19];
-      v17 = v21;
-      v18 = 4;
+      v19 = MEMORY[0x1E696ABC0];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ccwrap_auth_encrypt: %d", v18];
+      v16 = v19;
+      v17 = 4;
       goto LABEL_10;
     }
   }
 
 LABEL_12:
 
-  v22 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -919,11 +907,11 @@ LABEL_12:
 
 + (id)parseBase32:(id)base32 checksumSize:(unint64_t)size error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [base32 stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F48F2A78];
   v6 = [v5 length];
   v7 = [MEMORY[0x1E695DF88] dataWithLength:0];
-  v31 = v5;
+  v30 = v5;
   uTF8String = [v5 UTF8String];
   if (v6)
   {
@@ -1024,20 +1012,18 @@ LABEL_20:
   v26 = [MEMORY[0x1E695DEF0] dataWithBytes:objc_msgSend(v7 length:{"bytes"), v19}];
 LABEL_22:
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 + (id)printableWithData:(id)data checksumSize:(unint64_t)size error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v8 = [MEMORY[0x1E695DF88] dataWithCapacity:{objc_msgSend(dataCopy, "length") + size}];
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v28[0] = v9;
-  v28[1] = v9;
+  v27[0] = v9;
+  v27[1] = v9;
   ccsha256_di();
   [dataCopy length];
   [dataCopy bytes];
@@ -1045,7 +1031,7 @@ LABEL_22:
   [v8 appendData:dataCopy];
   if (size < 0x21)
   {
-    v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v28 length:size];
+    v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v27 length:size];
     [v8 appendData:v13];
 
     bytes = [v8 bytes];
@@ -1148,15 +1134,14 @@ LABEL_18:
 LABEL_24:
 
 LABEL_25:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)unbase32:(const char *)unbase32 len:(unint64_t)len
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = -1431655766;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = -1431655766;
   v4 = len - 2;
   if (len - 2 <= 6 && ((0x6Du >> v4) & 1) != 0)
   {
@@ -1164,10 +1149,10 @@ LABEL_25:
     v8 = qword_1C9452148[v4];
     *&v9 = -1;
     *(&v9 + 1) = -1;
-    v19 = v9;
-    v20 = v9;
-    v17 = v9;
     v18 = v9;
+    v19 = v9;
+    v16 = v9;
+    v17 = v9;
     while (1)
     {
       v10 = memchr("ABCDEFGHJKLMNPQRSTUVWXYZ23456789", unbase32[v7], 0x21uLL);
@@ -1177,7 +1162,7 @@ LABEL_25:
         v11 = -1;
       }
 
-      *(&v17 + v7) = v11;
+      *(&v16 + v7) = v11;
       if (v11 < 0)
       {
         break;
@@ -1185,25 +1170,25 @@ LABEL_25:
 
       if (len == ++v7)
       {
-        v15 = (DWORD2(v17) >> 2) | (8 * v17);
+        v14 = (DWORD2(v16) >> 2) | (8 * v16);
         if (len >= 4)
         {
-          LOBYTE(v16) = (2 * v18) | (BYTE8(v17) << 6) | (DWORD2(v18) >> 4);
+          LOBYTE(v15) = (2 * v17) | (BYTE8(v16) << 6) | (DWORD2(v17) >> 4);
           if (len != 4)
           {
-            BYTE1(v16) = (v19 >> 1) | (16 * BYTE8(v18));
+            BYTE1(v15) = (v18 >> 1) | (16 * BYTE8(v17));
             if (len >= 7)
             {
-              BYTE2(v16) = (4 * BYTE8(v19)) | (v19 << 7) | (v20 >> 3);
+              BYTE2(v15) = (4 * BYTE8(v18)) | (v18 << 7) | (v19 >> 3);
               if (len == 8)
               {
-                HIBYTE(v16) = BYTE8(v20) | (32 * v20);
+                HIBYTE(v15) = BYTE8(v19) | (32 * v19);
               }
             }
           }
         }
 
-        v12 = [MEMORY[0x1E695DEF0] dataWithBytes:&v15 length:v8];
+        v12 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:v8];
         goto LABEL_15;
       }
     }
@@ -1211,55 +1196,54 @@ LABEL_25:
 
   v12 = 0;
 LABEL_15:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)base32:(const char *)base32 len:(unint64_t)len
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 170, sizeof(v16));
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 170, sizeof(v15));
   if (!len)
   {
     goto LABEL_11;
   }
 
   v4 = *base32;
-  v15 = printableChars[v4 >> 3];
+  v14 = printableChars[v4 >> 3];
   v5 = 4 * (v4 & 7);
   if (len != 1)
   {
     v8 = *(base32 + 1);
-    v16[0] = printableChars[v5 | (v8 >> 6)];
-    v16[1] = printableChars[(v8 >> 1) & 0x1F];
+    v15[0] = printableChars[v5 | (v8 >> 6)];
+    v15[1] = printableChars[(v8 >> 1) & 0x1F];
     v5 = 16 * (v8 & 1);
     if (len == 2)
     {
-      v6 = &v16[2];
+      v6 = &v15[2];
       v7 = 4;
       goto LABEL_13;
     }
 
     v9 = *(base32 + 2);
-    v16[2] = printableChars[v5 | (v9 >> 4)];
+    v15[2] = printableChars[v5 | (v9 >> 4)];
     v10 = 2 * (v9 & 0xF);
     if (len == 3)
     {
-      v6 = &v16[3];
+      v6 = &v15[3];
       v7 = 5;
       LODWORD(v5) = v10;
       goto LABEL_13;
     }
 
     v5 = *(base32 + 3);
-    v16[3] = printableChars[v10 | (v5 >> 7)];
-    v16[4] = printableChars[(v5 >> 2) & 0x1F];
+    v15[3] = printableChars[v10 | (v5 >> 7)];
+    v15[4] = printableChars[(v5 >> 2) & 0x1F];
     if (len == 5)
     {
-      v6 = &v16[6];
+      v6 = &v15[6];
       v12 = *(base32 + 4);
-      v16[5] = printableChars[(v12 >> 5) & 0xFFFFFFE7 | (8 * (v5 & 3))];
+      v15[5] = printableChars[(v12 >> 5) & 0xFFFFFFE7 | (8 * (v5 & 3))];
       LODWORD(v5) = v12 & 0x1F;
       v7 = 8;
       goto LABEL_13;
@@ -1267,7 +1251,7 @@ LABEL_15:
 
     if (len == 4)
     {
-      v6 = &v16[5];
+      v6 = &v15[5];
       LODWORD(v5) = 8 * (v5 & 3);
       v7 = 7;
       goto LABEL_13;
@@ -1278,13 +1262,12 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  v6 = v16;
+  v6 = v15;
   v7 = 2;
 LABEL_13:
   *v6 = printableChars[v5];
-  v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v15 length:v7 encoding:4];
+  v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v14 length:v7 encoding:4];
 LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

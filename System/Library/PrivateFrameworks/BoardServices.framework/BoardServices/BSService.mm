@@ -7,7 +7,7 @@
 
 - (id)registerListener:(void *)listener forInstance:
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   v5 = a2;
   listenerCopy = listener;
   v7 = listenerCopy;
@@ -18,43 +18,43 @@
 
   if (!v5)
   {
-    v37 = MEMORY[0x1E696AEC0];
+    v36 = MEMORY[0x1E696AEC0];
     if (listenerCopy)
     {
-      v38 = listenerCopy;
+      v37 = listenerCopy;
     }
 
     else
     {
-      v38 = @"<any>";
+      v37 = @"<any>";
     }
 
     identifier = [*(self + 8) identifier];
     identifier2 = [*(self + 16) identifier];
-    v41 = [v37 stringWithFormat:@"asked to register a nil listener for instance %@ of service %@ of domain %@", v38, identifier, identifier2];
+    v40 = [v36 stringWithFormat:@"asked to register a nil listener for instance %@ of service %@ of domain %@", v37, identifier, identifier2];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v42 = NSStringFromSelector(sel_registerListener_forInstance_);
-      v43 = objc_opt_class();
-      v44 = NSStringFromClass(v43);
+      v41 = NSStringFromSelector(sel_registerListener_forInstance_);
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
       *location = 138544642;
-      *&location[4] = v42;
-      v86 = 2114;
-      v87 = v44;
-      v88 = 2048;
+      *&location[4] = v41;
+      v85 = 2114;
+      v86 = v43;
+      v87 = 2048;
       selfCopy5 = self;
-      v90 = 2114;
-      v91 = @"BSServiceDomain.m";
-      v92 = 1024;
-      v93 = 82;
-      v94 = 2114;
-      v95 = v41;
+      v89 = 2114;
+      v90 = @"BSServiceDomain.m";
+      v91 = 1024;
+      v92 = 82;
+      v93 = 2114;
+      v94 = v40;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
     }
 
-    v45 = v41;
-    [v41 UTF8String];
+    v44 = v40;
+    [v40 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8631A0);
@@ -62,32 +62,32 @@
 
   v8 = [MEMORY[0x1E698E7B8] referenceWithObject:v5];
   os_unfair_lock_lock((self + 48));
-  v76 = v8;
+  v75 = v8;
   if (*(self + 52) == 1)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot register listener on an invalidated service"];
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot register listener on an invalidated service"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v47 = NSStringFromSelector(sel_registerListener_forInstance_);
-      v48 = objc_opt_class();
-      v49 = NSStringFromClass(v48);
+      v46 = NSStringFromSelector(sel_registerListener_forInstance_);
+      v47 = objc_opt_class();
+      v48 = NSStringFromClass(v47);
       *location = 138544642;
-      *&location[4] = v47;
-      v86 = 2114;
-      v87 = v49;
-      v88 = 2048;
+      *&location[4] = v46;
+      v85 = 2114;
+      v86 = v48;
+      v87 = 2048;
       selfCopy5 = self;
-      v90 = 2114;
-      v91 = @"BSServiceDomain.m";
-      v92 = 1024;
-      v93 = 87;
-      v94 = 2114;
-      v95 = v46;
+      v89 = 2114;
+      v90 = @"BSServiceDomain.m";
+      v91 = 1024;
+      v92 = 87;
+      v93 = 2114;
+      v94 = v45;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
     }
 
-    v50 = v46;
-    [v46 UTF8String];
+    v49 = v45;
+    [v45 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A863298);
@@ -95,33 +95,33 @@
 
   if (*(self + 24))
   {
-    v51 = MEMORY[0x1E696AEC0];
+    v50 = MEMORY[0x1E696AEC0];
     identifier3 = [*(self + 8) identifier];
     identifier4 = [*(self + 16) identifier];
-    v54 = [v51 stringWithFormat:@"already have a global listener for service %@ of domain %@ : old=%@ new=%@", identifier3, identifier4, *(self + 24), v5];
+    v53 = [v50 stringWithFormat:@"already have a global listener for service %@ of domain %@ : old=%@ new=%@", identifier3, identifier4, *(self + 24), v5];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v55 = NSStringFromSelector(sel_registerListener_forInstance_);
-      v56 = objc_opt_class();
-      v57 = NSStringFromClass(v56);
+      v54 = NSStringFromSelector(sel_registerListener_forInstance_);
+      v55 = objc_opt_class();
+      v56 = NSStringFromClass(v55);
       *location = 138544642;
-      *&location[4] = v55;
-      v86 = 2114;
-      v87 = v57;
-      v88 = 2048;
+      *&location[4] = v54;
+      v85 = 2114;
+      v86 = v56;
+      v87 = 2048;
       selfCopy5 = self;
-      v90 = 2114;
-      v91 = @"BSServiceDomain.m";
-      v92 = 1024;
-      v93 = 88;
-      v94 = 2114;
-      v95 = v54;
+      v89 = 2114;
+      v90 = @"BSServiceDomain.m";
+      v91 = 1024;
+      v92 = 88;
+      v93 = 2114;
+      v94 = v53;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
     }
 
-    v58 = v54;
-    [v54 UTF8String];
+    v57 = v53;
+    [v53 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8633C8);
@@ -136,34 +136,34 @@
 
       if (v10)
       {
-        v59 = MEMORY[0x1E696AEC0];
+        v58 = MEMORY[0x1E696AEC0];
         identifier5 = [*(self + 8) identifier];
         identifier6 = [*(self + 16) identifier];
-        v62 = [*(self + 32) objectForKey:v7];
-        v63 = [v59 stringWithFormat:@"already have a listener for instance %@ of service %@ of domain %@ : old=%@ new=%@", v7, identifier5, identifier6, v62, v5];
+        v61 = [*(self + 32) objectForKey:v7];
+        v62 = [v58 stringWithFormat:@"already have a listener for instance %@ of service %@ of domain %@ : old=%@ new=%@", v7, identifier5, identifier6, v61, v5];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v64 = NSStringFromSelector(sel_registerListener_forInstance_);
-          v65 = objc_opt_class();
-          v66 = NSStringFromClass(v65);
+          v63 = NSStringFromSelector(sel_registerListener_forInstance_);
+          v64 = objc_opt_class();
+          v65 = NSStringFromClass(v64);
           *location = 138544642;
-          *&location[4] = v64;
-          v86 = 2114;
-          v87 = v66;
-          v88 = 2048;
+          *&location[4] = v63;
+          v85 = 2114;
+          v86 = v65;
+          v87 = 2048;
           selfCopy5 = self;
-          v90 = 2114;
-          v91 = @"BSServiceDomain.m";
-          v92 = 1024;
-          v93 = 91;
-          v94 = 2114;
-          v95 = v63;
+          v89 = 2114;
+          v90 = @"BSServiceDomain.m";
+          v91 = 1024;
+          v92 = 91;
+          v93 = 2114;
+          v94 = v62;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
         }
 
-        v67 = v63;
-        [v63 UTF8String];
+        v66 = v62;
+        [v62 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A863510);
@@ -182,33 +182,33 @@
   {
     if (v9)
     {
-      v68 = MEMORY[0x1E696AEC0];
+      v67 = MEMORY[0x1E696AEC0];
       identifier7 = [*(self + 8) identifier];
       identifier8 = [*(self + 16) identifier];
-      v71 = [v68 stringWithFormat:@"already have a listener for service %@ of domain %@ : old=%@ new=%@", identifier7, identifier8, *(self + 32), v5];
+      v70 = [v67 stringWithFormat:@"already have a listener for service %@ of domain %@ : old=%@ new=%@", identifier7, identifier8, *(self + 32), v5];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v72 = NSStringFromSelector(sel_registerListener_forInstance_);
-        v73 = objc_opt_class();
-        v74 = NSStringFromClass(v73);
+        v71 = NSStringFromSelector(sel_registerListener_forInstance_);
+        v72 = objc_opt_class();
+        v73 = NSStringFromClass(v72);
         *location = 138544642;
-        *&location[4] = v72;
-        v86 = 2114;
-        v87 = v74;
-        v88 = 2048;
+        *&location[4] = v71;
+        v85 = 2114;
+        v86 = v73;
+        v87 = 2048;
         selfCopy5 = self;
-        v90 = 2114;
-        v91 = @"BSServiceDomain.m";
-        v92 = 1024;
-        v93 = 97;
-        v94 = 2114;
-        v95 = v71;
+        v89 = 2114;
+        v90 = @"BSServiceDomain.m";
+        v91 = 1024;
+        v92 = 97;
+        v93 = 2114;
+        v94 = v70;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
       }
 
-      v75 = v71;
-      [v71 UTF8String];
+      v74 = v70;
+      [v70 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A863640);
@@ -269,28 +269,28 @@ LABEL_13:
   }
 
   os_unfair_lock_unlock((self + 48));
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v22 = v16;
-  v23 = [v22 countByEnumeratingWithState:&v80 objects:v84 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v79 objects:v83 count:16];
   if (v23)
   {
-    v24 = *v81;
+    v24 = *v80;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v81 != v24)
+        if (*v80 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        [v5 didReceiveConnection:*(*(&v80 + 1) + 8 * i)];
+        [v5 didReceiveConnection:*(*(&v79 + 1) + 8 * i)];
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v80 objects:v84 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v79 objects:v83 count:16];
     }
 
     while (v23);
@@ -311,20 +311,19 @@ LABEL_13:
   }
 
   v34 = [v30 stringWithFormat:@"listener:%@-%@ -> %p", identifier10, v33, v5];
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __42__BSService_registerListener_forInstance___block_invoke;
-  v77[3] = &unk_1E7520E68;
-  objc_copyWeak(&v79, location);
-  v77[4] = v76;
-  v78 = v7;
-  self = [v26 initWithIdentifier:v29 forReason:v34 invalidationBlock:v77];
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __42__BSService_registerListener_forInstance___block_invoke;
+  v76[3] = &unk_1E7520E68;
+  objc_copyWeak(&v78, location);
+  v76[4] = v75;
+  v77 = v7;
+  self = [v26 initWithIdentifier:v29 forReason:v34 invalidationBlock:v76];
 
-  objc_destroyWeak(&v79);
+  objc_destroyWeak(&v78);
   objc_destroyWeak(location);
 
 LABEL_35:
-  v35 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -467,38 +466,36 @@ void __50__BSService__debugDescriptionWithMultilinePrefix___block_invoke_2(uint6
 
 void __50__BSService__debugDescriptionWithMultilinePrefix___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = *(a1 + 40);
-        v8 = [*(*(a1 + 48) + 32) objectForKey:{v6, v11}];
+        v8 = [*(*(a1 + 48) + 32) objectForKey:{v6, v10}];
         v9 = [v7 appendObject:v8 withName:v6];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

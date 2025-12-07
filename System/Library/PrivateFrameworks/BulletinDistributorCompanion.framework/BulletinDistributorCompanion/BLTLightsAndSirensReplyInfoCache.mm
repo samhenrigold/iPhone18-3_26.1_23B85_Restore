@@ -167,6 +167,54 @@ void __66__BLTLightsAndSirensReplyInfoCache_purgeReplyInfo_withReplyToken___bloc
 
 - (id)_firstReplyInfoWithNoDidPlayStateWithReplyToken:(id)token
 {
+  v18 = *MEMORY[0x277D85DE8];
+  tokenCopy = token;
+  localReplyInfo = [(BLTLightsAndSirensReplyInfoCache *)self localReplyInfo];
+  v6 = [localReplyInfo objectForKeyedSubscript:tokenCopy];
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = v6;
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if (![v11 didPlayLightsAndSirens])
+        {
+          v8 = v11;
+          goto LABEL_11;
+        }
+      }
+
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v8;
+}
+
+- (id)_firstReplyInfoWithNoReplyWithReplyToken:(id)token
+{
   v19 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   localReplyInfo = [(BLTLightsAndSirensReplyInfoCache *)self localReplyInfo];
@@ -191,7 +239,9 @@ void __66__BLTLightsAndSirensReplyInfoCache_purgeReplyInfo_withReplyToken___bloc
         }
 
         v11 = *(*(&v14 + 1) + 8 * i);
-        if (![v11 didPlayLightsAndSirens])
+        reply = [v11 reply];
+
+        if (!reply)
         {
           v8 = v11;
           goto LABEL_11;
@@ -209,60 +259,6 @@ void __66__BLTLightsAndSirensReplyInfoCache_purgeReplyInfo_withReplyToken___bloc
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v8;
-}
-
-- (id)_firstReplyInfoWithNoReplyWithReplyToken:(id)token
-{
-  v20 = *MEMORY[0x277D85DE8];
-  tokenCopy = token;
-  localReplyInfo = [(BLTLightsAndSirensReplyInfoCache *)self localReplyInfo];
-  v6 = [localReplyInfo objectForKeyedSubscript:tokenCopy];
-
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
-  {
-    v9 = *v16;
-    while (2)
-    {
-      for (i = 0; i != v8; i = i + 1)
-      {
-        if (*v16 != v9)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v11 = *(*(&v15 + 1) + 8 * i);
-        reply = [v11 reply];
-
-        if (!reply)
-        {
-          v8 = v11;
-          goto LABEL_11;
-        }
-      }
-
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v8)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -304,55 +300,55 @@ LABEL_11:
 - (void)_checkCache
 {
   selfCopy = self;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([(BLTLightsAndSirensReplyInfoCache *)self _isTimeToCheck])
   {
-    v19 = objc_opt_new();
+    v18 = objc_opt_new();
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = [(BLTLightsAndSirensReplyInfoCache *)selfCopy localReplyInfo];
-    v3 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v3 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v3)
     {
       v4 = v3;
-      v21 = *v27;
+      v20 = *v26;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v27 != v21)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v26 + 1) + 8 * i);
+          v6 = *(*(&v25 + 1) + 8 * i);
           v7 = objc_opt_new();
           v8 = selfCopy;
           localReplyInfo = [(BLTLightsAndSirensReplyInfoCache *)selfCopy localReplyInfo];
           v10 = [localReplyInfo objectForKeyedSubscript:v6];
 
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
           v23 = 0u;
+          v24 = 0u;
+          v21 = 0u;
+          v22 = 0u;
           v11 = v10;
-          v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v23;
+            v14 = *v22;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v23 != v14)
+                if (*v22 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v22 + 1) + 8 * j);
+                v16 = *(*(&v21 + 1) + 8 * j);
                 if ([v16 hasExpired])
                 {
                   [v7 addObject:v16];
@@ -360,7 +356,7 @@ LABEL_11:
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
             }
 
             while (v13);
@@ -369,25 +365,23 @@ LABEL_11:
           [v11 removeObjectsInArray:v7];
           if (![v11 count])
           {
-            [v19 addObject:v6];
+            [v18 addObject:v6];
           }
 
           selfCopy = v8;
         }
 
-        v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v4);
     }
 
     localReplyInfo2 = [(BLTLightsAndSirensReplyInfoCache *)selfCopy localReplyInfo];
-    [localReplyInfo2 removeObjectsForKeys:v19];
+    [localReplyInfo2 removeObjectsForKeys:v18];
 
     [(BLTLightsAndSirensReplyInfoCache *)selfCopy _setNextTimeToCheck];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

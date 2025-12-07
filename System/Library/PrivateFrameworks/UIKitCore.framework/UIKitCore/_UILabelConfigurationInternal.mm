@@ -104,9 +104,9 @@
           goto LABEL_25;
         }
 
-        v16 = [(UIColor *)v11 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v11);
 
-        if (!v16)
+        if (!isEqual)
         {
           LOBYTE(v7) = 0;
 LABEL_26:
@@ -134,7 +134,7 @@ LABEL_26:
           goto LABEL_24;
         }
 
-        v7 = [(UIColor *)v15 isEqual:v19];
+        v7 = objc_msgSend_isEqual_(v15);
 
         if (!v7)
         {

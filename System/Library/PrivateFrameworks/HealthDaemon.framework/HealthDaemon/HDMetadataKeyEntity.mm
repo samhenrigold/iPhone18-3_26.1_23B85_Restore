@@ -104,21 +104,19 @@ BOOL __64__HDMetadataKeyEntity_insertEntityWithKey_healthDatabase_error___block_
 
 + (id)_insertEntityWithKey:(id)key database:(id)database error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v18[0] = @"key";
+  v17[0] = @"key";
   v9 = MEMORY[0x277CBEA60];
   databaseCopy = database;
-  v11 = [v9 arrayWithObjects:v18 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __59__HDMetadataKeyEntity__insertEntityWithKey_database_error___block_invoke;
-  v16[3] = &unk_278614508;
-  v17 = keyCopy;
+  v11 = [v9 arrayWithObjects:v17 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __59__HDMetadataKeyEntity__insertEntityWithKey_database_error___block_invoke;
+  v15[3] = &unk_278614508;
+  v16 = keyCopy;
   v12 = keyCopy;
-  v13 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v11 error:error bindingHandler:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v11 error:error bindingHandler:v15];
 
   return v13;
 }

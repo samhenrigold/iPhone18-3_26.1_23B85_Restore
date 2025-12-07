@@ -63,11 +63,11 @@
 - (void)_invalidateDetachedSceneTimerForReason:(id)reason ignoreLogging:(BOOL)logging;
 - (void)_invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:(id)reason;
 - (void)_modifyVisibilitySettings:(id)settings;
-- (void)_newPersistedSnapshotView;
 - (void)_resetLogDigests;
 - (void)_scheduleEvaluationOfDetachedSceneTimerForReason:(id)reason;
 - (void)_scheduleSceneContentReadyBlock:(id)block;
 - (void)_setBackgroundViewMode:(int)mode;
+- (void)_setCanAppearInSecureEnvironment:(BOOL)environment force:(BOOL)force;
 - (void)_setEffectivePresentationMode:(unint64_t)mode reason:(id)reason forceExistingRebuild:(BOOL)rebuild allowCreatingScene:(BOOL)scene;
 - (void)_setInSecureEnvironment:(unint64_t)environment forReason:(id)reason;
 - (void)_setVisibilitySettings:(id)settings;
@@ -134,7 +134,10 @@
 - (void)setWidget:(id)widget;
 - (void)setWidgetPriority:(unint64_t)priority;
 - (void)snapshotContentWithTimeout:(double)timeout queue:(id)queue completion:(id)completion;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -192,11 +195,10 @@
 {
   widget = self->_widget;
   metrics = self->_metrics;
-  contentType = self->_contentType;
-  v5 = NSStringFromCHSWidgetContentType();
-  v6 = [(CHSWidget *)widget _loggingIdentifierWithMetrics:metrics prefix:v5];
+  v4 = NSStringFromCHSWidgetContentType();
+  v5 = [(CHSWidget *)widget _loggingIdentifierWithMetrics:metrics prefix:v4];
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)usesSystemBackgroundMaterial
@@ -221,13 +223,9 @@
 
 - (void)_updateDescriptorIfNecessary
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *(self + 1152);
-  v3 = *a2;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v4, v5, "[%p-%{public}@] Descriptor is now: %{public}@");
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D928E000, v0, v1, "[%p-%{public}@] Descriptor is now: %{public}@");
 }
 
 - (double)_effectiveViewCornerRadius
@@ -254,16 +252,16 @@
 
 - (void)_updateTouchDeliveryPolicies
 {
-  v72 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v74 = *MEMORY[0x1E69E9840];
+  v3 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    v40 = CHUISLogViewController();
-    v38 = v40;
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    v42 = CHUISLogViewController(v3);
+    v41 = v42;
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
     {
       [CHUISWidgetHostViewController _updateTouchDeliveryPolicies];
-      v38 = v40;
+      v41 = v42;
     }
 
     goto LABEL_32;
@@ -281,166 +279,164 @@
         layerManager = [(FBScene *)self->_scene layerManager];
         layers = [layerManager layers];
 
-        v6 = objc_alloc(MEMORY[0x1E695DFA8]);
+        v7 = objc_alloc(MEMORY[0x1E695DFA8]);
         allKeys = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions allKeys];
-        v46 = [v6 initWithArray:allKeys];
+        v48 = [v7 initWithArray:allKeys];
 
         view2 = [(CHUISWidgetHostViewController *)self view];
         _window2 = [view2 _window];
         _contextId = [_window2 _contextId];
 
-        v10 = CHUISLogViewControllerTouch();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = CHUISLogViewControllerTouch(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           cachedSceneLogDigest = self->_cachedSceneLogDigest;
           *buf = 134218498;
           selfCopy3 = self;
-          v65 = 2114;
-          v66 = cachedSceneLogDigest;
           v67 = 2114;
-          v68 = layers;
-          _os_log_impl(&dword_1D928E000, v10, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Updating touch delivery policies for layers: %{public}@", buf, 0x20u);
+          v68 = cachedSceneLogDigest;
+          v69 = 2114;
+          v70 = layers;
+          _os_log_impl(&dword_1D928E000, v12, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Updating touch delivery policies for layers: %{public}@", buf, 0x20u);
         }
 
+        v62 = 0u;
+        v63 = 0u;
         v60 = 0u;
         v61 = 0u;
-        v58 = 0u;
-        v59 = 0u;
         obj = layers;
-        v12 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
-        if (v12)
+        v14 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+        if (v14)
         {
-          v44 = *v59;
+          v46 = *v61;
           do
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v14; ++i)
             {
-              if (*v59 != v44)
+              if (*v61 != v46)
               {
                 objc_enumerationMutation(obj);
               }
 
-              contextID = [*(*(&v58 + 1) + 8 * i) contextID];
-              v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-              [v46 removeObject:v15];
+              contextID = [*(*(&v60 + 1) + 8 * i) contextID];
+              v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+              [v48 removeObject:v17];
 
               touchDeliveryPolicyAssertions = self->_touchDeliveryPolicyAssertions;
-              v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-              v18 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v17];
-              LOBYTE(touchDeliveryPolicyAssertions) = v18 == 0;
+              v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+              v20 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v19];
+              LOBYTE(touchDeliveryPolicyAssertions) = v20 == 0;
 
               if (touchDeliveryPolicyAssertions)
               {
-                v19 = objc_alloc_init(MEMORY[0x1E698E440]);
-                v20 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
-                endpoint = [v19 endpoint];
-                [v20 setAssertionEndpoint:endpoint];
+                v21 = objc_alloc_init(MEMORY[0x1E698E440]);
+                v22 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
+                endpoint = [v21 endpoint];
+                [v22 setAssertionEndpoint:endpoint];
 
                 objc_initWeak(&location, self);
-                v51 = MEMORY[0x1E69E9820];
-                v52 = 3221225472;
-                v53 = __61__CHUISWidgetHostViewController__updateTouchDeliveryPolicies__block_invoke;
-                v54 = &unk_1E8575BB8;
-                objc_copyWeak(&v56, &location);
-                v22 = v20;
-                v55 = v22;
-                v23 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
-                if (v23)
+                v53 = MEMORY[0x1E69E9820];
+                v54 = 3221225472;
+                v55 = __61__CHUISWidgetHostViewController__updateTouchDeliveryPolicies__block_invoke;
+                v56 = &unk_1E8575BB8;
+                objc_copyWeak(&v58, &location);
+                v24 = v22;
+                v57 = v24;
+                v25 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
+                v26 = v25;
+                if (v25)
                 {
-                  v24 = CHUISLogViewControllerTouch();
-                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+                  v27 = CHUISLogViewControllerTouch(v25);
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                   {
-                    v25 = self->_cachedSceneLogDigest;
+                    v28 = self->_cachedSceneLogDigest;
                     *buf = 134218754;
                     selfCopy3 = self;
-                    v65 = 2114;
-                    v66 = v25;
                     v67 = 2114;
-                    v68 = v19;
-                    v69 = 1024;
-                    v70 = contextID;
-                    _os_log_impl(&dword_1D928E000, v24, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Saving touch policy assertion %{public}@ for context id %u", buf, 0x26u);
+                    v68 = v28;
+                    v69 = 2114;
+                    v70 = v21;
+                    v71 = 1024;
+                    v72 = contextID;
+                    _os_log_impl(&dword_1D928E000, v27, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Saving touch policy assertion %{public}@ for context id %u", buf, 0x26u);
                   }
 
-                  v26 = self->_touchDeliveryPolicyAssertions;
-                  if (!v26)
+                  v29 = self->_touchDeliveryPolicyAssertions;
+                  if (!v29)
                   {
-                    v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                    v28 = self->_touchDeliveryPolicyAssertions;
-                    self->_touchDeliveryPolicyAssertions = v27;
+                    v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                    v31 = self->_touchDeliveryPolicyAssertions;
+                    self->_touchDeliveryPolicyAssertions = v30;
 
-                    v26 = self->_touchDeliveryPolicyAssertions;
+                    v29 = self->_touchDeliveryPolicyAssertions;
                   }
 
-                  v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-                  [(NSMutableDictionary *)v26 setObject:v19 forKey:v29];
+                  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+                  [(NSMutableDictionary *)v29 setObject:v21 forKey:v32];
 
-                  [v23 ipc_addPolicy:v22];
+                  [v26 ipc_addPolicy:v24];
                 }
 
-                objc_destroyWeak(&v56);
+                objc_destroyWeak(&v58);
                 objc_destroyWeak(&location);
               }
             }
 
-            v12 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
+            v14 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
           }
 
-          while (v12);
+          while (v14);
         }
 
+        v51 = 0u;
+        v52 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = v46;
-        v30 = [v45 countByEnumeratingWithState:&v47 objects:v62 count:16];
-        if (v30)
+        v47 = v48;
+        v33 = [v47 countByEnumeratingWithState:&v49 objects:v64 count:16];
+        if (v33)
         {
-          v31 = *v48;
+          v34 = *v50;
           do
           {
-            for (j = 0; j != v30; ++j)
+            for (j = 0; j != v33; ++j)
             {
-              if (*v48 != v31)
+              if (*v50 != v34)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v47);
               }
 
-              v33 = *(*(&v47 + 1) + 8 * j);
-              v34 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v33];
-              [v34 invalidate];
-              [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v33];
-              v35 = CHUISLogViewControllerTouch();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+              v36 = *(*(&v49 + 1) + 8 * j);
+              v37 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v36];
+              [v37 invalidate];
+              v38 = CHUISLogViewControllerTouch([(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v36]);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
               {
-                v36 = self->_cachedSceneLogDigest;
-                unsignedIntValue = [v33 unsignedIntValue];
+                v39 = self->_cachedSceneLogDigest;
+                unsignedIntValue = [v36 unsignedIntValue];
                 *buf = 134218754;
                 selfCopy3 = self;
-                v65 = 2114;
-                v66 = v36;
                 v67 = 2114;
-                v68 = v34;
-                v69 = 1024;
-                v70 = unsignedIntValue;
-                _os_log_impl(&dword_1D928E000, v35, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidating assertion %{public}@ for context id %u", buf, 0x26u);
+                v68 = v39;
+                v69 = 2114;
+                v70 = v37;
+                v71 = 1024;
+                v72 = unsignedIntValue;
+                _os_log_impl(&dword_1D928E000, v38, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidating assertion %{public}@ for context id %u", buf, 0x26u);
               }
             }
 
-            v30 = [v45 countByEnumeratingWithState:&v47 objects:v62 count:16];
+            v33 = [v47 countByEnumeratingWithState:&v49 objects:v64 count:16];
           }
 
-          while (v30);
+          while (v33);
         }
 
-        v38 = obj;
+        v41 = obj;
 LABEL_32:
       }
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateBackgroundMaterialAndColor
@@ -530,11 +526,9 @@ LABEL_32:
 
 - (void)_evaluateAdditionalForegroundLayers
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Showing solarium fg view", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_2(&dword_1D928E000, v0, v1, "[%p-%{public}@] Hiding solarium fg view - tintParameters=%{public}@");
 }
 
 - (id)_containerView
@@ -793,12 +787,11 @@ LABEL_32:
   return build;
 }
 
-id __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke(uint64_t a1)
+id __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 1376);
+  v3 = *(a1 + 32);
   v4 = NSStringFromCHSWidgetContentType();
-  [v2 appendString:v4 withName:@"type"];
+  [v3 appendString:v4 withName:@"type"];
 
   v5 = *(*(a1 + 40) + 1344) - 1;
   if (v5 > 2)
@@ -865,34 +858,31 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
   v19 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 1481) withName:@"interactionDisabled" ifEqualTo:1];
   v20 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 1284) withName:@"metricsDefineSize" ifEqualTo:1];
   v21 = *(a1 + 32);
-  v22 = *(*(a1 + 40) + 1432);
-  v37 = NSStringFromCHSColorSchemes();
+  v34 = NSStringFromCHSColorSchemes();
   [v21 appendString:? withName:?];
 
-  v23 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 1440) withName:@"supportedRenderSchemes"];
-  v24 = *(a1 + 32);
-  v38 = [*(a1 + 40) userInfo];
-  v25 = [v24 appendObject:? withName:?];
+  v22 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 1440) withName:@"supportedRenderSchemes"];
+  v23 = *(a1 + 32);
+  v35 = [*(a1 + 40) userInfo];
+  v24 = [v23 appendObject:? withName:?];
 
-  v26 = *(a1 + 32);
-  v27 = *(*(a1 + 40) + 1552);
-  v39 = NSStringFromCHSWidgetProximity();
-  v28 = [v26 appendObject:? withName:?];
+  v25 = *(a1 + 32);
+  v36 = NSStringFromCHSWidgetProximity();
+  v26 = [v25 appendObject:? withName:?];
 
-  v29 = *(a1 + 32);
-  v30 = *(*(a1 + 40) + 1448);
-  v40 = NSStringFromCHSWidgetProximities();
-  [v29 appendString:? withName:?];
+  v27 = *(a1 + 32);
+  v37 = NSStringFromCHSWidgetProximities();
+  [v27 appendString:? withName:?];
+
+  v28 = *(a1 + 32);
+  v38 = [*(a1 + 40) view];
+  v29 = [v38 window];
+  v30 = [v28 appendObject:v29 withName:@"window"];
 
   v31 = *(a1 + 32);
-  v41 = [*(a1 + 40) view];
-  v32 = [v41 window];
-  v33 = [v31 appendObject:v32 withName:@"window"];
-
-  v34 = *(a1 + 32);
-  v42 = [*(a1 + 40) view];
-  v35 = [v42 superview];
-  v36 = [v34 appendObject:v35 withName:@"superview"];
+  v39 = [*(a1 + 40) view];
+  v32 = [v39 superview];
+  v33 = [v31 appendObject:v32 withName:@"superview"];
 }
 
 - (id)userInfo
@@ -1014,72 +1004,73 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
   v30 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   _expectedBackgroundViewMode = [(CHUISWidgetHostViewController *)self _expectedBackgroundViewMode];
+  v4 = _expectedBackgroundViewMode;
   requestedColorScheme = self->_requestedColorScheme;
   if (_expectedBackgroundViewMode == 3)
   {
-    v5 = 2;
+    v6 = 2;
   }
 
   else
   {
-    v5 = self->_requestedColorScheme;
+    v6 = self->_requestedColorScheme;
   }
 
-  if (self->_effectiveContentColorScheme != v5 || self->_effectiveBackgroundColorScheme != requestedColorScheme)
+  if (self->_effectiveContentColorScheme != v6 || self->_effectiveBackgroundColorScheme != requestedColorScheme)
   {
-    self->_effectiveContentColorScheme = v5;
+    self->_effectiveContentColorScheme = v6;
     self->_effectiveBackgroundColorScheme = requestedColorScheme;
-    v6 = self->_effectiveContentColorScheme == requestedColorScheme;
-    v7 = CHUISLogViewController();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v7 = self->_effectiveContentColorScheme == requestedColorScheme;
+    v8 = CHUISLogViewController(_expectedBackgroundViewMode);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v9)
       {
         cachedSceneLogDigest = self->_cachedSceneLogDigest;
-        v10 = NSStringFromCHSColorScheme();
-        v11 = v10;
-        v12 = @"NO";
+        v11 = NSStringFromCHSColorScheme();
+        v12 = v11;
+        v13 = @"NO";
         *buf = 134218754;
         selfCopy2 = self;
         v22 = 2114;
-        if (_expectedBackgroundViewMode == 3)
+        if (v4 == 3)
         {
-          v12 = @"YES";
+          v13 = @"YES";
         }
 
         v23 = cachedSceneLogDigest;
         v24 = 2114;
-        v25 = v10;
+        v25 = v11;
         v26 = 2112;
-        v27 = v12;
-        _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Effective color scheme changed to %{public}@ (overriden to dark? %@)", buf, 0x2Au);
+        v27 = v13;
+        _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Effective color scheme changed to %{public}@ (overriden to dark? %@)", buf, 0x2Au);
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      v13 = self->_cachedSceneLogDigest;
-      v14 = NSStringFromCHSColorScheme();
+      v14 = self->_cachedSceneLogDigest;
       v15 = NSStringFromCHSColorScheme();
-      v16 = v15;
-      v17 = @"NO";
+      v16 = NSStringFromCHSColorScheme();
+      v17 = v16;
+      v18 = @"NO";
       *buf = 134219010;
       selfCopy2 = self;
       v22 = 2114;
-      if (_expectedBackgroundViewMode == 3)
+      if (v4 == 3)
       {
-        v17 = @"YES";
+        v18 = @"YES";
       }
 
-      v23 = v13;
+      v23 = v14;
       v24 = 2114;
-      v25 = v14;
+      v25 = v15;
       v26 = 2114;
-      v27 = v15;
+      v27 = v16;
       v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Effective content color scheme changed to %{public}@, effective background color scheme changed to %{public}@ (overriden to dark? %@)", buf, 0x34u);
+      v29 = v18;
+      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Effective content color scheme changed to %{public}@, effective background color scheme changed to %{public}@ (overriden to dark? %@)", buf, 0x34u);
     }
 
     [(CHUISWidgetHostViewController *)self _updateBackgroundMaterialAndColor];
@@ -1087,11 +1078,9 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
     v19[1] = 3221225472;
     v19[2] = __62__CHUISWidgetHostViewController__evaluateEffectiveColorScheme__block_invoke;
     v19[3] = &__block_descriptor_40_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-    v19[4] = v5;
+    v19[4] = v6;
     [(CHUISWidgetHostViewController *)self modifySceneSettings:v19];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updatePersistedSnapshotContentIfNecessary
@@ -1163,7 +1152,7 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
 
 - (void)_executeSceneContentReadyOperations
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(FBScene *)self->_scene contentState]!= 2)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -1172,31 +1161,31 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
 
   if ([(NSMutableArray *)self->_waitForSceneContentReadyBlocks count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = self->_waitForSceneContentReadyBlocks;
-    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          (*(*(*(&v11 + 1) + 8 * v7) + 16))(*(*(&v11 + 1) + 8 * v7));
+          (*(*(*(&v10 + 1) + 8 * v7) + 16))(*(*(&v10 + 1) + 8 * v7));
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -1206,8 +1195,6 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
     waitForSceneContentReadyBlocks = self->_waitForSceneContentReadyBlocks;
     self->_waitForSceneContentReadyBlocks = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateToLiveContentFromLiveSnapshotIfPossible
@@ -1227,30 +1214,30 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
 
 - (id)cancelTouchesForCurrentEventInHostedContent
 {
-  v53 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v52 = *MEMORY[0x1E69E9840];
+  v3 = BSDispatchQueueAssertMain();
   if (!self->_invalidated)
   {
     selfCopy = self;
     objc_initWeak(&location, self);
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke;
-    v41 = &unk_1E85757E8;
-    objc_copyWeak(&v42, &location);
-    v33 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke;
+    v40 = &unk_1E85757E8;
+    objc_copyWeak(&v41, &location);
+    v32 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
     view = [(CHUISWidgetHostViewController *)self view];
     _window = [view _window];
 
-    v4 = MEMORY[0x1E69DDA98];
-    v5 = *MEMORY[0x1E69DDA98];
-    if (objc_opt_respondsToSelector())
+    v5 = MEMORY[0x1E69DDA98];
+    v6 = objc_opt_respondsToSelector();
+    if (v6)
     {
-      v6 = [*v4 _touchesEventForWindow:_window];
+      v6 = [*v5 _touchesEventForWindow:_window];
       v7 = v6;
-      if (v33 && v6)
+      if (v32 && v6)
       {
-        v28 = v6;
+        v27 = v6;
         v8 = 0.0;
         if (objc_opt_respondsToSelector())
         {
@@ -1261,76 +1248,75 @@ void __54__CHUISWidgetHostViewController__stateDumpDescription__block_invoke_2(u
         layerManager = [(FBScene *)selfCopy->_scene layerManager];
         layers = [layerManager layers];
 
-        v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
+        v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         obj = layers;
-        v11 = [obj countByEnumeratingWithState:&v34 objects:v52 count:16];
+        v11 = [obj countByEnumeratingWithState:&v33 objects:v51 count:16];
         if (v11)
         {
-          v12 = *v35;
+          v12 = *v34;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v35 != v12)
+              if (*v34 != v12)
               {
                 objc_enumerationMutation(obj);
               }
 
-              contextID = [*(*(&v34 + 1) + 8 * i) contextID];
+              contextID = [*(*(&v33 + 1) + 8 * i) contextID];
               v15 = objc_alloc_init(MEMORY[0x1E698E440]);
               v16 = [MEMORY[0x1E698E438] policyCancelingTouchesDeliveredToContextId:contextID withInitialTouchTimestamp:v8];
               endpoint = [(CHUISWidgetHostCancelTouchesAssertion *)v15 endpoint];
               [v16 setAssertionEndpoint:endpoint];
 
-              [(CHUISWidgetHostCancelTouchesAssertion *)v33 ipc_addPolicy:v16];
-              v18 = CHUISLogViewControllerTouch();
+              v18 = CHUISLogViewControllerTouch([(CHUISWidgetHostCancelTouchesAssertion *)v32 ipc_addPolicy:v16]);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 cachedSceneLogDigest = selfCopy->_cachedSceneLogDigest;
                 *buf = 134219010;
-                v45 = selfCopy;
-                v46 = 2114;
-                v47 = cachedSceneLogDigest;
-                v48 = 2114;
-                v49 = v15;
-                v50 = 1024;
-                *v51 = contextID;
-                *&v51[4] = 2114;
-                *&v51[6] = v16;
+                v44 = selfCopy;
+                v45 = 2114;
+                v46 = cachedSceneLogDigest;
+                v47 = 2114;
+                v48 = v15;
+                v49 = 1024;
+                *v50 = contextID;
+                *&v50[4] = 2114;
+                *&v50[6] = v16;
                 _os_log_impl(&dword_1D928E000, v18, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Acquired cancel touches assertion: %{public}@ (context id: %i, policy: %{public}@)", buf, 0x30u);
               }
 
-              [v32 addObject:v15];
+              [v31 addObject:v15];
             }
 
-            v11 = [obj countByEnumeratingWithState:&v34 objects:v52 count:16];
+            v11 = [obj countByEnumeratingWithState:&v33 objects:v51 count:16];
           }
 
           while (v11);
         }
 
-        v20 = [[CHUISWidgetHostCancelTouchesAssertion alloc] initWithAssertions:v32];
-        v21 = CHUISLogViewControllerTouch();
+        v20 = [[CHUISWidgetHostCancelTouchesAssertion alloc] initWithAssertions:v31];
+        v21 = CHUISLogViewControllerTouch(v20);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v22 = selfCopy->_cachedSceneLogDigest;
           *buf = 134218498;
-          v45 = selfCopy;
-          v46 = 2114;
-          v47 = v22;
-          v48 = 2114;
-          v49 = v20;
+          v44 = selfCopy;
+          v45 = 2114;
+          v46 = v22;
+          v47 = 2114;
+          v48 = v20;
           _os_log_impl(&dword_1D928E000, v21, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Made cancel touches group assertion: %{public}@", buf, 0x20u);
         }
 
         v23 = obj;
 LABEL_23:
 
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v41);
         objc_destroyWeak(&location);
         goto LABEL_24;
       }
@@ -1341,19 +1327,19 @@ LABEL_23:
       v7 = 0;
     }
 
-    v28 = v7;
-    v23 = CHUISLogViewControllerTouch();
+    v27 = v7;
+    v23 = CHUISLogViewControllerTouch(v6);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       v24 = selfCopy->_cachedSceneLogDigest;
       *buf = 134218754;
-      v45 = selfCopy;
-      v46 = 2114;
-      v47 = v24;
-      v48 = 2112;
-      v49 = v33;
-      v50 = 2114;
-      *v51 = v7;
+      v44 = selfCopy;
+      v45 = 2114;
+      v46 = v24;
+      v47 = 2112;
+      v48 = v32;
+      v49 = 2114;
+      *v50 = v7;
       _os_log_impl(&dword_1D928E000, v23, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Did not make cancel touches group assertion because of server: %@, or touchesEvent: %{public}@", buf, 0x2Au);
     }
 
@@ -1361,31 +1347,29 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  [CHUISWidgetHostViewController cancelTouchesForCurrentEventInHostedContent];
+  [(CHUISWidgetHostViewController *)v3 cancelTouchesForCurrentEventInHostedContent];
   v20 = 0;
 LABEL_24:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (void)_clearTouchDeliveryPolicies
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = CHUISLogViewControllerTouch();
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = CHUISLogViewControllerTouch(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
-    v6 = 134218242;
+    v5 = 134218242;
     selfCopy = self;
-    v8 = 2114;
-    v9 = cachedSceneLogDigest;
-    _os_log_impl(&dword_1D928E000, v3, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Clearing any touch delivery policies", &v6, 0x16u);
+    v7 = 2114;
+    v8 = cachedSceneLogDigest;
+    _os_log_impl(&dword_1D928E000, v3, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Clearing any touch delivery policies", &v5, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions enumerateKeysAndObjectsUsingBlock:&__block_literal_global_466];
   [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeAllObjects];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (CHUISWidgetHostViewControllerDelegate)delegate
@@ -1401,23 +1385,24 @@ LABEL_24:
   metricsCopy = metrics;
   identifierCopy = identifier;
   extensionIdentity = [widgetCopy extensionIdentity];
-  if ([extensionIdentity isRemote])
+  isRemote = [extensionIdentity isRemote];
+  if (isRemote)
   {
-    CHUISSharedExtensionProviderWithRemote();
+    CHUISSharedExtensionProviderWithRemote(isRemote);
   }
 
   else
   {
-    CHUISSharedExtensionProvider();
+    CHUISSharedExtensionProvider(isRemote);
   }
-  v11 = ;
-  v12 = CHUISSceneWorkspace();
+  v12 = ;
+  v13 = CHUISSceneWorkspace();
   mEMORY[0x1E6994348] = [MEMORY[0x1E6994348] sharedManager];
-  v14 = +[CHUISPreferences sharedInstance];
-  v15 = +[CHUISKeybag sharedInstance];
-  v16 = [(CHUISWidgetHostViewController *)self initWithWidget:widgetCopy metrics:metricsCopy widgetConfigurationIdentifier:identifierCopy extensionProvider:v11 sceneWorkspace:v12 screenshotManager:mEMORY[0x1E6994348] preferences:v14 keybag:v15];
+  v15 = +[CHUISPreferences sharedInstance];
+  v16 = +[CHUISKeybag sharedInstance];
+  v17 = [(CHUISWidgetHostViewController *)self initWithWidget:widgetCopy metrics:metricsCopy widgetConfigurationIdentifier:identifierCopy extensionProvider:v12 sceneWorkspace:v13 screenshotManager:mEMORY[0x1E6994348] preferences:v15 keybag:v16];
 
-  return v16;
+  return v17;
 }
 
 - (CHUISWidgetHostViewController)initWithWidget:(id)widget metrics:(id)metrics widgetConfigurationIdentifier:(id)identifier extensionProvider:(id)provider sceneWorkspace:(id)workspace screenshotManager:(id)manager preferences:(id)preferences keybag:(id)self0
@@ -1430,93 +1415,93 @@ LABEL_24:
   managerCopy = manager;
   preferencesCopy = preferences;
   keybagCopy = keybag;
-  v47.receiver = self;
-  v47.super_class = CHUISWidgetHostViewController;
-  v18 = [(CHUISWidgetHostViewController *)&v47 initWithNibName:0 bundle:0];
+  v49.receiver = self;
+  v49.super_class = CHUISWidgetHostViewController;
+  v18 = [(CHUISWidgetHostViewController *)&v49 initWithNibName:0 bundle:0];
   v19 = v18;
   if (v18)
   {
     objc_storeStrong(&v18->_sceneWorkspace, workspace);
-    objc_storeStrong((v19 + 1296), preferences);
+    objc_storeStrong(&v19->_preferences, preferences);
     v20 = [widgetCopy copy];
-    v21 = *(v19 + 1264);
-    *(v19 + 1264) = v20;
+    widget = v19->_widget;
+    v19->_widget = v20;
 
     v22 = [metricsCopy copy];
-    v23 = *(v19 + 1528);
-    *(v19 + 1528) = v22;
+    metrics = v19->_metrics;
+    v19->_metrics = v22;
 
-    objc_storeStrong((v19 + 1536), identifier);
-    *(v19 + 1376) = 0;
-    *(v19 + 1384) = 0;
-    *(v19 + 1392) = 0;
-    *(v19 + 1400) = 0;
-    *(v19 + 1344) = 1;
-    *(v19 + 1282) = 1;
-    *(v19 + 1280) = 0;
-    *(v19 + 1281) = 0;
-    v24 = CHUISLogViewController();
-    *(v19 + 1120) = os_signpost_id_generate(v24);
+    objc_storeStrong(&v19->_widgetConfigurationIdentifier, identifier);
+    v19->_contentType = 0;
+    v19->_requestedColorScheme = 0;
+    v19->_effectiveContentColorScheme = 0;
+    v19->_effectiveBackgroundColorScheme = 0;
+    v19->_requestedPresentationMode = 1;
+    v19->_visibleEntryShouldSnapshot = 1;
+    v19->_animationsPaused = 0;
+    v19->_contentPaused = 0;
+    v25 = CHUISLogViewController(v24);
+    v19->_signpostID = os_signpost_id_generate(v25);
 
-    objc_storeStrong((v19 + 1128), manager);
-    *(v19 + 1482) = 1;
-    objc_storeStrong((v19 + 1304), provider);
-    *(v19 + 1232) = 0x403E000000000000;
+    objc_storeStrong(&v19->_screenshotManager, manager);
+    v19->_drawSystemBackgroundMaterialIfNecessary = 1;
+    objc_storeStrong(&v19->_extensionProvider, provider);
+    v19->_detachedSceneTimerInterval = 30.0;
     array = [MEMORY[0x1E695DF70] array];
-    v26 = *(v19 + 1240);
-    *(v19 + 1240) = array;
+    detachedSceneTimerEvaluationReasons = v19->_detachedSceneTimerEvaluationReasons;
+    v19->_detachedSceneTimerEvaluationReasons = array;
 
-    objc_storeStrong((v19 + 992), keybag);
-    *(v19 + 1256) = 0;
-    v27 = *(v19 + 1464);
-    *(v19 + 1464) = 0;
+    objc_storeStrong(&v19->_keybag, keybag);
+    v19->_inSecureEnvironmentTriState = 0;
+    tintParameters = v19->_tintParameters;
+    v19->_tintParameters = 0;
 
-    *(v19 + 1284) = 1;
-    *(v19 + 1408) = 0;
-    *(v19 + 1337) = 0;
-    v28 = *(v19 + 1440);
-    *(v19 + 1440) = 0;
+    v19->_metricsDefineSize = 1;
+    v19->_widgetPriority = 0;
+    v19->_prefersUnredactedContentInLowLuminanceEnvironment = 0;
+    supportedRenderSchemes = v19->_supportedRenderSchemes;
+    v19->_supportedRenderSchemes = 0;
 
-    *(v19 + 1432) = 0;
-    v29 = *(v19 + 1456);
-    *(v19 + 1456) = 0;
+    v19->_supportedColorSchemes = 0;
+    idealizedDateComponents = v19->_idealizedDateComponents;
+    v19->_idealizedDateComponents = 0;
 
     [widgetCopy family];
-    *(v19 + 1512) = CHSWidgetFamilyIsAccessory();
-    *(v19 + 1560) = 0xBFF0000000000000;
-    *(v19 + 1552) = 0;
-    *(v19 + 1448) = 0;
-    *(v19 + 1285) = 1;
-    [v19 _resetLogDigests];
+    v19->_clipBehavior = CHSWidgetFamilyIsAccessory();
+    v19->_renderingScale = -1.0;
+    v19->_proximity = 0;
+    v19->_supportedProximities = 0;
+    v19->_separateLayers = 1;
+    [(CHUISWidgetHostViewController *)v19 _resetLogDigests];
     objc_initWeak(&location, v19);
-    v30 = MEMORY[0x1E69E96A0];
-    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CHUISWidgetHostViewController - %p", v19];
-    objc_copyWeak(&v45, &location);
-    v32 = BSLogAddStateCaptureBlockWithTitle();
-    v33 = *(v19 + 1208);
-    *(v19 + 1208) = v32;
+    v31 = MEMORY[0x1E69E96A0];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CHUISWidgetHostViewController - %p", v19];
+    objc_copyWeak(&v47, &location);
+    v33 = BSLogAddStateCaptureBlockWithTitle();
+    stateCaptureAssertion = v19->_stateCaptureAssertion;
+    v19->_stateCaptureAssertion = v33;
 
-    v34 = CHUISLogViewController();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v36 = CHUISLogViewController(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      [CHUISWidgetHostViewController initWithWidget:v19 metrics:? widgetConfigurationIdentifier:? extensionProvider:? sceneWorkspace:? screenshotManager:? preferences:? keybag:?];
+      [CHUISWidgetHostViewController initWithWidget:metrics:widgetConfigurationIdentifier:extensionProvider:sceneWorkspace:screenshotManager:preferences:keybag:];
     }
 
     [widgetCopy family];
-    v35 = [objc_alloc(MEMORY[0x1E6994420]) initWithRenderingMode:0 backgroundViewPolicy:CHSWidgetFamilyIsAccessory()];
-    [v19 _implicitSetRenderScheme:v35];
-    [v19 _updateDescriptorIfNecessary];
-    [v19 _evaluateEffectivePresentationMode];
-    [v19 _updateBackgroundMaterialAndColor];
-    [v19 _setCanAppearInSecureEnvironment:*(v19 + 1248) force:1];
-    [*(v19 + 1304) registerObserver:v19];
-    v36 = +[_CHUISWidgetHostViewControllerCollection sharedInstance];
-    [v36 noteCreated:v19];
+    v37 = [objc_alloc(MEMORY[0x1E6994420]) initWithRenderingMode:0 backgroundViewPolicy:CHSWidgetFamilyIsAccessory()];
+    [(CHUISWidgetHostViewController *)v19 _implicitSetRenderScheme:v37];
+    [(CHUISWidgetHostViewController *)v19 _updateDescriptorIfNecessary];
+    [(CHUISWidgetHostViewController *)v19 _evaluateEffectivePresentationMode];
+    [(CHUISWidgetHostViewController *)v19 _updateBackgroundMaterialAndColor];
+    [(CHUISWidgetHostViewController *)v19 _setCanAppearInSecureEnvironment:v19->_canAppearInSecureEnvironment force:1];
+    [(CHSWidgetExtensionProvider *)v19->_extensionProvider registerObserver:v19];
+    v38 = +[_CHUISWidgetHostViewControllerCollection sharedInstance];
+    [v38 noteCreated:v19];
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter addObserver:v19 selector:sel__windowDidAttachToContext_ name:*MEMORY[0x1E69DEB08] object:0];
 
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(&location);
   }
 
@@ -1533,11 +1518,34 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Destroyed.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v3 = objc_autoreleasePoolPush();
+  v4 = CHUISLogViewController(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [CHUISWidgetHostViewController dealloc];
+  }
+
+  v5 = +[_CHUISWidgetHostViewControllerCollection sharedInstance];
+  [v5 noteDestroyed:self];
+
+  [(CHUISKeybag *)self->_keybag removeObserver:self];
+  [(BSContinuousMachTimer *)self->_detachedSceneTimer invalidate];
+  detachedSceneTimer = self->_detachedSceneTimer;
+  self->_detachedSceneTimer = 0;
+
+  [(CHSWidgetExtensionProvider *)self->_extensionProvider unregisterObserver:self];
+  [(CHUISWidgetHostViewController *)self _tearDownScene];
+  [(BSInvalidatable *)self->_stateCaptureAssertion invalidate];
+  stateCaptureAssertion = self->_stateCaptureAssertion;
+  self->_stateCaptureAssertion = 0;
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x1E69DEB08] object:0];
+
+  objc_autoreleasePoolPop(v3);
+  v9.receiver = self;
+  v9.super_class = CHUISWidgetHostViewController;
+  [(CHUISWidgetHostViewController *)&v9 dealloc];
 }
 
 + (NSArray)viewControllers
@@ -1550,19 +1558,21 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
 
 - (void)prewarmContent
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to prewarm content on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to prewarm content on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
 - (void)requestLaunch
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to select an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to select an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
@@ -1576,84 +1586,85 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
 
 - (void)setWidget:(id)widget
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   widgetCopy = widget;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    v19 = CHUISLogViewController();
-    [(CHUISWidgetHostViewController *)v19 setWidget:buf];
+    v21 = CHUISLogViewController(v5);
+    [(CHUISWidgetHostViewController *)v21 setWidget:buf];
     widget = *buf;
   }
 
   else
   {
     widget = [(CHUISWidgetHostViewController *)self widget];
-    v6 = [widgetCopy copy];
+    v7 = [widgetCopy copy];
     widget = self->_widget;
-    self->_widget = v6;
+    self->_widget = v7;
 
-    [(CHUISWidgetHostViewController *)self _resetLogDigests];
-    v8 = CHUISLogViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CHUISLogViewController([(CHUISWidgetHostViewController *)self _resetLogDigests]);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       *buf = 134218242;
       *&buf[4] = self;
-      v23 = 2114;
-      v24 = cachedSceneLogDigest;
-      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p] New widget set: %{public}@", buf, 0x16u);
+      v25 = 2114;
+      v26 = cachedSceneLogDigest;
+      _os_log_impl(&dword_1D928E000, v9, OS_LOG_TYPE_DEFAULT, "[%p] New widget set: %{public}@", buf, 0x16u);
     }
 
     extensionIdentity = [widgetCopy extensionIdentity];
-    if ([extensionIdentity isRemote])
+    isRemote = [extensionIdentity isRemote];
+    if (isRemote)
     {
-      CHUISSharedExtensionProviderWithRemote();
+      CHUISSharedExtensionProviderWithRemote(isRemote);
     }
 
     else
     {
-      CHUISSharedExtensionProvider();
+      CHUISSharedExtensionProvider(isRemote);
     }
-    v11 = ;
-    objc_storeStrong(&self->_extensionProvider, v11);
+    v13 = ;
+    objc_storeStrong(&self->_extensionProvider, v13);
 
     [(CHUISWidgetHostViewController *)self _updateDescriptorIfNecessary];
-    if ([widget matchesPersonality:widgetCopy] && (v12 = objc_msgSend(widget, "family"), v12 == objc_msgSend(widgetCopy, "family")))
+    v14 = [widget matchesPersonality:widgetCopy];
+    if (v14 && (v15 = [widget family], v14 = objc_msgSend(widgetCopy, "family"), v15 == v14))
     {
       if (self->_scene)
       {
-        v13 = CHUISLogViewController();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = CHUISLogViewController(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           scene = self->_scene;
-          v15 = self->_widget;
+          v18 = self->_widget;
           *buf = 134218498;
           *&buf[4] = self;
-          v23 = 2048;
-          v24 = scene;
-          v25 = 2114;
-          v26 = v15;
-          _os_log_impl(&dword_1D928E000, v13, OS_LOG_TYPE_DEFAULT, "[%p] Updating scene settings on scene (%p) with new widget: %{public}@", buf, 0x20u);
+          v25 = 2048;
+          v26 = scene;
+          v27 = 2114;
+          v28 = v18;
+          _os_log_impl(&dword_1D928E000, v16, OS_LOG_TYPE_DEFAULT, "[%p] Updating scene settings on scene (%p) with new widget: %{public}@", buf, 0x20u);
         }
 
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __43__CHUISWidgetHostViewController_setWidget___block_invoke;
-        v20[3] = &unk_1E8575608;
-        v21 = widgetCopy;
-        [(CHUISWidgetHostViewController *)self modifySceneSettings:v20];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __43__CHUISWidgetHostViewController_setWidget___block_invoke;
+        v22[3] = &unk_1E8575608;
+        v23 = widgetCopy;
+        [(CHUISWidgetHostViewController *)self modifySceneSettings:v22];
       }
     }
 
     else
     {
-      v16 = CHUISLogViewController();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = CHUISLogViewController(v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         *&buf[4] = self;
-        _os_log_impl(&dword_1D928E000, v16, OS_LOG_TYPE_DEFAULT, "[%p] Tearing down scene for new widget set, and re-activating", buf, 0xCu);
+        _os_log_impl(&dword_1D928E000, v19, OS_LOG_TYPE_DEFAULT, "[%p] Tearing down scene for new widget set, and re-activating", buf, 0xCu);
       }
 
       effectivePresentationMode = self->_effectivePresentationMode;
@@ -1662,29 +1673,27 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
       [(CHUISWidgetHostViewController *)self _setEffectivePresentationMode:effectivePresentationMode reason:@"widget changed"];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setContentType:(unint64_t)type
 {
   v16 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_contentType != type)
   {
     self->_contentType = type;
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v7 = NSStringFromCHSWidgetContentType();
+      v8 = NSStringFromCHSWidgetContentType();
       *buf = 134218498;
       selfCopy = self;
       v12 = 2114;
       v13 = cachedSceneLogDigest;
       v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Content type changed to %{public}@", buf, 0x20u);
+      v15 = v8;
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Content type changed to %{public}@", buf, 0x20u);
     }
 
     v9[0] = MEMORY[0x1E69E9820];
@@ -1694,8 +1703,6 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
     v9[4] = type;
     [(CHUISWidgetHostViewController *)self modifySceneSettings:v9];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIdealizedDateComponents:(id)components
@@ -1705,23 +1712,23 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
   if (self->_idealizedDateComponents != componentsCopy)
   {
     objc_storeStrong(&self->_idealizedDateComponents, components);
-    v6 = CHUISLogViewController();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CHUISLogViewController(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v8 = @"a value";
+      v9 = @"a value";
       *buf = 134218498;
       if (!componentsCopy)
       {
-        v8 = @"nil";
+        v9 = @"nil";
       }
 
       selfCopy = self;
       v14 = 2114;
       v15 = cachedSceneLogDigest;
       v16 = 2114;
-      v17 = v8;
-      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Idealized date components changed to %{public}@", buf, 0x20u);
+      v17 = v9;
+      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Idealized date components changed to %{public}@", buf, 0x20u);
     }
 
     v10[0] = MEMORY[0x1E69E9820];
@@ -1731,56 +1738,52 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
     v11 = componentsCopy;
     [(CHUISWidgetHostViewController *)self modifySceneSettings:v10];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setColorScheme:(unint64_t)scheme
 {
   v15 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_requestedColorScheme != scheme)
   {
     self->_requestedColorScheme = scheme;
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v7 = NSStringFromCHSColorScheme();
+      v8 = NSStringFromCHSColorScheme();
       v9 = 134218498;
       selfCopy = self;
       v11 = 2114;
       v12 = cachedSceneLogDigest;
       v13 = 2114;
-      v14 = v7;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Requested color scheme changed to %{public}@", &v9, 0x20u);
+      v14 = v8;
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Requested color scheme changed to %{public}@", &v9, 0x20u);
     }
 
     [(CHUISWidgetHostViewController *)self _evaluateEffectiveColorScheme];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSupportedColorSchemes:(unint64_t)schemes
 {
   v16 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_supportedColorSchemes != schemes)
   {
     self->_supportedColorSchemes = schemes;
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v7 = NSStringFromCHSColorSchemes();
+      v8 = NSStringFromCHSColorSchemes();
       *buf = 134218498;
       selfCopy = self;
       v12 = 2114;
       v13 = cachedSceneLogDigest;
       v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported color schemes changed to %{public}@", buf, 0x20u);
+      v15 = v8;
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported color schemes changed to %{public}@", buf, 0x20u);
     }
 
     v9[0] = MEMORY[0x1E69E9820];
@@ -1790,18 +1793,16 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
     v9[4] = schemes;
     [(CHUISWidgetHostViewController *)self modifySceneSettings:v9];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSeparateLayers:(BOOL)layers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_separateLayers != layers)
   {
     layersCopy = layers;
     self->_separateLayers = layers;
-    v5 = CHUISLogViewController();
+    v5 = CHUISLogViewController(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
@@ -1813,22 +1814,20 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
       }
 
       selfCopy = self;
-      v13 = 2114;
-      v14 = cachedSceneLogDigest;
-      v15 = 2114;
-      v16 = v7;
+      v12 = 2114;
+      v13 = cachedSceneLogDigest;
+      v14 = 2114;
+      v15 = v7;
       _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Separate layers changed to %{public}@", buf, 0x20u);
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __51__CHUISWidgetHostViewController_setSeparateLayers___block_invoke;
-    v9[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-    v10 = layersCopy;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __51__CHUISWidgetHostViewController_setSeparateLayers___block_invoke;
+    v8[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    v9 = layersCopy;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)supportedRenderSchemes
@@ -1853,8 +1852,8 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
   if (self->_supportedRenderSchemes != schemesCopy)
   {
     objc_storeStrong(&self->_supportedRenderSchemes, schemesCopy);
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       supportedRenderSchemes = self->_supportedRenderSchemes;
@@ -1864,7 +1863,7 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
       v14 = cachedSceneLogDigest;
       v15 = 2114;
       v16 = supportedRenderSchemes;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported render schemes changed to %{public}@", buf, 0x20u);
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported render schemes changed to %{public}@", buf, 0x20u);
     }
 
     v9[0] = MEMORY[0x1E69E9820];
@@ -1874,82 +1873,75 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
     v10 = schemesCopy;
     [(CHUISWidgetHostViewController *)self modifySceneSettings:v9];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSupportedProximities:(unint64_t)proximities
 {
-  v17 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v16 = *MEMORY[0x1E69E9840];
+  v5 = BSDispatchQueueAssertMain();
   if (self->_supportedProximities != proximities)
   {
     self->_supportedProximities = proximities;
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      supportedProximities = self->_supportedProximities;
       v8 = NSStringFromCHSWidgetProximities();
       *buf = 134218498;
       selfCopy = self;
-      v13 = 2114;
-      v14 = cachedSceneLogDigest;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported proximities changed to %{public}@", buf, 0x20u);
+      v12 = 2114;
+      v13 = cachedSceneLogDigest;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Supported proximities changed to %{public}@", buf, 0x20u);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __57__CHUISWidgetHostViewController_setSupportedProximities___block_invoke;
-    v10[3] = &__block_descriptor_40_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-    v10[4] = proximities;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __57__CHUISWidgetHostViewController_setSupportedProximities___block_invoke;
+    v9[3] = &__block_descriptor_40_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    v9[4] = proximities;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPrefersUnredactedContentInLowLuminanceEnvironment:(BOOL)environment
 {
   BSDispatchQueueAssertMain();
-  prefersUnredactedContentInLowLuminanceEnvironment = self->_prefersUnredactedContentInLowLuminanceEnvironment;
   if ((BSEqualBools() & 1) == 0)
   {
     self->_prefersUnredactedContentInLowLuminanceEnvironment = environment;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __86__CHUISWidgetHostViewController_setPrefersUnredactedContentInLowLuminanceEnvironment___block_invoke;
-    v6[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __86__CHUISWidgetHostViewController_setPrefersUnredactedContentInLowLuminanceEnvironment___block_invoke;
+    v5[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
     environmentCopy = environment;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v5];
   }
 }
 
 - (void)setSupportsLowLuminance:(BOOL)luminance
 {
   BSDispatchQueueAssertMain();
-  supportsLowLuminance = self->_supportsLowLuminance;
   if ((BSEqualBools() & 1) == 0)
   {
     self->_supportsLowLuminance = luminance;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __57__CHUISWidgetHostViewController_setSupportsLowLuminance___block_invoke;
-    v6[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __57__CHUISWidgetHostViewController_setSupportsLowLuminance___block_invoke;
+    v5[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
     luminanceCopy = luminance;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v5];
   }
 }
 
 - (void)setPresentationMode:(unint64_t)mode
 {
   v18 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setPresentationMode:];
+    [CHUISWidgetHostViewController setPresentationMode:v5];
   }
 
   else
@@ -1959,24 +1951,24 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
     {
       if (requestedPresentationMode == 2)
       {
-        v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requested presentation mode changed to: %@", @"live"];
-        [(CHUISWidgetHostViewController *)self _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:v6];
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requested presentation mode changed to: %@", @"live"];
+        [(CHUISWidgetHostViewController *)self _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:v7];
       }
 
       self->_requestedPresentationMode = mode;
-      v7 = CHUISLogViewController();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = CHUISLogViewController(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         cachedSceneLogDigest = self->_cachedSceneLogDigest;
-        v9 = self->_requestedPresentationMode - 1;
-        if (v9 > 2)
+        v10 = self->_requestedPresentationMode - 1;
+        if (v10 > 2)
         {
-          v10 = @"none";
+          v11 = @"none";
         }
 
         else
         {
-          v10 = off_1E8575C78[v9];
+          v11 = off_1E8575C78[v10];
         }
 
         *buf = 134218498;
@@ -1984,23 +1976,21 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
         v14 = 2114;
         v15 = cachedSceneLogDigest;
         v16 = 2114;
-        v17 = v10;
-        _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Requested mode changed to %{public}@.", buf, 0x20u);
+        v17 = v11;
+        _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Requested mode changed to %{public}@.", buf, 0x20u);
       }
 
       [(CHUISWidgetHostViewController *)self _evaluateEffectivePresentationMode];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVisibility:(unint64_t)visibility
 {
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setVisibility:];
+    [CHUISWidgetHostViewController setVisibility:v5];
   }
 
   else if (visibility - 1 >= 3)
@@ -2014,26 +2004,26 @@ id __156__CHUISWidgetHostViewController_initWithWidget_metrics_widgetConfigurati
 
   else
   {
-    v5 = visibility & 0xFFFFFFFFFFFFFFFELL;
+    v6 = visibility & 0xFFFFFFFFFFFFFFFELL;
     if (self->_visibilitySettings)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __47__CHUISWidgetHostViewController_setVisibility___block_invoke;
-      v8[3] = &__block_descriptor_34_e46_v16__0__CHUISMutableWidgetVisibilitySettings_8l;
-      v9 = v5 == 2;
-      v10 = visibility == 3;
-      [(CHUISWidgetHostViewController *)self _modifyVisibilitySettings:v8];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __47__CHUISWidgetHostViewController_setVisibility___block_invoke;
+      v9[3] = &__block_descriptor_34_e46_v16__0__CHUISMutableWidgetVisibilitySettings_8l;
+      v10 = v6 == 2;
+      v11 = visibility == 3;
+      [(CHUISWidgetHostViewController *)self _modifyVisibilitySettings:v9];
     }
 
     else
     {
-      v6 = v5 == 2;
-      v7 = objc_alloc_init(CHUISMutableWidgetVisibilitySettings);
-      [(CHUISMutableWidgetVisibilitySettings *)v7 setSettled:v6];
-      [(CHUISMutableWidgetVisibilitySettings *)v7 setFocal:visibility == 3];
-      [(CHUISMutableWidgetVisibilitySettings *)v7 setVisibleBounds:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
-      [(CHUISWidgetHostViewController *)self _setVisibilitySettings:v7];
+      v7 = v6 == 2;
+      v8 = objc_alloc_init(CHUISMutableWidgetVisibilitySettings);
+      [(CHUISMutableWidgetVisibilitySettings *)v8 setSettled:v7];
+      [(CHUISMutableWidgetVisibilitySettings *)v8 setFocal:visibility == 3];
+      [(CHUISMutableWidgetVisibilitySettings *)v8 setVisibleBounds:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
+      [(CHUISWidgetHostViewController *)self _setVisibilitySettings:v8];
     }
   }
 }
@@ -2075,33 +2065,33 @@ void __47__CHUISWidgetHostViewController_setVisibility___block_invoke(uint64_t a
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  BSDispatchQueueAssertMain();
+  v8 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setVisibleBounds:];
+    [CHUISWidgetHostViewController setVisibleBounds:v8];
   }
 
   else
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __50__CHUISWidgetHostViewController_setVisibleBounds___block_invoke;
-    v8[3] = &__block_descriptor_64_e46_v16__0__CHUISMutableWidgetVisibilitySettings_8l;
-    *&v8[4] = x;
-    *&v8[5] = y;
-    *&v8[6] = width;
-    *&v8[7] = height;
-    [(CHUISWidgetHostViewController *)self _modifyVisibilitySettings:v8];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __50__CHUISWidgetHostViewController_setVisibleBounds___block_invoke;
+    v9[3] = &__block_descriptor_64_e46_v16__0__CHUISMutableWidgetVisibilitySettings_8l;
+    *&v9[4] = x;
+    *&v9[5] = y;
+    *&v9[6] = width;
+    *&v9[7] = height;
+    [(CHUISWidgetHostViewController *)self _modifyVisibilitySettings:v9];
   }
 }
 
 - (void)setAnimationsPaused:(BOOL)paused
 {
   pausedCopy = paused;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setAnimationsPaused:];
+    [CHUISWidgetHostViewController setAnimationsPaused:v5];
   }
 
   else if (self->_animationsPaused != pausedCopy)
@@ -2109,18 +2099,18 @@ void __47__CHUISWidgetHostViewController_setVisibility___block_invoke(uint64_t a
     self->_animationsPaused = pausedCopy;
     if (self->_scene)
     {
-      v5 = CHUISLogViewController();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = CHUISLogViewController(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController setAnimationsPaused:?];
+        [CHUISWidgetHostViewController setAnimationsPaused:];
       }
 
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = __53__CHUISWidgetHostViewController_setAnimationsPaused___block_invoke;
-      v6[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-      v7 = pausedCopy;
-      [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __53__CHUISWidgetHostViewController_setAnimationsPaused___block_invoke;
+      v7[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+      v8 = pausedCopy;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v7];
     }
   }
 }
@@ -2128,10 +2118,10 @@ void __47__CHUISWidgetHostViewController_setVisibility___block_invoke(uint64_t a
 - (void)setContentPaused:(BOOL)paused
 {
   pausedCopy = paused;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setContentPaused:];
+    [CHUISWidgetHostViewController setContentPaused:v5];
   }
 
   else if (self->_contentPaused != pausedCopy)
@@ -2139,18 +2129,18 @@ void __47__CHUISWidgetHostViewController_setVisibility___block_invoke(uint64_t a
     self->_contentPaused = pausedCopy;
     if (self->_scene)
     {
-      v5 = CHUISLogViewController();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = CHUISLogViewController(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController setContentPaused:?];
+        [CHUISWidgetHostViewController setContentPaused:];
       }
 
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = __50__CHUISWidgetHostViewController_setContentPaused___block_invoke;
-      v6[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-      v7 = pausedCopy;
-      [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __50__CHUISWidgetHostViewController_setContentPaused___block_invoke;
+      v7[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+      v8 = pausedCopy;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v7];
     }
   }
 }
@@ -2165,75 +2155,68 @@ void __47__CHUISWidgetHostViewController_setVisibility___block_invoke(uint64_t a
 
 - (void)setTintParameters:(id)parameters fencingAnimations:(BOOL)animations
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
-  BSDispatchQueueAssertMain();
+  v7 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    v17 = CHUISLogViewController();
-    [CHUISWidgetHostViewController setTintParameters:v17 fencingAnimations:?];
+    v16 = CHUISLogViewController(v7);
+    [CHUISWidgetHostViewController setTintParameters:v16 fencingAnimations:?];
   }
 
-  else
+  else if ((BSEqualObjects() & 1) == 0)
   {
+    v8 = [parametersCopy copy];
     tintParameters = self->_tintParameters;
-    if ((BSEqualObjects() & 1) == 0)
+    self->_tintParameters = v8;
+
+    if (!self->_didSetRenderSchemeExplicitly)
     {
-      v8 = [parametersCopy copy];
-      v9 = self->_tintParameters;
-      self->_tintParameters = v8;
-
-      if (!self->_didSetRenderSchemeExplicitly)
+      v10 = [(CHSWidgetRenderScheme *)self->_renderScheme mutableCopy];
+      v11 = self->_tintParameters;
+      if (v11)
       {
-        v10 = [(CHSWidgetRenderScheme *)self->_renderScheme mutableCopy];
-        v11 = self->_tintParameters;
-        if (v11)
-        {
-          effectiveRenderingMode = [(CHSWidgetTintParameters *)v11 effectiveRenderingMode];
-        }
-
-        else
-        {
-          effectiveRenderingMode = 0;
-        }
-
-        [v10 setRenderingMode:effectiveRenderingMode];
-        [(CHUISWidgetHostViewController *)self _implicitSetRenderScheme:v10];
+        effectiveRenderingMode = [(CHSWidgetTintParameters *)v11 effectiveRenderingMode];
       }
 
-      [(CHUISWidgetHostViewController *)self _evaluateEffectiveColorScheme];
-      v13 = CHUISLogViewController();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        cachedSceneLogDigest = self->_cachedSceneLogDigest;
-        v15 = self->_tintParameters;
-        *buf = 134218498;
-        selfCopy = self;
-        v22 = 2114;
-        v23 = cachedSceneLogDigest;
-        v24 = 2114;
-        v25 = v15;
-        _os_log_impl(&dword_1D928E000, v13, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Tinting parameters changed to %{public}@", buf, 0x20u);
+        effectiveRenderingMode = 0;
       }
 
-      if (self->_scene)
-      {
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___block_invoke;
-        v18[3] = &unk_1E85757C0;
-        v18[4] = self;
-        animationsCopy = animations;
-        [(CHUISWidgetHostViewController *)self modifySceneSettings:v18];
-      }
-
-      [(CHUISWidgetHostViewController *)self _updateBackgroundMaterialAndColor];
-      [(CHUISWidgetHostViewController *)self _updateVibrancyEffectView];
-      [(CHUISWidgetHostViewController *)self _updatePersistedSnapshotContentIfNecessary];
+      [v10 setRenderingMode:effectiveRenderingMode];
+      [(CHUISWidgetHostViewController *)self _implicitSetRenderScheme:v10];
     }
-  }
 
-  v16 = *MEMORY[0x1E69E9840];
+    v13 = CHUISLogViewController([(CHUISWidgetHostViewController *)self _evaluateEffectiveColorScheme]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      cachedSceneLogDigest = self->_cachedSceneLogDigest;
+      v15 = self->_tintParameters;
+      *buf = 134218498;
+      selfCopy = self;
+      v21 = 2114;
+      v22 = cachedSceneLogDigest;
+      v23 = 2114;
+      v24 = v15;
+      _os_log_impl(&dword_1D928E000, v13, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Tinting parameters changed to %{public}@", buf, 0x20u);
+    }
+
+    if (self->_scene)
+    {
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___block_invoke;
+      v17[3] = &unk_1E85757C0;
+      v17[4] = self;
+      animationsCopy = animations;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v17];
+    }
+
+    [(CHUISWidgetHostViewController *)self _updateBackgroundMaterialAndColor];
+    [(CHUISWidgetHostViewController *)self _updateVibrancyEffectView];
+    [(CHUISWidgetHostViewController *)self _updatePersistedSnapshotContentIfNecessary];
+  }
 }
 
 id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___block_invoke(uint64_t a1, void *a2)
@@ -2272,37 +2255,33 @@ id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___blo
 - (void)setInlineTextParameters:(id)parameters
 {
   parametersCopy = parameters;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    v9 = CHUISLogViewController();
-    [CHUISWidgetHostViewController setInlineTextParameters:v9];
+    v10 = CHUISLogViewController(v5);
+    [CHUISWidgetHostViewController setInlineTextParameters:v10];
   }
 
-  else
+  else if ((BSEqualObjects() & 1) == 0)
   {
+    v6 = [parametersCopy copy];
     inlineTextParameters = self->_inlineTextParameters;
-    if ((BSEqualObjects() & 1) == 0)
+    self->_inlineTextParameters = v6;
+
+    if (self->_scene)
     {
-      v6 = [parametersCopy copy];
-      v7 = self->_inlineTextParameters;
-      self->_inlineTextParameters = v6;
-
-      if (self->_scene)
+      v9 = CHUISLogViewController(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v8 = CHUISLogViewController();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-        {
-          [CHUISWidgetHostViewController setInlineTextParameters:?];
-        }
-
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __57__CHUISWidgetHostViewController_setInlineTextParameters___block_invoke;
-        v10[3] = &unk_1E8575608;
-        v10[4] = self;
-        [(CHUISWidgetHostViewController *)self modifySceneSettings:v10];
+        [CHUISWidgetHostViewController setInlineTextParameters:];
       }
+
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __57__CHUISWidgetHostViewController_setInlineTextParameters___block_invoke;
+      v11[3] = &unk_1E8575608;
+      v11[4] = self;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v11];
     }
   }
 }
@@ -2310,42 +2289,40 @@ id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___blo
 - (void)setShowsWidgetLabel:(BOOL)label
 {
   BSDispatchQueueAssertMain();
-  showsWidgetLabel = self->_showsWidgetLabel;
   if ((BSEqualBools() & 1) == 0)
   {
     self->_showsWidgetLabel = label;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __53__CHUISWidgetHostViewController_setShowsWidgetLabel___block_invoke;
-    v6[3] = &unk_1E8575608;
-    v6[4] = self;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __53__CHUISWidgetHostViewController_setShowsWidgetLabel___block_invoke;
+    v5[3] = &unk_1E8575608;
+    v5[4] = self;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v5];
   }
 }
 
 - (void)setInteractionDisabled:(BOOL)disabled
 {
   BSDispatchQueueAssertMain();
-  interactionDisabled = self->_interactionDisabled;
   if ((BSEqualBools() & 1) == 0)
   {
     self->_interactionDisabled = disabled;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __56__CHUISWidgetHostViewController_setInteractionDisabled___block_invoke;
-    v6[3] = &unk_1E8575608;
-    v6[4] = self;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __56__CHUISWidgetHostViewController_setInteractionDisabled___block_invoke;
+    v5[3] = &unk_1E8575608;
+    v5[4] = self;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v5];
   }
 }
 
 - (void)setVisibleEntryShouldSnapshot:(BOOL)snapshot
 {
   snapshotCopy = snapshot;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setVisibleEntryShouldSnapshot:];
+    [CHUISWidgetHostViewController setVisibleEntryShouldSnapshot:v5];
   }
 
   else if (self->_visibleEntryShouldSnapshot != snapshotCopy)
@@ -2353,18 +2330,18 @@ id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___blo
     self->_visibleEntryShouldSnapshot = snapshotCopy;
     if (self->_scene)
     {
-      v5 = CHUISLogViewController();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = CHUISLogViewController(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController setVisibleEntryShouldSnapshot:?];
+        [CHUISWidgetHostViewController setVisibleEntryShouldSnapshot:];
       }
 
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = __63__CHUISWidgetHostViewController_setVisibleEntryShouldSnapshot___block_invoke;
-      v6[3] = &unk_1E8575608;
-      v6[4] = self;
-      [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __63__CHUISWidgetHostViewController_setVisibleEntryShouldSnapshot___block_invoke;
+      v7[3] = &unk_1E8575608;
+      v7[4] = self;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v7];
     }
   }
 }
@@ -2372,7 +2349,7 @@ id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___blo
 - (void)setShouldShareTouchesWithHost:(BOOL)host
 {
   hostCopy = host;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (!self->_invalidated || !hostCopy)
   {
     if (self->_shouldShareTouchesWithHost != hostCopy)
@@ -2394,7 +2371,7 @@ id __69__CHUISWidgetHostViewController_setTintParameters_fencingAnimations___blo
 
   else
   {
-    [CHUISWidgetHostViewController setShouldShareTouchesWithHost:];
+    [CHUISWidgetHostViewController setShouldShareTouchesWithHost:v5];
   }
 }
 
@@ -2439,32 +2416,31 @@ void __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedCon
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = CHUISLogViewControllerTouch();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewControllerTouch(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = WeakRetained[144];
+      v7 = v5[144];
       v8 = 134218498;
-      v9 = WeakRetained;
+      v9 = v5;
       v10 = 2114;
-      v11 = v6;
+      v11 = v7;
       v12 = 2114;
       v13 = v3;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending cancellation touch delivery policy failed with error: %{public}@", &v8, 0x20u);
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending cancellation touch delivery policy failed with error: %{public}@", &v8, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDrawSystemBackgroundMaterialIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    [CHUISWidgetHostViewController setDrawSystemBackgroundMaterialIfNecessary:];
+    [CHUISWidgetHostViewController setDrawSystemBackgroundMaterialIfNecessary:v5];
   }
 
   else if (self->_drawSystemBackgroundMaterialIfNecessary != necessaryCopy)
@@ -2477,34 +2453,34 @@ void __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedCon
 
 - (id)_snapshotViewIgnoringEffects:(BOOL)effects
 {
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (self->_invalidated)
   {
-    v16 = CHUISLogViewController();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = CHUISLogViewController(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [CHUISWidgetHostViewController _snapshotViewIgnoringEffects:];
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v5 = self->_scene;
-    v47 = v5;
-    if (v5)
+    v6 = self->_scene;
+    v48 = v6;
+    if (v6)
     {
-      v6 = [(FBScene *)v5 contentState]== 2;
+      v7 = [(FBScene *)v6 contentState]== 2;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    v7 = CHUISHasGlobalCaptureEntitlement();
-    if ((v6 & v7) == 1)
+    v8 = CHUISHasGlobalCaptureEntitlement();
+    if ((v7 & v8) == 1)
     {
       newSnapshotPresentationView = [(UIScenePresenter *)self->_scenePresenter newSnapshotPresentationView];
     }
@@ -2522,10 +2498,10 @@ void __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedCon
 
         if (isKindOfClass)
         {
-          v12 = objc_alloc(MEMORY[0x1E69DD250]);
+          v13 = objc_alloc(MEMORY[0x1E69DD250]);
           view2 = [(CHUISWidgetHostViewController *)self view];
           [view2 bounds];
-          newSnapshotPresentationView = [v12 initWithFrame:?];
+          newSnapshotPresentationView = [v13 initWithFrame:?];
 
           [newSnapshotPresentationView setBackgroundColor:0];
           [newSnapshotPresentationView setAutoresizingMask:18];
@@ -2540,60 +2516,60 @@ void __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedCon
 
       else
       {
-        v14 = objc_alloc(MEMORY[0x1E69DD250]);
+        v15 = objc_alloc(MEMORY[0x1E69DD250]);
         view3 = [(CHUISWidgetHostViewController *)self view];
         [view3 bounds];
-        newSnapshotPresentationView = [v14 initWithFrame:?];
+        newSnapshotPresentationView = [v15 initWithFrame:?];
 
         [newSnapshotPresentationView setBackgroundColor:0];
         [newSnapshotPresentationView setAutoresizingMask:18];
       }
 
-      if (!(((self->_requestedPresentationMode & 0xFFFFFFFFFFFFFFFELL) != 2) | (v6 | v7 ^ 1) & 1))
+      if (!(((self->_requestedPresentationMode & 0xFFFFFFFFFFFFFFFELL) != 2) | (v7 | v8 ^ 1) & 1))
       {
         objc_initWeak(&location, newSnapshotPresentationView);
         objc_initWeak(&from, _newPersistedSnapshotView);
-        objc_initWeak(&v57, self);
-        v49 = MEMORY[0x1E69E9820];
-        v50 = 3221225472;
-        v51 = __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_invoke;
-        v52 = &unk_1E8575838;
-        objc_copyWeak(&v53, &location);
-        objc_copyWeak(&v54, &from);
-        objc_copyWeak(&v55, &v57);
-        v56 = isKindOfClass & 1;
-        [(CHUISWidgetHostViewController *)self _scheduleSceneContentReadyBlock:&v49];
+        objc_initWeak(&v58, self);
+        v50 = MEMORY[0x1E69E9820];
+        v51 = 3221225472;
+        v52 = __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_invoke;
+        v53 = &unk_1E8575838;
+        objc_copyWeak(&v54, &location);
+        objc_copyWeak(&v55, &from);
+        objc_copyWeak(&v56, &v58);
+        v57 = isKindOfClass & 1;
+        [(CHUISWidgetHostViewController *)self _scheduleSceneContentReadyBlock:&v50];
+        objc_destroyWeak(&v56);
         objc_destroyWeak(&v55);
         objc_destroyWeak(&v54);
-        objc_destroyWeak(&v53);
-        objc_destroyWeak(&v57);
+        objc_destroyWeak(&v58);
         objc_destroyWeak(&from);
         objc_destroyWeak(&location);
       }
     }
 
-    [(CHUISWidgetHostViewController *)self _effectiveViewCornerRadius:v47];
+    [(CHUISWidgetHostViewController *)self _effectiveViewCornerRadius:v48];
     [newSnapshotPresentationView _setContinuousCornerRadius:?];
     [newSnapshotPresentationView setClipsToBounds:0];
-    v16 = newSnapshotPresentationView;
-    v17 = v16;
+    v17 = newSnapshotPresentationView;
+    v18 = v17;
     if ([(CHUISWidgetHostViewController *)self _isVibrancyEffectEnabled])
     {
-      v17 = v16;
+      v18 = v17;
       if (!effects)
       {
-        v18 = objc_alloc(MEMORY[0x1E698E818]);
+        v19 = objc_alloc(MEMORY[0x1E698E818]);
         view4 = [(CHUISWidgetHostViewController *)self view];
         [view4 bounds];
-        v17 = [v18 initWithFrame:?];
+        v18 = [v19 initWithFrame:?];
 
         vibrancyConfiguration = [(CHUISWidgetHostViewController *)self vibrancyConfiguration];
-        v21 = [vibrancyConfiguration copyWithGroupName:0];
-        [v17 setConfiguration:v21];
+        v22 = [vibrancyConfiguration copyWithGroupName:0];
+        [v18 setConfiguration:v22];
 
-        [v16 setAutoresizingMask:18];
-        contentView = [v17 contentView];
-        [contentView addSubview:v16];
+        [v17 setAutoresizingMask:18];
+        contentView = [v18 contentView];
+        [contentView addSubview:v17];
       }
     }
 
@@ -2601,53 +2577,53 @@ void __76__CHUISWidgetHostViewController_cancelTouchesForCurrentEventInHostedCon
     {
       view5 = [(CHUISWidgetHostViewController *)self view];
       [view5 bounds];
-      v25 = v24;
-      v27 = v26;
-      v29 = v28;
-      v31 = v30;
+      v26 = v25;
+      v28 = v27;
+      v30 = v29;
+      v32 = v31;
 
       [(CHUISWidgetHostViewController *)self _effectiveCornerRadius];
-      v33 = v32;
-      v34 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v25, v27, v29, v31}];
-      [v34 setBackgroundColor:0];
-      [v34 setAutoresizingMask:18];
-      [v34 _setContinuousCornerRadius:v33];
-      v35 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
+      v34 = v33;
+      v35 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v26, v28, v30, v32}];
+      [v35 setBackgroundColor:0];
+      [v35 setAutoresizingMask:18];
+      [v35 _setContinuousCornerRadius:v34];
+      v36 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
       tintParameters = self->_tintParameters;
       effectiveBackgroundColorScheme = self->_effectiveBackgroundColorScheme;
       [(CHSWidgetMetrics *)self->_widgetMetrics cornerRadius];
-      v38 = [CHUISSolariumEffectView initWithLayerType:v35 tintParameters:"initWithLayerType:tintParameters:preferredColorScheme:cornerRadius:frame:" preferredColorScheme:0 cornerRadius:tintParameters frame:effectiveBackgroundColorScheme];
-      [(CHUISSolariumEffectView *)v38 setBackgroundColor:0];
-      [(CHUISSolariumEffectView *)v38 setAutoresizingMask:18];
-      layer = [(CHUISSolariumEffectView *)v38 layer];
+      v39 = [CHUISSolariumEffectView initWithLayerType:v36 tintParameters:"initWithLayerType:tintParameters:preferredColorScheme:cornerRadius:frame:" preferredColorScheme:0 cornerRadius:tintParameters frame:effectiveBackgroundColorScheme];
+      [(CHUISSolariumEffectView *)v39 setBackgroundColor:0];
+      [(CHUISSolariumEffectView *)v39 setAutoresizingMask:18];
+      layer = [(CHUISSolariumEffectView *)v39 layer];
       [layer setName:@"Glass Background View"];
 
-      [(CHUISSolariumEffectView *)v38 setCornerRadius:v33];
-      [(CHUISSolariumEffectView *)v38 _setContinuousCornerRadius:v33];
-      v40 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
-      v41 = self->_tintParameters;
-      v42 = self->_effectiveBackgroundColorScheme;
+      [(CHUISSolariumEffectView *)v39 setCornerRadius:v34];
+      [(CHUISSolariumEffectView *)v39 _setContinuousCornerRadius:v34];
+      v41 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
+      v42 = self->_tintParameters;
+      v43 = self->_effectiveBackgroundColorScheme;
       [(CHSWidgetMetrics *)self->_widgetMetrics cornerRadius];
-      v43 = [CHUISSolariumEffectView initWithLayerType:v40 tintParameters:"initWithLayerType:tintParameters:preferredColorScheme:cornerRadius:frame:" preferredColorScheme:1 cornerRadius:v41 frame:v42];
-      [(CHUISSolariumEffectView *)v43 setBackgroundColor:0];
-      [(CHUISSolariumEffectView *)v43 setAutoresizingMask:18];
-      layer2 = [(CHUISSolariumEffectView *)v43 layer];
+      v44 = [CHUISSolariumEffectView initWithLayerType:v41 tintParameters:"initWithLayerType:tintParameters:preferredColorScheme:cornerRadius:frame:" preferredColorScheme:1 cornerRadius:v42 frame:v43];
+      [(CHUISSolariumEffectView *)v44 setBackgroundColor:0];
+      [(CHUISSolariumEffectView *)v44 setAutoresizingMask:18];
+      layer2 = [(CHUISSolariumEffectView *)v44 layer];
       [layer2 setName:@"Solarium Foreground View"];
 
-      [(CHUISSolariumEffectView *)v43 setCornerRadius:v33];
-      [(CHUISSolariumEffectView *)v43 _setContinuousCornerRadius:v33];
-      [v34 addSubview:v38];
-      [v34 addSubview:v17];
-      [v34 addSubview:v43];
+      [(CHUISSolariumEffectView *)v44 setCornerRadius:v34];
+      [(CHUISSolariumEffectView *)v44 _setContinuousCornerRadius:v34];
+      [v35 addSubview:v39];
+      [v35 addSubview:v18];
+      [v35 addSubview:v44];
 
-      v17 = v34;
+      v18 = v35;
     }
 
-    layer3 = [v17 layer];
+    layer3 = [v18 layer];
     [(CHUISWidgetHostViewController *)self _applySecurityPolicyToLayer:layer3];
   }
 
-  return v17;
+  return v18;
 }
 
 void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_invoke(uint64_t a1)
@@ -2727,18 +2703,18 @@ void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_in
     renderScheme = self->_renderScheme;
     self->_renderScheme = v6;
 
-    v8 = CHUISLogViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CHUISLogViewController(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v10 = self->_renderScheme;
+      v11 = self->_renderScheme;
       *buf = 134218498;
       selfCopy = self;
       v18 = 2114;
       v19 = cachedSceneLogDigest;
       v20 = 2114;
-      v21 = v10;
-      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Render scheme changed to: %{public}@", buf, 0x20u);
+      v21 = v11;
+      _os_log_impl(&dword_1D928E000, v9, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Render scheme changed to: %{public}@", buf, 0x20u);
     }
 
     v15[0] = MEMORY[0x1E69E9820];
@@ -2750,17 +2726,15 @@ void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_in
     if (usesSystemBackgroundMaterial != [(CHUISWidgetHostViewController *)self usesSystemBackgroundMaterial])
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v12 = objc_opt_respondsToSelector();
+      v13 = objc_opt_respondsToSelector();
 
-      if (v12)
+      if (v13)
       {
-        v13 = objc_loadWeakRetained(&self->_delegate);
-        [v13 widgetHostViewControllerUsesSystemBackgroundMaterialDidChange:self];
+        v14 = objc_loadWeakRetained(&self->_delegate);
+        [v14 widgetHostViewControllerUsesSystemBackgroundMaterialDidChange:self];
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)backgroundViewPolicy
@@ -2824,9 +2798,94 @@ void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_in
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  BSDispatchQueueAssertMain();
+  v5.receiver = self;
+  v5.super_class = CHUISWidgetHostViewController;
+  [(CHUISWidgetHostViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  BSDispatchQueueAssertMain();
+  self->_isInViewDidDisappear = 1;
+  v5.receiver = self;
+  v5.super_class = CHUISWidgetHostViewController;
+  [(CHUISWidgetHostViewController *)&v5 viewDidDisappear:disappearCopy];
+  self->_isInViewDidDisappear = 0;
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  windowCopy = window;
+  BSDispatchQueueAssertMain();
+  v17.receiver = self;
+  v17.super_class = CHUISWidgetHostViewController;
+  [(CHUISWidgetHostViewController *)&v17 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  if (windowCopy)
+  {
+    settings = [(FBScene *)self->_scene settings];
+    displayConfiguration = [settings displayConfiguration];
+
+    windowScene = [windowCopy windowScene];
+    _FBSScene = [windowScene _FBSScene];
+    settings2 = [_FBSScene settings];
+
+    displayConfiguration2 = [settings2 displayConfiguration];
+    if (!displayConfiguration2)
+    {
+      displayConfiguration2 = [MEMORY[0x1E699F7A8] mainConfiguration];
+    }
+
+    if (([displayConfiguration2 isEqual:displayConfiguration] & 1) == 0)
+    {
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __77__CHUISWidgetHostViewController_viewDidMoveToWindow_shouldAppearOrDisappear___block_invoke;
+      v15[3] = &unk_1E8575608;
+      v16 = displayConfiguration2;
+      [(CHUISWidgetHostViewController *)self modifySceneSettings:v15];
+    }
+
+    [(CHUISWidgetHostViewController *)self _evaluateEffectiveInSecureEnvironmentForReason:@"viewDidMoveToWindow"];
+    effectivePresentationMode = self->_effectivePresentationMode;
+    v14 = @"didMoveToWindow: LiveSnapshot effective presentation mode";
+    if (effectivePresentationMode != 1 && effectivePresentationMode != 3)
+    {
+      if (effectivePresentationMode != 2 || ([(CHUISWidgetHostViewController *)self _updateSceneToForeground:1], [(CHUISWidgetHostViewController *)self _transitionFromSnapshotToLiveContentIfNecessary]))
+      {
+LABEL_12:
+
+        if (self->_shouldShareTouchesWithHost)
+        {
+          [(CHUISWidgetHostViewController *)self _updateTouchDeliveryPolicies];
+        }
+
+        goto LABEL_16;
+      }
+
+      v14 = @"didMoveToWindow: Live effective presentation mode";
+    }
+
+    [(CHUISWidgetHostViewController *)self _ensureAndEvaluateSnapshotView:v14];
+    goto LABEL_12;
+  }
+
+  if (self->_shouldShareTouchesWithHost)
+  {
+    [(CHUISWidgetHostViewController *)self _clearTouchDeliveryPolicies];
+  }
+
+LABEL_16:
+  [(CHUISWidgetHostViewController *)self _scheduleEvaluationOfDetachedSceneTimerForReason:@"Window modified"];
+}
+
 - (void)setMetricsDefineSize:(BOOL)size
 {
-  metricsDefineSize = self->_metricsDefineSize;
   if ((BSEqualBools() & 1) == 0)
   {
     self->_metricsDefineSize = size;
@@ -2854,46 +2913,44 @@ void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_in
 
 - (void)setWidgetPriority:(unint64_t)priority
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_widgetPriority != priority)
   {
     self->_widgetPriority = priority;
-    v4 = CHUISLogViewController();
+    v4 = CHUISLogViewController(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_widgetPriority];
       *buf = 134218498;
       selfCopy = self;
-      v11 = 2114;
-      v12 = cachedSceneLogDigest;
-      v13 = 2112;
-      v14 = v6;
+      v10 = 2114;
+      v11 = cachedSceneLogDigest;
+      v12 = 2112;
+      v13 = v6;
       _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Widget priority changed to %@", buf, 0x20u);
     }
 
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __51__CHUISWidgetHostViewController_setWidgetPriority___block_invoke;
-    v8[3] = &unk_1E8575608;
-    v8[4] = self;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __51__CHUISWidgetHostViewController_setWidgetPriority___block_invoke;
+    v7[3] = &unk_1E8575608;
+    v7[4] = self;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logDebug:(id)debug
 {
   v17 = *MEMORY[0x1E69E9840];
   debugCopy = debug;
-  v5 = CHUISLogViewController();
+  v5 = CHUISLogViewController(debugCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
   if (v6)
   {
-    v7 = CHUISLogViewController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = CHUISLogViewController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:debugCopy arguments:&v18];
@@ -2903,97 +2960,91 @@ void __62__CHUISWidgetHostViewController__snapshotViewIgnoringEffects___block_in
       v14 = cachedSceneLogDigest;
       v15 = 2114;
       v16 = v10;
-      _os_log_debug_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] %{public}@", buf, 0x20u);
+      _os_log_debug_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] %{public}@", buf, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)log:(id)log
 {
   v17 = *MEMORY[0x1E69E9840];
   logCopy = log;
-  v5 = CHUISLogViewController();
+  v5 = CHUISLogViewController(logCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = CHUISLogViewController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHUISLogViewController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:logCopy arguments:&v18];
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:logCopy arguments:&v18];
       *buf = 134218498;
       selfCopy = self;
       v13 = 2114;
       v14 = cachedSceneLogDigest;
       v15 = 2114;
-      v16 = v9;
-      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] %{public}@", buf, 0x20u);
+      v16 = v10;
+      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_flushBatchUpdatesIfNecessaryForReason:(id)reason
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v5 = CHUISLogViewController();
+  v5 = CHUISLogViewController(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
     *buf = 134218498;
     selfCopy = self;
-    v13 = 2114;
-    v14 = cachedSceneLogDigest;
-    v15 = 2114;
-    v16 = reasonCopy;
+    v12 = 2114;
+    v13 = cachedSceneLogDigest;
+    v14 = 2114;
+    v15 = reasonCopy;
     _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Flushing batched updates for reason: %{public}@", buf, 0x20u);
   }
 
   if ([(NSMutableArray *)self->_pendingUpdateBlocks count])
   {
     scene = self->_scene;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___block_invoke;
-    v10[3] = &unk_1E8575860;
-    v10[4] = self;
-    [(FBScene *)scene updateSettingsWithTransitionBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___block_invoke;
+    v9[3] = &unk_1E8575860;
+    v9[4] = self;
+    [(FBScene *)scene updateSettingsWithTransitionBlock:v9];
     pendingUpdateBlocks = self->_pendingUpdateBlocks;
     self->_pendingUpdateBlocks = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(*(a1 + 32) + 1496);
   v5 = 0;
-  v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = _Block_copy(*(*(&v15 + 1) + 8 * i));
+        v9 = _Block_copy(*(*(&v14 + 1) + 8 * i));
         v10 = v9[2](v9, v3);
         v11 = v10;
         if (v10)
@@ -3012,14 +3063,13 @@ id __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
-  [*(a1 + 32) willModifySceneSettings:{v3, v15}];
-  v13 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) willModifySceneSettings:{v3, v14}];
 
   return v5;
 }
@@ -3029,7 +3079,7 @@ id __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___
   v19 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   ++self->_batchUpdateCount;
-  v5 = CHUISLogViewController();
+  v5 = CHUISLogViewController(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
@@ -3043,20 +3093,20 @@ id __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___
     _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Batched update begin (%lu).", &v13, 0x20u);
   }
 
-  updateCopy[2](updateCopy);
+  v8 = updateCopy[2](updateCopy);
   --self->_batchUpdateCount;
-  v8 = CHUISLogViewController();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = CHUISLogViewController(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_cachedSceneLogDigest;
-    v10 = self->_batchUpdateCount;
+    v10 = self->_cachedSceneLogDigest;
+    v11 = self->_batchUpdateCount;
     v13 = 134218498;
     selfCopy2 = self;
     v15 = 2114;
-    v16 = v9;
+    v16 = v10;
     v17 = 2048;
-    v18 = v10;
-    _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Batched update end (%lu).", &v13, 0x20u);
+    v18 = v11;
+    _os_log_impl(&dword_1D928E000, v9, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Batched update end (%lu).", &v13, 0x20u);
   }
 
   if (!self->_batchUpdateCount)
@@ -3065,8 +3115,6 @@ id __72__CHUISWidgetHostViewController__flushBatchUpdatesIfNecessaryForReason___
     pendingUpdateBlocks = self->_pendingUpdateBlocks;
     self->_pendingUpdateBlocks = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)modifySceneSettings:(id)settings
@@ -3138,30 +3186,29 @@ id __53__CHUISWidgetHostViewController_modifySceneSettings___block_invoke(uint64
   }
 
   entryContentType = [settingsCopy entryContentType];
-  if (entryContentType != [clientSettingsCopy entryContentType])
+  entryContentType2 = [clientSettingsCopy entryContentType];
+  if (entryContentType != entryContentType2)
   {
-    v16 = CHUISLogViewController();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = CHUISLogViewController(entryContentType2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v18 = NSStringFromCHUISWidgetEntryContentType([settingsCopy entryContentType]);
-      v19 = NSStringFromCHUISWidgetEntryContentType([clientSettingsCopy entryContentType]);
+      v19 = NSStringFromCHUISWidgetEntryContentType([settingsCopy entryContentType]);
+      v20 = NSStringFromCHUISWidgetEntryContentType([clientSettingsCopy entryContentType]);
       v21 = 134218754;
       selfCopy = self;
       v23 = 2114;
       v24 = cachedSceneLogDigest;
       v25 = 2114;
-      v26 = v18;
+      v26 = v19;
       v27 = 2114;
-      v28 = v19;
-      _os_log_impl(&dword_1D928E000, v16, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Entry content type did change from %{public}@ to %{public}@.", &v21, 0x2Au);
+      v28 = v20;
+      _os_log_impl(&dword_1D928E000, v17, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Entry content type did change from %{public}@ to %{public}@.", &v21, 0x2Au);
     }
 
     [(CHUISWidgetHostViewController *)self _updateToLiveContentFromLiveSnapshotIfPossible];
     [(CHUISWidgetHostViewController *)self _transitionFromSnapshotToLiveContentIfNecessary];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_transitionFromSnapshotToLiveContentIfNecessary
@@ -3171,60 +3218,55 @@ id __53__CHUISWidgetHostViewController_modifySceneSettings___block_invoke(uint64
   if (![clientSettings entryContentType] || self->_effectivePresentationMode != 2)
   {
 
-    goto LABEL_8;
+    return 0;
   }
 
   contentState = [(FBScene *)self->_scene contentState];
 
   if (contentState != 2)
   {
-LABEL_8:
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
-  v5 = CHUISLogViewController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CHUISLogViewController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
     v9 = 134218242;
     selfCopy = self;
     v11 = 2114;
     v12 = cachedSceneLogDigest;
-    _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Transitioning from snapshot to live content.", &v9, 0x16u);
+    _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Transitioning from snapshot to live content.", &v9, 0x16u);
   }
 
   [(CHUISWidgetHostViewController *)self _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:@"Transitioning to live content."];
   [(CHUISWidgetHostViewController *)self _hideSnapshotViewsAnimated:!self->_pendingSnapshotInProgress reason:@"transitionFromSnapshotToLiveContent"];
-  result = 1;
-LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (CGImage)_createCGImageFromNSData:(id)data
 {
-  v4 = CGImageSourceCreateWithData(data, 0);
-  if (!v4)
+  v3 = CGImageSourceCreateWithData(data, 0);
+  if (!v3)
   {
-    v7 = CHUISLogViewController();
+    v7 = CHUISLogViewController(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CHUISWidgetHostViewController _createCGImageFromNSData:?];
+      [CHUISWidgetHostViewController _createCGImageFromNSData:];
     }
 
     goto LABEL_7;
   }
 
-  v5 = v4;
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(v4, 0, 0);
-  CFRelease(v5);
+  v4 = v3;
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(v3, 0, 0);
+  CFRelease(v4);
   if (!ImageAtIndex)
   {
-    v7 = CHUISLogViewController();
+    v7 = CHUISLogViewController(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CHUISWidgetHostViewController _createCGImageFromNSData:?];
+      [CHUISWidgetHostViewController _createCGImageFromNSData:];
     }
 
 LABEL_7:
@@ -3266,7 +3308,7 @@ LABEL_7:
 {
   v31[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  BSDispatchQueueAssertMain();
+  v8 = BSDispatchQueueAssertMain();
   if (self->_scene)
   {
     widgetPriority = self->_widgetPriority;
@@ -3276,8 +3318,8 @@ LABEL_7:
     }
 
     self->_pendingSnapshotInProgress = widgetPriority & 1;
-    v9 = CHUISLogViewController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CHUISLogViewController(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       *buf = 134218498;
@@ -3286,12 +3328,12 @@ LABEL_7:
       v27 = cachedSceneLogDigest;
       v28 = 2048;
       timeoutCopy = timeout;
-      _os_log_impl(&dword_1D928E000, v9, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending content confirmation action: timeout=%f)", buf, 0x20u);
+      _os_log_impl(&dword_1D928E000, v10, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending content confirmation action: timeout=%f)", buf, 0x20u);
     }
 
-    v11 = [CHUISContentConfirmationAction alloc];
-    v12 = MEMORY[0x1E69E96A0];
+    v12 = [CHUISContentConfirmationAction alloc];
     v13 = MEMORY[0x1E69E96A0];
+    v14 = MEMORY[0x1E69E96A0];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke;
@@ -3299,154 +3341,156 @@ LABEL_7:
     v21[4] = self;
     v22 = completionCopy;
     v23 = a2;
-    v14 = [(CHUISContentConfirmationAction *)v11 initWithTimeout:v12 queue:v21 completion:timeout];
+    v15 = [(CHUISContentConfirmationAction *)v12 initWithTimeout:v13 queue:v21 completion:timeout];
 
     scene = self->_scene;
-    v16 = [MEMORY[0x1E695DFD8] setWithObject:v14];
-    [(FBScene *)scene sendActions:v16];
+    v17 = [MEMORY[0x1E695DFD8] setWithObject:v15];
+    [(FBScene *)scene sendActions:v17];
   }
 
   else
   {
-    v17 = MEMORY[0x1E696ABC0];
+    v18 = MEMORY[0x1E696ABC0];
     v30 = *MEMORY[0x1E696A578];
     v31[0] = @"Missing scene";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-    v19 = [v17 errorWithDomain:@"com.apple.chrono.widgethost" code:888 userInfo:v18];
-    (*(completionCopy + 2))(completionCopy, v19);
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v20 = [v18 errorWithDomain:@"com.apple.chrono.widgethost" code:888 userInfo:v19];
+    (*(completionCopy + 2))(completionCopy, v20);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CHUISLogViewController();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CHUISLogViewController(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 1152);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 1152);
       *buf = 134218498;
-      *&buf[4] = v5;
+      *&buf[4] = v6;
       *&buf[12] = 2114;
-      *&buf[14] = v6;
+      *&buf[14] = v7;
       *&buf[22] = 2112;
-      v39 = v3;
-      _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action error: %@", buf, 0x20u);
+      v40 = v4;
+      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action error: %@", buf, 0x20u);
     }
 
     *(*(a1 + 32) + 1483) = 0;
     (*(*(a1 + 40) + 16))();
   }
 
-  else if ([*(*(a1 + 32) + 1016) contentState] == 2)
-  {
-    v7 = CHUISLogViewController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 1152);
-      *buf = 134218242;
-      *&buf[4] = v8;
-      *&buf[12] = 2114;
-      *&buf[14] = v9;
-      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action success!", buf, 0x16u);
-    }
-
-    v10 = *(a1 + 32);
-    if (*(v10 + 1483) == 1)
-    {
-      *(v10 + 1483) = 0;
-      [*(a1 + 32) _hideSnapshotViewsAnimated:0 forceCompleteTeardown:1 reason:@"ensureContent"];
-    }
-
-    (*(*(a1 + 40) + 16))();
-  }
-
   else
   {
-    v11 = CHUISLogViewController();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v8 = [*(*(a1 + 32) + 1016) contentState];
+    if (v8 == 2)
     {
+      v9 = CHUISLogViewController(2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = *(a1 + 32);
+        v11 = *(v10 + 1152);
+        *buf = 134218242;
+        *&buf[4] = v10;
+        *&buf[12] = 2114;
+        *&buf[14] = v11;
+        _os_log_impl(&dword_1D928E000, v9, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action success!", buf, 0x16u);
+      }
+
       v12 = *(a1 + 32);
-      v13 = *(v12 + 1152);
-      *buf = 134218242;
-      *&buf[4] = v12;
-      *&buf[12] = 2114;
-      *&buf[14] = v13;
-      _os_log_impl(&dword_1D928E000, v11, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action response, but raced with content ready response.  Waiting for content to be ready.", buf, 0x16u);
+      if (*(v12 + 1483) == 1)
+      {
+        *(v12 + 1483) = 0;
+        [*(a1 + 32) _hideSnapshotViewsAnimated:0 forceCompleteTeardown:1 reason:@"ensureContent"];
+      }
+
+      (*(*(a1 + 40) + 16))();
     }
 
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x3032000000;
-    v39 = __Block_byref_object_copy__0;
-    v40 = __Block_byref_object_dispose__0;
-    v14 = objc_alloc(MEMORY[0x1E698E660]);
-    v15 = MEMORY[0x1E696AEC0];
-    v16 = *(*(a1 + 32) + 1152);
-    v17 = [MEMORY[0x1E696AFB0] UUID];
-    v18 = [v17 UUIDString];
-    v19 = [v15 stringWithFormat:@"<WaitForContentReadyTimer-%@-%@>", v16, v18];
-    v41 = [v14 initWithIdentifier:v19];
+    else
+    {
+      v13 = CHUISLogViewController(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = *(a1 + 32);
+        v15 = *(v14 + 1152);
+        *buf = 134218242;
+        *&buf[4] = v14;
+        *&buf[12] = 2114;
+        *&buf[14] = v15;
+        _os_log_impl(&dword_1D928E000, v13, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content confirmation action response, but raced with content ready response.  Waiting for content to be ready.", buf, 0x16u);
+      }
 
-    v20 = MEMORY[0x1E698E630];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_235;
-    v34[3] = &unk_1E85758B0;
-    v21 = *(a1 + 40);
-    v34[4] = *(a1 + 32);
-    v22 = v21;
-    v23 = *(a1 + 48);
-    v35 = v22;
-    v36 = buf;
-    v37 = v23;
-    v24 = [v20 sentinelWithQueue:MEMORY[0x1E69E96A0] signalHandler:v34];
-    v25 = *(*&buf[8] + 40);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_244;
-    v32[3] = &unk_1E85758D8;
-    v26 = v24;
-    v33 = v26;
-    [v25 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v32 queue:3.0 handler:0.0];
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x3032000000;
+      v40 = __Block_byref_object_copy__0;
+      v41 = __Block_byref_object_dispose__0;
+      v16 = objc_alloc(MEMORY[0x1E698E660]);
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = *(*(a1 + 32) + 1152);
+      v19 = [MEMORY[0x1E696AFB0] UUID];
+      v20 = [v19 UUIDString];
+      v21 = [v17 stringWithFormat:@"<WaitForContentReadyTimer-%@-%@>", v18, v20];
+      v42 = [v16 initWithIdentifier:v21];
 
-    v27 = *(a1 + 32);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_2;
-    v30[3] = &unk_1E85754D0;
-    v28 = v26;
-    v31 = v28;
-    [v27 _scheduleSceneContentReadyBlock:v30];
+      v22 = MEMORY[0x1E698E630];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_235;
+      v35[3] = &unk_1E85758B0;
+      v23 = *(a1 + 40);
+      v35[4] = *(a1 + 32);
+      v24 = v23;
+      v25 = *(a1 + 48);
+      v36 = v24;
+      v37 = buf;
+      v38 = v25;
+      v26 = [v22 sentinelWithQueue:MEMORY[0x1E69E96A0] signalHandler:v35];
+      v27 = *(*&buf[8] + 40);
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_244;
+      v33[3] = &unk_1E85758D8;
+      v28 = v26;
+      v34 = v28;
+      [v27 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v33 queue:3.0 handler:0.0];
 
-    _Block_object_dispose(buf, 8);
+      v29 = *(a1 + 32);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_2;
+      v31[3] = &unk_1E85754D0;
+      v30 = v28;
+      v32 = v30;
+      [v29 _scheduleSceneContentReadyBlock:v31];
+
+      _Block_object_dispose(buf, 8);
+    }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_235(uint64_t a1, void *a2)
 {
   v19 = *MEMORY[0x1E69E9840];
   v3 = [a2 context];
+  v4 = v3;
   if (v3)
   {
-    v4 = CHUISLogViewController();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CHUISLogViewController(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 1152);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 1152);
       v15 = 134218242;
-      v16 = v5;
+      v16 = v6;
       v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Timed out waiting for content ready for content confirmation action.", &v15, 0x16u);
+      v18 = v7;
+      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Timed out waiting for content ready for content confirmation action.", &v15, 0x16u);
     }
 
     objc_opt_class();
@@ -3462,22 +3506,22 @@ void __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___b
 
   else
   {
-    v7 = CHUISLogViewController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHUISLogViewController(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 1152);
+      v9 = *(a1 + 32);
+      v10 = *(v9 + 1152);
       v15 = 134218242;
-      v16 = v8;
+      v16 = v9;
       v17 = 2114;
-      v18 = v9;
-      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content ready response for content confirmation action. Success!", &v15, 0x16u);
+      v18 = v10;
+      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received content ready response for content confirmation action. Success!", &v15, 0x16u);
     }
 
-    v10 = *(a1 + 32);
-    if (*(v10 + 1483) == 1)
+    v11 = *(a1 + 32);
+    if (*(v11 + 1483) == 1)
     {
-      *(v10 + 1483) = 0;
+      *(v11 + 1483) = 0;
       [*(a1 + 32) _hideSnapshotViewsAnimated:0 forceCompleteTeardown:1 reason:@"ensureContent"];
     }
 
@@ -3485,33 +3529,29 @@ void __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___b
   }
 
   [*(*(*(a1 + 48) + 8) + 40) invalidate];
-  v11 = *(*(a1 + 48) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *(*(a1 + 48) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = 0;
 }
 
 void __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_244(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Timed out waiting for content to be ready.";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Timed out waiting for content to be ready.";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.chrono.widgethost" code:777 userInfo:v3];
   [v1 signalWithContext:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_2(uint64_t a1)
+uint64_t __69__CHUISWidgetHostViewController_ensureContentWithTimeout_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 signal];
+  return [v3 signal];
 }
 
 - (void)_scheduleSceneContentReadyBlock:(id)block
@@ -3588,25 +3628,22 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
 
 void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_completion___block_invoke_2(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) capture])
   {
-    v8 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:objc_msgSend(*(a1 + 32) scale:"CGImage") orientation:{0, *(a1 + 48)}];
+    v6 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:objc_msgSend(*(a1 + 32) scale:"CGImage") orientation:{0, *(a1 + 48)}];
     (*(*(a1 + 40) + 16))();
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"Unable to snapshot scene.";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-    v6 = [v4 errorWithDomain:@"com.apple.chrono.widgethost" code:555 userInfo:v5];
-    (*(v3 + 16))(v3, 0, v6);
-
-    v7 = *MEMORY[0x1E69E9840];
+    v2 = *(a1 + 40);
+    v3 = MEMORY[0x1E696ABC0];
+    v7 = *MEMORY[0x1E696A578];
+    v8[0] = @"Unable to snapshot scene.";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 errorWithDomain:@"com.apple.chrono.widgethost" code:555 userInfo:v4];
+    (*(v2 + 16))(v2, 0, v5);
   }
 }
 
@@ -3623,35 +3660,34 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
   v3 = [MEMORY[0x1E698E680] builderWithObject:self];
   v4 = [v3 appendObject:self->_widget withName:@"widget"];
   v5 = [v3 appendObject:self->_metrics withName:@"metrics"];
-  contentType = self->_contentType;
-  v7 = NSStringFromCHSWidgetContentType();
-  v8 = [v3 appendObject:v7 withName:@"contentType"];
+  v6 = NSStringFromCHSWidgetContentType();
+  v7 = [v3 appendObject:v6 withName:@"contentType"];
 
-  v9 = self->_requestedPresentationMode - 1;
-  if (v9 > 2)
+  v8 = self->_requestedPresentationMode - 1;
+  if (v8 > 2)
   {
-    v10 = @"none";
+    v9 = @"none";
   }
 
   else
   {
-    v10 = off_1E8575C78[v9];
+    v9 = off_1E8575C78[v8];
   }
 
-  v11 = [v3 appendObject:v10 withName:@"requestedMode"];
-  v12 = self->_effectivePresentationMode - 1;
-  if (v12 > 2)
+  v10 = [v3 appendObject:v9 withName:@"requestedMode"];
+  v11 = self->_effectivePresentationMode - 1;
+  if (v11 > 2)
   {
-    v13 = @"none";
+    v12 = @"none";
   }
 
   else
   {
-    v13 = off_1E8575C78[v12];
+    v12 = off_1E8575C78[v11];
   }
 
-  v14 = [v3 appendObject:v13 withName:@"effectiveMode"];
-  v15 = [v3 appendBool:self->_invalidated withName:@"invalidated"];
+  v13 = [v3 appendObject:v12 withName:@"effectiveMode"];
+  v14 = [v3 appendBool:self->_invalidated withName:@"invalidated"];
 
   return v3;
 }
@@ -3673,7 +3709,7 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   if (!self->_invalidated)
   {
@@ -3682,16 +3718,15 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
     self->_visibilitySettings = 0;
 
     objc_storeWeak(&self->_delegate, 0);
-    [(CHSWidgetExtensionProvider *)self->_extensionProvider unregisterObserver:self];
-    v4 = CHUISLogViewController();
+    v4 = CHUISLogViewController([(CHSWidgetExtensionProvider *)self->_extensionProvider unregisterObserver:self]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v8 = 134218242;
+      v7 = 134218242;
       selfCopy = self;
-      v10 = 2114;
-      v11 = cachedSceneLogDigest;
-      _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidated", &v8, 0x16u);
+      v9 = 2114;
+      v10 = cachedSceneLogDigest;
+      _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidated", &v7, 0x16u);
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -3699,8 +3734,6 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
 
     [(CHUISWidgetHostViewController *)self _tearDownScene];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extensionsDidChangeForExtensionProvider:(id)provider
@@ -3715,7 +3748,7 @@ void __77__CHUISWidgetHostViewController_snapshotContentWithTimeout_queue_comple
 
 uint64_t __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProvider___block_invoke(uint64_t a1)
 {
-  v2 = CHUISLogViewControllerTouch();
+  v2 = CHUISLogViewControllerTouch(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProvider___block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -3729,9 +3762,9 @@ uint64_t __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProv
   v47 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   actionsCopy = actions;
-  BSDispatchQueueAssertMain();
-  v5 = CHUISLogViewController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = CHUISLogViewController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
     *buf = 134218498;
@@ -3740,87 +3773,87 @@ uint64_t __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProv
     v44 = cachedSceneLogDigest;
     v45 = 2114;
     v46 = actionsCopy;
-    _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received actions: %{public}@", buf, 0x20u);
+    _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Received actions: %{public}@", buf, 0x20u);
   }
 
   if (!self->_invalidated)
   {
-    v8 = [MEMORY[0x1E695DFA8] setWithSet:actionsCopy];
+    v9 = [MEMORY[0x1E695DFA8] setWithSet:actionsCopy];
     v38 = 0u;
     v39 = 0u;
     v36 = 0u;
     v37 = 0u;
     obj = actionsCopy;
-    v9 = 0;
-    v10 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-    if (v10)
+    v10 = 0;
+    v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v11)
     {
-      v11 = *v37;
+      v12 = *v37;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v37 != v11)
+          if (*v37 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v36 + 1) + 8 * i);
+          v14 = *(*(&v36 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = objc_opt_class();
-            v15 = v13;
-            if (v14)
+            v15 = objc_opt_class();
+            v16 = v14;
+            if (v15)
             {
               if (objc_opt_isKindOfClass())
               {
-                v16 = v15;
+                v17 = v16;
               }
 
               else
               {
-                v16 = 0;
+                v17 = 0;
               }
             }
 
             else
             {
-              v16 = 0;
+              v17 = 0;
             }
 
-            v17 = v16;
+            v18 = v17;
 
-            v9 = v17;
-            [v8 removeObject:v15];
+            v10 = v18;
+            [v9 removeObject:v16];
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             [(CHUISWidgetHostViewController *)self _snapshotDidChange];
-            [v8 removeObject:v13];
+            [v9 removeObject:v14];
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
-      while (v10);
+      while (v11);
 
-      if (!v9)
+      if (!v10)
       {
         goto LABEL_30;
       }
 
-      launchRequest = [v9 launchRequest];
+      launchRequest = [v10 launchRequest];
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v20 = objc_opt_respondsToSelector();
+      v21 = objc_opt_respondsToSelector();
 
-      if (((launchRequest != 0) & v20) == 1)
+      if (((launchRequest != 0) & v21) == 1)
       {
-        v21 = objc_loadWeakRetained(&self->_delegate);
-        [v21 widgetHostViewController:self requestsLaunch:launchRequest];
+        v22 = objc_loadWeakRetained(&self->_delegate);
+        [v22 widgetHostViewController:self requestsLaunch:launchRequest];
       }
 
       else
@@ -3831,17 +3864,17 @@ uint64_t __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProv
           goto LABEL_29;
         }
 
-        v23 = objc_loadWeakRetained(&self->_delegate);
-        v24 = objc_opt_respondsToSelector();
+        v24 = objc_loadWeakRetained(&self->_delegate);
+        v25 = objc_opt_respondsToSelector();
 
-        if ((v24 & 1) == 0)
+        if ((v25 & 1) == 0)
         {
           goto LABEL_29;
         }
 
-        v21 = objc_loadWeakRetained(&self->_delegate);
+        v22 = objc_loadWeakRetained(&self->_delegate);
         launchAction = [launchRequest launchAction];
-        [v21 widgetHostViewController:self requestsLaunchWithAction:launchAction];
+        [v22 widgetHostViewController:self requestsLaunchWithAction:launchAction];
       }
     }
 
@@ -3853,53 +3886,51 @@ uint64_t __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProv
 LABEL_29:
 
 LABEL_30:
-    sceneCopy = [(CHUISWidgetHostViewController *)self handleActions:v8, sceneCopy];
-    v27 = [sceneCopy mutableCopy];
+    sceneCopy = [(CHUISWidgetHostViewController *)self handleActions:v9, sceneCopy];
+    v28 = [sceneCopy mutableCopy];
 
-    if ([v27 count])
+    if ([v28 count])
     {
-      v28 = [(BLSHBacklightFBSceneEnvironmentActionHandler *)self->_sceneBacklightActionHandler respondToActions:v27 forFBScene:sceneCopy];
-      v29 = [v28 mutableCopy];
+      v29 = [(BLSHBacklightFBSceneEnvironmentActionHandler *)self->_sceneBacklightActionHandler respondToActions:v28 forFBScene:sceneCopy];
+      v30 = [v29 mutableCopy];
     }
 
     else
     {
-      v29 = v27;
+      v30 = v28;
     }
 
-    v7 = [obj mutableCopy];
-    [v7 minusSet:v29];
+    v8 = [obj mutableCopy];
+    [v8 minusSet:v30];
 
     goto LABEL_34;
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_34:
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (void)sceneDidDeactivate:(id)deactivate withContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
   contextCopy = context;
-  BSDispatchQueueAssertMain();
+  v8 = BSDispatchQueueAssertMain();
   if (self->_scene == deactivateCopy)
   {
-    v8 = CHUISLogViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CHUISLogViewController(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
       error = [contextCopy error];
-      v18 = 134218498;
+      v20 = 134218498;
       selfCopy3 = self;
-      v20 = 2114;
-      v21 = cachedSceneLogDigest;
       v22 = 2114;
-      v23 = error;
+      v23 = cachedSceneLogDigest;
+      v24 = 2114;
+      v25 = error;
     }
 
     [(FBScene *)self->_scene configureParameters:&__block_literal_global_270];
@@ -3910,20 +3941,21 @@ LABEL_34:
     {
       if (isForeground)
       {
-        if ([(CHUISWidgetHostViewController *)self _canLiveSnapshot]&& self->_requestedPresentationMode == 2)
+        _canLiveSnapshot = [(CHUISWidgetHostViewController *)self _canLiveSnapshot];
+        if (_canLiveSnapshot && self->_requestedPresentationMode == 2)
         {
-          [(CHUISWidgetHostViewController *)self _setEffectivePresentationMode:3 reason:@"WidgetRenderer died; moving to LiveSnapshot in the interim" forceExistingRebuild:1 allowCreatingScene:0];
+          _canLiveSnapshot = [(CHUISWidgetHostViewController *)self _setEffectivePresentationMode:3 reason:@"WidgetRenderer died; moving to LiveSnapshot in the interim" forceExistingRebuild:1 allowCreatingScene:0];
         }
 
-        v13 = CHUISLogViewController();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = CHUISLogViewController(_canLiveSnapshot);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = self->_cachedSceneLogDigest;
-          v18 = 134218242;
+          v17 = self->_cachedSceneLogDigest;
+          v20 = 134218242;
           selfCopy3 = self;
-          v20 = 2114;
-          v21 = v14;
-          _os_log_impl(&dword_1D928E000, v13, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Scene deactivated but was foreground - reactivating.", &v18, 0x16u);
+          v22 = 2114;
+          v23 = v17;
+          _os_log_impl(&dword_1D928E000, v16, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Scene deactivated but was foreground - reactivating.", &v20, 0x16u);
         }
 
         [(CHUISWidgetHostViewController *)self _flushBatchUpdatesIfNecessaryForReason:@"Activate Scene on Deactivate from Foreground"];
@@ -3932,43 +3964,41 @@ LABEL_34:
 
       else
       {
-        v15 = CHUISLogViewController();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v18 = CHUISLogViewController(v14);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = self->_cachedSceneLogDigest;
-          v18 = 134218242;
+          v19 = self->_cachedSceneLogDigest;
+          v20 = 134218242;
           selfCopy3 = self;
-          v20 = 2114;
-          v21 = v16;
-          _os_log_impl(&dword_1D928E000, v15, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Scene deactivated but was background - invalidating.", &v18, 0x16u);
+          v22 = 2114;
+          v23 = v19;
+          _os_log_impl(&dword_1D928E000, v18, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Scene deactivated but was background - invalidating.", &v20, 0x16u);
         }
 
         [(CHUISWidgetHostViewController *)self _tearDownScene];
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sceneContentStateDidChange:(id)change
 {
   v21 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  BSDispatchQueueAssertMain();
-  v5 = CHUISLogViewController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = CHUISLogViewController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
     [changeCopy contentState];
-    v7 = NSStringFromFBSceneContentState();
+    v8 = NSStringFromFBSceneContentState();
     *buf = 134218498;
     selfCopy = self;
     v17 = 2114;
     v18 = cachedSceneLogDigest;
     v19 = 2114;
-    v20 = v7;
-    _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Content state did change to %{public}@", buf, 0x20u);
+    v20 = v8;
+    _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Content state did change to %{public}@", buf, 0x20u);
   }
 
   if ([changeCopy contentState] == 2)
@@ -4005,16 +4035,14 @@ LABEL_34:
 
   else
   {
-    v10 = MEMORY[0x1E696AEC0];
+    v11 = MEMORY[0x1E696AEC0];
     [changeCopy contentState];
-    v11 = NSStringFromFBSceneContentState();
-    v12 = [v10 stringWithFormat:@"Scene content state changed to %@", v11];
-    [(CHUISWidgetHostViewController *)self _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:v12];
+    v12 = NSStringFromFBSceneContentState();
+    v13 = [v11 stringWithFormat:@"Scene content state changed to %@", v12];
+    [(CHUISWidgetHostViewController *)self _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:v13];
   }
 
   [(CHUISWidgetHostViewController *)self _updateBackgroundMaterialAndColor];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void *__60__CHUISWidgetHostViewController_sceneContentStateDidChange___block_invoke(uint64_t a1)
@@ -4034,12 +4062,13 @@ void *__60__CHUISWidgetHostViewController_sceneContentStateDidChange___block_inv
 - (void)_invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:(id)reason
 {
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_transitionFromSnapshotToLiveDeadlineTimer)
   {
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = CHUISLogViewController(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [CHUISWidgetHostViewController _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:?];
+      [CHUISWidgetHostViewController _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:];
     }
 
     [(BSContinuousMachTimer *)self->_transitionFromSnapshotToLiveDeadlineTimer invalidate];
@@ -4050,38 +4079,65 @@ void *__60__CHUISWidgetHostViewController_sceneContentStateDidChange___block_inv
 
 - (void)_setupTransitionFromSnapshotToLiveContentDeadlineTimerIfNecessary
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Creating transition from snapshot to live deadline timer.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  if (self->_effectivePresentationMode == 2 && [(FBScene *)self->_scene contentState]== 2)
+  {
+    alpha = [(UIView *)self->_sceneView alpha];
+    if (v4 == 0.0 && !self->_transitionFromSnapshotToLiveDeadlineTimer)
+    {
+      v5 = CHUISLogViewController(alpha);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [CHUISWidgetHostViewController _setupTransitionFromSnapshotToLiveContentDeadlineTimerIfNecessary];
+      }
+
+      v6 = objc_alloc(MEMORY[0x1E698E660]);
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<TransitionFromSnapshotToLiveDeadlineTimer-%@>", self->_cachedSceneLogDigest];
+      v8 = [v6 initWithIdentifier:v7];
+      transitionFromSnapshotToLiveDeadlineTimer = self->_transitionFromSnapshotToLiveDeadlineTimer;
+      self->_transitionFromSnapshotToLiveDeadlineTimer = v8;
+
+      objc_initWeak(&location, self);
+      v10 = self->_transitionFromSnapshotToLiveDeadlineTimer;
+      v11 = MEMORY[0x1E69E96A0];
+      v12 = MEMORY[0x1E69E96A0];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveContentDeadlineTimerIfNecessary__block_invoke;
+      v13[3] = &unk_1E85759E0;
+      objc_copyWeak(&v14, &location);
+      v13[4] = self;
+      [(BSContinuousMachTimer *)v10 scheduleWithFireInterval:v11 leewayInterval:v13 queue:0.15 handler:0.0];
+
+      objc_destroyWeak(&v14);
+      objc_destroyWeak(&location);
+    }
+  }
 }
 
 void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveContentDeadlineTimerIfNecessary__block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = CHUISLogViewController();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CHUISLogViewController(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = WeakRetained[144];
+      v5 = v3[144];
       v6 = 134218242;
-      v7 = WeakRetained;
+      v7 = v3;
       v8 = 2114;
-      v9 = v4;
-      _os_log_impl(&dword_1D928E000, v3, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Transition from snapshot to live deadline timer fired.", &v6, 0x16u);
+      v9 = v5;
+      _os_log_impl(&dword_1D928E000, v4, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Transition from snapshot to live deadline timer fired.", &v6, 0x16u);
     }
 
-    if (WeakRetained[169] == 2)
+    if (v3[169] == 2)
     {
-      [WeakRetained _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:@"Deadline fired"];
-      [WeakRetained _hideSnapshotViewsAnimated:*(*(a1 + 32) + 1483) == 0 reason:@"Deadline timer fired for transitionFromSnapshotToLiveContent"];
+      [v3 _invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:@"Deadline fired"];
+      [v3 _hideSnapshotViewsAnimated:*(*(a1 + 32) + 1483) == 0 reason:@"Deadline timer fired for transitionFromSnapshotToLiveContent"];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scene:(id)scene didUpdateClientSettings:(id)settings
@@ -4140,23 +4196,25 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
 
 - (void)_snapshotDidChange
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Snapshot changed.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v3 = CHUISLogViewController(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [CHUISWidgetHostViewController _snapshotDidChange];
+  }
+
+  [(CHUISWidgetHostViewController *)self _updatePersistedSnapshotContentIfNecessary];
 }
 
 - (id)_newPersistedSnapshotView
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v3 = CHUISLogViewController();
+  v38 = *MEMORY[0x1E69E9840];
+  v3 = CHUISLogViewController(self);
   v4 = v3;
   signpostID = self->_signpostID;
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    LOWORD(v28) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D928E000, v4, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "FetchPersistedSnapshot", "", &v28, 2u);
+    LOWORD(v30) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D928E000, v4, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "FetchPersistedSnapshot", "", &v30, 2u);
   }
 
   _persistedSnapshotContext = [(CHUISWidgetHostViewController *)self _persistedSnapshotContext];
@@ -4169,46 +4227,46 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
       v9 = [v7 url];
       v10 = [v8 initWithContentsOfURL:v9 publishedObjectViewClassMap:0];
 
-      v11 = CHUISLogViewController();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = CHUISLogViewController(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         cachedSceneLogDigest = self->_cachedSceneLogDigest;
-        v27 = [v7 url];
-        v28 = 134218754;
+        v29 = [v7 url];
+        v30 = 134218754;
         selfCopy = self;
-        v30 = 2114;
-        v31 = cachedSceneLogDigest;
         v32 = 2114;
-        v33 = v10;
+        v33 = cachedSceneLogDigest;
         v34 = 2114;
-        v35 = v27;
-        _os_log_debug_impl(&dword_1D928E000, v11, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] Read caar snapshot! view: %{public}@ - url: %{public}@", &v28, 0x2Au);
+        v35 = v10;
+        v36 = 2114;
+        v37 = v29;
+        _os_log_debug_impl(&dword_1D928E000, v12, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] Read caar snapshot! view: %{public}@ - url: %{public}@", &v30, 0x2Au);
       }
 
-      v12 = CHUISLogViewController();
-      v13 = v12;
-      v14 = self->_signpostID;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v14 = CHUISLogViewController(v13);
+      v15 = v14;
+      v16 = self->_signpostID;
+      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
-        v15 = [v7 url];
-        v28 = 138412290;
-        selfCopy = v15;
-        _os_signpost_emit_with_name_impl(&dword_1D928E000, v13, OS_SIGNPOST_INTERVAL_END, v14, "FetchPersistedSnapshot", "caar - <url>=%@", &v28, 0xCu);
+        v17 = [v7 url];
+        v30 = 138412290;
+        selfCopy = v17;
+        _os_signpost_emit_with_name_impl(&dword_1D928E000, v15, OS_SIGNPOST_INTERVAL_END, v16, "FetchPersistedSnapshot", "caar - <url>=%@", &v30, 0xCu);
       }
     }
 
     else
     {
-      v16 = [v7 url];
-      v13 = [(CHUISWidgetHostViewController *)self _snapshotImageFromURL:v16];
+      v18 = [v7 url];
+      v15 = [(CHUISWidgetHostViewController *)self _snapshotImageFromURL:v18];
 
-      if (v13)
+      if (v15)
       {
-        v10 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v13];
-        v17 = CHUISLogViewController();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v10 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v15];
+        v20 = CHUISLogViewController(v10);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          [(CHUISWidgetHostViewController *)self _newPersistedSnapshotView];
+          [CHUISWidgetHostViewController _newPersistedSnapshotView];
         }
       }
 
@@ -4217,15 +4275,15 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
         v10 = 0;
       }
 
-      v18 = CHUISLogViewController();
-      v19 = v18;
-      v20 = self->_signpostID;
-      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+      v21 = CHUISLogViewController(v19);
+      v22 = v21;
+      v23 = self->_signpostID;
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
       {
-        v21 = [v7 url];
-        v28 = 138412290;
-        selfCopy = v21;
-        _os_signpost_emit_with_name_impl(&dword_1D928E000, v19, OS_SIGNPOST_INTERVAL_END, v20, "FetchPersistedSnapshot", "image - <url>=%@", &v28, 0xCu);
+        v24 = [v7 url];
+        v30 = 138412290;
+        selfCopy = v24;
+        _os_signpost_emit_with_name_impl(&dword_1D928E000, v22, OS_SIGNPOST_INTERVAL_END, v23, "FetchPersistedSnapshot", "image - <url>=%@", &v30, 0xCu);
       }
     }
 
@@ -4239,8 +4297,59 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
     v10 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v10;
+}
+
+- (void)_setCanAppearInSecureEnvironment:(BOOL)environment force:(BOOL)force
+{
+  environmentCopy = environment;
+  v23 = *MEMORY[0x1E69E9840];
+  v7 = BSDispatchQueueAssertMain();
+  if (force || (v7 = BSEqualBools(), (v7 & 1) == 0))
+  {
+    self->_canAppearInSecureEnvironment = environmentCopy;
+    v8 = CHUISLogViewController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      cachedSceneLogDigest = self->_cachedSceneLogDigest;
+      v10 = [MEMORY[0x1E696AD98] numberWithBool:environmentCopy];
+      *buf = 134218498;
+      selfCopy = self;
+      v19 = 2114;
+      v20 = cachedSceneLogDigest;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Can appear in secure environment changed to %{public}@", buf, 0x20u);
+    }
+
+    keybag = self->_keybag;
+    if (self->_canAppearInSecureEnvironment)
+    {
+      [(CHUISKeybag *)keybag addObserver:self];
+      view = [(CHUISWidgetHostViewController *)self view];
+      layer = [view layer];
+      [layer setSecurityMode:*MEMORY[0x1E6979E60]];
+
+      [(CHUISWidgetHostViewController *)self _evaluateEffectiveInSecureEnvironmentForReason:@"Can appear in secure environment"];
+    }
+
+    else
+    {
+      [(CHUISKeybag *)keybag removeObserver:self];
+      view2 = [(CHUISWidgetHostViewController *)self view];
+      layer2 = [view2 layer];
+      [layer2 setSecurityMode:*MEMORY[0x1E6979E58]];
+
+      [(CHUISWidgetHostViewController *)self _setInSecureEnvironment:0 forReason:@"Not eligible for showing in a secure environment"];
+    }
+
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __72__CHUISWidgetHostViewController__setCanAppearInSecureEnvironment_force___block_invoke;
+    v16[3] = &unk_1E8575608;
+    v16[4] = self;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v16];
+  }
 }
 
 - (void)_applySecurityPolicyToLayer:(id)layer
@@ -4253,29 +4362,30 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
 {
   contentCopy = content;
   layerCopy = layer;
+  v6 = layerCopy;
   if (contentCopy)
   {
-    v6 = CHUISLogViewController();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = CHUISLogViewController(layerCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [CHUISWidgetHostViewController _applySecurityPolicyToLayer:allowsPrivacySensitiveContent:];
     }
 
-    v7 = 64;
+    v8 = 64;
   }
 
   else
   {
-    v6 = CHUISLogViewController();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = CHUISLogViewController(layerCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [CHUISWidgetHostViewController _applySecurityPolicyToLayer:allowsPrivacySensitiveContent:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  [layerCopy setDisableUpdateMask:v7];
+  [v6 setDisableUpdateMask:v8];
 }
 
 - (id)_snapshotImageFromURL:(id)l
@@ -4313,8 +4423,6 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4371,19 +4479,19 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
 
 - (void)_ensureAndEvaluateSnapshotView:(id)view
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   viewCopy = view;
-  v6 = CHUISLogViewController();
+  v6 = CHUISLogViewController(viewCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
-    v24 = 134218498;
+    v23 = 134218498;
     selfCopy2 = self;
-    v26 = 2114;
-    v27 = cachedSceneLogDigest;
-    v28 = 2114;
-    v29 = viewCopy;
-    _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] ensureAndEvaluateSnapshotView - reason: %{public}@", &v24, 0x20u);
+    v25 = 2114;
+    v26 = cachedSceneLogDigest;
+    v27 = 2114;
+    v28 = viewCopy;
+    _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] ensureAndEvaluateSnapshotView - reason: %{public}@", &v23, 0x20u);
   }
 
   if (!self->_effectivePresentationMode)
@@ -4417,16 +4525,15 @@ void __98__CHUISWidgetHostViewController__setupTransitionFromSnapshotToLiveConte
 
   if (-[FBScene contentState](self->_scene, "contentState") == 2 || (-[FBScene layerManager](self->_scene, "layerManager"), v11 = objc_claimAutoreleasedReturnValue(), [v11 layers], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count") == 0, v12, v11, !v13))
   {
-    [(CHUISWidgetHostViewController *)self _hideSnapshotViewsAnimated:0 reason:@"ensureSnapshotView - liveSnapshot"];
-    v14 = CHUISLogViewController();
+    v14 = CHUISLogViewController([(CHUISWidgetHostViewController *)self _hideSnapshotViewsAnimated:0 reason:@"ensureSnapshotView - liveSnapshot"]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = self->_cachedSceneLogDigest;
-      v24 = 134218242;
+      v23 = 134218242;
       selfCopy2 = self;
-      v26 = 2114;
-      v27 = v15;
-      _os_log_impl(&dword_1D928E000, v14, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create live scene snapshot view.", &v24, 0x16u);
+      v25 = 2114;
+      v26 = v15;
+      _os_log_impl(&dword_1D928E000, v14, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create live scene snapshot view.", &v23, 0x16u);
     }
 
     [(CHUISWidgetHostViewController *)self _applyLiveSnapshotContents];
@@ -4468,8 +4575,6 @@ LABEL_19:
     [(UIView *)self->_snapshotDebugView setHidden:0];
     [(UIView *)self->_snapshotDebugView setAlpha:1.0];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isShowingAnySnapshot
@@ -4503,37 +4608,38 @@ LABEL_19:
 
 - (void)_updatePersistedSnapshotContent:(BOOL)content
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   _persistedSnapshotContext = [(CHUISWidgetHostViewController *)self _persistedSnapshotContext];
-  v6 = CHUISLogViewController();
+  v6 = CHUISLogViewController(_persistedSnapshotContext);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     cachedSceneLogDigest = self->_cachedSceneLogDigest;
-    v36 = [_persistedSnapshotContext url];
-    v37 = 134218498;
+    v39 = [_persistedSnapshotContext url];
+    v40 = 134218498;
     selfCopy4 = self;
-    v39 = 2114;
-    v40 = cachedSceneLogDigest;
-    v41 = 2112;
-    v42 = v36;
-    _os_log_debug_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] Snapshot context URL: %@", &v37, 0x20u);
+    v42 = 2114;
+    v43 = cachedSceneLogDigest;
+    v44 = 2112;
+    v45 = v39;
+    _os_log_debug_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEBUG, "[%p-%{public}@] Snapshot context URL: %@", &v40, 0x20u);
   }
 
-  if ([_persistedSnapshotContext needsCAPackage])
+  needsCAPackage = [_persistedSnapshotContext needsCAPackage];
+  if (needsCAPackage)
   {
     [(_UICAPackageView *)self->_persistedWidgetSnapshotCaarView removeFromSuperview];
     persistedWidgetSnapshotCaarView = self->_persistedWidgetSnapshotCaarView;
     self->_persistedWidgetSnapshotCaarView = 0;
 
-    v8 = CHUISLogViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = CHUISLogViewController(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_cachedSceneLogDigest;
-      v37 = 134218242;
+      v11 = self->_cachedSceneLogDigest;
+      v40 = 134218242;
       selfCopy4 = self;
-      v39 = 2114;
-      v40 = v9;
-      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create caar snapshot view.", &v37, 0x16u);
+      v42 = 2114;
+      v43 = v11;
+      _os_log_impl(&dword_1D928E000, v10, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create caar snapshot view.", &v40, 0x16u);
     }
 
     [(UIImageView *)self->_persistedWidgetSnapshotImageView setHidden:1];
@@ -4541,17 +4647,17 @@ LABEL_19:
     persistedWidgetSnapshotViewContainer = self->_persistedWidgetSnapshotViewContainer;
     [(CHUISWidgetHostViewController *)self _effectiveViewCornerRadius];
     [(UIView *)persistedWidgetSnapshotViewContainer _setContinuousCornerRadius:?];
-    v11 = objc_alloc(MEMORY[0x1E69DD3B0]);
-    v12 = [_persistedSnapshotContext url];
-    v13 = [v11 initWithContentsOfURL:v12 publishedObjectViewClassMap:0];
-    v14 = self->_persistedWidgetSnapshotCaarView;
-    self->_persistedWidgetSnapshotCaarView = v13;
+    v13 = objc_alloc(MEMORY[0x1E69DD3B0]);
+    v14 = [_persistedSnapshotContext url];
+    v15 = [v13 initWithContentsOfURL:v14 publishedObjectViewClassMap:0];
+    v16 = self->_persistedWidgetSnapshotCaarView;
+    self->_persistedWidgetSnapshotCaarView = v15;
 
-    v15 = self->_persistedWidgetSnapshotCaarView;
-    if (v15)
+    v18 = self->_persistedWidgetSnapshotCaarView;
+    if (v18)
     {
       [(UIView *)self->_persistedWidgetSnapshotViewContainer bounds];
-      [(_UICAPackageView *)v15 setFrame:?];
+      [(_UICAPackageView *)v18 setFrame:?];
       [(_UICAPackageView *)self->_persistedWidgetSnapshotCaarView setAutoresizingMask:18];
       layer = [(_UICAPackageView *)self->_persistedWidgetSnapshotCaarView layer];
       [layer setName:@"Persistent CAAR View"];
@@ -4564,15 +4670,15 @@ LABEL_19:
 
     else
     {
-      snapshotContentID = CHUISLogViewController();
+      snapshotContentID = CHUISLogViewController(v17);
       if (os_log_type_enabled(snapshotContentID, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = self->_cachedSceneLogDigest;
-        v37 = 134218242;
+        v31 = self->_cachedSceneLogDigest;
+        v40 = 134218242;
         selfCopy4 = self;
-        v39 = 2114;
-        v40 = v27;
-        _os_log_impl(&dword_1D928E000, snapshotContentID, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Failed to decode persisted caar file or it didn't exist.", &v37, 0x16u);
+        v42 = 2114;
+        v43 = v31;
+        _os_log_impl(&dword_1D928E000, snapshotContentID, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Failed to decode persisted caar file or it didn't exist.", &v40, 0x16u);
       }
     }
 
@@ -4580,44 +4686,44 @@ LABEL_19:
     [(UIView *)self->_persistedWidgetSnapshotViewContainer setAlpha:1.0];
   }
 
-  else if (content || ([(UIImageView *)self->_persistedWidgetSnapshotImageView image], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, v20))
+  else if (content || ([(UIImageView *)self->_persistedWidgetSnapshotImageView image], v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 == 0, v22, v23))
   {
-    v21 = CHUISLogViewController();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = CHUISLogViewController(needsCAPackage);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = self->_cachedSceneLogDigest;
-      v37 = 134218242;
+      v25 = self->_cachedSceneLogDigest;
+      v40 = 134218242;
       selfCopy4 = self;
-      v39 = 2114;
-      v40 = v22;
-      _os_log_impl(&dword_1D928E000, v21, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create image snapshot view.", &v37, 0x16u);
+      v42 = 2114;
+      v43 = v25;
+      _os_log_impl(&dword_1D928E000, v24, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Create image snapshot view.", &v40, 0x16u);
     }
 
-    v23 = [_persistedSnapshotContext url];
-    v24 = [(CHUISWidgetHostViewController *)self _snapshotImageFromURL:v23];
+    v26 = [_persistedSnapshotContext url];
+    v27 = [(CHUISWidgetHostViewController *)self _snapshotImageFromURL:v26];
 
-    if (v24)
+    if (v27)
     {
       contentIdentifier2 = [_persistedSnapshotContext contentIdentifier];
-      v26 = self->_snapshotContentID;
+      v30 = self->_snapshotContentID;
       self->_snapshotContentID = contentIdentifier2;
     }
 
     else
     {
-      v26 = CHUISLogViewController();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v30 = CHUISLogViewController(v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController _updatePersistedSnapshotContent:?];
+        [CHUISWidgetHostViewController _updatePersistedSnapshotContent:];
       }
     }
 
-    [(UIImageView *)self->_persistedWidgetSnapshotImageView setImage:v24];
+    [(UIImageView *)self->_persistedWidgetSnapshotImageView setImage:v27];
     [(UIImageView *)self->_persistedWidgetSnapshotImageView setClipsToBounds:0];
-    v28 = self->_persistedWidgetSnapshotCaarView;
-    if (v28)
+    v32 = self->_persistedWidgetSnapshotCaarView;
+    if (v32)
     {
-      [(_UICAPackageView *)v28 setHidden:1];
+      [(_UICAPackageView *)v32 setHidden:1];
       [(_UICAPackageView *)self->_persistedWidgetSnapshotCaarView setAlpha:0.0];
     }
 
@@ -4634,22 +4740,23 @@ LABEL_19:
 
   snapshotDebugView = self->_snapshotDebugView;
   yellowColor = [MEMORY[0x1E69DC888] yellowColor];
-  v33 = [yellowColor colorWithAlphaComponent:0.7];
-  [(UIView *)snapshotDebugView setBackgroundColor:v33];
+  v37 = [yellowColor colorWithAlphaComponent:0.7];
+  [(UIView *)snapshotDebugView setBackgroundColor:v37];
 
   [(CHUISWidgetHostViewController *)self _updateSnapshotDebugLabelText:@"SNAPSHOT"];
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hideSnapshotViewsAnimated:(BOOL)animated forceCompleteTeardown:(BOOL)teardown reason:(id)reason
 {
   teardownCopy = teardown;
   animatedCopy = animated;
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  if ([(CHUISLiveSnapshotView *)self->_liveSceneSnapshotView isHidden])
+  isHidden = [(CHUISLiveSnapshotView *)self->_liveSceneSnapshotView isHidden];
+  if (isHidden)
   {
-    v9 = ![(UIView *)self->_persistedWidgetSnapshotViewContainer isHidden];
+    isHidden = [(UIView *)self->_persistedWidgetSnapshotViewContainer isHidden];
+    v10 = isHidden ^ 1;
     if (!animatedCopy)
     {
       goto LABEL_6;
@@ -4658,7 +4765,7 @@ LABEL_19:
 
   else
   {
-    v9 = 1;
+    v10 = 1;
     if (!animatedCopy)
     {
       goto LABEL_6;
@@ -4667,45 +4774,45 @@ LABEL_19:
 
   if (!self->_animatingSnapshotDismissal)
   {
-    v10 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
 LABEL_6:
-  v10 = animatedCopy;
+  v11 = animatedCopy;
 LABEL_8:
-  if (teardownCopy || ((v10 | v9 ^ 1) & 1) == 0)
+  if (teardownCopy || ((v11 | v10 ^ 1) & 1) == 0)
   {
-    v17 = self->_snapshotHidingSequence + 1;
-    self->_snapshotHidingSequence = v17;
-    v18 = CHUISLogViewController();
-    v19 = v18;
+    v18 = self->_snapshotHidingSequence + 1;
+    self->_snapshotHidingSequence = v18;
+    v19 = CHUISLogViewController(isHidden);
+    v20 = v19;
     signpostID = self->_signpostID;
-    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D928E000, v19, OS_SIGNPOST_EVENT, signpostID, "TeardownSnapshotView", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1D928E000, v20, OS_SIGNPOST_EVENT, signpostID, "TeardownSnapshotView", "", buf, 2u);
     }
 
-    v21 = CHUISLogViewController();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = CHUISLogViewController(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v23 = @"NO";
+      v25 = @"NO";
       *buf = 134218754;
       if (animatedCopy)
       {
-        v23 = @"YES";
+        v25 = @"YES";
       }
 
       selfCopy3 = self;
-      v43 = 2114;
-      v44 = cachedSceneLogDigest;
       v45 = 2114;
-      v46 = v23;
+      v46 = cachedSceneLogDigest;
       v47 = 2114;
-      v48 = reasonCopy;
-      _os_log_impl(&dword_1D928E000, v21, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Destroy snapshot views (animated: %{public}@, reason=%{public}@)", buf, 0x2Au);
+      v48 = v25;
+      v49 = 2114;
+      v50 = reasonCopy;
+      _os_log_impl(&dword_1D928E000, v23, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Destroy snapshot views (animated: %{public}@, reason=%{public}@)", buf, 0x2Au);
     }
 
     if (![(CHUISWidgetHostViewController *)self _isContentEffectivelyTransparent])
@@ -4718,81 +4825,71 @@ LABEL_8:
       clientSettings = [(FBScene *)self->_scene clientSettings];
       entryContentID = [clientSettings entryContentID];
 
-      v26 = [entryContentID isEqualToString:self->_snapshotContentID];
-      if (v26)
+      v28 = [entryContentID isEqualToString:self->_snapshotContentID];
+      v29 = v28;
+      if (v28)
       {
-        v27 = CHUISLogViewController();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v30 = CHUISLogViewController(v28);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = self->_cachedSceneLogDigest;
+          v31 = self->_cachedSceneLogDigest;
           *buf = 134218242;
           selfCopy3 = self;
-          v43 = 2114;
-          v44 = v28;
-          _os_log_impl(&dword_1D928E000, v27, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Overriding animation to false because snapshot and content are the same.", buf, 0x16u);
+          v45 = 2114;
+          v46 = v31;
+          _os_log_impl(&dword_1D928E000, v30, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Overriding animation to false because snapshot and content are the same.", buf, 0x16u);
         }
       }
 
-      v29 = v26 ^ 1;
+      v32 = v29 ^ 1;
     }
 
     else
     {
-      v29 = 0;
+      v32 = 0;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke;
     aBlock[3] = &unk_1E8575A08;
-    v40 = v29;
-    v39 = v17;
+    v42 = v32;
+    v41 = v18;
     aBlock[4] = self;
-    v38 = reasonCopy;
-    v30 = _Block_copy(aBlock);
-    v31 = v30;
-    if (v29 && !self->_disableViewTransitionAnimations)
+    v40 = reasonCopy;
+    v33 = _Block_copy(aBlock);
+    v34 = v33;
+    if (v32 && !self->_disableViewTransitionAnimations)
     {
-      v32 = MEMORY[0x1E69DD250];
+      v35 = MEMORY[0x1E69DD250];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_360;
+      v38[3] = &unk_1E85754D0;
+      v38[4] = self;
       v36[0] = MEMORY[0x1E69E9820];
       v36[1] = 3221225472;
-      v36[2] = __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_360;
-      v36[3] = &unk_1E85754D0;
-      v36[4] = self;
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_2;
-      v34[3] = &unk_1E8575A30;
-      v35 = v30;
-      [v32 animateWithDuration:v36 animations:v34 completion:0.4];
+      v36[2] = __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_2;
+      v36[3] = &unk_1E8575A30;
+      v37 = v33;
+      [v35 animateWithDuration:v38 animations:v36 completion:0.4];
     }
 
     else
     {
-      v30[2](v30);
+      v33[2](v33);
     }
   }
 
   else
   {
-    v11 = CHUISLogViewController();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CHUISLogViewController(isHidden);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = self->_cachedSceneLogDigest;
-      v13 = @"NO";
+      v13 = self->_cachedSceneLogDigest;
+      v14 = @"NO";
       animatingSnapshotDismissal = self->_animatingSnapshotDismissal;
       if (animatedCopy)
-      {
-        v15 = @"YES";
-      }
-
-      else
-      {
-        v15 = @"NO";
-      }
-
-      *buf = 134219266;
-      if (animatingSnapshotDismissal)
       {
         v16 = @"YES";
       }
@@ -4802,46 +4899,55 @@ LABEL_8:
         v16 = @"NO";
       }
 
-      selfCopy3 = self;
-      if (v9)
+      *buf = 134219266;
+      if (animatingSnapshotDismissal)
       {
-        v13 = @"YES";
+        v17 = @"YES";
       }
 
-      v43 = 2114;
-      v44 = v12;
+      else
+      {
+        v17 = @"NO";
+      }
+
+      selfCopy3 = self;
+      if (v10)
+      {
+        v14 = @"YES";
+      }
+
       v45 = 2114;
-      v46 = v15;
+      v46 = v13;
       v47 = 2114;
-      v48 = reasonCopy;
+      v48 = v16;
       v49 = 2114;
-      v50 = v16;
+      v50 = reasonCopy;
       v51 = 2114;
-      v52 = v13;
-      _os_log_impl(&dword_1D928E000, v11, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Destroy snapshot views requested but ignored because not necessary or already dismissing (animated: %{public}@, reason=%{public}@, animatingSnapshotDismissal=%{public}@, needsDismissal=%{public}@)", buf, 0x3Eu);
+      v52 = v17;
+      v53 = 2114;
+      v54 = v14;
+      _os_log_impl(&dword_1D928E000, v12, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Destroy snapshot views requested but ignored because not necessary or already dismissing (animated: %{public}@, reason=%{public}@, animatingSnapshotDismissal=%{public}@, needsDismissal=%{public}@)", buf, 0x3Eu);
     }
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       [(UIView *)self->_sceneView setAlpha:1.0];
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke(uint64_t result)
+void *__89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke(void *result)
 {
   v1 = result;
   v20 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 48);
-  v3 = *(result + 32);
+  v2 = result[6];
+  v3 = result[4];
   v4 = *(v3 + 1288);
   if (*(result + 56) == 1)
   {
     if (v2 != v4)
     {
-      goto LABEL_9;
+      return result;
     }
 
     goto LABEL_5;
@@ -4853,45 +4959,42 @@ LABEL_5:
     *(v3 + 1288) = 0;
   }
 
-  v5 = *(result + 32);
+  v5 = result[4];
   v6 = *(v5 + 1088);
   *(v5 + 1088) = 0;
 
-  *(*(v1 + 32) + 1080) = 0;
-  v7 = CHUISLogViewController();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  *(v1[4] + 1080) = 0;
+  v8 = CHUISLogViewController(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(v1 + 32);
-    v9 = *(v1 + 40);
-    v10 = *(v8 + 1152);
+    v9 = v1[4];
+    v10 = v1[5];
+    v11 = *(v9 + 1152);
     v14 = 134218498;
-    v15 = v8;
+    v15 = v9;
     v16 = 2114;
-    v17 = v10;
+    v17 = v11;
     v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Finish hiding snapshots (reason=%{public}@)", &v14, 0x20u);
+    v19 = v10;
+    _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Finish hiding snapshots (reason=%{public}@)", &v14, 0x20u);
   }
 
-  [*(*(v1 + 32) + 1056) removeFromSuperview];
-  v11 = *(v1 + 32);
-  v12 = *(v11 + 1056);
-  *(v11 + 1056) = 0;
+  [*(v1[4] + 1056) removeFromSuperview];
+  v12 = v1[4];
+  v13 = *(v12 + 1056);
+  *(v12 + 1056) = 0;
 
-  [*(*(v1 + 32) + 1064) setImage:0];
-  [*(*(v1 + 32) + 1048) setSnapshotView:0];
-  [*(*(v1 + 32) + 1048) setHidden:1];
-  [*(*(v1 + 32) + 1072) setHidden:1];
-  [*(*(v1 + 32) + 1096) setHidden:1];
-  [*(*(v1 + 32) + 1104) setHidden:1];
-  [*(*(v1 + 32) + 1048) setAlpha:0.0];
-  [*(*(v1 + 32) + 1072) setAlpha:0.0];
-  [*(*(v1 + 32) + 1096) setAlpha:0.0];
-  [*(*(v1 + 32) + 1104) setAlpha:0.0];
-  result = [*(*(v1 + 32) + 1112) setAlpha:1.0];
-LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  [*(v1[4] + 1064) setImage:0];
+  [*(v1[4] + 1048) setSnapshotView:0];
+  [*(v1[4] + 1048) setHidden:1];
+  [*(v1[4] + 1072) setHidden:1];
+  [*(v1[4] + 1096) setHidden:1];
+  [*(v1[4] + 1104) setHidden:1];
+  [*(v1[4] + 1048) setAlpha:0.0];
+  [*(v1[4] + 1072) setAlpha:0.0];
+  [*(v1[4] + 1096) setAlpha:0.0];
+  [*(v1[4] + 1104) setAlpha:0.0];
+  return [*(v1[4] + 1112) setAlpha:1.0];
 }
 
 uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_360(uint64_t a1)
@@ -4906,54 +5009,52 @@ uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCom
   return [v2 setAlpha:1.0];
 }
 
-uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_2(uint64_t a1)
+uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCompleteTeardown_reason___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v2();
+  return v3();
 }
 
 - (void)_setInSecureEnvironment:(unint64_t)environment forReason:(id)reason
 {
   v20 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  BSDispatchQueueAssertMain();
+  v7 = BSDispatchQueueAssertMain();
   if (self->_inSecureEnvironmentTriState != environment)
   {
     self->_inSecureEnvironmentTriState = environment;
-    v7 = CHUISLogViewController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHUISLogViewController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       cachedSceneLogDigest = self->_cachedSceneLogDigest;
-      v9 = @"NotSet";
+      v10 = @"NotSet";
       if (environment == 2)
       {
-        v9 = @"No";
+        v10 = @"No";
       }
 
       if (environment == 1)
       {
-        v9 = @"Yes";
+        v10 = @"Yes";
       }
 
-      v10 = v9;
+      v11 = v10;
       v12 = 134218754;
       selfCopy = self;
       v14 = 2114;
       v15 = cachedSceneLogDigest;
       v16 = 2114;
-      v17 = v10;
+      v17 = v11;
       v18 = 2114;
       v19 = reasonCopy;
-      _os_log_impl(&dword_1D928E000, v7, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Secure environment changed to %{public}@ for reason: %{public}@", &v12, 0x2Au);
+      _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Secure environment changed to %{public}@ for reason: %{public}@", &v12, 0x2Au);
     }
 
     [(CHUISWidgetHostViewController *)self _hideSnapshotViewsAnimated:0 forceCompleteTeardown:1 reason:@"setInSecureEnvironment"];
     [(CHUISWidgetHostViewController *)self _setEffectivePresentationMode:self->_effectivePresentationMode reason:@"secure environment changed" forceExistingRebuild:1 allowCreatingScene:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_evaluateEffectiveInSecureEnvironmentForReason:(id)reason
@@ -4974,24 +5075,24 @@ uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCom
 
 - (void)_invalidateDetachedSceneTimerForReason:(id)reason ignoreLogging:(BOOL)logging
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   detachedSceneTimer = self->_detachedSceneTimer;
   if (detachedSceneTimer)
   {
     if (!logging)
     {
-      v8 = CHUISLogViewController();
+      v8 = CHUISLogViewController(detachedSceneTimer);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         cachedSceneLogDigest = self->_cachedSceneLogDigest;
-        v12 = 134218498;
+        v11 = 134218498;
         selfCopy = self;
-        v14 = 2114;
-        v15 = cachedSceneLogDigest;
-        v16 = 2114;
-        v17 = reasonCopy;
-        _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidating detached scene timer for reason: %{public}@", &v12, 0x20u);
+        v13 = 2114;
+        v14 = cachedSceneLogDigest;
+        v15 = 2114;
+        v16 = reasonCopy;
+        _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Invalidating detached scene timer for reason: %{public}@", &v11, 0x20u);
       }
 
       detachedSceneTimer = self->_detachedSceneTimer;
@@ -5001,19 +5102,16 @@ uint64_t __89__CHUISWidgetHostViewController__hideSnapshotViewsAnimated_forceCom
     v10 = self->_detachedSceneTimer;
     self->_detachedSceneTimer = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleEvaluationOfDetachedSceneTimerForReason:(id)reason
 {
   reasonCopy = reason;
   BSDispatchQueueAssertMain();
-  [(NSMutableArray *)self->_detachedSceneTimerEvaluationReasons addObject:reasonCopy];
-  v5 = CHUISLogViewController();
+  v5 = CHUISLogViewController([(NSMutableArray *)self->_detachedSceneTimerEvaluationReasons addObject:reasonCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [CHUISWidgetHostViewController _scheduleEvaluationOfDetachedSceneTimerForReason:?];
+    [CHUISWidgetHostViewController _scheduleEvaluationOfDetachedSceneTimerForReason:];
   }
 
   if ([(NSMutableArray *)self->_detachedSceneTimerEvaluationReasons count]== 1)
@@ -5037,10 +5135,10 @@ void __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimer
   if (WeakRetained)
   {
     v3 = [WeakRetained[155] componentsJoinedByString:{@", "}];
-    v4 = CHUISLogViewController();
+    v4 = CHUISLogViewController(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimerForReason___block_invoke_cold_1(v2);
+      __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimerForReason___block_invoke_cold_1();
     }
 
     [v2[155] removeAllObjects];
@@ -5050,11 +5148,30 @@ void __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimer
 
 - (void)_detachedSceneTimerFired
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_8(&dword_1D928E000, v2, v3, "[%p-%{public}@] Detached scene idle timer fired. Invalidating scene.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  view = [(CHUISWidgetHostViewController *)self view];
+  window = [view window];
+  if (window || !self->_scene)
+  {
+  }
+
+  else
+  {
+    settings = [(FBScene *)self->_scene settings];
+    isForeground = [settings isForeground];
+
+    if (isForeground)
+    {
+      v8 = CHUISLogViewController(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [CHUISWidgetHostViewController _detachedSceneTimerFired];
+      }
+
+      [(CHUISWidgetHostViewController *)self _tearDownScene];
+    }
+  }
+
+  [(CHUISWidgetHostViewController *)self _invalidateDetachedSceneTimerForReason:@"Timer fired (no longer foreground)"];
 }
 
 - (void)__evaluateDetachedSceneTimerForReason:(id)reason
@@ -5092,15 +5209,15 @@ void __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimer
 
       if (isForeground)
       {
-        v11 = CHUISLogViewController();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = CHUISLogViewController(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           cachedSceneLogDigest = self->_cachedSceneLogDigest;
           *buf = 134218242;
           selfCopy = self;
           v24 = 2114;
           v25 = cachedSceneLogDigest;
-          _os_log_impl(&dword_1D928E000, v11, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Detached scene detected. Starting idle timer...", buf, 0x16u);
+          _os_log_impl(&dword_1D928E000, v12, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Detached scene detected. Starting idle timer...", buf, 0x16u);
         }
 
         [(CHUISWidgetHostViewController *)self _invalidateDetachedSceneTimerForReason:@"New timer" ignoreLogging:1];
@@ -5112,28 +5229,26 @@ void __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimer
         else
         {
           objc_initWeak(buf, self);
-          v13 = objc_alloc(MEMORY[0x1E698E660]);
-          v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<DetachedLiveSceneTimer-%@>", self->_cachedSceneLogDigest];
-          v15 = [v13 initWithIdentifier:v14];
-          v16 = self->_detachedSceneTimer;
-          self->_detachedSceneTimer = v15;
-
+          v14 = objc_alloc(MEMORY[0x1E698E660]);
+          v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<DetachedLiveSceneTimer-%@>", self->_cachedSceneLogDigest];
+          v16 = [v14 initWithIdentifier:v15];
           v17 = self->_detachedSceneTimer;
+          self->_detachedSceneTimer = v16;
+
+          v18 = self->_detachedSceneTimer;
           detachedSceneTimerInterval = self->_detachedSceneTimerInterval;
           v20[0] = MEMORY[0x1E69E9820];
           v20[1] = 3221225472;
           v20[2] = __71__CHUISWidgetHostViewController___evaluateDetachedSceneTimerForReason___block_invoke;
           v20[3] = &unk_1E8575A80;
           objc_copyWeak(&v21, buf);
-          [(BSContinuousMachTimer *)v17 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v20 queue:detachedSceneTimerInterval handler:1.0];
+          [(BSContinuousMachTimer *)v18 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v20 queue:detachedSceneTimerInterval handler:1.0];
           objc_destroyWeak(&v21);
           objc_destroyWeak(buf);
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __71__CHUISWidgetHostViewController___evaluateDetachedSceneTimerForReason___block_invoke(uint64_t a1)
@@ -5169,18 +5284,18 @@ void __54__CHUISWidgetHostViewController__compatibilityMetrics__block_invoke()
 {
   if (!self->_materialBackgroundView)
   {
-    v7 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:0];
+    v8 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:0];
     materialBackgroundView = self->_materialBackgroundView;
-    self->_materialBackgroundView = v7;
+    self->_materialBackgroundView = v8;
 
-    v9 = self->_materialBackgroundView;
+    v10 = self->_materialBackgroundView;
     view = [(CHUISWidgetHostViewController *)self view];
     [view bounds];
-    [(UIVisualEffectView *)v9 setFrame:?];
+    [(UIVisualEffectView *)v10 setFrame:?];
 
-    v11 = self->_materialBackgroundView;
+    v12 = self->_materialBackgroundView;
     _effectiveBackgroundColor = [(CHUISWidgetHostViewController *)self _effectiveBackgroundColor];
-    [(UIVisualEffectView *)v11 setBackgroundColor:_effectiveBackgroundColor];
+    [(UIVisualEffectView *)v12 setBackgroundColor:_effectiveBackgroundColor];
 
     [(UIVisualEffectView *)self->_materialBackgroundView setAutoresizingMask:18];
     view2 = [(CHUISWidgetHostViewController *)self view];
@@ -5197,19 +5312,19 @@ LABEL_9:
     {
       if (mode == 2)
       {
-        v26 = CHUISLogViewController();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v27 = CHUISLogViewController(_actualBackgroundViewMode);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          [CHUISWidgetHostViewController _setBackgroundViewMode:?];
+          [CHUISWidgetHostViewController _setBackgroundViewMode:];
         }
 
         [(UIVisualEffectView *)self->_materialBackgroundView setHidden:0];
         _effectiveBackgroundColor2 = [MEMORY[0x1E69DC730] effectWithStyle:7];
         [(UIVisualEffectView *)self->_materialBackgroundView setEffect:_effectiveBackgroundColor2];
         [(UIVisualEffectView *)self->_materialBackgroundView setBackgroundColor:0];
-        v27 = self->_materialBackgroundView;
+        v28 = self->_materialBackgroundView;
         [(CHUISWidgetHostViewController *)self _effectiveCornerRadius];
-        [(UIVisualEffectView *)v27 _setContinuousCornerRadius:?];
+        [(UIVisualEffectView *)v28 _setContinuousCornerRadius:?];
         [(CHUISSolariumEffectView *)self->_glassBackgroundView setHidden:1];
         goto LABEL_27;
       }
@@ -5219,31 +5334,31 @@ LABEL_9:
         goto LABEL_31;
       }
 
-      v21 = CHUISLogViewController();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = CHUISLogViewController(_actualBackgroundViewMode);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController _setBackgroundViewMode:?];
+        [CHUISWidgetHostViewController _setBackgroundViewMode:];
       }
 
       [(UIVisualEffectView *)self->_materialBackgroundView setHidden:1];
       glassBackgroundView = self->_glassBackgroundView;
       if (!glassBackgroundView)
       {
-        v28 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
+        v29 = [_TtC16ChronoUIServices23CHUISSolariumEffectView alloc];
         tintParameters = self->_tintParameters;
         effectiveBackgroundColorScheme = self->_effectiveBackgroundColorScheme;
         [(CHSWidgetMetrics *)self->_widgetMetrics cornerRadius];
-        v32 = v31;
+        v33 = v32;
         view4 = [(CHUISWidgetHostViewController *)self view];
         [view4 bounds];
-        v38 = [(CHUISSolariumEffectView *)v28 initWithLayerType:0 tintParameters:tintParameters preferredColorScheme:effectiveBackgroundColorScheme cornerRadius:v32 frame:v34, v35, v36, v37];
-        v39 = self->_glassBackgroundView;
-        self->_glassBackgroundView = v38;
-
+        v39 = [(CHUISSolariumEffectView *)v29 initWithLayerType:0 tintParameters:tintParameters preferredColorScheme:effectiveBackgroundColorScheme cornerRadius:v33 frame:v35, v36, v37, v38];
         v40 = self->_glassBackgroundView;
+        self->_glassBackgroundView = v39;
+
+        v41 = self->_glassBackgroundView;
         view5 = [(CHUISWidgetHostViewController *)self view];
         [view5 bounds];
-        [(CHUISSolariumEffectView *)v40 setFrame:?];
+        [(CHUISSolariumEffectView *)v41 setFrame:?];
 
         [(CHUISSolariumEffectView *)self->_glassBackgroundView setBackgroundColor:0];
         [(CHUISSolariumEffectView *)self->_glassBackgroundView setAutoresizingMask:18];
@@ -5262,10 +5377,10 @@ LABEL_9:
       [(CHUISSolariumEffectView *)glassBackgroundView setPreferredColorScheme:self->_effectiveBackgroundColorScheme];
       [(CHUISSolariumEffectView *)self->_glassBackgroundView setTintParameters:self->_tintParameters];
       [(CHUISSolariumEffectView *)self->_glassBackgroundView setHidden:0];
-      v45 = self->_glassBackgroundView;
+      v46 = self->_glassBackgroundView;
       [(CHUISWidgetHostViewController *)self _effectiveCornerRadius];
-      [(CHUISSolariumEffectView *)v45 setCornerRadius:?];
-      v25 = self->_glassBackgroundView;
+      [(CHUISSolariumEffectView *)v46 setCornerRadius:?];
+      v26 = self->_glassBackgroundView;
     }
 
     else
@@ -5277,10 +5392,10 @@ LABEL_9:
           goto LABEL_31;
         }
 
-        v16 = CHUISLogViewController();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v17 = CHUISLogViewController(_actualBackgroundViewMode);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          [CHUISWidgetHostViewController _setBackgroundViewMode:?];
+          [CHUISWidgetHostViewController _setBackgroundViewMode:];
         }
 
         [(CHUISSolariumEffectView *)self->_glassBackgroundView setHidden:1];
@@ -5293,18 +5408,18 @@ LABEL_9:
         layer4 = [(UIVisualEffectView *)self->_materialBackgroundView layer];
         [layer4 setCornerCurve:*MEMORY[0x1E69796E8]];
 
-        v19 = self->_materialBackgroundView;
+        v20 = self->_materialBackgroundView;
         _effectiveBackgroundColor2 = [(CHUISWidgetHostViewController *)self _effectiveBackgroundColor];
-        [(UIVisualEffectView *)v19 setBackgroundColor:_effectiveBackgroundColor2];
+        [(UIVisualEffectView *)v20 setBackgroundColor:_effectiveBackgroundColor2];
 LABEL_27:
 
         goto LABEL_31;
       }
 
-      v23 = CHUISLogViewController();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = CHUISLogViewController(_actualBackgroundViewMode);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [CHUISWidgetHostViewController _setBackgroundViewMode:?];
+        [CHUISWidgetHostViewController _setBackgroundViewMode:];
       }
 
       [(CHUISSolariumEffectView *)self->_glassBackgroundView setHidden:1];
@@ -5312,22 +5427,23 @@ LABEL_27:
       layer5 = [(UIVisualEffectView *)self->_materialBackgroundView layer];
       [layer5 setCornerRadius:0.0];
 
-      v25 = self->_materialBackgroundView;
+      v26 = self->_materialBackgroundView;
     }
 
     [(CHUISWidgetHostViewController *)self _effectiveCornerRadius];
-    [v25 _setContinuousCornerRadius:?];
+    [v26 _setContinuousCornerRadius:?];
     goto LABEL_31;
   }
 
-  if ([(CHUISWidgetHostViewController *)self _actualBackgroundViewMode]!= mode)
+  _actualBackgroundViewMode = [(CHUISWidgetHostViewController *)self _actualBackgroundViewMode];
+  if (_actualBackgroundViewMode != mode)
   {
     goto LABEL_9;
   }
 
-  v5 = self->_materialBackgroundView;
+  v6 = self->_materialBackgroundView;
   _effectiveBackgroundColor3 = [(CHUISWidgetHostViewController *)self _effectiveBackgroundColor];
-  [(UIVisualEffectView *)v5 setBackgroundColor:_effectiveBackgroundColor3];
+  [(UIVisualEffectView *)v6 setBackgroundColor:_effectiveBackgroundColor3];
 
   [(CHUISSolariumEffectView *)self->_glassBackgroundView setPreferredColorScheme:self->_effectiveBackgroundColorScheme];
   if (self->_tintParameters)
@@ -5361,10 +5477,10 @@ LABEL_31:
 
 void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_forceExistingRebuild_allowCreatingScene___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 1360) = *(*(a1 + 32) + 1352);
   *(*(a1 + 32) + 1352) = *(a1 + 48);
-  v2 = CHUISLogViewController();
+  v2 = CHUISLogViewController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -5382,13 +5498,13 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
 
     v7 = *(a1 + 40);
     *buf = 134218754;
-    v18 = v3;
-    v19 = 2114;
-    v20 = v4;
-    v21 = 2114;
-    v22 = v6;
-    v23 = 2114;
-    v24 = v7;
+    v17 = v3;
+    v18 = 2114;
+    v19 = v4;
+    v20 = 2114;
+    v21 = v6;
+    v22 = 2114;
+    v23 = v7;
     _os_log_impl(&dword_1D928E000, v2, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Effective presentation mode will change to %{public}@ for reason: %{public}@", buf, 0x2Au);
   }
 
@@ -5465,8 +5581,6 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
     [v8 _hideSnapshotViewsAnimated:0 reason:@"setEffectivePresentationMode - None"];
     [*(a1 + 32) _updateSceneToForeground:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_forceExistingRebuild_allowCreatingScene___block_invoke_415(uint64_t a1)
@@ -5485,12 +5599,12 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
 - (void)_updateSceneToForeground:(BOOL)foreground
 {
   foregroundCopy = foreground;
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   if (!self->_invalidated)
   {
-    sceneForeground = self->_sceneForeground;
-    if ((BSEqualBools() & 1) == 0)
+    v5 = BSEqualBools();
+    if ((v5 & 1) == 0)
     {
       if (foregroundCopy)
       {
@@ -5504,7 +5618,7 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
       self->_sceneForeground = foregroundCopy;
       if (self->_scene)
       {
-        v8 = CHUISLogViewController();
+        v8 = CHUISLogViewController(v5);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           cachedSceneLogDigest = self->_cachedSceneLogDigest;
@@ -5519,7 +5633,7 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
           *&buf[12] = 2114;
           *&buf[14] = cachedSceneLogDigest;
           *&buf[22] = 2114;
-          v59 = v10;
+          v60 = v10;
           _os_log_impl(&dword_1D928E000, v8, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Updating - %{public}@", buf, 0x20u);
         }
 
@@ -5528,7 +5642,7 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
         aBlock[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke;
         aBlock[3] = &unk_1E8575AA8;
         aBlock[4] = self;
-        v53 = foregroundCopy;
+        v54 = foregroundCopy;
         v11 = _Block_copy(aBlock);
         v12 = v11;
         if (foregroundCopy || (self->_effectivePresentationMode | 2) != 3)
@@ -5538,72 +5652,73 @@ void __110__CHUISWidgetHostViewController__setEffectivePresentationMode_reason_f
 
         else
         {
-          v50[5] = MEMORY[0x1E69E9820];
-          v50[6] = 3221225472;
-          v50[7] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_3;
-          v50[8] = &unk_1E8575AD0;
-          v51 = v11;
+          v51[5] = MEMORY[0x1E69E9820];
+          v51[6] = 3221225472;
+          v51[7] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_3;
+          v51[8] = &unk_1E8575AD0;
+          v52 = v11;
           BSRunLoopPerformAfterCACommit();
         }
 
 LABEL_29:
         [(CHUISWidgetHostViewController *)self _scheduleEvaluationOfDetachedSceneTimerForReason:@"scene modified"];
-        goto LABEL_30;
+        return;
       }
 
       if (!-[CHUISPreferences enableMemoryStressTestingWithGaspar](self->_preferences, "enableMemoryStressTestingWithGaspar") || ([MEMORY[0x1E696AAE8] mainBundle], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "bundleIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", @"com.apple.Gaspar"), v14, v13, (v15 & 1) != 0))
       {
-        if ([(NSMutableArray *)self->_pendingUpdateBlocks count])
+        v17 = [(NSMutableArray *)self->_pendingUpdateBlocks count];
+        if (v17)
         {
           pendingUpdateBlocks = self->_pendingUpdateBlocks;
           self->_pendingUpdateBlocks = 0;
         }
 
-        v17 = CHUISLogViewController();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = CHUISLogViewController(v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = self->_cachedSceneLogDigest;
-          v19 = @"Background";
+          v20 = self->_cachedSceneLogDigest;
+          v21 = @"Background";
           *buf = 134218498;
           if (foregroundCopy)
           {
-            v19 = @"Foreground";
+            v21 = @"Foreground";
           }
 
           *&buf[4] = self;
           *&buf[12] = 2114;
-          *&buf[14] = v18;
+          *&buf[14] = v20;
           *&buf[22] = 2114;
-          v59 = v19;
-          _os_log_impl(&dword_1D928E000, v17, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Creating - %{public}@", buf, 0x20u);
+          v60 = v21;
+          _os_log_impl(&dword_1D928E000, v19, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Creating - %{public}@", buf, 0x20u);
         }
 
         sceneWorkspace = self->_sceneWorkspace;
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_432;
-        v50[3] = &unk_1E8575AF8;
-        v50[4] = self;
-        v21 = [(FBSceneWorkspace *)sceneWorkspace createScene:v50];
+        v51[0] = MEMORY[0x1E69E9820];
+        v51[1] = 3221225472;
+        v51[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_432;
+        v51[3] = &unk_1E8575AF8;
+        v51[4] = self;
+        v23 = [(FBSceneWorkspace *)sceneWorkspace createScene:v51];
         scene = self->_scene;
-        self->_scene = v21;
+        self->_scene = v23;
 
         [(FBScene *)self->_scene setDelegate:self];
         layerManager = [(FBScene *)self->_scene layerManager];
         [layerManager addObserver:self];
 
-        v24 = self->_scene;
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_2_439;
-        v48[3] = &unk_1E8575B70;
-        v48[4] = self;
-        v49 = foregroundCopy;
-        [(FBScene *)v24 configureParameters:v48];
+        v26 = self->_scene;
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_2_439;
+        v49[3] = &unk_1E8575B70;
+        v49[4] = self;
+        v50 = foregroundCopy;
+        [(FBScene *)v26 configureParameters:v49];
         uiPresentationManager = [(FBScene *)self->_scene uiPresentationManager];
-        v26 = [uiPresentationManager createPresenterWithIdentifier:@"default"];
+        v28 = [uiPresentationManager createPresenterWithIdentifier:@"default"];
         scenePresenter = self->_scenePresenter;
-        self->_scenePresenter = v26;
+        self->_scenePresenter = v28;
 
         [(UIScenePresenter *)self->_scenePresenter modifyPresentationContext:&__block_literal_global_447];
         [(UIScenePresenter *)self->_scenePresenter activate];
@@ -5622,30 +5737,30 @@ LABEL_29:
         layer = [(UIView *)self->_sceneView layer];
         [layer setName:@"Scene View"];
 
-        v33 = self->_sceneView;
+        v35 = self->_sceneView;
         [(CHUISWidgetHostViewController *)self _effectiveViewCornerRadius];
-        [(UIView *)v33 _setContinuousCornerRadius:?];
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2050000000;
-        v34 = getBLSHBacklightFBSceneEnvironmentActionHandlerClass_softClass;
-        v57 = getBLSHBacklightFBSceneEnvironmentActionHandlerClass_softClass;
+        [(UIView *)v35 _setContinuousCornerRadius:?];
+        v55 = 0;
+        v56 = &v55;
+        v57 = 0x2050000000;
+        v36 = getBLSHBacklightFBSceneEnvironmentActionHandlerClass_softClass;
+        v58 = getBLSHBacklightFBSceneEnvironmentActionHandlerClass_softClass;
         if (!getBLSHBacklightFBSceneEnvironmentActionHandlerClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getBLSHBacklightFBSceneEnvironmentActionHandlerClass_block_invoke;
-          v59 = &unk_1E8575C20;
-          v60 = &v54;
+          v60 = &unk_1E8575C20;
+          v61 = &v55;
           __getBLSHBacklightFBSceneEnvironmentActionHandlerClass_block_invoke(buf);
-          v34 = v55[3];
+          v36 = v56[3];
         }
 
-        v35 = v34;
-        _Block_object_dispose(&v54, 8);
-        v36 = objc_alloc_init(v34);
+        v37 = v36;
+        _Block_object_dispose(&v55, 8);
+        v38 = objc_alloc_init(v36);
         sceneBacklightActionHandler = self->_sceneBacklightActionHandler;
-        self->_sceneBacklightActionHandler = v36;
+        self->_sceneBacklightActionHandler = v38;
 
         backlightSceneHostEnvironment = [(FBScene *)self->_scene backlightSceneHostEnvironment];
         sceneBacklightEnvironment = self->_sceneBacklightEnvironment;
@@ -5657,54 +5772,49 @@ LABEL_29:
 
         if ([(CHUISPreferences *)self->_preferences debugRenderBoxSurfaces])
         {
-          v41 = objc_alloc_init(MEMORY[0x1E69DC6A0]);
-          v42 = objc_alloc_init(MEMORY[0x1E699F7B8]);
-          [v42 setEnvironment:&unk_1F54CD4B8];
-          v43 = [v42 copy];
-          [v41 setExecutionContext:v43];
+          v43 = objc_alloc_init(MEMORY[0x1E69DC6A0]);
+          v44 = objc_alloc_init(MEMORY[0x1E699F7B8]);
+          [v44 setEnvironment:&unk_1F54CD4B8];
+          v45 = [v44 copy];
+          [v43 setExecutionContext:v45];
 
-          v44 = v41;
+          v46 = v43;
         }
 
         else
         {
-          v44 = 0;
+          v46 = 0;
         }
 
-        [(FBScene *)self->_scene activateWithTransitionContext:v44];
+        [(FBScene *)self->_scene activateWithTransitionContext:v46];
         identifier = [(FBScene *)self->_scene identifier];
         [(CHUISWidgetHostViewController *)self sceneDidUpdateToSceneIdentifier:identifier];
 
         goto LABEL_29;
       }
 
-      v47 = CHUISLogViewController();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v48 = CHUISLogViewController(v16);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D928E000, v47, OS_LOG_TYPE_DEFAULT, "Ignoring scene create due to stress testing mode with Gaspar enabled.", buf, 2u);
+        _os_log_impl(&dword_1D928E000, v48, OS_LOG_TYPE_DEFAULT, "Ignoring scene create due to stress testing mode with Gaspar enabled.", buf, 2u);
       }
     }
   }
-
-LABEL_30:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 1024);
-  v3 = *(a1 + 40);
   result = BSEqualBools();
   if (result)
   {
-    v5 = *(a1 + 32);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_2;
-    v6[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-    v7 = *(a1 + 40);
-    result = [v5 modifySceneSettings:v6];
+    v3 = *(a1 + 32);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __58__CHUISWidgetHostViewController__updateSceneToForeground___block_invoke_2;
+    v4[3] = &__block_descriptor_33_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    v5 = *(a1 + 40);
+    result = [v3 modifySceneSettings:v4];
     if (*(a1 + 40) == 1)
     {
       result = [*(*(a1 + 32) + 1016) isActive];
@@ -5916,35 +6026,25 @@ void __61__CHUISWidgetHostViewController__updateTouchDeliveryPolicies__block_inv
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = CHUISLogViewControllerTouch();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CHUISLogViewControllerTouch(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = WeakRetained[144];
-      v7 = *(a1 + 32);
+      v7 = v5[144];
+      v8 = *(a1 + 32);
       v9 = 134218754;
-      v10 = WeakRetained;
+      v10 = v5;
       v11 = 2114;
-      v12 = v6;
+      v12 = v7;
       v13 = 2114;
-      v14 = v7;
+      v14 = v8;
       v15 = 2114;
       v16 = v3;
-      _os_log_impl(&dword_1D928E000, v5, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v9, 0x2Au);
+      _os_log_impl(&dword_1D928E000, v6, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v9, 0x2Au);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithWidget:(uint64_t)a1 metrics:widgetConfigurationIdentifier:extensionProvider:sceneWorkspace:screenshotManager:preferences:keybag:.cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Created.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWidget:(NSObject *)a1 .cold.1(NSObject *a1, NSObject **a2)
@@ -5958,68 +6058,67 @@ void __61__CHUISWidgetHostViewController__updateTouchDeliveryPolicies__block_inv
   *a2 = a1;
 }
 
-- (void)setPresentationMode:.cold.1()
+- (void)setPresentationMode:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set a new presentation mode on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set a new presentation mode on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setVisibility:.cold.1()
+- (void)setVisibility:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set visibility on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set visibility on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setVisibleBounds:.cold.1()
+- (void)setVisibleBounds:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set visible bounds on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set visible bounds on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setAnimationsPaused:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)setAnimationsPaused:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Animations paused: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D928E000, v0, v1, "[%p-%{public}@] Animations paused: %{public}@");
 }
 
-- (void)setAnimationsPaused:.cold.2()
+- (void)setAnimationsPaused:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set animations paused on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set animations paused on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setContentPaused:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)setContentPaused:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Content paused: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D928E000, v0, v1, "[%p-%{public}@] Content paused: %{public}@");
 }
 
-- (void)setContentPaused:.cold.2()
+- (void)setContentPaused:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set content paused on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set content paused on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
@@ -6027,178 +6126,74 @@ void __61__CHUISWidgetHostViewController__updateTouchDeliveryPolicies__block_inv
 {
   if (OUTLINED_FUNCTION_5(a1))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set tint parameters on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set tint parameters on an invalidated widget view controller.", v4, v5, v6, v7, v8);
   }
-}
-
-- (void)setInlineTextParameters:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Inline text settings changed", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInlineTextParameters:(NSObject *)a1 .cold.2(NSObject *a1)
 {
   if (OUTLINED_FUNCTION_5(a1))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set inline text settings on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set inline text settings on an invalidated widget view controller.", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)setVisibleEntryShouldSnapshot:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)setVisibleEntryShouldSnapshot:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Should Visible entry snapshotting changed to %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D928E000, v0, v1, "[%p-%{public}@] Should Visible entry snapshotting changed to %{public}@");
 }
 
-- (void)setVisibleEntryShouldSnapshot:.cold.2()
+- (void)setVisibleEntryShouldSnapshot:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set snapshotability on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set snapshotability on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setShouldShareTouchesWithHost:.cold.1()
+- (void)setShouldShareTouchesWithHost:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to tag a widget view controller as visibly settled after invalidation.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to tag a widget view controller as visibly settled after invalidation.", v5, v6, v7, v8, v9);
   }
 }
 
 - (void)cancelTouchesForCurrentEventInHostedContent
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Cannot acquire cancel touch assertion for an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Cannot acquire cancel touch assertion for an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
 }
 
-- (void)setDrawSystemBackgroundMaterialIfNecessary:.cold.1()
+- (void)setDrawSystemBackgroundMaterialIfNecessary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = CHUISLogViewController();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = CHUISLogViewController(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
-    OUTLINED_FUNCTION_1(&dword_1D928E000, v2, v3, "Unable to set draw system background material on an invalidated widget view controller.", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_1(&dword_1D928E000, v3, v4, "Unable to set draw system background material on an invalidated widget view controller.", v5, v6, v7, v8, v9);
   }
-}
-
-- (void)_createCGImageFromNSData:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_8(&dword_1D928E000, v2, v3, "[%p-%{public}@] Failed to create CGImage.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createCGImageFromNSData:(uint64_t)a1 .cold.2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_8(&dword_1D928E000, v2, v3, "[%p-%{public}@] Failed to create CGImageSource.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __73__CHUISWidgetHostViewController_extensionsDidChangeForExtensionProvider___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = *(*(a1 + 32) + 1152);
-  OUTLINED_FUNCTION_4(&dword_1D928E000, a2, a3, "[%p-%{public}@] Descriptors did change", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_invalidateTransitionFromSnapshotToLiveContentDeadlineTimerWithReason:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Invalidating transition from snapshot to live deadline timer for reason: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_newPersistedSnapshotView
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] Read astc snapshot!", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updatePersistedSnapshotContent:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] No snapshot image found or couldn't be opened (data protection).", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_scheduleEvaluationOfDetachedSceneTimerForReason:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Scheduling detached scene timer evaluation for reason: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __82__CHUISWidgetHostViewController__scheduleEvaluationOfDetachedSceneTimerForReason___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1D928E000, v2, v3, "[%p-%{public}@] Running detached scene timer evaluation for reason(s): %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setBackgroundViewMode:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] backgroundViewMode = GLASS", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setBackgroundViewMode:(uint64_t)a1 .cold.2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] backgroundViewMode = BLUR", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setBackgroundViewMode:(uint64_t)a1 .cold.3(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] backgroundViewMode = SOLID", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setBackgroundViewMode:(uint64_t)a1 .cold.4(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 1152);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1D928E000, v2, v3, "[%p-%{public}@] backgroundViewMode = NONE", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  *v8 = 134218242;
+  *&v8[4] = *(a1 + 32);
+  *&v8[12] = 2114;
+  *&v8[14] = *(*&v8[4] + 1152);
+  OUTLINED_FUNCTION_4(&dword_1D928E000, a2, a3, "[%p-%{public}@] Descriptors did change", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

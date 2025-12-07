@@ -1112,18 +1112,18 @@ void __47__UIVisualEffectView_traitCollectionDidChange___block_invoke(uint64_t a
 + (void)_setupMaterialVisualization
 {
   objc_opt_self();
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_layoutSubviews);
-  v2 = objc_opt_class();
-  v3 = class_getInstanceMethod(v2, sel___vis_layoutSubviews);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_layoutSubviews);
+  v3 = objc_opt_class();
+  v4 = class_getInstanceMethod(v3, sel___vis_layoutSubviews);
 
-  method_exchangeImplementations(InstanceMethod, v3);
+  method_exchangeImplementations(InstanceMethod, v4);
 }
 
 - (id)_initialValueForKey:(id)key
 {
   keyCopy = key;
-  if ([@"effect" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"effect"))
   {
     effect = self->_effect;
     if (!effect)
@@ -1135,7 +1135,7 @@ void __47__UIVisualEffectView_traitCollectionDidChange___block_invoke(uint64_t a
     goto LABEL_9;
   }
 
-  if ([@"backgroundEffects" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"backgroundEffects"))
   {
     v7 = 512;
 LABEL_8:
@@ -1145,7 +1145,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([@"contentEffects" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"contentEffects"))
   {
     v7 = 520;
     goto LABEL_8;
@@ -2013,7 +2013,7 @@ LABEL_4:
   if (cornerMask != maskCopy)
   {
     v8 = maskCopy;
-    if (!maskCopy || !cornerMask || ![(_UIVisualEffectViewCornerMask *)cornerMask isEqual:maskCopy])
+    if (!maskCopy || !cornerMask || (objc_msgSend_isEqual_(cornerMask) & 1) == 0)
     {
       v6 = [(_UIVisualEffectViewCornerMask *)v8 copy];
       v7 = self->__cornerMask;
@@ -2245,7 +2245,7 @@ LABEL_4:
     {
       v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
       v10 = _UIKitBundle();
-      *module = [v9 isEqual:v10] ^ 1;
+      *module = objc_msgSend_isEqual_(v9) ^ 1;
     }
   }
 

@@ -22,7 +22,7 @@
 
 - (void)setCanBeClosed:(BOOL)closed
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal);
@@ -39,7 +39,7 @@
 
 - (void)setCanBeCopied:(BOOL)copied
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal);
@@ -56,7 +56,7 @@
 
 - (void)setCanBePinned:(BOOL)pinned
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal);
@@ -73,7 +73,7 @@
 
 - (void)setIsInteractivelyInserted:(BOOL)inserted
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -91,7 +91,7 @@
 
 - (void)setMediaStateIcon:(unint64_t)icon
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -118,7 +118,7 @@
 
 - (void)setIsUnread:(BOOL)unread
 {
-  v5 = _s4ItemVMa();
+  v5 = _s4ItemVMa(0);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -136,7 +136,7 @@
 
 - (void)setShareParticipants:(id)participants
 {
-  sub_18B7B0AC0(0, &qword_1ED6511A8);
+  sub_18B7B0AC0(0, &qword_1ED6511A8, 0x1E695BAD8);
   v4 = sub_18BC20D98();
   selfCopy = self;
   sub_18B82E41C(v4);
@@ -162,16 +162,16 @@
 
 - (int64_t)hash
 {
-  v3 = _s4ItemVMa();
+  v3 = _s4ItemVMa(0);
   MEMORY[0x1EEE9AC00](v3);
-  v5 = &v11[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal);
   v7 = OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
   sub_18B8162EC(v6 + v7, v5, _s4ItemVMa);
   sub_18BC22158();
   sub_18BC1EC08();
-  sub_18BA93A40(&qword_1EA9D3970, 255, MEMORY[0x1E69695A8]);
+  sub_18BA93A40(&qword_1EA9D3970, 255, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   selfCopy = self;
   sub_18BC20A78();
   v9 = sub_18BC221A8();
@@ -196,7 +196,7 @@
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal) + OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
-  v8 = _s4ItemVMa();
+  v8 = _s4ItemVMa(0);
   (*(v4 + 16))(v6, &v7[*(v8 + 28)], v3);
   v9 = sub_18BC1EBC8();
   (*(v4 + 8))(v6, v3);
@@ -208,21 +208,21 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal) + OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
-  return v2[*(_s4ItemVMa() + 32)];
+  return v2[*(_s4ItemVMa(0) + 32)];
 }
 
 - (unint64_t)mediaStateIcon
 {
   v2 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal) + OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
-  return *&v2[*(_s4ItemVMa() + 48)];
+  return *&v2[*(_s4ItemVMa(0) + 48)];
 }
 
 - (id)searchPredicate
 {
   v2 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal) + OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
-  v3 = &v2[*(_s4ItemVMa() + 52)];
+  v3 = &v2[*(_s4ItemVMa(0) + 52)];
   v4 = *(v3 + 1);
   aBlock[4] = *v3;
   aBlock[5] = v4;
@@ -239,8 +239,8 @@
 - (NSArray)shareParticipants
 {
   swift_beginAccess();
-  _s4ItemVMa();
-  sub_18B7B0AC0(0, &qword_1ED6511A8);
+  _s4ItemVMa(0);
+  sub_18B7B0AC0(0, &qword_1ED6511A8, 0x1E695BAD8);
   sub_18BC1E3F8();
   v2 = sub_18BC20D88();
 
@@ -251,7 +251,7 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR___SFTabSwitcherItem__internal) + OBJC_IVAR____TtC12MobileSafari25SFTabSwitcherItemInternal_wrapped;
   swift_beginAccess();
-  if (*&v2[*(_s4ItemVMa() + 60) + 8])
+  if (*&v2[*(_s4ItemVMa(0) + 60) + 8])
   {
     sub_18BC1E3F8();
     v3 = sub_18BC20B98();

@@ -28,28 +28,24 @@
 
 - (BOOL)setColor:(CGColor *)color
 {
-  Components = CGColorGetComponents(color);
+  CGColorGetComponents(color);
   NumberOfComponents = CGColorGetNumberOfComponents(color);
   if (NumberOfComponents)
   {
-    v6 = *Components;
     if (NumberOfComponents >= 3)
     {
-      v9 = Components[1];
-      v10 = Components[2];
-      v7 = 3;
+      v5 = 3;
     }
 
     else
     {
-      v7 = 1;
-      v8 = *Components;
+      v5 = 1;
     }
 
-    v14 = 0;
-    v12 = 0x1000000010;
-    v13 = v7;
-    sub_24BCBF640(&v12);
+    v9 = 0;
+    v7 = 0x1000000010;
+    v8 = v5;
+    sub_24BCBF640(&v7);
   }
 
   return 0;

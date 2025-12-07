@@ -50,14 +50,16 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_1000F71A4(selected);
+  sub_1000F71A4(selectedCopy);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_1000F725C(selected, animated);
+  sub_1000F725C(selectedCopy, animated);
 }
 
 @end

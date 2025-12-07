@@ -2,7 +2,9 @@
 - (TSProximityPINCodeViewController)initWithPIN:(id)n;
 - (TSSIMSetupFlowDelegate)delegate;
 - (void)updatePIN:(id)n;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSProximityPINCodeViewController
@@ -50,10 +52,10 @@ void __46__TSProximityPINCodeViewController_updatePIN___block_invoke(uint64_t a1
 
 - (void)viewDidLoad
 {
-  v28[3] = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = TSProximityPINCodeViewController;
-  [(TSOBWelcomeController *)&v27 viewDidLoad];
+  v27[3] = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = TSProximityPINCodeViewController;
+  [(TSOBWelcomeController *)&v26 viewDidLoad];
   v3 = objc_alloc(MEMORY[0x277D756B8]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   pinCodeLabel = self->_pinCodeLabel;
@@ -77,29 +79,52 @@ void __46__TSProximityPINCodeViewController_updatePIN___block_invoke(uint64_t a1
   contentView = [(TSProximityPINCodeViewController *)self contentView];
   [contentView addSubview:self->_pinCodeLabel];
 
-  v22 = MEMORY[0x277CCAAD0];
+  v21 = MEMORY[0x277CCAAD0];
   centerXAnchor = [(UILabel *)self->_pinCodeLabel centerXAnchor];
   contentView2 = [(TSProximityPINCodeViewController *)self contentView];
   centerXAnchor2 = [contentView2 centerXAnchor];
-  v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v28[0] = v23;
+  v22 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v27[0] = v22;
   centerYAnchor = [(UILabel *)self->_pinCodeLabel centerYAnchor];
   view = [(TSProximityPINCodeViewController *)self view];
   centerYAnchor2 = [view centerYAnchor];
   v14 = [centerYAnchor constraintGreaterThanOrEqualToAnchor:centerYAnchor2];
-  v28[1] = v14;
+  v27[1] = v14;
   topAnchor = [(UILabel *)self->_pinCodeLabel topAnchor];
   headerView = [(TSProximityPINCodeViewController *)self headerView];
   bottomAnchor = [headerView bottomAnchor];
   v18 = [topAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor];
-  v28[2] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
-  [v22 activateConstraints:v19];
+  v27[2] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  [v21 activateConstraints:v19];
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained setCancelNavigationBarItems:self];
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  self->_isIdleTimerDisabled = [mEMORY[0x277D75128] isIdleTimerDisabled];
+
+  mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128]2 setIdleTimerDisabled:1];
+
+  v7.receiver = self;
+  v7.super_class = TSProximityPINCodeViewController;
+  [(TSProximityPINCodeViewController *)&v7 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128] setIdleTimerDisabled:self->_isIdleTimerDisabled];
+
+  v6.receiver = self;
+  v6.super_class = TSProximityPINCodeViewController;
+  [(OBBaseWelcomeController *)&v6 viewDidDisappear:disappearCopy];
 }
 
 - (TSSIMSetupFlowDelegate)delegate

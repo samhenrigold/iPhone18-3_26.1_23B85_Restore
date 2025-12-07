@@ -17,12 +17,10 @@
 
 - (NSString)name
 {
-  v2 = *(self + OBJC_IVAR___WiFiNetwork_Swift_name);
-  v3 = *(self + OBJC_IVAR___WiFiNetwork_Swift_name + 8);
 
-  v4 = sub_2741C7E3C();
+  v2 = sub_2741C7E3C();
 
-  return v4;
+  return v2;
 }
 
 - (double)rssi

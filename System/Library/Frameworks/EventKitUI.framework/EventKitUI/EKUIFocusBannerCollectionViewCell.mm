@@ -127,8 +127,8 @@ void __67__EKUIFocusBannerCollectionViewCell__createFocusFilterToggleButton__blo
       self->_axListContentView = v10;
 
       [(UIListContentView *)self->_axListContentView setTranslatesAutoresizingMaskIntoConstraints:0];
-      contentView = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      [contentView addSubview:self->_axListContentView];
+      v12 = objc_msgSend_contentView(self);
+      [v12 addSubview:self->_axListContentView];
 
       _createFocusFilterToggleButton = [(EKUIFocusBannerCollectionViewCell *)self _createFocusFilterToggleButton];
       axFocusFilterToggleButton = self->_axFocusFilterToggleButton;
@@ -139,22 +139,22 @@ void __67__EKUIFocusBannerCollectionViewCell__createFocusFilterToggleButton__blo
       [(UIButton *)self->_axFocusFilterToggleButton setContentCompressionResistancePriority:0 forAxis:v15];
       LODWORD(v16) = 1148846080;
       [(UIButton *)self->_axFocusFilterToggleButton setContentCompressionResistancePriority:1 forAxis:v16];
-      contentView2 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      [contentView2 addSubview:self->_axFocusFilterToggleButton];
+      v17 = objc_msgSend_contentView(self);
+      [v17 addSubview:self->_axFocusFilterToggleButton];
 
       leadingAnchor = [(UIListContentView *)self->_axListContentView leadingAnchor];
-      contentView3 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      leadingAnchor2 = [contentView3 leadingAnchor];
+      v51 = objc_msgSend_contentView(self);
+      leadingAnchor2 = [v51 leadingAnchor];
       v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
       v53[0] = v48;
       trailingAnchor = [(UIListContentView *)self->_axListContentView trailingAnchor];
-      contentView4 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      trailingAnchor2 = [contentView4 trailingAnchor];
+      v47 = objc_msgSend_contentView(self);
+      trailingAnchor2 = [v47 trailingAnchor];
       v44 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
       v53[1] = v44;
       topAnchor = [(UIListContentView *)self->_axListContentView topAnchor];
-      contentView5 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      topAnchor2 = [contentView5 topAnchor];
+      v43 = objc_msgSend_contentView(self);
+      topAnchor2 = [v43 topAnchor];
       v40 = [topAnchor constraintEqualToAnchor:topAnchor2];
       v53[2] = v40;
       topAnchor3 = [(UIButton *)self->_axFocusFilterToggleButton topAnchor];
@@ -162,14 +162,14 @@ void __67__EKUIFocusBannerCollectionViewCell__createFocusFilterToggleButton__blo
       v37 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:8.0];
       v53[3] = v37;
       bottomAnchor2 = [(UIButton *)self->_axFocusFilterToggleButton bottomAnchor];
-      contentView6 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      layoutMarginsGuide = [contentView6 layoutMarginsGuide];
+      v36 = objc_msgSend_contentView(self);
+      layoutMarginsGuide = [v36 layoutMarginsGuide];
       bottomAnchor3 = [layoutMarginsGuide bottomAnchor];
       v20 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
       v53[4] = v20;
       leadingAnchor3 = [(UIButton *)self->_axFocusFilterToggleButton leadingAnchor];
-      contentView7 = [(EKUIFocusBannerCollectionViewCell *)self contentView];
-      layoutMarginsGuide2 = [contentView7 layoutMarginsGuide];
+      v22 = objc_msgSend_contentView(self);
+      layoutMarginsGuide2 = [v22 layoutMarginsGuide];
       leadingAnchor4 = [layoutMarginsGuide2 leadingAnchor];
       v25 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
       v53[5] = v25;

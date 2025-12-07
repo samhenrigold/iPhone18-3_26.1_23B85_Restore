@@ -281,7 +281,7 @@ LABEL_15:
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_190AE5D24();
+  sub_190AE5D24(selfCopy);
 }
 
 @end

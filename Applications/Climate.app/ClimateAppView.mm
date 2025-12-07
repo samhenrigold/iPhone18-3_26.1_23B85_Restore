@@ -20,7 +20,7 @@
   selfCopy = self;
   sub_10005A658();
 
-  sub_10000827C(0, &unk_1001163B0);
+  sub_10000827C(0, &unk_1001163B0, _UIFocusLinearMovementSequence_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -35,13 +35,13 @@
     selfCopy = self;
     v6 = sub_100081B70();
 
-    sub_1000040E8(&unk_100114770);
+    sub_1000040E8(&unk_100114770, qword_1000D58D0);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_1000D5DA0;
     *(v7 + 32) = v6;
   }
 
-  sub_1000040E8(&unk_1001150F0);
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

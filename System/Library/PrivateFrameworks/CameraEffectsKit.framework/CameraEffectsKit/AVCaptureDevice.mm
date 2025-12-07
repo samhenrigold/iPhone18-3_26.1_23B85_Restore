@@ -5,9 +5,11 @@
 
 uint64_t __52__AVCaptureDevice_JFX__jfx_highestQualityColorSpace__block_invoke()
 {
-  jfx_highestQualityColorSpace_s_colorSpaceLookup = [MEMORY[0x277CBEB38] dictionary];
+  v0 = [MEMORY[0x277CBEB38] dictionary];
+  v1 = jfx_highestQualityColorSpace_s_colorSpaceLookup;
+  jfx_highestQualityColorSpace_s_colorSpaceLookup = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __52__AVCaptureDevice_JFX__jfx_highestQualityColorSpace__block_invoke_2(uint64_t a1, void *a2)
@@ -21,7 +23,7 @@ void __52__AVCaptureDevice_JFX__jfx_highestQualityColorSpace__block_invoke_2(uin
   [v3 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __52__AVCaptureDevice_JFX__jfx_highestQualityColorSpace__block_invoke_3(uint64_t a1, void *a2)
+void *__52__AVCaptureDevice_JFX__jfx_highestQualityColorSpace__block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 integerValue];
   v4 = *(*(a1 + 32) + 8);

@@ -89,20 +89,19 @@ LABEL_14:
   responseDictionary4 = [(AAResponse *)v5 responseDictionary];
   v28 = [responseDictionary4 objectForKeyedSubscript:@"status-message"];
 
-  v29 = _AALogSystem();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v30 = _AALogSystem(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v38 = v26;
     v39 = 2112;
     v40 = v28;
-    _os_log_impl(&dword_1B6F6A000, v29, OS_LOG_TYPE_DEFAULT, "Error: Trusted device list not seen in server response data with status=%@ message=%@", buf, 0x16u);
+    _os_log_impl(&dword_1B6F6A000, v30, OS_LOG_TYPE_DEFAULT, "Error: Trusted device list not seen in server response data with status=%@ message=%@", buf, 0x16u);
   }
 
   v24 = 0;
 LABEL_18:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -120,14 +119,12 @@ LABEL_18:
 
 void __52__AATrustedDeviceListResponse__privacySensitiveKeys__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = @"pushToken";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = @"pushToken";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   v1 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v0];
   v2 = _privacySensitiveKeys_keysToRedact_683;
   _privacySensitiveKeys_keysToRedact_683 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacySensitiveResponseBody

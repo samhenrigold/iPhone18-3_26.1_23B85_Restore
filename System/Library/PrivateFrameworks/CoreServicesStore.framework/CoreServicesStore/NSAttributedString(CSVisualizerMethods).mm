@@ -52,7 +52,7 @@
     v10[3] = &unk_1E7ED3B60;
     v10[4] = self;
     v10[5] = a3;
-    v6 = MEMORY[0x1BFAE6310](v10);
+    v6 = MEMORY[0x1BFAE6310](v10, a2);
     v7 = objc_autoreleasePoolPush();
     [self enumerateAttributesInRange:0 options:objc_msgSend(self usingBlock:{"length"), 0, v6}];
     objc_autoreleasePoolPop(v7);

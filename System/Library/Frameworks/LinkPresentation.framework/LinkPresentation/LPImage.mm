@@ -227,32 +227,33 @@ LABEL_10:
 {
   imageCopy = image;
   propertiesCopy = properties;
+  v10 = propertiesCopy;
   if (!imageCopy)
   {
-    v12 = LPLogChannelImage();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = LPLogChannelImage(propertiesCopy, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [LPImage initWithPlatformImage:v12 properties:?];
+      [LPImage initWithPlatformImage:v14 properties:?];
     }
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_7;
   }
 
-  v14.receiver = self;
-  v14.super_class = LPImage;
-  v9 = [(LPImage *)&v14 init];
-  v10 = v9;
-  if (v9)
+  v16.receiver = self;
+  v16.super_class = LPImage;
+  v11 = [(LPImage *)&v16 init];
+  v12 = v11;
+  if (v11)
   {
-    objc_storeStrong(&v9->_originalPlatformImage, image);
-    v11 = [propertiesCopy copy];
-    self = v10->_properties;
-    v10->_properties = v11;
+    objc_storeStrong(&v11->_originalPlatformImage, image);
+    v13 = [v10 copy];
+    self = v12->_properties;
+    v12->_properties = v13;
 LABEL_7:
   }
 
-  return v10;
+  return v12;
 }
 
 - (LPImage)initWithItemProvider:(id)provider properties:(id)properties placeholderImage:(id)image
@@ -439,22 +440,22 @@ void __54__LPImage__initWithPlatformImageGenerator_properties___block_invoke_2(u
 
 void __54__LPImage__initWithPlatformImageGenerator_properties___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = LPLogChannelImage();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = LPLogChannelImage(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v8 = 134218240;
-    v9 = v6;
-    v10 = 1024;
-    v11 = v4 != 0;
-    _os_log_impl(&dword_1AE886000, v5, OS_LOG_TYPE_INFO, "LPImage<%p>: finished loading async image (success: %d)", &v8, 0x12u);
+    v7 = *(a1 + 32);
+    v9 = 134218240;
+    v10 = v7;
+    v11 = 1024;
+    v12 = v4 != 0;
+    _os_log_impl(&dword_1AE886000, v6, OS_LOG_TYPE_INFO, "LPImage<%p>: finished loading async image (success: %d)", &v9, 0x12u);
   }
 
   objc_storeStrong((*(a1 + 32) + 8), a2);
-  v7 = [*(a1 + 32) _asynchronousLoadGroup];
-  dispatch_group_leave(v7);
+  v8 = [*(a1 + 32) _asynchronousLoadGroup];
+  dispatch_group_leave(v8);
 
   dispatch_semaphore_signal(MIMETypeForDataCreatedFromPlatformImage_block_invoke_limitSemaphore);
   [*(a1 + 32) _setAsynchronousLoadGroup:0];
@@ -549,76 +550,155 @@ LABEL_17:
 
 + (id)_PNGImageNamed:(id)named template:(BOOL)template properties:(id)properties
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   propertiesCopy = properties;
   v9 = +[LPTestingOverrides forceImageLoadingScaleFactor];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   v10 = [LPImage alloc];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __46__LPImage__PNGImageNamed_template_properties___block_invoke;
-  v18[3] = &unk_1E7A355E0;
-  v20 = &v23;
-  v21 = v9;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __46__LPImage__PNGImageNamed_template_properties___block_invoke;
+  v20[3] = &unk_1E7A355E0;
+  v22 = &v25;
+  v23 = v9;
   v11 = namedCopy;
-  v19 = v11;
+  v21 = v11;
   templateCopy = template;
-  v12 = [(LPImage *)v10 _initWithPlatformImageGenerator:v18 properties:propertiesCopy];
-  v13 = v24[5];
-  v24[5] = v12;
+  v12 = [(LPImage *)v10 _initWithPlatformImageGenerator:v20 properties:propertiesCopy];
+  v13 = v26[5];
+  v26[5] = v12;
 
-  v14 = LPLogChannelImage();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = LPLogChannelImage(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v15 = v24[5];
+    v17 = v26[5];
     *buf = 134218242;
-    v30 = v15;
-    v31 = 2112;
-    v32 = v11;
-    _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_INFO, "LPImage<%p>: created async image for %@", buf, 0x16u);
+    v32 = v17;
+    v33 = 2112;
+    v34 = v11;
+    _os_log_impl(&dword_1AE886000, v16, OS_LOG_TYPE_INFO, "LPImage<%p>: created async image for %@", buf, 0x16u);
   }
 
-  v16 = v24[5];
-  _Block_object_dispose(&v23, 8);
+  v18 = v26[5];
+  _Block_object_dispose(&v25, 8);
 
-  return v16;
+  return v18;
 }
 
 void __46__LPImage__PNGImageNamed_template_properties___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LPLogChannelImage();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = LPLogChannelImage(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    v5 = *(*(*(a1 + 40) + 8) + 40);
-    v17 = 134217984;
-    v18 = v5;
-    _os_log_impl(&dword_1AE886000, v4, OS_LOG_TYPE_INFO, "LPImage<%p>: started loading async image", &v17, 0xCu);
+    v7 = *(*(*(a1 + 40) + 8) + 40);
+    v20 = 134217984;
+    v21 = v7;
+    _os_log_impl(&dword_1AE886000, v5, OS_LOG_TYPE_INFO, "LPImage<%p>: started loading async image", &v20, 0xCu);
   }
 
-  if (!*(a1 + 48) || (v6 = MEMORY[0x1E69DCAB8], v7 = *(a1 + 32), linkPresentationBundle(), v8 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x1E69DD1B8] traitCollectionWithDisplayScale:*(a1 + 48)], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "imageNamed:inBundle:compatibleWithTraitCollection:", v7, v8, v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, !v10))
+  if (!*(a1 + 48) || (v8 = MEMORY[0x1E69DCAB8], v9 = *(a1 + 32), linkPresentationBundle(v6), v10 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x1E69DD1B8] traitCollectionWithDisplayScale:*(a1 + 48)], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "imageNamed:inBundle:compatibleWithTraitCollection:", v9, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, !v12))
   {
-    v11 = MEMORY[0x1E69DCAB8];
-    v12 = *(a1 + 32);
-    v13 = linkPresentationBundle();
-    v10 = [v11 imageNamed:v12 inBundle:v13 withConfiguration:0];
+    v14 = MEMORY[0x1E69DCAB8];
+    v15 = *(a1 + 32);
+    v16 = linkPresentationBundle(v6);
+    v12 = [v14 imageNamed:v15 inBundle:v16 withConfiguration:0];
   }
 
   if (*(a1 + 56) == 1)
   {
-    v14 = [v10 imageWithRenderingMode:2];
+    v17 = [v12 imageWithRenderingMode:2];
 
-    v10 = v14;
+    v12 = v17;
   }
 
-  v15 = LPLogChannelImage();
+  v18 = LPLogChannelImage(v6, v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    v19 = *(*(*(a1 + 40) + 8) + 40);
+    v20 = 134217984;
+    v21 = v19;
+    _os_log_impl(&dword_1AE886000, v18, OS_LOG_TYPE_INFO, "LPImage<%p>: finished loading async image", &v20, 0xCu);
+  }
+
+  v3[2](v3, v12);
+}
+
++ (id)_PDFImageNamed:(id)named template:(BOOL)template
+{
+  v30 = *MEMORY[0x1E69E9840];
+  namedCopy = named;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
+  v6 = [LPImage alloc];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __35__LPImage__PDFImageNamed_template___block_invoke;
+  v16[3] = &unk_1E7A35608;
+  v18 = &v20;
+  v7 = namedCopy;
+  v17 = v7;
+  templateCopy = template;
+  v8 = [(LPImage *)v6 _initWithPlatformImageGenerator:v16 properties:0];
+  v9 = v21[5];
+  v21[5] = v8;
+
+  v12 = LPLogChannelImage(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v13 = v21[5];
+    *buf = 134218242;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v7;
+    _os_log_impl(&dword_1AE886000, v12, OS_LOG_TYPE_INFO, "LPImage<%p>: created async LPImage for %@", buf, 0x16u);
+  }
+
+  v14 = v21[5];
+  _Block_object_dispose(&v20, 8);
+
+  return v14;
+}
+
+void __35__LPImage__PDFImageNamed_template___block_invoke(uint64_t a1, void *a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v5 = LPLogChannelImage(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  if (v6)
+  {
+    v7 = *(*(*(a1 + 40) + 8) + 40);
+    v17 = 134217984;
+    v18 = v7;
+    _os_log_impl(&dword_1AE886000, v5, OS_LOG_TYPE_INFO, "LPImage<%p>: started loading async image", &v17, 0xCu);
+  }
+
+  v8 = MEMORY[0x1E69DCAB8];
+  v9 = *(a1 + 32);
+  v10 = linkPresentationBundle(v6);
+  v11 = [v8 imageNamed:v9 inBundle:v10 withConfiguration:0];
+
+  if (*(a1 + 48) == 1)
+  {
+    v14 = [v11 imageWithRenderingMode:2];
+
+    v11 = v14;
+  }
+
+  v15 = LPLogChannelImage(v12, v13);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = *(*(*(a1 + 40) + 8) + 40);
@@ -627,84 +707,7 @@ void __46__LPImage__PNGImageNamed_template_properties___block_invoke(uint64_t a1
     _os_log_impl(&dword_1AE886000, v15, OS_LOG_TYPE_INFO, "LPImage<%p>: finished loading async image", &v17, 0xCu);
   }
 
-  v3[2](v3, v10);
-}
-
-+ (id)_PDFImageNamed:(id)named template:(BOOL)template
-{
-  v28 = *MEMORY[0x1E69E9840];
-  namedCopy = named;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  v6 = [LPImage alloc];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __35__LPImage__PDFImageNamed_template___block_invoke;
-  v14[3] = &unk_1E7A35608;
-  v16 = &v18;
-  v7 = namedCopy;
-  v15 = v7;
-  templateCopy = template;
-  v8 = [(LPImage *)v6 _initWithPlatformImageGenerator:v14 properties:0];
-  v9 = v19[5];
-  v19[5] = v8;
-
-  v10 = LPLogChannelImage();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-  {
-    v11 = v19[5];
-    *buf = 134218242;
-    v25 = v11;
-    v26 = 2112;
-    v27 = v7;
-    _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_INFO, "LPImage<%p>: created async LPImage for %@", buf, 0x16u);
-  }
-
-  v12 = v19[5];
-  _Block_object_dispose(&v18, 8);
-
-  return v12;
-}
-
-void __35__LPImage__PDFImageNamed_template___block_invoke(uint64_t a1, void *a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = LPLogChannelImage();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    v5 = *(*(*(a1 + 40) + 8) + 40);
-    v13 = 134217984;
-    v14 = v5;
-    _os_log_impl(&dword_1AE886000, v4, OS_LOG_TYPE_INFO, "LPImage<%p>: started loading async image", &v13, 0xCu);
-  }
-
-  v6 = MEMORY[0x1E69DCAB8];
-  v7 = *(a1 + 32);
-  v8 = linkPresentationBundle();
-  v9 = [v6 imageNamed:v7 inBundle:v8 withConfiguration:0];
-
-  if (*(a1 + 48) == 1)
-  {
-    v10 = [v9 imageWithRenderingMode:2];
-
-    v9 = v10;
-  }
-
-  v11 = LPLogChannelImage();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-  {
-    v12 = *(*(*(a1 + 40) + 8) + 40);
-    v13 = 134217984;
-    v14 = v12;
-    _os_log_impl(&dword_1AE886000, v11, OS_LOG_TYPE_INFO, "LPImage<%p>: finished loading async image", &v13, 0xCu);
-  }
-
-  v3[2](v3, v9);
+  v3[2](v3, v11);
 }
 
 - (LPImage)initWithCoder:(id)coder
@@ -794,13 +797,14 @@ LABEL_12:
 
   else
   {
-    if ([(LPImage *)self needsAsynchronousLoad])
+    needsAsynchronousLoad = [(LPImage *)self needsAsynchronousLoad];
+    if (needsAsynchronousLoad)
     {
-      v7 = LPLogChannelSerialization();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = LPLogChannelSerialization(needsAsynchronousLoad, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1AE886000, v7, OS_LOG_TYPE_DEFAULT, "Trying to encode an LPImage with an unloaded item provider.", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1AE886000, v9, OS_LOG_TYPE_DEFAULT, "Trying to encode an LPImage with an unloaded item provider.", v15, 2u);
       }
     }
 
@@ -864,7 +868,7 @@ LABEL_12:
 
 + (id)_loadImageSubsampledToScreenSizeFromData:(id)data
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (![(__CFData *)dataCopy length])
   {
@@ -891,55 +895,55 @@ LABEL_12:
       v16 = [(__CFDictionary *)v15 objectForKey:*MEMORY[0x1E696DED8]];
       v17 = [(__CFDictionary *)v15 objectForKey:*MEMORY[0x1E696DEC8]];
       v18 = v17;
-      if (v16 && v17 && ([v16 doubleValue], v20 = v19, objc_msgSend(v18, "doubleValue"), v22 = v21, !sizeIsEmptyOrInvalid(v20, v21)))
+      if (v16 && v17 && ([v16 doubleValue], v20 = v19, objc_msgSend(v18, "doubleValue"), v22 = v21, IsEmptyOrInvalid = sizeIsEmptyOrInvalid(v20, v21), !IsEmptyOrInvalid))
       {
-        sizeFittingInsideSizeMaintainingAspectRatio(v20, v22, v5 * v7, v5 * v9);
-        v26 = fmin(v20 / v24, v22 / v25);
-        if (v26 < 2.0)
+        v25 = sizeFittingInsideSizeMaintainingAspectRatio(IsEmptyOrInvalid, v20, v22, v5 * v7, v5 * v9);
+        v29 = fmin(v20 / v27, v22 / v28);
+        if (v29 < 2.0)
         {
           goto LABEL_27;
         }
 
-        v27 = 8.0;
-        if (v26 < 8.0)
+        v30 = 8.0;
+        if (v29 < 8.0)
         {
-          v27 = 4.0;
+          v30 = 4.0;
         }
 
-        if (v26 >= 4.0)
+        if (v29 >= 4.0)
         {
-          v28 = v27;
+          v31 = v30;
         }
 
         else
         {
-          v28 = 2.0;
+          v31 = 2.0;
         }
 
-        v29 = LPLogChannelImage();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v32 = LPLogChannelImage(v25, v26);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218496;
-          v34 = v20;
-          v35 = 2048;
-          v36 = v22;
-          v37 = 2048;
-          v38 = v28;
-          _os_log_debug_impl(&dword_1AE886000, v29, OS_LOG_TYPE_DEBUG, "Subsampling %g x %g image by %gx", buf, 0x20u);
+          v37 = v20;
+          v38 = 2048;
+          v39 = v22;
+          v40 = 2048;
+          v41 = v31;
+          _os_log_debug_impl(&dword_1AE886000, v32, OS_LOG_TYPE_DEBUG, "Subsampling %g x %g image by %gx", buf, 0x20u);
         }
 
-        v30 = [MEMORY[0x1E696AD98] numberWithDouble:v28];
-        [(__CFDictionary *)v11 setObject:v30 forKeyedSubscript:*MEMORY[0x1E696E0F8]];
+        v33 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
+        [(__CFDictionary *)v11 setObject:v33 forKeyedSubscript:*MEMORY[0x1E696E0F8]];
 
         CFRelease(v14);
-        v31 = CGImageSourceCreateWithData(v12, v11);
-        v14 = v31;
-        if (!v31)
+        v34 = CGImageSourceCreateWithData(v12, v11);
+        v14 = v34;
+        if (!v34)
         {
           goto LABEL_12;
         }
 
-        if (CGImageSourceGetCount(v31))
+        if (CGImageSourceGetCount(v34))
         {
 LABEL_27:
           ImageAtIndex = CGImageSourceCreateImageAtIndex(v14, 0, v11);
@@ -1303,7 +1307,7 @@ LABEL_5:
   return v7;
 }
 
-void __31__LPImage__srcsetForRemoteURLs__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __31__LPImage__srcsetForRemoteURLs__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v6 = *(a1 + 32);
@@ -1315,7 +1319,7 @@ void __31__LPImage__srcsetForRemoteURLs__block_invoke(uint64_t a1, void *a2, uin
   [v6 appendString:v10];
 
   v11 = [*(a1 + 40) _remoteURLsForEmailCompatibleOutput];
-  v12 = [v11 count] - 1;
+  v12 = ([v11 count] - 1);
 
   if (v12 != a3)
   {

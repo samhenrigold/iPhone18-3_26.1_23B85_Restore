@@ -163,10 +163,7 @@ void __81__NPLPeopleViewControllerAccessibility__accessibilitySwapPeopleAtIndex_
 
 uint64_t __81__NPLPeopleViewControllerAccessibility__accessibilitySwapPeopleAtIndex_andIndex___block_invoke_351(uint64_t a1)
 {
-  v2 = [*(a1 + 40) managerForDomain:@"com.apple.ET"];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [*(a1 + 40) managerForDomain:@"com.apple.ET"];
 
   return _objc_release_x1();
 }

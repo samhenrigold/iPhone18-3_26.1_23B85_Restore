@@ -51,27 +51,26 @@
   {
     memset(v9, 0, sizeof(v9));
     v8 = xmmword_24A307560;
-    if (gethostuuid(v9, &v8))
+    v3 = gethostuuid(v9, &v8);
+    if (v3)
     {
-      v3 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = LogCategory_Unspecified(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        [(FMSystemInfo_osx *)v3 deviceUDID];
+        [(FMSystemInfo_osx *)v4 deviceUDID];
       }
     }
 
     else
     {
-      v3 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v9 length:16];
-      fm_hexString = [v3 fm_hexString];
-      v5 = deviceUDID__deviceUDID;
+      v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v9 length:16];
+      fm_hexString = [v4 fm_hexString];
+      v6 = deviceUDID__deviceUDID;
       deviceUDID__deviceUDID = fm_hexString;
     }
 
     v2 = deviceUDID__deviceUDID;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -85,7 +84,7 @@
     v4 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu.%lu", 0, 0, v8];

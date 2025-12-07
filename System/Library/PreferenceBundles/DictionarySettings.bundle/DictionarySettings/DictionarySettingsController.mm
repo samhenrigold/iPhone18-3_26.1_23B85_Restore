@@ -15,6 +15,7 @@
 - (void)startDownloadForSpecifier:(id)specifier;
 - (void)toggleDictionaryActivatedState:(id)state;
 - (void)updateProgressForSpecifier:(id)specifier operationState:(id)state;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -296,6 +297,20 @@ LABEL_5:
 
   objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DictionarySettingsController;
+  [(DictionarySettingsController *)&v4 viewDidAppear:appear];
+  if (![(DictionarySettingsController *)self willReloadContent])
+  {
+    [(DictionarySettingsController *)self reloadDictionariesList];
+  }
+
+  [(DictionarySettingsController *)self showPlaceholderViewsIfNeeded];
+  [(DictionarySettingsController *)self emitNavigationEventForRootController];
 }
 
 - (void)emitNavigationEventForRootController

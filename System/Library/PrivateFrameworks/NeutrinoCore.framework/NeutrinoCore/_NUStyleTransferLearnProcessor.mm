@@ -130,7 +130,7 @@
   }
 
   v23 = v22;
-  [v11 region];
+  objc_msgSend_region(v11);
   v25 = v24;
   v27 = v26;
   v29 = v28;
@@ -163,7 +163,7 @@
     goto LABEL_20;
   }
 
-  [v12 region];
+  objc_msgSend_region(v12);
   v37 = v36;
   v39 = v38;
   v41 = v40;
@@ -583,12 +583,12 @@ LABEL_18:
     _NUAssertFailHandler("+[_NUStyleTransferLearnProcessor learnStyleFromInputThumbnail:targetThumbnail:colorSpace:configuration:tuningParameters:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 1662, @"Invalid parameter not satisfying: %s", v120, v121, v122, v123, "tuningParams != nil");
   }
 
-  [thumbnailCopy extent];
+  objc_msgSend_extent(thumbnailCopy);
   v21 = v20;
   v23 = v22;
   v25 = v24;
   v27 = v26;
-  [targetThumbnailCopy extent];
+  objc_msgSend_extent(targetThumbnailCopy);
   v136.origin.x = v28;
   v136.origin.y = v29;
   v136.size.width = v30;
@@ -613,7 +613,7 @@ LABEL_18:
     v127[1] = configurationCopy;
     v126[2] = @"thumbExtent";
     v35 = MEMORY[0x1E695F688];
-    [thumbnailCopy extent];
+    objc_msgSend_extent(thumbnailCopy);
     v36 = [v35 vectorWithCGRect:?];
     v127[2] = v36;
     v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:3];

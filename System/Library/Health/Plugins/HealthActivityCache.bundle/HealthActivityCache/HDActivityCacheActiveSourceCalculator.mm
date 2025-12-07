@@ -27,7 +27,7 @@
   p_workouts = &self->_workouts;
   if (p_workouts != workouts)
   {
-    sub_A6B8(p_workouts, *workouts, *(workouts + 1), (*(workouts + 1) - *workouts) >> 6);
+    sub_A6B8(&p_workouts->__begin_, *workouts, *(workouts + 1), (*(workouts + 1) - *workouts) >> 6);
   }
 }
 
@@ -119,10 +119,10 @@
       {
         v6.n128_u64[0] = *&begin->var0;
         v10 = begin->var1;
-        v9->n128_u64[0] = *&begin->var0;
-        v9->n128_u64[1] = v10;
-        v9[1].n128_u64[0] = 0;
-        v9 = (v9 + 24);
+        *v9 = begin->var0;
+        *(v9 + 1) = v10;
+        *(v9 + 2) = 0;
+        v9 += 24;
       }
 
       v48 = v9;
@@ -171,7 +171,7 @@
     v27 = 0;
     while (1)
     {
-      v28 = v25[1].n128_u64[0];
+      v28 = *(v25 + 2);
       if (v28 == 2)
       {
         if (__p != *(&__p + 1))
@@ -182,7 +182,7 @@
           do
           {
             v34 = *v33++;
-            if (v34 == v25->n128_u64[1])
+            if (v34 == *(v25 + 1))
             {
               v32 = v31;
             }
@@ -210,7 +210,7 @@
           goto LABEL_59;
         }
 
-        sub_CB20(v27, v25->n128_f64, &v45, &__p);
+        sub_CB20(v27, v25, &v45, &__p);
       }
 
       else
@@ -221,16 +221,16 @@
           {
             if (v27 >= retstr->__cap_)
             {
-              v27 = sub_C69C(retstr, v25->n128_f64, &v25->n128_i64[1], &__p);
+              v27 = sub_C69C(retstr, v25, v25 + 1, &__p);
             }
 
             else
             {
-              sub_C7E4(v27++, v25->n128_f64, &v25->n128_i64[1], &__p);
+              sub_C7E4(v27++, v25, v25 + 1, &__p);
             }
 
             retstr->__end_ = v27;
-            *&v45 = v25->n128_u64[1];
+            *&v45 = *(v25 + 1);
           }
 
           goto LABEL_61;
@@ -269,7 +269,7 @@
             sub_A5AC(&__p, v42);
           }
 
-          *(8 * v39) = v25->n128_u64[1];
+          *(8 * v39) = *(v25 + 1);
           v30 = 8 * v39 + 8;
           memcpy(0, v37, v38);
           v43 = __p;
@@ -284,7 +284,7 @@
 
         else
         {
-          **(&__p + 1) = v25->n128_u64[1];
+          **(&__p + 1) = *(v25 + 1);
           v30 = v29 + 8;
         }
 
@@ -293,18 +293,18 @@
         if (v27 >= retstr->__cap_)
         {
 LABEL_59:
-          v27 = sub_C9D8(retstr, v25->n128_f64, &v45, &__p);
+          v27 = sub_C9D8(retstr, v25, &v45, &__p);
           goto LABEL_60;
         }
 
-        sub_CB20(retstr->__end_, v25->n128_f64, &v45, &__p);
+        sub_CB20(retstr->__end_, v25, &v45, &__p);
       }
 
       ++v27;
 LABEL_60:
       retstr->__end_ = v27;
 LABEL_61:
-      v25 = (v25 + 24);
+      v25 += 24;
       if (v25 == v26)
       {
         if (__p)

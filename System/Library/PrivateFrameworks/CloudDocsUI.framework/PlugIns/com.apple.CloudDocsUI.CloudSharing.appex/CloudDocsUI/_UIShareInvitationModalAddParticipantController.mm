@@ -4,6 +4,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)setCompletion:(id)completion;
 - (void)setContinueActionTitle:(id)title;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _UIShareInvitationModalAddParticipantController
@@ -25,6 +26,15 @@
   }
 
   return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = _UIShareInvitationModalAddParticipantController;
+  [(_UIShareInvitationModalAddParticipantController *)&v5 viewWillAppear:appear];
+  presentationController = [(_UIShareInvitationModalAddParticipantController *)self presentationController];
+  [presentationController setDelegate:self];
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss

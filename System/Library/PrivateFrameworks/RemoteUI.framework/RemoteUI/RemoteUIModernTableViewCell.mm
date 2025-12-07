@@ -32,8 +32,8 @@
   v7.super_class = RemoteUIModernTableViewCell;
   selfCopy = self;
   [(RemoteUITableViewCell *)&v7 setImageSize:width, height];
-  v6[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8);
-  v6[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8);
+  v6[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8, &unk_21BA9F3E0);
+  v6[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8, &unk_21BA9F3E0, MEMORY[0x277CDE1B8]);
   __swift_allocate_boxed_opaque_existential_1(v6);
   sub_21BA762C8();
   sub_21BA8721C();
@@ -47,8 +47,8 @@
   viewCopy = view;
   selfCopy = self;
 
-  v7[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8);
-  v7[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8);
+  v7[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8, &unk_21BA9F3E0);
+  v7[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8, &unk_21BA9F3E0, MEMORY[0x277CDE1B8]);
   __swift_allocate_boxed_opaque_existential_1(v7);
   sub_21BA762C8();
   sub_21BA8721C();
@@ -102,7 +102,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   RemoteUIModernTableViewCell.setDetailLinkText(_:handler:)(v8, text, v7, v10);
-  sub_21B946D98(v7);
+  sub_21B946D98(v7, v10);
 }
 
 - (BOOL)forceFullSizeDetailLabel
@@ -119,8 +119,8 @@ LABEL_6:
   v6.super_class = RemoteUIModernTableViewCell;
   selfCopy = self;
   [(RemoteUITableViewCell *)&v6 setForceFullSizeDetailLabel:labelCopy];
-  v5[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8);
-  v5[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8);
+  v5[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9FAE8, &unk_21BA9F3E0);
+  v5[4] = sub_21B9B35B8(&qword_27CD9FAF0, &qword_27CD9FAE8, &unk_21BA9F3E0, MEMORY[0x277CDE1B8]);
   __swift_allocate_boxed_opaque_existential_1(v5);
   sub_21BA762C8();
   sub_21BA8721C();
@@ -135,7 +135,7 @@ LABEL_6:
 
 - (void)setHTMLData:(id)data sourceURL:(id)l delegate:(id)delegate
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0, &unk_21BA92240);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v21 - v10;
   if (!data)
@@ -177,7 +177,7 @@ LABEL_6:
   sub_21B9B91AC(data, v16);
   swift_unknownObjectRelease();
 
-  sub_21B9ABAAC(v11, &qword_27CD9DBA0);
+  sub_21B9ABAAC(v11, &qword_27CD9DBA0, &unk_21BA92240);
 }
 
 - (void)setImage:(id)image padding:(UIEdgeInsets)padding tintColor:(id)color

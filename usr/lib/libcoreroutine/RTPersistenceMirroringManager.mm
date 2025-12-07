@@ -1024,19 +1024,19 @@ void __64__RTPersistenceMirroringManager_performPeriodicSyncWithHandler___block_
   }
 }
 
-void __64__RTPersistenceMirroringManager_performPeriodicSyncWithHandler___block_invoke_3(uint64_t a1, void *a2)
+void __64__RTPersistenceMirroringManager_performPeriodicSyncWithHandler___block_invoke_3(void *a1, void *a2)
 {
   v7 = a2;
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = [v3[18] buildVersion];
   [v3 setMirroringAttemptMapValue:0 buildVersion:v4];
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
     v5 = _RTSafeArray();
     v6 = _RTMultiErrorCreate();
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v6);
+    (*(a1[6] + 16))(a1[6], v6);
   }
 }
 
@@ -3171,31 +3171,31 @@ LABEL_25:
 LABEL_26:
 }
 
-void __77__RTPersistenceMirroringManager_performPurgeOfType_referenceDate_completion___block_invoke_3(uint64_t a1)
+void __77__RTPersistenceMirroringManager_performPurgeOfType_referenceDate_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, v13);
 }
 
 void __77__RTPersistenceMirroringManager_performPurgeOfType_referenceDate_completion___block_invoke_192(uint64_t a1, uint64_t a2, void *a3)

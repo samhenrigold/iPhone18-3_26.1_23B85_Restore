@@ -280,10 +280,10 @@
   }
 
   originClient = self->_originClient;
-  v39 = 0;
-  v10 = [(MRDElectedPlayerController *)self _onSyncSelf_calculateElectedPlayerForOriginClient:originClient event:event reason:&v39];
-  v11 = v39;
-  v12 = v39;
+  v38 = 0;
+  v10 = [(MRDElectedPlayerController *)self _onSyncSelf_calculateElectedPlayerForOriginClient:originClient event:event reason:&v38];
+  v11 = v38;
+  v12 = v38;
   playerPath = [v10 playerPath];
   objc_storeStrong(&self->_mostRecentEventReason, reason);
   objc_storeStrong(&self->_mostRecentSelectionReason, v11);
@@ -291,66 +291,65 @@
   mostRecentEvent = self->_mostRecentEvent;
   self->_mostRecentEvent = v14;
 
-  electedPlayerPath = self->_electedPlayerPath;
   if (MREqualPlayerPaths())
   {
-    v17 = _MRLogForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v16 = _MRLogForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v30 = self->_electedPlayerPath;
+      electedPlayerPath = self->_electedPlayerPath;
       *buf = 138412802;
-      v41 = v30;
-      v42 = 2114;
-      v43 = reasonCopy;
-      v44 = 2114;
-      v45 = v12;
-      _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "[MRDElectedPlayerController] ElectedPlayer remained <%@> eventReason=%{public}@, selectionReason=%{public}@", buf, 0x20u);
+      v40 = electedPlayerPath;
+      v41 = 2114;
+      v42 = reasonCopy;
+      v43 = 2114;
+      v44 = v12;
+      _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "[MRDElectedPlayerController] ElectedPlayer remained <%@> eventReason=%{public}@, selectionReason=%{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v18 = [(MRPlayerPath *)self->_electedPlayerPath copy];
+    v17 = [(MRPlayerPath *)self->_electedPlayerPath copy];
     previousElectedPlayerPath = self->_previousElectedPlayerPath;
-    self->_previousElectedPlayerPath = v18;
+    self->_previousElectedPlayerPath = v17;
 
-    v20 = [playerPath copy];
-    v21 = self->_electedPlayerPath;
-    self->_electedPlayerPath = v20;
+    v19 = [playerPath copy];
+    v20 = self->_electedPlayerPath;
+    self->_electedPlayerPath = v19;
 
     objc_storeStrong(&self->_eventReason, self->_mostRecentEventReason);
     objc_storeStrong(&self->_selectionReason, self->_mostRecentSelectionReason);
     objc_storeStrong(&self->_event, self->_mostRecentEvent);
-    v22 = [(MRDElectedPlayerController *)self _resolveChangeTypeWithOriginClient:self->_originClient forEvent:event];
-    v23 = _MRLogForCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v21 = [(MRDElectedPlayerController *)self _resolveChangeTypeWithOriginClient:self->_originClient forEvent:event];
+    v22 = _MRLogForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = v12;
-      v24 = reasonCopy;
-      v25 = self->_previousElectedPlayerPath;
-      v31 = self->_electedPlayerPath;
-      v26 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
-      v27 = v26;
+      v31 = v12;
+      v23 = reasonCopy;
+      v24 = self->_previousElectedPlayerPath;
+      v30 = self->_electedPlayerPath;
+      v25 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
+      v26 = v25;
       sub_100140AD0(event);
-      v28 = v33 = v10;
+      v27 = v32 = v10;
 
       *buf = 138413570;
-      v41 = v25;
-      reasonCopy = v24;
-      v42 = 2112;
-      v12 = v32;
-      v43 = v31;
-      v44 = 2114;
-      v45 = v26;
-      v46 = 2114;
-      v47 = v28;
-      v48 = 2114;
-      v49 = reasonCopy;
-      v50 = 2114;
-      v51 = v32;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[MRDElectedPlayerController] ElectedPlayer changed from <%@> to <%@> changeType=<%{public}@>, event=%{public}@, eventReason=%{public}@, selectionReason=%{public}@", buf, 0x3Eu);
+      v40 = v24;
+      reasonCopy = v23;
+      v41 = 2112;
+      v12 = v31;
+      v42 = v30;
+      v43 = 2114;
+      v44 = v25;
+      v45 = 2114;
+      v46 = v27;
+      v47 = 2114;
+      v48 = reasonCopy;
+      v49 = 2114;
+      v50 = v31;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[MRDElectedPlayerController] ElectedPlayer changed from <%@> to <%@> changeType=<%{public}@>, event=%{public}@, eventReason=%{public}@, selectionReason=%{public}@", buf, 0x3Eu);
 
-      v10 = v33;
+      v10 = v32;
     }
 
     block[0] = _NSConcreteStackBlock;
@@ -358,10 +357,10 @@
     block[2] = sub_100140AF0;
     block[3] = &unk_1004B6B38;
     block[4] = self;
-    v35 = playerPath;
-    v37 = v22;
+    v34 = playerPath;
+    v36 = v21;
     eventCopy = event;
-    v36 = v12;
+    v35 = v12;
     dispatch_async(&_dispatch_main_q, block);
     changeType = self->_changeType;
     self->_changeType = 0;

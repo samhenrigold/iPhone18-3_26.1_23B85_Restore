@@ -13,6 +13,9 @@
 - (void)logToDiagAndUsageUnderBugId:(id)id filePrefix:(id)prefix logData:(id)data;
 - (void)reportCuratedCollectionWasViewedWithId:(unint64_t)id completion:(id)completion completionQueue:(id)queue;
 - (void)reportDailySettings:(id)settings completionQueue:(id)queue completion:(id)completion;
+- (void)reportDailyUsageCountType:(int)type;
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id completion:(id)completion;
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id queue:(id)queue completion:(id)completion;
 - (void)reportLogMsg:(id)msg uploadBatchId:(unint64_t)id completionQueue:(id)queue completion:(id)completion;
 - (void)updateSharedStateType:(int)type state:(id)state completion:(id)completion completionQueue:(id)queue;
 @end
@@ -33,9 +36,9 @@
 
 - (GEOAPServiceManager)init
 {
-  v44.receiver = self;
-  v44.super_class = GEOAPServiceManager;
-  v2 = [(GEOAPServiceManager *)&v44 init];
+  v40.receiver = self;
+  v40.super_class = GEOAPServiceManager;
+  v2 = [(GEOAPServiceManager *)&v40 init];
   if (v2)
   {
     v3 = _proxyClass;
@@ -51,61 +54,57 @@
     v2->_proxy = v5;
 
     v2->_directionsFeedbackAllowed = 1;
-    v7 = *MEMORY[0x1E69A1A60];
-    v8 = *(MEMORY[0x1E69A1A60] + 8);
     v2->_evDirectionsFeedbackAllowed = GEOConfigGetBOOL();
-    v9 = geo_isolater_create();
+    v7 = geo_isolater_create();
     configInfoIsolator = v2->_configInfoIsolator;
-    v2->_configInfoIsolator = v9;
+    v2->_configInfoIsolator = v7;
 
     global_queue = geo_get_global_queue();
-    v39 = MEMORY[0x1E69E9820];
-    v40 = 3221225472;
-    v41 = __27__GEOAPServiceManager_init__block_invoke;
-    v42 = &unk_1E7959638;
-    v12 = v2;
-    v43 = v12;
-    v13 = _GEOConfigAddBlockListenerForKey();
-    evDirectionsFeedbackAllowedListener = v12->_evDirectionsFeedbackAllowedListener;
-    v12->_evDirectionsFeedbackAllowedListener = v13;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = __27__GEOAPServiceManager_init__block_invoke;
+    v38 = &unk_1E7959638;
+    v10 = v2;
+    v39 = v10;
+    v11 = _GEOConfigAddBlockListenerForKey();
+    evDirectionsFeedbackAllowedListener = v10->_evDirectionsFeedbackAllowedListener;
+    v10->_evDirectionsFeedbackAllowedListener = v11;
 
-    v15 = *MEMORY[0x1E69A19A0];
-    v16 = *(MEMORY[0x1E69A19A0] + 8);
-    v12->_evDirectionsFeedbackAuth = GEOConfigGetBOOL();
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = __27__GEOAPServiceManager_init__block_invoke_3;
-    v37 = &unk_1E7959638;
-    v17 = v12;
-    v38 = v17;
-    v18 = _GEOConfigAddBlockListenerForKey();
-    evDirectionsFeedbackAuthListener = v17->_evDirectionsFeedbackAuthListener;
-    v17->_evDirectionsFeedbackAuthListener = v18;
+    v10->_evDirectionsFeedbackAuth = GEOConfigGetBOOL();
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __27__GEOAPServiceManager_init__block_invoke_3;
+    v33 = &unk_1E7959638;
+    v13 = v10;
+    v34 = v13;
+    v14 = _GEOConfigAddBlockListenerForKey();
+    evDirectionsFeedbackAuthListener = v13->_evDirectionsFeedbackAuthListener;
+    v13->_evDirectionsFeedbackAuthListener = v14;
 
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __27__GEOAPServiceManager_init__block_invoke_5;
-    v32[3] = &unk_1E7959638;
-    v20 = v17;
-    v33 = v20;
-    v21 = MEMORY[0x1AC5A12F0](v32);
-    v22 = MEMORY[0x1E69A1610];
-    v21[2](v21, *MEMORY[0x1E69A1610], *(MEMORY[0x1E69A1610] + 8));
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __27__GEOAPServiceManager_init__block_invoke_5;
+    v28[3] = &unk_1E7959638;
+    v16 = v13;
+    v29 = v16;
+    v17 = MEMORY[0x1AC5A12F0](v28);
+    v18 = MEMORY[0x1E69A1610];
+    v17[2](v17, *MEMORY[0x1E69A1610], *(MEMORY[0x1E69A1610] + 8));
+    v19 = _GEOConfigAddBlockListenerForKey();
+    eventCollectionIsDisabledForCurrentProcessListener = v16->_eventCollectionIsDisabledForCurrentProcessListener;
+    v16->_eventCollectionIsDisabledForCurrentProcessListener = v19;
+
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __27__GEOAPServiceManager_init__block_invoke_7;
+    v26[3] = &unk_1E7959638;
+    v21 = v16;
+    v27 = v21;
+    v22 = MEMORY[0x1AC5A12F0](v26);
+    v22[2](v22, *v18, v18[1]);
     v23 = _GEOConfigAddBlockListenerForKey();
-    eventCollectionIsDisabledForCurrentProcessListener = v20->_eventCollectionIsDisabledForCurrentProcessListener;
-    v20->_eventCollectionIsDisabledForCurrentProcessListener = v23;
-
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __27__GEOAPServiceManager_init__block_invoke_7;
-    v30[3] = &unk_1E7959638;
-    v25 = v20;
-    v31 = v25;
-    v26 = MEMORY[0x1AC5A12F0](v30);
-    v26[2](v26, *v22, v22[1]);
-    v27 = _GEOConfigAddBlockListenerForKey();
-    usageCountCollectionIsDisabledForCurrentProcessListener = v25->_usageCountCollectionIsDisabledForCurrentProcessListener;
-    v25->_usageCountCollectionIsDisabledForCurrentProcessListener = v27;
+    usageCountCollectionIsDisabledForCurrentProcessListener = v21->_usageCountCollectionIsDisabledForCurrentProcessListener;
+    v21->_usageCountCollectionIsDisabledForCurrentProcessListener = v23;
   }
 
   return v2;
@@ -120,42 +119,42 @@ uint64_t __36__GEOAPServiceManager_sharedManager__block_invoke()
 
 void __27__GEOAPServiceManager_init__block_invoke_5(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = GEOConfigGetArray();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
     if (v4)
     {
-      v5 = *v15;
+      v5 = *v12;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v15 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v8 = GEOApplicationIdentifierOrProcessName();
           v9 = [v8 caseInsensitiveCompare:v7] == 0;
-          *(v19 + 24) = v9;
+          *(v16 + 24) = v9;
 
-          if (v19[3])
+          if (v16[3])
           {
             break;
           }
@@ -163,7 +162,7 @@ LABEL_4:
 
         if (v4 == ++v6)
         {
-          v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+          v4 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
           if (v4)
           {
             goto LABEL_4;
@@ -176,52 +175,49 @@ LABEL_4:
   }
 
   v10 = *(a1 + 32);
-  v11 = v10[2];
-  v13 = v10;
   geo_isolate_sync_data();
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
 }
 
 void __27__GEOAPServiceManager_init__block_invoke_7(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = GEOConfigGetArray();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
     if (v4)
     {
-      v5 = *v15;
+      v5 = *v12;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v15 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v8 = GEOApplicationIdentifierOrProcessName();
           v9 = [v8 caseInsensitiveCompare:v7] == 0;
-          *(v19 + 24) = v9;
+          *(v16 + 24) = v9;
 
-          if (v19[3])
+          if (v16[3])
           {
             break;
           }
@@ -229,7 +225,7 @@ LABEL_4:
 
         if (v4 == ++v6)
         {
-          v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+          v4 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
           if (v4)
           {
             goto LABEL_4;
@@ -242,96 +238,72 @@ LABEL_4:
   }
 
   v10 = *(a1 + 32);
-  v11 = v10[2];
-  v13 = v10;
   geo_isolate_sync_data();
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
 }
 
 - (BOOL)usageCountCollectionIsDisabledForCurrentProcess
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  configInfoIsolator = self->_configInfoIsolator;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync_data();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)eventCollectionIsDisabledForCurrentProcess
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  configInfoIsolator = self->_configInfoIsolator;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync_data();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)platformDiagAndUsage
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = getDiagnosticLogSubmissionEnabledSymbolLoc_ptr;
-  v9 = getDiagnosticLogSubmissionEnabledSymbolLoc_ptr;
+  v10 = getDiagnosticLogSubmissionEnabledSymbolLoc_ptr;
   if (!getDiagnosticLogSubmissionEnabledSymbolLoc_ptr)
   {
     v3 = CrashReporterSupportLibrary();
-    v7[3] = dlsym(v3, "DiagnosticLogSubmissionEnabled");
-    getDiagnosticLogSubmissionEnabledSymbolLoc_ptr = v7[3];
-    v2 = v7[3];
+    v8[3] = dlsym(v3, "DiagnosticLogSubmissionEnabled");
+    getDiagnosticLogSubmissionEnabledSymbolLoc_ptr = v8[3];
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    dlerror();
-    v5 = abort_report_np();
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    v5 = dlerror();
+    v6 = abort_report_np("%s", v5);
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   return v2();
 }
 
-uint64_t __56__GEOAPServiceManager_toggleEVDirectionsFeedbackAllowed__block_invoke(uint64_t a1)
-{
-  *(*(a1 + 32) + 8) ^= 1u;
-  v1 = *(*(a1 + 32) + 8);
-  v2 = *MEMORY[0x1E69A1A60];
-  v3 = *(MEMORY[0x1E69A1A60] + 8);
-  return GEOConfigSetBOOL();
-}
-
-uint64_t __54__GEOAPServiceManager_setEvDirectionsFeedbackAllowed___block_invoke(uint64_t a1)
-{
-  *(*(a1 + 32) + 8) = *(a1 + 40);
-  v1 = *(*(a1 + 32) + 8);
-  v2 = *MEMORY[0x1E69A1A60];
-  v3 = *(MEMORY[0x1E69A1A60] + 8);
-  return GEOConfigSetBOOL();
-}
-
 - (BOOL)evDirectionsFeedbackAllowed
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  configInfoIsolator = self->_configInfoIsolator;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 uint64_t __50__GEOAPServiceManager_evDirectionsFeedbackAllowed__block_invoke(uint64_t result)
@@ -347,15 +319,14 @@ uint64_t __50__GEOAPServiceManager_evDirectionsFeedbackAllowed__block_invoke(uin
 
 - (BOOL)evDirectionsFeedbackAuth
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  configInfoIsolator = self->_configInfoIsolator;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)logToDiagAndUsageUnderBugId:(id)id filePrefix:(id)prefix logData:(id)data
@@ -363,41 +334,41 @@ uint64_t __50__GEOAPServiceManager_evDirectionsFeedbackAllowed__block_invoke(uin
   idCopy = id;
   prefixCopy = prefix;
   dataCopy = data;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __70__GEOAPServiceManager_logToDiagAndUsageUnderBugId_filePrefix_logData___block_invoke;
-  v18[3] = &unk_1E79539C0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __70__GEOAPServiceManager_logToDiagAndUsageUnderBugId_filePrefix_logData___block_invoke;
+  v19[3] = &unk_1E79539C0;
   v10 = dataCopy;
-  v19 = v10;
+  v20 = v10;
   v11 = idCopy;
   v12 = prefixCopy;
-  v13 = v18;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v13 = v19;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v14 = getOSAWriteLogForSubmissionSymbolLoc_ptr;
-  v28 = getOSAWriteLogForSubmissionSymbolLoc_ptr;
+  v29 = getOSAWriteLogForSubmissionSymbolLoc_ptr;
   if (!getOSAWriteLogForSubmissionSymbolLoc_ptr)
   {
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __getOSAWriteLogForSubmissionSymbolLoc_block_invoke;
-    v23 = &unk_1E79595B8;
-    v24 = &v25;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __getOSAWriteLogForSubmissionSymbolLoc_block_invoke;
+    v24 = &unk_1E79595B8;
+    v25 = &v26;
     v15 = CrashReporterSupportLibrary();
     v16 = dlsym(v15, "OSAWriteLogForSubmission");
-    *(v24[1] + 24) = v16;
-    getOSAWriteLogForSubmissionSymbolLoc_ptr = *(v24[1] + 24);
-    v14 = v26[3];
+    *(v25[1] + 24) = v16;
+    getOSAWriteLogForSubmissionSymbolLoc_ptr = *(v25[1] + 24);
+    v14 = v27[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
   if (!v14)
   {
-    dlerror();
-    v17 = abort_report_np();
-    _Block_object_dispose(&v25, 8);
-    _Unwind_Resume(v17);
+    v17 = dlerror();
+    v18 = abort_report_np("%s", v17);
+    _Block_object_dispose(&v26, 8);
+    _Unwind_Resume(v18);
   }
 
   (v14)(v11, v12, 0, 0, v13);
@@ -459,6 +430,52 @@ void __70__GEOAPServiceManager_reportDailySettings_completionQueue_completion___
   }
 }
 
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id queue:(id)queue completion:(id)completion
+{
+  v12 = *&type;
+  stringCopy = string;
+  boolCopy = bool;
+  idCopy = id;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (![(GEOAPServiceManager *)self usageCountCollectionIsDisabledForCurrentProcess])
+  {
+    proxy = self->_proxy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __94__GEOAPServiceManager_reportDailyUsageCountType_usageString_usageBool_appId_queue_completion___block_invoke_2;
+    v21[3] = &unk_1E7953998;
+    v23 = completionCopy;
+    v22 = queueCopy;
+    [(GEOAPServiceProxy *)proxy reportDailyUsageCountType:v12 usageString:stringCopy usageBool:boolCopy appId:idCopy completion:v21];
+
+    v19 = v23;
+LABEL_6:
+
+    goto LABEL_7;
+  }
+
+  if (completionCopy)
+  {
+    if (!queueCopy)
+    {
+      completionCopy[2](completionCopy);
+      goto LABEL_7;
+    }
+
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __94__GEOAPServiceManager_reportDailyUsageCountType_usageString_usageBool_appId_queue_completion___block_invoke;
+    block[3] = &unk_1E7959360;
+    v25 = completionCopy;
+    dispatch_async(queueCopy, block);
+    v19 = v25;
+    goto LABEL_6;
+  }
+
+LABEL_7:
+}
+
 void __94__GEOAPServiceManager_reportDailyUsageCountType_usageString_usageBool_appId_queue_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -481,6 +498,34 @@ void __94__GEOAPServiceManager_reportDailyUsageCountType_usageString_usageBool_a
       v4[2]();
     }
   }
+}
+
+- (void)reportDailyUsageCountType:(int)type usageString:(id)string usageBool:(id)bool appId:(id)id completion:(id)completion
+{
+  v10 = *&type;
+  stringCopy = string;
+  boolCopy = bool;
+  idCopy = id;
+  completionCopy = completion;
+  if ([(GEOAPServiceManager *)self usageCountCollectionIsDisabledForCurrentProcess])
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, 0);
+    }
+  }
+
+  else
+  {
+    [(GEOAPServiceProxy *)self->_proxy reportDailyUsageCountType:v10 usageString:stringCopy usageBool:boolCopy appId:idCopy completion:completionCopy];
+  }
+}
+
+- (void)reportDailyUsageCountType:(int)type
+{
+  v3 = *&type;
+  v5 = GEOApplicationIdentifierOrProcessName();
+  [(GEOAPServiceManager *)self reportDailyUsageCountType:v3 usageString:0 usageBool:0 appId:v5];
 }
 
 - (void)reportLogMsg:(id)msg uploadBatchId:(unint64_t)id completionQueue:(id)queue completion:(id)completion
@@ -525,39 +570,29 @@ void __77__GEOAPServiceManager_reportLogMsg_uploadBatchId_completionQueue_comple
 
 - (void)dealloc
 {
-  evDirectionsFeedbackAllowedListener = self->_evDirectionsFeedbackAllowedListener;
   GEOConfigRemoveBlockListener();
-  evDirectionsFeedbackAuthListener = self->_evDirectionsFeedbackAuthListener;
   GEOConfigRemoveBlockListener();
-  eventCollectionIsDisabledForCurrentProcessListener = self->_eventCollectionIsDisabledForCurrentProcessListener;
   GEOConfigRemoveBlockListener();
-  usageCountCollectionIsDisabledForCurrentProcessListener = self->_usageCountCollectionIsDisabledForCurrentProcessListener;
   GEOConfigRemoveBlockListener();
-  v7.receiver = self;
-  v7.super_class = GEOAPServiceManager;
-  [(GEOAPServiceManager *)&v7 dealloc];
+  v3.receiver = self;
+  v3.super_class = GEOAPServiceManager;
+  [(GEOAPServiceManager *)&v3 dealloc];
 }
 
 void __27__GEOAPServiceManager_init__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = v1[2];
-  v3 = v1;
   geo_isolate_sync();
 }
 
 void __27__GEOAPServiceManager_init__block_invoke_3(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = v1[2];
-  v3 = v1;
   geo_isolate_sync();
 }
 
 uint64_t __27__GEOAPServiceManager_init__block_invoke_4(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69A19A0];
-  v3 = *(MEMORY[0x1E69A19A0] + 8);
   result = GEOConfigGetBOOL();
   *(*(a1 + 32) + 10) = result;
   return result;
@@ -565,8 +600,6 @@ uint64_t __27__GEOAPServiceManager_init__block_invoke_4(uint64_t a1)
 
 uint64_t __27__GEOAPServiceManager_init__block_invoke_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69A1A60];
-  v3 = *(MEMORY[0x1E69A1A60] + 8);
   result = GEOConfigGetBOOL();
   *(*(a1 + 32) + 8) = result;
   return result;

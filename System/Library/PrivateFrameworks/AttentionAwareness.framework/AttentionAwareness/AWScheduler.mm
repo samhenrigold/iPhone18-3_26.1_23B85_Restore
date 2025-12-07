@@ -15,6 +15,7 @@
 - (id)description;
 - (id)resetInterruptedStreamingClientWithIdentifier:(id)identifier;
 - (id)streamFaceDetectEvents;
+- (id)streamFaceDetectEventsWithOptions:(id)options;
 - (unint64_t)nextSamplingTimeForSamplingInterval:(unint64_t)interval;
 - (void)addClient:(id)client;
 - (void)armEvents;
@@ -23,14 +24,16 @@
 - (void)reevaluate;
 - (void)removeInvalidClientsWithConnection:(id)connection;
 - (void)removeStreamingClientwithIdentifier:(id)identifier;
+- (void)screenStateChanging:(BOOL)changing;
 - (void)setClientAsInterrupted:(id)interrupted forKey:(id)key;
+- (void)setSmartCoverClosed:(BOOL)closed;
 @end
 
 @implementation AWScheduler
 
 - (void)armEvents
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = absTimeNS();
   shouldActivateAttentionDetectionForSampling = [(AWScheduler *)self shouldActivateAttentionDetectionForSampling];
@@ -50,63 +53,63 @@
   }
 
   [(AWAttentionSampler *)self->_attentionSampler startDeadlineComputation];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v6 = self->_clients;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v46 objects:v61 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v45 objects:v60 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v47;
+    v9 = *v46;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v47 != v9)
+        if (*v46 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v46 + 1) + 8 * i) updateDeadlinesForTime:v3];
+        [*(*(&v45 + 1) + 8 * i) updateDeadlinesForTime:v3];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v46 objects:v61 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v45 objects:v60 count:16];
     }
 
     while (v8);
   }
 
   [(AWAttentionSampler *)self->_attentionSampler finishDeadlineComputationWithOptions:v5 | shouldActivateAttentionDetectionForSampling];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v11 = self->_clients;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v42 objects:v60 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v41 objects:v59 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v43;
+    v14 = *v42;
     v15 = -1;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v43 != v14)
+        if (*v42 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = [*(*(&v42 + 1) + 8 * j) nextTimerForTime:{v3, v42}];
+        v17 = [*(*(&v41 + 1) + 8 * j) nextTimerForTime:{v3, v41}];
         if (v17 < v15)
         {
           v15 = v17;
         }
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v42 objects:v60 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v41 objects:v59 count:16];
     }
 
     while (v13);
@@ -147,15 +150,15 @@
           }
 
           *buf = 136316162;
-          v51 = v21;
-          v52 = 1024;
-          v53 = 454;
-          v54 = 2048;
-          v55 = v29;
-          v56 = 2112;
+          v50 = v21;
+          v51 = 1024;
+          v52 = 454;
+          v53 = 2048;
+          v54 = v29;
+          v55 = 2112;
           selfCopy3 = self;
-          v58 = 2048;
-          v59 = v15 / 1000000000.0;
+          v57 = 2048;
+          v58 = v15 / 1000000000.0;
           _os_log_impl(&dword_1BB2EF000, v20, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ next deadline %13.5f IN THE PAST!", buf, 0x30u);
 LABEL_51:
 
@@ -206,15 +209,15 @@ LABEL_52:
                   }
 
                   *buf = 136316162;
-                  v51 = v37;
-                  v52 = 1024;
-                  v53 = 460;
-                  v54 = 2048;
-                  v55 = v40;
-                  v56 = 2112;
+                  v50 = v37;
+                  v51 = 1024;
+                  v52 = 460;
+                  v53 = 2048;
+                  v54 = v40;
+                  v55 = 2112;
                   selfCopy3 = self;
-                  v58 = 2048;
-                  v59 = v15 / 1000000000.0;
+                  v57 = 2048;
+                  v58 = v15 / 1000000000.0;
                   v30 = "%30s:%-4d: %13.5f: %@ scheduled timer for %13.5f";
                   v31 = v23;
                   v32 = 48;
@@ -226,7 +229,7 @@ LABEL_52:
 LABEL_70:
           }
 
-          goto LABEL_71;
+          return;
         }
       }
     }
@@ -266,12 +269,12 @@ LABEL_70:
         }
 
         *buf = 136315906;
-        v51 = v24;
-        v52 = 1024;
-        v53 = 447;
-        v54 = 2048;
-        v55 = v27;
-        v56 = 2112;
+        v50 = v24;
+        v51 = 1024;
+        v52 = 447;
+        v53 = 2048;
+        v54 = v27;
+        v55 = 2112;
         selfCopy3 = self;
         v30 = "%30s:%-4d: %13.5f: %@ no timer to schedule, waiting for next event";
         v31 = v23;
@@ -282,25 +285,22 @@ LABEL_69:
       }
     }
   }
-
-LABEL_71:
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldActivateAttentionDetectionForSampling
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   clients = self->_clients;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __58__AWScheduler_shouldActivateAttentionDetectionForSampling__block_invoke;
-  v12[3] = &unk_1E7F373B8;
-  v12[4] = &v13;
-  [(NSMutableArray *)clients enumerateObjectsUsingBlock:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __58__AWScheduler_shouldActivateAttentionDetectionForSampling__block_invoke;
+  v11[3] = &unk_1E7F373B8;
+  v11[4] = &v12;
+  [(NSMutableArray *)clients enumerateObjectsUsingBlock:v11];
   if (currentLogLevel < 7)
   {
     goto LABEL_14;
@@ -336,39 +336,38 @@ LABEL_8:
     v7 = v6 / 1000000000.0;
   }
 
-  v8 = *(v14 + 6);
+  v8 = *(v13 + 6);
   *buf = 136315906;
-  v18 = v4;
-  v19 = 1024;
-  v20 = 773;
-  v21 = 2048;
-  v22 = v7;
-  v23 = 1024;
-  v24 = v8;
+  v17 = v4;
+  v18 = 1024;
+  v19 = 773;
+  v20 = 2048;
+  v21 = v7;
+  v22 = 1024;
+  v23 = v8;
   _os_log_impl(&dword_1BB2EF000, v3, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %d active AttentionDetect clients", buf, 0x22u);
 LABEL_13:
 
 LABEL_14:
-  v9 = *(v14 + 6) > 0;
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *(v13 + 6) > 0;
+  _Block_object_dispose(&v12, 8);
   return v9;
 }
 
 - (BOOL)shouldActivateMotionDetectForSampling
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   clients = self->_clients;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __52__AWScheduler_shouldActivateMotionDetectForSampling__block_invoke;
-  v12[3] = &unk_1E7F373B8;
-  v12[4] = &v13;
-  [(NSMutableArray *)clients enumerateObjectsUsingBlock:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __52__AWScheduler_shouldActivateMotionDetectForSampling__block_invoke;
+  v11[3] = &unk_1E7F373B8;
+  v11[4] = &v12;
+  [(NSMutableArray *)clients enumerateObjectsUsingBlock:v11];
   if (currentLogLevel < 7)
   {
     goto LABEL_14;
@@ -404,22 +403,21 @@ LABEL_8:
     v7 = v6 / 1000000000.0;
   }
 
-  v8 = *(v14 + 6);
+  v8 = *(v13 + 6);
   *buf = 136315906;
-  v18 = v4;
-  v19 = 1024;
-  v20 = 818;
-  v21 = 2048;
-  v22 = v7;
-  v23 = 1024;
-  v24 = v8;
+  v17 = v4;
+  v18 = 1024;
+  v19 = 818;
+  v20 = 2048;
+  v21 = v7;
+  v22 = 1024;
+  v23 = v8;
   _os_log_impl(&dword_1BB2EF000, v3, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %d active motion detect clients", buf, 0x22u);
 LABEL_13:
 
 LABEL_14:
-  v9 = *(v14 + 6) > 0;
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *(v13 + 6) > 0;
+  _Block_object_dispose(&v12, 8);
   return v9;
 }
 
@@ -458,6 +456,15 @@ void __58__AWScheduler_shouldActivateAttentionDetectionForSampling__block_invoke
   return WeakRetained;
 }
 
+- (void)screenStateChanging:(BOOL)changing
+{
+  changingCopy = changing;
+  [(AWAttentionSampler *)self->_attentionSampler setDisplayState:?];
+  attentionStreamer = self->_attentionStreamer;
+
+  [(AWAttentionStreamer *)attentionStreamer setDisplayStateWithMask:128 displayState:changingCopy];
+}
+
 - (BOOL)canRunMotionDetect
 {
   if ([(AWAttentionSampler *)self->_attentionSampler currentState]== 1 || [(AWScheduler *)self shouldActivateAttentionDetectionForSampling])
@@ -470,18 +477,18 @@ void __58__AWScheduler_shouldActivateAttentionDetectionForSampling__block_invoke
 
 - (BOOL)shouldActivateEyeReliefForStreaming
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   streamingClients = self->_streamingClients;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __50__AWScheduler_shouldActivateEyeReliefForStreaming__block_invoke;
-  v12[3] = &unk_1E7F37800;
-  v12[4] = &v13;
-  [(NSMutableDictionary *)streamingClients enumerateKeysAndObjectsUsingBlock:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50__AWScheduler_shouldActivateEyeReliefForStreaming__block_invoke;
+  v11[3] = &unk_1E7F37800;
+  v11[4] = &v12;
+  [(NSMutableDictionary *)streamingClients enumerateKeysAndObjectsUsingBlock:v11];
   if (currentLogLevel < 7)
   {
     goto LABEL_14;
@@ -517,22 +524,21 @@ LABEL_8:
     v7 = v6 / 1000000000.0;
   }
 
-  v8 = *(v14 + 6);
+  v8 = *(v13 + 6);
   *buf = 136315906;
-  v18 = v4;
-  v19 = 1024;
-  v20 = 804;
-  v21 = 2048;
-  v22 = v7;
-  v23 = 1024;
-  v24 = v8;
+  v17 = v4;
+  v18 = 1024;
+  v19 = 804;
+  v20 = 2048;
+  v21 = v7;
+  v22 = 1024;
+  v23 = v8;
   _os_log_impl(&dword_1BB2EF000, v3, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %d active eyeRelief client", buf, 0x22u);
 LABEL_13:
 
 LABEL_14:
-  v9 = *(v14 + 6) > 0;
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *(v13 + 6) > 0;
+  _Block_object_dispose(&v12, 8);
   return v9;
 }
 
@@ -547,18 +553,18 @@ void __50__AWScheduler_shouldActivateEyeReliefForStreaming__block_invoke(uint64_
 
 - (BOOL)shouldActivateAttentionDetectForStreaming
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   streamingClients = self->_streamingClients;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __56__AWScheduler_shouldActivateAttentionDetectForStreaming__block_invoke;
-  v12[3] = &unk_1E7F37800;
-  v12[4] = &v13;
-  [(NSMutableDictionary *)streamingClients enumerateKeysAndObjectsUsingBlock:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __56__AWScheduler_shouldActivateAttentionDetectForStreaming__block_invoke;
+  v11[3] = &unk_1E7F37800;
+  v11[4] = &v12;
+  [(NSMutableDictionary *)streamingClients enumerateKeysAndObjectsUsingBlock:v11];
   if (currentLogLevel < 7)
   {
     goto LABEL_14;
@@ -594,22 +600,21 @@ LABEL_8:
     v7 = v6 / 1000000000.0;
   }
 
-  v8 = *(v14 + 6);
+  v8 = *(v13 + 6);
   *buf = 136315906;
-  v18 = v4;
-  v19 = 1024;
-  v20 = 788;
-  v21 = 2048;
-  v22 = v7;
-  v23 = 1024;
-  v24 = v8;
+  v17 = v4;
+  v18 = 1024;
+  v19 = 788;
+  v20 = 2048;
+  v21 = v7;
+  v22 = 1024;
+  v23 = v8;
   _os_log_impl(&dword_1BB2EF000, v3, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %d active AD clients", buf, 0x22u);
 LABEL_13:
 
 LABEL_14:
-  v9 = *(v14 + 6) > 0;
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *(v13 + 6) > 0;
+  _Block_object_dispose(&v12, 8);
   return v9;
 }
 
@@ -624,7 +629,7 @@ void __56__AWScheduler_shouldActivateAttentionDetectForStreaming__block_invoke(u
 
 - (void)setClientAsInterrupted:(id)interrupted forKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   interruptedCopy = interrupted;
   keyCopy = key;
   if (currentLogLevel == 5)
@@ -644,15 +649,15 @@ void __56__AWScheduler_shouldActivateAttentionDetectForStreaming__block_invoke(u
       }
 
       identifier = [interruptedCopy identifier];
-      *v23 = 134218242;
-      *&v23[4] = v10;
-      *&v23[12] = 2112;
-      *&v23[14] = identifier;
+      *v22 = 134218242;
+      *&v22[4] = v10;
+      *&v22[12] = 2112;
+      *&v22[14] = identifier;
       v16 = "%13.5f: Adding client %@ to the interrupted clients list";
       v17 = v8;
       v18 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_DEFAULT, v16, v23, v18);
+      _os_log_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_DEFAULT, v16, v22, v18);
     }
 
 LABEL_20:
@@ -687,14 +692,14 @@ LABEL_20:
           }
 
           identifier = [interruptedCopy identifier];
-          *v23 = 136315906;
-          *&v23[4] = v11;
-          *&v23[12] = 1024;
-          *&v23[14] = 754;
-          *&v23[18] = 2048;
-          *&v23[20] = v14;
-          *&v23[28] = 2112;
-          *&v23[30] = identifier;
+          *v22 = 136315906;
+          *&v22[4] = v11;
+          *&v22[12] = 1024;
+          *&v22[14] = 754;
+          *&v22[18] = 2048;
+          *&v22[20] = v14;
+          *&v22[28] = 2112;
+          *&v22[30] = identifier;
           v16 = "%30s:%-4d: %13.5f: Adding client %@ to the interrupted clients list";
           v17 = v8;
           v18 = 38;
@@ -707,7 +712,7 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(NSMutableDictionary *)self->_streamingClients removeObjectForKey:keyCopy, *v23, *&v23[16], *&v23[24], v24];
+  [(NSMutableDictionary *)self->_streamingClients removeObjectForKey:keyCopy, *v22, *&v22[8], *&v22[24], v23];
   [(NSMutableDictionary *)self->_interruptedStreamingClients setObject:interruptedCopy forKey:keyCopy];
   attentionStreamer = self->_attentionStreamer;
   identifier2 = [interruptedCopy identifier];
@@ -715,7 +720,6 @@ LABEL_21:
   -[AWAttentionStreamer logStreamComplete:identifier:duration:ERActivated:](attentionStreamer, "logStreamComplete:identifier:duration:ERActivated:", 128, identifier2, v21, [interruptedCopy activateEyeRelief]);
 
   [interruptedCopy setStreamingDuration:0.0];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotification:(unint64_t)notification
@@ -750,7 +754,7 @@ void __34__AWScheduler_handleNotification___block_invoke(uint64_t a1, void *a2, 
 
 - (id)cancelFaceDetectStream:(id)stream withIdentifier:(id)identifier
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
@@ -772,13 +776,13 @@ void __34__AWScheduler_handleNotification___block_invoke(uint64_t a1, void *a2, 
           v13 = v12 / 1000000000.0;
         }
 
-        *v64 = 134217984;
-        *&v64[4] = v13;
+        *v63 = 134217984;
+        *&v63[4] = v13;
         v20 = "%13.5f: Not stopping streamer as it isn't running currently";
         v21 = v11;
         v22 = 12;
 LABEL_37:
-        _os_log_impl(&dword_1BB2EF000, v21, OS_LOG_TYPE_DEFAULT, v20, v64, v22);
+        _os_log_impl(&dword_1BB2EF000, v21, OS_LOG_TYPE_DEFAULT, v20, v63, v22);
       }
     }
 
@@ -789,9 +793,9 @@ LABEL_37:
 LABEL_39:
         v28 = MEMORY[0x1E696ABC0];
         v29 = *MEMORY[0x1E696A798];
-        v66 = *MEMORY[0x1E696A578];
-        v67[0] = @" Streamer not running";
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:{1, *v64, *&v64[16], *&v64[24]}];
+        v65 = *MEMORY[0x1E696A578];
+        v66[0] = @" Streamer not running";
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:{1, *v63, *&v63[8], *&v63[24]}];
         v31 = [v28 errorWithDomain:v29 code:3 userInfo:v30];
 
         goto LABEL_91;
@@ -821,12 +825,12 @@ LABEL_39:
               v19 = v18 / 1000000000.0;
             }
 
-            *v64 = 136315650;
-            *&v64[4] = v14;
-            *&v64[12] = 1024;
-            *&v64[14] = 672;
-            *&v64[18] = 2048;
-            *&v64[20] = v19;
+            *v63 = 136315650;
+            *&v63[4] = v14;
+            *&v63[12] = 1024;
+            *&v63[14] = 672;
+            *&v63[18] = 2048;
+            *&v63[20] = v19;
             v20 = "%30s:%-4d: %13.5f: Not stopping streamer as it isn't running currently";
             v21 = v11;
             v22 = 28;
@@ -860,13 +864,13 @@ LABEL_39:
         v10 = v9 / 1000000000.0;
       }
 
-      *v64 = 134217984;
-      *&v64[4] = v10;
+      *v63 = 134217984;
+      *&v63[4] = v10;
       v25 = "%13.5f: Stopping the streamer as there are no active streaming clients";
       v26 = v8;
       v27 = 12;
 LABEL_42:
-      _os_log_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_DEFAULT, v25, v64, v27);
+      _os_log_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_DEFAULT, v25, v63, v27);
     }
   }
 
@@ -901,12 +905,12 @@ LABEL_42:
             v24 = v23 / 1000000000.0;
           }
 
-          *v64 = 136315650;
-          *&v64[4] = v16;
-          *&v64[12] = 1024;
-          *&v64[14] = 679;
-          *&v64[18] = 2048;
-          *&v64[20] = v24;
+          *v63 = 136315650;
+          *&v63[4] = v16;
+          *&v63[12] = 1024;
+          *&v63[14] = 679;
+          *&v63[18] = 2048;
+          *&v63[20] = v24;
           v25 = "%30s:%-4d: %13.5f: Stopping the streamer as there are no active streaming clients";
           v26 = v8;
           v27 = 28;
@@ -917,7 +921,7 @@ LABEL_42:
   }
 
 LABEL_44:
-  v31 = [(AWAttentionStreamer *)self->_attentionStreamer cancelEventStreamWithMask:128, *v64, *&v64[8], *&v64[24]];
+  v31 = [(AWAttentionStreamer *)self->_attentionStreamer cancelEventStreamWithMask:128, *v63, *&v63[8], *&v63[24]];
   if (v31)
   {
     goto LABEL_91;
@@ -945,17 +949,17 @@ LABEL_45:
 
       v39 = [(NSMutableDictionary *)self->_streamingClients count];
       allValues = [(NSMutableDictionary *)self->_streamingClients allValues];
-      *v64 = 134218498;
-      *&v64[4] = v34;
-      *&v64[12] = 2048;
-      *&v64[14] = v39;
-      *&v64[22] = 2112;
-      *&v64[24] = allValues;
+      *v63 = 134218498;
+      *&v63[4] = v34;
+      *&v63[12] = 2048;
+      *&v63[14] = v39;
+      *&v63[22] = 2112;
+      *&v63[24] = allValues;
       v41 = "%13.5f: %lu streaming clients: %@";
       v42 = v32;
       v43 = 32;
 LABEL_63:
-      _os_log_impl(&dword_1BB2EF000, v42, OS_LOG_TYPE_DEFAULT, v41, v64, v43);
+      _os_log_impl(&dword_1BB2EF000, v42, OS_LOG_TYPE_DEFAULT, v41, v63, v43);
     }
 
 LABEL_64:
@@ -991,16 +995,16 @@ LABEL_64:
 
           v44 = [(NSMutableDictionary *)self->_streamingClients count];
           allValues = [(NSMutableDictionary *)self->_streamingClients allValues];
-          *v64 = 136316162;
-          *&v64[4] = v35;
-          *&v64[12] = 1024;
-          *&v64[14] = 691;
-          *&v64[18] = 2048;
-          *&v64[20] = v38;
-          *&v64[28] = 2048;
-          *&v64[30] = v44;
-          *&v64[38] = 2112;
-          v65 = allValues;
+          *v63 = 136316162;
+          *&v63[4] = v35;
+          *&v63[12] = 1024;
+          *&v63[14] = 691;
+          *&v63[18] = 2048;
+          *&v63[20] = v38;
+          *&v63[28] = 2048;
+          *&v63[30] = v44;
+          *&v63[38] = 2112;
+          v64 = allValues;
           v41 = "%30s:%-4d: %13.5f: %lu streaming clients: %@";
           v42 = v32;
           v43 = 48;
@@ -1013,7 +1017,7 @@ LABEL_64:
   }
 
 LABEL_65:
-  v45 = [(AWAttentionStreamer *)self->_attentionStreamer getStreamerOptionsWithMask:128, *v64, *&v64[8], *&v64[24], *&v64[32], v65];
+  v45 = [(AWAttentionStreamer *)self->_attentionStreamer getStreamerOptionsWithMask:128, *v63, *&v63[8], *&v63[24], *&v63[32], v64];
   shouldActivateAttentionDetectForStreaming = [(AWScheduler *)self shouldActivateAttentionDetectForStreaming];
   shouldActivateEyeReliefForStreaming = [(AWScheduler *)self shouldActivateEyeReliefForStreaming];
   v48 = shouldActivateEyeReliefForStreaming;
@@ -1035,13 +1039,13 @@ LABEL_65:
           v51 = v50 / 1000000000.0;
         }
 
-        *v64 = 134217984;
-        *&v64[4] = v51;
+        *v63 = 134217984;
+        *&v63[4] = v51;
         v56 = "%13.5f: Streaming options have changed, cancelling current operation and starting a new one with updated options";
         v57 = v49;
         v58 = 12;
 LABEL_85:
-        _os_log_impl(&dword_1BB2EF000, v57, OS_LOG_TYPE_DEFAULT, v56, v64, v58);
+        _os_log_impl(&dword_1BB2EF000, v57, OS_LOG_TYPE_DEFAULT, v56, v63, v58);
       }
     }
 
@@ -1050,7 +1054,7 @@ LABEL_85:
       if (currentLogLevel < 6)
       {
 LABEL_87:
-        v59 = [(AWAttentionStreamer *)self->_attentionStreamer cancelEventStreamWithMask:128, *v64, *&v64[8], *&v64[24]];
+        v59 = [(AWAttentionStreamer *)self->_attentionStreamer cancelEventStreamWithMask:128, *v63, *&v63[8], *&v63[24]];
         v60 = 256;
         if (!shouldActivateAttentionDetectForStreaming)
         {
@@ -1085,12 +1089,12 @@ LABEL_87:
               v55 = v54 / 1000000000.0;
             }
 
-            *v64 = 136315650;
-            *&v64[4] = v52;
-            *&v64[12] = 1024;
-            *&v64[14] = 704;
-            *&v64[18] = 2048;
-            *&v64[20] = v55;
+            *v63 = 136315650;
+            *&v63[4] = v52;
+            *&v63[12] = 1024;
+            *&v63[14] = 704;
+            *&v63[18] = 2048;
+            *&v63[20] = v55;
             v56 = "%30s:%-4d: %13.5f: Streaming options have changed, cancelling current operation and starting a new one with updated options";
             v57 = v49;
             v58 = 28;
@@ -1107,14 +1111,109 @@ LABEL_90:
   v31 = 0;
 LABEL_91:
 
-  v62 = *MEMORY[0x1E69E9840];
-
   return v31;
+}
+
+- (id)streamFaceDetectEventsWithOptions:(id)options
+{
+  v3 = *&options.var0;
+  v34[1] = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_queue);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke;
+  v28[3] = &unk_1E7F37340;
+  v28[4] = self;
+  v5 = MEMORY[0x1BFB0D030](v28);
+  if (MGGetBoolAnswer())
+  {
+    attentionStreamer = self->_attentionStreamer;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_67;
+    v27[3] = &unk_1E7F37368;
+    v27[4] = self;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_70;
+    v24 = &unk_1E7F37938;
+    selfCopy = self;
+    v7 = v5;
+    v26 = v7;
+    v8 = [(AWAttentionStreamer *)attentionStreamer streamEventsWithMask:128 block:v27 options:*&v3 & 0xFFFFFFLL operationStartFailedBlock:&v21];
+    if (v8)
+    {
+      if (currentLogLevel >= 3)
+      {
+        v9 = _AALog();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          v19 = absTimeNS();
+          if (v19 == -1)
+          {
+            v20 = INFINITY;
+          }
+
+          else
+          {
+            v20 = v19 / 1000000000.0;
+          }
+
+          *buf = 134218242;
+          v30 = v20;
+          v31 = 2112;
+          v32 = v8;
+          _os_log_error_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_ERROR, "%13.5f: Error %@ when starting streaming operation from AttentionStreamer", buf, 0x16u);
+        }
+      }
+
+      [(NSMutableDictionary *)self->_streamingClients enumerateKeysAndObjectsUsingBlock:v7, v21, v22, v23, v24, selfCopy];
+    }
+
+    v10 = v8;
+  }
+
+  else
+  {
+    if (currentLogLevel >= 3)
+    {
+      v11 = _AALog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v17 = absTimeNS();
+        if (v17 == -1)
+        {
+          v18 = INFINITY;
+        }
+
+        else
+        {
+          v18 = v17 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v30 = v18;
+        _os_log_error_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_ERROR, "%13.5f: Device doesn't support pearl", buf, 0xCu);
+      }
+    }
+
+    [(NSMutableDictionary *)self->_streamingClients enumerateKeysAndObjectsUsingBlock:v5];
+    v12 = MEMORY[0x1E696ABC0];
+    v13 = *MEMORY[0x1E696A798];
+    v33 = *MEMORY[0x1E696A578];
+    v34[0] = @" Device doesn't support Pearl";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v15 = [v12 errorWithDomain:v13 code:19 userInfo:v14];
+
+    v10 = v15;
+  }
+
+  return v10;
 }
 
 void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([v6 invalid] & 1) == 0)
@@ -1136,15 +1235,15 @@ void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke(uint64_t
         }
 
         v14 = [v6 identifier];
-        *v19 = 134218242;
-        *&v19[4] = v9;
-        *&v19[12] = 2112;
-        *&v19[14] = v14;
+        *v18 = 134218242;
+        *&v18[4] = v9;
+        *&v18[12] = 2112;
+        *&v18[14] = v14;
         v15 = "%13.5f: Removing client %@ from streaming clients list";
         v16 = v7;
         v17 = 22;
 LABEL_20:
-        _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v19, v17);
+        _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v18, v17);
       }
     }
 
@@ -1153,7 +1252,7 @@ LABEL_20:
       if (currentLogLevel < 6)
       {
 LABEL_22:
-        [*(*(a1 + 32) + 32) removeObjectForKey:{v5, *v19, *&v19[16], *&v19[24], v20}];
+        [*(*(a1 + 32) + 32) removeObjectForKey:{v5, *v18, *&v18[8], *&v18[24], v19}];
         [v6 invalidateWithoutQueue];
         goto LABEL_23;
       }
@@ -1183,14 +1282,14 @@ LABEL_22:
             }
 
             v14 = [v6 identifier];
-            *v19 = 136315906;
-            *&v19[4] = v10;
-            *&v19[12] = 1024;
-            *&v19[14] = 593;
-            *&v19[18] = 2048;
-            *&v19[20] = v13;
-            *&v19[28] = 2112;
-            *&v19[30] = v14;
+            *v18 = 136315906;
+            *&v18[4] = v10;
+            *&v18[12] = 1024;
+            *&v18[14] = 593;
+            *&v18[18] = 2048;
+            *&v18[20] = v13;
+            *&v18[28] = 2112;
+            *&v18[30] = v14;
             v15 = "%30s:%-4d: %13.5f: Removing client %@ from streaming clients list";
             v16 = v7;
             v17 = 38;
@@ -1204,8 +1303,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_67(uint64_t a1, void *a2)
@@ -1223,7 +1320,7 @@ void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_67(uint6
 
 void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_70(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1232,57 +1329,54 @@ void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_70(uint6
       v4 = _AALog();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = absTimeNS();
-        if (v6 == -1)
+        v5 = absTimeNS();
+        if (v5 == -1)
         {
-          v7 = INFINITY;
+          v6 = INFINITY;
         }
 
         else
         {
-          v7 = v6 / 1000000000.0;
+          v6 = v5 / 1000000000.0;
         }
 
-        v8 = 134218242;
-        v9 = v7;
-        v10 = 2112;
-        v11 = v3;
-        _os_log_error_impl(&dword_1BB2EF000, v4, OS_LOG_TYPE_ERROR, "%13.5f: Error %@ when starting streaming operation from BioKit", &v8, 0x16u);
+        v7 = 134218242;
+        v8 = v6;
+        v9 = 2112;
+        v10 = v3;
+        _os_log_error_impl(&dword_1BB2EF000, v4, OS_LOG_TYPE_ERROR, "%13.5f: Error %@ when starting streaming operation from BioKit", &v7, 0x16u);
       }
     }
 
     [*(*(a1 + 32) + 32) enumerateKeysAndObjectsUsingBlock:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = *(a1 + 32);
-    if ([v6 metadataType] == 2 || objc_msgSend(v6, "metadataType") == 5)
+    v5 = *(a1 + 32);
+    if ([v5 metadataType] == 2 || objc_msgSend(v5, "metadataType") == 5)
     {
+      v6 = _AALog();
       v7 = _AALog();
-      v8 = _AALog();
-      v9 = os_signpost_id_generate(v8);
+      v8 = os_signpost_id_generate(v7);
 
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+      if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
       {
-        *v11 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BB2EF000, v7, OS_SIGNPOST_EVENT, v9, "AA: Streaming event received", &unk_1BB32C3F2, v11, 2u);
+        *v10 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1BB2EF000, v6, OS_SIGNPOST_EVENT, v8, "AA: Streaming event received", &unk_1BB32C3F2, v10, 2u);
       }
     }
   }
 
-  v10 = v4;
-  if (([v10 invalid] & 1) == 0)
+  v9 = v4;
+  if (([v9 invalid] & 1) == 0)
   {
-    [v10 notifyClientOfStreamingEvent:*(a1 + 32)];
+    [v9 notifyClientOfStreamingEvent:*(a1 + 32)];
   }
 }
 
@@ -1301,7 +1395,7 @@ void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_2(uint64
 
 - (void)removeStreamingClientwithIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(NSMutableDictionary *)self->_streamingClients objectForKey:identifierCopy];
   if (!v5)
@@ -1325,15 +1419,15 @@ void __49__AWScheduler_streamFaceDetectEventsWithOptions___block_invoke_2(uint64
         v8 = v7 / 1000000000.0;
       }
 
-      *v31 = 134218242;
-      *&v31[4] = v8;
-      *&v31[12] = 2112;
-      *&v31[14] = v5;
+      *v30 = 134218242;
+      *&v30[4] = v8;
+      *&v30[12] = 2112;
+      *&v30[14] = v5;
       v13 = "%13.5f: Trying to remove streaming client %@";
       v14 = v6;
       v15 = 22;
 LABEL_20:
-      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v31, v15);
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v30, v15);
     }
   }
 
@@ -1368,14 +1462,14 @@ LABEL_20:
             v12 = v11 / 1000000000.0;
           }
 
-          *v31 = 136315906;
-          *&v31[4] = v9;
-          *&v31[12] = 1024;
-          *&v31[14] = 551;
-          *&v31[18] = 2048;
-          *&v31[20] = v12;
-          *&v31[28] = 2112;
-          *&v31[30] = v5;
+          *v30 = 136315906;
+          *&v30[4] = v9;
+          *&v30[12] = 1024;
+          *&v30[14] = 551;
+          *&v30[18] = 2048;
+          *&v30[20] = v12;
+          *&v30[28] = 2112;
+          *&v30[30] = v5;
           v13 = "%30s:%-4d: %13.5f: Trying to remove streaming client %@";
           v14 = v6;
           v15 = 38;
@@ -1386,7 +1480,7 @@ LABEL_20:
   }
 
 LABEL_22:
-  v16 = [(AWScheduler *)self cancelFaceDetectStream:v5 withIdentifier:identifierCopy, *v31, *&v31[16], *&v31[24], v32];
+  v16 = [(AWScheduler *)self cancelFaceDetectStream:v5 withIdentifier:identifierCopy, *v30, *&v30[8], *&v30[24], v31];
   v17 = [(NSMutableDictionary *)self->_streamingClients objectForKey:identifierCopy];
 
   if (v17)
@@ -1415,15 +1509,15 @@ LABEL_24:
         }
 
         identifier = [v18 identifier];
-        *v31 = 134218242;
-        *&v31[4] = v21;
-        *&v31[12] = 2112;
-        *&v31[14] = identifier;
+        *v30 = 134218242;
+        *&v30[4] = v21;
+        *&v30[12] = 2112;
+        *&v30[14] = identifier;
         v27 = "%13.5f: Removing client %@ from the list of interrupted clients";
         v28 = v19;
         v29 = 22;
 LABEL_43:
-        _os_log_impl(&dword_1BB2EF000, v28, OS_LOG_TYPE_DEFAULT, v27, v31, v29);
+        _os_log_impl(&dword_1BB2EF000, v28, OS_LOG_TYPE_DEFAULT, v27, v30, v29);
       }
     }
 
@@ -1432,7 +1526,7 @@ LABEL_43:
       if (currentLogLevel < 6)
       {
 LABEL_45:
-        [(NSMutableDictionary *)self->_interruptedStreamingClients removeObjectForKey:identifierCopy, *v31, *&v31[8], *&v31[24]];
+        [(NSMutableDictionary *)self->_interruptedStreamingClients removeObjectForKey:identifierCopy, *v30, *&v30[8], *&v30[24]];
         goto LABEL_46;
       }
 
@@ -1461,14 +1555,14 @@ LABEL_45:
             }
 
             identifier = [v18 identifier];
-            *v31 = 136315906;
-            *&v31[4] = v22;
-            *&v31[12] = 1024;
-            *&v31[14] = 564;
-            *&v31[18] = 2048;
-            *&v31[20] = v25;
-            *&v31[28] = 2112;
-            *&v31[30] = identifier;
+            *v30 = 136315906;
+            *&v30[4] = v22;
+            *&v30[12] = 1024;
+            *&v30[14] = 564;
+            *&v30[18] = 2048;
+            *&v30[20] = v25;
+            *&v30[28] = 2112;
+            *&v30[30] = identifier;
             v27 = "%30s:%-4d: %13.5f: Removing client %@ from the list of interrupted clients";
             v28 = v19;
             v29 = 38;
@@ -1482,13 +1576,11 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addStreamingClient:(id)client withIdentifier:(id)identifier
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   clientCopy = client;
   identifierCopy = identifier;
   if (!clientCopy)
@@ -1517,15 +1609,15 @@ LABEL_46:
           v17 = v16 / 1000000000.0;
         }
 
-        *v42 = 134218242;
-        *&v42[4] = v17;
-        *&v42[12] = 2112;
-        *&v42[14] = clientCopy;
+        *v41 = 134218242;
+        *&v41[4] = v17;
+        *&v41[12] = 2112;
+        *&v41[14] = clientCopy;
         v22 = "%13.5f: Creating new streaming client %@";
         v23 = v15;
         v24 = 22;
 LABEL_27:
-        _os_log_impl(&dword_1BB2EF000, v23, OS_LOG_TYPE_DEFAULT, v22, v42, v24);
+        _os_log_impl(&dword_1BB2EF000, v23, OS_LOG_TYPE_DEFAULT, v22, v41, v24);
       }
     }
 
@@ -1534,7 +1626,7 @@ LABEL_27:
       if (currentLogLevel < 6)
       {
 LABEL_29:
-        [(NSMutableDictionary *)self->_streamingClients setObject:clientCopy forKey:v8, *v42, *&v42[16], *&v42[24]];
+        [(NSMutableDictionary *)self->_streamingClients setObject:clientCopy forKey:v8, *v41, *&v41[8], *&v41[24]];
         [(AWScheduler *)self addClient:clientCopy];
         [clientCopy setStreamingDuration:0.0];
         [clientCopy setStreamingStartTime:mach_continuous_time()];
@@ -1566,14 +1658,14 @@ LABEL_29:
               v21 = v20 / 1000000000.0;
             }
 
-            *v42 = 136315906;
-            *&v42[4] = v18;
-            *&v42[12] = 1024;
-            *&v42[14] = 530;
-            *&v42[18] = 2048;
-            *&v42[20] = v21;
-            *&v42[28] = 2112;
-            *&v42[30] = clientCopy;
+            *v41 = 136315906;
+            *&v41[4] = v18;
+            *&v41[12] = 1024;
+            *&v41[14] = 530;
+            *&v41[18] = 2048;
+            *&v41[20] = v21;
+            *&v41[28] = 2112;
+            *&v41[30] = clientCopy;
             v22 = "%30s:%-4d: %13.5f: Creating new streaming client %@";
             v23 = v15;
             v24 = 38;
@@ -1602,17 +1694,17 @@ LABEL_29:
         v26 = v25 / 1000000000.0;
       }
 
-      *v42 = 134217984;
-      *&v42[4] = v26;
-      _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: Client already added to the list of streaming clients, don't add it again", v42, 0xCu);
+      *v41 = 134217984;
+      *&v41[4] = v26;
+      _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: Client already added to the list of streaming clients, don't add it again", v41, 0xCu);
     }
   }
 
   v11 = MEMORY[0x1E696ABC0];
   v12 = *MEMORY[0x1E696A798];
-  v44 = *MEMORY[0x1E696A578];
-  v45[0] = @" Client already active";
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+  v43 = *MEMORY[0x1E696A578];
+  v44[0] = @" Client already active";
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
   v14 = [v11 errorWithDomain:v12 code:37 userInfo:v13];
 
 LABEL_30:
@@ -1634,17 +1726,17 @@ LABEL_30:
 
       v34 = [(NSMutableDictionary *)self->_streamingClients count];
       allValues = [(NSMutableDictionary *)self->_streamingClients allValues];
-      *v42 = 134218498;
-      *&v42[4] = v29;
-      *&v42[12] = 2048;
-      *&v42[14] = v34;
-      *&v42[22] = 2112;
-      *&v42[24] = allValues;
+      *v41 = 134218498;
+      *&v41[4] = v29;
+      *&v41[12] = 2048;
+      *&v41[14] = v34;
+      *&v41[22] = 2112;
+      *&v41[24] = allValues;
       v36 = "%13.5f: %lu streaming clients: %@";
       v37 = v27;
       v38 = 32;
 LABEL_48:
-      _os_log_impl(&dword_1BB2EF000, v37, OS_LOG_TYPE_DEFAULT, v36, v42, v38);
+      _os_log_impl(&dword_1BB2EF000, v37, OS_LOG_TYPE_DEFAULT, v36, v41, v38);
     }
   }
 
@@ -1681,16 +1773,16 @@ LABEL_48:
 
           v39 = [(NSMutableDictionary *)self->_streamingClients count];
           allValues = [(NSMutableDictionary *)self->_streamingClients allValues];
-          *v42 = 136316162;
-          *&v42[4] = v30;
-          *&v42[12] = 1024;
-          *&v42[14] = 540;
-          *&v42[18] = 2048;
-          *&v42[20] = v33;
-          *&v42[28] = 2048;
-          *&v42[30] = v39;
-          *&v42[38] = 2112;
-          v43 = allValues;
+          *v41 = 136316162;
+          *&v41[4] = v30;
+          *&v41[12] = 1024;
+          *&v41[14] = 540;
+          *&v41[18] = 2048;
+          *&v41[20] = v33;
+          *&v41[28] = 2048;
+          *&v41[30] = v39;
+          *&v41[38] = 2112;
+          v42 = allValues;
           v36 = "%30s:%-4d: %13.5f: %lu streaming clients: %@";
           v37 = v27;
           v38 = 48;
@@ -1701,14 +1793,13 @@ LABEL_48:
   }
 
 LABEL_50:
-  v40 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)resetInterruptedStreamingClientWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(NSMutableDictionary *)self->_interruptedStreamingClients objectForKey:identifierCopy];
   if (v5)
@@ -1730,15 +1821,15 @@ LABEL_50:
         }
 
         identifier = [v5 identifier];
-        *v19 = 134218242;
-        *&v19[4] = v8;
-        *&v19[12] = 2112;
-        *&v19[14] = identifier;
+        *v18 = 134218242;
+        *&v18[4] = v8;
+        *&v18[12] = 2112;
+        *&v18[14] = identifier;
         v14 = "%13.5f: Interrupted streaming client %@ restarting";
         v15 = v6;
         v16 = 22;
 LABEL_20:
-        _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, v19, v16);
+        _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, v18, v16);
       }
     }
 
@@ -1747,7 +1838,7 @@ LABEL_20:
       if (currentLogLevel < 6)
       {
 LABEL_22:
-        [(NSMutableDictionary *)self->_interruptedStreamingClients removeObjectForKey:identifierCopy, *v19, *&v19[16], *&v19[24], v20];
+        [(NSMutableDictionary *)self->_interruptedStreamingClients removeObjectForKey:identifierCopy, *v18, *&v18[8], *&v18[24], v19];
         [(NSMutableDictionary *)self->_streamingClients setObject:v5 forKey:identifierCopy];
         [v5 setStreamingDuration:0.0];
         [v5 setStreamingStartTime:mach_continuous_time()];
@@ -1779,14 +1870,14 @@ LABEL_22:
             }
 
             identifier = [v5 identifier];
-            *v19 = 136315906;
-            *&v19[4] = v9;
-            *&v19[12] = 1024;
-            *&v19[14] = 497;
-            *&v19[18] = 2048;
-            *&v19[20] = v12;
-            *&v19[28] = 2112;
-            *&v19[30] = identifier;
+            *v18 = 136315906;
+            *&v18[4] = v9;
+            *&v18[12] = 1024;
+            *&v18[14] = 497;
+            *&v18[18] = 2048;
+            *&v18[20] = v12;
+            *&v18[28] = 2112;
+            *&v18[30] = identifier;
             v14 = "%30s:%-4d: %13.5f: Interrupted streaming client %@ restarting";
             v15 = v6;
             v16 = 38;
@@ -1801,8 +1892,6 @@ LABEL_22:
 
 LABEL_23:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -1816,83 +1905,90 @@ LABEL_23:
 
 - (void)reevaluate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = self->_clients;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) reevaluateConfig];
+        [*(*(&v8 + 1) + 8 * v7++) reevaluateConfig];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)setSmartCoverClosed:(BOOL)closed
+{
+  closedCopy = closed;
+  dispatch_assert_queue_V2(self->_queue);
+  [(AWAttentionSampler *)self->_attentionSampler setSmartCoverClosed:closedCopy];
+  attentionStreamer = self->_attentionStreamer;
+
+  [(AWAttentionStreamer *)attentionStreamer setSmartCoverStateWithMask:128 smartCoverState:closedCopy];
 }
 
 - (void)processHIDEvent:(__IOHIDEvent *)event mask:(unint64_t)mask timestamp:(unint64_t)timestamp senderID:(__IOHIDService *)d displayUUID:(id)iD
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   iDCopy = iD;
   dispatch_assert_queue_V2(self->_queue);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = self->_clients;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v19 + 1) + 8 * v17++) notifyHIDEvent:event mask:mask timestamp:timestamp senderID:d displayUUID:{iDCopy, v19}];
+        [*(*(&v18 + 1) + 8 * v17++) notifyHIDEvent:event mask:mask timestamp:timestamp senderID:d displayUUID:{iDCopy, v18}];
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
 
   [(AWScheduler *)self armEvents];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeInvalidClientsWithConnection:(id)connection
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [(NSMutableArray *)self->_clients count];
@@ -1904,11 +2000,11 @@ LABEL_23:
   v7 = v5;
   v8 = 0;
   *&v6 = 136315906;
-  v25 = v6;
+  v24 = v6;
   v9 = v5;
   do
   {
-    v10 = [(NSMutableArray *)self->_clients objectAtIndex:v8, v25];
+    v10 = [(NSMutableArray *)self->_clients objectAtIndex:v8, v24];
     if (([v10 invalid] & 1) != 0 || (objc_msgSend(v10, "connection"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11 == connectionCopy))
     {
       if (currentLogLevel == 5)
@@ -1928,9 +2024,9 @@ LABEL_23:
           }
 
           *buf = 134218242;
-          v27 = v14;
-          v28 = 2112;
-          *v29 = v10;
+          v26 = v14;
+          v27 = 2112;
+          *v28 = v10;
           v19 = v12;
           v20 = "%13.5f: Removing client: %@";
           v21 = 22;
@@ -1977,14 +2073,14 @@ LABEL_25:
                 v18 = v17 / 1000000000.0;
               }
 
-              *buf = v25;
-              v27 = *&v15;
-              v28 = 1024;
-              *v29 = 350;
-              *&v29[4] = 2048;
-              *&v29[6] = v18;
-              v30 = 2112;
-              v31 = v10;
+              *buf = v24;
+              v26 = *&v15;
+              v27 = 1024;
+              *v28 = 350;
+              *&v28[4] = 2048;
+              *&v28[6] = v18;
+              v29 = 2112;
+              v30 = v10;
               v19 = v12;
               v20 = "%30s:%-4d: %13.5f: Removing client: %@";
               v21 = 38;
@@ -2012,13 +2108,11 @@ LABEL_26:
   }
 
 LABEL_29:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addClient:(id)client
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   dispatch_assert_queue_V2(self->_queue);
   if (!clientCopy)
@@ -2048,17 +2142,17 @@ LABEL_29:
       }
 
       v14 = [(NSMutableArray *)self->_clients count];
-      *v30 = 134218498;
-      *&v30[4] = v9;
-      *&v30[12] = 2112;
-      *&v30[14] = self;
-      *&v30[22] = 2048;
-      *&v30[24] = v14;
+      *v29 = 134218498;
+      *&v29[4] = v9;
+      *&v29[12] = 2112;
+      *&v29[14] = self;
+      *&v29[22] = 2048;
+      *&v29[24] = v14;
       v15 = "%13.5f: %@ %lu clients";
       v16 = v7;
       v17 = 32;
 LABEL_20:
-      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v30, v17);
+      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v29, v17);
     }
   }
 
@@ -2094,16 +2188,16 @@ LABEL_20:
           }
 
           v18 = [(NSMutableArray *)self->_clients count];
-          *v30 = 136316162;
-          *&v30[4] = v10;
-          *&v30[12] = 1024;
-          *&v30[14] = 321;
-          *&v30[18] = 2048;
-          *&v30[20] = v13;
-          *&v30[28] = 2112;
-          *&v30[30] = self;
-          *&v30[38] = 2048;
-          v31 = v18;
+          *v29 = 136316162;
+          *&v29[4] = v10;
+          *&v29[12] = 1024;
+          *&v29[14] = 321;
+          *&v29[18] = 2048;
+          *&v29[20] = v13;
+          *&v29[28] = 2112;
+          *&v29[30] = self;
+          *&v29[38] = 2048;
+          v30 = v18;
           v15 = "%30s:%-4d: %13.5f: %@ %lu clients";
           v16 = v7;
           v17 = 48;
@@ -2129,15 +2223,15 @@ LABEL_20:
         v21 = v20 / 1000000000.0;
       }
 
-      *v30 = 134218242;
-      *&v30[4] = v21;
-      *&v30[12] = 2112;
-      *&v30[14] = clientCopy;
+      *v29 = 134218242;
+      *&v29[4] = v21;
+      *&v29[12] = 2112;
+      *&v29[14] = clientCopy;
       v26 = "%13.5f: New client: %@";
       v27 = v19;
       v28 = 22;
 LABEL_39:
-      _os_log_impl(&dword_1BB2EF000, v27, OS_LOG_TYPE_DEFAULT, v26, v30, v28);
+      _os_log_impl(&dword_1BB2EF000, v27, OS_LOG_TYPE_DEFAULT, v26, v29, v28);
     }
 
 LABEL_40:
@@ -2171,14 +2265,14 @@ LABEL_40:
             v25 = v24 / 1000000000.0;
           }
 
-          *v30 = 136315906;
-          *&v30[4] = v22;
-          *&v30[12] = 1024;
-          *&v30[14] = 322;
-          *&v30[18] = 2048;
-          *&v30[20] = v25;
-          *&v30[28] = 2112;
-          *&v30[30] = clientCopy;
+          *v29 = 136315906;
+          *&v29[4] = v22;
+          *&v29[12] = 1024;
+          *&v29[14] = 322;
+          *&v29[18] = 2048;
+          *&v29[20] = v25;
+          *&v29[28] = 2112;
+          *&v29[30] = clientCopy;
           v26 = "%30s:%-4d: %13.5f: New client: %@";
           v27 = v19;
           v28 = 38;
@@ -2191,39 +2285,37 @@ LABEL_40:
   }
 
 LABEL_41:
-  [(AWScheduler *)self armEvents:*v30];
-
-  v29 = *MEMORY[0x1E69E9840];
+  [(AWScheduler *)self armEvents:*v29];
 }
 
 - (BOOL)canActiveOperationBeEnded
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = self->_clients;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 &= [*(*(&v11 + 1) + 8 * i) canOperationBeEndedForClient];
+        v7 &= [*(*(&v10 + 1) + 8 * i) canOperationBeEndedForClient];
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -2234,54 +2326,20 @@ LABEL_41:
     LOBYTE(v7) = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (AWScheduler)initWithOptions:(id)options
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v70.receiver = self;
-  v70.super_class = AWScheduler;
-  v5 = [(AWScheduler *)&v70 init];
+  v69.receiver = self;
+  v69.super_class = AWScheduler;
+  v5 = [(AWScheduler *)&v69 init];
   if (v5)
   {
-    if (!optionsCopy)
+    if (!optionsCopy || ([optionsCopy valueForKey:@"identifier"], v6 = objc_claimAutoreleasedReturnValue(), v7 = v6 == 0, v6, v7) || (objc_msgSend(optionsCopy, "valueForKey:", @"allowFaceDetect"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 == 0, v8, v9) || (objc_msgSend(optionsCopy, "valueForKey:", @"allowHIDEvents"), v10 = objc_claimAutoreleasedReturnValue(), v11 = v10 == 0, v10, v11) || (objc_msgSend(optionsCopy, "valueForKey:", @"allowMotionDetect"), v12 = objc_claimAutoreleasedReturnValue(), v13 = v12 == 0, v12, v13) || (objc_msgSend(optionsCopy, "valueForKey:", @"initForUnitTest"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 == 0, v14, v15))
     {
-      goto LABEL_38;
-    }
-
-    v6 = [optionsCopy valueForKey:@"identifier"];
-    v7 = v6 == 0;
-
-    if (v7)
-    {
-      goto LABEL_38;
-    }
-
-    v8 = [optionsCopy valueForKey:@"allowFaceDetect"];
-    v9 = v8 == 0;
-
-    if (v9)
-    {
-      goto LABEL_38;
-    }
-
-    v10 = [optionsCopy valueForKey:@"allowHIDEvents"];
-    v11 = v10 == 0;
-
-    if (v11)
-    {
-      goto LABEL_38;
-    }
-
-    v12 = [optionsCopy valueForKey:@"allowMotionDetect"];
-    v13 = v12 == 0;
-
-    if (v13 || ([optionsCopy valueForKey:@"initForUnitTest"], v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 == 0, v14, v15))
-    {
-LABEL_38:
       v58 = 0;
       goto LABEL_37;
     }
@@ -2316,7 +2374,7 @@ LABEL_38:
     handler[2] = __31__AWScheduler_initWithOptions___block_invoke;
     handler[3] = &unk_1E7F38038;
     v27 = v5;
-    v69 = v27;
+    v68 = v27;
     dispatch_source_set_event_handler(v26, handler);
     dispatch_resume(*(v5 + 2));
     array = [MEMORY[0x1E695DF70] array];
@@ -2360,11 +2418,11 @@ LABEL_38:
           }
 
           *buf = 134218498;
-          v74 = v36;
-          v75 = 2080;
-          *v76 = v41;
-          *&v76[8] = 2112;
-          *&v76[10] = v42;
+          v73 = v36;
+          v74 = 2080;
+          *v75 = v41;
+          *&v75[8] = 2112;
+          *&v75[10] = v42;
           v43 = "%13.5f: Using %s for Pearl operations for %@";
           v44 = v34;
           v45 = 32;
@@ -2411,15 +2469,15 @@ LABEL_38:
             }
 
             *buf = 136316162;
-            v74 = *&v37;
-            v75 = 1024;
-            *v76 = 179;
-            *&v76[4] = 2048;
-            *&v76[6] = v40;
-            *&v76[14] = 2080;
-            *&v76[16] = v46;
-            v77 = 2112;
-            v78 = v47;
+            v73 = *&v37;
+            v74 = 1024;
+            *v75 = 179;
+            *&v75[4] = 2048;
+            *&v75[6] = v40;
+            *&v75[14] = 2080;
+            *&v75[16] = v46;
+            v76 = 2112;
+            v77 = v47;
             v43 = "%30s:%-4d: %13.5f: Using %s for Pearl operations for %@";
             v44 = v34;
             v45 = 48;
@@ -2432,48 +2490,48 @@ LABEL_33:
         }
       }
 
-      v71[0] = @"unitTest";
+      v70[0] = @"unitTest";
       v48 = [MEMORY[0x1E696AD98] numberWithBool:v5[76]];
-      v72[0] = v48;
-      v71[1] = @"useAVFoundation";
+      v71[0] = v48;
+      v70[1] = @"useAVFoundation";
       v49 = [MEMORY[0x1E696AD98] numberWithBool:v27[72]];
-      v72[1] = v49;
-      v71[2] = @"eventMask";
+      v71[1] = v49;
+      v70[2] = @"eventMask";
       v50 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:128];
-      v72[2] = v50;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:3];
+      v71[2] = v50;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:3];
 
       v52 = [[AWAttentionSampler alloc] initWithOptions:v51];
       v53 = *(v27 + 6);
       *(v27 + 6) = v52;
 
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = __31__AWScheduler_initWithOptions___block_invoke_47;
-      v65[3] = &unk_1E7F372C8;
-      objc_copyWeak(&v66, &location);
-      [*(v27 + 6) setStateChangedCallback:v65];
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __31__AWScheduler_initWithOptions___block_invoke_49;
-      v63[3] = &unk_1E7F372F0;
-      objc_copyWeak(&v64, &location);
-      [*(v27 + 6) setOperationEndableCallback:v63];
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = __31__AWScheduler_initWithOptions___block_invoke_47;
+      v64[3] = &unk_1E7F372C8;
+      objc_copyWeak(&v65, &location);
+      [*(v27 + 6) setStateChangedCallback:v64];
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __31__AWScheduler_initWithOptions___block_invoke_49;
+      v62[3] = &unk_1E7F372F0;
+      objc_copyWeak(&v63, &location);
+      [*(v27 + 6) setOperationEndableCallback:v62];
       v54 = [[AWAttentionStreamer alloc] initWithOptions:v51];
       v56 = *(v27 + 7);
       v55 = (v27 + 56);
       *v55 = v54;
 
       v57 = *v55;
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __31__AWScheduler_initWithOptions___block_invoke_2;
-      v61[3] = &unk_1E7F37318;
-      objc_copyWeak(&v62, &location);
-      [(AWAttentionStreamer *)v57 setNotificationHandler:v61 withMask:128];
-      objc_destroyWeak(&v62);
-      objc_destroyWeak(&v64);
-      objc_destroyWeak(&v66);
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __31__AWScheduler_initWithOptions___block_invoke_2;
+      v60[3] = &unk_1E7F37318;
+      objc_copyWeak(&v61, &location);
+      [(AWAttentionStreamer *)v57 setNotificationHandler:v60 withMask:128];
+      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v63);
+      objc_destroyWeak(&v65);
     }
 
     objc_destroyWeak(&location);
@@ -2482,16 +2540,15 @@ LABEL_33:
   v58 = v5;
 LABEL_37:
 
-  v59 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
 uint64_t __31__AWScheduler_initWithOptions___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (currentLogLevel < 7)
   {
-    goto LABEL_14;
+    return [*(a1 + 32) armEvents];
   }
 
   v2 = _AALog();
@@ -2525,26 +2582,23 @@ LABEL_8:
   }
 
   v7 = *(a1 + 32);
-  v10 = 136315906;
-  v11 = v3;
-  v12 = 1024;
-  v13 = 120;
-  v14 = 2048;
-  v15 = v6;
-  v16 = 2112;
-  v17 = v7;
-  _os_log_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ timer fired", &v10, 0x26u);
+  v9 = 136315906;
+  v10 = v3;
+  v11 = 1024;
+  v12 = 120;
+  v13 = 2048;
+  v14 = v6;
+  v15 = 2112;
+  v16 = v7;
+  _os_log_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ timer fired", &v9, 0x26u);
 LABEL_13:
 
-LABEL_14:
-  result = [*(a1 + 32) armEvents];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) armEvents];
 }
 
 void __31__AWScheduler_initWithOptions___block_invoke_47(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (currentLogLevel == 5)
   {
@@ -2563,17 +2617,17 @@ void __31__AWScheduler_initWithOptions___block_invoke_47(uint64_t a1, void *a2)
       }
 
       WeakRetained = objc_loadWeakRetained((a1 + 32));
-      v17 = 134218498;
-      v18 = v6;
-      v19 = 2112;
-      *v20 = WeakRetained;
-      *&v20[8] = 2112;
-      *&v20[10] = v3;
+      v16 = 134218498;
+      v17 = v6;
+      v18 = 2112;
+      *v19 = WeakRetained;
+      *&v19[8] = 2112;
+      *&v19[10] = v3;
       v12 = "%13.5f: %@ attentionSampler state change (%@)";
       v13 = v4;
       v14 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v17, v14);
+      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
     }
 
 LABEL_20:
@@ -2608,16 +2662,16 @@ LABEL_20:
           }
 
           WeakRetained = objc_loadWeakRetained((a1 + 32));
-          v17 = 136316162;
-          v18 = *&v7;
-          v19 = 1024;
-          *v20 = 192;
-          *&v20[4] = 2048;
-          *&v20[6] = v10;
-          *&v20[14] = 2112;
-          *&v20[16] = WeakRetained;
-          v21 = 2112;
-          v22 = v3;
+          v16 = 136316162;
+          v17 = *&v7;
+          v18 = 1024;
+          *v19 = 192;
+          *&v19[4] = 2048;
+          *&v19[6] = v10;
+          *&v19[14] = 2112;
+          *&v19[16] = WeakRetained;
+          v20 = 2112;
+          v21 = v3;
           v12 = "%30s:%-4d: %13.5f: %@ attentionSampler state change (%@)";
           v13 = v4;
           v14 = 48;
@@ -2632,8 +2686,6 @@ LABEL_20:
 LABEL_21:
   v15 = objc_loadWeakRetained((a1 + 32));
   [v15 armEvents];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__AWScheduler_initWithOptions___block_invoke_49(uint64_t a1)
@@ -2664,28 +2716,26 @@ void __31__AWScheduler_initWithOptions___block_invoke_2(uint64_t a1, uint64_t a2
 
 void __38__AWScheduler_sharedUnitTestScheduler__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"initForUnitTest";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"initForUnitTest";
   v0 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v9[0] = v0;
-  v8[1] = @"allowFaceDetect";
+  v8[0] = v0;
+  v7[1] = @"allowFaceDetect";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v9[1] = v1;
-  v8[2] = @"allowHIDEvents";
+  v8[1] = v1;
+  v7[2] = @"allowHIDEvents";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v9[2] = v2;
-  v8[3] = @"allowMotionDetect";
+  v8[2] = v2;
+  v7[3] = @"allowMotionDetect";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v8[4] = @"identifier";
-  v9[3] = v3;
-  v9[4] = @"Unit test scheduler";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v7[4] = @"identifier";
+  v8[3] = v3;
+  v8[4] = @"Unit test scheduler";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
 
   v5 = [[AWScheduler alloc] initWithOptions:v4];
   v6 = sharedUnitTestScheduler_unitTestScheduler;
   sharedUnitTestScheduler_unitTestScheduler = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedMotionDetectScheduler
@@ -2702,28 +2752,26 @@ void __38__AWScheduler_sharedUnitTestScheduler__block_invoke()
 
 void __42__AWScheduler_sharedMotionDetectScheduler__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"initForUnitTest";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"initForUnitTest";
   v0 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v9[0] = v0;
-  v8[1] = @"allowFaceDetect";
+  v8[0] = v0;
+  v7[1] = @"allowFaceDetect";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v9[1] = v1;
-  v8[2] = @"allowHIDEvents";
+  v8[1] = v1;
+  v7[2] = @"allowHIDEvents";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v9[2] = v2;
-  v8[3] = @"allowMotionDetect";
+  v8[2] = v2;
+  v7[3] = @"allowMotionDetect";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v8[4] = @"identifier";
-  v9[3] = v3;
-  v9[4] = @"Motion detect scheduler";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v7[4] = @"identifier";
+  v8[3] = v3;
+  v8[4] = @"Motion detect scheduler";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
 
   v5 = [[AWScheduler alloc] initWithOptions:v4];
   v6 = sharedMotionDetectScheduler_motionDetectScheduler;
   sharedMotionDetectScheduler_motionDetectScheduler = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedScheduler
@@ -2740,28 +2788,26 @@ void __42__AWScheduler_sharedMotionDetectScheduler__block_invoke()
 
 void __30__AWScheduler_sharedScheduler__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"initForUnitTest";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"initForUnitTest";
   v0 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v9[0] = v0;
-  v8[1] = @"allowFaceDetect";
+  v8[0] = v0;
+  v7[1] = @"allowFaceDetect";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v9[1] = v1;
-  v8[2] = @"allowHIDEvents";
+  v8[1] = v1;
+  v7[2] = @"allowHIDEvents";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v9[2] = v2;
-  v8[3] = @"allowMotionDetect";
+  v8[2] = v2;
+  v7[3] = @"allowMotionDetect";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v8[4] = @"identifier";
-  v9[3] = v3;
-  v9[4] = @"Face detect scheduler";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v7[4] = @"identifier";
+  v8[3] = v3;
+  v8[4] = @"Face detect scheduler";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
 
   v5 = [[AWScheduler alloc] initWithOptions:v4];
   v6 = sharedScheduler_scheduler;
   sharedScheduler_scheduler = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

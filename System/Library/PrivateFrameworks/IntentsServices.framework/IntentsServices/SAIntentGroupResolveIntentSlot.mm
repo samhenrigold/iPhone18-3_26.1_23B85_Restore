@@ -33,16 +33,16 @@ void __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_t
 
 void __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = v3 ? [objc_alloc(MEMORY[0x277CD4358]) initWithData:*(a1 + 32)] : @"no data";
     *buf = 136315394;
-    v17 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke_3";
-    v18 = 2112;
-    v19 = v4;
+    v16 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke_3";
+    v17 = 2112;
+    v18 = v4;
     _os_log_impl(&dword_25553C000, v2, OS_LOG_TYPE_INFO, "%s resolutionResultData = %@", buf, 0x16u);
     if (v3)
     {
@@ -81,8 +81,6 @@ void __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_t
   v13 = [*(a1 + 40) ins_afAnalyticsContext];
   v14 = IFMergeDictionaries();
   [v11 logEventWithType:v12 context:v14 contextNoCopy:{1, v10, 0}];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

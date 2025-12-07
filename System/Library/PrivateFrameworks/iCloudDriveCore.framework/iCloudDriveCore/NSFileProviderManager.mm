@@ -76,7 +76,7 @@ uint64_t __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_
 
 void __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_completionHandler___block_invoke_6(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a3;
   objc_storeStrong((*(a1[6] + 8) + 40), a3);
   v7 = a2;
@@ -87,13 +87,13 @@ void __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_comp
     if (os_log_type_enabled(v9, 0x90u))
     {
       v10 = a1[4];
-      v12 = 138412802;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] couldn't remove domain %@: %@%@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] couldn't remove domain %@: %@%@", &v11, 0x20u);
     }
   }
 
@@ -108,7 +108,6 @@ void __86__NSFileProviderManager_BRCAdditions__br_removeDomain_options_sync_comp
   }
 
   (*(a1[5] + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

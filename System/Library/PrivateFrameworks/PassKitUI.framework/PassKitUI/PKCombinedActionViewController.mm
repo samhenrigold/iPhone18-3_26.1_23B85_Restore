@@ -212,7 +212,7 @@ LABEL_9:
   headerView = self->_headerView;
   if (headerView)
   {
-    [(PKCollapsibleHeaderView *)headerView heightBoundsForWidth:v8];
+    objc_msgSend_heightBoundsForWidth_(headerView, v8);
     v24 = v27;
   }
 
@@ -322,7 +322,7 @@ LABEL_9:
   [(PKCollapsibleHeaderView *)headerView bounds];
   if (headerView)
   {
-    [(PKCollapsibleHeaderView *)headerView heightBoundsForWidth:v10];
+    objc_msgSend_heightBoundsForWidth_(headerView, v10);
     v11 = v25;
     v12 = *&v23;
   }

@@ -38,35 +38,35 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v27 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v27);
-  v14 = v27;
-  if (v14)
+  v24 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v24);
+  v13 = v24;
+  if (v13)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v10, v14, v12, v13);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v12);
   }
 
   else
   {
-    objc_msgSend_doubleRepresentation(v9, v10, v11, v12, v13);
-    objc_msgSend_probabilityWithZ_(TSCEFunction_NORMSDIST, v16, v17, v18, v19);
+    objc_msgSend_doubleRepresentation(v9, v10, v11, v12);
+    objc_msgSend_probabilityWithZ_(TSCEFunction_NORMSDIST, v15, v16, v17);
     TSUDecimal::operator=();
     if (v7)
     {
-      objc_msgSend_formatWithContext_(v7, v20, context, v21, v22);
+      objc_msgSend_formatWithContext_(v7, v18, context, v19);
     }
 
     else
     {
-      memset(v25, 0, sizeof(v25));
+      memset(v22, 0, sizeof(v22));
     }
 
-    v15 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v20, v26, v25, v22);
+    v14 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v18, v23, v22);
   }
 
-  v23 = v15;
+  v20 = v14;
 
-  return v23;
+  return v20;
 }
 
 @end

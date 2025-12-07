@@ -1064,206 +1064,203 @@ LABEL_15:
     v8 = [v5 components:28 fromDate:startDate];
 
     [v8 setHour:3];
-    v76 = v8;
+    v73 = v8;
     v9 = [v5 dateFromComponents:v8];
     lastObject = [bundlesCopy lastObject];
     startDate2 = [lastObject startDate];
     v12 = [v5 components:28 fromDate:startDate2];
 
     [v12 setHour:3];
-    v75 = v12;
+    v72 = v12;
     v13 = [v5 dateFromComponents:v12];
-    v14 = &GEOPOICategoryGasStation_ptr;
-    v15 = objc_opt_new();
-    [v15 addObject:v9];
+    v14 = objc_opt_new();
+    [v14 addObject:v9];
     if ((-[NSObject isDate:inSameDayAsDate:](v5, "isDate:inSameDayAsDate:", v9, v13) & 1) != 0 || ![v9 isBeforeDate:v13])
     {
-      v16 = v9;
+      v15 = v9;
     }
 
     else
     {
       do
       {
-        v16 = [v9 dateByAddingTimeInterval:86400.0];
+        v15 = [v9 dateByAddingTimeInterval:86400.0];
 
-        [v15 addObject:v16];
-        v9 = v16;
+        [v14 addObject:v15];
+        v9 = v15;
       }
 
-      while (([v16 isBeforeDate:v13] & 1) != 0);
+      while (([v15 isBeforeDate:v13] & 1) != 0);
     }
 
-    v74 = v16;
-    v116 = 0u;
-    v117 = 0u;
+    v71 = v15;
+    v113 = 0u;
     v114 = 0u;
-    v115 = 0u;
-    obj = v15;
-    v84 = [obj countByEnumeratingWithState:&v114 objects:v124 count:16];
-    if (!v84)
+    v111 = 0u;
+    v112 = 0u;
+    obj = v14;
+    v81 = [obj countByEnumeratingWithState:&v111 objects:v121 count:16];
+    if (!v81)
     {
-      v91 = 0;
       v88 = 0;
+      v85 = 0;
       goto LABEL_84;
     }
 
-    v91 = 0;
     v88 = 0;
-    v83 = *v115;
-    v77 = bundlesCopy;
-    v79 = v13;
-    v80 = v5;
+    v85 = 0;
+    v80 = *v112;
+    v74 = bundlesCopy;
+    v76 = v13;
+    v77 = v5;
     while (1)
     {
-      for (i = 0; i != v84; i = i + 1)
+      for (i = 0; i != v81; i = i + 1)
       {
-        if (*v115 != v83)
+        if (*v112 != v80)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v114 + 1) + 8 * i);
-        v111[0] = _NSConcreteStackBlock;
-        v111[1] = 3221225472;
-        v111[2] = __76__MODominantBundleCreationManager__suppressDuplicateHomeBundles_parameters___block_invoke;
-        v111[3] = &unk_1003362D8;
-        v112 = v5;
-        v113 = v18;
-        v85 = v18;
-        v19 = [NSPredicate predicateWithBlock:v111];
-        v20 = [bundlesCopy filteredArrayUsingPredicate:v19];
+        v17 = *(*(&v111 + 1) + 8 * i);
+        v108[0] = _NSConcreteStackBlock;
+        v108[1] = 3221225472;
+        v108[2] = __76__MODominantBundleCreationManager__suppressDuplicateHomeBundles_parameters___block_invoke;
+        v108[3] = &unk_1003362D8;
+        v109 = v5;
+        v110 = v17;
+        v82 = v17;
+        v18 = [NSPredicate predicateWithBlock:v108];
+        v19 = [bundlesCopy filteredArrayUsingPredicate:v18];
 
-        v21 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v20 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          v71 = [v20 count];
+          v68 = [v19 count];
           *buf = 134218242;
-          *v123 = v71;
-          *&v123[8] = 2112;
-          *&v123[10] = v85;
-          _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: home bundle count is %lu for %@", buf, 0x16u);
+          *v120 = v68;
+          *&v120[8] = 2112;
+          *&v120[10] = v82;
+          _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: home bundle count is %lu for %@", buf, 0x16u);
         }
 
-        v22 = v14[233];
-        v94 = objc_opt_new();
-        v23 = v14[233];
-        v93 = objc_opt_new();
-        if ([v20 count] >= 2)
+        v91 = objc_opt_new();
+        v90 = objc_opt_new();
+        if ([v19 count] >= 2)
         {
-          v81 = v20;
-          v82 = i;
-          v109 = 0u;
-          v110 = 0u;
+          v78 = v19;
+          v79 = i;
+          v106 = 0u;
           v107 = 0u;
-          v108 = 0u;
-          v24 = v20;
-          v25 = [v24 countByEnumeratingWithState:&v107 objects:v121 count:16];
-          if (v25)
+          v104 = 0u;
+          v105 = 0u;
+          v21 = v19;
+          v22 = [v21 countByEnumeratingWithState:&v104 objects:v118 count:16];
+          if (v22)
           {
-            v26 = v25;
-            v27 = 0;
-            v28 = 0;
-            v29 = *v108;
+            v23 = v22;
+            v24 = 0;
+            v25 = 0;
+            v26 = *v105;
             do
             {
-              for (j = 0; j != v26; j = j + 1)
+              for (j = 0; j != v23; j = j + 1)
               {
-                if (*v108 != v29)
+                if (*v105 != v26)
                 {
-                  objc_enumerationMutation(v24);
+                  objc_enumerationMutation(v21);
                 }
 
-                v31 = *(*(&v107 + 1) + 8 * j);
-                action = [v31 action];
+                v28 = *(*(&v104 + 1) + 8 * j);
+                action = [v28 action];
                 [action actionSubtype];
 
-                action2 = [v31 action];
+                action2 = [v28 action];
                 actionSubtype = [action2 actionSubtype];
 
                 if (actionSubtype == 1)
                 {
-                  ++v28;
+                  ++v25;
                 }
 
-                action3 = [v31 action];
+                action3 = [v28 action];
                 actionSubtype2 = [action3 actionSubtype];
 
                 if (actionSubtype2 == 9)
                 {
-                  ++v27;
+                  ++v24;
                 }
 
-                suggestionID = [v31 suggestionID];
+                suggestionID = [v28 suggestionID];
                 uUIDString = [suggestionID UUIDString];
-                [v94 addObject:uUIDString];
+                [v91 addObject:uUIDString];
 
-                bundleIdentifier = [v31 bundleIdentifier];
+                bundleIdentifier = [v28 bundleIdentifier];
                 uUIDString2 = [bundleIdentifier UUIDString];
-                [v93 addObject:uUIDString2];
+                [v90 addObject:uUIDString2];
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v107 objects:v121 count:16];
+              v23 = [v21 countByEnumeratingWithState:&v104 objects:v118 count:16];
             }
 
-            while (v26);
-            v41 = v28 > 0;
+            while (v23);
+            v38 = v25 > 0;
           }
 
           else
           {
-            v27 = 0;
-            v41 = 0;
+            v24 = 0;
+            v38 = 0;
           }
 
-          v105 = 0u;
-          v106 = 0u;
+          v102 = 0u;
           v103 = 0u;
-          v104 = 0u;
-          v87 = v24;
-          v53 = [v87 countByEnumeratingWithState:&v103 objects:v120 count:16];
-          if (!v53)
+          v100 = 0u;
+          v101 = 0u;
+          v84 = v21;
+          v50 = [v84 countByEnumeratingWithState:&v100 objects:v117 count:16];
+          if (!v50)
           {
-            v92 = 0;
             v89 = 0;
+            v86 = 0;
             goto LABEL_71;
           }
 
-          v54 = v53;
-          v92 = 0;
+          v51 = v50;
           v89 = 0;
-          v90 = *v104;
-          v86 = v27 == 0 && v41;
+          v86 = 0;
+          v87 = *v101;
+          v83 = v24 == 0 && v38;
           while (1)
           {
-            for (k = 0; k != v54; k = k + 1)
+            for (k = 0; k != v51; k = k + 1)
             {
-              if (*v104 != v90)
+              if (*v101 != v87)
               {
-                objc_enumerationMutation(v87);
+                objc_enumerationMutation(v84);
               }
 
-              v56 = *(*(&v103 + 1) + 8 * k);
-              if (v27 < 1)
+              v53 = *(*(&v100 + 1) + 8 * k);
+              if (v24 < 1)
               {
-                if (v86)
+                if (v83)
                 {
-                  action4 = [*(*(&v103 + 1) + 8 * k) action];
+                  action4 = [*(*(&v100 + 1) + 8 * k) action];
                   actionSubtype3 = [action4 actionSubtype];
 
                   if (actionSubtype3 != 1)
                   {
 LABEL_52:
-                    [v56 setIsAggregatedAndSuppressed:1];
-                    ++v88;
-                    ++v89;
+                    [v53 setIsAggregatedAndSuppressed:1];
+                    ++v85;
+                    ++v86;
                   }
                 }
               }
 
               else
               {
-                action5 = [*(*(&v103 + 1) + 8 * k) action];
+                action5 = [*(*(&v100 + 1) + 8 * k) action];
                 actionSubtype4 = [action5 actionSubtype];
 
                 if (actionSubtype4 != 9)
@@ -1272,120 +1269,119 @@ LABEL_52:
                 }
               }
 
-              v101 = 0u;
-              v102 = 0u;
+              v98 = 0u;
               v99 = 0u;
-              v100 = 0u;
-              resources = [v56 resources];
-              v62 = [resources countByEnumeratingWithState:&v99 objects:v119 count:16];
-              if (!v62)
+              v96 = 0u;
+              v97 = 0u;
+              resources = [v53 resources];
+              v59 = [resources countByEnumeratingWithState:&v96 objects:v116 count:16];
+              if (!v59)
               {
 
 LABEL_66:
-                [v56 setIsAggregatedAndSuppressed:1];
-                ++v91;
-                ++v92;
+                [v53 setIsAggregatedAndSuppressed:1];
+                ++v88;
+                ++v89;
                 goto LABEL_67;
               }
 
-              v63 = v62;
-              v64 = 0;
-              v65 = *v100;
+              v60 = v59;
+              v61 = 0;
+              v62 = *v97;
               do
               {
-                for (m = 0; m != v63; m = m + 1)
+                for (m = 0; m != v60; m = m + 1)
                 {
-                  if (*v100 != v65)
+                  if (*v97 != v62)
                   {
                     objc_enumerationMutation(resources);
                   }
 
-                  v67 = *(*(&v99 + 1) + 8 * m);
-                  if ([v67 type] == 2 || objc_msgSend(v67, "type") == 3)
+                  v64 = *(*(&v96 + 1) + 8 * m);
+                  if ([v64 type] == 2 || objc_msgSend(v64, "type") == 3)
                   {
-                    ++v64;
+                    ++v61;
                   }
                 }
 
-                v63 = [resources countByEnumeratingWithState:&v99 objects:v119 count:16];
+                v60 = [resources countByEnumeratingWithState:&v96 objects:v116 count:16];
               }
 
-              while (v63);
+              while (v60);
 
-              if (!v64)
+              if (!v61)
               {
                 goto LABEL_66;
               }
 
 LABEL_67:
-              [v56 setSubSuggestionIDs:v94];
-              [v56 setSubBundleIDs:v93];
+              [v53 setSubSuggestionIDs:v91];
+              [v53 setSubBundleIDs:v90];
             }
 
-            v54 = [v87 countByEnumeratingWithState:&v103 objects:v120 count:16];
-            if (!v54)
+            v51 = [v84 countByEnumeratingWithState:&v100 objects:v117 count:16];
+            if (!v51)
             {
 LABEL_71:
 
-              bundlesCopy = v77;
-              v13 = v79;
-              v5 = v80;
-              v14 = &GEOPOICategoryGasStation_ptr;
-              v20 = v81;
-              i = v82;
+              bundlesCopy = v74;
+              v13 = v76;
+              v5 = v77;
+              v19 = v78;
+              i = v79;
               goto LABEL_74;
             }
           }
         }
 
-        if ([v20 count] == 1)
+        if ([v19 count] == 1)
         {
-          v97 = 0u;
-          v98 = 0u;
+          v94 = 0u;
           v95 = 0u;
-          v96 = 0u;
-          v42 = v20;
-          firstObject2 = [v20 firstObject];
+          v92 = 0u;
+          v93 = 0u;
+          v39 = v19;
+          firstObject2 = [v19 firstObject];
           resources2 = [firstObject2 resources];
 
-          v45 = [resources2 countByEnumeratingWithState:&v95 objects:v118 count:16];
-          if (v45)
+          v42 = [resources2 countByEnumeratingWithState:&v92 objects:v115 count:16];
+          if (v42)
           {
-            v46 = v45;
-            v47 = bundlesCopy;
-            v48 = i;
-            v49 = 0;
-            v50 = *v96;
+            v43 = v42;
+            v44 = bundlesCopy;
+            v45 = i;
+            v46 = 0;
+            v47 = *v93;
             do
             {
-              for (n = 0; n != v46; n = n + 1)
+              for (n = 0; n != v43; n = n + 1)
               {
-                if (*v96 != v50)
+                if (*v93 != v47)
                 {
                   objc_enumerationMutation(resources2);
                 }
 
-                v52 = *(*(&v95 + 1) + 8 * n);
-                if ([v52 type] == 2 || objc_msgSend(v52, "type") == 3)
+                v49 = *(*(&v92 + 1) + 8 * n);
+                if ([v49 type] == 2 || objc_msgSend(v49, "type") == 3)
                 {
-                  ++v49;
+                  ++v46;
                 }
               }
 
-              v46 = [resources2 countByEnumeratingWithState:&v95 objects:v118 count:16];
+              v43 = [resources2 countByEnumeratingWithState:&v92 objects:v115 count:16];
             }
 
-            while (v46);
+            while (v43);
 
-            i = v48;
-            bundlesCopy = v47;
-            v13 = v79;
-            v5 = v80;
-            if (v49)
+            i = v45;
+            bundlesCopy = v44;
+            v13 = v76;
+            v5 = v77;
+            if (v46)
             {
-              v92 = 0;
               v89 = 0;
-              v20 = v42;
+              v86 = 0;
+              v19 = v39;
               goto LABEL_74;
             }
           }
@@ -1394,62 +1390,62 @@ LABEL_71:
           {
           }
 
-          v20 = v42;
-          firstObject3 = [v42 firstObject];
-          v92 = 1;
+          v19 = v39;
+          firstObject3 = [v39 firstObject];
+          v89 = 1;
           [firstObject3 setIsAggregatedAndSuppressed:1];
 
-          v89 = 0;
-          ++v91;
+          v86 = 0;
+          ++v88;
         }
 
         else
         {
-          v92 = 0;
           v89 = 0;
+          v86 = 0;
         }
 
 LABEL_74:
-        v69 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v66 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109378;
-          *v123 = v89;
-          *&v123[4] = 2112;
-          *&v123[6] = v85;
-          _os_log_debug_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: %d duplicate home bundles suppressed for %@", buf, 0x12u);
+          *v120 = v86;
+          *&v120[4] = 2112;
+          *&v120[6] = v82;
+          _os_log_debug_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: %d duplicate home bundles suppressed for %@", buf, 0x12u);
         }
 
-        v70 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+        v67 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109378;
-          *v123 = v92;
-          *&v123[4] = 2112;
-          *&v123[6] = v85;
-          _os_log_debug_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: %d home bundles without resources suppressed for %@", buf, 0x12u);
+          *v120 = v89;
+          *&v120[4] = 2112;
+          *&v120[6] = v82;
+          _os_log_debug_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "DominantBundleCreation: %d home bundles without resources suppressed for %@", buf, 0x12u);
         }
       }
 
-      v84 = [obj countByEnumeratingWithState:&v114 objects:v124 count:16];
-      if (!v84)
+      v81 = [obj countByEnumeratingWithState:&v111 objects:v121 count:16];
+      if (!v81)
       {
 LABEL_84:
 
-        v72 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+        v69 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *v123 = v88;
-          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "DominantBundleCreation: %d total duplicate home bundles suppressed for period", buf, 8u);
+          *v120 = v85;
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_INFO, "DominantBundleCreation: %d total duplicate home bundles suppressed for period", buf, 8u);
         }
 
-        v73 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+        v70 = _mo_log_facility_get_os_log(&MOLogFacilitySummarization);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *v123 = v91;
-          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "DominantBundleCreation: %d total home bundles without resources suppressed for period", buf, 8u);
+          *v120 = v88;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "DominantBundleCreation: %d total home bundles without resources suppressed for period", buf, 8u);
         }
 
         goto LABEL_89;
@@ -1461,7 +1457,7 @@ LABEL_84:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    *v123 = [bundlesCopy count];
+    *v120 = [bundlesCopy count];
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "DominantBundleCreation: no need to remove duplicate home bundles since home bundle count is %lu", buf, 0xCu);
   }
 
@@ -1595,6 +1591,13 @@ id __76__MODominantBundleCreationManager__suppressDuplicateHomeBundles_parameter
   return v15;
 }
 
+- (void)processBundlesForCreatingDominantBundles:(void *)a1 withParameters:handler:.cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "DominantBundleCreation: found %lu invite outing bundles", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 - (void)_dominantBundleCreatedFromOutingBundles:(os_log_t)log activityBundles:parameters:.cold.1(os_log_t log)
 {
   v1 = 136315394;
@@ -1602,6 +1605,13 @@ id __76__MODominantBundleCreationManager__suppressDuplicateHomeBundles_parameter
   v3 = 1024;
   v4 = 199;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "DominantBundleCreation: the event bundles and membership arrays have to be of the same size. (in %s:%d)", &v1, 0x12u);
+}
+
+- (void)_dominantBundleCreatedFromOutingBundles:(void *)a1 activityBundles:parameters:.cold.2(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "DominantBundleCreation: Graph partitioning is performed. Number of bundles groups: %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

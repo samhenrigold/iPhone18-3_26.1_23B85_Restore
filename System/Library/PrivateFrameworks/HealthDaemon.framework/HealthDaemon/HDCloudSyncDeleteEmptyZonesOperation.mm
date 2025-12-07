@@ -1,6 +1,7 @@
 @interface HDCloudSyncDeleteEmptyZonesOperation
 - (HDCloudSyncDeleteEmptyZonesOperation)initWithConfiguration:(id)configuration cloudState:(id)state;
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncDeleteEmptyZonesOperation
@@ -27,7 +28,7 @@
 - (void)main
 {
   selfCopy = self;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   allCKContainers = [repository allCKContainers];
@@ -37,36 +38,36 @@
   [progress setTotalUnitCount:v6];
 
   [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   v8 = allCKContainers;
-  v68 = [v8 countByEnumeratingWithState:&v73 objects:v94 count:16];
-  if (v68)
+  v67 = [v8 countByEnumeratingWithState:&v72 objects:v93 count:16];
+  if (v67)
   {
-    v67 = *v74;
+    v66 = *v73;
     *&v9 = 138543874;
-    v58 = v9;
-    v59 = v8;
-    v60 = selfCopy;
+    v57 = v9;
+    v58 = v8;
+    v59 = selfCopy;
     do
     {
       v10 = 0;
       do
       {
-        if (*v74 != v67)
+        if (*v73 != v66)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v73 + 1) + 8 * v10);
+        v11 = *(*(&v72 + 1) + 8 * v10);
         configuration2 = [(HDCloudSyncOperation *)selfCopy configuration];
         cachedCloudState = [configuration2 cachedCloudState];
         containerIdentifier = [v11 containerIdentifier];
-        v82 = 0;
-        v15 = [cachedCloudState zonesForContainerID:containerIdentifier error:&v82];
-        v16 = v82;
+        v81 = 0;
+        v15 = [cachedCloudState zonesForContainerID:containerIdentifier error:&v81];
+        v16 = v81;
 
         if (v15)
         {
@@ -88,9 +89,9 @@
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v97 = selfCopy;
-          v98 = 2114;
-          v99 = v16;
+          v96 = selfCopy;
+          v97 = 2114;
+          v98 = v16;
           _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached zones, %{public}@", buf, 0x16u);
         }
 
@@ -106,36 +107,36 @@
         else
         {
 LABEL_13:
-          v69 = v16;
-          v71 = v10;
-          v72 = v11;
+          v68 = v16;
+          v70 = v10;
+          v71 = v11;
           v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v77 = 0u;
           v78 = 0u;
           v79 = 0u;
           v80 = 0u;
-          v81 = 0u;
-          v70 = v15;
+          v69 = v15;
           configuration4 = v15;
-          v24 = [configuration4 countByEnumeratingWithState:&v78 objects:v95 count:16];
+          v24 = [configuration4 countByEnumeratingWithState:&v77 objects:v94 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v79;
+            v26 = *v78;
             while (2)
             {
               for (i = 0; i != v25; ++i)
               {
-                if (*v79 != v26)
+                if (*v78 != v26)
                 {
                   objc_enumerationMutation(configuration4);
                 }
 
-                v28 = *(*(&v78 + 1) + 8 * i);
+                v28 = *(*(&v77 + 1) + 8 * i);
                 if ([v28 zoneType] == 1)
                 {
-                  v77 = 0;
-                  v29 = [v28 containsRecordsWithError:&v77];
-                  repository3 = v77;
+                  v76 = 0;
+                  v29 = [v28 containsRecordsWithError:&v76];
+                  repository3 = v76;
                   if (v29 == 2)
                   {
                     zoneIdentifier = [v28 zoneIdentifier];
@@ -150,12 +151,12 @@ LABEL_13:
                     {
                       v54 = v52;
                       zoneIdentifier2 = [v28 zoneIdentifier];
-                      *buf = v58;
-                      v97 = selfCopy;
-                      v98 = 2114;
-                      v99 = zoneIdentifier2;
-                      v100 = 2114;
-                      v101 = repository3;
+                      *buf = v57;
+                      v96 = selfCopy;
+                      v97 = 2114;
+                      v98 = zoneIdentifier2;
+                      v99 = 2114;
+                      v100 = repository3;
                       _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch status of containsRecords for %{public}@, %{public}@", buf, 0x20u);
                     }
 
@@ -164,7 +165,7 @@ LABEL_13:
                 }
               }
 
-              v25 = [configuration4 countByEnumeratingWithState:&v78 objects:v95 count:16];
+              v25 = [configuration4 countByEnumeratingWithState:&v77 objects:v94 count:16];
               if (v25)
               {
                 continue;
@@ -174,46 +175,46 @@ LABEL_13:
             }
           }
 
-          v11 = v72;
+          v11 = v71;
           if ([v22 count])
           {
             configuration4 = [(HDCloudSyncOperation *)selfCopy configuration];
             repository3 = [configuration4 repository];
             profileIdentifier = [repository3 profileIdentifier];
-            v32 = HDDatabaseForContainer(v72, profileIdentifier);
+            v32 = HDDatabaseForContainer(v71, profileIdentifier);
             v33 = v22;
-            v62 = v72;
-            v64 = v32;
+            v61 = v71;
+            v63 = v32;
             [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
             v34 = objc_alloc_init(MEMORY[0x277CBC3A0]);
             [v34 setDesiredKeys:MEMORY[0x277CBEBF8]];
             [v34 setResultsLimit:1];
             [v34 setPreviousServerChangeToken:0];
             v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v89 = 0u;
             v90 = 0u;
             v91 = 0u;
             v92 = 0u;
-            v93 = 0u;
             v36 = v33;
-            v37 = [v36 countByEnumeratingWithState:&v90 objects:buf count:16];
+            v37 = [v36 countByEnumeratingWithState:&v89 objects:buf count:16];
             if (v37)
             {
               v38 = v37;
-              v39 = *v91;
+              v39 = *v90;
               do
               {
                 for (j = 0; j != v38; ++j)
                 {
-                  if (*v91 != v39)
+                  if (*v90 != v39)
                   {
                     objc_enumerationMutation(v36);
                   }
 
-                  zoneIdentifier3 = [*(*(&v90 + 1) + 8 * j) zoneIdentifier];
+                  zoneIdentifier3 = [*(*(&v89 + 1) + 8 * j) zoneIdentifier];
                   [v35 setObject:v34 forKeyedSubscript:zoneIdentifier3];
                 }
 
-                v38 = [v36 countByEnumeratingWithState:&v90 objects:buf count:16];
+                v38 = [v36 countByEnumeratingWithState:&v89 objects:buf count:16];
               }
 
               while (v38);
@@ -224,62 +225,61 @@ LABEL_13:
             v44 = [v42 initWithRecordZoneIDs:allKeys configurationsByRecordZoneID:v35];
 
             v45 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v88[0] = MEMORY[0x277D85DD0];
-            v88[1] = 3221225472;
-            v88[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke;
-            v88[3] = &unk_278627F38;
-            selfCopy = v60;
-            v88[4] = v60;
+            v87[0] = MEMORY[0x277D85DD0];
+            v87[1] = 3221225472;
+            v87[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke;
+            v87[3] = &unk_278627F38;
+            selfCopy = v59;
+            v87[4] = v59;
             v46 = v45;
-            v89 = v46;
-            [v44 setRecordWasChangedBlock:v88];
+            v88 = v46;
+            [v44 setRecordWasChangedBlock:v87];
             [v44 setRecordZoneFetchCompletionBlock:&__block_literal_global_305_2];
-            v83[0] = MEMORY[0x277D85DD0];
-            v83[1] = 3221225472;
-            v83[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_2;
-            v83[3] = &unk_278627FA8;
-            v83[4] = v60;
-            v63 = v62;
-            v84 = v63;
-            v47 = v64;
-            v85 = v47;
-            v86 = v46;
-            v65 = v36;
-            v87 = v65;
-            v61 = v46;
-            [v44 setFetchRecordZoneChangesCompletionBlock:v83];
-            configuration5 = [(HDCloudSyncOperation *)v60 configuration];
+            v82[0] = MEMORY[0x277D85DD0];
+            v82[1] = 3221225472;
+            v82[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_2;
+            v82[3] = &unk_278627FA8;
+            v82[4] = v59;
+            v62 = v61;
+            v83 = v62;
+            v47 = v63;
+            v84 = v47;
+            v85 = v46;
+            v64 = v36;
+            v86 = v64;
+            v60 = v46;
+            [v44 setFetchRecordZoneChangesCompletionBlock:v82];
+            configuration5 = [(HDCloudSyncOperation *)v59 configuration];
             cachedCloudState2 = [configuration5 cachedCloudState];
             [cachedCloudState2 setOperationCountForAnalytics:{objc_msgSend(cachedCloudState2, "operationCountForAnalytics") + 1}];
 
-            configuration6 = [(HDCloudSyncOperation *)v60 configuration];
+            configuration6 = [(HDCloudSyncOperation *)v59 configuration];
             operationGroup = [configuration6 operationGroup];
             [v44 setGroup:operationGroup];
 
             [v47 addOperation:v44];
-            v8 = v59;
+            v8 = v58;
 LABEL_37:
-            v11 = v72;
+            v11 = v71;
           }
 
-          v15 = v70;
-          v10 = v71;
-          v16 = v69;
+          v15 = v69;
+          v10 = v70;
+          v16 = v68;
         }
 
         ++v10;
       }
 
-      while (v10 != v68);
-      v56 = [v8 countByEnumeratingWithState:&v73 objects:v94 count:16];
-      v68 = v56;
+      while (v10 != v67);
+      v56 = [v8 countByEnumeratingWithState:&v72 objects:v93 count:16];
+      v67 = v56;
     }
 
     while (v56);
   }
 
   [(HDSynchronousTaskGroup *)selfCopy->_taskGroup finishTask];
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDCloudSyncDeleteEmptyZonesOperation__deleteEmptyZones_container_database___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -306,7 +306,7 @@ void __77__HDCloudSyncDeleteEmptyZonesOperation__deleteEmptyZones_container_data
 
 void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -326,21 +326,19 @@ void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDelet
     v11 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v7;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching record change %{public}@.", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v7;
+      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching record change %{public}@.", &v13, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_2(uint64_t a1, void *a2)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) updateCompletedProgressCount:1];
   if (v3)
@@ -358,7 +356,7 @@ void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDelet
       *&buf[12] = 2114;
       *&buf[14] = v8;
       *&buf[22] = 2114;
-      v64 = v3;
+      v63 = v3;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetch record zone changes failed for container %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -371,19 +369,19 @@ void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDelet
 
     if (v14)
     {
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_306;
-      v57[3] = &unk_278627F80;
-      v58 = *(a1 + 40);
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_306;
+      v56[3] = &unk_278627F80;
+      v57 = *(a1 + 40);
       v15 = *(a1 + 48);
       v16 = *(a1 + 32);
-      v59 = v15;
-      v60 = v16;
-      [v3 hd_enumerateCloudKitPartialErrorsByKeyWithHandler:v57];
+      v58 = v15;
+      v59 = v16;
+      [v3 hd_enumerateCloudKitPartialErrorsByKeyWithHandler:v56];
       [*(*(a1 + 32) + 112) failTaskWithError:v3];
 
-      v17 = v58;
+      v17 = v57;
 LABEL_23:
 
       goto LABEL_24;
@@ -396,13 +394,13 @@ LABEL_23:
   {
     if (![*(a1 + 56) count])
     {
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_314;
-      v51[3] = &unk_278616300;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_314;
+      v50[3] = &unk_278616300;
       v33 = *(a1 + 64);
-      v52 = *(a1 + 56);
-      v34 = [v33 hk_filter:v51];
+      v51 = *(a1 + 56);
+      v34 = [v33 hk_filter:v50];
       _HKInitializeLogging();
       v35 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -416,7 +414,7 @@ LABEL_23:
         *&buf[12] = 2048;
         *&buf[14] = v38;
         *&buf[22] = 2114;
-        v64 = v39;
+        v63 = v39;
         _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@: Confirmed %ld empty zones in container %{public}@", buf, 0x20u);
       }
 
@@ -433,21 +431,21 @@ LABEL_23:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __77__HDCloudSyncDeleteEmptyZonesOperation__deleteEmptyZones_container_database___block_invoke_2;
-        v64 = &unk_278616348;
-        v65 = v41;
-        v66 = v40;
+        v63 = &unk_278616348;
+        v64 = v41;
+        v65 = v40;
         [(HDCloudSyncOperation *)v45 setOnError:buf];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __77__HDCloudSyncDeleteEmptyZonesOperation__deleteEmptyZones_container_database___block_invoke_3;
-        v61[3] = &unk_278613060;
-        v61[4] = v40;
-        [(HDCloudSyncOperation *)v45 setOnSuccess:v61];
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __77__HDCloudSyncDeleteEmptyZonesOperation__deleteEmptyZones_container_database___block_invoke_3;
+        v60[3] = &unk_278613060;
+        v60[4] = v40;
+        [(HDCloudSyncOperation *)v45 setOnSuccess:v60];
         [(HDCloudSyncOperation *)v45 start];
       }
 
       [*(*(a1 + 32) + 112) finishTask];
-      v17 = v52;
+      v17 = v51;
       goto LABEL_23;
     }
 
@@ -455,36 +453,36 @@ LABEL_23:
     v18 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v47 = *(a1 + 32);
-      v48 = *(a1 + 56);
+      v46 = *(a1 + 32);
+      v47 = *(a1 + 56);
       *buf = 138543618;
-      *&buf[4] = v47;
+      *&buf[4] = v46;
       *&buf[12] = 2114;
-      *&buf[14] = v48;
+      *&buf[14] = v47;
       _os_log_fault_impl(&dword_228986000, v18, OS_LOG_TYPE_FAULT, "%{public}@ Something went wrong. Cache incorrectly claims to have empty zones %{public}@", buf, 0x16u);
     }
 
-    v50 = [MEMORY[0x277CCA9B8] hk_error:725 format:{@"Cache incorrectly claims to have empty zones %@", *(a1 + 56)}];
+    v49 = [MEMORY[0x277CCA9B8] hk_error:725 format:{@"Cache incorrectly claims to have empty zones %@", *(a1 + 56)}];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     obj = *(a1 + 56);
-    v19 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v19 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v54;
+      v21 = *v53;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v54 != v21)
+          if (*v53 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v53 + 1) + 8 * i);
+          v23 = *(*(&v52 + 1) + 8 * i);
           v24 = [HDCloudSyncZoneIdentifier alloc];
           v25 = [*(a1 + 40) containerIdentifier];
           v26 = -[HDCloudSyncZoneIdentifier initForZone:container:scope:](v24, "initForZone:container:scope:", v23, v25, [*(a1 + 48) databaseScope]);
@@ -496,22 +494,20 @@ LABEL_23:
           v31 = [v30 accessibilityAssertion];
           v32 = [(HDCloudSyncCachedZone *)v27 initForZoneIdentifier:v26 repository:v29 accessibilityAssertion:v31];
 
-          [v32 handleCloudError:v50 operation:*(a1 + 32) container:*(a1 + 40) database:*(a1 + 48)];
+          [v32 handleCloudError:v49 operation:*(a1 + 32) container:*(a1 + 40) database:*(a1 + 48)];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v20 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
       }
 
       while (v20);
     }
 
-    [*(*(a1 + 32) + 112) failTaskWithError:v50];
+    [*(*(a1 + 32) + 112) failTaskWithError:v49];
     v3 = 0;
   }
 
 LABEL_24:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithDeletionCandidates_container_database___block_invoke_306(id *a1, void *a2, void *a3)
@@ -539,6 +535,13 @@ uint64_t __104__HDCloudSyncDeleteEmptyZonesOperation__validateZonesAreEmptyWithD
   LODWORD(v2) = [v2 containsObject:v3];
 
   return v2 ^ 1;
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

@@ -1,4 +1,4 @@
-uint64_t CMYKf16_sample_CMYKf_inner(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t CMYKf16_sample_CMYKf_inner(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v7 = *(result + 24);
   v8 = *(result + 28);
@@ -592,7 +592,7 @@ LABEL_63:
       v125 = &interpolate_cmykaf[5 * ((v60 >> 28) & 3)];
     }
 
-    _Q16.i16[0] = *(v125 + 4);
+    _Q16.i16[0] = v125[4];
     __asm { FCVT            S16, H16 }
 
     v134 = vcvtq_f32_f16(v59);
@@ -617,7 +617,7 @@ LABEL_160:
     while (1)
     {
       v17 = (v137 - 9);
-      if ((v139 | v138 | (a3 - v163) | (a2 - v161)) < 0)
+      if (((v139 | v138 | (a3 - v163) | (a2 - v161)) & 0x8000000000000000) != 0)
       {
         goto LABEL_58;
       }
@@ -747,33 +747,33 @@ LABEL_160:
   return result;
 }
 
-uint64_t CMYKf16_shade(uint64_t a1, __n128 a2)
+uint64_t CMYKf16_shade(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1, a2);
-  v5 = v4;
-  v6 = v3;
-  v20[482] = *MEMORY[0x1E69E9840];
-  v7 = *v2;
-  v8 = !*(v3 + 12) && !*(v4 + 72) && *(v4 + 4) >= 1.0;
-  v9 = *(*(*v2 + 56) + 16 * *v3 + 8 * v8 + 4 * (*(v3 + 6) == 0));
-  if (v9 > 27)
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v4 = v3;
+  v5 = v2;
+  v19[482] = *MEMORY[0x1E69E9840];
+  v6 = *v1;
+  v7 = !*(v2 + 12) && !*(v3 + 72) && *(v3 + 4) >= 1.0;
+  v8 = *(*(*v1 + 56) + 16 * *v2 + 8 * v7 + 4 * (*(v2 + 6) == 0));
+  if (v8 > 27)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (*(v3 + 1) < 1 || *(v3 + 2) < 1)
+  if (*(v2 + 1) < 1 || *(v2 + 2) < 1)
   {
     return 0;
   }
 
-  if (_blt_shade_initialize(v3, v4, &v13, v18) < 1)
+  if (_blt_shade_initialize(v2, v3, &v12, v17) < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if ((*v5 & 0xF000000) != 0x4000000)
+  if ((*v4 & 0xF000000) != 0x4000000)
   {
-    if (v13)
+    if (v12)
     {
       goto LABEL_22;
     }
@@ -781,34 +781,34 @@ uint64_t CMYKf16_shade(uint64_t a1, __n128 a2)
     return 0xFFFFFFFFLL;
   }
 
-  if (*(v5 + 16))
+  if (*(v4 + 16))
   {
-    v12 = CMYKf16_shade_radial_CMYK;
+    v11 = CMYKf16_shade_radial_CMYK;
   }
 
-  else if (*(v5 + 24))
+  else if (*(v4 + 24))
   {
-    v12 = CMYKf16_shade_conic_CMYK;
+    v11 = CMYKf16_shade_conic_CMYK;
   }
 
-  else if (v16 < 2)
+  else if (v15 < 2)
   {
-    v12 = CMYKf16_shade_axial_CMYK;
+    v11 = CMYKf16_shade_axial_CMYK;
   }
 
   else
   {
-    v12 = CMYKf16_shade_custom_CMYK;
+    v11 = CMYKf16_shade_custom_CMYK;
   }
 
-  v13 = v12;
+  v12 = v11;
 LABEL_22:
-  v14 = *v7;
-  v15 = v14;
-  CMYKf16_image_mark(v6, &v13, v9, v11);
-  if (v17 && (v17 < &v19 || v20 < v17))
+  v13 = *v6;
+  v14 = v13;
+  CMYKf16_image_mark(v5, &v12, v8, v10);
+  if (v16 && (v16 < &v18 || v19 < v16))
   {
-    free(v17);
+    free(v16);
   }
 
   return 1;
@@ -1603,7 +1603,7 @@ LABEL_116:
   bzero(v26, ((a4 - v36 + 3) & 0xFFFFFFFC) + 4);
 }
 
-uint64_t CMYKf16_sample_Wf16(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t CMYKf16_sample_Wf16(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
   v5 = *(result + 32);
   v6 = *(result + 40);
@@ -2064,7 +2064,7 @@ LABEL_45:
       v105 = &interpolate_waf[2 * ((v54 >> 28) & 3)];
     }
 
-    _H16 = *(v105 + 1);
+    _H16 = v105[1];
     __asm
     {
       FCVT            S16, H16
@@ -2099,7 +2099,7 @@ LABEL_124:
     while (1)
     {
       v13 = (v116 - 9);
-      if (((a2 - v133) | v118 | (a3 - v10) | v117) < 0)
+      if ((((a2 - v133) | v118 | (a3 - v10) | v117) & 0x8000000000000000) != 0)
       {
         goto LABEL_40;
       }
@@ -3914,7 +3914,7 @@ void *CGPDFTextExtractorCreateWithPage(uint64_t a1, char a2)
         dispatch_once(&CGPDFTextStringGetTypeID_onceToken, &__block_literal_global_11481);
       }
 
-      cftype = pdf_create_cftype();
+      cftype = pdf_create_cftype(CGPDFTextStringGetTypeID_id, 56);
       if (cftype)
       {
         *(cftype + 16) = a2;
@@ -4019,7 +4019,7 @@ void CGPDFTextExtractorRelease(uint64_t a1)
   }
 }
 
-void op_gs_8504(uint64_t *a1, uint64_t a2)
+void op_gs_8504(CGPDFScanner *a1, uint64_t a2)
 {
   value = 0;
   v12 = 0.0;
@@ -4027,7 +4027,7 @@ void op_gs_8504(uint64_t *a1, uint64_t a2)
   array = 0;
   if (CGPDFScannerPopName(a1, &value))
   {
-    ExtGState = CGPDFContentStreamGetExtGState(a1[7], value);
+    ExtGState = CGPDFContentStreamGetExtGState(*(a1 + 7), value);
     if (ExtGState)
     {
       if (CGPDFDictionaryGetArray(ExtGState, "Font", &array) && CGPDFArrayGetDictionary(array, 0, &v9) && CGPDFArrayGetNumber(array, 1uLL, &v12))
@@ -4171,14 +4171,14 @@ void *CGPDFTextExtractorCreateChild(uint64_t a1, CGPDFStream *a2, CGPDFDictionar
   return v6;
 }
 
-void draw_child_xobject(uint64_t *a1, _OWORD *a2)
+void draw_child_xobject(float64x2_t ***result, _OWORD *a2)
 {
-  if (a1)
+  if (result)
   {
-    CGPDFRStateGSave(*a1);
-    if (*a1)
+    CGPDFRStateGSave(*result);
+    if (*result)
     {
-      v4 = **a1;
+      v4 = **result;
     }
 
     else
@@ -4191,13 +4191,13 @@ void draw_child_xobject(uint64_t *a1, _OWORD *a2)
     v8[1] = v5;
     v8[2] = a2[2];
     CGPDFGStateConcatCTM(v4, v8);
-    v6 = CGPDFTextExtractorCopyTextString(a1);
+    v6 = CGPDFTextExtractorCopyTextString(result);
     if (v6)
     {
       CFRelease(v6);
     }
 
-    v7 = *a1;
+    v7 = *result;
 
     CGPDFRStateGRestore(v7);
   }
@@ -4238,8 +4238,8 @@ void op_TJ_8510(CGPDFScanner *a1, uint64_t a2)
     if (*(a2 + 16))
     {
       TextObject = CGPDFGStateGetTextObject(*(a2 + 8));
-      v4.n128_f64[0] = CGPDFTextObjectAppendStrings(TextObject, value);
-      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(TextObject + 21), v4);
+      CGPDFTextObjectAppendStrings(TextObject, value);
+      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(TextObject + 21));
     }
 
     else
@@ -4250,30 +4250,30 @@ void op_TJ_8510(CGPDFScanner *a1, uint64_t a2)
 
 void op_doublequote_8512(CGPDFScanner *a1, uint64_t a2)
 {
-  v14 = 0.0;
-  value = 0;
   v13 = 0.0;
-  if (CGPDFScannerPopString(a1, &value) && CGPDFScannerPopNumber(a1, &v14) && CGPDFScannerPopNumber(a1, &v13))
+  value = 0;
+  v12 = 0.0;
+  if (CGPDFScannerPopString(a1, &value) && CGPDFScannerPopNumber(a1, &v13) && CGPDFScannerPopNumber(a1, &v12))
   {
     if (*(a2 + 16))
     {
       v4 = *(a2 + 8);
       if (v4)
       {
-        v5 = v14;
-        *(v4 + 88) = v14;
+        v5 = v13;
+        *(v4 + 88) = v13;
         v6 = *(v4 + 288);
         if (v6)
         {
           *v6 = v5;
-          v7 = v13;
-          *(v4 + 96) = v13;
+          v7 = v12;
+          *(v4 + 96) = v12;
           v6[1] = v7;
         }
 
         else
         {
-          *(v4 + 96) = v13;
+          *(v4 + 96) = v12;
         }
       }
 
@@ -4291,8 +4291,8 @@ void op_doublequote_8512(CGPDFScanner *a1, uint64_t a2)
       }
 
       CGPDFTextObjectMoveToNextLine(TextObject, 0.0, -v11);
-      v12.n128_f64[0] = CGPDFTextObjectAppendString(v9, value);
-      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(v9 + 168), v12);
+      CGPDFTextObjectAppendString(v9, value);
+      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(v9 + 168));
     }
 
     else
@@ -4322,8 +4322,8 @@ void op_singlequote_8514(CGPDFScanner *a1, uint64_t a2)
       }
 
       CGPDFTextObjectMoveToNextLine(TextObject, 0.0, -v6);
-      v7.n128_f64[0] = CGPDFTextObjectAppendString(v4, value);
-      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(v4 + 168), v7);
+      CGPDFTextObjectAppendString(v4, value);
+      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(v4 + 168));
     }
 
     else
@@ -4340,8 +4340,8 @@ void op_Tj_8516(CGPDFScanner *a1, uint64_t a2)
     if (*(a2 + 16))
     {
       TextObject = CGPDFGStateGetTextObject(*(a2 + 8));
-      v4.n128_f64[0] = CGPDFTextObjectAppendString(TextObject, value);
-      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(TextObject + 21), v4);
+      CGPDFTextObjectAppendString(TextObject, value);
+      CGPDFTextStringAppendTextLayout(*(a2 + 48), *a2, *(TextObject + 21));
     }
 
     else
@@ -4544,13 +4544,13 @@ void op_Tr_8531(CGPDFScanner *a1, uint64_t a2)
   }
 }
 
-void op_Tf_8533(uint64_t *a1, uint64_t a2)
+void op_Tf_8533(CGPDFScanner *a1, uint64_t a2)
 {
   v8 = 0;
   value = 0.0;
   if (CGPDFScannerPopNumber(a1, &value) && CGPDFScannerPopName(a1, &v8))
   {
-    Font = CGPDFContentStreamGetFont(a1[7], v8);
+    Font = CGPDFContentStreamGetFont(*(a1 + 7), v8);
     if (Font)
     {
       CGPDFGStateSetFont(*(a2 + 8), Font);
@@ -4722,7 +4722,7 @@ void op_q_8542(uint64_t a1, uint64_t a2)
   }
 }
 
-void *pdf_aes_create(uint64_t a1, uint64_t a2)
+size_t *pdf_aes_create(uint64_t a1, size_t a2)
 {
   if (a2 == 16 || a2 == 32)
   {
@@ -4742,11 +4742,11 @@ void *pdf_aes_create(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-uint64_t pdf_aes_reset(void *key)
+uint64_t pdf_aes_reset(size_t *key)
 {
   key[5] = 0;
   key[6] = 0;
-  v2 = (key + 5);
+  v2 = key + 5;
   v4 = (key + 7);
   v3 = key[7];
   if (v3)
@@ -4857,7 +4857,7 @@ uint64_t FontSubset::FontSubset(uint64_t a1, uint64_t a2, __int128 *a3, int a4)
       {
 LABEL_16:
         v20 = &v19;
-        *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 112, v12) + 14) = i;
+        *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 112, v12, &v20) + 14) = i;
       }
     }
   }
@@ -4930,7 +4930,7 @@ uint64_t FontSubset::add_glyph(FontSubset *this, unsigned int a2)
         LOWORD(v14) = *(v11 + 14);
 LABEL_21:
         v17 = &v16;
-        *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, a2) + 14) = v14;
+        *(std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, a2, &v17) + 14) = v14;
         return 1;
       }
     }
@@ -4993,7 +4993,7 @@ char *FontSubset::create_glyph_index_set(FontSubset *this)
   return v2;
 }
 
-void FontSubset::get_encoding_vector(FontSubset *this)
+void FontSubset::get_encoding_vector(FontSubset *this, uint64_t a2)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -5001,10 +5001,10 @@ void FontSubset::get_encoding_vector(FontSubset *this)
   operator new();
 }
 
-uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t **a1, int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -5014,27 +5014,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 7);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5091,7 +5091,7 @@ CGPDFStreamRef get_font_stream_8586(uint64_t a1, int *a2)
   return v4;
 }
 
-uint64_t CGPDFFontHasMatchingROS(uint64_t a1, void *a2)
+BOOL CGPDFFontHasMatchingROS(uint64_t a1, void *a2)
 {
   CIDSystemInfo = CGPDFFontGetCIDSystemInfo(a1);
   if (!CIDSystemInfo)
@@ -5178,36 +5178,36 @@ void *CGPDFFontMatchCID(uint64_t a1)
   return v11;
 }
 
-double zombie_GetLayer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double zombie_GetLayer()
 {
-  v8 = CGContextDelegateCreate(0, a2, a3, a4, a5, a6, a7, a8);
-  if (v8)
+  v0 = CGContextDelegateCreate(0);
+  if (v0)
   {
-    v10 = unk_1EF23D400;
-    *(v8 + 216) = xmmword_1EF23D3F0;
-    *(v8 + 232) = v10;
-    v11 = unk_1EF23D420;
-    *(v8 + 248) = xmmword_1EF23D410;
-    *(v8 + 264) = v11;
-    v12 = *&off_1EF23D3C0;
-    *(v8 + 152) = xmmword_1EF23D3B0;
-    *(v8 + 168) = v12;
-    v13 = *&off_1EF23D3E0;
-    *(v8 + 184) = xmmword_1EF23D3D0;
-    *(v8 + 200) = v13;
-    v14 = *&off_1EF23D380;
-    *(v8 + 88) = xmmword_1EF23D370;
-    *(v8 + 104) = v14;
-    v15 = *&off_1EF23D3A0;
-    *(v8 + 120) = xmmword_1EF23D390;
-    *(v8 + 136) = v15;
-    v16 = *&off_1EF23D340;
-    *(v8 + 24) = gZombieVTable;
-    *(v8 + 40) = v16;
+    v2 = unk_1EF23D400;
+    *(v0 + 216) = xmmword_1EF23D3F0;
+    *(v0 + 232) = v2;
+    v3 = unk_1EF23D420;
+    *(v0 + 248) = xmmword_1EF23D410;
+    *(v0 + 264) = v3;
+    v4 = *&off_1EF23D3C0;
+    *(v0 + 152) = xmmword_1EF23D3B0;
+    *(v0 + 168) = v4;
+    v5 = *&off_1EF23D3E0;
+    *(v0 + 184) = xmmword_1EF23D3D0;
+    *(v0 + 200) = v5;
+    v6 = *&off_1EF23D380;
+    *(v0 + 88) = xmmword_1EF23D370;
+    *(v0 + 104) = v6;
+    v7 = *&off_1EF23D3A0;
+    *(v0 + 120) = xmmword_1EF23D390;
+    *(v0 + 136) = v7;
+    v8 = *&off_1EF23D340;
+    *(v0 + 24) = gZombieVTable;
+    *(v0 + 40) = v8;
     result = *&xmmword_1EF23D350;
-    v17 = *&off_1EF23D360;
-    *(v8 + 56) = xmmword_1EF23D350;
-    *(v8 + 72) = v17;
+    v9 = *&off_1EF23D360;
+    *(v0 + 56) = xmmword_1EF23D350;
+    *(v0 + 72) = v9;
   }
 
   return result;
@@ -5223,7 +5223,7 @@ uint64_t CGContextDelegateGetTypeID()
   return CGContextDelegateGetTypeID_context_delegate_id;
 }
 
-uint64_t CGContextDelegateCreateWithCallbacks(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextDelegateCreateWithCallbacks(uint64_t a1, __int128 *a2)
 {
   if (!a2)
   {
@@ -5235,38 +5235,38 @@ uint64_t CGContextDelegateCreateWithCallbacks(uint64_t a1, __int128 *a2, uint64_
     dispatch_once(&_block_invoke_once_8622, &__block_literal_global_5_8623);
   }
 
-  result = CGTypeCreateInstance(CGContextDelegateGetTypeID_context_delegate_id, 280, a3, a4, a5, a6, a7, a8);
+  result = CGTypeCreateInstance(CGContextDelegateGetTypeID_context_delegate_id, 280);
   if (result)
   {
     *(result + 288) = a1;
-    v11 = *a2;
-    v12 = a2[1];
-    v13 = a2[2];
+    v5 = *a2;
+    v6 = a2[1];
+    v7 = a2[2];
     *(result + 72) = a2[3];
-    *(result + 56) = v13;
-    *(result + 40) = v12;
-    *(result + 24) = v11;
-    v14 = a2[4];
-    v15 = a2[5];
-    v16 = a2[6];
+    *(result + 56) = v7;
+    *(result + 40) = v6;
+    *(result + 24) = v5;
+    v8 = a2[4];
+    v9 = a2[5];
+    v10 = a2[6];
     *(result + 136) = a2[7];
-    *(result + 120) = v16;
-    *(result + 104) = v15;
-    *(result + 88) = v14;
-    v17 = a2[8];
-    v18 = a2[9];
-    v19 = a2[10];
+    *(result + 120) = v10;
+    *(result + 104) = v9;
+    *(result + 88) = v8;
+    v11 = a2[8];
+    v12 = a2[9];
+    v13 = a2[10];
     *(result + 200) = a2[11];
-    *(result + 184) = v19;
-    *(result + 168) = v18;
-    *(result + 152) = v17;
-    v20 = a2[12];
-    v21 = a2[13];
-    v22 = a2[14];
+    *(result + 184) = v13;
+    *(result + 168) = v12;
+    *(result + 152) = v11;
+    v14 = a2[12];
+    v15 = a2[13];
+    v16 = a2[14];
     *(result + 264) = a2[15];
-    *(result + 248) = v22;
-    *(result + 232) = v21;
-    *(result + 216) = v20;
+    *(result + 248) = v16;
+    *(result + 232) = v15;
+    *(result + 216) = v14;
   }
 
   return result;
@@ -5290,14 +5290,14 @@ void CGContextDelegateRelease(CFTypeRef cf)
   }
 }
 
-uint64_t CGContextDelegateImplementsCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextDelegateImplementsCallback(uint64_t a1, int a2)
 {
   if (!a1)
   {
     return 1;
   }
 
-  result = get_callback_address(a1, a2, "CGContextDelegateImplementsCallback", a4, a5, a6, a7, a8);
+  result = get_callback_address(a1, a2, "CGContextDelegateImplementsCallback");
   if (result)
   {
     return *result != 0;
@@ -5306,11 +5306,11 @@ uint64_t CGContextDelegateImplementsCallback(uint64_t a1, uint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t CGContextDelegateGetDelegate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextDelegateGetDelegate(uint64_t a1, int a2, uint64_t a3)
 {
   for (i = a1; i; i = *(i + 16))
   {
-    callback_address = get_callback_address(i, a2, "CGContextDelegateGetDelegate", a4, a5, a6, a7, a8);
+    callback_address = get_callback_address(i, a2, "CGContextDelegateGetDelegate");
     if (callback_address && *callback_address == a3)
     {
       break;
@@ -5537,9 +5537,9 @@ uint64_t CGContextDelegateDrawDisplayList(uint64_t result)
   return result;
 }
 
-uint64_t CGContextDelegateDrawImages(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __n128 a8)
+uint64_t CGContextDelegateDrawImages(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     return 0;
@@ -5550,95 +5550,95 @@ uint64_t CGContextDelegateDrawImages(uint64_t a1, uint64_t a2, uint64_t a3, uint
     return 1006;
   }
 
-  v9 = a7;
-  v34 = a4;
-  v35 = a3;
-  v13 = 8 * a7;
-  MEMORY[0x1EEE9AC00](a1, a8);
-  v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v15 = (v32 - v14);
-  if (v13 >= 0x200)
+  v8 = a7;
+  v32 = a4;
+  v33 = a3;
+  v12 = 8 * a7;
+  MEMORY[0x1EEE9AC00](a1);
+  v13 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v14 = (v30 - v13);
+  if (v12 >= 0x200)
   {
-    v16 = 512;
+    v15 = 512;
   }
 
   else
   {
-    v16 = v13;
+    v15 = v12;
   }
 
-  bzero(v32 - v14, v16);
-  MEMORY[0x1EEE9AC00](v17, v18);
-  v19 = (v32 - v14);
-  bzero(v19, v16);
-  v20 = *(a1 + 264);
-  v33 = a2;
-  if (v20)
+  bzero(v30 - v13, v15);
+  MEMORY[0x1EEE9AC00](v16);
+  v17 = (v30 - v13);
+  bzero(v17, v15);
+  v18 = *(a1 + 264);
+  v31 = a2;
+  if (v18)
   {
-    v21 = v35;
-    v22 = v20(a1, a2, v35);
-    if (v9)
+    v19 = v33;
+    v20 = v18(a1, a2, v33);
+    if (v8)
     {
       goto LABEL_8;
     }
 
-    return (*(a1 + 136))(a1, v33, v21, v34, v15, a6, 0);
+    return (*(a1 + 136))(a1, v31, v19, v32, v14, a6, 0);
   }
 
-  v22 = 0;
-  v21 = v35;
-  if (!v9)
+  v20 = 0;
+  v19 = v33;
+  if (!v8)
   {
-    return (*(a1 + 136))(a1, v33, v21, v34, v15, a6, 0);
+    return (*(a1 + 136))(a1, v31, v19, v32, v14, a6, 0);
   }
 
 LABEL_8:
-  v32[0] = a6;
-  v32[1] = v32;
-  v23 = 0;
-  v24 = *(v21 + 120);
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 56);
-  v27 = *(v24 + 64);
+  v30[0] = a6;
+  v30[1] = v30;
+  v21 = 0;
+  v22 = *(v19 + 120);
+  v23 = *(v22 + 48);
+  v24 = *(v22 + 56);
+  v25 = *(v22 + 64);
   do
   {
-    OptionsForDrawingImage = CGToneMappingCreateOptionsForDrawingImage(v22, *(a5 + 8 * v23), v26, v27, v25);
-    v19[v23] = OptionsForDrawingImage;
-    CopyWithResolvedOptions = *(a5 + 8 * v23);
+    OptionsForDrawingImage = CGToneMappingCreateOptionsForDrawingImage(v20, *(a5 + 8 * v21), v24, v25, v23);
+    v17[v21] = OptionsForDrawingImage;
+    CopyWithResolvedOptions = *(a5 + 8 * v21);
     if (OptionsForDrawingImage)
     {
-      CopyWithResolvedOptions = CGImageCreateCopyWithResolvedOptions(*(a5 + 8 * v23), OptionsForDrawingImage);
+      CopyWithResolvedOptions = CGImageCreateCopyWithResolvedOptions(*(a5 + 8 * v21), OptionsForDrawingImage);
     }
 
     else if (CopyWithResolvedOptions)
     {
-      CFRetain(*(a5 + 8 * v23));
+      CFRetain(*(a5 + 8 * v21));
     }
 
-    v15[v23++] = CopyWithResolvedOptions;
+    v14[v21++] = CopyWithResolvedOptions;
   }
 
-  while (v9 != v23);
-  v30 = (*(a1 + 136))(a1, v33, v35, v34, v15, v32[0], v9);
+  while (v8 != v21);
+  v28 = (*(a1 + 136))(a1, v31, v33, v32, v14, v30[0], v8);
   do
   {
-    if (*v19)
+    if (*v17)
     {
-      CFRelease(*v19);
+      CFRelease(*v17);
     }
 
-    if (*v15)
+    if (*v14)
     {
-      CFRelease(*v15);
+      CFRelease(*v14);
     }
 
-    ++v15;
-    ++v19;
-    --v9;
+    ++v14;
+    ++v17;
+    --v8;
   }
 
-  while (v9);
-  return v30;
+  while (v8);
+  return v28;
 }
 
 uint64_t CGContextDelegateDrawImageFromRect(uint64_t result)
@@ -5797,7 +5797,7 @@ void *CGCryptorCreateRC4(const void *a1, size_t a2)
   v4[3] = 0;
   *(v4 + 8) = 4;
   v4[5] = 0;
-  if ((CGCryptorReset(v4, v6, v7, v8, v9, v10, v11, v12) & 1) == 0)
+  if ((CGCryptorReset(v4) & 1) == 0)
   {
     CGCryptorRelease(v4);
     return 0;
@@ -5806,51 +5806,51 @@ void *CGCryptorCreateRC4(const void *a1, size_t a2)
   return v4;
 }
 
-uint64_t CGCryptorReset(CCCryptorRef *cryptorRef, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGCryptorReset(CCCryptorRef *cryptorRef)
 {
-  v10 = cryptorRef + 3;
-  v9 = cryptorRef[3];
-  if (v9)
+  v3 = cryptorRef + 3;
+  v2 = cryptorRef[3];
+  if (v2)
   {
-    CCCryptorRelease(v9);
-    *v10 = 0;
+    CCCryptorRelease(v2);
+    *v3 = 0;
   }
 
-  v11 = *cryptorRef;
-  v12 = *(cryptorRef + 8);
-  if (v12)
+  v4 = *cryptorRef;
+  v5 = *(cryptorRef + 8);
+  if (v5)
   {
-    if (v12 != 4)
+    if (v5 != 4)
     {
-      LOBYTE(v18) = 44;
+      v11 = -4308;
       goto LABEL_10;
     }
 
-    v14 = cryptorRef[1];
-    v13 = cryptorRef[2];
-    v15 = v11 ^ 1;
-    v16 = 4;
-    LODWORD(v11) = 0;
-    v17 = 0;
+    v7 = cryptorRef[1];
+    v6 = cryptorRef[2];
+    v8 = v4 ^ 1;
+    v9 = 4;
+    v4 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v14 = cryptorRef[1];
-    v13 = cryptorRef[2];
-    v17 = cryptorRef[5];
-    v15 = v11 ^ 1;
-    v16 = 0;
+    v7 = cryptorRef[1];
+    v6 = cryptorRef[2];
+    v10 = cryptorRef[5];
+    v8 = v4 ^ 1;
+    v9 = 0;
   }
 
-  v18 = CCCryptorCreate(v15, v16, v11, v13, v14, v17, v10);
-  if (!v18)
+  v11 = CCCryptorCreate(v8, v9, v4, v6, v7, v10, v3);
+  if (!v11)
   {
     return 1;
   }
 
 LABEL_10:
-  CGPostError("CGCryptorReset: CCCryptorCreate failed: error %d.", a2, v11, a4, a5, a6, a7, a8, v18);
+  CGPostError("CGCryptorReset: CCCryptorCreate failed: error %d.", v11);
   return 0;
 }
 
@@ -5894,7 +5894,7 @@ void *CGCryptorCreateAES(const void *a1, size_t a2, _OWORD *a3, char a4)
   v10 = malloc_type_malloc(0x10uLL, 0x87D2890CuLL);
   v8[5] = v10;
   *v10 = *a3;
-  if ((CGCryptorReset(v8, v11, v12, v13, v14, v15, v16, v17) & 1) == 0)
+  if ((CGCryptorReset(v8) & 1) == 0)
   {
     CGCryptorRelease(v8);
     return 0;
@@ -5909,7 +5909,7 @@ void CGCryptorProcessBytes(uint64_t a1, const void *a2, size_t a3, void *a4, siz
   v7 = CCCryptorUpdate(*(a1 + 24), a2, a3, a4, a5, &dataOutMoved);
   if (v7)
   {
-    CGPostError("CGCryptorProcessBytes: CCCryptorUpdate failed: error %d.", v8, v9, v10, v11, v12, v13, v14, v7);
+    CGPostError("CGCryptorProcessBytes: CCCryptorUpdate failed: error %d.", v7);
   }
 
   else if (a6)
@@ -5924,7 +5924,7 @@ void CGCryptorDrain(uint64_t a1, void *a2, size_t a3, size_t *a4)
   v5 = CCCryptorFinal(*(a1 + 24), a2, a3, &dataOutMoved);
   if (v5)
   {
-    CGPostError("CGCryptorProcessBytes: CCCryptorFinal failed: error %d.", v6, v7, v8, v9, v10, v11, v12, v5);
+    CGPostError("CGCryptorProcessBytes: CCCryptorFinal failed: error %d.", v5);
   }
 
   else if (a4)
@@ -6038,21 +6038,21 @@ atomic_uint *CGClipGlyphsRetain(atomic_uint *result)
   return result;
 }
 
-void *CGClipGlyphsCreateCopyByApplyingTransform(void *a1, float64x2_t *a2)
+atomic_uint *CGClipGlyphsCreateCopyByApplyingTransform(atomic_uint *a1, float64x2_t *a2)
 {
   v2 = a1;
   if (a1)
   {
     if (a2)
     {
-      v4 = malloc_type_malloc(16 * a1[11], 0xD14C2890uLL);
+      v4 = malloc_type_malloc(16 * *(a1 + 11), 0xD14C2890uLL);
       v5 = v4;
-      v6 = v2[11];
+      v6 = *(v2 + 11);
       if (v6)
       {
-        v7 = (v2[10] + 8);
+        v7 = (*(v2 + 10) + 8);
         v8 = v4;
-        v9 = v2[11];
+        v9 = *(v2 + 11);
         do
         {
           *v8++ = vmlaq_n_f64(vmulq_n_f64(a2[1], *v7), *a2, *(v7 - 1));
@@ -6072,7 +6072,7 @@ void *CGClipGlyphsCreateCopyByApplyingTransform(void *a1, float64x2_t *a2)
       *&v17.a = vmlaq_n_f64(vmulq_n_f64(v13, *(v2 + 2)), *a2, *(v2 + 1));
       *&v17.c = v15;
       *&v17.tx = vaddq_f64(v14, vmlaq_n_f64(vmulq_n_f64(v13, v11), v12, v10));
-      v2 = CGClipGlyphsCreate(v2[8], *(v2 + 14), &v17, v2[9], v4, v6);
+      v2 = CGClipGlyphsCreate(*(v2 + 8), v2[14], &v17, *(v2 + 9), v4, v6);
       free(v5);
     }
 
@@ -6307,57 +6307,57 @@ const void *PDFMetaSetAddDictionary(uint64_t a1, const void *a2)
   return Value;
 }
 
-void write_object(uint64_t *a1, const __CFString *cf, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void write_object(uint64_t *a1, const __CFString *cf)
 {
-  v11 = CFGetTypeID(cf);
-  if (v11 == CFNullGetTypeID())
+  v4 = CFGetTypeID(cf);
+  if (v4 == CFNullGetTypeID())
   {
-    v18 = a1[1];
+    v5 = a1[1];
 
-    PDFDocumentPrintf(v18, "null", v12, v13, v14, v15, v16, v17, a9);
+    PDFDocumentPrintf(v5, "null");
   }
 
-  else if (v11 == CFBooleanGetTypeID())
+  else if (v4 == CFBooleanGetTypeID())
   {
-    v19 = a1[1];
+    v6 = a1[1];
     Value = CFBooleanGetValue(cf);
-    PDFDocumentPrintf(v19, "%b", v20, v21, v22, v23, v24, v25, Value);
+    PDFDocumentPrintf(v6, "%b", Value);
   }
 
-  else if (v11 == CFNumberGetTypeID())
+  else if (v4 == CFNumberGetTypeID())
   {
-    valuePtr = 0.0;
-    LODWORD(v71[0]) = 0;
+    valuePtr = 0;
+    LODWORD(v10[0]) = 0;
     if (CFNumberIsFloatType(cf))
     {
       CFNumberGetValue(cf, kCFNumberFloatType, &valuePtr);
-      PDFDocumentPrintf(a1[1], "%f", v26, v27, v28, v29, v30, v31, COERCE__INT64(valuePtr));
+      PDFDocumentPrintf(a1[1], "%f");
     }
 
     else
     {
-      CFNumberGetValue(cf, kCFNumberIntType, v71);
-      PDFDocumentPrintf(a1[1], "%d", v44, v45, v46, v47, v48, v49, LODWORD(v71[0]));
+      CFNumberGetValue(cf, kCFNumberIntType, v10);
+      PDFDocumentPrintf(a1[1], "%d");
     }
   }
 
-  else if (v11 == CFDateGetTypeID())
+  else if (v4 == CFDateGetTypeID())
   {
-    PDFDocumentPrintf(a1[1], "%D", v32, v33, v34, v35, v36, v37, cf);
+    PDFDocumentPrintf(a1[1], "%D", cf);
   }
 
-  else if (v11 == CFURLGetTypeID())
+  else if (v4 == CFURLGetTypeID())
   {
-    PDFDocumentPrintf(a1[1], "%U", v38, v39, v40, v41, v42, v43, cf);
+    PDFDocumentPrintf(a1[1], "%U", cf);
   }
 
-  else if (v11 == CFStringGetTypeID())
+  else if (v4 == CFStringGetTypeID())
   {
 
     write_string(a1, cf);
   }
 
-  else if (v11 == CFDataGetTypeID())
+  else if (v4 == CFDataGetTypeID())
   {
 
     write_data(a1, cf);
@@ -6370,27 +6370,27 @@ void write_object(uint64_t *a1, const __CFString *cf, uint64_t a3, uint64_t a4, 
       dispatch_once(&_block_invoke_once_7067, &__block_literal_global_5_7068);
     }
 
-    if (v11 == CGContainerGetTypeID_container_type_id)
+    if (v4 == CGContainerGetTypeID_container_type_id)
     {
       if (cf)
       {
-        v56 = *&cf[1].isa;
-        v71[0] = *&cf->data;
-        v71[1] = v56;
-        PDFDocumentPrintf(a1[1], "%r", v50, v51, v52, v53, v54, v55, v71);
+        v7 = *&cf[1].isa;
+        v10[0] = *&cf->data;
+        v10[1] = v7;
+        PDFDocumentPrintf(a1[1], "%r", v10);
       }
     }
 
-    else if (v11 == CFArrayGetTypeID())
+    else if (v4 == CFArrayGetTypeID())
     {
 
-      write_array(a1, cf, v57, v58, v59, v60, v61, v62, a9);
+      write_array(a1, cf);
     }
 
-    else if (v11 == CFDictionaryGetTypeID())
+    else if (v4 == CFDictionaryGetTypeID())
     {
 
-      write_dictionary(a1, cf, v63, v64, v65, v66, v67, v68, a9);
+      write_dictionary(a1, cf);
     }
   }
 }
@@ -6399,7 +6399,7 @@ void write_string(uint64_t a1, CFStringRef theString)
 {
   if (!CFStringHasPrefix(theString, @"/"))
   {
-    PDFDocumentPrintf(*(a1 + 8), "%T", v4, v5, v6, v7, v8, v9, theString);
+    PDFDocumentPrintf(*(a1 + 8), "%T", theString);
     return;
   }
 
@@ -6407,18 +6407,16 @@ void write_string(uint64_t a1, CFStringRef theString)
   {
     if (CFStringHasPrefix(theString, @"/>"))
     {
-      v35.length = CFStringGetLength(theString) - 2;
-      v35.location = 2;
-      v10 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v35);
+      v12.length = CFStringGetLength(theString) - 2;
+      v12.location = 2;
+      v4 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v12);
       DestinationSet = PDFDocumentGetDestinationSet(*(a1 + 8));
-      Destination = PDFDestinationSetGetDestination(DestinationSet, v10);
-      v24 = *(a1 + 8);
+      Destination = PDFDestinationSetGetDestination(DestinationSet, v4);
+      v7 = *(a1 + 8);
       if (Destination)
       {
-        ObjectNumberForPageNumber = Destination[1];
-LABEL_13:
-        PDFDocumentPrintReference(v24, "%R", ObjectNumberForPageNumber, v18, v19, v20, v21, v22);
-        goto LABEL_14;
+        PDFDocumentPrintReference(v7, "%R", Destination[1]);
+        goto LABEL_13;
       }
     }
 
@@ -6426,34 +6424,34 @@ LABEL_13:
     {
       if (!CFStringHasPrefix(theString, @"/#"))
       {
-        PDFDocumentPrintf(*(a1 + 8), "%/", v26, v27, v28, v29, v30, v31, theString);
+        PDFDocumentPrintf(*(a1 + 8), "%/", theString);
         return;
       }
 
-      v36.length = CFStringGetLength(theString) - 2;
-      v36.location = 2;
-      v10 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v36);
-      IntValue = CFStringGetIntValue(v10);
-      v24 = *(a1 + 8);
-      if (v24 && *(v24 + 496))
+      v13.length = CFStringGetLength(theString) - 2;
+      v13.location = 2;
+      v4 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v13);
+      IntValue = CFStringGetIntValue(v4);
+      v7 = *(a1 + 8);
+      if (v7 && *(v7 + 496))
       {
-        ObjectNumberForPageNumber = PDFPageTree::getObjectNumberForPageNumber(*(v24 + 496), IntValue);
-        v24 = *(a1 + 8);
+        ObjectNumberForPageNumber = PDFPageTree::getObjectNumberForPageNumber(*(v7 + 496), IntValue);
+        PDFDocumentPrintReference(*(a1 + 8), "%R", ObjectNumberForPageNumber);
         goto LABEL_13;
       }
     }
 
-    ObjectNumberForPageNumber = 0;
+    PDFDocumentPrintReference(v7, "%R", 0);
     goto LABEL_13;
   }
 
-  v34.length = CFStringGetLength(theString) - 1;
-  v34.location = 1;
-  v10 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v34);
-  PDFDocumentPrintf(*(a1 + 8), "%T", v11, v12, v13, v14, v15, v16, v10);
-LABEL_14:
+  v11.length = CFStringGetLength(theString) - 1;
+  v11.location = 1;
+  v4 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], theString, v11);
+  PDFDocumentPrintf(*(a1 + 8), "%T", v4);
+LABEL_13:
 
-  CFRelease(v10);
+  CFRelease(v4);
 }
 
 void write_data(uint64_t a1, const void *a2)
@@ -6461,65 +6459,65 @@ void write_data(uint64_t a1, const void *a2)
   Value = CFDictionaryGetValue(*(a1 + 24), a2);
   if (!Value)
   {
-    _CGHandleAssert("write_data", 228, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphicsRIP/PDF/Annotations/PDFMetaSet.c", "objectNumber != PDFObjectNumberInvalid", "invalid PDF object %lu", v5, v6, v7, 0);
+    _CGHandleAssert("write_data", 228, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphicsRIP/PDF/Annotations/PDFMetaSet.c", "objectNumber != PDFObjectNumberInvalid", "invalid PDF object %lu", 0);
   }
 
-  v8 = PDFStreamCreateWithObjectNumber(*(a1 + 8), Value);
-  PDFDocumentBeginObject(*v8, v8[1], v9, v10, v11, v12, v13, v14);
-  PDFDocumentPrintf(*v8, "<<", v15, v16, v17, v18, v19, v20, v29);
-  PDFDocumentPrintf(*(a1 + 8), "/Type /Data", v21, v22, v23, v24, v25, v26, v30);
-  PDFStreamBeginData(v8);
+  v5 = PDFStreamCreateWithObjectNumber(*(a1 + 8), Value);
+  PDFDocumentBeginObject(*v5, v5[1]);
+  PDFDocumentPrintf(*v5, "<<");
+  PDFDocumentPrintf(*(a1 + 8), "/Type /Data");
+  PDFStreamBeginData(v5);
   BytePtr = CFDataGetBytePtr(a2);
   Length = CFDataGetLength(a2);
-  CGDataConsumerPutBytes(v8[3], BytePtr, Length);
-  PDFStreamEndData(v8);
-  PDFStreamEnd(v8);
+  CGDataConsumerPutBytes(v5[3], BytePtr, Length);
+  PDFStreamEndData(v5);
+  PDFStreamEnd(v5);
 
-  PDFStreamRelease(v8);
+  PDFStreamRelease(v5);
 }
 
-void write_array(uint64_t a1, const __CFArray *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void write_array(uint64_t a1, const __CFArray *a2)
 {
-  PDFDocumentPrintf(*(a1 + 8), "[", a3, a4, a5, a6, a7, a8, v22);
+  PDFDocumentPrintf(*(a1 + 8), "[");
   Count = CFArrayGetCount(a2);
   if (Count)
   {
-    v18 = Count;
-    for (i = 0; i != v18; ++i)
+    v5 = Count;
+    for (i = 0; i != v5; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
       write_object_or_reference(a1, ValueAtIndex);
     }
   }
 
-  v21 = *(a1 + 8);
+  v8 = *(a1 + 8);
 
-  PDFDocumentPrintf(v21, "]", v12, v13, v14, v15, v16, v17, a9);
+  PDFDocumentPrintf(v8, "]");
 }
 
-void write_dictionary(uint64_t *a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void write_dictionary(uint64_t *a1, const __CFDictionary *a2)
 {
-  PDFDocumentPrintf(a1[1], "<<", a3, a4, a5, a6, a7, a8, v18);
+  PDFDocumentPrintf(a1[1], "<<");
   CFDictionaryApplyFunction(a2, write_dictionary_entry, a1);
-  v17 = a1[1];
+  v4 = a1[1];
 
-  PDFDocumentPrintf(v17, ">>", v11, v12, v13, v14, v15, v16, a9);
+  PDFDocumentPrintf(v4, ">>");
 }
 
-void write_object_or_reference(uint64_t a1, void *a2)
+void write_object_or_reference(uint64_t a1, __CFString *a2)
 {
   Value = CFDictionaryGetValue(*(a1 + 24), a2);
   if (Value)
   {
-    v10 = Value;
-    v11 = *(a1 + 8);
+    v5 = Value;
+    v6 = *(a1 + 8);
 
-    PDFDocumentPrintReference(v11, "%R", v10, v5, v6, v7, v8, v9);
+    PDFDocumentPrintReference(v6, "%R", v5);
     return;
   }
 
-  v12 = CFGetTypeID(a2);
-  if (v12 == CFDictionaryGetTypeID() || v12 == CFURLGetTypeID() || v12 == CFDataGetTypeID())
+  v7 = CFGetTypeID(a2);
+  if (v7 == CFDictionaryGetTypeID() || v7 == CFURLGetTypeID() || v7 == CFDataGetTypeID())
   {
     goto LABEL_18;
   }
@@ -6529,20 +6527,20 @@ void write_object_or_reference(uint64_t a1, void *a2)
     dispatch_once(&_ZZZ22CGDisplayListGetTypeIDEUb_E4once, &__block_literal_global_171_15843);
   }
 
-  if (v12 == CGDisplayListGetTypeID::display_list2_type_id)
+  if (v7 == CGDisplayListGetTypeID::display_list2_type_id)
   {
-    v13 = *(PDFDocumentAddFormWithDisplayList(*(a1 + 8), a2) + 2);
-    if (v13)
+    v8 = *(PDFDocumentAddFormWithDisplayList(*(a1 + 8), a2) + 2);
+    if (v8)
     {
-      v14 = *(v13 + 8);
+      v9 = *(v8 + 8);
     }
 
     else
     {
-      v14 = 0;
+      v9 = 0;
     }
 
-    CFDictionarySetValue(*(a1 + 24), a2, v14);
+    CFDictionarySetValue(*(a1 + 24), a2, v9);
 LABEL_18:
 
     write_object_reference(a1, a2);
@@ -6562,12 +6560,12 @@ void write_object_reference(uint64_t a1, const void *a2)
     CFArrayAppendValue(*(a1 + 16), a2);
   }
 
-  v10 = *(a1 + 8);
+  v5 = *(a1 + 8);
 
-  PDFDocumentPrintReference(v10, "%R", Value, v4, v5, v6, v7, v8);
+  PDFDocumentPrintReference(v5, "%R", Value);
 }
 
-void write_dictionary_entry(const __CFString *a1, void *a2, uint64_t a3)
+void write_dictionary_entry(const __CFString *a1, __CFString *a2, uint64_t a3)
 {
   if (!CFEqual(a1, @"/P") && !CFEqual(a1, @"/%Stream"))
   {
@@ -6960,7 +6958,7 @@ LABEL_12:
   return result;
 }
 
-void resample_filter_float(uint64_t a1, unsigned int a2, int a3, double *a4, unsigned int a5, double a6, double a7)
+void resample_filter_float(uint64_t a1, signed int a2, int a3, double *a4, unsigned int a5, double a6, double a7)
 {
   v7 = a3;
   if (a7 != 0.0 && (*&a7 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
@@ -7059,7 +7057,7 @@ void resample_filter_float(uint64_t a1, unsigned int a2, int a3, double *a4, uns
           v35 = (a1 + 8);
         }
 
-        if ((a2 - v23) >= 1)
+        if (a2 - v23 >= 1)
         {
           bzero(v35, 4 * (~v23 + a2) + 4);
         }
@@ -7213,15 +7211,15 @@ void gstate_clear(uint64_t a1)
   CGClipStackRelease(v9);
 }
 
-void PDFGStateReset(uint64_t a1)
+void PDFGStateReset(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    gstate_clear(a1);
-    gstate_init(a1);
-    CFArrayRemoveAllValues(*(a1 + 40));
+    gstate_clear(result);
+    gstate_init(result);
+    CFArrayRemoveAllValues(*(result + 40));
 
-    addEmitFunction(a1, write_gstate_reset);
+    addEmitFunction(result, write_gstate_reset);
   }
 }
 
@@ -7240,13 +7238,13 @@ void addEmitFunction(uint64_t a1, const void *a2)
   CFArrayAppendValue(v5, a2);
 }
 
-void write_gstate_reset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void write_gstate_reset(uint64_t a1)
 {
-  PDFWriterAnnotate(*(a1 + 16), "  BEGIN: resetting gstate.", a3, a4, a5, a6, a7, a8, v23);
-  PDFWriterPrintf(*(a1 + 16), "Q q", v10, v11, v12, v13, v14, v15, v24);
-  v22 = *(a1 + 16);
+  PDFWriterAnnotate(*(a1 + 16), "  BEGIN: resetting gstate.");
+  PDFWriterPrintf(*(a1 + 16), "Q q");
+  v2 = *(a1 + 16);
 
-  PDFWriterAnnotate(v22, "  END: resetting gstate.", v16, v17, v18, v19, v20, v21, a9);
+  PDFWriterAnnotate(v2, "  END: resetting gstate.");
 }
 
 void PDFGStateEmit(CFArrayRef *a1)
@@ -7280,51 +7278,51 @@ void PDFGStateSetLineDash(uint64_t a1, atomic_uint *a2)
   }
 }
 
-void emitLineDashChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitLineDashChange(uint64_t a1)
 {
-  v10 = *(a1 + 72);
-  if (v10)
+  v2 = *(a1 + 72);
+  if (v2)
   {
-    v11 = v10[2];
-    v12 = *(a1 + 16);
-    if (v11)
+    v3 = *(v2 + 16);
+    v4 = *(a1 + 16);
+    if (v3)
     {
-      v13 = v10[1];
-      v14 = v10 + 3;
-      PDFWriterPrintf(v12, "[", a3, a4, a5, a6, a7, a8, v22);
+      v5 = *(v2 + 8);
+      v6 = (v2 + 24);
+      PDFWriterPrintf(v4, "[");
       do
       {
-        v21 = *v14++;
-        PDFWriterPrintf(*(a1 + 16), "%f", v15, v16, v17, v18, v19, v20, v21);
-        --v11;
+        v7 = *v6++;
+        PDFWriterPrintf(*(a1 + 16), "%f", v7);
+        --v3;
       }
 
-      while (v11);
-      PDFWriterPrintf(*(a1 + 16), "] %f d", v15, v16, v17, v18, v19, v20, v13);
+      while (v3);
+      PDFWriterPrintf(*(a1 + 16), "] %f d", v5);
       return;
     }
   }
 
   else
   {
-    v12 = *(a1 + 16);
+    v4 = *(a1 + 16);
   }
 
-  PDFWriterPrintf(v12, "[] 0 d", a3, a4, a5, a6, a7, a8, a9);
+  PDFWriterPrintf(v4, "[] 0 d");
 }
 
-void emitRenderingIntentChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitRenderingIntentChange(uint64_t result)
 {
-  v9 = *(a1 + 80) - 1;
-  if (v9 <= 3)
+  v1 = *(result + 80) - 1;
+  if (v1 <= 3)
   {
-    PDFWriterPrintf(*(a1 + 16), off_1E6E1AA18[v9], a3, a4, a5, a6, a7, a8, a9);
+    PDFWriterPrintf(*(result + 16), off_1E6E1AA18[v1]);
   }
 }
 
-void emitEStateWithBool(uint64_t a1, const char *a2, char a3)
+void emitEStateWithBool(uint64_t *a1, const char *a2, char a3)
 {
-  v4 = *(a1 + 24);
+  v4 = a1[3];
   if (v4)
   {
     v5 = a2 == 0;
@@ -7377,20 +7375,20 @@ void emitEStateWithBool(uint64_t a1, const char *a2, char a3)
     v6 = value;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v6);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v13, v14, v15, v16, v17, v18, v6 + 24);
+  PDFResourceSetAddEState(a1[4], v6);
+  PDFWriterPrintf(a1[2], "/%N gs", v6 + 24);
 }
 
 void PDFGStateSetFillColor(uint64_t a1, unint64_t a2)
 {
   if (!CGColorEqualToColor(*(a1 + 152), a2))
   {
-    v11 = *(a1 + 8);
+    v4 = *(a1 + 8);
     if (a2)
     {
       if ((a2 & 0x8000000000000000) != 0)
       {
-        ColorSpace = CGTaggedColorGetColorSpace(a2, v4, v5, v6, v7, v8, v9, v10);
+        ColorSpace = CGTaggedColorGetColorSpace(a2);
       }
 
       else
@@ -7404,30 +7402,30 @@ void PDFGStateSetFillColor(uint64_t a1, unint64_t a2)
       ColorSpace = 0;
     }
 
-    v20 = PDFDocumentResolveColorSpace(v11, ColorSpace);
-    v21 = *(a1 + 152);
-    if (v21)
+    v6 = PDFDocumentResolveColorSpace(v4, ColorSpace);
+    v7 = *(a1 + 152);
+    if (v7)
     {
-      if ((v21 & 0x8000000000000000) != 0)
+      if ((v7 & 0x8000000000000000) != 0)
       {
-        v21 = CGTaggedColorGetColorSpace(v21, v13, v14, v15, v16, v17, v18, v19);
+        v7 = CGTaggedColorGetColorSpace(v7);
       }
 
       else
       {
-        v21 = *(v21 + 24);
+        v7 = *(v7 + 24);
       }
     }
 
-    if (v21 != v20)
+    if (v7 != v6)
     {
       addEmitFunction(a1, emitFillColorSpaceChange);
     }
 
-    v22 = *(a1 + 152);
-    if (v22)
+    v8 = *(a1 + 152);
+    if (v8)
     {
-      CFRelease(v22);
+      CFRelease(v8);
     }
 
     if (a2)
@@ -7441,14 +7439,14 @@ void PDFGStateSetFillColor(uint64_t a1, unint64_t a2)
   }
 }
 
-void emitFillColorChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitFillColorChange(uint64_t a1)
 {
   ColorSpace = *(a1 + 152);
   if (ColorSpace)
   {
     if ((ColorSpace & 0x8000000000000000) != 0)
     {
-      ColorSpace = CGTaggedColorGetColorSpace(ColorSpace, a2, a3, a4, a5, a6, a7, a8);
+      ColorSpace = CGTaggedColorGetColorSpace(ColorSpace);
     }
 
     else
@@ -7466,123 +7464,122 @@ void emitFillColorChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   else
   {
 
-    emitColor(a1, 1, v11, v12, v13, v14, v15, v16, a9);
+    emitColor(a1, 1);
   }
 }
 
-void emitColor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitColor(uint64_t a1, int a2)
 {
-  v9 = a2;
-  v11 = 160;
+  v4 = 160;
   if (a2)
   {
-    v11 = 152;
+    v4 = 152;
   }
 
-  v12 = *(a1 + v11);
-  if (v12)
+  v5 = *(a1 + v4);
+  if (v5)
   {
-    if ((v12 & 0x8000000000000000) != 0)
+    if ((v5 & 0x8000000000000000) != 0)
     {
-      NumberOfComponents = CGTaggedColorGetNumberOfComponents(*(a1 + v11), a2, a3, a4, a5, a6, a7, a8);
+      NumberOfComponents = CGTaggedColorGetNumberOfComponents(*(a1 + v4));
     }
 
     else
     {
-      NumberOfComponents = *(v12 + 56);
+      NumberOfComponents = *(v5 + 56);
     }
 
-    Components = CGColorGetComponents(v12);
-    v21 = NumberOfComponents - 1;
+    Components = CGColorGetComponents(v5);
+    v8 = NumberOfComponents - 1;
     if (NumberOfComponents == 1)
     {
       goto LABEL_12;
     }
 
-    v20 = Components;
+    v7 = Components;
   }
 
   else
   {
-    v20 = CGColorGetComponents(0);
-    v21 = -1;
+    v7 = CGColorGetComponents(0);
+    v8 = -1;
   }
 
   do
   {
-    v24 = *v20++;
-    PDFWriterPrintf(*(a1 + 16), "%f", v14, v15, v16, v17, v18, v19, v24);
-    --v21;
+    v10 = *v7++;
+    PDFWriterPrintf(*(a1 + 16), "%f", v10);
+    --v8;
   }
 
-  while (v21);
-  if (!v12)
+  while (v8);
+  if (!v5)
   {
     ColorSpace = 0;
     goto LABEL_16;
   }
 
 LABEL_12:
-  if ((v12 & 0x8000000000000000) != 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
-    ColorSpace = CGTaggedColorGetColorSpace(v12, v23, v14, v15, v16, v17, v18, v19);
+    ColorSpace = CGTaggedColorGetColorSpace(v5);
   }
 
   else
   {
-    ColorSpace = *(v12 + 24);
+    ColorSpace = *(v5 + 24);
   }
 
 LABEL_16:
-  v26 = PDFDocumentResolveColorSpace(*(a1 + 8), ColorSpace);
-  Type = CGColorSpaceGetType(v26);
-  v34 = "K";
-  if (v9)
+  v12 = PDFDocumentResolveColorSpace(*(a1 + 8), ColorSpace);
+  Type = CGColorSpaceGetType(v12);
+  v14 = "K";
+  if (a2)
   {
-    v34 = "k";
+    v14 = "k";
   }
 
-  v35 = "RG";
-  if (v9)
+  v15 = "RG";
+  if (a2)
   {
-    v35 = "rg";
+    v15 = "rg";
   }
 
-  v36 = "sc";
-  if (!v9)
+  v16 = "sc";
+  if (!a2)
   {
-    v36 = "SC";
+    v16 = "SC";
   }
 
-  v37 = "g";
-  if (!v9)
+  v17 = "g";
+  if (!a2)
   {
-    v37 = "G";
+    v17 = "G";
   }
 
   if (!Type)
   {
-    v36 = v37;
+    v16 = v17;
   }
 
   if (Type != 1)
   {
-    v35 = v36;
+    v15 = v16;
   }
 
   if (Type == 2)
   {
-    v38 = v34;
+    v18 = v14;
   }
 
   else
   {
-    v38 = v35;
+    v18 = v15;
   }
 
-  v39 = *(a1 + 16);
+  v19 = *(a1 + 16);
 
-  PDFWriterPrintf(v39, v38, v28, v29, v30, v31, v32, v33, a9);
+  PDFWriterPrintf(v19, v18);
 }
 
 void emitPattern(uint64_t a1, int a2)
@@ -7605,9 +7602,9 @@ void emitPattern(uint64_t a1, int a2)
   }
 
   v7 = *(a1 + 8);
-  v36 = *(a1 + 104);
-  v37 = *(a1 + 120);
-  v38 = *(a1 + 136);
+  v22 = *(a1 + 104);
+  v23 = *(a1 + 120);
+  v24 = *(a1 + 136);
   v8 = *(v7 + 416);
   if (!v8)
   {
@@ -7647,9 +7644,9 @@ void emitPattern(uint64_t a1, int a2)
 
     key = 0;
     LODWORD(key) = v6[4];
-    v41 = v37;
-    v42 = v38;
-    v40 = v36;
+    v27 = v23;
+    v28 = v24;
+    v26 = v22;
     Value = CFDictionaryGetValue(Mutable, &key);
     if (!Value)
     {
@@ -7661,13 +7658,13 @@ void emitPattern(uint64_t a1, int a2)
       if (Value)
       {
         *Value = 1;
-        Value[1] = v12;
-        Value[2] = PDFContentStreamCreate(v12, 0);
+        *(Value + 1) = v12;
+        *(Value + 2) = PDFContentStreamCreate(v12, 0);
         CFRetain(v6);
-        Value[3] = v6;
-        *(Value + 2) = v36;
-        *(Value + 3) = v37;
-        *(Value + 4) = v38;
+        *(Value + 3) = v6;
+        *(Value + 2) = v22;
+        *(Value + 3) = v23;
+        *(Value + 4) = v24;
         snprintf_l(Value + 80, 0x10uLL, 0, "P%lu", v13);
       }
 
@@ -7696,56 +7693,54 @@ void emitPattern(uint64_t a1, int a2)
   CGOrderedSetAddValue(v16, Value);
   if (v5)
   {
-    v24 = v5 < 0 ? CGTaggedColorGetNumberOfComponents(v5, v17, v18, v19, v20, v21, v22, v23) : *(v5 + 56);
-    if (v24 >= 2)
+    v17 = v5 < 0 ? CGTaggedColorGetNumberOfComponents(v5) : *(v5 + 56);
+    if (v17 >= 2)
     {
       Components = CGColorGetComponents(v5);
-      v26 = v24 - 1;
+      v19 = v17 - 1;
       do
       {
-        v27 = *Components++;
-        PDFWriterPrintf(*(a1 + 16), "%f", v18, v19, v20, v21, v22, v23, v27);
-        --v26;
+        v20 = *Components++;
+        PDFWriterPrintf(*(a1 + 16), "%f", v20);
+        --v19;
       }
 
-      while (v26);
+      while (v19);
     }
   }
 
-  PDFWriterPrintf(*(a1 + 16), "/%N", v18, v19, v20, v21, v22, v23, (Value + 10));
+  PDFWriterPrintf(*(a1 + 16), "/%N", Value + 80);
+  v21 = *(a1 + 16);
   if (a2)
   {
-    v34 = "scn";
+    PDFWriterPrintf(v21, "scn");
   }
 
   else
   {
-    v34 = "SCN";
+    PDFWriterPrintf(v21, "SCN");
   }
-
-  PDFWriterPrintf(*(a1 + 16), v34, v28, v29, v30, v31, v32, v33, v35);
 }
 
-void emitColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitColorSpace(uint64_t *a1, int a2)
 {
-  v9 = a2;
-  v11 = 160;
+  v4 = 20;
   if (a2)
   {
-    v11 = 152;
+    v4 = 19;
   }
 
-  v12 = *(a1 + v11);
-  if (v12)
+  v5 = a1[v4];
+  if (v5)
   {
-    if ((v12 & 0x8000000000000000) != 0)
+    if ((v5 & 0x8000000000000000) != 0)
     {
-      ColorSpace = CGTaggedColorGetColorSpace(v12, a2, a3, a4, a5, a6, a7, a8);
+      ColorSpace = CGTaggedColorGetColorSpace(v5);
     }
 
     else
     {
-      ColorSpace = *(v12 + 24);
+      ColorSpace = *(v5 + 24);
     }
   }
 
@@ -7754,58 +7749,58 @@ void emitColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     ColorSpace = 0;
   }
 
-  v14 = PDFDocumentResolveColorSpace(*(a1 + 8), ColorSpace);
-  if (!v14)
+  v7 = PDFDocumentResolveColorSpace(a1[1], ColorSpace);
+  if (!v7)
   {
-    _CGHandleAssert("emitColorSpace", 471, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphicsRIP/PDF/ContentStreams/PDFGState.c", "space != NULL", "PDF document colorspace missing", v15, v16, v17, v45);
+    _CGHandleAssert("emitColorSpace", 471, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphicsRIP/PDF/ContentStreams/PDFGState.c", "space != NULL", "PDF document colorspace missing");
   }
 
-  v18 = v14;
-  Type = CGColorSpaceGetType(v14);
+  v8 = v7;
+  Type = CGColorSpaceGetType(v7);
   if (Type >= 3)
   {
-    if (Type == 9 && !*(*(v18 + 3) + 48))
+    if (Type == 9 && !*(*(v8 + 3) + 48))
     {
-      v44 = "CS";
-      if (v9)
+      v16 = "CS";
+      if (a2)
       {
-        v44 = "cs";
+        v16 = "cs";
       }
 
-      PDFWriterPrintf(*(a1 + 16), "/Pattern %s", v20, v21, v22, v23, v24, v25, v44);
+      PDFWriterPrintf(a1[2], "/Pattern %s", v16);
     }
 
     else
     {
-      v26 = PDFDocumentAddColorSpace(*(a1 + 8), v18);
-      v27 = *(a1 + 32);
-      v28 = *(v27 + 32);
-      if (!v28)
+      v10 = PDFDocumentAddColorSpace(a1[1], v8);
+      v11 = a1[4];
+      v12 = *(v11 + 32);
+      if (!v12)
       {
-        v28 = CGOrderedSetCreate();
-        *(v27 + 32) = v28;
+        v12 = CGOrderedSetCreate();
+        *(v11 + 32) = v12;
       }
 
-      CGOrderedSetAddValue(v28, v26);
-      v35 = v26 + 40;
-      if (!v26)
+      CGOrderedSetAddValue(v12, v10);
+      v13 = v10 + 40;
+      if (!v10)
       {
-        v35 = 0;
+        v13 = 0;
       }
 
-      PDFWriterPrintf(*(a1 + 16), "/%N", v29, v30, v31, v32, v33, v34, v35);
-      v42 = *(a1 + 16);
-      if (v9)
+      PDFWriterPrintf(a1[2], "/%N", v13);
+      v14 = a1[2];
+      if (a2)
       {
-        v43 = "cs";
+        v15 = "cs";
       }
 
       else
       {
-        v43 = "CS";
+        v15 = "CS";
       }
 
-      PDFWriterPrintf(v42, v43, v36, v37, v38, v39, v40, v41, a9);
+      PDFWriterPrintf(v14, v15);
     }
   }
 }
@@ -7814,12 +7809,12 @@ void PDFGStateSetStrokeColor(uint64_t a1, unint64_t a2)
 {
   if (!CGColorEqualToColor(*(a1 + 160), a2))
   {
-    v11 = *(a1 + 8);
+    v4 = *(a1 + 8);
     if (a2)
     {
       if ((a2 & 0x8000000000000000) != 0)
       {
-        ColorSpace = CGTaggedColorGetColorSpace(a2, v4, v5, v6, v7, v8, v9, v10);
+        ColorSpace = CGTaggedColorGetColorSpace(a2);
       }
 
       else
@@ -7833,30 +7828,30 @@ void PDFGStateSetStrokeColor(uint64_t a1, unint64_t a2)
       ColorSpace = 0;
     }
 
-    v20 = PDFDocumentResolveColorSpace(v11, ColorSpace);
-    v21 = *(a1 + 160);
-    if (v21)
+    v6 = PDFDocumentResolveColorSpace(v4, ColorSpace);
+    v7 = *(a1 + 160);
+    if (v7)
     {
-      if ((v21 & 0x8000000000000000) != 0)
+      if ((v7 & 0x8000000000000000) != 0)
       {
-        v21 = CGTaggedColorGetColorSpace(v21, v13, v14, v15, v16, v17, v18, v19);
+        v7 = CGTaggedColorGetColorSpace(v7);
       }
 
       else
       {
-        v21 = *(v21 + 24);
+        v7 = *(v7 + 24);
       }
     }
 
-    if (v21 != v20)
+    if (v7 != v6)
     {
       addEmitFunction(a1, emitStrokeColorSpaceChange);
     }
 
-    v22 = *(a1 + 160);
-    if (v22)
+    v8 = *(a1 + 160);
+    if (v8)
     {
-      CFRelease(v22);
+      CFRelease(v8);
     }
 
     if (a2)
@@ -7870,14 +7865,14 @@ void PDFGStateSetStrokeColor(uint64_t a1, unint64_t a2)
   }
 }
 
-void emitStrokeColorChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emitStrokeColorChange(uint64_t a1)
 {
   ColorSpace = *(a1 + 160);
   if (ColorSpace)
   {
     if ((ColorSpace & 0x8000000000000000) != 0)
     {
-      ColorSpace = CGTaggedColorGetColorSpace(ColorSpace, a2, a3, a4, a5, a6, a7, a8);
+      ColorSpace = CGTaggedColorGetColorSpace(ColorSpace);
     }
 
     else
@@ -7895,29 +7890,29 @@ void emitStrokeColorChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   else
   {
 
-    emitColor(a1, 0, v11, v12, v13, v14, v15, v16, a9);
+    emitColor(a1, 0);
   }
 }
 
-void PDFGStateSetPatternMatrix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10)
+void PDFGStateSetPatternMatrix(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  v11 = *a2;
-  v12 = *(a2 + 16);
-  v13 = vmlaq_n_f64(vmlaq_n_f64(*(a2 + 32), *a2, a9), v12, a10);
-  *(a2 + 32) = v13;
-  if (*(a1 + 104) != *v11.i64 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*(a1 + 112), vextq_s8(v11, v12, 8uLL)), vceqq_f64(*(a1 + 128), vextq_s8(v12, v13, 8uLL))))) & 1) == 0 || *(a1 + 144) != *&v13.i64[1])
+  v5 = *a2;
+  v6 = *(a2 + 16);
+  v7 = vmlaq_n_f64(vmlaq_n_f64(*(a2 + 32), *a2, a3), v6, a4);
+  *(a2 + 32) = v7;
+  if (*(a1 + 104) != *v5.i64 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*(a1 + 112), vextq_s8(v5, v6, 8uLL)), vceqq_f64(*(a1 + 128), vextq_s8(v6, v7, 8uLL))))) & 1) == 0 || *(a1 + 144) != *&v7.i64[1])
   {
-    v14 = *a2;
-    v15 = *(a2 + 32);
+    v8 = *a2;
+    v9 = *(a2 + 32);
     *(a1 + 120) = *(a2 + 16);
-    *(a1 + 136) = v15;
-    *(a1 + 104) = v14;
+    *(a1 + 136) = v9;
+    *(a1 + 104) = v8;
     ColorSpace = *(a1 + 152);
     if (ColorSpace)
     {
       if ((ColorSpace & 0x8000000000000000) != 0)
       {
-        ColorSpace = CGTaggedColorGetColorSpace(ColorSpace, a2, a3, a4, a5, a6, a7, a8);
+        ColorSpace = CGTaggedColorGetColorSpace(ColorSpace);
       }
 
       else
@@ -7931,21 +7926,21 @@ void PDFGStateSetPatternMatrix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
       addEmitFunction(a1, emitFillColorChange);
     }
 
-    v24 = *(a1 + 160);
-    if (v24)
+    v11 = *(a1 + 160);
+    if (v11)
     {
-      if ((v24 & 0x8000000000000000) != 0)
+      if ((v11 & 0x8000000000000000) != 0)
       {
-        v24 = CGTaggedColorGetColorSpace(v24, v17, v18, v19, v20, v21, v22, v23);
+        v11 = CGTaggedColorGetColorSpace(v11);
       }
 
       else
       {
-        v24 = *(v24 + 24);
+        v11 = *(v11 + 24);
       }
     }
 
-    if (CGColorSpaceGetType(v24) == 9)
+    if (CGColorSpaceGetType(v11) == 9)
     {
 
       addEmitFunction(a1, emitStrokeColorChange);
@@ -7953,24 +7948,24 @@ void PDFGStateSetPatternMatrix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   }
 }
 
-void emitNonStrokeAlphaChange(uint64_t a1)
+void emitNonStrokeAlphaChange(uint64_t a1, __n128 a2)
 {
-  v1 = *(a1 + 8);
-  v2 = *(v1 + 4);
-  if (v2 <= 0)
+  v2 = *(a1 + 8);
+  v3 = *(v2 + 4);
+  if (v3 <= 0)
   {
-    *(v1 + 4) = 1;
-    v3 = (v1 + 8);
+    *(v2 + 4) = 1;
+    v4 = (v2 + 8);
 LABEL_6:
-    *v3 = 4;
+    *v4 = 4;
     goto LABEL_7;
   }
 
-  if (v2 == 1)
+  if (v3 == 1)
   {
-    v4 = *(v1 + 8);
-    v3 = (v1 + 8);
-    if (v4 <= 3)
+    v5 = *(v2 + 8);
+    v4 = (v2 + 8);
+    if (v5 <= 3)
     {
       goto LABEL_6;
     }
@@ -7980,9 +7975,9 @@ LABEL_7:
   emitEStateWithReal(a1, "ca", *(a1 + 168));
 }
 
-void emitEStateWithReal(uint64_t a1, const char *a2, double a3)
+void emitEStateWithReal(uint64_t *a1, const char *a2, double a3)
 {
-  v4 = *(a1 + 24);
+  v4 = a1[3];
   if (v4)
   {
     v5 = a2 == 0;
@@ -8035,8 +8030,8 @@ void emitEStateWithReal(uint64_t a1, const char *a2, double a3)
     v6 = value;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v6);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v13, v14, v15, v16, v17, v18, v6 + 24);
+  PDFResourceSetAddEState(a1[4], v6);
+  PDFWriterPrintf(a1[2], "/%N gs", v6 + 24);
 }
 
 void emitStrokeAlphaChange(uint64_t a1)
@@ -8070,7 +8065,7 @@ void PDFGStateSetStyle(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   v4 = *(a1 + 192);
-  if ((CGStyleEqualToStyle(v4, a2) & 1) == 0)
+  if (!CGStyleEqualToStyle(v4, a2))
   {
     if (v4)
     {
@@ -8096,12 +8091,12 @@ void PDFGStateSetStyle(uint64_t a1, uint64_t a2)
   }
 }
 
-void emitStyleChange(uint64_t a1)
+void emitStyleChange(uint64_t *a1)
 {
-  v2 = *(a1 + 24);
+  v2 = a1[3];
   if (v2)
   {
-    v3 = *(a1 + 192);
+    v3 = a1[24];
     if (!*(v2 + 8))
     {
       *(v2 + 8) = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, &callbacks_15272);
@@ -8147,8 +8142,8 @@ void emitStyleChange(uint64_t a1)
     v8 = 0;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v8);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v9, v10, v11, v12, v13, v14, v8 + 24);
+  PDFResourceSetAddEState(a1[4], v8);
+  PDFWriterPrintf(a1[2], "/%N gs", v8 + 24);
 }
 
 void PDFGStateSetStrokeOverprint(uint64_t a1, int a2)
@@ -8165,19 +8160,19 @@ void PDFGStateSetStrokeOverprint(uint64_t a1, int a2)
   }
 }
 
-void PDFGStateSetOverprintMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PDFGStateSetOverprintMode(uint64_t a1, int a2)
 {
-  v8 = a2;
+  v2 = a2;
   if (a2)
   {
     if (*(*(a1 + 8) + 91))
     {
-      v10 = *(a1 + 152);
-      if (v10)
+      v4 = *(a1 + 152);
+      if (v4)
       {
-        if ((v10 & 0x8000000000000000) != 0)
+        if ((v4 & 0x8000000000000000) != 0)
         {
-          ColorSpace = CGTaggedColorGetColorSpace(v10, a2, a3, a4, a5, a6, a7, a8);
+          ColorSpace = CGTaggedColorGetColorSpace(v4);
           if (!ColorSpace)
           {
             goto LABEL_12;
@@ -8186,20 +8181,20 @@ void PDFGStateSetOverprintMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
         else
         {
-          ColorSpace = *(v10 + 24);
+          ColorSpace = *(v4 + 24);
           if (!ColorSpace)
           {
             goto LABEL_12;
           }
         }
 
-        v12 = PDFDocumentResolveColorSpace(*(a1 + 8), ColorSpace);
-        if (v12)
+        v6 = PDFDocumentResolveColorSpace(*(a1 + 8), ColorSpace);
+        if (v6)
         {
-          v13 = v12;
-          if (CGColorSpaceGetModel(v12) == kCGColorSpaceModelCMYK && CGColorSpaceGetType(v13) == 6)
+          v7 = v6;
+          if (CGColorSpaceGetModel(v6) == kCGColorSpaceModelCMYK && CGColorSpaceGetType(v7) == 6)
           {
-            v8 = 0;
+            v2 = 0;
           }
         }
       }
@@ -8207,9 +8202,9 @@ void PDFGStateSetOverprintMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   }
 
 LABEL_12:
-  if (*(a1 + 204) != v8)
+  if (*(a1 + 204) != v2)
   {
-    *(a1 + 204) = v8;
+    *(a1 + 204) = v2;
 
     addEmitFunction(a1, emitOverprintModeChange);
   }
@@ -8262,7 +8257,7 @@ void emitOverprintModeChange(uint64_t a1)
   }
 
   PDFResourceSetAddEState(*(a1 + 32), v8);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v9, v10, v11, v12, v13, v14, v8 + 24);
+  PDFWriterPrintf(*(a1 + 16), "/%N gs", v8 + 24);
 }
 
 void PDFGStateSetBlackGeneration(uint64_t a1, CFTypeRef cf)
@@ -8286,18 +8281,18 @@ void PDFGStateSetBlackGeneration(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void emitBlackGenerationChange(uint64_t a1)
+void emitBlackGenerationChange(uint64_t *result)
 {
-  v1 = *(a1 + 208);
+  v1 = result[26];
   if (v1)
   {
-    emitEStateWithFunction(a1, "BG", v1);
+    emitEStateWithFunction(result, "BG", v1);
   }
 }
 
-void emitEStateWithFunction(uint64_t a1, const char *a2, const void *a3)
+void emitEStateWithFunction(uint64_t *a1, const char *a2, const void *a3)
 {
-  v4 = *(a1 + 24);
+  v4 = a1[3];
   if (v4)
   {
     v5 = a2 == 0;
@@ -8355,8 +8350,8 @@ void emitEStateWithFunction(uint64_t a1, const char *a2, const void *a3)
     v6 = value;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v6);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v13, v14, v15, v16, v17, v18, v6 + 24);
+  PDFResourceSetAddEState(a1[4], v6);
+  PDFWriterPrintf(a1[2], "/%N gs", v6 + 24);
 }
 
 void PDFGStateSetUndercolorRemoval(uint64_t a1, CFTypeRef cf)
@@ -8380,12 +8375,12 @@ void PDFGStateSetUndercolorRemoval(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void emitUndercolorRemovalChange(uint64_t a1)
+void emitUndercolorRemovalChange(uint64_t *result)
 {
-  v1 = *(a1 + 216);
+  v1 = result[27];
   if (v1)
   {
-    emitEStateWithFunction(a1, "UCR", v1);
+    emitEStateWithFunction(result, "UCR", v1);
   }
 }
 
@@ -8450,7 +8445,7 @@ void emitBlendModeChange(uint64_t a1)
   }
 
   PDFResourceSetAddEState(*(a1 + 32), v11);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v12, v13, v14, v15, v16, v17, v11 + 24);
+  PDFWriterPrintf(*(a1 + 16), "/%N gs", v11 + 24);
 }
 
 void PDFGStateSetSoftMask(uint64_t a1, CFTypeRef cf)
@@ -8474,12 +8469,12 @@ void PDFGStateSetSoftMask(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void emitSoftMaskChange(uint64_t a1)
+void emitSoftMaskChange(uint64_t *a1)
 {
-  v2 = *(a1 + 24);
+  v2 = a1[3];
   if (v2)
   {
-    v3 = *(a1 + 240);
+    v3 = a1[30];
     if (!*(v2 + 8))
     {
       *(v2 + 8) = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, &callbacks_15272);
@@ -8525,8 +8520,8 @@ void emitSoftMaskChange(uint64_t a1)
     v8 = 0;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v8);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v9, v10, v11, v12, v13, v14, v8 + 24);
+  PDFResourceSetAddEState(a1[4], v8);
+  PDFWriterPrintf(a1[2], "/%N gs", v8 + 24);
 }
 
 void PDFGStateSetClipStack(uint64_t a1, __CFArray *a2)
@@ -8702,12 +8697,12 @@ LABEL_14:
   }
 }
 
-void emitClipMaskChange(uint64_t a1)
+void emitClipMaskChange(uint64_t *a1)
 {
-  v2 = *(a1 + 24);
+  v2 = a1[3];
   if (v2)
   {
-    v3 = *(a1 + 232);
+    v3 = a1[29];
     if (!*(v2 + 8))
     {
       *(v2 + 8) = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, &callbacks_15272);
@@ -8753,16 +8748,16 @@ void emitClipMaskChange(uint64_t a1)
     v8 = 0;
   }
 
-  PDFResourceSetAddEState(*(a1 + 32), v8);
-  PDFWriterPrintf(*(a1 + 16), "/%N gs", v9, v10, v11, v12, v13, v14, v8 + 24);
+  PDFResourceSetAddEState(a1[4], v8);
+  PDFWriterPrintf(a1[2], "/%N gs", v8 + 24);
 }
 
-void emitClipStackChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void emitClipStackChange(uint64_t a1)
 {
-  PDFWriterAnnotate(*(a1 + 16), "  BEGIN: synchronizing clip.", a3, a4, a5, a6, a7, a8, v76);
-  v15 = *(a1 + 256);
-  v16 = &CGRectInfinite;
-  if (!v15)
+  PDFWriterAnnotate(*(a1 + 16), "  BEGIN: synchronizing clip.");
+  v2 = *(a1 + 256);
+  v3 = &CGRectInfinite;
+  if (!v2)
   {
     p_height = &CGRectInfinite.size.height;
     p_y = &CGRectInfinite.origin.y;
@@ -8770,128 +8765,128 @@ void emitClipStackChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     goto LABEL_36;
   }
 
-  v17 = *(v15 + 120);
-  if (!v17)
+  v4 = *(v2 + 120);
+  if (!v4)
   {
     goto LABEL_29;
   }
 
-  v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  v21 = *MEMORY[0x1E695E480];
-  v22 = 128;
+  v5 = 0;
+  v6 = 0;
+  v7 = 0;
+  v8 = *MEMORY[0x1E695E480];
+  v9 = 128;
   do
   {
-    v23 = *(a1 + 256);
-    if (*(v23 + 112) == 3)
+    v10 = *(a1 + 256);
+    if (*(v10 + 112) == 3)
     {
-      v24 = v23 + v22;
+      v11 = v10 + v9;
     }
 
     else
     {
-      v24 = *(v23 + 128) + 8 * v18;
+      v11 = *(v10 + 128) + 8 * v5;
     }
 
-    v25 = *v24;
-    v26 = *(*v24 + 8);
-    if (v26 <= 2)
+    v12 = *v11;
+    v13 = *(*v11 + 8);
+    if (v13 <= 2)
     {
-      if (v26 != 2)
+      if (v13 != 2)
       {
 LABEL_54:
         abort();
       }
 
-      if (v19)
+      if (v6)
       {
-        Mutable = v19;
+        Mutable = v6;
       }
 
       else
       {
-        Mutable = CFArrayCreateMutable(v21, 0, 0);
-        v19 = Mutable;
+        Mutable = CFArrayCreateMutable(v8, 0, 0);
+        v6 = Mutable;
       }
     }
 
     else
     {
-      if (v26 == 3)
+      if (v13 == 3)
       {
         goto LABEL_18;
       }
 
-      if (v26 != 4)
+      if (v13 != 4)
       {
         goto LABEL_54;
       }
 
-      if (v20)
+      if (v7)
       {
-        Mutable = v20;
+        Mutable = v7;
       }
 
       else
       {
-        Mutable = CFArrayCreateMutable(v21, 0, 0);
-        v20 = Mutable;
+        Mutable = CFArrayCreateMutable(v8, 0, 0);
+        v7 = Mutable;
       }
     }
 
-    CFArrayAppendValue(Mutable, v25);
+    CFArrayAppendValue(Mutable, v12);
 LABEL_18:
-    ++v18;
-    v22 += 8;
+    ++v5;
+    v9 += 8;
   }
 
-  while (v17 != v18);
-  if (v19)
+  while (v4 != v5);
+  if (v6)
   {
-    Count = CFArrayGetCount(v19);
+    Count = CFArrayGetCount(v6);
     if (Count)
     {
-      v29 = Count;
-      for (i = 0; i != v29; ++i)
+      v16 = Count;
+      for (i = 0; i != v16; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v19, i);
-        PDFWriteClipPath(*(a1 + 16), ValueAtIndex, v32, v33, v34, v35, v36, v37);
+        ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
+        PDFWriteClipPath(*(a1 + 16), ValueAtIndex);
       }
     }
 
-    CFRelease(v19);
+    CFRelease(v6);
   }
 
-  if (v20)
+  if (v7)
   {
-    v38 = CFArrayGetCount(v20);
-    if (v38)
+    v19 = CFArrayGetCount(v7);
+    if (v19)
     {
-      v39 = v38;
-      for (j = 0; j != v39; ++j)
+      v20 = v19;
+      for (j = 0; j != v20; ++j)
       {
-        v41 = CFArrayGetValueAtIndex(v20, j);
-        PDFWriterAnnotate(*(a1 + 16), "Beginning glyph clip.", v42, v43, v44, v45, v46, v47, v77);
-        PDFWriteClipPath(*(a1 + 16), v41, v48, v49, v50, v51, v52, v53);
-        PDFWriterAnnotate(*(a1 + 16), "Ending glyph clip.", v54, v55, v56, v57, v58, v59, v78);
+        v22 = CFArrayGetValueAtIndex(v7, j);
+        PDFWriterAnnotate(*(a1 + 16), "Beginning glyph clip.");
+        PDFWriteClipPath(*(a1 + 16), v22);
+        PDFWriterAnnotate(*(a1 + 16), "Ending glyph clip.");
       }
     }
 
-    CFRelease(v20);
+    CFRelease(v7);
   }
 
 LABEL_29:
   p_height = &CGRectInfinite.size.height;
   p_y = &CGRectInfinite.origin.y;
-  v62 = *(a1 + 256);
-  v63 = &v62[1];
-  v64 = &v62[1].height;
-  v65 = &v62[2].height;
-  v66 = v62 == 0;
-  if (v62)
+  v25 = *(a1 + 256);
+  v26 = &v25[1];
+  v27 = &v25[1].height;
+  v28 = &v25[2].height;
+  v29 = v25 == 0;
+  if (v25)
   {
-    p_size = v62 + 2;
+    p_size = v25 + 2;
   }
 
   else
@@ -8899,37 +8894,37 @@ LABEL_29:
     p_size = &CGRectInfinite.size;
   }
 
-  if (!v66)
+  if (!v29)
   {
-    p_y = v64;
-    v16 = v63;
-    p_height = v65;
+    p_y = v27;
+    v3 = v26;
+    p_height = v28;
   }
 
 LABEL_36:
-  v68 = *p_height;
-  x = v16->origin.x;
-  v70 = *p_y;
+  v31 = *p_height;
+  x = v3->origin.x;
+  v33 = *p_y;
   width = p_size->width;
-  *&v79 = x;
-  *(&v79 + 1) = v70;
-  *&v80 = width;
-  *(&v80 + 1) = v68;
-  if (x != -8.98846567e307 || v70 != -8.98846567e307 || width != 1.79769313e308 || v68 != 1.79769313e308)
+  *&v39 = x;
+  *(&v39 + 1) = v33;
+  *&v40 = width;
+  *(&v40 + 1) = v31;
+  if (x != -8.98846567e307 || v33 != -8.98846567e307 || width != 1.79769313e308 || v31 != 1.79769313e308)
   {
-    if (x == INFINITY || v70 == INFINITY)
+    if (x == INFINITY || v33 == INFINITY)
     {
-      v79 = 0u;
-      v80 = 0u;
+      v39 = 0u;
+      v40 = 0u;
     }
 
-    PDFWriterPrintf(*(a1 + 16), "%*r re W n", v9, v10, v11, v12, v13, v14, &v79);
+    PDFWriterPrintf(*(a1 + 16), "%*r re W n", &v39);
   }
 
-  PDFWriterAnnotate(*(a1 + 16), "  END: synchronizing clip.", v9, v10, v11, v12, v13, v14, v77);
+  PDFWriterAnnotate(*(a1 + 16), "  END: synchronizing clip.");
 }
 
-uint64_t w16_sample_Wf(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t w16_sample_Wf(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 40);
@@ -9335,7 +9330,7 @@ LABEL_44:
       return result;
     }
 
-    if ((v51 | v52 | (a3 - v86) | (a2 - v84)) < 0)
+    if (((v51 | v52 | (a3 - v86) | (a2 - v84)) & 0x8000000000000000) != 0)
     {
       v11 += v49 + 1;
       v88 = v88 - v48 + 4;
@@ -9418,7 +9413,7 @@ LABEL_44:
   }
 }
 
-uint64_t w16_sample_WF(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t w16_sample_WF(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 40);
@@ -9830,7 +9825,7 @@ LABEL_45:
       return result;
     }
 
-    if ((v52 | v53 | (a3 - v92) | (a2 - v90)) < 0)
+    if (((v52 | v53 | (a3 - v92) | (a2 - v90)) & 0x8000000000000000) != 0)
     {
       v11 += v50 + 1;
       v94 = v94 - v49 + 4;

@@ -3,7 +3,7 @@
 
 @implementation AXSPhotosensitiveSourceCopyDebuggingEnabled
 
-uint64_t ___AXSPhotosensitiveSourceCopyDebuggingEnabled_block_invoke()
+void *___AXSPhotosensitiveSourceCopyDebuggingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

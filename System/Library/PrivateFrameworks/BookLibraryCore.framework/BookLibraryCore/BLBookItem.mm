@@ -112,12 +112,12 @@
 
 - (BLBookItem)initWithEduCloudData:(id)data path:(id)path
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   pathCopy = path;
-  v22.receiver = self;
-  v22.super_class = BLBookItem;
-  v8 = [(BLBookItem *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BLBookItem;
+  v8 = [(BLBookItem *)&v21 init];
   if (v8)
   {
     v9 = [dataCopy objectForKeyedSubscript:@"identifier"];
@@ -156,7 +156,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = pathCopy;
+        v23 = pathCopy;
         _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_INFO, "WARNING: Restoring item from cloud item {%@} that is missing a permlink!", buf, 0xCu);
       }
     }
@@ -188,7 +188,6 @@
     [(BLBookItem *)v8 setCoverImagePath:v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -428,13 +427,13 @@
 
 - (id)_cloudCoverImageData
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_241D60BC0;
-  v20 = sub_241D60BD0;
-  v21 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_241D60BC0;
+  v19 = sub_241D60BD0;
+  v20 = 0;
   coverImagePath = [(BLBookItem *)self coverImagePath];
 
   if (coverImagePath)
@@ -445,14 +444,14 @@
     v7 = [v4 fileURLWithPath:coverImagePath2 relativeToURL:fileURL];
 
     v8 = objc_opt_new();
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_241D60BD8;
-    v14[3] = &unk_278D18140;
-    v14[4] = &v16;
-    v15 = 0;
-    [v8 coordinateReadingItemAtURL:v7 options:0 error:&v15 byAccessor:v14];
-    v9 = v15;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_241D60BD8;
+    v13[3] = &unk_278D18140;
+    v13[4] = &v15;
+    v14 = 0;
+    [v8 coordinateReadingItemAtURL:v7 options:0 error:&v14 byAccessor:v13];
+    v9 = v14;
 
     if (v9)
     {
@@ -460,23 +459,21 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v23 = v9;
+        v22 = v9;
         _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "Encountered error retrieving cover image from promised item. Error:  %@", buf, 0xCu);
       }
     }
   }
 
-  v11 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v11;
 }
 
 - (void)_setCloudCoverImageData:(id)data
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   permlink = [(BLBookItem *)self permlink];
   identifierFromPermlink = [permlink identifierFromPermlink];
@@ -497,36 +494,36 @@
   [(BLBookItem *)self setCoverImagePath:v7];
   if (dataCopy)
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = sub_241D61158;
-    v43[3] = &unk_278D18168;
-    v44 = dataCopy;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = sub_241D61158;
+    v42[3] = &unk_278D18168;
+    v43 = dataCopy;
     v11 = v10;
-    v45 = v11;
-    v12 = MEMORY[0x245CFF560](v43);
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    LOBYTE(v34) = 0;
+    v44 = v11;
+    v12 = MEMORY[0x245CFF560](v42);
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    LOBYTE(v33) = 0;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v14 = [defaultManager isUbiquitousItemAtURL:v11];
 
     if (v14)
     {
       v15 = objc_opt_new();
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_241D611A0;
-      v38[3] = &unk_278D18190;
-      v41 = &v31;
-      v42 = 0;
-      v40 = v12;
-      v39 = v11;
-      [v15 coordinateWritingItemAtURL:v39 options:0 error:&v42 byAccessor:v38];
-      v16 = v42;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_241D611A0;
+      v37[3] = &unk_278D18190;
+      v40 = &v30;
+      v41 = 0;
+      v39 = v12;
+      v38 = v11;
+      [v15 coordinateWritingItemAtURL:v38 options:0 error:&v41 byAccessor:v37];
+      v16 = v41;
 
-      v17 = v40;
+      v17 = v39;
     }
 
     else
@@ -539,10 +536,10 @@
       if ((v12)[2](v12, v17))
       {
         v25 = [MEMORY[0x277CBEBC0] fileURLWithPath:v17];
-        v37 = 0;
-        v26 = [defaultManager2 setUbiquitous:1 itemAtURL:v25 destinationURL:v11 error:&v37];
-        v16 = v37;
-        *(v32 + 24) = v26;
+        v36 = 0;
+        v26 = [defaultManager2 setUbiquitous:1 itemAtURL:v25 destinationURL:v11 error:&v36];
+        v16 = v36;
+        *(v31 + 24) = v26;
       }
 
       else
@@ -551,62 +548,60 @@
       }
     }
 
-    if ((v32[3] & 1) == 0)
+    if ((v31[3] & 1) == 0)
     {
       v27 = BLDefaultLog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v47 = v11;
-        v48 = 2112;
-        v49 = v16;
+        v46 = v11;
+        v47 = 2112;
+        v48 = v16;
         _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_ERROR, "Failed to coordinate write of thumbnail resource value for %@. Error:  %@", buf, 0x16u);
       }
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
   {
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = sub_241D60BC0;
-    v35 = sub_241D60BD0;
-    v36 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = sub_241D60BC0;
+    v34 = sub_241D60BD0;
+    v35 = 0;
     v18 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
-    v20 = (v32 + 5);
-    v19 = v32[5];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_241D6120C;
-    v29[3] = &unk_278D18140;
-    v29[4] = &v31;
+    v20 = (v31 + 5);
+    v19 = v31[5];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_241D6120C;
+    v28[3] = &unk_278D18140;
+    v28[4] = &v30;
     obj = v19;
-    [v18 coordinateWritingItemAtURL:v10 options:1 error:&obj byAccessor:v29];
+    [v18 coordinateWritingItemAtURL:v10 options:1 error:&obj byAccessor:v28];
     objc_storeStrong(v20, obj);
-    if (v32[5])
+    if (v31[5])
     {
       v21 = BLDefaultLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         path = [v10 path];
         *buf = 138412290;
-        v47 = path;
+        v46 = path;
         _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_ERROR, "Error encountered removing cover image at %@", buf, 0xCu);
       }
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setFileURL:(id)l
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([lCopy isFileURL])
   {
@@ -618,13 +613,11 @@
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = lCopy;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Invalid fileURL in setFileURL:%@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = lCopy;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Invalid fileURL in setFileURL:%@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cloudDictionaryRepresentation

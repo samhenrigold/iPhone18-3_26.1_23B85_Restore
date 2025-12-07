@@ -40,34 +40,39 @@
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
     oSLogObject = [v4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (!v6)
     {
-      goto LABEL_23;
+      goto LABEL_25;
     }
 
     v8 = objc_opt_class();
     v9 = self->_bundleIDs;
     v10 = v8;
-    [(NSArray *)v9 componentsJoinedByString:@", "];
+    v11 = [(NSArray *)v9 componentsJoinedByString:@", "];
     v21 = 138412546;
     v22 = v8;
-    v24 = v23 = 2112;
-    LODWORD(v18) = 22;
-    v11 = _os_log_send_and_compose_impl();
+    v23 = 2112;
+    v24 = v11;
+    v12 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@]: Restoring demoted applications with bundle identifiers: %@", &v21, 22);
   }
 
   else
@@ -81,51 +86,55 @@
     shouldLog2 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v14) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v14) = shouldLog2;
     }
 
     oSLogObject = [v4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v13 &= 2u;
+      v14 = v14;
     }
 
-    if (!v13)
+    else
     {
-      goto LABEL_23;
+      v14 &= 2u;
+    }
+
+    if (!v14)
+    {
+      goto LABEL_25;
     }
 
     v21 = 138412290;
     v22 = objc_opt_class();
-    v14 = v22;
-    LODWORD(v18) = 12;
-    v11 = _os_log_send_and_compose_impl();
+    v15 = v22;
+    v12 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@]: Restoring all demoted applications", &v21, 12);
   }
 
-  if (v11)
+  if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, &v21, v18];
-    free(v11);
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
+    free(v12);
     SSFileLog();
-LABEL_23:
+LABEL_25:
   }
 
-  v15 = +[NetworkRequestQueue sharedNetworkRequestQueue];
-  v16 = [[RestoreDemotedApplicationsOperation alloc] initWithBundleIdentifiers:self->_bundleIDs options:self->_options];
+  v16 = +[NetworkRequestQueue sharedNetworkRequestQueue];
+  v17 = [[RestoreDemotedApplicationsOperation alloc] initWithBundleIdentifiers:self->_bundleIDs options:self->_options];
   v19[0] = _NSConcreteStackBlock;
   v19[1] = 3221225472;
   v19[2] = sub_10013027C;
   v19[3] = &unk_100327110;
   v20 = dispatch_semaphore_create(0);
-  v17 = v20;
-  [(RestoreDemotedApplicationsOperation *)v16 setCompletionBlock:v19];
-  [v15 addOperation:v16];
-  dispatch_semaphore_wait(v17, 0x6FC23AC00uLL);
+  v18 = v20;
+  [(RestoreDemotedApplicationsOperation *)v17 setCompletionBlock:v19];
+  [v16 addOperation:v17];
+  dispatch_semaphore_wait(v18, 0x6FC23AC00uLL);
 }
 
 @end

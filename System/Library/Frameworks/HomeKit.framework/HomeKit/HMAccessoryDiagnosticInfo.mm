@@ -56,11 +56,11 @@
 
 - (HMAccessoryDiagnosticInfo)initWithProtoData:(id)data
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v79.receiver = self;
-  v79.super_class = HMAccessoryDiagnosticInfo;
-  v5 = [(HMAccessoryDiagnosticInfo *)&v79 init];
+  v78.receiver = self;
+  v78.super_class = HMAccessoryDiagnosticInfo;
+  v5 = [(HMAccessoryDiagnosticInfo *)&v78 init];
   if (v5)
   {
     v6 = [[HMAccessoryDiagnosticInfoProtoDiagnosticInfo alloc] initWithData:dataCopy];
@@ -141,20 +141,20 @@
 
           if (v37)
           {
-            v73 = v7;
-            v74 = dataCopy;
-            v77 = 0u;
-            v78 = 0u;
-            v75 = 0u;
+            v72 = v7;
+            v73 = dataCopy;
             v76 = 0u;
+            v77 = 0u;
+            v74 = 0u;
+            v75 = 0u;
             eventRouterServerInfo6 = [appleMediaAccessoryDiagnosticInfo eventRouterServerInfo];
             connectedClients2 = [eventRouterServerInfo6 connectedClients];
 
-            v40 = [connectedClients2 countByEnumeratingWithState:&v75 objects:v80 count:16];
+            v40 = [connectedClients2 countByEnumeratingWithState:&v74 objects:v79 count:16];
             if (v40)
             {
               v41 = v40;
-              v42 = *v76;
+              v42 = *v75;
               v43 = &stru_1F0E92498;
               do
               {
@@ -162,12 +162,12 @@
                 v45 = v43;
                 do
                 {
-                  if (*v76 != v42)
+                  if (*v75 != v42)
                   {
                     objc_enumerationMutation(connectedClients2);
                   }
 
-                  connectedClientIdentifierString = [*(*(&v75 + 1) + 8 * v44) connectedClientIdentifierString];
+                  connectedClientIdentifierString = [*(*(&v74 + 1) + 8 * v44) connectedClientIdentifierString];
                   v43 = [(__CFString *)v45 stringByAppendingFormat:@" %@", connectedClientIdentifierString];
 
                   ++v44;
@@ -175,7 +175,7 @@
                 }
 
                 while (v41 != v44);
-                v41 = [connectedClients2 countByEnumeratingWithState:&v75 objects:v80 count:16];
+                v41 = [connectedClients2 countByEnumeratingWithState:&v74 objects:v79 count:16];
               }
 
               while (v41);
@@ -189,8 +189,8 @@
             connectedClientsDescription = v5->_connectedClientsDescription;
             v5->_connectedClientsDescription = &v43->isa;
 
-            v7 = v73;
-            dataCopy = v74;
+            v7 = v72;
+            dataCopy = v73;
           }
         }
 
@@ -265,7 +265,6 @@
     }
   }
 
-  v71 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

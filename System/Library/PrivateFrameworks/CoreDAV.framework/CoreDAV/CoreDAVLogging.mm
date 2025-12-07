@@ -72,7 +72,7 @@ uint64_t __31__CoreDAVLogging_sharedLogging__block_invoke()
 
   if ((objc_opt_respondsToSelector() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [CoreDAVLogging addLogDelegate:forAccountInfoProvider:];
+    [CoreDAVLogging addLogDelegate:delegateCopy forAccountInfoProvider:?];
   }
 
   delegateMuckingQueue = self->_delegateMuckingQueue;
@@ -93,25 +93,21 @@ void __56__CoreDAVLogging_addLogDelegate_forAccountInfoProvider___block_invoke(v
   v2 = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
   if (!v2)
   {
-    v5 = [MEMORY[0x277CCAA50] hashTableWithOptions:5];
-    [*(a1[4] + 8) setObject:v5 forKeyedSubscript:a1[5]];
-    v2 = v5;
+    v4 = [MEMORY[0x277CCAA50] hashTableWithOptions:5];
+    [*(a1[4] + 8) setObject:v4 forKeyedSubscript:a1[5]];
+    v2 = v4;
   }
 
-  v6 = v2;
+  v5 = v2;
   [v2 addObject:a1[6]];
   v3 = [*(a1[4] + 16) objectForKey:a1[5]];
   if (v3)
   {
   }
 
-  else
+  else if (objc_opt_respondsToSelector())
   {
-    v4 = a1[6];
-    if (objc_opt_respondsToSelector())
-    {
-      [*(a1[4] + 16) setObject:a1[6] forKey:a1[5]];
-    }
+    [*(a1[4] + 16) setObject:a1[6] forKey:a1[5]];
   }
 }
 
@@ -143,7 +139,7 @@ void __56__CoreDAVLogging_addLogDelegate_forAccountInfoProvider___block_invoke(v
 
 void __59__CoreDAVLogging_removeLogDelegate_forAccountInfoProvider___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
   v3 = v2;
   if (v2)
@@ -161,34 +157,34 @@ void __59__CoreDAVLogging_removeLogDelegate_forAccountInfoProvider___block_invok
   if (v4 == v5)
   {
     [*(a1[4] + 16) removeObjectForKey:a1[5]];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * i);
+          v11 = *(*(&v12 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [*(a1[4] + 16) setObject:v11 forKey:{a1[5], v13}];
+            [*(a1[4] + 16) setObject:v11 forKey:{a1[5], v12}];
             goto LABEL_15;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v8)
         {
           continue;
@@ -200,8 +196,6 @@ void __59__CoreDAVLogging_removeLogDelegate_forAccountInfoProvider___block_invok
 
 LABEL_15:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_delegatesToLogForProvider:(id)provider
@@ -268,27 +262,27 @@ void __45__CoreDAVLogging__delegatesToLogForProvider___block_invoke(void *a1)
 
 - (BOOL)shouldLogAtLevel:(int64_t)level forAccountInfoProvider:(id)provider
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(CoreDAVLogging *)self _delegatesToLogForProvider:provider];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ((objc_opt_respondsToSelector() & 1) != 0 && [v10 coreDAVLogLevel] >= level)
         {
           v11 = 1;
@@ -296,7 +290,7 @@ void __45__CoreDAVLogging__delegatesToLogForProvider___block_invoke(void *a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -309,33 +303,32 @@ void __45__CoreDAVLogging__delegatesToLogForProvider___block_invoke(void *a1)
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_shouldOutputAtLevel:(int64_t)level forAccountInfoProvider:(id)provider
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(CoreDAVLogging *)self _delegatesToLogForProvider:provider];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ((objc_opt_respondsToSelector() & 1) != 0 && [v10 coreDAVOutputLevel] >= level)
         {
           v11 = 1;
@@ -343,7 +336,7 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -356,7 +349,6 @@ LABEL_12:
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -469,7 +461,7 @@ void __50__CoreDAVLogging_logHandleForAccountInfoProvider___block_invoke(void *a
 
 - (void)logDiagnosticForProvider:(id)provider withLevel:(int64_t)level format:(id)format args:(char *)args
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   formatCopy = format;
   v12 = [(CoreDAVLogging *)self shouldLogAtLevel:level forAccountInfoProvider:providerCopy];
@@ -486,28 +478,28 @@ void __50__CoreDAVLogging_logHandleForAccountInfoProvider___block_invoke(void *a
 
     if (v12)
     {
-      v26 = formatCopy;
-      v27 = providerCopy;
+      v25 = formatCopy;
+      v26 = providerCopy;
       v17 = [(CoreDAVLogging *)self _delegatesToLogForProvider:providerCopy];
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v29;
+        v20 = *v28;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v29 != v20)
+            if (*v28 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v28 + 1) + 8 * i);
+            v22 = *(*(&v27 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               [v22 coreDAVLogDiagnosticMessage:v16 atLevel:level];
@@ -520,36 +512,32 @@ void __50__CoreDAVLogging_logHandleForAccountInfoProvider___block_invoke(void *a
               if (os_log_type_enabled(logHandle, v24))
               {
                 *buf = 138412290;
-                v33 = v16;
+                v32 = v16;
                 _os_log_impl(&dword_2452FB000, logHandle, v24, "%@", buf, 0xCu);
               }
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
         }
 
         while (v19);
       }
 
-      formatCopy = v26;
-      providerCopy = v27;
+      formatCopy = v25;
+      providerCopy = v26;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-- (void)addLogDelegate:forAccountInfoProvider:.cold.1()
+- (void)addLogDelegate:(uint64_t)a1 forAccountInfoProvider:.cold.1(uint64_t a1)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   v3 = 138543362;
-  v4 = v1;
+  v4 = v2;
   _os_log_error_impl(&dword_2452FB000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Added a logging delegate (type %{public}@) that doesn't implement -logHandle. This will degrade performance and result in completely useless, entirely redacted logs. Please migrate to os_log.", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

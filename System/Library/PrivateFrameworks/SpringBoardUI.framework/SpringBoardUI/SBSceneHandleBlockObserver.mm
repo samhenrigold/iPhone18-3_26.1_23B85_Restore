@@ -146,192 +146,182 @@
 
 - (void)sceneHandle:(id)handle didCreateScene:(id)scene
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   sceneCopy = scene;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_createBlocks allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12++) + 16))();
+        (*(*(*(&v13 + 1) + 8 * v12++) + 16))();
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneHandle:(id)handle didDestroyScene:(id)scene
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   sceneCopy = scene;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_destroyBlocks allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12++) + 16))();
+        (*(*(*(&v13 + 1) + 8 * v12++) + 16))();
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneHandle:(id)handle didUpdateContentState:(int64_t)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_didUpdateContentStateBlocks allValues];
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneHandle:(id)handle didUpdateSettingsWithDiff:(id)diff previousSettings:(id)settings
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   diffCopy = diff;
   settingsCopy = settings;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allValues = [(NSMutableDictionary *)self->_didUpdateSettingsBlocks allValues];
-  v12 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v17 + 1) + 8 * v15++) + 16))();
+        (*(*(*(&v16 + 1) + 8 * v15++) + 16))();
       }
 
       while (v13 != v15);
-      v13 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneHandle:(id)handle didUpdateClientSettings:(id)settings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   settingsCopy = settings;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_didUpdateClientSettingsBlocks allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12++) + 16))();
+        (*(*(*(&v13 + 1) + 8 * v12++) + 16))();
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

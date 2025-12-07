@@ -27,23 +27,24 @@
 
 - (VCMediaNegotiatorLocalConfiguration)init
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = VCMediaNegotiatorLocalConfiguration;
-  v2 = [(VCMediaNegotiatorLocalConfiguration *)&v19 init];
+  v40 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = VCMediaNegotiatorLocalConfiguration;
+  v2 = [(VCMediaNegotiatorLocalConfiguration *)&v23 init];
+  v4 = v2;
   if (!v2)
   {
-    return v2;
+    return v4;
   }
 
-  v3 = micro();
-  *(v2 + 8) = MicroToNTP(v3);
-  *(v2 + 32) = 1;
-  v2[133] = 1;
-  *(v2 + 74) = 0;
-  v4 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-  *(v2 + 9) = v4;
-  if (!v4)
+  v5 = micro(v2, v3);
+  v4->_creationTime.wide = MicroToNTP(v5, v6, v7);
+  v4->_tilesPerVideoFrame = 1;
+  v4->_ltrpEnabled = 1;
+  v4->_accessNetworkType = 0;
+  v8 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v4->_multiwayAudioStreams = v8;
+  if (!v8)
   {
     [VCMediaNegotiatorLocalConfiguration init];
 LABEL_22:
@@ -51,98 +52,98 @@ LABEL_22:
     return 0;
   }
 
-  v5 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-  *(v2 + 10) = v5;
-  if (!v5)
-  {
-    [VCMediaNegotiatorLocalConfiguration init];
-    goto LABEL_22;
-  }
-
-  v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  *(v2 + 5) = v6;
-  if (!v6)
-  {
-    [VCMediaNegotiatorLocalConfiguration init];
-    goto LABEL_22;
-  }
-
-  v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  *(v2 + 17) = v7;
-  if (!v7)
-  {
-    [VCMediaNegotiatorLocalConfiguration init];
-    goto LABEL_22;
-  }
-
-  v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  *(v2 + 18) = v8;
-  if (!v8)
-  {
-    [VCMediaNegotiatorLocalConfiguration init];
-    goto LABEL_22;
-  }
-
-  v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  *(v2 + 20) = v9;
+  v9 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v4->_multiwayVideoStreams = v9;
   if (!v9)
   {
     [VCMediaNegotiatorLocalConfiguration init];
     goto LABEL_22;
   }
 
-  v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  *(v2 + 1) = v10;
+  v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v4->_bandwidthConfigurations = v10;
   if (!v10)
   {
     [VCMediaNegotiatorLocalConfiguration init];
     goto LABEL_22;
   }
 
-  v2[152] = 0;
-  *(v2 + 21) = +[VCHardwareSettings screenWidth];
-  *(v2 + 22) = +[VCHardwareSettings screenHeight];
-  [VCVideoFeatureListStringHelper aspectRatioPortrait:v2 + 200 landscape:v2 + 184 isMismatchedOrientation:0];
-  [VCVideoFeatureListStringHelper aspectRatioPortrait:0 landscape:v2 + 216 isMismatchedOrientation:1];
-  if (+[VCHardwareSettings supportsFullBleedReceive])
+  v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v4->_pixelFormats = v11;
+  if (!v11)
   {
-    *(v2 + 232) = *(v2 + 184);
+    [VCMediaNegotiatorLocalConfiguration init];
+    goto LABEL_22;
   }
 
-  *(v2 + 62) = 1;
-  *(v2 + 66) = [objc_msgSend(+[VCVideoCaptureServer VCVideoCaptureServerSingleton](VCVideoCaptureServer "VCVideoCaptureServerSingleton")];
+  v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v4->_hdrModesSupported = v12;
+  if (!v12)
+  {
+    [VCMediaNegotiatorLocalConfiguration init];
+    goto LABEL_22;
+  }
+
+  v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v4->_streamGroupConfigs = v13;
+  if (!v13)
+  {
+    [VCMediaNegotiatorLocalConfiguration init];
+    goto LABEL_22;
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v4->_u1StreamConfigurations = v14;
+  if (!v14)
+  {
+    [VCMediaNegotiatorLocalConfiguration init];
+    goto LABEL_22;
+  }
+
+  v4->_mediaControlInfoFECFeedbackVersion = 0;
+  v4->_screenSize.width = +[VCHardwareSettings screenWidth];
+  v4->_screenSize.height = +[VCHardwareSettings screenHeight];
+  [VCVideoFeatureListStringHelper aspectRatioPortrait:&v4->_aspectRatioPortrait landscape:&v4->_aspectRatioLandscape isMismatchedOrientation:0];
+  [VCVideoFeatureListStringHelper aspectRatioPortrait:0 landscape:&v4->_orientationMismatchAspectRatioLandscape isMismatchedOrientation:1];
+  if (+[VCHardwareSettings supportsFullBleedReceive])
+  {
+    v4->_orientationMismatchFullScreenAspectRatioLandscape = v4->_aspectRatioLandscape;
+  }
+
+  v4->_videoFrameMetadataSupportedVersion = 1;
+  v4->_deviceInitialOrientation = [objc_msgSend(+[VCVideoCaptureServer VCVideoCaptureServerSingleton](VCVideoCaptureServer "VCVideoCaptureServerSingleton")];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
-    v12 = *MEMORY[0x1E6986650];
+    v15 = VRTraceErrorLogLevelToCSTR();
+    v16 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(v2 + 29);
-      v14 = *(v2 + 30);
-      v15 = v2[252];
-      v16 = v2[253];
-      v17 = *(v2 + 66);
+      width = v4->_orientationMismatchFullScreenAspectRatioLandscape.width;
+      height = v4->_orientationMismatchFullScreenAspectRatioLandscape.height;
+      frontCameraFullScreenSupported = v4->_frontCameraFullScreenSupported;
+      backCameraFullScreenSupported = v4->_backCameraFullScreenSupported;
+      deviceInitialOrientation = v4->_deviceInitialOrientation;
       *buf = 136316930;
-      v21 = v11;
-      v22 = 2080;
-      v23 = "[VCMediaNegotiatorLocalConfiguration init]";
-      v24 = 1024;
-      v25 = 166;
-      v26 = 2048;
-      v27 = v13;
-      v28 = 2048;
-      v29 = v14;
-      v30 = 1024;
-      v31 = v15;
-      v32 = 1024;
-      v33 = v16;
+      v25 = v15;
+      v26 = 2080;
+      v27 = "[VCMediaNegotiatorLocalConfiguration init]";
+      v28 = 1024;
+      v29 = 166;
+      v30 = 2048;
+      v31 = width;
+      v32 = 2048;
+      v33 = height;
       v34 = 1024;
-      v35 = v17;
-      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [RDAR] _orientationMismatchFullScreenAspectRatioLandscape=%fx%f _frontCameraFullScreenSupported=%d _backCameraFullScreenSupported=%d _deviceInitialOrientation=%d", buf, 0x42u);
+      v35 = frontCameraFullScreenSupported;
+      v36 = 1024;
+      v37 = backCameraFullScreenSupported;
+      v38 = 1024;
+      v39 = deviceInitialOrientation;
+      _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [RDAR] _orientationMismatchFullScreenAspectRatioLandscape=%fx%f _frontCameraFullScreenSupported=%d _backCameraFullScreenSupported=%d _deviceInitialOrientation=%d", buf, 0x42u);
     }
   }
 
-  return v2;
+  return v4;
 }
 
 - (VCMediaNegotiatorLocalConfiguration)initWithBitrateArbiter:(id)arbiter
@@ -1246,7 +1247,7 @@ LABEL_5:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate multiway audio stream set", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate multiway audio stream set", v2, v3, v4, v5);
     }
   }
 }
@@ -1289,7 +1290,7 @@ LABEL_5:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate bandwidth extension configuration", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate bandwidth extension configuration", v2, v3, v4, v5);
     }
   }
 }

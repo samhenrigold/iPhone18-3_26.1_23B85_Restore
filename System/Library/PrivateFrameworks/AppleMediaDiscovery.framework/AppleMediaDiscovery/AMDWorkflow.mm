@@ -132,25 +132,23 @@
   objc_storeStrong(&v48, 0);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __57__AMDWorkflow_saveWorkflow_forDomain_withCallUUID_error___block_invoke(uint64_t a1)
 {
-  v17[2] = a1;
-  v17[1] = a1;
-  v7 = MEMORY[0x277CBE408];
-  v9 = +[AMDWorkflow entity];
-  v8 = [v9 name];
-  v1 = *(a1 + 32);
-  v17[0] = [v7 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  v16[2] = a1;
+  v16[1] = a1;
+  v6 = MEMORY[0x277CBE408];
+  v8 = +[AMDWorkflow entity];
+  v7 = [v8 name];
+  v16[0] = [v6 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
+  [v16[0] setDomain:*(a1 + 88)];
+  v9 = [*(a1 + 40) getUseCaseId];
+  [v16[0] setUseCaseId:?];
   MEMORY[0x277D82BD8](v9);
-  [v17[0] setDomain:*(a1 + 88)];
-  v10 = [*(a1 + 40) getUseCaseId];
-  [v17[0] setUseCaseId:?];
-  MEMORY[0x277D82BD8](v10);
-  [v17[0] setCallUUID:*(a1 + 48)];
+  [v16[0] setCallUUID:*(a1 + 48)];
   location = [*(a1 + 40) getTreatmentId];
   if (location)
   {
@@ -162,36 +160,36 @@ void __57__AMDWorkflow_saveWorkflow_forDomain_withCallUUID_error___block_invoke(
     objc_storeStrong(&location, @"__defaultTreatment");
   }
 
-  [v17[0] setTreatmentId:location];
-  [v17[0] setWorkflow:*(a1 + 56)];
-  v5 = v17[0];
-  v6 = [*(a1 + 64) objectForKey:@"model_id"];
-  [v5 setModelId:?];
-  MEMORY[0x277D82BD8](v6);
-  v15 = [*(a1 + 64) objectForKey:@"secondary_model_id"];
-  if (v15)
+  [v16[0] setTreatmentId:location];
+  [v16[0] setWorkflow:*(a1 + 56)];
+  v4 = v16[0];
+  v5 = [*(a1 + 64) objectForKey:@"model_id"];
+  [v4 setModelId:?];
+  MEMORY[0x277D82BD8](v5);
+  v14 = [*(a1 + 64) objectForKey:@"secondary_model_id"];
+  if (v14)
   {
-    [v17[0] setSecondaryModelId:v15];
+    [v16[0] setSecondaryModelId:v14];
   }
 
-  v14 = [*(a1 + 64) objectForKey:@"startTime"];
-  v13 = [*(a1 + 64) objectForKey:@"endTime"];
-  if (v14 && v13)
+  v13 = [*(a1 + 64) objectForKey:@"startTime"];
+  v12 = [*(a1 + 64) objectForKey:@"endTime"];
+  if (v13 && v12)
   {
-    [v17[0] setStartTime:{objc_msgSend(v14, "unsignedLongLongValue")}];
-    [v17[0] setEndTime:{objc_msgSend(v13, "unsignedLongLongValue")}];
+    [v16[0] setStartTime:{objc_msgSend(v13, "unsignedLongLongValue")}];
+    [v16[0] setEndTime:{objc_msgSend(v12, "unsignedLongLongValue")}];
   }
 
-  v2 = *(a1 + 72);
-  v3 = (*(*(a1 + 80) + 8) + 40);
-  v12 = *v3;
-  [v2 save:{&v12, v3}];
-  objc_storeStrong(v4, v12);
+  v1 = *(a1 + 72);
+  v2 = (*(*(a1 + 80) + 8) + 40);
+  v11 = *v2;
+  [v1 save:{&v11, v2}];
+  objc_storeStrong(v3, v11);
+  objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
-  objc_storeStrong(&v15, 0);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v17, 0);
+  objc_storeStrong(v16, 0);
 }
 
 + (void)addWorkflowsFromInflightTable:(id)table error:(id *)error
@@ -240,76 +238,75 @@ void __57__AMDWorkflow_saveWorkflow_forDomain_withCallUUID_error___block_invoke(
 
 void __51__AMDWorkflow_addWorkflowsFromInflightTable_error___block_invoke(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v37 = a1;
+  v38 = *MEMORY[0x277D85DE8];
   v36 = a1;
+  v35 = a1;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](a1[4]);
-  v31 = [obj countByEnumeratingWithState:__b objects:v38 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:__b objects:v37 count:16];
+  if (v30)
   {
-    v26 = *__b[2];
-    v27 = 0;
-    v28 = v31;
+    v25 = *__b[2];
+    v26 = 0;
+    v27 = v30;
     while (1)
     {
-      v25 = v27;
-      if (*__b[2] != v26)
+      v24 = v26;
+      if (*__b[2] != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v35 = *(__b[1] + 8 * v27);
-      v4 = MEMORY[0x277CBE408];
-      v6 = +[AMDWorkflow entity];
-      v5 = [v6 name];
-      v1 = a1[5];
-      v33 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      v34 = *(__b[1] + 8 * v26);
+      v3 = MEMORY[0x277CBE408];
+      v5 = +[AMDWorkflow entity];
+      v4 = [v5 name];
+      v32 = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      MEMORY[0x277D82BD8](v4);
       MEMORY[0x277D82BD8](v5);
-      MEMORY[0x277D82BD8](v6);
-      v7 = v33;
-      v8 = [v35 objectForKey:@"domain"];
-      [v7 setDomain:{objc_msgSend(v8, "shortValue")}];
-      MEMORY[0x277D82BD8](v8);
-      v9 = v33;
-      v10 = [v35 objectForKey:@"useCaseId"];
-      [v9 setUseCaseId:?];
-      MEMORY[0x277D82BD8](v10);
-      v11 = v33;
-      v12 = [v35 objectForKey:@"treatmentId"];
-      [v11 setTreatmentId:?];
-      MEMORY[0x277D82BD8](v12);
-      v13 = v33;
-      v14 = [v35 objectForKey:@"workflow"];
-      [v13 setWorkflow:?];
-      MEMORY[0x277D82BD8](v14);
-      v15 = v33;
-      v16 = [v35 objectForKey:@"startTime"];
-      [v15 setStartTime:{objc_msgSend(v16, "longLongValue")}];
-      MEMORY[0x277D82BD8](v16);
-      v17 = v33;
-      v18 = [v35 objectForKey:@"endTime"];
-      [v17 setEndTime:{objc_msgSend(v18, "longLongValue")}];
-      MEMORY[0x277D82BD8](v18);
-      v19 = v33;
-      v20 = [v35 objectForKey:@"modelId"];
-      [v19 setModelId:?];
-      MEMORY[0x277D82BD8](v20);
-      v21 = v33;
-      v22 = [v35 objectForKey:@"callUUID"];
-      [v21 setCallUUID:?];
-      MEMORY[0x277D82BD8](v22);
-      v23 = v33;
-      v24 = [v35 objectForKey:@"secondaryModelId"];
-      [v23 setSecondaryModelId:?];
-      MEMORY[0x277D82BD8](v24);
-      objc_storeStrong(&v33, 0);
-      ++v27;
-      if (v25 + 1 >= v28)
+      v6 = v32;
+      v7 = [v34 objectForKey:@"domain"];
+      [v6 setDomain:{objc_msgSend(v7, "shortValue")}];
+      MEMORY[0x277D82BD8](v7);
+      v8 = v32;
+      v9 = [v34 objectForKey:@"useCaseId"];
+      [v8 setUseCaseId:?];
+      MEMORY[0x277D82BD8](v9);
+      v10 = v32;
+      v11 = [v34 objectForKey:@"treatmentId"];
+      [v10 setTreatmentId:?];
+      MEMORY[0x277D82BD8](v11);
+      v12 = v32;
+      v13 = [v34 objectForKey:@"workflow"];
+      [v12 setWorkflow:?];
+      MEMORY[0x277D82BD8](v13);
+      v14 = v32;
+      v15 = [v34 objectForKey:@"startTime"];
+      [v14 setStartTime:{objc_msgSend(v15, "longLongValue")}];
+      MEMORY[0x277D82BD8](v15);
+      v16 = v32;
+      v17 = [v34 objectForKey:@"endTime"];
+      [v16 setEndTime:{objc_msgSend(v17, "longLongValue")}];
+      MEMORY[0x277D82BD8](v17);
+      v18 = v32;
+      v19 = [v34 objectForKey:@"modelId"];
+      [v18 setModelId:?];
+      MEMORY[0x277D82BD8](v19);
+      v20 = v32;
+      v21 = [v34 objectForKey:@"callUUID"];
+      [v20 setCallUUID:?];
+      MEMORY[0x277D82BD8](v21);
+      v22 = v32;
+      v23 = [v34 objectForKey:@"secondaryModelId"];
+      [v22 setSecondaryModelId:?];
+      MEMORY[0x277D82BD8](v23);
+      objc_storeStrong(&v32, 0);
+      ++v26;
+      if (v24 + 1 >= v27)
       {
-        v27 = 0;
-        v28 = [obj countByEnumeratingWithState:__b objects:v38 count:16];
-        if (!v28)
+        v26 = 0;
+        v27 = [obj countByEnumeratingWithState:__b objects:v37 count:16];
+        if (!v27)
         {
           break;
         }
@@ -318,12 +315,11 @@ void __51__AMDWorkflow_addWorkflowsFromInflightTable_error___block_invoke(void *
   }
 
   MEMORY[0x277D82BD8](obj);
-  v2 = a1[6];
-  v3 = (*(a1[7] + 8) + 40);
-  v32 = *v3;
-  [v2 save:&v32];
-  objc_storeStrong(v3, v32);
-  *MEMORY[0x277D85DE8];
+  v1 = a1[6];
+  v2 = (*(a1[7] + 8) + 40);
+  v31 = *v2;
+  [v1 save:&v31];
+  objc_storeStrong(v2, v31);
 }
 
 + (id)deleteWorkflowsForModelId:(id)id error:(id *)error
@@ -807,7 +803,6 @@ LABEL_18:
 
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v29;
 
   return v5;
@@ -955,7 +950,6 @@ void __33__AMDWorkflow_fetchAllWorkflows___block_invoke(void *a1)
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(v30, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)getCurrentWorkflowForDomain:(int64_t)domain andTreatmentId:(id)id andUseCaseId:(id)caseId error:(id *)error
@@ -1104,7 +1098,6 @@ void __33__AMDWorkflow_fetchAllWorkflows___block_invoke(void *a1)
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v52;
 
   return v9;
@@ -1267,7 +1260,6 @@ LABEL_22:
   }
 
   objc_storeStrong(&v45, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v50;
 
   return v6;

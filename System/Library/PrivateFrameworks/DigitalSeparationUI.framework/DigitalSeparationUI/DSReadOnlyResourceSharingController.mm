@@ -18,6 +18,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateSearchResultsForSearchController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSReadOnlyResourceSharingController
@@ -86,17 +87,26 @@
   return v7;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DSReadOnlyResourceSharingController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(DSReadOnlyResourceSharingController *)self reloadTableViewData];
+  [(DSReadOnlyResourceSharingController *)self _updateButton];
+}
+
 - (void)viewDidLoad
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = DSReadOnlyResourceSharingController;
-  [(DSTableWelcomeController *)&v12 viewDidLoad];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = DSReadOnlyResourceSharingController;
+  [(DSTableWelcomeController *)&v11 viewDidLoad];
   v3 = DSUILocStringForKey(@"BY_PERSON");
-  v13[0] = v3;
+  v12[0] = v3;
   v4 = DSUILocStringForKey(@"BY_TYPE");
-  v13[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   searchController = [(DSTableWelcomeController *)self searchController];
   searchBar = [searchController searchBar];
   [searchBar setScopeButtonTitles:v5];
@@ -105,8 +115,6 @@
   searchController2 = [(DSTableWelcomeController *)self searchController];
   searchBar2 = [searchController2 searchBar];
   [searchBar2 setPlaceholder:v8];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reviewAllSharing
@@ -207,7 +215,7 @@
 
 - (void)reviewSelectedSharing
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
   v5 = [indexPathsForSelectedRows sortedArrayUsingComparator:&__block_literal_global_15];
@@ -216,26 +224,26 @@
   array = [MEMORY[0x277CBEB18] array];
   if (scope == 1)
   {
-    v33 = 0uLL;
-    v34 = 0uLL;
-    v31 = 0uLL;
     v32 = 0uLL;
+    v33 = 0uLL;
+    v30 = 0uLL;
+    v31 = 0uLL;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * i);
+          v13 = *(*(&v30 + 1) + 8 * i);
           permissions = [(DSReadOnlyResourceSharingController *)self permissions];
           v15 = [permissions readOnlySharingType:objc_msgSend(v13 withFilter:{"row"), -[DSTableWelcomeController isFiltering](self, "isFiltering")}];
 
@@ -245,7 +253,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v10);
@@ -256,26 +264,26 @@
 
   else
   {
-    v29 = 0uLL;
-    v30 = 0uLL;
-    v27 = 0uLL;
     v28 = 0uLL;
+    v29 = 0uLL;
+    v26 = 0uLL;
+    v27 = 0uLL;
     v16 = v5;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * j);
+          v21 = *(*(&v26 + 1) + 8 * j);
           permissions2 = [(DSReadOnlyResourceSharingController *)self permissions];
           v23 = [permissions2 readOnlySharingPerson:objc_msgSend(v21 withFilter:{"row"), -[DSTableWelcomeController isFiltering](self, "isFiltering")}];
 
@@ -285,7 +293,7 @@
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v18);
@@ -301,7 +309,6 @@
   [selectedPeople removeAllObjects];
 
   [(DSReadOnlyResourceSharingController *)self _updateButton];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__DSReadOnlyResourceSharingController_reviewSelectedSharing__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -590,36 +597,36 @@ LABEL_19:
 
 - (void)reviewReadOnlySharingCompleted
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   selectedTypes = [(DSReadOnlyResourceSharingController *)self selectedTypes];
   [selectedTypes removeAllObjects];
 
   selectedPeople = [(DSReadOnlyResourceSharingController *)self selectedPeople];
   [selectedPeople removeAllObjects];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
 
-  v7 = [indexPathsForSelectedRows countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [indexPathsForSelectedRows countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(indexPathsForSelectedRows);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * v10);
+        v11 = *(*(&v27 + 1) + 8 * v10);
         tableView2 = [(OBTableWelcomeController *)self tableView];
         [tableView2 deselectRowAtIndexPath:v11 animated:0];
 
@@ -627,7 +634,7 @@ LABEL_19:
       }
 
       while (v8 != v10);
-      v8 = [indexPathsForSelectedRows countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v8 = [indexPathsForSelectedRows countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
@@ -637,29 +644,29 @@ LABEL_19:
   [delegate pushPaneAfterPaneType:objc_opt_class()];
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   navigationController = [(DSReadOnlyResourceSharingController *)self navigationController];
   viewControllers = [navigationController viewControllers];
 
-  v17 = [viewControllers countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [viewControllers countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(viewControllers);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * v20);
+        v21 = *(*(&v23 + 1) + 8 * v20);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -670,7 +677,7 @@ LABEL_19:
       }
 
       while (v18 != v20);
-      v18 = [viewControllers countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [viewControllers countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
@@ -678,8 +685,6 @@ LABEL_19:
 
   navigationController2 = [(DSReadOnlyResourceSharingController *)self navigationController];
   [navigationController2 setViewControllers:v14];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)learnMorePressedForSharingType:(id)type

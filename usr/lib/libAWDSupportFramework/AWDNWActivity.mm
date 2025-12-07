@@ -176,7 +176,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -196,12 +195,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  activityDomain = self->_activityDomain;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    activityLabel = self->_activityLabel;
     PBDataWriterWriteUint64Field();
   }
 
@@ -218,7 +215,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    isRetry = self->_isRetry;
     PBDataWriterWriteBOOLField();
   }
 
@@ -239,7 +235,6 @@ LABEL_5:
 
   if ((*&self->_has & 4) != 0)
   {
-    investigationID = self->_investigationID;
 
     PBDataWriterWriteUint64Field();
   }
@@ -382,7 +377,6 @@ LABEL_5:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 84);
     if ((*&self->_has & 8) != 0)
     {
       if ((*(equal + 84) & 8) == 0 || self->_timestamp != *(equal + 4))
@@ -428,12 +422,10 @@ LABEL_5:
       parentActivityUUID = self->_parentActivityUUID;
       if (!(parentActivityUUID | *(equal + 9)) || (v5 = [(NSString *)parentActivityUUID isEqual:?]) != 0)
       {
-        v9 = *(equal + 84);
         if ((*&self->_has & 0x10) != 0)
         {
           if ((*(equal + 84) & 0x10) != 0)
           {
-            v13 = *(equal + 80);
             if (self->_isRetry)
             {
               if ((*(equal + 80) & 1) == 0)

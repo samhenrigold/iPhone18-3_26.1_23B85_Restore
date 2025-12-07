@@ -9,25 +9,23 @@
 
 - (id)diagnosticDescription
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v12[0] = self->_storeItemID;
-  v11[0] = @"itemID";
-  v11[1] = @"bundleID";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v11[0] = self->_storeItemID;
+  v10[0] = @"itemID";
+  v10[1] = @"bundleID";
   bundleID = [(ASDPurgeableApp *)self bundleID];
-  v12[1] = bundleID;
-  v11[2] = @"Disk Usage";
+  v11[1] = bundleID;
+  v10[2] = @"Disk Usage";
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_staticDiskUsage];
   purgeableReason = self->_purgeableReason;
   purgeableType = self->_purgeableType;
-  v12[2] = v4;
-  v12[3] = purgeableReason;
-  v11[3] = @"Reason";
-  v11[4] = @"Type";
+  v11[2] = v4;
+  v11[3] = purgeableReason;
+  v10[3] = @"Reason";
+  v10[4] = @"Type";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:purgeableType];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

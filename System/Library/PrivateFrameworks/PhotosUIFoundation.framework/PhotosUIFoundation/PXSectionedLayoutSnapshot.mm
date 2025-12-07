@@ -230,7 +230,7 @@ void __74__PXSectionedLayoutSnapshot_enumerateGeometriesForItemsInRect_usingBloc
     {
       if (v10)
       {
-        [v10 geometryAtIndex:px_item];
+        objc_msgSend_geometryAtIndex_(v10);
       }
 
       else

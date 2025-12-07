@@ -239,110 +239,110 @@ LABEL_7:
 
 - (void)_presentInviteControllerWithCompletion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v5 = _AAUILogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _AAUILogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = +[AAUIMessagesInviteConfigurationController isAvailable];
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - can send text: %d", buf, 8u);
+    v12 = +[AAUIMessagesInviteConfigurationController isAvailable];
+    _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - can send text: %d", buf, 8u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
-  v8[3] = &unk_1E820B780;
-  v8[4] = self;
-  v9 = completionCopy;
-  v6 = completionCopy;
-  v7 = MEMORY[0x1E69E96A0];
-  dispatch_async(MEMORY[0x1E69E96A0], v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
+  v9[3] = &unk_1E820B780;
+  v9[4] = self;
+  v10 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x1E69E96A0];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
-void __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke(uint64_t a1)
+void __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v3[2] != 0;
+    v4 = *(a1 + 32);
+    v5 = v4[2] != 0;
     *buf = 67109376;
-    v18 = v4;
-    v19 = 2048;
-    v20 = [v3 uiVersion];
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - has : _messageComposeViewController %d UIversion is: %ld", buf, 0x12u);
+    v19 = v5;
+    v20 = 2048;
+    v21 = [v4 uiVersion];
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - has : _messageComposeViewController %d UIversion is: %ld", buf, 0x12u);
   }
 
-  v5 = [*(a1 + 32) uiVersion];
-  v6 = _AAUILogSystem();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 == 1)
+  v6 = [*(a1 + 32) uiVersion];
+  v7 = _AAUILogSystem(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6 == 1)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Upsell flow...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Upsell flow...", buf, 2u);
     }
 
-    v8 = [*(a1 + 32) _messageComposeViewControllerUpsell];
+    v9 = [*(a1 + 32) _messageComposeViewControllerUpsell];
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Lets use the old flow...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Lets use the old flow...", buf, 2u);
     }
 
-    v8 = [*(a1 + 32) _messageComposeViewController];
+    v9 = [*(a1 + 32) _messageComposeViewController];
   }
 
-  v9 = v8;
-  if (v8 && +[AAUIMessagesInviteConfigurationController isAvailable])
+  v10 = v9;
+  if (v9 && (v9 = +[AAUIMessagesInviteConfigurationController isAvailable], v9))
   {
-    v11 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v12 = *(v11 + 32);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_66;
-    v15[3] = &unk_1E820B780;
-    v15[4] = v11;
-    v16 = v10;
-    [v12 presentViewController:v9 animated:1 completion:v15];
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v13 = *(v12 + 32);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_66;
+    v16[3] = &unk_1E820B780;
+    v16[4] = v12;
+    v17 = v11;
+    [v13 presentViewController:v10 animated:1 completion:v16];
   }
 
   else
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Unable to present AAUIMessagesInViteConfigurationController", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Unable to present AAUIMessagesInViteConfigurationController", buf, 2u);
     }
 
-    v14 = *(a1 + 40);
-    if (v14)
+    v15 = *(a1 + 40);
+    if (v15)
     {
-      (*(v14 + 16))(v14, 0, 0);
+      (*(v15 + 16))(v15, 0, 0);
     }
   }
 }
 
-uint64_t __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_66(uint64_t a1)
+uint64_t __84__AAUIMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_66(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 16) != 0;
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - has : _messageComposeViewController %d", v5, 8u);
+    v4 = *(*(a1 + 32) + 16) != 0;
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - has : _messageComposeViewController %d", v6, 8u);
   }
 
   result = *(a1 + 40);
@@ -356,16 +356,16 @@ uint64_t __84__AAUIMessagesInviteConfigurationController__presentInviteControlle
 
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
     *buf = 138412546;
-    v25 = v10;
-    v26 = 2048;
+    v26 = v10;
+    v27 = 2048;
     resultCopy = result;
     _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "%@ MFMessageComposeVC delegate callback - didFinishWithResult:%ld", buf, 0x16u);
   }
@@ -374,45 +374,45 @@ uint64_t __84__AAUIMessagesInviteConfigurationController__presentInviteControlle
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v12 = objc_opt_respondsToSelector();
 
-  v13 = _AAUILogSystem();
-  v14 = v13;
+  v14 = _AAUILogSystem(v13);
+  v15 = v14;
   if (v12)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Calling back to controller delegate", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Calling back to controller delegate", buf, 2u);
     }
 
     if (result == 1)
     {
-      v15 = @"0";
+      v16 = @"0";
     }
 
     else if (result)
     {
-      v15 = @"0";
+      v16 = @"0";
       result = 2;
     }
 
     else
     {
-      v15 = @"1";
+      v16 = @"1";
     }
 
-    v22 = @"userCancelled";
-    v23 = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __94__AAUIMessagesInviteConfigurationController_messageComposeViewController_didFinishWithResult___block_invoke;
-    v18[3] = &unk_1E820C850;
-    v18[4] = self;
-    v20 = v16;
+    v23 = @"userCancelled";
+    v24 = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __94__AAUIMessagesInviteConfigurationController_messageComposeViewController_didFinishWithResult___block_invoke;
+    v19[3] = &unk_1E820C850;
+    v19[4] = self;
+    v21 = v17;
     resultCopy2 = result;
-    v19 = controllerCopy;
-    v17 = v16;
-    dispatch_async(MEMORY[0x1E69E96A0], v18);
+    v20 = controllerCopy;
+    v18 = v17;
+    dispatch_async(MEMORY[0x1E69E96A0], v19);
   }
 
   else
@@ -421,22 +421,22 @@ uint64_t __84__AAUIMessagesInviteConfigurationController__presentInviteControlle
     {
       if (result == 1)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Message sent successfully", buf, 2u);
+          _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Message sent successfully", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [AAUIMessagesInviteConfigurationController messageComposeViewController:v14 didFinishWithResult:?];
+        [AAUIMessagesInviteConfigurationController messageComposeViewController:v15 didFinishWithResult:?];
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [AAUIMessagesInviteConfigurationController messageComposeViewController:v14 didFinishWithResult:?];
+      [AAUIMessagesInviteConfigurationController messageComposeViewController:v15 didFinishWithResult:?];
     }
 
     [controllerCopy dismissViewControllerAnimated:1 completion:0];
@@ -454,7 +454,7 @@ void __94__AAUIMessagesInviteConfigurationController_messageComposeViewControlle
   v18 = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
   completionCopy = completion;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_opt_class();

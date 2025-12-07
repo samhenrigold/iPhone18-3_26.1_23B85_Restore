@@ -13,6 +13,7 @@
 - (void)setupUI;
 - (void)start;
 - (void)takePictureWithHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation QRCodeReaderViewController
@@ -36,6 +37,48 @@
   [(QRCodeReaderViewController *)self setupCamera];
 
   [(QRCodeReaderViewController *)self setupUI];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = QRCodeReaderViewController;
+  [(QRCodeReaderViewController *)&v16 viewDidAppear:appear];
+  captureSession = [(QRCodeReaderViewController *)self captureSession];
+  isRunning = [captureSession isRunning];
+
+  if ((isRunning & 1) == 0)
+  {
+    v6 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting up code recognition", v15, 2u);
+    }
+
+    [(QRCodeReaderViewController *)self setupCodeRecognition];
+    v7 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting capture session", v15, 2u);
+    }
+
+    captureSession2 = [(QRCodeReaderViewController *)self captureSession];
+    [captureSession2 startRunning];
+
+    inputs = [(QRCodeReaderViewController *)self inputs];
+    timeout = [inputs timeout];
+    integerValue = [timeout integerValue];
+
+    if (integerValue >= 1)
+    {
+      inputs2 = [(QRCodeReaderViewController *)self inputs];
+      timeout2 = [inputs2 timeout];
+      v14 = +[NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](NSTimer, "scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:", self, "timeout:", 0, 0, [timeout2 integerValue]);
+      [(QRCodeReaderViewController *)self setTimeoutTimer:v14];
+    }
+  }
 }
 
 - (void)setupCamera

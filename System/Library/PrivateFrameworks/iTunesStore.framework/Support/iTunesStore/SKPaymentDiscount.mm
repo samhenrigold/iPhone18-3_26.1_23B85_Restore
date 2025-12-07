@@ -39,9 +39,8 @@
 
     if (v34)
     {
-      v39[0] = 0;
-      LODWORD(v37) = 2;
-      v35 = _os_log_send_and_compose_impl();
+      v38[0] = 0;
+      v35 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "Found nil parameter when creating SKPaymentDiscount", v38, 2);
 
       if (!v35)
       {
@@ -51,7 +50,7 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v35 encoding:4, v39, v37];
+      oSLogObject = [NSString stringWithCString:v35 encoding:4];
       free(v35);
       SSFileLog();
     }
@@ -59,9 +58,9 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v38.receiver = self;
-  v38.super_class = SKPaymentDiscount;
-  v18 = [(SKPaymentDiscount *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = SKPaymentDiscount;
+  v18 = [(SKPaymentDiscount *)&v37 init];
   if (v18)
   {
     v19 = [(NSString *)v12 copy];

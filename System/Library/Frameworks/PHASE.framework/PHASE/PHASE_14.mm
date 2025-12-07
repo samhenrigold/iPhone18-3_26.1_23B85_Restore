@@ -97,9 +97,9 @@ void Phase::SharedSlotMapState<Phase::Geometry::Entity,Phase::Handle64>::ForceSe
   }
 }
 
-void Phase::Geometry::ShapeDebugger::GetVoxels(Phase::Logger ***a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void Phase::Geometry::ShapeDebugger::GetVoxels(uint64_t ***a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  Phase::Geometry::System::GetCurrentState(*a1, &v20);
+  Phase::Geometry::System::GetCurrentState(&v20, *a1);
   if (*(v20 + 160) > a2 && (v9 = *(v20 + 144) + 24 * a2, *(v9 + 20) == HIDWORD(a2)) && (v10 = *v9) != 0 && (v11 = **(v10 + 120)) != 0 && (v12 = *(**(v11 + 40) + 16 * *(v11 + 48)), v12[3] > a3) && (v13 = v12[1] + v12[4] * a3, v14 = *(**(v13 + 40) + 16 * *(v13 + 48)), *(v14 + 24) > a4))
   {
     *(a5 + 16) = 0u;
@@ -258,7 +258,7 @@ void Phase::Geometry::sAddVoxels(void *a1, uint64_t a2, uint64_t *a3, int32x2_t 
         v22 = vcnt_s8((v14 & ~(-1 << v12)));
         v22.i16[0] = vaddlv_u8(v22);
         v23 = *(**(v35 + 56) + 16 * *(v35 + 64));
-        Phase::Geometry::sAddVoxels(a1, v10, *(v23 + 8) + *(v23 + 32) * (*(v9 + 2) + v22.i32[0]), &__p, v7 + 1, a6);
+        Phase::Geometry::sAddVoxels(a1, v10, (*(v23 + 8) + *(v23 + 32) * (*(v9 + 2) + v22.i32[0])), &__p, v7 + 1, a6);
       }
     }
 
@@ -376,7 +376,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::Vector<unsigne
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t Phase::Geometry::ShapeFactory::Create@<X0>(uint64_t result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::ShapeFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int *a2@<X1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v7 = *result;
   v8 = *a2;
@@ -390,13 +390,13 @@ uint64_t Phase::Geometry::ShapeFactory::Create@<X0>(uint64_t result@<X0>, unsign
   if (*(v10 + 64))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Geometry::Shape&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v10 + 40, v7, a2, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Geometry::Shape&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v10 + 40, v7, a2, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -456,9 +456,9 @@ LABEL_6:
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Asset &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](v14);
 }
 
-void sub_23A404BC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A404BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Asset &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -634,7 +634,7 @@ uint64_t std::vector<Phase::Geometry::LoadShapeFunctionTableEntry>::push_back[ab
   else
   {
     *v3 = *a2;
-    v4 = v3 + 10;
+    v4 = (v3 + 10);
     result = std::__function::__value_func<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Asset &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::__value_func[abi:ne200100]((v3 + 2), (a2 + 2));
   }
 
@@ -642,23 +642,23 @@ uint64_t std::vector<Phase::Geometry::LoadShapeFunctionTableEntry>::push_back[ab
   return result;
 }
 
-void std::vector<Phase::Geometry::ShapeTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::ShapeTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::ShapeTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::ShapeTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::ShapeTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<Phase::Geometry::ShapeTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
-uint64_t std::vector<Phase::Geometry::LoadShapeFunctionTableEntry>::__emplace_back_slow_path<Phase::Geometry::LoadShapeFunctionTableEntry>(uint64_t *a1, _DWORD *a2)
+char *std::vector<Phase::Geometry::LoadShapeFunctionTableEntry>::__emplace_back_slow_path<Phase::Geometry::LoadShapeFunctionTableEntry>(uint64_t *a1, _DWORD *a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -733,7 +733,7 @@ uint64_t std::vector<Phase::Geometry::LoadShapeFunctionTableEntry>::__emplace_ba
   v16[0] = v8;
   v16[1] = v8;
   std::__split_buffer<Phase::Geometry::LoadShapeFunctionTableEntry>::~__split_buffer(v16);
-  return v6 + 40;
+  return (v6 + 40);
 }
 
 uint64_t std::__split_buffer<Phase::Geometry::LoadShapeFunctionTableEntry>::~__split_buffer(uint64_t a1)
@@ -1102,9 +1102,9 @@ void std::vector<Phase::Geometry::ShapeTypeDefinition>::__append(uint64_t a1, un
   }
 }
 
-void sub_23A405AFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A405AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::ShapeTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1357,7 +1357,7 @@ uint64_t Phase::Geometry::DataStreamReference<Phase::Handle64>::Resize(uint64_t 
     *(v4 + 8) = 0;
     if (a2)
     {
-      Phase::Geometry::DataStream::Alloc(*(v4 + 16), *(v4 + 32) * a2, &v23);
+      Phase::Geometry::DataStream::Alloc(&v23, *(v4 + 16), *(v4 + 32) * a2);
       v7 = v23;
       v23 = 0;
       result = *(v4 + 8);
@@ -1495,20 +1495,20 @@ uint64_t **Phase::Geometry::SetMaterialsFromOptionalMaterialList(uint64_t **resu
   return result;
 }
 
-void Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(std::vector<unsigned int>::size_type __n@<X1>, void *a2@<X0>, std::vector<unsigned int> *a3@<X8>)
+void Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(std::vector<unsigned int> *__return_ptr a1@<X8>, std::vector<unsigned int>::size_type __n@<X1>, void *a3@<X0>)
 {
-  a3->__begin_ = 0;
-  a3->__end_ = 0;
-  a3->__end_cap_.__value_ = 0;
-  if (!a2)
+  a1->__begin_ = 0;
+  a1->__end_ = 0;
+  a1->__end_cap_.__value_ = 0;
+  if (!a3)
   {
-    std::vector<unsigned int>::reserve(a3, __n);
+    std::vector<unsigned int>::reserve(a1, __n);
     return;
   }
 
-  v6 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &Phase::Geometry::ShapeOptions::MaterialList);
+  v6 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a3, &Phase::Geometry::ShapeOptions::MaterialList);
   v7 = v6 && *(v6 + 24) == 10;
-  v8 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &Phase::Geometry::ShapeOptions::ForcedCopyTags);
+  v8 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a3, &Phase::Geometry::ShapeOptions::ForcedCopyTags);
   v9 = v8;
   if (!v8)
   {
@@ -1528,15 +1528,15 @@ LABEL_11:
   v9 = v8 + 7;
   v11 = (v8[8] - v8[7]) >> 2;
 LABEL_12:
-  std::vector<unsigned int>::reserve(a3, __n + v7 + v11);
+  std::vector<unsigned int>::reserve(a1, __n + v7 + v11);
   if (v7)
   {
-    end = a3->__end_;
-    value = a3->__end_cap_.__value_;
+    end = a1->__end_;
+    value = a1->__end_cap_.__value_;
     if (end >= value)
     {
-      begin = a3->__begin_;
-      v16 = end - a3->__begin_;
+      begin = a1->__begin_;
+      v16 = end - a1->__begin_;
       v17 = v16 >> 2;
       v18 = (v16 >> 2) + 1;
       if (v18 >> 62)
@@ -1559,16 +1559,16 @@ LABEL_12:
 
       if (v21)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a3, v21);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, v21);
       }
 
       *(4 * v17) = 1;
-      v14 = 4 * v17 + 4;
+      v14 = (4 * v17 + 4);
       memcpy(0, begin, v16);
-      v22 = a3->__begin_;
-      a3->__begin_ = 0;
-      a3->__end_ = v14;
-      a3->__end_cap_.__value_ = 0;
+      v22 = a1->__begin_;
+      a1->__begin_ = 0;
+      a1->__end_ = v14;
+      a1->__end_cap_.__value_ = 0;
       if (v22)
       {
         operator delete(v22);
@@ -1578,10 +1578,10 @@ LABEL_12:
     else
     {
       *end = 1;
-      v14 = (end + 4);
+      v14 = end + 1;
     }
 
-    a3->__end_ = v14;
+    a1->__end_ = v14;
   }
 
   if ((v10 & 1) == 0)
@@ -1590,14 +1590,14 @@ LABEL_12:
     v24 = v9[1];
     if (*v9 != v24)
     {
-      v25 = a3->__end_;
+      v25 = a1->__end_;
       do
       {
-        v26 = a3->__end_cap_.__value_;
+        v26 = a1->__end_cap_.__value_;
         if (v25 >= v26)
         {
-          v27 = a3->__begin_;
-          v28 = v25 - a3->__begin_;
+          v27 = a1->__begin_;
+          v28 = v25 - a1->__begin_;
           v29 = v28 >> 2;
           v30 = (v28 >> 2) + 1;
           if (v30 >> 62)
@@ -1623,16 +1623,16 @@ LABEL_12:
 
           if (v32)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a3, v32);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, v32);
           }
 
           *(4 * v29) = *v23;
           v25 = (4 * v29 + 4);
           memcpy(0, v27, v28);
-          v33 = a3->__begin_;
-          a3->__begin_ = 0;
-          a3->__end_ = v25;
-          a3->__end_cap_.__value_ = 0;
+          v33 = a1->__begin_;
+          a1->__begin_ = 0;
+          a1->__end_ = v25;
+          a1->__end_cap_.__value_ = 0;
           if (v33)
           {
             operator delete(v33);
@@ -1641,11 +1641,10 @@ LABEL_12:
 
         else
         {
-          *v25 = *v23;
-          v25 += 4;
+          *v25++ = *v23;
         }
 
-        a3->__end_ = v25;
+        a1->__end_ = v25;
         v23 = (v23 + 4);
       }
 
@@ -1703,7 +1702,7 @@ uint64_t Phase::Geometry::GetNormals(int *a1, unsigned int *a2, int a3, uint64_t
   return 0;
 }
 
-uint64_t Phase::Geometry::GetMaterials(int *a1, unsigned int *a2, int a3, void *a4, int a5, uint64_t a6)
+uint64_t Phase::Geometry::GetMaterials(int *a1, unsigned int *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v6 = *a1;
   if (*a1 == 3)
@@ -1727,14 +1726,14 @@ uint64_t Phase::Geometry::GetMaterials(int *a1, unsigned int *a2, int a3, void *
   return 0;
 }
 
-void Phase::Geometry::CreateSimpleUniformMaterial(uint64_t a1, void *a2)
+void Phase::Geometry::CreateSimpleUniformMaterial(void x0_0, void *a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   *&v3 = "MaterialDataMapSize";
   *(&v3 + 1) = 19;
-  if (a2)
+  if (a1)
   {
-    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &v3);
+    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a1, &v3);
     if (v2)
     {
       if (*(v2 + 24) == 1 && *(v2 + 14) <= 0)
@@ -1747,10 +1746,10 @@ void Phase::Geometry::CreateSimpleUniformMaterial(uint64_t a1, void *a2)
   operator new();
 }
 
-void Phase::Geometry::CreateSimpleUniformMaterialFromMaterial(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateSimpleUniformMaterialFromMaterial(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 1)
+  if (*a1 == 1)
   {
     operator new();
   }
@@ -1785,14 +1784,14 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-void Phase::Geometry::CreateSimpleUniformMedium(uint64_t a1, void *a2)
+void Phase::Geometry::CreateSimpleUniformMedium(void x0_0, void *a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   *&v3 = "MediumDataMapSize";
   *(&v3 + 1) = 17;
-  if (a2)
+  if (a1)
   {
-    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &v3);
+    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a1, &v3);
     if (v2)
     {
       if (*(v2 + 24) == 1 && *(v2 + 14) <= 0)
@@ -1805,10 +1804,10 @@ void Phase::Geometry::CreateSimpleUniformMedium(uint64_t a1, void *a2)
   operator new();
 }
 
-void Phase::Geometry::CreateSimpleUniformMediumFromMedium(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateSimpleUniformMediumFromMedium(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 1)
+  if (*a1 == 1)
   {
     operator new();
   }
@@ -1921,7 +1920,7 @@ uint64_t Phase::Geometry::GenerateSourcePoints@<X0>(uint64_t a1@<X0>, uint64_t a
     std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v37);
     v23 = v39;
     *v39 = 0;
-    v23[1].i32[0] = 0;
+    v23[2] = 0.0;
     v39 = 0;
     *a6 = v23;
     std::__function::__value_func<void ()(void *)>::__value_func[abi:ne200100](a6 + 8, v40);
@@ -1940,10 +1939,10 @@ void sub_23A407954(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::Geometry::CreateSphericalCapDirectivityFromDirectivity(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateSphericalCapDirectivityFromDirectivity(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 3)
+  if (*a1 == 3)
   {
     operator new();
   }
@@ -2026,9 +2025,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultDirectivities(Phase::Geometry:
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::Directivity> ()(Phase::Geometry::System &,Phase::Geometry::Directivity const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](&v6);
 }
 
-void sub_23A408094(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A408094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::Directivity> ()(Phase::Geometry::System &,Phase::Geometry::Directivity const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2064,9 +2063,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultDistanceModels(Phase::Geometry
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::DistanceModel> ()(Phase::Geometry::System &,Phase::Geometry::DistanceModel const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](&v6);
 }
 
-void sub_23A408280(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A408280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::DistanceModel> ()(Phase::Geometry::System &,Phase::Geometry::DistanceModel const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2090,9 +2089,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultMediums(Phase::Geometry::Syste
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::Medium> ()(Phase::Geometry::System &,Phase::Geometry::Medium const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](&v5);
 }
 
-void sub_23A4083B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4083B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::Medium> ()(Phase::Geometry::System &,Phase::Geometry::Medium const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2116,9 +2115,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultMaterials(Phase::Geometry::Sys
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::Geometry::Material const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](&v5);
 }
 
-void sub_23A4084E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4084E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::Geometry::Material const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2180,9 +2179,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultShapes(Phase::Geometry::System
   return std::__function::__value_func<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Asset &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](&v6);
 }
 
-void sub_23A408850(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A408850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<Phase::Geometry::Shape> ()(Phase::Geometry::System &,Phase::Asset &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2307,9 +2306,9 @@ uint64_t Phase::Geometry::SystemSetup::InitDefaultSceneQueries(Phase::Geometry::
   return std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>::~__value_func[abi:ne200100](&v9);
 }
 
-void sub_23A408FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23A408FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2521,7 +2520,7 @@ LABEL_17:
   }
 }
 
-Phase::Logger *Phase::Geometry::System::GetCurrentState@<X0>(Phase::Logger **this@<X0>, void *a2@<X8>)
+uint64_t *Phase::Geometry::System::GetCurrentState@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t **this@<X0>)
 {
   v12 = *MEMORY[0x277D85DE8];
   result = pthread_self();
@@ -2542,8 +2541,8 @@ Phase::Logger *Phase::Geometry::System::GetCurrentState@<X0>(Phase::Logger **thi
   }
 
   v5 = this[395];
-  *a2 = this[394];
-  a2[1] = v5;
+  *a1 = this[394];
+  a1[1] = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
@@ -2742,11 +2741,11 @@ void Phase::Geometry::System::System(Phase::Geometry::System *this, Phase::JobMa
   *(this + 345) = 0;
   *(this + 347) = 0;
   *(this + 346) = 0;
-  Phase::Logger::GetInstance(v6);
-  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this + 348);
+  Instance = Phase::Logger::GetInstance(v6);
+  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this + 348, *(Instance + 432), 1, 0x20000);
 }
 
-void sub_23A409B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_23A409B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v15 = *(v10 + 1680);
   if (v15)
@@ -2760,7 +2759,7 @@ void sub_23A409B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   Phase::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64,Phase::Geometry::ShapeFactory>::~SharedSlotMap(v10 + 1176);
   std::vector<Phase::Geometry::MediumTypeDefinition>::__destroy_vector::operator()[abi:ne200100](&a10);
   Phase::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64,Phase::Geometry::ShapeFactory>::~SharedSlotMap(v13);
-  a10 = (v10 + 904);
+  a10 = v10 + 904;
   std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__destroy_vector::operator()[abi:ne200100](&a10);
   Phase::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64,Phase::Geometry::ShapeFactory>::~SharedSlotMap(v10 + 680);
   std::vector<Phase::Geometry::DirectivityTypeDefinition>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -3083,7 +3082,7 @@ uint64_t *std::unique_ptr<Phase::Geometry::System::ReleaseRequest>::reset[abi:ne
   *result = a2;
   if (v2)
   {
-    std::unique_ptr<Phase::Geometry::System::ReleaseRequest>::reset[abi:ne200100](v2 + 16, 0);
+    std::unique_ptr<Phase::Geometry::System::ReleaseRequest>::reset[abi:ne200100]((v2 + 16), 0);
 
     JUMPOUT(0x23EE864A0);
   }
@@ -3541,7 +3540,7 @@ Phase::Logger *Phase::Geometry::SystemExecutor::Init(Phase::Logger *this, Phase:
   return this;
 }
 
-void Phase::Geometry::SystemExecutor::Update(Phase::Geometry::SystemExecutor *this, float a2)
+void Phase::Geometry::SystemExecutor::Update(Phase::Geometry::SystemExecutor *this, __n128 a2)
 {
   v3 = *(this + 5);
   v4 = atomic_load((v3 + 32));
@@ -4242,19 +4241,20 @@ void Phase::Geometry::SystemScheduler::Update(Phase::Geometry::SystemScheduler *
   v6 = Phase::Logger::GetInstance(v5);
   if (*(v6 + 920) == 1)
   {
-    v7 = Phase::Logger::GetInstance(v6);
+    v8 = Phase::Logger::GetInstance(v6);
     if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v8 = **(v7 + 912);
-      if (os_signpost_enabled(v8))
+      v9 = **(v8 + 912);
+      if (os_signpost_enabled(v9))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_23A302000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Phase_GeometrySystemScheduler_Update", "Geometry System Scheduler Update", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_23A302000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Phase_GeometrySystemScheduler_Update", "Geometry System Scheduler Update", buf, 2u);
       }
     }
   }
 
-  Phase::Geometry::SystemExecutor::Update(this, a2);
+  v7.n128_f32[0] = a2;
+  Phase::Geometry::SystemExecutor::Update(this, v7);
 }
 
 unint64_t Phase::Geometry::SystemScheduler::AddToDatabase(uint64_t a1, uint64_t *a2)
@@ -4315,7 +4315,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4418,7 +4418,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4521,7 +4521,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4624,7 +4624,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4727,7 +4727,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4830,7 +4830,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -4933,7 +4933,7 @@ LABEL_7:
   v12 = **(a1 + 8);
   v20 = 0;
   v19 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 40, &v20, &v19);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x28uLL, &v20, &v19);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5168,7 +5168,7 @@ uint64_t Phase::Geometry::SystemScheduler::AddToDatabase(uint64_t a1, uint64_t *
   v8 = **(a1 + 8);
   v16 = 0;
   v15 = 1;
-  v9 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v8, 40, &v16, &v15);
+  v9 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v8, 0x28uLL, &v16, &v15);
   if (!v9)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5266,9 +5266,9 @@ uint64_t Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::
   return v7;
 }
 
-void sub_23A40E0E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A40E0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5319,7 +5319,7 @@ void Phase::Geometry::SystemScheduler::AddShapes(uint64_t a1, uint64_t a2, void 
   v4 = **(a1 + 8);
   v14 = 0;
   v13 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 48, &v14, &v13);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x30uLL, &v14, &v13);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5390,7 +5390,7 @@ void sub_23A40E738(void *a1, int a2)
   JUMPOUT(0x23A40E700);
 }
 
-uint64_t Phase::Geometry::SystemScheduler::Copy(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t Phase::Geometry::SystemScheduler::Copy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v28 = *MEMORY[0x277D85DE8];
   Handle = Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::AllocateHandle(*(a1 + 48) + 1424);
@@ -5399,11 +5399,11 @@ uint64_t Phase::Geometry::SystemScheduler::Copy(uint64_t a1, uint64_t a2, uint64
   __p = 0;
   v16 = 0;
   v17 = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   v7 = **(a1 + 8);
   v19 = 0;
   v18 = 1;
-  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 56, &v19, &v18);
+  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 0x38uLL, &v19, &v18);
   if (!v8)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5445,7 +5445,7 @@ uint64_t Phase::Geometry::SystemScheduler::Copy(uint64_t a1, uint64_t a2, uint64
   *(v8 + 40) = 0;
   *(v8 + 48) = 0;
   *(v8 + 32) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v8 + 32, __p, v16, (v16 - __p) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((v8 + 32), __p, v16, (v16 - __p) >> 2);
   Phase::LockFreeQueueSPSC::CommitBytes(v7, 56);
   atomic_store(0, (v7 + 40));
   if (__p)
@@ -5498,7 +5498,7 @@ uint64_t Phase::Geometry::SystemScheduler::SetMaterial(uint64_t a1, uint64_t a2,
   v8 = **(a1 + 8);
   v16 = 0;
   v15 = 1;
-  v9 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v8, 40, &v16, &v15);
+  v9 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v8, 0x28uLL, &v16, &v15);
   if (!v9)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5583,7 +5583,7 @@ uint64_t Phase::Geometry::SystemScheduler::SetDefaulSceneMedium(uint64_t result,
     v4 = **(result + 8);
     v13 = 0;
     v12 = 1;
-    v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 40, &v13, &v12);
+    v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x28uLL, &v13, &v12);
     if (!v5)
     {
       Instance = Phase::Logger::GetInstance(0);
@@ -5667,7 +5667,7 @@ uint64_t Phase::Geometry::SystemScheduler::SetDefaultSceneReverbPreset(Phase::Ge
   v4 = **(this + 1);
   v14 = 0;
   v13 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 40, &v14, &v13);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x28uLL, &v14, &v13);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5744,7 +5744,7 @@ void *Phase::Geometry::SystemScheduler::SubmitEnvironmentalMetadata(void *result
         v10 = *v7[1];
         v17 = 0;
         v16 = 1;
-        v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 40, &v17, &v16);
+        v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 0x28uLL, &v17, &v16);
         if (!v11)
         {
           Instance = Phase::Logger::GetInstance(0);
@@ -5815,7 +5815,7 @@ uint64_t Phase::Geometry::SystemScheduler::AddChild(uint64_t a1, uint64_t a2, ui
   v6 = **(a1 + 8);
   v14 = 0;
   v13 = 1;
-  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 32, &v14, &v13);
+  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x20uLL, &v14, &v13);
   if (!v7)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5881,7 +5881,7 @@ uint64_t Phase::Geometry::SystemScheduler::RemoveChild(uint64_t a1, uint64_t a2,
   v6 = **(a1 + 8);
   v14 = 0;
   v13 = 1;
-  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 32, &v14, &v13);
+  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x20uLL, &v14, &v13);
   if (!v7)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -5949,7 +5949,7 @@ uint64_t Phase::Geometry::SystemScheduler::UpdateTransform(uint64_t a1, uint64_t
   v5 = **(a1 + 8);
   v15 = 0;
   v14 = 1;
-  v6 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v5, 56, &v15, &v14);
+  v6 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v5, 0x38uLL, &v15, &v14);
   if (!v6)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6016,7 +6016,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseContext(uint64_t a1, uint64_t 
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6081,7 +6081,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseEnvironmentalMetadataStream(ui
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6146,7 +6146,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseDirectivity(uint64_t a1, uint6
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6211,7 +6211,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseDistanceModel(uint64_t a1, uin
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6276,7 +6276,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseMedium(uint64_t a1, uint64_t a
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6341,7 +6341,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseMaterial(uint64_t a1, uint64_t
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6406,7 +6406,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseShape(uint64_t a1, uint64_t a2
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6471,7 +6471,7 @@ uint64_t Phase::Geometry::SystemScheduler::ReleaseEntity(uint64_t a1, uint64_t a
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6537,7 +6537,7 @@ uint64_t Phase::Geometry::SystemScheduler::RunFunction(uint64_t a1, uint64_t a2)
   v3 = **(a1 + 8);
   v11 = 0;
   v10 = 1;
-  v4 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v3, 48, &v11, &v10);
+  v4 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v3, 0x30uLL, &v11, &v10);
   if (!v4)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -6613,7 +6613,7 @@ uint64_t Phase::Geometry::SystemScheduler::RunDebugFunction(uint64_t a1, uint64_
   v3 = **(a1 + 8);
   v11 = 0;
   v10 = 1;
-  v4 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v3, 48, &v11, &v10);
+  v4 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v3, 0x30uLL, &v11, &v10);
   if (!v4)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7524,11 +7524,11 @@ void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::Copy(Phase::Handle6
   JUMPOUT(0x23EE864A0);
 }
 
-void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::Copy(Phase::Handle64,std::vector<unsigned int> const&)::$_0 const,void>::operator()(void *a1)
+void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::Copy(Phase::Handle64,std::vector<unsigned int> const&)::$_0 const,void>::operator()(uint64_t a1)
 {
   v24 = *MEMORY[0x277D85DE8];
-  v3 = a1[1];
-  v2 = a1[2];
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
   v4 = (v3 + 1424);
   if (*(v3 + 1440) > v2 && (v5 = *v4 + 24 * v2, *(v5 + 20) == HIDWORD(v2)) && (v6 = *v5) != 0)
   {
@@ -7537,12 +7537,12 @@ void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::Copy(Phase::Handle6
     v20 = 0;
     v21 = 0;
     v22 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v20, a1[4], a1[5], (a1[5] - a1[4]) >> 2);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v20, *(a1 + 32), *(a1 + 40), (*(a1 + 40) - *(a1 + 32)) >> 2);
     v23 = 9;
     Phase::UnorderedStringMap<Phase::OptionsValue>::Set(v18, &Phase::Geometry::ShapeOptions::ForcedCopyTags, &v20);
     std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v20);
-    Phase::Geometry::ShapeFactory::Create(a1[1] + 1632, v6, v18, &v20);
-    UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::GetUniqueSlot(a1[1] + 1424, a1[3]);
+    Phase::Geometry::ShapeFactory::Create((*(a1 + 8) + 1632), v6, &v20, v18);
+    UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::GetUniqueSlot(*(a1 + 8) + 1424, *(a1 + 24));
     if (UniqueSlot)
     {
       v9 = v20;
@@ -7561,7 +7561,7 @@ void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::Copy(Phase::Handle6
       }
     }
 
-    *(v20 + 8) = a1[3];
+    *(v20 + 8) = *(a1 + 24);
     if (v21)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v21);
@@ -7635,7 +7635,7 @@ uint64_t _ZN5Phase7details13SharedSlotMapINS_8Geometry5ShapeENS_8Handle64EE13Get
         }
 
         v8 = *v5;
-        Phase::Geometry::ShapeFactory::Create(v7, *v5, 0, &v13);
+        Phase::Geometry::ShapeFactory::Create(v7, *v5, &v13, 0);
         v9 = v13;
         if (v13)
         {
@@ -7707,13 +7707,13 @@ uint64_t Phase::LambdaFunction<BOOL Phase::Commandable<128,Phase::LockFreeQueueM
   return v1(v3, a1[4]);
 }
 
-void *Phase::LambdaFunction<Phase::Geometry::SystemScheduler::SubmitEnvironmentalMetadata(Phase::Handle64,void *,unsigned long)::$_0,void>::operator()(void *a1)
+void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::SubmitEnvironmentalMetadata(Phase::Handle64,void *,unsigned long)::$_0,void>::operator()(void *a1)
 {
   v2 = a1[1];
-  result = Phase::details::SharedSlotMap<Phase::Geometry::EnvironmentalMetadataStream,Phase::Handle64>::GetUniqueSlot((v2 + 224), a1[2]);
-  if (result)
+  UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::EnvironmentalMetadataStream,Phase::Handle64>::GetUniqueSlot((v2 + 224), a1[2]);
+  if (UniqueSlot)
   {
-    v4 = result[1];
+    v4 = UniqueSlot[1];
     if (v4 && *(v4 + 8) >= 1)
     {
       if (*(v2 + 424))
@@ -7724,9 +7724,9 @@ void *Phase::LambdaFunction<Phase::Geometry::SystemScheduler::SubmitEnvironmenta
       std::terminate();
     }
 
-    if (*result)
+    if (*UniqueSlot)
     {
-      v5 = **(*result + 32);
+      v5 = **(*UniqueSlot + 32);
       if (v5)
       {
         v6 = a1[4];
@@ -7735,8 +7735,6 @@ void *Phase::LambdaFunction<Phase::Geometry::SystemScheduler::SubmitEnvironmenta
       }
     }
   }
-
-  return result;
 }
 
 void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::AddChild(Phase::Handle64,Phase::Handle64)::$_0 const,void>::operator()(void *a1)
@@ -8044,9 +8042,11 @@ void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::ReleaseMedium(Phase
 
 void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::ReleaseShape(Phase::Handle64)::$_0,void>::operator()(uint64_t a1)
 {
-  Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::ReleaseAndBlockSlot(*(a1 + 8) + 1424, *(a1 + 16));
+  v1 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::ReleaseAndBlockSlot(v1 + 1424, v2);
 
-  Phase::Geometry::System::AddNewReleaseRequest();
+  Phase::Geometry::System::AddNewReleaseRequest(v1, (v1 + 3184), v2);
 }
 
 void Phase::LambdaFunction<Phase::Geometry::SystemScheduler::ReleaseEntity(Phase::Handle64)::$_0,void>::operator()(uint64_t a1)
@@ -8254,7 +8254,7 @@ void Phase::Geometry::SystemState::Init(Phase::Geometry::SystemState *this, Phas
   *(this + 132) = *(a2 + 357);
 }
 
-void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__assign_with_size[abi:ne200100]<std::shared_ptr<Phase::Geometry::MpsCpuScene>*,std::shared_ptr<Phase::Geometry::MpsCpuScene>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__assign_with_size[abi:ne200100]<std::shared_ptr<Phase::Geometry::MpsCpuScene>*,std::shared_ptr<Phase::Geometry::MpsCpuScene>*>(uint64_t **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = a1[2];
   v9 = *a1;
@@ -8298,9 +8298,9 @@ void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__assign_with_s
   if (a4 <= v12 >> 4)
   {
     v13 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *>(a2, a3, v9);
-    for (i = a1[1]; i != v13; i -= 2)
+    for (i = a1[1]; i != v13; i -= 16)
     {
-      v15 = *(i - 1);
+      v15 = *(i - 8);
       if (v15)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -8317,7 +8317,7 @@ void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__assign_with_s
   }
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *,std::shared_ptr<Phase::Geometry::MpsCpuScene> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -8349,7 +8349,7 @@ void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<Phase::Geometry
   return a3;
 }
 
-void Phase::Geometry::AddVoxelTree(Phase::Logger *a1, uint64_t a2)
+void Phase::Geometry::AddVoxelTree(const void **a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = **(Phase::Logger::GetInstance(a1) + 1264);
@@ -8362,9 +8362,9 @@ void Phase::Geometry::AddVoxelTree(Phase::Logger *a1, uint64_t a2)
     _os_log_impl(&dword_23A302000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Voxel tree added", v7, 0x12u);
   }
 
-  v5 = *(a1 + 12);
-  v6 = *(a1 + 13);
-  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 96, a2 + 2);
+  v5 = a1[12];
+  v6 = a1[13];
+  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 12, a2 + 2);
   if ((v6 - v5) >> 4 < (a2 + 2))
   {
     operator new();
@@ -8398,18 +8398,18 @@ uint64_t Phase::Geometry::AddBuilderVoxelToSubtree(uint64_t result, float32x2_t 
     __assert_rtn("AddBuilderVoxelToSubtree", "GeoVoxelTree.cpp", 188, "voxelIndex < level.mVoxels.Count()");
   }
 
-  v13 = result;
-  v14 = v7 - 1;
-  v15 = v11[1] + v11[4] * v9;
-  v16 = *a2;
-  v18 = vmul_f32(v16, v16);
-  v17 = a2[1].f32[0];
-  *v18.i32 = vaddv_f32(v18) + (v17 * v17);
-  if (*v18.i32 <= 0.00000011921)
+  v15 = result;
+  v16 = v7 - 1;
+  v17 = v11[1] + v11[4] * v9;
+  v18 = *a2;
+  v20 = vmul_f32(v18, v18);
+  v19 = a2[1].f32[0];
+  *v20.i32 = vaddv_f32(v20) + (v19 * v19);
+  if (*v20.i32 <= 0.00000011921)
   {
-    *v15 = 0;
-    *(v15 + 8) = 0;
-    if (v14 == a3)
+    *v17 = 0;
+    *(v17 + 8) = 0;
+    if (v16 == a3)
     {
       ++*a5;
     }
@@ -8417,38 +8417,40 @@ uint64_t Phase::Geometry::AddBuilderVoxelToSubtree(uint64_t result, float32x2_t 
 
   else
   {
-    *v18.i32 = sqrtf(*v18.i32);
-    *v15 = vdiv_f32(v16, vdup_lane_s32(v18, 0));
-    *(v15 + 8) = v17 / *v18.i32;
+    *v20.i32 = sqrtf(*v20.i32);
+    *v17 = vdiv_f32(v18, vdup_lane_s32(v20, 0));
+    *(v17 + 8) = v19 / *v20.i32;
   }
 
-  *(v15 + 12) = a2[1].i32[1];
-  if (v14 != a3)
+  *(v17 + 12) = a2[1].i32[1];
+  if (v16 != a3)
   {
-    v19 = *(**(v10 + 56) + 16 * *(v10 + 64));
-    if (v19[3] <= v9)
+    v21 = *(**(v10 + 56) + 16 * *(v10 + 64));
+    if (v21[3] <= v9)
     {
       __assert_rtn("AddBuilderVoxelToSubtree", "GeoVoxelTree.cpp", 207, "voxelIndex < level.mTreeNodes.Count()");
     }
 
-    v20 = 0;
-    v21 = 0;
-    v22 = v19[1] + v19[4] * v9;
-    *(v22 + 8) = *(a4 + 4 * (a3 + 1));
-    *v22 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = v21[1] + v21[4] * v9;
+    v25 = a3 + 1;
+    *(v24 + 8) = *(a4 + 4 * (a3 + 1));
+    *v24 = 0;
     do
     {
-      if (*(*&a2[2] + v20 + 12) != -1)
+      v26 = (*&a2[2] + v22);
+      if (v26[1].i32[1] != -1)
       {
-        *v22 |= 1 << v21;
-        result = Phase::Geometry::AddBuilderVoxelToSubtree(v13);
+        *v24 |= 1 << v23;
+        result = Phase::Geometry::AddBuilderVoxelToSubtree(v15, v26, v25, a4, a5);
       }
 
-      ++v21;
-      v20 += 24;
+      ++v23;
+      v22 += 24;
     }
 
-    while (v21 != 64);
+    while (v23 != 64);
   }
 
   return result;
@@ -8514,7 +8516,7 @@ uint64_t Phase::Geometry::AddBuilderToSubtree(uint64_t a1, float32x2_t *a2, _DWO
   return result;
 }
 
-void sub_23A414CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30)
+void sub_23A414CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30)
 {
   Phase::Geometry::VoxelTreeBuilder::~VoxelTreeBuilder(&a17);
   std::__shared_weak_count::__release_shared[abi:ne200100](v30);
@@ -8522,12 +8524,12 @@ void sub_23A414CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Phase::Geometry::CreateVoxelTreeFromShape(int a1, _DWORD *a2, void *a3)
+void Phase::Geometry::CreateVoxelTreeFromShape(void x0_0, _DWORD *a1, void *a2)
 {
   v4[9] = *MEMORY[0x277D85DE8];
-  if (*a2 == 2)
+  if (*a1 == 2)
   {
-    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(2uLL, a3, &__p);
+    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(&__p, 2uLL, a2);
     LODWORD(v4[0]) = 7;
     std::vector<unsigned int>::push_back[abi:ne200100](&__p.__begin_, v4);
     LODWORD(v4[0]) = 8;
@@ -8713,7 +8715,7 @@ void Phase::Geometry::GetMaterials(uint64_t a1, unsigned int *a2, int a3, void *
   if (v7 >= 1)
   {
     v9 = a2;
-    v22 = a2 + v7;
+    v22 = (a2 + v7);
     v23 = a5;
     v10 = *(*(**(a1 + 40) + 16 * *(a1 + 48)) + 8);
     v11 = *(**(v10 + 40) + 16 * *(v10 + 48));
@@ -8789,7 +8791,7 @@ void std::default_delete<Phase::Geometry::VoxelTreeBuilder::Voxel []>::operator(
         *v3 = 0;
         if (v5)
         {
-          std::default_delete<Phase::Geometry::VoxelTreeBuilder::Voxel []>::operator()[abi:ne200100]<Phase::Geometry::VoxelTreeBuilder::Voxel>(v3);
+          std::default_delete<Phase::Geometry::VoxelTreeBuilder::Voxel []>::operator()[abi:ne200100]<Phase::Geometry::VoxelTreeBuilder::Voxel>(v3, v5);
         }
 
         v3 -= 3;
@@ -8990,20 +8992,20 @@ unint64_t Phase::Geometry::VoxelTreeBuilder::BuildLevels(float32x2_t *a1, int a2
   return result;
 }
 
-void std::vector<Phase::Geometry::VoxelTreeBuilder::Level>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::VoxelTreeBuilder::Level>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<Phase::Geometry::VoxelTreeBuilder::Level>::__append(a1, a2 - v2);
+    std::vector<Phase::Geometry::VoxelTreeBuilder::Level>::__append(result, a2 - v2);
   }
 }
 
@@ -9059,7 +9061,7 @@ uint64_t Phase::Geometry::VoxelTreeBuilder::VoxelizeFace(float32x2_t *a1, uint64
   return result;
 }
 
-uint64_t Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(uint64_t result, float32x2_t *a2, double *a3, float64x2_t *a4, __int32 a5, uint64_t a6, int *a7, int *a8)
+uint64_t Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(uint64_t result, float32x2_t *a2, double *a3, float64x2_t *a4, __int32 a5, uint64_t a6, int32x2_t *a7, int32x2_t *a8)
 {
   v12 = *(result + 96);
   if (a2[1].i32[1] == -1)
@@ -9082,16 +9084,16 @@ uint64_t Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(uint64_t result, float32
 
     v16 = a6 + 1;
     v17 = 2 * (v14 - (a6 + 1));
-    v18 = *a7 >> (2 * (v14 - (a6 + 1)));
-    v19 = *a8 >> (2 * (v14 - (a6 + 1)));
+    v18 = a7->i32[0] >> (2 * (v14 - (a6 + 1)));
+    v19 = a8->i32[0] >> (2 * (v14 - (a6 + 1)));
     if (v18 <= v19)
     {
       v20 = (v12 + 32 * v16);
-      v21 = a7[1] >> v17;
-      v22 = a7[2] >> v17;
+      v21 = a7->i32[1] >> v17;
+      v22 = a7[1].i32[0] >> v17;
       v23 = *v20 * 0.5;
-      v24 = a8[2] >> v17;
-      v25 = a8[1] >> v17;
+      v24 = a8[1].i32[0] >> v17;
+      v25 = a8->i32[1] >> v17;
       v26 = ~(-1 << v17);
       v27 = -v23;
       do
@@ -9108,202 +9110,208 @@ uint64_t Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(uint64_t result, float32
             if (v22 <= v24)
             {
               v32 = v31 + 0.5;
-              v33 = v8;
-              DWORD1(v33) = v31 << v17;
-              v34 = v22;
+              v33 = dword_23A5559F0[v30] | (2 * dword_23A5559F0[v31 & 3]);
+              v34 = v8;
+              DWORD1(v34) = v31 << v17;
+              v35.i32[0] = v9;
+              v35.i32[1] = (v31 << v17) + v26;
+              v36 = v22;
               do
               {
-                v35 = *v20;
-                v36 = v32 * v35;
-                v37 = (v34 + 0.5) * v35;
-                v38 = *a3 - v29 * v35;
-                v39 = a3[1] - v32 * v35;
-                v40 = a3[2] - v37;
-                v41 = a3[3] - v29 * v35;
-                v42 = a3[4] - v32 * v35;
-                v43 = a3[5] - v37;
-                v44 = a3[6] - v29 * v35;
-                v45 = a3[7] - v36;
-                v46 = a3[8] - v37;
-                v47 = fmax(fmax(v38, v41), v44);
-                v48 = fmin(fmin(v40, v43), v46);
+                v37 = *v20;
+                v38 = v32 * v37;
+                v39 = (v36 + 0.5) * v37;
+                v40 = *a3 - v29 * v37;
+                v41 = a3[1] - v32 * v37;
+                v42 = a3[2] - v39;
+                v43 = a3[3] - v29 * v37;
+                v44 = a3[4] - v32 * v37;
+                v45 = a3[5] - v39;
+                v46 = a3[6] - v29 * v37;
+                v47 = a3[7] - v38;
+                v48 = a3[8] - v39;
                 v49 = fmax(fmax(v40, v43), v46);
-                v50 = fmin(fmin(v38, v41), v44) > v23 || v47 < v27;
-                v51 = fmax(fmax(v39, v42), v45);
-                v52 = fmin(fmin(v39, v42), v45);
-                if (!v50 && v52 <= v23 && v51 >= v27 && v48 <= v23 && v49 >= v27)
+                v50 = fmin(fmin(v42, v45), v48);
+                v51 = fmax(fmax(v42, v45), v48);
+                v52 = fmin(fmin(v40, v43), v46) > v23 || v49 < v27;
+                v53 = fmax(fmax(v41, v44), v47);
+                v54 = fmin(fmin(v41, v44), v47);
+                if (!v52 && v54 <= v23 && v53 >= v27 && v50 <= v23 && v51 >= v27)
                 {
-                  v57 = a4->f64[0];
-                  v58 = a4->f64[1];
-                  v59 = a4[1].f64[0];
-                  v60 = v38 * a4->f64[0] + v39 * v58 + v40 * v59;
-                  v61 = a4->f64[0] <= 0.0 ? v23 : -v23;
-                  v62 = v58 <= 0.0 ? v23 : -v23;
-                  v63 = v59 <= 0.0 ? v23 : -v23;
-                  if (v57 * v61 + v58 * v62 + v59 * v63 <= v60)
+                  v59 = a4->f64[0];
+                  v60 = a4->f64[1];
+                  v61 = a4[1].f64[0];
+                  v62 = v40 * a4->f64[0] + v41 * v60 + v42 * v61;
+                  v63 = a4->f64[0] <= 0.0 ? v23 : -v23;
+                  v64 = v60 <= 0.0 ? v23 : -v23;
+                  v65 = v61 <= 0.0 ? v23 : -v23;
+                  if (v59 * v63 + v60 * v64 + v61 * v65 <= v62)
                   {
-                    v64 = v59 <= 0.0 ? -v23 : v23;
-                    v65 = v58 <= 0.0 ? -v23 : v23;
-                    v66 = v57 <= 0.0 ? -v23 : v23;
-                    if (v57 * v66 + v58 * v65 + v59 * v64 >= v60)
+                    v66 = v61 <= 0.0 ? -v23 : v23;
+                    v67 = v60 <= 0.0 ? -v23 : v23;
+                    v68 = v59 <= 0.0 ? -v23 : v23;
+                    if (v59 * v68 + v60 * v67 + v61 * v66 >= v62)
                     {
-                      v67 = v42 - v39;
-                      v68 = v43 - v40;
-                      v69 = v67 < 0.0 ? -v67 : v42 - v39;
-                      v70 = v68 < 0.0 ? -v68 : v43 - v40;
-                      v71 = v68;
-                      v72 = v67;
-                      v73 = v68 * v39 - v40 * v72;
-                      v74 = v71 * v45 - v46 * v72;
-                      v75 = fmin(v73, v74);
-                      v76 = fmax(v73, v74);
-                      v77 = v70;
-                      v78 = v69;
-                      v79 = v23 * v69 + v77 * v23;
-                      if (v75 <= v79 && v76 >= -v79)
+                      v69 = v44 - v41;
+                      v70 = v45 - v42;
+                      v71 = v69 < 0.0 ? -v69 : v44 - v41;
+                      v72 = v70 < 0.0 ? -v70 : v45 - v42;
+                      v73 = v70;
+                      v74 = v69;
+                      v75 = v70 * v41 - v42 * v74;
+                      v76 = v73 * v47 - v48 * v74;
+                      v77 = fmin(v75, v76);
+                      v78 = fmax(v75, v76);
+                      v79 = v72;
+                      v80 = v71;
+                      v81 = v23 * v71 + v79 * v23;
+                      if (v77 <= v81 && v78 >= -v81)
                       {
-                        v81 = v41 - v38;
-                        v82 = -v81;
-                        if (v81 >= 0.0)
+                        v83 = v43 - v40;
+                        v84 = -v83;
+                        if (v83 >= 0.0)
                         {
-                          v82 = v41 - v38;
+                          v84 = v43 - v40;
                         }
 
-                        v83 = v81;
-                        v84 = v83 * v40 - v38 * v71;
-                        v85 = v83 * v46 - v44 * v71;
-                        v86 = fmin(v84, v85);
-                        v87 = fmax(v84, v85);
-                        v88 = v82;
-                        v89 = v23 * v77 + v88 * v23;
-                        v90 = v86 > v89 || v87 < -v89;
-                        v91 = v72 * v41 - v42 * v83;
-                        v92 = v72 * v44 - v45 * v83;
-                        v93 = fmin(v91, v92);
-                        v94 = fmax(v91, v92);
-                        v95 = v23 * v88 + v78 * v23;
-                        if (!v90 && v93 <= v95 && v94 >= -v95)
+                        v85 = v83;
+                        v86 = v85 * v42 - v40 * v73;
+                        v87 = v85 * v48 - v46 * v73;
+                        v88 = fmin(v86, v87);
+                        v89 = fmax(v86, v87);
+                        v90 = v84;
+                        v91 = v23 * v79 + v90 * v23;
+                        v92 = v88 > v91 || v89 < -v91;
+                        v93 = v74 * v43 - v44 * v85;
+                        v94 = v74 * v46 - v47 * v85;
+                        v95 = fmin(v93, v94);
+                        v96 = fmax(v93, v94);
+                        v97 = v23 * v90 + v80 * v23;
+                        if (!v92 && v95 <= v97 && v96 >= -v97)
                         {
-                          v98 = -v40;
-                          v99 = v45 - v42;
-                          v100 = v46 - v43;
-                          v101 = -v99;
-                          if (v99 >= 0.0)
+                          v100 = -v42;
+                          v101 = v47 - v44;
+                          v102 = v48 - v45;
+                          v103 = -v101;
+                          if (v101 >= 0.0)
                           {
-                            v101 = v45 - v42;
+                            v103 = v47 - v44;
                           }
 
-                          if (v100 < 0.0)
+                          if (v102 < 0.0)
                           {
-                            v102 = -v100;
+                            v104 = -v102;
                           }
 
                           else
                           {
-                            v102 = v46 - v43;
+                            v104 = v48 - v45;
                           }
 
-                          v103 = v100;
-                          v104 = v99;
-                          v105 = v98 * v99 + v103 * v39;
-                          v106 = -v46 * v104 + v103 * v45;
-                          v107 = fmin(v105, v106);
-                          v108 = fmax(v105, v106);
-                          v109 = v102;
-                          v110 = v101;
-                          v111 = v23 * v110 + v109 * v23;
-                          if (v107 <= v111 && v108 >= -v111)
+                          v105 = v102;
+                          v106 = v101;
+                          v107 = v100 * v101 + v105 * v41;
+                          v108 = -v48 * v106 + v105 * v47;
+                          v109 = fmin(v107, v108);
+                          v110 = fmax(v107, v108);
+                          v111 = v104;
+                          v112 = v103;
+                          v113 = v23 * v112 + v111 * v23;
+                          if (v109 <= v113 && v110 >= -v113)
                           {
-                            v113 = -v38;
-                            v114 = -v42;
-                            v115 = v44 - v41;
-                            v116 = -v115;
-                            if (v115 >= 0.0)
+                            v115 = -v40;
+                            v116 = -v44;
+                            v117 = v46 - v43;
+                            v118 = -v117;
+                            if (v117 >= 0.0)
                             {
-                              v116 = v44 - v41;
+                              v118 = v46 - v43;
                             }
 
-                            v117 = v115;
-                            v118 = v113 * v103 + v117 * v40;
-                            v119 = -v44 * v103 + v117 * v46;
-                            v120 = fmin(v118, v119);
-                            v121 = fmax(v118, v119);
-                            v122 = v116;
-                            v123 = v23 * v109 + v122 * v23;
-                            v124 = v120 > v123 || v121 < -v123;
-                            v125 = v104 * v38 - v39 * v117;
-                            v126 = v114 * v117 + v104 * v41;
-                            v127 = fmin(v125, v126);
-                            v128 = fmax(v125, v126);
-                            v129 = v23 * v122 + v110 * v23;
-                            if (!v124 && v127 <= v129 && v128 >= -v129)
+                            v119 = v117;
+                            v120 = v115 * v105 + v119 * v42;
+                            v121 = -v46 * v105 + v119 * v48;
+                            v122 = fmin(v120, v121);
+                            v123 = fmax(v120, v121);
+                            v124 = v118;
+                            v125 = v23 * v111 + v124 * v23;
+                            v126 = v122 > v125 || v123 < -v125;
+                            v127 = v106 * v40 - v41 * v119;
+                            v128 = v116 * v119 + v106 * v43;
+                            v129 = fmin(v127, v128);
+                            v130 = fmax(v127, v128);
+                            v131 = v23 * v124 + v112 * v23;
+                            if (!v126 && v129 <= v131 && v130 >= -v131)
                             {
-                              v132 = v39 - v45;
-                              v133 = v40 - v46;
-                              v134 = v132 < 0.0 ? -v132 : v39 - v45;
-                              v135 = v133 < 0.0 ? -v133 : v133;
-                              v136 = v133;
-                              v137 = v132;
-                              v138 = v98 * v132 + v136 * v39;
-                              v139 = v136 * v42 - v43 * v132;
-                              v140 = v135;
-                              v141 = v134;
-                              v142 = v23 * v134;
-                              if (fmin(v138, v139) <= v142 + v135 * v23 && fmax(v138, v139) >= -(v142 + v140 * v23))
+                              v134 = v41 - v47;
+                              v135 = v42 - v48;
+                              v136 = v134 < 0.0 ? -v134 : v41 - v47;
+                              v137 = v135 < 0.0 ? -v135 : v135;
+                              v138 = v135;
+                              v139 = v134;
+                              v140 = v100 * v134 + v138 * v41;
+                              v141 = v138 * v44 - v45 * v134;
+                              v142 = v137;
+                              v143 = v136;
+                              v144 = v23 * v136;
+                              if (fmin(v140, v141) <= v144 + v137 * v23 && fmax(v140, v141) >= -(v144 + v142 * v23))
                               {
-                                v143 = v38 - v44;
-                                if (v143 < 0.0)
+                                v145 = v40 - v46;
+                                v146 = v145 < 0.0 ? -v145 : v145;
+                                v147 = v145;
+                                v148 = v115 * v138 + v147 * v42;
+                                v149 = v147 * v45 - v43 * v138;
+                                v150 = v146;
+                                v151 = v23 * v142;
+                                if (fmin(v148, v149) <= v151 + v146 * v23 && fmax(v148, v149) >= -(v151 + v150 * v23))
                                 {
-                                  v144 = -v143;
-                                }
-
-                                else
-                                {
-                                  v144 = v143;
-                                }
-
-                                v145 = v143;
-                                v146 = v113 * v136 + v145 * v40;
-                                v147 = v145 * v43 - v41 * v136;
-                                v148 = v144;
-                                v149 = v23 * v140;
-                                if (fmin(v146, v147) <= v149 + v144 * v23 && fmax(v146, v147) >= -(v149 + v148 * v23))
-                                {
-                                  v150 = v114 * v145 + v137 * v41;
-                                  v151 = -v45 * v145 + v137 * v44;
-                                  if (fmin(v150, v151) <= v23 * v148 + v141 * v23 && fmax(v150, v151) >= -(v23 * v148 + v141 * v23))
+                                  v152 = v116 * v147 + v139 * v43;
+                                  v153 = -v47 * v147 + v139 * v46;
+                                  if (fmin(v152, v153) <= v23 * v150 + v143 * v23 && fmax(v152, v153) >= -(v23 * v150 + v143 * v23))
                                   {
-                                    v159 = v18;
-                                    v160 = v17;
-                                    v155 = v30;
-                                    v156 = v26;
-                                    v162 = a7;
-                                    v163 = a8;
-                                    v164 = v16;
-                                    v165 = result;
-                                    v166 = a5;
-                                    v161 = v15;
-                                    v157 = v21;
-                                    v158 = v19;
-                                    v153 = v9;
-                                    v154 = v8;
-                                    v152 = v33;
-                                    Phase::Geometry::VoxelTreeBuilder::UpdateVoxel();
-                                    v33 = v152;
-                                    v9 = v153;
-                                    v8 = v154;
-                                    v30 = v155;
-                                    v26 = v156;
-                                    v21 = v157;
-                                    v19 = v158;
-                                    v18 = v159;
-                                    v17 = v160;
-                                    v16 = v164;
-                                    result = v165;
-                                    v15 = v161;
-                                    a7 = v162;
-                                    a5 = v166;
-                                    a8 = v163;
+                                    v154 = v33 | (4 * dword_23A5559F0[v36 & 3]);
+                                    v155 = v36 << v17;
+                                    v164 = v18;
+                                    v165 = v17;
+                                    if (v36 << v17 <= a7[1].i32[0])
+                                    {
+                                      v155 = a7[1].i32[0];
+                                    }
+
+                                    v174 = vmax_s32(*&v34, *a7);
+                                    v175 = v155;
+                                    v156 = ((a8[1].i32[0] - ((v36 << v17) + v26)) & ((a8[1].i32[0] - ((v36 << v17) + v26)) >> 31)) + (v36 << v17) + v26;
+                                    v172 = vadd_s32(vmin_s32(vsub_s32(*a8, v35), 0), v35);
+                                    v173 = v156;
+                                    v160 = v30;
+                                    v161 = v26;
+                                    v167 = a7;
+                                    v168 = a8;
+                                    v169 = v16;
+                                    v170 = result;
+                                    v171 = a5;
+                                    v166 = v15;
+                                    v162 = v21;
+                                    v163 = v19;
+                                    v158 = v9;
+                                    v159 = v8;
+                                    v157 = v34;
+                                    Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(result, (*v15 + 24 * v154), a3, a4, a5, v16, &v174, &v172);
+                                    v34 = v157;
+                                    v9 = v158;
+                                    v8 = v159;
+                                    v30 = v160;
+                                    v26 = v161;
+                                    v21 = v162;
+                                    v19 = v163;
+                                    v18 = v164;
+                                    v17 = v165;
+                                    v16 = v169;
+                                    result = v170;
+                                    v15 = v166;
+                                    a7 = v167;
+                                    a5 = v171;
+                                    a8 = v168;
                                   }
                                 }
                               }
@@ -9315,10 +9323,10 @@ uint64_t Phase::Geometry::VoxelTreeBuilder::UpdateVoxel(uint64_t result, float32
                   }
                 }
 
-                ++v34;
+                ++v36;
               }
 
-              while (v24 + 1 != v34);
+              while (v24 + 1 != v36);
             }
 
             v28 = v31++ == v25;
@@ -9447,7 +9455,7 @@ uint64_t Phase::Controller::DVM23::GraphInputVoiceNode::PerTailVoice(uint64_t re
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::GraphInputVoiceNode::ToString@<X0>(Phase::Controller::DVM23::GraphInputVoiceNode *this@<X0>, _BYTE *a2@<X8>)
+uint64_t Phase::Controller::DVM23::GraphInputVoiceNode::ToString@<X0>(Phase::Controller::DVM23::GraphInputVoiceNode *this@<X0>, void *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = *(this + 7);
@@ -9478,13 +9486,13 @@ uint64_t Phase::Controller::DVM23::GraphInputVoiceNode::ToString@<X0>(Phase::Con
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memcpy(a2, __str, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
@@ -9538,7 +9546,7 @@ uint64_t Phase::Controller::DVM23::GraphOutputVoiceNode::PerHeadVoice(uint64_t r
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::GraphOutputVoiceNode::ToString@<X0>(Phase::Controller::DVM23::GraphOutputVoiceNode *this@<X0>, _BYTE *a2@<X8>)
+uint64_t Phase::Controller::DVM23::GraphOutputVoiceNode::ToString@<X0>(Phase::Controller::DVM23::GraphOutputVoiceNode *this@<X0>, void *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = *(this + 7);
@@ -9569,13 +9577,13 @@ uint64_t Phase::Controller::DVM23::GraphOutputVoiceNode::ToString@<X0>(Phase::Co
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memcpy(a2, __str, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
@@ -9638,7 +9646,7 @@ Phase::Controller::Ducker *Phase::Controller::Ducker::Ducker(Phase::Controller::
 
         v21 = [*(*(&v35 + 1) + 8 * v20) identifier];
         StringHashId = Phase::GetStringHashId(v21, v22);
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this, StringHashId);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this, StringHashId, &StringHashId);
 
         ++v20;
       }
@@ -9671,7 +9679,7 @@ Phase::Controller::Ducker *Phase::Controller::Ducker::Ducker(Phase::Controller::
 
         v27 = [*(*(&v31 + 1) + 8 * v26) identifier];
         StringHashId = Phase::GetStringHashId(v27, v28);
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this + 5, StringHashId);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this + 5, StringHashId, &StringHashId);
 
         ++v26;
       }
@@ -9717,44 +9725,44 @@ uint64_t Phase::Controller::GroupManager::AddGroup(Phase::Controller::GroupManag
   v4 = [(PHASEGroup *)v3 identifier];
   StringHashId = Phase::GetStringHashId(v4, v5);
 
-  v19 = StringHashId;
+  v18 = StringHashId;
   Phase::Controller::Group::Group(v9, StringHashId, v3);
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::Controller::Group>(this + 5, &v19);
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::Controller::Group>(this + 10, &v18, &v18, v9);
   LOBYTE(this) = v7;
-  v20 = &v18;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v17;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v16;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v15;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v14;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v13;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v12;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v20 = &v11;
-  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v20);
+  v19 = &v17;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v16;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v15;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v14;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v13;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v12;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v11;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = &v10;
+  std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v19);
 
   return this & 1;
 }
 
-void sub_23A41762C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A41762C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Phase::Controller::Group::~Group(va);
 
   _Unwind_Resume(a1);
 }
 
-void Phase::Controller::GroupManager::Update(uint64_t a1, void *a2, double a3)
+void Phase::Controller::GroupManager::Update(int8x8_t *a1, void *a2, double a3)
 {
   v49[4] = *MEMORY[0x277D85DE8];
   Phase::Commandable<128,Phase::LockFreeQueueMPSC>::ExecuteCommands(a1);
-  *(a1 + 128) = 0;
-  v6 = *(a1 + 56);
+  a1[16].i8[0] = 0;
+  v6 = a1[7];
   if (v6)
   {
     __asm { FMOV            V0.2D, #1.0 }
@@ -9762,34 +9770,34 @@ void Phase::Controller::GroupManager::Update(uint64_t a1, void *a2, double a3)
     v48 = _Q0;
     do
     {
-      if (*(a1 + 128))
+      if (a1[16].i8[0])
       {
         v12 = 1;
       }
 
       else
       {
-        v12 = *(v6 + 449);
+        v12 = *(*&v6 + 449);
       }
 
-      *(a1 + 128) = v12 & 1;
-      Phase::Fader<double>::Update((v6 + 5), a3);
-      Phase::Fader<double>::Update((v6 + 11), a3);
-      Phase::Fader<double>::Update((v6 + 17), a3);
-      Phase::Fader<double>::Update((v6 + 23), a3);
-      Phase::Fader<double>::Update((v6 + 32), a3);
-      Phase::Fader<double>::Update((v6 + 44), a3);
-      Phase::Fader<double>::Update((v6 + 38), a3);
-      Phase::Fader<double>::Update((v6 + 50), a3);
-      v6[31] = 0x3FF0000000000000;
-      *(v6 + 29) = v48;
-      v6 = *v6;
+      a1[16].i8[0] = v12 & 1;
+      Phase::Fader<double>::Update(*&v6 + 40, a3);
+      Phase::Fader<double>::Update(*&v6 + 88, a3);
+      Phase::Fader<double>::Update(*&v6 + 136, a3);
+      Phase::Fader<double>::Update(*&v6 + 184, a3);
+      Phase::Fader<double>::Update(*&v6 + 256, a3);
+      Phase::Fader<double>::Update(*&v6 + 352, a3);
+      Phase::Fader<double>::Update(*&v6 + 304, a3);
+      Phase::Fader<double>::Update(*&v6 + 400, a3);
+      *(*&v6 + 248) = 0x3FF0000000000000;
+      *(*&v6 + 232) = v48;
+      v6 = **&v6;
     }
 
     while (v6);
   }
 
-  v13 = *(a1 + 96);
+  v13 = a1[12];
   if (v13)
   {
     do
@@ -9901,7 +9909,7 @@ LABEL_31:
         Phase::Fader<double>::Update((v13 + 21), a3);
         Phase::Fader<double>::Update((v13 + 27), a3);
         Phase::Fader<double>::Update((v13 + 33), a3);
-        v27 = *(a1 + 56);
+        v27 = a1[7];
         if (v27)
         {
           v28 = v13[9];
@@ -9913,10 +9921,10 @@ LABEL_31:
           {
             if (v28)
             {
-              v32 = v27[2];
+              v32 = *(*&v27 + 16);
               if (v30 > 1)
               {
-                v33 = v27[2];
+                v33 = *(*&v27 + 16);
                 if (*&v28 <= v32)
                 {
                   v33 = v32 % *&v28;
@@ -9945,9 +9953,9 @@ LABEL_31:
                     if (v34[2] == v32)
                     {
                       v36.f64[0] = v13[26];
-                      *(v27 + 31) = fmin(*(v27 + 31), v13[32]);
+                      *(*&v27 + 248) = fmin(*(*&v27 + 248), v13[32]);
                       v36.f64[1] = v13[38];
-                      *(v27 + 29) = vminnmq_f64(*(v27 + 29), v36);
+                      *(*&v27 + 232) = vminnmq_f64(*(*&v27 + 232), v36);
                       break;
                     }
                   }
@@ -9976,7 +9984,7 @@ LABEL_31:
               }
             }
 
-            v27 = *v27;
+            v27 = **&v27;
           }
 
           while (v27);
@@ -9986,7 +9994,7 @@ LABEL_31:
         goto LABEL_82;
       }
 
-      v15 = *(a1 + 88);
+      v15 = a1[11];
       v16 = *(v13 + 1);
       v17 = vcnt_s8(v15);
       v17.i16[0] = vaddlv_u8(v17);
@@ -10004,8 +10012,8 @@ LABEL_31:
       }
 
       v37 = *v13;
-      v38 = *(a1 + 80);
-      v39 = *(v38 + 8 * v16);
+      v38 = a1[10];
+      v39 = *(*&v38 + 8 * v16);
       do
       {
         v40 = v39;
@@ -10013,12 +10021,12 @@ LABEL_31:
       }
 
       while (v39 != v13);
-      if (v40 == (a1 + 96))
+      if (v40 == &a1[12])
       {
         goto LABEL_89;
       }
 
-      v41 = *(v40 + 1);
+      v41 = v40[1];
       if (v17.u32[0] > 1uLL)
       {
         if (v41 >= *&v15)
@@ -10060,7 +10068,7 @@ LABEL_89:
           }
         }
 
-        *(v38 + 8 * v16) = 0;
+        *(*&v38 + 8 * v16) = 0;
         v42 = *v13;
       }
 
@@ -10083,14 +10091,14 @@ LABEL_75:
 
         if (v43 != v16)
         {
-          *(*(a1 + 80) + 8 * v43) = v40;
+          *(*&a1[10] + 8 * v43) = v40;
           v42 = *v13;
         }
       }
 
       *v40 = v42;
       *v13 = 0.0;
-      --*(a1 + 104);
+      --*&a1[13];
       std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,void *>>>::operator()[abi:ne200100](1, v13);
 LABEL_82:
       v13 = v37;
@@ -10099,14 +10107,14 @@ LABEL_82:
     while (v37);
   }
 
-  for (i = *(a1 + 56); i; i = *i)
+  for (i = a1[7]; i; i = **&i)
   {
     v46 = -2128831035;
     for (j = 40; j != 456; ++j)
     {
-      v46 = 16777619 * (v46 ^ *(i + j));
+      v46 = 16777619 * (v46 ^ *(*&i + j));
     }
 
-    *(i + 114) = v46;
+    *(*&i + 456) = v46;
   }
 }

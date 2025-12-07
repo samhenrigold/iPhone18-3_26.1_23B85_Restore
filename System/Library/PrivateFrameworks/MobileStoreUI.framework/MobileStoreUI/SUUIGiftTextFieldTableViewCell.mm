@@ -82,7 +82,7 @@
 {
   labelCopy = label;
   label = [(SUUIGiftTextFieldTableViewCell *)self label];
-  if (label != labelCopy && ([labelCopy isEqualToString:label] & 1) == 0)
+  if (label != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     label = self->_label;
     if (labelCopy)

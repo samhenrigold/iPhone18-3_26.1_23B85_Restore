@@ -84,7 +84,7 @@
       v12 = 2048;
       v13 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to register for %s notification: %lu", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to register for %s notification: %lu", kOSThermalNotificationPressureLevelName, v4);
     }
   }
 
@@ -96,7 +96,7 @@
       *buf = 136446210;
       v11 = kOSThermalNotificationPressureLevelName;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Registered for %{public}s notifications", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Registered for %{public}s notifications", kOSThermalNotificationPressureLevelName);
     }
 
     [(MBThermalPressureMonitor *)self _measureCurrentThermalPressureLevel];

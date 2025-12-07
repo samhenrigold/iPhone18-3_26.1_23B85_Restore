@@ -6,7 +6,7 @@
 
 - (__CFString)un_logDigest
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   uTF8String = [self UTF8String];
   if (uTF8String)
   {
@@ -27,7 +27,6 @@
   }
 
 LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

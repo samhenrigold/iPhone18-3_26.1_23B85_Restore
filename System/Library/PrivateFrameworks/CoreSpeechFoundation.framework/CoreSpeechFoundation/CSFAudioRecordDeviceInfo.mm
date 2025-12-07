@@ -60,8 +60,6 @@
   {
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 

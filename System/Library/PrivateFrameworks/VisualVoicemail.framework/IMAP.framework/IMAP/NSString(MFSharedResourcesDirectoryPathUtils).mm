@@ -47,17 +47,17 @@
 - (id)mf_betterStringByResolvingSymlinksInPath
 {
   _MFLockGlobalLock();
-  v2 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
+  v3 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
   if (!mf_betterStringByResolvingSymlinksInPath_resolvedPaths)
   {
-    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v4 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
-    mf_betterStringByResolvingSymlinksInPath_resolvedPaths = v3;
+    v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v5 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
+    mf_betterStringByResolvingSymlinksInPath_resolvedPaths = v4;
 
-    v2 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
+    v3 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
   }
 
-  stringByResolvingSymlinksInPath = [v2 objectForKey:self];
+  stringByResolvingSymlinksInPath = [v3 objectForKey:self];
   _MFUnlockGlobalLock();
   if (!stringByResolvingSymlinksInPath)
   {
@@ -169,18 +169,18 @@ LABEL_18:
     goto LABEL_32;
   }
 
-  v3 = v2;
-  v4 = (MEMORY[0x28223BE20])();
-  v6 = (&v24 - v5);
-  if (v4 >= 0x101)
+  v4 = v2;
+  v5 = MEMORY[0x28223BE20](v2, v3);
+  v7 = (&v24 - v6);
+  if (v5 >= 0x101)
   {
-    v6 = malloc_type_malloc(2 * v4, 0x1000040BDFB0063uLL);
-    [selfCopy getCharacters:v6 range:{0, v3}];
+    v7 = malloc_type_malloc(2 * v5, 0x1000040BDFB0063uLL);
+    [selfCopy getCharacters:v7 range:{0, v4}];
 LABEL_6:
-    v7 = v3;
-    while (v6[v7 - 1] == 47)
+    v8 = v4;
+    while (v7[v8 - 1] == 47)
     {
-      if (v7-- <= 2)
+      if (v8-- <= 2)
       {
         goto LABEL_10;
       }
@@ -189,91 +189,90 @@ LABEL_6:
     goto LABEL_11;
   }
 
-  bzero(v6, 2 * v4);
-  [selfCopy getCharacters:v6 range:{0, v3}];
-  if (v3 != 1)
+  bzero(v7, 2 * v5);
+  [selfCopy getCharacters:v7 range:{0, v4}];
+  if (v4 != 1)
   {
     goto LABEL_6;
   }
 
 LABEL_10:
-  v7 = 1;
-  if (*v6 != 47)
+  v8 = 1;
+  if (*v7 != 47)
   {
 LABEL_11:
-    v9 = CPSharedResourcesDirectory();
-    v10 = [v9 length];
-    v12 = v7 - v10;
-    if (v7 >= v10)
+    v10 = CPSharedResourcesDirectory();
+    v11 = [v10 length];
+    v13 = v8 - v11;
+    if (v8 >= v11)
     {
-      v13 = v10;
+      v14 = v11;
       v24 = &v24;
-      v14 = MEMORY[0x28223BE20](v10, v11);
-      v16 = &v24 - v15;
-      v18 = 2 * v17;
-      if (v14 > 0x100)
+      v15 = MEMORY[0x28223BE20](v11, v12);
+      v17 = &v24 - v16;
+      v19 = 2 * v18;
+      if (v15 > 0x100)
       {
-        v16 = malloc_type_malloc(v18, 0x1000040BDFB0063uLL);
+        v17 = malloc_type_malloc(v19, 0x1000040BDFB0063uLL);
       }
 
       else
       {
-        bzero(&v24 - v15, v18);
+        bzero(&v24 - v16, v19);
       }
 
-      [v9 getCharacters:v16 range:{0, v13, v24, v25}];
-      if (v13 < 1)
+      [v10 getCharacters:v17 range:{0, v14, v24, v25}];
+      if (v14 < 1)
       {
-        v19 = 0;
+        v20 = 0;
       }
 
       else
       {
-        v19 = 0;
-        while (v6[v19] == *&v16[2 * v19])
+        v20 = 0;
+        while (v7[v20] == *&v17[2 * v20])
         {
-          if (v13 == ++v19)
+          if (v14 == ++v20)
           {
-            v19 = v13;
+            v20 = v14;
             break;
           }
         }
       }
 
-      if (v13 >= 0x101)
+      if (v14 >= 0x101)
       {
-        free(v16);
+        free(v17);
       }
 
-      if (v19 == v7)
+      if (v20 == v8)
       {
-        *v6 = 126;
-        v7 = 1;
+        *v7 = 126;
+        v8 = 1;
       }
 
-      else if (v19 == v13)
+      else if (v20 == v14)
       {
-        v20 = &v6[v13];
-        if (*v20 == 47)
+        v21 = &v7[v14];
+        if (*v21 == 47)
         {
-          memmove(v6 + 1, v20, 2 * v12);
-          *v6 = 126;
-          v7 = v12 + 1;
+          memmove(v7 + 1, v21, 2 * v13);
+          *v7 = 126;
+          v8 = v13 + 1;
         }
       }
     }
   }
 
-  v21 = [MEMORY[0x277CCACA8] stringWithCharacters:v6 length:v7];
+  v22 = [MEMORY[0x277CCACA8] stringWithCharacters:v7 length:v8];
 
-  if (v3 >= 0x101)
+  if (v4 >= 0x101)
   {
-    free(v6);
+    free(v7);
   }
 
-  selfCopy = v21;
+  selfCopy = v22;
 LABEL_32:
-  v22 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

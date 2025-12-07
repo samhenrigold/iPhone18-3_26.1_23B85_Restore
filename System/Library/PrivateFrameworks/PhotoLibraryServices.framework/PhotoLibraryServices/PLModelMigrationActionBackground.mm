@@ -153,7 +153,7 @@
 
 void __105__PLModelMigrationActionBackground_cancellableDiscreteProgressWithTotalUnitCount_pendingParentUnitCount___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = PLMigrationGetLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
@@ -162,62 +162,71 @@ void __105__PLModelMigrationActionBackground_cancellableDiscreteProgressWithTota
   {
     if (v3)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v6 = PLMigrationGetLog();
-      os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-      v7 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v7;
-      LODWORD(v11) = 12;
-      v8 = _os_log_send_and_compose_impl();
-
-      [v3 logWithMessage:v8 fromCodeLocation:"PLModelMigrationAction.m" type:{380, 16, &v12, v11}];
-      if (v8 != buf)
+      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v8 = *(a1 + 32);
+      if (v7)
       {
-        free(v8);
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v13 = 138543362;
+      v14 = v8;
+      v10 = _os_log_send_and_compose_impl(v9, 0, buf, 512, &dword_19BF1F000, v6, 16, "%{public}@ was cancelled", &v13, 12);
+
+      [v3 logWithMessage:v10 fromCodeLocation:"PLModelMigrationAction.m" type:{380, 16}];
+      if (v10 != buf)
+      {
+        free(v10);
       }
     }
 
     else
     {
-      v9 = PLMigrationGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 32);
+        v12 = *(a1 + 32);
         *buf = 138543362;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_ERROR, "%{public}@ was cancelled", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "%{public}@ was cancelled", buf, 0xCu);
       }
     }
   }
@@ -285,29 +294,37 @@ void __105__PLModelMigrationActionBackground_cancellableDiscreteProgressWithTota
         v22 = 0u;
         *buf = 0u;
         v12 = PLMigrationGetLog();
-        os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
         v18 = 138412290;
         v19 = v8;
-        LODWORD(v16) = 12;
-        v13 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(v13, 0, buf, 512, &dword_19BF1F000, v12, 16, "Failed to save resume marker app private data: %@", &v18, 12);
 
-        v14 = [(PLModelMigrationActionBackground *)self logger:&v18];
-        [v14 logWithMessage:v13 fromCodeLocation:"PLModelMigrationAction.m" type:{369, 16}];
+        logger2 = [(PLModelMigrationActionBackground *)self logger];
+        [logger2 logWithMessage:v14 fromCodeLocation:"PLModelMigrationAction.m" type:{369, 16}];
 
-        if (v13 != buf)
+        if (v14 != buf)
         {
-          free(v13);
+          free(v14);
         }
       }
 
       else
       {
-        v15 = PLMigrationGetLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = PLMigrationGetLog();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = v8;
-          _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_ERROR, "Failed to save resume marker app private data: %@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_ERROR, "Failed to save resume marker app private data: %@", buf, 0xCu);
         }
       }
     }
@@ -430,8 +447,8 @@ id __97__PLModelMigrationActionBackground_initWithMigrationContext_logger_progre
     v5 = 0;
   }
 
-  v6 = [v5 count];
-  v7 = [v5 count];
+  v6 = objc_msgSend_count(v5);
+  v7 = objc_msgSend_count(v5);
   if (v6 < 3)
   {
     if (v7)

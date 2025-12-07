@@ -88,7 +88,7 @@ void __48__ATXAppLaunchEventProvider_eventsFromPublisher__block_invoke_2(uint64_
 
 - (id)aggregationEventsFromEvent:(id)event
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([(ATXAppLaunchEventProvider *)self isEventFromProvider:eventCopy])
   {
@@ -108,8 +108,8 @@ void __48__ATXAppLaunchEventProvider_eventsFromPublisher__block_invoke_2(uint64_
 
       v11 = objc_alloc(MEMORY[0x277CEB390]);
       bundleID2 = [appLaunchEvent bundleID];
-      v23[0] = v10;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = v10;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
       v14 = [v11 initWithBundleId:bundleID2 itunesGenreIds:v13];
 
       v15 = [ATXModeEvent alloc];
@@ -131,8 +131,6 @@ void __48__ATXAppLaunchEventProvider_eventsFromPublisher__block_invoke_2(uint64_
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

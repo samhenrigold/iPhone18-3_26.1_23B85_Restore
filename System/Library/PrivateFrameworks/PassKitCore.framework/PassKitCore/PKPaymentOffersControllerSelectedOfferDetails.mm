@@ -62,10 +62,10 @@
     goto LABEL_11;
   }
 
-  v17 = [(NSString *)v14 isEqualToString:v15];
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
 
   v18 = v10;
-  if (v17)
+  if (isEqualToString)
   {
 LABEL_7:
     selectedOfferHistory = self->_selectedOfferHistory;
@@ -134,7 +134,7 @@ LABEL_18:
       goto LABEL_35;
     }
 
-    v25 = [(NSString *)v22 isEqualToString:v23];
+    v25 = objc_msgSend_isEqualToString_(v22);
 
     if (!v25)
     {
@@ -268,9 +268,9 @@ uint64_t __105__PKPaymentOffersControllerSelectedOfferDetails_hasSelectedOtherOf
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v9 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (!v7)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v8 = self->_selectedPassUniqueID;
@@ -356,9 +356,9 @@ LABEL_9:
 
         if (v15 && v16)
         {
-          v18 = [(NSString *)v15 isEqualToString:v16];
+          isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-          if (!v18)
+          if (!isEqualToString)
           {
             goto LABEL_29;
           }

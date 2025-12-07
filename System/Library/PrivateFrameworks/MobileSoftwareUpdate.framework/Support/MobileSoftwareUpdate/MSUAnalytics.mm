@@ -87,7 +87,7 @@
 
       else
       {
-        logfunction(", 1, @"Unable to determine AutoUpdate status\n"", v19, v20, v21, v22, v23, v54);
+        logfunction(", 1, @"Unable to determine AutoUpdate status\n"", v19, v20, v21, v22, v23);
         v31 = @"UNKNOWN";
       }
 
@@ -97,7 +97,7 @@
 
     else
     {
-      logfunction(", 1, @"Unable to determine AutoUpdate status\n"", v12, v13, v14, v15, v16, v54);
+      logfunction(", 1, @"Unable to determine AutoUpdate status\n"", v12, v13, v14, v15, v16);
       [dictionaryCopy setObject:@"UNKNOWN" forKeyedSubscript:@"AutoUpdate"];
     }
 
@@ -129,7 +129,7 @@
 
       else
       {
-        logfunction(", 1, @"Unable to determine AutoDownload status\n"", v40, v41, v42, v43, v44, v55);
+        logfunction(", 1, @"Unable to determine AutoDownload status\n"", v40, v41, v42, v43, v44);
         v52 = @"UNKNOWN";
       }
 
@@ -139,7 +139,7 @@
 
     else
     {
-      logfunction(", 1, @"Default not found. AutoDownload is enabled\n"", v33, v34, v35, v36, v37, v55);
+      logfunction(", 1, @"Default not found. AutoDownload is enabled\n"", v33, v34, v35, v36, v37);
       [dictionaryCopy setObject:@"ON" forKeyedSubscript:@"AutoDownload"];
     }
   }
@@ -160,12 +160,12 @@
 
   if (dictionaryCopy)
   {
-    logfunction(", 1, @"Attempting to determine purgable space on system\n"", v6, v7, v8, v9, v10, v19);
-    v21 = 0;
-    v11 = purgeable_data_space(4, &v21);
-    if (v21)
+    logfunction(", 1, @"Attempting to determine purgable space on system\n"", v6, v7, v8, v9, v10);
+    v19 = 0;
+    v11 = purgeable_data_space(4, &v19);
+    if (v19)
     {
-      logfunction(", 1, @"Failed to get available purgable space.\n"", v12, v13, v14, v15, v16, v20);
+      logfunction(", 1, @"Failed to get available purgable space.\n"", v12, v13, v14, v15, v16);
       [dictionaryCopy setObject:@"UNKNOWN" forKeyedSubscript:@"purgeableSpaceMB"];
     }
 
@@ -290,36 +290,47 @@
 - (id)copySerialNumber
 {
   v2 = MGCopyAnswer();
-  if (!v2)
+  if (v2)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      logfunction(", 1, @"Successfully read serial number : %@\n"", v3, v4, v5, v6, v7, v2);
+      return v2;
+    }
+
+    v8 = @"YES";
+  }
+
+  else
   {
     v8 = @"NO";
-LABEL_6:
-    objc_opt_class();
-    objc_opt_isKindOfClass();
-    logfunction(", 1, @"Unable to determine serial number: ValidObject: %@ isString: %@\n"", v9, v10, v11, v12, v13, v8);
-
-    return 0;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    v8 = @"YES";
-    goto LABEL_6;
+    v14 = @"YES";
   }
 
-  logfunction(", 1, @"Successfully read serial number : %@\n"", v3, v4, v5, v6, v7, v2);
-  return v2;
+  else
+  {
+    v14 = @"NO";
+  }
+
+  logfunction(", 1, @"Unable to determine serial number: ValidObject: %@ isString: %@\n"", v9, v10, v11, v12, v13, v8, v14);
+
+  return 0;
 }
 
 - (id)copyAppleConnectPersonID
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__1;
-  v22 = __Block_byref_object_dispose__1;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__1;
+  v21 = __Block_byref_object_dispose__1;
+  v22 = 0;
   v3 = dlopen("/usr/lib/libSoftwareUpdateSSO.dylib", 2);
   v4 = v3;
   if (v3)
@@ -335,14 +346,14 @@ LABEL_6:
         block[1] = 3221225472;
         block[2] = __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke;
         block[3] = &unk_100049178;
-        block[4] = &v18;
+        block[4] = &v17;
         block[5] = v5;
         dispatch_sync(sSOQueue, block);
       }
 
       else
       {
-        logfunction(", 1, @"AppleConnect framework unavailable. Unable to read personID\n"", v7, v8, v9, v10, v11, v16);
+        logfunction(", 1, @"AppleConnect framework unavailable. Unable to read personID\n"", v7, v8, v9, v10, v11);
       }
     }
 
@@ -358,8 +369,8 @@ LABEL_6:
     NSLog(@"Failed to open SoftwareUpdateSSO dylib with error: %s", v13);
   }
 
-  v14 = v19[5];
-  _Block_object_dispose(&v18, 8);
+  v14 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   return v14;
 }
@@ -425,7 +436,7 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
 
   else
   {
-    logfunction(", 1, @"Failed to allocate downloadInfo dict for additional preflight data\n"", v4, v5, v6, v7, v8, v19);
+    logfunction(", 1, @"Failed to allocate downloadInfo dict for additional preflight data\n"", v4, v5, v6, v7, v8);
   }
 
   return v9;
@@ -443,12 +454,12 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
     {
       if ([(MSUAnalytics *)self updatePhase]== 5)
       {
-        logfunction(", 1, @"Skipping collection of personID for updateFinished\n"", v10, v11, v12, v13, v14, v39);
+        logfunction(", 1, @"Skipping collection of personID for updateFinished\n"", v10, v11, v12, v13, v14);
       }
 
       else
       {
-        logfunction(", 1, @"Attempting to read personID\n"", v10, v11, v12, v13, v14, v39);
+        logfunction(", 1, @"Attempting to read personID\n"", v10, v11, v12, v13, v14);
         copyAppleConnectPersonID = [(MSUAnalytics *)self copyAppleConnectPersonID];
         if (copyAppleConnectPersonID)
         {
@@ -458,11 +469,11 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
 
         else
         {
-          logfunction(", 1, @"Failed to read personID\n"", v20, v21, v22, v23, v24, v41);
+          logfunction(", 1, @"Failed to read personID\n"", v20, v21, v22, v23, v24);
         }
       }
 
-      logfunction(", 1, @"Attempting to read serial number\n"", v15, v16, v17, v18, v19, v40);
+      logfunction(", 1, @"Attempting to read serial number\n"", v15, v16, v17, v18, v19);
       copySerialNumber = [(MSUAnalytics *)self copySerialNumber];
       if (copySerialNumber)
       {
@@ -472,7 +483,7 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
 
       else
       {
-        logfunction(", 1, @"Failed to read serial number\n"", v26, v27, v28, v29, v30, v42);
+        logfunction(", 1, @"Failed to read serial number\n"", v26, v27, v28, v29, v30);
       }
     }
 
@@ -483,7 +494,7 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
 
   else
   {
-    logfunction(", 1, @"Failed to allocate downloadInfo dict for additional generic data\n"", v4, v5, v6, v7, v8, v39);
+    logfunction(", 1, @"Failed to allocate downloadInfo dict for additional generic data\n"", v4, v5, v6, v7, v8);
   }
 
   return v9;
@@ -512,39 +523,37 @@ void __40__MSUAnalytics_copyAppleConnectPersonID__block_invoke(uint64_t a1)
   return v4;
 }
 
-int *__33__MSUAnalytics_copyAnalyticsData__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+int *__33__MSUAnalytics_copyAnalyticsData__block_invoke(uint64_t a1)
 {
   if (![*(a1 + 32) updatePhase] || objc_msgSend(*(a1 + 32), "updatePhase") >= 6)
   {
-    v15 = @"Invalid phase set in MSUAnalytics object\n";
+    v7 = @"Invalid phase set in MSUAnalytics object\n";
 LABEL_4:
 
-    return logfunction("", 1, v15, v10, v11, v12, v13, v14, a9);
+    return logfunction("", 1, v7, v2, v3, v4, v5, v6);
   }
 
-  v17 = [*(a1 + 32) getStringForPhase];
-  logfunction(", 1, @"Attempting to gather analytics data for phase : %@\n"", v18, v19, v20, v21, v22, v17);
+  v9 = [*(a1 + 32) getStringForPhase];
+  logfunction(", 1, @"Attempting to gather analytics data for phase : %@\n"", v10, v11, v12, v13, v14, v9);
 
-  v23 = [*(a1 + 32) updatePhase];
-  if (v23 - 3 >= 3)
+  v15 = [*(a1 + 32) updatePhase];
+  if (v15 - 3 >= 3)
   {
-    if (v23 != 2)
+    if (v15 != 2)
     {
-      v15 = @"Copying data for this phase is currently unsupported.\n";
+      v7 = @"Copying data for this phase is currently unsupported.\n";
       goto LABEL_4;
     }
 
-    v24 = [*(a1 + 32) copyAnalyticsDataForPreflight];
+    v16 = [*(a1 + 32) copyAnalyticsDataForPreflight];
   }
 
   else
   {
-    v24 = [*(a1 + 32) copyGenericAnalyticsData];
+    v16 = [*(a1 + 32) copyGenericAnalyticsData];
   }
 
-  v25 = *(*(a1 + 40) + 8);
-  v26 = *(v25 + 40);
-  *(v25 + 40) = v24;
+  *(*(*(a1 + 40) + 8) + 40) = v16;
 
   return _objc_release_x1();
 }

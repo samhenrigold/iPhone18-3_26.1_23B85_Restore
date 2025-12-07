@@ -92,7 +92,7 @@
 
 - (void)checkNetworkChange
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   wifiManager = [(HMDNetworkObserver *)self wifiManager];
   currentNetworkAssociation = [wifiManager currentNetworkAssociation];
 
@@ -107,19 +107,19 @@
     bSSID = [currentNetworkAssociation BSSID];
     gatewayIPAddress = [currentNetworkAssociation gatewayIPAddress];
     gatewayMACAddress = [currentNetworkAssociation gatewayMACAddress];
-    v29 = 138544642;
-    v30 = v8;
-    v31 = 2112;
-    v32 = sSID;
-    v33 = 2112;
-    v34 = mACAddress;
-    v35 = 2112;
-    v36 = bSSID;
-    v37 = 2112;
-    v38 = gatewayIPAddress;
-    v39 = 2112;
-    v40 = gatewayMACAddress;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Network Change Detected.  New Network SSID %@ Local MAC %@, BSSID %@, gatewayIP %@,  gatewayMac %@", &v29, 0x3Eu);
+    v28 = 138544642;
+    v29 = v8;
+    v30 = 2112;
+    v31 = sSID;
+    v32 = 2112;
+    v33 = mACAddress;
+    v34 = 2112;
+    v35 = bSSID;
+    v36 = 2112;
+    v37 = gatewayIPAddress;
+    v38 = 2112;
+    v39 = gatewayMACAddress;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Network Change Detected.  New Network SSID %@ Local MAC %@, BSSID %@, gatewayIP %@,  gatewayMac %@", &v28, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -169,8 +169,6 @@
       os_unfair_lock_unlock(&selfCopy->_networkAssociationLock);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteCountersAfterDate:(id)date
@@ -653,7 +651,7 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
 
 - (void)stop
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_started)
   {
     v3 = objc_autoreleasePoolPush();
@@ -662,9 +660,9 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -679,13 +677,11 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
 
     self->_started = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_started)
   {
     v3 = objc_autoreleasePoolPush();
@@ -694,9 +690,9 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -718,8 +714,6 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
     dailyScheduler = [(HMDNetworkObserver *)selfCopy dailyScheduler];
     [dailyScheduler registerDailyTaskRunner:selfCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDNetworkObserver)initWithLogEventDispatcher:(id)dispatcher countersManager:(id)manager dailyScheduler:(id)scheduler currentHomeDataSource:(id)source dateProvider:(id)provider wifiManager:(id)wifiManager notificationCenter:(id)center changeDebounceTimer:(id)self0 tickBlock:(id)self1
@@ -802,14 +796,12 @@ void __52__HMDNetworkObserver__keyOfLargestCountInHistogram___block_invoke(uint6
 
 void __43__HMDNetworkObserver_supportedEventClasses__block_invoke()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
   v1 = supportedEventClasses_supportedEventClasses_81974;
   supportedEventClasses_supportedEventClasses_81974 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

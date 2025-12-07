@@ -32,7 +32,7 @@
 
   if (tileCopy)
   {
-    [tileCopy frameRect];
+    objc_msgSend_frameRect(tileCopy);
   }
 
   else

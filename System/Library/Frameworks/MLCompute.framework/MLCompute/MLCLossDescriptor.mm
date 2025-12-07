@@ -1,4 +1,8 @@
 @interface MLCLossDescriptor
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType;
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight;
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount;
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount epsilon:(float)epsilon delta:(float)delta;
 - (BOOL)isEqual:(id)equal;
 - (MLCLossDescriptor)initWithLossDescriptorWithType:(int)type reductionType:(int)reductionType weight:(float)weight labelSmoothing:(float)smoothing classCount:(unint64_t)count epsilon:(float)epsilon delta:(float)delta;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -7,6 +11,56 @@
 @end
 
 @implementation MLCLossDescriptor
+
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType
+{
+  v4 = *&reductionType;
+  v5 = *&lossType;
+  v6 = [self alloc];
+  LODWORD(v7) = 1.0;
+  v8 = [v6 initWithLossDescriptorWithType:v5 reductionType:v4 weight:v7];
+
+  return v8;
+}
+
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight
+{
+  v6 = *&reductionType;
+  v7 = *&lossType;
+  v8 = [self alloc];
+  *&v9 = weight;
+  v10 = [v8 initWithLossDescriptorWithType:v7 reductionType:v6 weight:v9];
+
+  return v10;
+}
+
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount
+{
+  v10 = *&reductionType;
+  v11 = *&lossType;
+  v12 = [self alloc];
+  LODWORD(v13) = 869711765;
+  LODWORD(v14) = 1.0;
+  *&v15 = weight;
+  *&v16 = labelSmoothing;
+  v17 = [v12 initWithLossDescriptorWithType:v11 reductionType:v10 weight:classCount labelSmoothing:v15 classCount:v16 epsilon:v13 delta:v14];
+
+  return v17;
+}
+
++ (MLCLossDescriptor)descriptorWithType:(MLCLossType)lossType reductionType:(MLCReductionType)reductionType weight:(float)weight labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount epsilon:(float)epsilon delta:(float)delta
+{
+  v14 = *&reductionType;
+  v15 = *&lossType;
+  v16 = [self alloc];
+  *&v17 = weight;
+  *&v18 = labelSmoothing;
+  *&v19 = epsilon;
+  *&v20 = delta;
+  v21 = [v16 initWithLossDescriptorWithType:v15 reductionType:v14 weight:classCount labelSmoothing:v17 classCount:v18 epsilon:v19 delta:v20];
+
+  return v21;
+}
 
 - (MLCLossDescriptor)initWithLossDescriptorWithType:(int)type reductionType:(int)reductionType weight:(float)weight labelSmoothing:(float)smoothing classCount:(unint64_t)count epsilon:(float)epsilon delta:(float)delta
 {
@@ -64,29 +118,7 @@
   {
     v5 = equalCopy;
     lossType = [v5 lossType];
-    if (lossType != [(MLCLossDescriptor *)self lossType])
-    {
-      goto LABEL_10;
-    }
-
-    reductionType = [v5 reductionType];
-    if (reductionType != [(MLCLossDescriptor *)self reductionType])
-    {
-      goto LABEL_10;
-    }
-
-    [v5 weight];
-    v9 = v8;
-    [(MLCLossDescriptor *)self weight];
-    if (v9 != v10)
-    {
-      goto LABEL_10;
-    }
-
-    [v5 labelSmoothing];
-    v12 = v11;
-    [(MLCLossDescriptor *)self labelSmoothing];
-    if (v12 == v13 && (v14 = [v5 classCount], v14 == -[MLCLossDescriptor classCount](self, "classCount")) && (objc_msgSend(v5, "epsilon"), v16 = v15, -[MLCLossDescriptor epsilon](self, "epsilon"), v16 == v17))
+    if (lossType == -[MLCLossDescriptor lossType](self, "lossType") && (v7 = [v5 reductionType], v7 == -[MLCLossDescriptor reductionType](self, "reductionType")) && (objc_msgSend(v5, "weight"), v9 = v8, -[MLCLossDescriptor weight](self, "weight"), v9 == v10) && (objc_msgSend(v5, "labelSmoothing"), v12 = v11, -[MLCLossDescriptor labelSmoothing](self, "labelSmoothing"), v12 == v13) && (v14 = objc_msgSend(v5, "classCount"), v14 == -[MLCLossDescriptor classCount](self, "classCount")) && (objc_msgSend(v5, "epsilon"), v16 = v15, -[MLCLossDescriptor epsilon](self, "epsilon"), v16 == v17))
     {
       [v5 delta];
       v19 = v18;
@@ -96,7 +128,6 @@
 
     else
     {
-LABEL_10:
       v21 = 0;
     }
   }
@@ -159,15 +190,13 @@ LABEL_10:
 
 - (void)initWithLossDescriptorWithType:(NSObject *)a3 reductionType:weight:labelSmoothing:classCount:epsilon:delta:.cold.1(const char *a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: reduction type is not supported, using MLCReductionTypeNone instead = %d", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: reduction type is not supported, using MLCReductionTypeNone instead = %d", &v6, 0x12u);
 }
 
 @end

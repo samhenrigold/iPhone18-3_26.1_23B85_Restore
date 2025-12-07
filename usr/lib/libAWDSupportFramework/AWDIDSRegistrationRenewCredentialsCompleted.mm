@@ -93,14 +93,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    renewResult = self->_renewResult;
     PBDataWriterWriteInt32Field();
   }
 
@@ -111,7 +109,6 @@
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
 
     PBDataWriterWriteInt64Field();
   }
@@ -179,7 +176,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 36);
     if ((has & 2) != 0)
     {
       if ((*(equal + 36) & 2) == 0 || self->_timestamp != *(equal + 2))

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsRequestType:(id)type;
 - (int)requestType;
 - (unint64_t)hash;
@@ -38,6 +39,29 @@
   }
 }
 
+- (id)requestTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"response";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"PBUNSET";
+  }
+
+  return v4;
+}
+
 - (int)StringAsRequestType:(id)type
 {
   typeCopy = type;
@@ -58,7 +82,6 @@
 {
   *&self->_has &= ~1u;
   self->_requestType = 0;
-  response = self->_response;
   self->_response = 0;
   MEMORY[0x1EEE66BB8]();
 }
@@ -162,7 +185,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_requestType != *(equalCopy + 2))
@@ -174,24 +196,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   response = self->_response;
   if (response | *(equalCopy + 2))
   {
-    v7 = [(NSPPrivacyProxyGetQuotaResponse *)response isEqual:?];
+    v6 = [(NSPPrivacyProxyGetQuotaResponse *)response isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

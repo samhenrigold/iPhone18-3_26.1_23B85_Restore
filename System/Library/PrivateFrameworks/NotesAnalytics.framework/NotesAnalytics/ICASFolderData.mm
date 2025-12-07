@@ -32,8 +32,8 @@
 
 - (id)toDict
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v25[0] = @"folderID";
+  v25[6] = *MEMORY[0x277D85DE8];
+  v24[0] = @"folderID";
   folderID = [(ICASFolderData *)self folderID];
   if (folderID)
   {
@@ -45,9 +45,9 @@
     folderID2 = objc_opt_new();
   }
 
-  v23 = folderID2;
-  v26[0] = folderID2;
-  v25[1] = @"folderType";
+  v22 = folderID2;
+  v25[0] = folderID2;
+  v24[1] = @"folderType";
   folderType = [(ICASFolderData *)self folderType];
   if (folderType)
   {
@@ -60,8 +60,8 @@
   }
 
   v5 = folderType2;
-  v26[1] = folderType2;
-  v25[2] = @"folderLabelType";
+  v25[1] = folderType2;
+  v24[2] = @"folderLabelType";
   folderLabelType = [(ICASFolderData *)self folderLabelType];
   if (folderLabelType)
   {
@@ -74,8 +74,8 @@
   }
 
   v8 = folderLabelType2;
-  v26[2] = folderLabelType2;
-  v25[3] = @"subFolderLevel";
+  v25[2] = folderLabelType2;
+  v24[3] = @"subFolderLevel";
   subFolderLevel = [(ICASFolderData *)self subFolderLevel];
   if (subFolderLevel)
   {
@@ -88,8 +88,8 @@
   }
 
   v11 = subFolderLevel2;
-  v26[3] = subFolderLevel2;
-  v25[4] = @"collaborationStatus";
+  v25[3] = subFolderLevel2;
+  v24[4] = @"collaborationStatus";
   collaborationStatus = [(ICASFolderData *)self collaborationStatus];
   if (collaborationStatus)
   {
@@ -102,8 +102,8 @@
   }
 
   v14 = collaborationStatus2;
-  v26[4] = collaborationStatus2;
-  v25[5] = @"collaborationType";
+  v25[4] = collaborationStatus2;
+  v24[5] = @"collaborationType";
   collaborationType = [(ICASFolderData *)self collaborationType];
   if (collaborationType)
   {
@@ -116,10 +116,8 @@
   }
 
   v17 = collaborationType2;
-  v26[5] = collaborationType2;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[5] = collaborationType2;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
 
   return v18;
 }

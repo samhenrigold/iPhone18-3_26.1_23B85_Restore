@@ -54,7 +54,7 @@
 {
   if ([(JFXFaceTrackingPlaybackProperties *)self canTrackFace])
   {
-    [(JFXFaceTrackingPlaybackProperties *)self mediaTimeRange];
+    objc_msgSend_mediaTimeRange(self);
     v9 = *time;
     v7 = CMTimeRangeContainsTime(&range, &v9);
     if (v7)
@@ -65,7 +65,7 @@
 
   else
   {
-    [(JFXFaceTrackingPlaybackProperties *)self mediaTimeRange];
+    objc_msgSend_mediaTimeRange(self);
     v9 = *time;
     LOBYTE(v7) = CMTimeRangeContainsTime(&range, &v9) != 0;
   }

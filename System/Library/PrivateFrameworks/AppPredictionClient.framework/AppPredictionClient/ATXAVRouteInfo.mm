@@ -86,21 +86,22 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXAVRouteInfo *)self initWithProto:v10];
+      [(ATXAVRouteInfo *)self initWithProto:v11];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  deviceName = [v5 deviceName];
-  deviceID = [v5 deviceID];
-  isExternalRoute = [v5 isExternalRoute];
+  v6 = protoCopy;
+  deviceName = [v6 deviceName];
+  deviceID = [v6 deviceID];
+  isExternalRoute = [v6 isExternalRoute];
 
   self = [(ATXAVRouteInfo *)self initWithDeviceName:deviceName deviceID:deviceID isExternalRoute:isExternalRoute];
   selfCopy = self;

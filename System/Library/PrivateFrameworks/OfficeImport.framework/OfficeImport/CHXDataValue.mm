@@ -13,7 +13,7 @@
   oAXChartNamespace = [drawingState OAXChartNamespace];
   v9 = [EXString readStringWithAsciiCodeFromXmlStringElement:OCXFindRequiredChild(element, oAXChartNamespace, "v")];
 
-  EDValue::makeWithNSString(v9, &v12);
+  EDValue::makeWithNSString(&v12.type, v9);
   v10 = [self chdDataValueFromXmlDataValueElement:element state:stateCopy];
   [v10 setValue:&v12];
   EDValue::~EDValue(&v12);
@@ -28,13 +28,13 @@
   oAXChartNamespace = [drawingState OAXChartNamespace];
   v9 = [EXString readStringWithAsciiCodeFromXmlStringElement:OCXFindRequiredChild(element, oAXChartNamespace, "v")];
 
-  doubleValue = [v9 doubleValue];
-  EDValue::makeWithNumber(doubleValue, v11, &v14);
-  v12 = [self chdDataValueFromXmlDataValueElement:element state:stateCopy];
-  [v12 setValue:&v14];
-  EDValue::~EDValue(&v14);
+  [v9 doubleValue];
+  EDValue::makeWithNumber(&v13.type, v10);
+  v11 = [self chdDataValueFromXmlDataValueElement:element state:stateCopy];
+  [v11 setValue:&v13];
+  EDValue::~EDValue(&v13);
 
-  return v12;
+  return v11;
 }
 
 + (id)chdDataValueFromXmlDataValueElement:(_xmlNode *)element state:(id)state

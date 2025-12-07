@@ -64,7 +64,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     if (self->_numberOfOutputs)
     {
@@ -78,7 +78,7 @@
     }
   }
 
-  else if ([key isEqualToString:0x1F21AAB10])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     disparityOutput = [(BWStillImageDisparitySplitterNode *)self disparityOutput];
     if (!-[BWNodeOutput attachedMediaKeyDrivenByInputAttachedMediaKey:inputIndex:](disparityOutput, "attachedMediaKeyDrivenByInputAttachedMediaKey:inputIndex:", key, [input index]))
@@ -198,17 +198,17 @@
     }
 
     captureFlags = [v6 captureFlags];
-    v21 = captureType != 3 && captureType != 10;
+    v24 = captureType != 3 && captureType != 10;
     if ((captureFlags & 0x20000) == 0)
     {
-      v21 = 1;
+      v24 = 1;
     }
 
-    if (((v21 | v14) & 1) == 0)
+    if (((v24 | v14) & 1) == 0)
     {
-      MEMORY[0x1EEE9AC00](captureFlags);
-      outputs = &v29;
-      if ((v27 & ~v16 | v18))
+      MEMORY[0x1EEE9AC00](captureFlags, v20, v21, v22);
+      outputs = &v32;
+      if ((v30 & ~v16 | v18))
       {
         disparityOutput = [(BWStillImageDisparitySplitterNode *)self disparityOutput];
       }
@@ -218,10 +218,10 @@
         disparityOutput = [(BWStillImageDisparitySplitterNode *)self processedOutput];
       }
 
-      v24 = 0;
-      v29 = disparityOutput;
+      v27 = 0;
+      v32 = disparityOutput;
 LABEL_36:
-      [outputs[v24] emitSampleBuffer:{buffer, v29}];
+      [outputs[v27] emitSampleBuffer:{buffer, v32}];
       return;
     }
 
@@ -231,30 +231,30 @@ LABEL_36:
       if (numberOfOutputs)
       {
         outputs = self->_outputs;
-        v24 = numberOfOutputs - 1;
+        v27 = numberOfOutputs - 1;
         if (numberOfOutputs != 1)
         {
-          v25 = 0;
+          v28 = 0;
           do
           {
             sampleBufferOut = 0;
             BWCMSampleBufferCreateCopyIncludingMetadata(buffer, &sampleBufferOut);
-            v26 = outputs[v25];
-            if (v26 != [(BWStillImageDisparitySplitterNode *)self disparityOutput])
+            v29 = outputs[v28];
+            if (v29 != [(BWStillImageDisparitySplitterNode *)self disparityOutput])
             {
               BWSampleBufferRemoveAttachedMedia(sampleBufferOut, 0x1F21AAB10);
             }
 
-            [outputs[v25] emitSampleBuffer:sampleBufferOut];
+            [outputs[v28] emitSampleBuffer:sampleBufferOut];
             if (sampleBufferOut)
             {
               CFRelease(sampleBufferOut);
             }
 
-            ++v25;
+            ++v28;
           }
 
-          while (v24 != v25);
+          while (v27 != v28);
         }
 
         goto LABEL_36;

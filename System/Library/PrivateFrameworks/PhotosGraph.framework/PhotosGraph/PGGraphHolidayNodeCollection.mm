@@ -162,16 +162,14 @@ void __44__PGGraphHolidayNodeCollection_holidayNames__block_invoke(uint64_t a1, 
 
 + (id)holidayNodesWithName:(id)name inGraph:(id)graph
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = MEMORY[0x277CBEA60];
   graphCopy = graph;
   nameCopy2 = name;
   v9 = [v6 arrayWithObjects:&nameCopy count:1];
 
-  v10 = [self holidayNodesWithNames:v9 inGraph:{graphCopy, nameCopy, v14}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [self holidayNodesWithNames:v9 inGraph:{graphCopy, nameCopy, v13}];
 
   return v10;
 }

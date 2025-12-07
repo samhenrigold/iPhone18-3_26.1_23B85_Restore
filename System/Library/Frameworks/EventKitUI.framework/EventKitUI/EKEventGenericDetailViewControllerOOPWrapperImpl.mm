@@ -24,23 +24,24 @@
   eventCopy = event;
   actionsCopy = actions;
   buttonActionsCopy = buttonActions;
-  v20.receiver = self;
-  v20.super_class = EKEventGenericDetailViewControllerOOPWrapperImpl;
-  v17 = [(EKEventGenericDetailViewControllerOOPWrapperImpl *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = EKEventGenericDetailViewControllerOOPWrapperImpl;
+  v17 = [(EKEventGenericDetailViewControllerOOPWrapperImpl *)&v22 init];
+  v19 = v17;
   if (v17)
   {
-    EKUILogInitIfNeeded();
-    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v17 setTitle:titleCopy];
-    objc_storeStrong(&v17->_viewID, d);
-    objc_storeStrong(&v17->_event, event);
-    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v17 setLeftBarButtonActions:actionsCopy];
-    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v17 setRightBarButtonActions:buttonActionsCopy];
-    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v17 setBottomStatusButtonActions:MEMORY[0x1E695E0F0]];
-    v18 = [[_TtC10EventKitUI41EKEventGenericDetailViewControllerOOPImpl alloc] initWithHostViewID:v17->_viewID];
-    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v17 setVc:v18];
+    EKUILogInitIfNeeded(v17, v18);
+    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v19 setTitle:titleCopy];
+    objc_storeStrong(&v19->_viewID, d);
+    objc_storeStrong(&v19->_event, event);
+    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v19 setLeftBarButtonActions:actionsCopy];
+    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v19 setRightBarButtonActions:buttonActionsCopy];
+    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v19 setBottomStatusButtonActions:MEMORY[0x1E695E0F0]];
+    v20 = [[_TtC10EventKitUI41EKEventGenericDetailViewControllerOOPImpl alloc] initWithHostViewID:v19->_viewID];
+    [(EKEventGenericDetailViewControllerOOPWrapperImpl *)v19 setVc:v20];
   }
 
-  return v17;
+  return v19;
 }
 
 - (void)viewDidLoad

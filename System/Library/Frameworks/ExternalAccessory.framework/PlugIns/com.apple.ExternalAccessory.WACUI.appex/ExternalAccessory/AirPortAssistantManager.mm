@@ -1,6 +1,7 @@
 @interface AirPortAssistantManager
 - (AirPortAssistantManager)init;
 - (AirPortAssistantManagerDelegate)delegate;
+- (void)airPortAssistantComplete:(id)complete result:(int)result context:(id)context animated:(BOOL)animated;
 - (void)startSearchingForUnconfiguredAccessories;
 - (void)stopSearchingForUnconfiguredAccessories;
 - (void)wacDevicesAdded:(id)added andWACDevicesRemoved:(id)removed withController:(id)controller;
@@ -108,6 +109,23 @@ LABEL_13:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained wacDevicesAdded:addedCopy andWACDevicesRemoved:removedCopy];
+}
+
+- (void)airPortAssistantComplete:(id)complete result:(int)result context:(id)context animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = *&result;
+  contextCopy = context;
+  if (self->__debugLog)
+  {
+    NSLog(@"Plugin: Scan Complete, Result: %d", v7);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained airPortAssistantCompleteWithResult:v7 context:contextCopy animated:animatedCopy];
+
+  v10 = objc_loadWeakRetained(&self->_delegate);
+  [v10 updateState:1];
 }
 
 - (AirPortAssistantManagerDelegate)delegate

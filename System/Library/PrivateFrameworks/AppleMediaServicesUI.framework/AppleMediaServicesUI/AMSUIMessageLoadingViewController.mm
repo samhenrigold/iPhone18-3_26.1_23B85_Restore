@@ -12,12 +12,19 @@
 {
   if (message)
   {
-    sub_1BB1DD378();
+    v3 = sub_1BB1DD378();
+    v5 = v4;
   }
 
-  v3 = static MessageLoadingViewController.placeholderStyleLoadingController(message:)();
+  else
+  {
+    v3 = 0;
+    v5 = 0;
+  }
 
-  return v3;
+  v6 = static MessageLoadingViewController.placeholderStyleLoadingController(message:)(v3, v5);
+
+  return v6;
 }
 
 - (void)viewDidLoad

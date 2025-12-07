@@ -104,7 +104,7 @@
   v11 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:drawingCopy];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else

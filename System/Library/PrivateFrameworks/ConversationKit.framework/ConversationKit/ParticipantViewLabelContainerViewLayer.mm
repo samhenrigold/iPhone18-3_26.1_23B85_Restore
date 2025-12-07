@@ -10,7 +10,7 @@
   swift_unknownObjectRetain();
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  return ParticipantViewLabelContainerViewLayer.init(layer:)(&v4);
+  return ParticipantViewLabelContainerViewLayer.init(layer:)(v4);
 }
 
 - (void)layoutSublayers

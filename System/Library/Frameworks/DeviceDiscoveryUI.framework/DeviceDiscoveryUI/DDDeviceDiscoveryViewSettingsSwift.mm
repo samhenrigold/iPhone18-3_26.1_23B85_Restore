@@ -8,7 +8,7 @@
 - (DDDeviceDiscoveryViewSettingsSwift)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DDDeviceDiscoveryViewSettingsSwift();
+  v3.super_class = type metadata accessor for DDDeviceDiscoveryViewSettingsSwift(self, a2);
   return [(DDDeviceDiscoveryViewSettingsSwift *)&v3 init];
 }
 

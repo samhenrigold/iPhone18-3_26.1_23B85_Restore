@@ -5,6 +5,7 @@
 - (unint64_t)globalTraceObjectID;
 - (void)barrierAfterQueueStages:(unint64_t)stages beforeStages:(unint64_t)beforeStages;
 - (void)endEncoding;
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index;
 - (void)insertDebugSignpost:(id)signpost;
 - (void)insertSplit;
 - (void)popDebugGroup;
@@ -101,6 +102,16 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject popDebugGroup];
+}
+
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v6 = *&lastBatch;
+  v7 = *&batch;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject filterCounterRangeWithFirstBatch:v7 lastBatch:v6 filterIndex:v5];
 }
 
 @end

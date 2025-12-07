@@ -181,7 +181,7 @@ LABEL_11:
     }
 
     buf.mChannelLayoutTag = 0;
-    v15 = std::vector<float>::vector[abi:ne200100](&v102.mChannelDescriptions[0].mCoordinates[1], (v7 * v4));
+    v15 = std::vector<float>::vector[abi:ne200100](&v102.mChannelDescriptions[0].mCoordinates[1], (v7 * v4), &buf);
     if (*(this + 1808) == 1 && *(this + 229))
     {
       buf = *ymmword_1DE0D91F0;

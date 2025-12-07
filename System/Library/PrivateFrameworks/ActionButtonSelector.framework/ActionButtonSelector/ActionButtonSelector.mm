@@ -21,9 +21,11 @@ id ABLogger()
 
 uint64_t __ABLogger_block_invoke()
 {
-  ABLogger_logger = os_log_create("com.apple.ActionButtonSelector", "General");
+  v0 = os_log_create("com.apple.ActionButtonSelector", "General");
+  v1 = ABLogger_logger;
+  ABLogger_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_23DE19534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location)
@@ -35,20 +37,20 @@ void sub_23DE19534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ABLoadDeviceSceneModel(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v187[1] = *MEMORY[0x277D85DE8];
-  v168 = a1;
-  v3 = ABDeviceModelResourceName();
-  v169 = [v168 URLForResource:v3 withExtension:@"usdz"];
+  v194[1] = *MEMORY[0x277D85DE8];
+  v175 = a1;
+  v3 = ABDeviceModelResourceName(v175);
+  v176 = [v175 URLForResource:v3 withExtension:@"usdz"];
 
-  if (v169)
+  if (v176)
   {
     v4 = [MEMORY[0x277CCAA00] defaultManager];
-    v5 = [v169 path];
+    v5 = [v176 path];
     v6 = [v4 isReadableFileAtPath:v5];
 
     if (v6)
     {
-      v7 = [objc_alloc(MEMORY[0x277CD7AD0]) initWithURL:v169];
+      v7 = [objc_alloc(MEMORY[0x277CD7AD0]) initWithURL:v176];
       v8 = v7;
       if (!v7)
       {
@@ -68,77 +70,84 @@ LABEL_75:
 
       [v7 loadTextures];
       v9 = MEMORY[0x277CDBAA8];
-      v155 = v8;
+      v162 = v8;
       v10 = [v8 objectAtIndex:0];
-      v165 = [v9 nodeWithMDLObject:v10];
+      v172 = [v9 nodeWithMDLObject:v10];
 
-      if ((ABDeviceIsD23() & 1) == 0 && (ABDeviceIsV5x() & 1) == 0)
+      IsD23 = ABDeviceIsD23(v11);
+      if ((IsD23 & 1) == 0 && (ABDeviceIsV5x(IsD23) & 1) == 0)
       {
-        v11 = ABDegreesToRadians(180.0);
-        SCNMatrix4MakeRotation(&v183, v11, 0.0, 1.0, 0.0);
-        v182 = v183;
-        [v165 setTransform:&v182];
+        v13 = ABDegreesToRadians(180.0);
+        SCNMatrix4MakeRotation(&v190, v13, 0.0, 1.0, 0.0);
+        v189 = v190;
+        [v172 setTransform:&v189];
       }
 
-      v12 = [MEMORY[0x277CDBAA8] node];
-      [v12 addChildNode:v165];
-      v13 = [MEMORY[0x277CDBAF8] scene];
-      v14 = [MEMORY[0x277D75348] blackColor];
-      [v13 setFogColor:v14];
+      v14 = [MEMORY[0x277CDBAA8] node];
+      [v14 addChildNode:v172];
+      v15 = [MEMORY[0x277CDBAF8] scene];
+      v16 = [MEMORY[0x277D75348] blackColor];
+      [v15 setFogColor:v16];
 
-      v160 = [v168 URLForResource:@"Precomputed IBL" withExtension:0];
-      v181 = 0;
-      v159 = [MEMORY[0x277CDBA98] precomputedLightingEnvironmentContentsWithURL:v160 error:&v181];
-      v154 = v181;
-      v15 = [v13 lightingEnvironment];
-      [v15 setContents:v159];
+      v167 = [v175 URLForResource:@"Precomputed IBL" withExtension:0];
+      v188 = 0;
+      v166 = [MEMORY[0x277CDBA98] precomputedLightingEnvironmentContentsWithURL:v167 error:&v188];
+      v161 = v188;
+      v17 = [v15 lightingEnvironment];
+      [v17 setContents:v166];
 
-      v166 = [MEMORY[0x277CDBAA8] node];
-      [v166 setName:@"camera"];
-      v158 = [MEMORY[0x277CDBA48] camera];
-      [v166 setCamera:v158];
-      [v166 setPosition:{0.0, 0.0, 0.0}];
-      v16 = [v13 rootNode];
-      [v16 addChildNode:v166];
+      v173 = [MEMORY[0x277CDBAA8] node];
+      [v173 setName:@"camera"];
+      v165 = [MEMORY[0x277CDBA48] camera];
+      [v173 setCamera:v165];
+      [v173 setPosition:{0.0, 0.0, 0.0}];
+      v18 = [v15 rootNode];
+      [v18 addChildNode:v173];
 
-      v17 = [v13 rootNode];
-      [v17 addChildNode:v12];
+      v19 = [v15 rootNode];
+      [v19 addChildNode:v14];
 
-      v170 = +[ABDeviceSceneModelNodeMap thisDeviceModelNodeIdentifiers];
-      v18 = [v170 actionButton];
-      v19 = [v165 childNodeWithName:v18 recursively:1];
+      v177 = +[ABDeviceSceneModelNodeMap thisDeviceModelNodeIdentifiers];
+      v20 = [v177 actionButton];
+      v21 = [v172 childNodeWithName:v20 recursively:1];
 
-      v167 = [v19 clone];
-      v20 = [v167 name];
-      v21 = [v20 stringByAppendingString:@"_highlight"];
-      [v167 setName:v21];
+      v174 = [v21 clone];
+      v22 = [v174 name];
+      v23 = [v22 stringByAppendingString:@"_highlight"];
+      [v174 setName:v23];
 
-      v22 = [v19 geometry];
-      v23 = [v22 copy];
-      [v167 setGeometry:v23];
+      v24 = [v21 geometry];
+      v25 = [v24 copy];
+      [v174 setGeometry:v25];
 
-      if (ABDeviceIsD23())
+      IsV5x = ABDeviceIsD23(v26);
+      if (IsV5x)
       {
-        v24 = -0.002;
-      }
-
-      else if (ABDeviceIsV5x())
-      {
-        v24 = -0.002;
+        v28 = -0.002;
       }
 
       else
       {
-        v24 = 0.002;
+        IsV5x = ABDeviceIsV5x(IsV5x);
+        if (IsV5x)
+        {
+          v28 = -0.002;
+        }
+
+        else
+        {
+          v28 = 0.002;
+        }
       }
 
-      IsD23 = ABDeviceIsD23();
-      IsV5x = ABDeviceIsV5x();
-      memset(&v182, 0, sizeof(v182));
-      v27 = *"1\b,=";
-      if (((IsV5x | IsD23) & 1) == 0)
+      v29 = ABDeviceIsD23(IsV5x);
+      v30 = v29;
+      v31 = ABDeviceIsV5x(v29);
+      memset(&v189, 0, sizeof(v189));
+      v32 = *"1\b,=";
+      if (((v31 | v30) & 1) == 0)
       {
-        v27 = 0.0;
+        v32 = 0.0;
       }
 
       *&a.m14 = 0;
@@ -148,9 +157,9 @@ LABEL_75:
       *&a.m23 = 0;
       *&a.m31 = 0;
       *&a.m33 = 1065353216;
-      a.m41 = v24;
+      a.m41 = v28;
       a.m42 = 0.0;
-      a.m43 = v27;
+      a.m43 = v32;
       a.m44 = 1.0;
       memset(&b.m22, 0, 40);
       *&b.m12 = 0uLL;
@@ -158,170 +167,171 @@ LABEL_75:
       b.m22 = 1.0;
       b.m33 = 1.01;
       b.m44 = 1.0;
-      SCNMatrix4Mult(&v182, &a, &b);
-      a = v182;
-      [v167 setTransform:&a];
-      v28 = [v19 parentNode];
-      [v28 addChildNode:v167];
+      SCNMatrix4Mult(&v189, &a, &b);
+      a = v189;
+      [v174 setTransform:&a];
+      v33 = [v21 parentNode];
+      [v33 addChildNode:v174];
 
-      v29 = [v170 actionButtonSides];
-      v30 = [v170 actionButton];
-      if ([v29 isEqualToString:v30])
+      v34 = [v177 actionButtonSides];
+      v35 = [v177 actionButton];
+      if ([v34 isEqualToString:v35])
       {
 
-        v162 = 0;
-        v157 = 0;
+        v169 = 0;
+        v164 = 0;
       }
 
       else
       {
-        v31 = [v170 actionButtonSides];
-        v32 = v31 == 0;
+        v36 = [v177 actionButtonSides];
+        v37 = v36 == 0;
 
-        if (v32)
+        if (v37)
         {
-          v162 = 0;
-          v157 = 0;
+          v169 = 0;
+          v164 = 0;
 LABEL_21:
-          v38 = [v170 glassOpaque];
-          v39 = v38 == 0;
+          v43 = [v177 glassOpaque];
+          v44 = v43 == 0;
 
-          if (!v39)
+          if (!v44)
           {
-            v40 = [v170 glassOpaque];
-            v41 = [v12 childNodeWithName:v40 recursively:1];
-            v42 = [v41 geometry];
-            v43 = [v42 firstMaterial];
+            v45 = [v177 glassOpaque];
+            v46 = [v14 childNodeWithName:v45 recursively:1];
+            v47 = [v46 geometry];
+            v48 = [v47 firstMaterial];
 
-            v44 = [v43 ambientOcclusion];
-            [v44 setTextureComponents:15];
+            v49 = [v48 ambientOcclusion];
+            [v49 setTextureComponents:15];
 
-            v45 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.7];
-            v46 = [v43 transparent];
-            [v46 setContents:v45];
+            v50 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.7];
+            v51 = [v48 transparent];
+            [v51 setContents:v50];
 
-            v47 = [v43 metalness];
-            [v47 setContents:&unk_28501F118];
+            v52 = [v48 metalness];
+            [v52 setContents:&unk_28501F118];
 
-            v48 = [v43 roughness];
-            [v48 setContents:&unk_28501F128];
+            v53 = [v48 roughness];
+            [v53 setContents:&unk_28501F128];
           }
 
-          v49 = [v170 frontCamera];
-          v50 = v49 == 0;
+          v54 = [v177 frontCamera];
+          v55 = v54 == 0;
 
-          if (!v50)
+          if (!v55)
           {
-            v51 = [v170 frontCamera];
-            v52 = [v12 childNodeWithName:v51 recursively:1];
-            v53 = [v52 geometry];
-            v54 = [v53 firstMaterial];
-            v55 = [v54 ambientOcclusion];
-            [v55 setTextureComponents:15];
+            v56 = [v177 frontCamera];
+            v57 = [v14 childNodeWithName:v56 recursively:1];
+            v58 = [v57 geometry];
+            v59 = [v58 firstMaterial];
+            v60 = [v59 ambientOcclusion];
+            [v60 setTextureComponents:15];
           }
 
-          v56 = [v170 bodyHoles];
-          v57 = [v12 childNodeWithName:v56 recursively:1];
-          v58 = [v57 geometry];
-          v59 = [v58 firstMaterial];
-          v60 = [v59 ambientOcclusion];
-          [v60 setIntensity:1.8];
-
-          v61 = [v170 muteWall];
-          v62 = [v12 childNodeWithName:v61 recursively:1];
+          v61 = [v177 bodyHoles];
+          v62 = [v14 childNodeWithName:v61 recursively:1];
           v63 = [v62 geometry];
           v64 = [v63 firstMaterial];
           v65 = [v64 ambientOcclusion];
           [v65 setIntensity:1.8];
 
-          v66 = [MEMORY[0x277D75348] colorWithWhite:0.5 alpha:1.0];
-          v67 = ABDeviceIsD23();
-          if (ABDeviceIsV5x())
+          v66 = [v177 muteWall];
+          v67 = [v14 childNodeWithName:v66 recursively:1];
+          v68 = [v67 geometry];
+          v69 = [v68 firstMaterial];
+          v70 = [v69 ambientOcclusion];
+          [v70 setIntensity:1.8];
+
+          v71 = [MEMORY[0x277D75348] colorWithWhite:0.5 alpha:1.0];
+          v72 = ABDeviceIsD23(v71);
+          v73 = v72;
+          if (ABDeviceIsV5x(v72))
           {
-            v68 = [MEMORY[0x277CBEB18] array];
-            v69 = [v170 body];
-            v70 = v69 == 0;
-
-            if (!v70)
-            {
-              v71 = [v170 body];
-              [v68 addObject:v71];
-            }
-
-            v72 = [v170 button1Top];
-            v73 = v72 == 0;
-
-            if (!v73)
-            {
-              v74 = [v170 button1Top];
-              [v68 addObject:v74];
-            }
-
-            v75 = [v170 button2Top];
+            v74 = [MEMORY[0x277CBEB18] array];
+            v75 = [v177 body];
             v76 = v75 == 0;
 
             if (!v76)
             {
-              v77 = [v170 button2Top];
-              [v68 addObject:v77];
+              v77 = [v177 body];
+              [v74 addObject:v77];
             }
 
-            v78 = [v170 buttonSides];
+            v78 = [v177 button1Top];
             v79 = v78 == 0;
 
             if (!v79)
             {
-              v80 = [v170 buttonSides];
-              [v68 addObject:v80];
+              v80 = [v177 button1Top];
+              [v74 addObject:v80];
             }
 
-            v81 = [v170 bodyHoles];
+            v81 = [v177 button2Top];
             v82 = v81 == 0;
 
             if (!v82)
             {
-              v83 = [v170 bodyHoles];
-              [v68 addObject:v83];
+              v83 = [v177 button2Top];
+              [v74 addObject:v83];
             }
 
-            v84 = [v170 muteWall];
+            v84 = [v177 buttonSides];
             v85 = v84 == 0;
 
             if (!v85)
             {
-              v86 = [v170 muteWall];
-              [v68 addObject:v86];
+              v86 = [v177 buttonSides];
+              [v74 addObject:v86];
             }
 
-            v87 = [v170 actionButton];
+            v87 = [v177 bodyHoles];
             v88 = v87 == 0;
 
             if (!v88)
             {
-              v89 = [v170 actionButton];
-              [v68 addObject:v89];
+              v89 = [v177 bodyHoles];
+              [v74 addObject:v89];
             }
 
-            v90 = [v170 actionButtonSides];
+            v90 = [v177 muteWall];
             v91 = v90 == 0;
 
             if (!v91)
             {
-              v92 = [v170 actionButtonSides];
-              [v68 addObject:v92];
+              v92 = [v177 muteWall];
+              [v74 addObject:v92];
             }
 
-            v175[0] = MEMORY[0x277D85DD0];
-            v175[1] = 3221225472;
-            v175[2] = __ABLoadDeviceSceneModel_block_invoke;
-            v175[3] = &unk_278BFFE78;
-            v176 = v12;
-            v177 = v66;
-            v163 = xmmword_23DE28940;
-            v178 = xmmword_23DE28940;
-            [v68 enumerateObjectsUsingBlock:v175];
+            v93 = [v177 actionButton];
+            v94 = v93 == 0;
 
-            if (v67)
+            if (!v94)
+            {
+              v95 = [v177 actionButton];
+              [v74 addObject:v95];
+            }
+
+            v96 = [v177 actionButtonSides];
+            v97 = v96 == 0;
+
+            if (!v97)
+            {
+              v98 = [v177 actionButtonSides];
+              [v74 addObject:v98];
+            }
+
+            v182[0] = MEMORY[0x277D85DD0];
+            v182[1] = 3221225472;
+            v182[2] = __ABLoadDeviceSceneModel_block_invoke;
+            v182[3] = &unk_278BFFE78;
+            v183 = v14;
+            v184 = v71;
+            v170 = xmmword_23DE28940;
+            v185 = xmmword_23DE28940;
+            [v74 enumerateObjectsUsingBlock:v182];
+
+            if (v73)
             {
               goto LABEL_62;
             }
@@ -329,221 +339,223 @@ LABEL_21:
 
           else
           {
-            v163 = xmmword_23DE28930;
-            if (v67)
+            v170 = xmmword_23DE28930;
+            if (v73)
             {
 LABEL_62:
-              v118 = [v170 body];
-              v119 = [v12 childNodeWithName:v118 recursively:1];
-              v120 = [v119 geometry];
-              v156 = [v120 firstMaterial];
+              v124 = [v177 body];
+              v125 = [v14 childNodeWithName:v124 recursively:1];
+              v126 = [v125 geometry];
+              v163 = [v126 firstMaterial];
 
-              if (ABDeviceIsD23())
+              v128 = ABDeviceIsD23(v127);
+              if (v128)
               {
-                v121 = [@"Action_Button_glow_modifier" stringByAppendingString:@"-D23"];
+                v128 = [@"Action_Button_glow_modifier" stringByAppendingString:@"-D23"];
+                v129 = v128;
               }
 
               else
               {
-                v121 = @"Action_Button_glow_modifier";
+                v129 = @"Action_Button_glow_modifier";
               }
 
-              if (ABDeviceIsV5x())
+              if (ABDeviceIsV5x(v128))
               {
-                v122 = [(__CFString *)v121 stringByAppendingString:@"-V53-V54"];
+                v130 = [(__CFString *)v129 stringByAppendingString:@"-V53-V54"];
 
-                v123 = v122;
+                v131 = v130;
               }
 
               else
               {
-                v123 = v121;
+                v131 = v129;
               }
 
-              v153 = v123;
-              v161 = [v168 URLForResource:? withExtension:?];
-              if (v161)
+              v160 = v131;
+              v168 = [v175 URLForResource:? withExtension:?];
+              if (v168)
               {
-                v124 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v161 encoding:4 error:0];
-                if ([v124 length])
+                v132 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v168 encoding:4 error:0];
+                if ([v132 length])
                 {
-                  v186 = *MEMORY[0x277CDBC20];
-                  v187[0] = v124;
-                  v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:&v186 count:1];
-                  [v156 setShaderModifiers:v125];
+                  v193 = *MEMORY[0x277CDBC20];
+                  v194[0] = v132;
+                  v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:&v193 count:1];
+                  [v163 setShaderModifiers:v133];
                 }
               }
 
-              v126 = [MEMORY[0x277CDBA90] material];
-              [v126 setLightingModelName:*MEMORY[0x277CDBBA0]];
-              v127 = [MEMORY[0x277D75348] blackColor];
-              v128 = [v126 diffuse];
-              [v128 setContents:v127];
+              v134 = [MEMORY[0x277CDBA90] material];
+              [v134 setLightingModelName:*MEMORY[0x277CDBBA0]];
+              v135 = [MEMORY[0x277D75348] blackColor];
+              v136 = [v134 diffuse];
+              [v136 setContents:v135];
 
-              v129 = [MEMORY[0x277D755B8] imageNamed:@"Action_Button_glow_normal" inBundle:v168 withConfiguration:0];
-              v130 = [v126 normal];
-              [v130 setContents:v129];
+              v137 = [MEMORY[0x277D755B8] imageNamed:@"Action_Button_glow_normal" inBundle:v175 withConfiguration:0];
+              v138 = [v134 normal];
+              [v138 setContents:v137];
 
-              v131 = [MEMORY[0x277D755B8] imageNamed:@"Action_Button_glow_normal" inBundle:v168 withConfiguration:0];
-              v132 = [v126 roughness];
-              [v132 setContents:v131];
+              v139 = [MEMORY[0x277D755B8] imageNamed:@"Action_Button_glow_normal" inBundle:v175 withConfiguration:0];
+              v140 = [v134 roughness];
+              [v140 setContents:v139];
 
-              v133 = [MEMORY[0x277D75348] colorWithRed:0.0941176471 green:0.0862745098 blue:0.0745098039 alpha:1.0];
-              v134 = [v126 emission];
-              [v134 setContents:v133];
+              v141 = [MEMORY[0x277D75348] colorWithRed:0.0941176471 green:0.0862745098 blue:0.0745098039 alpha:1.0];
+              v142 = [v134 emission];
+              [v142 setContents:v141];
 
-              v135 = [v126 emission];
-              [v135 setIntensity:1.2];
+              v143 = [v134 emission];
+              [v143 setIntensity:1.2];
 
-              v136 = [v126 transparent];
-              [v136 setContents:&unk_28501F138];
+              v144 = [v134 transparent];
+              [v144 setContents:&unk_28501F138];
 
-              if (v126)
+              if (v134)
               {
-                v185 = v126;
-                v137 = [MEMORY[0x277CBEA60] arrayWithObjects:&v185 count:1];
-                v138 = [v167 geometry];
-                [v138 setMaterials:v137];
+                v192 = v134;
+                v145 = [MEMORY[0x277CBEA60] arrayWithObjects:&v192 count:1];
+                v146 = [v174 geometry];
+                [v146 setMaterials:v145];
 
-                v184 = v126;
-                v139 = [MEMORY[0x277CBEA60] arrayWithObjects:&v184 count:1];
-                v140 = [v162 geometry];
-                [v140 setMaterials:v139];
+                v191 = v134;
+                v147 = [MEMORY[0x277CBEA60] arrayWithObjects:&v191 count:1];
+                v148 = [v169 geometry];
+                [v148 setMaterials:v147];
               }
 
-              v141 = v19;
-              v152 = v13;
-              *a2 = v152;
-              v164 = v12;
-              *(a2 + 8) = v164;
-              v142 = [v170 screenOpaque];
-              v143 = [v165 childNodeWithName:v142 recursively:1];
-              *(a2 + 16) = v143;
-              v144 = [v170 body];
-              [v164 childNodeWithName:v144 recursively:1];
-              *(a2 + 24) = v145 = v66;
-              v146 = [v170 muteWall];
-              *(a2 + 32) = [v164 childNodeWithName:v146 recursively:1];
-              v147 = [v170 actionButtonBlocking];
-              *(a2 + 40) = [v164 childNodeWithName:v147 recursively:1];
-              *(a2 + 48) = v141;
-              *(a2 + 56) = v167;
-              *(a2 + 64) = v157;
-              *(a2 + 72) = v162;
-              v148 = *&v182.m21;
-              *(a2 + 80) = *&v182.m11;
-              *(a2 + 96) = v148;
-              v149 = *&v182.m41;
-              *(a2 + 112) = *&v182.m31;
-              *(a2 + 128) = v149;
-              v150 = v157;
+              v149 = v21;
+              v159 = v15;
+              *a2 = v159;
+              v171 = v14;
+              *(a2 + 8) = v171;
+              v150 = [v177 screenOpaque];
+              v151 = [v172 childNodeWithName:v150 recursively:1];
+              *(a2 + 16) = v151;
+              v152 = [v177 body];
+              [v171 childNodeWithName:v152 recursively:1];
+              *(a2 + 24) = v153 = v71;
+              v154 = [v177 muteWall];
+              *(a2 + 32) = [v171 childNodeWithName:v154 recursively:1];
+              v155 = [v177 actionButtonBlocking];
+              *(a2 + 40) = [v171 childNodeWithName:v155 recursively:1];
+              *(a2 + 48) = v149;
+              *(a2 + 56) = v174;
+              *(a2 + 64) = v164;
+              *(a2 + 72) = v169;
+              v156 = *&v189.m21;
+              *(a2 + 80) = *&v189.m11;
+              *(a2 + 96) = v156;
+              v157 = *&v189.m41;
+              *(a2 + 112) = *&v189.m31;
+              *(a2 + 128) = v157;
+              v158 = v164;
 
-              v8 = v155;
+              v8 = v162;
               goto LABEL_75;
             }
           }
 
-          v93 = [MEMORY[0x277CBEB18] array];
-          v94 = [v170 body];
-          v95 = v94 == 0;
-
-          if (!v95)
-          {
-            v96 = [v170 body];
-            [v93 addObject:v96];
-          }
-
-          v97 = [v170 button1Top];
-          v98 = v97 == 0;
-
-          if (!v98)
-          {
-            v99 = [v170 button1Top];
-            [v93 addObject:v99];
-          }
-
-          v100 = [v170 button2Top];
+          v99 = [MEMORY[0x277CBEB18] array];
+          v100 = [v177 body];
           v101 = v100 == 0;
 
           if (!v101)
           {
-            v102 = [v170 button2Top];
-            [v93 addObject:v102];
+            v102 = [v177 body];
+            [v99 addObject:v102];
           }
 
-          v103 = [v170 buttonSides];
+          v103 = [v177 button1Top];
           v104 = v103 == 0;
 
           if (!v104)
           {
-            v105 = [v170 buttonSides];
-            [v93 addObject:v105];
+            v105 = [v177 button1Top];
+            [v99 addObject:v105];
           }
 
-          v106 = [v170 bodyHoles];
+          v106 = [v177 button2Top];
           v107 = v106 == 0;
 
           if (!v107)
           {
-            v108 = [v170 bodyHoles];
-            [v93 addObject:v108];
+            v108 = [v177 button2Top];
+            [v99 addObject:v108];
           }
 
-          v109 = [v170 muteWall];
+          v109 = [v177 buttonSides];
           v110 = v109 == 0;
 
           if (!v110)
           {
-            v111 = [v170 muteWall];
-            [v93 addObject:v111];
+            v111 = [v177 buttonSides];
+            [v99 addObject:v111];
           }
 
-          v112 = [v170 actionButton];
+          v112 = [v177 bodyHoles];
           v113 = v112 == 0;
 
           if (!v113)
           {
-            v114 = [v170 actionButton];
-            [v93 addObject:v114];
+            v114 = [v177 bodyHoles];
+            [v99 addObject:v114];
           }
 
-          v115 = [v170 actionButtonSides];
+          v115 = [v177 muteWall];
           v116 = v115 == 0;
 
           if (!v116)
           {
-            v117 = [v170 actionButtonSides];
-            [v93 addObject:v117];
+            v117 = [v177 muteWall];
+            [v99 addObject:v117];
           }
 
-          v171[0] = MEMORY[0x277D85DD0];
-          v171[1] = 3221225472;
-          v171[2] = __ABLoadDeviceSceneModel_block_invoke_2;
-          v171[3] = &unk_278BFFE78;
-          v172 = v12;
-          v173 = v66;
-          v174 = v163;
-          [v93 enumerateObjectsUsingBlock:v171];
+          v118 = [v177 actionButton];
+          v119 = v118 == 0;
+
+          if (!v119)
+          {
+            v120 = [v177 actionButton];
+            [v99 addObject:v120];
+          }
+
+          v121 = [v177 actionButtonSides];
+          v122 = v121 == 0;
+
+          if (!v122)
+          {
+            v123 = [v177 actionButtonSides];
+            [v99 addObject:v123];
+          }
+
+          v178[0] = MEMORY[0x277D85DD0];
+          v178[1] = 3221225472;
+          v178[2] = __ABLoadDeviceSceneModel_block_invoke_2;
+          v178[3] = &unk_278BFFE78;
+          v179 = v14;
+          v180 = v71;
+          v181 = v170;
+          [v99 enumerateObjectsUsingBlock:v178];
 
           goto LABEL_62;
         }
 
-        v33 = [v170 actionButtonSides];
-        v157 = [v165 childNodeWithName:v33 recursively:1];
+        v38 = [v177 actionButtonSides];
+        v164 = [v172 childNodeWithName:v38 recursively:1];
 
-        v162 = [v157 clone];
-        v34 = [v162 name];
-        v35 = [v34 stringByAppendingString:@"_highlight"];
-        [v162 setName:v35];
+        v169 = [v164 clone];
+        v39 = [v169 name];
+        v40 = [v39 stringByAppendingString:@"_highlight"];
+        [v169 setName:v40];
 
-        v36 = [v157 geometry];
-        v37 = [v36 copy];
-        [v162 setGeometry:v37];
+        v41 = [v164 geometry];
+        v42 = [v41 copy];
+        [v169 setGeometry:v42];
 
-        a = v182;
-        [v162 setTransform:&a];
-        v29 = [v157 parentNode];
-        [v29 addChildNode:v162];
+        a = v189;
+        [v169 setTransform:&a];
+        v34 = [v164 parentNode];
+        [v34 addChildNode:v169];
       }
 
       goto LABEL_21;
@@ -560,13 +572,10 @@ LABEL_62:
   *(a2 + 32) = 0u;
   *a2 = 0u;
 LABEL_76:
-
-  v151 = *MEMORY[0x277D85DE8];
 }
 
-__CFString *ABDeviceModelResourceName()
+__CFString *ABDeviceModelResourceName(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (ABDeviceIsV59_onceToken != -1)
   {
     ABDeviceModelResourceName_cold_1();
@@ -574,60 +583,45 @@ __CFString *ABDeviceModelResourceName()
 
   if (ABDeviceIsV59_sIsDevice)
   {
-    result = @"iPhone15_Pro_NaturalTitanium_v0006-V59";
+    return @"iPhone15_Pro_NaturalTitanium_v0006-V59";
   }
 
-  else
+  if (ABDeviceIsV57_onceToken != -1)
   {
-    if (ABDeviceIsV57_onceToken != -1)
-    {
-      ABDeviceModelResourceName_cold_2();
-    }
-
-    if (ABDeviceIsV57_sIsDevice)
-    {
-      result = @"iPhone15_Pro_NaturalTitanium_v0006-V57";
-    }
-
-    else
-    {
-      if (ABDeviceIsV5x_onceToken != -1)
-      {
-        ABDeviceModelResourceName_cold_3();
-      }
-
-      if (ABDeviceIsV5x_sIsDevice)
-      {
-        result = @"iPhoneXX_White_v0007-V53-V54";
-      }
-
-      else
-      {
-        if (ABDeviceIsD23_onceToken != -1)
-        {
-          ABDeviceModelResourceName_cold_4();
-        }
-
-        if (ABDeviceIsD23_sIsDevice)
-        {
-          result = @"iPhoneXX_White_v0027-D23";
-        }
-
-        else if ((MGIsDeviceOfType() & 1) != 0 || MGIsDeviceOfType())
-        {
-          result = @"iPhone15_Pro_NaturalTitanium_v0005-D83-D84";
-        }
-
-        else
-        {
-          result = @"iPhone15_Pro_NaturalTitanium_v0006-D47-D48-D93-D94";
-        }
-      }
-    }
+    ABDeviceModelResourceName_cold_2();
   }
 
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  if (ABDeviceIsV57_sIsDevice)
+  {
+    return @"iPhone15_Pro_NaturalTitanium_v0006-V57";
+  }
+
+  if (ABDeviceIsV5x_onceToken != -1)
+  {
+    ABDeviceModelResourceName_cold_3();
+  }
+
+  if (ABDeviceIsV5x_sIsDevice)
+  {
+    return @"iPhoneXX_White_v0007-V53-V54";
+  }
+
+  if (ABDeviceIsD23_onceToken != -1)
+  {
+    ABDeviceModelResourceName_cold_4();
+  }
+
+  if (ABDeviceIsD23_sIsDevice)
+  {
+    return @"iPhoneXX_White_v0027-D23";
+  }
+
+  if ((MGIsDeviceOfType() & 1) != 0 || MGIsDeviceOfType())
+  {
+    return @"iPhone15_Pro_NaturalTitanium_v0005-D83-D84";
+  }
+
+  return @"iPhone15_Pro_NaturalTitanium_v0006-D47-D48-D93-D94";
 }
 
 void sub_23DE1AC14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -639,29 +633,29 @@ void sub_23DE1AC14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id carouselItems(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [ABCarouselItem alloc];
         v10 = [v8 image];
         v11 = [v8 canBeHighlighted];
@@ -670,23 +664,23 @@ id carouselItems(void *a1)
         [v2 addObject:v13];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
 
   v14 = [v2 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
-void sub_23DE1CA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, uint64_t a23, uint64_t a24, char a25)
+void sub_23DE1CA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, uint64_t a23, uint64_t a24, ...)
 {
-  objc_destroyWeak((v26 + 48));
-  _Block_object_dispose(&a25, 8);
-  objc_destroyWeak((v25 + 40));
+  va_start(va, a24);
+  objc_destroyWeak((v25 + 48));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v24 + 40));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -848,10 +842,11 @@ void sub_23DE1D8D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 void sub_23DE1F7EC(_Unwind_Exception *a1)
@@ -861,9 +856,9 @@ void sub_23DE1F7EC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23DE207B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23DE207B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -909,80 +904,81 @@ void __ABLoadDeviceSceneModel_block_invoke_2(uint64_t a1, uint64_t a2)
 void ABDeviceSceneButtonModelSetColor(id *a1, void *a2, double a3)
 {
   v5 = a2;
+  v35 = 0.0;
+  v36 = 0.0;
   v33 = 0.0;
   v34 = 0.0;
-  v31 = 0.0;
-  v32 = 0.0;
-  [v5 getRed:&v34 green:&v33 blue:&v32 alpha:&v31];
+  [v5 getRed:&v36 green:&v35 blue:&v34 alpha:&v33];
   v6 = [*a1 geometry];
   v7 = [v6 firstMaterial];
 
-  HIDWORD(v9) = HIDWORD(v33);
-  HIDWORD(v8) = HIDWORD(v34);
-  *&v8 = v34;
-  *&v9 = v33;
-  HIDWORD(v10) = HIDWORD(v32);
-  *&v10 = v32;
+  HIDWORD(v9) = HIDWORD(v35);
+  HIDWORD(v8) = HIDWORD(v36);
+  *&v8 = v36;
+  *&v9 = v35;
+  HIDWORD(v10) = HIDWORD(v34);
+  *&v10 = v34;
   v11 = [MEMORY[0x277CCAE60] valueWithSCNVector3:{v8, v9, v10}];
   [v7 setValue:v11 forKey:@"glowColor"];
 
   [v7 setValue:&unk_28501F148 forKey:@"glowDistance"];
-  v12 = [MEMORY[0x277CCABB0] numberWithDouble:v31 * 0.4];
+  v12 = [MEMORY[0x277CCABB0] numberWithDouble:v33 * 0.4];
   [v7 setValue:v12 forKey:@"glowAmount"];
 
-  if (ABDeviceIsD23())
+  IsD23 = ABDeviceIsD23(v13);
+  if (IsD23)
   {
     [v7 setValue:&unk_28501F158 forKey:@"glowFalloff"];
     [v7 setValue:&unk_28501F168 forKey:@"glowScaleFactor"];
-    [v7 setValue:&unk_28501F178 forKey:@"glowAmount"];
+    IsD23 = [v7 setValue:&unk_28501F178 forKey:@"glowAmount"];
   }
 
-  if (ABDeviceIsV5x())
+  if (ABDeviceIsV5x(IsD23))
   {
     [v7 setValue:&unk_28501F188 forKey:@"glowFalloff"];
     [v7 setValue:&unk_28501F198 forKey:@"glowScaleFactor"];
     [v7 setValue:&unk_28501F1A8 forKey:@"glowAmount"];
   }
 
-  v13 = [a1[1] geometry];
-  v14 = [v13 firstMaterial];
+  v15 = [a1[1] geometry];
+  v16 = [v15 firstMaterial];
 
-  v15 = [v14 emission];
-  [v15 setContents:v5];
+  v17 = [v16 emission];
+  [v17 setContents:v5];
 
-  v16 = [v14 emission];
-  [v16 setIntensity:a3 * 0.35];
+  v18 = [v16 emission];
+  [v18 setIntensity:a3 * 0.35];
 
-  v17 = [a1[2] geometry];
-  v18 = [v17 firstMaterial];
+  v19 = [a1[2] geometry];
+  v20 = [v19 firstMaterial];
 
-  v19 = [v18 emission];
-  [v19 setContents:v5];
+  v21 = [v20 emission];
+  [v21 setContents:v5];
 
-  v20 = [v18 emission];
-  [v20 setIntensity:a3 * 0.35];
+  v22 = [v20 emission];
+  [v22 setIntensity:a3 * 0.35];
 
   if (v5)
   {
-    v21 = [a1[4] geometry];
-    v22 = [v21 firstMaterial];
-    v23 = [v22 emission];
-    [v23 setContents:v5];
+    v23 = [a1[4] geometry];
+    v24 = [v23 firstMaterial];
+    v25 = [v24 emission];
+    [v25 setContents:v5];
 
-    v24 = [a1[6] geometry];
-    v25 = [v24 firstMaterial];
-    v26 = [v25 emission];
-    [v26 setContents:v5];
+    v26 = [a1[6] geometry];
+    v27 = [v26 firstMaterial];
+    v28 = [v27 emission];
+    [v28 setContents:v5];
   }
 
   [a1[4] setOpacity:a3];
   [a1[6] setOpacity:a3];
-  v28 = a3 == 1.0 && v5 != 0;
-  [a1[3] setHidden:v28];
-  [a1[5] setHidden:v28];
-  v30 = a3 == 0.0 && v5 == 0;
-  [a1[4] setHidden:v30];
-  [a1[6] setHidden:v30];
+  v30 = a3 == 1.0 && v5 != 0;
+  [a1[3] setHidden:v30];
+  [a1[5] setHidden:v30];
+  v32 = a3 == 0.0 && v5 == 0;
+  [a1[4] setHidden:v32];
+  [a1[6] setHidden:v32];
 
   __destructor_8_s0_s8_s16_s24_s32_s40_s48(a1);
 }
@@ -994,16 +990,16 @@ void sub_23DE21E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id ABDefaultZoomedOutSceneParams()
+id ABDefaultZoomedOutSceneParams(uint64_t a1)
 {
   if (ABDefaultZoomedOutSceneParams_onceToken != -1)
   {
     ABDefaultZoomedOutSceneParams_cold_1();
   }
 
-  v1 = ABDefaultZoomedOutSceneParams_params;
+  v2 = ABDefaultZoomedOutSceneParams_params;
 
-  return v1;
+  return v2;
 }
 
 void __ABDefaultZoomedOutSceneParams_block_invoke()
@@ -1045,251 +1041,246 @@ void __ABDefaultZoomedOutSceneParams_block_invoke()
   v1 = ABDefaultZoomedOutSceneParams_params;
   ABDefaultZoomedOutSceneParams_params = v0;
 
-  if (ABDeviceIsD23())
+  if (ABDeviceIsD23(v2))
   {
-    v2 = [ABDefaultZoomedOutSceneParams_params mutableCopy];
-    [v2 setObject:&unk_28501F1F8 forKeyedSubscript:@"xOffset"];
-    [v2 setObject:&unk_28501F208 forKeyedSubscript:@"yOffset"];
-    [v2 setObject:&unk_28501EFC0 forKeyedSubscript:@"zOffset"];
-    v3 = [v2 copy];
-    v4 = ABDefaultZoomedOutSceneParams_params;
-    ABDefaultZoomedOutSceneParams_params = v3;
+    v3 = [ABDefaultZoomedOutSceneParams_params mutableCopy];
+    [v3 setObject:&unk_28501F1F8 forKeyedSubscript:@"xOffset"];
+    [v3 setObject:&unk_28501F208 forKeyedSubscript:@"yOffset"];
+    [v3 setObject:&unk_28501EFC0 forKeyedSubscript:@"zOffset"];
+    v4 = [v3 copy];
+    v5 = ABDefaultZoomedOutSceneParams_params;
+    ABDefaultZoomedOutSceneParams_params = v4;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-id ABDefaultZoomedInSceneParams()
+id ABDefaultZoomedInSceneParams(uint64_t a1)
 {
   if (ABDefaultZoomedInSceneParams_onceToken != -1)
   {
     ABDefaultZoomedInSceneParams_cold_1();
   }
 
-  v1 = ABDefaultZoomedInSceneParams_params;
+  v2 = ABDefaultZoomedInSceneParams_params;
 
-  return v1;
+  return v2;
 }
 
 void __ABDefaultZoomedInSceneParams_block_invoke()
 {
-  v10[16] = *MEMORY[0x277D85DE8];
-  v9[0] = @"Scale";
-  v9[1] = @"Rotation";
-  v10[0] = &unk_28501EF78;
-  v10[1] = &unk_28501F008;
-  v9[2] = @"xOffset";
-  v9[3] = @"yOffset";
-  v10[2] = &unk_28501EFD8;
-  v10[3] = &unk_28501F218;
-  v9[4] = @"zOffset";
-  v9[5] = @"Damping";
-  v10[4] = &unk_28501F228;
-  v10[5] = &unk_28501EF78;
-  v9[6] = @"DampingSmooth";
-  v9[7] = @"Response";
-  v10[6] = &unk_28501EFD8;
-  v10[7] = &unk_28501EF78;
-  v9[8] = @"ResponseSmooth";
-  v9[9] = @"TimeFactor";
-  v10[8] = &unk_28501EFD8;
-  v10[9] = &unk_28501EF78;
-  v9[10] = @"FocusDistance";
-  v9[11] = @"FocalLength";
-  v10[10] = &unk_28501F1C8;
-  v10[11] = &unk_28501F1D8;
-  v9[12] = @"fStop";
-  v9[13] = @"ApertureBlades";
-  v10[12] = &unk_28501F1E8;
-  v10[13] = &unk_28501EFF0;
-  v9[14] = @"LightingIntensity";
-  v9[15] = @"ZoomInProgress";
-  v10[14] = &unk_28501F238;
-  v10[15] = &unk_28501EF78;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:16];
+  v11[16] = *MEMORY[0x277D85DE8];
+  v10[0] = @"Scale";
+  v10[1] = @"Rotation";
+  v11[0] = &unk_28501EF78;
+  v11[1] = &unk_28501F008;
+  v10[2] = @"xOffset";
+  v10[3] = @"yOffset";
+  v11[2] = &unk_28501EFD8;
+  v11[3] = &unk_28501F218;
+  v10[4] = @"zOffset";
+  v10[5] = @"Damping";
+  v11[4] = &unk_28501F228;
+  v11[5] = &unk_28501EF78;
+  v10[6] = @"DampingSmooth";
+  v10[7] = @"Response";
+  v11[6] = &unk_28501EFD8;
+  v11[7] = &unk_28501EF78;
+  v10[8] = @"ResponseSmooth";
+  v10[9] = @"TimeFactor";
+  v11[8] = &unk_28501EFD8;
+  v11[9] = &unk_28501EF78;
+  v10[10] = @"FocusDistance";
+  v10[11] = @"FocalLength";
+  v11[10] = &unk_28501F1C8;
+  v11[11] = &unk_28501F1D8;
+  v10[12] = @"fStop";
+  v10[13] = @"ApertureBlades";
+  v11[12] = &unk_28501F1E8;
+  v11[13] = &unk_28501EFF0;
+  v10[14] = @"LightingIntensity";
+  v10[15] = @"ZoomInProgress";
+  v11[14] = &unk_28501F238;
+  v11[15] = &unk_28501EF78;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:16];
   v1 = ABDefaultZoomedInSceneParams_params;
   ABDefaultZoomedInSceneParams_params = v0;
 
-  if (ABDeviceIsD23())
+  IsD23 = ABDeviceIsD23(v2);
+  if (IsD23)
   {
-    v2 = [ABDefaultZoomedInSceneParams_params mutableCopy];
-    [v2 setObject:&unk_28501F208 forKeyedSubscript:@"yOffset"];
-    [v2 setObject:&unk_28501F248 forKeyedSubscript:@"zOffset"];
-    v3 = [v2 copy];
-    v4 = ABDefaultZoomedInSceneParams_params;
-    ABDefaultZoomedInSceneParams_params = v3;
+    v4 = [ABDefaultZoomedInSceneParams_params mutableCopy];
+    [v4 setObject:&unk_28501F208 forKeyedSubscript:@"yOffset"];
+    [v4 setObject:&unk_28501F248 forKeyedSubscript:@"zOffset"];
+    v5 = [v4 copy];
+    v6 = ABDefaultZoomedInSceneParams_params;
+    ABDefaultZoomedInSceneParams_params = v5;
   }
 
-  if (ABDeviceIsV5x())
+  if (ABDeviceIsV5x(IsD23))
   {
-    v5 = [ABDefaultZoomedInSceneParams_params mutableCopy];
-    [v5 setObject:&unk_28501F258 forKeyedSubscript:@"Scale"];
-    [v5 setObject:&unk_28501F268 forKeyedSubscript:@"yOffset"];
-    v6 = [v5 copy];
-    v7 = ABDefaultZoomedInSceneParams_params;
-    ABDefaultZoomedInSceneParams_params = v6;
+    v7 = [ABDefaultZoomedInSceneParams_params mutableCopy];
+    [v7 setObject:&unk_28501F258 forKeyedSubscript:@"Scale"];
+    [v7 setObject:&unk_28501F268 forKeyedSubscript:@"yOffset"];
+    v8 = [v7 copy];
+    v9 = ABDefaultZoomedInSceneParams_params;
+    ABDefaultZoomedInSceneParams_params = v8;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-id ABWelcomeModeZoomedOutSceneParams()
+id ABWelcomeModeZoomedOutSceneParams(uint64_t a1)
 {
   if (ABWelcomeModeZoomedOutSceneParams_onceToken != -1)
   {
     ABWelcomeModeZoomedOutSceneParams_cold_1();
   }
 
-  v1 = ABWelcomeModeZoomedOutSceneParams_params;
+  v2 = ABWelcomeModeZoomedOutSceneParams_params;
 
-  return v1;
+  return v2;
 }
 
-void __ABWelcomeModeZoomedOutSceneParams_block_invoke()
+void __ABWelcomeModeZoomedOutSceneParams_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25[16] = *MEMORY[0x277D85DE8];
-  if (ABDeviceIsV59())
+  v28[16] = *MEMORY[0x277D85DE8];
+  IsV59 = ABDeviceIsV59(a1, a2);
+  if (IsV59)
   {
-    v0 = 0.9;
+    v3 = 0.9;
   }
 
   else
   {
-    v0 = 0.0;
+    v3 = 0.0;
   }
 
-  v1 = ABDefaultZoomedOutSceneParams();
-  v25[0] = &unk_28501EF78;
-  v2 = MEMORY[0x277CCABB0];
-  v3 = [v1 objectForKeyedSubscript:{@"Scale", @"Rotation"}];
-  [v3 doubleValue];
-  v5 = [v2 numberWithDouble:(1.0 - v0) * 62.0 + v4 * v0];
-  v25[1] = v5;
-  v24[2] = @"xOffset";
-  v6 = MEMORY[0x277CCABB0];
-  v7 = [v1 objectForKeyedSubscript:?];
-  [v7 doubleValue];
-  v9 = [v6 numberWithDouble:(1.0 - v0) * 0.5 + v8 * v0];
-  v25[2] = v9;
-  v24[3] = @"yOffset";
-  v10 = MEMORY[0x277CCABB0];
-  v11 = [v1 objectForKeyedSubscript:?];
-  [v11 doubleValue];
-  v13 = [v10 numberWithDouble:(1.0 - v0) * -3.35 + v12 * v0];
-  v25[3] = v13;
-  v24[4] = @"zOffset";
-  v14 = MEMORY[0x277CCABB0];
-  v15 = [v1 objectForKeyedSubscript:?];
-  [v15 doubleValue];
-  v17 = [v14 numberWithDouble:(1.0 - v0) * -10.5 + v16 * v0];
-  v25[4] = v17;
-  v25[5] = &unk_28501EF78;
-  v24[5] = @"Damping";
-  v24[6] = @"DampingSmooth";
-  v24[7] = @"Response";
-  v24[8] = @"ResponseSmooth";
-  v24[9] = @"TimeFactor";
-  v24[10] = @"FocusDistance";
-  v25[10] = &unk_28501F1C8;
-  v25[11] = &unk_28501F1D8;
-  v24[11] = @"FocalLength";
-  v24[12] = @"fStop";
-  v25[12] = &unk_28501F1E8;
-  v25[13] = &unk_28501EFF0;
-  v25[6] = &unk_28501EFD8;
-  v25[7] = &unk_28501EF78;
-  v24[13] = @"ApertureBlades";
-  v24[14] = @"LightingIntensity";
-  v25[8] = &unk_28501EFD8;
-  v25[9] = &unk_28501EF78;
-  v24[15] = @"ZoomInProgress";
-  v25[14] = &unk_28501EF78;
-  v25[15] = &unk_28501EFD8;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:16];
-  v19 = ABWelcomeModeZoomedOutSceneParams_params;
-  ABWelcomeModeZoomedOutSceneParams_params = v18;
+  v4 = ABDefaultZoomedOutSceneParams(IsV59);
+  v28[0] = &unk_28501EF78;
+  v5 = MEMORY[0x277CCABB0];
+  v6 = [v4 objectForKeyedSubscript:{@"Scale", @"Rotation"}];
+  [v6 doubleValue];
+  v8 = [v5 numberWithDouble:(1.0 - v3) * 62.0 + v7 * v3];
+  v28[1] = v8;
+  v27[2] = @"xOffset";
+  v9 = MEMORY[0x277CCABB0];
+  v10 = [v4 objectForKeyedSubscript:?];
+  [v10 doubleValue];
+  v12 = [v9 numberWithDouble:(1.0 - v3) * 0.5 + v11 * v3];
+  v28[2] = v12;
+  v27[3] = @"yOffset";
+  v13 = MEMORY[0x277CCABB0];
+  v14 = [v4 objectForKeyedSubscript:?];
+  [v14 doubleValue];
+  v16 = [v13 numberWithDouble:(1.0 - v3) * -3.35 + v15 * v3];
+  v28[3] = v16;
+  v27[4] = @"zOffset";
+  v17 = MEMORY[0x277CCABB0];
+  v18 = [v4 objectForKeyedSubscript:?];
+  [v18 doubleValue];
+  v20 = [v17 numberWithDouble:(1.0 - v3) * -10.5 + v19 * v3];
+  v28[4] = v20;
+  v28[5] = &unk_28501EF78;
+  v27[5] = @"Damping";
+  v27[6] = @"DampingSmooth";
+  v27[7] = @"Response";
+  v27[8] = @"ResponseSmooth";
+  v27[9] = @"TimeFactor";
+  v27[10] = @"FocusDistance";
+  v28[10] = &unk_28501F1C8;
+  v28[11] = &unk_28501F1D8;
+  v27[11] = @"FocalLength";
+  v27[12] = @"fStop";
+  v28[12] = &unk_28501F1E8;
+  v28[13] = &unk_28501EFF0;
+  v28[6] = &unk_28501EFD8;
+  v28[7] = &unk_28501EF78;
+  v27[13] = @"ApertureBlades";
+  v27[14] = @"LightingIntensity";
+  v28[8] = &unk_28501EFD8;
+  v28[9] = &unk_28501EF78;
+  v27[15] = @"ZoomInProgress";
+  v28[14] = &unk_28501EF78;
+  v28[15] = &unk_28501EFD8;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:16];
+  v22 = ABWelcomeModeZoomedOutSceneParams_params;
+  ABWelcomeModeZoomedOutSceneParams_params = v21;
 
-  if (ABDeviceIsD23())
+  if (ABDeviceIsD23(v23))
   {
-    v20 = [ABWelcomeModeZoomedOutSceneParams_params mutableCopy];
-    [v20 setObject:&unk_28501F278 forKeyedSubscript:@"LightingIntensity"];
-    v21 = [v20 copy];
-    v22 = ABWelcomeModeZoomedOutSceneParams_params;
-    ABWelcomeModeZoomedOutSceneParams_params = v21;
+    v24 = [ABWelcomeModeZoomedOutSceneParams_params mutableCopy];
+    [v24 setObject:&unk_28501F278 forKeyedSubscript:@"LightingIntensity"];
+    v25 = [v24 copy];
+    v26 = ABWelcomeModeZoomedOutSceneParams_params;
+    ABWelcomeModeZoomedOutSceneParams_params = v25;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-id ABWelcomeModeZoomedInSceneParams()
+id ABWelcomeModeZoomedInSceneParams(uint64_t a1)
 {
   if (ABWelcomeModeZoomedInSceneParams_onceToken != -1)
   {
     ABWelcomeModeZoomedInSceneParams_cold_1();
   }
 
-  v1 = ABWelcomeModeZoomedInSceneParams_params;
+  v2 = ABWelcomeModeZoomedInSceneParams_params;
 
-  return v1;
+  return v2;
 }
 
-void __ABWelcomeModeZoomedInSceneParams_block_invoke()
+void __ABWelcomeModeZoomedInSceneParams_block_invoke(uint64_t a1)
 {
-  v0 = ABDefaultZoomedInSceneParams();
-  v3 = [v0 mutableCopy];
+  v1 = ABDefaultZoomedInSceneParams(a1);
+  v4 = [v1 mutableCopy];
 
-  [v3 setObject:&unk_28501F020 forKeyedSubscript:@"Response"];
-  v1 = [v3 copy];
-  v2 = ABWelcomeModeZoomedInSceneParams_params;
-  ABWelcomeModeZoomedInSceneParams_params = v1;
+  [v4 setObject:&unk_28501F020 forKeyedSubscript:@"Response"];
+  v2 = [v4 copy];
+  v3 = ABWelcomeModeZoomedInSceneParams_params;
+  ABWelcomeModeZoomedInSceneParams_params = v2;
 }
 
 id ABScrollDraggingStateParams(void *a1, void *a2, double a3, double a4)
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
-  v29[0] = @"TimeFactor";
-  v29[1] = @"Damping";
-  v30[0] = &unk_28501EF78;
-  v30[1] = &unk_28501EF78;
-  v29[2] = @"DampingSmooth";
-  v30[2] = &unk_28501EFD8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v28[0] = @"TimeFactor";
+  v28[1] = @"Damping";
+  v29[0] = &unk_28501EF78;
+  v29[1] = &unk_28501EF78;
+  v28[2] = @"DampingSmooth";
+  v29[2] = &unk_28501EFD8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
   v10 = v8;
   v11 = v9;
   v12 = v7;
   v13 = objc_opt_new();
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __transitionStateParams_block_invoke;
-  v23 = &unk_278BFFF40;
-  v24 = v11;
-  v25 = v10;
-  v26 = v13;
-  v27 = a4;
-  v28 = a3;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __transitionStateParams_block_invoke;
+  v22 = &unk_278BFFF40;
+  v23 = v11;
+  v24 = v10;
+  v25 = v13;
+  v26 = a4;
+  v27 = a3;
   v14 = v11;
   v15 = v10;
   v16 = v13;
-  [v12 enumerateKeysAndObjectsUsingBlock:&v20];
+  [v12 enumerateKeysAndObjectsUsingBlock:&v19];
 
   v17 = [v16 copy];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
-id ABStateParamLimits()
+id ABStateParamLimits(uint64_t a1)
 {
   if (ABStateParamLimits_onceToken != -1)
   {
     ABStateParamLimits_cold_1();
   }
 
-  v1 = ABStateParamLimits_limits;
+  v2 = ABStateParamLimits_limits;
 
-  return v1;
+  return v2;
 }
 
 void __transitionStateParams_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1308,13 +1299,13 @@ void __transitionStateParams_block_invoke(uint64_t a1, void *a2, void *a3)
   }
 }
 
-id OUTLINED_FUNCTION_0_2(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, objc_super a13)
+id OUTLINED_FUNCTION_0_2(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, objc_super a13)
 {
   v16 = *(v14 + 3120);
   a13.receiver = a1;
   a13.super_class = v16;
 
-  return objc_msgSendSuper2(&a13, (v13 + 2936));
+  return objc_msgSendSuper2(&a13, (v13 + 2936), a3, a4, a5, a6, a7, a8);
 }
 
 float64x2_t SCNMatrix4FromCATransform3D@<Q0>(float64x2_t *a1@<X0>, float32x4_t *a2@<X8>)
@@ -1447,7 +1438,7 @@ __CFString *deviceSuffix()
   return v0;
 }
 
-uint64_t ABDeviceIsV59()
+uint64_t ABDeviceIsV59(uint64_t a1, uint64_t a2)
 {
   if (ABDeviceIsV59_onceToken != -1)
   {
@@ -1457,7 +1448,7 @@ uint64_t ABDeviceIsV59()
   return ABDeviceIsV59_sIsDevice;
 }
 
-uint64_t ABDeviceIsV5x()
+uint64_t ABDeviceIsV5x(uint64_t a1)
 {
   if (ABDeviceIsV5x_onceToken != -1)
   {
@@ -1467,7 +1458,7 @@ uint64_t ABDeviceIsV5x()
   return ABDeviceIsV5x_sIsDevice;
 }
 
-uint64_t ABDeviceIsD23()
+uint64_t ABDeviceIsD23(uint64_t a1)
 {
   if (ABDeviceIsD23_onceToken != -1)
   {
@@ -1477,7 +1468,7 @@ uint64_t ABDeviceIsD23()
   return ABDeviceIsD23_sIsDevice;
 }
 
-__CFString *ABDisplayPackageName()
+__CFString *ABDisplayPackageName(uint64_t a1, uint64_t a2)
 {
   if (ABDeviceIsV59_onceToken != -1)
   {
@@ -1486,40 +1477,35 @@ __CFString *ABDisplayPackageName()
 
   if (ABDeviceIsV59_sIsDevice == 1)
   {
-    v0 = MEMORY[0x277CCACA8];
-    v1 = deviceSuffix();
-    v2 = [v0 stringWithFormat:@"Display-%@", v1];
+    v2 = MEMORY[0x277CCACA8];
+    v3 = deviceSuffix();
+    v4 = [v2 stringWithFormat:@"Display-%@", v3];
   }
 
   else
   {
-    v2 = @"Display";
+    v4 = @"Display";
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t __ABDeviceIsV59_block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
   result = MGIsDeviceOfType();
   ABDeviceIsV59_sIsDevice = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ABDeviceIsD23_block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
   result = MGIsDeviceOfType();
   ABDeviceIsD23_sIsDevice = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ABDeviceIsV5x_block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
   ABDeviceIsV5x_sIsDevice = 0;
   ABDeviceIsV5x_sIsDevice = MGIsDeviceOfType();
   if (ABDeviceIsV5x_sIsDevice)
@@ -1533,22 +1519,18 @@ uint64_t __ABDeviceIsV5x_block_invoke()
   }
 
   ABDeviceIsV5x_sIsDevice = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ABDeviceIsV57_block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
   result = MGIsDeviceOfType();
   ABDeviceIsV57_sIsDevice = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __deviceSuffix_block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (MGIsDeviceOfType())
   {
     v0 = deviceSuffix_sCachedSuffix;
@@ -1614,8 +1596,6 @@ void __deviceSuffix_block_invoke()
     v10 = deviceSuffix_sCachedSuffix;
     deviceSuffix_sCachedSuffix = @"V57";
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23DE24494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -1627,51 +1607,51 @@ void sub_23DE24494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __ABStateParamLimits_block_invoke()
 {
-  v116[11] = *MEMORY[0x277D85DE8];
-  v115[0] = @"Scale";
+  v115[11] = *MEMORY[0x277D85DE8];
+  v114[0] = @"Scale";
   v0 = [ABParameterLimits alloc];
   if (v0)
   {
-    v0 = OUTLINED_FUNCTION_0_2(v0, v1, v2, v3, v4, v5, v6, v7, v107, v108, v110, v112, v114);
+    v0 = OUTLINED_FUNCTION_0_2(v0, v1, v2, v3, v4, v5, v6, v7, v106, v107, v109, v111, v113);
     if (v0)
     {
       *&v0->_minValue = xmmword_23DE289A0;
     }
   }
 
-  v113 = v0;
-  v116[0] = v0;
-  v115[1] = @"Damping";
+  v112 = v0;
+  v115[0] = v0;
+  v114[1] = @"Damping";
   v8 = [ABParameterLimits alloc];
   if (v8)
   {
-    v8 = OUTLINED_FUNCTION_0_2(v8, v9, v10, v11, v12, v13, v14, v15, v107, v108, v110, v113, v114);
+    v8 = OUTLINED_FUNCTION_0_2(v8, v9, v10, v11, v12, v13, v14, v15, v106, v107, v109, v112, v113);
     if (v8)
     {
       *&v8->_minValue = xmmword_23DE289B0;
     }
   }
 
-  v111 = v8;
-  v116[1] = v8;
-  v115[2] = @"DampingSmooth";
+  v110 = v8;
+  v115[1] = v8;
+  v114[2] = @"DampingSmooth";
   v16 = [ABParameterLimits alloc];
   if (v16)
   {
-    v16 = OUTLINED_FUNCTION_0_2(v16, v17, v18, v19, v20, v21, v22, v23, v107, v108, v111, v113, v114);
+    v16 = OUTLINED_FUNCTION_0_2(v16, v17, v18, v19, v20, v21, v22, v23, v106, v107, v110, v112, v113);
     if (v16)
     {
       *&v16->_minValue = xmmword_23DE289B0;
     }
   }
 
-  v109 = v16;
-  v116[2] = v16;
-  v115[3] = @"Response";
+  v108 = v16;
+  v115[2] = v16;
+  v114[3] = @"Response";
   v24 = [ABParameterLimits alloc];
   if (v24)
   {
-    v32 = OUTLINED_FUNCTION_0_2(v24, v25, v26, v27, v28, v29, v30, v31, v107, v109, v111, v113, v114);
+    v32 = OUTLINED_FUNCTION_0_2(v24, v25, v26, v27, v28, v29, v30, v31, v106, v108, v110, v112, v113);
     v33 = v32;
     if (v32)
     {
@@ -1684,12 +1664,12 @@ void __ABStateParamLimits_block_invoke()
     v33 = 0;
   }
 
-  v116[3] = v33;
-  v115[4] = @"ResponseSmooth";
+  v115[3] = v33;
+  v114[4] = @"ResponseSmooth";
   v34 = [ABParameterLimits alloc];
   if (v34)
   {
-    v42 = OUTLINED_FUNCTION_0_2(v34, v35, v36, v37, v38, v39, v40, v41, v107, v109, v111, v113, v114);
+    v42 = OUTLINED_FUNCTION_0_2(v34, v35, v36, v37, v38, v39, v40, v41, v106, v108, v110, v112, v113);
     v43 = v42;
     if (v42)
     {
@@ -1702,12 +1682,12 @@ void __ABStateParamLimits_block_invoke()
     v43 = 0;
   }
 
-  v116[4] = v43;
-  v115[5] = @"TimeFactor";
+  v115[4] = v43;
+  v114[5] = @"TimeFactor";
   v44 = [ABParameterLimits alloc];
   if (v44)
   {
-    v52 = OUTLINED_FUNCTION_0_2(v44, v45, v46, v47, v48, v49, v50, v51, v107, v109, v111, v113, v114);
+    v52 = OUTLINED_FUNCTION_0_2(v44, v45, v46, v47, v48, v49, v50, v51, v106, v108, v110, v112, v113);
     v53 = v52;
     if (v52)
     {
@@ -1720,12 +1700,12 @@ void __ABStateParamLimits_block_invoke()
     v53 = 0;
   }
 
-  v116[5] = v53;
-  v115[6] = @"FocusDistance";
+  v115[5] = v53;
+  v114[6] = @"FocusDistance";
   v54 = [ABParameterLimits alloc];
   if (v54)
   {
-    v62 = OUTLINED_FUNCTION_0_2(v54, v55, v56, v57, v58, v59, v60, v61, v107, v109, v111, v113, v114);
+    v62 = OUTLINED_FUNCTION_0_2(v54, v55, v56, v57, v58, v59, v60, v61, v106, v108, v110, v112, v113);
     v63 = v62;
     if (v62)
     {
@@ -1738,12 +1718,12 @@ void __ABStateParamLimits_block_invoke()
     v63 = 0;
   }
 
-  v116[6] = v63;
-  v115[7] = @"FocalLength";
+  v115[6] = v63;
+  v114[7] = @"FocalLength";
   v64 = [ABParameterLimits alloc];
   if (v64)
   {
-    v72 = OUTLINED_FUNCTION_0_2(v64, v65, v66, v67, v68, v69, v70, v71, v107, v109, v111, v113, v114);
+    v72 = OUTLINED_FUNCTION_0_2(v64, v65, v66, v67, v68, v69, v70, v71, v106, v108, v110, v112, v113);
     v73 = v72;
     if (v72)
     {
@@ -1756,12 +1736,12 @@ void __ABStateParamLimits_block_invoke()
     v73 = 0;
   }
 
-  v116[7] = v73;
-  v115[8] = @"ApertureBlades";
+  v115[7] = v73;
+  v114[8] = @"ApertureBlades";
   v74 = [ABParameterLimits alloc];
   if (v74)
   {
-    v82 = OUTLINED_FUNCTION_0_2(v74, v75, v76, v77, v78, v79, v80, v81, v107, v109, v111, v113, v114);
+    v82 = OUTLINED_FUNCTION_0_2(v74, v75, v76, v77, v78, v79, v80, v81, v106, v108, v110, v112, v113);
     v83 = v82;
     if (v82)
     {
@@ -1774,12 +1754,12 @@ void __ABStateParamLimits_block_invoke()
     v83 = 0;
   }
 
-  v116[8] = v83;
-  v115[9] = @"fStop";
+  v115[8] = v83;
+  v114[9] = @"fStop";
   v84 = [ABParameterLimits alloc];
   if (v84)
   {
-    v92 = OUTLINED_FUNCTION_0_2(v84, v85, v86, v87, v88, v89, v90, v91, v107, v109, v111, v113, v114);
+    v92 = OUTLINED_FUNCTION_0_2(v84, v85, v86, v87, v88, v89, v90, v91, v106, v108, v110, v112, v113);
     v93 = v92;
     if (v92)
     {
@@ -1792,12 +1772,12 @@ void __ABStateParamLimits_block_invoke()
     v93 = 0;
   }
 
-  v116[9] = v93;
-  v115[10] = @"LightingIntensity";
+  v115[9] = v93;
+  v114[10] = @"LightingIntensity";
   v94 = [ABParameterLimits alloc];
   if (v94)
   {
-    v102 = OUTLINED_FUNCTION_0_2(v94, v95, v96, v97, v98, v99, v100, v101, v107, v109, v111, v113, v114);
+    v102 = OUTLINED_FUNCTION_0_2(v94, v95, v96, v97, v98, v99, v100, v101, v106, v108, v110, v112, v113);
     v103 = v102;
     if (v102)
     {
@@ -1810,12 +1790,10 @@ void __ABStateParamLimits_block_invoke()
     v103 = 0;
   }
 
-  v116[10] = v103;
-  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:11];
+  v115[10] = v103;
+  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:11];
   v105 = ABStateParamLimits_limits;
   ABStateParamLimits_limits = v104;
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 void __transitionStateParams_block_invoke_cold_1(uint64_t a1, uint64_t a2, void *a3)
@@ -1826,38 +1804,38 @@ void __transitionStateParams_block_invoke_cold_1(uint64_t a1, uint64_t a2, void 
   [a3 doubleValue];
   v10 = (v8 - v9) * *(a1 + 56);
 
-  v11 = ABStateParamLimits();
-  v12 = [v11 objectForKeyedSubscript:a2];
-  v13 = v12;
-  if (v12)
+  v12 = ABStateParamLimits(v11);
+  v13 = [v12 objectForKeyedSubscript:a2];
+  v14 = v13;
+  if (v13)
   {
-    v14 = v12;
+    v15 = v13;
   }
 
   else
   {
-    v14 = +[ABParameterLimits unlimited];
+    v15 = +[ABParameterLimits unlimited];
   }
 
-  v21 = v14;
+  v22 = v15;
 
-  v15 = MEMORY[0x277CCABB0];
+  v16 = MEMORY[0x277CCABB0];
   [a3 doubleValue];
-  v17 = v16 + v10 * *(a1 + 64);
-  if (v21)
+  v18 = v17 + v10 * *(a1 + 64);
+  if (v22)
   {
-    v18 = v21[1];
-    v19 = v21[2];
+    v19 = v22[1];
+    v20 = v22[2];
   }
 
   else
   {
-    v18 = 0.0;
     v19 = 0.0;
+    v20 = 0.0;
   }
 
-  v20 = [v15 numberWithDouble:{ABClamp(v17, v18, v19)}];
-  [*(a1 + 48) setObject:v20 forKeyedSubscript:a2];
+  v21 = [v16 numberWithDouble:{ABClamp(v18, v19, v20)}];
+  [*(a1 + 48) setObject:v21 forKeyedSubscript:a2];
 }
 
 CAFrameRateRange CAFrameRateRangeMake(float minimum, float maximum, float preferred)

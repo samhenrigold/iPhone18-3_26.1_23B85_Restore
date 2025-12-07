@@ -10,7 +10,7 @@
   notificationCopy = notification;
   objectCopy = object;
   infoCopy = info;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = sub_10007FAFC(0);

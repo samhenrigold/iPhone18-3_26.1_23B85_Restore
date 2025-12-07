@@ -87,8 +87,7 @@ void __42__ATXSettingsActionsServer_sharedInstance__block_invoke()
     v2->_listener = v4;
 
     [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v6 = __atxlog_handle_settings_actions();
+    v6 = __atxlog_handle_settings_actions([(NSXPCListener *)v2->_listener resume]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -102,7 +101,7 @@ void __42__ATXSettingsActionsServer_sharedInstance__block_invoke()
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = __atxlog_handle_settings_actions();
+  v6 = __atxlog_handle_settings_actions(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -110,52 +109,53 @@ void __42__ATXSettingsActionsServer_sharedInstance__block_invoke()
   }
 
   v7 = [connectionCopy valueForEntitlement:*MEMORY[0x277CEB278]];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = __atxlog_handle_settings_actions();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = __atxlog_handle_settings_actions(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "Connection established", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "Connection established", v14, 2u);
     }
 
-    v9 = ATXSettingsActionsInterface();
-    [connectionCopy setExportedInterface:v9];
+    v10 = ATXSettingsActionsInterface();
+    [connectionCopy setExportedInterface:v10];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_18_2];
     [connectionCopy setInvalidationHandler:&__block_literal_global_21_7];
     [connectionCopy resume];
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v11 = __atxlog_handle_settings_actions();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_settings_actions(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXSettingsActionsServer listener:shouldAcceptNewConnection:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
-void __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke()
+void __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_settings_actions();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_settings_actions(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke_19()
+void __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke_19(uint64_t a1)
 {
-  v0 = __atxlog_handle_settings_actions();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_settings_actions(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXSettingsActionsServer_listener_shouldAcceptNewConnection___block_invoke_19_cold_1();
   }
@@ -241,15 +241,15 @@ id __57__ATXSettingsActionsServer__suggestedActionsWithRequest___block_invoke(ui
 {
   requestCopy = request;
   handlerCopy = handler;
-  v8 = __atxlog_handle_settings_actions();
+  v8 = __atxlog_handle_settings_actions(handlerCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = __atxlog_handle_settings_actions();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = __atxlog_handle_settings_actions(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RetrieveSuggestedActions", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RetrieveSuggestedActions", " enableTelemetry=YES ", buf, 2u);
   }
 
   clientBundleID = [requestCopy clientBundleID];
@@ -259,16 +259,16 @@ id __57__ATXSettingsActionsServer__suggestedActionsWithRequest___block_invoke(ui
     [requestCopy setClientBundleID:@"com.apple.Preferences"];
   }
 
-  v13 = [(ATXSettingsActionsServer *)self _suggestedActionsWithRequest:requestCopy];
-  v14 = [objc_alloc(MEMORY[0x277CEB810]) initWithActions:v13];
-  handlerCopy[2](handlerCopy, v14, 0);
+  v14 = [(ATXSettingsActionsServer *)self _suggestedActionsWithRequest:requestCopy];
+  v15 = [objc_alloc(MEMORY[0x277CEB810]) initWithActions:v14];
+  handlerCopy[2](handlerCopy, v15, 0);
 
-  v15 = __atxlog_handle_settings_actions();
-  v16 = v15;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = __atxlog_handle_settings_actions(v16);
+  v18 = v17;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    *v17 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v16, OS_SIGNPOST_INTERVAL_END, v9, "RetrieveSuggestedActions", " enableTelemetry=YES ", v17, 2u);
+    *v19 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v18, OS_SIGNPOST_INTERVAL_END, v9, "RetrieveSuggestedActions", " enableTelemetry=YES ", v19, 2u);
   }
 }
 
@@ -276,16 +276,16 @@ id __57__ATXSettingsActionsServer__suggestedActionsWithRequest___block_invoke(ui
 {
   requestCopy = request;
   handlerCopy = handler;
-  v8 = __atxlog_handle_settings_actions();
+  v8 = __atxlog_handle_settings_actions(handlerCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = __atxlog_handle_settings_actions();
-  v11 = v10;
-  v12 = v9 - 1;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = __atxlog_handle_settings_actions(v10);
+  v12 = v11;
+  v13 = v9 - 1;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RetrieveRecentActions", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RetrieveRecentActions", " enableTelemetry=YES ", buf, 2u);
   }
 
   clientBundleID = [requestCopy clientBundleID];
@@ -299,127 +299,127 @@ id __57__ATXSettingsActionsServer__suggestedActionsWithRequest___block_invoke(ui
   limit = [requestCopy limit];
   if (limit)
   {
-    v15 = limit;
+    v16 = limit;
   }
 
   else
   {
-    v15 = 10;
+    v16 = 10;
   }
 
   *buf = 0;
-  v53[0] = buf;
-  v53[1] = 0x3032000000;
-  v53[2] = __Block_byref_object_copy__107;
-  v53[3] = __Block_byref_object_dispose__107;
-  v54 = 0;
-  v16 = objc_alloc_init(MEMORY[0x277D23CC0]);
-  v17 = [MEMORY[0x277CBEAA8] now];
+  v58 = buf;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__107;
+  v61 = __Block_byref_object_dispose__107;
+  v62 = 0;
+  v17 = objc_alloc_init(MEMORY[0x277D23CC0]);
+  v18 = [MEMORY[0x277CBEAA8] now];
   startDate = [requestCopy startDate];
-  v19 = (v53[0] + 40);
-  obj = *(v53[0] + 40);
-  v20 = [v16 transcriptPublisherWithStreamName:0 fromDate:v17 toDate:startDate maxEvents:0 reversed:1 error:&obj];
-  objc_storeStrong(v19, obj);
+  v20 = (v58 + 40);
+  obj = *(v58 + 5);
+  v21 = [v17 transcriptPublisherWithStreamName:0 fromDate:v18 toDate:startDate maxEvents:0 reversed:1 error:&obj];
+  objc_storeStrong(v20, obj);
 
-  if (v20 && !*(v53[0] + 40))
+  if (v21 && !*(v58 + 5))
   {
-    v26 = objc_opt_new();
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler___block_invoke;
-    v49[3] = &unk_278597540;
-    v49[4] = buf;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler___block_invoke_2;
-    v45[3] = &unk_2785A1EF8;
-    v27 = requestCopy;
-    v46 = v27;
-    v25 = v26;
-    v47 = v25;
-    v48 = v15;
-    v28 = [v20 sinkWithCompletion:v49 shouldContinue:v45];
-    if (*(v53[0] + 40))
+    v29 = objc_opt_new();
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler___block_invoke;
+    v54[3] = &unk_278597540;
+    v54[4] = buf;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler___block_invoke_2;
+    v50[3] = &unk_2785A1EF8;
+    v30 = requestCopy;
+    v51 = v30;
+    v28 = v29;
+    v52 = v28;
+    v53 = v16;
+    v31 = [v21 sinkWithCompletion:v54 shouldContinue:v50];
+    if (*(v58 + 5))
     {
-      v29 = __atxlog_handle_settings_actions();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = __atxlog_handle_settings_actions(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [ATXSettingsActionsServer recentActionsWithRequest:v53 completionHandler:?];
+        [ATXSettingsActionsServer recentActionsWithRequest:completionHandler:];
       }
 
-      v30 = *(v53[0] + 40);
-      v31 = v30;
-      if (!v30)
+      v33 = *(v58 + 5);
+      v34 = v33;
+      if (!v33)
       {
-        v31 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXSettingsActionsServer" code:-2 userInfo:0];
+        v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXSettingsActionsServer" code:-2 userInfo:0];
       }
 
-      handlerCopy[2](handlerCopy, 0, v31);
-      if (!v30)
+      v35 = handlerCopy[2](handlerCopy, 0, v34);
+      if (!v33)
       {
       }
 
-      v32 = __atxlog_handle_settings_actions();
-      v33 = v32;
-      if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+      v36 = __atxlog_handle_settings_actions(v35);
+      v37 = v36;
+      if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
       {
-        *v50 = 0;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v33, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v50, 2u);
+        *v55 = 0;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v37, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v55, 2u);
       }
     }
 
     else
     {
-      v33 = objc_opt_new();
-      clientBundleID2 = [v27 clientBundleID];
-      [v33 setClientBundleID:clientBundleID2];
+      v37 = objc_opt_new();
+      clientBundleID2 = [v30 clientBundleID];
+      [v37 setClientBundleID:clientBundleID2];
 
-      v35 = [v43 _suggestedActionsWithRequest:v33];
-      clientBundleID3 = [v27 clientBundleID];
-      v37 = [v43 _suggestedActionsWithDayZeroBackfillForDeduping:v35 clientBundleID:clientBundleID3];
-      [v25 minusSet:v37];
+      v39 = [v48 _suggestedActionsWithRequest:v37];
+      clientBundleID3 = [v30 clientBundleID];
+      v41 = [v48 _suggestedActionsWithDayZeroBackfillForDeduping:v39 clientBundleID:clientBundleID3];
+      [v28 minusSet:v41];
 
-      v38 = objc_alloc(MEMORY[0x277CEB810]);
-      array = [v25 array];
-      v40 = [v38 initWithActions:array];
+      v42 = objc_alloc(MEMORY[0x277CEB810]);
+      array = [v28 array];
+      v44 = [v42 initWithActions:array];
 
-      (handlerCopy)[2](handlerCopy, v40, 0);
-      v41 = __atxlog_handle_settings_actions();
-      v42 = v41;
-      if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+      v45 = (handlerCopy)[2](handlerCopy, v44, 0);
+      v46 = __atxlog_handle_settings_actions(v45);
+      v47 = v46;
+      if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
       {
-        *v50 = 0;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v42, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v50, 2u);
+        *v55 = 0;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v47, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v55, 2u);
       }
     }
   }
 
   else
   {
-    v21 = __atxlog_handle_settings_actions();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_settings_actions(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [ATXSettingsActionsServer recentActionsWithRequest:v53 completionHandler:?];
+      [ATXSettingsActionsServer recentActionsWithRequest:completionHandler:];
     }
 
-    v22 = *(v53[0] + 40);
-    v23 = v22;
-    if (!v22)
-    {
-      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXSettingsActionsServer" code:-1 userInfo:0];
-    }
-
-    handlerCopy[2](handlerCopy, 0, v23);
-    if (!v22)
-    {
-    }
-
-    v24 = __atxlog_handle_settings_actions();
+    v24 = *(v58 + 5);
     v25 = v24;
-    if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    if (!v24)
     {
-      *v50 = 0;
-      _os_signpost_emit_with_name_impl(&dword_2263AA000, v25, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v50, 2u);
+      v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXSettingsActionsServer" code:-1 userInfo:0];
+    }
+
+    v26 = handlerCopy[2](handlerCopy, 0, v25);
+    if (!v24)
+    {
+    }
+
+    v27 = __atxlog_handle_settings_actions(v26);
+    v28 = v27;
+    if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    {
+      *v55 = 0;
+      _os_signpost_emit_with_name_impl(&dword_2263AA000, v28, OS_SIGNPOST_INTERVAL_END, spid, "RetrieveRecentActions", " enableTelemetry=YES ", v55, 2u);
     }
   }
 
@@ -446,39 +446,7 @@ BOOL __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler__
   v4 = [v3 eventBody];
   v5 = [v4 action];
 
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  v6 = [v3 eventBody];
-  v7 = [v6 predictions];
-  v8 = [v7 count];
-
-  if (!v8)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = [*(a1 + 32) clientBundleID];
-  v10 = [v3 eventBody];
-  v11 = [v10 bundleIdentifier];
-  v12 = [v9 isEqualToString:v11];
-
-  if (!v12)
-  {
-    goto LABEL_8;
-  }
-
-  v13 = MEMORY[0x277CEB7F8];
-  v14 = [v3 eventBody];
-  v15 = [v14 bundleIdentifier];
-  v16 = [v3 eventBody];
-  v17 = [v16 action];
-  v18 = [v17 identifier];
-  LODWORD(v13) = [v13 isActionEligibleForAnySettingsSuggestionsWithBundleIdentifier:v15 actionIdentifier:v18];
-
-  if (v13)
+  if (v5 && ([v3 eventBody], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "predictions"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8) && (objc_msgSend(*(a1 + 32), "clientBundleID"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "eventBody"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "bundleIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v9, "isEqualToString:", v11), v11, v10, v9, v12) && (v13 = MEMORY[0x277CEB7F8], objc_msgSend(v3, "eventBody"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "bundleIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "eventBody"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "action"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "identifier"), v18 = objc_claimAutoreleasedReturnValue(), LODWORD(v13) = objc_msgSend(v13, "isActionEligibleForAnySettingsSuggestionsWithBundleIdentifier:actionIdentifier:", v15, v18), v18, v17, v16, v15, v14, v13))
   {
     v19 = objc_alloc(MEMORY[0x277CEB7F8]);
     v20 = [v3 eventBody];
@@ -497,7 +465,6 @@ BOOL __71__ATXSettingsActionsServer_recentActionsWithRequest_completionHandler__
 
   else
   {
-LABEL_8:
     v25 = 1;
   }
 
@@ -538,32 +505,6 @@ LABEL_8:
   }
 
   return v8;
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recentActionsWithRequest:(uint64_t)a1 completionHandler:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recentActionsWithRequest:(uint64_t)a1 completionHandler:.cold.2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

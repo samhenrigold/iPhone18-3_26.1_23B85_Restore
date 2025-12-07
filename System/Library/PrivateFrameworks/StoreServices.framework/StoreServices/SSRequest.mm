@@ -64,8 +64,8 @@
 
 - (void)cancel
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v19 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -97,10 +97,8 @@
 
     if (v7)
     {
-      v18 = 136446210;
-      v19 = "[SSRequest cancel]";
-      LODWORD(v16) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v17 = 136446210;
+      v18 = "[SSRequest cancel]";
 
       if (!v8)
       {
@@ -109,7 +107,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v18, v16}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
     }
@@ -129,8 +127,8 @@ LABEL_16:
 
 - (void)disconnect
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v19 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -162,10 +160,8 @@ LABEL_16:
 
     if (v7)
     {
-      v18 = 136446210;
-      v19 = "[SSRequest disconnect]";
-      LODWORD(v16) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v17 = 136446210;
+      v18 = "[SSRequest disconnect]";
 
       if (!v8)
       {
@@ -174,7 +170,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v18, v16}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
     }
@@ -477,7 +473,7 @@ uint64_t __46__SSRequest__startWithMessageID_messageBlock___block_invoke_5(uint6
 
 - (void)__beginBackgroundTask
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!self->_taskAssertion)
   {
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.itunesstored.%@.%p", objc_opt_class(), self];
@@ -490,49 +486,53 @@ uint64_t __46__SSRequest__startWithMessageID_messageBlock___block_invoke_5(uint6
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
     oSLogObject = [v4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v29 = 138412290;
-      v30 = objc_opt_class();
-      v8 = v30;
-      LODWORD(v26) = 12;
-      v25 = &v29;
-      v9 = _os_log_send_and_compose_impl();
+      v28 = 138412290;
+      v29 = objc_opt_class();
+      v8 = v29;
+      LODWORD(v25) = 12;
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Taking process assertion", &v28, v25);
 
       if (!v9)
       {
-LABEL_13:
+LABEL_14:
 
         v16 = [objc_alloc(MEMORY[0x1E698D038]) initWithPID:getpid() flags:5 reason:4 name:v3 withHandler:0];
         taskAssertion = self->_taskAssertion;
         self->_taskAssertion = v16;
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v29, v26}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
       free(v9);
       SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   [(SSRequest *)self _cancelBackgroundTaskExpirationTimer];
   v18 = [SSWeakReference weakReferenceWithObject:self];
   v19 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
@@ -547,7 +547,7 @@ LABEL_14:
   handler[1] = 3221225472;
   handler[2] = __34__SSRequest___beginBackgroundTask__block_invoke;
   handler[3] = &unk_1E84AC050;
-  v28 = v18;
+  v27 = v18;
   v24 = v18;
   dispatch_source_set_event_handler(v23, handler);
   dispatch_resume(self->_backgroundTaskExpirationTimer);
@@ -566,37 +566,41 @@ void __34__SSRequest___beginBackgroundTask__block_invoke(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v15) = 138412290;
-  *(&v15 + 4) = objc_opt_class();
-  v6 = *(&v15 + 4);
-  LODWORD(v14) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v14 = 138412290;
+  v15 = objc_opt_class();
+  v6 = v15;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v5, 0, "%@: Closing background task early", &v14, 12);
 
   if (v7)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14, v15}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog(v2, @"%@", v8, v9, v10, v11, v12, v13, v5);
-LABEL_11:
+LABEL_12:
   }
 
   [v1 _endBackgroundTask];
@@ -615,7 +619,7 @@ LABEL_11:
 
 - (void)__endBackgroundTask
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_taskAssertion)
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
@@ -627,55 +631,58 @@ LABEL_11:
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
     oSLogObject = [v3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      LODWORD(v18) = 138412290;
-      *(&v18 + 4) = objc_opt_class();
-      v7 = *(&v18 + 4);
-      LODWORD(v17) = 12;
-      v16 = &v18;
-      v8 = _os_log_send_and_compose_impl();
+      v16 = 138412290;
+      v17 = objc_opt_class();
+      v7 = v17;
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Releasing process assertion", &v16, 12);
 
       if (!v8)
       {
-LABEL_13:
+LABEL_14:
 
         [(BKSProcessAssertion *)self->_taskAssertion invalidate];
         taskAssertion = self->_taskAssertion;
         self->_taskAssertion = 0;
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v18, v17, v18}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   [(SSRequest *)self _cancelBackgroundTaskExpirationTimer];
 }
 
 - (void)_expireBackgroundTask
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v3)
   {
@@ -685,37 +692,41 @@ LABEL_14:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v21 = 138412290;
-  v22 = objc_opt_class();
-  v7 = v22;
-  LODWORD(v18) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v20 = 138412290;
+  v21 = objc_opt_class();
+  v7 = v21;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Background task expired", &v20, 12);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v21, v18}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   disconnectBlock = [(SSXPCConnection *)self->_requestConnection disconnectBlock];
@@ -725,7 +736,7 @@ LABEL_11:
   block[2] = __34__SSRequest__expireBackgroundTask__block_invoke;
   block[3] = &unk_1E84AC338;
   block[4] = self;
-  v20 = disconnectBlock;
+  v19 = disconnectBlock;
   v17 = disconnectBlock;
   dispatch_async(v16, block);
 

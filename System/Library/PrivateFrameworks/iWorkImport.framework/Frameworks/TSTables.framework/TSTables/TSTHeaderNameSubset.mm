@@ -28,20 +28,20 @@
 
 - (void)loadSubsetWithExactMatches:(const void *)matches prefixMatches:(const void *)prefixMatches
 {
-  v8 = objc_msgSend_calcEngine(self->_hnm, a2, matches, prefixMatches, v4);
+  v7 = objc_msgSend_calcEngine(self->_hnm, a2, matches, prefixMatches);
   for (i = *(matches + 2); i; i = *i)
   {
     if ((sub_221278D0C(i + 3) & 1) == 0)
     {
-      sub_221279358(i + 3, v8, &v13);
-      if ((TSCECellRefSet::isEmpty(&v13) & 1) == 0)
+      sub_221279358(i + 3, v7, &v12);
+      if ((TSCECellRefSet::isEmpty(&v12) & 1) == 0)
       {
-        v15 = (i + 2);
-        v10 = sub_221411970(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, i + 2, &unk_2217E1BE8, &v15, &v14);
-        TSCECellRefSet::operator=(v10 + 3, &v13);
+        v13 = i + 2;
+        v9 = sub_221411970(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, i + 2, &unk_2217E1BE8, &v13);
+        TSCECellRefSet::operator=(v9 + 3, &v12);
       }
 
-      sub_22107C800(&v13, v13._coordsForOwnerUid.__tree_.__end_node_.__left_);
+      sub_22107C800(&v12, v12._coordsForOwnerUid.__tree_.__end_node_.__left_);
     }
   }
 
@@ -49,15 +49,15 @@
   {
     if ((sub_221278D0C(j + 3) & 1) == 0)
     {
-      sub_221279358(j + 3, v8, &v13);
-      if ((TSCECellRefSet::isEmpty(&v13) & 1) == 0)
+      sub_221279358(j + 3, v7, &v12);
+      if ((TSCECellRefSet::isEmpty(&v12) & 1) == 0)
       {
-        v15 = (j + 2);
-        v12 = sub_221411970(&self->_prefixStringsInHeaderCells.__table_.__bucket_list_.__ptr_, j + 2, &unk_2217E1BE8, &v15, &v14);
-        TSCECellRefSet::operator=(v12 + 3, &v13);
+        v13 = j + 2;
+        v11 = sub_221411970(&self->_prefixStringsInHeaderCells.__table_.__bucket_list_.__ptr_, j + 2, &unk_2217E1BE8, &v13);
+        TSCECellRefSet::operator=(v11 + 3, &v12);
       }
 
-      sub_22107C800(&v13, v13._coordsForOwnerUid.__tree_.__end_node_.__left_);
+      sub_22107C800(&v12, v12._coordsForOwnerUid.__tree_.__end_node_.__left_);
     }
   }
 }
@@ -65,107 +65,107 @@
 - (TSCECellRefSet)headerCellsExactlyMatching:(SEL)matching
 {
   v6 = a4;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x4812000000;
-  v52 = sub_221408BA8;
-  v53 = sub_221408BB4;
-  v54 = &unk_22188E88F;
-  v56[0] = 0;
-  v56[1] = 0;
-  v55 = v56;
-  if (objc_msgSend_length(v6, v7, v8, v9, v10))
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x4812000000;
+  v46 = sub_221408BA8;
+  v47 = sub_221408BB4;
+  v48 = &unk_22188E88F;
+  v50[0] = 0;
+  v50[1] = 0;
+  v49 = v50;
+  if (objc_msgSend_length(v6, v7, v8, v9))
   {
-    v15 = objc_msgSend_namePrefixIndex(self->_hnm, v11, v12, v13, v14);
-    v19 = objc_msgSend_foldName_(v15, v16, v6, v17, v18);
+    v13 = objc_msgSend_namePrefixIndex(self->_hnm, v10, v11, v12);
+    v16 = objc_msgSend_foldName_(v13, v14, v6, v15);
 
-    v48._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
-    v48._coordsForOwnerUid.__tree_.__size_ = 0;
-    v48._coordsForOwnerUid.__tree_.__begin_node_ = &v48._coordsForOwnerUid.__tree_.__end_node_;
+    v42._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
+    v42._coordsForOwnerUid.__tree_.__size_ = 0;
+    v42._coordsForOwnerUid.__tree_.__begin_node_ = &v42._coordsForOwnerUid.__tree_.__end_node_;
     hnm = self->_hnm;
     if (hnm)
     {
-      objc_msgSend_wordFragmentsFromString_savePreserveFlags_(hnm, v20, v19, 0, v21);
-      v23 = v45;
-      v24 = v46;
-      if (v45 != v46)
+      objc_msgSend_wordFragmentsFromString_savePreserveFlags_(hnm, v17, v16, 0);
+      v19 = v39;
+      v20 = v40;
+      if (v39 != v40)
       {
-        v25 = 1;
+        v21 = 1;
         while (1)
         {
-          v43[0] = *v23;
-          v29 = sub_221411C68(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, v43, v26, v27, v28);
-          if (!v29)
+          v37[0] = *v19;
+          v24 = sub_221411C68(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, v37, v22, v23);
+          if (!v24)
           {
             break;
           }
 
-          if (v25)
+          if (v21)
           {
-            TSCECellRefSet::operator=(&v48, v29 + 3);
+            TSCECellRefSet::operator=(&v42, v24 + 3);
           }
 
           else
           {
-            TSCECellRefSet::intersectWith(&v48, v29 + 1);
+            TSCECellRefSet::intersectWith(&v42, v24 + 1);
           }
 
-          v25 = 0;
-          if (++v23 == v24)
+          v21 = 0;
+          if (++v19 == v20)
           {
             goto LABEL_14;
           }
         }
 
-        TSCECellRefSet::clear(&v48);
+        TSCECellRefSet::clear(&v42);
       }
     }
 
     else
     {
-      v45 = 0;
-      v46 = 0;
-      v47 = 0;
+      v39 = 0;
+      v40 = 0;
+      v41 = 0;
     }
 
 LABEL_14:
-    if ((TSCECellRefSet::isEmpty(&v48) & 1) == 0)
+    if ((TSCECellRefSet::isEmpty(&v42) & 1) == 0)
     {
-      v34 = objc_msgSend_calcEngine(self->_hnm, v30, v31, v32, v33);
-      v43[0] = 0;
-      v43[1] = v43;
-      v43[2] = 0x3032000000;
-      v43[3] = sub_221408BC0;
-      v43[4] = sub_221408BD0;
-      v44 = 0;
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = sub_221408BD8;
-      v37[3] = &unk_278464A68;
-      v41 = v43;
-      v38 = v34;
+      v28 = objc_msgSend_calcEngine(self->_hnm, v25, v26, v27);
+      v37[0] = 0;
+      v37[1] = v37;
+      v37[2] = 0x3032000000;
+      v37[3] = sub_221408BC0;
+      v37[4] = sub_221408BD0;
+      v38 = 0;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = sub_221408BD8;
+      v31[3] = &unk_278464A68;
+      v35 = v37;
+      v32 = v28;
       selfCopy = self;
-      v40 = v19;
-      v42 = &v49;
-      v35 = v34;
-      TSCECellRefSet::enumerateCellRefsUsingBlock(&v48, v37);
+      v34 = v16;
+      v36 = &v43;
+      v29 = v28;
+      TSCECellRefSet::enumerateCellRefsUsingBlock(&v42, v31);
 
-      _Block_object_dispose(v43, 8);
+      _Block_object_dispose(v37, 8);
     }
 
-    v43[0] = &v45;
-    sub_22107C2C0(v43);
-    sub_22107C800(&v48, v48._coordsForOwnerUid.__tree_.__end_node_.__left_);
+    v37[0] = &v39;
+    sub_22107C2C0(v37);
+    sub_22107C800(&v42, v42._coordsForOwnerUid.__tree_.__end_node_.__left_);
   }
 
   else
   {
-    v19 = v6;
+    v16 = v6;
   }
 
-  TSCECellRefSet::TSCECellRefSet(retstr, v50 + 2);
-  _Block_object_dispose(&v49, 8);
-  sub_22107C800(&v55, v56[0]);
+  TSCECellRefSet::TSCECellRefSet(retstr, v44 + 2);
+  _Block_object_dispose(&v43, 8);
+  sub_22107C800(&v49, v50[0]);
 
   return result;
 }
@@ -173,151 +173,151 @@ LABEL_14:
 - (TSCECellRefSet)headerCellsMatchingPrefix:(SEL)prefix
 {
   v6 = a4;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x4812000000;
-  v76 = sub_221408BA8;
-  v77 = sub_221408BB4;
-  v78 = &unk_22188E88F;
-  v80[0] = 0;
-  v80[1] = 0;
-  v79 = v80;
-  if ((objc_msgSend_includesPrefixes(self, v7, v8, v9, v10) & 1) == 0)
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x4812000000;
+  v67 = sub_221408BA8;
+  v68 = sub_221408BB4;
+  v69 = &unk_22188E88F;
+  v71[0] = 0;
+  v71[1] = 0;
+  v70 = v71;
+  if ((objc_msgSend_includesPrefixes(self, v7, v8, v9) & 1) == 0)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTHeaderNameSubset headerCellsMatchingPrefix:]", v13, v14);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHeaderNameMgr.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 710, 0, "Warning: asking for prefix matching, but this search result didn't specify prefixes when it was created");
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTHeaderNameSubset headerCellsMatchingPrefix:]", v12);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHeaderNameMgr.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v14, v17, 710, 0, "Warning: asking for prefix matching, but this search result didn't specify prefixes when it was created");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
   }
 
-  if (!objc_msgSend_length(v6, v11, v12, v13, v14))
+  if (!objc_msgSend_length(v6, v10, v11, v12))
   {
     goto LABEL_27;
   }
 
-  v30 = objc_msgSend_namePrefixIndex(self->_hnm, v26, v27, v28, v29);
-  v34 = objc_msgSend_foldName_(v30, v31, v6, v32, v33);
+  v25 = objc_msgSend_namePrefixIndex(self->_hnm, v22, v23, v24);
+  v28 = objc_msgSend_foldName_(v25, v26, v6, v27);
 
-  v72._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
-  v72._coordsForOwnerUid.__tree_.__size_ = 0;
-  v72._coordsForOwnerUid.__tree_.__begin_node_ = &v72._coordsForOwnerUid.__tree_.__end_node_;
+  v63._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
+  v63._coordsForOwnerUid.__tree_.__size_ = 0;
+  v63._coordsForOwnerUid.__tree_.__begin_node_ = &v63._coordsForOwnerUid.__tree_.__end_node_;
   hnm = self->_hnm;
-  v57 = v34;
+  v48 = v28;
   if (!hnm)
   {
-    v38 = retstr;
-    v69 = 0;
-    v70 = 0;
-    v71 = 0;
+    v31 = retstr;
+    v60 = 0;
+    v61 = 0;
+    v62 = 0;
     goto LABEL_24;
   }
 
-  v38 = retstr;
-  objc_msgSend_wordFragmentsFromString_savePreserveFlags_(hnm, v35, v34, 0, v36);
-  v40 = v69;
-  v39 = v70;
-  if (v69 == v70)
+  v31 = retstr;
+  objc_msgSend_wordFragmentsFromString_savePreserveFlags_(hnm, v29, v28, 0);
+  v33 = v60;
+  v32 = v61;
+  if (v60 == v61)
   {
     goto LABEL_24;
   }
 
-  v41 = 0;
-  v42 = v70 - v69 - 1;
-  v43 = 1;
+  v34 = 0;
+  v35 = v61 - v60 - 1;
+  v36 = 1;
   while (1)
   {
-    v68 = *v40;
-    if (v41 == v42)
+    v59 = *v33;
+    if (v34 == v35)
     {
-      v64._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
-      v64._coordsForOwnerUid.__tree_.__size_ = 0;
-      v64._coordsForOwnerUid.__tree_.__begin_node_ = &v64._coordsForOwnerUid.__tree_.__end_node_;
+      v55._coordsForOwnerUid.__tree_.__end_node_.__left_ = 0;
+      v55._coordsForOwnerUid.__tree_.__size_ = 0;
+      v55._coordsForOwnerUid.__tree_.__begin_node_ = &v55._coordsForOwnerUid.__tree_.__end_node_;
       for (i = self->_prefixStringsInHeaderCells.__table_.__first_node_.__next_; i; i = *i)
       {
-        if (objc_msgSend_hasPrefix_(*(i + 2), v44, v68, v46, v47))
+        if (objc_msgSend_hasPrefix_(*(i + 2), v37, v59, v39))
         {
-          TSCECellRefSet::addCellRefs(&v64, i + 1);
+          TSCECellRefSet::addCellRefs(&v55, i + 1);
         }
       }
 
-      if (v43)
+      if (v36)
       {
-        TSCECellRefSet::operator=(&v72, &v64);
+        TSCECellRefSet::operator=(&v63, &v55);
       }
 
       else
       {
-        TSCECellRefSet::intersectWith(&v72, &v64);
+        TSCECellRefSet::intersectWith(&v63, &v55);
       }
 
-      sub_22107C800(&v64, v64._coordsForOwnerUid.__tree_.__end_node_.__left_);
+      sub_22107C800(&v55, v55._coordsForOwnerUid.__tree_.__end_node_.__left_);
       goto LABEL_20;
     }
 
-    v49 = sub_221411C68(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, &v68, v45, v46, v47);
-    if (!v49)
+    v41 = sub_221411C68(&self->_stringsInHeaderCells.__table_.__bucket_list_.__ptr_, &v59, v38, v39);
+    if (!v41)
     {
       break;
     }
 
-    if (v43)
+    if (v36)
     {
-      TSCECellRefSet::operator=(&v72, v49 + 3);
+      TSCECellRefSet::operator=(&v63, v41 + 3);
     }
 
     else
     {
-      TSCECellRefSet::intersectWith(&v72, v49 + 1);
+      TSCECellRefSet::intersectWith(&v63, v41 + 1);
     }
 
 LABEL_20:
-    ++v41;
+    ++v34;
 
-    v43 = 0;
-    if (++v40 == v39)
+    v36 = 0;
+    if (++v33 == v32)
     {
       goto LABEL_24;
     }
   }
 
-  TSCECellRefSet::clear(&v72);
+  TSCECellRefSet::clear(&v63);
 
 LABEL_24:
-  retstr = v38;
-  if ((TSCECellRefSet::isEmpty(&v72) & 1) == 0)
+  retstr = v31;
+  if ((TSCECellRefSet::isEmpty(&v63) & 1) == 0)
   {
-    v54 = objc_msgSend_calcEngine(self->_hnm, v50, v51, v52, v53);
-    v64._coordsForOwnerUid.__tree_.__begin_node_ = 0;
-    v64._coordsForOwnerUid.__tree_.__end_node_.__left_ = &v64;
-    v64._coordsForOwnerUid.__tree_.__size_ = 0x3032000000;
-    v65 = sub_221408BC0;
-    v66 = sub_221408BD0;
-    v67 = 0;
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = sub_221409220;
-    v58[3] = &unk_278464A68;
-    v62 = &v64;
-    v59 = v54;
+    v45 = objc_msgSend_calcEngine(self->_hnm, v42, v43, v44);
+    v55._coordsForOwnerUid.__tree_.__begin_node_ = 0;
+    v55._coordsForOwnerUid.__tree_.__end_node_.__left_ = &v55;
+    v55._coordsForOwnerUid.__tree_.__size_ = 0x3032000000;
+    v56 = sub_221408BC0;
+    v57 = sub_221408BD0;
+    v58 = 0;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = sub_221409220;
+    v49[3] = &unk_278464A68;
+    v53 = &v55;
+    v50 = v45;
     selfCopy = self;
-    v61 = v57;
-    v63 = &v73;
-    v55 = v54;
-    TSCECellRefSet::enumerateCellRefsUsingBlock(&v72, v58);
+    v52 = v48;
+    v54 = &v64;
+    v46 = v45;
+    TSCECellRefSet::enumerateCellRefsUsingBlock(&v63, v49);
 
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v55, 8);
   }
 
-  v64._coordsForOwnerUid.__tree_.__begin_node_ = &v69;
-  sub_22107C2C0(&v64);
-  sub_22107C800(&v72, v72._coordsForOwnerUid.__tree_.__end_node_.__left_);
-  v6 = v57;
+  v55._coordsForOwnerUid.__tree_.__begin_node_ = &v60;
+  sub_22107C2C0(&v55);
+  sub_22107C800(&v63, v63._coordsForOwnerUid.__tree_.__end_node_.__left_);
+  v6 = v48;
 LABEL_27:
-  TSCECellRefSet::TSCECellRefSet(retstr, v74 + 2);
-  _Block_object_dispose(&v73, 8);
-  sub_22107C800(&v79, v80[0]);
+  TSCECellRefSet::TSCECellRefSet(retstr, v65 + 2);
+  _Block_object_dispose(&v64, 8);
+  sub_22107C800(&v70, v71[0]);
 
   return result;
 }
@@ -326,7 +326,7 @@ LABEL_27:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  return objc_msgSend_stringWithFormat_(v3, v5, @"%@ for '%@'", v6, v7, v4, self->_originalFullReferenceString);
+  return objc_msgSend_stringWithFormat_(v3, v5, @"%@ for '%@'", v6, v4, self->_originalFullReferenceString);
 }
 
 - (TSKUIDStruct)limitedToTableUID

@@ -8,7 +8,7 @@
 
 - (void)observeEvent:(id)event
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -17,9 +17,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v47 = v8;
-    v48 = 2112;
-    v49 = eventCopy;
+    v44 = v8;
+    v45 = 2112;
+    v46 = eventCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Received biome log event %@", buf, 0x16u);
   }
 
@@ -27,51 +27,49 @@
   v9 = eventCopy;
   if (objc_opt_respondsToSelector())
   {
-    v38 = v9;
+    v35 = v9;
     [v9 biomeEventsRepresentationForLogObserver:selfCopy];
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v10 = v45 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v10 = v42 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v11)
     {
       v13 = v11;
-      v14 = *v43;
-      v15 = 0x277CF1000uLL;
+      v14 = *v40;
       *&v12 = 138543874;
-      v37 = v12;
-      v41 = v10;
+      v34 = v12;
+      v38 = v10;
       do
       {
-        v16 = 0;
+        v15 = 0;
         do
         {
-          if (*v43 != v14)
+          if (*v40 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(v15 + 2416);
-          v18 = *(*(&v42 + 1) + 8 * v16);
+          v16 = *(*(&v39 + 1) + 8 * v15);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v19 = v18;
+            v17 = v16;
           }
 
           else
           {
-            v19 = 0;
+            v17 = 0;
           }
 
-          v20 = v19;
+          v18 = v17;
 
-          if (v20)
+          if (v18)
           {
             if (selfCopy)
             {
-              Property = objc_getProperty(selfCopy, v21, 8, 1);
+              Property = objc_getProperty(selfCopy, v19, 8, 1);
             }
 
             else
@@ -79,30 +77,47 @@
               Property = 0;
             }
 
-            [Property submitActionSetEvent:{v20, v37}];
+            [Property submitActionSetEvent:{v18, v34}];
           }
 
           else
           {
-            v23 = v18;
+            v21 = v16;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = v23;
+              v22 = v21;
             }
 
             else
             {
-              v24 = 0;
+              v22 = 0;
             }
 
-            v25 = v24;
+            v23 = v22;
 
-            if (v25)
+            if (v23)
             {
               if (selfCopy)
               {
-                v27 = objc_getProperty(selfCopy, v26, 8, 1);
+                v25 = objc_getProperty(selfCopy, v24, 8, 1);
+              }
+
+              else
+              {
+                v25 = 0;
+              }
+
+              [v25 submitAccessoryEvent:{v23, v34}];
+            }
+
+            else
+            {
+              v26 = v21;
+              objc_opt_class();
+              if (objc_opt_isKindOfClass())
+              {
+                v27 = v26;
               }
 
               else
@@ -110,81 +125,60 @@
                 v27 = 0;
               }
 
-              [v27 submitAccessoryEvent:{v25, v37}];
-            }
+              v28 = v27;
 
-            else
-            {
-              v28 = v23;
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
-              {
-                v29 = v28;
-              }
-
-              else
-              {
-                v29 = 0;
-              }
-
-              v30 = v29;
-
-              if (v30)
+              if (v28)
               {
                 if (selfCopy)
                 {
-                  v32 = objc_getProperty(selfCopy, v31, 8, 1);
+                  v30 = objc_getProperty(selfCopy, v29, 8, 1);
                 }
 
                 else
                 {
-                  v32 = 0;
+                  v30 = 0;
                 }
 
-                v10 = v41;
-                [v32 submitMediaAccessoryEvent:{v30, v37}];
+                v10 = v38;
+                [v30 submitMediaAccessoryEvent:{v28, v34}];
               }
 
               else
               {
                 context = objc_autoreleasePoolPush();
-                v33 = selfCopy;
-                v34 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                v31 = selfCopy;
+                v32 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                 {
-                  v39 = HMFGetLogIdentifier();
-                  *buf = v37;
-                  v47 = v39;
-                  v48 = 2112;
-                  v49 = v28;
-                  v50 = 2112;
-                  v51 = v38;
-                  _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Skipping submission of unknown biome event: %@ for event: %@", buf, 0x20u);
+                  v36 = HMFGetLogIdentifier();
+                  *buf = v34;
+                  v44 = v36;
+                  v45 = 2112;
+                  v46 = v26;
+                  v47 = 2112;
+                  v48 = v35;
+                  _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Skipping submission of unknown biome event: %@ for event: %@", buf, 0x20u);
                 }
 
                 objc_autoreleasePoolPop(context);
-                v10 = v41;
+                v10 = v38;
               }
-
-              v15 = 0x277CF1000;
             }
           }
 
-          ++v16;
+          ++v15;
         }
 
-        while (v13 != v16);
-        v35 = [v10 countByEnumeratingWithState:&v42 objects:v52 count:16];
-        v13 = v35;
+        while (v13 != v15);
+        v33 = [v10 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v13 = v33;
       }
 
-      while (v35);
+      while (v33);
     }
 
-    v9 = v38;
+    v9 = v35;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBiomeLogEventObserver)initWithBiomeEventManager:(id)manager dataSource:(id)source

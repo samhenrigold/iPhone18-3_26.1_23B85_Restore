@@ -13,10 +13,9 @@
   legIndex = self->_legIndex;
   v5 = +[MNDisplayETAInfo dateFormatter];
   v6 = [v5 stringFromDate:self->_eta];
-  remainingMinutes = self->_remainingMinutes;
-  v8 = [v3 stringWithFormat:@"[%d]: %@ / %d min | %@", legIndex, v6, remainingMinutes, self->_waypointID];
+  v7 = [v3 stringWithFormat:@"[%d]: %@ / %d min | %@", legIndex, v6, self->_remainingMinutes, self->_waypointID];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

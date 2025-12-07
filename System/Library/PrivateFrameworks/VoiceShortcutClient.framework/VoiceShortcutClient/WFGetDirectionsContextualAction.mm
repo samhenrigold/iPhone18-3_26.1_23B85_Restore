@@ -186,16 +186,14 @@ LABEL_23:
 
 - (id)uniqueIdentifier
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   identifier = [(WFContextualAction *)self identifier];
-  v9[0] = identifier;
+  v8[0] = identifier;
   destinationName = [(WFGetDirectionsContextualAction *)self destinationName];
-  v9[1] = destinationName;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = destinationName;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
 
   v6 = [v5 componentsJoinedByString:@"."];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -217,11 +215,11 @@ LABEL_23:
 
 - (WFGetDirectionsContextualAction)initWithDestination:(id)destination name:(id)name type:(unint64_t)type
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   nameCopy = name;
   v11 = nameCopy;
-  v38 = destinationCopy;
+  v37 = destinationCopy;
   if (destinationCopy)
   {
     if (nameCopy)
@@ -271,10 +269,10 @@ LABEL_3:
   v22 = [v20 stringWithFormat:v21, v11];
 
   v23 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"WFGetDirectionsActionMode" wfSerializedRepresentation:v13];
-  v39[0] = v23;
+  v38[0] = v23;
   v24 = [[WFContextualActionParameter alloc] initWithType:@"WFLocationContentItem" displayString:0 wfParameterKey:@"WFDestination" isActionInput:1];
-  v39[1] = v24;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  v38[1] = v24;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
   v26 = [WFContextualActionIcon iconWithApplicationBundleIdentifier:@"com.apple.Maps"];
   v27 = [(WFContextualAction *)selfCopy initWithIdentifier:@"is.workflow.actions.getdirections" wfActionIdentifier:@"is.workflow.actions.getdirections" associatedAppBundleIdentifier:@"com.apple.Maps" parameters:v25 displayString:v16 title:v19 subtitle:v22 icon:v26];
 
@@ -289,7 +287,6 @@ LABEL_3:
     v30 = v27;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

@@ -7,7 +7,7 @@
 
 - (void)session:(id)session didUpdateDetectedObjects:(id)objects
 {
-  sub_257BD2C2C(0, &qword_27F8F6598);
+  sub_257BD2C2C(0, &qword_27F8F6598, 0x277D36CE8);
   v6 = sub_257ECF810();
   sessionCopy = session;
   selfCopy = self;

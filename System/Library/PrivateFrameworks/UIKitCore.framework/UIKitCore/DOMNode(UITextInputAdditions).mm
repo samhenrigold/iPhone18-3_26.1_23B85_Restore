@@ -22,8 +22,6 @@
 - (uint64_t)beginSelectionChange;
 - (uint64_t)characterAfterCaretSelection;
 - (uint64_t)characterInRelationToCaretSelection:()UITextInputAdditions;
-- (uint64_t)characterRangeAtPoint:()UITextInputAdditions;
-- (uint64_t)characterRangeByExtendingPosition:()UITextInputAdditions inDirection:;
 - (uint64_t)closestPositionToPoint:()UITextInputAdditions;
 - (uint64_t)closestPositionToPoint:()UITextInputAdditions withinRange:;
 - (uint64_t)comparePosition:()UITextInputAdditions toPosition:;
@@ -80,6 +78,8 @@
 - (uint64_t)updateFloatingCursorAtPoint:()UITextInputAdditions;
 - (uint64_t)updateFloatingCursorAtPoint:()UITextInputAdditions animated:;
 - (uint64_t)wordOffsetInRange:()UITextInputAdditions;
+- (void)characterRangeAtPoint:()UITextInputAdditions;
+- (void)characterRangeByExtendingPosition:()UITextInputAdditions inDirection:;
 - (void)constrainedPoint:()UITextInputAdditions withInset:;
 @end
 
@@ -95,9 +95,9 @@
 - (uint64_t)hasContent
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 focusedNodeHasContent];
+  return [v3 focusedNodeHasContent];
 }
 
 - (UITextInputTraits)textInputTraits
@@ -157,11 +157,11 @@
 - (uint64_t)deleteBackward
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
-  [v2 _setProhibitsScrolling:1];
-  [objc_msgSend(v2 "webView")];
+  v3 = [objc_msgSend(self "ownerDocument")];
+  [v3 _setProhibitsScrolling:1];
+  [objc_msgSend(v3 "webView")];
 
-  return [v2 _setProhibitsScrolling:0];
+  return [v3 _setProhibitsScrolling:0];
 }
 
 - (uint64_t)insertText:()UITextInputAdditions
@@ -324,29 +324,29 @@
 - (uint64_t)characterAfterCaretSelection
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 characterAfterCaretSelection];
+  return [v3 characterAfterCaretSelection];
 }
 
 - (uint64_t)fontForCaretSelection
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
-  v8 = 0;
-  v3 = [v2 fontForSelection:&v8];
-  if (v3)
+  v3 = [objc_msgSend(self "ownerDocument")];
+  v9 = 0;
+  v4 = [v3 fontForSelection:&v9];
+  if (v4)
   {
-    [objc_msgSend(objc_msgSend(v2 "webView")];
-    v5 = v4;
-    if (fabs(v4 + -1.0) > 0.00000011920929)
+    [objc_msgSend(objc_msgSend(v3 "webView")];
+    v6 = v5;
+    if (fabs(v5 + -1.0) > 0.00000011920929)
     {
-      [v3 pointSize];
-      return [off_1E70ECC18 fontWithFamilyName:objc_msgSend(v3 traits:"familyName") size:{objc_msgSend(v3, "traits"), v5 * v6}];
+      [v4 pointSize];
+      return [off_1E70ECC18 fontWithFamilyName:objc_msgSend(v4 traits:"familyName") size:{objc_msgSend(v4, "traits"), v6 * v7}];
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (uint64_t)wordOffsetInRange:()UITextInputAdditions
@@ -360,9 +360,9 @@
 - (uint64_t)selectionRange
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 _selectedNSRange];
+  return [v3 _selectedNSRange];
 }
 
 - (uint64_t)rangeByMovingCurrentSelection:()UITextInputAdditions
@@ -394,25 +394,25 @@
 - (uint64_t)hasSelection
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 hasSelection];
+  return [v3 hasSelection];
 }
 
 - (uint64_t)selectionAtDocumentStart
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 selectionAtDocumentStart];
+  return [v3 selectionAtDocumentStart];
 }
 
 - (uint64_t)selectionAtWordStart
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 selectionAtWordStart];
+  return [v3 selectionAtWordStart];
 }
 
 - (uint64_t)selectAll
@@ -427,9 +427,9 @@
 - (uint64_t)selectionState
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(self "ownerDocument")];
 
-  return [v2 selectionState];
+  return [v3 selectionState];
 }
 
 - (void)constrainedPoint:()UITextInputAdditions withInset:
@@ -437,35 +437,35 @@
   WebThreadLock();
   if (self)
   {
-    [self innerFrameQuad];
+    objc_msgSend_innerFrameQuad(self);
   }
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
   }
 
-  v7.origin.x = quadBoundingBox(v6);
-  x = v7.origin.x;
-  y = v7.origin.y;
-  width = v7.size.width;
-  height = v7.size.height;
-  CGRectGetMinX(v7);
-  v8.origin.x = x;
-  v8.origin.y = y;
-  v8.size.width = width;
-  v8.size.height = height;
-  CGRectGetMaxX(v8);
+  v8.origin.x = quadBoundingBox(v7);
+  x = v8.origin.x;
+  y = v8.origin.y;
+  width = v8.size.width;
+  height = v8.size.height;
+  CGRectGetMinX(v8);
   v9.origin.x = x;
   v9.origin.y = y;
   v9.size.width = width;
   v9.size.height = height;
-  CGRectGetMinY(v9);
+  CGRectGetMaxX(v9);
   v10.origin.x = x;
   v10.origin.y = y;
   v10.size.width = width;
   v10.size.height = height;
-  CGRectGetMaxY(v10);
+  CGRectGetMinY(v10);
+  v11.origin.x = x;
+  v11.origin.y = y;
+  v11.size.width = width;
+  v11.size.height = height;
+  CGRectGetMaxY(v11);
 }
 
 - (uint64_t)setText:()UITextInputAdditions
@@ -482,10 +482,10 @@
 - (uint64_t)text
 {
   WebThreadLock();
-  v2 = [objc_msgSend(self "ownerDocument")];
-  elementRangeContainingCaretSelection = [v2 elementRangeContainingCaretSelection];
+  v3 = [objc_msgSend(self "ownerDocument")];
+  elementRangeContainingCaretSelection = [v3 elementRangeContainingCaretSelection];
 
-  return [v2 stringForRange:elementRangeContainingCaretSelection];
+  return [v3 stringForRange:elementRangeContainingCaretSelection];
 }
 
 - (uint64_t)setSelectionWithPoint:()UITextInputAdditions inset:
@@ -504,9 +504,9 @@
 {
   WebThreadLock();
   [objc_msgSend(objc_msgSend(self "ownerDocument")];
-  v3 = v2;
+  v4 = v3;
   [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
-  return v3 + v4;
+  return v4 + v5;
 }
 
 - (uint64_t)convertCaretRect:()UITextInputAdditions
@@ -678,18 +678,18 @@
 - (uint64_t)_textSelectingContainer
 {
   WebThreadLock();
-  v2 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
 
-  return [v2 _textSelectingContainer];
+  return [v3 _textSelectingContainer];
 }
 
 - (id)selectedTextRange
 {
   WebThreadLock();
-  v2 = [objc_msgSend(objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(objc_msgSend(self "ownerDocument")];
   selectionAffinity = [self selectionAffinity];
 
-  return [UITextRangeImpl wrapDOMRange:v2 withAffinity:selectionAffinity];
+  return [UITextRangeImpl wrapDOMRange:v3 withAffinity:selectionAffinity];
 }
 
 - (uint64_t)setSelectedTextRange:()UITextInputAdditions withAffinityDownstream:
@@ -860,13 +860,13 @@
 - (id)markedTextRange
 {
   WebThreadLock();
-  v2 = [objc_msgSend(objc_msgSend(self "ownerDocument")];
-  if ([v2 collapsed])
+  v3 = [objc_msgSend(objc_msgSend(self "ownerDocument")];
+  if ([v3 collapsed])
   {
     return 0;
   }
 
-  return [UITextRangeImpl wrapDOMRange:v2];
+  return [UITextRangeImpl wrapDOMRange:v3];
 }
 
 - (uint64_t)unmarkText
@@ -913,8 +913,8 @@
 - (id)positionFromPosition:()UITextInputAdditions inDirection:offset:
 {
   webVisiblePosition = [a3 webVisiblePosition];
-  v9 = signpost_c2_entryLock_start(v7, v8);
-  result = [webVisiblePosition positionByMovingInDirection:v10 amount:{a5, v9}];
+  signpost_c2_entryLock_start();
+  result = [webVisiblePosition positionByMovingInDirection:v7 amount:a5];
   if (result)
   {
 
@@ -928,21 +928,21 @@
 {
   WebThreadLock();
   webVisiblePosition = [a3 webVisiblePosition];
-  v7 = signpost_c2_entryLock_start(v5, v6);
-  v9 = v8;
-  v12 = signpost_c2_entryLock_start(v7, v10);
+  signpost_c2_entryLock_start();
+  v6 = v5;
+  signpost_c2_entryLock_start();
 
-  return [webVisiblePosition atBoundaryOfGranularity:v9 inDirection:{v11, v12}];
+  return [webVisiblePosition atBoundaryOfGranularity:v6 inDirection:v7];
 }
 
 - (id)positionFromPosition:()UITextInputAdditions toBoundary:inDirection:
 {
   WebThreadLock();
   webVisiblePosition = [a3 webVisiblePosition];
-  v7 = signpost_c2_entryLock_start(v5, v6);
-  v9 = v8;
-  v11 = signpost_c2_entryLock_start(v7, v10);
-  result = [webVisiblePosition positionOfNextBoundaryOfGranularity:v9 inDirection:{v12, v11}];
+  signpost_c2_entryLock_start();
+  v6 = v5;
+  signpost_c2_entryLock_start();
+  result = [webVisiblePosition positionOfNextBoundaryOfGranularity:v6 inDirection:v7];
   if (result)
   {
 
@@ -956,36 +956,36 @@
 {
   WebThreadLock();
   webVisiblePosition = [a3 webVisiblePosition];
-  v7 = signpost_c2_entryLock_start(v5, v6);
-  v9 = v8;
-  v12 = signpost_c2_entryLock_start(v7, v10);
+  signpost_c2_entryLock_start();
+  v6 = v5;
+  signpost_c2_entryLock_start();
 
-  return [webVisiblePosition withinTextUnitOfGranularity:v9 inDirectionIfAtBoundary:{v11, v12}];
+  return [webVisiblePosition withinTextUnitOfGranularity:v6 inDirectionIfAtBoundary:v7];
 }
 
 - (id)rangeEnclosingPosition:()UITextInputAdditions withGranularity:inDirection:
 {
   WebThreadLock();
   webVisiblePosition = [a3 webVisiblePosition];
-  v7 = signpost_c2_entryLock_start(v5, v6);
-  v9 = v8;
-  v11 = signpost_c2_entryLock_start(v7, v10);
-  v13 = [webVisiblePosition enclosingTextUnitOfGranularity:v9 inDirectionIfAtBoundary:{v12, v11}];
-  v14 = [objc_msgSend(a3 "webVisiblePosition")];
-  if (!v13)
+  signpost_c2_entryLock_start();
+  v6 = v5;
+  signpost_c2_entryLock_start();
+  v8 = [webVisiblePosition enclosingTextUnitOfGranularity:v6 inDirectionIfAtBoundary:v7];
+  v9 = [objc_msgSend(a3 "webVisiblePosition")];
+  if (!v8)
   {
     return 0;
   }
 
-  return [UITextRangeImpl wrapDOMRange:v13 withAffinity:v14 != 1];
+  return [UITextRangeImpl wrapDOMRange:v8 withAffinity:v9 != 1];
 }
 
 - (uint64_t)inputDelegate
 {
   WebThreadLock();
-  v2 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
+  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
 
-  return [v2 inputDelegate];
+  return [v3 inputDelegate];
 }
 
 - (uint64_t)setInputDelegate:()UITextInputAdditions
@@ -1014,9 +1014,9 @@
 - (uint64_t)closestPositionToPoint:()UITextInputAdditions
 {
   WebThreadLock();
-  v6 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
+  v7 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
 
-  return [v6 closestPositionToPoint:{a2, a3}];
+  return [v7 closestPositionToPoint:{a3, a4}];
 }
 
 - (uint64_t)closestPositionToPoint:()UITextInputAdditions withinRange:
@@ -1024,10 +1024,10 @@
   WebThreadLock();
   v9 = [objc_msgSend(objc_msgSend(objc_msgSend(self "ownerDocument")];
 
-  return [v9 closestPositionToPoint:a5 withinRange:{a2, a3}];
+  return [v9 closestPositionToPoint:a3 withinRange:{a4, a5}];
 }
 
-- (uint64_t)characterRangeAtPoint:()UITextInputAdditions
+- (void)characterRangeAtPoint:()UITextInputAdditions
 {
   v2 = [self closestPositionToPoint:?];
   v3 = [self positionFromPosition:v2 offset:1];
@@ -1075,7 +1075,7 @@ LABEL_3:
   return [a3 end];
 }
 
-- (uint64_t)characterRangeByExtendingPosition:()UITextInputAdditions inDirection:
+- (void)characterRangeByExtendingPosition:()UITextInputAdditions inDirection:
 {
   v7 = [self baseWritingDirectionForPosition:a3 inDirection:0];
   v8 = 1;

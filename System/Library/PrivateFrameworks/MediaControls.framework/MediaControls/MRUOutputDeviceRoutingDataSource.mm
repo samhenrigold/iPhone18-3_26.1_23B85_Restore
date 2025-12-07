@@ -56,11 +56,11 @@
 
 - (id)_initWithEndpointRoute:(id)route
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   routeCopy = route;
-  v18.receiver = self;
-  v18.super_class = MRUOutputDeviceRoutingDataSource;
-  v6 = [(MPAVRoutingDataSource *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = MRUOutputDeviceRoutingDataSource;
+  v6 = [(MPAVRoutingDataSource *)&v19 init];
   if (v6)
   {
     v7 = dispatch_queue_create("com.apple.MediaPlayer.MPAVOutputDeviceRoutingDataSource/serialQueue", 0);
@@ -77,31 +77,33 @@
     v6->_supportsQueueHandoff = 1;
     objc_storeStrong(&v6->_endpointRoute, route);
     SharedAudioPresentationContext = MRAVOutputContextGetSharedAudioPresentationContext();
+    v12 = SharedAudioPresentationContext;
     if (SharedAudioPresentationContext)
     {
-      v12 = [objc_alloc(MEMORY[0x1E6970590]) initWithMRAVOutputContext:SharedAudioPresentationContext];
+      v13 = [objc_alloc(MEMORY[0x1E6970590]) initWithMRAVOutputContext:SharedAudioPresentationContext];
       applicationOutputContext = v6->_applicationOutputContext;
-      v6->_applicationOutputContext = v12;
+      v6->_applicationOutputContext = v13;
 
       SharedAudioPresentationContext = MRAVOutputContextCopyUniqueIdentifier();
+      v12 = SharedAudioPresentationContext;
     }
 
-    v14 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = MCLogCategoryDefault(SharedAudioPresentationContext);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v20 = SharedAudioPresentationContext;
-      v21 = 2114;
-      v22 = v6;
-      _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "Created new application output context: %{public}@ for data source: %{public}@", buf, 0x16u);
+      v21 = v12;
+      v22 = 2114;
+      v23 = v6;
+      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "Created new application output context: %{public}@ for data source: %{public}@", buf, 0x16u);
     }
 
     [(MRUOutputDeviceRoutingDataSource *)v6 _registerNotifications];
     [(MRUOutputDeviceRoutingDataSource *)v6 _generateDiscoverySession];
     [(MRUOutputDeviceRoutingDataSource *)v6 hearingAidReachabilityDidChange];
-    v15 = [[MRUODRDSNoticationObserver alloc] initWithDelegate:v6];
+    v16 = [[MRUODRDSNoticationObserver alloc] initWithDelegate:v6];
     notificationObserver = v6->_notificationObserver;
-    v6->_notificationObserver = v15;
+    v6->_notificationObserver = v16;
   }
 
   return v6;
@@ -186,7 +188,7 @@ void __60__MRUOutputDeviceRoutingDataSource_applicationOutputContext__block_invo
 {
   v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = MCLogCategoryDefault();
+  v5 = MCLogCategoryDefault(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -380,7 +382,7 @@ void __44__MRUOutputDeviceRoutingDataSource_endpoint__block_invoke(uint64_t a1)
 
 void __55__MRUOutputDeviceRoutingDataSource_setPredictedDevice___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 160);
   v4 = v3;
@@ -395,20 +397,20 @@ LABEL_5:
 
   if ((v5 & 1) == 0)
   {
-    v4 = MCLogCategoryDefault();
+    v4 = MCLogCategoryDefault(v6);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v6;
-      v12 = 2048;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      v9 = v6;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Setting predicted device: %@", &v10, 0x20u);
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
+      v11 = 138543874;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v10 = v7;
+      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Setting predicted device: %@", &v11, 0x20u);
     }
 
     goto LABEL_5;
@@ -734,50 +736,50 @@ uint64_t __53__MRUOutputDeviceRoutingDataSource_setDiscoveryMode___block_invoke(
 
 - (id)getRoutesForCategory:(id)category
 {
-  v204 = *MEMORY[0x1E69E9840];
+  v206 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
-  v114 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v116 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
   endpointRoute = [(MRUOutputDeviceRoutingDataSource *)self endpointRoute];
   applicationOutputContext = [(MRUOutputDeviceRoutingDataSource *)selfCopy applicationOutputContext];
-  v185 = 0;
-  v186 = &v185;
-  v187 = 0x3032000000;
-  v188 = __Block_byref_object_copy__1;
-  v189 = __Block_byref_object_dispose__1;
-  v190 = 0;
-  v178 = MEMORY[0x1E69E9820];
-  v179 = 3221225472;
-  v180 = __57__MRUOutputDeviceRoutingDataSource_getRoutesForCategory___block_invoke;
-  v181 = &unk_1E7664168;
-  v184 = &v185;
-  v182 = selfCopy;
+  v187 = 0;
+  v188 = &v187;
+  v189 = 0x3032000000;
+  v190 = __Block_byref_object_copy__1;
+  v191 = __Block_byref_object_dispose__1;
+  v192 = 0;
+  v180 = MEMORY[0x1E69E9820];
+  v181 = 3221225472;
+  v182 = __57__MRUOutputDeviceRoutingDataSource_getRoutesForCategory___block_invoke;
+  v183 = &unk_1E7664168;
+  v186 = &v187;
+  v184 = selfCopy;
   v5 = endpointRoute;
-  v183 = v5;
+  v185 = v5;
   msv_dispatch_sync_on_queue();
-  v115 = v5;
+  v117 = v5;
   if ([v5 isPhoneRoute])
   {
-    v125 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v127 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v178 = 0u;
+    v179 = 0u;
     v176 = 0u;
     v177 = 0u;
-    v174 = 0u;
-    v175 = 0u;
-    v6 = v186[5];
-    v7 = [v6 countByEnumeratingWithState:&v174 objects:v203 count:16];
+    v6 = v188[5];
+    v7 = [v6 countByEnumeratingWithState:&v176 objects:v205 count:16];
     if (v7)
     {
-      v8 = *v175;
+      v8 = *v177;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v175 != v8)
+          if (*v177 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v174 + 1) + 8 * i);
+          v10 = *(*(&v176 + 1) + 8 * i);
           groupID = [v10 groupID];
           endpoint = [(MRUOutputDeviceRoutingDataSource *)selfCopy endpoint];
           groupLeader = [endpoint groupLeader];
@@ -786,17 +788,17 @@ uint64_t __53__MRUOutputDeviceRoutingDataSource_setDiscoveryMode___block_invoke(
 
           if (v15)
           {
-            [v125 addObject:v10];
+            [v127 addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v174 objects:v203 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v176 objects:v205 count:16];
       }
 
       while (v7);
     }
 
-    resolvedOutputDevices = [v125 copy];
+    resolvedOutputDevices = [v127 copy];
     goto LABEL_12;
   }
 
@@ -805,14 +807,14 @@ uint64_t __53__MRUOutputDeviceRoutingDataSource_setDiscoveryMode___block_invoke(
     endpointObject = [v5 endpointObject];
     resolvedOutputDevices = [endpointObject resolvedOutputDevices];
 
-    v17 = [v115 isDeviceRoute] ^ 1;
+    v17 = [v117 isDeviceRoute] ^ 1;
   }
 
   else
   {
     if (applicationOutputContext)
     {
-      v80 = applicationOutputContext;
+      v82 = applicationOutputContext;
       [applicationOutputContext unwrappedValue];
       resolvedOutputDevices = MRAVOutputContextCopyOutputDevices();
 LABEL_12:
@@ -828,41 +830,41 @@ LABEL_15:
   v19 = applicationOutputContext;
   [applicationOutputContext unwrappedValue];
   v20 = MRAVOutputContextCopyPredictedOutputDevice();
-  v116 = v20;
+  v118 = v20;
   if (v20)
   {
-    v202 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v202 count:1];
+    v204 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v204 count:1];
 
     resolvedOutputDevices = v21;
   }
 
-  [(MRUOutputDeviceRoutingDataSource *)selfCopy setPredictedDevice:v116];
+  [(MRUOutputDeviceRoutingDataSource *)selfCopy setPredictedDevice:v118];
   v22 = [resolvedOutputDevices count];
-  v121 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v112 = v22;
+  v123 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v114 = v22;
   if (v17)
   {
     v23 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v174 = 0u;
+    v175 = 0u;
     v172 = 0u;
     v173 = 0u;
-    v170 = 0u;
-    v171 = 0u;
     v24 = resolvedOutputDevices;
-    v25 = [v24 countByEnumeratingWithState:&v170 objects:v201 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v172 objects:v203 count:16];
     if (v25)
     {
-      v26 = *v171;
+      v26 = *v173;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v171 != v26)
+          if (*v173 != v26)
           {
             objc_enumerationMutation(v24);
           }
 
-          v28 = *(*(&v170 + 1) + 8 * j);
+          v28 = *(*(&v172 + 1) + 8 * j);
           logicalDeviceID = [v28 logicalDeviceID];
           if ([v28 isProxyGroupPlayer] && objc_msgSend(logicalDeviceID, "length"))
           {
@@ -870,42 +872,42 @@ LABEL_15:
           }
         }
 
-        v25 = [v24 countByEnumeratingWithState:&v170 objects:v201 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v172 objects:v203 count:16];
       }
 
       while (v25);
     }
 
+    v170 = 0u;
+    v171 = 0u;
     v168 = 0u;
     v169 = 0u;
-    v166 = 0u;
-    v167 = 0u;
     v30 = v24;
-    v31 = [v30 countByEnumeratingWithState:&v166 objects:v200 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v168 objects:v202 count:16];
     if (v31)
     {
-      v32 = *v167;
+      v32 = *v169;
       do
       {
         for (k = 0; k != v31; ++k)
         {
-          if (*v167 != v32)
+          if (*v169 != v32)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v166 + 1) + 8 * k);
+          v34 = *(*(&v168 + 1) + 8 * k);
           v35 = [v34 uid];
           v36 = MRComputeBaseRouteUID();
 
           logicalDeviceID2 = [v34 logicalDeviceID];
           if (v36 && ([v34 isProxyGroupPlayer] & 1) == 0 && (!objc_msgSend(logicalDeviceID2, "length") || (objc_msgSend(v23, "containsObject:", logicalDeviceID2) & 1) == 0))
           {
-            [v121 addObject:v36];
+            [v123 addObject:v36];
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v166 objects:v200 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v168 objects:v202 count:16];
       }
 
       while (v31);
@@ -914,78 +916,78 @@ LABEL_15:
 
   else
   {
+    v166 = 0u;
+    v167 = 0u;
     v164 = 0u;
     v165 = 0u;
-    v162 = 0u;
-    v163 = 0u;
     v23 = resolvedOutputDevices;
-    v38 = [v23 countByEnumeratingWithState:&v162 objects:v199 count:16];
+    v38 = [v23 countByEnumeratingWithState:&v164 objects:v201 count:16];
     if (v38)
     {
-      v39 = *v163;
+      v39 = *v165;
       do
       {
         for (m = 0; m != v38; ++m)
         {
-          if (*v163 != v39)
+          if (*v165 != v39)
           {
             objc_enumerationMutation(v23);
           }
 
-          v41 = [*(*(&v162 + 1) + 8 * m) uid];
+          v41 = [*(*(&v164 + 1) + 8 * m) uid];
           v42 = MRComputeBaseRouteUID();
 
           if (v42)
           {
-            [v121 addObject:v42];
+            [v123 addObject:v42];
           }
         }
 
-        v38 = [v23 countByEnumeratingWithState:&v162 objects:v199 count:16];
+        v38 = [v23 countByEnumeratingWithState:&v164 objects:v201 count:16];
       }
 
       while (v38);
     }
   }
 
+  v162 = 0u;
+  v163 = 0u;
   v160 = 0u;
   v161 = 0u;
-  v158 = 0u;
-  v159 = 0u;
   obj = resolvedOutputDevices;
-  v43 = [obj countByEnumeratingWithState:&v158 objects:v198 count:16];
+  v43 = [obj countByEnumeratingWithState:&v160 objects:v200 count:16];
   if (v43)
   {
-    v44 = *v159;
+    v44 = *v161;
     while (2)
     {
       for (n = 0; n != v43; ++n)
       {
-        if (*v159 != v44)
+        if (*v161 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = *(*(&v158 + 1) + 8 * n);
+        v46 = *(*(&v160 + 1) + 8 * n);
         v47 = [v46 uid];
         v48 = MRComputeBaseRouteUID();
 
         if (!v48)
         {
-          v50 = MCLogCategoryDefault();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+          v51 = MCLogCategoryDefault(v49);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf) = 138543362;
             *(&buf + 4) = v46;
-            _os_log_impl(&dword_1A20FC000, v50, OS_LOG_TYPE_DEFAULT, "Found picked device with nil UID: %{public}@", &buf, 0xCu);
+            _os_log_impl(&dword_1A20FC000, v51, OS_LOG_TYPE_DEFAULT, "Found picked device with nil UID: %{public}@", &buf, 0xCu);
           }
 
-          v49 = 0;
+          v50 = 0;
           goto LABEL_62;
         }
       }
 
-      v43 = [obj countByEnumeratingWithState:&v158 objects:v198 count:16];
+      v43 = [obj countByEnumeratingWithState:&v160 objects:v200 count:16];
       if (v43)
       {
         continue;
@@ -995,154 +997,154 @@ LABEL_15:
     }
   }
 
-  v49 = 1;
+  v50 = 1;
 LABEL_62:
 
-  v51 = objc_alloc(MEMORY[0x1E695DFA8]);
-  v126 = [v51 initWithCapacity:{objc_msgSend(v186[5], "count")}];
+  v52 = objc_alloc(MEMORY[0x1E695DFA8]);
+  v128 = [v52 initWithCapacity:{objc_msgSend(v188[5], "count")}];
+  v158 = 0u;
+  v159 = 0u;
   v156 = 0u;
   v157 = 0u;
-  v154 = 0u;
-  v155 = 0u;
-  v52 = v186[5];
-  v53 = [v52 countByEnumeratingWithState:&v154 objects:v197 count:16];
-  if (v53)
+  v53 = v188[5];
+  v54 = [v53 countByEnumeratingWithState:&v156 objects:v199 count:16];
+  if (v54)
   {
-    v124 = 0;
-    v54 = *v155;
+    v126 = 0;
+    v55 = *v157;
     do
     {
-      for (ii = 0; ii != v53; ++ii)
+      for (ii = 0; ii != v54; ++ii)
       {
-        if (*v155 != v54)
+        if (*v157 != v55)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v53);
         }
 
-        v56 = *(*(&v154 + 1) + 8 * ii);
-        if ([v56 isLocalDevice])
+        v57 = *(*(&v156 + 1) + 8 * ii);
+        if ([v57 isLocalDevice])
         {
-          v57 = v56;
+          v58 = v57;
 
-          v124 = v57;
+          v126 = v58;
         }
 
-        v58 = [v56 uid];
-        v59 = MRComputeBaseRouteUID();
+        v59 = [v57 uid];
+        v60 = MRComputeBaseRouteUID();
 
-        if (v59)
+        if (v60)
         {
-          [v126 addObject:v59];
+          [v128 addObject:v60];
         }
 
         else
         {
-          v60 = MCLogCategoryDefault();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+          v62 = MCLogCategoryDefault(v61);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v56;
-            _os_log_impl(&dword_1A20FC000, v60, OS_LOG_TYPE_DEFAULT, "Found discovery device with nil UID: %{public}@", &buf, 0xCu);
+            *(&buf + 4) = v57;
+            _os_log_impl(&dword_1A20FC000, v62, OS_LOG_TYPE_DEFAULT, "Found discovery device with nil UID: %{public}@", &buf, 0xCu);
           }
 
-          v49 = 0;
+          v50 = 0;
         }
       }
 
-      v53 = [v52 countByEnumeratingWithState:&v154 objects:v197 count:16];
+      v54 = [v53 countByEnumeratingWithState:&v156 objects:v199 count:16];
     }
 
-    while (v53);
+    while (v54);
   }
 
   else
   {
-    v124 = 0;
+    v126 = 0;
   }
 
-  -[MRUOutputDeviceRoutingDataSource _setShouldSourceOutputDevicesFromAVODDS:](selfCopy, "_setShouldSourceOutputDevicesFromAVODDS:", ([v186[5] count] != 0) & v49);
+  -[MRUOutputDeviceRoutingDataSource _setShouldSourceOutputDevicesFromAVODDS:](selfCopy, "_setShouldSourceOutputDevicesFromAVODDS:", ([v188[5] count] != 0) & v50);
   if (selfCopy->_shouldSourceOutputDevicesFromAVODDS)
   {
-    v61 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+    v63 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+    v154 = 0u;
+    v155 = 0u;
     v152 = 0u;
     v153 = 0u;
-    v150 = 0u;
-    v151 = 0u;
-    v62 = obj;
-    v63 = [v62 countByEnumeratingWithState:&v150 objects:v196 count:16];
-    if (v63)
+    v64 = obj;
+    v65 = [v64 countByEnumeratingWithState:&v152 objects:v198 count:16];
+    if (v65)
     {
-      v64 = *v151;
+      v66 = *v153;
       do
       {
-        for (jj = 0; jj != v63; ++jj)
+        for (jj = 0; jj != v65; ++jj)
         {
-          if (*v151 != v64)
+          if (*v153 != v66)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v64);
           }
 
-          v66 = *(*(&v150 + 1) + 8 * jj);
-          v67 = [v66 uid];
-          v68 = MRComputeBaseRouteUID();
+          v68 = *(*(&v152 + 1) + 8 * jj);
+          v69 = [v68 uid];
+          v70 = MRComputeBaseRouteUID();
 
-          if (([v126 containsObject:v68] & 1) == 0)
+          if (([v128 containsObject:v70] & 1) == 0)
           {
-            [v61 addObject:v66];
+            [v63 addObject:v68];
           }
         }
 
-        v63 = [v62 countByEnumeratingWithState:&v150 objects:v196 count:16];
+        v65 = [v64 countByEnumeratingWithState:&v152 objects:v198 count:16];
       }
 
-      while (v63);
+      while (v65);
     }
 
-    v69 = [v61 count];
-    v70 = v186[5];
-    if (v69)
+    v71 = [v63 count];
+    v72 = v188[5];
+    if (v71)
     {
-      v71 = [v70 mutableCopy];
-      v72 = [v71 arrayByAddingObjectsFromArray:v61];
+      v73 = [v72 mutableCopy];
+      v74 = [v73 arrayByAddingObjectsFromArray:v63];
 
 LABEL_110:
-      v119 = 0;
+      v121 = 0;
       goto LABEL_111;
     }
 
-    v79 = v70;
+    v81 = v72;
 LABEL_109:
-    v72 = v79;
+    v74 = v81;
     goto LABEL_110;
   }
 
+  v150 = 0u;
+  v151 = 0u;
   v148 = 0u;
   v149 = 0u;
-  v146 = 0u;
-  v147 = 0u;
-  v73 = obj;
-  v74 = [v73 countByEnumeratingWithState:&v146 objects:v195 count:16];
-  if (v74)
+  v75 = obj;
+  v76 = [v75 countByEnumeratingWithState:&v148 objects:v197 count:16];
+  if (v76)
   {
-    v75 = *v147;
+    v77 = *v149;
     while (2)
     {
-      for (kk = 0; kk != v74; ++kk)
+      for (kk = 0; kk != v76; ++kk)
       {
-        if (*v147 != v75)
+        if (*v149 != v77)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v75);
         }
 
-        if ([*(*(&v146 + 1) + 8 * kk) isLocalDevice])
+        if ([*(*(&v148 + 1) + 8 * kk) isLocalDevice])
         {
-          v119 = 1;
+          v121 = 1;
           goto LABEL_100;
         }
       }
 
-      v74 = [v73 countByEnumeratingWithState:&v146 objects:v195 count:16];
-      if (v74)
+      v76 = [v75 countByEnumeratingWithState:&v148 objects:v197 count:16];
+      if (v76)
       {
         continue;
       }
@@ -1151,58 +1153,58 @@ LABEL_109:
     }
   }
 
-  v119 = 0;
+  v121 = 0;
 LABEL_100:
 
-  v77 = v73;
-  v61 = v77;
-  if (v124)
+  v79 = v75;
+  v63 = v79;
+  if (v126)
   {
-    v78 = v119;
+    v80 = v121;
   }
 
   else
   {
-    v78 = 1;
+    v80 = 1;
   }
 
-  if ((v78 & 1) == 0)
+  if ((v80 & 1) == 0)
   {
-    v79 = [v77 arrayByAddingObject:?];
+    v81 = [v79 arrayByAddingObject:?];
     goto LABEL_109;
   }
 
-  v72 = v77;
+  v74 = v79;
 LABEL_111:
-  v81 = objc_alloc(MEMORY[0x1E695DF90]);
-  v82 = [v81 initWithCapacity:{objc_msgSend(v186[5], "count")}];
-  v83 = objc_alloc(MEMORY[0x1E695DF70]);
-  v84 = [v83 initWithCapacity:{objc_msgSend(v186[5], "count")}];
+  v83 = objc_alloc(MEMORY[0x1E695DF90]);
+  v84 = [v83 initWithCapacity:{objc_msgSend(v188[5], "count")}];
+  v85 = objc_alloc(MEMORY[0x1E695DF70]);
+  v86 = [v85 initWithCapacity:{objc_msgSend(v188[5], "count")}];
+  v146 = 0u;
+  v147 = 0u;
   v144 = 0u;
   v145 = 0u;
-  v142 = 0u;
-  v143 = 0u;
-  v85 = v72;
+  v87 = v74;
   isPickedOnPairedDevice = 0;
-  v87 = [v85 countByEnumeratingWithState:&v142 objects:v194 count:16];
-  if (!v87)
+  v89 = [v87 countByEnumeratingWithState:&v144 objects:v196 count:16];
+  if (!v89)
   {
     goto LABEL_125;
   }
 
-  v88 = *v143;
+  v90 = *v145;
   do
   {
-    for (mm = 0; mm != v87; ++mm)
+    for (mm = 0; mm != v89; ++mm)
     {
-      if (*v143 != v88)
+      if (*v145 != v90)
       {
-        objc_enumerationMutation(v85);
+        objc_enumerationMutation(v87);
       }
 
-      v90 = *(*(&v142 + 1) + 8 * mm);
-      logicalDeviceID3 = [v90 logicalDeviceID];
-      v92 = logicalDeviceID3;
+      v92 = *(*(&v144 + 1) + 8 * mm);
+      logicalDeviceID3 = [v92 logicalDeviceID];
+      v94 = logicalDeviceID3;
       if (isPickedOnPairedDevice)
       {
         isPickedOnPairedDevice = 1;
@@ -1214,38 +1216,38 @@ LABEL_111:
 
       else
       {
-        isPickedOnPairedDevice = [v90 isPickedOnPairedDevice];
-        if (!v92)
+        isPickedOnPairedDevice = [v92 isPickedOnPairedDevice];
+        if (!v94)
         {
 LABEL_122:
-          [v84 addObject:v90];
+          [v86 addObject:v92];
           goto LABEL_123;
         }
       }
 
-      v93 = [v82 objectForKey:v92];
-      if (!v93)
+      v95 = [v84 objectForKey:v94];
+      if (!v95)
       {
-        v93 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        [v82 setObject:v93 forKey:v92];
+        v95 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        [v84 setObject:v95 forKey:v94];
       }
 
-      [v93 addObject:v90];
+      [v95 addObject:v92];
 
 LABEL_123:
     }
 
-    v87 = [v85 countByEnumeratingWithState:&v142 objects:v194 count:16];
+    v89 = [v87 countByEnumeratingWithState:&v144 objects:v196 count:16];
   }
 
-  while (v87);
+  while (v89);
 LABEL_125:
 
-  v94 = v115;
-  v95 = v94;
-  if (v94)
+  v96 = v117;
+  v97 = v96;
+  if (v96)
   {
-    isDeviceRoute = [v94 isDeviceRoute];
+    isDeviceRoute = [v96 isDeviceRoute];
   }
 
   else
@@ -1255,74 +1257,74 @@ LABEL_125:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v192 = 0x2020000000;
-  v193 = 0;
+  v194 = 0x2020000000;
+  v195 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __57__MRUOutputDeviceRoutingDataSource_getRoutesForCategory___block_invoke_30;
   aBlock[3] = &unk_1E7665F60;
   aBlock[4] = selfCopy;
-  v139 = isDeviceRoute;
-  v140 = isPickedOnPairedDevice;
+  v141 = isDeviceRoute;
+  v142 = isPickedOnPairedDevice;
   p_buf = &buf;
-  v138 = v112;
-  v122 = v121;
-  v135 = v122;
-  v141 = v119;
-  v97 = v114;
-  v136 = v97;
-  v98 = _Block_copy(aBlock);
+  v140 = v114;
+  v124 = v123;
+  v137 = v124;
+  v143 = v121;
+  v99 = v116;
+  v138 = v99;
+  v100 = _Block_copy(aBlock);
   serialQueue = selfCopy->_serialQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __57__MRUOutputDeviceRoutingDataSource_getRoutesForCategory___block_invoke_3;
   block[3] = &unk_1E7665FA8;
   block[4] = selfCopy;
-  v100 = v97;
-  v128 = v100;
-  v101 = v82;
-  v129 = v101;
-  v102 = v98;
-  v132 = v102;
+  v102 = v99;
+  v130 = v102;
   v103 = v84;
-  v130 = v103;
-  v120 = categoryCopy;
-  v131 = v120;
-  v133 = isDeviceRoute;
+  v131 = v103;
+  v104 = v100;
+  v134 = v104;
+  v105 = v86;
+  v132 = v105;
+  v122 = categoryCopy;
+  v133 = v122;
+  v135 = isDeviceRoute;
   dispatch_sync(serialQueue, block);
   filterMode = [(MPAVRoutingDataSource *)selfCopy filterMode];
   switch(filterMode)
   {
     case 1:
-      v105 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_37];
-      v106 = [v100 filteredArrayUsingPredicate:v105];
-      v107 = [v106 mutableCopy];
+      v107 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_37];
+      v108 = [v102 filteredArrayUsingPredicate:v107];
+      v109 = [v108 mutableCopy];
       goto LABEL_134;
     case 2:
-      v105 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_41_0];
-      v106 = [v100 filteredArrayUsingPredicate:v105];
-      v107 = [v106 mutableCopy];
+      v107 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_41_0];
+      v108 = [v102 filteredArrayUsingPredicate:v107];
+      v109 = [v108 mutableCopy];
 LABEL_134:
-      v108 = v107;
+      v110 = v109;
 
       goto LABEL_136;
     case 3:
-      v105 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_39_1];
-      v106 = [v100 filteredArrayUsingPredicate:v105];
-      v107 = [v106 mutableCopy];
+      v107 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_39_1];
+      v108 = [v102 filteredArrayUsingPredicate:v107];
+      v109 = [v108 mutableCopy];
       goto LABEL_134;
   }
 
-  v108 = v100;
+  v110 = v102;
 LABEL_136:
-  [(MRUOutputDeviceRoutingDataSource *)selfCopy addHearingAidRouteIfNeededToRoutes:v108];
-  v109 = v131;
-  v110 = v108;
+  [(MRUOutputDeviceRoutingDataSource *)selfCopy addHearingAidRouteIfNeededToRoutes:v110];
+  v111 = v133;
+  v112 = v110;
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v185, 8);
+  _Block_object_dispose(&v187, 8);
 
-  return v110;
+  return v112;
 }
 
 void __57__MRUOutputDeviceRoutingDataSource_getRoutesForCategory___block_invoke(uint64_t a1)
@@ -1892,7 +1894,7 @@ void __75__MRUOutputDeviceRoutingDataSource_setPickedRoute_withPassword_completi
   v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v4 = MCLogCategoryDefault();
+    v4 = MCLogCategoryDefault(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
@@ -1920,7 +1922,7 @@ uint64_t __75__MRUOutputDeviceRoutingDataSource_setPickedRoute_withPassword_comp
   v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v4 = MCLogCategoryDefault();
+    v4 = MCLogCategoryDefault(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = 138543362;
@@ -2614,7 +2616,7 @@ LABEL_11:
     v13 = v4;
     sCopy = s;
     self->_shouldSourceOutputDevicesFromAVODDS = s;
-    v6 = MCLogCategoryDefault();
+    v6 = MCLogCategoryDefault(self);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (sCopy)
     {
@@ -2678,7 +2680,7 @@ LABEL_7:
 
 - (void)_resetPredictedOutputDevice
 {
-  v3 = MCLogCategoryDefault();
+  v3 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2866,7 +2868,7 @@ void __67__MRUOutputDeviceRoutingDataSource_hearingAidReachabilityDidChange__blo
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = nameOfHearingDeviceReachableForAudioHandoff();
-  v3 = MCLogCategoryDefault();
+  v3 = MCLogCategoryDefault(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

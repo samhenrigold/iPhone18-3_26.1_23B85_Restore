@@ -65,26 +65,26 @@ uint64_t __68__SWCollaborationCoordinatorBSActionResponder_sharedActionResponder
 
 - (id)_respondToActions:(id)actions forFBSScene:(id)scene inUIScene:(id)iScene fromTransitionContext:(id)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   v7 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(actionsCopy, "count")}];
   v8 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(actionsCopy, "count")}];
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __109__SWCollaborationCoordinatorBSActionResponder__respondToActions_forFBSScene_inUIScene_fromTransitionContext___block_invoke;
-  v20 = &unk_1E7FDE0A8;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __109__SWCollaborationCoordinatorBSActionResponder__respondToActions_forFBSScene_inUIScene_fromTransitionContext___block_invoke;
+  v19 = &unk_1E7FDE0A8;
   v9 = v7;
-  v21 = v9;
+  v20 = v9;
   v10 = v8;
-  v22 = v10;
-  [actionsCopy enumerateObjectsUsingBlock:&v17];
+  v21 = v10;
+  [actionsCopy enumerateObjectsUsingBlock:&v16];
   if ([v9 count])
   {
     v11 = SWFrameworkLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "[SWCollaborationCoordinatorBSActionResponder _respondToActions:forFBSScene:inUIScene:fromTransitionContext:]";
+      v23 = "[SWCollaborationCoordinatorBSActionResponder _respondToActions:forFBSScene:inUIScene:fromTransitionContext:]";
       _os_log_impl(&dword_1BBC06000, v11, OS_LOG_TYPE_DEFAULT, "%s we have incoming actions to deliver to the collaboration coordinator.", buf, 0xCu);
     }
 
@@ -95,8 +95,6 @@ uint64_t __68__SWCollaborationCoordinatorBSActionResponder_sharedActionResponder
 
   v14 = [actionsCopy mutableCopy];
   [v14 minusSet:v10];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

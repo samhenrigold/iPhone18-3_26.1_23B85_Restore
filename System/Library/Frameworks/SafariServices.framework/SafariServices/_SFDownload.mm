@@ -298,7 +298,7 @@
 - (void)cancel
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXDownloads();
+  v3 = WBS_LOG_CHANNEL_PREFIXDownloads(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -353,20 +353,20 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v34[4] = *MEMORY[0x1E69E9840];
-  v33[0] = @"BytesLoaded";
+  v38[4] = *MEMORY[0x1E69E9840];
+  v37[0] = @"BytesLoaded";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bytesLoaded];
-  v34[0] = v3;
-  v33[1] = @"BytesExpected";
+  v38[0] = v3;
+  v37[1] = @"BytesExpected";
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_bytesExpected];
-  v34[1] = v4;
-  v33[2] = @"State";
+  v38[1] = v4;
+  v37[2] = @"State";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_state];
-  v34[2] = v5;
-  v33[3] = @"Identifier";
+  v38[2] = v5;
+  v37[3] = @"Identifier";
   uUIDString = [(NSUUID *)self->_identifier UUIDString];
-  v34[3] = uUIDString;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:4];
+  v38[3] = uUIDString;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:4];
   v8 = [v7 mutableCopy];
 
   sourceURL = self->_sourceURL;
@@ -434,9 +434,10 @@
   request = self->_request;
   if (request)
   {
-    v32 = 0;
-    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:request requiringSecureCoding:1 error:&v32];
-    v23 = v32;
+    v36 = 0;
+    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:request requiringSecureCoding:1 error:&v36];
+    v23 = v36;
+    v25 = v23;
     if (v22)
     {
       [v8 setObject:v22 forKeyedSubscript:@"Request"];
@@ -444,10 +445,10 @@
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = WBS_LOG_CHANNEL_PREFIXDownloads(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [(_SFDownload *)v24 dictionaryRepresentation];
+        [(_SFDownload *)v26 dictionaryRepresentation];
       }
     }
   }
@@ -455,27 +456,28 @@
   response = self->_response;
   if (response)
   {
-    v31 = 0;
-    v26 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:response requiringSecureCoding:1 error:&v31];
-    v27 = v31;
-    if (v26)
+    v35 = 0;
+    v28 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:response requiringSecureCoding:1 error:&v35];
+    v29 = v35;
+    v31 = v29;
+    if (v28)
     {
-      [v8 setObject:v26 forKeyedSubscript:@"Response"];
+      [v8 setObject:v28 forKeyedSubscript:@"Response"];
     }
 
     else
     {
-      v28 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = WBS_LOG_CHANNEL_PREFIXDownloads(v29, v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [(_SFDownload *)v28 dictionaryRepresentation];
+        [(_SFDownload *)v32 dictionaryRepresentation];
       }
     }
   }
 
-  v29 = [v8 copy];
+  v33 = [v8 copy];
 
-  return v29;
+  return v33;
 }
 
 - (_SFDownload)initWithDictionaryRepresentation:(id)representation didUpdateRepresentation:(BOOL *)updateRepresentation
@@ -528,49 +530,49 @@
     v24 = [representationCopy safari_dataForKey:@"Request"];
     if (v24)
     {
-      v71 = 0;
-      v25 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v24 error:&v71];
-      v26 = v71;
+      v77 = 0;
+      v25 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v24 error:&v77];
+      v26 = v77;
       request = v7->_request;
       v7->_request = v25;
 
       if (!v7->_request)
       {
-        v28 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v30 = WBS_LOG_CHANNEL_PREFIXDownloads(v28, v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [_SFDownload initWithDictionaryRepresentation:v28 didUpdateRepresentation:?];
+          [_SFDownload initWithDictionaryRepresentation:v30 didUpdateRepresentation:?];
         }
       }
     }
 
-    v29 = [representationCopy safari_dataForKey:@"Response"];
-    if (v29)
+    v31 = [representationCopy safari_dataForKey:@"Response"];
+    if (v31)
     {
-      v70 = 0;
-      v30 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v29 error:&v70];
-      v31 = v70;
+      v76 = 0;
+      v32 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v31 error:&v76];
+      v33 = v76;
       response = v7->_response;
-      v7->_response = v30;
+      v7->_response = v32;
 
       if (!v7->_response)
       {
-        v33 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v37 = WBS_LOG_CHANNEL_PREFIXDownloads(v35, v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [_SFDownload initWithDictionaryRepresentation:v33 didUpdateRepresentation:?];
+          [_SFDownload initWithDictionaryRepresentation:v37 didUpdateRepresentation:?];
         }
       }
     }
 
-    v34 = [representationCopy safari_stringForKey:@"Identifier"];
-    if (v34)
+    v38 = [representationCopy safari_stringForKey:@"Identifier"];
+    if (v38)
     {
-      v35 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v34];
-      v36 = v35;
-      if (v35)
+      v39 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v38];
+      v40 = v39;
+      if (v39)
       {
-        uUID = v35;
+        uUID = v39;
       }
 
       else
@@ -585,17 +587,17 @@
     else
     {
       uUID2 = [MEMORY[0x1E696AFB0] UUID];
-      v36 = v7->_identifier;
+      v40 = v7->_identifier;
       v7->_identifier = uUID2;
     }
 
-    v67 = v29;
+    v73 = v31;
 
     if (v23)
     {
-      v40 = [[SFDownloadFile alloc] initWithBookmarkData:v23, v29];
+      v44 = [[SFDownloadFile alloc] initWithBookmarkData:v23, v31];
       completedFile = v7->_completedFile;
-      v7->_completedFile = v40;
+      v7->_completedFile = v44;
 
       [(SFDownloadFile *)v7->_completedFile setDelegate:v7];
       if (updateRepresentation)
@@ -607,13 +609,13 @@
       }
     }
 
-    v42 = v24;
-    v69 = v23;
+    v46 = v24;
+    v75 = v23;
     if (v22)
     {
-      v43 = [[SFDownloadFile alloc] initWithBookmarkData:v22];
+      v47 = [[SFDownloadFile alloc] initWithBookmarkData:v22];
       placeholderFile = v7->_placeholderFile;
-      v7->_placeholderFile = v43;
+      v7->_placeholderFile = v47;
 
       [(SFDownloadFile *)v7->_placeholderFile setDelegate:v7];
       if (updateRepresentation)
@@ -626,20 +628,20 @@
     }
 
     updateRepresentationCopy = updateRepresentation;
-    v46 = v22;
-    v47 = [representationCopy safari_stringForKey:{@"Path", v67}];
+    v50 = v22;
+    v51 = [representationCopy safari_stringForKey:{@"Path", v73}];
     p_fileDownloadPath = &v7->_fileDownloadPath;
     fileDownloadPath = v7->_fileDownloadPath;
-    v7->_fileDownloadPath = v47;
+    v7->_fileDownloadPath = v51;
 
-    v50 = v7->_fileDownloadPath;
-    if (v50)
+    v54 = v7->_fileDownloadPath;
+    if (v54)
     {
-      v51 = MEMORY[0x1E695DFF8];
-      v52 = _SFSafariContainerURL();
-      v53 = [v51 fileURLWithPath:v50 relativeToURL:v52];
-      path = [v53 path];
-      v55 = *p_fileDownloadPath;
+      v55 = MEMORY[0x1E695DFF8];
+      v56 = _SFSafariContainerURL();
+      v57 = [v55 fileURLWithPath:v54 relativeToURL:v56];
+      path = [v57 path];
+      v59 = *p_fileDownloadPath;
       *p_fileDownloadPath = path;
     }
 
@@ -647,24 +649,24 @@
     {
       v7->_state = 3;
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v57 = [defaultManager attributesOfItemAtPath:v7->_fileDownloadPath error:0];
-      v7->_bytesLoaded = [v57 fileSize];
+      v61 = [defaultManager attributesOfItemAtPath:v7->_fileDownloadPath error:0];
+      v7->_bytesLoaded = [v61 fileSize];
 
-      v58 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v64 = WBS_LOG_CHANNEL_PREFIXDownloads(v62, v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        [_SFDownload initWithDictionaryRepresentation:v58 didUpdateRepresentation:?];
+        [_SFDownload initWithDictionaryRepresentation:v64 didUpdateRepresentation:?];
       }
     }
 
-    v59 = [representationCopy safari_dateForKey:@"DateFinished"];
+    v65 = [representationCopy safari_dateForKey:@"DateFinished"];
     dateFinished = v7->_dateFinished;
-    v7->_dateFinished = v59;
+    v7->_dateFinished = v65;
 
     if (!v7->_dateFinished)
     {
       date = [MEMORY[0x1E695DF00] date];
-      v62 = v7->_dateFinished;
+      v68 = v7->_dateFinished;
       v7->_dateFinished = date;
 
       if (updateRepresentationCopy)
@@ -673,9 +675,9 @@
       }
     }
 
-    v63 = [representationCopy safari_dateForKey:@"DateAdded"];
+    v69 = [representationCopy safari_dateForKey:@"DateAdded"];
     dateAdded = v7->_dateAdded;
-    v7->_dateAdded = v63;
+    v7->_dateAdded = v69;
 
     if (!v7->_dateAdded)
     {
@@ -686,7 +688,7 @@
       }
     }
 
-    v65 = v7;
+    v71 = v7;
   }
 
   return v7;
@@ -809,17 +811,17 @@ LABEL_13:
   v4 = sandbox_check();
   if (v4 == -1)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [_SFDownload _validateSandboxAccessToURL:v6];
+      [(_SFDownload *)v7 _validateSandboxAccessToURL:lCopy];
     }
   }
 
   else if (v4 == 1)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [_SFDownload _validateSandboxAccessToURL:];
     }
@@ -887,78 +889,85 @@ LABEL_13:
 
 - (void)_importPlaceholderIfNeeded:(id)needed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
+  v6 = neededCopy;
   if (!self->_placeholderFile)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v7 = objc_loadWeakRetained(&self->_placeholderImporter);
-    if (v7)
+    v9 = objc_loadWeakRetained(&self->_placeholderImporter);
+    v11 = v9;
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v12 = WBS_LOG_CHANNEL_PREFIXDownloads(v9, v10);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+      if (v13)
       {
         [_SFDownload _importPlaceholderIfNeeded:];
       }
     }
 
-    else if ((objc_opt_respondsToSelector() & 1) == 0 || ([WeakRetained downloadShouldImportPlaceholderToDownloadsFolder:self] & 1) == 0)
+    else
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v13 = objc_opt_respondsToSelector();
+      if ((v13 & 1) == 0 || (v13 = [WeakRetained downloadShouldImportPlaceholderToDownloadsFolder:self], (v13 & 1) == 0))
       {
-        *buf = 138543362;
-        selfCopy2 = self;
-        _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: not importing placeholder to the Downloads folder because the delegate says not to", buf, 0xCu);
-      }
+        v22 = WBS_LOG_CHANNEL_PREFIXDownloads(v13, v14);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          selfCopy2 = self;
+          _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: not importing placeholder to the Downloads folder because the delegate says not to", buf, 0xCu);
+        }
 
-      goto LABEL_16;
+        goto LABEL_16;
+      }
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXDownloads(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: starting to import placeholder to the Downloads folder", buf, 0xCu);
+      _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: starting to import placeholder to the Downloads folder", buf, 0xCu);
     }
 
-    if (v7)
+    if (v11)
     {
       data = [MEMORY[0x1E695DEF0] data];
-      v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_fileDownloadPath isDirectory:0];
-      v12 = [v11 URLByAppendingPathExtension:@"download"];
+      v17 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_fileDownloadPath isDirectory:0];
+      v18 = [v17 URLByAppendingPathExtension:@"download"];
 
-      v13 = +[_SFDownload _sharedQueue];
+      v19 = +[_SFDownload _sharedQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __42___SFDownload__importPlaceholderIfNeeded___block_invoke;
       block[3] = &unk_1E84965D8;
-      v18 = data;
-      v19 = v12;
+      v24 = data;
+      v25 = v18;
       selfCopy3 = self;
-      v22 = neededCopy;
-      v21 = v7;
-      v14 = v12;
-      v15 = data;
-      dispatch_async(v13, block);
+      v28 = v6;
+      v27 = v11;
+      v20 = v18;
+      v21 = data;
+      dispatch_async(v19, block);
 
 LABEL_17:
       goto LABEL_18;
     }
 
 LABEL_16:
-    (*(neededCopy + 2))(neededCopy, 1);
+    v6[2](v6, 1);
     goto LABEL_17;
   }
 
-  v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = WBS_LOG_CHANNEL_PREFIXDownloads(neededCopy, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [_SFDownload _importPlaceholderIfNeeded:];
   }
 
-  (*(neededCopy + 2))(neededCopy, 1);
+  v6[2](v6, 1);
 LABEL_18:
 }
 
@@ -966,36 +975,36 @@ LABEL_18:
 {
   lCopy = l;
   handlerCopy = handler;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__16;
-  v20 = __Block_byref_object_dispose__16;
-  v21 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __60___SFDownload__didImportPlaceholderAtURL_completionHandler___block_invoke;
-  v13[3] = &unk_1E8494780;
-  v15 = &v16;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__16;
+  v22 = __Block_byref_object_dispose__16;
+  v23 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __60___SFDownload__didImportPlaceholderAtURL_completionHandler___block_invoke;
+  v15[3] = &unk_1E8494780;
+  v17 = &v18;
   v8 = lCopy;
-  v14 = v8;
-  [v8 safari_accessingSecurityScopedResource:v13];
-  if (v17[5])
+  v16 = v8;
+  v9 = [v8 safari_accessingSecurityScopedResource:v15];
+  if (v19[5])
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __60___SFDownload__didImportPlaceholderAtURL_completionHandler___block_invoke_143;
     block[3] = &unk_1E8496600;
     block[4] = self;
-    v12 = &v16;
-    v11 = handlerCopy;
+    v14 = &v18;
+    v13 = handlerCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXDownloads(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_SFDownload _didImportPlaceholderAtURL:completionHandler:];
     }
@@ -1003,59 +1012,59 @@ LABEL_18:
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 - (void)_importCompleteDownloadIfNeeded
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v3 = [(SFDownloadFile *)self->_placeholderFile URL];
-  if (v3)
+  v28 = *MEMORY[0x1E69E9840];
+  v4 = [(SFDownloadFile *)self->_placeholderFile URL];
+  if (v4)
   {
-    v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_fileDownloadPath isDirectory:0];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_fileDownloadPath isDirectory:0];
     v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke;
-    v16[3] = &unk_1E84902F0;
-    v16[4] = self;
-    v16[5] = &v17;
-    v6 = [mEMORY[0x1E69DC668] beginBackgroundTaskWithName:@"com.apple.SafariServices.DownloadImportTask" expirationHandler:v16];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke;
+    v19[3] = &unk_1E84902F0;
+    v19[4] = self;
+    v19[5] = &v20;
+    v7 = [mEMORY[0x1E69DC668] beginBackgroundTaskWithName:@"com.apple.SafariServices.DownloadImportTask" expirationHandler:v19];
 
-    v18[3] = v6;
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v21[3] = v7;
+    v10 = WBS_LOG_CHANNEL_PREFIXDownloads(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v18[3];
+      v11 = v21[3];
       *buf = 138543618;
       selfCopy = self;
-      v23 = 1024;
-      v24 = v8;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: starting background task %u to import completed file", buf, 0x12u);
+      v26 = 1024;
+      v27 = v11;
+      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: starting background task %u to import completed file", buf, 0x12u);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_147;
-    v11[3] = &unk_1E8496510;
-    v12 = v3;
-    v9 = v4;
-    v13 = v9;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __46___SFDownload__importCompleteDownloadIfNeeded__block_invoke_147;
+    v14[3] = &unk_1E8496510;
+    v15 = v4;
+    v12 = v5;
+    v16 = v12;
     selfCopy2 = self;
-    v15 = &v17;
-    [v12 safari_accessingSecurityScopedResource:v11];
+    v18 = &v20;
+    [v15 safari_accessingSecurityScopedResource:v14];
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXDownloads(0, v3);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [_SFDownload _importCompleteDownloadIfNeeded];
     }
@@ -1066,80 +1075,80 @@ LABEL_18:
 
 - (void)_didImportFileAtURL:(id)l completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   v8 = handlerCopy;
   if (lCopy)
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__16;
-    v33 = __Block_byref_object_dispose__16;
-    v34 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__16;
-    v27 = __Block_byref_object_dispose__16;
-    v28 = 0;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2;
-    v18[3] = &unk_1E8496650;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__16;
+    v35 = __Block_byref_object_dispose__16;
+    v36 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__16;
+    v29 = __Block_byref_object_dispose__16;
+    v30 = 0;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2;
+    v20[3] = &unk_1E8496650;
     v9 = lCopy;
-    v19 = v9;
+    v21 = v9;
     selfCopy = self;
-    v21 = &v23;
-    v22 = &v29;
-    [v9 safari_accessingSecurityScopedResource:v18];
-    if (v24[5])
+    v23 = &v25;
+    v24 = &v31;
+    v10 = [v9 safari_accessingSecurityScopedResource:v20];
+    if (v26[5])
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_2_150;
       block[3] = &unk_1E84949D0;
       block[4] = self;
-      v14 = v9;
-      v15 = v8;
+      v16 = v9;
+      v17 = v8;
       dispatch_async(MEMORY[0x1E69E96A0], block);
 
-      v10 = &v14;
+      v12 = &v16;
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXDownloads(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        safari_privacyPreservingDescription = [v30[5] safari_privacyPreservingDescription];
-        [(_SFDownload *)self _didImportFileAtURL:safari_privacyPreservingDescription completionHandler:buf, v11];
+        safari_privacyPreservingDescription = [v32[5] safari_privacyPreservingDescription];
+        [(_SFDownload *)self _didImportFileAtURL:safari_privacyPreservingDescription completionHandler:buf, v13];
       }
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_149;
-      v16[3] = &unk_1E8490818;
-      v16[4] = self;
-      v10 = &v17;
-      v17 = v8;
-      dispatch_async(MEMORY[0x1E69E96A0], v16);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke_149;
+      v18[3] = &unk_1E8490818;
+      v18[4] = self;
+      v12 = &v19;
+      v19 = v8;
+      dispatch_async(MEMORY[0x1E69E96A0], v18);
     }
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
   {
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke;
-    v35[3] = &unk_1E8490818;
-    v35[4] = self;
-    v36 = handlerCopy;
-    dispatch_async(MEMORY[0x1E69E96A0], v35);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __53___SFDownload__didImportFileAtURL_completionHandler___block_invoke;
+    v37[3] = &unk_1E8490818;
+    v37[4] = self;
+    v38 = handlerCopy;
+    dispatch_async(MEMORY[0x1E69E96A0], v37);
   }
 }
 
@@ -1199,58 +1208,58 @@ LABEL_18:
       {
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
         v13 = *p_fileDownloadPath;
-        v30 = 0;
-        v14 = [defaultManager attributesOfItemAtPath:v13 error:&v30];
-        v15 = v30;
+        v32 = 0;
+        v14 = [defaultManager attributesOfItemAtPath:v13 error:&v32];
+        v15 = v32;
         v16 = [v14 safari_numberForKey:*MEMORY[0x1E696A3B8]];
 
-        v17 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = WBS_LOG_CHANNEL_PREFIXDownloads(v17, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [(_SFDownload *)p_fileDownloadPath _createResumeData];
         }
 
         if ([v16 unsignedIntegerValue])
         {
-          v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          [v18 setObject:&unk_1F50235C0 forKeyedSubscript:@"NSURLSessionResumeInfoVersion"];
-          [v18 setObject:v16 forKeyedSubscript:@"NSURLSessionResumeBytesReceived"];
-          [v18 setObject:*p_fileDownloadPath forKeyedSubscript:@"NSURLSessionResumeInfoLocalPath"];
-          v19 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-          [v19 encodeObject:v4 forKey:@"NSKeyedArchiveRootObjectKey"];
-          encodedData = [v19 encodedData];
-          [v18 setObject:encodedData forKeyedSubscript:@"NSURLSessionResumeCurrentRequest"];
+          v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          [v20 setObject:&unk_1F50235C0 forKeyedSubscript:@"NSURLSessionResumeInfoVersion"];
+          [v20 setObject:v16 forKeyedSubscript:@"NSURLSessionResumeBytesReceived"];
+          [v20 setObject:*p_fileDownloadPath forKeyedSubscript:@"NSURLSessionResumeInfoLocalPath"];
+          v21 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+          [v21 encodeObject:v4 forKey:@"NSKeyedArchiveRootObjectKey"];
+          encodedData = [v21 encodedData];
+          [v20 setObject:encodedData forKeyedSubscript:@"NSURLSessionResumeCurrentRequest"];
 
           if (v11)
           {
-            [v18 setObject:v11 forKeyedSubscript:@"NSURLSessionResumeServerDownloadDate"];
+            [v20 setObject:v11 forKeyedSubscript:@"NSURLSessionResumeServerDownloadDate"];
           }
 
-          v28 = v16;
+          v30 = v16;
           if (v10)
           {
-            [v18 setObject:v10 forKeyedSubscript:@"NSURLSessionResumeEntityTag"];
+            [v20 setObject:v10 forKeyedSubscript:@"NSURLSessionResumeEntityTag"];
           }
 
-          v29 = v15;
+          v31 = v15;
           allHTTPHeaderFields = [(NSURLRequest *)v4 allHTTPHeaderFields];
-          v22 = [allHTTPHeaderFields safari_stringForKey:@"Range"];
-          if ([v22 hasPrefix:@"bytes="])
+          v24 = [allHTTPHeaderFields safari_stringForKey:@"Range"];
+          if ([v24 hasPrefix:@"bytes="])
           {
-            v23 = [v22 componentsSeparatedByString:@"="];
-            if ([v23 count] >= 2)
+            v25 = [v24 componentsSeparatedByString:@"="];
+            if ([v25 count] >= 2)
             {
-              v24 = [v23 objectAtIndexedSubscript:1];
-              [v18 setObject:v24 forKeyedSubscript:@"NSURLSessionResumeByteRange"];
+              v26 = [v25 objectAtIndexedSubscript:1];
+              [v20 setObject:v26 forKeyedSubscript:@"NSURLSessionResumeByteRange"];
             }
           }
 
-          v25 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-          [v25 encodeObject:v18 forKey:@"NSKeyedArchiveRootObjectKey"];
-          encodedData2 = [v25 encodedData];
+          v27 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+          [v27 encodeObject:v20 forKey:@"NSKeyedArchiveRootObjectKey"];
+          encodedData2 = [v27 encodedData];
 
-          v16 = v28;
-          v15 = v29;
+          v16 = v30;
+          v15 = v31;
         }
 
         else
@@ -1344,16 +1353,16 @@ LABEL_18:
 
 - (void)downloadDidStart:(id)start
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   startCopy = start;
-  v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXDownloads(startCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = startCopy;
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "%{public}@: starting download %{public}@", &v11, 0x16u);
+    v14 = 2114;
+    v15 = startCopy;
+    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_INFO, "%{public}@: starting download %{public}@", &v12, 0x16u);
   }
 
   self->_wasCanceled = 0;
@@ -1381,31 +1390,31 @@ LABEL_18:
 - (void)download:(id)download didReceiveResponse:(id)response
 {
   responseCopy = response;
-  v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = WBS_LOG_CHANNEL_PREFIXDownloads(responseCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [_SFDownload download:didReceiveResponse:];
   }
 
   self->_bytesLoaded = 0;
   self->_bytesExpected = [(NSURLResponse *)responseCopy expectedContentLength];
-  v7 = [(NSURLResponse *)responseCopy URL];
+  v8 = [(NSURLResponse *)responseCopy URL];
   sourceURL = self->_sourceURL;
-  self->_sourceURL = v7;
+  self->_sourceURL = v8;
 
   [(WBSFluidProgressState *)self->_fluidProgressState setHasCommittedLoad:1];
-  v9 = typeIdentifierForDownloadFromResponse(responseCopy);
+  v10 = typeIdentifierForDownloadFromResponse(responseCopy);
   uti = self->_uti;
-  self->_uti = v9;
+  self->_uti = v10;
 
   mIMEType = [(NSURLResponse *)responseCopy MIMEType];
-  v12 = [mIMEType copy];
+  v13 = [mIMEType copy];
   mimeType = self->_mimeType;
-  self->_mimeType = v12;
+  self->_mimeType = v13;
 
   response = self->_response;
   self->_response = responseCopy;
-  v15 = responseCopy;
+  v16 = responseCopy;
 
   self->_cachedFileType = 0;
   [(_SFDownload *)self _reportUpdatedProgressNow];
@@ -1470,23 +1479,23 @@ LABEL_18:
 - (void)download:(id)download didReceiveFinalURL:(id)l
 {
   lCopy = l;
-  v6 = [(SFDownloadFile *)self->_placeholderFile URL];
-  if (v6)
+  v7 = [(SFDownloadFile *)self->_placeholderFile URL];
+  if (v7)
   {
-    v7 = +[_SFDownload _sharedQueue];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __43___SFDownload_download_didReceiveFinalURL___block_invoke;
-    v9[3] = &unk_1E848F548;
-    v9[4] = self;
-    v10 = lCopy;
-    dispatch_async(v7, v9);
+    v8 = +[_SFDownload _sharedQueue];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __43___SFDownload_download_didReceiveFinalURL___block_invoke;
+    v10[3] = &unk_1E848F548;
+    v10[4] = self;
+    v11 = lCopy;
+    dispatch_async(v8, v10);
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_SFDownload download:didReceiveFinalURL:];
     }
@@ -1527,8 +1536,8 @@ LABEL_18:
 {
   filenameCopy = filename;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = WBS_LOG_CHANNEL_PREFIXDownloads(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [_SFDownload download:decideDestinationWithSuggestedFilename:completionHandler:];
   }
@@ -1538,50 +1547,52 @@ LABEL_18:
   aBlock[2] = __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke;
   aBlock[3] = &unk_1E8496678;
   aBlock[4] = self;
-  v10 = handlerCopy;
-  v20 = v10;
-  v11 = _Block_copy(aBlock);
+  v11 = handlerCopy;
+  v25 = v11;
+  v12 = _Block_copy(aBlock);
+  v14 = v12;
   if (self->_wasCanceled)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v15 = WBS_LOG_CHANNEL_PREFIXDownloads(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [_SFDownload download:decideDestinationWithSuggestedFilename:completionHandler:];
     }
 
-    v11[2](v11, 0);
+    v14[2](v14, 0);
   }
 
   else
   {
     if (!self->_suggestedFilename)
     {
-      v13 = [MEMORY[0x1E69B1B68] properFilenameForOriginalFilename:filenameCopy typeIdentifier:self->_uti mimeType:self->_mimeType sourceURL:self->_sourceURL];
+      v16 = [MEMORY[0x1E69B1B68] properFilenameForOriginalFilename:filenameCopy typeIdentifier:self->_uti mimeType:self->_mimeType sourceURL:self->_sourceURL];
       suggestedFilename = self->_suggestedFilename;
-      self->_suggestedFilename = v13;
+      self->_suggestedFilename = v16;
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    if (objc_opt_respondsToSelector())
+    v19 = objc_opt_respondsToSelector();
+    if (v19)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v21 = WBS_LOG_CHANNEL_PREFIXDownloads(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         [_SFDownload download:decideDestinationWithSuggestedFilename:completionHandler:];
       }
 
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_227;
-      v17[3] = &unk_1E8490C40;
-      v17[4] = self;
-      v18 = v11;
-      [WeakRetained downloadShouldContinueAfterReceivingResponse:self decisionHandler:v17];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __81___SFDownload_download_decideDestinationWithSuggestedFilename_completionHandler___block_invoke_227;
+      v22[3] = &unk_1E8490C40;
+      v22[4] = self;
+      v23 = v14;
+      [WeakRetained downloadShouldContinueAfterReceivingResponse:self decisionHandler:v22];
     }
 
     else
     {
-      [(_SFDownload *)self _continueAfterDownloadConfirmation:1 destinationCompletionHandler:v11];
+      [(_SFDownload *)self _continueAfterDownloadConfirmation:1 destinationCompletionHandler:v14];
     }
   }
 }
@@ -1645,7 +1656,7 @@ LABEL_7:
   v8 = *MEMORY[0x1E69E9840];
   if (!self->_wasCanceled)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
+    v4 = WBS_LOG_CHANNEL_PREFIXDownloads(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = 138543362;
@@ -1664,10 +1675,10 @@ LABEL_7:
 {
   errorCopy = error;
   dataCopy = data;
-  v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = WBS_LOG_CHANNEL_PREFIXDownloads(dataCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [_SFDownload download:v9 didFailWithError:errorCopy resumeData:?];
+    [_SFDownload download:v10 didFailWithError:errorCopy resumeData:?];
   }
 
   self->_state = 3;
@@ -1690,8 +1701,8 @@ LABEL_7:
   WeakRetained = objc_loadWeakRetained(&self->_fluidProgressController);
   [WeakRetained cancelFluidProgressWithProgressStateSource:self];
 
-  v14 = objc_loadWeakRetained(&self->_delegate);
-  [v14 downloadDidFail:self];
+  v15 = objc_loadWeakRetained(&self->_delegate);
+  [v15 downloadDidFail:self];
 
   [(_SFDownload *)self setWKDownload:0];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1818,11 +1829,14 @@ LABEL_7:
   _os_log_error_impl(&dword_1D4644000, v2, OS_LOG_TYPE_ERROR, "Failed to check file size at %{private}@: %{public}@", v4, 0x16u);
 }
 
-- (void)_validateSandboxAccessToURL:(void *)a1 .cold.1(void *a1)
+- (void)_validateSandboxAccessToURL:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  __error();
-  OUTLINED_FUNCTION_5_2(&dword_1D4644000, v2, v3, "Error checking sandbox access to placeholder file: errno=%ld, url=%{private}@", v4, v5, v6, v7, 3u);
+  v3 = a1;
+  *v10 = 134218243;
+  *&v10[4] = *__error();
+  *&v10[12] = 2113;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_5_2(&dword_1D4644000, v4, v5, "Error checking sandbox access to placeholder file: errno=%ld, url=%{private}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_validateSandboxAccessToURL:.cold.2()

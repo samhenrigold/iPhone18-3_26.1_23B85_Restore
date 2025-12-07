@@ -65,7 +65,7 @@
 
 - (UIImage)snapshotImage
 {
-  v3 = NTKSnapshotMappedImageCache();
+  v3 = NTKSnapshotMappedImageCache(self);
   v4 = [v3 imageForKey:self->_snapshotKey];
 
   return v4;

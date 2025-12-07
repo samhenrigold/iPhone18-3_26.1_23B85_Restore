@@ -343,7 +343,7 @@
     if (([(ICKeyboardHandlerDelegate *)delegate respondsToSelector:"performFindAndReplace:"]& 1) != 0)
     {
       sub_10027CA3C(v9, &v8);
-      sub_10015DA04(&qword_1006BE7A0);
+      sub_10015DA04(&qword_1006BE7A0, &unk_100535E20);
       [(ICKeyboardHandlerDelegate *)v7 performFindAndReplace:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)()];
 
       swift_unknownObjectRelease();

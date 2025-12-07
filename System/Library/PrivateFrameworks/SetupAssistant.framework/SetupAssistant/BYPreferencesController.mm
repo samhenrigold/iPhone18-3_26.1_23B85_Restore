@@ -45,7 +45,6 @@ uint64_t __51__BYPreferencesController_buddyPreferencesInternal__block_invoke(ui
   result = os_variant_has_internal_ui();
   if (result)
   {
-    v3 = *(a1 + 32);
     buddyPreferencesInternal_preferences = [objc_opt_class() buddyPreferences];
 
     return MEMORY[0x1EEE66BB8]();
@@ -168,30 +167,13 @@ uint64_t __52__BYPreferencesController_buddyPreferencesEphemeral__block_invoke()
   v19 = __Block_byref_object_copy__4;
   v20 = __Block_byref_object_dispose__4;
   v21 = 0;
-  if (!cacheCopy)
-  {
-    goto LABEL_4;
-  }
-
-  queue = [(BYPreferencesController *)self queue];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __53__BYPreferencesController_objectForKey_includeCache___block_invoke;
-  block[3] = &unk_1E7D032E0;
-  v15 = &v16;
-  block[4] = self;
-  v14 = keyCopy;
-  dispatch_sync(queue, block);
-
-  v8 = v17[5];
-  if (v8)
+  if (cacheCopy && ([(BYPreferencesController *)self queue], v7 = objc_claimAutoreleasedReturnValue(), block[0] = MEMORY[0x1E69E9820], block[1] = 3221225472, block[2] = __53__BYPreferencesController_objectForKey_includeCache___block_invoke, block[3] = &unk_1E7D032E0, v15 = &v16, block[4] = self, v14 = keyCopy, dispatch_sync(v7, block), v7, v14, (v8 = v17[5]) != 0))
   {
     v9 = v8;
   }
 
   else
   {
-LABEL_4:
     domain = [(BYPreferencesController *)self domain];
 
     if (domain)
@@ -275,27 +257,27 @@ void __44__BYPreferencesController_setObject_forKey___block_invoke(uint64_t a1)
 
 - (void)persistKeys:(id)keys
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [keysCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [keysCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         v10 = [(BYPreferencesController *)self objectForKey:v9];
         if (v10)
         {
@@ -303,13 +285,11 @@ void __44__BYPreferencesController_setObject_forKey___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [keysCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [keysCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectForKey:(id)key
@@ -378,20 +358,20 @@ void __32__BYPreferencesController_reset__block_invoke(uint64_t a1)
 
 void __34__BYPreferencesController_persist__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) preferences];
   v3 = [v2 allKeys];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = *MEMORY[0x1E695E8B8];
     v9 = *MEMORY[0x1E695E8B0];
     do
@@ -399,12 +379,12 @@ void __34__BYPreferencesController_persist__block_invoke(uint64_t a1)
       v10 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [*(a1 + 32) preferences];
         v13 = [v12 objectForKey:v11];
 
@@ -415,13 +395,11 @@ void __34__BYPreferencesController_persist__block_invoke(uint64_t a1)
       }
 
       while (v6 != v10);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)persistEverything
@@ -439,7 +417,6 @@ void __34__BYPreferencesController_persist__block_invoke(uint64_t a1)
 - (void)flush
 {
   domain = [(BYPreferencesController *)self domain];
-  v2 = *MEMORY[0x1E695E8B8];
   _CFPreferencesFlushCachesForIdentifier();
 }
 

@@ -104,15 +104,21 @@ uint64_t __33__SUDialogManager_presentDialog___block_invoke(uint64_t a1, uint64_
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -121,31 +127,29 @@ uint64_t __33__SUDialogManager_presentDialog___block_invoke(uint64_t a1, uint64_
       {
         v21 = 138543362;
         v22 = objc_opt_class();
-        LODWORD(v19) = 12;
-        v18 = &v21;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
+        v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Presenting dialog", &v21, 12);
+        if (v12)
         {
-          v12 = v11;
-          v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v21, v19}];
-          free(v12);
-          v18 = v13;
+          v13 = v12;
+          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+          free(v13);
+          v19 = v14;
           SSFileLog();
         }
       }
 
-      v14 = [MEMORY[0x1E69D4A30] weakReferenceWithObject:{self, v18}];
+      v15 = [MEMORY[0x1E69D4A30] weakReferenceWithObject:{self, v19}];
       [(NSMutableArray *)self->_dialogs addObject:dialog];
       copyXPCEncoding = [dialog copyXPCEncoding];
-      v16 = [objc_alloc(MEMORY[0x1E69D4A18]) initWithEncodedDialog:copyXPCEncoding];
+      v17 = [objc_alloc(MEMORY[0x1E69D4A18]) initWithEncodedDialog:copyXPCEncoding];
       v20[0] = MEMORY[0x1E69E9820];
       v20[1] = 3221225472;
       v20[2] = __53__SUDialogManager_presentDialog_withCompletionBlock___block_invoke;
       v20[3] = &unk_1E8164D40;
       v20[5] = dialog;
       v20[6] = block;
-      v20[4] = v14;
-      [v16 startWithDialogResponseBlock:v20];
+      v20[4] = v15;
+      [v17 startWithDialogResponseBlock:v20];
 
       xpc_release(copyXPCEncoding);
       [dialog incrementDisplayCount];
@@ -237,15 +241,21 @@ uint64_t __61__SUDialogManager_presentDialogForError_withCompletionBlock___block
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -256,15 +266,13 @@ uint64_t __61__SUDialogManager_presentDialogForError_withCompletionBlock___block
     v19 = objc_opt_class();
     v20 = 2048;
     indexCopy = index;
-    LODWORD(v17) = 22;
-    v16 = &v18;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Finished dialog with button index: %ld", &v18, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v18, v17}];
-      free(v11);
-      v16 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v17 = v13;
       SSFileLog();
     }
   }
@@ -273,13 +281,13 @@ uint64_t __61__SUDialogManager_presentDialogForError_withCompletionBlock___block
   [(NSMutableArray *)self->_dialogs removeObject:dialog];
   if (index < 0)
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v14 = objc_alloc(MEMORY[0x1E695DF20]);
-    v15 = [v14 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", index), @"SUDialogSelectedButtonIndexKey", 0}];
+    v15 = objc_alloc(MEMORY[0x1E695DF20]);
+    v16 = [v15 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", index), @"SUDialogSelectedButtonIndexKey", 0}];
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];

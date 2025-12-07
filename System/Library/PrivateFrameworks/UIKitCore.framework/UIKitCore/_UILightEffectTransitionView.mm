@@ -9,15 +9,16 @@
 
 - (void)_didRemoveSubview:(id)subview
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for _UILightEffectTransitionView();
-  v4 = v7.receiver;
+  type metadata accessor for _UILightEffectTransitionView();
+  v9.receiver = self;
+  v9.super_class = v5;
+  selfCopy = self;
   subviewCopy = subview;
-  [(UIView *)&v7 _didRemoveSubview:subviewCopy];
+  [(UIView *)&v9 _didRemoveSubview:subviewCopy];
   if (subviewCopy)
   {
     swift_beginAccess();
-    v6 = sub_188DD15C0(subviewCopy);
+    v8 = sub_188DD15C0(subviewCopy);
     swift_endAccess();
   }
 

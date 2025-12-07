@@ -1,3 +1,142 @@
+uint64_t AST.Group._dumpBase.getter()
+{
+  v0 = AST.Group.Kind._dumpBase.getter();
+  MEMORY[0x1C68E0BF0](v0);
+
+  return 0x5F70756F7267;
+}
+
+uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.Group()
+{
+  v0 = AST.Group.Kind._dumpBase.getter();
+  MEMORY[0x1C68E0BF0](v0);
+
+  return 0x5F70756F7267;
+}
+
+uint64_t AST.Quantification.Amount._canonicalBase.getter()
+{
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  v3 = *(v0 + 45) | (*(v0 + 47) << 16);
+  v4 = v3 >> 21;
+  if (v3 >> 21 <= 1)
+  {
+    if (v4)
+    {
+      v30 = 123;
+      if (v2)
+      {
+        v27 = 0x7265626D756E233CLL;
+        v28 = 0xEA00000000003E23;
+      }
+
+      else
+      {
+        v27 = dispatch thunk of CustomStringConvertible.description.getter();
+        v28 = v29;
+      }
+
+      MEMORY[0x1C68E0BF0](v27, v28);
+
+      v15 = 32044;
+      v16 = 0xE200000000000000;
+      goto LABEL_34;
+    }
+
+    v30 = 123;
+    if (v2)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (v4 == 2)
+  {
+    v30 = 11387;
+    if (v2)
+    {
+LABEL_13:
+      v13 = 0x7265626D756E233CLL;
+      v7 = 0xEA00000000003E23;
+      goto LABEL_14;
+    }
+
+LABEL_11:
+    v13 = dispatch thunk of CustomStringConvertible.description.getter();
+    v7 = v14;
+LABEL_14:
+    MEMORY[0x1C68E0BF0](v13, v7);
+
+    v15 = 125;
+    v16 = 0xE100000000000000;
+LABEL_34:
+    MEMORY[0x1C68E0BF0](v15, v16);
+    return v30;
+  }
+
+  v5 = v0[4];
+  v6 = *(v0 + 40);
+  if (v4 == 3)
+  {
+    v7 = 0xE90000000000003ELL;
+    v8 = 0x64696C61766E693CLL;
+    v30 = 123;
+    v9 = 0x64696C61766E693CLL;
+    v10 = 0xE90000000000003ELL;
+    if ((v2 & 1) == 0)
+    {
+      v9 = dispatch thunk of CustomStringConvertible.description.getter();
+      v10 = v11;
+    }
+
+    MEMORY[0x1C68E0BF0](v9, v10);
+
+    MEMORY[0x1C68E0BF0](44, 0xE100000000000000);
+    if ((v6 & 1) == 0)
+    {
+      v8 = dispatch thunk of CustomStringConvertible.description.getter();
+      v7 = v12;
+    }
+
+    v13 = v8;
+    goto LABEL_14;
+  }
+
+  v17 = *(v0 + 41) | ((*&v3 & 0xFFFFFFLL) << 32);
+  v18 = v0[6];
+  v19 = v0[7];
+  v20 = v6 | (v17 << 8);
+  v21 = (*(v0 + 9) << 8) | ((*(v0 + 13) | (*(v0 + 15) << 16)) << 40) | v2;
+  v22 = v0[3] | v0[2];
+  if (v20 == 0x8000000000000000 && (v22 | v1 | v5 | v18 | v19 | v21) == 0)
+  {
+    return 42;
+  }
+
+  if (v22 | v21 | v5 | v18 | v19)
+  {
+    v24 = 0;
+  }
+
+  else
+  {
+    v24 = v1 == 1;
+  }
+
+  if (v24 && v20 == 0x8000000000000000)
+  {
+    return 43;
+  }
+
+  else
+  {
+    return 63;
+  }
+}
+
 uint64_t AST.Quantification.Amount._dumpBase.getter()
 {
   v1 = *v0;
@@ -16,7 +155,7 @@ uint64_t AST.Quantification.Amount._dumpBase.getter()
       v14 = 0x3C796C7463617865;
     }
 
-    v28 = v14;
+    v26 = v14;
     if ((v2 & 1) == 0)
     {
       goto LABEL_12;
@@ -27,18 +166,17 @@ uint64_t AST.Quantification.Amount._dumpBase.getter()
 
   if (v4 == 2)
   {
-    v28 = 0x3C4E6F747075;
+    v26 = 0x3C4E6F747075;
     if ((v2 & 1) == 0)
     {
 LABEL_12:
-      v27 = *v0;
       v13 = dispatch thunk of CustomStringConvertible.description.getter();
       v7 = v15;
 LABEL_30:
       MEMORY[0x1C68E0BF0](v13, v7);
 
       MEMORY[0x1C68E0BF0](62, 0xE100000000000000);
-      return v28;
+      return v26;
     }
 
 LABEL_29:
@@ -53,12 +191,11 @@ LABEL_29:
   {
     v7 = 0xE90000000000003ELL;
     v8 = 0x64696C61766E693CLL;
-    v28 = 0x3C65676E61722ELL;
+    v26 = 0x3C65676E61722ELL;
     v9 = 0x64696C61766E693CLL;
     v10 = 0xE90000000000003ELL;
     if ((v2 & 1) == 0)
     {
-      v26 = *v0;
       v9 = dispatch thunk of CustomStringConvertible.description.getter();
       v10 = v11;
     }
@@ -242,20 +379,6 @@ uint64_t AST.Quantification._dumpBase.getter()
   return 0x5F746E617571;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AST.Quantification()
-{
-  v8 = v0[6];
-  v9 = v0[7];
-  v10 = *(v0 + 16);
-  v4 = v0[2];
-  v5 = v0[3];
-  v6 = v0[4];
-  v7 = v0[5];
-  v2 = *v0;
-  v3 = v0[1];
-  return specialized _ASTPrintable._dump()();
-}
-
 unint64_t AST.CustomCharacterClass._dumpBase.getter()
 {
   v1 = 1702195828;
@@ -321,44 +444,32 @@ __n128 protocol witness for _ASTNode.location.getter in conformance AST.CustomCh
   return result;
 }
 
-unint64_t protocol witness for CustomStringConvertible.description.getter in conformance AST.CustomCharacterClass()
-{
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 2);
-  return AST.CustomCharacterClass._dumpBase.getter();
-}
-
 uint64_t AST.CustomCharacterClass.Member._dumpBase.getter()
 {
   v1 = v0;
   v2 = type metadata accessor for AST.CustomCharacterClass.Range(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2, v4);
-  v6 = &v77[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = type metadata accessor for AST.Atom(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8, v9);
-  v11 = &v77[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v12 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v12, v15);
-  v80 = &v77[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v19 = MEMORY[0x1EEE9AC00](v16, v18);
-  v79 = &v77[-v20];
-  v22 = MEMORY[0x1EEE9AC00](v19, v21);
-  v24 = &v77[-v23];
-  v26 = MEMORY[0x1EEE9AC00](v22, v25);
-  v85 = &v77[-v27];
-  v29 = MEMORY[0x1EEE9AC00](v26, v28);
-  v31 = &v77[-v30];
-  v33 = MEMORY[0x1EEE9AC00](v29, v32);
-  v35 = &v77[-v34];
-  MEMORY[0x1EEE9AC00](v33, v36);
-  v38 = &v77[-v37];
-  outlined init with copy of AST.CustomCharacterClass.Member(v1, &v77[-v37], type metadata accessor for AST.CustomCharacterClass.Member);
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v64[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = type metadata accessor for AST.Atom(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v64[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = type metadata accessor for AST.CustomCharacterClass.Member(0);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v67 = &v64[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v66 = &v64[-v13];
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v16 = &v64[-v15];
+  v17 = MEMORY[0x1EEE9AC00](v14);
+  v72 = &v64[-v18];
+  v19 = MEMORY[0x1EEE9AC00](v17);
+  v21 = &v64[-v20];
+  v22 = MEMORY[0x1EEE9AC00](v19);
+  v24 = &v64[-v23];
+  MEMORY[0x1EEE9AC00](v22);
+  v26 = &v64[-v25];
+  outlined init with copy of AST.CustomCharacterClass.Member(v1, &v64[-v25], type metadata accessor for AST.CustomCharacterClass.Member);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
@@ -366,110 +477,109 @@ uint64_t AST.CustomCharacterClass.Member._dumpBase.getter()
     {
       if (EnumCaseMultiPayload == 1)
       {
-        outlined init with take of AST.Atom.Kind(v38, v6, type metadata accessor for AST.CustomCharacterClass.Range);
-        v86 = AST.Atom._dumpBase.getter();
-        *&v87 = v40;
+        outlined init with take of AST.Atom.Kind(v26, v4, type metadata accessor for AST.CustomCharacterClass.Range);
+        v73 = AST.Atom._dumpBase.getter();
+        *&v74 = v28;
         MEMORY[0x1C68E0BF0](45, 0xE100000000000000);
-        v41 = &v6[*(v2 + 24)];
-        v42 = AST.Atom._dumpBase.getter();
-        MEMORY[0x1C68E0BF0](v42);
+        v29 = AST.Atom._dumpBase.getter();
+        MEMORY[0x1C68E0BF0](v29);
 
-        v43 = v86;
-        outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.CustomCharacterClass.Range);
+        v30 = v73;
+        outlined destroy of AST.CustomCharacterClass.Member(v4, type metadata accessor for AST.CustomCharacterClass.Range);
       }
 
       else
       {
-        outlined init with take of AST.Atom.Kind(v38, v11, type metadata accessor for AST.Atom);
-        v43 = AST.Atom._dumpBase.getter();
-        outlined destroy of AST.CustomCharacterClass.Member(v11, type metadata accessor for AST.Atom);
+        outlined init with take of AST.Atom.Kind(v26, v7, type metadata accessor for AST.Atom);
+        v30 = AST.Atom._dumpBase.getter();
+        outlined destroy of AST.CustomCharacterClass.Member(v7, type metadata accessor for AST.Atom);
       }
     }
 
     else
     {
-      v44 = *(v38 + 3);
-      LOBYTE(v86) = *v38;
-      v87 = *(v38 + 8);
-      v88 = v44;
-      v89 = *(v38 + 2);
-      v43 = AST.CustomCharacterClass._dumpBase.getter();
+      v31 = *(v26 + 3);
+      LOBYTE(v73) = *v26;
+      v74 = *(v26 + 8);
+      v75 = v31;
+      v76 = *(v26 + 2);
+      v30 = AST.CustomCharacterClass._dumpBase.getter();
     }
 
-    return v43;
+    return v30;
   }
 
   if (EnumCaseMultiPayload == 3)
   {
-    v45 = *v38;
-    v46 = *(v38 + 1);
-    v86 = 0x222065746F7571;
-    *&v87 = 0xE700000000000000;
-    MEMORY[0x1C68E0BF0](v45, v46);
+    v32 = *v26;
+    v33 = *(v26 + 1);
+    v73 = 0x222065746F7571;
+    *&v74 = 0xE700000000000000;
+    MEMORY[0x1C68E0BF0](v32, v33);
     MEMORY[0x1C68E0BF0](34, 0xE100000000000000);
 LABEL_36:
 
-    return v86;
+    return v73;
   }
 
   if (EnumCaseMultiPayload == 4)
   {
-    outlined destroy of AST.CustomCharacterClass.Member(v38, type metadata accessor for AST.CustomCharacterClass.Member);
+    outlined destroy of AST.CustomCharacterClass.Member(v26, type metadata accessor for AST.CustomCharacterClass.Member);
     return 0;
   }
 
-  v81 = v24;
-  v47 = *v38;
-  v78 = v38[8];
-  v84 = *(v38 + 4);
-  v86 = 0;
-  *&v87 = 0xE000000000000000;
+  v68 = v16;
+  v34 = *v26;
+  v65 = v26[8];
+  v71 = *(v26 + 4);
+  v73 = 0;
+  *&v74 = 0xE000000000000000;
   result = MEMORY[0x1C68E0BF0](2125935, 0xE300000000000000);
-  v49 = *(v47 + 16);
-  v82 = v12;
-  v83 = v49;
-  if (v49)
+  v36 = *(v34 + 16);
+  v69 = v8;
+  v70 = v36;
+  if (v36)
   {
-    v50 = 0;
-    v51 = MEMORY[0x1E69E7CC0];
-    while (v50 < *(v47 + 16))
+    v37 = 0;
+    v38 = MEMORY[0x1E69E7CC0];
+    while (v37 < *(v34 + 16))
     {
-      v52 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-      v53 = *(v13 + 72);
-      outlined init with copy of AST.CustomCharacterClass.Member(v47 + v52 + v53 * v50, v35, type metadata accessor for AST.CustomCharacterClass.Member);
-      outlined init with copy of AST.CustomCharacterClass.Member(v35, v31, type metadata accessor for AST.CustomCharacterClass.Member);
-      v54 = swift_getEnumCaseMultiPayload();
-      outlined destroy of AST.CustomCharacterClass.Member(v31, type metadata accessor for AST.CustomCharacterClass.Member);
-      if (v54 == 4)
+      v39 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+      v40 = *(v9 + 72);
+      outlined init with copy of AST.CustomCharacterClass.Member(v34 + v39 + v40 * v37, v24, type metadata accessor for AST.CustomCharacterClass.Member);
+      outlined init with copy of AST.CustomCharacterClass.Member(v24, v21, type metadata accessor for AST.CustomCharacterClass.Member);
+      v41 = swift_getEnumCaseMultiPayload();
+      outlined destroy of AST.CustomCharacterClass.Member(v21, type metadata accessor for AST.CustomCharacterClass.Member);
+      if (v41 == 4)
       {
-        result = outlined destroy of AST.CustomCharacterClass.Member(v35, type metadata accessor for AST.CustomCharacterClass.Member);
+        result = outlined destroy of AST.CustomCharacterClass.Member(v24, type metadata accessor for AST.CustomCharacterClass.Member);
       }
 
       else
       {
-        outlined init with take of AST.Atom.Kind(v35, v85, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined init with take of AST.Atom.Kind(v24, v72, type metadata accessor for AST.CustomCharacterClass.Member);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v90 = v51;
+        v77 = v38;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v51 + 16) + 1, 1);
-          v51 = v90;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v38 + 16) + 1, 1);
+          v38 = v77;
         }
 
-        v57 = *(v51 + 16);
-        v56 = *(v51 + 24);
-        if (v57 >= v56 >> 1)
+        v44 = *(v38 + 16);
+        v43 = *(v38 + 24);
+        if (v44 >= v43 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v56 > 1, v57 + 1, 1);
-          v51 = v90;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1);
+          v38 = v77;
         }
 
-        *(v51 + 16) = v57 + 1;
-        result = outlined init with take of AST.Atom.Kind(v85, v51 + v52 + v57 * v53, type metadata accessor for AST.CustomCharacterClass.Member);
-        v12 = v82;
+        *(v38 + 16) = v44 + 1;
+        result = outlined init with take of AST.Atom.Kind(v72, v38 + v39 + v44 * v40, type metadata accessor for AST.CustomCharacterClass.Member);
+        v8 = v69;
       }
 
-      if (v83 == ++v50)
+      if (v70 == ++v37)
       {
         goto LABEL_23;
       }
@@ -479,78 +589,78 @@ LABEL_36:
     goto LABEL_39;
   }
 
-  v51 = MEMORY[0x1E69E7CC0];
+  v38 = MEMORY[0x1E69E7CC0];
 LABEL_23:
 
-  v58 = MEMORY[0x1C68E0D70](v51, v12);
-  v60 = v59;
+  v45 = MEMORY[0x1C68E0D70](v38, v8);
+  v47 = v46;
 
-  MEMORY[0x1C68E0BF0](v58, v60);
+  MEMORY[0x1C68E0BF0](v45, v47);
 
   MEMORY[0x1C68E0BF0](32, 0xE100000000000000);
-  LOBYTE(v90) = v78;
+  LOBYTE(v77) = v65;
   _print_unlocked<A, B>(_:_:)();
   result = MEMORY[0x1C68E0BF0](32, 0xE100000000000000);
-  v61 = v84;
-  v85 = *(v84 + 16);
-  if (!v85)
+  v48 = v71;
+  v72 = *(v71 + 16);
+  if (!v72)
   {
-    v63 = MEMORY[0x1E69E7CC0];
+    v50 = MEMORY[0x1E69E7CC0];
 LABEL_35:
 
-    v74 = MEMORY[0x1C68E0D70](v63, v12);
-    v76 = v75;
+    v61 = MEMORY[0x1C68E0D70](v50, v8);
+    v63 = v62;
 
-    MEMORY[0x1C68E0BF0](v74, v76);
+    MEMORY[0x1C68E0BF0](v61, v63);
     goto LABEL_36;
   }
 
-  v62 = 0;
-  v63 = MEMORY[0x1E69E7CC0];
-  v65 = v79;
-  v64 = v80;
-  while (v62 < *(v61 + 16))
+  v49 = 0;
+  v50 = MEMORY[0x1E69E7CC0];
+  v52 = v66;
+  v51 = v67;
+  while (v49 < *(v48 + 16))
   {
-    v66 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-    v67 = *(v13 + 72);
-    v68 = v61 + v66 + v67 * v62;
-    v69 = v81;
-    outlined init with copy of AST.CustomCharacterClass.Member(v68, v81, type metadata accessor for AST.CustomCharacterClass.Member);
-    outlined init with copy of AST.CustomCharacterClass.Member(v69, v65, type metadata accessor for AST.CustomCharacterClass.Member);
-    v70 = swift_getEnumCaseMultiPayload();
-    outlined destroy of AST.CustomCharacterClass.Member(v65, type metadata accessor for AST.CustomCharacterClass.Member);
-    if (v70 == 4)
+    v53 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+    v54 = *(v9 + 72);
+    v55 = v48 + v53 + v54 * v49;
+    v56 = v68;
+    outlined init with copy of AST.CustomCharacterClass.Member(v55, v68, type metadata accessor for AST.CustomCharacterClass.Member);
+    outlined init with copy of AST.CustomCharacterClass.Member(v56, v52, type metadata accessor for AST.CustomCharacterClass.Member);
+    v57 = swift_getEnumCaseMultiPayload();
+    outlined destroy of AST.CustomCharacterClass.Member(v52, type metadata accessor for AST.CustomCharacterClass.Member);
+    if (v57 == 4)
     {
-      result = outlined destroy of AST.CustomCharacterClass.Member(v69, type metadata accessor for AST.CustomCharacterClass.Member);
-      v61 = v84;
+      result = outlined destroy of AST.CustomCharacterClass.Member(v56, type metadata accessor for AST.CustomCharacterClass.Member);
+      v48 = v71;
     }
 
     else
     {
-      outlined init with take of AST.Atom.Kind(v69, v64, type metadata accessor for AST.CustomCharacterClass.Member);
-      v71 = swift_isUniquelyReferenced_nonNull_native();
-      v90 = v63;
-      if ((v71 & 1) == 0)
+      outlined init with take of AST.Atom.Kind(v56, v51, type metadata accessor for AST.CustomCharacterClass.Member);
+      v58 = swift_isUniquelyReferenced_nonNull_native();
+      v77 = v50;
+      if ((v58 & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v63 + 16) + 1, 1);
-        v63 = v90;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v50 + 16) + 1, 1);
+        v50 = v77;
       }
 
-      v61 = v84;
-      v73 = *(v63 + 16);
-      v72 = *(v63 + 24);
-      if (v73 >= v72 >> 1)
+      v48 = v71;
+      v60 = *(v50 + 16);
+      v59 = *(v50 + 24);
+      if (v60 >= v59 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v72 > 1, v73 + 1, 1);
-        v63 = v90;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1);
+        v50 = v77;
       }
 
-      *(v63 + 16) = v73 + 1;
-      result = outlined init with take of AST.Atom.Kind(v64, v63 + v66 + v73 * v67, type metadata accessor for AST.CustomCharacterClass.Member);
-      v12 = v82;
+      *(v50 + 16) = v60 + 1;
+      result = outlined init with take of AST.Atom.Kind(v51, v50 + v53 + v60 * v54, type metadata accessor for AST.CustomCharacterClass.Member);
+      v8 = v69;
     }
 
-    if (v85 == ++v62)
+    if (v72 == ++v49)
     {
       goto LABEL_35;
     }
@@ -561,33 +671,31 @@ LABEL_39:
   return result;
 }
 
-uint64_t AST.CustomCharacterClass.Range._dumpBase.getter()
+unint64_t AST.CustomCharacterClass.Range._dumpBase.getter()
 {
-  v4 = AST.Atom._dumpBase.getter();
-  MEMORY[0x1C68E0BF0](45, 0xE100000000000000);
-  v1 = v0 + *(type metadata accessor for AST.CustomCharacterClass.Range(0) + 24);
   v2 = AST.Atom._dumpBase.getter();
-  MEMORY[0x1C68E0BF0](v2);
+  MEMORY[0x1C68E0BF0](45, 0xE100000000000000);
+  type metadata accessor for AST.CustomCharacterClass.Range(0);
+  v0 = AST.Atom._dumpBase.getter();
+  MEMORY[0x1C68E0BF0](v0);
 
-  return v4;
+  return v2;
 }
 
-uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.CustomCharacterClass.Range(uint64_t a1)
+unint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.CustomCharacterClass.Range()
 {
-  v6 = AST.Atom._dumpBase.getter();
+  v2 = AST.Atom._dumpBase.getter();
   MEMORY[0x1C68E0BF0](45, 0xE100000000000000);
-  v3 = v1 + *(a1 + 24);
-  v4 = AST.Atom._dumpBase.getter();
-  MEMORY[0x1C68E0BF0](v4);
+  v0 = AST.Atom._dumpBase.getter();
+  MEMORY[0x1C68E0BF0](v0);
 
-  return v6;
+  return v2;
 }
 
 uint64_t AST.Atom.BacktrackingDirective._dumpBase.getter()
 {
-  v1 = *(v0 + 3);
-  v2 = *(v0 + 4);
-  v4 = *v0;
+  v1 = *(v0 + 24);
+  v2 = *(v0 + 32);
   _print_unlocked<A, B>(_:_:)();
   result = 0;
   if (v2)
@@ -599,15 +707,6 @@ uint64_t AST.Atom.BacktrackingDirective._dumpBase.getter()
   }
 
   return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AST.Atom.BacktrackingDirective()
-{
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 40);
-  return AST.Atom.BacktrackingDirective._dumpBase.getter();
 }
 
 uint64_t AST.Group.BalancedCapture._dumpBase.getter()
@@ -700,13 +799,6 @@ uint64_t AST.AbsentFunction.Kind._dumpBase.getter()
   }
 }
 
-uint64_t AST.GlobalMatchingOption.Kind._dumpBase.getter()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  return AST.GlobalMatchingOption.Kind._canonicalBase.getter();
-}
-
 uint64_t AST.GlobalMatchingOption.Kind._canonicalBase.getter()
 {
   v1 = *v0;
@@ -718,17 +810,16 @@ uint64_t AST.GlobalMatchingOption.Kind._canonicalBase.getter()
     {
       if (v3 == 1)
       {
-        v18 = 0x45485F54494D494CLL;
+        v17 = 0x45485F54494D494CLL;
         if ((v2 & 1) == 0)
         {
 LABEL_5:
-          v17 = *v0;
           v4 = dispatch thunk of CustomStringConvertible.description.getter();
           v6 = v5;
 LABEL_26:
           MEMORY[0x1C68E0BF0](v4, v6);
 
-          return v18;
+          return v17;
         }
 
 LABEL_25:
@@ -745,7 +836,7 @@ LABEL_25:
       v8 = 0x45445F54494D494CLL;
     }
 
-    v18 = v8;
+    v17 = v8;
     if ((v2 & 1) == 0)
     {
       goto LABEL_5;
@@ -846,20 +937,6 @@ LABEL_25:
   }
 }
 
-uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.GlobalMatchingOption.Kind()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  return AST.GlobalMatchingOption.Kind._canonicalBase.getter();
-}
-
-uint64_t AST.GlobalMatchingOption._dumpBase.getter()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  return AST.GlobalMatchingOption.Kind._canonicalBase.getter();
-}
-
 unint64_t AST.GlobalMatchingOptionSequence._dumpBase.getter()
 {
   v1 = *v0;
@@ -884,24 +961,10 @@ unint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST
   return 0xD00000000000001DLL;
 }
 
-uint64_t PrettyPrinter.maxTopDownLevels.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
 uint64_t PrettyPrinter.maxTopDownLevels.setter(uint64_t result, char a2)
 {
   *v2 = result;
   *(v2 + 8) = a2 & 1;
-  return result;
-}
-
-uint64_t PrettyPrinter.minBottomUpLevels.getter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
   return result;
 }
 
@@ -914,7 +977,6 @@ uint64_t PrettyPrinter.minBottomUpLevels.setter(uint64_t result, char a2)
 
 uint64_t PrettyPrinter.inlineMatchingOptions.setter(uint64_t a1)
 {
-  v3 = *(v1 + 80);
 
   *(v1 + 80) = a1;
   return result;
@@ -957,7 +1019,7 @@ Swift::Void __swiftcall PrettyPrinter.indent()()
   }
 }
 
-uint64_t PrettyPrinter.printLine(_:)(uint64_t result)
+uint64_t (*PrettyPrinter.printLine(_:)(uint64_t (*result)(uint64_t)))(uint64_t)
 {
   v2 = result;
   if (*(v1 + 56) == 1)
@@ -1085,8 +1147,8 @@ LABEL_7:
 LABEL_8:
     isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew()(v0);
     v0 = isUniquelyReferenced_nonNull_native;
-    v8 = *(isUniquelyReferenced_nonNull_native + 16);
-    if (v8)
+    v7 = *(isUniquelyReferenced_nonNull_native + 16);
+    if (v7)
     {
       goto LABEL_5;
     }
@@ -1096,29 +1158,28 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v5 = *(v1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     goto LABEL_8;
   }
 
-  v8 = v0[2];
-  if (!v8)
+  v7 = v0[2];
+  if (!v7)
   {
     goto LABEL_9;
   }
 
 LABEL_5:
-  v9 = v8 - 1;
-  v10 = &v0[2 * v9];
-  isUniquelyReferenced_nonNull_native = v10[4];
-  v7 = *(v10 + 40);
-  v0[2] = v9;
+  v8 = v7 - 1;
+  v9 = &v0[2 * v8];
+  isUniquelyReferenced_nonNull_native = v9[4];
+  v6 = *(v9 + 40);
+  v0[2] = v8;
   *(v1 + 80) = v0;
 LABEL_10:
   result._0._rawValue = isUniquelyReferenced_nonNull_native;
-  result._1 = v7;
+  result._1 = v6;
   return result;
 }
 
@@ -1153,7 +1214,7 @@ Swift::String __swiftcall AST.renderAsCanonical(showDelimiters:terminateLine:)(S
   return result;
 }
 
-uint64_t *PrettyPrinter.printAsCanonical(_:delimiters:terminateLine:)(uint64_t *result, char a2, char a3)
+unint64_t *PrettyPrinter.printAsCanonical(_:delimiters:terminateLine:)(unint64_t *result, char a2, char a3)
 {
   v6 = *result;
   v7 = result[1];
@@ -1241,18 +1302,16 @@ Swift::Void __swiftcall PrettyPrinter.outputAsCanonical(_:)(_RegexParser::AST::G
   v1 = *(*a1.options._rawValue + 16);
   if (v1)
   {
-    v2 = (*a1.options._rawValue + 48);
+    v2 = *a1.options._rawValue + 48;
     do
     {
-      v4 = *(v2 - 1);
-      v5 = *v2;
       v3 = AST.GlobalMatchingOption.Kind._canonicalBase.getter();
       MEMORY[0x1C68E0BF0](v3);
 
       MEMORY[0x1C68E0BF0](41, 0xE100000000000000);
       MEMORY[0x1C68E0BF0](10792, 0xE200000000000000);
 
-      v2 += 3;
+      v2 += 48;
       --v1;
     }
 
@@ -1260,249 +1319,244 @@ Swift::Void __swiftcall PrettyPrinter.outputAsCanonical(_:)(_RegexParser::AST::G
   }
 }
 
-uint64_t PrettyPrinter.outputAsCanonical(_:)(uint64_t *a1)
+uint64_t PrettyPrinter.outputAsCanonical(_:)(unint64_t *a1)
 {
   v2 = type metadata accessor for AST.Atom(0);
-  v3 = *(*(v2 - 8) + 64);
-  result = MEMORY[0x1EEE9AC00](v2 - 8, v4);
-  v7 = &v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *a1;
-  v9 = *a1 >> 60;
-  if (v9 <= 5)
+  result = MEMORY[0x1EEE9AC00](v2 - 8);
+  v5 = &v51 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *a1;
+  v7 = *a1 >> 60;
+  if (v7 <= 5)
   {
-    if (v9 <= 2)
+    if (v7 <= 2)
     {
-      if (v9)
+      if (v7)
       {
-        v10 = v8 & 0xFFFFFFFFFFFFFFFLL;
-        if (v9 != 1)
+        v8 = v6 & 0xFFFFFFFFFFFFFFFLL;
+        if (v7 != 1)
         {
-          v41 = *(v10 + 64);
-          v42 = *(v10 + 80);
-          v43 = *(v10 + 96);
-          v44 = *(v10 + 120);
-          *&v79 = *(v10 + 112);
-          v76 = v41;
-          v77 = v42;
-          v78 = v43;
-          v45 = *(v10 + 32);
-          *v74 = *(v10 + 16);
-          *&v74[16] = v45;
-          v46 = *(v10 + 64);
-          v75 = *(v10 + 48);
-          v58 = *(v10 + 48);
-          v59 = v46;
-          v60 = *(v10 + 80);
-          LOBYTE(v61) = *(v10 + 96);
-          v47 = *(v10 + 32);
-          v56 = *(v10 + 16);
-          v57 = v47;
-          outlined init with copy of Source.Located<AST.Group.Kind>(v74, &v65);
+          v37 = *(v8 + 64);
+          v38 = *(v8 + 80);
+          v39 = *(v8 + 96);
+          v40 = *(v8 + 120);
+          *&v75 = *(v8 + 112);
+          v72 = v37;
+          v73 = v38;
+          v74 = v39;
+          v41 = *(v8 + 32);
+          *v70 = *(v8 + 16);
+          *&v70[16] = v41;
+          v42 = *(v8 + 64);
+          v71 = *(v8 + 48);
+          v54 = *(v8 + 48);
+          v55 = v42;
+          v56 = *(v8 + 80);
+          LOBYTE(v57) = *(v8 + 96);
+          v43 = *(v8 + 32);
+          v52 = *(v8 + 16);
+          v53 = v43;
+          outlined init with copy of Source.Located<AST.Group.Kind>(v70, &v61);
 
-          v48 = AST.Group.Kind._canonicalBase.getter();
-          MEMORY[0x1C68E0BF0](v48);
-          sub_1C0C7CB20(v74);
+          v44 = AST.Group.Kind._canonicalBase.getter();
+          MEMORY[0x1C68E0BF0](v44);
+          sub_1C0C7CB20(v70);
 
-          *&v65 = v44;
-          PrettyPrinter.outputAsCanonical(_:)(&v65);
+          *&v61 = v40;
+          PrettyPrinter.outputAsCanonical(_:)(&v61);
 
           return MEMORY[0x1C68E0BF0](41, 0xE100000000000000);
         }
 
-        v11 = *(v10 + 16);
-
-        specialized Sequence.forEach(_:)(v12);
+        specialized Sequence.forEach(_:)(v9);
       }
 
       else
       {
-        v26 = *(v8 + 16);
-        v27 = v26[2];
-        if (!v27)
+        v23 = *(v6 + 16);
+        v24 = v23[2];
+        if (!v24)
         {
           return result;
         }
 
-        v28 = *(v8 + 16);
+        *v70 = v23[4];
 
-        *v74 = v26[4];
+        PrettyPrinter.outputAsCanonical(_:)(v70);
 
-        PrettyPrinter.outputAsCanonical(_:)(v74);
-
-        v29 = v27 - 1;
-        if (v29)
+        v25 = v24 - 1;
+        if (v25)
         {
-          v30 = v26 + 5;
+          v26 = v23 + 5;
           do
           {
             MEMORY[0x1C68E0BF0](124, 0xE100000000000000);
-            v31 = *v30++;
-            *v74 = v31;
+            v27 = *v26++;
+            *v70 = v27;
 
-            PrettyPrinter.outputAsCanonical(_:)(v74);
+            PrettyPrinter.outputAsCanonical(_:)(v70);
 
-            --v29;
+            --v25;
           }
 
-          while (v29);
+          while (v25);
         }
       }
 
       goto LABEL_34;
     }
 
-    v17 = v8 & 0xFFFFFFFFFFFFFFFLL;
-    if (v9 == 3)
+    v14 = v6 & 0xFFFFFFFFFFFFFFFLL;
+    if (v7 == 3)
     {
-      v32 = *(v17 + 128);
-      v70 = *(v17 + 112);
-      v71 = v32;
-      v33 = *(v17 + 160);
-      v72 = *(v17 + 144);
-      v73 = v33;
-      v34 = *(v17 + 48);
-      v35 = *(v17 + 80);
-      v36 = *(v17 + 96);
-      v67 = *(v17 + 64);
-      v68 = v35;
-      v69 = v36;
-      v65 = *(v17 + 32);
-      v66 = v34;
-      v37 = *(v17 + 176);
-      v38 = *(v17 + 208);
-      outlined init with copy of AST.Conditional.Condition(&v65, v74);
+      v28 = *(v14 + 128);
+      v66 = *(v14 + 112);
+      v67 = v28;
+      v29 = *(v14 + 160);
+      v68 = *(v14 + 144);
+      v69 = v29;
+      v30 = *(v14 + 48);
+      v31 = *(v14 + 80);
+      v32 = *(v14 + 96);
+      v63 = *(v14 + 64);
+      v64 = v31;
+      v65 = v32;
+      v61 = *(v14 + 32);
+      v62 = v30;
+      v33 = *(v14 + 176);
+      v34 = *(v14 + 208);
+      outlined init with copy of AST.Conditional.Condition(&v61, v70);
 
       MEMORY[0x1C68E0BF0](40, 0xE100000000000000);
-      v62 = v71;
-      v63 = v72;
-      v64 = v73;
       v58 = v67;
       v59 = v68;
       v60 = v69;
-      v61 = v70;
+      v54 = v63;
+      v55 = v64;
       v56 = v65;
       v57 = v66;
-      PrettyPrinter.outputAsCanonical(_:)(&v56);
-      v79 = v62;
-      v80 = v63;
-      v81 = v64;
+      v52 = v61;
+      v53 = v62;
+      PrettyPrinter.outputAsCanonical(_:)();
       v75 = v58;
       v76 = v59;
       v77 = v60;
-      v78 = v61;
-      *v74 = v56;
-      *&v74[16] = v57;
-      sub_1C0C61070(v74);
-      *&v56 = v37;
-      PrettyPrinter.outputAsCanonical(_:)(&v56);
+      v71 = v54;
+      v72 = v55;
+      v73 = v56;
+      v74 = v57;
+      *v70 = v52;
+      *&v70[16] = v53;
+      sub_1C0C61070(v70);
+      *&v52 = v33;
+      PrettyPrinter.outputAsCanonical(_:)(&v52);
 
       MEMORY[0x1C68E0BF0](124, 0xE100000000000000);
-      *&v56 = v38;
-      PrettyPrinter.outputAsCanonical(_:)(&v56);
+      *&v52 = v34;
+      PrettyPrinter.outputAsCanonical(_:)(&v52);
     }
 
-    if (v9 == 4)
+    if (v7 == 4)
     {
-      v18 = *(v17 + 32);
-      *v74 = *(v17 + 16);
-      *&v74[16] = v18;
-      v19 = *(v17 + 64);
-      v75 = *(v17 + 48);
-      v76 = v19;
-      v20 = *(v17 + 96);
-      *&v65 = *(v17 + 120);
+      v15 = *(v14 + 32);
+      *v70 = *(v14 + 16);
+      *&v70[16] = v15;
+      v16 = *(v14 + 64);
+      v71 = *(v14 + 48);
+      v72 = v16;
+      v17 = *(v14 + 96);
+      *&v61 = *(v14 + 120);
 
-      PrettyPrinter.outputAsCanonical(_:)(&v65);
+      PrettyPrinter.outputAsCanonical(_:)(&v61);
 
-      v21 = AST.Quantification.Amount._canonicalBase.getter();
-      MEMORY[0x1C68E0BF0](v21);
+      v18 = AST.Quantification.Amount._canonicalBase.getter();
+      MEMORY[0x1C68E0BF0](v18);
 
-      if (v20)
+      if (v17)
       {
-        v22 = 0xE100000000000000;
-        if (v20 == 1)
+        v19 = 0xE100000000000000;
+        if (v17 == 1)
         {
-          v20 = 63;
+          v17 = 63;
         }
 
         else
         {
-          v20 = 43;
+          v17 = 43;
         }
       }
 
       else
       {
-        v22 = 0xE000000000000000;
+        v19 = 0xE000000000000000;
       }
 
-      MEMORY[0x1C68E0BF0](v20, v22);
+      MEMORY[0x1C68E0BF0](v17, v19);
       goto LABEL_34;
     }
 
-    v53 = *(v17 + 16);
-    v54 = *(v17 + 24);
-    *v74 = 20828;
-    *&v74[8] = 0xE200000000000000;
+    v49 = *(v14 + 16);
+    v50 = *(v14 + 24);
+    *v70 = 20828;
+    *&v70[8] = 0xE200000000000000;
 
-    MEMORY[0x1C68E0BF0](v53, v54);
-    v16 = 17756;
+    MEMORY[0x1C68E0BF0](v49, v50);
+    v13 = 17756;
 LABEL_29:
-    MEMORY[0x1C68E0BF0](v16, 0xE200000000000000);
+    MEMORY[0x1C68E0BF0](v13, 0xE200000000000000);
 
-    MEMORY[0x1C68E0BF0](*v74, *&v74[8]);
+    MEMORY[0x1C68E0BF0](*v70, *&v70[8]);
 LABEL_34:
   }
 
-  if (v9 <= 8)
+  if (v7 <= 8)
   {
-    if (v9 == 6)
+    if (v7 == 6)
     {
       return result;
     }
 
-    if (v9 != 7)
+    if (v7 != 7)
     {
-      v49 = swift_projectBox();
-      outlined init with copy of AST.CustomCharacterClass.Member(v49, v7, type metadata accessor for AST.Atom);
-      v50 = AST.Atom._canonicalBase.getter();
-      v52 = v51;
-      outlined destroy of AST.CustomCharacterClass.Member(v7, type metadata accessor for AST.Atom);
-      MEMORY[0x1C68E0BF0](v50, v52);
+      v45 = swift_projectBox();
+      outlined init with copy of AST.CustomCharacterClass.Member(v45, v5, type metadata accessor for AST.Atom);
+      v46 = AST.Atom._canonicalBase.getter();
+      v48 = v47;
+      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom);
+      MEMORY[0x1C68E0BF0](v46, v48);
     }
 
-    v13 = v8 & 0xFFFFFFFFFFFFFFFLL;
-    v14 = *(v13 + 16);
-    v15 = *(v13 + 24);
-    *v74 = 31548;
-    *&v74[8] = 0xE200000000000000;
+    v10 = v6 & 0xFFFFFFFFFFFFFFFLL;
+    v11 = *(v10 + 16);
+    v12 = *(v10 + 24);
+    *v70 = 31548;
+    *&v70[8] = 0xE200000000000000;
 
-    MEMORY[0x1C68E0BF0](v14, v15);
-    v16 = 15997;
+    MEMORY[0x1C68E0BF0](v11, v12);
+    v13 = 15997;
     goto LABEL_29;
   }
 
-  if (v9 == 9)
+  if (v7 == 9)
   {
-    v39 = v8 & 0xFFFFFFFFFFFFFFFLL;
-    v40 = *(v39 + 40);
-    v74[0] = *(v39 + 16);
-    *&v74[8] = *(v39 + 24);
-    *&v74[24] = v40;
-    v75 = *(v39 + 48);
-    return PrettyPrinter.outputAsCanonical(_:)(v74);
+    v35 = v6 & 0xFFFFFFFFFFFFFFFLL;
+    v36 = *(v35 + 40);
+    v70[0] = *(v35 + 16);
+    *&v70[8] = *(v35 + 24);
+    *&v70[24] = v36;
+    v71 = *(v35 + 48);
+    return PrettyPrinter.outputAsCanonical(_:)(v70);
   }
 
-  else if (v9 == 10)
+  else if (v7 == 10)
   {
-    v23 = (v8 & 0xFFFFFFFFFFFFFFFLL);
-    v24 = v23[2];
-    *v74 = v23[1];
-    *&v74[16] = v24;
-    v25 = v23[4];
-    v75 = v23[3];
-    v76 = v25;
-    return PrettyPrinter.outputAsCanonical(_:)(v74);
+    v20 = (v6 & 0xFFFFFFFFFFFFFFFLL);
+    v21 = v20[2];
+    *v70 = v20[1];
+    *&v70[16] = v21;
+    v22 = v20[4];
+    v71 = v20[3];
+    v72 = v22;
+    return PrettyPrinter.outputAsCanonical(_:)(v70);
   }
 
   return result;
@@ -1528,7 +1582,7 @@ uint64_t specialized Sequence.forEach(_:)(uint64_t result)
   return result;
 }
 
-uint64_t specialized Sequence.forEach(_:)(uint64_t result, char **a2)
+uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t *a2)
 {
   v3 = v2;
   v4 = *(result + 16);
@@ -1639,7 +1693,7 @@ LABEL_26:
           v46 = type metadata accessor for AST.Atom(0);
           v47 = swift_projectBox();
           v82 = v46;
-          v83 = lazy protocol witness table accessor for type AST.Atom and conformance AST.Atom(&lazy protocol witness table cache variable for type AST.Atom and conformance AST.Atom, type metadata accessor for AST.Atom);
+          v83 = lazy protocol witness table accessor for type AST.Atom and conformance AST.Atom(&lazy protocol witness table cache variable for type AST.Atom and conformance AST.Atom, type metadata accessor for AST.Atom, &protocol conformance descriptor for AST.Atom);
           boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(&v79);
           outlined init with copy of AST.CustomCharacterClass.Member(v47, boxed_opaque_existential_1Tm, type metadata accessor for AST.Atom);
         }
@@ -1789,20 +1843,20 @@ LABEL_27:
       *v5 = v57;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v57 + 2) + 1, 1, v57);
+        v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v57 + 16) + 1, 1, v57);
         *v5 = v57;
       }
 
-      v60 = *(v57 + 2);
-      v59 = *(v57 + 3);
+      v60 = *(v57 + 16);
+      v59 = *(v57 + 24);
       if (v60 >= v59 >> 1)
       {
         v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v57);
         *v5 = v57;
       }
 
-      *(v57 + 2) = v60 + 1;
-      *&v57[8 * v60 + 32] = v7;
+      *(v57 + 16) = v60 + 1;
+      *(v57 + 8 * v60 + 32) = v7;
 
       --v4;
       v6 = v87;
@@ -1965,37 +2019,27 @@ uint64_t AST.Group.Kind._canonicalBase.getter()
   }
 }
 
-uint64_t PrettyPrinter.outputAsCanonical(_:)(__int128 *a1)
+uint64_t PrettyPrinter.outputAsCanonical(_:)()
 {
   _StringGuts.grow(_:)(27);
 
-  v11 = a1[6];
-  v12 = a1[7];
-  v13 = a1[8];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v5 = *a1;
-  v6 = a1[1];
-  v2 = lazy protocol witness table accessor for type AST.Conditional.Condition and conformance AST.Conditional.Condition();
-  v3 = (*(v2 + 24))(&type metadata for AST.Conditional.Condition, v2);
-  MEMORY[0x1C68E0BF0](v3);
+  v0 = lazy protocol witness table accessor for type AST.Conditional.Condition and conformance AST.Conditional.Condition();
+  v1 = (*(v0 + 24))(&type metadata for AST.Conditional.Condition, v0);
+  MEMORY[0x1C68E0BF0](v1);
 
   MEMORY[0x1C68E0BF0](690956832, 0xE400000000000000);
   MEMORY[0x1C68E0BF0](0xD000000000000015, 0x80000001C0C86BD0);
 }
 
-uint64_t AST.Atom._canonicalBase.getter()
+unint64_t AST.Atom._canonicalBase.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = AST.Atom.literalStringValue.getter();
-  if (!v7)
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = AST.Atom.literalStringValue.getter();
+  if (!v5)
   {
-    outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.Atom.Kind);
+    outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.Atom.Kind);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload > 14)
     {
@@ -2014,43 +2058,43 @@ uint64_t AST.Atom._canonicalBase.getter()
     {
       if (EnumCaseMultiPayload == 4)
       {
-        v21 = *v5;
-        *&v23[0] = 0;
-        *(&v23[0] + 1) = 0xE000000000000000;
+        v19 = *v3;
+        *&v21[0] = 0;
+        *(&v21[0] + 1) = 0xE000000000000000;
         MEMORY[0x1C68E0BF0](92, 0xE100000000000000);
-        LOBYTE(v22[0]) = v21;
+        LOBYTE(v20[0]) = v19;
         AST.Atom.EscapedBuiltin.character.getter();
         Character.write<A>(to:)();
 
-        return *&v23[0];
+        return *&v21[0];
       }
 
       if (EnumCaseMultiPayload == 9)
       {
-        v12 = *(v5 + 3);
-        v13 = *(v5 + 1);
-        v24 = *(v5 + 2);
-        v25 = v12;
-        v14 = *(v5 + 3);
-        v15 = *(v5 + 5);
-        v26 = *(v5 + 4);
-        v27 = v15;
-        v16 = *(v5 + 1);
-        v23[0] = *v5;
-        v23[1] = v16;
-        v22[2] = v24;
-        v22[3] = v14;
-        v17 = *(v5 + 5);
-        v22[4] = v26;
-        v22[5] = v17;
-        v22[0] = v23[0];
-        v22[1] = v13;
-        v18 = AST.Reference._canonicalBase.getter();
-        outlined destroy of AST.Reference(v23, outlined consume of AST.Reference.Kind);
-        return v18;
+        v10 = *(v3 + 3);
+        v11 = *(v3 + 1);
+        v22 = *(v3 + 2);
+        v23 = v10;
+        v12 = *(v3 + 3);
+        v13 = *(v3 + 5);
+        v24 = *(v3 + 4);
+        v25 = v13;
+        v14 = *(v3 + 1);
+        v21[0] = *v3;
+        v21[1] = v14;
+        v20[2] = v22;
+        v20[3] = v12;
+        v15 = *(v3 + 5);
+        v20[4] = v24;
+        v20[5] = v15;
+        v20[0] = v21[0];
+        v20[1] = v11;
+        v16 = AST.Reference._canonicalBase.getter();
+        outlined destroy of AST.Reference(v21, outlined consume of AST.Reference.Kind);
+        return v16;
       }
     }
 
-    *&v23[0] = 0;
-    *(&v23[0] + 1) = 0xE000000000000000;
+    *&v21[0] = 0;
+    *(&v21[0] + 1) = 0xE000000000000000;
     _StringGuts.grow(_:)(19);

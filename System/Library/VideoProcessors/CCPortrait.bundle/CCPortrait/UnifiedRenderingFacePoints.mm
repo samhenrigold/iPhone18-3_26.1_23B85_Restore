@@ -69,95 +69,96 @@
 - (UnifiedRenderingFacePoints)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v64.receiver = self;
-  v64.super_class = UnifiedRenderingFacePoints;
-  v5 = [(UnifiedRenderingFacePoints *)&v64 init];
+  v65.receiver = self;
+  v65.super_class = UnifiedRenderingFacePoints;
+  v5 = [(UnifiedRenderingFacePoints *)&v65 init];
   if (v5)
   {
     v6 = objc_opt_class();
     v9 = objc_msgSend_validKeys(v6, v7, v8);
-    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
     v12 = objc_msgSend_allKeys(dictionaryCopy, v10, v11);
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v60, v59, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v61, v60, 16);
     if (v14)
     {
       v16 = v14;
-      v17 = *v61;
+      v17 = *v62;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v61 != v17)
+          if (*v62 != v17)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v60 + 1) + 8 * i);
-          if ((objc_msgSend_containsObject_(v9, v15, v19) & 1) == 0)
+          v19 = *(*(&v61 + 1) + 8 * i);
+          v20 = objc_msgSend_containsObject_(v9, v15, v19);
+          if ((v20 & 1) == 0)
           {
-            v20 = uni_logger_api();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = uni_logger_api(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              v21 = objc_opt_class();
+              v22 = objc_opt_class();
               *buf = 136446722;
-              v54 = "[UnifiedRenderingFacePoints initWithDictionary:]";
-              v55 = 2112;
-              v56 = v21;
-              v57 = 2112;
-              v58 = v19;
-              v22 = v21;
-              _os_log_error_impl(&dword_295691000, v20, OS_LOG_TYPE_ERROR, "%{public}s Invalid key for %@: %@; results will be unpredictable", buf, 0x20u);
+              v55 = "[UnifiedRenderingFacePoints initWithDictionary:]";
+              v56 = 2112;
+              v57 = v22;
+              v58 = 2112;
+              v59 = v19;
+              v23 = v22;
+              _os_log_error_impl(&dword_295691000, v21, OS_LOG_TYPE_ERROR, "%{public}s Invalid key for %@: %@; results will be unpredictable", buf, 0x20u);
             }
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v60, v59, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v61, v60, 16);
       }
 
       while (v16);
     }
 
-    v24 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v23, @"centerPos");
+    v25 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v24, @"centerPos");
 
-    if (v24)
+    if (v25)
     {
-      v26 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v25, @"centerPos");
-      objc_msgSend_CGPointValue(v26, v27, v28);
-      v5->_centerPos.x = v29;
-      v5->_centerPos.y = v30;
+      v27 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v26, @"centerPos");
+      objc_msgSend_CGPointValue(v27, v28, v29);
+      v5->_centerPos.x = v30;
+      v5->_centerPos.y = v31;
     }
 
-    v31 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v25, @"leftEyeCenterPos");
+    v32 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v26, @"leftEyeCenterPos");
 
-    if (v31)
+    if (v32)
     {
-      v33 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v32, @"leftEyeCenterPos");
-      objc_msgSend_CGPointValue(v33, v34, v35);
-      v5->_leftEyeCenterPos.x = v36;
-      v5->_leftEyeCenterPos.y = v37;
+      v34 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v33, @"leftEyeCenterPos");
+      objc_msgSend_CGPointValue(v34, v35, v36);
+      v5->_leftEyeCenterPos.x = v37;
+      v5->_leftEyeCenterPos.y = v38;
     }
 
-    v38 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v32, @"rightEyeCenterPos");
+    v39 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v33, @"rightEyeCenterPos");
 
-    if (v38)
+    if (v39)
     {
-      v40 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v39, @"rightEyeCenterPos");
-      objc_msgSend_CGPointValue(v40, v41, v42);
-      v5->_rightEyeCenterPos.x = v43;
-      v5->_rightEyeCenterPos.y = v44;
+      v41 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v40, @"rightEyeCenterPos");
+      objc_msgSend_CGPointValue(v41, v42, v43);
+      v5->_rightEyeCenterPos.x = v44;
+      v5->_rightEyeCenterPos.y = v45;
     }
 
-    v45 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v39, @"chinCenterPos");
+    v46 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v40, @"chinCenterPos");
 
-    if (v45)
+    if (v46)
     {
-      v47 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v46, @"chinCenterPos");
-      objc_msgSend_CGPointValue(v47, v48, v49);
-      v5->_chinCenterPos.x = v50;
-      v5->_chinCenterPos.y = v51;
+      v48 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v47, @"chinCenterPos");
+      objc_msgSend_CGPointValue(v48, v49, v50);
+      v5->_chinCenterPos.x = v51;
+      v5->_chinCenterPos.y = v52;
     }
   }
 

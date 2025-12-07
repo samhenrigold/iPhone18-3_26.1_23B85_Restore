@@ -63,7 +63,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v7 isEqualToString:@"lockup"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 0;
 LABEL_11:
@@ -71,19 +71,19 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    if ([v7 isEqualToString:@"brick"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 2;
       goto LABEL_11;
     }
 
-    if ([v7 isEqualToString:@"editorial"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 3;
       goto LABEL_11;
     }
 
-    if ([v7 isEqualToString:@"media"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 4;
       goto LABEL_11;
@@ -550,7 +550,7 @@ LABEL_6:
   return v7;
 }
 
-uint64_t __55__SUUIGridComponent__updateWithInvalidItemIdentifiers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__55__SUUIGridComponent__updateWithInvalidItemIdentifiers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -603,7 +603,7 @@ void __45__SUUIGridComponent__updateWithMissingItems___block_invoke(uint64_t a1,
       v14 = 0;
       if (v8)
       {
-        [v8 lockupStyle];
+        objc_msgSend_lockupStyle(v8);
       }
 
       if ([v5 itemKind] == 17)

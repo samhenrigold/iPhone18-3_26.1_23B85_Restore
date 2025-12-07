@@ -30,7 +30,7 @@
 {
   v6 = objc_alloc_init(TSTCell);
   *cell = v6;
-  v7 = [TSTBundle() localizedStringForKey:@"No rows match the filter conditions." value:&stru_287D36338 table:@"TSTables"];
+  v8 = [TSTBundle(v6 v7)];
   if (!v6 || (mPrivate = v6->mPrivate, (mPrivate & 0xFF00) == 0))
   {
     TSTCellClearValue(v6);
@@ -41,19 +41,19 @@
   if ((mPrivate & 0xFF00) == 0x300)
   {
     mString = v6->mPrivate.mValue.mString.mString;
-    if (mString != v7)
+    if (mString != v8)
     {
 
-      v6->mPrivate.mValue.mString.mString = v7;
-      v10 = HIWORD(*&v6->mPrivate);
-      v11 = -[NSString rangeOfCharacterFromSet:](v7, "rangeOfCharacterFromSet:", [MEMORY[0x277CCA900] newlineCharacterSet]);
-      v12 = v10 | 1;
-      if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+      v6->mPrivate.mValue.mString.mString = v8;
+      v11 = HIWORD(*&v6->mPrivate);
+      v12 = -[NSString rangeOfCharacterFromSet:](v8, "rangeOfCharacterFromSet:", [MEMORY[0x277CCA900] newlineCharacterSet]);
+      v13 = v11 | 1;
+      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v12 = v10 & 0xFFFE;
+        v13 = v11 & 0xFFFE;
       }
 
-      *(&v6->mPrivate + 1) = v12;
+      *(&v6->mPrivate + 1) = v13;
       v6->mPrivate.mValue.mString.mID = 0;
     }
   }
@@ -61,30 +61,30 @@
   else
   {
     currentHandler = [MEMORY[0x277D6C290] currentHandler];
-    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringValueClearingID(TSTCell *, NSString *, BOOL)"}];
-    [currentHandler handleFailureInFunction:v14 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1003, @"can't set string on non-string cell: %p", v6}];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringValueClearingID(TSTCell *, NSString *, BOOL)"}];
+    [currentHandler handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1003, @"can't set string on non-string cell: %p", v6}];
   }
 
-  v15 = *cell;
+  v16 = *cell;
   headerRowCellStyle = [(TSTTableModel *)self->mTableModel headerRowCellStyle];
-  v17 = v15[5];
-  if (v17 != headerRowCellStyle)
+  v18 = v16[5];
+  if (v18 != headerRowCellStyle)
   {
-    v18 = headerRowCellStyle;
+    v19 = headerRowCellStyle;
 
-    v15[5] = v18;
-    *(v15 + 8) = 0;
+    v16[5] = v19;
+    *(v16 + 8) = 0;
   }
 
-  v19 = *cell;
+  v20 = *cell;
   headerRowTextStyle = [(TSTTableModel *)self->mTableModel headerRowTextStyle];
-  v21 = v19[7];
-  if (v21 != headerRowTextStyle)
+  v22 = v20[7];
+  if (v22 != headerRowTextStyle)
   {
-    v22 = headerRowTextStyle;
+    v23 = headerRowTextStyle;
 
-    v19[7] = v22;
-    *(v19 + 12) = 0;
+    v20[7] = v23;
+    *(v20 + 12) = 0;
   }
 
   return 1;

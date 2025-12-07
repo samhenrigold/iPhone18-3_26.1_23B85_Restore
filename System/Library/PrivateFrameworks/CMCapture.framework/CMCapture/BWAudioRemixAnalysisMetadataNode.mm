@@ -24,9 +24,9 @@
 
 - (BWAudioRemixAnalysisMetadataNode)init
 {
-  v22.receiver = self;
-  v22.super_class = BWAudioRemixAnalysisMetadataNode;
-  v2 = [(BWNode *)&v22 init];
+  v36.receiver = self;
+  v36.super_class = BWAudioRemixAnalysisMetadataNode;
+  v2 = [(BWNode *)&v36 init];
   v3 = v2;
   if (v2)
   {
@@ -44,56 +44,56 @@
     v7 = [[BWNodeInput alloc] initWithMediaType:1936684398 node:v2];
     if (v7)
     {
-      v8 = v7;
+      v15 = v7;
       [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v7 primaryMediaConfiguration] setPassthroughMode:1];
-      [(BWNodeInput *)v8 setName:@"AudioRemixAnalysisPassthroughInput"];
-      [(BWNode *)v3 addInput:v8];
+      [(BWNodeInput *)v15 setName:@"AudioRemixAnalysisPassthroughInput"];
+      [(BWNode *)v3 addInput:v15];
 
-      v9 = [[BWNodeOutput alloc] initWithMediaType:1936684398 node:v3];
-      [(BWNodeOutput *)v9 setIndexOfInputWhichDrivesThisOutput:0];
-      [(BWNodeOutputMediaConfiguration *)[(BWNodeOutput *)v9 primaryMediaConfiguration] setPassthroughMode:1];
-      [(BWNodeOutput *)v9 setName:@"AudioRemixAnalysisPassthroughOutput"];
-      [(BWNode *)v3 addOutput:v9];
+      v16 = [[BWNodeOutput alloc] initWithMediaType:1936684398 node:v3];
+      [(BWNodeOutput *)v16 setIndexOfInputWhichDrivesThisOutput:0];
+      [(BWNodeOutputMediaConfiguration *)[(BWNodeOutput *)v16 primaryMediaConfiguration] setPassthroughMode:1];
+      [(BWNodeOutput *)v16 setName:@"AudioRemixAnalysisPassthroughOutput"];
+      [(BWNode *)v3 addOutput:v16];
 
       v3->_metadataOutput = 0;
-      v10 = *MEMORY[0x1E6960338];
-      v20[0] = *MEMORY[0x1E6960348];
-      v20[1] = v10;
-      v11 = *MEMORY[0x1E6960260];
-      v21[0] = @"mdta/com.apple.quicktime.cinematic-audio";
-      v21[1] = v11;
-      v20[2] = *MEMORY[0x1E6960358];
-      v18 = *MEMORY[0x1E6960360];
-      v19 = *MEMORY[0x1E695E4C0];
-      v21[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
-      if (CMMetadataFormatDescriptionCreateWithMetadataSpecifications(*MEMORY[0x1E695E480], 0x6D656278u, v12, &v3->_audioMetadataFormatDescription))
+      v17 = *MEMORY[0x1E6960338];
+      v34[0] = *MEMORY[0x1E6960348];
+      v34[1] = v17;
+      v18 = *MEMORY[0x1E6960260];
+      v35[0] = @"mdta/com.apple.quicktime.cinematic-audio";
+      v35[1] = v18;
+      v34[2] = *MEMORY[0x1E6960358];
+      v32 = *MEMORY[0x1E6960360];
+      v33 = *MEMORY[0x1E695E4C0];
+      v35[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+      if (CMMetadataFormatDescriptionCreateWithMetadataSpecifications(*MEMORY[0x1E695E480], 0x6D656278u, v19, &v3->_audioMetadataFormatDescription))
       {
         [BWAudioRemixAnalysisMetadataNode init];
       }
 
       else
       {
-        v13 = [[BWNodeOutput alloc] initWithMediaType:1835365473 node:v3];
-        if (v13)
+        v20 = [[BWNodeOutput alloc] initWithMediaType:1835365473 node:v3];
+        if (v20)
         {
-          v14 = v13;
-          [(BWNodeOutput *)v13 setName:@"AudioRemixAnalysisMetadataOutput"];
-          [(BWNodeOutput *)v14 setFormat:[BWMetadataFormat formatWithMetadataFormatDescription:v3->_audioMetadataFormatDescription]];
-          [(BWNode *)v3 addOutput:v14];
-          v3->_metadataOutput = v14;
+          v21 = v20;
+          [(BWNodeOutput *)v20 setName:@"AudioRemixAnalysisMetadataOutput"];
+          [(BWNodeOutput *)v21 setFormat:[BWMetadataFormat formatWithMetadataFormatDescription:v3->_audioMetadataFormatDescription]];
+          [(BWNode *)v3 addOutput:v21];
+          v3->_metadataOutput = v21;
 
-          v15 = [[AudioRemixSessionManager alloc] initWithNodeMetadataOutput:v3->_metadataOutput];
-          v3->_movieRemixSessionManager = v15;
-          if (v15)
+          v22 = [[AudioRemixSessionManager alloc] initWithNodeMetadataOutput:v3->_metadataOutput];
+          v3->_movieRemixSessionManager = v22;
+          if (v22)
           {
             [(BWNode *)v3 setSupportsLiveReconfiguration:1];
             [(BWNode *)v3 setSupportsPrepareWhileRunning:1];
             return v3;
           }
 
-          [BWAudioRemixAnalysisMetadataNode init];
+          [(BWAudioRemixAnalysisMetadataNode *)0 init:v23];
         }
 
         else
@@ -105,7 +105,7 @@
 
     else
     {
-      [BWAudioRemixAnalysisMetadataNode init];
+      [(BWAudioRemixAnalysisMetadataNode *)0 init:v8];
     }
 
     return 0;
@@ -139,10 +139,10 @@
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  memset(&v23, 0, sizeof(v23));
-  CMSampleBufferGetPresentationTimeStamp(&v23, buffer);
-  *(&self->_startRecordingPTS.epoch + 4) = *&v23.value;
-  *&self->_currentPTS.flags = v23.epoch;
+  memset(&v46, 0, sizeof(v46));
+  CMSampleBufferGetPresentationTimeStamp(&v46, buffer);
+  *(&self->_startRecordingPTS.epoch + 4) = *&v46.value;
+  *&self->_currentPTS.flags = v46.epoch;
   if (!BWSampleBufferIsMarkerBuffer(buffer))
   {
     if (!self->_shouldSendData || ![(AudioRemixSessionManager *)self->_movieRemixSessionManager sessionReady])
@@ -156,64 +156,65 @@
       StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(FormatDescription);
       if (!FormatDescription)
       {
-        [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v20 forInput:?];
-        v15 = 0;
-        v11 = 0;
+        [(BWAudioRemixAnalysisMetadataNode *)v43 renderSampleBuffer:v18 forInput:v19, v20, v21, v22, v23, v24];
+        v30 = 0;
+        v25 = 0;
 LABEL_32:
-        v14 = v20[0];
+        v29 = v43[0];
 LABEL_12:
 
-        if (v14)
+        if (v29)
         {
-          [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:forInput:];
+          [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v29 forInput:?];
         }
 
-        else if (v15)
+        else if (v30)
         {
-          [(AudioRemixSessionManager *)self->_movieRemixSessionManager submitAudioBuffer:v15];
+          [(AudioRemixSessionManager *)self->_movieRemixSessionManager submitAudioBuffer:v30];
         }
 
         else
         {
-          [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:forInput:];
+          [(BWAudioRemixAnalysisMetadataNode *)v31 renderSampleBuffer:v32 forInput:v33, v34, v35, v36, v37, v38];
         }
 
         goto LABEL_15;
       }
 
-      v11 = StreamBasicDescription;
+      v25 = StreamBasicDescription;
       if (StreamBasicDescription)
       {
         0x930000 = [objc_alloc(MEMORY[0x1E69583D0]) initWithLayoutTag:StreamBasicDescription->mChannelsPerFrame | 0x930000];
-        v11 = [objc_alloc(MEMORY[0x1E6958418]) initWithStreamDescription:v11 channelLayout:0x930000];
+        v25 = [objc_alloc(MEMORY[0x1E6958418]) initWithStreamDescription:v25 channelLayout:0x930000];
 
         NumSamples = CMSampleBufferGetNumSamples(buffer);
-        FormatDescription = [objc_alloc(MEMORY[0x1E6958440]) initWithPCMFormat:v11 frameCapacity:NumSamples];
+        FormatDescription = [objc_alloc(MEMORY[0x1E6958440]) initWithPCMFormat:v25 frameCapacity:NumSamples];
         [(opaqueCMFormatDescription *)FormatDescription setFrameLength:NumSamples];
-        v14 = CMSampleBufferCopyPCMDataIntoAudioBufferList(buffer, 0, NumSamples, [(opaqueCMFormatDescription *)FormatDescription mutableAudioBufferList]);
-        if (v14)
+        v28 = CMSampleBufferCopyPCMDataIntoAudioBufferList(buffer, 0, NumSamples, [(opaqueCMFormatDescription *)FormatDescription mutableAudioBufferList]);
+        v29 = v28;
+        if (v28)
         {
-          [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:forInput:];
-          v15 = 0;
+          [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v28 forInput:?];
+          v30 = 0;
         }
 
         else
         {
-          v15 = FormatDescription;
+          v30 = FormatDescription;
         }
 
         goto LABEL_12;
       }
 
-      [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v20 forInput:?];
-      v15 = 0;
+      [(BWAudioRemixAnalysisMetadataNode *)v43 renderSampleBuffer:v18 forInput:v19, v20, v21, v22, v23, v24];
+      v30 = 0;
     }
 
     else
     {
-      [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v20 forInput:?];
-      v15 = 0;
-      v11 = 0;
+      [(BWAudioRemixAnalysisMetadataNode *)v43 renderSampleBuffer:v9 forInput:v10, v11, v12, v13, v14, v15];
+      v30 = 0;
+      v25 = 0;
     }
 
     FormatDescription = 0;
@@ -227,15 +228,15 @@ LABEL_12:
   {
     if (v7)
     {
-      *(&self->_expectsToRecordOnlyOnce + 3) = v23;
+      *(&self->_expectsToRecordOnlyOnce + 3) = v46;
     }
 
     else
     {
-      v16 = v8;
+      v39 = v8;
       if (!CFEqual(v6, @"Resume"))
       {
-        if (!v16)
+        if (!v39)
         {
           [BWAudioRemixAnalysisMetadataNode renderSampleBuffer:v6 forInput:self];
           goto LABEL_21;
@@ -250,14 +251,14 @@ LABEL_12:
       }
     }
 
-    if (!self->_expectsToRecordOnlyOnce || [(AudioRemixSessionManager *)self->_movieRemixSessionManager sessionReady]|| ([(AudioRemixSessionManager *)self->_movieRemixSessionManager setMultiCamClientCompositingEnabled:self->_multiCamClientCompositingEnabled], v22 = 0, v21 = 0, os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(), os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT), fig_log_call_emit_and_clean_up_after_send_and_compose(), ![(AudioRemixSessionManager *)self->_movieRemixSessionManager startNewSessionBlocking]))
+    if (!self->_expectsToRecordOnlyOnce || [(AudioRemixSessionManager *)self->_movieRemixSessionManager sessionReady]|| ([(AudioRemixSessionManager *)self->_movieRemixSessionManager setMultiCamClientCompositingEnabled:self->_multiCamClientCompositingEnabled], v45 = 0, v44 = 0, os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(), os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT), fig_log_call_emit_and_clean_up_after_send_and_compose(), ![(AudioRemixSessionManager *)self->_movieRemixSessionManager startNewSessionBlocking]))
     {
       self->_shouldSendData = 1;
       goto LABEL_21;
     }
 
 LABEL_15:
-    [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer, v18, v19];
+    [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer, v41, v42];
     return;
   }
 
@@ -366,23 +367,23 @@ LABEL_21:
   }
 }
 
-- (uint64_t)renderSampleBuffer:(_DWORD *)a1 forInput:.cold.2(_DWORD *a1)
+- (uint64_t)renderSampleBuffer:(uint64_t)a3 forInput:(uint64_t)a4 .cold.2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x7A, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)renderSampleBuffer:(_DWORD *)a1 forInput:.cold.3(_DWORD *a1)
+- (uint64_t)renderSampleBuffer:(uint64_t)a3 forInput:(uint64_t)a4 .cold.3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x79, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)renderSampleBuffer:(_DWORD *)a1 forInput:.cold.4(_DWORD *a1)
+- (uint64_t)renderSampleBuffer:(uint64_t)a3 forInput:(uint64_t)a4 .cold.4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x73, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }

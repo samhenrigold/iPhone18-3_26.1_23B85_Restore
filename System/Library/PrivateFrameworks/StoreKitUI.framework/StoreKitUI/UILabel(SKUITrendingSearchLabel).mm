@@ -3,6 +3,8 @@
 + (id)SKUITrending_defaultTitleColor;
 + (id)SKUITrending_defaultTitleFont;
 + (id)SKUITrending_titleLabelWithElement:()SKUITrendingSearchLabel;
++ (void)SKUITrending_defaultTitleColor;
++ (void)SKUITrending_defaultTitleFont;
 @end
 
 @implementation UILabel(SKUITrendingSearchLabel)
@@ -13,10 +15,10 @@
   {
     if (_os_feature_enabled_impl())
     {
-      v0 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v0)
+      v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v2)
       {
-        [(UILabel(SKUITrendingSearchLabel) *)v0 SKUITrending_defaultTitleColor:v1];
+        [(UILabel(SKUITrendingSearchLabel) *)v2 SKUITrending_defaultTitleColor:v3];
       }
     }
   }
@@ -32,17 +34,17 @@
   {
     if (_os_feature_enabled_impl())
     {
-      v0 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v0)
+      v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v2)
       {
-        [(UILabel(SKUITrendingSearchLabel) *)v0 SKUITrending_defaultTitleFont:v1];
+        [(UILabel(SKUITrendingSearchLabel) *)v2 SKUITrending_defaultTitleFont:v3];
       }
     }
   }
 
-  v8 = [MEMORY[0x277D74300] systemFontOfSize:22.0 weight:*MEMORY[0x277D74408]];
+  v10 = [MEMORY[0x277D74300] systemFontOfSize:22.0 weight:*MEMORY[0x277D74408]];
 
-  return v8;
+  return v10;
 }
 
 + (id)SKUITrending_titleLabelWithElement:()SKUITrendingSearchLabel
@@ -135,6 +137,30 @@ LABEL_8:
 LABEL_9:
 
   return v13;
+}
+
++ (void)SKUITrending_defaultTitleColor
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UILabel(SKUITrendingSearchLabel) SKUITrending_defaultTitleColor]";
+}
+
++ (void)SKUITrending_defaultTitleFont
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UILabel(SKUITrendingSearchLabel) SKUITrending_defaultTitleFont]";
+}
+
++ (void)SKUITrending_titleLabelWithElement:()SKUITrendingSearchLabel .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UILabel(SKUITrendingSearchLabel) SKUITrending_titleLabelWithElement:]";
+}
+
++ (void)SKUITrending_defaultLabelWithText:()SKUITrendingSearchLabel .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UILabel(SKUITrendingSearchLabel) SKUITrending_defaultLabelWithText:]";
 }
 
 @end

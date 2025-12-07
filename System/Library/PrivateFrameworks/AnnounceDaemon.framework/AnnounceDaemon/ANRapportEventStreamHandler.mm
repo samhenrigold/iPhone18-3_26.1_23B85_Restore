@@ -61,7 +61,7 @@ void __52__ANRapportEventStreamHandler_setEventStreamHandler__block_invoke(uint6
   v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, *MEMORY[0x277D86430]);
-  v5 = ANLogHandleRapportEventStreamHandler();
+  v5 = ANLogHandleRapportEventStreamHandler(string);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -88,52 +88,47 @@ void __52__ANRapportEventStreamHandler_setEventStreamHandler__block_invoke(uint6
         v12[3] = &unk_278C86700;
         v13 = reply;
         (v9)[2](v9, v12);
-        v10 = v13;
+        v11 = v13;
       }
 
       else
       {
-        v10 = ANLogHandleRapportEventStreamHandler();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = ANLogHandleRapportEventStreamHandler(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
           v15 = &stru_2851BDB18;
           v16 = 2080;
           v17 = string;
-          _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_ERROR, "%@Unsupported XPC Event Stream Name: %s", buf, 0x16u);
+          _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_ERROR, "%@Unsupported XPC Event Stream Name: %s", buf, 0x16u);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ANRapportEventStreamHandler_setEventStreamHandler__block_invoke_6(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = *(a1 + 32);
-    CUXPCEncodeNSError();
+    v3 = CUXPCEncodeNSError();
   }
 
-  v5 = ANLogHandleRapportEventStreamHandler();
+  v5 = ANLogHandleRapportEventStreamHandler(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = &stru_2851BDB18;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Sending Reply %@", &v9, 0x16u);
+    v7 = 138412546;
+    v8 = &stru_2851BDB18;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Sending Reply %@", &v7, 0x16u);
   }
 
-  v7 = *(a1 + 32);
   xpc_dictionary_send_reply();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

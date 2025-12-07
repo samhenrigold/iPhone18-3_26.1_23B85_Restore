@@ -32,7 +32,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CAShapeLayer);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CAShapeLayer, 0x277CD9F90);
 
   return swift_getObjCClassFromMetadata();
 }

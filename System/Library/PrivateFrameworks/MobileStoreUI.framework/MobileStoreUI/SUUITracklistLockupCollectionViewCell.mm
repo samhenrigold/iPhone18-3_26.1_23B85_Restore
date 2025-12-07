@@ -508,9 +508,9 @@ void __79__SUUITracklistLockupCollectionViewCell_sizeThatFitsWidth_viewElement_c
   color = [ikBorderColor color];
 
   dividerType = [style dividerType];
-  v17 = [dividerType isEqualToString:@"none"];
+  isEqualToString = objc_msgSend_isEqualToString_(dividerType);
 
-  if (!v17)
+  if (!isEqualToString)
   {
     separatorView = self->_separatorView;
     if (color)
@@ -525,7 +525,7 @@ void __79__SUUITracklistLockupCollectionViewCell_sizeThatFitsWidth_viewElement_c
     }
   }
 
-  [(UIView *)self->_separatorView setHidden:v17];
+  [(UIView *)self->_separatorView setHidden:isEqualToString];
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
   v28[2] = __77__SUUITracklistLockupCollectionViewCell_reloadWithViewElement_width_context___block_invoke;
@@ -918,9 +918,9 @@ void __66__SUUITracklistLockupCollectionViewCell_viewForElementIdentifier___bloc
 {
   v10 = a3;
   v8 = [a2 itmlID];
-  v9 = [v8 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
     *a4 = 1;

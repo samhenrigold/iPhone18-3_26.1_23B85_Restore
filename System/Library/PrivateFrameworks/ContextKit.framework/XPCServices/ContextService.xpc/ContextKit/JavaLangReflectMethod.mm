@@ -1,4 +1,5 @@
 @interface JavaLangReflectMethod
++ (id)methodWithMethodSignature:(id)signature selector:(SEL)selector class:(id)class isStatic:(BOOL)static metadata:(id)metadata;
 - (JavaLangReflectMethod)initWithMethodSignature:(id)signature selector:(SEL)selector class:(id)class isStatic:(BOOL)static metadata:(id)metadata;
 - (id)description;
 - (id)getDefaultValue;
@@ -25,6 +26,13 @@
   }
 
   return result;
+}
+
++ (id)methodWithMethodSignature:(id)signature selector:(SEL)selector class:(id)class isStatic:(BOOL)static metadata:(id)metadata
+{
+  v7 = [[JavaLangReflectMethod alloc] initWithMethodSignature:signature selector:selector class:class isStatic:static metadata:metadata];
+
+  return v7;
 }
 
 - (id)getName
@@ -72,7 +80,8 @@
   {
     v4 = returnType;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       return v4;
     }
@@ -80,7 +89,7 @@
     else
     {
 
-      return NSObject_class_();
+      return NSObject_class_(isKindOfClass, v6);
     }
   }
 
@@ -89,9 +98,9 @@
     methodReturnType = [(NSMethodSignature *)self->super.methodSignature_ methodReturnType];
     if (strlen(methodReturnType) != 1)
     {
-      v7 = [(JavaLangError *)[JavaLangAssertionError alloc] initWithNSString:[NSString stringWithFormat:@"unexpected return type: %s", methodReturnType]];
-      v8 = v7;
-      objc_exception_throw(v7);
+      v9 = [(JavaLangError *)[JavaLangAssertionError alloc] initWithNSString:[NSString stringWithFormat:@"unexpected return type: %s", methodReturnType]];
+      v10 = v9;
+      objc_exception_throw(v9);
     }
 
     return decodeTypeEncoding(methodReturnType);
@@ -104,19 +113,20 @@
   if (genericSignature)
   {
     v4 = genericSignature;
-    v5 = [[LibcoreReflectGenericSignatureParser alloc] initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader()];
-    [(LibcoreReflectGenericSignatureParser *)v5 parseForMethodWithJavaLangReflectGenericDeclaration:self withNSString:v4 withIOSClassArray:[(ExecutableMember *)self getExceptionTypes]];
-    v6 = [LibcoreReflectTypes getType:v5->returnType_];
+    v5 = [LibcoreReflectGenericSignatureParser alloc];
+    v7 = [(LibcoreReflectGenericSignatureParser *)v5 initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader(v5, v6)];
+    [(LibcoreReflectGenericSignatureParser *)v7 parseForMethodWithJavaLangReflectGenericDeclaration:self withNSString:v4 withIOSClassArray:[(ExecutableMember *)self getExceptionTypes]];
+    v8 = [LibcoreReflectTypes getType:v7->returnType_];
 
-    return v6;
+    return v8;
   }
 
   else
   {
     returnType = [(JavaMethodMetadata *)self->super.metadata_ returnType];
-    if (returnType && (v9 = returnType, ([returnType conformsToProtocol:&OBJC_PROTOCOL___JavaLangReflectTypeVariable] & 1) != 0))
+    if (returnType && (v11 = returnType, ([returnType conformsToProtocol:&OBJC_PROTOCOL___JavaLangReflectTypeVariable] & 1) != 0))
     {
-      return v9;
+      return v11;
     }
 
     else
@@ -273,47 +283,48 @@ LABEL_11:
 - (id)description
 {
   v3 = +[NSMutableString string];
-  objc_msgSend(v3, "appendFormat:", @"%@ %@ %@.%@("), JavaLangReflectModifier_toStringWithInt_(-[JavaLangReflectMethod getModifiers](self, "getModifiers")), objc_msgSend(-[JavaLangReflectMethod getReturnType](self, "getReturnType"), "getName"), objc_msgSend(-[ExecutableMember getDeclaringClass](self, "getDeclaringClass"), "getName"), -[JavaLangReflectMethod getName](self, "getName");
+  getModifiers = [(JavaLangReflectMethod *)self getModifiers];
+  objc_msgSend(v3, "appendFormat:", @"%@ %@ %@.%@("), JavaLangReflectModifier_toStringWithInt_(getModifiers, v5), objc_msgSend(-[JavaLangReflectMethod getReturnType](self, "getReturnType"), "getName"), objc_msgSend(-[ExecutableMember getDeclaringClass](self, "getDeclaringClass"), "getName"), -[JavaLangReflectMethod getName](self, "getName");
   getParameterTypes = [(ExecutableMember *)self getParameterTypes];
-  v5 = *(getParameterTypes + 2);
-  if (v5 >= 1)
+  v7 = *(getParameterTypes + 2);
+  if (v7 >= 1)
   {
-    v6 = getParameterTypes;
+    v8 = getParameterTypes;
     [v3 appendString:{objc_msgSend(getParameterTypes[3], "getName")}];
-    if (v5 != 1)
+    if (v7 != 1)
     {
-      v7 = v6 + 1;
-      v8 = v5 - 1;
+      v9 = v8 + 1;
+      v10 = v7 - 1;
       do
       {
-        [v3 appendFormat:@", %@", objc_msgSend(v7[3], "getName")];
-        ++v7;
-        --v8;
+        [v3 appendFormat:@", %@", objc_msgSend(v9[3], "getName")];
+        ++v9;
+        --v10;
       }
 
-      while (v8);
+      while (v10);
     }
   }
 
   [v3 appendString:@""]);
   getExceptionTypes = [(ExecutableMember *)self getExceptionTypes];
-  v10 = *(getExceptionTypes + 2);
-  if (v10 >= 1)
+  v12 = *(getExceptionTypes + 2);
+  if (v12 >= 1)
   {
-    v11 = getExceptionTypes;
+    v13 = getExceptionTypes;
     [v3 appendFormat:@" throws %@", objc_msgSend(getExceptionTypes[3], "getName")];
-    if (v10 != 1)
+    if (v12 != 1)
     {
-      v12 = v11 + 1;
-      v13 = v10 - 1;
+      v14 = v13 + 1;
+      v15 = v12 - 1;
       do
       {
-        [v3 appendFormat:@", %@", objc_msgSend(v12[3], "getName")];
-        ++v12;
-        --v13;
+        [v3 appendFormat:@", %@", objc_msgSend(v14[3], "getName")];
+        ++v14;
+        --v15;
       }
 
-      while (v13);
+      while (v15);
     }
   }
 
@@ -324,7 +335,7 @@ LABEL_11:
 {
   if (-[IOSClass isAnnotation](self->super.class_, "isAnnotation") && (v3 = -[IOSClass getDeclaredMethod:parameterTypes:](self->super.class_, "getDeclaredMethod:parameterTypes:", [-[JavaLangReflectMethod getName](self "getName")], +[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, IOSClass_class_()))) != 0)
   {
-    return [v3 invokeWithId:self->super.class_ withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_())}];
+    return [v3 invokeWithId:self->super.class_ withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_(v3, v4))}];
   }
 
   else

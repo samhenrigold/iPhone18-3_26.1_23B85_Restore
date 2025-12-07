@@ -141,7 +141,7 @@
 
 - (uint64_t)executeWithPrimaryColor:(float32x4_t)color secondaryColor:(float32x4_t)secondaryColor pearl:(float32x4_t)pearl pointClouds:(float32x4_t)clouds primaryColorCalibration:(float32x4_t)calibration secondaryColorCalibration:(float32x4_t)colorCalibration pearlCalibration:(float32x4_t)pearlCalibration lidarCameraCalibration:(uint64_t)self0 primaryColorPose:(__CVBuffer *)self1 secondaryColorPose:(__CVBuffer *)self2 pearlPose:(uint64_t)self3 pointCloudPoses:(void *)self4 timestamp:(void *)self5 outputDepthMap:(void *)self6 outputUncertaintyMap:(id)self7 outputConfidenceMap:(id)self8 outputConfidenceLevels:(float32x4_t)self9 outputNormalsMap:(float32x4_t)normalsMap outputActiveDepthMaskMap:(float32x4_t)maskMap outputDepthCalibration:(float32x4_t)depthCalibration
 {
-  v245[4] = *MEMORY[0x277D85DE8];
+  v257[4] = *MEMORY[0x277D85DE8];
   posesCopy = poses;
   timestampCopy = timestamp;
   mapCopy = map;
@@ -171,12 +171,12 @@
     executorParameters = [selfCopy executorParameters];
     logger = [executorParameters logger];
 
-    v235 = logger;
-    *&v205 = depthCalibration.i64[0];
-    *&v204 = maskMap.i64[0];
-    *&v203 = normalsMap.i64[0];
-    *&v202 = levels.i64[0];
-    v226 = a23;
+    v247 = logger;
+    *&v217 = depthCalibration.i64[0];
+    *&v216 = maskMap.i64[0];
+    *&v215 = normalsMap.i64[0];
+    *&v214 = levels.i64[0];
+    v238 = a23;
     if ([logger enabled])
     {
       [logger logPixelBuffer:pose name:"inputColor" priority:1 timestamp:a24];
@@ -192,8 +192,8 @@
       for (i = 0; [posesCopy count] > i; ++i)
       {
         v40 = [posesCopy objectAtIndexedSubscript:i];
-        *(&v239.__r_.__value_.__s + 23) = 15;
-        strcpy(&v239, "inputPointCloud");
+        *(&v251.__r_.__value_.__s + 23) = 15;
+        strcpy(&v251, "inputPointCloud");
         std::to_string(&__p, i);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
@@ -215,7 +215,7 @@
           size = __p.__r_.__value_.__l.__size_;
         }
 
-        v43 = std::string::append(&v239, p_p, size);
+        v43 = std::string::append(&v251, p_p, size);
         v44 = *&v43->__r_.__value_.__l.__data_;
         *&buf[16] = *(&v43->__r_.__value_.__l + 2);
         *buf = v44;
@@ -232,7 +232,7 @@
           v45 = *buf;
         }
 
-        [v235 logPointCloud:v40 name:v45 timestamp:a24];
+        [v247 logPointCloud:v40 name:v45 timestamp:a24];
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
@@ -240,7 +240,7 @@
           {
 LABEL_36:
             operator delete(__p.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(v239.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((SHIBYTE(v251.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               goto LABEL_23;
             }
@@ -254,22 +254,22 @@ LABEL_36:
           goto LABEL_36;
         }
 
-        if ((SHIBYTE(v239.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v251.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
 
 LABEL_37:
-        operator delete(v239.__r_.__value_.__l.__data_);
+        operator delete(v251.__r_.__value_.__l.__data_);
 LABEL_23:
 
         v46 = &a23[4 * i];
-        v231 = v46[1];
-        v233 = *v46;
-        v227 = v46[3];
-        v229 = v46[2];
-        *(&v239.__r_.__value_.__s + 23) = 19;
-        strcpy(&v239, "inputPointCloudPose");
+        v243 = v46[1];
+        v245 = *v46;
+        v239 = v46[3];
+        v241 = v46[2];
+        *(&v251.__r_.__value_.__s + 23) = 19;
+        strcpy(&v251, "inputPointCloudPose");
         std::to_string(&__p, i);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
@@ -291,7 +291,7 @@ LABEL_23:
           v48 = __p.__r_.__value_.__l.__size_;
         }
 
-        v49 = std::string::append(&v239, v47, v48);
+        v49 = std::string::append(&v251, v47, v48);
         v50 = *&v49->__r_.__value_.__l.__data_;
         *&buf[16] = *(&v49->__r_.__value_.__l + 2);
         *buf = v50;
@@ -308,14 +308,14 @@ LABEL_23:
           v51 = *buf;
         }
 
-        [v235 logMatrix4x4:v51 name:*&v233 timestamp:{*&v231, *&v229, *&v227, a24}];
+        [v247 logMatrix4x4:v51 name:*v245.i64 timestamp:{*v243.i64, *v241.i64, *v239.i64, a24}];
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
 LABEL_39:
-            if ((SHIBYTE(v239.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((SHIBYTE(v251.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               continue;
             }
@@ -330,13 +330,13 @@ LABEL_39:
         }
 
         operator delete(__p.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v239.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v251.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           continue;
         }
 
 LABEL_40:
-        operator delete(v239.__r_.__value_.__l.__data_);
+        operator delete(v251.__r_.__value_.__l.__data_);
       }
     }
 
@@ -368,7 +368,7 @@ LABEL_40:
         _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Pose for %@%@ is invalid", buf, 0x16u);
       }
 
-      v234 = 0;
+      v246 = 0;
       if (!pearlPose)
       {
 LABEL_58:
@@ -379,7 +379,7 @@ LABEL_58:
         {
           if ((vminvq_u32(vandq_s8(vandq_s8(vceqzq_f32(v60[-1]), vceqzq_f32(v60[-2])), vandq_s8(vceqzq_f32(*v60), vceqzq_f32(v60[1])))) & 0x80000000) != 0)
           {
-            v234 = 0;
+            v246 = 0;
             if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
             {
               v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%d)", v59];
@@ -389,7 +389,7 @@ LABEL_58:
               *&buf[14] = v62;
               _os_log_impl(&dword_2402F6000, v61, OS_LOG_TYPE_DEFAULT, "Pose for %@%@ is invalid", buf, 0x16u);
 
-              v234 = 0;
+              v246 = 0;
             }
           }
 
@@ -397,14 +397,14 @@ LABEL_58:
           v60 += 4;
         }
 
-        if (!v234)
+        if (!v246)
         {
           v63 = 0;
           v64 = MEMORY[0x277D860B8];
-          v202 = *MEMORY[0x277D860B8];
-          v203 = *(MEMORY[0x277D860B8] + 16);
-          v204 = *(MEMORY[0x277D860B8] + 32);
-          v205 = *(MEMORY[0x277D860B8] + 48);
+          v214 = *MEMORY[0x277D860B8];
+          v215 = *(MEMORY[0x277D860B8] + 16);
+          v216 = *(MEMORY[0x277D860B8] + 32);
+          v217 = *(MEMORY[0x277D860B8] + 48);
           v65 = a23;
           while (v63 < [posesCopy count])
           {
@@ -419,17 +419,17 @@ LABEL_58:
             ++v63;
           }
 
-          clouds.i64[0] = v202;
-          calibration.i64[0] = v203;
-          colorCalibration.i64[0] = v204;
-          pearlCalibration.i64[0] = v205;
-          a2.i64[0] = v202;
-          secondaryColor.i64[0] = v204;
-          pearl.i64[0] = v205;
-          color.i64[0] = v203;
+          clouds.i64[0] = v214;
+          calibration.i64[0] = v215;
+          colorCalibration.i64[0] = v216;
+          pearlCalibration.i64[0] = v217;
+          a2.i64[0] = v214;
+          secondaryColor.i64[0] = v216;
+          pearl.i64[0] = v217;
+          color.i64[0] = v215;
         }
 
-        [*(obj + 29) setAllPosesValid:v234];
+        [*(obj + 29) setAllPosesValid:v246];
         executorParameters2 = [obj executorParameters];
         stepsToExecute = [executorParameters2 stepsToExecute];
 
@@ -477,11 +477,11 @@ LABEL_108:
                 v81 = *(v79 + 56);
                 if (v82 == CVPixelBufferGetWidth(v73) && v81 == CVPixelBufferGetHeight(v73) && CVPixelBufferGetPixelFormatType(v73) == v80)
                 {
-                  v85 = PixelBufferUtilsSession::run(*(obj + 25), pose, v73);
+                  v91 = PixelBufferUtilsSession::run(*(obj + 25), pose, v73);
                   v74 = v73;
-                  if ((v85 & 1) == 0)
+                  if ((v91 & 1) == 0)
                   {
-                    v92 = 0;
+                    v98 = 0;
                     goto LABEL_116;
                   }
 
@@ -498,42 +498,42 @@ LABEL_108:
             }
           }
 
-          CVPixelBufferGetWidth(pose);
-          CVPixelBufferGetHeight(pose);
-          CVPixelBufferGetWidth(v73);
-          CVPixelBufferGetHeight(v73);
-          CVPixelBufferGetPixelFormatType(pose);
-          CVPixelBufferGetPixelFormatType(v73);
-          PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+          v85 = CVPixelBufferGetWidth(pose);
+          Height = CVPixelBufferGetHeight(pose);
+          v87 = CVPixelBufferGetWidth(v73);
+          v88 = CVPixelBufferGetHeight(v73);
+          PixelFormatType = CVPixelBufferGetPixelFormatType(pose);
+          v90 = CVPixelBufferGetPixelFormatType(v73);
+          PixelBufferUtilsSession::createCropScaleConvertRotateSession(PixelFormatType, v90, *(obj + 18), v85, Height, v87, v88, *(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
         }
 
 LABEL_87:
-        [v235 logPixelBuffer:v74 name:"modelInputColor" timestamp:a24];
-        v86 = [obj inferencePixelBufferForDescriptor:secondaryColorInput inputUserBuffer:colorPose];
-        v87 = v86;
-        if (v86)
+        [v247 logPixelBuffer:v74 name:"modelInputColor" timestamp:a24];
+        v92 = [obj inferencePixelBufferForDescriptor:secondaryColorInput inputUserBuffer:colorPose];
+        v93 = v92;
+        if (v92)
         {
-          if (v86 == colorPose)
+          if (v92 == colorPose)
           {
             goto LABEL_104;
           }
 
-          v88 = *(obj + 25);
-          if (v88)
+          v94 = *(obj + 25);
+          if (v94)
           {
             if (colorPose)
             {
-              v89 = *(v88 + 40);
-              v91 = *(v88 + 24);
-              v90 = *(v88 + 32);
-              if (v91 == CVPixelBufferGetWidth(colorPose) && v90 == CVPixelBufferGetHeight(colorPose) && CVPixelBufferGetPixelFormatType(colorPose) == v89 && PixelBufferUtilsSession::verifyOutput(*(obj + 25), v87))
+              v95 = *(v94 + 40);
+              v97 = *(v94 + 24);
+              v96 = *(v94 + 32);
+              if (v97 == CVPixelBufferGetWidth(colorPose) && v96 == CVPixelBufferGetHeight(colorPose) && CVPixelBufferGetPixelFormatType(colorPose) == v95 && PixelBufferUtilsSession::verifyOutput(*(obj + 25), v93))
               {
-                if (PixelBufferUtilsSession::run(*(obj + 25), colorPose, v87))
+                if (PixelBufferUtilsSession::run(*(obj + 25), colorPose, v93))
                 {
 LABEL_104:
-                  [v235 logPixelBuffer:v87 name:"modelInputSecondaryColor" timestamp:a24];
-                  v95 = fabsf(color.f32[0]);
-                  [*(obj + 29) setColorPoseRoll:{COERCE_DOUBLE(__PAIR64__(color.u32[1], LODWORD(v95)))}];
+                  [v247 logPixelBuffer:v93 name:"modelInputSecondaryColor" timestamp:a24];
+                  v107 = fabsf(color.f32[0]);
+                  [*(obj + 29) setColorPoseRoll:{COERCE_DOUBLE(__PAIR64__(color.u32[1], LODWORD(v107)))}];
                   [timeProfiler stopWithUTFString:"preprocess color"];
                   kdebug_trace();
                   if (stepsToExecute == 1)
@@ -546,14 +546,14 @@ LABEL_107:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"preprocess calibration"];
-                  v97 = [timestampCopy mutableCopy];
-                  [v97 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
+                  v109 = [timestampCopy mutableCopy];
+                  [v109 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
                   primaryColorInput2 = [inferenceDescriptor primaryColorInput];
                   imageDescriptor = [primaryColorInput2 imageDescriptor];
                   [imageDescriptor sizeForLayout:{objc_msgSend(obj, "layout")}];
-                  v100 = [v97 scale:?];
+                  v112 = [v109 scale:?];
 
-                  if ((v100 & 1) == 0)
+                  if ((v112 & 1) == 0)
                   {
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
@@ -565,17 +565,17 @@ LABEL_107:
                     goto LABEL_148;
                   }
 
-                  [v235 logCalibration:v97 name:"intermediateColorCalibration" timestamp:a24];
-                  v101 = [mapCopy mutableCopy];
-                  [v101 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
+                  [v247 logCalibration:v109 name:"intermediateColorCalibration" timestamp:a24];
+                  v113 = [mapCopy mutableCopy];
+                  [v113 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
                   secondaryColorInput2 = [inferenceDescriptor secondaryColorInput];
                   imageDescriptor2 = [secondaryColorInput2 imageDescriptor];
                   [imageDescriptor2 sizeForLayout:{objc_msgSend(obj, "layout")}];
-                  v104 = [v101 scale:?];
+                  v116 = [v113 scale:?];
 
-                  if ((v104 & 1) == 0)
+                  if ((v116 & 1) == 0)
                   {
-                    v105 = v101;
+                    v117 = v113;
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
@@ -586,9 +586,9 @@ LABEL_107:
                     goto LABEL_147;
                   }
 
-                  v105 = v101;
-                  [v235 logCalibration:v101 name:"intermediateSecondaryColorCalibration" timestamp:a24];
-                  execute = [*(obj + 28) createCameraEmbeddingsForRightCameraCalibration:v97 leftCameraCalibration:v101 rightCameraPose:*(obj + 20) leftCameraPose:*a2.i64 outputBuffer:{*color.i64, *secondaryColor.i64, *pearl.i64, *clouds.i64, *calibration.i64, *colorCalibration.i64, *pearlCalibration.i64}];
+                  v117 = v113;
+                  [v247 logCalibration:v113 name:"intermediateSecondaryColorCalibration" timestamp:a24];
+                  execute = [*(obj + 28) createCameraEmbeddingsForRightCameraCalibration:v109 leftCameraCalibration:v113 rightCameraPose:*(obj + 20) leftCameraPose:*a2.i64 outputBuffer:{*color.i64, *secondaryColor.i64, *pearl.i64, *clouds.i64, *calibration.i64, *colorCalibration.i64, *pearlCalibration.i64}];
                   if (execute)
                   {
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -600,24 +600,24 @@ LABEL_107:
                     goto LABEL_147;
                   }
 
-                  [v235 logRawBuffer:objc_msgSend(*(obj + 20) size:"data") name:objc_msgSend(*(obj + 20) timestamp:{"size"), "modelInputColorCameraEmbeddings", a24}];
+                  [v247 logRawBuffer:objc_msgSend(*(obj + 20) size:"data") name:objc_msgSend(*(obj + 20) timestamp:{"size"), "modelInputColorCameraEmbeddings", a24}];
                   defaults = [objc_opt_class() defaults];
-                  v107 = [defaults BOOLForKey:kADDeviceConfigurationKeyMetricDepthIgnoreActiveSensors];
+                  v119 = [defaults BOOLForKey:kADDeviceConfigurationKeyMetricDepthIgnoreActiveSensors];
 
-                  if (v107)
+                  if (v119)
                   {
-                    v108 = MEMORY[0x277D86220];
-                    v109 = MEMORY[0x277D86220];
-                    if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+                    v120 = MEMORY[0x277D86220];
+                    v121 = MEMORY[0x277D86220];
+                    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
                       _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Warning! Ignoring active sensors", buf, 2u);
                     }
                   }
 
-                  [*(obj + 29) setDepthSensorsIgnored:v107];
+                  [*(obj + 29) setDepthSensorsIgnored:v119];
                   defaults2 = [objc_opt_class() defaults];
-                  v111 = [defaults2 BOOLForKey:kADDeviceConfigurationKeyMetricDepthEmulatePeridot];
+                  v123 = [defaults2 BOOLForKey:kADDeviceConfigurationKeyMetricDepthEmulatePeridot];
 
                   [timeProfiler stopWithUTFString:"preprocess calibration"];
                   kdebug_trace();
@@ -628,22 +628,22 @@ LABEL_107:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"preprocess pearl"];
-                  if ((pearlPose == 0) | v107 & 1 | v111 & 1)
+                  if ((pearlPose == 0) | v119 & 1 | v123 & 1)
                   {
                     [*(obj + 22) clearBuffer];
                   }
 
                   else
                   {
-                    execute = [*(obj + 28) preprocessPearlDepth:*&v202 pearlPose:*&v203 pearlCalibration:*&v204 colorPose:*&v205 colorCalibration:*a2.i64 outputBuffer:{*color.i64, *secondaryColor.i64, *pearl.i64}];
+                    execute = [*(obj + 28) preprocessPearlDepth:*&v214 pearlPose:*&v215 pearlCalibration:*&v216 colorPose:*&v217 colorCalibration:*a2.i64 outputBuffer:{*color.i64, *secondaryColor.i64, *pearl.i64}];
                     [*(obj + 29) setPearlProjectedPixelCount:countNonZeroValues(*(obj + 23))];
-                    v112 = CVPixelBufferGetWidth(*(obj + 23));
-                    Height = CVPixelBufferGetHeight(*(obj + 23));
-                    *&v114 = [*(obj + 29) pearlProjectedPixelCount] / (Height * v112);
-                    [*(obj + 29) setPearlProjectedPixelPercentage:v114];
-                    if ([v235 enabled])
+                    v124 = CVPixelBufferGetWidth(*(obj + 23));
+                    v125 = CVPixelBufferGetHeight(*(obj + 23));
+                    *&v126 = [*(obj + 29) pearlProjectedPixelCount] / (v125 * v124);
+                    [*(obj + 29) setPearlProjectedPixelPercentage:v126];
+                    if ([v247 enabled])
                     {
-                      [v235 logPixelBuffer:*(obj + 23) name:"intermediateProjectedPearlToPrimary" timestamp:a24];
+                      [v247 logPixelBuffer:*(obj + 23) name:"intermediateProjectedPearlToPrimary" timestamp:a24];
                       PixelBufferWithSameSizeAndFormat = *(obj + 24);
                       if (!PixelBufferWithSameSizeAndFormat)
                       {
@@ -652,36 +652,36 @@ LABEL_107:
                       }
 
                       CVPixelBufferLockBaseAddress(PixelBufferWithSameSizeAndFormat, 0);
-                      v199 = objc_alloc(MEMORY[0x277CED050]);
+                      v211 = objc_alloc(MEMORY[0x277CED050]);
                       BaseAddress = CVPixelBufferGetBaseAddress(*(obj + 24));
                       dimensions = [*(obj + 22) dimensions];
-                      v245[0] = &unk_28524A6F8;
-                      v197 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "rowBytes")}];
-                      v245[1] = v197;
-                      v196 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "channelBytes")}];
-                      v245[2] = v196;
-                      v116 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "batchBytes")}];
-                      v245[3] = v116;
-                      v117 = [MEMORY[0x277CBEA60] arrayWithObjects:v245 count:4];
-                      v118 = [v199 initWithName:@"projectedPearlToSecondary" rawData:BaseAddress dimensions:dimensions strides:v117];
+                      v257[0] = &unk_28524A6F8;
+                      v209 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "rowBytes")}];
+                      v257[1] = v209;
+                      v208 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "channelBytes")}];
+                      v257[2] = v208;
+                      v128 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(*(obj + 22), "batchBytes")}];
+                      v257[3] = v128;
+                      v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v257 count:4];
+                      v130 = [v211 initWithName:@"projectedPearlToSecondary" rawData:BaseAddress dimensions:dimensions strides:v129];
 
-                      v119 = [*(obj + 28) preprocessPearlDepth:pearlPose pearlPose:uncertaintyMapCopy pearlCalibration:v101 colorPose:v118 colorCalibration:*&v202 outputBuffer:{*&v203, *&v204, *&v205, *clouds.i64, *calibration.i64, *colorCalibration.i64, *pearlCalibration.i64}];
+                      v131 = [*(obj + 28) preprocessPearlDepth:pearlPose pearlPose:uncertaintyMapCopy pearlCalibration:v113 colorPose:v130 colorCalibration:*&v214 outputBuffer:{*&v215, *&v216, *&v217, *clouds.i64, *calibration.i64, *colorCalibration.i64, *pearlCalibration.i64}];
                       CVPixelBufferUnlockBaseAddress(*(obj + 24), 0);
-                      if (v119)
+                      if (v131)
                       {
-                        v120 = MEMORY[0x277D86220];
-                        v121 = MEMORY[0x277D86220];
-                        if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+                        v132 = MEMORY[0x277D86220];
+                        v133 = MEMORY[0x277D86220];
+                        if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 134217984;
-                          *&buf[4] = v119;
+                          *&buf[4] = v131;
                           _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MD failed projecting pearl to secondary camera for logging with error %ld", buf, 0xCu);
                         }
                       }
 
                       else
                       {
-                        [v235 logPixelBuffer:*(obj + 24) name:"intermediateProjectedPearlToSecondary" timestamp:a24];
+                        [v247 logPixelBuffer:*(obj + 24) name:"intermediateProjectedPearlToSecondary" timestamp:a24];
                       }
                     }
 
@@ -690,7 +690,7 @@ LABEL_107:
                       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
 LABEL_146:
-                        v105 = v101;
+                        v117 = v113;
 LABEL_147:
 
 LABEL_148:
@@ -698,11 +698,11 @@ LABEL_148:
                       }
 
                       *buf = 0;
-                      v122 = MEMORY[0x277D86220];
-                      v123 = "failed projecting pearl for color POV";
-                      v124 = buf;
+                      v134 = MEMORY[0x277D86220];
+                      v135 = "failed projecting pearl for color POV";
+                      v136 = buf;
 LABEL_180:
-                      _os_log_error_impl(&dword_2402F6000, v122, OS_LOG_TYPE_ERROR, v123, v124, 2u);
+                      _os_log_error_impl(&dword_2402F6000, v134, OS_LOG_TYPE_ERROR, v135, v136, 2u);
                       goto LABEL_146;
                     }
                   }
@@ -720,158 +720,158 @@ LABEL_145:
                   [timeProfiler startWithUTFString:"preprocess jasper"];
                   *buf = xmmword_240406DF0;
                   *&buf[16] = xmmword_240406E00;
-                  v243 = xmmword_240406E10;
-                  v244 = xmmword_240406E20;
-                  v125 = v111 ^ 1;
+                  v255 = xmmword_240406E10;
+                  v256 = xmmword_240406E20;
+                  v137 = v123 ^ 1;
                   if (!pearlPose)
                   {
-                    v125 = 1;
+                    v137 = 1;
                   }
 
-                  if ((v125 & 1) == 0)
+                  if ((v137 & 1) == 0)
                   {
-                    v126 = *(obj + 28);
+                    v138 = *(obj + 28);
                     [confidenceMapCopy cameraToPlatformTransform];
-                    v237 = 0;
-                    execute = [v126 emulatePeridotFromJasper:posesCopy jasperPoses:a23 jasperTimestamps:0 jasperToPlatformTransform:pearlPose pearlDepth:uncertaintyMapCopy pearlPose:&v237 pearlCalibration:v127 outPointCloud:v128 outPose:v129 outTimestamp:{v130, *&v202, *&v203, *&v204, *&v205, buf, 0}];
-                    v131 = v237;
-                    v132 = v131;
+                    v249 = 0;
+                    execute = [v138 emulatePeridotFromJasper:posesCopy jasperPoses:a23 jasperTimestamps:0 jasperToPlatformTransform:pearlPose pearlDepth:uncertaintyMapCopy pearlPose:&v249 pearlCalibration:v139 outPointCloud:v140 outPose:v141 outTimestamp:{v142, *&v214, *&v215, *&v216, *&v217, buf, 0}];
+                    v143 = v249;
+                    v144 = v143;
                     if (execute)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed emulating peridot from jasper", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed emulating peridot from jasper", &v251, 2u);
                       }
 
                       goto LABEL_146;
                     }
 
-                    v241 = v131;
-                    v133 = [MEMORY[0x277CBEA60] arrayWithObjects:&v241 count:1];
+                    v253 = v143;
+                    v145 = [MEMORY[0x277CBEA60] arrayWithObjects:&v253 count:1];
 
-                    v226 = buf;
-                    posesCopy = v133;
+                    v238 = buf;
+                    posesCopy = v145;
                   }
 
-                  v134 = MEMORY[0x277CED0F8];
-                  v240 = confidenceMapCopy;
-                  v135 = [MEMORY[0x277CBEA60] arrayWithObjects:&v240 count:1];
-                  v136 = [v134 aggregatePointClouds:posesCopy calibrations:v135 worldToPlatformTransforms:v226 projectingToCamera:v97 worldToPlatformAtProjectionTime:{*a2.i64, *color.i64, *secondaryColor.i64, *pearl.i64}];
-                  v137 = *(obj + 18);
-                  *(obj + 18) = v136;
+                  v146 = MEMORY[0x277CED0F8];
+                  v252 = confidenceMapCopy;
+                  v147 = [MEMORY[0x277CBEA60] arrayWithObjects:&v252 count:1];
+                  v148 = [v146 aggregatePointClouds:posesCopy calibrations:v147 worldToPlatformTransforms:v238 projectingToCamera:v109 worldToPlatformAtProjectionTime:{*a2.i64, *color.i64, *secondaryColor.i64, *pearl.i64}];
+                  v149 = *(obj + 18);
+                  *(obj + 18) = v148;
 
-                  v138 = *(obj + 18);
+                  v150 = *(obj + 18);
                   pipelineParameters = [*(obj + 28) pipelineParameters];
                   pointCloudFilter = [pipelineParameters pointCloudFilter];
-                  v141 = [v138 pointCloudByApplyingFilter:pointCloudFilter];
-                  v142 = *(obj + 18);
-                  *(obj + 18) = v141;
+                  v153 = [v150 pointCloudByApplyingFilter:pointCloudFilter];
+                  v154 = *(obj + 18);
+                  *(obj + 18) = v153;
 
-                  *pixelBuffera = *v226;
-                  v216 = v226[2];
-                  v218 = v226[1];
-                  v214 = v226[3];
-                  v143 = [posesCopy count];
-                  v246.columns[0] = *pixelBuffera;
-                  v246.columns[2] = v216;
-                  v246.columns[1] = v218;
-                  v246.columns[3] = v214;
-                  *&v144 = ADCommonUtils::calculatePoseDistance(v143, v246, *v226[4 * v143 - 4].f32);
-                  [*(obj + 29) setJasperPoseDistance:v144];
+                  *pixelBuffera = *v238;
+                  v228 = v238[2];
+                  v230 = v238[1];
+                  v226 = v238[3];
+                  v155 = [posesCopy count];
+                  v258.columns[0] = *pixelBuffera;
+                  v258.columns[2] = v228;
+                  v258.columns[1] = v230;
+                  v258.columns[3] = v226;
+                  *&v156 = ADCommonUtils::calculatePoseDistance(v155, v258, *v238[4 * v155 - 4].f32);
+                  [*(obj + 29) setJasperPoseDistance:v156];
                   [*(obj + 29) setJasperInputSpotCount:{objc_msgSend(*(obj + 18), "length")}];
-                  if (!v234)
+                  if (!v246)
                   {
-                    v145 = MEMORY[0x277D86220];
-                    v146 = MEMORY[0x277D86220];
-                    if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+                    v157 = MEMORY[0x277D86220];
+                    v158 = MEMORY[0x277D86220];
+                    if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
                     {
-                      LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "zeroing point clouds due to invalid pose inputs", &v239, 2u);
+                      LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "zeroing point clouds due to invalid pose inputs", &v251, 2u);
                     }
 
-                    v147 = *(obj + 18);
+                    v159 = *(obj + 18);
                     *(obj + 18) = 0;
                   }
 
-                  if (v107)
+                  if (v119)
                   {
-                    v148 = *(obj + 18);
+                    v160 = *(obj + 18);
                     *(obj + 18) = 0;
                   }
 
-                  [v235 logPointCloud:*(obj + 18) name:"intermediateAggregatedPointCloudProjectedToPrimary" timestamp:a24];
-                  [v97 referenceDimensions];
-                  v150 = v149;
-                  [v97 referenceDimensions];
-                  v152 = v151;
+                  [v247 logPointCloud:*(obj + 18) name:"intermediateAggregatedPointCloudProjectedToPrimary" timestamp:a24];
+                  [v109 referenceDimensions];
+                  v162 = v161;
+                  [v109 referenceDimensions];
+                  v164 = v163;
                   if (pearlPose)
                   {
-                    v153 = [*(obj + 18) mutableCopy];
-                    objc_storeStrong(obj + 18, v153);
-                    execute = [*(obj + 28) filterJasperPointCloud:v153 usingPearlInput:*(obj + 23)];
+                    v165 = [*(obj + 18) mutableCopy];
+                    objc_storeStrong(obj + 18, v165);
+                    execute = [*(obj + 28) filterJasperPointCloud:v165 usingPearlInput:*(obj + 23)];
                     if (execute)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed filtering jasper (primary) with pearl", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed filtering jasper (primary) with pearl", &v251, 2u);
                       }
 
                       goto LABEL_146;
                     }
 
-                    v154 = *(obj + 18);
+                    v166 = *(obj + 18);
                     pipelineParameters2 = [*(obj + 28) pipelineParameters];
                     pointCloudFilter2 = [pipelineParameters2 pointCloudFilter];
-                    v157 = [v154 pointCloudByApplyingFilter:pointCloudFilter2];
-                    v158 = *(obj + 18);
-                    *(obj + 18) = v157;
+                    v169 = [v166 pointCloudByApplyingFilter:pointCloudFilter2];
+                    v170 = *(obj + 18);
+                    *(obj + 18) = v169;
 
-                    [v235 logPointCloud:*(obj + 18) name:"intermediateAggregatedPointCloudProjectedToPrimaryCoFiltered" timestamp:a24];
+                    [v247 logPointCloud:*(obj + 18) name:"intermediateAggregatedPointCloudProjectedToPrimaryCoFiltered" timestamp:a24];
                   }
 
                   [*(obj + 29) setJasperProjectedSpotCount:{objc_msgSend(*(obj + 18), "length")}];
-                  v159 = [*(obj + 18) pointCloudByChangingPointOfViewFrom:v97 to:v101];
-                  v160 = *(obj + 19);
-                  *(obj + 19) = v159;
+                  v171 = [*(obj + 18) pointCloudByChangingPointOfViewFrom:v109 to:v113];
+                  v172 = *(obj + 19);
+                  *(obj + 19) = v171;
 
-                  if ([v235 enabled])
+                  if ([v247 enabled])
                   {
-                    v161 = PixelBufferUtils::createPixelBuffer(v150, v152, 0x68646570u, 1);
-                    PixelBufferSharedPtr::TakeOwnership(&v239, v161);
-                    v163 = *(obj + 18);
-                    if (v163)
+                    v173 = PixelBufferUtils::createPixelBuffer(v162, v164, 0x68646570u, 1);
+                    PixelBufferSharedPtr::TakeOwnership(&v251, v173);
+                    v175 = *(obj + 18);
+                    if (v175)
                     {
                       pipelineParameters3 = [*(obj + 28) pipelineParameters];
                       pointCloudFilter3 = [pipelineParameters3 pointCloudFilter];
-                      [v163 projectJasperPointsFilteredBy:pointCloudFilter3 croppedBy:*(obj + 9) rotatedBy:v239.__r_.__value_.__l.__size_ andScaledInto:{0.0, 0.0, v150, v152}];
+                      [v175 projectJasperPointsFilteredBy:pointCloudFilter3 croppedBy:*(obj + 9) rotatedBy:v251.__r_.__value_.__l.__size_ andScaledInto:{0.0, 0.0, v162, v164}];
                     }
 
                     else
                     {
-                      PixelBufferUtils::blacken(v239.__r_.__value_.__l.__size_, v162);
+                      PixelBufferUtils::blacken(v251.__r_.__value_.__l.__size_, v174);
                     }
 
-                    [v235 logPixelBuffer:v239.__r_.__value_.__l.__size_ name:"intermediateProjectedJasperToPrimaryDepthMap" timestamp:a24];
-                    v167 = *(obj + 19);
-                    if (v167)
+                    [v247 logPixelBuffer:v251.__r_.__value_.__l.__size_ name:"intermediateProjectedJasperToPrimaryDepthMap" timestamp:a24];
+                    v179 = *(obj + 19);
+                    if (v179)
                     {
                       pipelineParameters4 = [*(obj + 28) pipelineParameters];
                       pointCloudFilter4 = [pipelineParameters4 pointCloudFilter];
-                      [v167 projectJasperPointsFilteredBy:pointCloudFilter4 croppedBy:*(obj + 9) rotatedBy:v239.__r_.__value_.__l.__size_ andScaledInto:{0.0, 0.0, v150, v152}];
+                      [v179 projectJasperPointsFilteredBy:pointCloudFilter4 croppedBy:*(obj + 9) rotatedBy:v251.__r_.__value_.__l.__size_ andScaledInto:{0.0, 0.0, v162, v164}];
                     }
 
                     else
                     {
-                      PixelBufferUtils::blacken(v239.__r_.__value_.__l.__size_, v166);
+                      PixelBufferUtils::blacken(v251.__r_.__value_.__l.__size_, v178);
                     }
 
-                    [v235 logPixelBuffer:v239.__r_.__value_.__l.__size_ name:"intermediateProjectedJasperToSecondaryDepthMap" timestamp:a24];
-                    PixelBufferSharedPtr::~PixelBufferSharedPtr(&v239);
+                    [v247 logPixelBuffer:v251.__r_.__value_.__l.__size_ name:"intermediateProjectedJasperToSecondaryDepthMap" timestamp:a24];
+                    PixelBufferSharedPtr::~PixelBufferSharedPtr(&v251);
                   }
 
-                  execute = [*(obj + 28) createJasperEmbeddingsForRightCameraPointCloud:*(obj + 18) leftCameraPointCloud:*(obj + 19) crop:*(obj + 9) rotation:*(obj + 21) outputBuffer:{0.0, 0.0, v150, v152}];
+                  execute = [*(obj + 28) createJasperEmbeddingsForRightCameraPointCloud:*(obj + 18) leftCameraPointCloud:*(obj + 19) crop:*(obj + 9) rotation:*(obj + 21) outputBuffer:{0.0, 0.0, v162, v164}];
                   if (execute)
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -879,16 +879,16 @@ LABEL_145:
                       goto LABEL_146;
                     }
 
-                    LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                    v122 = MEMORY[0x277D86220];
-                    v123 = "failed to create jasper embeddings";
-                    v124 = &v239;
+                    LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                    v134 = MEMORY[0x277D86220];
+                    v135 = "failed to create jasper embeddings";
+                    v136 = &v251;
                     goto LABEL_180;
                   }
 
-                  [v235 logRawBuffer:objc_msgSend(*(obj + 21) size:"data") name:objc_msgSend(*(obj + 21) timestamp:{"size"), "modelInputJasperEmbeddings", a24}];
-                  [v235 logPixelBuffer:*(obj + 23) name:"modelInputProjectedPearl" timestamp:a24];
-                  [v235 logRawBuffer:objc_msgSend(*(obj + 22) size:"data") name:objc_msgSend(*(obj + 22) timestamp:{"size"), "modelInputPearlBuffer", a24}];
+                  [v247 logRawBuffer:objc_msgSend(*(obj + 21) size:"data") name:objc_msgSend(*(obj + 21) timestamp:{"size"), "modelInputJasperEmbeddings", a24}];
+                  [v247 logPixelBuffer:*(obj + 23) name:"modelInputProjectedPearl" timestamp:a24];
+                  [v247 logRawBuffer:objc_msgSend(*(obj + 22) size:"data") name:objc_msgSend(*(obj + 22) timestamp:{"size"), "modelInputPearlBuffer", a24}];
                   [timeProfiler stopWithUTFString:"preprocess jasper"];
                   kdebug_trace();
                   if (stepsToExecute < 5)
@@ -901,13 +901,13 @@ LABEL_182:
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"network execution"];
                   depthOutput = [inferenceDescriptor depthOutput];
-                  v171 = [obj inferencePixelBufferForDescriptor:depthOutput outputUserBuffer:a25];
+                  v183 = [obj inferencePixelBufferForDescriptor:depthOutput outputUserBuffer:a25];
 
                   confidenceOutput = [inferenceDescriptor confidenceOutput];
-                  v173 = [obj inferencePixelBufferForDescriptor:confidenceOutput outputUserBuffer:a26];
+                  v185 = [obj inferencePixelBufferForDescriptor:confidenceOutput outputUserBuffer:a26];
 
                   normalsOutput = [inferenceDescriptor normalsOutput];
-                  v175 = [obj inferencePixelBufferForDescriptor:normalsOutput outputUserBuffer:a29];
+                  v187 = [obj inferencePixelBufferForDescriptor:normalsOutput outputUserBuffer:a29];
 
                   execute = [*(obj + 7) execute];
                   if (execute)
@@ -917,15 +917,15 @@ LABEL_182:
                       goto LABEL_146;
                     }
 
-                    LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                    v181 = MEMORY[0x277D86220];
-                    v182 = "failed executing espresso plan";
+                    LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                    v193 = MEMORY[0x277D86220];
+                    v194 = "failed executing espresso plan";
                     goto LABEL_209;
                   }
 
-                  [v235 logPixelBuffer:v171 name:"modelOutputDepth" timestamp:a24];
-                  [v235 logPixelBuffer:v173 name:"modelOutputUncertainty" timestamp:a24];
-                  [v235 logPixelBuffer:v175 name:"modelOutputNormals" timestamp:a24];
+                  [v247 logPixelBuffer:v183 name:"modelOutputDepth" timestamp:a24];
+                  [v247 logPixelBuffer:v185 name:"modelOutputUncertainty" timestamp:a24];
+                  [v247 logPixelBuffer:v187 name:"modelOutputNormals" timestamp:a24];
                   [timeProfiler stopWithUTFString:"network execution"];
                   kdebug_trace();
                   if (stepsToExecute == 5)
@@ -935,43 +935,43 @@ LABEL_182:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"postprocess confidence"];
-                  if (v234)
+                  if (v246)
                   {
-                    if (v95 > 0.5)
+                    if (v107 > 0.5)
                     {
-                      v176 = MEMORY[0x277D86220];
-                      v177 = MEMORY[0x277D86220];
-                      if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
+                      v188 = MEMORY[0x277D86220];
+                      v189 = MEMORY[0x277D86220];
+                      if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "metricDepth reducing medium confidence due to device roll angle", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "metricDepth reducing medium confidence due to device roll angle", &v251, 2u);
                       }
 
-                      [*(obj + 28) filterUncertainty:v173 output:v173];
+                      [*(obj + 28) filterUncertainty:v185 output:v185];
                     }
                   }
 
                   else
                   {
-                    v178 = MEMORY[0x277D86220];
-                    v179 = MEMORY[0x277D86220];
-                    if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
+                    v190 = MEMORY[0x277D86220];
+                    v191 = MEMORY[0x277D86220];
+                    if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
                     {
-                      LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "zeroing confidence due to invalid pose inputs", &v239, 2u);
+                      LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "zeroing confidence due to invalid pose inputs", &v251, 2u);
                     }
 
-                    PixelBufferUtils::blacken(v173, v180);
+                    PixelBufferUtils::blacken(v185, v192);
                   }
 
                   if (a27)
                   {
                     if (!*a27)
                     {
-                      *a27 = PixelBufferUtils::createPixelBufferWithSameSizeAndFormat(v173, 1);
+                      *a27 = PixelBufferUtils::createPixelBufferWithSameSizeAndFormat(v185, 1);
                     }
 
-                    execute = [*(obj + 28) postProcessEspressoConfidence:v173 outputConfidence:? confidenceUnits:?];
+                    execute = [*(obj + 28) postProcessEspressoConfidence:v185 outputConfidence:? confidenceUnits:?];
                     if (execute)
                     {
                       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -979,23 +979,23 @@ LABEL_182:
                         goto LABEL_146;
                       }
 
-                      LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                      v181 = MEMORY[0x277D86220];
-                      v182 = "failed post processing metric depth confidence output";
+                      LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                      v193 = MEMORY[0x277D86220];
+                      v194 = "failed post processing metric depth confidence output";
                       goto LABEL_209;
                     }
 
-                    [v235 logPixelBuffer:*a27 name:"outputConfidence" timestamp:a24];
+                    [v247 logPixelBuffer:*a27 name:"outputConfidence" timestamp:a24];
                   }
 
                   if (a28)
                   {
                     if (!*a28)
                     {
-                      *a28 = PixelBufferUtils::createPixelBufferWithSameSize(v173, 0x4C303038, 1);
+                      *a28 = PixelBufferUtils::createPixelBufferWithSameSize(v185, 0x4C303038, 1);
                     }
 
-                    execute = [*(obj + 28) postProcessEspressoConfidence:v173 outputConfidence:? confidenceUnits:?];
+                    execute = [*(obj + 28) postProcessEspressoConfidence:v185 outputConfidence:? confidenceUnits:?];
                     if (execute)
                     {
                       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1003,22 +1003,22 @@ LABEL_182:
                         goto LABEL_146;
                       }
 
-                      LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                      v181 = MEMORY[0x277D86220];
-                      v182 = "failed post processing metric depth confidence levels output";
+                      LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                      v193 = MEMORY[0x277D86220];
+                      v194 = "failed post processing metric depth confidence levels output";
                       goto LABEL_209;
                     }
 
-                    [v235 logPixelBuffer:*a28 name:"outputConfideneLevels" timestamp:a24];
+                    [v247 logPixelBuffer:*a28 name:"outputConfideneLevels" timestamp:a24];
                   }
 
-                  v183 = v173;
+                  v195 = v185;
                   if (a26)
                   {
-                    v183 = v173;
-                    if (v173 != *a26)
+                    v195 = v185;
+                    if (v185 != *a26)
                     {
-                      execute = [*(obj + 28) postProcessEspressoConfidence:v173 outputConfidence:? confidenceUnits:?];
+                      execute = [*(obj + 28) postProcessEspressoConfidence:v185 outputConfidence:? confidenceUnits:?];
                       if (execute)
                       {
                         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1026,19 +1026,19 @@ LABEL_182:
                           goto LABEL_146;
                         }
 
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        v181 = MEMORY[0x277D86220];
-                        v182 = "failed post processing metric depth confidence levels output";
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        v193 = MEMORY[0x277D86220];
+                        v194 = "failed post processing metric depth confidence levels output";
 LABEL_209:
-                        _os_log_error_impl(&dword_2402F6000, v181, OS_LOG_TYPE_ERROR, v182, &v239, 2u);
+                        _os_log_error_impl(&dword_2402F6000, v193, OS_LOG_TYPE_ERROR, v194, &v251, 2u);
                         goto LABEL_146;
                       }
 
-                      v183 = *a26;
+                      v195 = *a26;
                     }
                   }
 
-                  [v235 logPixelBuffer:v183 name:"outputUncertainty" timestamp:a24];
+                  [v247 logPixelBuffer:v195 name:"outputUncertainty" timestamp:a24];
                   [timeProfiler stopWithUTFString:"postprocess confidence"];
                   kdebug_trace();
                   if (stepsToExecute < 7)
@@ -1048,17 +1048,17 @@ LABEL_209:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"postprocess depth"];
-                  if (v171 != *a25)
+                  if (v183 != *a25)
                   {
-                    execute = [*(obj + 28) postProcessEspressoDepth:v171 espressoConfidence:0 toOutputDepth:? outputConfidence:?];
+                    execute = [*(obj + 28) postProcessEspressoDepth:v183 espressoConfidence:0 toOutputDepth:? outputConfidence:?];
                     if (execute)
                     {
-                      v184 = MEMORY[0x277D86220];
-                      v185 = MEMORY[0x277D86220];
-                      if (os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
+                      v196 = MEMORY[0x277D86220];
+                      v197 = MEMORY[0x277D86220];
+                      if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric depth output", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric depth output", &v251, 2u);
                       }
 
 LABEL_240:
@@ -1066,7 +1066,7 @@ LABEL_240:
                       goto LABEL_146;
                     }
 
-                    [v235 logPixelBuffer:*a25 name:"outputDepth" timestamp:a24];
+                    [v247 logPixelBuffer:*a25 name:"outputDepth" timestamp:a24];
                   }
 
                   [timeProfiler stopWithUTFString:"postprocess depth"];
@@ -1078,23 +1078,23 @@ LABEL_240:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"postprocess normals"];
-                  if (a29 && v175 != *a29)
+                  if (a29 && v187 != *a29)
                   {
-                    execute = [*(obj + 28) postProcessEspressoNormals:v175 toOutputNormals:?];
+                    execute = [*(obj + 28) postProcessEspressoNormals:v187 toOutputNormals:?];
                     if (execute)
                     {
-                      v186 = MEMORY[0x277D86220];
-                      v187 = MEMORY[0x277D86220];
-                      if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
+                      v198 = MEMORY[0x277D86220];
+                      v199 = MEMORY[0x277D86220];
+                      if (os_log_type_enabled(v198, OS_LOG_TYPE_ERROR))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric normals output", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric normals output", &v251, 2u);
                       }
 
                       goto LABEL_240;
                     }
 
-                    [v235 logPixelBuffer:*a29 name:"outputNormals" timestamp:a24];
+                    [v247 logPixelBuffer:*a29 name:"outputNormals" timestamp:a24];
                   }
 
                   [timeProfiler stopWithUTFString:"postprocess normals"];
@@ -1110,20 +1110,20 @@ LABEL_240:
                   {
                     if (!*a30)
                     {
-                      *a30 = PixelBufferUtils::createPixelBufferWithSameSizeAndFormat(v173, 1);
+                      *a30 = PixelBufferUtils::createPixelBufferWithSameSizeAndFormat(v185, 1);
                     }
 
-                    if (v234)
+                    if (v246)
                     {
                       execute = [*(obj + 28) fillSensorsMask:?];
                       if (execute)
                       {
-                        v188 = MEMORY[0x277D86220];
-                        v189 = MEMORY[0x277D86220];
-                        if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
+                        v200 = MEMORY[0x277D86220];
+                        v201 = MEMORY[0x277D86220];
+                        if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
                         {
-                          LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                          _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric active depth mask output", &v239, 2u);
+                          LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                          _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed post processing metric active depth mask output", &v251, 2u);
                         }
 
                         goto LABEL_240;
@@ -1132,25 +1132,25 @@ LABEL_240:
 
                     else
                     {
-                      v190 = MEMORY[0x277D86220];
-                      v191 = MEMORY[0x277D86220];
-                      if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
+                      v202 = MEMORY[0x277D86220];
+                      v203 = MEMORY[0x277D86220];
+                      if (os_log_type_enabled(v202, OS_LOG_TYPE_DEFAULT))
                       {
-                        LOWORD(v239.__r_.__value_.__l.__data_) = 0;
-                        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "clearing mask due to invalid pose inputs", &v239, 2u);
+                        LOWORD(v251.__r_.__value_.__l.__data_) = 0;
+                        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "clearing mask due to invalid pose inputs", &v251, 2u);
                       }
 
-                      PixelBufferUtils::blacken(*a30, v192);
+                      PixelBufferUtils::blacken(*a30, v204);
                     }
 
-                    [v235 logPixelBuffer:*a30 name:"outputActiveDepthMask" timestamp:a24];
+                    [v247 logPixelBuffer:*a30 name:"outputActiveDepthMask" timestamp:a24];
                   }
 
-                  [v235 logCalibration:v97 name:"outputCalibration" timestamp:a24];
+                  [v247 logCalibration:v109 name:"outputCalibration" timestamp:a24];
                   if (a31)
                   {
-                    v193 = v97;
-                    *a31 = v97;
+                    v205 = v109;
+                    *a31 = v109;
                   }
 
                   [timeProfiler stopWithUTFString:"postprocess mask"];
@@ -1159,11 +1159,11 @@ LABEL_240:
                   {
                     [obj frameExecutionEnd];
                     defaults3 = [objc_opt_class() defaults];
-                    v195 = [defaults3 stringForKey:kADDeviceConfigurationKeyMetricDepthGraphJPEGDumpPath];
+                    v207 = [defaults3 stringForKey:kADDeviceConfigurationKeyMetricDepthGraphJPEGDumpPath];
 
-                    if (v195)
+                    if (v207)
                     {
-                      [obj writeMetricDepthToJPEG:v195 timestamp:0 preProcessedJasper:*(obj + 23) preProcessedPearl:v73 preProcessedPrimaryColor:v173 rawConfOut:v171 rawDepthOut:a24];
+                      [obj writeMetricDepthToJPEG:v207 timestamp:0 preProcessedJasper:*(obj + 23) preProcessedPearl:v73 preProcessedPrimaryColor:v185 rawConfOut:v183 rawDepthOut:a24];
                     }
 
                     execute = 0;
@@ -1173,12 +1173,12 @@ LABEL_240:
                   goto LABEL_182;
                 }
 
-                v92 = 1;
+                v98 = 1;
 LABEL_116:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109120;
-                  *&buf[4] = v92;
+                  *&buf[4] = v98;
                   _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed converting color input %d with color session", buf, 8u);
                 }
 
@@ -1187,21 +1187,21 @@ LABEL_116:
               }
             }
 
-            v93 = *(obj + 25);
-            if (v93)
+            v99 = *(obj + 25);
+            if (v99)
             {
-              PixelBufferUtilsSession::~PixelBufferUtilsSession(v93);
+              PixelBufferUtilsSession::~PixelBufferUtilsSession(v99);
               MEMORY[0x245CBFCB0]();
             }
           }
 
-          CVPixelBufferGetWidth(colorPose);
-          CVPixelBufferGetHeight(colorPose);
-          CVPixelBufferGetWidth(v87);
-          CVPixelBufferGetHeight(v87);
-          CVPixelBufferGetPixelFormatType(colorPose);
-          CVPixelBufferGetPixelFormatType(v87);
-          PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+          v100 = CVPixelBufferGetWidth(colorPose);
+          v101 = CVPixelBufferGetHeight(colorPose);
+          v102 = CVPixelBufferGetWidth(v93);
+          v103 = CVPixelBufferGetHeight(v93);
+          v104 = CVPixelBufferGetPixelFormatType(colorPose);
+          v105 = CVPixelBufferGetPixelFormatType(v93);
+          PixelBufferUtilsSession::createCropScaleConvertRotateSession(v104, v105, *(obj + 18), v100, v101, v102, v103, *(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
         }
 
         v83 = 1;
@@ -1220,7 +1220,7 @@ LABEL_97:
 
     else
     {
-      v234 = v52 >= 0;
+      v246 = v52 >= 0;
       if (!pearlPose)
       {
         goto LABEL_58;
@@ -1240,7 +1240,7 @@ LABEL_97:
         _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Pose for %@%@ is invalid", buf, 0x16u);
       }
 
-      v234 = 0;
+      v246 = 0;
     }
 
     goto LABEL_58;

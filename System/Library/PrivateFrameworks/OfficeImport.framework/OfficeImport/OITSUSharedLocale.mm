@@ -32,7 +32,7 @@
   return sharedLocale_sSingletonInstance;
 }
 
-uint64_t __33__OITSUSharedLocale_sharedLocale__block_invoke(uint64_t a1)
+void *__33__OITSUSharedLocale_sharedLocale__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_singletonAlloc")];
   sharedLocale_sSingletonInstance = result;

@@ -1755,17 +1755,17 @@ LABEL_6:
 - (BOOL)_shouldUseAmpEnrollmentPinning
 {
   initiative = [(PKPaymentMerchantSession *)self->_merchantSession initiative];
-  if ([initiative isEqualToString:@"amp_enrollment"] & 1) != 0 || (objc_msgSend(initiative, "isEqualToString:", @"amp_payment_token") & 1) != 0 || (objc_msgSend(initiative, "isEqualToString:", @"amp_psd2") & 1) != 0 || (objc_msgSend(initiative, "isEqualToString:", @"amp_applepay_classic"))
+  if (objc_msgSend_isEqualToString_(initiative) & 1) != 0 || (objc_msgSend_isEqualToString_(initiative) & 1) != 0 || (objc_msgSend_isEqualToString_(initiative) & 1) != 0 || (objc_msgSend_isEqualToString_(initiative))
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v3 = [initiative isEqualToString:@"amp_verification"];
+    isEqualToString = objc_msgSend_isEqualToString_(initiative);
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (id)description
@@ -1943,9 +1943,9 @@ LABEL_6:
   }
 
   initiative = [(PKPaymentMerchantSession *)self->_merchantSession initiative];
-  v4 = [initiative isEqualToString:@"amp_psd2"];
+  isEqualToString = objc_msgSend_isEqualToString_(initiative);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_isAMPApplePayClassicRequest
@@ -1956,9 +1956,9 @@ LABEL_6:
   }
 
   initiative = [(PKPaymentMerchantSession *)self->_merchantSession initiative];
-  v4 = [initiative isEqualToString:@"amp_applepay_classic"];
+  isEqualToString = objc_msgSend_isEqualToString_(initiative);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_isAMPPayment
@@ -1979,9 +1979,9 @@ LABEL_6:
   }
 
   initiative = [(PKPaymentMerchantSession *)self->_merchantSession initiative];
-  v4 = [initiative isEqualToString:@"amp_verification"];
+  isEqualToString = objc_msgSend_isEqualToString_(initiative);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_shouldSupportLandscapeOrientation
@@ -2123,27 +2123,27 @@ LABEL_12:
         }
 
         v15 = *(*(&v173 + 1) + 8 * i);
-        if ([v15 isEqualToString:@"supports3DS"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           v7->_merchantCapabilities |= 1uLL;
         }
 
-        if ([v15 isEqualToString:@"supportsEMV"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           v7->_merchantCapabilities |= 2uLL;
         }
 
-        if ([v15 isEqualToString:@"supportsCredit"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           v7->_merchantCapabilities |= 4uLL;
         }
 
-        if ([v15 isEqualToString:@"supportsDebit"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           v7->_merchantCapabilities |= 8uLL;
         }
 
-        if ([v15 isEqualToString:@"supportsEWallet"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           v7->_merchantCapabilities |= 0x10uLL;
         }
@@ -2350,7 +2350,7 @@ LABEL_12:
 
   v63 = [v138 PKStringForKey:@"shippingType"];
   v7->_shippingType = 0;
-  if ([v63 isEqualToString:@"delivery"])
+  if (objc_msgSend_isEqualToString_(v63))
   {
     v64 = 1;
 LABEL_63:
@@ -2358,13 +2358,13 @@ LABEL_63:
     goto LABEL_64;
   }
 
-  if ([v63 isEqualToString:@"storePickup"])
+  if (objc_msgSend_isEqualToString_(v63))
   {
     v64 = 2;
     goto LABEL_63;
   }
 
-  if ([v63 isEqualToString:@"servicePickup"])
+  if (objc_msgSend_isEqualToString_(v63))
   {
     v64 = 3;
     goto LABEL_63;
@@ -2572,17 +2572,17 @@ LABEL_110:
   [v4 setObject:v5 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
   v6 = [dictionaryCopy objectForKey:@"code"];
-  if ([v6 isEqualToString:@"shippingContactInvalid"])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     v7 = 1;
   }
 
-  else if ([v6 isEqualToString:@"billingContactInvalid"])
+  else if (objc_msgSend_isEqualToString_(v6))
   {
     v7 = 2;
   }
 
-  else if ([v6 isEqualToString:@"shippingAddressUnserviceable"])
+  else if (objc_msgSend_isEqualToString_(v6))
   {
     v7 = 3;
   }
@@ -2593,7 +2593,7 @@ LABEL_110:
   }
 
   v8 = [dictionaryCopy objectForKey:@"contactField"];
-  if ([v8 isEqualToString:@"phoneNumber"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v9 = 0;
     v10 = &PKContactFieldPhoneNumber;
@@ -2603,71 +2603,71 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if ([v8 isEqualToString:@"emailAddress"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v9 = 0;
     v10 = &PKContactFieldEmailAddress;
     goto LABEL_18;
   }
 
-  if ([v8 isEqualToString:@"name"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v9 = 0;
     v10 = &PKContactFieldName;
     goto LABEL_18;
   }
 
-  if ([v8 isEqualToString:@"phoneticName"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v9 = 0;
     v10 = &PKContactFieldPhoneticName;
     goto LABEL_18;
   }
 
-  if ([v8 isEqualToString:@"postalAddress"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v9 = 0;
     v10 = &PKContactFieldPostalAddress;
     goto LABEL_18;
   }
 
-  if ([v8 isEqualToString:@"addressLines"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC30];
   }
 
-  else if ([v8 isEqualToString:@"locality"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC00];
   }
 
-  else if ([v8 isEqualToString:@"subLocality"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC40];
   }
 
-  else if ([v8 isEqualToString:@"postalCode"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC18];
   }
 
-  else if ([v8 isEqualToString:@"administrativeArea"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC28];
   }
 
-  else if ([v8 isEqualToString:@"subAdministrativeArea"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC38];
   }
 
-  else if ([v8 isEqualToString:@"country"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = @"post";
     v16 = MEMORY[0x1E695CC08];
@@ -2675,7 +2675,7 @@ LABEL_18:
 
   else
   {
-    if (![v8 isEqualToString:@"countryCode"])
+    if (!objc_msgSend_isEqualToString_(v8))
     {
       v9 = 0;
       v12 = 0;

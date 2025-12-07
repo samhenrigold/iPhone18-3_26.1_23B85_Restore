@@ -8,11 +8,14 @@
 - (MFMailMessageLibrary)library;
 - (MFMessageChangeManager_iOS)initWithLibrary:(id)library database:(id)database localActionPersistence:(id)persistence messagePersistence:(id)messagePersistence serverMessagePersistenceFactory:(id)factory readLaterPersistence:(id)laterPersistence categoryPersistence:(id)categoryPersistence bimiManager:(id)self0 hookResponder:(id)self1 hookRegistry:(id)self2;
 - (id)accountForMailboxURL:(id)l;
+- (id)addNewMessages:(id)messages mailboxURL:(id)l userInitiated:(BOOL)initiated;
 - (id)applyFlagChange:(id)change toMessagesInDatabase:(id)database;
+- (id)copyMessages:(id)messages destinationMailboxURL:(id)l userInitiated:(BOOL)initiated;
 - (id)iterateMessagesInMailboxURLs:(id)ls excludingMessages:(id)messages batchSize:(unint64_t)size returnMessagesForFlagChange:(id)change handler:(id)handler;
 - (id)messageForDatabaseID:(int64_t)d;
 - (id)messagesForRemoteIDs:(id)ds mailboxURL:(id)l;
 - (id)messagesToJournalForMessages:(id)messages inMailbox:(id)mailbox;
+- (id)moveMessages:(id)messages destinationMailboxURL:(id)l userInitiated:(BOOL)initiated;
 - (id)reflectNewMessages:(id)messages mailboxURL:(id)l;
 - (int64_t)mailboxDatabaseIDForURL:(id)l;
 - (void)_recordFrecencyEventWithMailboxURL:(id)l;
@@ -60,9 +63,48 @@
   return v27;
 }
 
+- (id)moveMessages:(id)messages destinationMailboxURL:(id)l userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  messagesCopy = messages;
+  lCopy = l;
+  [(MFMessageChangeManager_iOS *)self _recordFrecencyEventWithMailboxURL:lCopy];
+  v12.receiver = self;
+  v12.super_class = MFMessageChangeManager_iOS;
+  v10 = [(EDMessageChangeManager *)&v12 moveMessages:messagesCopy destinationMailboxURL:lCopy userInitiated:initiatedCopy];
+
+  return v10;
+}
+
+- (id)copyMessages:(id)messages destinationMailboxURL:(id)l userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  messagesCopy = messages;
+  lCopy = l;
+  [(MFMessageChangeManager_iOS *)self _recordFrecencyEventWithMailboxURL:lCopy];
+  v12.receiver = self;
+  v12.super_class = MFMessageChangeManager_iOS;
+  v10 = [(EDMessageChangeManager *)&v12 copyMessages:messagesCopy destinationMailboxURL:lCopy userInitiated:initiatedCopy];
+
+  return v10;
+}
+
+- (id)addNewMessages:(id)messages mailboxURL:(id)l userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  messagesCopy = messages;
+  lCopy = l;
+  [(MFMessageChangeManager_iOS *)self _recordFrecencyEventWithMailboxURL:lCopy];
+  v12.receiver = self;
+  v12.super_class = MFMessageChangeManager_iOS;
+  v10 = [(EDMessageChangeManager *)&v12 addNewMessages:messagesCopy mailboxURL:lCopy userInitiated:initiatedCopy];
+
+  return v10;
+}
+
 - (void)_recordFrecencyEventWithMailboxURL:(id)l
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (lCopy)
   {
@@ -71,13 +113,11 @@
     {
       library = [(MFMessageChangeManager_iOS *)self library];
       mailboxFrecencyController = [library mailboxFrecencyController];
-      v10[0] = v5;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+      v9[0] = v5;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
       [mailboxFrecencyController recordEventWithMailboxIDs:v8];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reflectNewMessages:(id)messages mailboxURL:(id)l
@@ -180,7 +220,7 @@
 
 - (void)deletePersistedMessages:(id)messages
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v5 = [messagesCopy ef_objectsPassingTest:&__block_literal_global_37];
   if ([v5 count])
@@ -195,7 +235,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v5;
+      v29 = v5;
       _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Deleting persisted messages: %@", buf, 0xCu);
     }
 
@@ -205,32 +245,32 @@
     v9 = [v5 ef_groupBy:&__block_literal_global_45];
     library2 = [(MFMessageChangeManager_iOS *)self library];
     allKeys = [v9 allKeys];
-    v24 = [library2 mailboxURLsForIDs:allKeys];
+    v23 = [library2 mailboxURLsForIDs:allKeys];
 
     v12 = [MEMORY[0x1E699B5A8] log];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v9;
+      v29 = v9;
       _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "Persisted messages were deleted { %@ }", buf, 0xCu);
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __54__MFMessageChangeManager_iOS_deletePersistedMessages___block_invoke_47;
-    v27[3] = &unk_1E7AA6788;
-    v13 = v24;
-    v28 = v13;
-    [v9 enumerateKeysAndObjectsUsingBlock:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __54__MFMessageChangeManager_iOS_deletePersistedMessages___block_invoke_47;
+    v26[3] = &unk_1E7AA6788;
+    v13 = v23;
+    v27 = v13;
+    [v9 enumerateKeysAndObjectsUsingBlock:v26];
     v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __54__MFMessageChangeManager_iOS_deletePersistedMessages___block_invoke_2;
-    v25[3] = &unk_1E7AA67B0;
-    v25[4] = self;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __54__MFMessageChangeManager_iOS_deletePersistedMessages___block_invoke_2;
+    v24[3] = &unk_1E7AA67B0;
+    v24[4] = self;
     v15 = v14;
-    v26 = v15;
-    [v13 enumerateKeysAndObjectsUsingBlock:v25];
+    v25 = v15;
+    [v13 enumerateKeysAndObjectsUsingBlock:v24];
     if ([v15 count])
     {
       v16 = objc_alloc(MEMORY[0x1E695DF70]);
@@ -245,8 +285,6 @@
       [em_userDefaults2 setValue:v22 forKey:v18];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)haveCompleteMIMEForMessage:(id)message
@@ -282,7 +320,7 @@
 
 - (void)setRemoteID:(id)d onMessageWithDatabaseID:(int64_t)iD
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   library = [(MFMessageChangeManager_iOS *)self library];
   v8 = [library messageWithLibraryID:iD options:7346239 inMailbox:0];
@@ -291,17 +329,15 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [v8 ef_publicDescription];
-    v12 = 138543618;
-    v13 = dCopy;
-    v14 = 2114;
-    v15 = ef_publicDescription;
-    _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "Setting remote ID to %{public}@ on message %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = dCopy;
+    v13 = 2114;
+    v14 = ef_publicDescription;
+    _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "Setting remote ID to %{public}@ on message %{public}@", &v11, 0x16u);
   }
 
   [v8 setRemoteID:dCopy];
   [v8 commit];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setData:(id)data onMessage:(id)message
@@ -351,30 +387,30 @@
 
 - (void)didReflectNewMessages:(id)messages
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v41.receiver = self;
-  v41.super_class = MFMessageChangeManager_iOS;
+  v43 = *MEMORY[0x1E69E9840];
+  v40.receiver = self;
+  v40.super_class = MFMessageChangeManager_iOS;
   messagesCopy = messages;
-  [(EDMessageChangeManager *)&v41 didReflectNewMessages:messagesCopy];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  [(EDMessageChangeManager *)&v40 didReflectNewMessages:messagesCopy];
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = messagesCopy;
-  v29 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+  if (v28)
   {
-    v28 = *v38;
+    v27 = *v37;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v38 != v28)
+        if (*v37 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v37 + 1) + 8 * i);
+        v3 = *(*(&v36 + 1) + 8 * i);
         if ([v3 updateSubjectFromEncryptedContent])
         {
           WeakRetained = objc_loadWeakRetained(&self->_library);
@@ -388,7 +424,7 @@
         {
           v8 = objc_alloc(MEMORY[0x1E699AC08]);
           smimeCapabilities = [signatureInfo smimeCapabilities];
-          v30 = signatureInfo;
+          v29 = signatureInfo;
           signingDate = [signatureInfo signingDate];
           if (smimeCapabilities)
           {
@@ -402,25 +438,25 @@
 
           v12 = [v8 initWithCapabilities:v11 date:signingDate];
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
-          addresses = [v30 addresses];
-          v14 = [addresses countByEnumeratingWithState:&v33 objects:v42 count:16];
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
+          addresses = [v29 addresses];
+          v14 = [addresses countByEnumeratingWithState:&v32 objects:v41 count:16];
           if (v14)
           {
-            v15 = *v34;
+            v15 = *v33;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v34 != v15)
+                if (*v33 != v15)
                 {
                   objc_enumerationMutation(addresses);
                 }
 
-                v17 = *(*(&v33 + 1) + 8 * j);
+                v17 = *(*(&v32 + 1) + 8 * j);
                 messagePersistence = [(EDMessageChangeManager *)self messagePersistence];
                 v19 = v17;
                 emailAddressValue = [v19 emailAddressValue];
@@ -441,23 +477,21 @@
                 [messagePersistence setMetadata:v12 forAddress:v24];
               }
 
-              v14 = [addresses countByEnumeratingWithState:&v33 objects:v42 count:16];
+              v14 = [addresses countByEnumeratingWithState:&v32 objects:v41 count:16];
             }
 
             while (v14);
           }
 
-          signatureInfo = v30;
+          signatureInfo = v29;
         }
       }
 
-      v29 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v28 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageWasAppended:(id)appended
@@ -494,16 +528,14 @@
 - (void)applyVIPStatus:(BOOL)status toMessagesInDatabase:(id)database
 {
   statusCopy = status;
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   library = [(MFMessageChangeManager_iOS *)self library];
-  v12 = @"MessageSenderIsVIP";
+  v11 = @"MessageSenderIsVIP";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:statusCopy];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [library setFlagsFromDictionary:v9 forMessages:databaseCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageForDatabaseID:(int64_t)d
@@ -528,12 +560,12 @@
 
 - (id)iterateMessagesInMailboxURLs:(id)ls excludingMessages:(id)messages batchSize:(unint64_t)size returnMessagesForFlagChange:(id)change handler:(id)handler
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   messagesCopy = messages;
   changeCopy = change;
   handlerCopy = handler;
-  v51 = objc_opt_new();
+  v50 = objc_opt_new();
   if ([lsCopy count] == 1)
   {
     firstObject = [lsCopy firstObject];
@@ -544,25 +576,25 @@
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v15 = lsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v58 objects:v65 count:16];
     if (v16)
     {
-      v17 = *v60;
+      v17 = *v59;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v60 != v17)
+          if (*v59 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v59 + 1) + 8 * i);
+          v19 = *(*(&v58 + 1) + 8 * i);
           absoluteString2 = [v19 absoluteString];
           v21 = [MFMessageCriterion criterionForMailboxURL:absoluteString2];
 
@@ -577,12 +609,12 @@
             if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
             {
               v23 = [MEMORY[0x1E699B858] ec_redactedStringForMailboxURL:v19];
-              [MFMessageChangeManager_iOS iterateMessagesInMailboxURLs:v23 excludingMessages:buf batchSize:&v65 returnMessagesForFlagChange:v22 handler:?];
+              [MFMessageChangeManager_iOS iterateMessagesInMailboxURLs:v23 excludingMessages:buf batchSize:&v64 returnMessagesForFlagChange:v22 handler:?];
             }
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v58 objects:v65 count:16];
       }
 
       while (v16);
@@ -628,9 +660,9 @@
   v33 = v26;
   if (v26)
   {
-    v63[0] = v13;
-    v63[1] = v26;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
+    v62[0] = v13;
+    v62[1] = v26;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
     v35 = [MFMessageCriterion andCompoundCriterionWithCriteria:v34];
 
     v13 = v35;
@@ -639,30 +671,29 @@
 LABEL_24:
   v36 = objc_opt_new();
   library = [(MFMessageChangeManager_iOS *)self library];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __123__MFMessageChangeManager_iOS_iterateMessagesInMailboxURLs_excludingMessages_batchSize_returnMessagesForFlagChange_handler___block_invoke;
-  v53[3] = &unk_1E7AA67D8;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __123__MFMessageChangeManager_iOS_iterateMessagesInMailboxURLs_excludingMessages_batchSize_returnMessagesForFlagChange_handler___block_invoke;
+  v52[3] = &unk_1E7AA67D8;
   v38 = messagesCopy;
-  v54 = v38;
-  v39 = v51;
-  v55 = v39;
+  v53 = v38;
+  v39 = v50;
+  v54 = v39;
   v40 = v36;
-  v56 = v40;
+  v55 = v40;
   sizeCopy = size;
   v41 = handlerCopy;
-  v57 = v41;
-  [library iterateMessagesMatchingCriterion:v13 options:7346367 handler:v53];
+  v56 = v41;
+  [library iterateMessagesMatchingCriterion:v13 options:7346367 handler:v52];
 
   if ([v40 count])
   {
     v41[2](v41, v40);
   }
 
-  v42 = v57;
+  v42 = v56;
   v43 = v39;
 
-  v44 = *MEMORY[0x1E69E9840];
   return v39;
 }
 

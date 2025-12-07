@@ -25,7 +25,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_2B96A4(x, y, width, height);
+  sub_2B96A4(selfCopy, x, y, width, height);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

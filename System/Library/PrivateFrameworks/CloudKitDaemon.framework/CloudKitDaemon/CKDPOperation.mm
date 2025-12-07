@@ -1675,19 +1675,18 @@ LABEL_108:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_operationUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -1706,28 +1705,26 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  synchronousMode = self->_synchronousMode;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    last = self->_last;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_requestSignature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_anonymousCKUserID)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -1865,7 +1862,6 @@ LABEL_5:
     }
   }
 
-  v10 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((equalCopy[5] & 1) == 0 || self->_type != *(equalCopy + 8))
@@ -1886,7 +1882,6 @@ LABEL_5:
       goto LABEL_29;
     }
 
-    v16 = *(equalCopy + 37);
     if (self->_synchronousMode)
     {
       if ((*(equalCopy + 37) & 1) == 0)
@@ -1923,7 +1918,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v17 = *(equalCopy + 36);
   if (!self->_last)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -1941,17 +1935,17 @@ LABEL_29:
 
 LABEL_13:
   requestSignature = self->_requestSignature;
-  v12 = equalCopy[3];
-  if (requestSignature | v12 && !objc_msgSend_isEqual_(requestSignature, v7, v12))
+  v11 = equalCopy[3];
+  if (requestSignature | v11 && !objc_msgSend_isEqual_(requestSignature, v7, v11))
   {
     goto LABEL_29;
   }
 
   anonymousCKUserID = self->_anonymousCKUserID;
-  v14 = equalCopy[1];
-  if (anonymousCKUserID | v14)
+  v13 = equalCopy[1];
+  if (anonymousCKUserID | v13)
   {
-    isEqual = objc_msgSend_isEqual_(anonymousCKUserID, v7, v14);
+    isEqual = objc_msgSend_isEqual_(anonymousCKUserID, v7, v13);
   }
 
   else

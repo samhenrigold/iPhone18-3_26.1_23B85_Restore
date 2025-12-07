@@ -12,85 +12,85 @@
 {
   refCopy = ref;
   engineCopy = engine;
-  v47.receiver = self;
-  v47.super_class = TSTRangeRefPair;
-  v13 = [(TSTRangeRefPair *)&v47 init];
-  if (v13)
+  v40.receiver = self;
+  v40.super_class = TSTRangeRefPair;
+  v12 = [(TSTRangeRefPair *)&v40 init];
+  if (v12)
   {
-    v14 = objc_msgSend_tableUID(refCopy, v9, v10, v11, v12);
-    v17 = objc_msgSend_resolverForTableUID_(engineCopy, v15, v14, v15, v16);
-    tableModel = v13->_tableModel;
-    v13->_tableModel = v17;
+    v13 = objc_msgSend_tableUID(refCopy, v9, v10, v11);
+    v15 = objc_msgSend_resolverForTableUID_(engineCopy, v14, v13, v14);
+    tableModel = v12->_tableModel;
+    v12->_tableModel = v15;
 
-    v23 = objc_msgSend_tableInfo(v13->_tableModel, v19, v20, v21, v22);
-    tableInfo = v13->_tableInfo;
-    v13->_tableInfo = v23;
+    v20 = objc_msgSend_tableInfo(v12->_tableModel, v17, v18, v19);
+    tableInfo = v12->_tableInfo;
+    v12->_tableInfo = v20;
 
-    objc_storeStrong(&v13->_chromeTractRef, ref);
-    v29 = v13->_tableInfo;
-    if (v29)
+    objc_storeStrong(&v12->_chromeTractRef, ref);
+    v25 = v12->_tableInfo;
+    if (v25)
     {
-      v30 = objc_msgSend_translator(v29, v25, v26, v27, v28);
-      v34 = objc_msgSend_viewTractRefForChromeTractRef_(v30, v31, refCopy, v32, v33);
+      v26 = objc_msgSend_translator(v25, v22, v23, v24);
+      v29 = objc_msgSend_viewTractRefForChromeTractRef_(v26, v27, refCopy, v28);
 
-      v39 = objc_msgSend_translator(v13->_tableInfo, v35, v36, v37, v38);
-      v43 = objc_msgSend_baseTractRefForViewTractRef_(v39, v40, v34, v41, v42);
-      baseTractRef = v13->_baseTractRef;
-      v13->_baseTractRef = v43;
+      v33 = objc_msgSend_translator(v12->_tableInfo, v30, v31, v32);
+      v36 = objc_msgSend_baseTractRefForViewTractRef_(v33, v34, v29, v35);
+      baseTractRef = v12->_baseTractRef;
+      v12->_baseTractRef = v36;
     }
 
     else
     {
-      v45 = objc_msgSend_copy(refCopy, v25, v26, v27, v28);
-      v34 = v13->_baseTractRef;
-      v13->_baseTractRef = v45;
+      v38 = objc_msgSend_copy(refCopy, v22, v23, v24);
+      v29 = v12->_baseTractRef;
+      v12->_baseTractRef = v38;
     }
   }
 
-  return v13;
+  return v12;
 }
 
 - (TSTRangeRefPair)initWithBaseTractRef:(id)ref calcEngine:(id)engine
 {
   refCopy = ref;
   engineCopy = engine;
-  v47.receiver = self;
-  v47.super_class = TSTRangeRefPair;
-  v13 = [(TSTRangeRefPair *)&v47 init];
-  if (v13)
+  v40.receiver = self;
+  v40.super_class = TSTRangeRefPair;
+  v12 = [(TSTRangeRefPair *)&v40 init];
+  if (v12)
   {
-    v14 = objc_msgSend_tableUID(refCopy, v9, v10, v11, v12);
-    v17 = objc_msgSend_resolverForTableUID_(engineCopy, v15, v14, v15, v16);
-    tableModel = v13->_tableModel;
-    v13->_tableModel = v17;
+    v13 = objc_msgSend_tableUID(refCopy, v9, v10, v11);
+    v15 = objc_msgSend_resolverForTableUID_(engineCopy, v14, v13, v14);
+    tableModel = v12->_tableModel;
+    v12->_tableModel = v15;
 
-    v23 = objc_msgSend_tableInfo(v13->_tableModel, v19, v20, v21, v22);
-    tableInfo = v13->_tableInfo;
-    v13->_tableInfo = v23;
+    v20 = objc_msgSend_tableInfo(v12->_tableModel, v17, v18, v19);
+    tableInfo = v12->_tableInfo;
+    v12->_tableInfo = v20;
 
-    v29 = v13->_tableInfo;
-    if (v29)
+    v25 = v12->_tableInfo;
+    if (v25)
     {
-      v30 = objc_msgSend_translator(v29, v25, v26, v27, v28);
-      v34 = objc_msgSend_viewTractRefForBaseTractRef_(v30, v31, refCopy, v32, v33);
+      v26 = objc_msgSend_translator(v25, v22, v23, v24);
+      v29 = objc_msgSend_viewTractRefForBaseTractRef_(v26, v27, refCopy, v28);
 
-      v39 = objc_msgSend_translator(v13->_tableInfo, v35, v36, v37, v38);
-      v43 = objc_msgSend_chromeTractRefForViewTractRef_(v39, v40, v34, v41, v42);
-      chromeTractRef = v13->_chromeTractRef;
-      v13->_chromeTractRef = v43;
+      v33 = objc_msgSend_translator(v12->_tableInfo, v30, v31, v32);
+      v36 = objc_msgSend_chromeTractRefForViewTractRef_(v33, v34, v29, v35);
+      chromeTractRef = v12->_chromeTractRef;
+      v12->_chromeTractRef = v36;
     }
 
     else
     {
-      v45 = objc_msgSend_copy(refCopy, v25, v26, v27, v28);
-      v34 = v13->_chromeTractRef;
-      v13->_chromeTractRef = v45;
+      v38 = objc_msgSend_copy(refCopy, v22, v23, v24);
+      v29 = v12->_chromeTractRef;
+      v12->_chromeTractRef = v38;
     }
 
-    objc_storeStrong(&v13->_baseTractRef, ref);
+    objc_storeStrong(&v12->_baseTractRef, ref);
   }
 
-  return v13;
+  return v12;
 }
 
 - (RefTypeHolder<TSCERangeRef,)chromeRangeRef
@@ -98,18 +98,18 @@
   result = self->_chromeTractRef;
   if (result)
   {
-    result = objc_msgSend_boundingRangeRef(result, a3, v3, v4, v5);
+    result = objc_msgSend_boundingRangeRef(result, a3, v3, v4);
   }
 
   else
   {
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
   }
 
-  v8 = v10;
-  retstr->var0.range = v9;
-  retstr->var0._tableUID = v8;
+  v7 = v9;
+  retstr->var0.range = v8;
+  retstr->var0._tableUID = v7;
   return result;
 }
 
@@ -118,26 +118,26 @@
   result = self->_baseTractRef;
   if (result)
   {
-    result = objc_msgSend_boundingRangeRef(result, a3, v3, v4, v5);
+    result = objc_msgSend_boundingRangeRef(result, a3, v3, v4);
   }
 
   else
   {
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
   }
 
-  v8 = v10;
-  retstr->var0.range = v9;
-  retstr->var0._tableUID = v8;
+  v7 = v9;
+  retstr->var0.range = v8;
+  retstr->var0._tableUID = v7;
   return result;
 }
 
 - (TSKUIDStruct)tableUID
 {
-  v5 = objc_msgSend_tableUID(self->_baseTractRef, a2, v2, v3, v4);
-  result._upper = v6;
-  result._lower = v5;
+  v4 = objc_msgSend_tableUID(self->_baseTractRef, a2, v2, v3);
+  result._upper = v5;
+  result._lower = v4;
   return result;
 }
 

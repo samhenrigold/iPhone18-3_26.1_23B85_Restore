@@ -7,29 +7,28 @@
 - (void)streamConversationsWithBookmark:(_TtC26DeepThoughtBiomeFoundation15StreamsBookmark *)bookmark completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEA66E8, &qword_2487356D8);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = bookmark;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_248731340();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = bookmark;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_248731340();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_2487356E8;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_2487356F8;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_2487356E8;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_2487356F8;
+  v14[5] = v13;
   bookmarkCopy = bookmark;
   selfCopy = self;
-  sub_24870CE40(0, 0, v11, &unk_248735708, v16);
+  sub_24870CE40(0, 0, v9, &unk_248735708, v14);
 }
 
 @end

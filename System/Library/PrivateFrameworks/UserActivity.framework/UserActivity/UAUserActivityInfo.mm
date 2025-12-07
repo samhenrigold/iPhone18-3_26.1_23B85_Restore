@@ -46,7 +46,7 @@
 
 - (id)description
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   error = [(UAUserActivityInfo *)self error];
 
   v5 = 0x277CCA000uLL;
@@ -77,82 +77,82 @@
   }
 
   payloads = [(UAUserActivityInfo *)self payloads];
-  v50 = [payloads objectForKey:@"UAUserActivityUserInfoPayload"];
-  v57 = trimmedHexStringForData(v50, 0x40uLL);
+  v49 = [payloads objectForKey:@"UAUserActivityUserInfoPayload"];
+  v56 = trimmedHexStringForData(v49, 64);
   webpageURL = [(UAUserActivityInfo *)self webpageURL];
   v13 = @" webPageURL=<private>";
   v14 = &stru_283A5A2C8;
-  v48 = webpageURL;
+  v47 = webpageURL;
   if (!webpageURL)
   {
     v13 = &stru_283A5A2C8;
   }
 
-  v44 = v13;
+  v43 = v13;
   referrerURL = [(UAUserActivityInfo *)self referrerURL];
   v16 = @" referrerURL=<private>";
-  v47 = referrerURL;
+  v46 = referrerURL;
   if (!referrerURL)
   {
     v16 = &stru_283A5A2C8;
   }
 
-  v43 = v16;
+  v42 = v16;
   payloads2 = [(UAUserActivityInfo *)self payloads];
-  v45 = [payloads2 objectForKey:@"UAUserActivityStreamsPayload"];
-  v49 = v6;
-  if (v45)
+  v44 = [payloads2 objectForKey:@"UAUserActivityStreamsPayload"];
+  v48 = v6;
+  if (v44)
   {
     v17 = MEMORY[0x277CCACA8];
     payloads3 = [(UAUserActivityInfo *)self payloads];
-    v40 = [payloads3 objectForKey:@"UAUserActivityStreamsPayload"];
-    v39 = trimmedHexStringForData(v40, 0x10uLL);
-    v14 = [v17 stringWithFormat:@" streamData=%@", v39];
+    v39 = [payloads3 objectForKey:@"UAUserActivityStreamsPayload"];
+    v38 = trimmedHexStringForData(v39, 16);
+    v14 = [v17 stringWithFormat:@" streamData=%@", v38];
   }
 
-  v55 = v14;
+  v54 = v14;
   [(UAUserActivityInfo *)self payloadForIdentifier:@"UAUserActivityContentAttributeSetPayloadKey"];
-  v42 = v18 = &stru_283A5A2C8;
-  if (v42)
+  v41 = v18 = &stru_283A5A2C8;
+  if (v41)
   {
     options2 = &stru_283A5A2C8;
     v19 = MEMORY[0x277CCACA8];
-    v38 = [(UAUserActivityInfo *)self payloadForIdentifier:@"UAUserActivityContentAttributeSetPayloadKey"];
-    v37 = trimmedHexStringForData(v38, 0x10uLL);
+    v37 = [(UAUserActivityInfo *)self payloadForIdentifier:@"UAUserActivityContentAttributeSetPayloadKey"];
+    v36 = trimmedHexStringForData(v37, 16);
     v20 = v19;
     v18 = &stru_283A5A2C8;
-    v54 = [v20 stringWithFormat:@" contentAttr=%@", v37];
+    v53 = [v20 stringWithFormat:@" contentAttr=%@", v36];
   }
 
   else
   {
-    v54 = &stru_283A5A2C8;
+    v53 = &stru_283A5A2C8;
   }
 
-  v53 = uUIDString;
+  v52 = uUIDString;
   selfCopy = self;
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   payloadIdentifiers = [(UAUserActivityInfo *)selfCopy payloadIdentifiers];
-  v23 = [payloadIdentifiers countByEnumeratingWithState:&v61 objects:v65 count:16];
+  v23 = [payloadIdentifiers countByEnumeratingWithState:&v60 objects:v64 count:16];
   if (v23)
   {
     options2 = v23;
-    v36 = selfCopy;
+    v35 = selfCopy;
     v24 = 0;
-    v25 = *v62;
+    v25 = *v61;
     do
     {
       for (i = 0; i != options2; i = (i + 1))
       {
-        if (*v62 != v25)
+        if (*v61 != v25)
         {
           objc_enumerationMutation(payloadIdentifiers);
         }
 
-        v27 = *(*(&v61 + 1) + 8 * i);
+        v27 = *(*(&v60 + 1) + 8 * i);
         if (([v27 isEqual:@"UAUserActivityStreamsPayload"] & 1) == 0 && (objc_msgSend(v27, "isEqual:", @"UAUserActivityUserInfoPayload") & 1) == 0 && (objc_msgSend(v27, "isEqual:", @"UAUserActivityContentAttributeSetPayloadKey") & 1) == 0)
         {
           if (v24)
@@ -168,7 +168,7 @@
         }
       }
 
-      options2 = [payloadIdentifiers countByEnumeratingWithState:&v61 objects:v65 count:16];
+      options2 = [payloadIdentifiers countByEnumeratingWithState:&v60 objects:v64 count:16];
     }
 
     while (options2);
@@ -178,7 +178,7 @@
       v28 = 0;
       v5 = 0x277CCA000uLL;
       v18 = &stru_283A5A2C8;
-      selfCopy = v36;
+      selfCopy = v35;
       goto LABEL_33;
     }
 
@@ -187,7 +187,7 @@
     payloadIdentifiers = v24;
     v5 = 0x277CCA000;
     v18 = &stru_283A5A2C8;
-    selfCopy = v36;
+    selfCopy = v35;
   }
 
   else
@@ -216,18 +216,18 @@ LABEL_33:
   }
 
   when = [(UAUserActivityInfo *)selfCopy when];
-  [v49 stringWithFormat:@"UAUserActivityInfo:{ type = %@; uuid = %@; activityType = %@; dynamicActivityType = %@; teamID=%@; %@ userInfo = %@%@%@%@ - %@ - %@ %@; when = %@ }", v9, v53, activityType, dynamicActivityType, teamIdentifier, persistentIdentifier2, v57, v44, v43, v55, v54, v29, v18, when];
+  [v48 stringWithFormat:@"UAUserActivityInfo:{ type = %@; uuid = %@; activityType = %@; dynamicActivityType = %@; teamID=%@; %@ userInfo = %@%@%@%@ - %@ - %@ %@; when = %@ }", v9, v52, activityType, dynamicActivityType, teamIdentifier, persistentIdentifier2, v56, v43, v42, v54, v53, v29, v18, when];
   v8 = v33 = v18;
 
   if (options)
   {
   }
 
-  if (v42)
+  if (v41)
   {
   }
 
-  if (v45)
+  if (v44)
   {
   }
 
@@ -236,7 +236,6 @@ LABEL_33:
   }
 
 LABEL_47:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -315,7 +314,7 @@ LABEL_47:
     {
       encodedUserInfoError2 = [(UAUserActivityInfo *)self payloads];
       v20 = [encodedUserInfoError2 objectForKey:@"UAUserActivityUserInfoPayload"];
-      trimmedHexStringForData(v20, 0x10uLL);
+      trimmedHexStringForData(v20, 16);
     }
     v10 = ;
     v11 = MEMORY[0x277CCACA8];
@@ -536,19 +535,18 @@ LABEL_47:
 
 - (UAUserActivityInfo)initWithCoder:(id)coder
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v74.receiver = self;
-  v74.super_class = UAUserActivityInfo;
-  v5 = [(UAUserActivityInfo *)&v74 init];
+  v71.receiver = self;
+  v71.super_class = UAUserActivityInfo;
+  v5 = [(UAUserActivityInfo *)&v71 init];
   if (!v5)
   {
     goto LABEL_28;
   }
 
-  v6 = 0x277CCA000uLL;
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"error"];
-  [(UAUserActivityInfo *)v5 setError:v7];
+  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"error"];
+  [(UAUserActivityInfo *)v5 setError:v6];
 
   error = [(UAUserActivityInfo *)v5 error];
 
@@ -562,79 +560,79 @@ LABEL_47:
     [UAUserActivityInfo initWithCoder:];
   }
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
+  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
   uuid = v5->_uuid;
-  v5->_uuid = v9;
+  v5->_uuid = v8;
 
   v5->_type = [coderCopy decodeIntegerForKey:@"type"];
-  v11 = [coderCopy decodeObjectOfClasses:initWithCoder__sAcceptableObjects forKey:@"options"];
+  v10 = [coderCopy decodeObjectOfClasses:initWithCoder__sAcceptableObjects forKey:@"options"];
   options = v5->_options;
-  v5->_options = v11;
+  v5->_options = v10;
 
-  v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
+  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   title = v5->_title;
-  v5->_title = v13;
+  v5->_title = v12;
 
-  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"webpageURL"];
-  if ([UAUserActivity checkWebpageURL:v15 actionType:[(UAUserActivityInfo *)v5 type] throwIfFailed:0])
+  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"webpageURL"];
+  if ([UAUserActivity checkWebpageURL:v14 actionType:[(UAUserActivityInfo *)v5 type] throwIfFailed:0])
   {
-    objc_storeStrong(&v5->_webpageURL, v15);
+    objc_storeStrong(&v5->_webpageURL, v14);
   }
 
-  v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"referrerURL"];
+  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"referrerURL"];
   referrerURL = v5->_referrerURL;
-  v5->_referrerURL = v16;
+  v5->_referrerURL = v15;
 
-  v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"targetContentIdentifier"];
+  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"targetContentIdentifier"];
   targetContentIdentifier = v5->_targetContentIdentifier;
-  v5->_targetContentIdentifier = v18;
+  v5->_targetContentIdentifier = v17;
 
-  v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
   payloads = v5->_payloads;
-  v5->_payloads = v20;
+  v5->_payloads = v19;
 
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"streamsData"];
-  [(UAUserActivityInfo *)v5 setPayload:v22 identifier:@"UAUserActivityStreamsPayload"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"streamsData"];
+  [(UAUserActivityInfo *)v5 setPayload:v21 identifier:@"UAUserActivityStreamsPayload"];
 
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"];
-  [(UAUserActivityInfo *)v5 setPayload:v23 identifier:@"UAUserActivityUserInfoPayload"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"];
+  [(UAUserActivityInfo *)v5 setPayload:v22 identifier:@"UAUserActivityUserInfoPayload"];
 
-  v24 = MEMORY[0x277CBEB98];
+  v23 = MEMORY[0x277CBEB98];
+  v24 = objc_opt_class();
   v25 = objc_opt_class();
-  v26 = objc_opt_class();
-  v27 = [v24 setWithObjects:{v25, v26, objc_opt_class(), 0}];
-  v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"payloads"];
+  v26 = [v23 setWithObjects:{v24, v25, objc_opt_class(), 0}];
+  v27 = [coderCopy decodeObjectOfClasses:v26 forKey:@"payloads"];
 
-  if (v28)
+  if (v27)
   {
-    v72 = 0u;
-    v73 = 0u;
+    v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    allKeys = [v28 allKeys];
-    v30 = [allKeys countByEnumeratingWithState:&v70 objects:v75 count:16];
-    if (v30)
+    v67 = 0u;
+    v68 = 0u;
+    allKeys = [v27 allKeys];
+    v29 = [allKeys countByEnumeratingWithState:&v67 objects:v72 count:16];
+    if (v29)
     {
-      v31 = v30;
-      v68 = v15;
-      v69 = coderCopy;
-      v32 = *v71;
+      v30 = v29;
+      v65 = v14;
+      v66 = coderCopy;
+      v31 = *v68;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v71 != v32)
+          if (*v68 != v31)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v34 = *(*(&v70 + 1) + 8 * i);
+          v33 = *(*(&v67 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if (v28)
+            if (v27)
             {
-              v35 = [v28 objectForKeyedSubscript:v34];
+              v34 = [v27 objectForKeyedSubscript:v33];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
@@ -645,18 +643,17 @@ LABEL_47:
             }
           }
 
-          v28 = 0;
+          v27 = 0;
         }
 
-        v31 = [allKeys countByEnumeratingWithState:&v70 objects:v75 count:16];
+        v30 = [allKeys countByEnumeratingWithState:&v67 objects:v72 count:16];
       }
 
-      while (v31);
+      while (v30);
 
-      v15 = v68;
-      coderCopy = v69;
-      v6 = 0x277CCA000;
-      if (!v28)
+      v14 = v65;
+      coderCopy = v66;
+      if (!v27)
       {
         goto LABEL_23;
       }
@@ -666,44 +663,43 @@ LABEL_47:
     {
     }
 
-    [(NSMutableDictionary *)v5->_payloads addEntriesFromDictionary:v28];
+    [(NSMutableDictionary *)v5->_payloads addEntriesFromDictionary:v27];
   }
 
 LABEL_23:
-  v37 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"when"];
+  v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"when"];
   when = v5->_when;
-  v5->_when = v37;
+  v5->_when = v36;
 
   v5->_active = [coderCopy decodeBoolForKey:@"isActive"];
-  v39 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDeviceType"];
+  v38 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDeviceType"];
   peerDeviceType = v5->_peerDeviceType;
-  v5->_peerDeviceType = v39;
+  v5->_peerDeviceType = v38;
 
   getSFPeerDeviceClass();
-  v41 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDevice"];
+  v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDevice"];
   peerDevice = v5->_peerDevice;
-  v5->_peerDevice = v41;
+  v5->_peerDevice = v40;
 
-  v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
+  v42 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
   bundleIdentifier = v5->_bundleIdentifier;
-  v5->_bundleIdentifier = v43;
+  v5->_bundleIdentifier = v42;
 
-  v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"activityType"];
+  v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"activityType"];
   activityType = v5->_activityType;
-  v5->_activityType = v45;
+  v5->_activityType = v44;
 
-  v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dynamicActivityType"];
+  v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dynamicActivityType"];
   dynamicActivityType = v5->_dynamicActivityType;
-  v5->_dynamicActivityType = v47;
+  v5->_dynamicActivityType = v46;
 
-  v49 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"teamIdentifier"];
+  v48 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"teamIdentifier"];
   teamIdentifier = v5->_teamIdentifier;
-  v5->_teamIdentifier = v49;
+  v5->_teamIdentifier = v48;
 
-  v51 = *(v6 + 2488);
-  v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payloadError"];
+  v50 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payloadError"];
   encodedUserInfoError = v5->_encodedUserInfoError;
-  v5->_encodedUserInfoError = v52;
+  v5->_encodedUserInfoError = v50;
 
   v5->_eligibleForHandoff = [coderCopy decodeBoolForKey:@"eligibleForHandoff"];
   v5->_eligibleForSearch = [coderCopy decodeBoolForKey:@"eligibleForSearch"];
@@ -714,75 +710,70 @@ LABEL_23:
     [UAUserActivityInfo initWithCoder:];
   }
 
-  v54 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contentActions"];
+  v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contentActions"];
   contentUserAction = v5->_contentUserAction;
-  v5->_contentUserAction = v54;
+  v5->_contentUserAction = v52;
 
-  v56 = [coderCopy decodeObjectOfClasses:initWithCoder__sKeywordsAcceptableObjects forKey:@"keywords"];
+  v54 = [coderCopy decodeObjectOfClasses:initWithCoder__sKeywordsAcceptableObjects forKey:@"keywords"];
   keywords = v5->_keywords;
-  v5->_keywords = v56;
+  v5->_keywords = v54;
 
-  v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"expirationDate"];
+  v56 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"expirationDate"];
   expirationDate = v5->_expirationDate;
-  v5->_expirationDate = v58;
+  v5->_expirationDate = v56;
 
   v5->_eligibleForPrediction = [coderCopy decodeBoolForKey:@"eligibleForPrediction"];
-  v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"persistentIdentifier"];
+  v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"persistentIdentifier"];
   persistentIdentifier = v5->_persistentIdentifier;
-  v5->_persistentIdentifier = v60;
+  v5->_persistentIdentifier = v58;
 
-  v62 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contentAttributeSetData"];
-  if (v62)
+  v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contentAttributeSetData"];
+  if (v60)
   {
-    [(NSMutableDictionary *)v5->_payloads setObject:v62 forKey:@"UAUserActivityContentAttributeSetPayloadKey"];
+    [(NSMutableDictionary *)v5->_payloads setObject:v60 forKey:@"UAUserActivityContentAttributeSetPayloadKey"];
   }
 
-  v63 = [coderCopy decodeObjectOfClasses:initWithCoder__sKeywordsAcceptableObjects forKey:@"requiredKeys"];
+  v61 = [coderCopy decodeObjectOfClasses:initWithCoder__sKeywordsAcceptableObjects forKey:@"requiredKeys"];
   requiredUserInfoKeys = v5->_requiredUserInfoKeys;
-  v5->_requiredUserInfoKeys = v63;
+  v5->_requiredUserInfoKeys = v61;
 
-  v65 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"universalLink"];
-  v5->_universalLink = [v65 BOOLValue];
+  v63 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"universalLink"];
+  v5->_universalLink = [v63 BOOLValue];
 
 LABEL_28:
-  v66 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __36__UAUserActivityInfo_initWithCoder___block_invoke()
 {
-  v5[10] = *MEMORY[0x277D85DE8];
+  v4[10] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:10];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
   v2 = [v0 initWithArray:v1];
   v3 = initWithCoder__sAcceptableObjects;
   initWithCoder__sAcceptableObjects = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __36__UAUserActivityInfo_initWithCoder___block_invoke_2()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 initWithArray:v1];
   v3 = initWithCoder__sKeywordsAcceptableObjects;
   initWithCoder__sKeywordsAcceptableObjects = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1124,7 +1115,7 @@ LABEL_12:
 
 - (void)_createUserActivityStrings:(id)strings secondaryString:(id)string optionalData:(id)data
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   stringCopy = string;
   payloads = [(UAUserActivityInfo *)self payloads];
@@ -1134,7 +1125,7 @@ LABEL_12:
   v13 = v12;
   if (stringsCopy)
   {
-    v96 = v12;
+    v95 = v12;
     array = [MEMORY[0x277CBEB18] array];
     dynamicActivityType = [(UAUserActivityInfo *)self dynamicActivityType];
 
@@ -1215,10 +1206,10 @@ LABEL_12:
     {
       array2 = [MEMORY[0x277CBEB18] array];
       requiredUserInfoKeys = [(UAUserActivityInfo *)self requiredUserInfoKeys];
-      v90 = stringCopy;
-      v92 = stringsCopy;
+      v89 = stringCopy;
+      v91 = stringsCopy;
       selfCopy = self;
-      v94 = array;
+      v93 = array;
       if (requiredUserInfoKeys)
       {
         requiredUserInfoKeys2 = [(UAUserActivityInfo *)self requiredUserInfoKeys];
@@ -1230,33 +1221,33 @@ LABEL_12:
         allObjects = [v11 allKeys];
       }
 
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
-      v87 = allObjects;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v86 = allObjects;
       v52 = sortedArrayOfNSStringValues(allObjects);
-      v53 = [v52 countByEnumeratingWithState:&v103 objects:v108 count:16];
+      v53 = [v52 countByEnumeratingWithState:&v102 objects:v107 count:16];
       if (v53)
       {
         v54 = v53;
-        v55 = *v104;
+        v55 = *v103;
         do
         {
           for (i = 0; i != v54; ++i)
           {
-            if (*v104 != v55)
+            if (*v103 != v55)
             {
               objc_enumerationMutation(v52);
             }
 
-            v57 = *(*(&v103 + 1) + 8 * i);
+            v57 = *(*(&v102 + 1) + 8 * i);
             v58 = [v11 objectForKey:v57];
             v59 = [UAUserActivity _encodeKeyAndValueIntoString:v57 value:v58];
             [array2 addObject:v59];
           }
 
-          v54 = [v52 countByEnumeratingWithState:&v103 objects:v108 count:16];
+          v54 = [v52 countByEnumeratingWithState:&v102 objects:v107 count:16];
         }
 
         while (v54);
@@ -1266,14 +1257,14 @@ LABEL_12:
       {
         v60 = MEMORY[0x277CCACA8];
         v61 = [array2 componentsJoinedByString:{@", "}];
-        v62 = [v60 stringWithFormat:@"u={%@}", v61, v87];
-        [v94 addObject:v62];
+        v62 = [v60 stringWithFormat:@"u={%@}", v61, v86];
+        [v93 addObject:v62];
       }
 
-      stringCopy = v90;
-      stringsCopy = v92;
+      stringCopy = v89;
+      stringsCopy = v91;
       self = selfCopy;
-      array = v94;
+      array = v93;
     }
 
     if ([(UAUserActivityInfo *)self isUniversalLink])
@@ -1282,8 +1273,8 @@ LABEL_12:
     }
 
     activityType = [(UAUserActivityInfo *)self activityType];
-    v13 = v96;
-    [activityType stringByAddingPercentEncodingWithAllowedCharacters:v96];
+    v13 = v95;
+    [activityType stringByAddingPercentEncodingWithAllowedCharacters:v95];
     v65 = v64 = array;
     [stringsCopy appendFormat:@"v1.0/%@/", v65];
 
@@ -1308,32 +1299,32 @@ LABEL_12:
 
         if (v70)
         {
-          v97 = v13;
-          v98 = v10;
-          v91 = stringCopy;
-          v93 = stringsCopy;
+          v96 = v13;
+          v97 = v10;
+          v90 = stringCopy;
+          v92 = stringsCopy;
           array4 = [MEMORY[0x277CBEB18] array];
           [v11 allKeys];
+          v98 = 0u;
           v99 = 0u;
           v100 = 0u;
-          v101 = 0u;
-          v88 = v102 = 0u;
-          v72 = sortedArrayOfNSStringValues(v88);
-          v73 = [v72 countByEnumeratingWithState:&v99 objects:v107 count:16];
+          v87 = v101 = 0u;
+          v72 = sortedArrayOfNSStringValues(v87);
+          v73 = [v72 countByEnumeratingWithState:&v98 objects:v106 count:16];
           if (v73)
           {
             v74 = v73;
-            v75 = *v100;
+            v75 = *v99;
             do
             {
               for (j = 0; j != v74; ++j)
               {
-                if (*v100 != v75)
+                if (*v99 != v75)
                 {
                   objc_enumerationMutation(v72);
                 }
 
-                v77 = *(*(&v99 + 1) + 8 * j);
+                v77 = *(*(&v98 + 1) + 8 * j);
                 requiredUserInfoKeys5 = [(UAUserActivityInfo *)self requiredUserInfoKeys];
                 v79 = [requiredUserInfoKeys5 containsObject:v77];
 
@@ -1345,7 +1336,7 @@ LABEL_12:
                 }
               }
 
-              v74 = [v72 countByEnumeratingWithState:&v99 objects:v107 count:16];
+              v74 = [v72 countByEnumeratingWithState:&v98 objects:v106 count:16];
             }
 
             while (v74);
@@ -1355,14 +1346,14 @@ LABEL_12:
           {
             v82 = MEMORY[0x277CCACA8];
             v83 = [array4 componentsJoinedByString:{@", "}];
-            v84 = [v82 stringWithFormat:@"ue={%@}", v83, v88];
+            v84 = [v82 stringWithFormat:@"ue={%@}", v83, v87];
             [array3 addObject:v84];
           }
 
-          stringCopy = v91;
-          stringsCopy = v93;
-          v13 = v97;
-          v10 = v98;
+          stringCopy = v90;
+          stringsCopy = v92;
+          v13 = v96;
+          v10 = v97;
         }
       }
     }
@@ -1373,8 +1364,6 @@ LABEL_12:
       [stringCopy appendFormat:@"%@", v85];
     }
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userActivityString
@@ -1467,7 +1456,7 @@ LABEL_12:
 {
   payloads = [(UAUserActivityInfo *)self payloads];
   v4 = [payloads objectForKey:@"UAUserActivityUserInfoPayload"];
-  v19 = trimmedHexStringForData(v4, 0x10uLL);
+  v19 = trimmedHexStringForData(v4, 16);
 
   v18 = MEMORY[0x277CCACA8];
   v5 = suggestedActionTypeString([(UAUserActivityInfo *)self type]);

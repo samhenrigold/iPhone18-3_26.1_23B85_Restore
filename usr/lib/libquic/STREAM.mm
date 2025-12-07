@@ -3,7 +3,7 @@
 
 @implementation STREAM
 
-uint64_t __quic_frame_free_STREAM_block_invoke(uint64_t a1)
+uint64_t __quic_frame_free_STREAM_block_invoke(uint64_t a1, uint64_t a2)
 {
   nw_frame_array_remove();
   if ((*(*(a1 + 32) + 16) & 4) == 0)
@@ -27,7 +27,7 @@ uint64_t __quic_frame_acknowledged_STREAM_block_invoke(uint64_t a1, uint64_t a2)
       {
         v7 = a2;
         v8 = _os_log_pack_size();
-        v9 = v12 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v9 = v12 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v10 = _os_log_pack_fill();
         v11 = *v7;

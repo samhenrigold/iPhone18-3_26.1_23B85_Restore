@@ -81,10 +81,10 @@
   {
     *buf = 0u;
     v95 = 0u;
-    [v81 extent];
+    objc_msgSend_extent(v81);
     v92 = 0u;
     v93 = 0u;
-    [v78 extent];
+    objc_msgSend_extent(v78);
     v16 = 0;
     v17 = 0;
     v18 = 0;
@@ -153,9 +153,9 @@
   kind = [portraitAdjustmentController3 kind];
   portraitAdjustmentController4 = [v12 portraitAdjustmentController];
   kind2 = [portraitAdjustmentController4 kind];
-  v42 = [kind isEqualToString:kind2];
+  isEqualToString = objc_msgSend_isEqualToString_(kind);
 
-  if ((v42 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if (enabled2 == enabled3)
     {
@@ -301,7 +301,7 @@ LABEL_37:
         else
         {
           domain = [v50 domain];
-          if ([domain isEqualToString:@"NUError"])
+          if (objc_msgSend_isEqualToString_(domain))
           {
             v65 = [v51 code] == 10;
 
@@ -394,7 +394,7 @@ void __109__PLPhotoEditRenderer_applySourceChangesToComposition_source_withBlock
   }
 
   v8 = [v4 domain];
-  if (![v8 isEqualToString:@"NUError"])
+  if (!objc_msgSend_isEqualToString_(v8))
   {
 
     goto LABEL_7;
@@ -1186,7 +1186,7 @@ void __99__PLPhotoEditRenderer_renderImageWithTargetSize_contentMode_renderMode_
     v9 = v8;
     if (v8)
     {
-      [v8 extent];
+      objc_msgSend_extent(v8);
     }
 
     else

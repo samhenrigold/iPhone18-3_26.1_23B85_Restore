@@ -56,34 +56,34 @@ void __74__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_erro
 
 - (void)saveToFileURL:(id)l additionalAttributes:(id)attributes completion:(id)completion
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   attributesCopy = attributes;
   completionCopy = completion;
   if (!lCopy)
   {
-    v21 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"fileURL must not be nil" userInfo:0];
-    objc_exception_throw(v21);
+    v20 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"fileURL must not be nil" userInfo:0];
+    objc_exception_throw(v20);
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke;
-  v26[3] = &unk_27856B4C0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke;
+  v25[3] = &unk_27856B4C0;
   v11 = completionCopy;
-  v27 = v11;
-  v12 = MEMORY[0x22AA6A360](v26);
-  v25 = 0;
-  v13 = [(SYDocumentAttributes *)self dataRepresentationWithError:&v25];
-  v14 = v25;
+  v26 = v11;
+  v12 = MEMORY[0x22AA6A360](v25);
+  v24 = 0;
+  v13 = [(SYDocumentAttributes *)self dataRepresentationWithError:&v24];
+  v14 = v24;
   if (v13)
   {
-    v28[0] = @"com.apple.synapse:DocumentAttributes";
-    v28[1] = @"SYDocumentRelatedUniqueIdentifierKey";
-    v29[0] = v13;
+    v27[0] = @"com.apple.synapse:DocumentAttributes";
+    v27[1] = @"SYDocumentRelatedUniqueIdentifierKey";
+    v28[0] = v13;
     indexKey = [(SYDocumentAttributes *)self indexKey];
-    v29[1] = indexKey;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = indexKey;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
     if (attributesCopy)
     {
@@ -94,13 +94,13 @@ void __74__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_erro
       v16 = v18;
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke_9;
-    v22[3] = &unk_27856B6E8;
-    v23 = lCopy;
-    v24 = v12;
-    [SYFileExtendedAttributes setPrivateAttributes:v16 forFileURL:v23 completion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke_9;
+    v21[3] = &unk_27856B6E8;
+    v22 = lCopy;
+    v23 = v12;
+    [SYFileExtendedAttributes setPrivateAttributes:v16 forFileURL:v22 completion:v21];
   }
 
   else
@@ -113,8 +113,6 @@ void __74__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_erro
 
     (v12)[2](v12, v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke(uint64_t a1)
@@ -209,24 +207,24 @@ void __116__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_
 
 + (void)_removeDocumentAttributesForFileAtURL:(int)l keepDocumentRelatedUniqueIdentifierKey:(void *)key completion:
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v6 = a2;
   keyCopy = key;
   objc_opt_self();
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke;
-  v22[3] = &unk_27856B738;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke;
+  v21[3] = &unk_27856B738;
   v8 = keyCopy;
-  v23 = v8;
-  v9 = MEMORY[0x22AA6A360](v22);
+  v22 = v8;
+  v9 = MEMORY[0x22AA6A360](v21);
   v10 = objc_alloc(MEMORY[0x277CBEB38]);
-  v28[0] = @"com.apple.synapse:DocumentAttributes";
+  v27[0] = @"com.apple.synapse:DocumentAttributes";
   data = [MEMORY[0x277CBEA90] data];
-  v28[1] = @"SYDocumentRelatedUniqueIdentifierKey";
-  v29[0] = data;
-  v29[1] = &stru_2838DFF18;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[1] = @"SYDocumentRelatedUniqueIdentifierKey";
+  v28[0] = data;
+  v28[1] = &stru_2838DFF18;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v13 = [v10 initWithDictionary:v12];
 
   if (l)
@@ -239,23 +237,21 @@ void __116__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_
   {
     path = [v6 path];
     *buf = 138478083;
-    v25 = path;
-    v26 = 1024;
+    v24 = path;
+    v25 = 1024;
     lCopy = l;
     _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Removing document attributes from file path: %{private}@, keepRelatedUniqueId: %{BOOL}d", buf, 0x12u);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke_16;
-  v19[3] = &unk_27856B6E8;
-  v20 = v6;
-  v21 = v9;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke_16;
+  v18[3] = &unk_27856B6E8;
+  v19 = v6;
+  v20 = v9;
   v16 = v9;
   v17 = v6;
-  [SYFileExtendedAttributes setPrivateAttributes:v13 forFileURL:v17 completion:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [SYFileExtendedAttributes setPrivateAttributes:v13 forFileURL:v17 completion:v18];
 }
 
 uint64_t __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke(uint64_t a1)
@@ -497,7 +493,7 @@ uint64_t __80__SYDocumentAttributes_Reading__fetchDocumentAttributesForFileAtURL
 
 void __80__SYDocumentAttributes_Reading__fetchDocumentAttributesForFileAtURL_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -519,9 +515,9 @@ void __80__SYDocumentAttributes_Reading__fetchDocumentAttributesForFileAtURL_com
     {
       if ([v6 length])
       {
-        v14 = 0;
-        v8 = [SYDocumentAttributes documentAttributesFromData:v6 error:&v14];
-        v9 = v14;
+        v13 = 0;
+        v8 = [SYDocumentAttributes documentAttributesFromData:v6 error:&v13];
+        v9 = v13;
         (*(*(a1 + 40) + 16))();
 
 LABEL_15:
@@ -536,9 +532,9 @@ LABEL_15:
 
       v11 = [*(a1 + 32) path];
       *buf = 138412546;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v5;
       v12 = "Found empty private attributes data at URL: %@, error: %@";
     }
 
@@ -556,9 +552,9 @@ LABEL_14:
 
       v11 = [*(a1 + 32) path];
       *buf = 138412546;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v5;
       v12 = "Unexpected private attributes data type at URL: %@, error: %@";
     }
 
@@ -569,51 +565,41 @@ LABEL_14:
 
   (*(*(a1 + 40) + 16))();
 LABEL_16:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __79__SYDocumentAttributes_Writing__saveToFileURL_additionalAttributes_completion___block_invoke_9_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) path];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to write document attributes to: %@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to write document attributes to: %@, error: %@", v4, v5, v6, v7);
 }
 
 void __121__SYDocumentAttributes_Writing___removeDocumentAttributesForFileAtURL_keepDocumentRelatedUniqueIdentifierKey_completion___block_invoke_16_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) path];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to remove document attributes from file path: %{private}@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to remove document attributes from file path: %{private}@, error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithSourceBundleIdentifier:(uint64_t)identifier indexKey:(uint64_t)key fileURL:(uint64_t)l receivedDate:(uint64_t)date sender:
 {
-  if (self)
+  if (result)
   {
-    return [self initWithSourceBundleIdentifier:a2 indexKey:identifier originalFileURL:key receivedDate:l sender:date];
+    return [result initWithSourceBundleIdentifier:a2 indexKey:identifier originalFileURL:key receivedDate:l sender:date];
   }
 
-  return self;
+  return result;
 }
 
 + (void)documentAttributesFromData:(NSObject *)a3 error:.cold.1(objc_class *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromClass(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Unable to init '%@' from data, error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Unable to init '%@' from data, error: %@", &v6, 0x16u);
 }
 
 @end

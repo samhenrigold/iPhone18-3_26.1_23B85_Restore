@@ -1,7 +1,7 @@
 @interface NSArray(_PASAdditions)
++ (_PASArrayProxy)_pas_proxyArrayUsingObjectAtIndexBlock:()_PASAdditions andCountBlock:;
 + (id)_pas_arrayNoCopyLeavesWithPropertyListData:()_PASAdditions error:;
 + (id)_pas_proxyArrayWithObject:()_PASAdditions repetitions:;
-+ (void)_pas_proxyArrayUsingObjectAtIndexBlock:()_PASAdditions andCountBlock:;
 - (__CFString)_pas_proxyComponentsJoinedByString:()_PASAdditions;
 - (id)_pas_componentsJoinedByString:()_PASAdditions;
 - (id)_pas_ensureImmutable;
@@ -574,7 +574,7 @@ LABEL_3:
 
 - (id)_pas_rightFoldWithInitialObject:()_PASAdditions indexedAccumulate:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (!v8)
@@ -585,17 +585,17 @@ LABEL_3:
 
   v9 = v7;
   v10 = [self count];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   reverseObjectEnumerator = [self reverseObjectEnumerator];
-  v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
   v13 = v9;
   if (v12)
   {
     v14 = v12;
-    v15 = *v22;
+    v15 = *v21;
     v13 = v9;
     do
     {
@@ -603,25 +603,23 @@ LABEL_3:
       v17 = v13;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v13 = v8[2](v8, v17, *(*(&v21 + 1) + 8 * v16), --v10);
+        v13 = v8[2](v8, v17, *(*(&v20 + 1) + 8 * v16), --v10);
 
         ++v16;
         v17 = v13;
       }
 
       while (v14 != v16);
-      v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -649,7 +647,7 @@ LABEL_3:
 
 - (id)_pas_leftFoldWithInitialObject:()_PASAdditions indexedAccumulate:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (!v8)
@@ -659,30 +657,30 @@ LABEL_3:
   }
 
   v9 = v7;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   selfCopy = self;
-  v11 = [selfCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
-  v22 = v9;
+  v11 = [selfCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v21 = v9;
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       v15 = 0;
       v16 = v9;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * v15);
+        v17 = *(*(&v22 + 1) + 8 * v15);
         v18 = objc_autoreleasePoolPush();
         v9 = v8[2](v8, v16, v17, v13);
 
@@ -693,13 +691,11 @@ LABEL_3:
       }
 
       while (v12 != v15);
-      v12 = [selfCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [selfCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -726,7 +722,7 @@ LABEL_3:
 
 - (id)_pas_filteredArrayWithIndexedTest:()_PASAdditions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -735,27 +731,27 @@ LABEL_3:
   }
 
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(self, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         if (v5[2](v5, v13, v10))
         {
@@ -766,14 +762,13 @@ LABEL_3:
         objc_autoreleasePoolPop(v14);
       }
 
-      v9 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   v15 = [v6 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -800,7 +795,7 @@ LABEL_3:
 
 - (id)_pas_mappedArrayWithIndexedTransform:()_PASAdditions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -809,27 +804,27 @@ LABEL_3:
   }
 
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(self, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = v5[2](v5, v13, v10);
         if (v15)
@@ -842,14 +837,13 @@ LABEL_3:
         objc_autoreleasePoolPop(v14);
       }
 
-      v9 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v16 = [v6 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -888,32 +882,32 @@ LABEL_3:
 
 + (id)_pas_proxyArrayWithObject:()_PASAdditions repetitions:
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (a4)
   {
     if (a4 == 1)
     {
-      v15[0] = v5;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = v5;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     }
 
     else
     {
       v8 = MEMORY[0x1E695DEC8];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __64__NSArray__PASAdditions___pas_proxyArrayWithObject_repetitions___block_invoke;
-      v12[3] = &unk_1E77F1988;
-      v14 = a4;
-      v13 = v5;
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
-      v11[2] = __64__NSArray__PASAdditions___pas_proxyArrayWithObject_repetitions___block_invoke_2;
-      v11[3] = &__block_descriptor_40_e5_Q8__0l;
-      v11[4] = a4;
-      v7 = [v8 _pas_proxyArrayUsingObjectAtIndexBlock:v12 andCountBlock:v11];
+      v11[2] = __64__NSArray__PASAdditions___pas_proxyArrayWithObject_repetitions___block_invoke;
+      v11[3] = &unk_1E77F1988;
+      v13 = a4;
+      v12 = v5;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __64__NSArray__PASAdditions___pas_proxyArrayWithObject_repetitions___block_invoke_2;
+      v10[3] = &__block_descriptor_40_e5_Q8__0l;
+      v10[4] = a4;
+      v7 = [v8 _pas_proxyArrayUsingObjectAtIndexBlock:v11 andCountBlock:v10];
     }
   }
 
@@ -922,12 +916,10 @@ LABEL_3:
     v7 = MEMORY[0x1E695E0F0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
-+ (void)_pas_proxyArrayUsingObjectAtIndexBlock:()_PASAdditions andCountBlock:
++ (_PASArrayProxy)_pas_proxyArrayUsingObjectAtIndexBlock:()_PASAdditions andCountBlock:
 {
   v5 = a4;
   v6 = a3;

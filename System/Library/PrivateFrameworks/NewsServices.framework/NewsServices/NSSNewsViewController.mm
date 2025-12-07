@@ -4,6 +4,7 @@
 - (NSSNewsViewController)initWithURL:(id)l;
 - (void)dealloc;
 - (void)requestRemoteViewController;
+- (void)setLinkPreviewing:(BOOL)previewing;
 - (void)setupRemoteViewController:(id)controller;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
@@ -13,14 +14,13 @@
 
 - (NSSNewsViewController)initWithArticleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = MEMORY[0x277CBEA60];
   dCopy2 = d;
   v6 = [v4 arrayWithObjects:&dCopy count:1];
 
-  v7 = [(NSSNewsViewController *)self initWithArticleIDs:v6, dCopy, v11];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(NSSNewsViewController *)self initWithArticleIDs:v6, dCopy, v10];
   return v7;
 }
 
@@ -43,13 +43,13 @@
 
 - (NSSNewsViewController)initWithURL:(id)l
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([NSSNewsViewController canOpenURL:lCopy])
   {
     fc_NewsArticleID = [lCopy fc_NewsArticleID];
-    v10[0] = fc_NewsArticleID;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = fc_NewsArticleID;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     self = [(NSSNewsViewController *)self initWithArticleIDs:v6];
 
     selfCopy = self;
@@ -60,7 +60,6 @@
     selfCopy = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -152,6 +151,28 @@
     remoteViewContainerViewController2 = [(NSSNewsViewController *)self remoteViewContainerViewController];
     view2 = [remoteViewContainerViewController2 view];
     [view2 setBounds:{v6, v8, v10, v12}];
+  }
+}
+
+- (void)setLinkPreviewing:(BOOL)previewing
+{
+  previewingCopy = previewing;
+  self->_linkPreviewing = previewing;
+  remoteViewContainerViewController = [(NSSNewsViewController *)self remoteViewContainerViewController];
+  if (remoteViewContainerViewController)
+  {
+    v6 = remoteViewContainerViewController;
+    remoteViewContainerViewController2 = [(NSSNewsViewController *)self remoteViewContainerViewController];
+    remoteViewController = [remoteViewContainerViewController2 remoteViewController];
+
+    if (remoteViewController)
+    {
+      remoteViewContainerViewController3 = [(NSSNewsViewController *)self remoteViewContainerViewController];
+      remoteViewController2 = [remoteViewContainerViewController3 remoteViewController];
+      serviceViewControllerProxy = [remoteViewController2 serviceViewControllerProxy];
+
+      [serviceViewControllerProxy articleViewServiceProviderShouldPresentForLinkPreviewing:previewingCopy];
+    }
   }
 }
 

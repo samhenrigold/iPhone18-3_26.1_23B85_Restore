@@ -110,29 +110,18 @@ LABEL_8:
 
 - (ANSTISPInferenceDescriptor)initWithCoder:(id)coder
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = ANSTISPInferenceDescriptor;
-  v5 = [(ANSTInferenceDescriptor *)&v21 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = objc_opt_class();
-  v7 = NSStringFromSelector(sel_configuration);
-  v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v8, v6, v7);
-  configuration = v5->_configuration;
-  v5->_configuration = v9;
-
-  if (!v5->_configuration)
+  v20.receiver = self;
+  v20.super_class = ANSTISPInferenceDescriptor;
+  v5 = [(ANSTInferenceDescriptor *)&v20 initWithCoder:coderCopy];
+  if (v5 && (v6 = objc_opt_class(), NSStringFromSelector(sel_configuration), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v8, v6, v7), v9 = objc_claimAutoreleasedReturnValue(), configuration = v5->_configuration, v5->_configuration = v9, configuration, v7, !v5->_configuration))
   {
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA050];
-    v22 = *MEMORY[0x277CCA068];
-    v23[0] = @"ISP inference descriptor configuration was not encoded.";
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v23, &v22, 1);
+    v21 = *MEMORY[0x277CCA068];
+    v22[0] = @"ISP inference descriptor configuration was not encoded.";
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v22, &v21, 1);
     v17 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v16, v14, 4865, v15);
     objc_msgSend_failWithError_(coderCopy, v18, v17);
 
@@ -141,11 +130,9 @@ LABEL_8:
 
   else
   {
-LABEL_3:
     v12 = v5;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -166,7 +153,7 @@ LABEL_3:
 
 + (id)_descriptorWithConfiguration:(id)configuration error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (objc_msgSend_resolution(configurationCopy, v6, v7) == 1)
   {
@@ -176,9 +163,9 @@ LABEL_3:
     }
 
     v10 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA068];
-    v25[0] = @"Resolution 1024x576 has been deprecated. Please stop using it.";
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v25, &v24, 1);
+    v23 = *MEMORY[0x277CCA068];
+    v24[0] = @"Resolution 1024x576 has been deprecated. Please stop using it.";
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v24, &v23, 1);
     objc_msgSend_errorWithDomain_code_userInfo_(v10, v12, @"ANSTErrorDomain", 2, v11);
     goto LABEL_11;
   }
@@ -205,16 +192,14 @@ LABEL_8:
   }
 
   v18 = MEMORY[0x277CCA9B8];
-  v22 = *MEMORY[0x277CCA068];
-  v23 = @"Unrecognized version.";
-  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, &v23, &v22, 1);
+  v21 = *MEMORY[0x277CCA068];
+  v22 = @"Unrecognized version.";
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, &v22, &v21, 1);
   objc_msgSend_errorWithDomain_code_userInfo_(v18, v19, @"ANSTErrorDomain", 14, v11);
   *error = LABEL_11:;
 
   error = 0;
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return error;
 }

@@ -389,19 +389,25 @@ LABEL_31:
 - (void)getCollectDatesForVariant:(uint64_t)a1 withHandler:.cold.2(uint64_t a1)
 {
   v1 = [NSNumber numberWithUnsignedInteger:a1];
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for collect (with variant %@)", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for collect (with variant %@)", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)getBundlingDatesForVariant:(uint64_t)a1 withHandler:.cold.2(uint64_t a1)
 {
   v1 = [NSNumber numberWithUnsignedInteger:a1];
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for bundling (with variant %@)", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for bundling (with variant %@)", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)getPatternDetectorDatesForVariant:(uint64_t)a1 withHandler:.cold.2(uint64_t a1)
 {
   v1 = [NSNumber numberWithUnsignedInteger:a1];
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for pattern detection (with variant %@)", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "unable to determine start and end date for pattern detection (with variant %@)", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

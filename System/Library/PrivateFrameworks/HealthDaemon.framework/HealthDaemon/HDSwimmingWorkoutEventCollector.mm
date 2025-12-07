@@ -60,7 +60,7 @@
 
 void __54__HDSwimmingWorkoutEventCollector_startWithSessionId___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -78,9 +78,9 @@ void __54__HDSwimmingWorkoutEventCollector_startWithSessionId___block_invoke(uin
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting swim workout event collector for sessionID %@", buf, 0x16u);
     }
 
-    v14.receiver = v1;
-    v14.super_class = HDSwimmingWorkoutEventCollector;
-    objc_msgSendSuper2(&v14, sel_startWithSessionId_, v2);
+    v13.receiver = v1;
+    v13.super_class = HDSwimmingWorkoutEventCollector;
+    objc_msgSendSuper2(&v13, sel_startWithSessionId_, v2);
     v6 = objc_alloc(MEMORY[0x277CC1D58]);
     v7 = [v1 sessionId];
     v8 = [v6 initWithSessionId:v7];
@@ -93,14 +93,12 @@ void __54__HDSwimmingWorkoutEventCollector_startWithSessionId___block_invoke(uin
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __71__HDSwimmingWorkoutEventCollector__queue_startCollectionWithSessionId___block_invoke;
-    v16 = &unk_27861EAC0;
-    objc_copyWeak(v17, &location);
+    v15 = &unk_27861EAC0;
+    objc_copyWeak(v16, &location);
     [v10 startUpdatesFromRecord:v11 handler:buf];
-    objc_destroyWeak(v17);
+    objc_destroyWeak(v16);
     objc_destroyWeak(&location);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -114,10 +112,10 @@ void __54__HDSwimmingWorkoutEventCollector_startWithSessionId___block_invoke(uin
   dispatch_sync(workoutEventQueue, block);
 }
 
-id __39__HDSwimmingWorkoutEventCollector_stop__block_invoke(id result)
+void *__39__HDSwimmingWorkoutEventCollector_stop__block_invoke(void *result)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 4);
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if (v1)
   {
     _HKInitializeLogging();
@@ -128,20 +126,19 @@ id __39__HDSwimmingWorkoutEventCollector_stop__block_invoke(id result)
       v4 = objc_opt_class();
       v5 = v4;
       v6 = [v1 sessionId];
-      *v8 = 138543618;
-      *&v8[4] = v4;
-      *&v8[12] = 2112;
-      *&v8[14] = v6;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping swim workout event collector for sessionID: %@", v8, 0x16u);
+      *v7 = 138543618;
+      *&v7[4] = v4;
+      *&v7[12] = 2112;
+      *&v7[14] = v6;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping swim workout event collector for sessionID: %@", v7, 0x16u);
     }
 
     [v1[4] stopUpdates];
-    *v8 = v1;
-    *&v8[8] = HDSwimmingWorkoutEventCollector;
-    result = objc_msgSendSuper2(v8, sel_stop);
+    *v7 = v1;
+    *&v7[8] = HDSwimmingWorkoutEventCollector;
+    return objc_msgSendSuper2(v7, sel_stop);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -175,13 +172,13 @@ void __78__HDSwimmingWorkoutEventCollector_requestPendingEventsThroughDate_compl
     aBlock[1] = 3221225472;
     aBlock[2] = __78__HDSwimmingWorkoutEventCollector_requestPendingEventsThroughDate_completion___block_invoke_2;
     aBlock[3] = &unk_27861EA98;
-    objc_copyWeak(&v14, location);
-    v12 = a1[5];
-    v13 = a1[6];
+    objc_copyWeak(&v12, location);
+    v10 = a1[5];
+    v11 = a1[6];
     v4 = _Block_copy(aBlock);
     [(HDSwimmingWorkoutEventCollector *)*v3 _queue_querySwimDataWithCompletion:v4];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
   }
 
@@ -191,12 +188,11 @@ void __78__HDSwimmingWorkoutEventCollector_requestPendingEventsThroughDate_compl
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
-      v9 = v5;
+      v7 = v5;
       LODWORD(location[0]) = 138543362;
       *(location + 4) = objc_opt_class();
-      v10 = *(location + 4);
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Terminating request for collecting pending swim events as sessionId is nil", location, 0xCu);
+      v8 = *(location + 4);
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Terminating request for collecting pending swim events as sessionId is nil", location, 0xCu);
     }
 
     v6 = a1[6];
@@ -205,14 +201,12 @@ void __78__HDSwimmingWorkoutEventCollector_requestPendingEventsThroughDate_compl
       v6[2](v6, 1, 0);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDSwimmingWorkoutEventCollector_requestPendingEventsThroughDate_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v25 = a3;
+  v33 = *MEMORY[0x277D85DE8];
+  v24 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -270,13 +264,13 @@ LABEL_18:
       v15 = objc_opt_class();
       v16 = *(WeakRetained + 7);
       *buf = 138544130;
-      v27 = v15;
-      v28 = 2114;
-      v29 = v16;
-      v30 = 2114;
-      v31 = v9;
-      v32 = 2114;
-      v33 = v5;
+      v26 = v15;
+      v27 = 2114;
+      v28 = v16;
+      v29 = 2114;
+      v30 = v9;
+      v31 = 2114;
+      v32 = v5;
       v17 = v15;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Dropping zero-duration segment created with start date: %{public}@, end date: %{public}@ and fallback end date: %{public}@", buf, 0x2Au);
     }
@@ -293,10 +287,10 @@ LABEL_18:
       {
         v21 = v20;
         *buf = 138543618;
-        v27 = objc_opt_class();
-        v28 = 2114;
-        v29 = v14;
-        v22 = v27;
+        v26 = objc_opt_class();
+        v27 = 2114;
+        v28 = v14;
+        v22 = v26;
         _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Collection stopping: Adding workout segment event %{public}@", buf, 0x16u);
       }
 
@@ -309,8 +303,6 @@ LABEL_18:
 
 LABEL_19:
   (*(*(a1 + 40) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_querySwimDataWithCompletion:(uint64_t)completion
@@ -367,7 +359,7 @@ void __72__HDSwimmingWorkoutEventCollector__startUpdatesFromRecordHandler_error_
 
 - (void)_queue_errorOccurred:(void *)occurred
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (occurred)
   {
@@ -375,13 +367,13 @@ void __72__HDSwimmingWorkoutEventCollector__startUpdatesFromRecordHandler_error_
     v4 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v10 = v4;
-      v12 = 138543618;
-      v13 = objc_opt_class();
-      v14 = 2114;
-      v15 = v3;
-      v11 = v13;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting swim data for lap events: %{public}@", &v12, 0x16u);
+      v9 = v4;
+      v11 = 138543618;
+      v12 = objc_opt_class();
+      v13 = 2114;
+      v14 = v3;
+      v10 = v12;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting swim data for lap events: %{public}@", &v11, 0x16u);
     }
 
     v5 = objc_alloc(MEMORY[0x277CCDE58]);
@@ -391,8 +383,6 @@ void __72__HDSwimmingWorkoutEventCollector__startUpdatesFromRecordHandler_error_
     delegate = [occurred delegate];
     [delegate receivedWorkoutEvent:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -418,7 +408,7 @@ void __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletion___
 uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletion___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v135 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
   v4 = *(a1 + 40);
@@ -445,19 +435,19 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
       v12 = *v9;
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
       {
-        v102 = v12;
-        v103 = objc_opt_class();
-        v104 = *(v2 + 40);
-        *v121 = 138543618;
-        v122 = v103;
-        v123 = 2112;
-        v124 = v104;
-        v105 = v103;
-        _os_log_debug_impl(&dword_228986000, v102, OS_LOG_TYPE_DEBUG, "[%{public}@] Setting initial reference swim data to %@", v121, 0x16u);
+        v99 = v12;
+        v100 = objc_opt_class();
+        v101 = *(v2 + 40);
+        *v118 = 138543618;
+        v119 = v100;
+        v120 = 2112;
+        v121 = v101;
+        v102 = v100;
+        _os_log_debug_impl(&dword_228986000, v99, OS_LOG_TYPE_DEBUG, "[%{public}@] Setting initial reference swim data to %@", v118, 0x16u);
       }
     }
 
-    v107 = v1;
+    v104 = v1;
     if (!*(v2 + 56))
     {
       v13 = [*(v2 + 40) startDate];
@@ -465,28 +455,28 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
       *(v2 + 56) = v13;
     }
 
-    v119 = 0u;
-    v120 = 0u;
+    v116 = 0u;
     v117 = 0u;
-    v118 = 0u;
-    v106 = v4;
+    v114 = 0u;
+    v115 = 0u;
+    v103 = v4;
     obj = v4;
-    v116 = [obj countByEnumeratingWithState:&v117 objects:v121 count:16];
-    if (v116)
+    v113 = [obj countByEnumeratingWithState:&v114 objects:v118 count:16];
+    if (v113)
     {
-      v115 = *v118;
-      v111 = *MEMORY[0x277CCC518];
-      v110 = *MEMORY[0x277CCC500];
+      v112 = *v115;
+      v108 = *MEMORY[0x277CCC518];
+      v107 = *MEMORY[0x277CCC500];
       do
       {
-        for (i = 0; i != v116; ++i)
+        for (i = 0; i != v113; ++i)
         {
-          if (*v118 != v115)
+          if (*v115 != v112)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v117 + 1) + 8 * i);
+          v16 = *(*(&v114 + 1) + 8 * i);
           _HKInitializeLogging();
           v17 = *v9;
           if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
@@ -494,9 +484,9 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
             v18 = v17;
             v19 = objc_opt_class();
             *buf = 138543618;
-            v128 = v19;
-            v129 = 2112;
-            v130 = v16;
+            v125 = v19;
+            v126 = 2112;
+            v127 = v16;
             v20 = v19;
             _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Processing swim data: %@", buf, 0x16u);
           }
@@ -511,7 +501,7 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
             v25 = [*(v2 + *(v7 + 3020)) lapCount];
             if (v24 > v25)
             {
-              v112 = v24;
+              v109 = v24;
               v26 = v16;
               v27 = MEMORY[0x277CCABB0];
               v28 = [v26 strokeType];
@@ -535,18 +525,18 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
                 v39 = MEMORY[0x277CCABB0];
                 [v26 SWOLF];
                 v40 = [v39 numberWithDouble:?];
-                v125[0] = v111;
-                v125[1] = v110;
-                v126[0] = v38;
-                v126[1] = v40;
-                v114 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:2];
+                v122[0] = v108;
+                v122[1] = v107;
+                v123[0] = v38;
+                v123[1] = v40;
+                v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:2];
               }
 
               else
               {
-                v125[0] = v111;
-                v126[0] = v38;
-                v114 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:1];
+                v122[0] = v108;
+                v123[0] = v38;
+                v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:1];
               }
 
               v41 = [v26 endDate];
@@ -563,15 +553,15 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
                 {
                   log = v44;
                   v46 = objc_opt_class();
-                  v109 = v46;
+                  v106 = v46;
                   v47 = [v26 startDate];
                   v48 = [v26 endDate];
                   *buf = 138543874;
-                  v128 = v46;
-                  v129 = 2114;
-                  v130 = v47;
-                  v131 = 2114;
-                  v132 = v48;
+                  v125 = v46;
+                  v126 = 2114;
+                  v127 = v47;
+                  v128 = 2114;
+                  v129 = v48;
                   _os_log_fault_impl(&dword_228986000, log, OS_LOG_TYPE_FAULT, "[%{public}@] Out-of-order CMSwimData lap events: %{public}@, %{public}@", buf, 0x20u);
 
                   v9 = MEMORY[0x277CCC330];
@@ -587,7 +577,7 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
 
                 v53 = objc_alloc(MEMORY[0x277CCDE58]);
                 v54 = [v2 sessionId];
-                v55 = [v53 initWithEventType:5 sessionId:v54 dateInterval:v52 metadata:v114];
+                v55 = [v53 initWithEventType:5 sessionId:v54 dateInterval:v52 metadata:v111];
 
                 _HKInitializeLogging();
                 v56 = *MEMORY[0x277CCC330];
@@ -596,9 +586,9 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
                   v57 = v56;
                   v58 = objc_opt_class();
                   *buf = 138543618;
-                  v128 = v58;
-                  v129 = 2112;
-                  v130 = v55;
+                  v125 = v58;
+                  v126 = 2112;
+                  v127 = v55;
                   v59 = v58;
                   _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "[%{public}@] Adding workout lap event: %@", buf, 0x16u);
                 }
@@ -619,7 +609,7 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
                 v9 = MEMORY[0x277CCC330];
               }
 
-              v24 = v112;
+              v24 = v109;
             }
 
             v63 = [v16 segment];
@@ -650,12 +640,12 @@ uint64_t __70__HDSwimmingWorkoutEventCollector__queue_querySwimDataWithCompletio
                 v72 = v69;
                 v73 = [v71 endDate];
                 *buf = 138543874;
-                v128 = v69;
-                v129 = 2114;
-                v130 = v70;
+                v125 = v69;
+                v126 = 2114;
+                v127 = v70;
                 v9 = MEMORY[0x277CCC330];
-                v131 = 2114;
-                v132 = v73;
+                v128 = 2114;
+                v129 = v73;
                 _os_log_fault_impl(&dword_228986000, v68, OS_LOG_TYPE_FAULT, "[%{public}@] Out-of-order CMSwimData segment events: %{public}@, %{public}@", buf, 0x20u);
 
                 goto LABEL_51;
@@ -689,14 +679,14 @@ LABEL_54:
                 v83 = v80;
                 v84 = [v82 endDate];
                 *buf = 138544130;
-                v128 = v80;
-                v129 = 2114;
-                v130 = v64;
-                v131 = 2114;
-                v132 = v81;
+                v125 = v80;
+                v126 = 2114;
+                v127 = v64;
+                v128 = 2114;
+                v129 = v81;
                 v7 = 0x280D58000;
-                v133 = 2114;
-                v134 = v84;
+                v130 = 2114;
+                v131 = v84;
                 _os_log_error_impl(&dword_228986000, v79, OS_LOG_TYPE_ERROR, "[%{public}@] Dropping zero-duration segment created from data: %{public}@ with start date: %{public}@ and end date: %{public}@", buf, 0x2Au);
 
                 v9 = MEMORY[0x277CCC330];
@@ -711,9 +701,9 @@ LABEL_54:
                 v85 = MEMORY[0x277CCABB0];
                 [v64 segmentSWOLF];
                 v86 = [v85 numberWithDouble:?];
-                v125[0] = v110;
-                v126[0] = v86;
-                v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:1];
+                v122[0] = v107;
+                v123[0] = v86;
+                v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:1];
               }
 
               else
@@ -737,9 +727,9 @@ LABEL_54:
                 v93 = v92;
                 v94 = objc_opt_class();
                 *buf = 138543618;
-                v128 = v94;
-                v129 = 2114;
-                v130 = v89;
+                v125 = v94;
+                v126 = 2114;
+                v127 = v89;
                 v95 = v94;
                 _os_log_impl(&dword_228986000, v93, OS_LOG_TYPE_DEFAULT, "[%{public}@] Adding workout segment event: %{public}@", buf, 0x16u);
 
@@ -767,23 +757,23 @@ LABEL_51:
             v34 = [v16 sessionId];
             v35 = [v2 sessionId];
             *buf = 138543874;
-            v128 = v32;
-            v129 = 2112;
-            v130 = v34;
-            v131 = 2112;
-            v132 = v35;
+            v125 = v32;
+            v126 = 2112;
+            v127 = v34;
+            v128 = 2112;
+            v129 = v35;
             _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring swim data with mismatched session id. Swim data session id: %@ [self sessionID]: %@", buf, 0x20u);
           }
         }
 
-        v116 = [obj countByEnumeratingWithState:&v117 objects:v121 count:16];
+        v113 = [obj countByEnumeratingWithState:&v114 objects:v118 count:16];
       }
 
-      while (v116);
+      while (v113);
     }
 
-    v4 = v106;
-    v1 = v107;
+    v4 = v103;
+    v1 = v104;
     v6 = 0;
   }
 
@@ -792,16 +782,9 @@ LABEL_58:
   result = *(v1 + 56);
   if (result)
   {
-    v98 = *(v1 + 48) == 0;
-    v99 = *(result + 16);
-    v100 = *MEMORY[0x277D85DE8];
+    v98 = *(result + 16);
 
-    return v99();
-  }
-
-  else
-  {
-    v101 = *MEMORY[0x277D85DE8];
+    return v98();
   }
 
   return result;

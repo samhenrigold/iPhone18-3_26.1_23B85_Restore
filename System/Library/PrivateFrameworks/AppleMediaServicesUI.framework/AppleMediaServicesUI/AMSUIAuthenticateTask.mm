@@ -203,7 +203,7 @@
 
 - (void)authenticateTask:(id)task handleDialogRequest:(id)request completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v8 = MEMORY[0x1E698C968];
   completionCopy = completion;
@@ -219,13 +219,13 @@
     v12 = objc_opt_class();
     v13 = AMSLogKey();
     v14 = AMSHashIfNeeded();
-    v20 = 138543874;
-    v21 = v12;
-    v22 = 2114;
-    v23 = v13;
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling dialog request in UI Task. dialogRequest = %{public}@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v12;
+    v21 = 2114;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling dialog request in UI Task. dialogRequest = %{public}@", &v19, 0x20u);
   }
 
   v15 = [AMSUIAlertDialogTask alloc];
@@ -234,8 +234,6 @@
 
   present = [(AMSUIAlertDialogTask *)v17 present];
   [present addFinishBlock:completionCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createAuthKitUpdateTaskForAccount:(id)account

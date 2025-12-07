@@ -16,7 +16,7 @@
 - (NSSet)boardItems
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem);
+  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
 
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
@@ -26,14 +26,14 @@
 - (void)setBoardItems:(id)items
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem);
+  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   *(self + OBJC_IVAR____TtC8Freeform21CRLBoardItemSelection_boardItems) = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (_TtC8Freeform21CRLBoardItemSelection)initWithBoardItems:(id)items
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem);
+  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_100616DB8(v3);
 }
@@ -67,7 +67,7 @@
   sub_100616848(v3);
 
   type metadata accessor for UUID();
-  sub_100618384(&qword_1019FB870, 255, &type metadata accessor for UUID);
+  sub_100618384(&qword_1019FB870, 255, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4 = Array<A>.hashValue.getter();
 
   return v4;
@@ -90,24 +90,24 @@
 
 - (id)infosOfClass:(Class)class
 {
-  swift_getObjCClassMetadata();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
 
-  sub_100617D48(v3);
+  sub_100617D48(v4, ObjCClassMetadata);
   type metadata accessor for CRLBoardItem(0);
-  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem);
-  v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  sub_100618384(&qword_1019FCB80, 255, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
+  v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v4.super.isa;
+  return v5.super.isa;
 }
 
 - (BOOL)containsKindOfClass:(Class)class
 {
-  swift_getObjCClassMetadata();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
   selfCopy = self;
-  sub_1006177D8();
-  v6 = v5;
+  sub_1006177D8(ObjCClassMetadata);
+  LOBYTE(ObjCClassMetadata) = v6;
 
-  return v6 & 1;
+  return ObjCClassMetadata & 1;
 }
 
 - (NSString)description

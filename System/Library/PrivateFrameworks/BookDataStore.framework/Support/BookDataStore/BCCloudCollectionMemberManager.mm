@@ -12,6 +12,7 @@
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)fetchCollectionMembersInCollectionID:(id)d completion:(id)completion;
 - (void)fetchCollectionMembersInCollectionID:(id)d maximumResultCount:(unint64_t)count filter:(id)filter completion:(id)completion;
+- (void)fetchCollectionMembersIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)fetchMaxSortOrderInCollectionID:(id)d completion:(id)completion;
 - (void)getCollectionMemberChangesSince:(id)since completion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
@@ -354,18 +355,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v9 = sub_10000DB80();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000DB80(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (syncCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionMemberManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionMemberManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
@@ -446,7 +447,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C4000(v10);
@@ -504,6 +505,14 @@
   v12 = completionCopy;
   v10 = completionCopy;
   [dataManager cloudDataWithPredicate:dCopy sortDescriptors:0 completion:v11];
+}
+
+- (void)fetchCollectionMembersIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dataManager = [(BCCloudCollectionMemberManager *)self dataManager];
+  [dataManager fetchCloudDataIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)fetchCollectionMembersInCollectionID:(id)d completion:(id)completion

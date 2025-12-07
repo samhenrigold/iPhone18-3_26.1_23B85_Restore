@@ -44,30 +44,30 @@
 
 - (id)featureContributionsDuringInferenceDescriptionForContext:(id)context candidate:(id)candidate featurizationManager:(id)manager
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [(ATXCandidateRelevanceLogisticRegressionModel *)self featureContributionsDuringInferenceForContext:context candidate:candidate featurizationManager:manager];
   v6 = [v5 keysSortedByValueUsingComparator:&__block_literal_global_176];
   v7 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [v5 objectForKeyedSubscript:v13];
         [v14 floatValue];
         if (v15 >= 0.0)
@@ -76,78 +76,76 @@
         }
 
         [v14 floatValue];
-        [v7 appendFormat:@"%f for %@\n", v16, v13, v19];
+        [v7 appendFormat:@"%f for %@\n", v16, v13, v18];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)featureContributionsDuringInferenceForContext:(id)context candidate:(id)candidate featurizationManager:(id)manager
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   candidateCopy = candidate;
   managerCopy = manager;
-  v41 = objc_opt_new();
+  v40 = objc_opt_new();
   v11 = objc_alloc(MEMORY[0x277D41F20]);
-  v35 = candidateCopy;
-  v36 = contextCopy;
+  v34 = candidateCopy;
+  v35 = contextCopy;
   v12 = [managerCopy featuresForContext:contextCopy candidate:candidateCopy];
-  v42 = [v11 initWithNumbers:v12];
+  v41 = [v11 initWithNumbers:v12];
 
   weights = [(PMLLogisticRegressionModel *)self->_model weights];
   asMutableDenseVector = [weights asMutableDenseVector];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v34 = managerCopy;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v33 = managerCopy;
   obj = [managerCopy featurizers];
-  v39 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v38 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
   v15 = 0;
-  if (v39)
+  if (v38)
   {
-    v38 = *v48;
+    v37 = *v47;
     do
     {
       v16 = 0;
       do
       {
-        if (*v48 != v38)
+        if (*v47 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = v16;
-        featureValueNames = [*(*(&v47 + 1) + 8 * v16) featureValueNames];
+        v39 = v16;
+        featureValueNames = [*(*(&v46 + 1) + 8 * v16) featureValueNames];
+        v42 = 0u;
         v43 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
-        v18 = [featureValueNames countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v18 = [featureValueNames countByEnumeratingWithState:&v42 objects:v50 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v44;
+          v20 = *v43;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v44 != v20)
+              if (*v43 != v20)
               {
                 objc_enumerationMutation(featureValueNames);
               }
 
-              v22 = *(*(&v43 + 1) + 8 * i);
+              v22 = *(*(&v42 + 1) + 8 * i);
               v23 = MEMORY[0x277CCACA8];
               v24 = objc_opt_class();
               v25 = NSStringFromClass(v24);
@@ -155,42 +153,40 @@
 
               [asMutableDenseVector valueAt:v15];
               v28 = v27;
-              [v42 valueAt:v15];
+              [v41 valueAt:v15];
               if ((v28 * v29) != 0.0)
               {
                 v30 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-                [v41 setObject:v30 forKeyedSubscript:v26];
+                [v40 setObject:v30 forKeyedSubscript:v26];
               }
 
               ++v15;
             }
 
-            v19 = [featureValueNames countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v19 = [featureValueNames countByEnumeratingWithState:&v42 objects:v50 count:16];
           }
 
           while (v19);
         }
 
-        v16 = v40 + 1;
+        v16 = v39 + 1;
       }
 
-      while (v40 + 1 != v39);
-      v39 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      while (v39 + 1 != v38);
+      v38 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
   if (v15 < [asMutableDenseVector count])
   {
     [asMutableDenseVector valueAt:v15];
     v31 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    [v41 setObject:v31 forKeyedSubscript:@"Bias"];
+    [v40 setObject:v31 forKeyedSubscript:@"Bias"];
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 - (id)description
@@ -245,54 +241,54 @@
 
 - (id)featureImportancesForFeaturizationManager:(id)manager
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
   weights = [(PMLLogisticRegressionModel *)self->_model weights];
   asMutableDenseVector = [weights asMutableDenseVector];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v23 = managerCopy;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v22 = managerCopy;
   obj = [managerCopy featurizers];
-  v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   v7 = 0;
-  if (v26)
+  if (v25)
   {
-    v25 = *v34;
+    v24 = *v33;
     do
     {
       v8 = 0;
       do
       {
-        if (*v34 != v25)
+        if (*v33 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v8;
-        featureValueNames = [*(*(&v33 + 1) + 8 * v8) featureValueNames];
+        v26 = v8;
+        featureValueNames = [*(*(&v32 + 1) + 8 * v8) featureValueNames];
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
-        v10 = [featureValueNames countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v10 = [featureValueNames countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v30;
+          v12 = *v29;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v30 != v12)
+              if (*v29 != v12)
               {
                 objc_enumerationMutation(featureValueNames);
               }
 
-              v14 = *(*(&v29 + 1) + 8 * i);
+              v14 = *(*(&v28 + 1) + 8 * i);
               v15 = MEMORY[0x277CCACA8];
               v16 = objc_opt_class();
               v17 = NSStringFromClass(v16);
@@ -300,65 +296,63 @@
 
               [asMutableDenseVector valueAt:v7];
               v19 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-              [v28 setObject:v19 forKeyedSubscript:v18];
+              [v27 setObject:v19 forKeyedSubscript:v18];
 
               ++v7;
             }
 
-            v11 = [featureValueNames countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v11 = [featureValueNames countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v11);
         }
 
-        v8 = v27 + 1;
+        v8 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   if (v7 < [asMutableDenseVector count])
   {
     [asMutableDenseVector valueAt:v7];
     v20 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    [v28 setObject:v20 forKeyedSubscript:@"Bias"];
+    [v27 setObject:v20 forKeyedSubscript:@"Bias"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 - (id)featureImportanceDescriptionForFeaturizationManager:(id)manager
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(ATXCandidateRelevanceLogisticRegressionModel *)self featureImportancesForFeaturizationManager:manager];
   v4 = [v3 keysSortedByValueUsingComparator:&__block_literal_global_58];
   v5 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v3 objectForKeyedSubscript:v11];
         [v12 floatValue];
         if (v13 != 0.0)
@@ -370,17 +364,15 @@
           }
 
           [v12 floatValue];
-          [v5 appendFormat:@"%f * %@\n", v15, v11, v18];
+          [v5 appendFormat:@"%f * %@\n", v15, v11, v17];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -421,10 +413,9 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  model = self->_model;
   coderCopy = coder;
-  v5 = PMLBuildChunkFile();
-  [coderCopy encodeObject:v5 forKey:@"logisticRegressionModelData"];
+  v4 = PMLBuildChunkFile();
+  [coderCopy encodeObject:v4 forKey:@"logisticRegressionModelData"];
 }
 
 - (ATXCandidateRelevanceLogisticRegressionModel)initWithCoder:(id)coder
@@ -432,7 +423,7 @@
   v4 = MEMORY[0x277D42620];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_relevance_model();
+  v7 = __atxlog_handle_relevance_model(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"logisticRegressionModelData" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXCandidateRelevanceLogisticRegressionModel" errorCode:-1 logHandle:v7];
 
   if (v8)

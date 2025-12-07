@@ -2,12 +2,12 @@
 - (id)hmd_supportedFeatures;
 - (id)hmd_user;
 - (uint64_t)hmd_dataVersion;
-- (uint64_t)hmd_isForNonAdminSharedUser;
 - (uint64_t)hmd_isForRemoteGatewayCoder;
 - (uint64_t)hmd_isForRemoteTransport;
 - (uint64_t)hmd_isForRemoteTransportOnSameAccount;
 - (uint64_t)hmd_isForRemoteUserAdministrator;
-- (uint64_t)hmd_isForSharedUser;
+- (void)hmd_isForNonAdminSharedUser;
+- (void)hmd_isForSharedUser;
 @end
 
 @implementation NSCoder(RemoteTransport)
@@ -57,7 +57,7 @@
   return integerValue;
 }
 
-- (uint64_t)hmd_isForSharedUser
+- (void)hmd_isForSharedUser
 {
   result = [self hmd_isForRemoteTransport];
   if (result)
@@ -69,7 +69,7 @@
 
     else
     {
-      return [self hmd_isForRemoteGatewayCoder] ^ 1;
+      return ([self hmd_isForRemoteGatewayCoder] ^ 1);
     }
   }
 
@@ -92,7 +92,7 @@
   return v2;
 }
 
-- (uint64_t)hmd_isForNonAdminSharedUser
+- (void)hmd_isForNonAdminSharedUser
 {
   result = [self hmd_isForRemoteTransport];
   if (result)
@@ -104,7 +104,7 @@
 
     else
     {
-      return [self hmd_isForRemoteUserAdministrator] ^ 1;
+      return ([self hmd_isForRemoteUserAdministrator] ^ 1);
     }
   }
 

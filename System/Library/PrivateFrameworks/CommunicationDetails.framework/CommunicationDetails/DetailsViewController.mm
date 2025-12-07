@@ -82,9 +82,10 @@
   v11 = v8();
   if (v11)
   {
-    v12 = v11;
+    v13 = v11;
+    v14 = v12;
     v11(identityCopy);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed CNVisualIdentity) -> ())?(v12);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed CNVisualIdentity) -> ())?(v13, v14);
   }
 
   [pickerCopy dismissViewControllerAnimated:1 completion:0];

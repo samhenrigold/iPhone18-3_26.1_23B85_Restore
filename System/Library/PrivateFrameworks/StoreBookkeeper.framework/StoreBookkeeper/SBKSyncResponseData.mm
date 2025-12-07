@@ -14,51 +14,49 @@
   v6 = dictionaryCopy;
   if (dictionaryCopy)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke;
-    v22[3] = &unk_279D22998;
-    v7 = dictionaryCopy;
-    v23 = v7;
-    v8 = MEMORY[0x26D6917A0](v22);
-    (v8)[2](v8, self->_deletedKeys, @"peer-ops", @"deletes", &__block_literal_global_201);
-    updatedKeys = self->_updatedKeys;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_4;
-    v21[3] = &unk_279D229E0;
-    v21[4] = self;
-    (v8)[2](v8, updatedKeys, @"peer-ops", @"puts", v21);
-    (v8)[2](v8, self->_conflictedKeys, @"ops", @"rejected", &__block_literal_global_53);
-    successfullyUpdatedKeys = self->_successfullyUpdatedKeys;
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
-    v20[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_54;
-    v20[3] = &unk_279D229E0;
-    v20[4] = self;
-    (v8)[2](v8, successfullyUpdatedKeys, @"ops", @"put-ok", v20);
-    successfullyDeletedKeys = self->_successfullyDeletedKeys;
+    v20[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke;
+    v20[3] = &unk_279D22998;
+    v7 = dictionaryCopy;
+    v21 = v7;
+    v8 = MEMORY[0x26D6917A0](v20);
+    (v8)[2](v8, self->_deletedKeys, @"peer-ops", @"deletes", &__block_literal_global_201);
+    updatedKeys = self->_updatedKeys;
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_2_55;
+    v19[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_4;
     v19[3] = &unk_279D229E0;
     v19[4] = self;
-    (v8)[2](v8, successfullyDeletedKeys, @"ops", @"deleted-ok", v19);
+    (v8)[2](v8, updatedKeys, @"peer-ops", @"puts", v19);
+    (v8)[2](v8, self->_conflictedKeys, @"ops", @"rejected", &__block_literal_global_53);
+    successfullyUpdatedKeys = self->_successfullyUpdatedKeys;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_54;
+    v18[3] = &unk_279D229E0;
+    v18[4] = self;
+    (v8)[2](v8, successfullyUpdatedKeys, @"ops", @"put-ok", v18);
+    successfullyDeletedKeys = self->_successfullyDeletedKeys;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_2_55;
+    v17[3] = &unk_279D229E0;
+    v17[4] = self;
+    (v8)[2](v8, successfullyDeletedKeys, @"ops", @"deleted-ok", v17);
     v12 = [v7 valueForKey:@"version"];
     syncAnchor = self->_syncAnchor;
     self->_syncAnchor = v12;
 
-    v14 = self->_syncAnchor;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
+      v14 = objc_opt_respondsToSelector();
       v15 = self->_syncAnchor;
-      v16 = objc_opt_respondsToSelector();
-      v17 = self->_syncAnchor;
-      if (v16)
+      if (v14)
       {
-        stringValue = [(NSString *)v17 stringValue];
-        v17 = self->_syncAnchor;
+        stringValue = [(NSString *)v15 stringValue];
+        v15 = self->_syncAnchor;
       }
 
       else
@@ -73,100 +71,98 @@
 
 void __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v44[1] = *MEMORY[0x277D85DE8];
-  v31 = a2;
+  v43[1] = *MEMORY[0x277D85DE8];
+  v30 = a2;
   v9 = a3;
-  v28 = a4;
+  v27 = a4;
   v10 = a5;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_2;
-  v40[3] = &unk_279D22970;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_2;
+  v39[3] = &unk_279D22970;
   v11 = v10;
-  v41 = v11;
-  v12 = MEMORY[0x26D6917A0](v40);
+  v40 = v11;
+  v12 = MEMORY[0x26D6917A0](v39);
   v13 = [*(a1 + 32) objectForKey:v9];
   objc_opt_class();
-  v24 = v11;
-  v25 = v9;
+  v23 = v11;
+  v24 = v9;
   if (objc_opt_isKindOfClass())
   {
-    v44[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:{1, v11, v9}];
+    v43[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:{1, v11, v9}];
 
     v13 = v14;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v13;
-  v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+  if (v28)
   {
-    v27 = *v37;
+    v26 = *v36;
     do
     {
       v15 = 0;
       do
       {
-        if (*v37 != v27)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v15;
-        v16 = [*(*(&v36 + 1) + 8 * v15) objectForKey:{v28, v24}];
+        v29 = v15;
+        v16 = [*(*(&v35 + 1) + 8 * v15) objectForKey:{v27, v23}];
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v17 = [v16 countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v31 objects:v41 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v33;
+          v19 = *v32;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v33 != v19)
+              if (*v32 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v32 + 1) + 8 * i);
+              v21 = *(*(&v31 + 1) + 8 * i);
               v22 = [v21 objectForKey:@"key"];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && [v22 length] && (v12)[2](v12, v21, v22))
               {
-                [v31 addObject:v22];
+                [v30 addObject:v22];
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v32 objects:v42 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v31 objects:v41 count:16];
           }
 
           while (v18);
         }
 
-        v15 = v30 + 1;
+        v15 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__SBKSyncResponseData__deserializeResponseDictionary_response___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v4 objectForKey:@"reason"];
@@ -177,16 +173,15 @@ uint64_t __63__SBKSyncResponseData__deserializeResponseDictionary_response___blo
     v8 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "ERROR: server rejected %@ because the payload was too big.", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "ERROR: server rejected %@ because the payload was too big.", &v12, 0xCu);
     }
   }
 
   v9 = [v4 objectForKey:@"reason"];
   v10 = [v9 isEqual:@"conflicted"];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

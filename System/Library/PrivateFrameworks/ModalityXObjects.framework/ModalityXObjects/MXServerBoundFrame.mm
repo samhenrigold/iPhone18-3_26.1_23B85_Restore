@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)payloadAsString:(int)string;
 - (int)StringAsPayload:(id)payload;
 - (int)payload;
 - (unint64_t)hash;
@@ -135,6 +136,21 @@
   {
     return 0;
   }
+}
+
+- (id)payloadAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BDB8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPayload:(id)payload
@@ -539,7 +555,6 @@
     goto LABEL_27;
   }
 
-  v5 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_payload != *(equalCopy + 10))
@@ -551,7 +566,7 @@
   else if (*(equalCopy + 96))
   {
 LABEL_27:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_28;
   }
 
@@ -636,17 +651,17 @@ LABEL_27:
   streamingSpeechProfileCommit = self->_streamingSpeechProfileCommit;
   if (streamingSpeechProfileCommit | *(equalCopy + 9))
   {
-    v16 = [(MXStreamingSpeechProfileCommit *)streamingSpeechProfileCommit isEqual:?];
+    v15 = [(MXStreamingSpeechProfileCommit *)streamingSpeechProfileCommit isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
 LABEL_28:
 
-  return v16;
+  return v15;
 }
 
 - (unint64_t)hash

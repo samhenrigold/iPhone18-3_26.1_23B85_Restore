@@ -3,6 +3,7 @@
 + (void)setGPURoleWithKernel:(unsigned __int8)kernel forPid:(int)pid;
 - (RBXNUWrapper)init;
 - (int64_t)_setBallastOffset:(unint64_t)offset;
+- (void)setGPURole:(unsigned __int8)role forPid:(int)pid;
 - (void)setGPURoleWithGPUDevice:(unsigned __int8)device forPid:(int)pid;
 @end
 
@@ -29,10 +30,10 @@ uint64_t __29__RBXNUWrapper_sharedWrapper__block_invoke()
 
 - (RBXNUWrapper)init
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = RBXNUWrapper;
-  v2 = [(RBXNUWrapper *)&v21 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = RBXNUWrapper;
+  v2 = [(RBXNUWrapper *)&v20 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D73668] clientWithIdentifier:227];
@@ -45,7 +46,7 @@ uint64_t __29__RBXNUWrapper_sharedWrapper__block_invoke()
     {
       longValue = [v5 longValue];
       *buf = 134217984;
-      v23 = longValue;
+      v22 = longValue;
       _os_log_impl(&dword_262485000, v6, OS_LOG_TYPE_DEFAULT, "Setting ballast offset to %lld", buf, 0xCu);
     }
 
@@ -60,12 +61,12 @@ uint64_t __29__RBXNUWrapper_sharedWrapper__block_invoke()
 
     objc_initWeak(buf, v2);
     v9 = v2->_trialClient;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __20__RBXNUWrapper_init__block_invoke;
-    v19[3] = &unk_279B33E88;
-    objc_copyWeak(&v20, buf);
-    v10 = [(TRIClient *)v9 addUpdateHandlerForNamespaceName:@"COREOS_GMPOWER_VM_TUNING_PAGE_SHORTAGE_THRESHOLDS" usingBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __20__RBXNUWrapper_init__block_invoke;
+    v18[3] = &unk_279B33E88;
+    objc_copyWeak(&v19, buf);
+    v10 = [(TRIClient *)v9 addUpdateHandlerForNamespaceName:@"COREOS_GMPOWER_VM_TUNING_PAGE_SHORTAGE_THRESHOLDS" usingBlock:v18];
     if ([v5 longValue])
     {
       [(RBXNUWrapper *)v2 setBallastDrained:1];
@@ -101,10 +102,10 @@ uint64_t __29__RBXNUWrapper_sharedWrapper__block_invoke()
       v13 = rbs_general_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
+        *v17 = 0;
         v14 = "_gpuDevice initialized";
 LABEL_18:
-        _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_DEFAULT, v14, v18, 2u);
+        _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_DEFAULT, v14, v17, 2u);
       }
     }
 
@@ -113,7 +114,7 @@ LABEL_18:
       v13 = rbs_general_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
+        *v17 = 0;
         v14 = "IOGPU not present";
         goto LABEL_18;
       }
@@ -122,26 +123,25 @@ LABEL_18:
 LABEL_23:
 
     v15 = v2;
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __20__RBXNUWrapper_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained[3] refresh];
   v2 = [WeakRetained[3] levelForFactor:@"BallastOffset" withNamespaceName:@"COREOS_GMPOWER_VM_TUNING_PAGE_SHORTAGE_THRESHOLDS"];
   v3 = rbs_process_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = [v2 longValue];
-    _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Trial Update Received: Setting ballast offset to %lld", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v2 longValue];
+    _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Trial Update Received: Setting ballast offset to %lld", &v5, 0xCu);
   }
 
   if ([WeakRetained _setBallastOffset:{objc_msgSend(v2, "longValue")}] < 0)
@@ -152,13 +152,11 @@ void __20__RBXNUWrapper_init__block_invoke(uint64_t a1)
       [RBXNUWrapper init];
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setGPURoleWithKernel:(unsigned __int8)kernel forPid:(int)pid
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = 0x706030202uLL >> (8 * kernel);
   if (kernel >= 5u)
   {
@@ -166,59 +164,53 @@ void __20__RBXNUWrapper_init__block_invoke(uint64_t a1)
   }
 
   v6 = v5 & 7;
-  if (!setpriority(5, pid, v6))
+  if (setpriority(5, pid, v6))
   {
-    v7 = rbs_process_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (*__error() == 3)
     {
-      v8 = NSStringFromDarwinGPURole(v6);
-      v12 = 67109634;
-      pidCopy2 = pid;
-      v14 = 2114;
-      v15 = v8;
-      v16 = 1024;
-      v17 = v6;
-      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "%d Set Darwin GPU to %{public}@s (%d)", &v12, 0x18u);
-      goto LABEL_9;
+      return;
     }
 
-LABEL_10:
-
-    goto LABEL_11;
-  }
-
-  if (*__error() != 3)
-  {
     v7 = rbs_process_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = NSStringFromDarwinGPURole(v6);
       v9 = __error();
       v10 = strerror(*v9);
-      v12 = 67109890;
+      v11 = 67109890;
       pidCopy2 = pid;
-      v14 = 2114;
-      v15 = v8;
-      v16 = 1024;
-      v17 = v6;
-      v18 = 2080;
-      v19 = v10;
-      _os_log_error_impl(&dword_262485000, v7, OS_LOG_TYPE_ERROR, "%d Error setting Darwin GPU to %{public}@s (%d): %s", &v12, 0x22u);
+      v13 = 2114;
+      v14 = v8;
+      v15 = 1024;
+      v16 = v6;
+      v17 = 2080;
+      v18 = v10;
+      _os_log_error_impl(&dword_262485000, v7, OS_LOG_TYPE_ERROR, "%d Error setting Darwin GPU to %{public}@s (%d): %s", &v11, 0x22u);
 LABEL_9:
-
-      goto LABEL_10;
     }
-
-    goto LABEL_10;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v7 = rbs_process_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = NSStringFromDarwinGPURole(v6);
+      v11 = 67109634;
+      pidCopy2 = pid;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 1024;
+      v16 = v6;
+      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "%d Set Darwin GPU to %{public}@s (%d)", &v11, 0x18u);
+      goto LABEL_9;
+    }
+  }
 }
 
 - (void)setGPURoleWithGPUDevice:(unsigned __int8)device forPid:(int)pid
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x28221DB78])
   {
     if (self->_gpuDevice)
@@ -249,10 +241,10 @@ LABEL_11:
         v9 = rbs_process_log();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v15 = 67109376;
+          v14 = 67109376;
           pidCopy2 = pid;
-          v17 = 1024;
-          v18 = v6;
+          v16 = 1024;
+          v17 = v6;
           v10 = "%d setGPURole role to %d (no effect for this process)";
           goto LABEL_19;
         }
@@ -275,10 +267,10 @@ LABEL_11:
           v9 = rbs_process_log();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            v15 = 67109376;
+            v14 = 67109376;
             pidCopy2 = pid;
-            v17 = 1024;
-            v18 = v6;
+            v16 = 1024;
+            v17 = v6;
             v10 = "%d setGPURole role to %d";
 LABEL_19:
             v11 = v9;
@@ -305,17 +297,24 @@ LABEL_19:
     v9 = rbs_general_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v14) = 0;
       v10 = "Setting GPU Role not avaible on this mastering";
       v11 = v9;
       v12 = OS_LOG_TYPE_DEFAULT;
       v13 = 2;
 LABEL_20:
-      _os_log_impl(&dword_262485000, v11, v12, v10, &v15, v13);
+      _os_log_impl(&dword_262485000, v11, v12, v10, &v14, v13);
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)setGPURole:(unsigned __int8)role forPid:(int)pid
+{
+  v4 = *&pid;
+  roleCopy = role;
+  [RBXNUWrapper setGPURoleWithKernel:"setGPURoleWithKernel:forPid:" forPid:?];
+
+  [(RBXNUWrapper *)self setGPURoleWithGPUDevice:roleCopy forPid:v4];
 }
 
 - (int64_t)_setBallastOffset:(unint64_t)offset
@@ -327,13 +326,12 @@ LABEL_20:
 
 - (void)setGPURoleWithGPUDevice:(os_log_t)log forPid:.cold.1(int a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2;
-  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "%d setGPURole failed with result = %x", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2;
+  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "%d setGPURole failed with result = %x", v3, 0xEu);
 }
 
 @end

@@ -72,4 +72,10 @@
   [(_SKUIVideoPreviewNotificationObserver *)&v9 dealloc];
 }
 
+- (void)initWithObservers:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_SKUIVideoPreviewNotificationObserver initWithObservers:]";
+}
+
 @end

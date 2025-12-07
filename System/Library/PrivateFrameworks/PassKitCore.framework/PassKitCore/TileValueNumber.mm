@@ -20,7 +20,7 @@
   currencyCode = [valueCopy currencyCode];
   if (content)
   {
-    [content decimalValue];
+    objc_msgSend_decimalValue(content);
   }
 
   else

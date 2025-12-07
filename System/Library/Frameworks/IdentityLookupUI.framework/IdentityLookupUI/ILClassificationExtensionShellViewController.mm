@@ -1,6 +1,7 @@
 @interface ILClassificationExtensionShellViewController
 - (ILClassificationExtensionShellViewControllerDelegate)delegate;
 - (void)displayExtensionViewController:(id)controller forExtension:(id)extension;
+- (void)setEnableFinishOption:(BOOL)option;
 - (void)userDidCancel;
 - (void)userDidFinish;
 - (void)viewDidLoad;
@@ -26,6 +27,13 @@
 
   navigationItem2 = [(ILClassificationExtensionShellViewController *)self navigationItem];
   [navigationItem2 setLeftBarButtonItem:v5];
+}
+
+- (void)setEnableFinishOption:(BOOL)option
+{
+  optionCopy = option;
+  doneButton = [(ILClassificationExtensionShellViewController *)self doneButton];
+  [doneButton setEnabled:optionCopy];
 }
 
 - (void)displayExtensionViewController:(id)controller forExtension:(id)extension

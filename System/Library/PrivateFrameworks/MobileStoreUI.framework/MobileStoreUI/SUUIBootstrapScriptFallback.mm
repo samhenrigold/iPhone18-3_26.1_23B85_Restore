@@ -128,7 +128,7 @@
   return v5;
 }
 
-uint64_t __36__SUUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
+void *__36__SUUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _unsynchronizedState];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -170,7 +170,7 @@ uint64_t __36__SUUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
 
   v6 = errorCopy;
   domain = [v6 domain];
-  if ([domain isEqualToString:*MEMORY[0x277CCA738]])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     code = [v6 code];
 
@@ -192,7 +192,7 @@ LABEL_11:
   integerValue = [v11 integerValue];
 
   domain2 = [v9 domain];
-  if (([domain2 isEqualToString:*MEMORY[0x277D6A110]] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(domain2) & 1) == 0)
   {
 
 LABEL_13:
@@ -349,66 +349,65 @@ void __47__SUUIBootstrapScriptFallback_scriptEvaluated___block_invoke(uint64_t a
 
 void __41__SUUIBootstrapScriptFallback_invalidate__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) cacheFolder];
-  v29 = 0;
-  v4 = [v2 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:0 options:1 error:&v29];
-  v5 = v29;
+  v28 = 0;
+  v4 = [v2 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:0 options:1 error:&v28];
+  v5 = v28;
 
   if (v4)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v21 = a1;
-      v22 = v4;
-      v23 = v5;
+      v20 = a1;
+      v21 = v4;
+      v22 = v5;
       v9 = 0;
-      v10 = *v26;
-      v11 = *MEMORY[0x277CCA050];
+      v10 = *v25;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          v13 = v9;
-          if (*v26 != v10)
+          v12 = v9;
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
-          v24 = v9;
-          v15 = [v2 removeItemAtURL:v14 error:{&v24, v21}];
-          v9 = v24;
+          v13 = *(*(&v24 + 1) + 8 * i);
+          v23 = v9;
+          v14 = [v2 removeItemAtURL:v13 error:{&v23, v20}];
+          v9 = v23;
 
-          if ((v15 & 1) == 0)
+          if ((v14 & 1) == 0)
           {
-            v16 = v9;
-            v17 = [v16 domain];
-            if (([v17 isEqualToString:v11] & 1) == 0)
+            v15 = v9;
+            v16 = [v15 domain];
+            if ((objc_msgSend_isEqualToString_(v16) & 1) == 0)
             {
 
 LABEL_19:
-              [*(v21 + 32) _logError:v16 forOperation:@"invalidating cached JS files"];
+              [*(v20 + 32) _logError:v15 forOperation:@"invalidating cached JS files"];
               goto LABEL_20;
             }
 
-            if ([v16 code] == 4)
+            if ([v15 code] == 4)
             {
             }
 
             else
             {
-              v18 = [v16 code];
+              v17 = [v15 code];
 
-              if (v18 != 260)
+              if (v17 != 260)
               {
                 goto LABEL_19;
               }
@@ -416,7 +415,7 @@ LABEL_19:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v8)
         {
           continue;
@@ -427,16 +426,16 @@ LABEL_19:
 
 LABEL_20:
 
-      v4 = v22;
-      v5 = v23;
+      v4 = v21;
+      v5 = v22;
     }
 
     goto LABEL_21;
   }
 
   v6 = v5;
-  v19 = [v6 domain];
-  if (([v19 isEqualToString:*MEMORY[0x277CCA050]] & 1) == 0)
+  v18 = [v6 domain];
+  if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
   {
 
 LABEL_23:
@@ -446,9 +445,9 @@ LABEL_23:
 
   if ([v6 code] != 4)
   {
-    v20 = [v6 code];
+    v19 = [v6 code];
 
-    if (v20 == 260)
+    if (v19 == 260)
     {
       goto LABEL_24;
     }
@@ -534,41 +533,46 @@ void __62__SUUIBootstrapScriptFallback__createCacheDirectoriesIfNeeded__block_in
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v11 = objc_opt_class();
-  NSStringFromClass(v11);
-  v15 = v14 = 138412802;
+  v12 = NSStringFromClass(v11);
+  v14 = 138412802;
+  v15 = v12;
   v16 = 2112;
   v17 = operationCopy;
   v18 = 2112;
   v19 = errorCopy;
-  LODWORD(v13) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_259CB8000, oSLogObject, 0, "%@: %@ failed, reason: %@", &v14, 32);
 
-  if (v12)
+  if (v13)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v14, v13}];
-    free(v12);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
+    free(v13);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 }
 

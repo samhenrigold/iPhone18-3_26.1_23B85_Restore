@@ -3,7 +3,9 @@
 - (UIActivityIndicatorView)activityIndicatorView;
 - (UIBarButtonItem)spinnerItem;
 - (void)_cancel;
+- (void)_setNavigationBarEnabled:(BOOL)enabled;
 - (void)handleErrorWithTitle:(id)title message:(id)message acknowledgeButtonTitle:(id)buttonTitle;
+- (void)showNavigationBarSpinner:(BOOL)spinner;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
@@ -119,6 +121,61 @@
   [(UILabel *)self->_instructionLabel setFrame:?];
 }
 
+- (void)showNavigationBarSpinner:(BOOL)spinner
+{
+  spinnerCopy = spinner;
+  if ([(NPKBridgeInstructionViewController *)self showingSpinner]!= spinner)
+  {
+    [(NPKBridgeInstructionViewController *)self setShowingSpinner:spinnerCopy];
+    showingSpinner = [(NPKBridgeInstructionViewController *)self showingSpinner];
+    navigationController = [(NPKBridgeInstructionViewController *)self navigationController];
+    view = [navigationController view];
+    v8 = view;
+    if (view)
+    {
+      view2 = view;
+    }
+
+    else
+    {
+      view2 = [(NPKBridgeInstructionViewController *)self view];
+    }
+
+    v17 = view2;
+
+    [(NPKBridgeInstructionViewController *)self _setNavigationBarEnabled:showingSpinner ^ 1];
+    navigationItem = [(NPKBridgeInstructionViewController *)self navigationItem];
+    if ([(NPKBridgeInstructionViewController *)self showingSpinner])
+    {
+      rightBarButtonItem = [navigationItem rightBarButtonItem];
+      [(NPKBridgeInstructionViewController *)self setHiddenRightBarButtonItem:rightBarButtonItem];
+
+      -[NPKBridgeInstructionViewController setHidesBackButton:](self, "setHidesBackButton:", [navigationItem hidesBackButton]);
+      activityIndicatorView = [(NPKBridgeInstructionViewController *)self activityIndicatorView];
+      [activityIndicatorView startAnimating];
+
+      spinnerItem = [(NPKBridgeInstructionViewController *)self spinnerItem];
+      [navigationItem setRightBarButtonItem:spinnerItem];
+
+      hidesBackButton = 1;
+    }
+
+    else
+    {
+      activityIndicatorView2 = [(NPKBridgeInstructionViewController *)self activityIndicatorView];
+      [activityIndicatorView2 stopAnimating];
+
+      hiddenRightBarButtonItem = [(NPKBridgeInstructionViewController *)self hiddenRightBarButtonItem];
+      [navigationItem setRightBarButtonItem:hiddenRightBarButtonItem];
+
+      hidesBackButton = [(NPKBridgeInstructionViewController *)self hidesBackButton];
+    }
+
+    [navigationItem setHidesBackButton:hidesBackButton];
+    [v17 setNeedsLayout];
+  }
+}
+
 - (void)handleErrorWithTitle:(id)title message:(id)message acknowledgeButtonTitle:(id)buttonTitle
 {
   buttonTitleCopy = buttonTitle;
@@ -143,6 +200,31 @@
   {
     (*(cancellationHandler + 16))(cancellationHandler);
     v3 = cancellationHandler;
+  }
+}
+
+- (void)_setNavigationBarEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  navigationController = [(NPKBridgeInstructionViewController *)self navigationController];
+  if (navigationController)
+  {
+    navigationBar = [navigationController navigationBar];
+    [navigationBar setUserInteractionEnabled:enabledCopy];
+
+    interactivePopGestureRecognizer = [navigationController interactivePopGestureRecognizer];
+    [interactivePopGestureRecognizer setEnabled:enabledCopy];
+  }
+
+  navigationItem = [(NPKBridgeInstructionViewController *)self navigationItem];
+  v8 = navigationItem;
+  if (navigationItem)
+  {
+    leftBarButtonItem = [navigationItem leftBarButtonItem];
+    [leftBarButtonItem setEnabled:enabledCopy];
+
+    rightBarButtonItem = [v8 rightBarButtonItem];
+    [rightBarButtonItem setEnabled:enabledCopy];
   }
 }
 

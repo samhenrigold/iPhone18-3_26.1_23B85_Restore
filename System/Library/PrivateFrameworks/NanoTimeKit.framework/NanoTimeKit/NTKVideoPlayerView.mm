@@ -822,11 +822,11 @@ uint64_t __40__NTKVideoPlayerView__fadeToPosterImage__block_invoke(uint64_t a1)
   return [v2 setAlpha:1.0];
 }
 
-uint64_t __40__NTKVideoPlayerView__fadeToPosterImage__block_invoke_2(uint64_t result, int a2)
+id *__40__NTKVideoPlayerView__fadeToPosterImage__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _rewindLoadedVideoToBeginning];
+    return [result[4] _rewindLoadedVideoToBeginning];
   }
 
   return result;
@@ -973,11 +973,11 @@ uint64_t __41__NTKVideoPlayerView__fadeToCurtainView___block_invoke_2(uint64_t r
   }
 }
 
-uint64_t __51__NTKVideoPlayerView__fadeFromCurtainViewIfVisible__block_invoke_2(uint64_t result, int a2)
+id *__51__NTKVideoPlayerView__fadeFromCurtainViewIfVisible__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _hideCurtainView];
+    return [result[4] _hideCurtainView];
   }
 
   return result;

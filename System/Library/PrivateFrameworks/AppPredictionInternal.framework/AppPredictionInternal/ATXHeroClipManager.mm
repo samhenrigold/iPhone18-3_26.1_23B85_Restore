@@ -8,6 +8,7 @@
 - (ATXHeroClipManager)initWithFeedback:(id)feedback tracker:(id)tracker;
 - (id)_populateMetadataInHeroAppPrediction:(id)prediction;
 - (void)donateAppClipsWithHeroAppPredictions:(id)predictions;
+- (void)logSuppressionMetricWithHeroAppPrediction:(id)prediction suppresionType:(int)type;
 @end
 
 @implementation ATXHeroClipManager
@@ -77,13 +78,14 @@
 {
   v59 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  if (([objc_opt_class() clipsSupported] & 1) == 0)
+  clipsSupported = [objc_opt_class() clipsSupported];
+  if ((clipsSupported & 1) == 0)
   {
-    v5 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_hero(clipsSupported);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Clearing App Clips Suggestions, since ClipServices are not supported on this device.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Clearing App Clips Suggestions, since ClipServices are not supported on this device.", buf, 2u);
     }
 
     predictionsCopy = MEMORY[0x277CBEBF8];
@@ -95,7 +97,6 @@
     predictionsCopy = MEMORY[0x277CBEBF8];
   }
 
-  v6 = 0x277CBE000uLL;
   v7 = objc_opt_new();
   v50 = 0u;
   v51 = 0u;
@@ -140,123 +141,134 @@
     mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
     getCurrentPreciseLocation = [mEMORY[0x277D41BF8] getCurrentPreciseLocation];
 
-    v17 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = __atxlog_handle_hero(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       [v14 timeIntervalSinceNow];
       *buf = 134217984;
-      v57 = -v18;
-      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", buf, 0xCu);
+      v57 = -v19;
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", buf, 0xCu);
     }
 
     if (getCurrentPreciseLocation)
     {
-      v19 = [v7 copy];
-      v20 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:v7 currentLocation:getCurrentPreciseLocation];
-      v21 = [v20 mutableCopy];
+      v21 = [v7 copy];
+      v22 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:v7 currentLocation:getCurrentPreciseLocation];
+      v23 = [v22 mutableCopy];
 
       v48 = 0u;
       v49 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v7 = v19;
-      v22 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
-      if (v22)
+      v7 = v21;
+      v24 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      if (v24)
       {
-        v23 = v22;
-        v24 = *v47;
+        v25 = v24;
+        v26 = *v47;
         do
         {
-          for (j = 0; j != v23; ++j)
+          for (j = 0; j != v25; ++j)
           {
-            if (*v47 != v24)
+            if (*v47 != v26)
             {
               objc_enumerationMutation(v7);
             }
 
-            v26 = *(*(&v46 + 1) + 8 * j);
-            if (([v21 containsObject:v26] & 1) == 0)
+            v28 = *(*(&v46 + 1) + 8 * j);
+            if (([v23 containsObject:v28] & 1) == 0)
             {
-              [(ATXHeroClipManager *)self logSuppressionMetricWithHeroAppPrediction:v26 suppresionType:0];
+              [(ATXHeroClipManager *)self logSuppressionMetricWithHeroAppPrediction:v28 suppresionType:0];
             }
           }
 
-          v23 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
+          v25 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
         }
 
-        while (v23);
+        while (v25);
       }
-
-      v6 = 0x277CBE000;
     }
 
     else
     {
-      v27 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v29 = __atxlog_handle_hero(v20);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [ATXHeroClipManager donateAppClipsWithHeroAppPredictions:];
       }
 
-      v21 = objc_opt_new();
+      v23 = objc_opt_new();
     }
 
-    v28 = [objc_opt_class() addPredictionLocationToHeroAppPredictions:v21 location:getCurrentPreciseLocation];
-    v7 = [v28 mutableCopy];
+    v30 = [objc_opt_class() addPredictionLocationToHeroAppPredictions:v23 location:getCurrentPreciseLocation];
+    v7 = [v30 mutableCopy];
   }
 
-  v29 = *(v6 + 2840);
-  v30 = objc_opt_new();
+  v31 = objc_opt_new();
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v31 = v7;
-  v32 = [v31 countByEnumeratingWithState:&v42 objects:v54 count:16];
-  if (v32)
+  v32 = v7;
+  v33 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  if (v33)
   {
-    v33 = v32;
-    v34 = *v43;
+    v34 = v33;
+    v35 = *v43;
     do
     {
-      for (k = 0; k != v33; ++k)
+      for (k = 0; k != v34; ++k)
       {
-        if (*v43 != v34)
+        if (*v43 != v35)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v32);
         }
 
-        v36 = *(*(&v42 + 1) + 8 * k);
-        v37 = [(ATXHeroClipManager *)self _populateMetadataInHeroAppPrediction:v36, v42];
-        if (v37)
+        v37 = *(*(&v42 + 1) + 8 * k);
+        v38 = [(ATXHeroClipManager *)self _populateMetadataInHeroAppPrediction:v37, v42];
+        if (v38)
         {
-          [v30 addObject:v37];
+          [v31 addObject:v38];
         }
 
         else
         {
-          [(ATXHeroClipManager *)self logSuppressionMetricWithHeroAppPrediction:v36 suppresionType:2];
+          [(ATXHeroClipManager *)self logSuppressionMetricWithHeroAppPrediction:v37 suppresionType:2];
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
     }
 
-    while (v33);
+    while (v34);
   }
 
-  v38 = [objc_opt_class() sortPredictionsOnFeedback:v30];
-  v39 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v39 = [objc_opt_class() sortPredictionsOnFeedback:v31];
+  v40 = __atxlog_handle_hero(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = [v38 description];
+    v41 = [v39 description];
     *buf = 138412290;
-    v57 = *&v40;
-    _os_log_impl(&dword_2263AA000, v39, OS_LOG_TYPE_DEFAULT, "Sending app clips predictions to blending layer. Predictions: %@", buf, 0xCu);
+    v57 = *&v41;
+    _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "Sending app clips predictions to blending layer. Predictions: %@", buf, 0xCu);
   }
 
-  [ATXAppClipsBlendingUpdater updateBlendingLayerWithHeroAppPredictions:v38];
-  v41 = *MEMORY[0x277D85DE8];
+  [ATXAppClipsBlendingUpdater updateBlendingLayerWithHeroAppPredictions:v39];
+}
+
+- (void)logSuppressionMetricWithHeroAppPrediction:(id)prediction suppresionType:(int)type
+{
+  v4 = *&type;
+  predictionCopy = prediction;
+  v9 = objc_opt_new();
+  bundleId = [predictionCopy bundleId];
+  [v9 setBundleId:bundleId];
+
+  urlHash = [predictionCopy urlHash];
+
+  [v9 setUrlHash:urlHash];
+  [v9 setSuppressionType:v4];
+  [(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v9];
 }
 
 - (id)_populateMetadataInHeroAppPrediction:(id)prediction
@@ -268,90 +280,91 @@
 
   if (urlHash)
   {
-    v6 = objc_alloc(MEMORY[0x277CFA6A8]);
+    v7 = objc_alloc(MEMORY[0x277CFA6A8]);
     urlHash2 = [predictionCopy urlHash];
-    v8 = [v6 initWithURLHash:urlHash2];
+    v9 = [v7 initWithURLHash:urlHash2];
 
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__79;
+    v38 = __Block_byref_object_dispose__79;
+    v39 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__79;
+    v32 = __Block_byref_object_dispose__79;
     v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__79;
-    v37 = __Block_byref_object_dispose__79;
-    v38 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
     v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__79;
-    v31 = __Block_byref_object_dispose__79;
-    v32 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
-    v9 = dispatch_semaphore_create(0);
+    v10 = dispatch_semaphore_create(0);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke;
+    v18[3] = &unk_27859F728;
+    v21 = &v24;
+    v11 = v10;
+    v19 = v11;
+    v22 = &v34;
+    v12 = v9;
+    v20 = v12;
+    v23 = &v28;
+    [v12 requestMetadataWithCompletion:v18];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke;
-    v17[3] = &unk_27859F728;
-    v20 = &v23;
-    v10 = v9;
-    v18 = v10;
-    v21 = &v33;
-    v11 = v8;
-    v19 = v11;
-    v22 = &v27;
-    [v11 requestMetadataWithCompletion:v17];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_2;
-    v16[3] = &unk_2785967D8;
-    v16[4] = &v23;
-    [MEMORY[0x277D425A0] waitForSemaphore:v10 timeoutSeconds:&__block_literal_global_178 onAcquire:v16 onTimeout:30.0];
-    if (v24[3])
+    v17[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_2;
+    v17[3] = &unk_2785967D8;
+    v17[4] = &v24;
+    [MEMORY[0x277D425A0] waitForSemaphore:v11 timeoutSeconds:&__block_literal_global_178 onAcquire:v17 onTimeout:30.0];
+    if (v25[3])
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      clipBundleID = [v34[5] clipBundleID];
+      clipBundleID = [v35[5] clipBundleID];
       [predictionCopy setBundleId:clipBundleID];
 
-      [predictionCopy setClipMetadata:v34[5]];
-      path = [v28[5] path];
-      [v34[5] setFullAppCachedIconFilePath:path];
+      [predictionCopy setClipMetadata:v35[5]];
+      path = [v29[5] path];
+      [v35[5] setFullAppCachedIconFilePath:path];
 
-      v12 = predictionCopy;
+      v13 = predictionCopy;
     }
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v28, 8);
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
   {
-    v11 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_hero(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXHeroClipManager _populateMetadataInHeroAppPrediction:];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_hero(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_cold_1();
     }
@@ -362,23 +375,23 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
   else if (v6)
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
-    v9 = *(*(*(a1 + 56) + 8) + 40);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_34;
-    v13[3] = &unk_27859F700;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 64);
-    v15 = *(a1 + 48);
-    v16 = v11;
-    v14 = *(a1 + 32);
-    [v10 requestDownloadedIconWithMetadata:v9 completion:v13];
+    v10 = *(*(*(a1 + 56) + 8) + 40);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_34;
+    v14[3] = &unk_27859F700;
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 64);
+    v16 = *(a1 + 48);
+    v17 = v12;
+    v15 = *(a1 + 32);
+    [v11 requestDownloadedIconWithMetadata:v10 completion:v14];
   }
 
   else
   {
-    v12 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_hero(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_cold_2();
     }
@@ -390,18 +403,18 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
 
 void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_34(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v5 = __atxlog_handle_hero();
+  v5 = __atxlog_handle_hero(v4);
   v6 = v5;
   if (v4)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = [v4 absoluteString];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Got clip icon! %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Got clip icon! %@", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
@@ -418,13 +431,11 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_2(uint64_t a1)
 {
-  v2 = __atxlog_handle_hero();
+  v2 = __atxlog_handle_hero(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_2_cold_1();
@@ -435,52 +446,50 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
 
 + (id)sortPredictionsOnFeedback:(id)feedback
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAC98];
   feedbackCopy = feedback;
   v5 = [[v3 alloc] initWithKey:@"score" ascending:0];
-  v6 = __atxlog_handle_hero();
+  v6 = __atxlog_handle_hero(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Sorting clip predictions based on score.", v11, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Sorting clip predictions based on score.", v10, 2u);
   }
 
-  v12[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [feedbackCopy sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)addPredictionLocationToHeroAppPredictions:(id)predictions location:(id)location
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   locationCopy = location;
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = predictionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         [locationCopy coordinate];
         [v13 setLatitudeAtPredictionTime:?];
         [locationCopy coordinate];
@@ -488,13 +497,11 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -503,7 +510,8 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
 {
   predictionCopy = prediction;
   completionCopy = completion;
-  if ([self clipsSupported])
+  clipsSupported = [self clipsSupported];
+  if (clipsSupported)
   {
     clipMetadata = [predictionCopy clipMetadata];
     clipURL = [clipMetadata clipURL];
@@ -513,22 +521,22 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
       clipMetadata2 = [predictionCopy clipMetadata];
       clipURL2 = [clipMetadata2 clipURL];
 
-      v12 = [objc_alloc(MEMORY[0x277CFA6B0]) initWithURL:clipURL2];
-      [v12 setShouldReturnErrorOnUserCancellation:1];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __66__ATXHeroClipManager_openAppClipWithHeroAppPrediction_completion___block_invoke;
-      v17[3] = &unk_278596990;
-      v18 = clipURL2;
-      v19 = completionCopy;
-      v13 = clipURL2;
-      [v12 requestClipWithCompletion:v17];
+      v14 = [objc_alloc(MEMORY[0x277CFA6B0]) initWithURL:clipURL2];
+      [v14 setShouldReturnErrorOnUserCancellation:1];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __66__ATXHeroClipManager_openAppClipWithHeroAppPrediction_completion___block_invoke;
+      v19[3] = &unk_278596990;
+      v20 = clipURL2;
+      v21 = completionCopy;
+      v15 = clipURL2;
+      [v14 requestClipWithCompletion:v19];
 
       goto LABEL_10;
     }
 
-    v14 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_hero(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       +[ATXHeroClipManager openAppClipWithHeroAppPrediction:completion:];
     }
@@ -536,22 +544,22 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
 
   else
   {
-    v14 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_hero(clipsSupported);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Ignoring App Clips Suggestions, since ClipServices are not supported on this device.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Ignoring App Clips Suggestions, since ClipServices are not supported on this device.", buf, 2u);
     }
   }
 
-  v12 = +[ATXHeroAndClipConstants sharedInstance];
-  v15 = MEMORY[0x277CCA9B8];
-  appClipsErrorDomain = [v12 appClipsErrorDomain];
-  v13 = [v15 errorWithDomain:appClipsErrorDomain code:objc_msgSend(v12 userInfo:{"appClipsLaunchErrorCode"), 0}];
+  v14 = +[ATXHeroAndClipConstants sharedInstance];
+  v17 = MEMORY[0x277CCA9B8];
+  appClipsErrorDomain = [v14 appClipsErrorDomain];
+  v15 = [v17 errorWithDomain:appClipsErrorDomain code:objc_msgSend(v14 userInfo:{"appClipsLaunchErrorCode"), 0}];
 
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, v13);
+    (*(completionCopy + 2))(completionCopy, v15);
   }
 
 LABEL_10:
@@ -559,9 +567,9 @@ LABEL_10:
 
 void __66__ATXHeroClipManager_openAppClipWithHeroAppPrediction_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = __atxlog_handle_hero();
+  v6 = __atxlog_handle_hero(v5);
   v7 = v6;
   if (v5 || (a2 & 1) == 0)
   {
@@ -589,9 +597,9 @@ void __66__ATXHeroClipManager_openAppClipWithHeroAppPrediction_completion___bloc
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "Request succeeded for app clip with url: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v8;
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "Request succeeded for app clip with url: %@", &v13, 0xCu);
     }
 
     v9 = *(a1 + 40);
@@ -602,8 +610,6 @@ LABEL_13:
       v10();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateAppClipsWithHeroAppPredictions:.cold.1()
@@ -611,22 +617,6 @@ LABEL_13:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)_populateMetadataInHeroAppPrediction:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invoke_cold_2()
@@ -655,14 +645,6 @@ void __59__ATXHeroClipManager__populateMetadataInHeroAppPrediction___block_invok
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __66__ATXHeroClipManager_openAppClipWithHeroAppPrediction_completion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -83,11 +83,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC12PhotosUICore38PhotosSearchAssetResultsViewController_onTapToRadar);
   if (v2)
   {
+    v3 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC12PhotosUICore38PhotosSearchAssetResultsViewController_onTapToRadar);
     selfCopy = self;
-    v4 = sub_1A3D607F0(v2);
-    v2(v4);
+    v5 = sub_1A3D607F0(v2, v3);
+    v2(v5);
 
-    sub_1A3C33378(v2);
+    sub_1A3C33378(v2, v3);
   }
 }
 

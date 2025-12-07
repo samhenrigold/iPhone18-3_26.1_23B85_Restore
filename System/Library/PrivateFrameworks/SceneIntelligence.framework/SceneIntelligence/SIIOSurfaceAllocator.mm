@@ -6,17 +6,18 @@
 
 - (id)allocateWithWidth:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format stride:(unint64_t)stride
 {
+  v7 = *&format;
   v74[7] = *MEMORY[0x277D85DE8];
   v8 = SIPlaneCountForPixelFormat(format);
-  formatCopy = format;
+  v64 = v7;
   if (v8 == 1)
   {
-    v9 = SIBytesPerElementForPixelFormat(format);
+    v9 = SIBytesPerElementForPixelFormat(v7);
   }
 
   else
   {
-    v9 = SIBytesPerElementForPlanarPixelFormat(format, 0);
+    v9 = SIBytesPerElementForPlanarPixelFormat(v7, 0);
   }
 
   v10 = v9;
@@ -29,7 +30,7 @@
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:height];
   v74[1] = v14;
   v73[2] = *MEMORY[0x277CD2A70];
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:formatCopy];
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v64];
   v74[2] = v15;
   v16 = *MEMORY[0x277CD29E8];
   v73[3] = *MEMORY[0x277CD29F0];
@@ -60,21 +61,21 @@
   {
     if (stride)
     {
-      v20 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = __SceneIntelligenceLogSharedInstance(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136380931;
         v70 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Surface/SIIOSurfaceAllocator.m";
         v71 = 1025;
         v72 = 52;
-        _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Attempting to provide stride for multiplanar images is not currently supported. Falling back to auto-determined stride. ***", buf, 0x12u);
+        _os_log_impl(&dword_21DE0D000, v21, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Attempting to provide stride for multiplanar images is not currently supported. Falling back to auto-determined stride. ***", buf, 0x12u);
       }
     }
 
     v57 = [MEMORY[0x277CBEB18] arrayWithCapacity:{2, properties}];
-    v21 = 0;
     v22 = 0;
     v23 = 0;
+    v24 = 0;
     v61 = *MEMORY[0x277CD2B40];
     v60 = *MEMORY[0x277CD2B38];
     v52 = *MEMORY[0x277CD2AA0];
@@ -83,75 +84,73 @@
     v50 = *MEMORY[0x277CD2B50];
     v49 = *MEMORY[0x277CD2B18];
     v48 = *MEMORY[0x277CD2AF0];
-    v24 = 1;
+    v25 = 1;
     v47 = *MEMORY[0x277CD2AE8];
     do
     {
-      v59 = v22;
-      v58 = v24;
-      v65 = v23;
-      v25 = SIBytesPerElementForPlanarPixelFormat(formatCopy, v23);
-      v26 = SIVerticalSubsamplingForPlanarPixelFormat(formatCopy, v65);
-      v27 = width / SIHorizontalSubsamplingForPlanarPixelFormat(formatCopy, v65);
-      v28 = [SIIOSurfaceAllocator alignPlaneBytesPerRow:v27 * v25];
-      v29 = height / v26;
-      v30 = MEMORY[0x223D4BE20](v61, v28 * (height / v26));
-      v62 = MEMORY[0x223D4BE20](v60, v21);
+      v59 = v23;
+      v58 = v25;
+      v65 = v24;
+      v26 = SIBytesPerElementForPlanarPixelFormat(v64, v24);
+      v27 = SIVerticalSubsamplingForPlanarPixelFormat(v64, v65);
+      v28 = width / SIHorizontalSubsamplingForPlanarPixelFormat(v64, v65);
+      v29 = [SIIOSurfaceAllocator alignPlaneBytesPerRow:v28 * v26];
+      v30 = height / v27;
+      v31 = MEMORY[0x223D4BE20](v61, v29 * (height / v27));
+      v62 = MEMORY[0x223D4BE20](v60, v22);
       v67[0] = v52;
-      v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v28];
+      v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v29];
       v68[0] = v63;
       v67[1] = v61;
-      v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v30];
-      v68[1] = v31;
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v31];
+      v68[1] = v32;
       v67[2] = v53;
-      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v30];
-      v68[2] = v32;
+      v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v31];
+      v68[2] = v33;
       v67[3] = v60;
-      v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v62];
-      v68[3] = v33;
+      v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v62];
+      v68[3] = v34;
       v67[4] = v51;
-      v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v25];
-      v68[4] = v34;
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v26];
+      v68[4] = v35;
       v67[5] = v50;
-      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v27];
-      v68[5] = v35;
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v28];
+      v68[5] = v36;
       v67[6] = v49;
-      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v29];
-      v68[6] = v36;
+      v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v30];
+      v68[6] = v37;
       v67[7] = v48;
-      v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:1];
-      v68[7] = v37;
-      v67[8] = v47;
       v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:1];
-      v68[8] = v38;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:9];
+      v68[7] = v38;
+      v67[8] = v47;
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:1];
+      v68[8] = v39;
+      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:9];
 
-      [v57 setObject:v39 atIndexedSubscript:v65];
-      v24 = 0;
-      v21 = v62 + v30;
-      v22 = v39;
-      v23 = 1;
+      [v57 setObject:v40 atIndexedSubscript:v65];
+      v25 = 0;
+      v22 = v62 + v31;
+      v23 = v40;
+      v24 = 1;
     }
 
     while ((v58 & 1) != 0);
     [(__CFDictionary *)properties setObject:v57 forKeyedSubscript:*MEMORY[0x277CD2B30]];
-    v40 = [SIIOSurfaceAllocator alignAllocation:v21];
-    v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v40];
-    [(__CFDictionary *)properties setObject:v41 forKeyedSubscript:v53];
+    v41 = [SIIOSurfaceAllocator alignAllocation:v22];
+    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v41];
+    [(__CFDictionary *)properties setObject:v42 forKeyedSubscript:v53];
   }
 
-  v42 = IOSurfaceCreate(properties);
+  v43 = IOSurfaceCreate(properties);
   v66[0] = MEMORY[0x277D85DD0];
   v66[1] = 3221225472;
   v66[2] = __68__SIIOSurfaceAllocator_allocateWithWidth_height_pixelFormat_stride___block_invoke;
   v66[3] = &__block_descriptor_40_e5_v8__0l;
-  v66[4] = v42;
-  v43 = [[SIIOSurface alloc] initFromSurface:v42];
+  v66[4] = v43;
+  v44 = [[SIIOSurface alloc] initFromSurface:v43];
   __68__SIIOSurfaceAllocator_allocateWithWidth_height_pixelFormat_stride___block_invoke(v66);
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v44;
 }
 
 void __68__SIIOSurfaceAllocator_allocateWithWidth_height_pixelFormat_stride___block_invoke(uint64_t a1)

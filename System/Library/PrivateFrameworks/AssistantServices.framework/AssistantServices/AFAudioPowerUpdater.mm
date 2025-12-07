@@ -156,16 +156,16 @@ void __35__AFAudioPowerUpdater__beginUpdate__block_invoke(uint64_t a1)
 
 - (void)_getPowerWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v12 = 0;
-  if ([(AFAudioPowerProviding *)self->_provider getAveragePower:&v12 + 4 andPeakPower:&v12])
+  v11 = 0;
+  if ([(AFAudioPowerProviding *)self->_provider getAveragePower:&v11 + 4 andPeakPower:&v11])
   {
-    LODWORD(v5) = HIDWORD(v12);
-    LODWORD(v6) = v12;
+    LODWORD(v5) = HIDWORD(v11);
+    LODWORD(v6) = v11;
     [(AFAudioPowerUpdater *)self _updatePowerWithAveragePower:v5 andPeakPower:v6];
-    LODWORD(v7) = HIDWORD(v12);
-    LODWORD(v8) = v12;
+    LODWORD(v7) = HIDWORD(v11);
+    LODWORD(v8) = v11;
     [(AFAudioPowerUpdater *)self _writeSharedMemoryWithAveragePower:v7 peakPower:v8];
     if (!completionCopy)
     {
@@ -180,9 +180,9 @@ void __35__AFAudioPowerUpdater__beginUpdate__block_invoke(uint64_t a1)
   {
     provider = self->_provider;
     *buf = 136315394;
-    v14 = "[AFAudioPowerUpdater _getPowerWithCompletion:]";
-    v15 = 2112;
-    v16 = provider;
+    v13 = "[AFAudioPowerUpdater _getPowerWithCompletion:]";
+    v14 = 2112;
+    v15 = provider;
     _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Unable to get average power and peak power from audio power provider %@.", buf, 0x16u);
     if (!completionCopy)
     {
@@ -199,8 +199,6 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endUpdate

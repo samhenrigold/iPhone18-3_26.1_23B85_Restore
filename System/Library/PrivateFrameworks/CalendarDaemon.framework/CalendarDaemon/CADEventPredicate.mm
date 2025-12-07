@@ -50,41 +50,39 @@
 
 - (id)relatedObjectPropertiesToLoad
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  v18[0] = &unk_2837C7108;
+  v18[3] = *MEMORY[0x277D85DE8];
+  v17[0] = &unk_2837C7108;
   v2 = *MEMORY[0x277CF73F0];
-  v17[0] = *MEMORY[0x277CF73C8];
-  v17[1] = v2;
+  v16[0] = *MEMORY[0x277CF73C8];
+  v16[1] = v2;
   v3 = *MEMORY[0x277CF7400];
-  v17[2] = *MEMORY[0x277CF71E8];
-  v17[3] = v3;
+  v16[2] = *MEMORY[0x277CF71E8];
+  v16[3] = v3;
   v4 = *MEMORY[0x277CF73F8];
-  v17[4] = *MEMORY[0x277CF7418];
-  v17[5] = v4;
+  v16[4] = *MEMORY[0x277CF7418];
+  v16[5] = v4;
   v5 = *MEMORY[0x277CF7410];
-  v17[6] = *MEMORY[0x277CF7408];
-  v17[7] = v5;
+  v16[6] = *MEMORY[0x277CF7408];
+  v16[7] = v5;
   v6 = *MEMORY[0x277CF71E0];
-  v17[8] = *MEMORY[0x277CF71D0];
-  v17[9] = v6;
+  v16[8] = *MEMORY[0x277CF71D0];
+  v16[9] = v6;
   v7 = *MEMORY[0x277CF7420];
-  v17[10] = *MEMORY[0x277CF71D8];
-  v17[11] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:12];
-  v19[0] = v8;
-  v18[1] = &unk_2837C7120;
-  v16 = *MEMORY[0x277CF73E8];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v19[1] = v9;
-  v18[2] = &unk_2837C7138;
+  v16[10] = *MEMORY[0x277CF71D8];
+  v16[11] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:12];
+  v18[0] = v8;
+  v17[1] = &unk_2837C7120;
+  v15 = *MEMORY[0x277CF73E8];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v18[1] = v9;
+  v17[2] = &unk_2837C7138;
   v10 = *MEMORY[0x277CF7388];
-  v15[0] = *MEMORY[0x277CF73B8];
-  v15[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  v19[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277CF73B8];
+  v14[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v18[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
   return v12;
 }
@@ -122,40 +120,41 @@
     [v3 addObject:@"noAttendee"];
   }
 
-  if ([(CADEventPredicate *)self excludeNoLocationEvents])
+  excludeNoLocationEvents = [(CADEventPredicate *)self excludeNoLocationEvents];
+  if (excludeNoLocationEvents)
   {
-    [v3 addObject:@"noLocation"];
+    excludeNoLocationEvents = [v3 addObject:@"noLocation"];
   }
 
-  v4 = CADEventPredicateDescriptionDateFormatter();
-  v16 = MEMORY[0x277CCACA8];
+  v5 = CADEventPredicateDescriptionDateFormatter(excludeNoLocationEvents);
+  v17 = MEMORY[0x277CCACA8];
   startDate = [(EKPredicate *)self startDate];
-  v6 = [v4 stringFromDate:startDate];
+  v7 = [v5 stringFromDate:startDate];
   endDate = [(EKPredicate *)self endDate];
-  v8 = [v4 stringFromDate:endDate];
+  v9 = [v5 stringFromDate:endDate];
   calendars = [(EKPredicate *)self calendars];
-  v10 = [CADPredicate conciseCalendarList:calendars];
-  v11 = [v3 componentsJoinedByString:{@", "}];
-  v12 = v11;
+  v11 = [CADPredicate conciseCalendarList:calendars];
+  v12 = [v3 componentsJoinedByString:{@", "}];
+  v13 = v12;
   if (self->_randomize)
   {
-    v13 = @"YES";
+    v14 = @"YES";
   }
 
   else
   {
-    v13 = @"NO";
+    v14 = @"NO";
   }
 
-  v14 = [v16 stringWithFormat:@"CADEventPredicate start:%@ end:%@; cals:%@, exclusions:[%@], filterdOutTitles:[%@], limit:%ld, randomize:%@", v6, v8, v10, v11, self->_filteredOutTitles, self->_limit, v13];;
+  v15 = [v17 stringWithFormat:@"CADEventPredicate start:%@ end:%@; cals:%@, exclusions:[%@], filterdOutTitles:[%@], limit:%ld, randomize:%@", v7, v9, v11, v12, self->_filteredOutTitles, self->_limit, v14];;
 
-  return v14;
+  return v15;
 }
 
 - (id)concisePublicDescription
 {
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"CADEventPredicate"];
-  v4 = CADEventPredicateDescriptionDateFormatter();
+  v4 = CADEventPredicateDescriptionDateFormatter(v3);
   startDate = [(EKPredicate *)self startDate];
   if (startDate)
   {
@@ -400,22 +399,20 @@ LABEL_10:
 
 void __44__CADEventPredicate_defaultPropertiesToLoad__block_invoke()
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v0 = CADEKPersistentEventDefaultPropertiesToLoad();
   v1 = defaultPropertiesToLoad_extendedPropertiesToLoad;
   defaultPropertiesToLoad_extendedPropertiesToLoad = v0;
 
   v2 = defaultPropertiesToLoad_extendedPropertiesToLoad;
   v3 = *MEMORY[0x277CF7260];
-  v8[0] = *MEMORY[0x277CF71F8];
-  v8[1] = v3;
-  v8[2] = *MEMORY[0x277CF7300];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = *MEMORY[0x277CF71F8];
+  v7[1] = v3;
+  v7[2] = *MEMORY[0x277CF7300];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v5 = [v2 arrayByAddingObjectsFromArray:v4];
   v6 = defaultPropertiesToLoad_extendedPropertiesToLoad;
   defaultPropertiesToLoad_extendedPropertiesToLoad = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithStartDate:(id)date endDate:(id)endDate
@@ -448,7 +445,7 @@ void __44__CADEventPredicate_defaultPropertiesToLoad__block_invoke()
 
 - (void)beginSignpostWithHandle:(id)handle signpostID:(unint64_t)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v7 = handleCopy;
   if (d - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(handleCopy))
@@ -456,14 +453,12 @@ void __44__CADEventPredicate_defaultPropertiesToLoad__block_invoke()
     v8 = objc_opt_class();
     v9 = v8;
     predicateFormat = [(CADEventPredicate *)self predicateFormat];
-    v12 = 138412546;
-    v13 = v8;
-    v14 = 2114;
-    v15 = predicateFormat;
-    _os_signpost_emit_with_name_impl(&dword_22430B000, v7, OS_SIGNPOST_INTERVAL_BEGIN, d, "EKPredicateSearch", "predicateClass=%@; predicateFormat=%{public}@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2114;
+    v14 = predicateFormat;
+    _os_signpost_emit_with_name_impl(&dword_22430B000, v7, OS_SIGNPOST_INTERVAL_BEGIN, d, "EKPredicateSearch", "predicateClass=%@; predicateFormat=%{public}@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -548,25 +543,7 @@ LABEL_31:
 
     v42 = v18;
     propertyLoadMode = [(CADEventPredicate *)equalCopy propertyLoadMode];
-    if (propertyLoadMode != [(CADEventPredicate *)self propertyLoadMode])
-    {
-      goto LABEL_30;
-    }
-
-    excludeTimedEvents = [(CADEventPredicate *)equalCopy excludeTimedEvents];
-    if (excludeTimedEvents != [(CADEventPredicate *)self excludeTimedEvents])
-    {
-      goto LABEL_30;
-    }
-
-    excludeAllDayEvents = [(CADEventPredicate *)equalCopy excludeAllDayEvents];
-    if (excludeAllDayEvents != [(CADEventPredicate *)self excludeAllDayEvents])
-    {
-      goto LABEL_30;
-    }
-
-    excludeDeclined = [(CADEventPredicate *)equalCopy excludeDeclined];
-    if (excludeDeclined == [(CADEventPredicate *)self excludeDeclined]&& (v27 = [(CADEventPredicate *)equalCopy excludeProposed], v27 == [(CADEventPredicate *)self excludeProposed]) && (v28 = [(CADEventPredicate *)equalCopy excludeDeclinedUnlessProposed], v28 == [(CADEventPredicate *)self excludeDeclinedUnlessProposed]) && (v29 = [(CADEventPredicate *)equalCopy excludeNoAttendeeEvents], v29 == [(CADEventPredicate *)self excludeNoAttendeeEvents]) && (v30 = [(CADEventPredicate *)equalCopy excludeNoLocationEvents], v30 == [(CADEventPredicate *)self excludeNoLocationEvents]) && (v31 = [(CADEventPredicate *)equalCopy randomize], v31 == [(CADEventPredicate *)self randomize]) && (v32 = [(CADEventPredicate *)equalCopy limit], v32 == [(CADEventPredicate *)self limit]))
+    if (propertyLoadMode == [(CADEventPredicate *)self propertyLoadMode]&& (v24 = [(CADEventPredicate *)equalCopy excludeTimedEvents], v24 == [(CADEventPredicate *)self excludeTimedEvents]) && (v25 = [(CADEventPredicate *)equalCopy excludeAllDayEvents], v25 == [(CADEventPredicate *)self excludeAllDayEvents]) && (v26 = [(CADEventPredicate *)equalCopy excludeDeclined], v26 == [(CADEventPredicate *)self excludeDeclined]) && (v27 = [(CADEventPredicate *)equalCopy excludeProposed], v27 == [(CADEventPredicate *)self excludeProposed]) && (v28 = [(CADEventPredicate *)equalCopy excludeDeclinedUnlessProposed], v28 == [(CADEventPredicate *)self excludeDeclinedUnlessProposed]) && (v29 = [(CADEventPredicate *)equalCopy excludeNoAttendeeEvents], v29 == [(CADEventPredicate *)self excludeNoAttendeeEvents]) && (v30 = [(CADEventPredicate *)equalCopy excludeNoLocationEvents], v30 == [(CADEventPredicate *)self excludeNoLocationEvents]) && (v31 = [(CADEventPredicate *)equalCopy randomize], v31 == [(CADEventPredicate *)self randomize]) && (v32 = [(CADEventPredicate *)equalCopy limit], v32 == [(CADEventPredicate *)self limit]))
     {
       v40 = timeZone;
       v43 = timeZone2;
@@ -601,7 +578,6 @@ LABEL_31:
 
     else
     {
-LABEL_30:
       v6 = 0;
       v38 = 0;
       v22 = v46;
@@ -658,12 +634,12 @@ LABEL_41:
 {
   v51 = *MEMORY[0x277D85DE8];
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
-  v5 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v6 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  FilterFromRowIDs = CreateFilterFromRowIDs(v5, v6);
+  v6 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  v7 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  FilterFromRowIDs = CreateFilterFromRowIDs(v6, v7, 2, database);
   if (FilterFromRowIDs)
   {
-    v8 = FilterFromRowIDs;
+    v9 = FilterFromRowIDs;
     startDate = [(EKPredicate *)self startDate];
     endDate = [(EKPredicate *)self endDate];
     timeZone = [(CADEventPredicate *)self timeZone];
@@ -674,54 +650,54 @@ LABEL_41:
     }
 
     [(CADEventPredicate *)self shouldLoadProposedTimesInRange];
-    v13 = CalDatabaseCopyEventOccurrencesInDateRangeEx();
+    v14 = CalDatabaseCopyEventOccurrencesInDateRangeEx();
     if (!timeZone)
     {
     }
 
-    if (!v13)
+    if (!v14)
     {
-      v15 = 0;
-      v23 = 0;
+      v16 = 0;
+      v24 = 0;
 LABEL_52:
-      CFRelease(v8);
+      CFRelease(v9);
       goto LABEL_53;
     }
 
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    v15 = Mutable;
+    v16 = Mutable;
     if (Mutable)
     {
       theArray = Mutable;
-      v43 = v6;
-      Count = CFArrayGetCount(v13);
-      v17 = objc_opt_new();
+      v43 = v7;
+      Count = CFArrayGetCount(v14);
+      v18 = objc_opt_new();
       if (Count >= 1)
       {
         for (i = 0; i != Count; ++i)
         {
-          v19 = [MEMORY[0x277CCABB0] numberWithLong:i];
-          [v17 addObject:v19];
+          v20 = [MEMORY[0x277CCABB0] numberWithLong:i];
+          [v18 addObject:v20];
         }
       }
 
-      v42 = v8;
-      v44 = v5;
+      v42 = v9;
+      v44 = v6;
       if (self->_randomize)
       {
-        v20 = [v17 count];
-        if (v20 >= 2)
+        v21 = [v18 count];
+        if (v21 >= 2)
         {
-          v21 = v20;
-          v22 = 0;
+          v22 = v21;
+          v23 = 0;
           do
           {
-            [v17 exchangeObjectAtIndex:v22 withObjectAtIndex:v22 + arc4random_uniform(v21)];
-            ++v22;
-            --v21;
+            [v18 exchangeObjectAtIndex:v23 withObjectAtIndex:v23 + arc4random_uniform(v22)];
+            ++v23;
+            --v22;
           }
 
-          while (v21 != 1);
+          while (v22 != 1);
         }
       }
 
@@ -729,48 +705,48 @@ LABEL_52:
       v49 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v23 = v17;
-      v24 = [v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
-      if (v24)
+      v24 = v18;
+      v25 = [v24 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (v25)
       {
-        v25 = v24;
-        v26 = *v47;
-        v27 = *MEMORY[0x277CF78F0];
+        v26 = v25;
+        v27 = *v47;
+        v28 = *MEMORY[0x277CF78F0];
         while (2)
         {
-          for (j = 0; j != v25; ++j)
+          for (j = 0; j != v26; ++j)
           {
-            if (*v47 != v26)
+            if (*v47 != v27)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            ValueAtIndex = CFArrayGetValueAtIndex(v13, [*(*(&v46 + 1) + 8 * j) longValue]);
-            v30 = CFGetTypeID(ValueAtIndex);
-            if (v30 == CalEventOccurrenceGetTypeID())
+            ValueAtIndex = CFArrayGetValueAtIndex(v14, [*(*(&v46 + 1) + 8 * j) longValue]);
+            v31 = CFGetTypeID(ValueAtIndex);
+            if (v31 == CalEventOccurrenceGetTypeID())
             {
               CalEventOccurrenceGetEvent();
-              if (!self->super._uuid || (v31 = CalEventCopyUniqueIdentifier(), v32 = [v31 isEqualToString:self->super._uuid], v31, v32))
+              if (!self->super._uuid || (v32 = CalEventCopyUniqueIdentifier(), v33 = [v32 isEqualToString:self->super._uuid], v32, v33))
               {
                 if ((!self->_excludeTimedEvents || CalEventIsAllDay()) && (!self->_excludeAllDayEvents || (CalEventIsAllDay() & 1) == 0) && (!self->_excludeNoAttendeeEvents || CalCalendarItemHasAttendees()) && (!self->_excludeNoLocationEvents || CalCalendarItemHasLocation()))
                 {
-                  v33 = CalCalendarItemCopySummary();
-                  if (![(NSSet *)self->_filteredOutTitles containsObject:v33])
+                  v34 = CalCalendarItemCopySummary();
+                  if (![(NSSet *)self->_filteredOutTitles containsObject:v34])
                   {
                     CalEventGetProposedStartDate();
-                    if (v34 == v27)
+                    if (v35 == v28)
                     {
-                      v37 = 0;
+                      v38 = 0;
                     }
 
                     else
                     {
-                      v35 = v34;
+                      v36 = v35;
                       CalEventOccurrenceGetDate();
-                      v37 = vabdd_f64(v36, v35) < 2.22044605e-16;
+                      v38 = vabdd_f64(v37, v36) < 2.22044605e-16;
                     }
 
-                    if ((CalEventGetParticipationStatus() != 2 || (v37 || !self->_excludeDeclinedUnlessProposed) && !self->_excludeDeclined) && (!self->_excludeProposed || !v37))
+                    if ((CalEventGetParticipationStatus() != 2 || (v38 || !self->_excludeDeclinedUnlessProposed) && !self->_excludeDeclined) && (!self->_excludeProposed || !v38))
                     {
                       CFArrayAppendValue(theArray, ValueAtIndex);
                       if (self->_limit >= 1 && self->_limit == CFArrayGetCount(theArray))
@@ -785,8 +761,8 @@ LABEL_52:
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
-          if (v25)
+          v26 = [v24 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          if (v26)
           {
             continue;
           }
@@ -797,43 +773,42 @@ LABEL_52:
 
 LABEL_49:
 
-      v15 = theArray;
-      v38 = theArray;
-      v6 = v43;
-      v5 = v44;
-      v8 = v42;
+      v16 = theArray;
+      v39 = theArray;
+      v7 = v43;
+      v6 = v44;
+      v9 = v42;
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
-    CFRelease(v8);
-    CFRelease(v13);
-    if (v15)
+    CFRelease(v9);
+    CFRelease(v14);
+    if (v16)
     {
-      v8 = v15;
+      v9 = v16;
       goto LABEL_52;
     }
   }
 
   else
   {
-    v15 = 0;
-    v23 = 0;
+    v16 = 0;
+    v24 = 0;
   }
 
 LABEL_53:
-  v39 = v15;
+  v40 = v16;
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v40;
 }
 
 - (id)matchingDatesForEvent:(void *)event modifiedProperties:(unint64_t)properties dates:(id)dates inRange:(id)range database:(CalDatabase *)database outReset:(BOOL *)reset
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   rangeCopy = range;
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
@@ -898,27 +873,27 @@ LABEL_16:
 
   if (self->_filteredOutTitles)
   {
-    v28 = CalCalendarItemCopySummary();
-    v29 = [(NSSet *)self->_filteredOutTitles containsObject:v28];
+    v27 = CalCalendarItemCopySummary();
+    v28 = [(NSSet *)self->_filteredOutTitles containsObject:v27];
 
-    if (v29)
+    if (v28)
     {
       goto LABEL_16;
     }
   }
 
   CalEventGetProposedStartDate();
-  if (v30 == *MEMORY[0x277CF78F0])
+  if (v29 == *MEMORY[0x277CF78F0])
   {
-    v31 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v31 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
+    v30 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
   }
 
-  if (!self->_excludeDeclined && (!self->_excludeDeclinedUnlessProposed || v31) || CalEventGetParticipationStatus() != 2)
+  if (!self->_excludeDeclined && (!self->_excludeDeclinedUnlessProposed || v30) || CalEventGetParticipationStatus() != 2)
   {
     if (rangeCopy)
     {
@@ -934,30 +909,30 @@ LABEL_38:
 
       endDate = [(EKPredicate *)self endDate];
       endDate2 = [rangeCopy endDate];
-      v62 = [endDate CalIsAfterDate:endDate2];
+      v61 = [endDate CalIsAfterDate:endDate2];
 
-      if (v62)
+      if (v61)
       {
         goto LABEL_38;
       }
     }
 
     Duration = CalEventGetDuration();
-    v37 = objc_opt_new();
-    [v37 setSecond:-Duration];
+    v36 = objc_opt_new();
+    [v36 setSecond:-Duration];
     if (v25)
     {
-      v38 = (Duration + 1.0) / *MEMORY[0x277CF7750];
-      v39 = -v38;
-      v40 = v38 <= 0.0;
-      v41 = -0.0;
-      if (!v40)
+      v37 = (Duration + 1.0) / *MEMORY[0x277CF7750];
+      v38 = -v37;
+      v39 = v37 <= 0.0;
+      v40 = -0.0;
+      if (!v39)
       {
-        v41 = v39;
+        v40 = v38;
       }
 
-      [v37 setDay:v41];
-      [v37 setSecond:1];
+      [v36 setDay:v40];
+      [v36 setSecond:1];
     }
 
     started = CalEventCopyStartTimeZone();
@@ -967,72 +942,72 @@ LABEL_38:
     }
 
     startDate3 = [(EKPredicate *)self startDate];
-    v61 = started;
-    v44 = [MEMORY[0x277CBEA80] CalGregorianCalendarForTimeZone:started];
-    v63 = v37;
-    v45 = [startDate3 CalDateByComponentwiseAddingComponents:v37 inCalendar:v44];
+    v60 = started;
+    v43 = [MEMORY[0x277CBEA80] CalGregorianCalendarForTimeZone:started];
+    v62 = v36;
+    v44 = [startDate3 CalDateByComponentwiseAddingComponents:v36 inCalendar:v43];
 
-    v60 = v45;
-    [v45 timeIntervalSinceReferenceDate];
-    v47 = v46;
+    v59 = v44;
+    [v44 timeIntervalSinceReferenceDate];
+    v46 = v45;
     endDate3 = [(EKPredicate *)self endDate];
     [endDate3 timeIntervalSinceReferenceDate];
-    v50 = v49;
+    v49 = v48;
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v16 = datesCopy;
-    v51 = [v16 countByEnumeratingWithState:&v64 objects:v68 count:16];
-    if (v51)
+    v50 = [v16 countByEnumeratingWithState:&v63 objects:v67 count:16];
+    if (v50)
     {
-      v52 = v51;
-      v53 = 0;
-      v54 = *v65;
+      v51 = v50;
+      v52 = 0;
+      v53 = *v64;
       do
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v51; ++i)
         {
-          if (*v65 != v54)
+          if (*v64 != v53)
           {
             objc_enumerationMutation(v16);
           }
 
-          v56 = *(*(&v64 + 1) + 8 * i);
-          [v56 timeIntervalSinceReferenceDate];
-          if (v57 >= v47 && v57 < v50)
+          v55 = *(*(&v63 + 1) + 8 * i);
+          [v55 timeIntervalSinceReferenceDate];
+          if (v56 >= v46 && v56 < v49)
           {
-            v59 = !self->_excludeProposed || v31 == 0;
-            if (v59 || ([v56 isEqualToDate:v31] & 1) == 0)
+            v58 = !self->_excludeProposed || v30 == 0;
+            if (v58 || ([v55 isEqualToDate:v30] & 1) == 0)
             {
-              if (!v53)
+              if (!v52)
               {
                 if ([v16 count] < 2)
                 {
                   goto LABEL_69;
                 }
 
-                v53 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
               }
 
-              [v53 addObject:v56];
+              [v52 addObject:v55];
             }
           }
         }
 
-        v52 = [v16 countByEnumeratingWithState:&v64 objects:v68 count:16];
+        v51 = [v16 countByEnumeratingWithState:&v63 objects:v67 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
     }
 
-    v16 = v53;
+    v16 = v52;
 LABEL_69:
 
     goto LABEL_70;
@@ -1042,7 +1017,6 @@ LABEL_69:
 LABEL_70:
 
 LABEL_17:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1064,7 +1038,7 @@ LABEL_17:
 
 - (id)incrementalPredicatesToExpandResultsFromPredicate:(id)predicate filteringRequiredToRemoveEventsNoLongerMatched:(BOOL *)matched
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v7 = objc_opt_class();
   if (v7 != objc_opt_class())
@@ -1094,31 +1068,31 @@ LABEL_17:
     {
       matchedCopy = matched;
       startDate = [MEMORY[0x277CBEB98] setWithArray:calendars];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
-      v37 = calendars2;
+      v36 = calendars2;
       v16 = calendars2;
-      v17 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v17)
       {
         v18 = v17;
         v19 = 0;
-        v20 = *v40;
+        v20 = *v39;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v40 != v20)
+            if (*v39 != v20)
             {
               objc_enumerationMutation(v16);
             }
 
-            v19 += [startDate containsObject:*(*(&v39 + 1) + 8 * i)] ^ 1;
+            v19 += [startDate containsObject:*(*(&v38 + 1) + 8 * i)] ^ 1;
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
         }
 
         while (v18);
@@ -1133,7 +1107,7 @@ LABEL_17:
       if (v22 != [v16 count])
       {
         v8 = 0;
-        calendars2 = v37;
+        calendars2 = v36;
 LABEL_43:
 
         goto LABEL_38;
@@ -1142,7 +1116,7 @@ LABEL_43:
       v14 = v19 > 0;
 
       matched = matchedCopy;
-      calendars2 = v37;
+      calendars2 = v36;
     }
 
     uuid = self->super._uuid;
@@ -1158,8 +1132,8 @@ LABEL_43:
           endDate = [(EKPredicate *)self endDate];
           startDate2 = [v9 startDate];
           endDate2 = [v9 endDate];
-          v33 = startDate2;
-          v34 = endDate;
+          v32 = startDate2;
+          v33 = endDate;
           if ([endDate CalIsBeforeOrSameAsDate:startDate2] & 1) != 0 || (objc_msgSend(endDate2, "CalIsBeforeOrSameAsDate:", startDate))
           {
             v8 = 0;
@@ -1172,8 +1146,8 @@ LABEL_43:
             v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
             if ([startDate isBeforeDate:startDate2])
             {
-              v31 = [(CADEventPredicate *)self copyWithStartDate:startDate endDate:startDate2];
-              [v8 addObject:v31];
+              v30 = [(CADEventPredicate *)self copyWithStartDate:startDate endDate:startDate2];
+              [v8 addObject:v30];
             }
 
             else
@@ -1182,15 +1156,15 @@ LABEL_43:
             }
 
             v28 = endDate2;
-            if ([v34 isAfterDate:endDate2])
+            if ([v33 isAfterDate:endDate2])
             {
-              v32 = [(CADEventPredicate *)self copyWithStartDate:endDate2 endDate:v34];
-              [v8 addObject:v32];
+              v31 = [(CADEventPredicate *)self copyWithStartDate:endDate2 endDate:v33];
+              [v8 addObject:v31];
             }
 
             else
             {
-              LOBYTE(v14) = [v34 isBeforeDate:endDate2] | v14;
+              LOBYTE(v14) = [v33 isBeforeDate:endDate2] | v14;
             }
 
             if (matchedCopy2)
@@ -1209,7 +1183,6 @@ LABEL_43:
 LABEL_38:
 
 LABEL_39:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

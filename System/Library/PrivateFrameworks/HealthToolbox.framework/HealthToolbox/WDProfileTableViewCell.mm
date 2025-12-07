@@ -11,6 +11,7 @@
 - (void)_updateForCurrentSizeCategory;
 - (void)setDisplayName:(id)name;
 - (void)setDisplayValue:(id)value;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setPlaceholderValue:(id)value;
 - (void)setShouldUseSelectedColorForDisplayValue:(BOOL)value;
 - (void)traitCollectionDidChange:(id)change;
@@ -35,28 +36,26 @@
 
 - (void)updateAutomationIdentifiersForProfileDetail:(id)detail
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v15[0] = @"HealthDetail";
-  v15[1] = detail;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v14[0] = @"HealthDetail";
+  v14[1] = detail;
   v4 = MEMORY[0x277CBEA60];
   detailCopy = detail;
-  v6 = [v4 arrayWithObjects:v15 count:2];
+  v6 = [v4 arrayWithObjects:v14 count:2];
   v7 = HKUIJoinStringsForAutomationIdentifier();
 
   [(WDProfileTableViewCell *)self setAccessibilityIdentifier:v7];
-  v14[0] = v7;
-  v14[1] = @"Title";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v7;
+  v13[1] = @"Title";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v9 = HKUIJoinStringsForAutomationIdentifier();
   [(UILabel *)self->_displayNameLabel setAccessibilityIdentifier:v9];
 
-  v13[0] = v7;
-  v13[1] = @"Value";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v7;
+  v12[1] = @"Value";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v11 = HKUIJoinStringsForAutomationIdentifier();
   [(UITextField *)self->_displayValueTextField setAccessibilityIdentifier:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupUI
@@ -134,60 +133,56 @@
 
 - (void)_setupNonAccessibilitySizeConstraints
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   contentView = [(WDProfileTableViewCell *)self contentView];
   bottomAnchor = [contentView bottomAnchor];
   bottomAnchor2 = [(UILabel *)self->_displayNameLabel bottomAnchor];
   v4 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:12.5];
-  v17[0] = v4;
+  v16[0] = v4;
   leadingAnchor = [(UIButton *)self->_clearButton leadingAnchor];
   trailingAnchor = [(UILabel *)self->_displayNameLabel trailingAnchor];
   v7 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor constant:5.0];
-  v17[1] = v7;
+  v16[1] = v7;
   topAnchor = [(UITextField *)self->_displayValueTextField topAnchor];
   contentView2 = [(WDProfileTableViewCell *)self contentView];
   topAnchor2 = [contentView2 topAnchor];
   v11 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:12.5];
-  v17[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v16[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
   normalSizeConstraints = self->_normalSizeConstraints;
   self->_normalSizeConstraints = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAccessibilitySizeConstraintsWithTrailingConstant:(double)constant
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   trailingAnchor = [(UILabel *)self->_displayNameLabel trailingAnchor];
   contentView = [(WDProfileTableViewCell *)self contentView];
   trailingAnchor2 = [contentView trailingAnchor];
-  v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:constant];
-  v23[0] = v19;
+  v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:constant];
+  v22[0] = v18;
   topAnchor = [(UITextField *)self->_displayValueTextField topAnchor];
   bottomAnchor = [(UILabel *)self->_displayNameLabel bottomAnchor];
   v5 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:12.5];
-  v23[1] = v5;
+  v22[1] = v5;
   leadingAnchor = [(UIButton *)self->_clearButton leadingAnchor];
   contentView2 = [(WDProfileTableViewCell *)self contentView];
   leadingAnchor2 = [contentView2 leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
-  v23[2] = v9;
+  v22[2] = v9;
   contentView3 = [(WDProfileTableViewCell *)self contentView];
   trailingAnchor3 = [contentView3 trailingAnchor];
   trailingAnchor4 = [(UITextField *)self->_displayValueTextField trailingAnchor];
   v13 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:constant];
-  v23[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+  v22[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
   accessibilitySizeConstraints = self->_accessibilitySizeConstraints;
   self->_accessibilitySizeConstraints = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupConstraints
 {
-  v41[8] = *MEMORY[0x277D85DE8];
+  v40[8] = *MEMORY[0x277D85DE8];
   isEditing = [(WDProfileTableViewCell *)self isEditing];
   v4 = objc_opt_class();
   if (isEditing)
@@ -221,39 +216,38 @@
 
   [(WDProfileTableViewCell *)self _setupNonAccessibilitySizeConstraints];
   [(WDProfileTableViewCell *)self _setupAccessibilitySizeConstraintsWithTrailingConstant:v6];
-  v34 = MEMORY[0x277CCAAD0];
+  v33 = MEMORY[0x277CCAAD0];
   topAnchor = [(UILabel *)self->_displayNameLabel topAnchor];
   contentView2 = [(WDProfileTableViewCell *)self contentView];
   topAnchor2 = [contentView2 topAnchor];
-  v37 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:12.5];
-  v41[0] = v37;
+  v36 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:12.5];
+  v40[0] = v36;
   leadingAnchor2 = [(UILabel *)self->_displayNameLabel leadingAnchor];
   contentView3 = [(WDProfileTableViewCell *)self contentView];
   leadingAnchor3 = [contentView3 leadingAnchor];
-  v32 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3 constant:20.0];
+  v31 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3 constant:20.0];
   v19 = self->_clearButtonWidthAnchor;
-  v41[1] = v32;
-  v41[2] = v19;
+  v40[1] = v31;
+  v40[2] = v19;
   heightAnchor = [(UIButton *)self->_clearButton heightAnchor];
   v20 = [heightAnchor constraintEqualToConstant:22.0];
-  v41[3] = v20;
+  v40[3] = v20;
   centerYAnchor = [(UIButton *)self->_clearButton centerYAnchor];
   centerYAnchor2 = [(UITextField *)self->_displayValueTextField centerYAnchor];
   v23 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
   v24 = self->_displayValueLeadingAnchor;
-  v41[4] = v23;
-  v41[5] = v24;
-  v41[6] = self->_displayValueTrailingConstraint;
+  v40[4] = v23;
+  v40[5] = v24;
+  v40[6] = self->_displayValueTrailingConstraint;
   contentView4 = [(WDProfileTableViewCell *)self contentView];
   bottomAnchor = [contentView4 bottomAnchor];
   bottomAnchor2 = [(UITextField *)self->_displayValueTextField bottomAnchor];
   v28 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:12.5];
-  v41[7] = v28;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:8];
-  [v34 activateConstraints:v29];
+  v40[7] = v28;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:8];
+  [v33 activateConstraints:v29];
 
   [(WDProfileTableViewCell *)self _setupConstraintsForContentSize];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupConstraintsForContentSize
@@ -354,7 +348,7 @@
 - (void)setShouldUseSelectedColorForDisplayValue:(BOOL)value
 {
   valueCopy = value;
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   self->_shouldUseSelectedColorForDisplayValue = value;
   v5 = &OBJC_IVAR___WDProfileTableViewCell__normalDisplayValueColor;
   if (value)
@@ -378,14 +372,33 @@
     v7 = systemGrayColor;
     v8 = objc_alloc(MEMORY[0x277CCAB48]);
     placeholderValue = self->_placeholderValue;
-    v13 = *MEMORY[0x277D740C0];
-    v14[0] = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277D740C0];
+    v13[0] = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v11 = [v8 initWithString:placeholderValue attributes:v10];
     [(UITextField *)self->_displayValueTextField setAttributedPlaceholder:v11];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = WDProfileTableViewCell;
+  [(WDProfileTableViewCell *)&v7 setEditing:editing animated:animated];
+  v6 = objc_opt_class();
+  if (editingCopy)
+  {
+    [v6 editingTrailingEdgeMargin];
+  }
+
+  else
+  {
+    [v6 notEditingTrailingEdgeMargin];
+  }
+
+  [(NSLayoutConstraint *)self->_displayValueTrailingConstraint setConstant:?];
+  [(WDProfileTableViewCell *)self _updateClearButtonState];
 }
 
 - (void)traitCollectionDidChange:(id)change

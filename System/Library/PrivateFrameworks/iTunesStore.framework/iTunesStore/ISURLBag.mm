@@ -66,7 +66,7 @@ uint64_t __29__ISURLBag__sharedBagBackend__block_invoke()
 
 - (ISURLBag)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISURLBag.m", 109, a2);
   v10.receiver = self;
   v10.super_class = ISURLBag;
   v3 = [(ISURLBag *)&v10 init];
@@ -184,94 +184,90 @@ LABEL_7:
 
 - (id)copyExtraHeadersForURL:(id)l
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (self->_headerPatterns)
+  v30 = *MEMORY[0x277D85DE8];
+  if (!self->_headerPatterns)
   {
-    selfCopy = self;
-    absoluteString = [l absoluteString];
-    v5 = [absoluteString length];
-    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    obj = selfCopy->_headerPatterns;
-    v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v20)
+    return 0;
+  }
+
+  selfCopy = self;
+  absoluteString = [l absoluteString];
+  v5 = [absoluteString length];
+  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  obj = selfCopy->_headerPatterns;
+  v19 = [(NSDictionary *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
+  {
+    v18 = *v25;
+    do
     {
-      v19 = *v26;
-      do
+      for (i = 0; i != v19; ++i)
       {
-        for (i = 0; i != v20; ++i)
+        if (*v25 != v18)
         {
-          if (*v26 != v19)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v7 = *(*(&v25 + 1) + 8 * i);
-          v8 = selfCopy;
-          v9 = [(NSDictionary *)selfCopy->_headerPatterns objectForKey:v7];
-          v21 = 0u;
-          v22 = 0u;
-          v23 = 0u;
-          v24 = 0u;
-          v10 = v9;
-          v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
-          if (v11)
+        v7 = *(*(&v24 + 1) + 8 * i);
+        v8 = selfCopy;
+        v9 = [(NSDictionary *)selfCopy->_headerPatterns objectForKey:v7];
+        v20 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v10 = v9;
+        v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        if (v11)
+        {
+          v12 = v11;
+          v13 = *v21;
+          while (2)
           {
-            v12 = v11;
-            v13 = *v22;
-            while (2)
+            for (j = 0; j != v12; ++j)
             {
-              for (j = 0; j != v12; ++j)
+              if (*v21 != v13)
               {
-                if (*v22 != v13)
-                {
-                  objc_enumerationMutation(v10);
-                }
-
-                if ([*(*(&v21 + 1) + 8 * j) rangeOfFirstMatchInString:absoluteString options:0 range:{0, v5}] != 0x7FFFFFFFFFFFFFFFLL)
-                {
-                  [v18 addObject:v7];
-                  goto LABEL_17;
-                }
+                objc_enumerationMutation(v10);
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
-              if (v12)
+              if ([*(*(&v20 + 1) + 8 * j) rangeOfFirstMatchInString:absoluteString options:0 range:{0, v5}] != 0x7FFFFFFFFFFFFFFFLL)
               {
-                continue;
+                [v17 addObject:v7];
+                goto LABEL_17;
               }
-
-              break;
             }
+
+            v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            if (v12)
+            {
+              continue;
+            }
+
+            break;
           }
+        }
 
 LABEL_17:
 
-          selfCopy = v8;
-        }
-
-        v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+        selfCopy = v8;
       }
 
-      while (v20);
+      v19 = [(NSDictionary *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
+
+    while (v19);
   }
 
-  else
-  {
-    v18 = 0;
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 - (BOOL)loadFromDictionary:(id)dictionary returningError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   [(ISURLBag *)self _setBagBackendWithDictionary:0];
   guidPatterns = self->_guidPatterns;
@@ -316,15 +312,15 @@ LABEL_17:
     if ([(ISURLBag *)self versionIdentifier]> 370303295)
     {
       _copyGUIDPatternsFromBagBackend = [(ISURLBag *)self _copyGUIDPatternsFromBagBackend];
-      v26 = self->_guidPatterns;
+      v25 = self->_guidPatterns;
       self->_guidPatterns = _copyGUIDPatternsFromBagBackend;
 
       _copyGUIDSchemesFromBagBackend = [(ISURLBag *)self _copyGUIDSchemesFromBagBackend];
-      v28 = self->_guidSchemes;
+      v27 = self->_guidSchemes;
       self->_guidSchemes = _copyGUIDSchemesFromBagBackend;
 
       _copyHeaderPatternsFromBagBackend = [(ISURLBag *)self _copyHeaderPatternsFromBagBackend];
-      v30 = self->_headerPatterns;
+      v29 = self->_headerPatterns;
       self->_headerPatterns = _copyHeaderPatternsFromBagBackend;
 
       [(ISURLBag *)self _writeNetworkConstraintsCacheFile];
@@ -337,10 +333,10 @@ LABEL_17:
       v22 = 1;
       if (error)
       {
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -352,16 +348,21 @@ LABEL_17:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -370,45 +371,43 @@ LABEL_17:
     {
       v19 = objc_opt_class();
       v20 = v19;
-      v32 = 138412546;
-      v33 = v19;
-      v34 = 2048;
+      v30 = 138412546;
+      v31 = v19;
+      v32 = 2048;
       versionIdentifier = [(ISURLBag *)self versionIdentifier];
-      LODWORD(v31) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: URL bag version is too old: %lld", &v30, 22);
 
       if (!v21)
       {
-LABEL_20:
+LABEL_21:
 
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, &v32, v31}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
-LABEL_21:
+LABEL_22:
   v22 = 0;
   if (error)
   {
-LABEL_22:
+LABEL_23:
     *error = 0;
   }
 
-LABEL_23:
+LABEL_24:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)_toggleStopSendingLocalCookies
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedDaemonConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -418,41 +417,44 @@ LABEL_23:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    *v25 = 138543362;
-    *&v25[4] = objc_opt_class();
-    v7 = *&v25[4];
-    LODWORD(v24) = 12;
-    v23 = v25;
-    v8 = _os_log_send_and_compose_impl();
+    v24 = 138543362;
+    v25 = objc_opt_class();
+    v7 = v25;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: Checking to see if we should stop including local cookies on requests.", &v24, 12);
 
     if (!v8)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, v25, v24, *v25}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
     free(v8);
-    v23 = oSLogObject;
+    v22 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v9 = [(ISURLBag *)self valueForKey:@"stop-including-local-cookies"];
   if (objc_opt_respondsToSelector())
   {
@@ -473,16 +475,21 @@ LABEL_12:
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v13 = shouldLog2 | 2;
+    LODWORD(v13) = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = shouldLog2;
+    LODWORD(v13) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
@@ -493,26 +500,26 @@ LABEL_12:
     v16 = MEMORY[0x277CCABB0];
     v17 = v15;
     v18 = [v16 numberWithBool:bOOLValue];
-    *v25 = 138543874;
-    *&v25[4] = v15;
-    *&v25[12] = 2114;
-    *&v25[14] = v18;
+    v24 = 138543874;
+    v25 = v15;
     v26 = 2114;
-    v27 = v9;
-    LODWORD(v24) = 32;
-    v19 = _os_log_send_and_compose_impl();
+    v27 = v18;
+    v28 = 2114;
+    v29 = v9;
+    LODWORD(v23) = 32;
+    v19 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%{public}@: stop-including-local-cookies. value = %{public}@ | rawValue = %{public}@", &v24, v23);
 
     if (!v19)
     {
-      goto LABEL_26;
+      goto LABEL_28;
     }
 
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, v25, v24}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
     free(v19);
     SSFileLog();
   }
 
-LABEL_26:
+LABEL_28:
   v20 = MEMORY[0x277CBED28];
   if (!bOOLValue)
   {
@@ -522,8 +529,6 @@ LABEL_26:
   v21 = *MEMORY[0x277D6A708];
   CFPreferencesSetAppValue(@"stopIncludingLocalCookies", *v20, *MEMORY[0x277D6A708]);
   CFPreferencesAppSynchronize(v21);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadItemKindURLBagKeyMap
@@ -537,13 +542,9 @@ LABEL_26:
 uint64_t __37__ISURLBag__loadItemKindURLBagKeyMap__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEA60]);
-  v1 = *MEMORY[0x277D6A1E8];
-  v2 = *MEMORY[0x277D6A240];
-  v3 = *MEMORY[0x277D6A250];
-  v4 = *MEMORY[0x277D6A260];
-  v5 = [v0 initWithObjects:{*MEMORY[0x277D6A1E0], *MEMORY[0x277D6A1E8], *MEMORY[0x277D6A1F0], *MEMORY[0x277D6A1F8], *MEMORY[0x277D6A208], *MEMORY[0x277D6A210], *MEMORY[0x277D6A218], *MEMORY[0x277D6A220], *MEMORY[0x277D6A228], *MEMORY[0x277D6A230], *MEMORY[0x277D6A238], *MEMORY[0x277D6A240], *MEMORY[0x277D6A248], *MEMORY[0x277D6A250], *MEMORY[0x277D6A258], *MEMORY[0x277D6A260], *MEMORY[0x277D6A278], *MEMORY[0x277D6A268], *MEMORY[0x277D6A270], *MEMORY[0x277D6A280], 0}];
-  v6 = __ItemKinds;
-  __ItemKinds = v5;
+  v1 = [v0 initWithObjects:{*MEMORY[0x277D6A1E0], *MEMORY[0x277D6A1E8], *MEMORY[0x277D6A1F0], *MEMORY[0x277D6A1F8], *MEMORY[0x277D6A208], *MEMORY[0x277D6A210], *MEMORY[0x277D6A218], *MEMORY[0x277D6A220], *MEMORY[0x277D6A228], *MEMORY[0x277D6A230], *MEMORY[0x277D6A238], *MEMORY[0x277D6A240], *MEMORY[0x277D6A248], *MEMORY[0x277D6A250], *MEMORY[0x277D6A258], *MEMORY[0x277D6A260], *MEMORY[0x277D6A278], *MEMORY[0x277D6A268], *MEMORY[0x277D6A270], *MEMORY[0x277D6A280], 0}];
+  v2 = __ItemKinds;
+  __ItemKinds = v1;
 
   __URLBagKeys = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"viewArtist", @"audiobooks", @"podcasts", @"itunes-u", @"music", @"movies", @"music-videos", @"newsstand", @"podcasts", @"podcasts", @"podcasts", @"ringtones", @"apps", @"apps", @"music", @"ringtones", @"tv-shows", @"tv-shows", @"music", 0}];
 
@@ -772,7 +773,7 @@ LABEL_20:
 
 - (BOOL)shouldSendGUIDForURL:(id)l
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (SSDebugAlwaysSendGUID())
   {
@@ -799,33 +800,33 @@ LABEL_2:
   {
     absoluteString = [lCopy absoluteString];
     v9 = [absoluteString length];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v10 = self->_guidPatterns;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          if ([*(*(&v17 + 1) + 8 * i) rangeOfFirstMatchInString:absoluteString options:0 range:{0, v9, v17}] != 0x7FFFFFFFFFFFFFFFLL)
+          if ([*(*(&v16 + 1) + 8 * i) rangeOfFirstMatchInString:absoluteString options:0 range:{0, v9, v16}] != 0x7FFFFFFFFFFFFFFFLL)
           {
             v5 = 1;
             goto LABEL_16;
           }
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v12)
         {
           continue;
@@ -841,7 +842,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -863,7 +863,7 @@ LABEL_17:
 
 - (BOOL)urlIsTrusted:(id)trusted
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCACE0] componentsWithURL:trusted resolvingAgainstBaseURL:0];
   v5 = v4;
   if (!v4)
@@ -890,25 +890,25 @@ LABEL_19:
 
   v10 = host;
   [(ISURLBag *)self valueForKey:@"trustedDomains"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v11 = v22 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = v21 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 length])
         {
@@ -929,7 +929,7 @@ LABEL_20:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v13)
       {
         continue;
@@ -943,7 +943,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1097,9 +1096,7 @@ LABEL_19:
 {
   if (self->_context != context)
   {
-    v5 = [context copy];
-    context = self->_context;
-    self->_context = v5;
+    self->_context = [context copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -1252,7 +1249,7 @@ LABEL_7:
 
 - (id)_copyGUIDPatternsFromBagBackend
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [(ISURLBag *)self valueForKey:@"guid-urls"];
   objc_opt_class();
@@ -1262,29 +1259,29 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v17;
+        v9 = *v16;
         do
         {
           v10 = 0;
           do
           {
-            if (*v17 != v9)
+            if (*v16 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v16 + 1) + 8 * v10);
+            v11 = *(*(&v15 + 1) + 8 * v10);
             v12 = objc_alloc(MEMORY[0x277CCAC68]);
-            v13 = [v12 initWithPattern:v11 options:1 error:{0, v16}];
+            v13 = [v12 initWithPattern:v11 options:1 error:{0, v15}];
             if (v13)
             {
               [v3 addObject:v13];
@@ -1294,7 +1291,7 @@ LABEL_7:
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v8);
@@ -1311,7 +1308,6 @@ LABEL_7:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1360,35 +1356,35 @@ LABEL_9:
 
 - (id)_copyHeaderPatternsFromBagBackend
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = [(ISURLBag *)self valueForKey:@"send-content-restrictions-header"];
   if ([v4 count])
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * v10);
+          v11 = *(*(&v15 + 1) + 8 * v10);
           v12 = objc_alloc(MEMORY[0x277CCAC68]);
-          v13 = [v12 initWithPattern:v11 options:1 error:{0, v16}];
+          v13 = [v12 initWithPattern:v11 options:1 error:{0, v15}];
           if (v13)
           {
             [v5 addObject:v13];
@@ -1398,7 +1394,7 @@ LABEL_9:
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -1413,10 +1409,9 @@ LABEL_9:
   if (![v3 count])
   {
 
-    v3 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1433,29 +1428,29 @@ LABEL_9:
 
 - (void)_preprocessURLResolutionCacheDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   [dictionaryCopy objectForKey:@"p2-url-resolution"];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v3 = v35 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v3 = v34 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v31 objects:v36 count:16];
   obj = v3;
   if (v4)
   {
     v5 = v4;
-    v6 = *v33;
+    v6 = *v32;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1474,7 +1469,7 @@ LABEL_9:
       }
 
       v3 = obj;
-      v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v5)
       {
         continue;
@@ -1519,27 +1514,27 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = [v3 mutableCopy];
+    v26 = [v3 mutableCopy];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = v3;
-    v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * j);
+          v21 = *(*(&v27 + 1) + 8 * j);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1547,27 +1542,25 @@ LABEL_17:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 containsObject:v22])
             {
-              [v27 removeObject:v21];
+              [v26 removeObject:v21];
             }
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v18);
     }
 
-    v23 = [v27 count];
+    v23 = [v26 count];
     if (v23 != [v16 count])
     {
-      [dictionaryCopy setObject:v27 forKey:@"p2-url-resolution"];
+      [dictionaryCopy setObject:v26 forKey:@"p2-url-resolution"];
     }
 
     v3 = obj;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setBagBackendWithDictionary:(id)dictionary
@@ -1589,7 +1582,7 @@ LABEL_17:
 
 - (void)_writeNetworkConstraintsCacheFile
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   _networkConstraintsCachePath = [(ISURLBag *)self _networkConstraintsCachePath];
   if (_networkConstraintsCachePath)
   {
@@ -1598,7 +1591,7 @@ LABEL_17:
     if (![v5 count])
     {
       [v4 removeItemAtPath:_networkConstraintsCachePath error:0];
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     v6 = [v4 attributesOfItemAtPath:_networkConstraintsCachePath error:0];
@@ -1609,10 +1602,10 @@ LABEL_17:
       [v7 timeIntervalSinceNow];
       if (v8 >= -86400.0)
       {
-LABEL_17:
+LABEL_18:
 
-LABEL_19:
-        goto LABEL_20;
+LABEL_20:
+        goto LABEL_21;
       }
     }
 
@@ -1630,48 +1623,50 @@ LABEL_19:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      *v19 = 138412546;
-      *&v19[4] = objc_opt_class();
-      *&v19[12] = 2112;
-      *&v19[14] = _networkConstraintsCachePath;
-      v15 = *&v19[4];
-      LODWORD(v18) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v17 = 138412546;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = _networkConstraintsCachePath;
+      v15 = v18;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Wrote network constraints to cache: %@", &v17, 22);
 
       if (!v16)
       {
-LABEL_16:
+LABEL_17:
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, v19, v18, *v19, *&v19[16]}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_20:
-
-  v17 = *MEMORY[0x277D85DE8];
+LABEL_21:
 }
 
 - (void)_writeURLResolutionCacheFile
@@ -1711,7 +1706,7 @@ LABEL_20:
   }
 
   v14 = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:0];
-  HIDWORD(v25) = [v14 writeToFile:v7 options:0 error:0];
+  HIDWORD(v24) = [v14 writeToFile:v7 options:0 error:0];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -1742,15 +1737,15 @@ LABEL_20:
 
   if (v19)
   {
-    LODWORD(v26) = 138412290;
-    *(&v26 + 4) = objc_opt_class();
-    v20 = *(&v26 + 4);
-    LODWORD(v25) = 12;
-    v21 = _os_log_send_and_compose_impl();
+    v25 = 138412290;
+    v26 = objc_opt_class();
+    v20 = v26;
+    LODWORD(v24) = 12;
+    v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Wrote URL resolution information to cache", &v25, v24);
 
     if (v21)
     {
-      v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, &v26, v25, v26}];
+      v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
@@ -1760,7 +1755,7 @@ LABEL_20:
   {
   }
 
-  if (HIDWORD(v25))
+  if (HIDWORD(v24))
   {
 LABEL_22:
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -1768,8 +1763,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

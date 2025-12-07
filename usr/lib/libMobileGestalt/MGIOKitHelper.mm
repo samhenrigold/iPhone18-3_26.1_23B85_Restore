@@ -2,9 +2,17 @@
 - (BOOL)createServicesIteratorByNameMatch:(const char *)match;
 - (MGIOKitHelper)init;
 - (__CFArray)iteratorCopyBusyServiceNames;
+- (__CFBoolean)copyBooleanFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
+- (__CFData)copyDataFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
+- (__CFData)copyDataFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
 - (__CFDictionary)deviceTreeNodeIsPresent:(__CFString *)present withExactName:(BOOL)name withNodeClass:(__CFString *)class;
 - (__CFNumber)copyNumberFromData:(__CFData *)data;
+- (__CFNumber)copyNumberFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
+- (__CFString)copyStringFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
+- (__CFString)copyStringFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
 - (unsigned)copyDeviceTreeStructureNext:(id)next withFirstChar:(char)char;
+- (void)copyDeviceTreeProperty:(id)property withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
+- (void)copyPropertyFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
 - (void)copyServiceTreeProperty:(id)property withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar;
 - (void)dealloc;
 - (void)deleteIterator;
@@ -45,54 +53,50 @@
 
 - (BOOL)createServicesIteratorByNameMatch:(const char *)match
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(MGIOKitHelper *)self deleteIterator];
   v5 = IOServiceNameMatching(match);
   if (v5)
   {
-    result = IOServiceGetMatchingServices(*MEMORY[0x1E696CD60], v5, &self->devIterator) == 0;
+    return IOServiceGetMatchingServices(*MEMORY[0x1E696CD60], v5, &self->devIterator) == 0;
+  }
+
+  v7 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+  if (v7)
+  {
+    v13 = v7 + 1;
   }
 
   else
   {
-    v7 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
-    if (v7)
-    {
-      v13 = v7 + 1;
-    }
-
-    else
-    {
-      v13 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
-    }
-
-    _MGLog(v13, 70, @"Failed to create iterator: %s ", v8, v9, v10, v11, v12, match);
-    v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (v14)
-    {
-      *buf = 136315138;
-      matchCopy = match;
-      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to create iterator: %s ", buf, 0xCu);
-      result = 0;
-    }
+    v13 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
   }
 
-  v15 = *MEMORY[0x1E69E9840];
+  _MGLog(v13, 70, @"Failed to create iterator: %s ", v8, v9, v10, v11, v12, match);
+  v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v14)
+  {
+    *buf = 136315138;
+    matchCopy = match;
+    _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to create iterator: %s ", buf, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 - (unsigned)copyDeviceTreeStructureNext:(id)next withFirstChar:(char)char
 {
   charCopy = char;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   nextCopy = next;
   for (i = IOIteratorNext(self->devIterator); i; i = IOIteratorNext(self->devIterator))
   {
-    memset(v12, 0, sizeof(v12));
-    if (!MEMORY[0x1B2720D90](i, v12))
+    memset(v11, 0, sizeof(v11));
+    if (!MEMORY[0x1B2720D90](i, v11))
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
       v9 = v8;
       if (charCopy)
       {
@@ -113,7 +117,6 @@ LABEL_10:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return i;
 }
 
@@ -281,22 +284,22 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v23 = CFProperties;
-  v24 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
-  v25 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
-  if (v25)
+  v22 = CFProperties;
+  v23 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+  v24 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+  if (v24)
   {
-    v24 = v25 + 1;
+    v23 = v24 + 1;
   }
 
   presentCopy = v34;
   uTF8String = [(__CFString *)v34 UTF8String];
-  mach_error_string(v23);
-  _MGLog(v24, 216, @"IORegistryEntryCreateCFProperties failed for '%s': %s", v27, v28, v29, v30, v31, uTF8String);
+  v26 = mach_error_string(v22);
+  _MGLog(v23, 216, @"IORegistryEntryCreateCFProperties failed for '%s': %s", v27, v28, v29, v30, v31, uTF8String, v26);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     uTF8String2 = [(__CFString *)v34 UTF8String];
-    v33 = mach_error_string(v23);
+    v33 = mach_error_string(v22);
     *buf = 136315394;
     v37 = uTF8String2;
     v38 = 2080;
@@ -313,8 +316,57 @@ LABEL_16:
     cf = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return Copy;
+}
+
+- (void)copyDeviceTreeProperty:(id)property withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  nameCopy = name;
+  while (1)
+  {
+    v11 = [(MGIOKitHelper *)self copyDeviceTreeStructureNext:property withFirstChar:charCopy];
+    if (!v11)
+    {
+      break;
+    }
+
+    v12 = v11;
+    CFProperty = IORegistryEntryCreateCFProperty(v11, @"IORegistryEntryPropertyKeys", 0, 0);
+    if (CFProperty)
+    {
+      v14 = CFProperty;
+      if (firstCharCopy)
+      {
+        v15 = sub_1B0198148(v12, CFProperty, nameCopy, firstCharCopy);
+      }
+
+      else
+      {
+        v15 = IORegistryEntryCreateCFProperty(v12, nameCopy, 0, 0);
+      }
+
+      v16 = v15;
+      CFRelease(v14);
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    IOObjectRelease(v12);
+    if (v16)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v16 = 0;
+LABEL_12:
+
+  return v16;
 }
 
 - (__CFNumber)copyNumberFromData:(__CFData *)data
@@ -338,7 +390,7 @@ LABEL_16:
       v14 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
     }
 
-    _MGLog(v14, 280, @"can't create number", v9, v10, v11, v12, v13, v26);
+    _MGLog(v14, 280, @"can't create number", v9, v10, v11, v12, v13);
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       return 0;
@@ -372,7 +424,7 @@ LABEL_16:
       v25 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
     }
 
-    _MGLog(v25, 277, @"can't create number from data", v20, v21, v22, v23, v24, v26);
+    _MGLog(v25, 277, @"can't create number from data", v20, v21, v22, v23, v24);
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       return 0;
@@ -394,9 +446,469 @@ LABEL_14:
   return CFNumberCreate(0, v7, BytePtr);
 }
 
+- (__CFNumber)copyNumberFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v27 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyDeviceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = [(MGIOKitHelper *)self copyNumberFromData:v12];
+    CFRelease(v13);
+  }
+
+  else
+  {
+    v15 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v15)
+    {
+      v21 = v15 + 1;
+    }
+
+    else
+    {
+      v21 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v21, 302, @"Failed to retrieve data %@:%@", v16, v17, v18, v19, v20, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v24 = treeCopy;
+      v25 = 2112;
+      v26 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    v14 = 0;
+  }
+
+  return v14;
+}
+
+- (__CFString)copyStringFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v40 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyDeviceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (v12)
+  {
+    v13 = v12;
+    TypeID = CFDataGetTypeID();
+    if (TypeID == CFGetTypeID(v13))
+    {
+      Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
+      BytePtr = CFDataGetBytePtr(v13);
+      Length = CFDataGetLength(v13);
+      if (Length >= 1)
+      {
+        v18 = Length;
+        do
+        {
+          v19 = *BytePtr++;
+          CFStringAppendFormat(Mutable, 0, @"%X", v19);
+          --v18;
+        }
+
+        while (v18);
+      }
+
+LABEL_20:
+      CFRelease(v13);
+      v13 = Mutable;
+      goto LABEL_21;
+    }
+
+    v27 = CFStringGetTypeID();
+    if (v27 != CFGetTypeID(v13))
+    {
+      v28 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+      if (v28)
+      {
+        v34 = v28 + 1;
+      }
+
+      else
+      {
+        v34 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+      }
+
+      _MGLog(v34, 338, @"Unsupported type.", v29, v30, v31, v32, v33);
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unsupported type.", buf, 2u);
+      }
+
+      Mutable = 0;
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    v20 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v20)
+    {
+      v26 = v20 + 1;
+    }
+
+    else
+    {
+      v26 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v26, 322, @"Failed to retrieve data %@:%@", v21, v22, v23, v24, v25, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v37 = treeCopy;
+      v38 = 2112;
+      v39 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    v13 = 0;
+  }
+
+LABEL_21:
+
+  return v13;
+}
+
+- (__CFString)copyStringFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v40 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyServiceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (v12)
+  {
+    v13 = v12;
+    TypeID = CFDataGetTypeID();
+    if (TypeID == CFGetTypeID(v13))
+    {
+      Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
+      BytePtr = CFDataGetBytePtr(v13);
+      Length = CFDataGetLength(v13);
+      if (Length >= 1)
+      {
+        v18 = Length;
+        do
+        {
+          v19 = *BytePtr++;
+          CFStringAppendFormat(Mutable, 0, @"%X", v19);
+          --v18;
+        }
+
+        while (v18);
+      }
+
+LABEL_20:
+      CFRelease(v13);
+      v13 = Mutable;
+      goto LABEL_21;
+    }
+
+    v27 = CFStringGetTypeID();
+    if (v27 != CFGetTypeID(v13))
+    {
+      v28 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+      if (v28)
+      {
+        v34 = v28 + 1;
+      }
+
+      else
+      {
+        v34 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+      }
+
+      _MGLog(v34, 375, @"Unsupported type.", v29, v30, v31, v32, v33);
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unsupported type.", buf, 2u);
+      }
+
+      Mutable = 0;
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    v20 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v20)
+    {
+      v26 = v20 + 1;
+    }
+
+    else
+    {
+      v26 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v26, 359, @"Failed to retrieve data %@:%@", v21, v22, v23, v24, v25, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v37 = treeCopy;
+      v38 = 2112;
+      v39 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    v13 = 0;
+  }
+
+LABEL_21:
+
+  return v13;
+}
+
+- (void)copyPropertyFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v25 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyServiceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (!v12)
+  {
+    v13 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v13)
+    {
+      v19 = v13 + 1;
+    }
+
+    else
+    {
+      v19 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v19, 395, @"Failed to retrieve data %@:%@", v14, v15, v16, v17, v18, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v22 = treeCopy;
+      v23 = 2112;
+      v24 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+  }
+
+  return v12;
+}
+
+- (__CFData)copyDataFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v34 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyServiceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (!v12)
+  {
+    v22 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v22)
+    {
+      v28 = v22 + 1;
+    }
+
+    else
+    {
+      v28 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v28, 416, @"Failed to retrieve data %@:%@", v23, v24, v25, v26, v27, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v31 = treeCopy;
+      v32 = 2112;
+      v33 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v13 = v12;
+  TypeID = CFDataGetTypeID();
+  if (TypeID != CFGetTypeID(v13))
+  {
+    v15 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v15)
+    {
+      v21 = v15 + 1;
+    }
+
+    else
+    {
+      v21 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v21, 422, @"Unsupported type: %@", v16, v17, v18, v19, v20, v13);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v31 = v13;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unsupported type: %@", buf, 0xCu);
+    }
+
+    CFRelease(v13);
+LABEL_14:
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+- (__CFData)copyDataFromDeviceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v34 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyDeviceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (!v12)
+  {
+    v22 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v22)
+    {
+      v28 = v22 + 1;
+    }
+
+    else
+    {
+      v28 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v28, 441, @"Failed to retrieve data %@:%@", v23, v24, v25, v26, v27, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v31 = treeCopy;
+      v32 = 2112;
+      v33 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v13 = v12;
+  TypeID = CFDataGetTypeID();
+  if (TypeID != CFGetTypeID(v13))
+  {
+    v15 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v15)
+    {
+      v21 = v15 + 1;
+    }
+
+    else
+    {
+      v21 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v21, 447, @"Unsupported type: %@", v16, v17, v18, v19, v20, v13);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v31 = v13;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unsupported type: %@", buf, 0xCu);
+    }
+
+    CFRelease(v13);
+LABEL_14:
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+- (__CFBoolean)copyBooleanFromServiceTree:(id)tree withFirstChar:(char)char propertyName:(id)name withPropertyFirstChar:(char)firstChar
+{
+  firstCharCopy = firstChar;
+  charCopy = char;
+  v34 = *MEMORY[0x1E69E9840];
+  treeCopy = tree;
+  nameCopy = name;
+  v12 = [(MGIOKitHelper *)self copyServiceTreeProperty:treeCopy withFirstChar:charCopy propertyName:nameCopy withPropertyFirstChar:firstCharCopy];
+  if (!v12)
+  {
+    v22 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v22)
+    {
+      v28 = v22 + 1;
+    }
+
+    else
+    {
+      v28 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v28, 468, @"Failed to retrieve data %@:%@", v23, v24, v25, v26, v27, treeCopy, nameCopy);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v31 = treeCopy;
+      v32 = 2112;
+      v33 = nameCopy;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to retrieve data %@:%@", buf, 0x16u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v13 = v12;
+  TypeID = CFBooleanGetTypeID();
+  if (TypeID != CFGetTypeID(v13))
+  {
+    v15 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m", 47);
+    if (v15)
+    {
+      v21 = v15 + 1;
+    }
+
+    else
+    {
+      v21 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
+    }
+
+    _MGLog(v21, 474, @"Unsupported type: %@", v16, v17, v18, v19, v20, v13);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v31 = v13;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unsupported type: %@", buf, 0xCu);
+    }
+
+    CFRelease(v13);
+LABEL_14:
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 - (__CFArray)iteratorCopyBusyServiceNames
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   v4 = IOIteratorNext(self->devIterator);
   if (v4)
@@ -427,7 +939,7 @@ LABEL_14:
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v28 = v8;
+            v27 = v8;
             _os_log_impl(&dword_1B0190000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get busy state for service: %@", buf, 0xCu);
           }
         }
@@ -445,13 +957,13 @@ LABEL_14:
             v22 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/IORegistryUtilities/MGIOKitHelper.m";
           }
 
-          _MGLog(v22, 496, @"Found busy service: %@: busyState: %d", v17, v18, v19, v20, v21, v8);
+          _MGLog(v22, 496, @"Found busy service: %@: busyState: %d", v17, v18, v19, v20, v21, v8, busyState);
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v28 = v8;
-            v29 = 1024;
-            v30 = busyState;
+            v27 = v8;
+            v28 = 1024;
+            v29 = busyState;
             _os_log_impl(&dword_1B0190000, v6, OS_LOG_TYPE_DEFAULT, "Found busy service: %@: busyState: %d", buf, 0x12u);
           }
 
@@ -470,7 +982,6 @@ LABEL_14:
 
   Copy = CFArrayCreateCopy(0, Mutable);
   CFRelease(Mutable);
-  v24 = *MEMORY[0x1E69E9840];
   return Copy;
 }
 

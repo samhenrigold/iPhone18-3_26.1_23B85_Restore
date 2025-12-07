@@ -5,6 +5,7 @@
 - (BOOL)harvestData:(id *)data error:(id *)error;
 - (MXMCPUMetric)initWithBundleIdentifier:(id)identifier;
 - (MXMCPUMetric)initWithIdentifier:(id)identifier filter:(id)filter;
+- (MXMCPUMetric)initWithProcessIdentifier:(int)identifier;
 - (MXMCPUMetric)initWithProcessName:(id)name;
 - (NSNumber)processIdentifier;
 - (NSString)processName;
@@ -25,6 +26,26 @@
   v2 = [[MXMCPUMetric alloc] initWithIdentifier:@"com.apple.metricmeasurement.metrics.cpu" filter:0];
 
   return v2;
+}
+
+- (MXMCPUMetric)initWithProcessIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  v5 = [MXMSampleTagFilter alloc];
+  v6 = +[MXMUtilizationSampleTag CPU];
+  v7 = [(MXMSampleTagFilter *)v5 initWithTag:v6 allowDescendents:1];
+
+  v8 = [MXMSampleAttributeFilter alloc];
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v10 = [(MXMSampleAttributeFilter *)v8 initWithAttributeName:@"Process Identifier" numericValue:v9];
+
+  v11 = [MXMSampleFilter alloc];
+  v12 = [MEMORY[0x277CBEB98] setWithObject:v10];
+  v13 = [MEMORY[0x277CBEB98] setWithObject:v7];
+  v14 = [(MXMSampleFilter *)v11 initWithAttributeFilters:v12 tagFilters:v13];
+
+  v15 = [(MXMCPUMetric *)self initWithIdentifier:@"com.apple.metricmeasurement.metrics.cpu" filter:v14];
+  return v15;
 }
 
 - (MXMCPUMetric)initWithProcessName:(id)name
@@ -111,14 +132,14 @@
 
 - (BOOL)harvestData:(id *)data error:(id *)error
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   filter = [(MXMMetric *)self filter];
 
   if (filter)
   {
-    v26.receiver = self;
-    v26.super_class = MXMCPUMetric;
-    result = [(MXMMetric *)&v26 harvestData:data error:error];
+    v25.receiver = self;
+    v25.super_class = MXMCPUMetric;
+    return [(MXMMetric *)&v25 harvestData:data error:error];
   }
 
   else
@@ -155,33 +176,30 @@
 
       v15 = objc_alloc_init(MXMMutableSampleData);
       [MXMMachUtils _nanosecondsWithAbsoluteTime:*(currentIteration + 40)];
-      v28[0] = v16;
+      v27[0] = v16;
       [MXMMachUtils _nanosecondsWithAbsoluteTime:*(currentIteration + 48)];
-      v28[1] = v17;
+      v27[1] = v17;
       v18 = *(currentIteration + 104);
-      v27[0] = *(currentIteration + 88);
-      v27[1] = v18;
-      v19 = [[MXMSampleTimeSeries alloc] initWithAbsoluteTimeSeries:v28 length:2];
+      v26[0] = *(currentIteration + 88);
+      v26[1] = v18;
+      v19 = [[MXMSampleTimeSeries alloc] initWithAbsoluteTimeSeries:v27 length:2];
       v20 = [MXMSampleSet alloc];
       v21 = +[MXMUtilizationSampleTag CPUInstructions];
       v22 = +[MXMUnitInstruction baseUnit];
-      v23 = [(MXMSampleSet *)v20 initWithTime:v19 tag:v21 unit:v22 attributes:v14 doubleValues:v27 length:2];
+      v23 = [(MXMSampleSet *)v20 initWithTime:v19 tag:v21 unit:v22 attributes:v14 doubleValues:v26 length:2];
 
       [(MXMMutableSampleData *)v15 appendSet:v23];
       v24 = v15;
       *data = v15;
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)harvestData:error:.cold.1()

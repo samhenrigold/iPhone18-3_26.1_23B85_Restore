@@ -93,7 +93,7 @@ void __67__HMDHomeActivityStateAggregatorManager_dumpStateWithPrivacyLevel___blo
 
 - (void)stateMachineDidTransitionToActivityState:(unint64_t)state withHoldInfo:(id)info transitionalStateEndDate:(id)date reason:(int64_t)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dateCopy = date;
   v12 = objc_autoreleasePoolPush();
@@ -106,15 +106,15 @@ void __67__HMDHomeActivityStateAggregatorManager_dumpStateWithPrivacyLevel___blo
     {
       v16 = HMFGetLogIdentifier();
       v17 = HMHomeActivityStateToString();
-      v21 = 138544130;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
-      v25 = 2112;
-      v26 = infoCopy;
-      v27 = 2112;
-      v28 = dateCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Handling home activity state change %@, %@, %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = infoCopy;
+      v26 = 2112;
+      v27 = dateCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Handling home activity state change %@, %@, %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -136,17 +136,15 @@ void __67__HMDHomeActivityStateAggregatorManager_dumpStateWithPrivacyLevel___blo
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v19;
-      v23 = 2112;
-      v24 = infoCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Declining to handle state change to unknown activity state, with holdInfo: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v19;
+      v22 = 2112;
+      v23 = infoCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Declining to handle state change to unknown activity state, with holdInfo: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRefreshTimerFired
@@ -168,16 +166,16 @@ void __67__HMDHomeActivityStateAggregatorManager_dumpStateWithPrivacyLevel___blo
 
 uint64_t __64__HMDHomeActivityStateAggregatorManager_handleRefreshTimerFired__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling refresh timer. Evaluating state", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling refresh timer. Evaluating state", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -193,9 +191,7 @@ uint64_t __64__HMDHomeActivityStateAggregatorManager_handleRefreshTimerFired__bl
     v7 = 0;
   }
 
-  result = [v7 probeHomeActivityState];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v7 probeHomeActivityState];
 }
 
 - (void)handleBackgroundTaskTimerFired:(id)fired
@@ -250,7 +246,7 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
 
 - (void)scheduleRefreshTimer
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nextRefreshTimestamp = [(HMDHomeActivityStateAggregatorManager *)self nextRefreshTimestamp];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   v5 = [nextRefreshTimestamp isEqualToDate:distantFuture];
@@ -265,7 +261,7 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v10;
+      v30 = v10;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@No need to schedule refresh timer.", buf, 0xCu);
     }
 
@@ -303,9 +299,9 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
       v16 = HMFGetLogIdentifier();
       hmf_localTimeDescription = [nextRefreshTimestamp hmf_localTimeDescription];
       *buf = 138543618;
-      v31 = v16;
-      v32 = 2112;
-      v33 = hmf_localTimeDescription;
+      v30 = v16;
+      v31 = 2112;
+      v32 = hmf_localTimeDescription;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Scheduling refresh timer firing at %@", buf, 0x16u);
     }
 
@@ -332,10 +328,10 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
       v21 = 0;
     }
 
-    v29 = 0;
+    v28 = 0;
     v22 = v21;
-    v23 = [backgroundTaskManager2 scheduleTaskWithIdentifier:v22 fireDate:nextRefreshTimestamp onObserver:selfCopy selector:sel_handleBackgroundTaskTimerFired_ error:&v29];
-    v14 = v29;
+    v23 = [backgroundTaskManager2 scheduleTaskWithIdentifier:v22 fireDate:nextRefreshTimestamp onObserver:selfCopy selector:sel_handleBackgroundTaskTimerFired_ error:&v28];
+    v14 = v28;
 
     if ((v23 & 1) == 0)
     {
@@ -346,17 +342,15 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v27;
-        v32 = 2112;
-        v33 = v14;
+        v30 = v27;
+        v31 = 2112;
+        v32 = v14;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to schedule refresh timer with error: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v24);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeUserRemovedNotification:(id)notification
@@ -442,7 +436,7 @@ id __61__HMDHomeActivityStateAggregatorManager_nextRefreshTimestamp__block_invok
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __56__HMDHomeActivityStateAggregatorManager_auditAggegators__block_invoke(uint64_t a1, void *a2)
+void *__56__HMDHomeActivityStateAggregatorManager_auditAggegators__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 auditUserMap];
   if (result)
@@ -481,7 +475,7 @@ uint64_t __56__HMDHomeActivityStateAggregatorManager_auditAggegators__block_invo
 
 void __80__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestScheduleEnded___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kUserUUIDKey"];
 
@@ -491,11 +485,11 @@ void __80__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling RG schedule ended for user %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling RG schedule ended for user %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -526,8 +520,6 @@ void __80__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
 
     [v11 probeHomeActivityState];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserRestrictedGuestScheduleStarted:(id)started
@@ -558,7 +550,7 @@ void __80__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
 
 void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestScheduleStarted___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kUserUUIDKey"];
 
@@ -568,11 +560,11 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling RG schedule started for user %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling RG schedule started for user %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -603,8 +595,6 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
 
     [v11 probeHomeActivityState];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeUserActivityStatesDetails)userActivityStatesDetails
@@ -688,7 +678,7 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
 
 - (void)handleCancelHoldMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (self)
   {
@@ -710,11 +700,11 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   {
     v10 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2114;
-    v17 = shortDescription;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2114;
+    v16 = shortDescription;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received %{public}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -729,13 +719,11 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   }
 
   [(HMDHomeActivityStateMachine *)homeActivityStateMachine cancelOngoingHoldFromUserRequest:messageCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserRequestToUpdateHomeActivityState:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (self)
   {
@@ -757,11 +745,11 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   {
     v10 = HMFGetLogIdentifier();
     shortDescription = [stateCopy shortDescription];
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2114;
-    v17 = shortDescription;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2114;
+    v16 = shortDescription;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received %{public}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -776,8 +764,6 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
   }
 
   [(HMDHomeActivityStateMachine *)homeActivityStateMachine handleUpdateHomeActivityStateFromUserRequest:stateCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isContributionAllowedByUser:(id)user forContributorType:(unint64_t)type
@@ -796,7 +782,7 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
 
 - (BOOL)deserializeUserActivityReportFromSerializedReport:(id)report outContributorType:(unint64_t *)type outIsUnset:(BOOL *)unset outReportPayload:(id *)payload
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v11 = [reportCopy hmf_numberForKey:@"contributorType"];
   if (v11)
@@ -843,13 +829,13 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           v28 = HMFGetLogIdentifier();
-          v31 = 138543874;
-          v32 = v28;
-          v33 = 2112;
-          v34 = @"report";
-          v35 = 2112;
-          v36 = reportCopy;
-          _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v31, 0x20u);
+          v30 = 138543874;
+          v31 = v28;
+          v32 = 2112;
+          v33 = @"report";
+          v34 = 2112;
+          v35 = reportCopy;
+          _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v30, 0x20u);
         }
 
         objc_autoreleasePoolPop(v25);
@@ -864,13 +850,13 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = HMFGetLogIdentifier();
-        v31 = 138543874;
-        v32 = v24;
-        v33 = 2112;
-        v34 = @"isUnset";
-        v35 = 2112;
-        v36 = reportCopy;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v31, 0x20u);
+        v30 = 138543874;
+        v31 = v24;
+        v32 = 2112;
+        v33 = @"isUnset";
+        v34 = 2112;
+        v35 = reportCopy;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v30, 0x20u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -886,34 +872,33 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v31 = 138543874;
-      v32 = v20;
-      v33 = 2112;
-      v34 = @"contributorType";
-      v35 = 2112;
-      v36 = reportCopy;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v31, 0x20u);
+      v30 = 138543874;
+      v31 = v20;
+      v32 = 2112;
+      v33 = @"contributorType";
+      v34 = 2112;
+      v35 = reportCopy;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Reports entry is missing the %@ key: %@", &v30, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
     v15 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)deserializeUserActivityReportsFromMessage:(id)message outReports:(id *)reports
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = [messageCopy arrayForKey:@"reports"];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFromMessage_outReports___block_invoke;
-  v19[3] = &unk_27867A790;
-  v19[4] = self;
-  v8 = [v7 na_map:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFromMessage_outReports___block_invoke;
+  v18[3] = &unk_27867A790;
+  v18[4] = self;
+  v8 = [v7 na_map:v18];
 
   v9 = [v8 count];
   if (v9)
@@ -936,24 +921,23 @@ void __82__HMDHomeActivityStateAggregatorManager_handleUserRestrictedGuestSchedu
       shortDescription = [messageCopy shortDescription];
       messagePayload = [messageCopy messagePayload];
       *buf = 138543874;
-      v21 = v14;
-      v22 = 2114;
-      v23 = shortDescription;
-      v24 = 2112;
-      v25 = messagePayload;
+      v20 = v14;
+      v21 = 2114;
+      v22 = shortDescription;
+      v23 = 2112;
+      v24 = messagePayload;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Reports missing in payload for message: %{public}@, payload: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9 != 0;
 }
 
 id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFromMessage_outReports___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -976,33 +960,31 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Received a report that is not a dictionary: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Received a report that is not a dictionary: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)_handleUserActivityStateChanged
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Probing state due to received user activity reports", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Probing state due to received user activity reports", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1017,12 +999,11 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
   }
 
   [(HMDHomeActivityStateMachine *)homeActivityStateMachine probeHomeActivityState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserActivityReportUpdated:(id)updated
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   if (self)
   {
@@ -1045,9 +1026,9 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
     v10 = HMFGetLogIdentifier();
     shortDescription = [updatedCopy shortDescription];
     *buf = 138543618;
-    v46 = v10;
-    v47 = 2114;
-    v48 = shortDescription;
+    v45 = v10;
+    v46 = 2114;
+    v47 = shortDescription;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received %{public}@", buf, 0x16u);
   }
 
@@ -1065,9 +1046,9 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
   home = [(HMDHomeActivityStateManagerDataSource *)v12 home];
   if (home)
   {
-    v44 = 0;
-    v14 = [(HMDHomeActivityStateAggregatorManager *)selfCopy deserializeUserActivityReportsFromMessage:updatedCopy outReports:&v44];
-    v15 = v44;
+    v43 = 0;
+    v14 = [(HMDHomeActivityStateAggregatorManager *)selfCopy deserializeUserActivityReportsFromMessage:updatedCopy outReports:&v43];
+    v15 = v43;
     if (v14)
     {
       v16 = [updatedCopy userForHome:home];
@@ -1082,23 +1063,23 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
           v21 = HMFGetLogIdentifier();
           shortDescription2 = [v16 shortDescription];
           *buf = 138543618;
-          v46 = v21;
-          v47 = 2114;
-          v48 = shortDescription2;
+          v45 = v21;
+          v46 = 2114;
+          v47 = shortDescription2;
           _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Received user activity reports for user: %{public}@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v17);
-        v37 = MEMORY[0x277D85DD0];
-        v38 = 3221225472;
-        v39 = __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated___block_invoke;
-        v40 = &unk_27867A768;
-        v41 = v18;
+        v36 = MEMORY[0x277D85DD0];
+        v37 = 3221225472;
+        v38 = __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated___block_invoke;
+        v39 = &unk_27867A768;
+        v40 = v18;
         v23 = v16;
-        v42 = v23;
+        v41 = v23;
         v24 = updatedCopy;
-        v43 = v24;
-        v25 = [v15 na_map:&v37];
+        v42 = v24;
+        v25 = [v15 na_map:&v36];
         v26 = [v25 count];
         if (v26 == [v15 count])
         {
@@ -1126,11 +1107,11 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
           shortDescription3 = [updatedCopy shortDescription];
           shortDescription4 = [home shortDescription];
           *buf = 138543874;
-          v46 = v31;
-          v47 = 2114;
-          v48 = shortDescription3;
-          v49 = 2114;
-          v50 = shortDescription4;
+          v45 = v31;
+          v46 = 2114;
+          v47 = shortDescription3;
+          v48 = 2114;
+          v49 = shortDescription4;
           _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the user from the message: %{public}@ in Home: %{public}@", buf, 0x20u);
         }
 
@@ -1158,30 +1139,28 @@ id __94__HMDHomeActivityStateAggregatorManager_deserializeUserActivityReportsFro
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v30;
+      v45 = v30;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Home was unexpectedly nil when asked to handleUserActivityReportUpdated", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v27);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 id __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated___block_invoke(id *a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v46 = 0;
   v45 = 0;
-  v4 = a1[4];
   v44 = 0;
-  v5 = [v4 deserializeUserActivityReportFromSerializedReport:v3 outContributorType:&v46 outIsUnset:&v45 outReportPayload:&v44];
-  v6 = v44;
+  v4 = a1[4];
+  v43 = 0;
+  v5 = [v4 deserializeUserActivityReportFromSerializedReport:v3 outContributorType:&v45 outIsUnset:&v44 outReportPayload:&v43];
+  v6 = v43;
   v7 = 0;
   if (v5)
   {
-    v8 = [a1[4] _aggregatorOfType:v46];
+    v8 = [a1[4] _aggregatorOfType:v45];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1203,11 +1182,11 @@ id __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated__
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v29 = HMDHomeActivityStateContributorTypeAsString(v46);
+        v29 = HMDHomeActivityStateContributorTypeAsString(v45);
         *buf = 138543618;
-        v48 = v28;
-        v49 = 2114;
-        v50 = v29;
+        v47 = v28;
+        v48 = 2114;
+        v49 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to find aggregator for given type: %{public}@", buf, 0x16u);
       }
 
@@ -1216,9 +1195,9 @@ id __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated__
       goto LABEL_27;
     }
 
-    if ([a1[4] isContributionAllowedByUser:a1[5] forContributorType:v46])
+    if ([a1[4] isContributionAllowedByUser:a1[5] forContributorType:v45])
     {
-      if ((v45 & 1) == 0)
+      if ((v44 & 1) == 0)
       {
         v11 = a1[4];
         if (v11)
@@ -1243,14 +1222,14 @@ id __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated__
         {
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v42 = HMFGetLogIdentifier();
-            v43 = HMDHomeActivityStateContributorTypeAsString(v46);
+            v41 = HMFGetLogIdentifier();
+            v42 = HMDHomeActivityStateContributorTypeAsString(v45);
             *buf = 138543874;
-            v48 = v42;
-            v49 = 2112;
-            v50 = v6;
-            v51 = 2114;
-            v52 = v43;
+            v47 = v41;
+            v48 = 2112;
+            v49 = v6;
+            v50 = 2114;
+            v51 = v42;
             _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid payload: %@, for contributor type: %{public}@", buf, 0x20u);
           }
 
@@ -1263,9 +1242,9 @@ id __73__HMDHomeActivityStateAggregatorManager_handleUserActivityReportUpdated__
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v23;
-          v49 = 2112;
-          v50 = v16;
+          v47 = v23;
+          v48 = 2112;
+          v49 = v16;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@New user activity report: %@", buf, 0x16u);
         }
 
@@ -1289,18 +1268,18 @@ LABEL_27:
       {
         v33 = HMFGetLogIdentifier();
         v34 = [a1[5] shortDescription];
-        v35 = HMDHomeActivityStateContributorTypeAsString(v46);
+        v35 = HMDHomeActivityStateContributorTypeAsString(v45);
         *buf = 138543874;
-        v48 = v33;
-        v49 = 2114;
-        v50 = v34;
-        v51 = 2114;
-        v52 = v35;
+        v47 = v33;
+        v48 = 2114;
+        v49 = v34;
+        v50 = 2114;
+        v51 = v35;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@User: %{public}@ is not allowed to contribute %{public}@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v30);
-      v45 = 1;
+      v44 = 1;
     }
 
     v16 = [v10 removeActivityReportForUser:a1[5]];
@@ -1313,11 +1292,11 @@ LABEL_27:
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v48 = v39;
-        v49 = 2112;
-        v50 = v16;
-        v51 = 2112;
-        v52 = v10;
+        v47 = v39;
+        v48 = 2112;
+        v49 = v16;
+        v50 = 2112;
+        v51 = v10;
         _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Removed report: %@, for aggregator: %@", buf, 0x20u);
       }
 
@@ -1330,14 +1309,12 @@ LABEL_27:
 
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)isAdaptiveTemperatureAutomationsEnabledInHome:(id)home shouldWaitToConfigure:(BOOL *)configure
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v7 = homeCopy;
   if (configure)
@@ -1365,11 +1342,11 @@ LABEL_28:
       {
         v15 = HMFGetLogIdentifier();
         shortDescription = [v11 shortDescription];
-        v19 = 138543618;
-        v20 = v15;
-        v21 = 2112;
-        v22 = shortDescription;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Some Valencia thermostats are not configured yet: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v15;
+        v20 = 2112;
+        v21 = shortDescription;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Some Valencia thermostats are not configured yet: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -1387,7 +1364,6 @@ LABEL_12:
   v10 = 1;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1418,7 +1394,7 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
 - (void)updateEnabledContributors
 {
   selfCopy = self;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = self->_dataSource;
@@ -1427,9 +1403,9 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
   home = [(HMDHomeActivityStateAggregatorManager *)self home];
   if (home)
   {
-    v21 = 0;
-    v4 = [(HMDHomeActivityStateAggregatorManager *)selfCopy isAdaptiveTemperatureAutomationsEnabledInHome:home shouldWaitToConfigure:&v21];
-    if ((v21 & 1) == 0)
+    v20 = 0;
+    v4 = [(HMDHomeActivityStateAggregatorManager *)selfCopy isAdaptiveTemperatureAutomationsEnabledInHome:home shouldWaitToConfigure:&v20];
+    if ((v20 & 1) == 0)
     {
       v5 = v4;
       v6 = [&unk_283E758F0 mutableCopy];
@@ -1448,9 +1424,9 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
         v11 = HMFGetLogIdentifier();
         v12 = [v7 na_map:&__block_literal_global_197206];
         *buf = 138543618;
-        v23 = v11;
-        v24 = 2114;
-        v25 = v12;
+        v22 = v11;
+        v23 = 2114;
+        v24 = v12;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Enabled Contributors: %{public}@", buf, 0x16u);
       }
 
@@ -1466,7 +1442,7 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
       }
 
       v14 = storage;
-      v15 = [v7 copy];
+      v15 = objc_msgSend_copy(v7);
       [(HMDHomeActivityStateAggregatorManagerStorage *)v14 writeEnabledContributors:v15];
     }
   }
@@ -1480,19 +1456,17 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v19;
+      v22 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Not updating enabledContributors - Home is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedAccessory:(id)accessory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1501,22 +1475,20 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
   {
     v8 = HMFGetLogIdentifier();
     shortDescription = [accessoryCopy shortDescription];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = shortDescription;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling removed accessory: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = shortDescription;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling removed accessory: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDHomeActivityStateAggregatorManager *)selfCopy updateEnabledContributors];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAdaptiveTemperatureAutomationsNotificationToUpdateEnabledContributors:(id)contributors
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contributorsCopy = contributors;
   object = [contributorsCopy object];
   objc_opt_class();
@@ -1552,15 +1524,15 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v25 = 138544130;
-      v26 = v14;
-      v27 = 2112;
-      v28 = contributorsCopy;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2112;
-      v32 = v9;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid object in notification: %@, hapAccessory: %@, home: %@", &v25, 0x2Au);
+      v24 = 138544130;
+      v25 = v14;
+      v26 = 2112;
+      v27 = contributorsCopy;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v9;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid object in notification: %@, hapAccessory: %@, home: %@", &v24, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -1591,21 +1563,19 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
         v21 = HMFGetLogIdentifier();
         name = [contributorsCopy name];
         shortDescription = [v7 shortDescription];
-        v25 = 138543874;
-        v26 = v21;
-        v27 = 2112;
-        v28 = name;
-        v29 = 2112;
-        v30 = shortDescription;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Handling %@ for %@", &v25, 0x20u);
+        v24 = 138543874;
+        v25 = v21;
+        v26 = 2112;
+        v27 = name;
+        v28 = 2112;
+        v29 = shortDescription;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Handling %@ for %@", &v24, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
       [(HMDHomeActivityStateAggregatorManager *)selfCopy2 updateEnabledContributors];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unconfigure
@@ -1645,7 +1615,7 @@ uint64_t __109__HMDHomeActivityStateAggregatorManager_isAdaptiveTemperatureAutom
 
 uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1653,9 +1623,9 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unconfiguring", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unconfiguring", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1681,7 +1651,6 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
 
   [v10 cancelTaskWithIdentifier:v13 onObserver:?];
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1767,7 +1736,7 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
 
 - (void)configureWithPresenceReceiver:(id)receiver completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   completionCopy = completion;
   [receiverCopy setDelegate:self];
@@ -1789,9 +1758,9 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
     }
 
     *buf = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = aggregators;
+    v27 = v11;
+    v28 = 2112;
+    v29 = aggregators;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring aggregators: %@", buf, 0x16u);
   }
 
@@ -1807,14 +1776,14 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
     v15 = 0;
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke;
-  v24[3] = &unk_27867A740;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke;
+  v23[3] = &unk_27867A740;
   v16 = v14;
-  v25 = v16;
-  v26 = selfCopy;
-  [(NSArray *)v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+  v24 = v16;
+  v25 = selfCopy;
+  [(NSArray *)v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
   if (selfCopy)
   {
     dataSource = selfCopy->_dataSource;
@@ -1827,16 +1796,14 @@ uint64_t __52__HMDHomeActivityStateAggregatorManager_unconfigure__block_invoke(u
 
   v18 = dataSource;
   queue = [(HMDHomeActivityStateManagerDataSource *)v18 queue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke_6;
-  v22[3] = &unk_27868A7A0;
-  v22[4] = selfCopy;
-  v23 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke_6;
+  v21[3] = &unk_27868A7A0;
+  v21[4] = selfCopy;
+  v22 = completionCopy;
   v20 = completionCopy;
-  dispatch_group_notify(v16, queue, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v16, queue, v21);
 }
 
 void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke(uint64_t a1, void *a2)
@@ -1857,16 +1824,16 @@ void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_c
 
 uint64_t __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke_6(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Configuring state machine", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Configuring state machine", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1923,9 +1890,9 @@ uint64_t __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiv
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v19;
-    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Evaluating enabled contributors", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v19;
+    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Evaluating enabled contributors", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v16);
@@ -1942,14 +1909,12 @@ uint64_t __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiv
   }
 
   [v21 fulfillWithNoValue];
-  result = (*(*(a1 + 40) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1957,35 +1922,34 @@ void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_c
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Configured aggregator: %@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Configured aggregator: %@", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   dispatch_group_leave(*(a1 + 48));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeActivityStateAggregatorManager)initWithDataSource:(id)source initialStateHoldDetails:(id)details
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   detailsCopy = details;
   makeHomeActivityHomeAwayAggregator = [sourceCopy makeHomeActivityHomeAwayAggregator];
-  v35[0] = makeHomeActivityHomeAwayAggregator;
+  v34[0] = makeHomeActivityHomeAwayAggregator;
   makeHomeActivityComingHomeAggregator = [sourceCopy makeHomeActivityComingHomeAggregator];
-  v35[1] = makeHomeActivityComingHomeAggregator;
+  v34[1] = makeHomeActivityComingHomeAggregator;
   makeHomeActivityVacationAggregator = [sourceCopy makeHomeActivityVacationAggregator];
-  v35[2] = makeHomeActivityVacationAggregator;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
+  v34[2] = makeHomeActivityVacationAggregator;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
   v13 = [v12 mutableCopy];
 
-  v34.receiver = self;
-  v34.super_class = HMDHomeActivityStateAggregatorManager;
-  v14 = [(HMDHomeActivityStateAggregatorManager *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HMDHomeActivityStateAggregatorManager;
+  v14 = [(HMDHomeActivityStateAggregatorManager *)&v33 init];
   v15 = v14;
   if (v14)
   {
@@ -1994,7 +1958,7 @@ void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_c
     userActivityReportFactory = v15->_userActivityReportFactory;
     v15->_userActivityReportFactory = v16;
 
-    v18 = [v13 copy];
+    v18 = objc_msgSend_copy(v13);
     aggregators = v15->_aggregators;
     v15->_aggregators = v18;
 
@@ -2020,7 +1984,6 @@ void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_c
     v15->_configureFuture = v30;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2038,15 +2001,14 @@ void __82__HMDHomeActivityStateAggregatorManager_configureWithPresenceReceiver_c
 
 void __52__HMDHomeActivityStateAggregatorManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v47_138034;
-  logCategory__hmf_once_v47_138034 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v47_138034;
+  logCategory__hmf_once_v47_138034 = v0;
 }
 
 + (BOOL)isReportAllowed:(id)allowed sourceDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   allowedCopy = allowed;
   deviceCopy = device;
   if (!allowedCopy)
@@ -2082,11 +2044,11 @@ LABEL_11:
       {
         v16 = HMFGetLogIdentifier();
         version2 = [deviceCopy version];
-        v20 = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = version2;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Ignoring Coming Home report because device is too old: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v16;
+        v21 = 2112;
+        v22 = version2;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Ignoring Coming Home report because device is too old: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -2098,7 +2060,6 @@ LABEL_7:
   v12 = 1;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

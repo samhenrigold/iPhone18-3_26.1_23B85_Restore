@@ -16,27 +16,31 @@
 
 - (void)connect
 {
-  v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.locationd.harvester" options:4096];
-  self->_connection = v3;
-  if (v3)
+  v3 = objc_alloc(MEMORY[0x1E696B0B8]);
+  v5 = objc_msgSend_initWithMachServiceName_options_(v3, v4, @"com.apple.locationd.harvester", 4096);
+  self->_connection = v5;
+  if (v5)
   {
-    v4 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0EAD240];
-    [v4 setClass:NSClassFromString(&cfstr_Clppoiharvest.isa) forSelector:sel_submitSample_ argumentIndex:0 ofReply:0];
-    v5 = MEMORY[0x1E695DFD8];
-    v6 = objc_opt_class();
-    v7 = objc_opt_class();
-    v8 = objc_opt_class();
-    [v4 setClasses:objc_msgSend(v5 forSelector:"setWithObjects:" argumentIndex:v6 ofReply:{v7, v8, objc_opt_class(), 0), sel_fetchStateWithReply_, 0, 1}];
-    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v4];
+    v8 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v6, &unk_1F0EAD240, v7);
+    v9 = NSClassFromString(&cfstr_Clppoiharvest.isa);
+    objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v8, v10, v9, sel_submitSample_, 0, 0);
+    v11 = MEMORY[0x1E695DFD8];
+    v12 = objc_opt_class();
+    v13 = objc_opt_class();
+    v14 = objc_opt_class();
+    v15 = objc_opt_class();
+    v18 = objc_msgSend_setWithObjects_(v11, v16, v12, v17, v13, v14, v15, 0);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v8, v19, v18, sel_fetchStateWithReply_, 0, 1);
+    objc_msgSend_setRemoteObjectInterface_(self->_connection, v20, v8, v21);
     connection = self->_connection;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_19B9DBD1C;
-    v10[3] = &unk_1E753CC90;
-    v10[4] = self;
-    [(NSXPCConnection *)connection setInvalidationHandler:v10];
-    [(NSXPCConnection *)self->_connection setInterruptionHandler:&unk_1F0E6E768];
-    [(NSXPCConnection *)self->_connection resume];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = sub_19B9DBD1C;
+    v30[3] = &unk_1E753CC90;
+    v30[4] = self;
+    objc_msgSend_setInvalidationHandler_(connection, v23, v30, v24);
+    objc_msgSend_setInterruptionHandler_(self->_connection, v25, &unk_1F0E6E768, v26);
+    objc_msgSend_resume(self->_connection, v27, v28, v29);
   }
 }
 
@@ -45,13 +49,13 @@
   connection = self->_connection;
   if (!connection)
   {
-    [(CLHarvester *)self connect];
+    objc_msgSend_connect(self, a2, sample, v3);
     connection = self->_connection;
   }
 
-  remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
+  v7 = objc_msgSend_remoteObjectProxy(connection, a2, sample, v3);
 
-  MEMORY[0x1EEE66B58](remoteObjectProxy, sel_submitSample_);
+  MEMORY[0x1EEE66B58](v7, sel_submitSample_, sample, v8);
 }
 
 - (id)currentStateDictionary
@@ -59,26 +63,26 @@
   connection = self->_connection;
   if (!connection)
   {
-    [(CLHarvester *)self connect];
+    objc_msgSend_connect(self, a2, v2, v3);
     connection = self->_connection;
   }
 
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3052000000;
-  v11 = sub_19B9DC1D8;
-  v12 = sub_19B9DC1E8;
-  v13 = 0;
-  v4 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:&unk_1F0E6E788];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19B9DC398;
-  v7[3] = &unk_1E753E5B8;
-  v7[4] = &v8;
-  [v4 fetchStateWithReply:v7];
-  v5 = v9[5];
-  _Block_object_dispose(&v8, 8);
-  return v5;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = sub_19B9DC1D8;
+  v16 = sub_19B9DC1E8;
+  v17 = 0;
+  v6 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(connection, a2, &unk_1F0E6E788, v3);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B9DC398;
+  v11[3] = &unk_1E753E5B8;
+  v11[4] = &v12;
+  objc_msgSend_fetchStateWithReply_(v6, v7, v11, v8);
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+  return v9;
 }
 
 @end

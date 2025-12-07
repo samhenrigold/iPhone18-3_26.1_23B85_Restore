@@ -10,62 +10,65 @@
 - (CERecommendationPage)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v16.receiver = self;
-  v16.super_class = CERecommendationPage;
-  v5 = [(CERecommendationPage *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = CERecommendationPage;
+  v5 = [(CERecommendationPage *)&v19 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"pageTitle"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = v6;
+      v8 = v6;
       title = v5->_title;
-      v5->_title = v7;
+      v5->_title = v8;
     }
 
     else
     {
-      title = _CELogSystem();
+      title = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(title, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationPage initWithDictionary:];
+        [CERecommendationPage initWithDictionary:v5];
       }
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"pageSubtitle"];
+    v10 = [dictionaryCopy objectForKeyedSubscript:@"pageSubtitle"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v11 = objc_opt_isKindOfClass();
+    if (v11)
     {
-      v10 = v9;
+      v12 = v10;
       subTitle = v5->_subTitle;
-      v5->_subTitle = v10;
+      v5->_subTitle = v12;
     }
 
     else
     {
-      subTitle = _CELogSystem();
+      subTitle = _CELogSystem(v11);
       if (os_log_type_enabled(subTitle, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationPage initWithDictionary:];
+        [CERecommendationPage initWithDictionary:v5];
       }
     }
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"icon"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"icon"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
     {
-      v13 = [[CEImageIcon alloc] initWithDictionary:v12];
+      v16 = [[CEImageIcon alloc] initWithDictionary:v14];
       p_super = &v5->_icon->super.super;
-      v5->_icon = v13;
+      v5->_icon = v16;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(v15);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationPage initWithDictionary:];
+        [CERecommendationPage initWithDictionary:v5];
       }
     }
   }
@@ -115,31 +118,28 @@
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse title from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse title from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse subtitle from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse subtitle from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse icon from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse icon from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -2184,64 +2184,64 @@ LABEL_65:
 
 - (id)pastMajorBoundaryCalendarDateForCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)futureMajorBoundaryCalendarDateForCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)createInitialViewForDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)newTopViewAboveViewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)newBottomViewBelowViewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)calendarDateForSubviewAboveSubviewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (id)calendarDateForSubviewBelowSubviewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 
 - (double)heightForSubviewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0.0;
 }
 
 - (double)topInsetForSubviewWithCalendarDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0.0;
 }
 

@@ -9,17 +9,15 @@
 
 - (id)orderedProperties
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"friend_uuid";
-  v9[1] = @"template_unique_name";
-  v9[2] = @"completed_date";
-  v9[3] = @"value";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"friend_uuid";
+  v8[1] = @"template_unique_name";
+  v8[2] = @"completed_date";
+  v8[3] = @"value";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

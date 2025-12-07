@@ -21,7 +21,7 @@
     v5 = +[IDSLogging IDSRealTimeEncryptionProxy];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v5);
     }
 
     selfCopy = 0;
@@ -83,7 +83,7 @@
 
 - (void)setDelegate:(id)delegate queue:(id)queue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -101,9 +101,9 @@
   v11 = +[IDSLogging IDSRealTimeEncryptionProxy];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 134217984;
-    v17 = delegateCopy;
-    _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Setting up delegate %p", &v16, 0xCu);
+    v15 = 134217984;
+    v16 = delegateCopy;
+    _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Setting up delegate %p", &v15, 0xCu);
   }
 
   if (self->_delegate != delegateCopy)
@@ -115,13 +115,11 @@
 
   queue = self->_queue;
   self->_queue = queueCopy;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendPrekeyToGroup:(id)group
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -138,15 +136,13 @@
   v8 = +[IDSLogging IDSRealTimeEncryptionProxy];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = groupCopy;
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending the real-time media prekey of this device to the group %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = groupCopy;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending the real-time media prekey of this device to the group %@", &v10, 0xCu);
   }
 
   v9 = +[IDSDaemonController sharedInstance];
   [v9 sendRealTimeMediaPrekey:self->_uniqueID toGroup:groupCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestPublicKeys
@@ -245,7 +241,7 @@
 
 - (void)xpcObject:(id)object objectContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   object = [(CUTWeakReference *)self->_delegate object];
   if (contextCopy)
@@ -266,11 +262,11 @@ LABEL_5:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         delegate = self->_delegate;
-        v18 = 138412290;
-        v19 = delegate;
+        v17 = 138412290;
+        v18 = delegate;
         v13 = "the delegate object %@ doesn't respond to the selector didReceivePublickeys:";
 LABEL_20:
-        _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, v13, &v18, 0xCu);
+        _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, v13, &v17, 0xCu);
         goto LABEL_21;
       }
 
@@ -311,8 +307,8 @@ LABEL_13:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v16 = self->_delegate;
-        v18 = 138412290;
-        v19 = v16;
+        v17 = 138412290;
+        v18 = v16;
         v13 = "the delegate object %@ doesn't respond to the selector didReceiveMasterKeyMaterials:";
         goto LABEL_20;
       }
@@ -326,14 +322,12 @@ LABEL_21:
   v10 = +[IDSLogging IDSRealTimeEncryptionProxy];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v7;
-    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "unknown object type %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v7;
+    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "unknown object type %@", &v17, 0xCu);
   }
 
 LABEL_22:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

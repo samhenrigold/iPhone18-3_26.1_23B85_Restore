@@ -15,9 +15,9 @@
     +[WKUserContentController(SafariSharedUIExtras) safari_userContentController];
   }
 
-  v1 = +[WKUserContentController(SafariSharedUIExtras) safari_userContentController]::controller;
+  v2 = +[WKUserContentController(SafariSharedUIExtras) safari_userContentController]::controller;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_webExtensionUserContentController
@@ -27,9 +27,9 @@
     +[WKUserContentController(SafariSharedUIExtras) safari_webExtensionUserContentController];
   }
 
-  v1 = +[WKUserContentController(SafariSharedUIExtras) safari_webExtensionUserContentController]::controller;
+  v2 = +[WKUserContentController(SafariSharedUIExtras) safari_webExtensionUserContentController]::controller;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_readerUserContentController

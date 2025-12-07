@@ -95,7 +95,7 @@
 
 - (id)containerViewsForPlatterTreatment
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   if (objc_msgSend_isExpanded(self, a2, v2, v3))
   {
     v8 = objc_msgSend_containerViewsForPlatterTreatment(self->_shortcutController, v5, v6, v7);
@@ -104,11 +104,9 @@
   else
   {
     v9 = objc_msgSend_buttonView(self, v5, v6, v7);
-    v13[0] = v9;
-    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v10, v13, 1);
+    v12[0] = v9;
+    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v10, v12, 1);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

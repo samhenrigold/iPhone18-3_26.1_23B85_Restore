@@ -51,35 +51,35 @@
 
 - (void)printResultsWithBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   selfCopy = self;
   collectedData = [(EventCollector *)self collectedData];
   allKeys = [collectedData allKeys];
   v7 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v24 = *v27;
+    v23 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v24)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
-        bzero(v30, 0x400uLL);
+        v11 = *(*(&v25 + 1) + 8 * v10);
+        bzero(v29, 0x400uLL);
         collectedData2 = [(EventCollector *)selfCopy collectedData];
         v13 = [collectedData2 objectForKeyedSubscript:v11];
 
@@ -102,20 +102,18 @@
         v19 = [v11 componentsSeparatedByString:@"|"];
         v20 = [v19 objectAtIndexedSubscript:0];
         v21 = [v19 objectAtIndexedSubscript:1];
-        __sprintf_chk(v30, 0, 0x400uLL, "type: %s, outcome: %s -> count: %llu, avg: %.2f, total:%llu", [v20 UTF8String], objc_msgSend(v21, "UTF8String"), unsignedLongLongValue, v18, unsignedLongLongValue2);
-        blockCopy[2](blockCopy, v30);
+        __sprintf_chk(v29, 0, 0x400uLL, "type: %s, outcome: %s -> count: %llu, avg: %.2f, total:%llu", [v20 UTF8String], objc_msgSend(v21, "UTF8String"), unsignedLongLongValue, v18, unsignedLongLongValue2);
+        blockCopy[2](blockCopy, v29);
 
         ++v10;
       }
 
       while (v9 != v10);
-      v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v9);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear

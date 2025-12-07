@@ -13,11 +13,11 @@
 
 - (SFRichTitleCardSection)initWithProtobuf:(id)protobuf
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v114.receiver = self;
-  v114.super_class = SFRichTitleCardSection;
-  v5 = [(SFCardSection *)&v114 init];
+  v113.receiver = self;
+  v113.super_class = SFRichTitleCardSection;
+  v5 = [(SFCardSection *)&v113 init];
 
   if (v5)
   {
@@ -32,33 +32,33 @@
       v7 = 0;
     }
 
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
     v111 = 0u;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v110 objects:v118 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v109 objects:v117 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v111;
+      v11 = *v110;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v111 != v11)
+          if (*v110 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v110 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v109 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v110 objects:v118 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v109 objects:v117 count:16];
       }
 
       while (v10);
@@ -207,7 +207,7 @@
     }
 
     moreGlyphs = [protobufCopy moreGlyphs];
-    v97 = v5;
+    v96 = v5;
     if (moreGlyphs)
     {
       v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -218,45 +218,45 @@
       v48 = 0;
     }
 
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
     v107 = 0u;
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
     moreGlyphs2 = [protobufCopy moreGlyphs];
-    v50 = [moreGlyphs2 countByEnumeratingWithState:&v106 objects:v117 count:16];
+    v50 = [moreGlyphs2 countByEnumeratingWithState:&v105 objects:v116 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v107;
+      v52 = *v106;
       do
       {
         for (j = 0; j != v51; ++j)
         {
-          if (*v107 != v52)
+          if (*v106 != v52)
           {
             objc_enumerationMutation(moreGlyphs2);
           }
 
-          v54 = [[SFImage alloc] initWithProtobuf:*(*(&v106 + 1) + 8 * j)];
+          v54 = [[SFImage alloc] initWithProtobuf:*(*(&v105 + 1) + 8 * j)];
           if (v54)
           {
             [v48 addObject:v54];
           }
         }
 
-        v51 = [moreGlyphs2 countByEnumeratingWithState:&v106 objects:v117 count:16];
+        v51 = [moreGlyphs2 countByEnumeratingWithState:&v105 objects:v116 count:16];
       }
 
       while (v51);
     }
 
-    [(SFRichTitleCardSection *)v97 setMoreGlyphs:v48];
+    [(SFRichTitleCardSection *)v96 setMoreGlyphs:v48];
     auxiliaryTopText = [protobufCopy auxiliaryTopText];
 
     if (auxiliaryTopText)
     {
       auxiliaryTopText2 = [protobufCopy auxiliaryTopText];
-      [(SFRichTitleCardSection *)v97 setAuxiliaryTopText:auxiliaryTopText2];
+      [(SFRichTitleCardSection *)v96 setAuxiliaryTopText:auxiliaryTopText2];
     }
 
     auxiliaryMiddleText = [protobufCopy auxiliaryMiddleText];
@@ -264,7 +264,7 @@
     if (auxiliaryMiddleText)
     {
       auxiliaryMiddleText2 = [protobufCopy auxiliaryMiddleText];
-      [(SFRichTitleCardSection *)v97 setAuxiliaryMiddleText:auxiliaryMiddleText2];
+      [(SFRichTitleCardSection *)v96 setAuxiliaryMiddleText:auxiliaryMiddleText2];
     }
 
     auxiliaryBottomText = [protobufCopy auxiliaryBottomText];
@@ -272,44 +272,44 @@
     if (auxiliaryBottomText)
     {
       auxiliaryBottomText2 = [protobufCopy auxiliaryBottomText];
-      [(SFRichTitleCardSection *)v97 setAuxiliaryBottomText:auxiliaryBottomText2];
+      [(SFRichTitleCardSection *)v96 setAuxiliaryBottomText:auxiliaryBottomText2];
     }
 
     if ([protobufCopy auxiliaryBottomTextColor])
     {
-      -[SFRichTitleCardSection setAuxiliaryBottomTextColor:](v97, "setAuxiliaryBottomTextColor:", [protobufCopy auxiliaryBottomTextColor]);
+      -[SFRichTitleCardSection setAuxiliaryBottomTextColor:](v96, "setAuxiliaryBottomTextColor:", [protobufCopy auxiliaryBottomTextColor]);
     }
 
     if ([protobufCopy auxiliaryAlignment])
     {
       v61 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(protobufCopy, "auxiliaryAlignment")}];
-      [(SFRichTitleCardSection *)v97 setAuxiliaryAlignment:v61];
+      [(SFRichTitleCardSection *)v96 setAuxiliaryAlignment:v61];
     }
 
     if ([protobufCopy hideVerticalDivider])
     {
-      -[SFRichTitleCardSection setHideVerticalDivider:](v97, "setHideVerticalDivider:", [protobufCopy hideVerticalDivider]);
+      -[SFRichTitleCardSection setHideVerticalDivider:](v96, "setHideVerticalDivider:", [protobufCopy hideVerticalDivider]);
     }
 
     if ([protobufCopy titleAlign])
     {
-      -[SFRichTitleCardSection setTitleAlign:](v97, "setTitleAlign:", [protobufCopy titleAlign]);
+      -[SFRichTitleCardSection setTitleAlign:](v96, "setTitleAlign:", [protobufCopy titleAlign]);
     }
 
     if ([protobufCopy titleWeight])
     {
       v62 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(protobufCopy, "titleWeight")}];
-      [(SFRichTitleCardSection *)v97 setTitleWeight:v62];
+      [(SFRichTitleCardSection *)v96 setTitleWeight:v62];
     }
 
     if ([protobufCopy titleNoWrap])
     {
-      -[SFRichTitleCardSection setTitleNoWrap:](v97, "setTitleNoWrap:", [protobufCopy titleNoWrap]);
+      -[SFRichTitleCardSection setTitleNoWrap:](v96, "setTitleNoWrap:", [protobufCopy titleNoWrap]);
     }
 
     if ([protobufCopy thumbnailCropCircle])
     {
-      -[SFRichTitleCardSection setThumbnailCropCircle:](v97, "setThumbnailCropCircle:", [protobufCopy thumbnailCropCircle]);
+      -[SFRichTitleCardSection setThumbnailCropCircle:](v96, "setThumbnailCropCircle:", [protobufCopy thumbnailCropCircle]);
     }
 
     imageOverlay = [protobufCopy imageOverlay];
@@ -319,7 +319,7 @@
       v64 = [SFImage alloc];
       imageOverlay2 = [protobufCopy imageOverlay];
       v66 = [(SFImage *)v64 initWithProtobuf:imageOverlay2];
-      [(SFRichTitleCardSection *)v97 setImageOverlay:v66];
+      [(SFRichTitleCardSection *)v96 setImageOverlay:v66];
     }
 
     playAction = [protobufCopy playAction];
@@ -329,12 +329,12 @@
       v68 = [SFActionItem alloc];
       playAction2 = [protobufCopy playAction];
       v70 = [(SFActionItem *)v68 initWithProtobuf:playAction2];
-      [(SFRichTitleCardSection *)v97 setPlayAction:v70];
+      [(SFRichTitleCardSection *)v96 setPlayAction:v70];
     }
 
     if ([protobufCopy playActionAlign])
     {
-      -[SFRichTitleCardSection setPlayActionAlign:](v97, "setPlayActionAlign:", [protobufCopy playActionAlign]);
+      -[SFRichTitleCardSection setPlayActionAlign:](v96, "setPlayActionAlign:", [protobufCopy playActionAlign]);
     }
 
     offers = [protobufCopy offers];
@@ -348,45 +348,45 @@
       v72 = 0;
     }
 
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     offers2 = [protobufCopy offers];
-    v74 = [offers2 countByEnumeratingWithState:&v102 objects:v116 count:16];
+    v74 = [offers2 countByEnumeratingWithState:&v101 objects:v115 count:16];
     if (v74)
     {
       v75 = v74;
-      v76 = *v103;
+      v76 = *v102;
       do
       {
         for (k = 0; k != v75; ++k)
         {
-          if (*v103 != v76)
+          if (*v102 != v76)
           {
             objc_enumerationMutation(offers2);
           }
 
-          v78 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v102 + 1) + 8 * k)];
+          v78 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v101 + 1) + 8 * k)];
           if (v78)
           {
             [v72 addObject:v78];
           }
         }
 
-        v75 = [offers2 countByEnumeratingWithState:&v102 objects:v116 count:16];
+        v75 = [offers2 countByEnumeratingWithState:&v101 objects:v115 count:16];
       }
 
       while (v75);
     }
 
-    [(SFRichTitleCardSection *)v97 setOffers:v72];
+    [(SFRichTitleCardSection *)v96 setOffers:v72];
     footnote = [protobufCopy footnote];
 
     if (footnote)
     {
       footnote2 = [protobufCopy footnote];
-      [(SFRichTitleCardSection *)v97 setFootnote:footnote2];
+      [(SFRichTitleCardSection *)v96 setFootnote:footnote2];
     }
 
     richSubtitle = [protobufCopy richSubtitle];
@@ -396,12 +396,12 @@
       v82 = [SFRichText alloc];
       richSubtitle2 = [protobufCopy richSubtitle];
       v84 = [(SFRichText *)v82 initWithProtobuf:richSubtitle2];
-      [(SFRichTitleCardSection *)v97 setRichSubtitle:v84];
+      [(SFRichTitleCardSection *)v96 setRichSubtitle:v84];
     }
 
     if ([protobufCopy subtitleIsEmphasized])
     {
-      -[SFRichTitleCardSection setSubtitleIsEmphasized:](v97, "setSubtitleIsEmphasized:", [protobufCopy subtitleIsEmphasized]);
+      -[SFRichTitleCardSection setSubtitleIsEmphasized:](v96, "setSubtitleIsEmphasized:", [protobufCopy subtitleIsEmphasized]);
     }
 
     buttonItems = [protobufCopy buttonItems];
@@ -415,47 +415,46 @@
       v86 = 0;
     }
 
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
-    v96 = protobufCopy;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v95 = protobufCopy;
     buttonItems2 = [protobufCopy buttonItems];
-    v88 = [buttonItems2 countByEnumeratingWithState:&v98 objects:v115 count:16];
+    v88 = [buttonItems2 countByEnumeratingWithState:&v97 objects:v114 count:16];
     if (v88)
     {
       v89 = v88;
-      v90 = *v99;
+      v90 = *v98;
       do
       {
         for (m = 0; m != v89; ++m)
         {
-          if (*v99 != v90)
+          if (*v98 != v90)
           {
             objc_enumerationMutation(buttonItems2);
           }
 
-          v92 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v98 + 1) + 8 * m)];
+          v92 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v97 + 1) + 8 * m)];
           if (v92)
           {
             [v86 addObject:v92];
           }
         }
 
-        v89 = [buttonItems2 countByEnumeratingWithState:&v98 objects:v115 count:16];
+        v89 = [buttonItems2 countByEnumeratingWithState:&v97 objects:v114 count:16];
       }
 
       while (v89);
     }
 
-    v5 = v97;
-    [(SFRichTitleCardSection *)v97 setButtonItems:v86];
-    v93 = v97;
+    v5 = v96;
+    [(SFRichTitleCardSection *)v96 setButtonItems:v86];
+    v93 = v96;
 
-    protobufCopy = v96;
+    protobufCopy = v95;
   }
 
-  v94 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

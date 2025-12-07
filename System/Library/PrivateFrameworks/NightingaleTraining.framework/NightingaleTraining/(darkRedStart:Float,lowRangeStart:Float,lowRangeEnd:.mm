@@ -9,7 +9,7 @@
   v2 = lazy protocol witness table cache variable for type [(darkRedStart: Float, lowRangeStart: Float, lowRangeEnd: Float)] and conformance [A];
   if (!lazy protocol witness table cache variable for type [(darkRedStart: Float, lowRangeStart: Float, lowRangeEnd: Float)] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySf12darkRedStart_Sf08lowRangeC0Sf0dE3EndtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySf12darkRedStart_Sf08lowRangeC0Sf0dE3EndtGMd, &_sSaySf12darkRedStart_Sf08lowRangeC0Sf0dE3EndtGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [(darkRedStart: Float, lowRangeStart: Float, lowRangeEnd: Float)] and conformance [A]);
     return WitnessTable;

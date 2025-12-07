@@ -27,7 +27,7 @@
 
 - (BOOL)removeNetworkProfile:()WFNetworkProfile
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self _equivalentExistingNetworkProfile:v4];
   if (v5)
@@ -39,17 +39,17 @@
   {
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
     {
-      v10 = 136315394;
-      v11 = "[NSMutableSet(WFNetworkProfile) removeNetworkProfile:]";
-      v12 = 2114;
-      v13 = v4;
-      _os_log_impl(&dword_273ECD000, v6, v7, "%s: no existing network matching profile %{public}@", &v10, 0x16u);
+      v11 = 136315394;
+      v12 = "[NSMutableSet(WFNetworkProfile) removeNetworkProfile:]";
+      v13 = 2114;
+      v14 = v4;
+      _os_log_impl(&dword_273ECD000, v6, v8, "%s: no existing network matching profile %{public}@", &v11, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
@@ -79,19 +79,18 @@
 
 - (void)replaceNetworkProfile:()WFNetworkProfile .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    v5 = 136315394;
-    v6 = "[NSMutableSet(WFNetworkProfile) replaceNetworkProfile:]";
-    v7 = 2114;
-    v8 = a1;
-    _os_log_impl(&dword_273ECD000, v2, v3, "%s: no existing network matching profile %{public}@", &v5, 0x16u);
+    v6 = 136315394;
+    v7 = "[NSMutableSet(WFNetworkProfile) replaceNetworkProfile:]";
+    v8 = 2114;
+    v9 = a1;
+    _os_log_impl(&dword_273ECD000, v2, v4, "%s: no existing network matching profile %{public}@", &v6, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

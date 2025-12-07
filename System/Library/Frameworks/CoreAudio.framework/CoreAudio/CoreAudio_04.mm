@@ -109,9 +109,9 @@ LABEL_16:
   return result;
 }
 
-void sub_1DE246EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE246EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -133,7 +133,7 @@ void applesauce::CF::DictionaryRef::~DictionaryRef(const void **this)
   }
 }
 
-double AMCP::Implementation::create_acl_from<applesauce::CF::DictionaryRef>(uint64_t a1, uint64_t a2, void *a3)
+double AMCP::Implementation::create_acl_from<applesauce::CF::DictionaryRef>(void *a1, uint64_t a2, void *a3)
 {
   if (*a3 != AMCP::Implementation::get_type_marker<CA::ChannelLayout>() && *a3 != AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>())
   {
@@ -157,9 +157,9 @@ double AMCP::Implementation::create_acl_from<applesauce::CF::DictionaryRef>(uint
     {
       if (v5)
       {
-        *(a1 + 32) = 0;
+        a1[4] = 0;
         *a1 = 0u;
-        *(a1 + 16) = 0u;
+        *(a1 + 1) = 0u;
         AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::construct<applesauce::CF::DictionaryRef const&>(a1, v5);
         return result;
       }
@@ -169,10 +169,10 @@ LABEL_98:
     }
 
 LABEL_91:
-    *(a1 + 32) = 0;
+    a1[4] = 0;
     result = 0.0;
     *a1 = 0u;
-    *(a1 + 16) = 0u;
+    *(a1 + 1) = 0u;
     return result;
   }
 
@@ -327,7 +327,7 @@ LABEL_91:
   }
 
   LOBYTE(v86) = 0;
-  std::vector<char>::vector[abi:ne200100](&v84, 20 * v17 + 12);
+  std::vector<char>::vector[abi:ne200100](&v84, 20 * v17 + 12, &v86);
   v18 = v84;
   *v84 = v15;
   v18[1] = v16;
@@ -641,11 +641,11 @@ LABEL_91:
     v14 = v79;
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, v18, v85, v85 - v18);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<CA::ChannelLayout>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<CA::ChannelLayout>::dispatch;
   if (v84)
   {
     v85 = v84;
@@ -658,69 +658,65 @@ LABEL_91:
   return result;
 }
 
-void sub_1DE248000(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, uint64_t a23, const void *a24, __int16 a25, char a26, char a27, int a28, __int16 a29, char a30, char a31, int a32, __int16 a33, char a34, char a35)
+void sub_1DE248000(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, uint64_t a23, const void *a24, __int16 a26, char a27, char a28, int a29, __int16 a30, char a31, char a32, int a33, __int16 a34, char a35, char a36)
 {
   __cxa_free_exception(v35);
   applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(&a24);
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(uint64_t a1, uint64_t a2, void *a3)
+void AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(uint64_t a1, uint64_t a2, void *a3)
 {
-  if (*a3 != AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>() && *a3 != AMCP::Implementation::get_type_marker<CA::StreamDescription>())
+  if (*a3 != AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>() && *a3 != AMCP::Implementation::get_type_marker<CA::StreamDescription>() && *a3 != AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>())
   {
-    result = AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>();
-    if (*a3 != result)
-    {
-      goto LABEL_144;
-    }
+    goto LABEL_144;
   }
 
   if (*(a2 + 32))
   {
-    v80 = AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>();
-    v7 = (*(a2 + 32))(4, a2, 0, &v80);
+    v79 = AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>();
+    v6 = (*(a2 + 32))(4, a2, 0, &v79);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   if (*a3 == AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>())
   {
-    if (v7)
+    if (v6)
     {
-      if (*v7)
+      if (*v6)
       {
-        v79 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
-        if (v79)
+        v78 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
+        if (v78)
         {
           LODWORD(valuePtr) = 0;
           cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
           if (cf)
           {
-            applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v80, *v7, v79, &cf);
+            applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v79, *v6, v78, &cf);
             if (cf)
             {
               CFRelease(cf);
             }
 
-            if (v79)
+            if (v78)
             {
-              CFRelease(v79);
+              CFRelease(v78);
             }
 
-            if (*v7)
+            if (*v6)
             {
               cf = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
               if (cf)
               {
-                LODWORD(v76) = 0;
-                valuePtr = CFNumberCreate(0, kCFNumberIntType, &v76);
+                LODWORD(v75) = 0;
+                valuePtr = CFNumberCreate(0, kCFNumberIntType, &v75);
                 if (valuePtr)
                 {
-                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v79, *v7, cf, &valuePtr);
+                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v78, *v6, cf, &valuePtr);
                   if (valuePtr)
                   {
                     CFRelease(valuePtr);
@@ -731,19 +727,19 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
                     CFRelease(cf);
                   }
 
-                  if (*v7)
+                  if (*v6)
                   {
                     valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
                     if (valuePtr)
                     {
-                      LODWORD(v75) = 0;
-                      v76 = CFNumberCreate(0, kCFNumberIntType, &v75);
-                      if (v76)
+                      LODWORD(v74) = 0;
+                      v75 = CFNumberCreate(0, kCFNumberIntType, &v74);
+                      if (v75)
                       {
-                        applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&cf, *v7, valuePtr, &v76);
-                        if (v76)
+                        applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&cf, *v6, valuePtr, &v75);
+                        if (v75)
                         {
-                          CFRelease(v76);
+                          CFRelease(v75);
                         }
 
                         if (valuePtr)
@@ -751,130 +747,130 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
                           CFRelease(valuePtr);
                         }
 
-                        if (*v7)
+                        if (*v6)
                         {
-                          v76 = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
-                          if (v76)
+                          v75 = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
+                          if (v75)
                           {
-                            LODWORD(v74) = 0;
-                            v75 = CFNumberCreate(0, kCFNumberIntType, &v74);
-                            if (v75)
+                            LODWORD(v73) = 0;
+                            v74 = CFNumberCreate(0, kCFNumberIntType, &v73);
+                            if (v74)
                             {
-                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, *v7, v76, &v75);
+                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, *v6, v75, &v74);
+                              if (v74)
+                              {
+                                CFRelease(v74);
+                              }
+
                               if (v75)
                               {
                                 CFRelease(v75);
                               }
 
-                              if (v76)
+                              if (*v6)
                               {
-                                CFRelease(v76);
-                              }
-
-                              if (*v7)
-                              {
-                                v75 = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
-                                if (v75)
+                                v74 = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
+                                if (v74)
                                 {
-                                  LODWORD(v73) = 0;
-                                  v74 = CFNumberCreate(0, kCFNumberIntType, &v73);
-                                  if (v74)
+                                  LODWORD(v72) = 0;
+                                  v73 = CFNumberCreate(0, kCFNumberIntType, &v72);
+                                  if (v73)
                                   {
-                                    applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v76, *v7, v75, &v74);
+                                    applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v75, *v6, v74, &v73);
+                                    if (v73)
+                                    {
+                                      CFRelease(v73);
+                                    }
+
                                     if (v74)
                                     {
                                       CFRelease(v74);
                                     }
 
-                                    if (v75)
+                                    if (*v6)
                                     {
-                                      CFRelease(v75);
-                                    }
-
-                                    if (*v7)
-                                    {
-                                      v74 = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
-                                      if (v74)
+                                      v73 = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
+                                      if (v73)
                                       {
-                                        LODWORD(v72) = 0;
-                                        v73 = CFNumberCreate(0, kCFNumberIntType, &v72);
-                                        if (v73)
+                                        LODWORD(v71) = 0;
+                                        v72 = CFNumberCreate(0, kCFNumberIntType, &v71);
+                                        if (v72)
                                         {
-                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v75, *v7, v74, &v73);
+                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v74, *v6, v73, &v72);
+                                          if (v72)
+                                          {
+                                            CFRelease(v72);
+                                          }
+
                                           if (v73)
                                           {
                                             CFRelease(v73);
                                           }
 
-                                          if (v74)
+                                          if (*v6)
                                           {
-                                            CFRelease(v74);
-                                          }
-
-                                          if (*v7)
-                                          {
-                                            v73 = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
-                                            if (v73)
+                                            v72 = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
+                                            if (v72)
                                             {
-                                              LODWORD(v71) = 0;
-                                              v72 = CFNumberCreate(0, kCFNumberIntType, &v71);
-                                              if (v72)
+                                              LODWORD(v70) = 0;
+                                              v71 = CFNumberCreate(0, kCFNumberIntType, &v70);
+                                              if (v71)
                                               {
-                                                applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v74, *v7, v73, &v72);
+                                                applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v73, *v6, v72, &v71);
+                                                if (v71)
+                                                {
+                                                  CFRelease(v71);
+                                                }
+
                                                 if (v72)
                                                 {
                                                   CFRelease(v72);
                                                 }
 
-                                                if (v73)
+                                                if (*v6)
                                                 {
-                                                  CFRelease(v73);
-                                                }
-
-                                                if (*v7)
-                                                {
-                                                  v72 = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
-                                                  if (v72)
+                                                  v71 = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
+                                                  if (v71)
                                                   {
-                                                    v81 = 0;
-                                                    v71 = CFNumberCreate(0, kCFNumberIntType, &v81);
-                                                    if (v71)
+                                                    v80 = 0;
+                                                    v70 = CFNumberCreate(0, kCFNumberIntType, &v80);
+                                                    if (v70)
                                                     {
-                                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v73, *v7, v72, &v71);
+                                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v72, *v6, v71, &v70);
+                                                      if (v70)
+                                                      {
+                                                        CFRelease(v70);
+                                                      }
+
                                                       if (v71)
                                                       {
                                                         CFRelease(v71);
                                                       }
 
-                                                      if (v72)
+                                                      if (v79)
                                                       {
-                                                        CFRelease(v72);
-                                                      }
-
-                                                      if (v80)
-                                                      {
-                                                        applesauce::CF::convert_to<double,0>(v80);
-                                                        if (v79)
+                                                        applesauce::CF::convert_to<double,0>(v79);
+                                                        if (v78)
                                                         {
-                                                          applesauce::CF::convert_to<unsigned int,0>(v79);
+                                                          applesauce::CF::convert_to<unsigned int,0>(v78);
                                                           if (cf)
                                                           {
                                                             applesauce::CF::convert_to<unsigned int,0>(cf);
                                                             if (valuePtr)
                                                             {
                                                               applesauce::CF::convert_to<unsigned int,0>(valuePtr);
-                                                              if (v76)
+                                                              if (v75)
                                                               {
-                                                                applesauce::CF::convert_to<unsigned int,0>(v76);
-                                                                if (v75)
+                                                                applesauce::CF::convert_to<unsigned int,0>(v75);
+                                                                if (v74)
                                                                 {
-                                                                  applesauce::CF::convert_to<unsigned int,0>(v75);
-                                                                  if (v74)
+                                                                  applesauce::CF::convert_to<unsigned int,0>(v74);
+                                                                  if (v73)
                                                                   {
-                                                                    applesauce::CF::convert_to<unsigned int,0>(v74);
-                                                                    if (v73)
+                                                                    applesauce::CF::convert_to<unsigned int,0>(v73);
+                                                                    if (v72)
                                                                     {
-                                                                      applesauce::CF::convert_to<unsigned int,0>(v73);
+                                                                      applesauce::CF::convert_to<unsigned int,0>(v72);
                                                                       *a1 = 0u;
                                                                       *(a1 + 16) = 0u;
                                                                       *(a1 + 32) = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
@@ -886,154 +882,154 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
                                                                     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                                   }
 
-                                                                  v37 = __cxa_allocate_exception(0x10uLL);
-                                                                  std::runtime_error::runtime_error(v37, "Could not construct");
-                                                                  __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                                  v36 = __cxa_allocate_exception(0x10uLL);
+                                                                  std::runtime_error::runtime_error(v36, "Could not construct");
+                                                                  __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                                 }
 
-                                                                v36 = __cxa_allocate_exception(0x10uLL);
-                                                                std::runtime_error::runtime_error(v36, "Could not construct");
-                                                                __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                                v35 = __cxa_allocate_exception(0x10uLL);
+                                                                std::runtime_error::runtime_error(v35, "Could not construct");
+                                                                __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                               }
 
-                                                              v35 = __cxa_allocate_exception(0x10uLL);
-                                                              std::runtime_error::runtime_error(v35, "Could not construct");
-                                                              __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                              v34 = __cxa_allocate_exception(0x10uLL);
+                                                              std::runtime_error::runtime_error(v34, "Could not construct");
+                                                              __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                             }
 
-                                                            v34 = __cxa_allocate_exception(0x10uLL);
-                                                            std::runtime_error::runtime_error(v34, "Could not construct");
-                                                            __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                            v33 = __cxa_allocate_exception(0x10uLL);
+                                                            std::runtime_error::runtime_error(v33, "Could not construct");
+                                                            __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                           }
 
-                                                          v33 = __cxa_allocate_exception(0x10uLL);
-                                                          std::runtime_error::runtime_error(v33, "Could not construct");
-                                                          __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                          v32 = __cxa_allocate_exception(0x10uLL);
+                                                          std::runtime_error::runtime_error(v32, "Could not construct");
+                                                          __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                         }
 
-                                                        v32 = __cxa_allocate_exception(0x10uLL);
-                                                        std::runtime_error::runtime_error(v32, "Could not construct");
-                                                        __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                        v31 = __cxa_allocate_exception(0x10uLL);
+                                                        std::runtime_error::runtime_error(v31, "Could not construct");
+                                                        __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                       }
 
-                                                      v31 = __cxa_allocate_exception(0x10uLL);
-                                                      std::runtime_error::runtime_error(v31, "Could not construct");
-                                                      __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                      v30 = __cxa_allocate_exception(0x10uLL);
+                                                      std::runtime_error::runtime_error(v30, "Could not construct");
+                                                      __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                     }
 
-                                                    v30 = __cxa_allocate_exception(0x10uLL);
-                                                    std::runtime_error::runtime_error(v30, "Could not construct");
-                                                    __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                    v29 = __cxa_allocate_exception(0x10uLL);
+                                                    std::runtime_error::runtime_error(v29, "Could not construct");
+                                                    __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                   }
 
-                                                  v29 = __cxa_allocate_exception(0x10uLL);
-                                                  std::runtime_error::runtime_error(v29, "Could not construct");
-                                                  __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                  v28 = __cxa_allocate_exception(0x10uLL);
+                                                  std::runtime_error::runtime_error(v28, "Could not construct");
+                                                  __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                 }
 
-                                                v28 = __cxa_allocate_exception(0x10uLL);
-                                                std::runtime_error::runtime_error(v28, "Could not construct");
-                                                __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                v27 = __cxa_allocate_exception(0x10uLL);
+                                                std::runtime_error::runtime_error(v27, "Could not construct");
+                                                __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                               }
 
-                                              v27 = __cxa_allocate_exception(0x10uLL);
-                                              std::runtime_error::runtime_error(v27, "Could not construct");
-                                              __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                              v26 = __cxa_allocate_exception(0x10uLL);
+                                              std::runtime_error::runtime_error(v26, "Could not construct");
+                                              __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                             }
 
-                                            v26 = __cxa_allocate_exception(0x10uLL);
-                                            std::runtime_error::runtime_error(v26, "Could not construct");
-                                            __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                            v25 = __cxa_allocate_exception(0x10uLL);
+                                            std::runtime_error::runtime_error(v25, "Could not construct");
+                                            __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                           }
 
-                                          v25 = __cxa_allocate_exception(0x10uLL);
-                                          std::runtime_error::runtime_error(v25, "Could not construct");
-                                          __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                          v24 = __cxa_allocate_exception(0x10uLL);
+                                          std::runtime_error::runtime_error(v24, "Could not construct");
+                                          __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                         }
 
-                                        v24 = __cxa_allocate_exception(0x10uLL);
-                                        std::runtime_error::runtime_error(v24, "Could not construct");
-                                        __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                        v23 = __cxa_allocate_exception(0x10uLL);
+                                        std::runtime_error::runtime_error(v23, "Could not construct");
+                                        __cxa_throw(v23, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                       }
 
-                                      v23 = __cxa_allocate_exception(0x10uLL);
-                                      std::runtime_error::runtime_error(v23, "Could not construct");
-                                      __cxa_throw(v23, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                      v22 = __cxa_allocate_exception(0x10uLL);
+                                      std::runtime_error::runtime_error(v22, "Could not construct");
+                                      __cxa_throw(v22, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                     }
 
-                                    v22 = __cxa_allocate_exception(0x10uLL);
-                                    std::runtime_error::runtime_error(v22, "Could not construct");
-                                    __cxa_throw(v22, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                    v21 = __cxa_allocate_exception(0x10uLL);
+                                    std::runtime_error::runtime_error(v21, "Could not construct");
+                                    __cxa_throw(v21, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                   }
 
-                                  v21 = __cxa_allocate_exception(0x10uLL);
-                                  std::runtime_error::runtime_error(v21, "Could not construct");
-                                  __cxa_throw(v21, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                  v20 = __cxa_allocate_exception(0x10uLL);
+                                  std::runtime_error::runtime_error(v20, "Could not construct");
+                                  __cxa_throw(v20, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                 }
 
-                                v20 = __cxa_allocate_exception(0x10uLL);
-                                std::runtime_error::runtime_error(v20, "Could not construct");
-                                __cxa_throw(v20, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                v19 = __cxa_allocate_exception(0x10uLL);
+                                std::runtime_error::runtime_error(v19, "Could not construct");
+                                __cxa_throw(v19, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                               }
 
-                              v19 = __cxa_allocate_exception(0x10uLL);
-                              std::runtime_error::runtime_error(v19, "Could not construct");
-                              __cxa_throw(v19, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                              v18 = __cxa_allocate_exception(0x10uLL);
+                              std::runtime_error::runtime_error(v18, "Could not construct");
+                              __cxa_throw(v18, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                             }
 
-                            v18 = __cxa_allocate_exception(0x10uLL);
-                            std::runtime_error::runtime_error(v18, "Could not construct");
-                            __cxa_throw(v18, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                            v17 = __cxa_allocate_exception(0x10uLL);
+                            std::runtime_error::runtime_error(v17, "Could not construct");
+                            __cxa_throw(v17, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                           }
 
-                          v17 = __cxa_allocate_exception(0x10uLL);
-                          std::runtime_error::runtime_error(v17, "Could not construct");
-                          __cxa_throw(v17, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                          v16 = __cxa_allocate_exception(0x10uLL);
+                          std::runtime_error::runtime_error(v16, "Could not construct");
+                          __cxa_throw(v16, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                         }
 
-                        v16 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v16, "Could not construct");
-                        __cxa_throw(v16, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                        v15 = __cxa_allocate_exception(0x10uLL);
+                        std::runtime_error::runtime_error(v15, "Could not construct");
+                        __cxa_throw(v15, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                       }
 
-                      v15 = __cxa_allocate_exception(0x10uLL);
-                      std::runtime_error::runtime_error(v15, "Could not construct");
-                      __cxa_throw(v15, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                      v14 = __cxa_allocate_exception(0x10uLL);
+                      std::runtime_error::runtime_error(v14, "Could not construct");
+                      __cxa_throw(v14, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                     }
 
-                    v14 = __cxa_allocate_exception(0x10uLL);
-                    std::runtime_error::runtime_error(v14, "Could not construct");
-                    __cxa_throw(v14, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                    v13 = __cxa_allocate_exception(0x10uLL);
+                    std::runtime_error::runtime_error(v13, "Could not construct");
+                    __cxa_throw(v13, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                   }
 
-                  v13 = __cxa_allocate_exception(0x10uLL);
-                  std::runtime_error::runtime_error(v13, "Could not construct");
-                  __cxa_throw(v13, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                  v12 = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(v12, "Could not construct");
+                  __cxa_throw(v12, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                v12 = __cxa_allocate_exception(0x10uLL);
-                std::runtime_error::runtime_error(v12, "Could not construct");
-                __cxa_throw(v12, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                v11 = __cxa_allocate_exception(0x10uLL);
+                std::runtime_error::runtime_error(v11, "Could not construct");
+                __cxa_throw(v11, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              v11 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v11, "Could not construct");
-              __cxa_throw(v11, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              v10 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v10, "Could not construct");
+              __cxa_throw(v10, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            v10 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v10, "Could not construct");
-            __cxa_throw(v10, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            v9 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v9, "Could not construct");
+            __cxa_throw(v9, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          v9 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v9, "Could not construct");
-          __cxa_throw(v9, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          v8 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v8, "Could not construct");
+          __cxa_throw(v8, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        v8 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v8, "Could not construct");
-        __cxa_throw(v8, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        v7 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v7, "Could not construct");
+        __cxa_throw(v7, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
       goto LABEL_178;
@@ -1044,38 +1040,38 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
 
   if (*a3 == AMCP::Implementation::get_type_marker<CA::StreamDescription>())
   {
-    if (v7)
+    if (v6)
     {
-      if (*v7)
+      if (*v6)
       {
-        v79 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
-        if (v79)
+        v78 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
+        if (v78)
         {
           LODWORD(valuePtr) = 0;
           cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
           if (cf)
           {
-            applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v80, *v7, v79, &cf);
+            applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v79, *v6, v78, &cf);
             if (cf)
             {
               CFRelease(cf);
             }
 
-            if (v79)
+            if (v78)
             {
-              CFRelease(v79);
+              CFRelease(v78);
             }
 
-            if (*v7)
+            if (*v6)
             {
               cf = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
               if (cf)
               {
-                LODWORD(v76) = 0;
-                valuePtr = CFNumberCreate(0, kCFNumberIntType, &v76);
+                LODWORD(v75) = 0;
+                valuePtr = CFNumberCreate(0, kCFNumberIntType, &v75);
                 if (valuePtr)
                 {
-                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v79, *v7, cf, &valuePtr);
+                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v78, *v6, cf, &valuePtr);
                   if (valuePtr)
                   {
                     CFRelease(valuePtr);
@@ -1086,19 +1082,19 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
                     CFRelease(cf);
                   }
 
-                  if (*v7)
+                  if (*v6)
                   {
                     valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
                     if (valuePtr)
                     {
-                      LODWORD(v75) = 0;
-                      v76 = CFNumberCreate(0, kCFNumberIntType, &v75);
-                      if (v76)
+                      LODWORD(v74) = 0;
+                      v75 = CFNumberCreate(0, kCFNumberIntType, &v74);
+                      if (v75)
                       {
-                        applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&cf, *v7, valuePtr, &v76);
-                        if (v76)
+                        applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&cf, *v6, valuePtr, &v75);
+                        if (v75)
                         {
-                          CFRelease(v76);
+                          CFRelease(v75);
                         }
 
                         if (valuePtr)
@@ -1106,305 +1102,304 @@ uint64_t AMCP::Implementation::create_asbd_from<applesauce::CF::DictionaryRef>(u
                           CFRelease(valuePtr);
                         }
 
-                        if (*v7)
+                        if (*v6)
                         {
-                          v76 = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
-                          if (v76)
+                          v75 = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
+                          if (v75)
                           {
-                            LODWORD(v74) = 0;
-                            v75 = CFNumberCreate(0, kCFNumberIntType, &v74);
-                            if (v75)
+                            LODWORD(v73) = 0;
+                            v74 = CFNumberCreate(0, kCFNumberIntType, &v73);
+                            if (v74)
                             {
-                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, *v7, v76, &v75);
+                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, *v6, v75, &v74);
+                              if (v74)
+                              {
+                                CFRelease(v74);
+                              }
+
                               if (v75)
                               {
                                 CFRelease(v75);
                               }
 
-                              if (v76)
+                              if (*v6)
                               {
-                                CFRelease(v76);
-                              }
-
-                              if (*v7)
-                              {
-                                v75 = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
-                                if (v75)
+                                v74 = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
+                                if (v74)
                                 {
-                                  LODWORD(v73) = 0;
-                                  v74 = CFNumberCreate(0, kCFNumberIntType, &v73);
-                                  if (v74)
+                                  LODWORD(v72) = 0;
+                                  v73 = CFNumberCreate(0, kCFNumberIntType, &v72);
+                                  if (v73)
                                   {
-                                    applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v76, *v7, v75, &v74);
+                                    applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v75, *v6, v74, &v73);
+                                    if (v73)
+                                    {
+                                      CFRelease(v73);
+                                    }
+
                                     if (v74)
                                     {
                                       CFRelease(v74);
                                     }
 
-                                    if (v75)
+                                    if (*v6)
                                     {
-                                      CFRelease(v75);
-                                    }
-
-                                    if (*v7)
-                                    {
-                                      v74 = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
-                                      if (v74)
+                                      v73 = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
+                                      if (v73)
                                       {
-                                        LODWORD(v72) = 0;
-                                        v73 = CFNumberCreate(0, kCFNumberIntType, &v72);
-                                        if (v73)
+                                        LODWORD(v71) = 0;
+                                        v72 = CFNumberCreate(0, kCFNumberIntType, &v71);
+                                        if (v72)
                                         {
-                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v75, *v7, v74, &v73);
+                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v74, *v6, v73, &v72);
+                                          if (v72)
+                                          {
+                                            CFRelease(v72);
+                                          }
+
                                           if (v73)
                                           {
                                             CFRelease(v73);
                                           }
 
-                                          if (v74)
+                                          if (*v6)
                                           {
-                                            CFRelease(v74);
-                                          }
-
-                                          if (*v7)
-                                          {
-                                            v73 = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
-                                            if (v73)
+                                            v72 = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
+                                            if (v72)
                                             {
-                                              LODWORD(v71) = 0;
-                                              v72 = CFNumberCreate(0, kCFNumberIntType, &v71);
-                                              if (v72)
+                                              LODWORD(v70) = 0;
+                                              v71 = CFNumberCreate(0, kCFNumberIntType, &v70);
+                                              if (v71)
                                               {
-                                                applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v74, *v7, v73, &v72);
+                                                applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v73, *v6, v72, &v71);
+                                                if (v71)
+                                                {
+                                                  CFRelease(v71);
+                                                }
+
                                                 if (v72)
                                                 {
                                                   CFRelease(v72);
                                                 }
 
-                                                if (v73)
+                                                if (*v6)
                                                 {
-                                                  CFRelease(v73);
-                                                }
-
-                                                if (*v7)
-                                                {
-                                                  v72 = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
-                                                  if (v72)
+                                                  v71 = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
+                                                  if (v71)
                                                   {
-                                                    v81 = 0;
-                                                    v71 = CFNumberCreate(0, kCFNumberIntType, &v81);
-                                                    if (v71)
+                                                    v80 = 0;
+                                                    v70 = CFNumberCreate(0, kCFNumberIntType, &v80);
+                                                    if (v70)
                                                     {
-                                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v73, *v7, v72, &v71);
+                                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v72, *v6, v71, &v70);
+                                                      if (v70)
+                                                      {
+                                                        CFRelease(v70);
+                                                      }
+
                                                       if (v71)
                                                       {
                                                         CFRelease(v71);
                                                       }
 
-                                                      if (v72)
+                                                      if (v79)
                                                       {
-                                                        CFRelease(v72);
-                                                      }
-
-                                                      if (v80)
-                                                      {
-                                                        applesauce::CF::convert_to<double,0>(v80);
-                                                        if (v79)
+                                                        applesauce::CF::convert_to<double,0>(v79);
+                                                        if (v78)
                                                         {
-                                                          applesauce::CF::convert_to<unsigned int,0>(v79);
+                                                          applesauce::CF::convert_to<unsigned int,0>(v78);
                                                           if (cf)
                                                           {
                                                             applesauce::CF::convert_to<unsigned int,0>(cf);
                                                             if (valuePtr)
                                                             {
                                                               applesauce::CF::convert_to<unsigned int,0>(valuePtr);
-                                                              if (v76)
+                                                              if (v75)
                                                               {
-                                                                applesauce::CF::convert_to<unsigned int,0>(v76);
-                                                                if (v75)
+                                                                applesauce::CF::convert_to<unsigned int,0>(v75);
+                                                                if (v74)
                                                                 {
-                                                                  applesauce::CF::convert_to<unsigned int,0>(v75);
-                                                                  if (v74)
+                                                                  applesauce::CF::convert_to<unsigned int,0>(v74);
+                                                                  if (v73)
                                                                   {
-                                                                    applesauce::CF::convert_to<unsigned int,0>(v74);
-                                                                    if (v73)
+                                                                    applesauce::CF::convert_to<unsigned int,0>(v73);
+                                                                    if (v72)
                                                                     {
-                                                                      applesauce::CF::convert_to<unsigned int,0>(v73);
+                                                                      applesauce::CF::convert_to<unsigned int,0>(v72);
                                                                       *a1 = 0u;
                                                                       *(a1 + 16) = 0u;
                                                                       *(a1 + 32) = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
                                                                       operator new();
                                                                     }
 
-                                                                    v70 = __cxa_allocate_exception(0x10uLL);
-                                                                    std::runtime_error::runtime_error(v70, "Could not construct");
-                                                                    __cxa_throw(v70, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                                    v69 = __cxa_allocate_exception(0x10uLL);
+                                                                    std::runtime_error::runtime_error(v69, "Could not construct");
+                                                                    __cxa_throw(v69, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                                   }
 
-                                                                  v69 = __cxa_allocate_exception(0x10uLL);
-                                                                  std::runtime_error::runtime_error(v69, "Could not construct");
-                                                                  __cxa_throw(v69, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                                  v68 = __cxa_allocate_exception(0x10uLL);
+                                                                  std::runtime_error::runtime_error(v68, "Could not construct");
+                                                                  __cxa_throw(v68, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                                 }
 
-                                                                v68 = __cxa_allocate_exception(0x10uLL);
-                                                                std::runtime_error::runtime_error(v68, "Could not construct");
-                                                                __cxa_throw(v68, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                                v67 = __cxa_allocate_exception(0x10uLL);
+                                                                std::runtime_error::runtime_error(v67, "Could not construct");
+                                                                __cxa_throw(v67, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                               }
 
-                                                              v67 = __cxa_allocate_exception(0x10uLL);
-                                                              std::runtime_error::runtime_error(v67, "Could not construct");
-                                                              __cxa_throw(v67, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                              v66 = __cxa_allocate_exception(0x10uLL);
+                                                              std::runtime_error::runtime_error(v66, "Could not construct");
+                                                              __cxa_throw(v66, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                             }
 
-                                                            v66 = __cxa_allocate_exception(0x10uLL);
-                                                            std::runtime_error::runtime_error(v66, "Could not construct");
-                                                            __cxa_throw(v66, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                            v65 = __cxa_allocate_exception(0x10uLL);
+                                                            std::runtime_error::runtime_error(v65, "Could not construct");
+                                                            __cxa_throw(v65, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                           }
 
-                                                          v65 = __cxa_allocate_exception(0x10uLL);
-                                                          std::runtime_error::runtime_error(v65, "Could not construct");
-                                                          __cxa_throw(v65, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                          v64 = __cxa_allocate_exception(0x10uLL);
+                                                          std::runtime_error::runtime_error(v64, "Could not construct");
+                                                          __cxa_throw(v64, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                         }
 
-                                                        v64 = __cxa_allocate_exception(0x10uLL);
-                                                        std::runtime_error::runtime_error(v64, "Could not construct");
-                                                        __cxa_throw(v64, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                        v63 = __cxa_allocate_exception(0x10uLL);
+                                                        std::runtime_error::runtime_error(v63, "Could not construct");
+                                                        __cxa_throw(v63, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                       }
 
-                                                      v63 = __cxa_allocate_exception(0x10uLL);
-                                                      std::runtime_error::runtime_error(v63, "Could not construct");
-                                                      __cxa_throw(v63, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                      v62 = __cxa_allocate_exception(0x10uLL);
+                                                      std::runtime_error::runtime_error(v62, "Could not construct");
+                                                      __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                     }
 
-                                                    v62 = __cxa_allocate_exception(0x10uLL);
-                                                    std::runtime_error::runtime_error(v62, "Could not construct");
-                                                    __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                    v61 = __cxa_allocate_exception(0x10uLL);
+                                                    std::runtime_error::runtime_error(v61, "Could not construct");
+                                                    __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                   }
 
-                                                  v61 = __cxa_allocate_exception(0x10uLL);
-                                                  std::runtime_error::runtime_error(v61, "Could not construct");
-                                                  __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                  v60 = __cxa_allocate_exception(0x10uLL);
+                                                  std::runtime_error::runtime_error(v60, "Could not construct");
+                                                  __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                                 }
 
-                                                v60 = __cxa_allocate_exception(0x10uLL);
-                                                std::runtime_error::runtime_error(v60, "Could not construct");
-                                                __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                                v59 = __cxa_allocate_exception(0x10uLL);
+                                                std::runtime_error::runtime_error(v59, "Could not construct");
+                                                __cxa_throw(v59, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                               }
 
-                                              v59 = __cxa_allocate_exception(0x10uLL);
-                                              std::runtime_error::runtime_error(v59, "Could not construct");
-                                              __cxa_throw(v59, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                              v58 = __cxa_allocate_exception(0x10uLL);
+                                              std::runtime_error::runtime_error(v58, "Could not construct");
+                                              __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                             }
 
-                                            v58 = __cxa_allocate_exception(0x10uLL);
-                                            std::runtime_error::runtime_error(v58, "Could not construct");
-                                            __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                            v57 = __cxa_allocate_exception(0x10uLL);
+                                            std::runtime_error::runtime_error(v57, "Could not construct");
+                                            __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                           }
 
-                                          v57 = __cxa_allocate_exception(0x10uLL);
-                                          std::runtime_error::runtime_error(v57, "Could not construct");
-                                          __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                          v56 = __cxa_allocate_exception(0x10uLL);
+                                          std::runtime_error::runtime_error(v56, "Could not construct");
+                                          __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                         }
 
-                                        v56 = __cxa_allocate_exception(0x10uLL);
-                                        std::runtime_error::runtime_error(v56, "Could not construct");
-                                        __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                        v55 = __cxa_allocate_exception(0x10uLL);
+                                        std::runtime_error::runtime_error(v55, "Could not construct");
+                                        __cxa_throw(v55, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                       }
 
-                                      v55 = __cxa_allocate_exception(0x10uLL);
-                                      std::runtime_error::runtime_error(v55, "Could not construct");
-                                      __cxa_throw(v55, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                      v54 = __cxa_allocate_exception(0x10uLL);
+                                      std::runtime_error::runtime_error(v54, "Could not construct");
+                                      __cxa_throw(v54, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                     }
 
-                                    v54 = __cxa_allocate_exception(0x10uLL);
-                                    std::runtime_error::runtime_error(v54, "Could not construct");
-                                    __cxa_throw(v54, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                    v53 = __cxa_allocate_exception(0x10uLL);
+                                    std::runtime_error::runtime_error(v53, "Could not construct");
+                                    __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                   }
 
-                                  v53 = __cxa_allocate_exception(0x10uLL);
-                                  std::runtime_error::runtime_error(v53, "Could not construct");
-                                  __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                  v52 = __cxa_allocate_exception(0x10uLL);
+                                  std::runtime_error::runtime_error(v52, "Could not construct");
+                                  __cxa_throw(v52, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                                 }
 
-                                v52 = __cxa_allocate_exception(0x10uLL);
-                                std::runtime_error::runtime_error(v52, "Could not construct");
-                                __cxa_throw(v52, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                                v51 = __cxa_allocate_exception(0x10uLL);
+                                std::runtime_error::runtime_error(v51, "Could not construct");
+                                __cxa_throw(v51, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                               }
 
-                              v51 = __cxa_allocate_exception(0x10uLL);
-                              std::runtime_error::runtime_error(v51, "Could not construct");
-                              __cxa_throw(v51, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                              v50 = __cxa_allocate_exception(0x10uLL);
+                              std::runtime_error::runtime_error(v50, "Could not construct");
+                              __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                             }
 
-                            v50 = __cxa_allocate_exception(0x10uLL);
-                            std::runtime_error::runtime_error(v50, "Could not construct");
-                            __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                            v49 = __cxa_allocate_exception(0x10uLL);
+                            std::runtime_error::runtime_error(v49, "Could not construct");
+                            __cxa_throw(v49, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                           }
 
-                          v49 = __cxa_allocate_exception(0x10uLL);
-                          std::runtime_error::runtime_error(v49, "Could not construct");
-                          __cxa_throw(v49, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                          v48 = __cxa_allocate_exception(0x10uLL);
+                          std::runtime_error::runtime_error(v48, "Could not construct");
+                          __cxa_throw(v48, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                         }
 
-                        v48 = __cxa_allocate_exception(0x10uLL);
-                        std::runtime_error::runtime_error(v48, "Could not construct");
-                        __cxa_throw(v48, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                        v47 = __cxa_allocate_exception(0x10uLL);
+                        std::runtime_error::runtime_error(v47, "Could not construct");
+                        __cxa_throw(v47, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                       }
 
-                      v47 = __cxa_allocate_exception(0x10uLL);
-                      std::runtime_error::runtime_error(v47, "Could not construct");
-                      __cxa_throw(v47, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                      v46 = __cxa_allocate_exception(0x10uLL);
+                      std::runtime_error::runtime_error(v46, "Could not construct");
+                      __cxa_throw(v46, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                     }
 
-                    v46 = __cxa_allocate_exception(0x10uLL);
-                    std::runtime_error::runtime_error(v46, "Could not construct");
-                    __cxa_throw(v46, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                    v45 = __cxa_allocate_exception(0x10uLL);
+                    std::runtime_error::runtime_error(v45, "Could not construct");
+                    __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                   }
 
-                  v45 = __cxa_allocate_exception(0x10uLL);
-                  std::runtime_error::runtime_error(v45, "Could not construct");
-                  __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                  v44 = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(v44, "Could not construct");
+                  __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                v44 = __cxa_allocate_exception(0x10uLL);
-                std::runtime_error::runtime_error(v44, "Could not construct");
-                __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                v43 = __cxa_allocate_exception(0x10uLL);
+                std::runtime_error::runtime_error(v43, "Could not construct");
+                __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              v43 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v43, "Could not construct");
-              __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              v42 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v42, "Could not construct");
+              __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            v42 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v42, "Could not construct");
-            __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            v41 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v41, "Could not construct");
+            __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          v41 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v41, "Could not construct");
-          __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          v40 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v40, "Could not construct");
+          __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        v40 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v40, "Could not construct");
-        __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        v39 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v39, "Could not construct");
+        __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
 LABEL_178:
-      v39 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v39, "Could not construct");
-      __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      v38 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v38, "Could not construct");
+      __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
 LABEL_145:
     __assert_rtn("create_asbd_from", "Thing.h", 1718, "in_value_ptr != nullptr");
   }
 
-  result = AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>();
-  if (*a3 == result)
+  if (*a3 == AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>())
   {
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_145;
     }
@@ -1412,7 +1407,7 @@ LABEL_145:
     *(a1 + 32) = 0;
     *a1 = 0u;
     *(a1 + 16) = 0u;
-    return AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::construct<applesauce::CF::DictionaryRef const&>(a1, v7);
+    AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::construct<applesauce::CF::DictionaryRef const&>(a1, v6);
   }
 
   else
@@ -1422,8 +1417,6 @@ LABEL_144:
     *a1 = 0u;
     *(a1 + 16) = 0u;
   }
-
-  return result;
 }
 
 void sub_1DE249E24(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18, int a19, const void *a20, const void *a21, const void *a22, const void *a23, const void *a24, const void *a25, const void *a26, const void *a27)
@@ -1506,27 +1499,27 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
 {
   if (a2)
   {
+    v89 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = 0;
     if (*a2)
     {
       v4 = CFStringCreateWithBytes(0, "sample rate range list", 22, 0x8000100u, 0);
       cf[0] = v4;
       if (v4)
       {
-        v88 = 0;
-        applesauce::CF::at_or<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(&v89, *a2, v4, &v88);
-        if (v88)
+        v87 = 0;
+        applesauce::CF::at_or<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(&v88, *a2, v4, &v87);
+        if (v87)
         {
-          CFRelease(v88);
+          CFRelease(v87);
         }
 
         CFRelease(v4);
-        theArray = v89;
-        if (v89)
+        theArray = v88;
+        if (v88)
         {
-          Count = CFArrayGetCount(v89);
+          Count = CFArrayGetCount(v88);
           v6 = CFArrayGetCount(theArray);
           if (Count)
           {
@@ -1538,16 +1531,16 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                 break;
               }
 
-              applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(&v88, theArray, i);
-              if (!v88)
+              applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(&v87, theArray, i);
+              if (!v87)
               {
                 exception = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(exception, "Could not construct");
                 __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              v87 = CFStringCreateWithBytes(0, "minimum", 7, 0x8000100u, 0);
-              if (!v87)
+              v86 = CFStringCreateWithBytes(0, "minimum", 7, 0x8000100u, 0);
+              if (!v86)
               {
                 v30 = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(v30, "Could not construct");
@@ -1555,15 +1548,15 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
               }
 
               LODWORD(valuePtr) = 0;
-              v86 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-              if (!v86)
+              v85 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+              if (!v85)
               {
                 v27 = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(v27, "Could not construct");
                 __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(cf, v88, v87, &v86);
+              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(cf, v87, v86, &v85);
               v9 = cf[0];
               if (!cf[0])
               {
@@ -1574,25 +1567,25 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
 
               v10 = applesauce::CF::convert_to<double,0>(cf[0]);
               CFRelease(v9);
+              if (v85)
+              {
+                CFRelease(v85);
+              }
+
               if (v86)
               {
                 CFRelease(v86);
               }
 
-              if (v87)
-              {
-                CFRelease(v87);
-              }
-
-              if (!v88)
+              if (!v87)
               {
                 v28 = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(v28, "Could not construct");
                 __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              v87 = CFStringCreateWithBytes(0, "maximum", 7, 0x8000100u, 0);
-              if (!v87)
+              v86 = CFStringCreateWithBytes(0, "maximum", 7, 0x8000100u, 0);
+              if (!v86)
               {
                 v32 = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(v32, "Could not construct");
@@ -1600,15 +1593,15 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
               }
 
               LODWORD(valuePtr) = 0;
-              v86 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-              if (!v86)
+              v85 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+              if (!v85)
               {
                 v29 = __cxa_allocate_exception(0x10uLL);
                 std::runtime_error::runtime_error(v29, "Could not construct");
                 __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
               }
 
-              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(cf, v88, v87, &v86);
+              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(cf, v87, v86, &v85);
               v11 = cf[0];
               if (!cf[0])
               {
@@ -1619,22 +1612,22 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
 
               v12 = applesauce::CF::convert_to<double,0>(cf[0]);
               CFRelease(v11);
+              if (v85)
+              {
+                CFRelease(v85);
+              }
+
               if (v86)
               {
                 CFRelease(v86);
               }
 
+              cf[0] = *&v10;
+              cf[1] = *&v12;
+              CA::ValueRangeList::AddRange(&v89, cf);
               if (v87)
               {
                 CFRelease(v87);
-              }
-
-              cf[0] = *&v10;
-              cf[1] = *&v12;
-              CA::ValueRangeList::AddRange(&v90, cf);
-              if (v88)
-              {
-                CFRelease(v88);
               }
             }
           }
@@ -1646,28 +1639,28 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
           cf[0] = v13;
           if (v13)
           {
-            v87 = 0;
-            applesauce::CF::at_or<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(&v88, *a2, v13, &v87);
-            if (v87)
+            v86 = 0;
+            applesauce::CF::at_or<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(&v87, *a2, v13, &v86);
+            if (v86)
             {
-              CFRelease(v87);
+              CFRelease(v86);
             }
 
             CFRelease(v13);
-            v14 = v88;
-            if (v88)
+            v14 = v87;
+            if (v87)
             {
               cf[0] = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
               if (cf[0])
               {
                 LODWORD(valuePtr) = 0;
-                v86 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-                if (v86)
+                v85 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+                if (v85)
                 {
-                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v87, v14, cf[0], &v86);
-                  if (v86)
+                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v86, v14, cf[0], &v85);
+                  if (v85)
                   {
-                    CFRelease(v86);
+                    CFRelease(v85);
                   }
 
                   if (cf[0])
@@ -1678,11 +1671,11 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                   cf[0] = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
                   if (cf[0])
                   {
-                    LODWORD(v84) = 0;
-                    valuePtr = CFNumberCreate(0, kCFNumberIntType, &v84);
+                    LODWORD(v83) = 0;
+                    valuePtr = CFNumberCreate(0, kCFNumberIntType, &v83);
                     if (valuePtr)
                     {
-                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v86, v14, cf[0], &valuePtr);
+                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v85, v14, cf[0], &valuePtr);
                       if (valuePtr)
                       {
                         CFRelease(valuePtr);
@@ -1696,14 +1689,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                       cf[0] = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
                       if (cf[0])
                       {
-                        LODWORD(v83) = 0;
-                        v84 = CFNumberCreate(0, kCFNumberIntType, &v83);
-                        if (v84)
+                        LODWORD(v82) = 0;
+                        v83 = CFNumberCreate(0, kCFNumberIntType, &v82);
+                        if (v83)
                         {
-                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, v14, cf[0], &v84);
-                          if (v84)
+                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&valuePtr, v14, cf[0], &v83);
+                          if (v83)
                           {
-                            CFRelease(v84);
+                            CFRelease(v83);
                           }
 
                           if (cf[0])
@@ -1714,14 +1707,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                           cf[0] = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
                           if (cf[0])
                           {
-                            LODWORD(v82) = 0;
-                            v83 = CFNumberCreate(0, kCFNumberIntType, &v82);
-                            if (v83)
+                            LODWORD(v81) = 0;
+                            v82 = CFNumberCreate(0, kCFNumberIntType, &v81);
+                            if (v82)
                             {
-                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v84, v14, cf[0], &v83);
-                              if (v83)
+                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v83, v14, cf[0], &v82);
+                              if (v82)
                               {
-                                CFRelease(v83);
+                                CFRelease(v82);
                               }
 
                               if (cf[0])
@@ -1732,14 +1725,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                               cf[0] = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
                               if (cf[0])
                               {
-                                LODWORD(v81) = 0;
-                                v82 = CFNumberCreate(0, kCFNumberIntType, &v81);
-                                if (v82)
+                                LODWORD(v80) = 0;
+                                v81 = CFNumberCreate(0, kCFNumberIntType, &v80);
+                                if (v81)
                                 {
-                                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v83, v14, cf[0], &v82);
-                                  if (v82)
+                                  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v82, v14, cf[0], &v81);
+                                  if (v81)
                                   {
-                                    CFRelease(v82);
+                                    CFRelease(v81);
                                   }
 
                                   if (cf[0])
@@ -1750,14 +1743,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                                   cf[0] = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
                                   if (cf[0])
                                   {
-                                    LODWORD(v80) = 0;
-                                    v81 = CFNumberCreate(0, kCFNumberIntType, &v80);
-                                    if (v81)
+                                    LODWORD(v79) = 0;
+                                    v80 = CFNumberCreate(0, kCFNumberIntType, &v79);
+                                    if (v80)
                                     {
-                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v82, v14, cf[0], &v81);
-                                      if (v81)
+                                      applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v81, v14, cf[0], &v80);
+                                      if (v80)
                                       {
-                                        CFRelease(v81);
+                                        CFRelease(v80);
                                       }
 
                                       if (cf[0])
@@ -1768,14 +1761,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                                       cf[0] = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
                                       if (cf[0])
                                       {
-                                        LODWORD(v79) = 0;
-                                        v80 = CFNumberCreate(0, kCFNumberIntType, &v79);
-                                        if (v80)
+                                        LODWORD(v78) = 0;
+                                        v79 = CFNumberCreate(0, kCFNumberIntType, &v78);
+                                        if (v79)
                                         {
-                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v81, v14, cf[0], &v80);
-                                          if (v80)
+                                          applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v80, v14, cf[0], &v79);
+                                          if (v79)
                                           {
-                                            CFRelease(v80);
+                                            CFRelease(v79);
                                           }
 
                                           if (cf[0])
@@ -1786,14 +1779,14 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                                           cf[0] = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
                                           if (cf[0])
                                           {
-                                            v93[0] = 0;
-                                            v79 = CFNumberCreate(0, kCFNumberIntType, v93);
-                                            if (v79)
+                                            v92[0] = 0;
+                                            v78 = CFNumberCreate(0, kCFNumberIntType, v92);
+                                            if (v78)
                                             {
-                                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v80, v14, cf[0], &v79);
-                                              if (v79)
+                                              applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&v79, v14, cf[0], &v78);
+                                              if (v78)
                                               {
-                                                CFRelease(v79);
+                                                CFRelease(v78);
                                               }
 
                                               if (cf[0])
@@ -1801,41 +1794,41 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                                                 CFRelease(cf[0]);
                                               }
 
-                                              if (v87)
+                                              if (v86)
                                               {
-                                                v15 = applesauce::CF::convert_to<double,0>(v87);
-                                                if (v86)
+                                                v15 = applesauce::CF::convert_to<double,0>(v86);
+                                                if (v85)
                                                 {
                                                   v16 = v15;
-                                                  v17 = applesauce::CF::convert_to<unsigned int,0>(v86);
+                                                  v17 = applesauce::CF::convert_to<unsigned int,0>(v85);
                                                   if (valuePtr)
                                                   {
                                                     v18 = v17;
                                                     v19 = applesauce::CF::convert_to<unsigned int,0>(valuePtr);
-                                                    if (v84)
+                                                    if (v83)
                                                     {
-                                                      v20 = applesauce::CF::convert_to<unsigned int,0>(v84);
-                                                      if (v83)
+                                                      v20 = applesauce::CF::convert_to<unsigned int,0>(v83);
+                                                      if (v82)
                                                       {
                                                         v64 = v20;
                                                         v65 = v19;
                                                         v66 = a1;
-                                                        v63 = applesauce::CF::convert_to<unsigned int,0>(v83);
-                                                        if (v82)
+                                                        v63 = applesauce::CF::convert_to<unsigned int,0>(v82);
+                                                        if (v81)
                                                         {
-                                                          v21 = applesauce::CF::convert_to<unsigned int,0>(v82);
-                                                          if (v81)
+                                                          v21 = applesauce::CF::convert_to<unsigned int,0>(v81);
+                                                          if (v80)
                                                           {
                                                             v22 = v21;
-                                                            v23 = applesauce::CF::convert_to<unsigned int,0>(v81);
-                                                            if (v80)
+                                                            v23 = applesauce::CF::convert_to<unsigned int,0>(v80);
+                                                            if (v79)
                                                             {
                                                               v24 = v23;
-                                                              v25 = applesauce::CF::convert_to<unsigned int,0>(v80);
+                                                              v25 = applesauce::CF::convert_to<unsigned int,0>(v79);
                                                               cf[0] = 0;
                                                               cf[1] = 0;
                                                               v69 = 0;
-                                                              std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(cf, v90, v91, (v91 - v90) >> 4);
+                                                              std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(cf, v89, v90, (v90 - v89) >> 4);
                                                               v70 = v16;
                                                               v71 = v18;
                                                               v72 = v65;
@@ -1844,7 +1837,6 @@ void AMCP::Implementation::create_available_format_from<applesauce::CF::Dictiona
                                                               v75 = v22;
                                                               v76 = v24;
                                                               v77 = v25;
-                                                              v78 = 0;
                                                               *v66 = 0u;
                                                               *(v66 + 16) = 0u;
                                                               *(v66 + 32) = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
@@ -2046,7 +2038,7 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(v
   *a4 = 0;
 }
 
-void *applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(void *a1, CFArrayRef theArray, unint64_t a3)
+void *applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(applesauce::CF::DictionaryRef *a1, CFArrayRef theArray, unint64_t a3)
 {
   if (!theArray || CFArrayGetCount(theArray) <= a3 || (ValueAtIndex = CFArrayGetValueAtIndex(theArray, a3)) == 0)
   {
@@ -2195,7 +2187,7 @@ LABEL_75:
 
       else
       {
-        v27 = v4 + 2;
+        v27 = (v4 + 2);
         *v4 = *(v4 - 1);
       }
 
@@ -2387,7 +2379,7 @@ uint64_t applesauce::CF::convert_to<unsigned int,0>(const __CFNumber *a1)
   return result;
 }
 
-void std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(void *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2429,7 +2421,7 @@ void applesauce::CF::ArrayRef::~ArrayRef(const void **this)
   }
 }
 
-uint64_t AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch(uint64_t result, uint64_t *a2, AMCP::Thing *a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -2467,10 +2459,10 @@ uint64_t AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA
         goto LABEL_103;
       }
 
-      if (*(a2 + 32))
+      if (a2[4])
       {
         valuePtr[0] = AMCP::Implementation::get_type_marker<std::tuple<CA::ValueRangeList,CA::StreamDescription>>();
-        v11 = (*(a2 + 32))(4, a2, 0, valuePtr);
+        v11 = (a2[4])(4, a2, 0, valuePtr);
       }
 
       else
@@ -2483,8 +2475,8 @@ uint64_t AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA
         if (v11)
         {
           *valuePtr = 0u;
-          v66 = 0u;
-          v67 = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
+          v65 = 0u;
+          v66 = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
           operator new();
         }
 
@@ -2500,135 +2492,135 @@ LABEL_111:
         }
 
         Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C8]);
-        v63 = v11;
+        v62 = v11;
         __p[0] = Mutable;
-        v21 = *v11;
-        v20 = *(v11 + 8);
-        if (*v11 != v20)
+        v20 = *v11;
+        v19 = *(v11 + 8);
+        if (*v11 != v19)
         {
-          v22 = MEMORY[0x1E695E9E0];
-          v23 = MEMORY[0x1E695E9F0];
+          v21 = MEMORY[0x1E695E9E0];
+          v22 = MEMORY[0x1E695E9F0];
           do
           {
-            v24 = CFDictionaryCreateMutable(0, 0, v22, v23);
-            v70 = v24;
-            v69 = CFStringCreateWithBytes(0, "minimum", 7, 0x8000100u, 0);
-            if (!v69)
+            v23 = CFDictionaryCreateMutable(0, 0, v21, v22);
+            v69 = v23;
+            v68 = CFStringCreateWithBytes(0, "minimum", 7, 0x8000100u, 0);
+            if (!v68)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Could not construct");
               __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            v25 = Mutable;
-            valuePtr[0] = *v21;
-            v26 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
-            v68 = v26;
-            if (!v26)
+            v24 = Mutable;
+            valuePtr[0] = *v20;
+            v25 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
+            v67 = v25;
+            if (!v25)
+            {
+              v41 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v41, "Could not construct");
+              __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            }
+
+            mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v23, v68, v25);
+            CFRelease(v25);
+            if (v68)
+            {
+              CFRelease(v68);
+            }
+
+            v68 = CFStringCreateWithBytes(0, "maximum", 7, 0x8000100u, 0);
+            if (!v68)
             {
               v42 = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(v42, "Could not construct");
               __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v24, v69, v26);
-            CFRelease(v26);
-            if (v69)
-            {
-              CFRelease(v69);
-            }
-
-            v69 = CFStringCreateWithBytes(0, "maximum", 7, 0x8000100u, 0);
-            if (!v69)
+            valuePtr[0] = v20[1];
+            v26 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
+            v67 = v26;
+            if (!v26)
             {
               v43 = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(v43, "Could not construct");
               __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            valuePtr[0] = v21[1];
-            v27 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
-            v68 = v27;
-            if (!v27)
+            mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v23, v68, v26);
+            CFRelease(v26);
+            Mutable = v24;
+            if (v68)
             {
-              v44 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v44, "Could not construct");
-              __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              CFRelease(v68);
             }
 
-            mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v24, v69, v27);
-            CFRelease(v27);
-            Mutable = v25;
-            if (v69)
-            {
-              CFRelease(v69);
-            }
-
-            mcp_applesauce::CF::Dictionary_Builder::get_dictionary(valuePtr, v24);
-            mcp_applesauce::CF::Array_Builder::append_value<applesauce::CF::DictionaryRef>(v25, valuePtr[0]);
+            mcp_applesauce::CF::Dictionary_Builder::get_dictionary(valuePtr, v23);
+            mcp_applesauce::CF::Array_Builder::append_value<applesauce::CF::DictionaryRef>(v24, valuePtr[0]);
             if (valuePtr[0])
             {
               CFRelease(valuePtr[0]);
             }
 
-            if (v24)
+            if (v23)
             {
-              CFRelease(v24);
+              CFRelease(v23);
             }
 
-            v21 += 2;
+            v20 += 2;
           }
 
-          while (v21 != v20);
+          while (v20 != v19);
         }
 
-        v28 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-        v70 = v28;
-        v69 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
-        if (!v69)
+        v27 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
+        v69 = v27;
+        v68 = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
+        if (!v68)
+        {
+          v44 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v44, "Could not construct");
+          __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        valuePtr[0] = *(v62 + 24);
+        v28 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
+        v67 = v28;
+        if (!v28)
         {
           v45 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v45, "Could not construct");
           __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        valuePtr[0] = *(v63 + 24);
-        v29 = CFNumberCreate(0, kCFNumberDoubleType, valuePtr);
-        v68 = v29;
-        if (!v29)
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, v68, v28);
+        CFRelease(v28);
+        if (v68)
+        {
+          CFRelease(v68);
+        }
+
+        valuePtr[0] = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
+        if (!valuePtr[0])
         {
           v46 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v46, "Could not construct");
           __cxa_throw(v46, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, v69, v29);
-        CFRelease(v29);
-        if (v69)
-        {
-          CFRelease(v69);
-        }
-
-        valuePtr[0] = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
-        if (!valuePtr[0])
+        LODWORD(v67) = *(v62 + 32);
+        v29 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v29;
+        if (!v29)
         {
           v47 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v47, "Could not construct");
           __cxa_throw(v47, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 32);
-        v30 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v30;
-        if (!v30)
-        {
-          v48 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v48, "Could not construct");
-          __cxa_throw(v48, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v30);
-        CFRelease(v30);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v29);
+        CFRelease(v29);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2637,23 +2629,23 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v48 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v48, "Could not construct");
+          __cxa_throw(v48, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 36);
+        v30 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v30;
+        if (!v30)
+        {
           v49 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v49, "Could not construct");
           __cxa_throw(v49, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 36);
-        v31 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v31;
-        if (!v31)
-        {
-          v50 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v50, "Could not construct");
-          __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v31);
-        CFRelease(v31);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v30);
+        CFRelease(v30);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2662,23 +2654,23 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v50 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v50, "Could not construct");
+          __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 40);
+        v31 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v31;
+        if (!v31)
+        {
           v51 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v51, "Could not construct");
           __cxa_throw(v51, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 40);
-        v32 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v32;
-        if (!v32)
-        {
-          v52 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v52, "Could not construct");
-          __cxa_throw(v52, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v32);
-        CFRelease(v32);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v31);
+        CFRelease(v31);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2687,23 +2679,23 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v52 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v52, "Could not construct");
+          __cxa_throw(v52, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 44);
+        v32 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v32;
+        if (!v32)
+        {
           v53 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v53, "Could not construct");
           __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 44);
-        v33 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v33;
-        if (!v33)
-        {
-          v54 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v54, "Could not construct");
-          __cxa_throw(v54, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v33);
-        CFRelease(v33);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v32);
+        CFRelease(v32);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2712,23 +2704,23 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v54 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v54, "Could not construct");
+          __cxa_throw(v54, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 48);
+        v33 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v33;
+        if (!v33)
+        {
           v55 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v55, "Could not construct");
           __cxa_throw(v55, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 48);
-        v34 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v34;
-        if (!v34)
-        {
-          v56 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v56, "Could not construct");
-          __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v34);
-        CFRelease(v34);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v33);
+        CFRelease(v33);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2737,23 +2729,23 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v56 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v56, "Could not construct");
+          __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 52);
+        v34 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v34;
+        if (!v34)
+        {
           v57 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v57, "Could not construct");
           __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 52);
-        v35 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v35;
-        if (!v35)
-        {
-          v58 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v58, "Could not construct");
-          __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v35);
-        CFRelease(v35);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v34);
+        CFRelease(v34);
         if (valuePtr[0])
         {
           CFRelease(valuePtr[0]);
@@ -2762,31 +2754,48 @@ LABEL_111:
         valuePtr[0] = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
         if (!valuePtr[0])
         {
+          v58 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v58, "Could not construct");
+          __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v67) = *(v62 + 56);
+        v35 = CFNumberCreate(0, kCFNumberIntType, &v67);
+        v68 = v35;
+        if (!v35)
+        {
           v59 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v59, "Could not construct");
           __cxa_throw(v59, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v68) = *(v63 + 56);
-        v36 = CFNumberCreate(0, kCFNumberIntType, &v68);
-        v69 = v36;
-        if (!v36)
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v27, valuePtr[0], v35);
+        CFRelease(v35);
+        if (valuePtr[0])
+        {
+          CFRelease(valuePtr[0]);
+        }
+
+        v36 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
+        v68 = v36;
+        v37 = CFStringCreateWithBytes(0, "sample rate range list", 22, 0x8000100u, 0);
+        valuePtr[0] = v37;
+        if (!v37)
         {
           v60 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v60, "Could not construct");
           __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(v28, valuePtr[0], v36);
-        CFRelease(v36);
-        if (valuePtr[0])
+        mcp_applesauce::CF::Array_Builder::get_array(&v67, Mutable);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::ArrayRef>(v36, v37, v67);
+        if (v67)
         {
-          CFRelease(valuePtr[0]);
+          CFRelease(v67);
         }
 
-        v37 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-        v69 = v37;
-        v38 = CFStringCreateWithBytes(0, "sample rate range list", 22, 0x8000100u, 0);
+        CFRelease(v37);
+        v38 = CFStringCreateWithBytes(0, "format", 6, 0x8000100u, 0);
         valuePtr[0] = v38;
         if (!v38)
         {
@@ -2795,43 +2804,26 @@ LABEL_111:
           __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        mcp_applesauce::CF::Array_Builder::get_array(&v68, Mutable);
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::ArrayRef>(v37, v38, v68);
-        if (v68)
+        mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v67, v27);
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::DictionaryRef>(v36, v38, v67);
+        if (v67)
         {
-          CFRelease(v68);
+          CFRelease(v67);
         }
 
         CFRelease(v38);
-        v39 = CFStringCreateWithBytes(0, "format", 6, 0x8000100u, 0);
-        valuePtr[0] = v39;
-        if (!v39)
-        {
-          v62 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v62, "Could not construct");
-          __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::get_dictionary(&v68, v28);
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::DictionaryRef>(v37, v39, v68);
-        if (v68)
-        {
-          CFRelease(v68);
-        }
-
-        CFRelease(v39);
-        mcp_applesauce::CF::Dictionary_Builder::copy_dictionary(valuePtr, v37);
+        mcp_applesauce::CF::Dictionary_Builder::copy_dictionary(valuePtr, v36);
         valuePtr[1] = 0;
-        v66 = 0uLL;
-        v67 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
-        if (v37)
+        v65 = 0uLL;
+        v66 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
+        if (v36)
         {
-          CFRelease(v37);
+          CFRelease(v36);
         }
 
-        if (v28)
+        if (v27)
         {
-          CFRelease(v28);
+          CFRelease(v27);
         }
 
         if (Mutable)
@@ -2843,22 +2835,22 @@ LABEL_111:
       else
       {
 LABEL_103:
-        v67 = 0;
+        v66 = 0;
         *valuePtr = 0u;
-        v66 = 0u;
+        v65 = 0u;
       }
 
       AMCP::swap(valuePtr, a3, v10);
-      if (v67)
+      if (v66)
       {
-        (v67)(0, valuePtr, 0, 0);
+        (v66)(0, valuePtr, 0, 0);
       }
 
       return 0;
     }
 
     v13 = AMCP::Implementation::get_type_marker<std::tuple<CA::ValueRangeList,CA::StreamDescription>>();
-    v14 = *(a2 + 32);
+    v14 = a2[4];
     valuePtr[0] = 0;
     if (v14)
     {
@@ -2871,7 +2863,7 @@ LABEL_103:
       goto LABEL_32;
     }
 
-    v15 = *(a3 + 32);
+    v15 = *(a3 + 4);
     __p[0] = 0;
     if (v15)
     {
@@ -2881,10 +2873,10 @@ LABEL_103:
 
     if (v15 == v13)
     {
-      if (*(a2 + 32))
+      if (a2[4])
       {
         valuePtr[0] = AMCP::Implementation::get_type_marker<std::tuple<CA::ValueRangeList,CA::StreamDescription>>();
-        v16 = (*(a2 + 32))(4, a2, 0, valuePtr);
+        v16 = (a2[4])(4, a2, 0, valuePtr);
       }
 
       else
@@ -2893,8 +2885,8 @@ LABEL_103:
       }
 
       valuePtr[0] = AMCP::Implementation::get_type_marker<std::tuple<CA::ValueRangeList,CA::StreamDescription>>();
-      v40 = (*(a3 + 32))(4, a3, 0, valuePtr);
-      if (!std::__tuple_equal<2ul>::operator()[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>,std::tuple<CA::ValueRangeList,CA::StreamDescription>>(v16, v40))
+      v39 = (*(a3 + 4))(4, a3, 0, valuePtr);
+      if (!std::__tuple_equal<2ul>::operator()[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>,std::tuple<CA::ValueRangeList,CA::StreamDescription>>(v16, v39))
       {
         return 0;
       }
@@ -2905,7 +2897,7 @@ LABEL_103:
 LABEL_32:
       AMCP::Thing::convert_to<std::tuple<CA::ValueRangeList,CA::StreamDescription>>(valuePtr, a2);
       AMCP::Thing::convert_to<std::tuple<CA::ValueRangeList,CA::StreamDescription>>(__p, a3);
-      v18 = std::__tuple_equal<2ul>::operator()[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>,std::tuple<CA::ValueRangeList,CA::StreamDescription>>(valuePtr, __p);
+      v17 = std::__tuple_equal<2ul>::operator()[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>,std::tuple<CA::ValueRangeList,CA::StreamDescription>>(valuePtr, __p);
       if (__p[0])
       {
         operator delete(__p[0]);
@@ -2916,7 +2908,7 @@ LABEL_32:
         operator delete(valuePtr[0]);
       }
 
-      if (!v18)
+      if (!v17)
       {
         return 0;
       }
@@ -2930,10 +2922,9 @@ LABEL_32:
     case 0:
       goto LABEL_13;
     case 1:
-      v17 = *a2;
       *a3 = 0u;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
+      *(a3 + 1) = 0u;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
       operator new();
     case 2:
       v7 = *a2;
@@ -2945,7 +2936,7 @@ LABEL_32:
         std::default_delete<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::operator()[abi:ne200100](v8);
       }
 
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::dispatch;
 LABEL_13:
       v9 = *a2;
       *a2 = 0;
@@ -2955,16 +2946,16 @@ LABEL_13:
       }
 
       result = 0;
-      *(a2 + 32) = 0;
+      a2[4] = 0;
       *a2 = 0u;
-      *(a2 + 16) = 0u;
+      *(a2 + 1) = 0u;
       break;
   }
 
   return result;
 }
 
-void sub_1DE24D2E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, const void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p)
+void sub_1DE24D2E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p)
 {
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&__p);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder((v19 - 104));
@@ -3041,10 +3032,10 @@ void AMCP::Thing::convert_to<std::tuple<CA::ValueRangeList,CA::StreamDescription
       *a1 = 0;
       *(a1 + 8) = 0;
       *(a1 + 16) = 0;
-      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v6, v6[1], (v6[1] - *v6) >> 4);
-      *(a1 + 24) = *(v7 + 3);
-      *(a1 + 40) = *(v7 + 5);
-      *(a1 + 56) = v7[7];
+      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 4);
+      *(a1 + 24) = *(v7 + 24);
+      *(a1 + 40) = *(v7 + 40);
+      *(a1 + 56) = *(v7 + 56);
       return;
     }
 
@@ -3078,19 +3069,19 @@ LABEL_12:
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v8, v8[1], (v8[1] - *v8) >> 4);
-  *(a1 + 24) = *(v9 + 3);
-  *(a1 + 40) = *(v9 + 5);
-  *(a1 + 56) = v9[7];
+  std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 4);
+  *(a1 + 24) = *(v9 + 24);
+  *(a1 + 40) = *(v9 + 40);
+  *(a1 + 56) = *(v9 + 56);
   if (v18)
   {
     v18(0, v17, 0, 0);
   }
 }
 
-void sub_1DE24D8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE24D8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -3103,7 +3094,7 @@ void mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef
   }
 }
 
-void *mcp_applesauce::CF::Dictionary_Builder::get_dictionary(void *this, const void *a2)
+applesauce::CF::DictionaryRef *mcp_applesauce::CF::Dictionary_Builder::get_dictionary(applesauce::CF::DictionaryRef *this, const void *a2)
 {
   if (a2)
   {
@@ -3139,7 +3130,7 @@ void mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(const void **th
   }
 }
 
-void *mcp_applesauce::CF::Array_Builder::get_array(void *this, const void *a2)
+applesauce::CF::ArrayRef *mcp_applesauce::CF::Array_Builder::get_array(applesauce::CF::ArrayRef *this, const void *a2)
 {
   if (a2)
   {
@@ -3455,7 +3446,7 @@ uint64_t AMCP::Implementation::get_type_marker<CA::StreamDescription>()
   return v0[461];
 }
 
-uint64_t AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch(uint64_t result, uint64_t *a2, AMCP::Thing *a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -3493,10 +3484,10 @@ uint64_t AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch
         goto LABEL_83;
       }
 
-      if (*(a2 + 32))
+      if (a2[4])
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<CA::StreamDescription>();
-        v11 = (*(a2 + 32))(4, a2, 0, &valuePtr);
+        v11 = (a2[4])(4, a2, 0, &valuePtr);
       }
 
       else
@@ -3509,11 +3500,11 @@ uint64_t AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch
         if (v11)
         {
           valuePtr = *v11;
-          v51 = *(v11 + 16);
-          v52 = *(v11 + 32);
-          v48 = 0uLL;
+          v50 = *(v11 + 16);
+          v51 = *(v11 + 32);
+          v47 = 0uLL;
           cf[1] = 0;
-          v49 = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
+          v48 = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
           operator new();
         }
 
@@ -3525,8 +3516,8 @@ uint64_t AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch
         if (v11)
         {
           cf[1] = 0;
-          v48 = 0uLL;
-          v49 = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
+          v47 = 0uLL;
+          v48 = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
           operator new();
         }
 
@@ -3542,7 +3533,7 @@ LABEL_102:
         }
 
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-        v53[1] = Mutable;
+        v52[1] = Mutable;
         cf[0] = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
         if (!cf[0])
         {
@@ -3552,34 +3543,59 @@ LABEL_102:
         }
 
         *&valuePtr = *v11;
-        v22 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-        v53[0] = v22;
-        if (!v22)
+        v21 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+        v52[0] = v21;
+        if (!v21)
+        {
+          v31 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v31, "Could not construct");
+          __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, cf[0], v21);
+        CFRelease(v21);
+        CFRelease(cf[0]);
+        *&valuePtr = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
+        if (!valuePtr)
         {
           v32 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v32, "Could not construct");
           __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, cf[0], v22);
-        CFRelease(v22);
-        CFRelease(cf[0]);
-        *&valuePtr = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
-        if (!valuePtr)
+        LODWORD(v52[0]) = *(v11 + 8);
+        v22 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v22;
+        if (!v22)
         {
           v33 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v33, "Could not construct");
           __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v53[0]) = *(v11 + 8);
-        v23 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v23;
-        if (!v23)
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v22);
+        CFRelease(v22);
+        if (valuePtr)
+        {
+          CFRelease(valuePtr);
+        }
+
+        *&valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
+        if (!valuePtr)
         {
           v34 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v34, "Could not construct");
           __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 12);
+        v23 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v23;
+        if (!v23)
+        {
+          v35 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v35, "Could not construct");
+          __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v23);
@@ -3589,22 +3605,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v35 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v35, "Could not construct");
-          __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 12);
-        v24 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v24;
-        if (!v24)
         {
           v36 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v36, "Could not construct");
           __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 16);
+        v24 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v24;
+        if (!v24)
+        {
+          v37 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v37, "Could not construct");
+          __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v24);
@@ -3614,22 +3630,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v37 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v37, "Could not construct");
-          __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 16);
-        v25 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v25;
-        if (!v25)
         {
           v38 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v38, "Could not construct");
           __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 20);
+        v25 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v25;
+        if (!v25)
+        {
+          v39 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v39, "Could not construct");
+          __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v25);
@@ -3639,22 +3655,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v39 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v39, "Could not construct");
-          __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 20);
-        v26 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v26;
-        if (!v26)
         {
           v40 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v40, "Could not construct");
           __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 24);
+        v26 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v26;
+        if (!v26)
+        {
+          v41 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v41, "Could not construct");
+          __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v26);
@@ -3664,22 +3680,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v41 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v41, "Could not construct");
-          __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 24);
-        v27 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v27;
-        if (!v27)
         {
           v42 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v42, "Could not construct");
           __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 28);
+        v27 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v27;
+        if (!v27)
+        {
+          v43 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v43, "Could not construct");
+          __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v27);
@@ -3689,22 +3705,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v43 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v43, "Could not construct");
-          __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 28);
-        v28 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v28;
-        if (!v28)
         {
           v44 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v44, "Could not construct");
           __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 32);
+        v28 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v28;
+        if (!v28)
+        {
+          v45 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v45, "Could not construct");
+          __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v28);
@@ -3714,35 +3730,10 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
-        if (!valuePtr)
-        {
-          v45 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v45, "Could not construct");
-          __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 32);
-        v29 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v29;
-        if (!v29)
-        {
-          v46 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v46, "Could not construct");
-          __cxa_throw(v46, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v29);
-        CFRelease(v29);
-        if (valuePtr)
-        {
-          CFRelease(valuePtr);
-        }
-
         mcp_applesauce::CF::Dictionary_Builder::copy_dictionary(cf, Mutable);
         cf[1] = 0;
-        v48 = 0uLL;
-        v49 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
+        v47 = 0uLL;
+        v48 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
         if (Mutable)
         {
           CFRelease(Mutable);
@@ -3752,22 +3743,22 @@ LABEL_102:
       else
       {
 LABEL_83:
-        v49 = 0;
+        v48 = 0;
         *cf = 0u;
-        v48 = 0u;
+        v47 = 0u;
       }
 
       AMCP::swap(cf, a3, v10);
-      if (v49)
+      if (v48)
       {
-        v49(0, cf, 0, 0);
+        (v48)(0, cf, 0, 0);
       }
 
       return 0;
     }
 
     v14 = AMCP::Implementation::get_type_marker<CA::StreamDescription>();
-    v15 = *(a2 + 32);
+    v15 = a2[4];
     *&valuePtr = 0;
     if (v15)
     {
@@ -3780,7 +3771,7 @@ LABEL_83:
       goto LABEL_34;
     }
 
-    v16 = *(a3 + 32);
+    v16 = *(a3 + 4);
     cf[0] = 0;
     if (v16)
     {
@@ -3790,10 +3781,10 @@ LABEL_83:
 
     if (v16 == v14)
     {
-      if (*(a2 + 32))
+      if (a2[4])
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<CA::StreamDescription>();
-        v17 = (*(a2 + 32))(4, a2, 0, &valuePtr);
+        v17 = (a2[4])(4, a2, 0, &valuePtr);
       }
 
       else
@@ -3801,24 +3792,24 @@ LABEL_83:
         v17 = 0;
       }
 
-      if (*(a3 + 32))
+      if (*(a3 + 4))
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<CA::StreamDescription>();
-        v30 = (*(a3 + 32))(4, a3, 0, &valuePtr);
+        v29 = (*(a3 + 4))(4, a3, 0, &valuePtr);
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
-      if (*v17 != *v30 || *(v17 + 8) != *(v30 + 8) || *(v17 + 12) != *(v30 + 12) || *(v17 + 16) != *(v30 + 16) || *(v17 + 20) != *(v30 + 20) || *(v17 + 24) != *(v30 + 24) || *(v17 + 28) != *(v30 + 28))
+      if (*v17 != *v29 || *(v17 + 8) != *(v29 + 8) || *(v17 + 12) != *(v29 + 12) || *(v17 + 16) != *(v29 + 16) || *(v17 + 20) != *(v29 + 20) || *(v17 + 24) != *(v29 + 24) || *(v17 + 28) != *(v29 + 28))
       {
         return 0;
       }
 
-      v19 = *(v17 + 32);
-      v20 = *(v30 + 32);
+      v18 = *(v17 + 32);
+      v19 = *(v29 + 32);
     }
 
     else
@@ -3826,16 +3817,16 @@ LABEL_83:
 LABEL_34:
       AMCP::Thing::convert_to<CA::StreamDescription>(&valuePtr, a2);
       AMCP::Thing::convert_to<CA::StreamDescription>(cf, a3);
-      if (*&valuePtr != *cf || *(&valuePtr + 1) != cf[1] || v51 != v48 || *(&v51 + 4) != *(&v48 + 4) || HIDWORD(v51) != HIDWORD(v48))
+      if (*&valuePtr != *cf || *(&valuePtr + 1) != cf[1] || v50 != v47 || *(&v50 + 4) != *(&v47 + 4) || HIDWORD(v50) != HIDWORD(v47))
       {
         return 0;
       }
 
-      v19 = v52;
-      v20 = v49;
+      v18 = v51;
+      v19 = v48;
     }
 
-    return v19 == v20;
+    return v18 == v19;
   }
 
   switch(result)
@@ -3847,9 +3838,9 @@ LABEL_34:
       {
 LABEL_23:
         result = 0;
-        *(a2 + 32) = 0;
+        a2[4] = 0;
         *a2 = 0u;
-        *(a2 + 16) = 0u;
+        *(a2 + 1) = 0u;
         return result;
       }
 
@@ -3857,10 +3848,9 @@ LABEL_22:
       MEMORY[0x1E12C1730]();
       goto LABEL_23;
     case 1:
-      v18 = *a2;
       *a3 = 0u;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
+      *(a3 + 1) = 0u;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
       operator new();
     case 2:
       v7 = *a2;
@@ -3872,7 +3862,7 @@ LABEL_22:
         MEMORY[0x1E12C1730](v8, 0x1000C400A747E1ELL);
       }
 
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
       v9 = *a2;
       *a2 = 0;
       if (!v9)
@@ -3961,14 +3951,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE24EFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE24EFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch(uint64_t result, uint64_t *a2, AMCP::Thing *a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -4006,10 +3996,10 @@ uint64_t AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::di
         goto LABEL_83;
       }
 
-      if (*(a2 + 32))
+      if (a2[4])
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-        v11 = (*(a2 + 32))(4, a2, 0, &valuePtr);
+        v11 = (a2[4])(4, a2, 0, &valuePtr);
       }
 
       else
@@ -4022,8 +4012,8 @@ uint64_t AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::di
         if (v11)
         {
           cf[1] = 0;
-          v48 = 0uLL;
-          v49 = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
+          v47 = 0uLL;
+          v48 = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
           operator new();
         }
 
@@ -4035,11 +4025,11 @@ uint64_t AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::di
         if (v11)
         {
           valuePtr = *v11;
-          v51 = *(v11 + 16);
-          v52 = *(v11 + 32);
-          v48 = 0uLL;
+          v50 = *(v11 + 16);
+          v51 = *(v11 + 32);
+          v47 = 0uLL;
           cf[1] = 0;
-          v49 = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
+          v48 = AMCP::Implementation::Outboard_Storage<CA::StreamDescription>::dispatch;
           operator new();
         }
 
@@ -4055,7 +4045,7 @@ LABEL_102:
         }
 
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9E0], MEMORY[0x1E695E9F0]);
-        v53[1] = Mutable;
+        v52[1] = Mutable;
         cf[0] = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
         if (!cf[0])
         {
@@ -4065,34 +4055,59 @@ LABEL_102:
         }
 
         *&valuePtr = *v11;
-        v22 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-        v53[0] = v22;
-        if (!v22)
+        v21 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+        v52[0] = v21;
+        if (!v21)
+        {
+          v31 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v31, "Could not construct");
+          __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, cf[0], v21);
+        CFRelease(v21);
+        CFRelease(cf[0]);
+        *&valuePtr = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
+        if (!valuePtr)
         {
           v32 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v32, "Could not construct");
           __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, cf[0], v22);
-        CFRelease(v22);
-        CFRelease(cf[0]);
-        *&valuePtr = CFStringCreateWithBytes(0, "format id", 9, 0x8000100u, 0);
-        if (!valuePtr)
+        LODWORD(v52[0]) = *(v11 + 8);
+        v22 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v22;
+        if (!v22)
         {
           v33 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v33, "Could not construct");
           __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        LODWORD(v53[0]) = *(v11 + 8);
-        v23 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v23;
-        if (!v23)
+        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v22);
+        CFRelease(v22);
+        if (valuePtr)
+        {
+          CFRelease(valuePtr);
+        }
+
+        *&valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
+        if (!valuePtr)
         {
           v34 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v34, "Could not construct");
           __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 12);
+        v23 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v23;
+        if (!v23)
+        {
+          v35 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v35, "Could not construct");
+          __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v23);
@@ -4102,22 +4117,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v35 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v35, "Could not construct");
-          __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 12);
-        v24 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v24;
-        if (!v24)
         {
           v36 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v36, "Could not construct");
           __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 16);
+        v24 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v24;
+        if (!v24)
+        {
+          v37 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v37, "Could not construct");
+          __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v24);
@@ -4127,22 +4142,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bytes per packet", 16, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v37 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v37, "Could not construct");
-          __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 16);
-        v25 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v25;
-        if (!v25)
         {
           v38 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v38, "Could not construct");
           __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 20);
+        v25 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v25;
+        if (!v25)
+        {
+          v39 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v39, "Could not construct");
+          __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v25);
@@ -4152,22 +4167,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "frames per packet", 17, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v39 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v39, "Could not construct");
-          __cxa_throw(v39, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 20);
-        v26 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v26;
-        if (!v26)
         {
           v40 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v40, "Could not construct");
           __cxa_throw(v40, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 24);
+        v26 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v26;
+        if (!v26)
+        {
+          v41 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v41, "Could not construct");
+          __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v26);
@@ -4177,22 +4192,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bytes per frame", 15, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v41 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v41, "Could not construct");
-          __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 24);
-        v27 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v27;
-        if (!v27)
         {
           v42 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v42, "Could not construct");
           __cxa_throw(v42, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 28);
+        v27 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v27;
+        if (!v27)
+        {
+          v43 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v43, "Could not construct");
+          __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v27);
@@ -4202,22 +4217,22 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
+        *&valuePtr = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
         if (!valuePtr)
-        {
-          v43 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v43, "Could not construct");
-          __cxa_throw(v43, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 28);
-        v28 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v28;
-        if (!v28)
         {
           v44 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v44, "Could not construct");
           __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        LODWORD(v52[0]) = *(v11 + 32);
+        v28 = CFNumberCreate(0, kCFNumberIntType, v52);
+        cf[0] = v28;
+        if (!v28)
+        {
+          v45 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v45, "Could not construct");
+          __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v28);
@@ -4227,35 +4242,10 @@ LABEL_102:
           CFRelease(valuePtr);
         }
 
-        *&valuePtr = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
-        if (!valuePtr)
-        {
-          v45 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v45, "Could not construct");
-          __cxa_throw(v45, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        LODWORD(v53[0]) = *(v11 + 32);
-        v29 = CFNumberCreate(0, kCFNumberIntType, v53);
-        cf[0] = v29;
-        if (!v29)
-        {
-          v46 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v46, "Could not construct");
-          __cxa_throw(v46, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-        }
-
-        mcp_applesauce::CF::Dictionary_Builder::set_value<applesauce::CF::StringRef,applesauce::CF::NumberRef>(Mutable, valuePtr, v29);
-        CFRelease(v29);
-        if (valuePtr)
-        {
-          CFRelease(valuePtr);
-        }
-
         mcp_applesauce::CF::Dictionary_Builder::copy_dictionary(cf, Mutable);
         cf[1] = 0;
-        v48 = 0uLL;
-        v49 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
+        v47 = 0uLL;
+        v48 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::dispatch;
         if (Mutable)
         {
           CFRelease(Mutable);
@@ -4265,22 +4255,22 @@ LABEL_102:
       else
       {
 LABEL_83:
-        v49 = 0;
+        v48 = 0;
         *cf = 0u;
-        v48 = 0u;
+        v47 = 0u;
       }
 
       AMCP::swap(cf, a3, v10);
-      if (v49)
+      if (v48)
       {
-        (v49)(0, cf, 0, 0);
+        (v48)(0, cf, 0, 0);
       }
 
       return 0;
     }
 
     v14 = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-    v15 = *(a2 + 32);
+    v15 = a2[4];
     *&valuePtr = 0;
     if (v15)
     {
@@ -4293,7 +4283,7 @@ LABEL_83:
       goto LABEL_34;
     }
 
-    v16 = *(a3 + 32);
+    v16 = *(a3 + 4);
     cf[0] = 0;
     if (v16)
     {
@@ -4303,10 +4293,10 @@ LABEL_83:
 
     if (v16 == v14)
     {
-      if (*(a2 + 32))
+      if (a2[4])
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-        v17 = (*(a2 + 32))(4, a2, 0, &valuePtr);
+        v17 = (a2[4])(4, a2, 0, &valuePtr);
       }
 
       else
@@ -4314,47 +4304,47 @@ LABEL_83:
         v17 = 0;
       }
 
-      if (*(a3 + 32))
+      if (*(a3 + 4))
       {
         *&valuePtr = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-        v30 = (*(a3 + 32))(4, a3, 0, &valuePtr);
+        v29 = (*(a3 + 4))(4, a3, 0, &valuePtr);
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
-      if (*v17 != *v30 || *(v17 + 8) != *(v30 + 8) || *(v17 + 12) != *(v30 + 12) || *(v17 + 16) != *(v30 + 16) || *(v17 + 20) != *(v30 + 20) || *(v17 + 24) != *(v30 + 24) || *(v17 + 28) != *(v30 + 28))
+      if (*v17 != *v29 || *(v17 + 8) != *(v29 + 8) || *(v17 + 12) != *(v29 + 12) || *(v17 + 16) != *(v29 + 16) || *(v17 + 20) != *(v29 + 20) || *(v17 + 24) != *(v29 + 24) || *(v17 + 28) != *(v29 + 28))
       {
         return 0;
       }
 
-      v19 = *(v17 + 32);
-      v20 = *(v30 + 32);
+      v18 = *(v17 + 32);
+      v19 = *(v29 + 32);
     }
 
     else
     {
 LABEL_34:
-      v52 = 0;
+      v51 = 0;
       valuePtr = 0u;
-      v51 = 0u;
+      v50 = 0u;
       AMCP::Thing::convert_to<AudioStreamBasicDescription>(&valuePtr, a2);
-      v49 = 0;
+      v48 = 0;
       *cf = 0u;
-      v48 = 0u;
+      v47 = 0u;
       AMCP::Thing::convert_to<AudioStreamBasicDescription>(cf, a3);
-      if (*&valuePtr != *cf || *(&valuePtr + 1) != cf[1] || v51 != v48 || *(&v51 + 4) != *(&v48 + 4) || HIDWORD(v51) != HIDWORD(v48))
+      if (*&valuePtr != *cf || *(&valuePtr + 1) != cf[1] || v50 != v47 || *(&v50 + 4) != *(&v47 + 4) || HIDWORD(v50) != HIDWORD(v47))
       {
         return 0;
       }
 
-      v19 = v52;
-      v20 = v49;
+      v18 = v51;
+      v19 = v48;
     }
 
-    return v19 == v20;
+    return v18 == v19;
   }
 
   switch(result)
@@ -4366,9 +4356,9 @@ LABEL_34:
       {
 LABEL_23:
         result = 0;
-        *(a2 + 32) = 0;
+        a2[4] = 0;
         *a2 = 0u;
-        *(a2 + 16) = 0u;
+        *(a2 + 1) = 0u;
         return result;
       }
 
@@ -4376,10 +4366,9 @@ LABEL_22:
       MEMORY[0x1E12C1730]();
       goto LABEL_23;
     case 1:
-      v18 = *a2;
       *a3 = 0u;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
+      *(a3 + 1) = 0u;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
       operator new();
     case 2:
       v7 = *a2;
@@ -4391,7 +4380,7 @@ LABEL_22:
         MEMORY[0x1E12C1730](v8, 0x1000C400A747E1ELL);
       }
 
-      *(a3 + 32) = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
+      *(a3 + 4) = AMCP::Implementation::Outboard_Storage<AudioStreamBasicDescription>::dispatch;
       v9 = *a2;
       *a2 = 0;
       if (!v9)
@@ -4480,11 +4469,24 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE250014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE250014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_1DE250098(_Unwind_Exception *exception_object)
@@ -4750,7 +4752,7 @@ LABEL_88:
         {
           Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C8]);
           v60 = Mutable;
-          v15 = *(*v11 + 8);
+          v15 = *(*v11 + 2);
           if (v15 > (v11[1] - *v11 - 12) / 0x14uLL)
           {
 LABEL_62:
@@ -4777,7 +4779,7 @@ LABEL_62:
               __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            v20 = *(*v11 + 8);
+            v20 = *(*v11 + 2);
             if (v20 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
@@ -4816,7 +4818,7 @@ LABEL_62:
               __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
 
-            v22 = *(*v11 + 8);
+            v22 = *(*v11 + 2);
             if (v22 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
@@ -4849,7 +4851,7 @@ LABEL_62:
 
             v24 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C8]);
             cf = v24;
-            v25 = *(*v11 + 8);
+            v25 = *(*v11 + 2);
             if (v25 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
@@ -4875,7 +4877,7 @@ LABEL_62:
 
             mcp_applesauce::CF::Array_Builder::append_value<applesauce::CF::NumberRef>(v24, v26);
             CFRelease(v26);
-            v27 = *(*v11 + 8);
+            v27 = *(*v11 + 2);
             if (v27 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
@@ -4901,7 +4903,7 @@ LABEL_62:
 
             mcp_applesauce::CF::Array_Builder::append_value<applesauce::CF::NumberRef>(v24, v28);
             CFRelease(v28);
-            v29 = *(*v11 + 8);
+            v29 = *(*v11 + 2);
             if (v29 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               __assert_rtn("GetNumberChannelDescriptions", "CoreAudioBaseTypes.hpp", 2252, "GetAudioChannelLayout().mNumberChannelDescriptions <= (mStorage.size() - kHeaderSize) / sizeof(AudioChannelDescription)");
@@ -4962,7 +4964,7 @@ LABEL_62:
             }
 
             v16 += 20;
-            v15 = *(*v11 + 8);
+            v15 = *(*v11 + 2);
             if (v15 > (v11[1] - *v11 - 12) / 0x14uLL)
             {
               goto LABEL_62;
@@ -5004,7 +5006,7 @@ LABEL_62:
             __cxa_throw(v51, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          LODWORD(valuePtr) = *(*v11 + 4);
+          LODWORD(valuePtr) = *(*v11 + 1);
           v34 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
           v58 = v34;
           if (!v34)
@@ -5477,7 +5479,7 @@ LABEL_62:
     AMCP::swap(&v30, a3, v8);
     if (v32)
     {
-      (v32)(0, &v30, 0, 0);
+      v32(0, &v30, 0, 0);
     }
 
     return 0;
@@ -5514,14 +5516,14 @@ LABEL_19:
   return result;
 }
 
-void sub_1DE251C94(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1DE251C94(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, const void *);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v9 = va_arg(va2, const void *);
+  v14 = va_arg(va2, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   applesauce::CF::StringRef::~StringRef(va1);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(va2);
@@ -5537,63 +5539,60 @@ double AMCP::Thing::convert_to<CA::ValueRange>(uint64_t a1)
 
   v2 = AMCP::Implementation::get_type_marker<CA::ValueRange>();
   v3 = *(a1 + 32);
-  v19 = 0;
+  v17 = 0;
   if (v3)
   {
-    v3(3, a1, 0, &v19);
-    v3 = v19;
+    v3(3, a1, 0, &v17);
+    v3 = v17;
   }
 
   if (v3 == v2)
   {
-    *&v17[0] = v2;
-    v4 = (*(a1 + 32))(4, a1, 0, v17);
+    *&v15[0] = v2;
+    v4 = (*(a1 + 32))(4, a1, 0, v15);
     if (v4)
     {
-      v5 = *v4;
-      v6 = *(v4 + 1);
-      return v5;
+      return *v4;
     }
 
 LABEL_12:
     exception = __cxa_allocate_exception(8uLL);
-    v11 = std::bad_cast::bad_cast(exception);
+    v9 = std::bad_cast::bad_cast(exception);
+    __cxa_throw(v9, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
+  }
+
+  v14 = AMCP::Implementation::get_type_marker<CA::ValueRange>();
+  memset(v15, 0, sizeof(v15));
+  v16 = 0;
+  (*(a1 + 32))(6, a1, v15, &v14);
+  if (!v16)
+  {
+    v10 = __cxa_allocate_exception(8uLL);
+    v11 = std::bad_cast::bad_cast(v10);
     __cxa_throw(v11, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
   }
 
-  v16 = AMCP::Implementation::get_type_marker<CA::ValueRange>();
-  memset(v17, 0, sizeof(v17));
-  v18 = 0;
-  (*(a1 + 32))(6, a1, v17, &v16);
-  if (!v18)
+  v14 = v2;
+  v6 = v16(4, v15, 0, &v14);
+  if (!v6)
   {
     v12 = __cxa_allocate_exception(8uLL);
     v13 = std::bad_cast::bad_cast(v12);
     __cxa_throw(v13, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
   }
 
-  v16 = v2;
-  v7 = v18(4, v17, 0, &v16);
-  if (!v7)
+  v5 = *v6;
+  if (v16)
   {
-    v14 = __cxa_allocate_exception(8uLL);
-    v15 = std::bad_cast::bad_cast(v14);
-    __cxa_throw(v15, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
-  }
-
-  v5 = *v7;
-  v8 = *(v7 + 1);
-  if (v18)
-  {
-    v18(0, v17, 0, 0);
+    v16(0, v15, 0, 0);
   }
 
   return v5;
 }
 
-void sub_1DE251EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE251EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -5848,7 +5847,7 @@ LABEL_62:
     AMCP::swap(&v35, a3, v8);
     if (v37)
     {
-      (v37)(0, &v35, 0, 0);
+      v37(0, &v35, 0, 0);
     }
 
     return 0;
@@ -5885,14 +5884,14 @@ LABEL_19:
   return result;
 }
 
-void sub_1DE2524E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1DE2524E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, const void *);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v9 = va_arg(va2, const void *);
+  v14 = va_arg(va2, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   applesauce::CF::StringRef::~StringRef(va1);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(va2);
@@ -5908,63 +5907,60 @@ double AMCP::Thing::convert_to<AudioValueRange>(uint64_t a1)
 
   type = AMCP::Implementation::get_type_marker<AudioValueRange>();
   v3 = *(a1 + 32);
-  v19 = 0;
+  v17 = 0;
   if (v3)
   {
-    v3(3, a1, 0, &v19);
-    v3 = v19;
+    v3(3, a1, 0, &v17);
+    v3 = v17;
   }
 
   if (v3 == type)
   {
-    *&v17[0] = type;
-    v4 = (*(a1 + 32))(4, a1, 0, v17);
+    *&v15[0] = type;
+    v4 = (*(a1 + 32))(4, a1, 0, v15);
     if (v4)
     {
-      v5 = *v4;
-      v6 = *(v4 + 1);
-      return v5;
+      return *v4;
     }
 
 LABEL_12:
     exception = __cxa_allocate_exception(8uLL);
-    v11 = std::bad_cast::bad_cast(exception);
+    v9 = std::bad_cast::bad_cast(exception);
+    __cxa_throw(v9, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
+  }
+
+  v14 = AMCP::Implementation::get_type_marker<AudioValueRange>();
+  memset(v15, 0, sizeof(v15));
+  v16 = 0;
+  (*(a1 + 32))(6, a1, v15, &v14);
+  if (!v16)
+  {
+    v10 = __cxa_allocate_exception(8uLL);
+    v11 = std::bad_cast::bad_cast(v10);
     __cxa_throw(v11, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
   }
 
-  v16 = AMCP::Implementation::get_type_marker<AudioValueRange>();
-  memset(v17, 0, sizeof(v17));
-  v18 = 0;
-  (*(a1 + 32))(6, a1, v17, &v16);
-  if (!v18)
+  v14 = type;
+  v6 = v16(4, v15, 0, &v14);
+  if (!v6)
   {
     v12 = __cxa_allocate_exception(8uLL);
     v13 = std::bad_cast::bad_cast(v12);
     __cxa_throw(v13, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
   }
 
-  v16 = type;
-  v7 = v18(4, v17, 0, &v16);
-  if (!v7)
+  v5 = *v6;
+  if (v16)
   {
-    v14 = __cxa_allocate_exception(8uLL);
-    v15 = std::bad_cast::bad_cast(v14);
-    __cxa_throw(v15, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
-  }
-
-  v5 = *v7;
-  v8 = *(v7 + 1);
-  if (v18)
-  {
-    v18(0, v17, 0, 0);
+    v16(0, v15, 0, 0);
   }
 
   return v5;
 }
 
-void sub_1DE252738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE252738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -6287,9 +6283,9 @@ LABEL_12:
   return v6 | (v5 << 32);
 }
 
-void sub_1DE252F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE252F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -6388,13 +6384,13 @@ uint64_t std::optional<applesauce::CF::NumberRef>::~optional(uint64_t a1)
   return a1;
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<std::tuple<unsigned int,unsigned int,applesauce::CF::StringRef>>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::tuple<unsigned int,unsigned int,applesauce::CF::StringRef>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result <= 2)
   {
     if (result)
     {
-      if (result)
+      if (result == 1)
       {
         *a3 = 0u;
         *(a3 + 16) = 0u;
@@ -6744,9 +6740,9 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE253A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE253A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -6796,13 +6792,13 @@ uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::const
   return a1;
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+CFTypeRef *AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch(CFTypeRef *result, CFTypeRef *a2, uint64_t a3, uint64_t *a4)
 {
   if (result <= 2)
   {
     if (result)
     {
-      if (result)
+      if (result == 1)
       {
         AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::construct<applesauce::CF::ArrayRef const&>(a3, a2);
         return 0;
@@ -6844,7 +6840,7 @@ BOOL AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch(
     }
 
     v9 = AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>();
-    v10 = *(a2 + 32);
+    v10 = a2[4];
     cf1[0] = 0;
     if (v10)
     {
@@ -6864,10 +6860,10 @@ BOOL AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch(
 
       if (v11 == v9)
       {
-        if (*(a2 + 32))
+        if (a2[4])
         {
           cf1[0] = AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>();
-          v12 = (*(a2 + 32))(4, a2, 0, cf1);
+          v12 = (a2[4])(4, a2, 0, cf1);
         }
 
         else
@@ -6881,7 +6877,7 @@ BOOL AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch(
         v18 = *v16;
         if (*v12 && v18)
         {
-          return CFEqual(v17, v18) != 0;
+          return (CFEqual(v17, v18) != 0);
         }
 
         return !(v17 | v18);
@@ -7044,9 +7040,9 @@ LABEL_16:
   return result;
 }
 
-void sub_1DE25402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE25402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -7093,7 +7089,7 @@ LABEL_27:
   *(a1 + 32) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  AMCP::Implementation::In_Place_Storage<mcp_applesauce::CF::PropertyListRef>::construct<mcp_applesauce::CF::PropertyListRef&>(a1, &v36);
+  AMCP::Implementation::In_Place_Storage<mcp_applesauce::CF::PropertyListRef>::construct<mcp_applesauce::CF::PropertyListRef&>(a1, &v36.__first_);
   if (v36.__first_)
   {
     CFRelease(v36.__first_);
@@ -8037,7 +8033,7 @@ uint64_t AMCP::Implementation::get_type_marker<CA::ValueRangeList>()
   return v0[447];
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result <= 2)
   {
@@ -8047,7 +8043,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(ui
       {
         *a3 = 0u;
         *(a3 + 16) = 0u;
-        std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a3, *a2, a2[1], (a2[1] - *a2) >> 4);
+        std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
         result = 0;
         *(a3 + 32) = AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch;
         return result;
@@ -8063,9 +8059,9 @@ uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(ui
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
     }
 
     else
@@ -8073,17 +8069,17 @@ uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(ui
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
     }
 
     *a2 = v7;
-    *(a2 + 1) = v7;
+    *(a2 + 16) = v7;
     return result;
   }
 
@@ -8092,7 +8088,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(ui
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<CA::ValueRangeList>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       v38[0] = 0;
       if (v13)
       {
@@ -8115,10 +8111,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch(ui
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           v38[0] = AMCP::Implementation::get_type_marker<CA::ValueRangeList>();
-          v15 = (a2[4])(4, a2, 0, v38);
+          v15 = (*(a2 + 32))(4, a2, 0, v38);
         }
 
         else
@@ -8203,10 +8199,10 @@ LABEL_31:
 
     if (*a4 == AMCP::Implementation::get_type_marker<CA::ValueRangeList>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>())
     {
-      if (a2[4])
+      if (*(a2 + 32))
       {
         v38[0] = AMCP::Implementation::get_type_marker<CA::ValueRangeList>();
-        v9 = (a2[4])(4, a2, 0, v38);
+        v9 = (*(a2 + 32))(4, a2, 0, v38);
       }
 
       else
@@ -8221,7 +8217,7 @@ LABEL_31:
           v40 = 0;
           *v38 = 0u;
           v39 = 0u;
-          std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(v38, *v9, v9[1], (v9[1] - *v9) >> 4);
+          std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(v38, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 4);
           v40 = AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch;
           goto LABEL_60;
         }
@@ -8237,7 +8233,7 @@ LABEL_75:
           Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C8]);
           v41[0] = Mutable;
           v23 = *v9;
-          v24 = v9[1];
+          v24 = *(v9 + 8);
           if (*v9 != v24)
           {
             v25 = MEMORY[0x1E695E9E0];
@@ -8363,19 +8359,19 @@ LABEL_60:
   return result;
 }
 
-void sub_1DE25B880(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DE25B880(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va3, a7);
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, const void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va3, a13);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, const void *);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, const void *);
+  v18 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v14 = va_arg(va3, const void *);
+  v20 = va_arg(va3, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va1);
   applesauce::CF::StringRef::~StringRef(va2);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(va3);
@@ -8408,7 +8404,7 @@ void AMCP::Thing::convert_to<CA::ValueRangeList>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v6, v6[1], (v6[1] - *v6) >> 4);
+      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 4);
       return;
     }
 
@@ -8441,16 +8437,16 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v7, v7[1], (v7[1] - *v7) >> 4);
+  std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a1, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 4);
   if (v16)
   {
     v16(0, v15, 0, 0);
   }
 }
 
-void sub_1DE25BAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE25BAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -8505,7 +8501,7 @@ void AMCP::Implementation::create_vector_of_available_formats_from<applesauce::C
   std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](v6);
 }
 
-uint64_t std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__init_with_size[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>*,std::tuple<CA::ValueRangeList,CA::StreamDescription>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__init_with_size[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>*,std::tuple<CA::ValueRangeList,CA::StreamDescription>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9140,33 +9136,33 @@ void sub_1DE25E554(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   JUMPOUT(0x1DE25DF30);
 }
 
-void sub_1DE25E580(void *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE25E580(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, const void *);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
+  v13 = va_arg(va2, const void *);
   v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   va_copy(va3, va2);
-  v16 = va_arg(va3, const void *);
+  v18 = va_arg(va3, const void *);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va2);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(va);
   mcp_applesauce::CF::Dictionary_Builder::~Dictionary_Builder(va3);
-  mcp_applesauce::CF::Array_Builder::~Array_Builder((v3 - 88));
+  mcp_applesauce::CF::Array_Builder::~Array_Builder((v5 - 88));
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -9232,9 +9228,9 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE25E990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE25E990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -9364,7 +9360,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -9402,7 +9398,7 @@ uint64_t AMCP::Implementation::get_type_marker<std::vector<CA::RangedStreamDescr
   return v0[443];
 }
 
-uint64_t std::vector<CA::RangedStreamDescription>::__init_with_size[abi:ne200100]<CA::RangedStreamDescription*,CA::RangedStreamDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CA::RangedStreamDescription>::__init_with_size[abi:ne200100]<CA::RangedStreamDescription*,CA::RangedStreamDescription*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9424,7 +9420,7 @@ void sub_1DE25ED1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -9511,7 +9507,7 @@ LABEL_130:
             AMCP::swap(v76, a3, v8);
             if (v78)
             {
-              (v78)(0, v76, 0, 0);
+              v78(0, v76, 0, 0);
             }
 
             return 0;
@@ -9568,7 +9564,7 @@ LABEL_166:
                   __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 8);
+                LODWORD(valuePtr) = *(v32 + 2);
                 v36 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v36;
                 if (!v36)
@@ -9593,7 +9589,7 @@ LABEL_166:
                   __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 12);
+                LODWORD(valuePtr) = *(v32 + 3);
                 v37 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v37;
                 if (!v37)
@@ -9618,7 +9614,7 @@ LABEL_166:
                   __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 16);
+                LODWORD(valuePtr) = *(v32 + 4);
                 v38 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v38;
                 if (!v38)
@@ -9643,7 +9639,7 @@ LABEL_166:
                   __cxa_throw(v64, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 20);
+                LODWORD(valuePtr) = *(v32 + 5);
                 v39 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v39;
                 if (!v39)
@@ -9668,7 +9664,7 @@ LABEL_166:
                   __cxa_throw(v66, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 24);
+                LODWORD(valuePtr) = *(v32 + 6);
                 v40 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v40;
                 if (!v40)
@@ -9693,7 +9689,7 @@ LABEL_166:
                   __cxa_throw(v68, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 28);
+                LODWORD(valuePtr) = *(v32 + 7);
                 v41 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v41;
                 if (!v41)
@@ -9718,7 +9714,7 @@ LABEL_166:
                   __cxa_throw(v70, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                LODWORD(valuePtr) = *(v32 + 32);
+                LODWORD(valuePtr) = *(v32 + 8);
                 v42 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 cf = v42;
                 if (!v42)
@@ -9743,7 +9739,7 @@ LABEL_166:
                   __cxa_throw(v72, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                v76[0] = *(v32 + 40);
+                v76[0] = *(v32 + 5);
                 v43 = CFNumberCreate(0, kCFNumberDoubleType, v76);
                 valuePtr = v43;
                 if (!v43)
@@ -9768,7 +9764,7 @@ LABEL_166:
                   __cxa_throw(v74, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
-                v76[0] = *(v32 + 48);
+                v76[0] = *(v32 + 6);
                 v44 = CFNumberCreate(0, kCFNumberDoubleType, v76);
                 valuePtr = v44;
                 if (!v44)
@@ -9797,7 +9793,7 @@ LABEL_166:
                   CFRelease(v34);
                 }
 
-                v32 += 56;
+                v32 = (v32 + 56);
               }
 
               while (v32 != v33);
@@ -9981,44 +9977,40 @@ LABEL_62:
     goto LABEL_64;
   }
 
-  if (!result)
+  switch(result)
   {
-    v10 = *a2;
-    if (*a2)
-    {
-      *(a2 + 8) = v10;
-      operator delete(v10);
-    }
+    case 0:
+      v10 = *a2;
+      if (*a2)
+      {
+        *(a2 + 8) = v10;
+        operator delete(v10);
+      }
 
-    result = 0;
-    *(a2 + 32) = 0;
-    v7 = 0uLL;
-    goto LABEL_21;
-  }
-
-  if (result)
-  {
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    std::vector<CA::RangedStreamDescription>::__init_with_size[abi:ne200100]<CA::RangedStreamDescription*,CA::RangedStreamDescription*>(a3, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
-    result = 0;
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch;
-    return result;
-  }
-
-  if (result == 2)
-  {
-    result = 0;
-    v7 = 0uLL;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *a3 = *a2;
-    *(a3 + 16) = *(a2 + 16);
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch;
-    *(a2 + 32) = 0;
+      result = 0;
+      *(a2 + 32) = 0;
+      v7 = 0uLL;
+      goto LABEL_21;
+    case 1:
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      std::vector<CA::RangedStreamDescription>::__init_with_size[abi:ne200100]<CA::RangedStreamDescription*,CA::RangedStreamDescription*>(a3, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
+      result = 0;
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch;
+      return result;
+    case 2:
+      result = 0;
+      v7 = 0uLL;
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      *a3 = *a2;
+      *(a3 + 16) = *(a2 + 16);
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<CA::RangedStreamDescription>>::dispatch;
+      *(a2 + 32) = 0;
 LABEL_21:
-    *a2 = v7;
-    *(a2 + 16) = v7;
+      *a2 = v7;
+      *(a2 + 16) = v7;
+      break;
   }
 
   return result;

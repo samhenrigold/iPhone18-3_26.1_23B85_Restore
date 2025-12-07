@@ -35,7 +35,7 @@
 
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"supportsExpress"];
-  if (([modeCopy isEqualToString:@"transit.felica.suica"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(modeCopy) & 1) == 0)
   {
     if ([modeCopy hasPrefix:@"access.hid."])
     {
@@ -46,7 +46,7 @@
       }
     }
 
-    else if ([modeCopy isEqualToString:@"type_a.generic"])
+    else if (objc_msgSend_isEqualToString_(modeCopy))
     {
       v5 = @"generic.type_a";
       goto LABEL_10;

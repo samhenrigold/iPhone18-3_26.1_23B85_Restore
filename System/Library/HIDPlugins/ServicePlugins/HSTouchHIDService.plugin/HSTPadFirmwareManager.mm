@@ -18,8 +18,11 @@
   }
 
   [(HSTiOSFirmwareManager *)self setPowerState:touchMode];
-  createEnabledInputsReport(touchMode, p_state->screenOrientation);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(self->super.super._deviceObj);
+  EnabledInputsReport = createEnabledInputsReport(touchMode, p_state->screenOrientation);
+  deviceObj = self->super.super._deviceObj;
+  v8 = BYTE4(EnabledInputsReport);
+  v7 = EnabledInputsReport;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(deviceObj, &v7);
 }
 
 - (void)_setUSBChargingState:(id)state
@@ -29,68 +32,85 @@
   if (self->super.super._state.usbChargingState != usbChargingState)
   {
     self->super.super._state.usbChargingState = usbChargingState;
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(usbChargingState, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       if (self->super.super._state.usbChargingState == 1)
       {
-        v7 = "Connected";
+        v8 = "Connected";
       }
 
       else
       {
-        v7 = "NotConnected";
+        v8 = "NotConnected";
       }
 
-      v10 = 136446210;
-      v11 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting USB charging state: %{public}s", &v10, 0xCu);
+      v11 = 136446210;
+      v12 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting USB charging state: %{public}s", &v11, 0xCu);
     }
 
     deviceObj = self->super.super._deviceObj;
     if (self->super.super._state.usbChargingState == 1)
     {
-      v9 = 6256;
+      v10 = 6256;
     }
 
     else
     {
-      v9 = 6512;
+      v10 = 6512;
     }
 
-    LOWORD(v10) = v9;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    LOWORD(v11) = v10;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, &v11);
   }
 }
 
 - (void)_restoreFirmwareState
 {
   [(HSTPadFirmwareManager *)self _setEnabledInputsReport];
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(self->super.super._deviceObj);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->super.super._deviceObj);
+  deviceObj = self->super.super._deviceObj;
+  v7[0] = -99;
+  v7[1] = self->super.super._state.screenOrientation;
+  memset(&v7[2], 0, 7);
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(deviceObj, v7);
+  v4 = self->super.super._deviceObj;
+  if (self->super.super._state.usbChargingState == 1)
+  {
+    v5 = 6256;
+  }
+
+  else
+  {
+    v5 = 6512;
+  }
+
+  v6 = v5;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(v4, &v6);
 }
 
 - (void)_handleVendorEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy type] == 2)
+  type = [eventCopy type];
+  if (type == 2)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(type, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       touchMode = self->super.super._state.touchMode;
-      v8[0] = 67109120;
-      v8[1] = touchMode;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "iPad handle device ready in state 0x%x", v8, 8u);
+      v12[0] = 67109120;
+      v12[1] = touchMode;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "iPad handle device ready in state 0x%x", v12, 8u);
     }
 
     if ((self->super.super._state.touchMode & 0x10) != 0)
     {
-      v7 = MTLoggingPlugin();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v11 = MTLoggingPlugin(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Restoring firmware", v8, 2u);
+        LOWORD(v12[0]) = 0;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Restoring firmware", v12, 2u);
       }
 
       [(HSTPadFirmwareManager *)self _restoreFirmwareState];

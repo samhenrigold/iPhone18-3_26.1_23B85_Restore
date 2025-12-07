@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"endingRowCount";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"endingRowCount";
   endingRowCount = [(ICASEndTableData *)self endingRowCount];
   if (endingRowCount)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = endingRowCount2;
-  v12[1] = @"endingColumnCount";
-  v13[0] = endingRowCount2;
+  v11[1] = @"endingColumnCount";
+  v12[0] = endingRowCount2;
   endingColumnCount = [(ICASEndTableData *)self endingColumnCount];
   if (endingColumnCount)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = endingColumnCount2;
-  v13[1] = endingColumnCount2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = endingColumnCount2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

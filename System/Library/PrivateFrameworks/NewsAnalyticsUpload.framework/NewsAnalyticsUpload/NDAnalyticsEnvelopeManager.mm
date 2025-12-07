@@ -155,41 +155,41 @@ LABEL_6:
 
 void __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
-  v23 = 0;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy_;
-  v16 = __Block_byref_object_dispose_;
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy_;
+  v15 = __Block_byref_object_dispose_;
+  v16 = 0;
   v4 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_invoke_2;
-  v11[3] = &unk_27997A4E8;
-  v11[4] = &v18;
-  v11[5] = &v12;
-  [v4 fc_splitArrayWithTest:&__block_literal_global_37 result:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_invoke_2;
+  v10[3] = &unk_27997A4E8;
+  v10[4] = &v17;
+  v10[5] = &v11;
+  [v4 fc_splitArrayWithTest:&__block_literal_global_37 result:v10];
   v5 = *MEMORY[0x277D304F0];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v19[5] count];
-    v7 = [v13[5] count];
+    v6 = [v18[5] count];
+    v7 = [v12[5] count];
     *buf = 134218240;
-    v25 = v6;
-    v26 = 2048;
-    v27 = v7;
+    v24 = v6;
+    v25 = 2048;
+    v26 = v7;
     _os_log_impl(&dword_25BDF7000, v5, OS_LOG_TYPE_DEFAULT, "will submit %lu analytics envelopes and %lu telemetry envelopes", buf, 0x16u);
   }
 
-  if ([v19[5] count])
+  if ([v18[5] count])
   {
     v8 = [*(a1 + 40) envelopeStore];
     [v8 copyEnvelopes:*(a1 + 32)];
@@ -197,9 +197,9 @@ void __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_inv
     [*(a1 + 40) _scheduleUploadIfNeededWithCompletion:0];
   }
 
-  if ([v13[5] count])
+  if ([v12[5] count])
   {
-    [*(a1 + 40) _uploadTelemetryEnvelopes:v13[5]];
+    [*(a1 + 40) _uploadTelemetryEnvelopes:v12[5]];
   }
 
   v3[2](v3);
@@ -209,10 +209,9 @@ void __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_inv
     (*(v9 + 16))(v9, 0);
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v18, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 void __61__NDAnalyticsEnvelopeManager_submitEnvelopes_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -659,122 +658,95 @@ void __107__NDAnalyticsEnvelopeManager__handleOutcomeOfUploadAttemptWithPayload_
 
 - (void)initWithAppConfigurationManager:telemetryUploader:storeDirectoryFileURL:URLSessionQueue:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfigurationManager"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appConfigurationManager", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithAppConfigurationManager:telemetryUploader:storeDirectoryFileURL:URLSessionQueue:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectoryFileURL"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "storeDirectoryFileURL", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithAppConfigurationManager:telemetryUploader:storeDirectoryFileURL:URLSessionQueue:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "URLSessionQueue"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "URLSessionQueue", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)handleLaunchEventForBackgroundSessionWithIdentifier:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "identifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)submitEnvelopes:withCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "envelopes"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "envelopes", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_handleDroppedEnvelopesForLocalReasons:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "droppedEntriesByLocalReason"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "droppedEntriesByLocalReason", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void __69__NDAnalyticsEnvelopeManager__handleDroppedEnvelopesForLocalReasons___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"oversized is not a local failure reason!"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_handleOutcomeOfUploadAttemptWithPayload:success:error:willRetry:hitEndpoint:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "payloadInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "payloadInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void __107__NDAnalyticsEnvelopeManager__handleOutcomeOfUploadAttemptWithPayload_success_error_willRetry_hitEndpoint___block_invoke_4_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"sampled is a local failure reason!"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __107__NDAnalyticsEnvelopeManager__handleOutcomeOfUploadAttemptWithPayload_success_error_willRetry_hitEndpoint___block_invoke_4_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"missing config is a local failure reason!"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

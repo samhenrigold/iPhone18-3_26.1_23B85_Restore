@@ -1,5 +1,7 @@
 @interface TISKMetricCollector
 + (BOOL)isSensorKitSupported:(id)supported;
++ (id)makeMetricCollector:(id)collector wordsThreshold:(unint64_t)threshold isTesting:(BOOL)testing;
+- (BOOL)publishIfSessionStatsHasWordCountMoreThanThreshold:(id)threshold withSessionStartTime:(BOOL)time;
 - (double)totalTimeSpan;
 - (double)totalTimeSpanFromLastTap;
 - (id)_consumeTypingSession:(id)session;
@@ -17,6 +19,7 @@
 - (void)_coalesceTaps;
 - (void)_consumeDeleteWordEvent:(id)event;
 - (void)_consumeInputsAndTouches:(id)touches occurenceTime:(double)time emojiSearchMode:(BOOL)mode;
+- (void)_consumePathsAndPredictions:(id)predictions emojiSearchMode:(BOOL)mode;
 - (void)_consumeUserAction:(id)action;
 - (void)_consumeWordEntry:(id)entry;
 - (void)_haltSessionTypingTimer:(id)timer event:(id)event;
@@ -61,7 +64,7 @@
 
 void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_ForTypingSession___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 keyedMetrics];
   v7 = [v6 objectForKey:kTISKTotalSessionTypingDuration];
@@ -74,33 +77,33 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
       v9 = v8;
       if (*(a1 + 32))
       {
-        v38 = a3;
-        v39 = v5;
+        v37 = a3;
+        v38 = v5;
         v10 = objc_alloc(MEMORY[0x277CBEB18]);
         v11 = [*(a1 + 32) userActionHistory];
         log = [v10 initWithCapacity:{objc_msgSend(v11, "count")}];
 
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
-        v37 = a1;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v36 = a1;
         v12 = [*(a1 + 32) userActionHistory];
-        v13 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v42;
+          v15 = *v41;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v42 != v15)
+              if (*v41 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v41 + 1) + 8 * i);
+              v17 = *(*(&v40 + 1) + 8 * i);
               v18 = [v17 actionType];
               v19 = @"ot";
               if (v18 <= 5)
@@ -116,7 +119,7 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
               [log addObject:v24];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
           }
 
           while (v14);
@@ -124,21 +127,21 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
 
         v25 = [log componentsJoinedByString:@"|"];
         v26 = IXADefaultLogFacility();
-        v5 = v39;
-        a1 = v37;
+        v5 = v38;
+        a1 = v36;
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v28 = MEMORY[0x277CCACA8];
-          v29 = [v39 startTime];
-          v30 = [v39 endTime];
-          v31 = [*(v37 + 40) privateEventsDescription];
-          v32 = [v28 stringWithFormat:@"%s [SK TypingTimer][SK Duration] Removing negative duration sessionStats found while reporting: %f %@ %@\n%@\n%@", "-[TISKMetricCollector removeSessionStatsWithNegativeDurationFromArray:ForTypingSession:]_block_invoke", *&v9, v29, v30, v25, v31];
+          v27 = MEMORY[0x277CCACA8];
+          v28 = [v38 startTime];
+          v29 = [v38 endTime];
+          v30 = [*(v36 + 40) privateEventsDescription];
+          v31 = [v27 stringWithFormat:@"%s [SK TypingTimer][SK Duration] Removing negative duration sessionStats found while reporting: %f %@ %@\n%@\n%@", "-[TISKMetricCollector removeSessionStatsWithNegativeDurationFromArray:ForTypingSession:]_block_invoke", *&v9, v28, v29, v25, v30];
           *buf = 138412290;
-          v47 = v32;
+          v46 = v31;
           _os_log_error_impl(&dword_22CA55000, v26, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
-        a3 = v38;
+        a3 = v37;
       }
 
       else
@@ -146,12 +149,12 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
         log = IXADefaultLogFacility();
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v33 = MEMORY[0x277CCACA8];
-          v34 = [v5 startTime];
-          v35 = [v5 endTime];
-          v36 = [v33 stringWithFormat:@"%s [SK TypingTimer][SK Duration] Removing negative duration sessionStats found while loading: %f %@ %@", "-[TISKMetricCollector removeSessionStatsWithNegativeDurationFromArray:ForTypingSession:]_block_invoke", *&v9, v34, v35];
+          v32 = MEMORY[0x277CCACA8];
+          v33 = [v5 startTime];
+          v34 = [v5 endTime];
+          v35 = [v32 stringWithFormat:@"%s [SK TypingTimer][SK Duration] Removing negative duration sessionStats found while loading: %f %@ %@", "-[TISKMetricCollector removeSessionStatsWithNegativeDurationFromArray:ForTypingSession:]_block_invoke", *&v9, v33, v34];
           *buf = 138412290;
-          v47 = v36;
+          v46 = v35;
           _os_log_error_impl(&dword_22CA55000, log, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
       }
@@ -159,13 +162,11 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
       [*(a1 + 48) addIndex:a3];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_persistSavedSessionStatsArray
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   userModelDataStore = self->_userModelDataStore;
   normalizedIdentifier = [(TIInputMode *)self->_inputMode normalizedIdentifier];
@@ -174,9 +175,9 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
   if ([(NSMutableArray *)self->_savedSessionStatsArray count])
   {
     savedSessionStatsArray = self->_savedSessionStatsArray;
-    v15 = 0;
-    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:savedSessionStatsArray requiringSecureCoding:1 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:savedSessionStatsArray requiringSecureCoding:1 error:&v14];
+    v8 = v14;
     if (v8)
     {
       normalizedIdentifier3 = IXADefaultLogFacility();
@@ -186,7 +187,7 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
         normalizedIdentifier2 = [(TIInputMode *)self->_inputMode normalizedIdentifier];
         v12 = [v10 stringWithFormat:@"%s [SensorKit] failed to archive stats for input mode %@", "-[TISKMetricCollector _persistSavedSessionStatsArray]", normalizedIdentifier2];
         *buf = 138412290;
-        v17 = v12;
+        v16 = v12;
         _os_log_debug_impl(&dword_22CA55000, normalizedIdentifier3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -198,13 +199,11 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
       [(TIUserModelDataStore *)v13 addValue:&unk_28400BBF8 andSecondaryValue:&unk_28400BBF8 andRealValue:&unk_28400BBF8 andProperties:v7 forKey:@"SensorKitDataKey" forInputMode:normalizedIdentifier3 forDate:date];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_retrieveSavedSessionSampleArray
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   userModelDataStore = self->_userModelDataStore;
   normalizedIdentifier = [(TIInputMode *)self->_inputMode normalizedIdentifier];
   v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:0.0];
@@ -218,20 +217,20 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
     v10 = objc_opt_class();
     v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
     properties = [v7 properties];
-    v28 = 0;
-    v13 = [v8 unarchivedObjectOfClasses:v11 fromData:properties error:&v28];
-    v14 = v28;
+    v27 = 0;
+    v13 = [v8 unarchivedObjectOfClasses:v11 fromData:properties error:&v27];
+    v14 = v27;
 
     if (v14)
     {
       v15 = IXADefaultLogFacility();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v25 = MEMORY[0x277CCACA8];
+        v24 = MEMORY[0x277CCACA8];
         normalizedIdentifier2 = [(TIInputMode *)self->_inputMode normalizedIdentifier];
-        v27 = [v25 stringWithFormat:@"%s [SensorKit] failed to unarchive stats for input mode %@", "-[TISKMetricCollector _retrieveSavedSessionSampleArray]", normalizedIdentifier2];
+        v26 = [v24 stringWithFormat:@"%s [SensorKit] failed to unarchive stats for input mode %@", "-[TISKMetricCollector _retrieveSavedSessionSampleArray]", normalizedIdentifier2];
         *buf = 138412290;
-        v30 = v27;
+        v29 = v26;
         _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -268,8 +267,6 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
 
   v22 = [v13 copy];
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
@@ -279,22 +276,25 @@ void __88__TISKMetricCollector_removeSessionStatsWithNegativeDurationFromArray_F
   {
     self->_isLoaded = 1;
     _retrieveSavedSessionSampleArray = [(TISKMetricCollector *)self _retrieveSavedSessionSampleArray];
+    v5 = _retrieveSavedSessionSampleArray;
     if (_retrieveSavedSessionSampleArray)
     {
-      v5 = [MEMORY[0x277CBEB18] arrayWithArray:_retrieveSavedSessionSampleArray];
+      v8 = _retrieveSavedSessionSampleArray;
+      v6 = [MEMORY[0x277CBEB18] arrayWithArray:_retrieveSavedSessionSampleArray];
       savedSessionStatsArray = self->_savedSessionStatsArray;
-      self->_savedSessionStatsArray = v5;
+      self->_savedSessionStatsArray = v6;
 
-      [(TISKMetricCollector *)self removeSessionStatsWithNegativeDurationFromArray:self->_savedSessionStatsArray ForTypingSession:0];
+      _retrieveSavedSessionSampleArray = [(TISKMetricCollector *)self removeSessionStatsWithNegativeDurationFromArray:self->_savedSessionStatsArray ForTypingSession:0];
+      v5 = v8;
     }
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](_retrieveSavedSessionSampleArray, v5);
   }
 }
 
 - (void)handleTypingSession:(id)session
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   if (!self->_isTCCAuthorized)
   {
@@ -311,7 +311,7 @@ LABEL_17:
 
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] failed TCC authorization - dropping session", "-[TISKMetricCollector handleTypingSession:]"];
     *buf = 138412290;
-    v26 = v17;
+    v25 = v17;
 LABEL_20:
     _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
@@ -329,30 +329,30 @@ LABEL_20:
 
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] writer is not ready - dropping session", "-[TISKMetricCollector handleTypingSession:]"];
     *buf = 138412290;
-    v26 = v17;
+    v25 = v17;
     goto LABEL_20;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   savedSessionStatsArray = [sessionCopy userActionHistory];
-  v10 = [savedSessionStatsArray countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [savedSessionStatsArray countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
 LABEL_6:
     v13 = 0;
     while (1)
     {
-      if (*v21 != v12)
+      if (*v20 != v12)
       {
         objc_enumerationMutation(savedSessionStatsArray);
       }
 
-      [*(*(&v20 + 1) + 8 * v13) occurenceTime];
+      [*(*(&v19 + 1) + 8 * v13) occurenceTime];
       if (v14 < 0.0)
       {
         break;
@@ -360,7 +360,7 @@ LABEL_6:
 
       if (v11 == ++v13)
       {
-        v11 = [savedSessionStatsArray countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [savedSessionStatsArray countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           goto LABEL_6;
@@ -388,8 +388,6 @@ LABEL_12:
   }
 
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionDidEnd:(id)end aligned:(id)aligned
@@ -399,70 +397,82 @@ LABEL_18:
   v6 = IXADefaultLogFacility();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] enqueue session", "-[TISKMetricCollector sessionDidEnd:aligned:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] enqueue session", "-[TISKMetricCollector sessionDidEnd:aligned:]"];
     LODWORD(location[0]) = 138412290;
-    *(location + 4) = v11;
+    *(location + 4) = v9;
     _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
   }
 
   v7 = endCopy;
   objc_initWeak(location, self);
-  workQueue = self->_workQueue;
-  objc_copyWeak(&v13, location);
-  v12 = v7;
-  v9 = v7;
+  objc_copyWeak(&v11, location);
+  v10 = v7;
+  v8 = v7;
   TIDispatchAsync();
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__TISKMetricCollector_sessionDidEnd_aligned___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = IXADefaultLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] dequeue session", "-[TISKMetricCollector sessionDidEnd:aligned:]_block_invoke"];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] dequeue session", "-[TISKMetricCollector sessionDidEnd:aligned:]_block_invoke"];
       *buf = 138412290;
-      v7 = v5;
+      v6 = v4;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
     [WeakRetained handleTypingSession:*(a1 + 32)];
   }
+}
 
-  v4 = *MEMORY[0x277D85DE8];
+- (BOOL)publishIfSessionStatsHasWordCountMoreThanThreshold:(id)threshold withSessionStartTime:(BOOL)time
+{
+  timeCopy = time;
+  thresholdCopy = threshold;
+  v7 = [thresholdCopy counter:kTISKNumberOfWordsCounter];
+  integerValue = [v7 integerValue];
+
+  wordAccumulationThreshold = [(TISKMetricCollector *)self wordAccumulationThreshold];
+  if (integerValue >= wordAccumulationThreshold)
+  {
+    dataWriter = [(TISKMetricCollector *)self dataWriter];
+    [dataWriter publishSessionStats:thresholdCopy withSessionStartTime:timeCopy];
+  }
+
+  return integerValue >= wordAccumulationThreshold;
 }
 
 - (void)processNewSessionStatsArray:(id)array
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v5 = [arrayCopy countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v5 = [arrayCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         if (([v9 isEmpty] & 1) == 0 && !-[TISKMetricCollector publishIfSessionStatsHasWordCountMoreThanThreshold:withSessionStartTime:](self, "publishIfSessionStatsHasWordCountMoreThanThreshold:withSessionStartTime:", v9, 1))
         {
           savedSessionStatsArray = self->_savedSessionStatsArray;
@@ -476,7 +486,7 @@ void __45__TISKMetricCollector_sessionDidEnd_aligned___block_invoke(uint64_t a1)
             {
               v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] savedSessionStats is nil", "-[TISKMetricCollector processNewSessionStatsArray:]"];
               *buf = 138412290;
-              v25 = v18;
+              v24 = v18;
               _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -491,7 +501,7 @@ void __45__TISKMetricCollector_sessionDidEnd_aligned___block_invoke(uint64_t a1)
             {
               v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] savedSessionStats not nil, savedSessionStats class %@", "-[TISKMetricCollector processNewSessionStatsArray:]", objc_opt_class()];
               *buf = 138412290;
-              v25 = v17;
+              v24 = v17;
               _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -515,13 +525,11 @@ void __45__TISKMetricCollector_sessionDidEnd_aligned___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [arrayCopy countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v6 = [arrayCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (double)totalTimeSpanFromLastTap
@@ -634,71 +642,69 @@ LABEL_7:
 
 - (id)privateEventsDescription
 {
-  v17 = *MEMORY[0x277D85DE8];
-  string = [MEMORY[0x277CCAB68] string];
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_string(MEMORY[0x277CCAB68], a2);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_sortedEvents;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        privateDescription = [*(*(&v12 + 1) + 8 * i) privateDescription];
-        [string appendString:privateDescription];
+        privateDescription = [*(*(&v11 + 1) + 8 * i) privateDescription];
+        [v3 appendString:privateDescription];
 
-        [string appendString:@"|"];
+        [v3 appendString:@"|"];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return string;
+  return v3;
 }
 
 - (id)eventsDescription:(BOOL)description
 {
   descriptionCopy = description;
-  v25 = *MEMORY[0x277D85DE8];
-  string = [MEMORY[0x277CCAB68] string];
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = self->_sortedEvents;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [v11 description];
-        [string appendString:v12];
+        [v5 appendString:v12];
 
         if (descriptionCopy && [v11 type] != 13 && objc_msgSend(v11, "type") != 14 && objc_msgSend(v11, "type") != 7 && objc_msgSend(v11, "type") != 11)
         {
@@ -706,22 +712,20 @@ LABEL_7:
           [v11 touchDownTimestamp];
           v15 = v14;
           [v11 touchUpTimestamp];
-          v17 = [v13 stringWithFormat:@":%lf->%lf", v15, v16, v20];
-          [string appendString:v17];
+          v17 = [v13 stringWithFormat:@":%lf->%lf", v15, v16, v19];
+          [v5 appendString:v17];
         }
 
-        [string appendString:@"|"];
+        [v5 appendString:@"|"];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return string;
+  return v5;
 }
 
 - (void)_coalesceTaps
@@ -730,9 +734,9 @@ LABEL_7:
   taps = self->_taps;
   self->_taps = v3;
 
+  v20 = 0;
   v21 = 0;
   v22 = 0;
-  v23 = 0;
   v5 = [(NSMutableArray *)self->_touches count];
   v6 = 0;
   if (!v5)
@@ -743,17 +747,17 @@ LABEL_7:
   do
   {
     v7 = v6;
-    v19 = [(NSMutableArray *)self->_touches objectAtIndex:0];
+    v18 = [(NSMutableArray *)self->_touches objectAtIndex:0];
 
     [(NSMutableArray *)self->_touches removeObjectAtIndex:0];
     v8 = [(NSMutableArray *)self->_layoutIDs objectAtIndex:0];
     integerValue = [v8 integerValue];
 
     [(NSMutableArray *)self->_layoutIDs removeObjectAtIndex:0];
-    pathIndex = [v19 pathIndex];
+    pathIndex = [v18 pathIndex];
     v11 = [TISKTap alloc];
     v12 = [(TISKMetricCollector *)self _mapIDToLayout:integerValue];
-    v13 = [(TISKTap *)v11 init:v19 layout:v12];
+    v13 = [(TISKTap *)v11 init:v18 layout:v12];
 
     [v13 setPathIndex:pathIndex];
     if (![(NSMutableArray *)self->_touches count])
@@ -764,10 +768,10 @@ LABEL_7:
     v14 = 0;
     while (1)
     {
-      v15 = v19;
-      v19 = [(NSMutableArray *)self->_touches objectAtIndex:v14];
+      v15 = v18;
+      v18 = [(NSMutableArray *)self->_touches objectAtIndex:v14];
 
-      if ([v19 pathIndex] == pathIndex)
+      if ([v18 pathIndex] == pathIndex)
       {
         break;
       }
@@ -779,18 +783,18 @@ LABEL_12:
       }
     }
 
-    if ([v19 stage] == 1)
+    if ([v18 stage] == 1)
     {
-      [v13 addDragTouch:v19];
+      [v13 addDragTouch:v18];
 LABEL_11:
-      v20 = v14;
-      std::vector<unsigned long>::push_back[abi:nn200100](&v21, &v20);
+      v19 = v14;
+      std::vector<unsigned long>::push_back[abi:nn200100](&v20, &v19);
       goto LABEL_12;
     }
 
-    if ([v19 stage] != 2 && objc_msgSend(v19, "stage") != 3 && objc_msgSend(v19, "stage") != 5)
+    if ([v18 stage] != 2 && objc_msgSend(v18, "stage") != 3 && objc_msgSend(v18, "stage") != 5)
     {
-      if (![v19 stage])
+      if (![v18 stage])
       {
         goto LABEL_15;
       }
@@ -798,15 +802,15 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    [v13 setLastTouch:v19];
-    v20 = v14;
-    std::vector<unsigned long>::push_back[abi:nn200100](&v21, &v20);
+    [v13 setLastTouch:v18];
+    v19 = v14;
+    std::vector<unsigned long>::push_back[abi:nn200100](&v20, &v19);
 LABEL_15:
     [(NSMutableArray *)self->_taps addObject:v13];
-    v16 = v21;
-    if ((((v22 - v21) >> 3) - 1) >= 0)
+    v16 = v20;
+    if ((((v21 - v20) >> 3) - 1) >= 0)
     {
-      v17 = 8 * (((v22 - v21) >> 3) - 1);
+      v17 = 8 * (((v21 - v20) >> 3) - 1);
       do
       {
         [(NSMutableArray *)self->_touches removeObjectAtIndex:*&v16[v17]];
@@ -817,21 +821,22 @@ LABEL_15:
       while (v17 != -8);
     }
 
-    v22 = v16;
+    v21 = v16;
 
-    v18 = [(NSMutableArray *)self->_touches count];
-    v6 = v19;
+    v5 = [(NSMutableArray *)self->_touches count];
+    v6 = v18;
   }
 
-  while (v18);
+  while (v5);
   if (v16)
   {
     operator delete(v16);
+    v6 = v18;
   }
 
 LABEL_21:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (id)_mapIDToLayout:(unint64_t)layout
@@ -853,112 +858,111 @@ LABEL_21:
 
 - (id)_insertEmojiSwitchEvents:(id)events
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if (![eventsCopy count])
   {
-    v43 = eventsCopy;
+    v42 = eventsCopy;
     goto LABEL_55;
   }
 
-  v4 = 0x277CBE000uLL;
-  v5 = objc_opt_new();
+  v4 = objc_opt_new();
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v57 = eventsCopy;
-  v6 = eventsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v63 objects:v67 count:16];
-  v62 = v5;
-  if (!v7)
+  v54 = eventsCopy;
+  v5 = eventsCopy;
+  v6 = [v5 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v59 = v4;
+  if (!v6)
   {
-    v12 = 0;
     v11 = 0;
-    v42 = v6;
+    v10 = 0;
+    v41 = v5;
     goto LABEL_37;
   }
 
-  v8 = v7;
+  v7 = v6;
+  v8 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
-  v13 = *v64;
-  v60 = v6;
+  v12 = *v61;
+  v57 = v5;
   do
   {
-    v14 = 0;
-    v15 = v11;
+    v13 = 0;
+    v14 = v10;
     do
     {
-      if (*v64 != v13)
+      if (*v61 != v12)
       {
-        objc_enumerationMutation(v6);
+        objc_enumerationMutation(v5);
       }
 
-      v16 = *(*(&v63 + 1) + 8 * v14);
-      type = [v16 type];
+      v15 = *(*(&v60 + 1) + 8 * v13);
+      type = [v15 type];
       if (type <= 0x11)
       {
         if (((1 << type) & 0x1ABFD) != 0)
         {
-          emojiSearchMode = [v16 emojiSearchMode];
-          if (v9)
+          emojiSearchMode = [v15 emojiSearchMode];
+          if (v8)
           {
             if (emojiSearchMode)
             {
               goto LABEL_11;
             }
 
-            if (v10)
+            if (v9)
             {
-              v26 = [TISKEmojiSearchEvent alloc];
-              [v12 touchUpTimestamp];
-              v28 = -[TISKEmojiSearchEvent init:engaged:order:](v26, "init:engaged:order:", 0, [v15 order] + 1, v27);
-              [v62 addObject:v28];
+              v25 = [TISKEmojiSearchEvent alloc];
+              [v11 touchUpTimestamp];
+              v27 = -[TISKEmojiSearchEvent init:engaged:order:](v25, "init:engaged:order:", 0, [v14 order] + 1, v26);
+              [v59 addObject:v27];
             }
 
-            v29 = [TISKEmojiSwitchEvent alloc];
-            [v12 touchUpTimestamp];
-            v25 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v29, "init:emojiSearchMode:order:", 0, [v15 order] + 2, v30);
+            v28 = [TISKEmojiSwitchEvent alloc];
+            [v11 touchUpTimestamp];
+            v24 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v28, "init:emojiSearchMode:order:", 0, [v14 order] + 2, v29);
+            v8 = 0;
             v9 = 0;
-            v10 = 0;
             goto LABEL_25;
           }
 
           if (!emojiSearchMode)
           {
-            v9 = 0;
+            v8 = 0;
             goto LABEL_27;
           }
 
-          v19 = [TISKEmojiSwitchEvent alloc];
-          [v16 touchDownTimestamp];
-          v9 = 1;
-          v21 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v19, "init:emojiSearchMode:order:", 1, [v16 order] - 2, v20);
-          v22 = v62;
-          [v62 addObject:v21];
+          v18 = [TISKEmojiSwitchEvent alloc];
+          [v15 touchDownTimestamp];
+          v8 = 1;
+          v20 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v18, "init:emojiSearchMode:order:", 1, [v15 order] - 2, v19);
+          v21 = v59;
+          [v59 addObject:v20];
 
-          v23 = [TISKEmojiSearchEvent alloc];
-          [v16 touchDownTimestamp];
-          v25 = -[TISKEmojiSearchEvent init:engaged:order:](v23, "init:engaged:order:", 1, [v16 order] - 1, v24);
-          v10 = 1;
+          v22 = [TISKEmojiSearchEvent alloc];
+          [v15 touchDownTimestamp];
+          v24 = -[TISKEmojiSearchEvent init:engaged:order:](v22, "init:engaged:order:", 1, [v15 order] - 1, v23);
+          v9 = 1;
         }
 
         else
         {
           if (type == 12)
           {
-            if (v10 & 1 | ((v9 & 1) == 0))
+            if (v9 & 1 | ((v8 & 1) == 0))
             {
               goto LABEL_27;
             }
 
-            v34 = [TISKEmojiSearchEvent alloc];
-            [v16 touchDownTimestamp];
-            v10 = 1;
-            v33 = -[TISKEmojiSearchEvent init:engaged:order:](v34, "init:engaged:order:", 1, [v16 order] - 1, v35);
+            v33 = [TISKEmojiSearchEvent alloc];
+            [v15 touchDownTimestamp];
+            v9 = 1;
+            v32 = -[TISKEmojiSearchEvent init:engaged:order:](v33, "init:engaged:order:", 1, [v15 order] - 1, v34);
           }
 
           else
@@ -968,169 +972,164 @@ LABEL_21:
               goto LABEL_27;
             }
 
-            if (v9)
+            if (v8)
             {
 LABEL_11:
-              v9 = 1;
+              v8 = 1;
               goto LABEL_27;
             }
 
-            v31 = [TISKEmojiSwitchEvent alloc];
-            [v16 touchDownTimestamp];
-            v9 = 1;
-            v33 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v31, "init:emojiSearchMode:order:", 1, [v16 order] - 1, v32);
+            v30 = [TISKEmojiSwitchEvent alloc];
+            [v15 touchDownTimestamp];
+            v8 = 1;
+            v32 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v30, "init:emojiSearchMode:order:", 1, [v15 order] - 1, v31);
           }
 
-          v25 = v33;
+          v24 = v32;
 LABEL_25:
-          v22 = v62;
+          v21 = v59;
         }
 
-        [v22 addObject:v25];
+        [v21 addObject:v24];
 
-        v6 = v60;
+        v5 = v57;
       }
 
 LABEL_27:
-      v11 = v16;
+      v10 = v15;
 
-      if ([v11 hasTimestamp])
+      if ([v10 hasTimestamp])
       {
-        v36 = v11;
+        v35 = v10;
 
-        v12 = v36;
+        v11 = v35;
       }
 
-      ++v14;
-      v15 = v11;
+      ++v13;
+      v14 = v10;
     }
 
-    while (v8 != v14);
-    v8 = [v6 countByEnumeratingWithState:&v63 objects:v67 count:16];
+    while (v7 != v13);
+    v7 = [v5 countByEnumeratingWithState:&v60 objects:v64 count:16];
   }
 
-  while (v8);
+  while (v7);
 
-  if (v9)
+  if (v8)
   {
-    v5 = v62;
-    if (v10)
+    v4 = v59;
+    if (v9)
     {
-      v37 = [TISKEmojiSearchEvent alloc];
-      [v12 touchUpTimestamp];
-      v39 = -[TISKEmojiSearchEvent init:engaged:order:](v37, "init:engaged:order:", 0, [v11 order] + 1, v38);
-      [v62 addObject:v39];
+      v36 = [TISKEmojiSearchEvent alloc];
+      [v11 touchUpTimestamp];
+      v38 = -[TISKEmojiSearchEvent init:engaged:order:](v36, "init:engaged:order:", 0, [v10 order] + 1, v37);
+      [v59 addObject:v38];
     }
 
-    v40 = [TISKEmojiSwitchEvent alloc];
-    [v12 touchUpTimestamp];
-    v42 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v40, "init:emojiSearchMode:order:", 0, [v11 order] + 2, v41);
-    [v62 addObject:v42];
-    v4 = 0x277CBE000;
+    v39 = [TISKEmojiSwitchEvent alloc];
+    [v11 touchUpTimestamp];
+    v41 = -[TISKEmojiSwitchEvent init:emojiSearchMode:order:](v39, "init:emojiSearchMode:order:", 0, [v10 order] + 2, v40);
+    [v59 addObject:v41];
 LABEL_37:
   }
 
   else
   {
-    v5 = v62;
-    v4 = 0x277CBE000uLL;
+    v4 = v59;
   }
 
-  v44 = *(v4 + 2840);
-  v43 = objc_opt_new();
-  if ([v6 count])
+  v42 = objc_opt_new();
+  if ([v5 count])
   {
-    v59 = v43;
-    v61 = 0;
-    v45 = 0;
-    v46 = 0;
+    v56 = v42;
+    v58 = 0;
+    v43 = 0;
+    v44 = 0;
     while (1)
     {
-      v47 = v61;
-      if ([v5 count] <= v61)
+      v45 = v58;
+      if ([v4 count] <= v58)
       {
         break;
       }
 
-      v48 = v46;
-      v49 = [v6 objectAtIndexedSubscript:v45];
-      order = [v49 order];
-      v51 = [v5 objectAtIndexedSubscript:v61];
-      if (order >= [v51 order])
+      v46 = v44;
+      v47 = [v5 objectAtIndexedSubscript:v43];
+      order = [v47 order];
+      v49 = [v4 objectAtIndexedSubscript:v58];
+      if (order >= [v49 order])
       {
-        ++v61;
-        v52 = [v5 objectAtIndexedSubscript:v47];
-        v46 = v48;
+        ++v58;
+        v50 = [v4 objectAtIndexedSubscript:v45];
+        v44 = v46;
       }
 
       else
       {
-        v46 = (v48 + 1);
-        v52 = [v6 objectAtIndexedSubscript:v45];
+        v44 = (v46 + 1);
+        v50 = [v5 objectAtIndexedSubscript:v43];
       }
 
-      [v59 addObject:v52];
+      [v56 addObject:v50];
 
-      v45 = v46;
-      v5 = v62;
-      if ([v6 count] <= v46)
+      v43 = v44;
+      v4 = v59;
+      if ([v5 count] <= v44)
       {
-        v47 = v61;
+        v45 = v58;
         goto LABEL_49;
       }
     }
 
-    v45 = v46;
+    v43 = v44;
 LABEL_49:
-    v43 = v59;
+    v42 = v56;
   }
 
   else
   {
+    v43 = 0;
     v45 = 0;
-    v47 = 0;
   }
 
-  if ([v6 count] > v45)
+  if ([v5 count] > v43)
   {
     do
     {
-      v53 = [v6 objectAtIndexedSubscript:v45];
-      [v43 addObject:v53];
+      v51 = [v5 objectAtIndexedSubscript:v43];
+      [v42 addObject:v51];
 
-      ++v45;
+      ++v43;
     }
 
-    while ([v6 count] > v45);
+    while ([v5 count] > v43);
   }
 
-  for (; [v5 count] > v47; ++v47)
+  for (; [v4 count] > v45; ++v45)
   {
-    v54 = [v5 objectAtIndexedSubscript:v47];
-    [v43 addObject:v54];
+    v52 = [v4 objectAtIndexedSubscript:v45];
+    [v42 addObject:v52];
   }
 
-  eventsCopy = v58;
+  eventsCopy = v55;
 LABEL_55:
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v42;
 }
 
 - (void)_mapTapsToEvents
 {
   selfCopy = self;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   layouts = [(TITypingSession *)self->_typingSession layouts];
   v4 = [layouts objectAtIndexedSubscript:0];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = selfCopy->_taps;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v58 count:16];
   if (!v5)
   {
     v7 = 0;
@@ -1139,20 +1138,20 @@ LABEL_55:
 
   v6 = v5;
   v7 = 0;
-  v8 = *v56;
-  v51 = *v56;
+  v8 = *v55;
+  v50 = *v55;
   do
   {
     v9 = 0;
-    v52 = v6;
+    v51 = v6;
     do
     {
-      if (*v56 != v8)
+      if (*v55 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v55 + 1) + 8 * v9);
+      v10 = *(*(&v54 + 1) + 8 * v9);
       if ([v10 isDownUpTap])
       {
         if (v7)
@@ -1169,7 +1168,7 @@ LABEL_55:
 
         layout = [v10 layout];
 
-        v54 = emojiSearchMode;
+        v53 = emojiSearchMode;
         if (v7 && v4 != layout)
         {
           [v4 frame];
@@ -1179,15 +1178,15 @@ LABEL_55:
           v21 = v20;
           layout2 = [v10 layout];
           [layout2 frame];
-          v62.origin.x = v23;
-          v62.origin.y = v24;
-          v62.size.width = v25;
-          v62.size.height = v26;
-          v61.origin.x = v15;
-          v61.origin.y = v17;
-          v61.size.width = v19;
-          v61.size.height = v21;
-          v27 = CGRectEqualToRect(v61, v62);
+          v61.origin.x = v23;
+          v61.origin.y = v24;
+          v61.size.width = v25;
+          v61.size.height = v26;
+          v60.origin.x = v15;
+          v60.origin.y = v17;
+          v60.size.width = v19;
+          v60.size.height = v21;
+          v27 = CGRectEqualToRect(v60, v61);
 
           if (v27)
           {
@@ -1228,21 +1227,21 @@ LABEL_55:
         {
           [v43 setTap:v10];
           selfCopy = v38;
-          v6 = v52;
+          v6 = v51;
           goto LABEL_22;
         }
 
         stringForIntendedKey = [v10 stringForIntendedKey];
         v45 = stringForIntendedKey;
-        v6 = v52;
+        v6 = v51;
         if (stringForIntendedKey)
         {
-          v46 = [stringForIntendedKey isEqualToString:@"shift"];
+          isEqualToString = objc_msgSend_isEqualToString_(stringForIntendedKey);
           v47 = off_27872D6B8;
           selfCopy = v38;
-          if ((v46 & 1) != 0 || (v48 = [v45 isEqualToString:@"more"], v47 = off_27872D690, v48))
+          if ((isEqualToString & 1) != 0 || (v48 = objc_msgSend_isEqualToString_(v45), v47 = off_27872D690, v48))
           {
-            v43 = [objc_alloc(*v47) init:v10 emojiSearchMode:v54 order:v12];
+            v43 = [objc_alloc(*v47) init:v10 emojiSearchMode:v53 order:v12];
             [(NSMutableArray *)v38->_events addObject:v43];
 
 LABEL_22:
@@ -1257,21 +1256,19 @@ LABEL_22:
           selfCopy = v38;
         }
 
-        v8 = v51;
+        v8 = v50;
       }
 
       ++v9;
     }
 
     while (v6 != v9);
-    v49 = [(NSMutableArray *)obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+    v49 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v58 count:16];
     v6 = v49;
   }
 
   while (v49);
 LABEL_30:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_metricWalk
@@ -1453,7 +1450,7 @@ LABEL_34:
     emojiBuckets = self->_emojiBuckets;
     self->_emojiBuckets = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, emojiBuckets);
   }
 }
 
@@ -1465,7 +1462,7 @@ LABEL_34:
     wordBucketDictionary = self->_wordBucketDictionary;
     self->_wordBucketDictionary = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, wordBucketDictionary);
   }
 }
 
@@ -1484,7 +1481,7 @@ LABEL_34:
 
 - (void)_processEvents
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_events count])
   {
     if ([(NSMutableArray *)self->_events count])
@@ -1513,17 +1510,17 @@ LABEL_34:
     sortedEvents = self->_sortedEvents;
     self->_sortedEvents = v9;
 
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy_;
-    v35 = __Block_byref_object_dispose_;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy_;
+    v34 = __Block_byref_object_dispose_;
     array = [MEMORY[0x277CBEB18] array];
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __37__TISKMetricCollector__processEvents__block_invoke_225;
     aBlock[3] = &unk_278733760;
-    aBlock[4] = &v31;
+    aBlock[4] = &v30;
     v11 = _Block_copy(aBlock);
     if ([(NSArray *)self->_sortedEvents count])
     {
@@ -1572,7 +1569,7 @@ LABEL_14:
         }
       }
 
-      [v32[5] addObject:v14];
+      [v31[5] addObject:v14];
 LABEL_13:
       v12 = 0;
       goto LABEL_14;
@@ -1581,42 +1578,40 @@ LABEL_13:
 LABEL_23:
     v11[2](v11);
     [(TISKMetricCollector *)self _metricWalk];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v17 = self->_currentSessionStatsArray;
-    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v26 objects:v37 count:16];
+    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v25 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v26 + 1) + 8 * j);
+          v22 = *(*(&v25 + 1) + 8 * j);
           startTime = [v22 startTime];
           [(TISKMetricCollector *)self totalTimeSpan];
           v24 = [startTime dateByAddingTimeInterval:?];
           [v22 setEndTime:v24];
         }
 
-        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v26 objects:v37 count:16];
+        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v25 objects:v36 count:16];
       }
 
       while (v19);
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__TISKMetricCollector__processEvents__block_invoke_225(uint64_t a1)
@@ -1662,31 +1657,151 @@ uint64_t __37__TISKMetricCollector__processEvents__block_invoke(uint64_t a1, voi
   }
 }
 
+- (void)_consumePathsAndPredictions:(id)predictions emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  predictionsCopy = predictions;
+  acceptedCandidate = [predictionsCopy acceptedCandidate];
+  v7 = predictionsCopy;
+  if (acceptedCandidate)
+  {
+    acceptedString = [predictionsCopy acceptedString];
+    if (acceptedString)
+    {
+      v9 = acceptedString;
+      acceptedString2 = [predictionsCopy acceptedString];
+      v11 = [acceptedString2 length];
+
+      v7 = predictionsCopy;
+      if (!v11)
+      {
+        goto LABEL_21;
+      }
+
+      acceptedCandidate2 = [predictionsCopy acceptedCandidate];
+      isContinuousPathConversion = [acceptedCandidate2 isContinuousPathConversion];
+
+      if (isContinuousPathConversion)
+      {
+        allTouchesM = [predictionsCopy allTouchesM];
+        lastObject = [allTouchesM lastObject];
+
+        if (lastObject)
+        {
+          v16 = [TISKPathEvent alloc];
+          acceptedCandidate3 = [predictionsCopy acceptedCandidate];
+          allTouchesM2 = [predictionsCopy allTouchesM];
+          v19 = [(TISKPathEvent *)v16 init:lastObject candidate:acceptedCandidate3 allTouches:allTouchesM2 emojiSearchMode:modeCopy order:self->_eventOrder];
+
+          touchToEventMap = self->_touchToEventMap;
+          v21 = [MEMORY[0x277CCABB0] numberWithLong:lastObject];
+          [(NSMutableDictionary *)touchToEventMap setObject:v19 forKey:v21];
+        }
+
+        else
+        {
+          v19 = [[TISKTouchlessInputEvent alloc] init:modeCopy order:self->_eventOrder];
+        }
+
+        [(NSMutableArray *)self->_events addObject:v19];
+        self->_eventOrder += 100;
+      }
+
+      else
+      {
+        v7 = predictionsCopy;
+        if (modeCopy)
+        {
+          goto LABEL_21;
+        }
+
+        if ([(NSMutableArray *)self->_events count])
+        {
+          lastObject2 = [(NSMutableArray *)self->_events lastObject];
+          eventOrder = [lastObject2 order];
+        }
+
+        else
+        {
+          eventOrder = self->_eventOrder;
+        }
+
+        v24 = eventOrder + 1;
+        if (([predictionsCopy wordEntryType] & 4) != 0)
+        {
+          acceptedCandidate4 = [predictionsCopy acceptedCandidate];
+          candidate = [acceptedCandidate4 candidate];
+          _containsEmoji = [candidate _containsEmoji];
+
+          if (_containsEmoji)
+          {
+            [(TISKMetricCollector *)self loadEmojiBucketDictionaryIfNecessary];
+            emojiBuckets = self->_emojiBuckets;
+            acceptedString3 = [predictionsCopy acceptedString];
+            v30 = [(NSDictionary *)emojiBuckets objectForKey:acceptedString3];
+          }
+
+          else
+          {
+            v30 = 0;
+          }
+
+          v31 = [TISKPredictionBarEvent alloc];
+          [predictionsCopy occurenceTime];
+          v32 = [(TISKPredictionBarEvent *)v31 init:_containsEmoji emojiPrediction:0 emojiSearchMode:eventOrder + 1 order:v30 emojiBucketCategory:?];
+          [(NSMutableArray *)self->_events addObject:v32];
+          v24 = eventOrder + 2;
+        }
+
+        wordEntryType = [predictionsCopy wordEntryType];
+        events = self->_events;
+        v35 = [TISKCandidateAcceptEvent alloc];
+        acceptedCandidate5 = [predictionsCopy acceptedCandidate];
+        acceptedCandidate6 = [predictionsCopy acceptedCandidate];
+        candidate2 = [acceptedCandidate6 candidate];
+        v39 = [(TISKMetricCollector *)self getWordBucketCategoryForWord:candidate2];
+        v40 = [(TISKCandidateAcceptEvent *)v35 init:acceptedCandidate5 emojiSearchMode:0 order:v24 wordBucketCategory:v39 isAutocorrection:wordEntryType & 1];
+        [(NSMutableArray *)events addObject:v40];
+
+        self->_eventOrder += 100;
+      }
+    }
+
+    else
+    {
+    }
+
+    v7 = predictionsCopy;
+  }
+
+LABEL_21:
+}
+
 - (void)_consumeInputsAndTouches:(id)touches occurenceTime:(double)time emojiSearchMode:(BOOL)mode
 {
   modeCopy = mode;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = touches;
-  v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v35;
+    v9 = *v34;
     do
     {
       v10 = 0;
       do
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * v10);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         touchEvent = [v11 touchEvent];
 
         if (touchEvent)
@@ -1694,31 +1809,31 @@ uint64_t __37__TISKMetricCollector__processEvents__block_invoke(uint64_t a1, voi
           eventOrder = self->_eventOrder;
           sessionParams = [(TITypingSession *)self->_typingSession sessionParams];
           wordSeparator = [sessionParams wordSeparator];
-          string = [TISKInputEvent makeInputEvent:v11 emojiSearchMode:modeCopy order:eventOrder wordSeparator:wordSeparator accentedLanguage:self->_accentedLanguage];
+          v16 = [TISKInputEvent makeInputEvent:v11 emojiSearchMode:modeCopy order:eventOrder wordSeparator:wordSeparator accentedLanguage:self->_accentedLanguage];
 
           touchToEventMap = self->_touchToEventMap;
           v18 = MEMORY[0x277CCABB0];
           touchEvent2 = [v11 touchEvent];
           v20 = [v18 numberWithLong:touchEvent2];
-          [(NSMutableDictionary *)touchToEventMap setObject:string forKey:v20];
+          [(NSMutableDictionary *)touchToEventMap setObject:v16 forKey:v20];
           goto LABEL_8;
         }
 
-        string = [v11 string];
-        if (![string length])
+        v16 = objc_msgSend_string(v11);
+        if (![v16 length])
         {
           goto LABEL_10;
         }
 
-        string2 = [v11 string];
+        v21 = objc_msgSend_string(v11);
         sessionParams2 = [(TITypingSession *)self->_typingSession sessionParams];
         wordSeparator2 = [sessionParams2 wordSeparator];
-        v24 = [string2 isEqualToString:wordSeparator2];
+        isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-        if ((v24 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
-          string3 = [v11 string];
-          _containsEmoji = [string3 _containsEmoji];
+          v25 = objc_msgSend_string(v11);
+          _containsEmoji = [v25 _containsEmoji];
 
           if (_containsEmoji)
           {
@@ -1726,19 +1841,19 @@ uint64_t __37__TISKMetricCollector__processEvents__block_invoke(uint64_t a1, voi
             v27 = [TISKEmojiInputEvent alloc];
             v28 = self->_eventOrder;
             emojiBuckets = self->_emojiBuckets;
-            touchEvent2 = [v11 string];
+            touchEvent2 = objc_msgSend_string(v11);
             v20 = [(NSDictionary *)emojiBuckets objectForKey:touchEvent2];
-            string = [(TISKEmojiInputEvent *)v27 init:modeCopy emojiSearchMode:v28 order:v20 emojiBucketCategory:time];
+            v16 = [(TISKEmojiInputEvent *)v27 init:modeCopy emojiSearchMode:v28 order:v20 emojiBucketCategory:time];
 LABEL_8:
           }
 
           else
           {
-            string = [[TISKTouchlessInputEvent alloc] init:modeCopy order:self->_eventOrder];
+            v16 = [[TISKTouchlessInputEvent alloc] init:modeCopy order:self->_eventOrder];
           }
 
           self->_eventOrder += 100;
-          [(NSMutableArray *)self->_events addObject:string];
+          [(NSMutableArray *)self->_events addObject:v16];
 LABEL_10:
         }
 
@@ -1746,14 +1861,12 @@ LABEL_10:
       }
 
       while (v8 != v10);
-      v30 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v30 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       v8 = v30;
     }
 
     while (v30);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_consumeDeleteWordEvent:(id)event
@@ -1819,32 +1932,32 @@ LABEL_10:
 
 - (id)_consumeTypingSession:(id)session
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   [(TISKMetricCollector *)self _resetConsumeState];
   objc_storeStrong(&self->_typingSession, session);
   [(TISKMetricCollector *)self setupSessionStatsForLayouts];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v22 = sessionCopy;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v21 = sessionCopy;
   userActionHistory = [sessionCopy userActionHistory];
-  v7 = [userActionHistory countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [userActionHistory countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(userActionHistory);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         keyboardState = [v11 keyboardState];
         textInputTraits = [keyboardState textInputTraits];
         if ([textInputTraits autocorrectionType] == 1)
@@ -1879,7 +1992,7 @@ LABEL_10:
         }
       }
 
-      v8 = [userActionHistory countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [userActionHistory countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
@@ -1912,40 +2025,38 @@ LABEL_10:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)setupSessionStatsForLayouts
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = [(TITypingSession *)self->_typingSession layouts];
-  v3 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v3 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v36;
-    v30 = *v36;
+    v5 = *v35;
+    v29 = *v35;
     do
     {
       v6 = 0;
-      v31 = v4;
+      v30 = v4;
       do
       {
-        if (*v36 != v5)
+        if (*v35 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v35 + 1) + 8 * v6);
+        v7 = *(*(&v34 + 1) + 8 * v6);
         if ([(TISKMetricCollector *)self findIndexSessionStatsFromArray:self->_currentSessionStatsArray thatHasLayout:v7]== -1)
         {
-          v34 = [TISKSessionStats alloc];
+          v33 = [TISKSessionStats alloc];
           startTime = [(TITypingSession *)self->_typingSession startTime];
           endTime = [(TITypingSession *)self->_typingSession endTime];
           identifier = self->_identifier;
@@ -1955,10 +2066,10 @@ LABEL_10:
           sessionId = [(TITypingSession *)self->_typingSession sessionId];
           uUIDString = [sessionId UUIDString];
           v15 = [v12 arrayWithObject:uUIDString];
-          v16 = [(TISKSessionStats *)v34 init:startTime endDate:endTime identifier:identifier version:@"v.1.0" inputMode:localeIdentifier sessionIds:v15 layout:v7];
+          v16 = [(TISKSessionStats *)v33 init:startTime endDate:endTime identifier:identifier version:@"v.1.0" inputMode:localeIdentifier sessionIds:v15 layout:v7];
 
-          v5 = v30;
-          v4 = v31;
+          v5 = v29;
+          v4 = v30;
 
           [(NSMutableArray *)self->_currentSessionStatsArray addObject:v16];
         }
@@ -1967,7 +2078,7 @@ LABEL_10:
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v4);
@@ -2009,8 +2120,6 @@ LABEL_10:
       while (v22 < v28);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)findIndexSessionStatsFromArray:(id)array thatHasLayout:(id)layout
@@ -2115,24 +2224,24 @@ LABEL_5:
 
 - (void)_setupTCCAuthNotification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   workQueue = self->_workQueue;
   handler = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __48__TISKMetricCollector__setupTCCAuthNotification__block_invoke;
-  v12 = &unk_27872EC08;
-  objc_copyWeak(&v13, &location);
+  v9 = 3221225472;
+  v10 = __48__TISKMetricCollector__setupTCCAuthNotification__block_invoke;
+  v11 = &unk_27872EC08;
+  objc_copyWeak(&v12, &location);
   if (notify_register_dispatch("com.apple.tcc.access.changed", &self->_tccNotifyToken, workQueue, &handler))
   {
     v4 = IXADefaultLogFacility();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = MEMORY[0x277CCACA8];
+      v5 = MEMORY[0x277CCACA8];
       normalizedIdentifier = [(TIInputMode *)self->_inputMode normalizedIdentifier];
-      v8 = [v6 stringWithFormat:@"%s [SensorKit] failed to setup notification with TCC for input mode %@", "-[TISKMetricCollector _setupTCCAuthNotification]", normalizedIdentifier, handler, v10, v11, v12];
+      v7 = [v5 stringWithFormat:@"%s [SensorKit] failed to setup notification with TCC for input mode %@", "-[TISKMetricCollector _setupTCCAuthNotification]", normalizedIdentifier, handler, v9, v10, v11];
       *buf = 138412290;
-      v16 = v8;
+      v15 = v7;
       _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
@@ -2144,9 +2253,8 @@ LABEL_5:
     [(TISKMetricCollector *)self testTCCAuthorization];
   }
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__TISKMetricCollector__setupTCCAuthNotification__block_invoke(uint64_t a1)
@@ -2157,55 +2265,52 @@ void __48__TISKMetricCollector__setupTCCAuthNotification__block_invoke(uint64_t 
 
 - (void)testTCCAuthorization
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D6C1F0];
-  v4 = TCCAccessCopyBundleIdentifiersForService();
-  v5 = v4;
-  if (!self->_skipTCCAuthorization && ![v4 count])
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = TCCAccessCopyBundleIdentifiersForService();
+  v4 = v3;
+  if (!self->_skipTCCAuthorization && ![v3 count])
   {
     dataWriter = IXADefaultLogFacility();
     if (os_log_type_enabled(dataWriter, OS_LOG_TYPE_DEBUG))
     {
-      v15 = MEMORY[0x277CCACA8];
+      v13 = MEMORY[0x277CCACA8];
       normalizedIdentifier = [(TIInputMode *)self->_inputMode normalizedIdentifier];
-      v17 = [v15 stringWithFormat:@"%s [SensorKit] TCC is not authorized for input mode %@", "-[TISKMetricCollector testTCCAuthorization]", normalizedIdentifier];
+      v15 = [v13 stringWithFormat:@"%s [SensorKit] TCC is not authorized for input mode %@", "-[TISKMetricCollector testTCCAuthorization]", normalizedIdentifier];
       *buf = 138412290;
-      v19 = v17;
+      v17 = v15;
       _os_log_debug_impl(&dword_22CA55000, dataWriter, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
-    v7 = 0;
+    v6 = 0;
     goto LABEL_11;
   }
 
-  v6 = IXADefaultLogFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = IXADefaultLogFacility();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = MEMORY[0x277CCACA8];
+    v10 = MEMORY[0x277CCACA8];
     normalizedIdentifier2 = [(TIInputMode *)self->_inputMode normalizedIdentifier];
-    v14 = [v12 stringWithFormat:@"%s [SensorKit] Got TCC authorization for input mode %@", "-[TISKMetricCollector testTCCAuthorization]", normalizedIdentifier2];
+    v12 = [v10 stringWithFormat:@"%s [SensorKit] Got TCC authorization for input mode %@", "-[TISKMetricCollector testTCCAuthorization]", normalizedIdentifier2];
     *buf = 138412290;
-    v19 = v14;
-    _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    v17 = v12;
+    _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   if (!self->_dataWriter)
   {
-    v8 = +[SRSensorWriterWrapper writerInstance];
-    v9 = objc_alloc_init(SRSensorWriterWrapper);
+    v7 = +[SRSensorWriterWrapper writerInstance];
+    v8 = objc_alloc_init(SRSensorWriterWrapper);
     dataWriter = self->_dataWriter;
-    self->_dataWriter = v9;
-    v7 = 1;
+    self->_dataWriter = v8;
+    v6 = 1;
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v7 = 1;
+  v6 = 1;
 LABEL_12:
-  self->_isTCCAuthorized = v7;
-
-  v11 = *MEMORY[0x277D85DE8];
+  self->_isTCCAuthorized = v6;
 }
 
 - (void)dealloc
@@ -2236,11 +2341,11 @@ LABEL_12:
 
 - (id)init:(id)init wordsThreshold:(unint64_t)threshold accentedLanguage:(BOOL)language skipTCCAuthorization:(BOOL)authorization
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   initCopy = init;
-  v40.receiver = self;
-  v40.super_class = TISKMetricCollector;
-  v12 = [(TISKMetricCollector *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = TISKMetricCollector;
+  v12 = [(TISKMetricCollector *)&v39 init];
   v13 = v12;
   if (v12)
   {
@@ -2294,9 +2399,9 @@ LABEL_12:
       v27 = IXADefaultLogFacility();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] _identifier is nil", "-[TISKMetricCollector init:wordsThreshold:accentedLanguage:skipTCCAuthorization:]"];
+        v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] _identifier is nil", "-[TISKMetricCollector init:wordsThreshold:accentedLanguage:skipTCCAuthorization:]"];
         *buf = 138412290;
-        v42 = v39;
+        v41 = v38;
         _os_log_error_impl(&dword_22CA55000, v27, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
     }
@@ -2323,42 +2428,41 @@ LABEL_12:
 
   [(TISKMetricCollector *)v13 _setupTCCAuthNotification];
 
-  v37 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (BOOL)isSensorKitSupported:(id)supported
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   normalizedIdentifier = [supported normalizedIdentifier];
   v4 = TIInputModeGetLanguage();
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  v5 = [&unk_28400B868 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = [&unk_28400B868 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(&unk_28400B868);
         }
 
-        if ([v4 isEqualToString:*(*(&v12 + 1) + 8 * i)])
+        if (objc_msgSend_isEqualToString_(v4))
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [&unk_28400B868 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [&unk_28400B868 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -2371,34 +2475,87 @@ LABEL_12:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
++ (id)makeMetricCollector:(id)collector wordsThreshold:(unint64_t)threshold isTesting:(BOOL)testing
+{
+  testingCopy = testing;
+  v22 = *MEMORY[0x277D85DE8];
+  collectorCopy = collector;
+  if ([TISKMetricCollector isSensorKitSupported:collectorCopy])
+  {
+    normalizedIdentifier = [collectorCopy normalizedIdentifier];
+    v9 = TIInputModeGetLanguage();
+
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v10 = [&unk_28400B880 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v18;
+      while (2)
+      {
+        for (i = 0; i != v11; ++i)
+        {
+          if (*v18 != v12)
+          {
+            objc_enumerationMutation(&unk_28400B880);
+          }
+
+          if (objc_msgSend_isEqualToString_(v9))
+          {
+            v14 = 1;
+            goto LABEL_13;
+          }
+        }
+
+        v11 = [&unk_28400B880 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        if (v11)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v14 = 0;
+LABEL_13:
+    v15 = [[TISKMetricCollector alloc] init:collectorCopy wordsThreshold:threshold accentedLanguage:v14 skipTCCAuthorization:testingCopy];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
 }
 
 - (void)placeTaskOnWorkQueue:(id)queue
 {
   queueCopy = queue;
-  workQueue = self->_workQueue;
-  v7 = queueCopy;
-  v6 = queueCopy;
+  v3 = queueCopy;
   TIDispatchAsync();
 }
 
 uint64_t __66__TISKMetricCollector_TISKSessionStatsTest__placeTaskOnWorkQueue___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = IXADefaultLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] dequeue session", "-[TISKMetricCollector(TISKSessionStatsTest) placeTaskOnWorkQueue:]_block_invoke"];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] dequeue session", "-[TISKMetricCollector(TISKSessionStatsTest) placeTaskOnWorkQueue:]_block_invoke"];
     *buf = 138412290;
-    v7 = v5;
+    v6 = v4;
     _os_log_debug_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 @end

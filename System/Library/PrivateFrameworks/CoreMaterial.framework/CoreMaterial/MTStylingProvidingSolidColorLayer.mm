@@ -17,7 +17,7 @@
 - (id)visualStylingProviderForCategory:(id)category
 {
   categoryCopy = category;
-  v5 = [(NSMutableDictionary *)self->_cmStylingProviders objectForKey:categoryCopy];
+  v5 = [(NSMutableDictionary *)self->_cmStylingProviders objectForKey:?];
   if (!v5)
   {
     v5 = objc_alloc_init(MTCoreMaterialVisualStylingProvider);
@@ -31,7 +31,7 @@
       cmStylingProviders = self->_cmStylingProviders;
     }
 
-    [(NSMutableDictionary *)cmStylingProviders setObject:v5 forKey:categoryCopy];
+    [NSMutableDictionary setObject:"setObject:forKey:" forKey:?];
     [(MTStylingProvidingSolidColorLayer *)self _updateVisualStylingProviders];
   }
 
@@ -48,19 +48,19 @@
 
 - (void)_updateVisualStylingProviders
 {
-  [(MTStylingProvidingSolidColorLayer *)self _updateVisualStylingProviderForCategory:@"stroke"];
+  [(MTStylingProvidingSolidColorLayer *)self _updateVisualStylingProviderForCategory:?];
 
-  [(MTStylingProvidingSolidColorLayer *)self _updateVisualStylingProviderForCategory:@"fill"];
+  [(MTStylingProvidingSolidColorLayer *)self _updateVisualStylingProviderForCategory:?];
 }
 
 - (void)_updateVisualStylingProviderForCategory:(id)category
 {
   cmStylingProviders = self->_cmStylingProviders;
   categoryCopy = category;
-  v7 = [(NSMutableDictionary *)cmStylingProviders objectForKey:categoryCopy];
-  v6 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:categoryCopy];
+  v7 = [(NSMutableDictionary *)cmStylingProviders objectForKey:?];
+  v6 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:?];
 
-  [v7 _setVisualStyleSet:v6];
+  [v7 _setVisualStyleSet:?];
 }
 
 - (id)_styleSetForCategory:(id)category
@@ -106,126 +106,86 @@ LABEL_12:
 
 - (id)_fillLightStyleSet
 {
-  v11[2] = *MEMORY[0x1E69E9840];
   backgroundColor = [(MTStylingProvidingSolidColorLayer *)self backgroundColor];
   v4 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusLAndWhiteTint(backgroundColor, 0.185, 0.85);
-  v5 = MTStylingProvidingSolidColorLayerHighlightStyleDictionary(backgroundColor);
-  v10[0] = @"primary";
-  v10[1] = @"highlight";
-  v11[0] = v4;
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v7 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:@"fill" styleDefinitions:v6];
+  v8 = MTStylingProvidingSolidColorLayerHighlightStyleDictionary(backgroundColor);
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v6 = [MTStylingProvidingSolidColorLayer _styleSetForCategory:"_styleSetForCategory:styleDefinitions:" styleDefinitions:?];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 - (id)_strokeLightStyleSet
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v3 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusLAndWhiteTint([(MTStylingProvidingSolidColorLayer *)self backgroundColor], 0.48, 0.7);
-  v8[0] = @"primary";
-  v8[1] = @"secondary";
-  v9[0] = &unk_1F3E018D0;
-  v9[1] = v3;
-  v8[2] = @"tertiary";
-  v9[2] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  v5 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:@"stroke" styleDefinitions:v4];
+  v6 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusLAndWhiteTint([(MTStylingProvidingSolidColorLayer *)self backgroundColor], 0.48, 0.7);
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v4 = [MTStylingProvidingSolidColorLayer _styleSetForCategory:"_styleSetForCategory:styleDefinitions:" styleDefinitions:?];
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v4;
 }
 
 - (id)_fillDarkStyleSet
 {
-  v11[2] = *MEMORY[0x1E69E9840];
   backgroundColor = [(MTStylingProvidingSolidColorLayer *)self backgroundColor];
   v4 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(backgroundColor, 0.9);
-  v5 = MTStylingProvidingSolidColorLayerHighlightStyleDictionary(backgroundColor);
-  v10[0] = @"primary";
-  v10[1] = @"highlight";
-  v11[0] = v4;
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v7 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:@"fill" styleDefinitions:v6];
+  v8 = MTStylingProvidingSolidColorLayerHighlightStyleDictionary(backgroundColor);
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v6 = [MTStylingProvidingSolidColorLayer _styleSetForCategory:"_styleSetForCategory:styleDefinitions:" styleDefinitions:?];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 - (id)_strokeDarkStyleSet
 {
-  v12[3] = *MEMORY[0x1E69E9840];
   backgroundColor = [(MTStylingProvidingSolidColorLayer *)self backgroundColor];
   v4 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(backgroundColor, 0.2);
   v5 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(backgroundColor, 0.5);
-  v6 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(backgroundColor, 0.7);
-  v11[0] = @"primary";
-  v11[1] = @"secondary";
-  v12[0] = v4;
-  v12[1] = v5;
-  v11[2] = @"tertiary";
-  v12[2] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
-  v8 = [(MTStylingProvidingSolidColorLayer *)self _styleSetForCategory:@"stroke" styleDefinitions:v7];
+  v9 = MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(backgroundColor, 0.7);
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v7 = [MTStylingProvidingSolidColorLayer _styleSetForCategory:"_styleSetForCategory:styleDefinitions:" styleDefinitions:?];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v7;
 }
 
 - (id)_styleSetForCategory:(id)category styleDefinitions:(id)definitions
 {
-  v27 = *MEMORY[0x1E69E9840];
   definitionsCopy = definitions;
-  v7 = [(MTStylingProvidingSolidColorLayer *)self _styleSetNameForCategory:category];
-  v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v9 = [&unk_1F3E018F8 mutableCopy];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = definitionsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v11)
+  v6 = [(MTStylingProvidingSolidColorLayer *)self _styleSetNameForCategory:?];
+  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v8 = [&unk_1F3E018F8 mutableCopy];
+  v9 = definitionsCopy;
+  v10 = [v9 countByEnumeratingWithState:0 objects:? count:?];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v23;
+    v11 = v10;
+    v12 = MEMORY[0];
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v23 != v13)
+        if (MEMORY[0] != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        capitalizedString = [v15 capitalizedString];
-        v17 = [v7 stringByAppendingString:capitalizedString];
+        capitalizedString = [*(8 * i) capitalizedString];
+        v15 = [v6 stringByAppendingString:?];
 
-        [v9 setObject:v17 forKey:v15];
-        v18 = [v10 objectForKey:v15];
-        [v8 setObject:v18 forKey:v17];
+        [v8 setObject:? forKey:?];
+        v16 = [v9 objectForKey:?];
+        [v7 setObject:? forKey:?];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  [v9 setObject:v8 forKey:@"styles"];
-  v19 = [[MTVisualStyleSet alloc] initWithName:v7 visualStyleSetDescription:v9 andDescendantDescriptions:0];
+  [v8 setObject:? forKey:?];
+  v17 = [MTVisualStyleSet initWithName:"initWithName:visualStyleSetDescription:andDescendantDescriptions:" visualStyleSetDescription:? andDescendantDescriptions:?];
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v17;
 }
 
 - (id)_styleSetNameForCategory:(id)category
@@ -239,42 +199,21 @@ LABEL_12:
 
   v8 = [@"solidColorBackground" mutableCopy];
   v9 = v8;
-  if (@"stroke" == v6)
+  if (@"stroke" == v6 || @"fill" == v6)
   {
-    v10 = @"Stroke";
+    [v8 appendString:?];
   }
 
-  else
-  {
-    if (@"fill" != v6)
-    {
-      goto LABEL_11;
-    }
-
-    v10 = @"Fill";
-  }
-
-  [v8 appendString:v10];
-LABEL_11:
-  if (MTCGColorIsPerceivedLight([(MTStylingProvidingSolidColorLayer *)self backgroundColor]))
-  {
-    v11 = @"Dark";
-  }
-
-  else
-  {
-    v11 = @"Light";
-  }
-
-  [v9 appendString:v11];
+  MTCGColorIsPerceivedLight([(MTStylingProvidingSolidColorLayer *)self backgroundColor]);
+  [v9 appendString:?];
 
   return v9;
 }
 
 - (void)_styleSetNameForCategory:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"MTStylingProvidingSolidColorLayer.m" lineNumber:148 description:@"MTStylingProvidingSolidColorLayer only supports stroke and fill"];
+  v2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v2 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
 @end

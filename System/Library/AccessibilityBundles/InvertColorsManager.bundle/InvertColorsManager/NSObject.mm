@@ -2,7 +2,9 @@
 - (BOOL)_accessibilityInvertColorsActsAsDarkWindow;
 - (BOOL)_accessibilityInvertColorsSupportsDarkWindowInvert;
 - (id)_accessibilityInvertColorsSupportsDarkWindowInvertBlock;
+- (void)_accessibilitySetInvertColorsActsAsDarkWindow:(BOOL)window;
 - (void)_accessibilitySetInvertColorsActsAsDarkWindowBlock:(id)block;
+- (void)_accessibilitySetInvertColorsSupportsDarkWindowInvert:(BOOL)invert;
 - (void)_accessibilitySetInvertColorsSupportsDarkWindowInvertBlock:(id)block;
 - (void)accessibilityApplyIgnoreInvertToWindow:(id)window;
 - (void)accessibilityDeapplyIgnoreInvertToWindow:(id)window;
@@ -96,6 +98,17 @@
   }
 }
 
+- (void)_accessibilitySetInvertColorsActsAsDarkWindow:(BOOL)window
+{
+  [self _accessibilitySetBoolValue:window forKey:@"_accessibilityInvertColorsActsAsDarkWindow"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+
+    [AXInvertColorsManager toggleDarkModeWindowInvert:self];
+  }
+}
+
 - (BOOL)_accessibilityInvertColorsActsAsDarkWindow
 {
   _accessibilityInvertColorsActsAsDarkWindowBlock = [self _accessibilityInvertColorsActsAsDarkWindowBlock];
@@ -130,6 +143,17 @@ LABEL_6:
   v4 = objc_retainBlock(block);
   [self _accessibilitySetRetainedValue:v4 forKey:@"_accessibilityInvertColorsActsAsDarkWindowBlock"];
 
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+
+    [AXInvertColorsManager toggleDarkModeWindowInvert:self];
+  }
+}
+
+- (void)_accessibilitySetInvertColorsSupportsDarkWindowInvert:(BOOL)invert
+{
+  [self _accessibilitySetBoolValue:invert forKey:@"_accessibilityInvertColorsSupportsDarkWindowInvert"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

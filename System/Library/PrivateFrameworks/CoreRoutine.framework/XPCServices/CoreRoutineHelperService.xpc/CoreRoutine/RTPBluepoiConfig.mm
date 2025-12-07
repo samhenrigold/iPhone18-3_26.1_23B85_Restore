@@ -190,7 +190,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    xgboostLowThreshold = self->_xgboostLowThreshold;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -210,7 +209,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  xgboostHighThreshold = self->_xgboostHighThreshold;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -225,12 +223,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  lowConfidenceJurassic = self->_lowConfidenceJurassic;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_5:
-    higConfidenceJurassic = self->_higConfidenceJurassic;
     PBDataWriterWriteDoubleField();
   }
 

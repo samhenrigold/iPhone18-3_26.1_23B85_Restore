@@ -31,7 +31,7 @@
 {
   handleCopy = handle;
   selfCopy = self;
-  sub_185B57F4C();
+  sub_185B57F4C(handleCopy);
 
   return 1;
 }

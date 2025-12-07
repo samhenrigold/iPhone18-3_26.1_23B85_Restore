@@ -30,7 +30,7 @@
     [v3 addObject:v9];
   }
 
-  v10 = [v3 copy];
+  v10 = objc_msgSend_copy(v3);
 
   return v10;
 }
@@ -49,15 +49,13 @@
 
 void __61__HMDHomeNetworkRouterManagingDeviceSettingsModel_properties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"primaryNetworkRouterManagingDeviceUUID";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"primaryNetworkRouterManagingDeviceUUID";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = properties__properties_356;
   properties__properties_356 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)defaultModelForHomeUUID:(id)d

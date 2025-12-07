@@ -68,7 +68,7 @@
   if (selfCopy)
   {
     v59 = +[NSMutableArray array];
-    sub_10033643C();
+    sub_10033643C(LSEnumerator);
     v69 = 0u;
     v70 = 0u;
     v67 = 0u;
@@ -355,7 +355,7 @@ LABEL_42:
   clientCopy = client;
   objc_opt_class();
   objc_opt_self();
-  if (sub_1003D3E2C(AppDefaultsManager, @"OffloadUnusedApps", 0) && (sub_1003BBF50(), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isHRNMode], v13, (v14 & 1) == 0))
+  if (sub_1003D3E2C(AppDefaultsManager, @"OffloadUnusedApps", 0) && (sub_1003BBF50(Device), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isHRNMode], v13, (v14 & 1) == 0))
   {
     v16 = [[KeepAlive alloc] initWithName:@"com.apple.appstored.purge"];
     v17 = objc_alloc_init(_TtC9appstored6LogKey);

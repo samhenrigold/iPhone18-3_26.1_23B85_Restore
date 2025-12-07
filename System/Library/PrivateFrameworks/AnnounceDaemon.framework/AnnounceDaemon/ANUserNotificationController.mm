@@ -56,9 +56,8 @@
   return v2;
 }
 
-uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint64_t a1)
+uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   sharedController_sharedController = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -72,8 +71,8 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
   isHomeAppInstalled = [v4 isHomeAppInstalled];
   v7 = [homeCopy an_announceNotificationsEnabledForCurrentUserWithOverrideHomeLocationStatus:0];
 
-  v8 = ANLogHandleUserNotificationsController();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = ANLogHandleUserNotificationsController(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138413058;
     v12 = &stru_2851BDB18;
@@ -83,10 +82,9 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
     v16 = isHomeAppInstalled;
     v17 = 1024;
     v18 = v7;
-    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Can Post User Notification: %d (Home App Installed: %d, Enabled for Home: %d)", &v11, 0x1Eu);
+    _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@Can Post User Notification: %d (Home App Installed: %d, Enabled for Home: %d)", &v11, 0x1Eu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7 & isHomeAppInstalled;
 }
 
@@ -97,12 +95,13 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
   announcementsCopy = announcements;
   homeCopy = home;
   dCopy = d;
-  if ([(ANUserNotificationController *)self canPostUserNotificationForAnnouncement:announcementCopy home:homeCopy])
+  v14 = [(ANUserNotificationController *)self canPostUserNotificationForAnnouncement:announcementCopy home:homeCopy];
+  if (v14)
   {
     mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-    v15 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA990]];
+    v16 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA990]];
 
-    if (v15)
+    if (v16)
     {
       identifier = dCopy;
     }
@@ -112,21 +111,21 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
       identifier = [announcementCopy identifier];
     }
 
-    v18 = identifier;
+    v19 = identifier;
     notificationCenter = [(ANUserNotificationController *)self notificationCenter];
     deliveredNotifications = [notificationCenter deliveredNotifications];
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
     v29[2] = __96__ANUserNotificationController_postNotificationForAnnouncement_groupAnnouncements_home_groupID___block_invoke;
     v29[3] = &unk_278C86440;
-    v20 = v18;
-    v30 = v20;
-    v21 = [deliveredNotifications na_firstObjectPassingTest:v29];
+    v21 = v19;
+    v30 = v21;
+    v22 = [deliveredNotifications na_firstObjectPassingTest:v29];
 
     LODWORD(deliveredNotifications) = [(ANUserNotificationController *)self suspendNotificationExpiration];
     objc_initWeak(buf, self);
     suspendNotificationExpiration = [(ANUserNotificationController *)self suspendNotificationExpiration];
-    if (v21)
+    if (v22)
     {
       deliveredNotifications = deliveredNotifications;
     }
@@ -142,8 +141,8 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
     v25[3] = &unk_278C86468;
     objc_copyWeak(&v27, buf);
     v28 = deliveredNotifications;
-    v17 = v20;
-    v26 = v17;
+    v18 = v21;
+    v26 = v18;
     [(ANUserNotificationController *)self contentWithAnnouncement:announcementCopy groupAnnouncements:announcementsCopy home:homeCopy threadIdentifier:dCopy isReplacement:deliveredNotifications suspendExpiration:suspendNotificationExpiration completionHandler:v25];
 
     objc_destroyWeak(&v27);
@@ -152,16 +151,14 @@ uint64_t __48__ANUserNotificationController_sharedController__block_invoke(uint6
 
   else
   {
-    v17 = ANLogHandleUserNotificationsController();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = ANLogHandleUserNotificationsController(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v32 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "%@Skip posting user notification", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v18, OS_LOG_TYPE_DEFAULT, "%@Skip posting user notification", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__ANUserNotificationController_postNotificationForAnnouncement_groupAnnouncements_home_groupID___block_invoke(uint64_t a1, void *a2)
@@ -196,14 +193,15 @@ void __96__ANUserNotificationController_postNotificationForAnnouncement_groupAnn
   announcementsCopy = announcements;
   homeCopy = home;
   dCopy = d;
-  if (![(ANUserNotificationController *)self _canUpdateUserNotificationForHome:homeCopy])
+  v11 = [(ANUserNotificationController *)self _canUpdateUserNotificationForHome:homeCopy];
+  if ((v11 & 1) == 0)
   {
-    v14 = ANLogHandleUserNotificationsController();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ANLogHandleUserNotificationsController(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v23 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@Skip updating user notification", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@Skip updating user notification", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -212,18 +210,18 @@ void __96__ANUserNotificationController_postNotificationForAnnouncement_groupAnn
   if ([announcementsCopy count])
   {
     mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-    v12 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA990]];
+    v13 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA990]];
 
-    if (v12)
+    if (v13)
     {
       firstObject = [announcementsCopy firstObject];
       v21 = firstObject;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     }
 
     else
     {
-      v14 = announcementsCopy;
+      v15 = announcementsCopy;
     }
 
     v16[0] = MEMORY[0x277D85DD0];
@@ -234,13 +232,11 @@ void __96__ANUserNotificationController_postNotificationForAnnouncement_groupAnn
     v17 = announcementsCopy;
     v18 = homeCopy;
     v19 = dCopy;
-    v20 = v12;
-    [v14 enumerateObjectsUsingBlock:v16];
+    v20 = v13;
+    [v15 enumerateObjectsUsingBlock:v16];
 
 LABEL_9:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __80__ANUserNotificationController_updateNotificationForAnnouncements_home_groupID___block_invoke(uint64_t a1, void *a2)
@@ -287,20 +283,18 @@ void __80__ANUserNotificationController_updateNotificationForAnnouncements_home_
 
 - (void)removeNotificationWithGroupID:(id)d
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   notificationCenter = self->_notificationCenter;
   dCopy = d;
   v4 = MEMORY[0x277CBEA60];
   dCopy2 = d;
   v6 = [v4 arrayWithObjects:&dCopy count:1];
-  [(UNUserNotificationCenter *)notificationCenter removePendingNotificationRequestsWithIdentifiers:v6, dCopy, v9];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(UNUserNotificationCenter *)notificationCenter removePendingNotificationRequestsWithIdentifiers:v6, dCopy, v8];
 }
 
 - (void)cleanForExit
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
   v4 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA8B8]];
 
@@ -308,29 +302,29 @@ void __80__ANUserNotificationController_updateNotificationForAnnouncements_home_
   {
     v5 = objc_opt_new();
     selfCopy = self;
-    v35 = objc_opt_new();
+    v34 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     notificationCenter = [(ANUserNotificationController *)self notificationCenter];
     pendingNotificationRequests = [notificationCenter pendingNotificationRequests];
 
-    v8 = [pendingNotificationRequests countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v8 = [pendingNotificationRequests countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v41;
+      v10 = *v40;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(pendingNotificationRequests);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           content = [v12 content];
           categoryIdentifier = [content categoryIdentifier];
           v15 = [categoryIdentifier isEqualToString:@"ANAnnouncement"];
@@ -342,36 +336,36 @@ void __80__ANUserNotificationController_updateNotificationForAnnouncements_home_
           }
         }
 
-        v9 = [pendingNotificationRequests countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v9 = [pendingNotificationRequests countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v9);
     }
 
-    v33 = v5;
+    v32 = v5;
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     notificationCenter2 = [(ANUserNotificationController *)selfCopy notificationCenter];
     deliveredNotifications = [notificationCenter2 deliveredNotifications];
 
-    v19 = [deliveredNotifications countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v19 = [deliveredNotifications countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(deliveredNotifications);
           }
 
-          v23 = *(*(&v36 + 1) + 8 * j);
+          v23 = *(*(&v35 + 1) + 8 * j);
           request = [v23 request];
           content2 = [request content];
           categoryIdentifier2 = [content2 categoryIdentifier];
@@ -381,24 +375,22 @@ void __80__ANUserNotificationController_updateNotificationForAnnouncements_home_
           {
             request2 = [v23 request];
             identifier2 = [request2 identifier];
-            [v35 addObject:identifier2];
+            [v34 addObject:identifier2];
           }
         }
 
-        v20 = [deliveredNotifications countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v20 = [deliveredNotifications countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v20);
     }
 
     notificationCenter3 = [(ANUserNotificationController *)selfCopy notificationCenter];
-    [notificationCenter3 removePendingNotificationRequestsWithIdentifiers:v33];
+    [notificationCenter3 removePendingNotificationRequestsWithIdentifiers:v32];
 
     notificationCenter4 = [(ANUserNotificationController *)selfCopy notificationCenter];
-    [notificationCenter4 removeDeliveredNotificationsWithIdentifiers:v35];
+    [notificationCenter4 removeDeliveredNotificationsWithIdentifiers:v34];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseExpirationForNotificationsWithGroupIDs:(id)ds
@@ -534,21 +526,20 @@ LABEL_11:
 
 - (BOOL)_canUpdateUserNotificationForHome:(id)home
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   isHomeAppInstalled = [MEMORY[0x277CEABE0] isHomeAppInstalled];
-  v4 = ANLogHandleUserNotificationsController();
+  v4 = ANLogHandleUserNotificationsController(isHomeAppInstalled);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412802;
-    v8 = &stru_2851BDB18;
-    v9 = 1024;
-    v10 = isHomeAppInstalled;
-    v11 = 1024;
-    v12 = isHomeAppInstalled;
-    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Can Update User Notification: %d (Home App Installed: %d)", &v7, 0x18u);
+    v6 = 138412802;
+    v7 = &stru_2851BDB18;
+    v8 = 1024;
+    v9 = isHomeAppInstalled;
+    v10 = 1024;
+    v11 = isHomeAppInstalled;
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Can Update User Notification: %d (Home App Installed: %d)", &v6, 0x18u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return isHomeAppInstalled;
 }
 
@@ -617,19 +608,19 @@ LABEL_11:
 
 void __71__ANUserNotificationController__postNotificationWithContent_requestID___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleUserNotificationsController();
+  v4 = ANLogHandleUserNotificationsController(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = &stru_2851BDB18;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Failed to add notification: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = &stru_2851BDB18;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Failed to add notification: %@", &v8, 0x16u);
     }
 
     v5 = +[ANAnalytics shared];
@@ -640,16 +631,14 @@ void __71__ANUserNotificationController__postNotificationWithContent_requestID__
   {
     v6 = [*(a1 + 32) identifier];
     v7 = [*(a1 + 40) expirationDate];
-    v9 = 138412802;
-    v10 = &stru_2851BDB18;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Added notification. ID = %@, Expiration = %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = &stru_2851BDB18;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Added notification. ID = %@, Expiration = %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setContentExpirationDate:(id)date forNotificationsWithThreadIDs:(id)ds
@@ -671,27 +660,27 @@ void __71__ANUserNotificationController__postNotificationWithContent_requestID__
 
 void __88__ANUserNotificationController__setContentExpirationDate_forNotificationsWithThreadIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = a2;
-  v22 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v21)
   {
-    v2 = *v28;
-    v19 = v24;
+    v2 = *v27;
+    v18 = v23;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v2)
+        if (*v27 != v2)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v27 + 1) + 8 * i);
+        v4 = *(*(&v26 + 1) + 8 * i);
         v5 = [v4 request];
         v6 = [v5 content];
         v7 = [v6 categoryIdentifier];
@@ -717,15 +706,15 @@ void __88__ANUserNotificationController__setContentExpirationDate_forNotificatio
           v15 = [v4 request];
           v16 = [v15 identifier];
           v17 = [v5 copy];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v24[0] = __88__ANUserNotificationController__setContentExpirationDate_forNotificationsWithThreadIDs___block_invoke_2;
-          v24[1] = &unk_278C864E0;
-          v25 = *(a1 + 40);
-          v26 = v4;
-          [v14 _replaceContentForRequestWithRequestID:v16 replacementContent:v17 completionHandler:v23];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v23[0] = __88__ANUserNotificationController__setContentExpirationDate_forNotificationsWithThreadIDs___block_invoke_2;
+          v23[1] = &unk_278C864E0;
+          v24 = *(a1 + 40);
+          v25 = v4;
+          [v14 _replaceContentForRequestWithRequestID:v16 replacementContent:v17 completionHandler:v22];
 
-          v6 = v25;
+          v6 = v24;
         }
 
         else
@@ -733,37 +722,33 @@ void __88__ANUserNotificationController__setContentExpirationDate_forNotificatio
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v21 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ANUserNotificationController__setContentExpirationDate_forNotificationsWithThreadIDs___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v3 = ANLogHandleUserNotificationsController();
+    v3 = ANLogHandleUserNotificationsController(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
       v5 = [*(a1 + 40) request];
       v6 = [v5 identifier];
-      v8 = 138412802;
-      v9 = &stru_2851BDB18;
-      v10 = 2112;
-      v11 = v4;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@Set Expiration to (%@) For Notification with Request Identifier: %@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = &stru_2851BDB18;
+      v9 = 2112;
+      v10 = v4;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@Set Expiration to (%@) For Notification with Request Identifier: %@", &v7, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replaceContentForRequestWithRequestID:(id)d replacementContent:(id)content completionHandler:(id)handler
@@ -785,22 +770,22 @@ void __88__ANUserNotificationController__setContentExpirationDate_forNotificatio
 
 void __108__ANUserNotificationController__replaceContentForRequestWithRequestID_replacementContent_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleUserNotificationsController();
+  v4 = ANLogHandleUserNotificationsController(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v10 = 138412802;
-      v11 = &stru_2851BDB18;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Failed to replace Notification Content For Request Identifier (%@). Error = %@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = &stru_2851BDB18;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Failed to replace Notification Content For Request Identifier (%@). Error = %@", &v9, 0x20u);
     }
 
     v5 = +[ANAnalytics shared];
@@ -810,11 +795,11 @@ void __108__ANUserNotificationController__replaceContentForRequestWithRequestID_
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = &stru_2851BDB18;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Replaced Content for Notification with Request Identifier: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = &stru_2851BDB18;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Replaced Content for Notification with Request Identifier: %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -822,8 +807,6 @@ void __108__ANUserNotificationController__replaceContentForRequestWithRequestID_
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replaceContentForRequestsWithThreadID:(id)d replacementContent:(id)content
@@ -877,37 +860,36 @@ void __90__ANUserNotificationController__replaceContentForRequestsWithThreadID_r
 - (void)contentWithAnnouncement:(ANAnnouncement *)announcement groupAnnouncements:(NSArray *)announcements home:(HMHome *)home threadIdentifier:(NSString *)identifier isReplacement:(BOOL)replacement suspendExpiration:(BOOL)expiration completionHandler:(id)handler
 {
   v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E39C9E8, &qword_23F58D708);
-  v17 = *(*(v16 - 8) + 64);
   MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v30 - v18;
-  v20 = _Block_copy(handler);
-  v21 = swift_allocObject();
-  *(v21 + 16) = announcement;
-  *(v21 + 24) = announcements;
-  *(v21 + 32) = home;
-  *(v21 + 40) = identifier;
-  *(v21 + 48) = replacement;
-  *(v21 + 49) = expiration;
-  *(v21 + 56) = v20;
-  *(v21 + 64) = self;
-  v22 = sub_23F5883B4();
-  (*(*(v22 - 8) + 56))(v19, 1, 1, v22);
+  v18 = &v29 - v17;
+  v19 = _Block_copy(handler);
+  v20 = swift_allocObject();
+  *(v20 + 16) = announcement;
+  *(v20 + 24) = announcements;
+  *(v20 + 32) = home;
+  *(v20 + 40) = identifier;
+  *(v20 + 48) = replacement;
+  *(v20 + 49) = expiration;
+  *(v20 + 56) = v19;
+  *(v20 + 64) = self;
+  v21 = sub_23F5883B4();
+  (*(*(v21 - 8) + 56))(v18, 1, 1, v21);
+  v22 = swift_allocObject();
+  v22[2] = 0;
+  v22[3] = 0;
+  v22[4] = &unk_23F58D718;
+  v22[5] = v20;
   v23 = swift_allocObject();
   v23[2] = 0;
   v23[3] = 0;
-  v23[4] = &unk_23F58D718;
-  v23[5] = v21;
-  v24 = swift_allocObject();
-  v24[2] = 0;
-  v24[3] = 0;
-  v24[4] = &unk_23F58D720;
-  v24[5] = v23;
+  v23[4] = &unk_23F58D720;
+  v23[5] = v22;
   announcementCopy = announcement;
   announcementsCopy = announcements;
   homeCopy = home;
   identifierCopy = identifier;
   selfCopy = self;
-  sub_23F57A118(0, 0, v19, &unk_23F58D728, v24);
+  sub_23F57A118(0, 0, v18, &unk_23F58D728, v23);
 }
 
 @end

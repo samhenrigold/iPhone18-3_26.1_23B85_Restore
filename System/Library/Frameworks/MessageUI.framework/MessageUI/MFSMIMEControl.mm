@@ -40,7 +40,7 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
   if (options == 1)
   {
     v3 = 0;
-    goto LABEL_25;
+    goto LABEL_28;
   }
 
   optionsCopy = options;
@@ -51,33 +51,43 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
   {
     v15 = _EFLocalizedString();
     v16 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"lock.slash.fill"];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __34__MFSMIMEControl_menuWithOptions___block_invoke;
-    v28[3] = &unk_1E806D8C8;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __34__MFSMIMEControl_menuWithOptions___block_invoke;
+    v29[3] = &unk_1E806D8C8;
     v17 = delegate;
-    v29[0] = v17;
-    v29[1] = self;
-    v12 = [v8 actionWithTitle:v15 image:v16 identifier:0 handler:v28];
+    v30[0] = v17;
+    v30[1] = self;
+    v12 = [v8 actionWithTitle:v15 image:v16 identifier:0 handler:v29];
 
     [array addObject:v12];
-    v13 = v29;
+    v13 = v30;
     if ((optionsCopy & 4) != 0)
     {
       if ((optionsCopy & 0x10) == 0 || (optionsCopy & 0x20) != 0)
       {
-        v24 = _EFLocalizedString();
+        v25 = _EFLocalizedString();
       }
 
       else
       {
-        v24 = EFLocalizedStringWithValue();
+        if ((optionsCopy & 8) != 0)
+        {
+          v24 = @"This email is signed but cannot be encrypted because there are no valid certificates for some recipients.";
+        }
+
+        else
+        {
+          v24 = @"This email is signed but cannot be encrypted due to an error.";
+        }
+
+        v25 = EFLocalizedStringWithValue(v24);
       }
 
-      v18 = v24;
+      v18 = v25;
       _goToSettingsAction = [(MFSMIMEControl *)self _goToSettingsAction];
       [array addObject:_goToSettingsAction];
-      goto LABEL_23;
+      goto LABEL_26;
     }
 
     if ((optionsCopy & 0x10) == 0)
@@ -91,7 +101,7 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
       v18 = _EFLocalizedString();
       _goToSettingsAction = [(MFSMIMEControl *)self _goToSettingsAction];
       [array addObject:_goToSettingsAction];
-      goto LABEL_23;
+      goto LABEL_26;
     }
 
     _goToSettingsAction = [v17 sendingAddressForControl:self];
@@ -103,17 +113,17 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
 
   v9 = _EFLocalizedString();
   v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"lock.fill"];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __34__MFSMIMEControl_menuWithOptions___block_invoke_2;
-  v26[3] = &unk_1E806D8C8;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __34__MFSMIMEControl_menuWithOptions___block_invoke_2;
+  v27[3] = &unk_1E806D8C8;
   v11 = delegate;
-  v27[0] = v11;
-  v27[1] = self;
-  v12 = [v8 actionWithTitle:v9 image:v10 identifier:0 handler:v26];
+  v28[0] = v11;
+  v28[1] = self;
+  v12 = [v8 actionWithTitle:v9 image:v10 identifier:0 handler:v27];
 
   [array addObject:v12];
-  v13 = v27;
+  v13 = v28;
   if ((optionsCopy & 0x10) != 0)
   {
     if ((optionsCopy & 0x20) != 0)
@@ -121,7 +131,7 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
       v18 = _EFLocalizedString();
       _goToSettingsAction = [(MFSMIMEControl *)self _goToSettingsAction];
       [array addObject:_goToSettingsAction];
-      goto LABEL_23;
+      goto LABEL_26;
     }
 
     _goToSettingsAction = [v11 sendingAddressForControl:self];
@@ -131,18 +141,18 @@ id __72__MFSMIMEControl_contextMenuInteraction_configurationForMenuAtLocation___
 LABEL_16:
     v18 = v22;
 
-LABEL_23:
-    goto LABEL_24;
+LABEL_26:
+    goto LABEL_27;
   }
 
   v14 = _EFLocalizedString();
 LABEL_9:
   v18 = v14;
-LABEL_24:
+LABEL_27:
 
   v3 = [MEMORY[0x1E69DCC60] menuWithTitle:v18 children:array];
 
-LABEL_25:
+LABEL_28:
 
   return v3;
 }

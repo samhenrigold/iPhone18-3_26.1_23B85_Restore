@@ -251,9 +251,7 @@ LABEL_11:
 
 - (void)resetAllAnswers
 {
-  v3 = objc_opt_new();
-  overrideMap = self->_overrideMap;
-  self->_overrideMap = v3;
+  self->_overrideMap = objc_opt_new();
 
   _objc_release_x1();
 }

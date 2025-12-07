@@ -17,23 +17,23 @@
   v23 = objc_msgSend_axisID(self, v19, v20, v21, v22);
   v28 = objc_msgSend_type(v23, v24, v25, v26, v27);
 
-  objc_msgSend_layoutSettings(self, v29, v30, v31, v32);
-  if ((v103 & 1) == 0)
+  objc_msgSend_layoutSettings(self, v29, v30, v31);
+  if ((v102 & 1) == 0)
   {
     if (v28 == 1)
     {
-      v37 = isMultiData;
+      v36 = isMultiData;
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
-    if (v37 == 1)
+    if (v36 == 1)
     {
-      v38 = [TSCHChartAxisTitleLayoutItemWithStaticPadding alloc];
-      v42 = objc_msgSend_initWithParent_padding_(v38, v39, 8.0, v40, v41, self);
+      v37 = [TSCHChartAxisTitleLayoutItemWithStaticPadding alloc];
+      v41 = objc_msgSend_initWithParent_padding_(v37, v38, 8.0, v39, v40, self);
     }
 
     else
@@ -41,51 +41,51 @@
       if ((v28 - 5) <= 1)
       {
 LABEL_10:
-        objc_msgSend_tsu_addNonNilObject_(v3, v33, v34, v35, v36, self->super._axisTitle);
+        objc_msgSend_tsu_addNonNilObject_(v3, v32, v33, v34, v35, self->super._axisTitle);
         goto LABEL_11;
       }
 
-      v43 = [TSCHChartAxisTitleLayoutItem alloc];
-      v42 = objc_msgSend_initWithParent_(v43, v44, v45, v46, v47, self);
+      v42 = [TSCHChartAxisTitleLayoutItem alloc];
+      v41 = objc_msgSend_initWithParent_(v42, v43, v44, v45, v46, self);
     }
 
     axisTitle = self->super._axisTitle;
-    self->super._axisTitle = v42;
+    self->super._axisTitle = v41;
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  v49 = [TSCHChartValueAxisLabelsLayoutItem alloc];
-  v54 = objc_msgSend_initWithParent_(v49, v50, v51, v52, v53, self);
+  v48 = [TSCHChartValueAxisLabelsLayoutItem alloc];
+  v53 = objc_msgSend_initWithParent_(v48, v49, v50, v51, v52, self);
   axisValueLabelsLayoutItem = self->_axisValueLabelsLayoutItem;
-  self->_axisValueLabelsLayoutItem = v54;
+  self->_axisValueLabelsLayoutItem = v53;
 
-  objc_msgSend_addObject_(v3, v56, v57, v58, v59, v54);
-  v60 = [TSCHChartAxisPaddingLayoutItem alloc];
-  v65 = objc_msgSend_initWithParent_(v60, v61, v62, v63, v64, self);
+  objc_msgSend_addObject_(v3, v55, v56, v57, v58, v53);
+  v59 = [TSCHChartAxisPaddingLayoutItem alloc];
+  v64 = objc_msgSend_initWithParent_(v59, v60, v61, v62, v63, self);
   axisPadding = self->super._axisPadding;
-  self->super._axisPadding = v65;
+  self->super._axisPadding = v64;
 
-  objc_msgSend_addObject_(v3, v67, v68, v69, v70, v65);
-  v71 = [TSCHChartAxisTickMarksLayoutItem alloc];
-  v76 = objc_msgSend_initWithParent_(v71, v72, v73, v74, v75, self);
+  objc_msgSend_addObject_(v3, v66, v67, v68, v69, v64);
+  v70 = [TSCHChartAxisTickMarksLayoutItem alloc];
+  v75 = objc_msgSend_initWithParent_(v70, v71, v72, v73, v74, self);
   tickMarks = self->super._tickMarks;
-  self->super._tickMarks = v76;
+  self->super._tickMarks = v75;
 
-  objc_msgSend_addObject_(v3, v78, v79, v80, v81, v76);
-  v82 = [TSCHChartAxisLineLayoutItem alloc];
-  v87 = objc_msgSend_initWithParent_(v82, v83, v84, v85, v86, self);
+  objc_msgSend_addObject_(v3, v77, v78, v79, v80, v75);
+  v81 = [TSCHChartAxisLineLayoutItem alloc];
+  v86 = objc_msgSend_initWithParent_(v81, v82, v83, v84, v85, self);
   axisLine = self->super._axisLine;
-  self->super._axisLine = v87;
+  self->super._axisLine = v86;
 
-  objc_msgSend_addObject_(v3, v89, v90, v91, v92, v87);
-  v97 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v93, v94, v95, v96, v3);
-  objc_msgSend_setChildren_(self, v98, v99, v100, v101, v97);
+  objc_msgSend_addObject_(v3, v88, v89, v90, v91, v86);
+  v96 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v92, v93, v94, v95, v3);
+  objc_msgSend_setChildren_(self, v97, v98, v99, v100, v96);
 
-  v102.receiver = self;
-  v102.super_class = TSCHChartValueAxisLayoutItem;
-  [(TSCHChartLayoutItem *)&v102 buildSubTree];
+  v101.receiver = self;
+  v101.super_class = TSCHChartValueAxisLayoutItem;
+  [(TSCHChartLayoutItem *)&v101 buildSubTree];
 }
 
 - (void)p_layoutLabelsNow

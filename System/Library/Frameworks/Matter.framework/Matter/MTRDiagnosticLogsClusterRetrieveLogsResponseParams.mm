@@ -82,11 +82,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:50 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v17, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v17, *(v18 + 8), *(v18 + 24));
     v8 = sub_2393C6FD0(v17, 256);
     if (!v8)
     {
@@ -152,8 +152,8 @@ LABEL_6:
 
   if (*(struct + 24) == 1)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*sub_238DE36B8(struct + 24)];
-    [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setUtcTimeStamp:v7];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{*sub_238DE36B8(struct + 24, v7)}];
+    [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setUtcTimeStamp:v8];
   }
 
   else
@@ -161,12 +161,12 @@ LABEL_6:
     [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setUtcTimeStamp:0];
   }
 
-  v9 = *(struct + 40);
-  v8 = struct + 40;
-  if (v9 == 1)
+  v11 = *(struct + 40);
+  v10 = struct + 40;
+  if (v11 == 1)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*sub_238DE36B8(v8)];
-    [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setTimeSinceBoot:v10];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{*sub_238DE36B8(v10, v9)}];
+    [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setTimeSinceBoot:v12];
   }
 
   else
@@ -174,11 +174,11 @@ LABEL_6:
     [(MTRDiagnosticLogsClusterRetrieveLogsResponseParams *)self setTimeSinceBoot:0];
   }
 
-  v11 = 0;
-  v12 = 0;
-  result.mFile = v12;
-  result.mError = v11;
-  result.mLine = HIDWORD(v11);
+  v13 = 0;
+  v14 = 0;
+  result.mFile = v14;
+  result.mError = v13;
+  result.mLine = HIDWORD(v13);
   return result;
 }
 

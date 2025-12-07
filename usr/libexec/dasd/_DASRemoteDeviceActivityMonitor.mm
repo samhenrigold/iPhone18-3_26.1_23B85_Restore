@@ -24,7 +24,7 @@
 - (BOOL)anyRemoteDeviceActive
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableSet *)self->_remoteDeviceActivityState count];
+  v3 = objc_msgSend_count(self->_remoteDeviceActivityState);
   os_unfair_lock_unlock(&self->_lock);
   return v3 != 0;
 }
@@ -40,7 +40,7 @@
 - (void)registerForRemoteDeviceActiveNotificationsWithChange:(id)change
 {
   changeCopy = change;
-  if ([(NSMutableDictionary *)self->_recentlyUsedPhotosAppDevices count])
+  if (objc_msgSend_count(self->_recentlyUsedPhotosAppDevices))
   {
     contextSyncClient = self->_contextSyncClient;
     remoteDSL = self->_remoteDSL;
@@ -93,7 +93,7 @@
 
 - (void)unregisterForRemoteDeviceActiveNotifications
 {
-  v3 = [(NSMutableDictionary *)self->_recentlyUsedPhotosAppDevices count];
+  v3 = objc_msgSend_count(self->_recentlyUsedPhotosAppDevices, a2);
   contextSyncClient = self->_contextSyncClient;
   remoteDSL = self->_remoteDSL;
   if (v3)
@@ -176,7 +176,7 @@
       }
     }
 
-    else if ([v12 count])
+    else if (objc_msgSend_count(v12))
     {
       if (v40[40] == 1)
       {

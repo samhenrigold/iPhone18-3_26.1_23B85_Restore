@@ -143,7 +143,7 @@ void __51__SBDisplayBrightnessController_handlesKeyCommands__block_invoke()
   v9 = WeakRetained;
   if (!self->_brightnessControlAvailable)
   {
-    v12 = SBLogBacklight();
+    v12 = SBLogBacklight(WeakRetained);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543362;
@@ -197,18 +197,18 @@ LABEL_14:
 
 - (void)_brightnessControlAvailabilityDidChange
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [(BrightnessSystemClient *)self->_brightnessSystemClient copyPropertyForKey:@"CBBrightnessControlAvailable"];
   bOOLValue = [v3 BOOLValue];
 
-  v5 = SBLogBacklight();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogBacklight(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v8 = 1024;
-    v9 = bOOLValue;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ brightness control availability did change; available: %{BOOL}u", &v6, 0x12u);
+    v9 = 1024;
+    v10 = bOOLValue;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ brightness control availability did change; available: %{BOOL}u", &v7, 0x12u);
   }
 
   self->_brightnessControlAvailable = bOOLValue;
@@ -223,7 +223,7 @@ LABEL_14:
   v6 = *MEMORY[0x277D85DE8];
   if (!self->_brightnessTransaction)
   {
-    v3 = SBLogBacklight();
+    v3 = SBLogBacklight(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 138412290;
@@ -240,7 +240,7 @@ LABEL_14:
   v6 = *MEMORY[0x277D85DE8];
   if (self->_brightnessTransaction)
   {
-    v3 = SBLogBacklight();
+    v3 = SBLogBacklight(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 138412290;

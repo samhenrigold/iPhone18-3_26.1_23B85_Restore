@@ -11,11 +11,11 @@
 - (uint64_t)_pruneElementsFromEntity:(char)entity isFinalEntity:(uint64_t)finalEntity error:;
 - (uint64_t)_pruneElementsFromEntity:(uint64_t)entity requiredSlots:(uint64_t)slots transaction:(uint64_t)transaction error:(void *)error;
 - (uint64_t)_pruneElementsFromEntity:(void *)entity transaction:(uint64_t)transaction error:;
-- (uint64_t)_setPruneDateMetadataWithTransaction:(uint64_t)transaction error:;
 - (uint64_t)_shouldPruneWithError:(void *)error;
 - (uint64_t)_shouldPruneWithTransaction:(uint64_t)transaction error:;
 - (uint64_t)_updateElementsOfEntity:(uint64_t)entity requiredSlots:(void *)slots database:(uint64_t)database error:(void *)error;
 - (void)_clearLegacyOntologyVersionWithTransaction:(uint64_t)transaction;
+- (void)_setPruneDateMetadataWithTransaction:(uint64_t)transaction error:;
 @end
 
 @implementation HDOntologyMercuryZipTSVPruner
@@ -48,42 +48,42 @@
 - (int64_t)pruneEntries:(id)entries options:(unint64_t)options error:(id *)error
 {
   optionsCopy = options;
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   if ((optionsCopy & 1) != 0 || (v9 = [(HDOntologyMercuryZipTSVPruner *)self _shouldPruneWithError:error], v9 == 1))
   {
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v23[2] = objc_opt_class();
-    [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v22[2] = objc_opt_class();
+    [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v10 = v21 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = v20 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v19;
+      v14 = *v18;
       v9 = 1;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          if (!-[HDOntologyMercuryZipTSVPruner _pruneElementsFromEntity:isFinalEntity:error:](self, *(*(&v18 + 1) + 8 * i), ++v13 == [v10 count], error))
+          if (!-[HDOntologyMercuryZipTSVPruner _pruneElementsFromEntity:isFinalEntity:error:](self, *(*(&v17 + 1) + 8 * i), ++v13 == [v10 count], error))
           {
             v9 = 0;
             goto LABEL_14;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v12)
         {
           continue;
@@ -101,7 +101,6 @@
 LABEL_14:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -165,34 +164,34 @@ uint64_t __78__HDOntologyMercuryZipTSVPruner__pruneElementsFromEntity_isFinalEnt
 
 - (id)_requiredSlotsWithTransaction:(uint64_t)transaction error:
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
     v6 = MEMORY[0x277D10B20];
     v7 = [MEMORY[0x277D10B18] predicateWithProperty:@"desired_state" equalToValue:&unk_2863747C0];
-    v22[0] = v7;
+    v21[0] = v7;
     v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:*MEMORY[0x277CCC630]];
-    v22[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v10 = [v6 predicateMatchingAllPredicates:v9];
 
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     graphDatabase = [v5 graphDatabase];
     underlyingDatabase = [graphDatabase underlyingDatabase];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __69__HDOntologyMercuryZipTSVPruner__requiredSlotsWithTransaction_error___block_invoke;
-    v17[3] = &unk_2796B99F0;
-    v17[4] = &v18;
-    v13 = [HDOntologyShardRegistryEntity enumerateEntriesWithPredicate:v10 orderingTerms:0 database:underlyingDatabase error:transaction enumerationHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __69__HDOntologyMercuryZipTSVPruner__requiredSlotsWithTransaction_error___block_invoke;
+    v16[3] = &unk_2796B99F0;
+    v16[4] = &v17;
+    v13 = [HDOntologyShardRegistryEntity enumerateEntriesWithPredicate:v10 orderingTerms:0 database:underlyingDatabase error:transaction enumerationHandler:v16];
 
     if (v13)
     {
-      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v19[3]];
+      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v18[3]];
     }
 
     else
@@ -200,7 +199,7 @@ uint64_t __78__HDOntologyMercuryZipTSVPruner__pruneElementsFromEntity_isFinalEnt
       v14 = 0;
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -208,14 +207,12 @@ uint64_t __78__HDOntologyMercuryZipTSVPruner__pruneElementsFromEntity_isFinalEnt
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 void __90__HDOntologyMercuryZipTSVPruner__pruneElementsFromEntity_requiredSlots_transaction_error___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogHealthOntology();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -225,22 +222,19 @@ void __90__HDOntologyMercuryZipTSVPruner__pruneElementsFromEntity_requiredSlots_
     v5 = *(a1 + 48);
     v6 = NSStringFromClass(*(a1 + 56));
     CFAbsoluteTimeGetCurrent();
-    v7 = *(a1 + 64);
-    v8 = HKDiagnosticStringFromDuration();
-    v10 = 138544386;
-    v11 = v3;
+    v7 = HKDiagnosticStringFromDuration();
+    v8 = 138544386;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v4;
     v12 = 2048;
-    v13 = v4;
-    v14 = 2048;
-    v15 = v5;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
     v16 = 2114;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v8;
-    _os_log_impl(&dword_2514A1000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Directly deleted %ld and updated %ld from %{public}@ in %{public}@", &v10, 0x34u);
+    v17 = v7;
+    _os_log_impl(&dword_2514A1000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Directly deleted %ld and updated %ld from %{public}@ in %{public}@", &v8, 0x34u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__HDOntologyMercuryZipTSVPruner__updateElementsOfEntity_requiredSlots_database_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
@@ -288,16 +282,16 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
 
 - (uint64_t)_shouldPruneWithTransaction:(uint64_t)transaction error:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (self)
   {
-    v19 = 0;
+    v18 = 0;
     graphDatabase = [v5 graphDatabase];
     underlyingDatabase = [graphDatabase underlyingDatabase];
-    v9 = [HDSimpleGraphDatabaseMetadataEntity metadataValueForKey:@"MercuryZipTSVLastPruneDate" valueOut:&v19 database:underlyingDatabase error:transaction];
-    v10 = v19;
+    v9 = [HDSimpleGraphDatabaseMetadataEntity metadataValueForKey:@"MercuryZipTSVLastPruneDate" valueOut:&v18 database:underlyingDatabase error:transaction];
+    v10 = v18;
 
     v11 = 0;
     if (v9)
@@ -319,10 +313,10 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
           v16 = HKDiagnosticStringFromDuration();
           *buf = 138543874;
           selfCopy = self;
-          v22 = 2114;
-          v23 = v15;
-          v24 = 2114;
-          v25 = v16;
+          v21 = 2114;
+          v22 = v15;
+          v23 = 2114;
+          v24 = v16;
           _os_log_impl(&dword_2514A1000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: skipping prunning because it has only been %{public}@ since the last prune (waiting for %{public}@)", buf, 0x20u);
         }
 
@@ -336,47 +330,43 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (uint64_t)_hasImportedShardsWithTransaction:(uint64_t)transaction error:
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  if (self)
+  v17[2] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v4 = MEMORY[0x277D10B20];
-    v5 = MEMORY[0x277D10B18];
-    v6 = a2;
-    v7 = [v5 predicateWithProperty:@"current_version" notEqualToValue:&unk_2863747A8];
-    v18[0] = v7;
-    v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:*MEMORY[0x277CCC630]];
-    v18[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-    v10 = [v4 predicateMatchingAllPredicates:v9];
+    return 0;
+  }
 
-    v11 = *MEMORY[0x277D10A48];
-    graphDatabase = [v6 graphDatabase];
+  v4 = MEMORY[0x277D10B20];
+  v5 = MEMORY[0x277D10B18];
+  v6 = a2;
+  v7 = [v5 predicateWithProperty:@"current_version" notEqualToValue:&unk_2863747A8];
+  v17[0] = v7;
+  v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:*MEMORY[0x277CCC630]];
+  v17[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v10 = [v4 predicateMatchingAllPredicates:v9];
 
-    underlyingDatabase = [graphDatabase underlyingDatabase];
-    v14 = [(HDSQLiteEntity *)HDOntologyShardRegistryEntity countValueForProperty:v11 predicate:v10 database:underlyingDatabase error:transaction];
+  v11 = *MEMORY[0x277D10A48];
+  graphDatabase = [v6 graphDatabase];
 
-    if (v14)
+  underlyingDatabase = [graphDatabase underlyingDatabase];
+  v14 = [(HDSQLiteEntity *)HDOntologyShardRegistryEntity countValueForProperty:v11 predicate:v10 database:underlyingDatabase error:transaction];
+
+  if (v14)
+  {
+    if ([v14 integerValue] >= 1)
     {
-      if ([v14 integerValue] >= 1)
-      {
-        v15 = 1;
-      }
-
-      else
-      {
-        v15 = 2;
-      }
+      v15 = 1;
     }
 
     else
     {
-      v15 = 0;
+      v15 = 2;
     }
   }
 
@@ -385,7 +375,6 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -521,31 +510,31 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
 
 - (BOOL)_markPrunedShardEntriesAsPrunedWithTransaction:(uint64_t)transaction error:
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
     v6 = MEMORY[0x277D10B20];
     v7 = [MEMORY[0x277D10B18] predicateWithProperty:@"desired_state" notEqualToValue:&unk_2863747C0];
-    v22[0] = v7;
+    v21[0] = v7;
     v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"current_version" notEqualToValue:&unk_2863747A8];
-    v22[1] = v8;
+    v21[1] = v8;
     v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:*MEMORY[0x277CCC630]];
-    v22[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    v21[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
     v11 = [v6 predicateMatchingAllPredicates:v10];
 
     date = [MEMORY[0x277CBEAA8] date];
     graphDatabase = [v5 graphDatabase];
     underlyingDatabase = [graphDatabase underlyingDatabase];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTransaction_error___block_invoke;
-    v19[3] = &unk_2796B9D10;
-    v20 = date;
-    v21 = v5;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTransaction_error___block_invoke;
+    v18[3] = &unk_2796B9D10;
+    v19 = date;
+    v20 = v5;
     v15 = date;
-    v16 = [HDOntologyShardRegistryEntity enumerateEntriesWithPredicate:v11 orderingTerms:0 database:underlyingDatabase error:transaction enumerationHandler:v19];
+    v16 = [HDOntologyShardRegistryEntity enumerateEntriesWithPredicate:v11 orderingTerms:0 database:underlyingDatabase error:transaction enumerationHandler:v18];
   }
 
   else
@@ -553,11 +542,10 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-- (uint64_t)_setPruneDateMetadataWithTransaction:(uint64_t)transaction error:
+- (void)_setPruneDateMetadataWithTransaction:(uint64_t)transaction error:
 {
   if (result)
   {
@@ -576,13 +564,13 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
 
 - (void)_clearLegacyOntologyVersionWithTransaction:(uint64_t)transaction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (transaction)
   {
     graphDatabase = [a2 graphDatabase];
-    v8 = 0;
-    v4 = [graphDatabase setMetadataValue:0 forKey:@"ontologyAssetVersion" error:&v8];
-    v5 = v8;
+    v7 = 0;
+    v4 = [graphDatabase setMetadataValue:0 forKey:@"ontologyAssetVersion" error:&v7];
+    v5 = v7;
 
     if ((v4 & 1) == 0)
     {
@@ -592,16 +580,14 @@ BOOL __86__HDOntologyMercuryZipTSVPruner__markPrunedShardEntriesAsPrunedWithTran
       {
         *buf = 138543874;
         transactionCopy = transaction;
-        v11 = 2114;
-        v12 = @"ontologyAssetVersion";
-        v13 = 2114;
-        v14 = v5;
+        v10 = 2114;
+        v11 = @"ontologyAssetVersion";
+        v12 = 2114;
+        v13 = v5;
         _os_log_error_impl(&dword_2514A1000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Unable to clear metadata for %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

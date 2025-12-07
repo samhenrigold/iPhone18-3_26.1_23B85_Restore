@@ -49,7 +49,7 @@
 
 - (id)decodeTopLevelObjectOfClass:(Class)class forKey:(id)key error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(NSDictionary *)self->_serializedDictionary hksp_isSerialized])
   {
@@ -66,8 +66,8 @@
       {
         v12 = MEMORY[0x277CCA9B8];
         v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected class %@", hksp_serializedClassName, *MEMORY[0x277CCA450]];
-        v18 = v13;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v17 = v13;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
         *error = [v12 errorWithDomain:@"com.apple.sleep.serialization" code:2 userInfo:v14];
       }
 
@@ -80,9 +80,9 @@
   if (error)
   {
     v11 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"Invalid serialized dictionary";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"Invalid serialized dictionary";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     [v11 errorWithDomain:@"com.apple.sleep.serialization" code:1 userInfo:v8];
     *error = v10 = 0;
 LABEL_10:
@@ -92,8 +92,6 @@ LABEL_10:
 
   v10 = 0;
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -193,7 +191,7 @@ LABEL_11:
 
 - (id)_decodeObject:(id)object error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -206,41 +204,41 @@ LABEL_11:
 
     else
     {
-      v28 = objectCopy;
+      v27 = objectCopy;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v18 = v7;
-      v19 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v34;
+        v21 = *v33;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v34 != v21)
+            if (*v33 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v33 + 1) + 8 * i);
+            v23 = *(*(&v32 + 1) + 8 * i);
             v24 = [v18 objectForKeyedSubscript:v23];
             v25 = [(HKSPDictionaryDeserializer *)self _decodeObject:v24 error:error];
             [dictionary setObject:v25 forKeyedSubscript:v23];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
         }
 
         while (v20);
       }
 
       v8 = [dictionary copy];
-      objectCopy = v28;
+      objectCopy = v27;
     }
   }
 
@@ -255,30 +253,30 @@ LABEL_11:
     }
 
     array = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [(HKSPDictionaryDeserializer *)self _decodeObject:*(*(&v29 + 1) + 8 * j) error:error];
+          v16 = [(HKSPDictionaryDeserializer *)self _decodeObject:*(*(&v28 + 1) + 8 * j) error:error];
           [array addObject:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v13);
@@ -288,14 +286,13 @@ LABEL_11:
   }
 
 LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_decodeDeserializable:(id)deserializable error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   deserializableCopy = deserializable;
   hksp_serializedKey = [deserializableCopy hksp_serializedKey];
   v8 = [deserializableCopy objectForKeyedSubscript:hksp_serializedKey];
@@ -312,14 +309,12 @@ LABEL_22:
   {
     v10 = MEMORY[0x277CCA9B8];
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Disallowed class %@", hksp_serializedClassName, *MEMORY[0x277CCA450]];
-    v16[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v10 errorWithDomain:@"com.apple.sleep.serialization" code:2 userInfo:v12];
 
     error = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return error;
 }

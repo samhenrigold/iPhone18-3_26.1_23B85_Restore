@@ -1346,7 +1346,7 @@ LABEL_25:
 
   if ([(MCSlide *)self->_slide durationIsDefined])
   {
-    [(MCSlide *)self->_slide duration];
+    objc_msgSend_duration(self->_slide);
     self->_slideDuration = v21;
   }
 
@@ -1654,7 +1654,7 @@ LABEL_53:
           self->_audioDucker = objc_alloc_init(MRAudioDucker);
         }
 
-        [(MRAssetPlayer *)v31 duration];
+        objc_msgSend_duration(v31);
         [(MRAudioDucker *)self->_audioDucker setDuration:?];
         v39 = self->_audioDucker;
         if (v39)

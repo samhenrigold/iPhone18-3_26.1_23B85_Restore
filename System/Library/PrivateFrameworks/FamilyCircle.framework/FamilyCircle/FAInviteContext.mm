@@ -24,39 +24,39 @@
 
 - (unint64_t)_validatonFromString:(id)string eventType:(id)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   typeCopy = type;
   v7 = typeCopy;
   if (stringCopy || ([typeCopy isEqualToString:@"familyInvite"] & 1) == 0)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = [stringCopy componentsSeparatedByString:{@", ", 0}];
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
       v8 = 0;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(*(&v16 + 1) + 8 * i) isEqualToString:@"inviteesNotPartOfFamily"])
+          if ([*(*(&v15 + 1) + 8 * i) isEqualToString:@"inviteesNotPartOfFamily"])
           {
             v8 = 1;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -73,7 +73,6 @@
     v8 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -519,20 +518,18 @@
   v65 = [v6 copy];
   [v71 setQueryItems:v65];
 
-  v66 = _FALogSystem();
-  if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+  v67 = _FALogSystem(v66);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
   {
-    v67 = [v71 URL];
+    v68 = [v71 URL];
     *buf = 138412290;
-    v73 = v67;
-    _os_log_impl(&dword_1B70B0000, v66, OS_LOG_TYPE_DEFAULT, "message bubble url %@", buf, 0xCu);
+    v73 = v68;
+    _os_log_impl(&dword_1B70B0000, v67, OS_LOG_TYPE_DEFAULT, "message bubble url %@", buf, 0xCu);
   }
 
-  v68 = [v71 URL];
+  v69 = [v71 URL];
 
-  v69 = *MEMORY[0x1E69E9840];
-
-  return v68;
+  return v69;
 }
 
 @end

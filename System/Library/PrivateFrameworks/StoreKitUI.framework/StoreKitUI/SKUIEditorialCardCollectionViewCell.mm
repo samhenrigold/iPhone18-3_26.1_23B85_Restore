@@ -123,11 +123,11 @@ void __86__SKUIEditorialCardCollectionViewCell_prefetchResourcesForViewElement_r
   [allLockups enumerateObjectsUsingBlock:v16];
 }
 
-uint64_t __81__SKUIEditorialCardCollectionViewCell_requestLayoutForViewElement_width_context___block_invoke(uint64_t result, uint64_t a2)
+double *__81__SKUIEditorialCardCollectionViewCell_requestLayoutForViewElement_width_context___block_invoke(double *result, uint64_t a2)
 {
-  if (*(result + 32) != a2)
+  if (*(result + 4) != a2)
   {
-    return [SKUIVerticalLockupView requestLayoutForViewElement:a2 width:*(result + 40) context:*(result + 48)];
+    return [SKUIVerticalLockupView requestLayoutForViewElement:a2 width:*(result + 5) context:result[6]];
   }
 
   return result;
@@ -177,13 +177,13 @@ uint64_t __81__SKUIEditorialCardCollectionViewCell_requestLayoutForViewElement_w
   return result;
 }
 
-uint64_t __77__SKUIEditorialCardCollectionViewCell_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t result, uint64_t a2)
+double *__77__SKUIEditorialCardCollectionViewCell_sizeThatFitsWidth_viewElement_context___block_invoke(double *result, uint64_t a2)
 {
-  if (*(result + 32) != a2)
+  if (*(result + 4) != a2)
   {
     v2 = result;
-    result = [SKUIVerticalLockupView sizeThatFitsWidth:a2 viewElement:*(v2 + 40) context:*(v2 + 56)];
-    v4 = *(*(v2 + 48) + 8);
+    result = [SKUIVerticalLockupView sizeThatFitsWidth:a2 viewElement:*(v2 + 5) context:v2[7]];
+    v4 = *(*(v2 + 6) + 8);
     v5 = *(v4 + 40);
     if (v5 < v3)
     {
@@ -420,10 +420,10 @@ LABEL_11:
 
 - (void)layoutSubviews
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v49.receiver = self;
-  v49.super_class = SKUIEditorialCardCollectionViewCell;
-  [(SKUICollectionViewCell *)&v49 layoutSubviews];
+  v53 = *MEMORY[0x277D85DE8];
+  v51.receiver = self;
+  v51.super_class = SKUIEditorialCardCollectionViewCell;
+  [(SKUICollectionViewCell *)&v51 layoutSubviews];
   v3 = [(NSMutableArray *)self->_allLockupViews count];
   v4 = v3 - 1;
   if (v3 >= 1)
@@ -455,12 +455,12 @@ LABEL_11:
     }
 
     v26 = v25 / v23;
+    v49 = 0u;
+    v50 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
     v27 = self->_allLockupViews;
-    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v28)
     {
       v29 = v28;
@@ -469,18 +469,18 @@ LABEL_11:
       v32 = v14 - (v16 + v20);
       v33 = v26;
       v34 = floorf(v33);
-      v35 = *v46;
+      v35 = *v48;
       do
       {
         v36 = 0;
         do
         {
-          if (*v46 != v35)
+          if (*v48 != v35)
           {
             objc_enumerationMutation(v27);
           }
 
-          v37 = *(*(&v45 + 1) + 8 * v36);
+          v37 = *(*(&v47 + 1) + 8 * v36);
           height = v32;
           width = v34;
           if (v37 == self->_primaryLockupView)
@@ -490,20 +490,20 @@ LABEL_11:
           }
 
           contentView2 = [(SKUIEditorialCardCollectionViewCell *)self contentView];
-          [contentView2 bounds];
-          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v30, v31, width, height, v41, v42, v43, v44);
+          bounds = [contentView2 bounds];
+          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v30, v31, width, height, v43, v44, v45, v46, bounds, v42);
           [(SKUIVerticalLockupView *)v37 setFrame:?];
 
-          v52.origin.x = v30;
-          v52.origin.y = v31;
-          v52.size.width = width;
-          v52.size.height = height;
-          v30 = CGRectGetMaxX(v52) + 15.0;
+          v54.origin.x = v30;
+          v54.origin.y = v31;
+          v54.size.width = width;
+          v54.size.height = height;
+          v30 = CGRectGetMaxX(v54) + 15.0;
           ++v36;
         }
 
         while (v29 != v36);
-        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
       while (v29);

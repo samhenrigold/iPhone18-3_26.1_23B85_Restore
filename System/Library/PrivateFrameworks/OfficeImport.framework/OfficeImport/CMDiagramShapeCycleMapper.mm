@@ -253,7 +253,7 @@ LABEL_7:
 
     [(OADOrientedBounds *)self->super.mDiagramShapeBounds bounds];
     [(CMDiagramShapeCycleMapper *)self circumscribedBounds];
-    CGRectGetWidth(v25);
+    CGRectGetWidth(v24);
     mChildCount = self->super.mChildCount;
     sin(2.19911482 / mChildCount);
     v16 = (2 * v6) | 1;
@@ -261,16 +261,16 @@ LABEL_7:
     v17 = v16 * 3.14159265 / mChildCount + -1.57079633;
     cosf(v17);
     [(OADOrientedBounds *)self->super.mDiagramShapeBounds bounds];
-    CGRectGetWidth(v26);
+    CGRectGetWidth(v25);
     v18 = v16 * 3.14159265 / mChildCount + -1.57079633;
     sinf(v18);
     [(OADOrientedBounds *)self->super.mDiagramShapeBounds bounds];
-    CGRectGetHeight(v27);
+    CGRectGetHeight(v26);
     sin(3.14159265 / self->super.mChildCount);
-    TSURectWithOriginAndSize(v19);
-    v20 = [OADOrientedBounds orientedBoundsWithBounds:"orientedBoundsWithBounds:rotation:flipX:flipY:" rotation:0 flipX:0 flipY:?];
-    v21 = [[CMDiagramPointTransitionMapper alloc] initWithPoint:siblingTransition drawingContext:self->super.super.mDrawingContext orientedBounds:v20 shapeType:self->mDiagramType adjustValues:0 parent:self];
-    [(CMDiagramPointTransitionMapper *)v21 mapAt:atCopy withState:stateCopy];
+    TSURectWithOriginAndSize();
+    v19 = [OADOrientedBounds orientedBoundsWithBounds:"orientedBoundsWithBounds:rotation:flipX:flipY:" rotation:0 flipX:0 flipY:?];
+    v20 = [[CMDiagramPointTransitionMapper alloc] initWithPoint:siblingTransition drawingContext:self->super.super.mDrawingContext orientedBounds:v19 shapeType:self->mDiagramType adjustValues:0 parent:self];
+    [(CMDiagramPointTransitionMapper *)v20 mapAt:atCopy withState:stateCopy];
   }
 }
 

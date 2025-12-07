@@ -29,6 +29,7 @@
 - (void)updateContentScaleAndSize;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -79,10 +80,10 @@
 
 - (void)viewDidLoad
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = NUArticleHostViewController;
-  [(NUArticleHostViewController *)&v22 viewDidLoad];
+  v22[1] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = NUArticleHostViewController;
+  [(NUArticleHostViewController *)&v21 viewDidLoad];
   view = [(NUArticleHostViewController *)self view];
   [view setPreservesSuperviewLayoutMargins:1];
 
@@ -103,18 +104,18 @@
   {
     objc_initWeak(&location, self);
     articleViewStyler = [(NUArticleHostViewController *)self articleViewStyler];
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __42__NUArticleHostViewController_viewDidLoad__block_invoke;
-    v19 = &unk_2799A3E98;
-    objc_copyWeak(&v20, &location);
-    v7 = [articleViewStyler observe:&v16];
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __42__NUArticleHostViewController_viewDidLoad__block_invoke;
+    v18 = &unk_2799A3E98;
+    objc_copyWeak(&v19, &location);
+    v7 = [articleViewStyler observe:&v15];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
-  if ([(NUArticleHostViewController *)self shouldShowLoadingCover:v16])
+  if ([(NUArticleHostViewController *)self shouldShowLoadingCover:v15])
   {
     article = [(NUArticleHostViewController *)self article];
     v9 = [(NUArticleHostViewController *)self loadingTextForArticle:article];
@@ -128,11 +129,9 @@
   }
 
   [(NUArticleHostViewController *)self loadArticleAndEmbedArticleViewController];
-  v23[0] = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v14 = [(NUArticleHostViewController *)self registerForTraitChanges:v13 withHandler:&__block_literal_global_62];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __42__NUArticleHostViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
@@ -148,6 +147,17 @@ void __42__NUArticleHostViewController_viewDidLoad__block_invoke(uint64_t a1, vo
 
     [v7 setBackgroundColor:v6];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NUArticleHostViewController;
+  [(NUArticleHostViewController *)&v5 viewWillAppear:appear];
+  scrollView = [(NUArticleHostViewController *)self scrollView];
+  [scrollView setFocusEffect:0];
+
+  [(NUArticleHostViewController *)self updateContentScaleAndSize];
 }
 
 - (void)viewWillLayoutSubviews
@@ -818,7 +828,7 @@ void __71__NUArticleHostViewController_loadArticleAndEmbedArticleViewController_
 - (id)loadingTextForArticle:(id)article
 {
   articleCopy = article;
-  v4 = NUBundle();
+  v4 = NUBundle(articleCopy);
   v5 = [v4 localizedStringForKey:@"LOADING" value:&stru_286E03B58 table:0];
 
   headline = [articleCopy headline];
@@ -837,19 +847,19 @@ void __71__NUArticleHostViewController_loadArticleAndEmbedArticleViewController_
 
       else
       {
-        v9 = NUBundle();
-        v10 = v9;
+        v10 = NUBundle(v9);
+        v11 = v10;
         if (((1 << role) & 0x42) != 0)
         {
-          v11 = @"LOADING STORY";
+          v12 = @"LOADING STORY";
         }
 
         else
         {
-          v11 = @"LOADING ADVERTISEMENT";
+          v12 = @"LOADING ADVERTISEMENT";
         }
 
-        role = [v9 localizedStringForKey:v11 value:&stru_286E03B58 table:0];
+        role = [v10 localizedStringForKey:v12 value:&stru_286E03B58 table:0];
       }
     }
   }
@@ -872,22 +882,22 @@ void __71__NUArticleHostViewController_loadArticleAndEmbedArticleViewController_
   if (isKindOfClass)
   {
     contentTypeViewController2 = [(NUArticleHostViewController *)self contentTypeViewController];
-    v8 = [contentTypeViewController2 searchWithContext:contextCopy];
+    v9 = [contentTypeViewController2 searchWithContext:contextCopy];
   }
 
   else
   {
-    v9 = NUSharedLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = NUSharedLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_25C2D6000, v9, OS_LOG_TYPE_DEFAULT, "contentTypeViewController is not an instance of NUArticleViewController.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_25C2D6000, v10, OS_LOG_TYPE_DEFAULT, "contentTypeViewController is not an instance of NUArticleViewController.", v12, 2u);
     }
 
-    v8 = [objc_alloc(MEMORY[0x277D550F0]) initWithTotal:0 index:0];
+    v9 = [objc_alloc(MEMORY[0x277D550F0]) initWithTotal:0 index:0];
   }
 
-  return v8;
+  return v9;
 }
 
 - (NULoadingDelegate)loadingDelegate

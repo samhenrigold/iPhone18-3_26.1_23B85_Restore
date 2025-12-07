@@ -150,11 +150,11 @@ void __72__SiriMoviesChevronButtonAccessibility__accessibilityProxyChevronButton
   return accessibilityValue;
 }
 
-uint64_t __58__SiriMoviesChevronButtonAccessibility_accessibilityValue__block_invoke(uint64_t result, uint64_t a2)
+id *__58__SiriMoviesChevronButtonAccessibility_accessibilityValue__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

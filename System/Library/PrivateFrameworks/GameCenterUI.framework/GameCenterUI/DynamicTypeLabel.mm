@@ -42,7 +42,7 @@
 - (NSAttributedString)attributedText
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DynamicTypeLabel();
+  v4.super_class = type metadata accessor for DynamicTypeLabel(0);
   attributedText = [(DynamicTypeLabel *)&v4 attributedText];
 
   return attributedText;
@@ -54,7 +54,7 @@
   selfCopy = self;
   lineBreakMode = [(DynamicTypeLabel *)selfCopy lineBreakMode];
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for DynamicTypeLabel();
+  v7.super_class = type metadata accessor for DynamicTypeLabel(0);
   [(DynamicTypeLabel *)&v7 setAttributedText:textCopy];
   [(DynamicTypeLabel *)selfCopy setLineBreakMode:lineBreakMode];
 }

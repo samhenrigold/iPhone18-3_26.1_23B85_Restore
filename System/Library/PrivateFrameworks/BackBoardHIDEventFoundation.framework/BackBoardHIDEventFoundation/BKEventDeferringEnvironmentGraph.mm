@@ -138,49 +138,48 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(NSMutableOrderedSet *)self->_allNodes count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = self->_allNodes;
-    v4 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [(BKEventDeferringNode *)*(*(&v10 + 1) + 8 * v7++) disconnectFromGraph];
+          [(BKEventDeferringNode *)*(*(&v9 + 1) + 8 * v7++) disconnectFromGraph];
         }
 
         while (v5 != v7);
-        v5 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = BKEventDeferringEnvironmentGraph;
-  [(BKEventDeferringEnvironmentGraph *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = BKEventDeferringEnvironmentGraph;
+  [(BKEventDeferringEnvironmentGraph *)&v8 dealloc];
 }
 
 - (void)setRules:(int)rules forPID:
 {
-  v167 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (self)
   {
@@ -194,109 +193,109 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 1024;
-      LODWORD(v166) = rules;
-      WORD2(v166) = 2114;
-      *(&v166 + 6) = v7;
+      LODWORD(v165) = rules;
+      WORD2(v165) = 2114;
+      *(&v165 + 6) = v7;
       _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] setRules:forPID(%d): %{public}@", buf, 0x26u);
     }
 
     v8 = *(self + 24);
-    v129[0] = MEMORY[0x277D85DD0];
-    v129[1] = 3221225472;
-    v129[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke;
-    v129[3] = &__block_descriptor_36_e30__16__0__BKEventDeferringNode_8l;
+    v128[0] = MEMORY[0x277D85DD0];
+    v128[1] = 3221225472;
+    v128[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke;
+    v128[3] = &__block_descriptor_36_e30__16__0__BKEventDeferringNode_8l;
     rulesCopy = rules;
-    v104 = [v8 bs_compactMap:v129];
-    v110 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    v103 = [v8 bs_compactMap:v128];
+    v109 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    v124 = 0u;
     v125 = 0u;
     v126 = 0u;
     v127 = 0u;
-    v128 = 0u;
-    v101 = v4;
+    v100 = v4;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v125 objects:v148 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v124 objects:v147 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v126;
+      v12 = *v125;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v126 != v12)
+          if (*v125 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          identity = [*(*(&v125 + 1) + 8 * i) identity];
-          [v110 addObject:identity];
+          identity = [*(*(&v124 + 1) + 8 * i) identity];
+          [v109 addObject:identity];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v125 objects:v148 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v124 objects:v147 count:16];
       }
 
       while (v11);
     }
 
-    v15 = [v110 mutableCopy];
-    [v15 minusOrderedSet:v104];
-    v16 = [v104 mutableCopy];
-    [v16 minusOrderedSet:v110];
-    v122[0] = MEMORY[0x277D85DD0];
-    v122[1] = 3221225472;
-    v122[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_2;
-    v122[3] = &unk_2784F7060;
-    v105 = v15;
-    v123 = v105;
+    v15 = [v109 mutableCopy];
+    [v15 minusOrderedSet:v103];
+    v16 = [v103 mutableCopy];
+    [v16 minusOrderedSet:v109];
+    v121[0] = MEMORY[0x277D85DD0];
+    v121[1] = 3221225472;
+    v121[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_2;
+    v121[3] = &unk_2784F7060;
+    v104 = v15;
+    v122 = v104;
     rulesCopy2 = rules;
-    v102 = [v9 bs_compactMap:v122];
-    v103 = v16;
+    v101 = [v9 bs_compactMap:v121];
+    v102 = v16;
     selfCopy = self;
     if ([v16 count])
     {
       v17 = BKLogEventDelivery();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v99 = *(self + 16);
+        v98 = *(self + 16);
         *buf = 138543618;
-        *&buf[4] = v99;
+        *&buf[4] = v98;
         *&buf[12] = 2114;
         *&buf[14] = v16;
         _os_log_debug_impl(&dword_223CBE000, v17, OS_LOG_TYPE_DEBUG, "removing rules from %{public}@: %{public}@", buf, 0x16u);
       }
 
       v18 = v16;
+      v160 = 0u;
       v161 = 0u;
       v162 = 0u;
       v163 = 0u;
-      v164 = 0u;
       obj = v18;
-      v19 = [v18 countByEnumeratingWithState:&v161 objects:buf count:16];
+      v19 = [v18 countByEnumeratingWithState:&v160 objects:buf count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v162;
+        v21 = *v161;
         do
         {
           for (j = 0; j != v20; ++j)
           {
-            if (*v162 != v21)
+            if (*v161 != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = [*(self + 32) objectForKey:*(*(&v161 + 1) + 8 * j)];
+            v23 = [*(self + 32) objectForKey:*(*(&v160 + 1) + 8 * j)];
             v24 = v23;
             if (v23)
             {
               v25 = *(self + 48);
-              *&v157 = MEMORY[0x277D85DD0];
-              *(&v157 + 1) = 3221225472;
-              *&v158 = __67__BKEventDeferringEnvironmentGraph__removeNodesWithIdentities_pid___block_invoke;
-              *(&v158 + 1) = &unk_2784F7208;
+              *&v156 = MEMORY[0x277D85DD0];
+              *(&v156 + 1) = 3221225472;
+              *&v157 = __67__BKEventDeferringEnvironmentGraph__removeNodesWithIdentities_pid___block_invoke;
+              *(&v157 + 1) = &unk_2784F7208;
               v26 = v23;
-              *&v159 = v26;
-              [v25 enumerateKeysAndObjectsUsingBlock:&v157];
+              *&v158 = v26;
+              [v25 enumerateKeysAndObjectsUsingBlock:&v156];
               [(BKEventDeferringNode *)v26 disconnectFromGraph];
               v27 = v26[2];
               target = [v27 target];
@@ -314,49 +313,49 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v161 objects:buf count:16];
+          v20 = [obj countByEnumeratingWithState:&v160 objects:buf count:16];
         }
 
         while (v20);
       }
     }
 
-    if ([v105 count])
+    if ([v104 count])
     {
       v31 = BKLogEventDelivery();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v100 = *(self + 16);
+        v99 = *(self + 16);
         *buf = 138543618;
-        *&buf[4] = v100;
+        *&buf[4] = v99;
         *&buf[12] = 2114;
-        *&buf[14] = v105;
+        *&buf[14] = v104;
         _os_log_debug_impl(&dword_223CBE000, v31, OS_LOG_TYPE_DEBUG, "adding rules to %{public}@: %{public}@", buf, 0x16u);
       }
 
-      v32 = v102;
+      v32 = v101;
       [*(self + 24) addObjectsFromArray:v32];
-      v145 = 0u;
-      v146 = 0u;
-      v143 = 0;
       v144 = 0u;
-      v107 = v32;
-      v33 = [v107 countByEnumeratingWithState:&v143 objects:buf count:16];
+      v145 = 0u;
+      v142 = 0;
+      v143 = 0u;
+      v106 = v32;
+      v33 = [v106 countByEnumeratingWithState:&v142 objects:buf count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v144;
+        v35 = *v143;
         do
         {
           v36 = 0;
           do
           {
-            if (*v144 != v35)
+            if (*v143 != v35)
             {
-              objc_enumerationMutation(v107);
+              objc_enumerationMutation(v106);
             }
 
-            v37 = *(v143.super_class + v36);
+            v37 = *(v142.super_class + v36);
             if (v37)
             {
               v38 = *(v37 + 16);
@@ -382,62 +381,62 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
           }
 
           while (v34 != v36);
-          v43 = [v107 countByEnumeratingWithState:&v143 objects:buf count:16];
+          v43 = [v106 countByEnumeratingWithState:&v142 objects:buf count:16];
           v34 = v43;
         }
 
         while (v43);
       }
 
-      v141 = 0u;
-      v142 = 0u;
-      v139 = 0u;
       v140 = 0u;
+      v141 = 0u;
+      v138 = 0u;
+      v139 = 0u;
       v44 = *(self + 24);
-      v45 = [v44 countByEnumeratingWithState:&v139 objects:&v161 count:16];
+      v45 = [v44 countByEnumeratingWithState:&v138 objects:&v160 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v140;
+        v47 = *v139;
         do
         {
           for (k = 0; k != v46; ++k)
           {
-            if (*v140 != v47)
+            if (*v139 != v47)
             {
               objc_enumerationMutation(v44);
             }
 
-            [(BKEventDeferringNode *)*(*(&v139 + 1) + 8 * k) disconnectFromGraph];
+            [(BKEventDeferringNode *)*(*(&v138 + 1) + 8 * k) disconnectFromGraph];
           }
 
-          v46 = [v44 countByEnumeratingWithState:&v139 objects:&v161 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v138 objects:&v160 count:16];
         }
 
         while (v46);
       }
 
-      v137 = 0u;
-      v138 = 0u;
-      v135 = 0u;
       v136 = 0u;
-      v106 = *(self + 24);
-      v109 = [v106 countByEnumeratingWithState:&v135 objects:&v157 count:16];
-      if (v109)
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v105 = *(self + 24);
+      v108 = [v105 countByEnumeratingWithState:&v134 objects:&v156 count:16];
+      if (v108)
       {
-        v108 = *v136;
+        v107 = *v135;
         do
         {
           v49 = 0;
           do
           {
-            if (*v136 != v108)
+            if (*v135 != v107)
             {
-              objc_enumerationMutation(v106);
+              objc_enumerationMutation(v105);
             }
 
-            v112 = v49;
-            v50 = *(*(&v135 + 1) + 8 * v49);
+            v111 = v49;
+            v50 = *(*(&v134 + 1) + 8 * v49);
             v51 = BKLogEventDelivery();
             if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
             {
@@ -453,32 +452,32 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
 
               v65 = v64;
               identity4 = [v65 identity];
-              *v149 = 138543362;
-              v150 = identity4;
-              _os_log_debug_impl(&dword_223CBE000, v51, OS_LOG_TYPE_DEBUG, "match supernode %{public}@", v149, 0xCu);
+              *v148 = 138543362;
+              v149 = identity4;
+              _os_log_debug_impl(&dword_223CBE000, v51, OS_LOG_TYPE_DEBUG, "match supernode %{public}@", v148, 0xCu);
             }
 
-            v133 = 0u;
-            v134 = 0u;
-            v131 = 0u;
             v132 = 0u;
+            v133 = 0u;
+            v130 = 0u;
+            v131 = 0u;
             v52 = *(self + 24);
-            v53 = [v52 countByEnumeratingWithState:&v131 objects:&v153 count:16];
+            v53 = [v52 countByEnumeratingWithState:&v130 objects:&v152 count:16];
             if (v53)
             {
               v54 = v53;
-              v55 = *v132;
+              v55 = *v131;
               do
               {
                 v56 = 0;
                 do
                 {
-                  if (*v132 != v55)
+                  if (*v131 != v55)
                   {
                     objc_enumerationMutation(v52);
                   }
 
-                  v57 = *(*(&v131 + 1) + 8 * v56);
+                  v57 = *(*(&v130 + 1) + 8 * v56);
                   if (v50 != v57)
                   {
                     v58 = [BKEventDeferringEnvironmentGraph _matchSubnode:v50 toSupernode:?];
@@ -499,11 +498,11 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
 
                         v61 = v60;
                         identity5 = [v61 identity];
-                        *v149 = 138543618;
-                        v150 = identity5;
-                        v151 = 2114;
-                        v152 = v58;
-                        _os_log_debug_impl(&dword_223CBE000, v59, OS_LOG_TYPE_DEBUG, "   -> %{public}@: %{public}@", v149, 0x16u);
+                        *v148 = 138543618;
+                        v149 = identity5;
+                        v150 = 2114;
+                        v151 = v58;
+                        _os_log_debug_impl(&dword_223CBE000, v59, OS_LOG_TYPE_DEBUG, "   -> %{public}@: %{public}@", v148, 0x16u);
                       }
 
                       if (v58 == @"connected")
@@ -517,7 +516,7 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
                 }
 
                 while (v54 != v56);
-                v63 = [v52 countByEnumeratingWithState:&v131 objects:&v153 count:16];
+                v63 = [v52 countByEnumeratingWithState:&v130 objects:&v152 count:16];
                 v54 = v63;
               }
 
@@ -525,39 +524,39 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
             }
 
             self = selfCopy;
-            v49 = v112 + 1;
+            v49 = v111 + 1;
           }
 
-          while (v112 + 1 != v109);
-          v67 = [v106 countByEnumeratingWithState:&v135 objects:&v157 count:16];
-          v109 = v67;
+          while (v111 + 1 != v108);
+          v67 = [v105 countByEnumeratingWithState:&v134 objects:&v156 count:16];
+          v108 = v67;
         }
 
         while (v67);
       }
     }
 
+    v152 = 0u;
     v153 = 0u;
     v154 = 0u;
     v155 = 0u;
-    v156 = 0u;
     obja = *(self + 24);
-    v68 = [obja countByEnumeratingWithState:&v153 objects:&v161 count:16];
+    v68 = [obja countByEnumeratingWithState:&v152 objects:&v160 count:16];
     if (v68)
     {
       v69 = v68;
-      v70 = *v154;
+      v70 = *v153;
       do
       {
         v71 = 0;
         do
         {
-          if (*v154 != v70)
+          if (*v153 != v70)
           {
             objc_enumerationMutation(obja);
           }
 
-          v72 = *(*(&v153 + 1) + 8 * v71);
+          v72 = *(*(&v152 + 1) + 8 * v71);
           v73 = v72;
           if (v72)
           {
@@ -570,10 +569,10 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
           }
 
           v75 = [MEMORY[0x277CCABB0] numberWithInt:v74];
+          v156 = 0u;
           v157 = 0u;
           v158 = 0u;
           v159 = 0u;
-          v160 = 0u;
           if (v73)
           {
             v76 = v73[3];
@@ -585,21 +584,21 @@ void __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__b
           }
 
           v77 = v76;
-          v78 = [v77 countByEnumeratingWithState:&v157 objects:buf count:16];
+          v78 = [v77 countByEnumeratingWithState:&v156 objects:buf count:16];
           if (v78)
           {
             v79 = v78;
-            v80 = *v158;
+            v80 = *v157;
 LABEL_92:
             v81 = 0;
             while (1)
             {
-              if (*v158 != v80)
+              if (*v157 != v80)
               {
                 objc_enumerationMutation(v77);
               }
 
-              v82 = *(*(&v157 + 1) + 8 * v81);
+              v82 = *(*(&v156 + 1) + 8 * v81);
               if (v82)
               {
                 LODWORD(v82) = *(v82 + 8);
@@ -612,7 +611,7 @@ LABEL_92:
 
               if (v79 == ++v81)
               {
-                v79 = [v77 countByEnumeratingWithState:&v157 objects:buf count:16];
+                v79 = [v77 countByEnumeratingWithState:&v156 objects:buf count:16];
                 if (v79)
                 {
                   goto LABEL_92;
@@ -631,9 +630,9 @@ LABEL_92:
             v83 = [BKEventDeferringNode alloc];
             if (v83)
             {
-              v143.receiver = v83;
-              v143.super_class = BKEventDeferringNode;
-              v84 = objc_msgSendSuper2(&v143, sel_init);
+              v142.receiver = v83;
+              v142.super_class = BKEventDeferringNode;
+              v84 = objc_msgSendSuper2(&v142, sel_init);
               v77 = v84;
               if (v84)
               {
@@ -663,7 +662,7 @@ LABEL_107:
         }
 
         while (v71 != v69);
-        v89 = [obja countByEnumeratingWithState:&v153 objects:&v161 count:16];
+        v89 = [obja countByEnumeratingWithState:&v152 objects:&v160 count:16];
         v69 = v89;
       }
 
@@ -674,53 +673,51 @@ LABEL_107:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __69__BKEventDeferringEnvironmentGraph__updateTopLevelNodesInEachProcess__block_invoke;
-    *&v166 = &unk_2784F71E0;
-    *(&v166 + 1) = self;
+    *&v165 = &unk_2784F71E0;
+    *(&v165 + 1) = self;
     [v90 enumerateKeysAndObjectsUsingBlock:buf];
 
     [(BKEventDeferringEnvironmentGraph *)self _updateModalityMap];
     [(BKEventDeferringEnvironmentGraph *)self _updateConstraintMap];
-    v120 = 0u;
-    v121 = 0u;
-    v118 = 0u;
     v119 = 0u;
-    v91 = v102;
-    v92 = [v91 countByEnumeratingWithState:&v118 objects:v147 count:16];
+    v120 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v91 = v101;
+    v92 = [v91 countByEnumeratingWithState:&v117 objects:v146 count:16];
     if (v92)
     {
       v93 = v92;
-      v94 = *v119;
+      v94 = *v118;
       do
       {
         for (m = 0; m != v93; ++m)
         {
-          if (*v119 != v94)
+          if (*v118 != v94)
           {
             objc_enumerationMutation(v91);
           }
 
-          v96 = *(*(&v118 + 1) + 8 * m);
+          v96 = *(*(&v117 + 1) + 8 * m);
           everySelectionPath = [MEMORY[0x277CF0648] everySelectionPath];
-          v116[0] = MEMORY[0x277D85DD0];
-          v116[1] = 3221225472;
-          v116[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10;
-          v116[3] = &unk_2784F7088;
-          v116[4] = v96;
-          v116[5] = selfCopy;
+          v115[0] = MEMORY[0x277D85DD0];
+          v115[1] = 3221225472;
+          v115[2] = __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10;
+          v115[3] = &unk_2784F7088;
+          v115[4] = v96;
+          v115[5] = selfCopy;
           rulesCopy3 = rules;
-          [(BKEventDeferringEnvironmentGraph *)selfCopy _forEachSelectionPath:everySelectionPath block:v116];
+          [(BKEventDeferringEnvironmentGraph *)selfCopy _forEachSelectionPath:everySelectionPath block:v115];
         }
 
-        v93 = [v91 countByEnumeratingWithState:&v118 objects:v147 count:16];
+        v93 = [v91 countByEnumeratingWithState:&v117 objects:v146 count:16];
       }
 
       while (v93);
     }
 
-    v4 = v101;
+    v4 = v100;
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 id __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke(uint64_t a1, void *a2)
@@ -801,16 +798,16 @@ BKEventDeferringNode *__52__BKEventDeferringEnvironmentGraph_setRules_forPID___b
 
 void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v32 = a2;
+  v42 = *MEMORY[0x277D85DE8];
+  v31 = a2;
   v3 = *(a1 + 32);
-  if (v32)
+  if (v31)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
-    v30 = v3;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v29 = v3;
     if (v3)
     {
       v4 = v3[3];
@@ -824,7 +821,7 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
     v5 = v4;
     v6 = [v5 firstObject];
     v7 = v6;
-    v29 = a1;
+    v28 = a1;
     if (v6)
     {
       v8 = *(v6 + 32);
@@ -838,43 +835,43 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
     v9 = v8;
 
     obj = v9;
-    v10 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v38;
+      v13 = *v37;
       v14 = -1.0;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * i);
-          v17 = [v32[4] objectForKey:{v16, v29, v30}];
+          v16 = *(*(&v36 + 1) + 8 * i);
+          v17 = [v31[4] objectForKey:{v16, v28, v29}];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v18 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v34;
+            v20 = *v33;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v34 != v20)
+                if (*v33 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                [*(*(&v33 + 1) + 8 * j) timestamp];
+                [*(*(&v32 + 1) + 8 * j) timestamp];
                 if (v22 > v14)
                 {
                   v23 = v22;
@@ -885,14 +882,14 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
                 }
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v19);
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v11 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v11);
@@ -903,12 +900,12 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
       v12 = 0;
     }
 
-    if (v12 && ([(BKEventDeferringSelectionPathContainer *)v32 containsNode:v12]& 1) == 0)
+    if (v12 && ([(BKEventDeferringSelectionPathContainer *)v31 containsNode:v12]& 1) == 0)
     {
-      v25 = *(v29 + 40);
-      v26 = *(v29 + 48);
+      v25 = *(v28 + 40);
+      v26 = *(v28 + 48);
       v27 = [MEMORY[0x277CF0618] constraintBasis];
-      [(BKEventDeferringEnvironmentGraph *)v25 _changeSelectionPath:v32 toNode:v12 requestingPID:v26 basis:v27 ignoreModality:1];
+      [(BKEventDeferringEnvironmentGraph *)v25 _changeSelectionPath:v31 toNode:v12 requestingPID:v26 basis:v27 ignoreModality:1];
     }
   }
 
@@ -917,13 +914,11 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
 
     v12 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forEachSelectionPath:(void *)path block:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   pathCopy = path;
   if (self)
@@ -932,31 +927,31 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
 
     if (everySelectionPath == v5)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       allValues = [*(self + 48) allValues];
-      v11 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v17;
+        v13 = *v16;
         do
         {
           v14 = 0;
           do
           {
-            if (*v17 != v13)
+            if (*v16 != v13)
             {
               objc_enumerationMutation(allValues);
             }
 
-            pathCopy[2](pathCopy, *(*(&v16 + 1) + 8 * v14++));
+            pathCopy[2](pathCopy, *(*(&v15 + 1) + 8 * v14++));
           }
 
           while (v12 != v14);
-          v12 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v12 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v12);
@@ -976,13 +971,11 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
       (pathCopy)[2](pathCopy, v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_changeSelectionPath:(void *)path toNode:(int)node requestingPID:(void *)d basis:(char)basis ignoreModality:
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   v11 = a2;
   pathCopy = path;
   dCopy = d;
@@ -990,28 +983,28 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
   {
     if (!pathCopy)
     {
-      v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetNode != ((void*)0)"];
+      v86 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetNode != ((void*)0)"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v88 = NSStringFromSelector(sel__changeSelectionPath_toNode_requestingPID_basis_ignoreModality_);
-        v89 = objc_opt_class();
-        v90 = NSStringFromClass(v89);
+        v87 = NSStringFromSelector(sel__changeSelectionPath_toNode_requestingPID_basis_ignoreModality_);
+        v88 = objc_opt_class();
+        v89 = NSStringFromClass(v88);
         *buf = 138544642;
-        v110 = v88;
-        v111 = 2114;
-        selfCopy4 = v90;
-        v113 = 2048;
+        v109 = v87;
+        v110 = 2114;
+        selfCopy4 = v89;
+        v112 = 2048;
         selfCopy = self;
-        v115 = 2114;
-        *v116 = @"BKEventDeferringEnvironmentGraph.m";
-        *&v116[8] = 1024;
-        *&v116[10] = 403;
-        v117 = 2114;
-        v118 = v87;
+        v114 = 2114;
+        *v115 = @"BKEventDeferringEnvironmentGraph.m";
+        *&v115[8] = 1024;
+        *&v115[10] = 403;
+        v116 = 2114;
+        v117 = v86;
         _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v87 UTF8String];
+      [v86 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CE8F40);
@@ -1022,15 +1015,15 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
     {
       v15 = self[2];
       *buf = 138544386;
-      v110 = v15;
-      v111 = 2048;
+      v109 = v15;
+      v110 = 2048;
       selfCopy4 = self;
-      v113 = 2114;
+      v112 = 2114;
       selfCopy = v11;
-      v115 = 1024;
-      *v116 = node;
-      *&v116[4] = 2114;
-      *&v116[6] = pathCopy;
+      v114 = 1024;
+      *v115 = node;
+      *&v115[4] = 2114;
+      *&v115[6] = pathCopy;
       _os_log_impl(&dword_223CBE000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ requestingPID:(%d) toNode:%{public}@", buf, 0x30u);
     }
 
@@ -1043,47 +1036,47 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
         firstObject = BKLogEventDelivery();
         if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
         {
-          v47 = self[2];
+          v46 = self[2];
           *buf = 138544386;
-          v110 = v47;
-          v111 = 2048;
+          v109 = v46;
+          v110 = 2048;
           selfCopy4 = self;
-          v113 = 2114;
+          v112 = 2114;
           selfCopy = v11;
-          v115 = 1024;
-          *v116 = node;
-          *&v116[4] = 2114;
-          *&v116[6] = pathCopy;
+          v114 = 1024;
+          *v115 = node;
+          *&v115[4] = 2114;
+          *&v115[6] = pathCopy;
           _os_log_impl(&dword_223CBE000, firstObject, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting hostOverride: not hosted by pid(%d) -- %{public}@", buf, 0x30u);
         }
 
         goto LABEL_28;
       }
 
-      v41 = *(pathCopy + 3);
-      firstObject = [v41 firstObject];
+      v40 = *(pathCopy + 3);
+      firstObject = [v40 firstObject];
 
       if (([(BKEventDeferringSelectionPathContainer *)v11 containsNode:firstObject]& 1) == 0)
       {
-        v42 = firstObject ? firstObject[3].isa : 0;
-        v43 = v42;
-        v44 = [(objc_class *)v43 count];
+        v41 = firstObject ? firstObject[3].isa : 0;
+        v42 = v41;
+        v43 = [(objc_class *)v42 count];
 
-        if (v44)
+        if (v43)
         {
-          v45 = BKLogEventDelivery();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v44 = BKLogEventDelivery();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
-            v46 = self[2];
+            v45 = self[2];
             *buf = 138544130;
-            v110 = v46;
-            v111 = 2048;
+            v109 = v45;
+            v110 = 2048;
             selfCopy4 = self;
-            v113 = 2114;
+            v112 = 2114;
             selfCopy = v11;
-            v115 = 2114;
-            *v116 = pathCopy;
-            _os_log_impl(&dword_223CBE000, v45, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting: parent not in selection path -- %{public}@", buf, 0x2Au);
+            v114 = 2114;
+            *v115 = pathCopy;
+            _os_log_impl(&dword_223CBE000, v44, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting: parent not in selection path -- %{public}@", buf, 0x2Au);
           }
 
           goto LABEL_28;
@@ -1093,12 +1086,12 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
 
     basisCopy = basis;
     selfCopy5 = self;
-    v97 = dCopy;
-    v98 = pathCopy;
+    v96 = dCopy;
+    v97 = pathCopy;
     firstObject3 = pathCopy;
     v18 = 0;
-    v96 = firstObject3;
-    v99 = v11;
+    v95 = firstObject3;
+    v98 = v11;
     do
     {
       v19 = firstObject3;
@@ -1106,10 +1099,10 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
       v21 = [(BKEventDeferringSelectionPathContainer *)v20 constraintsForNode:v19];
       v22 = [v21 count];
 
-      v106 = 0u;
-      v107 = 0u;
-      v104 = 0u;
       v105 = 0u;
+      v106 = 0u;
+      v103 = 0u;
+      v104 = 0u;
       v23 = v19[3];
       firstObject2 = [v23 firstObject];
       v25 = firstObject2;
@@ -1125,21 +1118,21 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
 
       v27 = v26;
 
-      v28 = [v27 countByEnumeratingWithState:&v104 objects:buf count:16];
+      v28 = [v27 countByEnumeratingWithState:&v103 objects:buf count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v105;
+        v30 = *v104;
         while (2)
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v105 != v30)
+            if (*v104 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v104 + 1) + 8 * i);
+            v32 = *(*(&v103 + 1) + 8 * i);
             if (v32 != v19)
             {
               v33 = [(BKEventDeferringSelectionPathContainer *)v20 constraintsForNode:v32];
@@ -1153,28 +1146,28 @@ void __52__BKEventDeferringEnvironmentGraph_setRules_forPID___block_invoke_10(ui
                 {
                   v39 = selfCopy5[2];
                   *buf = 138544130;
-                  v110 = v39;
-                  v111 = 2048;
+                  v109 = v39;
+                  v110 = 2048;
                   selfCopy4 = selfCopy5;
-                  v113 = 2114;
+                  v112 = 2114;
                   selfCopy = v20;
-                  v115 = 2114;
-                  *v116 = v96;
+                  v114 = 2114;
+                  *v115 = v95;
                   _os_log_impl(&dword_223CBE000, reverseObjectEnumerator, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting because target is not reachable due to constraints -- %{public}@", buf, 0x2Au);
                 }
 
                 firstObject = v18;
-                v11 = v99;
+                v11 = v98;
 LABEL_27:
-                dCopy = v97;
-                pathCopy = v98;
+                dCopy = v96;
+                pathCopy = v97;
 
                 goto LABEL_28;
               }
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v104 objects:buf count:16];
+          v29 = [v27 countByEnumeratingWithState:&v103 objects:buf count:16];
           if (v29)
           {
             continue;
@@ -1189,70 +1182,70 @@ LABEL_27:
       firstObject3 = [v37 firstObject];
 
       v18 = firstObject;
-      v11 = v99;
+      v11 = v98;
     }
 
     while (firstObject3);
     if ((basisCopy & 1) == 0)
     {
       v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v48 = [(BKEventDeferringSelectionPathContainer *)v20 modalitiesForNode:v96];
+      v47 = [(BKEventDeferringSelectionPathContainer *)v20 modalitiesForNode:v95];
       activeInputModality = [MEMORY[0x277CF0630] activeInputModality];
-      v50 = [v48 containsObject:activeInputModality];
+      v49 = [v47 containsObject:activeInputModality];
 
       [BKEventDeferringEnvironmentGraph _chooseSubnodeOfNode:firstObject forSelectionPath:v20 appendToPath:v19];
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
       v101 = 0u;
+      v102 = 0u;
+      v99 = 0u;
+      v100 = 0u;
       reverseObjectEnumerator = [v19 reverseObjectEnumerator];
-      v94 = [reverseObjectEnumerator countByEnumeratingWithState:&v100 objects:v108 count:16];
-      if (v94)
+      v93 = [reverseObjectEnumerator countByEnumeratingWithState:&v99 objects:v107 count:16];
+      if (v93)
       {
-        v91 = *v101;
-        v51 = 1;
-        v92 = v50;
+        v90 = *v100;
+        v50 = 1;
+        v91 = v49;
         while (2)
         {
-          for (j = 0; j != v94; ++j)
+          for (j = 0; j != v93; ++j)
           {
-            if (*v101 != v91)
+            if (*v100 != v90)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v53 = [(BKEventDeferringSelectionPathContainer *)v20 modalitiesForNode:?];
+            v52 = [(BKEventDeferringSelectionPathContainer *)v20 modalitiesForNode:?];
             activeInputModality2 = [MEMORY[0x277CF0630] activeInputModality];
-            v55 = [v53 containsObject:activeInputModality2];
+            v54 = [v52 containsObject:activeInputModality2];
 
-            if (!(v92 & 1 | ((v55 & 1) == 0)))
+            if (!(v91 & 1 | ((v54 & 1) == 0)))
             {
-              v56 = BKLogEventDelivery();
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+              v55 = BKLogEventDelivery();
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
               {
-                v57 = selfCopy5[2];
+                v56 = selfCopy5[2];
                 *buf = 138544130;
-                v110 = v57;
-                v111 = 2048;
+                v109 = v56;
+                v110 = 2048;
                 selfCopy4 = selfCopy5;
-                v113 = 2114;
+                v112 = 2114;
                 selfCopy = v20;
-                v115 = 2114;
-                *v116 = v96;
-                _os_log_impl(&dword_223CBE000, v56, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting because we can't switch from activeInput to not-activeInput -- %{public}@", buf, 0x2Au);
+                v114 = 2114;
+                *v115 = v95;
+                _os_log_impl(&dword_223CBE000, v55, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] changeSelectionPath:%{public}@ rejecting because we can't switch from activeInput to not-activeInput -- %{public}@", buf, 0x2Au);
               }
 
               goto LABEL_27;
             }
 
-            if (v55)
+            if (v54)
             {
-              v51 = v92;
+              v50 = v91;
             }
           }
 
-          v94 = [reverseObjectEnumerator countByEnumeratingWithState:&v100 objects:v108 count:16];
-          if (v94)
+          v93 = [reverseObjectEnumerator countByEnumeratingWithState:&v99 objects:v107 count:16];
+          if (v93)
           {
             continue;
           }
@@ -1260,7 +1253,7 @@ LABEL_27:
           break;
         }
 
-        if ((v51 & 1) == 0)
+        if ((v50 & 1) == 0)
         {
           goto LABEL_53;
         }
@@ -1271,126 +1264,124 @@ LABEL_27:
       }
     }
 
-    firstObject6 = v96;
+    firstObject6 = v95;
     do
     {
-      v59 = firstObject6;
-      v60 = v59;
+      v58 = firstObject6;
+      v59 = v58;
       if (v20)
       {
-        v61 = v59[3];
-        firstObject4 = [v61 firstObject];
-        v63 = firstObject4;
+        v60 = v58[3];
+        firstObject4 = [v60 firstObject];
+        v62 = firstObject4;
         if (firstObject4)
         {
-          v64 = *(firstObject4 + 32);
+          v63 = *(firstObject4 + 32);
         }
 
         else
         {
-          v64 = 0;
+          v63 = 0;
         }
 
-        v65 = v64;
+        v64 = v63;
 
-        v106 = 0u;
-        v107 = 0u;
-        v104 = 0u;
         v105 = 0u;
-        v66 = v65;
-        v67 = [v66 countByEnumeratingWithState:&v104 objects:buf count:16];
-        if (v67)
+        v106 = 0u;
+        v103 = 0u;
+        v104 = 0u;
+        v65 = v64;
+        v66 = [v65 countByEnumeratingWithState:&v103 objects:buf count:16];
+        if (v66)
         {
-          v68 = v67;
-          v69 = *v105;
+          v67 = v66;
+          v68 = *v104;
           do
           {
-            for (k = 0; k != v68; ++k)
+            for (k = 0; k != v67; ++k)
             {
-              if (*v105 != v69)
+              if (*v104 != v68)
               {
-                objc_enumerationMutation(v66);
+                objc_enumerationMutation(v65);
               }
 
-              if (*(*(&v104 + 1) + 8 * k) != v60)
+              if (*(*(&v103 + 1) + 8 * k) != v59)
               {
                 [v20 _removeNode:?];
               }
             }
 
-            v68 = [v66 countByEnumeratingWithState:&v104 objects:buf count:16];
+            v67 = [v65 countByEnumeratingWithState:&v103 objects:buf count:16];
           }
 
-          while (v68);
+          while (v67);
         }
 
-        v71 = v60;
-        v72 = v71[2];
-        identity = [v72 identity];
+        v70 = v59;
+        v71 = v70[2];
+        identity = [v71 identity];
 
         if (identity)
         {
-          v74 = v20[2];
-          if (!v74)
+          v73 = v20[2];
+          if (!v73)
           {
-            v75 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v76 = v20[2];
-            v20[2] = v75;
+            v74 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v75 = v20[2];
+            v20[2] = v74;
 
-            v74 = v20[2];
+            v73 = v20[2];
           }
 
-          [v74 addObject:identity];
-          v77 = v60[3];
-          firstObject5 = [v77 firstObject];
-          v79 = [v20 _keyForNode:firstObject5];
+          [v73 addObject:identity];
+          v76 = v59[3];
+          firstObject5 = [v76 firstObject];
+          v78 = [v20 _keyForNode:firstObject5];
 
-          v80 = v20[3];
-          if (!v80)
+          v79 = v20[3];
+          if (!v79)
           {
-            v81 = objc_alloc_init(MEMORY[0x277CBEB38]);
-            v82 = v20[3];
-            v20[3] = v81;
+            v80 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v81 = v20[3];
+            v20[3] = v80;
 
-            v80 = v20[3];
+            v79 = v20[3];
           }
 
-          [v80 bs_addObject:v71 toCollectionClass:objc_opt_class() forKey:v79];
-          v83 = BKLogEventDelivery();
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+          [v79 bs_addObject:v70 toCollectionClass:objc_opt_class() forKey:v78];
+          v82 = BKLogEventDelivery();
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
           {
-            v85 = v20[1];
-            v86 = [MEMORY[0x277CF0C08] descriptionForRootObject:v20[3]];
-            *v119 = 138543874;
-            v120 = v85;
-            v121 = 2114;
-            v122 = v79;
-            v123 = 2114;
-            v124 = v86;
-            _os_log_debug_impl(&dword_223CBE000, v83, OS_LOG_TYPE_DEBUG, "selection history %{public}@ (add %{public}@): %{public}@", v119, 0x20u);
+            v84 = v20[1];
+            v85 = [MEMORY[0x277CF0C08] descriptionForRootObject:v20[3]];
+            *v118 = 138543874;
+            v119 = v84;
+            v120 = 2114;
+            v121 = v78;
+            v122 = 2114;
+            v123 = v85;
+            _os_log_debug_impl(&dword_223CBE000, v82, OS_LOG_TYPE_DEBUG, "selection history %{public}@ (add %{public}@): %{public}@", v118, 0x20u);
           }
         }
       }
 
-      v84 = v60[3];
-      firstObject6 = [v84 firstObject];
+      v83 = v59[3];
+      firstObject6 = [v83 firstObject];
 
-      v11 = v99;
+      v11 = v98;
     }
 
     while (firstObject6);
 LABEL_53:
-    dCopy = v97;
-    pathCopy = v98;
+    dCopy = v96;
+    pathCopy = v97;
 LABEL_28:
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_chooseSubnodeOfNode:(void *)node forSelectionPath:(void *)path appendToPath:(void *)toPath
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   pathCopy = path;
   toPathCopy = toPath;
@@ -1407,32 +1398,32 @@ LABEL_28:
 
   v9 = v8;
   v10 = v9;
-  v45 = toPathCopy;
+  v44 = toPathCopy;
   obj = v9;
   if (pathCopy)
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    v11 = [v9 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v11 = [v9 countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = nodeCopy;
       v14 = 0;
       lastObject = 0;
-      v16 = *v53;
+      v16 = *v52;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v53 != v16)
+          if (*v52 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v52 + 1) + 8 * i);
+          v18 = *(*(&v51 + 1) + 8 * i);
           if ([(BKEventDeferringSelectionPathContainer *)pathCopy containsNode:v18])
           {
             v19 = v18;
@@ -1442,7 +1433,7 @@ LABEL_28:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v12 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
       while (v12);
@@ -1453,30 +1444,30 @@ LABEL_28:
       }
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v20 = obj;
-    v21 = [v20 countByEnumeratingWithState:&v48 objects:v60 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v47 objects:v59 count:16];
     if (v21)
     {
       v22 = v21;
-      v46 = v20;
-      v44 = nodeCopy;
+      v45 = v20;
+      v43 = nodeCopy;
       lastObject = 0;
       v23 = 0;
-      v24 = *v49;
+      v24 = *v48;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v49 != v24)
+          if (*v48 != v24)
           {
-            objc_enumerationMutation(v46);
+            objc_enumerationMutation(v45);
           }
 
-          v26 = *(*(&v48 + 1) + 8 * j);
+          v26 = *(*(&v47 + 1) + 8 * j);
           v27 = [(BKEventDeferringSelectionPathContainer *)pathCopy modalitiesForNode:v26];
           v28 = [v27 count];
 
@@ -1512,12 +1503,12 @@ LABEL_28:
           }
         }
 
-        v22 = [v46 countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v22 = [v45 countByEnumeratingWithState:&v47 objects:v59 count:16];
       }
 
       while (v22);
 
-      nodeCopy = v44;
+      nodeCopy = v43;
       if (lastObject)
       {
         v14 = @"priority";
@@ -1526,14 +1517,14 @@ LABEL_40:
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543618;
-          v57 = v14;
-          v58 = 2114;
-          v59 = lastObject;
+          v56 = v14;
+          v57 = 2114;
+          v58 = lastObject;
           _os_log_debug_impl(&dword_223CBE000, v40, OS_LOG_TYPE_DEBUG, "CHOOSE %{public}@ subnode:%{public}@", buf, 0x16u);
         }
 
-        toPathCopy = v45;
-        [BKEventDeferringEnvironmentGraph _chooseSubnodeOfNode:lastObject forSelectionPath:pathCopy appendToPath:v45];
+        toPathCopy = v44;
+        [BKEventDeferringEnvironmentGraph _chooseSubnodeOfNode:lastObject forSelectionPath:pathCopy appendToPath:v44];
         v10 = obj;
         goto LABEL_46;
       }
@@ -1566,7 +1557,7 @@ LABEL_40:
       goto LABEL_40;
     }
 
-    toPathCopy = v45;
+    toPathCopy = v44;
     v10 = obj;
   }
 
@@ -1583,85 +1574,81 @@ LABEL_40:
   {
     succinctDescription = [(BKEventDeferringNode *)nodeCopy succinctDescription];
     *buf = 138543362;
-    v57 = succinctDescription;
+    v56 = succinctDescription;
     _os_log_debug_impl(&dword_223CBE000, v41, OS_LOG_TYPE_DEBUG, "CHOOSE %{public}@ done", buf, 0xCu);
   }
 
   lastObject = 0;
 LABEL_46:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = a3;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = *(a1 + 32);
         v10 = [v8 pathIdentifier];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_2;
-        v13[3] = &unk_2784F7140;
-        v14 = *(a1 + 40);
-        v15 = v8;
-        [(BKEventDeferringEnvironmentGraph *)v9 _forEachSelectionPath:v10 block:v13];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_2;
+        v12[3] = &unk_2784F7140;
+        v13 = *(a1 + 40);
+        v14 = v8;
+        [(BKEventDeferringEnvironmentGraph *)v9 _forEachSelectionPath:v10 block:v12];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v30 = *MEMORY[0x277D85DE8];
+  v19 = a2;
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = *(*(a1 + 32) + 40);
         v13 = [v11 selectionTarget];
         v14 = [v13 target];
@@ -1673,16 +1660,16 @@ void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_3
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v8);
   }
 
   v16 = v6;
-  if (v20)
+  if (v19)
   {
-    objc_storeStrong(v20 + 4, v6);
+    objc_storeStrong(v19 + 4, v6);
   }
 
   v17 = BKLogEventDelivery();
@@ -1690,13 +1677,11 @@ void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_3
   {
     v18 = *(a1 + 40);
     *buf = 138543618;
-    v27 = v20;
-    v28 = 2114;
-    v29 = v18;
+    v26 = v19;
+    v27 = 2114;
+    v28 = v18;
     _os_log_impl(&dword_223CBE000, v17, OS_LOG_TYPE_DEFAULT, "constraints(%{public}@) now %{public}@", buf, 0x16u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_2(uint64_t a1, void *a2)
@@ -1709,73 +1694,71 @@ void __56__BKEventDeferringEnvironmentGraph__updateConstraintMap__block_invoke_2
 
 void __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = a3;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = *(a1 + 32);
         v10 = [v8 pathIdentifier];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_2;
-        v13[3] = &unk_2784F7140;
-        v14 = *(a1 + 40);
-        v15 = v8;
-        [(BKEventDeferringEnvironmentGraph *)v9 _forEachSelectionPath:v10 block:v13];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_2;
+        v12[3] = &unk_2784F7140;
+        v13 = *(a1 + 40);
+        v14 = v8;
+        [(BKEventDeferringEnvironmentGraph *)v9 _forEachSelectionPath:v10 block:v12];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = a2;
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = *(*(a1 + 32) + 40);
         v14 = [v12 selectionTarget];
         v15 = [v14 target];
@@ -1787,19 +1770,17 @@ void __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_3(u
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v17 = v6;
-  if (v19)
+  if (v18)
   {
-    objc_storeStrong(v19 + 5, v6);
+    objc_storeStrong(v18 + 5, v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_2(uint64_t a1, void *a2)
@@ -1812,7 +1793,7 @@ void __54__BKEventDeferringEnvironmentGraph__updateModalityMap__block_invoke_2(u
 
 - (__CFString)_matchSubnode:(void *)subnode toSupernode:(void *)supernode
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   subnodeCopy = subnode;
   supernodeCopy = supernode;
   v5 = supernodeCopy;
@@ -1903,8 +1884,8 @@ LABEL_31:
             v21 = 0;
           }
 
-          v28 = v21;
-          identity = [v28 identity];
+          v27 = v21;
+          identity = [v27 identity];
           if (subnodeCopy)
           {
             v23 = subnodeCopy[2];
@@ -1918,9 +1899,9 @@ LABEL_31:
           v24 = v23;
           identity2 = [v24 identity];
           *buf = 138543618;
-          v30 = identity;
-          v31 = 2114;
-          v32 = identity2;
+          v29 = identity;
+          v30 = 2114;
+          v31 = identity2;
           _os_log_error_impl(&dword_223CBE000, v20, OS_LOG_TYPE_ERROR, "cycle detected between %{public}@ -> %{public}@", buf, 0x16u);
         }
 
@@ -1942,13 +1923,12 @@ LABEL_31:
   v6 = 0;
 LABEL_32:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __67__BKEventDeferringEnvironmentGraph__removeNodesWithIdentities_pid___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   if (a3 && [a3 _removeNode:v4])
   {
@@ -1984,19 +1964,17 @@ void __67__BKEventDeferringEnvironmentGraph__removeNodesWithIdentities_pid___blo
     v12 = BKLogEventDelivery();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a3 + 8);
-      v15 = [MEMORY[0x277CF0C08] descriptionForRootObject:*(a3 + 24)];
-      v16 = 138543874;
-      v17 = v14;
-      v18 = 2114;
-      v19 = v7;
-      v20 = 2114;
-      v21 = v15;
-      _os_log_debug_impl(&dword_223CBE000, v12, OS_LOG_TYPE_DEBUG, "selection history %{public}@ (remove %{public}@): %{public}@", &v16, 0x20u);
+      v13 = *(a3 + 8);
+      v14 = [MEMORY[0x277CF0C08] descriptionForRootObject:*(a3 + 24)];
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v7;
+      v19 = 2114;
+      v20 = v14;
+      _os_log_debug_impl(&dword_223CBE000, v12, OS_LOG_TYPE_DEBUG, "selection history %{public}@ (remove %{public}@): %{public}@", &v15, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BKEventDeferringEnvironmentGraph_setConstraintAssertions_forClientWithPID___block_invoke(uint64_t a1, void *a2)
@@ -2066,16 +2044,6 @@ void __75__BKEventDeferringEnvironmentGraph_setModalityAssertions_forClientWithP
   }
 
   return self;
-}
-
-uint64_t __94__BKEventDeferringEnvironmentGraph_logConnectionDescriptionForDeferringRuleIdentity_toTarget___block_invoke_3(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = *(a2 + 8);
-  }
-
-  return BSProcessDescriptionForPID();
 }
 
 id __94__BKEventDeferringEnvironmentGraph_logConnectionDescriptionForDeferringRuleIdentity_toTarget___block_invoke_2(uint64_t a1, uint64_t a2)

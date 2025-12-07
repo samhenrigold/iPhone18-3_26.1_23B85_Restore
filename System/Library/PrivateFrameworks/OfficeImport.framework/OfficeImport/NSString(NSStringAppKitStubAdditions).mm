@@ -1,6 +1,6 @@
 @interface NSString(NSStringAppKitStubAdditions)
+- (char)oi_rangeOfCharactersFromSet:()NSStringAppKitStubAdditions index:;
 - (double)oi_sizeWithFontName:()NSStringAppKitStubAdditions size:bold:italic:;
-- (uint64_t)oi_rangeOfCharactersFromSet:()NSStringAppKitStubAdditions index:;
 @end
 
 @implementation NSString(NSStringAppKitStubAdditions)
@@ -17,7 +17,7 @@
   return v10 * a4 * v9;
 }
 
-- (uint64_t)oi_rangeOfCharactersFromSet:()NSStringAppKitStubAdditions index:
+- (char)oi_rangeOfCharactersFromSet:()NSStringAppKitStubAdditions index:
 {
   v6 = a3;
   v7 = [self length];

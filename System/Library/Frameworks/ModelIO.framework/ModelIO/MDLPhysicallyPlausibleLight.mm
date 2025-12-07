@@ -1,6 +1,7 @@
 @interface MDLPhysicallyPlausibleLight
 - (MDLPhysicallyPlausibleLight)init;
 - (void)setColor:(CGColorRef)color;
+- (void)setColorByTemperature:(float)temperature;
 @end
 
 @implementation MDLPhysicallyPlausibleLight
@@ -41,6 +42,14 @@
   }
 
   sub_239EE95E8(v6, v7);
+}
+
+- (void)setColorByTemperature:(float)temperature
+{
+  light = self->super._light;
+  v5 = sub_239E8494C(*&temperature, v3);
+
+  sub_239EE95E8(light, v5);
 }
 
 @end

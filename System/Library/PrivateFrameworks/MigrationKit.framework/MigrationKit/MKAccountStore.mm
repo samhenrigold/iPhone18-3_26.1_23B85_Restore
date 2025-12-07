@@ -27,103 +27,101 @@
 
 + (void)initialize
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     v3 = *MEMORY[0x277CB8C40];
-    v37[0] = *MEMORY[0x277CB8BA0];
-    v2 = v37[0];
-    v37[1] = v3;
+    v36[0] = *MEMORY[0x277CB8BA0];
+    v2 = v36[0];
+    v36[1] = v3;
     v5 = *MEMORY[0x277CB8B98];
-    v38 = *MEMORY[0x277CB8D38];
-    v4 = v38;
-    v39 = v5;
+    v37 = *MEMORY[0x277CB8D38];
+    v4 = v37;
+    v38 = v5;
     v7 = *MEMORY[0x277CB8B88];
-    v40 = *MEMORY[0x277CB8C00];
-    v6 = v40;
-    v41 = v7;
+    v39 = *MEMORY[0x277CB8C00];
+    v6 = v39;
+    v40 = v7;
     v9 = *MEMORY[0x277CB8CE8];
-    v42 = *MEMORY[0x277CB8B80];
-    v8 = v42;
-    v43 = v9;
+    v41 = *MEMORY[0x277CB8B80];
+    v8 = v41;
+    v42 = v9;
     v11 = *MEMORY[0x277CB8CD8];
-    v44 = *MEMORY[0x277CB8C60];
-    v10 = v44;
-    v45 = v11;
-    v26 = *MEMORY[0x277CB8C50];
-    v46 = *MEMORY[0x277CB8C98];
-    v25 = v46;
-    v47 = v26;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:12];
+    v43 = *MEMORY[0x277CB8C60];
+    v10 = v43;
+    v44 = v11;
+    v25 = *MEMORY[0x277CB8C50];
+    v45 = *MEMORY[0x277CB8C98];
+    v24 = v45;
+    v46 = v25;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:12];
     v13 = accountTypes;
     accountTypes = v12;
 
     v14 = *MEMORY[0x277CB8968];
-    v35[0] = *MEMORY[0x277CB8958];
-    v35[1] = v14;
-    v36[0] = &unk_286AAC5D8;
-    v36[1] = &unk_286AAC5F0;
+    v34[0] = *MEMORY[0x277CB8958];
+    v34[1] = v14;
+    v35[0] = &unk_286AAC5D8;
+    v35[1] = &unk_286AAC5F0;
     v15 = *MEMORY[0x277CB8A18];
-    v35[2] = *MEMORY[0x277CB89C8];
-    v35[3] = v15;
-    v36[2] = &unk_286AAC608;
-    v36[3] = &unk_286AAC620;
-    v35[4] = *MEMORY[0x277CB89F8];
-    v36[4] = &unk_286AAC638;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:5];
+    v34[2] = *MEMORY[0x277CB89C8];
+    v34[3] = v15;
+    v35[2] = &unk_286AAC608;
+    v35[3] = &unk_286AAC620;
+    v34[4] = *MEMORY[0x277CB89F8];
+    v35[4] = &unk_286AAC638;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:5];
     v17 = acAccountDataClass;
     acAccountDataClass = v16;
 
-    v29[0] = v3;
-    v29[1] = v4;
-    v34[0] = @"google";
-    v34[1] = @"yahoo";
-    v29[2] = v2;
-    v29[3] = v5;
-    v34[2] = @"apple";
-    v34[3] = @"aol";
-    v29[4] = v6;
-    v29[5] = v8;
-    v34[4] = @"exchange";
-    v34[5] = @"netEase126";
-    v29[6] = v7;
-    v29[7] = v9;
-    v34[6] = @"netEase163";
-    v34[7] = @"qq";
-    v29[8] = v10;
-    v29[9] = v11;
-    v34[8] = @"imap";
-    v34[9] = @"pop";
+    v28[0] = v3;
+    v28[1] = v4;
+    v33[0] = @"google";
+    v33[1] = @"yahoo";
+    v28[2] = v2;
+    v28[3] = v5;
+    v33[2] = @"apple";
+    v33[3] = @"aol";
+    v28[4] = v6;
+    v28[5] = v8;
+    v33[4] = @"exchange";
+    v33[5] = @"netEase126";
+    v28[6] = v7;
+    v28[7] = v9;
+    v33[6] = @"netEase163";
+    v33[7] = @"qq";
+    v28[8] = v10;
+    v28[9] = v11;
+    v33[8] = @"imap";
+    v33[9] = @"pop";
     v19 = *MEMORY[0x277CB8BD8];
-    v30 = *MEMORY[0x277CB8BC8];
-    v18 = v30;
-    v31 = v19;
-    v34[10] = @"calDav";
-    v34[11] = @"cardDav";
+    v29 = *MEMORY[0x277CB8BC8];
+    v18 = v29;
+    v30 = v19;
+    v33[10] = @"calDav";
+    v33[11] = @"cardDav";
+    v31 = v24;
     v32 = v25;
-    v33 = v26;
-    v34[12] = @"ldap";
-    v34[13] = @"hotmail";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v29 count:14];
+    v33[12] = @"ldap";
+    v33[13] = @"hotmail";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v28 count:14];
     v21 = typeMap;
     typeMap = v20;
 
-    v27[0] = &unk_286AAC5D8;
-    v27[1] = &unk_286AAC620;
-    v28[0] = v18;
-    v28[1] = v18;
-    v27[2] = &unk_286AAC5F0;
-    v27[3] = &unk_286AAC608;
-    v28[2] = v19;
-    v28[3] = v10;
-    v27[4] = &unk_286AAC638;
-    v28[4] = v10;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:5];
+    v26[0] = &unk_286AAC5D8;
+    v26[1] = &unk_286AAC620;
+    v27[0] = v18;
+    v27[1] = v18;
+    v26[2] = &unk_286AAC5F0;
+    v26[3] = &unk_286AAC608;
+    v27[2] = v19;
+    v27[3] = v10;
+    v26[4] = &unk_286AAC638;
+    v27[4] = v10;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:5];
     v23 = dataClassTypeMapping;
     dataClassTypeMapping = v22;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (MKAccountStore)init
@@ -229,56 +227,54 @@
 
 + (id)convertAccountDataClasses:(id)classes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   v4 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = acAccountDataClass;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ([classesCopy isEnabledForDataclass:{v10, v14}])
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ([classesCopy isEnabledForDataclass:{v10, v13}])
         {
           v11 = [acAccountDataClass objectForKeyedSubscript:v10];
           [v4 addObject:v11];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)visibleTopLevelAccounts
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   accountStore = self->_accountStore;
   if (accountStore)
   {
-    v46 = 0;
-    v4 = [(ACAccountStore *)accountStore accountsWithAccountTypeIdentifiers:accountTypes error:&v46];
-    v5 = v46;
+    v45 = 0;
+    v4 = [(ACAccountStore *)accountStore accountsWithAccountTypeIdentifiers:accountTypes error:&v45];
+    v5 = v45;
     v6 = +[MKLog log];
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
     if (v5)
@@ -300,8 +296,8 @@
         v9 = [v4 count];
         *buf = 138412546;
         selfCopy4 = self;
-        v50 = 2048;
-        v51 = v9;
+        v49 = 2048;
+        v50 = v9;
         _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ Fetched accounts: %lu from accountStore", buf, 0x16u);
       }
 
@@ -312,27 +308,27 @@
         _os_log_impl(&dword_2592D2000, v10, OS_LOG_TYPE_INFO, "Fetched accounts from accountStore", buf, 2u);
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v36 = v4;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v35 = v4;
       obj = v4;
-      v11 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+      v11 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v43;
+        v13 = *v42;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v43 != v13)
+            if (*v42 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v42 + 1) + 8 * i);
+            v15 = *(*(&v41 + 1) + 8 * i);
             v16 = +[MKLog log];
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
@@ -341,17 +337,17 @@
               username = [v15 username];
               *buf = 138413058;
               selfCopy4 = self;
-              v50 = 2112;
-              v51 = accountType;
-              v52 = 2112;
-              v53 = accountDescription;
-              v54 = 2112;
-              v55 = username;
+              v49 = 2112;
+              v50 = accountType;
+              v51 = 2112;
+              v52 = accountDescription;
+              v53 = 2112;
+              v54 = username;
               _os_log_impl(&dword_2592D2000, v16, OS_LOG_TYPE_INFO, "%@ account.accountType: %@, account.accountDescription: %@, account.username: %@", buf, 0x2Au);
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+          v12 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
         }
 
         while (v12);
@@ -364,32 +360,32 @@
         v21 = [(NSMutableArray *)self->_mkAccounts count];
         *buf = 138412546;
         selfCopy4 = self;
-        v50 = 2048;
-        v51 = v21;
+        v49 = 2048;
+        v50 = v21;
         _os_log_impl(&dword_2592D2000, v20, OS_LOG_TYPE_INFO, "%@ MKAccounts %lu to export", buf, 0x16u);
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v22 = self->_mkAccounts;
-      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
       p_info = &OBJC_METACLASS___MKHex.info;
       if (v23)
       {
         v25 = v23;
-        v26 = *v39;
+        v26 = *v38;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v39 != v26)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(v22);
             }
 
-            v28 = *(*(&v38 + 1) + 8 * j);
+            v28 = *(*(&v37 + 1) + 8 * j);
             v29 = [p_info + 311 log];
             if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
@@ -397,24 +393,24 @@
               username2 = [v28 username];
               *buf = 138412802;
               selfCopy4 = self;
-              v50 = 2112;
-              v51 = type;
-              v52 = 2112;
-              v53 = username2;
+              v49 = 2112;
+              v50 = type;
+              v51 = 2112;
+              v52 = username2;
               _os_log_impl(&dword_2592D2000, v29, OS_LOG_TYPE_INFO, "%@ MKAccountItem type: %@, username: %@", buf, 0x20u);
 
               p_info = (&OBJC_METACLASS___MKHex + 32);
             }
           }
 
-          v25 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v25 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
         }
 
         while (v25);
       }
 
       selfCopy5 = self;
-      v4 = v36;
+      v4 = v35;
       v5 = 0;
       if (!-[NSMutableArray count](self->_mkAccounts, "count") && [obj count])
       {
@@ -443,37 +439,35 @@
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)_processVisibleAccounts:(id)accounts
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [accountsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v4 = [accountsCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v20;
+    v7 = *v19;
     v8 = *MEMORY[0x277CB8B28];
     *&v5 = 138412802;
-    v17 = v5;
+    v16 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(accountsCopy);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         managingOwnerIdentifier = [v10 managingOwnerIdentifier];
         if (managingOwnerIdentifier)
         {
@@ -490,12 +484,12 @@
             {
               username = [v10 username];
               accountType = [v10 accountType];
-              *buf = v17;
+              *buf = v16;
               selfCopy = self;
-              v25 = 2112;
-              v26 = username;
-              v27 = 2112;
-              v28 = accountType;
+              v24 = 2112;
+              v25 = username;
+              v26 = 2112;
+              v27 = accountType;
               _os_log_impl(&dword_2592D2000, v13, OS_LOG_TYPE_INFO, "%@ Will prepare account.username = %@, account.accountType = %@ for export", buf, 0x20u);
             }
 
@@ -504,18 +498,16 @@
         }
       }
 
-      v6 = [accountsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v6 = [accountsCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addToOutputArray:(id)array
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [MKAccountStore _convertAccount:array];
   v5 = MEMORY[0x277CCACA8];
   type = [v4 type];
@@ -529,8 +521,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v13 = 2112;
-      v14 = v8;
+      v12 = 2112;
+      v13 = v8;
       _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "%@ userAccount already present: %@", buf, 0x16u);
     }
   }
@@ -540,13 +532,11 @@
     [(NSMutableArray *)self->_mkAccounts addObject:v4];
     [(MKAccountStore *)self _addToExistingAccounts:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isExistingAccount:(id)account
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = [account componentsSeparatedByString:@"+"];
   if ([v4 count] == 2)
   {
@@ -555,13 +545,13 @@
     v7 = +[MKLog log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412802;
+      v13 = 138412802;
       selfCopy3 = self;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@  addToOutputArray type = %@, username = %@", &v14, 0x20u);
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@  addToOutputArray type = %@, username = %@", &v13, 0x20u);
     }
 
     v8 = [(NSMutableDictionary *)self->_existingAccounts objectForKeyedSubscript:v5];
@@ -576,13 +566,13 @@
       v11 = +[MKLog log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412802;
+        v13 = 138412802;
         selfCopy3 = self;
-        v16 = 2112;
-        v17 = v5;
-        v18 = 2112;
-        v19 = v6;
-        _os_log_impl(&dword_2592D2000, v11, OS_LOG_TYPE_INFO, "%@ Account with type:%@, username:%@ not present in existingAccounts", &v14, 0x20u);
+        v15 = 2112;
+        v16 = v5;
+        v17 = 2112;
+        v18 = v6;
+        _os_log_impl(&dword_2592D2000, v11, OS_LOG_TYPE_INFO, "%@ Account with type:%@, username:%@ not present in existingAccounts", &v13, 0x20u);
       }
 
       v10 = 0;
@@ -594,23 +584,22 @@
     v5 = +[MKLog log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
+      v13 = 138412546;
       selfCopy3 = self;
-      v16 = 2048;
-      v17 = [v4 count];
-      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@ userAccount parts.count. %lu", &v14, 0x16u);
+      v15 = 2048;
+      v16 = [v4 count];
+      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@ userAccount parts.count. %lu", &v13, 0x16u);
     }
 
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_addToExistingAccounts:(id)accounts
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [accounts componentsSeparatedByString:@"+"];
   if ([v4 count] == 2)
   {
@@ -631,24 +620,22 @@
     v5 = +[MKLog log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412546;
+      v8 = 138412546;
       selfCopy = self;
-      v11 = 2048;
-      v12 = [v4 count];
-      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@  parts.count . %lu", &v9, 0x16u);
+      v10 = 2048;
+      v11 = [v4 count];
+      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@  parts.count . %lu", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchExistingAccountsFromAccountStore
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   accountStore = self->_accountStore;
-  v10 = 0;
-  v4 = [(ACAccountStore *)accountStore accountsWithAccountTypeIdentifiers:accountTypes error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [(ACAccountStore *)accountStore accountsWithAccountTypeIdentifiers:accountTypes error:&v9];
+  v5 = v9;
   v6 = +[MKLog log];
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (v5)
@@ -668,40 +655,38 @@
       v8 = [v4 count];
       *buf = 138412546;
       selfCopy = self;
-      v13 = 2048;
-      v14 = v8;
+      v12 = 2048;
+      v13 = v8;
       _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ Fetched accounts count: %lu from AccountStore", buf, 0x16u);
     }
 
     [(MKAccountStore *)self _updateExistingAccounts:v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExistingAccounts:(id)accounts
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = accounts;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = +[MKLog log];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
@@ -710,12 +695,12 @@
           username = [v8 username];
           *buf = 138413058;
           selfCopy = self;
-          v26 = 2112;
-          v27 = accountType;
-          v28 = 2112;
-          v29 = accountDescription;
-          v30 = 2112;
-          v31 = username;
+          v25 = 2112;
+          v26 = accountType;
+          v27 = 2112;
+          v28 = accountDescription;
+          v29 = 2112;
+          v30 = username;
           _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "%@ account.accountType: %@, account.accountDescription: %@, account.username: %@", buf, 0x2Au);
         }
 
@@ -729,29 +714,27 @@
         [(MKAccountStore *)self _checkForChildAccounts:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v31 count:16];
     }
 
     while (v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExistingAccount:(id)account
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if ([(MKAccountStore *)self _isExistingAccount:accountCopy])
   {
     v5 = +[MKLog log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 2112;
-      v10 = accountCopy;
-      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@ userAccount: %@ already present.", &v7, 0x16u);
+      v8 = 2112;
+      v9 = accountCopy;
+      _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@ userAccount: %@ already present.", &v6, 0x16u);
     }
   }
 
@@ -759,40 +742,38 @@
   {
     [(MKAccountStore *)self _addToExistingAccounts:accountCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkForChildAccounts:(id)accounts
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v4 = &unk_27F9A9000;
+  v4 = &qword_27F9A9000;
   v5 = acAccountDataClass;
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v45 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v44 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v32;
+    v9 = *v31;
     *&v7 = 138412802;
-    v27 = v7;
-    v28 = v5;
-    v29 = *v32;
+    v26 = v7;
+    v27 = v5;
+    v28 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
-        if ([accountsCopy isEnabledForDataclass:{v11, v27}])
+        v11 = *(*(&v30 + 1) + 8 * i);
+        if ([accountsCopy isEnabledForDataclass:{v11, v26}])
         {
           v12 = dataClassTypeMapping;
           v13 = MEMORY[0x277CCABB0];
@@ -815,20 +796,20 @@
                 v23 = v22 = v4;
                 *buf = 138413314;
                 selfCopy = self;
-                v37 = 2048;
-                v38 = v20;
-                v39 = 2112;
-                v40 = username;
-                v41 = 2112;
-                v42 = v23;
-                v43 = 2112;
-                v44 = v16;
+                v36 = 2048;
+                v37 = v20;
+                v38 = 2112;
+                v39 = username;
+                v40 = 2112;
+                v41 = v23;
+                v42 = 2112;
+                v43 = v16;
                 _os_log_impl(&dword_2592D2000, v18, OS_LOG_TYPE_INFO, "%@ childAccounts count: %lu for account.username = %@, account.type = %@ withTypeIdentifier = %@", buf, 0x34u);
 
                 v4 = v22;
-                v5 = v28;
+                v5 = v27;
 
-                v9 = v29;
+                v9 = v28;
               }
 
               [(MKAccountStore *)self _processChildAccounts:v17];
@@ -840,54 +821,52 @@
               {
                 username2 = [accountsCopy username];
                 accountType = [accountsCopy accountType];
-                *buf = v27;
+                *buf = v26;
                 selfCopy = username2;
-                v37 = 2112;
-                v38 = accountType;
-                v39 = 2112;
-                v40 = v16;
+                v36 = 2112;
+                v37 = accountType;
+                v38 = 2112;
+                v39 = v16;
                 _os_log_impl(&dword_2592D2000, v18, OS_LOG_TYPE_INFO, "childAccounts not present for account.username = %@, account.type = %@, withTypeIdentifier = %@", buf, 0x20u);
 
-                v9 = v29;
+                v9 = v28;
               }
             }
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v31 objects:v45 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v30 objects:v44 count:16];
     }
 
     while (v8);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processChildAccounts:(id)accounts
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = accounts;
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [MKAccountStore _convertAccount:*(*(&v15 + 1) + 8 * v7)];
+        v8 = [MKAccountStore _convertAccount:*(*(&v14 + 1) + 8 * v7)];
         v9 = MEMORY[0x277CCACA8];
         type = [v8 type];
         username = [v8 username];
@@ -898,46 +877,44 @@
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_importMKAccountItems:(id)items importResults:(id)results
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   resultsCopy = results;
   obj = itemsCopy;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v7 = [itemsCopy countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [itemsCopy countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v28;
+    v10 = *v27;
     *&v8 = 138412802;
-    v23 = v8;
+    v22 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * v11);
-        v26 = 0;
-        v13 = [(MKAccountStore *)self _importMKAccount:v12 error:&v26, v23];
-        v14 = v26;
+        v12 = *(*(&v26 + 1) + 8 * v11);
+        v25 = 0;
+        v13 = [(MKAccountStore *)self _importMKAccount:v12 error:&v25, v22];
+        v14 = v25;
         v15 = +[MKLog log];
         v16 = v15;
         if (v13)
@@ -947,9 +924,9 @@
             type = [v12 type];
             username = [v12 username];
             *buf = 138412546;
-            v32 = type;
-            v33 = 2112;
-            v34 = username;
+            v31 = type;
+            v32 = 2112;
+            v33 = username;
             _os_log_impl(&dword_2592D2000, v16, OS_LOG_TYPE_INFO, "Successfully imported MKAccount type: %@, username: %@", buf, 0x16u);
           }
 
@@ -963,12 +940,12 @@
             type2 = [v12 type];
             username2 = [v12 username];
             localizedDescription = [v14 localizedDescription];
-            *buf = v23;
-            v32 = type2;
-            v33 = 2112;
-            v34 = username2;
-            v35 = 2112;
-            v36 = localizedDescription;
+            *buf = v22;
+            v31 = type2;
+            v32 = 2112;
+            v33 = username2;
+            v34 = 2112;
+            v35 = localizedDescription;
             _os_log_error_impl(&dword_2592D2000, v16, OS_LOG_TYPE_ERROR, "Failed to import MKAccount type: %@, username: %@, Error: %@", buf, 0x20u);
           }
         }
@@ -977,13 +954,11 @@
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v9);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)importAccounts:(id)accounts
@@ -1014,7 +989,7 @@
 
 - (BOOL)_importMKAccount:(id)account error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v7 = [(MKAccountStore *)self _getAccountTypeForMKAccount:accountCopy];
   if (v7)
@@ -1033,14 +1008,14 @@
       {
         type2 = [accountCopy type];
         username2 = [accountCopy username];
-        v25 = 138412802;
+        v24 = 138412802;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = type2;
-        v29 = 2112;
-        v30 = username2;
+        v26 = 2112;
+        v27 = type2;
+        v28 = 2112;
+        v29 = username2;
         v16 = 1;
-        _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "%@ account already exists. type=%@, name=%@", &v25, 0x20u);
+        _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "%@ account already exists. type=%@, name=%@", &v24, 0x20u);
 
 LABEL_16:
         goto LABEL_17;
@@ -1053,13 +1028,13 @@ LABEL_16:
       {
         type3 = [accountCopy type];
         username3 = [accountCopy username];
-        v25 = 138412802;
+        v24 = 138412802;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = type3;
-        v29 = 2112;
-        v30 = username3;
-        _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "%@ account does not exist. will import type=%@, name=%@", &v25, 0x20u);
+        v26 = 2112;
+        v27 = type3;
+        v28 = 2112;
+        v29 = username3;
+        _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "%@ account does not exist. will import type=%@, name=%@", &v24, 0x20u);
       }
 
       if (![(MKAccountStore *)self _createAndSaveAccount:accountCopy accountType:v7 error:error])
@@ -1068,9 +1043,9 @@ LABEL_16:
         if (os_log_type_enabled(username4, OS_LOG_TYPE_INFO))
         {
           v22 = *error;
-          v25 = 138412290;
+          v24 = 138412290;
           selfCopy2 = v22;
-          _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "accountStore saveVerifiedAccount failed with error = %@", &v25, 0xCu);
+          _os_log_impl(&dword_2592D2000, username4, OS_LOG_TYPE_INFO, "accountStore saveVerifiedAccount failed with error = %@", &v24, 0xCu);
         }
 
         v16 = 0;
@@ -1086,52 +1061,51 @@ LABEL_16:
   }
 
   v17 = MEMORY[0x277CCA9B8];
-  v31 = *MEMORY[0x277CCA450];
-  v32[0] = @"will skip an account due to accountType error.";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+  v30 = *MEMORY[0x277CCA450];
+  v31[0] = @"will skip an account due to accountType error.";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
   *error = [v17 errorWithDomain:@"MKAccountStore" code:2 userInfo:v18];
 
   v9 = +[MKLog log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v19 = *error;
-    v25 = 138412290;
+    v24 = 138412290;
     selfCopy2 = v19;
-    _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "will skip an account. failed with error = %@", &v25, 0xCu);
+    _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "will skip an account. failed with error = %@", &v24, 0xCu);
   }
 
   v16 = 0;
 LABEL_17:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)_getAccountTypeForMKAccount:(id)account
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accountCopy = account;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = typeMap;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
     selfCopy = self;
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [typeMap objectForKeyedSubscript:v10];
         type = [accountCopy type];
         v13 = [v11 isEqualToString:type];
@@ -1143,7 +1117,7 @@ LABEL_17:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         continue;
@@ -1156,54 +1130,52 @@ LABEL_17:
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)_getExistingUsernamesForType:(id)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = [(NSMutableDictionary *)self->_existingAccounts objectForKeyedSubscript:typeCopy];
   if (v5)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v27 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v19;
+      v10 = *v18;
       *&v8 = 138412802;
-      v17 = v8;
+      v16 = v8;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          v13 = [MKLog log:v17];
+          v12 = *(*(&v17 + 1) + 8 * i);
+          v13 = [MKLog log:v16];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            *buf = v17;
+            *buf = v16;
             selfCopy = self;
-            v24 = 2112;
-            v25 = v12;
-            v26 = 2112;
-            v27 = typeCopy;
+            v23 = 2112;
+            v24 = v12;
+            v25 = 2112;
+            v26 = typeCopy;
             _os_log_impl(&dword_2592D2000, v13, OS_LOG_TYPE_INFO, "%@ username: %@, type: %@", buf, 0x20u);
           }
         }
 
-        v9 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v17 objects:v27 count:16];
       }
 
       while (v9);
@@ -1223,8 +1195,6 @@ LABEL_11:
     v6 = [MEMORY[0x277CBEB58] set];
     [(NSMutableDictionary *)self->_existingAccounts setObject:v6 forKeyedSubscript:typeCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1268,7 +1238,7 @@ LABEL_11:
 
 - (BOOL)_createAndSaveAccount:(id)account accountType:(id)type error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   typeCopy = type;
   v9 = [objc_alloc(MEMORY[0x277CB8F30]) initWithAccountType:typeCopy];
@@ -1283,7 +1253,7 @@ LABEL_11:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v34 = v12;
+    v33 = v12;
     _os_log_impl(&dword_2592D2000, v13, OS_LOG_TYPE_INFO, "Set account description: %@", buf, 0xCu);
   }
 
@@ -1295,7 +1265,7 @@ LABEL_11:
   {
     username4 = [accountCopy username];
     *buf = 138412290;
-    v34 = username4;
+    v33 = username4;
     _os_log_impl(&dword_2592D2000, v15, OS_LOG_TYPE_INFO, "Set IdentityEmailAddress property: %@", buf, 0xCu);
   }
 
@@ -1304,35 +1274,35 @@ LABEL_11:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v34 = v12;
+    v33 = v12;
     _os_log_impl(&dword_2592D2000, v17, OS_LOG_TYPE_INFO, "Set ACPropertyFullName property: %@", buf, 0xCu);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   supportedDataclasses = [typeCopy supportedDataclasses];
-  v19 = [supportedDataclasses countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v19 = [supportedDataclasses countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(supportedDataclasses);
         }
 
-        v23 = *(*(&v28 + 1) + 8 * i);
+        v23 = *(*(&v27 + 1) + 8 * i);
         [v9 setProvisioned:1 forDataclass:v23];
         [v9 setEnabled:1 forDataclass:v23];
       }
 
-      v20 = [supportedDataclasses countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v20 = [supportedDataclasses countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v20);
@@ -1341,7 +1311,6 @@ LABEL_11:
   [(ACAccountStore *)self->_accountStore saveVerifiedAccount:v9 error:error];
   v24 = *error == 0;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

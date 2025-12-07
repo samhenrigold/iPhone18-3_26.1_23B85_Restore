@@ -437,9 +437,9 @@ id __65__UICalendarSelectionMultiDate__sanitizeDateComponents_calendar___block_i
     if (v4)
     {
       v7 = [v5 calendar];
-      v8 = [v7 isEqual:v4];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if ((v8 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         v9 = [v5 calendar];
         v10 = [v9 dateFromComponents:v5];

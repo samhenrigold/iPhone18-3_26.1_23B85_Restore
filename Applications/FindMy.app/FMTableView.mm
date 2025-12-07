@@ -15,7 +15,7 @@
   v11 = type metadata accessor for IndexPath();
   (*(*(v11 - 8) + 56))(self + v10, 1, 1, v11);
   v13.receiver = self;
-  v13.super_class = type metadata accessor for FMTableView();
+  v13.super_class = type metadata accessor for FMTableView(0);
   return [(FMTableView *)&v13 initWithFrame:style style:x, y, width, height];
 }
 
@@ -25,7 +25,7 @@
   v6 = type metadata accessor for IndexPath();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v10.receiver = self;
-  v10.super_class = type metadata accessor for FMTableView();
+  v10.super_class = type metadata accessor for FMTableView(0);
   coderCopy = coder;
   v8 = [(FMTableView *)&v10 initWithCoder:coderCopy];
 

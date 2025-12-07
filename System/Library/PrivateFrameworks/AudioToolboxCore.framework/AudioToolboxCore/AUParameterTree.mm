@@ -1,10 +1,12 @@
 @interface AUParameterTree
++ (AUParameter)createParameterWithIdentifier:(NSString *)identifier name:(NSString *)name address:(AUParameterAddress)address min:(AUValue)min max:(AUValue)max unit:(AudioUnitParameterUnit)unit unitName:(NSString *)unitName flags:(AudioUnitParameterOptions)flags valueStrings:(NSArray *)valueStrings dependentParameters:(NSArray *)dependentParameters;
 + (AUParameterGroup)createGroupFromTemplate:(AUParameterGroup *)templateGroup identifier:(NSString *)identifier name:(NSString *)name addressOffset:(AUParameterAddress)addressOffset;
 + (AUParameterGroup)createGroupTemplate:(NSArray *)children;
 + (AUParameterGroup)createGroupWithIdentifier:(NSString *)identifier name:(NSString *)name children:(NSArray *)children;
 + (AUParameterTree)createTreeWithChildren:(NSArray *)children;
 - (AUAudioUnit_XH)_auXH;
 - (AUParameter)parameterWithAddress:(AUParameterAddress)address;
+- (AUParameter)parameterWithID:(AudioUnitParameterID)paramID scope:(AudioUnitScope)scope element:(AudioUnitElement)element;
 - (AUParameterTree)initWithChildren:(id)children;
 - (AUParameterTree)initWithCoder:(id)coder;
 - (NSXPCConnection)remoteParameterSynchronizerXPCConnection;
@@ -14,6 +16,7 @@
 - (void)_init2;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
+- (void)remoteSyncParameter:(unint64_t)parameter value:(float)value extOriginator:(unint64_t)originator hostTime:(unint64_t)time eventType:(unsigned int)type;
 - (void)setAddrToParamIndex:()vector<AddressToParameter;
 @end
 
@@ -51,15 +54,15 @@
     end = a3->__end_;
     v5 = end - a3->__begin_;
     cap = self->_addrToParamIndex.__cap_;
-    begin = p_addrToParamIndex->__begin_;
-    if (cap - p_addrToParamIndex->__begin_ < v5)
+    v7 = *p_addrToParamIndex;
+    if (cap - *p_addrToParamIndex < v5)
     {
       v8 = v5 >> 4;
-      if (begin)
+      if (v7)
       {
         v9 = self->_addrToParamIndex.__end_;
-        v10 = p_addrToParamIndex->__begin_;
-        if (v9 != begin)
+        v10 = *p_addrToParamIndex;
+        if (v9 != v7)
         {
           do
           {
@@ -68,16 +71,16 @@
             v9 = v11;
           }
 
-          while (v11 != begin);
-          v10 = p_addrToParamIndex->__begin_;
+          while (v11 != v7);
+          v10 = *p_addrToParamIndex;
         }
 
-        p_addrToParamIndex->__end_ = begin;
+        p_addrToParamIndex[1] = v7;
         operator delete(v10);
         cap = 0;
-        p_addrToParamIndex->__begin_ = 0;
-        p_addrToParamIndex->__end_ = 0;
-        p_addrToParamIndex->__cap_ = 0;
+        *p_addrToParamIndex = 0;
+        p_addrToParamIndex[1] = 0;
+        p_addrToParamIndex[2] = 0;
       }
 
       if (!(v8 >> 60))
@@ -104,42 +107,42 @@
       std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
     }
 
-    v14 = (self->_addrToParamIndex.__end_ - begin);
+    v14 = self->_addrToParamIndex.__end_ - v7;
     if (v14 >= v5)
     {
-      std::__copy_impl::operator()[abi:ne200100]<AddressToParameter *,AddressToParameter *,AddressToParameter *>(a3->__begin_, a3->__end_, p_addrToParamIndex->__begin_);
+      std::__copy_impl::operator()[abi:ne200100]<AddressToParameter *,AddressToParameter *,AddressToParameter *>(a3->__begin_, a3->__end_, *p_addrToParamIndex);
       v22 = v21;
-      v23 = p_addrToParamIndex->__end_;
+      v23 = p_addrToParamIndex[1];
       if (v23 != v21)
       {
         do
         {
-          v24 = (v23 - 16);
-          objc_destroyWeak(v23 - 1);
+          v24 = v23 - 16;
+          objc_destroyWeak((v23 - 8));
           v23 = v24;
         }
 
         while (v24 != v22);
       }
 
-      p_addrToParamIndex->__end_ = v22;
+      p_addrToParamIndex[1] = v22;
     }
 
     else
     {
-      v15 = std::__copy_impl::operator()[abi:ne200100]<AddressToParameter *,AddressToParameter *,AddressToParameter *>(a3->__begin_, (a3->__begin_ + v14), p_addrToParamIndex->__begin_);
-      v16 = p_addrToParamIndex->__end_;
+      v15 = std::__copy_impl::operator()[abi:ne200100]<AddressToParameter *,AddressToParameter *,AddressToParameter *>(a3->__begin_, (a3->__begin_ + v14), *p_addrToParamIndex);
+      v16 = p_addrToParamIndex[1];
       if (end != v15)
       {
         v17 = v15;
         v18 = v15;
-        v19 = p_addrToParamIndex->__end_;
+        v19 = p_addrToParamIndex[1];
         do
         {
           v20 = *v18;
-          v18 = (v18 + 16);
+          v18 += 2;
           *v19 = v20;
-          v19 = (v19 + 16);
+          v19 += 2;
           objc_copyWeak(v16 + 1, v17 + 1);
           v17 = v18;
           v16 = v19;
@@ -149,7 +152,7 @@
         v16 = v19;
       }
 
-      p_addrToParamIndex->__end_ = v16;
+      p_addrToParamIndex[1] = v16;
     }
   }
 }
@@ -167,6 +170,18 @@
   }
 
   return self;
+}
+
+- (void)remoteSyncParameter:(unint64_t)parameter value:(float)value extOriginator:(unint64_t)originator hostTime:(unint64_t)time eventType:(unsigned int)type
+{
+  v7 = *&type;
+  originatorCopy = originator;
+  v12 = [(AUParameterTree *)self parameterWithAddress:parameter];
+  if (v12)
+  {
+    *&v11 = value;
+    [v12 setValue:originatorCopy & 0xFFFFFFFE | 1 extOriginator:time atHostTime:v7 eventType:v11];
+  }
 }
 
 - (AUParameterTree)initWithCoder:(id)coder
@@ -200,6 +215,21 @@
     selfCopy = self;
     operator new();
   }
+}
+
+- (AUParameter)parameterWithID:(AudioUnitParameterID)paramID scope:(AudioUnitScope)scope element:(AudioUnitElement)element
+{
+  if (self->__autoCreatedForV2AU)
+  {
+    paramID = [(AUParameterTree *)self parameterWithAddress:(*&scope << 61) | ((element & 0x1FFFFFFF) << 32) | paramID];
+  }
+
+  else
+  {
+    paramID = 0;
+  }
+
+  return paramID;
 }
 
 - (AUParameter)parameterWithAddress:(AUParameterAddress)address
@@ -459,6 +489,23 @@ void __25__AUParameterTree__init2__block_invoke(uint64_t a1, uint64_t a2, void *
   v10 = [[AUParameterGroup alloc] initWithID:v7 name:v8 children:v9];
 
   return v10;
+}
+
++ (AUParameter)createParameterWithIdentifier:(NSString *)identifier name:(NSString *)name address:(AUParameterAddress)address min:(AUValue)min max:(AUValue)max unit:(AudioUnitParameterUnit)unit unitName:(NSString *)unitName flags:(AudioUnitParameterOptions)flags valueStrings:(NSArray *)valueStrings dependentParameters:(NSArray *)dependentParameters
+{
+  v12 = *&flags;
+  v14 = *&unit;
+  v19 = identifier;
+  v20 = name;
+  v21 = unitName;
+  v22 = valueStrings;
+  v23 = dependentParameters;
+  v24 = [AUParameter alloc];
+  *&v25 = min;
+  *&v26 = max;
+  v27 = [(AUParameter *)v24 initWithID:v19 name:v20 address:address min:v14 max:v21 unit:v12 unitName:v25 flags:v26 valueStrings:v22 dependentParameters:v23];
+
+  return v27;
 }
 
 @end

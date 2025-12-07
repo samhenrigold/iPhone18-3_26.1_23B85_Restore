@@ -1,16 +1,16 @@
 @interface PKLRUCache
 - (PKLRUCache)init;
+- (PKLRUCacheKey)_keyItemForKey:(int64_t)key scaleFactor:;
 - (id)checkObjectForKey:(uint64_t)key;
-- (id)objectForKey:(uint64_t)key scaleFactor:;
+- (id)objectForKey:(int64_t)key scaleFactor:;
 - (id)objectForKey:(void *)key;
-- (void)_keyItemForKey:(uint64_t)key scaleFactor:;
 - (void)_removeItem:(uint64_t)item;
 - (void)dealloc;
 - (void)removeAllObjects;
+- (void)removeObjectForKey:(int64_t)key scaleFactor:;
 - (void)removeObjectForKey:(uint64_t)key;
-- (void)removeObjectForKey:(uint64_t)key scaleFactor:;
 - (void)setObject:(void *)object forKey:(unint64_t)key cost:;
-- (void)setObject:(void *)object forKey:(unint64_t)key cost:(uint64_t)cost scaleFactor:;
+- (void)setObject:(void *)object forKey:(unint64_t)key cost:(int64_t)cost scaleFactor:;
 @end
 
 @implementation PKLRUCache
@@ -99,7 +99,7 @@
   return key;
 }
 
-- (void)_keyItemForKey:(uint64_t)key scaleFactor:
+- (PKLRUCacheKey)_keyItemForKey:(int64_t)key scaleFactor:
 {
   v5 = a2;
   v6 = v5;
@@ -173,7 +173,7 @@
   return v8;
 }
 
-- (id)objectForKey:(uint64_t)key scaleFactor:
+- (id)objectForKey:(int64_t)key scaleFactor:
 {
   v5 = a2;
   if (self)
@@ -323,7 +323,7 @@ LABEL_14:
   }
 }
 
-- (void)setObject:(void *)object forKey:(unint64_t)key cost:(uint64_t)cost scaleFactor:
+- (void)setObject:(void *)object forKey:(unint64_t)key cost:(int64_t)cost scaleFactor:
 {
   v25 = a2;
   objectCopy = object;
@@ -403,7 +403,7 @@ LABEL_14:
   }
 }
 
-- (void)removeObjectForKey:(uint64_t)key scaleFactor:
+- (void)removeObjectForKey:(int64_t)key scaleFactor:
 {
   v5 = a2;
   if (self)

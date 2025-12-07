@@ -25,7 +25,7 @@
 {
   [MEMORY[0x277CBEBB0] resetSystemTimeZone];
   systemTimeZone = [MEMORY[0x277CBEBB0] systemTimeZone];
-  v4 = _NTKAllDateFormatters();
+  v4 = _NTKAllDateFormatters(systemTimeZone);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __61__NTKComplicationDateFormatter__handleSignificantTimeChange___block_invoke;
@@ -37,7 +37,7 @@
 
 + (void)_handleLocaleChange:(id)change
 {
-  v3 = _NTKAllDateFormatters();
+  v3 = _NTKAllDateFormatters(self);
   [v3 removeAllObjects];
 }
 
@@ -65,7 +65,7 @@
 
   else if (style != 4096 && style != 2048)
   {
-    if (style != 256 || (NTKCanUseAllUppercaseLongDateStrings() & 1) == 0)
+    if (style != 256 || (NTKCanUseAllUppercaseLongDateStrings(v10, v11) & 1) == 0)
     {
       goto LABEL_13;
     }
@@ -73,13 +73,13 @@
     goto LABEL_12;
   }
 
-  if (NTKUseAllUppercaseShortWeekdays())
+  if (NTKUseAllUppercaseShortWeekdays(v10, v11))
   {
 LABEL_12:
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v11 = [(__CFString *)v9 uppercaseStringWithLocale:currentLocale];
+    v13 = [(__CFString *)v9 uppercaseStringWithLocale:currentLocale];
 
-    v9 = v11;
+    v9 = v13;
   }
 
 LABEL_13:
@@ -91,7 +91,7 @@ LABEL_14:
 
 + (id)dateFormatterForStyle:(unint64_t)style
 {
-  v4 = _NTKAllDateFormatters();
+  v4 = _NTKAllDateFormatters(self);
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:style];
   v6 = [v4 objectForKeyedSubscript:v5];
 
@@ -222,14 +222,13 @@ LABEL_40:
 
 + (id)_localizedDayDateFormatter
 {
-  v2 = _NTKAllDateFormatters();
+  v2 = _NTKAllDateFormatters(self);
   v3 = [v2 objectForKeyedSubscript:@"localized"];
 
   if (!v3)
   {
     v3 = objc_opt_new();
-    [v3 setLocalizedDateFormatFromTemplate:@"d"];
-    v4 = _NTKAllDateFormatters();
+    v4 = _NTKAllDateFormatters([v3 setLocalizedDateFormatFromTemplate:@"d"]);
     [v4 setObject:v3 forKeyedSubscript:@"localized"];
   }
 

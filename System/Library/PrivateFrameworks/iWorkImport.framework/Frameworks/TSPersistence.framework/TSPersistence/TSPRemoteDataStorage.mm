@@ -6,12 +6,14 @@
 - (BOOL)isMaterialized;
 - (BOOL)isPartialDataInPackage:(id)package;
 - (BOOL)isReadable;
+- (BOOL)linkOrCopyToURL:(id)l encryptionInfo:(id)info canLink:(BOOL)link;
 - (BOOL)materializeFromPartiallyDownloadedDocumentForData:(id)data withContentsOfURL:(id)l canMove:(BOOL)move error:(id *)error;
 - (BOOL)migrateToTemporaryDataStorageIfNeeded;
 - (BOOL)p_copyPartiallyMaterializedDataToURL:(id)l encryptionInfo:(id)info;
 - (NSDate)modificationDate;
 - (NSIndexSet)unmaterializedRanges;
 - (TSPDataStorage)packageDataStorage;
+- (TSPRemoteDataStorage)initWithRemoteURL:(id)l length:(unint64_t)length encryptionKey:(id)key canDownload:(BOOL)download downloadPriority:(int64_t)priority uploadStatus:(int64_t)status modificationDate:(id)date;
 - (TSPRemoteDataStorage)initWithRemoteURL:(id)l unmaterializedRanges:(id)ranges encryptionKey:(id)key canDownload:(BOOL)download downloadPriority:(int64_t)priority uploadStatus:(int64_t)status modificationDate:(id)date materializedLength:(unint64_t)self0 packageDataStorage:(id)self1;
 - (TSPRemoteDataStorageDelegate)delegate;
 - (id)dataStorageToUse;
@@ -123,102 +125,133 @@
   return v27;
 }
 
+- (TSPRemoteDataStorage)initWithRemoteURL:(id)l length:(unint64_t)length encryptionKey:(id)key canDownload:(BOOL)download downloadPriority:(int64_t)priority uploadStatus:(int64_t)status modificationDate:(id)date
+{
+  downloadCopy = download;
+  lCopy = l;
+  keyCopy = key;
+  dateCopy = date;
+  if (!lCopy)
+  {
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSPRemoteDataStorage initWithRemoteURL:length:encryptionKey:canDownload:downloadPriority:uploadStatus:modificationDate:]");
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v22, v19, v21, 115, 0, "invalid nil value for '%{public}s'", "remoteURL");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+  }
+
+  if (length == -1)
+  {
+    v25 = 0;
+    canDownload_downloadPriority_uploadStatus_modificationDate_materializedLength_packageDataStorage = objc_msgSend_initWithRemoteURL_unmaterializedRanges_encryptionKey_canDownload_downloadPriority_uploadStatus_modificationDate_materializedLength_packageDataStorage_(self, v16, lCopy, 0, keyCopy, downloadCopy, priority, status, dateCopy, 0, 0);
+  }
+
+  else
+  {
+    v25 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAA78], v16, 0, length);
+    canDownload_downloadPriority_uploadStatus_modificationDate_materializedLength_packageDataStorage = objc_msgSend_initWithRemoteURL_unmaterializedRanges_encryptionKey_canDownload_downloadPriority_uploadStatus_modificationDate_materializedLength_packageDataStorage_(self, v27, lCopy, v25, keyCopy, downloadCopy, priority, status, dateCopy, length, 0);
+  }
+
+  v28 = canDownload_downloadPriority_uploadStatus_modificationDate_materializedLength_packageDataStorage;
+
+  return v28;
+}
+
 - (void)didInitializeFromDocumentURL:(id)l
 {
   lCopy = l;
   if ((objc_msgSend_isUnmaterializedDueToPartiallyDownloadedDocument(self, v5, v6) & 1) == 0)
   {
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = sub_2769F99BC;
-    v56 = sub_2769F99CC;
-    v57 = 0;
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = sub_2769F99BC;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = sub_2769F99BC;
+    v54 = sub_2769F99CC;
+    v55 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = sub_2769F99BC;
     accessQueue = self->_accessQueue;
-    v50 = sub_2769F99CC;
-    v51 = 0;
+    v48 = sub_2769F99CC;
+    v49 = 0;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_2769F99D4;
     block[3] = &unk_27A6E2EA8;
     block[4] = self;
-    block[5] = &v52;
-    block[6] = &v46;
+    block[5] = &v50;
+    block[6] = &v44;
     dispatch_sync(accessQueue, block);
-    v8 = v53[5];
     if (objc_opt_respondsToSelector())
     {
-      objc_msgSend_didInitializeFromDocumentURL_(v53[5], v9, lCopy);
+      objc_msgSend_didInitializeFromDocumentURL_(v51[5], v8, lCopy);
     }
 
-    v11 = v53[5];
-    if ((!v11 || (objc_msgSend_isReadable(v11, v9, v10) & 1) == 0) && objc_msgSend_firstIndex(v47[5], v9, v10))
+    v10 = v51[5];
+    if ((!v10 || (objc_msgSend_isReadable(v10, v8, v9) & 1) == 0) && objc_msgSend_firstIndex(v45[5], v8, v9))
     {
-      v12 = self->_accessQueue;
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = sub_2769F9A3C;
-      v44[3] = &unk_27A6E27F8;
-      v44[4] = self;
-      dispatch_barrier_async(v12, v44);
+      v11 = self->_accessQueue;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = sub_2769F9A3C;
+      v42[3] = &unk_27A6E27F8;
+      v42[4] = self;
+      dispatch_barrier_async(v11, v42);
     }
 
-    v13 = atomic_load(&self->_materializedLength);
-    if (!v13 || v13 == -1)
+    v12 = atomic_load(&self->_materializedLength);
+    if (!v12 || v12 == -1)
     {
-      v14 = v53[5];
-      if ((objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend_isLengthPrecise(v53[5], v15, v16))
+      if ((objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend_isLengthPrecise(v51[5], v13, v14))
       {
-        v17 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v17 = objc_msgSend_length(v53[5], v15, v16);
+        v15 = objc_msgSend_length(v51[5], v13, v14);
       }
 
-      v18 = v47[5];
-      if (v18 && objc_msgSend_count(v18, v15, v16) && v17 > objc_msgSend_lastIndex(v47[5], v15, v16) + 1)
+      v16 = v45[5];
+      if (v16 && objc_msgSend_count(v16, v13, v14) && v15 > objc_msgSend_lastIndex(v45[5], v13, v14) + 1)
       {
-        v19 = MEMORY[0x277D81150];
-        v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPRemoteDataStorage didInitializeFromDocumentURL:]");
-        v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
-        Index = objc_msgSend_lastIndex(v47[5], v23, v24);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v26, v20, v22, 159, 0, "packageDataStorageLength and unmaterializedRanges.lastIndex are inconsistent.  packageDataStorageLength should not be greater than unmaterializedRanges.lastIndex materializedLength=%llu unmaterializedRanges.lastIndex=%tu", v17, Index);
+        v17 = MEMORY[0x277D81150];
+        v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPRemoteDataStorage didInitializeFromDocumentURL:]");
+        v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+        Index = objc_msgSend_lastIndex(v45[5], v21, v22);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v24, v18, v20, 159, 0, "packageDataStorageLength and unmaterializedRanges.lastIndex are inconsistent.  packageDataStorageLength should not be greater than unmaterializedRanges.lastIndex materializedLength=%llu unmaterializedRanges.lastIndex=%tu", v15, Index);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26);
       }
 
-      v29 = v47[5];
-      if (v29 && objc_msgSend_count(v29, v15, v16) && objc_msgSend_lastIndex(v47[5], v30, v31) + 1 > v17)
+      v27 = v45[5];
+      if (v27 && objc_msgSend_count(v27, v13, v14) && objc_msgSend_lastIndex(v45[5], v28, v29) + 1 > v15)
       {
-        if (v17 && v17 != objc_msgSend_firstIndex(v47[5], v32, v33))
+        if (v15 && v15 != objc_msgSend_firstIndex(v45[5], v30, v31))
         {
-          v34 = MEMORY[0x277D81150];
-          v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSPRemoteDataStorage didInitializeFromDocumentURL:]");
-          v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
-          v40 = objc_msgSend_firstIndex(v47[5], v38, v39);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v41, v35, v37, 162, 0, "packageDataStorageLength and unmaterializedRanges.firstIndex are inconsistent. packageDataStorageLength=%llu unmaterializedRanges.firstIndex=%tu", v17, v40);
+          v32 = MEMORY[0x277D81150];
+          v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "[TSPRemoteDataStorage didInitializeFromDocumentURL:]");
+          v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+          v38 = objc_msgSend_firstIndex(v45[5], v36, v37);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v39, v33, v35, 162, 0, "packageDataStorageLength and unmaterializedRanges.firstIndex are inconsistent. packageDataStorageLength=%llu unmaterializedRanges.firstIndex=%tu", v15, v38);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41);
         }
 
-        v17 = objc_msgSend_lastIndex(v47[5], v32, v33) + 1;
+        v15 = objc_msgSend_lastIndex(v45[5], v30, v31) + 1;
       }
 
-      if (v17 && v17 != -1)
+      if (v15 && v15 != -1)
       {
-        atomic_store(v17, &self->_materializedLength);
+        atomic_store(v15, &self->_materializedLength);
       }
     }
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v44, 8);
 
-    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v50, 8);
   }
 }
 
@@ -661,49 +694,49 @@ LABEL_6:
   lCopy = l;
   if (objc_msgSend_isUnmaterializedDueToPartiallyDownloadedDocument(self, v11, v12))
   {
-    v148 = 0;
-    v149 = &v148;
-    v150 = 0x2020000000;
-    v151 = 0;
-    v142 = 0;
-    v143 = &v142;
-    v144 = 0x3032000000;
-    v145 = sub_2769F99BC;
-    accessQueue = self->_accessQueue;
-    v146 = sub_2769F99CC;
     v147 = 0;
+    v148 = &v147;
+    v149 = 0x2020000000;
+    v150 = 0;
+    v141 = 0;
+    v142 = &v141;
+    v143 = 0x3032000000;
+    v144 = sub_2769F99BC;
+    accessQueue = self->_accessQueue;
+    v145 = sub_2769F99CC;
+    v146 = 0;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_2769FD3CC;
     block[3] = &unk_27A6E2EA8;
     block[4] = self;
-    block[5] = &v148;
-    block[6] = &v142;
+    block[5] = &v147;
+    block[6] = &v141;
     dispatch_sync(accessQueue, block);
-    if (v149[3])
+    if (v148[3])
     {
       goto LABEL_17;
     }
 
     errorCopy = error;
-    v17 = v143[5];
+    v17 = v142[5];
     if (!v17)
     {
       v18 = MEMORY[0x277D81150];
-      v130 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPRemoteDataStorage materializeFromPartiallyDownloadedDocumentForData:withContentsOfURL:canMove:error:]");
-      v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+      v129 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPRemoteDataStorage materializeFromPartiallyDownloadedDocumentForData:withContentsOfURL:canMove:error:]");
+      v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
       if (dataCopy)
       {
         v22 = objc_opt_class();
-        v126 = NSStringFromClass(v22);
+        v125 = NSStringFromClass(v22);
       }
 
       else
       {
-        v126 = @"Nil";
+        v125 = @"Nil";
       }
 
-      v125 = objc_msgSend_filename(dataCopy, v20, v21);
+      v124 = objc_msgSend_filename(dataCopy, v20, v21);
       isApplicationData = objc_msgSend_isApplicationData(dataCopy, v69, v70);
       isReadable = objc_msgSend_isReadable(dataCopy, v71, v72);
       isExternalData = objc_msgSend_isExternalData(dataCopy, v74, v75);
@@ -712,22 +745,22 @@ LABEL_6:
       v84 = objc_msgSend_type(dataCopy, v82, v83);
       v87 = objc_msgSend_packageIdentifier(dataCopy, v85, v86);
       v89 = sub_276AC69B4(v87, v88);
-      v120 = objc_msgSend_anonymousUniqueIdentifier(dataCopy, v90, v91);
-      v119 = objc_msgSend_UUIDString(v120, v92, v93);
-      v118 = objc_msgSend_digestString(dataCopy, v94, v95);
+      v119 = objc_msgSend_anonymousUniqueIdentifier(dataCopy, v90, v91);
+      v118 = objc_msgSend_UUIDString(v119, v92, v93);
+      v117 = objc_msgSend_digestString(dataCopy, v94, v95);
       v96 = MEMORY[0x277CCABB0];
       v99 = objc_msgSend_length(dataCopy, v97, v98);
       objc_msgSend_numberWithUnsignedLongLong_(v96, v100, v99);
-      v117 = v116 = v18;
-      v103 = objc_msgSend_stringValue(v117, v101, v102);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v104, v130, v128, 586, 0, "It's expected that the package data storage is defined when this method is called. data=<%{public}@: %{public}p filename=%@, isApplicationData=%i, isReadable=%i, isExternalData=%i, isEncrypted=%i, needsDownload=%i, type=%{public}@, packageIdentifier=%{public}@, anonymousUniqueIdentifier=%{public}@, digestString=%@, length=%@> ", v126, dataCopy, v125, isApplicationData, isReadable, isExternalData, isEncrypted, v81, v84, v89, v119, v118, v103);
+      v116 = v115 = v18;
+      v103 = objc_msgSend_stringValue(v116, v101, v102);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v115, v104, v129, v127, 586, 0, "It's expected that the package data storage is defined when this method is called. data=<%{public}@: %{public}p filename=%@, isApplicationData=%i, isReadable=%i, isExternalData=%i, isEncrypted=%i, needsDownload=%i, type=%{public}@, packageIdentifier=%{public}@, anonymousUniqueIdentifier=%{public}@, digestString=%@, length=%@> ", v125, dataCopy, v124, isApplicationData, isReadable, isExternalData, isEncrypted, v81, v84, v89, v118, v117, v103);
 
       if (dataCopy)
       {
       }
 
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v105, v106);
-      v17 = v143[5];
+      v17 = v142[5];
     }
 
     if (objc_msgSend_isReadable(v17, v15, v16))
@@ -739,77 +772,76 @@ LABEL_17:
 
     else
     {
-      v107 = v143[5];
       if (objc_opt_respondsToSelector())
       {
-        v110 = objc_msgSend_decryptionInfo(v143[5], v108, v109);
+        v109 = objc_msgSend_decryptionInfo(v142[5], v107, v108);
       }
 
       else
       {
-        v110 = 0;
+        v109 = 0;
       }
 
-      v138[0] = MEMORY[0x277D85DD0];
-      v138[1] = 3221225472;
-      v138[2] = sub_2769FD40C;
-      v138[3] = &unk_27A6E4108;
+      v137[0] = MEMORY[0x277D85DD0];
+      v137[1] = 3221225472;
+      v137[2] = sub_2769FD40C;
+      v137[3] = &unk_27A6E4108;
       moveCopy = move;
-      v139 = lCopy;
-      v112 = objc_msgSend_temporaryDataStorageForReplacingDataContentsWithDecryptionInfo_writer_error_(dataCopy, v111, v110, v138, errorCopy);
-      v68 = v112 != 0;
-      if (v112)
+      v138 = lCopy;
+      v111 = objc_msgSend_temporaryDataStorageForReplacingDataContentsWithDecryptionInfo_writer_error_(dataCopy, v110, v109, v137, errorCopy);
+      v68 = v111 != 0;
+      if (v111)
       {
-        v113 = self->_accessQueue;
-        v137[0] = MEMORY[0x277D85DD0];
-        v137[1] = 3221225472;
-        v137[2] = sub_2769FD4C0;
-        v137[3] = &unk_27A6E2898;
-        v137[4] = self;
-        v137[5] = v112;
-        dispatch_barrier_sync(v113, v137);
-        objc_msgSend_setIsUnmaterializedDueToPartiallyDownloadedDocument_(self, v114, 0);
+        v112 = self->_accessQueue;
+        v136[0] = MEMORY[0x277D85DD0];
+        v136[1] = 3221225472;
+        v136[2] = sub_2769FD4C0;
+        v136[3] = &unk_27A6E2898;
+        v136[4] = self;
+        v136[5] = v111;
+        dispatch_barrier_sync(v112, v136);
+        objc_msgSend_setIsUnmaterializedDueToPartiallyDownloadedDocument_(self, v113, 0);
       }
     }
 
-    _Block_object_dispose(&v142, 8);
+    _Block_object_dispose(&v141, 8);
 
-    _Block_object_dispose(&v148, 8);
+    _Block_object_dispose(&v147, 8);
   }
 
   else
   {
     v23 = MEMORY[0x277D81150];
-    v132 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPRemoteDataStorage materializeFromPartiallyDownloadedDocumentForData:withContentsOfURL:canMove:error:]");
-    v135 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+    v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPRemoteDataStorage materializeFromPartiallyDownloadedDocumentForData:withContentsOfURL:canMove:error:]");
+    v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
     if (dataCopy)
     {
       v27 = objc_opt_class();
-      v133 = NSStringFromClass(v27);
+      v132 = NSStringFromClass(v27);
     }
 
     else
     {
-      v133 = @"Nil";
+      v132 = @"Nil";
     }
 
-    v131 = objc_msgSend_filename(dataCopy, v25, v26);
+    v130 = objc_msgSend_filename(dataCopy, v25, v26);
     v30 = objc_msgSend_isApplicationData(dataCopy, v28, v29);
-    v127 = objc_msgSend_isReadable(dataCopy, v31, v32);
-    v124 = objc_msgSend_isExternalData(dataCopy, v33, v34);
+    v126 = objc_msgSend_isReadable(dataCopy, v31, v32);
+    v123 = objc_msgSend_isExternalData(dataCopy, v33, v34);
     v37 = objc_msgSend_isEncrypted(dataCopy, v35, v36);
     v40 = objc_msgSend_needsDownload(dataCopy, v38, v39);
-    v129 = objc_msgSend_type(dataCopy, v41, v42);
+    v128 = objc_msgSend_type(dataCopy, v41, v42);
     v45 = objc_msgSend_packageIdentifier(dataCopy, v43, v44);
     v47 = sub_276AC69B4(v45, v46);
-    v122 = objc_msgSend_anonymousUniqueIdentifier(dataCopy, v48, v49);
-    v52 = objc_msgSend_UUIDString(v122, v50, v51);
+    v121 = objc_msgSend_anonymousUniqueIdentifier(dataCopy, v48, v49);
+    v52 = objc_msgSend_UUIDString(v121, v50, v51);
     v55 = objc_msgSend_digestString(dataCopy, v53, v54);
     v56 = MEMORY[0x277CCABB0];
     v59 = objc_msgSend_length(dataCopy, v57, v58);
     v61 = objc_msgSend_numberWithUnsignedLongLong_(v56, v60, v59);
     v64 = objc_msgSend_stringValue(v61, v62, v63);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v65, v132, v135, 568, 0, "This method should only be called for data that's unmaterialized due to partially downloaded document. data=<%{public}@: %{public}p filename=%@, isApplicationData=%i, isReadable=%i, isExternalData=%i, isEncrypted=%i, needsDownload=%i, type=%{public}@, packageIdentifier=%{public}@, anonymousUniqueIdentifier=%{public}@, digestString=%@, length=%@> ", v133, dataCopy, v131, v30, v127, v124, v37, v40, v129, v47, v52, v55, v64);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v65, v131, v134, 568, 0, "This method should only be called for data that's unmaterialized due to partially downloaded document. data=<%{public}@: %{public}p filename=%@, isApplicationData=%i, isReadable=%i, isExternalData=%i, isEncrypted=%i, needsDownload=%i, type=%{public}@, packageIdentifier=%{public}@, anonymousUniqueIdentifier=%{public}@, digestString=%@, length=%@> ", v132, dataCopy, v130, v30, v126, v123, v37, v40, v128, v47, v52, v55, v64);
 
     if (dataCopy)
     {
@@ -880,9 +912,9 @@ LABEL_17:
     v7 = v20[5];
     if (!v7)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPRemoteDataStorage performIOChannelReadWithAccessor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm", 643, "temporaryMaterializedData");
       v8 = MEMORY[0x277D81150];
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPRemoteDataStorage performIOChannelReadWithAccessor:]", "[TSPRemoteDataStorage performIOChannelReadWithAccessor:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm", 643, "temporaryMaterializedData");
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPRemoteDataStorage performIOChannelReadWithAccessor:]");
       v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 643, 1, "invalid nil value for '%{public}s'", "temporaryMaterializedData");
 
@@ -908,50 +940,50 @@ LABEL_17:
   dataCopy = data;
   writerCopy = writer;
   filenameCopy = filename;
-  v121 = 0;
-  v122 = &v121;
-  v123 = 0x3032000000;
-  v124 = sub_2769F99BC;
-  v125 = sub_2769F99CC;
-  v126 = 0;
-  v115 = 0;
-  v116 = &v115;
-  v117 = 0x3032000000;
-  v118 = sub_2769F99BC;
-  v119 = sub_2769F99CC;
-  v120 = 0;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
-  v114 = 0;
-  v105 = 0;
-  v106 = &v105;
-  v107 = 0x3032000000;
-  v108 = sub_2769F99BC;
-  v109 = sub_2769F99CC;
-  v110 = 0;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = sub_2769F99BC;
-  v103 = sub_2769F99CC;
-  v104 = 0;
+  v119 = 0;
+  v120 = &v119;
+  v121 = 0x3032000000;
+  v122 = sub_2769F99BC;
+  v123 = sub_2769F99CC;
+  v124 = 0;
+  v113 = 0;
+  v114 = &v113;
+  v115 = 0x3032000000;
+  v116 = sub_2769F99BC;
+  v117 = sub_2769F99CC;
+  v118 = 0;
+  v109 = 0;
+  v110 = &v109;
+  v111 = 0x2020000000;
+  v112 = 0;
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x3032000000;
+  v106 = sub_2769F99BC;
+  v107 = sub_2769F99CC;
+  v108 = 0;
+  v97 = 0;
+  v98 = &v97;
+  v99 = 0x3032000000;
+  v100 = sub_2769F99BC;
+  v101 = sub_2769F99CC;
+  v102 = 0;
   accessQueue = self->_accessQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2769FE270;
   block[3] = &unk_27A6E2F20;
   block[4] = self;
-  block[5] = &v121;
-  block[6] = &v115;
-  block[7] = &v105;
-  block[8] = &v111;
-  block[9] = &v99;
+  block[5] = &v119;
+  block[6] = &v113;
+  block[7] = &v103;
+  block[8] = &v109;
+  block[9] = &v97;
   dispatch_sync(accessQueue, block);
-  v13 = v106[5];
-  if (!v13 || v112[3])
+  v13 = v104[5];
+  if (!v13 || v110[3])
   {
-    v13 = v122[5];
+    v13 = v120[5];
   }
 
   v14 = v13;
@@ -991,13 +1023,12 @@ LABEL_17:
       }
 
       v27 = objc_msgSend_filenameForData_preferredFilename_(writerCopy, v18, dataCopy, filenameCopy);
-      if (v106[5])
+      if (v104[5])
       {
         v46 = objc_msgSend_encryptionKey(writerCopy, v25, v26);
-        v47 = v106[5];
         if (objc_opt_respondsToSelector())
         {
-          isMissingData = objc_msgSend_isMissingData(v106[5], v48, v49);
+          isMissingData = objc_msgSend_isMissingData(v104[5], v47, v48);
         }
 
         else
@@ -1005,37 +1036,36 @@ LABEL_17:
           isMissingData = 0;
         }
 
-        v51 = v106[5];
         if (objc_opt_respondsToSelector())
         {
-          v54 = objc_msgSend_decryptionInfo(v106[5], v52, v53);
+          v52 = objc_msgSend_decryptionInfo(v104[5], v50, v51);
         }
 
         else
         {
-          v54 = 0;
+          v52 = 0;
         }
 
-        if (sub_276AB678C(v54, v46, 0x100000))
+        if (sub_276AB678C(v52, v46, 0x100000))
         {
           if (v46)
           {
-            v56 = isMissingData;
+            v54 = isMissingData;
           }
 
           else
           {
-            v56 = 1;
+            v54 = 1;
           }
 
-          if ((v56 & 1) == 0)
+          if ((v54 & 1) == 0)
           {
-            v57 = MEMORY[0x277D81150];
-            v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "[TSPRemoteDataStorage writeData:toPackageWriter:infoMessage:preferredFilename:shouldRemoveData:error:]");
-            v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v61, v58, v60, 726, 0, "Encryption info cannot be properly calculated for unmaterialized data due to partially downloaded document because it requires access to the data bytes.");
+            v55 = MEMORY[0x277D81150];
+            v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "[TSPRemoteDataStorage writeData:toPackageWriter:infoMessage:preferredFilename:shouldRemoveData:error:]");
+            v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v59, v56, v58, 726, 0, "Encryption info cannot be properly calculated for unmaterialized data due to partially downloaded document because it requires access to the data bytes.");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v62, v63);
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61);
           }
 
           if (UnsafePointer != -1)
@@ -1049,7 +1079,7 @@ LABEL_17:
 
         else
         {
-          v22 = v54;
+          v22 = v52;
         }
 
         v20 = 0;
@@ -1071,16 +1101,16 @@ LABEL_17:
 
   else
   {
-    v97 = 0;
-    v28 = objc_msgSend_writeData_toPackageWriter_infoMessage_preferredFilename_shouldRemoveData_error_(v14, v18, dataCopy, writerCopy, message, filenameCopy, 0, &v97);
-    v20 = v97;
+    v95 = 0;
+    v28 = objc_msgSend_writeData_toPackageWriter_infoMessage_preferredFilename_shouldRemoveData_error_(v14, v18, dataCopy, writerCopy, message, filenameCopy, 0, &v95);
+    v20 = v95;
     v24 = v28 != 0;
     if (v28)
     {
       v27 = objc_msgSend_filename(v28, v29, v30);
       v22 = objc_msgSend_encryptionInfo(v28, v31, v32);
       v21 = objc_msgSend_encodedLength(v28, v33, v34);
-      if (objc_msgSend_count(v116[5], v35, v36) && objc_msgSend_packageStorageType(v28, v37, v38))
+      if (objc_msgSend_count(v114[5], v35, v36) && objc_msgSend_packageStorageType(v28, v37, v38))
       {
         v23 = 2;
       }
@@ -1107,64 +1137,64 @@ LABEL_17:
 
   if (v27)
   {
-    v64 = v24;
+    v62 = v24;
   }
 
   else
   {
-    v64 = 0;
+    v62 = 0;
   }
 
-  if (!v64 || v23 == 1)
+  if (!v62 || v23 == 1)
   {
-    if (v64)
+    if (v62)
     {
 LABEL_72:
-      v85 = sub_276A7BE80(self->_uploadStatus, v25);
+      v83 = sub_276A7BE80(self->_uploadStatus, v25);
       *(message + 4) |= 0x4000u;
-      *(message + 31) = v85;
-      v86 = [TSPDataStorageWriteResult alloc];
-      v88 = objc_msgSend_initWithFilename_encryptionInfo_packageStorageType_encodedLength_isMissingData_changeCount_(v86, v87, v27, v22, v23, v21, removeDataCopy, v112[3]);
+      *(message + 31) = v83;
+      v84 = [TSPDataStorageWriteResult alloc];
+      v86 = objc_msgSend_initWithFilename_encryptionInfo_packageStorageType_encodedLength_isMissingData_changeCount_(v84, v85, v27, v22, v23, v21, removeDataCopy, v110[3]);
       goto LABEL_79;
     }
   }
 
   else
   {
-    if (objc_msgSend_count(v116[5], v25, v26))
+    if (objc_msgSend_count(v114[5], v25, v26))
     {
-      v67 = v116[5];
+      v65 = v114[5];
       *(message + 4) |= 0x400u;
-      v68 = *(message + 13);
-      if (!v68)
+      v66 = *(message + 13);
+      if (!v66)
       {
-        v69 = *(message + 1);
-        if (v69)
+        v67 = *(message + 1);
+        if (v67)
         {
-          v69 = *(v69 & 0xFFFFFFFFFFFFFFFELL);
+          v67 = *(v67 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v68 = google::protobuf::Arena::CreateMaybeMessage<TSP::IndexSet>(v69);
-        *(message + 13) = v68;
+        v66 = google::protobuf::Arena::CreateMaybeMessage<TSP::IndexSet>(v67);
+        *(message + 13) = v66;
       }
 
-      objc_msgSend_tsp_saveToMessage_(v67, v65, v68);
+      objc_msgSend_tsp_saveToMessage_(v65, v63, v66);
     }
 
-    v70 = objc_msgSend_absoluteString(self->_remoteURL, v65, v66);
-    v73 = v70;
+    v68 = objc_msgSend_absoluteString(self->_remoteURL, v63, v64);
+    v71 = v68;
     if (message)
     {
-      v74 = v70 == 0;
+      v72 = v68 == 0;
     }
 
     else
     {
-      v74 = 1;
+      v72 = 1;
     }
 
-    v75 = !v74;
-    if (v74)
+    v73 = !v72;
+    if (v72)
     {
       if (!message)
       {
@@ -1172,51 +1202,51 @@ LABEL_72:
         goto LABEL_74;
       }
 
-      v81 = *(message + 4);
+      v79 = *(message + 4);
     }
 
     else
     {
       *(message + 4) |= 0x20u;
-      v76 = *(message + 1);
-      if (v76)
+      v74 = *(message + 1);
+      if (v74)
       {
-        v76 = *(v76 & 0xFFFFFFFFFFFFFFFELL);
+        v74 = *(v74 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v77 = google::protobuf::internal::ArenaStringPtr::Mutable(message + 8, v76);
-      objc_msgSend_tsp_saveToProtobufString_(v73, v78, v77);
+      v75 = google::protobuf::internal::ArenaStringPtr::Mutable(message + 8, v74);
+      objc_msgSend_tsp_saveToProtobufString_(v71, v76, v75);
       canDownload = self->_canDownload;
-      v80 = *(message + 4);
-      v81 = v80 | 0x1000;
-      *(message + 4) = v80 | 0x1000;
+      v78 = *(message + 4);
+      v79 = v78 | 0x1000;
+      *(message + 4) = v78 | 0x1000;
       *(message + 120) = canDownload;
       if (!self->_downloadPriority)
       {
-        v81 = v80 | 0x41000;
-        *(message + 4) = v80 | 0x41000;
+        v79 = v78 | 0x41000;
+        *(message + 4) = v78 | 0x41000;
         *(message + 38) = 0;
       }
     }
 
-    *(message + 4) = v81 | 0x2000;
+    *(message + 4) = v79 | 0x2000;
     *(message + 121) = v23 == 2;
-    v82 = v100[5];
-    if (v82)
+    v80 = v98[5];
+    if (v80)
     {
-      objc_msgSend_timeIntervalSince1970(v82, v71, v72);
+      objc_msgSend_timeIntervalSince1970(v80, v69, v70);
       *(message + 4) |= 0x10000u;
-      *(message + 17) = v83;
+      *(message + 17) = v81;
     }
 
-    v84 = atomic_load(&self->_materializedLength);
-    if (v84 && v84 != -1)
+    v82 = atomic_load(&self->_materializedLength);
+    if (v82 && v82 != -1)
     {
       *(message + 4) |= 0x20000u;
-      *(message + 18) = v84;
+      *(message + 18) = v82;
     }
 
-    if (v75)
+    if (v73)
     {
       goto LABEL_72;
     }
@@ -1227,28 +1257,28 @@ LABEL_74:
   {
     if (v20)
     {
-      v89 = v20;
-      v88 = 0;
+      v87 = v20;
+      v86 = 0;
       *error = v20;
       goto LABEL_79;
     }
 
-    v90 = objc_msgSend_tsp_unknownWriteErrorWithUserInfo_(MEMORY[0x277CCA9B8], v25, 0);
-    *error = v90;
+    v88 = objc_msgSend_tsp_unknownWriteErrorWithUserInfo_(MEMORY[0x277CCA9B8], v25, 0);
+    *error = v88;
   }
 
-  v88 = 0;
+  v86 = 0;
 LABEL_79:
 
-  _Block_object_dispose(&v99, 8);
-  _Block_object_dispose(&v105, 8);
+  _Block_object_dispose(&v97, 8);
+  _Block_object_dispose(&v103, 8);
 
-  _Block_object_dispose(&v111, 8);
-  _Block_object_dispose(&v115, 8);
+  _Block_object_dispose(&v109, 8);
+  _Block_object_dispose(&v113, 8);
 
-  _Block_object_dispose(&v121, 8);
+  _Block_object_dispose(&v119, 8);
 
-  return v88;
+  return v86;
 }
 
 - (void)didSaveWithChangeCount:(unint64_t)count packageDataStorage:(id)storage
@@ -1474,6 +1504,102 @@ LABEL_79:
   _Block_object_dispose(&v6, 8);
 
   return v3;
+}
+
+- (BOOL)linkOrCopyToURL:(id)l encryptionInfo:(id)info canLink:(BOOL)link
+{
+  linkCopy = link;
+  lCopy = l;
+  infoCopy = info;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = sub_2769F99BC;
+  v46 = sub_2769F99CC;
+  v47 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_2769F99BC;
+  v36 = sub_2769F99CC;
+  v37 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  accessQueue = self->_accessQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = sub_2769FF180;
+  block[3] = &unk_27A6E4130;
+  block[4] = self;
+  block[5] = &v42;
+  block[6] = &v32;
+  block[7] = &v38;
+  block[8] = &v28;
+  dispatch_sync(accessQueue, block);
+  v11 = v33[5];
+  if (!v11 || v39[3])
+  {
+    v11 = v43[5];
+  }
+
+  v12 = v11;
+  v13 = v12;
+  if ((v29[3] & 1) == 0)
+  {
+    if (UnsafePointer == -1)
+    {
+      canLink = 0;
+      goto LABEL_14;
+    }
+
+    sub_276BD33F0();
+LABEL_13:
+    canLink = 0;
+    goto LABEL_14;
+  }
+
+  if (!v12)
+  {
+    if (UnsafePointer == -1)
+    {
+      canLink = 0;
+      goto LABEL_14;
+    }
+
+    sub_276BD3418();
+    goto LABEL_13;
+  }
+
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPRemoteDataStorage linkOrCopyToURL:encryptionInfo:canLink:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPRemoteDataStorage.mm");
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v22 = NSStringFromSelector(sel_linkOrCopyToURL_encryptionInfo_canLink_);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v23, v17, v19, 923, 0, "<%{public}@: %{public}p> does not implement %{public}@", v21, v13, v22);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25);
+    goto LABEL_13;
+  }
+
+  canLink = objc_msgSend_linkOrCopyToURL_encryptionInfo_canLink_(v13, v14, lCopy, infoCopy, linkCopy);
+LABEL_14:
+
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+
+  return canLink;
 }
 
 - (void)didAddDownloadObserverWithData:(id)data

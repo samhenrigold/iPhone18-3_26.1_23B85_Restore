@@ -72,13 +72,13 @@
     scopeIdentifier = [collectionShare scopeIdentifier];
 
     entryAlbumGUID = [v13 entryAlbumGUID];
-    v18 = [scopeIdentifier isEqualToString:entryAlbumGUID];
+    isEqualToString = objc_msgSend_isEqualToString_(scopeIdentifier);
 
     entryComments = [v13 entryComments];
-    v20 = [entryComments count];
+    v20 = objc_msgSend_count(entryComments);
 
     v21 = 0;
-    if (!v20 && v18)
+    if (!v20 && isEqualToString)
     {
       selfCopy = self;
       v44 = a2;
@@ -104,7 +104,7 @@
 
             commenterHashedPersonID2 = [*(*(&v45 + 1) + 8 * i) commenterHashedPersonID];
             _commentSortingComparator = commenterHashedPersonID2;
-            if (commenterHashedPersonID2 != commenterHashedPersonID && ![commenterHashedPersonID2 isEqualToString:commenterHashedPersonID])
+            if (commenterHashedPersonID2 != commenterHashedPersonID && !objc_msgSend_isEqualToString_(commenterHashedPersonID2))
             {
               v21 = 0;
               goto LABEL_22;
@@ -126,7 +126,7 @@
       entryLikeComments2 = [v13 entryLikeComments];
       entryLikeComments = [v30 initWithOrderedSet:entryLikeComments2];
 
-      v32 = [entryLikeComments count];
+      v32 = objc_msgSend_count(entryLikeComments);
       _commentSortingComparator = [(PLCloudFeedEntriesManager *)selfCopy _commentSortingComparator];
       array = [entryLikeComments array];
       v34 = [array indexOfObject:commentCopy inSortedRange:0 options:v32 usingComparator:{1024, _commentSortingComparator}];
@@ -229,13 +229,13 @@ LABEL_22:
     v16 = PLCloudFeedGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v17 = [entryAssets count];
+      v17 = objc_msgSend_count(entryAssets);
       *buf = 134217984;
       v23 = v17;
       _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEBUG, "entryAfterAssetsCount=%lu", buf, 0xCu);
     }
 
-    if ([entryAssets count])
+    if (objc_msgSend_count(entryAssets))
     {
       v18 = [entryAssets objectAtIndex:0];
       if ([(PLCloudFeedEntriesManager *)self _shouldMergeAsset:v18 intoEntry:v8])
@@ -289,7 +289,7 @@ LABEL_22:
     v13 = PLCloudFeedGetLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [entryAssets count];
+      v14 = objc_msgSend_count(entryAssets);
       *buf = 134218240;
       v37 = v12;
       v38 = 2048;
@@ -297,7 +297,7 @@ LABEL_22:
       _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEBUG, "splitIndex=%li entryAssetsCout=%lu", buf, 0x16u);
     }
 
-    if (v12 >= 1 && v12 < [entryAssets count])
+    if (v12 >= 1 && v12 < objc_msgSend_count(entryAssets))
     {
       v29 = a2;
       v15 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, v12}];
@@ -400,7 +400,7 @@ BOOL __49__PLCloudFeedEntriesManager__splitEntriesAtDate___block_invoke(uint64_t
     entryAssets = [entryCopy entryAssets];
     mutableEntryAssets = [recentEntryCopy mutableEntryAssets];
     array = [entryAssets array];
-    v18 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, -[NSObject count](entryAssets, "count")}];
+    v18 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, objc_msgSend_count(entryAssets)}];
     [mutableEntryAssets insertObjects:array atIndexes:v18];
 
     v19 = PLCloudFeedGetLog();
@@ -471,7 +471,7 @@ BOOL __49__PLCloudFeedEntriesManager__splitEntriesAtDate___block_invoke(uint64_t
   if (objc_opt_isKindOfClass())
   {
     mutableEntryAssets = [entryCopy mutableEntryAssets];
-    v14 = [mutableEntryAssets count];
+    v14 = objc_msgSend_count(mutableEntryAssets);
     _assetSortingComparator = [(PLCloudFeedEntriesManager *)self _assetSortingComparator];
     array = [mutableEntryAssets array];
     v17 = [array indexOfObject:assetCopy inSortedRange:0 options:v14 usingComparator:{1024, _assetSortingComparator}];
@@ -586,7 +586,7 @@ LABEL_9:
   if ([entryCopy entryType] == 1)
   {
     entryAssets = [entryCopy entryAssets];
-    if ([entryAssets count])
+    if (objc_msgSend_count(entryAssets))
     {
       v9 = [entryAssets objectAtIndex:0];
     }
@@ -608,7 +608,7 @@ LABEL_9:
     v17 = [(PLCloudFeedEntriesManager *)self _dateForAsset:lastObject];
     v28 = scopeIdentifier2;
     v29 = scopeIdentifier;
-    LODWORD(scopeIdentifier2) = [scopeIdentifier isEqualToString:scopeIdentifier2];
+    LODWORD(scopeIdentifier2) = objc_msgSend_isEqualToString_(scopeIdentifier);
     v18 = [assetCopy cloudHasSameOwnerAsAsset:v9];
     v27 = v10;
     [v16 timeIntervalSinceDate:v10];
@@ -617,7 +617,7 @@ LABEL_9:
     LOBYTE(v10) = 0;
     if (scopeIdentifier2 && v18 && v20 >= -3600.0 && v21 <= 3600.0)
     {
-      if (([assetCopy userCloudSharedLiked] & 1) != 0 || !objc_msgSend(entryAssets, "count"))
+      if (([assetCopy userCloudSharedLiked] & 1) != 0 || !objc_msgSend_count(entryAssets))
       {
         LOBYTE(v10) = 1;
       }
@@ -845,7 +845,7 @@ LABEL_23:
 
   entryLikeComments = [entryCopy entryLikeComments];
   entryComments = [entryCopy entryComments];
-  if ([entryLikeComments count] || objc_msgSend(entryComments, "count"))
+  if (objc_msgSend_count(entryLikeComments) || objc_msgSend_count(entryComments))
   {
     lastObject = [entryLikeComments lastObject];
     commentDate = [lastObject commentDate];
@@ -935,7 +935,7 @@ LABEL_23:
   entryDate = [entryCopy entryDate];
   v11 = [entryDate copy];
 
-  if ([entryAssets count])
+  if (objc_msgSend_count(entryAssets))
   {
     lastObject = [entryAssets lastObject];
     v13 = [(PLCloudFeedEntriesManager *)self _dateForAsset:lastObject];
@@ -1548,7 +1548,7 @@ LABEL_36:
     }
 
     v47 = v19;
-    v21 = [v19 count];
+    v21 = objc_msgSend_count(v19);
     if (v21 >= 1)
     {
       v22 = objc_alloc_init(MEMORY[0x1E695DFA0]);
@@ -1719,7 +1719,7 @@ void __58__PLCloudFeedEntriesManager__noteDidReceiveSharedComment___block_invoke
   }
 
   v9 = [v6 entryLikeComments];
-  if ([v9 count] && *(a1 + 96) == 1)
+  if (objc_msgSend_count(v9) && *(a1 + 96) == 1)
   {
     v10 = *(a1 + 32);
     v11 = [v9 array];
@@ -1729,7 +1729,7 @@ void __58__PLCloudFeedEntriesManager__noteDidReceiveSharedComment___block_invoke
   }
 
   v12 = [v6 entryComments];
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     if ((*(a1 + 96) & 1) == 0)
     {
@@ -2559,7 +2559,7 @@ LABEL_27:
     v37 = [(PLCloudFeedEntriesManager *)self _albumCreatedEntryForSharedAlbumWithGUID:scopeIdentifier4];
 
     collectionShareAssets = [shareCopy collectionShareAssets];
-    v39 = [collectionShareAssets count];
+    v39 = objc_msgSend_count(collectionShareAssets);
 
     if (v39 || v37)
     {
@@ -3099,7 +3099,7 @@ void __47__PLCloudFeedEntriesManager_rebuildAllEntries___block_invoke(uint64_t a
   v8 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v7 count];
+    v9 = objc_msgSend_count(v7);
     *buf = 134217984;
     *v62 = v9;
     _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "deleting %li entries", buf, 0xCu);
@@ -3135,7 +3135,7 @@ void __47__PLCloudFeedEntriesManager_rebuildAllEntries___block_invoke(uint64_t a
   v16 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [v7 count];
+    v17 = objc_msgSend_count(v7);
     *buf = 134217984;
     *v62 = v17;
     _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "rebuilding from %li shared albums", buf, 0xCu);
@@ -3174,7 +3174,7 @@ LABEL_29:
   v25 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [v7 count];
+    v26 = objc_msgSend_count(v7);
     *buf = 134217984;
     *v62 = v26;
     _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_DEFAULT, "rebuilding from %li collection shares", buf, 0xCu);
@@ -3218,7 +3218,7 @@ LABEL_31:
   v32 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = [v7 count];
+    v33 = objc_msgSend_count(v7);
     *buf = 134217984;
     *v62 = v33;
     _os_log_impl(&dword_19BF1F000, v32, OS_LOG_TYPE_DEFAULT, "rebuilding from %li shared assets", buf, 0xCu);
@@ -3255,7 +3255,7 @@ LABEL_31:
   v38 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = [v7 count];
+    v39 = objc_msgSend_count(v7);
     *buf = 134217984;
     *v62 = v39;
     _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_DEFAULT, "rebuilding from %li invitations", buf, 0xCu);
@@ -3292,7 +3292,7 @@ LABEL_31:
   v49 = PLCloudFeedGetLog();
   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = [v48 count];
+    v50 = objc_msgSend_count(v48);
     *buf = 134217984;
     *v62 = v50;
     _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_DEFAULT, "rebuilding from %li share participants", buf, 0xCu);
@@ -3572,7 +3572,7 @@ void __47__PLCloudFeedEntriesManager_rebuildAllEntries___block_invoke_83(uint64_
     _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_DEBUG, "deletionEntries=%@", buf, 0xCu);
   }
 
-  if ([updatesCopy count] || objc_msgSend(shareUpdatesCopy, "count") || objc_msgSend(deletesCopy, "count") || objc_msgSend(v26, "count") || objc_msgSend(v29, "count") || objc_msgSend(v31, "count") || objc_msgSend(recordUpdatesCopy, "count") || objc_msgSend(participantUpdatesCopy, "count") || objc_msgSend(participantDeletesCopy, "count") || objc_msgSend(entriesCopy, "count"))
+  if (objc_msgSend_count(updatesCopy) || objc_msgSend_count(shareUpdatesCopy) || objc_msgSend_count(deletesCopy) || objc_msgSend_count(v26) || objc_msgSend_count(v29) || objc_msgSend_count(v31) || objc_msgSend_count(recordUpdatesCopy) || objc_msgSend_count(participantUpdatesCopy) || objc_msgSend_count(participantDeletesCopy) || objc_msgSend_count(entriesCopy))
   {
     library = [(PLCloudFeedEntriesManager *)self library];
     managedObjectContext = [library managedObjectContext];
@@ -3618,334 +3618,334 @@ void __47__PLCloudFeedEntriesManager_rebuildAllEntries___block_invoke_83(uint64_
   }
 }
 
-void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates_collectionShareDeletes_assetInserts_assetUpdates_commentInserts_invitationRecordUpdates_shareParticipantUpdates_shareParticipantDeletes_deletionEntries_completionHandler___block_invoke(id *a1)
+void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates_collectionShareDeletes_assetInserts_assetUpdates_commentInserts_invitationRecordUpdates_shareParticipantUpdates_shareParticipantDeletes_deletionEntries_completionHandler___block_invoke(void **a1, const char *a2)
 {
-  v104 = *MEMORY[0x1E69E9840];
-  if ([a1[4] count])
+  v105 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_count(a1[4], a2))
   {
-    v2 = MEMORY[0x1E695D5E0];
-    v3 = +[PLCloudSharedAlbum entityName];
-    v4 = [v2 fetchRequestWithEntityName:v3];
+    v3 = MEMORY[0x1E695D5E0];
+    v4 = +[PLCloudSharedAlbum entityName];
+    v5 = [v3 fetchRequestWithEntityName:v4];
 
-    v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[4]];
-    [v4 setPredicate:v5];
+    v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[4]];
+    [v5 setPredicate:v6];
 
-    v6 = [a1[5] executeFetchRequest:v4 error:0];
-    v91 = 0u;
+    v7 = [a1[5] executeFetchRequest:v5 error:0];
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v91 objects:v103 count:16];
-    if (v7)
+    v95 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v92 objects:v104 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v92;
+      v9 = v8;
+      v10 = *v93;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v92 != v9)
+          if (*v93 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          [a1[6] _noteDidUpdateSharedAlbum:*(*(&v91 + 1) + 8 * i)];
+          [a1[6] _noteDidUpdateSharedAlbum:*(*(&v92 + 1) + 8 * i)];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v91 objects:v103 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v92 objects:v104 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
-  if ([a1[7] count])
+  if (objc_msgSend_count(a1[7]))
   {
     [a1[6] _processCollectionShareUpdates:a1[7] moc:a1[5]];
   }
 
-  if ([a1[8] count])
+  if (objc_msgSend_count(a1[8]))
   {
-    v89 = 0u;
     v90 = 0u;
-    v87 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v11 = a1[8];
-    v12 = [v11 countByEnumeratingWithState:&v87 objects:v102 count:16];
-    if (v12)
+    v89 = 0u;
+    v12 = a1[8];
+    v13 = [v12 countByEnumeratingWithState:&v88 objects:v103 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v88;
+      v14 = v13;
+      v15 = *v89;
       do
       {
-        for (j = 0; j != v13; ++j)
+        for (j = 0; j != v14; ++j)
         {
-          if (*v88 != v14)
+          if (*v89 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          [a1[6] _noteDidDeleteCollectionShareWithScopeIdentifier:*(*(&v87 + 1) + 8 * j)];
+          [a1[6] _noteDidDeleteCollectionShareWithScopeIdentifier:*(*(&v88 + 1) + 8 * j)];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v87 objects:v102 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v88 objects:v103 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
   }
 
-  if ([a1[9] count])
+  if (objc_msgSend_count(a1[9]))
   {
-    v16 = MEMORY[0x1E695D5E0];
-    v17 = +[PLManagedAsset entityName];
-    v18 = [v16 fetchRequestWithEntityName:v17];
+    v17 = MEMORY[0x1E695D5E0];
+    v18 = +[PLManagedAsset entityName];
+    v19 = [v17 fetchRequestWithEntityName:v18];
 
-    v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[9]];
-    [v18 setPredicate:v19];
+    v20 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[9]];
+    [v19 setPredicate:v20];
 
-    v20 = [a1[5] executeFetchRequest:v18 error:0];
-    v83 = 0u;
+    v21 = [a1[5] executeFetchRequest:v19 error:0];
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v21 = [v20 countByEnumeratingWithState:&v83 objects:v101 count:16];
-    if (v21)
+    v87 = 0u;
+    v22 = [v21 countByEnumeratingWithState:&v84 objects:v102 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v23 = *v84;
+      v23 = v22;
+      v24 = *v85;
       do
       {
-        for (k = 0; k != v22; ++k)
+        for (k = 0; k != v23; ++k)
         {
-          if (*v84 != v23)
+          if (*v85 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v21);
           }
 
-          [a1[6] _noteDidReceiveSharedAsset:*(*(&v83 + 1) + 8 * k)];
+          [a1[6] _noteDidReceiveSharedAsset:*(*(&v84 + 1) + 8 * k)];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v83 objects:v101 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v84 objects:v102 count:16];
       }
 
-      while (v22);
+      while (v23);
     }
   }
 
-  if ([a1[10] count])
+  if (objc_msgSend_count(a1[10]))
   {
-    v25 = MEMORY[0x1E695D5E0];
-    v26 = +[PLManagedAsset entityName];
-    v27 = [v25 fetchRequestWithEntityName:v26];
+    v26 = MEMORY[0x1E695D5E0];
+    v27 = +[PLManagedAsset entityName];
+    v28 = [v26 fetchRequestWithEntityName:v27];
 
-    v28 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[10]];
-    [v27 setPredicate:v28];
+    v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[10]];
+    [v28 setPredicate:v29];
 
-    v29 = [a1[5] executeFetchRequest:v27 error:0];
-    v79 = 0u;
+    v30 = [a1[5] executeFetchRequest:v28 error:0];
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v30 = [v29 countByEnumeratingWithState:&v79 objects:v100 count:16];
-    if (v30)
+    v83 = 0u;
+    v31 = [v30 countByEnumeratingWithState:&v80 objects:v101 count:16];
+    if (v31)
     {
-      v31 = v30;
-      v32 = *v80;
+      v32 = v31;
+      v33 = *v81;
       do
       {
-        for (m = 0; m != v31; ++m)
+        for (m = 0; m != v32; ++m)
         {
-          if (*v80 != v32)
+          if (*v81 != v33)
           {
-            objc_enumerationMutation(v29);
+            objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v79 + 1) + 8 * m);
-          v35 = [v34 cloudFeedAssetsEntry];
+          v35 = *(*(&v80 + 1) + 8 * m);
+          v36 = [v35 cloudFeedAssetsEntry];
 
-          if (!v35)
+          if (!v36)
           {
-            [a1[6] _noteDidReceiveSharedAsset:v34];
+            [a1[6] _noteDidReceiveSharedAsset:v35];
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v79 objects:v100 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v80 objects:v101 count:16];
       }
 
-      while (v31);
+      while (v32);
     }
   }
 
-  if ([a1[11] count])
+  if (objc_msgSend_count(a1[11]))
   {
-    v36 = MEMORY[0x1E695D5E0];
-    v37 = +[PLCloudSharedComment entityName];
-    v38 = [v36 fetchRequestWithEntityName:v37];
+    v37 = MEMORY[0x1E695D5E0];
+    v38 = +[PLCloudSharedComment entityName];
+    v39 = [v37 fetchRequestWithEntityName:v38];
 
-    v39 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[11]];
-    [v38 setPredicate:v39];
+    v40 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[11]];
+    [v39 setPredicate:v40];
 
-    v40 = [a1[5] executeFetchRequest:v38 error:0];
-    [a1[6] _noteDidReceiveSharedComments:v40];
+    v41 = [a1[5] executeFetchRequest:v39 error:0];
+    [a1[6] _noteDidReceiveSharedComments:v41];
   }
 
-  if ([a1[12] count])
+  if (objc_msgSend_count(a1[12]))
   {
-    v41 = MEMORY[0x1E695D5E0];
-    v42 = +[PLCloudSharedAlbumInvitationRecord entityName];
-    v43 = [v41 fetchRequestWithEntityName:v42];
+    v42 = MEMORY[0x1E695D5E0];
+    v43 = +[PLCloudSharedAlbumInvitationRecord entityName];
+    v44 = [v42 fetchRequestWithEntityName:v43];
 
-    v44 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[12]];
-    [v43 setPredicate:v44];
+    v45 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[12]];
+    [v44 setPredicate:v45];
 
-    v45 = [a1[5] executeFetchRequest:v43 error:0];
-    v75 = 0u;
+    v46 = [a1[5] executeFetchRequest:v44 error:0];
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v46 = [v45 countByEnumeratingWithState:&v75 objects:v99 count:16];
-    if (v46)
+    v79 = 0u;
+    v47 = [v46 countByEnumeratingWithState:&v76 objects:v100 count:16];
+    if (v47)
     {
-      v47 = v46;
-      v48 = *v76;
+      v48 = v47;
+      v49 = *v77;
       do
       {
-        for (n = 0; n != v47; ++n)
+        for (n = 0; n != v48; ++n)
         {
-          if (*v76 != v48)
+          if (*v77 != v49)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v46);
           }
 
-          [a1[6] _noteDidUpdateInvitationRecord:*(*(&v75 + 1) + 8 * n)];
+          [a1[6] _noteDidUpdateInvitationRecord:*(*(&v76 + 1) + 8 * n)];
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v75 objects:v99 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v76 objects:v100 count:16];
       }
 
-      while (v47);
+      while (v48);
     }
   }
 
-  if ([a1[13] count])
+  if (objc_msgSend_count(a1[13]))
   {
     [a1[6] _processShareParticipantUpdates:a1[13] moc:a1[5]];
   }
 
-  if ([a1[14] count])
+  if (objc_msgSend_count(a1[14]))
   {
-    v73 = 0u;
     v74 = 0u;
-    v71 = 0u;
+    v75 = 0u;
     v72 = 0u;
-    v50 = a1[14];
-    v51 = [v50 countByEnumeratingWithState:&v71 objects:v98 count:16];
-    if (v51)
+    v73 = 0u;
+    v51 = a1[14];
+    v52 = [v51 countByEnumeratingWithState:&v72 objects:v99 count:16];
+    if (v52)
     {
-      v52 = v51;
-      v53 = *v72;
+      v53 = v52;
+      v54 = *v73;
       do
       {
-        for (ii = 0; ii != v52; ++ii)
+        for (ii = 0; ii != v53; ++ii)
         {
-          if (*v72 != v53)
+          if (*v73 != v54)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v51);
           }
 
-          [a1[6] _noteDidDeleteShareParticipantWithParticipantID:*(*(&v71 + 1) + 8 * ii)];
+          [a1[6] _noteDidDeleteShareParticipantWithParticipantID:*(*(&v72 + 1) + 8 * ii)];
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v71 objects:v98 count:16];
+        v53 = [v51 countByEnumeratingWithState:&v72 objects:v99 count:16];
       }
 
-      while (v52);
+      while (v53);
     }
   }
 
-  if ([a1[15] count])
+  if (objc_msgSend_count(a1[15]))
   {
-    v55 = MEMORY[0x1E695D5E0];
-    v56 = +[PLCloudFeedEntry entityName];
-    v57 = [v55 fetchRequestWithEntityName:v56];
+    v56 = MEMORY[0x1E695D5E0];
+    v57 = +[PLCloudFeedEntry entityName];
+    v58 = [v56 fetchRequestWithEntityName:v57];
 
-    v58 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[15]];
-    [v57 setPredicate:v58];
+    v59 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", a1[15]];
+    [v58 setPredicate:v59];
 
-    v59 = [a1[5] executeFetchRequest:v57 error:0];
-    v67 = 0u;
+    v60 = [a1[5] executeFetchRequest:v58 error:0];
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v60 = [v59 countByEnumeratingWithState:&v67 objects:v97 count:16];
-    if (v60)
+    v71 = 0u;
+    v61 = [v60 countByEnumeratingWithState:&v68 objects:v98 count:16];
+    if (v61)
     {
-      v61 = v60;
-      v62 = *v68;
+      v62 = v61;
+      v63 = *v69;
       do
       {
-        for (jj = 0; jj != v61; ++jj)
+        for (jj = 0; jj != v62; ++jj)
         {
-          if (*v68 != v62)
+          if (*v69 != v63)
           {
-            objc_enumerationMutation(v59);
+            objc_enumerationMutation(v60);
           }
 
-          v64 = *(*(&v67 + 1) + 8 * jj);
-          v65 = [v64 entryType];
-          if (v65 > 3)
+          v65 = *(*(&v68 + 1) + 8 * jj);
+          v66 = [v65 entryType];
+          if (v66 > 3)
           {
-            if ((v65 - 5) < 2)
+            if ((v66 - 5) < 2)
             {
-              [a1[6] _noteContentDeletionAffectingInvitationResponseEntry:v64];
+              [a1[6] _noteContentDeletionAffectingInvitationResponseEntry:v65];
             }
 
-            else if (v65 == 4)
+            else if (v66 == 4)
             {
-              [a1[6] _noteContentDeletionAffectingSubscriptionEntry:v64];
+              [a1[6] _noteContentDeletionAffectingSubscriptionEntry:v65];
             }
 
-            else if (v65 == 7)
+            else if (v66 == 7)
             {
-              [a1[6] _noteContentDeletionAffectingAlbumCreatedEntry:v64];
+              [a1[6] _noteContentDeletionAffectingAlbumCreatedEntry:v65];
             }
           }
 
-          else if (v65 > 1)
+          else if (v66 > 1)
           {
-            if (v65 == 2)
+            if (v66 == 2)
             {
-              [a1[6] _noteContentDeletionAffectingCommentsEntry:v64];
+              [a1[6] _noteContentDeletionAffectingCommentsEntry:v65];
             }
 
             else
             {
-              [a1[6] _noteContentDeletionAffectingInvitationEntry:v64];
+              [a1[6] _noteContentDeletionAffectingInvitationEntry:v65];
             }
           }
 
-          else if (v65)
+          else if (v66)
           {
-            [a1[6] _noteContentDeletionAffectingAssetsEntry:v64];
+            [a1[6] _noteContentDeletionAffectingAssetsEntry:v65];
           }
 
           else
           {
-            v66 = PLCloudFeedGetLog();
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            v67 = PLCloudFeedGetLog();
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v96 = v64;
-              _os_log_impl(&dword_19BF1F000, v66, OS_LOG_TYPE_ERROR, "invalid type for entry %@", buf, 0xCu);
+              v97 = v65;
+              _os_log_impl(&dword_19BF1F000, v67, OS_LOG_TYPE_ERROR, "invalid type for entry %@", buf, 0xCu);
             }
           }
         }
 
-        v61 = [v59 countByEnumeratingWithState:&v67 objects:v97 count:16];
+        v62 = [v60 countByEnumeratingWithState:&v68 objects:v98 count:16];
       }
 
-      while (v61);
+      while (v62);
     }
   }
 }
@@ -3982,7 +3982,7 @@ void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates
     }
   }
 
-  if ([v12 count] >= 2)
+  if (objc_msgSend_count(v12) >= 2)
   {
     v15 = PLCloudFeedGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -3995,7 +3995,7 @@ void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates
     }
   }
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v16 = [v12 objectAtIndex:0];
   }
@@ -4040,7 +4040,7 @@ void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates
     }
   }
 
-  if ([v12 count] >= 2)
+  if (objc_msgSend_count(v12) >= 2)
   {
     v15 = PLCloudFeedGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -4053,7 +4053,7 @@ void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates
     }
   }
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v16 = [v12 objectAtIndex:0];
   }
@@ -4119,7 +4119,7 @@ void __242__PLCloudFeedEntriesManager_processAlbumUpdates_collectionShareUpdates
       }
     }
 
-    if ([v17 count] == 1)
+    if (objc_msgSend_count(v17) == 1)
     {
       v20 = [v17 objectAtIndex:0];
       *date = [v20 entryDate];
@@ -4177,7 +4177,7 @@ LABEL_12:
     }
   }
 
-  if ([v27 count] == 1)
+  if (objc_msgSend_count(v27) == 1)
   {
     v29 = [v27 objectAtIndex:0];
     *latestDate = [v29 entryDate];
@@ -4251,7 +4251,7 @@ LABEL_20:
     }
   }
 
-  if ([v20 count])
+  if (objc_msgSend_count(v20))
   {
     v23 = [v20 objectAtIndex:0];
   }

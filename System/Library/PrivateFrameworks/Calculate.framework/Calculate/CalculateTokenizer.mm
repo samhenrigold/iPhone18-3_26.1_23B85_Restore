@@ -83,7 +83,7 @@
 - (void)_findNextToken
 {
   selfCopy = self;
-  v261 = *MEMORY[0x1E69E9840];
+  v260 = *MEMORY[0x1E69E9840];
   if (self->_needsUpdate)
   {
     [(CalculateTokenizer *)self update];
@@ -92,7 +92,7 @@
   peekIndex = [(CalculateTokenizer *)selfCopy peekIndex];
   if (peekIndex >= [(CalculateTokenizer *)selfCopy stringLength])
   {
-    goto LABEL_100;
+    return;
   }
 
   for (i = selfCopy; ; [(CalculateTokenizer *)i setWordBreakIndicesIndex:[(CalculateTokenizer *)i wordBreakIndicesIndex]+ 1])
@@ -109,71 +109,71 @@
     }
   }
 
-  v251 = 0;
-  v252 = &v251;
-  v253 = 0x3032000000;
-  v254 = __Block_byref_object_copy__886;
-  v255 = __Block_byref_object_dispose__887;
-  v256 = 0;
-  v247 = 0;
-  v248 = &v247;
-  v249 = 0x2020000000;
   v250 = 0;
+  v251 = &v250;
+  v252 = 0x3032000000;
+  v253 = __Block_byref_object_copy__886;
+  v254 = __Block_byref_object_dispose__887;
+  v255 = 0;
+  v246 = 0;
+  v247 = &v246;
+  v248 = 0x2020000000;
+  v249 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __36__CalculateTokenizer__findNextToken__block_invoke;
   aBlock[3] = &unk_1E815C990;
   aBlock[4] = i;
-  aBlock[5] = &v251;
-  aBlock[6] = &v247;
-  v155 = _Block_copy(aBlock);
+  aBlock[5] = &v250;
+  aBlock[6] = &v246;
+  v154 = _Block_copy(aBlock);
   stringLength = [(CalculateTokenizer *)i stringLength];
   peekIndex3 = [(CalculateTokenizer *)i peekIndex];
   wordBreakIndices2 = [(CalculateTokenizer *)i wordBreakIndices];
   v9 = [wordBreakIndices2 objectAtIndexedSubscript:{-[CalculateTokenizer wordBreakIndicesIndex](i, "wordBreakIndicesIndex")}];
   intValue2 = [v9 intValue];
 
-  v156 = intValue2;
+  v155 = intValue2;
   v11 = i;
   if (!i->_prevToken && (([(NSString *)i->_string characterAtIndex:peekIndex3]& 0xFFDF) - 65) <= 0x19u)
   {
-    *&v257 = 0;
-    *(&v257 + 1) = &v257;
-    *&v258 = 0x2020000000;
-    BYTE8(v258) = 0;
-    v239 = 0;
-    v240 = &v239;
-    v241 = 0x2020000000;
-    LOBYTE(v242) = 0;
+    *&v256 = 0;
+    *(&v256 + 1) = &v256;
+    *&v257 = 0x2020000000;
+    BYTE8(v257) = 0;
+    v238 = 0;
+    v239 = &v238;
+    v240 = 0x2020000000;
+    LOBYTE(v241) = 0;
     string = [(CalculateTokenizer *)i string];
-    v245[0] = MEMORY[0x1E69E9820];
-    v245[1] = 3221225472;
-    v245[2] = __36__CalculateTokenizer__findNextToken__block_invoke_2;
-    v245[3] = &unk_1E815C9B8;
-    v245[4] = &v257;
-    v245[5] = &v239;
-    [Trie enumerateCharactersInKey:string range:intValue2 usingBlock:stringLength - intValue2, v245];
+    v244[0] = MEMORY[0x1E69E9820];
+    v244[1] = 3221225472;
+    v244[2] = __36__CalculateTokenizer__findNextToken__block_invoke_2;
+    v244[3] = &unk_1E815C9B8;
+    v244[4] = &v256;
+    v244[5] = &v238;
+    [Trie enumerateCharactersInKey:string range:intValue2 usingBlock:stringLength - intValue2, v244];
 
-    if (*(*(&v257 + 1) + 24) == 1 && *(v240 + 24) == 1)
+    if (*(*(&v256 + 1) + 24) == 1 && *(v239 + 24) == 1)
     {
-      v13 = (*(v155 + 2))(v155, 39, intValue2, 0, 0);
-      _Block_object_dispose(&v239, 8);
-      _Block_object_dispose(&v257, 8);
+      v13 = (*(v154 + 2))(v154, 39, intValue2, 0, 0);
+      _Block_object_dispose(&v238, 8);
+      _Block_object_dispose(&v256, 8);
       goto LABEL_99;
     }
 
-    _Block_object_dispose(&v239, 8);
-    _Block_object_dispose(&v257, 8);
+    _Block_object_dispose(&v238, 8);
+    _Block_object_dispose(&v256, 8);
     v11 = i;
   }
 
-  v154 = intValue2 - peekIndex3;
-  if (intValue2 <= peekIndex3 || v154 != 1 && v154 > v11->_variableBufferLength && v154 > v11->_graphableVariableLength || (([(NSString *)v11->_string characterAtIndex:peekIndex3]& 0xFFDF) - 65) > 0x19u)
+  v153 = intValue2 - peekIndex3;
+  if (intValue2 <= peekIndex3 || v153 != 1 && v153 > v11->_variableBufferLength && v153 > v11->_graphableVariableLength || (([(NSString *)v11->_string characterAtIndex:peekIndex3]& 0xFFDF) - 65) > 0x19u)
   {
     goto LABEL_69;
   }
 
-  if (v154 == 1 || v154 <= v11->_variableBufferLength || v154 <= v11->_graphableVariableLength)
+  if (v153 == 1 || v153 <= v11->_variableBufferLength || v153 <= v11->_graphableVariableLength)
   {
     v14 = [(NSString *)v11->_string substringWithRange:peekIndex3];
     lowercaseString = [v14 lowercaseString];
@@ -187,7 +187,7 @@
       graphableVariable = i->_graphableVariable;
       if (!graphableVariable)
       {
-        *(v248 + 24) = 0;
+        *(v247 + 24) = 0;
         goto LABEL_33;
       }
 
@@ -200,7 +200,7 @@
       graphableVariable = i->_graphableVariable;
       if (!graphableVariable)
       {
-        *(v248 + 24) = 0;
+        *(v247 + 24) = 0;
         if (v19)
         {
           goto LABEL_33;
@@ -211,7 +211,7 @@
     }
 
     v20 = [(NSString *)graphableVariable caseInsensitiveCompare:lowercaseString];
-    *(v248 + 24) = v20 == 0;
+    *(v247 + 24) = v20 == 0;
     if (v19)
     {
       goto LABEL_33;
@@ -219,12 +219,12 @@
 
     if (!v20)
     {
-      v21 = [p_isa[4] substringWithRange:{peekIndex3, v154}];
-      v22 = v252[5];
-      v252[5] = v21;
+      v21 = [p_isa[4] substringWithRange:{peekIndex3, v153}];
+      v22 = v251[5];
+      v251[5] = v21;
 
       p_isa = &i->super.isa;
-      if (v248[3])
+      if (v247[3])
       {
         goto LABEL_33;
       }
@@ -233,7 +233,7 @@
 LABEL_31:
     if ([lowercaseString isEqualToString:@"x"])
     {
-      if ((v248[3] & 1) == 0)
+      if ((v247[3] & 1) == 0)
       {
         v23 = 52;
         goto LABEL_34;
@@ -242,7 +242,7 @@ LABEL_31:
 LABEL_33:
       v23 = 39;
 LABEL_34:
-      v24 = (*(v155 + 2))(v155, v23, intValue2, 0, 0);
+      v24 = (*(v154 + 2))(v154, v23, intValue2, 0, 0);
       if ([v24 isMaybeX])
       {
         [p_isa _findNextToken];
@@ -257,12 +257,12 @@ LABEL_34:
       goto LABEL_99;
     }
 
-    *(v248 + 24) = 0;
+    *(v247 + 24) = 0;
 
     v11 = i;
   }
 
-  if (!v11->_variables || !v11->_variableBuffer || v154 > v11->_variableBufferLength)
+  if (!v11->_variables || !v11->_variableBuffer || v153 > v11->_variableBufferLength)
   {
     goto LABEL_69;
   }
@@ -270,8 +270,8 @@ LABEL_34:
   [NSString getCharacters:"getCharacters:range:" range:?];
   v27 = 0;
   v28 = 0;
+  v256 = 0u;
   v257 = 0u;
-  v258 = 0u;
   variableBuffer = v11->_variableBuffer;
   v30 = 1;
   v31 = intValue2 - peekIndex3;
@@ -304,12 +304,12 @@ LABEL_48:
         goto LABEL_59;
       }
 
-      v39 = &v257 + v40;
+      v39 = &v256 + v40;
     }
 
     else
     {
-      v39 = &v257 + v35;
+      v39 = &v256 + v35;
     }
 
     if (*v39)
@@ -318,7 +318,7 @@ LABEL_48:
     }
 
     *v39 = 1;
-    v32 = v30++ < v154;
+    v32 = v30++ < v153;
     if (!--v31)
     {
       v32 = 0;
@@ -338,14 +338,14 @@ LABEL_59:
   if (v11->_declaredVariable && v27 == 1)
   {
     v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%c", v28];
-    v42 = v252[5];
-    v252[5] = v41;
+    v42 = v251[5];
+    v251[5] = v41;
 
     if (i->_graphableVariable)
     {
-      if (![v252[5] caseInsensitiveCompare:?])
+      if (![v251[5] caseInsensitiveCompare:?])
       {
-        *(v248 + 24) = 1;
+        *(v247 + 24) = 1;
         if (!v32)
         {
           goto LABEL_64;
@@ -360,42 +360,42 @@ LABEL_64:
     v43 = peekIndex3 + 1;
     do
     {
-      v44 = (*(v155 + 2))(v155, 39, v43++, 0, 0);
-      --v154;
+      v44 = (*(v154 + 2))(v154, 39, v43++, 0, 0);
+      --v153;
     }
 
-    while (v154);
+    while (v153);
     goto LABEL_99;
   }
 
-  *(v248 + 24) = 0;
+  *(v247 + 24) = 0;
 LABEL_69:
   v45 = 0;
-  *&v257 = 0;
-  *(&v257 + 1) = &v257;
-  *&v258 = 0x3032000000;
-  *(&v258 + 1) = __Block_byref_object_copy__886;
-  v259 = __Block_byref_object_dispose__887;
-  v260 = 0;
-  v239 = 0;
-  v240 = &v239;
-  v241 = 0x3032000000;
-  v242 = __Block_byref_object_copy__886;
-  v243 = __Block_byref_object_dispose__887;
-  v244 = 0;
-  v235 = 0;
-  v236 = &v235;
-  v237 = 0x2020000000;
+  *&v256 = 0;
+  *(&v256 + 1) = &v256;
+  *&v257 = 0x3032000000;
+  *(&v257 + 1) = __Block_byref_object_copy__886;
+  v258 = __Block_byref_object_dispose__887;
+  v259 = 0;
   v238 = 0;
+  v239 = &v238;
+  v240 = 0x3032000000;
+  v241 = __Block_byref_object_copy__886;
+  v242 = __Block_byref_object_dispose__887;
+  v243 = 0;
+  v234 = 0;
+  v235 = &v234;
+  v236 = 0x2020000000;
+  v237 = 0;
   v46 = 1;
   while (2)
   {
     v47 = v46;
-    v229 = 0;
-    v230 = &v229;
-    v231 = 0x3032000000;
-    v232 = __Block_byref_object_copy__886;
-    v233 = __Block_byref_object_dispose__887;
+    v228 = 0;
+    v229 = &v228;
+    v230 = 0x3032000000;
+    v231 = __Block_byref_object_copy__886;
+    v232 = __Block_byref_object_dispose__887;
     trie = [(CalculateTokenizer *)i trie];
     v49 = trie;
     if (trie)
@@ -408,40 +408,40 @@ LABEL_69:
       v50 = 0;
     }
 
-    v234 = v50;
+    v233 = v50;
 
-    v196 = 0;
-    v197 = &v196;
-    v198 = 0x2020000000;
+    v195 = 0;
+    v196 = &v195;
+    v197 = 0x2020000000;
     wordBreakIndicesIndex = [(CalculateTokenizer *)i wordBreakIndicesIndex];
-    v184 = 0;
-    v185 = &v184;
-    v186 = 0x2020000000;
-    v187 = intValue2;
+    v183 = 0;
+    v184 = &v183;
+    v185 = 0x2020000000;
+    v186 = intValue2;
     string2 = [(CalculateTokenizer *)i string];
-    v227[0] = MEMORY[0x1E69E9820];
-    v227[1] = 3221225472;
-    v227[2] = __36__CalculateTokenizer__findNextToken__block_invoke_3;
-    v227[3] = &unk_1E815C9E0;
-    v228 = v45;
-    v227[5] = &v229;
-    v227[4] = i;
-    v227[6] = &v239;
-    v227[7] = &v257;
-    v227[8] = &v235;
-    v227[9] = &v184;
-    v227[11] = peekIndex3;
-    v227[10] = &v196;
-    [Trie enumerateCharactersInKey:string2 range:peekIndex3 usingBlock:stringLength - peekIndex3, v227];
+    v226[0] = MEMORY[0x1E69E9820];
+    v226[1] = 3221225472;
+    v226[2] = __36__CalculateTokenizer__findNextToken__block_invoke_3;
+    v226[3] = &unk_1E815C9E0;
+    v227 = v45;
+    v226[5] = &v228;
+    v226[4] = i;
+    v226[6] = &v238;
+    v226[7] = &v256;
+    v226[8] = &v234;
+    v226[9] = &v183;
+    v226[11] = peekIndex3;
+    v226[10] = &v195;
+    [Trie enumerateCharactersInKey:string2 range:peekIndex3 usingBlock:stringLength - peekIndex3, v226];
 
-    ranks = [*(*(&v257 + 1) + 40) ranks];
+    ranks = [*(*(&v256 + 1) + 40) ranks];
     if ([ranks count] != 1)
     {
 
 LABEL_76:
-      _Block_object_dispose(&v184, 8);
-      _Block_object_dispose(&v196, 8);
-      _Block_object_dispose(&v229, 8);
+      _Block_object_dispose(&v183, 8);
+      _Block_object_dispose(&v195, 8);
+      _Block_object_dispose(&v228, 8);
 
       v46 = 0;
       v45 = 1;
@@ -456,41 +456,41 @@ LABEL_76:
     break;
   }
 
-  v53 = [*(*(&v257 + 1) + 40) tokenType] == 2;
+  v53 = [*(*(&v256 + 1) + 40) tokenType] == 2;
 
   if (v53)
   {
     goto LABEL_76;
   }
 
-  _Block_object_dispose(&v184, 8);
-  _Block_object_dispose(&v196, 8);
-  _Block_object_dispose(&v229, 8);
+  _Block_object_dispose(&v183, 8);
+  _Block_object_dispose(&v195, 8);
+  _Block_object_dispose(&v228, 8);
 
 LABEL_79:
-  v54 = *(*(&v257 + 1) + 40);
+  v54 = *(*(&v256 + 1) + 40);
   v55 = i;
   if (v54 && [v54 tokenType] != 33)
   {
-    if ([*(*(&v257 + 1) + 40) tokenType] != 2 && objc_msgSend(*(*(&v257 + 1) + 40), "tokenType") != 35)
+    if ([*(*(&v256 + 1) + 40) tokenType] != 2 && objc_msgSend(*(*(&v256 + 1) + 40), "tokenType") != 35)
     {
-      tokenType = [*(*(&v257 + 1) + 40) tokenType];
-      v68 = (*(v155 + 2))(v155, tokenType, v236[3], 0, 0);
-      normalized = [*(*(&v257 + 1) + 40) normalized];
-      [v68 setNormalizedText:normalized];
+      tokenType = [*(*(&v256 + 1) + 40) tokenType];
+      v67 = (*(v154 + 2))(v154, tokenType, v235[3], 0, 0);
+      normalized = [*(*(&v256 + 1) + 40) normalized];
+      [v67 setNormalizedText:normalized];
 
       goto LABEL_98;
     }
 
-    if ([*(*(&v257 + 1) + 40) tokenType] != 35)
+    if ([*(*(&v256 + 1) + 40) tokenType] != 35)
     {
       goto LABEL_148;
     }
 
-    ranks2 = [*(*(&v257 + 1) + 40) ranks];
+    ranks2 = [*(*(&v256 + 1) + 40) ranks];
     v60 = [ranks2 count];
 
-    v61 = v236[3];
+    v61 = v235[3];
     v55 = i;
     if (v61 >= stringLength)
     {
@@ -525,88 +525,88 @@ LABEL_147:
       if (v60 != 1)
       {
 LABEL_148:
-        if (!v252[5] && v154 == 1)
+        if (!v251[5] && v153 == 1)
         {
-          v109 = [(NSString *)v55->_string substringWithRange:peekIndex3, 1];
-          v110 = v252[5];
-          v252[5] = v109;
+          v108 = [(NSString *)v55->_string substringWithRange:peekIndex3, 1];
+          v109 = v251[5];
+          v251[5] = v108;
 
-          v111 = v252[5];
+          v110 = v251[5];
           letterCharacterSet = [MEMORY[0x1E696AB08] letterCharacterSet];
-          LODWORD(v111) = [v111 rangeOfCharacterFromSet:letterCharacterSet] == 0x7FFFFFFFFFFFFFFFLL;
+          LODWORD(v110) = [v110 rangeOfCharacterFromSet:letterCharacterSet] == 0x7FFFFFFFFFFFFFFFLL;
 
-          if (v111)
+          if (v110)
           {
-            v113 = v252[5];
-            v252[5] = 0;
+            v112 = v251[5];
+            v251[5] = 0;
           }
         }
 
-        v114 = (*(v155 + 2))(v155, 2, v236[3], 0, *(*(&v257 + 1) + 40));
+        v113 = (*(v154 + 2))(v154, 2, v235[3], 0, *(*(&v256 + 1) + 40));
         goto LABEL_98;
       }
     }
 
 LABEL_153:
-    v115 = (*(v155 + 2))(v155, 35, v236[3], 0, 0);
-    normalized2 = [*(*(&v257 + 1) + 40) normalized];
-    [v115 setNormalizedText:normalized2];
+    v114 = (*(v154 + 2))(v154, 35, v235[3], 0, 0);
+    normalized2 = [*(*(&v256 + 1) + 40) normalized];
+    [v114 setNormalizedText:normalized2];
 
     goto LABEL_98;
   }
 
-  v56 = [v240[5] length] + peekIndex3;
-  v223 = 0;
-  v224 = &v223;
-  v225 = 0x2020000000;
-  v226 = v56;
-  if ([v240[5] rangeOfCharacterFromSet:newlineSet] != 0x7FFFFFFFFFFFFFFFLL)
+  v56 = [v239[5] length] + peekIndex3;
+  v222 = 0;
+  v223 = &v222;
+  v224 = 0x2020000000;
+  v225 = v56;
+  if ([v239[5] rangeOfCharacterFromSet:newlineSet] != 0x7FFFFFFFFFFFFFFFLL)
   {
     tokenType2 = 32;
     goto LABEL_96;
   }
 
-  if ([v240[5] rangeOfCharacterFromSet:whitespaceSet] != 0x7FFFFFFFFFFFFFFFLL)
+  if ([v239[5] rangeOfCharacterFromSet:whitespaceSet] != 0x7FFFFFFFFFFFFFFFLL)
   {
     string4 = [(CalculateTokenizer *)i string];
-    v222[0] = MEMORY[0x1E69E9820];
-    v222[1] = 3221225472;
-    v222[2] = __36__CalculateTokenizer__findNextToken__block_invoke_4;
-    v222[3] = &unk_1E815CA08;
-    v222[4] = &v223;
-    [Trie enumerateCharactersInKey:string4 range:peekIndex3 usingBlock:v154, v222];
+    v221[0] = MEMORY[0x1E69E9820];
+    v221[1] = 3221225472;
+    v221[2] = __36__CalculateTokenizer__findNextToken__block_invoke_4;
+    v221[3] = &unk_1E815CA08;
+    v221[4] = &v222;
+    [Trie enumerateCharactersInKey:string4 range:peekIndex3 usingBlock:v153, v221];
 
-    v56 = v224[3];
+    v56 = v223[3];
     tokenType2 = 1;
     goto LABEL_96;
   }
 
-  v57 = [digitToCharacterType objectForKeyedSubscript:v240[5]];
+  v57 = [digitToCharacterType objectForKeyedSubscript:v239[5]];
   if (v57)
   {
   }
 
-  else if ([v240[5] rangeOfCharacterFromSet:i->_localizedDecimalSet] == 0x7FFFFFFFFFFFFFFFLL)
+  else if ([v239[5] rangeOfCharacterFromSet:i->_localizedDecimalSet] == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_175;
   }
 
-  v218 = 0;
-  v219 = &v218;
-  v220 = 0x2020000000;
-  v70 = v240[5];
-  v71 = [digitToCharacterType objectForKeyedSubscript:v70];
-  v72 = v71;
-  if (v71)
+  v217 = 0;
+  v218 = &v217;
+  v219 = 0x2020000000;
+  v69 = v239[5];
+  v70 = [digitToCharacterType objectForKeyedSubscript:v69];
+  v71 = v70;
+  if (v70)
   {
-    integerValue = [v71 integerValue];
+    integerValue = [v70 integerValue];
   }
 
-  else if ([v70 rangeOfCharacterFromSet:symbolSet] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v70, "rangeOfCharacterFromSet:", hebrewSet) == 0x7FFFFFFFFFFFFFFFLL)
+  else if ([v69 rangeOfCharacterFromSet:symbolSet] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v69, "rangeOfCharacterFromSet:", hebrewSet) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    if ([v70 rangeOfCharacterFromSet:punctuationSet] == 0x7FFFFFFFFFFFFFFFLL)
+    if ([v69 rangeOfCharacterFromSet:punctuationSet] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([v70 rangeOfCharacterFromSet:superscriptSet] == 0x7FFFFFFFFFFFFFFFLL)
+      if ([v69 rangeOfCharacterFromSet:superscriptSet] == 0x7FFFFFFFFFFFFFFFLL)
       {
         integerValue = 1;
       }
@@ -628,152 +628,152 @@ LABEL_153:
     integerValue = 2;
   }
 
-  v221 = integerValue;
-  v214 = 0;
-  v215 = &v214;
-  v216 = 0x2020000000;
-  v74 = i;
-  v217 = [v240[5] rangeOfCharacterFromSet:i->_localizedDecimalSet] == 0x7FFFFFFFFFFFFFFFLL;
-  v212[0] = 0;
-  v212[1] = v212;
-  v212[2] = 0x2020000000;
-  v213 = 1;
-  v210[0] = 0;
-  v210[1] = v210;
-  v210[2] = 0x2020000000;
-  v211 = 0;
-  v208[0] = 0;
-  v208[1] = v208;
-  v208[2] = 0x2020000000;
-  v209 = *(v215 + 24);
-  v206[0] = 0;
-  v206[1] = v206;
-  v206[2] = 0x2020000000;
-  v207 = 0;
-  v202 = 0;
-  v203 = &v202;
-  v204 = 0x2020000000;
-  v205 = 0;
-  if ((v215[3] & 1) == 0)
+  v220 = integerValue;
+  v213 = 0;
+  v214 = &v213;
+  v215 = 0x2020000000;
+  v73 = i;
+  v216 = [v239[5] rangeOfCharacterFromSet:i->_localizedDecimalSet] == 0x7FFFFFFFFFFFFFFFLL;
+  v211[0] = 0;
+  v211[1] = v211;
+  v211[2] = 0x2020000000;
+  v212 = 1;
+  v209[0] = 0;
+  v209[1] = v209;
+  v209[2] = 0x2020000000;
+  v210 = 0;
+  v207[0] = 0;
+  v207[1] = v207;
+  v207[2] = 0x2020000000;
+  v208 = *(v214 + 24);
+  v205[0] = 0;
+  v205[1] = v205;
+  v205[2] = 0x2020000000;
+  v206 = 0;
+  v201 = 0;
+  v202 = &v201;
+  v203 = 0x2020000000;
+  v204 = 0;
+  if ((v214[3] & 1) == 0)
   {
-    *(v219 + 6) = 1;
+    *(v218 + 6) = 1;
   }
 
-  v75 = 0;
-  v229 = 0;
-  v230 = &v229;
-  v231 = 0x3032000000;
-  v232 = __Block_byref_object_copy__886;
-  v233 = __Block_byref_object_dispose__887;
-  v234 = 0;
-  v196 = 0;
-  v197 = &v196;
-  v198 = 0x3032000000;
+  v74 = 0;
+  v228 = 0;
+  v229 = &v228;
+  v230 = 0x3032000000;
+  v231 = __Block_byref_object_copy__886;
+  v232 = __Block_byref_object_dispose__887;
+  v233 = 0;
+  v195 = 0;
+  v196 = &v195;
+  v197 = 0x3032000000;
   wordBreakIndicesIndex = __Block_byref_object_copy__886;
-  v200 = __Block_byref_object_dispose__887;
-  v201 = 0;
+  v199 = __Block_byref_object_dispose__887;
+  v200 = 0;
   if (i->_normalizeNumbers)
   {
-    v76 = objc_opt_new();
-    v75 = v76;
-    if (v215[3])
+    v75 = objc_opt_new();
+    v74 = v75;
+    if (v214[3])
     {
-      v77 = [digitToNormalizedDigit objectForKeyedSubscript:v240[5]];
-      v78 = v77;
-      if (!v77)
+      v76 = [digitToNormalizedDigit objectForKeyedSubscript:v239[5]];
+      v77 = v76;
+      if (!v76)
       {
-        v78 = v240[5];
+        v77 = v239[5];
       }
 
-      [v75 appendString:v78];
+      [v74 appendString:v77];
     }
 
     else
     {
-      [v76 appendString:@"."];
+      [v75 appendString:@"."];
     }
 
-    v79 = [digitToNumberingSystem objectForKeyedSubscript:v240[5]];
-    v80 = v230[5];
-    v230[5] = v79;
+    v78 = [digitToNumberingSystem objectForKeyedSubscript:v239[5]];
+    v79 = v229[5];
+    v229[5] = v78;
 
-    v74 = i;
+    v73 = i;
   }
 
-  v194[0] = 0;
-  v194[1] = v194;
-  v194[2] = 0x2020000000;
-  v195 = 0;
-  v190 = 0;
-  v191 = &v190;
-  v192 = 0x2020000000;
-  v193 = 0;
-  v184 = 0;
-  v185 = &v184;
-  v186 = 0x3032000000;
-  v187 = __Block_byref_object_copy__886;
-  v188 = __Block_byref_object_dispose__887;
-  v189 = v240[5];
-  v182[0] = 0;
-  v182[1] = v182;
-  v182[2] = 0x3032000000;
-  v182[3] = __Block_byref_object_copy__886;
-  v182[4] = __Block_byref_object_dispose__887;
+  v193[0] = 0;
+  v193[1] = v193;
+  v193[2] = 0x2020000000;
+  v194 = 0;
+  v189 = 0;
+  v190 = &v189;
+  v191 = 0x2020000000;
+  v192 = 0;
   v183 = 0;
-  v178 = 0;
-  v179 = &v178;
-  v180 = 0x2020000000;
-  v181 = v56;
-  if (v74->_normalizeNumbers && *(v219 + 6) != 5)
+  v184 = &v183;
+  v185 = 0x3032000000;
+  v186 = __Block_byref_object_copy__886;
+  v187 = __Block_byref_object_dispose__887;
+  v188 = v239[5];
+  v181[0] = 0;
+  v181[1] = v181;
+  v181[2] = 0x3032000000;
+  v181[3] = __Block_byref_object_copy__886;
+  v181[4] = __Block_byref_object_dispose__887;
+  v182 = 0;
+  v177 = 0;
+  v178 = &v177;
+  v179 = 0x2020000000;
+  v180 = v56;
+  if (v73->_normalizeNumbers && *(v218 + 6) != 5)
   {
-    v195 = 1;
+    v194 = 1;
   }
 
-  v224[3] = v56;
-  string5 = [(CalculateTokenizer *)v74 string];
-  v161[0] = MEMORY[0x1E69E9820];
-  v161[1] = 3221225472;
-  v161[2] = __36__CalculateTokenizer__findNextToken__block_invoke_5;
-  v161[3] = &unk_1E815CA30;
-  v163 = &v218;
-  v161[4] = v74;
-  v164 = &v229;
-  v165 = v210;
-  v166 = &v202;
-  v167 = v206;
-  v168 = v194;
-  v169 = &v190;
-  v170 = &v196;
-  v82 = v75;
-  v162 = v82;
-  v171 = v208;
-  v172 = v182;
-  v173 = &v214;
-  v174 = v212;
-  v175 = &v184;
-  v176 = &v223;
-  v177 = &v178;
-  [Trie enumerateCharactersInKey:string5 range:v56 usingBlock:stringLength - v56, v161];
+  v223[3] = v56;
+  string5 = [(CalculateTokenizer *)v73 string];
+  v160[0] = MEMORY[0x1E69E9820];
+  v160[1] = 3221225472;
+  v160[2] = __36__CalculateTokenizer__findNextToken__block_invoke_5;
+  v160[3] = &unk_1E815CA30;
+  v162 = &v217;
+  v160[4] = v73;
+  v163 = &v228;
+  v164 = v209;
+  v165 = &v201;
+  v166 = v205;
+  v167 = v193;
+  v168 = &v189;
+  v169 = &v195;
+  v81 = v74;
+  v161 = v81;
+  v170 = v207;
+  v171 = v181;
+  v172 = &v213;
+  v173 = v211;
+  v174 = &v183;
+  v175 = &v222;
+  v176 = &v177;
+  [Trie enumerateCharactersInKey:string5 range:v56 usingBlock:stringLength - v56, v160];
 
-  if (v224[3] == peekIndex3 + 1 && [v240[5] isEqualToString:@"."])
+  if (v223[3] == peekIndex3 + 1 && [v239[5] isEqualToString:@"."])
   {
-    v83 = (*(v155 + 2))(v155, 6, v224[3], v240[5], 0);
+    v82 = (*(v154 + 2))(v154, 6, v223[3], v239[5], 0);
     goto LABEL_173;
   }
 
-  if ((v203[3] & 1) != 0 || [v185[5] isEqualToString:{@", "}])
+  if ((v202[3] & 1) != 0 || [v184[5] isEqualToString:{@", "}])
   {
-    --v224[3];
+    --v223[3];
     if (i->_normalizeNumbers)
     {
-      [v82 deleteCharactersInRange:{objc_msgSend(v82, "length") - 1, 1}];
+      [v81 deleteCharactersInRange:{objc_msgSend(v81, "length") - 1, 1}];
     }
   }
 
-  v84 = v224[3];
-  if (v84 <= [(CalculateTokenizer *)i peekIndex])
+  v83 = v223[3];
+  if (v83 <= [(CalculateTokenizer *)i peekIndex])
   {
-    v108 = 1;
+    v107 = 1;
     goto LABEL_174;
   }
 
@@ -784,37 +784,37 @@ LABEL_153:
   }
 
   lastToken2 = [(CalculateTokenizer *)i lastToken];
-  v87 = [lastToken2 tokenType] == 2;
+  v86 = [lastToken2 tokenType] == 2;
 
-  if (!v87)
+  if (!v86)
   {
     goto LABEL_162;
   }
 
-  v153 = 0;
+  v152 = 0;
+  v148 = 0;
   v149 = 0;
-  v150 = 0;
-  v88 = i;
+  v87 = i;
   while (2)
   {
-    lastToken3 = [(CalculateTokenizer *)v88 lastToken];
+    lastToken3 = [(CalculateTokenizer *)v87 lastToken];
     ranks3 = [lastToken3 ranks];
-    v90Ranks = [ranks3 ranks];
-    v151 = [v90Ranks count];
+    v89Ranks = [ranks3 ranks];
+    v150 = [v89Ranks count];
 
-    if (v151 <= v153)
+    if (v150 <= v152)
     {
-      v88 = i;
+      v87 = i;
       goto LABEL_155;
     }
 
     lastToken4 = [(CalculateTokenizer *)i lastToken];
     ranks4 = [lastToken4 ranks];
-    v93Ranks = [ranks4 ranks];
-    v95 = [v93Ranks objectAtIndexedSubscript:v153];
-    v96 = [v95 unitID] < 1;
+    v92Ranks = [ranks4 ranks];
+    v94 = [v92Ranks objectAtIndexedSubscript:v152];
+    v95 = [v94 unitID] < 1;
 
-    if (v96)
+    if (v95)
     {
       goto LABEL_143;
     }
@@ -822,46 +822,46 @@ LABEL_153:
     unitsInfo = [(CalculateTokenizer *)i unitsInfo];
     lastToken5 = [(CalculateTokenizer *)i lastToken];
     ranks5 = [lastToken5 ranks];
-    v99Ranks = [ranks5 ranks];
-    v101 = [v99Ranks objectAtIndexedSubscript:v153];
-    v102 = [unitsInfo objectAtIndexedSubscript:{objc_msgSend(v101, "unitID")}];
-    typeInfo = [v102 typeInfo];
+    v98Ranks = [ranks5 ranks];
+    v100 = [v98Ranks objectAtIndexedSubscript:v152];
+    v101 = [unitsInfo objectAtIndexedSubscript:{objc_msgSend(v100, "unitID")}];
+    typeInfo = [v101 typeInfo];
     isCurrency = [typeInfo isCurrency];
 
     if (!isCurrency)
     {
-      v150 = 1;
+      v149 = 1;
 LABEL_143:
-      v88 = i;
+      v87 = i;
       goto LABEL_144;
     }
 
-    v88 = i;
-    if ((v150 & 1) == 0)
+    v87 = i;
+    if ((v149 & 1) == 0)
     {
       goto LABEL_155;
     }
 
     string6 = [(CalculateTokenizer *)i string];
     peekIndex4 = [(CalculateTokenizer *)i peekIndex];
-    v107 = [string6 substringWithRange:{peekIndex4, v224[3] - -[CalculateTokenizer peekIndex](i, "peekIndex")}];
+    v106 = [string6 substringWithRange:{peekIndex4, v223[3] - -[CalculateTokenizer peekIndex](i, "peekIndex")}];
 
-    v88 = i;
-    if ([v107 isEqualToString:@"2"] & 1) != 0 || (objc_msgSend(v107, "isEqualToString:", @"3"))
+    v87 = i;
+    if ([v106 isEqualToString:@"2"] & 1) != 0 || (objc_msgSend(v106, "isEqualToString:", @"3"))
     {
-      v150 = 1;
-      v149 = v107;
+      v149 = 1;
+      v148 = v106;
 LABEL_144:
-      ++v153;
+      ++v152;
       continue;
     }
 
     break;
   }
 
-  v149 = v107;
+  v148 = v106;
 LABEL_155:
-  lastToken6 = [(CalculateTokenizer *)v88 lastToken];
+  lastToken6 = [(CalculateTokenizer *)v87 lastToken];
   text = [lastToken6 text];
   lastToken7 = [(CalculateTokenizer *)i lastToken];
   text2 = [lastToken7 text];
@@ -869,185 +869,182 @@ LABEL_155:
 
   if ([peekTokens rangeOfCharacterFromSet:symbolSet] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v122 = 0;
+    v121 = 0;
 LABEL_164:
 
-    v127 = v149;
+    v126 = v148;
     goto LABEL_165;
   }
 
-  v122 = 0;
-  if ([peekTokens rangeOfCharacterFromSet:punctuationSet] != 0x7FFFFFFFFFFFFFFFLL || v151 > v153)
+  v121 = 0;
+  if ([peekTokens rangeOfCharacterFromSet:punctuationSet] != 0x7FFFFFFFFFFFFFFFLL || v150 > v152)
   {
     goto LABEL_164;
   }
 
   string7 = [(CalculateTokenizer *)i string];
   peekIndex5 = [(CalculateTokenizer *)i peekIndex];
-  v125 = [string7 substringWithRange:{peekIndex5, v224[3] - -[CalculateTokenizer peekIndex](i, "peekIndex")}];
+  v124 = [string7 substringWithRange:{peekIndex5, v223[3] - -[CalculateTokenizer peekIndex](i, "peekIndex")}];
 
-  if (([v125 isEqualToString:@"2"] & 1) == 0 && !objc_msgSend(v125, "isEqualToString:", @"3"))
+  if (([v124 isEqualToString:@"2"] & 1) == 0 && !objc_msgSend(v124, "isEqualToString:", @"3"))
   {
-    v122 = 0;
-    v149 = v125;
+    v121 = 0;
+    v148 = v124;
     goto LABEL_164;
   }
 
-  v149 = v125;
+  v148 = v124;
 
-  if (v149)
+  if (v148)
   {
     peekTokens = [(CalculateTokenizer *)i peekTokens];
-    v126 = [CalculateToken tokenWithType:11 range:[(CalculateTokenizer *)i peekIndex] text:0 ranks:@"^", 0];
-    [peekTokens addObject:v126];
+    v125 = [CalculateToken tokenWithType:11 range:[(CalculateTokenizer *)i peekIndex] text:0 ranks:@"^", 0];
+    [peekTokens addObject:v125];
 
-    v122 = v149;
+    v121 = v148;
     goto LABEL_164;
   }
 
 LABEL_162:
-  v127 = 0;
-  v122 = 0;
+  v126 = 0;
+  v121 = 0;
 LABEL_165:
-  v128 = v127;
-  v129 = (*(v155 + 2))(v155, 3, v224[3]);
-  v130 = v129;
+  v127 = v126;
+  v128 = (*(v154 + 2))(v154, 3, v223[3]);
+  v129 = v128;
   if (i->_normalizeNumbers)
   {
-    [v129 setNormalizedText:v82];
-    [v130 setNumberingSystem:v230[5]];
+    [v128 setNormalizedText:v81];
+    [v129 setNumberingSystem:v229[5]];
   }
 
-  if (v191[6] >= 1 && v179[3] > v224[3])
+  if (v190[6] >= 1 && v178[3] > v223[3])
   {
     string8 = [(CalculateTokenizer *)i string];
-    v132 = v224[3];
-    v133 = v179[3] - v132;
-    v159[0] = MEMORY[0x1E69E9820];
-    v159[1] = 3221225472;
-    v159[2] = __36__CalculateTokenizer__findNextToken__block_invoke_6;
-    v159[3] = &unk_1E815CA58;
-    v159[4] = i;
-    v134 = v155;
-    v160 = v134;
-    [Trie enumerateCharactersInKey:string8 range:v132 usingBlock:v133, v159];
+    v131 = v223[3];
+    v132 = v178[3] - v131;
+    v158[0] = MEMORY[0x1E69E9820];
+    v158[1] = 3221225472;
+    v158[2] = __36__CalculateTokenizer__findNextToken__block_invoke_6;
+    v158[3] = &unk_1E815CA58;
+    v158[4] = i;
+    v133 = v154;
+    v159 = v133;
+    [Trie enumerateCharactersInKey:string8 range:v131 usingBlock:v132, v158];
 
-    v135 = v179[3];
-    if (v135 > [(CalculateTokenizer *)i peekIndex])
+    v134 = v178[3];
+    if (v134 > [(CalculateTokenizer *)i peekIndex])
     {
-      v136 = (*(v155 + 2))(v134, 3, v179[3], 0, 0);
+      v135 = (*(v154 + 2))(v133, 3, v178[3], 0, 0);
     }
   }
 
 LABEL_173:
-  v108 = 0;
+  v107 = 0;
 LABEL_174:
 
-  _Block_object_dispose(&v178, 8);
-  _Block_object_dispose(v182, 8);
+  _Block_object_dispose(&v177, 8);
+  _Block_object_dispose(v181, 8);
 
-  _Block_object_dispose(&v184, 8);
-  _Block_object_dispose(&v190, 8);
-  _Block_object_dispose(v194, 8);
-  _Block_object_dispose(&v196, 8);
+  _Block_object_dispose(&v183, 8);
+  _Block_object_dispose(&v189, 8);
+  _Block_object_dispose(v193, 8);
+  _Block_object_dispose(&v195, 8);
 
-  _Block_object_dispose(&v229, 8);
-  _Block_object_dispose(&v202, 8);
-  _Block_object_dispose(v206, 8);
-  _Block_object_dispose(v208, 8);
-  _Block_object_dispose(v210, 8);
-  _Block_object_dispose(v212, 8);
-  _Block_object_dispose(&v214, 8);
-  _Block_object_dispose(&v218, 8);
+  _Block_object_dispose(&v228, 8);
+  _Block_object_dispose(&v201, 8);
+  _Block_object_dispose(v205, 8);
+  _Block_object_dispose(v207, 8);
+  _Block_object_dispose(v209, 8);
+  _Block_object_dispose(v211, 8);
+  _Block_object_dispose(&v213, 8);
+  _Block_object_dispose(&v217, 8);
   v55 = i;
-  if (v108)
+  if (v107)
   {
 LABEL_175:
-    v137 = *(*(&v257 + 1) + 40);
-    if (v137 && [v137 tokenType] == 33)
+    v136 = *(*(&v256 + 1) + 40);
+    if (v136 && [v136 tokenType] == 33)
     {
-      tokenType2 = [*(*(&v257 + 1) + 40) tokenType];
-      v56 = v236[3];
+      tokenType2 = [*(*(&v256 + 1) + 40) tokenType];
+      v56 = v235[3];
       goto LABEL_96;
     }
 
     trie = v55->_trie;
-    v139 = [CalculateTokenizer localizedSymbolsTrie:v55->_locales];
-    if (trie != v139)
+    v138 = [CalculateTokenizer localizedSymbolsTrie:v55->_locales];
+    if (trie != v138)
     {
 
       goto LABEL_180;
     }
 
-    v144 = v55->_unitsInfo == 0;
+    v143 = v55->_unitsInfo == 0;
 
-    if (!v144)
+    if (!v143)
     {
-      v145 = +[AvailableUnitRanks shared];
-      v146 = [v145 ranksWithLocales:i->_locales];
-      v147 = i->_trie;
-      i->_trie = v146;
+      v144 = +[AvailableUnitRanks shared];
+      v145 = [v144 ranksWithLocales:i->_locales];
+      v146 = i->_trie;
+      i->_trie = v145;
 
       [(CalculateTokenizer *)i _findNextToken];
       goto LABEL_97;
     }
 
 LABEL_180:
-    if ([(CalculateTokenizer *)i peekIndex]+ 1 != v156)
+    if ([(CalculateTokenizer *)i peekIndex]+ 1 != v155)
     {
       goto LABEL_184;
     }
 
-    v140 = characterTypeForCharacter(v240[5]);
-    if (v140 == 2)
+    v139 = characterTypeForCharacter(v239[5]);
+    if (v139 == 2)
     {
-      v141 = 54;
+      v140 = 54;
 LABEL_190:
-      v148 = (*(v155 + 2))(v155, v141, v156, 0, 0);
+      v147 = (*(v154 + 2))(v154, v140, v155, 0, 0);
     }
 
     else
     {
-      if (v140 == 3)
+      if (v139 == 3)
       {
-        v141 = 53;
+        v140 = 53;
         goto LABEL_190;
       }
 
 LABEL_184:
-      if (!v252[5])
+      if (!v251[5])
       {
-        v154 = [(NSString *)i->_string substringWithRange:peekIndex3, v154];
-        v143 = v252[5];
-        v252[5] = v154;
+        v153 = [(NSString *)i->_string substringWithRange:peekIndex3, v153];
+        v142 = v251[5];
+        v251[5] = v153;
       }
 
       tokenType2 = 52;
-      v56 = v156;
+      v56 = v155;
 LABEL_96:
-      v65 = (*(v155 + 2))(v155, tokenType2, v56, 0, 0);
+      v65 = (*(v154 + 2))(v154, tokenType2, v56, 0, 0);
     }
   }
 
 LABEL_97:
-  _Block_object_dispose(&v223, 8);
+  _Block_object_dispose(&v222, 8);
 LABEL_98:
-  _Block_object_dispose(&v235, 8);
-  _Block_object_dispose(&v239, 8);
+  _Block_object_dispose(&v234, 8);
+  _Block_object_dispose(&v238, 8);
 
-  _Block_object_dispose(&v257, 8);
+  _Block_object_dispose(&v256, 8);
 LABEL_99:
 
-  _Block_object_dispose(&v247, 8);
-  _Block_object_dispose(&v251, 8);
-
-LABEL_100:
-  v66 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v246, 8);
+  _Block_object_dispose(&v250, 8);
 }
 
 - (void)update
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (self->_needsUpdate)
   {
     self->_needsUpdate = 0;
@@ -1064,26 +1061,26 @@ LABEL_100:
     }
 
     firstObject = [locales firstObject];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v7 = locales;
-    v8 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v46;
+      v10 = *v45;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v46 != v10)
+          if (*v45 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v45 + 1) + 8 * i);
+          v12 = *(*(&v44 + 1) + 8 * i);
           if (([v12 usesWhitespace] & 1) == 0)
           {
             v13 = v12;
@@ -1093,7 +1090,7 @@ LABEL_100:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v9)
         {
           continue;
@@ -1124,7 +1121,7 @@ LABEL_14:
     currencyGroupingSeparator = self->_currencyGroupingSeparator;
     self->_currencyGroupingSeparator = currencyGroupingSeparator;
 
-    v43 = v14;
+    v42 = v14;
     currencyDecimalSeparator = [(NSNumberFormatter *)v14 currencyDecimalSeparator];
     currencyDecimalSeparator = self->_currencyDecimalSeparator;
     self->_currencyDecimalSeparator = currencyDecimalSeparator;
@@ -1184,9 +1181,9 @@ LABEL_14:
 
     v28 = *MEMORY[0x1E695E480];
     string = [(CalculateTokenizer *)self string];
-    v51.location = self->_startIndex;
-    v51.length = self->_stringLength - v51.location;
-    v30 = CFStringTokenizerCreate(v28, string, v51, 0, firstObject);
+    v50.location = self->_startIndex;
+    v50.length = self->_stringLength - v50.location;
+    v30 = CFStringTokenizerCreate(v28, string, v50, 0, firstObject);
 
     startIndex = [(CalculateTokenizer *)self startIndex];
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -1212,14 +1209,14 @@ LABEL_14:
     if ([wordBreakIndices2 count])
     {
       [(CalculateTokenizer *)self wordBreakIndices];
-      v36 = v42 = firstObject;
+      v36 = v41 = firstObject;
       [v36 lastObject];
       v38 = v37 = v7;
       intValue = [v38 intValue];
       stringLength2 = [(CalculateTokenizer *)self stringLength];
 
       v7 = v37;
-      firstObject = v42;
+      firstObject = v41;
 
       if (stringLength2 <= intValue)
       {
@@ -1236,8 +1233,6 @@ LABEL_49:
     CFRelease(v30);
     [(CalculateTokenizer *)self reset];
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadIfNeeded
@@ -1284,7 +1279,7 @@ LABEL_49:
 
 void __35__CalculateTokenizer__loadIfNeeded__block_invoke(uint64_t a1)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AB08] newlineCharacterSet];
   v2 = newlineSet;
   newlineSet = v1;
@@ -1297,7 +1292,7 @@ void __35__CalculateTokenizer__loadIfNeeded__block_invoke(uint64_t a1)
   [v4 addCharactersInString:@"\u200F"];
   [v4 addCharactersInString:@"\u202D"];
   [v4 addCharactersInString:@"\u202E"];
-  v43 = v4;
+  v39 = v4;
   v5 = [v4 copy];
   v6 = whitespaceSet;
   whitespaceSet = v5;
@@ -1315,53 +1310,53 @@ void __35__CalculateTokenizer__loadIfNeeded__block_invoke(uint64_t a1)
   v13 = digitToNumberingSystem;
   digitToNumberingSystem = v12;
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = +[Localize numberingSystems];
-  v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v46)
+  v42 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+  if (v42)
   {
-    v45 = *v55;
+    v41 = *v51;
     v14 = 5;
     do
     {
       v15 = 0;
       do
       {
-        if (*v55 != v45)
+        if (*v51 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v47 = v15;
-        v16 = *(*(&v54 + 1) + 8 * v15);
-        v48 = v14;
+        v43 = v15;
+        v16 = *(*(&v50 + 1) + 8 * v15);
+        v44 = v14;
         v17 = [MEMORY[0x1E696AD98] numberWithInt:v14];
-        v50 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v53 = 0u;
-        v49 = [v16 digits];
-        v18 = [v49 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v45 = [v16 digits];
+        v18 = [v45 countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v18)
         {
           v19 = v18;
           LODWORD(v20) = 0;
-          v21 = *v51;
+          v21 = *v47;
           do
           {
             v22 = 0;
             v20 = v20;
             do
             {
-              if (*v51 != v21)
+              if (*v47 != v21)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v45);
               }
 
-              v23 = *(*(&v50 + 1) + 8 * v22);
+              v23 = *(*(&v46 + 1) + 8 * v22);
               [v8[466] setObject:v17 forKeyedSubscript:v23];
               [digitToNumberingSystem setObject:v16 forKeyedSubscript:v23];
               if (v20 <= 9)
@@ -1378,22 +1373,22 @@ void __35__CalculateTokenizer__loadIfNeeded__block_invoke(uint64_t a1)
             }
 
             while (v19 != v22);
-            v19 = [v49 countByEnumeratingWithState:&v50 objects:v58 count:16];
+            v19 = [v45 countByEnumeratingWithState:&v46 objects:v54 count:16];
           }
 
           while (v19);
         }
 
-        v14 = (v48 + 1);
+        v14 = (v44 + 1);
 
-        v15 = v47 + 1;
+        v15 = v43 + 1;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
-    while (v46);
+    while (v42);
   }
 
   v26 = objc_opt_new();
@@ -1415,19 +1410,15 @@ void __35__CalculateTokenizer__loadIfNeeded__block_invoke(uint64_t a1)
   v34 = equalSet;
   equalSet = v33;
 
-  v35 = *(a1 + 32);
   [objc_opt_class() loadSymbolSet];
-  v36 = *(a1 + 32);
   [objc_opt_class() loadPunctuationSet];
-  v37 = [MEMORY[0x1E696AB08] characterSetWithRange:{1424, 112}];
-  v38 = hebrewSet;
-  hebrewSet = v37;
+  v35 = [MEMORY[0x1E696AB08] characterSetWithRange:{1424, 112}];
+  v36 = hebrewSet;
+  hebrewSet = v35;
 
-  v39 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"  "];
-  v40 = nbspSet;
-  nbspSet = v39;
-
-  v41 = *MEMORY[0x1E69E9840];
+  v37 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"  "];
+  v38 = nbspSet;
+  nbspSet = v37;
 }
 
 + (void)loadSymbolSet
@@ -1927,7 +1918,7 @@ LABEL_4:
   }
 
   v16 = a3 + a4;
-  if (*(*(a1 + 32) + 11) == 1 && v16 == *(a1 + 88) + 2 && [*(*(*(a1 + 48) + 8) + 40) isEqualToString:@"\\"] && objc_msgSend(obj, "isEqualToString:", @" ""))
+  if (*(*(a1 + 32) + 11) == 1 && v16 == *(a1 + 88) + 2 && [*(*(*(a1 + 48) + 8) + 40) isEqualToString:@"\] && objc_msgSend(obj, "isEqualToString:", @" ""))
   {
     v17 = [(TrieNode *)*(*(*(a1 + 40) + 8) + 40) object];
     v18 = *(*(a1 + 56) + 8);
@@ -1971,7 +1962,7 @@ LABEL_28:
   }
 }
 
-uint64_t __36__CalculateTokenizer__findNextToken__block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__36__CalculateTokenizer__findNextToken__block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 rangeOfCharacterFromSet:whitespaceSet];
   if (result == 0x7FFFFFFFFFFFFFFFLL)
@@ -2332,7 +2323,7 @@ void __28__CalculateTokenizer_update__block_invoke_2(uint64_t a1, void *a2, uint
 
 - (void)setVariables:(id)variables
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   variablesCopy = variables;
   self->_needsUpdate = 1;
   objc_opt_class();
@@ -2365,31 +2356,31 @@ void __28__CalculateTokenizer_update__block_invoke_2(uint64_t a1, void *a2, uint
   {
     *self->_singleLetterVariables.letters = 0u;
     *&self->_singleLetterVariables.letters[16] = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v10 = v9;
-    v11 = [(NSDictionary *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [(NSDictionary *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(CalculateTokenizer *)self addVariable:*(*(&v16 + 1) + 8 * v14++), v16];
+          [(CalculateTokenizer *)self addVariable:*(*(&v15 + 1) + 8 * v14++), v15];
         }
 
         while (v12 != v14);
-        v12 = [(NSDictionary *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [(NSDictionary *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
@@ -2397,8 +2388,6 @@ void __28__CalculateTokenizer_update__block_invoke_2(uint64_t a1, void *a2, uint
 
     self->_variableBuffer = malloc_type_realloc(self->_variableBuffer, 2 * self->_variableBufferLength + 2, 0x1000040BDFB0063uLL);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDeclaredVariable:(id)variable
@@ -2612,7 +2601,7 @@ uint64_t __38__CalculateTokenizer_trigonometricSet__block_invoke()
 + (void)addUnits:(id)units builtIn:(BOOL)in
 {
   inCopy = in;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   unitsCopy = units;
   v6 = +[UnitsInfo converterUnits];
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -2620,17 +2609,17 @@ uint64_t __38__CalculateTokenizer_trigonometricSet__block_invoke()
   aBlock[2] = __39__CalculateTokenizer_addUnits_builtIn___block_invoke;
   aBlock[3] = &unk_1E815C8F0;
   v7 = unitsCopy;
-  v26 = v7;
+  v25 = v7;
   v8 = v6;
-  v27 = v8;
+  v26 = v8;
   v9 = _Block_copy(aBlock);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __39__CalculateTokenizer_addUnits_builtIn___block_invoke_2;
-  v23[3] = &unk_1E815C918;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __39__CalculateTokenizer_addUnits_builtIn___block_invoke_2;
+  v22[3] = &unk_1E815C918;
   v10 = v9;
-  v24 = v10;
-  v11 = _Block_copy(v23);
+  v23 = v10;
+  v11 = _Block_copy(v22);
   if (addUnits_builtIn__onceToken != -1)
   {
     dispatch_once(&addUnits_builtIn__onceToken, &__block_literal_global_763);
@@ -2647,62 +2636,60 @@ uint64_t __38__CalculateTokenizer_trigonometricSet__block_invoke()
     v12(v11, @"fahrenheit", addUnits_builtIn__circ, 0.0);
     (v11[2])(v11, @"celsius", addUnits_builtIn__circ, 0.0);
     (v11[2])(v11, @"USD", addUnits_builtIn__dollar, 0.2);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v13 = addUnits_builtIn__dollarCountries;
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          (v11[2])(v11, *(*(&v19 + 1) + 8 * i), addUnits_builtIn__dollar, 1.0);
+          (v11[2])(v11, *(*(&v18 + 1) + 8 * i), addUnits_builtIn__dollar, 1.0);
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v27 count:16];
       }
 
       while (v15);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CalculateTokenizer_addUnits_builtIn___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, float a5)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v9 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = a3;
-  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         v15 = [(Trie *)*(a1 + 32) objectForKeyedSubscript:v14];
         if (!v15)
         {
@@ -2720,13 +2707,11 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke(uint64_t a1, void 
         [v15 sort];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
@@ -2746,7 +2731,7 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
 
 + (void)addSymbols:(id)symbols
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   symbolsCopy = symbols;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -2754,24 +2739,24 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
   aBlock[3] = &unk_1E815C8A0;
   selfCopy = self;
   v5 = symbolsCopy;
-  v36 = v5;
+  v35 = v5;
   v6 = _Block_copy(aBlock);
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __33__CalculateTokenizer_addSymbols___block_invoke_2;
-  v32[3] = &unk_1E815C8C8;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __33__CalculateTokenizer_addSymbols___block_invoke_2;
+  v31[3] = &unk_1E815C8C8;
   selfCopy2 = self;
   v7 = v5;
-  v33 = v7;
-  v8 = _Block_copy(v32);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __33__CalculateTokenizer_addSymbols___block_invoke_3;
-  v29[3] = &unk_1E815C8A0;
+  v32 = v7;
+  v8 = _Block_copy(v31);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __33__CalculateTokenizer_addSymbols___block_invoke_3;
+  v28[3] = &unk_1E815C8A0;
   selfCopy3 = self;
-  v24 = v7;
-  v30 = v24;
-  v23 = _Block_copy(v29);
+  v23 = v7;
+  v29 = v23;
+  v22 = _Block_copy(v28);
   v6[2](v6, 4, &unk_1F419A0C0);
   v6[2](v6, 5, &unk_1F419A0D8);
   v6[2](v6, 6, &unk_1F419A0F0);
@@ -2809,82 +2794,80 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
   v6[2](v6, 35, allObjects);
 
   v6[2](v6, 35, &unk_1F419A3C0);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   allKeys = [&unk_1F419A7A8 allKeys];
-  v12 = [allKeys countByEnumeratingWithState:&v25 objects:v38 count:16];
+  v12 = [allKeys countByEnumeratingWithState:&v24 objects:v37 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         v17 = [&unk_1F419A7A8 objectForKeyedSubscript:v16];
         v8[2](v8, 35, v16, v17);
       }
 
-      v13 = [allKeys countByEnumeratingWithState:&v25 objects:v38 count:16];
+      v13 = [allKeys countByEnumeratingWithState:&v24 objects:v37 count:16];
     }
 
     while (v13);
   }
 
-  v23[2](v23, 43, &unk_1F419A4B0);
-  v23[2](v23, 44, &unk_1F419A4C8);
-  v23[2](v23, 7, &unk_1F419A4E0);
-  v23[2](v23, 6, &unk_1F419A4F8);
-  v23[2](v23, 12, &unk_1F419A510);
-  v23[2](v23, 37, &unk_1F419A528);
+  v22[2](v22, 43, &unk_1F419A4B0);
+  v22[2](v22, 44, &unk_1F419A4C8);
+  v22[2](v22, 7, &unk_1F419A4E0);
+  v22[2](v22, 6, &unk_1F419A4F8);
+  v22[2](v22, 12, &unk_1F419A510);
+  v22[2](v22, 37, &unk_1F419A528);
   v18 = +[CalculateTokenizer laTeXNonTrigFunctionSet];
   allObjects2 = [v18 allObjects];
-  v23[2](v23, 35, allObjects2);
+  v22[2](v22, 35, allObjects2);
 
   v20 = +[CalculateTokenizer laTeXTrigonometricSet];
   allObjects3 = [v20 allObjects];
-  v23[2](v23, 35, allObjects3);
+  v22[2](v22, 35, allObjects3);
 
-  v23[2](v23, 40, &unk_1F419A540);
-  v23[2](v23, 51, &unk_1F419A558);
-  v23[2](v23, 41, &unk_1F419A570);
-  v23[2](v23, 42, &unk_1F419A588);
-  v23[2](v23, 1, &unk_1F419A5A0);
-  v23[2](v23, 36, &unk_1F419A5B8);
-  v23[2](v23, 13, &unk_1F419A5D0);
-  v23[2](v23, 31, &unk_1F419A5E8);
-  v23[2](v23, 45, &unk_1F419A600);
-  v23[2](v23, 46, &unk_1F419A618);
-  v23[2](v23, 47, &unk_1F419A630);
-  v23[2](v23, 48, &unk_1F419A648);
-  v23[2](v23, 49, &unk_1F419A660);
-  v23[2](v23, 50, &unk_1F419A678);
-  [CalculateTokenizer addUnits:v24 builtIn:1];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v22[2](v22, 40, &unk_1F419A540);
+  v22[2](v22, 51, &unk_1F419A558);
+  v22[2](v22, 41, &unk_1F419A570);
+  v22[2](v22, 42, &unk_1F419A588);
+  v22[2](v22, 1, &unk_1F419A5A0);
+  v22[2](v22, 36, &unk_1F419A5B8);
+  v22[2](v22, 13, &unk_1F419A5D0);
+  v22[2](v22, 31, &unk_1F419A5E8);
+  v22[2](v22, 45, &unk_1F419A600);
+  v22[2](v22, 46, &unk_1F419A618);
+  v22[2](v22, 47, &unk_1F419A630);
+  v22[2](v22, 48, &unk_1F419A648);
+  v22[2](v22, 49, &unk_1F419A660);
+  v22[2](v22, 50, &unk_1F419A678);
+  [CalculateTokenizer addUnits:v23 builtIn:1];
 }
 
 + (void)_addSymbols:(id)symbols normalized:(id)normalized tokenType:(unint64_t)type isLaTeX:(BOOL)x trie:(id)trie
 {
   xCopy = x;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   symbolsCopy = symbols;
   normalizedCopy = normalized;
   trieCopy = trie;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = symbolsCopy;
-  v13 = [symbolsCopy countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v13 = [symbolsCopy countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v13)
   {
     v14 = v13;
@@ -2894,22 +2877,22 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
       v15 = 1;
     }
 
-    v35 = v15;
-    v34 = *v38;
-    v32 = trieCopy;
+    v34 = v15;
+    v33 = *v37;
+    v31 = trieCopy;
     typeCopy = type;
     do
     {
       v16 = 0;
-      v31 = v14;
+      v30 = v14;
       do
       {
-        if (*v38 != v34)
+        if (*v37 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * v16);
+        v17 = *(*(&v36 + 1) + 8 * v16);
         v18 = [(Trie *)trieCopy objectForKeyedSubscript:v17];
         if (!v18)
         {
@@ -2924,13 +2907,13 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
         [(UnitRank *)v21 setIsLaTeX:xCopy];
         [(UnitRank *)v21 setNormalized:normalizedCopy];
         [v18 addUnitRank:v21];
-        if ((v35 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
           if ([v17 containsString:@"_"])
           {
             v22 = [v17 stringByReplacingOccurrencesOfString:@"_" withString:&stru_1F418FCD8];
-            v42 = v22;
-            v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+            v41 = v22;
+            v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
             v24 = trieCopy;
             v25 = v23;
             [self _addSymbols:v23 normalized:normalizedCopy tokenType:35 isLaTeX:0 trie:v24];
@@ -2944,19 +2927,19 @@ void __39__CalculateTokenizer_addUnits_builtIn___block_invoke_3()
             }
 
             v22 = [v17 stringByReplacingOccurrencesOfString:@"^-1" withString:@"-1"];
-            v41[0] = v22;
+            v40[0] = v22;
             v25 = [v17 stringByReplacingOccurrencesOfString:@"^-1" withString:@"^(-1)"];
-            v41[1] = v25;
+            v40[1] = v25;
             v26 = [v17 stringByReplacingOccurrencesOfString:@"^-1" withString:@"⁻¹"];
-            v41[2] = v26;
-            v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
-            [self _addSymbols:v27 normalized:normalizedCopy tokenType:35 isLaTeX:0 trie:v32];
+            v40[2] = v26;
+            v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+            [self _addSymbols:v27 normalized:normalizedCopy tokenType:35 isLaTeX:0 trie:v31];
 
             type = typeCopy;
           }
 
-          v14 = v31;
-          trieCopy = v32;
+          v14 = v30;
+          trieCopy = v31;
         }
 
 LABEL_16:
@@ -2965,13 +2948,11 @@ LABEL_16:
       }
 
       while (v14 != v16);
-      v14 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v14 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v14);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addLocalizedSymbols:(id)symbols locales:(id)locales
@@ -2989,37 +2970,37 @@ LABEL_16:
 
 void __50__CalculateTokenizer_addLocalizedSymbols_locales___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
   if (([v6 isEqualToString:@"en"] & 1) == 0)
   {
-    v21 = v7;
-    v22 = v6;
-    v23 = v5;
+    v19 = v7;
+    v20 = v6;
+    v21 = v5;
     v8 = [Localize localizedStringsForTable:@"LocalizableMath" localization:v6];
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v23;
       do
       {
         v12 = 0;
         do
         {
-          if (*v25 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v12);
-          if (v13 && [*(*(&v24 + 1) + 8 * v12) length])
+          v13 = *(*(&v22 + 1) + 8 * v12);
+          if (v13 && [*(*(&v22 + 1) + 8 * v12) length])
           {
             v14 = [v8 objectForKeyedSubscript:v13];
             v15 = v14;
@@ -3040,11 +3021,10 @@ void __50__CalculateTokenizer_addLocalizedSymbols_locales___block_invoke(uint64_
                 v16 = 35;
               }
 
-              v17 = *(a1 + 40);
-              v18 = objc_opt_class();
-              v28 = v15;
-              v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-              [v18 _addSymbols:v19 normalized:v13 tokenType:v16 isLaTeX:0 trie:*(a1 + 32)];
+              v17 = objc_opt_class();
+              v26 = v15;
+              v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+              [v17 _addSymbols:v18 normalized:v13 tokenType:v16 isLaTeX:0 trie:*(a1 + 32)];
             }
           }
 
@@ -3052,20 +3032,18 @@ void __50__CalculateTokenizer_addLocalizedSymbols_locales___block_invoke(uint64_
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v10);
     }
 
-    v6 = v22;
-    v5 = v23;
-    v7 = v21;
+    v6 = v20;
+    v5 = v21;
+    v7 = v19;
   }
 
   objc_autoreleasePoolPop(v7);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)localizedSymbolsTrie:(id)trie

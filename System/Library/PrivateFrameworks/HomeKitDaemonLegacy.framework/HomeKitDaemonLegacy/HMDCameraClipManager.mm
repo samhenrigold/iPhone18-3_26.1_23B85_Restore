@@ -2,6 +2,7 @@
 + (double)maximumClipDuration;
 + (id)logCategory;
 - (BOOL)_fetchClipsWithDateInterval:(id)interval quality:(int64_t)quality isAscending:(BOOL)ascending error:(id *)error handler:(id)handler;
+- (BOOL)_fetchSignificantEventsWithDateInterval:(id)interval isAscending:(BOOL)ascending error:(id *)error handler:(id)handler;
 - (BOOL)areShareModificationsEnabledForManager:(id)manager;
 - (BOOL)hasStartedUpCloudZone;
 - (BOOL)manager:(id)manager shouldGrantWriteAccessToUser:(id)user;
@@ -113,7 +114,7 @@
 
 - (void)zoneManager:(id)manager didReceiveMessageWithUserInfo:(id)info
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   infoCopy = info;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -138,9 +139,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v20;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received all storage disabled notification", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v20;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received all storage disabled notification", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -155,23 +156,21 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v21 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v21;
-        v25 = 2112;
-        v26 = v9;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received unknown notification: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v21;
+        v24 = 2112;
+        v25 = v9;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received unknown notification: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneManagerDidStop:(id)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -182,9 +181,9 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Camera clips zone manager stopped", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Camera clips zone manager stopped", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -195,13 +194,11 @@
   {
     [delegate clipManagerDidStop:selfCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneManagerDidStart:(id)start
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   startCopy = start;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -213,7 +210,7 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v49 = v9;
+    v48 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Camera clips zone manager started", buf, 0xCu);
   }
 
@@ -247,9 +244,9 @@
       v20 = HMFGetLogIdentifier();
       suppressNotificationsBeforeDate = [(HMDCameraClipManager *)v18 suppressNotificationsBeforeDate];
       *buf = 138543618;
-      v49 = v20;
-      v50 = 2112;
-      v51 = suppressNotificationsBeforeDate;
+      v48 = v20;
+      v49 = 2112;
+      v50 = suppressNotificationsBeforeDate;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Suppressing all clip-related notifications before %@", buf, 0x16u);
     }
 
@@ -262,12 +259,12 @@
   workQueue2 = [(HMDCameraClipManager *)selfCopy workQueue];
   v26 = [v24 schedulerWithDispatchQueue:workQueue2];
   v27 = [startUp reschedule:v26];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke;
-  v47[3] = &unk_2797358F0;
-  v47[4] = selfCopy;
-  v28 = [v27 addSuccessBlock:v47];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke;
+  v46[3] = &unk_2797358F0;
+  v46[4] = selfCopy;
+  v28 = [v27 addSuccessBlock:v46];
 
   delegate = [(HMDCameraClipManager *)selfCopy delegate];
   if (objc_opt_respondsToSelector())
@@ -285,7 +282,7 @@
     cameraProfileUUID = [(HMDCameraClipManager *)selfCopy cameraProfileUUID];
     messageTargetUUID = [(HMDCameraClipManager *)selfCopy messageTargetUUID];
     [(HMDCameraClipManager *)selfCopy workQueue];
-    v37 = v46 = startCopy;
+    v37 = v45 = startCopy;
     v38 = [(HMDCameraClipFeedbackManager *)v31 initWithLocalZone:localZone4 cloudZone:cloudZone4 home:home messageDispatcher:messageDispatcher cameraProfileUUID:cameraProfileUUID messageTargetUUID:messageTargetUUID workQueue:v37];
     [(HMDCameraClipManager *)selfCopy setFeedbackManager:v38];
 
@@ -293,7 +290,7 @@
     v40 = +[HMDDeviceCapabilities deviceCapabilities];
     [feedbackManager configureWithIsCurrentDeviceResidentCapable:{objc_msgSend(v40, "isResidentCapable")}];
 
-    startCopy = v46;
+    startCopy = v45;
   }
 
   else
@@ -305,19 +302,17 @@
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v44;
+      v48 = v44;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot create feedback manager because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v41);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -328,9 +323,9 @@ void __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Camera clips cloud zone finished starting up", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Camera clips cloud zone finished starting up", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -339,8 +334,6 @@ void __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke(uint64_t a1, 
   {
     [v9 clipManagerDidStartUpCloudZone:*(a1 + 32)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)zoneManager:(id)manager shouldRequestShareInvitationFromUser:(id)user
@@ -397,7 +390,7 @@ void __44__HMDCameraClipManager_zoneManagerDidStart___block_invoke(uint64_t a1, 
 
 void __58__HMDCameraClipManager_localZone_didProcessModelDeletion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) model];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -451,13 +444,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelDeletion___block_invoke
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v41 = *buf;
+        v40 = *buf;
         *buf = 138543874;
         *&buf[4] = v17;
         *&buf[12] = 1042;
         *&buf[14] = 16;
-        v44 = 2098;
-        v45 = &v41;
+        v43 = 2098;
+        v44 = &v40;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Significant event notification deleted with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
       }
 
@@ -509,13 +502,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelDeletion___block_invoke
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v40 = *buf;
+          v39 = *buf;
           *buf = 138543874;
           *&buf[4] = v26;
           *&buf[12] = 1042;
           *&buf[14] = 16;
-          v44 = 2098;
-          v45 = &v40;
+          v43 = 2098;
+          v44 = &v39;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Significant event face classification deleted with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
         }
 
@@ -550,13 +543,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelDeletion___block_invoke
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v42 = *buf;
+    v41 = *buf;
     *buf = 138543874;
     *&buf[4] = v8;
     *&buf[12] = 1042;
     *&buf[14] = 16;
-    v44 = 2098;
-    v45 = &v42;
+    v43 = 2098;
+    v44 = &v41;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Clip deleted with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
   }
 
@@ -576,8 +569,6 @@ void __58__HMDCameraClipManager_localZone_didProcessModelDeletion___block_invoke
     [v13 clipManager:v34 didDeleteClipWithUUID:v22];
 LABEL_33:
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelUpdate:(id)update
@@ -596,7 +587,7 @@ LABEL_33:
 
 void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) model];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -634,13 +625,13 @@ void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(u
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v34 = *buf;
+      v33 = *buf;
       *buf = 138543874;
       *&buf[4] = v8;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v36 = 2098;
-      v37 = &v34;
+      v35 = 2098;
+      v36 = &v33;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Clip updated with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
     }
 
@@ -689,13 +680,13 @@ void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(u
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v33 = *buf;
+        v32 = *buf;
         *buf = 138543874;
         *&buf[4] = v17;
         *&buf[12] = 1042;
         *&buf[14] = 16;
-        v36 = 2098;
-        v37 = &v33;
+        v35 = 2098;
+        v36 = &v32;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Significant event notification updated with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
       }
 
@@ -744,13 +735,13 @@ void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(u
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v32 = *buf;
+          v31 = *buf;
           *buf = 138543874;
           *&buf[4] = v26;
           *&buf[12] = 1042;
           *&buf[14] = 16;
-          v36 = 2098;
-          v37 = &v32;
+          v35 = 2098;
+          v36 = &v31;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Face classification updated with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
         }
 
@@ -759,8 +750,6 @@ void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(u
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelCreation:(id)creation
@@ -779,7 +768,7 @@ void __56__HMDCameraClipManager_localZone_didProcessModelUpdate___block_invoke(u
 
 void __58__HMDCameraClipManager_localZone_didProcessModelCreation___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) model];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -817,13 +806,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelCreation___block_invoke
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v34 = *buf;
+      v33 = *buf;
       *buf = 138543874;
       *&buf[4] = v8;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v36 = 2098;
-      v37 = &v34;
+      v35 = 2098;
+      v36 = &v33;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@New clip received with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
     }
 
@@ -872,13 +861,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelCreation___block_invoke
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v33 = *buf;
+        v32 = *buf;
         *buf = 138543874;
         *&buf[4] = v17;
         *&buf[12] = 1042;
         *&buf[14] = 16;
-        v36 = 2098;
-        v37 = &v33;
+        v35 = 2098;
+        v36 = &v32;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@New significant event notification received with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
       }
 
@@ -927,13 +916,13 @@ void __58__HMDCameraClipManager_localZone_didProcessModelCreation___block_invoke
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v32 = *buf;
+          v31 = *buf;
           *buf = 138543874;
           *&buf[4] = v26;
           *&buf[12] = 1042;
           *&buf[14] = 16;
-          v36 = 2098;
-          v37 = &v32;
+          v35 = 2098;
+          v36 = &v31;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@New face classification received with UUID: %{public,uuid_t}.16P", buf, 0x1Cu);
         }
 
@@ -941,8 +930,6 @@ void __58__HMDCameraClipManager_localZone_didProcessModelCreation___block_invoke
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudZone:(id)zone didEncounterZoneDisabledError:(id)error
@@ -986,7 +973,7 @@ void __64__HMDCameraClipManager_cloudZone_didEncounterZoneDisabledError___block_
 
 void __77__HMDCameraClipManager_handleHomePersonManagerSettingsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) zoneManager];
   v3 = [v2 defaultConfiguration];
   v4 = [v3 isZoneOwner];
@@ -1005,17 +992,15 @@ void __77__HMDCameraClipManager_handleHomePersonManagerSettingsDidChangeNotifica
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543362;
-        v14 = v11;
-        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Home person manager face classification is disabled; removing all face classification models", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v11;
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Home person manager face classification is disabled; removing all face classification models", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       [*(a1 + 32) _removeAllFaceClassificationModels];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserRemoteAccessDidChangeNotification:(id)notification
@@ -1071,7 +1056,7 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
 
 - (void)handleUpdateCloudStorageMessage:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1084,9 +1069,9 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v27 = v9;
-    v28 = 2114;
-    v29 = identifier;
+    v26 = v9;
+    v27 = 2114;
+    v28 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling update cloud storage message: %{public}@", buf, 0x16u);
   }
 
@@ -1098,27 +1083,27 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     if ([messageCopy BOOLForKey:*MEMORY[0x277CCF460]])
     {
       _enableCloudStorage = [(HMDCameraClipManager *)selfCopy _enableCloudStorage];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __56__HMDCameraClipManager_handleUpdateCloudStorageMessage___block_invoke;
-      v24[3] = &unk_279733BC0;
-      v25 = messageCopy;
-      v13 = [_enableCloudStorage addCompletionBlock:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __56__HMDCameraClipManager_handleUpdateCloudStorageMessage___block_invoke;
+      v23[3] = &unk_279733BC0;
+      v24 = messageCopy;
+      v13 = [_enableCloudStorage addCompletionBlock:v23];
 
-      v14 = v25;
+      v14 = v24;
     }
 
     else
     {
       _disableCloudStorage = [(HMDCameraClipManager *)selfCopy _disableCloudStorage];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __56__HMDCameraClipManager_handleUpdateCloudStorageMessage___block_invoke_2;
-      v22[3] = &unk_279733BC0;
-      v23 = messageCopy;
-      v20 = [_disableCloudStorage addCompletionBlock:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __56__HMDCameraClipManager_handleUpdateCloudStorageMessage___block_invoke_2;
+      v21[3] = &unk_279733BC0;
+      v22 = messageCopy;
+      v20 = [_disableCloudStorage addCompletionBlock:v21];
 
-      v14 = v23;
+      v14 = v22;
     }
   }
 
@@ -1131,7 +1116,7 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v18;
+      v26 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot update cloud storage because zones are not ready", buf, 0xCu);
     }
 
@@ -1139,13 +1124,11 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v14];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchIsCloudStorageEnabledMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1158,9 +1141,9 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v40 = v9;
-    v41 = 2114;
-    v42 = identifier;
+    v39 = v9;
+    v40 = 2114;
+    v41 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch is cloud storage enabled message: %{public}@", buf, 0x16u);
   }
 
@@ -1176,7 +1159,7 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v27;
+      v39 = v27;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch is cloud storage enabled because zones are not ready", buf, 0xCu);
     }
 
@@ -1198,7 +1181,7 @@ void __65__HMDCameraClipManager_handleUserPrivilegeDidChangeNotification___block
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v32;
+      v39 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@User is not the zone owner; cannot fetch is cloud storage enabled", buf, 0xCu);
     }
 
@@ -1217,29 +1200,28 @@ LABEL_12:
   workQueue2 = [(HMDCameraClipManager *)selfCopy workQueue];
   v19 = [v17 schedulerWithDispatchQueue:workQueue2];
   v20 = [fetchNamesForZonesWithEnabledCloudStorage reschedule:v19];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke;
-  v37[3] = &unk_27972EB68;
-  v37[4] = selfCopy;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke;
+  v36[3] = &unk_27972EB68;
+  v36[4] = selfCopy;
   v21 = messageCopy;
-  v38 = v21;
-  v22 = [v20 addSuccessBlock:v37];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke_222;
-  v35[3] = &unk_2797358C8;
-  v35[4] = selfCopy;
-  v36 = v21;
-  v23 = [v22 addFailureBlock:v35];
+  v37 = v21;
+  v22 = [v20 addSuccessBlock:v36];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke_222;
+  v34[3] = &unk_2797358C8;
+  v34[4] = selfCopy;
+  v35 = v21;
+  v23 = [v22 addFailureBlock:v34];
 
 LABEL_13:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) zoneManager];
   v5 = [v4 zoneName];
@@ -1253,25 +1235,23 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v10 = HMFGetLogIdentifier();
     v11 = HMFEnabledStatusToString();
     *buf = 138543618;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v11;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v11;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetched is cloud storage enabled: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   v12 = *(a1 + 40);
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{v6, *MEMORY[0x277CCF460]}];
-  v17 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
   [v12 respondWithPayload:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_invoke_222(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1279,22 +1259,20 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch is cloud storage enabled: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch is cloud storage enabled: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 40) respondWithError:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleImportClipsMessage:(id)message
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1307,9 +1285,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v44 = v9;
-    v45 = 2114;
-    v46 = identifier;
+    v43 = v9;
+    v44 = 2114;
+    v45 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling import clips message: %{public}@", buf, 0x16u);
   }
 
@@ -1323,15 +1301,15 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v13 = MEMORY[0x277CCAAC8];
       v14 = MEMORY[0x277CBEB98];
-      v42[0] = objc_opt_class();
-      v42[1] = objc_opt_class();
-      v42[2] = objc_opt_class();
-      v42[3] = objc_opt_class();
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
+      v41[0] = objc_opt_class();
+      v41[1] = objc_opt_class();
+      v41[2] = objc_opt_class();
+      v41[3] = objc_opt_class();
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
       v16 = [v14 setWithArray:v15];
-      v41 = 0;
-      v17 = [v13 unarchivedObjectOfClasses:v16 fromData:v12 error:&v41];
-      v18 = v41;
+      v40 = 0;
+      v17 = [v13 unarchivedObjectOfClasses:v16 fromData:v12 error:&v40];
+      v18 = v40;
 
       if (v17)
       {
@@ -1341,12 +1319,12 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         v22 = [(HMDCameraClipImporter *)v19 initWithLocalZone:localZone2 cameraProfileUUID:cameraProfileUUID];
 
         v23 = [(HMDCameraClipImporter *)v22 importClipsWithImportData:v17];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __49__HMDCameraClipManager_handleImportClipsMessage___block_invoke;
-        v39[3] = &unk_279733BC0;
-        v40 = messageCopy;
-        v24 = [v23 addCompletionBlock:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __49__HMDCameraClipManager_handleImportClipsMessage___block_invoke;
+        v38[3] = &unk_279733BC0;
+        v39 = messageCopy;
+        v24 = [v23 addCompletionBlock:v38];
       }
 
       else
@@ -1358,9 +1336,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v37;
-          v45 = 2112;
-          v46 = v18;
+          v43 = v37;
+          v44 = 2112;
+          v45 = v18;
           _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive camera clips import dictionary from clip data: %@", buf, 0x16u);
         }
 
@@ -1379,9 +1357,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         v32 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v44 = v32;
-        v45 = 2112;
-        v46 = messagePayload;
+        v43 = v32;
+        v44 = 2112;
+        v45 = messagePayload;
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Could not find serialized import data in message payload: %@", buf, 0x16u);
       }
 
@@ -1400,7 +1378,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v28;
+      v43 = v28;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Cannot import clips because zones are not ready", buf, 0xCu);
     }
 
@@ -1408,13 +1386,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemoteHandleFaceMisclassificationMessage:(id)message
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1464,13 +1440,13 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
           *buf = 0;
           *&buf[8] = 0;
           [v15 getUUIDBytes:buf];
-          v33 = *buf;
+          v32 = *buf;
           *buf = 138543874;
           *&buf[4] = v30;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v33;
+          *&buf[20] = &v32;
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not find person manager with UUID %{public,uuid_t}.16P to handle misclassified person", buf, 0x1Cu);
         }
 
@@ -1521,13 +1497,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHandleFaceMisclassificationMessage:(id)message
 {
-  v62[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1540,9 +1514,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v57 = v9;
-    v58 = 2114;
-    v59 = identifier;
+    v56 = v9;
+    v57 = 2114;
+    v58 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling handle face misclassification message: %{public}@", buf, 0x16u);
   }
 
@@ -1552,9 +1526,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
   if (localZone)
   {
     v12 = *MEMORY[0x277CCF498];
-    v62[0] = objc_opt_class();
-    v62[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v61[0] = objc_opt_class();
+    v61[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
     v14 = [messageCopy unarchivedObjectForKey:v12 ofClasses:v13];
 
     firstObject = [v14 firstObject];
@@ -1577,21 +1551,21 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
             uUID2 = [person UUID];
             personManagerUUID = [v18 personManagerUUID];
             v24 = [(HMDCameraClipManager *)selfCopy _handleFaceMisclassificationForSignificantEvent:v16 personUUID:uUID2 faceClassificationPersonManagerUUID:personManagerUUID homePersonManagerUUID:uUID];
-            v54[0] = MEMORY[0x277D85DD0];
-            v54[1] = 3221225472;
-            v54[2] = __65__HMDCameraClipManager_handleHandleFaceMisclassificationMessage___block_invoke;
-            v54[3] = &unk_2797358F0;
+            v53[0] = MEMORY[0x277D85DD0];
+            v53[1] = 3221225472;
+            v53[2] = __65__HMDCameraClipManager_handleHandleFaceMisclassificationMessage___block_invoke;
+            v53[3] = &unk_2797358F0;
             v25 = messageCopy;
-            v55 = v25;
-            v26 = [v24 addSuccessBlock:v54];
-            v52[0] = MEMORY[0x277D85DD0];
-            v52[1] = 3221225472;
-            v52[2] = __65__HMDCameraClipManager_handleHandleFaceMisclassificationMessage___block_invoke_2;
-            v52[3] = &unk_2797359D8;
-            v53 = v25;
-            v27 = [v26 addFailureBlock:v52];
+            v54 = v25;
+            v26 = [v24 addSuccessBlock:v53];
+            v51[0] = MEMORY[0x277D85DD0];
+            v51[1] = 3221225472;
+            v51[2] = __65__HMDCameraClipManager_handleHandleFaceMisclassificationMessage___block_invoke_2;
+            v51[3] = &unk_2797359D8;
+            v52 = v25;
+            v27 = [v26 addFailureBlock:v51];
 
-            v28 = v55;
+            v28 = v54;
           }
 
           else
@@ -1603,7 +1577,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
             {
               v49 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v57 = v49;
+              v56 = v49;
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle misclassification because the home person manager can't be found", buf, 0xCu);
             }
 
@@ -1622,9 +1596,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
           {
             v45 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v57 = v45;
-            v58 = 2112;
-            v59 = v18;
+            v56 = v45;
+            v57 = 2112;
+            v58 = v18;
             _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle misclassification for face classification without a person: %@", buf, 0x16u);
           }
 
@@ -1643,9 +1617,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v57 = v41;
-          v58 = 2112;
-          v59 = v16;
+          v56 = v41;
+          v57 = 2112;
+          v58 = v16;
           _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Could not find face classification on significant event: %@", buf, 0x16u);
         }
 
@@ -1665,11 +1639,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         v36 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543874;
-        v57 = v36;
-        v58 = 2112;
-        v59 = v14;
-        v60 = 2112;
-        v61 = messagePayload;
+        v56 = v36;
+        v57 = 2112;
+        v58 = v14;
+        v59 = 2112;
+        v60 = messagePayload;
         _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event in decoded significant events %@ in message payload: %@", buf, 0x20u);
       }
 
@@ -1688,7 +1662,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v32;
+      v56 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle face misclassification because zones are not ready", buf, 0xCu);
     }
 
@@ -1696,13 +1670,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v14];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeleteAllClipsMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1714,7 +1686,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v9;
+    v27 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling delete all clips message", buf, 0xCu);
   }
 
@@ -1724,21 +1696,21 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
   if (localZone)
   {
     localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v13 = MEMORY[0x277D17108];
     name = [messageCopy name];
     v15 = [v13 optionsWithLabel:name];
     v16 = [localZone2 removeAllModelsOfTypes:v12 options:v15];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __52__HMDCameraClipManager_handleDeleteAllClipsMessage___block_invoke;
-    v24[3] = &unk_27972EB40;
-    v25 = messageCopy;
-    v17 = [v16 addCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __52__HMDCameraClipManager_handleDeleteAllClipsMessage___block_invoke;
+    v23[3] = &unk_27972EB40;
+    v24 = messageCopy;
+    v17 = [v16 addCompletionBlock:v23];
 
-    v18 = v25;
+    v18 = v24;
   }
 
   else
@@ -1750,7 +1722,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v22;
+      v27 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot delete clips because zones are not ready", buf, 0xCu);
     }
 
@@ -1758,13 +1730,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v18];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeleteClipMessage:(id)message
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1777,9 +1747,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v33 = v9;
-    v34 = 2114;
-    v35 = identifier;
+    v32 = v9;
+    v33 = 2114;
+    v34 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling delete clip message: %{public}@", buf, 0x16u);
   }
 
@@ -1796,14 +1766,14 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
       name = [messageCopy name];
       v16 = [v14 optionsWithLabel:name];
       v17 = [(HMDCameraClipManager *)selfCopy _removeClipsWithUUIDs:v13 options:v16];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __48__HMDCameraClipManager_handleDeleteClipMessage___block_invoke;
-      v30[3] = &unk_279733BC0;
-      v31 = messageCopy;
-      v18 = [v17 addCompletionBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __48__HMDCameraClipManager_handleDeleteClipMessage___block_invoke;
+      v29[3] = &unk_279733BC0;
+      v30 = messageCopy;
+      v18 = [v17 addCompletionBlock:v29];
 
-      v19 = v31;
+      v19 = v30;
     }
 
     else
@@ -1816,9 +1786,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         v27 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v33 = v27;
-        v34 = 2112;
-        v35 = messagePayload;
+        v32 = v27;
+        v33 = 2112;
+        v34 = messagePayload;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip UUID in message payload: %@", buf, 0x16u);
       }
 
@@ -1837,7 +1807,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v23;
+      v32 = v23;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Cannot delete clip because zones are not ready", buf, 0xCu);
     }
 
@@ -1845,13 +1815,11 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchSignificantEventsMessage:(id)message
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1864,9 +1832,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v58 = v9;
-    v59 = 2114;
-    v60 = identifier;
+    v57 = v9;
+    v58 = 2114;
+    v59 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch significant event message: %{public}@", buf, 0x16u);
   }
 
@@ -1882,10 +1850,10 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
       allObjects = [v12 allObjects];
       v15 = [(HMDCameraClipManager *)selfCopy _significantEventsWithUUIDs:allObjects];
 
-      v55 = *MEMORY[0x277CCF498];
+      v54 = *MEMORY[0x277CCF498];
       v16 = encodeRootObjectForIncomingXPCMessage(v15, 0);
-      v56 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v55 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
       [messageCopy respondWithPayload:v17];
     }
 
@@ -1904,28 +1872,28 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         if (v16 && v23 && v24 && v25)
         {
           v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v16 endDate:v23];
-          v48 = v26;
+          v47 = v26;
           bOOLValue = [v26 BOOLValue];
           [v15 setTotalFetchedObjectsLimit:{objc_msgSend(v24, "unsignedIntegerValue")}];
-          v54 = 0;
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke;
-          v52[3] = &unk_27972E840;
+          v53 = 0;
+          v51[0] = MEMORY[0x277D85DD0];
+          v51[1] = 3221225472;
+          v51[2] = __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke;
+          v51[3] = &unk_27972E840;
           v29 = v15;
-          v53 = v29;
-          LOBYTE(bOOLValue) = [(HMDCameraClipManager *)selfCopy _fetchSignificantEventsWithDateInterval:v27 isAscending:bOOLValue error:&v54 handler:v52];
-          v46 = v54;
+          v52 = v29;
+          LOBYTE(bOOLValue) = [(HMDCameraClipManager *)selfCopy _fetchSignificantEventsWithDateInterval:v27 isAscending:bOOLValue error:&v53 handler:v51];
+          v45 = v53;
           if (bOOLValue)
           {
-            v50[0] = MEMORY[0x277D85DD0];
-            v50[1] = 3221225472;
-            v50[2] = __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke_216;
-            v50[3] = &unk_279735D00;
-            v51 = messageCopy;
-            [v29 sendCurrentlyBatchedFetchedObjectsWithCompletion:v50];
+            v49[0] = MEMORY[0x277D85DD0];
+            v49[1] = 3221225472;
+            v49[2] = __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke_216;
+            v49[3] = &unk_279735D00;
+            v50 = messageCopy;
+            [v29 sendCurrentlyBatchedFetchedObjectsWithCompletion:v49];
 
-            v30 = v46;
+            v30 = v45;
           }
 
           else
@@ -1936,22 +1904,22 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
             if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v43 = v45 = v40;
+              v43 = v44 = v40;
               *buf = 138543618;
-              v58 = v43;
-              v59 = 2112;
-              v60 = v46;
+              v57 = v43;
+              v58 = 2112;
+              v59 = v45;
               _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant event models from local zone: %@", buf, 0x16u);
 
-              v40 = v45;
+              v40 = v44;
             }
 
             objc_autoreleasePoolPop(v40);
-            v30 = v46;
-            [messageCopy respondWithError:v46];
+            v30 = v45;
+            [messageCopy respondWithError:v45];
           }
 
-          v26 = v48;
+          v26 = v47;
         }
 
         else
@@ -1962,17 +1930,17 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v38 = v49 = v26;
+            v38 = v48 = v26;
             [messageCopy messagePayload];
-            v39 = v47 = v23;
+            v39 = v46 = v23;
             *buf = 138543618;
-            v58 = v38;
-            v59 = 2112;
-            v60 = v39;
+            v57 = v38;
+            v58 = 2112;
+            v59 = v39;
             _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Could not find required value in message payload: %@", buf, 0x16u);
 
-            v23 = v47;
-            v26 = v49;
+            v23 = v46;
+            v26 = v48;
           }
 
           objc_autoreleasePoolPop(v35);
@@ -1990,9 +1958,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
         {
           v34 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v58 = v34;
-          v59 = 2112;
-          v60 = messageCopy;
+          v57 = v34;
+          v58 = 2112;
+          v59 = messageCopy;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
         }
 
@@ -2013,7 +1981,7 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v21;
+      v57 = v21;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch significant events because zones are not ready", buf, 0xCu);
     }
 
@@ -2021,11 +1989,9 @@ void __64__HMDCameraClipManager_handleFetchIsCloudStorageEnabledMessage___block_
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v13];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -2035,7 +2001,7 @@ uint64_t __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_
 
 - (void)handleFetchFaceCropURLMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2064,28 +2030,28 @@ uint64_t __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_
     if (anyObject)
     {
       localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-      v40 = 0;
-      v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v40];
-      v16 = v40;
+      v39 = 0;
+      v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v39];
+      v16 = v39;
 
       if (v15)
       {
         v17 = [(HMDCameraClipManager *)selfCopy _fetchFaceCropURLForSignificantEventModel:v15];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke;
-        v38[3] = &unk_27972EB18;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke;
+        v37[3] = &unk_27972EB18;
         v18 = messageCopy;
-        v39 = v18;
-        v19 = [v17 addSuccessBlock:v38];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke_2;
-        v36[3] = &unk_2797359D8;
-        v37 = v18;
-        v20 = [v19 addFailureBlock:v36];
+        v38 = v18;
+        v19 = [v17 addSuccessBlock:v37];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke_2;
+        v35[3] = &unk_2797359D8;
+        v36 = v18;
+        v20 = [v19 addFailureBlock:v35];
 
-        v21 = v39;
+        v21 = v38;
       }
 
       else
@@ -2099,13 +2065,13 @@ uint64_t __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_
           *buf = 0;
           *&buf[8] = 0;
           [anyObject getUUIDBytes:buf];
-          v41 = *buf;
+          v40 = *buf;
           *buf = 138544130;
           *&buf[4] = v34;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v41;
+          *&buf[20] = &v40;
           *&buf[28] = 2112;
           *&buf[30] = v16;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
@@ -2158,26 +2124,22 @@ uint64_t __60__HMDCameraClipManager_handleFetchSignificantEventsMessage___block_
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = *MEMORY[0x277CCF458];
+  v5 = *MEMORY[0x277CCF458];
   v3 = [a2 absoluteString];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 respondWithPayload:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchFaceCropDataRepresentationMessage:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2206,32 +2168,32 @@ void __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke(uin
     if (anyObject)
     {
       localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-      v42 = 0;
-      v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v42];
-      v16 = v42;
+      v41 = 0;
+      v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v41];
+      v16 = v41;
 
       if (v15)
       {
         v17 = [(HMDCameraClipManager *)selfCopy _fetchFaceCropURLForSignificantEventModel:v15];
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke;
-        v41[3] = &unk_27972EAC8;
-        v41[4] = selfCopy;
-        v18 = [v17 flatMap:v41];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke_215;
-        v39[3] = &unk_27972EAF0;
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke;
+        v40[3] = &unk_27972EAC8;
+        v40[4] = selfCopy;
+        v18 = [v17 flatMap:v40];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke_215;
+        v38[3] = &unk_27972EAF0;
         v19 = messageCopy;
-        v40 = v19;
-        v20 = [v18 addSuccessBlock:v39];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke_2;
-        v37[3] = &unk_2797359D8;
-        v38 = v19;
-        v21 = [v20 addFailureBlock:v37];
+        v39 = v19;
+        v20 = [v18 addSuccessBlock:v38];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke_2;
+        v36[3] = &unk_2797359D8;
+        v37 = v19;
+        v21 = [v20 addFailureBlock:v36];
       }
 
       else
@@ -2245,13 +2207,13 @@ void __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke(uin
           *buf = 0;
           *&buf[8] = 0;
           [anyObject getUUIDBytes:buf];
-          v43 = *buf;
+          v42 = *buf;
           *buf = 138544130;
           *&buf[4] = v34;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v43;
+          *&buf[20] = &v42;
           *&buf[28] = 2112;
           *&buf[30] = v16;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
@@ -2304,18 +2266,16 @@ void __54__HMDCameraClipManager_handleFetchFaceCropURLMessage___block_invoke(uin
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 id __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) fileManager];
-  v16 = 0;
-  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v15];
+  v6 = v15;
 
   if (v5)
   {
@@ -2331,11 +2291,11 @@ id __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___blo
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v3;
-      v21 = 2112;
-      v22 = v6;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v3;
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get data from URL %@: %@", buf, 0x20u);
     }
 
@@ -2345,28 +2305,24 @@ id __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___blo
     v7 = [v12 futureWithError:v13];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 void __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___block_invoke_215(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = *MEMORY[0x277CCF440];
-  v8[0] = a2;
+  v6 = *MEMORY[0x277CCF440];
+  v7[0] = a2;
   v3 = MEMORY[0x277CBEAC0];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 respondWithPayload:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchHeroFrameURLMessage:(id)message
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2394,28 +2350,28 @@ void __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___b
     if (v12)
     {
       localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-      v38 = 0;
-      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v38];
-      v15 = v38;
+      v37 = 0;
+      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v37];
+      v15 = v37;
 
       if (v14)
       {
         v16 = [(HMDCameraClipManager *)selfCopy _fetchCanonicalHeroFrameURLForClipModel:v14];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke;
-        v36[3] = &unk_27972EB18;
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke;
+        v35[3] = &unk_27972EB18;
         v17 = messageCopy;
-        v37 = v17;
-        v18 = [v16 addSuccessBlock:v36];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke_2;
-        v34[3] = &unk_2797359D8;
-        v35 = v17;
-        v19 = [v18 addFailureBlock:v34];
+        v36 = v17;
+        v18 = [v16 addSuccessBlock:v35];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke_2;
+        v33[3] = &unk_2797359D8;
+        v34 = v17;
+        v19 = [v18 addFailureBlock:v33];
 
-        v20 = v37;
+        v20 = v36;
       }
 
       else
@@ -2429,13 +2385,13 @@ void __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___b
           *buf = 0;
           *&buf[8] = 0;
           [v12 getUUIDBytes:buf];
-          v39 = *buf;
+          v38 = *buf;
           *buf = 138543874;
           *&buf[4] = v32;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v39;
+          *&buf[20] = &v38;
           _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed requesting to fetch hero frame url because no clip could be found for UUID %{public,uuid_t}.16P", buf, 0x1Cu);
         }
 
@@ -2481,26 +2437,22 @@ void __69__HMDCameraClipManager_handleFetchFaceCropDataRepresentationMessage___b
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = *MEMORY[0x277CCF458];
+  v5 = *MEMORY[0x277CCF458];
   v3 = [a2 absoluteString];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 respondWithPayload:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchHeroFrameDataRepresentationMessage:(id)message
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2513,9 +2465,9 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v43 = v9;
-    v44 = 2114;
-    v45 = identifier;
+    v42 = v9;
+    v43 = 2114;
+    v44 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch hero frame data representation with message: %{public}@", buf, 0x16u);
   }
 
@@ -2528,32 +2480,32 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
     if (v12)
     {
       localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-      v41 = 0;
-      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v41];
-      v15 = v41;
+      v40 = 0;
+      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v40];
+      v15 = v40;
 
       if (v14)
       {
         v16 = [(HMDCameraClipManager *)selfCopy _fetchCanonicalHeroFrameURLForClipModel:v14];
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke;
-        v40[3] = &unk_27972EAC8;
-        v40[4] = selfCopy;
-        v17 = [v16 flatMap:v40];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke_212;
-        v38[3] = &unk_27972EAF0;
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke;
+        v39[3] = &unk_27972EAC8;
+        v39[4] = selfCopy;
+        v17 = [v16 flatMap:v39];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke_212;
+        v37[3] = &unk_27972EAF0;
         v18 = messageCopy;
-        v39 = v18;
-        v19 = [v17 addSuccessBlock:v38];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke_2;
-        v36[3] = &unk_2797359D8;
-        v37 = v18;
-        v20 = [v19 addFailureBlock:v36];
+        v38 = v18;
+        v19 = [v17 addSuccessBlock:v37];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke_2;
+        v35[3] = &unk_2797359D8;
+        v36 = v18;
+        v20 = [v19 addFailureBlock:v35];
       }
 
       else
@@ -2565,11 +2517,11 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
         {
           v33 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v43 = v33;
-          v44 = 2112;
-          v45 = v12;
-          v46 = 2112;
-          v47 = v15;
+          v42 = v33;
+          v43 = 2112;
+          v44 = v12;
+          v45 = 2112;
+          v46 = v15;
           _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip with UUID %@: %@", buf, 0x20u);
         }
 
@@ -2589,9 +2541,9 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
         v28 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v43 = v28;
-        v44 = 2112;
-        v45 = messagePayload;
+        v42 = v28;
+        v43 = 2112;
+        v44 = messagePayload;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Cannot find clip UUID in message payload: %@", buf, 0x16u);
       }
 
@@ -2610,7 +2562,7 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v24;
+      v42 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch hero frame data representation because zones are not ready", buf, 0xCu);
     }
 
@@ -2618,18 +2570,16 @@ void __55__HMDCameraClipManager_handleFetchHeroFrameURLMessage___block_invoke(ui
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 id __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) fileManager];
-  v16 = 0;
-  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v15];
+  v6 = v15;
 
   if (v5)
   {
@@ -2645,11 +2595,11 @@ id __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___bl
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v3;
-      v21 = 2112;
-      v22 = v6;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v3;
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get data from URL %@: %@", buf, 0x20u);
     }
 
@@ -2659,28 +2609,24 @@ id __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___bl
     v7 = [v12 futureWithError:v13];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___block_invoke_212(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = *MEMORY[0x277CCF440];
-  v8[0] = a2;
+  v6 = *MEMORY[0x277CCF440];
+  v7[0] = a2;
   v3 = MEMORY[0x277CBEAC0];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 respondWithPayload:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchVideoSegmentsAssetContextMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2691,9 +2637,9 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch video segments asset context message", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch video segments asset context message", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2704,13 +2650,11 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
   uuid = [home uuid];
   v14 = [(HMDCameraClipManagerRequestLogEvent *)v10 initWithRequestName:@"HMDCameraClipManagerRequestLogEventFetchVideoSegmentsAssetRequestName" homeUUID:uuid];
   [(HMDCameraClipManager *)selfCopy submitLogEvent:v14 error:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchCountOfClipsMessage:(id)message
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2723,9 +2667,9 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v49 = v9;
-    v50 = 2114;
-    v51 = identifier;
+    v48 = v9;
+    v49 = 2114;
+    v50 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch count of clips message: %{public}@", buf, 0x16u);
   }
 
@@ -2748,35 +2692,35 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v49 = v20;
-        v50 = 2112;
-        v51 = v12;
-        v52 = 2112;
-        v53 = v13;
+        v48 = v20;
+        v49 = 2112;
+        v50 = v12;
+        v51 = 2112;
+        v52 = v13;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetching count of clips between %@ and %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v17);
-      v46[0] = @"dateAfter";
-      v46[1] = @"dateBefore";
-      v47[0] = v12;
-      v47[1] = v13;
-      v46[2] = @"quality";
+      v45[0] = @"dateAfter";
+      v45[1] = @"dateBefore";
+      v46[0] = v12;
+      v46[1] = v13;
+      v45[2] = @"quality";
       v21 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-      v47[2] = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+      v46[2] = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
 
       localZone2 = [(HMDCameraClipManager *)v18 localZone];
       v24 = +[HMDCameraClipModel countOfClipsWithQualityBetweenDatesQuery];
-      v43 = 0;
-      v25 = [localZone2 countModelsUsingQuery:v24 arguments:v22 error:&v43];
-      v26 = v43;
+      v42 = 0;
+      v25 = [localZone2 countModelsUsingQuery:v24 arguments:v22 error:&v42];
+      v26 = v42;
 
       if (v25)
       {
-        v44 = *MEMORY[0x277CCF438];
-        v45 = v25;
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v43 = *MEMORY[0x277CCF438];
+        v44 = v25;
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
         [messageCopy respondWithPayload:v27];
       }
 
@@ -2788,14 +2732,14 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v40 = v42 = v37;
+          v40 = v41 = v37;
           *buf = 138543618;
-          v49 = v40;
-          v50 = 2112;
-          v51 = v26;
+          v48 = v40;
+          v49 = 2112;
+          v50 = v26;
           _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch count of clip models from local zone: %@", buf, 0x16u);
 
-          v37 = v42;
+          v37 = v41;
         }
 
         objc_autoreleasePoolPop(v37);
@@ -2813,9 +2757,9 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
         v35 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v49 = v35;
-        v50 = 2112;
-        v51 = messagePayload;
+        v48 = v35;
+        v49 = 2112;
+        v50 = messagePayload;
         _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Could not find required value in message payload: %@", buf, 0x16u);
       }
 
@@ -2834,7 +2778,7 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v31;
+      v48 = v31;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch count of clips because zones are not ready", buf, 0xCu);
     }
 
@@ -2842,13 +2786,11 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchClipForSignificantEventMessage:(id)message
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2899,9 +2841,9 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
     }
 
     localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-    v65 = 0;
-    v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v65];
-    v16 = v65;
+    v64 = 0;
+    v15 = [localZone2 fetchModelWithModelID:anyObject ofType:objc_opt_class() error:&v64];
+    v16 = v64;
 
     if (!v15)
     {
@@ -2914,13 +2856,13 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
         *buf = 0;
         *&buf[8] = 0;
         [anyObject getUUIDBytes:buf];
-        v70 = *buf;
+        v69 = *buf;
         *buf = 138544130;
         *&buf[4] = v38;
         *&buf[12] = 1042;
         *&buf[14] = 16;
         *&buf[18] = 2098;
-        *&buf[20] = &v70;
+        *&buf[20] = &v69;
         *&buf[28] = 2112;
         *&buf[30] = v16;
         _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
@@ -2934,9 +2876,9 @@ void __70__HMDCameraClipManager_handleFetchHeroFrameDataRepresentationMessage___
 
     localZone3 = [(HMDCameraClipManager *)selfCopy localZone];
     hmbParentModelID = [v15 hmbParentModelID];
-    v64 = v16;
-    associatedClip = [localZone3 fetchModelWithModelID:hmbParentModelID ofType:objc_opt_class() error:&v64];
-    v20 = v64;
+    v63 = v16;
+    associatedClip = [localZone3 fetchModelWithModelID:hmbParentModelID ofType:objc_opt_class() error:&v63];
+    v20 = v63;
 
     if (associatedClip)
     {
@@ -2946,10 +2888,10 @@ LABEL_8:
       v22 = [(HMDCameraClipManager *)selfCopy significantEventsForClipWithUUID:hmbModelID];
 
       v23 = [associatedClip createClipWithSignificantEvents:v22];
-      v66 = *MEMORY[0x277CCF418];
+      v65 = *MEMORY[0x277CCF418];
       v24 = encodeRootObjectForIncomingXPCMessage(v23, 0);
-      v67 = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v66 = v24;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       [messageCopy respondWithPayload:v25];
 
 LABEL_38:
@@ -2981,13 +2923,13 @@ LABEL_40:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v69 = *buf;
+      v68 = *buf;
       *buf = 138543874;
       *&buf[4] = v42;
       *&buf[12] = 1042;
       *&buf[14] = 16;
       *&buf[18] = 2098;
-      *&buf[20] = &v69;
+      *&buf[20] = &v68;
       _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find clip model with UUID %{public,uuid_t}.16P. Falling back to using the associated clip", buf, 0x1Cu);
 
       v39 = context;
@@ -3001,7 +2943,7 @@ LABEL_40:
     v47 = v46;
     if (associatedClip)
     {
-      v60 = v20;
+      v59 = v20;
       if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         v48 = HMFGetLogIdentifier();
@@ -3014,11 +2956,11 @@ LABEL_40:
 
       objc_autoreleasePoolPop(contexta);
       [(HMDCameraClipManager *)v45 localZone];
-      v49 = v59 = v45;
+      v49 = v58 = v45;
       hmbModelID2 = [associatedClip hmbModelID];
-      v63 = v60;
-      v51 = [v49 fetchModelWithModelID:hmbModelID2 ofType:objc_opt_class() error:&v63];
-      v16 = v63;
+      v62 = v59;
+      v51 = [v49 fetchModelWithModelID:hmbModelID2 ofType:objc_opt_class() error:&v62];
+      v16 = v62;
 
       if (v51)
       {
@@ -3028,8 +2970,8 @@ LABEL_40:
       }
 
       v53 = objc_autoreleasePoolPush();
-      v45 = v59;
-      v54 = v59;
+      v45 = v58;
+      v54 = v58;
       v47 = HMFGetOSLogHandle();
       if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
@@ -3058,13 +3000,13 @@ LABEL_37:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v68 = *buf;
+      v67 = *buf;
       *buf = 138544130;
       *&buf[4] = v55;
       *&buf[12] = 1042;
       *&buf[14] = 16;
       *&buf[18] = 2098;
-      *&buf[20] = &v68;
+      *&buf[20] = &v67;
       *&buf[28] = 2112;
       *&buf[30] = v16;
       _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
@@ -3104,13 +3046,11 @@ LABEL_37:
   v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
   [messageCopy respondWithError:v12];
 LABEL_41:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchClipsMessage:(id)message
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3123,9 +3063,9 @@ LABEL_41:
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v57 = v9;
-    v58 = 2114;
-    v59 = identifier;
+    v56 = v9;
+    v57 = 2114;
+    v58 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch clips message: %{public}@", buf, 0x16u);
   }
 
@@ -3147,30 +3087,30 @@ LABEL_41:
       v19 = v18;
       if (v14 && v15 && v16 && v17 && v18)
       {
-        v49 = v15;
+        v48 = v15;
         v20 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v14 endDate:v15];
         v21 = v16;
         bOOLValue = [v17 BOOLValue];
         integerValue = [v19 integerValue];
-        v47 = v21;
+        v46 = v21;
         [v13 setTotalFetchedObjectsLimit:{objc_msgSend(v21, "unsignedIntegerValue")}];
-        v55 = 0;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke;
-        v53[3] = &unk_27972EAA0;
+        v54 = 0;
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke;
+        v52[3] = &unk_27972EAA0;
         v24 = v13;
-        v54 = v24;
-        LOBYTE(bOOLValue) = [(HMDCameraClipManager *)selfCopy _fetchClipsWithDateInterval:v20 quality:integerValue isAscending:bOOLValue error:&v55 handler:v53];
-        v25 = v55;
+        v53 = v24;
+        LOBYTE(bOOLValue) = [(HMDCameraClipManager *)selfCopy _fetchClipsWithDateInterval:v20 quality:integerValue isAscending:bOOLValue error:&v54 handler:v52];
+        v25 = v54;
         if (bOOLValue)
         {
-          v51[0] = MEMORY[0x277D85DD0];
-          v51[1] = 3221225472;
-          v51[2] = __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke_207;
-          v51[3] = &unk_279735D00;
-          v52 = messageCopy;
-          [v24 sendCurrentlyBatchedFetchedObjectsWithCompletion:v51];
+          v50[0] = MEMORY[0x277D85DD0];
+          v50[1] = 3221225472;
+          v50[2] = __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke_207;
+          v50[3] = &unk_279735D00;
+          v51 = messageCopy;
+          [v24 sendCurrentlyBatchedFetchedObjectsWithCompletion:v50];
         }
 
         else
@@ -3181,22 +3121,22 @@ LABEL_41:
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v44 = v46 = v41;
+            v44 = v45 = v41;
             *buf = 138543618;
-            v57 = v44;
-            v58 = 2112;
-            v59 = v25;
+            v56 = v44;
+            v57 = 2112;
+            v58 = v25;
             _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch clip models from local zone: %@", buf, 0x16u);
 
-            v41 = v46;
+            v41 = v45;
           }
 
           objc_autoreleasePoolPop(v41);
           [messageCopy respondWithError:v25];
         }
 
-        v16 = v47;
-        v15 = v49;
+        v16 = v46;
+        v15 = v48;
       }
 
       else
@@ -3207,22 +3147,22 @@ LABEL_41:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v37 = v50 = v15;
+          v37 = v49 = v15;
           [messageCopy messagePayload];
-          v48 = v17;
+          v47 = v17;
           v38 = v19;
           v40 = v39 = v16;
           *buf = 138543618;
-          v57 = v37;
-          v58 = 2112;
-          v59 = v40;
+          v56 = v37;
+          v57 = 2112;
+          v58 = v40;
           _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Could not find required value in message payload: %@", buf, 0x16u);
 
           v16 = v39;
           v19 = v38;
-          v17 = v48;
+          v17 = v47;
 
-          v15 = v50;
+          v15 = v49;
         }
 
         objc_autoreleasePoolPop(v34);
@@ -3240,9 +3180,9 @@ LABEL_41:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v57 = v33;
-        v58 = 2112;
-        v59 = messageCopy;
+        v56 = v33;
+        v57 = 2112;
+        v58 = messageCopy;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
       }
 
@@ -3261,7 +3201,7 @@ LABEL_41:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v29;
+      v56 = v29;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch clips because zones are not ready", buf, 0xCu);
     }
 
@@ -3269,11 +3209,9 @@ LABEL_41:
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v13];
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -3283,7 +3221,7 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
 
 - (void)handleFetchClipMessage:(id)message
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3296,9 +3234,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     v9 = HMFGetLogIdentifier();
     identifier = [messageCopy identifier];
     *buf = 138543618;
-    v39 = v9;
-    v40 = 2114;
-    v41 = identifier;
+    v38 = v9;
+    v39 = 2114;
+    v40 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch clip message: %{public}@", buf, 0x16u);
   }
 
@@ -3311,9 +3249,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     if (v12)
     {
       localZone2 = [(HMDCameraClipManager *)selfCopy localZone];
-      v35 = 0;
-      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v35];
-      v15 = v35;
+      v34 = 0;
+      v14 = [localZone2 fetchModelWithModelID:v12 ofType:objc_opt_class() error:&v34];
+      v15 = v34;
 
       if (v14)
       {
@@ -3321,10 +3259,10 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
         v17 = [(HMDCameraClipManager *)selfCopy significantEventsForClipWithUUID:hmbModelID];
 
         v18 = [v14 createClipWithSignificantEvents:v17];
-        v36 = *MEMORY[0x277CCF418];
+        v35 = *MEMORY[0x277CCF418];
         v19 = encodeRootObjectForIncomingXPCMessage(v18, 0);
-        v37 = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v36 = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         [messageCopy respondWithPayload:v20];
       }
 
@@ -3337,11 +3275,11 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
         {
           v33 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v39 = v33;
-          v40 = 2112;
-          v41 = v12;
-          v42 = 2112;
-          v43 = v15;
+          v38 = v33;
+          v39 = 2112;
+          v40 = v12;
+          v41 = 2112;
+          v42 = v15;
           _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip with UUID %@: %@", buf, 0x20u);
         }
 
@@ -3361,9 +3299,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
         v28 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v39 = v28;
-        v40 = 2112;
-        v41 = messagePayload;
+        v38 = v28;
+        v39 = 2112;
+        v40 = messagePayload;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Could not find clip UUID in message payload: %@", buf, 0x16u);
       }
 
@@ -3382,7 +3320,7 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v24;
+      v38 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch clip because zones are not ready", buf, 0xCu);
     }
 
@@ -3390,13 +3328,11 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePerformCloudPullMessage:(id)message
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3408,33 +3344,31 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v9;
+    v20 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling perform cloud pull message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   _performCloudPull = [(HMDCameraClipManager *)selfCopy _performCloudPull];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __54__HMDCameraClipManager_handlePerformCloudPullMessage___block_invoke;
-  v18[3] = &unk_2797358F0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __54__HMDCameraClipManager_handlePerformCloudPullMessage___block_invoke;
+  v17[3] = &unk_2797358F0;
   v11 = messageCopy;
-  v19 = v11;
-  v12 = [_performCloudPull addSuccessBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __54__HMDCameraClipManager_handlePerformCloudPullMessage___block_invoke_2;
-  v16[3] = &unk_2797359D8;
-  v17 = v11;
+  v18 = v11;
+  v12 = [_performCloudPull addSuccessBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __54__HMDCameraClipManager_handlePerformCloudPullMessage___block_invoke_2;
+  v15[3] = &unk_2797359D8;
+  v16 = v11;
   v13 = v11;
-  v14 = [v12 addFailureBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [v12 addFailureBlock:v15];
 }
 
 - (void)handleUnsubscribeMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3445,9 +3379,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3483,26 +3417,24 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = transport2;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = transport2;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSubscribeMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3513,9 +3445,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3548,9 +3480,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v18;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Asked to subscribe to changes when no cloud zone exists; Restarting zone manager", &v28, 0xCu);
+        v27 = 138543362;
+        v28 = v18;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Asked to subscribe to changes when no cloud zone exists; Restarting zone manager", &v27, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -3571,26 +3503,24 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
       v23 = HMFGetLogIdentifier();
       v24 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v28 = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = transport2;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v24;
+      v31 = 2112;
+      v32 = transport2;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v27, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_disableCloudStorage
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3600,9 +3530,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Disabling cloud storage", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Disabling cloud storage", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -3630,9 +3560,9 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v22;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@User is not the zone owner; cannot disable cloud storage", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v22;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@User is not the zone owner; cannot disable cloud storage", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -3641,14 +3571,12 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     v18 = [v23 futureWithError:quotaManager];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_enableCloudStorage
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3659,7 +3587,7 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v23 = v7;
+    v22 = v7;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Enabling cloud storage", buf, 0xCu);
   }
 
@@ -3672,12 +3600,12 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
   {
     cloudZone = [(HMDCameraClipManager *)selfCopy cloudZone];
     startUp = [cloudZone startUp];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __43__HMDCameraClipManager__enableCloudStorage__block_invoke;
-    v21[3] = &unk_2797306C8;
-    v21[4] = selfCopy;
-    v13 = [startUp flatMap:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __43__HMDCameraClipManager__enableCloudStorage__block_invoke;
+    v20[3] = &unk_2797306C8;
+    v20[4] = selfCopy;
+    v13 = [startUp flatMap:v20];
   }
 
   else
@@ -3689,7 +3617,7 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v17;
+      v22 = v17;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@User is not the zone owner; cannot enable cloud storage", buf, 0xCu);
     }
 
@@ -3698,8 +3626,6 @@ uint64_t __48__HMDCameraClipManager_handleFetchClipsMessage___block_invoke(uint6
     cloudZone = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
     v13 = [v18 futureWithError:cloudZone];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3720,17 +3646,15 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
 
 - (void)_removeAllFaceClassificationModels
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v4 = [MEMORY[0x277D17108] optionsWithLabel:@"Remove all face classification models"];
   localZone = [(HMDCameraClipManager *)self localZone];
-  v9[0] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v7 = [localZone removeAllModelsOfTypes:v6 options:v4];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_removeClipsWithUUIDs:(id)ds options:(id)options
@@ -3747,7 +3671,7 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
 
 - (void)_notifyPrimaryResidentAboutFaceMisclassificationForFaceCropData:(id)data personUUID:(id)d personManagerUUID:(id)iD
 {
-  v46[3] = *MEMORY[0x277D85DE8];
+  v45[3] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   iDCopy = iD;
@@ -3764,24 +3688,24 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
     device = [primaryResident device];
     v17 = [(HMDRemoteDeviceMessageDestination *)v14 initWithTarget:messageTargetUUID device:device];
 
-    v39 = dataCopy;
-    v46[0] = dataCopy;
-    v45[0] = @"HMDCCM.mk.fmfcd";
-    v45[1] = @"HMDCCM.mk.fmpu";
+    v38 = dataCopy;
+    v45[0] = dataCopy;
+    v44[0] = @"HMDCCM.mk.fmfcd";
+    v44[1] = @"HMDCCM.mk.fmpu";
     uUIDString = [dCopy UUIDString];
-    v46[1] = uUIDString;
-    v45[2] = @"HMDCCM.mk.fmpmu";
+    v45[1] = uUIDString;
+    v44[2] = @"HMDCCM.mk.fmpmu";
     uUIDString2 = [iDCopy UUIDString];
-    v46[2] = uUIDString2;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
+    v45[2] = uUIDString2;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
 
     v21 = [[HMDRemoteMessage alloc] initWithName:@"HMDCCM.m.rhfm" destination:v17 payload:v20 type:0 timeout:1 secure:0.0];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __117__HMDCameraClipManager__notifyPrimaryResidentAboutFaceMisclassificationForFaceCropData_personUUID_personManagerUUID___block_invoke;
-    v40[3] = &unk_279734E00;
-    v40[4] = self;
-    [(HMDRemoteMessage *)v21 setResponseHandler:v40];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __117__HMDCameraClipManager__notifyPrimaryResidentAboutFaceMisclassificationForFaceCropData_personUUID_personManagerUUID___block_invoke;
+    v39[3] = &unk_279734E00;
+    v39[4] = self;
+    [(HMDRemoteMessage *)v21 setResponseHandler:v39];
     isCurrentDevice = [primaryResident isCurrentDevice];
     v23 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -3793,14 +3717,14 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
       {
         v27 = HMFGetLogIdentifier();
         [(HMFObject *)v21 shortDescription];
-        v28 = v37 = dCopy;
+        v28 = v36 = dCopy;
         *buf = 138543618;
-        v42 = v27;
-        v43 = 2112;
-        v44 = v28;
+        v41 = v27;
+        v42 = 2112;
+        v43 = v28;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Directly handling face misclassification message because we are the primary resident: %@", buf, 0x16u);
 
-        dCopy = v37;
+        dCopy = v36;
       }
 
       objc_autoreleasePoolPop(v23);
@@ -3813,14 +3737,14 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
       {
         v33 = HMFGetLogIdentifier();
         [(HMFObject *)v21 shortDescription];
-        v34 = v38 = dCopy;
+        v34 = v37 = dCopy;
         *buf = 138543618;
-        v42 = v33;
-        v43 = 2112;
-        v44 = v34;
+        v41 = v33;
+        v42 = 2112;
+        v43 = v34;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Sending remote handle face misclassification message to primary resident: %@", buf, 0x16u);
 
-        dCopy = v38;
+        dCopy = v37;
       }
 
       objc_autoreleasePoolPop(v23);
@@ -3828,7 +3752,7 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
       [messageDispatcher sendMessage:v21];
     }
 
-    dataCopy = v39;
+    dataCopy = v38;
   }
 
   else
@@ -3840,19 +3764,17 @@ id __43__HMDCameraClipManager__enableCloudStorage__block_invoke(uint64_t a1)
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v32;
+      v41 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Could not find primary resident to send face misclassification message to", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v29);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __117__HMDCameraClipManager__notifyPrimaryResidentAboutFaceMisclassificationForFaceCropData_personUUID_personManagerUUID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -3864,24 +3786,24 @@ void __117__HMDCameraClipManager__notifyPrimaryResidentAboutFaceMisclassificatio
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
       v12 = "%{public}@Failed to notify primary resident of face misclassification: %@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v17, v15);
+      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v16, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v11;
+    v16 = 138543362;
+    v17 = v11;
     v12 = "%{public}@Successfully notified primary resident of face misclassification";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -3890,12 +3812,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateModelsForMisclassificationForSignificantEvent:(id)event unassociatedFaceCropUUID:(id)d personManagerUUID:(id)iD
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
   iDCopy = iD;
@@ -3904,21 +3825,21 @@ LABEL_6:
 
   localZone = [(HMDCameraClipManager *)self localZone];
   uniqueIdentifier = [eventCopy uniqueIdentifier];
-  v30 = 0;
-  v14 = [localZone fetchModelWithModelID:uniqueIdentifier ofType:objc_opt_class() error:&v30];
-  v15 = v30;
+  v29 = 0;
+  v14 = [localZone fetchModelWithModelID:uniqueIdentifier ofType:objc_opt_class() error:&v29];
+  v15 = v29;
 
   if (v14)
   {
     v16 = [(HMDCameraClipManager *)self _fetchFaceCropURLForSignificantEventModel:v14];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke;
-    v27[3] = &unk_27972EA58;
-    v27[4] = self;
-    v28 = v14;
-    v29 = dCopy;
-    v17 = [v16 flatMap:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke;
+    v26[3] = &unk_27972EA58;
+    v26[4] = self;
+    v27 = v14;
+    v28 = dCopy;
+    v17 = [v16 flatMap:v26];
   }
 
   else
@@ -3944,15 +3865,15 @@ LABEL_6:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v31 = *buf;
+      v30 = *buf;
       *buf = 138544130;
       *&buf[4] = v21;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v33 = 2098;
-      v34 = &v31;
-      v35 = 2112;
-      v36 = v15;
+      v32 = 2098;
+      v33 = &v30;
+      v34 = 2112;
+      v35 = v15;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -3962,19 +3883,17 @@ LABEL_6:
     v17 = [v24 futureWithError:v16];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke(id *a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] fileManager];
-  v28 = 0;
-  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v28];
-  v6 = v28;
+  v27 = 0;
+  v5 = [v4 dataWithContentsOfURL:v3 options:0 error:&v27];
+  v6 = v27;
 
   v7 = objc_autoreleasePoolPush();
   v8 = a1[4];
@@ -3987,9 +3906,9 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
       v11 = HMFGetLogIdentifier();
       v12 = a1[5];
       *buf = 138543618;
-      v30 = v11;
-      v31 = 2112;
-      v32 = v12;
+      v29 = v11;
+      v30 = 2112;
+      v31 = v12;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing all face classifications for significant event model: %@", buf, 0x16u);
     }
 
@@ -3999,20 +3918,20 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
     v15 = [a1[5] hmbModelID];
     v16 = [v14 removeModelsWithParentModelID:v15 options:v13];
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke_188;
-    v25[3] = &unk_27972EA30;
-    v25[4] = a1[4];
-    v26 = a1[6];
-    v27 = a1[5];
-    v17 = [v16 flatMap:v25];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke_193;
-    v23[3] = &unk_2797330A0;
-    v24 = v5;
-    v18 = [v17 flatMap:v23];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke_188;
+    v24[3] = &unk_27972EA30;
+    v24[4] = a1[4];
+    v25 = a1[6];
+    v26 = a1[5];
+    v17 = [v16 flatMap:v24];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke_193;
+    v22[3] = &unk_2797330A0;
+    v23 = v5;
+    v18 = [v17 flatMap:v22];
   }
 
   else
@@ -4021,11 +3940,11 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v3;
-      v33 = 2112;
-      v34 = v6;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v3;
+      v32 = 2112;
+      v33 = v6;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not load face crop data at URL %@: %@", buf, 0x20u);
     }
 
@@ -4035,14 +3954,12 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
     v18 = [v20 futureWithError:v13];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEvent_unassociatedFaceCropUUID_personManagerUUID___block_invoke_188(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -4051,11 +3968,11 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v22 = 138543618;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Creating face classification to use unassociated face crop with UUID: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Creating face classification to use unassociated face crop with UUID: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -4074,8 +3991,6 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
   v17 = [*(a1 + 32) localZone];
   v18 = [MEMORY[0x277CBEB98] setWithObject:v12];
   v19 = [v17 createModels:v18 options:v16];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -4117,7 +4032,7 @@ id __120__HMDCameraClipManager__updateModelsForMisclassificationForSignificantEv
 
 id __141__HMDCameraClipManager__handleFaceMisclassificationForSignificantEvent_personUUID_faceClassificationPersonManagerUUID_homePersonManagerUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) _notifyPrimaryResidentAboutFaceMisclassificationForFaceCropData:v3 personUUID:*(a1 + 40) personManagerUUID:*(a1 + 48)];
   v4 = objc_autoreleasePoolPush();
@@ -4126,9 +4041,9 @@ id __141__HMDCameraClipManager__handleFaceMisclassificationForSignificantEvent_p
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Adding unassociated face crop to home person dataset for misclassified face classification", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Adding unassociated face crop to home person dataset for misclassified face classification", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -4136,14 +4051,12 @@ id __141__HMDCameraClipManager__handleFaceMisclassificationForSignificantEvent_p
   v9 = [v8 personManager];
   v10 = [v9 addUnassociatedFaceCropWithUUID:*(a1 + 56) data:v3];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)_notifyForChangedSignificantEventModel:(id)model mirrorOutputFuture:(id)future
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   futureCopy = future;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -4158,9 +4071,9 @@ id __141__HMDCameraClipManager__handleFaceMisclassificationForSignificantEvent_p
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v12;
-      v25 = 2112;
-      v26 = futureCopy;
+      v23 = v12;
+      v24 = 2112;
+      v25 = futureCopy;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Waiting for mirror output future to complete: %@", buf, 0x16u);
     }
 
@@ -4177,21 +4090,19 @@ id __141__HMDCameraClipManager__handleFaceMisclassificationForSignificantEvent_p
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __82__HMDCameraClipManager__notifyForChangedSignificantEventModel_mirrorOutputFuture___block_invoke_2;
-  v21[3] = &unk_27972E9E0;
-  v21[4] = self;
-  v22 = modelCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __82__HMDCameraClipManager__notifyForChangedSignificantEventModel_mirrorOutputFuture___block_invoke_2;
+  v20[3] = &unk_27972E9E0;
+  v20[4] = self;
+  v21 = modelCopy;
   v18 = modelCopy;
-  v19 = [futureWithNoResult addCompletionBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [futureWithNoResult addCompletionBlock:v20];
 }
 
 void __82__HMDCameraClipManager__notifyForChangedSignificantEventModel_mirrorOutputFuture___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) _significantEventFromSignificantEventModel:*(a1 + 40)];
@@ -4204,11 +4115,11 @@ void __82__HMDCameraClipManager__notifyForChangedSignificantEventModel_mirrorOut
     {
       v23 = HMFGetLogIdentifier();
       v24 = *(a1 + 40);
-      v28 = 138543618;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v24;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to create significant event from model: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v24;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to create significant event from model: %@", &v27, 0x16u);
 LABEL_12:
     }
 
@@ -4238,13 +4149,13 @@ LABEL_13:
       v23 = HMFGetLogIdentifier();
       v25 = [v7 dateOfOccurrence];
       v26 = [*(a1 + 32) suppressNotificationsBeforeDate];
-      v28 = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v25;
-      v32 = 2112;
-      v33 = v26;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring significant event with date of occurrence %@ because it is before %@", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v26;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring significant event with date of occurrence %@ because it is before %@", &v27, 0x20u);
 
       goto LABEL_12;
     }
@@ -4255,11 +4166,11 @@ LABEL_13:
   if (v17)
   {
     v18 = HMFGetLogIdentifier();
-    v28 = 138543618;
-    v29 = v18;
-    v30 = 2112;
-    v31 = v7;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Notifying delegate about updated significant event: %@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v18;
+    v29 = 2112;
+    v30 = v7;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Notifying delegate about updated significant event: %@", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -4274,12 +4185,11 @@ LABEL_13:
   }
 
 LABEL_14:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleChangedFaceClassificationModel:(id)model
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -4306,11 +4216,11 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v19;
-        v23 = 2112;
-        v24 = modelCopy;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Ignoring changed face classification model because it could not be converted into a HMCameraClipSignificantEvent: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v19;
+        v22 = 2112;
+        v23 = modelCopy;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Ignoring changed face classification model because it could not be converted into a HMCameraClipSignificantEvent: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -4325,22 +4235,20 @@ LABEL_14:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = modelCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring changed face classification model because its associated significant event does not exist: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2112;
+      v23 = modelCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring changed face classification model because its associated significant event does not exist: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleChangedSignificantEventNotificationModel:(id)model mirrorOutputFuture:(id)future
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   futureCopy = future;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -4365,55 +4273,53 @@ LABEL_14:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = modelCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring changed significant event notification model because its associated clip model does not exist: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = modelCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring changed significant event notification model because its associated clip model does not exist: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleChangedClipModel:(id)model wasCreated:(BOOL)created mirrorOutputFuture:(id)future
 {
   createdCopy = created;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   futureCopy = future;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v34 = modelCopy;
+  v33 = modelCopy;
   hmbModelID = [modelCopy hmbModelID];
   v12 = [(HMDCameraClipManager *)self _significantEventModelsForClipWithUUID:hmbModelID];
 
   if (createdCopy)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
-    v33 = v12;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v32 = v12;
     obj = v12;
-    v13 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v13 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v38;
+      v15 = *v37;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v38 != v15)
+          if (*v37 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v37 + 1) + 8 * i);
+          v17 = *(*(&v36 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
           selfCopy = self;
           v20 = HMFGetOSLogHandle();
@@ -4422,11 +4328,11 @@ LABEL_14:
             HMFGetLogIdentifier();
             v22 = v21 = futureCopy;
             *buf = 138543874;
-            v42 = v22;
-            v43 = 2112;
-            v44 = v17;
-            v45 = 2112;
-            v46 = v34;
+            v41 = v22;
+            v42 = 2112;
+            v43 = v17;
+            v44 = 2112;
+            v45 = v33;
             _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Found existing significant event model %@ associated with new clip model %@", buf, 0x20u);
 
             futureCopy = v21;
@@ -4436,22 +4342,22 @@ LABEL_14:
           [(HMDCameraClipManager *)selfCopy _notifyForChangedSignificantEventModel:v17 mirrorOutputFuture:futureCopy];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+        v14 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
       }
 
       while (v14);
     }
 
-    v12 = v33;
+    v12 = v32;
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __78__HMDCameraClipManager__handleChangedClipModel_wasCreated_mirrorOutputFuture___block_invoke;
-  v36[3] = &unk_27972E818;
-  v36[4] = self;
-  v23 = [v12 na_map:v36];
-  v24 = [v34 createClipWithSignificantEvents:v23];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __78__HMDCameraClipManager__handleChangedClipModel_wasCreated_mirrorOutputFuture___block_invoke;
+  v35[3] = &unk_27972E818;
+  v35[4] = self;
+  v23 = [v12 na_map:v35];
+  v24 = [v33 createClipWithSignificantEvents:v23];
   if (v24)
   {
     v25 = [MEMORY[0x277CBEB98] setWithObject:v24];
@@ -4469,22 +4375,20 @@ LABEL_14:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v31;
-      v43 = 2112;
-      v44 = v34;
+      v41 = v31;
+      v42 = 2112;
+      v43 = v33;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to create clip from clip model: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v28);
     futureCopy = v27;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAssetContextForMessage:(id)message propertyName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   nameCopy = name;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -4500,16 +4404,16 @@ LABEL_14:
       v11 = v10;
       cloudZone = [(HMDCameraClipManager *)self cloudZone];
       v13 = [cloudZone fetchCompleteModelWithID:v11];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___block_invoke;
-      v27[3] = &unk_27972E998;
-      v27[4] = self;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___block_invoke;
+      v26[3] = &unk_27972E998;
+      v26[4] = self;
       v14 = v11;
-      v28 = v14;
-      v29 = messageCopy;
-      v30 = nameCopy;
-      v15 = [v13 addCompletionBlock:v27];
+      v27 = v14;
+      v28 = messageCopy;
+      v29 = nameCopy;
+      v15 = [v13 addCompletionBlock:v26];
     }
 
     else
@@ -4522,9 +4426,9 @@ LABEL_14:
         v23 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v32 = v23;
-        v33 = 2112;
-        v34 = messagePayload;
+        v31 = v23;
+        v32 = 2112;
+        v33 = messagePayload;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failing request to fetch asset context because message has no clip UUID: %@", buf, 0x16u);
       }
 
@@ -4545,9 +4449,9 @@ LABEL_14:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v19;
-      v33 = 2112;
-      v34 = messageCopy;
+      v31 = v19;
+      v32 = 2112;
+      v33 = messageCopy;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch asset context for message because zones are not ready: %@", buf, 0x16u);
     }
 
@@ -4555,13 +4459,11 @@ LABEL_14:
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v14];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -4577,21 +4479,21 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
         v10 = [v8 contentDownloadURLExpirationDate];
         if (v10)
         {
-          v65 = v6;
+          v64 = v6;
           v11 = MEMORY[0x277CD18C8];
           v12 = [v5 streamingAssetVersion];
           v13 = [v11 requiredHTTPHeadersForStreamingAssetVersion:v12];
 
-          v64 = [v5 videoSegments];
-          v14 = [objc_alloc(MEMORY[0x277CD18D0]) initWithURL:v9 expirationDate:v10 requiredHTTPHeaders:v13 videoSegments:v64];
+          v63 = [v5 videoSegments];
+          v14 = [objc_alloc(MEMORY[0x277CD18D0]) initWithURL:v9 expirationDate:v10 requiredHTTPHeaders:v13 videoSegments:v63];
           v15 = objc_autoreleasePoolPush();
           v16 = *(a1 + 32);
           v17 = HMFGetOSLogHandle();
-          v66 = v14;
+          v65 = v14;
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            v61 = v13;
-            v62 = v15;
+            v60 = v13;
+            v61 = v15;
             v18 = HMFGetLogIdentifier();
             v19 = *(a1 + 56);
             *buf = 0;
@@ -4609,45 +4511,45 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v70 = *buf;
+            v69 = *buf;
             *buf = 138544386;
             *&buf[4] = v18;
             *&buf[12] = 2112;
             *&buf[14] = v19;
             *&buf[22] = 1042;
             *&buf[24] = 16;
-            v72 = 2098;
-            v73 = &v70;
-            v74 = 2112;
-            v14 = v66;
-            v75 = v66;
+            v71 = 2098;
+            v72 = &v69;
+            v73 = 2112;
+            v14 = v65;
+            v74 = v65;
             _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched streaming asset with property name %@ for clip UUID %{public,uuid_t}.16P with context %@", buf, 0x30u);
 
-            v13 = v61;
-            v15 = v62;
+            v13 = v60;
+            v15 = v61;
           }
 
           objc_autoreleasePoolPop(v15);
-          v63 = *(a1 + 48);
-          v68[0] = *MEMORY[0x277CCF410];
+          v62 = *(a1 + 48);
+          v67[0] = *MEMORY[0x277CCF410];
           v49 = encodeRootObjectForIncomingXPCMessage(v14, 0);
-          v69[0] = v49;
-          v68[1] = *MEMORY[0x277CCF418];
+          v68[0] = v49;
+          v67[1] = *MEMORY[0x277CCF418];
           v50 = [MEMORY[0x277CBEB98] set];
           v51 = [v5 createClipWithSignificantEvents:v50];
           v52 = encodeRootObjectForIncomingXPCMessage(v51, 0);
-          v69[1] = v52;
-          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
+          v68[1] = v52;
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
           v53 = v9;
           v54 = v10;
           v56 = v55 = v13;
-          [v63 respondWithPayload:v56];
+          [v62 respondWithPayload:v56];
 
           v57 = v55;
           v10 = v54;
           v9 = v53;
 
-          v6 = v65;
+          v6 = v64;
         }
 
         else
@@ -4657,7 +4559,7 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
           v43 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            v67 = v41;
+            v66 = v41;
             v44 = HMFGetLogIdentifier();
             *buf = 0;
             *&buf[8] = 0;
@@ -4674,18 +4576,18 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v76 = *buf;
+            v75 = *buf;
             *buf = 138544130;
             *&buf[4] = v44;
             *&buf[12] = 2112;
             *&buf[14] = v8;
             *&buf[22] = 1042;
             *&buf[24] = 16;
-            v72 = 2098;
-            v73 = &v76;
+            v71 = 2098;
+            v72 = &v75;
             _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Could not find content download URL expiration date on streaming asset %@ for clip with UUID: %{public,uuid_t}.16P", buf, 0x26u);
 
-            v41 = v67;
+            v41 = v66;
           }
 
           objc_autoreleasePoolPop(v41);
@@ -4718,15 +4620,15 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v77 = *buf;
+          v76 = *buf;
           *buf = 138544130;
           *&buf[4] = v38;
           *&buf[12] = 2112;
           *&buf[14] = v8;
           *&buf[22] = 1042;
           *&buf[24] = 16;
-          v72 = 2098;
-          v73 = &v77;
+          v71 = 2098;
+          v72 = &v76;
           _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Could not find content download URL on streaming asset %@ for clip with UUID: %{public,uuid_t}.16P", buf, 0x26u);
         }
 
@@ -4762,15 +4664,15 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v78 = *buf;
+        v77 = *buf;
         *buf = 138544130;
         *&buf[4] = v31;
         *&buf[12] = 2112;
         *&buf[14] = v32;
         *&buf[22] = 1042;
         *&buf[24] = 16;
-        v72 = 2098;
-        v73 = &v78;
+        v71 = 2098;
+        v72 = &v77;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not find streaming asset on property named %@ for clip with UUID: %{public,uuid_t}.16P", buf, 0x26u);
 
         v6 = v30;
@@ -4804,15 +4706,15 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v79 = *buf;
+      v78 = *buf;
       *buf = 138544130;
       *&buf[4] = v25;
       *&buf[12] = 1042;
       *&buf[14] = 16;
       *&buf[18] = 2098;
-      *&buf[20] = &v79;
-      v72 = 2112;
-      v73 = v6;
+      *&buf[20] = &v78;
+      v71 = 2112;
+      v72 = v6;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch complete model for clip UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -4821,13 +4723,11 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
     v8 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     [v47 respondWithError:v8];
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyTransportsOfUpdatedSignificantEvents:(id)events removedSignificantEventUUIDs:(id)ds
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dsCopy = ds;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -4849,51 +4749,51 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
       clientConnectionsTimer2 = [(HMDCameraClipManager *)selfCopy clientConnectionsTimer];
       clientConnections2 = [clientConnectionsTimer2 clientConnections];
       *buf = 138544130;
-      v47 = v16;
-      v48 = 2048;
-      v49 = [clientConnections2 count];
-      v50 = 2048;
-      v51 = [eventsCopy count];
-      v52 = 2048;
-      v53 = [dsCopy count];
+      v46 = v16;
+      v47 = 2048;
+      v48 = [clientConnections2 count];
+      v49 = 2048;
+      v50 = [eventsCopy count];
+      v51 = 2048;
+      v52 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Notifying %lu subscribed transports of %lu updated significant events, %lu removed significant events", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
-    v44[0] = *MEMORY[0x277CCF4A8];
-    v37 = eventsCopy;
+    v43[0] = *MEMORY[0x277CCF4A8];
+    v36 = eventsCopy;
     v19 = encodeRootObjectForIncomingXPCMessage(eventsCopy, 0);
-    v44[1] = *MEMORY[0x277CCF480];
-    v45[0] = v19;
-    v36 = dsCopy;
-    v45[1] = dsCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+    v43[1] = *MEMORY[0x277CCF480];
+    v44[0] = v19;
+    v35 = dsCopy;
+    v44[1] = dsCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     clientConnectionsTimer3 = [(HMDCameraClipManager *)selfCopy clientConnectionsTimer];
     clientConnections3 = [clientConnectionsTimer3 clientConnections];
 
     obj = clientConnections3;
-    v23 = [clientConnections3 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v23 = [clientConnections3 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       v26 = *MEMORY[0x277CCF3A0];
       do
       {
         v27 = 0;
         do
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v39 + 1) + 8 * v27);
+          v28 = *(*(&v38 + 1) + 8 * v27);
           v29 = [MEMORY[0x277D0F848] entitledMessageWithName:v26 messagePayload:v20];
           [v29 setTransport:v28];
           v30 = objc_alloc(MEMORY[0x277D0F820]);
@@ -4909,14 +4809,14 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
         }
 
         while (v24 != v27);
-        v24 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v24 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v24);
     }
 
-    dsCopy = v36;
-    eventsCopy = v37;
+    dsCopy = v35;
+    eventsCopy = v36;
   }
 
   else
@@ -4925,23 +4825,21 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v47 = v34;
-      v48 = 2048;
-      v49 = [eventsCopy count];
-      v50 = 2048;
-      v51 = [dsCopy count];
+      v46 = v34;
+      v47 = 2048;
+      v48 = [eventsCopy count];
+      v49 = 2048;
+      v50 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed transports to notify of %lu updated significant events, %lu removed significant events", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyTransportsOfUpdatedClips:(id)clips removedClipUUIDs:(id)ds
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   clipsCopy = clips;
   dsCopy = ds;
   workQueue = [(HMDCameraClipManager *)self workQueue];
@@ -4963,51 +4861,51 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
       clientConnectionsTimer2 = [(HMDCameraClipManager *)selfCopy clientConnectionsTimer];
       clientConnections2 = [clientConnectionsTimer2 clientConnections];
       *buf = 138544130;
-      v47 = v16;
-      v48 = 2048;
-      v49 = [clientConnections2 count];
-      v50 = 2048;
-      v51 = [clipsCopy count];
-      v52 = 2048;
-      v53 = [dsCopy count];
+      v46 = v16;
+      v47 = 2048;
+      v48 = [clientConnections2 count];
+      v49 = 2048;
+      v50 = [clipsCopy count];
+      v51 = 2048;
+      v52 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Notifying %lu subscribed transports of %lu updated clips, %lu removed clips", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
-    v44[0] = *MEMORY[0x277CCF4A0];
-    v37 = clipsCopy;
+    v43[0] = *MEMORY[0x277CCF4A0];
+    v36 = clipsCopy;
     v19 = encodeRootObjectForIncomingXPCMessage(clipsCopy, 0);
-    v44[1] = *MEMORY[0x277CCF478];
-    v45[0] = v19;
-    v36 = dsCopy;
-    v45[1] = dsCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+    v43[1] = *MEMORY[0x277CCF478];
+    v44[0] = v19;
+    v35 = dsCopy;
+    v44[1] = dsCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     clientConnectionsTimer3 = [(HMDCameraClipManager *)selfCopy clientConnectionsTimer];
     clientConnections3 = [clientConnectionsTimer3 clientConnections];
 
     obj = clientConnections3;
-    v23 = [clientConnections3 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v23 = [clientConnections3 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       v26 = *MEMORY[0x277CCF398];
       do
       {
         v27 = 0;
         do
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v39 + 1) + 8 * v27);
+          v28 = *(*(&v38 + 1) + 8 * v27);
           v29 = [MEMORY[0x277D0F848] entitledMessageWithName:v26 messagePayload:v20];
           [v29 setTransport:v28];
           v30 = objc_alloc(MEMORY[0x277D0F820]);
@@ -5023,14 +4921,14 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
         }
 
         while (v24 != v27);
-        v24 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v24 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v24);
     }
 
-    dsCopy = v36;
-    clipsCopy = v37;
+    dsCopy = v35;
+    clipsCopy = v36;
   }
 
   else
@@ -5039,30 +4937,28 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v47 = v34;
-      v48 = 2048;
-      v49 = [clipsCopy count];
-      v50 = 2048;
-      v51 = [dsCopy count];
+      v46 = v34;
+      v47 = 2048;
+      v48 = [clipsCopy count];
+      v49 = 2048;
+      v50 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed transports to notify of %lu updated clips, %lu removed clips", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpExpiredClips
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   cleanupQueue = [(HMDCameraClipManager *)self cleanupQueue];
   dispatch_assert_queue_V2(cleanupQueue);
 
   v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-*MEMORY[0x277CCF518]];
-  v27 = @"dateBefore";
-  v28[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v26 = @"dateBefore";
+  v27[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   v6 = [MEMORY[0x277CBEB58] setWithCapacity:{-[HMDCameraClipManager fetchBatchLimit](self, "fetchBatchLimit")}];
   v7 = [MEMORY[0x277D17108] optionsWithLabel:@"Remove expired clips"];
   [v7 setShouldEnqueueMirrorOutput:0];
@@ -5070,16 +4966,16 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
   localZone = [(HMDCameraClipManager *)self localZone];
   v10 = [localZone queryModelsUsingQuery:v8 arguments:v5];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke;
-  v20[3] = &unk_27972E970;
-  v20[4] = self;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke;
+  v19[3] = &unk_27972E970;
+  v19[4] = self;
   v11 = v6;
-  v21 = v11;
+  v20 = v11;
   v12 = v7;
-  v22 = v12;
-  [v10 enumerateObjectsUsingBlock:v20];
+  v21 = v12;
+  [v10 enumerateObjectsUsingBlock:v19];
   if ([v11 count])
   {
     v13 = objc_autoreleasePoolPush();
@@ -5090,22 +4986,20 @@ void __66__HMDCameraClipManager__fetchAssetContextForMessage_propertyName___bloc
       v16 = HMFGetLogIdentifier();
       v17 = [v11 count];
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2048;
-      v26 = v17;
+      v23 = v16;
+      v24 = 2048;
+      v25 = v17;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Removing %lu expired clips", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v18 = [(HMDCameraClipManager *)selfCopy _removeClipsWithUUIDs:v11 options:v12];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5114,11 +5008,11 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
   {
     v7 = HMFGetLogIdentifier();
     v8 = [v3 debugDescription];
-    v19 = 138543618;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Removing expired clip: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Removing expired clip: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5136,24 +5030,22 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
     {
       v15 = HMFGetLogIdentifier();
       v16 = [*(a1 + 40) count];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2048;
-      v22 = v16;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Removing %lu expired clips", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2048;
+      v21 = v16;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Removing %lu expired clips", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v17 = [*(a1 + 32) _removeClipsWithUUIDs:*(a1 + 40) options:*(a1 + 48)];
     [*(a1 + 40) removeAllObjects];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpIncompleteClipsForInitialStartup:(BOOL)startup
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   cleanupQueue = [(HMDCameraClipManager *)self cleanupQueue];
   dispatch_assert_queue_V2(cleanupQueue);
 
@@ -5170,12 +5062,12 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
   aBlock[3] = &unk_27972E948;
   aBlock[4] = self;
   v12 = dictionary;
-  v32 = v12;
+  v31 = v12;
   startupCopy = startup;
   v13 = v10;
-  v33 = v13;
+  v32 = v13;
   v14 = v11;
-  v34 = v14;
+  v33 = v14;
   v15 = _Block_copy(aBlock);
   [v8 enumerateObjectsUsingBlock:v15];
   v16 = 0x277D17000;
@@ -5188,9 +5080,9 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v20;
-      v38 = 2112;
-      v39 = v13;
+      v36 = v20;
+      v37 = 2112;
+      v38 = v13;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Completing incomplete clips: %@", buf, 0x16u);
 
       v16 = 0x277D17000uLL;
@@ -5211,9 +5103,9 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v27;
-      v38 = 2112;
-      v39 = v14;
+      v36 = v27;
+      v37 = 2112;
+      v38 = v14;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Removing incomplete 0-duration clip UUIDs: %@", buf, 0x16u);
     }
 
@@ -5221,13 +5113,11 @@ void __44__HMDCameraClipManager__cleanUpExpiredClips__block_invoke(uint64_t a1, 
     v28 = [*(v16 + 264) optionsWithLabel:@"Remove 0-duration Incomplete Clips"];
     v29 = [(HMDCameraClipManager *)selfCopy2 _removeClipsWithUUIDs:v14 options:v28];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5236,11 +5126,11 @@ void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block
   {
     v7 = HMFGetLogIdentifier();
     v8 = [v3 debugDescription];
-    v48 = 138543618;
-    v49 = v7;
-    v50 = 2112;
-    v51 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cleaning up incomplete clip: %@", &v48, 0x16u);
+    v47 = 138543618;
+    v48 = v7;
+    v49 = 2112;
+    v50 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cleaning up incomplete clip: %@", &v47, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5271,7 +5161,7 @@ void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block
     }
   }
 
-  v16 = [v3 duration];
+  v16 = objc_msgSend_duration(v3);
   [v16 doubleValue];
   v18 = v17;
 
@@ -5305,11 +5195,11 @@ void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block
     {
       v31 = HMFGetLogIdentifier();
       v32 = *(a1 + 48);
-      v48 = 138543618;
-      v49 = v31;
-      v50 = 2112;
-      v51 = v32;
-      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Completing batch of incomplete clips: %@", &v48, 0x16u);
+      v47 = 138543618;
+      v48 = v31;
+      v49 = 2112;
+      v50 = v32;
+      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Completing batch of incomplete clips: %@", &v47, 0x16u);
     }
 
     objc_autoreleasePoolPop(v28);
@@ -5331,11 +5221,11 @@ void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block
     {
       v41 = HMFGetLogIdentifier();
       v42 = *(a1 + 56);
-      v48 = 138543618;
-      v49 = v41;
-      v50 = 2112;
-      v51 = v42;
-      _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@Removing batch of incomplete 0-duration clip UUIDs: %@", &v48, 0x16u);
+      v47 = 138543618;
+      v48 = v41;
+      v49 = 2112;
+      v50 = v42;
+      _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@Removing batch of incomplete 0-duration clip UUIDs: %@", &v47, 0x16u);
     }
 
     objc_autoreleasePoolPop(v38);
@@ -5348,8 +5238,6 @@ void __65__HMDCameraClipManager__cleanUpIncompleteClipsForInitialStartup___block
   }
 
 LABEL_19:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpClipsForInitialStartup:(BOOL)startup
@@ -5377,7 +5265,7 @@ uint64_t __55__HMDCameraClipManager__cleanUpClipsForInitialStartup___block_invok
 
 - (id)_performCloudPull
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -5393,12 +5281,12 @@ uint64_t __55__HMDCameraClipManager__cleanUpClipsForInitialStartup___block_invok
     v10 = [v8 schedulerWithDispatchQueue:workQueue2];
     v11 = [v7 reschedule:v10];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __41__HMDCameraClipManager__performCloudPull__block_invoke;
-    v20[3] = &unk_2797359D8;
-    v20[4] = self;
-    v12 = [v11 addFailureBlock:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __41__HMDCameraClipManager__performCloudPull__block_invoke;
+    v19[3] = &unk_2797359D8;
+    v19[4] = self;
+    v12 = [v11 addFailureBlock:v19];
   }
 
   else
@@ -5410,7 +5298,7 @@ uint64_t __55__HMDCameraClipManager__cleanUpClipsForInitialStartup___block_invok
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot perform cloud pull because zones are not ready", buf, 0xCu);
     }
 
@@ -5420,14 +5308,12 @@ uint64_t __55__HMDCameraClipManager__cleanUpClipsForInitialStartup___block_invok
     v12 = [v17 futureWithError:v5];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 void __41__HMDCameraClipManager__performCloudPull__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5435,20 +5321,19 @@ void __41__HMDCameraClipManager__performCloudPull__block_invoke(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull due to cloud zone fetch timer firing: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull due to cloud zone fetch timer firing: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchFaceCropURLForSignificantEventModel:(id)model
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   faceCropAsset = [modelCopy faceCropAsset];
   fileURL = [faceCropAsset fileURL];
@@ -5462,9 +5347,9 @@ void __41__HMDCameraClipManager__performCloudPull__block_invoke(uint64_t a1, voi
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v12;
-      v27 = 2112;
-      v28 = fileURL;
+      v25 = v12;
+      v26 = 2112;
+      v27 = fileURL;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Using existing cached face crop URL: %@", buf, 0x16u);
     }
 
@@ -5481,28 +5366,26 @@ void __41__HMDCameraClipManager__performCloudPull__block_invoke(uint64_t a1, voi
     workQueue = [(HMDCameraClipManager *)self workQueue];
     v18 = [v16 schedulerWithDispatchQueue:workQueue];
     v19 = [v15 reschedule:v18];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke;
-    v24[3] = &unk_27972E920;
-    v24[4] = self;
-    v20 = [v19 flatMap:v24];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke_155;
-    v23[3] = &unk_2797359D8;
+    v23[2] = __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke;
+    v23[3] = &unk_27972E920;
     v23[4] = self;
-    v13 = [v20 addFailureBlock:v23];
+    v20 = [v19 flatMap:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke_155;
+    v22[3] = &unk_2797359D8;
+    v22[4] = self;
+    v13 = [v20 addFailureBlock:v22];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 id __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 faceCropAsset];
   v5 = [v4 fileURL];
@@ -5516,11 +5399,11 @@ id __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched face crop URL: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched face crop URL: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -5533,11 +5416,11 @@ id __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v3 faceCropAsset];
-      v18 = 138543618;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crop file URL on fetched asset: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crop file URL on fetched asset: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -5546,14 +5429,12 @@ id __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_
     v11 = [v14 futureWithError:v15];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___block_invoke_155(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5561,20 +5442,19 @@ void __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___bloc
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch complete significant event notification model: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch complete significant event notification model: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchHeroFrameURLForSignificantEventModel:(id)model
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   heroFrameAsset = [modelCopy heroFrameAsset];
   fileURL = [heroFrameAsset fileURL];
@@ -5602,15 +5482,15 @@ void __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___bloc
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v31 = *buf;
+      v30 = *buf;
       *buf = 138544130;
       *&buf[4] = v12;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v33 = 2098;
-      v34 = &v31;
-      v35 = 2112;
-      v36 = fileURL;
+      v32 = 2098;
+      v33 = &v30;
+      v34 = 2112;
+      v35 = fileURL;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Using existing cached hero frame URL for significant event with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -5639,28 +5519,26 @@ void __66__HMDCameraClipManager__fetchFaceCropURLForSignificantEventModel___bloc
     workQueue = [(HMDCameraClipManager *)selfCopy2 workQueue];
     v23 = [v21 schedulerWithDispatchQueue:workQueue];
     v24 = [v20 reschedule:v23];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke;
-    v30[3] = &unk_27972E920;
-    v30[4] = selfCopy2;
-    v25 = [v24 flatMap:v30];
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
-    v29[2] = __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke_153;
-    v29[3] = &unk_2797359D8;
+    v29[2] = __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke;
+    v29[3] = &unk_27972E920;
     v29[4] = selfCopy2;
-    v26 = [v25 addFailureBlock:v29];
+    v25 = [v24 flatMap:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke_153;
+    v28[3] = &unk_2797359D8;
+    v28[4] = selfCopy2;
+    v26 = [v25 addFailureBlock:v28];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 id __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 heroFrameAsset];
   v5 = [v4 fileURL];
@@ -5674,11 +5552,11 @@ id __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched hero frame URL: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched hero frame URL: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -5691,11 +5569,11 @@ id __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v3 heroFrameAsset];
-      v18 = 138543618;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not find hero frame file URL on fetched asset: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not find hero frame file URL on fetched asset: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -5704,14 +5582,12 @@ id __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block
     v11 = [v14 futureWithError:v15];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___block_invoke_153(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5719,59 +5595,58 @@ void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___blo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch complete significant event notification model: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch complete significant event notification model: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchCanonicalHeroFrameURLForClipModel:(id)model
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v37 = modelCopy;
+  v36 = modelCopy;
   hmbModelID = [modelCopy hmbModelID];
   v7 = [(HMDCameraClipManager *)self significantEventsForClipWithUUID:hmbModelID];
 
-  v36 = v7;
+  v35 = v7;
   allObjects = [v7 allObjects];
   v9 = [allObjects sortedArrayUsingComparator:&__block_literal_global_150];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v40 objects:v48 count:16];
-  v38 = v10;
+  v11 = [v10 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v37 = v10;
   if (v11)
   {
     v12 = v11;
-    v13 = *v41;
+    v13 = *v40;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
+        v15 = *(*(&v39 + 1) + 8 * i);
         localZone = [(HMDCameraClipManager *)self localZone];
         uniqueIdentifier = [v15 uniqueIdentifier];
         v18 = objc_opt_class();
-        v39 = 0;
-        v19 = [localZone fetchModelWithModelID:uniqueIdentifier ofType:v18 error:&v39];
-        v20 = v39;
+        v38 = 0;
+        v19 = [localZone fetchModelWithModelID:uniqueIdentifier ofType:v18 error:&v38];
+        v20 = v38;
 
         if (v19)
         {
@@ -5779,7 +5654,7 @@ void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___blo
 
           v31 = v10;
           v33 = v10;
-          v28 = v37;
+          v28 = v36;
           goto LABEL_15;
         }
 
@@ -5790,18 +5665,18 @@ void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___blo
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v45 = v24;
-          v46 = 2112;
-          v47 = v20;
+          v44 = v24;
+          v45 = 2112;
+          v46 = v20;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant event notification model: %@", buf, 0x16u);
 
-          v10 = v38;
+          v10 = v37;
         }
 
         objc_autoreleasePoolPop(v21);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v39 objects:v47 count:16];
       if (v12)
       {
         continue;
@@ -5814,14 +5689,14 @@ void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___blo
   v25 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v27 = HMFGetOSLogHandle();
-  v28 = v37;
+  v28 = v36;
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v29;
-    v46 = 2112;
-    v47 = v37;
+    v44 = v29;
+    v45 = 2112;
+    v46 = v36;
     _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Could not find hero frame on any significant event for clip model: %@", buf, 0x16u);
   }
 
@@ -5829,10 +5704,8 @@ void __67__HMDCameraClipManager__fetchHeroFrameURLForSignificantEventModel___blo
   v30 = MEMORY[0x277D2C900];
   v31 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   v32 = [v30 futureWithError:v31];
-  v33 = v38;
+  v33 = v37;
 LABEL_15:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -5878,21 +5751,21 @@ uint64_t __64__HMDCameraClipManager__fetchCanonicalHeroFrameURLForClipModel___bl
 - (BOOL)_fetchClipsWithDateInterval:(id)interval quality:(int64_t)quality isAscending:(BOOL)ascending error:(id *)error handler:(id)handler
 {
   ascendingCopy = ascending;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   handlerCopy = handler;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 1;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 1;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __86__HMDCameraClipManager__fetchClipsWithDateInterval_quality_isAscending_error_handler___block_invoke;
   aBlock[3] = &unk_27972E8F8;
   aBlock[4] = self;
-  v37 = &v38;
+  v36 = &v37;
   v14 = handlerCopy;
-  v36 = v14;
+  v35 = v14;
   v15 = _Block_copy(aBlock);
   v16 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5901,9 +5774,9 @@ uint64_t __64__HMDCameraClipManager__fetchCanonicalHeroFrameURLForClipModel___bl
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v19;
-    v46 = 2112;
-    v47 = intervalCopy;
+    v44 = v19;
+    v45 = 2112;
+    v46 = intervalCopy;
     _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Fetching clips with date interval: %@", buf, 0x16u);
   }
 
@@ -5918,16 +5791,16 @@ uint64_t __64__HMDCameraClipManager__fetchCanonicalHeroFrameURLForClipModel___bl
     +[HMDCameraClipModel clipsWithQualityBetweenDatesDescendingQuery];
   }
   v20 = ;
-  v42[0] = @"dateAfter";
+  v41[0] = @"dateAfter";
   startDate = [intervalCopy startDate];
-  v43[0] = startDate;
-  v42[1] = @"dateBefore";
+  v42[0] = startDate;
+  v41[1] = @"dateBefore";
   endDate = [intervalCopy endDate];
-  v43[1] = endDate;
-  v42[2] = @"quality";
+  v42[1] = endDate;
+  v41[2] = @"quality";
   v23 = [MEMORY[0x277CCABB0] numberWithInteger:quality];
-  v43[2] = v23;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+  v42[2] = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
   localZone = [(HMDCameraClipManager *)selfCopy localZone];
   v26 = [localZone queryModelsUsingQuery:v20 arguments:v24];
@@ -5937,7 +5810,7 @@ uint64_t __64__HMDCameraClipManager__fetchCanonicalHeroFrameURLForClipModel___bl
 
   if (error)
   {
-    *(v39 + 24) = 0;
+    *(v38 + 24) = 0;
     if (error)
     {
       *error = [v26 error];
@@ -5951,21 +5824,20 @@ uint64_t __64__HMDCameraClipManager__fetchCanonicalHeroFrameURLForClipModel___bl
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v45 = v31;
+    v44 = v31;
     _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@Finished fetching clips", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v28);
-  v32 = *(v39 + 24);
+  v32 = *(v38 + 24);
 
-  _Block_object_dispose(&v38, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
   return v32 & 1;
 }
 
 void __86__HMDCameraClipManager__fetchClipsWithDateInterval_quality_isAscending_error_handler___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [v5 hmbModelID];
@@ -5988,19 +5860,68 @@ void __86__HMDCameraClipManager__fetchClipsWithDateInterval_quality_isAscending_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant events for clip model %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant events for clip model %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *a3 = 1;
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (BOOL)_fetchSignificantEventsWithDateInterval:(id)interval isAscending:(BOOL)ascending error:(id *)error handler:(id)handler
+{
+  ascendingCopy = ascending;
+  v38 = *MEMORY[0x277D85DE8];
+  intervalCopy = interval;
+  handlerCopy = handler;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAscending_error_handler___block_invoke;
+  v29 = &unk_27972E8D0;
+  selfCopy = self;
+  v12 = handlerCopy;
+  v31 = v12;
+  v13 = _Block_copy(&v26);
+  v14 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v16 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    v17 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v35 = v17;
+    v36 = 2112;
+    v37 = intervalCopy;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Fetching significant events with date interval: %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v14);
+  selfCopy = [HMDCameraSignificantEventNotificationModel significantEventsBetweenDatesQueryWithIsAscending:ascendingCopy, v26, v27, v28, v29, selfCopy];
+  v32[0] = @"dateAfter";
+  startDate = [intervalCopy startDate];
+  v32[1] = @"dateBefore";
+  v33[0] = startDate;
+  endDate = [intervalCopy endDate];
+  v33[1] = endDate;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+
+  localZone = [(HMDCameraClipManager *)selfCopy2 localZone];
+  v23 = [localZone queryModelsUsingQuery:selfCopy arguments:v21];
+
+  [v23 enumerateObjectsUsingBlock:v13];
+  error = [v23 error];
+
+  if (error && error)
+  {
+    *error = [v23 error];
+  }
+
+  return error == 0;
 }
 
 uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAscending_error_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -6019,12 +5940,12 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
 
 - (id)_faceClassificationsForSignificantEventWithUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   localZone = [(HMDCameraClipManager *)self localZone];
-  v16 = 0;
-  v6 = [localZone fetchModelsWithParentModelID:dCopy ofType:objc_opt_class() error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [localZone fetchModelsWithParentModelID:dCopy ofType:objc_opt_class() error:&v15];
+  v7 = v15;
 
   if (v6)
   {
@@ -6051,15 +5972,15 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v17 = *buf;
+      v16 = *buf;
       *buf = 138544130;
       *&buf[4] = v12;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v19 = 2098;
-      v20 = &v17;
-      v21 = 2112;
-      v22 = v7;
+      v18 = 2098;
+      v19 = &v16;
+      v20 = 2112;
+      v21 = v7;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch face classification models for significant event UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -6068,8 +5989,6 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
   }
 
   v13 = v8;
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -6104,12 +6023,12 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
 
 - (id)_significantEventModelsForClipWithUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   localZone = [(HMDCameraClipManager *)self localZone];
-  v16 = 0;
-  v6 = [localZone fetchModelsWithParentModelID:dCopy ofType:objc_opt_class() error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [localZone fetchModelsWithParentModelID:dCopy ofType:objc_opt_class() error:&v15];
+  v7 = v15;
 
   if (v6)
   {
@@ -6136,15 +6055,15 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v17 = *buf;
+      v16 = *buf;
       *buf = 138544130;
       *&buf[4] = v12;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v19 = 2098;
-      v20 = &v17;
-      v21 = 2112;
-      v22 = v7;
+      v18 = 2098;
+      v19 = &v16;
+      v20 = 2112;
+      v21 = v7;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant events for clip UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -6154,46 +6073,44 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
 
   v13 = v8;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_significantEventModelsWithUUIDs:(id)ds
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = dsCopy;
-  v6 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+  v6 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v31;
+    v9 = *v30;
     *&v7 = 138544130;
-    v25 = v7;
-    v26 = *v31;
+    v24 = v7;
+    v25 = *v30;
     do
     {
       v10 = 0;
-      v27 = v8;
+      v26 = v8;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
+        v11 = *(*(&v29 + 1) + 8 * v10);
         localZone = [(HMDCameraClipManager *)self localZone];
         v13 = objc_opt_class();
-        v29 = 0;
-        v14 = [localZone fetchModelWithModelID:v11 ofType:v13 error:&v29];
-        v15 = v29;
+        v28 = 0;
+        v14 = [localZone fetchModelWithModelID:v11 ofType:v13 error:&v28];
+        v15 = v28;
 
         if (v14)
         {
@@ -6222,37 +6139,36 @@ uint64_t __90__HMDCameraClipManager__fetchSignificantEventsWithDateInterval_isAs
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v34 = *buf;
-            *buf = v25;
+            v33 = *buf;
+            *buf = v24;
             *&buf[4] = v21;
             *&buf[12] = 1042;
             *&buf[14] = 16;
-            v36 = 2098;
-            v37 = &v34;
-            v38 = 2112;
-            v39 = v15;
+            v35 = 2098;
+            v36 = &v33;
+            v37 = 2112;
+            v38 = v15;
             _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant notification model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
           }
 
           objc_autoreleasePoolPop(v17);
           v5 = v16;
           self = selfCopy;
-          v9 = v26;
-          v8 = v27;
+          v9 = v25;
+          v8 = v26;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
     }
 
     while (v8);
   }
 
-  v22 = [v5 copy];
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = objc_msgSend_copy(v5);
 
   return v22;
 }
@@ -6301,7 +6217,7 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
 
 - (id)remove
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6311,31 +6227,29 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Asked to remove clip manager zones", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Asked to remove clip manager zones", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   zoneManager = [(HMDCameraClipManager *)selfCopy zoneManager];
   remove = [zoneManager remove];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return remove;
 }
 
 - (id)fetchHeroFrameURLForSignificantEventWithUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   localZone = [(HMDCameraClipManager *)self localZone];
-  v18 = 0;
-  v7 = [localZone fetchModelWithModelID:dCopy ofType:objc_opt_class() error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [localZone fetchModelWithModelID:dCopy ofType:objc_opt_class() error:&v17];
+  v8 = v17;
 
   if (v7)
   {
@@ -6362,15 +6276,15 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v19 = *buf;
+      v18 = *buf;
       *buf = 138544130;
       *&buf[4] = v13;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v21 = 2098;
-      v22 = &v19;
-      v23 = 2112;
-      v24 = v8;
+      v20 = 2098;
+      v21 = &v18;
+      v22 = 2112;
+      v23 = v8;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant notification model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
@@ -6380,22 +6294,20 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
     v9 = [v14 futureWithError:v15];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)heroFrameURLForSignificantEventWithUUID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   localZone = [(HMDCameraClipManager *)self localZone];
-  v17 = 0;
-  v7 = [localZone fetchModelWithModelID:dCopy ofType:objc_opt_class() error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [localZone fetchModelWithModelID:dCopy ofType:objc_opt_class() error:&v16];
+  v8 = v16;
 
   if (v7)
   {
@@ -6423,23 +6335,21 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v18 = *buf;
+      v17 = *buf;
       *buf = 138544130;
       *&buf[4] = v14;
       *&buf[12] = 1042;
       *&buf[14] = 16;
-      v20 = 2098;
-      v21 = &v18;
-      v22 = 2112;
-      v23 = v8;
+      v19 = 2098;
+      v20 = &v17;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch significant notification model with UUID %{public,uuid_t}.16P: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v11);
     fileURL = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return fileURL;
 }
@@ -6465,10 +6375,10 @@ void __40__HMDCameraClipManager_performCloudPull__block_invoke(uint64_t a1)
 
 id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventWithUUID___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v13[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v4 = [v2 _significantEventsWithUUIDs:v3];
   v5 = [v4 firstObject];
 
@@ -6489,14 +6399,12 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
   }
   v10 = ;
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)configure
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6509,11 +6417,11 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
     v7 = [HMDXPCMessagePolicy policyWithEntitlements:133];
     v8 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
     v9 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-    v46 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-    v53[0] = v7;
-    v53[1] = v8;
-    v41 = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v45 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
+    v52[0] = v7;
+    v52[1] = v8;
+    v40 = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF3F8] receiver:self policies:v10 selector:sel_handleFetchVideoSegmentsAssetContextMessage_];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF4C0] receiver:self policies:v10 selector:sel_handleSubscribeMessage_];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF4C8] receiver:self policies:v10 selector:sel_handleUnsubscribeMessage_];
@@ -6528,42 +6436,42 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF3D0] receiver:self policies:v10 selector:sel_handleFetchFaceCropURLMessage_];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF3F0] receiver:self policies:v10 selector:sel_handleFetchSignificantEventsMessage_];
     v11 = [HMDConfigurationMessagePolicy policyWithOperationTypes:4];
-    v47 = v7;
-    v52[0] = v7;
-    v52[1] = v9;
-    v52[2] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
+    v46 = v7;
+    v51[0] = v7;
+    v51[1] = v9;
+    v51[2] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF390] receiver:self policies:v12 selector:sel_handleDeleteClipMessage_];
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF388] receiver:self policies:v12 selector:sel_handleDeleteAllClipsMessage_];
-    v44 = v12;
+    v43 = v12;
     [messageDispatcher registerForMessage:*MEMORY[0x277CCF400] receiver:self policies:v12 selector:sel_handleHandleFaceMisclassificationMessage_];
     +[HMDRemoteMessagePolicy defaultSecurePolicy];
-    v51[0] = v9;
-    v51[1] = v11;
-    v43 = v45 = v11;
-    v51[2] = v43;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
+    v50[0] = v9;
+    v50[1] = v11;
+    v42 = v44 = v11;
+    v50[2] = v42;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
     [messageDispatcher registerForMessage:@"HMDCCM.m.rhfm" receiver:self policies:? selector:?];
     if (isInternalBuild())
     {
       v13 = [HMDConfigurationMessagePolicy policyWithOperationTypes:1];
       v14 = *MEMORY[0x277CCF408];
-      v50[0] = v47;
-      v50[1] = v46;
-      v50[2] = v13;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
+      v49[0] = v46;
+      v49[1] = v45;
+      v49[2] = v13;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:3];
       [messageDispatcher registerForMessage:v14 receiver:self policies:v15 selector:sel_handleImportClipsMessage_];
 
       v16 = *MEMORY[0x277CCF3E8];
-      v49[0] = v47;
-      v49[1] = v46;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+      v48[0] = v46;
+      v48[1] = v45;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
       [messageDispatcher registerForMessage:v16 receiver:self policies:v17 selector:sel_handleFetchIsCloudStorageEnabledMessage_];
 
       v18 = *MEMORY[0x277CCF4D0];
-      v48[0] = v47;
-      v48[1] = v46;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+      v47[0] = v46;
+      v47[1] = v45;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
       [messageDispatcher registerForMessage:v18 receiver:self policies:v19 selector:sel_handleUpdateCloudStorageMessage_];
     }
 
@@ -6617,27 +6525,23 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v39;
+      v54 = v39;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Skipping camera clip manager configure because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v36);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)stateDump
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"Subscribed Clients";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"Subscribed Clients";
   clientConnectionsTimer = [(HMDCameraClipManager *)self clientConnectionsTimer];
   clientConnections = [clientConnectionsTimer clientConnections];
   v4 = [clientConnections na_map:&__block_literal_global_145489];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -6654,7 +6558,7 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
 - (void)setHasWriteAccess:(BOOL)access
 {
   accessCopy = access;
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraClipManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6666,16 +6570,15 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      hasWriteAccess = self->_hasWriteAccess;
+      v10 = HMFBooleanToString();
       v11 = HMFBooleanToString();
-      v12 = HMFBooleanToString();
-      v15 = 138543874;
-      v16 = v9;
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
       v17 = 2112;
       v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating has write access from %@ to %@", &v15, 0x20u);
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating has write access from %@ to %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -6686,8 +6589,6 @@ id __82__HMDCameraClipManager_fetchSignificantEventsForClipWithSignificantEventW
       [zoneManager updateShareParticipants];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchSignificantEventsWithDateInterval:(id)interval
@@ -6728,7 +6629,7 @@ id __63__HMDCameraClipManager_fetchSignificantEventsWithDateInterval___block_inv
   v7 = array;
   [(HMDCameraClipManager *)self _fetchSignificantEventsWithDateInterval:intervalCopy isAscending:1 error:0 handler:v10];
 
-  v8 = [v7 copy];
+  v8 = objc_msgSend_copy(v7);
 
   return v8;
 }
@@ -6971,12 +6872,11 @@ LABEL_11:
 
 uint64_t __35__HMDCameraClipManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v149;
-  logCategory__hmf_once_v149 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v149;
+  logCategory__hmf_once_v149 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (double)maximumClipDuration

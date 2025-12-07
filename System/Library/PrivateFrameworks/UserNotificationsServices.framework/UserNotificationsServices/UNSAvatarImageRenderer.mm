@@ -40,9 +40,10 @@
 
 uint64_t __53__UNSAvatarImageRenderer_sharedInstanceForPointSize___block_invoke()
 {
-  sharedInstanceForPointSize____pointSizesToRenderers = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  sharedInstanceForPointSize____pointSizesToRenderers = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (void)renderAvatarForCommunicationContext:(id)context bundleIdentifier:(id)identifier compatibleWithTraitCollection:(id)collection completion:(id)completion
@@ -171,7 +172,7 @@ void __120__UNSAvatarImageRenderer_renderAvatarForCommunicationContext_bundleIde
 
 uint64_t __120__UNSAvatarImageRenderer_renderAvatarForCommunicationContext_bundleIdentifier_compatibleWithTraitCollection_completion___block_invoke_3(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
   if (v2)
   {
@@ -181,7 +182,7 @@ uint64_t __120__UNSAvatarImageRenderer_renderAvatarForCommunicationContext_bundl
   v3 = *MEMORY[0x277CE2070];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
+    v13 = *(a1 + 32);
     v4 = [*(a1 + 40) identifier];
     v5 = [v4 un_logDigest];
     if (*(*(*(a1 + 72) + 8) + 40))
@@ -232,28 +233,26 @@ uint64_t __120__UNSAvatarImageRenderer_renderAvatarForCommunicationContext_bundl
     }
 
     *buf = 138544898;
-    v16 = v14;
-    v17 = 2114;
-    v18 = v5;
-    v19 = 2114;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v7;
-    v23 = 2114;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v10;
-    v27 = 2114;
-    v28 = v11;
+    v15 = v13;
+    v16 = 2114;
+    v17 = v5;
+    v18 = 2114;
+    v19 = v6;
+    v20 = 2114;
+    v21 = v7;
+    v22 = 2114;
+    v23 = v8;
+    v24 = 2114;
+    v25 = v10;
+    v26 = 2114;
+    v27 = v11;
     _os_log_impl(&dword_270B08000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Context identifier:%{public}@ - Rendered avatar image: %{public}@. Tried System Image: %{public}@, Tried Bundle Image: %{public}@, Tried Ephemeral Contacts: %{public}@, Tried Silhouette Fallback of Name: %{public}@", buf, 0x48u);
     if (v9)
     {
     }
   }
 
-  result = [*(a1 + 56) _decrementAvatarImageGenerationQueueUsageCountAndInvalidateIfNeeded];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 56) _decrementAvatarImageGenerationQueueUsageCountAndInvalidateIfNeeded];
 }
 
 - (id)_initWithPointSize:(double)size
@@ -453,18 +452,16 @@ uint64_t __120__UNSAvatarImageRenderer_renderAvatarForCommunicationContext_bundl
 
 - (void)_imageNamed:(void *)a1 inBundleIdentifier:(void *)a2 traitCollection:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 un_logDigest];
-  v8 = 138543874;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a3;
-  v12 = 2112;
-  v13 = @"<NULL>";
-  _os_log_error_impl(&dword_270B08000, v5, OS_LOG_TYPE_ERROR, "Error loading image named '%{public}@' in bundle '%{public}@'. Error: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543874;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  v11 = 2112;
+  v12 = @"<NULL>";
+  _os_log_error_impl(&dword_270B08000, v5, OS_LOG_TYPE_ERROR, "Error loading image named '%{public}@' in bundle '%{public}@'. Error: %@", &v7, 0x20u);
 }
 
 @end

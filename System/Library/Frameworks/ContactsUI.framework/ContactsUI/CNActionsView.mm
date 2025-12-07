@@ -217,7 +217,7 @@ LABEL_9:
     else
     {
 
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionsView.m", 184, 3, @"CNActionView: Spacing specified is < 0, would result in overlapping views. Leaving unchanged.", v3, v4, v5, v6, v10);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionsView.m", 184, 3u, @"CNActionView: Spacing specified is < 0, would result in overlapping views. Leaving unchanged.", v3, v4, v5, v6, v10);
     }
   }
 }

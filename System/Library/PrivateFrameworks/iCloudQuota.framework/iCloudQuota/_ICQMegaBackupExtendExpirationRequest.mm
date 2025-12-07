@@ -30,11 +30,11 @@
 
 - (id)additionalRequestHeaders
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CF0168]);
-  v9 = 0;
-  v3 = [v2 anisetteDataWithError:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [v2 anisetteDataWithError:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = [MEMORY[0x277CCAB70] ak_anisetteHeadersWithData:v3];
@@ -46,44 +46,40 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get anisette data: %@", buf, 0xCu);
     }
 
     v5 = MEMORY[0x277CBEC10];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)bodyJSON
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   requestedExpirationDate = self->_requestedExpirationDate;
   if (requestedExpirationDate)
   {
     deviceBackupUUID = self->_deviceBackupUUID;
-    v12[0] = @"deviceBackupUdid";
-    v12[1] = @"newExpirationDate";
-    v13[0] = deviceBackupUUID;
+    v11[0] = @"deviceBackupUdid";
+    v11[1] = @"newExpirationDate";
+    v12[0] = deviceBackupUUID;
     v4 = MEMORY[0x277CCABB0];
     [(NSDate *)requestedExpirationDate timeIntervalSince1970];
     v5 = [v4 numberWithDouble:?];
-    v13[1] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   }
 
   else
   {
     v7 = self->_deviceBackupUUID;
-    v10 = @"deviceBackupUdid";
-    v11 = v7;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v9 = @"deviceBackupUdid";
+    v10 = v7;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -102,10 +98,10 @@
 - (id)handleResponse:(id)response body:(id)body
 {
   bodyCopy = body;
-  v6 = [bodyCopy objectForKeyedSubscript:@"extensionAllowed"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(bodyCopy);
   self->_extensionAllowed = [v6 BOOLValue];
 
-  v7 = [bodyCopy objectForKeyedSubscript:@"newExpirationDate"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(bodyCopy);
 
   if (v7)
   {

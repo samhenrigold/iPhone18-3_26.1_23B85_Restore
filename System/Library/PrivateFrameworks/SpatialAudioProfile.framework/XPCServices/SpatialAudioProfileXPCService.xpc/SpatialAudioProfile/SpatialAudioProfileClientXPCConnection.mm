@@ -53,7 +53,7 @@ LABEL_11:
       if (error)
       {
 LABEL_12:
-        v11 = NSErrorF();
+        v11 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement '%@' or '%@'", @"com.apple.SpatialAudioProfile", @"com.apple.developer.spatial-audio.profile-access");
         v12 = v11;
         result = 0;
         *error = v11;
@@ -77,7 +77,7 @@ LABEL_12:
   {
     if (dword_100008860 <= 30 && (dword_100008860 != -1 || _LogCategory_Initialize()))
     {
-      sub_100001CE8();
+      sub_100001CE8(v4);
     }
 
     [(SpatialAudioProfileClient *)v4 invalidate];
@@ -87,56 +87,66 @@ LABEL_12:
 - (void)fetchSpatialAudioProfileRecordForClient:(id)client WithCompletion:(id)completion
 {
   clientCopy = client;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1000015F8;
-  v25 = sub_100001608;
-  v26 = 0;
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100001610;
-  v18[3] = &unk_1000041D0;
-  v20 = &v21;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000015F8;
+  v24 = sub_100001608;
+  v25 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100001610;
+  v17[3] = &unk_1000041D0;
+  v19 = &v20;
   completionCopy = completion;
-  v19 = completionCopy;
-  v9 = objc_retainBlock(v18);
+  v18 = completionCopy;
+  v9 = objc_retainBlock(v17);
   if (dword_100008860 <= 30 && (dword_100008860 != -1 || _LogCategory_Initialize()))
   {
-    v14 = clientCopy;
-    LogPrintF();
+    LogPrintF(&dword_100008860, "[SpatialAudioProfileClientXPCConnection fetchSpatialAudioProfileRecordForClient:WithCompletion:]", 30, "Fetching spatial sound profile for client: %@", clientCopy);
   }
 
-  v10 = (v22 + 5);
-  obj = v22[5];
-  v11 = [(SpatialAudioProfileClientXPCConnection *)self _entitledAndReturnError:&obj, v14];
+  v10 = (v21 + 5);
+  obj = v21[5];
+  v11 = [(SpatialAudioProfileClientXPCConnection *)self _entitledAndReturnError:&obj];
   objc_storeStrong(v10, obj);
   if (v11)
   {
     objc_storeStrong(&self->_spatialAudioProfileClient, client);
-    if ((_os_feature_enabled_impl() & 1) != 0 && completionCopy)
+    if (_os_feature_enabled_impl())
     {
-      v12 = objc_alloc_init(BTCloudServicesClient);
-      [v12 setDispatchQueue:self->_dispatchQueue];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_1000016EC;
-      v15[3] = &unk_1000041F8;
-      v16 = completionCopy;
-      [v12 fetchSoundProfileRecordWithCompletion:v15];
+      if (completionCopy)
+      {
+        v12 = objc_alloc_init(BTCloudServicesClient);
+        [v12 setDispatchQueue:self->_dispatchQueue];
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_1000016EC;
+        v14[3] = &unk_1000041F8;
+        v15 = completionCopy;
+        [v12 fetchSoundProfileRecordWithCompletion:v14];
+
+LABEL_9:
+        goto LABEL_10;
+      }
+
+      v13 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "No completion provided");
     }
 
     else
     {
-      v13 = NSErrorF();
-      v12 = v22[5];
-      v22[5] = v13;
+      v13 = NSErrorF(NSOSStatusErrorDomain, 4294960561, "Feature flag disabled");
     }
+
+    v12 = v21[5];
+    v21[5] = v13;
+    goto LABEL_9;
   }
 
+LABEL_10:
   (v9[2])(v9);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 @end

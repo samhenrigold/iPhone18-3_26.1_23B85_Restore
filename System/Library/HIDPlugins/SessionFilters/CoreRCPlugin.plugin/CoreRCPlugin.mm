@@ -8,7 +8,7 @@ void sub_FF0(_Unwind_Exception *a1)
 
 void sub_101C(uint64_t a1)
 {
-  v2 = CoreRCPluginLog();
+  v2 = CoreRCPluginLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -56,7 +56,7 @@ void sub_101C(uint64_t a1)
 
 void sub_1174(uint64_t a1)
 {
-  v2 = CoreRCPluginLog();
+  v2 = CoreRCPluginLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -122,7 +122,7 @@ void sub_12CC(void *a1, io_iterator_t a2)
           v8 = v3[5];
           if (!v8)
           {
-            v9 = CoreRCPluginLog();
+            v9 = CoreRCPluginLog(0);
             if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
             {
               sub_3F04(&v10, v11, v9);
@@ -164,15 +164,15 @@ void sub_13C4(void *a1, io_iterator_t a2)
         entryID = 0;
         memset(name, 0, 128);
         IORegistryEntryGetName(v5, name);
-        IORegistryEntryGetRegistryEntryID(v5, &entryID);
-        v6 = CoreRCPluginLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        RegistryEntryID = IORegistryEntryGetRegistryEntryID(v5, &entryID);
+        v7 = CoreRCPluginLog(RegistryEntryID);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v9 = entryID;
-          v10 = 2080;
-          v11 = name;
-          _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "serviceNotificationAnalyticsEDID service published: 0x%llX : %s", buf, 0x16u);
+          v10 = entryID;
+          v11 = 2080;
+          v12 = name;
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "serviceNotificationAnalyticsEDID service published: 0x%llX : %s", buf, 0x16u);
         }
 
         [v3 sendEDIDAnalyticsForService:v5];
@@ -206,15 +206,15 @@ void sub_1534(void *a1, io_iterator_t a2)
         entryID = 0;
         memset(name, 0, 128);
         IORegistryEntryGetName(v5, name);
-        IORegistryEntryGetRegistryEntryID(v5, &entryID);
-        v6 = CoreRCPluginLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        RegistryEntryID = IORegistryEntryGetRegistryEntryID(v5, &entryID);
+        v7 = CoreRCPluginLog(RegistryEntryID);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v9 = entryID;
-          v10 = 2080;
-          v11 = name;
-          _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "serviceNotificationAnalyticsPCON service published: 0x%llX : %s", buf, 0x16u);
+          v10 = entryID;
+          v11 = 2080;
+          v12 = name;
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "serviceNotificationAnalyticsPCON service published: 0x%llX : %s", buf, 0x16u);
         }
 
         [v3 sendPCONAnalyticsForService:v5];
@@ -234,10 +234,11 @@ void sub_1534(void *a1, io_iterator_t a2)
   }
 }
 
-void sub_2030(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2030(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 id sub_2050()
@@ -252,7 +253,7 @@ void *sub_2A9C(void *result)
   v2 = result[4];
   if (*(v2 + 16) && *(v2 + 24) && *(v2 + 34) == 1)
   {
-    v3 = CoreRCPluginLog();
+    v3 = CoreRCPluginLog(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -272,7 +273,7 @@ void sub_36C0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = CoreRCPluginLog();
+  v7 = CoreRCPluginLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) displayId];
@@ -348,16 +349,16 @@ LABEL_12:
 LABEL_13:
 }
 
-id CoreRCPluginLog()
+id CoreRCPluginLog(uint64_t a1)
 {
   if (qword_CF10 != -1)
   {
     sub_46F4();
   }
 
-  v1 = qword_CF08;
+  v2 = qword_CF08;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A60(id a1)
@@ -367,30 +368,39 @@ void sub_3A60(id a1)
   _objc_release_x1();
 }
 
-void sub_3D30()
+void sub_3D30(uint64_t a1)
 {
-  v0 = CoreRCPluginLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = a1;
+  v2 = CoreRCPluginLog(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_2030(&dword_0, v1, v2, "Error adding DCP driver matching notification 0x%x", v3, v4, v5, v6, 0);
+    LODWORD(v9) = 67109120;
+    HIDWORD(v9) = v1;
+    sub_2030(&dword_0, v3, v4, "Error adding DCP driver matching notification 0x%x", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_3DCC()
+void sub_3DCC(uint64_t a1)
 {
-  v0 = CoreRCPluginLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = a1;
+  v2 = CoreRCPluginLog(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_2030(&dword_0, v1, v2, "Failed to add IOAVVideoInterface matching notification for analytics 0x%x", v3, v4, v5, v6, 0);
+    LODWORD(v9) = 67109120;
+    HIDWORD(v9) = v1;
+    sub_2030(&dword_0, v3, v4, "Failed to add IOAVVideoInterface matching notification for analytics 0x%x", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_3E68()
+void sub_3E68(uint64_t a1)
 {
-  v0 = CoreRCPluginLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = a1;
+  v2 = CoreRCPluginLog(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_2030(&dword_0, v1, v2, "Failed to add IODPDevice matching notification for analytics 0x%x", v3, v4, v5, v6, 0);
+    LODWORD(v9) = 67109120;
+    HIDWORD(v9) = v1;
+    sub_2030(&dword_0, v3, v4, "Failed to add IODPDevice matching notification for analytics 0x%x", v5, v6, v7, v8, v9);
   }
 }
 
@@ -425,20 +435,20 @@ void sub_42B4(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"CoreRCDisplay.m" lineNumber:68 description:{@"queue is null", 0}];
 }
 
-void sub_4328()
+void sub_4328(uint64_t a1)
 {
-  v0 = CoreRCPluginLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = CoreRCPluginLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_3364();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }
 
 void sub_43C8(uint64_t a1)
 {
   *(a1 + 34) = 1;
-  v1 = CoreRCPluginLog();
+  v1 = CoreRCPluginLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -449,7 +459,7 @@ void sub_43C8(uint64_t a1)
 void sub_4438(uint64_t a1)
 {
   *(a1 + 34) = 1;
-  v1 = CoreRCPluginLog();
+  v1 = CoreRCPluginLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_3364();
@@ -457,12 +467,12 @@ void sub_4438(uint64_t a1)
   }
 }
 
-void sub_4610()
+void sub_4610(uint64_t a1)
 {
-  v0 = CoreRCPluginLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = CoreRCPluginLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_3364();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }

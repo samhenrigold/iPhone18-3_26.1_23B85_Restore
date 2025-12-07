@@ -10,62 +10,63 @@
 
 - (id)openForReadingContentsOfURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v8 = objc_msgSend_fileSystemRepresentation(l, v6, v7);
-  v9 = fopen(v8, "r");
-  if (!v9)
+  v6 = fopen([l fileSystemRepresentation], "r");
+  if (!v6)
   {
-    v14 = OdmlLogForCategory(7uLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(7uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = objc_opt_class();
-      v15 = v31;
-      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] ERROR: Unable to open file.", buf, 0xCu);
+      v24 = objc_opt_class();
+      v10 = v24;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@] ERROR: Unable to open file.", buf, 0xCu);
     }
 
-    objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v16, @"APOdmlFeatureCalculatorErrorDomain", 3001, 0);
+    v11 = MEMORY[0x277CCA9B8];
+    v12 = &kAPOdmlAllowListFileOpenErrorCode;
     goto LABEL_20;
   }
 
-  v10 = v9;
+  v7 = v6;
   __ptr = 0;
-  if (fread(&__ptr, 8uLL, 1uLL, v9) != 1)
+  if (fread(&__ptr, 8uLL, 1uLL, v6) != 1)
   {
-    if (feof(v10))
+    if (feof(v7))
     {
-      v17 = OdmlLogForCategory(7uLL);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v13 = OdmlLogForCategory(7uLL);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v18 = objc_opt_class();
+        v14 = objc_opt_class();
         *buf = 138412290;
-        v31 = v18;
-        v19 = v18;
-        v20 = "[%@] Reached EOF reading header of file.";
+        v24 = v14;
+        v15 = v14;
+        v16 = "[%@] Reached EOF reading header of file.";
 LABEL_17:
-        _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
+        _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
       }
     }
 
     else
     {
-      if (!ferror(v10))
+      if (!ferror(v7))
       {
 LABEL_19:
-        fclose(v10);
-        objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v26, @"APOdmlFeatureCalculatorErrorDomain", 3002, 0);
+        fclose(v7);
+        v11 = MEMORY[0x277CCA9B8];
+        v12 = &kAPOdmlAllowListFileReadErrorCode;
         goto LABEL_20;
       }
 
-      v17 = OdmlLogForCategory(7uLL);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v13 = OdmlLogForCategory(7uLL);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
+        v20 = objc_opt_class();
         *buf = 138412290;
-        v31 = v25;
-        v19 = v25;
-        v20 = "[%@] Internal inconsistency reading file. Failed to read header.";
+        v24 = v20;
+        v15 = v20;
+        v16 = "[%@] Internal inconsistency reading file. Failed to read header.";
         goto LABEL_17;
       }
     }
@@ -75,30 +76,30 @@ LABEL_19:
 
   if (__ptr == 1447253107)
   {
-    objc_msgSend_setFile_(self, v11, v10);
-    objc_msgSend_setNumberOfIDs_(self, v12, HIDWORD(__ptr));
-    v13 = 0;
+    [(APOdmlAllowListReader *)self setFile:v7];
+    [(APOdmlAllowListReader *)self setNumberOfIDs:HIDWORD(__ptr)];
+    v8 = 0;
     goto LABEL_21;
   }
 
-  v21 = OdmlLogForCategory(7uLL);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v17 = OdmlLogForCategory(7uLL);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v22 = objc_opt_class();
+    v18 = objc_opt_class();
     *buf = 138412290;
-    v31 = v22;
-    v23 = v22;
-    _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_ERROR, "[%@] Internal inconsistency reading file. Invalid header for file.", buf, 0xCu);
+    v24 = v18;
+    v19 = v18;
+    _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, "[%@] Internal inconsistency reading file. Invalid header for file.", buf, 0xCu);
   }
 
-  fclose(v10);
-  objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v24, @"APOdmlFeatureCalculatorErrorDomain", 3003, 0);
-  v13 = LABEL_20:;
+  fclose(v7);
+  v11 = MEMORY[0x277CCA9B8];
+  v12 = &kAPOdmlAllowListFileInvalidErrorCode;
+LABEL_20:
+  v8 = [v11 errorWithDomain:@"APOdmlFeatureCalculatorErrorDomain" code:*v12 userInfo:0];
 LABEL_21:
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v8;
 }
 
 - (void)dealloc
@@ -117,58 +118,55 @@ LABEL_21:
 
 - (id)nextLine
 {
-  v34 = *MEMORY[0x277D85DE8];
-  Index = objc_msgSend_nextIndex(self, a2, v2);
-  if (objc_msgSend_numberOfIDs(self, v5, v6) <= Index)
+  v18 = *MEMORY[0x277D85DE8];
+  nextIndex = [(APOdmlAllowListReader *)self nextIndex];
+  if ([(APOdmlAllowListReader *)self numberOfIDs]<= nextIndex)
   {
     goto LABEL_16;
   }
 
   __ptr = 0;
-  v31 = 0;
-  v9 = objc_msgSend_file(self, v7, v8);
-  if (fread(&__ptr, 0x10uLL, 1uLL, v9) == 1)
+  v15 = 0;
+  if (fread(&__ptr, 0x10uLL, 1uLL, [(APOdmlAllowListReader *)self file]) == 1)
   {
     if (__ptr == 1447253074)
     {
-      v12 = objc_msgSend_nextIndex(self, v10, v11);
-      objc_msgSend_setNextIndex_(self, v13, (v12 + 1));
-      v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%llu", v31);
+      [(APOdmlAllowListReader *)self setNextIndex:[(APOdmlAllowListReader *)self nextIndex]+ 1];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", v15];
       goto LABEL_17;
     }
 
-    v19 = OdmlLogForCategory(7uLL);
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v5 = OdmlLogForCategory(7uLL);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v23 = objc_opt_class();
+    v9 = objc_opt_class();
     *buf = 138412290;
-    v33 = v23;
-    v21 = v23;
-    v22 = "[%@] Internal inconsistency reading file. Missing signature for start of next ID.";
-    v24 = v19;
-    v25 = OS_LOG_TYPE_DEFAULT;
+    v17 = v9;
+    v7 = v9;
+    v8 = "[%@] Internal inconsistency reading file. Missing signature for start of next ID.";
+    v10 = v5;
+    v11 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_14;
   }
 
-  v16 = objc_msgSend_file(self, v10, v11);
-  if (feof(v16))
+  if (feof([(APOdmlAllowListReader *)self file]))
   {
-    v19 = OdmlLogForCategory(7uLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v5 = OdmlLogForCategory(7uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
+      v6 = objc_opt_class();
       *buf = 138412290;
-      v33 = v20;
-      v21 = v20;
-      v22 = "[%@] Reached EOF reading ID.";
+      v17 = v6;
+      v7 = v6;
+      v8 = "[%@] Reached EOF reading ID.";
 LABEL_13:
-      v24 = v19;
-      v25 = OS_LOG_TYPE_ERROR;
+      v10 = v5;
+      v11 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-      _os_log_impl(&dword_260ECB000, v24, v25, v22, buf, 0xCu);
+      _os_log_impl(&dword_260ECB000, v10, v11, v8, buf, 0xCu);
 
       goto LABEL_15;
     }
@@ -176,17 +174,16 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v26 = objc_msgSend_file(self, v17, v18);
-  if (ferror(v26))
+  if (ferror([(APOdmlAllowListReader *)self file]))
   {
-    v19 = OdmlLogForCategory(7uLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v5 = OdmlLogForCategory(7uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v27 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138412290;
-      v33 = v27;
-      v21 = v27;
-      v22 = "[%@] Internal inconsistency reading file. Failed to read header for ID.";
+      v17 = v12;
+      v7 = v12;
+      v8 = "[%@] Internal inconsistency reading file. Failed to read header for ID.";
       goto LABEL_13;
     }
 
@@ -194,34 +191,33 @@ LABEL_15:
   }
 
 LABEL_16:
-  v15 = 0;
+  v4 = 0;
 LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
 
-  return v15;
+  return v4;
 }
 
 - (id)readFile
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v6 = objc_msgSend_nextLine(self, v4, v5);
-  if (v6)
+  nextLine = [(APOdmlAllowListReader *)self nextLine];
+  if (nextLine)
   {
-    v9 = v6;
+    v5 = nextLine;
     do
     {
-      objc_msgSend_addObject_(v3, v7, v9);
-      v12 = objc_msgSend_nextLine(self, v10, v11);
+      [v3 addObject:v5];
+      nextLine2 = [(APOdmlAllowListReader *)self nextLine];
 
-      v9 = v12;
+      v5 = nextLine2;
     }
 
-    while (v12);
+    while (nextLine2);
   }
 
-  v13 = objc_msgSend_copy(v3, v7, v8);
+  v7 = [v3 copy];
 
-  return v13;
+  return v7;
 }
 
 - (void)setFile:(__sFILE *)file

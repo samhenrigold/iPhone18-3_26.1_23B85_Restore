@@ -3,11 +3,12 @@
 
 @implementation DKSync2Coordinator
 
-void __39___DKSync2Coordinator_initWithContext___block_invoke(uint64_t a1, void *a2, int a3)
+void __39___DKSync2Coordinator_initWithContext___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [(_DKSync2Coordinator *)WeakRetained handleDataProtectionChangeFor:v5 willBeAvailable:a3];
+  [(_DKSync2Coordinator *)WeakRetained handleDataProtectionChangeFor:v5 willBeAvailable:v3];
 }
 
 void __39___DKSync2Coordinator_initWithContext___block_invoke_2(uint64_t a1)
@@ -41,11 +42,11 @@ uint64_t __88___DKSync2Coordinator_shouldDeferSyncOperationWithClass_syncType_tr
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-uint64_t __51___DKSync2Coordinator_fetchSourceDeviceIDFromPeer___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
+id *__51___DKSync2Coordinator_fetchSourceDeviceIDFromPeer___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  [(_DKSync2Coordinator *)*(a1 + 32) handleFetchedSourceDeviceID:a2 version:a3 fromPeer:*(a1 + 40) error:a4];
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
+  [(_DKSync2Coordinator *)a1[4] handleFetchedSourceDeviceID:a2 version:a3 fromPeer:a1[5] error:a4];
+  v5 = a1[4];
+  v6 = a1[6];
 
   return [(_DKSync2Coordinator *)v5 removeBusyTransaction:v6];
 }
@@ -64,7 +65,7 @@ void __37___DKSync2Coordinator_syncWithReply___block_invoke(uint64_t a1)
 
 void __37___DKSync2Coordinator_syncWithReply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_CDLogging syncChannel];
   v5 = v4;
@@ -78,20 +79,17 @@ void __37___DKSync2Coordinator_syncWithReply___block_invoke_2(uint64_t a1, void 
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Syncing succeeded", &v10, 0xCu);
+    v6 = [objc_opt_class() description];
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Syncing succeeded", &v8, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v7 = *(a1 + 40);
+  if (v7)
   {
-    (*(v8 + 16))(v8, v3 == 0, v3);
+    (*(v7 + 16))(v7, v3 == 0, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59___DKSync2Coordinator_synchronizeWithUrgency_client_reply___block_invoke(uint64_t a1)
@@ -120,7 +118,7 @@ uint64_t __59___DKSync2Coordinator_synchronizeWithUrgency_client_reply___block_i
 
 void __65___DKSync2Coordinator__synchronizeWithUrgency_client_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_CDLogging syncChannel];
   v5 = v4;
@@ -134,78 +132,68 @@ void __65___DKSync2Coordinator__synchronizeWithUrgency_client_completion___block
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Syncing succeeded", &v10, 0xCu);
+    v6 = [objc_opt_class() description];
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Syncing succeeded", &v8, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v7 = *(a1 + 40);
+  if (v7)
   {
-    (*(v8 + 16))(v8, v3);
+    (*(v7 + 16))(v7, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59___DKSync2Coordinator__performSyncWithSyncType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() description];
-    v14 = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Finishing sync", &v14, 0xCu);
+    v5 = [objc_opt_class() description];
+    v11 = 138543362;
+    v12 = v5;
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Finishing sync", &v11, 0xCu);
   }
 
   [(_DKSync2State *)*(a1 + 40) finishWithError:v3];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v8 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v9 = *(WeakRetained + 12);
-    if (v9 == *(a1 + 40))
+    v8 = *(WeakRetained + 12);
+    if (v8 == *(a1 + 40))
     {
       *(WeakRetained + 12) = 0;
     }
   }
 
-  v10 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
-    v12 = [objc_opt_class() description];
-    v14 = 138543362;
-    v15 = v12;
-    _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished sync", &v14, 0xCu);
+    v10 = [objc_opt_class() description];
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished sync", &v11, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __51___DKSync2Coordinator___performSyncWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = +[_DKSyncSerializer underlyingQueue];
-  dispatch_assert_queue_V2(v2);
-
-  v3 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() description];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_191750000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Started sync operations", &v7, 0xCu);
-  }
-
   v6 = *MEMORY[0x1E69E9840];
+  v1 = +[_DKSyncSerializer underlyingQueue];
+  dispatch_assert_queue_V2(v1);
+
+  v2 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = [objc_opt_class() description];
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Started sync operations", &v4, 0xCu);
+  }
 }
 
 uint64_t __51___DKSync2Coordinator___performSyncWithCompletion___block_invoke_643(uint64_t a1)
@@ -301,35 +289,32 @@ void __56___DKSync2Coordinator__registerPeriodicJobWithInterval___block_invoke(u
 
 void __60___DKSync2Coordinator__registerRapportLaunchOnDemandHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  string = xpc_dictionary_get_string(v3, *MEMORY[0x1E69E9E40]);
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  string = xpc_dictionary_get_string(v2, *MEMORY[0x1E69E9E40]);
   if (string)
   {
     if (!strcmp(string, "OnIncomingRequest"))
     {
-      v5 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v4 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
-        v7 = [objc_opt_class() description];
-        v10 = 138543362;
-        v11 = v7;
-        _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Launched by Rapport to service a request", &v10, 0xCu);
+        v5 = [objc_opt_class() description];
+        v7 = 138543362;
+        v8 = v5;
+        _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Launched by Rapport to service a request", &v7, 0xCu);
       }
     }
 
-    if (xpc_dictionary_get_BOOL(v3, "replyRequired"))
+    if (xpc_dictionary_get_BOOL(v2, "replyRequired"))
     {
-      reply = xpc_dictionary_create_reply(v3);
+      reply = xpc_dictionary_create_reply(v2);
       if (reply)
       {
         xpc_dictionary_send_reply();
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __77___DKSync2Coordinator__deleteNextBatchOfOurSiriEventsFromCloudWithStartDate___block_invoke(uint64_t a1, void *a2)
@@ -367,23 +352,23 @@ void __77___DKSync2Coordinator__deleteNextBatchOfOurSiriEventsFromCloudWithStart
 
 void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (state != 2)
   {
     if (!state)
     {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_2;
-      v9[3] = &unk_1E73676C0;
-      objc_copyWeak(&v11, (a1 + 32));
-      v10 = v3;
-      v12 = *(a1 + 40);
-      [_DKSyncSerializer performSyncBlock:v9];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_2;
+      v8[3] = &unk_1E73676C0;
+      objc_copyWeak(&v10, (a1 + 32));
+      v9 = v3;
+      v11 = *(a1 + 40);
+      [_DKSyncSerializer performSyncBlock:v8];
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v10);
     }
 
     goto LABEL_13;
@@ -392,15 +377,15 @@ void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___blo
   if (xpc_activity_set_state(v3, 4))
   {
 LABEL_12:
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_715;
-    v6[3] = &unk_1E73675D0;
-    objc_copyWeak(&v8, (a1 + 32));
-    v7 = v3;
-    [_DKSyncSerializer performAsyncBlock:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_715;
+    v5[3] = &unk_1E73675D0;
+    objc_copyWeak(&v7, (a1 + 32));
+    v6 = v3;
+    [_DKSyncSerializer performAsyncBlock:v5];
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
     goto LABEL_13;
   }
 
@@ -418,14 +403,12 @@ LABEL_12:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Warning: deferring activity '%@' before it started", buf, 0xCu);
   }
 
   xpc_activity_set_state(v3, 3);
 LABEL_13:
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_715(uint64_t a1)
@@ -436,33 +419,30 @@ void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___blo
 
 void __83___DKSync2Coordinator_APSConnectionDelegate__connection_didReceiveIncomingMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = +[_CDLogging syncChannel];
-  v5 = v4;
-  if (v3)
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = +[_CDLogging syncChannel];
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __83___DKSync2Coordinator_APSConnectionDelegate__connection_didReceiveIncomingMessage___block_invoke_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Push-triggered sync succeeded", &v9, 0xCu);
+    v5 = [objc_opt_class() description];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Push-triggered sync succeeded", &v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __108___DKSync2Coordinator__DKKnowledgeStorageEventNotificationDelegate___databaseDidDeleteFromStreamNameCounts___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_CDLogging syncChannel];
   v5 = v4;
@@ -476,22 +456,18 @@ void __108___DKSync2Coordinator__DKKnowledgeStorageEventNotificationDelegate___d
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
-    v10 = 138543618;
+    v6 = [objc_opt_class() description];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
     v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Delete of %@ event streams triggered sync attempt succeeded", &v10, 0x16u);
+    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Delete of %@ event streams triggered sync attempt succeeded", &v8, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __42___DKSync2Coordinator__performPeriodicJob__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [(_DKSync2Coordinator *)*(a1 + 32) _finishActivityWithError:v3];
   v4 = +[_CDLogging syncChannel];
@@ -500,13 +476,12 @@ void __42___DKSync2Coordinator__performPeriodicJob__block_invoke(uint64_t a1, vo
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = [objc_opt_class() description];
-      v8 = [v3 domain];
+      v6 = [objc_opt_class() description];
+      v7 = [v3 domain];
       [v3 code];
       OUTLINED_FUNCTION_1_2();
       OUTLINED_FUNCTION_11_1();
-      _os_log_error_impl(v9, v10, OS_LOG_TYPE_ERROR, v11, v12, 0x2Au);
+      _os_log_error_impl(v8, v9, OS_LOG_TYPE_ERROR, v10, v11, 0x2Au);
 
 LABEL_6:
     }
@@ -514,15 +489,12 @@ LABEL_6:
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v7 = [objc_opt_class() description];
+    v6 = [objc_opt_class() description];
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_4_2();
-    _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
+    _os_log_impl(v12, v13, v14, v15, v16, 0xCu);
     goto LABEL_6;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __60___DKSync2Coordinator__registerCloudSyncAvailablityObserver__block_invoke(uint64_t a1)
@@ -557,20 +529,16 @@ void __58___DKSync2Coordinator__registerRapportAvailablityObserver__block_invoke
 
 void __49___DKSync2Coordinator__runTriggeredSyncActivity___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [(_DKSync2Coordinator *)WeakRetained _unregisterTriggeredSyncActivity];
-  v4 = +[_CDLogging syncChannel];
-  if (OUTLINED_FUNCTION_19_1(v4))
+  v3 = +[_CDLogging syncChannel];
+  if (OUTLINED_FUNCTION_19_1(v3))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() description];
+    v4 = [objc_opt_class() description];
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_4_2();
-    _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_2(uint64_t a1)
@@ -582,38 +550,32 @@ void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___blo
 void __37___DKSync2Coordinator_syncWithReply___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_24_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __42___DKSync2Coordinator__performInitialSync__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_24_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __77___DKSync2Coordinator__deleteNextBatchOfOurSiriEventsFromCloudWithStartDate___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *(v2 + 40);
   [objc_opt_class() description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
@@ -621,58 +583,46 @@ void __77___DKSync2Coordinator__deleteNextBatchOfOurSiriEventsFromCloudWithStart
   OUTLINED_FUNCTION_24_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __77___DKSync2Coordinator__deleteNextBatchOfOurSiriEventsFromCloudWithStartDate___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = [objc_opt_class() description];
-  OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "%{public}@: Failed to find event creation date while deleting local Siri events", v6, 0xCu);
-
   v5 = *MEMORY[0x1E69E9840];
+  v3 = [objc_opt_class() description];
+  OUTLINED_FUNCTION_1();
+  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "%{public}@: Failed to find event creation date while deleting local Siri events", v4, 0xCu);
 }
 
 void __67___DKSync2Coordinator__registerTriggeredSyncActivityWithIsStartup___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set activity '%@' state to continue", v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set activity '%@' state to continue", v0, 0xCu);
 }
 
 void __83___DKSync2Coordinator_APSConnectionDelegate__connection_didReceiveIncomingMessage___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  [OUTLINED_FUNCTION_34(v2 *MEMORY[0x1E69E9840])];
+  [OUTLINED_FUNCTION_34(*MEMORY[0x1E69E9840]) description];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_16_0() domain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_24_0();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void __108___DKSync2Coordinator__DKKnowledgeStorageEventNotificationDelegate___databaseDidDeleteFromStreamNameCounts___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() description];
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
-  v7 = [a2 domain];
+  v4 = [objc_opt_class() description];
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
+  v6 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_25();
   OUTLINED_FUNCTION_11_1();
-  _os_log_error_impl(v8, v9, OS_LOG_TYPE_ERROR, v10, v11, 0x34u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v7, v8, OS_LOG_TYPE_ERROR, v9, v10, 0x34u);
 }
 
 @end

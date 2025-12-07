@@ -34,7 +34,7 @@
   if ((v4 & 1) == 0 && entryType != 4)
   {
     entryAssets = [(PLCloudFeedAssetsEntry *)self entryAssets];
-    v4 = [entryAssets count] == 0;
+    v4 = objc_msgSend_count(entryAssets) == 0;
   }
 
   return v4;

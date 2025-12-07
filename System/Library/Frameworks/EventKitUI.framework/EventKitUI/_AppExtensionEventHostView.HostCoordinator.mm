@@ -38,6 +38,10 @@
   colorCopy = color;
   selfCopy = self;
   sub_1D35BAD48(v12, v14, v15, v17, style, rectCopy, sizeCopy, color);
+
+  v14, v22, v23, v24, v25, v26, v27, v28;
+
+  v17, v29, v30, v31, v32, v33, v34, v35;
 }
 
 - (void)requestDismissViewWithName:(id)name presentationStyle:(int64_t)style
@@ -56,6 +60,8 @@
 
   selfCopy = self;
   sub_1D35BB1C4(v6, v8, style);
+
+  v8, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)didCompleteWithAction:(int64_t)action

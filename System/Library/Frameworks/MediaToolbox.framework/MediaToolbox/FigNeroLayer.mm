@@ -57,7 +57,7 @@
   return v3;
 }
 
-uint64_t __21__FigNeroLayer_start__block_invoke(uint64_t a1)
+void *__21__FigNeroLayer_start__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _start];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -70,7 +70,7 @@ void __20__FigNeroLayer_stop__block_invoke(uint64_t a1)
   {
     CMNotificationCenterGetDefaultLocalCenter();
     CMNotificationCenterRemoveListener();
-    FigBytePumpGetFigBaseObject(*(*(a1 + 32) + 56));
+    FigBytePumpGetFigBaseObject();
     if (v2)
     {
       v3 = v2;
@@ -120,19 +120,19 @@ void __20__FigNeroLayer_stop__block_invoke(uint64_t a1)
 
 void __26__FigNeroLayer_setBounds___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if (v2[7])
+  v1 = *(a1 + 32);
+  if (v1[7])
   {
-    [v2 bounds];
-    v10.width = v3;
-    v10.height = v4;
-    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v10);
-    FigBytePumpGetFigBaseObject(*(*(a1 + 32) + 56));
-    v7 = v6;
-    v8 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v8)
+    [v1 bounds];
+    v9.width = v2;
+    v9.height = v3;
+    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v9);
+    FigBytePumpGetFigBaseObject();
+    v6 = v5;
+    v7 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v7)
     {
-      v8(v7, 0x1F0B31798, DictionaryRepresentation);
+      v7(v6, 0x1F0B31798, DictionaryRepresentation);
     }
 
     if (DictionaryRepresentation)
@@ -183,7 +183,7 @@ void __26__FigNeroLayer_setBounds___block_invoke(uint64_t a1)
   result = FigNeroidCreateRemote(*MEMORY[0x1E695E480], &self->_neroid);
   if (!result)
   {
-    FigBytePumpGetFigBaseObject(self->_neroid);
+    FigBytePumpGetFigBaseObject();
     v5 = v4;
     v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
     if (v6)

@@ -143,7 +143,7 @@ LABEL_13:
 
 void __60__MFTaskAssertion_initWithName_expiration_preventIdleSleep___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = +[MFTaskAssertion log];
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
@@ -151,24 +151,22 @@ void __60__MFTaskAssertion_initWithName_expiration_preventIdleSleep___block_invo
     if (v5)
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
+      v9 = 138543362;
+      v10 = v6;
       v7 = "Acquired task assertion: %{public}@";
 LABEL_6:
-      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
+      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, v7, &v9, 0xCu);
     }
   }
 
   else if (v5)
   {
     v8 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v8;
+    v9 = 138543362;
+    v10 = v8;
     v7 = "could not aquire task assertion: %{public}@";
     goto LABEL_6;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

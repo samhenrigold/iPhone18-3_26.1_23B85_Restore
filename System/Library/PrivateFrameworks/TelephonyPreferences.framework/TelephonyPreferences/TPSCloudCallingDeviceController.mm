@@ -48,7 +48,7 @@
 
 - (void)didChangeCloudCallingDevices
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

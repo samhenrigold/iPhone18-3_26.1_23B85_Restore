@@ -28,7 +28,7 @@ uint64_t __33__WFMetricsManager_sharedManager__block_invoke()
 
 - (void)processEvent:(id)event
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = eventCopy;
   if (eventCopy)
@@ -42,66 +42,65 @@ uint64_t __33__WFMetricsManager_sharedManager__block_invoke()
     {
       v6 = WFLogForCategory(0);
       v7 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+      v8 = v7;
+      if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
       {
-        v9 = 138412290;
-        v10 = v5;
-        _os_log_impl(&dword_273ECD000, v6, v7, "%@ does not conform to event protocol", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v5;
+        _os_log_impl(&dword_273ECD000, v6, v8, "%@ does not conform to event protocol", &v10, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitCAEvent:(id)event
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   eventName = [eventCopy eventName];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__1;
-  v20 = __Block_byref_object_dispose__1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__1;
+  v23 = __Block_byref_object_dispose__1;
   eventDictionary = [eventCopy eventDictionary];
   if (!eventName)
   {
-    v9 = WFLogForCategory(0);
-    v10 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v9 || !os_log_type_enabled(v9, v10))
+    v10 = WFLogForCategory(0);
+    v11 = OSLogForWFLogLevel(1uLL);
+    if (!WFCurrentLogLevel(v11, v12) || !v10 || !os_log_type_enabled(v10, v11))
     {
       goto LABEL_18;
     }
 
     *buf = 136315138;
-    v23 = "[WFMetricsManager _submitCAEvent:]";
-    v11 = "%s: event name is nil";
-    v12 = v9;
-    v13 = v10;
-    v14 = 12;
+    v26 = "[WFMetricsManager _submitCAEvent:]";
+    v13 = "%s: event name is nil";
+    v14 = v10;
+    v15 = v11;
+    v16 = 12;
     goto LABEL_17;
   }
 
-  if (!v17[5])
+  if (!v20[5])
   {
-    v9 = WFLogForCategory(0);
-    v15 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v9 || !os_log_type_enabled(v9, v15))
+    v10 = WFLogForCategory(0);
+    v17 = OSLogForWFLogLevel(1uLL);
+    if (!WFCurrentLogLevel(v17, v18) || !v10 || !os_log_type_enabled(v10, v17))
     {
       goto LABEL_18;
     }
 
     *buf = 136315394;
-    v23 = "[WFMetricsManager _submitCAEvent:]";
-    v24 = 2112;
-    v25 = eventName;
-    v11 = "%s: event is nil for event %@";
-    v12 = v9;
-    v13 = v15;
-    v14 = 22;
+    v26 = "[WFMetricsManager _submitCAEvent:]";
+    v27 = 2112;
+    v28 = eventName;
+    v13 = "%s: event is nil for event %@";
+    v14 = v10;
+    v15 = v17;
+    v16 = 22;
 LABEL_17:
-    _os_log_impl(&dword_273ECD000, v12, v13, v11, buf, v14);
+    _os_log_impl(&dword_273ECD000, v14, v15, v13, buf, v16);
 LABEL_18:
 
     goto LABEL_8;
@@ -109,30 +108,29 @@ LABEL_18:
 
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 4 && v5 && os_log_type_enabled(v5, v7))
   {
-    v7 = v17[5];
+    v9 = v20[5];
     *buf = 136315650;
-    v23 = "[WFMetricsManager _submitCAEvent:]";
-    v24 = 2112;
-    v25 = eventName;
-    v26 = 2112;
-    v27 = v7;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: submitting %@ with dictionary %@", buf, 0x20u);
+    v26 = "[WFMetricsManager _submitCAEvent:]";
+    v27 = 2112;
+    v28 = eventName;
+    v29 = 2112;
+    v30 = v9;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: submitting %@ with dictionary %@", buf, 0x20u);
   }
 
   AnalyticsSendEventLazy();
 LABEL_8:
-  _Block_object_dispose(&v16, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 }
 
 - (WFMetricsManager)init
 {
-  v13.receiver = self;
-  v13.super_class = WFMetricsManager;
-  v2 = [(WFMetricsManager *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = WFMetricsManager;
+  v2 = [(WFMetricsManager *)&v15 init];
   if (v2)
   {
     v3 = WFCopyProcessIdentifier();
@@ -151,10 +149,11 @@ LABEL_8:
 
       processName = WFLogForCategory(0);
       v11 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && processName && os_log_type_enabled(processName, v11))
+      v12 = v11;
+      if (WFCurrentLogLevel(v11, v13) && processName && os_log_type_enabled(processName, v12))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_273ECD000, processName, v11, "Unable to get process name", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_273ECD000, processName, v12, "Unable to get process name", v14, 2u);
       }
     }
 

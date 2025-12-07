@@ -16,17 +16,14 @@
 {
   if (gLogCategory_AirPlayControllerServer <= 30 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    qualifierCopy = qualifier;
-    valueCopy = value;
-    propertyCopy = property;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer setProperty:qualifier:value:completion:]", 33554462, "Set property %@ %@ %@\n", property, qualifier, value);
   }
 
-  if ([property isEqual:{@"test", propertyCopy, qualifierCopy, valueCopy}])
+  if ([property isEqual:@"test"])
   {
     if (gLogCategory_AirPlayControllerServer <= 50 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer setProperty:qualifier:value:completion:]", 33554482, "Test set property\n");
     }
 
     goto LABEL_11;
@@ -61,17 +58,15 @@ LABEL_12:
 {
   if (gLogCategory_AirPlayControllerServer <= 30 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    propertyCopy = property;
-    qualifierCopy = qualifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer getProperty:qualifier:completion:]", 33554462, "Get property %@ %@\n", property, qualifier);
   }
 
-  v14 = 0;
-  if ([property isEqual:{@"test", propertyCopy, qualifierCopy}])
+  v12 = 0;
+  if ([property isEqual:@"test"])
   {
     if (gLogCategory_AirPlayControllerServer <= 50 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer getProperty:qualifier:completion:]", 33554482, "Test get property\n");
     }
 
     v10 = @"value";
@@ -84,18 +79,18 @@ LABEL_12:
     if (!copyPropertyBlock)
     {
       v10 = 0;
-      v14 = -6714;
+      v12 = -6714;
       goto LABEL_15;
     }
 
-    v10 = copyPropertyBlock[2](copyPropertyBlock, property, qualifier, &v14);
-    if (v14)
+    v10 = copyPropertyBlock[2](copyPropertyBlock, property, qualifier, &v12);
+    if (v12)
     {
       goto LABEL_15;
     }
   }
 
-  v14 = 0;
+  v12 = 0;
 LABEL_15:
   (*(completion + 2))(completion);
 }
@@ -104,15 +99,12 @@ LABEL_15:
 {
   if (gLogCategory_AirPlayControllerServer <= 30 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    qualifierCopy = qualifier;
-    paramsCopy = params;
-    eventCopy = event;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer postEvent:qualifier:params:completion:]", 33554462, "Post event %@ %@ %@\n", event, qualifier, params);
   }
 
-  if ([event isEqual:{@"test", eventCopy, qualifierCopy, paramsCopy}] && gLogCategory_AirPlayControllerServer <= 50 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
+  if ([event isEqual:@"test"] && gLogCategory_AirPlayControllerServer <= 50 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer postEvent:qualifier:params:completion:]", 33554482, "Test event\n");
   }
 
   v10 = *(completion + 2);
@@ -122,23 +114,20 @@ LABEL_15:
 
 - (void)performCommand:(id)command qualifier:(id)qualifier params:(id)params completion:(id)completion
 {
-  v18 = 0;
+  v15 = 0;
   if (gLogCategory_AirPlayControllerServer <= 30 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    qualifierCopy = qualifier;
-    paramsCopy = params;
-    commandCopy = command;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer performCommand:qualifier:params:completion:]", 33554462, "Perform command %@ %@ %@\n", command, qualifier, params);
   }
 
-  if ([command isEqual:{@"test", commandCopy, qualifierCopy, paramsCopy}])
+  if ([command isEqual:@"test"])
   {
     if (gLogCategory_AirPlayControllerServer <= 50 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayControllerServer, "[AirPlayControllerServer performCommand:qualifier:params:completion:]", 33554482, "Test command\n");
     }
 
-    v18 = &unk_28513BB18;
+    v15 = &unk_28513BB18;
     v14 = &unk_28513BB18;
 LABEL_14:
     v13 = 0;
@@ -152,7 +141,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v12 = performCommandBlock[2](performCommandBlock, command, qualifier, params, &v18);
+  v12 = performCommandBlock[2](performCommandBlock, command, qualifier, params, &v15);
   if (!v12)
   {
     goto LABEL_14;
@@ -160,15 +149,14 @@ LABEL_14:
 
   v13 = v12;
 LABEL_15:
-  (*(completion + 2))(completion, v13, v18);
+  (*(completion + 2))(completion, v13, v15);
 }
 
 - (void)_connectionInvalidated:(id)invalidated
 {
   if (gLogCategory_AirPlayControllerServer <= 10 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    [invalidated processIdentifier];
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "-[AirPlayControllerServer _connectionInvalidated:]", 33554442, "Invalidated XPC connection from %#{pid}\n", [invalidated processIdentifier]);
   }
 
   [invalidated setInvalidationHandler:0];
@@ -176,23 +164,22 @@ LABEL_15:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12[7] = *MEMORY[0x277D85DE8];
+  v11[7] = *MEMORY[0x277D85DE8];
   if (gLogCategory_AirPlayControllerServer <= 10 && (gLogCategory_AirPlayControllerServer != -1 || _LogCategory_Initialize()))
   {
-    processIdentifier = [connection processIdentifier];
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayControllerServer, "-[AirPlayControllerServer listener:shouldAcceptNewConnection:]", 33554442, "Accepting   XPC connection from %#{pid}\n", [connection processIdentifier]);
   }
 
-  v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:{&unk_28513CBE8, processIdentifier}];
+  v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28513CBE8];
   v7 = MEMORY[0x277CBEB98];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v8 = [v7 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 7)}];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v8 = [v7 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 7)}];
   [v6 setClasses:v8 forSelector:sel_performCommand_qualifier_params_completion_ argumentIndex:1 ofReply:0];
   [v6 setClasses:v8 forSelector:sel_performCommand_qualifier_params_completion_ argumentIndex:2 ofReply:0];
   [v6 setClasses:v8 forSelector:sel_postEvent_qualifier_params_completion_ argumentIndex:1 ofReply:0];
@@ -203,13 +190,13 @@ LABEL_15:
   [v6 setClasses:v8 forSelector:sel_setProperty_qualifier_value_completion_ argumentIndex:2 ofReply:0];
   [connection setExportedInterface:v6];
   [connection setExportedObject:self];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__AirPlayControllerServer_listener_shouldAcceptNewConnection___block_invoke;
-  v11[3] = &unk_278C60A08;
-  v11[4] = self;
-  v11[5] = connection;
-  [connection setInvalidationHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __62__AirPlayControllerServer_listener_shouldAcceptNewConnection___block_invoke;
+  v10[3] = &unk_278C60A08;
+  v10[4] = self;
+  v10[5] = connection;
+  [connection setInvalidationHandler:v10];
   if (self->_queue && (objc_opt_respondsToSelector() & 1) != 0)
   {
     [connection _setQueue:self->_queue];

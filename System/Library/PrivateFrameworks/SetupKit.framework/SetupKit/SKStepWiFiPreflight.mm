@@ -18,13 +18,13 @@
 
 - (BOOL)checkWiFiAndReturnError:(id *)error
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[SKStepWiFiPreflight checkWiFiAndReturnError:]", 30, "Preflight WiFi start");
       goto LABEL_5;
     }
 
@@ -54,9 +54,8 @@ LABEL_5:
       goto LABEL_30;
     }
 
-    v14 = *MEMORY[0x277CCA590];
+    NSErrorF_safe(*MEMORY[0x277CCA590], 301000, "No WiFi SSID");
 LABEL_29:
-    NSErrorF_safe();
     *error = v12 = 0;
     goto LABEL_19;
   }
@@ -66,14 +65,13 @@ LABEL_29:
   {
     if (Int64Ranged != 1)
     {
-      v10 = NSPrintF();
+      v10 = NSPrintF("Not shareable (%d)", Int64Ranged);
       if (v10)
       {
-        v15 = v10;
+        v14 = v10;
         if (error)
         {
-          v16 = *MEMORY[0x277CCA590];
-          *error = NSErrorF_safe();
+          *error = NSErrorF_safe(*MEMORY[0x277CCA590], 301034, "Enterprise WiFi not supported: %@", v10);
         }
 
         goto LABEL_30;
@@ -88,7 +86,7 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v17 = *MEMORY[0x277CCA590];
+    NSErrorF_safe(*MEMORY[0x277CCA590], 301004, "WiFi network not shareable (%d)");
     goto LABEL_29;
   }
 
@@ -96,7 +94,7 @@ LABEL_29:
   {
     if (error)
     {
-      v18 = *MEMORY[0x277CCA590];
+      NSErrorF_safe(*MEMORY[0x277CCA590], 301020, "AppleWiFi not allowed");
       goto LABEL_29;
     }
 
@@ -105,20 +103,20 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  v11 = self->_ucat->var0;
-  if (v11 <= 30)
+  v11 = self->_ucat;
+  if (v11->var0 <= 30)
   {
-    if (v11 == -1)
+    if (v11->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_18;
       }
 
-      v20 = self->_ucat;
+      v11 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v11, "[SKStepWiFiPreflight checkWiFiAndReturnError:]", 30, "Preflight WiFi succeeded");
   }
 
 LABEL_18:
@@ -134,9 +132,9 @@ LABEL_19:
   if (v3)
   {
     v4 = v3;
-    v12 = 0;
-    [(SKStepWiFiPreflight *)self checkWiFiAndReturnError:&v12];
-    v5 = v12;
+    v11 = 0;
+    [(SKStepWiFiPreflight *)self checkWiFiAndReturnError:&v11];
+    v5 = v11;
     v6 = MEMORY[0x26676A4C0](self->_skCompletionHandler);
     v7 = v6;
     if (v6)
@@ -147,9 +145,8 @@ LABEL_19:
 
   else
   {
-    ucat = self->_ucat;
-    v9 = CUFatalErrorF();
-    [(SKStepWiFiPreflight *)v9 setLabel:v10, v11];
+    v8 = CUFatalErrorF();
+    [(SKStepWiFiPreflight *)v8 setLabel:v9, v10];
   }
 }
 
@@ -157,9 +154,9 @@ LABEL_19:
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  [labelCopy UTF8String];
+  uTF8String = [labelCopy UTF8String];
 
-  LogCategoryReplaceF();
+  LogCategoryReplaceF(&self->_ucat, "%s", uTF8String);
 }
 
 - (void)dealloc

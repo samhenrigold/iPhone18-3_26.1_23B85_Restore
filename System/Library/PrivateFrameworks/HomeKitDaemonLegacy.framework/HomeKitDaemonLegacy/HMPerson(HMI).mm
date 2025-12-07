@@ -25,7 +25,7 @@
   name = [v4 name];
 
   [v7 setName:name];
-  v9 = [v7 copy];
+  v9 = objc_msgSend_copy(v7);
 
   return v9;
 }

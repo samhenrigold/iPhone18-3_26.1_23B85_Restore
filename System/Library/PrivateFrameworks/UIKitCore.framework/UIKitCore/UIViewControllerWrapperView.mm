@@ -21,40 +21,40 @@
 
 + (UIViewControllerWrapperView)wrapperViewForView:(double)view frame:(double)frame
 {
-  v10 = a6;
+  v10 = a2;
   v11 = objc_opt_self();
   if (!v10)
   {
-    frame = 0;
+    v13 = 0;
     goto LABEL_7;
   }
 
   v12 = [(UIViewControllerWrapperView *)v11 existingWrapperViewForView:v10];
   if (v12)
   {
-    frame = v12;
-    [(UIViewControllerWrapperView *)v12 setFrame:self, a2, view, frame];
-    [(UIView *)frame bounds];
+    v13 = v12;
+    [(UIViewControllerWrapperView *)v12 setFrame:view, frame, a5, a6];
+    [(UIView *)v13 bounds];
     [v10 setFrame:?];
   }
 
   else
   {
-    frame = [[UIViewControllerWrapperView alloc] initWithFrame:self, a2, view, frame];
-    -[UIView setAutoresizingMask:](frame, "setAutoresizingMask:", [v10 autoresizingMask]);
-    [(UIView *)frame bounds];
+    v13 = [[UIViewControllerWrapperView alloc] initWithFrame:view, frame, a5, a6];
+    -[UIView setAutoresizingMask:](v13, "setAutoresizingMask:", [v10 autoresizingMask]);
+    [(UIView *)v13 bounds];
     [v10 setFrame:?];
-    [(UIView *)frame addSubview:v10];
-    if (!frame)
+    [(UIView *)v13 addSubview:v10];
+    if (!v13)
     {
       goto LABEL_7;
     }
   }
 
-  frame->_tightWrappingDisabled = 0;
+  v13->_tightWrappingDisabled = 0;
 LABEL_7:
 
-  return frame;
+  return v13;
 }
 
 + (id)existingWrapperViewForView:(uint64_t)view
@@ -79,38 +79,38 @@ LABEL_7:
 
 + (UIViewControllerWrapperView)wrapperViewForView:(double)view wrapperFrame:(double)frame viewFrame:(double)viewFrame
 {
-  v18 = a10;
+  v18 = a2;
   v19 = objc_opt_self();
   if (!v18)
   {
-    frame = 0;
+    v21 = 0;
     goto LABEL_7;
   }
 
   v20 = [(UIViewControllerWrapperView *)v19 existingWrapperViewForView:v18];
   if (v20)
   {
-    frame = v20;
-    [(UIViewControllerWrapperView *)v20 setFrame:self, a2, view, frame];
-    [v18 setFrame:{viewFrame, a6, a7, a8}];
+    v21 = v20;
+    [(UIViewControllerWrapperView *)v20 setFrame:view, frame, viewFrame, a6];
+    [v18 setFrame:{a7, a8, a9, a10}];
   }
 
   else
   {
-    frame = [[UIViewControllerWrapperView alloc] initWithFrame:self, a2, view, frame];
-    -[UIView setAutoresizingMask:](frame, "setAutoresizingMask:", [v18 autoresizingMask]);
-    [v18 setFrame:{viewFrame, a6, a7, a8}];
-    [(UIView *)frame addSubview:v18];
-    if (!frame)
+    v21 = [[UIViewControllerWrapperView alloc] initWithFrame:view, frame, viewFrame, a6];
+    -[UIView setAutoresizingMask:](v21, "setAutoresizingMask:", [v18 autoresizingMask]);
+    [v18 setFrame:{a7, a8, a9, a10}];
+    [(UIView *)v21 addSubview:v18];
+    if (!v21)
     {
       goto LABEL_7;
     }
   }
 
-  frame->_tightWrappingDisabled = 1;
+  v21->_tightWrappingDisabled = 1;
 LABEL_7:
 
-  return frame;
+  return v21;
 }
 
 - (void)setFrame:(CGRect)frame

@@ -45,7 +45,7 @@
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -54,23 +54,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = removedCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown child with model object: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = removedCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown child with model object: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
   [messageCopy respondWithError:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedSupportedOptions:(unint64_t)options message:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
   supportedOptions = [data supportedOptions];
@@ -84,11 +82,11 @@
     {
       v12 = HMFGetLogIdentifier();
       v13 = HMMediaDestinationControllerSupportOptionsAsString();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Transaction updated supported options: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Transaction updated supported options: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -96,13 +94,11 @@
     transactionResult = [messageCopy transactionResult];
     [transactionResult markChanged];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedAvailableDestinationIdentifiers:(id)identifiers message:(id)message
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
@@ -121,13 +117,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v16;
-      v22 = 2112;
-      v23 = availableDestinationIdentifiers;
-      v24 = 2112;
-      v25 = identifiersCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Transaction updated available destination identifiers: %@ to identifiers: %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v16;
+      v21 = 2112;
+      v22 = availableDestinationIdentifiers;
+      v23 = 2112;
+      v24 = identifiersCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Transaction updated available destination identifiers: %@ to identifiers: %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -139,13 +135,11 @@
 
     [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy notifyDidUpdateAvailableDestinationIdentifiers:identifiersCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedDestinationIdentifier:(id)identifier message:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
@@ -160,13 +154,13 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = destinationIdentifier;
-      v22 = 2112;
-      v23 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Transaction updated destination identifier: %@ to destination identifier: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = destinationIdentifier;
+      v21 = 2112;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Transaction updated destination identifier: %@ to destination identifier: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -181,13 +175,11 @@
 
     [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy notifyDidUpdateDestinationIdentifier:identifierCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -197,11 +189,11 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v52 = 138543618;
-    v53 = v14;
-    v54 = 2112;
-    v55 = valuesCopy;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating media destination controller using transaction object: %@", &v52, 0x16u);
+    v51 = 138543618;
+    v52 = v14;
+    v53 = 2112;
+    v54 = valuesCopy;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating media destination controller using transaction object: %@", &v51, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -238,9 +230,9 @@
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             v29 = HMFGetLogIdentifier();
-            v52 = 138543362;
-            v53 = v29;
-            _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly processing destination controller add after one already exists", &v52, 0xCu);
+            v51 = 138543362;
+            v52 = v29;
+            _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly processing destination controller add after one already exists", &v51, 0xCu);
           }
 
           objc_autoreleasePoolPop(v26);
@@ -274,13 +266,13 @@
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             v38 = HMFGetLogIdentifier();
-            v52 = 138543874;
-            v53 = v38;
-            v54 = 2112;
-            v55 = v21;
-            v56 = 2112;
-            v57 = delegate;
-            _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Notifying of unexpected model add: %@ delegate: %@", &v52, 0x20u);
+            v51 = 138543874;
+            v52 = v38;
+            v53 = 2112;
+            v54 = v21;
+            v55 = 2112;
+            v56 = delegate;
+            _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Notifying of unexpected model add: %@ delegate: %@", &v51, 0x20u);
           }
 
           objc_autoreleasePoolPop(v35);
@@ -298,11 +290,11 @@
       {
         v49 = HMFGetLogIdentifier();
         uuid2 = [v21 uuid];
-        v52 = 138543618;
-        v53 = v49;
-        v54 = 2112;
-        v55 = uuid2;
-        _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Received unknown media destination controller model with identifier: %@", &v52, 0x16u);
+        v51 = 138543618;
+        v52 = v49;
+        v53 = 2112;
+        v54 = uuid2;
+        _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Received unknown media destination controller model with identifier: %@", &v51, 0x16u);
       }
 
       objc_autoreleasePoolPop(v46);
@@ -321,11 +313,11 @@
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         v42 = HMFGetLogIdentifier();
-        v52 = 138543618;
-        v53 = v42;
-        v54 = 2112;
-        v55 = updatedCopy;
-        _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media destination controller model from new model object: %@", &v52, 0x16u);
+        v51 = 138543618;
+        v52 = v42;
+        v53 = 2112;
+        v54 = updatedCopy;
+        _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media destination controller model from new model object: %@", &v51, 0x16u);
       }
 
       objc_autoreleasePoolPop(v39);
@@ -348,20 +340,18 @@ LABEL_35:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v52 = 138543362;
-    v53 = v18;
-    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", &v52, 0xCu);
+    v51 = 138543362;
+    v52 = v18;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", &v51, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
 LABEL_36:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidUpdateAvailableDestinationIdentifiers:(id)identifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   delegate = [(HMDMediaDestinationControllerBackingStoreHandler *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -370,24 +360,22 @@ LABEL_36:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2112;
-    v14 = identifiersCopy;
-    v15 = 2112;
-    v16 = delegate;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated available destination identifiers: %@ delegate: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2112;
+    v13 = identifiersCopy;
+    v14 = 2112;
+    v15 = delegate;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated available destination identifiers: %@ delegate: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [delegate mediaDestinationControllerBackingStoreHandler:selfCopy didUpdateAvailableDestinationIdentifiers:identifiersCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidUpdateDestinationIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   delegate = [(HMDMediaDestinationControllerBackingStoreHandler *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -396,19 +384,17 @@ LABEL_36:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2112;
-    v14 = identifierCopy;
-    v15 = 2112;
-    v16 = delegate;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated destination identifier: %@ delegate: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2112;
+    v13 = identifierCopy;
+    v14 = 2112;
+    v15 = delegate;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated destination identifier: %@ delegate: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [delegate mediaDestinationControllerBackingStoreHandler:selfCopy didUpdateDestinationIdentifier:identifierCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options
@@ -438,7 +424,7 @@ LABEL_36:
 - (HMMediaDestinationControllerData)data
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(HMMutableMediaDestinationControllerData *)self->_data copy];
+  v3 = objc_msgSend_copy(self->_data);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -446,7 +432,7 @@ LABEL_36:
 
 - (void)recoverDueToInvalidRecordInCloudWithHome:(id)home migrationQueue:(id)queue completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   queueCopy = queue;
   completionCopy = completion;
@@ -457,7 +443,7 @@ LABEL_36:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v14;
+    v27 = v14;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Recovering cloud data due to invalid cloud record", buf, 0xCu);
   }
 
@@ -474,33 +460,29 @@ LABEL_36:
   v20 = [HMDMediaDestinationControllerBackingStoreHandler backingStoreObjectForData:data2];
 
   [v20 setObjectChangeType:2];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke;
-  v24[3] = &unk_279735738;
-  v25 = v20;
-  v26 = completionCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke;
+  v23[3] = &unk_279735738;
+  v24 = v20;
+  v25 = completionCopy;
   v21 = v20;
   v22 = completionCopy;
-  dispatch_async(queueCopy, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  dispatch_async(queueCopy, v23);
 }
 
 void __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v4[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   (*(v1 + 16))(v1, MEMORY[0x277CBEBF8], v2, 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateWithCurrentCloudRecord:(id)record home:(id)home cloudZone:(id)zone migrationQueue:(id)queue completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   homeCopy = home;
   zoneCopy = zone;
@@ -522,7 +504,7 @@ void __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalid
 
   if (v19)
   {
-    v41 = zoneCopy;
+    v40 = zoneCopy;
     data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
     destinationModelIdentifier = [v19 destinationModelIdentifier];
     destinationIdentifier = [data destinationIdentifier];
@@ -535,15 +517,15 @@ void __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalid
       availableDestinationIdentifiers = [data availableDestinationIdentifiers];
       if (v25 == [availableDestinationIdentifiers count])
       {
-        v40 = homeCopy;
+        v39 = homeCopy;
         availableDestinationModelIdentifiers2 = [v19 availableDestinationModelIdentifiers];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke_2;
-        v44[3] = &unk_2797358A0;
-        v39 = data;
-        v45 = v39;
-        v28 = [availableDestinationModelIdentifiers2 na_allObjectsPassTest:v44];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke_2;
+        v43[3] = &unk_2797358A0;
+        v38 = data;
+        v44 = v38;
+        v28 = [availableDestinationModelIdentifiers2 na_allObjectsPassTest:v43];
 
         if (v28)
         {
@@ -551,17 +533,17 @@ void __119__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToInvalid
           block[1] = 3221225472;
           block[2] = __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke_3;
           block[3] = &unk_2797348C0;
-          v43 = completionCopy;
+          v42 = completionCopy;
           dispatch_async(queueCopy, block);
 
-          data = v39;
-          homeCopy = v40;
+          data = v38;
+          homeCopy = v39;
 LABEL_17:
-          zoneCopy = v41;
+          zoneCopy = v40;
           goto LABEL_18;
         }
 
-        homeCopy = v40;
+        homeCopy = v39;
       }
 
       else
@@ -577,11 +559,11 @@ LABEL_17:
       HMFGetLogIdentifier();
       v37 = v36 = homeCopy;
       *buf = 138543874;
-      v49 = v37;
-      v50 = 2112;
-      v51 = v19;
-      v52 = 2112;
-      v53 = data;
+      v48 = v37;
+      v49 = 2112;
+      v50 = v19;
+      v51 = 2112;
+      v52 = data;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Recovering due to miss matched model: %@ data: %@", buf, 0x20u);
 
       homeCopy = v36;
@@ -599,23 +581,21 @@ LABEL_17:
   {
     v32 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v49 = v32;
-    v50 = 2112;
-    v51 = recordCopy;
+    v48 = v32;
+    v49 = 2112;
+    v50 = recordCopy;
     _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to migrate due to unknown model extracted from record: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v29);
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke;
-  v46[3] = &unk_2797348C0;
-  v47 = completionCopy;
-  dispatch_async(queueCopy, v46);
-  data = v47;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke;
+  v45[3] = &unk_2797348C0;
+  v46 = completionCopy;
+  dispatch_async(queueCopy, v45);
+  data = v46;
 LABEL_18:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -630,7 +610,7 @@ uint64_t __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurr
 
 - (void)recoverDueToNoRecordInCloudWithHome:(id)home migrationQueue:(id)queue completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   queueCopy = queue;
   completionCopy = completion;
@@ -641,7 +621,7 @@ uint64_t __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurr
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v14;
+    v23 = v14;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Recovering cloud data due to no record added", buf, 0xCu);
   }
 
@@ -649,23 +629,21 @@ uint64_t __123__HMDMediaDestinationControllerBackingStoreHandler_migrateWithCurr
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy data];
   identifier = [data identifier];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke;
-  v20[3] = &unk_27972F8D8;
-  v20[4] = selfCopy;
-  v21 = queueCopy;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke;
+  v19[3] = &unk_27972F8D8;
+  v19[4] = selfCopy;
+  v20 = queueCopy;
+  v21 = completionCopy;
   v17 = completionCopy;
   v18 = queueCopy;
-  [homeCopy cleanChangesIfNoAddChangeObjectID:identifier completion:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [homeCopy cleanChangesIfNoAddChangeObjectID:identifier completion:v19];
 }
 
 void __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -676,7 +654,7 @@ void __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecor
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v9;
+      v24 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Skipping migration due to add transaction already exists", buf, 0xCu);
     }
 
@@ -686,9 +664,9 @@ void __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecor
     block[2] = __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_22;
     block[3] = &unk_2797348C0;
     v10 = *(a1 + 40);
-    v23 = *(a1 + 48);
+    v22 = *(a1 + 48);
     dispatch_async(v10, block);
-    v11 = v23;
+    v11 = v22;
   }
 
   else
@@ -701,30 +679,26 @@ void __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecor
     v14 = [HMDMediaDestinationControllerBackingStoreHandler backingStoreObjectForData:v13];
 
     [v14 setObjectChangeType:1];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2;
-    v19[3] = &unk_279735738;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2;
+    v18[3] = &unk_279735738;
     v15 = *(a1 + 40);
     v16 = *(a1 + 48);
-    v20 = v14;
-    v21 = v16;
+    v19 = v14;
+    v20 = v16;
     v17 = v14;
-    dispatch_async(v15, v19);
+    dispatch_async(v15, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __114__HMDMediaDestinationControllerBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v4[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   (*(v1 + 16))(v1, v2, MEMORY[0x277CBEBF8], 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateWithHome:(id)home cloudZone:(id)zone migrationQueue:(id)queue completion:(id)completion
@@ -768,7 +742,7 @@ uint64_t __104__HMDMediaDestinationControllerBackingStoreHandler_migrateWithHome
 
 - (void)mergeData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   os_unfair_lock_lock_with_options();
   if (([(HMMutableMediaDestinationControllerData *)self->_data isEqual:dataCopy]& 1) != 0)
@@ -789,22 +763,20 @@ uint64_t __104__HMDMediaDestinationControllerBackingStoreHandler_migrateWithHome
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = dataCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged data: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = dataCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged data: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeControllerWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -813,7 +785,7 @@ uint64_t __104__HMDMediaDestinationControllerBackingStoreHandler_migrateWithHome
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing destination controller", buf, 0xCu);
   }
 
@@ -822,21 +794,19 @@ uint64_t __104__HMDMediaDestinationControllerBackingStoreHandler_migrateWithHome
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy data];
   v11 = [(HMDMediaDestinationControllerModel *)v9 initWithData:data changeType:3];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke;
-  v14[3] = &unk_279733F30;
-  v14[4] = selfCopy;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke;
+  v13[3] = &unk_279733F30;
+  v13[4] = selfCopy;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v11 reason:@"MediaDestinationControllerRemoveControllerWithCompletion" completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v11 reason:@"MediaDestinationControllerRemoveControllerWithCompletion" completion:v13];
 }
 
 void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -847,31 +817,29 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run remove destination controller transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run remove destination controller transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run remove destination controller transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run remove destination controller transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAvailableDestinationIdentifiers:(id)identifiers completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -881,9 +849,9 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifiersCopy;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifiersCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to available destination identifiers: %@", buf, 0x16u);
   }
 
@@ -893,21 +861,19 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
   v14 = [(HMDMediaDestinationControllerModel *)v12 initWithData:data changeType:2];
 
   [(HMDMediaDestinationControllerModel *)v14 setAvailableDestinationModelIdentifiers:identifiersCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke;
-  v17[3] = &unk_279733F30;
-  v17[4] = selfCopy;
-  v18 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke;
+  v16[3] = &unk_279733F30;
+  v16[4] = selfCopy;
+  v17 = completionCopy;
   v15 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateAvailableDestinationIdentifiers" completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateAvailableDestinationIdentifiers" completion:v16];
 }
 
 void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -918,31 +884,29 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update available destination identifiers transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update available destination identifiers transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update available destination identifiers transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update available destination identifiers transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -952,9 +916,9 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
     v10 = HMFGetLogIdentifier();
     v11 = HMMediaDestinationControllerSupportOptionsAsString();
     *buf = 138543618;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating to supported options: %@", buf, 0x16u);
   }
 
@@ -966,21 +930,19 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:options];
   [(HMDMediaDestinationControllerModel *)v14 setSupportedOptions:v15];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke;
-  v18[3] = &unk_279733F30;
-  v18[4] = selfCopy;
-  v19 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke;
+  v17[3] = &unk_279733F30;
+  v17[4] = selfCopy;
+  v18 = completionCopy;
   v16 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateSupportedOptions" completion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateSupportedOptions" completion:v17];
 }
 
 void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -991,31 +953,29 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update supported options transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update supported options transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update supported options transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update supported options transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationIdentifier:(id)identifier completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -1025,9 +985,9 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifierCopy;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifierCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to destination identifier: %@", buf, 0x16u);
   }
 
@@ -1037,21 +997,19 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
   v14 = [(HMDMediaDestinationControllerModel *)v12 initWithData:data changeType:2];
 
   [(HMDMediaDestinationControllerModel *)v14 setDestinationModelIdentifier:identifierCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke;
-  v17[3] = &unk_279733F30;
-  v17[4] = selfCopy;
-  v18 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke;
+  v16[3] = &unk_279733F30;
+  v16[4] = selfCopy;
+  v17 = completionCopy;
   v15 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateDestinationIdentifier" completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateDestinationIdentifier" completion:v16];
 }
 
 void __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1062,26 +1020,24 @@ void __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIde
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update destination identifier transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update destination identifier transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update destination identifier transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update destination identifier transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationControllerBackingStoreHandler)initWithData:(id)data backingStore:(id)store metricsEventDispatcher:(id)dispatcher delegate:(id)delegate
@@ -1143,10 +1099,11 @@ LABEL_9:
 
 uint64_t __63__HMDMediaDestinationControllerBackingStoreHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v38 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v38;
+  logCategory__hmf_once_v38 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)backingStoreObjectForData:(id)data

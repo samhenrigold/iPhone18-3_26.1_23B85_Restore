@@ -12,7 +12,7 @@
   [(InteractionFactorsInfoCell *)&v4 awakeFromNib];
   sub_2283922A0();
   v3[2] = v2;
-  sub_22817F074(sub_228343C80, v3);
+  sub_22817F074(sub_228343C80, v3, "HealthMedicationsUI/InteractionFactorsInfoCell.swift", 52, 2u, 63);
 }
 
 @end

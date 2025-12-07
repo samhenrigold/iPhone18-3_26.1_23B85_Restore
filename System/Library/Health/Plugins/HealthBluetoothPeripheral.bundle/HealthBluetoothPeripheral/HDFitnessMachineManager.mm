@@ -320,7 +320,7 @@
         goto LABEL_19;
       }
 
-      sub_30F3C(self, deviceCopy);
+      sub_30F3C(&self->super.isa, deviceCopy);
     }
 
     fitnessMachine3 = [(HDFitnessMachineSession *)self->_fitnessMachineSession fitnessMachine];
@@ -353,7 +353,7 @@ LABEL_15:
     v26 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      sub_32C08(v26);
+      sub_32C08(v26, type);
     }
 
 LABEL_16:
@@ -712,7 +712,7 @@ LABEL_19:
       _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Error registering client connection: %@ client: %@, connection UUID: %@, error: %{public}@", v24, 0x2Au);
     }
 
-    [clientCopy clientRemote_deliverFailedWithError:{v9, *v24}];
+    [clientCopy clientRemote_deliverFailedWithError:{v9, *v24, *&v24[8]}];
   }
 
   else
@@ -741,9 +741,9 @@ LABEL_19:
         [clientCopy clientRemote_deliverMachineInformationUpdated:fitnessMachine2];
       }
 
-      connectionState = [(HDFitnessMachineSession *)self->_fitnessMachineSession connectionState];
+      v15 = [(HDFitnessMachineSession *)self->_fitnessMachineSession connectionState:*v24];
       fitnessMachineSessionUUID2 = [(HDFitnessMachineSession *)self->_fitnessMachineSession fitnessMachineSessionUUID];
-      [clientCopy clientRemote_deliverConnectionChangedToState:connectionState fromState:0 fitnessMachineSessionUUID:fitnessMachineSessionUUID2 error:0];
+      [clientCopy clientRemote_deliverConnectionChangedToState:v15 fromState:0 fitnessMachineSessionUUID:fitnessMachineSessionUUID2 error:0];
 
       machineState = [(HDFitnessMachineSession *)self->_fitnessMachineSession machineState];
       fitnessMachine3 = [(HDFitnessMachineSession *)self->_fitnessMachineSession fitnessMachine];

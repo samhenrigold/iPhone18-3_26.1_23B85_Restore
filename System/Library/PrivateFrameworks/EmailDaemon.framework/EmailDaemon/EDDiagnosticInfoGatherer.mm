@@ -69,31 +69,29 @@ void __31__EDDiagnosticInfoGatherer_log__block_invoke(uint64_t a1)
 
 - (void)registerDiagnosticInfoProvider:(id)provider completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   handlerCopy = handler;
   objc_storeStrong(&self->_diagnosticInfoProvider, provider);
   v9 = objc_alloc_init(MEMORY[0x1E699B7F8]);
   objc_initWeak(&location, self);
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __77__EDDiagnosticInfoGatherer_registerDiagnosticInfoProvider_completionHandler___block_invoke;
-  v15 = &unk_1E8250808;
-  objc_copyWeak(&v16, &location);
-  [v9 addCancelationBlock:&v12];
-  v10 = [EDDiagnosticInfoGatherer log:v12];
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __77__EDDiagnosticInfoGatherer_registerDiagnosticInfoProvider_completionHandler___block_invoke;
+  v14 = &unk_1E8250808;
+  objc_copyWeak(&v15, &location);
+  [v9 addCancelationBlock:&v11];
+  v10 = [EDDiagnosticInfoGatherer log:v11];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v19 = providerCopy;
+    v18 = providerCopy;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Registered EMDiagnosticInfoProviding: <%p>", buf, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, v9);
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77__EDDiagnosticInfoGatherer_registerDiagnosticInfoProvider_completionHandler___block_invoke(uint64_t a1)
@@ -133,7 +131,7 @@ void __71__EDDiagnosticInfoGatherer_fetchControllerStatusWithCompletionHandler__
 
 - (void)gatherDiagnosticsWithOptions:(unint64_t)options completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = +[EDDiagnosticInfoGatherer log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -149,9 +147,9 @@ void __71__EDDiagnosticInfoGatherer_fetchControllerStatusWithCompletionHandler__
   v11 = [v10 URLByAppendingPathComponent:@"DiagnosticLogs"];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v28 = 0;
-  v13 = [defaultManager createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v28];
-  v14 = v28;
+  v27 = 0;
+  v13 = [defaultManager createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v27];
+  v14 = v27;
 
   if ((v13 & 1) == 0)
   {
@@ -165,48 +163,46 @@ void __71__EDDiagnosticInfoGatherer_fetchControllerStatusWithCompletionHandler__
 
   v17 = [objc_alloc(MEMORY[0x1E699B970]) initWithFileURL:v11 readOnly:0];
   gathererQueue = [(EDDiagnosticInfoGatherer *)self gathererQueue];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke;
-  v23[3] = &unk_1E8252148;
-  v23[4] = self;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke;
+  v22[3] = &unk_1E8252148;
+  v22[4] = self;
   v19 = v17;
-  v24 = v19;
+  v23 = v19;
   optionsCopy2 = options;
   v20 = v11;
-  v25 = v20;
+  v24 = v20;
   v21 = handlerCopy;
-  v26 = v21;
-  [gathererQueue performBlock:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = v21;
+  [gathererQueue performBlock:v22];
 }
 
 void __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v21 = [MEMORY[0x1E695DF70] array];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v32 = *MEMORY[0x1E69E9840];
+  v20 = [MEMORY[0x1E695DF70] array];
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v2 = [*(a1 + 32) remoteClientsProvider];
   v3 = [v2 remoteClients];
 
-  v4 = [v3 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
-    v5 = *v29;
+    v5 = *v28;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v29 != v5)
+        if (*v28 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * i);
+        v7 = *(*(&v27 + 1) + 8 * i);
         v8 = [v7 diagnosticInfoGatherer];
         v9 = [v8 diagnosticInfoProvider];
 
@@ -222,22 +218,22 @@ void __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandl
 
           v12 = [MEMORY[0x1E699B868] promise];
           v13 = *(a1 + 64);
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_2;
-          v25[3] = &unk_1E8252100;
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_2;
+          v24[3] = &unk_1E8252100;
           v14 = *(a1 + 40);
-          v25[4] = *(a1 + 32);
-          v26 = *(a1 + 48);
+          v24[4] = *(a1 + 32);
+          v25 = *(a1 + 48);
           v15 = v12;
-          v27 = v15;
-          [v9 provideDiagnosticsAt:v14 options:v13 completion:v25];
+          v26 = v15;
+          [v9 provideDiagnosticsAt:v14 options:v13 completion:v24];
           v16 = [v15 future];
-          [v21 addObject:v16];
+          [v20 addObject:v16];
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v4);
@@ -247,19 +243,17 @@ void __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandl
   v17 = [MEMORY[0x1E699B868] promise];
   [*(a1 + 32) _copyIndexingDiagnosticsDatabaseIntoDirectoryURL:*(a1 + 48) completionPromise:v17];
   v18 = [v17 future];
-  [v21 addObject:v18];
+  [v20 addObject:v18];
 
-  v19 = [MEMORY[0x1E699B7C8] combine:v21];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_3;
-  v22[3] = &unk_1E82518B0;
-  v24 = *(a1 + 56);
-  v23 = *(a1 + 40);
-  [v19 always:v22];
+  v19 = [MEMORY[0x1E699B7C8] combine:v20];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_3;
+  v21[3] = &unk_1E82518B0;
+  v23 = *(a1 + 56);
+  v22 = *(a1 + 40);
+  [v19 always:v21];
   [v19 addFailureBlock:&__block_literal_global_25];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -343,7 +337,7 @@ void __95__EDDiagnosticInfoGatherer__copyIndexingDiagnosticsDatabaseIntoDirector
 
 - (void)_copyAndCompressDatabaseIntoDirectoryURL:(id)l originalURL:(id)rL targetName:(id)name
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   nameCopy = name;
@@ -366,7 +360,7 @@ void __95__EDDiagnosticInfoGatherer__copyIndexingDiagnosticsDatabaseIntoDirector
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v35 = nameCopy;
+        v34 = nameCopy;
         _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Added %@.", buf, 0xCu);
       }
     }
@@ -392,8 +386,6 @@ void __95__EDDiagnosticInfoGatherer__copyIndexingDiagnosticsDatabaseIntoDirector
 
   defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
   [defaultManager3 removeItemAtURL:v16 error:0];
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_compressDatabaseAtURL:(id)l intoDirectoryURL:(id)rL
@@ -445,20 +437,19 @@ void __95__EDDiagnosticInfoGatherer__copyIndexingDiagnosticsDatabaseIntoDirector
 
 uint64_t __71__EDDiagnosticInfoGatherer__compressDirectoryAtURL_intoArchiveWithURL___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2 == 11)
   {
     v3 = [MEMORY[0x1E696AEC0] stringWithCString:a3 encoding:4];
     v4 = +[EDDiagnosticInfoGatherer log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "Adding '%@'", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "Adding '%@'", &v6, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -559,75 +550,74 @@ LABEL_7:
 
 void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke(id *a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = +[EDDiagnosticInfoGatherer log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] count];
     *buf = 134217984;
-    v31 = v3;
+    v30 = v3;
     _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "Download %lu message objects ids", buf, 0xCu);
   }
 
-  v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a1[4], "count")}];
-  v18 = [MEMORY[0x1E699AC90] uniqueRequestID];
-  v19 = [MEMORY[0x1E699AC68] optionsWithRequestedRepresentationType:*MEMORY[0x1E699A710] networkUsage:2];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a1[4], "count")}];
+  v17 = [MEMORY[0x1E699AC90] uniqueRequestID];
+  v18 = [MEMORY[0x1E699AC68] optionsWithRequestedRepresentationType:*MEMORY[0x1E699A710] networkUsage:2];
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = a1[4];
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v4)
   {
-    v5 = *v26;
+    v5 = *v25;
     do
     {
       v6 = 0;
       do
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * v6);
+        v7 = *(*(&v24 + 1) + 8 * v6);
         v8 = [MEMORY[0x1E699B868] promise];
         v9 = [v8 future];
-        [v20 addObject:v9];
+        [v19 addObject:v9];
 
         v10 = [a1[5] persistence];
         v11 = [v10 messagePersistence];
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke_56;
-        v21[3] = &unk_1E82521B8;
-        v22 = a1[6];
-        v23 = v7;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke_56;
+        v20[3] = &unk_1E82521B8;
+        v21 = a1[6];
+        v22 = v7;
         v12 = v8;
-        v24 = v12;
-        v13 = [v11 requestContentForMessageObjectID:v7 requestID:v18 options:v19 delegate:0 completionHandler:v21];
+        v23 = v12;
+        v13 = [v11 requestContentForMessageObjectID:v7 requestID:v17 options:v18 delegate:0 completionHandler:v20];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v4);
   }
 
-  v14 = [MEMORY[0x1E699B7C8] combine:v20];
+  v14 = [MEMORY[0x1E699B7C8] combine:v19];
   v15 = [v14 map:&__block_literal_global_67];
 
   [a1[7] finishWithFuture:v15];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke_56(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -642,9 +632,9 @@ void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_
     v14 = [v9 ef_URLByAppendingTimestampedPathComponent:v13 withExtension:@"eml"];
 
     v15 = [MEMORY[0x1E696AC08] defaultManager];
-    v26 = 0;
-    LODWORD(v13) = [v15 copyItemAtURL:v7 toURL:v14 error:&v26];
-    v16 = v26;
+    v25 = 0;
+    LODWORD(v13) = [v15 copyItemAtURL:v7 toURL:v14 error:&v25];
+    v16 = v25;
 
     if (v13)
     {
@@ -652,7 +642,7 @@ void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v28 = v14;
+        v27 = v14;
         _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Dumped raw eml at %{public}@", buf, 0xCu);
       }
 
@@ -664,14 +654,14 @@ void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_
       v20 = +[EDDiagnosticInfoGatherer log];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v24 = [v7 path];
-        v25 = [v16 ef_publicDescription];
+        v23 = [v7 path];
+        v24 = [v16 ef_publicDescription];
         *buf = 138543874;
-        v28 = v24;
-        v29 = 2114;
-        v30 = v14;
-        v31 = 2114;
-        v32 = v25;
+        v27 = v23;
+        v28 = 2114;
+        v29 = v14;
+        v30 = 2114;
+        v31 = v24;
         _os_log_error_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_ERROR, "Error copying the url at %{public}@ to %{public}@. Error: %{public}@", buf, 0x20u);
       }
 
@@ -695,8 +685,6 @@ void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_
   v21 = *(a1 + 48);
   v22 = [MEMORY[0x1E695DFB0] null];
   [v21 finishWithResult:v22 error:v18];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 id __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke_64()
@@ -771,23 +759,23 @@ void __83__EDDiagnosticInfoGatherer_searchableIndexDatabaseStatisticsWithComplet
 
 void __75__EDDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandler___block_invoke_4_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error gathering diagnostics: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error gathering diagnostics: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_copyAndCompressDatabaseIntoDirectoryURL:(uint64_t)a3 originalURL:(uint64_t)a4 targetName:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Failed to copy %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Failed to copy %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_copyAndCompressDatabaseIntoDirectoryURL:(uint64_t)a3 originalURL:(uint64_t)a4 targetName:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Failed to compress %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Failed to compress %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __90__EDDiagnosticInfoGatherer__downloadMessagesWithObjectIDs_directoryURL_completionPromise___block_invoke_56_cold_1(void *a1, uint8_t *buf, os_log_t log)

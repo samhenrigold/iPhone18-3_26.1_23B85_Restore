@@ -406,7 +406,6 @@
 
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleServerUISecondFactorWithObjectModel:(id)model configuration:(id)configuration completion:(id)completion
@@ -1208,7 +1207,6 @@ LABEL_26:
   objc_storeStrong(&v82, 0);
   objc_storeStrong(&v83, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __134__AKAppleIDAuthenticationCommandLineContext__handleServerUISMSVerificationWithResponseDictionary_statusCode_configuration_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1265,29 +1263,27 @@ void __134__AKAppleIDAuthenticationCommandLineContext__handleServerUISMSVerifica
 
 void __134__AKAppleIDAuthenticationCommandLineContext__handleServerUISMSVerificationWithResponseDictionary_statusCode_configuration_completion___block_invoke_137(NSObject *a1, void *a2, void *a3, void *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v10 = 0;
-  objc_storeStrong(&v10, a3);
   v9 = 0;
-  objc_storeStrong(&v9, a4);
+  objc_storeStrong(&v9, a3);
+  v8 = 0;
+  objc_storeStrong(&v8, a4);
   oslog[1] = a1;
   oslog[0] = _AKLogSystem();
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_2_1_8_64(v12, v10);
-    _os_log_debug_impl(&dword_193225000, oslog[0], OS_LOG_TYPE_DEBUG, "Selected trusted number response %@", v12, 0xCu);
+    __os_log_helper_16_2_1_8_64(v11, v9);
+    _os_log_debug_impl(&dword_193225000, oslog[0], OS_LOG_TYPE_DEBUG, "Selected trusted number response %@", v11, 0xCu);
   }
 
   objc_storeStrong(oslog, 0);
-  isa = a1[4].isa;
   (*(a1[5].isa + 2))();
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
-  objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_collectAndPostSecondFactorCodeWithRequestBody:(id)body configuration:(id)configuration completion:(id)completion
@@ -1423,7 +1419,6 @@ void __117__AKAppleIDAuthenticationCommandLineContext__collectAndPostSecondFacto
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v13;
 
   return v3;
@@ -1567,7 +1562,6 @@ void __87__AKAppleIDAuthenticationCommandLineContext__promptUserForSelectionWith
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&_accountDictionary, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1591,7 +1585,6 @@ void __87__AKAppleIDAuthenticationCommandLineContext__promptUserForSelectionWith
   MEMORY[0x1E69E5920](v6);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1658,7 +1651,6 @@ void __63__AKAppleIDAuthenticationCommandLineContext__accountDictionary__block_i
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(v10, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginDataTaskWithRequest:(id)request configuration:(id)configuration completion:(id)completion
@@ -1755,7 +1747,6 @@ void __96__AKAppleIDAuthenticationCommandLineContext__beginDataTaskWithRequest_c
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __96__AKAppleIDAuthenticationCommandLineContext__beginDataTaskWithRequest_configuration_completion___block_invoke_155(uint64_t a1)
@@ -1943,7 +1934,6 @@ LABEL_19:
 
   objc_storeStrong(v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = string;
 
   return v3;
@@ -2075,7 +2065,6 @@ LABEL_19:
   objc_storeStrong(v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2156,7 +2145,6 @@ LABEL_19:
 
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v6 = v26;
 
   return v6;
@@ -2294,7 +2282,6 @@ LABEL_19:
 
   v9 = MEMORY[0x1E69E5928](v23[0]);
   objc_storeStrong(v23, 0);
-  *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2536,7 +2523,6 @@ LABEL_19:
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -2582,7 +2568,6 @@ LABEL_19:
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }

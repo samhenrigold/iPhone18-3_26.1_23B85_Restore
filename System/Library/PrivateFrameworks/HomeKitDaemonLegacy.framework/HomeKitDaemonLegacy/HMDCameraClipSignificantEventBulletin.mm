@@ -11,7 +11,7 @@
 
 - (id)createUserInfoWithWithSignificantEvents:(id)events previewImageNotificationUUID:(id)d camera:(id)camera home:(id)home accessory:(id)accessory recordingService:(id)service clipUUID:(id)iD
 {
-  v45[9] = *MEMORY[0x277D85DE8];
+  v44[9] = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   serviceCopy = service;
   accessoryCopy = accessory;
@@ -24,51 +24,49 @@
   contextSPIUniqueIdentifier2 = [homeCopy contextSPIUniqueIdentifier];
   uUIDString2 = [contextSPIUniqueIdentifier2 UUIDString];
 
-  v41 = [objc_opt_class() actionURLForHomeUUID:uUIDString2 cameraUUID:uUIDString];
+  v40 = [objc_opt_class() actionURLForHomeUUID:uUIDString2 cameraUUID:uUIDString];
   v24 = [eventsCopy na_map:&__block_literal_global_66];
   allObjects = [v24 allObjects];
 
   v25 = [eventsCopy na_any:&__block_literal_global_68_165512];
   v26 = *MEMORY[0x277CCF308];
-  v44[0] = *MEMORY[0x277CCF310];
-  v44[1] = v26;
-  v45[0] = allObjects;
-  v45[1] = uUIDString;
-  v44[2] = *MEMORY[0x277CCF300];
+  v43[0] = *MEMORY[0x277CCF310];
+  v43[1] = v26;
+  v44[0] = allObjects;
+  v44[1] = uUIDString;
+  v43[2] = *MEMORY[0x277CCF300];
   uUIDString3 = [dCopy UUIDString];
 
   v28 = *MEMORY[0x277CCF328];
-  v45[2] = uUIDString3;
-  v45[3] = uUIDString2;
+  v44[2] = uUIDString3;
+  v44[3] = uUIDString2;
   v29 = *MEMORY[0x277CD13D8];
-  v44[3] = v28;
-  v44[4] = v29;
-  absoluteString = [v41 absoluteString];
-  v45[4] = absoluteString;
-  v44[5] = @"service";
+  v43[3] = v28;
+  v43[4] = v29;
+  absoluteString = [v40 absoluteString];
+  v44[4] = absoluteString;
+  v43[5] = @"service";
   contextID = [serviceCopy contextID];
 
-  v45[5] = contextID;
-  v44[6] = @"home";
+  v44[5] = contextID;
+  v43[6] = @"home";
   contextID2 = [homeCopy contextID];
 
-  v45[6] = contextID2;
-  v44[7] = @"accessory";
+  v44[6] = contextID2;
+  v43[7] = @"accessory";
   contextID3 = [accessoryCopy contextID];
 
-  v45[7] = contextID3;
-  v44[8] = @"HMDBulletinContextDidDetectedPerson";
+  v44[7] = contextID3;
+  v43[8] = @"HMDBulletinContextDidDetectedPerson";
   v34 = [MEMORY[0x277CCABB0] numberWithBool:v25];
-  v45[8] = v34;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:9];
+  v44[8] = v34;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:9];
   v36 = [v35 mutableCopy];
 
   uUIDString4 = [iDCopy UUIDString];
 
   [v36 setObject:uUIDString4 forKeyedSubscript:*MEMORY[0x277CCF2F8]];
-  v38 = [v36 copy];
-
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = objc_msgSend_copy(v36);
 
   return v38;
 }
@@ -181,7 +179,7 @@ LABEL_19:
   if (v29)
   {
     v29->_shouldShowProvideFeedbackButton = button;
-    v31 = [identifierCopy copy];
+    v31 = objc_msgSend_copy(identifierCopy);
     requestIdentifier = v30->_requestIdentifier;
     v30->_requestIdentifier = v31;
 
@@ -190,11 +188,11 @@ LABEL_19:
     objc_storeStrong(&v30->_recordingService, service);
     objc_storeStrong(&v30->_accessory, accessory);
     objc_storeStrong(&v30->_previewImageFilePathURL, lCopy);
-    v33 = [eventsCopy copy];
+    v33 = objc_msgSend_copy(eventsCopy);
     significantEvents = v30->_significantEvents;
     v30->_significantEvents = v33;
 
-    v35 = [dCopy copy];
+    v35 = objc_msgSend_copy(dCopy);
     previewImageNotificationUUID = v30->_previewImageNotificationUUID;
     v30->_previewImageNotificationUUID = v35;
 
@@ -217,7 +215,7 @@ LABEL_19:
 
     v27 = cameraCopy;
     objc_storeStrong(&v30->_dateOfOccurrence, occurrenceCopy);
-    v46 = [v28 copy];
+    v46 = objc_msgSend_copy(v28);
     clipUUID = v30->_clipUUID;
     v30->_clipUUID = v46;
   }
@@ -240,19 +238,19 @@ LABEL_19:
 
 + (id)localizedMessageForSignificantEvents:(id)events cameraAccessory:(id)accessory
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   accessoryCopy = accessory;
   v8 = [MEMORY[0x277CBEB18] arrayWithObject:@"CAMERA_RECORDING_SIGNIFICANT_EVENT_DETECTED_MESSAGE"];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke;
-  v44[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
-  v44[4] = self;
-  v9 = [eventsCopy na_filter:v44];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke;
+  v43[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
+  v43[4] = self;
+  v9 = [eventsCopy na_filter:v43];
   v10 = [v9 na_map:&__block_literal_global_165555];
-  v35 = v10;
-  v36 = accessoryCopy;
+  v34 = v10;
+  v35 = accessoryCopy;
   if (![v10 count])
   {
     if ([v9 count] == 1)
@@ -281,13 +279,13 @@ LABEL_11:
   personSettingsManager = [currentUser personSettingsManager];
 
   allObjects = [v10 allObjects];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_3;
-  v42[3] = &unk_279731020;
-  v43 = personSettingsManager;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_3;
+  v41[3] = &unk_279731020;
+  v42 = personSettingsManager;
   v15 = personSettingsManager;
-  v16 = [allObjects sortedArrayUsingComparator:v42];
+  v16 = [allObjects sortedArrayUsingComparator:v41];
 
   firstObject = [v16 firstObject];
   name = [firstObject name];
@@ -305,32 +303,32 @@ LABEL_11:
   [v8 addObject:v19];
 
 LABEL_12:
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_4;
-  v41[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
-  v41[4] = self;
-  if ([eventsCopy na_any:v41])
-  {
-    [v8 addObject:@"ANIMAL"];
-  }
-
   v40[0] = MEMORY[0x277D85DD0];
   v40[1] = 3221225472;
-  v40[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_5;
+  v40[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_4;
   v40[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
   v40[4] = self;
   if ([eventsCopy na_any:v40])
   {
-    [v8 addObject:@"VEHICLE"];
+    [v8 addObject:@"ANIMAL"];
   }
 
   v39[0] = MEMORY[0x277D85DD0];
   v39[1] = 3221225472;
-  v39[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_6;
+  v39[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_5;
   v39[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
   v39[4] = self;
   if ([eventsCopy na_any:v39])
+  {
+    [v8 addObject:@"VEHICLE"];
+  }
+
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __94__HMDCameraClipSignificantEventBulletin_localizedMessageForSignificantEvents_cameraAccessory___block_invoke_6;
+  v38[3] = &__block_descriptor_40_e34_B16__0__HMCameraSignificantEvent_8l;
+  v38[4] = self;
+  if ([eventsCopy na_any:v38])
   {
     [v8 addObject:@"PACKAGE"];
   }
@@ -345,10 +343,10 @@ LABEL_12:
   v23 = HMDLocalizedStringForKey(v21);
   if (name)
   {
-    v38 = 0;
-    name2 = [v36 name];
-    v25 = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@ %@" error:&v38, name2, name];
-    v26 = v38;
+    v37 = 0;
+    name2 = [v35 name];
+    v25 = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@ %@" error:&v37, name2, name];
+    v26 = v37;
 
     if (!v25)
     {
@@ -358,13 +356,13 @@ LABEL_12:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v46 = v29;
-        v47 = 2112;
-        v48 = v21;
-        v49 = 2112;
-        v50 = @"%@ %@";
-        v51 = 2112;
-        v52 = v26;
+        v45 = v29;
+        v46 = 2112;
+        v47 = v21;
+        v48 = 2112;
+        v49 = @"%@ %@";
+        v50 = 2112;
+        v51 = v26;
 LABEL_28:
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -377,10 +375,10 @@ LABEL_28:
 
   else
   {
-    v37 = 0;
-    name3 = [v36 name];
-    v25 = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@" error:&v37, name3];
-    v26 = v37;
+    v36 = 0;
+    name3 = [v35 name];
+    v25 = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@" error:&v36, name3];
+    v26 = v36;
 
     if (!v25)
     {
@@ -390,13 +388,13 @@ LABEL_28:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v46 = v29;
-        v47 = 2112;
-        v48 = v21;
-        v49 = 2112;
-        v50 = @"%@";
-        v51 = 2112;
-        v52 = v26;
+        v45 = v29;
+        v46 = 2112;
+        v47 = v21;
+        v48 = 2112;
+        v49 = @"%@";
+        v50 = 2112;
+        v51 = v26;
         goto LABEL_28;
       }
 
@@ -413,7 +411,6 @@ LABEL_29:
 LABEL_30:
   v32 = v25;
 
-  v33 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

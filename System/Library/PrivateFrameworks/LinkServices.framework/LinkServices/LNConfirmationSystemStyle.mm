@@ -6,8 +6,9 @@
 
 + (id)montaraEnablementWithBundleIdentifier:(id)identifier source:(int64_t)source isExplicitRequest:(BOOL)request
 {
+  requestCopy = request;
   v7 = sub_19774EF50();
-  v9 = static LNConfirmationSystemStyle.montaraEnablement(bundleIdentifier:source:isExplicitRequest:)(v7, v8, source, request);
+  v9 = static LNConfirmationSystemStyle.montaraEnablement(bundleIdentifier:source:isExplicitRequest:)(v7, v8, source, requestCopy);
 
   return v9;
 }

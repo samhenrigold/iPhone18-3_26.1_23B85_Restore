@@ -11,9 +11,9 @@
     +[CIContext(IconServicesAdditions) _IS_sharedIconCompositorContext];
   }
 
-  v1 = _IS_sharedIconCompositorContext_sharedContext;
+  v2 = _IS_sharedIconCompositorContext_sharedContext;
 
-  return v1;
+  return v2;
 }
 
 @end

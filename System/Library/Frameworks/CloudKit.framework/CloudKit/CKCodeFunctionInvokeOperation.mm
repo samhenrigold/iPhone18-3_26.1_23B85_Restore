@@ -64,7 +64,7 @@
 - (void)setFunctionInvokeCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -95,7 +95,7 @@ LABEL_9:
 
 - (id)functionInvokeCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -251,7 +251,7 @@ LABEL_9:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -270,19 +270,19 @@ LABEL_9:
     v8 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v20 = v8;
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      v25 = objc_msgSend_ckShortDescription(self, v23, v24);
+      v19 = v8;
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      v24 = objc_msgSend_ckShortDescription(self, v22, v23);
       *buf = 138544130;
-      v28 = v22;
-      v29 = 2048;
+      v27 = v21;
+      v28 = 2048;
       selfCopy = self;
-      v31 = 2114;
-      v32 = v25;
-      v33 = 2112;
-      v34 = errorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "Calling functionInvokeCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v30 = 2114;
+      v31 = v24;
+      v32 = 2112;
+      v33 = errorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "Calling functionInvokeCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v11 = objc_msgSend_functionInvokeCompletionBlock(self, v9, v10);
@@ -293,16 +293,14 @@ LABEL_9:
     objc_msgSend_setFunctionInvokeCompletionBlock_(self, v18, 0);
   }
 
-  v26.receiver = self;
-  v26.super_class = CKCodeFunctionInvokeOperation;
-  [(CKOperation *)&v26 _finishOnCallbackQueueWithError:errorCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = CKCodeFunctionInvokeOperation;
+  [(CKOperation *)&v25 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -355,28 +353,26 @@ LABEL_9:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCodeFunctionInvokeOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCodeFunctionInvokeOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -420,13 +416,11 @@ LABEL_9:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCodeFunctionInvokeOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCodeFunctionInvokeOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

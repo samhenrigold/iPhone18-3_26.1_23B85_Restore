@@ -297,11 +297,11 @@ void __52__CAMPreviewViewAccessibility__accessibilityZoomIn___block_invoke(uint6
   [v3 changeToVideoZoomFactor:*(a1 + 40) graphConfiguration:*(a1 + 48)];
 }
 
-void __52__CAMPreviewViewAccessibility__accessibilityZoomIn___block_invoke_2()
+void __52__CAMPreviewViewAccessibility__accessibilityZoomIn___block_invoke_2(uint64_t a1)
 {
-  v0 = *MEMORY[0x29EDC7EA8];
-  v1 = AXFormatMagnificationFactor();
-  UIAccessibilityPostNotification(v0, v1);
+  v1 = *MEMORY[0x29EDC7EA8];
+  v2 = AXFormatMagnificationFactor();
+  UIAccessibilityPostNotification(v1, v2);
 }
 
 - (BOOL)_axIsFocusLocked

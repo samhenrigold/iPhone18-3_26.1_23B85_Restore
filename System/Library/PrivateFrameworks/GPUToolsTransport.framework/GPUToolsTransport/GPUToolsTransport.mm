@@ -86,7 +86,7 @@ DYGTMTLDeviceProfile *newProfileWithMTLDevice(void *a1)
 
 id DaemonDeviceCapabilities(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = MTLCreateSystemDefaultDevice();
   v3 = newProfileWithMTLDevice(v2);
@@ -108,31 +108,29 @@ id DaemonDeviceCapabilities(void *a1)
   }
 
   *values = xmmword_279661098;
-  v19 = *off_2796610A8;
-  v20 = @"main-screen-scale";
+  v18 = *off_2796610A8;
+  v19 = @"main-screen-scale";
   v9 = CFArrayCreate(0, values, 5, MEMORY[0x277CBF128]);
   v10 = MGCopyMultipleAnswers();
   CFRelease(v9);
-  v15 = v3;
-  v16[0] = @"gputools.contexts-info";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v17[0] = v11;
-  v17[1] = v10;
-  v16[1] = @"screen-dimensions";
-  v16[2] = @"metal_version";
-  v16[3] = @"nativePointerSize";
-  v17[2] = v8;
-  v17[3] = &unk_2860E9000;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = v3;
+  v15[0] = @"gputools.contexts-info";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v16[0] = v11;
+  v16[1] = v10;
+  v15[1] = @"screen-dimensions";
+  v15[2] = @"metal_version";
+  v15[3] = @"nativePointerSize";
+  v16[2] = v8;
+  v16[3] = &unk_2860E9000;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   return v12;
 }
 
 id DaemonCreateGuestAppTransport(void *a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -153,26 +151,26 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v46;
+      v7 = *v45;
 LABEL_6:
       v8 = 0;
       while (1)
       {
-        if (*v46 != v7)
+        if (*v45 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v45 + 1) + 8 * v8);
+        v9 = *(*(&v44 + 1) + 8 * v8);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -190,7 +188,7 @@ LABEL_6:
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v44 objects:v48 count:16];
           if (v6)
           {
             goto LABEL_6;
@@ -261,82 +259,58 @@ LABEL_25:
     v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
   }
 
-  v20 = v17;
-  v21 = [v16 objectForKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
-  v22 = [v21 componentsSeparatedByString:@":"];
-  v23 = v22;
-  if (v22)
+  v19 = v17;
+  v20 = [v16 objectForKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
+  v21 = [v20 componentsSeparatedByString:@":"];
+  v22 = v21;
+  if (v21)
   {
-    v24 = [v22 mutableCopy];
+    v23 = [v21 mutableCopy];
   }
 
   else
   {
-    v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
+    v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
   }
 
-  v25 = v24;
-  v26 = [v2 objectForKeyedSubscript:@"platformPrefix"];
-  v27 = [v16 objectForKeyedSubscript:@"GPUTOOLS_EXTRA_PLUGIN_PATHS"];
-  v28 = [v2 objectForKeyedSubscript:@"shouldLoadReplayer"];
-  if (!v28)
+  v24 = v23;
+  v25 = [v2 objectForKeyedSubscript:@"platformPrefix"];
+  v26 = [v16 objectForKeyedSubscript:@"GPUTOOLS_EXTRA_PLUGIN_PATHS"];
+  v27 = [v2 objectForKeyedSubscript:@"shouldLoadReplayer"];
+  if (!v27 || (v28 = v27, [v2 objectForKeyedSubscript:@"shouldLoadCapture"], v43 = v24, v29 = v22, v30 = v19, v31 = v20, v32 = v26, v33 = v25, v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "BOOLValue"), v34, v25 = v33, v26 = v32, v20 = v31, v19 = v30, v22 = v29, v24 = v43, v28, v35))
   {
-    goto LABEL_39;
-  }
-
-  v29 = v28;
-  [v2 objectForKeyedSubscript:@"shouldLoadCapture"];
-  v44 = v25;
-  v30 = v23;
-  v31 = v20;
-  v32 = v21;
-  v33 = v27;
-  v35 = v34 = v26;
-  v36 = [v35 BOOLValue];
-
-  v26 = v34;
-  v27 = v33;
-  v21 = v32;
-  v20 = v31;
-  v23 = v30;
-  v25 = v44;
-
-  if (v36)
-  {
-LABEL_39:
-    v37 = [@"/System/Library/PrivateFrameworks/" stringByAppendingPathComponent:@"GPUToolsCapture.framework/GPUToolsCapture"];
-    if (([v25 containsObject:v37] & 1) == 0)
+    v36 = [@"/System/Library/PrivateFrameworks/" stringByAppendingPathComponent:@"GPUToolsCapture.framework/GPUToolsCapture"];
+    if (([v24 containsObject:v36] & 1) == 0)
     {
-      [v25 addObject:v37];
+      [v24 addObject:v36];
     }
 
-    [v20 setObject:v37 forKeyedSubscript:@"DYMTL_TOOLS_DYLIB_PATH"];
+    [v19 setObject:v36 forKeyedSubscript:@"DYMTL_TOOLS_DYLIB_PATH"];
   }
 
-  v38 = [v2 objectForKeyedSubscript:@"shouldLoadDiagnostics"];
-  v39 = [v38 BOOLValue];
+  v37 = [v2 objectForKeyedSubscript:@"shouldLoadDiagnostics"];
+  v38 = [v37 BOOLValue];
 
-  if (v39)
+  if (v38)
   {
-    v40 = [@"/System/Library/PrivateFrameworks/" stringByAppendingPathComponent:@"GPUToolsDiagnostics.framework/GPUToolsDiagnostics"];
-    if (([v25 containsObject:v40] & 1) == 0)
+    v39 = [@"/System/Library/PrivateFrameworks/" stringByAppendingPathComponent:@"GPUToolsDiagnostics.framework/GPUToolsDiagnostics"];
+    if (([v24 containsObject:v39] & 1) == 0)
     {
-      [v25 addObject:v40];
+      [v24 addObject:v39];
     }
   }
 
-  v41 = [v23 count];
-  if (v41 != [v25 count])
+  v40 = [v22 count];
+  if (v40 != [v24 count])
   {
-    v42 = [v25 componentsJoinedByString:@":"];
-    [v20 setObject:v42 forKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
+    v41 = [v24 componentsJoinedByString:@":"];
+    [v19 setObject:v41 forKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
 
-    v43 = [v20 copy];
-    v16 = v43;
+    v42 = [v19 copy];
+    v16 = v42;
   }
 
 LABEL_30:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -803,7 +777,7 @@ void MessageSetHasReply(void *a1)
 
 BOOL MessageIsValid(void *a1, void *a2)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (!v3)
@@ -811,12 +785,12 @@ BOOL MessageIsValid(void *a1, void *a2)
     if (a2)
     {
       v5 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA450];
+      v23 = *MEMORY[0x277CCA450];
       v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Encountered an XPC error: %@", @"Message is nil"];
-      v25[0] = v6;
+      v24[0] = v6;
       v7 = MEMORY[0x277CBEAC0];
-      v8 = v25;
-      v9 = &v24;
+      v8 = v24;
+      v9 = &v23;
       goto LABEL_8;
     }
 
@@ -830,12 +804,12 @@ LABEL_11:
     if (a2)
     {
       v11 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA450];
+      v21 = *MEMORY[0x277CCA450];
       v12 = MEMORY[0x277CCACA8];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:xpc_error_string(v4)];
       v14 = [v12 stringWithFormat:@"Encountered an XPC error: %@", v13];
-      v23 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v22 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       *a2 = [v11 errorWithDomain:@"com.apple.gputools.transport" code:7 userInfo:v15];
     }
 
@@ -848,10 +822,10 @@ LABEL_11:
     {
       v5 = MEMORY[0x277CCA9B8];
       v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Encountered an XPC error: %@", @"Unexpected XPC object type", *MEMORY[0x277CCA450]];
-      v21 = v6;
+      v20 = v6;
       v7 = MEMORY[0x277CBEAC0];
-      v8 = &v21;
-      v9 = &v20;
+      v8 = &v20;
+      v9 = &v19;
 LABEL_8:
       v10 = [v7 dictionaryWithObjects:v8 forKeys:v9 count:1];
       *a2 = [v5 errorWithDomain:@"com.apple.gputools.transport" code:7 userInfo:v10];
@@ -871,7 +845,6 @@ LABEL_8:
   }
 
 LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -974,30 +947,30 @@ id allServicesForDeviceUDID(void *a1, void *a2)
 
 id filteredArrayByService(void *a1, Protocol *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromProtocol(a2);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v11 serviceProperties];
         v13 = [v12 protocolName];
         v14 = [v13 isEqualToString:v4];
@@ -1008,43 +981,42 @@ id filteredArrayByService(void *a1, Protocol *a2)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v5 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 id filteredArrayByPID(void *a1, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 processInfo];
         if ([v11 processIdentifier] == a2)
         {
@@ -1052,43 +1024,42 @@ id filteredArrayByPID(void *a1, int a2)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
-id filteredArrayByPort(void *a1, uint64_t a2)
+id filteredArrayByPort(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 serviceProperties];
         if ([v11 servicePort] == a2)
         {
@@ -1096,14 +1067,13 @@ id filteredArrayByPort(void *a1, uint64_t a2)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1161,7 +1131,7 @@ void **GTTpacket_stream(void *a1)
 
 void GTTpacket_record(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a1)
   {
@@ -1169,8 +1139,8 @@ void GTTpacket_record(uint64_t a1, uint64_t a2, void *a3)
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
     [v6 setSelector:v7];
 
-    v10[0] = v5;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     [v6 setRequests:v8];
 
     [v6 setRequestID:{objc_msgSend(v5, "requestID")}];
@@ -1180,8 +1150,6 @@ void GTTpacket_record(uint64_t a1, uint64_t a2, void *a3)
       [*a1 removeObjectAtIndex:0];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void GTTpacket_recordBatch(uint64_t a1, uint64_t a2, void *a3)
@@ -1322,7 +1290,7 @@ void xpc_dictionary_set_nsdata(void *a1, const char *a2, id a3)
   }
 }
 
-const void *xpc_dictionary_get_nsdata(void *a1, const char *a2)
+void *xpc_dictionary_get_nsdata(void *a1, const char *a2)
 {
   length = 0;
   result = xpc_dictionary_get_data(a1, a2, &length);
@@ -1336,7 +1304,7 @@ const void *xpc_dictionary_get_nsdata(void *a1, const char *a2)
   return result;
 }
 
-const void *xpc_dictionary_get_nsdata_nocopy(void *a1, const char *a2)
+void *xpc_dictionary_get_nsdata_nocopy(void *a1, const char *a2)
 {
   length = 0;
   result = xpc_dictionary_get_data(a1, a2, &length);
@@ -1540,7 +1508,7 @@ uint64_t __xpc_dictionary_string_array_contains_block_invoke(uint64_t a1, int a2
   return result;
 }
 
-const void *xpc_array_get_nsdata_nocopy(void *a1, size_t a2)
+void *xpc_array_get_nsdata_nocopy(void *a1, size_t a2)
 {
   length = 0;
   result = xpc_array_get_data(a1, a2, &length);
@@ -1600,7 +1568,7 @@ id gt_xpc_dictionary_create_reply(void *a1)
 void *GTUnarchivedObjectOfClassesExpectingClass(uint64_t a1, objc_class *a2, uint64_t a3, void *a4)
 {
   v4 = a4;
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:a1 fromData:a3 error:a4];
   if (!v6)
   {
@@ -1620,14 +1588,14 @@ LABEL_7:
     if (!*v4)
     {
       v7 = MEMORY[0x277CCA9B8];
-      v16 = *MEMORY[0x277CCA450];
+      v15 = *MEMORY[0x277CCA450];
       v8 = MEMORY[0x277CCACA8];
       v9 = NSStringFromClass(a2);
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       v12 = [v8 stringWithFormat:@"Unexpected type when unarchiving response. Expected %@ Received %@", v9, v11];
-      v17[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v16[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       *v4 = [v7 errorWithDomain:@"com.apple.gputools.transport" code:9 userInfo:v13];
     }
 
@@ -1635,8 +1603,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1926,14 +1892,14 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __GTTransportServiceDaemonConnectIfVersionNotOlderThan_block_invoke(uint64_t a1)
+void __GTTransportServiceDaemonConnectIfVersionNotOlderThan_block_invoke(uint64_t *a1)
 {
-  v2 = allServices(*(a1 + 32));
-  v3 = *(*(a1 + 48) + 8);
+  v2 = allServices(a1[4]);
+  v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(a1 + 40);
+  v5 = a1[5];
 
   dispatch_group_leave(v5);
 }
@@ -1996,49 +1962,15 @@ void __ActivateServiceDaemonConnection_block_invoke_2(uint64_t a1, uint64_t a2)
   }
 }
 
-void GTTransportServiceDaemonConnectIfVersionNotOlderThan_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void GTTransportServiceDaemonConnectIfVersionNotOlderThan_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void GTTransportServiceDaemonConnectIfVersionNotOlderThan_cold_4(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 serviceProperties];
-  v7 = 134218240;
-  v8 = [v5 version];
-  v9 = 2048;
-  v10 = a2;
-  _os_log_debug_impl(&dword_24DBC9000, a3, OS_LOG_TYPE_DEBUG, "gputoolsserviced is too old (%llu < %llu)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __ActivateServiceDaemonConnection_block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __ActivateServiceDaemonConnection_block_invoke_2_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = [v5 version];
+  v8 = 2048;
+  v9 = a2;
+  _os_log_debug_impl(&dword_24DBC9000, a3, OS_LOG_TYPE_DEBUG, "gputoolsserviced is too old (%llu < %llu)", &v6, 0x16u);
 }
 
 id GTBulkDataCompress(void *a1, uint64_t a2, uint64_t a3)
@@ -2140,10 +2072,11 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
@@ -2255,61 +2188,60 @@ void __Encode_block_invoke(uint64_t a1, void *a2, void *a3)
   [*(a1 + 40) completed];
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void Encode_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display request %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display request %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __Encode_block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display response %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display response %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void DeleteAllArchives(void *a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v27 = v1;
+  v26 = v1;
   v3 = [MEMORY[0x277CBEBC0] fileURLWithPath:v1];
   v4 = [MEMORY[0x277CCAA00] defaultManager];
-  v26 = v3;
+  v25 = v3;
   v5 = [v4 enumeratorAtURL:v3 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:&__block_literal_global];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v34;
+    v9 = *v33;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
+        v11 = *(*(&v32 + 1) + 8 * i);
         v12 = [v11 pathExtension];
         v13 = [v12 caseInsensitiveCompare:@"gputrace"];
 
@@ -2319,36 +2251,36 @@ void DeleteAllArchives(void *a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v14 = v2;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * j);
+        v19 = *(*(&v28 + 1) + 8 * j);
         v20 = [MEMORY[0x277CCAA00] defaultManager];
-        v28 = 0;
-        v21 = [v20 removeItemAtURL:v19 error:&v28];
-        v22 = v28;
+        v27 = 0;
+        v21 = [v20 removeItemAtURL:v19 error:&v27];
+        v22 = v27;
 
         if ((v21 & 1) == 0)
         {
@@ -2358,9 +2290,9 @@ void DeleteAllArchives(void *a1)
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v38 = v19;
-              v39 = 2112;
-              v40 = v22;
+              v37 = v19;
+              v38 = 2112;
+              v39 = v22;
               _os_log_error_impl(&dword_24DBC9000, v23, OS_LOG_TYPE_ERROR, "Failed to delete archive %@ %@", buf, 0x16u);
             }
           }
@@ -2374,13 +2306,11 @@ void DeleteAllArchives(void *a1)
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v16);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __DeleteAllArchives_block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2437,7 +2367,7 @@ uint64_t GTFileTransferCompressionAlgorithmToNSDataCompressionAlgorithm(uint64_t
 
 uint64_t ProcessCompressionStream(compression_stream *a1, const uint8_t *a2, size_t a3, uint8_t *a4, size_t a5, uint64_t a6, void *a7)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v13 = a7;
   a1->src_ptr = a2;
   a1->src_size = a3;
@@ -2492,8 +2422,8 @@ LABEL_7:
 LABEL_14:
     v17 = MEMORY[0x277CCA9B8];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Compression failed: %@", @"Failed to process compression stream", *MEMORY[0x277CCA450]];
-    v23[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     *a6 = [v17 errorWithDomain:@"com.apple.gputools.filewriter" code:0 userInfo:v19];
 
 LABEL_15:
@@ -2502,13 +2432,12 @@ LABEL_15:
 
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return a6;
 }
 
 uint64_t FinalizeCompressionStream(compression_stream *a1, uint8_t *a2, size_t a3, uint64_t a4, void *a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = compression_stream_process(a1, 1);
   if (v10 == COMPRESSION_STATUS_OK)
@@ -2568,8 +2497,8 @@ LABEL_14:
 LABEL_13:
     v14 = MEMORY[0x277CCA9B8];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Compression failed: %@", @"Failed to finalize compression stream", *MEMORY[0x277CCA450]];
-    v20[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *a4 = [v14 errorWithDomain:@"com.apple.gputools.filewriter" code:0 userInfo:v16];
 
     goto LABEL_14;
@@ -2577,24 +2506,23 @@ LABEL_13:
 
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return a4;
 }
 
 uint64_t GTFileWriterTransferFileEntries(void *a1, void *a2, void *a3, id *a4, void *a5)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   v8 = a1;
   v9 = a2;
   v10 = a3;
   v11 = a5;
-  v121 = malloc_type_malloc([v10 chunkSize], 0x3260538DuLL);
+  v120 = malloc_type_malloc([v10 chunkSize], 0x3260538DuLL);
   if ([v10 compressionAlgorithm])
   {
     v12 = v8;
-    v115 = v9;
+    v114 = v9;
     v13 = v10;
-    v113 = v11;
+    v112 = v11;
     if (![v12 count])
     {
       v46 = 1;
@@ -2613,7 +2541,7 @@ uint64_t GTFileWriterTransferFileEntries(void *a1, void *a2, void *a3, id *a4, v
       v15 = dword_24DC0EEE0[v14];
     }
 
-    v118 = v13;
+    v117 = v13;
     if (compression_stream_init(&buf, COMPRESSION_STREAM_ENCODE, v15))
     {
       if (GTCoreLogUseOsLog())
@@ -2635,10 +2563,10 @@ uint64_t GTFileWriterTransferFileEntries(void *a1, void *a2, void *a3, id *a4, v
       if (a4)
       {
         v78 = MEMORY[0x277CCA9B8];
-        *&v130 = *MEMORY[0x277CCA450];
+        *&v129 = *MEMORY[0x277CCA450];
         v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"Compression failed: %@", @"Failed to initialize encode compression stream"];
-        v129[0] = v68;
-        v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v129 forKeys:&v130 count:1];
+        v128[0] = v68;
+        v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v128 forKeys:&v129 count:1];
         *a4 = [v78 errorWithDomain:@"com.apple.gputools.filewriter" code:0 userInfo:v79];
 
         v46 = 0;
@@ -2653,56 +2581,56 @@ LABEL_113:
       goto LABEL_114;
     }
 
-    v97 = v8;
-    v99 = v11;
-    v93 = v10;
-    v95 = v9;
-    v120 = malloc_type_malloc([v13 chunkSize], 0xE0DF840FuLL);
+    v96 = v8;
+    v98 = v11;
+    v92 = v10;
+    v94 = v9;
+    v119 = malloc_type_malloc([v13 chunkSize], 0xE0DF840FuLL);
     buf.src_size = 0;
-    buf.dst_ptr = v121;
+    buf.dst_ptr = v120;
     buf.dst_size = [v13 chunkSize];
+    v129 = 0u;
     v130 = 0u;
     v131 = 0u;
     v132 = 0u;
-    v133 = 0u;
-    v102 = v12;
+    v101 = v12;
     v48 = v12;
-    v49 = [v48 countByEnumeratingWithState:&v130 objects:v129 count:16];
+    v49 = [v48 countByEnumeratingWithState:&v129 objects:v128 count:16];
     if (!v49)
     {
 LABEL_81:
 
 LABEL_110:
-      v46 = FinalizeCompressionStream(&buf, v121, [v13 chunkSize], a4, v113);
+      v46 = FinalizeCompressionStream(&buf, v120, [v13 chunkSize], a4, v112);
       v68 = 0;
-      v9 = v95;
-      v8 = v97;
-      v10 = v93;
-      v11 = v99;
-      v12 = v102;
+      v9 = v94;
+      v8 = v96;
+      v10 = v92;
+      v11 = v98;
+      v12 = v101;
 LABEL_111:
-      free(v120);
+      free(v119);
       compression_stream_destroy(&buf);
       goto LABEL_112;
     }
 
     v50 = v49;
-    v51 = *v131;
-    v106 = *MEMORY[0x277CCA5B8];
-    v104 = *MEMORY[0x277CCA450];
-    v108 = *v131;
-    v110 = v48;
+    v51 = *v130;
+    v105 = *MEMORY[0x277CCA5B8];
+    v103 = *MEMORY[0x277CCA450];
+    v107 = *v130;
+    v109 = v48;
 LABEL_52:
     v52 = 0;
-    v112 = v50;
+    v111 = v50;
     while (1)
     {
-      if (*v131 != v51)
+      if (*v130 != v51)
       {
         objc_enumerationMutation(v48);
       }
 
-      v53 = *(*(&v130 + 1) + 8 * v52);
+      v53 = *(*(&v129 + 1) + 8 * v52);
       v54 = objc_autoreleasePoolPush();
       v55 = [v53 destination];
       if (v55)
@@ -2719,7 +2647,7 @@ LABEL_77:
       objc_autoreleasePoolPop(v54);
       if (++v52 == v50)
       {
-        v74 = [v48 countByEnumeratingWithState:&v130 objects:v129 count:16];
+        v74 = [v48 countByEnumeratingWithState:&v129 objects:v128 count:16];
         v50 = v74;
         if (v74)
         {
@@ -2732,7 +2660,7 @@ LABEL_77:
 
     v56 = objc_alloc(MEMORY[0x277CBEBC0]);
     v57 = [v53 path];
-    v55 = [v56 initFileURLWithPath:v57 isDirectory:0 relativeToURL:v115];
+    v55 = [v56 initFileURLWithPath:v57 isDirectory:0 relativeToURL:v114];
 
     v58 = open([v55 fileSystemRepresentation], 0);
     if (v58 < 0)
@@ -2755,12 +2683,12 @@ LABEL_77:
       }
 
       v87 = MEMORY[0x277CCA9B8];
-      v128 = v104;
-      *v125 = @"Failed to open file for reading";
-      v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:&v128 count:1];
-      v68 = [v87 errorWithDomain:v106 code:v84 userInfo:v88];
+      v127 = v103;
+      *v124 = @"Failed to open file for reading";
+      v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:&v127 count:1];
+      v68 = [v87 errorWithDomain:v105 code:v84 userInfo:v88];
 
-      v13 = v118;
+      v13 = v117;
 LABEL_107:
 
       objc_autoreleasePoolPop(v54);
@@ -2769,11 +2697,11 @@ LABEL_107:
         goto LABEL_110;
       }
 
-      v9 = v95;
-      v8 = v97;
-      v10 = v93;
-      v11 = v99;
-      v12 = v102;
+      v9 = v94;
+      v8 = v96;
+      v10 = v92;
+      v11 = v98;
+      v12 = v101;
       if (a4)
       {
         v89 = v68;
@@ -2807,8 +2735,8 @@ LABEL_107:
           v62 = [v13 chunkSize];
         }
 
-        v63 = v120;
-        v64 = &v120[v62];
+        v63 = v119;
+        v64 = &v119[v62];
         while (v63 < v64)
         {
           v65 = read(v59, v63, v64 - v63);
@@ -2828,11 +2756,11 @@ LABEL_69:
             v70 = gt_tagged_log(0x10u);
             if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
-              *v125 = 138412546;
-              *&v125[4] = v55;
-              v126 = 1024;
-              v127 = v69;
-              _os_log_error_impl(&dword_24DBC9000, v70, OS_LOG_TYPE_ERROR, "Failed to read from file %@ (%d)", v125, 0x12u);
+              *v124 = 138412546;
+              *&v124[4] = v55;
+              v125 = 1024;
+              v126 = v69;
+              _os_log_error_impl(&dword_24DBC9000, v70, OS_LOG_TYPE_ERROR, "Failed to read from file %@ (%d)", v124, 0x12u);
             }
           }
 
@@ -2843,23 +2771,23 @@ LABEL_69:
             fprintf(v71, "%s\n", [v70 UTF8String]);
           }
 
-          v13 = v118;
+          v13 = v117;
 
           v72 = MEMORY[0x277CCA9B8];
-          v123 = v104;
-          v124 = @"Failed to read from file";
-          v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
-          v68 = [v72 errorWithDomain:v106 code:v69 userInfo:v73];
+          v122 = v103;
+          v123 = @"Failed to read from file";
+          v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+          v68 = [v72 errorWithDomain:v105 code:v69 userInfo:v73];
 
           break;
         }
 
         v60 += v62;
-        v13 = v118;
-        v66 = [v118 chunkSize];
-        v122 = v61;
-        v67 = ProcessCompressionStream(&buf, v120, v62, v121, v66, &v122, v113);
-        v68 = v122;
+        v13 = v117;
+        v66 = [v117 chunkSize];
+        v121 = v61;
+        v67 = ProcessCompressionStream(&buf, v119, v62, v120, v66, &v121, v112);
+        v68 = v121;
 
         v61 = v68;
         if (v67)
@@ -2872,30 +2800,30 @@ LABEL_69:
     }
 
     close(v59);
-    v48 = v110;
+    v48 = v109;
     if (v68)
     {
       goto LABEL_107;
     }
 
-    v51 = v108;
-    v50 = v112;
+    v51 = v107;
+    v50 = v111;
 LABEL_76:
 
     goto LABEL_77;
   }
 
   v16 = v8;
-  v116 = v9;
-  v117 = v10;
-  v98 = v11;
+  v115 = v9;
+  v116 = v10;
+  v97 = v11;
   v17 = v11;
+  v129 = 0u;
   v130 = 0u;
   v131 = 0u;
   v132 = 0u;
-  v133 = 0u;
   v18 = v16;
-  v19 = [v18 countByEnumeratingWithState:&v130 objects:v129 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v129 objects:v128 count:16];
   if (!v19)
   {
 
@@ -2903,27 +2831,27 @@ LABEL_76:
     goto LABEL_104;
   }
 
-  v92 = v10;
-  v94 = v9;
-  v96 = v8;
+  v91 = v10;
+  v93 = v9;
+  v95 = v8;
   v20 = 0;
-  v21 = *v131;
-  v101 = v17;
-  v111 = *MEMORY[0x277CCA5B8];
-  v109 = *MEMORY[0x277CCA450];
-  v105 = *v131;
-  v107 = v18;
+  v21 = *v130;
+  v100 = v17;
+  v110 = *MEMORY[0x277CCA5B8];
+  v108 = *MEMORY[0x277CCA450];
+  v104 = *v130;
+  v106 = v18;
 LABEL_7:
   v22 = 0;
-  v114 = v19;
+  v113 = v19;
   while (1)
   {
-    if (*v131 != v21)
+    if (*v130 != v21)
     {
       objc_enumerationMutation(v18);
     }
 
-    v23 = *(*(&v130 + 1) + 8 * v22);
+    v23 = *(*(&v129 + 1) + 8 * v22);
     v24 = objc_autoreleasePoolPush();
     v25 = [v23 destination];
     if (v25)
@@ -2943,13 +2871,13 @@ LABEL_41:
     objc_autoreleasePoolPop(v24);
     if (++v22 == v19)
     {
-      v19 = [v18 countByEnumeratingWithState:&v130 objects:v129 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v129 objects:v128 count:16];
       if (v19)
       {
         goto LABEL_7;
       }
 
-      v11 = v98;
+      v11 = v97;
       v45 = a4;
       goto LABEL_96;
     }
@@ -2957,7 +2885,7 @@ LABEL_41:
 
   v27 = objc_alloc(MEMORY[0x277CBEBC0]);
   v28 = [v23 path];
-  v26 = [v27 initFileURLWithPath:v28 isDirectory:0 relativeToURL:v116];
+  v26 = [v27 initFileURLWithPath:v28 isDirectory:0 relativeToURL:v115];
 
   v29 = open([v26 fileSystemRepresentation], 0);
   if ((v29 & 0x80000000) == 0)
@@ -2965,12 +2893,12 @@ LABEL_41:
     v30 = v29;
     if ([v23 fileSize])
     {
-      v119 = 0;
+      v118 = 0;
       v31 = 0;
       while (2)
       {
         v32 = [v23 fileSize] - v31;
-        v33 = [v117 chunkSize];
+        v33 = [v116 chunkSize];
         if (v32 >= v33 - v20)
         {
           v34 = v33 - v20;
@@ -2982,8 +2910,8 @@ LABEL_41:
         }
 
         v35 = v20;
-        v36 = &v121[v20];
-        v37 = &v121[v20 + v34];
+        v36 = &v120[v20];
+        v37 = &v120[v20 + v34];
         while (v36 < v37)
         {
           v38 = read(v30, v36, v37 - v36);
@@ -3021,10 +2949,10 @@ LABEL_30:
           v42 = v39;
 
           v43 = MEMORY[0x277CCA9B8];
-          v124 = v109;
-          v128 = @"Failed to read from file";
-          v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v128 forKeys:&v124 count:1];
-          v19 = [v43 errorWithDomain:v111 code:v42 userInfo:v44];
+          v123 = v108;
+          v127 = @"Failed to read from file";
+          v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v127 forKeys:&v123 count:1];
+          v19 = [v43 errorWithDomain:v110 code:v42 userInfo:v44];
 
 LABEL_36:
           v20 = v35;
@@ -3032,25 +2960,25 @@ LABEL_36:
         }
 
         v20 = v34 + v35;
-        if (v34 + v35 == [v117 chunkSize])
+        if (v34 + v35 == [v116 chunkSize])
         {
           v35 += v34;
-          v123 = v119;
-          v103 = v101[2](v101, v121, v35, &v123);
-          v19 = v123;
+          v122 = v118;
+          v102 = v100[2](v100, v120, v35, &v122);
+          v19 = v122;
 
-          if (!v103)
+          if (!v102)
           {
             goto LABEL_36;
           }
 
           v20 = 0;
-          v119 = v19;
+          v118 = v19;
         }
 
         else
         {
-          v19 = v119;
+          v19 = v118;
         }
 
         v31 += v34;
@@ -3066,12 +2994,12 @@ LABEL_36:
       if (v19)
       {
         v45 = a4;
-        v18 = v107;
+        v18 = v106;
         goto LABEL_93;
       }
 
-      v21 = v105;
-      v18 = v107;
+      v21 = v104;
+      v18 = v106;
     }
 
     else
@@ -3079,7 +3007,7 @@ LABEL_36:
       close(v30);
     }
 
-    v19 = v114;
+    v19 = v113;
     goto LABEL_40;
   }
 
@@ -3103,22 +3031,22 @@ LABEL_36:
   }
 
   v81 = MEMORY[0x277CCA9B8];
-  *v125 = v109;
+  *v124 = v108;
   buf.dst_ptr = @"Failed to open file for reading";
-  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v125 count:1];
-  v19 = [v81 errorWithDomain:v111 code:v75 userInfo:v82];
+  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v124 count:1];
+  v19 = [v81 errorWithDomain:v110 code:v75 userInfo:v82];
 
 LABEL_93:
   objc_autoreleasePoolPop(v24);
 
-  v11 = v98;
+  v11 = v97;
   if (!v19)
   {
 LABEL_96:
-    v17 = v101;
+    v17 = v100;
     if (v20)
     {
-      v46 = v101[2](v101, v121, v20, v45);
+      v46 = v100[2](v100, v120, v20, v45);
       v19 = 0;
     }
 
@@ -3131,7 +3059,7 @@ LABEL_96:
     goto LABEL_103;
   }
 
-  v17 = v101;
+  v17 = v100;
   if (v45)
   {
     v83 = v19;
@@ -3145,15 +3073,14 @@ LABEL_96:
   }
 
 LABEL_103:
-  v9 = v94;
-  v8 = v96;
-  v10 = v92;
+  v9 = v93;
+  v8 = v95;
+  v10 = v91;
 LABEL_104:
 
 LABEL_114:
-  free(v121);
+  free(v120);
 
-  v90 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
@@ -3207,45 +3134,42 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void __DeleteAllArchives_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void GTFileWriterTransferFileEntries_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 GTReplayRequestToken *ProxyReplayerBatchRequest(void *a1, void *a2, void *a3, const char *a4, void *a5, uint64_t a6)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v10 = a1;
   v11 = a2;
   v12 = a3;
   v13 = a5;
-  v46 = v11;
+  v45 = v11;
   v14 = -[GTReplayRequestToken initWithService:andTokenId:]([GTReplayRequestToken alloc], "initWithService:andTokenId:", v11, [v12 requestID]);
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_string(empty, "_cmd", a4);
   xpc_dictionary_set_flag(empty, "_flags", 2);
-  v42 = v14;
+  v41 = v14;
   xpc_dictionary_set_uint64(empty, "requestID", [(GTReplayRequestToken *)v14 tokenId]);
-  v43 = v13;
+  v42 = v13;
   if (v13)
   {
     xpc_dictionary_set_flag(empty, "flags", 0);
@@ -3254,13 +3178,13 @@ GTReplayRequestToken *ProxyReplayerBatchRequest(void *a1, void *a2, void *a3, co
   v16 = xpc_array_create_empty();
   v17 = xpc_array_create_empty();
   v18 = xpc_array_create_empty();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v44 = v12;
+  v43 = v12;
   v19 = [v12 requests];
-  v20 = [v19 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (!v20)
   {
 
@@ -3273,19 +3197,19 @@ GTReplayRequestToken *ProxyReplayerBatchRequest(void *a1, void *a2, void *a3, co
 
   v21 = v20;
   xdict = empty;
-  v41 = v10;
+  v40 = v10;
   LOBYTE(v22) = 0;
-  v23 = *v53;
+  v23 = *v52;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v53 != v23)
+      if (*v52 != v23)
       {
         objc_enumerationMutation(v19);
       }
 
-      v25 = *(*(&v52 + 1) + 8 * i);
+      v25 = *(*(&v51 + 1) + 8 * i);
       v26 = xpc_uint64_create([v25 requestID]);
       xpc_array_append_value(v16, v26);
 
@@ -3298,7 +3222,7 @@ GTReplayRequestToken *ProxyReplayerBatchRequest(void *a1, void *a2, void *a3, co
       xpc_array_append_value(v18, v28);
     }
 
-    v21 = [v19 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v51 objects:v55 count:16];
   }
 
   while (v21);
@@ -3306,7 +3230,7 @@ GTReplayRequestToken *ProxyReplayerBatchRequest(void *a1, void *a2, void *a3, co
   empty = xdict;
   xpc_dictionary_set_value(xdict, "_batch_requestIDs", v16);
   xpc_dictionary_set_value(xdict, "_batch_requestObjs", v17);
-  v10 = v41;
+  v10 = v40;
   if (v22)
   {
     v29 = "_batch_requestXPCObjs";
@@ -3316,23 +3240,22 @@ LABEL_16:
     xpc_dictionary_set_value(v30, v29, v31);
   }
 
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __ProxyReplayerBatchRequest_block_invoke;
-  v47[3] = &unk_2796617F8;
-  v48 = v44;
-  v32 = v42;
-  v49 = v32;
-  v50 = v43;
-  v51 = a6;
-  v33 = v43;
-  v34 = v44;
-  [v10 sendMessage:empty replyHandler:v47];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __ProxyReplayerBatchRequest_block_invoke;
+  v46[3] = &unk_2796617F8;
+  v47 = v43;
+  v32 = v41;
+  v48 = v32;
+  v49 = v42;
+  v50 = a6;
+  v33 = v42;
+  v34 = v43;
+  [v10 sendMessage:empty replyHandler:v46];
   v35 = empty;
-  v36 = v50;
+  v36 = v49;
   v37 = v32;
 
-  v38 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -3598,46 +3521,47 @@ uint64_t __NewFileEntriesForURL_block_invoke(uint64_t a1, int a2, id obj)
   return 0;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 GTTelemetryRequestToken *ProxyTelemetryBatchRequest(void *a1, void *a2, void *a3, const char *a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v29 = a1;
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = a1;
   v7 = a2;
   v8 = a3;
-  v28 = v7;
+  v27 = v7;
   v9 = -[GTTelemetryRequestToken initWithService:andTokenId:]([GTTelemetryRequestToken alloc], "initWithService:andTokenId:", v7, [v8 requestID]);
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_string(empty, "_cmd", a4);
-  v27 = v9;
+  v26 = v9;
   xpc_dictionary_set_uint64(empty, "requestID", [(GTTelemetryRequestToken *)v9 tokenId]);
   v11 = xpc_array_create_empty();
   v12 = xpc_array_create_empty();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v13 = [v8 requests];
-  v14 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
+        v18 = *(*(&v32 + 1) + 8 * i);
         v19 = xpc_uint64_create([v18 requestID]);
         xpc_array_append_value(v11, v19);
 
@@ -3645,7 +3569,7 @@ GTTelemetryRequestToken *ProxyTelemetryBatchRequest(void *a1, void *a2, void *a3
         xpc_array_append_value(v12, v20);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v15);
@@ -3653,19 +3577,18 @@ GTTelemetryRequestToken *ProxyTelemetryBatchRequest(void *a1, void *a2, void *a3
 
   xpc_dictionary_set_value(empty, "_batch_requestIDs", v11);
   xpc_dictionary_set_value(empty, "_batch_requestObjs", v12);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __ProxyTelemetryBatchRequest_block_invoke;
-  v30[3] = &unk_279661668;
-  v31 = v8;
-  v21 = v27;
-  v32 = v21;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __ProxyTelemetryBatchRequest_block_invoke;
+  v29[3] = &unk_279661668;
+  v30 = v8;
+  v21 = v26;
+  v31 = v21;
   v22 = v8;
-  [v29 sendMessage:empty replyHandler:v30];
-  v23 = v32;
+  [v28 sendMessage:empty replyHandler:v29];
+  v23 = v31;
   v24 = v21;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -3969,38 +3892,38 @@ const char *GTDecodeFunctionTypeShortString(__int16 a1)
 
 GTCaptureRequestToken *ProxyCaptureBatchRequest(void *a1, void *a2, void *a3, const char *a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v29 = a1;
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = a1;
   v7 = a2;
   v8 = a3;
-  v28 = v7;
+  v27 = v7;
   v9 = -[GTCaptureRequestToken initWithCaptureService:andTokenId:]([GTCaptureRequestToken alloc], "initWithCaptureService:andTokenId:", v7, [v7 nextRequestID]);
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_string(empty, "_cmd", a4);
-  v27 = v9;
+  v26 = v9;
   xpc_dictionary_set_uint64(empty, "requestID", [(GTCaptureRequestToken *)v9 tokenId]);
   v11 = xpc_array_create_empty();
   v12 = xpc_array_create_empty();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v13 = [v8 requests];
-  v14 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
+        v18 = *(*(&v32 + 1) + 8 * i);
         v19 = xpc_uint64_create([v18 requestID]);
         xpc_array_append_value(v11, v19);
 
@@ -4008,7 +3931,7 @@ GTCaptureRequestToken *ProxyCaptureBatchRequest(void *a1, void *a2, void *a3, co
         xpc_array_append_value(v12, v20);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v15);
@@ -4016,19 +3939,18 @@ GTCaptureRequestToken *ProxyCaptureBatchRequest(void *a1, void *a2, void *a3, co
 
   xpc_dictionary_set_value(empty, "_batch_requestIDs", v11);
   xpc_dictionary_set_value(empty, "_batch_requestObjs", v12);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __ProxyCaptureBatchRequest_block_invoke;
-  v30[3] = &unk_279661668;
-  v31 = v8;
-  v21 = v27;
-  v32 = v21;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __ProxyCaptureBatchRequest_block_invoke;
+  v29[3] = &unk_279661668;
+  v30 = v8;
+  v21 = v26;
+  v31 = v21;
   v22 = v8;
-  [v29 sendMessage:empty replyHandler:v30];
-  v23 = v32;
+  [v28 sendMessage:empty replyHandler:v29];
+  v23 = v31;
   v24 = v21;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -4129,7 +4051,7 @@ uint64_t __DispatchCaptureBatchRequest_block_invoke_2(uint64_t a1, uint64_t a2)
 
 vm_address_t GTCoreAlloc(memory_object_size_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   address = 0;
   object_handle = 0;
   size = a1;
@@ -4143,9 +4065,9 @@ vm_address_t GTCoreAlloc(memory_object_size_t a1)
     {
       v6 = mach_error_string(v4);
       *buf = 67109378;
-      v17 = v4;
-      v18 = 2080;
-      v19 = v6;
+      v16 = v4;
+      v17 = 2080;
+      v18 = v6;
       v7 = "warning: failed to create memory entry error 0x%x (%s)";
 LABEL_10:
       _os_log_error_impl(&dword_24DBC9000, v5, OS_LOG_TYPE_ERROR, v7, buf, 0x12u);
@@ -4158,28 +4080,24 @@ LABEL_10:
     if (!v8)
     {
       mach_port_deallocate(*v2, object_handle);
-      result = address;
-      goto LABEL_7;
+      return address;
     }
 
     v9 = v8;
     v5 = gt_tagged_log(3u);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = mach_error_string(v9);
+      v11 = mach_error_string(v9);
       *buf = 67109378;
-      v17 = v9;
-      v18 = 2080;
-      v19 = v12;
+      v16 = v9;
+      v17 = 2080;
+      v18 = v11;
       v7 = "warning: failed to map memory error 0x%x (%s)";
       goto LABEL_10;
     }
   }
 
-  result = 0;
-LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 id PrettifyFenumString(void *a1, int a2, int a3)
@@ -4230,7 +4148,7 @@ id PrettifyFenumString(void *a1, int a2, int a3)
 
 id gt_tagged_log(unsigned int a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 == 18)
   {
 LABEL_5:
@@ -4243,24 +4161,24 @@ LABEL_5:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v10) = 67109120;
-      HIDWORD(v10) = a1;
-      _os_log_fault_impl(&dword_24DBC9000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "fail: Invalid log tag: %u", &v10, 8u);
+      LODWORD(v9) = 67109120;
+      HIDWORD(v9) = a1;
+      _os_log_fault_impl(&dword_24DBC9000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "fail: Invalid log tag: %u", &v9, 8u);
     }
 
     goto LABEL_5;
   }
 
   v4 = &GTCoreLog_getLogForTag_s_logs[3 * a1];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __GTCoreLog_getLogForTag_block_invoke;
-  v13 = &__block_descriptor_44_e5_v8__0l;
-  LODWORD(v15) = a1;
-  v14 = v4;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __GTCoreLog_getLogForTag_block_invoke;
+  v12 = &__block_descriptor_44_e5_v8__0l;
+  LODWORD(v14) = a1;
+  v13 = v4;
   if (*v4 != -1)
   {
-    dispatch_once(&GTCoreLog_getLogForTag_s_logs[3 * a1], &v10);
+    dispatch_once(&GTCoreLog_getLogForTag_s_logs[3 * a1], &v9);
   }
 
   if (v4[1] && ([MEMORY[0x277CBEBD0] standardUserDefaults], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "BOOLForKey:", v4[1]), v5, !v6))
@@ -4275,7 +4193,6 @@ LABEL_5:
 
   v2 = v7;
 LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -4576,7 +4493,6 @@ void apr_allocator_destroy(apr_allocator_t *allocator)
       }
 
       *&v2[8 * v1] = *v4;
-      v5 = (*(v4 + 16) << 12);
       MEMORY[0x253034DA0](*v3);
     }
 
@@ -4584,7 +4500,6 @@ void apr_allocator_destroy(apr_allocator_t *allocator)
   }
 
   while (v1 != 20);
-  v6 = *v3;
 
   JUMPOUT(0x253034DA0);
 }
@@ -4619,7 +4534,7 @@ uint64_t **allocator_alloc(unint64_t *a1, unint64_t a2)
     pthread_mutex_lock((v8 + 8));
   }
 
-  v10 = (a1 + 5);
+  v10 = a1 + 5;
   v9 = *a1;
   if (v5 <= *a1)
   {
@@ -4691,7 +4606,7 @@ uint64_t **allocator_alloc(unint64_t *a1, unint64_t a2)
       *a1 = v9;
     }
 
-    v12 = (*(v6 + 4) + 1);
+    v12 = (*(v6 + 16) + 1);
 LABEL_41:
     v25 = a1[2] + v12;
     if (v25 >= a1[1])
@@ -4715,7 +4630,7 @@ LABEL_41:
     goto LABEL_28;
   }
 
-  v11 = *(v6 + 4);
+  v11 = *(v6 + 16);
   if (v5 <= v11)
   {
 LABEL_17:
@@ -4733,7 +4648,7 @@ LABEL_17:
       break;
     }
 
-    v11 = *(v6 + 4);
+    v11 = *(v6 + 16);
     if (v5 <= v11)
     {
       goto LABEL_17;
@@ -4755,7 +4670,7 @@ LABEL_28:
     *(v20 + 32) = v20 + v2;
 LABEL_45:
     *v6 = 0;
-    v6[3] = (v6 + 5);
+    *(v6 + 24) = v6 + 40;
   }
 
   return v6;
@@ -5117,6 +5032,31 @@ LABEL_5:
   return v1;
 }
 
+apr_status_t apr_thread_mutex_create(apr_thread_mutex_t **mutex, unsigned int flags, apr_pool_t *pool)
+{
+  v3 = *&flags;
+  v5 = apr_palloc(*&flags, 0x48uLL);
+  v6 = v5;
+  if (v5)
+  {
+    *(v5 + 56) = 0u;
+    *(v5 + 40) = 0u;
+    *(v5 + 24) = 0u;
+    *(v5 + 8) = 0u;
+  }
+
+  *v5 = v3;
+  result = pthread_mutex_init((v5 + 8), 0);
+  if (!result)
+  {
+    apr_pool_cleanup_register(*v6, v6, thread_mutex_cleanup, apr_pool_cleanup_null);
+    result = 0;
+    *mutex = v6;
+  }
+
+  return result;
+}
+
 char *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, apr_pool_t *a2)
 {
   v3 = a1;
@@ -5226,7 +5166,7 @@ char *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, apr_pool_t *a2)
     {
       outputStruct = 0uLL;
       *&v256 = 0;
-      [v8 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v8);
       v23 = v256;
       *(v6 + 56) = outputStruct;
       *(v6 + 9) = v23;
@@ -6512,13 +6452,13 @@ char *GTCapabilitiesRuntime_fromDeviceSafe(void *a1, apr_pool_t *a2)
 
     while (v152);
     *&v137[4 * v136] = 0;
-    *&v137[4 * v136 + 4] = -12281;
-    *&v137[4 * v136 + 8] = -12280;
-    *&v137[4 * v136 + 12] = -12272;
-    *&v137[4 * v136 + 16] = -8183;
-    *&v137[4 * v136 + 20] = -8182;
-    *&v137[4 * v136 + 24] = -8181;
-    qsort(v5 + 49684, v136 + 7, 4uLL, CompareUInt32);
+    *&v137[4 * (v136 + 1)] = -12281;
+    *&v137[4 * (v136 + 2)] = -12280;
+    *&v137[4 * (v136 + 3)] = -12272;
+    *&v137[4 * (v136 + 4)] = -8183;
+    *&v137[4 * (v136 + 5)] = -8182;
+    *&v137[4 * (v136 + 6)] = -8181;
+    qsort(v5 + 49684, (v136 + 7), 4uLL, CompareUInt32);
     *(v6 + 68) = v136 + 7;
     if (objc_opt_respondsToSelector())
     {
@@ -7847,7 +7787,7 @@ uint64_t GTCapabilitiesRuntime_heapAccelerationStructureInfoCompatible(uint64_t 
   return v8;
 }
 
-id GTCapabilitiesRuntime_serialize(const uint8_t *a1, uint64_t a2, apr_pool_t *p)
+id GTCapabilitiesRuntime_serialize(uint8_t *a1, uint64_t a2, apr_pool_t *p)
 {
   v4 = 66688;
   v13 = 66688;
@@ -7963,7 +7903,7 @@ LABEL_8:
   return 0;
 }
 
-char *GTCapabilitiesHeapAccelerationStructureInfo_deserializeFromBuffer(char *result, uint64_t a2, unint64_t a3, uint64_t a4, int a5, _BYTE *a6, apr_pool_t *p)
+char *GTCapabilitiesHeapAccelerationStructureInfo_deserializeFromBuffer(char *result, uint64_t a2, size_t a3, uint64_t a4, int a5, _BYTE *a6, apr_pool_t *p)
 {
   if (a5 == 1 && (v11 = result, v12 = 24 * a4, (result = apr_palloc(p, 24 * a4)) != 0))
   {
@@ -8046,7 +7986,7 @@ LABEL_8:
   return 0;
 }
 
-void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, apr_pool_t *p)
+void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, apr_pool_t *p)
 {
   if (a6 == 1)
   {
@@ -8055,8 +7995,8 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
     if (v15)
     {
       v16 = v15;
-      v40 = a2;
-      v41 = a7;
+      v38 = a2;
+      v39 = a7;
       bzero(v15, v14);
       if (a3 >= 0x10)
       {
@@ -8084,13 +8024,13 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
       v22 = &a1[a5 * a3];
       while (1)
       {
-        bzero(&v44, 0x250uLL);
+        bzero(&v41[1], 0x250uLL);
         v23 = 0;
         v24 = 0;
-        v43[0] = 56;
+        v41[0] = 56;
         do
         {
-          v24 += (v43[v23++] + 7) & 0xFFFFFFFFFFFFFFF8;
+          v24 += (v41[v23++] + 7) & 0xFFFFFFFFFFFFFFF8;
         }
 
         while (v23 != 75);
@@ -8107,7 +8047,7 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
         v29 = v26;
         do
         {
-          if (((v43[v28] + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
+          if (((v41[v28] + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
           {
             v30 = v29;
           }
@@ -8117,13 +8057,13 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
             v30 = 0;
           }
 
-          v29 += (v43[v28] + 7) & 0xFFFFFFFFFFFFFFF8;
-          v43[v28++] = v30;
+          v29 += (v41[v28] + 7) & 0xFFFFFFFFFFFFFFF8;
+          v41[v28++] = v30;
         }
 
         while (v28 != 75);
-        v31 = v43[0];
-        *(v43[0] + 48) = 512;
+        v31 = v41[0];
+        *(v41[0] + 48) = 512;
         *v31 = GTMTLTextureDescriptorDefaults;
         *(v31 + 16) = unk_24DC0F1B0;
         *(v31 + 32) = xmmword_24DC0F1C0;
@@ -8173,8 +8113,6 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
                 *(v31 + 42) = *(v34 + 9);
                 if (v32 >= 0x23)
                 {
-                  v38 = *(v34 + 22);
-                  v39 = *(v34 + 24);
                   *(v31 + 16) = v34[80] | (*(v34 + 22) << 8) | (*(v34 + 24) << 16) | (*(v34 + 26) << 24);
                   if (v32 >= 0x27)
                   {
@@ -8206,13 +8144,13 @@ void GTCapabilitiesHeapTextureInfo_deserializeFromBuffer(char *a1, uint64_t a2, 
         v16[3 * v21++] = v26;
         if (v21 == a5)
         {
-          *v40 = v16;
-          *(v40 + 8) = a5;
+          *v38 = v16;
+          *(v38 + 8) = a5;
           return;
         }
       }
 
-      a7 = v41;
+      a7 = v39;
     }
   }
 

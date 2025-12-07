@@ -10,36 +10,34 @@
 
 - (id)attributeDescriptions
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = HMDCameraClipCreateClipOperation;
-  attributeDescriptions = [(HMDCameraClipOperation *)&v18 attributeDescriptions];
+  v18[3] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = HMDCameraClipCreateClipOperation;
+  attributeDescriptions = [(HMDCameraClipOperation *)&v17 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   v5 = MEMORY[0x277CCABB0];
   [(HMDCameraClipCreateClipOperation *)self targetFragmentDuration];
   v6 = [v5 numberWithDouble:?];
   v7 = [v4 initWithName:@"Target Fragment Duration" value:v6];
-  v19[0] = v7;
+  v18[0] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   clipStartDate = [(HMDCameraClipCreateClipOperation *)self clipStartDate];
   v10 = [v8 initWithName:@"Clip Start Date" value:clipStartDate];
-  v19[1] = v10;
+  v18[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCameraClipCreateClipOperation *)self quality];
   v12 = HMStringFromCameraClipQuality();
   v13 = [v11 initWithName:@"Quality" value:v12];
-  v19[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   v15 = [attributeDescriptions arrayByAddingObjectsFromArray:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)modelsToAdd
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [HMDCameraClipModel alloc];
   clipModelID = [(HMDCameraClipOperation *)self clipModelID];
   v5 = +[HMDCameraClipModel sentinelParentUUID];
@@ -82,19 +80,17 @@
     v17 = HMFGetLogIdentifier();
     v18 = [(HMBModel *)v6 debugDescription];
     *buf = 138543618;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v18;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Creating clip: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v23.receiver = selfCopy;
-  v23.super_class = HMDCameraClipCreateClipOperation;
-  modelsToAdd = [(HMDCameraClipAddModelsOperation *)&v23 modelsToAdd];
+  v22.receiver = selfCopy;
+  v22.super_class = HMDCameraClipCreateClipOperation;
+  modelsToAdd = [(HMDCameraClipAddModelsOperation *)&v22 modelsToAdd];
   v20 = [modelsToAdd setByAddingObject:v6];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -148,7 +144,7 @@ LABEL_13:
   if (v22)
   {
     v22->_targetFragmentDuration = duration;
-    v24 = [dateCopy copy];
+    v24 = objc_msgSend_copy(dateCopy);
     clipStartDate = v23->_clipStartDate;
     v23->_clipStartDate = v24;
 
@@ -185,12 +181,11 @@ LABEL_13:
 
 uint64_t __47__HMDCameraClipCreateClipOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_102541;
-  logCategory__hmf_once_v2_102541 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_102541;
+  logCategory__hmf_once_v2_102541 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

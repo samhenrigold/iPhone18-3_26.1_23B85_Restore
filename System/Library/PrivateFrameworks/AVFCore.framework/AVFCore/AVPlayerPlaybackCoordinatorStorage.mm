@@ -7,21 +7,21 @@
 
 - (AVPlayerPlaybackCoordinatorStorage)init
 {
-  v5.receiver = self;
-  v5.super_class = AVPlayerPlaybackCoordinatorStorage;
-  v2 = [(AVPlayerPlaybackCoordinatorStorage *)&v5 init];
-  if (v2)
+  v6.receiver = self;
+  v6.super_class = AVPlayerPlaybackCoordinatorStorage;
+  v3 = [(AVPlayerPlaybackCoordinatorStorage *)&v6 init];
+  if (v3)
   {
-    v2->rwQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.playerplaybackcoordinator.storage");
-    v3 = v2;
+    v3->rwQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.playerplaybackcoordinator.storage", v2);
+    v4 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc

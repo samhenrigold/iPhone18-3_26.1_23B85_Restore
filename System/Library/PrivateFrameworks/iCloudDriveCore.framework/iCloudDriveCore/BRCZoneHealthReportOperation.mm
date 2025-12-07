@@ -60,7 +60,7 @@
 
 void __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -73,29 +73,29 @@ void __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke(
     {
       *location = 138412802;
       *&location[4] = WeakRetained;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 2112;
-      v27 = v11;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2112;
+      v26 = v11;
       _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] We need to create the zone health zone on %@ - %@%@", location, 0x20u);
     }
 
     v13 = [MEMORY[0x277CBC5F8] brc_zoneHealthZoneID];
     objc_initWeak(location, *(a1 + 32));
     v14 = [[BRCCreateZoneAndSubscribeOperation alloc] initWithSessionContext:*(*(a1 + 32) + 256) zoneID:v13];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke_5;
-    v20[3] = &unk_2785077C0;
-    objc_copyWeak(v22, location);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke_5;
+    v19[3] = &unk_2785077C0;
+    objc_copyWeak(v21, location);
     v15 = *(a1 + 40);
     v16 = *(a1 + 56);
-    v21 = v15;
-    v22[1] = v16;
-    [(BRCCreateZoneAndSubscribeOperation *)v14 setCreateZoneAndSubscribeCompletionBlock:v20];
+    v20 = v15;
+    v21[1] = v16;
+    [(BRCCreateZoneAndSubscribeOperation *)v14 setCreateZoneAndSubscribeCompletionBlock:v19];
     [*(a1 + 32) addSubOperation:v14];
 
-    objc_destroyWeak(v22);
+    objc_destroyWeak(v21);
     objc_destroyWeak(location);
   }
 
@@ -109,10 +109,10 @@ void __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke(
       {
         *location = 138412802;
         *&location[4] = WeakRetained;
-        v24 = 2112;
-        v25 = v9;
-        v26 = 2112;
-        v27 = v17;
+        v23 = 2112;
+        v24 = v9;
+        v25 = 2112;
+        v26 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] Failed reporting zone health on %@ - %@%@", location, 0x20u);
       }
     }
@@ -125,18 +125,16 @@ void __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke(
       {
         *location = 138412802;
         *&location[4] = v7;
-        v24 = 2112;
-        v25 = WeakRetained;
-        v26 = 2112;
-        v27 = v17;
+        v23 = 2112;
+        v24 = WeakRetained;
+        v25 = 2112;
+        v26 = v17;
         _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] finished reporting zone health: %@, op: %@%@", location, 0x20u);
       }
     }
 
     [*(a1 + 32) completedWithResult:0 error:v9];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCZoneHealthReportOperation__reportRecords_requestID___block_invoke_5(uint64_t a1, void *a2)
@@ -208,12 +206,12 @@ void __36__BRCZoneHealthReportOperation_main__block_invoke(uint64_t a1)
 
 uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 prepareProblemReportForSyncWithRequestID:*(a1 + 40)];
   if ([v4 needsSyncUp])
   {
-    v48 = a1;
+    v47 = a1;
     v5 = [v3 serverZone];
     v6 = [MEMORY[0x277CBC5F8] brc_zoneHealthZoneID];
     v7 = MEMORY[0x277CCACA8];
@@ -223,16 +221,16 @@ uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, vo
     v11 = [v7 stringWithFormat:@"%@/%@", v8, v10];
 
     v12 = objc_alloc(MEMORY[0x277CBC5D0]);
-    v50 = v5;
+    v49 = v5;
     v13 = [v5 zoneName];
     v14 = [v12 initWithRecordName:v13 zoneID:v6];
 
-    v47 = v11;
-    v49 = v6;
+    v46 = v11;
+    v48 = v6;
     v15 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:v11 zoneID:v6];
-    v46 = v14;
+    v45 = v14;
     v16 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"zoneState" recordID:v14];
-    v45 = v15;
+    v44 = v15;
     v17 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"zoneDetails" recordID:v15];
     LODWORD(v14) = [v4 state];
     v18 = [v3 zoneHealthState];
@@ -245,7 +243,7 @@ uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, vo
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v60 = v19;
+        v59 = v19;
         _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] not updating zone health state because we think we are less broken than the server does%@", buf, 0xCu);
       }
     }
@@ -262,7 +260,7 @@ uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, vo
     v24 = [v21 numberWithUnsignedLongLong:v23];
     [v16 setObject:v24 forKeyedSubscript:@"updateTime"];
 
-    v44 = v16;
+    v43 = v16;
     [v16 setObject:&stru_2837504F0 forKeyedSubscript:@"clientInfo"];
     if (![v4 state])
     {
@@ -273,38 +271,38 @@ uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, vo
     [v17 setObject:v25 forKeyedSubscript:@"message"];
 
     v26 = objc_alloc(MEMORY[0x277CBC5F8]);
-    v52 = v3;
+    v51 = v3;
     v27 = [v3 serverZone];
     v28 = [v27 zoneName];
     v29 = [v26 initWithZoneName:v28 ownerName:*MEMORY[0x277CBBF28]];
 
     v30 = objc_opt_new();
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v51 = v4;
+    v50 = v4;
     v31 = [v4 effectedRecordNames];
-    v32 = [v31 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v54;
+      v34 = *v53;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v54 != v34)
+          if (*v53 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:*(*(&v53 + 1) + 8 * i) zoneID:v29];
+          v36 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:*(*(&v52 + 1) + 8 * i) zoneID:v29];
           v37 = [objc_alloc(MEMORY[0x277CBC620]) initWithRecordID:v36 action:0];
           [v30 addObject:v37];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v53 objects:v58 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
       while (v33);
@@ -315,21 +313,20 @@ uint64_t __36__BRCZoneHealthReportOperation_main__block_invoke_2(uint64_t a1, vo
       [v17 setObject:v30 forKeyedSubscript:@"records"];
     }
 
-    v3 = v52;
-    v38 = [v52 zoneHealthState];
+    v3 = v51;
+    v38 = [v51 zoneHealthState];
     v39 = [v38 ckInfo];
-    [v39 setCKInfoFieldsInRecord:v44 includeCZMEtag:0];
+    [v39 setCKInfoFieldsInRecord:v43 includeCZMEtag:0];
 
-    v40 = *(v48 + 32);
-    v57[0] = v17;
-    v57[1] = v44;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    v40 = *(v47 + 32);
+    v56[0] = v17;
+    v56[1] = v43;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
     [v40 addObjectsFromArray:v41];
 
-    v4 = v51;
+    v4 = v50;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

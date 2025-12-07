@@ -10,13 +10,13 @@
 
 - (BOOL)hasAssociatedNetworkWithRSSI:(int64_t *)i andSNR:(int64_t *)r andCCA:(int64_t *)a andPhyMode:(id *)mode andChannelInfo:(id *)info isCaptive:(BOOL *)captive
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v15 = MEMORY[0x277CEF0A0];
   v16 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v43 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
+    v42 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
     _os_log_impl(&dword_2669D1000, v16, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -101,7 +101,7 @@
 
       else if (OperatingBand)
       {
-        v41 = OperatingBand;
+        v40 = OperatingBand;
         v26 = @"[Unknown enum=%u]GHz";
       }
 
@@ -110,7 +110,7 @@
         v26 = @"?GHz";
       }
 
-      [v23 appendFormat:v26, v41];
+      [v23 appendFormat:v26, v40];
       [v23 appendFormat:@", %uMHz", WiFiNetworkGetChannelWidthInMHz()];
       [v23 appendString:@""]);
     }
@@ -125,9 +125,9 @@
     {
       v29 = *info;
       *buf = 136315394;
-      v43 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
-      v44 = 2112;
-      *v45 = v29;
+      v42 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
+      v43 = 2112;
+      *v44 = v29;
       _os_log_impl(&dword_2669D1000, v28, OS_LOG_TYPE_DEFAULT, "%s Channel Info: %@", buf, 0x16u);
     }
   }
@@ -179,9 +179,9 @@ LABEL_52:
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v43 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
-      v44 = 2112;
-      *v45 = phyMode;
+      v42 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
+      v43 = 2112;
+      *v44 = phyMode;
       _os_log_impl(&dword_2669D1000, v34, OS_LOG_TYPE_DEFAULT, "%s PhyMode: %@", buf, 0x16u);
     }
   }
@@ -201,44 +201,41 @@ LABEL_57:
     snr = self->_snr;
     cca = self->_cca;
     *buf = 136316162;
-    v43 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
-    v44 = 1024;
-    *v45 = v27;
-    *&v45[4] = 2048;
-    *&v45[6] = rssi;
-    v46 = 2048;
-    v47 = snr;
-    v48 = 2048;
-    v49 = cca;
+    v42 = "[SiriCoreWiFiManagerClient hasAssociatedNetworkWithRSSI:andSNR:andCCA:andPhyMode:andChannelInfo:isCaptive:]";
+    v43 = 1024;
+    *v44 = v27;
+    *&v44[4] = 2048;
+    *&v44[6] = rssi;
+    v45 = 2048;
+    v46 = snr;
+    v47 = 2048;
+    v48 = cca;
     _os_log_impl(&dword_2669D1000, v35, OS_LOG_TYPE_DEFAULT, "%s Associated: %d RSSI is %ld SNR is %ld CCA is %ld", buf, 0x30u);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (void)_setWiFiManagerClientType:(int)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [(SiriCoreWiFiManagerClient *)self _primitiveWiFiManagerClient];
   if (self->_type != type)
   {
     v5 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[SiriCoreWiFiManagerClient _setWiFiManagerClientType:]";
-      v9 = 1024;
+      v6 = 136315394;
+      v7 = "[SiriCoreWiFiManagerClient _setWiFiManagerClientType:]";
+      v8 = 1024;
       typeCopy = type;
-      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s %d", &v7, 0x12u);
+      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_DEFAULT, "%s %d", &v6, 0x12u);
     }
 
     self->_type = type;
     [(SiriCoreWiFiManagerClient *)self _primitiveWiFiManagerClient];
     WiFiManagerClientSetType();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (__WiFiManagerClient)_primitiveWiFiManagerClient

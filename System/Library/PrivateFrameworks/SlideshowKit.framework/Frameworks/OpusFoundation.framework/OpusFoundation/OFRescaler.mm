@@ -319,7 +319,7 @@ LABEL_22:
   return minimumDuration;
 }
 
-uint64_t __55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   [a2 defaultDuration];
   v7 = v6;
@@ -376,12 +376,12 @@ LABEL_12:
   return result;
 }
 
-uint64_t __55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke_2(uint64_t result, void *a2, uint64_t a3)
+double *__55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke_2(double *result, void *a2, uint64_t a3)
 {
-  if (*(*(result + 64) + 8 * a3) < 0.0)
+  if (*(*(result + 8) + 8 * a3) < 0.0)
   {
     v5 = result;
-    v6 = *(result + 72);
+    v6 = result[9];
     if (*(result + 88) == 1)
     {
       [a2 expandability];
@@ -392,7 +392,7 @@ uint64_t __55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invok
       [a2 compressibility];
     }
 
-    v8 = v6 * v7 / *(v5 + 80);
+    v8 = v6 * v7 / v5[10];
     [a2 defaultDuration];
     v10 = v9 * (v8 + 1.0);
     if (*(v5 + 88) == 1)
@@ -403,12 +403,12 @@ uint64_t __55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invok
         v12 = v11;
         [a2 defaultDuration];
         v14 = v13;
-        *(*(v5 + 64) + 8 * a3) = v12;
-        *(*(*(v5 + 32) + 8) + 24) = *(*(*(v5 + 32) + 8) + 24) - (v12 - v13);
+        *(*(v5 + 8) + 8 * a3) = v12;
+        *(*(*(v5 + 4) + 8) + 24) = *(*(*(v5 + 4) + 8) + 24) - (v12 - v13);
         result = [a2 expandability];
 LABEL_10:
-        *(*(*(v5 + 40) + 8) + 24) = *(*(*(v5 + 40) + 8) + 24) - v15 * v14;
-        *(*(*(v5 + 48) + 8) + 24) = 0;
+        *(*(*(v5 + 5) + 8) + 24) = *(*(*(v5 + 5) + 8) + 24) - v15 * v14;
+        *(*(*(v5 + 6) + 8) + 24) = 0;
         return result;
       }
     }
@@ -421,8 +421,8 @@ LABEL_10:
         v17 = v16;
         [a2 defaultDuration];
         v14 = v18;
-        *(*(v5 + 64) + 8 * a3) = v17;
-        *(*(*(v5 + 32) + 8) + 24) = *(*(*(v5 + 32) + 8) + 24) - (v17 - v18);
+        *(*(v5 + 8) + 8 * a3) = v17;
+        *(*(*(v5 + 4) + 8) + 24) = *(*(*(v5 + 4) + 8) + 24) - (v17 - v18);
         result = [a2 compressibility];
         goto LABEL_10;
       }
@@ -430,12 +430,12 @@ LABEL_10:
 
     if (*(v5 + 89) == 1)
     {
-      *(*(v5 + 64) + 8 * a3) = v10;
+      *(*(v5 + 8) + 8 * a3) = v10;
     }
 
     else
     {
-      v19 = *(*(v5 + 56) + 8);
+      v19 = *(*(v5 + 7) + 8);
       if (*(v19 + 24) == 0x7FFFFFFFFFFFFFFFLL)
       {
         *(v19 + 24) = a3;
@@ -446,7 +446,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
+void *__55__OFRescaler_computeSegmentDurations_forTotalDuration___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 defaultDuration];
   *(*(a1 + 32) + 8 * a3) = v6;

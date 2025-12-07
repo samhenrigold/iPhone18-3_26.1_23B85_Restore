@@ -879,10 +879,10 @@ LABEL_14:
   v4 = +[ZWCoalescedSettings sharedInstance];
   if (([v3 zoomPreferencesWereInitialized] & 1) == 0)
   {
-    v17 = 0;
     v16 = 0;
+    v15 = 0;
     v5 = +[AXSettings sharedInstance];
-    [v5 zoomUserHadLegacyZoomEnabled:&v17 + 1 wasZoomedIn:&v17 withScale:&v16];
+    [v5 zoomUserHadLegacyZoomEnabled:&v16 + 1 wasZoomedIn:&v16 withScale:&v15];
 
     y = CGPointZero.y;
     [v4 setZoomPanOffset:{CGPointZero.x, y}];
@@ -902,17 +902,16 @@ LABEL_14:
     [v3 setZoomPreferredLensModes:v10];
 
     [v3 setZoomShouldAllowFullscreenAutopanning:1];
-    if (HIBYTE(v17) == 1)
+    if (HIBYTE(v16) == 1)
     {
-      LOBYTE(v15) = 1;
-      _AXLogWithFacility();
-      v11 = &v16;
-      if (!v17)
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Determined that legacy zoom had been set up. Setting zoom window up to look like legacy zoom", v15);
+      v11 = &v15;
+      if (!v16)
       {
         v11 = &AXZoomMinimumZoomLevel;
       }
 
-      [v4 setZoomFactor:{*v11, v15, @"Determined that legacy zoom had been set up. Setting zoom window up to look like legacy zoom"}];
+      [v4 setZoomFactor:*v11];
       [v3 setZoomCurrentLensMode:AXZoomLensModeFullscreen];
       [v3 setZoomShouldFollowFocus:0];
       [v3 setZoomPreferredCurrentLensMode:AXZoomLensModeFullscreen];
@@ -1175,25 +1174,25 @@ LABEL_14:
 - (void)didMoveToParentViewController:(id)controller
 {
   controllerCopy = controller;
-  v39.receiver = self;
-  v39.super_class = ZWRootViewController;
-  [(ZWRootViewController *)&v39 didMoveToParentViewController:controllerCopy];
+  v41.receiver = self;
+  v41.super_class = ZWRootViewController;
+  [(ZWRootViewController *)&v41 didMoveToParentViewController:controllerCopy];
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v40[3] = 0;
   v38[0] = 0;
   v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v38[3] = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3010000000;
-  v36[3] = &unk_6F53D;
-  v37 = CGSizeZero;
+  v38[2] = 0x3010000000;
+  v38[3] = &unk_6F53D;
+  v39 = CGSizeZero;
   block[7] = _NSConcreteStackBlock;
   block[8] = 3221225472;
   block[9] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke;
   block[10] = &unk_792C0;
   block[11] = self;
-  block[12] = v38;
-  block[13] = v36;
+  block[12] = v40;
+  block[13] = v38;
   AXPerformBlockSynchronouslyOnMainThread();
   cachedValuesSerialQueue = [(ZWRootViewController *)self cachedValuesSerialQueue];
   block[0] = _NSConcreteStackBlock;
@@ -1201,8 +1200,8 @@ LABEL_14:
   block[2] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke_2;
   block[3] = &unk_792E8;
   block[4] = self;
-  block[5] = v38;
-  block[6] = v36;
+  block[5] = v40;
+  block[6] = v38;
   dispatch_sync(cachedValuesSerialQueue, block);
 
   view = [controllerCopy view];
@@ -1210,8 +1209,8 @@ LABEL_14:
 
   _contextId = [window _contextId];
   v9 = [NSNumber numberWithUnsignedInt:_contextId];
-  v41 = v9;
-  v10 = [NSArray arrayWithObjects:&v41 count:1];
+  v43 = v9;
+  v10 = [NSArray arrayWithObjects:&v43 count:1];
   BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders();
 
   hitTestCategoryAssertion = [(ZWRootViewController *)self hitTestCategoryAssertion];
@@ -1219,15 +1218,15 @@ LABEL_14:
 
   if (_contextId)
   {
-    v12 = +[BKSTouchEventService sharedInstance];
-    v13 = [NSNumber numberWithUnsignedInt:_contextId];
-    v40 = v13;
-    v14 = [NSArray arrayWithObjects:&v40 count:1];
-    v15 = [v12 setContextIDs:v14 forHitTestContextCategory:1];
-    [(ZWRootViewController *)self setHitTestCategoryAssertion:v15];
+    v14 = +[BKSTouchEventService sharedInstance];
+    v15 = [NSNumber numberWithUnsignedInt:_contextId];
+    v42 = v15;
+    v16 = [NSArray arrayWithObjects:&v42 count:1];
+    v17 = [v14 setContextIDs:v16 forHitTestContextCategory:1];
+    [(ZWRootViewController *)self setHitTestCategoryAssertion:v17];
   }
 
-  if (ZWLaserIsEnabled())
+  if (ZWLaserIsEnabled(v12, v13))
   {
     if (window && _contextId)
     {
@@ -1237,14 +1236,14 @@ LABEL_14:
         [pointerEventStream invalidate];
       }
 
-      v30 = +[BKSMousePointerService sharedInstance];
+      v32 = +[BKSMousePointerService sharedInstance];
       view2 = [(ZWRootViewController *)self view];
       window2 = [view2 window];
       screen = [window2 screen];
       displayConfiguration = [screen displayConfiguration];
       hardwareIdentifier = [displayConfiguration hardwareIdentifier];
-      v22 = [v30 requestGlobalMouseEventsForDisplay:hardwareIdentifier targetContextID:_contextId];
-      [(ZWRootViewController *)self setPointerEventStream:v22];
+      v24 = [v32 requestGlobalMouseEventsForDisplay:hardwareIdentifier targetContextID:_contextId];
+      [(ZWRootViewController *)self setPointerEventStream:v24];
 
       view3 = [(ZWRootViewController *)self view];
       window3 = [view3 window];
@@ -1253,14 +1252,14 @@ LABEL_14:
       LODWORD(view2) = [displayIdentity displayID];
 
       cachedValuesSerialQueue2 = [(ZWRootViewController *)self cachedValuesSerialQueue];
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke_3;
-      v32[3] = &unk_78E98;
-      v32[4] = self;
-      v33 = _contextId;
-      v34 = view2;
-      v28 = v32;
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke_3;
+      v34[3] = &unk_78E98;
+      v34[4] = self;
+      v35 = _contextId;
+      v36 = view2;
+      v30 = v34;
     }
 
     else
@@ -1270,19 +1269,19 @@ LABEL_14:
 
       [(ZWRootViewController *)self setPointerEventStream:0];
       cachedValuesSerialQueue2 = [(ZWRootViewController *)self cachedValuesSerialQueue];
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke_4;
-      v31[3] = &unk_78D00;
-      v31[4] = self;
-      v28 = v31;
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = __54__ZWRootViewController_didMoveToParentViewController___block_invoke_4;
+      v33[3] = &unk_78D00;
+      v33[4] = self;
+      v30 = v33;
     }
 
-    dispatch_sync(cachedValuesSerialQueue2, v28);
+    dispatch_sync(cachedValuesSerialQueue2, v30);
   }
 
-  _Block_object_dispose(v36, 8);
   _Block_object_dispose(v38, 8);
+  _Block_object_dispose(v40, 8);
 }
 
 void __54__ZWRootViewController_didMoveToParentViewController___block_invoke(uint64_t a1)
@@ -2726,7 +2725,7 @@ __n128 __59__ZWRootViewController_handleFluidSwitcherGestureWillBegin__block_inv
 
 - (void)handleAppSwitcherRevealAnimationWillBegin
 {
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"App switcher reveal animation will begin", v6);
   y = CGRectNull.origin.y;
   width = CGRectNull.size.width;
   height = CGRectNull.size.height;
@@ -3193,7 +3192,7 @@ LABEL_31:
   (v36[2])(v36);
 }
 
-id __89__ZWRootViewController__focusLensOnRect_panLensContent_recentreLens_animated_completion___block_invoke(uint64_t a1)
+void *__89__ZWRootViewController__focusLensOnRect_panLensContent_recentreLens_animated_completion___block_invoke(uint64_t a1)
 {
   if (*(a1 + 88) == 1)
   {
@@ -3233,7 +3232,7 @@ id __89__ZWRootViewController__focusLensOnRect_panLensContent_recentreLens_anima
   result = *(a1 + 48);
   if (result)
   {
-    v23 = *(result + 2);
+    v23 = result[2];
 
     return v23();
   }
@@ -5126,7 +5125,7 @@ __n128 __50__ZWRootViewController__updateSlugLayoutAnimated___block_invoke_3(uin
   [(ZWRootViewController *)self _setPIPLensResizingEnabled:0];
   [(ZWRootViewController *)self _setDockResizingEnabled:0];
   [(ZWRootViewController *)self stopZoomMovementWithVelocityWithFullscreenEventHandler:0];
-  [(ZWRootViewController *)self currentUIContextForEventProcessor:0];
+  objc_msgSend_currentUIContextForEventProcessor_(self);
   if (!CGRectIsNull(v15))
   {
     menuViewController = [(ZWRootViewController *)self menuViewController];
@@ -8525,49 +8524,49 @@ id __63__ZWRootViewController_eventProcessor_didGetPanEventWithDelta___block_inv
   AXPerformBlockOnMainThread();
 }
 
-void __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke(uint64_t a1)
+void __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (ZWLaserIsEnabled())
+  if (ZWLaserIsEnabled(a1, a2))
   {
-    v130 = [*(a1 + 32) pointerControllerInfo];
-    [v130 pointerButtonMask];
-    if (v2 <= 0.0)
+    v131 = [*(a1 + 32) pointerControllerInfo];
+    [v131 pointerButtonMask];
+    if (v3 <= 0.0)
     {
-      [v130 pointerButtonClickCount];
-      v3 = v4 > 0.0;
+      [v131 pointerButtonClickCount];
+      v4 = v5 > 0.0;
     }
 
     else
     {
-      v3 = 1;
+      v4 = 1;
     }
 
-    v136 = 0;
-    v137 = &v136;
-    v138 = 0x2020000000;
-    v139 = 0;
-    v5 = *(a1 + 40);
-    v6 = *(v5 + 1152);
+    v137 = 0;
+    v138 = &v137;
+    v139 = 0x2020000000;
+    v140 = 0;
+    v6 = *(a1 + 40);
+    v7 = *(v6 + 1152);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_2;
     block[3] = &unk_79310;
-    block[4] = v5;
-    block[5] = &v136;
-    dispatch_sync(v6, block);
-    v129 = v3;
-    if (!v3)
+    block[4] = v6;
+    block[5] = &v137;
+    dispatch_sync(v7, block);
+    v130 = v4;
+    if (!v4)
     {
-      v7 = [*(a1 + 40) redirectPointerAssertion];
-      if (v7 && ([*(a1 + 40) redirectPointerLocation], vabdd_f64(v8, *(a1 + 48)) < 0.001))
+      v8 = [*(a1 + 40) redirectPointerAssertion];
+      if (v8 && ([*(a1 + 40) redirectPointerLocation], vabdd_f64(v9, *(a1 + 48)) < 0.001))
       {
         [*(a1 + 40) redirectPointerLocation];
-        v10 = vabdd_f64(v9, *(a1 + 56)) < 0.001;
+        v11 = vabdd_f64(v10, *(a1 + 56)) < 0.001;
 
-        if (v10)
+        if (v11)
         {
 LABEL_84:
-          _Block_object_dispose(&v136, 8);
+          _Block_object_dispose(&v137, 8);
 
           return;
         }
@@ -8579,99 +8578,99 @@ LABEL_84:
     }
 
     [*(a1 + 40) setLastPointerLocation:{*(a1 + 48), *(a1 + 56)}];
-    if (!v129)
+    if (!v130)
     {
       goto LABEL_17;
     }
 
-    if ((v137[3] & 1) == 0)
+    if ((v138[3] & 1) == 0)
     {
-      v11 = [*(a1 + 40) presentedViewController];
-      v12 = [*(a1 + 40) menuViewController];
-      v13 = v11 == v12;
+      v12 = [*(a1 + 40) presentedViewController];
+      v13 = [*(a1 + 40) menuViewController];
+      v14 = v12 == v13;
 
-      if (v13)
+      if (v14)
       {
         [*(a1 + 40) _dismissMenuAnimated:1];
       }
     }
 
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    v16 = [*(a1 + 40) redirectPointerAssertion];
-    v17 = v16 == 0;
+    v15 = *(a1 + 48);
+    v16 = *(a1 + 56);
+    v17 = [*(a1 + 40) redirectPointerAssertion];
+    v18 = v17 == 0;
 
-    if (v17)
+    if (v18)
     {
 LABEL_17:
       [*(a1 + 40) _physicalScreenPointForVirtualScreenPoint:{*(a1 + 48), *(a1 + 56)}];
-      v14 = v18;
       v15 = v19;
-      v128 = 0;
+      v16 = v20;
+      v129 = 0;
     }
 
     else
     {
-      v128 = 1;
+      v129 = 1;
     }
 
-    v20 = [*(a1 + 40) view];
-    v21 = [v20 window];
-    v22 = [v21 hitTest:0 withEvent:{v14, v15}];
+    v21 = [*(a1 + 40) view];
+    v22 = [v21 window];
+    v23 = [v22 hitTest:0 withEvent:{v15, v16}];
 
-    v23 = v15;
-    v24 = v14;
-    for (i = *(a1 + 40); ; i = v28)
+    v24 = v16;
+    v25 = v15;
+    for (i = *(a1 + 40); ; i = v29)
     {
-      v26 = [i presentedViewController];
-      v27 = v26 == 0;
+      v27 = [i presentedViewController];
+      v28 = v27 == 0;
 
-      if (v27)
+      if (v28)
       {
         break;
       }
 
-      v28 = [i presentedViewController];
+      v29 = [i presentedViewController];
     }
 
     if (i == *(a1 + 40))
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v29 = i;
+      v30 = i;
     }
 
-    v30 = v29;
-
-    v133[0] = _NSConcreteStackBlock;
-    v133[1] = 3221225472;
-    v133[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_3;
-    v133[3] = &unk_79540;
-    v133[4] = *(a1 + 40);
     v31 = v30;
-    v134 = v31;
-    v32 = [v22 _accessibilityFindAncestor:v133 startWithSelf:1];
-    if (v32)
-    {
-      v33 = [*(a1 + 40) slugViewController];
-      v34 = [v33 view];
-      if (v32 != v34)
-      {
-        v35 = [v31 view];
-        if (v32 != v35)
-        {
-          if (v129)
-          {
-            v36 = *(v137 + 24);
 
-            if ((v36 & 1) == 0)
+    v134[0] = _NSConcreteStackBlock;
+    v134[1] = 3221225472;
+    v134[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_3;
+    v134[3] = &unk_79540;
+    v134[4] = *(a1 + 40);
+    v32 = v31;
+    v135 = v32;
+    v33 = [v23 _accessibilityFindAncestor:v134 startWithSelf:1];
+    if (v33)
+    {
+      v34 = [*(a1 + 40) slugViewController];
+      v35 = [v34 view];
+      if (v33 != v35)
+      {
+        v36 = [v32 view];
+        if (v33 != v36)
+        {
+          if (v130)
+          {
+            v37 = *(v138 + 24);
+
+            if ((v37 & 1) == 0)
             {
-              if (v137[3])
+              if (v138[3])
               {
-                v37 = 0;
+                v38 = 0;
                 goto LABEL_68;
               }
 
@@ -8679,290 +8678,290 @@ LABEL_17:
             }
 
 LABEL_36:
-            v38 = [*(a1 + 40) lastHoveredView];
+            v39 = [*(a1 + 40) lastHoveredView];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v40 = [*(a1 + 40) lastHoveredView];
-              [v40 setHighlighted:0];
+              v41 = [*(a1 + 40) lastHoveredView];
+              [v41 setHighlighted:0];
             }
 
-            v41 = [v31 view];
-            if (v32)
+            v42 = [v32 view];
+            if (v33)
             {
-              v42 = v32 == v41;
+              v43 = v33 == v42;
             }
 
             else
             {
-              v42 = 0;
+              v43 = 0;
             }
 
-            v43 = v42;
+            v44 = v43;
 
-            if (v43)
+            if (v44)
             {
-              v44 = [v22 _accessibilityFindAncestor:&__block_literal_global_6 startWithSelf:1];
+              v45 = [v23 _accessibilityFindAncestor:&__block_literal_global_6 startWithSelf:1];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [v44 setHighlighted:1];
-                v45 = v44;
+                [v45 setHighlighted:1];
+                v46 = v45;
 
-                v22 = v45;
+                v23 = v46;
               }
 
-              v46 = [v31 view];
+              v47 = [v32 view];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v47 = [v46 contentView];
+                v48 = [v47 contentView];
 
-                v46 = v47;
+                v47 = v48;
               }
 
-              v48 = [*(a1 + 40) fakeLaserVC];
-              v49 = [v48 parentViewController];
-              v50 = v49 == v31;
+              v49 = [*(a1 + 40) fakeLaserVC];
+              v50 = [v49 parentViewController];
+              v51 = v50 == v32;
 
-              if (!v50)
+              if (!v51)
               {
-                v51 = [*(a1 + 40) fakeLaserVC];
-                v52 = [v51 view];
-                [v52 removeFromSuperview];
-
-                v53 = [*(a1 + 40) fakeLaserVC];
-                [v53 removeFromParentViewController];
+                v52 = [*(a1 + 40) fakeLaserVC];
+                v53 = [v52 view];
+                [v53 removeFromSuperview];
 
                 v54 = [*(a1 + 40) fakeLaserVC];
-                [v31 addChildViewController:v54];
+                [v54 removeFromParentViewController];
 
                 v55 = [*(a1 + 40) fakeLaserVC];
-                v56 = [v55 view];
-                [v46 addSubview:v56];
+                [v32 addChildViewController:v55];
 
-                v57 = [*(a1 + 40) fakeLaserVC];
-                [v57 didMoveToParentViewController:v31];
+                v56 = [*(a1 + 40) fakeLaserVC];
+                v57 = [v56 view];
+                [v47 addSubview:v57];
 
                 v58 = [*(a1 + 40) fakeLaserVC];
-                v59 = [v58 view];
-                [v46 bringSubviewToFront:v59];
+                [v58 didMoveToParentViewController:v32];
+
+                v59 = [*(a1 + 40) fakeLaserVC];
+                v60 = [v59 view];
+                [v47 bringSubviewToFront:v60];
               }
 
-              v60 = [*(a1 + 40) view];
-              [v60 convertPoint:v46 toView:{v14, v15}];
-              v14 = v61;
+              v61 = [*(a1 + 40) view];
+              [v61 convertPoint:v47 toView:{v15, v16}];
               v15 = v62;
+              v16 = v63;
             }
 
             else
             {
-              v63 = [*(a1 + 40) fakeLaserVC];
-              v64 = [v63 parentViewController];
-              v65 = v64 == *(a1 + 40);
+              v64 = [*(a1 + 40) fakeLaserVC];
+              v65 = [v64 parentViewController];
+              v66 = v65 == *(a1 + 40);
 
-              if (v65)
+              if (v66)
               {
 LABEL_55:
-                v77 = [*(a1 + 40) hidePointerAssertion];
-                v78 = v77 == 0;
+                v78 = [*(a1 + 40) hidePointerAssertion];
+                v79 = v78 == 0;
 
-                if (v78)
+                if (v79)
                 {
-                  v79 = [*(*(a1 + 40) + 1200) persistentlyHidePointerAssertionForReason:3];
-                  [*(a1 + 40) setHidePointerAssertion:v79];
+                  v80 = [*(*(a1 + 40) + 1200) persistentlyHidePointerAssertionForReason:3];
+                  [*(a1 + 40) setHidePointerAssertion:v80];
                 }
 
-                v80 = [*(a1 + 40) redirectPointerAssertion];
-                v81 = +[BKSMousePointerService sharedInstance];
-                v82 = [BKSContextRelativePoint alloc];
-                v83 = [*(a1 + 40) view];
-                v84 = [v83 window];
-                v85 = [v82 initWithPoint:objc_msgSend(v84 contextID:{"_contextId"), v24, v23}];
-                v86 = [v81 acquireButtonDownPointerRepositionAssertionForReason:@"Pointer is over Zoom UI" contextRelativePointerPosition:v85 onDisplay:0 restrictingToPID:0xFFFFFFFFLL];
-                [*(a1 + 40) setRedirectPointerAssertion:v86];
+                v81 = [*(a1 + 40) redirectPointerAssertion];
+                v82 = +[BKSMousePointerService sharedInstance];
+                v83 = [BKSContextRelativePoint alloc];
+                v84 = [*(a1 + 40) view];
+                v85 = [v84 window];
+                v86 = [v83 initWithPoint:objc_msgSend(v85 contextID:{"_contextId"), v25, v24}];
+                v87 = [v82 acquireButtonDownPointerRepositionAssertionForReason:@"Pointer is over Zoom UI" contextRelativePointerPosition:v86 onDisplay:0 restrictingToPID:0xFFFFFFFFLL];
+                [*(a1 + 40) setRedirectPointerAssertion:v87];
 
-                [*(a1 + 40) setRedirectPointerLocation:{v24, v23}];
-                [v80 invalidate];
-                v87 = [*(a1 + 40) fakeLaserVC];
-                v88 = [v87 fingerController];
-                v89 = [AXPIFingerModel fingerModelForLocation:v14, v15];
-                v140 = v89;
-                v90 = [NSArray arrayWithObjects:&v140 count:1];
-                [v88 showFingerModels:v90 animated:0 startPointForAnimation:{v14, v15}];
+                [*(a1 + 40) setRedirectPointerLocation:{v25, v24}];
+                [v81 invalidate];
+                v88 = [*(a1 + 40) fakeLaserVC];
+                v89 = [v88 fingerController];
+                v90 = [AXPIFingerModel fingerModelForLocation:v15, v16];
+                v141 = v90;
+                v91 = [NSArray arrayWithObjects:&v141 count:1];
+                [v89 showFingerModels:v91 animated:0 startPointForAnimation:{v15, v16}];
 
-                v91 = *(a1 + 40);
-                v92 = *(v91 + 1152);
-                v132[0] = _NSConcreteStackBlock;
-                v132[1] = 3221225472;
-                v132[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_5;
-                v132[3] = &unk_78D00;
-                v132[4] = v91;
-                dispatch_sync(v92, v132);
+                v92 = *(a1 + 40);
+                v93 = *(v92 + 1152);
+                v133[0] = _NSConcreteStackBlock;
+                v133[1] = 3221225472;
+                v133[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_5;
+                v133[3] = &unk_78D00;
+                v133[4] = v92;
+                dispatch_sync(v93, v133);
 
-                v37 = 0;
+                v38 = 0;
 LABEL_67:
-                if (!v129)
+                if (!v130)
                 {
-                  v116 = [*(a1 + 40) fakeLaserVC];
-                  v117 = [v116 fingerController];
-                  v118 = [v117 fingerModels];
-                  v119 = [v118 firstObject];
-                  v120 = [v119 isPressed];
+                  v117 = [*(a1 + 40) fakeLaserVC];
+                  v118 = [v117 fingerController];
+                  v119 = [v118 fingerModels];
+                  v120 = [v119 firstObject];
+                  v121 = [v120 isPressed];
 
-                  if (!v120)
+                  if (!v121)
                   {
                     goto LABEL_77;
                   }
 
-                  v114 = [*(a1 + 40) fakeLaserVC];
-                  v115 = [v114 fingerController];
-                  [v115 liftFingersUpAnimated:1 sendTouchEvents:0];
+                  v115 = [*(a1 + 40) fakeLaserVC];
+                  v116 = [v115 fingerController];
+                  [v116 liftFingersUpAnimated:1 sendTouchEvents:0];
                   goto LABEL_76;
                 }
 
 LABEL_68:
-                [v130 pointerButtonMask];
-                if (v106 == 0.0 && *(v137 + 24) == 1)
+                [v131 pointerButtonMask];
+                if (v107 == 0.0 && *(v138 + 24) == 1)
                 {
-                  v107 = [*(a1 + 40) redirectPointerAssertion];
-                  v108 = v107 == 0;
+                  v108 = [*(a1 + 40) redirectPointerAssertion];
+                  v109 = v108 == 0;
 
-                  if (!v108)
+                  if (!v109)
                   {
                     [*(a1 + 40) moveCursorToCurrentFakeCursorLocation];
-                    v37 = 1;
+                    v38 = 1;
                   }
                 }
 
-                v109 = [*(a1 + 40) fakeLaserVC];
-                v110 = [v109 fingerController];
-                v111 = [v110 fingerModels];
-                v112 = [v111 firstObject];
-                v113 = [v112 isPressed];
+                v110 = [*(a1 + 40) fakeLaserVC];
+                v111 = [v110 fingerController];
+                v112 = [v111 fingerModels];
+                v113 = [v112 firstObject];
+                v114 = [v113 isPressed];
 
-                if (v113)
+                if (v114)
                 {
 LABEL_77:
-                  v121 = [*(a1 + 40) lastHoveredView];
+                  v122 = [*(a1 + 40) lastHoveredView];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v122 = [*(a1 + 40) lastHoveredView];
-                    v123 = v122 == v22;
+                    v123 = [*(a1 + 40) lastHoveredView];
+                    v124 = v123 == v23;
 
-                    if (v123)
+                    if (v124)
                     {
 LABEL_81:
-                      [*(a1 + 40) setLastHoveredView:v22];
-                      v124 = [*(a1 + 40) slugViewController];
-                      v125 = [v124 userIsInteractingWithSlug];
+                      [*(a1 + 40) setLastHoveredView:v23];
+                      v125 = [*(a1 + 40) slugViewController];
+                      v126 = [v125 userIsInteractingWithSlug];
 
-                      if (((v128 | v125 | v37) & 1) == 0)
+                      if (((v129 | v126 | v38) & 1) == 0)
                       {
-                        v126 = *(a1 + 40);
-                        v127 = +[AXSettings sharedInstance];
-                        [v126 externalClientWantsToAutopan:objc_msgSend(v127 withPanningStyle:{"laserZoomPanningStyle"), *(a1 + 48), *(a1 + 56)}];
+                        v127 = *(a1 + 40);
+                        v128 = +[AXSettings sharedInstance];
+                        [v127 externalClientWantsToAutopan:objc_msgSend(v128 withPanningStyle:{"laserZoomPanningStyle"), *(a1 + 48), *(a1 + 56)}];
                       }
 
                       goto LABEL_84;
                     }
 
-                    v121 = [*(a1 + 40) lastHoveredView];
-                    [v121 setHighlighted:0];
+                    v122 = [*(a1 + 40) lastHoveredView];
+                    [v122 setHighlighted:0];
                   }
 
                   goto LABEL_81;
                 }
 
-                v114 = [*(a1 + 40) fakeLaserVC];
-                v115 = [v114 fingerController];
-                [v115 pressFingersDownAnimated:1 sendTouchEvents:0];
+                v115 = [*(a1 + 40) fakeLaserVC];
+                v116 = [v115 fingerController];
+                [v116 pressFingersDownAnimated:1 sendTouchEvents:0];
 LABEL_76:
 
                 goto LABEL_77;
               }
 
-              v66 = [*(a1 + 40) fakeLaserVC];
-              v67 = [v66 view];
-              [v67 removeFromSuperview];
+              v67 = [*(a1 + 40) fakeLaserVC];
+              v68 = [v67 view];
+              [v68 removeFromSuperview];
 
-              v68 = [*(a1 + 40) fakeLaserVC];
-              [v68 removeFromParentViewController];
+              v69 = [*(a1 + 40) fakeLaserVC];
+              [v69 removeFromParentViewController];
 
-              v69 = *(a1 + 40);
-              v70 = [v69 fakeLaserVC];
-              [v69 addChildViewController:v70];
+              v70 = *(a1 + 40);
+              v71 = [v70 fakeLaserVC];
+              [v70 addChildViewController:v71];
 
-              v71 = [*(a1 + 40) containerView];
-              v72 = [*(a1 + 40) fakeLaserVC];
-              v73 = [v72 view];
-              [v71 addSubview:v73];
+              v72 = [*(a1 + 40) containerView];
+              v73 = [*(a1 + 40) fakeLaserVC];
+              v74 = [v73 view];
+              [v72 addSubview:v74];
 
-              v74 = [*(a1 + 40) containerView];
-              v75 = [*(a1 + 40) fakeLaserVC];
-              v76 = [v75 view];
-              [v74 bringSubviewToFront:v76];
+              v75 = [*(a1 + 40) containerView];
+              v76 = [*(a1 + 40) fakeLaserVC];
+              v77 = [v76 view];
+              [v75 bringSubviewToFront:v77];
 
-              v44 = [*(a1 + 40) fakeLaserVC];
-              [v44 didMoveToParentViewController:*(a1 + 40)];
+              v45 = [*(a1 + 40) fakeLaserVC];
+              [v45 didMoveToParentViewController:*(a1 + 40)];
             }
 
             goto LABEL_55;
           }
 
 LABEL_59:
-          v93 = [*(a1 + 40) redirectPointerAssertion];
-          v94 = v93 == 0;
+          v94 = [*(a1 + 40) redirectPointerAssertion];
+          v95 = v94 == 0;
 
-          if (!v94)
+          if (!v95)
           {
-            v95 = [*(a1 + 40) redirectPointerAssertion];
-            [v95 invalidate];
+            v96 = [*(a1 + 40) redirectPointerAssertion];
+            [v96 invalidate];
 
             [*(a1 + 40) setRedirectPointerAssertion:0];
           }
 
-          v96 = [*(a1 + 40) hidePointerAssertion];
-          v97 = v96 == 0;
+          v97 = [*(a1 + 40) hidePointerAssertion];
+          v98 = v97 == 0;
 
-          if (v97)
+          if (v98)
           {
-            v37 = 0;
+            v38 = 0;
           }
 
           else
           {
-            v98 = [*(a1 + 40) fakeLaserVC];
-            v99 = [v98 fingerController];
-            v100 = [v99 fingerModels];
-            v37 = [v100 count] != 0;
+            v99 = [*(a1 + 40) fakeLaserVC];
+            v100 = [v99 fingerController];
+            v101 = [v100 fingerModels];
+            v38 = [v101 count] != 0;
 
-            if (v37)
+            if (v38)
             {
               [*(a1 + 40) moveCursorToCurrentFakeCursorLocation];
             }
 
-            v101 = [*(a1 + 40) hidePointerAssertion];
-            [v101 invalidate];
+            v102 = [*(a1 + 40) hidePointerAssertion];
+            [v102 invalidate];
 
             [*(a1 + 40) setHidePointerAssertion:0];
           }
 
-          v102 = [*(a1 + 40) fakeLaserVC];
-          v103 = [v102 fingerController];
-          [v103 clearAllFingersAnimated:0 endPointForAnimation:{CGPointZero.x, CGPointZero.y}];
+          v103 = [*(a1 + 40) fakeLaserVC];
+          v104 = [v103 fingerController];
+          [v104 clearAllFingersAnimated:0 endPointForAnimation:{CGPointZero.x, CGPointZero.y}];
 
-          v104 = *(a1 + 40);
-          v105 = *(v104 + 1152);
-          v131[0] = _NSConcreteStackBlock;
-          v131[1] = 3221225472;
-          v131[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_6;
-          v131[3] = &unk_78D00;
-          v131[4] = v104;
-          dispatch_sync(v105, v131);
+          v105 = *(a1 + 40);
+          v106 = *(v105 + 1152);
+          v132[0] = _NSConcreteStackBlock;
+          v132[1] = 3221225472;
+          v132[2] = __81__ZWRootViewController_eventProcessor_didGetPointerEventAtLocation_withEventRep___block_invoke_6;
+          v132[3] = &unk_78D00;
+          v132[4] = v105;
+          dispatch_sync(v106, v132);
           goto LABEL_67;
         }
       }
@@ -8970,7 +8969,7 @@ LABEL_59:
       goto LABEL_36;
     }
 
-    if (v129 && (v137[3] & 1) != 0)
+    if (v130 && (v138[3] & 1) != 0)
     {
       goto LABEL_36;
     }
@@ -10669,46 +10668,46 @@ LABEL_11:
 
 void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithVelocity_angle___block_invoke(uint64_t a1)
 {
-  v14 = [*(a1 + 32) activeLensViewController];
-  if (([v14 inStandbyMode] & 1) == 0)
+  v16 = [*(a1 + 32) activeLensViewController];
+  if (([v16 inStandbyMode] & 1) == 0)
   {
     [*(a1 + 32) stopZoomMovementWithVelocityWithFullscreenEventHandler:*(a1 + 40)];
     if (*(a1 + 48) >= 125.0)
     {
-      [*(a1 + 32) _interfaceAwareAdjustedAngleForScreenAngle:*(a1 + 56)];
-      v3 = v2;
-      v4 = 1;
+      v2 = [*(a1 + 32) _interfaceAwareAdjustedAngleForScreenAngle:*(a1 + 56)];
+      v4 = v3;
+      v5 = 1;
       *(*(a1 + 32) + 688) = 1;
-      v5 = *(a1 + 32) + 736;
-      *v5 = ZOTCalculateDistanceForAngle(v2);
-      *(v5 + 8) = v6;
+      v6 = *(a1 + 32) + 736;
+      *v6 = ZOTCalculateDistanceForAngle(v2, v7, v3);
+      *(v6 + 8) = v8;
       *(*(a1 + 32) + 728) = ZOTNormalizeVelocity(*(a1 + 48));
-      if (v3 <= 60.0 || v3 >= 120.0)
+      if (v4 <= 60.0 || v4 >= 120.0)
       {
-        v4 = v3 < 300.0 && v3 > 240.0;
+        v5 = v4 < 300.0 && v4 > 240.0;
       }
 
-      *(*(a1 + 32) + 753) = v4;
-      v8 = 1;
-      if (v3 >= 30.0 && v3 <= 330.0)
+      *(*(a1 + 32) + 753) = v5;
+      v10 = 1;
+      if (v4 >= 30.0 && v4 <= 330.0)
       {
-        v8 = v3 > 150.0;
-        if (v3 >= 210.0)
+        v10 = v4 > 150.0;
+        if (v4 >= 210.0)
         {
-          v8 = 0;
+          v10 = 0;
         }
       }
 
-      *(*(a1 + 32) + 752) = v8;
+      *(*(a1 + 32) + 752) = v10;
       *(*(a1 + 32) + 760) = CFAbsoluteTimeGetCurrent();
-      v9 = [CADisplayLink displayLinkWithTarget:*(a1 + 32) selector:"_zoomMovementHeartbeat"];
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 768);
-      *(v10 + 768) = v9;
+      v11 = [CADisplayLink displayLinkWithTarget:*(a1 + 32) selector:"_zoomMovementHeartbeat"];
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 768);
+      *(v12 + 768) = v11;
 
-      v12 = *(*(a1 + 32) + 768);
-      v13 = +[NSRunLoop mainRunLoop];
-      [v12 addToRunLoop:v13 forMode:NSRunLoopCommonModes];
+      v14 = *(*(a1 + 32) + 768);
+      v15 = +[NSRunLoop mainRunLoop];
+      [v14 addToRunLoop:v15 forMode:NSRunLoopCommonModes];
 
       *(*(a1 + 32) + 688) = 0;
     }
@@ -10828,18 +10827,20 @@ void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithV
   mappedCopy = mapped;
   gutterDistanceCopy = gutterDistance;
   durationCopy = duration;
-  y = location.y;
-  x = location.x;
+  y = fingerLocation.y;
+  x = fingerLocation.x;
+  v13 = location.y;
+  v14 = location.x;
   handlerCopy = handler;
   if (mappedCopy)
   {
     [(ZWRootViewController *)self zoomFrame];
-    v17 = v16;
-    v19 = v18;
-    width = v20;
-    height = v22;
+    v18 = v17;
+    v20 = v19;
+    width = v21;
+    height = v23;
     [(ZWRootViewController *)self zoomFrame];
-    [(ZWRootViewController *)self _denormalizePoint:x withRespectToFrame:y, v24, v25, v26, v27];
+    [(ZWRootViewController *)self _denormalizePoint:v14 withRespectToFrame:v13, v25, v26, v27, v28];
   }
 
   else
@@ -10850,13 +10851,13 @@ void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithV
     if (activeLensViewController == fullscreenLensViewController)
     {
       [(ZWRootViewController *)self _screenSizeForCurrentOrientation];
-      width = v36;
-      height = v37;
-      [(ZWRootViewController *)self _denormalizePointForCurrentOrientation:x, y];
-      x = v38;
-      y = v39;
-      v19 = 0.0;
-      v17 = 0.0;
+      width = v37;
+      height = v38;
+      [(ZWRootViewController *)self _denormalizePointForCurrentOrientation:v14, v13];
+      v14 = v39;
+      v13 = v40;
+      v20 = 0.0;
+      v18 = 0.0;
       goto LABEL_12;
     }
 
@@ -10870,18 +10871,18 @@ void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithV
       pipLensViewController3 = [(ZWRootViewController *)self pipLensViewController];
       view2 = [pipLensViewController3 view];
       [view2 bounds];
-      v45 = v44;
-      v47 = v46;
-      v49 = v48;
-      v51 = v50;
+      v46 = v45;
+      v48 = v47;
+      v50 = v49;
+      v52 = v51;
       containerView = [(ZWRootViewController *)self containerView];
-      [view convertRect:containerView toView:{v45, v47, v49, v51}];
+      [view convertRect:containerView toView:{v46, v48, v50, v52}];
 
       UIRectInset();
-      v17 = v53;
-      v19 = v54;
-      width = v55;
-      height = v56;
+      v18 = v54;
+      v20 = v55;
+      width = v56;
+      height = v57;
     }
 
     else
@@ -10891,8 +10892,8 @@ void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithV
 
       if (activeLensViewController3 != dockedLensViewController)
       {
-        v17 = CGRectZero.origin.x;
-        v19 = CGRectZero.origin.y;
+        v18 = CGRectZero.origin.x;
+        v20 = CGRectZero.origin.y;
         width = CGRectZero.size.width;
         height = CGRectZero.size.height;
         goto LABEL_12;
@@ -10901,130 +10902,130 @@ void __86__ZWRootViewController_fullscreenEventHandler_continueZoomMovementWithV
       dockedLensViewController2 = [(ZWRootViewController *)self dockedLensViewController];
       dockedLensView = [dockedLensViewController2 dockedLensView];
       [dockedLensView frame];
-      v17 = v59;
-      v19 = v60;
-      width = v61;
-      height = v62;
+      v18 = v60;
+      v20 = v61;
+      width = v62;
+      height = v63;
     }
 
-    [(ZWRootViewController *)self _denormalizePointForCurrentOrientation:x, y, *&durationCopy];
+    [(ZWRootViewController *)self _denormalizePointForCurrentOrientation:v14, v13, *&durationCopy];
   }
 
-  x = v28;
-  y = v29;
+  v14 = v29;
+  v13 = v30;
 LABEL_12:
-  v63 = ZOTScreenRegionForPoint(gutterDistanceCopy, x, y, v17, v19, width, height);
+  v64 = ZOTScreenRegionForPoint(gutterDistanceCopy, v14, v13, v18, v20, width, height);
   if (self->_usingRelativePushPanning)
   {
-    v63 = ZOTScreenRegionForRelativePushPan([(ZWRootViewController *)self interfaceOrientation]);
+    v64 = ZOTScreenRegionForRelativePushPan([(ZWRootViewController *)self interfaceOrientation], v14, v13, x, y);
   }
 
-  if (v63)
+  if (v64)
   {
-    v64 = CGPointZero.y;
-    v65 = v64 - distance;
-    if ((v63 & 4) == 0)
+    v65 = CGPointZero.y;
+    v66 = v65 - distance;
+    if ((v64 & 4) == 0)
     {
-      v65 = CGPointZero.y;
+      v66 = CGPointZero.y;
     }
 
-    v66 = v64 + distance;
-    if ((v63 & 8) != 0)
+    v67 = v65 + distance;
+    if ((v64 & 8) != 0)
     {
-      v67 = 1;
-    }
-
-    else
-    {
-      v67 = (v63 & 4) >> 2;
-    }
-
-    if ((v63 & 8) != 0)
-    {
-      v68 = v66;
+      v68 = 1;
     }
 
     else
     {
-      v68 = v65;
+      v68 = (v64 & 4) >> 2;
     }
 
-    v69 = CGPointZero.x - distance;
-    if ((v63 & 1) == 0)
+    if ((v64 & 8) != 0)
     {
-      v69 = CGPointZero.x;
-    }
-
-    v70 = (v63 & 2) == 0 && (v63 & 1) == 0;
-    if ((v63 & 2) != 0)
-    {
-      v71 = CGPointZero.x + distance;
+      v69 = v67;
     }
 
     else
     {
-      v71 = v69;
+      v69 = v66;
+    }
+
+    v70 = CGPointZero.x - distance;
+    if ((v64 & 1) == 0)
+    {
+      v70 = CGPointZero.x;
+    }
+
+    v71 = (v64 & 2) == 0 && (v64 & 1) == 0;
+    if ((v64 & 2) != 0)
+    {
+      v72 = CGPointZero.x + distance;
+    }
+
+    else
+    {
+      v72 = v70;
     }
 
     [(ZWRootViewController *)self zoomFactor:CGPointZero.x + distance];
-    v73 = v72;
+    v74 = v73;
     [(ZWRootViewController *)self zoomPanOffset];
-    v75 = v71 + v74;
-    v77 = v68 + v76;
+    v76 = v72 + v75;
+    v78 = v69 + v77;
     activeLensViewController4 = [(ZWRootViewController *)self activeLensViewController];
-    [activeLensViewController4 validPanOffsetForProposedOffset:v75 proposedZoomFactor:{v77, v73}];
-    v80 = v79;
-    v82 = v81;
+    [activeLensViewController4 validPanOffsetForProposedOffset:v76 proposedZoomFactor:{v78, v74}];
+    v81 = v80;
+    v83 = v82;
 
     activeLensViewController5 = [(ZWRootViewController *)self activeLensViewController];
-    [activeLensViewController5 handleAdditionalPanOffsetFromOriginalOffset:1 validOffset:v75 useFullDelta:{v77, v80, v82}];
+    [activeLensViewController5 handleAdditionalPanOffsetFromOriginalOffset:1 validOffset:v76 useFullDelta:{v78, v81, v83}];
 
-    v84 = vabdd_f64(v80, v75);
-    v85 = vabdd_f64(v82, v77);
+    v85 = vabdd_f64(v81, v76);
+    v86 = vabdd_f64(v83, v78);
     activeLensViewController6 = [(ZWRootViewController *)self activeLensViewController];
-    [activeLensViewController6 offsetByPanningWithDelta:6 axis:v71 zoomFactor:{v68, v73}];
-    v88 = v87;
-    v90 = v89;
+    [activeLensViewController6 offsetByPanningWithDelta:6 axis:v72 zoomFactor:{v69, v74}];
+    v89 = v88;
+    v91 = v90;
 
     [(ZWRootViewController *)self zoomPanOffset];
-    v93 = v88 == v92 && v90 == v91;
-    if (!v93 || ([(ZWRootViewController *)self activeLensViewController], v94 = objc_claimAutoreleasedReturnValue(), [(ZWRootViewController *)self fullscreenLensViewController], v95 = objc_claimAutoreleasedReturnValue(), v95, v94, v94 == v95))
+    v94 = v89 == v93 && v91 == v92;
+    if (!v94 || ([(ZWRootViewController *)self activeLensViewController], v95 = objc_claimAutoreleasedReturnValue(), [(ZWRootViewController *)self fullscreenLensViewController], v96 = objc_claimAutoreleasedReturnValue(), v96, v95, v95 == v96))
     {
-      [(ZWRootViewController *)self setZoomPanOffset:v88, v90];
-      v96 = block;
+      [(ZWRootViewController *)self setZoomPanOffset:v89, v91];
+      v97 = block;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __159__ZWRootViewController_fullscreenEventHandler_autopanWithLocation_initialSingleFingerLocation_distance_animationDuration_useGutterDistance_pointHasBeenMapped___block_invoke_2;
       block[3] = &unk_79068;
       block[4] = self;
-      *&block[5] = v73;
-      *&block[6] = v88;
-      *&block[7] = v90;
-      block[8] = v100;
+      *&block[5] = v74;
+      *&block[6] = v89;
+      *&block[7] = v91;
+      block[8] = v101;
     }
 
     else
     {
-      v96 = v102;
-      v102[0] = _NSConcreteStackBlock;
-      v102[1] = 3221225472;
-      v102[2] = __159__ZWRootViewController_fullscreenEventHandler_autopanWithLocation_initialSingleFingerLocation_distance_animationDuration_useGutterDistance_pointHasBeenMapped___block_invoke;
-      v102[3] = &unk_78D28;
-      v102[4] = self;
-      *&v102[5] = v71;
-      *&v102[6] = v68;
+      v97 = v104;
+      v104[0] = _NSConcreteStackBlock;
+      v104[1] = 3221225472;
+      v104[2] = __159__ZWRootViewController_fullscreenEventHandler_autopanWithLocation_initialSingleFingerLocation_distance_animationDuration_useGutterDistance_pointHasBeenMapped___block_invoke;
+      v104[3] = &unk_78D28;
+      v104[4] = self;
+      *&v104[5] = v72;
+      *&v104[6] = v69;
     }
 
-    dispatch_async(&_dispatch_main_q, v96);
-    v97 = v67 & (v85 < 2.22044605e-16) | (v84 < 2.22044605e-16) & ~v70;
+    dispatch_async(&_dispatch_main_q, v97);
+    v98 = v68 & (v86 < 2.22044605e-16) | (v85 < 2.22044605e-16) & ~v71;
   }
 
   else
   {
-    v97 = 0;
+    v98 = 0;
   }
 
-  return v97;
+  return v98;
 }
 
 id __159__ZWRootViewController_fullscreenEventHandler_autopanWithLocation_initialSingleFingerLocation_distance_animationDuration_useGutterDistance_pointHasBeenMapped___block_invoke(uint64_t a1)
@@ -11549,7 +11550,7 @@ LABEL_10:
 
 - (CGPoint)_convertPointFromNormalizedToWindow:(CGPoint)window
 {
-  v4 = ZOTDenormalizePoint(window.x);
+  v4 = ZOTDenormalizePoint(self, a2, window.x);
   v6 = v5;
   view = [(ZWRootViewController *)self view];
   window = [view window];

@@ -47,15 +47,14 @@
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     inputPortFormatObserver2 = [(CRDefaultCaptureSessionManager *)self inputPortFormatObserver];
-    v6 = *MEMORY[0x277CE58B0];
     inputPortFormatSender = [(CRDefaultCaptureSessionManager *)self inputPortFormatSender];
-    [defaultCenter removeObserver:inputPortFormatObserver2 name:v6 object:inputPortFormatSender];
+    [defaultCenter removeObserver:? name:? object:?];
 
-    [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:0];
+    [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:?];
   }
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 removeObserver:self name:*MEMORY[0x277CE59C8] object:0];
+  [defaultCenter2 removeObserver:? name:? object:?];
 
   captureSession = [(CRDefaultCaptureSessionManager *)self captureSession];
   [captureSession stopRunning];
@@ -66,84 +65,68 @@
   formatDescription = [resolution formatDescription];
   if (formatDescription)
   {
-    Dimensions = CMVideoFormatDescriptionGetDimensions(formatDescription);
+    CMVideoFormatDescriptionGetDimensions(formatDescription);
 
-    [(CRDefaultCaptureSessionManager *)self setCameraResolution:Dimensions.width, Dimensions.height];
+    [(CRDefaultCaptureSessionManager *)self setCameraResolution:?];
   }
 }
 
 - (void)startRunning
 {
-  v31 = *MEMORY[0x277D85DE8];
   inputPortFormatObserver = [(CRDefaultCaptureSessionManager *)self inputPortFormatObserver];
 
-  v4 = MEMORY[0x277CE58B0];
   if (inputPortFormatObserver)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     inputPortFormatObserver2 = [(CRDefaultCaptureSessionManager *)self inputPortFormatObserver];
-    v7 = *v4;
     inputPortFormatSender = [(CRDefaultCaptureSessionManager *)self inputPortFormatSender];
-    [defaultCenter removeObserver:inputPortFormatObserver2 name:v7 object:inputPortFormatSender];
+    [defaultCenter removeObserver:? name:? object:?];
 
-    [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:0];
+    [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:?];
   }
 
   [(CRDefaultCaptureSessionManager *)self changeCameraConfiguration];
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 addObserver:self selector:sel_cameraSessionWasInterrupted_ name:*MEMORY[0x277CE59C8] object:0];
+  [defaultCenter2 addObserver:? selector:? name:? object:?];
 
   captureSession = [(CRDefaultCaptureSessionManager *)self captureSession];
   [captureSession startRunning];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
   ports = [deviceInput ports];
 
-  v13 = [ports countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v13)
+  v11 = [ports countByEnumeratingWithState:? objects:? count:?];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v27;
-    v16 = *MEMORY[0x277CE5EA8];
+    v12 = v11;
+    v13 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v12; i = (i + 1))
       {
-        if (*v27 != v15)
+        if (MEMORY[0] != v13)
         {
           objc_enumerationMutation(ports);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
-        mediaType = [v18 mediaType];
-        v20 = [mediaType isEqualToString:v16];
+        mediaType = [*(8 * i) mediaType];
+        v16 = [mediaType isEqualToString:?];
 
-        if (v20)
+        if (v16)
         {
-          [(CRDefaultCaptureSessionManager *)self cacheCameraResolution:v18];
-          [(CRDefaultCaptureSessionManager *)self setInputPortFormatSender:v18];
+          [(CRDefaultCaptureSessionManager *)self cacheCameraResolution:?];
+          [(CRDefaultCaptureSessionManager *)self setInputPortFormatSender:?];
           defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
-          v22 = *MEMORY[0x277CE58B0];
           mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __46__CRDefaultCaptureSessionManager_startRunning__block_invoke;
-          v25[3] = &unk_278EAAAD0;
-          v25[4] = self;
-          v25[5] = v18;
-          v24 = [defaultCenter3 addObserverForName:v22 object:v18 queue:mainQueue usingBlock:v25];
-          [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:v24];
+          v19 = [defaultCenter3 addObserverForName:MEMORY[0x277D85DD0] object:3221225472 queue:? usingBlock:?];
+          [(CRDefaultCaptureSessionManager *)self setInputPortFormatObserver:?];
 
           goto LABEL_13;
         }
       }
 
-      v14 = [ports countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v14)
+      v12 = [ports countByEnumeratingWithState:? objects:? count:?];
+      if (v12)
       {
         continue;
       }
@@ -165,39 +148,29 @@ LABEL_13:
 
 - (void)setupCameraSession
 {
-  if ([(CRDefaultCaptureSessionManager *)self cameraPosition])
+  [(CRDefaultCaptureSessionManager *)self cameraPosition];
+  v3 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithPosition:?];
+  if (!v3)
   {
-    v3 = 2;
+    v3 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithPosition:?];
   }
 
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithPosition:v3];
-  if (!v4)
-  {
-    v4 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithPosition:0];
-  }
-
-  v5 = v4;
-  [(CRDefaultCaptureSessionManager *)self setupCameraSessionWithCaptureDevice:v4];
+  v4 = v3;
+  [(CRDefaultCaptureSessionManager *)self setupCameraSessionWithCaptureDevice:?];
 }
 
 - (void)setupCameraSessionWithCaptureDevice:(id)device
 {
-  v94 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   targetVideoFormat = [(CRDefaultCaptureSessionManager *)self targetVideoFormat];
   [(CRDefaultCaptureSessionManager *)self stopRunning];
-  [(CRDefaultCaptureSessionManager *)self setCameraResolution:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
+  [(CRDefaultCaptureSessionManager *)self setCameraResolution:?];
   captureSession = [(CRDefaultCaptureSessionManager *)self captureSession];
 
   if (!captureSession)
   {
     v7 = objc_alloc_init(MEMORY[0x277CE5B38]);
-    [(CRDefaultCaptureSessionManager *)self setCaptureSession:v7];
+    [(CRDefaultCaptureSessionManager *)self setCaptureSession:?];
   }
 
   captureSession2 = [(CRDefaultCaptureSessionManager *)self captureSession];
@@ -206,12 +179,11 @@ LABEL_13:
   if (isMultitaskingCameraAccessSupported)
   {
     captureSession3 = [(CRDefaultCaptureSessionManager *)self captureSession];
-    [captureSession3 setMultitaskingCameraAccessEnabled:1];
+    [captureSession3 setMultitaskingCameraAccessEnabled:?];
   }
 
-  v91 = 0;
-  v11 = [deviceCopy lockForConfiguration:&v91];
-  v12 = v91;
+  v11 = [deviceCopy lockForConfiguration:?];
+  v12 = 0;
   v13 = v12;
   if (!v11)
   {
@@ -219,42 +191,42 @@ LABEL_13:
 LABEL_51:
     deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
     device = [deviceInput device];
-    -[CRDefaultCaptureSessionManager setCameraPosition:](self, "setCameraPosition:", [device position]);
+    [device position];
+    [(CRDefaultCaptureSessionManager *)self setCameraPosition:?];
 
     deviceInput2 = [(CRDefaultCaptureSessionManager *)self deviceInput];
     device2 = [deviceInput2 device];
     uniqueID = [device2 uniqueID];
-    [(CRDefaultCaptureSessionManager *)self setCurrentDeviceID:uniqueID];
+    [(CRDefaultCaptureSessionManager *)self setCurrentDeviceID:?];
 
     goto LABEL_52;
   }
 
-  v85 = v12;
+  v83 = v12;
   captureSession4 = [(CRDefaultCaptureSessionManager *)self captureSession];
   [captureSession4 beginConfiguration];
 
   captureSession5 = [(CRDefaultCaptureSessionManager *)self captureSession];
   deviceInput3 = [(CRDefaultCaptureSessionManager *)self deviceInput];
-  [captureSession5 removeInput:deviceInput3];
+  [captureSession5 removeInput:?];
 
   captureSession6 = [(CRDefaultCaptureSessionManager *)self captureSession];
   captureVideoDataOutput = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
-  [captureSession6 removeOutput:captureVideoDataOutput];
+  [captureSession6 removeOutput:?];
 
-  v90 = 0;
-  v19 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:deviceCopy error:&v90];
-  v84 = v90;
-  [(CRDefaultCaptureSessionManager *)self setDeviceInput:v19];
+  v19 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:? error:?];
+  v82 = 0;
+  [(CRDefaultCaptureSessionManager *)self setDeviceInput:?];
 
   captureSession7 = [(CRDefaultCaptureSessionManager *)self captureSession];
   deviceInput4 = [(CRDefaultCaptureSessionManager *)self deviceInput];
-  v22 = [captureSession7 canAddInput:deviceInput4];
+  v22 = [captureSession7 canAddInput:?];
 
   if (v22)
   {
     captureSession8 = [(CRDefaultCaptureSessionManager *)self captureSession];
     deviceInput5 = [(CRDefaultCaptureSessionManager *)self deviceInput];
-    [captureSession8 addInput:deviceInput5];
+    [captureSession8 addInput:?];
   }
 
   cameraMode = [(CRDefaultCaptureSessionManager *)self cameraMode];
@@ -262,92 +234,87 @@ LABEL_51:
 
   if (cameraMode == v26)
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
-    v83 = deviceCopy;
+    v81 = deviceCopy;
     formats = [deviceCopy formats];
-    v36 = [formats countByEnumeratingWithState:&v86 objects:v93 count:16];
-    if (!v36)
+    v35 = [formats countByEnumeratingWithState:? objects:? count:?];
+    if (!v35)
     {
-      v38 = 0;
+      v37 = 0;
 LABEL_36:
 
 LABEL_37:
-      v52 = v38;
-      if (!v52)
+      v51 = v37;
+      if (!v51)
       {
         goto LABEL_41;
       }
 
-      activeFormat = v52;
-      v38 = v52;
+      activeFormat = v51;
+      v37 = v51;
 LABEL_39:
-      [v83 setActiveFormat:activeFormat];
-      Dimensions = CMVideoFormatDescriptionGetDimensions([activeFormat formatDescription]);
-      [(CRDefaultCaptureSessionManager *)self setCameraResolution:Dimensions.width, Dimensions.height];
-      [v83 setProvidesStortorgetMetadata:1];
-      [(CRDefaultCaptureSessionManager *)self setupHighISO:activeFormat];
+      [v81 setActiveFormat:?];
+      CMVideoFormatDescriptionGetDimensions([activeFormat formatDescription]);
+      [(CRDefaultCaptureSessionManager *)self setCameraResolution:?];
+      [v81 setProvidesStortorgetMetadata:?];
+      [(CRDefaultCaptureSessionManager *)self setupHighISO:?];
 
 LABEL_40:
 LABEL_41:
-      v54 = objc_alloc(MEMORY[0x277CE5B68]);
+      v52 = objc_alloc(MEMORY[0x277CE5B68]);
       captureSession9 = [(CRDefaultCaptureSessionManager *)self captureSession];
-      v56 = [v54 initWithSession:captureSession9];
-      [(CRDefaultCaptureSessionManager *)self setAvfPreviewLayer:v56];
+      v54 = [v52 initWithSession:?];
+      [(CRDefaultCaptureSessionManager *)self setAvfPreviewLayer:?];
 
-      v57 = objc_alloc_init(MEMORY[0x277CE5B60]);
-      v58 = MEMORY[0x277CBEAC0];
-      v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:targetVideoFormat];
-      v60 = [v58 dictionaryWithObject:v59 forKey:*MEMORY[0x277CC4E30]];
-      [v57 setVideoSettings:v60];
+      v55 = objc_alloc_init(MEMORY[0x277CE5B60]);
+      v56 = MEMORY[0x277CBEAC0];
+      v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+      v58 = [v56 dictionaryWithObject:? forKey:?];
+      [v55 setVideoSettings:?];
 
-      [v57 setAlwaysDiscardsLateVideoFrames:1];
-      [(CRDefaultCaptureSessionManager *)self setCaptureVideoDataOutput:v57];
-      v61 = dispatch_queue_create("com.apple.CoreRecognition.videoQueue", 0);
+      [v55 setAlwaysDiscardsLateVideoFrames:?];
+      [(CRDefaultCaptureSessionManager *)self setCaptureVideoDataOutput:?];
+      v59 = dispatch_queue_create("com.apple.CoreRecognition.videoQueue", 0);
       captureVideoDataOutput2 = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
       captureSessionDelegate = [(CRDefaultCaptureSessionManager *)self captureSessionDelegate];
-      [captureVideoDataOutput2 setSampleBufferDelegate:captureSessionDelegate queue:v61];
+      [captureVideoDataOutput2 setSampleBufferDelegate:? queue:?];
 
-      deviceCopy = v83;
+      deviceCopy = v81;
       if ([(CRDefaultCaptureSessionManager *)self enableMetadataOutput])
       {
-        v64 = objc_alloc_init(MEMORY[0x277CE5B00]);
+        v62 = objc_alloc_init(MEMORY[0x277CE5B00]);
         captureSession10 = [(CRDefaultCaptureSessionManager *)self captureSession];
-        v66 = [captureSession10 canAddOutput:v64];
+        v64 = [captureSession10 canAddOutput:?];
 
-        if (v66)
+        if (v64)
         {
           captureSession11 = [(CRDefaultCaptureSessionManager *)self captureSession];
-          [captureSession11 addOutput:v64];
+          [captureSession11 addOutput:?];
         }
 
         captureSessionMetadataDelegate = [(CRDefaultCaptureSessionManager *)self captureSessionMetadataDelegate];
-        [v64 setMetadataObjectsDelegate:captureSessionMetadataDelegate queue:v61];
+        [v62 setMetadataObjectsDelegate:? queue:?];
 
-        v92 = *MEMORY[0x277CE5A80];
-        v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-        [v64 setMetadataObjectTypes:v69];
+        v67 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+        [v62 setMetadataObjectTypes:?];
       }
 
       captureSession12 = [(CRDefaultCaptureSessionManager *)self captureSession];
       captureVideoDataOutput3 = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
-      v72 = [captureSession12 canAddOutput:captureVideoDataOutput3];
+      v70 = [captureSession12 canAddOutput:?];
 
-      if (v72)
+      if (v70)
       {
         captureSession13 = [(CRDefaultCaptureSessionManager *)self captureSession];
         captureVideoDataOutput4 = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
-        [captureSession13 addOutput:captureVideoDataOutput4];
+        [captureSession13 addOutput:?];
       }
 
       captureVideoDataOutput5 = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
-      v76 = [captureVideoDataOutput5 connectionWithMediaType:*MEMORY[0x277CE5EA8]];
+      v74 = [captureVideoDataOutput5 connectionWithMediaType:?];
 
-      if ([v76 isCameraIntrinsicMatrixDeliverySupported])
+      if ([v74 isCameraIntrinsicMatrixDeliverySupported])
       {
-        [v76 setCameraIntrinsicMatrixDeliveryEnabled:1];
+        [v74 setCameraIntrinsicMatrixDeliveryEnabled:?];
       }
 
       else
@@ -358,58 +325,58 @@ LABEL_41:
       captureSession14 = [(CRDefaultCaptureSessionManager *)self captureSession];
       [captureSession14 commitConfiguration];
 
-      [v83 unlockForConfiguration];
-      v13 = v85;
+      [v81 unlockForConfiguration];
+      v13 = v83;
       goto LABEL_51;
     }
 
-    v37 = v36;
-    v38 = 0;
-    v39 = *v87;
-    v82 = *v87;
+    v36 = v35;
+    v37 = 0;
+    v38 = MEMORY[0];
+    v80 = MEMORY[0];
 LABEL_14:
-    v40 = 0;
+    v39 = 0;
     while (1)
     {
-      if (*v87 != v39)
+      if (MEMORY[0] != v38)
       {
         objc_enumerationMutation(formats);
       }
 
-      v41 = *(*(&v86 + 1) + 8 * v40);
-      formatDescription = [v41 formatDescription];
+      v40 = *(8 * v39);
+      formatDescription = [v40 formatDescription];
       MediaSubType = CMFormatDescriptionGetMediaSubType(formatDescription);
-      v44 = CMVideoFormatDescriptionGetDimensions(formatDescription);
-      if (v38 || MediaSubType != targetVideoFormat)
+      Dimensions = CMVideoFormatDescriptionGetDimensions(formatDescription);
+      if (v37 || MediaSubType != targetVideoFormat)
       {
         if (MediaSubType != targetVideoFormat)
         {
           goto LABEL_29;
         }
 
-        if (v44.width > CMVideoFormatDescriptionGetDimensions([v38 formatDescription]).width)
+        if (Dimensions.width > CMVideoFormatDescriptionGetDimensions([v37 formatDescription]).width)
         {
           selfCopy = self;
-          v47 = targetVideoFormat;
-          v48 = formats;
-          v49 = v41;
+          v46 = targetVideoFormat;
+          v47 = formats;
+          v48 = v40;
 
-          v38 = v49;
-          formats = v48;
-          targetVideoFormat = v47;
+          v37 = v48;
+          formats = v47;
+          targetVideoFormat = v46;
           self = selfCopy;
-          v39 = v82;
+          v38 = v80;
         }
       }
 
       else
       {
-        v38 = v41;
+        v37 = v40;
       }
 
-      if (v44 == 0x99000000CC0 && MediaSubType == targetVideoFormat)
+      if (Dimensions == 0x99000000CC0 && MediaSubType == targetVideoFormat)
       {
-        activeFormat = v41;
+        activeFormat = v40;
 
         if (activeFormat)
         {
@@ -420,10 +387,10 @@ LABEL_14:
       }
 
 LABEL_29:
-      if (v37 == ++v40)
+      if (v36 == ++v39)
       {
-        v37 = [formats countByEnumeratingWithState:&v86 objects:v93 count:16];
-        if (v37)
+        v36 = [formats countByEnumeratingWithState:? objects:? count:?];
+        if (v36)
         {
           goto LABEL_14;
         }
@@ -435,20 +402,20 @@ LABEL_29:
 
   captureSession15 = [(CRDefaultCaptureSessionManager *)self captureSession];
   cameraMode2 = [(CRDefaultCaptureSessionManager *)self cameraMode];
-  v29 = [captureSession15 canSetSessionPreset:cameraMode2];
+  v29 = [captureSession15 canSetSessionPreset:?];
 
   if (v29)
   {
     captureSession16 = [(CRDefaultCaptureSessionManager *)self captureSession];
     cameraMode3 = [(CRDefaultCaptureSessionManager *)self cameraMode];
-    [captureSession16 setSessionPreset:cameraMode3];
+    [captureSession16 setSessionPreset:?];
 
-    v83 = deviceCopy;
+    v81 = deviceCopy;
     activeFormat = [deviceCopy activeFormat];
     formatDescription2 = [activeFormat formatDescription];
-    [(CRDefaultCaptureSessionManager *)self setupHighISO:activeFormat];
-    v34 = CMVideoFormatDescriptionGetDimensions(formatDescription2);
-    [(CRDefaultCaptureSessionManager *)self setCameraResolution:v34.width, v34.height];
+    [(CRDefaultCaptureSessionManager *)self setupHighISO:?];
+    CMVideoFormatDescriptionGetDimensions(formatDescription2);
+    [(CRDefaultCaptureSessionManager *)self setCameraResolution:?];
     goto LABEL_40;
   }
 
@@ -457,8 +424,8 @@ LABEL_29:
   [captureSession17 commitConfiguration];
 
   [deviceCopy unlockForConfiguration];
-  deviceInput2 = v84;
-  v13 = v85;
+  deviceInput2 = v82;
+  v13 = v83;
 LABEL_52:
 }
 
@@ -466,69 +433,87 @@ LABEL_52:
 {
   captureSession = [(CRDefaultCaptureSessionManager *)self captureSession];
   captureVideoDataOutput = [(CRDefaultCaptureSessionManager *)self captureVideoDataOutput];
-  [captureSession removeOutput:captureVideoDataOutput];
+  [captureSession removeOutput:?];
 
   captureSession2 = [(CRDefaultCaptureSessionManager *)self captureSession];
   deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
-  [captureSession2 removeInput:deviceInput];
+  [captureSession2 removeInput:?];
 
-  [(CRDefaultCaptureSessionManager *)self setCaptureSession:0];
-  [(CRDefaultCaptureSessionManager *)self setAvfPreviewLayer:0];
+  [(CRDefaultCaptureSessionManager *)self setCaptureSession:?];
+  [(CRDefaultCaptureSessionManager *)self setAvfPreviewLayer:?];
   if ([(CRDefaultCaptureSessionManager *)self exposure_table])
   {
     free(*[(CRDefaultCaptureSessionManager *)self exposure_table]);
     free([(CRDefaultCaptureSessionManager *)self exposure_table]);
 
-    [(CRDefaultCaptureSessionManager *)self setExposure_table:0];
+    [(CRDefaultCaptureSessionManager *)self setExposure_table:?];
   }
 }
 
 - (void)changeCameraConfiguration
 {
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
   deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
   device = [deviceInput device];
 
   deviceInput2 = [(CRDefaultCaptureSessionManager *)self deviceInput];
   device2 = [deviceInput2 device];
-  v11 = 0;
-  [device2 lockForConfiguration:&v11];
-  v7 = v11;
+  [device2 lockForConfiguration:?];
+  v7 = 0;
 
-  if ([device hasTorch] && objc_msgSend(device, "isTorchModeSupported:", -[CRDefaultCaptureSessionManager torchMode](self, "torchMode")) && -[CRDefaultCaptureSessionManager isRearCamera](self, "isRearCamera"))
+  if ([device hasTorch])
   {
-    [device setTorchMode:{-[CRDefaultCaptureSessionManager torchMode](self, "torchMode")}];
+    [(CRDefaultCaptureSessionManager *)self torchMode];
+    if ([device isTorchModeSupported:?])
+    {
+      if ([(CRDefaultCaptureSessionManager *)self isRearCamera])
+      {
+        [(CRDefaultCaptureSessionManager *)self torchMode];
+        [device setTorchMode:?];
+      }
+    }
   }
 
-  if ([device isFocusPointOfInterestSupported] && objc_msgSend(device, "isFocusModeSupported:", -[CRDefaultCaptureSessionManager focusMode](self, "focusMode")))
+  if ([device isFocusPointOfInterestSupported])
   {
-    [device setFocusPointOfInterest:{0.5, 0.5}];
-    [device setFocusMode:{-[CRDefaultCaptureSessionManager focusMode](self, "focusMode")}];
+    [(CRDefaultCaptureSessionManager *)self focusMode];
+    if ([device isFocusModeSupported:?])
+    {
+      [device setFocusPointOfInterest:?];
+      [(CRDefaultCaptureSessionManager *)self focusMode];
+      [device setFocusMode:?];
+    }
   }
 
   if ((objc_opt_respondsToSelector() & 1) != 0 && [device isAutoFocusRangeRestrictionSupported])
   {
-    [device setAutoFocusRangeRestriction:1];
+    [device setAutoFocusRangeRestriction:?];
   }
 
-  if ([device isWhiteBalanceModeSupported:{-[CRDefaultCaptureSessionManager whiteBalanceMode](self, "whiteBalanceMode")}])
+  [(CRDefaultCaptureSessionManager *)self whiteBalanceMode];
+  if ([device isWhiteBalanceModeSupported:?])
   {
-    [device setWhiteBalanceMode:{-[CRDefaultCaptureSessionManager whiteBalanceMode](self, "whiteBalanceMode")}];
+    [(CRDefaultCaptureSessionManager *)self whiteBalanceMode];
+    [device setWhiteBalanceMode:?];
   }
 
-  if ([device isExposurePointOfInterestSupported] && objc_msgSend(device, "isExposureModeSupported:", -[CRDefaultCaptureSessionManager exposureMode](self, "exposureMode")))
+  if ([device isExposurePointOfInterestSupported])
   {
-    [device setExposurePointOfInterest:{0.5, 0.5}];
-    [device setExposureMode:{-[CRDefaultCaptureSessionManager exposureMode](self, "exposureMode")}];
+    [(CRDefaultCaptureSessionManager *)self exposureMode];
+    if ([device isExposureModeSupported:?])
+    {
+      [device setExposurePointOfInterest:?];
+      [(CRDefaultCaptureSessionManager *)self exposureMode];
+      [device setExposureMode:?];
+    }
   }
 
-  v8 = *MEMORY[0x277CE5DD8];
   avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer setVideoGravity:v8];
+  [avfPreviewLayer setVideoGravity:?];
 
   avfPreviewLayer2 = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer2 setOpaque:1];
+  [avfPreviewLayer2 setOpaque:?];
 
   [device unlockForConfiguration];
   [MEMORY[0x277CD9FF0] commit];
@@ -545,13 +530,13 @@ LABEL_52:
 
 - (unint64_t)cameraCount
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CE5AD0];
   v3 = *MEMORY[0x277CE5870];
-  v9[0] = *MEMORY[0x277CE5878];
-  v9[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-  v5 = [v2 discoverySessionWithDeviceTypes:v4 mediaType:*MEMORY[0x277CE5EA8] position:0];
+  v9 = *MEMORY[0x277CE5878];
+  v10 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v5 = [v2 discoverySessionWithDeviceTypes:? mediaType:? position:?];
 
   devices = [v5 devices];
   v7 = [devices count];
@@ -561,35 +546,30 @@ LABEL_52:
 
 - (id)captureDeviceWithPosition:(int64_t)position
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CE5AD0];
-  v54[0] = *MEMORY[0x277CE5878];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
-  v39 = *MEMORY[0x277CE5EA8];
-  v7 = [v5 discoverySessionWithDeviceTypes:v6 mediaType:? position:?];
+  v42 = *MEMORY[0x277CE5878];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v7 = [v5 discoverySessionWithDeviceTypes:? mediaType:? position:?];
 
-  v40 = v7;
-  [v7 devices];
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v8 = v48 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v39 = v7;
+  devices = [v7 devices];
+  v9 = [devices countByEnumeratingWithState:? objects:? count:?];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v46;
+    v12 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v46 != v12)
+        if (MEMORY[0] != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(devices);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * i);
+        v14 = *(8 * i);
         position = [v14 position];
         if (!position || position == position)
         {
@@ -600,12 +580,12 @@ LABEL_52:
             {
               localizedName = [v14 localizedName];
               *buf = 138412290;
-              v52 = localizedName;
+              v41 = localizedName;
               _os_log_impl(&dword_2477E8000, v20, OS_LOG_TYPE_DEFAULT, "Selecting device %@", buf, 0xCu);
             }
 
             v22 = v14;
-            v23 = v40;
+            v23 = v39;
             goto LABEL_38;
           }
 
@@ -614,7 +594,7 @@ LABEL_52:
           {
             localizedName2 = [v14 localizedName];
             *buf = 138412290;
-            v52 = localizedName2;
+            v41 = localizedName2;
             _os_log_impl(&dword_2477E8000, v17, OS_LOG_TYPE_DEFAULT, "%@ does not meet focus requirements", buf, 0xCu);
           }
 
@@ -623,7 +603,7 @@ LABEL_52:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v10 = [devices countByEnumeratingWithState:? objects:? count:?];
       if (v10)
       {
         continue;
@@ -639,32 +619,27 @@ LABEL_52:
   }
 
   v24 = MEMORY[0x277CE5AD0];
-  v50 = *MEMORY[0x277CE5870];
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-  v23 = [v24 discoverySessionWithDeviceTypes:v25 mediaType:v39 position:position];
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v23 = [v24 discoverySessionWithDeviceTypes:? mediaType:? position:?];
 
-  devices = [v23 devices];
+  devices2 = [v23 devices];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v8 = devices;
-  v27 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  devices = devices2;
+  v27 = [devices countByEnumeratingWithState:? objects:? count:?];
   if (v27)
   {
     v28 = v27;
-    v29 = *v42;
+    v29 = MEMORY[0];
     while (2)
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v28; j = (j + 1))
       {
-        if (*v42 != v29)
+        if (MEMORY[0] != v29)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(devices);
         }
 
-        v31 = *(*(&v41 + 1) + 8 * j);
+        v31 = *(8 * j);
         position2 = [v31 position];
         if (!position || position2 == position)
         {
@@ -677,7 +652,7 @@ LABEL_52:
               {
                 localizedName3 = [v31 localizedName];
                 *buf = 138412290;
-                v52 = localizedName3;
+                v41 = localizedName3;
                 _os_log_impl(&dword_2477E8000, v36, OS_LOG_TYPE_DEFAULT, "Selecting device %@", buf, 0xCu);
               }
 
@@ -688,7 +663,7 @@ LABEL_52:
         }
       }
 
-      v28 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v28 = [devices countByEnumeratingWithState:? objects:? count:?];
       if (v28)
       {
         continue;
@@ -703,7 +678,7 @@ LABEL_52:
   {
     localizedName4 = [v11 localizedName];
     *buf = 138412290;
-    v52 = localizedName4;
+    v41 = localizedName4;
     _os_log_impl(&dword_2477E8000, v34, OS_LOG_TYPE_DEFAULT, "Falling back to device %@", buf, 0xCu);
   }
 
@@ -716,46 +691,38 @@ LABEL_38:
 
 - (id)captureDeviceWithIdentifier:(id)identifier
 {
-  v21[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = MEMORY[0x277CE5AD0];
-  v5 = *MEMORY[0x277CE5870];
-  v21[0] = *MEMORY[0x277CE5878];
-  v21[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v7 = [v4 discoverySessionWithDeviceTypes:v6 mediaType:*MEMORY[0x277CE5EA8] position:0];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v6 = [v4 discoverySessionWithDeviceTypes:? mediaType:? position:?];
 
-  [v7 devices];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v8 = v19 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  devices = [v6 devices];
+  v8 = [devices countByEnumeratingWithState:0 objects:? count:?];
+  if (v8)
   {
-    v10 = *v17;
+    v9 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v17 != v10)
+        if (MEMORY[0] != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(devices);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        uniqueID = [v12 uniqueID];
-        v14 = [uniqueID isEqualToString:identifierCopy];
+        v11 = *(8 * i);
+        uniqueID = [v11 uniqueID];
+        v13 = [uniqueID isEqualToString:?];
 
-        if (v14)
+        if (v13)
         {
-          v9 = v12;
+          v8 = v11;
           goto LABEL_11;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v9)
+      v8 = [devices countByEnumeratingWithState:? objects:? count:?];
+      if (v8)
       {
         continue;
       }
@@ -766,7 +733,7 @@ LABEL_38:
 
 LABEL_11:
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)toggleCamera
@@ -775,30 +742,20 @@ LABEL_11:
   device = [deviceInput device];
   position = [device position];
 
-  if (position == 1)
+  if (position != 1 && position != 2)
   {
-    v6 = 2;
+    return 0;
   }
 
-  else
-  {
-    if (position != 2)
-    {
-      return 0;
-    }
-
-    v6 = 1;
-  }
-
-  return [(CRDefaultCaptureSessionManager *)self switchToCamera:v6];
+  return [(CRDefaultCaptureSessionManager *)self switchToCamera:?];
 }
 
 - (BOOL)switchToCameraWithDeviceID:(id)d
 {
-  v4 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithIdentifier:d];
+  v4 = [(CRDefaultCaptureSessionManager *)self captureDeviceWithIdentifier:?];
   if (v4)
   {
-    [(CRDefaultCaptureSessionManager *)self setupCameraSessionWithCaptureDevice:v4];
+    [(CRDefaultCaptureSessionManager *)self setupCameraSessionWithCaptureDevice:?];
   }
 
   return v4 != 0;
@@ -815,123 +772,108 @@ LABEL_11:
   {
     v5 = objc_alloc(MEMORY[0x277CE5AD8]);
     backFacingCamera = [(CRDefaultCaptureSessionManager *)self backFacingCamera];
-    v42 = 0;
-    v7 = &v42;
-    v8 = &v42;
+    v35 = 0;
+    v7 = &v35;
     goto LABEL_7;
   }
 
   if (camera != 2)
   {
 LABEL_5:
-    LOBYTE(v9) = 0;
-    return v9;
+    LOBYTE(v8) = 0;
+    return v8;
   }
 
   v5 = objc_alloc(MEMORY[0x277CE5AD8]);
   backFacingCamera = [(CRDefaultCaptureSessionManager *)self frontFacingCamera];
-  v43 = 0;
-  v7 = &v43;
-  v8 = &v43;
+  v36 = 0;
+  v7 = &v36;
 LABEL_7:
-  v10 = [v5 initWithDevice:backFacingCamera error:v8];
-  v11 = *v7;
+  v9 = [v5 initWithDevice:? error:?];
+  v10 = *v7;
 
-  if (v10)
+  if (v9)
   {
     [(CRDefaultCaptureSessionManager *)self stopRunning];
-    device = [v10 device];
-    v41 = 0;
-    v9 = [device lockForConfiguration:&v41];
-    v13 = v41;
+    device = [v9 device];
+    v8 = [device lockForConfiguration:?];
+    v12 = 0;
 
-    if (v9)
+    if (v8)
     {
       captureSession = [(CRDefaultCaptureSessionManager *)self captureSession];
       [captureSession beginConfiguration];
 
       captureSession2 = [(CRDefaultCaptureSessionManager *)self captureSession];
       deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
-      [captureSession2 removeInput:deviceInput];
+      [captureSession2 removeInput:?];
 
-      device2 = [v10 device];
-      v18 = *MEMORY[0x277CE5980];
-      v19 = [device2 supportsAVCaptureSessionPreset:*MEMORY[0x277CE5980]];
+      device2 = [v9 device];
+      v17 = [device2 supportsAVCaptureSessionPreset:?];
 
-      if ((v19 & 1) != 0 || ([v10 device], v20 = objc_claimAutoreleasedReturnValue(), v18 = *MEMORY[0x277CE5960], v21 = objc_msgSend(v20, "supportsAVCaptureSessionPreset:", *MEMORY[0x277CE5960]), v20, v21))
+      if ((v17 & 1) != 0 || ([v9 device], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "supportsAVCaptureSessionPreset:"), v18, v19))
       {
         captureSession3 = [(CRDefaultCaptureSessionManager *)self captureSession];
-        [captureSession3 setSessionPreset:v18];
+        [captureSession3 setSessionPreset:?];
       }
 
       if ([(CRDefaultCaptureSessionManager *)self enableMetadataOutput])
       {
-        device3 = [v10 device];
-        v24 = *MEMORY[0x277CE5960];
-        v25 = [device3 supportsAVCaptureSessionPreset:*MEMORY[0x277CE5960]];
+        device3 = [v9 device];
+        [device3 supportsAVCaptureSessionPreset:?];
 
         captureSession4 = [(CRDefaultCaptureSessionManager *)self captureSession];
-        v27 = captureSession4;
-        if (v25)
-        {
-          v28 = v24;
-        }
-
-        else
-        {
-          v28 = *MEMORY[0x277CE5988];
-        }
-
-        [captureSession4 setSessionPreset:v28];
+        [captureSession4 setSessionPreset:?];
       }
 
       captureSession5 = [(CRDefaultCaptureSessionManager *)self captureSession];
-      v30 = [captureSession5 canAddInput:v10];
+      v24 = [captureSession5 canAddInput:?];
 
       captureSession6 = [(CRDefaultCaptureSessionManager *)self captureSession];
-      v32 = captureSession6;
-      if (v30)
+      v26 = captureSession6;
+      if (v24)
       {
-        [captureSession6 addInput:v10];
+        [captureSession6 addInput:?];
 
-        [(CRDefaultCaptureSessionManager *)self setDeviceInput:v10];
+        [(CRDefaultCaptureSessionManager *)self setDeviceInput:?];
       }
 
       else
       {
         deviceInput2 = [(CRDefaultCaptureSessionManager *)self deviceInput];
-        [v32 addInput:deviceInput2];
+        [v26 addInput:?];
       }
 
-      device4 = [v10 device];
+      device4 = [v9 device];
       activeFormat = [device4 activeFormat];
 
-      [(CRDefaultCaptureSessionManager *)self setupHighISO:activeFormat];
+      [(CRDefaultCaptureSessionManager *)self setupHighISO:?];
       captureSession7 = [(CRDefaultCaptureSessionManager *)self captureSession];
       [captureSession7 commitConfiguration];
 
-      device5 = [v10 device];
+      device5 = [v9 device];
       [device5 unlockForConfiguration];
 
       deviceInput3 = [(CRDefaultCaptureSessionManager *)self deviceInput];
       device6 = [deviceInput3 device];
-      -[CRDefaultCaptureSessionManager setCameraPosition:](self, "setCameraPosition:", [device6 position]);
+      [device6 position];
+      [(CRDefaultCaptureSessionManager *)self setCameraPosition:?];
 
       [(CRDefaultCaptureSessionManager *)self startRunning];
     }
 
     else
     {
-      NSLog(&cfstr_FailedToObtain.isa, v13);
+      NSLog(&cfstr_FailedToObtain.isa, v12);
     }
   }
 
   else
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)_refocusOnPoint:(CGPoint)point focusMode:(int64_t)mode exposure:(BOOL)exposure
@@ -961,22 +903,31 @@ void __69__CRDefaultCaptureSessionManager__refocusOnPoint_focusMode_exposure___b
 {
   v2 = [*(a1 + 32) deviceInput];
   v3 = [v2 device];
-  v6 = 0;
-  v4 = [v3 lockForConfiguration:&v6];
-  v5 = v6;
+  v4 = [v3 lockForConfiguration:?];
+  v5 = 0;
 
   if (v4)
   {
-    if ([*(a1 + 40) isFocusPointOfInterestSupported] && objc_msgSend(*(a1 + 40), "isFocusModeSupported:", *(a1 + 48)))
+    if ([*(a1 + 40) isFocusPointOfInterestSupported] && objc_msgSend(*(a1 + 40), "isFocusModeSupported:"))
     {
-      [*(a1 + 40) setFocusPointOfInterest:{*(a1 + 56), *(a1 + 64)}];
-      [*(a1 + 40) setFocusMode:*(a1 + 48)];
+      [*(a1 + 40) setFocusPointOfInterest:?];
+      [*(a1 + 40) setFocusMode:?];
     }
 
-    if (*(a1 + 72) == 1 && [*(a1 + 40) isExposurePointOfInterestSupported] && objc_msgSend(*(a1 + 40), "isExposureModeSupported:", objc_msgSend(*(a1 + 32), "exposureMode")))
+    if (*(a1 + 72) == 1)
     {
-      [*(a1 + 40) setExposurePointOfInterest:{*(a1 + 56), *(a1 + 64)}];
-      [*(a1 + 40) setExposureMode:{objc_msgSend(*(a1 + 32), "exposureMode")}];
+      if ([*(a1 + 40) isExposurePointOfInterestSupported])
+      {
+        v6 = *(a1 + 40);
+        [*(a1 + 32) exposureMode];
+        if ([v6 isExposureModeSupported:?])
+        {
+          [*(a1 + 40) setExposurePointOfInterest:?];
+          v7 = *(a1 + 40);
+          [*(a1 + 32) exposureMode];
+          [v7 setExposureMode:?];
+        }
+      }
     }
 
     [*(a1 + 40) unlockForConfiguration];
@@ -990,9 +941,6 @@ void __69__CRDefaultCaptureSessionManager__refocusOnPoint_focusMode_exposure___b
 
 - (void)refocusOnPoint:(CGPoint)point exposure:(BOOL)exposure
 {
-  exposureCopy = exposure;
-  y = point.y;
-  x = point.x;
   deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
   device = [deviceInput device];
   isFocusPointOfInterestSupported = [device isFocusPointOfInterestSupported];
@@ -1000,17 +948,17 @@ void __69__CRDefaultCaptureSessionManager__refocusOnPoint_focusMode_exposure___b
   if (isFocusPointOfInterestSupported)
   {
     avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-    [avfPreviewLayer captureDevicePointOfInterestForPoint:{x, y}];
-    v13 = v12;
-    v15 = v14;
+    [avfPreviewLayer captureDevicePointOfInterestForPoint:?];
+    v10 = v9;
+    v12 = v11;
 
     deviceInput2 = [(CRDefaultCaptureSessionManager *)self deviceInput];
     device2 = [deviceInput2 device];
     [device2 focusPointOfInterest];
-    *&v18 = (v19 - v15) * (v19 - v15) + (v18 - v13) * (v18 - v13);
-    v20 = sqrtf(*&v18);
+    *&v15 = (v16 - v12) * (v16 - v12) + (v15 - v10) * (v15 - v10);
+    v17 = sqrtf(*&v15);
 
-    if (v20 <= 0.05)
+    if (v17 <= 0.05)
     {
       deviceInput3 = [(CRDefaultCaptureSessionManager *)self deviceInput];
       device3 = [deviceInput3 device];
@@ -1029,9 +977,9 @@ void __69__CRDefaultCaptureSessionManager__refocusOnPoint_focusMode_exposure___b
 
     else
     {
-      focusMode = [(CRDefaultCaptureSessionManager *)self focusMode];
+      [(CRDefaultCaptureSessionManager *)self focusMode];
 
-      [(CRDefaultCaptureSessionManager *)self _refocusOnPoint:focusMode focusMode:exposureCopy exposure:v13, v15];
+      [CRDefaultCaptureSessionManager _refocusOnPoint:"_refocusOnPoint:focusMode:exposure:" focusMode:? exposure:?];
     }
   }
 }
@@ -1041,20 +989,20 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
   v2 = [*(a1 + 32) deviceInput];
   v3 = [v2 device];
   v13 = 0;
-  v4 = [v3 lockForConfiguration:&v13];
+  v4 = [v3 lockForConfiguration:?];
   v5 = v13;
 
   if (v4)
   {
     v6 = [*(a1 + 32) deviceInput];
     v7 = [v6 device];
-    v8 = [v7 isFocusModeSupported:1];
+    v8 = [v7 isFocusModeSupported:?];
 
     if (v8)
     {
       v9 = [*(a1 + 32) deviceInput];
       v10 = [v9 device];
-      [v10 setFocusMode:1];
+      [v10 setFocusMode:?];
     }
 
     v11 = [*(a1 + 32) deviceInput];
@@ -1087,9 +1035,9 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
 
       if (v11 != 0.5)
       {
-        focusMode = [(CRDefaultCaptureSessionManager *)self focusMode];
+        [(CRDefaultCaptureSessionManager *)self focusMode];
 
-        [(CRDefaultCaptureSessionManager *)self _refocusOnPoint:focusMode focusMode:1 exposure:0.5, 0.5];
+        [CRDefaultCaptureSessionManager _refocusOnPoint:"_refocusOnPoint:focusMode:exposure:" focusMode:? exposure:?];
       }
     }
   }
@@ -1101,7 +1049,7 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
   {
     avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
     connection = [avfPreviewLayer connection];
-    [connection setVideoOrientation:orientation];
+    [connection setVideoOrientation:?];
   }
 }
 
@@ -1116,32 +1064,28 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
 
 - (CGPoint)convertCameraPoint:(CGPoint)point fromLayer:(id)layer
 {
-  y = point.y;
-  x = point.x;
   layerCopy = layer;
   avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer convertPoint:layerCopy fromLayer:{x, y}];
-  v10 = v9;
-  v12 = v11;
+  [avfPreviewLayer convertPoint:? fromLayer:?];
 
   avfPreviewLayer2 = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer2 captureDevicePointOfInterestForPoint:{v10, v12}];
-  v15 = v14;
-  v17 = v16;
+  [avfPreviewLayer2 captureDevicePointOfInterestForPoint:?];
+  v9 = v8;
+  v11 = v10;
 
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v19 = v15 * v18;
+  v13 = v9 * v12;
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v21 = v17 * v20;
-  v22 = v19;
-  result.y = v21;
-  result.x = v22;
+  v15 = v11 * v14;
+  v16 = v13;
+  result.y = v15;
+  result.x = v16;
   return result;
 }
 
 - (CGPoint)convertCameraPoint:(CGPoint)point toLayer:(id)layer
 {
-  [(CRDefaultCaptureSessionManager *)self convertCameraPoint:layer toLayer:0 flipped:point.x, point.y];
+  [CRDefaultCaptureSessionManager convertCameraPoint:"convertCameraPoint:toLayer:flipped:" toLayer:? flipped:?];
   result.y = v5;
   result.x = v4;
   return result;
@@ -1150,110 +1094,86 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
 - (CGPoint)convertCameraPoint:(CGPoint)point toLayer:(id)layer flipped:(BOOL)flipped
 {
   flippedCopy = flipped;
-  y = point.y;
-  x = point.x;
   layerCopy = layer;
   if (flippedCopy)
   {
     [(CRDefaultCaptureSessionManager *)self cameraResolution];
-    y = v10 - y;
   }
 
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v12 = x / v11;
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v14 = y / v13;
   avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer pointForCaptureDevicePointOfInterest:{v12, v14}];
-  v17 = v16;
-  v19 = v18;
+  [avfPreviewLayer pointForCaptureDevicePointOfInterest:?];
 
   avfPreviewLayer2 = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer2 convertPoint:layerCopy toLayer:{v17, v19}];
-  v22 = v21;
-  v24 = v23;
+  [avfPreviewLayer2 convertPoint:? toLayer:?];
+  v11 = v10;
+  v13 = v12;
 
-  v25 = v22;
-  v26 = v24;
-  result.y = v26;
-  result.x = v25;
+  v14 = v11;
+  v15 = v13;
+  result.y = v15;
+  result.x = v14;
   return result;
 }
 
 - (CGPoint)convertCameraPointOCR:(CGPoint)r toLayer:(id)layer flipped:(BOOL)flipped
 {
-  x = r.x;
-  if (flipped)
-  {
-    y = 1.0 - r.y;
-  }
-
-  else
-  {
-    y = r.y;
-  }
-
   layerCopy = layer;
   avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer pointForCaptureDevicePointOfInterest:{x, y}];
-  v11 = v10;
-  v13 = v12;
+  [avfPreviewLayer pointForCaptureDevicePointOfInterest:?];
 
   avfPreviewLayer2 = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer2 convertPoint:layerCopy toLayer:{v11, v13}];
-  v16 = v15;
-  v18 = v17;
+  [avfPreviewLayer2 convertPoint:? toLayer:?];
+  v10 = v9;
+  v12 = v11;
 
-  v19 = v16;
-  v20 = v18;
-  result.y = v20;
-  result.x = v19;
+  v13 = v10;
+  v14 = v12;
+  result.y = v14;
+  result.x = v13;
   return result;
 }
 
 - (CGRect)convertCameraRect:(CGRect)rect fromLayer:(id)layer
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   layerCopy = layer;
   avfPreviewLayer = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-  [avfPreviewLayer convertRect:layerCopy fromLayer:{x, y, width, height}];
+  [avfPreviewLayer convertRect:? fromLayer:?];
+  v8 = v7;
+  v10 = v9;
   v12 = v11;
   v14 = v13;
-  v16 = v15;
-  v18 = v17;
 
-  v35.origin.x = v12;
-  v35.origin.y = v14;
-  v35.size.width = v16;
-  v35.size.height = v18;
-  if (!CGRectIsEmpty(v35))
+  v31.origin.x = v8;
+  v31.origin.y = v10;
+  v31.size.width = v12;
+  v31.size.height = v14;
+  if (!CGRectIsEmpty(v31))
   {
     avfPreviewLayer2 = [(CRDefaultCaptureSessionManager *)self avfPreviewLayer];
-    [avfPreviewLayer2 metadataOutputRectOfInterestForRect:{v12, v14, v16, v18}];
-    v12 = v20;
-    v14 = v21;
-    v16 = v22;
-    v18 = v23;
+    [avfPreviewLayer2 metadataOutputRectOfInterestForRect:?];
+    v8 = v16;
+    v10 = v17;
+    v12 = v18;
+    v14 = v19;
   }
 
+  [(CRDefaultCaptureSessionManager *)self cameraResolution];
+  v21 = v8 * v20;
+  [(CRDefaultCaptureSessionManager *)self cameraResolution];
+  v23 = v10 * v22;
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
   v25 = v12 * v24;
   [(CRDefaultCaptureSessionManager *)self cameraResolution];
   v27 = v14 * v26;
-  [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v29 = v16 * v28;
-  [(CRDefaultCaptureSessionManager *)self cameraResolution];
-  v31 = v18 * v30;
-  v32 = v25;
-  v33 = v27;
-  v34 = v29;
-  result.size.height = v31;
-  result.size.width = v34;
-  result.origin.y = v33;
-  result.origin.x = v32;
+  v28 = v21;
+  v29 = v23;
+  v30 = v25;
+  result.size.height = v27;
+  result.size.width = v30;
+  result.origin.y = v29;
+  result.origin.x = v28;
   return result;
 }
 
@@ -1268,7 +1188,7 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
   CMTimeMakeWithSeconds(&v60, 0.00207900208, 1000000000);
   *values = *&v60.value;
   *&v72 = v60.epoch;
-  [(CRDefaultCaptureSessionManager *)self setHighISOThresholdDuration:values];
+  [(CRDefaultCaptureSessionManager *)self setHighISOThresholdDuration:?];
   v5 = 0;
   v74 = 0u;
   v75 = 0u;
@@ -1301,10 +1221,11 @@ void __58__CRDefaultCaptureSessionManager_refocusOnPoint_exposure___block_invoke
   {
     free(*[(CRDefaultCaptureSessionManager *)self exposure_table]);
     free([(CRDefaultCaptureSessionManager *)self exposure_table]);
-    [(CRDefaultCaptureSessionManager *)self setExposure_table:0];
+    [(CRDefaultCaptureSessionManager *)self setExposure_table:?];
   }
 
-  [(CRDefaultCaptureSessionManager *)self setExposure_table:malloc_type_malloc(0x20uLL, 0x1020040A02120EAuLL)];
+  malloc_type_malloc(0x20uLL, 0x1020040A02120EAuLL);
+  [(CRDefaultCaptureSessionManager *)self setExposure_table:?];
   exposure_table = [(CRDefaultCaptureSessionManager *)self exposure_table];
   *&exposure_table->var2 = xmmword_24783F5C0;
   p_var2 = &exposure_table->var2;
@@ -1538,19 +1459,19 @@ LABEL_55:
 
 - (void)highISOAdjustExposure
 {
-  memset(&v40, 0, sizeof(v40));
+  memset(&v34, 0, sizeof(v34));
   deviceInput = [(CRDefaultCaptureSessionManager *)self deviceInput];
   device = [deviceInput device];
 
   [device ISO];
   v6 = v5;
-  memset(&v39, 0, sizeof(v39));
+  memset(&v33, 0, sizeof(v33));
   if (device)
   {
-    [device exposureDuration];
+    [&v33 exposureDuration];
   }
 
-  time = v39;
+  time = v33;
   Seconds = CMTimeGetSeconds(&time);
   [device exposureTargetOffset];
   v9 = v8;
@@ -1558,10 +1479,11 @@ LABEL_55:
   v11 = v10;
   if ([(CRDefaultCaptureSessionManager *)self exposureAdjustmentInProgress])
   {
-    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgressTimeoutCount:[(CRDefaultCaptureSessionManager *)self exposureAdjustmentInProgressTimeoutCount]- 1];
+    [(CRDefaultCaptureSessionManager *)self exposureAdjustmentInProgressTimeoutCount];
+    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgressTimeoutCount:?];
     if (![(CRDefaultCaptureSessionManager *)self exposureAdjustmentInProgressTimeoutCount])
     {
-      [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgress:0];
+      [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgress:?];
     }
   }
 
@@ -1570,17 +1492,16 @@ LABEL_55:
     goto LABEL_15;
   }
 
-  [(CRDefaultCaptureSessionManager *)self highISOThresholdDuration];
-  time1 = v39;
+  [&time highISOThresholdDuration];
+  time1 = v33;
   if (CMTimeCompare(&time1, &time) < 0)
   {
     if ([(CRDefaultCaptureSessionManager *)self runningManualExposure])
     {
-      v36 = 0;
-      [device lockForConfiguration:&v36];
-      v24 = v36;
-      [device setExposureMode:2];
-      [(CRDefaultCaptureSessionManager *)self setRunningManualExposure:0];
+      [device lockForConfiguration:?];
+      v24 = 0;
+      [device setExposureMode:?];
+      [(CRDefaultCaptureSessionManager *)self setRunningManualExposure:?];
 LABEL_24:
       [device unlockForConfiguration];
       goto LABEL_16;
@@ -1592,7 +1513,7 @@ LABEL_24:
   v12 = v11 * v11;
   v13 = log2(v12 / (v6 / 100.0 * Seconds));
   v14 = v13 + v9;
-  if (vabdd_f64(v13, v14) <= [(CRDefaultCaptureSessionManager *)self exposure_table][24])
+  if (vabdd_f64(v13, v14) <= *([(CRDefaultCaptureSessionManager *)self exposure_table]+ 3))
   {
 LABEL_15:
     v24 = 0;
@@ -1602,7 +1523,7 @@ LABEL_15:
   [(CRDefaultCaptureSessionManager *)self minISO];
   v16 = v15;
   v17 = *[(CRDefaultCaptureSessionManager *)self exposure_table];
-  v18 = v17 + 24 * [(CRDefaultCaptureSessionManager *)self exposure_table][8];
+  v18 = v17 + 24 * *([(CRDefaultCaptureSessionManager *)self exposure_table]+ 2);
   v19 = log2(v12 / (*(v17 + 8) * ((*(v17 + 16) * v16) / 100.0)));
   v20 = (*v17 + (v14 - v19) * ((*(v18 - 24) - *v17) / (log2(v12 / (*(v18 - 16) * ((*(v18 - 8) * v16) / 100.0))) - v19)) + 0.5);
   if (v20 < 0)
@@ -1619,9 +1540,9 @@ LABEL_15:
 
   else
   {
-    if ([(CRDefaultCaptureSessionManager *)self exposure_table][8] <= v20)
+    if (*([(CRDefaultCaptureSessionManager *)self exposure_table]+ 2) <= v20)
     {
-      v20 = [(CRDefaultCaptureSessionManager *)self exposure_table][8] - 1;
+      v20 = *([(CRDefaultCaptureSessionManager *)self exposure_table]+ 2) - 1;
     }
 
     v21 = *[(CRDefaultCaptureSessionManager *)self exposure_table]+ 24 * v20;
@@ -1629,37 +1550,29 @@ LABEL_15:
     v23 = *(v21 + 16);
   }
 
-  CMTimeMakeWithSeconds(&v40, v22, 1000000000);
+  CMTimeMakeWithSeconds(&v34, v22, 1000000000);
   [(CRDefaultCaptureSessionManager *)self maxISO];
   v28 = v27;
   [(CRDefaultCaptureSessionManager *)self minISO];
   if (v23 * v29 <= v28)
   {
     [(CRDefaultCaptureSessionManager *)self minISO];
-    v31 = v23 * v32;
   }
 
   else
   {
     [(CRDefaultCaptureSessionManager *)self maxISO];
-    v31 = v30;
   }
 
-  v35 = 0;
-  v33 = [device lockForConfiguration:&v35];
-  v24 = v35;
-  if (v33)
+  v30 = [device lockForConfiguration:?];
+  v24 = 0;
+  if (v30)
   {
-    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgressTimeoutCount:10];
-    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgress:1];
-    [(CRDefaultCaptureSessionManager *)self setRunningManualExposure:1];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __55__CRDefaultCaptureSessionManager_highISOAdjustExposure__block_invoke;
-    v34[3] = &unk_278EAAB58;
-    v34[4] = self;
-    time = v40;
-    [device setExposureModeCustomWithDuration:&time ISO:v34 completionHandler:{COERCE_DOUBLE(__PAIR64__(HIDWORD(v40.value), LODWORD(v31)))}];
+    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgressTimeoutCount:?];
+    [(CRDefaultCaptureSessionManager *)self setExposureAdjustmentInProgress:?];
+    [(CRDefaultCaptureSessionManager *)self setRunningManualExposure:?];
+    time = v34;
+    [device setExposureModeCustomWithDuration:? ISO:? completionHandler:?];
     goto LABEL_24;
   }
 
@@ -1725,15 +1638,15 @@ LABEL_16:
 {
   interruptedCopy = interrupted;
   name = [interruptedCopy name];
-  v4 = [name isEqualToString:*MEMORY[0x277CE59C8]];
+  v4 = [name isEqualToString:?];
 
   if (v4)
   {
     userInfo = [interruptedCopy userInfo];
-    v6 = [userInfo valueForKey:*MEMORY[0x277CE5950]];
+    v6 = [userInfo valueForKey:?];
     integerValue = [v6 integerValue];
 
-    if ((integerValue - 1) > 3)
+    if (integerValue - 1 > 3)
     {
       v8 = @"CoreRecogntion: Unable to display camera view due to connection inturrupted notification %@";
     }

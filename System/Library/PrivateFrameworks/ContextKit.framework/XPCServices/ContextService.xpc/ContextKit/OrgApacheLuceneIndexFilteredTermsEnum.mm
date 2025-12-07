@@ -5,6 +5,7 @@
 - (id)attributes;
 - (id)next;
 - (id)nextSeekTermWithOrgApacheLuceneUtilBytesRef:(id)ref;
+- (id)postingsWithOrgApacheLuceneIndexPostingsEnum:(id)enum withInt:(int)int;
 - (id)seekCeilWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (id)term;
 - (id)termState;
@@ -120,6 +121,17 @@
   return [(OrgApacheLuceneIndexTermsEnum *)tenum ord];
 }
 
+- (id)postingsWithOrgApacheLuceneIndexPostingsEnum:(id)enum withInt:(int)int
+{
+  tenum = self->tenum_;
+  if (!tenum)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexTermsEnum *)tenum postingsWithOrgApacheLuceneIndexPostingsEnum:enum withInt:*&int];
+}
+
 - (void)seekExactWithOrgApacheLuceneUtilBytesRef:(id)ref withOrgApacheLuceneIndexTermState:(id)state
 {
   getClass = [-[OrgApacheLuceneIndexFilteredTermsEnum getClass](self getClass];
@@ -168,7 +180,7 @@ LABEL_21:
           sub_1000169C0();
         }
 
-        if (v6 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_)
+        if (v6 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_[0])
         {
           return 0;
         }

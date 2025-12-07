@@ -1,4 +1,5 @@
 @interface MTL4GPUDebugComputeCommandEncoder
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (BOOL)encodeEndIf;
 - (BOOL)encodeEndWhile;
 - (MTL4GPUDebugComputeCommandEncoder)initWithComputeCommandEncoder:(id)encoder commandBuffer:(id)buffer encoderID:(unsigned int)d;
@@ -34,6 +35,8 @@
 - (void)dispatchThreadsWithIndirectBuffer:(unint64_t)buffer;
 - (void)encodeCopyAndUnwrapChildrenWithInstanceDescriptorBufferRange:(MTL4BufferRange)range dstInstanceDescriptorBufferRange:(MTL4BufferRange)bufferRange instanceDescriptorStride:(unint64_t)stride instanceIDOffset:(unint64_t)offset maxInstanceCount:(unint64_t)count;
 - (void)encodeStartDoWhile;
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (void)endEncoding;
 - (void)endVirtualSubstream;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(unint64_t)indirectBuffer;
@@ -159,7 +162,7 @@
 
 - (void)setComputePipelineStateBuffers:(id)buffers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([buffers globalConstantsBuffer])
   {
     -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [objc_msgSend(buffers "globalConstantsBuffer")]);
@@ -171,27 +174,27 @@
     -[MTL4GPUDebugComputeCommandEncoder bindInternalBufferWithOffset:offset:index:](self, "bindInternalBufferWithOffset:offset:index:", [buffers globalConstantsBuffer], objc_msgSend(buffers, "constantOffset"), 12);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   binaryFunctionData = [buffers binaryFunctionData];
-  v6 = [binaryFunctionData countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(binaryFunctionData);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (*(v10 + 8))
         {
           if ((*&self->_options->var0 & 0x200000001) != 0)
@@ -206,13 +209,11 @@
       }
 
       while (v7 != v9);
-      v7 = [binaryFunctionData countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup
@@ -711,7 +712,7 @@ LABEL_6:
 
 - (void)blitTypeFromAccelerationStructureDescriptor:(id)descriptor toAccelerationStructure:(id)structure
 {
-  v6 = MTL4AccelerationStructureTypeFromDescriptor();
+  v6 = MTL4AccelerationStructureTypeFromDescriptor(descriptor, a2);
 
   [(MTL4GPUDebugComputeCommandEncoder *)self blitAccelerationStructureType:v6 toAccelerationStructure:structure];
 }
@@ -847,12 +848,70 @@ LABEL_6:
   *(&self->_commandBufferJumpNestingLevel + 1) = v3 + 1;
 }
 
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  --*(&self->_commandBufferJumpNestingLevel + 1);
+  v7.receiver = self;
+  v7.super_class = MTL4GPUDebugComputeCommandEncoder;
+  return [(MTL4GPUDebugComputeCommandEncoder *)&v7 encodeEndDoWhile:while offset:offset comparison:comparison referenceValue:*&value];
+}
+
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTL4GPUDebugComputeCommandEncoder;
+  [(MTL4GPUDebugComputeCommandEncoder *)&v8 encodeStartIf:if offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    if (self->_currentPipeline)
+    {
+      self->_currentPipeline = 0;
+      [(MTL4GPUDebugComputeCommandEncoder *)self setComputePipelineState:?];
+      self->_threadgroup.needsFlush = 1;
+      v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
+}
+
 - (BOOL)encodeEndIf
 {
   --*(&self->_commandBufferJumpNestingLevel + 1);
   v3.receiver = self;
   v3.super_class = MTL4GPUDebugComputeCommandEncoder;
   return [(MTL4ToolsComputeCommandEncoder *)&v3 encodeEndIf];
+}
+
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTL4GPUDebugComputeCommandEncoder;
+  [(MTL4GPUDebugComputeCommandEncoder *)&v8 encodeStartWhile:while offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    if (self->_currentPipeline)
+    {
+      self->_currentPipeline = 0;
+      [(MTL4GPUDebugComputeCommandEncoder *)self setComputePipelineState:?];
+      self->_threadgroup.needsFlush = 1;
+      v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
 }
 
 - (BOOL)encodeEndWhile

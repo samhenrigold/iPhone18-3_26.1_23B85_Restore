@@ -73,7 +73,7 @@
 {
   userDSID = [self userDSID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Loading viewModel for userDSID %{public}@...", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Loading viewModel for userDSID %{public}@...", v4, v5, v6, v7);
 }
 
 void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invoke(uint64_t a1, void *a2)
@@ -351,28 +351,28 @@ void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invok
 {
   v0 = [OUTLINED_FUNCTION_2(MEMORY[0x277CCABB0]) numberWithBool:?];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyReceivingRestricted from DB to viewModel: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyReceivingRestricted from DB to viewModel: %@", v3, v4, v5, v6);
 }
 
 void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invoke_cold_2()
 {
   v0 = [OUTLINED_FUNCTION_2(MEMORY[0x277CCABB0]) numberWithBool:?];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetySendingRestricted from DB to viewModel: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetySendingRestricted from DB to viewModel: %@", v3, v4, v5, v6);
 }
 
 void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invoke_cold_3()
 {
   v0 = [OUTLINED_FUNCTION_2(MEMORY[0x277CCABB0]) numberWithBool:?];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyNotificationEnabled from DB to viewModel: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyNotificationEnabled from DB to viewModel: %@", v3, v4, v5, v6);
 }
 
 void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invoke_cold_4()
 {
   v0 = [OUTLINED_FUNCTION_2(MEMORY[0x277CCABB0]) numberWithBool:?];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyAnalyticsEnabled from DB to viewModel: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v1, v2, "Copied isCommunicationSafetyAnalyticsEnabled from DB to viewModel: %@", v3, v4, v5, v6);
 }
 
 void __59__STCommunicationSafetyViewModelCoordinator__loadViewModel__block_invoke_cold_5(id *a1, NSObject *a2)

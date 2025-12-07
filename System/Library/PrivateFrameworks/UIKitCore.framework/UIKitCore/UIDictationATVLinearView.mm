@@ -39,7 +39,7 @@
 
   if (lightKeyboard)
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
 
   else

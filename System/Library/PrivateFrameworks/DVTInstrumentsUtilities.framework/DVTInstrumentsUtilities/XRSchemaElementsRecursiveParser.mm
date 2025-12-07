@@ -10,9 +10,7 @@
 {
   if (!self->super.parent)
   {
-    v4 = objc_opt_new();
-    errorReplacementsByKey = self->_errorReplacementsByKey;
-    self->_errorReplacementsByKey = v4;
+    self->_errorReplacementsByKey = objc_opt_new();
 
     MEMORY[0x2821F96F8]();
   }

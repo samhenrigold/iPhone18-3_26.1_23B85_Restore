@@ -32,7 +32,7 @@
     sub_10005BF90(v3);
     v3([senderCopy selectedSegmentIndex]);
 
-    sub_10003DEF8(v3);
+    sub_10003DEF8(v3, v5);
   }
 }
 

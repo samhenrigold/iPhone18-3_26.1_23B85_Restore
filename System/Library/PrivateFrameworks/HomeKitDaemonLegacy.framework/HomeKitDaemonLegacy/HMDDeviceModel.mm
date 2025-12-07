@@ -42,7 +42,7 @@
       {
         v16 = [v9 mutableCopy];
         [v16 removeObject:@"handles"];
-        v17 = [v16 copy];
+        v17 = objc_msgSend_copy(v16);
 
         v9 = v17;
       }
@@ -62,37 +62,37 @@
 
 - (NSArray)deviceHandles
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   handles = [(HMDDeviceModel *)self handles];
-  v3 = [handles copy];
+  v3 = objc_msgSend_copy(handles);
 
-  v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v4 = v3;
-  v27 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v27)
+  v26 = [v4 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v26)
   {
-    v5 = *v30;
+    v5 = *v29;
     v6 = 0x277CCA000uLL;
-    v24 = v4;
+    v23 = v4;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v30 != v5)
+        if (*v29 != v5)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v28 + 1) + 8 * i);
         v9 = *(v6 + 2760);
         v10 = objc_opt_class();
-        v28 = 0;
-        v11 = [v9 unarchivedObjectOfClass:v10 fromData:v8 error:&v28];
-        v12 = v28;
+        v27 = 0;
+        v11 = [v9 unarchivedObjectOfClass:v10 fromData:v8 error:&v27];
+        v12 = v27;
         v13 = v11;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -109,7 +109,7 @@
 
         if (v15)
         {
-          [v26 addObject:v15];
+          [v25 addObject:v15];
         }
 
         else
@@ -123,12 +123,12 @@
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v34 = v21;
-            v35 = 2112;
-            v36 = v12;
+            v33 = v21;
+            v34 = 2112;
+            v35 = v12;
             _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive device handle from handle array: %@", buf, 0x16u);
 
-            v4 = v24;
+            v4 = v23;
           }
 
           objc_autoreleasePoolPop(v18);
@@ -137,15 +137,13 @@
         }
       }
 
-      v27 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v26 = [v4 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 + (id)properties
@@ -162,35 +160,33 @@
 
 void __28__HMDDeviceModel_properties__block_invoke()
 {
-  v10[6] = *MEMORY[0x277D85DE8];
-  v9[0] = @"identifier";
+  v9[6] = *MEMORY[0x277D85DE8];
+  v8[0] = @"identifier";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[0] = v0;
-  v9[1] = @"handles";
+  v9[0] = v0;
+  v8[1] = @"handles";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[1] = v1;
-  v9[2] = @"name";
+  v9[1] = v1;
+  v8[2] = @"name";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[2] = v2;
-  v9[3] = @"version";
+  v9[2] = v2;
+  v8[3] = @"version";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[3] = v3;
-  v9[4] = @"productInfo";
+  v9[3] = v3;
+  v8[4] = @"productInfo";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[4] = v4;
-  v9[5] = @"rpIdentity";
+  v9[4] = v4;
+  v8[5] = @"rpIdentity";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[5] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
+  v9[5] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
   v7 = properties__properties_117821;
   properties__properties_117821 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)schemaHashRoot
 {
-  v2 = [@"6D8998A8-13E4-4269-83B8-672645AE2D15" copy];
+  v2 = objc_msgSend_copy(@"6D8998A8-13E4-4269-83B8-672645AE2D15", a2);
 
   return v2;
 }

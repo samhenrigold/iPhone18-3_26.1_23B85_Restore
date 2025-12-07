@@ -1,11 +1,33 @@
 @interface _NIRangingPeerDistance
 - (_NIRangingPeerDistance)initWithCoder:(id)coder;
+- (_NIRangingPeerDistance)initWithPeer:(id)peer distanceMeters:(id)meters initiator:(BOOL)initiator shouldUnlock:(BOOL)unlock;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation _NIRangingPeerDistance
+
+- (_NIRangingPeerDistance)initWithPeer:(id)peer distanceMeters:(id)meters initiator:(BOOL)initiator shouldUnlock:(BOOL)unlock
+{
+  unlockCopy = unlock;
+  initiatorCopy = initiator;
+  peerCopy = peer;
+  metersCopy = meters;
+  v17.receiver = self;
+  v17.super_class = _NIRangingPeerDistance;
+  v12 = [(_NIRangingPeerDistance *)&v17 init];
+  if (v12)
+  {
+    v13 = [[_NIRangingPeerDistanceInternal alloc] initWithPeer:peerCopy distanceMeters:metersCopy initiator:initiatorCopy shouldUnlock:unlockCopy];
+    internal = v12->_internal;
+    v12->_internal = v13;
+
+    v15 = v12;
+  }
+
+  return v12;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

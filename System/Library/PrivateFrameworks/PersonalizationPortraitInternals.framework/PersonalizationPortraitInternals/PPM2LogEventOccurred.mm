@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
 - (int)event;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -85,7 +86,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    event = self->_event;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -121,6 +121,21 @@ LABEL_7:
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
 
   return v6;
+}
+
+- (id)eventAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"MaxFeedbackRowsHit";
+  }
+
+  return v4;
 }
 
 - (int)event

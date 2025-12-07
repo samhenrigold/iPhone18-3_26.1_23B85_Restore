@@ -82,38 +82,37 @@ void sub_1F64(uint64_t a1)
   v3 = qword_119F8;
   qword_119F8 = v2;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = [*(a1 + 32) device];
-  v7 = [v5 _orderedValuesForDevice:v6];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = objc_opt_class();
+  v5 = [*(a1 + 32) device];
+  v6 = [v4 _orderedValuesForDevice:v5];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v15;
+    v8 = v7;
+    v9 = *v14;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; i = i + 1)
       {
-        if (*v15 != v10)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        v13 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"color %lu", [v12 unsignedIntValue]);
-        [qword_119F8 setObject:v13 forKeyedSubscript:v12];
+        v11 = *(*(&v13 + 1) + 8 * i);
+        v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"color %lu", [v11 unsignedIntValue]);
+        [qword_119F8 setObject:v12 forKeyedSubscript:v11];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 }
 

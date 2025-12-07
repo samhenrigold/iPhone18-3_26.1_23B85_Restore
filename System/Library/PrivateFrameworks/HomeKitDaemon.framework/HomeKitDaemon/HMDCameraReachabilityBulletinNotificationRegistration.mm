@@ -12,25 +12,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HMDCameraReachabilityBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HMDCameraReachabilityBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDCameraReachabilityBulletinNotificationRegistration *)self accessoryUUID];
   v6 = [v4 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (HMDCameraReachabilityBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDBulletinNotificationRegistration alloc] initWithCoder:coderCopy];
   if (v5)
@@ -52,11 +50,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v14 = 138543618;
-        v15 = v11;
-        v16 = 2112;
-        v17 = 0;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2112;
+        v16 = 0;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v13, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -69,7 +67,6 @@
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -180,7 +177,7 @@ LABEL_7:
     v9 = [(HMDBulletinNotificationRegistration *)&v15 initWithConditions:conditionsCopy];
     if (v9)
     {
-      v10 = [dCopy copy];
+      v10 = objc_msgSend_copy(dCopy);
       accessoryUUID = v9->_accessoryUUID;
       v9->_accessoryUUID = v10;
     }

@@ -4880,7 +4880,7 @@ LABEL_38:
 void CResidualSuppressorV5::speex_preprocess_run(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const DSPSplitComplex *a9, uint64_t a10, float *a11, void *a12, char a13, int a14)
 {
   v35 = *MEMORY[0x1E69E9840];
-  v22 = MEMORY[0x1EEE9AC00](a1);
+  v22.n128_f64[0] = MEMORY[0x1EEE9AC00](a1);
   v34.realp = (&v29 - v24);
   v34.imagp = (&v29 + 4 * v23 - v24);
   if (v25)
@@ -10523,7 +10523,7 @@ LABEL_159:
     {
       LOBYTE(v88) = 1;
       v66 = (*(**(a1 + 40) + 528))(*(a1 + 40), 1, v9 + 1, 0, &v88);
-      v67 = MEMORY[0x1EEE9AC00](v66);
+      v67.n128_f64[0] = MEMORY[0x1EEE9AC00](v66);
       v69 = (&v77 - v68);
       (*(**(a1 + 40) + 528))(v67);
       if (v69->n128_u32[0] != v86)

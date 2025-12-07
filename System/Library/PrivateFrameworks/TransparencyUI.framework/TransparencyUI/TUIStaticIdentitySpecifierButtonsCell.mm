@@ -8,11 +8,11 @@
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v93[1] = *MEMORY[0x277D85DE8];
-  v78.receiver = self;
-  v78.super_class = TUIStaticIdentitySpecifierButtonsCell;
+  v92[1] = *MEMORY[0x277D85DE8];
+  v77.receiver = self;
+  v77.super_class = TUIStaticIdentitySpecifierButtonsCell;
   specifierCopy = specifier;
-  [(PSTableCell *)&v78 refreshCellContentsWithSpecifier:specifierCopy];
+  [(PSTableCell *)&v77 refreshCellContentsWithSpecifier:specifierCopy];
   titleLabel = [(PSTableCell *)self titleLabel];
   [titleLabel setText:&stru_287F92480];
 
@@ -23,28 +23,28 @@
   v9 = [v8 localizedStringForKey:@"NO_MATCH" value:&stru_287F92480 table:@"Localizable"];
 
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v75 = [v10 localizedStringForKey:@"VERIFIED" value:&stru_287F92480 table:@"Localizable"];
+  v74 = [v10 localizedStringForKey:@"VERIFIED" value:&stru_287F92480 table:@"Localizable"];
 
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v77 = [v11 localizedStringForKey:@"MARK_AS_VERIFIED_NO_DOTS" value:&stru_287F92480 table:@"Localizable"];
+  v76 = [v11 localizedStringForKey:@"MARK_AS_VERIFIED_NO_DOTS" value:&stru_287F92480 table:@"Localizable"];
 
   v12 = [MEMORY[0x277D75220] buttonWithType:1];
   currentTraitCollection = [MEMORY[0x277D75C80] currentTraitCollection];
   preferredContentSizeCategory = [currentTraitCollection preferredContentSizeCategory];
   LODWORD(titleLabel) = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
-  v76 = v9;
+  v75 = v9;
   if (titleLabel)
   {
     goto LABEL_7;
   }
 
   v15 = *MEMORY[0x277D740A8];
-  v92 = *MEMORY[0x277D740A8];
+  v91 = *MEMORY[0x277D740A8];
   titleLabel2 = [v12 titleLabel];
   font = [titleLabel2 font];
-  v93[0] = font;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:&v92 count:1];
+  v92[0] = font;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:&v91 count:1];
   [v9 sizeWithAttributes:v18];
   UICeilToViewScale();
   v20 = v19;
@@ -68,14 +68,14 @@
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v83 = "[TUIStaticIdentitySpecifierButtonsCell refreshCellContentsWithSpecifier:]";
-    v84 = 1024;
-    v85 = v20 > v25;
-    v86 = 2048;
-    v87 = v25;
-    v88 = 2048;
-    v89 = v20;
-    v90 = 2114;
+    v82 = "[TUIStaticIdentitySpecifierButtonsCell refreshCellContentsWithSpecifier:]";
+    v83 = 1024;
+    v84 = v20 > v25;
+    v85 = 2048;
+    v86 = v25;
+    v87 = 2048;
+    v88 = v20;
+    v89 = 2114;
     selfCopy = self;
     _os_log_debug_impl(&dword_26F50B000, v26, OS_LOG_TYPE_DEBUG, "%s verticalLayout = %d (cellHalfWidth = %f, stringWidth = %f) on %{public}@", buf, 0x30u);
   }
@@ -90,19 +90,19 @@ LABEL_7:
   {
     if ([v7 BOOLValue])
     {
-      v28 = v75;
+      v28 = v74;
     }
 
     else
     {
-      v28 = v77;
+      v28 = v76;
     }
 
-    v80 = v15;
+    v79 = v15;
     titleLabel3 = [v12 titleLabel];
     font2 = [titleLabel3 font];
-    v81 = font2;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v80 = font2;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
     [v28 sizeWithAttributes:v31];
     UICeilToViewScale();
     v33 = v32;
@@ -142,7 +142,7 @@ LABEL_7:
 
   [grayButtonConfiguration setBaseForegroundColor:0];
   bOOLValue = [v7 BOOLValue];
-  v42 = v77;
+  v42 = v76;
   if (bOOLValue)
   {
     v43 = [MEMORY[0x277D755B8] systemImageNamed:@"checkmark.circle.fill"];
@@ -155,7 +155,7 @@ LABEL_7:
     secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
     [grayButtonConfiguration setBaseForegroundColor:secondaryLabelColor];
 
-    v42 = v75;
+    v42 = v74;
   }
 
   [v40 setTitle:v42 forState:0];
@@ -163,9 +163,9 @@ LABEL_7:
   titleLabel5 = [v40 titleLabel];
   [titleLabel5 setTextAlignment:1];
 
-  v73 = grayButtonConfiguration;
-  v74 = v6;
-  v72 = v7;
+  v72 = grayButtonConfiguration;
+  v73 = v6;
+  v71 = v7;
   if ([v6 BOOLValue])
   {
     v47 = [v7 BOOLValue] ^ 1;
@@ -182,36 +182,35 @@ LABEL_7:
   contentView = [(TUIStaticIdentitySpecifierButtonsCell *)self contentView];
   [contentView addSubview:self->_buttonsStackView];
 
-  v63 = MEMORY[0x277CCAAD0];
+  v62 = MEMORY[0x277CCAAD0];
   topAnchor = [(UIStackView *)self->_buttonsStackView topAnchor];
   contentView2 = [(TUIStaticIdentitySpecifierButtonsCell *)self contentView];
   topAnchor2 = [contentView2 topAnchor];
-  v68 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v79[0] = v68;
+  v67 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v78[0] = v67;
   leadingAnchor = [(UIStackView *)self->_buttonsStackView leadingAnchor];
   contentView3 = [(TUIStaticIdentitySpecifierButtonsCell *)self contentView];
   layoutMarginsGuide = [contentView3 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-  v62 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v79[1] = v62;
+  v61 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v78[1] = v61;
   trailingAnchor = [(UIStackView *)self->_buttonsStackView trailingAnchor];
   contentView4 = [(TUIStaticIdentitySpecifierButtonsCell *)self contentView];
   layoutMarginsGuide2 = [contentView4 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
   v51 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v79[2] = v51;
+  v78[2] = v51;
   bottomAnchor = [(UIStackView *)self->_buttonsStackView bottomAnchor];
   contentView5 = [(TUIStaticIdentitySpecifierButtonsCell *)self contentView];
   layoutMarginsGuide3 = [contentView5 layoutMarginsGuide];
   bottomAnchor2 = [layoutMarginsGuide3 bottomAnchor];
   [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-5.0];
-  v56 = v61 = v40;
-  v79[3] = v56;
-  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:4];
-  [v63 activateConstraints:v57];
+  v56 = v60 = v40;
+  v78[3] = v56;
+  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:4];
+  [v62 activateConstraints:v57];
 
   [(TUIStaticIdentitySpecifierButtonsCell *)self setNeedsLayout];
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__TUIStaticIdentitySpecifierButtonsCell_refreshCellContentsWithSpecifier___block_invoke()

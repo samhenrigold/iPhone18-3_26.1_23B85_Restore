@@ -1,6 +1,7 @@
 @interface SBEExternalDisplayContentViewController
 - (id)_tutorialVideoURL;
 - (void)_updateHardwareRequirementsAppearance;
+- (void)dismissAnimated:(BOOL)animated;
 - (void)dismissEducationViewController:(id)controller;
 - (void)enableExternalDisplaySupport:(id)support;
 - (void)externalDisplayHardwareRequirementsSatisfiedChanged:(BOOL)changed;
@@ -374,6 +375,16 @@
     self->_hardwareRequirementsSatisfied = changed;
     [(SBEExternalDisplayContentViewController *)self _updateHardwareRequirementsAppearance];
   }
+}
+
+- (void)dismissAnimated:(BOOL)animated
+{
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_1000034A4;
+  v3[3] = &unk_10000C218;
+  v3[4] = self;
+  [(SBEExternalDisplayContentViewController *)self dismissViewControllerAnimated:animated completion:v3];
 }
 
 @end

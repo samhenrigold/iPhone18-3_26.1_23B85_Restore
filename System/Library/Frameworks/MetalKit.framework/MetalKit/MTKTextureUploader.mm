@@ -80,23 +80,22 @@
   if (vertically)
   {
     componentsCopy = components;
-    v20 = malloc_type_malloc(image, 0x446B8D26uLL);
-    reflectImage(bytesCopy, v20, region->var1.var0, region->var1.var1, row, pixel, componentsCopy);
-    bytesCopy = v20;
+    v19 = malloc_type_malloc(image, 0x446B8D26uLL);
+    reflectImage(bytesCopy, v19, region->var1.var0, region->var1.var1, row, pixel, componentsCopy);
+    bytesCopy = v19;
     levelCopy2 = level;
     sliceCopy2 = slice;
   }
 
-  v25 = 0;
-  memset(&v24[3], 0, 48);
-  device = self->_device;
+  v23 = 0;
+  memset(&v22[3], 0, 48);
   [texture pixelFormat];
   MTLPixelFormatGetInfoForDevice();
-  v22 = *&region->var0.var2;
-  v24[0] = *&region->var0.var0;
-  v24[1] = v22;
-  v24[2] = *&region->var1.var1;
-  [texture replaceRegion:v24 mipmapLevel:levelCopy2 slice:sliceCopy2 withBytes:bytesCopy bytesPerRow:row bytesPerImage:image];
+  v20 = *&region->var0.var2;
+  v22[0] = *&region->var0.var0;
+  v22[1] = v20;
+  v22[2] = *&region->var1.var1;
+  [texture replaceRegion:v22 mipmapLevel:levelCopy2 slice:sliceCopy2 withBytes:bytesCopy bytesPerRow:row bytesPerImage:image];
   if (vertically)
   {
     free(bytesCopy);
@@ -225,7 +224,8 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 BOOLValue])
   {
-    [v8 setTextureType:{arrayTextureTypeFromTextureType(objc_msgSend(v8, "textureType"))}];
+    textureType = [v8 textureType];
+    [v8 setTextureType:{arrayTextureTypeFromTextureType(textureType, v14)}];
   }
 
   storageMode = [v8 storageMode];
@@ -236,12 +236,12 @@
 
   if (storageMode == 2)
   {
-    v14 = [(MTLDevice *)self->_device newTextureWithDescriptor:v8];
+    v16 = [(MTLDevice *)self->_device newTextureWithDescriptor:v8];
   }
 
   else
   {
-    v14 = 0;
+    v16 = 0;
   }
 
   [v8 setStorageMode:storageMode];
@@ -255,50 +255,50 @@
     [v8 setCpuCacheMode:{objc_msgSend(objc_msgSend(options, "objectForKey:", @"MTKTextureLoaderOptionTextureCPUCacheMode", "unsignedIntegerValue")}];
   }
 
-  v15 = [(MTLDevice *)self->_device newTextureWithDescriptor:v8];
+  v17 = [(MTLDevice *)self->_device newTextureWithDescriptor:v8];
 
   imageOrigin = [data imageOrigin];
-  v17 = [options objectForKey:@"MTKTextureLoaderOptionOrigin"];
-  if (v17)
+  v19 = [options objectForKey:@"MTKTextureLoaderOptionOrigin"];
+  if (v19)
   {
-    v18 = v17;
-    if (v17 == @"MTKTextureLoaderOriginFlippedVertically")
+    v20 = v19;
+    if (v19 == @"MTKTextureLoaderOriginFlippedVertically")
     {
       if (imageOrigin == @"MTKTextureLoaderOriginTopLeft")
       {
-        v18 = @"MTKTextureLoaderOriginBottomLeft";
+        v20 = @"MTKTextureLoaderOriginBottomLeft";
       }
 
       else
       {
-        v18 = @"MTKTextureLoaderOriginTopLeft";
+        v20 = @"MTKTextureLoaderOriginTopLeft";
       }
     }
   }
 
   else
   {
-    v18 = imageOrigin;
+    v20 = imageOrigin;
   }
 
   if (storageMode == 2)
   {
-    v19 = v14;
+    v21 = v16;
   }
 
   else
   {
-    v19 = v15;
+    v21 = v17;
   }
 
-  if (!v19 || !v15)
+  if (!v21 || !v17)
   {
     if (error)
     {
       *error = _newMTKTextureErrorWithCodeAndErrorString(0, @"Failed to allocate texture memory.");
     }
 
-    if (v19 != v15)
+    if (v21 != v17)
     {
     }
 
@@ -306,23 +306,23 @@
   }
 
   errorCopy = error;
-  v41 = v15;
+  v43 = v17;
   if ([data numArrayElements])
   {
-    v20 = 0;
-    v43 = v18;
-    v44 = v19;
-    v42 = imageOrigin;
+    v22 = 0;
+    v45 = v20;
+    v46 = v21;
+    v44 = imageOrigin;
     while (![data numFaces])
     {
 LABEL_48:
-      if (++v20 >= [data numArrayElements])
+      if (++v22 >= [data numArrayElements])
       {
         goto LABEL_49;
       }
     }
 
-    v21 = 0;
+    v23 = 0;
     while (1)
     {
       width2 = [data width];
@@ -333,80 +333,80 @@ LABEL_48:
       }
 
 LABEL_47:
-      if (++v21 >= [data numFaces])
+      if (++v23 >= [data numFaces])
       {
         goto LABEL_48;
       }
     }
 
-    v22 = 0;
+    v24 = 0;
     while (![data depth])
     {
 LABEL_41:
       if (width2 <= 1)
       {
-        v35 = 1;
+        v37 = 1;
       }
 
       else
       {
-        v35 = width2 >> 1;
+        v37 = width2 >> 1;
       }
 
-      v36 = height2 >> 1;
+      v38 = height2 >> 1;
       if (height2 <= 1)
       {
-        v36 = 1;
+        v38 = 1;
       }
 
-      height2 = v36;
-      width2 = v35;
-      if (++v22 >= [data numMipmapLevels])
+      height2 = v38;
+      width2 = v37;
+      if (++v24 >= [data numMipmapLevels])
       {
         goto LABEL_47;
       }
     }
 
-    v23 = 0;
+    v25 = 0;
     while (1)
     {
-      v54 = 0;
-      v55 = 0;
-      v24 = [data getDataForArrayElement:v20 face:v21 level:v22 depthPlane:v23 bytesPerRow:&v55 bytesPerImage:&v54];
-      if (!v24)
+      v56 = 0;
+      v57 = 0;
+      v26 = [data getDataForArrayElement:v22 face:v23 level:v24 depthPlane:v25 bytesPerRow:&v57 bytesPerImage:&v56];
+      if (!v26)
       {
         break;
       }
 
-      v25 = v24;
-      v53 = 0;
-      v48 = imageOrigin != v18;
-      v51 = 0u;
+      v27 = v26;
+      v55 = 0;
+      v50 = imageOrigin != v20;
+      v53 = 0u;
+      v54 = 0u;
       v52 = 0u;
-      v50 = 0u;
       [data pixelFormat];
       MTLPixelFormatGetInfoForDevice();
-      bytes = [v25 bytes];
-      v27 = 8 * *(&v51 + 1);
-      v28 = v52;
-      v29 = v54;
-      v30 = v55;
+      bytes = [v27 bytes];
+      v29 = 8 * *(&v53 + 1);
+      v30 = v54;
+      v31 = v56;
+      v32 = v57;
       numFaces = [data numFaces];
-      v49[0] = 0;
-      v49[1] = 0;
-      v49[2] = v23;
-      v49[3] = width2;
-      v49[4] = height2;
-      v49[5] = 1;
-      LOBYTE(v39) = v48;
-      v32 = bytes;
-      v19 = v44;
-      v33 = v27;
-      v34 = v30;
-      imageOrigin = v42;
-      v18 = v43;
-      [(MTKTextureUploader *)self copyBytes:v32 toTexture:v44 bitsPerPixel:v33 pixelComponents:v28 bytesPerRow:v34 bytesPerImage:v29 region:v49 slice:v21 + numFaces * v20 level:v22 flipVertically:v39];
-      if (++v23 >= [data depth])
+      v51[0] = 0;
+      v51[1] = 0;
+      v51[2] = v25;
+      v51[3] = width2;
+      v51[4] = height2;
+      v51[5] = 1;
+      LOBYTE(v41) = v50;
+      v34 = bytes;
+      v21 = v46;
+      v35 = v29;
+      v36 = v32;
+      imageOrigin = v44;
+      v20 = v45;
+      [(MTKTextureUploader *)self copyBytes:v34 toTexture:v46 bitsPerPixel:v35 pixelComponents:v30 bytesPerRow:v36 bytesPerImage:v31 region:v51 slice:v23 + numFaces * v22 level:v24 flipVertically:v41];
+      if (++v25 >= [data depth])
       {
         goto LABEL_41;
       }
@@ -417,7 +417,7 @@ LABEL_41:
       *errorCopy = _newMTKTextureErrorWithCodeAndErrorString(0, @"Texture malformed.");
     }
 
-    if (v44 != v41)
+    if (v46 != v43)
     {
     }
 
@@ -425,13 +425,13 @@ LABEL_41:
   }
 
 LABEL_49:
-  v37 = v41;
-  if (v19 != v41)
+  v39 = v43;
+  if (v21 != v43)
   {
-    [(MTKTextureUploader *)self copyTexture:v19 toTexture:v41];
+    [(MTKTextureUploader *)self copyTexture:v21 toTexture:v43];
   }
 
-  return v37;
+  return v39;
 }
 
 - (void)finishWithCompletionHandler:(id)handler

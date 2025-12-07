@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100027A20();
+  sub_100027A20(selfCopy, v2);
 }
 
 - (void)prepareForReuse

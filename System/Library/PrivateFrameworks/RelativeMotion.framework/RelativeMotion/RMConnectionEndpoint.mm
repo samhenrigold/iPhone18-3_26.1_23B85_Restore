@@ -37,7 +37,7 @@
 
 - (void)handleXpcMessage:(void *)message replyBlock:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   messageCopy = message;
   if (self)
@@ -76,7 +76,7 @@
       }
 
       *buf = 136315138;
-      v31 = "kRMConnectionMessageNameKey";
+      v30 = "kRMConnectionMessageNameKey";
       v15 = "XPC message missing key %s";
       v16 = v14;
       v17 = OS_LOG_TYPE_ERROR;
@@ -105,7 +105,7 @@ LABEL_24:
         if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_INFO))
         {
           *buf = 138477827;
-          v31 = v8;
+          v30 = v8;
           _os_log_impl(&dword_261A9A000, v19, OS_LOG_TYPE_INFO, "Creating reply to hold onto priority boost: %{private}@", buf, 0xCu);
         }
 
@@ -117,14 +117,14 @@ LABEL_24:
 
       if (objc_opt_respondsToSelector())
       {
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __52__RMConnectionEndpoint_handleXpcMessage_replyBlock___block_invoke;
-        v26[3] = &unk_279AF5388;
-        v26[4] = self;
-        v27 = v5;
-        [WeakRetained endpoint:self didReceiveMessage:v8 withData:bytes_ptr replyBlock:v26];
-        v21 = v27;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __52__RMConnectionEndpoint_handleXpcMessage_replyBlock___block_invoke;
+        v25[3] = &unk_279AF5388;
+        v25[4] = self;
+        v26 = v5;
+        [WeakRetained endpoint:self didReceiveMessage:v8 withData:bytes_ptr replyBlock:v25];
+        v21 = v26;
 LABEL_23:
 
         goto LABEL_24;
@@ -135,7 +135,7 @@ LABEL_23:
         _CLLogObjectForCategory_IPC_Default_cold_1();
       }
 
-      v23 = logObject_IPC_Default;
+      v22 = logObject_IPC_Default;
       if (!os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_24;
@@ -143,7 +143,7 @@ LABEL_23:
 
       *buf = 0;
       v15 = "Message received but the handler doesn't implement the selector 'endpoint:didReceiveMessage:withData:replyBlock:'";
-      v16 = v23;
+      v16 = v22;
       v17 = OS_LOG_TYPE_FAULT;
       v18 = 2;
 LABEL_14:
@@ -154,23 +154,23 @@ LABEL_14:
     if ([WeakRetained conformsToProtocol:&unk_287439AD0])
     {
       [WeakRetained endpoint:self didReceiveStreamingRequest:v8 withData:bytes_ptr];
-      v29 = 0;
-      [(RMConnectionEndpoint *)self startServingStreamToEndpoint:v13 error:&v29];
-      v24 = v29;
-      if (v24)
+      v28 = 0;
+      [(RMConnectionEndpoint *)self startServingStreamToEndpoint:v13 error:&v28];
+      v23 = v28;
+      if (v23)
       {
-        [(RMConnectionEndpoint *)v24 handleXpcMessage:self replyBlock:v5];
+        [(RMConnectionEndpoint *)v23 handleXpcMessage:self replyBlock:v5];
         goto LABEL_24;
       }
 
       if (onceToken_IPC_Default == -1)
       {
 LABEL_33:
-        v25 = logObject_IPC_Default;
+        v24 = logObject_IPC_Default;
         if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_261A9A000, v25, OS_LOG_TYPE_INFO, "Streaming session started, sending acknowledgement", buf, 2u);
+          _os_log_impl(&dword_261A9A000, v24, OS_LOG_TYPE_INFO, "Streaming session started, sending acknowledgement", buf, 2u);
         }
 
         [(RMConnectionEndpoint *)self wrapReplyToXpcMessage:v5 withName:@"kRMConnectionMessageSuccess" data:0];
@@ -188,8 +188,6 @@ LABEL_33:
   }
 
 LABEL_25:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke(uint64_t a1, void *a2)
@@ -207,7 +205,7 @@ void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke(uint64_t
 
       if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
       {
-        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_5(a1);
+        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_5();
       }
 
       [(RMConnectionEndpoint *)*(a1 + 32) handleInterruption];
@@ -222,7 +220,7 @@ void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke(uint64_t
 
       if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
       {
-        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3(a1);
+        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3();
       }
 
       [(RMConnectionEndpoint *)*(a1 + 32) invalidate];
@@ -318,10 +316,9 @@ void __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke(uint64
 
       if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
       {
-        __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke_cold_5(a1);
+        __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke_cold_5();
       }
 
-      v9 = *(a1 + 40);
       (*(*(a1 + 48) + 16))();
       [(RMConnectionEndpoint *)*(a1 + 32) handleInterruption];
     }
@@ -335,10 +332,9 @@ void __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke(uint64
 
       if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
       {
-        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3(a1);
+        __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3();
       }
 
-      v8 = *(a1 + 40);
       (*(*(a1 + 48) + 16))();
       [(RMConnectionEndpoint *)*(a1 + 32) invalidate];
     }
@@ -359,11 +355,10 @@ void __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke(uint64
     v6 = logObject_IPC_Default;
     if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_FAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_FAULT, "Got unexpected xpc event", v10, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_FAULT, "Got unexpected xpc event", v7, 2u);
     }
 
-    v7 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -459,7 +454,7 @@ void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___
 
     if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
     {
-      __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___block_invoke_cold_4(a1);
+      __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___block_invoke_cold_4();
     }
 
     [(RMConnectionEndpoint *)*(a1 + 32) handleStreamXpcError:v3 withErrorHandler:*(a1 + 40)];
@@ -494,7 +489,7 @@ void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___
 
 - (void)requestStreamWithMessage:(void *)message data:(void *)data errorHandler:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a2;
   messageCopy = message;
   dataCopy = data;
@@ -521,7 +516,7 @@ void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___
   handler[3] = &unk_279AF5448;
   handler[4] = self;
   v16 = dataCopy;
-  v29 = v16;
+  v28 = v16;
   xpc_connection_set_event_handler(v15, handler);
   v4 = CreateXpcMessage(v9, messageCopy);
   xpc_connection_activate(*(self + 48));
@@ -529,14 +524,14 @@ void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___
   xpc_dictionary_set_value(v4, "kRMConnectionRequestSteamingKey", v5);
   v17 = *(self + 56);
   v18 = *(self + 8);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___block_invoke_97;
-  v26[3] = &unk_279AF5448;
-  v26[4] = self;
-  v27 = v16;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___block_invoke_97;
+  v25[3] = &unk_279AF5448;
+  v25[4] = self;
+  v26 = v16;
   v19 = v17;
-  xpc_connection_send_message_with_reply(v19, v4, v18, v26);
+  xpc_connection_send_message_with_reply(v19, v4, v18, v25);
 
   if (onceToken_IPC_Default != -1)
   {
@@ -550,16 +545,15 @@ LABEL_9:
     v22 = *(self + 48);
     v21 = *(self + 56);
     *buf = 134283777;
-    v31 = v21;
-    v32 = 2049;
-    v33 = v22;
+    v30 = v21;
+    v31 = 2049;
+    v32 = v22;
     v23 = v21;
     v24 = v20;
     _os_log_impl(&dword_261A9A000, v24, OS_LOG_TYPE_DEFAULT, "Streaming request sent on streaming listener %{private}p.%{private}p", buf, 0x16u);
   }
 
 LABEL_7:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___block_invoke(uint64_t a1, void *a2)
@@ -657,7 +651,7 @@ void __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___blo
 
 - (BOOL)startServingStreamToEndpoint:(void *)endpoint error:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (!self)
@@ -683,12 +677,12 @@ void __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___blo
             dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
           }
 
-          v15 = logObject_IPC_Default;
+          v14 = logObject_IPC_Default;
           if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_ERROR))
           {
-            v22 = 138412290;
-            v23 = WeakRetained;
-            OUTLINED_FUNCTION_12(&dword_261A9A000, v15, v16, "Failed to start the streaming with handler %@", &v22);
+            v20 = 138412290;
+            v21 = WeakRetained;
+            OUTLINED_FUNCTION_12(&dword_261A9A000, v14, v15, "Failed to start the streaming with handler %@", &v20);
           }
 
           *endpoint = [MEMORY[0x277CCA9B8] errorWithDomain:@"RMConnectionStreaming" code:-2 userInfo:0];
@@ -699,17 +693,16 @@ void __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___blo
           dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
         }
 
-        v17 = logObject_IPC_Default;
+        v16 = logObject_IPC_Default;
         if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = self[4];
-          v19 = OUTLINED_FUNCTION_6_0(self[7]);
-          v20 = v17;
-          _os_log_impl(&dword_261A9A000, v20, OS_LOG_TYPE_DEFAULT, "Cancelling the streaming server connection %{private}p.%{private}p", &v22, 0x16u);
+          v17 = OUTLINED_FUNCTION_6_0(self[7]);
+          v18 = v16;
+          _os_log_impl(&dword_261A9A000, v18, OS_LOG_TYPE_DEFAULT, "Cancelling the streaming server connection %{private}p.%{private}p", &v20, 0x16u);
         }
 
         xpc_connection_cancel(v10);
-        v21 = self[4];
+        v19 = self[4];
         self[4] = 0;
 
         goto LABEL_17;
@@ -726,9 +719,9 @@ void __67__RMConnectionEndpoint_requestStreamWithMessage_data_errorHandler___blo
       v11 = logObject_IPC_Default;
       if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_ERROR))
       {
-        v22 = 138412290;
-        v23 = v6;
-        OUTLINED_FUNCTION_12(&dword_261A9A000, v11, v12, "Failed to create connection from endpoint %@", &v22);
+        v20 = 138412290;
+        v21 = v6;
+        OUTLINED_FUNCTION_12(&dword_261A9A000, v11, v12, "Failed to create connection from endpoint %@", &v20);
       }
 
       if (endpoint)
@@ -753,14 +746,13 @@ LABEL_17:
   v7 = logObject_IPC_Default;
   if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_261A9A000, v7, OS_LOG_TYPE_ERROR, "The client did not send streaming endpoint correctly", &v22, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&dword_261A9A000, v7, OS_LOG_TYPE_ERROR, "The client did not send streaming endpoint correctly", &v20, 2u);
   }
 
   v8 = 1;
 LABEL_18:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -786,69 +778,65 @@ LABEL_18:
 - (uint64_t)startServingStreamWithHandler:(uint64_t)handler
 {
   keys[1] = *MEMORY[0x277D85DE8];
-  if (handler)
+  if (!handler)
   {
-    v3 = *(handler + 32);
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke;
-    handler[3] = &unk_279AF53B0;
-    handler[4] = handler;
-    v4 = a2;
-    xpc_connection_set_event_handler(v3, handler);
-    v5 = *(handler + 8);
-    v6 = *(handler + 32);
-    xpc_connection_set_target_queue(v6, v5);
-
-    xpc_connection_resume(*(handler + 32));
-    v7 = xpc_string_create("kRMConnectionMessageDataStream");
-    keys[0] = "kRMConnectionMessageNameKey";
-    v8 = v7;
-    values = v8;
-    xpc_dictionary_create(keys, &values, 1uLL);
-    OUTLINED_FUNCTION_5_0();
-    v21 = 3221225472;
-    v22 = __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_80;
-    v23 = &unk_279AF5400;
-    handlerCopy = handler;
-    v10 = v9;
-    v25 = v10;
-    v11 = [v4 endpoint:handler shouldStartStreamingDataToReceiver:v20];
-
-    if (onceToken_IPC_Default != -1)
-    {
-      dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
-    }
-
-    v12 = logObject_IPC_Default;
-    if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
-    {
-      v13 = *(handler + 56);
-      v14 = *(handler + 32);
-      v15 = "NO";
-      if (v11)
-      {
-        v15 = "YES";
-      }
-
-      *buf = 134284035;
-      v28 = v13;
-      v29 = 2049;
-      v30 = v14;
-      v31 = 2080;
-      v32 = v15;
-      v16 = v13;
-      v17 = v12;
-      _os_log_impl(&dword_261A9A000, v17, OS_LOG_TYPE_DEBUG, "shouldStartStreamingDataToReceiver returned on streaming server connection %{private}p.%{private}p: %s", buf, 0x20u);
-    }
+    return 0;
   }
 
-  else
+  v3 = *(handler + 32);
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke;
+  handler[3] = &unk_279AF53B0;
+  handler[4] = handler;
+  v4 = a2;
+  xpc_connection_set_event_handler(v3, handler);
+  v5 = *(handler + 8);
+  v6 = *(handler + 32);
+  xpc_connection_set_target_queue(v6, v5);
+
+  xpc_connection_resume(*(handler + 32));
+  v7 = xpc_string_create("kRMConnectionMessageDataStream");
+  keys[0] = "kRMConnectionMessageNameKey";
+  v8 = v7;
+  values = v8;
+  xpc_dictionary_create(keys, &values, 1uLL);
+  OUTLINED_FUNCTION_5_0();
+  v20 = 3221225472;
+  v21 = __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_80;
+  v22 = &unk_279AF5400;
+  handlerCopy = handler;
+  v10 = v9;
+  v24 = v10;
+  v11 = [v4 endpoint:handler shouldStartStreamingDataToReceiver:v19];
+
+  if (onceToken_IPC_Default != -1)
   {
-    v11 = 0;
+    dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v12 = logObject_IPC_Default;
+  if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = *(handler + 56);
+    v14 = *(handler + 32);
+    v15 = "NO";
+    if (v11)
+    {
+      v15 = "YES";
+    }
+
+    *buf = 134284035;
+    v27 = v13;
+    v28 = 2049;
+    v29 = v14;
+    v30 = 2080;
+    v31 = v15;
+    v16 = v13;
+    v17 = v12;
+    _os_log_impl(&dword_261A9A000, v17, OS_LOG_TYPE_DEBUG, "shouldStartStreamingDataToReceiver returned on streaming server connection %{private}p.%{private}p: %s", buf, 0x20u);
+  }
+
   return v11;
 }
 
@@ -1008,7 +996,7 @@ void __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_80(
 
 - (void)handleStreamXpcError:(void *)error withErrorHandler:
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   errorCopy = error;
   if (!self)
@@ -1026,10 +1014,10 @@ void __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_80(
     v10 = logObject_IPC_Default;
     if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
+      *v13 = 0;
       v11 = "#Warning Streaming connection interrupted";
 LABEL_19:
-      _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_DEFAULT, v11, v14, 2u);
+      _os_log_impl(&dword_261A9A000, v10, OS_LOG_TYPE_DEFAULT, v11, v13, 2u);
     }
 
 LABEL_20:
@@ -1040,7 +1028,7 @@ LABEL_20:
     }
 
 LABEL_21:
-    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RMConnectionStreaming" code:v9 userInfo:{0, *v14}];
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RMConnectionStreaming" code:v9 userInfo:{0, *v13}];
     errorCopy[2](errorCopy, v12);
 
     goto LABEL_22;
@@ -1056,7 +1044,7 @@ LABEL_21:
     v10 = logObject_IPC_Default;
     if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
+      *v13 = 0;
       v11 = "#Warning Streaming connection dropped";
       goto LABEL_19;
     }
@@ -1074,9 +1062,9 @@ LABEL_21:
     v7 = logObject_IPC_Default;
     if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 138412290;
-      *&v14[4] = v5;
-      OUTLINED_FUNCTION_12(&dword_261A9A000, v7, v8, "Unknown xpc error received %@", v14);
+      *v13 = 138412290;
+      *&v13[4] = v5;
+      OUTLINED_FUNCTION_12(&dword_261A9A000, v7, v8, "Unknown xpc error received %@", v13);
     }
 
     v9 = -4;
@@ -1087,8 +1075,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopReceivingStream
@@ -1135,7 +1121,7 @@ LABEL_22:
 
 - (void)handleStreamXpcReply:(void *)reply withErrorHandler:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   if (self)
   {
@@ -1162,30 +1148,30 @@ LABEL_22:
     {
       if (bytes_ptr)
       {
-        v14 = MEMORY[0x277CCAAC8];
-        v15 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-        v21 = 0;
-        v16 = [v14 unarchivedObjectOfClasses:v15 fromData:bytes_ptr error:&v21];
-        v17 = v21;
+        v13 = MEMORY[0x277CCAAC8];
+        v14 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+        v20 = 0;
+        v15 = [v13 unarchivedObjectOfClasses:v14 fromData:bytes_ptr error:&v20];
+        v16 = v20;
 
-        if (v16)
+        if (v15)
         {
           if (onceToken_IPC_Default != -1)
           {
             dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
           }
 
-          v19 = logObject_IPC_Default;
+          v18 = logObject_IPC_Default;
           if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v23 = v16;
-            OUTLINED_FUNCTION_12(&dword_261A9A000, v19, v20, "Error while receiving a stream : %@", buf);
+            v22 = v15;
+            OUTLINED_FUNCTION_12(&dword_261A9A000, v18, v19, "Error while receiving a stream : %@", buf);
           }
 
           if (replyCopy)
           {
-            replyCopy[2](replyCopy, v16);
+            replyCopy[2](replyCopy, v15);
           }
         }
 
@@ -1196,12 +1182,12 @@ LABEL_22:
             dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
           }
 
-          v18 = logObject_IPC_Default;
+          v17 = logObject_IPC_Default;
           if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v23 = v17;
-            _os_log_impl(&dword_261A9A000, v18, OS_LOG_TYPE_FAULT, "Can't decode the error returned to the streaming request. Unarchiver error: %@", buf, 0xCu);
+            v22 = v16;
+            _os_log_impl(&dword_261A9A000, v17, OS_LOG_TYPE_FAULT, "Can't decode the error returned to the streaming request. Unarchiver error: %@", buf, 0xCu);
           }
         }
       }
@@ -1213,12 +1199,12 @@ LABEL_22:
           dispatch_once(&onceToken_IPC_Default, &__block_literal_global_118);
         }
 
-        v13 = logObject_IPC_Default;
+        v12 = logObject_IPC_Default;
         if (os_log_type_enabled(logObject_IPC_Default, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v23 = v8;
-          _os_log_impl(&dword_261A9A000, v13, OS_LOG_TYPE_FAULT, "No data in error message: %@", buf, 0xCu);
+          v22 = v8;
+          _os_log_impl(&dword_261A9A000, v12, OS_LOG_TYPE_FAULT, "No data in error message: %@", buf, 0xCu);
         }
       }
 
@@ -1240,8 +1226,6 @@ LABEL_22:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)connectionDelegate
@@ -1317,38 +1301,22 @@ LABEL_22:
   [(RMConnectionEndpoint *)a3 wrapReplyToXpcMessage:a4 withName:@"kRMConnectionMessageError" data:v9];
 }
 
-void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3(uint64_t a1)
+void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0(a1);
-  if (v2)
-  {
-    v3 = *(v2 + 56);
-  }
-
+  OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7_0();
-  v5 = v4;
+  v1 = v0;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_5(uint64_t a1)
+void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_5()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0(a1);
-  if (v2)
-  {
-    v3 = *(v2 + 56);
-  }
-
+  OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7_0();
-  v5 = v4;
+  v1 = v0;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)sendMessage:(xpc_connection_t *)a3 withData:.cold.2(void *a1, void *a2, xpc_connection_t *a3)
@@ -1357,67 +1325,41 @@ void __49__RMConnectionEndpoint_initWithConnection_queue___block_invoke_cold_5(u
   xpc_connection_send_message(*a3, v4);
 }
 
-void __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke_cold_5(uint64_t a1)
+void __51__RMConnectionEndpoint_sendMessage_withData_reply___block_invoke_cold_5()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0(a1);
-  if (v2)
-  {
-    v3 = *(v2 + 56);
-  }
-
+  OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7_0();
-  v5 = v4;
+  v1 = v0;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_8_0(a1);
-  if (v5)
+  OUTLINED_FUNCTION_8_0();
+  if (v3)
   {
-    v5 = v5[7];
+    v3 = v3[7];
   }
 
-  v6 = *(v4 + 32);
-  if (v6)
-  {
-    v7 = *(v6 + 32);
-  }
-
-  v8 = OUTLINED_FUNCTION_6_0(v5);
-  v9 = a2;
+  v4 = OUTLINED_FUNCTION_6_0(v3);
+  v5 = a2;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void __54__RMConnectionEndpoint_startServingStreamWithHandler___block_invoke_cold_4(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_8_0(a1);
-  if (v5)
+  OUTLINED_FUNCTION_8_0();
+  if (v3)
   {
-    v5 = v5[7];
+    v3 = v3[7];
   }
 
-  v6 = *(v4 + 32);
-  if (v6)
-  {
-    v7 = *(v6 + 32);
-  }
-
-  v8 = OUTLINED_FUNCTION_6_0(v5);
-  v9 = a2;
+  v4 = OUTLINED_FUNCTION_6_0(v3);
+  v5 = a2;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)startReceivingStreamOnConnection:(id *)a3 errorHandler:(void *)a4 .cold.2(id *a1, void *a2, id *a3, void *a4)
@@ -1452,21 +1394,13 @@ void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___
   [WeakRetained endpoint:v5 didReceiveStreamedData:a2];
 }
 
-void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___block_invoke_cold_4(uint64_t a1)
+void __70__RMConnectionEndpoint_startReceivingStreamOnConnection_errorHandler___block_invoke_cold_4()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0(a1);
-  if (v2)
-  {
-    v3 = *(v2 + 40);
-  }
-
+  OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7_0();
-  v5 = v4;
+  v1 = v0;
   OUTLINED_FUNCTION_2_0();
-  _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

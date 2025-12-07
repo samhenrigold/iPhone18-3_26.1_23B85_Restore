@@ -1,4 +1,5 @@
 @interface HMDStreamInterface
++ (id)extractNetworkConfig:(int)config peerNameExtractor:(void *)extractor;
 + (id)logCategory;
 + (int)openSocketWithNetworkConfig:(id)config;
 - (BOOL)loadMiscFields:(id)fields;
@@ -21,7 +22,7 @@
 
 - (BOOL)loadMiscFields:(id)fields
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   sessionHandler = [(HMDStreamInterface *)self sessionHandler];
   if ([sessionHandler conformsToProtocol:&unk_283ECDB18])
@@ -51,11 +52,11 @@
       {
         v15 = HMFGetLogIdentifier();
         ipAddress = [v10 ipAddress];
-        v31 = 138543618;
-        v32 = v15;
-        v33 = 2112;
-        v34 = ipAddress;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@IDSDevice connection: Peer IP address: %@\n", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v15;
+        v32 = 2112;
+        v33 = ipAddress;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@IDSDevice connection: Peer IP address: %@\n", &v30, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -66,11 +67,11 @@
       {
         v20 = HMFGetLogIdentifier();
         rtpPort = [v10 rtpPort];
-        v31 = 138543618;
-        v32 = v20;
-        v33 = 2112;
-        v34 = rtpPort;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@IDSDevice connection: Peer port      : %@\n", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v20;
+        v32 = 2112;
+        v33 = rtpPort;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@IDSDevice connection: Peer port      : %@\n", &v30, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -97,7 +98,6 @@
     v11 = 1;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -121,13 +121,12 @@
 {
   if (self->_localRTPSocket != -1)
   {
-    socketCloseHandler = self->_socketCloseHandler;
     (*(self->_socketCloseHandler + 2))();
   }
 
-  v4.receiver = self;
-  v4.super_class = HMDStreamInterface;
-  [(HMDStreamInterface *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = HMDStreamInterface;
+  [(HMDStreamInterface *)&v3 dealloc];
 }
 
 - (HMDStreamInterface)initWithSessionID:(id)d workQueue:(id)queue sessionHandler:(id)handler localRTPSocket:(int)socket
@@ -168,15 +167,78 @@
 
 void __33__HMDStreamInterface_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_87975;
-  logCategory__hmf_once_v12_87975 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_87975;
+  logCategory__hmf_once_v12_87975 = v0;
+}
+
++ (id)extractNetworkConfig:(int)config peerNameExtractor:(void *)extractor
+{
+  v5 = *&config;
+  v35 = *MEMORY[0x277D85DE8];
+  v7 = objc_alloc_init(HMDCameraNetworkConfig);
+  memset(v34, 0, 128);
+  v33 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  *v27 = 0u;
+  v28 = 0u;
+  v20 = 128;
+  if (((extractor)(v5, v34, &v20) & 0x80000000) != 0)
+  {
+    v9 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = HMFGetLogIdentifier();
+      v13 = __error();
+      v14 = strerror(*v13);
+      v15 = *__error();
+      *buf = 138543874;
+      v22 = v12;
+      v23 = 2080;
+      v24 = v14;
+      v25 = 1024;
+      v26 = v15;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to get the peer name: %s (%d)", buf, 0x1Cu);
+    }
+
+    objc_autoreleasePoolPop(v9);
+    v16 = 0;
+  }
+
+  else
+  {
+    v8 = bswap32(v34[1]) >> 16;
+    if (HIBYTE(v34[0]) == 2)
+    {
+      inet_ntop(2, &v34[2], v27, 0x64u);
+    }
+
+    else
+    {
+      inet_ntop(30, &v34[4], v27, 0x64u);
+      [(HMDCameraNetworkConfig *)v7 setIpv6:1];
+    }
+
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v27];
+    [(HMDCameraNetworkConfig *)v7 setIpAddress:v17];
+
+    v18 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+    [(HMDCameraNetworkConfig *)v7 setRtpPort:v18];
+
+    v16 = v7;
+  }
+
+  return v16;
 }
 
 + (int)openSocketWithNetworkConfig:(id)config
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   configCopy = config;
   if ([configCopy ipv6])
   {
@@ -193,11 +255,11 @@ void __33__HMDStreamInterface_logCategory__block_invoke()
         v24 = strerror(*v23);
         v25 = *__error();
         *buf = 138543874;
-        v36 = v9;
-        v37 = 2080;
-        v38 = v24;
-        v39 = 1024;
-        LODWORD(v40) = v25;
+        v35 = v9;
+        v36 = 2080;
+        v37 = v24;
+        v38 = 1024;
+        LODWORD(v39) = v25;
         v13 = "%{public}@Failed to create IPv6 socket: %s (%d)";
         goto LABEL_17;
       }
@@ -210,10 +272,10 @@ LABEL_18:
     }
 
     v6 = v5;
-    v34 = 1;
-    setsockopt(v5, 0xFFFF, 512, &v34, 4u);
-    v34 = 3200000;
-    setsockopt(v6, 0xFFFF, 4098, &v34, 4u);
+    v33 = 1;
+    setsockopt(v5, 0xFFFF, 512, &v33, 4u);
+    v33 = 3200000;
+    setsockopt(v6, 0xFFFF, 4098, &v33, 4u);
     if (bind(v6, (configCopy + 36), 0x1Cu) < 0)
     {
       v6 = objc_autoreleasePoolPush();
@@ -226,11 +288,11 @@ LABEL_18:
         v11 = strerror(*v10);
         v12 = *__error();
         *buf = 138543874;
-        v36 = v9;
-        v37 = 2080;
-        v38 = v11;
-        v39 = 1024;
-        LODWORD(v40) = v12;
+        v35 = v9;
+        v36 = 2080;
+        v37 = v11;
+        v38 = 1024;
+        LODWORD(v39) = v12;
         v13 = "%{public}@Failed to bind IPv6 socket: %s (%d)";
 LABEL_17:
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, v13, buf, 0x1Cu);
@@ -257,11 +319,11 @@ LABEL_17:
         v27 = strerror(*v26);
         v28 = *__error();
         *buf = 138543874;
-        v36 = v9;
-        v37 = 2080;
-        v38 = v27;
-        v39 = 1024;
-        LODWORD(v40) = v28;
+        v35 = v9;
+        v36 = 2080;
+        v37 = v27;
+        v38 = 1024;
+        LODWORD(v39) = v28;
         v13 = "%{public}@Failed to create socket: %s (%d)";
         goto LABEL_17;
       }
@@ -270,10 +332,10 @@ LABEL_17:
     }
 
     v6 = v14;
-    v34 = 1;
-    setsockopt(v14, 0xFFFF, 512, &v34, 4u);
-    v34 = 3200000;
-    setsockopt(v6, 0xFFFF, 4098, &v34, 4u);
+    v33 = 1;
+    setsockopt(v14, 0xFFFF, 512, &v33, 4u);
+    v33 = 3200000;
+    setsockopt(v6, 0xFFFF, 4098, &v33, 4u);
     if (bind(v6, (configCopy + 8), 0x10u) < 0)
     {
       v6 = objc_autoreleasePoolPush();
@@ -286,11 +348,11 @@ LABEL_17:
         v30 = strerror(*v29);
         v31 = *__error();
         *buf = 138543874;
-        v36 = v9;
-        v37 = 2080;
-        v38 = v30;
-        v39 = 1024;
-        LODWORD(v40) = v31;
+        v35 = v9;
+        v36 = 2080;
+        v37 = v30;
+        v38 = 1024;
+        LODWORD(v39) = v31;
         v13 = "%{public}@Failed to bind socket: %s (%d)";
         goto LABEL_17;
       }
@@ -312,18 +374,17 @@ LABEL_17:
     ipAddress = [configCopy ipAddress];
     rtpPort2 = [configCopy rtpPort];
     *buf = 138543874;
-    v36 = v20;
-    v37 = 2112;
-    v38 = ipAddress;
-    v39 = 2112;
-    v40 = rtpPort2;
+    v35 = v20;
+    v36 = 2112;
+    v37 = ipAddress;
+    v38 = 2112;
+    v39 = rtpPort2;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Opened socket at address %@ and port %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v17);
 LABEL_19:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

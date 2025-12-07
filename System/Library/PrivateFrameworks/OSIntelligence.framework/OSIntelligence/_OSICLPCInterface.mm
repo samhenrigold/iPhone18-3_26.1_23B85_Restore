@@ -62,10 +62,17 @@
 
 - (void)stop
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  clpcClient = self->_clpcClient;
+  v6 = 0;
+  [(CLPCPolicyAccess *)clpcClient setIntelligentBatteryLifeMode:0 options:0 error:&v6];
+  v4 = v6;
+  if (v4 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  {
+    [_OSICLPCInterface stop];
+  }
+
+  v5 = self->_clpcClient;
+  self->_clpcClient = 0;
 }
 
 - (unint64_t)optionFromValue:(int64_t)value

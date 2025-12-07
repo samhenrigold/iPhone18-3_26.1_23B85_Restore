@@ -55,7 +55,7 @@
 
 - (void)requestAIS:(id)s
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   sCopy = s;
   v5 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
@@ -68,27 +68,27 @@
     _os_log_impl(&dword_26F2E2000, v6, OS_LOG_TYPE_DEFAULT, "#TAStore request for AIS fetch %{public}s", buf, 0xCu);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(TAStore *)self observers];
-  v10 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(observers);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 didRequestAIS:sCopy];
@@ -98,18 +98,16 @@
       }
 
       while (v11 != v13);
-      v11 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visitState:(id)state didChangeStateFromType:(unint64_t)type toType:(unint64_t)toType
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v9 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
@@ -118,27 +116,27 @@
   }
 
   [(TADeviceRecord *)self->_deviceRecord updateDeviceRecordOnSessionChange:stateCopy WithCurrentDate:self->_clock];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v11 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
           [v15 visitState:stateCopy didChangeStateFromType:type toType:toType];
@@ -148,40 +146,38 @@
       }
 
       while (v12 != v14);
-      v12 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visitState:(id)state didIssueMetricsSubmissionHint:(unint64_t)hint
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   stateCopy = state;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v8 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           [v12 visitState:stateCopy didIssueMetricsSubmissionHint:hint];
@@ -191,13 +187,11 @@
       }
 
       while (v9 != v11);
-      v9 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateClock:(id)clock
@@ -565,55 +559,46 @@ LABEL_24:
 
 - (void)shouldAddTASPAdvertisement:(void *)a1 .cold.1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTASPAdvertisement:(void *)a1 .cold.3(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTASPAdvertisement:(void *)a1 .cold.4(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{private}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTALocationLite:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -622,94 +607,78 @@ LABEL_24:
   v8 = [v7 UTF8String];
   v9 = [a2 description];
   *buf = 136446723;
-  v12 = v6;
-  v13 = 2081;
-  v14 = v8;
-  v15 = 2085;
-  v16 = [v9 UTF8String];
+  v11 = v6;
+  v12 = 2081;
+  v13 = v8;
+  v14 = 2085;
+  v15 = [v9 UTF8String];
   _os_log_debug_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_DEBUG, "#TAStore not adding %{public}s due to %{private}s:%{sensitive}s", buf, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldAddTALocationLite:(void *)a1 .cold.2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTALocationLite:(void *)a1 .cold.3(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTALocationLite:(void *)a1 .cold.4(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTACLVisit:(void *)a1 .cold.1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v6, v7, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_26F2E2000, v7, v8, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v9, v10, v11, v12);
 }
 
 - (void)shouldAddTACLVisit:(void *)a1 .cold.2(void *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_10();
-  v4 = NSStringFromClass(v3);
-  [v4 UTF8String];
-  v5 = [OUTLINED_FUNCTION_8() description];
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   [v5 UTF8String];
+  v6 = [OUTLINED_FUNCTION_8() description];
+  [v6 UTF8String];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(&dword_26F2E2000, v1, OS_LOG_TYPE_ERROR, "#TAStore not adding %{public}s due to %{public}s:%{sensitive}s", v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

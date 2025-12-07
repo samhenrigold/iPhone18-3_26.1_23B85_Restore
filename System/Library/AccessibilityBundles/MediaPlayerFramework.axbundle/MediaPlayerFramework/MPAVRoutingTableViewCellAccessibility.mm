@@ -4,6 +4,7 @@
 - (CGPoint)accessibilityActivationPoint;
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
+- (void)updateForEndpoint:(id)endpoint routeItem:(id)item inferLocalizedModelName:(BOOL)name;
 @end
 
 @implementation MPAVRoutingTableViewCellAccessibility
@@ -223,6 +224,19 @@ LABEL_16:
   v29 = *(*(a1 + 48) + 8);
   v30 = *(v29 + 40);
   *(v29 + 40) = v28;
+}
+
+- (void)updateForEndpoint:(id)endpoint routeItem:(id)item inferLocalizedModelName:(BOOL)name
+{
+  nameCopy = name;
+  v10.receiver = self;
+  v10.super_class = MPAVRoutingTableViewCellAccessibility;
+  itemCopy = item;
+  [(MPAVRoutingTableViewCellAccessibility *)&v10 updateForEndpoint:endpoint routeItem:itemCopy inferLocalizedModelName:nameCopy];
+  v9 = [itemCopy safeValueForKey:{@"mainRoute", v10.receiver, v10.super_class}];
+
+  [(MPAVRoutingTableViewCellAccessibility *)self setAccessibilityMediaRoute:v9];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 @end

@@ -3,6 +3,7 @@
 - (_INPBWellnessObjectResultValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)resultTypeAsString:(int)string;
 - (int)StringAsResultType:(id)type;
 - (unint64_t)hash;
 - (void)addValues:(id)values;
@@ -16,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   recordDate = [(_INPBWellnessObjectResultValue *)self recordDate];
   dictionaryRepresentation = [recordDate dictionaryRepresentation];
@@ -45,30 +46,30 @@
   if ([(NSArray *)self->_values count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = self->_values;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -76,8 +77,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"values"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -258,7 +257,7 @@ LABEL_22:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
   recordDate = [(_INPBWellnessObjectResultValue *)self recordDate];
 
@@ -270,7 +269,6 @@ LABEL_22:
 
   if ([(_INPBWellnessObjectResultValue *)self hasResultType])
   {
-    resultType = self->_resultType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -282,39 +280,36 @@ LABEL_22:
     PBDataWriterWriteSubmessage();
   }
 
-  v19 = 0u;
-  v20 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v10 = self->_values;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v14 = 0u;
+  v15 = 0u;
+  v9 = self->_values;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v18;
+    v11 = v10;
+    v12 = *v15;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v15 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
         PBDataWriterWriteSubmessage();
-        ++v14;
+        ++v13;
       }
 
-      while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v11 != v13);
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addValues:(id)values
@@ -400,6 +395,21 @@ LABEL_22:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)resultTypeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283528[string];
   }
 
   return v4;

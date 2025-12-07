@@ -352,8 +352,8 @@ LABEL_11:
 
 - (BOOL)verifyNewAppendTimeStamp:(id *)stamp error:(id *)error
 {
-  [(MIOWriterStreamInput *)self lastAppendTimeStamp];
-  if ((v13 & 1) == 0 || ([(MIOWriterStreamInput *)self lastAppendTimeStamp], time2 = *stamp, CMTimeCompare(&time1, &time2) < 0))
+  objc_msgSend_lastAppendTimeStamp(self, a2);
+  if ((v13 & 1) == 0 || (objc_msgSend_lastAppendTimeStamp(self), time2 = *stamp, CMTimeCompare(&time1, &time2) < 0))
   {
     time1 = *stamp;
     [(MIOWriterStreamInput *)self setLastAppendTimeStamp:&time1];
@@ -365,7 +365,7 @@ LABEL_11:
     v7 = MEMORY[0x277CCACA8];
     time1 = *stamp;
     Seconds = CMTimeGetSeconds(&time1);
-    [(MIOWriterStreamInput *)self lastAppendTimeStamp];
+    objc_msgSend_lastAppendTimeStamp(self);
     v9 = [v7 stringWithFormat:@"Invalid time stamp (%f). Time stamp must be higher than %f.", *&Seconds, CMTimeGetSeconds(&time1)];
     [MEMORY[0x277CCA9B8] populateWriterError:error message:v9 code:17];
 
@@ -443,7 +443,7 @@ LABEL_9:
   return areAllInputsReady & 1;
 }
 
-unint64_t __33__MIOWriterStreamInput_canAppend__block_invoke(uint64_t a1)
+void *__33__MIOWriterStreamInput_canAppend__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[4] + 1;
@@ -452,7 +452,7 @@ unint64_t __33__MIOWriterStreamInput_canAppend__block_invoke(uint64_t a1)
   return result;
 }
 
-unint64_t __33__MIOWriterStreamInput_canAppend__block_invoke_2(uint64_t a1)
+void *__33__MIOWriterStreamInput_canAppend__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[4] + 1;
@@ -482,7 +482,7 @@ unint64_t __33__MIOWriterStreamInput_canAppend__block_invoke_2(uint64_t a1)
   return selfCopy;
 }
 
-unint64_t __34__MIOWriterStreamInput_pendSample__block_invoke(uint64_t a1)
+void *__34__MIOWriterStreamInput_pendSample__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[4] + 1;

@@ -15,6 +15,7 @@
 - (BOOL)_webView:(id)view formSubmission:(BOOL)submission willSubmitNewAccountOrChangePasswordFormWithMetadata:(id)metadata shouldPreferAnnotatedCredentials:(BOOL)credentials fromFrame:(id)frame inContext:(id)context submissionHandler:(id)handler;
 - (BOOL)_webView:(id)view saveCredentialsForURL:(id)l formSubmission:(BOOL)submission formWithMetadata:(id)metadata fromFrame:(id)frame username:(id)username password:(id)password inContext:(id)self0 submissionHandler:(id)self1;
 - (BOOL)_webView:(id)view saveUsernameAndPasswordForURL:(id)l formType:(unint64_t)type inFrame:(id)frame username:(id)username password:(id)password isGeneratedPassword:(BOOL)generatedPassword confirmOverwritingCurrentPassword:(BOOL)self0 inContext:(id)self1 submissionHandler:(id)self2;
+- (BOOL)_webView:(id)view saveUsernameAndPasswordFromForm:(id)form inFrame:(id)frame context:(id)context confirmOverwritingCurrentPassword:(BOOL)password shouldPreferAnnotatedCredentials:(BOOL)credentials submissionHandler:(id)handler;
 - (BOOL)_webView:(id)view willSubmitFormContainingCreditCardData:(id)data fromFrame:(id)frame submissionHandler:(id)handler;
 - (BOOL)_webView:(id)view willSubmitLoginFormWithMetadata:(id)metadata formSubmission:(BOOL)submission fromFrame:(id)frame inContext:(id)context submissionHandler:(id)handler;
 - (BOOL)_webView:(id)view willSubmitStandardFormWithMetadata:(id)metadata fromFrame:(id)frame submissionHandler:(id)handler;
@@ -25,8 +26,10 @@
 - (BOOL)shouldAutoFillFromCreditCardDataInFrame:(id)frame;
 - (BOOL)shouldAutoFillPasswords;
 - (BOOL)shouldAutoGeneratePasswordsForURL:(id)l inWebView:(id)view;
+- (BOOL)webView:(id)view frame:(id)frame willNavigateFromForm:(id)form inContext:(id)context bySubmitting:(BOOL)submitting submissionHandler:(id)handler;
 - (BOOL)whiteListAllowsURL:(id)l;
 - (CNContact)me;
+- (WBUFormDataController)initWithAggressiveKeychainCaching:(BOOL)caching;
 - (id)_addressBookMatchesForFamilyNameForContact:(id)contact;
 - (id)_addressBookMatchesForFullNameForContact:(id)contact;
 - (id)_addressBookMatchesForGivenNameForContact:(id)contact;
@@ -62,6 +65,7 @@
 - (void)saveUnsubmittedGeneratedPasswordInFrame:(id)frame form:(id)form context:(id)context closingWebView:(BOOL)view;
 - (void)setShouldAutoFillFromAddressBook:(BOOL)book;
 - (void)setShouldAutoFillFromCreditCardData:(BOOL)data;
+- (void)setShouldAutoFillPasswords:(BOOL)passwords;
 - (void)showPasswordSavedPromptForSavedAccount:(id)account webView:(id)view;
 - (void)textDidChangeInForm:(id)form inWebView:(id)view frame:(id)frame context:(id)context;
 @end
@@ -78,6 +82,34 @@
 {
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   self->_cachedAutoFillRestrictionValue = [mEMORY[0x277D262A0] BOOLRestrictionForFeature:*MEMORY[0x277D26030]];
+}
+
+- (WBUFormDataController)initWithAggressiveKeychainCaching:(BOOL)caching
+{
+  v8.receiver = self;
+  v8.super_class = WBUFormDataController;
+  v3 = [(WBUFormDataController *)&v8 initWithAggressiveKeychainCaching:caching];
+  if (v3)
+  {
+    mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+    if (objc_opt_respondsToSelector())
+    {
+      [mEMORY[0x277D262A0] registerObserver:v3];
+    }
+
+    else
+    {
+      [mEMORY[0x277D262A0] addObserver:v3];
+    }
+
+    v3->_cachedAutoFillRestrictionValue = [mEMORY[0x277D262A0] BOOLRestrictionForFeature:*MEMORY[0x277D26030]];
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:v3 selector:sel__applicationWillEnterForeground_ name:*MEMORY[0x277D76758] object:0];
+
+    v6 = v3;
+  }
+
+  return v3;
 }
 
 - (void)dealloc
@@ -285,7 +317,7 @@ void __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_display
 
 WBUAutoFillDisplayData *__118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_displayedInQuickType_prefix_contact_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 56))
@@ -295,19 +327,19 @@ WBUAutoFillDisplayData *__118__WBUFormDataController_gatherAutoFillDisplayDataWi
 
   else
   {
-    v14[0] = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   }
 
   v6 = v5;
   if (*(a1 + 57) == 1)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_displayedInQuickType_prefix_contact_completionHandler___block_invoke_3;
-    v13[3] = &unk_279EB1830;
-    v13[4] = *(a1 + 32);
-    v7 = [v5 safari_mapObjectsUsingBlock:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_displayedInQuickType_prefix_contact_completionHandler___block_invoke_3;
+    v12[3] = &unk_279EB1830;
+    v12[4] = *(a1 + 32);
+    v7 = [v5 safari_mapObjectsUsingBlock:v12];
     if ([*(a1 + 48) containsObject:v7])
     {
 
@@ -323,18 +355,16 @@ WBUAutoFillDisplayData *__118__WBUFormDataController_gatherAutoFillDisplayDataWi
   v8 = [(WBUAutoFillDisplayData *)v9 initWithLabel:v10 fillMatches:v6];
 
 LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_displayedInQuickType_prefix_contact_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() valueStringForMatch:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() valueStringForMatch:v2];
 
-  return v4;
+  return v3;
 }
 
 void __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_displayedInQuickType_prefix_contact_completionHandler___block_invoke_4(uint64_t a1)
@@ -497,7 +527,7 @@ void __118__WBUFormDataController_gatherAutoFillDisplayDataWithTextField_display
 
 - (id)addressBookMatchesForProperty:(id)property key:(id)key label:(id)label contact:(id)contact
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   keyCopy = key;
   labelCopy = label;
@@ -529,68 +559,68 @@ LABEL_9:
   }
 
   _meCard = [objc_opt_class() _meCard];
-  v18 = [_meCard valueForProperty:propertyCopy contact:contactCopy];
+  v17 = [_meCard valueForProperty:propertyCopy contact:contactCopy];
 
-  if (v18)
+  if (v17)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __73__WBUFormDataController_addressBookMatchesForProperty_key_label_contact___block_invoke;
-      v48[3] = &unk_279EB18D0;
-      v48[4] = self;
-      v42 = propertyCopy;
-      v19 = propertyCopy;
-      v49 = v19;
-      v41 = keyCopy;
-      v50 = keyCopy;
-      v39 = v18;
-      v20 = [v18 safari_mapObjectsUsingBlock:v48];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __73__WBUFormDataController_addressBookMatchesForProperty_key_label_contact___block_invoke;
+      v47[3] = &unk_279EB18D0;
+      v47[4] = self;
+      v41 = propertyCopy;
+      v18 = propertyCopy;
+      v48 = v18;
+      v40 = keyCopy;
+      v49 = keyCopy;
+      v38 = v17;
+      v19 = [v17 safari_mapObjectsUsingBlock:v47];
       array = [MEMORY[0x277CBEB18] array];
-      v40 = contactCopy;
-      v21 = [(WBUFormDataController *)self preferredIdentifierForProperty:v19 withContact:contactCopy];
+      v39 = contactCopy;
+      v20 = [(WBUFormDataController *)self preferredIdentifierForProperty:v18 withContact:contactCopy];
+      v43 = 0u;
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
-      v22 = v20;
-      v23 = [v22 countByEnumeratingWithState:&v44 objects:v51 count:16];
-      v24 = labelCopy;
-      if (!v23)
+      v21 = v19;
+      v22 = [v21 countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v23 = labelCopy;
+      if (!v22)
       {
         goto LABEL_29;
       }
 
-      v25 = v23;
-      v26 = *v45;
+      v24 = v22;
+      v25 = *v44;
       while (1)
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v45 != v26)
+          if (*v44 != v25)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v44 + 1) + 8 * i);
-          label = [v28 label];
-          if ([v24 isEqualToString:label])
+          v27 = *(*(&v43 + 1) + 8 * i);
+          label = [v27 label];
+          if ([v23 isEqualToString:label])
           {
 
 LABEL_24:
-            [array insertObject:v28 atIndex:0];
+            [array insertObject:v27 atIndex:0];
             continue;
           }
 
-          if ([v21 length])
+          if ([v20 length])
           {
-            identifier = [v28 identifier];
-            v31 = [identifier isEqualToString:v21];
+            identifier = [v27 identifier];
+            v30 = [identifier isEqualToString:v20];
 
-            v24 = labelCopy;
-            if (v31)
+            v23 = labelCopy;
+            if (v30)
             {
               goto LABEL_24;
             }
@@ -600,46 +630,46 @@ LABEL_24:
           {
           }
 
-          [array addObject:v28];
+          [array addObject:v27];
         }
 
-        v25 = [v22 countByEnumeratingWithState:&v44 objects:v51 count:16];
-        if (!v25)
+        v24 = [v21 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        if (!v24)
         {
 LABEL_29:
 
-          keyCopy = v41;
-          propertyCopy = v42;
-          v18 = v39;
-          contactCopy = v40;
+          keyCopy = v40;
+          propertyCopy = v41;
+          v17 = v38;
+          contactCopy = v39;
           goto LABEL_38;
         }
       }
     }
 
-    v32 = contactCopy;
-    v33 = objc_alloc(MEMORY[0x277CBEA80]);
-    v34 = [v33 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+    v31 = contactCopy;
+    v32 = objc_alloc(MEMORY[0x277CBEA80]);
+    v33 = [v32 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = keyCopy;
-      v36 = v18;
-      [v34 dateFromComponents:v18];
+      v34 = keyCopy;
+      v35 = v17;
+      [v33 dateFromComponents:v17];
     }
 
     else
     {
-      v36 = v18;
-      v35 = keyCopy;
-      [WBUFormDataController stringWithAddressBookValue:v18 key:keyCopy];
+      v35 = v17;
+      v34 = keyCopy;
+      [WBUFormDataController stringWithAddressBookValue:v17 key:keyCopy];
     }
-    v37 = ;
-    if (v37)
+    v36 = ;
+    if (v36)
     {
-      v38 = [[off_279EB0F20 alloc] initWithValue:v37 property:propertyCopy key:v35 identifier:&stru_2882C1EC0];
-      v52[0] = v38;
-      array = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
+      v37 = [[off_279EB0F20 alloc] initWithValue:v36 property:propertyCopy key:v34 identifier:&stru_2882C1EC0];
+      v51[0] = v37;
+      array = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
     }
 
     else
@@ -647,9 +677,9 @@ LABEL_29:
       array = MEMORY[0x277CBEBF8];
     }
 
-    keyCopy = v35;
-    contactCopy = v32;
-    v18 = v36;
+    keyCopy = v34;
+    contactCopy = v31;
+    v17 = v35;
   }
 
   else
@@ -660,7 +690,6 @@ LABEL_29:
 LABEL_38:
 
 LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -669,49 +698,48 @@ id __73__WBUFormDataController_addressBookMatchesForProperty_key_label_contact__
 {
   v3 = a2;
   v4 = [v3 value];
-  v5 = a1[4];
-  v6 = [objc_opt_class() contactKeyForString:a1[5]];
-  v7 = [v6 isEqualToString:*MEMORY[0x277CBD038]];
+  v5 = [objc_opt_class() contactKeyForString:a1[5]];
+  v6 = [v5 isEqualToString:*MEMORY[0x277CBD038]];
 
-  if (v7)
+  if (v6)
   {
-    v8 = v4;
-    v9 = [v8 service];
-    v10 = [v9 stringByAppendingString:@"Instant"];
+    v7 = v4;
+    v8 = [v7 service];
+    v9 = [v8 stringByAppendingString:@"Instant"];
 
-    if ([v10 isEqualToString:a1[6]])
+    if ([v9 isEqualToString:a1[6]])
     {
-      v11 = [v8 username];
+      v10 = [v7 username];
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v8 = [_WBUDynamicMeCard _contactObjectComponentForString:a1[6]];
-    v11 = [WBUFormDataController _stringForCNContactObject:v4 contactObjectComponent:v8];
+    v7 = [_WBUDynamicMeCard _contactObjectComponentForString:a1[6]];
+    v10 = [WBUFormDataController _stringForCNContactObject:v4 contactObjectComponent:v7];
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = [off_279EB0F20 alloc];
-    v14 = a1[5];
-    v13 = a1[6];
-    v15 = [v3 identifier];
-    v16 = [v3 label];
-    v17 = [v12 initWithValue:v11 property:v14 key:v13 identifier:v15 label:v16];
+    v11 = [off_279EB0F20 alloc];
+    v13 = a1[5];
+    v12 = a1[6];
+    v14 = [v3 identifier];
+    v15 = [v3 label];
+    v16 = [v11 initWithValue:v10 property:v13 key:v12 identifier:v14 label:v15];
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 + (id)_stringForCNContactObject:(id)object contactObjectComponent:(id)component
@@ -835,6 +863,13 @@ LABEL_6:
   shouldAutoFillPasswordsFromKeychain = [mEMORY[0x277D49DC0] shouldAutoFillPasswordsFromKeychain];
 
   return shouldAutoFillPasswordsFromKeychain;
+}
+
+- (void)setShouldAutoFillPasswords:(BOOL)passwords
+{
+  passwordsCopy = passwords;
+  mEMORY[0x277D49DC0] = [MEMORY[0x277D49DC0] sharedFeatureManager];
+  [mEMORY[0x277D49DC0] setShouldAutoFillPasswordsFromKeychain:passwordsCopy];
 }
 
 - (BOOL)shouldAutoFillFromCreditCardData
@@ -1045,31 +1080,31 @@ uint64_t __65__WBUFormDataController_hasAssociatedDomainSavedForURL_userName___b
 
 - (id)savedAccountFromMatches:(id)matches completingPartialUserInLoginForm:(id)form
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
   formCopy = form;
   userNameElementUniqueID = [formCopy userNameElementUniqueID];
   if ([userNameElementUniqueID length])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     controls = [formCopy controls];
-    value = [controls countByEnumeratingWithState:&v30 objects:v35 count:16];
+    value = [controls countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (value)
     {
-      v10 = *v31;
+      v10 = *v30;
       while (2)
       {
         for (i = 0; i != value; i = i + 1)
         {
-          if (*v31 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(controls);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
+          v12 = *(*(&v29 + 1) + 8 * i);
           uniqueID = [v12 uniqueID];
           v14 = [uniqueID isEqualToString:userNameElementUniqueID];
 
@@ -1080,7 +1115,7 @@ uint64_t __65__WBUFormDataController_hasAssociatedDomainSavedForURL_userName___b
           }
         }
 
-        value = [controls countByEnumeratingWithState:&v30 objects:v35 count:16];
+        value = [controls countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (value)
         {
           continue;
@@ -1098,26 +1133,26 @@ LABEL_12:
     value = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = matchesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     while (2)
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * j);
+        v20 = *(*(&v25 + 1) + 8 * j);
         if ([value length])
         {
           user = [v20 user];
@@ -1133,7 +1168,7 @@ LABEL_12:
         goto LABEL_26;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
       savedAccount = 0;
       if (v17)
       {
@@ -1150,8 +1185,6 @@ LABEL_12:
   }
 
 LABEL_26:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return savedAccount;
 }
@@ -1277,85 +1310,83 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke(uint64_t 
 
 void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9 = *MEMORY[0x277CBAB10];
-  v10[0] = MEMORY[0x277CBEC38];
+  v8 = *MEMORY[0x277CBAB10];
+  v9[0] = MEMORY[0x277CBEC38];
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v3 removeCredential:v6 forProtectionSpace:v4 options:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveUnsubmittedGeneratedPasswordInFrame:(id)frame form:(id)form context:(id)context closingWebView:(BOOL)view
 {
   viewCopy = view;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   formCopy = form;
   contextCopy = context;
-  v36 = formCopy;
+  v35 = formCopy;
   if ([formCopy usesGeneratedPassword] && objc_msgSend(formCopy, "type") == 5)
   {
     webui_URL = [frameCopy webui_URL];
-    v51 = 0;
     v50 = 0;
-    [(WBUFormDataController *)self willSubmitFormWithCredentials:formCopy shouldPreferAnnotatedCredentials:0 atURL:webui_URL username:&v51 password:&v50 inContext:contextCopy];
-    v38 = v51;
-    v11 = v50;
+    v49 = 0;
+    [(WBUFormDataController *)self willSubmitFormWithCredentials:formCopy shouldPreferAnnotatedCredentials:0 atURL:webui_URL username:&v50 password:&v49 inContext:contextCopy];
+    v37 = v50;
+    v11 = v49;
     if ([v11 length])
     {
-      v12 = v38;
-      if (!v38)
+      v12 = v37;
+      if (!v37)
       {
         v12 = &stru_2882C1EC0;
       }
 
-      v38 = v12;
-      v31 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:webui_URL];
+      v37 = v12;
+      v30 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:webui_URL];
       mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
-      v32 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:webui_URL];
-      v13 = [objc_alloc(MEMORY[0x277D49B70]) initWithString:v38 matchingType:1];
-      [v32 setUserNameQuery:v13];
+      v31 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:webui_URL];
+      v13 = [objc_alloc(MEMORY[0x277D49B70]) initWithString:v37 matchingType:1];
+      [v31 setUserNameQuery:v13];
 
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x3032000000;
-      v47 = __Block_byref_object_copy_;
-      v48 = __Block_byref_object_dispose_;
-      v49 = 0;
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __93__WBUFormDataController_saveUnsubmittedGeneratedPasswordInFrame_form_context_closingWebView___block_invoke;
-      v43[3] = &unk_279EB18F8;
-      v43[4] = &v44;
-      [mEMORY[0x277D49B58] getSavedAccountsMatchingCriteria:v32 withSynchronousCompletionHandler:v43];
-      exactMatches = [v45[5] exactMatches];
+      v43 = 0;
+      v44 = &v43;
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy_;
+      v47 = __Block_byref_object_dispose_;
+      v48 = 0;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __93__WBUFormDataController_saveUnsubmittedGeneratedPasswordInFrame_form_context_closingWebView___block_invoke;
+      v42[3] = &unk_279EB18F8;
+      v42[4] = &v43;
+      [mEMORY[0x277D49B58] getSavedAccountsMatchingCriteria:v31 withSynchronousCompletionHandler:v42];
+      exactMatches = [v44[5] exactMatches];
       if ([exactMatches count])
       {
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v14 = exactMatches;
-        v15 = [v14 countByEnumeratingWithState:&v39 objects:v52 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v38 objects:v51 count:16];
         if (v15)
         {
-          v16 = *v40;
+          v16 = *v39;
           v17 = viewCopy;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v40 != v16)
+              if (*v39 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v39 + 1) + 8 * i);
+              v19 = *(*(&v38 + 1) + 8 * i);
               password = [v19 password];
               v21 = [password isEqualToString:v11];
 
@@ -1365,7 +1396,7 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
                 savedAccount = [v19 savedAccount];
                 [v22 setSavedAccount:savedAccount];
 
-                [v22 setUser:v38];
+                [v22 setUser:v37];
                 [v22 setPassword:v11];
                 [mEMORY[0x277D49B58] changeSavedAccountWithRequest:v22];
                 mEMORY[0x277D499B8] = [MEMORY[0x277D499B8] sharedLogger];
@@ -1373,7 +1404,7 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
               }
             }
 
-            v15 = [v14 countByEnumeratingWithState:&v39 objects:v52 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v38 objects:v51 count:16];
           }
 
           while (v15);
@@ -1382,25 +1413,23 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
 
       else
       {
-        host = [v31 host];
+        host = [v30 host];
         safari_highLevelDomainForPasswordManager = [host safari_highLevelDomainForPasswordManager];
-        v14 = [mEMORY[0x277D49B58] saveUser:v38 password:v11 forProtectionSpace:v31 highLevelDomain:safari_highLevelDomainForPasswordManager groupID:*MEMORY[0x277D49C38]];
+        v14 = [mEMORY[0x277D49B58] saveUser:v37 password:v11 forProtectionSpace:v30 highLevelDomain:safari_highLevelDomainForPasswordManager groupID:*MEMORY[0x277D49C38]];
 
         autoFillQuirksManager = [(WBUFormDataController *)self autoFillQuirksManager];
         associatedDomainsManager = [autoFillQuirksManager associatedDomainsManager];
-        [mEMORY[0x277D49B58] setSavedAccountAsDefault:v14 forProtectionSpace:v31 context:contextCopy associatedDomainsManager:associatedDomainsManager completionHandler:&__block_literal_global_3];
+        [mEMORY[0x277D49B58] setSavedAccountAsDefault:v14 forProtectionSpace:v30 context:contextCopy associatedDomainsManager:associatedDomainsManager completionHandler:&__block_literal_global_3];
       }
 
-      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(&v43, 8);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showCreditCardPromptForWebView:(id)view creditCard:(id)card completionHandler:(id)handler
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = MEMORY[0x277D49A08];
   cardCopy = card;
@@ -1412,18 +1441,16 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
   v14 = _WBSLocalizedString();
   v15 = _WBSLocalizedString();
   v16 = _WBSLocalizedString();
-  v22[0] = v15;
-  v22[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __86__WBUFormDataController__showCreditCardPromptForWebView_creditCard_completionHandler___block_invoke;
-  v20[3] = &unk_279EB19C0;
-  v21 = handlerCopy;
+  v21[0] = v15;
+  v21[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __86__WBUFormDataController__showCreditCardPromptForWebView_creditCard_completionHandler___block_invoke;
+  v19[3] = &unk_279EB19C0;
+  v20 = handlerCopy;
   v18 = handlerCopy;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v12 message:v13 cancelButtonTitle:v14 otherButtonTitles:v17 makeFirstButtonSuggestedAction:1 completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v12 message:v13 cancelButtonTitle:v14 otherButtonTitles:v17 makeFirstButtonSuggestedAction:1 completionHandler:v19];
 }
 
 - (id)_detailTextForPromptToSaveCard:(id)card
@@ -1441,7 +1468,7 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
 
 - (void)_showPromptToSaveCreditCardSecurityCodeForWebView:(id)view cardNumber:(id)number securityCode:(id)code completionHandler:(id)handler
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = MEMORY[0x277D49A08];
   viewCopy = view;
@@ -1451,18 +1478,16 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
   v13 = _WBSLocalizedString();
   v14 = _WBSLocalizedString();
   v15 = _WBSLocalizedString();
-  v21[0] = v14;
-  v21[1] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __117__WBUFormDataController__showPromptToSaveCreditCardSecurityCodeForWebView_cardNumber_securityCode_completionHandler___block_invoke;
-  v19[3] = &unk_279EB19C0;
-  v20 = handlerCopy;
+  v20[0] = v14;
+  v20[1] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __117__WBUFormDataController__showPromptToSaveCreditCardSecurityCodeForWebView_cardNumber_securityCode_completionHandler___block_invoke;
+  v18[3] = &unk_279EB19C0;
+  v19 = handlerCopy;
   v17 = handlerCopy;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v11 message:_detailTextForPromptToSaveSecurityCode cancelButtonTitle:v13 otherButtonTitles:v16 makeFirstButtonSuggestedAction:1 completionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v11 message:_detailTextForPromptToSaveSecurityCode cancelButtonTitle:v13 otherButtonTitles:v16 makeFirstButtonSuggestedAction:1 completionHandler:v18];
 }
 
 - (id)_detailTextForPromptToSaveSecurityCode
@@ -1476,7 +1501,7 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
 
 - (void)_showPromptToUpdateCreditCardExpirationDateForWebView:(id)view cardNumber:(id)number expirationDate:(id)date completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = MEMORY[0x277D49A08];
   viewCopy = view;
@@ -1485,17 +1510,15 @@ void __48__WBUFormDataController_clearAllFormCredentials__block_invoke_2(uint64_
   _detailTextForPromptToUpdateExpirationDate = [(WBUFormDataController *)self _detailTextForPromptToUpdateExpirationDate];
   v13 = _WBSLocalizedString();
   v14 = _WBSLocalizedString();
-  v20[0] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __123__WBUFormDataController__showPromptToUpdateCreditCardExpirationDateForWebView_cardNumber_expirationDate_completionHandler___block_invoke;
-  v18[3] = &unk_279EB19C0;
-  v19 = handlerCopy;
+  v19[0] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __123__WBUFormDataController__showPromptToUpdateCreditCardExpirationDateForWebView_cardNumber_expirationDate_completionHandler___block_invoke;
+  v17[3] = &unk_279EB19C0;
+  v18 = handlerCopy;
   v16 = handlerCopy;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v11 message:_detailTextForPromptToUpdateExpirationDate cancelButtonTitle:v13 otherButtonTitles:v15 makeFirstButtonSuggestedAction:1 completionHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v11 message:_detailTextForPromptToUpdateExpirationDate cancelButtonTitle:v13 otherButtonTitles:v15 makeFirstButtonSuggestedAction:1 completionHandler:v17];
 }
 
 - (id)_detailTextForPromptToUpdateExpirationDate
@@ -1823,53 +1846,53 @@ void __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardDat
     v4 = [*(a1 + 56) expirationDate];
     v5 = [v3 expirationYearIsOlderThan:v4];
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardData_fromFrame_submissionHandler___block_invoke_6;
-    v33[3] = &unk_279EB1A10;
-    v34 = *(a1 + 32);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardData_fromFrame_submissionHandler___block_invoke_6;
+    v32[3] = &unk_279EB1A10;
+    v33 = *(a1 + 32);
     v6 = *(a1 + 56);
     v7 = *(a1 + 96);
-    v35 = v6;
-    v38 = v7;
-    v36 = *(a1 + 40);
-    v37 = *(a1 + 88);
-    v8 = MEMORY[0x2743DCFC0](v33);
+    v34 = v6;
+    v37 = v7;
+    v35 = *(a1 + 40);
+    v36 = *(a1 + 88);
+    v8 = MEMORY[0x2743DCFC0](v32);
     if (*(a1 + 104) == 1)
     {
       v9 = *(a1 + 72);
       v10 = *(a1 + 80);
       v11 = *(a1 + 64);
       v12 = [*(a1 + 56) cardSecurityCode];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardData_fromFrame_submissionHandler___block_invoke_7;
-      v22[3] = &unk_279EB1A38;
-      v23 = *(a1 + 40);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardData_fromFrame_submissionHandler___block_invoke_7;
+      v21[3] = &unk_279EB1A38;
+      v22 = *(a1 + 40);
       v13 = *(a1 + 32);
-      v31 = *(a1 + 96);
-      v32 = v5;
+      v30 = *(a1 + 96);
+      v31 = v5;
       v14 = *(a1 + 64);
       v15 = *(a1 + 72);
-      v24 = v13;
-      v25 = v14;
-      v26 = v15;
-      v27 = *(a1 + 80);
-      v28 = *(a1 + 56);
-      v29 = v8;
-      v30 = *(a1 + 88);
-      [v11 _showPromptToSaveCreditCardSecurityCodeForWebView:v9 cardNumber:v10 securityCode:v12 completionHandler:v22];
+      v23 = v13;
+      v24 = v14;
+      v25 = v15;
+      v26 = *(a1 + 80);
+      v27 = *(a1 + 56);
+      v28 = v8;
+      v29 = *(a1 + 88);
+      [v11 _showPromptToSaveCreditCardSecurityCodeForWebView:v9 cardNumber:v10 securityCode:v12 completionHandler:v21];
 
-      v16 = v23;
+      v16 = v22;
     }
 
     else if (v5)
     {
-      v19 = *(a1 + 72);
-      v20 = *(a1 + 80);
-      v21 = *(a1 + 64);
+      v18 = *(a1 + 72);
+      v19 = *(a1 + 80);
+      v20 = *(a1 + 64);
       v16 = [*(a1 + 56) expirationDate];
-      [v21 _showPromptToUpdateCreditCardExpirationDateForWebView:v19 cardNumber:v20 expirationDate:v16 completionHandler:v8];
+      [v20 _showPromptToUpdateCreditCardExpirationDateForWebView:v18 cardNumber:v19 expirationDate:v16 completionHandler:v8];
     }
 
     else
@@ -1882,10 +1905,9 @@ void __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardDat
 
   else
   {
-    v17 = *(a1 + 88);
-    v18 = *(*(a1 + 88) + 16);
+    v17 = *(*(a1 + 88) + 16);
 
-    v18();
+    v17();
   }
 }
 
@@ -1910,14 +1932,12 @@ void __101__WBUFormDataController__webView_willSubmitFormContainingCreditCardDat
     v5 = *(a1 + 56);
     v6 = *(a1 + 64);
     v7 = [*(a1 + 72) expirationDate];
-    v8 = *(a1 + 80);
-    v9 = v7;
     [v4 _showPromptToUpdateCreditCardExpirationDateForWebView:v5 cardNumber:v6 expirationDate:? completionHandler:?];
   }
 
   else
   {
-    v9 = [*(a1 + 40) creditCardDataByMergingOtherAttributesBesidesCardNumberFromCard:*(a1 + 72) mergeSecurityCode:*(*(*(a1 + 96) + 8) + 24) updateExpirationDate:0];
+    v7 = [*(a1 + 40) creditCardDataByMergingOtherAttributesBesidesCardNumberFromCard:*(a1 + 72) mergeSecurityCode:*(*(*(a1 + 96) + 8) + 24) updateExpirationDate:0];
     [*(a1 + 32) updateCreditCardDataCreditCardData:?];
     (*(*(a1 + 88) + 16))();
   }
@@ -2022,47 +2042,47 @@ uint64_t __101__WBUFormDataController__webView_willSubmitFormContainingCreditCar
 
 - (id)_credentialMatchesEligibleForUpdateForURL:(id)l username:(id)username oldPassword:(id)password
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   usernameCopy = username;
   passwordCopy = password;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
-  v22 = lCopy;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v21 = lCopy;
   v10 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:lCopy];
   v11 = [objc_alloc(MEMORY[0x277D49B70]) initWithString:usernameCopy matchingType:1];
   [v10 setUserNameQuery:v11];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __88__WBUFormDataController__credentialMatchesEligibleForUpdateForURL_username_oldPassword___block_invoke;
-  v28[3] = &unk_279EB18F8;
-  v28[4] = &v29;
-  [(WBUFormDataController *)self getSavedAccountMatchesWithCriteria:v10 synchronously:1 completionHandler:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __88__WBUFormDataController__credentialMatchesEligibleForUpdateForURL_username_oldPassword___block_invoke;
+  v27[3] = &unk_279EB18F8;
+  v27[4] = &v28;
+  [(WBUFormDataController *)self getSavedAccountMatchesWithCriteria:v10 synchronously:1 completionHandler:v27];
   array = [MEMORY[0x277CBEB18] array];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
-  v13 = v30[5];
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v35 count:16];
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v13 = v29[5];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v34 count:16];
   if (v14)
   {
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         password = [v17 password];
         v19 = [password isEqualToString:passwordCopy];
 
@@ -2072,14 +2092,13 @@ uint64_t __101__WBUFormDataController__webView_willSubmitFormContainingCreditCar
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v35 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v34 count:16];
     }
 
     while (v14);
   }
 
-  _Block_object_dispose(&v29, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 
   return array;
 }
@@ -2098,7 +2117,7 @@ void __88__WBUFormDataController__credentialMatchesEligibleForUpdateForURL_usern
 
 - (BOOL)_webView:(id)view saveUsernameAndPasswordForURL:(id)l formType:(unint64_t)type inFrame:(id)frame username:(id)username password:(id)password isGeneratedPassword:(BOOL)generatedPassword confirmOverwritingCurrentPassword:(BOOL)self0 inContext:(id)self1 submissionHandler:(id)self2
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   lCopy = l;
   usernameCopy = username;
@@ -2109,80 +2128,52 @@ void __88__WBUFormDataController__credentialMatchesEligibleForUpdateForURL_usern
   v24 = 1;
   if (type && v23)
   {
-    if (![MEMORY[0x277D49A08] isPasswordsAppInstalled])
+    if ([MEMORY[0x277D49A08] isPasswordsAppInstalled] && (v25 = self->_accountSavedWithGeneratedPassword) != 0 && (-[WBSSavedAccount user](v25, "user"), v26 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(usernameCopy, "isEqualToString:", v26), v26, v40 = self->_accountSavedWithGeneratedPassword, objc_msgSend(MEMORY[0x277CBAB90], "safari_HTMLFormProtectionSpaceForURL:", lCopy), v27 = objc_claimAutoreleasedReturnValue(), v41 = -[WBSSavedAccount hasProtectionSpace:](v40, "hasProtectionSpace:", v27), v27, -[WBSSavedAccount password](self->_accountSavedWithGeneratedPassword, "password"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "isEqualToString:", passwordCopy), v28, v42) && v41 && (v29 & 1) == 0)
     {
-      goto LABEL_11;
-    }
-
-    accountSavedWithGeneratedPassword = self->_accountSavedWithGeneratedPassword;
-    if (!accountSavedWithGeneratedPassword)
-    {
-      goto LABEL_11;
-    }
-
-    user = [(WBSSavedAccount *)accountSavedWithGeneratedPassword user];
-    v41 = [usernameCopy isEqualToString:user];
-
-    v39 = self->_accountSavedWithGeneratedPassword;
-    v27 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:lCopy];
-    v40 = [(WBSSavedAccount *)v39 hasProtectionSpace:v27];
-
-    password = [(WBSSavedAccount *)self->_accountSavedWithGeneratedPassword password];
-    v29 = [password isEqualToString:passwordCopy];
-
-    if (!v41)
-    {
-      goto LABEL_11;
-    }
-
-    if (v40 && (v29 & 1) == 0)
-    {
-      v30 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v32 = WBS_LOG_CHANNEL_PREFIXAutoFill(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_273D58000, v30, OS_LOG_TYPE_DEFAULT, "Updating password of account saved after user edited a strong password", buf, 2u);
+        _os_log_impl(&dword_273D58000, v32, OS_LOG_TYPE_DEFAULT, "Updating password of account saved after user edited a strong password", buf, 2u);
       }
 
       [(WBUFormDataController *)self _updatePasswordOfPreviouslySavedAccount:self->_accountSavedWithGeneratedPassword withPasswordEditedByUser:passwordCopy];
       [(WBUFormDataController *)self _silentlyUpdateSavedAccountsEquivalentToUserName:usernameCopy atURL:lCopy inContext:contextCopy withPassword:passwordCopy];
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v32 = self->_accountSavedWithGeneratedPassword;
-      v43 = @"savedAccount";
-      v44[0] = v32;
+      accountSavedWithGeneratedPassword = self->_accountSavedWithGeneratedPassword;
+      v44 = @"savedAccount";
+      v45[0] = accountSavedWithGeneratedPassword;
       v24 = 1;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-      [defaultCenter postNotificationName:@"formDataControllerDidUpdatePasswordForPreviouslySavedAccount" object:self userInfo:v33];
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      [defaultCenter postNotificationName:@"formDataControllerDidUpdatePasswordForPreviouslySavedAccount" object:self userInfo:v35];
 
-      v34 = self->_accountSavedWithGeneratedPassword;
+      v36 = self->_accountSavedWithGeneratedPassword;
       self->_accountSavedWithGeneratedPassword = 0;
     }
 
     else
     {
-LABEL_11:
-      v35 = [usernameCopy length];
-      v36 = 1;
+      v37 = [usernameCopy length];
+      v38 = 1;
       if (!currentPassword)
       {
-        v36 = 2;
+        v38 = 2;
       }
 
       if (!generatedPassword)
       {
-        v36 = 0;
+        v38 = 0;
       }
 
-      if (!v35)
+      if (!v37)
       {
-        v36 = 3;
+        v38 = 3;
       }
 
-      v24 = [(WBUFormDataController *)self _saveUser:usernameCopy password:passwordCopy isGeneratedPassword:generatedPassword forURL:lCopy inContext:contextCopy formType:type promptingPolicy:v36 webView:viewCopy completionHandler:handlerCopy];
+      v24 = [(WBUFormDataController *)self _saveUser:usernameCopy password:passwordCopy isGeneratedPassword:generatedPassword forURL:lCopy inContext:contextCopy formType:type promptingPolicy:v38 webView:viewCopy completionHandler:handlerCopy];
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -2245,31 +2236,33 @@ LABEL_11:
 
 - (void)_silentlyUpdateCredentialsForSavedAccounts:(id)accounts withPassword:(id)password
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   passwordCopy = password;
-  if ([accountsCopy count] && objc_msgSend(passwordCopy, "length"))
+  if ([accountsCopy count])
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [passwordCopy length];
+    if (v7)
     {
-      v8 = v7;
-      *buf = 134217984;
-      v15 = [accountsCopy count];
-      _os_log_impl(&dword_273D58000, v8, OS_LOG_TYPE_DEFAULT, "Silently updating %zu accounts", buf, 0xCu);
+      v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = v9;
+        *buf = 134217984;
+        v16 = [accountsCopy count];
+        _os_log_impl(&dword_273D58000, v10, OS_LOG_TYPE_DEFAULT, "Silently updating %zu accounts", buf, 0xCu);
+      }
+
+      mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __81__WBUFormDataController__silentlyUpdateCredentialsForSavedAccounts_withPassword___block_invoke;
+      v13[3] = &unk_279EB1B28;
+      v14 = passwordCopy;
+      v12 = [accountsCopy safari_mapObjectsUsingBlock:v13];
+      [mEMORY[0x277D49B58] changeSavedAccountsWithRequests:v12];
     }
-
-    mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __81__WBUFormDataController__silentlyUpdateCredentialsForSavedAccounts_withPassword___block_invoke;
-    v12[3] = &unk_279EB1B28;
-    v13 = passwordCopy;
-    v10 = [accountsCopy safari_mapObjectsUsingBlock:v12];
-    [mEMORY[0x277D49B58] changeSavedAccountsWithRequests:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id __81__WBUFormDataController__silentlyUpdateCredentialsForSavedAccounts_withPassword___block_invoke(uint64_t a1, void *a2)
@@ -2549,7 +2542,7 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
 
 void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 length])
   {
@@ -2558,7 +2551,7 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
     v6 = *(a1 + 64);
     v7 = [v6 host];
     v8 = [v7 safari_highLevelDomainForPasswordManager];
-    v53 = [v5 saveUser:v3 password:v4 forProtectionSpace:v6 highLevelDomain:v8 groupID:*MEMORY[0x277D49C38]];
+    v58 = [v5 saveUser:v3 password:v4 forProtectionSpace:v6 highLevelDomain:v8 groupID:*MEMORY[0x277D49C38]];
 
     if (*(a1 + 96) == 1)
     {
@@ -2572,119 +2565,119 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
 
     [v10 setContext:*(a1 + 72)];
     [v10 setOptions:{objc_msgSend(v10, "options") | 2}];
-    *v74 = 0;
-    v75 = v74;
-    v76 = 0x3032000000;
-    v77 = __Block_byref_object_copy_;
-    v78 = __Block_byref_object_dispose_;
-    v79 = 0;
+    *v79 = 0;
+    v80 = v79;
+    v81 = 0x3032000000;
+    v82 = __Block_byref_object_copy_;
+    v83 = __Block_byref_object_dispose_;
+    v84 = 0;
     v12 = *(a1 + 56);
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_2_297;
-    v73[3] = &unk_279EB18F8;
-    v73[4] = v74;
-    [v12 getSavedAccountsMatchingCriteria:v10 withSynchronousCompletionHandler:v73];
-    if (*(v75 + 5))
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_2_297;
+    v78[3] = &unk_279EB18F8;
+    v78[4] = v79;
+    v13 = [v12 getSavedAccountsMatchingCriteria:v10 withSynchronousCompletionHandler:v78];
+    if (*(v80 + 5))
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_273D58000, v13, OS_LOG_TYPE_DEFAULT, "Updating existing saved account to new password", buf, 2u);
+        _os_log_impl(&dword_273D58000, v15, OS_LOG_TYPE_DEFAULT, "Updating existing saved account to new password", buf, 2u);
       }
 
-      v14 = objc_alloc_init(MEMORY[0x277D49B28]);
-      [v14 setSavedAccount:*(v75 + 5)];
-      [v14 setUser:v3];
-      [v14 setPassword:*(a1 + 48)];
-      [*(a1 + 56) changeSavedAccountWithRequest:v14];
+      v16 = objc_alloc_init(MEMORY[0x277D49B28]);
+      [v16 setSavedAccount:*(v80 + 5)];
+      [v16 setUser:v3];
+      [v16 setPassword:*(a1 + 48)];
+      [*(a1 + 56) changeSavedAccountWithRequest:v16];
     }
 
     [*(a1 + 32) _silentlyUpdateSavedAccountsEquivalentToUserName:v3 atURL:*(a1 + 40) inContext:*(a1 + 72) withPassword:*(a1 + 48)];
-    v51 = [objc_alloc(MEMORY[0x277CBAB80]) initWithUser:&stru_2882C1EC0 password:*(a1 + 48) persistence:3];
-    v15 = [MEMORY[0x277D49B58] sharedStore];
-    v52 = [v15 savedAccountWithAllMetadataForURLCredential:v51 protectionSpace:*(a1 + 64)];
+    v56 = [objc_alloc(MEMORY[0x277CBAB80]) initWithUser:&stru_2882C1EC0 password:*(a1 + 48) persistence:3];
+    v17 = [MEMORY[0x277D49B58] sharedStore];
+    v57 = [v17 savedAccountWithAllMetadataForURLCredential:v56 protectionSpace:*(a1 + 64)];
 
-    if (v52)
+    if (v57)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = WBS_LOG_CHANNEL_PREFIXAutoFill(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_273D58000, v16, OS_LOG_TYPE_DEFAULT, "Update existing saved account without a user name", buf, 2u);
+        _os_log_impl(&dword_273D58000, v20, OS_LOG_TYPE_DEFAULT, "Update existing saved account without a user name", buf, 2u);
       }
 
-      [*(a1 + 56) changeSavedAccount:v52 toUser:v3 password:*(a1 + 48)];
+      [*(a1 + 56) changeSavedAccount:v57 toUser:v3 password:*(a1 + 48)];
     }
 
-    else if (!*(v75 + 5))
+    else if (!*(v80 + 5))
     {
-      v21 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v27 = WBS_LOG_CHANNEL_PREFIXAutoFill(v18, v19);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [v53 user];
-        v23 = [*(a1 + 64) host];
+        v28 = [v58 user];
+        v29 = [*(a1 + 64) host];
         *buf = 138740227;
-        *&buf[4] = v22;
+        *&buf[4] = v28;
         *&buf[12] = 2117;
-        *&buf[14] = v23;
-        _os_log_impl(&dword_273D58000, v21, OS_LOG_TYPE_DEFAULT, "Setting saved account for user %{sensitive}@ as default for %{sensitive}@", buf, 0x16u);
+        *&buf[14] = v29;
+        _os_log_impl(&dword_273D58000, v27, OS_LOG_TYPE_DEFAULT, "Setting saved account for user %{sensitive}@ as default for %{sensitive}@", buf, 0x16u);
       }
 
-      v25 = *(a1 + 56);
-      v24 = *(a1 + 64);
-      v26 = *(a1 + 72);
-      v27 = [*(a1 + 32) autoFillQuirksManager];
-      v28 = [v27 associatedDomainsManager];
-      [v25 setSavedAccountAsDefault:v53 forProtectionSpace:v24 context:v26 associatedDomainsManager:v28];
+      v31 = *(a1 + 56);
+      v30 = *(a1 + 64);
+      v32 = *(a1 + 72);
+      v33 = [*(a1 + 32) autoFillQuirksManager];
+      v34 = [v33 associatedDomainsManager];
+      [v31 setSavedAccountAsDefault:v58 forProtectionSpace:v30 context:v32 associatedDomainsManager:v34];
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v83 = __Block_byref_object_copy_;
-    v84 = __Block_byref_object_dispose_;
-    v85 = 0;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x3032000000;
-    v70 = __Block_byref_object_copy_;
-    v71 = __Block_byref_object_dispose_;
+    v88 = __Block_byref_object_copy_;
+    v89 = __Block_byref_object_dispose_;
+    v90 = 0;
     v72 = 0;
-    v29 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:*(a1 + 40)];
-    [v29 setOptions:{objc_msgSend(v29, "options") | 3}];
-    v30 = *(a1 + 32);
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_298;
-    v66[3] = &unk_279EB1B50;
-    v66[4] = buf;
-    v66[5] = &v67;
-    [v30 getSavedAccountMatchesWithCriteria:v29 synchronously:1 completionHandler:v66];
-    v31 = *(*&buf[8] + 40);
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_2_299;
-    v64[3] = &unk_279EB1920;
-    v32 = v3;
-    v65 = v32;
-    v33 = [v31 safari_filterObjectsUsingBlock:v64];
-    v34 = *(*&buf[8] + 40);
-    *(*&buf[8] + 40) = v33;
+    v73 = &v72;
+    v74 = 0x3032000000;
+    v75 = __Block_byref_object_copy_;
+    v76 = __Block_byref_object_dispose_;
+    v77 = 0;
+    v35 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:*(a1 + 40)];
+    [v35 setOptions:{objc_msgSend(v35, "options") | 3}];
+    v36 = *(a1 + 32);
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_298;
+    v71[3] = &unk_279EB1B50;
+    v71[4] = buf;
+    v71[5] = &v72;
+    [v36 getSavedAccountMatchesWithCriteria:v35 synchronously:1 completionHandler:v71];
+    v37 = *(*&buf[8] + 40);
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_2_299;
+    v69[3] = &unk_279EB1920;
+    v38 = v3;
+    v70 = v38;
+    v39 = [v37 safari_filterObjectsUsingBlock:v69];
+    v40 = *(*&buf[8] + 40);
+    *(*&buf[8] + 40) = v39;
 
-    v35 = v68[5];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_3_300;
-    v62[3] = &unk_279EB1920;
-    v36 = v32;
-    v63 = v36;
-    v37 = [v35 safari_filterObjectsUsingBlock:v62];
-    v38 = v68[5];
-    v68[5] = v37;
+    v41 = v73[5];
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_3_300;
+    v67[3] = &unk_279EB1920;
+    v42 = v38;
+    v68 = v42;
+    v43 = [v41 safari_filterObjectsUsingBlock:v67];
+    v44 = v73[5];
+    v73[5] = v43;
 
-    if ([*(*&buf[8] + 40) count] || objc_msgSend(v68[5], "count"))
+    if ([*(*&buf[8] + 40) count] || objc_msgSend(v73[5], "count"))
     {
       if ([*(*&buf[8] + 40) count])
       {
@@ -2693,88 +2686,86 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
 
       else
       {
-        [v68[5] firstObject];
+        [v73[5] firstObject];
       }
-      v39 = ;
-      v40 = [v39 host];
+      v45 = ;
+      v46 = [v45 host];
 
-      v41 = *(a1 + 32);
-      v42 = [*(a1 + 40) host];
-      v43 = [v40 safari_highLevelDomainFromHost];
-      v44 = *(a1 + 80);
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_4_301;
-      v54[3] = &unk_279EB1B78;
-      v60 = buf;
-      v55 = *(a1 + 56);
-      v56 = v53;
-      v45 = *(a1 + 72);
-      v46 = *(a1 + 32);
-      v57 = v45;
-      v58 = v46;
-      v61 = &v67;
-      v59 = *(a1 + 88);
-      [v41 _promptToUpdateRelatedCredentials:v36 urlHost:v42 relatedCredentialsHighLevelDomain:v43 webView:v44 completionHandler:v54];
+      v47 = *(a1 + 32);
+      v48 = [*(a1 + 40) host];
+      v49 = [v46 safari_highLevelDomainFromHost];
+      v50 = *(a1 + 80);
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_4_301;
+      v59[3] = &unk_279EB1B78;
+      v65 = buf;
+      v60 = *(a1 + 56);
+      v61 = v58;
+      v51 = *(a1 + 72);
+      v52 = *(a1 + 32);
+      v62 = v51;
+      v63 = v52;
+      v66 = &v72;
+      v64 = *(a1 + 88);
+      [v47 _promptToUpdateRelatedCredentials:v42 urlHost:v48 relatedCredentialsHighLevelDomain:v49 webView:v50 completionHandler:v59];
     }
 
     else
     {
-      v50 = *(a1 + 88);
-      if (v50)
+      v55 = *(a1 + 88);
+      if (v55)
       {
-        (*(v50 + 16))();
+        (*(v55 + 16))();
       }
     }
 
-    _Block_object_dispose(&v67, 8);
+    _Block_object_dispose(&v72, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(v74, 8);
+    _Block_object_dispose(v79, 8);
   }
 
   else
   {
     if (*(*(a1 + 32) + 192))
     {
-      v17 = [MEMORY[0x277D49A40] sharedStore];
-      [v17 removeGeneratedPassword:*(*(a1 + 32) + 192) completionHandler:0];
+      v21 = [MEMORY[0x277D49A40] sharedStore];
+      [v21 removeGeneratedPassword:*(*(a1 + 32) + 192) completionHandler:0];
     }
 
-    v53 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:*(a1 + 40)];
+    v58 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:*(a1 + 40)];
     v10 = [objc_alloc(MEMORY[0x277CBAB80]) initWithUser:&stru_2882C1EC0 password:*(a1 + 48) persistence:3];
-    v18 = [MEMORY[0x277D49B58] sharedStore];
-    v19 = [v18 savedAccountWithAllMetadataForURLCredential:v10 protectionSpace:v53];
+    v22 = [MEMORY[0x277D49B58] sharedStore];
+    v23 = [v22 savedAccountWithAllMetadataForURLCredential:v10 protectionSpace:v58];
 
-    if (*(a1 + 96) == 1 && v19 && ([v19 hasSidecarData] & 1) == 0)
+    if (*(a1 + 96) == 1 && v23 && (v24 = [v23 hasSidecarData], (v24 & 1) == 0))
     {
-      v47 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v53 = WBS_LOG_CHANNEL_PREFIXAutoFill(v24, v25);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
       {
-        *v74 = 0;
-        _os_log_impl(&dword_273D58000, v47, OS_LOG_TYPE_INFO, "Deleting a password without a username because the user opted not to save an ASP from the username dialog", v74, 2u);
+        *v79 = 0;
+        _os_log_impl(&dword_273D58000, v53, OS_LOG_TYPE_INFO, "Deleting a password without a username because the user opted not to save an ASP from the username dialog", v79, 2u);
       }
 
-      v48 = [MEMORY[0x277D49B58] sharedStore];
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_296;
-      v80[3] = &unk_279EB15A8;
-      v81 = *(a1 + 88);
-      [v48 removeCredentialTypes:1 forSavedAccount:v19 completionHandler:v80];
+      v54 = [MEMORY[0x277D49B58] sharedStore];
+      v85[0] = MEMORY[0x277D85DD0];
+      v85[1] = 3221225472;
+      v85[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_296;
+      v85[3] = &unk_279EB15A8;
+      v86 = *(a1 + 88);
+      [v54 removeCredentialTypes:1 forSavedAccount:v23 completionHandler:v85];
     }
 
     else
     {
-      v20 = *(a1 + 88);
-      if (v20)
+      v26 = *(a1 + 88);
+      if (v26)
       {
-        (*(v20 + 16))();
+        (*(v26 + 16))();
       }
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_296(uint64_t a1)
@@ -2831,32 +2822,32 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
 
 uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_4_301(uint64_t a1, int a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = *(*(*(a1 + 72) + 8) + 40);
-    v3 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v32;
+      v5 = *v31;
       do
       {
         v6 = 0;
         do
         {
-          if (*v32 != v5)
+          if (*v31 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
           v7 = *(a1 + 32);
           v8 = *(a1 + 40);
-          v9 = [*(*(&v31 + 1) + 8 * v6) protectionSpace];
+          v9 = [*(*(&v30 + 1) + 8 * v6) protectionSpace];
           v10 = *(a1 + 48);
           v11 = [*(a1 + 56) autoFillQuirksManager];
           v12 = [v11 associatedDomainsManager];
@@ -2866,35 +2857,35 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
         }
 
         while (v4 != v6);
-        v4 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v4);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obja = *(*(*(a1 + 80) + 8) + 40);
-    v13 = [obja countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v13 = [obja countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v28;
+      v15 = *v27;
       do
       {
         v16 = 0;
         do
         {
-          if (*v28 != v15)
+          if (*v27 != v15)
           {
             objc_enumerationMutation(obja);
           }
 
           v17 = *(a1 + 32);
           v18 = *(a1 + 40);
-          v19 = [*(*(&v27 + 1) + 8 * v16) protectionSpace];
+          v19 = [*(*(&v26 + 1) + 8 * v16) protectionSpace];
           v20 = *(a1 + 48);
           v21 = [*(a1 + 56) autoFillQuirksManager];
           v22 = [v21 associatedDomainsManager];
@@ -2904,7 +2895,7 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
         }
 
         while (v14 != v16);
-        v14 = [obja countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v14 = [obja countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v14);
@@ -2914,10 +2905,9 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2951,21 +2941,21 @@ BOOL __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
   return v3 == 0;
 }
 
-void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2)
+void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_6(uint64_t a1, unint64_t a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (a2 > 1)
   {
     v5 = 0;
-    v35 = 0;
+    v34 = 0;
   }
 
   else
   {
     v4 = *(a1 + 96);
-    v44 = 0;
+    v43 = 0;
     v5 = (*(v4 + 16))();
-    v35 = 0;
+    v34 = 0;
   }
 
   if (a2 <= 1)
@@ -2977,41 +2967,41 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
         goto LABEL_30;
       }
 
-      v34 = v5;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v33 = v5;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v6 = *(a1 + 32);
-      v7 = [v6 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v39 objects:v45 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v41;
+        v9 = *v40;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v41 != v9)
+            if (*v40 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
             v11 = *(a1 + 40);
-            v12 = [*(*(&v40 + 1) + 8 * i) protectionSpace];
+            v12 = [*(*(&v39 + 1) + 8 * i) protectionSpace];
             v13 = *(a1 + 48);
             v14 = [*(a1 + 56) autoFillQuirksManager];
             v15 = [v14 associatedDomainsManager];
-            [v11 setSavedAccountAsDefault:v35 forProtectionSpace:v12 context:v13 associatedDomainsManager:v15];
+            [v11 setSavedAccountAsDefault:v34 forProtectionSpace:v12 context:v13 associatedDomainsManager:v15];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v40 objects:v46 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v39 objects:v45 count:16];
         }
 
         while (v8);
       }
 
-      v5 = v34;
+      v5 = v33;
     }
 
     v16 = *(a1 + 40);
@@ -3019,44 +3009,44 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
     v18 = *(a1 + 64);
     v19 = [*(a1 + 56) autoFillQuirksManager];
     v20 = [v19 associatedDomainsManager];
-    [v16 setSavedAccountAsDefault:v35 forProtectionSpace:v18 context:v17 associatedDomainsManager:v20];
+    [v16 setSavedAccountAsDefault:v34 forProtectionSpace:v18 context:v17 associatedDomainsManager:v20];
 
     if (!(v5 & 1 | ((*(a1 + 112) & 1) == 0)))
     {
       v21 = objc_alloc_init(MEMORY[0x277D49B28]);
-      [v21 setSavedAccount:v35];
+      [v21 setSavedAccount:v34];
       [v21 setPassword:*(a1 + 72)];
       [*(a1 + 40) changeSavedAccountWithRequest:v21];
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v22 = *(a1 + 80);
-    v23 = [v22 countByEnumeratingWithState:&v36 objects:v45 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v35 objects:v44 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v37;
+      v25 = *v36;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v37 != v25)
+          if (*v36 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
           v27 = *(a1 + 40);
-          v28 = [*(*(&v36 + 1) + 8 * j) protectionSpace];
+          v28 = [*(*(&v35 + 1) + 8 * j) protectionSpace];
           v29 = *(a1 + 48);
           v30 = [*(a1 + 56) autoFillQuirksManager];
           v31 = [v30 associatedDomainsManager];
-          [v27 setSavedAccountAsDefault:v35 forProtectionSpace:v28 context:v29 associatedDomainsManager:v31];
+          [v27 setSavedAccountAsDefault:v34 forProtectionSpace:v28 context:v29 associatedDomainsManager:v31];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v35 objects:v44 count:16];
       }
 
       while (v24);
@@ -3086,52 +3076,50 @@ LABEL_30:
   {
     (*(v32 + 16))();
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_7(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = dispatch_group_create();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v19 = v3;
+  v18 = v3;
   obj = [v3 exactMatches];
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v27 + 1) + 8 * v8);
         dispatch_group_enter(v4);
         v10 = *(a1 + 32);
         v11 = [v9 savedAccount];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_8;
-        v26[3] = &unk_279EB12E0;
-        v27 = v4;
-        [v10 removeCredentialTypes:3 forSavedAccount:v11 completionHandler:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_8;
+        v25[3] = &unk_279EB12E0;
+        v26 = v4;
+        [v10 removeCredentialTypes:3 forSavedAccount:v11 completionHandler:v25];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
@@ -3143,19 +3131,17 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
   block[3] = &unk_279EB1C40;
   v12 = *(a1 + 64);
   v13 = *(a1 + 72);
-  v24 = v12;
-  v25 = v13;
+  v23 = v12;
+  v24 = v13;
   v14 = *(a1 + 32);
   v15 = *(a1 + 40);
   *&v16 = *(a1 + 48);
   *(&v16 + 1) = *(a1 + 56);
   *&v17 = v14;
   *(&v17 + 1) = v15;
-  v22 = v17;
-  v23 = v16;
+  v21 = v17;
+  v22 = v16;
   dispatch_group_notify(v4, MEMORY[0x277D85CD0], block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_9(uint64_t a1)
@@ -3176,7 +3162,7 @@ void __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_
 
 uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_forURL_inContext_formType_promptingPolicy_webView_completionHandler___block_invoke_10(uint64_t a1, int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(a1 + 64);
@@ -3184,29 +3170,29 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
     obj = *(v4 + 40);
     (*(v3 + 16))();
     objc_storeStrong((v4 + 40), obj);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v17 = *(a1 + 32);
-    v5 = [v17 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v16 = *(a1 + 32);
+    v5 = [v16 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         v8 = 0;
         do
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v16);
           }
 
           v9 = *(a1 + 40);
           v10 = *(*(*(a1 + 80) + 8) + 40);
-          v11 = [*(*(&v18 + 1) + 8 * v8) protectionSpace];
+          v11 = [*(*(&v17 + 1) + 8 * v8) protectionSpace];
           v12 = *(a1 + 48);
           v13 = [*(a1 + 56) autoFillQuirksManager];
           v14 = [v13 associatedDomainsManager];
@@ -3216,7 +3202,7 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
         }
 
         while (v6 != v8);
-        v6 = [v17 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v6 = [v16 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v6);
@@ -3226,16 +3212,15 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
   result = *(a1 + 72);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_promptToUpdateRelatedCredentials:(id)credentials urlHost:(id)host relatedCredentialsHighLevelDomain:(id)domain webView:(id)view completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   domainCopy = domain;
   handlerCopy = handler;
@@ -3252,17 +3237,15 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
 
   v21 = _WBSLocalizedString();
   v22 = _WBSLocalizedString();
-  v29[0] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __127__WBUFormDataController__promptToUpdateRelatedCredentials_urlHost_relatedCredentialsHighLevelDomain_webView_completionHandler___block_invoke;
-  v27[3] = &unk_279EB19C0;
-  v28 = handlerCopy;
+  v28[0] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __127__WBUFormDataController__promptToUpdateRelatedCredentials_urlHost_relatedCredentialsHighLevelDomain_webView_completionHandler___block_invoke;
+  v26[3] = &unk_279EB19C0;
+  v27 = handlerCopy;
   v24 = handlerCopy;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:domainCopy message:hostCopy cancelButtonTitle:v21 otherButtonTitles:v23 makeFirstButtonSuggestedAction:1 completionHandler:v27];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:domainCopy message:hostCopy cancelButtonTitle:v21 otherButtonTitles:v23 makeFirstButtonSuggestedAction:1 completionHandler:v26];
 }
 
 - (void)didFillFieldWithGeneratedPassword:(id)password inFrame:(id)frame webView:(id)view
@@ -3280,6 +3263,56 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
   [viewCopy webui_setLastGeneratedPasswordForCurrentBackForwardItem:passwordCopy];
 }
 
+- (BOOL)_webView:(id)view saveUsernameAndPasswordFromForm:(id)form inFrame:(id)frame context:(id)context confirmOverwritingCurrentPassword:(BOOL)password shouldPreferAnnotatedCredentials:(BOOL)credentials submissionHandler:(id)handler
+{
+  credentialsCopy = credentials;
+  viewCopy = view;
+  formCopy = form;
+  frameCopy = frame;
+  contextCopy = context;
+  handlerCopy = handler;
+  webui_URL = [frameCopy webui_URL];
+  if ([(WBUFormDataController *)self _shouldSaveUsernamesAndPasswordsForURL:webui_URL inWebView:viewCopy])
+  {
+    passwordCopy = password;
+    v28 = 0;
+    v29 = 0;
+    [(WBUFormDataController *)self willSubmitFormWithCredentials:formCopy shouldPreferAnnotatedCredentials:credentialsCopy atURL:webui_URL username:&v29 password:&v28 inContext:contextCopy];
+    v21 = v29;
+    v22 = v28;
+    if (!v21)
+    {
+      v21 = &stru_2882C1EC0;
+    }
+
+    if (credentialsCopy)
+    {
+      type = 4;
+    }
+
+    else if (formCopy)
+    {
+      type = [formCopy type];
+    }
+
+    else
+    {
+      type = 0;
+    }
+
+    BYTE1(v26) = passwordCopy;
+    LOBYTE(v26) = [formCopy usesGeneratedPassword];
+    v24 = [(WBUFormDataController *)self _webView:viewCopy saveUsernameAndPasswordForURL:webui_URL formType:type inFrame:frameCopy username:v21 password:v22 isGeneratedPassword:v26 confirmOverwritingCurrentPassword:contextCopy inContext:handlerCopy submissionHandler:?];
+  }
+
+  else
+  {
+    v24 = 1;
+  }
+
+  return v24;
+}
+
 - (BOOL)_webView:(id)view formSubmission:(BOOL)submission willSubmitNewAccountOrChangePasswordFormWithMetadata:(id)metadata shouldPreferAnnotatedCredentials:(BOOL)credentials fromFrame:(id)frame inContext:(id)context submissionHandler:(id)handler
 {
   credentialsCopy = credentials;
@@ -3292,28 +3325,8 @@ uint64_t __132__WBUFormDataController__saveUser_password_isGeneratedPassword_for
   v19 = +[WBUCreditCardDataController sharedCreditCardDataController];
   v20 = [v19 savableCreditCardDataInForm:metadataCopy];
 
-  if (!v20)
+  if (!v20 || (v25[0] = MEMORY[0x277D85DD0], v25[1] = 3221225472, v25[2] = __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccountOrChangePasswordFormWithMetadata_shouldPreferAnnotatedCredentials_fromFrame_inContext_submissionHandler___block_invoke, v25[3] = &unk_279EB1CB8, v25[4] = self, v26 = viewCopy, v27 = metadataCopy, v28 = frameCopy, v29 = contextCopy, v31 = submissionCopy, v32 = credentialsCopy, v30 = handlerCopy, v21 = [(WBUFormDataController *)self _webView:v26 willSubmitFormContainingCreditCardData:v20 fromFrame:v28 submissionHandler:v25], v30, v29, v28, v27, v26, v21))
   {
-    goto LABEL_10;
-  }
-
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccountOrChangePasswordFormWithMetadata_shouldPreferAnnotatedCredentials_fromFrame_inContext_submissionHandler___block_invoke;
-  v25[3] = &unk_279EB1CB8;
-  v25[4] = self;
-  v26 = viewCopy;
-  v27 = metadataCopy;
-  v28 = frameCopy;
-  v29 = contextCopy;
-  v31 = submissionCopy;
-  v32 = credentialsCopy;
-  v30 = handlerCopy;
-  v21 = [(WBUFormDataController *)self _webView:v26 willSubmitFormContainingCreditCardData:v20 fromFrame:v28 submissionHandler:v25];
-
-  if (v21)
-  {
-LABEL_10:
     if ([metadataCopy usesGeneratedPassword] && objc_msgSend(MEMORY[0x277D49A08], "isPasswordsAppInstalled"))
     {
       mEMORY[0x277D49AE0] = [MEMORY[0x277D49AE0] sharedNotificationManager];
@@ -3326,7 +3339,7 @@ LABEL_10:
   return v21;
 }
 
-uint64_t __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccountOrChangePasswordFormWithMetadata_shouldPreferAnnotatedCredentials_fromFrame_inContext_submissionHandler___block_invoke(uint64_t a1)
+void *__173__WBUFormDataController__webView_formSubmission_willSubmitNewAccountOrChangePasswordFormWithMetadata_shouldPreferAnnotatedCredentials_fromFrame_inContext_submissionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _webView:*(a1 + 40) saveUsernameAndPasswordFromForm:*(a1 + 48) inFrame:*(a1 + 56) context:*(a1 + 64) confirmOverwritingCurrentPassword:(*(a1 + 80) & 1) == 0 shouldPreferAnnotatedCredentials:*(a1 + 81) submissionHandler:*(a1 + 72)];
   if (result)
@@ -3372,7 +3385,7 @@ uint64_t __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccou
 - (void)_showPasswordPromptForWebView:(id)view formType:(unint64_t)type username:(id)username host:(id)host hasCredentialForCurrentHost:(BOOL)currentHost existingCredentialMatchesForCurrentHost:(id)forCurrentHost otherSubdomainCredentialMatches:(id)matches haveExistingCredentialWithSameUsernameAndDifferentPassword:(BOOL)self0 completionHandler:(id)self1
 {
   currentHostCopy = currentHost;
-  v65[2] = *MEMORY[0x277D85DE8];
+  v64[2] = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   hostCopy = host;
   forCurrentHostCopy = forCurrentHost;
@@ -3381,8 +3394,8 @@ uint64_t __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccou
   viewCopy = view;
   safari_highLevelDomainFromHost = [hostCopy safari_highLevelDomainFromHost];
   array = [MEMORY[0x277CBEB18] array];
-  v59 = usernameCopy;
-  v60 = matchesCopy;
+  v58 = usernameCopy;
+  v59 = matchesCopy;
   if (currentHostCopy)
   {
     if (type == 5)
@@ -3393,7 +3406,7 @@ uint64_t __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccou
       v25 = _WBSLocalizedString();
       v26 = [v22 localizedStringWithFormat:v25, v23, v24];
 
-      if ([v60 count])
+      if ([v59 count])
       {
         if (password)
         {
@@ -3503,24 +3516,22 @@ uint64_t __173__WBUFormDataController__webView_formSubmission_willSubmitNewAccou
     }
 
     v40 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-    v65[0] = v40;
-    v65[1] = &unk_2882C4620;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+    v64[0] = v40;
+    v64[1] = &unk_2882C4620;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
   }
 
   v53 = _WBSLocalizedString();
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __255__WBUFormDataController__showPasswordPromptForWebView_formType_username_host_hasCredentialForCurrentHost_existingCredentialMatchesForCurrentHost_otherSubdomainCredentialMatches_haveExistingCredentialWithSameUsernameAndDifferentPassword_completionHandler___block_invoke;
-  v62[3] = &unk_279EB1CE0;
-  v63 = v41;
-  v64 = handlerCopy;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __255__WBUFormDataController__showPasswordPromptForWebView_formType_username_host_hasCredentialForCurrentHost_existingCredentialMatchesForCurrentHost_otherSubdomainCredentialMatches_haveExistingCredentialWithSameUsernameAndDifferentPassword_completionHandler___block_invoke;
+  v61[3] = &unk_279EB1CE0;
+  v62 = v41;
+  v63 = handlerCopy;
   v54 = v41;
   v55 = handlerCopy;
-  LOBYTE(v57) = 1;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v26 message:v29 cancelButtonTitle:v53 otherButtonTitles:array cancelWhenAppEntersBackground:0 makeFirstButtonSuggestedAction:v57 headerViewController:0 completionHandler:v62];
-
-  v56 = *MEMORY[0x277D85DE8];
+  LOBYTE(v56) = 1;
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:viewCopy title:v26 message:v29 cancelButtonTitle:v53 otherButtonTitles:array cancelWhenAppEntersBackground:0 makeFirstButtonSuggestedAction:v56 headerViewController:0 completionHandler:v61];
 }
 
 void __255__WBUFormDataController__showPasswordPromptForWebView_formType_username_host_hasCredentialForCurrentHost_existingCredentialMatchesForCurrentHost_otherSubdomainCredentialMatches_haveExistingCredentialWithSameUsernameAndDifferentPassword_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -3669,29 +3680,29 @@ void __255__WBUFormDataController__showPasswordPromptForWebView_formType_usernam
 
 void __207__WBUFormDataController__relatedCredentialMatchesToUpdateForUser_protectionSpace_oldSavedAccount_matchesForCurrentHost_matchesForAssociatedDomains_haveExistingCredentialWithSameUsernameAndDifferentPassword___block_invoke(void *a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1[5] + 8) + 40), a2);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v5 = [v4 exactMatches];
-  v6 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
+    v8 = *v35;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * i);
+        v10 = *(*(&v34 + 1) + 8 * i);
         v11 = [v10 user];
         v12 = [v11 isEqualToString:a1[4]];
 
@@ -3711,7 +3722,7 @@ void __207__WBUFormDataController__relatedCredentialMatchesToUpdateForUser_prote
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v7)
       {
         continue;
@@ -3725,26 +3736,26 @@ LABEL_11:
 
   if (!*(*(a1[7] + 8) + 40))
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v19 = [v4 potentialMatches];
-    v20 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v32;
+      v22 = *v31;
       while (2)
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v32 != v22)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * j);
+          v24 = *(*(&v30 + 1) + 8 * j);
           v25 = [v24 user];
           v26 = [v25 isEqualToString:a1[4]];
 
@@ -3759,7 +3770,7 @@ LABEL_11:
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v21)
         {
           continue;
@@ -3771,8 +3782,6 @@ LABEL_11:
 
 LABEL_22:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __207__WBUFormDataController__relatedCredentialMatchesToUpdateForUser_protectionSpace_oldSavedAccount_matchesForCurrentHost_matchesForAssociatedDomains_haveExistingCredentialWithSameUsernameAndDifferentPassword___block_invoke_2(void *a1, void *a2)
@@ -3831,7 +3840,7 @@ LABEL_13:
 
 - (BOOL)_webView:(id)view saveCredentialsForURL:(id)l formSubmission:(BOOL)submission formWithMetadata:(id)metadata fromFrame:(id)frame username:(id)username password:(id)password inContext:(id)self0 submissionHandler:(id)self1
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   lCopy = l;
   metadataCopy = metadata;
@@ -3840,167 +3849,171 @@ LABEL_13:
   passwordCopy = password;
   contextCopy = context;
   handlerCopy = handler;
-  v58 = viewCopy;
+  v59 = viewCopy;
   selfCopy = self;
-  v60 = passwordCopy;
+  v61 = passwordCopy;
   if (-[WBUFormDataController _shouldSaveUsernamesAndPasswordsForURL:inWebView:](self, "_shouldSaveUsernamesAndPasswordsForURL:inWebView:", lCopy, viewCopy) && ([passwordCopy safari_looksLikeObscuredPassword] & 1) == 0)
   {
-    if (WBSCurrentPasswordSavingBehavior() == 1 && ([metadataCopy usesGeneratedPassword] & 1) == 0)
+    if (WBSCurrentPasswordSavingBehavior() == 1)
     {
-      v22 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      usesGeneratedPassword = [metadataCopy usesGeneratedPassword];
+      if ((usesGeneratedPassword & 1) == 0)
       {
-        *buf = 0;
-        _os_log_impl(&dword_273D58000, v22, OS_LOG_TYPE_DEFAULT, "Will not attempt to save credentials because user opted out of saving credentials when signing in", buf, 2u);
-      }
+        v23 = WBS_LOG_CHANNEL_PREFIXAutoFill(usesGeneratedPassword, v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_273D58000, v23, OS_LOG_TYPE_DEFAULT, "Will not attempt to save credentials because user opted out of saving credentials when signing in", buf, 2u);
+        }
 
-      goto LABEL_3;
+        goto LABEL_3;
+      }
     }
 
-    v53 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:lCopy];
-    v91 = 0;
-    v92 = &v91;
-    v93 = 0x2020000000;
-    v94 = 0;
+    v54 = [MEMORY[0x277CBAB90] safari_HTMLFormProtectionSpaceForURL:lCopy];
+    v92 = 0;
+    v93 = &v92;
+    v94 = 0x2020000000;
+    v95 = 0;
     mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
-    v21 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:lCopy];
-    [v21 setOptions:{objc_msgSend(v21, "options") | 4}];
-    v90[0] = MEMORY[0x277D85DD0];
-    v90[1] = 3221225472;
-    v90[2] = __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke;
-    v90[3] = &unk_279EB18F8;
-    v90[4] = &v91;
-    [mEMORY[0x277D49B58] getSavedAccountsMatchingCriteria:v21 withSynchronousCompletionHandler:v90];
-    v52 = v21;
-    if ((v92[3] & 1) != 0 || [(WBUFormDataController *)self hasAssociatedDomainSavedForURL:lCopy userName:usernameCopy])
+    v22 = [MEMORY[0x277D49B40] criteriaForExactFQDNPasswordMatchesOfURL:lCopy];
+    [v22 setOptions:{objc_msgSend(v22, "options") | 4}];
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke;
+    v91[3] = &unk_279EB18F8;
+    v91[4] = &v92;
+    [mEMORY[0x277D49B58] getSavedAccountsMatchingCriteria:v22 withSynchronousCompletionHandler:v91];
+    v53 = v22;
+    if ((v93[3] & 1) != 0 || [(WBUFormDataController *)self hasAssociatedDomainSavedForURL:lCopy userName:usernameCopy])
     {
       submission = 1;
 LABEL_39:
 
-      _Block_object_dispose(&v91, 8);
+      _Block_object_dispose(&v92, 8);
       goto LABEL_4;
     }
 
+    v90 = 0;
+    v88 = 0;
     v89 = 0;
     v87 = 0;
-    v88 = 0;
-    v86 = 0;
-    v48 = [(WBUFormDataController *)self _relatedCredentialMatchesToUpdateForUser:usernameCopy protectionSpace:v53 oldSavedAccount:&v88 matchesForCurrentHost:&v87 matchesForAssociatedDomains:&v86 haveExistingCredentialWithSameUsernameAndDifferentPassword:&v89];
-    v23 = v88;
+    v49 = [(WBUFormDataController *)self _relatedCredentialMatchesToUpdateForUser:usernameCopy protectionSpace:v54 oldSavedAccount:&v89 matchesForCurrentHost:&v88 matchesForAssociatedDomains:&v87 haveExistingCredentialWithSameUsernameAndDifferentPassword:&v90];
+    v24 = v89;
+    v48 = v88;
     v47 = v87;
-    v46 = v86;
-    v51 = v23;
-    password = [v23 password];
-    if (![v48 count] && !objc_msgSend(v46, "count") && objc_msgSend(off_279EB0F38, "password:shouldBeConsideredEqualToExistingPassword:", passwordCopy, password))
+    v52 = v24;
+    password = [v24 password];
+    if (![v49 count] && !objc_msgSend(v47, "count") && objc_msgSend(off_279EB0F38, "password:shouldBeConsideredEqualToExistingPassword:", passwordCopy, password))
     {
-      v24 = dispatch_get_global_queue(21, 0);
+      v25 = dispatch_get_global_queue(21, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_2;
       block[3] = &unk_279EB1D58;
-      v25 = v23;
-      v79 = v25;
-      v26 = v53;
+      v26 = v24;
       v80 = v26;
-      v81 = mEMORY[0x277D49B58];
-      v82 = contextCopy;
+      v27 = v54;
+      v81 = v27;
+      v82 = mEMORY[0x277D49B58];
+      v83 = contextCopy;
       selfCopy2 = self;
-      v84 = usernameCopy;
-      v85 = v60;
-      dispatch_async(v24, block);
+      v85 = usernameCopy;
+      v86 = v61;
+      dispatch_async(v25, block);
 
-      [(WBUFormDataController *)self _warnAboutWeakPasswordIfNecessaryWithWebView:viewCopy savedAccount:v25 protectionSpace:v26];
+      [(WBUFormDataController *)self _warnAboutWeakPasswordIfNecessaryWithWebView:viewCopy savedAccount:v26 protectionSpace:v27];
       submission = 1;
 LABEL_38:
 
       goto LABEL_39;
     }
 
-    v77 = 0;
-    v50 = metadataCopy;
-    userNameElementUniqueID = [v50 userNameElementUniqueID];
-    passwordElementUniqueID = [v50 passwordElementUniqueID];
+    v78 = 0;
+    v51 = metadataCopy;
+    userNameElementUniqueID = [v51 userNameElementUniqueID];
+    passwordElementUniqueID = [v51 passwordElementUniqueID];
     if (![userNameElementUniqueID length] && !objc_msgSend(passwordElementUniqueID, "length"))
     {
 LABEL_31:
 
-      if ([password isEqualToString:v60])
+      if ([password isEqualToString:v61])
       {
-        host = [v53 host];
+        host = [v54 host];
         safari_highLevelDomainForPasswordManager = [host safari_highLevelDomainForPasswordManager];
-        sharedGroupID = [v51 sharedGroupID];
-        v39 = [mEMORY[0x277D49B58] saveUser:usernameCopy password:v60 forProtectionSpace:v53 highLevelDomain:safari_highLevelDomainForPasswordManager groupID:sharedGroupID];
+        sharedGroupID = [v52 sharedGroupID];
+        v40 = [mEMORY[0x277D49B58] saveUser:usernameCopy password:v61 forProtectionSpace:v54 highLevelDomain:safari_highLevelDomainForPasswordManager groupID:sharedGroupID];
 
         autoFillQuirksManager = [(WBUFormDataController *)selfCopy autoFillQuirksManager];
         associatedDomainsManager = [autoFillQuirksManager associatedDomainsManager];
-        [mEMORY[0x277D49B58] setSavedAccountAsDefault:v39 forProtectionSpace:v53 context:contextCopy associatedDomainsManager:associatedDomainsManager];
+        [mEMORY[0x277D49B58] setSavedAccountAsDefault:v40 forProtectionSpace:v54 context:contextCopy associatedDomainsManager:associatedDomainsManager];
 
-        [(WBUFormDataController *)selfCopy _warnAboutWeakPasswordIfNecessaryWithWebView:v58 savedAccount:v51 protectionSpace:v53];
+        [(WBUFormDataController *)selfCopy _warnAboutWeakPasswordIfNecessaryWithWebView:v59 savedAccount:v52 protectionSpace:v54];
         submission = 1;
       }
 
       else
       {
-        if (v51)
+        if (v52)
         {
-          v42 = 1;
+          v43 = 1;
         }
 
         else
         {
-          v42 = HIBYTE(v77) & (v77 ^ 1);
+          v43 = HIBYTE(v78) & (v78 ^ 1);
         }
 
         host2 = [lCopy host];
-        v44 = v89;
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_4;
-        v64[3] = &unk_279EB1DF8;
-        v65 = usernameCopy;
-        v66 = v60;
-        v67 = v53;
-        v68 = v51;
-        v69 = contextCopy;
-        v70 = selfCopy;
-        v71 = v48;
-        v72 = lCopy;
-        v73 = password;
-        v74 = v58;
+        v45 = v90;
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_4;
+        v65[3] = &unk_279EB1DF8;
+        v66 = usernameCopy;
+        v67 = v61;
+        v68 = v54;
+        v69 = v52;
+        v70 = contextCopy;
+        v71 = selfCopy;
+        v72 = v49;
+        v73 = lCopy;
+        v74 = password;
+        v75 = v59;
         submissionCopy = submission;
-        v75 = handlerCopy;
-        LOBYTE(v45) = v44;
-        [(WBUFormDataController *)selfCopy _showPasswordPromptForWebView:v74 formType:3 username:v65 host:host2 hasCredentialForCurrentHost:v42 & 1 existingCredentialMatchesForCurrentHost:v47 otherSubdomainCredentialMatches:v71 haveExistingCredentialWithSameUsernameAndDifferentPassword:v45 completionHandler:v64];
+        v76 = handlerCopy;
+        LOBYTE(v46) = v45;
+        [(WBUFormDataController *)selfCopy _showPasswordPromptForWebView:v75 formType:3 username:v66 host:host2 hasCredentialForCurrentHost:v43 & 1 existingCredentialMatchesForCurrentHost:v48 otherSubdomainCredentialMatches:v72 haveExistingCredentialWithSameUsernameAndDifferentPassword:v46 completionHandler:v65];
 
-        v39 = v65;
+        v40 = v66;
       }
 
       goto LABEL_38;
     }
 
-    v97 = 0u;
     v98 = 0u;
-    v95 = 0u;
+    v99 = 0u;
     v96 = 0u;
-    controls = [v50 controls];
-    v30 = [controls countByEnumeratingWithState:&v95 objects:buf count:16];
-    if (!v30)
+    v97 = 0u;
+    controls = [v51 controls];
+    v31 = [controls countByEnumeratingWithState:&v96 objects:buf count:16];
+    if (!v31)
     {
       goto LABEL_30;
     }
 
-    v31 = *v96;
+    v32 = *v97;
 LABEL_20:
-    v32 = 0;
+    v33 = 0;
     while (1)
     {
-      if (*v96 != v31)
+      if (*v97 != v32)
       {
         objc_enumerationMutation(controls);
       }
 
-      v33 = *(*(&v95 + 1) + 8 * v32);
-      uniqueID = [v33 uniqueID];
+      v34 = *(*(&v96 + 1) + 8 * v33);
+      uniqueID = [v34 uniqueID];
       if ([uniqueID isEqualToString:userNameElementUniqueID])
       {
         break;
@@ -4008,16 +4021,16 @@ LABEL_20:
 
       if ([uniqueID isEqualToString:passwordElementUniqueID])
       {
-        v35 = &v77;
+        v36 = &v78;
         goto LABEL_27;
       }
 
 LABEL_28:
 
-      if (v30 == ++v32)
+      if (v31 == ++v33)
       {
-        v30 = [controls countByEnumeratingWithState:&v95 objects:buf count:16];
-        if (!v30)
+        v31 = [controls countByEnumeratingWithState:&v96 objects:buf count:16];
+        if (!v31)
         {
 LABEL_30:
 
@@ -4028,9 +4041,9 @@ LABEL_30:
       }
     }
 
-    v35 = (&v77 + 1);
+    v36 = (&v78 + 1);
 LABEL_27:
-    *v35 = [v33 isAutoFilledTextField];
+    *v36 = [v34 isAutoFilledTextField];
     goto LABEL_28;
   }
 
@@ -4038,33 +4051,32 @@ LABEL_3:
   submission = 1;
 LABEL_4:
 
-  v19 = *MEMORY[0x277D85DE8];
   return submission;
 }
 
 void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = [a2 exactMatches];
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v13 + 1) + 8 * i) savedAccount];
+        v8 = [*(*(&v12 + 1) + 8 * i) savedAccount];
         v9 = [v8 user];
         v10 = +[WBUFormDataController dontSaveMarker];
         v11 = [v9 isEqualToString:v10];
@@ -4076,7 +4088,7 @@ void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -4087,8 +4099,6 @@ void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_2(uint64_t a1)
@@ -4241,7 +4251,7 @@ LABEL_18:
 
 void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_5(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -4250,29 +4260,29 @@ void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_
   v7 = [v6 associatedDomainsManager];
   [v2 setSavedAccountAsDefault:v3 forProtectionSpace:v4 context:v5 associatedDomainsManager:v7];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = *(a1 + 72);
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
         v12 = *(a1 + 32);
         v13 = *(a1 + 40);
-        v14 = [*(*(&v20 + 1) + 8 * v11) protectionSpace];
+        v14 = [*(*(&v19 + 1) + 8 * v11) protectionSpace];
         v15 = *(a1 + 56);
         v16 = [*(a1 + 64) autoFillQuirksManager];
         v17 = [v16 associatedDomainsManager];
@@ -4282,13 +4292,11 @@ void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_formWithMetadata_fromFrame_username_password_inContext_submissionHandler___block_invoke_6(uint64_t a1, uint64_t a2)
@@ -4341,26 +4349,24 @@ void __144__WBUFormDataController__webView_saveCredentialsForURL_formSubmission_
 
 void __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v10[0] = *(a1 + 56);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView___block_invoke_2;
-  v8[3] = &unk_279EB1E20;
-  v9 = *(a1 + 64);
-  LOBYTE(v7) = 1;
-  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:v2 title:v3 message:0 cancelButtonTitle:v4 otherButtonTitles:v5 cancelWhenAppEntersBackground:0 makeFirstButtonSuggestedAction:v7 headerViewController:0 completionHandler:v8];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v9[0] = *(a1 + 56);
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView___block_invoke_2;
+  v7[3] = &unk_279EB1E20;
+  v8 = *(a1 + 64);
+  LOBYTE(v6) = 1;
+  [WBUFormAutoFillPrompt showAutoFillPromptInWebView:v2 title:v3 message:0 cancelButtonTitle:v4 otherButtonTitles:v5 cancelWhenAppEntersBackground:0 makeFirstButtonSuggestedAction:v6 headerViewController:0 completionHandler:v7];
 }
 
 void __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (a2 != -1)
   {
     v2 = [*(a1 + 32) stableIDString];
@@ -4369,15 +4375,13 @@ void __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView_
     {
       v4 = *MEMORY[0x277D76620];
       v5 = MEMORY[0x277D49A98];
-      v9 = *MEMORY[0x277D49CA0];
-      v10[0] = v2;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = *MEMORY[0x277D49CA0];
+      v9[0] = v2;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       v7 = [v5 passwordManagerURLWithDictionary:v6];
       [v4 openURL:v7 options:MEMORY[0x277CBEC10] completionHandler:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_warnAboutWeakPasswordIfNecessaryWithWebView:(id)view savedAccount:(id)account protectionSpace:(id)space
@@ -4417,37 +4421,37 @@ void __72__WBUFormDataController_showPasswordSavedPromptForSavedAccount_webView_
 void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
-    v5 = [v3 persistentIdentifiersForWarningManager];
-    v6 = [v5 firstObject];
+    v6 = [v3 persistentIdentifiersForWarningManager];
+    v7 = [v6 firstObject];
 
-    if (v6)
+    if (v7)
     {
-      v7 = [a1[4] autoFillQuirksManager];
-      v8 = [MEMORY[0x277D49AD0] sharedStore];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_380;
-      v12[3] = &unk_279EB1EC0;
-      v13 = a1[5];
-      v9 = v7;
-      v14 = v9;
-      v15 = v4;
-      objc_copyWeak(&v19, a1 + 7);
-      v16 = a1[4];
-      v17 = a1[6];
-      v18 = v6;
-      [v8 getContainsPersistentIdentifier:v18 completionHandler:v12];
+      v10 = [a1[4] autoFillQuirksManager];
+      v11 = [MEMORY[0x277D49AD0] sharedStore];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_380;
+      v15[3] = &unk_279EB1EC0;
+      v16 = a1[5];
+      v12 = v10;
+      v17 = v12;
+      v18 = v5;
+      objc_copyWeak(&v22, a1 + 7);
+      v19 = a1[4];
+      v20 = a1[6];
+      v21 = v7;
+      [v11 getContainsPersistentIdentifier:v21 completionHandler:v15];
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v22);
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_cold_1();
       }
@@ -4456,8 +4460,8 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_cold_2();
     }
@@ -4518,12 +4522,12 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
   WeakRetained = objc_loadWeakRetained(a1 + 9);
   if (WeakRetained)
   {
-    v3 = [a1[4] _titleTextForWarning:a1[5]];
-    v4 = [a1[5] localizedInformationTextForWarningWhenLoggingIn];
-    v5 = _WBSLocalizedString();
+    v4 = [a1[4] _titleTextForWarning:a1[5]];
+    v5 = [a1[5] localizedInformationTextForWarningWhenLoggingIn];
     v6 = _WBSLocalizedString();
-    v16[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v7 = _WBSLocalizedString();
+    v16[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
     v11[2] = __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_392;
@@ -4532,25 +4536,23 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
     v13 = a1[7];
     v14 = a1[8];
     LOBYTE(v10) = 1;
-    [WBUFormAutoFillPrompt showAutoFillPromptInWebView:WeakRetained title:v3 message:v4 cancelButtonTitle:v5 otherButtonTitles:v7 cancelWhenAppEntersBackground:1 makeFirstButtonSuggestedAction:v10 headerViewController:0 completionHandler:v11];
+    [WBUFormAutoFillPrompt showAutoFillPromptInWebView:WeakRetained title:v4 message:v5 cancelButtonTitle:v6 otherButtonTitles:v8 cancelWhenAppEntersBackground:1 makeFirstButtonSuggestedAction:v10 headerViewController:0 completionHandler:v11];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_273D58000, v8, OS_LOG_TYPE_INFO, "WebView disappeared before presenting weak password warning.", buf, 2u);
+      _os_log_impl(&dword_273D58000, v9, OS_LOG_TYPE_INFO, "WebView disappeared before presenting weak password warning.", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_savedAccount_protectionSpace___block_invoke_392(uint64_t a1, uint64_t a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [MEMORY[0x277D499B8] sharedLogger];
@@ -4560,13 +4562,13 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
   else
   {
     v4 = MEMORY[0x277D49A98];
-    v12[0] = *MEMORY[0x277D49C70];
+    v11[0] = *MEMORY[0x277D49C70];
     v5 = [*(a1 + 32) user];
-    v13[0] = v5;
-    v12[1] = *MEMORY[0x277D49C68];
+    v12[0] = v5;
+    v11[1] = *MEMORY[0x277D49C68];
     v6 = [*(a1 + 40) host];
-    v13[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v3 = [v4 passwordManagerURLWithDictionary:v7];
 
     v8 = [MEMORY[0x277CC1E80] defaultWorkspace];
@@ -4578,8 +4580,6 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
 
   v10 = [MEMORY[0x277D49AD0] sharedStore];
   [v10 addPersistentIdentifier:*(a1 + 48)];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_titleTextForWarning:(id)warning
@@ -4652,6 +4652,111 @@ void __99__WBUFormDataController__warnAboutWeakPasswordIfNecessaryWithWebView_sa
   }
 
   return v25;
+}
+
+- (BOOL)webView:(id)view frame:(id)frame willNavigateFromForm:(id)form inContext:(id)context bySubmitting:(BOOL)submitting submissionHandler:(id)handler
+{
+  submittingCopy = submitting;
+  viewCopy = view;
+  frameCopy = frame;
+  formCopy = form;
+  contextCopy = context;
+  handlerCopy = handler;
+  v20 = WBS_LOG_CHANNEL_PREFIXAutoFill(handlerCopy, v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+  if (!v21)
+  {
+    if (formCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_16:
+    v29 = WBS_LOG_CHANNEL_PREFIXAutoFill(v21, v22);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    {
+      [WBUFormDataController webView:frame:willNavigateFromForm:inContext:bySubmitting:submissionHandler:];
+    }
+
+    goto LABEL_18;
+  }
+
+  [WBUFormDataController webView:frame:willNavigateFromForm:inContext:bySubmitting:submissionHandler:];
+  if (!formCopy)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_3:
+  type = [formCopy type];
+  v24 = 1;
+  if (type <= 3)
+  {
+    if (type == 1)
+    {
+      annotations = [formCopy annotations];
+      v27 = [annotations safari_stringForKey:*off_279EB0F60];
+
+      if ([v27 length])
+      {
+        v28 = [(WBUFormDataController *)self _webView:viewCopy formSubmission:submittingCopy willSubmitNewAccountOrChangePasswordFormWithMetadata:formCopy shouldPreferAnnotatedCredentials:1 fromFrame:frameCopy inContext:contextCopy submissionHandler:handlerCopy];
+      }
+
+      else
+      {
+        v28 = [(WBUFormDataController *)self _webView:viewCopy willSubmitStandardFormWithMetadata:formCopy fromFrame:frameCopy submissionHandler:handlerCopy];
+      }
+
+      goto LABEL_22;
+    }
+
+    if (type != 2)
+    {
+      if (type == 3)
+      {
+        v25 = [(WBUFormDataController *)self _webView:viewCopy willSubmitLoginFormWithMetadata:formCopy formSubmission:submittingCopy fromFrame:frameCopy inContext:contextCopy submissionHandler:handlerCopy];
+LABEL_10:
+        v24 = v25;
+        goto LABEL_24;
+      }
+
+      goto LABEL_24;
+    }
+
+    v27 = [viewCopy webui_formMetadataForLastPasswordGenerationOrSubmitEventInFrame:frameCopy];
+    if ([(WBUFormDataController *)self _shouldTryToSaveCredentialsFromLastForm:v27 currentFormMetadata:formCopy frame:frameCopy])
+    {
+      v28 = [(WBUFormDataController *)self _webView:viewCopy formSubmission:submittingCopy willSubmitNewAccountOrChangePasswordFormWithMetadata:v27 shouldPreferAnnotatedCredentials:0 fromFrame:frameCopy inContext:contextCopy submissionHandler:handlerCopy];
+LABEL_22:
+      v24 = v28;
+      goto LABEL_23;
+    }
+
+    annotations2 = [formCopy annotations];
+    v31 = [annotations2 safari_stringForKey:*off_279EB0F60];
+
+    if ([v31 length])
+    {
+      v24 = [(WBUFormDataController *)self _webView:viewCopy formSubmission:submittingCopy willSubmitNewAccountOrChangePasswordFormWithMetadata:formCopy shouldPreferAnnotatedCredentials:1 fromFrame:frameCopy inContext:contextCopy submissionHandler:handlerCopy];
+
+LABEL_23:
+      goto LABEL_24;
+    }
+
+LABEL_18:
+    v24 = 1;
+    goto LABEL_24;
+  }
+
+  if ((type - 4) < 2)
+  {
+    v25 = [(WBUFormDataController *)self _webView:viewCopy formSubmission:submittingCopy willSubmitNewAccountOrChangePasswordFormWithMetadata:formCopy shouldPreferAnnotatedCredentials:0 fromFrame:frameCopy inContext:contextCopy submissionHandler:handlerCopy];
+    goto LABEL_10;
+  }
+
+LABEL_24:
+
+  return v24;
 }
 
 - (BOOL)_shouldTryToSaveCredentialsFromLastForm:(id)form currentFormMetadata:(id)metadata frame:(id)frame
@@ -4946,7 +5051,7 @@ void __96__WBUFormDataController__updateCredentialsWithGeneratedPasswordForForm_
 
 void __96__WBUFormDataController__updateCredentialsWithGeneratedPasswordForForm_inWebView_frame_context___block_invoke_2(void *a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = v4;
   if (v4)
@@ -4963,9 +5068,9 @@ void __96__WBUFormDataController__updateCredentialsWithGeneratedPasswordForForm_
       objc_storeStrong((a1[4] + 160), a2);
       v11 = [MEMORY[0x277CCAB98] defaultCenter];
       v12 = a1[4];
-      v15 = @"savedAccount";
-      v16[0] = v5;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = @"savedAccount";
+      v15[0] = v5;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       [v11 postNotificationName:@"formDataControllerDidSaveAccountWithGeneratedPassword" object:v12 userInfo:v13];
 
 LABEL_6:
@@ -4978,8 +5083,6 @@ LABEL_6:
     [v11 postNotificationName:@"formDataControllerDidSaveAccountWithGeneratedPassword" object:a1[4] userInfo:0];
     goto LABEL_6;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __96__WBUFormDataController__updateCredentialsWithGeneratedPasswordForForm_inWebView_frame_context___block_invoke_3(uint64_t a1, void *a2)

@@ -45,17 +45,52 @@
 + (void)removeDeprecatedDefaults;
 + (void)resetAllPreferences;
 + (void)resumeNotificationQueue;
++ (void)setAllowAgeBasedPruning:(BOOL)pruning;
++ (void)setAllowAnyDomainForMarkup:(BOOL)markup;
++ (void)setAllowGeocodeForTests:(BOOL)tests;
++ (void)setAllowUnverifiedSourceForMarkup:(BOOL)markup;
 + (void)setCloudKitPersistedState:(id)state;
 + (void)setContactSharingNegativeSamplingRate:(float)rate;
++ (void)setContactsDetectionEnabledForTests:(BOOL)tests;
++ (void)setDetectContacts:(BOOL)contacts;
++ (void)setDetectMessageEventsML:(BOOL)l;
++ (void)setDetectNLEvents:(BOOL)events;
++ (void)setDetectStructuredEvents:(BOOL)events;
 + (void)setDidKVSMigrationToken:(id)token forIdentifier:(id)identifier;
 + (void)setDisabledEventUpdateCategories:(id)categories;
++ (void)setEnableDKIMEnforcement:(BOOL)enforcement;
++ (void)setEventsMLRegexEnsembleExtractionEnabledForTests:(BOOL)tests;
++ (void)setFirstPartyCalendarAppIsInstalled:(BOOL)installed;
++ (void)setFirstPartyMailAppIsInstalled:(BOOL)installed;
 + (void)setHarvestBudgetCPUTimeSeconds:(double)seconds;
 + (void)setHarvestBudgetNumberOfOperations:(int64_t)operations;
++ (void)setHideEventsExtractedFromOldDocumentsForTests:(BOOL)tests;
++ (void)setHidePastEventsForTests:(BOOL)tests;
++ (void)setMailSaliencyDetectionEnabledForTests:(BOOL)tests;
++ (void)setMessageEventsMLDetectionEnabledForTests:(BOOL)tests;
 + (void)setMessagesToProcessImmediately:(int64_t)immediately;
 + (void)setMessagesToProcessImmediatelyForTests:(int64_t)tests;
++ (void)setNLEventsDetectionEnabledForTests:(BOOL)tests;
++ (void)setOnlyShowSignificantPseudoContacts:(BOOL)contacts;
++ (void)setOnlyShowSignificantPseudoContactsForTests:(BOOL)tests;
++ (void)setRemindersDetectionEnabledForTests:(BOOL)tests;
++ (void)setRemindersDetectionInMailEnabledForTests:(BOOL)tests;
++ (void)setShowCancelledEventsForTests:(BOOL)tests;
++ (void)setShowOperatingSystemVersionInSnippets:(BOOL)snippets;
++ (void)setShowPastEvents:(BOOL)events;
++ (void)setStructuredEventsDetectionEnabledForTests:(BOOL)tests;
++ (void)setStructuredEventsMLDetectionEnabledForTests:(BOOL)tests;
 + (void)setSyncHistoryToCloud:(BOOL)cloud;
++ (void)setSyncHistoryToCloudForTests:(BOOL)tests;
++ (void)setUseMLModelForContactSharing:(BOOL)sharing;
++ (void)setUseMLModelForContacts:(BOOL)contacts;
++ (void)setUseMLModelForSelfId:(BOOL)id;
++ (void)setUseMLModelForSelfIdForTests:(BOOL)tests;
++ (void)setUseManateeSaltForHistory:(BOOL)history;
 + (void)setUserAccountsPersistedState:(id)state;
 + (void)suspendNotificationQueue;
++ (void)updateBoolSettingKey:(id)key withValue:(BOOL)value;
++ (void)updateDetection:(BOOL)detection forKey:(id)key;
 + (void)updateIntSettingKey:(id)key withValue:(int)value;
 @end
 
@@ -111,6 +146,24 @@
   [v2 _suspendNotificationQueue];
 }
 
++ (void)setEventsMLRegexEnsembleExtractionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = eventsMLRegexEnsembleExtractionEnabledForTests;
+  eventsMLRegexEnsembleExtractionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setUseMLModelForSelfIdForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = useMLModelForSelfId;
+  useMLModelForSelfId = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
 + (void)setMessagesToProcessImmediatelyForTests:(int64_t)tests
 {
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:tests];
@@ -118,6 +171,128 @@
   messagesToProcessImmediatelyForTests = v3;
 
   _blockingNotifySettingsChanged();
+}
+
++ (void)setSyncHistoryToCloudForTests:(BOOL)tests
+{
+  syncHistoryToCloudForTests = [MEMORY[0x1E696AD98] numberWithBool:tests];
+
+  MEMORY[0x1EEE66BB8]();
+}
+
++ (void)setAllowGeocodeForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = allowGeocode;
+  allowGeocode = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setContactsDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = contactsDetectionEnabledForTests;
+  contactsDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setMailSaliencyDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = mailSaliencyDetectionEnabledForTests;
+  mailSaliencyDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setRemindersDetectionInMailEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = remindersDetectionInMailEnabledForTests;
+  remindersDetectionInMailEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setStructuredEventsMLDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = structuredEventsMLDetectionEnabledForTests;
+  structuredEventsMLDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setRemindersDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = remindersDetectionEnabledForTests;
+  remindersDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setStructuredEventsDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = structuredEventsDetectionEnabledForTests;
+  structuredEventsDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setMessageEventsMLDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = messageEventsMLDetectionEnabledForTests;
+  messageEventsMLDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setNLEventsDetectionEnabledForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = nlEventsDetectionEnabledForTests;
+  nlEventsDetectionEnabledForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setShowCancelledEventsForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = showCancelledEventsForTests;
+  showCancelledEventsForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setHideEventsExtractedFromOldDocumentsForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = hideEventsExtractedFromOldDocumentsForTests;
+  hideEventsExtractedFromOldDocumentsForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setHidePastEventsForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = hidePastEventsForTests;
+  hidePastEventsForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setEnableDKIMEnforcement:(BOOL)enforcement
+{
+  enforcementCopy = enforcement;
+  defaults = [self defaults];
+  [defaults setBool:enforcementCopy forKey:@"EnableDKIMEnforcement"];
 }
 
 + (BOOL)enableDKIMEnforcement
@@ -191,6 +366,13 @@
   return v3;
 }
 
++ (void)setShowOperatingSystemVersionInSnippets:(BOOL)snippets
+{
+  snippetsCopy = snippets;
+  defaults = [self defaults];
+  [defaults setBool:snippetsCopy forKey:@"ShowOperatingSystemVersionInSnippets"];
+}
+
 + (BOOL)showOperatingSystemVersionInSnippets
 {
   defaults = [self defaults];
@@ -201,7 +383,7 @@
 
 + (void)setDidKVSMigrationToken:(id)token forIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   identifierCopy = identifier;
   selfCopy = self;
@@ -220,20 +402,19 @@
   v13 = sgLogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543874;
-    v17 = tokenCopy;
-    v18 = 2114;
-    v19 = identifierCopy;
-    v20 = 2114;
-    v21 = v12;
-    _os_log_impl(&dword_1BA729000, v13, OS_LOG_TYPE_DEFAULT, "setDidKVSMigrationToken:%{public}@ forIdentifier:%{public}@, new dict: %{public}@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = tokenCopy;
+    v17 = 2114;
+    v18 = identifierCopy;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&dword_1BA729000, v13, OS_LOG_TYPE_DEFAULT, "setDidKVSMigrationToken:%{public}@ forIdentifier:%{public}@, new dict: %{public}@", &v15, 0x20u);
   }
 
   defaults2 = [selfCopy defaults];
   [defaults2 setObject:v12 forKey:@"DidKVSMigrationToken"];
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)didKVSMigrationTokenForIdentifier:(id)identifier
@@ -256,6 +437,13 @@
   }
 
   return v8;
+}
+
++ (void)setUseManateeSaltForHistory:(BOOL)history
+{
+  historyCopy = history;
+  defaults = [self defaults];
+  [defaults setBool:historyCopy forKey:@"UseManateeSaltForHistory"];
 }
 
 + (BOOL)useManateeSaltForHistory
@@ -304,6 +492,91 @@
   }
 
   return v2;
+}
+
++ (void)setFirstPartyMailAppIsInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  if (!firstPartyMailAppIsInstalled || [firstPartyMailAppIsInstalled BOOLValue] != installed)
+  {
+    v4 = [MEMORY[0x1E696AD98] numberWithBool:installedCopy];
+    v5 = firstPartyMailAppIsInstalled;
+    firstPartyMailAppIsInstalled = v4;
+
+    uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+    notify_post(uTF8String);
+  }
+}
+
++ (void)setFirstPartyCalendarAppIsInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  if (!firstPartyCalendarAppIsInstalled || [firstPartyCalendarAppIsInstalled BOOLValue] != installed)
+  {
+    v4 = [MEMORY[0x1E696AD98] numberWithBool:installedCopy];
+    v5 = firstPartyCalendarAppIsInstalled;
+    firstPartyCalendarAppIsInstalled = v4;
+
+    uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+    notify_post(uTF8String);
+  }
+}
+
++ (void)setDetectContacts:(BOOL)contacts
+{
+  if (contactsDetectionEnabledForTests)
+  {
+    __assert_rtn("+[SGPreferenceStorage setDetectContacts:]", "SGPreferenceStorage.m", 691, "contactsDetectionEnabledForTests == nil");
+  }
+
+  [self updateDetection:contacts forKey:@"SuggestionsDetectContacts"];
+}
+
++ (void)setDetectMessageEventsML:(BOOL)l
+{
+  if (messageEventsMLDetectionEnabledForTests)
+  {
+    __assert_rtn("+[SGPreferenceStorage setDetectMessageEventsML:]", "SGPreferenceStorage.m", 684, "messageEventsMLDetectionEnabledForTests == nil");
+  }
+
+  [self updateDetection:l forKey:@"SuggestionsShowMessageEventsML"];
+}
+
++ (void)setDetectNLEvents:(BOOL)events
+{
+  if (nlEventsDetectionEnabledForTests)
+  {
+    __assert_rtn("+[SGPreferenceStorage setDetectNLEvents:]", "SGPreferenceStorage.m", 678, "nlEventsDetectionEnabledForTests == nil");
+  }
+
+  [self updateDetection:events forKey:@"SuggestionsShowNLEvents"];
+}
+
++ (void)setDetectStructuredEvents:(BOOL)events
+{
+  if (structuredEventsDetectionEnabledForTests)
+  {
+    __assert_rtn("+[SGPreferenceStorage setDetectStructuredEvents:]", "SGPreferenceStorage.m", 671, "structuredEventsDetectionEnabledForTests == nil");
+  }
+
+  [self updateDetection:events forKey:@"SuggestionsDetectStructuredEvents"];
+}
+
++ (void)updateDetection:(BOOL)detection forKey:(id)key
+{
+  detectionCopy = detection;
+  keyCopy = key;
+  defaults = [self defaults];
+  [defaults setBool:detectionCopy forKey:keyCopy];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
 }
 
 + (id)detectSalientMails
@@ -453,12 +726,40 @@
   return v4;
 }
 
++ (void)setUseMLModelForContactSharing:(BOOL)sharing
+{
+  sharingCopy = sharing;
+  defaults = [self defaults];
+  [defaults setBool:sharingCopy forKey:@"SuggestionsUseMLModelForContactSharing"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
+}
+
 + (BOOL)useMLModelForContactSharing
 {
   defaults = [self defaults];
   v3 = [defaults BOOLForKey:@"SuggestionsUseMLModelForContactSharing"];
 
   return v3;
+}
+
++ (void)setUseMLModelForSelfId:(BOOL)id
+{
+  idCopy = id;
+  defaults = [self defaults];
+  [defaults setBool:idCopy forKey:@"SuggestionsUseMLModelForSelfId"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
 }
 
 + (BOOL)useMLModelForSelfId
@@ -479,12 +780,40 @@
   }
 }
 
++ (void)setUseMLModelForContacts:(BOOL)contacts
+{
+  contactsCopy = contacts;
+  defaults = [self defaults];
+  [defaults setBool:contactsCopy forKey:@"SuggestionsUseMLModelForContacts"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
+}
+
 + (BOOL)useMLModelForContacts
 {
   defaults = [self defaults];
   v3 = [defaults BOOLForKey:@"SuggestionsUseMLModelForContacts"];
 
   return v3;
+}
+
++ (void)setAllowAgeBasedPruning:(BOOL)pruning
+{
+  pruningCopy = pruning;
+  defaults = [self defaults];
+  [defaults setBool:pruningCopy forKey:@"SuggestionsAllowAgeBasedPruning"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
 }
 
 + (BOOL)allowAgeBasedPruning
@@ -520,6 +849,34 @@
   v6 = v5;
 
   return v5;
+}
+
++ (void)setAllowAnyDomainForMarkup:(BOOL)markup
+{
+  markupCopy = markup;
+  defaults = [self defaults];
+  [defaults setBool:markupCopy forKey:@"SuggestionsAllowAnyDomainForMarkup"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
+}
+
++ (void)setAllowUnverifiedSourceForMarkup:(BOOL)markup
+{
+  markupCopy = markup;
+  defaults = [self defaults];
+  [defaults setBool:markupCopy forKey:@"SuggestionsAllowUnverifiedSourceForMarkup"];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
 }
 
 + (BOOL)allowUnverifiedSourceForMarkup
@@ -607,27 +964,27 @@
 
 + (void)removeDeprecatedDefaults
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [&unk_1F38744E0 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [&unk_1F38744E0 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(&unk_1F38744E0);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         defaults = [self defaults];
         [defaults removeObjectForKey:v7];
 
@@ -635,13 +992,11 @@
       }
 
       while (v4 != v6);
-      v4 = [&unk_1F38744E0 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [&unk_1F38744E0 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (int)registerBlockOnSuggestionsSettingsChange:(id)change
@@ -677,6 +1032,27 @@
   return v3;
 }
 
++ (void)setOnlyShowSignificantPseudoContactsForTests:(BOOL)tests
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithBool:tests];
+  v4 = onlyShowSignificantPseudoContactsForTests;
+  onlyShowSignificantPseudoContactsForTests = v3;
+
+  _blockingNotifySettingsChanged();
+}
+
++ (void)setOnlyShowSignificantPseudoContacts:(BOOL)contacts
+{
+  contactsCopy = contacts;
+  if (onlyShowSignificantPseudoContactsForTests)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGPreferenceStorage.m" lineNumber:348 description:{@"Invalid parameter not satisfying: %@", @"onlyShowSignificantPseudoContactsForTests == nil"}];
+  }
+
+  [self updateBoolSettingKey:@"SuggestionsOnlyShowSignificantPseudoContacts" withValue:contactsCopy];
+}
+
 + (BOOL)onlyShowSignificantPseudoContacts
 {
   if (onlyShowSignificantPseudoContactsForTests)
@@ -709,6 +1085,21 @@
   notify_post(uTF8String);
 }
 
++ (void)updateBoolSettingKey:(id)key withValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  defaults = [self defaults];
+  [defaults setBool:valueCopy forKey:keyCopy];
+
+  defaults2 = [self defaults];
+  [defaults2 synchronize];
+
+  uTF8String = [@"com.apple.suggestions.settingsChanged" UTF8String];
+
+  notify_post(uTF8String);
+}
+
 + (BOOL)alwaysShowCancelledEvents
 {
   if (showCancelledEventsForTests)
@@ -725,6 +1116,16 @@
 
     return v6;
   }
+}
+
++ (void)setShowPastEvents:(BOOL)events
+{
+  eventsCopy = events;
+  pthread_mutex_lock(&shouldShowPastEventsLock);
+  [self updateBoolSettingKey:@"SuggestionsShowPastEvents" withValue:eventsCopy];
+  shouldShowPastEvents = eventsCopy;
+
+  pthread_mutex_unlock(&shouldShowPastEventsLock);
 }
 
 + (BOOL)showPastEvents

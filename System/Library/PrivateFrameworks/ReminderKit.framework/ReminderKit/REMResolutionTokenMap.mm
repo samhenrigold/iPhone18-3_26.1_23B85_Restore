@@ -135,7 +135,7 @@
 
 - (int64_t)compare:(id)compare forKey:(id)key
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   compareCopy = compare;
   keyCopy = key;
   v8 = [(REMResolutionTokenMap *)self map];
@@ -149,18 +149,18 @@
     v13 = +[REMLogStore utility];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v21 = [(REMResolutionTokenMap *)self map];
-      allKeys = [v21 allKeys];
-      v17 = [allKeys componentsJoinedByString:{@", "}];
-      v18 = [compareCopy map];
-      allKeys2 = [v18 allKeys];
-      v20 = [allKeys2 componentsJoinedByString:{@", "}];
+      v20 = [(REMResolutionTokenMap *)self map];
+      allKeys = [v20 allKeys];
+      v16 = [allKeys componentsJoinedByString:{@", "}];
+      v17 = [compareCopy map];
+      allKeys2 = [v17 allKeys];
+      v19 = [allKeys2 componentsJoinedByString:{@", "}];
       *buf = 138543874;
-      v23 = keyCopy;
-      v24 = 2112;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v20;
+      v22 = keyCopy;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v19;
       _os_log_fault_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_FAULT, "Comparing two undefined resolution token is unexpected and should never happen {key: %{public}@, self.map.allKeys: %@, other.map.allKeys: %@}", buf, 0x20u);
     }
 
@@ -183,7 +183,6 @@ LABEL_8:
   v12 = 1;
 LABEL_9:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -305,45 +304,45 @@ LABEL_9:
 
 + (REMResolutionTokenMap)resolutionTokenMapWithJSONData:(id)data keyMap:(id)map
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   mapCopy = map;
   if (dataCopy && [dataCopy length])
   {
-    v37 = 0;
-    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v37];
-    v7 = v37;
+    v36 = 0;
+    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v36];
+    v7 = v36;
     if (v6)
     {
       v8 = objc_opt_class();
       v9 = REMDynamicCast(v8, v6);
       if (v9)
       {
-        v29 = v7;
-        v30 = dataCopy;
+        v28 = v7;
+        v29 = dataCopy;
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v28 = v9;
+        v27 = v9;
         v10 = [v9 objectForKeyedSubscript:@"map"];
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         keyEnumerator = [v10 keyEnumerator];
-        v12 = [keyEnumerator countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v12 = [keyEnumerator countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v34;
+          v14 = *v33;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v34 != v14)
+              if (*v33 != v14)
               {
                 objc_enumerationMutation(keyEnumerator);
               }
 
-              v16 = *(*(&v33 + 1) + 8 * i);
+              v16 = *(*(&v32 + 1) + 8 * i);
               v17 = [v10 objectForKey:v16];
               v18 = [REMResolutionToken resolutionTokenWithJSONObject:v17];
               if (v18)
@@ -366,7 +365,7 @@ LABEL_9:
               }
             }
 
-            v13 = [keyEnumerator countByEnumeratingWithState:&v33 objects:v38 count:16];
+            v13 = [keyEnumerator countByEnumeratingWithState:&v32 objects:v37 count:16];
           }
 
           while (v13);
@@ -375,9 +374,9 @@ LABEL_9:
         v23 = dictionary;
         v24 = [[REMResolutionTokenMap alloc] initWithMap:dictionary];
 
-        dataCopy = v30;
-        v9 = v28;
-        v7 = v29;
+        dataCopy = v29;
+        v9 = v27;
+        v7 = v28;
       }
 
       else
@@ -411,44 +410,37 @@ LABEL_9:
     v25 = objc_alloc_init(REMResolutionTokenMap);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (void)archivedData
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Error encoding resolution token map {error: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Error encoding resolution token map {error: %@}", v1, 0xCu);
 }
 
 + (void)mapWithData:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Error decoding resolution token map {error: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Error decoding resolution token map {error: %@}", v1, 0xCu);
 }
 
 + (void)resolutionTokenMapWithJSONData:(uint64_t)a1 keyMap:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v4 = v3;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unexpected class to decode data to REMResolutionTokenMap. Returning nil {class: %@}", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unexpected class to decode data to REMResolutionTokenMap. Returning nil {class: %@}", v5, 0xCu);
 }
 
 + (void)resolutionTokenMapWithJSONData:keyMap:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Failed to decode data to REMResolutionTokenMap. Returning nil {error: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Failed to decode data to REMResolutionTokenMap. Returning nil {error: %@}", v1, 0xCu);
 }
 
 @end

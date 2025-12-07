@@ -396,7 +396,6 @@ void __51__AKBasicLoginAlertController__wrappedCancelAction__block_invoke(id *a1
   objc_storeStrong(&v37, 0);
   objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
-  *MEMORY[0x277D85DE8];
 }
 
 void __77__AKBasicLoginAlertController__setupAuthenticateAndCancelButtonsWithIForgot___block_invoke(id *a1, void *a2)
@@ -847,7 +846,6 @@ void __83__AKBasicLoginAlertController__setupViewControllerForNonEditableUsernam
   objc_destroyWeak(v28);
   objc_destroyWeak(&location);
   objc_storeStrong(v33, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __78__AKBasicLoginAlertController__setupViewControllerForUserOrCreateAppleIDStyle__block_invoke(id *a1, void *a2)
@@ -953,7 +951,6 @@ void __78__AKBasicLoginAlertController__setupViewControllerForUserOrCreateAppleI
   objc_storeStrong(&v29, 0);
   objc_destroyWeak(v28);
   objc_destroyWeak(location);
-  *MEMORY[0x277D85DE8];
 }
 
 void __66__AKBasicLoginAlertController__setupViewControllerForIForgotStyle__block_invoke(id *a1, void *a2)
@@ -1059,7 +1056,6 @@ void __66__AKBasicLoginAlertController__setupViewControllerForIForgotStyle__bloc
   objc_destroyWeak(v19);
   objc_destroyWeak(&location);
   objc_storeStrong(&contentViewController, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __77__AKBasicLoginAlertController__setupViewControllerForSecondFactorEntryStyle___block_invoke(id *a1, void *a2)
@@ -1427,7 +1423,6 @@ BOOL __45__AKBasicLoginAlertController__passwordField__block_invoke(void *a1, vo
   _passwordField = [(AKBasicLoginAlertController *)selfCopy _passwordField];
   ak_addActivityIndicator = [_passwordField ak_addActivityIndicator];
   objc_storeStrong(&_passwordField, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAnimating
@@ -1533,7 +1528,6 @@ BOOL __45__AKBasicLoginAlertController__passwordField__block_invoke(void *a1, vo
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)jiggleAView

@@ -34,7 +34,7 @@
   y = v11[1];
   width = v11[2];
   height = v11[3];
-  v17 = [dictionary objectForKeyedSubscript:{*MEMORY[0x1E69910D8], v20}];
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8], v20);
   if (v17)
   {
     memset(&rect, 0, sizeof(rect));
@@ -56,7 +56,7 @@
   height = [(AVMetadataObject *)&v24 initWithType:type time:&rect duration:&v22 bounds:dictionary optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:x, y, width, height];
   if (height)
   {
-    height->_objectID = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990E68]), "integerValue"}];
+    height->_objectID = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
   }
 
   return height;
@@ -96,7 +96,7 @@
   v13 = [v11 stringWithFormat:@"<%@: %p, objectID=%d, bounds={%.1f, %.1f %.1fx%.1f}", NSStringFromClass(v12), self, -[AVMetadataSalientObject objectID](self, "objectID"), v4, v6, v8, v10];
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v14 = v16;
   }
 
@@ -125,8 +125,8 @@
     objectID = [object objectID];
     if (object)
     {
-      [object time];
-      [object duration];
+      objc_msgSend_time(object);
+      objc_msgSend_duration(object);
     }
 
     else

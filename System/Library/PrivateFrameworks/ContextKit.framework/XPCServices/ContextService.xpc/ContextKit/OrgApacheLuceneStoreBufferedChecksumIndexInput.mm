@@ -5,6 +5,7 @@
 - (int64_t)length;
 - (void)close;
 - (void)dealloc;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation OrgApacheLuceneStoreBufferedChecksumIndexInput
@@ -19,6 +20,17 @@
 
   [(JavaUtilZipChecksum *)digest updateWithInt:v4];
   return v4;
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  main = self->main_;
+  if (!main || (v7 = *&withInt, v8 = *&int, [OrgApacheLuceneStoreIndexInput readBytesWithByteArray:"readBytesWithByteArray:withInt:withInt:" withInt:? withInt:?], (digest = self->digest_) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilZipChecksum *)digest updateWithByteArray:array withInt:v8 withInt:v7];
 }
 
 - (int64_t)getChecksum

@@ -61,17 +61,17 @@
 
 - (BOOL)writeFDRDataToEANWithdataDir:(id)dir
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
-  v53 = 0;
-  v54 = 0;
-  v41 = objc_opt_new();
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v51 = 0;
   v52 = 0;
+  v40 = objc_opt_new();
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   v5 = *MEMORY[0x277CBECE8];
-  v40 = dirCopy;
+  v39 = dirCopy;
   v6 = CFURLCreateWithFileSystemPath(*MEMORY[0x277CBECE8], dirCopy, kCFURLPOSIXPathStyle, 1u);
   Mutable = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v8 = *MEMORY[0x277CBED10];
@@ -96,40 +96,39 @@ LABEL_55:
     goto LABEL_60;
   }
 
-  v39 = v10;
+  v38 = v10;
   v11 = handleForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v56 = v10;
+    v54 = v10;
     _os_log_impl(&dword_247864000, v11, OS_LOG_TYPE_DEFAULT, "Writing Following FDR Data Classes to EAN: %@", buf, 0xCu);
   }
 
-  v47 = 0u;
-  v48 = 0u;
   v45 = 0u;
   v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v10;
   v12 = 0;
   v13 = 0;
-  v14 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+  v14 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
   if (!v14)
   {
     goto LABEL_47;
   }
 
-  v15 = *v46;
-  v42 = *MEMORY[0x277D81F98];
+  v15 = *v44;
   while (2)
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v46 != v15)
+      if (*v44 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v45 + 1) + 8 * i);
+      v17 = *(*(&v43 + 1) + 8 * i);
       if (v13)
       {
         CFRelease(v13);
@@ -139,7 +138,7 @@ LABEL_55:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = v17;
+        v54 = v17;
         _os_log_impl(&dword_247864000, v18, OS_LOG_TYPE_DEFAULT, "Copying data class: %@ to memory cache", buf, 0xCu);
       }
 
@@ -154,7 +153,7 @@ LABEL_55:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v56 = v17;
+          v54 = v17;
           _os_log_impl(&dword_247864000, v20, OS_LOG_TYPE_DEFAULT, "Copying multi data: %@", buf, 0xCu);
         }
 
@@ -169,12 +168,12 @@ LABEL_55:
       v13 = LocalMultiDataBlobForClass;
       if (!LocalMultiDataBlobForClass || !CFDataGetLength(LocalMultiDataBlobForClass))
       {
-        v22 = v54;
+        v22 = v52;
 LABEL_29:
         if (v22)
         {
 
-          v54 = 0;
+          v52 = 0;
         }
 
         else
@@ -186,14 +185,14 @@ LABEL_29:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v56 = v17;
-          v57 = 2112;
-          v58 = v22;
+          v54 = v17;
+          v55 = 2112;
+          v56 = v22;
           _os_log_impl(&dword_247864000, v24, OS_LOG_TYPE_DEFAULT, "Failed to read FDR data instance for: %@ with error %@", buf, 0x16u);
         }
 
-        v25 = [(CREANController *)self readFDRDataFromEANWithDataClass:v17 outData:&v53 stripPadding:0];
-        if (v53)
+        v25 = [(CREANController *)self readFDRDataFromEANWithDataClass:v17 outData:&v51 stripPadding:0];
+        if (v51)
         {
           v26 = v25;
         }
@@ -225,7 +224,7 @@ LABEL_29:
           }
 
           *buf = 138412290;
-          v56 = v17;
+          v54 = v17;
           v28 = v27;
           v29 = "Successfully deleted %@ from EAN";
           v30 = 12;
@@ -253,8 +252,8 @@ LABEL_44:
       }
 
       Length = CFDataGetLength(v13);
-      v22 = v54;
-      if (Length > 10000000 || v54)
+      v22 = v52;
+      if (Length > 10000000 || v52)
       {
         goto LABEL_29;
       }
@@ -263,14 +262,14 @@ LABEL_44:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = v13;
+        v54 = v13;
         _os_log_impl(&dword_247864000, v23, OS_LOG_TYPE_DEFAULT, "Got instance data %@", buf, 0xCu);
       }
 
-      [v41 setObject:v13 forKeyedSubscript:v17];
+      [v40 setObject:v13 forKeyedSubscript:v17];
     }
 
-    v14 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+    v14 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
     if (v14)
     {
       continue;
@@ -288,35 +287,35 @@ LABEL_47:
     _os_log_impl(&dword_247864000, v31, OS_LOG_TYPE_DEFAULT, "Write data classes from memory cache to EAN", buf, 2u);
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke;
-  v44[3] = &unk_278EB1350;
-  v44[4] = self;
-  v44[5] = &v49;
-  [v41 enumerateKeysAndObjectsUsingBlock:v44];
-  v32 = v39;
-  if (v50[3])
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke;
+  v42[3] = &unk_278EB1350;
+  v42[4] = self;
+  v42[5] = &v47;
+  [v40 enumerateKeysAndObjectsUsingBlock:v42];
+  v32 = v38;
+  if (v48[3])
   {
     goto LABEL_55;
   }
 
-  if ([(CREANController *)self verifyFDRDataFromEANUsingCache:1 cachedData:v41])
+  if ([(CREANController *)self verifyFDRDataFromEANUsingCache:1 cachedData:v40])
   {
     v33 = 1;
   }
 
   else
   {
-    v38 = handleForCategory(0);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = handleForCategory(0);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [CREANController writeFDRDataToEANWithdataDir:];
     }
 
     v33 = 0;
 LABEL_59:
-    v32 = v39;
+    v32 = v38;
   }
 
 LABEL_60:
@@ -324,8 +323,7 @@ LABEL_60:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
 
-  _Block_object_dispose(&v49, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
   return v33;
 }
 
@@ -347,15 +345,15 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke(uint64_t 
 
 - (BOOL)_writeDataToEAN:(id)n withKey:(id)key
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   connect = 0;
   nCopy = n;
   v8 = [nCopy length];
   v9 = -v8 & 0xFFFLL;
   input = 0;
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
   output = 0;
   outputCnt = 1;
   v10 = v9 + v8;
@@ -446,21 +444,21 @@ LABEL_16:
   }
 
   input = v18;
-  v42 = v16;
-  v43 = v14;
+  v41 = v16;
+  v42 = v14;
   v23 = handleForCategory(0);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110144;
-    *v34 = HIBYTE(v18);
-    *&v34[4] = 1024;
-    *&v34[6] = HIWORD(v18);
-    v35 = 1024;
-    v36 = v18 >> 8;
-    v37 = 1024;
-    v38 = v18;
-    v39 = 2048;
-    v40 = v14;
+    *v33 = HIBYTE(v18);
+    *&v33[4] = 1024;
+    *&v33[6] = HIWORD(v18);
+    v34 = 1024;
+    v35 = v18 >> 8;
+    v36 = 1024;
+    v37 = v18;
+    v38 = 2048;
+    v39 = v14;
     _os_log_impl(&dword_247864000, v23, OS_LOG_TYPE_DEFAULT, "Writing EAN key %c%c%c%c, imageSize=%llu", buf, 0x24u);
   }
 
@@ -480,7 +478,7 @@ LABEL_16:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v34 = keyCopy;
+    *v33 = keyCopy;
     _os_log_impl(&dword_247864000, v26, OS_LOG_TYPE_DEFAULT, "Successfully written %@ data to EAN", buf, 0xCu);
   }
 
@@ -500,42 +498,38 @@ LABEL_17:
 
   AMSupportSafeFree();
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (id)_getDataClassesToWrite
 {
   v3 = objc_opt_new();
-  memset(v10, 0, sizeof(v10));
+  memset(v7, 0, sizeof(v7));
   if ([(CREANController *)self isEANSupported])
   {
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = *MEMORY[0x277D81F90];
     if (AMFDRSealingMapCopyDataClassesWithAttribute())
     {
-      v6 = v10[0] == 0;
+      v4 = v7[0] == 0;
     }
 
     else
     {
-      v6 = 0;
+      v4 = 0;
     }
 
-    if (v6)
+    if (v4)
     {
-      v7 = *MEMORY[0x277D81F98];
       if (AMFDRSealingMapCopyDataClassesWithAttribute())
       {
-        v8 = v10[0] == 0;
+        v5 = v7[0] == 0;
       }
 
       else
       {
-        v8 = 0;
+        v5 = 0;
       }
 
-      if (v8)
+      if (v5)
       {
         if ([v3 count])
         {
@@ -554,13 +548,13 @@ LABEL_17:
 
       else
       {
-        [(CREANController *)v10 _getDataClassesToWrite];
+        [(CREANController *)v7 _getDataClassesToWrite];
       }
     }
 
     else
     {
-      [(CREANController *)v10 _getDataClassesToWrite];
+      [(CREANController *)v7 _getDataClassesToWrite];
     }
   }
 
@@ -644,26 +638,26 @@ LABEL_13:
   }
 
   v18 = [MEMORY[0x277CBEB28] dataWithLength:output];
-  v22 = handleForCategory(0);
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v21 = handleForCategory(0);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110144;
     *&buf[4] = HIBYTE(v12);
     *&buf[8] = 1024;
     *&buf[10] = HIWORD(v12);
-    LOWORD(v36) = 1024;
-    *(&v36 + 2) = v12 >> 8;
-    HIWORD(v36) = 1024;
-    v37 = v12;
-    v38 = 2048;
-    v39 = output;
-    _os_log_impl(&dword_247864000, v22, OS_LOG_TYPE_DEFAULT, "Reading EAN key %c%c%c%c, imageSize=%llu", buf, 0x24u);
+    LOWORD(v35) = 1024;
+    *(&v35 + 2) = v12 >> 8;
+    HIWORD(v35) = 1024;
+    v36 = v12;
+    v37 = 2048;
+    v38 = output;
+    _os_log_impl(&dword_247864000, v21, OS_LOG_TYPE_DEFAULT, "Reading EAN key %c%c%c%c, imageSize=%llu", buf, 0x24u);
   }
 
-  v34[0] = v13;
-  v34[1] = [v18 mutableBytes];
-  v34[2] = output;
-  if (IOConnectCallScalarMethod(connect, 4u, v34, 3u, 0, 0))
+  v33[0] = v13;
+  v33[1] = [v18 mutableBytes];
+  v33[2] = output;
+  if (IOConnectCallScalarMethod(connect, 4u, v33, 3u, 0, 0))
   {
     [CREANController readFDRDataFromEANWithDataClass:outData:stripPadding:];
     goto LABEL_13;
@@ -671,31 +665,31 @@ LABEL_13:
 
   if (!paddingCopy)
   {
-    v27 = [v18 copy];
+    v26 = [v18 copy];
     goto LABEL_32;
   }
 
-  v30 = 0;
-  v23 = [(CREANController *)self calculateDerLength:v18 actualSize:&v30];
-  v24 = handleForCategory(0);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v29 = 0;
+  v22 = [(CREANController *)self calculateDerLength:v18 actualSize:&v29];
+  v23 = handleForCategory(0);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [v18 length];
+    v24 = [v18 length];
     *buf = 134218240;
-    *&buf[4] = v25;
+    *&buf[4] = v24;
     *&buf[12] = 2048;
-    v36 = v30;
-    _os_log_impl(&dword_247864000, v24, OS_LOG_TYPE_DEFAULT, "Image size: %lu DER size: %ld", buf, 0x16u);
+    v35 = v29;
+    _os_log_impl(&dword_247864000, v23, OS_LOG_TYPE_DEFAULT, "Image size: %lu DER size: %ld", buf, 0x16u);
   }
 
-  if (!v23)
+  if (!v22)
   {
     [CREANController readFDRDataFromEANWithDataClass:buf outData:? stripPadding:?];
     goto LABEL_42;
   }
 
-  v26 = v30;
-  if (!v30 || v26 > [v18 length])
+  v25 = v29;
+  if (!v29 || v25 > [v18 length])
   {
     [CREANController readFDRDataFromEANWithDataClass:buf outData:? stripPadding:?];
 LABEL_42:
@@ -703,17 +697,17 @@ LABEL_42:
     goto LABEL_13;
   }
 
-  v27 = [v18 subdataWithRange:0, v30];
+  v26 = [v18 subdataWithRange:0, v29];
 LABEL_32:
-  v28 = *data;
-  *data = v27;
+  v27 = *data;
+  *data = v26;
 
-  v29 = handleForCategory(0);
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v28 = handleForCategory(0);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     *&buf[4] = v9;
-    _os_log_impl(&dword_247864000, v29, OS_LOG_TYPE_DEFAULT, "Successfully read %@ from EAN", buf, 0xCu);
+    _os_log_impl(&dword_247864000, v28, OS_LOG_TYPE_DEFAULT, "Successfully read %@ from EAN", buf, 0xCu);
   }
 
   v19 = 1;
@@ -730,7 +724,6 @@ LABEL_14:
     IOObjectRelease(v17);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -831,7 +824,7 @@ LABEL_13:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_247864000, v14, OS_LOG_TYPE_DEFAULT, "Successfully deleted %@ from EAN", buf, 0xCu);
   }
 
@@ -849,14 +842,13 @@ LABEL_14:
     IOObjectRelease(v11);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)verifyFDRDataFromEANUsingCache:(BOOL)cache cachedData:(id)data
 {
   cacheCopy = cache;
-  v64 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = handleForCategory(0);
   v7 = v6;
@@ -873,7 +865,7 @@ LABEL_5:
   }
 
   v9 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  v46 = dataCopy;
+  v45 = dataCopy;
   if (cacheCopy)
   {
     if (v9)
@@ -882,26 +874,26 @@ LABEL_5:
       _os_log_impl(&dword_247864000, v7, OS_LOG_TYPE_DEFAULT, "Verifying EAN FDR data from cache...", buf, 2u);
     }
 
-    v58 = 0u;
     v56 = 0u;
-    v57 = 0u;
+    v54 = 0u;
     v55 = 0u;
+    v53 = 0u;
     v7 = dataCopy;
-    v10 = [v7 countByEnumeratingWithState:&v55 objects:v63 count:16];
+    v10 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v56;
+      v12 = *v54;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v56 != v12)
+          if (*v54 != v12)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v55 + 1) + 8 * i);
+          v14 = *(*(&v53 + 1) + 8 * i);
           v15 = handleForCategory(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
@@ -910,18 +902,18 @@ LABEL_5:
             _os_log_impl(&dword_247864000, v15, OS_LOG_TYPE_DEFAULT, "Verifying data class: %@", buf, 0xCu);
           }
 
-          v54 = 0;
+          v52 = 0;
           v16 = [v7 objectForKey:v14];
-          v17 = [(CREANController *)self readFDRDataFromEANWithDataClass:v14 outData:&v54 stripPadding:1];
-          v18 = v54;
+          v17 = [(CREANController *)self readFDRDataFromEANWithDataClass:v14 outData:&v52 stripPadding:1];
+          v18 = v52;
           v19 = handleForCategory(0);
           v20 = v19;
           if (!v17 || v18 == 0)
           {
             [CREANController verifyFDRDataFromEANUsingCache:v19 cachedData:buf];
-            v43 = *buf;
+            v42 = *buf;
 LABEL_71:
-            dataCopy = v46;
+            dataCopy = v45;
 
             goto LABEL_5;
           }
@@ -929,16 +921,16 @@ LABEL_71:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            *&buf[4] = v54;
-            v61 = 2112;
-            v62 = v16;
+            *&buf[4] = v52;
+            v59 = 2112;
+            v60 = v16;
             _os_log_impl(&dword_247864000, v20, OS_LOG_TYPE_DEFAULT, "Comparing data class: %@ : %@", buf, 0x16u);
           }
 
-          if (([v16 isEqualToData:v54] & 1) == 0)
+          if (([v16 isEqualToData:v52] & 1) == 0)
           {
-            v43 = handleForCategory(0);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v42 = handleForCategory(0);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               [CREANController verifyFDRDataFromEANUsingCache:cachedData:];
             }
@@ -947,7 +939,7 @@ LABEL_71:
           }
         }
 
-        v11 = [v7 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v11 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
         if (v11)
         {
           continue;
@@ -959,7 +951,7 @@ LABEL_71:
 
 LABEL_66:
     v8 = 1;
-    dataCopy = v46;
+    dataCopy = v45;
     goto LABEL_67;
   }
 
@@ -985,29 +977,28 @@ LABEL_66:
 
   if (_getDataClassesToWrite && [_getDataClassesToWrite count])
   {
-    v52 = 0u;
-    v53 = 0u;
     v50 = 0u;
     v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = _getDataClassesToWrite;
-    v26 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+    v26 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v51;
-      v47 = *MEMORY[0x277D81F98];
+      v28 = *v49;
       while (2)
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v51 != v28)
+          if (*v49 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v50 + 1) + 8 * j);
+          v30 = *(*(&v48 + 1) + 8 * j);
           v31 = objc_autoreleasePoolPush();
-          v54 = 0;
+          v52 = 0;
           v32 = handleForCategory(0);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
@@ -1051,7 +1042,7 @@ LABEL_66:
             }
           }
 
-          if (![(CREANController *)self readFDRDataFromEANWithDataClass:v30 outData:&v54 stripPadding:1])
+          if (![(CREANController *)self readFDRDataFromEANWithDataClass:v30 outData:&v52 stripPadding:1])
           {
             v37 = handleForCategory(0);
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
@@ -1061,7 +1052,7 @@ LABEL_66:
             }
           }
 
-          v38 = v35 | v54;
+          v38 = v35 | v52;
           v39 = handleForCategory(0);
           v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
           if (v38)
@@ -1069,23 +1060,23 @@ LABEL_66:
             if (v40)
             {
               *buf = 138412546;
-              *&buf[4] = v54;
-              v61 = 2112;
-              v62 = v35;
+              *&buf[4] = v52;
+              v59 = 2112;
+              v60 = v35;
               _os_log_impl(&dword_247864000, v39, OS_LOG_TYPE_DEFAULT, "Comparing data class: %@ : %@", buf, 0x16u);
             }
 
-            if (([v35 isEqualToData:v54] & 1) == 0)
+            if (([v35 isEqualToData:v52] & 1) == 0)
             {
-              v44 = handleForCategory(0);
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              v43 = handleForCategory(0);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 [CREANController verifyFDRDataFromEANUsingCache:cachedData:];
               }
 
               objc_autoreleasePoolPop(v31);
               v8 = 0;
-              dataCopy = v46;
+              dataCopy = v45;
               goto LABEL_67;
             }
           }
@@ -1103,7 +1094,7 @@ LABEL_66:
           objc_autoreleasePoolPop(v31);
         }
 
-        v27 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+        v27 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
         if (v27)
         {
           continue;
@@ -1122,7 +1113,6 @@ LABEL_6:
 LABEL_67:
   AMSupportSafeRelease();
 
-  v41 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1158,36 +1148,36 @@ LABEL_67:
 
 - (id)_apticketCopyDataObjectPropertyWithTag:(unint64_t)tag property:(unint64_t)property
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v40 = *MEMORY[0x277D85DE8];
+  v39 = 0;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   apTicket = self->apTicket;
   if (!apTicket)
   {
@@ -1208,7 +1198,7 @@ LABEL_67:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[CREANController _apticketCopyDataObjectPropertyWithTag:property:]";
+      v10 = "[CREANController _apticketCopyDataObjectPropertyWithTag:property:]";
       _os_log_impl(&dword_247864000, v6, OS_LOG_TYPE_DEFAULT, "%s: failed to parse AP ticket as Img4 manifest", buf, 0xCu);
     }
 
@@ -1242,7 +1232,6 @@ LABEL_10:
   }
 
 LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1403,8 +1392,8 @@ LABEL_22:
   output = 0;
   if (!nCopy)
   {
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1415,8 +1404,8 @@ LABEL_22:
   v5 = [(CREANController *)self _getQuerykeyFromDataClass:nCopy];
   if (!v5)
   {
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1430,8 +1419,8 @@ LABEL_22:
   MatchingService = IOServiceGetMatchingService(v7, v8);
   if (!MatchingService)
   {
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1444,8 +1433,8 @@ LABEL_18:
   v10 = MatchingService;
   if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &connect))
   {
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1459,8 +1448,8 @@ LABEL_18:
       goto LABEL_7;
     }
 
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1468,8 +1457,8 @@ LABEL_18:
 
   else
   {
-    v14 = handleForCategory(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = handleForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CREANController sizeEAN:];
     }
@@ -1491,22 +1480,21 @@ LABEL_7:
 
   v11 = output;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)copyFDREANValues:(id)values outgenerationCount:(unsigned int *)count outManifesthash:(id *)manifesthash
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v27 = 0;
-  if (![(CREANController *)self readFDRDataFromEANWithDataClass:valuesCopy outData:&v27 stripPadding:0])
+  v26 = 0;
+  if (![(CREANController *)self readFDRDataFromEANWithDataClass:valuesCopy outData:&v26 stripPadding:0])
   {
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v29 = valuesCopy;
+      *v28 = valuesCopy;
       v11 = "Failed to load EAN key: %@";
       goto LABEL_7;
     }
@@ -1516,14 +1504,14 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v9 = [v27 length];
+  v9 = [v26 length];
   if (v9 <= 0x1F)
   {
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v29 = valuesCopy;
+      *v28 = valuesCopy;
       v11 = "Entry too small to be versioned blob: %@";
 LABEL_7:
       _os_log_impl(&dword_247864000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
@@ -1534,14 +1522,14 @@ LABEL_7:
   }
 
   v12 = v9;
-  bytes = [v27 bytes];
+  bytes = [v26 bytes];
   v14 = bytes;
   if (*bytes != 1769104486)
   {
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CREANController copyFDREANValues:v14 outgenerationCount:? outManifesthash:?];
+      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
     }
 
     goto LABEL_17;
@@ -1552,7 +1540,7 @@ LABEL_7:
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CREANController copyFDREANValues:? outgenerationCount:? outManifesthash:?];
+      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
     }
 
     goto LABEL_17;
@@ -1570,8 +1558,8 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  v19 = bytes[3];
-  if (v19 <= 0x1F)
+  v18 = bytes[3];
+  if (v18 <= 0x1F)
   {
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -1582,7 +1570,30 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  v20 = bytes[4];
+  v19 = bytes[4];
+  if (!v19)
+  {
+    v10 = handleForCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
+    }
+
+    goto LABEL_17;
+  }
+
+  if (v12 <= v19 + v18)
+  {
+    v10 = handleForCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
+    }
+
+    goto LABEL_17;
+  }
+
+  v20 = bytes[5];
   if (!v20)
   {
     v10 = handleForCategory(0);
@@ -1594,45 +1605,22 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  if (v12 <= v20 + v19)
+  v21 = 16 * v20;
+  if (16 * v20 != bytes[7])
   {
     v10 = handleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
-    }
-
-    goto LABEL_17;
-  }
-
-  v21 = bytes[5];
-  if (!v21)
-  {
-    v10 = handleForCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      [CREANController copyFDREANValues:outgenerationCount:outManifesthash:];
-    }
-
-    goto LABEL_17;
-  }
-
-  v22 = 16 * v21;
-  if (16 * v21 != bytes[7])
-  {
-    v10 = handleForCategory(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v25 = v14[5];
-      v26 = v14[7];
+      v24 = v14[5];
+      v25 = v14[7];
       *buf = 67109888;
-      *v29 = v25;
-      *&v29[4] = 2048;
-      *&v29[6] = 16;
-      v30 = 2048;
-      v31 = v22;
-      v32 = 1024;
-      v33 = v26;
+      *v28 = v24;
+      *&v28[4] = 2048;
+      *&v28[6] = 16;
+      v29 = 2048;
+      v30 = v21;
+      v31 = 1024;
+      v32 = v25;
       _os_log_error_impl(&dword_247864000, v10, OS_LOG_TYPE_ERROR, "FDR info payload is incorrect size.\tExpect: %d * %lu = %zu\tFound: %d", buf, 0x22u);
     }
 
@@ -1650,12 +1638,12 @@ LABEL_7:
     goto LABEL_19;
   }
 
-  v23 = [MEMORY[0x277CBEA90] dataWithBytes:bytes + bytes[3] length:bytes[4]];
-  v10 = v23;
-  v16 = v23 != 0;
-  if (v23)
+  v22 = [MEMORY[0x277CBEA90] dataWithBytes:bytes + bytes[3] length:bytes[4]];
+  v10 = v22;
+  v16 = v22 != 0;
+  if (v22)
   {
-    v24 = v23;
+    v23 = v22;
     *manifesthash = v10;
     v16 = 1;
   }
@@ -1663,7 +1651,6 @@ LABEL_7:
 LABEL_18:
 
 LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1725,12 +1712,12 @@ LABEL_19:
 
 - (id)copyStagedFDREanDataWithdataDir:(id)dir error:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   *md = 0u;
   *bytes = 0u;
-  v57 = 0u;
+  v56 = 0u;
   v5 = [(CREANController *)self copyCurrentFDREANValuesWithdataDir:dir error:error];
   v6 = v5;
   if (!v5)
@@ -1774,7 +1761,7 @@ LABEL_49:
     allocator = v11;
     v17 = CFDataCreate(v11, md, 48);
     CFDictionaryGetKeysAndValues(v6, v9, v10);
-    v54 = malloc_type_calloc(v8, 0x10uLL, 0x1000040451B5BE8uLL);
+    v53 = malloc_type_calloc(v8, 0x10uLL, 0x1000040451B5BE8uLL);
     v18 = CFDataGetLength(v17);
     v19 = v18;
     v20 = v18 & 3;
@@ -1793,7 +1780,7 @@ LABEL_49:
       v21 = v18;
     }
 
-    v55 = v21;
+    v54 = v21;
     *bytes = 0x169726466;
     nextEANGenerationCount = [(CREANController *)self nextEANGenerationCount];
     *&bytes[8] = nextEANGenerationCount;
@@ -1801,21 +1788,21 @@ LABEL_49:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v59) = nextEANGenerationCount;
+      LODWORD(v58) = nextEANGenerationCount;
       _os_log_impl(&dword_247864000, v23, OS_LOG_TYPE_DEFAULT, "Will use generation count: %u", buf, 8u);
     }
 
     *&bytes[12] = 32;
     theData = v17;
-    LODWORD(v57) = CFDataGetLength(v17);
-    DWORD1(v57) = v8;
-    DWORD2(v57) = v55 + 32;
-    HIDWORD(v57) = 16 * v8;
-    v52 = v9;
-    v24 = v55 + 32 + 16 * v8;
+    LODWORD(v56) = CFDataGetLength(v17);
+    DWORD1(v56) = v8;
+    DWORD2(v56) = v54 + 32;
+    HIDWORD(v56) = 16 * v8;
+    v51 = v9;
+    v24 = v54 + 32 + 16 * v8;
     if (v8 >= 1)
     {
-      v25 = v54 + 8;
+      v25 = v53 + 8;
       v26 = v10;
       v27 = v9;
       v28 = v8;
@@ -1870,9 +1857,9 @@ LABEL_49:
     v37 = CFDataGetBytePtr(theData);
     v38 = CFDataGetLength(theData);
     CFDataAppendBytes(Mutable, v37, v38);
-    if (v55 != v19)
+    if (v54 != v19)
     {
-      CFDataIncreaseLength(Mutable, v55 - v19);
+      CFDataIncreaseLength(Mutable, v54 - v19);
     }
 
     v39 = handleForCategory(0);
@@ -1882,7 +1869,7 @@ LABEL_49:
       _os_log_impl(&dword_247864000, v39, OS_LOG_TYPE_DEFAULT, "Added hash.", buf, 2u);
     }
 
-    CFDataAppendBytes(Mutable, v54, 16 * v8);
+    CFDataAppendBytes(Mutable, v53, 16 * v8);
     v40 = handleForCategory(0);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
@@ -1912,9 +1899,9 @@ LABEL_49:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          v59 = i;
-          v60 = 2048;
-          v61 = v42;
+          v58 = i;
+          v59 = 2048;
+          v60 = v42;
           _os_log_impl(&dword_247864000, v45, OS_LOG_TYPE_DEFAULT, "Added element %ld. Size: %ld", buf, 0x16u);
         }
       }
@@ -1927,13 +1914,13 @@ LABEL_49:
       _os_log_impl(&dword_247864000, v46, OS_LOG_TYPE_DEFAULT, "Success.", buf, 2u);
     }
 
-    if (v54)
+    if (v53)
     {
-      free(v54);
+      free(v53);
     }
 
-    v9 = v52;
-    if (!v52)
+    v9 = v51;
+    if (!v51)
     {
       goto LABEL_43;
     }
@@ -1941,8 +1928,8 @@ LABEL_49:
 
   else
   {
-    v50 = handleForCategory(0);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v49 = handleForCategory(0);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       [CREANController copyStagedFDREanDataWithdataDir:error:];
     }
@@ -1965,13 +1952,12 @@ LABEL_50:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  v48 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 - (BOOL)writeEAN:(id)n isImg4:(BOOL)img4
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nCopy = n;
   v6 = nCopy;
   connect = 0;
@@ -1998,28 +1984,28 @@ LABEL_50:
       {
         if (connect)
         {
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v11 = v6;
-          v12 = [v11 countByEnumeratingWithState:&v26 objects:v33 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v25 objects:v32 count:16];
           if (v12)
           {
             v13 = v12;
-            v24 = v10;
-            v25 = v6;
-            v14 = *v27;
+            v23 = v10;
+            v24 = v6;
+            v14 = *v26;
             while (2)
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v27 != v14)
+                if (*v26 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v26 + 1) + 8 * i);
+                v16 = *(*(&v25 + 1) + 8 * i);
                 v17 = [v11 objectForKeyedSubscript:v16];
                 v18 = [(CREANController *)self _writeDataToEAN:v17 withKey:v16];
 
@@ -2039,12 +2025,12 @@ LABEL_50:
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v32 = v16;
+                  v31 = v16;
                   _os_log_impl(&dword_247864000, v20, OS_LOG_TYPE_DEFAULT, "EAN write success :%@", buf, 0xCu);
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v26 objects:v33 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v25 objects:v32 count:16];
               if (v13)
               {
                 continue;
@@ -2055,8 +2041,8 @@ LABEL_50:
 
             v21 = 1;
 LABEL_20:
-            v6 = v25;
-            v10 = v24;
+            v6 = v24;
+            v10 = v23;
           }
 
           else
@@ -2098,13 +2084,12 @@ LABEL_24:
 
 LABEL_28:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)stageVersionedFDREANWithdataDir:(id)dir error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   v6 = [(CREANController *)self sizeEAN:@"fdr1"];
   v7 = v6 | [(CREANController *)self sizeEAN:@"fdr2"];
@@ -2118,9 +2103,9 @@ LABEL_28:
       _os_log_impl(&dword_247864000, v8, OS_LOG_TYPE_DEFAULT, "Preparing to write staged FDR EAN key.", buf, 2u);
     }
 
-    v18 = 0;
-    v8 = [(CREANController *)self copyStagedFDREanDataWithdataDir:dirCopy error:&v18];
-    v10 = v18;
+    v17 = 0;
+    v8 = [(CREANController *)self copyStagedFDREanDataWithdataDir:dirCopy error:&v17];
+    v10 = v17;
     if (v10 || !v8)
     {
       v15 = handleForCategory(0);
@@ -2140,7 +2125,7 @@ LABEL_28:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v20 = @"fdr2";
+          v19 = @"fdr2";
           _os_log_impl(&dword_247864000, v13, OS_LOG_TYPE_DEFAULT, "EAN write success :%@", buf, 0xCu);
         }
 
@@ -2167,19 +2152,18 @@ LABEL_12:
   v14 = 1;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)swapEAN:(id)n withKey:(id)key
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nCopy = n;
   keyCopy = key;
   v8 = keyCopy;
   connect = 0;
   input = 0;
-  v44 = 0;
+  v43 = 0;
   output = 0;
   outputCnt = 1;
   if (!nCopy)
@@ -2272,26 +2256,26 @@ LABEL_30:
   }
 
   input = v10;
-  v44 = v12;
+  v43 = v12;
   v17 = handleForCategory(0);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110912;
-    v28 = HIBYTE(v10);
-    v29 = 1024;
-    v30 = HIWORD(v10);
-    v31 = 1024;
-    v32 = v10 >> 8;
-    v33 = 1024;
-    v34 = v10;
-    v35 = 1024;
-    v36 = HIBYTE(v12);
-    v37 = 1024;
-    v38 = HIWORD(v12);
-    v39 = 1024;
-    v40 = v12 >> 8;
-    v41 = 1024;
-    v42 = v12;
+    v27 = HIBYTE(v10);
+    v28 = 1024;
+    v29 = HIWORD(v10);
+    v30 = 1024;
+    v31 = v10 >> 8;
+    v32 = 1024;
+    v33 = v10;
+    v34 = 1024;
+    v35 = HIBYTE(v12);
+    v36 = 1024;
+    v37 = HIWORD(v12);
+    v38 = 1024;
+    v39 = v12 >> 8;
+    v40 = 1024;
+    v41 = v12;
     _os_log_impl(&dword_247864000, v17, OS_LOG_TYPE_DEFAULT, "Swapping EAN key %c%c%c%c and %c%c%c%c", buf, 0x32u);
   }
 
@@ -2328,7 +2312,6 @@ LABEL_14:
     IOObjectRelease(v16);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -2394,7 +2377,7 @@ LABEL_16:
 
 - (id)_ticketCopyHashDataWithNode:(unsigned int)node
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!node)
   {
     v10 = handleForCategory(0);
@@ -2431,11 +2414,11 @@ LABEL_22:
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_247864000, v8, OS_LOG_TYPE_DEFAULT, "crypto-hash-method found. Using SHA2-384\n", v17, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_247864000, v8, OS_LOG_TYPE_DEFAULT, "crypto-hash-method found. Using SHA2-384\n", v16, 2u);
       }
 
-      CC_SHA384([(NSData *)self->apTicket bytes], [(NSData *)self->apTicket length], v17);
+      CC_SHA384([(NSData *)self->apTicket bytes], [(NSData *)self->apTicket length], v16);
       v13 = 48;
       goto LABEL_17;
     }
@@ -2443,7 +2426,7 @@ LABEL_22:
     v11 = handleForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
+      *v16 = 0;
       v12 = "crypto-hash-method found. Using SHA1\n";
       goto LABEL_15;
     }
@@ -2454,17 +2437,17 @@ LABEL_22:
     v11 = handleForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
+      *v16 = 0;
       v12 = "crypto-hash-method not found, defaulting to SHA1\n";
 LABEL_15:
-      _os_log_impl(&dword_247864000, v11, OS_LOG_TYPE_DEFAULT, v12, v17, 2u);
+      _os_log_impl(&dword_247864000, v11, OS_LOG_TYPE_DEFAULT, v12, v16, 2u);
     }
   }
 
-  CC_SHA1([(NSData *)self->apTicket bytes], [(NSData *)self->apTicket length], v17);
+  CC_SHA1([(NSData *)self->apTicket bytes], [(NSData *)self->apTicket length], v16);
   v13 = 20;
 LABEL_17:
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v17 length:v13];
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:v13];
   if (!v9)
   {
     v14 = handleForCategory(0);
@@ -2480,20 +2463,19 @@ LABEL_17:
   }
 
 LABEL_23:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)apticketCopyHashData
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[CREANController apticketCopyHashData]";
-    _os_log_impl(&dword_247864000, v3, OS_LOG_TYPE_DEFAULT, "entering %s\n", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CREANController apticketCopyHashData]";
+    _os_log_impl(&dword_247864000, v3, OS_LOG_TYPE_DEFAULT, "entering %s\n", &v9, 0xCu);
   }
 
   if (self->apTicket)
@@ -2525,18 +2507,17 @@ LABEL_23:
 
   v6 = 0;
 LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)setupVersionedFDRWithApTicket:(id)ticket
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   ticketCopy = ticket;
   v6 = [(CREANController *)self sizeEAN:@"fdr1"];
   v7 = [(CREANController *)self sizeEAN:@"fdr2"];
-  bzero(v29, 0x1000uLL);
+  bzero(v28, 0x1000uLL);
   if (!(v6 | v7))
   {
     v8 = handleForCategory(0);
@@ -2595,9 +2576,9 @@ LABEL_11:
   }
 
   v10 = apticketCopyHashData;
-  v24 = 0;
-  v15 = [(CREANController *)self copyFDREANValues:@"fdr1" outgenerationCount:0 outManifesthash:&v24];
-  v9 = v24;
+  v23 = 0;
+  v15 = [(CREANController *)self copyFDREANValues:@"fdr1" outgenerationCount:0 outManifesthash:&v23];
+  v9 = v23;
   if (v15)
   {
     v16 = handleForCategory(0);
@@ -2605,7 +2586,7 @@ LABEL_11:
     {
       convertToHexString = [v9 convertToHexString];
       *buf = 138412290;
-      v26 = convertToHexString;
+      v25 = convertToHexString;
       _os_log_impl(&dword_247864000, v16, OS_LOG_TYPE_DEFAULT, "FDR1 has hash: %@", buf, 0xCu);
     }
 
@@ -2626,9 +2607,9 @@ LABEL_11:
     if (v19)
     {
       *buf = 138412546;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v9;
+      v25 = v10;
+      v26 = 2112;
+      v27 = v9;
       _os_log_impl(&dword_247864000, v8, OS_LOG_TYPE_DEFAULT, "FDR1 boot hash mismatch:%@::%@", buf, 0x16u);
     }
   }
@@ -2645,7 +2626,7 @@ LABEL_11:
     goto LABEL_6;
   }
 
-  v8 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v29 length:4096];
+  v8 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v28 length:4096];
   if (![(CREANController *)self _writeDataToEAN:v8 withKey:@"fdr1"])
   {
     v21 = handleForCategory(0);
@@ -2685,7 +2666,6 @@ LABEL_6:
   v12 = 1;
 LABEL_41:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2698,11 +2678,9 @@ LABEL_41:
 
 - (void)writeFDRDataToEANWithdataDir:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeFDRDataToEANWithdataDir:.cold.2()
@@ -2721,11 +2699,9 @@ LABEL_41:
 
 void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataToEAN:withKey:.cold.1()
@@ -2735,38 +2711,18 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_writeDataToEAN:withKey:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_writeDataToEAN:withKey:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataToEAN:withKey:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeDataToEAN:withKey:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataToEAN:withKey:.cold.6()
@@ -2785,38 +2741,30 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)_getDataClassesToWrite
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (OUTLINED_FUNCTION_7(v3))
   {
-    v10 = *self;
+    v9 = *self;
     OUTLINED_FUNCTION_0();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readFDRDataFromEANWithDataClass:outData:stripPadding:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readFDRDataFromEANWithDataClass:outData:stripPadding:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = handleForCategory(0);
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readFDRDataFromEANWithDataClass:(void *)a1 outData:stripPadding:.cold.4(void *a1)
@@ -2824,7 +2772,8 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   v3 = handleForCategory(0);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to get true size of der object", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to get true size of der object", v6, v7, v8, v9, v10);
   }
 
   *a1 = v1;
@@ -2835,7 +2784,8 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   v3 = handleForCategory(0);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Unexpected der length", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Unexpected der length", v6, v7, v8, v9, v10);
   }
 
   *a1 = v1;
@@ -2850,35 +2800,28 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)_getQuerykeyFromDataClass:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (OUTLINED_FUNCTION_7(v3))
   {
     [a1 length];
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_0();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFDRDataFromEANWithDataClass:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFDRDataFromEANUsingCache:cachedData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFDRDataFromEANUsingCache:(void *)a1 cachedData:.cold.2(void *a1)
@@ -2886,7 +2829,8 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   v3 = handleForCategory(0);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to get EAN data classes to verify", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to get EAN data classes to verify", v6, v7, v8, v9, v10);
   }
 }
 
@@ -2894,7 +2838,8 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 {
   if (OUTLINED_FUNCTION_9(a1))
   {
-    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to read data class from EAN", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_3(&dword_247864000, v4, v5, "Failed to read data class from EAN", v6, v7, v8, v9, v10);
   }
 
   *a2 = v2;
@@ -2902,11 +2847,9 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)verifyFDRDataFromEANUsingCache:cachedData:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFDRDataFromEANUsingCache:cachedData:.cold.5()
@@ -2918,35 +2861,9 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)calculateDerLength:actualSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_apticketCopyDataObjectPropertyWithTag:property:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_apticketCopyDataObjectPropertyWithTag:property:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_apticketCopyDataObjectPropertyWithTag:property:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyCurrentFDREANValuesWithdataDir:error:.cold.1()
@@ -2984,14 +2901,6 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)copyCurrentFDREANValuesWithdataDir:error:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)copyCurrentFDREANValuesWithdataDir:error:.cold.7()
 {
   OUTLINED_FUNCTION_2();
@@ -3008,20 +2917,16 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)sizeEAN:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sizeEAN:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sizeEAN:.cold.3()
@@ -3052,24 +2957,18 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)copyFDREANValues:(uint64_t)a1 outgenerationCount:outManifesthash:.cold.1(uint64_t a1)
+- (void)copyFDREANValues:outgenerationCount:outManifesthash:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 4);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-- (void)copyFDREANValues:(unsigned int *)a1 outgenerationCount:outManifesthash:.cold.2(unsigned int *a1)
+- (void)copyFDREANValues:outgenerationCount:outManifesthash:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 - (void)copyFDREANValues:outgenerationCount:outManifesthash:.cold.3()
@@ -3130,15 +3029,12 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)writeEAN:isImg4:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = handleForCategory(0);
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeEAN:isImg4:.cold.3()
@@ -3171,31 +3067,20 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
   }
 }
 
-- (void)stageVersionedFDREANWithdataDir:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)stageVersionedFDREANWithdataDir:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_247864000, v1, OS_LOG_TYPE_ERROR, "Failed to copy staged FDR EAN data:%@:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_247864000, v1, OS_LOG_TYPE_ERROR, "Failed to copy staged FDR EAN data:%@:%@", v2, 0x16u);
 }
 
 - (void)swapEAN:withKey:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)swapEAN:withKey:.cold.4()
@@ -3242,11 +3127,9 @@ void __48__CREANController_writeFDRDataToEANWithdataDir___block_invoke_cold_1()
 
 - (void)_ticketCopyHashDataWithNode:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ticketCopyHashDataWithNode:.cold.2()

@@ -49,7 +49,7 @@
   return v3;
 }
 
-uint64_t __52__CSRemoteDarwinDeviceInfo_hasDarwinDeviceConnected__block_invoke(uint64_t a1)
+void *__52__CSRemoteDarwinDeviceInfo_hasDarwinDeviceConnected__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -75,24 +75,22 @@ uint64_t __52__CSRemoteDarwinDeviceInfo_hasDarwinDeviceConnected__block_invoke(u
 
 uint64_t __68__CSRemoteDarwinDeviceInfo_addDeviceIDPairToMapTable_withDeviceUID___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v7 = 136315650;
-    v8 = "[CSRemoteDarwinDeviceInfo addDeviceIDPairToMapTable:withDeviceUID:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Testing: Add (%{public}@, %{public}@) pair into mapping table", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSRemoteDarwinDeviceInfo addDeviceIDPairToMapTable:withDeviceUID:]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Testing: Add (%{public}@, %{public}@) pair into mapping table", &v6, 0x20u);
   }
 
-  result = [*(a1[6] + 8) setObject:a1[5] forKeyedSubscript:a1[4]];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1[6] + 8) setObject:a1[5] forKeyedSubscript:a1[4]];
 }
 
 - (BOOL)_isRemoteDarwinConnectedWithUUID:(id)d
@@ -132,7 +130,7 @@ uint64_t __68__CSRemoteDarwinDeviceInfo_addDeviceIDPairToMapTable_withDeviceUID_
   return queue;
 }
 
-uint64_t __60__CSRemoteDarwinDeviceInfo_isRemoteDarwinConnectedWithUUID___block_invoke(uint64_t a1)
+void *__60__CSRemoteDarwinDeviceInfo_isRemoteDarwinConnectedWithUUID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isRemoteDarwinConnectedWithUUID:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -141,39 +139,39 @@ uint64_t __60__CSRemoteDarwinDeviceInfo_isRemoteDarwinConnectedWithUUID___block_
 
 - (id)fetchRichDeviceUIDStringFromUUID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    *&v21 = 0;
-    *(&v21 + 1) = &v21;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__4731;
-    v24 = __Block_byref_object_dispose__4732;
-    v25 = 0;
+    *&v20 = 0;
+    *(&v20 + 1) = &v20;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__4731;
+    v23 = __Block_byref_object_dispose__4732;
+    v24 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __61__CSRemoteDarwinDeviceInfo_fetchRichDeviceUIDStringFromUUID___block_invoke;
     block[3] = &unk_1E865CC08;
-    v16 = &v21;
+    v15 = &v20;
     block[4] = self;
     v7 = dCopy;
-    v15 = v7;
+    v14 = v7;
     dispatch_async_and_wait(queue, block);
-    v8 = *(*(&v21 + 1) + 40);
+    v8 = *(*(&v20 + 1) + 40);
     v9 = CSLogContextFacilityCoreSpeech;
     if (v8)
     {
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
-        v19 = 2114;
-        v20 = v8;
+        v17 = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
+        v18 = 2114;
+        v19 = v8;
         _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Return existing simple UID(%{public}@)", buf, 0x16u);
-        v7 = *(*(&v21 + 1) + 40);
+        v7 = *(*(&v20 + 1) + 40);
       }
 
       else
@@ -185,13 +183,13 @@ uint64_t __60__CSRemoteDarwinDeviceInfo_isRemoteDarwinConnectedWithUUID___block_
     else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v18 = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
+      v17 = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
       _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s Can't find corresponding deviceUID from UUID, return existing UUID instead", buf, 0xCu);
     }
 
     v11 = v7;
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
@@ -199,15 +197,13 @@ uint64_t __60__CSRemoteDarwinDeviceInfo_isRemoteDarwinConnectedWithUUID___block_
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v21) = 136315138;
-      *(&v21 + 4) = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
-      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Invalid deviceUUID", &v21, 0xCu);
+      LODWORD(v20) = 136315138;
+      *(&v20 + 4) = "[CSRemoteDarwinDeviceInfo fetchRichDeviceUIDStringFromUUID:]";
+      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Invalid deviceUUID", &v20, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -219,7 +215,7 @@ uint64_t __61__CSRemoteDarwinDeviceInfo_fetchRichDeviceUIDStringFromUUID___block
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)isPrimaryVoiceTriggerDeviceWithUUID:(id)d
@@ -247,7 +243,7 @@ uint64_t __61__CSRemoteDarwinDeviceInfo_fetchRichDeviceUIDStringFromUUID___block
 
 void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) voiceTriggerEnabledDevices];
   v3 = [v2 firstObject];
 
@@ -255,13 +251,13 @@ void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v7 = 136315650;
-    v8 = "[CSRemoteDarwinDeviceInfo isPrimaryVoiceTriggerDeviceWithUUID:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Primary device UUID : %{public}@, input device UUID : %{public}@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSRemoteDarwinDeviceInfo isPrimaryVoiceTriggerDeviceWithUUID:]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Primary device UUID : %{public}@, input device UUID : %{public}@", &v6, 0x20u);
   }
 
   if ([v3 isEqualToString:*(a1 + 40)])
@@ -273,23 +269,21 @@ void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchDeviceUUIDStringFromUID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    *&v21 = 0;
-    *(&v21 + 1) = &v21;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__4731;
-    v24 = __Block_byref_object_dispose__4732;
-    v25 = 0;
+    *&v20 = 0;
+    *(&v20 + 1) = &v20;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__4731;
+    v23 = __Block_byref_object_dispose__4732;
+    v24 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -297,21 +291,21 @@ void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_
     block[3] = &unk_1E865CC08;
     block[4] = self;
     v7 = dCopy;
-    v15 = v7;
-    v16 = &v21;
+    v14 = v7;
+    v15 = &v20;
     dispatch_async_and_wait(queue, block);
-    v8 = *(*(&v21 + 1) + 40);
+    v8 = *(*(&v20 + 1) + 40);
     if (!v8)
     {
       v9 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]";
-        v19 = 2114;
-        v20 = v7;
+        v17 = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]";
+        v18 = 2114;
+        v19 = v7;
         _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Did not find deviceUID(%{public}@) in mapping table", buf, 0x16u);
-        v8 = *(*(&v21 + 1) + 40);
+        v8 = *(*(&v20 + 1) + 40);
       }
 
       else
@@ -322,7 +316,7 @@ void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_
 
     v11 = v8;
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
@@ -330,44 +324,42 @@ void __64__CSRemoteDarwinDeviceInfo_isPrimaryVoiceTriggerDeviceWithUUID___block_
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v21) = 136315138;
-      *(&v21 + 4) = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]";
-      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Invalid deviceUID", &v21, 0xCu);
+      LODWORD(v20) = 136315138;
+      *(&v20 + 4) = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]";
+      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Invalid deviceUID", &v20, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 void __57__CSRemoteDarwinDeviceInfo_fetchDeviceUUIDStringFromUID___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1[4] + 8);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         v8 = a1[5];
-        v9 = [*(a1[4] + 8) objectForKeyedSubscript:{v7, v13}];
+        v9 = [*(a1[4] + 8) objectForKeyedSubscript:{v7, v12}];
         LODWORD(v8) = [v8 containsString:v9];
 
         if (v8)
@@ -377,11 +369,11 @@ void __57__CSRemoteDarwinDeviceInfo_fetchDeviceUUIDStringFromUID___block_invoke(
           {
             v11 = a1[5];
             *buf = 136315650;
-            v18 = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]_block_invoke";
-            v19 = 2114;
-            v20 = v7;
-            v21 = 2114;
-            v22 = v11;
+            v17 = "[CSRemoteDarwinDeviceInfo fetchDeviceUUIDStringFromUID:]_block_invoke";
+            v18 = 2114;
+            v19 = v7;
+            v20 = 2114;
+            v21 = v11;
             _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Found (%{public}@, %{public}@) pair in mapping table", buf, 0x20u);
           }
 
@@ -390,7 +382,7 @@ void __57__CSRemoteDarwinDeviceInfo_fetchDeviceUUIDStringFromUID___block_invoke(
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v22 count:16];
       if (v4)
       {
         continue;
@@ -401,8 +393,6 @@ void __57__CSRemoteDarwinDeviceInfo_fetchDeviceUUIDStringFromUID___block_invoke(
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasDarwinDeviceHandleVoiceTrigger
@@ -424,7 +414,7 @@ LABEL_13:
   return v3;
 }
 
-uint64_t __61__CSRemoteDarwinDeviceInfo_hasDarwinDeviceHandleVoiceTrigger__block_invoke(uint64_t a1)
+void *__61__CSRemoteDarwinDeviceInfo_hasDarwinDeviceHandleVoiceTrigger__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -444,13 +434,13 @@ uint64_t __61__CSRemoteDarwinDeviceInfo_hasDarwinDeviceHandleVoiceTrigger__block
 
 void __49__CSRemoteDarwinDeviceInfo_allDeviceDisconnected__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSRemoteDarwinDeviceInfo allDeviceDisconnected]_block_invoke";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSRemoteDarwinDeviceInfo allDeviceDisconnected]_block_invoke";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
   }
 
   v3 = [*(a1 + 32) deviceUIDMapTable];
@@ -458,8 +448,6 @@ void __49__CSRemoteDarwinDeviceInfo_allDeviceDisconnected__block_invoke(uint64_t
 
   v4 = [*(a1 + 32) voiceTriggerEnabledDevices];
   [v4 removeAllObjects];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deviceDisconnectedWithUUID:(id)d
@@ -536,14 +524,14 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
 
 - (void)deviceConnectedWithUUID:(id)d
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
-    v25[0] = 0;
-    v25[1] = 0;
+    v24[0] = 0;
+    v24[1] = 0;
     v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:dCopy];
-    [v5 getUUIDBytes:v25];
+    [v5 getUUIDBytes:v24];
     v6 = remote_device_copy_device_with_uuid();
     if (v6)
     {
@@ -559,8 +547,8 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
           block[1] = 3221225472;
           block[2] = __52__CSRemoteDarwinDeviceInfo_deviceConnectedWithUUID___block_invoke;
           block[3] = &unk_1E865C778;
-          v16 = dCopy;
-          v17 = v8;
+          v15 = dCopy;
+          v16 = v8;
           selfCopy = self;
           dispatch_async(queue, block);
         }
@@ -571,7 +559,7 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v20 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
+            v19 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
             _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Failed to fetch deviceUID", buf, 0xCu);
           }
         }
@@ -583,11 +571,11 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v20 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
-          v21 = 2114;
-          v22 = @"UniqueDeviceID";
-          v23 = 2114;
-          v24 = dCopy;
+          v19 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
+          v20 = 2114;
+          v21 = @"UniqueDeviceID";
+          v22 = 2114;
+          v23 = dCopy;
           _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Failed to fetch property of %{public}@ from deviceUUID %{public}@", buf, 0x20u);
         }
       }
@@ -599,9 +587,9 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
-        v21 = 2114;
-        v22 = dCopy;
+        v19 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
+        v20 = 2114;
+        v21 = dCopy;
         _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Remote device not found with UUID %{public}@", buf, 0x16u);
       }
     }
@@ -613,34 +601,30 @@ void __68__CSRemoteDarwinDeviceInfo_notifyVoiceTriggerEnabledWithDeviceUUID___bl
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
+      v19 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]";
       _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Invalid deviceUUIDString", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__CSRemoteDarwinDeviceInfo_deviceConnectedWithUUID___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v7 = 136315650;
-    v8 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Add (%{public}@, %{public}@) pair into mapping table", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSRemoteDarwinDeviceInfo deviceConnectedWithUUID:]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Add (%{public}@, %{public}@) pair into mapping table", &v6, 0x20u);
   }
 
-  result = [*(a1[6] + 8) setObject:a1[5] forKeyedSubscript:a1[4]];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1[6] + 8) setObject:a1[5] forKeyedSubscript:a1[4]];
 }
 
 - (CSRemoteDarwinDeviceInfo)init
@@ -668,9 +652,11 @@ uint64_t __52__CSRemoteDarwinDeviceInfo_deviceConnectedWithUUID___block_invoke(v
 
 uint64_t __42__CSRemoteDarwinDeviceInfo_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInfo = objc_alloc_init(CSRemoteDarwinDeviceInfo);
+  v0 = objc_alloc_init(CSRemoteDarwinDeviceInfo);
+  v1 = sharedInstance_sharedInfo;
+  sharedInstance_sharedInfo = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -3,53 +3,51 @@
 
 @implementation GCKeyboardEventHIDAdapter
 
-void __53___GCKeyboardEventHIDAdapter_initWithSource_service___block_invoke(uint64_t a1)
+void __53___GCKeyboardEventHIDAdapter_initWithSource_service___block_invoke(uint64_t a1, uint64_t a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (IOHIDEventGetType() == 3)
   {
-    v2 = *(a1 + 32);
-    if (!v2 || v2 == IOHIDEventGetSenderID() || IOHIDEventGetSenderID() == -1)
+    v3 = *(a1 + 32);
+    if (!v3 || v3 == IOHIDEventGetSenderID() || IOHIDEventGetSenderID() == -1)
     {
-      v3 = objc_opt_new();
-      [v3 setTimestamp:IOHIDEventGetTimeStamp()];
-      [v3 setUsagePage:IOHIDEventGetIntegerValue()];
-      [v3 setUsage:IOHIDEventGetIntegerValue()];
-      [v3 setDown:IOHIDEventGetIntegerValue()];
-      [v3 setSender:IOHIDEventGetSenderID()];
-      v4 = objc_getProperty(*(a1 + 40), sel_observers, 24, 1);
+      v4 = objc_opt_new();
+      [v4 setTimestamp:IOHIDEventGetTimeStamp()];
+      [v4 setUsagePage:IOHIDEventGetIntegerValue()];
+      [v4 setUsage:IOHIDEventGetIntegerValue()];
+      [v4 setDown:IOHIDEventGetIntegerValue()];
+      [v4 setSender:IOHIDEventGetSenderID()];
+      v5 = objc_getProperty(*(a1 + 40), sel_observers, 24, 1);
       v10 = 0u;
       v11 = 0u;
       v12 = 0u;
       v13 = 0u;
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v5)
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v6)
       {
-        v6 = v5;
-        v7 = *v11;
+        v7 = v6;
+        v8 = *v11;
         do
         {
-          v8 = 0;
+          v9 = 0;
           do
           {
-            if (*v11 != v7)
+            if (*v11 != v8)
             {
-              objc_enumerationMutation(v4);
+              objc_enumerationMutation(v5);
             }
 
-            (*(*(*(&v10 + 1) + 8 * v8++) + 16))();
+            (*(*(*(&v10 + 1) + 8 * v9++) + 16))();
           }
 
-          while (v6 != v8);
-          v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+          while (v7 != v9);
+          v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
         }
 
-        while (v6);
+        while (v7);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __52___GCKeyboardEventHIDAdapter_observeKeyboardEvents___block_invoke(uint64_t a1)

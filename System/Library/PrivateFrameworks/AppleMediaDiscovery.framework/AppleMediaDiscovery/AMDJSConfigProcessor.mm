@@ -391,7 +391,6 @@
   objc_storeStrong(&v115, 0);
   objc_storeStrong(&v117, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -476,7 +475,6 @@
   objc_storeStrong(&v22, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -500,7 +498,6 @@
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -724,7 +721,6 @@
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v65, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v67;
 
   return v9;
@@ -996,7 +992,6 @@
   objc_storeStrong(&v81, 0);
   objc_storeStrong(&v82, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1222,7 +1217,6 @@
   objc_storeStrong(&v68, 0);
   objc_storeStrong(&v69, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v72;
 
   return v6;
@@ -1300,7 +1294,6 @@
   v4 = MEMORY[0x277D82BE0](v21);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1515,7 +1508,6 @@ LABEL_37:
   objc_storeStrong(&v59, 0);
   objc_storeStrong(&v60, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v62;
 
   return v9;

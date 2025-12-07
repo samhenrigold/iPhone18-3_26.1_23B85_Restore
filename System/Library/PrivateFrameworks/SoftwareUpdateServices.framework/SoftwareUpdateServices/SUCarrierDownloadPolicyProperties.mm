@@ -18,10 +18,10 @@
 
 - (SUCarrierDownloadPolicyProperties)init
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = SUCarrierDownloadPolicyProperties;
-  v2 = [(SUCarrierDownloadPolicyProperties *)&v37 init];
+  v38 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = SUCarrierDownloadPolicyProperties;
+  v2 = [(SUCarrierDownloadPolicyProperties *)&v36 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -34,30 +34,30 @@
 
     if (getPreferredDataSubscriptionContext)
     {
-      v32 = v2;
+      v31 = v2;
       v15 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:2];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
-      v30 = _keys;
+      v29 = _keys;
       obj = _keys;
-      v16 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v16 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v34;
+        v18 = *v33;
         do
         {
           v19 = 0;
           do
           {
-            if (*v34 != v18)
+            if (*v33 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * v19);
+            v20 = *(*(&v32 + 1) + 8 * v19);
             v21 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"OTASoftwareUpdate", v20, 0}];
             v22 = +[CTDataDelegate sharedInstance];
             getCTClient = [v22 getCTClient];
@@ -65,26 +65,26 @@
 
             if (v24)
             {
-              [(NSMutableDictionary *)v32->_keyMap setObject:v24 forKeyedSubscript:v20];
+              [(NSMutableDictionary *)v31->_keyMap setObject:v24 forKeyedSubscript:v20];
             }
 
             ++v19;
           }
 
           while (v17 != v19);
-          v17 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v17 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
         }
 
         while (v17);
       }
 
-      v2 = v32;
-      _keys = v30;
+      v2 = v31;
+      _keys = v29;
     }
 
     else
     {
-      SULogInfo(@"Failed to get preferred CTXPCServiceSubscriptionContext", v8, v9, v10, v11, v12, v13, v14, v29);
+      SULogInfo(@"Failed to get preferred CTXPCServiceSubscriptionContext", v8, v9, v10, v11, v12, v13, v14, v28);
     }
 
     v25 = v2->_keyMap;
@@ -92,7 +92,6 @@
     [(NSMutableDictionary *)v25 addEntriesFromDictionary:_getOverriddenProperties];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -274,34 +273,34 @@
 
 - (id)_getOverriddenProperties
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   _keys = [(SUCarrierDownloadPolicyProperties *)self _keys];
-  v24 = objc_alloc_init(MEMORY[0x277CCABB8]);
-  [v24 setNumberStyle:1];
+  v23 = objc_alloc_init(MEMORY[0x277CCABB8]);
+  [v23 setNumberStyle:1];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = +[SUPreferences sharedInstance];
   overrideCarrierDownloadPolicyProperties = [v4 overrideCarrierDownloadPolicyProperties];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v6 = _keys;
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = [overrideCarrierDownloadPolicyProperties objectForKey:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -317,7 +316,7 @@
             goto LABEL_12;
           }
 
-          v13 = [v24 numberFromString:v12];
+          v13 = [v23 numberFromString:v12];
         }
 
         v14 = v13;
@@ -329,7 +328,7 @@
 LABEL_12:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
@@ -340,25 +339,22 @@ LABEL_12:
     SULogInfo(@"[PREFERENCES] Override properties with %@", v15, v16, v17, v18, v19, v20, v21, dictionary);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)_keys
 {
-  v5[9] = *MEMORY[0x277D85DE8];
-  v5[0] = @"SoftwareUpdateOptInRequired";
-  v5[1] = @"AllowDownloadOverCellular";
-  v5[2] = @"AllowDownloadOver2G";
-  v5[3] = @"DaysToWaitForCellularDownload";
-  v5[4] = @"AllowAutomaticDownloadOverCellular";
-  v5[5] = @"MaxBytesOverCellular";
-  v5[6] = @"PeakStartTime";
-  v5[7] = @"PeakEndTime";
-  v5[8] = @"AllowEnhancedDownloadOnNRHDM";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:9];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[9] = *MEMORY[0x277D85DE8];
+  v4[0] = @"SoftwareUpdateOptInRequired";
+  v4[1] = @"AllowDownloadOverCellular";
+  v4[2] = @"AllowDownloadOver2G";
+  v4[3] = @"DaysToWaitForCellularDownload";
+  v4[4] = @"AllowAutomaticDownloadOverCellular";
+  v4[5] = @"MaxBytesOverCellular";
+  v4[6] = @"PeakStartTime";
+  v4[7] = @"PeakEndTime";
+  v4[8] = @"AllowEnhancedDownloadOnNRHDM";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:9];
 
   return v2;
 }

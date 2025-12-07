@@ -236,8 +236,8 @@ void __36__MTIDXPCSecretStore_clearLocalData__block_invoke(uint64_t a1, void *a2
 
 - (id)debugInfo
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"xpcConnection";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"xpcConnection";
   xpcConnection = [(MTIDXPCSecretStore *)self xpcConnection];
   v3 = [xpcConnection debugDescription];
   v4 = v3;
@@ -247,10 +247,8 @@ void __36__MTIDXPCSecretStore_clearLocalData__block_invoke(uint64_t a1, void *a2
     v5 = v3;
   }
 
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }
@@ -289,7 +287,7 @@ void __36__MTIDXPCSecretStore_clearLocalData__block_invoke(uint64_t a1, void *a2
 
 void __38__MTIDXPCSecretStore_newXPCConnection__block_invoke(uint64_t a1)
 {
-  v2 = MTMetricsKitOSLog();
+  v2 = MTMetricsKitOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *v6 = 0;
@@ -308,7 +306,7 @@ void __38__MTIDXPCSecretStore_newXPCConnection__block_invoke(uint64_t a1)
 
 void __38__MTIDXPCSecretStore_newXPCConnection__block_invoke_64(uint64_t a1)
 {
-  v2 = MTMetricsKitOSLog();
+  v2 = MTMetricsKitOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *v6 = 0;
@@ -381,7 +379,7 @@ void __40__MTIDXPCSecretStore_setupXPCConnection__block_invoke_2(uint64_t a1)
     *(WeakRetained + 1) = v3;
     if (v3 == 0.0)
     {
-      v4 = MTMetricsKitOSLog();
+      v4 = MTMetricsKitOSLog(WeakRetained);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         *v6 = 0;

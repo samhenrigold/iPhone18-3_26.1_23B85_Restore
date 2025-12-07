@@ -212,7 +212,7 @@ uint64_t __38__SBPlatformController_sharedInstance__block_invoke()
   return v2 == 7;
 }
 
-uint64_t __50__SBPlatformController_prefersAlwaysOnOrientation__block_invoke()
+void *__50__SBPlatformController_prefersAlwaysOnOrientation__block_invoke()
 {
   result = [MEMORY[0x277CC1C78] isAlwaysOn];
   prefersAlwaysOnOrientation_sPrefersAlwaysOnOrientation = result;

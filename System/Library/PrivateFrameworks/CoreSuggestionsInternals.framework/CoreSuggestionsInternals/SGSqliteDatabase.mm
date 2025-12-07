@@ -69,7 +69,7 @@ void __29__SGSqliteDatabase_optimize___block_invoke(uint64_t a1)
 
 - (void)vacuum
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (self->_usesDataProtection && [MEMORY[0x277D42598] lockState] - 1 <= 1)
   {
     v3 = sgLogHandle();
@@ -80,7 +80,7 @@ void __29__SGSqliteDatabase_optimize___block_invoke(uint64_t a1)
       _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Will not vacuum db %@ due to device lock state", &buf, 0xCu);
     }
 
-    goto LABEL_35;
+    return;
   }
 
   _pagesToVacuum = [(SGSqliteDatabase *)self _pagesToVacuum];
@@ -100,39 +100,39 @@ void __29__SGSqliteDatabase_optimize___block_invoke(uint64_t a1)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v39 = 0x3032000000;
-      v40 = __Block_byref_object_copy__15822;
-      v41 = __Block_byref_object_dispose__15823;
-      v42 = 0;
+      v38 = 0x3032000000;
+      v39 = __Block_byref_object_copy__15822;
+      v40 = __Block_byref_object_dispose__15823;
+      v41 = 0;
       if (vacuumMode == 2)
       {
         goto LABEL_11;
       }
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __26__SGSqliteDatabase_vacuum__block_invoke;
-      v33[3] = &unk_2789561D0;
-      v33[4] = self;
-      v33[5] = &buf;
-      [(SGSqliteDatabase *)self runWithWriteLockAcquired:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __26__SGSqliteDatabase_vacuum__block_invoke;
+      v32[3] = &unk_2789561D0;
+      v32[4] = self;
+      v32[5] = &buf;
+      [(SGSqliteDatabase *)self runWithWriteLockAcquired:v32];
       if (!*(*(&buf + 1) + 40))
       {
         if (v7)
         {
 LABEL_11:
           v8 = sgLogHandle();
-          v29 = (_pagesToVacuum + 499) / 0x1F4;
+          v28 = (_pagesToVacuum + 499) / 0x1F4;
           if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
           {
-            v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
-            *v34 = 134218498;
+            v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28];
+            *v33 = 134218498;
             selfCopy = _pagesToVacuum;
-            v36 = 2112;
-            *v37 = v9;
-            *&v37[8] = 2112;
-            *&v37[10] = self;
-            _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "performing INCREMENTAL VACUUM to free %lu pages with %@ iterations for db: %@", v34, 0x20u);
+            v35 = 2112;
+            *v36 = v9;
+            *&v36[8] = 2112;
+            *&v36[10] = self;
+            _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "performing INCREMENTAL VACUUM to free %lu pages with %@ iterations for db: %@", v33, 0x20u);
           }
 
           if (_pagesToVacuum + 499 >= 0x1F4)
@@ -154,24 +154,24 @@ LABEL_11:
               v13 = sgLogHandle();
               if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
-                *v34 = 134218496;
+                *v33 = 134218496;
                 selfCopy = v12;
-                v36 = 1024;
-                *v37 = v10;
-                *&v37[4] = 2048;
-                *&v37[6] = _pagesToVacuum;
-                _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "Performing incremental vacuum for %tu pages on iteration %d for total pages to free %tu", v34, 0x1Cu);
+                v35 = 1024;
+                *v36 = v10;
+                *&v36[4] = 2048;
+                *&v36[6] = _pagesToVacuum;
+                _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "Performing incremental vacuum for %tu pages on iteration %d for total pages to free %tu", v33, 0x1Cu);
               }
 
               v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"PRAGMA incremental_vacuum(%lu)", v12];
-              v30[0] = MEMORY[0x277D85DD0];
-              v30[1] = 3221225472;
-              v30[2] = __26__SGSqliteDatabase_vacuum__block_invoke_206;
-              v30[3] = &unk_278955830;
-              v30[4] = self;
+              v29[0] = MEMORY[0x277D85DD0];
+              v29[1] = 3221225472;
+              v29[2] = __26__SGSqliteDatabase_vacuum__block_invoke_206;
+              v29[3] = &unk_278955830;
+              v29[4] = self;
               v15 = v14;
-              v31 = v15;
-              [(SGSqliteDatabase *)self runWithWriteLockAcquired:v30];
+              v30 = v15;
+              [(SGSqliteDatabase *)self runWithWriteLockAcquired:v29];
               v16 = +[SGXPCActivityManager sharedInstance];
               v17 = [v16 activityForActivityId:1];
 
@@ -184,13 +184,13 @@ LABEL_11:
                 {
                   v20 = [MEMORY[0x277CCABB0] numberWithLong:state];
                   v21 = [MEMORY[0x277CCABB0] numberWithInt:v10];
-                  *v34 = 138412802;
+                  *v33 = 138412802;
                   selfCopy = v17;
-                  v36 = 2112;
-                  *v37 = v20;
-                  *&v37[8] = 2112;
-                  *&v37[10] = v21;
-                  _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_INFO, "We have a vacuum activity %@ with activity state %@ after %@ batches", v34, 0x20u);
+                  v35 = 2112;
+                  *v36 = v20;
+                  *&v36[8] = 2112;
+                  *&v36[10] = v21;
+                  _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_INFO, "We have a vacuum activity %@ with activity state %@ after %@ batches", v33, 0x20u);
                 }
 
                 if (xpc_activity_should_defer(v17))
@@ -199,7 +199,7 @@ LABEL_11:
                 }
               }
 
-              if (v29 == ++v10)
+              if (v28 == ++v10)
               {
                 goto LABEL_34;
               }
@@ -212,13 +212,13 @@ LABEL_11:
               v25 = [MEMORY[0x277CCABB0] numberWithInt:v10];
               v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_pagesToVacuum - v11];
               v27 = [MEMORY[0x277CCABB0] numberWithBool:v23];
-              *v34 = 138412802;
+              *v33 = 138412802;
               selfCopy = v25;
-              v36 = 2112;
-              *v37 = v26;
-              *&v37[8] = 2112;
-              *&v37[10] = v27;
-              _os_log_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEFAULT, "We got back that we should defer the vacuuming activity after %@ iterations and having vacuumed %@ pages with deferral success %@", v34, 0x20u);
+              v35 = 2112;
+              *v36 = v26;
+              *&v36[8] = 2112;
+              *&v36[10] = v27;
+              _os_log_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEFAULT, "We got back that we should defer the vacuuming activity after %@ iterations and having vacuumed %@ pages with deferral success %@", v33, 0x20u);
             }
           }
 
@@ -228,26 +228,23 @@ LABEL_11:
         v22 = sgLogHandle();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          *v34 = 138412290;
+          *v33 = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_231E60000, v22, OS_LOG_TYPE_INFO, "performing FULL VACUUM to make INCREMENTAL effected for db: %@", v34, 0xCu);
+          _os_log_impl(&dword_231E60000, v22, OS_LOG_TYPE_INFO, "performing FULL VACUUM to make INCREMENTAL effected for db: %@", v33, 0xCu);
         }
 
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __26__SGSqliteDatabase_vacuum__block_invoke_198;
-        v32[3] = &unk_278954A30;
-        v32[4] = self;
-        [(SGSqliteDatabase *)self runWithWriteLockAcquired:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __26__SGSqliteDatabase_vacuum__block_invoke_198;
+        v31[3] = &unk_278954A30;
+        v31[4] = self;
+        [(SGSqliteDatabase *)self runWithWriteLockAcquired:v31];
       }
 
 LABEL_34:
       _Block_object_dispose(&buf, 8);
     }
   }
-
-LABEL_35:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __26__SGSqliteDatabase_vacuum__block_invoke(uint64_t a1)
@@ -284,59 +281,56 @@ uint64_t __26__SGSqliteDatabase_vacuum__block_invoke_206(uint64_t a1)
 
 uint64_t __26__SGSqliteDatabase_vacuum__block_invoke_2_207(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to incremental vacuum db: %@. error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to incremental vacuum db: %@. error: %@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __26__SGSqliteDatabase_vacuum__block_invoke_2_202(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to vacuum db: %@. error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to vacuum db: %@. error: %@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __26__SGSqliteDatabase_vacuum__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "failed to set auto_vacuum to INCREMENTAL for db: %@. error: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "failed to set auto_vacuum to INCREMENTAL for db: %@. error: %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -365,37 +359,36 @@ uint64_t __26__SGSqliteDatabase_vacuum__block_invoke_2(uint64_t a1, void *a2)
 
 uint64_t __30__SGSqliteDatabase_vacuumMode__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 40) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get auto-vacuum mode from db: %@. error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get auto-vacuum mode from db: %@. error: %@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 - (unint64_t)_pagesToVacuum
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pageCount = [(SGSqliteDatabase *)self pageCount];
   freelistCount = [(SGSqliteDatabase *)self freelistCount];
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 134218240;
-    v10 = pageCount;
-    v11 = 2048;
-    v12 = freelistCount;
-    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "Calculating pages to vacuum -- pageCount %tu freeCount %tu", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = pageCount;
+    v10 = 2048;
+    v11 = freelistCount;
+    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "Calculating pages to vacuum -- pageCount %tu freeCount %tu", &v8, 0x16u);
   }
 
   result = 0;
@@ -410,7 +403,7 @@ uint64_t __30__SGSqliteDatabase_vacuumMode__block_invoke_2(uint64_t a1, void *a2
         {
           if ((pageCount - freelistCount) / pageCount <= 0.85 || freelistCount > 0x3FF)
           {
-            result = (freelistCount * 0.8);
+            return (freelistCount * 0.8);
           }
 
           else
@@ -418,21 +411,20 @@ uint64_t __30__SGSqliteDatabase_vacuumMode__block_invoke_2(uint64_t a1, void *a2
             v7 = sgLogHandle();
             if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
             {
-              v9 = 134218240;
-              v10 = pageCount;
-              v11 = 2048;
-              v12 = freelistCount;
-              _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "not enough pages to vacuum: pageCount: %lu; freeCount: %lu", &v9, 0x16u);
+              v8 = 134218240;
+              v9 = pageCount;
+              v10 = 2048;
+              v11 = freelistCount;
+              _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "not enough pages to vacuum: pageCount: %lu; freeCount: %lu", &v8, 0x16u);
             }
 
-            result = 0;
+            return 0;
           }
         }
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -461,21 +453,20 @@ uint64_t __30__SGSqliteDatabase_vacuumMode__block_invoke_2(uint64_t a1, void *a2
 
 uint64_t __33__SGSqliteDatabase_freelistCount__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get freelist_count from db: %@. error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get freelist_count from db: %@. error: %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -504,21 +495,20 @@ uint64_t __33__SGSqliteDatabase_freelistCount__block_invoke_2(uint64_t a1, void 
 
 uint64_t __29__SGSqliteDatabase_pageCount__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get page_count from db: %@. error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "failed to get page_count from db: %@. error: %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -610,7 +600,7 @@ uint64_t __41__SGSqliteDatabase_performIntegrityCheck__block_invoke(uint64_t a1,
   return self;
 }
 
-uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
+void *__42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) frailWriteTransaction:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -638,7 +628,7 @@ uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
   v11 = objc_autoreleasePoolPush();
   allKeys = [dictionaryCopy allKeys];
   objc_autoreleasePoolPop(v11);
-  if (![allKeys count])
+  if (!objc_msgSend_count(allKeys))
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqliteDatabase.m" lineNumber:785 description:@"insertOrReplaceIntoTable:dictionary: requires nonempty dictionary"];
@@ -647,11 +637,12 @@ uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
   v13 = objc_autoreleasePoolPush();
   v14 = objc_alloc(MEMORY[0x277CCACA8]);
   v15 = [allKeys _pas_componentsJoinedByString:{@", "}];
-  v16 = qmarksSeparatedByCommas([allKeys count]);
-  v17 = [v14 initWithFormat:@"INSERT OR REPLACE INTO %@ (%@) VALUES (%@)", tableCopy, v15, v16];
+  v16 = objc_msgSend_count(allKeys);
+  v17 = qmarksSeparatedByCommas(v16);
+  v18 = [v14 initWithFormat:@"INSERT OR REPLACE INTO %@ (%@) VALUES (%@)", tableCopy, v15, v17];
 
   objc_autoreleasePoolPop(v13);
-  [(SGSqliteDatabase *)self _prepAndRunQuery:v17 columns:allKeys dictionary:dictionaryCopy onError:errorCopy];
+  [(SGSqliteDatabase *)self _prepAndRunQuery:v18 columns:allKeys dictionary:dictionaryCopy onError:errorCopy];
 }
 
 - (void)updateTable:(id)table dictionary:(id)dictionary whereClause:(id)clause onError:(id)error
@@ -663,7 +654,7 @@ uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
   v14 = objc_autoreleasePoolPush();
   allKeys = [dictionaryCopy allKeys];
   objc_autoreleasePoolPop(v14);
-  if (![allKeys count])
+  if (!objc_msgSend_count(allKeys))
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqliteDatabase.m" lineNumber:772 description:@"updateTable:dictionary:whereClause: requires nonempty dictionary"];
@@ -691,36 +682,36 @@ uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
 
 - (BOOL)prepAndRunNonDataQueries:(id)queries onError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   queriesCopy = queries;
   errorCopy = error;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = queriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (![(SGSqliteDatabase *)self prepAndRunSQL:*(*(&v16 + 1) + 8 * i) onPrep:0 onRow:0 onError:errorCopy, v16])
+        if (![(SGSqliteDatabase *)self prepAndRunSQL:*(*(&v15 + 1) + 8 * i) onPrep:0 onRow:0 onError:errorCopy, v15])
         {
           v13 = 0;
           goto LABEL_11;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -733,7 +724,6 @@ uint64_t __42__SGSqliteDatabase_frailWriteTransaction___block_invoke(void *a1)
   v13 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -754,9 +744,9 @@ LABEL_11:
 
 void __64__SGSqliteDatabase__prepAndRunQuery_columns_dictionary_onError___block_invoke(uint64_t a1, void *a2)
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v4 = 0;
     do
@@ -810,34 +800,34 @@ void __64__SGSqliteDatabase__prepAndRunQuery_columns_dictionary_onError___block_
             {
               if (![v7 conformsToProtocol:&unk_28474D248])
               {
-                v15 = MEMORY[0x277CBEAD8];
-                v23 = @"type";
-                v16 = [objc_opt_class() description];
-                v24 = v16;
-                v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-                v18 = @"Could not insert this type into sqlite";
+                v14 = MEMORY[0x277CBEAD8];
+                v22 = @"type";
+                v15 = [objc_opt_class() description];
+                v23 = v15;
+                v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+                v17 = @"Could not insert this type into sqlite";
                 goto LABEL_22;
               }
 
-              v22 = 0;
-              v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v22];
-              v13 = v22;
+              v21 = 0;
+              v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v21];
+              v13 = v21;
               if (v13)
               {
-                v15 = MEMORY[0x277CBEAD8];
-                v25[0] = @"type";
-                v19 = v13;
-                v16 = [objc_opt_class() description];
-                v25[1] = @"error";
-                v26[0] = v16;
-                v26[1] = v19;
-                v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-                v18 = @"Could not securely code this type into SQLite";
+                v14 = MEMORY[0x277CBEAD8];
+                v24[0] = @"type";
+                v18 = v13;
+                v15 = [objc_opt_class() description];
+                v24[1] = @"error";
+                v25[0] = v15;
+                v25[1] = v18;
+                v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+                v17 = @"Could not securely code this type into SQLite";
 LABEL_22:
-                v20 = [v15 exceptionWithName:@"TypeError" reason:v18 userInfo:v17];
-                v21 = v20;
+                v19 = [v14 exceptionWithName:@"TypeError" reason:v17 userInfo:v16];
+                v20 = v19;
 
-                objc_exception_throw(v20);
+                objc_exception_throw(v19);
               }
 
               [v3 bindParam:++v4 toNSData:v12];
@@ -849,10 +839,8 @@ LABEL_22:
       objc_autoreleasePoolPop(v5);
     }
 
-    while ([*(a1 + 32) count] > v4);
+    while (objc_msgSend_count(*(a1 + 32)) > v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)prepAndRunSQL:(id)l onPrep:(id)prep onRow:(id)row onError:(id)error
@@ -985,7 +973,7 @@ LABEL_3:
 
 - (BOOL)runQuery:(id)query onRow:(id)row onError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   rowCopy = row;
   errorCopy = error;
@@ -996,9 +984,9 @@ LABEL_3:
     v13 = sgLogHandle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v26 = 136315138;
-      v27 = COERCE_DOUBLE(sqlite3_sql([queryCopy stmt]));
-      _os_log_fault_impl(&dword_231E60000, v13, OS_LOG_TYPE_FAULT, "Write statement should be run in a write transaction: %s", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = COERCE_DOUBLE(sqlite3_sql([queryCopy stmt]));
+      _os_log_fault_impl(&dword_231E60000, v13, OS_LOG_TYPE_FAULT, "Write statement should be run in a write transaction: %s", &v25, 0xCu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -1030,22 +1018,22 @@ LABEL_3:
     {
       if (v20)
       {
-        v26 = 134218242;
-        v27 = v17 * 1000.0;
-        v28 = 2080;
-        v29 = v18;
+        v25 = 134218242;
+        v26 = v17 * 1000.0;
+        v27 = 2080;
+        v28 = v18;
         v21 = "This query was delayed %0.2f ms waiting for db file locked by another sqlite connection: %s";
         v22 = v19;
         v23 = 22;
 LABEL_18:
-        _os_log_impl(&dword_231E60000, v22, OS_LOG_TYPE_INFO, v21, &v26, v23);
+        _os_log_impl(&dword_231E60000, v22, OS_LOG_TYPE_INFO, v21, &v25, v23);
       }
     }
 
     else if (v20)
     {
-      v26 = 134217984;
-      v27 = v17 * 1000.0;
+      v25 = 134217984;
+      v26 = v17 * 1000.0;
       v21 = "This query was delayed %0.2f ms waiting for db file locked by another sqlite connection -- unknown SQL";
       v22 = v19;
       v23 = 12;
@@ -1053,7 +1041,6 @@ LABEL_18:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1074,7 +1061,7 @@ LABEL_18:
 - (SGSqliteDatabase)initWithFilename:(id)filename withProtection:(BOOL)protection sharedLock:(id)lock error:(id *)error
 {
   protectionCopy = protection;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   filenameCopy = filename;
   lockCopy = lock;
   if (!filenameCopy)
@@ -1083,9 +1070,9 @@ LABEL_18:
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqliteDatabase.m" lineNumber:328 description:{@"Invalid parameter not satisfying: %@", @"filename"}];
   }
 
-  v55.receiver = self;
-  v55.super_class = SGSqliteDatabase;
-  v13 = [(SGSqliteDatabase *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = SGSqliteDatabase;
+  v13 = [(SGSqliteDatabase *)&v54 init];
   p_isa = &v13->super.isa;
   if (!v13)
   {
@@ -1137,19 +1124,19 @@ LABEL_18:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v69 = v21;
+      v68 = v21;
       _os_log_error_impl(&dword_231E60000, v22, OS_LOG_TYPE_ERROR, "Could not install hasInhumanTag() sqlite function (rc = %i)", buf, 8u);
     }
 
     if (error)
     {
       v23 = MEMORY[0x277CCA9B8];
-      v66 = @"sqliteCode";
+      v65 = @"sqliteCode";
       v24 = [MEMORY[0x277CCABB0] numberWithInt:v21];
-      v67 = v24;
+      v66 = v24;
       v25 = MEMORY[0x277CBEAC0];
-      v26 = &v67;
-      v27 = &v66;
+      v26 = &v66;
+      v27 = &v65;
 LABEL_32:
       v37 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
       v38 = v23;
@@ -1176,19 +1163,19 @@ LABEL_34:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v69 = v32;
+        v68 = v32;
         _os_log_error_impl(&dword_231E60000, v33, OS_LOG_TYPE_ERROR, "Could not install delimitedString() sqlite function (rc = %i)", buf, 8u);
       }
 
       if (error)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v62 = @"sqliteCode";
+        v61 = @"sqliteCode";
         v24 = [MEMORY[0x277CCABB0] numberWithInt:v32];
-        v63 = v24;
+        v62 = v24;
         v25 = MEMORY[0x277CBEAC0];
-        v26 = &v63;
-        v27 = &v62;
+        v26 = &v62;
+        v27 = &v61;
         goto LABEL_32;
       }
 
@@ -1203,19 +1190,19 @@ LABEL_34:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v69 = v35;
+        v68 = v35;
         _os_log_error_impl(&dword_231E60000, v36, OS_LOG_TYPE_ERROR, "Could not install firstStringAfterPrefix() sqlite function (rc = %i)", buf, 8u);
       }
 
       if (error)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v60 = @"sqliteCode";
+        v59 = @"sqliteCode";
         v24 = [MEMORY[0x277CCABB0] numberWithInt:v35];
-        v61 = v24;
+        v60 = v24;
         v25 = MEMORY[0x277CBEAC0];
-        v26 = &v61;
-        v27 = &v60;
+        v26 = &v60;
+        v27 = &v59;
         goto LABEL_32;
       }
 
@@ -1230,17 +1217,17 @@ LABEL_34:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v69 = v41;
+        v68 = v41;
         _os_log_error_impl(&dword_231E60000, v42, OS_LOG_TYPE_ERROR, "Sqlite could not install busy timeout. (rc = %i)", buf, 8u);
       }
 
       if (error)
       {
         v43 = MEMORY[0x277CCA9B8];
-        v58 = @"sqliteCode";
+        v57 = @"sqliteCode";
         v24 = [MEMORY[0x277CCABB0] numberWithInt:v41];
-        v59 = v24;
-        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v58 = v24;
+        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         v38 = v43;
         v39 = 2;
         goto LABEL_33;
@@ -1257,17 +1244,17 @@ LABEL_34:
       if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v69 = v45;
+        v68 = v45;
         _os_log_error_impl(&dword_231E60000, v46, OS_LOG_TYPE_ERROR, "Sqlite could not install busy handler. (rc = %i)", buf, 8u);
       }
 
       if (error)
       {
         v47 = MEMORY[0x277CCA9B8];
-        v56 = @"sqliteCode";
+        v55 = @"sqliteCode";
         v48 = [MEMORY[0x277CCABB0] numberWithInt:v45];
-        v57 = v48;
-        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v56 = v48;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
         *error = [v47 errorWithDomain:@"SGSqliteDatabaseError" code:6 userInfo:v49];
 
         goto LABEL_34;
@@ -1276,12 +1263,12 @@ LABEL_34:
       goto LABEL_47;
     }
 
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __69__SGSqliteDatabase_initWithFilename_withProtection_sharedLock_error___block_invoke;
-    v53[3] = &unk_278954A30;
-    v54 = p_isa;
-    [v54 runWithWriteLockAcquired:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __69__SGSqliteDatabase_initWithFilename_withProtection_sharedLock_error___block_invoke;
+    v52[3] = &unk_278954A30;
+    v53 = p_isa;
+    [v53 runWithWriteLockAcquired:v52];
 
 LABEL_46:
     error = p_isa;
@@ -1293,41 +1280,39 @@ LABEL_46:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v69 = v29;
+    v68 = v29;
     _os_log_error_impl(&dword_231E60000, v30, OS_LOG_TYPE_ERROR, "Could not install tagsHaveEscapedTag() sqlite function (rc = %i)", buf, 8u);
   }
 
   if (error)
   {
     v23 = MEMORY[0x277CCA9B8];
-    v64 = @"sqliteCode";
+    v63 = @"sqliteCode";
     v24 = [MEMORY[0x277CCABB0] numberWithInt:v29];
-    v65 = v24;
+    v64 = v24;
     v25 = MEMORY[0x277CBEAC0];
-    v26 = &v65;
-    v27 = &v64;
+    v26 = &v64;
+    v27 = &v63;
     goto LABEL_32;
   }
 
 LABEL_47:
 
-  v50 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 uint64_t __69__SGSqliteDatabase_initWithFilename_withProtection_sharedLock_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "unable to set auto_vacuum to INCREMENTAL: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "unable to set auto_vacuum to INCREMENTAL: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 

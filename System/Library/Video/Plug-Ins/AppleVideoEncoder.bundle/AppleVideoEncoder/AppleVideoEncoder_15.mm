@@ -1,4364 +1,3 @@
-void sub_144B1C(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, int a5)
-{
-  v10 = *(a4 + 40);
-  sub_175AE4();
-  if (sub_160EF0(0xDu, 7))
-  {
-    v11 = sub_160F34(0xDu);
-    v12 = sub_175AE4();
-    v13 = sub_160F68(7);
-    if (v11)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %zu %p %d\n", v12, 13, v13, "AVE_Plugin_OF_EmitMotionVectors", a1, a2, a3, a4, a5);
-      v14 = sub_175AE4();
-      v28 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %zu %p %d", v14, 13, v28);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %zu %p %d", v12, 13, v13);
-    }
-  }
-
-  if (a1)
-  {
-    v15 = *(a1 + 80);
-    v16 = *(a1 + 8);
-    v17 = *(a4 + 2552);
-    if (*(a1 + 87200) == 1)
-    {
-      v18 = *(a4 + 2568);
-      VTMotionEstimationProcessorSessionEmitMotionVectors();
-      v19 = *(a4 + 2568);
-      if (v19)
-      {
-        CFRelease(v19);
-        *(a4 + 2568) = 0;
-      }
-    }
-
-    else
-    {
-      VTMotionEstimationProcessorSessionEmitMotionVectors();
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xBu, 4))
-    {
-      v20 = sub_160F34(0xBu);
-      v21 = sub_175AE4();
-      v22 = sub_160F68(4);
-      if (v20)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %lld %d\n", v21, 11, v22, "AVE_Plugin_OF_EmitMotionVectors", 293, "pPI != __null && (pBuffer != __null || pUserData != __null)", 0, a2, a4, 0, 0);
-        v23 = sub_175AE4();
-        v29 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %lld %d", v23, 11, v29, "AVE_Plugin_OF_EmitMotionVectors", 293);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %lld %d", v21, 11, v22, "AVE_Plugin_OF_EmitMotionVectors", 293);
-      }
-    }
-
-    v15 = 0;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v24 = sub_160F34(0xDu);
-    v25 = sub_175AE4();
-    v26 = sub_160F68(7);
-    if (v24)
-    {
-      printf("%lld %d AVE %s: %s Exit %zu %zu %lld\n", v25, 13, v26, "AVE_Plugin_OF_EmitMotionVectors", *(a4 + 2552), v10, v15);
-      v25 = sub_175AE4();
-      sub_160F68(7);
-      v27 = *(a4 + 2552);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %zu %zu %lld", v25);
-  }
-}
-
-uint64_t sub_144E30(const void *a1)
-{
-  v2 = sub_175AE4();
-  if (sub_160EF0(0xBu, 6))
-  {
-    v3 = sub_160F34(0xBu);
-    v4 = sub_175AE4();
-    v5 = sub_160F68(6);
-    if (v3)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %lld\n", v4, 11, v5, "AVE_Plugin_OF_Invalidate", a1, 0);
-      v6 = sub_175AE4();
-      v37 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %lld", v6, 11, v37, "AVE_Plugin_OF_Invalidate", a1, 0);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %lld", v4, 11, v5, "AVE_Plugin_OF_Invalidate", a1, 0);
-    }
-  }
-
-  if (a1)
-  {
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v8 = DerivedStorage;
-    v9 = DerivedStorage + 10752;
-    if (DerivedStorage)
-    {
-      sub_13DC18(*DerivedStorage);
-      v10 = v8[10];
-      kdebug_trace();
-      if (*(v9 + 1184) == 1)
-      {
-        v11 = sub_1751F8(v8);
-        if (v11 && sub_160EF0(0xDu, 4))
-        {
-          v12 = sub_160F34(0xDu);
-          v13 = sub_175AE4();
-          v14 = sub_160F68(4);
-          if (v12)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | DMV: fail to stop DMV %p %lld %p %d\n", v13, 13, v14, "AVE_Plugin_OF_Invalidate", 57, "ret == 0", a1, v10, v8, v11);
-            v15 = sub_175AE4();
-            v38 = sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | DMV: fail to stop DMV %p %lld %p %d", v15, 13, v38, "AVE_Plugin_OF_Invalidate");
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | DMV: fail to stop DMV %p %lld %p %d", v13, 13, v14, "AVE_Plugin_OF_Invalidate");
-          }
-        }
-      }
-
-      else
-      {
-        v11 = sub_14953C(v8);
-        if (v11 && sub_160EF0(0xDu, 4))
-        {
-          v24 = sub_160F34(0xDu);
-          v25 = sub_175AE4();
-          v26 = sub_160F68(4);
-          if (v24)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | fail to stop OF %p %lld %p %d\n", v25, 13, v26, "AVE_Plugin_OF_Invalidate", 64, "ret == 0", a1, v10, v8, v11);
-            v27 = sub_175AE4();
-            v41 = sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to stop OF %p %lld %p %d", v27, 13, v41, "AVE_Plugin_OF_Invalidate");
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to stop OF %p %lld %p %d", v25, 13, v26, "AVE_Plugin_OF_Invalidate");
-          }
-        }
-      }
-    }
-
-    else
-    {
-      if (sub_160EF0(0xBu, 4))
-      {
-        v20 = sub_160F34(0xBu);
-        v21 = sub_175AE4();
-        v22 = sub_160F68(4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d\n", v21, 11, v22, "AVE_Plugin_OF_Invalidate", 44, "pPI != __null", a1, 0, 0);
-          v23 = sub_175AE4();
-          v40 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d", v23, 11, v40);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d", v21, 11, v22);
-        }
-      }
-
-      v10 = 0;
-      v11 = 4294966296;
-    }
-
-    v28 = v9[147];
-    if (v28)
-    {
-      CVBufferRelease(v28);
-      v9[147] = 0;
-    }
-
-    kdebug_trace();
-    sub_13DC4C(*v8);
-  }
-
-  else
-  {
-    if (sub_160EF0(0xBu, 4))
-    {
-      v16 = sub_160F34(0xBu);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d\n", v17, 11, v18, "AVE_Plugin_OF_Invalidate", 39, "object != __null", 0, 0, 0);
-        v19 = sub_175AE4();
-        v39 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d", v19, 11, v39);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d", v17, 11, v18);
-      }
-    }
-
-    v10 = 0;
-    v11 = 4294966295;
-  }
-
-  v29 = sub_175AE4() - v2;
-  if (v29 >= 50000)
-  {
-    v30 = 5;
-  }
-
-  else
-  {
-    v30 = 6;
-  }
-
-  v31 = sub_175994(v11);
-  if (v11)
-  {
-    v32 = 4;
-  }
-
-  else
-  {
-    v32 = v30;
-  }
-
-  if (sub_160EF0(0xDu, v32))
-  {
-    v33 = sub_160F34(0xDu);
-    v34 = sub_175AE4();
-    v35 = sub_160F68(v32);
-    if (v33)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %lld %lld %d %d\n", v34, 13, v35, "AVE_Plugin_OF_Invalidate", a1, v10, v29, v11, v31);
-      v34 = sub_175AE4();
-      sub_160F68(v32);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %p %lld %lld %d %d", v34, 13);
-  }
-
-  return v31;
-}
-
-void sub_145438(const void *a1)
-{
-  v2 = sub_175AE4();
-  if (sub_160EF0(0xDu, 6))
-  {
-    v3 = sub_160F34(0xDu);
-    v4 = sub_175AE4();
-    v5 = sub_160F68(6);
-    if (v3)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %lld\n", v4, 13, v5, "AVE_Plugin_OF_Finalize", a1, 0);
-      v6 = sub_175AE4();
-      v35 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %lld", v6, 13, v35, "AVE_Plugin_OF_Finalize", a1, 0);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %lld", v4, 13, v5, "AVE_Plugin_OF_Finalize", a1, 0);
-    }
-  }
-
-  if (a1)
-  {
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v8 = DerivedStorage;
-    v9 = DerivedStorage + 10752;
-    if (DerivedStorage)
-    {
-      sub_13DC18(*DerivedStorage);
-      v10 = v8[10];
-      kdebug_trace();
-      if (*(v9 + 1184) == 1)
-      {
-        v11 = sub_17558C(v8);
-        if (v11 && sub_160EF0(0xDu, 4))
-        {
-          v12 = sub_160F34(0xDu);
-          v13 = sub_175AE4();
-          v14 = sub_160F68(4);
-          if (v12)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | DMV: fail to destroy session %p %lld %p %d\n", v13, 13, v14, "AVE_Plugin_OF_Finalize", 125, "ret == 0", a1, v10, v8, v11);
-            v13 = sub_175AE4();
-            v36 = sub_160F68(4);
-          }
-
-          else
-          {
-            v36 = v14;
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | DMV: fail to destroy session %p %lld %p %d", v13, 13, v36, "AVE_Plugin_OF_Finalize");
-        }
-      }
-
-      else
-      {
-        v11 = sub_1498D0(v8);
-        if (v11 && sub_160EF0(0xDu, 4))
-        {
-          v23 = sub_160F34(0xDu);
-          v24 = sub_175AE4();
-          v25 = sub_160F68(4);
-          if (v23)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | fail to destroy OF %p %lld %p %d\n", v24, 13, v25, "AVE_Plugin_OF_Finalize", 132, "ret == 0", a1, v10, v8, v11);
-            v26 = sub_175AE4();
-            v39 = sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to destroy OF %p %lld %p %d", v26, 13, v39, "AVE_Plugin_OF_Finalize");
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to destroy OF %p %lld %p %d", v24, 13, v25, "AVE_Plugin_OF_Finalize");
-          }
-        }
-      }
-    }
-
-    else
-    {
-      if (sub_160EF0(0xDu, 4))
-      {
-        v19 = sub_160F34(0xDu);
-        v20 = sub_175AE4();
-        v21 = sub_160F68(4);
-        if (v19)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d\n", v20, 13, v21, "AVE_Plugin_OF_Finalize", 112, "pPI != __null", a1, 0, 0);
-          v22 = sub_175AE4();
-          v38 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d", v22, 13, v38);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get OF %p %lld %d", v20, 13, v21);
-        }
-      }
-
-      v10 = 0;
-      v11 = 4294966296;
-    }
-
-    kdebug_trace();
-    v27 = v9[147];
-    if (v27)
-    {
-      CVBufferRelease(v27);
-      v9[147] = 0;
-    }
-
-    kdebug_trace();
-    sub_13DC4C(*v8);
-    sub_13DBD0(*v8);
-    *v8 = 0;
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v15 = sub_160F34(0xDu);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d\n", v16, 13, v17, "AVE_Plugin_OF_Finalize", 107, "object != __null", 0, 0, 0);
-        v18 = sub_175AE4();
-        v37 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d", v18, 13, v37);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %d", v16, 13, v17);
-      }
-    }
-
-    v10 = 0;
-    v11 = 4294966295;
-  }
-
-  v28 = sub_175AE4() - v2;
-  if (v28 >= 50000)
-  {
-    v29 = 5;
-  }
-
-  else
-  {
-    v29 = 6;
-  }
-
-  v30 = sub_175994(v11);
-  if (v11)
-  {
-    v31 = 4;
-  }
-
-  else
-  {
-    v31 = v29;
-  }
-
-  if (sub_160EF0(0xBu, v31))
-  {
-    v32 = sub_160F34(0xBu);
-    v33 = sub_175AE4();
-    v34 = sub_160F68(v31);
-    if (v32)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %lld %lld %d %d\n", v33, 11, v34, "AVE_Plugin_OF_Finalize", a1, v10, v28, v11, v30);
-      v33 = sub_175AE4();
-      sub_160F68(v31);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %p %lld %lld %d %d", v33, 11);
-  }
-}
-
-uint64_t sub_145A68(const void *a1, const __CFString *a2, const void *a3, const void *a4)
-{
-  v8 = sub_175AE4();
-  if (sub_160EF0(0xBu, 6))
-  {
-    v9 = sub_160F34(0xBu);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(6);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %p %p\n", v10, 11, v11, "AVE_Plugin_OF_CopyProperty", a1, a2, a3, a4);
-      v10 = sub_175AE4();
-      sub_160F68(6);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p", v10, 11);
-  }
-
-  if (a1 && a2 && a4)
-  {
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    if (DerivedStorage)
-    {
-      v13 = DerivedStorage;
-      sub_13DC18(*DerivedStorage);
-      v14 = v13[10];
-      kdebug_trace();
-      v15 = sub_1466F4(v13, a3, a2, a4);
-      kdebug_trace();
-      sub_13DC4C(*v13);
-    }
-
-    else
-    {
-      if (sub_160EF0(0xBu, 4))
-      {
-        v20 = sub_160F34(0xBu);
-        v21 = sub_175AE4();
-        v22 = sub_160F68(4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %p %d\n", v21, 11, v22, "AVE_Plugin_OF_CopyProperty", 191, "pPI != __null", a1, a2, a3, a4, 0);
-          v23 = sub_175AE4();
-          v35 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %p %d", v23, 11, v35, "AVE_Plugin_OF_CopyProperty", 191);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %p %d", v21, 11, v22, "AVE_Plugin_OF_CopyProperty", 191);
-        }
-      }
-
-      v13 = 0;
-      v14 = 0;
-      v15 = 4294966296;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xBu, 4))
-    {
-      v16 = sub_160F34(0xBu);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p %d\n", v17, 11, v18, "AVE_Plugin_OF_CopyProperty", 186, "object != __null && propertyKey != __null && propertyValueOut != __null", a1, a2, a3, a4, 0);
-        v19 = sub_175AE4();
-        v34 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p %d", v19, 11, v34, "AVE_Plugin_OF_CopyProperty", 186);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p %d", v17, 11, v18, "AVE_Plugin_OF_CopyProperty", 186);
-      }
-    }
-
-    v13 = 0;
-    v14 = 0;
-    v15 = 4294966295;
-  }
-
-  v24 = sub_175AE4() - v8;
-  if (v24 >= 50000)
-  {
-    v25 = 5;
-  }
-
-  else
-  {
-    v25 = 6;
-  }
-
-  v26 = sub_175994(v15);
-  if (v15)
-  {
-    v27 = 4;
-  }
-
-  else
-  {
-    v27 = v25;
-  }
-
-  if (sub_160EF0(0xBu, v27))
-  {
-    v28 = a1;
-    v29 = a3;
-    v30 = sub_160F34(0xBu);
-    v37 = sub_175AE4();
-    v31 = sub_160F68(v27);
-    if (v30)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %p %p %p %lld %lld %d %d\n", v37, 11, v31, "AVE_Plugin_OF_CopyProperty", v28, v13, v29, a4, v14, v24, v15, v26);
-      v32 = sub_175AE4();
-      v36 = sub_160F68(v27);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %lld %lld %d %d", v32, 11, v36, "AVE_Plugin_OF_CopyProperty", v28);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %lld %lld %d %d", v37, 11, v31, "AVE_Plugin_OF_CopyProperty", v28);
-    }
-  }
-
-  return v26;
-}
-
-uint64_t sub_145F10(const void *a1, const __CFString *a2, const void *a3)
-{
-  v6 = sub_175AE4();
-  if (sub_160EF0(0xBu, 6))
-  {
-    v7 = sub_160F34(0xBu);
-    v8 = sub_175AE4();
-    v9 = sub_160F68(6);
-    if (v7)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v8, 11, v9, "AVE_Plugin_OF_SetProperty", a1, a2, a3);
-      v8 = sub_175AE4();
-      sub_160F68(6);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v8);
-  }
-
-  if (a1 && a2 && a3)
-  {
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    if (DerivedStorage)
-    {
-      v11 = DerivedStorage;
-      sub_13DC18(*DerivedStorage);
-      v12 = v11[10];
-      kdebug_trace();
-      v13 = sub_14636C(v11, a2, a3);
-      kdebug_trace();
-      sub_13DC4C(*v11);
-    }
-
-    else
-    {
-      if (sub_160EF0(0xBu, 4))
-      {
-        v18 = sub_160F34(0xBu);
-        v19 = sub_175AE4();
-        v20 = sub_160F68(4);
-        if (v18)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %d\n", v19, 11, v20, "AVE_Plugin_OF_SetProperty", 242, "pPI != __null", a1, a2, a3, 0);
-          v21 = sub_175AE4();
-          v32 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %d", v21, 11, v32, "AVE_Plugin_OF_SetProperty");
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to get OF CM object storage %p %p %p %d", v19, 11, v20, "AVE_Plugin_OF_SetProperty");
-        }
-      }
-
-      v12 = 0;
-      v13 = 4294966296;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xBu, 4))
-    {
-      v14 = sub_160F34(0xBu);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(4);
-      if (v14)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %d\n", v15, 11, v16, "AVE_Plugin_OF_SetProperty", 237, "object != __null && propertyKey != __null && propertyValue != __null", a1, a2, a3, 0);
-        v17 = sub_175AE4();
-        v31 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %d", v17, 11, v31, "AVE_Plugin_OF_SetProperty");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %d", v15, 11, v16, "AVE_Plugin_OF_SetProperty");
-      }
-    }
-
-    v12 = 0;
-    v13 = 4294966295;
-  }
-
-  v22 = sub_175AE4() - v6;
-  if (v22 >= 50000)
-  {
-    v23 = 5;
-  }
-
-  else
-  {
-    v23 = 6;
-  }
-
-  v24 = sub_175994(v13);
-  if (v13)
-  {
-    v25 = 4;
-  }
-
-  else
-  {
-    v25 = v23;
-  }
-
-  if (sub_160EF0(0xBu, v25))
-  {
-    v26 = sub_160F34(0xBu);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(v25);
-    if (v26)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %p %p %lld %lld %d %d\n", v27, 11, v28, "AVE_Plugin_OF_SetProperty", a1, a2, a3, v12, v22, v13, v24);
-      v29 = sub_175AE4();
-      v33 = sub_160F68(v25);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %lld %lld %d %d", v29, 11, v33, "AVE_Plugin_OF_SetProperty");
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %lld %lld %d %d", v27, 11, v28, "AVE_Plugin_OF_SetProperty");
-    }
-  }
-
-  return v13;
-}
-
-uint64_t sub_14636C(void *a1, const __CFString *a2, const void *a3)
-{
-  if (sub_160EF0(0xDu, 7))
-  {
-    v6 = sub_160F34(0xDu);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(7);
-    if (v6)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 13, v8, "AVE_Session_OF_SetProperty", a1, a2, a3);
-      v7 = sub_175AE4();
-      sub_160F68(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
-  }
-
-  if (a1 && a2)
-  {
-    v9 = sub_4F8C(a1, a2, a3);
-    if (v9 && sub_160EF0(0xDu, 4))
-    {
-      v10 = sub_160F34(0xDu);
-      v11 = sub_175AE4();
-      v12 = sub_160F68(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Failed to set property %p %lld %p %p %d\n", v11, 13, v12, "AVE_Session_OF_SetProperty", 71, "ret == 0", a1, a1[10], a2, a3, v9);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        v13 = a1[10];
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to set property %p %lld %p %p %d", v11, 13, v12, "AVE_Session_OF_SetProperty", 71);
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v14 = sub_160F34(0xDu);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(4);
-      if (v14)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p\n", v15, 13, v16, "AVE_Session_OF_SetProperty", 66, "pINS != __null && pKey != __null", a1, a2, a3);
-        v17 = sub_175AE4();
-        v23 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p", v17, 13, v23);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p", v15, 13, v16);
-      }
-    }
-
-    v9 = 4294966295;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v18 = sub_160F34(0xDu);
-    v19 = sub_175AE4();
-    v20 = sub_160F68(7);
-    if (v18)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v19, 13, v20, "AVE_Session_OF_SetProperty", a1, v9);
-      v21 = sub_175AE4();
-      v24 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v21, 13, v24, "AVE_Session_OF_SetProperty", a1, v9);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v19, 13, v20, "AVE_Session_OF_SetProperty", a1, v9);
-    }
-  }
-
-  return v9;
-}
-
-uint64_t sub_1466F4(void *a1, const void *a2, const __CFString *a3, const void *a4)
-{
-  if (sub_160EF0(0xDu, 7))
-  {
-    v8 = sub_160F34(0xDu);
-    v9 = sub_175AE4();
-    v10 = sub_160F68(7);
-    if (v8)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %p %p\n", v9, 13, v10, "AVE_Session_OF_GetProperty", a1, a2, a3, a4);
-      v9 = sub_175AE4();
-      sub_160F68(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p", v9, 13);
-  }
-
-  if (a1 && a3 && a4)
-  {
-    v11 = sub_5114(a1, a2, a3, a4);
-    if (v11 && sub_160EF0(0xDu, 4))
-    {
-      v12 = sub_160F34(0xDu);
-      v13 = sub_175AE4();
-      v14 = sub_160F68(4);
-      if (v12)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Failed to get property %p %lld %p %p %p %d\n", v13, 13, v14, "AVE_Session_OF_GetProperty", 102, "ret == 0", a1, a1[10], a2, a3, a4, v11);
-        v13 = sub_175AE4();
-        v14 = sub_160F68(4);
-        v15 = a1[10];
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to get property %p %lld %p %p %p %d", v13, 13, v14, "AVE_Session_OF_GetProperty", 102, "ret == 0");
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v16 = sub_160F34(0xDu);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      if (v16)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p\n", v17, 13, v18, "AVE_Session_OF_GetProperty", 97, "pINS != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = sub_175AE4();
-        v25 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p", v19, 13, v25, "AVE_Session_OF_GetProperty");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p %p %p", v17, 13, v18, "AVE_Session_OF_GetProperty");
-      }
-    }
-
-    v11 = 4294966295;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v20 = sub_160F34(0xDu);
-    v21 = sub_175AE4();
-    v22 = sub_160F68(7);
-    if (v20)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v21, 13, v22, "AVE_Session_OF_GetProperty", a1, v11);
-      v23 = sub_175AE4();
-      v26 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v23, 13, v26, "AVE_Session_OF_GetProperty", a1, v11);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v21, 13, v22, "AVE_Session_OF_GetProperty", a1, v11);
-    }
-  }
-
-  return v11;
-}
-
-uint64_t sub_146AA0(uint64_t a1, void *a2)
-{
-  if (sub_160EF0(0xDu, 7))
-  {
-    v4 = sub_160F34(0xDu);
-    v5 = sub_175AE4();
-    v6 = sub_160F68(7);
-    if (v4)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p\n", v5, 13, v6, "AVE_Session_OF_GetPropertyDict", a1, a2);
-      v7 = sub_175AE4();
-      v24 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 13, v24, "AVE_Session_OF_GetPropertyDict", a1, a2);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v5, 13, v6, "AVE_Session_OF_GetPropertyDict", a1, a2);
-    }
-  }
-
-  if (a1 && a2)
-  {
-    *a2 = 0;
-    v8 = *(a1 + 87144);
-    if (v8)
-    {
-      v9 = CFGetRetainCount(*(a1 + 87144));
-      if (v9 != 1 && sub_160EF0(0xDu, 5))
-      {
-        v10 = sub_160F34(0xDu);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(5);
-        v13 = *(a1 + 80);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s: property dictionary reference count %p %lld %d\n", v11, 13, v12, "AVE_Session_OF_GetPropertyDict", a1, *(a1 + 80), v9);
-          v11 = sub_175AE4();
-          sub_160F68(5);
-          v14 = *(a1 + 80);
-        }
-
-        else
-        {
-          v26 = *(a1 + 80);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s: property dictionary reference count %p %lld %d", v11);
-      }
-
-      CFRetain(v8);
-      v18 = 0;
-    }
-
-    else
-    {
-      v18 = 4294966288;
-    }
-
-    *a2 = v8;
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v15 = sub_160F34(0xDu);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p\n", v16, 13, v17, "AVE_Session_OF_GetPropertyDict", 124, "pINS != __null && ppDict != __null", a1, a2);
-        v16 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p %p", v16, 13);
-    }
-
-    v18 = 4294966295;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v19 = sub_160F34(0xDu);
-    v20 = sub_175AE4();
-    v21 = sub_160F68(7);
-    if (v19)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v20, 13, v21, "AVE_Session_OF_GetPropertyDict", a1, v18);
-      v22 = sub_175AE4();
-      v25 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v22, 13, v25, "AVE_Session_OF_GetPropertyDict", a1, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v20, 13, v21, "AVE_Session_OF_GetPropertyDict", a1, v18);
-    }
-  }
-
-  return v18;
-}
-
-uint64_t sub_146DFC(uint64_t a1, const __CFAllocator *a2)
-{
-  v4 = sub_1502C8();
-  if (sub_160EF0(0xDu, 7))
-  {
-    v5 = sub_160F34(0xDu);
-    v6 = sub_175AE4();
-    v7 = sub_160F68(7);
-    if (v5)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p\n", v6, 13, v7, "AVE_Session_OF_CreatePropertyDict", a1, a2);
-      v8 = sub_175AE4();
-      v31 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 13, v31, "AVE_Session_OF_CreatePropertyDict", a1, a2);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v6, 13, v7, "AVE_Session_OF_CreatePropertyDict", a1, a2);
-    }
-  }
-
-  if (a1)
-  {
-    if (v4[396])
-    {
-      v9 = 257;
-    }
-
-    else
-    {
-      v9 = 258;
-    }
-
-    Mutable = CFDictionaryCreateMutable(a2, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    *(a1 + 87144) = Mutable;
-    if (Mutable)
-    {
-      v11 = sub_4D2C(*(a1 + 92), v9, *(a1 + 80), Mutable);
-      if (!v11)
-      {
-        goto LABEL_29;
-      }
-
-      if (sub_160EF0(0xDu, 4))
-      {
-        v12 = sub_160F34(0xDu);
-        v13 = sub_175AE4();
-        v14 = sub_160F68(4);
-        v15 = *(a1 + 92);
-        if (v12)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | Failed to make property dictionary %p %lld 0x%x %d %d\n", v13, 13, v14, "AVE_Session_OF_CreatePropertyDict", 189, "ret == 0", a1, *(a1 + 80), v9, *(a1 + 92), v11);
-          v13 = sub_175AE4();
-          v14 = sub_160F68(4);
-          v16 = *(a1 + 80);
-        }
-
-        v32 = *(a1 + 92);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to make property dictionary %p %lld 0x%x %d %d", v13, 13, v14, "AVE_Session_OF_CreatePropertyDict");
-      }
-    }
-
-    else
-    {
-      if (sub_160EF0(0xDu, 4))
-      {
-        v20 = sub_160F34(0xDu);
-        v21 = sub_175AE4();
-        v22 = sub_160F68(4);
-        v23 = *(a1 + 92);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | Failed to create CFDict %p %lld 0x%x %d %d\n", v21, 13, v22, "AVE_Session_OF_CreatePropertyDict", 184, "pINS->pPropDict != __null", a1, *(a1 + 80), v9, *(a1 + 92), 0);
-          v21 = sub_175AE4();
-          v22 = sub_160F68(4);
-          v24 = *(a1 + 80);
-        }
-
-        v33 = *(a1 + 92);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create CFDict %p %lld 0x%x %d %d", v21, 13, v22, "AVE_Session_OF_CreatePropertyDict");
-      }
-
-      v11 = 4294966293;
-    }
-
-    v25 = *(a1 + 87144);
-    if (v25)
-    {
-      CFRelease(v25);
-      *(a1 + 87144) = 0;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v17 = sub_160F34(0xDu);
-      v18 = sub_175AE4();
-      v19 = sub_160F68(4);
-      if (v17)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Wrong parameter %p\n", v18, 13, v19, "AVE_Session_OF_CreatePropertyDict", 167, "pINS != __null", 0);
-        v18 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Wrong parameter %p", v18);
-    }
-
-    LODWORD(v9) = 0;
-    v11 = 4294966295;
-  }
-
-LABEL_29:
-  if (sub_160EF0(0xDu, 7))
-  {
-    v26 = sub_160F34(0xDu);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(7);
-    if (v26)
-    {
-      printf("%lld %d AVE %s: %s Exit %p 0x%x %d\n", v27, 13, v28, "AVE_Session_OF_CreatePropertyDict", a1, v9, v11);
-      v29 = sub_175AE4();
-      sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v29);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v27);
-    }
-  }
-
-  return v11;
-}
-
-void sub_1472D0(const __CFString *a1, const void *a2, void *a3)
-{
-  v6 = sub_14636C(a3, a1, a2);
-  if (v6)
-  {
-    v7 = v6;
-    if (sub_160EF0(0xBu, 4))
-    {
-      v8 = sub_160F34(0xBu);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(4);
-      if (v8)
-      {
-        printf("%lld %d AVE %s: %s: Failed to set property %p %p %p %d\n", v9, 11, v10, "AVE_Session_OF_ApplierFunc", a1, a2, a3, v7);
-        v9 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s: Failed to set property %p %p %p %d", v9, 11);
-    }
-  }
-}
-
-uint64_t sub_1473E4(uint64_t a1, const void *a2, const __CFDictionary *a3)
-{
-  if (sub_160EF0(0xDu, 6))
-  {
-    v6 = sub_160F34(0xDu);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(6);
-    if (v6)
-    {
-      printf("%lld %d AVE %s: %s Enter %p\n", v7, 13, v8, "AVE_Session_OF_Create", a1);
-      v9 = sub_175AE4();
-      v49 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v9, 13, v49, "AVE_Session_OF_Create", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v7, 13, v8, "AVE_Session_OF_Create", a1);
-    }
-  }
-
-  v10 = sub_1502C8();
-  *(a1 + 10724) = 2;
-  *(a1 + 88) = 2;
-  *(a1 + 10508) = 0x100000001;
-  *(a1 + 664) = v10[103];
-  v11 = sub_1289FC(2, 2);
-  if (v11)
-  {
-    v12 = v11;
-    if (sub_160EF0(0xDu, 4))
-    {
-      v13 = sub_160F34(0xDu);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (v13)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | fail to open OF %p %lld %d\n", v14, 13, v15, "AVE_Session_OF_Create", 250, "ret == 0", a1, 0, v12);
-        v16 = sub_175AE4();
-        v50 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open OF %p %lld %d", v16, 13, v50);
-        goto LABEL_36;
-      }
-
-      v56 = 0;
-      v57 = v12;
-      v55 = a1;
-      v54 = 250;
-      v52 = v15;
-      v26 = "%lld %d AVE %s: %s:%d %s | fail to open OF %p %lld %d";
-LABEL_20:
-      syslog(3, v26, v14, 13, v52, "AVE_Session_OF_Create", v54, "ret == 0", v55, v56, v57);
-    }
-  }
-
-  else
-  {
-    *(a1 + 92) = sub_129100(*(a1 + 24));
-    *(a1 + 80) = sub_129118(*(a1 + 24));
-    *(a1 + 96) = *(sub_16FD90(*(a1 + 92)) + 1);
-    v17 = *(a1 + 80);
-    sub_13EF48(v17, v10[403], (a1 + 72));
-    if (*(a1 + 96) <= 6)
-    {
-      if (sub_160EF0(0xDu, 4))
-      {
-        v22 = sub_160F34(0xDu);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        if (v22)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | %lld %d is not supported optical flow\n", v23, 13, v24, "AVE_Session_OF_Create", 259, "pINS->eDevType >= AVE_DevType_H13", v17, *(a1 + 96));
-          v23 = sub_175AE4();
-          sub_160F68(4);
-          v25 = *(a1 + 96);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %lld %d is not supported optical flow", v23, 13);
-      }
-
-      v12 = 4294966294;
-      goto LABEL_36;
-    }
-
-    sub_CBCA0(*(a1 + 80), (a1 + 616));
-    *(a1 + 16) = a2;
-    if (a2)
-    {
-      CFRetain(a2);
-    }
-
-    if (sub_160EF0(0xDu, 7))
-    {
-      v18 = sub_160F34(0xDu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(7);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s Enter %p\n", v19, 13, v20, "AVE_SetEncoderDefault", a1);
-        v21 = sub_175AE4();
-        v51 = sub_160F68(7);
-        syslog(3, "%lld %d AVE %s: %s Enter %p", v21, 13, v51, "AVE_SetEncoderDefault", a1);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s Enter %p", v19, 13, v20, "AVE_SetEncoderDefault", a1);
-      }
-    }
-
-    *(a1 + 10708) = 0;
-    *(a1 + 10716) = 1;
-    *(a1 + 10733) = 0;
-    *(a1 + 10740) = 5;
-    *(a1 + 10744) = 0x300000006;
-    *(a1 + 10798) = 257;
-    *(a1 + 10816) = 0;
-    *(a1 + 10832) = 0;
-    *(a1 + 10824) = 0;
-    *(a1 + 10840) = 0;
-    *(a1 + 10812) = -1;
-    *(a1 + 10804) = 0;
-    *(a1 + 10800) = 0x1000000;
-    *(a1 + 10807) = 0;
-    *(a1 + 10752) = 1;
-    v27 = *(a1 + 1288);
-    *(a1 + 10880) = 0;
-    *(a1 + 11396) = 0;
-    *(a1 + 11716) = 0;
-    *(a1 + 11424) = 0u;
-    *(a1 + 11440) = 0u;
-    *(a1 + 11456) = 0u;
-    *(a1 + 11472) = 0u;
-    *(a1 + 11488) = 0u;
-    *(a1 + 11504) = 0u;
-    *(a1 + 11520) = 0u;
-    *(a1 + 11536) = 0u;
-    *(a1 + 11552) = 0u;
-    *(a1 + 11568) = 0u;
-    *(a1 + 11584) = 0u;
-    *(a1 + 11600) = 0u;
-    *(a1 + 11616) = 0u;
-    *(a1 + 11632) = 0u;
-    *(a1 + 11648) = 0u;
-    *(a1 + 11664) = 0u;
-    *(a1 + 11680) = 0u;
-    *(a1 + 11696) = 0u;
-    bzero((a1 + 10882), 0x201uLL);
-    v28 = -288;
-    do
-    {
-      *(a1 + v28 + 11712) = 0;
-      v28 += 48;
-    }
-
-    while (v28);
-    *(a1 + 11416) = 0x100000006;
-    *(a1 + 11724) = 0;
-    *(a1 + 11744) = 0;
-    *(a1 + 11752) = 0;
-    *(a1 + 11756) = 0;
-    *(a1 + 1424) = 0;
-    *(a1 + 1416) = 0;
-    v29 = *(a1 + 1192);
-    *(a1 + 10488) = 0;
-    *(a1 + 1192) = v29 & 0xFFFFFAFF;
-    *(a1 + 10122) = 0;
-    *(a1 + 10128) = 2;
-    *(a1 + 10125) = 0;
-    *(a1 + 10196) = 1;
-    *(a1 + 10200) = 0;
-    *(a1 + 10204) = 1;
-    v30 = *(a1 + 1396);
-    *(a1 + 10212) = v30;
-    *(a1 + 10468) = 4;
-    *(a1 + 10156) = 256;
-    *(a1 + 10474) = 0;
-    *(a1 + 10136) = 0;
-    *(a1 + 10140) = 0x800000001;
-    *(a1 + 10123) = 1;
-    v31 = *(a1 + 1392);
-    *(a1 + 10760) = 1;
-    *(a1 + 1088) = ((v31 * v30) * 1.5 * 0.075 * 30.0);
-    *(a1 + 1064) = 0;
-    *(a1 + 1084) = 1;
-    *(a1 + 1168) = 0x3FF0000000000000;
-    *(a1 + 1304) = 0;
-    *(a1 + 10844) = 0;
-    *(a1 + 10732) = 1;
-    *(a1 + 11412) = 0;
-    *(a1 + 644) = -1;
-    *(a1 + 1184) = 0xC0000000CLL;
-    *(a1 + 1296) = 0xC0000000CLL;
-    *(a1 + 1288) = v27 & 0xF7FE7C89 | 0x200;
-    *(a1 + 1096) = 0x1A0000001ALL;
-    *(a1 + 1104) = 26;
-    *(a1 + 1276) = 1;
-    *(a1 + 1280) = 0x100000001;
-    *(a1 + 11400) = 30;
-    *(a1 + 1112) = 0u;
-    *(a1 + 1128) = 0u;
-    *(a1 + 1144) = 0;
-    *(a1 + 1072) = 0;
-    *(a1 + 11768) = 0;
-    *(a1 + 10132) = 0;
-    bzero((a1 + 11952), 0xC7D8uLL);
-    *(a1 + 10124) = 1;
-    *(a1 + 10482) = 1;
-    *(a1 + 10120) = 4 * (*(a1 + 96) > 8);
-    *(a1 + 1240) = 1;
-    *(a1 + 1204) = xmmword_185FA0;
-    *(a1 + 1220) = 0;
-    *(a1 + 1224) = 0xBFF0000000000000;
-    *(a1 + 1232) = 0xBFF0000000000000;
-    *(a1 + 10810) = 1;
-    *(a1 + 648) = 0;
-    *(a1 + 668) = 0;
-    if (sub_160EF0(0xDu, 7))
-    {
-      v32 = sub_160F34(0xDu);
-      v33 = sub_175AE4();
-      v34 = sub_160F68(7);
-      if (v32)
-      {
-        printf("%lld %d AVE %s: %s Exit %p %d\n", v33, 13, v34, "AVE_SetEncoderDefault", a1, 0);
-        v35 = sub_175AE4();
-        v53 = sub_160F68(7);
-        syslog(3, "%lld %d AVE %s: %s Exit %p %d", v35, 13, v53, "AVE_SetEncoderDefault", a1, 0);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s Exit %p %d", v33, 13, v34, "AVE_SetEncoderDefault", a1, 0);
-      }
-    }
-
-    if (a3)
-    {
-      CFDictionaryApplyFunction(a3, sub_1472D0, a1);
-    }
-
-    v12 = sub_146DFC(a1, a2);
-    if (!v12)
-    {
-      *(a1 + 64) = 30565;
-      goto LABEL_42;
-    }
-
-    if (sub_160EF0(0xDu, 4))
-    {
-      v36 = sub_160F34(0xDu);
-      v14 = sub_175AE4();
-      v37 = sub_160F68(4);
-      v38 = *(a1 + 80);
-      if (v36)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Failed to create property dictionary %p %lld %d\n", v14, 13, v37, "AVE_Session_OF_Create", 281, "ret == 0", a1, *(a1 + 80), v12);
-        v39 = sub_175AE4();
-        v40 = sub_160F68(4);
-        v41 = *(a1 + 80);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create property dictionary %p %lld %d", v39, 13, v40);
-        goto LABEL_36;
-      }
-
-      v56 = *(a1 + 80);
-      v57 = v12;
-      v55 = a1;
-      v54 = 281;
-      v52 = v37;
-      v26 = "%lld %d AVE %s: %s:%d %s | Failed to create property dictionary %p %lld %d";
-      goto LABEL_20;
-    }
-  }
-
-LABEL_36:
-  v42 = *(a1 + 87144);
-  if (v42)
-  {
-    CFRelease(v42);
-    *(a1 + 87144) = 0;
-  }
-
-  v43 = *(a1 + 16);
-  if (v43)
-  {
-    CFRelease(v43);
-    *(a1 + 16) = 0;
-  }
-
-  v44 = *(a1 + 616);
-  if (v44)
-  {
-    sub_CC04C(v44);
-    *(a1 + 616) = 0;
-  }
-
-LABEL_42:
-  if (sub_160EF0(0xDu, 6))
-  {
-    v45 = sub_160F34(0xDu);
-    v46 = sub_175AE4();
-    v47 = sub_160F68(6);
-    if (v45)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v46, 13, v47, "AVE_Session_OF_Create", a1, a2, a3, v12);
-      v46 = sub_175AE4();
-      sub_160F68(6);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v46, 13);
-  }
-
-  return v12;
-}
-
-uint64_t sub_147D04(uint64_t a1, unint64_t a2)
-{
-  v4 = HIDWORD(a2);
-  if (sub_160EF0(0xDu, 7))
-  {
-    v5 = sub_160F34(0xDu);
-    v6 = sub_175AE4();
-    v7 = sub_160F68(7);
-    if (v5)
-    {
-      printf("%lld %d AVE %s: OF: ENTER %s, width = %d, height = %d\n", v6, 13, v7, "AVE_Session_OF_Start", a2, v4);
-      v8 = sub_175AE4();
-      v73 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: OF: ENTER %s, width = %d, height = %d", v8, 13, v73, "AVE_Session_OF_Start", a2, v4);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: OF: ENTER %s, width = %d, height = %d", v6, 13, v7, "AVE_Session_OF_Start", a2, v4);
-    }
-  }
-
-  if (a2 < 2 || v4 <= 1)
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v16 = sub_160F34(0xDu);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      if (v16)
-      {
-        v19 = a2;
-        printf("%lld %d AVE %s: %s:%d %s | OF: Resolution (%dx%d) is not supported\n", v17, 13, v18, "AVE_Session_OF_Start", 324, "dimensions.width >= 2 && dimensions.height >= 2", a2, v4);
-        v20 = sub_175AE4();
-        v83 = v19;
-        v86 = v4;
-        v79 = 324;
-        v80 = "dimensions.width >= 2 && dimensions.height >= 2";
-        v75 = sub_160F68(4);
-        v21 = "%lld %d AVE %s: %s:%d %s | OF: Resolution (%dx%d) is not supported";
-LABEL_56:
-        syslog(3, v21, v20, 13, v75, "AVE_Session_OF_Start", v79, v80, v83, v86);
-        goto LABEL_69;
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | OF: Resolution (%dx%d) is not supported", v17);
-    }
-
-LABEL_69:
-    v57 = 4294966295;
-    goto LABEL_70;
-  }
-
-  *(a1 + 1392) = a2;
-  *(a1 + 1396) = v4;
-  v9 = (a1 + 87136);
-  v10 = (a1 + 24664);
-  v11 = (a1 + 10480);
-  *(a1 + 11404) = a2;
-  *(a1 + 11408) = v4;
-  if (sub_160EF0(0xDu, 7))
-  {
-    v12 = sub_160F34(0xDu);
-    v13 = sub_175AE4();
-    v14 = sub_160F68(7);
-    if (v12)
-    {
-      printf("%lld %d AVE %s: %s Enter %p\n", v13, 13, v14, "AVE_PrepareCropParams", a1);
-      v15 = sub_175AE4();
-      v74 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v15, 13, v74, "AVE_PrepareCropParams", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v13, 13, v14, "AVE_PrepareCropParams", a1);
-    }
-  }
-
-  v22 = *(a1 + 1392);
-  v23 = *(a1 + 1396);
-  *v10 = 0;
-  *(a1 + 24668) = 0u;
-  v24 = sub_14E470(*(a1 + 92), 2, 2);
-  v25 = *(a1 + 1396);
-  if ((v25 & 0xF) != 0 || v25 < v24[1])
-  {
-    v26 = *(a1 + 96);
-    if (v26 > 16 || v26 >= 12 && (*v11 & 1) == 0)
-    {
-      *(a1 + 87156) = v25;
-    }
-
-    v27 = (v25 + 15) & 0xFFFFFFF0;
-    if (v27 <= v24[1])
-    {
-      v27 = v24[1];
-    }
-
-    *(a1 + 1396) = v27;
-    *v10 = 1;
-    *(a1 + 24680) = v27 - v23;
-  }
-
-  v28 = *(a1 + 1392);
-  if ((v28 & 0xF) != 0 || v28 < *v24)
-  {
-    v29 = *(a1 + 96);
-    if (v29 > 16 || v29 >= 12 && (*v11 & 1) == 0)
-    {
-      *(a1 + 87152) = v28;
-    }
-
-    v30 = (v28 + 15) & 0xFFFFFFF0;
-    if (v30 <= *v24)
-    {
-      v30 = *v24;
-    }
-
-    *(a1 + 1392) = v30;
-    *v10 = 1;
-    *(a1 + 24672) = v30 - v22;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v31 = sub_160F34(0xDu);
-    v32 = sub_175AE4();
-    v33 = sub_160F68(7);
-    if (v31)
-    {
-      printf("%lld %d AVE %s: %s:%d input -> %dx%d\n", v32, 13, v33, "AVE_PrepareCropParams", 1050, v22, v23);
-      v32 = sub_175AE4();
-      sub_160F68(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d input -> %dx%d", v32);
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v34 = sub_160F34(0xDu);
-    v35 = sub_175AE4();
-    v36 = sub_160F68(7);
-    v37 = *(a1 + 1392);
-    if (v34)
-    {
-      printf("%lld %d AVE %s: %s:%d input multiple -> %dx%d\n", v35, 13, v36, "AVE_PrepareCropParams", 1052, *(a1 + 1392), *(a1 + 1396));
-      v35 = sub_175AE4();
-      sub_160F68(7);
-      v38 = *(a1 + 1392);
-      v84 = *(a1 + 1396);
-      v9 = (a1 + 87136);
-      v11 = (a1 + 10480);
-    }
-
-    else
-    {
-      v81 = *(a1 + 1392);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d input multiple -> %dx%d", v35);
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v39 = sub_160F34(0xDu);
-    v40 = sub_175AE4();
-    v41 = sub_160F68(7);
-    v42 = *(a1 + 24680);
-    if (v39)
-    {
-      printf("%lld %d AVE %s: %s:%d frame_crop_bottom_offset %d frame_crop_right_offset %d\n", v40, 13, v41, "AVE_PrepareCropParams", 1054, *(a1 + 24680), *(a1 + 24672));
-      v40 = sub_175AE4();
-      sub_160F68(7);
-      v43 = *(a1 + 24680);
-      v85 = *(a1 + 24672);
-    }
-
-    else
-    {
-      v82 = *(a1 + 24680);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d frame_crop_bottom_offset %d frame_crop_right_offset %d", v40);
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v44 = sub_160F34(0xDu);
-    v45 = sub_175AE4();
-    v46 = sub_160F68(7);
-    if (v44)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v45, 13, v46, "AVE_PrepareCropParams", a1, 0);
-      v47 = sub_175AE4();
-      v76 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v47, 13, v76, "AVE_PrepareCropParams", a1, 0);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v45, 13, v46, "AVE_PrepareCropParams", a1, 0);
-    }
-  }
-
-  if (sub_14E248(*(a1 + 92), 2, 2, *(a1 + 1392), *(a1 + 1396), 1))
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v48 = sub_160F34(0xDu);
-      v49 = sub_175AE4();
-      v50 = sub_160F68(4);
-      if (!v48)
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | OF: Dimension (%dx%d) is not supported", v49);
-        goto LABEL_69;
-      }
-
-      v51 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | OF: Dimension (%dx%d) is not supported\n", v49, 13, v50, "AVE_Session_OF_Start", 339, "dimensionsRequirement == 0", a2, v4);
-      v20 = sub_175AE4();
-      v83 = v51;
-      v86 = v4;
-      v79 = 339;
-      v80 = "dimensionsRequirement == 0";
-      v75 = sub_160F68(4);
-      v21 = "%lld %d AVE %s: %s:%d %s | OF: Dimension (%dx%d) is not supported";
-      goto LABEL_56;
-    }
-
-    goto LABEL_69;
-  }
-
-  if (v11[3] && *(a1 + 96) <= 8)
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v63 = sub_160F34(3u);
-      v64 = sub_175AE4();
-      v65 = sub_160F68(4);
-      if (v63)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | OF: UseMultiPassSearch is not supported on this Hw\n", v64, 3, v65, "AVE_OF_VerifySessionProperties", 941, "pINS->eDevType >= AVE_DevType_H13S");
-        v66 = sub_175AE4();
-        v78 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | OF: UseMultiPassSearch is not supported on this Hw", v66, 3, v78, "AVE_OF_VerifySessionProperties", 941, "pINS->eDevType >= AVE_DevType_H13S");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | OF: UseMultiPassSearch is not supported on this Hw", v64, 3, v65, "AVE_OF_VerifySessionProperties", 941, "pINS->eDevType >= AVE_DevType_H13S");
-      }
-    }
-
-    v57 = 4294966294;
-    goto LABEL_87;
-  }
-
-  if (*v11 != 1)
-  {
-    goto LABEL_75;
-  }
-
-  if (*(a1 + 96) <= 6)
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v67 = sub_160F34(3u);
-      v68 = sub_175AE4();
-      v69 = sub_160F68(4);
-      if (v67)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | OF: kAVEMotionVectorSize_4x4 is not supported on this Hw\n", v68, 3, v69, "AVE_OF_VerifySessionProperties", 950, "pINS->eDevType >= AVE_DevType_H13");
-        sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | OF: kAVEMotionVectorSize_4x4 is not supported on this Hw");
-    }
-
-    goto LABEL_86;
-  }
-
-  v52 = *(a1 + 1392);
-  if (v52 <= 0x1000)
-  {
-    v53 = *(a1 + 1396);
-    if (v53 <= 0x1000 && (v52 < 0x801 || v53 < 0x801))
-    {
-LABEL_75:
-      v57 = 0;
-      *v9 = 0;
-      *(a1 + 64) = 30566;
-      goto LABEL_70;
-    }
-  }
-
-  if (sub_160EF0(3u, 4))
-  {
-    v54 = sub_160F34(3u);
-    v55 = sub_175AE4();
-    v56 = sub_160F68(4);
-    if (v54)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | OF: Session is to large for kAVEMotionVectorSize_4x4\n", v55, 3, v56, "AVE_OF_VerifySessionProperties", 958, "false");
-      sub_175AE4();
-      sub_160F68(4);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %s | OF: Session is to large for kAVEMotionVectorSize_4x4");
-  }
-
-LABEL_86:
-  v57 = 4294966296;
-LABEL_87:
-  if (sub_160EF0(0xDu, 4))
-  {
-    v70 = sub_160F34(0xDu);
-    v71 = sub_175AE4();
-    v72 = sub_160F68(4);
-    if (v70)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifySessionProperties failed %d\n", v71, 13, v72, "AVE_Session_OF_Start", 343, "ret == 0", v57);
-      v71 = sub_175AE4();
-      sub_160F68(4);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifySessionProperties failed %d", v71);
-  }
-
-LABEL_70:
-  if (sub_160EF0(0xDu, 7))
-  {
-    v58 = sub_160F34(0xDu);
-    v59 = sub_175AE4();
-    v60 = sub_160F68(7);
-    if (v58)
-    {
-      printf("%lld %d AVE %s: %s Exit %d\n", v59, 13, v60, "AVE_Session_OF_Start", v57);
-      v61 = sub_175AE4();
-      v77 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v61, 13, v77, "AVE_Session_OF_Start", v57);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v59, 13, v60, "AVE_Session_OF_Start", v57);
-    }
-  }
-
-  return v57;
-}
-
-uint64_t sub_148880()
-{
-  v0 = __chkstk_darwin();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v7 = v0;
-  pixelBuffer = v3;
-  v71 = 0;
-  v8 = (v0 + 87136);
-  v70 = 0;
-  v69 = 0;
-  sub_175AE4();
-  if (sub_160EF0(0xDu, 7))
-  {
-    v9 = sub_160F34(0xDu);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(7);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v10, 13, v11, "AVE_Session_OF_Process", v7, v4, v2);
-      v10 = sub_175AE4();
-      sub_160F68(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v10);
-  }
-
-  v12 = sub_175AE4();
-  v13 = pixelBuffer;
-  v8[4] = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
-  v8[5] = CVPixelBufferGetHeightOfPlane(v13, 0);
-  if (!*v8)
-  {
-    v14 = sub_1502C8();
-    v74[0] = *(v7 + 1392);
-    PixelFormatType = CVPixelBufferGetPixelFormatType(v13);
-    v16 = sub_167CD8(PixelFormatType);
-    if (!v16)
-    {
-      if (sub_160EF0(3u, 4))
-      {
-        v29 = sub_160F34(3u);
-        v30 = sub_175AE4();
-        v31 = sub_160F68(4);
-        v32 = *(v7 + 80);
-        v33 = CVPixelBufferGetPixelFormatType(v13);
-        if (v29)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x\n", v30, 3, v31, "AVE_Session_OF_Process", 410, "pPixelFmt != __null", v7, v32, v33);
-          v30 = sub_175AE4();
-          v31 = sub_160F68(4);
-          v34 = *(v7 + 80);
-          CVPixelBufferGetPixelFormatType(v13);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v30, 3, v31);
-      }
-
-      v37 = 4294966295;
-      goto LABEL_57;
-    }
-
-    if (v14[420])
-    {
-      v17 = v14 + 420;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    sub_CC848(*(v7 + 616), v17, *(v7 + 88), 4, *(v14 + 103), *(v14 + 104), v74, 1, *(v16 + 3), *(v16 + 1), 0);
-    v13 = pixelBuffer;
-  }
-
-  sub_CCF60(*(v7 + 616), 0, v13);
-  v18 = *(v7 + 64);
-  if (v18 == 30566)
-  {
-    if (sub_149250(v7, &pixelBuffer, &v71, &v70, &v69, 1))
-    {
-      if (sub_160EF0(0xDu, 4))
-      {
-        v22 = sub_160F34(0xDu);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        if (v22)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifyImageBuffer failed\n", v23, 13, v24, "AVE_Session_OF_Process", 439, "ret == 0");
-          sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifyImageBuffer failed");
-      }
-
-      goto LABEL_52;
-    }
-
-    bzero(v75, 0x1078uLL);
-    v74[0] = v7 + 624;
-    v74[1] = v7 + 1392;
-    v35 = *(v7 + 616);
-    v74[2] = v7 + 10704;
-    v75[1] = v35;
-    v79 = v7 + 11952;
-    v80 = v7 + 24188;
-    v81 = v7 + 31992;
-    v82 = v7 + 41624;
-    v83 = v7 + 63112;
-    v84 = v12;
-    v36 = sub_12A644(*(v7 + 24), v74, v7 + 32, 1, *(v7 + 16), 0, 0, v7 + 100, (v7 + 11724), 0);
-    if (!v36)
-    {
-      goto LABEL_35;
-    }
-
-    v37 = v36;
-    if (sub_160EF0(0xDu, 4))
-    {
-      v38 = sub_160F34(0xDu);
-      v39 = sub_175AE4();
-      v40 = sub_160F68(4);
-      if (v38)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Start failed %d\n", v39, 13, v40, "AVE_Session_OF_Process", 459, "ret == 0", v37);
-        v39 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Start failed %d", v39);
-    }
-  }
-
-  else
-  {
-    if (v18 == 30568)
-    {
-      if (sub_149250(v7, &pixelBuffer, &v71, &v70, &v69, 0))
-      {
-        if (sub_160EF0(3u, 4))
-        {
-          v19 = sub_160F34(3u);
-          v20 = sub_175AE4();
-          v21 = sub_160F68(4);
-          if (v19)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifyImageBuffer failed.\n", v20, 3, v21, "AVE_Session_OF_Process", 429, "ret == 0");
-            sub_175AE4();
-            sub_160F68(4);
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_OF_VerifyImageBuffer failed.");
-        }
-
-LABEL_52:
-        v37 = 4294966296;
-        goto LABEL_57;
-      }
-
-LABEL_35:
-      *(v7 + 64) = 30568;
-      bzero(v73, 0x1738uLL);
-      v66 = 0;
-      v64 = 0u;
-      v65 = 0u;
-      memset(v63, 0, sizeof(v63));
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
-      v60 = 0u;
-      v58 = 0u;
-      v57 = 0u;
-      memset(v54, 0, sizeof(v54));
-      v55 = 0;
-      bzero(v74, 0x4A40uLL);
-      *&v63[1] = *(v7 + 87168);
-      *&v64 = v74;
-      *(&v64 + 1) = v73;
-      v56[1] = pixelBuffer;
-      v63[3] = v54;
-      v78 = *(v7 + 10156);
-      v41 = v8[4];
-      if (!v41)
-      {
-        v41 = *(v7 + 1392);
-      }
-
-      v76 = v41;
-      v42 = v8[5];
-      if (!v42)
-      {
-        v42 = *(v7 + 1396);
-      }
-
-      v77 = v42;
-      if (v2)
-      {
-        Value = CFDictionaryGetValue(v2, @"MakeKeyFrame");
-        if (Value)
-        {
-          if (CFEqual(Value, kCFBooleanTrue))
-          {
-            LODWORD(v74[0]) = 2;
-          }
-        }
-      }
-
-      v67 = *v8;
-      v68 = 0;
-      v56[0] = v6;
-      v37 = sub_12D95C(*(v7 + 24), v56);
-      if (v37 && sub_160EF0(0xDu, 4))
-      {
-        v44 = sub_160F34(0xDu);
-        v45 = sub_175AE4();
-        v46 = sub_160F68(4);
-        if (v44)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Process failed %d\n", v45, 13, v46, "AVE_Session_OF_Process", 504, "ret == 0", v37);
-          v45 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Process failed %d", v45);
-      }
-
-      goto LABEL_57;
-    }
-
-    if (sub_160EF0(0xDu, 4))
-    {
-      v25 = sub_160F34(0xDu);
-      v26 = sub_175AE4();
-      v27 = sub_160F68(4);
-      if (v25)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | OF: Incorrect session status = 0x%08x.\n", v26, 13, v27, "AVE_Session_OF_Process", 468, "false", *(v7 + 64));
-        v26 = sub_175AE4();
-        sub_160F68(4);
-        v28 = *(v7 + 64);
-      }
-
-      else
-      {
-        v53 = *(v7 + 64);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | OF: Incorrect session status = 0x%08x.", v26);
-    }
-
-    v37 = 4294966285;
-  }
-
-LABEL_57:
-  if (v71 == 1 && pixelBuffer)
-  {
-    CVPixelBufferRelease(pixelBuffer);
-  }
-
-  ++*v8;
-  if (sub_160EF0(0xDu, 7))
-  {
-    v47 = sub_160F34(0xDu);
-    v48 = sub_175AE4();
-    v49 = sub_160F68(7);
-    if (v47)
-    {
-      printf("%lld %d AVE %s: %s Exit %d\n", v48, 13, v49, "AVE_Session_OF_Process", v37);
-      v50 = sub_175AE4();
-      v52 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v50, 13, v52, "AVE_Session_OF_Process", v37);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v48, 13, v49, "AVE_Session_OF_Process", v37);
-    }
-  }
-
-  return v37;
-}
-
-uint64_t sub_149250(uint64_t a1, const void **a2, _BYTE *a3, _DWORD *a4, _DWORD *a5, int a6)
-{
-  memset(v45, 0, sizeof(v45));
-  v44 = 0u;
-  v43 = 0u;
-  v42 = 0u;
-  v41 = 0u;
-  v40 = 0u;
-  v39 = 0u;
-  v11 = *(a1 + 87152);
-  if (!v11)
-  {
-    v11 = *(a1 + 1392);
-  }
-
-  v34 = v11;
-  v12 = *(a1 + 87156);
-  if (!v12)
-  {
-    v12 = *(a1 + 1396);
-  }
-
-  v35 = v12;
-  v13 = *(a1 + 10724);
-  v36 = vrev64_s32(*(a1 + 88));
-  v37 = *(a1 + 668);
-  v38 = v13;
-  result = sub_DCDC0(&v34, a2, (a1 + 87160));
-  if (!result)
-  {
-    v15 = (a1 + 10123);
-    *a3 = v45[6];
-    v16 = HIDWORD(v44);
-    *a4 = DWORD2(v44);
-    *a5 = v16;
-    v17 = *(a1 + 96);
-    if (v17 <= 16 && (v17 < 12 || (*(a1 + 10480) & 1) != 0))
-    {
-      *(a1 + 10474) = BYTE1(v45[6]);
-    }
-
-    else
-    {
-      *(a1 + 10474) = 0;
-      if (v34 != *(a1 + 1392) || v35 != *(a1 + 1396))
-      {
-        v18 = 1;
-LABEL_14:
-        *(a1 + 10802) = v18;
-        v19 = HIDWORD(v42);
-        v20 = HIDWORD(v42) & 0xFFFFFFFE;
-        *(a1 + 10156) = (HIDWORD(v42) & 0xFFFFFFFE) == 2;
-        if (v19 == 3)
-        {
-          *(a1 + 10481) = BYTE4(v43);
-        }
-
-        if (a6)
-        {
-          v21 = DWORD2(v41);
-          *(a1 + 10720) = DWORD1(v41);
-          v22 = v42;
-          *(a1 + 24640) = v42;
-          *(a1 + 10140) = v22;
-          *(a1 + 10144) = v21;
-          *v15 = v19 != 1;
-          *(a1 + 10733) = 1;
-        }
-
-        if (v17 > 16 || *(a1 + 10480) != 1 || v20 != 2 && *(a1 + 10144) < 9u)
-        {
-          return 0;
-        }
-
-        if (sub_160EF0(0xDu, 4))
-        {
-          v23 = sub_160F34(0xDu);
-          v24 = sub_175AE4();
-          v25 = sub_160F68(4);
-          v26 = *(a1 + 10156);
-          if (v23)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | Format %d is not supported, %d %d %d %d %d\n", v24, 13, v25, "AVE_OF_VerifyImageBuffer", 699, "!((pINS->eDevType < AVE_DevType_H15) && pINS->VideoParams.scaled_src_en && (pINS->VideoParams.input_compress || pINS->VideoParams.input_bitdepth > 8))", *(a1 + 10720), *(a1 + 10144), *(a1 + 24640), *(a1 + 10140), *(a1 + 10156), *v15);
-            v24 = sub_175AE4();
-            v25 = sub_160F68(4);
-            v27 = *(a1 + 10156);
-            v33 = *v15;
-            v30 = *(a1 + 24640);
-            v31 = *(a1 + 10140);
-            v28 = *(a1 + 10720);
-            v29 = *(a1 + 10144);
-          }
-
-          else
-          {
-            v32 = *(a1 + 10156);
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | Format %d is not supported, %d %d %d %d %d", v24, 13, v25);
-        }
-
-        return 4294966294;
-      }
-    }
-
-    v18 = BYTE2(v45[6]);
-    goto LABEL_14;
-  }
-
-  return result;
-}
-
-uint64_t sub_14953C(uint64_t a1)
-{
-  if (sub_160EF0(0xDu, 7))
-  {
-    v2 = sub_160F34(0xDu);
-    v3 = sub_175AE4();
-    v4 = sub_160F68(7);
-    if (v2)
-    {
-      printf("%lld %d AVE %s: %s Enter %p\n", v3, 13, v4, "AVE_Session_OF_Complete", a1);
-      v5 = sub_175AE4();
-      v24 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 13, v24, "AVE_Session_OF_Complete", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v3, 13, v4, "AVE_Session_OF_Complete", a1);
-    }
-  }
-
-  if (a1)
-  {
-    v6 = *(a1 + 72);
-    v7 = sub_175AE4();
-    sub_140028(v6, 6u, v7);
-    if (*(a1 + 64) == 30568)
-    {
-      v27 = sub_175AE4();
-      v8 = sub_12D170(*(a1 + 24), &v27);
-      if (v8 && sub_160EF0(0xDu, 4))
-      {
-        v9 = sub_160F34(0xDu);
-        v10 = sub_175AE4();
-        v11 = sub_160F68(4);
-        v12 = *(a1 + 80);
-        if (v9)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | failed to complete %p %lld %d\n", v10, 13, v11, "AVE_Session_OF_Complete", 542, "ret == 0", a1, *(a1 + 80), v8);
-          v10 = sub_175AE4();
-          v11 = sub_160F68(4);
-          v13 = *(a1 + 80);
-        }
-
-        else
-        {
-          v26 = *(a1 + 80);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to complete %p %lld %d", v10, 13, v11);
-      }
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0xDu, 4))
-    {
-      v14 = sub_160F34(0xDu);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(4);
-      if (v14)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v15, 13, v16, "AVE_Session_OF_Complete", 530, "pINS != __null", 0);
-        v15 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v15);
-    }
-
-    v8 = 4294966295;
-  }
-
-  v17 = *(a1 + 72);
-  v18 = sub_175AE4();
-  sub_1403FC(v17, 6u, v18);
-  if (sub_160EF0(0xDu, 7))
-  {
-    v19 = sub_160F34(0xDu);
-    v20 = sub_175AE4();
-    v21 = sub_160F68(7);
-    if (v19)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v20, 13, v21, "AVE_Session_OF_Complete", a1, v8);
-      v22 = sub_175AE4();
-      v25 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v22, 13, v25, "AVE_Session_OF_Complete", a1, v8);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v20, 13, v21, "AVE_Session_OF_Complete", a1, v8);
-    }
-  }
-
-  return v8;
-}
-
-uint64_t sub_1498D0(uint64_t a1)
-{
-  if (sub_160EF0(0xDu, 7))
-  {
-    v2 = sub_160F34(0xDu);
-    v3 = sub_175AE4();
-    v4 = sub_160F68(7);
-    if (v2)
-    {
-      printf("%lld %d AVE %s: OF: ENTER %s\n", v3, 13, v4, "AVE_Session_OF_Destroy");
-      v5 = sub_175AE4();
-      v21 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: OF: ENTER %s", v5, 13, v21, "AVE_Session_OF_Destroy");
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: OF: ENTER %s", v3, 13, v4, "AVE_Session_OF_Destroy");
-    }
-  }
-
-  v6 = sub_175AE4();
-  if (*(a1 + 64) == 30568)
-  {
-    v23 = v6;
-    sub_12C9EC(*(a1 + 24), &v23, 1);
-  }
-
-  v7 = sub_12916C(*(a1 + 24));
-  *(a1 + 24) = 0;
-  if (v7 && sub_160EF0(0xDu, 4))
-  {
-    v8 = sub_160F34(0xDu);
-    v9 = sub_175AE4();
-    v10 = sub_160F68(4);
-    if (v8)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Destroy failed %d\n", v9, 13, v10, "AVE_Session_OF_Destroy", 587, "ret == 0", v7);
-      v9 = sub_175AE4();
-      sub_160F68(4);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %s | OF: AVE_USL_Drv_Destroy failed %d", v9);
-  }
-
-  sub_151B10();
-  v11 = *(a1 + 72);
-  if (v11)
-  {
-    sub_13FB64(v11);
-    *(a1 + 72) = 0;
-  }
-
-  v12 = *(a1 + 616);
-  if (v12)
-  {
-    sub_CCDA4(v12);
-    sub_CC04C(*(a1 + 616));
-    *(a1 + 616) = 0;
-  }
-
-  v13 = *(a1 + 87144);
-  if (v13)
-  {
-    CFRelease(v13);
-    *(a1 + 87144) = 0;
-  }
-
-  v14 = *(a1 + 16);
-  if (v14)
-  {
-    CFRelease(v14);
-    *(a1 + 16) = 0;
-  }
-
-  v15 = *(a1 + 87160);
-  if (v15)
-  {
-    CFRelease(v15);
-    *(a1 + 87160) = 0;
-  }
-
-  if (sub_160EF0(0xDu, 7))
-  {
-    v16 = sub_160F34(0xDu);
-    v17 = sub_175AE4();
-    v18 = sub_160F68(7);
-    if (v16)
-    {
-      printf("%lld %d AVE %s: %s Exit %d\n", v17, 13, v18, "AVE_Session_OF_Destroy", v7);
-      v19 = sub_175AE4();
-      v22 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v19, 13, v22, "AVE_Session_OF_Destroy", v7);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d", v17, 13, v18, "AVE_Session_OF_Destroy", v7);
-    }
-  }
-
-  return v7;
-}
-
-uint64_t sub_149BB4(int a1, __CFArray *a2)
-{
-  valuePtr = a1;
-  if (a2)
-  {
-    v3 = CFNumberCreate(0, kCFNumberCharType, &valuePtr);
-    if (v3)
-    {
-      v4 = v3;
-      CFArrayAppendValue(a2, v3);
-      CFRelease(v4);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p\n", v11, 20, v12, "AVE_CFArray_AddChar", 27, "pNum != __null", valuePtr, a2);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p", v11, 20);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %d %p\n", v8, 20, v9, "AVE_CFArray_AddChar", 23, "pArray != __null", a1, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %d %p", v8, 20);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_149DD8(int a1, __CFArray *a2)
-{
-  valuePtr = a1;
-  if (a2)
-  {
-    v3 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-    if (v3)
-    {
-      v4 = v3;
-      CFArrayAppendValue(a2, v3);
-      CFRelease(v4);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p\n", v11, 20, v12, "AVE_CFArray_AddSInt16", 55, "pNum != __null", valuePtr, a2);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p", v11, 20);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %d %p\n", v8, 20, v9, "AVE_CFArray_AddSInt16", 51, "pArray != __null", a1, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %d %p", v8, 20);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_149FFC(int a1, __CFArray *a2)
-{
-  valuePtr = a1;
-  if (a2)
-  {
-    v3 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    if (v3)
-    {
-      v4 = v3;
-      CFArrayAppendValue(a2, v3);
-      CFRelease(v4);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p\n", v11, 20, v12, "AVE_CFArray_AddSInt32", 83, "pNum != __null", valuePtr, a2);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %d %p", v11, 20);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %d %p\n", v8, 20, v9, "AVE_CFArray_AddSInt32", 79, "pArray != __null", a1, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %d %p", v8, 20);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14A220(uint64_t a1, __CFArray *a2)
-{
-  valuePtr = a1;
-  if (a2)
-  {
-    v3 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
-    if (v3)
-    {
-      v4 = v3;
-      CFArrayAppendValue(a2, v3);
-      CFRelease(v4);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lld %p\n", v11, 20, v12, "AVE_CFArray_AddSInt64", 110, "pNum != __null", valuePtr, a2);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lld %p", v11, 20);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %lld %p\n", v8, 20, v9, "AVE_CFArray_AddSInt64", 106, "pArray != __null", a1, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %lld %p", v8, 20);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14A444(__CFArray *a1, double a2)
-{
-  valuePtr = a2;
-  if (a1)
-  {
-    v4 = CFNumberCreate(0, kCFNumberFloat64Type, &valuePtr);
-    if (v4)
-    {
-      v5 = v4;
-      CFArrayAppendValue(a1, v4);
-      CFRelease(v5);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lf %p\n", v11, 20, v12, "AVE_CFArray_AddFloat64", 138, "pNum != __null", a2, a1);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lf %p", v11);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %lf %p\n", v8, 20, v9, "AVE_CFArray_AddFloat64", 134, "pArray != __null", a2, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %lf %p", v8);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14A680(__CFArray *a1, double a2)
-{
-  valuePtr = a2;
-  if (a1)
-  {
-    v3 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    if (v3)
-    {
-      v4 = v3;
-      CFArrayAppendValue(a1, v3);
-      CFRelease(v4);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v10 = sub_160F34(0x14u);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        if (v10)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lf %p\n", v11, 20, v12, "AVE_CFArray_AddDouble", 165, "pNum != __null", valuePtr, a1);
-          v11 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %lf %p", v11);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %lf %p\n", v8, 20, v9, "AVE_CFArray_AddDouble", 161, "pArray != __null", a2, 0);
-        v8 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %lf %p", v8);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14A8C4(CFArrayRef theArray, CFIndex idx, _BYTE *a3)
-{
-  v4 = idx;
-  if (theArray && (idx & 0x80000000) == 0 && a3)
-  {
-    *a3 = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-    if (ValueAtIndex)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(ValueAtIndex))
-      {
-        if (CFNumberGetValue(ValueAtIndex, kCFNumberCharType, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (ValueAtIndex)
-      {
-        v16 = CFGetTypeID(ValueAtIndex);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld\n", v14, 20, v15, "AVE_CFArray_GetChar", 198, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!ValueAtIndex)
-      {
-        v17 = -1;
-        goto LABEL_25;
-      }
-    }
-
-    else if (!ValueAtIndex)
-    {
-      v17 = -1;
-      goto LABEL_25;
-    }
-
-    v17 = CFGetTypeID(ValueAtIndex);
-LABEL_25:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld", v14, 20, v15, "AVE_CFArray_GetChar", 198, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFArray_GetChar", 191, "pArray != __null && idx >= 0 && pVal != __null", theArray, v4, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14AB6C(CFArrayRef theArray, CFIndex idx, _WORD *a3)
-{
-  v4 = idx;
-  if (theArray && (idx & 0x80000000) == 0 && a3)
-  {
-    *a3 = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-    if (ValueAtIndex)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(ValueAtIndex))
-      {
-        if (CFNumberGetValue(ValueAtIndex, kCFNumberSInt16Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (ValueAtIndex)
-      {
-        v16 = CFGetTypeID(ValueAtIndex);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld\n", v14, 20, v15, "AVE_CFArray_GetSInt16", 229, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!ValueAtIndex)
-      {
-        v17 = -1;
-        goto LABEL_25;
-      }
-    }
-
-    else if (!ValueAtIndex)
-    {
-      v17 = -1;
-      goto LABEL_25;
-    }
-
-    v17 = CFGetTypeID(ValueAtIndex);
-LABEL_25:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld", v14, 20, v15, "AVE_CFArray_GetSInt16", 229, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFArray_GetSInt16", 222, "pArray != __null && idx >= 0 && pVal != __null", theArray, v4, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14AE14(CFArrayRef theArray, CFIndex idx, _DWORD *a3)
-{
-  v4 = idx;
-  if (theArray && (idx & 0x80000000) == 0 && a3)
-  {
-    *a3 = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-    if (ValueAtIndex)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(ValueAtIndex))
-      {
-        if (CFNumberGetValue(ValueAtIndex, kCFNumberSInt32Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (ValueAtIndex)
-      {
-        v16 = CFGetTypeID(ValueAtIndex);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld\n", v14, 20, v15, "AVE_CFArray_GetSInt32", 260, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!ValueAtIndex)
-      {
-        v17 = -1;
-        goto LABEL_25;
-      }
-    }
-
-    else if (!ValueAtIndex)
-    {
-      v17 = -1;
-      goto LABEL_25;
-    }
-
-    v17 = CFGetTypeID(ValueAtIndex);
-LABEL_25:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld", v14, 20, v15, "AVE_CFArray_GetSInt32", 260, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFArray_GetSInt32", 253, "pArray != __null && idx >= 0 && pVal != __null", theArray, v4, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14B0BC(CFArrayRef theArray, CFIndex idx, void *a3)
-{
-  v4 = idx;
-  if (theArray && (idx & 0x80000000) == 0 && a3)
-  {
-    *a3 = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-    if (ValueAtIndex)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(ValueAtIndex))
-      {
-        if (CFNumberGetValue(ValueAtIndex, kCFNumberSInt64Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (ValueAtIndex)
-      {
-        v16 = CFGetTypeID(ValueAtIndex);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld\n", v14, 20, v15, "AVE_CFArray_GetSInt64", 291, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!ValueAtIndex)
-      {
-        v17 = -1;
-        goto LABEL_25;
-      }
-    }
-
-    else if (!ValueAtIndex)
-    {
-      v17 = -1;
-      goto LABEL_25;
-    }
-
-    v17 = CFGetTypeID(ValueAtIndex);
-LABEL_25:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld", v14, 20, v15, "AVE_CFArray_GetSInt64", 291, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFArray_GetSInt64", 284, "pArray != __null && idx >= 0 && pVal != __null", theArray, v4, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14B364(CFArrayRef theArray, CFIndex idx, void *a3)
-{
-  v4 = idx;
-  valuePtr = 0;
-  if (theArray && (idx & 0x80000000) == 0 && a3)
-  {
-    *a3 = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-    if (ValueAtIndex)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(ValueAtIndex))
-      {
-        if (CFNumberGetValue(ValueAtIndex, kCFNumberFloat64Type, &valuePtr))
-        {
-          result = 0;
-        }
-
-        else
-        {
-          result = 4294966288;
-        }
-
-        *a3 = valuePtr;
-        return result;
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (ValueAtIndex)
-      {
-        v16 = CFGetTypeID(ValueAtIndex);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld\n", v14, 20, v15, "AVE_CFArray_GetFloat64", 323, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!ValueAtIndex)
-      {
-        v17 = -1;
-        goto LABEL_26;
-      }
-    }
-
-    else if (!ValueAtIndex)
-    {
-      v17 = -1;
-      goto LABEL_26;
-    }
-
-    v17 = CFGetTypeID(ValueAtIndex);
-LABEL_26:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %d %p %p %ld", v14, 20, v15, "AVE_CFArray_GetFloat64", 323, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theArray, v4, a3, ValueAtIndex, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFArray_GetFloat64", 316, "pArray != __null && idx >= 0 && pVal != __null", theArray, v4, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14B618(void *key, int a2, CFMutableDictionaryRef theDict)
-{
-  if (key && theDict)
-  {
-    v6 = &kCFBooleanTrue;
-    if (!a2)
-    {
-      v6 = &kCFBooleanFalse;
-    }
-
-    CFDictionaryAddValue(theDict, key, *v6);
-    return 0;
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v8 = sub_160F34(0x14u);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(4);
-      if (v8)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v9, 20, v10, "AVE_CFDict_AddBool", 378, "pKey != __null && pDict != __null", key, a2, theDict);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v11, 20, v12);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v9, 20, v10);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14B76C(const void *a1, __CFDictionary *a2, double a3)
-{
-  valuePtr = a3;
-  if (a1 && a2)
-  {
-    v6 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    if (v6)
-    {
-      v7 = v6;
-      CFDictionaryAddValue(a2, a1, v6);
-      CFRelease(v7);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v12 = sub_160F34(0x14u);
-        v13 = sub_175AE4();
-        v14 = sub_160F68(4);
-        if (v12)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lf %p\n", v13, 20, v14, "AVE_CFDict_AddDouble", 493, "pNum != __null", a1, valuePtr, a2);
-          v13 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lf %p", v13, 20);
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v9 = sub_160F34(0x14u);
-      v10 = sub_175AE4();
-      v11 = sub_160F68(4);
-      if (v9)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %lf %p\n", v10, 20, v11, "AVE_CFDict_AddDouble", 489, "pKey != __null && pDict != __null", a1, a3, a2);
-        v10 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lf %p", v10, 20);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14B9CC(const void *a1, int a2, __CFDictionary *a3)
-{
-  valuePtr = a2;
-  if (a1 && a3)
-  {
-    v6 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    if (v6)
-    {
-      v7 = v6;
-      CFDictionaryAddValue(a3, a1, v6);
-      CFRelease(v7);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v13 = sub_160F34(0x14u);
-        v14 = sub_175AE4();
-        v15 = sub_160F68(4);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %d %p\n", v14, 20, v15, "AVE_CFDict_AddSInt32", 584, "pNum != __null", a1, valuePtr, a3);
-          v16 = sub_175AE4();
-          v18 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %d %p", v16, 20, v18);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %d %p", v14, 20, v15);
-        }
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v9 = sub_160F34(0x14u);
-      v10 = sub_175AE4();
-      v11 = sub_160F68(4);
-      if (v9)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v10, 20, v11, "AVE_CFDict_AddSInt32", 580, "pKey != __null && pDict != __null", a1, a2, a3);
-        v12 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v12, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v10, 20, v11);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14BC0C(const void *a1, uint64_t a2, __CFDictionary *a3)
-{
-  valuePtr = a2;
-  if (a1 && a3)
-  {
-    v6 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
-    if (v6)
-    {
-      v7 = v6;
-      CFDictionaryAddValue(a3, a1, v6);
-      CFRelease(v7);
-      return 0;
-    }
-
-    else
-    {
-      if (sub_160EF0(0x14u, 4))
-      {
-        v13 = sub_160F34(0x14u);
-        v14 = sub_175AE4();
-        v15 = sub_160F68(4);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p\n", v14, 20, v15, "AVE_CFDict_AddSInt64", 614, "pNum != __null", a1, valuePtr, a3);
-          v16 = sub_175AE4();
-          v18 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p", v16, 20, v18);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p", v14, 20, v15);
-        }
-      }
-
-      return 4294966293;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v9 = sub_160F34(0x14u);
-      v10 = sub_175AE4();
-      v11 = sub_160F68(4);
-      if (v9)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %p\n", v10, 20, v11, "AVE_CFDict_AddSInt64", 610, "pKey != __null && pDict != __null", a1, a2, a3);
-        v12 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %p", v12, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %lld %p", v10, 20, v11);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14BE4C(CFDictionaryRef theDict, void *key, BOOL *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFBooleanGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        v8 = CFBooleanGetValue(Value);
-        result = 0;
-        *a3 = v8 != 0;
-        return result;
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v14 = sub_160F34(0x14u);
-    v15 = sub_175AE4();
-    v16 = sub_160F68(4);
-    if (v14)
-    {
-      if (Value)
-      {
-        v17 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v17 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFBoolean %p %p %p %p %ld\n", v15, 20, v16, "AVE_CFDict_GetBool", 654, "pBool != __null && CFBooleanGetTypeID() == CFGetTypeID(pBool)", theDict, key, a3, Value, v17);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(4);
-      if (!Value)
-      {
-        v18 = -1;
-        goto LABEL_25;
-      }
-    }
-
-    else if (!Value)
-    {
-      v18 = -1;
-      goto LABEL_25;
-    }
-
-    v18 = CFGetTypeID(Value);
-LABEL_25:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFBoolean %p %p %p %p %ld", v15, 20, v16, "AVE_CFDict_GetBool", 654, "pBool != __null && CFBooleanGetTypeID() == CFGetTypeID(pBool)", theDict, key, a3, Value, v18);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v10 = sub_160F34(0x14u);
-    v11 = sub_175AE4();
-    v12 = sub_160F68(4);
-    if (v10)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v11, 20, v12, "AVE_CFDict_GetBool", 640, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v13 = sub_175AE4();
-      v19 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v13, 20, v19);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v11, 20, v12);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14C0FC(CFDictionaryRef theDict, void *key, _BYTE *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        if (CFNumberGetValue(Value, kCFNumberCharType, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (Value)
-      {
-        v16 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld\n", v14, 20, v15, "AVE_CFDict_GetChar", 690, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!Value)
-      {
-        v17 = -1;
-        goto LABEL_27;
-      }
-    }
-
-    else if (!Value)
-    {
-      v17 = -1;
-      goto LABEL_27;
-    }
-
-    v17 = CFGetTypeID(Value);
-LABEL_27:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld", v14, 20, v15, "AVE_CFDict_GetChar", 690, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v10, 20, v11, "AVE_CFDict_GetChar", 676, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14C3AC(CFDictionaryRef theDict, void *key, void *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        if (CFNumberGetValue(Value, kCFNumberDoubleType, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (Value)
-      {
-        v16 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld\n", v14, 20, v15, "AVE_CFDict_GetDouble", 802, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!Value)
-      {
-        v17 = -1;
-        goto LABEL_27;
-      }
-    }
-
-    else if (!Value)
-    {
-      v17 = -1;
-      goto LABEL_27;
-    }
-
-    v17 = CFGetTypeID(Value);
-LABEL_27:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld", v14, 20, v15, "AVE_CFDict_GetDouble", 802, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v10, 20, v11, "AVE_CFDict_GetDouble", 788, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14C65C(CFDictionaryRef theDict, void *key, _WORD *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        if (CFNumberGetValue(Value, kCFNumberSInt16Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (Value)
-      {
-        v16 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld\n", v14, 20, v15, "AVE_CFDict_GetSInt16", 877, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!Value)
-      {
-        v17 = -1;
-        goto LABEL_27;
-      }
-    }
-
-    else if (!Value)
-    {
-      v17 = -1;
-      goto LABEL_27;
-    }
-
-    v17 = CFGetTypeID(Value);
-LABEL_27:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld", v14, 20, v15, "AVE_CFDict_GetSInt16", 877, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v10, 20, v11, "AVE_CFDict_GetSInt16", 863, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14C90C(CFDictionaryRef theDict, void *key, _DWORD *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        if (CFNumberGetValue(Value, kCFNumberSInt32Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (Value)
-      {
-        v16 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld\n", v14, 20, v15, "AVE_CFDict_GetSInt32", 915, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!Value)
-      {
-        v17 = -1;
-        goto LABEL_27;
-      }
-    }
-
-    else if (!Value)
-    {
-      v17 = -1;
-      goto LABEL_27;
-    }
-
-    v17 = CFGetTypeID(Value);
-LABEL_27:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld", v14, 20, v15, "AVE_CFDict_GetSInt32", 915, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v10, 20, v11, "AVE_CFDict_GetSInt32", 901, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-uint64_t sub_14CBBC(CFDictionaryRef theDict, void *key, void *a3)
-{
-  if (theDict && key && a3)
-  {
-    *a3 = 0;
-    if (!CFDictionaryContainsKey(theDict, key))
-    {
-      return 4294966288;
-    }
-
-    Value = CFDictionaryGetValue(theDict, key);
-    if (Value)
-    {
-      TypeID = CFNumberGetTypeID();
-      if (TypeID == CFGetTypeID(Value))
-      {
-        if (CFNumberGetValue(Value, kCFNumberSInt64Type, a3))
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 4294966288;
-        }
-      }
-    }
-
-    if (!sub_160EF0(0x14u, 4))
-    {
-      return 4294966296;
-    }
-
-    v13 = sub_160F34(0x14u);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
-    {
-      if (Value)
-      {
-        v16 = CFGetTypeID(Value);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld\n", v14, 20, v15, "AVE_CFDict_GetSInt64", 953, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v16);
-      v14 = sub_175AE4();
-      v15 = sub_160F68(4);
-      if (!Value)
-      {
-        v17 = -1;
-        goto LABEL_27;
-      }
-    }
-
-    else if (!Value)
-    {
-      v17 = -1;
-      goto LABEL_27;
-    }
-
-    v17 = CFGetTypeID(Value);
-LABEL_27:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get CFNumber %p %p %p %p %ld", v14, 20, v15, "AVE_CFDict_GetSInt64", 953, "pNum != __null && CFNumberGetTypeID() == CFGetTypeID(pNum)", theDict, key, a3, Value, v17);
-    return 4294966296;
-  }
-
-  if (sub_160EF0(0x14u, 4))
-  {
-    v9 = sub_160F34(0x14u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v10, 20, v11, "AVE_CFDict_GetSInt64", 939, "pDict != __null && pKey != __null && pVal != __null", theDict, key, a3);
-      v12 = sub_175AE4();
-      v18 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v18);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v10, 20, v11);
-    }
-  }
-
-  return 4294966295;
-}
-
-const char *sub_14CE6C(const __CFString *a1, char *a2, int a3)
-{
-  if (a1)
-  {
-    result = CFStringGetCStringPtr(a1, 0);
-    if (a3 >= 1 && a2 && !result)
-    {
-      CFStringGetCString(a1, a2, a3, 0);
-      return a2;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v7 = sub_160F34(0x14u);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(4);
-      if (v7)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v8, 20, v9, "AVE_CFStr_GetStr", 975, "pStr != __null", 0, a2, a3);
-        v10 = sub_175AE4();
-        v11 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d", v10, 20, v11);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d", v8, 20, v9);
-      }
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_14CFC0(CFStringRef applicationID, CFStringRef key, char *a3, int a4)
-{
-  if (applicationID && key && a3 && a4 > 0)
-  {
-    v8 = CFPreferencesCopyAppValue(key, applicationID);
-    if (v8)
-    {
-      v9 = v8;
-      v10 = CFGetTypeID(v8);
-      if (v10 == CFStringGetTypeID())
-      {
-        v11 = sub_14CE6C(v9, a3, a4);
-        if (v11 != a3)
-        {
-          sub_172100(a3, a4, "%s", v12, v13, v14, v15, v16, v11);
-        }
-
-        v17 = 0;
-      }
-
-      else
-      {
-        v17 = 4294966296;
-      }
-
-      CFRelease(v9);
-    }
-
-    else
-    {
-      return 4294966288;
-    }
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v18 = sub_160F34(0x14u);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d\n", v19, 20, v20, "AVE_CFPref_GetStr", 1006, "pAppID != __null && pKey != __null && pVal != __null && num > 0", applicationID, key, a3, a4);
-        v21 = sub_175AE4();
-        v23 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v21, 20, v23, "AVE_CFPref_GetStr");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v19, 20, v20, "AVE_CFPref_GetStr");
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return v17;
-}
-
-uint64_t sub_14D180(CFStringRef applicationID, CFStringRef key, BOOL *a3)
-{
-  if (applicationID && key && a3)
-  {
-    v6 = CFPreferencesCopyAppValue(key, applicationID);
-    if (v6)
-    {
-      v7 = v6;
-      v8 = CFGetTypeID(v6);
-      if (v8 == CFBooleanGetTypeID())
-      {
-        v9 = CFEqual(v7, kCFBooleanTrue) != 0;
-      }
-
-      else
-      {
-        v15 = CFGetTypeID(v7);
-        if (v15 != CFStringGetTypeID())
-        {
-          goto LABEL_19;
-        }
-
-        v9 = 1;
-        if (CFStringCompare(v7, @"true", 1uLL) == kCFCompareEqualTo)
-        {
-          goto LABEL_7;
-        }
-
-        v9 = 1;
-        if (CFStringCompare(v7, @"yes", 1uLL) == kCFCompareEqualTo)
-        {
-          goto LABEL_7;
-        }
-
-        v9 = 1;
-        if (CFStringCompare(v7, @"1", 1uLL) == kCFCompareEqualTo)
-        {
-          goto LABEL_7;
-        }
-
-        if (CFStringCompare(v7, @"false", 1uLL) && CFStringCompare(v7, @"no", 1uLL) && CFStringCompare(v7, @"0", 1uLL))
-        {
-LABEL_19:
-          v10 = 4294966296;
-          goto LABEL_20;
-        }
-
-        v9 = 0;
-      }
-
-LABEL_7:
-      v10 = 0;
-      *a3 = v9;
-LABEL_20:
-      CFRelease(v7);
-      return v10;
-    }
-
-    return 4294966288;
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v11 = sub_160F34(0x14u);
-      v12 = sub_175AE4();
-      v13 = sub_160F68(4);
-      if (v11)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v12, 20, v13, "AVE_CFPref_GetBool", 1047, "pAppID != __null && pKey != __null && pVal != __null", applicationID, key, a3);
-        v14 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 20, v13);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14D3D4(CFStringRef applicationID, CFStringRef key, _DWORD *a3)
-{
-  if (applicationID && key && a3)
-  {
-    v6 = CFPreferencesCopyAppValue(key, applicationID);
-    if (v6)
-    {
-      v7 = v6;
-      v8 = CFGetTypeID(v6);
-      if (v8 == CFNumberGetTypeID())
-      {
-        LODWORD(valuePtr) = 0;
-        if (CFNumberGetValue(v7, kCFNumberSInt32Type, &valuePtr))
-        {
-          v9 = 0;
-          *a3 = valuePtr;
-LABEL_16:
-          CFRelease(v7);
-          return v9;
-        }
-      }
-
-      else
-      {
-        v14 = CFGetTypeID(v7);
-        if (v14 == CFStringGetTypeID())
-        {
-          v19 = 0;
-          valuePtr = 0;
-          v15 = sub_14CE6C(v7, &valuePtr, 12);
-          if (v15)
-          {
-            v9 = 0;
-            *a3 = strtoumax(v15, 0, 0);
-            goto LABEL_16;
-          }
-        }
-      }
-
-      v9 = 4294966296;
-      goto LABEL_16;
-    }
-
-    return 4294966288;
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v10 = sub_160F34(0x14u);
-      v11 = sub_175AE4();
-      v12 = sub_160F68(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v11, 20, v12, "AVE_CFPref_GetUInt32", 1151, "pAppID != __null && pKey != __null && pVal != __null", applicationID, key, a3);
-        v13 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v13, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v11, 20, v12);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14D5E0(CFStringRef applicationID, CFStringRef key, uintmax_t *a3)
-{
-  if (applicationID && key && a3)
-  {
-    v6 = CFPreferencesCopyAppValue(key, applicationID);
-    if (v6)
-    {
-      v7 = v6;
-      v8 = CFGetTypeID(v6);
-      if (v8 == CFNumberGetTypeID())
-      {
-        valuePtr[0] = 0;
-        if (CFNumberGetValue(v7, kCFNumberSInt64Type, valuePtr))
-        {
-          v9 = 0;
-          *a3 = valuePtr[0];
-LABEL_16:
-          CFRelease(v7);
-          return v9;
-        }
-      }
-
-      else
-      {
-        v14 = CFGetTypeID(v7);
-        if (v14 == CFStringGetTypeID())
-        {
-          valuePtr[0] = 0;
-          valuePtr[1] = 0;
-          v19 = 0;
-          v15 = sub_14CE6C(v7, valuePtr, 20);
-          if (v15)
-          {
-            v9 = 0;
-            *a3 = strtoumax(v15, 0, 0);
-            goto LABEL_16;
-          }
-        }
-      }
-
-      v9 = 4294966296;
-      goto LABEL_16;
-    }
-
-    return 4294966288;
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v10 = sub_160F34(0x14u);
-      v11 = sub_175AE4();
-      v12 = sub_160F68(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v11, 20, v12, "AVE_CFPref_GetUInt64", 1202, "pAppID != __null && pKey != __null && pVal != __null", applicationID, key, a3);
-        v13 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v13, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v11, 20, v12);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t sub_14D7EC(CFStringRef applicationID, CFStringRef key, _DWORD *a3)
-{
-  if (applicationID && key && a3)
-  {
-    v6 = CFPreferencesCopyAppValue(key, applicationID);
-    if (v6)
-    {
-      v7 = v6;
-      v8 = CFGetTypeID(v6);
-      if (v8 == CFNumberGetTypeID())
-      {
-        *valuePtr = 0;
-        if (CFNumberGetValue(v7, kCFNumberSInt32Type, valuePtr))
-        {
-          v9 = 0;
-          *a3 = *valuePtr;
-LABEL_16:
-          CFRelease(v7);
-          return v9;
-        }
-      }
-
-      else
-      {
-        v14 = CFGetTypeID(v7);
-        if (v14 == CFStringGetTypeID())
-        {
-          memset(valuePtr, 0, 13);
-          v15 = sub_14CE6C(v7, valuePtr, 13);
-          if (v15)
-          {
-            v9 = 0;
-            *a3 = strtoumax(v15, 0, 0);
-            goto LABEL_16;
-          }
-        }
-      }
-
-      v9 = 4294966296;
-      goto LABEL_16;
-    }
-
-    return 4294966288;
-  }
-
-  else
-  {
-    if (sub_160EF0(0x14u, 4))
-    {
-      v10 = sub_160F34(0x14u);
-      v11 = sub_175AE4();
-      v12 = sub_160F68(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v11, 20, v12, "AVE_CFPref_GetInt32", 1252, "pAppID != __null && pKey != __null && pVal != __null", applicationID, key, a3);
-        v13 = sub_175AE4();
-        v17 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v13, 20, v17);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v11, 20, v12);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
 uint64_t sub_14D9F8(CFStringRef applicationID, CFStringRef key, uintmax_t *a3)
 {
   if (applicationID && key && a3)
@@ -4389,7 +28,7 @@ LABEL_16:
           valuePtr = 0;
           v19[0] = 0;
           *(v19 + 5) = 0;
-          v15 = sub_14CE6C(v7, &valuePtr, 21);
+          v15 = sub_14CE6C(v7, &valuePtr, 0x15u);
           if (v15)
           {
             v9 = 0;
@@ -4470,7 +109,7 @@ LABEL_21:
           valuePtr[0] = 0;
           valuePtr[1] = 0;
           v21 = 0;
-          v16 = sub_14CE6C(v7, valuePtr, 20);
+          v16 = sub_14CE6C(v7, valuePtr, 0x14u);
           if (v16)
           {
             v9 = strtod(v16, 0);
@@ -4651,7 +290,7 @@ char **sub_14E230(int a1)
   }
 }
 
-uint64_t sub_14E248(int a1, int a2, int a3, int a4, int a5, int a6)
+uint64_t sub_14E248(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
 {
   v9 = sub_16FDAC(a1, a2, a3);
   if (!v9)
@@ -4712,13 +351,13 @@ uint64_t sub_14E248(int a1, int a2, int a3, int a4, int a5, int a6)
   return v14;
 }
 
-uint64_t sub_14E330(int a1, int a2, int a3, unsigned int a4, int *a5)
+uint64_t sub_14E330(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int *a5)
 {
   v5 = 4294966295;
   if (a1 >= 1 && a2 >= 1 && a3 >= 1 && a4 <= 1 && a5)
   {
     *a5 = a1;
-    v6 = (a1 - 1);
+    v6 = a1 - 1;
     if (a1 == 1)
     {
       v5 = 0;
@@ -4772,7 +411,7 @@ uint64_t sub_14E330(int a1, int a2, int a3, unsigned int a4, int *a5)
       {
         v14 = 0;
         v15 = 0;
-        v16 = a5 + 2;
+        v16 = (a5 + 2);
         while (1)
         {
           v17 = (v13 + (a1 + 1) / 2) / a1;
@@ -4790,7 +429,7 @@ uint64_t sub_14E330(int a1, int a2, int a3, unsigned int a4, int *a5)
 
           v5 = 0;
           v19 = v18 * a3;
-          if (v18 * a3 >= a2 - v15)
+          if ((v18 * a3) >= (a2 - v15))
           {
             v19 = a2 - v15;
           }
@@ -4903,7 +542,7 @@ uint64_t sub_14E498(int a1, int a2, int a3, signed int *a4, signed int *a5)
   return result;
 }
 
-_DWORD *sub_14E6F8(unsigned int *a1, int a2, int a3, int a4)
+unsigned int *sub_14E6F8(unsigned int *a1, int a2, int a3, int a4)
 {
   v4 = *a1;
   if (v4 < 1)
@@ -4941,26 +580,26 @@ _DWORD *sub_14E748(unsigned int *a1, int a2)
   return result;
 }
 
-uint64_t sub_14E778(const char *a1, const char *a2, char *a3, int a4)
+uint64_t sub_14E778(const char *a1, const char *a2, char *a3, uint64_t a4)
 {
   if (!a2 || !a3 || a4 <= 0)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v20 = sub_160F34(0x2Cu);
-      v21 = sub_175AE4();
-      v22 = sub_160F68(4);
-      if (v20)
+      v15 = sub_160F34(0x2Cu);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d\n", v21, 44, v22, "AVE_DW_GetStr", 63, "pKey != __null && pVal != __null && num > 0", a1, a2, a3, a4);
-        v23 = sub_175AE4();
-        v31 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v23, 44, v31, "AVE_DW_GetStr");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d\n", v16, 44, v17, "AVE_DW_GetStr", 63, "pKey != __null && pVal != __null && num > 0", a1, a2, a3, a4);
+        v18 = sub_175AE4();
+        v26 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v18, 44, v26, "AVE_DW_GetStr");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v21, 44, v22, "AVE_DW_GetStr");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %d", v16, 44, v17, "AVE_DW_GetStr");
       }
     }
 
@@ -4982,12 +621,12 @@ uint64_t sub_14E778(const char *a1, const char *a2, char *a3, int a4)
   v11 = v10;
   if (!v9 || !v10)
   {
-    v18 = 4294966293;
+    v13 = 4294966293;
     if (!v9)
     {
       if (!v10)
       {
-        return v18;
+        return v13;
       }
 
       goto LABEL_32;
@@ -4999,16 +638,16 @@ uint64_t sub_14E778(const char *a1, const char *a2, char *a3, int a4)
   v12 = sub_14CFC0(v9, v10, a3, a4);
   if (v12)
   {
-    v18 = v12;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    *cStr = 0u;
+    v13 = v12;
     v36 = 0u;
-    sub_172100(cStr, 128, "AVEVideoEncoder%s", v13, v14, v15, v16, v17, a2 + 3);
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    *cStr = 0u;
+    v31 = 0u;
+    sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
     CFRelease(v11);
     v11 = CFStringCreateWithCString(0, cStr, 0);
     if (!v11)
@@ -5016,54 +655,54 @@ uint64_t sub_14E778(const char *a1, const char *a2, char *a3, int a4)
       goto LABEL_31;
     }
 
-    v19 = sub_14CFC0(v9, v11, a3, a4);
-    if (v19)
+    v14 = sub_14CFC0(v9, v11, a3, a4);
+    if (v14)
     {
-      v18 = v19;
+      v13 = v14;
       goto LABEL_31;
     }
 
     if (sub_160EF0(0x2Cu, 6))
     {
-      v27 = sub_160F34(0x2Cu);
-      v28 = sub_175AE4();
-      v29 = sub_160F68(6);
-      if (v27)
+      v22 = sub_160F34(0x2Cu);
+      v23 = sub_175AE4();
+      v24 = sub_160F68(6);
+      if (v22)
       {
-        printf("%lld %d AVE %s: defaults write %s = %s\n", v28, 44, v29, cStr, a3);
-        v28 = sub_175AE4();
-        v34 = a3;
-        v33 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = %s\n", v23, 44, v24, cStr, a3);
+        v23 = sub_175AE4();
+        v29 = a3;
+        v28 = sub_160F68(6);
       }
 
       else
       {
-        v34 = a3;
-        v33 = v29;
+        v29 = a3;
+        v28 = v24;
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = %s", v28, 44, v33, cStr, v34);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %s", v23, 44, v28, cStr, v29);
     }
   }
 
   else if (sub_160EF0(0x2Cu, 6))
   {
-    v18 = sub_160F34(0x2Cu);
-    v24 = sub_175AE4();
-    v25 = sub_160F68(6);
-    if (!v18)
+    v13 = sub_160F34(0x2Cu);
+    v19 = sub_175AE4();
+    v20 = sub_160F68(6);
+    if (!v13)
     {
-      syslog(3, "%lld %d AVE %s: defaults write %s = %s", v24, 44, v25, a2, a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %s", v19, 44, v20, a2, a3);
       goto LABEL_31;
     }
 
-    printf("%lld %d AVE %s: defaults write %s = %s\n", v24, 44, v25, a2, a3);
-    v26 = sub_175AE4();
-    v32 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = %s", v26, 44, v32, a2, a3);
+    printf("%lld %d AVE %s: defaults write %s = %s\n", v19, 44, v20, a2, a3);
+    v21 = sub_175AE4();
+    v27 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = %s", v21, 44, v27, a2, a3);
   }
 
-  v18 = 0;
+  v13 = 0;
 LABEL_31:
   CFRelease(v9);
   if (v11)
@@ -5072,7 +711,7 @@ LABEL_32:
     CFRelease(v11);
   }
 
-  return v18;
+  return v13;
 }
 
 uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
@@ -5081,20 +720,20 @@ uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetBool", 134, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v30 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v30);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetBool", 134, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5116,12 +755,12 @@ uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5135,32 +774,32 @@ uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = %d\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = %d\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = %d", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %d", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  *cStr = 0u;
+  v11 = v10;
   v32 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *cStr = 0u;
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5168,10 +807,10 @@ uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14D180(v7, v9, a3);
-  if (v17)
+  v12 = sub_14D180(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5180,21 +819,21 @@ uint64_t sub_14EAFC(const char *a1, const char *a2, unsigned __int8 *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v25 = sub_175AE4();
-  v26 = sub_160F68(6);
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = %d\n", v25, 44, v26, cStr, *a3);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = %d", v27, 44, v28, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = %d\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = %d", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = %d", v25, 44, v26, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = %d", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5203,7 +842,7 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
@@ -5212,20 +851,20 @@ uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetUInt32", 276, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v30 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v30);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetUInt32", 276, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5247,12 +886,12 @@ uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5266,32 +905,32 @@ uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = 0x%x\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = 0x%x\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  *cStr = 0u;
+  v11 = v10;
   v32 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *cStr = 0u;
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5299,10 +938,10 @@ uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14D3D4(v7, v9, a3);
-  if (v17)
+  v12 = sub_14D3D4(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5311,21 +950,21 @@ uint64_t sub_14EE74(const char *a1, const char *a2, _DWORD *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v25 = sub_175AE4();
-  v26 = sub_160F68(6);
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = 0x%x\n", v25, 44, v26, cStr, *a3);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v27, 44, v28, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = 0x%x\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v25, 44, v26, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = 0x%x", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5334,7 +973,7 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
@@ -5343,20 +982,20 @@ uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetUInt64", 348, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v30 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v30);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetUInt64", 348, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5378,12 +1017,12 @@ uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5397,32 +1036,32 @@ uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = 0x%llx\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = 0x%llx\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  *cStr = 0u;
+  v11 = v10;
   v32 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *cStr = 0u;
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5430,10 +1069,10 @@ uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14D5E0(v7, v9, a3);
-  if (v17)
+  v12 = sub_14D5E0(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5442,21 +1081,21 @@ uint64_t sub_14F1EC(const char *a1, const char *a2, uintmax_t *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v25 = sub_175AE4();
-  v26 = sub_160F68(6);
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = 0x%llx\n", v25, 44, v26, cStr, *a3);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v27, 44, v28, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = 0x%llx\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v25, 44, v26, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = 0x%llx", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5465,7 +1104,7 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
@@ -5474,20 +1113,20 @@ uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetInt32", 419, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v30 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v30);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetInt32", 419, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5509,12 +1148,12 @@ uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5528,32 +1167,32 @@ uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = %d\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = %d\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = %d", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %d", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  *cStr = 0u;
+  v11 = v10;
   v32 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *cStr = 0u;
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5561,10 +1200,10 @@ uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14D7EC(v7, v9, a3);
-  if (v17)
+  v12 = sub_14D7EC(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5573,21 +1212,21 @@ uint64_t sub_14F564(const char *a1, const char *a2, _DWORD *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v25 = sub_175AE4();
-  v26 = sub_160F68(6);
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = %d\n", v25, 44, v26, cStr, *a3);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = %d", v27, 44, v28, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = %d\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = %d", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = %d", v25, 44, v26, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = %d", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5596,7 +1235,7 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
@@ -5605,20 +1244,20 @@ uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetInt64", 491, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v30 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v30);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetInt64", 491, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5640,12 +1279,12 @@ uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5659,32 +1298,32 @@ uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = %lld\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = %lld\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  *cStr = 0u;
+  v11 = v10;
   v32 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *cStr = 0u;
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5692,10 +1331,10 @@ uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14D9F8(v7, v9, a3);
-  if (v17)
+  v12 = sub_14D9F8(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5704,21 +1343,21 @@ uint64_t sub_14F8DC(const char *a1, const char *a2, uintmax_t *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v25 = sub_175AE4();
-  v26 = sub_160F68(6);
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = %lld\n", v25, 44, v26, cStr, *a3);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v27, 44, v28, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = %lld\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v25, 44, v26, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = %lld", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5727,7 +1366,7 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
 uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
@@ -5736,20 +1375,20 @@ uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
   {
     if (sub_160EF0(0x2Cu, 4))
     {
-      v18 = sub_160F34(0x2Cu);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(4);
-      if (v18)
+      v13 = sub_160F34(0x2Cu);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v19, 44, v20, "AVE_DW_GetDouble", 562, "pKey != __null && pVal != __null", a1, a2, a3);
-        v21 = sub_175AE4();
-        v32 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v21, 44, v32);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v14, 44, v15, "AVE_DW_GetDouble", 562, "pKey != __null && pVal != __null", a1, a2, a3);
+        v16 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v16, 44, v25);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v19, 44, v20);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 44, v15);
       }
     }
 
@@ -5771,12 +1410,12 @@ uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
   v9 = v8;
   if (!v7 || !v8)
   {
-    v16 = 4294966293;
+    v11 = 4294966293;
     if (!v7)
     {
       if (!v8)
       {
-        return v16;
+        return v11;
       }
 
       goto LABEL_29;
@@ -5790,33 +1429,32 @@ uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
   {
     if (sub_160EF0(0x2Cu, 6))
     {
-      v22 = sub_160F34(0x2Cu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      v25 = *a3;
-      if (v22)
+      v17 = sub_160F34(0x2Cu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(6);
+      if (v17)
       {
-        printf("%lld %d AVE %s: defaults write %s = %lf\n", v23, 44, v24, a2, *a3);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(6);
+        printf("%lld %d AVE %s: defaults write %s = %lf\n", v18, 44, v19, a2, *a3);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(6);
       }
 
-      syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v23, 44, v24, a2, *a3);
+      syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v18, 44, v19, a2, *a3);
     }
 
     goto LABEL_27;
   }
 
-  v16 = v10;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v11 = v10;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   *cStr = 0u;
-  v34 = 0u;
-  sub_172100(cStr, 128, "AVEVideoEncoder%s", v11, v12, v13, v14, v15, a2 + 3);
+  v27 = 0u;
+  sub_172100(cStr, 128, "AVEVideoEncoder%s", a2 + 3);
   CFRelease(v9);
   v9 = CFStringCreateWithCString(0, cStr, 0);
   if (!v9)
@@ -5824,10 +1462,10 @@ uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
     goto LABEL_28;
   }
 
-  v17 = sub_14DC04(v7, v9, a3);
-  if (v17)
+  v12 = sub_14DC04(v7, v9, a3);
+  if (v12)
   {
-    v16 = v17;
+    v11 = v12;
     goto LABEL_28;
   }
 
@@ -5836,22 +1474,21 @@ uint64_t sub_14FC54(const char *a1, const char *a2, double *a3)
     goto LABEL_27;
   }
 
-  v16 = sub_160F34(0x2Cu);
-  v26 = sub_175AE4();
-  v27 = sub_160F68(6);
-  v28 = *a3;
-  if (v16)
+  v11 = sub_160F34(0x2Cu);
+  v20 = sub_175AE4();
+  v21 = sub_160F68(6);
+  if (v11)
   {
-    printf("%lld %d AVE %s: defaults write %s = %lf\n", v26, 44, v27, cStr, *a3);
-    v29 = sub_175AE4();
-    v30 = sub_160F68(6);
-    syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v29, 44, v30, cStr, *a3);
+    printf("%lld %d AVE %s: defaults write %s = %lf\n", v20, 44, v21, cStr, *a3);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(6);
+    syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v22, 44, v23, cStr, *a3);
 LABEL_27:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v26, 44, v27, cStr, *a3);
+  syslog(3, "%lld %d AVE %s: defaults write %s = %lf", v20, 44, v21, cStr, *a3);
 LABEL_28:
   CFRelease(v7);
   if (v9)
@@ -5860,10 +1497,10 @@ LABEL_29:
     CFRelease(v9);
   }
 
-  return v16;
+  return v11;
 }
 
-char *sub_14FFD4(int a1)
+char *sub_14FFD4(uint64_t a1)
 {
   result = sub_16FD90(a1);
   if (result)
@@ -6150,7 +1787,7 @@ LABEL_69:
   return result;
 }
 
-uint64_t sub_1502D4(_DWORD *a1)
+uint64_t sub_1502D4(int *a1)
 {
   v7 = 0;
   v6 = 0;
@@ -7165,13 +2802,13 @@ uint64_t sub_151B10()
   return v4;
 }
 
-uint64_t sub_151C84(__CVBuffer *a1, int *a2, int a3, uint64_t a4, uint64_t a5, int a6, int a7, unsigned int *a8, int a9)
+uint64_t sub_151C84(__CVBuffer *a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, _DWORD *a8, int a9)
 {
   extraRowsOnBottom = 0;
   extraColumnsOnRight[0] = 0;
   v16 = sub_14FFD4(a3);
   v17 = v16;
-  v52 = v16;
+  v50 = v16;
   if (a4 == 2 && v16 < 12 || !a8[1] && !a8[3])
   {
     v18 = 0;
@@ -7381,23 +3018,23 @@ LABEL_17:
 LABEL_67:
   if (sub_160EF0(0x11u, 7))
   {
-    v51 = a4;
+    v49 = a4;
     v42 = a5;
     v43 = sub_160F34(0x11u);
-    v50 = sub_175AE4();
+    v47 = sub_175AE4();
     v44 = sub_160F68(7);
     if (v43)
     {
-      printf("%lld %d AVE %s: %s:%d | %d | %d %d %d %d %d | (%d %d %d %d) (%d %d) | %d %x %x %x\n\n", v50, 17, v44, "AVE_EdgeReplication_DetermineMode", 240, v52, v51, v42, a6, a7, a9, *a8, a8[1], a8[2], a8[3], LODWORD(extraColumnsOnRight[0]), extraRowsOnBottom, v18, v20, v21, v19);
-      v50 = sub_175AE4();
-      v44 = sub_160F68(7);
-      v48 = a8[2];
-      v49 = a8[3];
-      v46 = *a8;
-      v47 = a8[1];
+      printf("%lld %d AVE %s: %s:%d | %d | %d %d %d %d %d | (%d %d %d %d) (%d %d) | %d %x %x %x\n\n", v47, 17, v44, "AVE_EdgeReplication_DetermineMode", 240, v50, v49, v42, a6, a7, a9, *a8, a8[1], a8[2], a8[3], LODWORD(extraColumnsOnRight[0]), extraRowsOnBottom, v18, v20, v21, v19);
+      v48 = sub_175AE4();
+      v46 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s:%d | %d | %d %d %d %d %d | (%d %d %d %d) (%d %d) | %d %x %x %x\n", v48, 17, v46, "AVE_EdgeReplication_DetermineMode", 240, v50, v49, v42);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d | %d | %d %d %d %d %d | (%d %d %d %d) (%d %d) | %d %x %x %x\n", v50, 17, v44, "AVE_EdgeReplication_DetermineMode", 240, v52, v51, v42);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d | %d | %d %d %d %d %d | (%d %d %d %d) (%d %d) | %d %x %x %x\n", v47, 17, v44, "AVE_EdgeReplication_DetermineMode", 240, v50, v49, v42);
+    }
   }
 
   return v19;
@@ -7503,9 +3140,9 @@ uint64_t sub_152320(__CVBuffer *a1, unsigned int a2, uint64_t a3)
 
 uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
 {
-  v57[0] = 0;
-  v56 = 0;
+  v56[0] = 0;
   v55 = 0;
+  v54 = 0;
   Count = CFArrayGetCount(a1);
   if (a1 && a2)
   {
@@ -7524,13 +3161,33 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
     {
       v8 = v7;
       v9 = v5 * v6;
-      if (!sub_14A8C4(a1, (v5 * v6), &v55))
+      if (!sub_14A8C4(a1, (v5 * v6), &v54))
       {
         break;
       }
 
-      *a2 = v55;
-      if (!sub_14A8C4(a1, (v9 + 1), &v55))
+      *a2 = v54;
+      if (!sub_14A8C4(a1, (v9 + 1), &v54))
+      {
+        if (!sub_160EF0(0x10u, 4))
+        {
+          return 0;
+        }
+
+        v38 = sub_160F34(0x10u);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
+        if (v38)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 94, "ret != 0", a1, a2, v54);
+          goto LABEL_80;
+        }
+
+        goto LABEL_81;
+      }
+
+      a2[1] = v54;
+      if (!sub_14A8C4(a1, (v9 + 2), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7538,19 +3195,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v39 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v39)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 94, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 99, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[1] = v55;
-      if (!sub_14A8C4(a1, (v9 + 2), &v55))
+      a2[2] = v54;
+      if (!sub_14A8C4(a1, (v9 + 3), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7558,19 +3215,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v40 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v40)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 99, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 104, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[2] = v55;
-      if (!sub_14A8C4(a1, (v9 + 3), &v55))
+      a2[3] = v54;
+      if (!sub_14A8C4(a1, (v9 + 4), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7578,19 +3235,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v41 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v41)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 104, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 109, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[3] = v55;
-      if (!sub_14A8C4(a1, (v9 + 4), &v55))
+      a2[4] = v54;
+      if (!sub_14A8C4(a1, (v9 + 5), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7598,19 +3255,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v42 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v42)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 109, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 114, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[4] = v55;
-      if (!sub_14A8C4(a1, (v9 + 5), &v55))
+      a2[5] = v54;
+      if (!sub_14A8C4(a1, (v9 + 6), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7618,19 +3275,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v43 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v43)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 114, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 119, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[5] = v55;
-      if (!sub_14A8C4(a1, (v9 + 6), &v55))
+      a2[6] = v54;
+      if (!sub_14A8C4(a1, (v9 + 7), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7638,19 +3295,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v44 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v44)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 119, "ret != 0", a1, a2, v55);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 124, "ret != 0", a1, a2, v54);
           goto LABEL_80;
         }
 
         goto LABEL_81;
       }
 
-      a2[6] = v55;
-      if (!sub_14A8C4(a1, (v9 + 7), &v55))
+      a2[7] = v54;
+      if (!sub_14AB6C(a1, (v9 + 8), &v55))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7658,19 +3315,20 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v45 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (v45)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 124, "ret != 0", a1, a2, v55);
-          goto LABEL_80;
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 129, "ret != 0", a1, a2, v55);
+          v36 = sub_175AE4();
+          v37 = sub_160F68(4);
         }
 
         goto LABEL_81;
       }
 
-      a2[7] = v55;
-      if (!sub_14AB6C(a1, (v9 + 8), &v56))
+      a2[8] = v55;
+      if (!sub_14A8C4(a1, (v9 + 9), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7678,20 +3336,22 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v46 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
-        if (v46)
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
+        if (!v46)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 129, "ret != 0", a1, a2, v56);
-          v37 = sub_175AE4();
-          v38 = sub_160F68(4);
+          goto LABEL_81;
         }
 
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 134, "ret != 0", a1, a2, v54);
+LABEL_80:
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         goto LABEL_81;
       }
 
-      a2[8] = v56;
-      if (!sub_14A8C4(a1, (v9 + 9), &v55))
+      a2[9] = v54;
+      if (!sub_14A8C4(a1, (v9 + 10), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7699,22 +3359,19 @@ uint64_t sub_1523F0(const __CFArray *a1, _DWORD *a2)
         }
 
         v47 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (!v47)
         {
           goto LABEL_81;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 134, "ret != 0", a1, a2, v55);
-LABEL_80:
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
-        goto LABEL_81;
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 139, "ret != 0", a1, a2, v54);
+        goto LABEL_80;
       }
 
-      a2[9] = v55;
-      if (!sub_14A8C4(a1, (v9 + 10), &v55))
+      a2[10] = v54;
+      if (!sub_14A8C4(a1, (v9 + 11), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7722,19 +3379,19 @@ LABEL_80:
         }
 
         v48 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (!v48)
         {
           goto LABEL_81;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 139, "ret != 0", a1, a2, v55);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 144, "ret != 0", a1, a2, v54);
         goto LABEL_80;
       }
 
-      a2[10] = v55;
-      if (!sub_14A8C4(a1, (v9 + 11), &v55))
+      a2[11] = v54;
+      if (!sub_14A8C4(a1, (v9 + 12), &v54))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7742,19 +3399,19 @@ LABEL_80:
         }
 
         v49 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (!v49)
         {
           goto LABEL_81;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 144, "ret != 0", a1, a2, v55);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 149, "ret != 0", a1, a2, v54);
         goto LABEL_80;
       }
 
-      a2[11] = v55;
-      if (!sub_14A8C4(a1, (v9 + 12), &v55))
+      a2[12] = v54;
+      if (!sub_14AE14(a1, (v9 + 13), v56))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7762,19 +3419,19 @@ LABEL_80:
         }
 
         v50 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (!v50)
         {
           goto LABEL_81;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 149, "ret != 0", a1, a2, v55);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 154, "ret != 0", a1, a2, v56[0]);
         goto LABEL_80;
       }
 
-      a2[12] = v55;
-      if (!sub_14AE14(a1, (v9 + 13), v57))
+      a2[13] = v56[0];
+      if (!sub_14AE14(a1, (v9 + 14), v56))
       {
         if (!sub_160EF0(0x10u, 4))
         {
@@ -7782,39 +3439,19 @@ LABEL_80:
         }
 
         v51 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
         if (!v51)
         {
           goto LABEL_81;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 154, "ret != 0", a1, a2, v57[0]);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 159, "ret != 0", a1, a2, v56[0]);
         goto LABEL_80;
       }
 
-      a2[13] = v57[0];
-      if (!sub_14AE14(a1, (v9 + 14), v57))
-      {
-        if (!sub_160EF0(0x10u, 4))
-        {
-          return 0;
-        }
-
-        v52 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
-        if (!v52)
-        {
-          goto LABEL_81;
-        }
-
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 159, "ret != 0", a1, a2, v57[0]);
-        goto LABEL_80;
-      }
-
-      a2[14] = v57[0];
-      v10 = sub_14AE14(a1, (v9 + 15), v57);
+      a2[14] = v56[0];
+      v10 = sub_14AE14(a1, (v9 + 15), v56);
       if (!v10)
       {
         if (!sub_160EF0(0x10u, 4))
@@ -7822,12 +3459,12 @@ LABEL_80:
           return 0;
         }
 
-        v53 = sub_160F34(0x10u);
-        v37 = sub_175AE4();
-        v38 = sub_160F68(4);
-        if (v53)
+        v52 = sub_160F34(0x10u);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(4);
+        if (v52)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 164, "ret != 0", a1, a2, v57[0]);
+          printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 164, "ret != 0", a1, a2, v56[0]);
           goto LABEL_80;
         }
 
@@ -7835,7 +3472,7 @@ LABEL_80:
       }
 
       v11 = v10;
-      a2[15] = v57[0];
+      a2[15] = v56[0];
       if (sub_160EF0(0x10u, 7))
       {
         v12 = sub_160F34(0x10u);
@@ -7855,19 +3492,18 @@ LABEL_80:
         v26 = a2[11];
         v27 = a2[12];
         v28 = a2[13];
-        v29 = a2[14];
-        v30 = a2[15];
+        v29 = a2[15];
         if (v12)
         {
-          printf("%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d\n", v13, 16, v14, v5, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, a2[14], v30);
-          v31 = sub_175AE4();
-          v32 = sub_160F68(7);
-          syslog(3, "%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v31, 16, v32, v5, *a2, a2[1], a2[2], a2[3], a2[4], a2[5], a2[6], a2[7], a2[8], a2[9], a2[10], a2[11], a2[12], a2[13], a2[14], a2[15]);
+          printf("%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d\n", v13, 16, v14, v5, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, a2[14], v29);
+          v30 = sub_175AE4();
+          v31 = sub_160F68(7);
+          syslog(3, "%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v30, 16, v31, v5, *a2, a2[1], a2[2], a2[3], a2[4], a2[5], a2[6], a2[7], a2[8], a2[9], a2[10], a2[11], a2[12], a2[13], a2[14], a2[15]);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v13, 16, v14, v5, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, a2[14], v30);
+          syslog(3, "%lld %d AVE %s: MCTF Pop [%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v13, 16, v14, v5, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, a2[14], v29);
         }
       }
 
@@ -7885,17 +3521,17 @@ LABEL_80:
       return 0;
     }
 
-    v36 = sub_160F34(0x10u);
-    v37 = sub_175AE4();
-    v38 = sub_160F68(4);
-    if (v36)
+    v35 = sub_160F34(0x10u);
+    v36 = sub_175AE4();
+    v37 = sub_160F68(4);
+    if (v35)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v37, 16, v38, "AVE_MCTF_Retrieve", 89, "ret != 0", a1, a2, v55);
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d\n", v36, 16, v37, "AVE_MCTF_Retrieve", 89, "ret != 0", a1, a2, v54);
       goto LABEL_80;
     }
 
 LABEL_81:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d", v37, 16, v38);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d", v36, 16, v37);
     return 0;
   }
 
@@ -7903,17 +3539,17 @@ LABEL_81:
   {
     if (sub_160EF0(0x10u, 4))
     {
-      v33 = sub_160F34(0x10u);
-      v34 = sub_175AE4();
-      v35 = sub_160F68(4);
-      if (v33)
+      v32 = sub_160F34(0x10u);
+      v33 = sub_175AE4();
+      v34 = sub_160F68(4);
+      if (v32)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v34, 16, v35, "AVE_MCTF_Retrieve", 81, "pArray != __null && pMCTF != __null", a1, a2);
-        v34 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v33, 16, v34, "AVE_MCTF_Retrieve", 81, "pArray != __null && pMCTF != __null", a1, a2);
+        v33 = sub_175AE4();
         sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v34, 16);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v33, 16);
     }
 
     return 4294966295;
@@ -7925,7 +3561,7 @@ uint64_t sub_152F70(char *a1, __CFArray *a2)
   if (a1 && a2)
   {
     v4 = 0;
-    v5 = (a1 + 32);
+    v5 = a1 + 32;
     v6 = 1;
     do
     {
@@ -7936,20 +3572,20 @@ uint64_t sub_152F70(char *a1, __CFArray *a2)
       v11 = sub_149BB4(*(v5 - 20), a2);
       v12 = sub_149BB4(*(v5 - 16), a2);
       v13 = sub_149BB4(*(v5 - 12), a2);
-      v54 = sub_149BB4(*(v5 - 8), a2);
-      v53 = sub_149BB4(*(v5 - 4), a2);
-      v52 = sub_149DD8(*v5, a2);
-      v51 = sub_149BB4(*(v5 + 4), a2);
-      v50 = sub_149BB4(*(v5 + 8), a2);
-      v49 = sub_149BB4(*(v5 + 12), a2);
-      v48 = sub_149BB4(*(v5 + 16), a2);
-      v47 = sub_149FFC(*(v5 + 5), a2);
-      v46 = sub_149FFC(*(v5 + 6), a2);
-      v45 = sub_149FFC(*(v5 + 7), a2);
+      v53 = sub_149BB4(*(v5 - 8), a2);
+      v52 = sub_149BB4(*(v5 - 4), a2);
+      v51 = sub_149DD8(*v5, a2);
+      v50 = sub_149BB4(v5[4], a2);
+      v49 = sub_149BB4(v5[8], a2);
+      v48 = sub_149BB4(v5[12], a2);
+      v47 = sub_149BB4(v5[16], a2);
+      v46 = sub_149FFC(*(v5 + 5), a2);
+      v45 = sub_149FFC(*(v5 + 6), a2);
+      v44 = sub_149FFC(*(v5 + 7), a2);
       if (sub_160EF0(0x10u, 7))
       {
-        v43 = v13;
-        v44 = v11;
+        v42 = v13;
+        v43 = v11;
         v14 = v12;
         v15 = v10;
         v16 = v9;
@@ -7971,60 +3607,59 @@ uint64_t sub_152F70(char *a1, __CFArray *a2)
         v32 = *(v5 + 3);
         v33 = *(v5 + 4);
         v34 = *(v5 + 5);
-        v35 = *(v5 + 6);
-        v36 = *(v5 + 7);
+        v35 = *(v5 + 7);
         if (v18)
         {
-          printf("%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d\n", v19, 16, v20, v4, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, *(v5 + 6), v36);
-          v37 = sub_175AE4();
-          v38 = sub_160F68(7);
-          syslog(3, "%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v37, 16, v38, v4, *(v5 - 8), *(v5 - 7), *(v5 - 6), *(v5 - 5), *(v5 - 4), *(v5 - 3), *(v5 - 2), *(v5 - 1), *v5, *(v5 + 1), *(v5 + 2), *(v5 + 3), *(v5 + 4), *(v5 + 5), *(v5 + 6), *(v5 + 7));
+          printf("%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d\n", v19, 16, v20, v4, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, *(v5 + 6), v35);
+          v36 = sub_175AE4();
+          v37 = sub_160F68(7);
+          syslog(3, "%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v36, 16, v37, v4, *(v5 - 8), *(v5 - 7), *(v5 - 6), *(v5 - 5), *(v5 - 4), *(v5 - 3), *(v5 - 2), *(v5 - 1), *v5, *(v5 + 1), *(v5 + 2), *(v5 + 3), *(v5 + 4), *(v5 + 5), *(v5 + 6), *(v5 + 7));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v19, 16, v20, v4, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, *(v5 + 6), v36);
+          syslog(3, "%lld %d AVE %s: MCTF Make Ref[%d]: %d | %d %d %d - %d %d %d - %d %d %d %d %d %d %d %d %d", v19, 16, v20, v4, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, *(v5 + 6), v35);
         }
 
         v8 = v17;
         v9 = v16;
         v10 = v15;
         v12 = v14;
-        v13 = v43;
-        v11 = v44;
+        v13 = v42;
+        v11 = v43;
       }
 
       v6 = 0;
-      v5 += 32;
+      v5 += 64;
       v4 = 1;
     }
 
     while ((v7 & 1) != 0);
-    return (v9 + v8 + v10 + v11 + v12 + v13 + v54 + v53 + v52 + v51 + v50 + v49 + v48 + v47 + v46 + v45);
+    return (v9 + v8 + v10 + v11 + v12 + v13 + v53 + v52 + v51 + v50 + v49 + v48 + v47 + v46 + v45 + v44);
   }
 
   else
   {
     if (sub_160EF0(0x10u, 4))
     {
-      v40 = sub_160F34(0x10u);
-      v41 = sub_175AE4();
-      v42 = sub_160F68(4);
-      if (v40)
+      v39 = sub_160F34(0x10u);
+      v40 = sub_175AE4();
+      v41 = sub_160F68(4);
+      if (v39)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v41, 16, v42, "AVE_MCTF_Make", 196, "pMCTF != __null && pArray != __null", a1, a2);
-        v41 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v40, 16, v41, "AVE_MCTF_Make", 196, "pMCTF != __null && pArray != __null", a1, a2);
+        v40 = sub_175AE4();
         sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v41, 16);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v40, 16);
     }
 
     return 4294966295;
   }
 }
 
-uint64_t sub_1533F0(_DWORD *a1, int a2, int a3, uint64_t a4, char a5, int a6, int a7, uint64_t a8)
+uint64_t sub_1533F0(_DWORD *a1, int a2, unsigned int a3, uint64_t a4, char a5, int a6, int a7, uint64_t a8)
 {
   v8 = a2;
   LODWORD(v10) = 2 * a2 / 3;
@@ -8216,7 +3851,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t sub_15368C(unsigned int *a1, int a2, int a3, uint64_t a4, int a5, int a6, uint64_t a7)
+uint64_t sub_15368C(unsigned int *a1, int a2, unsigned int a3, uint64_t a4, int a5, int a6, uint64_t a7)
 {
   if (a3 >= 1)
   {
@@ -8281,7 +3916,7 @@ LABEL_9:
   return 0;
 }
 
-uint64_t sub_1537E0(unsigned int *a1, int a2, int a3, uint64_t a4, int a5, char a6, int a7, int a8, uint64_t a9)
+uint64_t sub_1537E0(unsigned int *a1, int a2, unsigned int a3, uint64_t a4, int a5, char a6, int a7, int a8, uint64_t a9)
 {
   if (a5)
   {
@@ -8320,16 +3955,15 @@ uint64_t sub_153840(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 73, v4, "AVE_FPS", "Uninit", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = a1[2];
-  if (v6)
+  v5 = a1[2];
+  if (v5)
   {
-    free(v6);
+    free(v5);
     a1[2] = 0;
   }
 
@@ -8340,24 +3974,17 @@ uint64_t sub_153840(void *a1)
   a1[9] = 0;
   if (sub_160EF0(0x49u, 6))
   {
-    v7 = sub_160F34(0x49u);
-    v8 = sub_175AE4();
-    v9 = sub_160F68(6);
-    v10 = *a1;
-    if (v7)
+    v6 = sub_160F34(0x49u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v8, 73, v9, "AVE_FPS", "Uninit", a1, *a1, 0);
-      v8 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v7, 73, v8, "AVE_FPS", "Uninit", a1, *a1, 0);
+      v7 = sub_175AE4();
       sub_160F68(6);
-      v11 = *a1;
     }
 
-    else
-    {
-      v13 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v8, 73);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v7, 73);
   }
 
   return 0;
@@ -8487,7 +4114,7 @@ uint64_t sub_153A60(uint64_t *a1, uint64_t a2, unsigned int a3, unsigned int a4,
   return v16;
 }
 
-uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
+uint64_t sub_153F28(void *a1, unsigned int a2, unsigned int a3, int a4)
 {
   if (sub_160EF0(0x49u, 6))
   {
@@ -8497,15 +4124,18 @@ uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %d %d\n", v9, 73, v10, "AVE_FPS", "Update", a1, *a1, a2, a3, a4);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(6);
-      v11 = *a1;
+      v11 = sub_175AE4();
+      v33 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %d %d", v11, 73, v33);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %d %d", v9, 73, v10);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %d %d", v9, 73, v10);
+    }
   }
 
-  if (a2 - 1 > 0x1869E || a3 < 0)
+  if (a2 - 1 > 0x1869E || (a3 & 0x80000000) != 0)
   {
     if (sub_160EF0(0x49u, 4))
     {
@@ -8516,9 +4146,8 @@ uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
       {
         printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d %d\n", v18, 73, v19, "AVE_FPS", "Update", 141, "0 < fps && fps < 100000 && num >= 0", a1, *a1, a2, a3, a4);
         v20 = sub_175AE4();
-        v21 = sub_160F68(4);
-        v38 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d %d", v20, 73, v21, "AVE_FPS", "Update");
+        v35 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d %d", v20, 73, v35, "AVE_FPS", "Update");
       }
 
       else
@@ -8527,7 +4156,7 @@ uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
       }
     }
 
-    v22 = 4294966295;
+    v21 = 4294966295;
   }
 
   else
@@ -8558,53 +4187,52 @@ uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
         if (v13)
         {
           printf("%lld %d AVE %s: %s::%s:%d allocate bigger memory of timestamp %p %lld %d %d <- %d\n", v14, 73, v15, "AVE_FPS", "Update", 157, a1, *a1, a2, a3, *(a1 + 2));
-          v14 = sub_175AE4();
-          v15 = sub_160F68(6);
-          v16 = *a1;
-          v39 = *(a1 + 2);
+          v16 = sub_175AE4();
+          v34 = sub_160F68(6);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d allocate bigger memory of timestamp %p %lld %d %d <- %d", v16, 73, v34, "AVE_FPS");
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d allocate bigger memory of timestamp %p %lld %d %d <- %d", v14, 73, v15, "AVE_FPS");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d allocate bigger memory of timestamp %p %lld %d %d <- %d", v14, 73, v15, "AVE_FPS");
+        }
       }
 
       *(a1 + 11) = 0;
-      v23 = a1[2];
-      v24 = malloc_type_malloc(16 * a3, 0x1000040D9A13B51uLL);
-      a1[2] = v24;
-      if (v24)
+      v22 = a1[2];
+      v23 = malloc_type_malloc(16 * a3, 0x1000040D9A13B51uLL);
+      a1[2] = v23;
+      if (v23)
       {
         *(a1 + 2) = a3;
-        free(v23);
+        free(v22);
       }
 
       else
       {
-        a1[2] = v23;
+        a1[2] = v22;
         if (sub_160EF0(0x49u, 5))
         {
-          v25 = sub_160F34(0x49u);
-          v26 = sub_175AE4();
-          v27 = sub_160F68(5);
-          v28 = *a1;
-          if (v25)
+          v24 = sub_160F34(0x49u);
+          v25 = sub_175AE4();
+          v26 = sub_160F68(5);
+          if (v24)
           {
-            printf("%lld %d AVE %s: %s::%s:%d failed to allocate memory of timestamp %p %lld %d\n", v26, 73, v27, "AVE_FPS", "Update", 170, a1, *a1, a3);
-            v26 = sub_175AE4();
-            v27 = sub_160F68(5);
-            v29 = *a1;
+            printf("%lld %d AVE %s: %s::%s:%d failed to allocate memory of timestamp %p %lld %d\n", v25, 73, v26, "AVE_FPS", "Update", 170, a1, *a1, a3);
+            v27 = sub_175AE4();
+            v36 = sub_160F68(5);
+            syslog(3, "%lld %d AVE %s: %s::%s:%d failed to allocate memory of timestamp %p %lld %d", v27, 73, v36);
           }
 
           else
           {
-            v37 = *a1;
+            syslog(3, "%lld %d AVE %s: %s::%s:%d failed to allocate memory of timestamp %p %lld %d", v25, 73, v26);
           }
-
-          syslog(3, "%lld %d AVE %s: %s::%s:%d failed to allocate memory of timestamp %p %lld %d", v26, 73, v27);
         }
       }
     }
 
-    v22 = 0;
+    v21 = 0;
     *(a1 + 10) = a4;
     *(a1 + 6) = a2;
     *(a1 + 7) = a2;
@@ -8614,25 +4242,24 @@ uint64_t sub_153F28(void *a1, unsigned int a2, int a3, int a4)
 
   if (sub_160EF0(0x49u, 6))
   {
-    v30 = sub_160F34(0x49u);
-    v31 = sub_175AE4();
-    v32 = sub_160F68(6);
-    if (v30)
+    v28 = sub_160F34(0x49u);
+    v29 = sub_175AE4();
+    v30 = sub_160F68(6);
+    if (v28)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v31, 73, v32, "AVE_FPS", "Update", a1, *a1, a2, a3, v22);
-      v33 = sub_175AE4();
-      v34 = sub_160F68(6);
-      v35 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v33, 73, v34);
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v29, 73, v30, "AVE_FPS", "Update", a1, *a1, a2, a3, v21);
+      v31 = sub_175AE4();
+      v37 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v31, 73, v37);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v31, 73, v32);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v29, 73, v30);
     }
   }
 
-  return v22;
+  return v21;
 }
 
 uint64_t sub_1544C0(void *a1)
@@ -8647,7 +4274,6 @@ uint64_t sub_1544C0(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 73, v4, "AVE_FPS", "Reset", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -8656,24 +4282,17 @@ uint64_t sub_1544C0(void *a1)
   *(a1 + 11) = 0;
   if (sub_160EF0(0x49u, 6))
   {
-    v6 = sub_160F34(0x49u);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(6);
-    v9 = *a1;
-    if (v6)
+    v5 = sub_160F34(0x49u);
+    v6 = sub_175AE4();
+    v7 = sub_160F68(6);
+    if (v5)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v7, 73, v8, "AVE_FPS", "Reset", a1, *a1, 0);
-      v7 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v6, 73, v7, "AVE_FPS", "Reset", a1, *a1, 0);
+      v6 = sub_175AE4();
       sub_160F68(6);
-      v10 = *a1;
     }
 
-    else
-    {
-      v12 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v7, 73);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v6, 73);
   }
 
   return 0;
@@ -8739,8 +4358,6 @@ double sub_154690(uint64_t *a1, void *a2, int a3)
           printf("%lld %d AVE %s: %s::%s:%d %lld %d - %lld %d %d | %lld.%03lld %lld.%03lld \n", v16, 73, v17, "AVE_FPS", "Calc", 250, v18, v19, *a2, *(a2 + 2), a3, v9, v21, v14, v23);
           v24 = sub_175AE4();
           v25 = sub_160F68(5);
-          v28 = *(a2 + 2);
-          v27 = *a2;
           syslog(3, "%lld %d AVE %s: %s::%s:%d %lld %d - %lld %d %d | %lld.%03lld %lld.%03lld ", v24, 73, v25, "AVE_FPS", "Calc", 250, *a1, *(a1 + 2));
         }
 
@@ -8760,18 +4377,18 @@ double sub_154690(uint64_t *a1, void *a2, int a3)
   return v13;
 }
 
-uint64_t sub_1548DC(void *a1)
+uint64_t sub_1548DC(unsigned int *a1)
 {
-  v2 = a1[2];
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 11);
+    v3 = a1[11];
     if (v3 < 2)
     {
       return 0;
     }
 
-    v4 = *(a1 + 2);
+    v4 = a1[2];
     v5 = ((v3 - 2) % v4);
     v6 = ((v3 - 1) % v4);
     v7 = sub_154690((v2 + 16 * v5), (v2 + 16 * v6), 1);
@@ -8794,9 +4411,9 @@ uint64_t sub_1548DC(void *a1)
       v16 = sub_175AE4();
       v17 = sub_160F68(v9);
       v18 = *a1;
-      v19 = *(a1 + 11);
-      v20 = *(a1 + 2);
-      v21 = a1[2];
+      v19 = a1[11];
+      v20 = a1[2];
+      v21 = *(a1 + 2);
       v22 = (v21 + 16 * v5);
       v23 = *v22;
       v24 = *(v22 + 2);
@@ -8826,14 +4443,7 @@ uint64_t sub_1548DC(void *a1)
         printf("%lld %d AVE %s: %s::%s:%d %p %lld %d %d | %d %lld %d - %d %lld %d | %d.%03d  %d.%03d\n", v16, 73, v17, "AVE_FPS", "CalcRt", 301, a1, v18, v19, v20, v5, v23, v24, v6, v26, v27, v28, v29, v8, v31);
         v32 = sub_175AE4();
         v33 = sub_160F68(v9);
-        v34 = a1[2];
-        v35 = (v34 + 16 * v5);
-        v36 = *v35;
-        v37 = (v34 + 16 * v6);
-        v38 = *v37;
-        v40 = *(v37 + 2);
-        v39 = *(v35 + 2);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d | %d %lld %d - %d %lld %d | %d.%03d  %d.%03d", v32, 73, v33, "AVE_FPS", "CalcRt", 301, a1, *a1, *(a1 + 11), *(a1 + 2));
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d | %d %lld %d - %d %lld %d | %d.%03d  %d.%03d", v32, 73, v33, "AVE_FPS", "CalcRt", 301, a1, *a1, a1[11], a1[2]);
       }
 
       else
@@ -8855,12 +4465,15 @@ uint64_t sub_1548DC(void *a1)
       if (v10)
       {
         printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld\n", v11, 73, v12, "AVE_FPS", "CalcRt", 276, "m_psTime != __null", a1, *a1);
-        v11 = sub_175AE4();
-        v12 = sub_160F68(4);
-        v13 = *a1;
+        v13 = sub_175AE4();
+        v34 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v13, 73, v34);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v11, 73, v12);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v11, 73, v12);
+      }
     }
 
     return 4294966285;
@@ -8869,19 +4482,19 @@ uint64_t sub_1548DC(void *a1)
   return result;
 }
 
-uint64_t sub_154C40(void *a1)
+uint64_t sub_154C40(unsigned int *a1)
 {
-  v2 = a1[2];
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 11);
+    v3 = a1[11];
     if (v3 < 2)
     {
       return 0;
     }
 
     v4 = v3 - 1;
-    v5 = *(a1 + 10);
+    v5 = a1[10];
     v6 = __OFSUB__(v3, v5);
     v7 = v3 - v5;
     if (v7 < 0 != v6)
@@ -8890,7 +4503,7 @@ uint64_t sub_154C40(void *a1)
     }
 
     v8 = v4 - v7;
-    v9 = *(a1 + 2);
+    v9 = a1[2];
     v10 = (v4 % v9);
     v11 = v7 % v9;
     v12 = sub_154690((v2 + 16 * (v7 % v9)), (v2 + 16 * v10), v4 - v7);
@@ -8914,9 +4527,9 @@ uint64_t sub_154C40(void *a1)
       v22 = sub_175AE4();
       v23 = sub_160F68(v14);
       v24 = *a1;
-      v25 = *(a1 + 2);
-      v26 = *(a1 + 11);
-      v27 = a1[2];
+      v25 = a1[2];
+      v26 = a1[11];
+      v27 = *(a1 + 2);
       v28 = (v27 + 16 * v20);
       v29 = *v28;
       v30 = *(v28 + 2);
@@ -8946,14 +4559,7 @@ uint64_t sub_154C40(void *a1)
         printf("%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d\n", v22, 73, v23, "AVE_FPS", "CalcSlide", 355, a1, v24, v25, v26, v8, v20, v29, v30, v10, v32, v33, v34, v35, v13, v37);
         v38 = sub_175AE4();
         v39 = sub_160F68(v14);
-        v40 = a1[2];
-        v41 = (v40 + 16 * v20);
-        v42 = *v41;
-        v43 = (v40 + 16 * v10);
-        v44 = *v43;
-        v46 = *(v43 + 2);
-        v45 = *(v41 + 2);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d", v38, 73, v39, "AVE_FPS", "CalcSlide", 355, a1, *a1, *(a1 + 2), *(a1 + 11));
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d", v38, 73, v39, "AVE_FPS", "CalcSlide", 355, a1, *a1, a1[2], a1[11]);
       }
 
       else
@@ -8975,12 +4581,15 @@ uint64_t sub_154C40(void *a1)
       if (v15)
       {
         printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld\n", v16, 73, v17, "AVE_FPS", "CalcSlide", 326, "m_psTime != __null", a1, *a1);
-        v16 = sub_175AE4();
-        v17 = sub_160F68(4);
-        v18 = *a1;
+        v18 = sub_175AE4();
+        v40 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v18, 73, v40);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v16, 73, v17);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v16, 73, v17);
+      }
     }
 
     return 4294966285;
@@ -8989,19 +4598,19 @@ uint64_t sub_154C40(void *a1)
   return result;
 }
 
-uint64_t sub_154FD0(void *a1)
+uint64_t sub_154FD0(unsigned int *a1)
 {
-  v2 = a1[2];
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 11);
+    v3 = a1[11];
     if (v3 < 2)
     {
       return 0;
     }
 
     v4 = v3 - 1;
-    v5 = *(a1 + 2);
+    v5 = a1[2];
     v6 = __OFSUB__(v3, v5);
     v7 = v3 - v5;
     if (v7 < 0 != v6)
@@ -9033,9 +4642,9 @@ uint64_t sub_154FD0(void *a1)
       v21 = sub_175AE4();
       v22 = sub_160F68(v13);
       v23 = *a1;
-      v24 = *(a1 + 2);
-      v25 = *(a1 + 11);
-      v26 = a1[2];
+      v24 = a1[2];
+      v25 = a1[11];
+      v26 = *(a1 + 2);
       v27 = (v26 + 16 * v19);
       v28 = *v27;
       v29 = *(v27 + 2);
@@ -9065,14 +4674,7 @@ uint64_t sub_154FD0(void *a1)
         printf("%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d\n", v21, 73, v22, "AVE_FPS", "CalcAvg", 408, a1, v23, v24, v25, v8, v19, v28, v29, v9, v31, v32, v33, v34, v12, v36);
         v37 = sub_175AE4();
         v38 = sub_160F68(v13);
-        v39 = a1[2];
-        v40 = (v39 + 16 * v19);
-        v41 = *v40;
-        v42 = (v39 + 16 * v9);
-        v43 = *v42;
-        v45 = *(v42 + 2);
-        v44 = *(v40 + 2);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d", v37, 73, v38, "AVE_FPS", "CalcAvg", 408, a1, *a1, *(a1 + 2), *(a1 + 11));
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d", v37, 73, v38, "AVE_FPS", "CalcAvg", 408, a1, *a1, a1[2], a1[11]);
       }
 
       else
@@ -9094,12 +4696,15 @@ uint64_t sub_154FD0(void *a1)
       if (v14)
       {
         printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld\n", v15, 73, v16, "AVE_FPS", "CalcAvg", 379, "m_psTime != __null", a1, *a1);
-        v15 = sub_175AE4();
-        v16 = sub_160F68(4);
-        v17 = *a1;
+        v17 = sub_175AE4();
+        v39 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v17, 73, v39);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v15, 73, v16);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v15, 73, v16);
+      }
     }
 
     return 4294966285;
@@ -9169,11 +4774,6 @@ uint64_t sub_15535C(void *a1)
         printf("%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d\n", v15, 73, v16, "AVE_FPS", "CalcOverall", 457, a1, v17, v18, v19, v4, 0, a1[3], *(a1 + 8), v5, v21, v22, v23, v24, v7, v26);
         v27 = sub_175AE4();
         v28 = sub_160F68(v8);
-        v29 = a1[3];
-        v30 = a1[2] + 16 * v5;
-        v31 = *v30;
-        v33 = *(v30 + 8);
-        v32 = *(a1 + 8);
         syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %d %d %d | %d %lld %d - %d %lld %d | %d.%03d %d.%03d", v27, 73, v28, "AVE_FPS", "CalcOverall", 457, a1, *a1, *(a1 + 2), *(a1 + 11));
       }
 
@@ -9196,12 +4796,15 @@ uint64_t sub_15535C(void *a1)
       if (v9)
       {
         printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld\n", v10, 73, v11, "AVE_FPS", "CalcOverall", 430, "m_psTime != __null", a1, *a1);
-        v10 = sub_175AE4();
-        v11 = sub_160F68(4);
-        v12 = *a1;
+        v12 = sub_175AE4();
+        v29 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v12, 73, v29);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v10, 73, v11);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld", v10, 73, v11);
+      }
     }
 
     return 4294966285;
@@ -9217,18 +4820,11 @@ uint64_t sub_1556B4(void *a1, int *a2)
     v4 = sub_160F34(0x49u);
     v5 = sub_175AE4();
     v6 = sub_160F68(7);
-    v7 = *a1;
     if (v4)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p\n", v5, 73, v6, "AVE_FPS", "Add", a1, *a1, a2);
       v5 = sub_175AE4();
       sub_160F68(7);
-      v8 = *a1;
-    }
-
-    else
-    {
-      v38 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p", v5, 73);
@@ -9236,162 +4832,151 @@ uint64_t sub_1556B4(void *a1, int *a2)
 
   if (!a2 || (*a2 & 0x8000000000000000) != 0 || a2[2] < 1)
   {
-    goto LABEL_44;
+    goto LABEL_42;
   }
 
-  v9 = a1[2];
-  if (v9)
+  v7 = a1[2];
+  if (v7)
   {
-    *(v9 + 16 * (*(a1 + 11) % *(a1 + 2))) = *a2;
-    v10 = *(a1 + 11);
-    if (!v10)
+    *(v7 + 16 * (*(a1 + 11) % *(a1 + 2))) = *a2;
+    v8 = *(a1 + 11);
+    if (!v8)
     {
       *(a1 + 3) = *a2;
     }
 
-    *(a1 + 11) = v10 + 1;
+    *(a1 + 11) = v8 + 1;
     if (sub_1548DC(a1))
     {
       if (sub_160EF0(0x49u, 4))
       {
-        v11 = sub_160F34(0x49u);
-        v12 = sub_175AE4();
-        v13 = sub_160F68(4);
-        v14 = *a1;
-        if (v11)
+        v9 = sub_160F34(0x49u);
+        v10 = sub_175AE4();
+        v11 = sub_160F68(4);
+        if (v9)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate realtime FPS %p %lld %p\n", v12, 73, v13, "AVE_FPS", "Add", 502, "ret == 0", a1, *a1, a2);
-          v12 = sub_175AE4();
-          v13 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate realtime FPS %p %lld %p\n", v10, 73, v11, "AVE_FPS", "Add", 502, "ret == 0", a1, *a1, a2);
+          v10 = sub_175AE4();
+          v11 = sub_160F68(4);
         }
 
-        v39 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate realtime FPS %p %lld %p", v12, 73, v13, "AVE_FPS");
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate realtime FPS %p %lld %p", v10, 73, v11, "AVE_FPS");
       }
 
-      goto LABEL_44;
+      goto LABEL_42;
     }
 
     if (*(a1 + 10) >= 1 && sub_154C40(a1))
     {
       if (sub_160EF0(0x49u, 4))
       {
-        v20 = sub_160F34(0x49u);
-        v21 = sub_175AE4();
-        v22 = sub_160F68(4);
-        v23 = *a1;
-        if (v20)
+        v16 = sub_160F34(0x49u);
+        v17 = sub_175AE4();
+        v18 = sub_160F68(4);
+        if (v16)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate sliding average FPS %p %lld %p\n", v21, 73, v22, "AVE_FPS", "Add", 508, "ret == 0", a1, *a1, a2);
-          v21 = sub_175AE4();
-          v22 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate sliding average FPS %p %lld %p\n", v17, 73, v18, "AVE_FPS", "Add", 508, "ret == 0", a1, *a1, a2);
+          v17 = sub_175AE4();
+          v18 = sub_160F68(4);
         }
 
-        v40 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate sliding average FPS %p %lld %p", v21, 73, v22, "AVE_FPS");
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate sliding average FPS %p %lld %p", v17, 73, v18, "AVE_FPS");
       }
 
-      goto LABEL_44;
+      goto LABEL_42;
     }
 
     if (sub_154FD0(a1))
     {
       if (!sub_160EF0(0x49u, 4))
       {
-LABEL_44:
-        v28 = 4294966295;
-        goto LABEL_45;
+LABEL_42:
+        v22 = 4294966295;
+        goto LABEL_43;
       }
 
-      v24 = sub_160F34(0x49u);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(4);
-      v27 = *a1;
-      if (v24)
+      v19 = sub_160F34(0x49u);
+      v20 = sub_175AE4();
+      v21 = sub_160F68(4);
+      if (v19)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p\n", v25, 73, v26, "AVE_FPS", "Add", 513, "ret == 0", a1, *a1, a2);
-LABEL_38:
-        v31 = sub_175AE4();
-        v32 = sub_160F68(4);
-        v42 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p", v31, 73, v32, "AVE_FPS");
-        goto LABEL_44;
+        printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p\n", v20, 73, v21, "AVE_FPS", "Add", 513, "ret == 0", a1, *a1, a2);
+LABEL_37:
+        v24 = sub_175AE4();
+        v31 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p", v24, 73, v31, "AVE_FPS");
+        goto LABEL_42;
       }
-
-      v43 = *a1;
     }
 
     else
     {
       if (!sub_15535C(a1))
       {
-        v28 = 0;
-        goto LABEL_45;
+        v22 = 0;
+        goto LABEL_43;
       }
 
       if (!sub_160EF0(0x49u, 4))
       {
-        goto LABEL_44;
+        goto LABEL_42;
       }
 
-      v29 = sub_160F34(0x49u);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(4);
-      v30 = *a1;
-      if (v29)
+      v23 = sub_160F34(0x49u);
+      v20 = sub_175AE4();
+      v21 = sub_160F68(4);
+      if (v23)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p\n", v25, 73, v26, "AVE_FPS", "Add", 517, "ret == 0", a1, *a1, a2);
-        goto LABEL_38;
+        printf("%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p\n", v20, 73, v21, "AVE_FPS", "Add", 517, "ret == 0", a1, *a1, a2);
+        goto LABEL_37;
       }
-
-      v44 = *a1;
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p", v25, 73, v26, "AVE_FPS");
-    goto LABEL_44;
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | failed to calculate average FPS %p %lld %p", v20, 73, v21, "AVE_FPS");
+    goto LABEL_42;
   }
 
   if (sub_160EF0(0x49u, 4))
   {
-    v15 = sub_160F34(0x49u);
-    v16 = sub_175AE4();
-    v17 = sub_160F68(4);
-    v18 = *a1;
-    if (v15)
+    v12 = sub_160F34(0x49u);
+    v13 = sub_175AE4();
+    v14 = sub_160F68(4);
+    if (v12)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p\n", v16, 73, v17, "AVE_FPS", "Add", 489, "m_psTime != __null", a1, *a1, a2);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      v19 = *a1;
+      printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p\n", v13, 73, v14, "AVE_FPS", "Add", 489, "m_psTime != __null", a1, *a1, a2);
+      v15 = sub_175AE4();
+      v30 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v15, 73, v30, "AVE_FPS");
     }
 
     else
     {
-      v41 = *a1;
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v13, 73, v14, "AVE_FPS");
     }
-
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v16, 73, v17, "AVE_FPS");
   }
 
-  v28 = 4294966285;
-LABEL_45:
+  v22 = 4294966285;
+LABEL_43:
   if (sub_160EF0(0x49u, 7))
   {
-    v33 = sub_160F34(0x49u);
-    v34 = sub_175AE4();
-    v35 = sub_160F68(7);
-    if (v33)
+    v25 = sub_160F34(0x49u);
+    v26 = sub_175AE4();
+    v27 = sub_160F68(7);
+    if (v25)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v34, 73, v35, "AVE_FPS", "Add", a1, *a1, a2, v28);
-      v34 = sub_175AE4();
-      v35 = sub_160F68(7);
-      v36 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v26, 73, v27, "AVE_FPS", "Add", a1, *a1, a2, v22);
+      v28 = sub_175AE4();
+      v32 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v28, 73, v32);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v34, 73, v35);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v26, 73, v27);
+    }
   }
 
-  return v28;
+  return v22;
 }
 
 double sub_155D48(uint64_t a1)
@@ -9405,57 +4990,55 @@ double sub_155D48(uint64_t a1)
   return *(a1 + v1);
 }
 
-_BYTE *sub_155D6C(_BYTE *result, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *sub_155D6C(void *result, uint64_t a2, int *a3, int a4)
 {
   if (result && a2)
   {
     if (a3)
     {
-      v10 = a4;
-      v11 = result;
-      v12 = *a3;
-      LODWORD(v12) = sub_172100((a2 + v12), a4 - v12, "%lld,", a4, a5, a6, a7, a8, result[8] - *result) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v13, v14, v15, v16, v17, v11[520] - v11[16]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v18, v19, v20, v21, v22, v11[24] - v11[16]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v23, v24, v25, v26, v27, v11[40] - v11[24]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v28, v29, v30, v31, v32, v11[240] - v11[32]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v33, v34, v35, v36, v37, v11[464] - v11[248]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v38, v39, v40, v41, v42, v11[208] - v11[192]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v43, v44, v45, v46, v47, v11[408] - v11[200]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v48, v49, v50, v51, v52, v11[496] - v11[416]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v53, v54, v55, v56, v57, v11[232] - v11[216]) + v12;
-      LODWORD(v12) = sub_172100((a2 + v12), v10 - v12, "%lld,", v58, v59, v60, v61, v62, v11[432] - v11[224]) + v12;
-      result = sub_172100((a2 + v12), v10 - v12, "%lld,", v63, v64, v65, v66, v67, v11[512] - v11[440]);
-      *a3 = result + v12;
+      v7 = result;
+      v8 = *a3;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", result[1] - *result) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[65] - v7[2]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[3] - v7[2]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[5] - v7[3]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[30] - v7[4]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[58] - v7[31]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[26] - v7[24]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[51] - v7[25]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[62] - v7[52]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[29] - v7[27]) + v8;
+      LODWORD(v8) = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[54] - v7[28]) + v8;
+      result = sub_172100((a2 + v8), a4 - v8, "%lld,", v7[64] - v7[55]);
+      *a3 = result + v8;
     }
   }
 
   return result;
 }
 
-uint64_t sub_155F78(uint64_t result, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_155F78(uint64_t result, uint64_t a2, int *a3, int a4)
 {
   if (result && a2 && a3)
   {
-    v10 = a4;
-    v11 = result;
-    v12 = 0;
-    v13 = *a3;
+    v7 = result;
+    v8 = 0;
+    v9 = *a3;
     do
     {
-      result = sub_172100((a2 + v13), v10 - v13, "%lld,", a4, a5, a6, a7, a8, *(v11 + v12));
-      v13 = *a3 + result;
-      *a3 = v13;
-      v12 += 8;
+      result = sub_172100((a2 + v9), a4 - v9, "%lld,", *(v7 + v8));
+      v9 = *a3 + result;
+      *a3 = v9;
+      v8 += 8;
     }
 
-    while (v12 != 544);
+    while (v8 != 544);
   }
 
   return result;
 }
 
-uint64_t sub_15600C(const void *a1, const void *a2, const void *a3, int a4, int a5)
+uint64_t sub_15600C(char *a1, int *a2, FILE *a3, int a4, int a5)
 {
   if (sub_160EF0(0x3Au, 7))
   {
@@ -9528,7 +5111,7 @@ uint64_t sub_15600C(const void *a1, const void *a2, const void *a3, int a4, int 
   return v14;
 }
 
-uint64_t sub_156920(const void *a1, FILE *a2, int a3)
+uint64_t sub_156920(void *a1, FILE *a2, int a3)
 {
   if (sub_160EF0(0x3Au, 7))
   {
@@ -9789,4 +5372,4422 @@ LABEL_22:
       goto LABEL_22;
     }
   }
+}
+
+uint64_t sub_157310(const __CFArray *a1, _OWORD *a2, unsigned int *a3)
+{
+  v4 = a2;
+  if (a1 && a2 && a3 && *a3 > 0)
+  {
+    bzero(a2, 356 * *a3);
+    Count = CFArrayGetCount(a1);
+    if (*a3 >= Count)
+    {
+      v7 = Count;
+    }
+
+    else
+    {
+      v7 = *a3;
+    }
+
+    *a3 = 0;
+    if (v7 < 1)
+    {
+      return 0;
+    }
+
+    else
+    {
+      v8 = 0;
+      while (1)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(a1, v8);
+        if (!ValueAtIndex)
+        {
+          break;
+        }
+
+        result = sub_156EA0(ValueAtIndex, v4);
+        if (result)
+        {
+          return result;
+        }
+
+        ++*a3;
+        ++v8;
+        v4 = (v4 + 356);
+        if (v7 == v8)
+        {
+          return 0;
+        }
+      }
+
+      return 4294966288;
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0xCCu, 4))
+    {
+      v11 = sub_160F34(0xCCu);
+      v12 = sub_175AE4();
+      v13 = sub_160F68(4);
+      if (v11)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v12, 204, v13, "AVE_HEVC_ST_RPS_RetrieveArray", 326, "pArray != __null && pInfo != __null && pNum != __null && *pNum > 0", a1, v4, a3);
+        v14 = sub_175AE4();
+        v15 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v14, 204, v15);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v12, 204, v13);
+      }
+    }
+
+    return 4294966295;
+  }
+}
+
+uint64_t sub_1574C0(CFDictionaryRef theDict, uint64_t a2)
+{
+  if (theDict && a2)
+  {
+    *(a2 + 320) = 0u;
+    *(a2 + 336) = 0u;
+    *(a2 + 288) = 0u;
+    *(a2 + 304) = 0u;
+    *(a2 + 256) = 0u;
+    *(a2 + 272) = 0u;
+    *(a2 + 224) = 0u;
+    *(a2 + 240) = 0u;
+    *(a2 + 192) = 0u;
+    *(a2 + 208) = 0u;
+    *(a2 + 160) = 0u;
+    *(a2 + 176) = 0u;
+    *(a2 + 128) = 0u;
+    *(a2 + 144) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 112) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 80) = 0u;
+    *(a2 + 32) = 0u;
+    *(a2 + 48) = 0u;
+    *a2 = 0u;
+    *(a2 + 16) = 0u;
+    *(a2 + 348) = 0u;
+    sub_14BE4C(theDict, @"ShortTermRefPicSetSPSFlag", a2);
+    if (*a2 == 1)
+    {
+
+      return sub_14C90C(theDict, @"ShortTermRefPicSetIdx", (a2 + 4));
+    }
+
+    else
+    {
+      Value = CFDictionaryGetValue(theDict, @"RPSData");
+      if (Value)
+      {
+
+        return sub_156EA0(Value, (a2 + 8));
+      }
+
+      else
+      {
+        return 4294966288;
+      }
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0xCCu, 4))
+    {
+      v5 = sub_160F34(0xCCu);
+      v6 = sub_175AE4();
+      v7 = sub_160F68(4);
+      if (v5)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v6, 204, v7, "AVE_HEVC_Slice_ST_RPS_Retrieve", 492, "pDict != __null && pInfo != __null", theDict, a2);
+        v6 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v6, 204);
+    }
+
+    return 4294966295;
+  }
+}
+
+void sub_1579D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = 0;
+  sub_167D08();
+  operator new[]();
+}
+
+uint64_t sub_157CD0(uint64_t a1, int *a2, __CFDictionary *a3)
+{
+  v5 = sub_167CD8(a1);
+  if (!v5)
+  {
+    return 4294966296;
+  }
+
+  if ((*(v5 + 6) & 0xFFFFFFFE) != 2)
+  {
+    return 0;
+  }
+
+  Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+  v7 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v8 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v9 = v8;
+  if (Mutable)
+  {
+    v10 = v7 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (!v10 && v8 != 0)
+  {
+    v17 = kIOSurfacePlaneHTPCPredictionSelector;
+    sub_14B9CC(kIOSurfacePlaneHTPCPredictionSelector, 1, v7);
+    sub_14B9CC(v17, 1, v9);
+    if (*a2 >= 1)
+    {
+      sub_14B9CC(kIOSurfacePlaneHorizontalPixelOffsetWithinCompressedTileArray, *a2, v7);
+    }
+
+    v18 = a2[2];
+    if (v18 >= 1)
+    {
+      sub_14B9CC(kIOSurfacePlaneVerticalPixelOffsetWithinCompressedTileArray, v18, v7);
+    }
+
+    v19 = a2[4];
+    if (v19 >= 1)
+    {
+      sub_14B9CC(kIOSurfacePlaneHorizontalPixelOffsetWithinCompressedTileArray, v19, v9);
+    }
+
+    v20 = a2[6];
+    if (v20 >= 1)
+    {
+      sub_14B9CC(kIOSurfacePlaneVerticalPixelOffsetWithinCompressedTileArray, v20, v9);
+    }
+
+    CFArrayAppendValue(Mutable, v7);
+    CFArrayAppendValue(Mutable, v9);
+    CFDictionarySetValue(a3, kCVPixelFormatPlanes, Mutable);
+    CFRelease(v7);
+    CFRelease(v9);
+    CFRelease(Mutable);
+    return 0;
+  }
+
+  if (sub_160EF0(0x3Fu, 4))
+  {
+    v12 = sub_160F34(0x3Fu);
+    v13 = sub_175AE4();
+    v14 = sub_160F68(4);
+    if (v12)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | fail to create CF objects %p %p %p\n", v13, 63, v14, "AVE_PixelBuf_AppendAttr_IOSurface", 211, "pArray != __null && pDict0 != __null && pDict1 != __null", Mutable, v7, v9);
+      v15 = sub_175AE4();
+      v21 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CF objects %p %p %p", v15, 63, v21);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CF objects %p %p %p", v13, 63, v14);
+    }
+  }
+
+  return 4294966293;
+}
+
+uint64_t sub_157F5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, int a9, unsigned int a10, unsigned int a11, int a12, int *a13, __CFDictionary **a14)
+{
+  sub_14FFD4(a1);
+  if (CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))
+  {
+    Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+    if (Mutable)
+    {
+      sub_1579D0(a1, a2, a3, a4, a5, a10, Mutable);
+    }
+
+    if (sub_160EF0(0x3Fu, 4))
+    {
+      v23 = sub_160F34(0x3Fu);
+      v20 = sub_175AE4();
+      v24 = sub_160F68(4);
+      if (v23)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d %d\n", v20, 63, v24, "AVE_PixelBuf_CreateAttrDictFromProfile", 304, "pTempArray != __null", a1, a2, a3, a4, a5, a10, 0);
+        v25 = sub_175AE4();
+        v29 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d %d", v25, 63, v29, "AVE_PixelBuf_CreateAttrDictFromProfile");
+        return 4294966293;
+      }
+
+      v37 = a5;
+      v38 = a10;
+      v35 = a3;
+      v36 = a4;
+      v33 = a1;
+      v34 = a2;
+      v31 = 304;
+      v32 = "pTempArray != __null";
+      v30 = v24;
+      v26 = "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d %d";
+LABEL_12:
+      syslog(3, v26, v20, 63, v30, "AVE_PixelBuf_CreateAttrDictFromProfile", v31, v32, v33, v34, v35, v36, v37, v38, 0);
+    }
+  }
+
+  else if (sub_160EF0(0x3Fu, 4))
+  {
+    v19 = sub_160F34(0x3Fu);
+    v20 = sub_175AE4();
+    v21 = sub_160F68(4);
+    if (!v19)
+    {
+      v37 = a5;
+      v38 = a10;
+      v35 = a3;
+      v36 = a4;
+      v33 = a1;
+      v34 = a2;
+      v31 = 298;
+      v32 = "pDict != __null";
+      v30 = v21;
+      v26 = "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d %d";
+      goto LABEL_12;
+    }
+
+    printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d %d\n", v20, 63, v21, "AVE_PixelBuf_CreateAttrDictFromProfile", 298, "pDict != __null", a1, a2, a3, a4, a5, a10, 0);
+    v22 = sub_175AE4();
+    v28 = sub_160F68(4);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d %d", v22, 63, v28, "AVE_PixelBuf_CreateAttrDictFromProfile");
+  }
+
+  return 4294966293;
+}
+
+uint64_t sub_158978(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, unsigned int a9, int a10, int *a11, __CFDictionary **a12)
+{
+  sub_14FFD4(a1);
+  if (CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))
+  {
+    Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+    if (Mutable)
+    {
+      sub_1576BC(a1, a2, a3, a4, a9, Mutable);
+    }
+
+    if (sub_160EF0(0x3Fu, 4))
+    {
+      v21 = sub_160F34(0x3Fu);
+      v18 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (v21)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d\n", v18, 63, v22, "AVE_PixelBuf_CreateAttrDict", 435, "pTempArray != __null", a1, a2, a3, a4, a9, 0);
+        v23 = sub_175AE4();
+        v27 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d", v23, 63, v27);
+        return 4294966293;
+      }
+
+      v35 = a9;
+      v33 = a3;
+      v34 = a4;
+      v31 = a1;
+      v32 = a2;
+      v29 = 435;
+      v30 = "pTempArray != __null";
+      v28 = v22;
+      v24 = "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d 0x%x %d %d %d";
+LABEL_12:
+      syslog(3, v24, v18, 63, v28, "AVE_PixelBuf_CreateAttrDict", v29, v30, v31, v32, v33, v34, v35, 0);
+    }
+  }
+
+  else if (sub_160EF0(0x3Fu, 4))
+  {
+    v17 = sub_160F34(0x3Fu);
+    v18 = sub_175AE4();
+    v19 = sub_160F68(4);
+    if (!v17)
+    {
+      v35 = a9;
+      v33 = a3;
+      v34 = a4;
+      v31 = a1;
+      v32 = a2;
+      v29 = 429;
+      v30 = "pDict != __null";
+      v28 = v19;
+      v24 = "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d";
+      goto LABEL_12;
+    }
+
+    printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d\n", v18, 63, v19, "AVE_PixelBuf_CreateAttrDict", 429, "pDict != __null", a1, a2, a3, a4, a9, 0);
+    v20 = sub_175AE4();
+    v26 = sub_160F68(4);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d 0x%x %d %d %d", v20, 63, v26);
+  }
+
+  return 4294966293;
+}
+
+uint64_t sub_159334(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, signed int a7, signed int a8, unsigned int a9, CVPixelBufferPoolRef *poolOut)
+{
+  pixelBufferAttributes = 0;
+  memset(v35, 0, sizeof(v35));
+  v32 = a8;
+  v33 = a7;
+  sub_14E498(a1, a2, a4, &v33, &v32);
+  v18 = sub_158978(a1, a2, a3, a4, a5, a6, v33, v32, a9, 1, v35, &pixelBufferAttributes);
+  if (v18)
+  {
+    v19 = v18;
+    if (sub_160EF0(0x3Fu, 4))
+    {
+      v20 = sub_160F34(0x3Fu);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (v20)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attributes %d %d 0x%x %d %dx%d %d %d\n", v21, 63, v22, "AVE_PixelBuf_CreatePool", 557, "ret == 0", a1, a2, a3, a4, a7, a8, a9, v19);
+        v23 = sub_175AE4();
+        v30 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attributes %d %d 0x%x %d %dx%d %d %d", v23, 63, v30, "AVE_PixelBuf_CreatePool");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attributes %d %d 0x%x %d %dx%d %d %d", v21, 63, v22, "AVE_PixelBuf_CreatePool");
+      }
+    }
+  }
+
+  else
+  {
+    v24 = pixelBufferAttributes;
+    v19 = CVPixelBufferPoolCreate(0, 0, pixelBufferAttributes, poolOut);
+    if (!v19)
+    {
+      goto LABEL_15;
+    }
+
+    if (!sub_160EF0(0x3Fu, 4))
+    {
+      v19 = 4294966296;
+      goto LABEL_15;
+    }
+
+    v25 = sub_160F34(0x3Fu);
+    v26 = sub_175AE4();
+    v27 = sub_160F68(4);
+    if (v25)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d 0x%x %d %dx%d %d %d %d\n", v26, 63, v27, "AVE_PixelBuf_CreatePool", 562, "res == kCVReturnSuccess", a1, a2, a3, a4, a7, a8, a9, v19, 0);
+      v28 = sub_175AE4();
+      v31 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d 0x%x %d %dx%d %d %d %d", v28, 63, v31, "AVE_PixelBuf_CreatePool", 562);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d 0x%x %d %dx%d %d %d %d", v26, 63, v27, "AVE_PixelBuf_CreatePool", 562);
+    }
+
+    v19 = 4294966296;
+  }
+
+  v24 = pixelBufferAttributes;
+LABEL_15:
+  if (v24)
+  {
+    CFRelease(v24);
+  }
+
+  return v19;
+}
+
+uint64_t sub_159678(CVPixelBufferPoolRef *a1, CVPixelBufferPoolRef *a2, CVPixelBufferPoolRef *a3)
+{
+  Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (Mutable)
+  {
+    v7 = Mutable;
+    v8 = sub_14B9CC(kCVPixelBufferPoolMinimumBufferCountKey, a2, Mutable);
+    if (v8)
+    {
+      v9 = v8;
+      if (sub_160EF0(0x3Fu, 4))
+      {
+        v10 = sub_160F34(0x3Fu);
+        v11 = sub_175AE4();
+        v12 = sub_160F68(4);
+        if (v10)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to append BufferPoolMinimumBufferCountKey %d, %d %d %p %d\n", v11, 63, v12, "AVE_PixelBuf_CreateSurfacePool", 603, "ret == 0", a2, a1, a2, a3, v9);
+          v13 = sub_175AE4();
+          v76 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append BufferPoolMinimumBufferCountKey %d, %d %d %p %d", v13, 63, v76, "AVE_PixelBuf_CreateSurfacePool");
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append BufferPoolMinimumBufferCountKey %d, %d %d %p %d", v11, 63, v12, "AVE_PixelBuf_CreateSurfacePool");
+        }
+      }
+
+LABEL_39:
+      v48 = v7;
+LABEL_56:
+      CFRelease(v48);
+      return v9;
+    }
+
+    v18 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (!v18)
+    {
+      if (sub_160EF0(0x3Fu, 4))
+      {
+        v28 = sub_160F34(0x3Fu);
+        v29 = sub_175AE4();
+        v30 = sub_160F68(4);
+        if (v28)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d\n", v29, 63, v30, "AVE_PixelBuf_CreateSurfacePool", 610, "pDictBufAttr != __null", a1, a2, a3, 0);
+          v31 = sub_175AE4();
+          v78 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d", v31, 63, v78);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d", v29, 63, v30);
+        }
+      }
+
+      v9 = 4294966293;
+      goto LABEL_39;
+    }
+
+    v19 = v18;
+    v20 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (v20)
+    {
+      v21 = v20;
+      v22 = sub_14B9CC(kIOSurfaceAllocSize, a1, v20);
+      if (v22)
+      {
+        v9 = v22;
+        if (sub_160EF0(0x3Fu, 4))
+        {
+          v23 = sub_160F34(0x3Fu);
+          v24 = sub_175AE4();
+          v25 = sub_160F68(4);
+          if (v23)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | fail to append IOSurface allocation size %d, %d %d %p %d\n", v24, 63, v25, "AVE_PixelBuf_CreateSurfacePool", 620, "ret == 0", a1, a1, a2, a3, v9);
+            v26 = sub_175AE4();
+            v27 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append IOSurface allocation size %d, %d %d %p %d", v26, 63, v27, "AVE_PixelBuf_CreateSurfacePool");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append IOSurface allocation size %d, %d %d %p %d", v24, 63, v25, "AVE_PixelBuf_CreateSurfacePool");
+          }
+        }
+
+        CFRelease(v21);
+        goto LABEL_55;
+      }
+
+      CFDictionaryAddValue(v19, kCVPixelBufferIOSurfacePropertiesKey, v21);
+      CFRelease(v21);
+      v38 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+      if (v38)
+      {
+        v39 = v38;
+        v40 = 0;
+        do
+        {
+          v41 = sub_149FFC(dword_192B60[v40], v39);
+          if (v41)
+          {
+            v42 = 1;
+          }
+
+          else
+          {
+            v42 = v40 == 5;
+          }
+
+          ++v40;
+        }
+
+        while (!v42);
+        v43 = v41;
+        if (v41)
+        {
+          if (sub_160EF0(0x3Fu, 4))
+          {
+            v44 = sub_160F34(0x3Fu);
+            v45 = sub_175AE4();
+            v46 = sub_160F68(4);
+            if (v44)
+            {
+              printf("%lld %d AVE %s: %s:%d %s | fail to append cache mode %d %d %p %d\n", v45, 63, v46, "AVE_PixelBuf_CreateSurfacePool", 632, "ret == 0", a1, a2, a3, v43);
+              v47 = sub_175AE4();
+              v80 = sub_160F68(4);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append cache mode %d %d %p %d", v47, 63, v80);
+            }
+
+            else
+            {
+              syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append cache mode %d %d %p %d", v45, 63, v46);
+            }
+          }
+
+          CFRelease(v39);
+          goto LABEL_54;
+        }
+
+        CFDictionaryAddValue(v19, kCVPixelBufferCacheModeKey, v39);
+        CFRelease(v39);
+        v53 = sub_14B618(kCVPixelBufferIOSurfaceWiringAssertionKey, kCFBooleanTrue != 0, v19);
+        if (v53)
+        {
+          v54 = v53;
+          if (!sub_160EF0(0x3Fu, 4))
+          {
+            goto LABEL_54;
+          }
+
+          v55 = sub_160F34(0x3Fu);
+          v56 = sub_175AE4();
+          v57 = sub_160F68(4);
+          if (!v55)
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to append IOSurfaceWiringAssertionKey %d, %d %d %p %d", v56, 63, v57, "AVE_PixelBuf_CreateSurfacePool");
+            goto LABEL_54;
+          }
+
+          v58 = a1;
+          printf("%lld %d AVE %s: %s:%d %s | fail to append IOSurfaceWiringAssertionKey %d, %d %d %p %d\n", v56, 63, v57, "AVE_PixelBuf_CreateSurfacePool", 642, "ret == 0", 1, a1, a2, a3, v54);
+          v36 = sub_175AE4();
+          v103 = a3;
+          v106 = v54;
+          v95 = v58;
+          v99 = a2;
+          v91 = 1;
+          v85 = 642;
+          v89 = "ret == 0";
+          v79 = sub_160F68(4);
+          v37 = "%lld %d AVE %s: %s:%d %s | fail to append IOSurfaceWiringAssertionKey %d, %d %d %p %d";
+          goto LABEL_25;
+        }
+
+        v60 = sub_14B9CC(kCVPixelBufferWidthKey, 2, v19);
+        v9 = sub_14B9CC(kCVPixelBufferHeightKey, 2, v19) + v60;
+        if (v9)
+        {
+          if (!sub_160EF0(0x3Fu, 4))
+          {
+            goto LABEL_55;
+          }
+
+          v61 = sub_160F34(0x3Fu);
+          v62 = sub_175AE4();
+          v63 = sub_160F68(4);
+          if (v61)
+          {
+            v64 = a1;
+            printf("%lld %d AVE %s: %s:%d %s | fail to append width x height %dx%d, %d %d %p %d\n", v62, 63, v63, "AVE_PixelBuf_CreateSurfacePool", 649, "ret == 0", 2, 2, a1, a2, a3, v9);
+            v65 = sub_175AE4();
+            v107 = a3;
+            v109 = v9;
+            v101 = v64;
+            v104 = a2;
+            v93 = 2;
+            v97 = 2;
+            v87 = 649;
+            v82 = sub_160F68(4);
+            v66 = "%lld %d AVE %s: %s:%d %s | fail to append width x height %dx%d, %d %d %p %d";
+LABEL_68:
+            syslog(3, v66, v65, 63, v82, "AVE_PixelBuf_CreateSurfacePool", v87, "ret == 0", v93, v97, v101, v104, v107, v109);
+            goto LABEL_55;
+          }
+
+          v108 = a3;
+          v109 = v9;
+          v102 = a1;
+          v105 = a2;
+          v94 = 2;
+          v98 = 2;
+          v88 = 649;
+          v83 = v63;
+          v71 = "%lld %d AVE %s: %s:%d %s | fail to append width x height %dx%d, %d %d %p %d";
+        }
+
+        else
+        {
+          v67 = sub_14B9CC(kCVPixelBufferPixelFormatTypeKey, 875704422, v19);
+          if (!v67)
+          {
+            v9 = CVPixelBufferPoolCreate(0, v7, v19, a3);
+            if (v9)
+            {
+              if (sub_160EF0(0x3Fu, 4))
+              {
+                v72 = sub_160F34(0x3Fu);
+                v73 = sub_175AE4();
+                v74 = sub_160F68(4);
+                if (v72)
+                {
+                  printf("%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d %p %d\n", v73, 63, v74, "AVE_PixelBuf_CreateSurfacePool", 658, "ret == kCVReturnSuccess", a1, a2, a3, v9);
+                  v75 = sub_175AE4();
+                  v84 = sub_160F68(4);
+                  syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d %p %d", v75, 63, v84);
+                }
+
+                else
+                {
+                  syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a pixel buffer pool %d %d %p %d", v73, 63, v74);
+                }
+              }
+
+              v9 = 4294966296;
+            }
+
+            goto LABEL_55;
+          }
+
+          v9 = v67;
+          if (!sub_160EF0(0x3Fu, 4))
+          {
+LABEL_55:
+            CFRelease(v7);
+            v48 = v19;
+            goto LABEL_56;
+          }
+
+          v68 = sub_160F34(0x3Fu);
+          v62 = sub_175AE4();
+          v69 = sub_160F68(4);
+          if (v68)
+          {
+            v70 = a1;
+            printf("%lld %d AVE %s: %s:%d %s | fail to append type %d, %d %d %p %d\n", v62, 63, v69, "AVE_PixelBuf_CreateSurfacePool", 653, "ret == 0", 875704422, a1, a2, a3, v9);
+            v65 = sub_175AE4();
+            v104 = a3;
+            v107 = v9;
+            v97 = v70;
+            v101 = a2;
+            v93 = 875704422;
+            v87 = 653;
+            v82 = sub_160F68(4);
+            v66 = "%lld %d AVE %s: %s:%d %s | fail to append type %d, %d %d %p %d";
+            goto LABEL_68;
+          }
+
+          v105 = a3;
+          v108 = v9;
+          v98 = a1;
+          v102 = a2;
+          v94 = 875704422;
+          v88 = 653;
+          v83 = v69;
+          v71 = "%lld %d AVE %s: %s:%d %s | fail to append type %d, %d %d %p %d";
+        }
+
+        syslog(3, v71, v62, 63, v83, "AVE_PixelBuf_CreateSurfacePool", v88, "ret == 0", v94, v98, v102, v105, v108, v109);
+        goto LABEL_55;
+      }
+
+      if (!sub_160EF0(0x3Fu, 4))
+      {
+        goto LABEL_54;
+      }
+
+      v50 = sub_160F34(0x3Fu);
+      v33 = sub_175AE4();
+      v51 = sub_160F68(4);
+      if (v50)
+      {
+        v52 = a1;
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d %p %d\n", v33, 63, v51, "AVE_PixelBuf_CreateSurfacePool", 629, "pTempArray != __null", a1, a2, a3, 0);
+        v36 = sub_175AE4();
+        v99 = a3;
+        v103 = 0;
+        v91 = v52;
+        v95 = a2;
+        v85 = 629;
+        v89 = "pTempArray != __null";
+        v79 = sub_160F68(4);
+        v37 = "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d %p %d";
+        goto LABEL_25;
+      }
+
+      v100 = a3;
+      v92 = a1;
+      v96 = a2;
+      v86 = 629;
+      v90 = "pTempArray != __null";
+      v81 = v51;
+      v49 = "%lld %d AVE %s: %s:%d %s | fail to create CFArray %d %d %p %d";
+    }
+
+    else
+    {
+      if (!sub_160EF0(0x3Fu, 4))
+      {
+LABEL_54:
+        v9 = 4294966293;
+        goto LABEL_55;
+      }
+
+      v32 = sub_160F34(0x3Fu);
+      v33 = sub_175AE4();
+      v34 = sub_160F68(4);
+      if (v32)
+      {
+        v35 = a1;
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d\n", v33, 63, v34, "AVE_PixelBuf_CreateSurfacePool", 615, "pTempDict != __null", a1, a2, a3, 0);
+        v36 = sub_175AE4();
+        v99 = a3;
+        v103 = 0;
+        v91 = v35;
+        v95 = a2;
+        v85 = 615;
+        v89 = "pTempDict != __null";
+        v79 = sub_160F68(4);
+        v37 = "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d";
+LABEL_25:
+        syslog(3, v37, v36, 63, v79, "AVE_PixelBuf_CreateSurfacePool", v85, v89, v91, v95, v99, v103, v106);
+        goto LABEL_54;
+      }
+
+      v100 = a3;
+      v92 = a1;
+      v96 = a2;
+      v86 = 615;
+      v90 = "pTempDict != __null";
+      v81 = v34;
+      v49 = "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d";
+    }
+
+    syslog(3, v49, v33, 63, v81, "AVE_PixelBuf_CreateSurfacePool", v86, v90, v92, v96, v100, 0);
+    goto LABEL_54;
+  }
+
+  if (sub_160EF0(0x3Fu, 4))
+  {
+    v14 = sub_160F34(0x3Fu);
+    v15 = sub_175AE4();
+    v16 = sub_160F68(4);
+    if (v14)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d\n", v15, 63, v16, "AVE_PixelBuf_CreateSurfacePool", 598, "pDictPoolAttr != __null", a1, a2, a3, 0);
+      v17 = sub_175AE4();
+      v77 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d", v17, 63, v77);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %d %d %p %d", v15, 63, v16);
+    }
+  }
+
+  return 4294966293;
+}
+
+uint64_t sub_15A3B0(__CVBuffer *a1, __CVBuffer *a2)
+{
+  PlaneCount = CVPixelBufferGetPlaneCount(a1);
+  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  CVPixelBufferLockBaseAddress(a2, 1uLL);
+  if (PlaneCount >= 1)
+  {
+    v5 = 0;
+    v6 = PlaneCount & 0x7FFFFFFF;
+    do
+    {
+      HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, v5);
+      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, v5);
+      v9 = CVPixelBufferGetBaseAddressOfPlane(a2, v5);
+      BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v5);
+      v11 = CVPixelBufferGetBytesPerRowOfPlane(a2, v5);
+      if (HeightOfPlane >= 1)
+      {
+        if (BytesPerRowOfPlane >= v11)
+        {
+          v12 = v11;
+        }
+
+        else
+        {
+          v12 = BytesPerRowOfPlane;
+        }
+
+        v13 = v12;
+        v14 = v11;
+        do
+        {
+          memcpy(v9, BaseAddressOfPlane, v13);
+          BaseAddressOfPlane += BytesPerRowOfPlane;
+          v9 += v14;
+          --HeightOfPlane;
+        }
+
+        while (HeightOfPlane);
+      }
+
+      ++v5;
+    }
+
+    while (v5 != v6);
+  }
+
+  CVPixelBufferUnlockBaseAddress(a1, 1uLL);
+  CVPixelBufferUnlockBaseAddress(a2, 1uLL);
+  return 0;
+}
+
+uint64_t sub_15A4D4(__CVBuffer *a1, _DWORD *a2, FILE *a3)
+{
+  extraRowsOnBottom = 0;
+  extraColumnsOnRight = 0;
+  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  CVPixelBufferGetExtendedPixels(a1, 0, &extraColumnsOnRight, 0, &extraRowsOnBottom);
+  v24 = a2[1];
+  WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, 0);
+  v7 = extraColumnsOnRight;
+  HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
+  v9 = extraRowsOnBottom + HeightOfPlane;
+  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
+  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, 0);
+  if (a2[3])
+  {
+    v11 = CVPixelBufferGetWidthOfPlane(a1, 1uLL);
+    v21 = WidthOfPlane;
+    v12 = v7;
+    v13 = (extraColumnsOnRight >> (a2[4] >> 1)) + v11;
+    v14 = CVPixelBufferGetHeightOfPlane(a1, 1uLL);
+    v15 = (extraRowsOnBottom >> (a2[5] >> 1)) + v14;
+    LODWORD(v17) = CVPixelBufferGetBytesPerRowOfPlane(a1, 1uLL);
+    v16 = CVPixelBufferGetBaseAddressOfPlane(a1, 1uLL);
+    v22 = 2 * v13;
+    v7 = v12;
+    WidthOfPlane = v21;
+    v17 = v17;
+  }
+
+  else
+  {
+    v22 = 0;
+    v15 = 0;
+    v17 = 0;
+    v16 = 0;
+  }
+
+  if (v9 >= 1)
+  {
+    v18 = (v7 + WidthOfPlane) << (v24 == 10);
+    do
+    {
+      fwrite(BaseAddressOfPlane, 1uLL, v18, a3);
+      BaseAddressOfPlane += BytesPerRowOfPlane;
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  if (a2[3])
+  {
+    v19 = v15 < 1;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  if (!v19)
+  {
+    do
+    {
+      fwrite(v16, 1uLL, v22 << (v24 == 10), a3);
+      v16 += v17;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  CVPixelBufferUnlockBaseAddress(a1, 1uLL);
+  return 0;
+}
+
+uint64_t sub_15A6D0(__CVBuffer *a1, _DWORD *a2, FILE *a3)
+{
+  extraRowsOnBottom = 0;
+  extraColumnsOnRight = 0;
+  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  CVPixelBufferGetExtendedPixels(a1, 0, &extraColumnsOnRight, 0, &extraRowsOnBottom);
+  v6 = a2[1];
+  v8 = v6 + 7;
+  v7 = v6 < -7;
+  v9 = v6 + 14;
+  if (!v7)
+  {
+    v9 = v8;
+  }
+
+  v10 = v9 >> 3;
+  WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, 0);
+  v12 = extraColumnsOnRight + WidthOfPlane;
+  HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
+  v14 = extraRowsOnBottom + HeightOfPlane;
+  CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
+  CVPixelBufferGetBaseAddressOfPlane(a1, 0);
+  if (a2[3])
+  {
+    v15 = CVPixelBufferGetWidthOfPlane(a1, 1uLL);
+    v16 = (extraColumnsOnRight >> (a2[4] >> 1)) + v15;
+    v17 = CVPixelBufferGetHeightOfPlane(a1, 1uLL);
+    v18 = (extraRowsOnBottom >> (a2[5] >> 1)) + v17;
+    CVPixelBufferGetBytesPerRowOfPlane(a1, 1uLL);
+    CVPixelBufferGetBaseAddressOfPlane(a1, 1uLL);
+  }
+
+  else
+  {
+    v16 = 0;
+    v18 = 0;
+  }
+
+  if (v12 * v10 * v14 + 2 * v10 * v16 * v18)
+  {
+    operator new[]();
+  }
+
+  if (sub_160EF0(0x3Fu, 4))
+  {
+    v19 = sub_160F34(0x3Fu);
+    v20 = sub_175AE4();
+    v21 = sub_160F68(4);
+    if (v19)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | frame size can not be zero %p %p %p\n", v20, 63, v21, "AVE_PixelBuf_DumpPacked", 862, "frameSize != 0", a1, a2, a3);
+      v22 = sub_175AE4();
+      v24 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | frame size can not be zero %p %p %p", v22, 63, v24);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | frame size can not be zero %p %p %p", v20, 63, v21);
+    }
+  }
+
+  CVPixelBufferUnlockBaseAddress(a1, 1uLL);
+  return 4294966295;
+}
+
+void sub_15A9C4(__CVBuffer *a1, _DWORD *a2, FILE *a3)
+{
+  extraRowsOnBottom = 0;
+  extraColumnsOnRight = 0;
+  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  CVPixelBufferGetIOSurface(a1);
+  CVPixelBufferGetExtendedPixels(a1, 0, &extraColumnsOnRight, 0, &extraRowsOnBottom);
+  CVPixelBufferGetWidthOfPlane(a1, 0);
+  CVPixelBufferGetHeightOfPlane(a1, 0);
+  IOSurfaceGetBytesPerRowOfCompressedTileHeaderGroupsOfPlane();
+  IOSurfaceGetHTPCVerticalHeaderGroupingModeOfPlane();
+  IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane();
+  IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfPlane();
+  if (a2[3])
+  {
+    CVPixelBufferGetWidthOfPlane(a1, 1uLL);
+    CVPixelBufferGetHeightOfPlane(a1, 1uLL);
+    IOSurfaceGetBytesPerRowOfCompressedTileHeaderGroupsOfPlane();
+    IOSurfaceGetHTPCVerticalHeaderGroupingModeOfPlane();
+    IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane();
+    IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfPlane();
+  }
+
+  operator new[]();
+}
+
+void sub_15AC7C(__CVBuffer *a1, _DWORD *a2, FILE *a3)
+{
+  extraColumnsOnLeft = 0;
+  extraRowsOnBottom = 0;
+  extraColumnsOnRight[0] = 0;
+  extraRowsOnTop = 0;
+  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  CVPixelBufferGetIOSurface(a1);
+  CVPixelBufferGetExtendedPixels(a1, &extraColumnsOnLeft, extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom);
+  CVPixelBufferGetWidthOfPlane(a1, 0);
+  CVPixelBufferGetHeightOfPlane(a1, 0);
+  IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane();
+  IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfPlane();
+  IOSurfaceGetHorizontalPixelOffsetWithinCompressedTileArrayOfPlane();
+  IOSurfaceGetVerticalPixelOffsetWithinCompressedTileArrayOfPlane();
+  if (a2[3])
+  {
+    CVPixelBufferGetWidthOfPlane(a1, 1uLL);
+    CVPixelBufferGetHeightOfPlane(a1, 1uLL);
+    IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane();
+    IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfPlane();
+    IOSurfaceGetHorizontalPixelOffsetWithinCompressedTileArrayOfPlane();
+    IOSurfaceGetVerticalPixelOffsetWithinCompressedTileArrayOfPlane();
+  }
+
+  operator new[]();
+}
+
+uint64_t sub_15AF8C(CVPixelBufferRef pixelBuffer, int a2, FILE *a3)
+{
+  if (pixelBuffer && a3)
+  {
+    PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
+    v7 = sub_167CD8(PixelFormatType);
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *(v7 + 6);
+      result = 4294966295;
+      if (v9 > 1)
+      {
+        if (v9 == 2)
+        {
+          sub_15A9C4(pixelBuffer, v8, a3);
+        }
+
+        if (v9 == 3)
+        {
+          sub_15AC7C(pixelBuffer, v8, a3);
+        }
+      }
+
+      else if (v9)
+      {
+        if (v9 == 1)
+        {
+
+          return sub_15A6D0(pixelBuffer, v8, a3);
+        }
+      }
+
+      else
+      {
+        sub_15A4D4(pixelBuffer, v8, a3);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (sub_160EF0(0x3Fu, 4))
+      {
+        v15 = sub_160F34(0x3Fu);
+        v16 = sub_175AE4();
+        v17 = sub_160F68(4);
+        if (v15)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to get pixel format details %p %d %p 0x%x\n", v16, 63, v17, "AVE_PixelBuf_Dump", 1120, "pPixelFmt != __null", pixelBuffer, a2, a3, PixelFormatType);
+          v18 = sub_175AE4();
+          v20 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get pixel format details %p %d %p 0x%x", v18, 63, v20, "AVE_PixelBuf_Dump");
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get pixel format details %p %d %p 0x%x", v16, 63, v17, "AVE_PixelBuf_Dump");
+        }
+      }
+
+      return 4294966296;
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0x3Fu, 4))
+    {
+      v11 = sub_160F34(0x3Fu);
+      v12 = sub_175AE4();
+      v13 = sub_160F68(4);
+      if (v11)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p\n", v12, 63, v13, "AVE_PixelBuf_Dump", 1112, "pPixelBuf != __null && pFile != __null", pixelBuffer, a2, a3);
+        v14 = sub_175AE4();
+        v19 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p", v14, 63, v19);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p", v12, 63, v13);
+      }
+    }
+
+    return 4294966295;
+  }
+
+  return result;
+}
+
+uint64_t sub_15B248(__CVBuffer *a1, __CVBuffer *a2)
+{
+  pixelTransferSessionOut = 0;
+  if (a1)
+  {
+    if (a2)
+    {
+      v4 = VTPixelTransferSessionCreate(kCFAllocatorDefault, &pixelTransferSessionOut);
+      if (v4)
+      {
+        v5 = v4;
+        if (sub_160EF0(0x3Fu, 4))
+        {
+          v6 = sub_160F34(0x3Fu);
+          v7 = sub_175AE4();
+          v8 = sub_160F68(4);
+          if (v6)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | Failed to create image transfer session, ret = %d\n", v7, 63, v8, "AVE_PixelBuf_Transfer", 2010, "ret == noErr", v5);
+            v7 = sub_175AE4();
+            sub_160F68(4);
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create image transfer session, ret = %d", v7);
+        }
+      }
+
+      else
+      {
+        v5 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, a1, a2);
+        if (v5 && sub_160EF0(0x3Fu, 4))
+        {
+          v15 = sub_160F34(0x3Fu);
+          v16 = sub_175AE4();
+          v17 = sub_160F68(4);
+          if (v15)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | Failed to transfer image, ret = %d\n", v16, 63, v17, "AVE_PixelBuf_Transfer", 2014, "ret == noErr", v5);
+            v16 = sub_175AE4();
+            sub_160F68(4);
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to transfer image, ret = %d", v16);
+        }
+      }
+
+      goto LABEL_25;
+    }
+
+    if (sub_160EF0(0x3Fu, 4))
+    {
+      v12 = sub_160F34(0x3Fu);
+      v13 = sub_175AE4();
+      v14 = sub_160F68(4);
+      if (v12)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | pDst is NULL\n", v13, 63, v14, "AVE_PixelBuf_Transfer", 2006, "pDst != __null");
+        sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | pDst is NULL");
+    }
+  }
+
+  else
+  {
+    if (!sub_160EF0(0x3Fu, 4))
+    {
+      return 4294966295;
+    }
+
+    v9 = sub_160F34(0x3Fu);
+    v10 = sub_175AE4();
+    v11 = sub_160F68(4);
+    if (v9)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | pSrc is NULL\n", v10, 63, v11, "AVE_PixelBuf_Transfer", 2004, "pSrc != __null");
+      sub_175AE4();
+      sub_160F68(4);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %s | pSrc is NULL");
+  }
+
+  v5 = 4294966295;
+LABEL_25:
+  if (pixelTransferSessionOut)
+  {
+    VTPixelTransferSessionInvalidate(pixelTransferSessionOut);
+    CFRelease(pixelTransferSessionOut);
+  }
+
+  return v5;
+}
+
+uint64_t sub_15B5F0(int *a1, unsigned int a2, __CFArray *a3)
+{
+  if (a2 < 1)
+  {
+    return 0;
+  }
+
+  v5 = a2;
+  while (1)
+  {
+    v6 = *a1++;
+    result = sub_149FFC(v6, a3);
+    if (result)
+    {
+      break;
+    }
+
+    if (!--v5)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_15B650()
+{
+  if (sub_160EF0(0x23u, 6))
+  {
+    v0 = sub_160F34(0x23u);
+    v1 = sub_175AE4();
+    v2 = sub_160F68(6);
+    if (v0)
+    {
+      printf("%lld %d AVE %s: %s Enter\n", v1, 35, v2, "AVE_UC_Verify");
+      v3 = sub_175AE4();
+      v18 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter", v3, 35, v18, "AVE_UC_Verify");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter", v1, 35, v2, "AVE_UC_Verify");
+    }
+  }
+
+  v4 = IOServiceMatching("AppleAVE2Driver");
+  MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v4);
+  if (MatchingService)
+  {
+    IOObjectRelease(MatchingService);
+    v6 = 0;
+    v7 = 6;
+  }
+
+  else
+  {
+    v7 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v8 = sub_160F34(0x23u);
+      v9 = sub_175AE4();
+      v10 = sub_160F68(4);
+      if (v8)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | can not find matched driver\n", v9, 35, v10, "AVE_UC_Verify", 26, "pService != 0");
+        v11 = sub_175AE4();
+        v7 = 4;
+        v12 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | can not find matched driver", v11, 35, v12, "AVE_UC_Verify", 26, "pService != 0");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | can not find matched driver", v9, 35, v10, "AVE_UC_Verify", 26, "pService != 0");
+        v7 = 4;
+      }
+    }
+
+    v6 = 4294966291;
+  }
+
+  if (sub_160EF0(0x23u, v7))
+  {
+    v13 = sub_160F34(0x23u);
+    v14 = sub_175AE4();
+    v15 = sub_160F68(v7);
+    if (v13)
+    {
+      printf("%lld %d AVE %s: %s Exit %d\n", v14, 35, v15, "AVE_UC_Verify", v6);
+      v16 = sub_175AE4();
+      v19 = sub_160F68(v7);
+      syslog(3, "%lld %d AVE %s: %s Exit %d", v16, 35, v19, "AVE_UC_Verify", v6);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d", v14, 35, v15, "AVE_UC_Verify", v6);
+    }
+  }
+
+  return v6;
+}
+
+uint64_t sub_15B8C4(uint32_t a1, void *a2)
+{
+  connect = 0;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v4 = sub_160F34(0x23u);
+    v5 = sub_175AE4();
+    v6 = sub_160F68(6);
+    if (v4)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %p\n", v5, 35, v6, "AVE_UC_Create", a1, a2);
+      v7 = sub_175AE4();
+      v34 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p", v7, 35, v34, "AVE_UC_Create", a1, a2);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p", v5, 35, v6, "AVE_UC_Create", a1, a2);
+    }
+  }
+
+  if (a2)
+  {
+    v8 = IOServiceMatching("AppleAVE2Driver");
+    MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v8);
+    if (MatchingService)
+    {
+      v10 = MatchingService;
+      kdebug_trace();
+      v11 = IOServiceOpen(v10, mach_task_self_, a1, &connect);
+      v12 = sub_175B74(v11);
+      kdebug_trace();
+      if (v12)
+      {
+        if (sub_160EF0(0x23u, 4))
+        {
+          v13 = sub_160F34(0x23u);
+          v14 = sub_175AE4();
+          v15 = sub_160F68(4);
+          if (v13)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | fail to open driver %d %p 0x%x %d\n", v14, 35, v15, "AVE_UC_Create", 77, "ret == 0", a1, a2, v11, v12);
+            v16 = sub_175AE4();
+            v35 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open driver %d %p 0x%x %d", v16, 35, v35);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open driver %d %p 0x%x %d", v14, 35, v15);
+          }
+        }
+      }
+
+      else
+      {
+        *a2 = connect;
+      }
+
+      IOObjectRelease(v10);
+      if (v12)
+      {
+        v28 = connect == 0;
+      }
+
+      else
+      {
+        v28 = 1;
+      }
+
+      if (v28)
+      {
+        if (v12)
+        {
+          v17 = 4;
+        }
+
+        else
+        {
+          v17 = 6;
+        }
+      }
+
+      else
+      {
+        IOServiceClose(connect);
+        connect = 0;
+        v17 = 4;
+      }
+    }
+
+    else
+    {
+      v17 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v23 = sub_160F34(0x23u);
+        v24 = sub_175AE4();
+        v25 = sub_160F68(4);
+        if (v23)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | can not find matched driver %d %p\n", v24, 35, v25, "AVE_UC_Create", 67, "pService != 0", a1, a2);
+          v26 = sub_175AE4();
+          v17 = 4;
+          v27 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | can not find matched driver %d %p", v26, 35, v27, "AVE_UC_Create", 67, "pService != 0", a1, a2);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | can not find matched driver %d %p", v24, 35, v25, "AVE_UC_Create", 67, "pService != 0", a1, a2);
+          v17 = 4;
+        }
+      }
+
+      v12 = 4294966291;
+    }
+  }
+
+  else
+  {
+    v17 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v18 = sub_160F34(0x23u);
+      v19 = sub_175AE4();
+      v20 = sub_160F68(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %d %p\n", v19, 35, v20, "AVE_UC_Create", 61, "ppUC != __null", a1, 0);
+        v21 = sub_175AE4();
+        v17 = 4;
+        v22 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %d %p", v21, 35, v22, "AVE_UC_Create", 61, "ppUC != __null", a1, 0);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %d %p", v19, 35, v20, "AVE_UC_Create", 61, "ppUC != __null", a1, 0);
+        v17 = 4;
+      }
+    }
+
+    v12 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v17))
+  {
+    v29 = sub_160F34(0x23u);
+    v30 = sub_175AE4();
+    v31 = sub_160F68(v17);
+    if (v29)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %p %d\n", v30, 35, v31, "AVE_UC_Create", a1, a2, v12);
+      v32 = sub_175AE4();
+      sub_160F68(v17);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d", v32);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d", v30);
+    }
+  }
+
+  return v12;
+}
+
+uint64_t sub_15BE1C(const void *a1)
+{
+  if (sub_160EF0(0x23u, 6))
+  {
+    v2 = sub_160F34(0x23u);
+    v3 = sub_175AE4();
+    v4 = sub_160F68(6);
+    if (v2)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v3, 35, v4, "AVE_UC_Destroy", a1);
+      v5 = sub_175AE4();
+      v22 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 35, v22, "AVE_UC_Destroy", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v3, 35, v4, "AVE_UC_Destroy", a1);
+    }
+  }
+
+  if (a1)
+  {
+    kdebug_trace();
+    v6 = IOServiceClose(a1);
+    v7 = sub_175B74(v6);
+    if (v7)
+    {
+      v8 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v9 = sub_160F34(0x23u);
+        v10 = sub_175AE4();
+        v11 = sub_160F68(4);
+        if (v9)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to close driver %p 0x%x %d\n", v10, 35, v11, "AVE_UC_Destroy", 129, "ret == 0", a1, v6, v7);
+          v12 = sub_175AE4();
+          v8 = 4;
+          v13 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to close driver %p 0x%x %d", v12, 35, v13, "AVE_UC_Destroy", 129, "ret == 0", a1, v6, v7);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to close driver %p 0x%x %d", v10, 35, v11, "AVE_UC_Destroy", 129, "ret == 0", a1, v6, v7);
+          v8 = 4;
+        }
+      }
+    }
+
+    else
+    {
+      kdebug_trace();
+      a1 = 0;
+      v8 = 6;
+    }
+  }
+
+  else
+  {
+    v8 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v14 = sub_160F34(0x23u);
+      v15 = sub_175AE4();
+      v16 = sub_160F68(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v15, 35, v16, "AVE_UC_Destroy", 121, "pUC != __null", 0);
+        v15 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v15);
+    }
+
+    a1 = 0;
+    v7 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v8))
+  {
+    v17 = sub_160F34(0x23u);
+    v18 = sub_175AE4();
+    v19 = sub_160F68(v8);
+    if (v17)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v18, 35, v19, "AVE_UC_Destroy", a1, v7);
+      v20 = sub_175AE4();
+      v23 = sub_160F68(v8);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v20, 35, v23, "AVE_UC_Destroy", a1, v7);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v18, 35, v19, "AVE_UC_Destroy", a1, v7);
+    }
+  }
+
+  return v7;
+}
+
+uint64_t sub_15C1CC(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 40;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Open", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 1u, a2, 0x7A0uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to open client %p %p %p 0x%x\n", v13, 35, v14, "AVE_UC_Open", 177, "ret == 0", a1, a2, a3, v9);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open client %p %p %p 0x%x", v15, 35, v16, "AVE_UC_Open", 177, "ret == 0", a1, a2, a3, v9);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open client %p %p %p 0x%x", v13, 35, v14, "AVE_UC_Open", 177, "ret == 0", a1, a2, a3, v9);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x27)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Open", 181, "outSize >= sizeof(S_AVE_UCOutParam_Open)", a1, a2, a3, outputStructCnt, 40);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Open", 181, "outSize >= sizeof(S_AVE_UCOutParam_Open)", a1, a2, a3, outputStructCnt, 40);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Open", 181, "outSize >= sizeof(S_AVE_UCOutParam_Open)", a1, a2, a3, outputStructCnt, 40);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Open", 164, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Open", 164, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Open", 164, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Open", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15C704(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Close", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 2u, a2, 0x28uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to close client %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Close", 225, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to close client %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Close", 225, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to close client %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Close", 225, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Close", 229, "outSize >= sizeof(S_AVE_UCOutParam_Close)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Close", 229, "outSize >= sizeof(S_AVE_UCOutParam_Close)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Close", 229, "outSize >= sizeof(S_AVE_UCOutParam_Close)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Close", 212, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Close", 212, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Close", 212, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Close", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15CC50(const void *a1, const void *a2, void *a3, void *a4)
+{
+  v38 = 0u;
+  v39 = 0u;
+  *reference = 0u;
+  v37 = 0u;
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v8 = sub_160F34(0x23u);
+    v9 = sub_175AE4();
+    v10 = sub_160F68(6);
+    if (v8)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p %p\n", v9, 35, v10, "AVE_UC_Config", a1, a2, a3, a4);
+      v9 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p", v9, 35);
+  }
+
+  if (a1 && a2 && a3 && a4)
+  {
+    kdebug_trace();
+    v11 = IOConnectCallAsyncMethod(a1, 3u, a2, reference, 8u, 0, 0, a3, 0x38uLL, 0, 0, a4, &outputStructCnt);
+    v12 = sub_175B74(v11);
+    kdebug_trace();
+    if (v12)
+    {
+      v13 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v14 = sub_160F34(0x23u);
+        v15 = sub_175AE4();
+        v16 = sub_160F68(4);
+        if (v14)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to config %p %p %p 0x%x %d\n", v15, 35, v16, "AVE_UC_Config", 278, "ret == 0", a1, a3, a4, v11, v12);
+          v17 = sub_175AE4();
+          v13 = 4;
+          v18 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to config %p %p %p 0x%x %d", v17, 35, v18, "AVE_UC_Config", 278, "ret == 0", a1, a3, a4, v11, v12);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to config %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Config", 278, "ret == 0", a1, a3, a4, v11, v12);
+          v13 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v13 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v29 = sub_160F34(0x23u);
+        v30 = sub_175AE4();
+        v31 = sub_160F68(4);
+        if (v29)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v30, 35, v31, "AVE_UC_Config", 282, "outSize >= sizeof(S_AVE_UCOutParam_Config)", a1, a3, a4, outputStructCnt, 32);
+          v32 = sub_175AE4();
+          v13 = 4;
+          v33 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v32, 35, v33, "AVE_UC_Config", 282, "outSize >= sizeof(S_AVE_UCOutParam_Config)", a1, a3, a4, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v30, 35, v31, "AVE_UC_Config", 282, "outSize >= sizeof(S_AVE_UCOutParam_Config)", a1, a3, a4, outputStructCnt, 32);
+          v13 = 4;
+        }
+      }
+
+      v12 = 4294966281;
+    }
+
+    else
+    {
+      v12 = 0;
+      v13 = 6;
+    }
+  }
+
+  else
+  {
+    v13 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v19 = sub_160F34(0x23u);
+      v20 = sub_175AE4();
+      v21 = sub_160F68(4);
+      if (v19)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v20, 35, v21, "AVE_UC_Config", 264, "pUC != __null && pRecvPort != __null && pIn != __null && pOut != __null", a1, a2, a3, a4);
+        v22 = sub_175AE4();
+        v13 = 4;
+        v23 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v22, 35, v23, "AVE_UC_Config", 264, "pUC != __null && pRecvPort != __null && pIn != __null && pOut != __null", a1, a2, a3, a4);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v20, 35, v21, "AVE_UC_Config", 264, "pUC != __null && pRecvPort != __null && pIn != __null && pOut != __null", a1, a2, a3, a4);
+        v13 = 4;
+      }
+    }
+
+    v12 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v13))
+  {
+    v24 = sub_160F34(0x23u);
+    v25 = sub_175AE4();
+    v26 = sub_160F68(v13);
+    if (v24)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %p %d\n", v25, 35, v26, "AVE_UC_Config", a1, a2, a3, a4, v12);
+      v27 = sub_175AE4();
+      outputCnt = sub_160F68(v13);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %d", v27, 35, outputCnt);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %d", v25, 35, v26);
+    }
+  }
+
+  return v12;
+}
+
+uint64_t sub_15D208(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Prepare", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 4u, a2, 0x1A0A0uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to prepare %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Prepare", 327, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to prepare %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Prepare", 327, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to prepare %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Prepare", 327, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Prepare", 331, "outSize >= sizeof(S_AVE_UCOutParam_Prepare)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Prepare", 331, "outSize >= sizeof(S_AVE_UCOutParam_Prepare)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Prepare", 331, "outSize >= sizeof(S_AVE_UCOutParam_Prepare)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Prepare", 314, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Prepare", 314, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Prepare", 314, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Prepare", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15D758(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 336;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Start", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 5u, a2, 0x1A0B0uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to start %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Start", 375, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to start %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Start", 375, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to start %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Start", 375, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x14F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Start", 379, "outSize >= sizeof(S_AVE_UCOutParam_Start)", a1, a2, a3, outputStructCnt, 336);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Start", 379, "outSize >= sizeof(S_AVE_UCOutParam_Start)", a1, a2, a3, outputStructCnt, 336);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Start", 379, "outSize >= sizeof(S_AVE_UCOutParam_Start)", a1, a2, a3, outputStructCnt, 336);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Start", 362, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Start", 362, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Start", 362, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Start", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15DCA8(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Stop", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 6u, a2, 0x30uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to stop %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Stop", 423, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to stop %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Stop", 423, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to stop %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Stop", 423, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Stop", 427, "outSize >= sizeof(S_AVE_UCOutParam_Stop)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Stop", 427, "outSize >= sizeof(S_AVE_UCOutParam_Stop)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Stop", 427, "outSize >= sizeof(S_AVE_UCOutParam_Stop)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Stop", 410, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Stop", 410, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Stop", 410, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Stop", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15E1F4(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 8))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(8);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Process", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 7u, a2, 0x30uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to process %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Process", 471, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to process %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Process", 471, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to process %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Process", 471, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Process", 475, "outSize >= sizeof(S_AVE_UCOutParam_Process)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Process", 475, "outSize >= sizeof(S_AVE_UCOutParam_Process)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Process", 475, "outSize >= sizeof(S_AVE_UCOutParam_Process)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 8;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Process", 458, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Process", 458, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Process", 458, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Process", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15E740(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 7))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(7);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Complete", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(7);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 8u, a2, 0x30uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to complete %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Complete", 519, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to complete %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Complete", 519, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to complete %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Complete", 519, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Complete", 523, "outSize >= sizeof(S_AVE_UCOutParam_Complete)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Complete", 523, "outSize >= sizeof(S_AVE_UCOutParam_Complete)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Complete", 523, "outSize >= sizeof(S_AVE_UCOutParam_Complete)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 7;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Complete", 506, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Complete", 506, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Complete", 506, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Complete", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15EC8C(const void *a1, void *a2, void *a3)
+{
+  outputStructCnt = 32;
+  if (sub_160EF0(0x23u, 6))
+  {
+    v6 = sub_160F34(0x23u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 35, v8, "AVE_UC_Reset", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2 && a3)
+  {
+    kdebug_trace();
+    v9 = IOConnectCallStructMethod(a1, 0xAu, a2, 0x30uLL, a3, &outputStructCnt);
+    v10 = sub_175B74(v9);
+    kdebug_trace();
+    if (v10)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v12 = sub_160F34(0x23u);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(4);
+        if (v12)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to reset %p %p %p 0x%x %d\n", v13, 35, v14, "AVE_UC_Reset", 615, "ret == 0", a1, a2, a3, v9, v10);
+          v15 = sub_175AE4();
+          v11 = 4;
+          v16 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to reset %p %p %p 0x%x %d", v15, 35, v16, "AVE_UC_Reset", 615, "ret == 0", a1, a2, a3, v9, v10);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to reset %p %p %p 0x%x %d", v13, 35, v14, "AVE_UC_Reset", 615, "ret == 0", a1, a2, a3, v9, v10);
+          v11 = 4;
+        }
+      }
+    }
+
+    else if (outputStructCnt <= 0x1F)
+    {
+      v11 = 4;
+      if (sub_160EF0(0x23u, 4))
+      {
+        v26 = sub_160F34(0x23u);
+        v27 = sub_175AE4();
+        v28 = sub_160F68(4);
+        if (v26)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d\n", v27, 35, v28, "AVE_UC_Reset", 619, "outSize >= sizeof(S_AVE_UCOutParam_Reset)", a1, a2, a3, outputStructCnt, 32);
+          v29 = sub_175AE4();
+          v11 = 4;
+          v30 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v29, 35, v30, "AVE_UC_Reset", 619, "outSize >= sizeof(S_AVE_UCOutParam_Reset)", a1, a2, a3, outputStructCnt, 32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid out parameter %p %p %p %d %d", v27, 35, v28, "AVE_UC_Reset", 619, "outSize >= sizeof(S_AVE_UCOutParam_Reset)", a1, a2, a3, outputStructCnt, 32);
+          v11 = 4;
+        }
+      }
+
+      v10 = 4294966281;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 6;
+    }
+  }
+
+  else
+  {
+    v11 = 4;
+    if (sub_160EF0(0x23u, 4))
+    {
+      v17 = sub_160F34(0x23u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v18, 35, v19, "AVE_UC_Reset", 602, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v20 = sub_175AE4();
+        v11 = 4;
+        v21 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v20, 35, v21, "AVE_UC_Reset", 602, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v18, 35, v19, "AVE_UC_Reset", 602, "pUC != __null && pIn != __null && pOut != __null", a1, a2, a3);
+        v11 = 4;
+      }
+    }
+
+    v10 = 4294966295;
+  }
+
+  if (sub_160EF0(0x23u, v11))
+  {
+    v22 = sub_160F34(0x23u);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(v11);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v23, 35, v24, "AVE_UC_Reset", a1, a2, a3, v10);
+      v23 = sub_175AE4();
+      sub_160F68(v11);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v23, 35);
+  }
+
+  return v10;
+}
+
+uint64_t sub_15F1D8(CFDictionaryRef theDict, uint64_t a2)
+{
+  v19 = 0;
+  memset(v20, 0, sizeof(v20));
+  if (theDict && a2)
+  {
+    *(a2 + 80) = 0;
+    *a2 = 0uLL;
+    *(a2 + 64) = 0uLL;
+    *(a2 + 48) = 0uLL;
+    *(a2 + 32) = 0uLL;
+    *(a2 + 16) = 0uLL;
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_SNR, a2);
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_NormalizedSNR, (a2 + 8));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_ExposureTime, (a2 + 16));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_AGC, (a2 + 24));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_ispDGain, (a2 + 32));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_sensorDGain, (a2 + 40));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_ispDGainRangeExpansionFactor, (a2 + 48));
+    sub_14C90C(theDict, kFigCaptureStreamMetadata_SensorID, (a2 + 64));
+    sub_14C3AC(theDict, kFigCaptureStreamMetadata_ScalingFactor, (a2 + 56));
+    sub_14C90C(theDict, kFigCaptureStreamMetadata_LuxLevel, (a2 + 68));
+    if (sub_14C90C(theDict, kFigCaptureStreamMetadata_TemporalNoiseReductionBand0Strength, (a2 + 72)) == -1008)
+    {
+      *(a2 + 72) = -1;
+    }
+
+    v4 = sub_14BE4C(theDict, kFigCaptureStreamMetadata_TemporalNoiseReductionBand0StrengthModulationEnabled, &v19);
+    v5 = v19;
+    if (v4 == -1008)
+    {
+      v5 = -1;
+    }
+
+    *(a2 + 76) = v5;
+    Value = CFDictionaryGetValue(theDict, kFigCaptureStreamMetadata_PortType);
+    if (Value)
+    {
+      v7 = sub_14CE6C(Value, v20, 0x20u);
+      if (v7)
+      {
+        v8 = v7;
+        v9 = &dword_203C60;
+        v10 = 5;
+        while (strcmp(v8, *(v9 - 1)))
+        {
+          v9 += 4;
+          if (!--v10)
+          {
+            v11 = 0;
+            goto LABEL_21;
+          }
+        }
+
+        v11 = *v9;
+LABEL_21:
+        *(a2 + 80) = v11;
+        if (sub_160EF0(0x37u, 6))
+        {
+          v16 = sub_160F34(0x37u);
+          v17 = sub_175AE4();
+          v18 = sub_160F68(6);
+          if (v16)
+          {
+            printf("%lld %d AVE %s: %s:%d SF: %f Port: %s %d\n", v17, 55, v18, "AVE_ISP_RetrieveMetadata", 120, *(a2 + 56), v8, v11);
+            v17 = sub_175AE4();
+            sub_160F68(6);
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d SF: %f Port: %s %d", v17);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0x37u, 4))
+    {
+      v12 = sub_160F34(0x37u);
+      v13 = sub_175AE4();
+      v14 = sub_160F68(4);
+      if (v12)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v13, 55, v14, "AVE_ISP_RetrieveMetadata", 73, "pDict != __null && pData != __null", theDict, a2);
+        v13 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v13, 55);
+    }
+
+    return 4294966295;
+  }
+
+  return v4;
+}
+
+uint64_t sub_15F5D0(__CVBuffer *a1)
+{
+  if (a1)
+  {
+    v1 = sub_15F708(a1);
+    v2 = 4294966288;
+    if (v1)
+    {
+      v3 = v1;
+      if (CFDictionaryContainsKey(v1, kFigCaptureStreamMetadata_SensorID))
+      {
+        v2 = 0;
+      }
+
+      else
+      {
+        v2 = 4294966288;
+      }
+
+      CFRelease(v3);
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0x37u, 4))
+    {
+      v4 = sub_160F34(0x37u);
+      v5 = sub_175AE4();
+      v6 = sub_160F68(4);
+      if (v4)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v5, 55, v6, "AVE_ISP_CheckMetadata", 206, "pImgBuf != __null", 0);
+        v5 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v5);
+    }
+
+    return 4294966295;
+  }
+
+  return v2;
+}
+
+const void *sub_15F708(__CVBuffer *a1)
+{
+  v1 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = v1;
+  Value = CFDictionaryGetValue(v1, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary);
+  v4 = Value;
+  if (Value)
+  {
+    CFRetain(Value);
+  }
+
+  CFRelease(v2);
+  return v4;
+}
+
+uint64_t sub_15F768(__CVBuffer *a1, const void *a2)
+{
+  if (a1 && a2)
+  {
+    v4 = sub_15F708(a1);
+    if (v4)
+    {
+      v5 = v4;
+      v6 = sub_15F1D8(v4, a2);
+      CFRelease(v5);
+      return v6;
+    }
+
+    else
+    {
+      return 4294966288;
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0x37u, 4))
+    {
+      v8 = sub_160F34(0x37u);
+      v9 = sub_175AE4();
+      v10 = sub_160F68(4);
+      if (v8)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v9, 55, v10, "AVE_ISP_GetMetadata", 240, "pImgBuf != __null && pData != __null", a1, a2);
+        v9 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v9, 55);
+    }
+
+    return 4294966295;
+  }
+}
+
+uint64_t sub_15F8B8(int a1, unsigned int a2, unsigned int *a3)
+{
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v6 = sub_160F34(0x7Bu);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(8);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %d %p\n", v7, 123, v8, "AVE_Crypto_AddInfo", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %d %d %p", v7);
+  }
+
+  if (((a2 | a1) & 0x80000000) != 0 || !a3)
+  {
+    if (sub_160EF0(0x7Bu, 4))
+    {
+      v15 = sub_160F34(0x7Bu);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (v15)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p\n", v16, 123, v17, "AVE_Crypto_AddInfo", 28, "(iOffset >= 0) && (iSize >= 0) && (psInfo != __null)", a1, a2, a3);
+        v16 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p", v16, 123);
+    }
+  }
+
+  else
+  {
+    v9 = *a3;
+    if (v9 > 0x41)
+    {
+      if (sub_160EF0(0x7Bu, 4))
+      {
+        v18 = sub_160F34(0x7Bu);
+        v19 = sub_175AE4();
+        v20 = sub_160F68(4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d\n", v19, 123, v20, "AVE_Crypto_AddInfo", 32, "(0 <= psInfo->iNum) && (psInfo->iNum < (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", a1, a2, a3, *a3);
+          v21 = sub_175AE4();
+          v31 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d", v21, 123, v31);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d", v19, 123, v20);
+        }
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+      if (v9)
+      {
+        v11 = a3 + 2;
+        v12 = *a3;
+        do
+        {
+          v10 += *(v11 - 1) + *v11;
+          v11 += 2;
+          --v12;
+        }
+
+        while (v12);
+      }
+
+      if ((v10 & 0x80000000) == 0 && a1 >= v10)
+      {
+        v13 = 0;
+        v14 = &a3[2 * v9];
+        v14[1] = a1 - v10;
+        v14[2] = a2;
+        *a3 = v9 + 1;
+        goto LABEL_29;
+      }
+
+      if (sub_160EF0(0x7Bu, 4))
+      {
+        v22 = sub_160F34(0x7Bu);
+        v23 = sub_175AE4();
+        v24 = sub_160F68(4);
+        if (v22)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d\n", v23, 123, v24, "AVE_Crypto_AddInfo", 43, "(0 <= totalSize) && (totalSize <= iOffset)", a1, a2, a3, *a3, v10);
+          v25 = sub_175AE4();
+          v32 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d", v25, 123, v32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d", v23, 123, v24);
+        }
+      }
+    }
+  }
+
+  v13 = 4294966295;
+LABEL_29:
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v26 = sub_160F34(0x7Bu);
+    v27 = sub_175AE4();
+    v28 = sub_160F68(8);
+    if (v26)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %d %p %d\n", v27, 123, v28, "AVE_Crypto_AddInfo", a1, a2, a3, v13);
+      v29 = sub_175AE4();
+      sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v29, 123);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v27, 123);
+    }
+  }
+
+  return v13;
+}
+
+uint64_t sub_15FD9C(unsigned int *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
+{
+  v49 = 0u;
+  v50 = 0u;
+  if (!a1)
+  {
+    if (sub_160EF0(a2, 4))
+    {
+      v15 = sub_160F34(a2);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (!v15)
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v16);
+        return 4294966295;
+      }
+
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v16, a2, v17, "AVE_Crypto_PrintInfo", 72, "psInfo != __null", 0);
+      v18 = sub_175AE4();
+      v44 = "psInfo != __null";
+      v45 = 0;
+      v43 = 72;
+      v41 = a2;
+      v42 = sub_160F68(4);
+      v19 = "%lld %d AVE %s: %s:%d %s | wrong parameter %p";
+      goto LABEL_13;
+    }
+
+    return 4294966295;
+  }
+
+  v6 = a1;
+  if (*a1 >= 0x43)
+  {
+    if (sub_160EF0(a2, 4))
+    {
+      v20 = sub_160F34(a2);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (!v20)
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d", v21, a2);
+        return 4294966295;
+      }
+
+      printf("%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d\n", v21, a2, v22, "AVE_Crypto_PrintInfo", 74, "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", v6, *v6);
+      v18 = sub_175AE4();
+      v23 = sub_160F68(4);
+      v45 = v6;
+      v46 = *v6;
+      v43 = 74;
+      v44 = "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))";
+      v42 = v23;
+      v19 = "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d";
+      v41 = a2;
+LABEL_13:
+      syslog(3, v19, v18, v41, v42, "AVE_Crypto_PrintInfo", v43, v44, v45, v46);
+      return 4294966295;
+    }
+
+    return 4294966295;
+  }
+
+  v7 = a5;
+  v8 = a4;
+  sub_CB274(a4, a5, &v49, 32);
+  v10 = a3;
+  if (sub_160EF0(a2, a3))
+  {
+    v11 = sub_160F34(a2);
+    if ((a3 & 0x80000000) != 0)
+    {
+      if (!v11 || (-a3 & 0x20) != 0)
+      {
+        syslog(3, "Crypto %s size %d", &v49, *v6);
+      }
+
+      else
+      {
+        printf("Crypto %s size %d\n", &v49, *v6);
+        syslog(3, "Crypto %s size %d", &v49, *v6);
+      }
+    }
+
+    else
+    {
+      v12 = v11 ^ 1;
+      v13 = sub_175AE4();
+      v14 = sub_160F68(a3);
+      if (((v12 | ((a3 & 0x20) >> 5)) & 1) == 0)
+      {
+        printf("%lld %d AVE %s: Crypto %s size %d\n", v13, a2, v14, &v49, *v6);
+        v13 = sub_175AE4();
+        v14 = sub_160F68(a3);
+      }
+
+      syslog(3, "%lld %d AVE %s: Crypto %s size %d", v13, a2, v14, &v49, *v6);
+      v10 = a3;
+    }
+  }
+
+  if (*v6 >= 1)
+  {
+    v25 = 0;
+    v47 = -a3;
+    v26 = (v6 + 2);
+    v48 = v6;
+    do
+    {
+      v49 = 0u;
+      v50 = 0u;
+      sub_CB274(v8, v7, &v49, 32);
+      if (sub_160EF0(a2, v10))
+      {
+        v27 = sub_160F34(a2);
+        if ((a3 & 0x80000000) != 0)
+        {
+          if ((v47 & 0x20) != 0)
+          {
+            v39 = 0;
+          }
+
+          else
+          {
+            v39 = v27;
+          }
+
+          v40 = *v26;
+          if (v39 == 1)
+          {
+            printf("Crypto %s | %d %d\n", &v49, *(v26 - 1), v40);
+            syslog(3, "Crypto %s | %d %d", &v49, *(v26 - 1), *v26);
+          }
+
+          else
+          {
+            syslog(3, "Crypto %s | %d %d", &v49, *(v26 - 1), v40);
+          }
+        }
+
+        else
+        {
+          v28 = v8;
+          v29 = v7;
+          v30 = a3;
+          v31 = v10;
+          v32 = a3 & 0x20;
+          v33 = v27 ^ 1;
+          v34 = sub_175AE4();
+          v35 = sub_160F68(v31);
+          v36 = *v26;
+          if ((v33 | (v32 >> 5)))
+          {
+            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v34, a2, v35, &v49, *(v26 - 1), v36);
+          }
+
+          else
+          {
+            printf("%lld %d AVE %s: Crypto %s | %d %d\n", v34, a2, v35, &v49, *(v26 - 1), v36);
+            v37 = sub_175AE4();
+            v38 = sub_160F68(v31);
+            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v37, a2, v38, &v49, *(v26 - 1), *v26);
+          }
+
+          a3 = v30;
+          v7 = v29;
+          v8 = v28;
+          v6 = v48;
+          v10 = v31;
+        }
+      }
+
+      ++v25;
+      v26 += 2;
+    }
+
+    while (v25 < *v6);
+  }
+
+  return 0;
+}
+
+uint64_t sub_160270(const UInt8 *a1, __CFDictionary *a2)
+{
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v4 = sub_160F34(0x7Bu);
+    v5 = sub_175AE4();
+    v6 = sub_160F68(8);
+    if (v4)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p\n", v5, 123, v6, "AVE_Crypto_Make", a1, a2);
+      v7 = sub_175AE4();
+      v26 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 123, v26, "AVE_Crypto_Make", a1, a2);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v5, 123, v6, "AVE_Crypto_Make", a1, a2);
+    }
+  }
+
+  if (!a1 || !a2)
+  {
+    if (sub_160EF0(0x7Bu, 4))
+    {
+      v12 = sub_160F34(0x7Bu);
+      v13 = sub_175AE4();
+      v14 = sub_160F68(4);
+      if (v12)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v13, 123, v14, "AVE_Crypto_Make", 151, "psInfo != __null && pDict != __null", a1, a2);
+        v13 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v13, 123);
+    }
+
+    goto LABEL_23;
+  }
+
+  v8 = *a1;
+  if (v8 <= 0)
+  {
+    if (sub_160EF0(0x7Bu, 4))
+    {
+      v15 = sub_160F34(0x7Bu);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (v15)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d\n", v16, 123, v17, "AVE_Crypto_Make", 154, "psInfo->iNum > 0", a2, *a1);
+        v16 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d", v16, 123);
+    }
+
+LABEL_23:
+    v11 = 4294966295;
+    goto LABEL_24;
+  }
+
+  v9 = CFDataCreate(kCFAllocatorDefault, a1 + 4, 8 * v8);
+  if (v9)
+  {
+    v10 = v9;
+    CFDictionarySetValue(a2, kCMSampleAttachmentKey_CryptorSubsampleAuxiliaryData, v9);
+    CFRelease(v10);
+    v11 = 0;
+  }
+
+  else
+  {
+    if (sub_160EF0(0x7Bu, 4))
+    {
+      v18 = sub_160F34(0x7Bu);
+      v19 = sub_175AE4();
+      v20 = sub_160F68(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld\n", v19, 123, v20, "AVE_Crypto_Make", 160, "pData != __null", a1 + 4, *a1, 8);
+        v21 = sub_175AE4();
+        v27 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld", v21, 123, v27);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld", v19, 123, v20);
+      }
+    }
+
+    v11 = 4294966293;
+  }
+
+LABEL_24:
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v22 = sub_160F34(0x7Bu);
+    v23 = sub_175AE4();
+    v24 = sub_160F68(8);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v23, 123, v24, "AVE_Crypto_Make", a1, a2, v11);
+      v23 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v23);
+  }
+
+  return v11;
+}
+
+uint64_t sub_1606EC(const void *a1, const void *a2, int a3, const __CFDictionary *a4)
+{
+  v43[0] = 0;
+  v43[1] = 0;
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v8 = sub_160F34(0x7Bu);
+    v9 = sub_175AE4();
+    v10 = sub_160F68(8);
+    if (v8)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %d %p\n", v9, 123, v10, "AVE_Crypto_MakeSINF", a1, a2, a3, a4);
+      v9 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %p", v9, 123);
+  }
+
+  if (a1 && a2 && a4)
+  {
+    if ((a3 - 1) >= 3)
+    {
+      if (sub_160EF0(0x7Bu, 4))
+      {
+        v22 = sub_160F34(0x7Bu);
+        v23 = sub_175AE4();
+        v24 = sub_160F68(4);
+        if (v22)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | encode type %d not recognized.\n", v23, 123, v24, "AVE_Crypto_MakeSINF", 219, "false", a3);
+          v23 = sub_175AE4();
+          sub_160F68(4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | encode type %d not recognized.", v23);
+      }
+
+      v25 = 4294966281;
+    }
+
+    else
+    {
+      v11 = *&a1cva1cvh10va[4 * (a3 - 1)];
+      VideoSecurityInfoExtension = VTEncoderSessionCreateVideoSecurityInfoExtension();
+      if (VideoSecurityInfoExtension)
+      {
+        v13 = VideoSecurityInfoExtension;
+        if (sub_160EF0(0x7Bu, 4))
+        {
+          v14 = sub_160F34(0x7Bu);
+          v15 = sub_175AE4();
+          v16 = sub_160F68(4);
+          if (v14)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d\n", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr", a1, v11, v43, a2, 0, v13);
+            v17 = sub_175AE4();
+            v37 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v17, 123, v37, "AVE_Crypto_MakeSINF", 228, "res == noErr");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr");
+          }
+        }
+
+LABEL_28:
+        v25 = 4294966296;
+        goto LABEL_32;
+      }
+
+      Value = CFDictionaryGetValue(a4, kCMFormatDescriptionExtension_SampleDescriptionExtensionAtoms);
+      if (Value)
+      {
+        MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, Value);
+      }
+
+      else
+      {
+        MutableCopy = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      }
+
+      v28 = MutableCopy;
+      if (!MutableCopy)
+      {
+        if (sub_160EF0(0x7Bu, 4))
+        {
+          v34 = sub_160F34(0x7Bu);
+          v35 = sub_175AE4();
+          v36 = sub_160F68(4);
+          if (v34)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p\n", v35, 123, v36, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", Value);
+            v35 = sub_175AE4();
+            v41 = Value;
+            v40 = sub_160F68(4);
+          }
+
+          else
+          {
+            v41 = Value;
+            v40 = v36;
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p", v35, 123, v40, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", v41, v42);
+        }
+
+        goto LABEL_28;
+      }
+
+      CFDictionarySetValue(MutableCopy, @"sinf", 0);
+      CFDictionarySetValue(a4, kCMFormatDescriptionExtension_SampleDescriptionExtensionAtoms, v28);
+      CFRelease(v28);
+      v25 = 0;
+    }
+  }
+
+  else
+  {
+    if (sub_160EF0(0x7Bu, 4))
+    {
+      v18 = sub_160F34(0x7Bu);
+      v19 = sub_175AE4();
+      v20 = sub_160F68(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p\n", v19, 123, v20, "AVE_Crypto_MakeSINF", 201, "(pSession != __null) && (piKeyID != __null) && (pDict != __null)", a1, a2, a3, a4);
+        v21 = sub_175AE4();
+        v38 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v21, 123, v38, "AVE_Crypto_MakeSINF");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v19, 123, v20, "AVE_Crypto_MakeSINF");
+      }
+    }
+
+    v25 = 4294966295;
+  }
+
+LABEL_32:
+  if (sub_160EF0(0x7Bu, 8))
+  {
+    v29 = sub_160F34(0x7Bu);
+    v30 = sub_175AE4();
+    v31 = sub_160F68(8);
+    if (v29)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %d %p %d\n", v30, 123, v31, "AVE_Crypto_MakeSINF", a1, a2, a3, a4, v25);
+      v32 = sub_175AE4();
+      v39 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v32, 123, v39);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v30, 123, v31);
+    }
+  }
+
+  return v25;
+}
+
+uint64_t sub_160D68(char *a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = NSTemporaryDirectory();
+  v5 = [v4 UTF8String];
+
+  return sub_172100(a1, v2, "%s", v5);
+}
+
+uint64_t sub_160DE0(uint64_t a1, int a2)
+{
+  if (a1 > 0xFF)
+  {
+    return 4294966295;
+  }
+
+  v3 = a1;
+  if (a2)
+  {
+    v4 = a2;
+    v5 = a1;
+    v6 = a2;
+  }
+
+  else
+  {
+    v4 = 0;
+    v5 = a1;
+    v6 = *(&xmmword_20D000 + a1);
+  }
+
+  byte_20D108[v5] = v6;
+  if ((byte_20D148 & 0xFu) >= 7)
+  {
+    v7 = byte_20D148;
+    v8 = sub_175AE4();
+    if ((v7 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s:%d %d 0x%x\n", v8, 64, "VERB", "AVE_Log_UpdateConf", 116, v3, v4);
+      v8 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %d 0x%x", v8, 64, "VERB", "AVE_Log_UpdateConf", 116, v3, v4);
+  }
+
+  return 0;
+}
+
+BOOL sub_160EF0(unsigned int a1, int a2)
+{
+  if (a2 >= 0)
+  {
+    LOBYTE(v2) = a2;
+  }
+
+  else
+  {
+    v2 = -a2;
+  }
+
+  return a1 < 5 || a1 <= 0xFF && (v2 & 0xFu) <= (byte_20D108[a1] & 0xFu);
+}
+
+uint64_t sub_160F34(unsigned int a1)
+{
+  if (a1 < 2)
+  {
+    return 1;
+  }
+
+  if (a1 <= 0xFF)
+  {
+    return (byte_20D108[a1] >> 4) & 1;
+  }
+
+  return 0;
+}
+
+void *sub_160F68(int a1)
+{
+  if (a1 >= 0)
+  {
+    LOBYTE(v1) = a1;
+  }
+
+  else
+  {
+    v1 = -a1;
+  }
+
+  v2 = v1 & 0xF;
+  if (v2 > 8)
+  {
+    return &unk_1A7265;
+  }
+
+  else
+  {
+    return *(&off_203CA8 + v2);
+  }
+}
+
+uint64_t sub_160F98()
+{
+  if (!qword_20D210)
+  {
+    *&v0 = 0x505050505050505;
+    *(&v0 + 1) = 0x505050505050505;
+    xmmword_20D020 = v0;
+    unk_20D030 = v0;
+    xmmword_20D0E0 = v0;
+    unk_20D0F0 = v0;
+    xmmword_20D0C0 = v0;
+    unk_20D0D0 = v0;
+    xmmword_20D0A0 = v0;
+    unk_20D0B0 = v0;
+    xmmword_20D080 = v0;
+    unk_20D090 = v0;
+    xmmword_20D060 = v0;
+    unk_20D070 = v0;
+    xmmword_20D040 = v0;
+    unk_20D050 = v0;
+    xmmword_20D000 = v0;
+    *algn_20D010 = v0;
+    BYTE4(xmmword_20D000) = 6;
+    BYTE12(xmmword_20D020) = 6;
+    byte_20D03D = 6;
+    *(&xmmword_20D000 + 11) = 1542;
+    BYTE5(xmmword_20D060) = 6;
+    BYTE1(xmmword_20D040) = 6;
+    dword_20D104 = 20000;
+    dword_20D100 = 25;
+    sub_CB250(byte_20D108, &xmmword_20D000, 256);
+    dword_20D20C = dword_20D104;
+    dword_20D208 = dword_20D100;
+    qword_20D210 = 1;
+  }
+
+  return 0;
+}
+
+uint64_t sub_161058(uint64_t a1)
+{
+  v1 = a1;
+  if ((byte_20D148 & 0xEu) > 5)
+  {
+    v2 = byte_20D148;
+    v3 = sub_175AE4();
+    if ((v2 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s Enter %d\n", v3, 64, "INFO", "AVE_Log_UpdateConsole", v1);
+      v3 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %d", v3, 64, "INFO", "AVE_Log_UpdateConsole", v1);
+  }
+
+  for (i = 0; i != 256; ++i)
+  {
+    byte_20D108[i] = byte_20D108[i] & 0xEF | (16 * ((byte_20D108[i] & 0xF) <= v1));
+  }
+
+  qword_20D210 = sub_175B1C();
+  sub_1611B0(qword_20D210);
+  if ((byte_20D148 & 0xEu) >= 6)
+  {
+    v5 = byte_20D148;
+    v6 = sub_175AE4();
+    if ((v5 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %d\n", v6, 64, "INFO", "AVE_Log_UpdateConsole", v1, 0);
+      v6 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %d %d", v6, 64, "INFO", "AVE_Log_UpdateConsole", v1, 0);
+  }
+
+  return 0;
+}
+
+void sub_1611B0(uint64_t a1)
+{
+  if ((byte_20D148 & 0xFu) >= 7)
+  {
+    v1 = byte_20D148;
+    v2 = sub_175AE4();
+    if ((v1 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s:%d %llu\n", v2, 64, "VERB", "AVE_Log_Print", 85, qword_20D210);
+      v2 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %llu", v2, 64, "VERB", "AVE_Log_Print", 85, qword_20D210);
+  }
+
+  for (i = 0; i != 256; ++i)
+  {
+    if ((byte_20D148 & 0xFu) >= 7)
+    {
+      v4 = byte_20D148;
+      v5 = sub_175AE4();
+      v6 = byte_20D108[i];
+      if ((v4 & 0x10) != 0)
+      {
+        printf("%lld %d AVE %s: Log Cfg: %3d = 0x%02x\n", v5, 64, "VERB", i, v6);
+        v5 = sub_175AE4();
+        v6 = byte_20D108[i];
+      }
+
+      syslog(3, "%lld %d AVE %s: Log Cfg: %3d = 0x%02x", v5, 64, "VERB", i, v6);
+    }
+  }
+
+  if ((byte_20D148 & 0xFu) >= 7)
+  {
+    v7 = byte_20D148;
+    v8 = sub_175AE4();
+    if ((v7 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: Log Cfg: %d (us) %d%%\n", v8, 64, "VERB", dword_20D20C, dword_20D208);
+      v8 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: Log Cfg: %d (us) %d%%", v8, 64, "VERB", dword_20D20C, dword_20D208);
+  }
+}
+
+uint64_t sub_161394(void *a1, uint64_t a2)
+{
+  result = 4294966295;
+  if (a1)
+  {
+    if (a2)
+    {
+      *a1 = qword_20D210;
+      sub_CB250(a2, byte_20D108, 256);
+      result = 0;
+      *(a2 + 256) = dword_20D208;
+      *(a2 + 260) = dword_20D20C;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_161400(uint64_t a1, int a2, int a3)
+{
+  v6 = 5;
+  do
+  {
+    v7 = v6 >> 3;
+    if (v7 >= a2)
+    {
+      break;
+    }
+
+    if ((*(a1 + v7) >> (v6 & 7)))
+    {
+      sub_160DE0(v6, a3);
+    }
+
+    v6 = (v6 + 1);
+  }
+
+  while (v6 != 256);
+  return 0;
+}
+
+uint64_t sub_161470(uint64_t a1, unint64_t a2)
+{
+  v4 = a1;
+  memset(v16, 0, sizeof(v16));
+  if ((byte_20D148 & 0xEu) >= 6)
+  {
+    v5 = byte_20D148;
+    v6 = sub_175AE4();
+    if ((v5 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s Enter 0x%x 0x%llx\n", v6, 64, "INFO", "AVE_Log_PresetCfg", v4, a2);
+      v6 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter 0x%x 0x%llx", v6, 64, "INFO", "AVE_Log_PresetCfg", v4, a2);
+  }
+
+  v7 = (v4 >> 2) & 0x3FFFFFC0;
+  v8 = v7 - 64;
+  if (a2)
+  {
+    for (i = 0; i != 64; ++i)
+    {
+      if ((v8 | i) > 255)
+      {
+        break;
+      }
+
+      *(v16 + (v8 | i) / 8) |= ((a2 >> i) & 1) << ((v8 | i) - (v2 & 0xF8));
+    }
+
+    v10 = sub_161400(v16, 32, v4);
+  }
+
+  else
+  {
+    v11 = 320 - v7;
+    if ((v8 - 192) >= 0xFFFFFFFFFFFFFF00)
+    {
+      v12 = 64;
+    }
+
+    else
+    {
+      v12 = v11;
+    }
+
+    v10 = sub_CB250(&byte_20D108[v8], &xmmword_20D000 + v8, v12);
+  }
+
+  if ((v4 & 0xFFFFFEFF) != 0)
+  {
+    v10 = sub_175B1C();
+    qword_20D210 = v10;
+  }
+
+  sub_1611B0(v10);
+  if ((byte_20D148 & 0xEu) >= 6)
+  {
+    v13 = byte_20D148;
+    v14 = sub_175AE4();
+    if ((v13 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s Exit 0x%x 0x%llx %d\n", v14, 64, "INFO", "AVE_Log_PresetCfg", v4, a2, 0);
+      v14 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit 0x%x 0x%llx %d", v14, 64, "INFO", "AVE_Log_PresetCfg", v4, a2, 0);
+  }
+
+  return 0;
+}
+
+uint64_t sub_161688(uint64_t a1)
+{
+  memset(v67, 0, 192);
+  memset(&v66, 0, sizeof(v66));
+  v65 = 0;
+  v64 = 0;
+  qword_20C1F8[0] = 0;
+  qword_20C200 = 0;
+  if (a1)
+  {
+    qword_20C1F8[0] = a1;
+  }
+
+  v1 = sub_160D68(v67, 192);
+  if (v1 >= 1)
+  {
+    sub_172100(&v67[v1], 192 - v1, "%s", "ave_log.cfg");
+    qword_20C200 = v67;
+  }
+
+  for (i = 0; i != 4; ++i)
+  {
+    v3 = qword_20C1F8[i];
+    if (!v3)
+    {
+      continue;
+    }
+
+    if (stat(qword_20C1F8[i], &v66))
+    {
+      if ((byte_20D148 & 8) != 0)
+      {
+        v4 = byte_20D148;
+        v5 = sub_175AE4();
+        if ((v4 & 0x10) != 0)
+        {
+          printf("%lld %d AVE %s: %s:%d log config file doesn't exist at %s\n", v5, 64, "DBG", "AVE_Log_ReadCfg", 650, v3);
+          sub_175AE4();
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d log config file doesn't exist at %s");
+      }
+
+      continue;
+    }
+
+    if ((byte_20D148 & 8) != 0)
+    {
+      v6 = byte_20D148;
+      v7 = sub_175AE4();
+      if ((v6 & 0x10) != 0)
+      {
+        printf("%lld %d AVE %s: %s:%d log config file is at %s\n", v7, 64, "DBG", "AVE_Log_ReadCfg", 654, v3);
+        v7 = sub_175AE4();
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d log config file is at %s", v7, 64, "DBG", "AVE_Log_ReadCfg", 654, v3);
+    }
+
+    v8 = v66.st_mtimespec.tv_nsec / 1000 + 1000000 * v66.st_mtimespec.tv_sec;
+    if (v8 == qword_20D210 && qword_20D210)
+    {
+      if ((byte_20D148 & 8) != 0)
+      {
+        v9 = byte_20D148;
+        v10 = sub_175AE4();
+        if ((v9 & 0x10) != 0)
+        {
+          printf("%lld %d AVE %s: %s:%d log config file has been updated %s %llu\n", v10, 64, "DBG", "AVE_Log_ReadCfg", 662, v3, qword_20D210);
+          v10 = sub_175AE4();
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d log config file has been updated %s %llu", v10, 64, "DBG", "AVE_Log_ReadCfg", 662, v3, qword_20D210);
+      }
+
+      continue;
+    }
+
+    v11 = fopen(v3, "r");
+    if (v11)
+    {
+      v21 = v11;
+      v22 = malloc_type_malloc(0x108uLL, 0x10000400BDB4DB4uLL);
+      if (v22)
+      {
+        v23 = v22;
+        *(v22 + 32) = 0;
+        *(v22 + 14) = 0u;
+        *(v22 + 15) = 0u;
+        *(v22 + 12) = 0u;
+        *(v22 + 13) = 0u;
+        *(v22 + 10) = 0u;
+        *(v22 + 11) = 0u;
+        *(v22 + 8) = 0u;
+        *(v22 + 9) = 0u;
+        *(v22 + 6) = 0u;
+        *(v22 + 7) = 0u;
+        *(v22 + 4) = 0u;
+        *(v22 + 5) = 0u;
+        *(v22 + 2) = 0u;
+        *(v22 + 3) = 0u;
+        *v22 = 0u;
+        *(v22 + 1) = 0u;
+        if ((byte_20D148 & 0xFu) >= 5)
+        {
+          v24 = byte_20D148;
+          v25 = sub_175AE4();
+          if ((v24 & 0x10) != 0)
+          {
+            printf("%lld %d AVE %s: %s:%d used log config file is at %s %llu\n", v25, 64, "WARN", "AVE_Log_ReadCfg", 690, v3, v8);
+            v25 = sub_175AE4();
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d used log config file is at %s %llu", v25, 64, "WARN", "AVE_Log_ReadCfg", 690, v3, v8);
+        }
+
+        qword_20D210 = v8;
+        v28 = malloc_type_malloc(0x100uLL, 0x100004077774924uLL);
+        if (v28)
+        {
+          v29 = v28;
+          *(v28 + 14) = 0u;
+          *(v28 + 15) = 0u;
+          *(v28 + 12) = 0u;
+          *(v28 + 13) = 0u;
+          *(v28 + 10) = 0u;
+          *(v28 + 11) = 0u;
+          *(v28 + 8) = 0u;
+          *(v28 + 9) = 0u;
+          *(v28 + 6) = 0u;
+          *(v28 + 7) = 0u;
+          *(v28 + 4) = 0u;
+          *(v28 + 5) = 0u;
+          *(v28 + 2) = 0u;
+          *(v28 + 3) = 0u;
+          *v28 = 0u;
+          *(v28 + 1) = 0u;
+          v63 = 0;
+          v30 = fgetln(v21, &v63);
+          if (v30)
+          {
+            v31 = v30;
+            v32 = v23 + 64;
+            v33 = v23 + 65;
+            v34 = 1;
+            while (1)
+            {
+              v35 = *v31;
+              v36 = v35 > 0x23;
+              v37 = (1 << v35) & 0x800002400;
+              if (!v36 && v37 != 0)
+              {
+                goto LABEL_55;
+              }
+
+              if (v63 >= 0x100)
+              {
+                if ((byte_20D148 & 0xFu) >= 5)
+                {
+                  v39 = byte_20D148;
+                  v40 = sub_175AE4();
+                  if ((v39 & 0x10) != 0)
+                  {
+                    printf("%lld %d AVE %s: %s:%d Line too long, skipping %s:%lld\n", v40, 64, "WARN", "AVE_Log_ReadCfg", 732, v3, v34);
+                    v40 = sub_175AE4();
+                  }
+
+                  syslog(3, "%lld %d AVE %s: %s:%d Line too long, skipping %s:%lld", v40, 64, "WARN", "AVE_Log_ReadCfg", 732, v3, v34);
+                }
+
+                goto LABEL_55;
+              }
+
+              sub_17212C(v29, v31, v63 + 1);
+              LODWORD(v65) = 15;
+              v64 = 0;
+              if (sscanf(v29, "LOG_ID_%d=%d%c", &v65 + 4, &v65, &v64) >= 2)
+              {
+                v41 = v65;
+                if ((v64 & 0xDF) == 0x43)
+                {
+                  v41 = v65 | 0x10;
+                }
+
+                *(v23 + SHIDWORD(v65)) = v41;
+                goto LABEL_55;
+              }
+
+              if (sscanf(v29, "THRESHOLD=%d", v32) != 1)
+              {
+                break;
+              }
+
+              v42 = &dword_20D100;
+              if (*v32)
+              {
+                v42 = v32;
+              }
+
+              dword_20D208 = *v42;
+              if ((byte_20D148 & 0xFu) < 7)
+              {
+                goto LABEL_55;
+              }
+
+              v43 = v32;
+              v44 = byte_20D148;
+              v45 = sub_175AE4();
+              v62 = v43;
+              if ((v44 & 0x10) == 0)
+              {
+                syslog(3, "%lld %d AVE %s: %s:%d Read threshold %d");
+LABEL_82:
+                v32 = v62;
+                goto LABEL_55;
+              }
+
+              printf("%lld %d AVE %s: %s:%d Read threshold %d\n", v45, 64, "VERB", "AVE_Log_ReadCfg", 757, *v43);
+              v49 = sub_175AE4();
+              syslog(3, "%lld %d AVE %s: %s:%d Read threshold %d", v49, 64, "VERB", "AVE_Log_ReadCfg", 757, *v43);
+              v32 = v43;
+LABEL_55:
+              v63 = 0;
+              v31 = fgetln(v21, &v63);
+              ++v34;
+              if (!v31)
+              {
+                goto LABEL_83;
+              }
+            }
+
+            if (sscanf(v29, "INTERVAL=%d", v33) != 1)
+            {
+              goto LABEL_55;
+            }
+
+            v46 = &dword_20D104;
+            if (*v33)
+            {
+              v46 = v23 + 65;
+            }
+
+            dword_20D20C = *v46;
+            if ((byte_20D148 & 0xFu) < 7)
+            {
+              goto LABEL_55;
+            }
+
+            v62 = v32;
+            v47 = byte_20D148;
+            v48 = sub_175AE4();
+            if ((v47 & 0x10) != 0)
+            {
+              printf("%lld %d AVE %s: %s:%d Read interval %d (us)\n", v48, 64, "VERB", "AVE_Log_ReadCfg", 764, *v33);
+              sub_175AE4();
+            }
+
+            syslog(3, "%lld %d AVE %s: %s:%d Read interval %d (us)");
+            goto LABEL_82;
+          }
+
+LABEL_83:
+          if (ferror(v21))
+          {
+            if ((byte_20D148 & 0xC) != 0)
+            {
+              v50 = byte_20D148;
+              v51 = sub_175AE4();
+              v52 = __error();
+              v53 = strerror(*v52);
+              if ((v50 & 0x10) != 0)
+              {
+                printf("%lld %d AVE %s: %s:%d error while reading config file: %s\n", v51, 64, "ERR", "AVE_Log_ReadCfg", 713, v53);
+                v59 = sub_175AE4();
+                v60 = __error();
+                v61 = strerror(*v60);
+                syslog(3, "%lld %d AVE %s: %s:%d error while reading config file: %s", v59, 64, "ERR", "AVE_Log_ReadCfg", 713, v61);
+              }
+
+              else
+              {
+                syslog(3, "%lld %d AVE %s: %s:%d error while reading config file: %s", v51, 64, "ERR", "AVE_Log_ReadCfg", 713, v53);
+              }
+            }
+
+            v19 = 4294966284;
+          }
+
+          else
+          {
+            for (j = 0; j != 256; ++j)
+            {
+              v57 = v23 + j;
+              if (!*(v23 + j))
+              {
+                v57 = v23;
+              }
+
+              v58 = sub_160DE0(j, *v57);
+            }
+
+            sub_1611B0(v58);
+            v19 = 0;
+          }
+
+          free(v29);
+        }
+
+        else
+        {
+          if ((byte_20D148 & 0xC) != 0)
+          {
+            v54 = byte_20D148;
+            v55 = sub_175AE4();
+            if ((v54 & 0x10) != 0)
+            {
+              printf("%lld %d AVE %s: %s:%d %s | cannot allocate memory for line reader\n", v55, 64, "ERR", "AVE_Log_ReadCfg", 696, "pLineBuf != __null");
+              v55 = sub_175AE4();
+            }
+
+            syslog(3, "%lld %d AVE %s: %s:%d %s | cannot allocate memory for line reader", v55, 64, "ERR", "AVE_Log_ReadCfg", 696, "pLineBuf != __null");
+          }
+
+          v19 = 4294966293;
+        }
+
+        free(v23);
+      }
+
+      else
+      {
+        if ((byte_20D148 & 0xC) != 0)
+        {
+          v26 = byte_20D148;
+          v27 = sub_175AE4();
+          if ((v26 & 0x10) != 0)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | cannot allocate memory for log config\n", v27, 64, "ERR", "AVE_Log_ReadCfg", 686, "pTmpLog != __null");
+            v27 = sub_175AE4();
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d %s | cannot allocate memory for log config", v27, 64, "ERR", "AVE_Log_ReadCfg", 686, "pTmpLog != __null");
+        }
+
+        v19 = 4294966293;
+      }
+
+      fclose(v21);
+      return v19;
+    }
+
+    if ((byte_20D148 & 8) != 0)
+    {
+      v12 = byte_20D148;
+      v13 = sub_175AE4();
+      v14 = __error();
+      v15 = strerror(*v14);
+      if ((v12 & 0x10) != 0)
+      {
+        printf("%lld %d AVE %s: %s:%d log config file cannot be opened %s : %s\n", v13, 64, "DBG", "AVE_Log_ReadCfg", 673, v3, v15);
+        v13 = sub_175AE4();
+        v16 = __error();
+        strerror(*v16);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d log config file cannot be opened %s : %s", v13);
+    }
+  }
+
+  if ((byte_20D148 & 8) != 0)
+  {
+    v17 = byte_20D148;
+    v18 = sub_175AE4();
+    if ((v17 & 0x10) != 0)
+    {
+      printf("%lld %d AVE %s: %s:%d cannot find available config file\n", v18, 64, "DBG", "AVE_Log_ReadCfg", 679);
+      v18 = sub_175AE4();
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d cannot find available config file", v18, 64, "DBG", "AVE_Log_ReadCfg", 679);
+  }
+
+  return 4294966288;
+}
+
+uint64_t sub_1621A4(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    if (*(result + 44))
+    {
+      v2 = result + 44;
+    }
+
+    else
+    {
+      v2 = 0;
+    }
+
+    result = sub_161688(v2);
+    v3 = 256;
+    for (i = 2; i != 10; i += 2)
+    {
+      if ((*v1 & v3) != 0)
+      {
+        sub_161470((v3 + 7), *&v1[i]);
+        result = 0;
+      }
+
+      v3 += 256;
+    }
+
+    v5 = v1[10];
+    if (v5)
+    {
+      sub_161058(v5);
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+int *sub_162230(int *a1, int a2, uint64_t a3)
+{
+  v5 = *a1;
+  v3 = a1 + 2;
+  v4 = v5;
+  if (v5 < 1)
+  {
+    return 0;
+  }
+
+  v6 = 0;
+  do
+  {
+    while (1)
+    {
+      v7 = &v3[8 * v6];
+      if (v7[1] == a2)
+      {
+        break;
+      }
+
+      if (++v6 >= v4)
+      {
+        return v7;
+      }
+    }
+
+    ++v6;
+  }
+
+  while (*(v7 + 1) >= a3 && v6 < v4);
+  return v7;
 }

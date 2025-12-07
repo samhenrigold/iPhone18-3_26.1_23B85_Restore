@@ -63,7 +63,7 @@
 {
   v9 = *MEMORY[0x277D85DE8];
   _searchString = [(RMSBonjourServiceProvider *)self _searchString];
-  v4 = RMSLogger();
+  v4 = RMSLogger(_searchString);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -96,7 +96,7 @@
 {
   v17 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
-  v7 = RMSLogger();
+  v7 = RMSLogger(serviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     name = [serviceCopy name];
@@ -117,8 +117,7 @@
   {
     v12 = [[RMSService alloc] initWithData:v11];
     [v10 setService:v12];
-    [v10 setAvailable:1];
-    v13 = RMSLogger();
+    v13 = RMSLogger([v10 setAvailable:1]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
@@ -158,7 +157,7 @@
   dataCopy = data;
   v8 = [(RMSBonjourServiceProvider *)self _identifierForNetService:serviceCopy];
   v9 = [(NSMutableDictionary *)self->_services objectForKeyedSubscript:v8];
-  v10 = RMSLogger();
+  v10 = RMSLogger(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [serviceCopy name];
@@ -170,7 +169,7 @@
   state = [v9 state];
   if (state == 2)
   {
-    v15 = RMSLogger();
+    v15 = RMSLogger(2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v18) = 0;
@@ -187,7 +186,7 @@
 
   else if (!state)
   {
-    v13 = RMSLogger();
+    v13 = RMSLogger(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       name2 = [serviceCopy name];
@@ -215,7 +214,7 @@
 
 - (void)netServiceDidResolveAddress:(id)address
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   v5 = [(RMSBonjourServiceProvider *)self _identifierForNetService:addressCopy];
   v6 = [(NSMutableDictionary *)self->_services objectForKeyedSubscript:v5];
@@ -225,20 +224,20 @@
   tXTRecordData = [addressCopy TXTRecordData];
   [(RMSBonjourServiceProvider *)self _updateService:service withNetService:addressCopy txtData:tXTRecordData];
 
-  v9 = RMSLogger();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = RMSLogger(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [addressCopy name];
     displayName = [service displayName];
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v15 = 138412802;
-    v16 = name;
-    v17 = 2112;
-    v18 = displayName;
-    v19 = 2112;
-    v20 = v13;
-    _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Service [%@] resolved and fully available: %@, source: %@", &v15, 0x20u);
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v16 = 138412802;
+    v17 = name;
+    v18 = 2112;
+    v19 = displayName;
+    v20 = 2112;
+    v21 = v14;
+    _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Service [%@] resolved and fully available: %@, source: %@", &v16, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -250,7 +249,7 @@
 - (void)netService:(id)service didNotResolve:(id)resolve
 {
   serviceCopy = service;
-  v5 = RMSLogger();
+  v5 = RMSLogger(serviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [RMSBonjourServiceProvider netService:serviceCopy didNotResolve:v5];

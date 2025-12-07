@@ -93,40 +93,15 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = objc_opt_class();
-  if (v5 != objc_opt_class())
-  {
-    goto LABEL_6;
-  }
-
-  environment = [(UNCPushRegistration *)self environment];
-  environment2 = [equalCopy environment];
-  v8 = UNEqualObjects();
-
-  if (!v8)
-  {
-    goto LABEL_6;
-  }
-
-  token = [(UNCPushRegistration *)self token];
-  environment3 = [equalCopy environment];
-  v11 = UNEqualObjects();
-
-  if (v11)
+  if (equalCopy && (v5 = objc_opt_class(), v5 == objc_opt_class()) && (-[UNCPushRegistration environment](self, "environment"), v6 = objc_claimAutoreleasedReturnValue(), [equalCopy environment], v7 = objc_claimAutoreleasedReturnValue(), v8 = UNEqualObjects(), v7, v6, v8) && (-[UNCPushRegistration token](self, "token"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(equalCopy, "environment"), v10 = objc_claimAutoreleasedReturnValue(), v11 = UNEqualObjects(), v10, v9, v11))
   {
     tokenIdentifier = [(UNCPushRegistration *)self tokenIdentifier];
-    environment4 = [equalCopy environment];
+    environment = [equalCopy environment];
     v14 = UNEqualObjects();
   }
 
   else
   {
-LABEL_6:
     v14 = 0;
   }
 

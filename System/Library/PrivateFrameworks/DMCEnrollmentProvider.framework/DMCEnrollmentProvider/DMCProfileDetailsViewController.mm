@@ -151,26 +151,38 @@ void __49__DMCProfileDetailsViewController_viewDidAppear___block_invoke(uint64_t
 uint64_t __51__DMCProfileDetailsViewController__profileChanged___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v6 = WeakRetained;
+    v7 = WeakRetained;
     [WeakRetained reloadSectionArray];
-    v2 = [v6 sections];
-    v3 = [v2 count];
+    v3 = [v7 sections];
+    v4 = [v3 count];
 
-    if (v3)
+    if (v4)
     {
-      v4 = [v6 tableView];
-      [v4 reloadData];
+      v5 = [v7 tableView];
+      [v5 reloadData];
     }
 
-    else if ([v6 viewControllerCanPop])
+    else
     {
-      [v6 dmc_popViewControllerAnimated:1];
+      WeakRetained = [v7 viewControllerCanPop];
+      v2 = v7;
+      if (!WeakRetained)
+      {
+        goto LABEL_7;
+      }
+
+      WeakRetained = [v7 dmc_popViewControllerAnimated:1];
     }
+
+    v2 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+LABEL_7:
+
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 - (void)_reloadTable:(id)table

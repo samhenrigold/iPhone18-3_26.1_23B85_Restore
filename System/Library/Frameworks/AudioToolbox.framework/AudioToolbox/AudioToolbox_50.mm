@@ -6369,7 +6369,7 @@ void sub_1DDF07D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *DumpViaStream<clsp::DelayLine<float,double>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void *DumpViaStream<clsp::DelayLine<float,double>>(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -6421,7 +6421,7 @@ _BYTE *DumpViaStream<clsp::DelayLine<float,double>>(uint64_t a1, uint64_t a2, ui
     v16->__r_.__value_.__r.__words[0] = 0;
     v18 = std::string::append(&v26, "\n", 1uLL);
     v19 = *&v18->__r_.__value_.__l.__data_;
-    *(a1 + 16) = *(&v18->__r_.__value_.__l + 2);
+    a1[2] = *(&v18->__r_.__value_.__l + 2);
     *a1 = v19;
     v18->__r_.__value_.__l.__size_ = 0;
     v18->__r_.__value_.__r.__words[2] = 0;
@@ -9024,7 +9024,7 @@ LABEL_109:
         if (*v190)
         {
           v191 = &v189;
-          v130 = MEMORY[0x1EEE9AC00](a1);
+          v130.n128_f64[0] = MEMORY[0x1EEE9AC00](a1);
           v133 = v131 - v132;
           v134 = &v189 - v129;
           if (v133)
@@ -9560,7 +9560,7 @@ _DWORD *clsp::CLSPKernel_v5::Reset(clsp::CLSPKernel_v5 *this)
   return result;
 }
 
-_DWORD *clsp::DelayLine<float,double>::reset(void *a1, int16x4_t a2)
+_DWORD *clsp::DelayLine<float,double>::reset(uint64_t *a1, int16x4_t a2)
 {
   v3 = a1[3];
   v4 = a1[2];

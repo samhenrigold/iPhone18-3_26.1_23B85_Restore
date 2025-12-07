@@ -52,7 +52,7 @@
       v16 = [MEMORY[0x1E695F658] imageWithColor:v12];
       v17 = [v15 imageByCompositingOverImage:v16];
 
-      [v17 extent];
+      objc_msgSend_extent(v17);
       v18 = [v17 imageBySettingAlphaOneInExtent:?];
 
       v11 = [v18 imageByColorMatchingColorSpaceToWorkingSpace:cGColorSpace];
@@ -62,7 +62,7 @@
 
     else
     {
-      [imageByClampingToExtent extent];
+      objc_msgSend_extent(imageByClampingToExtent);
       v11 = [imageByClampingToExtent imageBySettingAlphaOneInExtent:?];
     }
 
@@ -96,7 +96,7 @@
     if (v10)
     {
       memset(&v29, 0, 32);
-      [v10 physicalScaledExtent];
+      objc_msgSend_physicalScaledExtent(v10);
       v26 = [imageByClampingToExtent imageByCroppingToRect:{*&v29.a, *&v29.b, *&v29.c, *&v29.d}];
 
       imageByClampingToExtent = v26;
@@ -130,7 +130,7 @@ LABEL_20:
     [(_NUVideoProperties *)v7 setOriginalSize:v14, v15];
     if (v7)
     {
-      [(_NUVideoProperties *)v7 cleanAperture];
+      objc_msgSend_cleanAperture(v7);
       v17 = *(&v26 + 1);
       v16 = v26;
     }
@@ -150,7 +150,7 @@ LABEL_20:
     [(_NUVideoProperties *)v7 setCleanAperture:&v23];
     if (v7)
     {
-      [(_NUVideoProperties *)v7 originalCleanAperture];
+      objc_msgSend_originalCleanAperture(v7);
       v20 = *(&v26 + 1);
       v19 = v26;
     }
@@ -240,29 +240,27 @@ LABEL_20:
 - (id)_evaluateImageGeometryWithZeroedOrigin:(BOOL)origin error:(id *)error
 {
   originCopy = origin;
-  v23.receiver = self;
-  v23.super_class = NUPipelineOutputNode;
-  v6 = [(NURenderNode *)&v23 _evaluateImageGeometry:error];
+  v22.receiver = self;
+  v22.super_class = NUPipelineOutputNode;
+  v6 = [(NURenderNode *)&v22 _evaluateImageGeometry:error];
   v7 = v6;
   if (v6)
   {
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    [v6 extent];
+    objc_msgSend_extent(v6);
     extentPolicy = [(NUPipelineOutputNode *)self extentPolicy];
     v9 = extentPolicy;
     if (extentPolicy)
     {
-      v18[0] = v21;
-      v18[1] = v22;
-      [extentPolicy extentForImageExtent:v18];
+      objc_msgSend_extentForImageExtent_(extentPolicy, v20, v21);
+      v20 = v18;
       v21 = v19;
-      v22 = v20;
     }
 
     if (originCopy)
     {
-      v21 = 0uLL;
+      v20 = 0uLL;
     }
 
     imageGeometryRoundingPolicy = [(NUPipelineOutputNode *)self imageGeometryRoundingPolicy];
@@ -270,9 +268,9 @@ LABEL_20:
     renderScale = [v7 renderScale];
     v14 = v13;
     orientation = [v7 orientation];
+    v18 = v20;
     v19 = v21;
-    v20 = v22;
-    v16 = [(NUImageGeometry *)v11 initWithExtent:&v19 renderScale:renderScale orientation:v14 spaceMap:orientation roundingPolicy:0, imageGeometryRoundingPolicy];
+    v16 = [(NUImageGeometry *)v11 initWithExtent:&v18 renderScale:renderScale orientation:v14 spaceMap:orientation roundingPolicy:0, imageGeometryRoundingPolicy];
   }
 
   else

@@ -11,6 +11,7 @@
 - (void)remoteDocumentCameraControllerDidCancel:(id)cancel;
 - (void)removeSaveActionBlockerForFiles;
 - (void)setChildViewController:(id)controller;
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated;
 - (void)startSessionWithClientContext:(id)context completion:(id)completion;
 - (void)viewControllerWasDismissed;
 @end
@@ -43,6 +44,13 @@
   [(DCDocumentCameraViewServiceViewController *)self setSession:v8];
   session = [(DCDocumentCameraViewServiceViewController *)self session];
   completionCopy[2](completionCopy, session);
+}
+
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = +[UIDevice currentDevice];
+  [v6 setOrientation:orientation animated:animatedCopy];
 }
 
 - (void)setChildViewController:(id)controller

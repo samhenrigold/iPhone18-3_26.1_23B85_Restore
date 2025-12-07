@@ -19,7 +19,7 @@
   if (v3)
   {
     v4 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-    [(CKColoredBalloonView *)v3 balloonDescriptor];
+    objc_msgSend_balloonDescriptor(v3);
     v5 = [(CKBalloonMaskLayer *)v4 initWithDescriptor:&v8];
     linkViewMaskLayer = v3->_linkViewMaskLayer;
     v3->_linkViewMaskLayer = v5;
@@ -83,12 +83,12 @@
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Fu, @"Calling sizeThatFits when LPLinkView has not been configured yet.", v14, v15, v16, v17, v18, v19, v20.receiver);
     }
 
-    v14.receiver = self;
-    v14.super_class = CKLinkReplyContextPreviewBalloonView;
-    [(CKBalloonView *)&v14 sizeThatFits:insets textAlignmentInsets:tailInsets tailInsets:width, height];
+    v20.receiver = self;
+    v20.super_class = CKLinkReplyContextPreviewBalloonView;
+    [(CKBalloonView *)&v20 sizeThatFits:insets textAlignmentInsets:tailInsets tailInsets:width, height];
   }
 
   result.height = v10;
@@ -124,7 +124,7 @@
   [linkView setFrame:{v4, v6, v8, v10}];
 
   linkViewMaskLayer = [(CKLinkReplyContextPreviewBalloonView *)self linkViewMaskLayer];
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [linkViewMaskLayer updateDescriptor:&v23];
 
   linkView2 = [(CKLinkReplyContextPreviewBalloonView *)self linkView];

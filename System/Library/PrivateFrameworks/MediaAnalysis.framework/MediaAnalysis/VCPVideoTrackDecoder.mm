@@ -18,7 +18,7 @@
   v7 = v6;
   if (trackCopy)
   {
-    [trackCopy preferredTransform];
+    objc_msgSend_preferredTransform(trackCopy);
     v9 = *v18;
     v8 = *&v18[1];
     v11 = *&v18[2];

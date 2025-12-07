@@ -135,7 +135,7 @@
 
 - (int)analyzeFrame:(__CVBuffer *)frame faces:(id)faces torsos:(id)torsos
 {
-  v136 = *MEMORY[0x1E69E9840];
+  v140 = *MEMORY[0x1E69E9840];
   facesCopy = faces;
   torsosCopy = torsos;
   Width = CVPixelBufferGetWidth(frame);
@@ -143,374 +143,375 @@
   context = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
   v9 = objc_alloc(MEMORY[0x1E69845B8]);
-  v103 = [v9 initWithCVPixelBuffer:frame options:MEMORY[0x1E695E0F8]];
+  v107 = [v9 initWithCVPixelBuffer:frame options:MEMORY[0x1E695E0F8]];
   array2 = [MEMORY[0x1E695DF70] array];
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(array2);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     LOWORD(buf.a) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPVideoAnimalDetectorFaceAnimalsDetection", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPVideoAnimalDetectorFaceAnimalsDetection", "", &buf, 2u);
   }
 
-  v131 = 0;
-  v14 = [VCPFaceUtils configureVNRequest:&v131 withClass:objc_opt_class() andProcessingVersion:15];
-  v15 = v131;
-  v16 = array2;
-  v102 = v15;
-  if (!v14)
+  v135 = 0;
+  v15 = [VCPFaceUtils configureVNRequest:&v135 withClass:objc_opt_class() andProcessingVersion:15];
+  v16 = v135;
+  v17 = array2;
+  v106 = v16;
+  if (!v15)
   {
-    if (v15)
+    if (v16)
     {
-      [array2 addObject:v15];
+      [array2 addObject:v16];
     }
 
-    v130 = 0;
-    v14 = [VCPFaceUtils configureVNRequest:&v130 withClass:objc_opt_class() andProcessingVersion:15];
-    v18 = v130;
-    v99 = v18;
-    if (v14)
+    v134 = 0;
+    v15 = [VCPFaceUtils configureVNRequest:&v134 withClass:objc_opt_class() andProcessingVersion:15];
+    v19 = v134;
+    v103 = v19;
+    if (v15)
     {
-      v105 = 0;
+      v109 = 0;
 LABEL_23:
-      v17 = 4;
+      v18 = 4;
 LABEL_24:
 
-      v16 = array2;
+      v17 = array2;
       goto LABEL_25;
     }
 
-    if (v18)
+    if (v19)
     {
-      [array2 addObject:v18];
+      [array2 addObject:v19];
     }
 
-    v129 = 0;
-    v19 = [v103 performRequests:array2 error:&v129];
-    v105 = v129;
-    if ((v19 & 1) == 0)
+    v133 = 0;
+    v20 = [v107 performRequests:array2 error:&v133];
+    v21 = v133;
+    v109 = v21;
+    if ((v20 & 1) == 0)
     {
-      v14 = -18;
+      v15 = -18;
       goto LABEL_23;
     }
 
-    v20 = VCPSignPostLog();
-    v21 = v20;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v22 = VCPSignPostLog(v21);
+    v23 = v22;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
       LOWORD(buf.a) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v11, "VCPVideoAnimalDetectorFaceAnimalsDetection", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v11, "VCPVideoAnimalDetectorFaceAnimalsDetection", "", &buf, 2u);
     }
 
-    v22 = VCPSignPostLog();
-    v23 = os_signpost_id_generate(v22);
+    v25 = VCPSignPostLog(v24);
+    v26 = os_signpost_id_generate(v25);
 
-    v24 = VCPSignPostLog();
-    v25 = v24;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    v28 = VCPSignPostLog(v27);
+    v29 = v28;
+    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       LOWORD(buf.a) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VCPVideoAnimalDetectorAnimalprint", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v26, "VCPVideoAnimalDetectorAnimalprint", "", &buf, 2u);
     }
 
     [array2 removeAllObjects];
-    results = [v102 results];
-    v27 = [results count] == 0;
+    results = [v106 results];
+    v31 = [results count] == 0;
 
-    if (v27)
+    if (v31)
     {
-      v98 = 0;
+      v102 = 0;
     }
 
     else
     {
-      v128 = 0;
-      v14 = [VCPFaceUtils configureVNRequest:&v128 withClass:objc_opt_class() andProcessingVersion:15];
-      v98 = v128;
-      if (v14)
+      v132 = 0;
+      v15 = [VCPFaceUtils configureVNRequest:&v132 withClass:objc_opt_class() andProcessingVersion:15];
+      v102 = v132;
+      if (v15)
       {
-        v28 = 0;
-        v17 = 4;
+        v32 = 0;
+        v18 = 4;
 LABEL_81:
 
         goto LABEL_24;
       }
 
-      results2 = [v102 results];
-      [v98 setInputDetectedObjectObservations:results2];
+      results2 = [v106 results];
+      [v102 setInputDetectedObjectObservations:results2];
 
-      [array2 addObject:{v98, 0}];
+      [array2 addObject:{v102, 0}];
     }
 
-    results3 = [v99 results];
-    v32 = [results3 count] == 0;
+    results3 = [v103 results];
+    v36 = [results3 count] == 0;
 
-    if (v32)
+    if (v36)
     {
-      v33 = [array2 count];
+      v37 = [array2 count];
     }
 
     else
     {
-      v127 = 0;
-      v14 = [VCPFaceUtils configureVNRequest:&v127 withClass:objc_opt_class() andProcessingVersion:15];
-      v97 = v127;
-      if (v14)
+      v131 = 0;
+      v15 = [VCPFaceUtils configureVNRequest:&v131 withClass:objc_opt_class() andProcessingVersion:15];
+      v101 = v131;
+      if (v15)
       {
-        v17 = 4;
+        v18 = 4;
 LABEL_80:
-        v28 = v97;
+        v32 = v101;
         goto LABEL_81;
       }
 
-      results4 = [v99 results];
-      [v97 setInputDetectedObjectObservations:results4];
+      results4 = [v103 results];
+      [v101 setInputDetectedObjectObservations:results4];
 
-      [array2 addObject:v97];
-      v33 = [array2 count];
+      [array2 addObject:v101];
+      v37 = [array2 count];
     }
 
-    if (v33)
+    if (v37)
     {
-      v126 = v105;
-      v35 = [v103 performRequests:array2 error:&v126];
-      v36 = v126;
+      v130 = v109;
+      v39 = [v107 performRequests:array2 error:&v130];
+      v40 = v130;
 
-      if (!v35)
+      if (!v39)
       {
-        v14 = -18;
-        v17 = 4;
-        v105 = v36;
+        v15 = -18;
+        v18 = 4;
+        v109 = v40;
         goto LABEL_80;
       }
 
-      v105 = v36;
+      v109 = v40;
     }
 
-    v37 = VCPSignPostLog();
-    v38 = v37;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    v41 = VCPSignPostLog(v37);
+    v42 = v41;
+    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
     {
       LOWORD(buf.a) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_END, v23, "VCPVideoAnimalDetectorAnimalprint", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v26, "VCPVideoAnimalDetectorAnimalprint", "", &buf, 2u);
     }
 
-    results5 = [v98 results];
-    v40 = results5 == 0;
+    results5 = [v102 results];
+    v44 = results5 == 0;
 
-    if (!v40)
+    if (!v44)
     {
-      results6 = [v98 results];
+      results6 = [v102 results];
       [array addObjectsFromArray:results6];
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v124 = 0u;
-    v125 = 0u;
-    v122 = 0u;
-    v123 = 0u;
-    results7 = [v97 results];
-    v43 = [results7 countByEnumeratingWithState:&v122 objects:v135 count:16];
-    if (v43)
+    v128 = 0u;
+    v129 = 0u;
+    v126 = 0u;
+    v127 = 0u;
+    results7 = [v101 results];
+    v47 = [results7 countByEnumeratingWithState:&v126 objects:v139 count:16];
+    if (v47)
     {
-      v44 = *v123;
+      v48 = *v127;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v123 != v44)
+          if (*v127 != v48)
           {
             objc_enumerationMutation(results7);
           }
 
-          v46 = *(*(&v122 + 1) + 8 * i);
-          v47 = objc_autoreleasePoolPush();
-          groupId = [v46 groupId];
-          v49 = groupId == 0;
+          v50 = *(*(&v126 + 1) + 8 * i);
+          v51 = objc_autoreleasePoolPush();
+          groupId = [v50 groupId];
+          v53 = groupId == 0;
 
-          if (!v49)
+          if (!v53)
           {
-            groupId2 = [v46 groupId];
-            [dictionary setObject:v46 forKeyedSubscript:groupId2];
+            groupId2 = [v50 groupId];
+            [dictionary setObject:v50 forKeyedSubscript:groupId2];
           }
 
-          objc_autoreleasePoolPop(v47);
+          objc_autoreleasePoolPop(v51);
         }
 
-        v43 = [results7 countByEnumeratingWithState:&v122 objects:v135 count:16];
+        v47 = [results7 countByEnumeratingWithState:&v126 objects:v139 count:16];
       }
 
-      while (v43);
+      while (v47);
     }
 
-    v121 = 0uLL;
-    v117 = 0u;
-    v118 = 0u;
-    v119 = 0u;
-    v120 = 0u;
+    v125 = 0uLL;
+    v121 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v124 = 0u;
     obj = array;
-    v51 = [obj countByEnumeratingWithState:&v117 objects:v134 count:16];
-    if (v51)
+    v55 = [obj countByEnumeratingWithState:&v121 objects:v138 count:16];
+    if (v55)
     {
-      v52 = Width;
-      v53 = -Height;
-      v54 = Height;
-      v106 = *v118;
+      v56 = Width;
+      v57 = -Height;
+      v58 = Height;
+      v110 = *v122;
       do
       {
-        v107 = v51;
-        for (j = 0; j != v107; ++j)
+        v111 = v55;
+        for (j = 0; j != v111; ++j)
         {
-          if (*v118 != v106)
+          if (*v122 != v110)
           {
             objc_enumerationMutation(obj);
           }
 
-          v56 = *(*(&v117 + 1) + 8 * j);
-          v57 = objc_autoreleasePoolPush();
+          v60 = *(*(&v121 + 1) + 8 * j);
+          v61 = objc_autoreleasePoolPush();
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
             LODWORD(buf.a) = 138412290;
-            *(&buf.a + 4) = v56;
+            *(&buf.a + 4) = v60;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VCPVideoAnimalDetector] Detected face %@", &buf, 0xCu);
           }
 
-          [v56 boundingBox];
-          *&buf.b = v121;
-          buf.a = v52;
-          buf.d = v53;
+          [v60 boundingBox];
+          *&buf.b = v125;
+          buf.a = v56;
+          buf.d = v57;
           buf.tx = 0.0;
-          buf.ty = v54;
-          v138 = CGRectApplyAffineTransform(v137, &buf);
-          x = v138.origin.x;
-          y = v138.origin.y;
-          v60 = v138.size.width;
-          v61 = v138.size.height;
-          v62 = objc_alloc_init(VCPAnimal);
-          [(VCPAnimal *)v62 setBounds:x, y, v60, v61];
-          LODWORD(v63) = 1.0;
-          [(VCPAnimal *)v62 setConfidence:v63];
-          animalprint = [v56 animalprint];
-          [(VCPAnimal *)v62 setAnimalPrint:animalprint];
+          buf.ty = v58;
+          v142 = CGRectApplyAffineTransform(v141, &buf);
+          x = v142.origin.x;
+          y = v142.origin.y;
+          v64 = v142.size.width;
+          v65 = v142.size.height;
+          v66 = objc_alloc_init(VCPAnimal);
+          [(VCPAnimal *)v66 setBounds:x, y, v64, v65];
+          LODWORD(v67) = 1.0;
+          [(VCPAnimal *)v66 setConfidence:v67];
+          animalprint = [v60 animalprint];
+          [(VCPAnimal *)v66 setAnimalPrint:animalprint];
 
-          labels = [v56 labels];
+          labels = [v60 labels];
           firstObject = [labels firstObject];
           identifier = [firstObject identifier];
-          [(VCPAnimal *)v62 setLabel:identifier];
+          [(VCPAnimal *)v66 setLabel:identifier];
 
-          groupId3 = [v56 groupId];
+          groupId3 = [v60 groupId];
           if (groupId3)
           {
-            groupId4 = [v56 groupId];
-            v70 = [dictionary objectForKeyedSubscript:groupId4];
-            v71 = v70 == 0;
+            groupId4 = [v60 groupId];
+            v74 = [dictionary objectForKeyedSubscript:groupId4];
+            v75 = v74 == 0;
 
-            if (!v71)
+            if (!v75)
             {
-              labels2 = [v56 labels];
+              labels2 = [v60 labels];
               firstObject2 = [labels2 firstObject];
               identifier2 = [firstObject2 identifier];
 
-              groupId5 = [v56 groupId];
-              v76 = [dictionary objectForKeyedSubscript:groupId5];
-              labels3 = [v76 labels];
+              groupId5 = [v60 groupId];
+              v80 = [dictionary objectForKeyedSubscript:groupId5];
+              labels3 = [v80 labels];
               firstObject3 = [labels3 firstObject];
               identifier3 = [firstObject3 identifier];
 
               if (([identifier2 containsString:identifier3] & 1) != 0 || objc_msgSend(identifier3, "containsString:", identifier2))
               {
-                groupId6 = [v56 groupId];
-                v81 = [dictionary objectForKeyedSubscript:groupId6];
-                animalprint2 = [v81 animalprint];
-                [(VCPAnimal *)v62 setAnimalPrint:animalprint2];
+                groupId6 = [v60 groupId];
+                v85 = [dictionary objectForKeyedSubscript:groupId6];
+                animalprint2 = [v85 animalprint];
+                [(VCPAnimal *)v66 setAnimalPrint:animalprint2];
 
-                groupId7 = [v56 groupId];
-                v84 = [dictionary objectForKeyedSubscript:groupId7];
-                [v84 boundingBox];
-                [(VCPAnimal *)v62 setTorsoBounds:?];
+                groupId7 = [v60 groupId];
+                v88 = [dictionary objectForKeyedSubscript:groupId7];
+                [v88 boundingBox];
+                [(VCPAnimal *)v66 setTorsoBounds:?];
 
-                groupId8 = [v56 groupId];
+                groupId8 = [v60 groupId];
                 [dictionary removeObjectForKey:groupId8];
 
-                [(VCPAnimal *)v62 setLabel:identifier3];
+                [(VCPAnimal *)v66 setLabel:identifier3];
               }
             }
           }
 
-          [facesCopy addObject:v62];
+          [facesCopy addObject:v66];
 
-          objc_autoreleasePoolPop(v57);
+          objc_autoreleasePoolPop(v61);
         }
 
-        v51 = [obj countByEnumeratingWithState:&v117 objects:v134 count:16];
+        v55 = [obj countByEnumeratingWithState:&v121 objects:v138 count:16];
       }
 
-      while (v51);
+      while (v55);
     }
 
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
-    v114 = 0u;
+    v119 = 0u;
+    v120 = 0u;
+    v117 = 0u;
+    v118 = 0u;
     obja = dictionary;
-    v86 = [obja countByEnumeratingWithState:&v113 objects:v132 count:16];
-    if (v86)
+    v90 = [obja countByEnumeratingWithState:&v117 objects:v136 count:16];
+    if (v90)
     {
-      v87 = *v114;
+      v91 = *v118;
       do
       {
-        for (k = 0; k != v86; ++k)
+        for (k = 0; k != v90; ++k)
         {
-          if (*v114 != v87)
+          if (*v118 != v91)
           {
             objc_enumerationMutation(obja);
           }
 
-          v89 = *(*(&v113 + 1) + 8 * k);
-          v90 = objc_autoreleasePoolPush();
-          v91 = [obja objectForKeyedSubscript:v89];
-          v92 = objc_alloc_init(VCPAnimalBody);
-          animalprint3 = [v91 animalprint];
-          [(VCPAnimalBody *)v92 setAnimalPrint:animalprint3];
+          v93 = *(*(&v117 + 1) + 8 * k);
+          v94 = objc_autoreleasePoolPush();
+          v95 = [obja objectForKeyedSubscript:v93];
+          v96 = objc_alloc_init(VCPAnimalBody);
+          animalprint3 = [v95 animalprint];
+          [(VCPAnimalBody *)v96 setAnimalPrint:animalprint3];
 
-          [v91 boundingBox];
-          [(VCPAnimalBody *)v92 setBounds:?];
-          labels4 = [v91 labels];
+          [v95 boundingBox];
+          [(VCPAnimalBody *)v96 setBounds:?];
+          labels4 = [v95 labels];
           firstObject4 = [labels4 firstObject];
           identifier4 = [firstObject4 identifier];
-          [(VCPAnimalBody *)v92 setLabel:identifier4];
+          [(VCPAnimalBody *)v96 setLabel:identifier4];
 
-          [torsosCopy addObject:v92];
-          objc_autoreleasePoolPop(v90);
+          [torsosCopy addObject:v96];
+          objc_autoreleasePoolPop(v94);
         }
 
-        v86 = [obja countByEnumeratingWithState:&v113 objects:v132 count:16];
+        v90 = [obja countByEnumeratingWithState:&v117 objects:v136 count:16];
       }
 
-      while (v86);
+      while (v90);
     }
 
-    v17 = 0;
-    v14 = 0;
+    v18 = 0;
+    v15 = 0;
     goto LABEL_80;
   }
 
-  v105 = 0;
-  v17 = 4;
+  v109 = 0;
+  v18 = 4;
 LABEL_25:
 
   objc_autoreleasePoolPop(context);
-  if ((v17 | 4) == 4 && v14 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if ((v18 | 4) == 4 && v15 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf.a) = 138412290;
-    *(&buf.a + 4) = v105;
+    *(&buf.a + 4) = v109;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VCPAnimalDetector] Failed to detect animals - %@", &buf, 0xCu);
   }
 
-  return v14;
+  return v15;
 }
 
 - (int)analyzeFrame:(__CVBuffer *)frame withTimestamp:(id *)timestamp andDuration:(id *)duration flags:(unint64_t *)flags
@@ -1299,7 +1300,7 @@ void __51__VCPVideoAnimalDetector_updateWithExistingAnimals__block_invoke_3(uint
         memset(&v44, 0, sizeof(v44));
         if (v9)
         {
-          [v9 timerange];
+          objc_msgSend_timerange(v9);
         }
 
         else

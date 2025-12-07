@@ -69,533 +69,533 @@
 
 + (id)serviceProtocolInterface
 {
-  v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F09BC188];
-  v218 = +[CNXPCDataMapper cursorProtocolInterface];
-  v3 = MEMORY[0x1E695DFA8];
-  v4 = objc_opt_class();
+  v3 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F09BC188];
+  v219 = +[(CNXPCDataMapper *)self];
+  v4 = MEMORY[0x1E695DFA8];
   v5 = objc_opt_class();
-  v217 = [v3 setWithObjects:{v4, v5, objc_opt_class(), 0}];
-  [v217 _cn_addNonNilObject:getPABridgedTCCIdentityClass[0]()];
-  [v2 setClasses:v217 forSelector:sel_configureServiceWithOptions_ argumentIndex:0 ofReply:0];
-  v6 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v6 forSelector:sel_identifierWithReply_ argumentIndex:0 ofReply:1];
-
+  v6 = objc_opt_class();
+  v218 = [v4 setWithObjects:{v5, v6, objc_opt_class(), 0}];
+  [v218 _cn_addNonNilObject:getPABridgedTCCIdentityClass()];
+  [v3 setClasses:v218 forSelector:sel_configureServiceWithOptions_ argumentIndex:0 ofReply:0];
   v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v7 forSelector:sel_identifierWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v7 forSelector:sel_identifierWithReply_ argumentIndex:0 ofReply:1];
 
   v8 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v8 forSelector:sel_unifiedContactCountWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v8 forSelector:sel_identifierWithReply_ argumentIndex:1 ofReply:1];
 
   v9 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v9 forSelector:sel_unifiedContactCountWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v9 forSelector:sel_unifiedContactCountWithReply_ argumentIndex:0 ofReply:1];
 
   v10 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v10 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v10 forSelector:sel_unifiedContactCountWithReply_ argumentIndex:1 ofReply:1];
 
   v11 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v11 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v11 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:0 ofReply:0];
 
-  v12 = MEMORY[0x1E695DFD8];
-  v13 = objc_opt_class();
-  v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-  [v2 setClasses:v14 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:1 ofReply:1];
+  v12 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v12 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:0 ofReply:1];
 
-  v15 = MEMORY[0x1E695DFD8];
-  v16 = objc_opt_class();
+  v13 = MEMORY[0x1E695DFD8];
+  v14 = objc_opt_class();
+  v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
+  [v3 setClasses:v15 forSelector:sel_contactCountForFetchRequest_withReply_ argumentIndex:1 ofReply:1];
+
+  v16 = MEMORY[0x1E695DFD8];
   v17 = objc_opt_class();
   v18 = objc_opt_class();
-  v19 = [v15 setWithObjects:{v16, v17, v18, objc_opt_class(), 0}];
-  [v2 setClasses:v19 forSelector:sel_sectionListOffsetsForSortOrder_reply_ argumentIndex:0 ofReply:1];
-
-  v20 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v20 forSelector:sel_sectionListOffsetsForSortOrder_reply_ argumentIndex:1 ofReply:1];
+  v19 = objc_opt_class();
+  v20 = [v16 setWithObjects:{v17, v18, v19, objc_opt_class(), 0}];
+  [v3 setClasses:v20 forSelector:sel_sectionListOffsetsForSortOrder_reply_ argumentIndex:0 ofReply:1];
 
   v21 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v21 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v21 forSelector:sel_sectionListOffsetsForSortOrder_reply_ argumentIndex:1 ofReply:1];
 
-  v22 = MEMORY[0x1E695DFD8];
-  v23 = objc_opt_class();
-  v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
-  [v2 setClasses:v24 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:0 ofReply:1];
+  v22 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v22 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:0 ofReply:0];
 
-  v25 = MEMORY[0x1E695DFD8];
-  v26 = objc_opt_class();
+  v23 = MEMORY[0x1E695DFD8];
+  v24 = objc_opt_class();
+  v25 = [v23 setWithObjects:{v24, objc_opt_class(), 0}];
+  [v3 setClasses:v25 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:0 ofReply:1];
+
+  v26 = MEMORY[0x1E695DFD8];
   v27 = objc_opt_class();
-  v28 = [v25 setWithObjects:{v26, v27, objc_opt_class(), 0}];
-  [v2 setClasses:v28 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:1 ofReply:1];
+  v28 = objc_opt_class();
+  v29 = [v26 setWithObjects:{v27, v28, objc_opt_class(), 0}];
+  [v3 setClasses:v29 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:1 ofReply:1];
 
-  v29 = MEMORY[0x1E695DFD8];
-  v30 = objc_opt_class();
-  v31 = [v29 setWithObjects:{v30, objc_opt_class(), 0}];
-  [v2 setClasses:v31 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:2 ofReply:1];
-
-  v32 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v32 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:0 ofReply:0];
+  v30 = MEMORY[0x1E695DFD8];
+  v31 = objc_opt_class();
+  v32 = [v30 setWithObjects:{v31, objc_opt_class(), 0}];
+  [v3 setClasses:v32 forSelector:sel_contactsForFetchRequest_withMatchInfoReply_ argumentIndex:2 ofReply:1];
 
   v33 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v33 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v33 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:0 ofReply:0];
 
-  v34 = MEMORY[0x1E695DFD8];
-  v35 = objc_opt_class();
+  v34 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v34 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:0 ofReply:1];
+
+  v35 = MEMORY[0x1E695DFD8];
   v36 = objc_opt_class();
   v37 = objc_opt_class();
-  v38 = [v34 setWithObjects:{v35, v36, v37, objc_opt_class(), 0}];
-  [v2 setClasses:v38 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:1 ofReply:1];
+  v38 = objc_opt_class();
+  v39 = [v35 setWithObjects:{v36, v37, v38, objc_opt_class(), 0}];
+  [v3 setClasses:v39 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:1 ofReply:1];
 
-  [v2 setInterface:v218 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:2 ofReply:1];
-  v39 = MEMORY[0x1E695DFD8];
-  v40 = objc_opt_class();
-  v41 = [v39 setWithObjects:{v40, objc_opt_class(), 0}];
-  [v2 setClasses:v41 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:4 ofReply:1];
+  [v3 setInterface:v219 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:2 ofReply:1];
+  v40 = MEMORY[0x1E695DFD8];
+  v41 = objc_opt_class();
+  v42 = [v40 setWithObjects:{v41, objc_opt_class(), 0}];
+  [v3 setClasses:v42 forSelector:sel_encodedContactsAndCursorForFetchRequest_withReply_ argumentIndex:4 ofReply:1];
 
-  v42 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0991350];
-  v216 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F09BC1E8];
-  v43 = MEMORY[0x1E695DFD8];
-  v44 = objc_opt_class();
-  v45 = [v43 setWithObjects:{v44, objc_opt_class(), 0}];
-  [v42 setClasses:v45 forSelector:sel_receiveProgressiveContacts_matchInfos_ argumentIndex:0 ofReply:0];
+  v43 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0991350];
+  v217 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F09BC1E8];
+  v44 = MEMORY[0x1E695DFD8];
+  v45 = objc_opt_class();
+  v46 = [v44 setWithObjects:{v45, objc_opt_class(), 0}];
+  [v43 setClasses:v46 forSelector:sel_receiveProgressiveContacts_matchInfos_ argumentIndex:0 ofReply:0];
 
-  v46 = MEMORY[0x1E695DFD8];
-  v47 = objc_opt_class();
+  v47 = MEMORY[0x1E695DFD8];
   v48 = objc_opt_class();
-  v49 = [v46 setWithObjects:{v47, v48, objc_opt_class(), 0}];
-  [v42 setClasses:v49 forSelector:sel_receiveProgressiveContacts_matchInfos_ argumentIndex:1 ofReply:0];
+  v49 = objc_opt_class();
+  v50 = [v47 setWithObjects:{v48, v49, objc_opt_class(), 0}];
+  [v43 setClasses:v50 forSelector:sel_receiveProgressiveContacts_matchInfos_ argumentIndex:1 ofReply:0];
 
-  v50 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v50 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:0 ofReply:0];
+  v51 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v51 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:0 ofReply:0];
 
-  [v2 setInterface:v42 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:1 ofReply:0];
-  [v2 setInterface:v216 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:0 ofReply:1];
-  v51 = MEMORY[0x1E695DFD8];
-  v52 = objc_opt_class();
-  v53 = [v51 setWithObjects:{v52, objc_opt_class(), 0}];
-  [v2 setClasses:v53 forSelector:sel_meContactIdentifiersWithReply_ argumentIndex:0 ofReply:1];
-
-  v54 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v54 forSelector:sel_meContactIdentifiersWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setInterface:v43 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:1 ofReply:0];
+  [v3 setInterface:v217 forSelector:sel_progressiveContactsForFetchRequest_progressHandler_reply_ argumentIndex:0 ofReply:1];
+  v52 = MEMORY[0x1E695DFD8];
+  v53 = objc_opt_class();
+  v54 = [v52 setWithObjects:{v53, objc_opt_class(), 0}];
+  [v3 setClasses:v54 forSelector:sel_meContactIdentifiersWithReply_ argumentIndex:0 ofReply:1];
 
   v55 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v55 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v55 forSelector:sel_meContactIdentifiersWithReply_ argumentIndex:1 ofReply:1];
 
   v56 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v56 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v56 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:0 ofReply:0];
 
-  v57 = MEMORY[0x1E695DFD8];
-  v58 = objc_opt_class();
+  v57 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v57 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:1 ofReply:1];
+
+  v58 = MEMORY[0x1E695DFD8];
   v59 = objc_opt_class();
   v60 = objc_opt_class();
   v61 = objc_opt_class();
   v62 = objc_opt_class();
-  v63 = [v57 setWithObjects:{v58, v59, v60, v61, v62, objc_opt_class(), 0}];
-  [v2 setClasses:v63 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:2 ofReply:1];
+  v63 = objc_opt_class();
+  v64 = [v58 setWithObjects:{v59, v60, v61, v62, v63, objc_opt_class(), 0}];
+  [v3 setClasses:v64 forSelector:sel_executeSaveRequest_withReply_ argumentIndex:2 ofReply:1];
 
-  v64 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v64 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
+  v65 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v65 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
 
-  v65 = MEMORY[0x1E695DFD8];
-  v66 = objc_opt_class();
-  v67 = [v65 setWithObjects:{v66, objc_opt_class(), 0}];
-  [v2 setClasses:v67 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
-
-  v68 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v68 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
+  v66 = MEMORY[0x1E695DFD8];
+  v67 = objc_opt_class();
+  v68 = [v66 setWithObjects:{v67, objc_opt_class(), 0}];
+  [v3 setClasses:v68 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
 
   v69 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v69 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v69 forSelector:sel_containersMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
 
-  v70 = MEMORY[0x1E695DFD8];
-  v71 = objc_opt_class();
-  v72 = [v70 setWithObjects:{v71, objc_opt_class(), 0}];
-  [v2 setClasses:v72 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
+  v70 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v70 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
 
-  v73 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v73 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
+  v71 = MEMORY[0x1E695DFD8];
+  v72 = objc_opt_class();
+  v73 = [v71 setWithObjects:{v72, objc_opt_class(), 0}];
+  [v3 setClasses:v73 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
 
   v74 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v74 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v74 forSelector:sel_serverSearchContainersMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
 
-  v75 = MEMORY[0x1E695DFD8];
-  v76 = objc_opt_class();
-  v77 = [v75 setWithObjects:{v76, objc_opt_class(), 0}];
-  [v2 setClasses:v77 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  v75 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v75 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
-  v78 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v78 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  v76 = MEMORY[0x1E695DFD8];
+  v77 = objc_opt_class();
+  v78 = [v76 setWithObjects:{v77, objc_opt_class(), 0}];
+  [v3 setClasses:v78 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
   v79 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v79 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v79 forSelector:sel_policyForContainerWithIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
-  v80 = MEMORY[0x1E695DFD8];
-  v81 = objc_opt_class();
-  v82 = [v80 setWithObjects:{v81, objc_opt_class(), 0}];
-  [v2 setClasses:v82 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
+  v80 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v80 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
 
-  v83 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v83 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
+  v81 = MEMORY[0x1E695DFD8];
+  v82 = objc_opt_class();
+  v83 = [v81 setWithObjects:{v82, objc_opt_class(), 0}];
+  [v3 setClasses:v83 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
 
   v84 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v84 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v84 forSelector:sel_accountsMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
 
-  v85 = MEMORY[0x1E695DFD8];
-  v86 = objc_opt_class();
-  v87 = [v85 setWithObjects:{v86, objc_opt_class(), 0}];
-  [v2 setClasses:v87 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
+  v85 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v85 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:0 ofReply:0];
 
-  v88 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v88 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
+  v86 = MEMORY[0x1E695DFD8];
+  v87 = objc_opt_class();
+  v88 = [v86 setWithObjects:{v87, objc_opt_class(), 0}];
+  [v3 setClasses:v88 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:0 ofReply:1];
 
   v89 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v89 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v89 forSelector:sel_groupsMatchingPredicate_withReply_ argumentIndex:1 ofReply:1];
 
-  v90 = MEMORY[0x1E695DFD8];
-  v91 = objc_opt_class();
-  v92 = [v90 setWithObjects:{v91, objc_opt_class(), 0}];
-  [v2 setClasses:v92 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  v90 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v90 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
-  v93 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v93 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  v91 = MEMORY[0x1E695DFD8];
+  v92 = objc_opt_class();
+  v93 = [v91 setWithObjects:{v92, objc_opt_class(), 0}];
+  [v3 setClasses:v93 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
   v94 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v94 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v94 forSelector:sel_subgroupsOfGroupWithIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
   v95 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v95 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v95 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:0 ofReply:0];
 
   v96 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v96 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v96 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   v97 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v97 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v97 forSelector:sel_defaultContainerIdentifierWithReply_ argumentIndex:1 ofReply:1];
 
   v98 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v98 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v98 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
   v99 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v99 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v99 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
   v100 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v100 forSelector:sel_setMeContact_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v100 forSelector:sel_setDefaultAccountIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
   v101 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v101 forSelector:sel_setMeContact_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v101 forSelector:sel_setMeContact_withReply_ argumentIndex:0 ofReply:0];
 
   v102 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v102 forSelector:sel_setMeContact_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v102 forSelector:sel_setMeContact_withReply_ argumentIndex:0 ofReply:1];
 
   v103 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v103 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v103 forSelector:sel_setMeContact_withReply_ argumentIndex:1 ofReply:1];
 
   v104 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v104 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v104 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:0 ofReply:0];
 
   v105 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v105 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v105 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:1 ofReply:0];
 
   v106 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v106 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v106 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:0 ofReply:1];
 
   v107 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v107 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v107 forSelector:sel_setMeContact_forContainer_withReply_ argumentIndex:1 ofReply:1];
 
   v108 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v108 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v108 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:0 ofReply:0];
 
   v109 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v109 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:2 ofReply:0];
+  [v3 setClasses:v109 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:1 ofReply:0];
 
   v110 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v110 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v110 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:2 ofReply:0];
 
   v111 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v111 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v111 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:0 ofReply:1];
 
   v112 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v112 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v112 forSelector:sel_setBestMeIfNeededForGivenName_familyName_email_withReply_ argumentIndex:1 ofReply:1];
 
-  v113 = MEMORY[0x1E695DFD8];
-  v114 = objc_opt_class();
+  v113 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v113 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:0 ofReply:0];
+
+  v114 = MEMORY[0x1E695DFD8];
   v115 = objc_opt_class();
   v116 = objc_opt_class();
-  v117 = [v113 setWithObjects:{v114, v115, v116, objc_opt_class(), 0}];
-  [v2 setClasses:v117 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:0 ofReply:1];
-
-  v118 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v118 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:1 ofReply:1];
+  v117 = objc_opt_class();
+  v118 = [v114 setWithObjects:{v115, v116, v117, objc_opt_class(), 0}];
+  [v3 setClasses:v118 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:0 ofReply:1];
 
   v119 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v119 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v119 forSelector:sel_favoritesEntryDictionariesAtPath_withReply_ argumentIndex:1 ofReply:1];
 
   v120 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v120 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v120 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:0 ofReply:0];
 
   v121 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v121 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v121 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:1 ofReply:0];
 
   v122 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v122 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v122 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:0 ofReply:1];
 
   v123 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v123 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v123 forSelector:sel_writeFavoritesPropertyListData_toPath_withReply_ argumentIndex:1 ofReply:1];
 
   v124 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v124 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v124 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
   v125 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v125 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v125 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:0];
 
   v126 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v126 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v126 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
   v127 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v127 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v127 forSelector:sel_registerChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
   v128 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v128 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v128 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
   v129 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v129 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v129 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:0];
 
   v130 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v130 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v130 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
   v131 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v131 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v131 forSelector:sel_unregisterChangeHistoryClientIdentifier_forContainerIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
   v132 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v132 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v132 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:0 ofReply:0];
 
-  v133 = MEMORY[0x1E695DFD8];
-  v134 = objc_opt_class();
-  v135 = [v133 setWithObjects:{v134, objc_opt_class(), 0}];
-  [v2 setClasses:v135 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:1 ofReply:1];
+  v133 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v133 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:0 ofReply:1];
 
-  v136 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v136 forSelector:sel_currentHistoryTokenWithReply_ argumentIndex:0 ofReply:1];
+  v134 = MEMORY[0x1E695DFD8];
+  v135 = objc_opt_class();
+  v136 = [v134 setWithObjects:{v135, objc_opt_class(), 0}];
+  [v3 setClasses:v136 forSelector:sel_changeHistoryWithFetchRequest_withReply_ argumentIndex:1 ofReply:1];
 
   v137 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v137 forSelector:sel_currentHistoryTokenWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v137 forSelector:sel_currentHistoryTokenWithReply_ argumentIndex:0 ofReply:1];
 
   v138 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v138 forSelector:sel_currentHistoryAnchorWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v138 forSelector:sel_currentHistoryTokenWithReply_ argumentIndex:1 ofReply:1];
 
   v139 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v139 forSelector:sel_currentHistoryAnchorWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v139 forSelector:sel_currentHistoryAnchorWithReply_ argumentIndex:0 ofReply:1];
 
-  v140 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v140 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:0 ofReply:0];
+  v140 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v140 forSelector:sel_currentHistoryAnchorWithReply_ argumentIndex:1 ofReply:1];
 
   v141 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v141 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v141 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:0 ofReply:0];
 
   v142 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v142 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v142 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:0 ofReply:1];
 
   v143 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v143 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v143 forSelector:sel_executeChangeHistoryClearRequest_withReply_ argumentIndex:1 ofReply:1];
 
   v144 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v144 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v144 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:0 ofReply:0];
 
   v145 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v145 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v145 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:0 ofReply:1];
 
   v146 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v146 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v146 forSelector:sel_geminiResultForContact_substituteDefaultForDangling_withReply_ argumentIndex:1 ofReply:1];
 
-  v147 = [MEMORY[0x1E695DFD8] setWithObjects:{getTUSenderIdentityClass(), 0}];
-  [v2 setClasses:v147 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:0 ofReply:1];
+  v147 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v147 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:0 ofReply:0];
 
-  v148 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v148 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:1 ofReply:1];
+  v148 = [MEMORY[0x1E695DFD8] setWithObjects:{getTUSenderIdentityClass(), 0}];
+  [v3 setClasses:v148 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:0 ofReply:1];
 
-  v149 = +[CNSecureCodingClassSets keyDescriptorClasses];
-  [v2 setClasses:v149 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:0 ofReply:0];
+  v149 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v149 forSelector:sel_bestSenderIdentityForHandle_withReply_ argumentIndex:1 ofReply:1];
 
   v150 = +[CNSecureCodingClassSets keyDescriptorClasses];
-  [v2 setClasses:v150 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v150 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:0 ofReply:0];
 
-  v151 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v151 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:1 ofReply:1];
+  v151 = +[CNSecureCodingClassSets keyDescriptorClasses];
+  [v3 setClasses:v151 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:0 ofReply:1];
 
   v152 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v152 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v152 forSelector:sel_authorizedKeysForContactKeys_withReply_ argumentIndex:1 ofReply:1];
 
   v153 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v153 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v153 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:0 ofReply:0];
 
-  v154 = MEMORY[0x1E695DFD8];
-  v155 = objc_opt_class();
+  v154 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v154 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:1 ofReply:0];
+
+  v155 = MEMORY[0x1E695DFD8];
   v156 = objc_opt_class();
   v157 = objc_opt_class();
-  v158 = [v154 setWithObjects:{v155, v156, v157, objc_opt_class(), 0}];
-  [v2 setClasses:v158 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:0 ofReply:1];
-
-  v159 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v159 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  v158 = objc_opt_class();
+  v159 = [v155 setWithObjects:{v156, v157, v158, objc_opt_class(), 0}];
+  [v3 setClasses:v159 forSelector:sel_getBackgroundColorOnImageData_bitmapFormat_withReply_ argumentIndex:0 ofReply:1];
 
   v160 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v160 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v160 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
-  v161 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v161 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  v161 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v161 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:0];
 
   v162 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v162 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v162 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
-  v163 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v163 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:0];
+  v163 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v163 forSelector:sel_addLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
-  v164 = MEMORY[0x1E695DFD8];
-  v165 = objc_opt_class();
-  v166 = [v164 setWithObjects:{v165, objc_opt_class(), 0}];
-  [v2 setClasses:v166 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:0];
+  v164 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v164 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:0];
 
-  v167 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v167 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:1];
+  v165 = MEMORY[0x1E695DFD8];
+  v166 = objc_opt_class();
+  v167 = [v165 setWithObjects:{v166, objc_opt_class(), 0}];
+  [v3 setClasses:v167 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:0];
 
   v168 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v168 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v168 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:1];
 
   v169 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v169 forSelector:sel_getLimitedAccessContactsCountForBundle_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v169 forSelector:sel_addLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:1];
 
   v170 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v170 forSelector:sel_getLimitedAccessContactsCountForBundle_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v170 forSelector:sel_getLimitedAccessContactsCountForBundle_withReply_ argumentIndex:0 ofReply:0];
 
-  v171 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v171 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:0];
+  v171 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v171 forSelector:sel_getLimitedAccessContactsCountForBundle_withReply_ argumentIndex:0 ofReply:1];
 
   v172 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v172 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:0];
+  [v3 setClasses:v172 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:0];
 
-  v173 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v173 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:1];
+  v173 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v173 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:0];
 
   v174 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v174 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v174 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:0 ofReply:1];
 
-  v175 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v175 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:0];
+  v175 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v175 forSelector:sel_removeLimitedAccessForBundle_contactIdentifier_withReply_ argumentIndex:1 ofReply:1];
 
-  v176 = MEMORY[0x1E695DFD8];
-  v177 = objc_opt_class();
-  v178 = [v176 setWithObjects:{v177, objc_opt_class(), 0}];
-  [v2 setClasses:v178 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:0];
+  v176 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v176 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:0];
 
-  v179 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v179 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:1];
+  v177 = MEMORY[0x1E695DFD8];
+  v178 = objc_opt_class();
+  v179 = [v177 setWithObjects:{v178, objc_opt_class(), 0}];
+  [v3 setClasses:v179 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:0];
 
   v180 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v180 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v180 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:0 ofReply:1];
 
-  v181 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v181 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:0 ofReply:0];
+  v181 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v181 forSelector:sel_removeLimitedAccessForBundle_contactIdentifiers_withReply_ argumentIndex:1 ofReply:1];
 
-  v182 = MEMORY[0x1E695DFD8];
-  v183 = objc_opt_class();
-  v184 = [v182 setWithObjects:{v183, objc_opt_class(), 0}];
-  [v2 setClasses:v184 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:0 ofReply:1];
+  v182 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v182 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:0 ofReply:0];
 
-  v185 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v185 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:1 ofReply:1];
+  v183 = MEMORY[0x1E695DFD8];
+  v184 = objc_opt_class();
+  v185 = [v183 setWithObjects:{v184, objc_opt_class(), 0}];
+  [v3 setClasses:v185 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:0 ofReply:1];
 
-  v186 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v186 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
+  v186 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v186 forSelector:sel_fetchLimitedAccessContactIdentifiersForBundle_withReply_ argumentIndex:1 ofReply:1];
 
   v187 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v187 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v187 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
 
-  v188 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v188 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
+  v188 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v188 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
 
-  v189 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v189 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:0 ofReply:0];
+  v189 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v189 forSelector:sel_populateSyncTableForLimitedAccessAboveSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
 
-  v190 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v190 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:0 ofReply:1];
+  v190 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v190 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:0 ofReply:0];
 
   v191 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v191 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v191 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:0 ofReply:1];
 
   v192 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v192 forSelector:sel_getLimitedAccessLastSyncSequenceNumberWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v192 forSelector:sel_updateLimitedAccessTable_withReply_ argumentIndex:1 ofReply:1];
 
   v193 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v193 forSelector:sel_getLimitedAccessLastSyncSequenceNumberWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v193 forSelector:sel_getLimitedAccessLastSyncSequenceNumberWithReply_ argumentIndex:0 ofReply:1];
 
-  v194 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v194 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:0 ofReply:0];
+  v194 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v194 forSelector:sel_getLimitedAccessLastSyncSequenceNumberWithReply_ argumentIndex:1 ofReply:1];
 
-  v195 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v195 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:0 ofReply:1];
+  v195 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v195 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:0 ofReply:0];
 
   v196 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v196 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v196 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:0 ofReply:1];
 
-  v197 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v197 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
+  v197 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v197 forSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ argumentIndex:1 ofReply:1];
 
   v198 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v198 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v198 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
 
-  v199 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v199 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
+  v199 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v199 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
 
-  v200 = MEMORY[0x1E695DFD8];
-  v201 = objc_opt_class();
-  v202 = [v200 setWithObjects:{v201, objc_opt_class(), 0}];
-  [v2 setClasses:v202 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:0 ofReply:0];
+  v200 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v200 forSelector:sel_getWatchLimitedAccessSyncDataStartingAtSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
 
-  v203 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v203 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:0 ofReply:1];
+  v201 = MEMORY[0x1E695DFD8];
+  v202 = objc_opt_class();
+  v203 = [v201 setWithObjects:{v202, objc_opt_class(), 0}];
+  [v3 setClasses:v203 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:0 ofReply:0];
 
   v204 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v204 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v204 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:0 ofReply:1];
 
-  v205 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v205 forSelector:sel_dropAllLimitedAccessRowsWithReply_ argumentIndex:0 ofReply:1];
+  v205 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v205 forSelector:sel_applyLimitedAccessSyncEvents_withReply_ argumentIndex:1 ofReply:1];
 
   v206 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v206 forSelector:sel_dropAllLimitedAccessRowsWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v206 forSelector:sel_dropAllLimitedAccessRowsWithReply_ argumentIndex:0 ofReply:1];
 
   v207 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v207 forSelector:sel_dropAllLimitedAccessRowsAndSyncNotifyWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v207 forSelector:sel_dropAllLimitedAccessRowsWithReply_ argumentIndex:1 ofReply:1];
 
   v208 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v208 forSelector:sel_dropAllLimitedAccessRowsAndSyncNotifyWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v208 forSelector:sel_dropAllLimitedAccessRowsAndSyncNotifyWithReply_ argumentIndex:0 ofReply:1];
 
   v209 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v2 setClasses:v209 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
+  [v3 setClasses:v209 forSelector:sel_dropAllLimitedAccessRowsAndSyncNotifyWithReply_ argumentIndex:1 ofReply:1];
 
-  v210 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v210 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
+  v210 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v3 setClasses:v210 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:0 ofReply:0];
 
   v211 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v211 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v211 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:0 ofReply:1];
 
   v212 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v212 forSelector:sel_shouldAnalyzeDatabaseWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v212 forSelector:sel_setLimitedAccessTableCurrentSequenceNumber_withReply_ argumentIndex:1 ofReply:1];
 
   v213 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v213 forSelector:sel_analyzeDatabaseWithReply_ argumentIndex:0 ofReply:1];
+  [v3 setClasses:v213 forSelector:sel_shouldAnalyzeDatabaseWithReply_ argumentIndex:1 ofReply:1];
 
   v214 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v2 setClasses:v214 forSelector:sel_analyzeDatabaseWithReply_ argumentIndex:1 ofReply:1];
+  [v3 setClasses:v214 forSelector:sel_analyzeDatabaseWithReply_ argumentIndex:0 ofReply:1];
 
-  return v2;
+  v215 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v3 setClasses:v215 forSelector:sel_analyzeDatabaseWithReply_ argumentIndex:1 ofReply:1];
+
+  return v3;
 }
 
 + (id)cursorProtocolInterface
 {
   objc_opt_self();
-  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0996A28];
-  v1 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v0 setClasses:v1 forSelector:sel_fetchNextBatchWithReply_ argumentIndex:0 ofReply:1];
-
+  v1 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0996A28];
   v2 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  [v0 setClasses:v2 forSelector:sel_fetchNextBatchWithReply_ argumentIndex:2 ofReply:1];
+  [v1 setClasses:v2 forSelector:sel_fetchNextBatchWithReply_ argumentIndex:0 ofReply:1];
 
-  return v0;
+  v3 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  [v1 setClasses:v3 forSelector:sel_fetchNextBatchWithReply_ argumentIndex:2 ofReply:1];
+
+  return v1;
 }
 
 - (id)currentHistoryToken
@@ -637,9 +637,9 @@
     +[CNXPCDataMapper os_log];
   }
 
-  v0 = os_log_cn_once_object_2_2;
+  v1 = os_log_cn_once_object_2_2;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __25__CNXPCDataMapper_os_log__block_invoke()
@@ -736,7 +736,7 @@ uint64_t __25__CNXPCDataMapper_os_log__block_invoke()
 
     if (assumedIdentity2)
     {
-      v28 = objc_alloc(getPABridgedTCCIdentityClass[0]());
+      v28 = objc_alloc(getPABridgedTCCIdentityClass());
       assumedIdentity3 = [configurationCopy assumedIdentity];
       v30 = [v28 initWithTCCIdentity:assumedIdentity3];
 
@@ -1285,15 +1285,15 @@ void __74__CNXPCDataMapper_executeSaveRequest_response_authorizationContext_erro
 
 - (id)sectionListOffsetsForSortOrder:(int64_t)order error:(id *)error
 {
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__6;
-  v27 = __Block_byref_object_dispose__6;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__6;
+  v34 = __Block_byref_object_dispose__6;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_3();
   if (v6)
@@ -1308,24 +1308,24 @@ void __74__CNXPCDataMapper_executeSaveRequest_response_authorizationContext_erro
 
   v8 = v7;
   OUTLINED_FUNCTION_2();
-  v18[1] = 3221225472;
-  v18[2] = __56__CNXPCDataMapper_sectionListOffsetsForSortOrder_error___block_invoke;
-  v18[3] = &unk_1E7412E88;
-  v18[4] = &v23;
-  v18[5] = &v19;
-  [v9 sectionListOffsetsForSortOrder:order reply:v18];
+  v21 = 3221225472;
+  v22 = __56__CNXPCDataMapper_sectionListOffsetsForSortOrder_error___block_invoke;
+  v23 = &unk_1E7412E88;
+  v24 = &v30;
+  v25 = &v26;
+  [v9 sectionListOffsetsForSortOrder:order reply:&v20];
 
-  v10 = v24[5];
+  v10 = v31[5];
   if (error && !v10)
   {
-    *error = v20[5];
-    v10 = v24[5];
+    *error = v27[5];
+    v10 = v31[5];
   }
 
   v11 = v10;
-  OUTLINED_FUNCTION_11(v11, v12, v13, v14, v15, v16);
+  OUTLINED_FUNCTION_11(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21, v22, v23);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v30, 8);
 
   return error;
 }
@@ -2158,12 +2158,12 @@ LABEL_12:
 
   if (v11)
   {
-    objc_opt_class();
-    v12 = +[CNXPCDataMapper os_log];
-    if (OUTLINED_FUNCTION_15(v12))
+    v12 = objc_opt_class();
+    v13 = +[(CNXPCDataMapper *)v12];
+    if (OUTLINED_FUNCTION_15(v13))
     {
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v13, v14, "addLimitedAccessForBundle error: %@", v15, v16, v17, v18, v19, 0, v20);
+      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v14, v15, "addLimitedAccessForBundle error: %@", v16, v17, v18, v19, v20, 0);
     }
   }
 }
@@ -2188,12 +2188,12 @@ LABEL_12:
 
   if (v11)
   {
-    objc_opt_class();
-    v12 = +[CNXPCDataMapper os_log];
-    if (OUTLINED_FUNCTION_15(v12))
+    v12 = objc_opt_class();
+    v13 = +[(CNXPCDataMapper *)v12];
+    if (OUTLINED_FUNCTION_15(v13))
     {
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v13, v14, "addLimitedAccessForBundle error: %@", v15, v16, v17, v18, v19, 0, v20);
+      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v14, v15, "addLimitedAccessForBundle error: %@", v16, v17, v18, v19, v20, 0);
     }
   }
 }
@@ -2218,12 +2218,12 @@ LABEL_12:
 
   if (v11)
   {
-    objc_opt_class();
-    v12 = +[CNXPCDataMapper os_log];
-    if (OUTLINED_FUNCTION_15(v12))
+    v12 = objc_opt_class();
+    v13 = +[(CNXPCDataMapper *)v12];
+    if (OUTLINED_FUNCTION_15(v13))
     {
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v13, v14, "removeLimitedAccessForBundle error: %@", v15, v16, v17, v18, v19, 0, v20);
+      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v14, v15, "removeLimitedAccessForBundle error: %@", v16, v17, v18, v19, v20, 0);
     }
   }
 }
@@ -2248,19 +2248,19 @@ LABEL_12:
 
   if (v11)
   {
-    objc_opt_class();
-    v12 = +[CNXPCDataMapper os_log];
-    if (OUTLINED_FUNCTION_15(v12))
+    v12 = objc_opt_class();
+    v13 = +[(CNXPCDataMapper *)v12];
+    if (OUTLINED_FUNCTION_15(v13))
     {
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v13, v14, "removeLimitedAccessForBundle error: %@", v15, v16, v17, v18, v19, 0, v20);
+      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v14, v15, "removeLimitedAccessForBundle error: %@", v16, v17, v18, v19, v20, 0);
     }
   }
 }
 
 - (void)purgeLimitedAccessRecordsForBundle:(id)bundle
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   if (self)
   {
     serviceConnection = self->_serviceConnection;
@@ -2271,19 +2271,19 @@ LABEL_12:
     serviceConnection = 0;
   }
 
-  v17 = 0;
+  v18[0] = 0;
   v6 = serviceConnection;
-  v7 = [(CNXPCConnection *)v6 remoteResultForSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ param1:bundle error:&v17];
-  v8 = v17;
+  v7 = [(CNXPCConnection *)v6 remoteResultForSelector:sel_purgeLimitedAccessRecordsForBundle_withReply_ param1:bundle error:v18];
+  v8 = v18[0];
 
   if (v8)
   {
-    objc_opt_class();
-    v9 = +[CNXPCDataMapper os_log];
-    if (OUTLINED_FUNCTION_15(v9))
+    v9 = objc_opt_class();
+    v10 = +[(CNXPCDataMapper *)v9];
+    if (OUTLINED_FUNCTION_15(v10))
     {
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v10, v11, "purgeLimitedAccessRecordsForBundle error: %@", v12, v13, v14, v15, v16, v17, v18);
+      OUTLINED_FUNCTION_6_1(&dword_1954A0000, v11, v12, "purgeLimitedAccessRecordsForBundle error: %@", v13, v14, v15, v16, v17, v18[0]);
     }
   }
 }

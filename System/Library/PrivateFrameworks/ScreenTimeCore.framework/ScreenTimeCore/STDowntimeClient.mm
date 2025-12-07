@@ -44,7 +44,7 @@
 
 - (BOOL)isDowntimeEnabledForUserID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[STLog downtimeClient];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -56,46 +56,45 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__0;
+  v26 = __Block_byref_object_dispose__0;
+  v27 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   connection = [(STDowntimeClient *)self connection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke;
-  v15[3] = &unk_1E7CE6BA8;
-  v15[4] = &buf;
-  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v15];
-
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke_2;
-  v14[3] = &unk_1E7CE6BD0;
+  v14[2] = __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke;
+  v14[3] = &unk_1E7CE6BA8;
   v14[4] = &buf;
-  v14[5] = &v16;
-  [v7 isDowntimeEnabledForUserID:dCopy completionHandler:v14];
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke_2;
+  v13[3] = &unk_1E7CE6BD0;
+  v13[4] = &buf;
+  v13[5] = &v15;
+  [v7 isDowntimeEnabledForUserID:dCopy completionHandler:v13];
   v8 = +[STLog downtimeClient];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(v17 + 24);
+    v9 = *(v16 + 24);
     v10 = *(*(&buf + 1) + 40);
-    *v20 = 67109378;
-    v21 = v9;
-    v22 = 2114;
-    v23 = v10;
-    _os_log_impl(&dword_1B831F000, v8, OS_LOG_TYPE_DEFAULT, "Got downtime state: %d - Error: %{public}@", v20, 0x12u);
+    *v19 = 67109378;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v10;
+    _os_log_impl(&dword_1B831F000, v8, OS_LOG_TYPE_DEFAULT, "Got downtime state: %d - Error: %{public}@", v19, 0x12u);
   }
 
-  v11 = *(v17 + 24);
-  _Block_object_dispose(&v16, 8);
+  v11 = *(v16 + 24);
+  _Block_object_dispose(&v15, 8);
   _Block_object_dispose(&buf, 8);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -108,7 +107,7 @@ void __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke_2(uint64_t
 
 - (void)toggleOnDemandDowntimeForUserID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = +[STLog downtimeClient];
@@ -121,37 +120,35 @@ void __47__STDowntimeClient_isDowntimeEnabledForUserID___block_invoke_2(uint64_t
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__0;
-  v21 = __Block_byref_object_dispose__0;
-  v22 = 0;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__0;
+  v20 = __Block_byref_object_dispose__0;
+  v21 = 0;
   connection = [(STDowntimeClient *)self connection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __70__STDowntimeClient_toggleOnDemandDowntimeForUserID_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CE6BA8;
-  v15[4] = &buf;
-  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v15];
-
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __70__STDowntimeClient_toggleOnDemandDowntimeForUserID_completionHandler___block_invoke_2;
+  v14[2] = __70__STDowntimeClient_toggleOnDemandDowntimeForUserID_completionHandler___block_invoke;
   v14[3] = &unk_1E7CE6BA8;
   v14[4] = &buf;
-  [v10 toggleOnDemandDowntimeForUserID:dCopy completionHandler:v14];
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __70__STDowntimeClient_toggleOnDemandDowntimeForUserID_completionHandler___block_invoke_2;
+  v13[3] = &unk_1E7CE6BA8;
+  v13[4] = &buf;
+  [v10 toggleOnDemandDowntimeForUserID:dCopy completionHandler:v13];
   v11 = +[STLog downtimeClient];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(*(&buf + 1) + 40);
-    *v16 = 138412290;
-    v17 = v12;
-    _os_log_impl(&dword_1B831F000, v11, OS_LOG_TYPE_DEFAULT, "Toggle On Demand Downtime with Error: %@", v16, 0xCu);
+    *v15 = 138412290;
+    v16 = v12;
+    _os_log_impl(&dword_1B831F000, v11, OS_LOG_TYPE_DEFAULT, "Toggle On Demand Downtime with Error: %@", v15, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, *(*(&buf + 1) + 40));
   _Block_object_dispose(&buf, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

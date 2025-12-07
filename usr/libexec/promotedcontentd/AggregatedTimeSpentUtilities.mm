@@ -7,7 +7,7 @@
 
 + (id)retrieveComponentMetaDataFromEntries:(id)entries
 {
-  type metadata accessor for AggregatedTimeSpentEntry();
+  type metadata accessor for AggregatedTimeSpentEntry(0);
   v3 = sub_100399198();
   v4 = sub_10031C978(v3);
 

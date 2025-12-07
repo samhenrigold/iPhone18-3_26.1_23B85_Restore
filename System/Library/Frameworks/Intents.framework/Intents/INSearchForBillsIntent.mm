@@ -42,8 +42,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v19[5] = *MEMORY[0x1E69E9840];
-  v18[0] = @"billPayee";
+  v18[5] = *MEMORY[0x1E69E9840];
+  v17[0] = @"billPayee";
   billPayee = [(INSearchForBillsIntent *)self billPayee];
   null = billPayee;
   if (!billPayee)
@@ -51,8 +51,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"paymentDateRange";
+  v18[0] = null;
+  v17[1] = @"paymentDateRange";
   paymentDateRange = [(INSearchForBillsIntent *)self paymentDateRange];
   null2 = paymentDateRange;
   if (!paymentDateRange)
@@ -60,8 +60,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v18[2] = @"billType";
+  v18[1] = null2;
+  v17[2] = @"billType";
   billType = [(INSearchForBillsIntent *)self billType];
   if ((billType - 1) > 0x15)
   {
@@ -74,8 +74,8 @@
   }
 
   v9 = v8;
-  v19[2] = v9;
-  v18[3] = @"status";
+  v18[2] = v9;
+  v17[3] = @"status";
   status = [(INSearchForBillsIntent *)self status];
   if ((status - 1) > 4)
   {
@@ -88,8 +88,8 @@
   }
 
   v12 = v11;
-  v19[3] = v12;
-  v18[4] = @"dueDateRange";
+  v18[3] = v12;
+  v17[4] = @"dueDateRange";
   dueDateRange = [(INSearchForBillsIntent *)self dueDateRange];
   null3 = dueDateRange;
   if (!dueDateRange)
@@ -97,8 +97,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[4] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[4] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
   if (!dueDateRange)
   {
   }
@@ -110,8 +110,6 @@
   if (!billPayee)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

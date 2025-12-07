@@ -1,6 +1,6 @@
 const void *CPDateFormatStringForFormatType(const void *a1)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   if (_RegisterForLocaleChangeNotificationIfNecessary_onceToken != -1)
   {
     CPDateFormatStringForFormatType_cold_1();
@@ -11,19 +11,19 @@ const void *CPDateFormatStringForFormatType(const void *a1)
   if (!__LocaleDateFormats)
   {
     __LocaleDateFormats = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfFile:{objc_msgSend(CPSharedResourcesDirectory(), "stringByAppendingPathComponent:", @"Library/Caches/DateFormats.plist"}];
-    v6 = MEMORY[0x1E695E890];
+    v5 = MEMORY[0x1E695E890];
     if (!__LocaleDateFormats)
     {
       goto LABEL_18;
     }
 
     VersionString = _CreateVersionString();
-    v8 = *v6;
-    v9 = CFPreferencesCopyAppValue(@"AppleICUForce12HourTime", *v6);
-    v10 = CFPreferencesCopyAppValue(@"AppleICUForce24HourTime", v8);
-    v11 = __LocaleDateFormats;
-    v12 = MEMORY[0x19A8C1930](v2);
-    if (!_CachedValueIsEqualToExpectedValue(v11, @"Locale", v12) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"Version", VersionString) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"AppleICUForce12HourTime", v9) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"AppleICUForce24HourTime", v10))
+    v7 = *v5;
+    v8 = CFPreferencesCopyAppValue(@"AppleICUForce12HourTime", *v5);
+    v9 = CFPreferencesCopyAppValue(@"AppleICUForce24HourTime", v7);
+    v10 = __LocaleDateFormats;
+    v11 = MEMORY[0x19A8C1930](v2);
+    if (!_CachedValueIsEqualToExpectedValue(v10, @"Locale", v11) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"Version", VersionString) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"AppleICUForce12HourTime", v8) || !_CachedValueIsEqualToExpectedValue(__LocaleDateFormats, @"AppleICUForce24HourTime", v9))
     {
       CFRelease(__LocaleDateFormats);
       __LocaleDateFormats = 0;
@@ -34,83 +34,83 @@ const void *CPDateFormatStringForFormatType(const void *a1)
       CFRelease(VersionString);
     }
 
+    if (v8)
+    {
+      CFRelease(v8);
+    }
+
     if (v9)
     {
       CFRelease(v9);
     }
 
-    if (v10)
-    {
-      CFRelease(v10);
-    }
-
     if (!__LocaleDateFormats)
     {
 LABEL_18:
-      v77 = xmmword_1E74509C0;
-      v78 = *&off_1E74509D0;
-      v79 = xmmword_1E74509E0;
-      v80 = *off_1E74509F0;
+      v76 = xmmword_1E74509C0;
+      v77 = *&off_1E74509D0;
+      v78 = xmmword_1E74509E0;
+      v79 = *off_1E74509F0;
       *values = xmmword_1E7450980;
-      v74 = *&off_1E7450990;
-      v75 = xmmword_1E74509A0;
-      v76 = *&off_1E74509B0;
+      v73 = *&off_1E7450990;
+      v74 = xmmword_1E74509A0;
+      v75 = *&off_1E74509B0;
       __LocaleDateFormats = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v13 = CFDateFormatterCreate(0, v2, kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
-      v14 = CFDateFormatterCopyProperty(v13, *MEMORY[0x1E695E538]);
-      v71 = a1;
-      if (v14 || (v14 = CFDateFormatterCopyProperty(v13, *MEMORY[0x1E695E580])) != 0)
+      v12 = CFDateFormatterCreate(0, v2, kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
+      v13 = CFDateFormatterCopyProperty(v12, *MEMORY[0x1E695E538]);
+      v70 = a1;
+      if (v13 || (v13 = CFDateFormatterCopyProperty(v12, *MEMORY[0x1E695E580])) != 0)
       {
-        CFRelease(v14);
-        v15 = 0;
+        CFRelease(v13);
+        v14 = 0;
       }
 
       else
       {
-        v15 = 1;
+        v14 = 1;
       }
 
-      Format = CFDateFormatterGetFormat(v13);
+      Format = CFDateFormatterGetFormat(v12);
       value = CFRetain(Format);
-      CFRelease(v13);
-      v17 = CFDateFormatterCreate(0, v2, kCFDateFormatterMediumStyle, kCFDateFormatterNoStyle);
-      v18 = CFDateFormatterGetFormat(v17);
-      v19 = CFRetain(v18);
-      CFRelease(v17);
-      v20 = CFArrayCreate(0, values, 16, MEMORY[0x1E695E9C0]);
-      v21 = MEMORY[0x19A8C17B0](0, v20, 0, v2);
-      CFRelease(v20);
-      Count = CFArrayGetCount(v21);
+      CFRelease(v12);
+      v16 = CFDateFormatterCreate(0, v2, kCFDateFormatterMediumStyle, kCFDateFormatterNoStyle);
+      v17 = CFDateFormatterGetFormat(v16);
+      v18 = CFRetain(v17);
+      CFRelease(v16);
+      v19 = CFArrayCreate(0, values, 16, MEMORY[0x1E695E9C0]);
+      v20 = MEMORY[0x19A8C17B0](0, v19, 0, v2);
+      CFRelease(v19);
+      Count = CFArrayGetCount(v20);
       if (Count >= 1)
       {
-        v23 = Count;
-        for (i = 0; i != v23; ++i)
+        v22 = Count;
+        for (i = 0; i != v22; ++i)
         {
-          v25 = __LocaleDateFormats;
-          v26 = *(&off_1E7450900 + i);
-          ValueAtIndex = CFArrayGetValueAtIndex(v21, i);
-          CFDictionarySetValue(v25, v26, ValueAtIndex);
+          v24 = __LocaleDateFormats;
+          v25 = *(&off_1E7450900 + i);
+          ValueAtIndex = CFArrayGetValueAtIndex(v20, i);
+          CFDictionarySetValue(v24, v25, ValueAtIndex);
         }
       }
 
-      CFRelease(v21);
-      Length = CFStringGetLength(v19);
-      MutableCopy = CFStringCreateMutableCopy(0, Length, v19);
+      CFRelease(v20);
+      Length = CFStringGetLength(v18);
+      MutableCopy = CFStringCreateMutableCopy(0, Length, v18);
+      v81.location = 0;
+      v81.length = Length;
+      v29 = CFStringFindAndReplace(MutableCopy, @",", @" ", v81, 0);
       v82.location = 0;
       v82.length = Length;
-      v30 = CFStringFindAndReplace(MutableCopy, @",", @" ", v82, 0);
+      v30 = CFStringFindAndReplace(MutableCopy, @"/", @" ", v82, 0) + v29;
       v83.location = 0;
       v83.length = Length;
-      v31 = CFStringFindAndReplace(MutableCopy, @"/", @" ", v83, 0) + v30;
+      v31 = CFStringFindAndReplace(MutableCopy, @"-", @" ", v83, 0);
       v84.location = 0;
       v84.length = Length;
-      v32 = CFStringFindAndReplace(MutableCopy, @"-", @" ", v84, 0);
-      v85.location = 0;
-      v85.length = Length;
-      if (v31 + v32 + CFStringFindAndReplace(MutableCopy, @"  ", @" ", v85, 0) < 1)
+      if (v30 + v31 + CFStringFindAndReplace(MutableCopy, @"  ", @" ", v84, 0) < 1)
       {
-        CFRetain(v19);
-        Copy = v19;
+        CFRetain(v18);
+        Copy = v18;
       }
 
       else
@@ -121,153 +121,153 @@ LABEL_18:
       CFRelease(MutableCopy);
       CFDictionarySetValue(__LocaleDateFormats, @"UIAbbreviatedDateFormatWithoutCommas", Copy);
       CFRelease(Copy);
-      a1 = v71;
-      if (v15)
+      a1 = v70;
+      if (v14)
       {
         CFDictionarySetValue(__LocaleDateFormats, @"UINoAMPMTimeFormat", value);
-        v34 = CFDictionaryGetValue(__LocaleDateFormats, @"UIMinutelessTimeFormat");
-        CFDictionarySetValue(__LocaleDateFormats, @"UIHourFormat", v34);
+        v33 = CFDictionaryGetValue(__LocaleDateFormats, @"UIMinutelessTimeFormat");
+        CFDictionarySetValue(__LocaleDateFormats, @"UIHourFormat", v33);
       }
 
       else
       {
-        v35 = _StripAMPMAndCopy(value);
-        CFDictionarySetValue(__LocaleDateFormats, @"UINoAMPMTimeFormat", v35);
-        CFRelease(v35);
-        v36 = CFDictionaryGetValue(__LocaleDateFormats, @"UIMinutelessTimeFormat");
-        v37 = _StripAMPMAndCopy(v36);
-        CFDictionarySetValue(__LocaleDateFormats, @"UIHourFormat", v37);
-        CFRelease(v37);
+        v34 = _StripAMPMAndCopy(value);
+        CFDictionarySetValue(__LocaleDateFormats, @"UINoAMPMTimeFormat", v34);
+        CFRelease(v34);
+        v35 = CFDictionaryGetValue(__LocaleDateFormats, @"UIMinutelessTimeFormat");
+        v36 = _StripAMPMAndCopy(v35);
+        CFDictionarySetValue(__LocaleDateFormats, @"UIHourFormat", v36);
+        CFRelease(v36);
       }
 
-      CFDictionarySetValue(__LocaleDateFormats, @"UINotesFormatWithYear", v19);
-      v38 = MEMORY[0x19A8C1930](v2);
+      CFDictionarySetValue(__LocaleDateFormats, @"UINotesFormatWithYear", v18);
+      v37 = MEMORY[0x19A8C1930](v2);
       if (_CopyPathForLocaleOverrides_onceToken != -1)
       {
         CPDateFormatStringForFormatType_cold_2();
       }
 
-      v39 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v38 ofType:@"plist" inDirectory:{@"DateFormats", v71}];
-      if (!v39)
+      v38 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v37 ofType:@"plist" inDirectory:{@"DateFormats", v70}];
+      if (!v38)
       {
-        v62 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:4];
-        [v62 setObject:CFLocaleGetValue(v2 forKey:{*MEMORY[0x1E695E6F0]), *MEMORY[0x1E695D9B0]}];
-        v63 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6F8]);
+        v61 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:4];
+        [v61 setObject:CFLocaleGetValue(v2 forKey:{*MEMORY[0x1E695E6F0]), *MEMORY[0x1E695D9B0]}];
+        v62 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6F8]);
+        if (v62)
+        {
+          [v61 setObject:v62 forKey:*MEMORY[0x1E695D9E8]];
+        }
+
+        v63 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6D0]);
+        v64 = MEMORY[0x1E695D978];
         if (v63)
         {
-          [v62 setObject:v63 forKey:*MEMORY[0x1E695D9E8]];
+          [v61 setObject:v63 forKey:*MEMORY[0x1E695D978]];
         }
 
-        v64 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6D0]);
-        v65 = MEMORY[0x1E695D978];
-        if (v64)
+        v65 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6C0]);
+        if (v65)
         {
-          [v62 setObject:v64 forKey:*MEMORY[0x1E695D978]];
+          [v61 setObject:v65 forKey:@"calendar"];
         }
 
-        v66 = CFLocaleGetValue(v2, *MEMORY[0x1E695E6C0]);
-        if (v66)
+        v66 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v61];
+        v38 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v66 ofType:@"plist" inDirectory:@"DateFormats"];
+        if (v63 && !v38)
         {
-          [v62 setObject:v66 forKey:@"calendar"];
+          [v61 removeObjectForKey:*v64];
+          v67 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v61];
+          v38 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v67 ofType:@"plist" inDirectory:@"DateFormats"];
         }
 
-        v67 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v62];
-        v39 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v67 ofType:@"plist" inDirectory:@"DateFormats"];
-        if (v64 && !v39)
+        if (v65 && !v38)
         {
-          [v62 removeObjectForKey:*v65];
-          v68 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v62];
-          v39 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v68 ofType:@"plist" inDirectory:@"DateFormats"];
-        }
-
-        if (v66 && !v39)
-        {
-          [v62 removeObjectForKey:@"calendar"];
-          if (v64)
+          [v61 removeObjectForKey:@"calendar"];
+          if (v63)
           {
-            [v62 setObject:v64 forKey:*v65];
+            [v61 setObject:v63 forKey:*v64];
           }
 
-          v69 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v62];
-          v39 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v69 ofType:@"plist" inDirectory:@"DateFormats"];
-          if (v64 && !v39)
+          v68 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v61];
+          v38 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v68 ofType:@"plist" inDirectory:@"DateFormats"];
+          if (v63 && !v38)
           {
-            [v62 removeObjectForKey:*v65];
-            v70 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v62];
-            v39 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v70 ofType:@"plist" inDirectory:@"DateFormats"];
+            [v61 removeObjectForKey:*v64];
+            v69 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v61];
+            v38 = [_CopyPathForLocaleOverrides_appSupportBundle pathForResource:v69 ofType:@"plist" inDirectory:@"DateFormats"];
           }
         }
       }
 
-      v40 = v39;
-      v41 = MEMORY[0x1E695E890];
-      if (v40)
+      v39 = v38;
+      v40 = MEMORY[0x1E695E890];
+      if (v39)
       {
-        v42 = v40;
-        v43 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfFile:v40];
-        if (v43)
+        v41 = v39;
+        v42 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfFile:v39];
+        if (v42)
         {
-          v44 = v43;
-          CFDictionaryApplyFunction(v43, _AddOverrideToFormatsDictionary, __LocaleDateFormats);
-          CFRelease(v44);
+          v43 = v42;
+          CFDictionaryApplyFunction(v42, _AddOverrideToFormatsDictionary, __LocaleDateFormats);
+          CFRelease(v43);
         }
 
-        CFRelease(v42);
+        CFRelease(v41);
       }
 
-      v45 = CFDictionaryGetValue(__LocaleDateFormats, @"UIAbbreviatedMonthDayFormat");
-      if (v45)
+      v44 = CFDictionaryGetValue(__LocaleDateFormats, @"UIAbbreviatedMonthDayFormat");
+      if (v44)
       {
-        v46 = v45;
-        v47 = CFStringGetLength(v45);
-        v48 = CFStringCreateMutableCopy(0, v47, v46);
-        CFStringAppend(v48, @"   ");
-        CFStringAppend(v48, value);
-        CFDictionarySetValue(__LocaleDateFormats, @"UINotesDisplayFormat", v48);
-        CFRelease(v48);
+        v45 = v44;
+        v46 = CFStringGetLength(v44);
+        v47 = CFStringCreateMutableCopy(0, v46, v45);
+        CFStringAppend(v47, @"   ");
+        CFStringAppend(v47, value);
+        CFDictionarySetValue(__LocaleDateFormats, @"UINotesDisplayFormat", v47);
+        CFRelease(v47);
       }
 
-      v49 = CFDictionaryGetValue(__LocaleDateFormats, @"UINotesFormatWithYear");
-      if (v49)
+      v48 = CFDictionaryGetValue(__LocaleDateFormats, @"UINotesFormatWithYear");
+      if (v48)
       {
-        v50 = v49;
-        v51 = CFStringGetLength(v49);
-        v52 = CFStringCreateMutableCopy(0, v51, v50);
-        CFStringAppend(v52, @"   ");
-        CFStringAppend(v52, value);
-        CFDictionarySetValue(__LocaleDateFormats, @"UINotesDisplayFormatWithYear", v52);
-        CFRelease(v52);
+        v49 = v48;
+        v50 = CFStringGetLength(v48);
+        v51 = CFStringCreateMutableCopy(0, v50, v49);
+        CFStringAppend(v51, @"   ");
+        CFStringAppend(v51, value);
+        CFDictionarySetValue(__LocaleDateFormats, @"UINotesDisplayFormatWithYear", v51);
+        CFRelease(v51);
       }
 
-      CFRelease(v19);
+      CFRelease(v18);
       CFRelease(value);
-      v53 = _CreateVersionString();
-      if (v53)
+      v52 = _CreateVersionString();
+      if (v52)
       {
-        v54 = v53;
-        v55 = *v41;
-        v56 = CFPreferencesCopyAppValue(@"AppleICUForce24HourTime", *v41);
-        if (v56)
+        v53 = v52;
+        v54 = *v40;
+        v55 = CFPreferencesCopyAppValue(@"AppleICUForce24HourTime", *v40);
+        if (v55)
         {
-          v57 = v56;
-          CFDictionaryAddValue(__LocaleDateFormats, @"AppleICUForce24HourTime", v56);
-          CFRelease(v57);
+          v56 = v55;
+          CFDictionaryAddValue(__LocaleDateFormats, @"AppleICUForce24HourTime", v55);
+          CFRelease(v56);
         }
 
-        v58 = CFPreferencesCopyAppValue(@"AppleICUForce12HourTime", v55);
-        if (v58)
+        v57 = CFPreferencesCopyAppValue(@"AppleICUForce12HourTime", v54);
+        if (v57)
         {
-          v59 = v58;
-          CFDictionaryAddValue(__LocaleDateFormats, @"AppleICUForce12HourTime", v58);
-          CFRelease(v59);
+          v58 = v57;
+          CFDictionaryAddValue(__LocaleDateFormats, @"AppleICUForce12HourTime", v57);
+          CFRelease(v58);
         }
 
-        v60 = __LocaleDateFormats;
-        v61 = MEMORY[0x19A8C1930](v2);
-        CFDictionaryAddValue(v60, @"Locale", v61);
-        CFDictionaryAddValue(__LocaleDateFormats, @"Version", v54);
+        v59 = __LocaleDateFormats;
+        v60 = MEMORY[0x19A8C1930](v2);
+        CFDictionaryAddValue(v59, @"Locale", v60);
+        CFDictionaryAddValue(__LocaleDateFormats, @"Version", v53);
         [objc_msgSend(MEMORY[0x1E696AE40] dataWithPropertyList:__LocaleDateFormats format:200 options:0 error:{0), "writeToFile:options:error:", objc_msgSend(CPSharedResourcesDirectory(), "stringByAppendingPathComponent:", @"Library/Caches/DateFormats.plist", 1, 0}];
-        CFRelease(v54);
+        CFRelease(v53);
       }
     }
   }
@@ -275,7 +275,6 @@ LABEL_18:
   CFRelease(v2);
   v3 = CFDictionaryGetValue(__LocaleDateFormats, a1);
   os_unfair_lock_unlock(&lock);
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -360,18 +359,16 @@ void _LocaleWillChangeCallback()
 
 CFStringRef _CreateVersionString()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   *versionArray = 0;
   ulocdata_getCLDRVersion();
   u_versionToString(versionArray, versionString);
-  result = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d-%s", 7, versionString);
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d-%s", 7, versionString);
 }
 
 void CPFreeSpaceRequestBytesAtPathWithCompletionBlock(unint64_t a1, CFURLRef anURL, const __CFDictionary *a3, void *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (a4)
   {
     v6 = a4;
@@ -391,11 +388,11 @@ void CPFreeSpaceRequestBytesAtPathWithCompletionBlock(unint64_t a1, CFURLRef anU
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
-    *v22 = a1;
-    *&v22[8] = 2080;
-    *&v22[10] = [(__CFString *)v7 UTF8String];
-    v23 = 2048;
-    v24 = v6;
+    *v25 = a1;
+    *&v25[8] = 2080;
+    *&v25[10] = [(__CFString *)v7 UTF8String];
+    v26 = 2048;
+    v27 = v6;
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: new request for %llu bytes at path %s for block %p", buf, 0x20u);
   }
 
@@ -421,15 +418,15 @@ void CPFreeSpaceRequestBytesAtPathWithCompletionBlock(unint64_t a1, CFURLRef anU
   {
     v10 = [(__CFString *)v7 UTF8String];
     *buf = 136315394;
-    *v22 = v10;
-    *&v22[8] = 2048;
-    *&v22[10] = v6;
+    *v25 = v10;
+    *&v25[8] = 2048;
+    *&v25[10] = v6;
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: rationalized path to %s for block %p", buf, 0x16u);
   }
 
-  v19 = 0;
-  v20 = 0;
-  TotalCapacityAndAvailableCapacityForMountPoint = GetTotalCapacityAndAvailableCapacityForMountPoint(v7, &v20, &v19);
+  v22 = 0;
+  v23 = 0;
+  TotalCapacityAndAvailableCapacityForMountPoint = GetTotalCapacityAndAvailableCapacityForMountPoint(v7, &v23, &v22);
   if (TotalCapacityAndAvailableCapacityForMountPoint)
   {
     v12 = TotalCapacityAndAvailableCapacityForMountPoint;
@@ -439,129 +436,134 @@ void CPFreeSpaceRequestBytesAtPathWithCompletionBlock(unint64_t a1, CFURLRef anU
     }
 
     (*(v6 + 2))(v6, 0, 0, v12);
-    goto LABEL_44;
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 134218496;
-    *v22 = v20;
-    *&v22[8] = 2048;
-    *&v22[10] = v19;
-    v23 = 2048;
-    v24 = v6;
+    *v25 = v23;
+    *&v25[8] = 2048;
+    *&v25[10] = v22;
+    v26 = 2048;
+    v27 = v6;
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: got total space %llu and available space %llu for block %p", buf, 0x20u);
   }
 
-  if (a3)
+  if (!a3)
   {
-    Value = CFDictionaryGetValue(a3, @"CPFreeSpaceEffortLevelKey");
-    if (Value)
-    {
-      v14 = [Value intValue];
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-      {
-        *buf = 67109376;
-        *v22 = v14;
-        *&v22[4] = 2048;
-        *&v22[6] = v6;
-        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: caller requested effort level %d for block %p", buf, 0x12u);
-      }
-
-      if (v14 < 2)
-      {
-        goto LABEL_27;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        CPFreeSpaceRequestBytesAtPathWithCompletionBlock_cold_2();
-      }
-    }
+    goto LABEL_26;
   }
 
-  v14 = 1;
-LABEL_27:
-  if (v20 >= a1)
+  Value = CFDictionaryGetValue(a3, @"CPFreeSpaceEffortLevelKey");
+  if (!Value)
   {
-    v15 = v19;
-    if (v19 >= a1)
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-      {
-        *buf = 134217984;
-        *v22 = v6;
-        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: satisfied (available space >= requested space) for block %p", buf, 0xCu);
-        v15 = v19;
-      }
-
-      (*(v6 + 2))(v6, 1, v15, 0);
-    }
-
-    else
-    {
-      v16 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
-      if (v14)
-      {
-        if (v16)
-        {
-          *buf = 134217984;
-          *v22 = v6;
-          _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: will enqueue request for block %p", buf, 0xCu);
-        }
-
-        if (GetFreeSpaceDispatchQueue___once != -1)
-        {
-          CPFreeSpaceRequestBytesAtPathWithCompletionBlock_cold_3();
-        }
-
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9;
-        v18[3] = &unk_1E7450A60;
-        v18[6] = v6;
-        v18[7] = a1;
-        v18[4] = v7;
-        v18[5] = 0;
-        dispatch_async(GetFreeSpaceDispatchQueue___queue, v18);
-      }
-
-      else
-      {
-        if (v16)
-        {
-          *buf = 134217984;
-          *v22 = v6;
-          _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: not satisfied (effort needed but not allowed) for block %p", buf, 0xCu);
-          v15 = v19;
-        }
-
-        (*(v6 + 2))(v6, 0, v15, 0);
-      }
-    }
+    goto LABEL_26;
   }
 
-  else
+  v14 = [Value intValue];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109376;
+    *v25 = v14;
+    *&v25[4] = 2048;
+    *&v25[6] = v6;
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: caller requested effort level %d for block %p", buf, 0x12u);
+  }
+
+  if (v14 >= 2)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      CPFreeSpaceRequestBytesAtPathWithCompletionBlock_cold_2();
+    }
+
+LABEL_26:
+    v14 = 1;
+  }
+
+  if (v23 < a1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      *v22 = v6;
+      *v25 = v6;
       _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: not satisfied (total space < requested space) for block %p", buf, 0xCu);
     }
 
-    (*(v6 + 2))(v6, 0, v19, 0);
+    v15 = v22;
+    v16 = *(v6 + 2);
+    v17 = v6;
+    v18 = 0;
+    goto LABEL_45;
   }
 
+  v19 = v22;
+  if (v22 >= a1)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    {
+      *buf = 134217984;
+      *v25 = v6;
+      _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: satisfied (available space >= requested space) for block %p", buf, 0xCu);
+      v19 = v22;
+    }
+
+    v16 = *(v6 + 2);
+    v17 = v6;
+    v18 = 1;
+    goto LABEL_44;
+  }
+
+  v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+  if (!v14)
+  {
+    if (v20)
+    {
+      *buf = 134217984;
+      *v25 = v6;
+      _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: not satisfied (effort needed but not allowed) for block %p", buf, 0xCu);
+      v19 = v22;
+    }
+
+    v16 = *(v6 + 2);
+    v17 = v6;
+    v18 = 0;
 LABEL_44:
-  v17 = *MEMORY[0x1E69E9840];
+    v15 = v19;
+LABEL_45:
+    v16(v17, v18, v15, 0);
+    return;
+  }
+
+  if (v20)
+  {
+    *buf = 134217984;
+    *v25 = v6;
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: will enqueue request for block %p", buf, 0xCu);
+  }
+
+  if (GetFreeSpaceDispatchQueue___once != -1)
+  {
+    CPFreeSpaceRequestBytesAtPathWithCompletionBlock_cold_3();
+  }
+
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9;
+  v21[3] = &unk_1E7450A60;
+  v21[6] = v6;
+  v21[7] = a1;
+  v21[4] = v7;
+  v21[5] = 0;
+  dispatch_async(GetFreeSpaceDispatchQueue___queue, v21);
 }
 
-uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a2, unint64_t *a3)
+uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a2, char **a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  memset(&v18, 0, 512);
-  if (statfs([a1 fileSystemRepresentation], &v18))
+  v18 = *MEMORY[0x1E69E9840];
+  memset(&v17, 0, 512);
+  if (statfs([a1 fileSystemRepresentation], &v17))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -569,29 +571,29 @@ uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a
     }
 
     v6 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"POSIX filesystem error" forKey:*MEMORY[0x1E696A578]];
-    v7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695E640] code:*__error() userInfo:v6];
+    return [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695E640] code:*__error() userInfo:v6];
   }
 
   else
   {
-    v8 = v18.f_blocks * v18.f_bsize;
+    v8 = v17.f_blocks * v17.f_bsize;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: real total capacity %llu", buf, 0xCu);
     }
 
-    v15 = 0;
+    v14 = 0;
     v9 = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-    v7 = v15;
-    if (v15)
+    v7 = v14;
+    if (v14)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
         _os_log_error_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "free space request: failed to get attributes for the mount point", buf, 2u);
-        v7 = v15;
+        return v14;
       }
     }
 
@@ -601,7 +603,7 @@ uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v17 = v10;
+        v16 = v10;
         _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: real available capacity %llu", buf, 0xCu);
       }
 
@@ -619,7 +621,7 @@ uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a
       v7 = 0;
       if (a3)
       {
-        v12 = v10 - 157286400;
+        v12 = (v10 - 157286400);
         if (v10 < 0x9600000)
         {
           v12 = 0;
@@ -630,30 +632,29 @@ uint64_t GetTotalCapacityAndAvailableCapacityForMountPoint(void *a1, uint64_t *a
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9(uint64_t a1)
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 48);
-    *v18 = 134217984;
-    *&v18[4] = v2;
-    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: processing enqueued request for block %p", v18, 0xCu);
+    *v17 = 134217984;
+    *&v17[4] = v2;
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: processing enqueued request for block %p", v17, 0xCu);
   }
 
   v3 = *(a1 + 56) + 157286400;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 48);
-    *v18 = 134218240;
-    *&v18[4] = v3;
-    *&v18[12] = 2048;
-    *&v18[14] = v4;
-    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: will request CacheDelete of %llu bytes for block %p", v18, 0x16u);
+    *v17 = 134218240;
+    *&v17[4] = v3;
+    *&v17[12] = 2048;
+    *&v17[14] = v4;
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: will request CacheDelete of %llu bytes for block %p", v17, 0x16u);
   }
 
   if (_CPFreeupBytes_onceToken != -1)
@@ -662,31 +663,31 @@ uint64_t __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9(uint6
   }
 
   v5 = dispatch_semaphore_create(0);
-  v21[0] = @"CACHE_DELETE_VOLUME";
-  v21[1] = @"CACHE_DELETE_AMOUNT";
-  v22[0] = @"/private/var";
-  v22[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v3];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  *v18 = MEMORY[0x1E69E9820];
-  *&v18[8] = 3221225472;
-  *&v18[16] = ___CPFreeupBytes_block_invoke_2;
-  v19 = &unk_1E7450A88;
-  v20 = v5;
-  v7 = _CPFreeupBytes__CacheDeletePurgeSpaceWithInfo(v6, v18);
+  v20[0] = @"CACHE_DELETE_VOLUME";
+  v20[1] = @"CACHE_DELETE_AMOUNT";
+  v21[0] = @"/private/var";
+  v21[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v3];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  *v17 = MEMORY[0x1E69E9820];
+  *&v17[8] = 3221225472;
+  *&v17[16] = ___CPFreeupBytes_block_invoke_2;
+  v18 = &unk_1E7450A88;
+  v19 = v5;
+  v7 = _CPFreeupBytes__CacheDeletePurgeSpaceWithInfo(v6, v17);
   dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
   CFRelease(v7);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 48);
-    *v18 = 134218240;
-    *&v18[4] = v3;
-    *&v18[12] = 2048;
-    *&v18[14] = v8;
-    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: did finish CacheDelete of %llu bytes for block %p", v18, 0x16u);
+    *v17 = 134218240;
+    *&v17[4] = v3;
+    *&v17[12] = 2048;
+    *&v17[14] = v8;
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: did finish CacheDelete of %llu bytes for block %p", v17, 0x16u);
   }
 
-  v22[0] = 0;
-  if (GetTotalCapacityAndAvailableCapacityForMountPoint(*(a1 + 32), 0, v22))
+  v21[0] = 0;
+  if (GetTotalCapacityAndAvailableCapacityForMountPoint(*(a1 + 32), 0, v21))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -701,14 +702,14 @@ uint64_t __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9(uint6
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       v10 = *(a1 + 48);
-      *v18 = 134218240;
-      *&v18[4] = v22[0];
-      *&v18[12] = 2048;
-      *&v18[14] = v10;
-      _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: got available space %llu for block %p", v18, 0x16u);
+      *v17 = 134218240;
+      *&v17[4] = v21[0];
+      *&v17[12] = 2048;
+      *&v17[14] = v10;
+      _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: got available space %llu for block %p", v17, 0x16u);
     }
 
-    v11 = v22[0];
+    v11 = v21[0];
     v12 = *(a1 + 56);
     v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
     if (v11 >= v12)
@@ -716,11 +717,11 @@ uint64_t __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9(uint6
       if (v13)
       {
         v15 = *(a1 + 48);
-        *v18 = 134218240;
-        *&v18[4] = v11;
-        *&v18[12] = 2048;
-        *&v18[14] = v15;
-        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: satisfied with new available space %llu for block %p", v18, 0x16u);
+        *v17 = 134218240;
+        *&v17[4] = v11;
+        *&v17[12] = 2048;
+        *&v17[14] = v15;
+        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: satisfied with new available space %llu for block %p", v17, 0x16u);
       }
 
       v9 = *(*(a1 + 48) + 16);
@@ -731,20 +732,18 @@ uint64_t __CPFreeSpaceRequestBytesAtPathWithCompletionBlock_block_invoke_9(uint6
       if (v13)
       {
         v14 = *(a1 + 48);
-        *v18 = 134218240;
-        *&v18[4] = v11;
-        *&v18[12] = 2048;
-        *&v18[14] = v14;
-        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: not satisfied with new available space %llu for block %p", v18, 0x16u);
+        *v17 = 134218240;
+        *&v17[4] = v11;
+        *&v17[12] = 2048;
+        *&v17[14] = v14;
+        _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "free space request: not satisfied with new available space %llu for block %p", v17, 0x16u);
       }
 
       v9 = *(*(a1 + 48) + 16);
     }
   }
 
-  result = v9();
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return v9();
 }
 
 dispatch_queue_t __GetFreeSpaceDispatchQueue_block_invoke()
@@ -754,7 +753,7 @@ dispatch_queue_t __GetFreeSpaceDispatchQueue_block_invoke()
   return result;
 }
 
-uint64_t CPFSSizeStringsWithStyle(int a1, int8x16_t a2, double a3, int8x16_t a4, int8x16_t a5, int8x16_t a6)
+uint64_t CPFSSizeStringsWithStyle(uint64_t a1, int8x16_t a2, double a3, int8x16_t a4, int8x16_t a5, int8x16_t a6)
 {
   if (*a2.i32 == 0.0)
   {
@@ -793,7 +792,7 @@ uint64_t __diskSizeStringForKey(uint64_t a1)
   return [v2 localizedStringForKey:a1 value:&stru_1F0A49170 table:@"CPDiskSizes"];
 }
 
-uint64_t CPFSProgressStringWithStyle(int a1, int8x16_t a2, float a3, int8x16_t a4, int8x16_t a5, int8x16_t a6)
+uint64_t CPFSProgressStringWithStyle(uint64_t a1, int8x16_t a2, float a3, int8x16_t a4, int8x16_t a5, int8x16_t a6)
 {
   v8 = __localizedScaledSizeAndFormatWithStyle(a1, 0, a2, a3, a4, a5, a6);
   *v9.i32 = a3;
@@ -801,7 +800,7 @@ uint64_t CPFSProgressStringWithStyle(int a1, int8x16_t a2, float a3, int8x16_t a
   return [MEMORY[0x1E696AEC0] localizedStringWithFormat:__diskSizeStringForKey(@"%@ of %@"), v8, v14];
 }
 
-uint64_t __localizedScaledSizeAndFormatWithStyle(int a1, uint64_t *a2, int8x16_t a3, float a4, int8x16_t a5, int8x16_t a6, int8x16_t a7)
+uint64_t __localizedScaledSizeAndFormatWithStyle(uint64_t a1, uint64_t *a2, int8x16_t a3, float a4, int8x16_t a5, int8x16_t a6, int8x16_t a7)
 {
   v8 = *a3.i32;
   if (a4 < 100.0)
@@ -811,6 +810,7 @@ uint64_t __localizedScaledSizeAndFormatWithStyle(int a1, uint64_t *a2, int8x16_t
     goto LABEL_3;
   }
 
+  v12 = a1;
   *a6.i64 = (*a3.i32 * 0.00097656);
   v13 = a4 * 0.00097656;
   if (v13 < 100.0)
@@ -918,7 +918,7 @@ LABEL_43:
     v18 = [(__CFString *)v29 stringByAppendingString:v30, *&a7];
 LABEL_16:
     v9 = __diskSizeStringForKey(v18);
-    result = __localizedFormattedNumber(a1, v40, v19, v20);
+    result = __localizedFormattedNumber(v12, v40, v19, v20);
     if (!a2)
     {
       return result;
@@ -1239,7 +1239,7 @@ uint64_t CPGetMachPortForMIGServerSource(__CFRunLoopSource *a1)
   return *context.info;
 }
 
-uint64_t CPGetDeviceRegionCode()
+uint64_t CPGetDeviceRegionCode(uint64_t a1, uint64_t a2)
 {
   if (CPGetDeviceRegionCode_onceToken != -1)
   {
@@ -1298,7 +1298,7 @@ LABEL_13:
   return Value;
 }
 
-uint64_t CPSystemRootDirectory()
+uint64_t CPSystemRootDirectory(uint64_t a1, uint64_t a2)
 {
   if (CPSystemRootDirectory_onceToken != -1)
   {
@@ -1312,7 +1312,7 @@ id CPCopyBundleIdentifierFromAuditToken()
 {
   v0 = MEMORY[0x1EEE9AC00]();
   v2 = v1;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = proc_pidpath(*(v0 + 20), buffer, 0x1000u);
   if (v3 < 1)
   {
@@ -1335,7 +1335,7 @@ id CPCopyBundleIdentifierFromAuditToken()
         v6 = [v5 _isProcessName];
 LABEL_7:
         *v2 = v6;
-        goto LABEL_8;
+        return v5;
       }
 
 LABEL_6:
@@ -1344,8 +1344,6 @@ LABEL_6:
     }
   }
 
-LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1494,17 +1492,17 @@ uint64_t CPCanSendMail()
   return CanSendMail;
 }
 
-void __CPCanSendMail_block_invoke()
+void __CPCanSendMail_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (CPSystemRootDirectory_onceToken != -1)
   {
     CPSystemRootDirectory_cold_1();
   }
 
-  v0 = dlopen([objc_msgSend(CPSystemRootDirectory_systemRootDirectory stringByAppendingPathComponent:{@"System/Library/PrivateFrameworks/MailServices.framework/MailServices", "fileSystemRepresentation"}], 5);
-  if (v0)
+  v2 = dlopen([objc_msgSend(CPSystemRootDirectory_systemRootDirectory stringByAppendingPathComponent:{@"System/Library/PrivateFrameworks/MailServices.framework/MailServices", "fileSystemRepresentation"}], 5);
+  if (v2)
   {
-    CPCanSendMail_MailServicesCanSendMail = dlsym(v0, "MSCanSendMail");
+    CPCanSendMail_MailServicesCanSendMail = dlsym(v2, "MSCanSendMail");
   }
 
   else
@@ -1539,7 +1537,7 @@ BOOL CPCanSendMMS()
   return v1 != 0;
 }
 
-uint64_t CPIsInternalDevice()
+uint64_t CPIsInternalDevice(uint64_t a1, uint64_t a2)
 {
   if (CPIsInternalDevice_onceToken != -1)
   {
@@ -1843,7 +1841,7 @@ uint64_t CPSqliteDatabaseSetShouldMigrateInProcess(uint64_t result, char a2)
   return result;
 }
 
-CFStringRef CPSqliteDatabaseSetMigrationPluginBundleID(CFStringRef result, const __CFString *a2)
+__CFString *CPSqliteDatabaseSetMigrationPluginBundleID(__CFString *result, const __CFString *a2)
 {
   if (result)
   {
@@ -1927,20 +1925,19 @@ uint64_t CPSqliteDatabaseSetPropertiesEnabled(uint64_t result, int a2)
 
 uint64_t CPSqliteDatabaseSetThreadSafeEnabled(uint64_t result)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = *(result + 116);
   if ((v1 & 8) == 0)
   {
     v2 = result;
     *(result + 116) = v1 | 8;
-    v4.__sig = 0;
-    *v4.__opaque = 0;
-    pthread_mutexattr_init(&v4);
-    pthread_mutexattr_settype(&v4, 2);
-    result = pthread_mutex_init((v2 + 120), &v4);
+    v3.__sig = 0;
+    *v3.__opaque = 0;
+    pthread_mutexattr_init(&v3);
+    pthread_mutexattr_settype(&v3, 2);
+    return pthread_mutex_init((v2 + 120), &v3);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2040,7 +2037,7 @@ BOOL CPSqliteDatabaseIsAccessPermitted(uint64_t a1)
   return v2 != 3;
 }
 
-uint64_t _CPSqliteDatabaseConnectionForWithSqlite3OpenFlagsAndReturnError(uint64_t result, int a2, int a3, _DWORD *a4)
+uint64_t _CPSqliteDatabaseConnectionForWithSqlite3OpenFlagsAndReturnError(uint64_t result, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v15 = 0;
   if (result)
@@ -2258,7 +2255,7 @@ CFStringRef CPSqliteConnectionCopyValueForProperty(CFMutableDictionaryRef *a1, c
 
   v4 = v3;
   v5 = _CPCreateUTF8StringFromCFString(a2);
-  sqlite3_bind_text(*(v4 + 8), 1, v5, -1, MEMORY[0x1E69E9B38]);
+  sqlite3_bind_text(v4[1], 1, v5, -1, MEMORY[0x1E69E9B38]);
   v6 = CPSqliteStatementCopyStringResult(v4);
   CPSqliteStatementReset(v4);
   return v6;
@@ -2699,7 +2696,7 @@ sqlite3_stmt *CPSqlitePreparedStatement(uint64_t *a1, char *zSql, int a3)
   return ppStmt;
 }
 
-uint64_t ExplainQueryPlanCallback(uint64_t a1, int a2, char **a3, const char **a4)
+uint64_t ExplainQueryPlanCallback(uint64_t a1, unsigned int a2, char **a3, const char **a4)
 {
   if (!*(a1 + 16))
   {
@@ -2784,13 +2781,14 @@ LABEL_17:
   return 0;
 }
 
-const void *CPSqliteConnectionStatementForSQLAndIgnoreErrors(CFMutableDictionaryRef *a1, const __CFString *key, int a3)
+const void *CPSqliteConnectionStatementForSQLAndIgnoreErrors(CFMutableDictionaryRef *a1, const __CFString *key, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v3 = a3;
   v7 = a1 + 2;
   v6 = a1[2];
   if (!v6)
@@ -2815,7 +2813,7 @@ const void *CPSqliteConnectionStatementForSQLAndIgnoreErrors(CFMutableDictionary
   {
     if (!*(*a1 + 72))
     {
-      Value = CPSqliteStatementForSQLUncachedAndIgnoreErrors(a1, key, a3);
+      Value = CPSqliteStatementForSQLUncachedAndIgnoreErrors(a1, key, v3);
       if (!Value)
       {
         return Value;
@@ -2835,7 +2833,7 @@ LABEL_22:
       return Value;
     }
 
-    Value = CPSqliteStatementForSQLUncachedAndIgnoreErrors(a1, key, a3);
+    Value = CPSqliteStatementForSQLUncachedAndIgnoreErrors(a1, key, v3);
     if (Value)
     {
       Count = CFDictionaryGetCount(a1[3]);
@@ -2882,9 +2880,9 @@ uint64_t CPSqliteConnectionPerformSQL(CFMutableDictionaryRef *a1, const __CFStri
   return v4;
 }
 
-uint64_t CPSqliteStatementPerform(uint64_t a1)
+uint64_t CPSqliteStatementPerform(uint64_t **a1)
 {
-  if (!a1 || !*(a1 + 8))
+  if (!a1 || !a1[1])
   {
     return 1;
   }
@@ -2892,18 +2890,18 @@ uint64_t CPSqliteStatementPerform(uint64_t a1)
   v2 = CPSqliteStatementStep(a1);
   v3 = **a1;
   v4 = (*(v3 + 116) & 2) != 0 && *(v3 + 8) == 0;
-  checkResultWithStatement(v3, v4, *(*a1 + 8), v2, "CPSqliteStatementPerform", a1);
+  checkResultWithStatement(v3, v4, (*a1)[1], v2, "CPSqliteStatementPerform", a1);
   return v2;
 }
 
-uint64_t CPSqliteStatementReset(uint64_t a1)
+uint64_t CPSqliteStatementReset(sqlite3_stmt **a1)
 {
   if (!a1)
   {
     return 1;
   }
 
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 1;
@@ -2912,10 +2910,10 @@ uint64_t CPSqliteStatementReset(uint64_t a1)
   v3 = sqlite3_reset(v2);
   v4 = **a1;
   v5 = (*(v4 + 116) & 2) != 0 && *(v4 + 8) == 0;
-  v6 = *(*a1 + 8);
+  v6 = *(*a1 + 1);
   v7 = sqlite3_errcode(v6);
   checkResultWithStatement(v4, v5, v6, v7, "CPSqliteStatementReset", a1);
-  sqlite3_clear_bindings(*(a1 + 8));
+  sqlite3_clear_bindings(a1[1]);
   return v3;
 }
 
@@ -2970,14 +2968,14 @@ void CPSqliteStatementFinalize(int a1, void *a2)
   free(a2);
 }
 
-uint64_t CPSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
+uint64_t CPSqliteConnectionBeginTransactionType(uint64_t *a1, unsigned int a2)
 {
   if (!a1)
   {
     return 1;
   }
 
-  if (*(a1 + 64) != 0xFFFF)
+  if (*(a1 + 16) != 0xFFFF)
   {
     return 0;
   }
@@ -2985,9 +2983,9 @@ uint64_t CPSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
   v4 = *a1;
   if (*a1)
   {
-    if (sqlite3_get_autocommit(*(a1 + 8)))
+    if (sqlite3_get_autocommit(a1[1]))
     {
-      v5 = *(v4 + 58);
+      v5 = *(v4 + 116);
       if ((~v5 & 0x220) == 0)
       {
         if ((v5 & 0x100) != 0)
@@ -2998,10 +2996,10 @@ uint64_t CPSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
         else
         {
           usleep(0xF4240u);
-          v6 = *(v4 + 58);
+          v6 = *(v4 + 116);
         }
 
-        *(v4 + 58) = v6 & 0xFDFF;
+        *(v4 + 116) = v6 & 0xFDFF;
       }
     }
   }
@@ -3014,7 +3012,7 @@ uint64_t CPSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
   else
   {
     v8 = off_1E7450AF0[a2];
-    result = sqlite3_get_autocommit(*(a1 + 8));
+    result = sqlite3_get_autocommit(a1[1]);
     if (result)
     {
       result = _performSqlUsingConnection(a1, v8);
@@ -3036,7 +3034,7 @@ uint64_t CPSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
   {
     if (v10)
     {
-      *(a1 + 64) = a2;
+      *(a1 + 16) = a2;
     }
   }
 
@@ -3064,7 +3062,7 @@ uint64_t _performSqlUsingConnection(CFMutableDictionaryRef *a1, const __CFString
     return 101;
   }
 
-  v6 = *(*v3 + 8);
+  v6 = *(*v3 + 1);
 
   return sqlite3_errcode(v6);
 }
@@ -3136,11 +3134,11 @@ uint64_t CPSqliteConnectionSetShouldCacheStatements(uint64_t result, char a2)
   return result;
 }
 
-void CPSqliteStatementBindValuesForColumns(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+void CPSqliteStatementBindValuesForColumns(uint64_t result, uint64_t a2, unsigned int a3, int a4)
 {
-  if (a1 && a3)
+  if (result && a3)
   {
-    v5 = *(a1 + 8);
+    v5 = *(result + 8);
     v6 = a4 + 1;
     v7 = a3;
     do
@@ -3347,7 +3345,7 @@ uint64_t CPSqliteConnectionAddRecordWithRowid(CFMutableDictionaryRef *a1, const 
     if (v29)
     {
       v30 = v29;
-      v31 = *(v29 + 1);
+      v31 = v29[1];
       if (a3 == -1)
       {
         v36 = v41;
@@ -3364,8 +3362,8 @@ uint64_t CPSqliteConnectionAddRecordWithRowid(CFMutableDictionaryRef *a1, const 
 
       else
       {
-        sqlite3_bind_int64(*(v29 + 1), 1, a3);
-        v32 = *(v30 + 8);
+        sqlite3_bind_int64(v29[1], 1, a3);
+        v32 = v30[1];
         v33 = v41;
         v34 = 2;
         do
@@ -3428,7 +3426,7 @@ uint64_t CPSqliteConnectionAddRecordWithRowid(CFMutableDictionaryRef *a1, const 
     if (v17)
     {
       v18 = v17;
-      sqlite3_bind_int64(v17[1], 1, a3);
+      sqlite3_bind_int64(*(v17 + 1), 1, a3);
 LABEL_20:
       v20 = CPSqliteStatementPerform(v18);
       CPSqliteStatementReset(v18);
@@ -3534,7 +3532,7 @@ CFStringRef CPSqliteStatementCopyStringResult(uint64_t a1)
   return CFStringCreateWithCString(v4, v3, 0x8000100u);
 }
 
-CFMutableDictionaryRef *CPSqliteConnectionCopyValuesForPropertiesLike(CFMutableDictionaryRef *result, const __CFString *a2, __CFArray **a3, __CFArray **a4)
+CFMutableDictionaryRef *CPSqliteConnectionCopyValuesForPropertiesLike(CFMutableDictionaryRef *result, const __CFString *a2, unint64_t a3, unint64_t a4)
 {
   if (!result || *result && (*(*result + 58) & 4) != 0)
   {
@@ -3809,7 +3807,7 @@ uint64_t CPSqliteConnectionIntegerForPropertyWithDefaultValue(CFMutableDictionar
   return a3;
 }
 
-uint64_t _integerForProperty(CFMutableDictionaryRef *a1, const __CFString *a2, int *a3, BOOL *a4, int a5)
+uint64_t _integerForProperty(CFMutableDictionaryRef *a1, const __CFString *a2, int *a3, BOOL *a4, uint64_t a5)
 {
   if (a4)
   {
@@ -3947,26 +3945,27 @@ void CPSqliteConnectionDisableProgressHandlerCallback(uint64_t a1)
   }
 }
 
-void checkResultWithStatement(void *a1, int a2, sqlite3 *db, unsigned int a4, uint64_t a5, uint64_t a6)
+void checkResultWithStatement(void *a1, uint64_t a2, sqlite3 *db, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a4;
   v12 = sqlite3_extended_errcode(db);
-  if (a4 - 1 <= 0x62)
+  if (v8 - 1 <= 0x62)
   {
     v13 = sqlite3_errmsg(db);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      checkResultWithStatement_cold_1(v13, a4, v12);
+      checkResultWithStatement_cold_1(v13, v8, v12);
     }
   }
 
-  if (a4 > 0x1A)
+  if (v8 > 0x1A)
   {
     goto LABEL_16;
   }
 
-  if (((1 << a4) & 0x4000C00) == 0)
+  if (((1 << v8) & 0x4000C00) == 0)
   {
-    if (((1 << a4) & 0x80100) != 0)
+    if (((1 << v8) & 0x80100) != 0)
     {
 LABEL_13:
       if (a6)
@@ -3984,7 +3983,7 @@ LABEL_13:
     }
 
 LABEL_16:
-    if (a4 - 5 > 1)
+    if (v8 - 5 > 1)
     {
       return;
     }
@@ -3995,7 +3994,7 @@ LABEL_16:
   v14 = a1[9];
   if (!v14 || (v14(a1) & 1) == 0)
   {
-    switch(a4)
+    switch(v8)
     {
       case 0xAu:
         handleSqliteIOError(a1, a2, db, a6, v12);
@@ -4663,7 +4662,7 @@ LABEL_7:
   return v5;
 }
 
-uint64_t truncateDatabase(uint64_t a1)
+void *truncateDatabase(uint64_t a1)
 {
   v1 = a1;
   ppDb = 0;
@@ -4759,28 +4758,30 @@ uint64_t CPSqliteDatabaseGetAutoVacuumLevel(sqlite3 *a1)
   return v1;
 }
 
-uint64_t _connectAndCheckVersion(uint64_t a1, const char *a2, _BYTE *a3, int a4, int a5, _DWORD *a6)
+uint64_t _connectAndCheckVersion(uint64_t a1, const char *a2, _BYTE *a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
-  *v42 = 0;
-  v41 = 0;
+  v7 = a5;
+  v8 = a4;
+  *v43 = 0;
+  v42 = 0;
   v12 = *(a1 + 40);
   if (v12 && (v12(a1) & 1) == 0)
   {
-    v41 = 3;
+    v42 = 3;
     goto LABEL_10;
   }
 
-  v13 = _createConnection(a1, a2, a4, a5, &v41);
-  *v42 = v13;
+  v13 = _createConnection(a1, a2, v8, v7, &v42);
+  *v43 = v13;
   if (!v13 || (*(a1 + 116) & 4) != 0)
   {
     goto LABEL_10;
   }
 
   v14 = v13;
-  v40 = 0;
+  v41 = 0;
   v15 = CPSqliteConnectionStatementForSQLAndIgnoreErrors(v13, @"SELECT value FROM _SqliteDatabaseProperties WHERE key = ?;", 1);
-  v16 = *(a1 + 116) & (a4 ^ 1);
+  v16 = *(a1 + 116) & (v8 ^ 1);
   v17 = *(a1 + 208);
   if (!v15)
   {
@@ -4796,7 +4797,7 @@ uint64_t _connectAndCheckVersion(uint64_t a1, const char *a2, _BYTE *a3, int a4,
         case 1:
           v20 = 0;
           v22 = 0;
-          v40 = 1;
+          v41 = 1;
           goto LABEL_32;
         case 0:
           v22 = 0;
@@ -4808,12 +4809,12 @@ uint64_t _connectAndCheckVersion(uint64_t a1, const char *a2, _BYTE *a3, int a4,
 
     else
     {
-      checkConnectionStatus(v42, &v40);
-      v14 = *v42;
-      if (*v42)
+      checkConnectionStatus(v43, &v41);
+      v14 = *v43;
+      if (*v43)
       {
         v22 = 0;
-        v20 = v40 ^ 1;
+        v20 = v41 ^ 1;
 LABEL_32:
         LODWORD(v19) = -1;
         goto LABEL_33;
@@ -4834,7 +4835,7 @@ LABEL_28:
 LABEL_31:
     v20 = 0;
     v22 = 0;
-    *v42 = 0;
+    *v43 = 0;
     goto LABEL_32;
   }
 
@@ -4844,16 +4845,16 @@ LABEL_31:
   }
 
   LODWORD(v19) = CPSqliteConnectionIntegerForPropertyWithDefaultValue(v14, @"_ClientVersion", 0);
-  checkConnectionStatus(v42, &v40);
-  v14 = *v42;
-  if (!*v42 || v19 == *(a1 + 112))
+  checkConnectionStatus(v43, &v41);
+  v14 = *v43;
+  if (!*v43 || v19 == *(a1 + 112))
   {
     goto LABEL_69;
   }
 
-  _beginImmediateTransaction(*v42);
-  checkConnectionStatus(v42, &v40);
-  if (!*v42)
+  _beginImmediateTransaction(*v43);
+  checkConnectionStatus(v43, &v41);
+  if (!*v43)
   {
     v14 = 0;
 LABEL_69:
@@ -4864,29 +4865,29 @@ LABEL_69:
   }
 
   v16 = 1;
-  v19 = _integerForProperty(*v42, @"_ClientVersion", &v41, 0, 1);
-  checkConnectionStatus(v42, &v40);
-  v14 = *v42;
-  if (!*v42)
+  v19 = _integerForProperty(*v43, @"_ClientVersion", &v42, 0, 1);
+  checkConnectionStatus(v43, &v41);
+  v14 = *v43;
+  if (!*v43)
   {
 LABEL_89:
     v20 = 0;
     goto LABEL_90;
   }
 
-  if (v41 != 17)
+  if (v42 != 17)
   {
     if (*(a1 + 112) == v19)
     {
       v20 = 0;
       v22 = 1;
-      if ((v40 ^ 1))
+      if ((v41 ^ 1))
       {
         goto LABEL_40;
       }
 
 LABEL_34:
-      if ((a4 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
         syslog(4, "%s may be out of date (version %d, expected %d), we will create a new database.\n", a2, v19, *(a1 + 112));
         if (truncateDatabase(a1))
@@ -4914,8 +4915,8 @@ LABEL_40:
         CPSqliteConnectionClose(v14);
       }
 
-      v24 = _createConnection(a1, a2, a4, a5, &v41);
-      *v42 = v24;
+      v24 = _createConnection(a1, a2, v8, v7, &v42);
+      *v43 = v24;
       if (!v24)
       {
         goto LABEL_10;
@@ -4928,22 +4929,22 @@ LABEL_40:
 
     if (*(a1 + 88) != 1)
     {
-      v34 = *(a1 + 56);
-      if (v34 && *(a1 + 64) && v34(a1, *v42, v19, *(a1 + 104)))
+      v35 = *(a1 + 56);
+      if (v35 && *(a1 + 64) && v35(a1, *v43, v19, *(a1 + 104)))
       {
-        v35 = (*(a1 + 64))(a1, v14, v19, *(a1 + 104));
-        if (v35 == 2)
+        v36 = (*(a1 + 64))(a1, v14, v19, *(a1 + 104));
+        if (v36 == 2)
         {
           CPSqliteConnectionClose(v14);
           v14 = 0;
           v20 = 0;
-          *v42 = 0;
+          *v43 = 0;
           goto LABEL_90;
         }
 
-        if (v35 != 1)
+        if (v36 != 1)
         {
-          if (!v35)
+          if (!v36)
           {
             CPSqliteConnectionSetIntegerForProperty(v14, @"_ClientVersion", *(a1 + 112));
           }
@@ -4954,48 +4955,48 @@ LABEL_40:
 
 LABEL_93:
       v20 = 0;
-      v40 = 1;
+      v41 = 1;
       goto LABEL_90;
     }
 
-    CPSqliteConnectionClose(*v42);
-    *v42 = 0;
-    v31 = dlopen("/System/Library/PrivateFrameworks/DataMigration.framework/DataMigration", 1);
-    if (v31)
+    CPSqliteConnectionClose(*v43);
+    *v43 = 0;
+    v32 = dlopen("/System/Library/PrivateFrameworks/DataMigration.framework/DataMigration", 1);
+    if (v32)
     {
-      v32 = v31;
+      v33 = v32;
       if (*(a1 + 96))
       {
-        v33 = dlsym(v31, "DMPerformMigrationReturningAfterPlugin");
-        if (v33)
+        v34 = dlsym(v32, "DMPerformMigrationReturningAfterPlugin");
+        if (v34)
         {
-          v33(*(a1 + 96));
+          v34(*(a1 + 96));
           goto LABEL_87;
         }
       }
 
       else
       {
-        v36 = dlsym(v31, "DMPerformMigration");
-        if (v36)
+        v37 = dlsym(v32, "DMPerformMigration");
+        if (v37)
         {
-          v37 = v36;
-          v38 = CFStringCreateWithFormat(0, 0, @"Database version conflict detected: %s", a2);
-          v37();
-          CFRelease(v38);
+          v38 = v37;
+          v39 = CFStringCreateWithFormat(0, 0, @"Database version conflict detected: %s", a2);
+          v38();
+          CFRelease(v39);
 LABEL_87:
-          dlclose(v32);
-          v39 = _createConnection(a1, a2, a4, 0, &v41);
-          v14 = v39;
-          *v42 = v39;
-          if (!v39)
+          dlclose(v33);
+          v40 = _createConnection(a1, a2, v8, 0, &v42);
+          v14 = v40;
+          *v43 = v40;
+          if (!v40)
           {
             v20 = 0;
             v16 = 1;
             goto LABEL_90;
           }
 
-          CPSqliteConnectionBeginTransactionType(v39, 0);
+          CPSqliteConnectionBeginTransactionType(v40, 0);
           LODWORD(v19) = CPSqliteConnectionIntegerForPropertyWithDefaultValue(v14, @"_ClientVersion", 0);
           v16 = 1;
           if (v19 == *(a1 + 112))
@@ -5007,15 +5008,15 @@ LABEL_87:
         }
       }
 
-      dlclose(v32);
+      dlclose(v33);
     }
 
     v14 = 0;
     goto LABEL_93;
   }
 
-  CPSqliteConnectionClose(*v42);
-  *v42 = 0;
+  CPSqliteConnectionClose(*v43);
+  *v43 = 0;
   v14 = 0;
   if (!a3)
   {
@@ -5027,7 +5028,7 @@ LABEL_87:
 LABEL_90:
   v22 = 1;
 LABEL_33:
-  if (v40 == 1)
+  if (v41 == 1)
   {
     goto LABEL_34;
   }
@@ -5035,7 +5036,7 @@ LABEL_33:
 LABEL_44:
   if ((v20 & 1) == 0 && v14)
   {
-    if ((a4 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
       v25 = CPSqliteConnectionCopyValueForProperty(v14, @"_UniqueIdentifier");
       if (v25)
@@ -5056,10 +5057,10 @@ LABEL_44:
     }
   }
 
-  if (v14 && ((v20 ^ 1) & 1) == 0 && (a4 & 1) == 0)
+  if (v14 && ((v20 ^ 1) & 1) == 0 && (v8 & 1) == 0)
   {
     _beginImmediateTransaction(v14);
-    if (!v16 || (v26 = _integerForProperty(v14, @"_ClientVersion", &v41, 0, 1), v41) || *(a1 + 112) != v26)
+    if (!v16 || (v26 = _integerForProperty(v14, @"_ClientVersion", &v42, 0, 1), v42) || *(a1 + 112) != v26)
     {
       v27 = sqlite3_exec(*(v14 + 8), "pragma legacy_file_format = 0;", 0, 0, 0);
       checkResultWithStatement(a1, 0, *(v14 + 8), v27, "CPSqliteDatabaseSetNewFileFormatPragma", 0);
@@ -5070,17 +5071,18 @@ LABEL_44:
       }
 
       v29 = sqlite3_exec(*(v14 + 8), "CREATE TABLE IF NOT EXISTS _SqliteDatabaseProperties (key TEXT, value TEXT, UNIQUE(key));", 0, 0, 0);
+      v30 = v29;
       checkResultWithStatement(a1, 0, *(v14 + 8), v29, "_connectAndCheckVersion", 0);
-      if (v29)
+      if (v30)
       {
         *(a1 + 8) = 0;
         goto LABEL_10;
       }
 
-      v30 = *(a1 + 16);
-      if (v30)
+      v31 = *(a1 + 16);
+      if (v31)
       {
-        v30(a1, v14, *(a1 + 48));
+        v31(a1, v14, *(a1 + 48));
       }
 
       if (*(a1 + 116))
@@ -5098,15 +5100,15 @@ LABEL_44:
 LABEL_10:
   if (a6)
   {
-    *a6 = v41;
+    *a6 = v42;
   }
 
-  return *v42;
+  return *v43;
 }
 
 sqlite3 **_createConnection(uint64_t a1, const char *a2, int a3, int a4, int *a5)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v10 = malloc_type_calloc(1uLL, 0x48uLL, 0x10A004006D1BBC6uLL);
   if ((a3 & 1) == 0)
   {
@@ -5114,10 +5116,10 @@ sqlite3 **_createConnection(uint64_t a1, const char *a2, int a3, int a4, int *a5
     {
       if (access(a2, 6) == -1 && *__error() != 2)
       {
-        memset(&v41, 0, sizeof(v41));
-        if (!stat(a2, &v41))
+        memset(&v40, 0, sizeof(v40));
+        if (!stat(a2, &v40))
         {
-          st_uid = v41.st_uid;
+          st_uid = v40.st_uid;
           if (st_uid == geteuid())
           {
             syslog(3, "fixing permissions on %s", a2);
@@ -5281,8 +5283,8 @@ LABEL_32:
     CPSqliteSetupLoggingForDatabaseHandle(v10[1]);
     if (__defaultPageCacheSize >= 10)
     {
-      snprintf(&v41, 0x80uLL, "PRAGMA cache_size=%d;", __defaultPageCacheSize);
-      sqlite3_exec(v10[1], &v41, 0, 0, 0);
+      snprintf(&v40, 0x80uLL, "PRAGMA cache_size=%d;", __defaultPageCacheSize);
+      sqlite3_exec(v10[1], &v40, 0, 0, 0);
     }
 
     v33 = *(a1 + 32);
@@ -5295,8 +5297,8 @@ LABEL_32:
     {
       if (*(a1 + 256))
       {
-        snprintf(&v41, 0x80uLL, "PRAGMA auto_vacuum=%d;", *(a1 + 256));
-        sqlite3_exec(v10[1], &v41, 0, 0, 0);
+        snprintf(&v40, 0x80uLL, "PRAGMA auto_vacuum=%d;", *(a1 + 256));
+        sqlite3_exec(v10[1], &v40, 0, 0, 0);
       }
 
 LABEL_56:
@@ -5343,13 +5345,12 @@ LABEL_63:
     *a5 = v28;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-void checkConnectionStatus(uint64_t *a1, _BYTE *a2)
+void checkConnectionStatus(void **a1, _BYTE *a2)
 {
-  v4 = sqlite3_errcode(*(*a1 + 8));
+  v4 = sqlite3_errcode(*(*a1 + 1));
   if (v4)
   {
     v5 = v4;
@@ -5366,7 +5367,7 @@ void checkConnectionStatus(uint64_t *a1, _BYTE *a2)
 
         else
         {
-          v6 = sqlite3_errmsg(*(*a1 + 8));
+          v6 = sqlite3_errmsg(*(*a1 + 1));
           syslog(3, "encountered sqlite error %d: %s", v5, v6);
         }
       }
@@ -5545,7 +5546,7 @@ void *CPSqliteStatementForSQLUncachedAndIgnoreErrors(uint64_t *a1, const __CFStr
   return v10;
 }
 
-void handleSqliteCorruptError(void *a1, int a2, sqlite3 *a3, uint64_t a4)
+void handleSqliteCorruptError(void *a1, uint64_t a2, sqlite3 *a3, uint64_t a4)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -5557,7 +5558,7 @@ void handleSqliteCorruptError(void *a1, int a2, sqlite3 *a3, uint64_t a4)
   runIntegrityCheckAndAbort(a1, a2, a3, a4);
 }
 
-void handleSqliteNotADBError(void *a1, int a2, sqlite3 *a3, uint64_t a4)
+void handleSqliteNotADBError(void *a1, uint64_t a2, sqlite3 *a3, uint64_t a4)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -5571,26 +5572,24 @@ void handleSqliteNotADBError(void *a1, int a2, sqlite3 *a3, uint64_t a4)
 
 uint64_t handleSqliteIOError(const void *a1, char a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v15 = a5;
+    v14 = a5;
     _os_log_error_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Got SQLITE_IOERR with extended error code %i.  Will try to delete database, but only if the pragma integrity_check fails.\n", buf, 8u);
   }
 
   syslog(4, "Got SQLITE_IOERR with extended error code %i for db %p.  Will try to delete database, but only if the pragma integrity_check fails.\n", a5, a1);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 0x40000000;
-  v12[2] = __handleSqliteIOError_block_invoke;
-  v12[3] = &__block_descriptor_tmp_163;
-  v13 = a2;
-  v12[4] = a1;
-  v12[5] = a3;
-  v12[6] = a4;
-  result = runWithExtendedSQLiteErrorCode_SQLITE_IOERR_BLOCKED(v12);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 0x40000000;
+  v11[2] = __handleSqliteIOError_block_invoke;
+  v11[3] = &__block_descriptor_tmp_163;
+  v12 = a2;
+  v11[4] = a1;
+  v11[5] = a3;
+  v11[6] = a4;
+  return runWithExtendedSQLiteErrorCode_SQLITE_IOERR_BLOCKED(v11);
 }
 
 void sqlite3PrintErrorWithStatement(sqlite3 *a1, uint64_t a2, sqlite3_stmt *a3)
@@ -5608,9 +5607,10 @@ void sqlite3PrintErrorWithStatement(sqlite3 *a1, uint64_t a2, sqlite3_stmt *a3)
   }
 }
 
-void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
+void runIntegrityCheckAndAbort(void *a1, uint64_t a2, sqlite3 *a3, uint64_t a4)
 {
-  v20 = a3;
+  v5 = a2;
+  v22 = a3;
   if (a4)
   {
     sqlite3PrintErrorWithStatement(a3, "runIntegrityCheckAndAbort", *(a4 + 8));
@@ -5638,8 +5638,8 @@ void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
   }
 
   v10 = v9;
-  v11 = integrityCheckDatabase(v9, &v20, a1, a2);
-  sqlite3_close(v20);
+  v11 = integrityCheckDatabase(v9, &v22, a1, v5);
+  sqlite3_close(v22);
   if (v11)
   {
     if (v7)
@@ -5653,10 +5653,10 @@ void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
     v12 = random() % 5000000;
     syslog(4, "Failed first integrity check, waiting %i useconds.", v12);
     usleep(v12);
-    v13 = integrityCheckDatabase(v10, &v20, a1, a2);
+    v13 = integrityCheckDatabase(v10, &v22, a1, v5);
     if (!v13)
     {
-      if (a2)
+      if (v5)
       {
         syslog(4, "Failed second integrity check, but leaving read-only database in place.");
       }
@@ -5664,24 +5664,24 @@ void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
       else
       {
         syslog(4, "Failed second integrity check, deleting the database files.");
-        v14 = v20;
-        if (CPIsInternalDevice() || CFPreferencesGetAppBooleanValue(@"CopyCorruptDatabases", *MEMORY[0x1E695E890], 0))
+        v14 = v22;
+        if (CPIsInternalDevice(v15, v16) || CFPreferencesGetAppBooleanValue(@"CopyCorruptDatabases", *MEMORY[0x1E695E890], 0))
         {
-          v15 = malloc_type_calloc(1uLL, 0x400uLL, 0xB4B889E2uLL);
-          v16 = malloc_type_calloc(1uLL, 0x400uLL, 0x3A568C22uLL);
-          v17 = 0;
+          v17 = malloc_type_calloc(1uLL, 0x400uLL, 0xB4B889E2uLL);
+          v18 = malloc_type_calloc(1uLL, 0x400uLL, 0x3A568C22uLL);
+          v19 = 0;
           ppDb = 0;
           if ((*(a1 + 58) & 0x1000) != 0)
           {
-            v17 = CPStartAnInhibitor();
+            v19 = CPStartAnInhibitor();
           }
 
-          CPBasename(v10, v15, 1024);
-          CPTemporaryPath(v15, v16, 0x400uLL);
-          v18 = sqlite3_open(v16, &ppDb);
-          if (v18)
+          CPBasename(v10, v17, 1024);
+          CPTemporaryPath(v17, v18, 0x400uLL);
+          v20 = sqlite3_open(v18, &ppDb);
+          if (v20)
           {
-            syslog(2, "%s: Unable to sqlite3_open corruptCopyPath %s with sql result code %d", "void deleteCorruptDatabase(char *, sqlite3 *, CPSqliteDatabase *)", v16, v18);
+            syslog(2, "%s: Unable to sqlite3_open corruptCopyPath %s with sql result code %d", "void deleteCorruptDatabase(char *, sqlite3 *, CPSqliteDatabase *)", v18, v20);
           }
 
           else
@@ -5699,21 +5699,21 @@ void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
             sqlite3_close(ppDb);
           }
 
-          if (v17)
+          if (v19)
           {
-            CPStopInhibitorWithIdentifier(v17);
+            CPStopInhibitorWithIdentifier(v19);
           }
 
-          free(v15);
-          free(v16);
+          free(v17);
+          free(v18);
         }
 
         if (truncateDatabase(a1))
         {
-          v19 = a1[10];
-          if (v19)
+          v21 = a1[10];
+          if (v21)
           {
-            v19(a1, 0);
+            v21(a1, 0);
           }
         }
 
@@ -5724,7 +5724,7 @@ void runIntegrityCheckAndAbort(void *a1, int a2, sqlite3 *a3, uint64_t a4)
       }
     }
 
-    sqlite3_close(v20);
+    sqlite3_close(v22);
     if (v7)
     {
       CPStopInhibitorWithIdentifier(v7);
@@ -5984,7 +5984,7 @@ uint64_t CPRecordGetID(uint64_t a1)
   }
 }
 
-uint64_t CPRecordInitializePropertyAndAllowLoading(uint64_t result, int a2, uint64_t a3, int a4)
+uint64_t CPRecordInitializePropertyAndAllowLoading(uint64_t result, uint64_t a2, uint64_t a3, int a4)
 {
   if (result && (!a3 || *(result + 8 * a2 + 72) != a3))
   {
@@ -6005,11 +6005,10 @@ uint64_t CPRecordInitializePropertyAndAllowLoading(uint64_t result, int a2, uint
   return result;
 }
 
-uint64_t CPRecordInitializeProperty(uint64_t result, int a2, uint64_t a3)
+uint64_t CPRecordInitializeProperty(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result && (!a3 || *(result + 8 * a2 + 72) != a3))
   {
-    v3 = *MEMORY[0x1E695E738];
     if (!a3)
     {
       a3 = *MEMORY[0x1E695E738];
@@ -6142,13 +6141,13 @@ uint64_t CPRecordPropertyLoadHandler(uint64_t a1, int a2, uint64_t a3)
   return 1;
 }
 
-uint64_t CPRecordUnloadProperty(uint64_t result, int a2)
+const void *CPRecordUnloadProperty(const void *result, int a2)
 {
   if (result)
   {
     LODWORD(v2) = a2;
     v3 = result;
-    v4 = *(result + 40);
+    v4 = *(result + 5);
     if (v4)
     {
       CFDictionaryRemoveValue(v4, a2);
@@ -6255,7 +6254,7 @@ void CPRecordMarkPropertyChanged(uint64_t a1, uint64_t a2)
   }
 }
 
-void CPRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
+void CPRecordSetProperty(void *a1, uint64_t a2, uint64_t a3)
 {
   updated = _updateDetachedRecord(a1);
   if (!updated)
@@ -6264,7 +6263,7 @@ void CPRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v7 = updated;
-  v8 = updated[3];
+  v8 = *(updated + 24);
   if ((*(v8 + 56) & 4) != 0 && *(v8 + 136) >= 3)
   {
     v9 = *(v8 + 144);
@@ -6307,14 +6306,14 @@ void CPRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
           v15 = *MEMORY[0x1E695E738];
         }
 
-        v24 = *(v7 + 48);
-        if (!v24)
+        v23 = *(v7 + 48);
+        if (!v23)
         {
-          v24 = CFDictionaryCreateMutable(0, 0, 0, 0);
-          *(v7 + 48) = v24;
+          v23 = CFDictionaryCreateMutable(0, 0, 0, 0);
+          *(v7 + 48) = v23;
         }
 
-        CFDictionaryAddValue(v24, a2, v15);
+        CFDictionaryAddValue(v23, a2, v15);
         CFSetRemoveValue(*(v7 + 64), a2);
         if (!a3)
         {
@@ -6334,18 +6333,17 @@ void CPRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
   if (!a3)
   {
 LABEL_19:
-    v17 = *MEMORY[0x1E695E738];
     if (a3)
     {
-      v18 = a3;
+      v17 = a3;
     }
 
     else
     {
-      v18 = *MEMORY[0x1E695E738];
+      v17 = *MEMORY[0x1E695E738];
     }
 
-    CPRecordPropertyLoadHandler(v7, a2, v18);
+    CPRecordPropertyLoadHandler(v7, a2, v17);
     goto LABEL_23;
   }
 
@@ -6357,49 +6355,49 @@ LABEL_18:
 
 LABEL_23:
   CPRecordMarkPropertyChanged(v7, a2);
-  v19 = *(v7 + 16);
-  if (!v19)
+  v18 = *(v7 + 16);
+  if (!v18)
   {
     return;
   }
 
-  v20 = *(v19 + 24);
-  if (v20)
+  v19 = *(v18 + 24);
+  if (v19)
   {
-    if (CFDictionaryContainsKey(v20, v7))
+    if (CFDictionaryContainsKey(v19, v7))
     {
       return;
     }
 
-    v19 = *(v7 + 16);
+    v18 = *(v7 + 16);
   }
 
-  v21 = *(v19 + 40);
-  if (!v21 || (Value = CFDictionaryGetValue(v21, *(v7 + 24))) == 0 || !CFDictionaryContainsKey(Value, *(v7 + 32)))
+  v20 = *(v18 + 40);
+  if (!v20 || (Value = CFDictionaryGetValue(v20, *(v7 + 24))) == 0 || !CFDictionaryContainsKey(Value, *(v7 + 32)))
   {
     if (*(*(v7 + 16) + 57))
     {
       if (*(*(*(v7 + 24) + 80) + 40 * v11 + 25))
       {
-        v23 = 2;
+        v22 = 2;
       }
 
       else
       {
-        v23 = 3;
+        v22 = 3;
       }
     }
 
     else
     {
-      v23 = 2;
+      v22 = 2;
     }
 
-    _addChangeActions(v7, v23);
+    _addChangeActions(v7, v22);
   }
 }
 
-const void *_updateDetachedRecord(uint64_t a1)
+uint64_t _updateDetachedRecord(uint64_t a1)
 {
   if (!a1)
   {
@@ -6447,12 +6445,12 @@ const void *_updateDetachedRecord(uint64_t a1)
   return v3;
 }
 
-uint64_t CPRecordGetProperty(uint64_t result, uint64_t a2)
+void *CPRecordGetProperty(void *result, uint64_t a2)
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 8 * a2 + 72);
+    v4 = result[a2 + 9];
     if (v4)
     {
       goto LABEL_3;
@@ -6462,7 +6460,7 @@ uint64_t CPRecordGetProperty(uint64_t result, uint64_t a2)
     updated = _updateDetachedRecord(result);
     if (updated)
     {
-      v4 = updated[a2 + 9];
+      v4 = *(updated + 8 * a2 + 72);
       if (v4)
       {
 LABEL_3:
@@ -6551,12 +6549,12 @@ CFMutableDictionaryRef *_getReaderConnection(uint64_t a1)
   return v4;
 }
 
-const void *CPRecordGetOriginalProperty(const void *result, uint64_t a2)
+void *CPRecordGetOriginalProperty(void *result, uint64_t a2)
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 6);
+    v4 = result[6];
     if (v4 && (result = CFDictionaryGetValue(v4, a2)) != 0)
     {
       if (result == *MEMORY[0x1E695E738])
@@ -6575,13 +6573,13 @@ const void *CPRecordGetOriginalProperty(const void *result, uint64_t a2)
   return result;
 }
 
-uint64_t CPRecordCopyProperty(uint64_t a1, uint64_t a2)
+void *CPRecordCopyProperty(void *a1, uint64_t a2)
 {
   v2 = a2;
   result = CPRecordGetProperty(a1, a2);
   if (result)
   {
-    v5 = **(*(*(a1 + 24) + 80) + 40 * v2 + 16);
+    v5 = **(*(a1[3] + 80) + 40 * v2 + 16);
     if (v5)
     {
 
@@ -6594,84 +6592,82 @@ uint64_t CPRecordCopyProperty(uint64_t a1, uint64_t a2)
 
 uint64_t CPRecordShow(uint64_t result)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (!result)
+  v16 = *MEMORY[0x1E69E9840];
+  if (result)
   {
-LABEL_23:
-    v16 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v1 = result;
-  v2 = *(result + 24);
-  v3 = *(v2 + 40);
-  if (!v3)
-  {
-    v5 = *(v2 + 72);
-    v6 = MEMORY[0x1E69E9848];
-    result = fprintf(*MEMORY[0x1E69E9848], "CPRecord/%s instance %p:\n", *v2, result);
-    if (v5 >= 1)
+    v1 = result;
+    v2 = *(result + 24);
+    v3 = *(v2 + 40);
+    if (v3)
     {
-      v7 = 0;
-      v8 = 0;
-      do
+
+      return v3();
+    }
+
+    else
+    {
+      v4 = *(v2 + 72);
+      v5 = MEMORY[0x1E69E9848];
+      result = fprintf(*MEMORY[0x1E69E9848], "CPRecord/%s instance %p:\n", *v2, result);
+      if (v4 >= 1)
       {
-        Property = CPRecordGetProperty(v1, v8);
-        fprintf(*v6, " %s (%d) = ", *(*(*(v1 + 24) + 80) + v7), v8);
-        v10 = *(*(v1 + 24) + 80);
-        if (Property && (v11 = *(*(v10 + v7 + 16) + 16)) != 0)
+        v6 = 0;
+        v7 = 0;
+        do
         {
-          v11(Property);
-        }
-
-        else
-        {
-          v12 = *(v10 + v7 + 8);
-          if ((v12 - 6) < 2 || v12 == 2)
+          Property = CPRecordGetProperty(v1, v7);
+          fprintf(*v5, " %s (%d) = ", *(*(v1[3] + 80) + v6), v7);
+          v9 = *(v1[3] + 80);
+          if (Property && (v10 = *(*(v9 + v6 + 16) + 16)) != 0)
           {
-            v14 = CFStringCreateWithFormat(0, 0, @"%@", Property);
-            if (v14)
-            {
-              v15 = v14;
-              CFStringGetCString(v14, buffer, 2048, 0x8000100u);
-              fputs(buffer, *v6);
-              CFRelease(v15);
-            }
-
-            else
-            {
-              fwrite("(nil)", 5uLL, 1uLL, *v6);
-            }
-          }
-
-          else if (v12 == 1)
-          {
-            fprintf(*v6, "%d");
+            v10(Property);
           }
 
           else
           {
-            fprintf(*v6, "%p");
+            v11 = *(v9 + v6 + 8);
+            if ((v11 - 6) < 2 || v11 == 2)
+            {
+              v13 = CFStringCreateWithFormat(0, 0, @"%@", Property);
+              if (v13)
+              {
+                v14 = v13;
+                CFStringGetCString(v13, buffer, 2048, 0x8000100u);
+                fputs(buffer, *v5);
+                CFRelease(v14);
+              }
+
+              else
+              {
+                fwrite("(nil)", 5uLL, 1uLL, *v5);
+              }
+            }
+
+            else if (v11 == 1)
+            {
+              fprintf(*v5, "%d");
+            }
+
+            else
+            {
+              fprintf(*v5, "%p");
+            }
           }
+
+          result = fputc(10, *v5);
+          v7 = (v7 + 1);
+          v6 += 40;
         }
 
-        result = fputc(10, *v6);
-        v8 = (v8 + 1);
-        v7 += 40;
+        while (40 * v4 != v6);
       }
-
-      while (40 * v5 != v7);
     }
-
-    goto LABEL_23;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3();
+  return result;
 }
 
-uint64_t CPRecordGetPropertyDescriptor(uint64_t a1, unsigned int a2)
+uint64_t CPRecordGetPropertyDescriptor(uint64_t a1, signed int a2)
 {
   result = 0;
   if (a1 && (a2 & 0x80000000) == 0)
@@ -6745,18 +6741,17 @@ void CPRecordStoreSetValueForProperty(uint64_t a1, void *key, const void *a3)
     *(a1 + 80) = Mutable;
   }
 
-  v7 = *MEMORY[0x1E695E738];
   if (a3)
   {
-    v8 = a3;
+    v7 = a3;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E695E738];
+    v7 = *MEMORY[0x1E695E738];
   }
 
-  CFDictionarySetValue(Mutable, key, v8);
+  CFDictionarySetValue(Mutable, key, v7);
 }
 
 CFStringRef CPRecordStoreCopyValueForProperty(uint64_t a1, const __CFString *key)
@@ -6824,7 +6819,7 @@ void CPRecordStoreRemoveProperty(uint64_t a1, const __CFString *a2)
   }
 }
 
-uint64_t CPRecordIndexOfPropertyNamed(const char **a1, int a2, char *__s1)
+uint64_t CPRecordIndexOfPropertyNamed(const char **a1, unsigned int a2, char *__s1)
 {
   if (a2 < 1)
   {
@@ -6882,7 +6877,7 @@ void _sqliteDatabaseSetupHandler(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    CPSqliteDatabaseDefaultSetupHandler(a1, a2);
+    CPSqliteDatabaseDefaultSetupHandler();
     v6 = *(a3 + 72);
     if (v6)
     {
@@ -7014,7 +7009,7 @@ void CPRecordInvalidateRecord(uint64_t a1)
   }
 }
 
-uint64_t CPRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a1, void (*a2)(uint64_t, CFMutableDictionaryRef *), void (*a3)(uint64_t, CFMutableDictionaryRef *), int a4, unsigned int a5, CFErrorRef *a6)
+BOOL CPRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a1, void (*a2)(uint64_t, uint64_t *), void (*a3)(uint64_t, uint64_t *), int a4, unsigned int a5, CFErrorRef *a6)
 {
   if (a1 && !a2 && !a3 && !*(a1 + 24) && !*(a1 + 32) && !*(a1 + 40) && !*(a1 + 80) && !*(a1 + 16))
   {
@@ -7860,7 +7855,7 @@ __CFString *CPRecordStoreCreateSelectStatement(const char **a1, const __CFString
   return SelectPrefixFromRecordDescriptorWithAdditionalColumns;
 }
 
-uint64_t CPRecordStoreProcessRecordStatementWithPropertyIndicesAndQueryDescriptor(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CFDictionaryRef theDict, uint64_t a8)
+uint64_t CPRecordStoreProcessRecordStatementWithPropertyIndicesAndQueryDescriptor(uint64_t a1, void *a2, sqlite3_stmt **a3, uint64_t a4, uint64_t a5, uint64_t a6, CFDictionaryRef theDict, uint64_t a8)
 {
   if (!a3)
   {
@@ -7996,13 +7991,14 @@ uint64_t CPRecordStoreCopyAllInstancesOfClassWithAliasAndFilter(uint64_t a1, con
   return v11;
 }
 
-const void *CPRecordStoreGetInstanceOfClassWithUID(uint64_t a1, void *a2, int a3)
+const void *CPRecordStoreGetInstanceOfClassWithUID(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   result = _CPRecordStoreGetCachedInstanceOfClassWithUID(a1, a2, a3);
   if (!result)
   {
 
-    return _loadInstanceFromDB(a1, a2, a3);
+    return _loadInstanceFromDB(a1, a2, v3);
   }
 
   return result;
@@ -8029,7 +8025,7 @@ const void *_loadInstanceFromDB(uint64_t a1, const char **a2, int a3)
     }
 
     v11 = v10;
-    v12 = *(v10 + 1);
+    v12 = v10[1];
     if (!v12)
     {
       goto LABEL_16;
@@ -8099,7 +8095,7 @@ LABEL_21:
   }
 }
 
-void _CPRecordStoreAddRecord(uint64_t a1, void **key, int a3)
+void _CPRecordStoreAddRecord(uint64_t a1, const void **key, int a3)
 {
   if (!key)
   {
@@ -8304,12 +8300,12 @@ void CPRecordStoreRemoveRecord(uint64_t a1, uint64_t a2)
   }
 }
 
-void *CPRecordIsPendingAdd(void *key)
+const __CFDictionary *CPRecordIsPendingAdd(const __CFDictionary *key)
 {
   if (key)
   {
     v1 = key;
-    v2 = key[2];
+    v2 = *(key + 2);
     if (v2)
     {
       key = *(v2 + 24);
@@ -8328,12 +8324,12 @@ void *CPRecordIsPendingAdd(void *key)
   return key;
 }
 
-void *CPRecordIsPendingChange(void *key)
+const __CFDictionary *CPRecordIsPendingChange(const __CFDictionary *key)
 {
   if (key)
   {
     v1 = key;
-    v2 = key[2];
+    v2 = *(key + 2);
     if (v2)
     {
       key = *(v2 + 32);
@@ -8525,7 +8521,7 @@ uint64_t _CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithP
   return v26;
 }
 
-uint64_t CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBindBlockAndPropertiesA(uint64_t a1, uint64_t a2, __CFArray **a3, CFMutableArrayRef *a4, __CFArray **a5, CFMutableArrayRef *a6, const __CFString *a7, uint64_t a8, const char **a9, uint64_t a10, int a11)
+uint64_t CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBindBlockAndPropertiesA(uint64_t a1, uint64_t a2, __CFArray **a3, CFMutableArrayRef *a4, __CFArray **a5, CFMutableArrayRef *a6, const __CFString *a7, uint64_t a8, const char **a9, uint64_t a10, unsigned int a11)
 {
   v19 = malloc_type_calloc(a11, 8uLL, 0x80040B8603338uLL);
   if (v19)
@@ -8572,7 +8568,7 @@ uint64_t CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBi
   }
 }
 
-uint64_t _CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithPropertiesA(uint64_t a1, uint64_t a2, __CFArray **a3, CFMutableArrayRef *a4, __CFArray **a5, CFMutableArrayRef *a6, const __CFString *a7, __CFString *a8, uint64_t a9, const char **a10, void **a11, int a12)
+uint64_t _CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithPropertiesA(uint64_t a1, uint64_t a2, __CFArray **a3, CFMutableArrayRef *a4, __CFArray **a5, CFMutableArrayRef *a6, const __CFString *a7, __CFString *a8, uint64_t a9, const char **a10, void **a11, unsigned int a12)
 {
   v19 = a12;
   Mutable = CFStringCreateMutable(0, 0);
@@ -8731,7 +8727,7 @@ uint64_t _CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithP
   ReaderConnection = _getReaderConnection(a1);
   v44 = CPSqliteConnectionStatementForSQL(ReaderConnection, Mutable);
   CFRelease(Mutable);
-  if (!v44 || !*(v44 + 1))
+  if (!v44 || !v44[1])
   {
     v56 = 0xFFFFFFFFLL;
 LABEL_58:
@@ -8761,7 +8757,7 @@ LABEL_58:
     *a6 = CFArrayCreateMutable(v45, 0, 0);
   }
 
-  if (sqlite3_step(*(v44 + 1)) != 100)
+  if (sqlite3_step(v44[1]) != 100)
   {
     goto LABEL_54;
   }
@@ -8769,19 +8765,19 @@ LABEL_58:
   v46 = *MEMORY[0x1E695E738];
   do
   {
-    v47 = sqlite3_column_int64(*(v44 + 1), 1);
+    v47 = sqlite3_column_int64(v44[1], 1);
     v48 = *a3;
     RecordIDForRowid = CPRecordStoreGetRecordIDForRowid(a1, v47);
     CFArrayAppendValue(v48, RecordIDForRowid);
-    v50 = sqlite3_column_int(*(v44 + 1), 2);
+    v50 = sqlite3_column_int(v44[1], 2);
     CFArrayAppendValue(*a4, v50);
     if (a6)
     {
-      v51 = sqlite3_column_int(*(v44 + 1), 3);
+      v51 = sqlite3_column_int(v44[1], 3);
       CFArrayAppendValue(*a6, v51);
     }
 
-    v52 = sqlite3_column_int64(*(v44 + 1), 0);
+    v52 = sqlite3_column_int64(v44[1], 0);
     v53 = v52;
     if (a5)
     {
@@ -8803,7 +8799,7 @@ LABEL_58:
     CPSqliteStatementApplyValuesFromRecordWithNullValue(v44, v67, v19, 0, v46);
   }
 
-  while (sqlite3_step(*(v44 + 1)) == 100);
+  while (sqlite3_step(v44[1]) == 100);
   if (v53 != -1)
   {
     v56 = CPRecordStoreGetRecordIDForRowid(a1, v53);
@@ -9026,9 +9022,9 @@ void _updateModificationDateProperties(uint64_t a1)
   }
 }
 
-char *CPRecordStoreWriteColumnsForRecord(uint64_t a1, int *a2, int a3)
+char *CPRecordStoreWriteColumnsForRecord(void *a1, int *a2, int a3)
 {
-  v5 = *(a1 + 24);
+  v5 = a1[3];
   if (*(v5 + 72) < 1)
   {
     v8 = 0;
@@ -9060,7 +9056,7 @@ LABEL_12:
           goto LABEL_12;
         }
 
-        v11 = *(a1 + 40);
+        v11 = a1[5];
         if (v11)
         {
           if (CFDictionaryGetValueIfPresent(v11, v7, 0))
@@ -9072,7 +9068,7 @@ LABEL_12:
     }
 
     ++v7;
-    v5 = *(a1 + 24);
+    v5 = a1[3];
     v6 += 40;
   }
 
@@ -9080,7 +9076,7 @@ LABEL_12:
   if (v8 >= 1)
   {
     v12 = malloc_type_calloc(1uLL, 24 * v8, 0x1072040C107B9A8uLL);
-    v5 = *(a1 + 24);
+    v5 = a1[3];
     goto LABEL_18;
   }
 
@@ -9125,7 +9121,7 @@ LABEL_18:
 
           else
           {
-            v24 = *(a1 + 40);
+            v24 = a1[5];
             if (v24 && CFDictionaryGetValueIfPresent(v24, v13, 0) && v14 < v8)
             {
               v17 = *(v15 + 8);
@@ -9186,7 +9182,7 @@ LABEL_32:
 
 LABEL_48:
       ++v13;
-      v5 = *(a1 + 24);
+      v5 = a1[3];
     }
 
     while (v13 < *(v5 + 72));
@@ -9584,7 +9580,7 @@ void OUTLINED_FUNCTION_1(const __CFDictionary *a1)
   CFDictionaryApplyFunction(a1, _ClearOriginalProperty, v1);
 }
 
-uint64_t decomposePhoneNumber(uint64_t a1, uint64_t a2)
+uint64_t decomposePhoneNumber(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -9594,10 +9590,10 @@ uint64_t decomposePhoneNumber(uint64_t a1, uint64_t a2)
 
   else
   {
-    v3 = CPPhoneNumberCopyHomeCountryCode();
-    v4 = PNDecomposeForCountry();
-    CFRelease(v3);
-    return v4;
+    v4 = CPPhoneNumberCopyHomeCountryCode();
+    v5 = PNDecomposeForCountry();
+    CFRelease(v4);
+    return v5;
   }
 }
 
@@ -9624,36 +9620,36 @@ uint64_t CPPhoneNumberCopyNormalized(const char *a1)
   return v5;
 }
 
-uint64_t _phoneNumbersEqual(const char *a1, uint64_t a2, const char *a3)
+uint64_t _phoneNumbersEqual(const char *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = 0;
+  v6 = 0;
   if (a1 && a3)
   {
-    v6 = *MEMORY[0x1E695E480];
-    v7 = strlen(a1);
-    v8 = *MEMORY[0x1E695E498];
-    v9 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], a1, v7, 0x8000100u, 0, *MEMORY[0x1E695E498]);
-    v10 = strlen(a3);
-    v11 = CFStringCreateWithBytesNoCopy(v6, a3, v10, 0x8000100u, 0, v8);
-    v3 = PNPhoneNumbersEqual();
-    if (v9)
+    v9 = *MEMORY[0x1E695E480];
+    v10 = strlen(a1);
+    v11 = *MEMORY[0x1E695E498];
+    v12 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], a1, v10, 0x8000100u, 0, *MEMORY[0x1E695E498]);
+    v13 = strlen(a3);
+    v14 = CFStringCreateWithBytesNoCopy(v9, a3, v13, 0x8000100u, 0, v11);
+    v6 = PNPhoneNumbersEqual();
+    if (v12)
     {
-      CFRelease(v9);
+      CFRelease(v12);
     }
 
-    if (v11)
+    if (v14)
     {
-      CFRelease(v11);
+      CFRelease(v14);
     }
   }
 
-  return v3;
+  return v6;
 }
 
 uint64_t CPPhoneNumbersEqualStrict(const char *a1, const char *a2)
 {
   v4 = CPPhoneNumberCopyHomeCountryCode();
-  v5 = _phoneNumbersEqual(a1, v4, a2);
+  v5 = _phoneNumbersEqual(a1, v4, a2, v4, 1, 0);
   CFRelease(v4);
   return v5;
 }

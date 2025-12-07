@@ -113,11 +113,12 @@ void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke(uint64_t a1)
   if (WeakRetained)
   {
     v3 = objc_loadWeakRetained((a1 + 32));
-    [v3[5] lock];
+    v4 = [v3[5] lock];
     *(v3 + 33) = 1;
-    if (gp_isInternalBuild())
+    isInternalBuild = gp_isInternalBuild(v4, v5);
+    if (isInternalBuild)
     {
-      __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_cold_1();
+      __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_cold_1(isInternalBuild);
     }
 
     [v3[5] unlock];
@@ -131,11 +132,12 @@ void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7(uint64_t a
   if (WeakRetained)
   {
     v3 = objc_loadWeakRetained((a1 + 32));
-    [v3[5] lock];
+    v4 = [v3[5] lock];
     *(v3 + 33) = 1;
-    if (gp_isInternalBuild())
+    isInternalBuild = gp_isInternalBuild(v4, v5);
+    if (isInternalBuild)
     {
-      __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7_cold_1();
+      __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7_cold_1(isInternalBuild);
     }
 
     [v3[5] unlock];
@@ -160,18 +162,18 @@ void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7(uint64_t a
 
 - (void)pong
 {
-  v1 = getGPLogger();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = getGPLogger(self);
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 - (void)installedGamesDidChange:(id)change
 {
   changeCopy = change;
-  if (gp_isInternalBuild())
+  if (gp_isInternalBuild(changeCopy, v5))
   {
     [GPGameLibrary installedGamesDidChange:changeCopy];
   }
@@ -179,11 +181,12 @@ void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7(uint64_t a
   if (!self->_libraryInitialized)
   {
     self->_libraryInitialized = 1;
-    v5 = [MEMORY[0x277CBEAA8] now];
-    [v5 timeIntervalSinceDate:self->_creationDate];
-    if (gp_isInternalBuild())
+    v6 = [MEMORY[0x277CBEAA8] now];
+    v7 = [v6 timeIntervalSinceDate:self->_creationDate];
+    isInternalBuild = gp_isInternalBuild(v7, v8);
+    if (isInternalBuild)
     {
-      [GPGameLibrary installedGamesDidChange:];
+      [GPGameLibrary installedGamesDidChange:?];
     }
   }
 
@@ -193,12 +196,12 @@ void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7(uint64_t a
   block[1] = 3221225472;
   block[2] = __41__GPGameLibrary_installedGamesDidChange___block_invoke;
   block[3] = &unk_279685870;
-  objc_copyWeak(&v10, &location);
-  v9 = changeCopy;
-  v7 = changeCopy;
+  objc_copyWeak(&v14, &location);
+  v13 = changeCopy;
+  v11 = changeCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 }
 
@@ -252,15 +255,18 @@ void __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke(u
     v5 = v3[7];
     v3[7] = v4;
 
-    if (v3[7] && [v3[6] count])
+    if (v3[7])
     {
-      if (gp_isInternalBuild())
+      v6 = [v3[6] count];
+      if (v6)
       {
-        __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke_cold_1(v3 + 6);
-      }
+        if (gp_isInternalBuild(v6, v7))
+        {
+          __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke_cold_1(v3 + 6);
+        }
 
-      v6 = v3[6];
-      (*(v3[7] + 2))();
+        (*(v3[7] + 2))();
+      }
     }
 
     [v3[5] unlock];
@@ -269,29 +275,29 @@ void __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke(u
 
 + (id)gameLibraryAppsFromGameLibraryGames:(id)games
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   gamesCopy = games;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = gamesCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [GPGameLibraryApp alloc];
         persistentIdentifier = [v9 persistentIdentifier];
         bundleID = [v9 bundleID];
@@ -301,13 +307,11 @@ void __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke(u
         [v4 addObject:v14];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -366,20 +370,19 @@ void __58__GPGameLibrary_fetchInstalledGamesWithCompletionHandler___block_invoke
 
   if (WeakRetained)
   {
-    v6 = objc_loadWeakRetained((a1 + 40));
-    [v6[5] lock];
-    if (*(v6 + 33) == 1)
+    v5 = objc_loadWeakRetained((a1 + 40));
+    [v5[5] lock];
+    if (*(v5 + 33) == 1)
     {
-      [v6[5] unlock];
+      [v5[5] unlock];
       (*(*(a1 + 32) + 16))();
     }
 
     else
     {
-      v4 = [v6[1] remoteObjectProxy];
-      [v6[5] unlock];
+      v4 = [v5[1] remoteObjectProxy];
+      [v5[5] unlock];
       [v4 requestInstalledGamesWithReply:&__block_literal_global_14];
-      v5 = v6[6];
       (*(*(a1 + 32) + 16))();
     }
   }
@@ -574,30 +577,30 @@ void __31__GPGameLibrary_installedGames__block_invoke(uint64_t a1)
 
 void __31__GPGameLibrary_installedGames__block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         v9 = [GPGameLibraryApp alloc];
         v10 = [v8 persistentIdentifier];
         v11 = [v8 bundleID];
@@ -609,7 +612,7 @@ void __31__GPGameLibrary_installedGames__block_invoke_2(uint64_t a1, void *a2)
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -621,7 +624,6 @@ void __31__GPGameLibrary_installedGames__block_invoke_2(uint64_t a1, void *a2)
   v16 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)appsWithBundleIdentifiers:(id)identifiers
@@ -683,30 +685,30 @@ void __43__GPGameLibrary_appsWithBundleIdentifiers___block_invoke(void *a1)
 
 void __43__GPGameLibrary_appsWithBundleIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         v9 = [GPGameLibraryApp alloc];
         v10 = [v8 persistentIdentifier];
         v11 = [v8 bundleID];
@@ -718,7 +720,7 @@ void __43__GPGameLibrary_appsWithBundleIdentifiers___block_invoke_2(uint64_t a1,
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -730,7 +732,6 @@ void __43__GPGameLibrary_appsWithBundleIdentifiers___block_invoke_2(uint64_t a1,
   v16 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)appsWithStoreIdentifiers:(id)identifiers
@@ -792,30 +793,30 @@ void __42__GPGameLibrary_appsWithStoreIdentifiers___block_invoke(void *a1)
 
 void __42__GPGameLibrary_appsWithStoreIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         v9 = [GPGameLibraryApp alloc];
         v10 = [v8 persistentIdentifier];
         v11 = [v8 bundleID];
@@ -827,7 +828,7 @@ void __42__GPGameLibrary_appsWithStoreIdentifiers___block_invoke_2(uint64_t a1, 
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -839,68 +840,58 @@ void __42__GPGameLibrary_appsWithStoreIdentifiers___block_invoke_2(uint64_t a1, 
   v16 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_cold_1()
+void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_cold_1(uint64_t a1)
 {
-  v1 = getGPLogger();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = getGPLogger(a1);
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7_cold_1()
+void __45__GPGameLibrary__onqueue_connectToXPCService__block_invoke_7_cold_1(uint64_t a1)
 {
-  v1 = getGPLogger();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = getGPLogger(a1);
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 - (void)installedGamesDidChange:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = getGPLogger();
+  v3 = getGPLogger(a1);
   if (OUTLINED_FUNCTION_1(v3))
   {
     [a1 count];
     OUTLINED_FUNCTION_0();
     _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)installedGamesDidChange:.cold.2()
+- (void)installedGamesDidChange:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = getGPLogger();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = getGPLogger(a1);
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __56__GPGameLibrary_registerInstalledGamesDidChangeHandler___block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = getGPLogger();
+  v3 = getGPLogger(a1);
   if (OUTLINED_FUNCTION_1(v3))
   {
     [*a1 count];
     OUTLINED_FUNCTION_0();
     _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

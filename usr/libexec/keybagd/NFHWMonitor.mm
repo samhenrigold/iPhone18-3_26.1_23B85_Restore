@@ -30,7 +30,7 @@
 
 - (void)hardwareStateDidChange
 {
-  sub_100011BE0("[NFHWMonitor hardwareStateDidChange]", @"hardwareStateDidChange", v2, v3, v4, v5, v6, v7, v10);
+  sub_100011BE0("[NFHWMonitor hardwareStateDidChange]", @"hardwareStateDidChange", v2, v3, v4, v5, v6, v7);
   sem = self->sem;
 
   dispatch_semaphore_signal(sem);

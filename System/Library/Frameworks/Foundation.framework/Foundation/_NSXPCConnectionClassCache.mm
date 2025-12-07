@@ -1,6 +1,6 @@
 @interface _NSXPCConnectionClassCache
 - (_NSXPCConnectionClassCache)init;
-- (uint64_t)containsClass:(uint64_t)result;
+- (char)containsClass:(char *)result;
 - (void)addClass:(uint64_t)class;
 - (void)clear;
 - (void)dealloc;
@@ -49,21 +49,21 @@
   return result;
 }
 
-- (uint64_t)containsClass:(uint64_t)result
+- (char)containsClass:(char *)result
 {
   if (result)
   {
     v3 = result;
     os_unfair_lock_lock_with_options();
-    v4 = *(v3 + 8);
+    v4 = *(v3 + 1);
     if (!v4)
     {
       v4 = objc_opt_new();
-      *(v3 + 8) = v4;
+      *(v3 + 1) = v4;
     }
 
     v5 = [v4 containsObject:a2];
-    os_unfair_lock_unlock((v3 + 16));
+    os_unfair_lock_unlock(v3 + 4);
     return v5;
   }
 

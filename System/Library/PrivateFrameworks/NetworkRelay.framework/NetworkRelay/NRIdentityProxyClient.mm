@@ -11,7 +11,7 @@
 
 - (id)copySecKeyProxy
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (self->_isIdentityReference)
   {
     os_unfair_lock_lock(&gNRSecKeyProxyCacheLock);
@@ -23,9 +23,9 @@
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1129, OS_LOG_TYPE_DEFAULT))
     {
       options = self->_options;
-      v9 = nrCopyLogObj_sNRLogObj_1129;
-      v69 = [(NSDictionary *)options objectForKeyedSubscript:@"pid"];
-      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d starting validation for pid %@", v10, v11, v12, v13, v14, "");
+      v4 = nrCopyLogObj_sNRLogObj_1129;
+      v5 = [(NSDictionary *)options objectForKeyedSubscript:@"pid"];
+      _NRLogWithArgs(v4, 0, "%s%.30s:%-4d starting validation for pid %@", ", "[NRIdentityProxyClient validateLocked]"", 237, v5);
     }
 
     if (NRIdentityReferencesMonitorCacheLocked_sIdentityReferencesChangeToken != -1)
@@ -60,7 +60,7 @@ LABEL_33:
 
           if (self->_isIdentityReference)
           {
-            v34 = @"id-ref";
+            v16 = @"id-ref";
           }
 
           else
@@ -70,26 +70,26 @@ LABEL_33:
               goto LABEL_53;
             }
 
-            v34 = @"cert-ref";
+            v16 = @"cert-ref";
           }
 
-          v35 = [gNRIdentityReferencesCache objectForKeyedSubscript:v34];
-          v36 = [(NSData *)self->_persistentReference isEqualToData:v35];
+          v17 = [gNRIdentityReferencesCache objectForKeyedSubscript:v16];
+          v18 = [(NSData *)self->_persistentReference isEqualToData:v17];
 
-          if (v36)
+          if (v18)
           {
-            v37 = gNRSecKeyProxies;
+            v19 = gNRSecKeyProxies;
             if (!gNRSecKeyProxies)
             {
-              v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
-              v39 = gNRSecKeyProxies;
-              gNRSecKeyProxies = v38;
+              v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v21 = gNRSecKeyProxies;
+              gNRSecKeyProxies = v20;
 
-              v37 = gNRSecKeyProxies;
+              v19 = gNRSecKeyProxies;
             }
 
-            v20 = [v37 objectForKeyedSubscript:self->_persistentReference];
-            if (v20)
+            v7 = [v19 objectForKeyedSubscript:self->_persistentReference];
+            if (v7)
             {
               goto LABEL_54;
             }
@@ -97,34 +97,34 @@ LABEL_33:
             persistentReference = self->_persistentReference;
             if (!self->_isIdentityReference || !persistentReference)
             {
-              v20 = 0;
+              v7 = 0;
 LABEL_69:
-              [gNRSecKeyProxies setObject:v20 forKeyedSubscript:persistentReference];
+              [gNRSecKeyProxies setObject:v7 forKeyedSubscript:persistentReference];
               goto LABEL_54;
             }
 
-            v41 = *MEMORY[0x277CBED28];
-            v42 = *MEMORY[0x277CDC228];
+            v23 = *MEMORY[0x277CBED28];
+            v24 = *MEMORY[0x277CDC228];
             block = *MEMORY[0x277CDC568];
-            v73 = v42;
-            v43 = *MEMORY[0x277CDC240];
-            handler = v41;
-            p_handler = v43;
-            v74 = *MEMORY[0x277CDC5F0];
-            v79 = persistentReference;
-            v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&handler forKeys:&block count:3];
+            v39 = v24;
+            v25 = *MEMORY[0x277CDC240];
+            handler = v23;
+            p_handler = v25;
+            v40 = *MEMORY[0x277CDC5F0];
+            v45 = persistentReference;
+            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&handler forKeys:&block count:3];
             result = 0;
-            SecItemCopyMatching(v44, &result);
+            v27 = SecItemCopyMatching(v26, &result);
             if (result)
             {
-              v50 = [objc_alloc(MEMORY[0x277CDBD80]) initWithIdentity:result];
-              v56 = v50;
-              if (v50)
+              v28 = [objc_alloc(MEMORY[0x277CDBD80]) initWithIdentity:result];
+              v29 = v28;
+              if (v28)
               {
-                endpoint = [v50 endpoint];
-                v58 = endpoint == 0;
+                endpoint = [v28 endpoint];
+                v31 = endpoint == 0;
 
-                if (!v58)
+                if (!v31)
                 {
                   if (nrCopyLogObj_onceToken_1127 == -1)
                   {
@@ -146,7 +146,7 @@ LABEL_69:
                   if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1129, OS_LOG_TYPE_DEFAULT))
                   {
 LABEL_52:
-                    v20 = v56;
+                    v7 = v29;
 LABEL_62:
 
 LABEL_68:
@@ -155,8 +155,7 @@ LABEL_68:
                   }
 
 LABEL_51:
-                  v70 = self->_persistentReference;
-                  _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d %@ created new key proxy for %@", v51, v52, v53, v54, v55, "");
+                  _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d %@ created new key proxy for %@", ", "[NRIdentityProxyClient fetchSecKeyProxyFromKeychainLocked]"", 202, self, self->_persistentReference);
                   goto LABEL_52;
                 }
               }
@@ -181,15 +180,16 @@ LABEL_51:
               if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1129, OS_LOG_TYPE_ERROR))
               {
 LABEL_61:
-                v20 = 0;
+                v7 = 0;
                 goto LABEL_62;
               }
 
 LABEL_60:
-              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 16, "%s%.30s:%-4d %@ key proxy creation failed ", v51, v52, v53, v54, v55, "");
+              _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 16, "%s%.30s:%-4d %@ key proxy creation failed ", ", "[NRIdentityProxyClient fetchSecKeyProxyFromKeychainLocked]"", 198, self);
               goto LABEL_61;
             }
 
+            v33 = v27;
             if (nrCopyLogObj_onceToken_1127 == -1)
             {
               if (sNRCopyLogToStdErr)
@@ -210,31 +210,31 @@ LABEL_60:
             if (!os_log_type_enabled(nrCopyLogObj_sNRLogObj_1129, OS_LOG_TYPE_ERROR))
             {
 LABEL_67:
-              v20 = 0;
+              v7 = 0;
               goto LABEL_68;
             }
 
 LABEL_66:
-            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 16, "%s%.30s:%-4d %@ SecItemCopyMatching for identity failed %d", v45, v46, v47, v48, v49, "");
+            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 16, "%s%.30s:%-4d %@ SecItemCopyMatching for identity failed %d", ", "[NRIdentityProxyClient fetchSecKeyProxyFromKeychainLocked]"", 186, self, v33);
             goto LABEL_67;
           }
 
 LABEL_53:
-          v20 = 0;
+          v7 = 0;
 LABEL_54:
           os_unfair_lock_unlock(&gNRSecKeyProxyCacheLock);
-          goto LABEL_55;
+          return v7;
         }
 
 LABEL_22:
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 2, "%s%.30s:%-4d identity cache valid", v3, v4, v5, v6, v7, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 2, "%s%.30s:%-4d identity cache valid", ", "NRIPCFetchReferencesLocked"", 81);
         goto LABEL_33;
       }
 
-      v23 = gNRSecKeyProxies;
+      v10 = gNRSecKeyProxies;
       gNRSecKeyProxies = 0;
 
-      v24 = gNRIdentityReferencesCache;
+      v11 = gNRIdentityReferencesCache;
       gNRIdentityReferencesCache = 0;
 
       if (nrCopyLogObj_onceToken_1127 == -1)
@@ -258,54 +258,54 @@ LABEL_25:
         }
       }
 
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d fetching identity references", v25, v26, v27, v28, v29, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d fetching identity references", ", "NRIPCFetchReferencesLocked"", 87);
 LABEL_27:
       handler = 0;
       p_handler = &handler;
-      v79 = 0x3032000000;
-      v80 = __Block_byref_object_copy__1143;
-      v81 = __Block_byref_object_dispose__1144;
-      v82 = 0;
-      v30 = dispatch_group_create();
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy__1143;
+      v47 = __Block_byref_object_dispose__1144;
+      v48 = 0;
+      v12 = dispatch_group_create();
       if (NRIPCCopyQueue_onceToken != -1)
       {
         dispatch_once(&NRIPCCopyQueue_onceToken, &__block_literal_global_68);
       }
 
       block = MEMORY[0x277D85DD0];
-      v73 = 3221225472;
-      v74 = __NRIPCFetchReferencesLocked_block_invoke;
-      v75 = &unk_27996B420;
-      v76 = &handler;
-      dispatch_group_async(v30, NRIPCCopyQueue_queue, &block);
-      v31 = dispatch_time(0, 3000000000);
-      if (dispatch_group_wait(v30, v31))
+      v39 = 3221225472;
+      v40 = __NRIPCFetchReferencesLocked_block_invoke;
+      v41 = &unk_27996B420;
+      v42 = &handler;
+      dispatch_group_async(v12, NRIPCCopyQueue_queue, &block);
+      v13 = dispatch_time(0, 3000000000);
+      if (dispatch_group_wait(v12, v13))
       {
-        v61 = nrCopyLogObj_1145();
+        v34 = nrCopyLogObj_1145();
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v62 = v61;
-          v63 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+          v35 = v34;
+          v36 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
 
-          if (!v63)
+          if (!v36)
           {
             goto LABEL_32;
           }
         }
 
-        v33 = nrCopyLogObj_1145();
-        _NRLogWithArgs(v33, 16, "%s%.30s:%-4d timed out waiting for identity proxy resolution", v64, v65, v66, v67, v68, "");
+        v15 = nrCopyLogObj_1145();
+        _NRLogWithArgs(v15, 16, "%s%.30s:%-4d timed out waiting for identity proxy resolution", ", "NRIPCFetchReferencesLocked"", 99);
       }
 
       else
       {
-        v32 = *(p_handler + 40);
-        v33 = gNRIdentityReferencesCache;
-        gNRIdentityReferencesCache = v32;
+        v14 = *(p_handler + 40);
+        v15 = gNRIdentityReferencesCache;
+        gNRIdentityReferencesCache = v14;
       }
 
 LABEL_32:
@@ -321,15 +321,16 @@ LABEL_32:
 
     handler = MEMORY[0x277D85DD0];
     p_handler = 3221225472;
-    v79 = __NRIdentityReferencesMonitorCacheLocked_block_invoke_2;
-    v80 = &unk_27996B0D8;
-    v81 = &__block_literal_global_63;
-    if (!notify_register_dispatch("com.apple.private.restrict-post.networkrelay.referencesChanged", &NRIdentityReferencesMonitorCacheLocked_sIdentityReferencesChangeToken, NRIPCCopyQueue_queue, &handler))
+    v45 = __NRIdentityReferencesMonitorCacheLocked_block_invoke_2;
+    v46 = &unk_27996B0D8;
+    v47 = &__block_literal_global_63;
+    v6 = notify_register_dispatch("com.apple.private.restrict-post.networkrelay.referencesChanged", &NRIdentityReferencesMonitorCacheLocked_sIdentityReferencesChangeToken, NRIPCCopyQueue_queue, &handler);
+    if (!v6)
     {
-      v21 = gNRSecKeyProxies;
+      v8 = gNRSecKeyProxies;
       gNRSecKeyProxies = 0;
 
-      v22 = gNRIdentityReferencesCache;
+      v9 = gNRIdentityReferencesCache;
       gNRIdentityReferencesCache = 0;
 
       goto LABEL_17;
@@ -361,14 +362,11 @@ LABEL_17:
     }
 
 LABEL_14:
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 17, "notify_register_check(%s) failed: %u", v15, v16, v17, v18, v19, "com.apple.private.restrict-post.networkrelay.referencesChanged");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 17, "notify_register_check(%s) failed: %u", "com.apple.private.restrict-post.networkrelay.referencesChanged", v6);
     goto LABEL_17;
   }
 
-  v20 = 0;
-LABEL_55:
-  v59 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 0;
 }
 
 - (id)description
@@ -402,12 +400,12 @@ LABEL_55:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1129, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d %@ dealloc", v2, v3, v4, v5, v6, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1129, 0, "%s%.30s:%-4d %@ dealloc", ", "[NRIdentityProxyClient dealloc]"", 157, self);
   }
 
-  v8.receiver = self;
-  v8.super_class = NRIdentityProxyClient;
-  [(NRIdentityProxyClient *)&v8 dealloc];
+  v3.receiver = self;
+  v3.super_class = NRIdentityProxyClient;
+  [(NRIdentityProxyClient *)&v3 dealloc];
 }
 
 - (NRIdentityProxyClient)initWithCertificateReference:(id)reference options:(id)options
@@ -433,7 +431,7 @@ LABEL_55:
     }
 
     v13 = nrCopyLogObj_1145();
-    _NRLogWithArgs(v13, 17, "%s called with null certificateReference", v14, v15, v16, v17, v18, "[NRIdentityProxyClient initWithCertificateReference:options:]");
+    _NRLogWithArgs(v13, 17, "%s called with null certificateReference", "[NRIdentityProxyClient initWithCertificateReference:options:]");
 
     goto LABEL_8;
   }
@@ -456,14 +454,14 @@ LABEL_9:
 
 - (id)initInternal:(void *)internal options:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   internalCopy = internal;
   if (self)
   {
-    v25.receiver = self;
-    v25.super_class = NRIdentityProxyClient;
-    v8 = objc_msgSendSuper2(&v25, sel_init);
+    v21.receiver = self;
+    v21.super_class = NRIdentityProxyClient;
+    v8 = objc_msgSendSuper2(&v21, sel_init);
     if (v8)
     {
       self = v8;
@@ -473,39 +471,38 @@ LABEL_9:
       goto LABEL_4;
     }
 
-    v11 = nrCopyLogObj_1145();
+    v10 = nrCopyLogObj_1145();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v12 = v11;
-      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+      v11 = v10;
+      v12 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-      if (!v13)
+      if (!v12)
       {
         goto LABEL_9;
       }
     }
 
-    v14 = nrCopyLogObj_1145();
-    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v15, v16, v17, v18, v19, "");
+    v13 = nrCopyLogObj_1145();
+    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRIdentityProxyClient initInternal:options:]"", 123);
 
 LABEL_9:
-    v20 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v20, v21);
-    v22 = *__error();
-    v23 = _os_log_pack_fill();
-    *v23 = 136446210;
-    *(v23 + 4) = "[NRIdentityProxyClient initInternal:options:]";
-    v24 = nrCopyLogObj_1145();
-    _NRLogAbortWithPack(v24);
+    v14 = _os_log_pack_size();
+    v16 = &v20 - ((MEMORY[0x28223BE20](v14, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = __error();
+    v18 = _os_log_pack_fill(v16, v14, *v17, &dword_25B98C000, "%{public}s [super init] failed");
+    *v18 = 136446210;
+    *(v18 + 4) = "[NRIdentityProxyClient initInternal:options:]";
+    v19 = nrCopyLogObj_1145();
+    _NRLogAbortWithPack(v19, v16);
   }
 
 LABEL_4:
 
-  v9 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -532,7 +529,7 @@ LABEL_4:
     }
 
     v13 = nrCopyLogObj_1145();
-    _NRLogWithArgs(v13, 17, "%s called with null identityReference", v14, v15, v16, v17, v18, "[NRIdentityProxyClient initWithIdentityReference:options:]");
+    _NRLogWithArgs(v13, 17, "%s called with null identityReference", "[NRIdentityProxyClient initWithIdentityReference:options:]");
 
     goto LABEL_8;
   }

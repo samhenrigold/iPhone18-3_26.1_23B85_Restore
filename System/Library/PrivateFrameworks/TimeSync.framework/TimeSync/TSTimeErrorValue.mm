@@ -25,7 +25,7 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [v3 stringWithFormat:@"<%@: %p: {%llu, %lld}>", v5, self, -[TSTimeErrorValue timestamp](self, "timestamp"), -[TSTimeErrorValue error](self, "error")];
+  v6 = [v3 stringWithFormat:v5, self, -[TSTimeErrorValue timestamp](self, "timestamp"), -[TSTimeErrorValue error](self, "error")];
 
   return v6;
 }
@@ -37,12 +37,10 @@
   {
     do
     {
-      v9 = [TSTimeErrorValue alloc];
-      v11 = *timestamps++;
-      v10 = v11;
-      v12 = *error++;
-      v13 = [(TSTimeErrorValue *)v9 initWithTimestamp:v10 andError:v12];
-      [array addObject:v13];
+      ++timestamps;
+      ++error;
+      v9 = [TSTimeErrorValue initWithTimestamp:"initWithTimestamp:andError:" andError:?];
+      [array addObject:?];
 
       --count;
     }

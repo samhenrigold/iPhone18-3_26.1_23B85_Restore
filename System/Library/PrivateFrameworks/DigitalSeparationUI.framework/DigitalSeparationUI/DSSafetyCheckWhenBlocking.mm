@@ -6,6 +6,8 @@
 - (void)fetchSharingWithCompletion:(id)completion;
 - (void)isSharingWith:(id)with completion:(id)completion;
 - (void)isSharingWithContacts:(id)contacts completion:(id)completion;
+- (void)safetyCheckControllerWithPreview:(BOOL)preview forContacts:(id)contacts completion:(id)completion;
+- (void)safetyCheckControllerWithPreview:(BOOL)preview forHandles:(id)handles completion:(id)completion;
 - (void)safetyCheckControllerWithPreview:(BOOL)preview forPeople:(id)people completion:(id)completion;
 - (void)startManageSharingWithContact:(id)contact completion:(id)completion;
 @end
@@ -149,7 +151,7 @@ void __56__DSSafetyCheckWhenBlocking_fetchSharingWithCompletion___block_invoke(u
 
 void __54__DSSafetyCheckWhenBlocking_isSharingWith_completion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = DSLog;
   if (os_log_type_enabled(DSLog, OS_LOG_TYPE_DEBUG))
   {
@@ -164,41 +166,40 @@ void __54__DSSafetyCheckWhenBlocking_isSharingWith_completion___block_invoke(uin
   v6 = [v5 sharingPeopleForIdentities:*(a1 + 32)];
 
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v15 + 1) + 8 * v12) displayName];
+        v13 = [*(*(&v14 + 1) + 8 * v12) displayName];
         [v7 addObject:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSharingWithContacts:(id)contacts completion:(id)completion
@@ -223,7 +224,7 @@ void __54__DSSafetyCheckWhenBlocking_isSharingWith_completion___block_invoke(uin
 
 void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = DSLog;
   if (os_log_type_enabled(DSLog, OS_LOG_TYPE_DEBUG))
   {
@@ -233,27 +234,27 @@ void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_in
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [MEMORY[0x277CBEB18] array];
   v4 = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v32 = a1;
+  v31 = a1;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
+    v8 = *v41;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v42 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * i);
+        v10 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -267,7 +268,7 @@ void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_in
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v7);
@@ -279,30 +280,30 @@ void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_in
     v13 = [WeakRetained permissions];
     v14 = [v13 sharingPeopleForContacts:v3];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v38;
+      v18 = *v37;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v38 != v18)
+          if (*v37 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [*(*(&v37 + 1) + 8 * j) displayName];
+          v20 = [*(*(&v36 + 1) + 8 * j) displayName];
           [v12 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v17);
@@ -317,52 +318,166 @@ void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_in
     v22 = [WeakRetained permissions];
     v23 = [v22 sharingPeopleForIdentities:v4];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v24 = v23;
-    v25 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v32 objects:v44 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v34;
+      v27 = *v33;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v34 != v27)
+          if (*v33 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = [*(*(&v33 + 1) + 8 * k) displayName];
+          v29 = [*(*(&v32 + 1) + 8 * k) displayName];
           [v12 addObject:v29];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v32 objects:v44 count:16];
       }
 
       while (v26);
     }
   }
 
-  (*(*(v32 + 40) + 16))();
-
-  v30 = *MEMORY[0x277D85DE8];
+  (*(*(v31 + 40) + 16))();
 }
 
 - (void)startManageSharingWithContact:(id)contact completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   contactCopy2 = contact;
   v9 = [v6 arrayWithObjects:&contactCopy count:1];
 
-  [(DSSafetyCheckWhenBlocking *)self safetyCheckControllerWithPreview:1 forContacts:v9 completion:completionCopy, contactCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(DSSafetyCheckWhenBlocking *)self safetyCheckControllerWithPreview:1 forContacts:v9 completion:completionCopy, contactCopy, v11];
+}
+
+- (void)safetyCheckControllerWithPreview:(BOOL)preview forHandles:(id)handles completion:(id)completion
+{
+  previewCopy = preview;
+  handlesCopy = handles;
+  completionCopy = completion;
+  if ([objc_opt_class() featureEnabled])
+  {
+    permissions = [(DSSafetyCheckWhenBlocking *)self permissions];
+    [permissions makeSharingPeople];
+
+    permissions2 = [(DSSafetyCheckWhenBlocking *)self permissions];
+    v12 = [permissions2 sharingPeopleForIdentities:handlesCopy];
+
+    [(DSSafetyCheckWhenBlocking *)self safetyCheckControllerWithPreview:previewCopy forPeople:v12 completion:completionCopy];
+  }
+
+  else
+  {
+    v13 = DSLog;
+    if (os_log_type_enabled(DSLog, OS_LOG_TYPE_INFO))
+    {
+      *v14 = 0;
+      _os_log_impl(&dword_248C7E000, v13, OS_LOG_TYPE_INFO, "safetyCheckControllerWithPreview:forHandles: feature disabled or unavailable", v14, 2u);
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0);
+  }
+}
+
+- (void)safetyCheckControllerWithPreview:(BOOL)preview forContacts:(id)contacts completion:(id)completion
+{
+  previewCopy = preview;
+  v34 = *MEMORY[0x277D85DE8];
+  contactsCopy = contacts;
+  completionCopy = completion;
+  if ([objc_opt_class() featureEnabled])
+  {
+    array = [MEMORY[0x277CBEB18] array];
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v11 = contactsCopy;
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      selfCopy = self;
+      v25 = previewCopy;
+      v26 = completionCopy;
+      v14 = 0;
+      v15 = *v28;
+      do
+      {
+        for (i = 0; i != v13; ++i)
+        {
+          if (*v28 != v15)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v17 = [objc_alloc(MEMORY[0x277D054A0]) initWithContact:*(*(&v27 + 1) + 8 * i)];
+          [array addObject:v17];
+
+          objc_opt_class();
+          v14 |= objc_opt_isKindOfClass();
+        }
+
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      }
+
+      while (v13);
+
+      completionCopy = v26;
+      previewCopy = v25;
+      if (v14)
+      {
+        [(DSSafetyCheckWhenBlocking *)self safetyCheckControllerWithPreview:v25 forHandles:array completion:v26];
+LABEL_18:
+
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+    }
+
+    permissions = [(DSSafetyCheckWhenBlocking *)self permissions];
+    v20 = [permissions sharingPeopleForContacts:v11];
+
+    v21 = DSLog;
+    if (os_log_type_enabled(DSLog, OS_LOG_TYPE_INFO))
+    {
+      v22 = v21;
+      v23 = [v20 count];
+      *buf = 134217984;
+      v32 = v23;
+      _os_log_impl(&dword_248C7E000, v22, OS_LOG_TYPE_INFO, "safetyCheckControllerWithPreview:forContacts: found (%ld) people", buf, 0xCu);
+    }
+
+    [(DSSafetyCheckWhenBlocking *)self safetyCheckControllerWithPreview:previewCopy forPeople:v20 completion:completionCopy];
+
+    goto LABEL_18;
+  }
+
+  v18 = DSLog;
+  if (os_log_type_enabled(DSLog, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_248C7E000, v18, OS_LOG_TYPE_INFO, "safetyCheckControllerWithPreview:forContacts: feature disabled or unavailable", buf, 2u);
+  }
+
+  completionCopy[2](completionCopy, 0);
+LABEL_19:
 }
 
 - (void)safetyCheckControllerWithPreview:(BOOL)preview forPeople:(id)people completion:(id)completion
@@ -399,13 +514,13 @@ void __62__DSSafetyCheckWhenBlocking_isSharingWithContacts_completion___block_in
 
 void __83__DSSafetyCheckWhenBlocking_safetyCheckControllerWithPreview_forPeople_completion___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count] == 1)
   {
     v2 = [DSBlockingPermissionsDetailController alloc];
     v3 = [*(a1 + 32) firstObject];
-    v13[0] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v5 = [(DSBlockingPermissionsDetailController *)v2 initWithPeople:v4 permissions:*(a1 + 40)];
 
     if (*(a1 + 48))
@@ -425,8 +540,8 @@ void __83__DSSafetyCheckWhenBlocking_safetyCheckControllerWithPreview_forPeople_
   }
 
   v7 = [DSNavigationController alloc];
-  v12 = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v9 = [(DSNavigationController *)v7 initStartingWithBlockingPanes:v8];
 
   if (*(a1 + 72) == 1)
@@ -440,17 +555,14 @@ void __83__DSSafetyCheckWhenBlocking_safetyCheckControllerWithPreview_forPeople_
   {
     (*(*(a1 + 64) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__DSSafetyCheckWhenBlocking_fetchSharingWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "fetchSharingWithCompletion: Permissions fetch completed with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "fetchSharingWithCompletion: Permissions fetch completed with error: %{public}@", &v2, 0xCu);
 }
 
 @end

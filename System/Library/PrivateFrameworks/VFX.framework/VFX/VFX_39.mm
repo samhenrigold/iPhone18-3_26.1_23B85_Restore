@@ -64,7 +64,7 @@ void *sub_1AF421118(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF446420();
+    sub_1AF446420(0);
     swift_arrayInitWithCopy();
   }
 
@@ -354,7 +354,7 @@ void *sub_1AF421560(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF448A1C();
+    sub_1AF448A1C(0);
     swift_arrayInitWithCopy();
   }
 
@@ -427,7 +427,7 @@ void *sub_1AF4216A8(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF44846C();
+    sub_1AF44846C(0);
     swift_arrayInitWithCopy();
   }
 
@@ -582,65 +582,65 @@ char *sub_1AF4218E0(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-void *sub_1AF421A08(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6)
+void *sub_1AF421A08(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6, uint64_t a7)
 {
   if (a3)
   {
-    v9 = a4[3];
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v11 = a4[3];
+    v12 = v11 >> 1;
+    v13 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (v13 <= a2)
     {
-      v11 = a2;
+      v13 = a2;
     }
 
-    if (v10 < a2)
+    if (v12 < a2)
     {
-      a2 = v11;
+      a2 = v13;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v12;
     }
   }
 
-  v12 = a4[2];
-  if (a2 <= v12)
+  v14 = a4[2];
+  if (a2 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = a2;
+    v15 = a2;
   }
 
-  if (v13)
+  if (v15)
   {
-    sub_1AF42B9E0(0, a5, a6);
-    v14 = swift_allocObject();
-    v15 = j__malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    sub_1AF42B9E0(0, a5, a6, a7, 0);
+    v16 = swift_allocObject();
+    v17 = j__malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 17;
+      v18 = v17 - 17;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 4);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 4);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
   }
 
   if (a1)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[2 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[2 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 16 * v12);
+      memmove(v16 + 4, a4 + 4, 16 * v14);
     }
 
     a4[2] = 0;
@@ -648,11 +648,11 @@ void *sub_1AF421A08(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint
 
   else
   {
-    sub_1AF4498F4(0, a6);
+    sub_1AF4498F4(0, a6, a7, 0);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 char *sub_1AF421B4C(char a1, int64_t a2, char a3, char *a4)
@@ -859,7 +859,7 @@ char *sub_1AF421D94(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-char *sub_1AF421ECC(char a1, int64_t a2, char a3, char *a4, void (*a5)(void))
+char *sub_1AF421ECC(char a1, int64_t a2, char a3, char *a4, uint64_t (*a5)(void))
 {
   if (a3)
   {
@@ -1258,7 +1258,7 @@ char *sub_1AF42242C(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF442F60();
+    sub_1AF442F60(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -1296,7 +1296,7 @@ char *sub_1AF42242C(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-char *sub_1AF422524(char a1, int64_t a2, char a3, char *a4, void (*a5)(void))
+char *sub_1AF422524(char a1, int64_t a2, char a3, char *a4, uint64_t (*a5)(void))
 {
   if (a3)
   {
@@ -1641,67 +1641,67 @@ char *sub_1AF4229F8(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-char *sub_1AF422B38(char a1, int64_t a2, char a3, char *a4, unint64_t *a5, unint64_t *a6, unint64_t *a7)
+char *sub_1AF422B38(char a1, int64_t a2, char a3, char *a4, unint64_t *a5, unint64_t *a6, unint64_t *a7, uint64_t a8)
 {
   if (a3)
   {
-    v9 = *(a4 + 3);
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v10 = *(a4 + 3);
+    v11 = v10 >> 1;
+    v12 = v10 & 0xFFFFFFFFFFFFFFFELL;
+    if (v12 <= a2)
     {
-      v11 = a2;
+      v12 = a2;
     }
 
-    if (v10 < a2)
+    if (v11 < a2)
     {
-      a2 = v11;
+      a2 = v12;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v11;
     }
   }
 
-  v12 = *(a4 + 2);
-  if (a2 <= v12)
+  v13 = *(a4 + 2);
+  if (a2 <= v13)
   {
-    v13 = *(a4 + 2);
+    v14 = *(a4 + 2);
   }
 
   else
   {
-    v13 = a2;
+    v14 = a2;
   }
 
-  if (v13)
+  if (v14)
   {
-    sub_1AF445778(0, a5, a6, a7);
-    v14 = swift_allocObject();
-    v15 = j__malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    sub_1AF445778(0, a5, a6, a7, a8);
+    v15 = swift_allocObject();
+    v16 = j__malloc_size(v15);
+    v17 = v16 - 32;
+    if (v16 < 32)
     {
-      v16 = v15 - 17;
+      v17 = v16 - 17;
     }
 
-    *(v14 + 2) = v12;
-    *(v14 + 3) = 2 * (v16 >> 4);
+    *(v15 + 2) = v13;
+    *(v15 + 3) = 2 * (v17 >> 4);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v15 = MEMORY[0x1E69E7CC0];
   }
 
-  v17 = v14 + 32;
-  v18 = a4 + 32;
+  v18 = v15 + 32;
+  v19 = a4 + 32;
   if (a1)
   {
-    if (v14 != a4 || v17 >= &v18[16 * v12])
+    if (v15 != a4 || v18 >= &v19[16 * v13])
     {
-      memmove(v17, v18, 16 * v12);
+      memmove(v18, v19, 16 * v13);
     }
 
     *(a4 + 2) = 0;
@@ -1709,10 +1709,10 @@ char *sub_1AF422B38(char a1, int64_t a2, char a3, char *a4, unint64_t *a5, unint
 
   else
   {
-    memcpy(v17, v18, 16 * v12);
+    memcpy(v18, v19, 16 * v13);
   }
 
-  return v14;
+  return v15;
 }
 
 char *sub_1AF422C4C(char a1, int64_t a2, char a3, char *a4)
@@ -1985,7 +1985,7 @@ void *sub_1AF422FB4(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF43CA44();
+    sub_1AF43CA44(0);
     swift_arrayInitWithCopy();
   }
 
@@ -2126,7 +2126,7 @@ void *sub_1AF423200(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF445A88();
+    sub_1AF445A88(0);
     swift_arrayInitWithCopy();
   }
 
@@ -2311,7 +2311,7 @@ void *sub_1AF423590(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF4457D8();
+    sub_1AF4457D8(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -2816,7 +2816,7 @@ void *sub_1AF423D3C(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF4426B8();
+    sub_1AF4426B8(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -3064,67 +3064,67 @@ char *sub_1AF42409C(char a1, int64_t a2, char a3, char *a4, unint64_t *a5, uint6
   return v13;
 }
 
-void *sub_1AF4241F0(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6)
+void *sub_1AF4241F0(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6, uint64_t a7)
 {
   if (a3)
   {
-    v9 = a4[3];
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v11 = a4[3];
+    v12 = v11 >> 1;
+    v13 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (v13 <= a2)
     {
-      v11 = a2;
+      v13 = a2;
     }
 
-    if (v10 < a2)
+    if (v12 < a2)
     {
-      a2 = v11;
+      a2 = v13;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v12;
     }
   }
 
-  v12 = a4[2];
-  if (a2 <= v12)
+  v14 = a4[2];
+  if (a2 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = a2;
+    v15 = a2;
   }
 
-  if (v13)
+  if (v15)
   {
-    sub_1AF442B48(0, a5, a6);
-    sub_1AF43CC28(0, a6, type metadata accessor for TriggerScriptRunnerSystem.TriggerParam);
-    v15 = *(*(v14 - 8) + 72);
-    v16 = (*(*(v14 - 8) + 80) + 32) & ~*(*(v14 - 8) + 80);
-    v17 = swift_allocObject();
-    v18 = j__malloc_size(v17);
-    v17[2] = v12;
-    v17[3] = 2 * ((v18 - v16) / v15);
+    sub_1AF442B48(0, a5, a6, a7);
+    sub_1AF43CC28(0, a6, type metadata accessor for TriggerScriptRunnerSystem.TriggerParam, a7);
+    v17 = *(*(v16 - 8) + 72);
+    v18 = (*(*(v16 - 8) + 80) + 32) & ~*(*(v16 - 8) + 80);
+    v19 = swift_allocObject();
+    v20 = j__malloc_size(v19);
+    v19[2] = v14;
+    v19[3] = 2 * ((v20 - v18) / v17);
   }
 
   else
   {
-    v17 = MEMORY[0x1E69E7CC0];
+    v19 = MEMORY[0x1E69E7CC0];
   }
 
-  sub_1AF43CC28(0, a6, type metadata accessor for TriggerScriptRunnerSystem.TriggerParam);
-  v20 = *(v19 - 8);
+  sub_1AF43CC28(0, a6, type metadata accessor for TriggerScriptRunnerSystem.TriggerParam, a7);
+  v22 = *(v21 - 8);
   if (a1)
   {
-    if (v17 < a4 || (v21 = (*(v20 + 80) + 32) & ~*(v20 + 80), v17 + v21 >= a4 + v21 + *(v20 + 72) * v12))
+    if (v19 < a4 || (v23 = (*(v22 + 80) + 32) & ~*(v22 + 80), v19 + v23 >= a4 + v23 + *(v22 + 72) * v14))
     {
       swift_arrayInitWithTakeFrontToBack();
     }
 
-    else if (v17 != a4)
+    else if (v19 != a4)
     {
       swift_arrayInitWithTakeBackToFront();
     }
@@ -3137,7 +3137,7 @@ void *sub_1AF4241F0(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint
     swift_arrayInitWithCopy();
   }
 
-  return v17;
+  return v19;
 }
 
 char *sub_1AF424490(char a1, int64_t a2, char a3, char *a4, unint64_t *a5, uint64_t a6)
@@ -3540,7 +3540,7 @@ void *sub_1AF4249DC(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF43DA80();
+    sub_1AF43DA80(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -3564,7 +3564,7 @@ void *sub_1AF4249DC(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF4485F8(0, &qword_1ED7256D0);
+    sub_1AF4485F8(0, &qword_1ED7256D0, &type metadata for BufferArgument, MEMORY[0x1E69E6530], "value index ");
     swift_arrayInitWithCopy();
   }
 
@@ -4038,7 +4038,7 @@ void *sub_1AF4251F8(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF445550();
+    sub_1AF445550(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -4137,65 +4137,65 @@ char *sub_1AF425364(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-void *sub_1AF4254B4(char a1, int64_t a2, char a3, void *a4, void (*a5)(void), unint64_t *a6)
+void *sub_1AF4254B4(char a1, int64_t a2, char a3, void *a4, uint64_t (*a5)(void), unint64_t *a6, uint64_t a7)
 {
   if (a3)
   {
-    v9 = a4[3];
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v11 = a4[3];
+    v12 = v11 >> 1;
+    v13 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (v13 <= a2)
     {
-      v11 = a2;
+      v13 = a2;
     }
 
-    if (v10 < a2)
+    if (v12 < a2)
     {
-      a2 = v11;
+      a2 = v13;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v12;
     }
   }
 
-  v12 = a4[2];
-  if (a2 <= v12)
+  v14 = a4[2];
+  if (a2 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = a2;
+    v15 = a2;
   }
 
-  if (v13)
+  if (v15)
   {
     a5(0);
-    v14 = swift_allocObject();
-    v15 = j__malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    v16 = swift_allocObject();
+    v17 = j__malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 1;
+      v18 = v17 - 1;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 5);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 5);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
   }
 
   if (a1)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[4 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[4 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 32 * v12);
+      memmove(v16 + 4, a4 + 4, 32 * v14);
     }
 
     a4[2] = 0;
@@ -4203,11 +4203,11 @@ void *sub_1AF4254B4(char a1, int64_t a2, char a3, void *a4, void (*a5)(void), un
 
   else
   {
-    sub_1AF4485F8(0, a6);
+    sub_1AF4485F8(0, a6, MEMORY[0x1E69E6158], MEMORY[0x1E69E6158], a7);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 void *sub_1AF4255E0(char a1, int64_t a2, char a3, void *a4)
@@ -4246,7 +4246,7 @@ void *sub_1AF4255E0(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF4453AC();
+    sub_1AF4453AC(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -4276,7 +4276,7 @@ void *sub_1AF4255E0(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF445424(0, &qword_1EB6388A0);
+    sub_1AF445424(0, &qword_1EB6388A0, MEMORY[0x1E69E6158], &_s12MetadataTypeON, MEMORY[0x1E69E6370]);
     swift_arrayInitWithCopy();
   }
 
@@ -4417,7 +4417,7 @@ void *sub_1AF425824(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF445480();
+    sub_1AF445480(0);
     swift_arrayInitWithCopy();
   }
 
@@ -4844,7 +4844,7 @@ void *sub_1AF425EC0(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF4447E8();
+    sub_1AF4447E8(0);
     swift_arrayInitWithCopy();
   }
 
@@ -4955,7 +4955,7 @@ void *sub_1AF42612C(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF443F68();
+    sub_1AF443F68(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -4979,7 +4979,7 @@ void *sub_1AF42612C(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF0D8108(0, &qword_1EB638700);
+    sub_1AF0D8108(0, &qword_1EB638700, &type metadata for ScriptParameter, &type metadata for GraphCodeGen.CodeGenParameter);
     swift_arrayInitWithCopy();
   }
 
@@ -5312,7 +5312,7 @@ void *sub_1AF4266D0(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF43DAF8();
+    sub_1AF43DAF8(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -5379,7 +5379,7 @@ void *sub_1AF42680C(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF442FF0();
+    sub_1AF442FF0(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -5403,66 +5403,66 @@ void *sub_1AF42680C(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF4485F8(0, &qword_1ED7223C0);
+    sub_1AF4485F8(0, &qword_1ED7223C0, &type metadata for ExternalConstantsCopyEncoder.TableLocation, &type metadata for ExternalConstantsCopyEncoder.PointerLocation, "from to ");
     swift_arrayInitWithCopy();
   }
 
   return v11;
 }
 
-void *sub_1AF426968(char a1, int64_t a2, char a3, void *a4, void (*a5)(void), unint64_t *a6)
+void *sub_1AF426968(char a1, int64_t a2, char a3, void *a4, uint64_t (*a5)(void), unint64_t *a6, uint64_t a7)
 {
   if (a3)
   {
-    v9 = a4[3];
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v11 = a4[3];
+    v12 = v11 >> 1;
+    v13 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (v13 <= a2)
     {
-      v11 = a2;
+      v13 = a2;
     }
 
-    if (v10 < a2)
+    if (v12 < a2)
     {
-      a2 = v11;
+      a2 = v13;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v12;
     }
   }
 
-  v12 = a4[2];
-  if (a2 <= v12)
+  v14 = a4[2];
+  if (a2 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = a2;
+    v15 = a2;
   }
 
-  if (v13)
+  if (v15)
   {
     a5(0);
-    v14 = swift_allocObject();
-    v15 = j__malloc_size(v14);
-    v14[2] = v12;
-    v14[3] = 2 * ((v15 - 32) / 40);
+    v16 = swift_allocObject();
+    v17 = j__malloc_size(v16);
+    v16[2] = v14;
+    v16[3] = 2 * ((v17 - 32) / 40);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
   }
 
   if (a1)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[5 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[5 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 40 * v12);
+      memmove(v16 + 4, a4 + 4, 40 * v14);
     }
 
     a4[2] = 0;
@@ -5470,11 +5470,11 @@ void *sub_1AF426968(char a1, int64_t a2, char a3, void *a4, void (*a5)(void), un
 
   else
   {
-    sub_1AF4485F8(0, a6);
+    sub_1AF4485F8(0, a6, a7, MEMORY[0x1E69E6530], "value index ");
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 void *sub_1AF426AAC(char a1, int64_t a2, char a3, void *a4)
@@ -5513,7 +5513,7 @@ void *sub_1AF426AAC(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF43FBE8();
+    sub_1AF43FBE8(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -5543,7 +5543,7 @@ void *sub_1AF426AAC(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF0D8108(0, &qword_1EB631350);
+    sub_1AF0D8108(0, &qword_1EB631350, &type metadata for Entity, &type metadata for MetalScriptReflection);
     swift_arrayInitWithCopy();
   }
 
@@ -5586,7 +5586,7 @@ void *sub_1AF426BC8(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF441DD8();
+    sub_1AF441DD8(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -5757,7 +5757,7 @@ void *sub_1AF426E64(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF446B2C();
+    sub_1AF446B2C(0);
     swift_arrayInitWithCopy();
   }
 
@@ -5800,7 +5800,7 @@ void *sub_1AF426FC0(char a1, int64_t a2, char a3, void *a4)
 
   if (v10)
   {
-    sub_1AF444238();
+    sub_1AF444238(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v11[2] = v9;
@@ -5824,7 +5824,7 @@ void *sub_1AF426FC0(char a1, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF0D8108(0, &qword_1EB638730);
+    sub_1AF0D8108(0, &qword_1EB638730, &type metadata for ScriptParameter, MEMORY[0x1E69E6158]);
     swift_arrayInitWithCopy();
   }
 
@@ -6261,59 +6261,59 @@ void *sub_1AF4276E0(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, uint6
   return v18;
 }
 
-void *sub_1AF4278BC(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6)
+void *sub_1AF4278BC(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint64_t *a6, uint64_t a7)
 {
   if (a3)
   {
-    v9 = a4[3];
-    v10 = v9 >> 1;
-    v11 = v9 & 0xFFFFFFFFFFFFFFFELL;
-    if (v11 <= a2)
+    v11 = a4[3];
+    v12 = v11 >> 1;
+    v13 = v11 & 0xFFFFFFFFFFFFFFFELL;
+    if (v13 <= a2)
     {
-      v11 = a2;
+      v13 = a2;
     }
 
-    if (v10 < a2)
+    if (v12 < a2)
     {
-      a2 = v11;
+      a2 = v13;
     }
 
     else
     {
-      a2 = v10;
+      a2 = v12;
     }
   }
 
-  v12 = a4[2];
-  if (a2 <= v12)
+  v14 = a4[2];
+  if (a2 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = a2;
+    v15 = a2;
   }
 
-  if (v13)
+  if (v15)
   {
-    sub_1AF42B9E0(0, a5, a6);
-    v14 = swift_allocObject();
-    v15 = j__malloc_size(v14);
-    v14[2] = v12;
-    v14[3] = 2 * ((v15 - 32) / 40);
+    sub_1AF42B9E0(0, a5, a6, a7, 1);
+    v16 = swift_allocObject();
+    v17 = j__malloc_size(v16);
+    v16[2] = v14;
+    v16[3] = 2 * ((v17 - 32) / 40);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
   }
 
   if (a1)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[5 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[5 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 40 * v12);
+      memmove(v16 + 4, a4 + 4, 40 * v14);
     }
 
     a4[2] = 0;
@@ -6321,11 +6321,11 @@ void *sub_1AF4278BC(char a1, int64_t a2, char a3, void *a4, unint64_t *a5, unint
 
   else
   {
-    sub_1AF4498F4(0, a6);
+    sub_1AF4498F4(0, a6, a7, 1);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 char *sub_1AF427A00(char a1, int64_t a2, char a3, char *a4)
@@ -6364,7 +6364,7 @@ char *sub_1AF427A00(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF44310C();
+    sub_1AF44310C(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -6439,7 +6439,7 @@ char *sub_1AF427ADC(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF443E40();
+    sub_1AF443E40(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     *(v11 + 2) = v9;
@@ -6507,7 +6507,7 @@ char *sub_1AF427BD4(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF443298();
+    sub_1AF443298(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -6724,7 +6724,7 @@ char *sub_1AF427EE4(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF443374();
+    sub_1AF443374(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -6798,7 +6798,7 @@ char *sub_1AF427FC4(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF443654();
+    sub_1AF443654(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     *(v11 + 2) = v9;
@@ -6866,7 +6866,7 @@ char *sub_1AF4280BC(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF4435DC();
+    sub_1AF4435DC(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -6904,7 +6904,7 @@ char *sub_1AF4280BC(char a1, int64_t a2, char a3, char *a4)
   return v11;
 }
 
-void *sub_1AF42819C(char a1, uint64_t a2, char a3, void *a4)
+void *sub_1AF42819C(char a1, int64_t a2, char a3, void *a4)
 {
   if (a3)
   {
@@ -6964,7 +6964,7 @@ void *sub_1AF42819C(char a1, uint64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1AF4433E4(0, a2);
+    sub_1AF4433E4(0);
     swift_arrayInitWithCopy();
   }
 
@@ -7161,7 +7161,7 @@ char *sub_1AF428540(char a1, int64_t a2, char a3, char *a4)
 
   if (v10)
   {
-    sub_1AF449620();
+    sub_1AF449620(0);
     v11 = swift_allocObject();
     v12 = j__malloc_size(v11);
     v13 = v12 - 32;
@@ -7545,7 +7545,7 @@ void *sub_1AF428C1C(uint64_t a1, uint64_t a2, void (*a3)(__int128 *__return_ptr,
 
     else
     {
-      sub_1AF43A038();
+      sub_1AF43A038(0);
       v3 = swift_allocObject();
       v9 = j__malloc_size(v3);
       v10 = v9 - 32;
@@ -7604,7 +7604,7 @@ void *sub_1AF428C1C(uint64_t a1, uint64_t a2, void (*a3)(__int128 *__return_ptr,
           v19 = v3[3] & 0xFFFFFFFFFFFFFFFELL;
         }
 
-        sub_1AF43A038();
+        sub_1AF43A038(0);
         v20 = swift_allocObject();
         v21 = j__malloc_size(v20);
         v22 = v21 - 32;
@@ -8164,7 +8164,7 @@ void *sub_1AF429950(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr,
     goto LABEL_34;
   }
 
-  sub_1AF448C94();
+  sub_1AF448C94(0);
   v7 = swift_allocObject();
   v8 = 0;
   v9 = (j__malloc_size(v7) - 32) / 12;
@@ -8323,7 +8323,7 @@ __int128 *sub_1AF429C28(uint64_t a1, uint64_t a2, void (*a3)(__int128 *__return_
   v4 = *(a2 + 16);
   if (v4)
   {
-    sub_1AF441E54();
+    sub_1AF441E54(0);
     v6 = swift_allocObject();
     v7 = j__malloc_size(v6);
     v8 = 0;
@@ -8418,7 +8418,7 @@ __int128 *sub_1AF429C28(uint64_t a1, uint64_t a2, void (*a3)(__int128 *__return_
             v34 = *(v46 + 3) & 0xFFFFFFFFFFFFFFFELL;
           }
 
-          sub_1AF441E54();
+          sub_1AF441E54(0);
           v35 = swift_allocObject();
           v36 = j__malloc_size(v35);
           v37 = v36 - 32;
@@ -8576,7 +8576,7 @@ uint64_t *sub_1AF42A0E4(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_
   v5 = *(a2 + 16);
   if (v5)
   {
-    sub_1AF44979C();
+    sub_1AF44979C(0);
     v6 = swift_allocObject();
     v7 = j__malloc_size(v6);
     v8 = 0;
@@ -8662,7 +8662,7 @@ uint64_t *sub_1AF42A0E4(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_
             v29 = v6[3] & 0xFFFFFFFFFFFFFFFELL;
           }
 
-          sub_1AF44979C();
+          sub_1AF44979C(0);
           v30 = swift_allocObject();
           v31 = j__malloc_size(v30);
           v32 = v31 - 32;
@@ -8881,7 +8881,7 @@ unint64_t *sub_1AF42A658(uint64_t a1, uint64_t a2)
 
   if (v5)
   {
-    sub_1AF4442A8();
+    sub_1AF4442A8(0);
     v7 = swift_allocObject();
     v8 = j__malloc_size(v7);
     v9 = 0;
@@ -9009,7 +9009,7 @@ LABEL_19:
       v29 = v7[3] & 0xFFFFFFFFFFFFFFFELL;
     }
 
-    sub_1AF4442A8();
+    sub_1AF4442A8(0);
     v25 = swift_allocObject();
     v30 = (j__malloc_size(v25) - 32) / 24;
     v25[2] = v29;
@@ -9375,7 +9375,7 @@ void *sub_1AF42B030@<X0>(_OWORD *a1@<X0>, void *(*a2)(uint64_t *__return_ptr, _O
   return result;
 }
 
-uint64_t sub_1AF42B0F4(uint64_t a1)
+void *sub_1AF42B0F4(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = MEMORY[0x1E69E5FE0];
@@ -9456,7 +9456,7 @@ uint64_t sub_1AF42B320(uint64_t a1, char a2)
 {
   v4 = MEMORY[0x1E69E7CC0];
   v12 = MEMORY[0x1E69E7CC0];
-  type metadata accessor for AuthoringGraph();
+  type metadata accessor for AuthoringGraph(0);
   v5 = swift_allocObject();
   v5[2] = 0;
   v5[3] = v4;
@@ -9485,7 +9485,7 @@ void *sub_1AF42B4D0(uint64_t a1)
     return MEMORY[0x1E69E7CC8];
   }
 
-  sub_1AF4493DC();
+  sub_1AF4493DC(0);
   v3 = sub_1AFDFE5C8();
   v4 = (a1 + 40);
   do
@@ -9505,89 +9505,89 @@ void *sub_1AF42B4D0(uint64_t a1)
   return v3;
 }
 
-void *sub_1AF42B620(uint64_t a1, uint64_t (*a2)(void), void (*a3)(void, __n128), void (*a4)(uint64_t, char *))
+void *sub_1AF42B620(uint64_t a1, uint64_t (*a2)(void), void (*a3)(void, double), void (*a4)(uint64_t, char *))
 {
   v7 = a2(0);
   v8 = *(v7 - 8);
-  v10 = MEMORY[0x1EEE9AC00](v7, v9);
-  v12 = &v22 - v11;
-  v13 = *(a1 + 16);
-  if (!v13)
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = &v21 - v10;
+  v12 = *(a1 + 16);
+  if (!v12)
   {
     return MEMORY[0x1E69E7CC8];
   }
 
-  a3(0, v10);
-  v14 = sub_1AFDFE5C8();
-  v15 = *(v7 + 48);
-  v16 = a1 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-  v17 = *(v8 + 72);
+  a3(0, v9);
+  v13 = sub_1AFDFE5C8();
+  v14 = *(v7 + 48);
+  v15 = a1 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+  v16 = *(v8 + 72);
 
   do
   {
-    a4(v16, v12);
-    v18 = sub_1AF419940(v12);
-    *(v14 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v18;
-    v19 = v14[6];
-    v20 = sub_1AFDFC318();
-    (*(*(v20 - 8) + 32))(v19 + *(*(v20 - 8) + 72) * v18, v12, v20);
-    *(v14[7] + 8 * v18) = *&v12[v15];
-    ++v14[2];
-    v16 += v17;
-    --v13;
+    a4(v15, v11);
+    v17 = sub_1AF419940(v11);
+    *(v13 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v17;
+    v18 = v13[6];
+    v19 = sub_1AFDFC318();
+    (*(*(v19 - 8) + 32))(v18 + *(*(v19 - 8) + 72) * v17, v11, v19);
+    *(v13[7] + 8 * v17) = *&v11[v14];
+    ++v13[2];
+    v15 += v16;
+    --v12;
   }
 
-  while (v13);
+  while (v12);
 
-  return v14;
+  return v13;
 }
 
-void *sub_1AF42B820(uint64_t a1, uint64_t (*a2)(void), void (*a3)(void, __n128), void (*a4)(uint64_t, char *))
+void *sub_1AF42B820(uint64_t a1, uint64_t (*a2)(void), void (*a3)(void, double), void (*a4)(uint64_t, char *))
 {
   v7 = a2(0);
   v8 = *(v7 - 8);
-  v10 = MEMORY[0x1EEE9AC00](v7, v9);
-  v12 = &v22 - v11;
-  v13 = *(a1 + 16);
-  if (!v13)
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = &v21 - v10;
+  v12 = *(a1 + 16);
+  if (!v12)
   {
     return MEMORY[0x1E69E7CC8];
   }
 
-  a3(0, v10);
-  v14 = sub_1AFDFE5C8();
-  v15 = *(v7 + 48);
-  v16 = a1 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-  v17 = *(v8 + 72);
+  a3(0, v9);
+  v13 = sub_1AFDFE5C8();
+  v14 = *(v7 + 48);
+  v15 = a1 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+  v16 = *(v8 + 72);
 
   do
   {
-    a4(v16, v12);
-    v18 = sub_1AF419940(v12);
-    *(v14 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v18;
-    v19 = v14[6];
-    v20 = sub_1AFDFC318();
-    (*(*(v20 - 8) + 32))(v19 + *(*(v20 - 8) + 72) * v18, v12, v20);
-    *(v14[7] + 8 * v18) = *&v12[v15];
-    ++v14[2];
-    v16 += v17;
-    --v13;
+    a4(v15, v11);
+    v17 = sub_1AF419940(v11);
+    *(v13 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v17;
+    v18 = v13[6];
+    v19 = sub_1AFDFC318();
+    (*(*(v19 - 8) + 32))(v18 + *(*(v19 - 8) + 72) * v17, v11, v19);
+    *(v13[7] + 8 * v17) = *&v11[v14];
+    ++v13[2];
+    v15 += v16;
+    --v12;
   }
 
-  while (v13);
+  while (v12);
 
-  return v14;
+  return v13;
 }
 
-void sub_1AF42B9E0(uint64_t a1, unint64_t *a2, unint64_t *a3)
+void sub_1AF42B9E0(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, char a5)
 {
   if (!*a2)
   {
-    sub_1AF4498F4(255, a3);
-    v4 = sub_1AFDFEA18();
-    if (!v5)
+    sub_1AF4498F4(255, a3, a4, a5 & 1);
+    v6 = sub_1AFDFEA18();
+    if (!v7)
     {
-      atomic_store(v4, a2);
+      atomic_store(v6, a2);
     }
   }
 }
@@ -9597,78 +9597,78 @@ void *sub_1AF42BA48(uint64_t a1)
   sub_1AF44469C(0, &qword_1EB632740, MEMORY[0x1E69695A8], sub_1AF444718);
   v3 = v2;
   v4 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2, v5);
-  v7 = &v19 - v6;
-  v8 = *(a1 + 16);
-  if (!v8)
+  MEMORY[0x1EEE9AC00](v2);
+  v6 = &v18 - v5;
+  v7 = *(a1 + 16);
+  if (!v7)
   {
     return MEMORY[0x1E69E7CC8];
   }
 
   sub_1AF448E3C(0, &qword_1EB630C30, sub_1AF444718);
-  v9 = sub_1AFDFE5C8();
-  v10 = &v7[*(v3 + 48)];
-  v11 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-  v12 = *(v4 + 72);
+  v8 = sub_1AFDFE5C8();
+  v9 = &v6[*(v3 + 48)];
+  v10 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+  v11 = *(v4 + 72);
 
   do
   {
-    sub_1AF449A04(v11, v7, &qword_1EB632740, MEMORY[0x1E69695A8], sub_1AF444718, sub_1AF44469C);
-    v13 = sub_1AF419940(v7);
-    *(v9 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v13;
-    v14 = v9[6];
-    v15 = sub_1AFDFC318();
-    (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v7, v15);
-    v16 = v9[7] + 16 * v13;
-    v17 = v10[8];
-    *v16 = *v10;
-    *(v16 + 8) = v17;
-    ++v9[2];
-    v11 += v12;
-    --v8;
+    sub_1AF449A04(v10, v6, &qword_1EB632740, MEMORY[0x1E69695A8], sub_1AF444718, sub_1AF44469C);
+    v12 = sub_1AF419940(v6);
+    *(v8 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v12;
+    v13 = v8[6];
+    v14 = sub_1AFDFC318();
+    (*(*(v14 - 8) + 32))(v13 + *(*(v14 - 8) + 72) * v12, v6, v14);
+    v15 = v8[7] + 16 * v12;
+    v16 = v9[8];
+    *v15 = *v9;
+    *(v15 + 8) = v16;
+    ++v8[2];
+    v10 += v11;
+    --v7;
   }
 
-  while (v8);
+  while (v7);
 
-  return v9;
+  return v8;
 }
 
 void *sub_1AF42BC98(uint64_t a1)
 {
-  sub_1AF43CC28(0, &qword_1EB632770, MEMORY[0x1E69695A8]);
+  sub_1AF43CC28(0, &qword_1EB632770, MEMORY[0x1E69695A8], &type metadata for TraversalTag);
   v3 = v2;
   v4 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2, v5);
-  v7 = &v17 - v6;
-  v8 = *(a1 + 16);
-  if (!v8)
+  MEMORY[0x1EEE9AC00](v2);
+  v6 = &v16 - v5;
+  v7 = *(a1 + 16);
+  if (!v7)
   {
     return MEMORY[0x1E69E7CC8];
   }
 
-  sub_1AF444600();
-  v9 = sub_1AFDFE5C8();
-  v10 = *(v3 + 48);
-  v11 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-  v12 = *(v4 + 72);
+  sub_1AF444600(0);
+  v8 = sub_1AFDFE5C8();
+  v9 = *(v3 + 48);
+  v10 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+  v11 = *(v4 + 72);
 
   do
   {
-    sub_1AF447AA4(v11, v7, &qword_1EB632770, MEMORY[0x1E69695A8], &type metadata for TraversalTag, sub_1AF43CC28);
-    v13 = sub_1AF419940(v7);
-    *(v9 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v13;
-    v14 = v9[6];
-    v15 = sub_1AFDFC318();
-    (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v7, v15);
-    *(v9[7] + v13) = v7[v10];
-    ++v9[2];
-    v11 += v12;
-    --v8;
+    sub_1AF447AA4(v10, v6, &qword_1EB632770, MEMORY[0x1E69695A8], &type metadata for TraversalTag, sub_1AF43CC28);
+    v12 = sub_1AF419940(v6);
+    *(v8 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v12;
+    v13 = v8[6];
+    v14 = sub_1AFDFC318();
+    (*(*(v14 - 8) + 32))(v13 + *(*(v14 - 8) + 72) * v12, v6, v14);
+    *(v8[7] + v12) = v6[v9];
+    ++v8[2];
+    v10 += v11;
+    --v7;
   }
 
-  while (v8);
+  while (v7);
 
-  return v9;
+  return v8;
 }
 
 void *sub_1AF42BEA0(uint64_t a1)
@@ -9706,7 +9706,7 @@ void *sub_1AF42BEA0(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_1AF42BFAC(uint64_t a1)
+void *sub_1AF42BFAC(uint64_t a1)
 {
   v2 = *(a1 + 16);
   sub_1AF44479C(0);
@@ -9795,7 +9795,7 @@ void *sub_1AF42C1B0(uint64_t a1)
     return MEMORY[0x1E69E7CC8];
   }
 
-  sub_1AF449BDC(0, &unk_1EB630BE0, sub_1AF44479C);
+  sub_1AF449BDC(0, &unk_1EB630BE0, sub_1AF44479C, MEMORY[0x1E69E5FE0], MEMORY[0x1E69E5FE8]);
   v3 = sub_1AFDFE5C8();
   v4 = (a1 + 40);
   do
@@ -9856,7 +9856,7 @@ void *sub_1AF42C370(uint64_t a1)
     return MEMORY[0x1E69E7CC8];
   }
 
-  sub_1AF444520();
+  sub_1AF444520(0);
   v3 = sub_1AFDFE5C8();
   v4 = (a1 + 48);
   do

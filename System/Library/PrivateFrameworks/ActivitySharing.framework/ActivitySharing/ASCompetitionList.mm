@@ -38,71 +38,72 @@
 + (id)competitionListWithRecord:(id)record
 {
   recordCopy = record;
-  if (_ASCloudKitSchemaVersionForRecord(recordCopy) == 1)
+  v4 = _ASCloudKitSchemaVersionForRecord(recordCopy);
+  if (v4 == 1)
   {
     encryptedValues = [recordCopy encryptedValues];
-    v5 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v7 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
+      v8 = v7;
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    if (v6)
+    if (v8)
     {
-      v8 = [[ASCodableCloudKitCompetitionList alloc] initWithData:v6];
-      v7 = [ASCompetitionList competitionListWithCodableCompetitionList:v8];
-      v9 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
-      [recordCopy encodeSystemFieldsWithCoder:v9];
-      [v9 finishEncoding];
-      v10 = objc_alloc(MEMORY[0x277CCAAC8]);
-      encodedData = [v9 encodedData];
-      v16 = 0;
-      v12 = [v10 initForReadingFromData:encodedData error:&v16];
-      v13 = v16;
+      v12 = [[ASCodableCloudKitCompetitionList alloc] initWithData:v8];
+      v9 = [ASCompetitionList competitionListWithCodableCompetitionList:v12];
+      v13 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+      [recordCopy encodeSystemFieldsWithCoder:v13];
+      [v13 finishEncoding];
+      v14 = objc_alloc(MEMORY[0x277CCAAC8]);
+      encodedData = [v13 encodedData];
+      v22 = 0;
+      v16 = [v14 initForReadingFromData:encodedData error:&v22];
+      v17 = v22;
 
-      if (v13)
+      if (v17)
       {
-        ASLoggingInitialize();
+        ASLoggingInitialize(v18, v19);
         if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
         {
           +[ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:relationshipEventRecords:completion:];
         }
       }
 
-      v14 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v12];
-      [v7 setSystemFieldsOnlyRecord:v14];
+      v20 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v16];
+      [v9 setSystemFieldsOnlyRecord:v20];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v10, v11);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[ASCompetitionList(CloudKitCodingSupport) competitionListWithRecord:];
       }
 
-      v7 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v4, v5);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASCompetitionList(CloudKitCodingSupport) competitionListWithRecord:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 + (id)competitionListWithCodableCompetitionList:(id)list
@@ -143,7 +144,7 @@
 
 + (id)competitionListFromCodableDatabaseCompetitionList:(id)list codableCompetitions:(id)competitions withType:(int64_t)type
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   listCopy = list;
   competitionsCopy = competitions;
   v9 = objc_alloc_init(ASCompetitionList);
@@ -154,21 +155,21 @@
 
   [(ASCompetitionList *)v9 setType:type];
   v13 = objc_opt_class();
-  v27 = listCopy;
+  v26 = listCopy;
   systemFieldsOnlyRecord = [listCopy systemFieldsOnlyRecord];
   v15 = ASSecureUnarchiveClassWithData(v13, systemFieldsOnlyRecord);
   [(ASCompetitionList *)v9 setSystemFieldsOnlyRecord:v15];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v16 = competitionsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     v20 = MEMORY[0x277CBEBF8];
     do
     {
@@ -176,12 +177,12 @@
       v22 = v20;
       do
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        competition = [*(*(&v28 + 1) + 8 * v21) competition];
+        competition = [*(*(&v27 + 1) + 8 * v21) competition];
         v24 = [ASCompetition competitionWithCodableCompetition:competition];
 
         v20 = [v22 arrayByAddingObject:v24];
@@ -191,7 +192,7 @@
       }
 
       while (v18 != v21);
-      v18 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v18);
@@ -203,7 +204,6 @@
   }
 
   [(ASCompetitionList *)v9 setCompetitions:v20];
-  v25 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -257,10 +257,11 @@
 
 - (ASCompetition)currentCompetition
 {
-  if ([(NSArray *)self->_competitions count]>= 2)
+  v3 = [(NSArray *)self->_competitions count];
+  if (v3 >= 2)
   {
-    ASLoggingInitialize();
-    v3 = ASLogCompetitions;
+    ASLoggingInitialize(v3, v4);
+    v5 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       [(ASCompetitionList *)self currentCompetition];
@@ -288,11 +289,10 @@
 
 - (void)currentCompetition
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_23E4FA000, a2, OS_LOG_TYPE_ERROR, "Competition list contained an unexpected number of competitions, list: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E4FA000, a2, OS_LOG_TYPE_ERROR, "Competition list contained an unexpected number of competitions, list: %@", &v2, 0xCu);
 }
 
 @end

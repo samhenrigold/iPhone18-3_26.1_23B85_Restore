@@ -512,21 +512,21 @@ LABEL_10:
   [borderView2 setAlpha:v7];
 }
 
-void __32__CKBrowserCell_setBorderStyle___block_invoke()
+void __32__CKBrowserCell_setBorderStyle___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E69DCAB8];
-  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v2 = [v0 imageNamed:@"BorderPath-1px" inBundle:v1];
-  v3 = [v2 imageWithRenderingMode:2];
-  v4 = setBorderStyle__onePxBorderImage;
-  setBorderStyle__onePxBorderImage = v3;
+  v1 = MEMORY[0x1E69DCAB8];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v1 imageNamed:@"BorderPath-1px" inBundle:v2];
+  v4 = [v3 imageWithRenderingMode:2];
+  v5 = setBorderStyle__onePxBorderImage;
+  setBorderStyle__onePxBorderImage = v4;
 
-  v5 = MEMORY[0x1E69DCAB8];
-  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v6 = [v5 imageNamed:@"BorderPath" inBundle:v9];
-  v7 = [v6 imageWithRenderingMode:2];
-  v8 = setBorderStyle__twoPxBorderImage;
-  setBorderStyle__twoPxBorderImage = v7;
+  v6 = MEMORY[0x1E69DCAB8];
+  v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v7 = [v6 imageNamed:@"BorderPath" inBundle:v10];
+  v8 = [v7 imageWithRenderingMode:2];
+  v9 = setBorderStyle__twoPxBorderImage;
+  setBorderStyle__twoPxBorderImage = v8;
 }
 
 - (void)prepareForReuse
